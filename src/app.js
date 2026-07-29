@@ -517,7 +517,10 @@ function migrateState(saved) {
         position: initialState.groups.length + index,
       });
     });
-  groups.sort((a, b) => (a.position || 0) - (b.position || 0));
+  const uniqueGroups = groups.filter(
+    (group, index, list) => list.findIndex((item) => item.id === group.id) === index,
+  );
+  uniqueGroups.sort((a, b) => (a.position || 0) - (b.position || 0));
 
   const knownReportGroups = {
     "seed-mcp-benchmark": "ai-platform",
@@ -554,7 +557,7 @@ function migrateState(saved) {
     return {
       ...report,
       title: savedReport.title || report.title,
-      groupId: groups.some((group) => group.id === savedReport.groupId)
+      groupId: uniqueGroups.some((group) => group.id === savedReport.groupId)
         ? savedReport.groupId
         : report.groupId,
       pinned: Boolean(savedReport.pinned),
@@ -571,7 +574,7 @@ function migrateState(saved) {
   });
   const migrated = {
     version: DATA_VERSION,
-    groups,
+    groups: uniqueGroups,
     reports,
   };
   localStorage.setItem(STORAGE_KEY, JSON.stringify(migrated));
@@ -1030,6 +1033,7 @@ function bindApp() {
       });
     };
     handle.addEventListener("pointerdown", (event) => {
+      if (event.pointerType === "mouse") return;
       event.preventDefault();
       draggingGroupId = handle.dataset.groupDragId;
       draggingId = "";
@@ -1037,6 +1041,7 @@ function bindApp() {
       handle.closest(".group-column")?.classList.add("is-group-dragging");
     });
     handle.addEventListener("pointermove", (event) => {
+      if (event.pointerType === "mouse") return;
       if (!draggingGroupId) return;
       document.querySelectorAll(".group-column").forEach((column) => {
         column.classList.toggle(
@@ -1046,6 +1051,7 @@ function bindApp() {
       });
     });
     handle.addEventListener("pointerup", (event) => {
+      if (event.pointerType === "mouse") return;
       if (!draggingGroupId) return;
       const sourceId = draggingGroupId;
       const target = document.elementFromPoint(event.clientX, event.clientY)?.closest(".group-column");
@@ -1058,6 +1064,21 @@ function bindApp() {
       clearGroupPointerDrag();
     });
     handle.addEventListener("pointercancel", clearGroupPointerDrag);
+    handle.addEventListener("keydown", (event) => {
+      if (!["ArrowLeft", "ArrowRight"].includes(event.key)) return;
+      event.preventDefault();
+      const currentIndex = state.groups.findIndex(
+        (group) => group.id === handle.dataset.groupDragId,
+      );
+      const targetIndex = event.key === "ArrowLeft" ? currentIndex - 1 : currentIndex + 1;
+      const targetGroup = state.groups[targetIndex];
+      if (!targetGroup || !moveGroup(handle.dataset.groupDragId, targetGroup.id)) return;
+      render();
+      showToast("分组顺序已更新");
+      document
+        .querySelector(`[data-group-drag-id="${CSS.escape(handle.dataset.groupDragId)}"]`)
+        ?.focus();
+    });
   });
 
   document.querySelectorAll(".group-header").forEach((header) => {
