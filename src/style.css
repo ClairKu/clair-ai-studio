@@ -793,6 +793,10 @@ footer {
   backdrop-filter: blur(8px);
 }
 
+.dialog-backdrop[hidden] {
+  display: none;
+}
+
 .dialog {
   width: min(540px, 100%);
   display: flex;
@@ -970,9 +974,45 @@ footer {
   max-width: min(560px, 60vw);
 }
 
-.editor-actions .primary-button:disabled {
-  cursor: wait;
+.editor-actions button:disabled {
+  cursor: not-allowed;
   opacity: 0.58;
+}
+
+.editor-meta-row {
+  max-width: min(680px, 62vw);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+
+.editor-revision-status {
+  flex: 0 0 auto;
+  border-radius: 999px;
+  padding: 3px 7px;
+  font-size: 9px !important;
+  font-weight: 760;
+}
+
+.editor-revision-status.is-clean {
+  background: #f0f1f3;
+  color: #6c737c;
+}
+
+.editor-revision-status.is-changed {
+  background: #fff0e6;
+  color: #bc4f14;
+}
+
+.editor-revision-status.is-staged {
+  background: #eaf3ff;
+  color: #1969b5;
+}
+
+.editor-revision-status.is-published {
+  background: #eaf7ef;
+  color: #287345;
 }
 
 .editor-toolbar {
@@ -1077,6 +1117,10 @@ footer {
   z-index: 150;
 }
 
+.editor-publish-backdrop {
+  z-index: 155;
+}
+
 .editor-settings-dialog {
   width: min(720px, calc(100vw - 32px));
 }
@@ -1099,6 +1143,38 @@ footer {
   color: #55718c;
   font-size: 12px;
   line-height: 1.55;
+}
+
+.editor-publish-summary {
+  display: grid;
+  justify-items: start;
+  gap: 10px;
+}
+
+.editor-publish-summary p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.editor-publish-target {
+  display: grid;
+  gap: 5px;
+  border: 1px solid #e0e3e7;
+  border-radius: 12px;
+  background: #f8f9fa;
+  padding: 12px 14px;
+}
+
+.editor-publish-target small {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.editor-publish-target strong {
+  overflow-wrap: anywhere;
+  font-size: 12px;
 }
 
 .github-token-input {
@@ -1379,6 +1455,13 @@ footer {
   }
   .editor-target-label {
     max-width: 58vw;
+  }
+  .editor-meta-row {
+    max-width: 62vw;
+    justify-content: flex-start;
+  }
+  .editor-meta-row .editor-target-label {
+    display: none;
   }
   .editor-toolbar {
     padding-inline: 10px;

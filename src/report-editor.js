@@ -1,6 +1,7 @@
 const EDITOR_CHANNEL = "clair-report-editor-v1";
 const GITHUB_API = "https://api.github.com";
 const WORKBENCH_PASSWORD = "2026";
+const DRAFT_STORAGE_PREFIX = "clair-report-editor-draft-v1:";
 
 const editor = {
   reportId: "",
@@ -11,9 +12,13 @@ const editor = {
   html: "",
   editorDocument: "",
   dirty: false,
+  hasDraft: false,
+  draftHtml: "",
+  draftAt: "",
   target: null,
   token: "",
   settingsOpen: false,
+  publishConfirmOpen: false,
   pendingSave: false,
   saving: false,
   lastCommit: "",
@@ -28,6 +33,79 @@ let hooksBound = false;
 
 function unique(values) {
   return [...new Set(values.filter(Boolean))];
+}
+
+function targetShaMap(target = editor.target) {
+  if (!target) return {};
+  return {
+    ...(target.path && target.sha ? { [target.path]: target.sha } : {}),
+    ...Object.fromEntries((target.mirrors || []).map((item) => [item.path, item.sha])),
+    ...(target.baseFiles || {}),
+  };
+}
+
+function draftStorageKey(reportId) {
+  return `${DRAFT_STORAGE_PREFIX}${reportId}`;
+}
+
+function readStoredDraft(reportId) {
+  try {
+    const value = sessionStorage.getItem(draftStorageKey(reportId));
+    if (!value) return null;
+    const draft = JSON.parse(value);
+    if (!draft?.html || typeof draft.html !== "string") return null;
+    return draft;
+  } catch {
+    return null;
+  }
+}
+
+function clearStoredDraft(reportId = editor.reportId) {
+  try {
+    sessionStorage.removeItem(draftStorageKey(reportId));
+  } catch {
+    // A failed cleanup should not block publishing.
+  }
+}
+
+function revisionState() {
+  if (editor.dirty && editor.hasDraft) {
+    return { tone: "changed", label: "有新修订 · 上次暂存待推送" };
+  }
+  if (editor.dirty) {
+    return { tone: "changed", label: "已修订 · 未暂存" };
+  }
+  if (editor.hasDraft) {
+    return { tone: "staged", label: "已暂存 · 待推送生产" };
+  }
+  if (editor.lastCommit) {
+    return { tone: "published", label: "生产档案已更新" };
+  }
+  return { tone: "clean", label: "未修改" };
+}
+
+function updateEditorChrome() {
+  const state = revisionState();
+  const status = document.querySelector(".editor-revision-status");
+  if (status) {
+    status.className = `editor-revision-status is-${state.tone}`;
+    status.textContent = state.label;
+  }
+  const stashButton = document.querySelector('[data-editor-action="stash"]');
+  if (stashButton) {
+    stashButton.disabled = editor.status !== "ready" || editor.saving || !editor.dirty;
+    stashButton.textContent = !editor.dirty && editor.hasDraft ? "已暂存" : "暂存";
+  }
+  const publishButton = document.querySelector('[data-editor-action="publish"]');
+  if (publishButton) {
+    publishButton.disabled =
+      editor.status !== "ready" || editor.saving || (!editor.dirty && !editor.hasDraft);
+    publishButton.textContent = editor.saving ? "推送中…" : "推送生产";
+  }
+  const previewButton = document.querySelector('[data-editor-action="preview"]');
+  if (previewButton) {
+    previewButton.disabled = editor.status !== "ready" || editor.saving || !editor.hasDraft;
+  }
 }
 
 function escapeAttribute(value = "") {
@@ -382,10 +460,26 @@ async function loadReport(report) {
       result = { html: await response.text(), target: inferred };
     }
     const unpacked = await unpackProtectedHtml(result.html);
-    editor.html = unpacked.html;
     editor.protection = unpacked.protection;
     editor.target = result.target || inferred;
-    editor.editorDocument = buildEditorDocument(unpacked.html, report.url);
+    let activeHtml = unpacked.html;
+    const storedDraft = readStoredDraft(report.id);
+    if (storedDraft?.html) {
+      try {
+        const restored = await unpackProtectedHtml(storedDraft.html);
+        activeHtml = restored.html;
+        editor.hasDraft = true;
+        editor.draftHtml = restored.html;
+        editor.draftAt = storedDraft.savedAt || "";
+        if (storedDraft.baseFiles && editor.target) {
+          editor.target.baseFiles = storedDraft.baseFiles;
+        }
+      } catch {
+        clearStoredDraft(report.id);
+      }
+    }
+    editor.html = activeHtml;
+    editor.editorDocument = buildEditorDocument(activeHtml, report.url);
     editor.status = "ready";
     editor.error = "";
   } catch (error) {
@@ -409,8 +503,12 @@ function resetEditor() {
     html: "",
     editorDocument: "",
     dirty: false,
+    hasDraft: false,
+    draftHtml: "",
+    draftAt: "",
     target: null,
     settingsOpen: false,
+    publishConfirmOpen: false,
     pendingSave: false,
     saving: false,
     lastCommit: "",
@@ -484,6 +582,62 @@ async function copyReportLink(url) {
   await navigator.clipboard.writeText(url);
 }
 
+function htmlWithPreviewBase(html, baseUrl) {
+  const documentNode = new DOMParser().parseFromString(html, "text/html");
+  documentNode.querySelector("base[data-clair-preview-base]")?.remove();
+  const base = documentNode.createElement("base");
+  base.href = baseUrl;
+  base.dataset.clairPreviewBase = "true";
+  documentNode.head.prepend(base);
+  return `<!DOCTYPE html>\n${documentNode.documentElement.outerHTML}`;
+}
+
+function openDraftPreview(report) {
+  if (!editor.hasDraft || !editor.draftHtml) {
+    throw new Error("请先暂存当前修订，再另开预览");
+  }
+  const blob = new Blob([htmlWithPreviewBase(editor.draftHtml, report.url)], {
+    type: "text/html;charset=utf-8",
+  });
+  const url = URL.createObjectURL(blob);
+  const preview = window.open(url, "_blank");
+  if (!preview) {
+    URL.revokeObjectURL(url);
+    throw new Error("浏览器拦截了新窗口，请允许弹窗后重试");
+  }
+  preview.opener = null;
+  window.setTimeout(() => URL.revokeObjectURL(url), 60000);
+}
+
+async function performStash(report, { silent = false } = {}) {
+  const plainHtml = await requestSerializedHtml();
+  const outputHtml = await repackProtectedHtml(plainHtml);
+  const savedAt = new Date().toISOString();
+  try {
+    sessionStorage.setItem(
+      draftStorageKey(report.id),
+      JSON.stringify({
+        reportId: report.id,
+        reportUrl: report.url,
+        savedAt,
+        baseFiles: targetShaMap(),
+        html: outputHtml,
+      }),
+    );
+  } catch {
+    throw new Error("浏览器暂存空间不足，请先下载 HTML 备份");
+  }
+  editor.html = plainHtml;
+  editor.draftHtml = plainHtml;
+  editor.draftAt = savedAt;
+  editor.hasDraft = true;
+  editor.dirty = false;
+  editor.lastCommit = "";
+  updateEditorChrome();
+  if (!silent) editor.showToast?.("已暂存在当前浏览器会话，尚未更新 GitHub");
+  return plainHtml;
+}
+
 async function saveToGithub(plainHtml) {
   const target = editor.target;
   if (!target?.owner || !target.repository || !target.path || !target.branch) {
@@ -506,6 +660,10 @@ async function saveToGithub(plainHtml) {
       const current = await githubRequest(`${endpoint}?ref=${encodeURIComponent(target.branch)}`, {
         token: editor.token,
       });
+      const expectedSha = targetShaMap(target)[path];
+      if (expectedSha && current.sha !== expectedSha) {
+        throw new Error(`生产文件 ${path} 已在本次编辑后更新，请重新打开报告合并修改`);
+      }
       const payload = await githubRequest(endpoint, {
         token: editor.token,
         method: "PUT",
@@ -517,6 +675,10 @@ async function saveToGithub(plainHtml) {
         },
       });
       commit = payload?.commit?.sha || commit;
+      target.baseFiles = {
+        ...targetShaMap(target),
+        [path]: payload?.content?.sha || current.sha,
+      };
       completed.push(path);
     } catch (error) {
       if (completed.length) {
@@ -528,32 +690,32 @@ async function saveToGithub(plainHtml) {
   return { commit, files: completed.length };
 }
 
-async function performSave() {
+async function performSave(report) {
   if (editor.saving) return;
   editor.saving = true;
-  const saveButton = document.querySelector('[data-editor-action="save"]');
-  if (saveButton) {
-    saveButton.disabled = true;
-    saveButton.textContent = "保存中…";
-  }
+  updateEditorChrome();
   try {
-    const html = await requestSerializedHtml();
+    const html = editor.dirty
+      ? await performStash(report, { silent: true })
+      : editor.draftHtml || await requestSerializedHtml();
     const result = await saveToGithub(html);
     editor.html = html;
     editor.dirty = false;
+    editor.hasDraft = false;
+    editor.draftHtml = "";
+    editor.draftAt = "";
     editor.lastCommit = result.commit;
-    if (saveButton) saveButton.textContent = "已保存";
+    clearStoredDraft(report.id);
     editor.showToast?.(
       result.files > 1
         ? `已同步 ${result.files} 个 GitHub 文件，Pages 正在更新`
         : "已提交 GitHub，Pages 正在更新",
     );
   } catch (error) {
-    if (saveButton) saveButton.textContent = "保存";
     editor.showToast?.(error?.message || "保存失败，请下载 HTML 备份");
   } finally {
     editor.saving = false;
-    if (saveButton) saveButton.disabled = false;
+    updateEditorChrome();
   }
 }
 
@@ -610,6 +772,36 @@ function settingsMarkup(escapeHtml) {
     </div>`;
 }
 
+function publishConfirmMarkup(escapeHtml) {
+  const target = editor.target
+    ? `${editor.target.owner}/${editor.target.repository} · ${editor.target.path}`
+    : "尚未识别 GitHub 文件路径";
+  return `
+    <div class="dialog-backdrop editor-publish-backdrop" ${editor.publishConfirmOpen ? "" : "hidden"}>
+      <section class="dialog compact-dialog editor-publish-dialog" role="dialog" aria-modal="true" aria-labelledby="publish-confirm-title">
+        <div class="dialog-title-row">
+          <div>
+            <span class="section-kicker">PRODUCTION ARCHIVE</span>
+            <h2 id="publish-confirm-title">更新 GitHub 生产档案？</h2>
+          </div>
+          <button type="button" data-editor-action="close-publish" aria-label="关闭">×</button>
+        </div>
+        <div class="editor-publish-summary">
+          <span class="editor-revision-status is-staged">已暂存 · 待推送生产</span>
+          <p>暂存内容仍只在当前浏览器会话。确认后才会提交 GitHub，并更新原报告生产链接。</p>
+        </div>
+        <div class="editor-publish-target">
+          <small>目标文件</small>
+          <strong>${escapeHtml(target)}</strong>
+        </div>
+        <div class="dialog-actions">
+          <button type="button" class="quiet-button" data-editor-action="close-publish">继续编辑</button>
+          <button type="button" class="primary-button" data-editor-action="confirm-publish">确认推送生产</button>
+        </div>
+      </section>
+    </div>`;
+}
+
 function showSettings({ pendingSave = false } = {}) {
   editor.settingsOpen = true;
   editor.pendingSave = pendingSave;
@@ -635,6 +827,18 @@ function hideSettings() {
   if (backdrop) backdrop.hidden = true;
 }
 
+function showPublishConfirm() {
+  editor.publishConfirmOpen = true;
+  const backdrop = document.querySelector(".editor-publish-backdrop");
+  if (backdrop) backdrop.hidden = false;
+}
+
+function hidePublishConfirm() {
+  editor.publishConfirmOpen = false;
+  const backdrop = document.querySelector(".editor-publish-backdrop");
+  if (backdrop) backdrop.hidden = true;
+}
+
 export function isEditingReport(reportId = "") {
   return Boolean(editor.reportId && (!reportId || editor.reportId === reportId));
 }
@@ -657,7 +861,7 @@ export function reportEditorMarkup(report, escapeHtml) {
   const targetLabel = editor.target
     ? `${editor.target.owner}/${editor.target.repository} · ${editor.target.path}${editor.target.mirrors?.length ? ` · 同步 ${editor.target.mirrors.length + 1} 处` : ""}`
     : "尚未识别 GitHub 源文件";
-  const saveLabel = editor.saving ? "保存中…" : editor.lastCommit ? "已保存" : "保存";
+  const revision = revisionState();
   const toolbar = editor.status === "ready"
     ? `
       <div class="editor-toolbar" role="toolbar" aria-label="文本排版工具">
@@ -700,18 +904,27 @@ export function reportEditorMarkup(report, escapeHtml) {
         <button class="back-button" type="button" data-editor-action="exit"><span aria-hidden="true">←</span>退出编辑</button>
         <div class="reader-title">
           <strong>${escapeHtml(report.title)}</strong>
-          <span class="editor-target-label" title="${escapeHtml(targetLabel)}">${escapeHtml(targetLabel)}</span>
+          <div class="editor-meta-row">
+            <span class="editor-revision-status is-${revision.tone}">${escapeHtml(revision.label)}</span>
+            <span class="editor-target-label" title="${escapeHtml(targetLabel)}">${escapeHtml(targetLabel)}</span>
+          </div>
         </div>
         <div class="reader-actions editor-actions">
           <button class="quiet-button" type="button" data-editor-action="settings">保存权限</button>
+          <button class="quiet-button" type="button" data-editor-action="stash"
+            ${editor.status !== "ready" || editor.saving || !editor.dirty ? "disabled" : ""}>${!editor.dirty && editor.hasDraft ? "已暂存" : "暂存"}</button>
+          <button class="quiet-button" type="button" data-editor-action="preview"
+            title="在新窗口打开已暂存修订" ${editor.status !== "ready" || !editor.hasDraft ? "disabled" : ""}>另开启</button>
           <button class="quiet-button" type="button" data-editor-action="download">下载 HTML</button>
           <button class="quiet-button" type="button" data-editor-action="share">分享</button>
-          <button class="primary-button" type="button" data-editor-action="save" ${editor.status !== "ready" || editor.saving ? "disabled" : ""}>${saveLabel}</button>
+          <button class="primary-button" type="button" data-editor-action="publish"
+            ${editor.status !== "ready" || editor.saving || (!editor.dirty && !editor.hasDraft) ? "disabled" : ""}>${editor.saving ? "推送中…" : "推送生产"}</button>
         </div>
       </header>
       ${toolbar}
       ${body}
       ${settingsMarkup(escapeHtml)}
+      ${publishConfirmMarkup(escapeHtml)}
     </main>`;
 }
 
@@ -723,7 +936,11 @@ export function bindReportEditor(report) {
       const frame = editorFrame();
       if (!frame?.contentWindow || event.source !== frame.contentWindow) return;
       if (event.data?.channel !== EDITOR_CHANNEL) return;
-      if (event.data.type === "dirty") editor.dirty = true;
+      if (event.data.type === "dirty") {
+        editor.dirty = true;
+        editor.lastCommit = "";
+        updateEditorChrome();
+      }
       if (event.data.type === "serialized") {
         const pending = serializeRequests.get(event.data.requestId);
         if (!pending) return;
@@ -743,6 +960,11 @@ export function bindReportEditor(report) {
       event.preventDefault();
       event.returnValue = "";
     });
+    window.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape" || !editor.reportId) return;
+      if (editor.publishConfirmOpen) hidePublishConfirm();
+      else if (editor.settingsOpen) hideSettings();
+    });
   }
 
   document.querySelectorAll("[data-editor-command]").forEach((button) => {
@@ -760,7 +982,7 @@ export function bindReportEditor(report) {
     button.addEventListener("click", async () => {
       const action = button.dataset.editorAction;
       if (action === "exit") {
-        if (editor.dirty && !confirm("还有未保存的修改。确定退出编辑模式吗？")) return;
+        if (editor.dirty && !confirm("还有未暂存的修改。确定退出编辑模式吗？")) return;
         const render = editor.render;
         resetEditor();
         render?.();
@@ -768,12 +990,36 @@ export function bindReportEditor(report) {
         showSettings();
       } else if (action === "close-settings") {
         hideSettings();
-      } else if (action === "save") {
-        if (!editor.token || !editor.target?.path) {
-          showSettings({ pendingSave: true });
-        } else {
-          await performSave();
+      } else if (action === "stash") {
+        try {
+          await performStash(report);
+        } catch (error) {
+          editor.showToast?.(error?.message || "暂存失败，请下载 HTML 备份");
         }
+      } else if (action === "preview") {
+        try {
+          openDraftPreview(report);
+          editor.showToast?.("已在新窗口打开暂存修订");
+        } catch (error) {
+          editor.showToast?.(error?.message || "无法打开预览");
+        }
+      } else if (action === "publish") {
+        try {
+          if (editor.dirty) await performStash(report, { silent: true });
+          if (!editor.hasDraft) {
+            editor.showToast?.("当前没有待推送的修订");
+            return;
+          }
+          showPublishConfirm();
+        } catch (error) {
+          editor.showToast?.(error?.message || "暂存失败，请下载 HTML 备份");
+        }
+      } else if (action === "close-publish") {
+        hidePublishConfirm();
+      } else if (action === "confirm-publish") {
+        hidePublishConfirm();
+        if (!editor.token || !editor.target?.path) showSettings({ pendingSave: true });
+        else await performSave(report);
       } else if (action === "download") {
         try {
           const plainHtml = await requestSerializedHtml();
@@ -810,6 +1056,14 @@ export function bindReportEditor(report) {
     });
   });
 
+  document.querySelectorAll(".editor-settings-backdrop, .editor-publish-backdrop").forEach((backdrop) => {
+    backdrop.addEventListener("click", (event) => {
+      if (event.target !== backdrop) return;
+      if (backdrop.classList.contains("editor-settings-backdrop")) hideSettings();
+      else hidePublishConfirm();
+    });
+  });
+
   const settingsForm = document.getElementById("editor-settings-form");
   settingsForm?.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -835,7 +1089,7 @@ export function bindReportEditor(report) {
       targetLabel.title = value;
     }
     editor.showToast?.("保存权限已连接");
-    if (shouldSave) await performSave();
+    if (shouldSave) await performSave(report);
   });
 }
 
