@@ -94,13 +94,18 @@ function updateEditorChrome() {
   const stashButton = document.querySelector('[data-editor-action="stash"]');
   if (stashButton) {
     stashButton.disabled = editor.status !== "ready" || editor.saving || !editor.dirty;
-    stashButton.textContent = !editor.dirty && editor.hasDraft ? "已暂存" : "暂存";
+    const label = !editor.dirty && editor.hasDraft ? "已暂存" : "暂存修改";
+    stashButton.setAttribute("aria-label", label);
+    stashButton.title = label;
   }
   const publishButton = document.querySelector('[data-editor-action="publish"]');
   if (publishButton) {
     publishButton.disabled =
       editor.status !== "ready" || editor.saving || (!editor.dirty && !editor.hasDraft);
-    publishButton.textContent = editor.saving ? "推送中…" : "推送生产";
+    const label = editor.saving ? "正在推送生产" : "推送生产";
+    publishButton.setAttribute("aria-label", label);
+    publishButton.title = label;
+    publishButton.classList.toggle("is-saving", editor.saving);
   }
   const previewButton = document.querySelector('[data-editor-action="preview"]');
   if (previewButton) {
@@ -898,10 +903,22 @@ export function reportEditorMarkup(report, escapeHtml) {
       ? `<div class="editor-state editor-error"><strong>这份报告暂时无法进入编辑模式</strong><p>${escapeHtml(editor.error)}</p><div><button class="quiet-button" type="button" data-editor-action="retry">重试</button><button class="primary-button" type="button" data-editor-action="download-published">下载原 HTML</button></div></div>`
       : `<div class="report-editor-frame-wrap"><iframe class="report-editor-frame" title="${escapeHtml(report.title)}编辑画布"
           sandbox="allow-scripts allow-modals" srcdoc="${escapeAttribute(editor.editorDocument)}"></iframe></div>`;
+  const icon = (name) => ({
+    back: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg>`,
+    settings: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10"></path><path d="M18 7h2"></path><circle cx="16" cy="7" r="2"></circle><path d="M4 17h2"></path><path d="M10 17h10"></path><circle cx="8" cy="17" r="2"></circle></svg>`,
+    stash: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h12l2 2v14H5z"></path><path d="M8 4v6h8V4"></path><path d="M8 20v-6h8v6"></path></svg>`,
+    preview: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.8 12s3.2-5 9.2-5 9.2 5 9.2 5-3.2 5-9.2 5-9.2-5-9.2-5Z"></path><circle cx="12" cy="12" r="2.5"></circle></svg>`,
+    download: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v11"></path><path d="m8 10 4 4 4-4"></path><path d="M5 20h14"></path></svg>`,
+    copy: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>`,
+    publish: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4"></path><path d="m8 8 4-4 4 4"></path><path d="M5 14v6h14v-6"></path></svg>`,
+  })[name];
+  const stashLabel = !editor.dirty && editor.hasDraft ? "已暂存" : "暂存修改";
+  const publishLabel = editor.saving ? "正在推送生产" : "推送生产";
   return `
-    <main class="reader-shell report-editor-shell">
-      <header class="reader-header editor-header">
-        <button class="back-button" type="button" data-editor-action="exit"><span aria-hidden="true">←</span>退出编辑</button>
+    <main class="reader-shell report-editor-shell compact-editor-shell">
+      <header class="reader-header editor-header compact-reader-header compact-editor-header">
+        <button class="reader-icon-button back-button" type="button" data-editor-action="exit"
+          aria-label="退出编辑" title="退出编辑">${icon("back")}</button>
         <div class="reader-title">
           <strong>${escapeHtml(report.title)}</strong>
           <div class="editor-meta-row">
@@ -909,16 +926,22 @@ export function reportEditorMarkup(report, escapeHtml) {
             <span class="editor-target-label" title="${escapeHtml(targetLabel)}">${escapeHtml(targetLabel)}</span>
           </div>
         </div>
-        <div class="reader-actions editor-actions">
-          <button class="quiet-button" type="button" data-editor-action="settings">保存权限</button>
-          <button class="quiet-button" type="button" data-editor-action="stash"
-            ${editor.status !== "ready" || editor.saving || !editor.dirty ? "disabled" : ""}>${!editor.dirty && editor.hasDraft ? "已暂存" : "暂存"}</button>
-          <button class="quiet-button" type="button" data-editor-action="preview"
-            title="在新窗口打开已暂存修订" ${editor.status !== "ready" || !editor.hasDraft ? "disabled" : ""}>另开启</button>
-          <button class="quiet-button" type="button" data-editor-action="download">下载 HTML</button>
-          <button class="quiet-button" type="button" data-editor-action="share">分享</button>
-          <button class="primary-button" type="button" data-editor-action="publish"
-            ${editor.status !== "ready" || editor.saving || (!editor.dirty && !editor.hasDraft) ? "disabled" : ""}>${editor.saving ? "推送中…" : "推送生产"}</button>
+        <div class="reader-actions editor-actions compact-reader-actions compact-editor-actions" aria-label="编辑操作">
+          <button class="reader-icon-button" type="button" data-editor-action="settings"
+            aria-label="保存权限" title="保存权限">${icon("settings")}</button>
+          <button class="reader-icon-button" type="button" data-editor-action="stash"
+            aria-label="${stashLabel}" title="${stashLabel}"
+            ${editor.status !== "ready" || editor.saving || !editor.dirty ? "disabled" : ""}>${icon("stash")}</button>
+          <button class="reader-icon-button" type="button" data-editor-action="preview"
+            aria-label="预览暂存版本" title="预览暂存版本"
+            ${editor.status !== "ready" || !editor.hasDraft ? "disabled" : ""}>${icon("preview")}</button>
+          <button class="reader-icon-button" type="button" data-editor-action="download"
+            aria-label="下载 HTML" title="下载 HTML">${icon("download")}</button>
+          <button class="reader-icon-button" type="button" data-editor-action="share"
+            aria-label="复制生产 URL" title="复制生产 URL">${icon("copy")}</button>
+          <button class="reader-icon-button publish-icon-action${editor.saving ? " is-saving" : ""}" type="button"
+            data-editor-action="publish" aria-label="${publishLabel}" title="${publishLabel}"
+            ${editor.status !== "ready" || editor.saving || (!editor.dirty && !editor.hasDraft) ? "disabled" : ""}>${icon("publish")}</button>
         </div>
       </header>
       ${toolbar}

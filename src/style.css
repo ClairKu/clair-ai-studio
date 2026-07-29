@@ -6954,3 +6954,97 @@ body.global-drag-ready .global-drop-overlay {
     min-height: 30px;
   }
 }
+
+/* Report editor — synchronized icon navigation */
+.compact-editor-shell {
+  grid-template-rows: 64px auto minmax(0, 1fr);
+}
+
+.compact-editor-header .reader-title {
+  overflow: hidden;
+}
+
+.compact-editor-header .editor-meta-row {
+  max-width: 100%;
+}
+
+.compact-editor-actions .reader-icon-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.34;
+}
+
+.compact-editor-actions .reader-icon-button:disabled:hover,
+.compact-editor-actions .reader-icon-button:disabled:focus-visible {
+  background: transparent;
+  box-shadow: none;
+  color: #5e636d;
+  transform: none;
+}
+
+.compact-editor-actions .publish-icon-action:not(:disabled) {
+  background: #eceefe;
+  color: #4f56d9;
+}
+
+.compact-editor-actions .publish-icon-action:not(:disabled):hover,
+.compact-editor-actions .publish-icon-action:not(:disabled):focus-visible {
+  background: #fff;
+  color: #3f46c4;
+}
+
+.compact-editor-actions .publish-icon-action.is-saving svg {
+  animation: editor-publish-pulse 900ms ease-in-out infinite alternate;
+}
+
+@keyframes editor-publish-pulse {
+  to {
+    opacity: 0.42;
+    transform: translateY(-1px);
+  }
+}
+
+@media (max-width: 680px) {
+  .compact-editor-shell {
+    grid-template-rows: auto auto minmax(0, 1fr);
+  }
+
+  .compact-editor-header {
+    height: auto;
+    min-height: 98px;
+    grid-template-columns: 34px minmax(0, 1fr);
+    grid-template-areas:
+      "back title"
+      "actions actions";
+    gap: 7px 8px;
+    padding: 7px 10px 8px;
+  }
+
+  .compact-editor-header .reader-title {
+    justify-content: center;
+  }
+
+  .compact-editor-header .reader-title span {
+    display: inline-flex;
+  }
+
+  .compact-editor-header .editor-target-label {
+    display: none;
+  }
+
+  .compact-editor-header .compact-editor-actions {
+    grid-area: actions;
+    justify-self: end;
+    width: auto;
+    overflow: visible;
+  }
+}
+
+@media (max-width: 390px) {
+  .compact-editor-header {
+    grid-template-columns: 32px minmax(0, 1fr);
+  }
+
+  .compact-editor-header .compact-editor-actions {
+    gap: 1px;
+  }
+}
