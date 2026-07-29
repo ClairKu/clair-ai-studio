@@ -1,6 +1,5 @@
 import {
   bindTaskCenter,
-  confirmedResultsMarkup,
   taskWorkspaceMarkup,
 } from "./task-center.js";
 import {
@@ -669,7 +668,7 @@ const TOPIC_BY_REPORT = {
 };
 
 function inferWorkType(report) {
-  const text = `${report.title || ""} ${report.source || ""}`;
+  const text = `${report.title || ""} ${report.source || ""} ${report.savedContent || ""}`;
   if (/需求评审|评审工作台/.test(text)) return "requirement-review";
   if (/竞品|对比|调研|研究/.test(text)) return "competitive-research";
   if (/周报|汇报|进展|规划|里程碑|业务分析/.test(text)) return "reporting";
@@ -681,7 +680,7 @@ function inferWorkType(report) {
 }
 
 function inferTags(report, workType = inferWorkType(report)) {
-  const text = `${report.id || ""} ${report.groupId || ""} ${report.title || ""} ${report.url || ""}`;
+  const text = `${report.id || ""} ${report.groupId || ""} ${report.title || ""} ${report.url || ""} ${report.savedContent || ""}`;
   const tags = [];
   const add = (tag) => {
     if (!tags.includes(tag)) tags.push(tag);
@@ -703,6 +702,18 @@ function inferTags(report, workType = inferWorkType(report)) {
   if (workType === "reporting") add("经营汇报");
   if (workType === "governance-review" || report.groupId === "knowledge") add("知识治理");
   return tags.slice(0, 5);
+}
+
+function inferGroupId(report) {
+  const text = `${report.title || ""} ${report.url || ""} ${report.savedContent || ""}`;
+  if (/小顾|财务规划|投顾服务|客户陪伴/.test(text)) return "xiaogu";
+  if (/OAP|MCP|Skills?|开放平台|API|Agent|智能体/.test(text)) return "ai-platform";
+  if (/工作台|生产力|Copilot|编辑器/.test(text)) return "ai-workbench";
+  if (/基金|投研|策略|资产配置|股票|债券/.test(text)) return "research";
+  if (/汇报|周报|月报|经营|进展|里程碑/.test(text)) return "reporting";
+  if (/知识|SOUL|飞书|治理|本体|文档库/.test(text)) return "knowledge";
+  if (/且慢|产品|需求|方案|原型|体验|PRD/i.test(text)) return "product-planning";
+  return "inbox";
 }
 
 initialState.reports = initialState.reports.map((report) => {
@@ -868,6 +879,100 @@ function saveState() {
     group.position = index;
   });
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+function firstHttpUrl(text = "") {
+  const matches = String(text).match(/https?:\/\/[^\s<>"'）)]+/gi) || [];
+  return matches.find(validUrl) || "";
+}
+
+function titleFromIntake(material, files, url) {
+  const textTitle = String(material)
+    .split(/\n/)
+    .map((line) => line.trim().replace(/^#+\s*/, ""))
+    .find((line) => line && !/^https?:\/\//i.test(line));
+  if (textTitle) return textTitle.replace(/[。；;！!？?]+$/, "").slice(0, 100);
+  if (files[0]?.name) return files[0].name.replace(/\.[^.]+$/, "").slice(0, 100);
+  return url ? domainOf(url) : "未命名成果";
+}
+
+async function fetchPageTitle(url) {
+  if (!validUrl(url)) return "";
+  try {
+    const metadataUrl = `https://api.microlink.io/?url=${encodeURIComponent(url)}`;
+    const response = await fetch(metadataUrl, {
+      headers: { Accept: "application/json" },
+      signal: AbortSignal.timeout(10000),
+    });
+    if (!response.ok) throw new Error("read failed");
+    const payload = await response.json();
+    return payload?.data?.title?.trim().slice(0, 180) || "";
+  } catch {
+    return "";
+  }
+}
+
+async function saveIntakeToLibrary({ material, files }) {
+  const url = firstHttpUrl(material);
+  const textTitle = titleFromIntake(material, files, url);
+  const onlyUrl = Boolean(url) &&
+    material.replace(url, "").replace(/\s+/g, "").length === 0 &&
+    !files.length;
+  const detectedTitle = onlyUrl ? await fetchPageTitle(url) : "";
+  const now = new Date().toISOString();
+  const report = {
+    id: id("report"),
+    groupId: "inbox",
+    title: detectedTitle || textTitle,
+    url,
+    pinned: false,
+    position: 0,
+    createdAt: now,
+    source: url ? "快捷保存" : "本地保存",
+    access: /feishu\.cn|yingmi-inc\.com|docs\.qq\.com/i.test(url)
+      ? "org"
+      : "production",
+    archived: false,
+    archivedAt: "",
+    savedContent: material,
+    savedFiles: files,
+  };
+  report.workType = inferWorkType(report);
+  report.groupId = inferGroupId(report);
+  report.tags = inferTags(report, report.workType);
+  report.position = state.reports.filter((item) =>
+    !item.archived && item.groupId === report.groupId).length;
+
+  const existing = url
+    ? state.reports.find((item) => normalizedUrl(item.url) === normalizedUrl(url))
+    : null;
+  if (existing) {
+    Object.assign(existing, {
+      title: report.title,
+      groupId: report.groupId,
+      workType: report.workType,
+      tags: report.tags,
+      source: report.source,
+      access: report.access,
+      savedContent: report.savedContent,
+      savedFiles: report.savedFiles,
+      archived: false,
+      archivedAt: "",
+    });
+  } else {
+    state.reports.push(report);
+  }
+  saveState();
+  archiveView = false;
+  catalogView = "topic";
+  query = "";
+  localStorage.setItem(VIEW_KEY, catalogView);
+  const savedReport = existing || report;
+  return {
+    ...savedReport,
+    groupName: state.groups.find((group) => group.id === savedReport.groupId)?.name || "待整理",
+    workTypeName: workTypeName(savedReport.workType),
+  };
 }
 
 function moveGroup(groupId, targetGroupId) {
@@ -1040,6 +1145,7 @@ function showToast(message) {
 }
 
 function cardMarkup(report, archivedView = false) {
+  const localSaved = Boolean(report.savedContent) && !report.url;
   const restricted = report.access !== "production";
   const accessLabel = report.access === "org"
     ? "需组织登录"
@@ -1052,7 +1158,7 @@ function cardMarkup(report, archivedView = false) {
     : `
       <div class="preview-placeholder ${restricted ? "preview-restricted" : ""}">
         <span>${restricted ? "ACCESS" : escapeHtml(report.title.slice(0, 2))}</span>
-        <strong>${restricted ? accessLabel : "预览待补充"}</strong>
+        <strong>${restricted ? accessLabel : localSaved ? "本地内容" : "预览待补充"}</strong>
       </div>`;
   return `
     <article class="report-card ${restricted ? "restricted-card" : ""} ${archivedView ? "archived-card" : ""} ${movingReportId === report.id ? "is-move-selected" : ""}" data-report-id="${escapeHtml(report.id)}">
@@ -1081,7 +1187,7 @@ function cardMarkup(report, archivedView = false) {
             <button type="button" data-action="delete" data-id="${escapeHtml(report.id)}">永久删除</button>`
           : `
             <button type="button" class="tag-edit-action" data-action="edit-tags" data-id="${escapeHtml(report.id)}" title="编辑标签" aria-label="编辑标签">#</button>
-            <button type="button" data-action="edit" data-id="${escapeHtml(report.id)}">编辑</button>
+            ${report.url ? `<button type="button" data-action="edit" data-id="${escapeHtml(report.id)}">编辑</button>` : ""}
             <button type="button" data-action="archive" data-id="${escapeHtml(report.id)}">归档</button>`}
       </div>
     </article>`;
@@ -1214,9 +1320,28 @@ function gateMarkup() {
 
 function readerMarkup(report) {
   if (isEditingReport(report.id)) return reportEditorMarkup(report, escapeHtml);
+  const localSaved = Boolean(report.savedContent) && !report.url;
   const restricted = report.access !== "production";
   const accessLabel = report.access === "org" ? "组织账号" : "站点账号";
-  const readerBody = restricted
+  const readerBody = localSaved
+    ? `
+      <div class="saved-material-wrap">
+        <article class="saved-material-card">
+          <span class="section-kicker">SAVED MATERIAL</span>
+          <h1>${escapeHtml(report.title)}</h1>
+          ${report.savedContent
+            ? `<div class="saved-material-content">${escapeHtml(report.savedContent).replaceAll("\n", "<br />")}</div>`
+            : ""}
+          ${(report.savedFiles || []).length
+            ? `<section class="saved-file-list">
+                <strong>附件记录</strong>
+                ${report.savedFiles.map((file) => `<span><b>${escapeHtml(file.name)}</b><small>${escapeHtml(file.sizeLabel || "")}</small></span>`).join("")}
+              </section>`
+            : ""}
+          <p class="saved-material-note">内容保存在当前浏览器；原文件不会上传到 GitHub Pages。</p>
+        </article>
+      </div>`
+    : restricted
     ? `
       <div class="login-handoff-wrap">
         <section class="login-handoff-card" aria-labelledby="login-handoff-title">
@@ -1247,14 +1372,15 @@ function readerMarkup(report) {
         <button class="back-button" type="button" data-action="back"><span aria-hidden="true">←</span>返回清单</button>
         <div class="reader-title">
           <strong>${escapeHtml(report.title)}</strong>
-          <span>${escapeHtml(domainOf(report.url))}</span>
+          <span>${localSaved ? "本地保存" : escapeHtml(domainOf(report.url))}</span>
         </div>
         <div class="reader-actions">
-          <a class="${restricted ? "primary-button" : "quiet-button"}" href="${escapeHtml(report.url)}" target="_blank" rel="noreferrer">${restricted ? "登录打开 ↗" : "新窗口 ↗"}</a>
-          ${restricted ? "" : `<button class="primary-button" type="button" data-action="edit-document" data-id="${escapeHtml(report.id)}">编辑文档</button>`}
-          <button class="quiet-button" type="button" data-action="download-report" data-id="${escapeHtml(report.id)}">下载 HTML</button>
-          <button class="quiet-button" type="button" data-action="share-report" data-id="${escapeHtml(report.id)}">分享</button>
-          <button class="quiet-button" type="button" data-action="edit" data-id="${escapeHtml(report.id)}">编辑信息</button>
+          ${localSaved ? "" : `
+            <a class="${restricted ? "primary-button" : "quiet-button"}" href="${escapeHtml(report.url)}" target="_blank" rel="noreferrer">${restricted ? "登录打开 ↗" : "新窗口 ↗"}</a>
+            ${restricted ? "" : `<button class="primary-button" type="button" data-action="edit-document" data-id="${escapeHtml(report.id)}">编辑文档</button>`}
+            <button class="quiet-button" type="button" data-action="download-report" data-id="${escapeHtml(report.id)}">下载 HTML</button>
+            <button class="quiet-button" type="button" data-action="share-report" data-id="${escapeHtml(report.id)}">分享</button>
+            <button class="quiet-button" type="button" data-action="edit" data-id="${escapeHtml(report.id)}">编辑信息</button>`}
         </div>
       </header>
       ${readerBody}
@@ -1269,11 +1395,9 @@ function studioTopbarMarkup(archiveCount) {
         <div class="brand-mark small">C</div>
         <div><strong>Clair's Studio</strong></div>
       </div>
-      <div class="top-actions">
-        ${archiveView
-          ? '<button class="quiet-button" type="button" data-action="show-catalog">← 返回成果库</button>'
-          : '<button class="primary-button new-task-button" type="button" data-task-action="focus-composer"><span aria-hidden="true">＋</span> 新增任务</button>'}
-      </div>
+      ${archiveView
+        ? '<div class="top-actions"><button class="quiet-button" type="button" data-action="show-catalog">← 返回成果库</button></div>'
+        : ""}
     </header>`;
 }
 
@@ -1369,7 +1493,6 @@ function workbenchMarkup() {
             </label>
           </div>
         </div>
-        ${confirmedResultsMarkup(escapeHtml)}
         <section class="groups-section">
           ${movingReportId ? `
             <div class="move-mode-banner" role="status">
@@ -1464,11 +1587,8 @@ function render() {
   bindApp();
   bindTaskCenter({
     render,
-    escapeHtml,
     showToast,
-    showResults: () => {
-      archiveView = false;
-    },
+    saveToLibrary: saveIntakeToLibrary,
   });
 }
 
@@ -1502,15 +1622,9 @@ async function detectTitle(form) {
   button.innerHTML = '<span class="mini-spinner"></span>';
   hint.textContent = "正在读取网页标题…";
   try {
-    const metadataUrl = `https://api.microlink.io/?url=${encodeURIComponent(url)}`;
-    const response = await fetch(metadataUrl, {
-      headers: { Accept: "application/json" },
-      signal: AbortSignal.timeout(10000),
-    });
-    if (!response.ok) throw new Error("read failed");
-    const payload = await response.json();
-    const title = payload?.data?.title?.trim() || domainOf(url);
-    titleInput.value = title.slice(0, 180);
+    const title = await fetchPageTitle(url);
+    if (!title) throw new Error("read failed");
+    titleInput.value = title;
     hint.textContent = "已识别网页标题";
     return titleInput.value;
   } catch {
