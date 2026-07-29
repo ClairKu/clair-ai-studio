@@ -7290,3 +7290,151 @@ body.global-drag-ready .global-drop-overlay {
 #app * {
   font-family: var(--studio-art-font) !important;
 }
+
+/* Workspace QA fixes — discoverability, task visibility and mobile clarity */
+.compact-task-actions .intake-action {
+  width: auto;
+  min-width: 66px;
+  display: inline-flex;
+  place-items: unset;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding-inline: 9px;
+}
+
+.intake-action-label {
+  font-size: 10px;
+  font-weight: 650;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.archive-search {
+  width: min(680px, 100%);
+  margin: -14px 0 34px;
+  background: rgb(255 255 255 / 82%);
+}
+
+.task-local-warning {
+  border: 1px solid #e6d6ae;
+  border-radius: 13px;
+  background: #fff9ea;
+  padding: 14px 16px;
+}
+
+.task-local-warning strong {
+  color: #674a16;
+}
+
+.task-local-warning p {
+  margin-bottom: 0;
+  color: #806b42;
+}
+
+@media (max-width: 840px) {
+  .inline-task-progress {
+    grid-template-columns: 1fr;
+  }
+
+  .progress-task-list {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+
+  .progress-task-list button {
+    min-width: 220px;
+  }
+}
+
+@media (max-width: 680px) {
+  .compact-intake-row {
+    grid-template-columns: 32px minmax(0, 1fr);
+  }
+
+  .compact-task-actions {
+    grid-column: 1 / -1;
+    justify-content: stretch;
+    gap: 5px;
+  }
+
+  .compact-task-actions .intake-action {
+    min-width: 0;
+    flex: 1 1 25%;
+    padding-inline: 6px;
+  }
+
+  .compact-task-actions .intake-action .intake-action-label {
+    display: inline;
+  }
+
+  .results-toolbar-side {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+  }
+
+  .studio-summary.compact-summary {
+    justify-self: start;
+    gap: 5px;
+  }
+
+  .studio-summary.compact-summary span {
+    display: inline;
+    font-size: 9px;
+  }
+
+  .archive-search {
+    margin-top: -8px;
+  }
+
+  .archive-shell .top-actions .quiet-button {
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+    padding-inline: 12px;
+  }
+
+  .group-header .group-menu {
+    grid-column: 2;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    opacity: 1;
+  }
+
+  .inline-task-detail {
+    padding: 16px;
+  }
+
+  .task-detail-header {
+    align-items: flex-start;
+    padding-block: 18px;
+  }
+
+  .task-detail-header h1 {
+    font-size: 28px;
+  }
+
+  .task-result-content {
+    min-height: 0;
+    padding: 18px;
+  }
+}
+
+@media (max-width: 390px) {
+  .intake-action-label {
+    font-size: 9px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

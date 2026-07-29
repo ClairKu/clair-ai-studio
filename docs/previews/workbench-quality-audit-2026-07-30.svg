@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#111422"/>
+      <stop offset="0.55" stop-color="#31386e"/>
+      <stop offset="1" stop-color="#7567d7"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" x2="1">
+      <stop stop-color="#ffffff" stop-opacity=".15"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity=".08"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="720" fill="url(#bg)"/>
+  <circle cx="1060" cy="80" r="240" fill="#9a8cff" opacity=".12"/>
+  <circle cx="110" cy="670" r="280" fill="#5b62f4" opacity=".18"/>
+  <g font-family="-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif" fill="#fff">
+    <text x="70" y="80" font-size="20" font-weight="700" letter-spacing="4" fill="#b9bdff">PRODUCTION QA · 2026-07-30</text>
+    <text x="70" y="176" font-size="62" font-weight="760">Clair's Studio</text>
+    <text x="70" y="246" font-size="54" font-weight="760">全站质量审计与修复</text>
+    <text x="70" y="300" font-size="22" fill="#d5d7ed">生产站 · 全量链接 · 桌面端 · 390px / 320px · 安全与构建</text>
+  </g>
+  <g transform="translate(70 390)">
+    <rect width="240" height="180" rx="22" fill="url(#card)" stroke="#ffffff" stroke-opacity=".18"/>
+    <text x="24" y="58" font-family="Georgia,serif" font-size="50" fill="#fff">43/43</text>
+    <text x="24" y="98" font-family="-apple-system,'PingFang SC',sans-serif" font-size="18" fill="#d9dcef">直接生产入口</text>
+    <rect x="24" y="130" width="112" height="30" rx="15" fill="#55d6a2" opacity=".18"/>
+    <text x="43" y="151" font-family="-apple-system,'PingFang SC',sans-serif" font-size="14" font-weight="700" fill="#86f0c2">HTTP 200</text>
+  </g>
+  <g transform="translate(330 390)">
+    <rect width="240" height="180" rx="22" fill="url(#card)" stroke="#ffffff" stroke-opacity=".18"/>
+    <text x="24" y="58" font-family="Georgia,serif" font-size="50" fill="#fff">14</text>
+    <text x="24" y="98" font-family="-apple-system,'PingFang SC',sans-serif" font-size="18" fill="#d9dcef">已修复问题</text>
+    <rect x="24" y="130" width="100" height="30" rx="15" fill="#9fa5ff" opacity=".22"/>
+    <text x="43" y="151" font-family="-apple-system,'PingFang SC',sans-serif" font-size="14" font-weight="700" fill="#daddff">P0–P2</text>
+  </g>
+  <g transform="translate(590 390)">
+    <rect width="240" height="180" rx="22" fill="url(#card)" stroke="#ffffff" stroke-opacity=".18"/>
+    <text x="24" y="58" font-family="Georgia,serif" font-size="50" fill="#fff">0</text>
+    <text x="24" y="98" font-family="-apple-system,'PingFang SC',sans-serif" font-size="18" fill="#d9dcef">已知依赖漏洞</text>
+    <rect x="24" y="130" width="96" height="30" rx="15" fill="#55d6a2" opacity=".18"/>
+    <text x="45" y="151" font-family="-apple-system,'PingFang SC',sans-serif" font-size="14" font-weight="700" fill="#86f0c2">AUDIT</text>
+  </g>
+  <g transform="translate(850 390)">
+    <rect width="280" height="180" rx="22" fill="url(#card)" stroke="#ffffff" stroke-opacity=".18"/>
+    <text x="24" y="58" font-family="Georgia,serif" font-size="50" fill="#fff">320px</text>
+    <text x="24" y="98" font-family="-apple-system,'PingFang SC',sans-serif" font-size="18" fill="#d9dcef">最窄回归宽度</text>
+    <rect x="24" y="130" width="150" height="30" rx="15" fill="#9fa5ff" opacity=".22"/>
+    <text x="43" y="151" font-family="-apple-system,'PingFang SC',sans-serif" font-size="14" font-weight="700" fill="#daddff">NO OVERFLOW</text>
+  </g>
+  <text x="70" y="650" font-family="-apple-system,'PingFang SC',sans-serif" font-size="18" fill="#c4c8e2">结论先行 · 证据可追溯 · 修复可回归</text>
+</svg>

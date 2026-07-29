@@ -114,6 +114,18 @@ const initialState = {
   ],
   reports: [
     {
+      id: "workbench-quality-audit-2026-07-30",
+      groupId: "ai-workbench",
+      title: "Clair's Studio｜全站质量审计与修复报告",
+      url: "https://clairku.github.io/clair-ai-studio/reports/workbench-quality-audit-2026-07-30/",
+      preview: "workbench-quality-audit-2026-07-30.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-07-29T18:20:00.000Z",
+      source: "生产质量审计",
+      access: "production",
+    },
+    {
       id: "seed-mcp-benchmark",
       groupId: "ai-platform",
       title: "三家金融 MCP / Skills 服务最完整对比｜010350 同题实测",
@@ -623,6 +635,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "workbench-quality-audit-2026-07-30": "governance-review",
   "seed-mcp-benchmark": "competitive-research",
   "seed-fund-report": "investment-research",
   "storage-big-three-fund-screening": "investment-research",
@@ -1023,23 +1036,49 @@ function permissionTarget(url = "") {
 
 async function fetchPageMetadata(url) {
   if (!validUrl(url)) {
-    return { title: "", description: "", reachable: false };
+    return { title: "", description: "", reachable: false, checked: true };
+  }
+  const parsed = new URL(url);
+  if (parsed.origin !== window.location.origin) {
+    return {
+      title: "",
+      description: "",
+      reachable: false,
+      checked: false,
+    };
   }
   try {
-    const metadataUrl = `https://api.microlink.io/?url=${encodeURIComponent(url)}`;
-    const response = await fetch(metadataUrl, {
-      headers: { Accept: "application/json" },
+    const response = await fetch(parsed.href, {
+      headers: { Accept: "text/html" },
       signal: AbortSignal.timeout(10000),
     });
-    if (!response.ok) throw new Error("read failed");
-    const payload = await response.json();
+    if (!response.ok) {
+      return {
+        title: "",
+        description: "",
+        reachable: false,
+        checked: true,
+      };
+    }
+    const html = await response.text();
+    const document = new DOMParser().parseFromString(html, "text/html");
     return {
-      title: payload?.data?.title?.trim().slice(0, 180) || "",
-      description: payload?.data?.description?.trim().slice(0, 500) || "",
-      reachable: payload?.status === "success" && Boolean(payload?.data?.url),
+      title: document.title.trim().slice(0, 180),
+      description: document
+        .querySelector('meta[name="description"]')
+        ?.getAttribute("content")
+        ?.trim()
+        .slice(0, 500) || "",
+      reachable: true,
+      checked: true,
     };
   } catch {
-    return { title: "", description: "", reachable: false };
+    return {
+      title: "",
+      description: "",
+      reachable: false,
+      checked: false,
+    };
   }
 }
 
@@ -1058,7 +1097,7 @@ async function inspectSaveTarget({ material = "", files = [], url = "" }, onProg
     return {
       allowed: true,
       access: "local",
-      metadata: { title: "", description: "", reachable: true },
+      metadata: { title: "", description: "", reachable: true, checked: true },
       isHtml: true,
       savedHtml: localHtml,
       loginProvider: "",
@@ -1072,9 +1111,9 @@ async function inspectSaveTarget({ material = "", files = [], url = "" }, onProg
       : "正在检查页面是否可正常访问…",
   );
   const metadata = permission
-    ? { title: "", description: "", reachable: true }
+    ? { title: "", description: "", reachable: true, checked: true }
     : await fetchPageMetadata(url);
-  if (!permission && !metadata.reachable) {
+  if (!permission && metadata.checked && !metadata.reachable) {
     return {
       allowed: false,
       reason: "页面无法正常访问，且不是可读取的 HTML，未保存",
@@ -1496,12 +1535,13 @@ function cardMarkup(report, archivedView = false) {
     ? addedTimeLabel(report.createdAt)
     : report.source || "手动添加";
   const hasPreview = !restricted && initialState.reports.some((item) => item.id === report.id);
+  const previewAsset = report.preview || `${report.id}.png`;
   const preview = localHtml && report.isHtml
     ? `<iframe class="local-html-preview-frame" title="${escapeHtml(report.title)}视觉预览"
         srcdoc="${escapeHtml(localHtml)}" sandbox="allow-scripts" loading="lazy"
         tabindex="-1" aria-hidden="true"></iframe>`
     : hasPreview
-    ? `<img src="./previews/${escapeHtml(report.id)}.png" alt="" loading="lazy" decoding="async" />`
+    ? `<img src="./previews/${escapeHtml(previewAsset)}" alt="" loading="lazy" decoding="async" />`
     : `
       <div class="preview-placeholder ${restricted ? "preview-restricted" : ""}">
         <span>${restricted ? "ACCESS" : escapeHtml(report.title.slice(0, 2))}</span>
@@ -1648,7 +1688,7 @@ function gateMarkup() {
       <section class="gate-card">
         <div class="gate-brand">
           <div class="brand-mark">C</div>
-          <span>PRIVATE STUDIO</span>
+          <span>PERSONAL STUDIO</span>
         </div>
         <h1>Clair's Studio</h1>
         <p>把思考、决策与成果，放在同一个地方。</p>
@@ -1660,7 +1700,7 @@ function gateMarkup() {
           </div>
           <p class="form-error" hidden></p>
         </form>
-        <div class="gate-foot"><span>Access protected</span><span>Local settings</span></div>
+        <div class="gate-foot"><span>Light access gate</span><span>Local-only data</span></div>
       </section>
     </main>`;
 }
@@ -1731,7 +1771,7 @@ function readerMarkup(report) {
     : `
       <div class="reader-frame-wrap">
         <iframe class="reader-frame" title="${escapeHtml(report.title)}" src="${escapeHtml(report.url)}"
-          sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
+          sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-scripts allow-downloads"></iframe>
       </div>`;
   return `
     <main class="reader-shell compact-reader-shell">
@@ -1806,6 +1846,12 @@ function archiveMarkup() {
           </div>
           <div class="archive-total"><strong>${archiveCount}</strong><span>份已归档</span></div>
         </div>
+        <label class="search archive-search">
+          <span aria-hidden="true">⌕</span>
+          <input id="search-input" value="${escapeHtml(query)}"
+            placeholder="搜索归档标题、来源或网址" aria-label="搜索归档" />
+          ${query ? '<button type="button" data-action="clear-search">清除</button>' : ""}
+        </label>
         ${archivedReports.length ? `
           <section class="archive-results">
             <div class="archive-heading">
@@ -1844,7 +1890,10 @@ function workbenchMarkup() {
   const productionCount = activeReports.filter((report) => report.access === "production").length;
   const restrictedCount = activeReports.filter((report) => report.access !== "production").length;
   const visibleBuckets = classificationBuckets(reports, normalized)
-    .filter((bucket) => bucket.reports.length || movingReportId);
+    .filter((bucket) =>
+      bucket.reports.length ||
+      movingReportId ||
+      (catalogView === "topic" && !normalized));
   const viewName = catalogView === "type"
     ? "工作类型"
     : catalogView === "tag"
@@ -1888,7 +1937,7 @@ function workbenchMarkup() {
                 <div class="library-nav-controls">
                   <div class="library-view-switcher" role="tablist" aria-label="成果分类方式">
                     <button type="button" role="tab" aria-selected="${catalogView === "topic"}" class="${catalogView === "topic" ? "active" : ""}" data-action="set-view" data-id="topic">主题</button>
-                    <button type="button" role="tab" aria-selected="${catalogView === "type"}" class="${catalogView === "type" ? "active" : ""}" data-action="set-view" data-id="type">任务</button>
+                    <button type="button" role="tab" aria-selected="${catalogView === "type"}" class="${catalogView === "type" ? "active" : ""}" data-action="set-view" data-id="type">类型</button>
                     <button type="button" role="tab" aria-selected="${catalogView === "tag"}" class="${catalogView === "tag" ? "active" : ""}" data-action="set-view" data-id="tag">标签</button>
                     <button type="button" role="tab" aria-selected="${catalogView === "time"}" class="${catalogView === "time" ? "active" : ""}" data-action="set-view" data-id="time">时间</button>
                   </div>
@@ -2423,6 +2472,8 @@ function bindApp() {
         accent: ["blue", "violet", "amber", "green"][state.groups.length % 4],
         position: state.groups.length,
       });
+      catalogView = "topic";
+      localStorage.setItem(VIEW_KEY, catalogView);
     }
     saveState();
     const message = modal.mode === "edit" ? "工作主题已更新" : "工作主题已创建，可直接拖入报告";

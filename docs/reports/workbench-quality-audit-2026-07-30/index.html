@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Clair's Studio 全站质量审计、缺陷修复与生产验证报告。" />
+  <title>Clair's Studio｜全站质量审计与修复报告</title>
+  <style>
+    :root {
+      --ink: #202126;
+      --muted: #6f7580;
+      --line: #dfe2e8;
+      --paper: #fff;
+      --bg: #f5f5f8;
+      --violet: #5b62f4;
+      --violet-soft: #eef0ff;
+      --green: #177457;
+      --green-soft: #e9f6f0;
+      --amber: #946216;
+      --amber-soft: #fff5df;
+      --red: #a53b3b;
+      --red-soft: #fff0ef;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 8% 0%, rgb(91 98 244 / 10%), transparent 28%),
+        radial-gradient(circle at 92% 20%, rgb(162 112 255 / 9%), transparent 24%),
+        var(--bg);
+      color: var(--ink);
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "PingFang SC",
+        "Microsoft YaHei", sans-serif;
+    }
+    a { color: inherit; }
+    .shell { width: min(1160px, calc(100% - 32px)); margin: 0 auto; }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      border-bottom: 1px solid rgb(32 33 38 / 8%);
+      background: rgb(245 245 248 / 88%);
+      backdrop-filter: blur(18px);
+    }
+    .topbar .shell {
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 750; }
+    .mark {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      background: #202126;
+      color: #fff;
+      font-family: Georgia, serif;
+      font-style: italic;
+    }
+    .topbar a {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      padding: 9px 12px;
+      font-size: 12px;
+      font-weight: 680;
+      text-decoration: none;
+    }
+    .hero {
+      padding: clamp(58px, 9vw, 110px) 0 42px;
+    }
+    .eyebrow {
+      margin: 0 0 18px;
+      color: var(--violet);
+      font-size: 11px;
+      font-weight: 780;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 {
+      max-width: 950px;
+      margin-bottom: 24px;
+      font-family: Georgia, "Noto Serif SC", serif;
+      font-size: clamp(42px, 7vw, 78px);
+      font-weight: 500;
+      line-height: 1.04;
+      letter-spacing: -.055em;
+    }
+    .lead {
+      max-width: 760px;
+      color: #565c66;
+      font-size: clamp(16px, 2vw, 21px);
+      line-height: 1.75;
+    }
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 30px;
+    }
+    .hero-meta span {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgb(255 255 255 / 76%);
+      padding: 7px 10px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin: 20px 0 70px;
+    }
+    .metric {
+      min-height: 148px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: rgb(255 255 255 / 86%);
+      padding: 20px;
+      box-shadow: 0 18px 50px rgb(27 30 50 / 5%);
+    }
+    .metric strong { font: 500 clamp(36px, 5vw, 54px)/1 Georgia, serif; }
+    .metric span { color: var(--muted); font-size: 12px; line-height: 1.5; }
+    section { margin-bottom: 72px; }
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 420px);
+      align-items: end;
+      gap: 30px;
+      margin-bottom: 24px;
+    }
+    h2 {
+      margin-bottom: 0;
+      font-size: clamp(28px, 4vw, 44px);
+      letter-spacing: -.045em;
+    }
+    .section-head p {
+      margin-bottom: 2px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.75;
+    }
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .flow article {
+      position: relative;
+      min-height: 190px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #fff;
+      padding: 20px;
+    }
+    .flow article:not(:last-child)::after {
+      position: absolute;
+      top: 38px;
+      right: -10px;
+      z-index: 2;
+      width: 20px;
+      height: 20px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: #fff;
+      color: var(--violet);
+      content: "→";
+      font-size: 10px;
+    }
+    .step {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      background: var(--violet-soft);
+      color: var(--violet);
+      font-size: 11px;
+      font-weight: 800;
+    }
+    .flow h3 { margin: 30px 0 8px; font-size: 17px; }
+    .flow p { color: var(--muted); font-size: 12px; line-height: 1.65; }
+    .bug-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .bug {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 14px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #fff;
+      padding: 18px;
+    }
+    .severity {
+      min-width: 42px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      font-size: 10px;
+      font-weight: 820;
+    }
+    .p0 { background: var(--red-soft); color: var(--red); }
+    .p1 { background: var(--amber-soft); color: var(--amber); }
+    .p2 { background: var(--violet-soft); color: var(--violet); }
+    .bug h3 { margin-bottom: 7px; font-size: 15px; }
+    .bug p { margin-bottom: 9px; color: var(--muted); font-size: 12px; line-height: 1.65; }
+    .fix {
+      color: var(--green);
+      font-size: 11px;
+      font-weight: 720;
+    }
+    .before-after {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .mock {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 22px 60px rgb(31 34 58 / 7%);
+    }
+    .mock > span {
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 760;
+      letter-spacing: .12em;
+    }
+    .composer {
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr) auto;
+      gap: 9px;
+      align-items: center;
+      margin-top: 16px;
+      border: 1px solid #dfe2e8;
+      border-radius: 14px;
+      padding: 10px;
+    }
+    .orb, .icon {
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      border-radius: 9px;
+      background: #f0f1f5;
+      color: #656b75;
+      font-size: 11px;
+    }
+    .placeholder { color: #91969f; font-size: 12px; }
+    .actions { display: flex; gap: 5px; }
+    .actions b {
+      min-height: 32px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      padding: 0 9px;
+      color: #565c67;
+      font-size: 10px;
+    }
+    .before .actions b { width: 34px; overflow: hidden; padding: 0 8px; font-size: 0; }
+    .before .placeholder { color: transparent; }
+    .trap {
+      min-height: 210px;
+      display: grid;
+      place-items: center;
+      margin-top: 16px;
+      border-radius: 14px;
+      background: #f6f6f9;
+      color: var(--muted);
+      text-align: center;
+    }
+    .trap strong { display: block; margin-bottom: 6px; color: var(--ink); }
+    .trap .return {
+      display: inline-flex;
+      margin-top: 14px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: #fff;
+      padding: 8px 10px;
+      color: var(--violet);
+      font-size: 10px;
+      font-weight: 700;
+    }
+    .before .return { visibility: hidden; }
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #fff;
+    }
+    table { width: 100%; border-collapse: collapse; min-width: 720px; }
+    th, td { padding: 14px 16px; border-bottom: 1px solid #eceef2; text-align: left; }
+    th { background: #fafafd; color: var(--muted); font-size: 10px; letter-spacing: .08em; }
+    td { font-size: 12px; line-height: 1.55; }
+    tr:last-child td { border-bottom: 0; }
+    .ok { color: var(--green); font-weight: 760; }
+    .pending { color: var(--amber); font-weight: 760; }
+    .boundary {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .boundary article {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #fff;
+      padding: 20px;
+    }
+    .boundary h3 { margin-bottom: 8px; font-size: 15px; }
+    .boundary p { margin-bottom: 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
+    .decision {
+      border: 1px solid #e8d7af;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #fffaf0, #fff);
+      padding: clamp(22px, 4vw, 38px);
+    }
+    .decision h2 { margin-bottom: 12px; }
+    .decision p { max-width: 800px; color: #6f6044; line-height: 1.75; }
+    footer {
+      margin-top: 80px;
+      border-top: 1px solid var(--line);
+      padding: 28px 0 42px;
+      color: var(--muted);
+      font-size: 10px;
+    }
+    @media (max-width: 820px) {
+      .metrics, .flow, .boundary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .section-head { grid-template-columns: 1fr; gap: 10px; }
+      .bug-grid, .before-after { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 520px) {
+      .shell { width: min(100% - 24px, 1160px); }
+      .topbar .brand strong { font-size: 14px; }
+      .topbar a { padding: 8px 9px; font-size: 10px; }
+      .metrics, .flow, .boundary { grid-template-columns: 1fr; }
+      .metric { min-height: 118px; }
+      .flow article:not(:last-child)::after { display: none; }
+      .composer { grid-template-columns: 32px minmax(0, 1fr); }
+      .actions { grid-column: 1 / -1; }
+      .actions b { flex: 1; justify-content: center; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell">
+      <div class="brand"><span class="mark">C</span><strong>Clair's Studio · QA Report</strong></div>
+      <a href="https://clairku.github.io/clair-ai-studio/">返回工作台 ↗</a>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <p class="eyebrow">Production QA · 2026-07-30</p>
+      <h1>不是“看起来能用”，而是把每条关键路径真正跑通。</h1>
+      <p class="lead">本次对 Clair's Studio 进行了生产站、源码、链接、桌面端、390px 与 320px 窄屏的全链路审计；确定性问题已修复，架构边界和仍需人工决定的数据项单独列出。</p>
+      <div class="hero-meta">
+        <span>生产站 + 本地构建双重验证</span>
+        <span>审计前 46 项 · 本报告入库后 47 项</span>
+        <span>桌面 1440×1000</span>
+        <span>移动 390×844 / 320×568</span>
+      </div>
+    </section>
+
+    <div class="metrics" aria-label="审计结论">
+      <article class="metric"><strong>43/43</strong><span>直接访问的生产报告经 HTTP 检查均返回 200</span></article>
+      <article class="metric"><strong>4/4</strong><span>受限入口按账号或组织登录路径处理</span></article>
+      <article class="metric"><strong>14</strong><span>已修复的功能、移动端、安全与工程问题</span></article>
+      <article class="metric"><strong>0</strong><span>修复后 npm 已知漏洞与横向溢出</span></article>
+    </div>
+
+    <section>
+      <div class="section-head">
+        <h2>验收路径</h2>
+        <p>从生产证据出发，对照源码定位根因；修复后回到真实浏览器，重新跑完同一条路径。</p>
+      </div>
+      <div class="flow">
+        <article><span class="step">01</span><h3>生产站巡检</h3><p>登录、搜索、四种分类、报告阅读器、加密报告、归档区和权限接力。</p></article>
+        <article><span class="step">02</span><h3>全量链接检查</h3><p>46 个目录入口逐一检查状态、跳转与权限边界，区分真实故障和登录态。</p></article>
+        <article><span class="step">03</span><h3>响应式回归</h3><p>桌面、390px 手机和 320px 窄屏验证操作可见性、横向溢出与返回路径。</p></article>
+        <article><span class="step">04</span><h3>构建与安全</h3><p>依赖审计、语法、生产构建、自动校验、控制台错误和 iframe 隔离复验。</p></article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>已修复问题</h2>
+        <p>P0 表示会造成死路、误导或数据安全风险；P1 影响主任务完成；P2 影响理解与一致性。</p>
+      </div>
+      <div class="bug-grid">
+        <article class="bug"><span class="severity p0">P0</span><div><h3>移动端归档区无法返回</h3><p>旧响应式规则把“返回成果库”隐藏，用户进入后只能困在当前 SPA 状态。</p><span class="fix">已恢复移动端返回按钮并实测返回成功</span></div></article>
+        <article class="bug"><span class="severity p0">P0</span><div><h3>决策 / 评审点击后任务消失</h3><p>任务只写入 localStorage，页面没有任何队列、状态或结果入口，形成“已发起”的错误感知。</p><span class="fix">已恢复可见队列，并明确“不会后台自动执行”</span></div></article>
+        <article class="bug"><span class="severity p0">P0</span><div><h3>网址被发送到第三方元数据服务</h3><p>未知内部链接可能在识别标题时被第三方服务接收。</p><span class="fix">已移除第三方调用；仅同源页面直接读取标题</span></div></article>
+        <article class="bug"><span class="severity p0">P0</span><div><h3>同源 iframe 权限过宽</h3><p>阅读器同时允许脚本和同源权限，理论上同域报告可能触碰工作台本地数据。</p><span class="fix">已移除 allow-same-origin；加密报告解锁复验通过</span></div></article>
+        <article class="bug"><span class="severity p1">P1</span><div><h3>归档搜索只有逻辑、没有入口</h3><p>代码会按 query 过滤归档，但页面没有搜索框，README 中的能力无法使用。</p><span class="fix">已补齐归档搜索框、清除状态和空结果反馈</span></div></article>
+        <article class="bug"><span class="severity p1">P1</span><div><h3>新建空主题立即消失</h3><p>空分组在渲染阶段被过滤，用户无法继续拖入报告。</p><span class="fix">主题视图保留空主题；新建后自动切回主题视图</span></div></article>
+        <article class="bug"><span class="severity p1">P1</span><div><h3>移动端主题无法管理</h3><p>添加、改名、删除按钮在 680px 以下被隐藏，自定义主题无法维护。</p><span class="fix">移动端恢复主题管理操作并验证可见性</span></div></article>
+        <article class="bug"><span class="severity p1">P1</span><div><h3>统一输入只有图标</h3><p>“材料 / 保存 / 决策 / 评审”只能靠猜，移动端没有 hover 提示。</p><span class="fix">桌面与移动端均显示可读标签和输入提示</span></div></article>
+        <article class="bug"><span class="severity p1">P1</span><div><h3>有效网址受第三方故障阻断</h3><p>元数据读取超时会把真实可用的网址误判为不可保存。</p><span class="fix">未知外部网址允许手填标题并安全入库</span></div></article>
+        <article class="bug"><span class="severity p2">P2</span><div><h3>“任务”分类语义错误</h3><p>该视图实际按工作类型分类，并不是待处理任务。</p><span class="fix">更名为“类型”，与本地任务队列区分</span></div></article>
+        <article class="bug"><span class="severity p2">P2</span><div><h3>移动端统计只剩裸数字</h3><p>原页面显示“50 10 42”，无法判断分别代表成果、主题还是直达。</p><span class="fix">恢复统计标签并保持 320px 无横向溢出</span></div></article>
+        <article class="bug"><span class="severity p2">P2</span><div><h3>轻量口令被误认为私有鉴权</h3><p>静态站前端口令不等同于服务端身份验证。</p><span class="fix">入口改为 Personal Studio / Light access gate</span></div></article>
+        <article class="bug"><span class="severity p1">P1</span><div><h3>构建依赖存在已知漏洞</h3><p>旧 Vite / esbuild 审计包含 1 个高危和 1 个中危开发服务器漏洞。</p><span class="fix">升级至 Vite 8.1.5；npm audit 归零</span></div></article>
+        <article class="bug"><span class="severity p2">P2</span><div><h3>没有持续回归护栏</h3><p>目录数量、重复 URL、缺失预览和构建资源过去依赖人工发现。</p><span class="fix">新增 npm test 自动验证 47 项目录与构建资源</span></div></article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>关键体验前后对比</h2>
+        <p>核心变化不是加更多装饰，而是让下一步动作可见、可理解、可返回。</p>
+      </div>
+      <div class="before-after">
+        <article class="mock before">
+          <span>BEFORE · 图标需要猜</span>
+          <div class="composer">
+            <span class="orb">✦</span><span class="placeholder">无提示</span>
+            <div class="actions"><b>＋ 材料</b><b>▣ 保存</b><b>⌘ 决策</b><b>✓ 评审</b></div>
+          </div>
+        </article>
+        <article class="mock">
+          <span>AFTER · 动作与边界可读</span>
+          <div class="composer">
+            <span class="orb">✦</span><span class="placeholder">粘贴链接、文字，或拖入一份材料…</span>
+            <div class="actions"><b>＋ 材料</b><b>▣ 保存</b><b>⌘ 决策</b><b>✓ 评审</b></div>
+          </div>
+        </article>
+        <article class="mock before">
+          <span>BEFORE · 移动归档死路</span>
+          <div class="trap"><div><strong>归档内容</strong><span>返回按钮被隐藏</span><span class="return">← 返回成果库</span></div></div>
+        </article>
+        <article class="mock">
+          <span>AFTER · 返回路径始终可见</span>
+          <div class="trap"><div><strong>归档内容</strong><span>搜索、恢复、删除与返回都可达</span><span class="return">← 返回成果库</span></div></div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>验证矩阵</h2>
+        <p>每一项都以当前源码重新构建，不把历史记录当成当前通过。</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>验证项</th><th>范围</th><th>结果</th><th>证据</th></tr></thead>
+          <tbody>
+            <tr><td>目录链接</td><td>47 个发布后入口</td><td class="ok">通过</td><td>43 个直接入口 HTTP 200；4 个受限入口进入登录路径</td></tr>
+            <tr><td>生产阅读器</td><td>加密 OAP 报告</td><td class="ok">通过</td><td>移除同源权限后仍可输入口令、解密和运行交互</td></tr>
+            <tr><td>目录视图</td><td>主题 / 类型 / 标签 / 时间</td><td class="ok">通过</td><td>分类切换、计数和卡片渲染正常</td></tr>
+            <tr><td>本地任务</td><td>评审创建 → 队列 → 详情 → 移出</td><td class="ok">通过</td><td>状态可见，执行边界清楚</td></tr>
+            <tr><td>归档路径</td><td>归档 → 搜索 → 恢复 → 返回</td><td class="ok">通过</td><td>390px 手机端完整跑通</td></tr>
+            <tr><td>响应式</td><td>1440×1000 / 390×844 / 320×568</td><td class="ok">通过</td><td>无横向溢出；卡片单列；操作标签可见</td></tr>
+            <tr><td>工程质量</td><td>语法 / build / diff / npm test</td><td class="ok">通过</td><td>Vite 8.1.5 构建成功，自动目录校验通过</td></tr>
+            <tr><td>运行日志</td><td>本地修复版</td><td class="ok">通过</td><td>浏览器控制台无 error / warn</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>仍然成立的产品边界</h2>
+        <p>这些不是本轮伪装成“已解决”的问题，而是静态工作台的真实能力边界。</p>
+      </div>
+      <div class="boundary">
+        <article><h3>不是服务端鉴权</h3><p>访问口令仍是前端轻量门槛。真正的私密多用户访问需要后端身份、权限与审计。</p></article>
+        <article><h3>不是跨设备数据库</h3><p>主题调整、归档、任务和本地成果仍保存在当前浏览器，不会自动同步到手机或另一台电脑。</p></article>
+        <article><h3>不是后台 Agent</h3><p>静态页中的“决策 / 评审”只创建待处理任务单；现在已明确提示，需要交给 Codex 才会真实执行。</p></article>
+      </div>
+    </section>
+
+    <section class="decision">
+      <p class="eyebrow">待 Clair 决定</p>
+      <h2>归档区有 1 条已确认 404 的旧重复记录。</h2>
+      <p>该条目标题是 URL 编码串，链接误写为 <code>.htm</code>；正确的“且慢 APP AI 原生转型三案”已在主库正常存在。本报告未擅自删除这条浏览器本地记录，等待你确认后再处理。</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell">CLAIR'S STUDIO · PRODUCTION QA · 2026-07-30</div>
+  </footer>
+</body>
+</html>
