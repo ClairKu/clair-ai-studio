@@ -620,13 +620,6 @@ function domainOf(value) {
   }
 }
 
-function dateLabel(value) {
-  return new Intl.DateTimeFormat("zh-CN", {
-    month: "short",
-    day: "numeric",
-  }).format(new Date(value));
-}
-
 function validUrl(value) {
   try {
     return ["http:", "https:"].includes(new URL(value).protocol);
@@ -646,34 +639,36 @@ function showToast(message) {
   toastTimer = window.setTimeout(() => toast.remove(), 2600);
 }
 
-function cardMarkup(report, pinnedView = false) {
+function cardMarkup(report) {
   const restricted = report.access !== "production";
   const accessLabel = report.access === "org"
     ? "需组织登录"
     : report.access === "account"
       ? "需账号登录"
       : "生产可访问";
+  const hasPreview = !restricted && initialState.reports.some((item) => item.id === report.id);
+  const preview = hasPreview
+    ? `<img src="./previews/${escapeHtml(report.id)}.png" alt="" loading="lazy" decoding="async" />`
+    : `
+      <div class="preview-placeholder ${restricted ? "preview-restricted" : ""}">
+        <span>${restricted ? "ACCESS" : escapeHtml(report.title.slice(0, 2))}</span>
+        <strong>${restricted ? accessLabel : "预览待补充"}</strong>
+      </div>`;
   return `
-    <article class="report-card ${pinnedView ? "pinned-card" : ""}" draggable="true" data-report-id="${escapeHtml(report.id)}">
+    <article class="report-card ${restricted ? "restricted-card" : ""}" draggable="true" data-report-id="${escapeHtml(report.id)}">
       <button class="card-main" type="button" data-action="open" data-id="${escapeHtml(report.id)}">
-        <span class="report-icon">${escapeHtml(report.title.slice(0, 1))}</span>
-        <span class="report-copy">
-          <strong>${escapeHtml(report.title)}</strong>
-          <span>${escapeHtml(domainOf(report.url))}</span>
+        <span class="report-preview">
+          ${preview}
         </span>
-        <span class="open-arrow ${restricted ? "login-arrow" : ""}" aria-hidden="true">${restricted ? "登录" : "↗"}</span>
+        <span class="report-copy">
+          <span class="report-source">${escapeHtml(report.source || "手动添加")}</span>
+          <strong>${escapeHtml(report.title)}</strong>
+          <span class="report-open-label">${restricted ? "登录后查看" : "查看完整报告"}</span>
+        </span>
       </button>
-      <div class="card-meta">
-        <span>${escapeHtml(dateLabel(report.createdAt))}</span>
-        <span class="source-badge">${escapeHtml(report.source || "手动添加")}</span>
-        <span class="access-badge ${report.access !== "production" ? "access-org" : ""}">${accessLabel}</span>
-        <span class="drag-hint" title="拖动到其他分组">⠿ 拖动</span>
-        <a class="external-link" href="${escapeHtml(report.url)}" target="_blank" rel="noreferrer" title="${restricted ? "在新窗口登录并打开" : "在新窗口打开"}">${restricted ? "登录打开 ↗" : "新窗口 ↗"}</a>
-        <div class="card-actions">
-          <button type="button" data-action="pin" data-id="${escapeHtml(report.id)}" title="${report.pinned ? "取消置顶" : "置顶"}">${report.pinned ? "★" : "☆"}</button>
-          <button type="button" data-action="edit" data-id="${escapeHtml(report.id)}">编辑</button>
-          <button type="button" data-action="delete" data-id="${escapeHtml(report.id)}">删除</button>
-        </div>
+      <div class="card-actions">
+        <button type="button" data-action="edit" data-id="${escapeHtml(report.id)}">编辑</button>
+        <button type="button" data-action="delete" data-id="${escapeHtml(report.id)}">删除</button>
       </div>
     </article>`;
 }
@@ -744,14 +739,14 @@ function gateMarkup() {
     <main class="gate-shell">
       <section class="gate-card">
         <div class="brand-mark">C</div>
-        <span class="eyebrow">CLAIR · PERSONAL WORKSPACE</span>
-        <h1>Clair的工作台</h1>
-        <p>产品方案、服务报告、投研结论与知识资产，一个入口持续管理。</p>
+        <span class="eyebrow">CLAIR · DECISION LIBRARY</span>
+        <h1>Clair AI Studio</h1>
+        <p>把分散的产品研究、AI 实践与投研成果，整理成可预览、可检索、可复用的决策资产。</p>
         <form class="login-form" id="login-form">
           <label for="password">访问口令</label>
           <div class="password-row">
             <input id="password" name="password" type="password" inputmode="numeric" autocomplete="current-password" placeholder="请输入口令" autofocus />
-            <button type="submit" class="primary-button">进入工作台</button>
+            <button type="submit" class="primary-button">进入 Studio</button>
           </div>
           <p class="form-error" hidden></p>
         </form>
@@ -814,77 +809,84 @@ function workbenchMarkup() {
         .toLowerCase()
         .includes(normalized))
     : state.reports;
-  const pinned = reports
-    .filter((report) => report.pinned)
-    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
   const productionCount = state.reports.filter((report) => report.access === "production").length;
   const restrictedCount = state.reports.filter((report) => report.access !== "production").length;
+  const visibleGroups = state.groups
+    .map((group) => ({
+      ...group,
+      reports: reports
+        .filter((report) => report.groupId === group.id)
+        .sort((a, b) => (a.position || 0) - (b.position || 0)),
+    }))
+    .filter((group) => group.reports.length);
   return `
     <main class="app-shell">
       <header class="topbar">
         <div class="brand">
           <div class="brand-mark small">C</div>
-          <div><strong>Clair的工作台</strong><span>Product · AI · Wealth</span></div>
+          <div><strong>Clair AI Studio</strong><span>Decision Library</span></div>
         </div>
-        <label class="search"><span aria-hidden="true">⌕</span>
-          <input id="search-input" value="${escapeHtml(query)}" placeholder="搜索报告名称或网址" aria-label="搜索报告" />
+        <label class="search">
+          <input id="search-input" value="${escapeHtml(query)}" placeholder="搜索报告" aria-label="搜索报告" />
           ${query ? '<button type="button" data-action="clear-search">清除</button>' : ""}
         </label>
         <div class="top-actions">
-          <button class="quiet-button desktop-only" type="button" data-action="lock">锁定</button>
-          <button class="primary-button" type="button" data-action="add-report"><span aria-hidden="true">＋</span>新增报告</button>
+          <button class="quiet-button desktop-only" type="button" data-action="add-group">新增主题</button>
+          <button class="primary-button" type="button" data-action="add-report">新增报告</button>
         </div>
       </header>
       <section class="workspace">
         <div class="hero-row">
-          <div><span class="eyebrow">PRODUCTION CATALOG · VERIFIED 2026-07-29</span><h1>把每天的产品判断，<br />沉淀成工作资产。</h1><p>已整合且慢产品研究库与最近一个月的生产产出；重复版本、失效页面和仅本地草稿未进入主清单。</p></div>
-          <div class="metrics">
-            <div><strong>${state.reports.length}</strong><span>整理后产出</span></div>
-            <div><strong>${productionCount}</strong><span>生产可访问</span></div>
-            <div><strong>${restrictedCount}</strong><span>需账号权限</span></div>
+          <div class="hero-copy">
+            <span class="eyebrow">CLAIR AI STUDIO · PRODUCTION ARCHIVE</span>
+            <h1>把分散的研究，<br />变成可复用的决策资产。</h1>
+            <p>围绕产品、AI、投研与经营，按主题归档已发布成果。先看关键画面，再进入完整报告；需要权限的内容也有明确登录路径。</p>
+          </div>
+          <div class="studio-summary" aria-label="报告统计">
+            <strong>${state.reports.length}</strong>
+            <span>份成果</span>
+            <i></i>
+            <strong>${visibleGroups.length}</strong>
+            <span>个主题</span>
+            <i></i>
+            <strong>${productionCount}</strong>
+            <span>可直接访问</span>
           </div>
         </div>
-        ${pinned.length ? `
-          <section class="pinned-section">
-            <div class="section-heading"><div><span class="section-kicker">PINNED</span><h2>置顶服务</h2></div><span>${pinned.length} 个常用入口</span></div>
-            <div class="pinned-grid">${pinned.map((report) => cardMarkup(report, true)).join("")}</div>
-          </section>` : ""}
         <section class="groups-section">
-          <div class="section-heading"><div><span class="section-kicker">ROLE-BASED COLLECTIONS</span><h2>我的工作分组</h2></div><button class="text-button" type="button" data-action="add-group">＋ 新增分组</button></div>
-          <div class="board">
-            ${state.groups.map((group) => {
-              const groupReports = reports
-                .filter((report) => report.groupId === group.id)
-                .sort((a, b) => (a.position || 0) - (b.position || 0));
-              return `
-                <section class="group-column accent-${escapeHtml(group.accent)}" data-group-id="${escapeHtml(group.id)}">
-                  <header class="group-header" draggable="true" data-group-drag-id="${escapeHtml(group.id)}">
+          ${visibleGroups.length ? `
+            <nav class="topic-nav" aria-label="报告主题">
+              ${visibleGroups.map((group) => `<a href="#topic-${escapeHtml(group.id)}">${escapeHtml(group.name)}<span>${group.reports.length}</span></a>`).join("")}
+            </nav>
+            <div class="board">
+              ${visibleGroups.map((group, index) => `
+                <section id="topic-${escapeHtml(group.id)}" class="group-column topic-section accent-${escapeHtml(group.accent)}" data-group-id="${escapeHtml(group.id)}">
+                  <header class="group-header">
+                    <div class="topic-number">${String(index + 1).padStart(2, "0")}</div>
                     <div class="group-heading-copy">
-                      <span class="accent-dot"></span>
-                      <div><h3>${escapeHtml(group.name)}</h3><small>${escapeHtml(group.description || "自定义工作分组")}</small></div>
-                      <span class="count">${groupReports.length}</span>
+                      <div><h2>${escapeHtml(group.name)}</h2><p>${escapeHtml(group.description || "自定义工作主题")}</p></div>
+                      <span class="count">${group.reports.length} 份</span>
                     </div>
-                    <div class="group-header-actions">
-                      <button class="group-drag-handle" type="button" data-group-drag-id="${escapeHtml(group.id)}" title="拖动分组排序" aria-label="拖动分组：${escapeHtml(group.name)}">⠿</button>
-                      <div class="group-menu">
-                        <button type="button" data-action="rename-group" data-id="${escapeHtml(group.id)}">改名</button>
-                        ${group.id !== "inbox" ? `<button type="button" data-action="delete-group" data-id="${escapeHtml(group.id)}">删除</button>` : ""}
-                      </div>
+                    <div class="group-menu">
+                      <button type="button" data-action="add-to-group" data-id="${escapeHtml(group.id)}">添加</button>
+                      <button type="button" data-action="rename-group" data-id="${escapeHtml(group.id)}">改名</button>
+                      ${group.id !== "inbox" ? `<button type="button" data-action="delete-group" data-id="${escapeHtml(group.id)}">删除</button>` : ""}
                     </div>
                   </header>
-                  <div class="group-cards">
-                    ${groupReports.map((report) => cardMarkup(report)).join("")}
-                    ${groupReports.length
-                      ? `<button type="button" class="add-inline" data-action="add-to-group" data-id="${escapeHtml(group.id)}">＋ 添加到此分组</button>`
-                      : `<button type="button" class="empty-drop" data-action="add-to-group" data-id="${escapeHtml(group.id)}"><span>拖报告到这里</span><small>或点击新增</small></button>`}
-                  </div>
-                </section>`;
-            }).join("")}
-            <button type="button" class="new-group-card" data-action="add-group"><span>＋</span><strong>新增分组</strong><small>让报告按你的方式归位</small></button>
+                  <div class="group-cards">${group.reports.map((report) => cardMarkup(report)).join("")}</div>
+                </section>`).join("")}
+            </div>` : `
+            <div class="no-results">
+              <strong>没有找到相关报告</strong>
+              <button type="button" data-action="clear-search">清除搜索</button>
+            </div>`}
+          <div class="catalog-note">
+            <span>${restrictedCount} 份报告需要组织或账号登录</span>
+            <button type="button" data-action="lock">退出工作台</button>
           </div>
         </section>
       </section>
-      <footer><span>CLAIR WORKSPACE · GITHUB PAGES</span><span>自动保存到当前浏览器</span></footer>
+      <footer><span>CLAIR AI STUDIO</span><span>Production archive · 2026-07-29</span></footer>
       ${modalMarkup()}
     </main>`;
 }
@@ -993,12 +995,6 @@ function bindApp() {
         render();
       } else if (action === "detect-title") {
         await detectTitle(event.currentTarget.closest("form"));
-      } else if (action === "pin") {
-        const report = state.reports.find((item) => item.id === itemId);
-        if (report) report.pinned = !report.pinned;
-        saveState();
-        render();
-        showToast(report?.pinned ? "报告已置顶" : "已取消置顶");
       } else if (action === "delete") {
         const report = state.reports.find((item) => item.id === itemId);
         if (report && confirm(`确定删除“${report.title}”吗？此操作不可撤销。`)) {
