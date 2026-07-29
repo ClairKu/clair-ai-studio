@@ -4685,13 +4685,21 @@ body * {
   color: #7159a8;
 }
 
+.bucket-time .bucket-marker {
+  border-color: #e1e4e8;
+  background: #f6f7f8;
+  color: #6d747d;
+}
+
 .bucket-type .group-header,
-.bucket-tag .group-header {
+.bucket-tag .group-header,
+.bucket-time .group-header {
   grid-template-columns: 58px minmax(0, 1fr) auto;
 }
 
 .bucket-type .group-menu:empty,
-.bucket-tag .group-menu:empty {
+.bucket-tag .group-menu:empty,
+.bucket-time .group-menu:empty {
   display: none;
 }
 

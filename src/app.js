@@ -758,7 +758,7 @@ let state = loadState();
 let query = "";
 let readerId = "";
 let archiveView = false;
-let catalogView = ["topic", "type", "tag"].includes(localStorage.getItem(VIEW_KEY))
+let catalogView = ["topic", "type", "tag", "time"].includes(localStorage.getItem(VIEW_KEY))
   ? localStorage.getItem(VIEW_KEY)
   : "topic";
 let draggingId = "";
@@ -1157,7 +1157,7 @@ async function saveIntakeToLibrary({ material, files }, onProgress = () => {}) {
     };
   }
   archiveView = false;
-  catalogView = "topic";
+  if (catalogView !== "time") catalogView = "topic";
   query = "";
   localStorage.setItem(VIEW_KEY, catalogView);
   return {
@@ -1202,9 +1202,72 @@ function workTypeName(workTypeId) {
   return WORK_TYPES.find((item) => item.id === workTypeId)?.name || "产品规划";
 }
 
+function reportCreatedTime(report) {
+  const timestamp = new Date(report.createdAt || 0).getTime();
+  return Number.isFinite(timestamp) ? timestamp : 0;
+}
+
+function localDateKey(value) {
+  const date = new Date(value || 0);
+  if (!Number.isFinite(date.getTime())) return "unknown";
+  return [
+    date.getFullYear(),
+    String(date.getMonth() + 1).padStart(2, "0"),
+    String(date.getDate()).padStart(2, "0"),
+  ].join("-");
+}
+
+function dateBucketLabel(key) {
+  if (key === "unknown") return "时间待补";
+  const [year, month, day] = key.split("-").map(Number);
+  const date = new Date(year, month - 1, day);
+  const today = new Date();
+  const todayKey = localDateKey(today);
+  const yesterday = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 1);
+  const dateLabel = new Intl.DateTimeFormat("zh-CN", {
+    month: "numeric",
+    day: "numeric",
+    weekday: "short",
+  }).format(date);
+  if (key === todayKey) return `今天 · ${dateLabel}`;
+  if (key === localDateKey(yesterday)) return `昨天 · ${dateLabel}`;
+  return year === today.getFullYear()
+    ? dateLabel
+    : `${year}年 · ${dateLabel}`;
+}
+
+function addedTimeLabel(value) {
+  const date = new Date(value || 0);
+  if (!Number.isFinite(date.getTime())) return "新增时间待补";
+  return `新增于 ${new Intl.DateTimeFormat("zh-CN", {
+    month: "numeric",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  }).format(date)}`;
+}
+
 function classificationBuckets(reports, normalizedQuery = "") {
   const matchesName = (name) =>
     !normalizedQuery || name.toLowerCase().includes(normalizedQuery);
+  if (catalogView === "time") {
+    const byDate = new Map();
+    [...reports]
+      .sort((a, b) => reportCreatedTime(b) - reportCreatedTime(a))
+      .forEach((report) => {
+        const key = localDateKey(report.createdAt);
+        if (!byDate.has(key)) byDate.set(key, []);
+        byDate.get(key).push(report);
+      });
+    return [...byDate.entries()].map(([key, items]) => ({
+      id: key,
+      name: dateBucketLabel(key),
+      kind: "time",
+      accent: "slate",
+      reports: items,
+    }));
+  }
   if (catalogView === "type") {
     return WORK_TYPES
       .map((type) => ({
@@ -1284,7 +1347,13 @@ function assignReportToBucket(reportId, bucketKind, bucketId, targetReportId = "
 }
 
 function currentBucketLabel() {
-  return catalogView === "type" ? "工作类型" : catalogView === "tag" ? "标签" : "主题";
+  return catalogView === "type"
+    ? "工作类型"
+    : catalogView === "tag"
+      ? "标签"
+      : catalogView === "time"
+        ? "新增时间"
+        : "主题";
 }
 
 function id(prefix) {
@@ -1422,6 +1491,9 @@ function cardMarkup(report, archivedView = false) {
       ? "需账号登录"
       : "生产可访问";
   const localHtml = localHtmlForReport(report);
+  const sourceLabel = catalogView === "time"
+    ? addedTimeLabel(report.createdAt)
+    : report.source || "手动添加";
   const hasPreview = !restricted && initialState.reports.some((item) => item.id === report.id);
   const preview = localHtml && report.isHtml
     ? `<iframe class="local-html-preview-frame" title="${escapeHtml(report.title)}视觉预览"
@@ -1441,7 +1513,7 @@ function cardMarkup(report, archivedView = false) {
           ${preview}
         </span>
         <span class="report-copy">
-          <span class="report-source">${escapeHtml(report.source || "手动添加")}</span>
+          <span class="report-source">${escapeHtml(sourceLabel)}</span>
           <strong>${escapeHtml(report.title)}</strong>
           ${(report.tags || []).length
             ? `<span class="report-tags">${report.tags.slice(0, 3).map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</span>`
@@ -1449,7 +1521,7 @@ function cardMarkup(report, archivedView = false) {
           ${restricted ? `<span class="report-access-note">${escapeHtml(accessLabel)}</span>` : ""}
         </span>
       </button>
-      ${archivedView ? "" : `
+      ${archivedView || catalogView === "time" ? "" : `
         <span class="report-drag-handle" role="button" tabindex="0" data-report-drag-id="${escapeHtml(report.id)}"
           aria-label="拖动《${escapeHtml(report.title)}》到其他${currentBucketLabel()}" title="拖动到其他${currentBucketLabel()}">
           <span aria-hidden="true">⠿</span>
@@ -1781,7 +1853,9 @@ function workbenchMarkup() {
     ? "工作类型"
     : catalogView === "tag"
       ? "关键标签"
-      : "工作主题";
+      : catalogView === "time"
+        ? "新增时间"
+        : "工作主题";
   return `
     <main class="app-shell">
       ${studioTopbarMarkup(archiveCount)}
@@ -1816,6 +1890,7 @@ function workbenchMarkup() {
                 <button type="button" role="tab" aria-selected="${catalogView === "topic"}" class="${catalogView === "topic" ? "active" : ""}" data-action="set-view" data-id="topic">主题</button>
                 <button type="button" role="tab" aria-selected="${catalogView === "type"}" class="${catalogView === "type" ? "active" : ""}" data-action="set-view" data-id="type">类型</button>
                 <button type="button" role="tab" aria-selected="${catalogView === "tag"}" class="${catalogView === "tag" ? "active" : ""}" data-action="set-view" data-id="tag">标签</button>
+                <button type="button" role="tab" aria-selected="${catalogView === "time"}" class="${catalogView === "time" ? "active" : ""}" data-action="set-view" data-id="time">新增</button>
               </div>
               <button class="quiet-button add-topic-button" type="button" data-action="add-group">＋ 主题</button>
             </div>
@@ -1844,7 +1919,9 @@ function workbenchMarkup() {
                           <span aria-hidden="true">⠿</span>
                           <small>${String(index + 1).padStart(2, "0")}</small>
                         </span>`
-                      : `<span class="bucket-marker" aria-hidden="true">${bucket.kind === "tag" ? "#" : "类"}</span>`}
+                      : `<span class="bucket-marker" aria-hidden="true">${
+                        bucket.kind === "tag" ? "#" : bucket.kind === "time" ? "时" : "类"
+                      }</span>`}
                     <div class="group-heading-copy">
                       <div><h2>${escapeHtml(bucket.name)}</h2></div>
                       <span class="count">${bucket.reports.length} 份</span>
@@ -2020,7 +2097,7 @@ function bindApp() {
         query = "";
         render();
       } else if (action === "set-view") {
-        if (!["topic", "type", "tag"].includes(itemId)) return;
+        if (!["topic", "type", "tag", "time"].includes(itemId)) return;
         catalogView = itemId;
         movingReportId = "";
         localStorage.setItem(VIEW_KEY, catalogView);
