@@ -175,6 +175,8 @@ input::placeholder {
 .quiet-button {
   border: 1px solid var(--line);
   background: #fff;
+  color: var(--ink);
+  text-decoration: none;
 }
 
 .detect-button {
@@ -491,16 +493,46 @@ input::placeholder {
 
 .card-meta {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 10px;
-  min-height: 38px;
+  gap: 6px;
+  min-height: 42px;
   padding: 0 12px 8px 16px;
   color: #8a919a;
   font-size: 10px;
 }
 
+.source-badge,
+.access-badge {
+  border-radius: 999px;
+  padding: 3px 7px;
+  background: #eef2f8;
+  color: #586679;
+  line-height: 1;
+}
+
+.access-badge {
+  background: #eaf6f1;
+  color: #277158;
+}
+
+.access-badge.access-org {
+  background: #fff2dc;
+  color: #95611f;
+}
+
 .drag-hint {
   cursor: grab;
+}
+
+.external-link {
+  color: var(--blue);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.external-link:hover {
+  text-decoration: underline;
 }
 
 .card-actions {
@@ -548,6 +580,18 @@ input::placeholder {
   transition: border-color 160ms ease, background 160ms ease;
 }
 
+.group-column.is-group-dragging {
+  opacity: 0.48;
+  transform: scale(0.985);
+}
+
+.group-column.is-group-drop-target {
+  border-color: var(--violet);
+  border-style: dashed;
+  background: rgba(239, 235, 255, 0.64);
+  box-shadow: inset 0 0 0 2px rgba(115, 86, 216, 0.08);
+}
+
 .group-column.is-drop-ready {
   border-style: dashed;
 }
@@ -558,20 +602,28 @@ input::placeholder {
 }
 
 .group-header {
-  min-height: 55px;
+  min-height: 76px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 0 13px 0 16px;
+  padding: 11px 11px 11px 16px;
   border-bottom: 1px solid var(--line);
 }
 
-.group-header > div:first-child {
+.group-heading-copy {
   min-width: 0;
+  flex: 1;
   display: flex;
   align-items: center;
   gap: 9px;
+}
+
+.group-heading-copy > div {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 }
 
 .group-header h3 {
@@ -580,6 +632,42 @@ input::placeholder {
   font-size: 13px;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.group-header small {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 9px;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.group-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.group-drag-handle {
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #89919b;
+  cursor: grab;
+  touch-action: none;
+  font-size: 15px;
+}
+
+.group-drag-handle:hover {
+  background: #eef0f3;
+  color: var(--ink);
+}
+
+.group-drag-handle:active {
+  cursor: grabbing;
 }
 
 .accent-dot {
@@ -786,12 +874,27 @@ footer {
 
 .reader-header {
   display: grid;
-  grid-template-columns: 170px minmax(0, 1fr) 90px;
+  grid-template-columns: 170px minmax(0, 1fr) auto;
   align-items: center;
   gap: 18px;
   border-bottom: 1px solid #d2d4d8;
   background: #fff;
   padding: 0 18px;
+}
+
+.reader-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.reader-actions .quiet-button {
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 13px;
+  font-size: 12px;
 }
 
 .back-button {
@@ -925,7 +1028,7 @@ footer {
     grid-template-columns: 120px minmax(0, 1fr);
     padding: 0 10px;
   }
-  .reader-header > .quiet-button {
+  .reader-actions {
     display: none;
   }
   .reader-title {
