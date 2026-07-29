@@ -1,3 +1,12 @@
+import {
+  bindTaskCenter,
+  clearActiveTask,
+  confirmedResultsMarkup,
+  getTaskCounts,
+  hasActiveTask,
+  taskCenterMarkup,
+} from "./task-center.js";
+
 const STORAGE_KEY = "clair-service-report-workbench-v1";
 const AUTH_KEY = "clair-service-report-workbench-access";
 const DATA_VERSION = 4;
@@ -458,6 +467,7 @@ const initialState = {
 let state = loadState();
 let query = "";
 let readerId = "";
+let activeView = "tasks";
 let archiveView = false;
 let draggingId = "";
 let draggingGroupId = "";
@@ -747,14 +757,14 @@ function gateMarkup() {
     <main class="gate-shell">
       <section class="gate-card">
         <div class="brand-mark">C</div>
-        <span class="eyebrow">CLAIR · DECISION LIBRARY</span>
-        <h1>Clair AI Studio</h1>
-        <p>把分散的产品研究、AI 实践与投研成果，整理成可预览、可检索、可复用的决策资产。</p>
+        <span class="eyebrow">CLAIR · AI WORKSPACE</span>
+        <h1>Clair的工作台</h1>
+        <p>投入材料，完成关键任务，把确认后的结果沉淀为可复用成果。</p>
         <form class="login-form" id="login-form">
           <label for="password">访问口令</label>
           <div class="password-row">
             <input id="password" name="password" type="password" inputmode="numeric" autocomplete="current-password" placeholder="请输入口令" autofocus />
-            <button type="submit" class="primary-button">进入 Studio</button>
+            <button type="submit" class="primary-button">进入工作台</button>
           </div>
           <p class="form-error" hidden></p>
         </form>
@@ -810,21 +820,28 @@ function readerMarkup(report) {
 }
 
 function studioTopbarMarkup(archiveCount) {
+  const taskCounts = getTaskCounts();
   return `
     <header class="topbar">
       <div class="brand">
         <div class="brand-mark small">C</div>
-        <div><strong>Clair AI Studio</strong><span>Decision Library</span></div>
+        <div><strong>Clair的工作台</strong><span>AI WORKSPACE</span></div>
       </div>
-      <label class="search">
-        <input id="search-input" value="${escapeHtml(query)}" placeholder="${archiveView ? "搜索归档报告" : "搜索报告"}" aria-label="${archiveView ? "搜索归档报告" : "搜索报告"}" />
-        ${query ? '<button type="button" data-action="clear-search">清除</button>' : ""}
-      </label>
-      <div class="top-actions">
-        <button class="quiet-button archive-nav-button" type="button" data-action="${archiveView ? "show-catalog" : "show-archive"}">
-          ${archiveView ? "返回主目录" : `归档区${archiveCount ? `<span>${archiveCount}</span>` : ""}`}
+      <nav class="workspace-tabs" aria-label="工作台导航">
+        <button type="button" data-action="show-tasks" class="${activeView === "tasks" && !archiveView ? "active" : ""}">
+          任务中心${taskCounts.active ? `<span>${taskCounts.active}</span>` : ""}
         </button>
-        ${archiveView ? "" : '<button class="primary-button" type="button" data-action="add-report">新增报告</button>'}
+        <button type="button" data-action="show-results" class="${activeView === "results" && !archiveView ? "active" : ""}">
+          成果区${taskCounts.confirmed ? `<span>${taskCounts.confirmed}</span>` : ""}
+        </button>
+      </nav>
+      <div class="top-actions">
+        ${activeView === "results" || archiveView
+          ? `<button class="quiet-button archive-nav-button" type="button" data-action="${archiveView ? "show-results" : "show-archive"}">
+              ${archiveView ? "返回成果区" : `归档${archiveCount ? `<span>${archiveCount}</span>` : ""}`}
+            </button>
+            ${archiveView ? "" : '<button class="primary-button" type="button" data-action="add-report">新增成果</button>'}`
+          : '<button class="quiet-button" type="button" data-action="lock">退出</button>'}
       </div>
     </header>`;
 }
@@ -879,6 +896,23 @@ function archiveMarkup() {
 
 function workbenchMarkup() {
   if (archiveView) return archiveMarkup();
+  if (hasActiveTask()) {
+    return `
+      <main class="app-shell">
+        ${studioTopbarMarkup(state.reports.filter((report) => report.archived).length)}
+        ${taskCenterMarkup(escapeHtml)}
+        <footer><span>CLAIR'S WORKSPACE</span><span>Human in the loop · 2026-07-29</span></footer>
+      </main>`;
+  }
+  if (activeView === "tasks") {
+    return `
+      <main class="app-shell">
+        ${studioTopbarMarkup(state.reports.filter((report) => report.archived).length)}
+        ${taskCenterMarkup(escapeHtml)}
+        <footer><span>CLAIR'S WORKSPACE</span><span>Human in the loop · 2026-07-29</span></footer>
+        ${modalMarkup()}
+      </main>`;
+  }
   const normalized = query.trim().toLowerCase();
   const activeReports = state.reports.filter((report) => !report.archived);
   const reports = normalized
@@ -902,11 +936,19 @@ function workbenchMarkup() {
     <main class="app-shell">
       ${studioTopbarMarkup(archiveCount)}
       <section class="workspace">
+        <div class="results-toolbar">
+          <div><span class="eyebrow">RESULTS</span><h1>成果区</h1></div>
+          <label class="search results-search">
+            <input id="search-input" value="${escapeHtml(query)}" placeholder="搜索成果" aria-label="搜索成果" />
+            ${query ? '<button type="button" data-action="clear-search">清除</button>' : ""}
+          </label>
+        </div>
+        ${confirmedResultsMarkup(escapeHtml)}
         <div class="hero-row">
           <div class="hero-copy">
-            <span class="eyebrow">CLAIR AI STUDIO · PRODUCTION ARCHIVE</span>
-            <h1>把分散的研究，<br />变成可复用的决策资产。</h1>
-            <p>围绕产品、AI、投研与经营，按主题归档已发布成果。先看关键画面，再进入完整报告；需要权限的内容也有明确登录路径。</p>
+            <span class="eyebrow">PUBLISHED WORK</span>
+            <h1>已发布成果</h1>
+            <p>按工作主题整理，可拖动分组与内容。</p>
           </div>
           <div class="studio-summary" aria-label="报告统计">
             <strong>${activeReports.length}</strong>
@@ -967,6 +1009,15 @@ function render() {
   const report = readerId && state.reports.find((item) => item.id === readerId);
   app.innerHTML = report ? readerMarkup(report) : workbenchMarkup();
   bindApp();
+  bindTaskCenter({
+    render,
+    escapeHtml,
+    showToast,
+    showResults: () => {
+      activeView = "results";
+      archiveView = false;
+    },
+  });
 }
 
 function bindGate() {
@@ -1047,7 +1098,21 @@ function bindApp() {
       } else if (action === "clear-search") {
         query = "";
         render();
+      } else if (action === "show-tasks") {
+        activeView = "tasks";
+        archiveView = false;
+        readerId = "";
+        clearActiveTask();
+        render();
+      } else if (action === "show-results") {
+        activeView = "results";
+        archiveView = false;
+        readerId = "";
+        query = "";
+        clearActiveTask();
+        render();
       } else if (action === "show-archive") {
+        activeView = "results";
         archiveView = true;
         query = "";
         readerId = "";
