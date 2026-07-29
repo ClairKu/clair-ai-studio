@@ -14,7 +14,7 @@ import {
 const STORAGE_KEY = "clair-service-report-workbench-v1";
 const AUTH_KEY = "clair-service-report-workbench-access";
 const VIEW_KEY = "clair-service-report-workbench-view";
-const DATA_VERSION = 6;
+const DATA_VERSION = 7;
 
 const WORK_TYPES = [
   { id: "requirement-review", name: "需求评审" },
@@ -868,7 +868,9 @@ function migrateState(saved) {
     if (!savedReport) return report;
     return {
       ...report,
-      title: savedReport.title || report.title,
+      title: saved.version >= DATA_VERSION
+        ? savedReport.title || report.title
+        : report.title,
       groupId: saved.version >= DATA_VERSION &&
         uniqueGroups.some((group) => group.id === savedReport.groupId)
         ? savedReport.groupId
