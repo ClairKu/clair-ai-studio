@@ -7279,3 +7279,14 @@ body.global-drag-ready .global-drop-overlay {
     gap: 1px;
   }
 }
+
+/* Studio typography — carry the masthead's literary serif voice throughout. */
+:root {
+  --studio-art-font: Georgia, "Songti SC", STSong, "Noto Serif CJK SC",
+    "Noto Serif SC", "Times New Roman", serif;
+}
+
+#app,
+#app * {
+  font-family: var(--studio-art-font) !important;
+}

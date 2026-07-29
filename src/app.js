@@ -1863,7 +1863,7 @@ function workbenchMarkup() {
             <label class="search results-search">
               <span aria-hidden="true">⌕</span>
               <input id="search-input" type="search" value="${escapeHtml(query)}"
-                placeholder="Find a result" aria-label="找到一个成果"
+                placeholder="Rediscover your work" aria-label="找到一个成果"
                 autocomplete="off" spellcheck="false" enterkeyhint="search" />
               ${query ? '<button type="button" data-action="clear-search">清除</button>' : ""}
             </label>

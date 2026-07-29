@@ -126,7 +126,7 @@ export function taskWorkspaceMarkup(escapeHtml) {
       <form class="prompt-composer compact-intake-composer" id="task-composer">
         <div class="compact-intake-row">
           <span class="intake-entry-mark" aria-hidden="true">✦</span>
-          <textarea id="task-goal" rows="1" placeholder="Run a task"
+          <textarea id="task-goal" rows="1" placeholder="Set an idea in motion"
             aria-label="执行一个任务；输入或粘贴内容">${escapeHtml(draft.material)}</textarea>
           <div class="intake-actions compact-task-actions" aria-label="处理方式">
             <label class="intake-action intake-icon-action compact-upload-button"
