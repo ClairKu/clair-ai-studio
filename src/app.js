@@ -10,6 +10,7 @@ import {
   reportEditorMarkup,
   sharePublishedReport,
 } from "./report-editor.js";
+import { normalizeSearchText, reportMatchesQuery } from "./search.js";
 
 const STORAGE_KEY = "clair-service-report-workbench-v1";
 const AUTH_KEY = "clair-service-report-workbench-access";
@@ -1250,7 +1251,7 @@ function addedTimeLabel(value) {
 
 function classificationBuckets(reports, normalizedQuery = "") {
   const matchesName = (name) =>
-    !normalizedQuery || name.toLowerCase().includes(normalizedQuery);
+    !normalizedQuery || normalizeSearchText(name).includes(normalizedQuery);
   if (catalogView === "time") {
     const byDate = new Map();
     [...reports]
@@ -1787,13 +1788,10 @@ function studioTopbarMarkup(archiveCount) {
 function archiveMarkup() {
   const archivedReports = state.reports
     .filter((report) => report.archived)
-    .filter((report) => {
-      if (!query.trim()) return true;
-      const normalized = query.trim().toLowerCase();
-      return `${report.title} ${report.url} ${report.source || ""}`
-        .toLowerCase()
-        .includes(normalized);
-    })
+    .filter((report) => reportMatchesQuery(report, query, {
+      group: state.groups.find((group) => group.id === report.groupId),
+      workTypeName: workTypeName(report.workType),
+    }))
     .sort((a, b) => new Date(b.archivedAt || 0) - new Date(a.archivedAt || 0));
   const archiveCount = state.reports.filter((report) => report.archived).length;
   return `
@@ -1834,15 +1832,13 @@ function archiveMarkup() {
 
 function workbenchMarkup() {
   if (archiveView) return archiveMarkup();
-  const normalized = query.trim().toLowerCase();
-  const searchTokens = normalized.split(/\s+/).filter(Boolean);
+  const normalized = normalizeSearchText(query);
   const activeReports = state.reports.filter((report) => !report.archived);
-  const reports = searchTokens.length
-    ? activeReports.filter((report) => {
-      const haystack = `${report.title} ${report.source || ""} ${report.access || ""} ${workTypeName(report.workType)} ${(report.tags || []).join(" ")}`
-        .toLowerCase();
-      return searchTokens.every((token) => haystack.includes(token));
-    })
+  const reports = normalized
+    ? activeReports.filter((report) => reportMatchesQuery(report, normalized, {
+      group: state.groups.find((group) => group.id === report.groupId),
+      workTypeName: workTypeName(report.workType),
+    }))
     : activeReports;
   const archiveCount = state.reports.filter((report) => report.archived).length;
   const productionCount = activeReports.filter((report) => report.access === "production").length;
@@ -1866,11 +1862,13 @@ function workbenchMarkup() {
           <div class="results-toolbar-side">
             <label class="search results-search">
               <span aria-hidden="true">⌕</span>
-              <input id="search-input" value="${escapeHtml(query)}" aria-label="搜索成果" />
+              <input id="search-input" type="search" value="${escapeHtml(query)}"
+                placeholder="Find a result" aria-label="找到一个成果"
+                autocomplete="off" spellcheck="false" enterkeyhint="search" />
               ${query ? '<button type="button" data-action="clear-search">清除</button>' : ""}
             </label>
             <div class="studio-summary compact-summary" aria-label="成果统计">
-              <strong>${activeReports.length}</strong><span>成果</span>
+              <strong>${normalized ? reports.length : activeReports.length}</strong><span>${normalized ? "匹配" : "成果"}</span>
               <i></i>
               <strong>${state.groups.length}</strong><span>主题</span>
               <i></i>
@@ -1948,7 +1946,8 @@ function workbenchMarkup() {
               </div>
             </div>` : `
             <div class="no-results">
-              <strong>没有找到相关报告</strong>
+              <strong>没有找到“${escapeHtml(query.trim())}”</strong>
+              <span>可搜索标题、标签、来源、任务类型或主题</span>
               <button type="button" data-action="clear-search">清除搜索</button>
             </div>`}
           <div class="catalog-note">
@@ -2026,14 +2025,24 @@ async function detectTitle(form) {
 }
 
 function bindApp() {
-  document.getElementById("search-input")?.addEventListener("input", (event) => {
+  const searchInput = document.getElementById("search-input");
+  searchInput?.addEventListener("input", (event) => {
     // 注音、拼音等输入法组合输入期间不能重绘，否则候选字会被逐键拆开。
     if (event.isComposing) return;
     query = event.target.value;
+    const selectionStart = event.target.selectionStart;
+    const selectionEnd = event.target.selectionEnd;
     render();
     const input = document.getElementById("search-input");
     input?.focus();
-    input?.setSelectionRange(query.length, query.length);
+    input?.setSelectionRange(selectionStart, selectionEnd);
+  });
+  searchInput?.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape" || !query) return;
+    event.preventDefault();
+    query = "";
+    render();
+    document.getElementById("search-input")?.focus();
   });
 
   document.querySelectorAll("[data-action]").forEach((element) => {
@@ -2097,6 +2106,7 @@ function bindApp() {
       } else if (action === "clear-search") {
         query = "";
         render();
+        document.getElementById("search-input")?.focus();
       } else if (action === "set-view") {
         if (!["topic", "type", "tag", "time"].includes(itemId)) return;
         catalogView = itemId;
