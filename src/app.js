@@ -1,7 +1,6 @@
 import {
   bindTaskCenter,
   confirmedResultsMarkup,
-  getTaskCounts,
   taskWorkspaceMarkup,
 } from "./task-center.js";
 
@@ -1228,23 +1227,16 @@ function readerMarkup(report) {
 }
 
 function studioTopbarMarkup(archiveCount) {
-  const taskCounts = getTaskCounts();
   return `
     <header class="topbar">
       <div class="brand">
         <div class="brand-mark small">C</div>
         <div><strong>Clair's Studio</strong></div>
       </div>
-      <div class="topbar-location">
-        <span class="location-dot"></span>
-        <strong>${archiveView ? "Archive" : "Library"}</strong>
-        ${!archiveView && taskCounts.active ? `<span>${taskCounts.active} 项待处理</span>` : ""}
-      </div>
       <div class="top-actions">
-        <button class="quiet-button archive-nav-button" type="button" data-action="${archiveView ? "show-catalog" : "show-archive"}">
-          ${archiveView ? "返回" : `归档${archiveCount ? `<span>${archiveCount}</span>` : ""}`}
-        </button>
-        ${archiveView ? "" : '<button class="primary-button" type="button" data-action="add-report"><span aria-hidden="true">＋</span> 新增</button>'}
+        ${archiveView
+          ? '<button class="quiet-button" type="button" data-action="show-catalog">← 返回成果库</button>'
+          : '<button class="primary-button" type="button" data-action="add-report"><span aria-hidden="true">＋</span> 新增</button>'}
       </div>
     </header>`;
 }
@@ -1326,13 +1318,10 @@ function workbenchMarkup() {
         ${taskWorkspaceMarkup(escapeHtml)}
         <div class="results-toolbar unified-results-toolbar">
           <h1 class="sr-only">Clair's Studio 成果库</h1>
-          <div class="results-title" aria-label="成果概览">
-            <span class="library-label">Library</span>
-            <strong>${activeReports.length}</strong>
-            <span>works</span>
-          </div>
           <div class="results-toolbar-side">
             <div class="studio-summary compact-summary" aria-label="成果统计">
+              <strong>${activeReports.length}</strong><span>成果</span>
+              <i></i>
               <strong>${state.groups.length}</strong><span>主题</span>
               <i></i>
               <strong>${productionCount}</strong><span>直达</span>
@@ -1365,6 +1354,12 @@ function workbenchMarkup() {
             <div class="library-layout">
               <nav class="topic-nav" aria-label="报告${viewName}">
                 ${visibleBuckets.map((bucket, index) => `<a href="#bucket-${index}"><span class="nav-index">${String(index + 1).padStart(2, "0")}</span>${escapeHtml(bucket.name)}<span>${bucket.reports.length}</span></a>`).join("")}
+                <span class="library-nav-spacer" aria-hidden="true"></span>
+                <button class="library-nav-utility" type="button" data-action="show-archive">
+                  <span aria-hidden="true">⌑</span>
+                  <strong>归档</strong>
+                  ${archiveCount ? `<em>${archiveCount}</em>` : ""}
+                </button>
               </nav>
               <div class="board catalog-view-${catalogView}">
               ${visibleBuckets.map((bucket, index) => `

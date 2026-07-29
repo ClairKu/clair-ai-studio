@@ -1,12 +1,12 @@
 const TASK_STORAGE_KEY = "clair-ai-studio-tasks-v1";
 
 export const taskSkills = [
-  { id: "auto", name: "智能识别", icon: "✦", hint: "让 AI 判断最适合的任务" },
-  { id: "requirement", name: "需求评审", icon: "需", hint: "价值、范围、规则、验收" },
-  { id: "solution", name: "方案评审", icon: "案", hint: "体验、逻辑、可行性、风险" },
-  { id: "decision", name: "决策推演", icon: "决", hint: "选项、证据、取舍、止损" },
-  { id: "agreement", name: "协议审查", icon: "协", hint: "权责、数据、责任、退出" },
-  { id: "career", name: "履历评估", icon: "历", hint: "事实、能力、匹配、核验" },
+  { id: "auto", name: "智能识别", summon: "自动派单", icon: "✦", hint: "让 AI 判断最适合的任务" },
+  { id: "requirement", name: "需求评审", summon: "需求专家", icon: "需", hint: "价值、范围、规则、验收" },
+  { id: "solution", name: "方案评审", summon: "方案专家", icon: "案", hint: "体验、逻辑、可行性、风险" },
+  { id: "decision", name: "决策推演", summon: "决策顾问", icon: "决", hint: "选项、证据、取舍、止损" },
+  { id: "agreement", name: "协议审查", summon: "协议专家", icon: "协", hint: "权责、数据、责任、退出" },
+  { id: "career", name: "履历评估", summon: "履历顾问", icon: "历", hint: "事实、能力、匹配、核验" },
 ];
 
 let tasks = loadTasks();
@@ -120,6 +120,16 @@ function skillCardsMarkup(escapeHtml) {
     </button>`).join("");
 }
 
+function expertSummonerMarkup(escapeHtml) {
+  return taskSkills.map((skill) => `
+    <button class="expert-choice ${draft.skillId === skill.id ? "selected" : ""}" type="button"
+      data-task-action="choose-skill" data-skill-id="${skill.id}"
+      title="${escapeHtml(skill.hint)}" aria-pressed="${draft.skillId === skill.id}">
+      <span>${escapeHtml(skill.icon)}</span>
+      <strong>@${escapeHtml(skill.summon)}</strong>
+    </button>`).join("");
+}
+
 function attachmentsMarkup(escapeHtml) {
   if (!draft.files.length) return "";
   return `<div class="attachment-list">${draft.files.map((file) => `
@@ -170,50 +180,30 @@ export function taskWorkspaceMarkup(escapeHtml) {
     if (task) return taskDetailMarkup(task, escapeHtml);
     activeTaskId = "";
   }
-  if (!launcherExpanded) {
-    return `
-      <section class="inline-task-launcher" aria-label="发起任务">
-        <div class="quick-task-entry">
-          <span class="quick-task-icon" aria-hidden="true">✦</span>
-          <input id="task-quick-goal" value="${escapeHtml(draft.goal)}" placeholder="想完成什么？" aria-label="想完成什么" />
-          <div class="quick-task-actions">
-            <button class="attachment-shortcut" type="button" data-task-action="expand-launcher">添加材料</button>
-            <button class="primary-button" type="button" data-task-action="expand-launcher">开始 <span aria-hidden="true">↗</span></button>
-          </div>
-        </div>
-        ${taskProgressMarkup(escapeHtml)}
-      </section>`;
-  }
   return `
-    <section class="inline-task-launcher expanded" aria-label="任务工作区">
-      <form class="task-composer inline-task-composer" id="task-composer">
-        <header class="inline-composer-header">
-          <div><h2>发起任务</h2></div>
-          <button class="quiet-button" type="button" data-task-action="collapse-launcher">收起</button>
-        </header>
-        <section class="inline-goal-panel">
-          <label for="task-goal">希望最后帮你解决什么？</label>
-          <textarea id="task-goal" rows="3" placeholder="例如：判断这个需求能否进入研发，并给出必须补齐的 P0 问题">${escapeHtml(draft.goal)}</textarea>
-        </section>
-        <div class="inline-composer-grid">
-          <section class="inline-material-panel">
-            <div class="inline-panel-heading"><span>01</span><div><strong>投入材料</strong></div></div>
-            <label class="material-drop" id="material-drop">
-              <input id="task-files" type="file" multiple />
-              <span class="drop-icon">＋</span>
-              <strong>添加文件</strong>
-              <small>PDF、Word、PPT、表格、图片</small>
-            </label>
-            ${attachmentsMarkup(escapeHtml)}
-            <textarea id="task-material" rows="6" placeholder="粘贴文字、聊天记录、链接、会议纪要……">${escapeHtml(draft.material)}</textarea>
-          </section>
-          <section class="inline-skill-panel">
-            <div class="inline-panel-heading"><span>02</span><div><strong>选择能力</strong></div></div>
-            <div class="skill-grid">${skillCardsMarkup(escapeHtml)}</div>
-          </section>
+    <section class="inline-task-launcher prompt-launcher" aria-label="发起任务">
+      <form class="prompt-composer" id="task-composer">
+        <div class="prompt-main">
+          <span class="prompt-orb" aria-hidden="true">✦</span>
+          <textarea id="task-goal" rows="3" placeholder="描述你想完成的事，或把文档、图片直接拖进来……" aria-label="任务描述">${escapeHtml(draft.goal)}</textarea>
         </div>
-        <div class="composer-submit">
-          <button class="primary-button task-start-button" type="submit">开始工作 <i>↗</i></button>
+        ${attachmentsMarkup(escapeHtml)}
+        <div class="prompt-footer">
+          <div class="prompt-material-actions">
+            <label class="prompt-file-button" for="task-files">
+              <input id="task-files" type="file" multiple />
+              <span aria-hidden="true">＋</span>
+              <strong>材料</strong>
+            </label>
+            <span class="paste-hint">拖入文件 · ⌘V 粘贴图片</span>
+          </div>
+          <div class="expert-summoner" aria-label="召唤专家">
+            <span class="summon-label">召唤</span>
+            <div class="expert-strip">${expertSummonerMarkup(escapeHtml)}</div>
+          </div>
+          <button class="prompt-submit" type="submit" aria-label="开始任务">
+            <span>开始</span><i aria-hidden="true">↑</i>
+          </button>
         </div>
       </form>
       ${taskProgressMarkup(escapeHtml)}
@@ -425,13 +415,13 @@ export function bindTaskCenter({ render, escapeHtml, showToast, showResults }) {
     event.preventDefault();
     captureDraft();
     if (!draft.goal.trim()) {
-      showToast("请先写下希望解决的目标");
-      document.getElementById("task-goal")?.focus();
-      return;
-    }
-    if (!draft.material.trim() && !draft.files.length) {
-      showToast("请拖入文件或粘贴一些材料");
-      return;
+      if (draft.files.length) {
+        draft.goal = "分析已提供的材料";
+      } else {
+        showToast("写下任务，或先加入一份材料");
+        document.getElementById("task-goal")?.focus();
+        return;
+      }
     }
     const resolvedSkillId = draft.skillId === "auto"
       ? inferSkill(`${draft.goal}\n${draft.material}\n${draft.files.map((file) => file.name).join(" ")}`)
@@ -446,7 +436,7 @@ export function bindTaskCenter({ render, escapeHtml, showToast, showResults }) {
       skillName: skill.name,
       skillVersion: "1.0.0",
       goal: draft.goal.trim(),
-      material: draft.material.trim(),
+      material: draft.material.trim() || draft.goal.trim(),
       files: draft.files,
       status: "review",
       createdAt: now,
@@ -472,7 +462,8 @@ export function bindTaskCenter({ render, escapeHtml, showToast, showResults }) {
     showToast(`已加入 ${event.target.files.length} 个文件`);
   });
 
-  const drop = document.getElementById("material-drop");
+  const drop = document.getElementById("material-drop")
+    || document.querySelector(".prompt-composer");
   drop?.addEventListener("dragover", (event) => {
     event.preventDefault();
     drop.classList.add("drag-over");
@@ -488,20 +479,25 @@ export function bindTaskCenter({ render, escapeHtml, showToast, showResults }) {
     showToast(`已加入 ${files.length} 个文件`);
   });
 
-  const quickGoal = document.getElementById("task-quick-goal");
-  quickGoal?.addEventListener("input", () => {
-    draft.goal = quickGoal.value;
+  const prompt = document.getElementById("task-goal");
+  prompt?.addEventListener("input", () => {
+    draft.goal = prompt.value;
   });
-  quickGoal?.addEventListener("focus", () => {
-    draft.goal = quickGoal.value;
-    launcherExpanded = true;
+  prompt?.addEventListener("paste", async (event) => {
+    const imageFiles = [...(event.clipboardData?.items || [])]
+      .filter((item) => item.kind === "file" && item.type.startsWith("image/"))
+      .map((item) => item.getAsFile())
+      .filter(Boolean);
+    if (!imageFiles.length) return;
+    event.preventDefault();
+    const pastedText = event.clipboardData.getData("text/plain");
+    const start = prompt.selectionStart ?? prompt.value.length;
+    const end = prompt.selectionEnd ?? start;
+    draft.goal = `${prompt.value.slice(0, start)}${pastedText}${prompt.value.slice(end)}`;
+    draft.files.push(...await filesToRecords(imageFiles));
     render();
-    requestAnimationFrame(() => {
-      const goal = document.getElementById("task-goal");
-      goal?.focus();
-      goal?.setSelectionRange(goal.value.length, goal.value.length);
-    });
-  }, { once: true });
+    showToast(`已从剪贴板加入 ${imageFiles.length} 张图片`);
+  });
 }
 
 function captureDraft() {
