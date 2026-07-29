@@ -114,6 +114,17 @@ const initialState = {
   ],
   reports: [
     {
+      id: "yingmi-ai-materials-compendium-2026-07-30",
+      groupId: "ai-platform",
+      title: "盈米 AI 业务全景档案｜OAP × 小顾 × 顾问工作台",
+      url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-ai-materials-compendium-2026-07-30/",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-07-30T06:30:00.000Z",
+      source: "飞书根材料与 40 个档案节点",
+      access: "production",
+    },
+    {
       id: "seed-mcp-benchmark",
       groupId: "ai-platform",
       title: "三家金融 MCP / Skills 服务最完整对比｜010350 同题实测",
@@ -623,6 +634,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "yingmi-ai-materials-compendium-2026-07-30": "reporting",
   "seed-mcp-benchmark": "competitive-research",
   "seed-fund-report": "investment-research",
   "storage-big-three-fund-screening": "investment-research",
@@ -672,6 +684,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "yingmi-ai-materials-compendium-2026-07-30": "ai-platform",
   "qieman-home-entry-analysis": "product-planning",
   "qieman-app-map": "product-planning",
   "qieman-app-deep-analysis": "product-planning",
