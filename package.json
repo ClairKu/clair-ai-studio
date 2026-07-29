@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "package:reports": "node scripts/package-recent-reports.mjs",
     "preview": "vite preview"
   },
   "devDependencies": {

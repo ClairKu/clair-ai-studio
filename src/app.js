@@ -7,7 +7,38 @@ import {
 
 const STORAGE_KEY = "clair-service-report-workbench-v1";
 const AUTH_KEY = "clair-service-report-workbench-access";
-const DATA_VERSION = 5;
+const VIEW_KEY = "clair-service-report-workbench-view";
+const DATA_VERSION = 6;
+
+const WORK_TYPES = [
+  { id: "requirement-review", name: "需求评审" },
+  { id: "reporting", name: "汇报材料" },
+  { id: "competitive-research", name: "竞品调研" },
+  { id: "product-planning", name: "产品规划" },
+  { id: "data-analysis", name: "数据分析" },
+  { id: "investment-research", name: "投研分析" },
+  { id: "governance-review", name: "治理审查" },
+  { id: "product-demo", name: "原型 Demo" },
+];
+
+const TAG_ORDER = [
+  "本体",
+  "飞书",
+  "调研",
+  "AI 小顾",
+  "AI 工作台",
+  "AI 开放平台",
+  "且慢",
+  "OAP",
+  "MCP",
+  "Skills",
+  "投顾服务",
+  "投研",
+  "数据分析",
+  "需求评审",
+  "经营汇报",
+  "知识治理",
+];
 
 const initialState = {
   version: DATA_VERSION,
@@ -20,17 +51,17 @@ const initialState = {
       position: 0,
     },
     {
-      id: "product-planning",
-      name: "产品规划与需求评审",
-      description: "PRD、原型、需求评审与体验优化",
-      accent: "blue",
+      id: "xiaogu",
+      name: "AI 小顾与投顾服务",
+      description: "AI 小顾、顾问服务与客户体验",
+      accent: "green",
       position: 1,
     },
     {
-      id: "xiaogu",
-      name: "AI 小顾与且慢体验",
-      description: "AI 小顾、且慢服务与对客体验",
-      accent: "green",
+      id: "ai-workbench",
+      name: "AI 工作台与生产力",
+      description: "个人工作台、评审工具与 AI 生产力",
+      accent: "blue",
       position: 2,
     },
     {
@@ -41,25 +72,32 @@ const initialState = {
       position: 3,
     },
     {
-      id: "research",
-      name: "投研与服务内容",
-      description: "基金研究、策略分析与服务报告",
-      accent: "amber",
+      id: "product-planning",
+      name: "且慢产品与体验",
+      description: "产品规划、体验分析与交互方案",
+      accent: "blue",
       position: 4,
     },
     {
-      id: "knowledge",
-      name: "SOUL 知识治理",
-      description: "来源治理与可复用知识资产",
-      accent: "slate",
+      id: "research",
+      name: "投研与策略研究",
+      description: "基金、策略与资产配置研究",
+      accent: "amber",
       position: 5,
     },
     {
       id: "reporting",
-      name: "经营汇报与协同",
-      description: "周报、汇报、招聘与跨团队推进",
+      name: "经营分析与汇报",
+      description: "业务分析、周报与管理汇报",
       accent: "blue",
       position: 6,
+    },
+    {
+      id: "knowledge",
+      name: "知识治理与组织协同",
+      description: "本体、飞书、SOUL 与知识资产",
+      accent: "slate",
+      position: 7,
     },
   ],
   reports: [
@@ -470,13 +508,186 @@ const initialState = {
       source: "研究库",
       access: "org",
     },
+    {
+      id: "ai-weekly-2026-07-13",
+      groupId: "reporting",
+      title: "AI 项目周报｜2026-07-13",
+      url: "https://clairku.github.io/clair-ai-studio/reports/ai-weekly-2026-07-13/",
+      pinned: false,
+      position: 3,
+      createdAt: "2026-07-13T02:20:23.000Z",
+      source: "近月补录",
+      access: "production",
+    },
+    {
+      id: "pension-business-analysis",
+      groupId: "reporting",
+      title: "盈米及且慢养老金业务分析",
+      url: "https://clairku.github.io/clair-ai-studio/reports/pension-business-analysis-2026-07/",
+      pinned: false,
+      position: 4,
+      createdAt: "2026-07-13T08:47:33.000Z",
+      source: "近月补录",
+      access: "production",
+    },
+    {
+      id: "advisor-2-business-onboarding",
+      groupId: "reporting",
+      title: "盈米投顾 2.0｜新负责人业务入职报告",
+      url: "https://clairku.github.io/clair-ai-studio/reports/advisor-2-business-onboarding-2026-07/",
+      pinned: false,
+      position: 5,
+      createdAt: "2026-07-13T09:12:10.000Z",
+      source: "近月补录",
+      access: "production",
+    },
+    {
+      id: "schwab-ria-benchmark",
+      groupId: "reporting",
+      title: "嘉信 2026 RIA 基准调研｜对盈米与且慢的启示",
+      url: "https://clairku.github.io/clair-ai-studio/reports/schwab-ria-benchmark-2026/",
+      pinned: false,
+      position: 6,
+      createdAt: "2026-07-22T02:40:53.000Z",
+      source: "近月补录",
+      access: "production",
+    },
+    {
+      id: "skill-audit-2026-07-16",
+      groupId: "ai-workbench",
+      title: "25 项 Skills 可用性与一致性审查",
+      url: "https://clairku.github.io/clair-ai-studio/reports/skill-audit-2026-07-16/",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-07-16T03:30:04.000Z",
+      source: "近月补录",
+      access: "production",
+    },
+    {
+      id: "yingmi-ai-capability-system",
+      groupId: "ai-platform",
+      title: "盈米 AI 能力体系专业报告｜2026.07",
+      url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-ai-capability-system-2026-07/",
+      pinned: false,
+      position: 8,
+      createdAt: "2026-07-13T09:43:42.000Z",
+      source: "近月补录",
+      access: "production",
+    },
   ],
 };
+
+const WORK_TYPE_BY_REPORT = {
+  "seed-mcp-benchmark": "competitive-research",
+  "seed-fund-report": "investment-research",
+  "storage-big-three-fund-screening": "investment-research",
+  "seed-agreement": "governance-review",
+  "seed-xiaogu": "product-planning",
+  "seed-strategy": "investment-research",
+  "seed-ecosystem": "product-demo",
+  "qieman-library-index": "governance-review",
+  "qieman-advisor-inventory": "product-planning",
+  "qieman-advisor-direction-research": "product-planning",
+  "qieman-advisor-v09": "product-planning",
+  "qieman-network-research": "competitive-research",
+  "qieman-advisor-final": "product-planning",
+  "qieman-advisor-demo": "product-demo",
+  "qieman-advisor-plan": "product-planning",
+  "qieman-home-entry-analysis": "data-analysis",
+  "qieman-advisor-click-analysis": "data-analysis",
+  "qieman-app-map": "product-planning",
+  "qieman-app-deep-analysis": "data-analysis",
+  "qieman-app-usage": "data-analysis",
+  "qieman-app-roadmap": "product-planning",
+  "qieman-ai-native": "product-planning",
+  "oap-progress-roadmap": "reporting",
+  "oap-metrics-trend": "data-analysis",
+  "oap-reporting-framework": "reporting",
+  "oap-traffic-analysis": "data-analysis",
+  "eastmoney-platform": "competitive-research",
+  "qieman-strategy-explorer": "investment-research",
+  "financial-planning-review": "requirement-review",
+  "investment-behavior-report": "data-analysis",
+  "product-review-workbench": "product-demo",
+  "community-ai-review": "requirement-review",
+  "jinzhenzi-review": "governance-review",
+  "jinzhenzi-history": "competitive-research",
+  "xiaogu-user-needs": "product-planning",
+  "qieman-ai-advisor-ecosystem": "product-demo",
+  "oap-h2-plan": "reporting",
+  "ai-weekly-2026-07-13": "reporting",
+  "pension-business-analysis": "reporting",
+  "advisor-2-business-onboarding": "reporting",
+  "schwab-ria-benchmark": "competitive-research",
+  "skill-audit-2026-07-16": "governance-review",
+  "yingmi-ai-capability-system": "reporting",
+};
+
+const TOPIC_BY_REPORT = {
+  "qieman-home-entry-analysis": "product-planning",
+  "qieman-app-map": "product-planning",
+  "qieman-app-deep-analysis": "product-planning",
+  "qieman-app-usage": "product-planning",
+  "qieman-app-roadmap": "product-planning",
+  "financial-planning-review": "xiaogu",
+  "investment-behavior-report": "xiaogu",
+  "product-review-workbench": "ai-workbench",
+  "community-ai-review": "ai-workbench",
+  "qieman-ai-advisor-ecosystem": "ai-platform",
+  "oap-h2-plan": "ai-platform",
+};
+
+function inferWorkType(report) {
+  const text = `${report.title || ""} ${report.source || ""}`;
+  if (/需求评审|评审工作台/.test(text)) return "requirement-review";
+  if (/竞品|对比|调研|研究/.test(text)) return "competitive-research";
+  if (/周报|汇报|进展|规划|里程碑|业务分析/.test(text)) return "reporting";
+  if (/数据|趋势|点击|转化|画像|使用/.test(text)) return "data-analysis";
+  if (/基金|策略|投研|资产配置/.test(text)) return "investment-research";
+  if (/审查|治理|知识/.test(text)) return "governance-review";
+  if (/Demo|工作台|原型/.test(text)) return "product-demo";
+  return "product-planning";
+}
+
+function inferTags(report, workType = inferWorkType(report)) {
+  const text = `${report.id || ""} ${report.groupId || ""} ${report.title || ""} ${report.url || ""}`;
+  const tags = [];
+  const add = (tag) => {
+    if (!tags.includes(tag)) tags.push(tag);
+  };
+  if (/ontology\.yingmi-inc\.com|本体/.test(text)) add("本体");
+  if (/feishu\.cn|飞书|community-ai-review|oap-h2-plan/.test(text)) add("飞书");
+  if (workType === "competitive-research" || /调研|研究|盘点/.test(text)) add("调研");
+  if (/xiaogu|小顾|财务规划|投资行为/.test(text) || report.groupId === "xiaogu") add("AI 小顾");
+  if (/workbench|工作台|skill-audit/.test(text) || report.groupId === "ai-workbench") add("AI 工作台");
+  if (/ai-platform|开放平台|OAP|MCP|Skills|能力体系/.test(text) || report.groupId === "ai-platform") add("AI 开放平台");
+  if (/且慢|qieman/.test(text)) add("且慢");
+  if (/投顾|advisor|财务规划/.test(text)) add("投顾服务");
+  if (/OAP|oap-/.test(text)) add("OAP");
+  if (/MCP|mcp-/.test(text)) add("MCP");
+  if (/Skills|skill-/.test(text)) add("Skills");
+  if (workType === "investment-research" || report.groupId === "research") add("投研");
+  if (workType === "data-analysis") add("数据分析");
+  if (workType === "requirement-review") add("需求评审");
+  if (workType === "reporting") add("经营汇报");
+  if (workType === "governance-review" || report.groupId === "knowledge") add("知识治理");
+  return tags.slice(0, 5);
+}
+
+initialState.reports = initialState.reports.map((report) => {
+  const groupId = TOPIC_BY_REPORT[report.id] || report.groupId;
+  const workType = WORK_TYPE_BY_REPORT[report.id] || inferWorkType(report);
+  const next = { ...report, groupId, workType };
+  return { ...next, tags: inferTags(next, workType) };
+});
 
 let state = loadState();
 let query = "";
 let readerId = "";
 let archiveView = false;
+let catalogView = ["topic", "type", "tag"].includes(localStorage.getItem(VIEW_KEY))
+  ? localStorage.getItem(VIEW_KEY)
+  : "topic";
 let draggingId = "";
 let draggingGroupId = "";
 let movingReportId = "";
@@ -520,7 +731,7 @@ function migrateState(saved) {
   const savedGroupsById = new Map(saved.groups.map((group) => [group.id, group]));
   const groups = catalog.groups.map((group) => {
     const savedGroup = savedGroupsById.get(group.id);
-    if (!savedGroup || saved.version < 2) return group;
+    if (!savedGroup || saved.version < DATA_VERSION) return group;
     return {
       ...group,
       name: savedGroup.name || group.name,
@@ -562,10 +773,15 @@ function migrateState(saved) {
   const normalizedSavedReports = saved.reports.map((report) => ({
     ...report,
     groupId:
+      TOPIC_BY_REPORT[report.id] ||
       knownReportGroups[report.id] ||
       oldGroupFallback[report.groupId] ||
       report.groupId ||
       "inbox",
+    workType: report.workType || WORK_TYPE_BY_REPORT[report.id] || inferWorkType(report),
+    tags: Array.isArray(report.tags) && report.tags.length
+      ? report.tags
+      : inferTags(report, report.workType || WORK_TYPE_BY_REPORT[report.id]),
   }));
   const savedById = new Map(normalizedSavedReports.map((report) => [report.id, report]));
   const savedByUrl = new Map(
@@ -580,9 +796,18 @@ function migrateState(saved) {
     return {
       ...report,
       title: savedReport.title || report.title,
-      groupId: uniqueGroups.some((group) => group.id === savedReport.groupId)
+      groupId: saved.version >= DATA_VERSION &&
+        uniqueGroups.some((group) => group.id === savedReport.groupId)
         ? savedReport.groupId
         : report.groupId,
+      workType: saved.version >= DATA_VERSION && savedReport.workType
+        ? savedReport.workType
+        : report.workType,
+      tags: saved.version >= DATA_VERSION &&
+        Array.isArray(savedReport.tags) &&
+        savedReport.tags.length
+        ? savedReport.tags
+        : report.tags,
       pinned: Boolean(savedReport.pinned),
       position: Number.isFinite(savedReport.position)
         ? savedReport.position
@@ -644,6 +869,95 @@ function moveReport(reportId, targetGroupId, targetReportId = "") {
   return true;
 }
 
+function workTypeName(workTypeId) {
+  return WORK_TYPES.find((item) => item.id === workTypeId)?.name || "产品规划";
+}
+
+function classificationBuckets(reports, normalizedQuery = "") {
+  const matchesName = (name) =>
+    !normalizedQuery || name.toLowerCase().includes(normalizedQuery);
+  if (catalogView === "type") {
+    return WORK_TYPES
+      .map((type) => ({
+        id: type.id,
+        name: type.name,
+        kind: "type",
+        accent: "blue",
+        reports: reports
+          .filter((report) => report.workType === type.id)
+          .sort((a, b) =>
+            Number(Boolean(b.pinned)) - Number(Boolean(a.pinned)) ||
+            new Date(b.createdAt) - new Date(a.createdAt)),
+      }))
+      .filter((bucket) => !normalizedQuery || bucket.reports.length || matchesName(bucket.name));
+  }
+  if (catalogView === "tag") {
+    const knownTags = new Set(TAG_ORDER);
+    state.reports.forEach((report) => {
+      (report.tags || []).forEach((tag) => knownTags.add(tag));
+    });
+    const tags = [...knownTags].sort((a, b) => {
+      const ai = TAG_ORDER.indexOf(a);
+      const bi = TAG_ORDER.indexOf(b);
+      if (ai >= 0 || bi >= 0) {
+        return (ai < 0 ? Number.MAX_SAFE_INTEGER : ai) -
+          (bi < 0 ? Number.MAX_SAFE_INTEGER : bi);
+      }
+      return a.localeCompare(b, "zh-CN");
+    });
+    return tags
+      .map((tag) => ({
+        id: tag,
+        name: tag,
+        kind: "tag",
+        accent: "violet",
+        reports: reports
+          .filter((report) => (report.tags || []).includes(tag))
+          .sort((a, b) =>
+            Number(Boolean(b.pinned)) - Number(Boolean(a.pinned)) ||
+            new Date(b.createdAt) - new Date(a.createdAt)),
+      }))
+      .filter((bucket) => bucket.reports.length && (!normalizedQuery || matchesName(bucket.name) || bucket.reports.length));
+  }
+  return state.groups
+    .map((group) => ({
+      ...group,
+      kind: "topic",
+      reports: reports
+        .filter((report) => report.groupId === group.id)
+        .sort((a, b) => (a.position || 0) - (b.position || 0)),
+    }))
+    .filter((bucket) =>
+      !normalizedQuery ||
+      bucket.reports.length ||
+      matchesName(`${bucket.name} ${bucket.description || ""}`));
+}
+
+function assignReportToBucket(reportId, bucketKind, bucketId, targetReportId = "") {
+  const report = state.reports.find((item) => item.id === reportId);
+  if (!report || report.archived) return false;
+  if (bucketKind === "topic") {
+    return moveReport(reportId, bucketId, targetReportId);
+  }
+  if (bucketKind === "type") {
+    if (!WORK_TYPES.some((item) => item.id === bucketId)) return false;
+    report.workType = bucketId;
+    saveState();
+    return true;
+  }
+  if (bucketKind === "tag") {
+    report.tags = Array.isArray(report.tags) ? report.tags : [];
+    if (!report.tags.includes(bucketId)) report.tags.push(bucketId);
+    saveState();
+    return true;
+  }
+  return false;
+}
+
+function currentBucketLabel() {
+  return catalogView === "type" ? "工作类型" : catalogView === "tag" ? "标签" : "主题";
+}
+
 function id(prefix) {
   return `${prefix}-${crypto.randomUUID?.() || `${Date.now()}-${Math.random()}`}`;
 }
@@ -671,6 +985,16 @@ function validUrl(value) {
   } catch {
     return false;
   }
+}
+
+function parseTags(value = "") {
+  return [...new Set(
+    String(value)
+      .split(/[、,，;；\n]+/)
+      .map((tag) => tag.trim())
+      .filter(Boolean)
+      .map((tag) => tag.slice(0, 20)),
+  )].slice(0, 8);
 }
 
 function showToast(message) {
@@ -708,12 +1032,15 @@ function cardMarkup(report, archivedView = false) {
         <span class="report-copy">
           <span class="report-source">${escapeHtml(report.source || "手动添加")}</span>
           <strong>${escapeHtml(report.title)}</strong>
+          ${(report.tags || []).length
+            ? `<span class="report-tags">${report.tags.slice(0, 3).map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</span>`
+            : ""}
           ${restricted ? `<span class="report-access-note">${escapeHtml(accessLabel)}</span>` : ""}
         </span>
       </button>
       ${archivedView ? "" : `
         <span class="report-drag-handle" role="button" tabindex="0" data-report-drag-id="${escapeHtml(report.id)}"
-          aria-label="拖动《${escapeHtml(report.title)}》到其他工作主题" title="拖动到其他工作主题">
+          aria-label="拖动《${escapeHtml(report.title)}》到其他${currentBucketLabel()}" title="拖动到其他${currentBucketLabel()}">
           <span aria-hidden="true">⠿</span>
         </span>`}
       <div class="card-actions">
@@ -722,6 +1049,7 @@ function cardMarkup(report, archivedView = false) {
             <button type="button" data-action="restore" data-id="${escapeHtml(report.id)}">恢复</button>
             <button type="button" data-action="delete" data-id="${escapeHtml(report.id)}">永久删除</button>`
           : `
+            <button type="button" class="tag-edit-action" data-action="edit-tags" data-id="${escapeHtml(report.id)}" title="编辑标签" aria-label="编辑标签">#</button>
             <button type="button" data-action="edit" data-id="${escapeHtml(report.id)}">编辑</button>
             <button type="button" data-action="archive" data-id="${escapeHtml(report.id)}">归档</button>`}
       </div>
@@ -730,6 +1058,33 @@ function cardMarkup(report, archivedView = false) {
 
 function modalMarkup() {
   if (!modal) return "";
+  if (modal.type === "tags") {
+    const report = state.reports.find((item) => item.id === modal.reportId);
+    if (!report) return "";
+    return `
+      <div class="dialog-backdrop">
+        <form class="dialog compact-dialog tag-dialog" id="tag-form">
+          <div class="dialog-title-row">
+            <div>
+              <span class="section-kicker">REPORT TAGS</span>
+              <h2>编辑关键标签</h2>
+            </div>
+            <button type="button" data-action="close-modal">×</button>
+          </div>
+          <p class="tag-dialog-title">${escapeHtml(report.title)}</p>
+          <label>标签
+            <input name="tags" value="${escapeHtml((report.tags || []).join("、"))}" placeholder="例如：本体、飞书、调研" autofocus />
+          </label>
+          <div class="tag-suggestions">
+            ${TAG_ORDER.map((tag) => `<button type="button" class="${(report.tags || []).includes(tag) ? "selected" : ""}" data-tag-suggestion="${escapeHtml(tag)}">${escapeHtml(tag)}</button>`).join("")}
+          </div>
+          <div class="dialog-actions">
+            <button type="button" class="quiet-button" data-action="close-modal">取消</button>
+            <button type="submit" class="primary-button">保存标签</button>
+          </div>
+        </form>
+      </div>`;
+  }
   if (modal.type === "group") {
     const editingGroup = modal.mode === "edit"
       ? state.groups.find((group) => group.id === modal.groupId)
@@ -786,6 +1141,14 @@ function modalMarkup() {
           <select name="groupId">
             ${state.groups.map((group) => `<option value="${escapeHtml(group.id)}" ${group.id === groupId ? "selected" : ""}>${escapeHtml(group.name)}</option>`).join("")}
           </select>
+        </label>
+        <label>工作类型
+          <select name="workType">
+            ${WORK_TYPES.map((type) => `<option value="${escapeHtml(type.id)}" ${type.id === (editing?.workType || "product-planning") ? "selected" : ""}>${escapeHtml(type.name)}</option>`).join("")}
+          </select>
+        </label>
+        <label>关键标签
+          <input name="tags" value="${escapeHtml((editing?.tags || []).join("、"))}" placeholder="本体、飞书、调研" />
         </label>
         <div class="dialog-actions">
           <button type="button" class="quiet-button" data-action="close-modal">取消</button>
@@ -937,24 +1300,19 @@ function workbenchMarkup() {
   const activeReports = state.reports.filter((report) => !report.archived);
   const reports = normalized
     ? activeReports.filter((report) =>
-      `${report.title} ${report.url} ${report.source || ""} ${report.access || ""}`
+      `${report.title} ${report.source || ""} ${report.access || ""} ${workTypeName(report.workType)} ${(report.tags || []).join(" ")}`
         .toLowerCase()
         .includes(normalized))
     : activeReports;
   const archiveCount = state.reports.filter((report) => report.archived).length;
   const productionCount = activeReports.filter((report) => report.access === "production").length;
   const restrictedCount = activeReports.filter((report) => report.access !== "production").length;
-  const visibleGroups = state.groups
-    .map((group) => ({
-      ...group,
-      reports: reports
-        .filter((report) => report.groupId === group.id)
-        .sort((a, b) => (a.position || 0) - (b.position || 0)),
-    }))
-    .filter((group) =>
-      !normalized ||
-      group.reports.length ||
-      `${group.name} ${group.description || ""}`.toLowerCase().includes(normalized));
+  const visibleBuckets = classificationBuckets(reports, normalized);
+  const viewName = catalogView === "type"
+    ? "工作类型"
+    : catalogView === "tag"
+      ? "关键标签"
+      : "工作主题";
   return `
     <main class="app-shell">
       ${studioTopbarMarkup(archiveCount)}
@@ -968,7 +1326,7 @@ function workbenchMarkup() {
             <div class="studio-summary compact-summary" aria-label="成果统计">
               <strong>${activeReports.length}</strong><span>份成果</span>
               <i></i>
-              <strong>${visibleGroups.length}</strong><span>个主题</span>
+              <strong>${state.groups.length}</strong><span>个主题</span>
               <i></i>
               <strong>${productionCount}</strong><span>可直接访问</span>
             </div>
@@ -982,46 +1340,63 @@ function workbenchMarkup() {
         <section class="groups-section">
           ${movingReportId ? `
             <div class="move-mode-banner" role="status">
-              <div><strong>正在移动报告</strong><span>选择目标主题的“移到这里”，或直接拖动卡片。</span></div>
+              <div><strong>正在整理报告</strong><span>选择目标${currentBucketLabel()}的“移到这里”，或直接拖动卡片。</span></div>
               <button type="button" data-action="cancel-move">取消</button>
             </div>` : ""}
           <div class="collection-toolbar">
             <div>
-              <h2>工作主题</h2>
+              <h2>${viewName}</h2>
+              <span>${catalogView === "tag" ? "一份报告可属于多个标签" : "拖动卡片即可调整归类"}</span>
             </div>
-            <button class="primary-button" type="button" data-action="add-group">＋ 新建工作主题</button>
+            <div class="classification-actions">
+              <div class="view-switcher" role="tablist" aria-label="成果分类方式">
+                <button type="button" role="tab" aria-selected="${catalogView === "topic"}" class="${catalogView === "topic" ? "active" : ""}" data-action="set-view" data-id="topic">按主题</button>
+                <button type="button" role="tab" aria-selected="${catalogView === "type"}" class="${catalogView === "type" ? "active" : ""}" data-action="set-view" data-id="type">按工作类型</button>
+                <button type="button" role="tab" aria-selected="${catalogView === "tag"}" class="${catalogView === "tag" ? "active" : ""}" data-action="set-view" data-id="tag">按标签</button>
+              </div>
+              <button class="primary-button add-topic-button" type="button" data-action="add-group">＋ 新建工作主题</button>
+            </div>
           </div>
-          ${visibleGroups.length ? `
-            <nav class="topic-nav" aria-label="报告主题">
-              ${visibleGroups.map((group) => `<a href="#topic-${escapeHtml(group.id)}">${escapeHtml(group.name)}<span>${group.reports.length}</span></a>`).join("")}
+          ${visibleBuckets.length ? `
+            <nav class="topic-nav" aria-label="报告${viewName}">
+              ${visibleBuckets.map((bucket, index) => `<a href="#bucket-${index}">${escapeHtml(bucket.name)}<span>${bucket.reports.length}</span></a>`).join("")}
             </nav>
-            <div class="board">
-              ${visibleGroups.map((group, index) => `
-                <section id="topic-${escapeHtml(group.id)}" class="group-column topic-section accent-${escapeHtml(group.accent)}" data-group-id="${escapeHtml(group.id)}">
+            <div class="board catalog-view-${catalogView}">
+              ${visibleBuckets.map((bucket, index) => `
+                <section id="bucket-${index}" class="group-column topic-section bucket-${escapeHtml(bucket.kind)} accent-${escapeHtml(bucket.accent || "blue")}"
+                  data-bucket-kind="${escapeHtml(bucket.kind)}"
+                  data-bucket-id="${escapeHtml(bucket.id)}"
+                  ${bucket.kind === "topic" ? `data-group-id="${escapeHtml(bucket.id)}"` : ""}>
                   <header class="group-header">
-                    <span class="group-drag-handle" role="button" tabindex="0" data-group-drag-id="${escapeHtml(group.id)}"
-                      aria-label="拖动“${escapeHtml(group.name)}”调整主题顺序" title="拖动调整主题顺序；也可用左右方向键">
-                      <span aria-hidden="true">⠿</span>
-                      <small>${String(index + 1).padStart(2, "0")}</small>
-                    </span>
+                    ${bucket.kind === "topic"
+                      ? `<span class="group-drag-handle" role="button" tabindex="0" data-group-drag-id="${escapeHtml(bucket.id)}"
+                          aria-label="拖动“${escapeHtml(bucket.name)}”调整主题顺序" title="拖动调整主题顺序；也可用左右方向键">
+                          <span aria-hidden="true">⠿</span>
+                          <small>${String(index + 1).padStart(2, "0")}</small>
+                        </span>`
+                      : `<span class="bucket-marker" aria-hidden="true">${bucket.kind === "tag" ? "#" : "类"}</span>`}
                     <div class="group-heading-copy">
-                      <div><h2>${escapeHtml(group.name)}</h2></div>
-                      <span class="count">${group.reports.length} 份</span>
+                      <div><h2>${escapeHtml(bucket.name)}</h2></div>
+                      <span class="count">${bucket.reports.length} 份</span>
                     </div>
                     <div class="group-menu">
-                      ${movingReportId ? `<button class="move-here-button" type="button" data-action="move-here" data-id="${escapeHtml(group.id)}">移到这里</button>` : ""}
-                      <button type="button" data-action="add-to-group" data-id="${escapeHtml(group.id)}">添加报告</button>
-                      <button type="button" data-action="rename-group" data-id="${escapeHtml(group.id)}">编辑主题</button>
-                      ${group.id !== "inbox" ? `<button type="button" data-action="delete-group" data-id="${escapeHtml(group.id)}">删除</button>` : ""}
+                      ${movingReportId ? `<button class="move-here-button" type="button" data-action="move-here" data-id="${escapeHtml(bucket.id)}" data-bucket-kind="${escapeHtml(bucket.kind)}">移到这里</button>` : ""}
+                      ${bucket.kind === "topic"
+                        ? `<button type="button" data-action="add-to-group" data-id="${escapeHtml(bucket.id)}">添加报告</button>
+                           <button type="button" data-action="rename-group" data-id="${escapeHtml(bucket.id)}">编辑主题</button>
+                           ${bucket.id !== "inbox" ? `<button type="button" data-action="delete-group" data-id="${escapeHtml(bucket.id)}">删除</button>` : ""}`
+                        : ""}
                     </div>
                   </header>
                   <div class="group-cards">
-                    ${group.reports.length
-                      ? group.reports.map((report) => cardMarkup(report)).join("")
-                      : `<button class="empty-topic-drop" type="button" data-action="add-to-group" data-id="${escapeHtml(group.id)}">
-                          <strong>拖报告到这里</strong>
-                          <span>或点击添加第一份报告</span>
-                        </button>`}
+                    ${bucket.reports.length
+                      ? bucket.reports.map((report) => cardMarkup(report)).join("")
+                      : bucket.kind === "topic"
+                        ? `<button class="empty-topic-drop" type="button" data-action="add-to-group" data-id="${escapeHtml(bucket.id)}">
+                            <strong>拖报告到这里</strong>
+                            <span>或点击添加第一份报告</span>
+                          </button>`
+                        : `<div class="empty-topic-drop passive-drop"><strong>拖报告到这里</strong></div>`}
                   </div>
                 </section>`).join("")}
             </div>` : `
@@ -1031,7 +1406,7 @@ function workbenchMarkup() {
             </div>`}
           <div class="catalog-note">
             <span>${restrictedCount} 份报告需要组织或账号登录${archiveCount ? ` · ${archiveCount} 份已安全归档` : ""}</span>
-            <div><span>主题与卡片顺序仅保存在当前浏览器</span><button type="button" data-action="lock">退出工作台</button></div>
+            <div><span>分类调整仅保存在当前浏览器</span><button type="button" data-action="lock">退出工作台</button></div>
           </div>
         </section>
       </section>
@@ -1138,14 +1513,21 @@ function bindApp() {
       } else if (action === "clear-search") {
         query = "";
         render();
+      } else if (action === "set-view") {
+        if (!["topic", "type", "tag"].includes(itemId)) return;
+        catalogView = itemId;
+        movingReportId = "";
+        localStorage.setItem(VIEW_KEY, catalogView);
+        render();
       } else if (action === "cancel-move") {
         movingReportId = "";
         render();
       } else if (action === "move-here") {
-        if (movingReportId && moveReport(movingReportId, itemId)) {
+        const bucketKind = event.currentTarget.dataset.bucketKind || catalogView;
+        if (movingReportId && assignReportToBucket(movingReportId, bucketKind, itemId)) {
           movingReportId = "";
           render();
-          showToast("报告已移入目标主题");
+          showToast(bucketKind === "tag" ? "已添加目标标签" : `报告已移入目标${currentBucketLabel()}`);
         }
       } else if (action === "show-archive") {
         archiveView = true;
@@ -1165,6 +1547,9 @@ function bindApp() {
         render();
       } else if (action === "edit") {
         modal = { type: "report", mode: "edit", reportId: itemId };
+        render();
+      } else if (action === "edit-tags") {
+        modal = { type: "tags", reportId: itemId };
         render();
       } else if (action === "close-modal") {
         modal = null;
@@ -1268,23 +1653,32 @@ function bindApp() {
         movingReportId = sourceId;
         clearReportPointerDrag();
         render();
-        showToast("请选择目标主题");
+        showToast(`请选择目标${currentBucketLabel()}`);
         return;
       }
       const hovered = document.elementFromPoint(event.clientX, event.clientY);
       const targetCard = hovered?.closest(".report-card");
       const targetColumn = hovered?.closest(".group-column");
       const targetReportId = targetCard?.dataset.reportId || "";
-      const targetGroupId = targetColumn?.dataset.groupId || "";
+      const targetBucketId = targetColumn?.dataset.bucketId || "";
+      const targetBucketKind = targetColumn?.dataset.bucketKind || catalogView;
       const moved = targetReportId && targetReportId !== sourceId
-        ? moveReport(sourceId, targetGroupId, targetReportId)
-        : targetGroupId
-          ? moveReport(sourceId, targetGroupId)
+        ? assignReportToBucket(sourceId, targetBucketKind, targetBucketId, targetReportId)
+        : targetBucketId
+          ? assignReportToBucket(sourceId, targetBucketKind, targetBucketId)
           : false;
       clearReportPointerDrag();
       if (moved) {
         render();
-        showToast(targetReportId ? "报告顺序已更新" : "已移入新主题");
+        showToast(
+          targetBucketKind === "tag"
+            ? "已添加目标标签"
+            : targetBucketKind === "type"
+              ? "工作类型已更新"
+              : targetReportId
+                ? "报告顺序已更新"
+                : "已移入新主题",
+        );
       }
     });
     handle.addEventListener("pointercancel", clearReportPointerDrag);
@@ -1357,7 +1751,10 @@ function bindApp() {
     column.addEventListener("drop", (event) => {
       event.preventDefault();
       if (draggingGroupId) {
-        if (moveGroup(draggingGroupId, column.dataset.groupId)) {
+        if (
+          column.dataset.bucketKind === "topic" &&
+          moveGroup(draggingGroupId, column.dataset.groupId)
+        ) {
           draggingGroupId = "";
           render();
           showToast("分组顺序已更新");
@@ -1368,13 +1765,49 @@ function bindApp() {
         return;
       }
       const report = state.reports.find((item) => item.id === draggingId);
-      if (report && moveReport(draggingId, column.dataset.groupId)) {
+      const bucketKind = column.dataset.bucketKind || catalogView;
+      if (
+        report &&
+        assignReportToBucket(draggingId, bucketKind, column.dataset.bucketId)
+      ) {
         draggingId = "";
         render();
-        showToast("已移入新分组");
+        showToast(
+          bucketKind === "tag"
+            ? "已添加目标标签"
+            : bucketKind === "type"
+              ? "工作类型已更新"
+              : "已移入新主题",
+        );
       }
       draggingId = "";
     });
+  });
+
+  document.querySelectorAll("[data-tag-suggestion]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const input = document.querySelector('#tag-form input[name="tags"]');
+      if (!input) return;
+      const tags = parseTags(input.value);
+      const suggestion = button.dataset.tagSuggestion;
+      input.value = tags.includes(suggestion)
+        ? tags.filter((tag) => tag !== suggestion).join("、")
+        : [...tags, suggestion].slice(0, 8).join("、");
+      button.classList.toggle("selected", !tags.includes(suggestion));
+      input.focus();
+    });
+  });
+
+  const tagForm = document.getElementById("tag-form");
+  tagForm?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const report = state.reports.find((item) => item.id === modal.reportId);
+    if (!report) return;
+    report.tags = parseTags(new FormData(tagForm).get("tags"));
+    saveState();
+    modal = null;
+    render();
+    showToast("标签已更新");
   });
 
   const groupForm = document.getElementById("group-form");
@@ -1415,11 +1848,13 @@ function bindApp() {
     let title = reportForm.elements.title.value.trim();
     if (!title) title = await detectTitle(reportForm);
     const groupId = reportForm.elements.groupId.value;
+    const workType = reportForm.elements.workType.value;
+    const tags = parseTags(reportForm.elements.tags.value);
     if (modal.mode === "edit") {
       const report = state.reports.find((item) => item.id === modal.reportId);
-      Object.assign(report, { title, url, groupId });
+      Object.assign(report, { title, url, groupId, workType, tags });
     } else {
-      state.reports.push({
+      const newReport = {
         id: id("report"),
         groupId,
         title: title || domainOf(url),
@@ -1431,7 +1866,13 @@ function bindApp() {
         access: "production",
         archived: false,
         archivedAt: "",
-      });
+        workType,
+        tags,
+      };
+      if (!newReport.tags.length) {
+        newReport.tags = inferTags(newReport, newReport.workType);
+      }
+      state.reports.push(newReport);
     }
     saveState();
     modal = null;
