@@ -1172,6 +1172,256 @@ footer {
   }
 }
 
+/* Work topic and report organization controls */
+
+.move-mode-banner {
+  position: sticky;
+  top: 72px;
+  z-index: 18;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 10px;
+  border: 1px solid #9ccbf8;
+  border-radius: 12px;
+  background: #f0f6ff;
+  padding: 11px 14px;
+  box-shadow: 0 10px 30px rgb(27 136 238 / 10%);
+}
+
+.move-mode-banner > div {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.move-mode-banner strong {
+  color: #235da3;
+  font-size: 12px;
+}
+
+.move-mode-banner span {
+  color: #62758d;
+  font-size: 10px;
+}
+
+.move-mode-banner button {
+  border: 0;
+  background: transparent;
+  color: var(--blue);
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.collection-toolbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 22px 0 16px;
+  border-top: 1px solid var(--line);
+}
+
+.collection-toolbar h2 {
+  margin: 5px 0 4px;
+  font-size: 23px;
+  letter-spacing: -0.035em;
+}
+
+.collection-toolbar p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.collection-toolbar .primary-button {
+  min-height: 38px;
+  flex: 0 0 auto;
+  border-radius: 10px;
+  padding: 0 14px;
+}
+
+.group-header {
+  grid-template-columns: 58px minmax(0, 1fr) auto;
+}
+
+.group-header .group-drag-handle {
+  width: 58px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 1px solid #dcdfe3;
+  border-radius: 9px;
+  background: #fff;
+  color: #7b838d;
+  box-shadow: 0 3px 10px rgb(24 32 42 / 4%);
+  cursor: grab;
+  touch-action: none;
+}
+
+.group-header .group-drag-handle:hover {
+  border-color: #b9c3d2;
+  background: #f7f9fc;
+  color: var(--blue);
+}
+
+.group-header .group-drag-handle:active {
+  cursor: grabbing;
+}
+
+.group-header .group-drag-handle > span {
+  font-size: 15px;
+  line-height: 1;
+}
+
+.group-header .group-drag-handle small {
+  color: inherit;
+  font-family: Georgia, serif;
+  font-size: 10px;
+  line-height: 1;
+}
+
+.group-menu {
+  display: flex;
+  gap: 2px;
+  opacity: 1;
+}
+
+.group-menu button {
+  padding: 6px 8px;
+}
+
+.group-menu .move-here-button {
+  background: var(--blue);
+  color: #fff;
+}
+
+.group-menu .move-here-button:hover {
+  background: #1580e0;
+  color: #fff;
+}
+
+.empty-topic-drop {
+  grid-column: 1 / -1;
+  min-height: 116px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  border: 1px dashed #c8cdd4;
+  border-radius: 14px;
+  background: rgb(255 255 255 / 45%);
+  color: #78818c;
+  cursor: pointer;
+}
+
+.empty-topic-drop:hover {
+  border-color: var(--blue);
+  background: var(--blue-soft);
+  color: var(--blue);
+}
+
+.empty-topic-drop strong {
+  font-size: 12px;
+}
+
+.empty-topic-drop span {
+  color: #979da5;
+  font-size: 10px;
+}
+
+.report-card.is-dragging {
+  opacity: 0.5;
+  transform: scale(0.98);
+}
+
+.report-card.is-card-drop-target,
+.report-card.is-move-selected {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgb(27 136 238 / 13%);
+}
+
+.report-copy {
+  min-height: 88px;
+}
+
+.report-copy .report-access-note {
+  margin-top: auto;
+  color: #95611f;
+  font-size: 10px;
+}
+
+.report-drag-handle {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 4;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgb(255 255 255 / 72%);
+  border-radius: 9px;
+  background: rgb(255 255 255 / 92%);
+  color: #66717e;
+  box-shadow: 0 6px 18px rgb(24 32 42 / 12%);
+  opacity: 0.88;
+  cursor: grab;
+  touch-action: none;
+  backdrop-filter: blur(8px);
+}
+
+.report-drag-handle:hover {
+  color: var(--blue);
+  opacity: 1;
+}
+
+.report-drag-handle:active {
+  cursor: grabbing;
+}
+
+@media (max-width: 680px) {
+  .move-mode-banner {
+    top: 116px;
+    align-items: flex-start;
+  }
+
+  .move-mode-banner > div {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .collection-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .collection-toolbar .primary-button {
+    align-self: flex-start;
+  }
+
+  .group-header {
+    grid-template-columns: 50px minmax(0, 1fr);
+  }
+
+  .group-header .group-drag-handle {
+    width: 50px;
+  }
+
+  .group-header .group-menu {
+    grid-column: 2;
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
 /* Task center */
 
 textarea {

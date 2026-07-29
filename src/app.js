@@ -471,6 +471,7 @@ let activeView = "tasks";
 let archiveView = false;
 let draggingId = "";
 let draggingGroupId = "";
+let movingReportId = "";
 let modal = null;
 let toastTimer = 0;
 
@@ -525,7 +526,9 @@ function migrateState(saved) {
       groups.push({
         ...group,
         description: group.description || "自定义工作分组",
-        position: initialState.groups.length + index,
+        position: Number.isFinite(group.position)
+          ? group.position
+          : initialState.groups.length + index,
       });
     });
   const uniqueGroups = groups.filter(
@@ -612,6 +615,26 @@ function moveGroup(groupId, targetGroupId) {
   return true;
 }
 
+function moveReport(reportId, targetGroupId, targetReportId = "") {
+  const report = state.reports.find((item) => item.id === reportId);
+  if (!report || report.archived) return false;
+  const targetGroup = state.groups.find((group) => group.id === targetGroupId);
+  if (!targetGroup) return false;
+  const ordered = state.reports
+    .filter((item) => !item.archived && item.groupId === targetGroupId && item.id !== reportId)
+    .sort((a, b) => (a.position || 0) - (b.position || 0));
+  const targetIndex = targetReportId
+    ? ordered.findIndex((item) => item.id === targetReportId)
+    : ordered.length;
+  report.groupId = targetGroupId;
+  ordered.splice(targetIndex < 0 ? ordered.length : targetIndex, 0, report);
+  ordered.forEach((item, index) => {
+    item.position = index;
+  });
+  saveState();
+  return true;
+}
+
 function id(prefix) {
   return `${prefix}-${crypto.randomUUID?.() || `${Date.now()}-${Math.random()}`}`;
 }
@@ -668,17 +691,22 @@ function cardMarkup(report, archivedView = false) {
         <strong>${restricted ? accessLabel : "预览待补充"}</strong>
       </div>`;
   return `
-    <article class="report-card ${restricted ? "restricted-card" : ""} ${archivedView ? "archived-card" : ""}" draggable="${archivedView ? "false" : "true"}" data-report-id="${escapeHtml(report.id)}">
-      <button class="card-main" type="button" data-action="open" data-id="${escapeHtml(report.id)}">
+    <article class="report-card ${restricted ? "restricted-card" : ""} ${archivedView ? "archived-card" : ""} ${movingReportId === report.id ? "is-move-selected" : ""}" data-report-id="${escapeHtml(report.id)}">
+      <button class="card-main" type="button" data-action="open" data-id="${escapeHtml(report.id)}" aria-label="打开${escapeHtml(report.title)}">
         <span class="report-preview">
           ${preview}
         </span>
         <span class="report-copy">
           <span class="report-source">${escapeHtml(report.source || "手动添加")}</span>
           <strong>${escapeHtml(report.title)}</strong>
-          <span class="report-open-label">${archivedView ? "查看归档内容" : restricted ? "登录后查看" : "查看完整报告"}</span>
+          ${restricted ? `<span class="report-access-note">${escapeHtml(accessLabel)}</span>` : ""}
         </span>
       </button>
+      ${archivedView ? "" : `
+        <span class="report-drag-handle" role="button" tabindex="0" data-report-drag-id="${escapeHtml(report.id)}"
+          aria-label="拖动《${escapeHtml(report.title)}》到其他工作主题" title="拖动到其他工作主题">
+          <span aria-hidden="true">⠿</span>
+        </span>`}
       <div class="card-actions">
         ${archivedView
           ? `
@@ -694,22 +722,28 @@ function cardMarkup(report, archivedView = false) {
 function modalMarkup() {
   if (!modal) return "";
   if (modal.type === "group") {
+    const editingGroup = modal.mode === "edit"
+      ? state.groups.find((group) => group.id === modal.groupId)
+      : null;
     return `
       <div class="dialog-backdrop">
         <form class="dialog compact-dialog" id="group-form">
           <div class="dialog-title-row">
-            <div><span class="section-kicker">NEW COLLECTION</span><h2>新增分组</h2></div>
+            <div>
+              <span class="section-kicker">WORK TOPIC / GROUP</span>
+              <h2>${editingGroup ? "编辑工作主题" : "新建工作主题"}</h2>
+            </div>
             <button type="button" data-action="close-modal">×</button>
           </div>
-          <label>分组名称
-            <input name="name" placeholder="例如：AI 产品、投研报告" maxlength="60" required autofocus />
+          <label>主题 / 分组名称
+            <input name="name" value="${escapeHtml(editingGroup?.name || "")}" placeholder="例如：AI 产品、投研报告" maxlength="60" required autofocus />
           </label>
-          <label>分组说明
-            <input name="description" placeholder="这个分组主要收纳什么" maxlength="80" />
+          <label>主题说明
+            <input name="description" value="${escapeHtml(editingGroup?.description || "")}" placeholder="这个主题主要收纳什么" maxlength="80" />
           </label>
           <div class="dialog-actions">
             <button type="button" class="quiet-button" data-action="close-modal">取消</button>
-            <button type="submit" class="primary-button">创建分组</button>
+            <button type="submit" class="primary-button">${editingGroup ? "保存修改" : "创建主题"}</button>
           </div>
         </form>
       </div>`;
@@ -931,7 +965,10 @@ function workbenchMarkup() {
         .filter((report) => report.groupId === group.id)
         .sort((a, b) => (a.position || 0) - (b.position || 0)),
     }))
-    .filter((group) => group.reports.length);
+    .filter((group) =>
+      !normalized ||
+      group.reports.length ||
+      `${group.name} ${group.description || ""}`.toLowerCase().includes(normalized));
   return `
     <main class="app-shell">
       ${studioTopbarMarkup(archiveCount)}
@@ -962,6 +999,19 @@ function workbenchMarkup() {
           </div>
         </div>
         <section class="groups-section">
+          ${movingReportId ? `
+            <div class="move-mode-banner" role="status">
+              <div><strong>正在移动报告</strong><span>选择目标主题的“移到这里”，或直接拖动卡片。</span></div>
+              <button type="button" data-action="cancel-move">取消</button>
+            </div>` : ""}
+          <div class="collection-toolbar">
+            <div>
+              <span class="section-kicker">WORK TOPICS</span>
+              <h2>工作主题与分组</h2>
+              <p>拖动卡片可调整顺序或移入其他主题；拖动主题标题左侧把手可调整主题顺序。</p>
+            </div>
+            <button class="primary-button" type="button" data-action="add-group">＋ 新建工作主题</button>
+          </div>
           ${visibleGroups.length ? `
             <nav class="topic-nav" aria-label="报告主题">
               ${visibleGroups.map((group) => `<a href="#topic-${escapeHtml(group.id)}">${escapeHtml(group.name)}<span>${group.reports.length}</span></a>`).join("")}
@@ -970,18 +1020,30 @@ function workbenchMarkup() {
               ${visibleGroups.map((group, index) => `
                 <section id="topic-${escapeHtml(group.id)}" class="group-column topic-section accent-${escapeHtml(group.accent)}" data-group-id="${escapeHtml(group.id)}">
                   <header class="group-header">
-                    <div class="topic-number">${String(index + 1).padStart(2, "0")}</div>
+                    <span class="group-drag-handle" role="button" tabindex="0" data-group-drag-id="${escapeHtml(group.id)}"
+                      aria-label="拖动“${escapeHtml(group.name)}”调整主题顺序" title="拖动调整主题顺序；也可用左右方向键">
+                      <span aria-hidden="true">⠿</span>
+                      <small>${String(index + 1).padStart(2, "0")}</small>
+                    </span>
                     <div class="group-heading-copy">
                       <div><h2>${escapeHtml(group.name)}</h2><p>${escapeHtml(group.description || "自定义工作主题")}</p></div>
                       <span class="count">${group.reports.length} 份</span>
                     </div>
                     <div class="group-menu">
-                      <button type="button" data-action="add-to-group" data-id="${escapeHtml(group.id)}">添加</button>
-                      <button type="button" data-action="rename-group" data-id="${escapeHtml(group.id)}">改名</button>
+                      ${movingReportId ? `<button class="move-here-button" type="button" data-action="move-here" data-id="${escapeHtml(group.id)}">移到这里</button>` : ""}
+                      <button type="button" data-action="add-to-group" data-id="${escapeHtml(group.id)}">添加报告</button>
+                      <button type="button" data-action="rename-group" data-id="${escapeHtml(group.id)}">编辑主题</button>
                       ${group.id !== "inbox" ? `<button type="button" data-action="delete-group" data-id="${escapeHtml(group.id)}">删除</button>` : ""}
                     </div>
                   </header>
-                  <div class="group-cards">${group.reports.map((report) => cardMarkup(report)).join("")}</div>
+                  <div class="group-cards">
+                    ${group.reports.length
+                      ? group.reports.map((report) => cardMarkup(report)).join("")
+                      : `<button class="empty-topic-drop" type="button" data-action="add-to-group" data-id="${escapeHtml(group.id)}">
+                          <strong>拖报告到这里</strong>
+                          <span>或点击添加第一份报告</span>
+                        </button>`}
+                  </div>
                 </section>`).join("")}
             </div>` : `
             <div class="no-results">
@@ -990,7 +1052,7 @@ function workbenchMarkup() {
             </div>`}
           <div class="catalog-note">
             <span>${restrictedCount} 份报告需要组织或账号登录${archiveCount ? ` · ${archiveCount} 份已安全归档` : ""}</span>
-            <div><button type="button" data-action="add-group">新增主题</button><button type="button" data-action="lock">退出工作台</button></div>
+            <div><span>主题与卡片顺序仅保存在当前浏览器</span><button type="button" data-action="lock">退出工作台</button></div>
           </div>
         </section>
       </section>
@@ -1098,6 +1160,15 @@ function bindApp() {
       } else if (action === "clear-search") {
         query = "";
         render();
+      } else if (action === "cancel-move") {
+        movingReportId = "";
+        render();
+      } else if (action === "move-here") {
+        if (movingReportId && moveReport(movingReportId, itemId)) {
+          movingReportId = "";
+          render();
+          showToast("报告已移入目标主题");
+        }
       } else if (action === "show-tasks") {
         activeView = "tasks";
         archiveView = false;
@@ -1162,16 +1233,13 @@ function bindApp() {
           showToast("报告已永久删除");
         }
       } else if (action === "add-group") {
-        modal = { type: "group" };
+        modal = { type: "group", mode: "create" };
         render();
       } else if (action === "rename-group") {
         const group = state.groups.find((item) => item.id === itemId);
-        const name = group && prompt("新的分组名称", group.name);
-        if (name?.trim()) {
-          group.name = name.trim().slice(0, 60);
-          saveState();
+        if (group) {
+          modal = { type: "group", mode: "edit", groupId: itemId };
           render();
-          showToast("分组名称已更新");
         }
       } else if (action === "delete-group") {
         const group = state.groups.find((item) => item.id === itemId);
@@ -1188,18 +1256,74 @@ function bindApp() {
     });
   });
 
-  document.querySelectorAll(".report-card").forEach((card) => {
-    card.addEventListener("dragstart", (event) => {
-      draggingId = card.dataset.reportId;
-      draggingGroupId = "";
-      event.dataTransfer.effectAllowed = "move";
-      event.dataTransfer.setData("text/plain", draggingId);
-      card.classList.add("is-dragging");
-    });
-    card.addEventListener("dragend", () => {
+  document.querySelectorAll(".report-drag-handle").forEach((handle) => {
+    let pointerStart = null;
+    let pointerMoved = false;
+    const clearReportPointerDrag = () => {
       draggingId = "";
-      card.classList.remove("is-dragging");
+      pointerStart = null;
+      pointerMoved = false;
+      handle.closest(".report-card")?.classList.remove("is-dragging");
+      document.querySelectorAll(".report-card, .group-column").forEach((element) => {
+        element.classList.remove("is-card-drop-target", "is-drop-ready");
+      });
+    };
+    handle.addEventListener("pointerdown", (event) => {
+      event.preventDefault();
+      draggingId = handle.dataset.reportDragId;
+      draggingGroupId = "";
+      pointerStart = { x: event.clientX, y: event.clientY };
+      pointerMoved = false;
+      handle.setPointerCapture?.(event.pointerId);
+      handle.closest(".report-card")?.classList.add("is-dragging");
     });
+    handle.addEventListener("pointermove", (event) => {
+      if (!draggingId) return;
+      if (
+        pointerStart &&
+        Math.hypot(event.clientX - pointerStart.x, event.clientY - pointerStart.y) < 7
+      ) return;
+      pointerMoved = true;
+      const hovered = document.elementFromPoint(event.clientX, event.clientY);
+      const targetCard = hovered?.closest(".report-card");
+      const targetColumn = hovered?.closest(".group-column");
+      document.querySelectorAll(".report-card").forEach((card) => {
+        card.classList.toggle(
+          "is-card-drop-target",
+          Boolean(targetCard && targetCard !== handle.closest(".report-card") && card === targetCard),
+        );
+      });
+      document.querySelectorAll(".group-column").forEach((column) => {
+        column.classList.toggle("is-drop-ready", Boolean(targetColumn && column === targetColumn));
+      });
+    });
+    handle.addEventListener("pointerup", (event) => {
+      if (!draggingId) return;
+      const sourceId = draggingId;
+      if (!pointerMoved) {
+        movingReportId = sourceId;
+        clearReportPointerDrag();
+        render();
+        showToast("请选择目标主题");
+        return;
+      }
+      const hovered = document.elementFromPoint(event.clientX, event.clientY);
+      const targetCard = hovered?.closest(".report-card");
+      const targetColumn = hovered?.closest(".group-column");
+      const targetReportId = targetCard?.dataset.reportId || "";
+      const targetGroupId = targetColumn?.dataset.groupId || "";
+      const moved = targetReportId && targetReportId !== sourceId
+        ? moveReport(sourceId, targetGroupId, targetReportId)
+        : targetGroupId
+          ? moveReport(sourceId, targetGroupId)
+          : false;
+      clearReportPointerDrag();
+      if (moved) {
+        render();
+        showToast(targetReportId ? "报告顺序已更新" : "已移入新主题");
+      }
+    });
+    handle.addEventListener("pointercancel", clearReportPointerDrag);
   });
 
   document.querySelectorAll(".group-drag-handle").forEach((handle) => {
@@ -1211,7 +1335,6 @@ function bindApp() {
       });
     };
     handle.addEventListener("pointerdown", (event) => {
-      if (event.pointerType === "mouse") return;
       event.preventDefault();
       draggingGroupId = handle.dataset.groupDragId;
       draggingId = "";
@@ -1219,7 +1342,6 @@ function bindApp() {
       handle.closest(".group-column")?.classList.add("is-group-dragging");
     });
     handle.addEventListener("pointermove", (event) => {
-      if (event.pointerType === "mouse") return;
       if (!draggingGroupId) return;
       document.querySelectorAll(".group-column").forEach((column) => {
         column.classList.toggle(
@@ -1229,7 +1351,6 @@ function bindApp() {
       });
     });
     handle.addEventListener("pointerup", (event) => {
-      if (event.pointerType === "mouse") return;
       if (!draggingGroupId) return;
       const sourceId = draggingGroupId;
       const target = document.elementFromPoint(event.clientX, event.clientY)?.closest(".group-column");
@@ -1259,23 +1380,6 @@ function bindApp() {
     });
   });
 
-  document.querySelectorAll(".group-header").forEach((header) => {
-    header.addEventListener("dragstart", (event) => {
-      draggingGroupId = header.dataset.groupDragId;
-      draggingId = "";
-      event.dataTransfer.effectAllowed = "move";
-      event.dataTransfer.setData("text/plain", draggingGroupId);
-      header.closest(".group-column")?.classList.add("is-group-dragging");
-    });
-    header.addEventListener("dragend", () => {
-      draggingGroupId = "";
-      header.closest(".group-column")?.classList.remove("is-group-dragging");
-      document.querySelectorAll(".group-column").forEach((column) => {
-        column.classList.remove("is-group-drop-target", "is-drop-ready");
-      });
-    });
-  });
-
   document.querySelectorAll(".group-column").forEach((column) => {
     column.addEventListener("dragover", (event) => {
       event.preventDefault();
@@ -1300,13 +1404,8 @@ function bindApp() {
         return;
       }
       const report = state.reports.find((item) => item.id === draggingId);
-      if (report) {
-        report.groupId = column.dataset.groupId;
-        report.position = Math.max(
-          -1,
-          ...state.reports.filter((item) => item.groupId === report.groupId).map((item) => item.position || 0),
-        ) + 1;
-        saveState();
+      if (report && moveReport(draggingId, column.dataset.groupId)) {
+        draggingId = "";
         render();
         showToast("已移入新分组");
       }
@@ -1320,17 +1419,25 @@ function bindApp() {
     const name = new FormData(groupForm).get("name")?.trim();
     const description = new FormData(groupForm).get("description")?.trim();
     if (!name) return;
-    state.groups.push({
-      id: id("group"),
-      name: name.slice(0, 60),
-      description: description?.slice(0, 80) || "自定义工作分组",
-      accent: ["blue", "violet", "amber", "green"][state.groups.length % 4],
-      position: state.groups.length,
-    });
+    if (modal.mode === "edit") {
+      const group = state.groups.find((item) => item.id === modal.groupId);
+      if (!group) return;
+      group.name = name.slice(0, 60);
+      group.description = description?.slice(0, 80) || "自定义工作主题";
+    } else {
+      state.groups.push({
+        id: id("group"),
+        name: name.slice(0, 60),
+        description: description?.slice(0, 80) || "自定义工作主题",
+        accent: ["blue", "violet", "amber", "green"][state.groups.length % 4],
+        position: state.groups.length,
+      });
+    }
     saveState();
+    const message = modal.mode === "edit" ? "工作主题已更新" : "工作主题已创建，可直接拖入报告";
     modal = null;
     render();
-    showToast("分组已新增");
+    showToast(message);
   });
 
   const reportForm = document.getElementById("report-form");
