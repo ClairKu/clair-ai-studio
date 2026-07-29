@@ -1,4 +1,4 @@
-# Clair的工作台
+# Clair's Studio
 
 个人 AI 任务中心与生产成果区。
 

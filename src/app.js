@@ -1162,19 +1162,21 @@ function gateMarkup() {
   return `
     <main class="gate-shell">
       <section class="gate-card">
-        <div class="brand-mark">C</div>
-        <span class="eyebrow">CLAIR · AI WORKSPACE</span>
-        <h1>Clair的工作台</h1>
-        <p>投入材料，完成关键任务，把确认后的结果沉淀为可复用成果。</p>
+        <div class="gate-brand">
+          <div class="brand-mark">C</div>
+          <span>PRIVATE STUDIO</span>
+        </div>
+        <h1>Clair's Studio</h1>
+        <p>把思考、决策与成果，放在同一个地方。</p>
         <form class="login-form" id="login-form">
-          <label for="password">访问口令</label>
+          <label class="sr-only" for="password">访问口令</label>
           <div class="password-row">
-            <input id="password" name="password" type="password" inputmode="numeric" autocomplete="current-password" placeholder="请输入口令" autofocus />
-            <button type="submit" class="primary-button">进入工作台</button>
+            <input id="password" name="password" type="password" inputmode="numeric" autocomplete="current-password" placeholder="访问口令" autofocus />
+            <button type="submit" class="primary-button" aria-label="进入 Clair's Studio">→</button>
           </div>
           <p class="form-error" hidden></p>
         </form>
-        <div class="gate-foot"><span>免平台登录</span><span>当前浏览器保存</span></div>
+        <div class="gate-foot"><span>Private by design</span><span>Local-first</span></div>
       </section>
     </main>`;
 }
@@ -1231,17 +1233,18 @@ function studioTopbarMarkup(archiveCount) {
     <header class="topbar">
       <div class="brand">
         <div class="brand-mark small">C</div>
-        <div><strong>Clair的工作台</strong></div>
+        <div><strong>Clair's Studio</strong></div>
       </div>
       <div class="topbar-location">
-        <strong>${archiveView ? "归档区" : "成果区"}</strong>
+        <span class="location-dot"></span>
+        <strong>${archiveView ? "Archive" : "Library"}</strong>
         ${!archiveView && taskCounts.active ? `<span>${taskCounts.active} 项待处理</span>` : ""}
       </div>
       <div class="top-actions">
         <button class="quiet-button archive-nav-button" type="button" data-action="${archiveView ? "show-catalog" : "show-archive"}">
-          ${archiveView ? "返回成果区" : `归档${archiveCount ? `<span>${archiveCount}</span>` : ""}`}
+          ${archiveView ? "返回" : `归档${archiveCount ? `<span>${archiveCount}</span>` : ""}`}
         </button>
-        ${archiveView ? "" : '<button class="primary-button" type="button" data-action="add-report">新增成果</button>'}
+        ${archiveView ? "" : '<button class="primary-button" type="button" data-action="add-report"><span aria-hidden="true">＋</span> 新增</button>'}
       </div>
     </header>`;
 }
@@ -1289,7 +1292,7 @@ function archiveMarkup() {
           <span>只有在归档区主动选择“永久删除”，报告才会从当前浏览器清单移除。</span>
         </div>
       </section>
-      <footer><span>CLAIR AI STUDIO</span><span>Safe archive</span></footer>
+      <footer><span>CLAIR'S STUDIO</span><span>Safe archive</span></footer>
       ${modalMarkup()}
     </main>`;
 }
@@ -1297,17 +1300,20 @@ function archiveMarkup() {
 function workbenchMarkup() {
   if (archiveView) return archiveMarkup();
   const normalized = query.trim().toLowerCase();
+  const searchTokens = normalized.split(/\s+/).filter(Boolean);
   const activeReports = state.reports.filter((report) => !report.archived);
-  const reports = normalized
-    ? activeReports.filter((report) =>
-      `${report.title} ${report.source || ""} ${report.access || ""} ${workTypeName(report.workType)} ${(report.tags || []).join(" ")}`
-        .toLowerCase()
-        .includes(normalized))
+  const reports = searchTokens.length
+    ? activeReports.filter((report) => {
+      const haystack = `${report.title} ${report.source || ""} ${report.access || ""} ${workTypeName(report.workType)} ${(report.tags || []).join(" ")}`
+        .toLowerCase();
+      return searchTokens.every((token) => haystack.includes(token));
+    })
     : activeReports;
   const archiveCount = state.reports.filter((report) => report.archived).length;
   const productionCount = activeReports.filter((report) => report.access === "production").length;
   const restrictedCount = activeReports.filter((report) => report.access !== "production").length;
-  const visibleBuckets = classificationBuckets(reports, normalized);
+  const visibleBuckets = classificationBuckets(reports, normalized)
+    .filter((bucket) => bucket.reports.length || movingReportId);
   const viewName = catalogView === "type"
     ? "工作类型"
     : catalogView === "tag"
@@ -1319,19 +1325,21 @@ function workbenchMarkup() {
       <section class="workspace">
         ${taskWorkspaceMarkup(escapeHtml)}
         <div class="results-toolbar unified-results-toolbar">
-          <div class="results-title">
-            <h1>我的成果</h1>
+          <h1 class="sr-only">Clair's Studio 成果库</h1>
+          <div class="results-title" aria-label="成果概览">
+            <span class="library-label">Library</span>
+            <strong>${activeReports.length}</strong>
+            <span>works</span>
           </div>
           <div class="results-toolbar-side">
             <div class="studio-summary compact-summary" aria-label="成果统计">
-              <strong>${activeReports.length}</strong><span>份成果</span>
+              <strong>${state.groups.length}</strong><span>主题</span>
               <i></i>
-              <strong>${state.groups.length}</strong><span>个主题</span>
-              <i></i>
-              <strong>${productionCount}</strong><span>可直接访问</span>
+              <strong>${productionCount}</strong><span>直达</span>
             </div>
             <label class="search results-search">
-              <input id="search-input" value="${escapeHtml(query)}" placeholder="搜索成果" aria-label="搜索成果" />
+              <span aria-hidden="true">⌕</span>
+              <input id="search-input" value="${escapeHtml(query)}" placeholder="搜索标题、标签或来源" aria-label="搜索成果" />
               ${query ? '<button type="button" data-action="clear-search">清除</button>' : ""}
             </label>
           </div>
@@ -1344,24 +1352,21 @@ function workbenchMarkup() {
               <button type="button" data-action="cancel-move">取消</button>
             </div>` : ""}
           <div class="collection-toolbar">
-            <div>
-              <h2>${viewName}</h2>
-              <span>${catalogView === "tag" ? "一份报告可属于多个标签" : "拖动卡片即可调整归类"}</span>
-            </div>
             <div class="classification-actions">
               <div class="view-switcher" role="tablist" aria-label="成果分类方式">
-                <button type="button" role="tab" aria-selected="${catalogView === "topic"}" class="${catalogView === "topic" ? "active" : ""}" data-action="set-view" data-id="topic">按主题</button>
-                <button type="button" role="tab" aria-selected="${catalogView === "type"}" class="${catalogView === "type" ? "active" : ""}" data-action="set-view" data-id="type">按工作类型</button>
-                <button type="button" role="tab" aria-selected="${catalogView === "tag"}" class="${catalogView === "tag" ? "active" : ""}" data-action="set-view" data-id="tag">按标签</button>
+                <button type="button" role="tab" aria-selected="${catalogView === "topic"}" class="${catalogView === "topic" ? "active" : ""}" data-action="set-view" data-id="topic">主题</button>
+                <button type="button" role="tab" aria-selected="${catalogView === "type"}" class="${catalogView === "type" ? "active" : ""}" data-action="set-view" data-id="type">类型</button>
+                <button type="button" role="tab" aria-selected="${catalogView === "tag"}" class="${catalogView === "tag" ? "active" : ""}" data-action="set-view" data-id="tag">标签</button>
               </div>
-              <button class="primary-button add-topic-button" type="button" data-action="add-group">＋ 新建工作主题</button>
+              <button class="quiet-button add-topic-button" type="button" data-action="add-group">＋ 主题</button>
             </div>
           </div>
           ${visibleBuckets.length ? `
-            <nav class="topic-nav" aria-label="报告${viewName}">
-              ${visibleBuckets.map((bucket, index) => `<a href="#bucket-${index}">${escapeHtml(bucket.name)}<span>${bucket.reports.length}</span></a>`).join("")}
-            </nav>
-            <div class="board catalog-view-${catalogView}">
+            <div class="library-layout">
+              <nav class="topic-nav" aria-label="报告${viewName}">
+                ${visibleBuckets.map((bucket, index) => `<a href="#bucket-${index}"><span class="nav-index">${String(index + 1).padStart(2, "0")}</span>${escapeHtml(bucket.name)}<span>${bucket.reports.length}</span></a>`).join("")}
+              </nav>
+              <div class="board catalog-view-${catalogView}">
               ${visibleBuckets.map((bucket, index) => `
                 <section id="bucket-${index}" class="group-column topic-section bucket-${escapeHtml(bucket.kind)} accent-${escapeHtml(bucket.accent || "blue")}"
                   data-bucket-kind="${escapeHtml(bucket.kind)}"
@@ -1399,6 +1404,7 @@ function workbenchMarkup() {
                         : `<div class="empty-topic-drop passive-drop"><strong>拖报告到这里</strong></div>`}
                   </div>
                 </section>`).join("")}
+              </div>
             </div>` : `
             <div class="no-results">
               <strong>没有找到相关报告</strong>
@@ -1410,7 +1416,7 @@ function workbenchMarkup() {
           </div>
         </section>
       </section>
-      <footer><span>CLAIR AI STUDIO</span><span>Production archive · 2026-07-29</span></footer>
+      <footer><span>CLAIR'S STUDIO</span><span>Private workspace</span></footer>
       ${modalMarkup()}
     </main>`;
 }

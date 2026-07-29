@@ -175,10 +175,10 @@ export function taskWorkspaceMarkup(escapeHtml) {
       <section class="inline-task-launcher" aria-label="发起任务">
         <div class="quick-task-entry">
           <span class="quick-task-icon" aria-hidden="true">✦</span>
-          <input id="task-quick-goal" value="${escapeHtml(draft.goal)}" placeholder="今天想完成什么？" aria-label="今天想完成什么" />
+          <input id="task-quick-goal" value="${escapeHtml(draft.goal)}" placeholder="想完成什么？" aria-label="想完成什么" />
           <div class="quick-task-actions">
-            <button class="attachment-shortcut" type="button" data-task-action="expand-launcher">＋ 素材</button>
-            <button class="primary-button" type="button" data-task-action="expand-launcher">发起任务</button>
+            <button class="attachment-shortcut" type="button" data-task-action="expand-launcher">添加材料</button>
+            <button class="primary-button" type="button" data-task-action="expand-launcher">开始 <span aria-hidden="true">↗</span></button>
           </div>
         </div>
         ${taskProgressMarkup(escapeHtml)}
