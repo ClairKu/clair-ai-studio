@@ -379,12 +379,12 @@ const initialState = {
     {
       id: "oap-reporting-framework",
       groupId: "ai-platform",
-      title: "OAP 汇报框架｜动因、成果、复盘与规划",
+      title: "盈米 AI 开放平台｜汇报框架与母版 V1.0",
       url: "https://clairku.github.io/qieman-product-research-library/pages/oap/oap-reporting-framework-2026-07-28.html",
-      pinned: false,
+      pinned: true,
       position: 5,
-      createdAt: "2026-07-28T08:30:00.000Z",
-      source: "近月新增",
+      createdAt: "2026-07-30T00:38:00.000Z",
+      source: "OAP 汇报母版",
       access: "production",
     },
     {
