@@ -647,6 +647,7 @@ function showToast(message) {
 }
 
 function cardMarkup(report, pinnedView = false) {
+  const restricted = report.access !== "production";
   const accessLabel = report.access === "org"
     ? "需组织登录"
     : report.access === "account"
@@ -660,14 +661,14 @@ function cardMarkup(report, pinnedView = false) {
           <strong>${escapeHtml(report.title)}</strong>
           <span>${escapeHtml(domainOf(report.url))}</span>
         </span>
-        <span class="open-arrow" aria-hidden="true">↗</span>
+        <span class="open-arrow ${restricted ? "login-arrow" : ""}" aria-hidden="true">${restricted ? "登录" : "↗"}</span>
       </button>
       <div class="card-meta">
         <span>${escapeHtml(dateLabel(report.createdAt))}</span>
         <span class="source-badge">${escapeHtml(report.source || "手动添加")}</span>
         <span class="access-badge ${report.access !== "production" ? "access-org" : ""}">${accessLabel}</span>
         <span class="drag-hint" title="拖动到其他分组">⠿ 拖动</span>
-        <a class="external-link" href="${escapeHtml(report.url)}" target="_blank" rel="noreferrer" title="在新窗口打开">新窗口 ↗</a>
+        <a class="external-link" href="${escapeHtml(report.url)}" target="_blank" rel="noreferrer" title="${restricted ? "在新窗口登录并打开" : "在新窗口打开"}">${restricted ? "登录打开 ↗" : "新窗口 ↗"}</a>
         <div class="card-actions">
           <button type="button" data-action="pin" data-id="${escapeHtml(report.id)}" title="${report.pinned ? "取消置顶" : "置顶"}">${report.pinned ? "★" : "☆"}</button>
           <button type="button" data-action="edit" data-id="${escapeHtml(report.id)}">编辑</button>
@@ -760,6 +761,33 @@ function gateMarkup() {
 }
 
 function readerMarkup(report) {
+  const restricted = report.access !== "production";
+  const accessLabel = report.access === "org" ? "组织账号" : "站点账号";
+  const readerBody = restricted
+    ? `
+      <div class="login-handoff-wrap">
+        <section class="login-handoff-card" aria-labelledby="login-handoff-title">
+          <div class="login-handoff-icon" aria-hidden="true">↗</div>
+          <span class="section-kicker">${report.access === "org" ? "ORGANIZATION SIGN-IN" : "ACCOUNT SIGN-IN"}</span>
+          <h1 id="login-handoff-title">请在新窗口完成登录</h1>
+          <p>该报告需要${accessLabel}验证。登录页受浏览器安全策略保护，不能嵌入工作台，因此这里不再显示空白页面。</p>
+          <ol class="login-handoff-steps">
+            <li><span>1</span><div><strong>打开登录页</strong><small>点击下方按钮，会进入浏览器顶层新窗口。</small></div></li>
+            <li><span>2</span><div><strong>手动完成验证</strong><small>使用你的${accessLabel}登录，验证码与授权只在原网站处理。</small></div></li>
+            <li><span>3</span><div><strong>继续查看报告</strong><small>登录成功后留在新窗口阅读，工作台仍保留在当前页。</small></div></li>
+          </ol>
+          <div class="login-handoff-actions">
+            <a class="primary-button" href="${escapeHtml(report.url)}" target="_blank" rel="noreferrer">打开登录页 ↗</a>
+            <button class="quiet-button" type="button" data-action="back">返回清单</button>
+          </div>
+          <p class="login-handoff-domain">${escapeHtml(domainOf(report.url))}</p>
+        </section>
+      </div>`
+    : `
+      <div class="reader-frame-wrap">
+        <iframe class="reader-frame" title="${escapeHtml(report.title)}" src="${escapeHtml(report.url)}"
+          sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
+      </div>`;
   return `
     <main class="reader-shell">
       <header class="reader-header">
@@ -769,14 +797,11 @@ function readerMarkup(report) {
           <span>${escapeHtml(domainOf(report.url))}</span>
         </div>
         <div class="reader-actions">
-          <a class="quiet-button" href="${escapeHtml(report.url)}" target="_blank" rel="noreferrer">新窗口 ↗</a>
+          <a class="${restricted ? "primary-button" : "quiet-button"}" href="${escapeHtml(report.url)}" target="_blank" rel="noreferrer">${restricted ? "登录打开 ↗" : "新窗口 ↗"}</a>
           <button class="quiet-button" type="button" data-action="edit" data-id="${escapeHtml(report.id)}">编辑</button>
         </div>
       </header>
-      <div class="reader-frame-wrap">
-        <iframe class="reader-frame" title="${escapeHtml(report.title)}" src="${escapeHtml(report.url)}"
-          sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
-      </div>
+      ${readerBody}
       ${modalMarkup()}
     </main>`;
 }
