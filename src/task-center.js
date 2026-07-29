@@ -6,6 +6,31 @@ const intakeActions = [
   { id: "review", name: "评审", hint: "自动匹配合适的评审 Skill" },
 ];
 
+const intakeIcons = {
+  save: `
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M5 4.5h11l3 3v12H5z"></path>
+      <path d="M8 4.5v5h7v-5M8 19.5v-6h8v6"></path>
+    </svg>`,
+  decision: `
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="6" cy="6" r="2"></circle>
+      <circle cx="18" cy="6" r="2"></circle>
+      <circle cx="12" cy="18" r="2"></circle>
+      <path d="M7.8 7.2 10.8 16M16.2 7.2 13.2 16M8 6h8"></path>
+    </svg>`,
+  review: `
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M8 4.5h8M9 3h6v3H9zM6 5.5H4.5v15h15v-15H18"></path>
+      <path d="m8 13 2.2 2.2L16 9.5"></path>
+    </svg>`,
+  upload: `
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 16V4M8 8l4-4 4 4"></path>
+      <path d="M5 14v5.5h14V14"></path>
+    </svg>`,
+};
+
 const taskSkills = [
   { id: "requirement", name: "需求评审" },
   { id: "solution", name: "方案评审" },
@@ -83,9 +108,10 @@ function attachmentsMarkup(escapeHtml) {
 
 function intakeActionsMarkup(escapeHtml) {
   return intakeActions.map((action) => `
-    <button class="intake-action ${action.id === "save" ? "primary-intake-action" : ""}"
-      type="submit" data-submit-action="${action.id}" title="${escapeHtml(action.hint)}">
-      <strong>${escapeHtml(action.name)}</strong>
+    <button class="intake-action intake-icon-action" type="submit"
+      data-submit-action="${action.id}" aria-label="${escapeHtml(action.name)}"
+      title="${escapeHtml(action.name)} · ${escapeHtml(action.hint)}">
+      ${intakeIcons[action.id]}
     </button>`).join("");
 }
 
@@ -94,14 +120,15 @@ export function taskWorkspaceMarkup(escapeHtml) {
     <section class="inline-task-launcher prompt-launcher simple-intake" aria-label="新增内容">
       <form class="prompt-composer compact-intake-composer" id="task-composer">
         <div class="compact-intake-row">
-          <label class="prompt-file-button compact-upload-button" for="task-files">
-            <input id="task-files" type="file" multiple />
-            <span aria-hidden="true">＋</span>
-            <strong>上传档案</strong>
-          </label>
+          <span class="intake-entry-mark" aria-hidden="true">✦</span>
           <textarea id="task-goal" rows="1" aria-label="输入或粘贴内容">${escapeHtml(draft.material)}</textarea>
           <div class="intake-actions compact-task-actions" aria-label="处理方式">
             ${intakeActionsMarkup(escapeHtml)}
+            <label class="intake-action intake-icon-action compact-upload-button"
+              for="task-files" aria-label="上传档案" title="上传档案">
+              <input id="task-files" type="file" multiple />
+              ${intakeIcons.upload}
+            </label>
           </div>
         </div>
         ${attachmentsMarkup(escapeHtml)}
@@ -159,16 +186,20 @@ export function bindTaskCenter({
         form.classList.add("is-saving");
         status.hidden = false;
         status.querySelector("strong").textContent = message;
-        submit.innerHTML = '<span class="mini-spinner"></span><strong>保存中</strong>';
+        submit.setAttribute("aria-label", "保存中");
+        submit.innerHTML = '<span class="mini-spinner"></span>';
       };
       updateSaving(
-        /^https?:\/\/\S+$/i.test(payload.material)
-          ? "正在读取页面标题与摘要…"
-          : "正在识别标题、分组、类型与标签…",
+        "正在检查成果库与页面访问状态…",
       );
 
       try {
         const saved = await saveToLibrary(payload, updateSaving);
+        if (saved.rejected) {
+          render();
+          showToast(saved.reason);
+          return;
+        }
         if (saved.duplicate) {
           render();
           showToast(

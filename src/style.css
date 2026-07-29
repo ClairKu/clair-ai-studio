@@ -6665,9 +6665,20 @@ body.global-drag-ready .global-drop-overlay {
 
 .compact-intake-row {
   display: grid;
-  grid-template-columns: auto minmax(120px, 1fr) auto;
+  grid-template-columns: 34px minmax(120px, 1fr) auto;
   align-items: center;
   gap: 10px;
+}
+
+.intake-entry-mark {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: #f1f2f6;
+  color: #676d79;
+  font-size: 12px;
 }
 
 .compact-intake-row textarea {
@@ -6691,13 +6702,7 @@ body.global-drag-ready .global-drop-overlay {
 }
 
 .compact-upload-button {
-  min-height: 38px;
-  border-radius: 9px;
-  padding-inline: 11px;
-}
-
-.compact-upload-button strong {
-  font-size: 11px;
+  cursor: pointer;
 }
 
 .compact-task-actions {
@@ -6711,32 +6716,41 @@ body.global-drag-ready .global-drop-overlay {
 }
 
 .compact-task-actions .intake-action {
-  min-width: 56px;
-  min-height: 36px;
-  justify-content: center;
+  width: 38px;
+  min-width: 38px;
+  height: 38px;
+  min-height: 38px;
+  display: grid;
+  place-items: center;
   border: 1px solid #e1e3e9;
-  border-radius: 9px;
-  background: #fff;
-  padding: 0 12px;
-  color: #555b65;
+  border-radius: 11px;
+  background: #fafafc;
+  padding: 0;
+  color: #555b66;
+  transition: border-color 150ms ease, background 150ms ease,
+    color 150ms ease, transform 150ms ease;
 }
 
 .compact-task-actions .intake-action:hover {
-  border-color: #bec2f7;
-  background: #f6f6ff;
-  color: #5056d9;
+  border-color: #c5c8d1;
+  background: #fff;
+  color: #25272d;
+  transform: translateY(-1px);
 }
 
-.compact-task-actions .primary-intake-action {
-  border-color: #5e65ec;
-  background: #6269ef;
-  color: #fff;
+.intake-icon-action svg {
+  width: 17px;
+  height: 17px;
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.65;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
-.compact-task-actions .primary-intake-action:hover {
-  border-color: #5057df;
-  background: #555ce5;
-  color: #fff;
+.compact-upload-button input {
+  display: none;
 }
 
 .compact-task-actions .intake-action:disabled {
@@ -6785,23 +6799,7 @@ body.global-drag-ready .global-drop-overlay {
 }
 
 @media (max-width: 350px) {
-  .compact-upload-button strong {
-    display: none;
-  }
-
-  .compact-upload-button {
-    width: 40px;
-    justify-content: center;
-    padding: 0;
-  }
-
   .compact-task-actions {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .compact-task-actions .intake-action {
-    min-width: 0;
-    padding-inline: 8px;
+    gap: 4px;
   }
 }

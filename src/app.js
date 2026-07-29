@@ -29,6 +29,9 @@ const WORK_TYPES = [
 
 const TAG_ORDER = [
   "手动保存",
+  "生产",
+  "个人",
+  "HTML",
   "本体",
   "飞书",
   "调研",
@@ -700,6 +703,9 @@ function inferTags(report, workType = inferWorkType(report)) {
     if (!tags.includes(tag)) tags.push(tag);
   };
   if (report.manualSaved) add("手动保存");
+  if (report.isProduction) add("生产");
+  if (report.isPersonal) add("个人");
+  if (report.isHtml) add("HTML");
   if (/ontology\.yingmi-inc\.com|本体/.test(text)) add("本体");
   if (/feishu\.cn|飞书|community-ai-review|oap-h2-plan/.test(text)) add("飞书");
   if (workType === "competitive-research" || /调研|研究|盘点/.test(text)) add("调研");
@@ -912,6 +918,11 @@ function firstHttpUrl(text = "") {
 }
 
 function titleFromIntake(material, files, url) {
+  const localHtml = htmlFromIntake(material, files);
+  const htmlTitle = localHtml.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1]
+    ?.replace(/\s+/g, " ")
+    .trim();
+  if (htmlTitle) return htmlTitle.slice(0, 100);
   const textTitle = String(material)
     .split(/\n/)
     .map((line) => line.trim().replace(/^#+\s*/, ""))
@@ -935,12 +946,13 @@ function savedFilesFingerprint(files = []) {
     .join("|");
 }
 
-function findDuplicateReport({ material, files, url }) {
+function findDuplicateReport({ material, files, url, excludeId = "" }) {
   const normalizedIntakeUrl = url ? normalizedUrl(url) : "";
   const normalizedContent = normalizedSavedContent(material);
   const filesFingerprint = savedFilesFingerprint(files);
 
   return state.reports.find((report) => {
+    if (report.id === excludeId) return false;
     if (normalizedIntakeUrl && normalizedUrl(report.url) === normalizedIntakeUrl) {
       return true;
     }
@@ -953,8 +965,57 @@ function findDuplicateReport({ material, files, url }) {
   }) || null;
 }
 
+function personalGithubUrl(url = "") {
+  try {
+    const parsed = new URL(url);
+    const host = parsed.hostname.toLowerCase();
+    const firstPath = parsed.pathname.split("/").filter(Boolean)[0]?.toLowerCase();
+    return host === "clairku.github.io" ||
+      ((host === "github.com" || host === "raw.githubusercontent.com") &&
+        firstPath === "clairku");
+  } catch {
+    return false;
+  }
+}
+
+function htmlUrl(url = "") {
+  try {
+    return /\.html?$/i.test(new URL(url).pathname);
+  } catch {
+    return false;
+  }
+}
+
+function htmlFromIntake(material = "", files = []) {
+  if (/<!doctype\s+html|<html[\s>]/i.test(material)) return material.trim();
+  return files.find((file) => /\.html?$/i.test(file.name) && file.excerpt)?.excerpt || "";
+}
+
+function permissionTarget(url = "") {
+  try {
+    const host = new URL(url).hostname.toLowerCase();
+    if (/(^|\.)feishu\.cn$|(^|\.)larksuite\.com$/.test(host)) {
+      return { access: "org", provider: "飞书组织帐号" };
+    }
+    if (/(^|\.)docs\.qq\.com$|(^|\.)doc\.weixin\.qq\.com$/.test(host)) {
+      return { access: "account", provider: "腾讯文档帐号" };
+    }
+    if (/(^|\.)yingmi-inc\.com$/.test(host)) {
+      return { access: "org", provider: "盈米组织帐号" };
+    }
+    if (host === "github.com" && /^\/login(?:\/|$)/.test(new URL(url).pathname)) {
+      return { access: "account", provider: "GitHub 帐号" };
+    }
+  } catch {
+    return null;
+  }
+  return null;
+}
+
 async function fetchPageMetadata(url) {
-  if (!validUrl(url)) return { title: "", description: "" };
+  if (!validUrl(url)) {
+    return { title: "", description: "", reachable: false };
+  }
   try {
     const metadataUrl = `https://api.microlink.io/?url=${encodeURIComponent(url)}`;
     const response = await fetch(metadataUrl, {
@@ -966,10 +1027,59 @@ async function fetchPageMetadata(url) {
     return {
       title: payload?.data?.title?.trim().slice(0, 180) || "",
       description: payload?.data?.description?.trim().slice(0, 500) || "",
+      reachable: payload?.status === "success" && Boolean(payload?.data?.url),
     };
   } catch {
-    return { title: "", description: "" };
+    return { title: "", description: "", reachable: false };
   }
+}
+
+async function inspectSaveTarget({ material = "", files = [], url = "" }, onProgress = () => {}) {
+  const localHtml = htmlFromIntake(material, files);
+  const hasHtmlFile = files.some((file) => /\.html?$/i.test(file.name));
+  if (!url) {
+    if (!localHtml) {
+      return {
+        allowed: false,
+        reason: hasHtmlFile
+          ? "HTML 文件过大或无法读取，未保存；请上传 1MB 以内的 HTML"
+          : "只能保存可正常访问的网址或 HTML 内容",
+      };
+    }
+    return {
+      allowed: true,
+      access: "local",
+      metadata: { title: "", description: "", reachable: true },
+      isHtml: true,
+      savedHtml: localHtml,
+      loginProvider: "",
+    };
+  }
+
+  const permission = permissionTarget(url);
+  onProgress(
+    permission
+      ? "正在识别权限页面与登录入口…"
+      : "正在检查页面是否可正常访问…",
+  );
+  const metadata = permission
+    ? { title: "", description: "", reachable: true }
+    : await fetchPageMetadata(url);
+  if (!permission && !metadata.reachable) {
+    return {
+      allowed: false,
+      reason: "页面无法正常访问，且不是可读取的 HTML，未保存",
+    };
+  }
+
+  return {
+    allowed: true,
+    access: permission?.access || "production",
+    metadata,
+    isHtml: htmlUrl(url),
+    savedHtml: "",
+    loginProvider: permission?.provider || "",
+  };
 }
 
 async function saveIntakeToLibrary({ material, files }, onProgress = () => {}) {
@@ -985,15 +1095,17 @@ async function saveIntakeToLibrary({ material, files }, onProgress = () => {}) {
     };
   }
 
-  const textTitle = titleFromIntake(material, files, url);
-  const onlyUrl = Boolean(url) &&
-    material.replace(url, "").replace(/\s+/g, "").length === 0 &&
-    !files.length;
-  let metadata = { title: "", description: "" };
-  if (onlyUrl) {
-    onProgress("正在读取页面标题与摘要…");
-    metadata = await fetchPageMetadata(url);
+  const inspected = await inspectSaveTarget({ material, files, url }, onProgress);
+  if (!inspected.allowed) {
+    return {
+      rejected: true,
+      duplicate: false,
+      reason: inspected.reason,
+    };
   }
+
+  const textTitle = titleFromIntake(material, files, url);
+  const metadata = inspected.metadata;
   onProgress("正在识别标题、分组、类型与标签…");
   const now = new Date().toISOString();
   const report = {
@@ -1005,15 +1117,18 @@ async function saveIntakeToLibrary({ material, files }, onProgress = () => {}) {
     position: 0,
     createdAt: now,
     source: url ? "快捷保存" : "本地保存",
-    access: /feishu\.cn|yingmi-inc\.com|docs\.qq\.com/i.test(url)
-      ? "org"
-      : "production",
+    access: inspected.access,
     archived: false,
     archivedAt: "",
     savedContent: material,
     savedFiles: files,
     detectedDescription: metadata.description,
     manualSaved: true,
+    isProduction: inspected.access === "production",
+    isPersonal: personalGithubUrl(url),
+    isHtml: inspected.isHtml,
+    savedHtml: inspected.savedHtml,
+    loginProvider: inspected.loginProvider,
   };
   report.workType = inferWorkType(report);
   report.groupId = inferGroupId(report);
@@ -1206,8 +1321,9 @@ function showToast(message) {
 }
 
 function cardMarkup(report, archivedView = false) {
-  const localSaved = Boolean(report.savedContent) && !report.url;
-  const restricted = report.access !== "production";
+  const localSaved = !report.url &&
+    (Boolean(report.savedContent) || Boolean((report.savedFiles || []).length));
+  const restricted = ["org", "account"].includes(report.access);
   const accessLabel = report.access === "org"
     ? "需组织登录"
     : report.access === "account"
@@ -1381,10 +1497,23 @@ function gateMarkup() {
 
 function readerMarkup(report) {
   if (isEditingReport(report.id)) return reportEditorMarkup(report, escapeHtml);
-  const localSaved = Boolean(report.savedContent) && !report.url;
-  const restricted = report.access !== "production";
-  const accessLabel = report.access === "org" ? "组织账号" : "站点账号";
-  const readerBody = localSaved
+  const localSaved = !report.url &&
+    (Boolean(report.savedContent) || Boolean((report.savedFiles || []).length));
+  const restricted = ["org", "account"].includes(report.access);
+  const accessLabel = report.loginProvider ||
+    (report.access === "org" ? "组织帐号" : "站点帐号");
+  const localHtml = report.savedHtml || htmlFromIntake(
+    report.savedContent,
+    report.savedFiles,
+  );
+  const readerBody = localHtml
+    ? `
+      <div class="reader-frame-wrap">
+        <iframe class="reader-frame" title="${escapeHtml(report.title)}"
+          srcdoc="${escapeHtml(localHtml)}"
+          sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-scripts"></iframe>
+      </div>`
+    : localSaved
     ? `
       <div class="saved-material-wrap">
         <article class="saved-material-card">
@@ -1409,14 +1538,14 @@ function readerMarkup(report) {
           <div class="login-handoff-icon" aria-hidden="true">↗</div>
           <span class="section-kicker">${report.access === "org" ? "ORGANIZATION SIGN-IN" : "ACCOUNT SIGN-IN"}</span>
           <h1 id="login-handoff-title">请在新窗口完成登录</h1>
-          <p>该报告需要${accessLabel}验证。登录页受浏览器安全策略保护，不能嵌入工作台，因此这里不再显示空白页面。</p>
+          <p>该页面需要${accessLabel}验证。登录页受浏览器安全策略保护，不能嵌入工作台，因此这里不再显示空白页面。</p>
           <ol class="login-handoff-steps">
             <li><span>1</span><div><strong>打开登录页</strong><small>点击下方按钮，会进入浏览器顶层新窗口。</small></div></li>
             <li><span>2</span><div><strong>手动完成验证</strong><small>使用你的${accessLabel}登录，验证码与授权只在原网站处理。</small></div></li>
             <li><span>3</span><div><strong>继续查看报告</strong><small>登录成功后留在新窗口阅读，工作台仍保留在当前页。</small></div></li>
           </ol>
           <div class="login-handoff-actions">
-            <a class="primary-button" href="${escapeHtml(report.url)}" target="_blank" rel="noreferrer">打开登录页 ↗</a>
+            <a class="primary-button" href="${escapeHtml(report.url)}" target="_blank" rel="noreferrer">打开${escapeHtml(accessLabel)}登录页 ↗</a>
             <button class="quiet-button" type="button" data-action="back">返回清单</button>
           </div>
           <p class="login-handoff-domain">${escapeHtml(domainOf(report.url))}</p>
@@ -2065,35 +2194,73 @@ function bindApp() {
     const url = reportForm.elements.url.value.trim();
     if (!validUrl(url)) return;
     const submit = reportForm.querySelector('button[type="submit"]');
+    const hint = reportForm.querySelector(".field-hint");
     submit.disabled = true;
     submit.innerHTML = '<span class="mini-spinner"></span>';
-    let title = reportForm.elements.title.value.trim();
-    if (!title) title = await detectTitle(reportForm);
+    const editingId = modal.mode === "edit" ? modal.reportId : "";
+    const duplicate = findDuplicateReport({
+      material: url,
+      files: [],
+      url,
+      excludeId: editingId,
+    });
+    if (duplicate) {
+      submit.disabled = false;
+      submit.textContent = "保存";
+      hint.textContent = `成果库已有“${duplicate.title}”，未重复保存`;
+      showToast(`成果库已有“${duplicate.title}”，未重复保存`);
+      return;
+    }
+    const inspected = await inspectSaveTarget(
+      { material: url, files: [], url },
+      (message) => {
+        hint.textContent = message;
+      },
+    );
+    if (!inspected.allowed) {
+      submit.disabled = false;
+      submit.textContent = "保存";
+      hint.textContent = inspected.reason;
+      showToast(inspected.reason);
+      return;
+    }
+    let title = reportForm.elements.title.value.trim() || inspected.metadata.title;
     const groupId = reportForm.elements.groupId.value;
     const workType = reportForm.elements.workType.value;
-    const tags = parseTags(reportForm.elements.tags.value);
+    const manualTags = parseTags(reportForm.elements.tags.value);
+    const saveMetadata = {
+      title: title || domainOf(url),
+      url,
+      groupId,
+      workType,
+      source: "手动添加",
+      access: inspected.access,
+      detectedDescription: inspected.metadata.description,
+      manualSaved: true,
+      isProduction: inspected.access === "production",
+      isPersonal: personalGithubUrl(url),
+      isHtml: inspected.isHtml,
+      loginProvider: inspected.loginProvider,
+    };
+    const tags = [...new Set([
+      ...inferTags(saveMetadata, workType),
+      ...manualTags,
+    ])].slice(0, 8);
     if (modal.mode === "edit") {
       const report = state.reports.find((item) => item.id === modal.reportId);
-      Object.assign(report, { title, url, groupId, workType, tags });
+      Object.assign(report, saveMetadata, { tags });
     } else {
       const newReport = {
         id: id("report"),
         groupId,
-        title: title || domainOf(url),
-        url,
+        ...saveMetadata,
         pinned: false,
         position: state.reports.filter((report) => report.groupId === groupId).length,
         createdAt: new Date().toISOString(),
-        source: "手动添加",
-        access: "production",
         archived: false,
         archivedAt: "",
-        workType,
         tags,
       };
-      if (!newReport.tags.length) {
-        newReport.tags = inferTags(newReport, newReport.workType);
-      }
       state.reports.push(newReport);
     }
     saveState();
