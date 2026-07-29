@@ -1089,7 +1089,7 @@ function bindApp() {
         showToast("报告已恢复到原主题");
       } else if (action === "delete") {
         const report = state.reports.find((item) => item.id === itemId);
-        if (report?.archived && confirm(`永久删除“${report.title}”？删除后无法从归档区恢复。`)) {
+        if (report?.archived && confirm(`二次确认：永久删除“${report.title}”？\n\n删除后无法从归档区恢复。`)) {
           state.reports = state.reports.filter((item) => item.id !== itemId);
           if (readerId === itemId) readerId = "";
           saveState();
