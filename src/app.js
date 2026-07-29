@@ -138,6 +138,18 @@ const initialState = {
       access: "production",
     },
     {
+      id: "ai-three-projects-management-deck-2026-07-30",
+      groupId: "reporting",
+      title: "三个 AI 项目管理层汇报｜一条金融服务生产链",
+      url: "https://clairku.github.io/clair-ai-studio/reports/ai-three-projects-management-deck-2026-07-30/",
+      preview: "ai-three-projects-management-deck-2026-07-30.png",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-07-30T07:00:00.000Z",
+      source: "飞书根材料与三个项目汇总",
+      access: "production",
+    },
+    {
       id: "seed-mcp-benchmark",
       groupId: "ai-platform",
       title: "三家金融 MCP / Skills 服务最完整对比｜010350 同题实测",
