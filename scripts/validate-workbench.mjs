@@ -27,8 +27,8 @@ const reports = reportChunks.map((chunk) => ({
   access: chunk.match(/\baccess:\s*"([^"]+)"/)?.[1] || "",
 }));
 
-if (reports.length !== 47) {
-  fail(`初始成果数量异常：预期 47，实际 ${reports.length}`);
+if (reports.length !== 48) {
+  fail(`初始成果数量异常：预期 48，实际 ${reports.length}`);
 }
 
 for (const field of ["id", "url"]) {
@@ -56,14 +56,30 @@ if (missingPreviews.length) {
 
 const requiredSignals = [
   [appSource, 'aria-label="搜索归档"', "归档搜索入口缺失"],
-  [appSource, 'data-id="type">类型</button>', "分类名称未使用“类型”"],
-  [taskSource, "任务保存在当前浏览器，不会在后台自动执行", "任务队列缺少本地执行边界"],
+  [appSource, 'data-id="type">Type</button>', "分类按钮未使用英文"],
+  [taskSource, 'placeholder="Set an idea in motion"', "统一输入缺少英文提示"],
+  [taskSource, 'name: "Decide"', "统一输入操作未使用英文"],
+  [taskSource, "brief copied", "决策与评审没有明确的即时结果"],
   [taskSource, 'class="intake-action-label"', "统一输入操作缺少可见标签"],
+  [appSource, "function moveBucket(", "缺少跨维度分组排序"],
+  [appSource, 'data-group-drag-kind="${escapeHtml(bucket.kind)}"', "并非所有分组都可拖动"],
+  [appSource, 'data-action="scroll-top"', "顶部缺少回顶操作"],
   [styleSource, ".archive-shell .top-actions .quiet-button", "移动端归档返回修复缺失"],
+  [styleSource, ".topic-nav a .nav-index", "分组标题对齐修复缺失"],
 ];
 
 for (const [source, signal, message] of requiredSignals) {
   if (!source.includes(signal)) fail(message);
+}
+
+for (const removedSignal of [
+  "taskProgressMarkup",
+  "inline-task-progress",
+  "clair-ai-studio-tasks-v1",
+]) {
+  if (taskSource.includes(removedSignal)) {
+    fail(`处理队列仍有残留：${removedSignal}`);
+  }
 }
 
 const docsIndex = read("docs/index.html");

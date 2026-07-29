@@ -7438,3 +7438,96 @@ body.global-drag-ready .global-drop-overlay {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Interaction follow-up — quieter headings, explicit English actions, stable scroll. */
+html {
+  scroll-behavior: auto;
+}
+
+.topbar {
+  cursor: pointer;
+}
+
+.topbar-home {
+  appearance: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.compact-intake-row textarea,
+.compact-intake-row textarea::placeholder,
+.intake-action-label {
+  font-family: var(--studio-art-font) !important;
+}
+
+.compact-intake-row textarea::placeholder {
+  color: #8f929b;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+}
+
+.topic-nav a {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.topic-nav a .nav-index,
+.bucket-marker {
+  display: none !important;
+}
+
+.group-header,
+.bucket-type .group-header,
+.bucket-tag .group-header,
+.bucket-time .group-header {
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+}
+
+.group-heading-copy.group-drag-handle {
+  width: fit-content;
+  min-width: 0;
+  height: auto;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 9px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  padding: 3px 0;
+  color: inherit;
+  box-shadow: none;
+  cursor: grab;
+  touch-action: none;
+}
+
+.group-heading-copy.group-drag-handle:hover {
+  background: transparent;
+  color: inherit;
+}
+
+.group-heading-copy.group-drag-handle:active {
+  cursor: grabbing;
+}
+
+.group-heading-copy.group-drag-handle:focus-visible {
+  outline: 2px solid rgb(91 98 244 / 34%);
+  outline-offset: 5px;
+}
+
+.group-column.is-group-dragging .group-heading-copy {
+  opacity: 0.46;
+}
+
+@media (max-width: 680px) {
+  .group-header .group-menu {
+    grid-column: 1 / -1;
+  }
+}

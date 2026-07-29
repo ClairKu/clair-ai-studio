@@ -378,16 +378,16 @@
       <p class="lead">本次对 Clair's Studio 进行了生产站、源码、链接、桌面端、390px 与 320px 窄屏的全链路审计；确定性问题已修复，架构边界和仍需人工决定的数据项单独列出。</p>
       <div class="hero-meta">
         <span>生产站 + 本地构建双重验证</span>
-        <span>审计前 46 项 · 本报告入库后 47 项</span>
+        <span>当前生产目录 48 项</span>
         <span>桌面 1440×1000</span>
         <span>移动 390×844 / 320×568</span>
       </div>
     </section>
 
     <div class="metrics" aria-label="审计结论">
-      <article class="metric"><strong>43/43</strong><span>直接访问的生产报告经 HTTP 检查均返回 200</span></article>
+      <article class="metric"><strong>44/44</strong><span>直接访问的生产报告经 HTTP 检查均返回 200</span></article>
       <article class="metric"><strong>4/4</strong><span>受限入口按账号或组织登录路径处理</span></article>
-      <article class="metric"><strong>14</strong><span>已修复的功能、移动端、安全与工程问题</span></article>
+      <article class="metric"><strong>19</strong><span>已修复的功能、交互、移动端、安全与工程问题</span></article>
       <article class="metric"><strong>0</strong><span>修复后 npm 已知漏洞与横向溢出</span></article>
     </div>
 
@@ -398,7 +398,7 @@
       </div>
       <div class="flow">
         <article><span class="step">01</span><h3>生产站巡检</h3><p>登录、搜索、四种分类、报告阅读器、加密报告、归档区和权限接力。</p></article>
-        <article><span class="step">02</span><h3>全量链接检查</h3><p>46 个目录入口逐一检查状态、跳转与权限边界，区分真实故障和登录态。</p></article>
+        <article><span class="step">02</span><h3>全量链接检查</h3><p>48 个目录入口逐一检查状态、跳转与权限边界，区分真实故障和登录态。</p></article>
         <article><span class="step">03</span><h3>响应式回归</h3><p>桌面、390px 手机和 320px 窄屏验证操作可见性、横向溢出与返回路径。</p></article>
         <article><span class="step">04</span><h3>构建与安全</h3><p>依赖审计、语法、生产构建、自动校验、控制台错误和 iframe 隔离复验。</p></article>
       </div>
@@ -411,7 +411,7 @@
       </div>
       <div class="bug-grid">
         <article class="bug"><span class="severity p0">P0</span><div><h3>移动端归档区无法返回</h3><p>旧响应式规则把“返回成果库”隐藏，用户进入后只能困在当前 SPA 状态。</p><span class="fix">已恢复移动端返回按钮并实测返回成功</span></div></article>
-        <article class="bug"><span class="severity p0">P0</span><div><h3>决策 / 评审点击后任务消失</h3><p>任务只写入 localStorage，页面没有任何队列、状态或结果入口，形成“已发起”的错误感知。</p><span class="fix">已恢复可见队列，并明确“不会后台自动执行”</span></div></article>
+        <article class="bug"><span class="severity p0">P0</span><div><h3>决策 / 评审动作产生伪队列</h3><p>静态页无法真正执行后台任务；继续维护本地处理队列会让记录与执行状态混在一起。</p><span class="fix">第二轮移除队列；Decide / Review 即时复制可执行 brief</span></div></article>
         <article class="bug"><span class="severity p0">P0</span><div><h3>网址被发送到第三方元数据服务</h3><p>未知内部链接可能在识别标题时被第三方服务接收。</p><span class="fix">已移除第三方调用；仅同源页面直接读取标题</span></div></article>
         <article class="bug"><span class="severity p0">P0</span><div><h3>同源 iframe 权限过宽</h3><p>阅读器同时允许脚本和同源权限，理论上同域报告可能触碰工作台本地数据。</p><span class="fix">已移除 allow-same-origin；加密报告解锁复验通过</span></div></article>
         <article class="bug"><span class="severity p1">P1</span><div><h3>归档搜索只有逻辑、没有入口</h3><p>代码会按 query 过滤归档，但页面没有搜索框，README 中的能力无法使用。</p><span class="fix">已补齐归档搜索框、清除状态和空结果反馈</span></div></article>
@@ -419,11 +419,16 @@
         <article class="bug"><span class="severity p1">P1</span><div><h3>移动端主题无法管理</h3><p>添加、改名、删除按钮在 680px 以下被隐藏，自定义主题无法维护。</p><span class="fix">移动端恢复主题管理操作并验证可见性</span></div></article>
         <article class="bug"><span class="severity p1">P1</span><div><h3>统一输入只有图标</h3><p>“材料 / 保存 / 决策 / 评审”只能靠猜，移动端没有 hover 提示。</p><span class="fix">桌面与移动端均显示可读标签和输入提示</span></div></article>
         <article class="bug"><span class="severity p1">P1</span><div><h3>有效网址受第三方故障阻断</h3><p>元数据读取超时会把真实可用的网址误判为不可保存。</p><span class="fix">未知外部网址允许手填标题并安全入库</span></div></article>
-        <article class="bug"><span class="severity p2">P2</span><div><h3>“任务”分类语义错误</h3><p>该视图实际按工作类型分类，并不是待处理任务。</p><span class="fix">更名为“类型”，与本地任务队列区分</span></div></article>
+        <article class="bug"><span class="severity p2">P2</span><div><h3>“任务”分类语义错误</h3><p>该视图实际按工作类型分类，并不是待处理任务。</p><span class="fix">更名为“类型”，与输入动作区分</span></div></article>
         <article class="bug"><span class="severity p2">P2</span><div><h3>移动端统计只剩裸数字</h3><p>原页面显示“50 10 42”，无法判断分别代表成果、主题还是直达。</p><span class="fix">恢复统计标签并保持 320px 无横向溢出</span></div></article>
         <article class="bug"><span class="severity p2">P2</span><div><h3>轻量口令被误认为私有鉴权</h3><p>静态站前端口令不等同于服务端身份验证。</p><span class="fix">入口改为 Personal Studio / Light access gate</span></div></article>
         <article class="bug"><span class="severity p1">P1</span><div><h3>构建依赖存在已知漏洞</h3><p>旧 Vite / esbuild 审计包含 1 个高危和 1 个中危开发服务器漏洞。</p><span class="fix">升级至 Vite 8.1.5；npm audit 归零</span></div></article>
-        <article class="bug"><span class="severity p2">P2</span><div><h3>没有持续回归护栏</h3><p>目录数量、重复 URL、缺失预览和构建资源过去依赖人工发现。</p><span class="fix">新增 npm test 自动验证 47 项目录与构建资源</span></div></article>
+        <article class="bug"><span class="severity p2">P2</span><div><h3>没有持续回归护栏</h3><p>目录数量、重复 URL、缺失预览和构建资源过去依赖人工发现。</p><span class="fix">新增 npm test 自动验证 48 项目录与构建资源</span></div></article>
+        <article class="bug"><span class="severity p1">P1</span><div><h3>页面交互继承深层滚动位置</h3><p>从页面下方打开报告或切换视图时，浏览器容易停留在旧位置，产生页面自动下滑的错觉。</p><span class="fix">主视图切换主动回顶；点击顶部品牌或空白区域平滑回顶</span></div></article>
+        <article class="bug"><span class="severity p2">P2</span><div><h3>分组标题前置标记造成错位</h3><p>主题编号、类型、标签和时间标记占用不同宽度，四个维度的标题起点不一致。</p><span class="fix">移除所有前置编号与类型图标，标题统一左对齐</span></div></article>
+        <article class="bug"><span class="severity p1">P1</span><div><h3>只有主题分组可以排序</h3><p>类型、标签和时间分组由系统固定生成，用户无法按自己的工作习惯调整浏览顺序。</p><span class="fix">四个维度均支持拖动及键盘左右排序，并在当前浏览器持久化</span></div></article>
+        <article class="bug"><span class="severity p2">P2</span><div><h3>输入组件中英文字体与动作不统一</h3><p>中文提示与中文按钮破坏工作台已经形成的英文编辑器语气。</p><span class="fix">提示、导航、管理与编辑按钮统一为英文，业务内容仍保留中文</span></div></article>
+        <article class="bug"><span class="severity p1">P1</span><div><h3>队列偏离快速输入的产品目标</h3><p>输入动作应该立即完成一个明确结果，而不是进入需要继续管理的第二套列表。</p><span class="fix">Save 直接入库；Decide / Review 直接复制 brief，不再保留队列</span></div></article>
       </div>
     </section>
 
@@ -443,8 +448,8 @@
         <article class="mock">
           <span>AFTER · 动作与边界可读</span>
           <div class="composer">
-            <span class="orb">✦</span><span class="placeholder">粘贴链接、文字，或拖入一份材料…</span>
-            <div class="actions"><b>＋ 材料</b><b>▣ 保存</b><b>⌘ 决策</b><b>✓ 评审</b></div>
+            <span class="orb">✦</span><span class="placeholder">Set an idea in motion</span>
+            <div class="actions"><b>＋ Attach</b><b>▣ Save</b><b>⌘ Decide</b><b>✓ Review</b></div>
           </div>
         </article>
         <article class="mock before">
@@ -467,10 +472,12 @@
         <table>
           <thead><tr><th>验证项</th><th>范围</th><th>结果</th><th>证据</th></tr></thead>
           <tbody>
-            <tr><td>目录链接</td><td>47 个发布后入口</td><td class="ok">通过</td><td>43 个直接入口 HTTP 200；4 个受限入口进入登录路径</td></tr>
+            <tr><td>目录链接</td><td>48 个发布后入口</td><td class="ok">通过</td><td>44 个直接入口 HTTP 200；4 个受限入口进入登录路径</td></tr>
             <tr><td>生产阅读器</td><td>加密 OAP 报告</td><td class="ok">通过</td><td>移除同源权限后仍可输入口令、解密和运行交互</td></tr>
             <tr><td>目录视图</td><td>主题 / 类型 / 标签 / 时间</td><td class="ok">通过</td><td>分类切换、计数和卡片渲染正常</td></tr>
-            <tr><td>本地任务</td><td>评审创建 → 队列 → 详情 → 移出</td><td class="ok">通过</td><td>状态可见，执行边界清楚</td></tr>
+            <tr><td>输入动作</td><td>Save 入库 / Decide 与 Review 复制 brief</td><td class="ok">通过</td><td>无队列、无伪后台状态，每个动作即时完成</td></tr>
+            <tr><td>分组排序</td><td>主题 / 类型 / 标签 / 时间</td><td class="ok">通过</td><td>拖动与键盘排序均可持久化，标题统一对齐</td></tr>
+            <tr><td>滚动行为</td><td>顶部回顶 / 切换视图 / 打开报告</td><td class="ok">通过</td><td>主路径不继承深层滚动位置</td></tr>
             <tr><td>归档路径</td><td>归档 → 搜索 → 恢复 → 返回</td><td class="ok">通过</td><td>390px 手机端完整跑通</td></tr>
             <tr><td>响应式</td><td>1440×1000 / 390×844 / 320×568</td><td class="ok">通过</td><td>无横向溢出；卡片单列；操作标签可见</td></tr>
             <tr><td>工程质量</td><td>语法 / build / diff / npm test</td><td class="ok">通过</td><td>Vite 8.1.5 构建成功，自动目录校验通过</td></tr>
@@ -487,8 +494,8 @@
       </div>
       <div class="boundary">
         <article><h3>不是服务端鉴权</h3><p>访问口令仍是前端轻量门槛。真正的私密多用户访问需要后端身份、权限与审计。</p></article>
-        <article><h3>不是跨设备数据库</h3><p>主题调整、归档、任务和本地成果仍保存在当前浏览器，不会自动同步到手机或另一台电脑。</p></article>
-        <article><h3>不是后台 Agent</h3><p>静态页中的“决策 / 评审”只创建待处理任务单；现在已明确提示，需要交给 Codex 才会真实执行。</p></article>
+        <article><h3>不是跨设备数据库</h3><p>主题调整、归档、分组顺序和本地成果仍保存在当前浏览器，不会自动同步到手机或另一台电脑。</p></article>
+        <article><h3>不是后台 Agent</h3><p>静态页中的 Decide / Review 会复制可执行 brief；真正执行仍需要交给 Codex 或其他 Agent。</p></article>
       </div>
     </section>
 

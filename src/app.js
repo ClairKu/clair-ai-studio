@@ -15,6 +15,7 @@ import { normalizeSearchText, reportMatchesQuery } from "./search.js";
 const STORAGE_KEY = "clair-service-report-workbench-v1";
 const AUTH_KEY = "clair-service-report-workbench-access";
 const VIEW_KEY = "clair-service-report-workbench-view";
+const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const DATA_VERSION = 8;
 
 const WORK_TYPES = [
@@ -782,6 +783,7 @@ initialState.reports = initialState.reports.map((report) => {
 });
 
 let state = loadState();
+let bucketOrder = loadBucketOrder();
 let query = "";
 let readerId = "";
 let archiveView = false;
@@ -796,6 +798,23 @@ let toastTimer = 0;
 
 function clone(value) {
   return JSON.parse(JSON.stringify(value));
+}
+
+function loadBucketOrder() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(BUCKET_ORDER_KEY));
+    if (saved && typeof saved === "object") {
+      return Object.fromEntries(
+        Object.entries(saved).map(([kind, ids]) => [
+          kind,
+          Array.isArray(ids) ? ids.filter((id) => typeof id === "string") : [],
+        ]),
+      );
+    }
+  } catch {
+    // Fall back to the default order when saved data is invalid.
+  }
+  return {};
 }
 
 function normalizedUrl(value = "") {
@@ -1227,7 +1246,39 @@ function moveGroup(groupId, targetGroupId) {
   if (fromIndex < 0 || toIndex < 0 || fromIndex === toIndex) return false;
   const [movedGroup] = state.groups.splice(fromIndex, 1);
   state.groups.splice(toIndex, 0, movedGroup);
+  state.groups.forEach((group, index) => {
+    group.position = index;
+  });
   saveState();
+  return true;
+}
+
+function orderBuckets(buckets, kind) {
+  if (kind === "topic") return buckets;
+  const saved = bucketOrder[kind] || [];
+  if (!saved.length) return buckets;
+  const rank = new Map(saved.map((id, index) => [id, index]));
+  return [...buckets].sort((a, b) => {
+    const aRank = rank.has(a.id) ? rank.get(a.id) : Number.MAX_SAFE_INTEGER;
+    const bRank = rank.has(b.id) ? rank.get(b.id) : Number.MAX_SAFE_INTEGER;
+    return aRank - bRank;
+  });
+}
+
+function moveBucket(sourceId, targetId, kind = catalogView) {
+  if (!sourceId || !targetId || sourceId === targetId) return false;
+  if (kind === "topic") return moveGroup(sourceId, targetId);
+  const activeReports = state.reports.filter((report) => !report.archived);
+  const ids = classificationBuckets(activeReports)
+    .filter((bucket) => bucket.kind === kind)
+    .map((bucket) => bucket.id);
+  const fromIndex = ids.indexOf(sourceId);
+  const toIndex = ids.indexOf(targetId);
+  if (fromIndex < 0 || toIndex < 0) return false;
+  const [movedId] = ids.splice(fromIndex, 1);
+  ids.splice(toIndex, 0, movedId);
+  bucketOrder[kind] = ids;
+  localStorage.setItem(BUCKET_ORDER_KEY, JSON.stringify(bucketOrder));
   return true;
 }
 
@@ -1313,16 +1364,16 @@ function classificationBuckets(reports, normalizedQuery = "") {
         if (!byDate.has(key)) byDate.set(key, []);
         byDate.get(key).push(report);
       });
-    return [...byDate.entries()].map(([key, items]) => ({
+    return orderBuckets([...byDate.entries()].map(([key, items]) => ({
       id: key,
       name: dateBucketLabel(key),
       kind: "time",
       accent: "slate",
       reports: items,
-    }));
+    })), "time");
   }
   if (catalogView === "type") {
-    return WORK_TYPES
+    return orderBuckets(WORK_TYPES
       .map((type) => ({
         id: type.id,
         name: type.name,
@@ -1334,7 +1385,7 @@ function classificationBuckets(reports, normalizedQuery = "") {
             Number(Boolean(b.pinned)) - Number(Boolean(a.pinned)) ||
             new Date(b.createdAt) - new Date(a.createdAt)),
       }))
-      .filter((bucket) => !normalizedQuery || bucket.reports.length || matchesName(bucket.name));
+      .filter((bucket) => !normalizedQuery || bucket.reports.length || matchesName(bucket.name)), "type");
   }
   if (catalogView === "tag") {
     const knownTags = new Set(TAG_ORDER);
@@ -1350,7 +1401,7 @@ function classificationBuckets(reports, normalizedQuery = "") {
       }
       return a.localeCompare(b, "zh-CN");
     });
-    return tags
+    return orderBuckets(tags
       .map((tag) => ({
         id: tag,
         name: tag,
@@ -1362,7 +1413,7 @@ function classificationBuckets(reports, normalizedQuery = "") {
             Number(Boolean(b.pinned)) - Number(Boolean(a.pinned)) ||
             new Date(b.createdAt) - new Date(a.createdAt)),
       }))
-      .filter((bucket) => bucket.reports.length && (!normalizedQuery || matchesName(bucket.name) || bucket.reports.length));
+      .filter((bucket) => bucket.reports.length && (!normalizedQuery || matchesName(bucket.name) || bucket.reports.length)), "tag");
   }
   return state.groups
     .map((group) => ({
@@ -1490,6 +1541,12 @@ function showToast(message) {
   toastTimer = window.setTimeout(() => toast.remove(), 2600);
 }
 
+function scrollPageTop(behavior = "auto") {
+  requestAnimationFrame(() => {
+    window.scrollTo({ top: 0, left: 0, behavior });
+  });
+}
+
 function localHtmlForReport(report) {
   return report.savedHtml || htmlFromIntake(
     report.savedContent,
@@ -1583,12 +1640,12 @@ function cardMarkup(report, archivedView = false) {
       <div class="card-actions">
         ${archivedView
           ? `
-            <button type="button" data-action="restore" data-id="${escapeHtml(report.id)}">恢复</button>
-            <button type="button" data-action="delete" data-id="${escapeHtml(report.id)}">永久删除</button>`
+            <button type="button" data-action="restore" data-id="${escapeHtml(report.id)}">Restore</button>
+            <button type="button" data-action="delete" data-id="${escapeHtml(report.id)}">Delete permanently</button>`
           : `
             <button type="button" class="tag-edit-action" data-action="edit-tags" data-id="${escapeHtml(report.id)}" title="编辑标签" aria-label="编辑标签">#</button>
-            ${report.url ? `<button type="button" data-action="edit" data-id="${escapeHtml(report.id)}">编辑</button>` : ""}
-            <button type="button" data-action="archive" data-id="${escapeHtml(report.id)}">归档</button>`}
+            ${report.url ? `<button type="button" data-action="edit" data-id="${escapeHtml(report.id)}">Edit</button>` : ""}
+            <button type="button" data-action="archive" data-id="${escapeHtml(report.id)}">Archive</button>`}
       </div>
     </article>`;
 }
@@ -1616,8 +1673,8 @@ function modalMarkup() {
             ${TAG_ORDER.map((tag) => `<button type="button" class="${(report.tags || []).includes(tag) ? "selected" : ""}" data-tag-suggestion="${escapeHtml(tag)}">${escapeHtml(tag)}</button>`).join("")}
           </div>
           <div class="dialog-actions">
-            <button type="button" class="quiet-button" data-action="close-modal">取消</button>
-            <button type="submit" class="primary-button">保存标签</button>
+            <button type="button" class="quiet-button" data-action="close-modal">Cancel</button>
+            <button type="submit" class="primary-button">Save tags</button>
           </div>
         </form>
       </div>`;
@@ -1643,8 +1700,8 @@ function modalMarkup() {
             <input name="description" value="${escapeHtml(editingGroup?.description || "")}" placeholder="这个主题主要收纳什么" maxlength="80" />
           </label>
           <div class="dialog-actions">
-            <button type="button" class="quiet-button" data-action="close-modal">取消</button>
-            <button type="submit" class="primary-button">${editingGroup ? "保存修改" : "创建主题"}</button>
+            <button type="button" class="quiet-button" data-action="close-modal">Cancel</button>
+            <button type="submit" class="primary-button">${editingGroup ? "Save changes" : "Create topic"}</button>
           </div>
         </form>
       </div>`;
@@ -1667,7 +1724,7 @@ function modalMarkup() {
         <label>网站地址
           <div class="url-input-row">
             <input name="url" type="url" value="${escapeHtml(editing?.url || "")}" placeholder="https://..." required autofocus />
-            <button type="button" class="detect-button" data-action="detect-title">识别标题</button>
+            <button type="button" class="detect-button" data-action="detect-title">Detect title</button>
           </div>
           <small class="field-hint">${editing ? "修改网址后可重新识别" : "保存时会自动识别网页标题"}</small>
         </label>
@@ -1688,8 +1745,8 @@ function modalMarkup() {
           <input name="tags" value="${escapeHtml((editing?.tags || []).join("、"))}" placeholder="本体、飞书、调研" />
         </label>
         <div class="dialog-actions">
-          <button type="button" class="quiet-button" data-action="close-modal">取消</button>
-          <button type="submit" class="primary-button">保存</button>
+          <button type="button" class="quiet-button" data-action="close-modal">Cancel</button>
+          <button type="submit" class="primary-button">Save</button>
         </div>
       </form>
     </div>`;
@@ -1776,7 +1833,7 @@ function readerMarkup(report) {
           </ol>
           <div class="login-handoff-actions">
             <a class="primary-button" href="${escapeHtml(report.url)}" target="_blank" rel="noreferrer">打开${escapeHtml(accessLabel)}登录页 ↗</a>
-            <button class="quiet-button" type="button" data-action="back">返回清单</button>
+            <button class="quiet-button" type="button" data-action="back">Back</button>
           </div>
           <p class="login-handoff-domain">${escapeHtml(domainOf(report.url))}</p>
         </section>
@@ -1828,12 +1885,13 @@ function readerMarkup(report) {
 function studioTopbarMarkup(archiveCount) {
   return `
     <header class="topbar">
-      <div class="brand">
+      <button class="brand topbar-home" type="button" data-action="scroll-top"
+        aria-label="Back to top" title="Back to top">
         <div class="brand-mark small">C</div>
         <div><strong>Clair's Studio</strong></div>
-      </div>
+      </button>
       ${archiveView
-        ? '<div class="top-actions"><button class="quiet-button" type="button" data-action="show-catalog">← 返回成果库</button></div>'
+        ? '<div class="top-actions"><button class="quiet-button" type="button" data-action="show-catalog">← Library</button></div>'
         : ""}
     </header>`;
 }
@@ -1863,7 +1921,7 @@ function archiveMarkup() {
           <span aria-hidden="true">⌕</span>
           <input id="search-input" value="${escapeHtml(query)}"
             placeholder="搜索归档标题、来源或网址" aria-label="搜索归档" />
-          ${query ? '<button type="button" data-action="clear-search">清除</button>' : ""}
+          ${query ? '<button type="button" data-action="clear-search">Clear</button>' : ""}
         </label>
         ${archivedReports.length ? `
           <section class="archive-results">
@@ -1877,7 +1935,7 @@ function archiveMarkup() {
             <span>ARCHIVE</span>
             <h2>${query ? "没有找到相关归档" : "归档区还是空的"}</h2>
             <p>${query ? "换个关键词，或返回查看全部归档内容。" : "在主目录的报告卡片上选择“归档”，内容就会安全收纳在这里。"}</p>
-            <button class="quiet-button" type="button" data-action="${query ? "clear-search" : "show-catalog"}">${query ? "清除搜索" : "返回主目录"}</button>
+            <button class="quiet-button" type="button" data-action="${query ? "clear-search" : "show-catalog"}">${query ? "Clear search" : "Back to library"}</button>
           </section>`}
         <div class="archive-safety-note">
           <strong>不会自动删除</strong>
@@ -1927,7 +1985,7 @@ function workbenchMarkup() {
               <input id="search-input" type="search" value="${escapeHtml(query)}"
                 placeholder="Rediscover your work" aria-label="找到一个成果"
                 autocomplete="off" spellcheck="false" enterkeyhint="search" />
-              ${query ? '<button type="button" data-action="clear-search">清除</button>' : ""}
+              ${query ? '<button type="button" data-action="clear-search">Clear</button>' : ""}
             </label>
             <div class="studio-summary compact-summary" aria-label="成果统计">
               <strong>${normalized ? reports.length : activeReports.length}</strong><span>${normalized ? "匹配" : "成果"}</span>
@@ -1942,26 +2000,26 @@ function workbenchMarkup() {
           ${movingReportId ? `
             <div class="move-mode-banner" role="status">
               <div><strong>正在整理报告</strong><span>选择目标${currentBucketLabel()}的“移到这里”，或直接拖动卡片。</span></div>
-              <button type="button" data-action="cancel-move">取消</button>
+              <button type="button" data-action="cancel-move">Cancel</button>
             </div>` : ""}
           ${visibleBuckets.length ? `
             <div class="library-layout">
               <nav class="topic-nav" aria-label="报告${viewName}">
                 <div class="library-nav-controls">
                   <div class="library-view-switcher" role="tablist" aria-label="成果分类方式">
-                    <button type="button" role="tab" aria-selected="${catalogView === "topic"}" class="${catalogView === "topic" ? "active" : ""}" data-action="set-view" data-id="topic">主题</button>
-                    <button type="button" role="tab" aria-selected="${catalogView === "type"}" class="${catalogView === "type" ? "active" : ""}" data-action="set-view" data-id="type">类型</button>
-                    <button type="button" role="tab" aria-selected="${catalogView === "tag"}" class="${catalogView === "tag" ? "active" : ""}" data-action="set-view" data-id="tag">标签</button>
-                    <button type="button" role="tab" aria-selected="${catalogView === "time"}" class="${catalogView === "time" ? "active" : ""}" data-action="set-view" data-id="time">时间</button>
+                    <button type="button" role="tab" aria-selected="${catalogView === "topic"}" class="${catalogView === "topic" ? "active" : ""}" data-action="set-view" data-id="topic">Topic</button>
+                    <button type="button" role="tab" aria-selected="${catalogView === "type"}" class="${catalogView === "type" ? "active" : ""}" data-action="set-view" data-id="type">Type</button>
+                    <button type="button" role="tab" aria-selected="${catalogView === "tag"}" class="${catalogView === "tag" ? "active" : ""}" data-action="set-view" data-id="tag">Tag</button>
+                    <button type="button" role="tab" aria-selected="${catalogView === "time"}" class="${catalogView === "time" ? "active" : ""}" data-action="set-view" data-id="time">Time</button>
                   </div>
                   <button class="add-topic-icon" type="button" data-action="add-group"
-                    aria-label="添加主题" title="添加主题">＋</button>
+                    aria-label="Add topic" title="Add topic">＋</button>
                 </div>
-                ${visibleBuckets.map((bucket, index) => `<a href="#bucket-${index}"><span class="nav-index">${String(index + 1).padStart(2, "0")}</span>${escapeHtml(bucket.name)}<span>${bucket.reports.length}</span></a>`).join("")}
+                ${visibleBuckets.map((bucket, index) => `<a href="#bucket-${index}">${escapeHtml(bucket.name)}<span>${bucket.reports.length}</span></a>`).join("")}
                 <span class="library-nav-spacer" aria-hidden="true"></span>
                 <button class="library-nav-utility" type="button" data-action="show-archive">
                   <span aria-hidden="true">⌑</span>
-                  <strong>归档</strong>
+                  <strong>Archive</strong>
                   ${archiveCount ? `<em>${archiveCount}</em>` : ""}
                 </button>
               </nav>
@@ -1970,27 +2028,22 @@ function workbenchMarkup() {
                 <section id="bucket-${index}" class="group-column topic-section bucket-${escapeHtml(bucket.kind)} accent-${escapeHtml(bucket.accent || "blue")}"
                   data-bucket-kind="${escapeHtml(bucket.kind)}"
                   data-bucket-id="${escapeHtml(bucket.id)}"
-                  ${bucket.kind === "topic" ? `data-group-id="${escapeHtml(bucket.id)}"` : ""}>
+                  data-group-id="${escapeHtml(bucket.id)}">
                   <header class="group-header">
-                    ${bucket.kind === "topic"
-                      ? `<span class="group-drag-handle" role="button" tabindex="0" data-group-drag-id="${escapeHtml(bucket.id)}"
-                          aria-label="拖动“${escapeHtml(bucket.name)}”调整主题顺序" title="拖动调整主题顺序；也可用左右方向键">
-                          <span aria-hidden="true">⠿</span>
-                          <small>${String(index + 1).padStart(2, "0")}</small>
-                        </span>`
-                      : `<span class="bucket-marker" aria-hidden="true">${
-                        bucket.kind === "tag" ? "#" : bucket.kind === "time" ? "时" : "类"
-                      }</span>`}
-                    <div class="group-heading-copy">
+                    <div class="group-heading-copy group-drag-handle" role="button" tabindex="0"
+                      data-group-drag-id="${escapeHtml(bucket.id)}"
+                      data-group-drag-kind="${escapeHtml(bucket.kind)}"
+                      aria-label="Drag ${escapeHtml(bucket.name)} to reorder"
+                      title="Drag to reorder · use left or right arrow keys">
                       <div><h2>${escapeHtml(bucket.name)}</h2></div>
                       <span class="count">${bucket.reports.length} 份</span>
                     </div>
                     <div class="group-menu">
-                      ${movingReportId ? `<button class="move-here-button" type="button" data-action="move-here" data-id="${escapeHtml(bucket.id)}" data-bucket-kind="${escapeHtml(bucket.kind)}">移到这里</button>` : ""}
+                      ${movingReportId ? `<button class="move-here-button" type="button" data-action="move-here" data-id="${escapeHtml(bucket.id)}" data-bucket-kind="${escapeHtml(bucket.kind)}">Move here</button>` : ""}
                       ${bucket.kind === "topic"
-                        ? `<button type="button" data-action="add-to-group" data-id="${escapeHtml(bucket.id)}">添加报告</button>
-                           <button type="button" data-action="rename-group" data-id="${escapeHtml(bucket.id)}">编辑主题</button>
-                           ${bucket.id !== "inbox" ? `<button type="button" data-action="delete-group" data-id="${escapeHtml(bucket.id)}">删除</button>` : ""}`
+                        ? `<button type="button" data-action="add-to-group" data-id="${escapeHtml(bucket.id)}">Add report</button>
+                           <button type="button" data-action="rename-group" data-id="${escapeHtml(bucket.id)}">Rename</button>
+                           ${bucket.id !== "inbox" ? `<button type="button" data-action="delete-group" data-id="${escapeHtml(bucket.id)}">Delete</button>` : ""}`
                         : ""}
                     </div>
                   </header>
@@ -1999,8 +2052,8 @@ function workbenchMarkup() {
                       ? bucket.reports.map((report) => cardMarkup(report)).join("")
                       : bucket.kind === "topic"
                         ? `<button class="empty-topic-drop" type="button" data-action="add-to-group" data-id="${escapeHtml(bucket.id)}">
-                            <strong>拖报告到这里</strong>
-                            <span>或点击添加第一份报告</span>
+                            <strong>Drop reports here</strong>
+                            <span>or add the first report</span>
                           </button>`
                         : `<div class="empty-topic-drop passive-drop"><strong>拖报告到这里</strong></div>`}
                   </div>
@@ -2010,11 +2063,11 @@ function workbenchMarkup() {
             <div class="no-results">
               <strong>没有找到“${escapeHtml(query.trim())}”</strong>
               <span>可搜索标题、标签、来源、任务类型或主题</span>
-              <button type="button" data-action="clear-search">清除搜索</button>
+              <button type="button" data-action="clear-search">Clear search</button>
             </div>`}
           <div class="catalog-note">
             <span>${restrictedCount} 份报告需要组织或账号登录${archiveCount ? ` · ${archiveCount} 份已安全归档` : ""}</span>
-            <div><span>分类调整仅保存在当前浏览器</span><button type="button" data-action="lock">退出工作台</button></div>
+            <div><span>分类调整仅保存在当前浏览器</span><button type="button" data-action="lock">Sign out</button></div>
           </div>
         </section>
       </section>
@@ -2082,7 +2135,7 @@ async function detectTitle(form) {
     return titleInput.value;
   } finally {
     button.disabled = false;
-    button.textContent = "识别标题";
+    button.textContent = "Detect title";
   }
 }
 
@@ -2111,9 +2164,12 @@ function bindApp() {
     element.addEventListener("click", async (event) => {
       const action = event.currentTarget.dataset.action;
       const itemId = event.currentTarget.dataset.id;
-      if (action === "open") {
+      if (action === "scroll-top") {
+        scrollPageTop("smooth");
+      } else if (action === "open") {
         readerId = itemId;
         render();
+        scrollPageTop();
       } else if (action === "edit-document") {
         const report = state.reports.find((item) => item.id === itemId);
         if (!report || report.access !== "production") return;
@@ -2162,6 +2218,7 @@ function bindApp() {
         readerId = "";
         modal = null;
         render();
+        scrollPageTop();
       } else if (action === "lock") {
         sessionStorage.removeItem(AUTH_KEY);
         render();
@@ -2175,6 +2232,7 @@ function bindApp() {
         movingReportId = "";
         localStorage.setItem(VIEW_KEY, catalogView);
         render();
+        scrollPageTop();
       } else if (action === "cancel-move") {
         movingReportId = "";
         render();
@@ -2190,11 +2248,13 @@ function bindApp() {
         query = "";
         readerId = "";
         render();
+        scrollPageTop();
       } else if (action === "show-catalog") {
         archiveView = false;
         query = "";
         readerId = "";
         render();
+        scrollPageTop();
       } else if (action === "add-report") {
         modal = { type: "report", mode: "create", groupId: state.groups[1]?.id || state.groups[0]?.id };
         render();
@@ -2259,6 +2319,11 @@ function bindApp() {
         }
       }
     });
+  });
+
+  document.querySelector(".topbar")?.addEventListener("click", (event) => {
+    if (event.target.closest("button, a")) return;
+    scrollPageTop("smooth");
   });
 
   document.querySelectorAll(".report-drag-handle").forEach((handle) => {
@@ -2368,7 +2433,11 @@ function bindApp() {
       if (!draggingGroupId) return;
       const sourceId = draggingGroupId;
       const target = document.elementFromPoint(event.clientX, event.clientY)?.closest(".group-column");
-      if (target && moveGroup(sourceId, target.dataset.groupId)) {
+      if (target && moveBucket(
+        sourceId,
+        target.dataset.bucketId,
+        target.dataset.bucketKind,
+      )) {
         draggingGroupId = "";
         render();
         showToast("分组顺序已更新");
@@ -2380,12 +2449,17 @@ function bindApp() {
     handle.addEventListener("keydown", (event) => {
       if (!["ArrowLeft", "ArrowRight"].includes(event.key)) return;
       event.preventDefault();
-      const currentIndex = state.groups.findIndex(
-        (group) => group.id === handle.dataset.groupDragId,
+      const columns = [...document.querySelectorAll(".group-column")];
+      const currentIndex = columns.findIndex(
+        (column) => column.dataset.bucketId === handle.dataset.groupDragId,
       );
       const targetIndex = event.key === "ArrowLeft" ? currentIndex - 1 : currentIndex + 1;
-      const targetGroup = state.groups[targetIndex];
-      if (!targetGroup || !moveGroup(handle.dataset.groupDragId, targetGroup.id)) return;
+      const target = columns[targetIndex];
+      if (!target || !moveBucket(
+        handle.dataset.groupDragId,
+        target.dataset.bucketId,
+        handle.dataset.groupDragKind,
+      )) return;
       render();
       showToast("分组顺序已更新");
       document
@@ -2407,10 +2481,11 @@ function bindApp() {
     column.addEventListener("drop", (event) => {
       event.preventDefault();
       if (draggingGroupId) {
-        if (
-          column.dataset.bucketKind === "topic" &&
-          moveGroup(draggingGroupId, column.dataset.groupId)
-        ) {
+        if (moveBucket(
+          draggingGroupId,
+          column.dataset.bucketId,
+          column.dataset.bucketKind,
+        )) {
           draggingGroupId = "";
           render();
           showToast("分组顺序已更新");
@@ -2513,7 +2588,7 @@ function bindApp() {
     });
     if (duplicate) {
       submit.disabled = false;
-      submit.textContent = "保存";
+      submit.textContent = "Save";
       hint.textContent = `成果库已有“${duplicate.title}”，未重复保存`;
       showToast(`成果库已有“${duplicate.title}”，未重复保存`);
       return;
@@ -2526,7 +2601,7 @@ function bindApp() {
     );
     if (!inspected.allowed) {
       submit.disabled = false;
-      submit.textContent = "保存";
+      submit.textContent = "Save";
       hint.textContent = inspected.reason;
       showToast(inspected.reason);
       return;

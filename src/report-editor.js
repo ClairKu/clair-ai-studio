@@ -839,8 +839,8 @@ function settingsMarkup(escapeHtml) {
           <a href="https://docs.github.com/en/rest/repos/contents#create-or-update-file-contents" target="_blank" rel="noreferrer">权限说明 ↗</a>
         </div>
         <div class="dialog-actions">
-          <button type="button" class="quiet-button" data-editor-action="close-settings">取消</button>
-          <button type="submit" class="primary-button">${editor.pendingSave ? "连接并保存" : "保存设置"}</button>
+          <button type="button" class="quiet-button" data-editor-action="close-settings">Cancel</button>
+          <button type="submit" class="primary-button">${editor.pendingSave ? "Connect & save" : "Save settings"}</button>
         </div>
       </form>
     </div>`;
@@ -869,8 +869,8 @@ function publishConfirmMarkup(escapeHtml) {
           <strong>${escapeHtml(target)}</strong>
         </div>
         <div class="dialog-actions">
-          <button type="button" class="quiet-button" data-editor-action="close-publish">继续编辑</button>
-          <button type="button" class="primary-button" data-editor-action="confirm-publish">确认推送生产</button>
+          <button type="button" class="quiet-button" data-editor-action="close-publish">Continue editing</button>
+          <button type="button" class="primary-button" data-editor-action="confirm-publish">Publish</button>
         </div>
       </section>
     </div>`;
@@ -890,7 +890,7 @@ function showSettings({ pendingSave = false } = {}) {
     form.elements.branch.value = target.branch || "main";
     form.elements.path.value = target.path || "";
     const submit = form.querySelector('button[type="submit"]');
-    if (submit) submit.textContent = pendingSave ? "连接并保存" : "保存设置";
+    if (submit) submit.textContent = pendingSave ? "Connect & save" : "Save settings";
   }
 }
 
@@ -955,16 +955,16 @@ export function reportEditorMarkup(report, escapeHtml) {
         <button type="button" data-editor-command="italic" title="斜体"><em>I</em></button>
         <button type="button" data-editor-command="underline" title="下划线"><u>U</u></button>
         <span class="editor-divider"></span>
-        <button type="button" data-editor-command="insertUnorderedList" title="项目列表">• 列表</button>
-        <button type="button" data-editor-command="insertOrderedList" title="编号列表">1. 列表</button>
+        <button type="button" data-editor-command="insertUnorderedList" title="项目列表">• List</button>
+        <button type="button" data-editor-command="insertOrderedList" title="编号列表">1. List</button>
         <span class="editor-divider"></span>
-        <button type="button" data-editor-command="justifyLeft" title="左对齐">左</button>
-        <button type="button" data-editor-command="justifyCenter" title="居中">中</button>
-        <button type="button" data-editor-command="justifyRight" title="右对齐">右</button>
-        <button type="button" data-editor-command="justifyFull" title="两端对齐">齐</button>
+        <button type="button" data-editor-command="justifyLeft" title="左对齐">Left</button>
+        <button type="button" data-editor-command="justifyCenter" title="居中">Center</button>
+        <button type="button" data-editor-command="justifyRight" title="右对齐">Right</button>
+        <button type="button" data-editor-command="justifyFull" title="两端对齐">Justify</button>
         <span class="editor-divider"></span>
-        <button type="button" data-editor-action="link" title="添加链接">🔗 链接</button>
-        <button type="button" data-editor-command="unlink" title="移除链接">取消链接</button>
+        <button type="button" data-editor-action="link" title="添加链接">🔗 Link</button>
+        <button type="button" data-editor-command="unlink" title="移除链接">Unlink</button>
         <span class="editor-divider"></span>
         <button type="button" data-editor-command="undo" title="撤销">↶</button>
         <button type="button" data-editor-command="redo" title="重做">↷</button>
@@ -973,7 +973,7 @@ export function reportEditorMarkup(report, escapeHtml) {
   const body = editor.status === "loading"
     ? `<div class="editor-state"><span class="editor-loader"></span><strong>正在载入可编辑 HTML…</strong><p>${editor.isLocal ? "修改后可保存回成果库，也可下载 HTML。" : "会自动识别对应 GitHub 仓库与源文件。"}</p></div>`
     : editor.status === "error"
-      ? `<div class="editor-state editor-error"><strong>这份报告暂时无法进入编辑模式</strong><p>${escapeHtml(editor.error)}</p><div><button class="quiet-button" type="button" data-editor-action="retry">重试</button><button class="primary-button" type="button" data-editor-action="download-published">下载原 HTML</button></div></div>`
+      ? `<div class="editor-state editor-error"><strong>这份报告暂时无法进入编辑模式</strong><p>${escapeHtml(editor.error)}</p><div><button class="quiet-button" type="button" data-editor-action="retry">Retry</button><button class="primary-button" type="button" data-editor-action="download-published">Download source HTML</button></div></div>`
       : `<div class="report-editor-frame-wrap"><iframe class="report-editor-frame" title="${escapeHtml(report.title)}编辑画布"
           sandbox="allow-scripts allow-modals" srcdoc="${escapeAttribute(editor.editorDocument)}"></iframe></div>`;
   const icon = (name) => ({
