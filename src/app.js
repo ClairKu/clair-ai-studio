@@ -1283,6 +1283,37 @@ function escapeHtml(value = "") {
     .replaceAll("'", "&#39;");
 }
 
+const READER_ACTION_ICONS = {
+  back: `
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M19 12H5M11 6l-6 6 6 6"></path>
+    </svg>`,
+  edit: `
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="m4 20 4.2-1 10.6-10.6a2 2 0 0 0 0-2.8l-.4-.4a2 2 0 0 0-2.8 0L5 15.8z"></path>
+      <path d="m14.5 6.5 3 3"></path>
+    </svg>`,
+  copy: `
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="8" y="8" width="11" height="11" rx="2"></rect>
+      <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path>
+    </svg>`,
+  download: `
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 4v11M8 11l4 4 4-4"></path>
+      <path d="M5 18v2h14v-2"></path>
+    </svg>`,
+  external: `
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M13 5h6v6M19 5l-9 9"></path>
+      <path d="M17 13v6H5V7h6"></path>
+    </svg>`,
+};
+
+function readerActionIcon(name) {
+  return READER_ACTION_ICONS[name] || "";
+}
+
 function domainOf(value) {
   try {
     return new URL(value).hostname.replace(/^www\./, "");
@@ -1318,6 +1349,50 @@ function showToast(message) {
   document.body.append(toast);
   clearTimeout(toastTimer);
   toastTimer = window.setTimeout(() => toast.remove(), 2600);
+}
+
+function localHtmlForReport(report) {
+  return report.savedHtml || htmlFromIntake(
+    report.savedContent,
+    report.savedFiles,
+  );
+}
+
+function htmlFilename(report) {
+  const safeTitle = String(report.title || "report")
+    .replace(/[\\/:*?"<>|]+/g, "-")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 80);
+  return `${safeTitle || "report"}.html`;
+}
+
+function localHtmlUrl(report) {
+  const html = localHtmlForReport(report);
+  return html
+    ? URL.createObjectURL(new Blob([html], { type: "text/html;charset=utf-8" }))
+    : "";
+}
+
+function downloadLocalHtml(report) {
+  const blobUrl = localHtmlUrl(report);
+  if (!blobUrl) return false;
+  const anchor = document.createElement("a");
+  anchor.href = blobUrl;
+  anchor.download = htmlFilename(report);
+  document.body.append(anchor);
+  anchor.click();
+  anchor.remove();
+  window.setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+  return true;
+}
+
+function openReportInBrowser(report) {
+  const target = report.url || localHtmlUrl(report);
+  if (!target) return false;
+  window.open(target, "_blank", "noopener,noreferrer");
+  if (!report.url) window.setTimeout(() => URL.revokeObjectURL(target), 60000);
+  return true;
 }
 
 function cardMarkup(report, archivedView = false) {
@@ -1500,12 +1575,17 @@ function readerMarkup(report) {
   const localSaved = !report.url &&
     (Boolean(report.savedContent) || Boolean((report.savedFiles || []).length));
   const restricted = ["org", "account"].includes(report.access);
-  const accessLabel = report.loginProvider ||
+  const accessLabel = report.loginProvider || permissionTarget(report.url)?.provider ||
     (report.access === "org" ? "组织帐号" : "站点帐号");
   const localHtml = report.savedHtml || htmlFromIntake(
     report.savedContent,
     report.savedFiles,
   );
+  const editAction = report.url
+    ? restricted
+      ? "edit"
+      : "edit-document"
+    : "";
   const readerBody = localHtml
     ? `
       <div class="reader-frame-wrap">
@@ -1557,20 +1637,37 @@ function readerMarkup(report) {
           sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
       </div>`;
   return `
-    <main class="reader-shell">
-      <header class="reader-header">
-        <button class="back-button" type="button" data-action="back"><span aria-hidden="true">←</span>返回清单</button>
+    <main class="reader-shell compact-reader-shell">
+      <header class="reader-header compact-reader-header">
+        <button class="reader-icon-button back-button" type="button" data-action="back"
+          aria-label="返回成果库" title="返回成果库">${readerActionIcon("back")}</button>
         <div class="reader-title">
           <strong>${escapeHtml(report.title)}</strong>
           <span>${localSaved ? "本地保存" : escapeHtml(domainOf(report.url))}</span>
         </div>
-        <div class="reader-actions">
-          ${localSaved ? "" : `
-            <a class="${restricted ? "primary-button" : "quiet-button"}" href="${escapeHtml(report.url)}" target="_blank" rel="noreferrer">${restricted ? "登录打开 ↗" : "新窗口 ↗"}</a>
-            ${restricted ? "" : `<button class="primary-button" type="button" data-action="edit-document" data-id="${escapeHtml(report.id)}">编辑文档</button>`}
-            <button class="quiet-button" type="button" data-action="download-report" data-id="${escapeHtml(report.id)}">下载 HTML</button>
-            <button class="quiet-button" type="button" data-action="share-report" data-id="${escapeHtml(report.id)}">分享</button>
-            <button class="quiet-button" type="button" data-action="edit" data-id="${escapeHtml(report.id)}">编辑信息</button>`}
+        <div class="reader-actions compact-reader-actions" aria-label="报告操作">
+          ${editAction ? `
+            <button class="reader-icon-button" type="button" data-action="${editAction}"
+              data-id="${escapeHtml(report.id)}" aria-label="编辑" title="编辑">
+              ${readerActionIcon("edit")}
+            </button>` : ""}
+          ${report.url && report.access === "production" ? `
+            <button class="reader-icon-button" type="button" data-action="copy-production-url"
+              data-id="${escapeHtml(report.id)}" aria-label="复制生产 URL" title="复制生产 URL">
+              ${readerActionIcon("copy")}
+            </button>` : ""}
+          ${!restricted && (report.url || localHtml) ? `
+            <button class="reader-icon-button" type="button" data-action="download-report"
+              data-id="${escapeHtml(report.id)}" aria-label="下载 HTML" title="下载 HTML">
+              ${readerActionIcon("download")}
+            </button>` : ""}
+          ${report.url || localHtml ? `
+            <button class="reader-icon-button" type="button" data-action="open-browser"
+              data-id="${escapeHtml(report.id)}"
+              aria-label="${restricted ? `打开${escapeHtml(accessLabel)}登录页` : "在浏览器打开"}"
+              title="${restricted ? `打开${escapeHtml(accessLabel)}登录页` : "在浏览器打开"}">
+              ${readerActionIcon("external")}
+            </button>` : ""}
         </div>
       </header>
       ${readerBody}
@@ -1850,10 +1947,25 @@ function bindApp() {
         beginReportEditing(report, { render, showToast });
       } else if (action === "download-report") {
         const report = state.reports.find((item) => item.id === itemId);
-        if (report) await downloadPublishedReport(report, showToast);
-      } else if (action === "share-report") {
+        if (!report) return;
+        if (localHtmlForReport(report)) {
+          if (downloadLocalHtml(report)) showToast("HTML 已下载");
+        } else {
+          await downloadPublishedReport(report, showToast);
+        }
+      } else if (action === "share-report" || action === "copy-production-url") {
         const report = state.reports.find((item) => item.id === itemId);
-        if (report) await sharePublishedReport(report, showToast);
+        if (report?.url) {
+          await sharePublishedReport(report, (message) => {
+            showToast(
+              message === "报告链接已复制" ? "生产 URL 已复制" : message,
+            );
+          });
+        }
+      } else if (action === "open-browser") {
+        const report = state.reports.find((item) => item.id === itemId);
+        if (!report) return;
+        if (!openReportInBrowser(report)) showToast("浏览器未能打开该报告");
       } else if (action === "back") {
         readerId = "";
         modal = null;
