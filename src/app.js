@@ -1176,7 +1176,7 @@ function gateMarkup() {
           </div>
           <p class="form-error" hidden></p>
         </form>
-        <div class="gate-foot"><span>Private by design</span><span>Local-first</span></div>
+        <div class="gate-foot"><span>Access protected</span><span>Local settings</span></div>
       </section>
     </main>`;
 }
