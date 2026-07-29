@@ -1866,7 +1866,7 @@ function workbenchMarkup() {
           <div class="results-toolbar-side">
             <label class="search results-search">
               <span aria-hidden="true">⌕</span>
-              <input id="search-input" value="${escapeHtml(query)}" placeholder="搜索标题、标签或来源" aria-label="搜索成果" />
+              <input id="search-input" value="${escapeHtml(query)}" aria-label="搜索成果" />
               ${query ? '<button type="button" data-action="clear-search">清除</button>' : ""}
             </label>
             <div class="studio-summary compact-summary" aria-label="成果统计">
@@ -2027,6 +2027,8 @@ async function detectTitle(form) {
 
 function bindApp() {
   document.getElementById("search-input")?.addEventListener("input", (event) => {
+    // 注音、拼音等输入法组合输入期间不能重绘，否则候选字会被逐键拆开。
+    if (event.isComposing) return;
     query = event.target.value;
     render();
     const input = document.getElementById("search-input");
