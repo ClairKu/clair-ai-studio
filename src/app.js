@@ -1260,7 +1260,7 @@ function studioTopbarMarkup(archiveCount) {
       <div class="top-actions">
         ${archiveView
           ? '<button class="quiet-button" type="button" data-action="show-catalog">← 返回成果库</button>'
-          : '<button class="primary-button" type="button" data-action="add-report"><span aria-hidden="true">＋</span> 新增</button>'}
+          : '<button class="primary-button new-task-button" type="button" data-task-action="focus-composer"><span aria-hidden="true">＋</span> 新增任务</button>'}
       </div>
     </header>`;
 }

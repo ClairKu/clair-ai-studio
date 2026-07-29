@@ -6191,3 +6191,261 @@ footer {
     min-height: 0;
   }
 }
+
+/* Unified intake: save, review, Skill, collaborative document */
+.new-task-button {
+  background: linear-gradient(135deg, #202126, #4d54d8);
+}
+
+.intake-route-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 3px 0 13px 50px;
+}
+
+.intake-actions {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid #e7e7ec;
+  border-radius: 12px;
+  background: #f7f7f9;
+  padding: 3px;
+}
+
+.intake-action {
+  min-height: 31px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  padding: 0 9px;
+  color: #767b85;
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease, box-shadow 150ms ease;
+}
+
+.intake-action span {
+  color: #777df0;
+  font-size: 11px;
+}
+
+.intake-action strong {
+  font-size: 9px;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.intake-action:hover {
+  color: #454bc8;
+}
+
+.intake-action.selected {
+  background: #fff;
+  color: #292b33;
+  box-shadow: 0 2px 8px rgb(37 39 54 / 8%);
+}
+
+.collab-toggle {
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid #e1e3e9;
+  border-radius: 10px;
+  background: #fff;
+  padding: 0 10px;
+  color: #696f7a;
+  cursor: pointer;
+}
+
+.collab-toggle:hover,
+.collab-toggle.selected {
+  border-color: #c7caff;
+  background: #f4f4ff;
+  color: #4d54d8;
+}
+
+.collab-toggle span {
+  color: #5d64e9;
+  font-size: 13px;
+}
+
+.collab-toggle strong,
+.collab-toggle small {
+  font-size: 9px;
+}
+
+.collab-toggle small {
+  color: #9a9fa8;
+}
+
+.collab-url-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 13px 50px;
+  color: #747983;
+}
+
+.collab-url-row > span {
+  font-size: 9px;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.collab-url-row input {
+  min-height: 36px;
+  border-color: #dedff0;
+  background: #fafaff;
+  font-size: 11px;
+}
+
+.save-mode-note {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 7px;
+  color: #858a94;
+}
+
+.save-mode-note span {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #f0f1f4;
+  color: #666cf0;
+  font-size: 10px;
+}
+
+.save-mode-note small {
+  overflow: hidden;
+  font-size: 9px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.task-context a,
+.task-result-content a {
+  color: #4d54d8;
+  overflow-wrap: anywhere;
+}
+
+.global-drop-overlay {
+  position: fixed;
+  inset: 18px;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  border: 2px dashed #8e94f7;
+  border-radius: 26px;
+  background: rgb(244 244 255 / 92%);
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.985);
+  transition: opacity 140ms ease, transform 140ms ease;
+  backdrop-filter: blur(12px);
+}
+
+.global-drop-overlay > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: #5056d5;
+}
+
+.global-drop-overlay span {
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 14px 35px rgb(80 86 213 / 15%);
+  font-size: 25px;
+}
+
+.global-drop-overlay strong {
+  font-size: 18px;
+}
+
+.global-drop-overlay small {
+  color: #777d8a;
+  font-size: 11px;
+}
+
+body.global-drag-ready .global-drop-overlay {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@media (max-width: 760px) {
+  .intake-route-row {
+    align-items: stretch;
+    margin-left: 40px;
+  }
+
+  .intake-actions {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .intake-actions::-webkit-scrollbar {
+    display: none;
+  }
+
+  .collab-toggle small {
+    display: none;
+  }
+
+  .collab-url-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    margin-left: 40px;
+  }
+}
+
+@media (max-width: 520px) {
+  .intake-route-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    margin-left: 0;
+  }
+
+  .intake-action {
+    flex: 1 0 auto;
+    justify-content: center;
+    padding: 0 7px;
+  }
+
+  .intake-action span {
+    display: none;
+  }
+
+  .collab-toggle strong {
+    font-size: 0;
+  }
+
+  .collab-toggle strong::after {
+    content: "协作";
+    font-size: 9px;
+  }
+
+  .collab-url-row {
+    margin-left: 0;
+  }
+
+  .global-drop-overlay {
+    inset: 10px;
+  }
+}

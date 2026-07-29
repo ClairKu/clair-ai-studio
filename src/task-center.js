@@ -1,5 +1,11 @@
 const TASK_STORAGE_KEY = "clair-ai-studio-tasks-v1";
 
+const intakeActions = [
+  { id: "save", name: "仅保存", icon: "◇", hint: "收进成果区，不执行分析" },
+  { id: "review", name: "执行评审", icon: "审", hint: "智能判断最合适的评审路径" },
+  { id: "skill", name: "触发 Skill", icon: "✦", hint: "明确指定一个工具执行" },
+];
+
 export const taskSkills = [
   { id: "auto", name: "智能识别", summon: "自动派单", icon: "✦", hint: "让 AI 判断最适合的任务" },
   { id: "requirement", name: "需求评审", summon: "需求专家", icon: "需", hint: "价值、范围、规则、验收" },
@@ -10,10 +16,22 @@ export const taskSkills = [
 ];
 
 let tasks = loadTasks();
-let draft = { skillId: "auto", goal: "", material: "", files: [] };
+let draft = emptyDraft();
 let activeTaskId = "";
 let taskMode = "compose";
 let launcherExpanded = false;
+
+function emptyDraft() {
+  return {
+    action: "review",
+    skillId: "auto",
+    goal: "",
+    material: "",
+    files: [],
+    collabEnabled: false,
+    collabUrl: "",
+  };
+}
 
 function loadTasks() {
   try {
@@ -34,6 +52,23 @@ function uid() {
 
 function skillById(skillId) {
   return taskSkills.find((skill) => skill.id === skillId) || taskSkills[0];
+}
+
+function actionById(actionId) {
+  return intakeActions.find((action) => action.id === actionId) || intakeActions[1];
+}
+
+function validHttpUrl(value) {
+  try {
+    return ["http:", "https:"].includes(new URL(value).protocol);
+  } catch {
+    return false;
+  }
+}
+
+function collaborativeUrlFrom(text) {
+  const urls = text.match(/https?:\/\/[^\s<>"'）)]+/gi) || [];
+  return urls.find((url) => /feishu\.cn|docs\.qq\.com|notion\.(so|site)|docs\.google\.com|yuque\.com|shimo\.im|office\.com|sharepoint\.com/i.test(url)) || "";
 }
 
 function inferSkill(text) {
@@ -62,6 +97,9 @@ function buildIntakeDraft(task, escapeHtml) {
     ? task.files.map((file) => `${file.name}（${file.sizeLabel}）`).join("、")
     : "无附件";
   const materialSize = task.material.trim().length;
+  const collaboration = task.collabUrl
+    ? `<li>协作文档：<a href="${escapeHtml(task.collabUrl)}" target="_blank" rel="noreferrer">打开协作文档 ↗</a></li>`
+    : "";
   return `
     <h2>材料已收齐</h2>
     <p>已匹配 <strong>${escapeHtml(task.skillName)}</strong>，目标是：${escapeHtml(task.goal)}</p>
@@ -69,10 +107,31 @@ function buildIntakeDraft(task, escapeHtml) {
     <ul>
       <li>附件：${escapeHtml(fileSummary)}</li>
       <li>粘贴内容：${materialSize} 字</li>
+      ${collaboration}
       <li>Skill 版本：1.0.0</li>
     </ul>
     <h3>下一步</h3>
     <p>任务已保存。安全 AI 服务接通后会在这里生成完整初稿；在此之前可继续补充材料，或直接粘贴已完成的分析结果。</p>`;
+}
+
+function buildSavedRecord(task, escapeHtml) {
+  const fileSummary = task.files.length
+    ? task.files.map((file) => `${file.name}（${file.sizeLabel}）`).join("、")
+    : "无附件";
+  const collaboration = task.collabUrl
+    ? `<p><strong>协作文档</strong><br /><a href="${escapeHtml(task.collabUrl)}" target="_blank" rel="noreferrer">${escapeHtml(task.collabUrl)} ↗</a></p>`
+    : "";
+  return `
+    <h2>资料已保存</h2>
+    <p>${escapeHtml(task.goal).replaceAll("\n", "<br />")}</p>
+    <h3>保存内容</h3>
+    <ul>
+      <li>附件记录：${escapeHtml(fileSummary)}</li>
+      <li>文本内容：${task.material.trim().length} 字</li>
+      <li>保存位置：当前浏览器成果区</li>
+    </ul>
+    ${collaboration}
+    <p><small>静态版本不会上传原文件；这里只保存文字、链接、文件名及可读取文本摘要。</small></p>`;
 }
 
 function titleFromGoal(goal, skillName) {
@@ -127,6 +186,16 @@ function expertSummonerMarkup(escapeHtml) {
       title="${escapeHtml(skill.hint)}" aria-pressed="${draft.skillId === skill.id}">
       <span>${escapeHtml(skill.icon)}</span>
       <strong>@${escapeHtml(skill.summon)}</strong>
+    </button>`).join("");
+}
+
+function intakeActionsMarkup(escapeHtml) {
+  return intakeActions.map((action) => `
+    <button class="intake-action ${draft.action === action.id ? "selected" : ""}" type="button"
+      data-task-action="choose-action" data-action-id="${action.id}"
+      aria-pressed="${draft.action === action.id}" title="${escapeHtml(action.hint)}">
+      <span>${escapeHtml(action.icon)}</span>
+      <strong>${escapeHtml(action.name)}</strong>
     </button>`).join("");
 }
 
@@ -188,6 +257,19 @@ export function taskWorkspaceMarkup(escapeHtml) {
           <textarea id="task-goal" rows="3" placeholder="描述你想完成的事，或把文档、图片直接拖进来……" aria-label="任务描述">${escapeHtml(draft.goal)}</textarea>
         </div>
         ${attachmentsMarkup(escapeHtml)}
+        <div class="intake-route-row">
+          <div class="intake-actions" aria-label="处理方式">${intakeActionsMarkup(escapeHtml)}</div>
+          <button class="collab-toggle ${draft.collabEnabled ? "selected" : ""}" type="button"
+            data-task-action="toggle-collab" aria-expanded="${draft.collabEnabled}">
+            <span aria-hidden="true">↗</span><strong>协作文档</strong><small>可选</small>
+          </button>
+        </div>
+        ${draft.collabEnabled ? `
+          <label class="collab-url-row" for="task-collab-url">
+            <span>协作文档链接</span>
+            <input id="task-collab-url" type="url" value="${escapeHtml(draft.collabUrl)}"
+              placeholder="粘贴飞书、腾讯文档、Notion 等协作链接" />
+          </label>` : ""}
         <div class="prompt-footer">
           <div class="prompt-material-actions">
             <label class="prompt-file-button" for="task-files">
@@ -197,17 +279,22 @@ export function taskWorkspaceMarkup(escapeHtml) {
             </label>
             <span class="paste-hint">拖入文件 · ⌘V 粘贴图片</span>
           </div>
-          <div class="expert-summoner" aria-label="召唤专家">
-            <span class="summon-label">召唤</span>
-            <div class="expert-strip">${expertSummonerMarkup(escapeHtml)}</div>
-          </div>
-          <button class="prompt-submit" type="submit" aria-label="开始任务">
-            <span>开始</span><i aria-hidden="true">↑</i>
+          ${draft.action === "save"
+            ? `<div class="save-mode-note"><span>◇</span><small>只保存记录，不执行分析</small></div>`
+            : `<div class="expert-summoner" aria-label="召唤专家">
+                <span class="summon-label">${draft.action === "skill" ? "选择 Skill" : "评审路径"}</span>
+                <div class="expert-strip">${expertSummonerMarkup(escapeHtml)}</div>
+              </div>`}
+          <button class="prompt-submit" type="submit" aria-label="${draft.action === "save" ? "保存资料" : draft.action === "skill" ? "运行 Skill" : "执行评审"}">
+            <span>${draft.action === "save" ? "保存" : draft.action === "skill" ? "运行" : "评审"}</span><i aria-hidden="true">↑</i>
           </button>
         </div>
       </form>
       ${taskProgressMarkup(escapeHtml)}
-    </section>`;
+    </section>
+    <div class="global-drop-overlay" aria-hidden="true">
+      <div><span>＋</span><strong>松手，创建任务</strong><small>文件会加入统一任务入口</small></div>
+    </div>`;
 }
 
 export function taskCenterMarkup(escapeHtml) {
@@ -262,18 +349,24 @@ export function taskCenterMarkup(escapeHtml) {
 
 function taskDetailMarkup(task, escapeHtml) {
   const isConfirmed = task.status === "confirmed";
+  const collaboration = task.collabUrl
+    ? `<section><span>协作文档</span><p><a href="${escapeHtml(task.collabUrl)}" target="_blank" rel="noreferrer">打开协作文档 ↗</a></p></section>`
+    : "";
   return `
     <section class="task-center task-detail inline-task-detail">
       <button class="back-to-tasks" type="button" data-task-action="close-task">← 返回成果区</button>
       <div class="task-detail-header">
-        <div><span class="eyebrow">${escapeHtml(task.skillName)} · SKILL V${escapeHtml(task.skillVersion)}</span><h1>${escapeHtml(task.title)}</h1></div>
+        <div><span class="eyebrow">${task.workflow === "save" ? "SAVED MATERIAL" : `${escapeHtml(task.skillName)} · SKILL V${escapeHtml(task.skillVersion)}`}</span><h1>${escapeHtml(task.title)}</h1></div>
         <span class="status-pill ${isConfirmed ? "done" : ""}">${isConfirmed ? "已进入成果区" : "等待人工确认"}</span>
       </div>
       <div class="task-review-layout">
         <aside class="task-context">
           <section><span>目标</span><p>${escapeHtml(task.goal)}</p></section>
           <section><span>材料</span><p>${task.files.length} 个附件 · ${task.material.length} 字粘贴内容</p></section>
-          <section><span>人工路径</span><p>补充材料 → 修改初稿 → 再分析 → 确认入库</p></section>
+          ${collaboration}
+          <section><span>${task.workflow === "save" ? "保存方式" : "人工路径"}</span><p>${task.workflow === "save"
+            ? "仅保存记录与可读取摘要，不执行分析"
+            : "补充材料 → 修改初稿 → 再分析 → 确认入库"}</p></section>
           ${task.revisions?.length ? `<section><span>进化记录</span><p>${task.revisions.length} 次人工修订已记录，仅作为 Skill 优化候选。</p></section>` : ""}
         </aside>
         <main class="task-result-editor">
@@ -308,7 +401,7 @@ export function confirmedResultsMarkup(escapeHtml) {
       </div>
       <div class="generated-result-grid">${results.map((task) => `
         <button class="generated-result-card" type="button" data-task-action="open-task" data-task-id="${task.id}">
-          <span>${escapeHtml(skillById(task.skillId).icon)}</span>
+          <span>${task.workflow === "save" ? "◇" : escapeHtml(skillById(task.skillId).icon)}</span>
           <div><small>${escapeHtml(task.skillName)}</small><strong>${escapeHtml(task.title)}</strong></div>
           <i>→</i>
         </button>`).join("")}</div>
@@ -345,9 +438,34 @@ export function bindTaskCenter({ render, escapeHtml, showToast, showResults }) {
         captureDraft();
         launcherExpanded = false;
         render();
-      } else if (action === "choose-skill") {
-        draft.skillId = event.currentTarget.dataset.skillId;
+      } else if (action === "focus-composer") {
+        if (!document.querySelector(".prompt-composer")) {
+          activeTaskId = "";
+          taskMode = "compose";
+          launcherExpanded = false;
+          render();
+          requestAnimationFrame(focusComposer);
+        } else {
+          focusComposer();
+        }
+      } else if (action === "choose-action") {
         captureDraft();
+        draft.action = event.currentTarget.dataset.actionId;
+        if (draft.action === "skill" && draft.skillId === "auto") draft.skillId = "requirement";
+        if (draft.action === "review") draft.skillId = "auto";
+        render();
+        requestAnimationFrame(focusComposer);
+      } else if (action === "toggle-collab") {
+        captureDraft();
+        draft.collabEnabled = !draft.collabEnabled;
+        render();
+        if (draft.collabEnabled) {
+          requestAnimationFrame(() => document.getElementById("task-collab-url")?.focus());
+        }
+      } else if (action === "choose-skill") {
+        captureDraft();
+        draft.skillId = event.currentTarget.dataset.skillId;
+        draft.action = draft.skillId === "auto" ? "review" : "skill";
         render();
       } else if (action === "remove-file") {
         captureDraft();
@@ -386,7 +504,15 @@ export function bindTaskCenter({ render, escapeHtml, showToast, showResults }) {
       } else if (action === "supplement-task") {
         const task = tasks.find((item) => item.id === activeTaskId);
         if (!task) return;
-        draft = { skillId: task.requestedSkillId, goal: task.goal, material: task.material, files: task.files };
+        draft = {
+          action: task.workflow || "review",
+          skillId: task.requestedSkillId,
+          goal: task.goal,
+          material: task.material,
+          files: task.files,
+          collabEnabled: Boolean(task.collabUrl),
+          collabUrl: task.collabUrl || "",
+        };
         tasks = tasks.filter((item) => item.id !== task.id);
         saveTasks();
         activeTaskId = "";
@@ -423,35 +549,54 @@ export function bindTaskCenter({ render, escapeHtml, showToast, showResults }) {
         return;
       }
     }
+    if (draft.collabEnabled && draft.collabUrl.trim() && !validHttpUrl(draft.collabUrl.trim())) {
+      showToast("协作文档需要完整的 http 或 https 链接");
+      document.getElementById("task-collab-url")?.focus();
+      return;
+    }
+    if (draft.action === "skill" && draft.skillId === "auto") {
+      showToast("请先选择要触发的 Skill");
+      return;
+    }
     const resolvedSkillId = draft.skillId === "auto"
       ? inferSkill(`${draft.goal}\n${draft.material}\n${draft.files.map((file) => file.name).join(" ")}`)
       : draft.skillId;
     const skill = skillById(resolvedSkillId);
+    const action = actionById(draft.action);
     const now = new Date().toISOString();
+    const saveOnly = draft.action === "save";
     const task = {
       id: uid(),
-      title: titleFromGoal(draft.goal, skill.name),
+      title: titleFromGoal(draft.goal, saveOnly ? "已保存" : skill.name),
+      workflow: draft.action,
+      workflowName: action.name,
       requestedSkillId: draft.skillId,
       skillId: resolvedSkillId,
-      skillName: skill.name,
-      skillVersion: "1.0.0",
+      skillName: saveOnly ? "资料收纳" : skill.name,
+      skillVersion: saveOnly ? "local" : "1.0.0",
       goal: draft.goal.trim(),
       material: draft.material.trim() || draft.goal.trim(),
       files: draft.files,
-      status: "review",
+      collabUrl: draft.collabEnabled ? draft.collabUrl.trim() : "",
+      status: saveOnly ? "confirmed" : "review",
       createdAt: now,
       updatedAt: now,
+      confirmedAt: saveOnly ? now : "",
       revisions: [],
     };
-    task.resultHtml = buildIntakeDraft(task, escapeHtml);
-    task.resultText = `材料已收齐并匹配 ${task.skillName}。目标：${task.goal}\n\n当前安全 AI 服务尚未接通，任务已保存，可继续补充或粘贴分析结果。`;
+    task.resultHtml = saveOnly
+      ? buildSavedRecord(task, escapeHtml)
+      : buildIntakeDraft(task, escapeHtml);
+    task.resultText = saveOnly
+      ? `资料已保存。${task.goal}`
+      : `材料已收齐并匹配 ${task.skillName}。目标：${task.goal}\n\n当前安全 AI 服务尚未接通，任务已保存，可继续补充或粘贴分析结果。`;
     tasks.push(task);
     saveTasks();
     activeTaskId = task.id;
     launcherExpanded = false;
-    draft = { skillId: "auto", goal: "", material: "", files: [] };
+    draft = emptyDraft();
     render();
-    showToast(`已创建任务，并匹配“${skill.name}”`);
+    showToast(saveOnly ? "已保存到成果区" : `已创建任务，并匹配“${skill.name}”`);
   });
 
   const fileInput = document.getElementById("task-files");
@@ -471,6 +616,7 @@ export function bindTaskCenter({ render, escapeHtml, showToast, showResults }) {
   drop?.addEventListener("dragleave", () => drop.classList.remove("drag-over"));
   drop?.addEventListener("drop", async (event) => {
     event.preventDefault();
+    event.stopPropagation();
     drop.classList.remove("drag-over");
     captureDraft();
     const files = event.dataTransfer.files;
@@ -498,13 +644,84 @@ export function bindTaskCenter({ render, escapeHtml, showToast, showResults }) {
     render();
     showToast(`已从剪贴板加入 ${imageFiles.length} 张图片`);
   });
+
+  const collabInput = document.getElementById("task-collab-url");
+  collabInput?.addEventListener("input", () => {
+    draft.collabUrl = collabInput.value;
+  });
+
+  bindGlobalIntake({ render, showToast });
 }
 
 function captureDraft() {
   const material = document.getElementById("task-material");
   const goal = document.getElementById("task-goal");
   const quickGoal = document.getElementById("task-quick-goal");
+  const collabUrl = document.getElementById("task-collab-url");
   if (material) draft.material = material.value;
   if (goal) draft.goal = goal.value;
   if (quickGoal) draft.goal = quickGoal.value;
+  if (collabUrl) draft.collabUrl = collabUrl.value;
+}
+
+function focusComposer() {
+  const composer = document.querySelector(".prompt-composer");
+  composer?.scrollIntoView({ behavior: "smooth", block: "center" });
+  requestAnimationFrame(() => document.getElementById("task-goal")?.focus());
+}
+
+function editableTarget(target) {
+  return Boolean(target?.closest?.("input, textarea, select, [contenteditable='true']"));
+}
+
+function addTextToDraft(text) {
+  const clean = text.trim();
+  if (!clean) return;
+  draft.goal = [draft.goal.trim(), clean].filter(Boolean).join("\n\n");
+  const collabUrl = collaborativeUrlFrom(clean);
+  if (collabUrl && !draft.collabUrl) {
+    draft.collabEnabled = true;
+    draft.collabUrl = collabUrl;
+  }
+}
+
+function bindGlobalIntake({ render, showToast }) {
+  document.onpaste = async (event) => {
+    if (editableTarget(event.target) || !document.querySelector(".prompt-composer")) return;
+    const items = [...(event.clipboardData?.items || [])];
+    const files = items
+      .filter((item) => item.kind === "file")
+      .map((item) => item.getAsFile())
+      .filter(Boolean);
+    const text = event.clipboardData?.getData("text/plain") || "";
+    if (!files.length && !text.trim()) return;
+    event.preventDefault();
+    addTextToDraft(text);
+    if (files.length) draft.files.push(...await filesToRecords(files));
+    render();
+    requestAnimationFrame(focusComposer);
+    showToast(files.length ? `已从剪贴板加入 ${files.length} 个材料` : "已把粘贴内容放入新任务");
+  };
+
+  document.ondragover = (event) => {
+    if (![...(event.dataTransfer?.types || [])].some((type) => type === "Files" || type === "text/uri-list")) return;
+    event.preventDefault();
+    document.body.classList.add("global-drag-ready");
+  };
+  document.ondragleave = (event) => {
+    if (!event.relatedTarget) document.body.classList.remove("global-drag-ready");
+  };
+  document.ondrop = async (event) => {
+    document.body.classList.remove("global-drag-ready");
+    if (event.target?.closest?.(".prompt-composer")) return;
+    const files = event.dataTransfer?.files || [];
+    const uri = event.dataTransfer?.getData("text/uri-list") || "";
+    if (!files.length && !uri.trim()) return;
+    event.preventDefault();
+    if (files.length) draft.files.push(...await filesToRecords(files));
+    addTextToDraft(uri);
+    render();
+    requestAnimationFrame(focusComposer);
+    showToast(files.length ? `已拖入 ${files.length} 个文件` : "已把链接放入新任务");
+  };
 }
