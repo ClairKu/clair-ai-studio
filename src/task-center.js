@@ -2,7 +2,8 @@ const TASK_STORAGE_KEY = "clair-ai-studio-tasks-v1";
 
 const intakeActions = [
   { id: "save", name: "保存", hint: "自动识别并进入成果库" },
-  { id: "execute", name: "执行任务", hint: "自动匹配合适的评审 Skill" },
+  { id: "decision", name: "决策", hint: "发起决策推演" },
+  { id: "review", name: "评审", hint: "自动匹配合适的评审 Skill" },
 ];
 
 const taskSkills = [
@@ -17,7 +18,6 @@ let draft = emptyDraft();
 
 function emptyDraft() {
   return {
-    action: "save",
     material: "",
     files: [],
   };
@@ -83,9 +83,8 @@ function attachmentsMarkup(escapeHtml) {
 
 function intakeActionsMarkup(escapeHtml) {
   return intakeActions.map((action) => `
-    <button class="intake-action ${draft.action === action.id ? "selected" : ""}" type="button"
-      data-task-action="choose-action" data-action-id="${action.id}"
-      aria-pressed="${draft.action === action.id}" title="${escapeHtml(action.hint)}">
+    <button class="intake-action ${action.id === "save" ? "primary-intake-action" : ""}"
+      type="submit" data-submit-action="${action.id}" title="${escapeHtml(action.hint)}">
       <strong>${escapeHtml(action.name)}</strong>
     </button>`).join("");
 }
@@ -93,30 +92,23 @@ function intakeActionsMarkup(escapeHtml) {
 export function taskWorkspaceMarkup(escapeHtml) {
   return `
     <section class="inline-task-launcher prompt-launcher simple-intake" aria-label="新增内容">
-      <form class="prompt-composer" id="task-composer">
-        <div class="prompt-main">
-          <span class="prompt-orb" aria-hidden="true">✦</span>
-          <textarea id="task-goal" rows="3"
-            placeholder="直接粘贴文字、链接，或拖入文档、图片……"
-            aria-label="新增内容">${escapeHtml(draft.material)}</textarea>
-        </div>
-        ${attachmentsMarkup(escapeHtml)}
-        <div class="prompt-footer">
-          <div class="prompt-material-actions">
-            <label class="prompt-file-button" for="task-files">
-              <input id="task-files" type="file" multiple />
-              <span aria-hidden="true">＋</span>
-              <strong>材料</strong>
-            </label>
-            <span class="paste-hint">输入框粘贴 · 页面直接 ⌘V · 可拖入文件</span>
-          </div>
-          <div class="intake-actions simple-intake-actions" aria-label="处理方式">
+      <form class="prompt-composer compact-intake-composer" id="task-composer">
+        <div class="compact-intake-row">
+          <label class="prompt-file-button compact-upload-button" for="task-files">
+            <input id="task-files" type="file" multiple />
+            <span aria-hidden="true">＋</span>
+            <strong>上传档案</strong>
+          </label>
+          <textarea id="task-goal" rows="1" aria-label="输入或粘贴内容">${escapeHtml(draft.material)}</textarea>
+          <div class="intake-actions compact-task-actions" aria-label="处理方式">
             ${intakeActionsMarkup(escapeHtml)}
           </div>
-          <button class="prompt-submit" type="submit"
-            aria-label="${draft.action === "save" ? "保存到成果库" : "执行任务"}">
-            <span>${draft.action === "save" ? "保存" : "执行"}</span><i aria-hidden="true">↑</i>
-          </button>
+        </div>
+        ${attachmentsMarkup(escapeHtml)}
+        <div class="intake-save-status" id="intake-save-status" role="status"
+          aria-live="polite" hidden>
+          <span class="intake-loading-ring" aria-hidden="true"></span>
+          <strong>正在识别内容…</strong>
         </div>
       </form>
     </section>`;
@@ -130,12 +122,7 @@ export function bindTaskCenter({
   document.querySelectorAll("[data-task-action]").forEach((element) => {
     element.addEventListener("click", (event) => {
       const action = event.currentTarget.dataset.taskAction;
-      if (action === "choose-action") {
-        captureDraft();
-        draft.action = event.currentTarget.dataset.actionId;
-        render();
-        requestAnimationFrame(focusComposer);
-      } else if (action === "remove-file") {
+      if (action === "remove-file") {
         captureDraft();
         draft.files = draft.files.filter((file) =>
           file.id !== event.currentTarget.dataset.fileId);
@@ -154,35 +141,67 @@ export function bindTaskCenter({
       return;
     }
 
-    const submit = form.querySelector(".prompt-submit");
-    submit.disabled = true;
+    const action = event.submitter?.dataset.submitAction || "save";
+    const submit = event.submitter;
     const payload = {
       material: draft.material.trim(),
       files: draft.files,
     };
 
-    if (draft.action === "save") {
+    if (action === "save") {
+      const status = form.querySelector("#intake-save-status");
+      const controls = [...form.querySelectorAll("button, textarea, input")];
+      const updateSaving = (message) => {
+        controls.forEach((control) => {
+          control.disabled = true;
+        });
+        form.setAttribute("aria-busy", "true");
+        form.classList.add("is-saving");
+        status.hidden = false;
+        status.querySelector("strong").textContent = message;
+        submit.innerHTML = '<span class="mini-spinner"></span><strong>保存中</strong>';
+      };
+      updateSaving(
+        /^https?:\/\/\S+$/i.test(payload.material)
+          ? "正在读取页面标题与摘要…"
+          : "正在识别标题、分组、类型与标签…",
+      );
+
       try {
-        const saved = await saveToLibrary(payload);
+        const saved = await saveToLibrary(payload, updateSaving);
         draft = emptyDraft();
         render();
-        showToast(`已保存：${saved.title} · ${saved.groupName} · ${saved.workTypeName}`);
+        showToast(
+          `已保存到“${saved.groupName}” · ${saved.workTypeName} · 标签：${
+            saved.tags.join(" / ") || "待补标签"
+          }`,
+        );
       } catch {
-        submit.disabled = false;
+        controls.forEach((control) => {
+          control.disabled = false;
+        });
+        render();
         showToast("保存失败，请稍后重试");
       }
       return;
     }
 
-    const skill = inferSkill([
+    submit.disabled = true;
+    const inferredSkill = inferSkill([
       payload.material,
       ...payload.files.map((file) => `${file.name}\n${file.excerpt}`),
     ].join("\n"));
+    const skill = action === "decision"
+      ? taskSkills.find((item) => item.id === "decision")
+      : inferredSkill.id === "decision"
+        ? taskSkills.find((item) => item.id === "solution")
+        : inferredSkill;
     const now = new Date().toISOString();
     const tasks = loadTasks();
     tasks.push({
       id: uid(),
       title: titleFromPayload(payload),
+      mode: action,
       skillId: skill.id,
       skillName: skill.name,
       material: payload.material,
@@ -194,7 +213,7 @@ export function bindTaskCenter({
     localStorage.setItem(TASK_STORAGE_KEY, JSON.stringify(tasks));
     draft = emptyDraft();
     render();
-    showToast(`已执行任务，并匹配“${skill.name}”`);
+    showToast(`${action === "decision" ? "已发起决策" : "已发起评审"} · ${skill.name}`);
   });
 
   const fileInput = document.getElementById("task-files");
@@ -224,8 +243,10 @@ export function bindTaskCenter({
   });
 
   const prompt = document.getElementById("task-goal");
+  requestAnimationFrame(() => resizePrompt(prompt));
   prompt?.addEventListener("input", () => {
     draft.material = prompt.value;
+    resizePrompt(prompt);
   });
   prompt?.addEventListener("paste", async (event) => {
     const pastedFiles = [...(event.clipboardData?.items || [])]
@@ -268,6 +289,14 @@ function titleFromPayload(payload) {
 function captureDraft() {
   const prompt = document.getElementById("task-goal");
   if (prompt) draft.material = prompt.value;
+}
+
+function resizePrompt(prompt) {
+  if (!prompt) return;
+  prompt.style.height = "auto";
+  const height = Math.min(Math.max(prompt.scrollHeight, 40), 180);
+  prompt.style.height = `${height}px`;
+  prompt.style.overflowY = prompt.scrollHeight > 180 ? "auto" : "hidden";
 }
 
 function focusComposer() {

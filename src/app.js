@@ -31,6 +31,7 @@ const TAG_ORDER = [
   "本体",
   "飞书",
   "调研",
+  "产品规划",
   "AI 小顾",
   "AI 工作台",
   "AI 开放平台",
@@ -668,19 +669,19 @@ const TOPIC_BY_REPORT = {
 };
 
 function inferWorkType(report) {
-  const text = `${report.title || ""} ${report.source || ""} ${report.savedContent || ""}`;
+  const text = `${report.title || ""} ${report.source || ""} ${report.savedContent || ""} ${report.detectedDescription || ""}`;
   if (/需求评审|评审工作台/.test(text)) return "requirement-review";
   if (/竞品|对比|调研|研究/.test(text)) return "competitive-research";
   if (/周报|汇报|进展|规划|里程碑|业务分析/.test(text)) return "reporting";
   if (/数据|趋势|点击|转化|画像|使用/.test(text)) return "data-analysis";
   if (/基金|策略|投研|资产配置/.test(text)) return "investment-research";
   if (/审查|治理|知识/.test(text)) return "governance-review";
-  if (/Demo|工作台|原型/.test(text)) return "product-demo";
+  if (/Demo|Studio|工作台|原型/i.test(text)) return "product-demo";
   return "product-planning";
 }
 
 function inferTags(report, workType = inferWorkType(report)) {
-  const text = `${report.id || ""} ${report.groupId || ""} ${report.title || ""} ${report.url || ""} ${report.savedContent || ""}`;
+  const text = `${report.id || ""} ${report.groupId || ""} ${report.title || ""} ${report.url || ""} ${report.savedContent || ""} ${report.detectedDescription || ""}`;
   const tags = [];
   const add = (tag) => {
     if (!tags.includes(tag)) tags.push(tag);
@@ -688,8 +689,9 @@ function inferTags(report, workType = inferWorkType(report)) {
   if (/ontology\.yingmi-inc\.com|本体/.test(text)) add("本体");
   if (/feishu\.cn|飞书|community-ai-review|oap-h2-plan/.test(text)) add("飞书");
   if (workType === "competitive-research" || /调研|研究|盘点/.test(text)) add("调研");
+  if (workType === "product-planning") add("产品规划");
   if (/xiaogu|小顾|财务规划|投资行为/.test(text) || report.groupId === "xiaogu") add("AI 小顾");
-  if (/workbench|工作台|skill-audit/.test(text) || report.groupId === "ai-workbench") add("AI 工作台");
+  if (/studio|workbench|工作台|skill-audit/i.test(text) || report.groupId === "ai-workbench") add("AI 工作台");
   if (/ai-platform|开放平台|OAP|MCP|Skills|能力体系/.test(text) || report.groupId === "ai-platform") add("AI 开放平台");
   if (/且慢|qieman/.test(text)) add("且慢");
   if (/投顾|advisor|财务规划/.test(text)) add("投顾服务");
@@ -705,15 +707,24 @@ function inferTags(report, workType = inferWorkType(report)) {
 }
 
 function inferGroupId(report) {
-  const text = `${report.title || ""} ${report.url || ""} ${report.savedContent || ""}`;
+  const text = `${report.title || ""} ${report.url || ""} ${report.savedContent || ""} ${report.detectedDescription || ""}`;
   if (/小顾|财务规划|投顾服务|客户陪伴/.test(text)) return "xiaogu";
   if (/OAP|MCP|Skills?|开放平台|API|Agent|智能体/.test(text)) return "ai-platform";
-  if (/工作台|生产力|Copilot|编辑器/.test(text)) return "ai-workbench";
+  if (/Studio|工作台|生产力|Copilot|编辑器/i.test(text)) return "ai-workbench";
   if (/基金|投研|策略|资产配置|股票|债券/.test(text)) return "research";
   if (/汇报|周报|月报|经营|进展|里程碑/.test(text)) return "reporting";
   if (/知识|SOUL|飞书|治理|本体|文档库/.test(text)) return "knowledge";
   if (/且慢|产品|需求|方案|原型|体验|PRD/i.test(text)) return "product-planning";
-  return "inbox";
+  return {
+    "requirement-review": "product-planning",
+    "competitive-research": "product-planning",
+    reporting: "reporting",
+    "data-analysis": "reporting",
+    "investment-research": "research",
+    "governance-review": "knowledge",
+    "product-demo": "ai-workbench",
+    "product-planning": "product-planning",
+  }[report.workType] || "inbox";
 }
 
 initialState.reports = initialState.reports.map((report) => {
@@ -896,8 +907,8 @@ function titleFromIntake(material, files, url) {
   return url ? domainOf(url) : "未命名成果";
 }
 
-async function fetchPageTitle(url) {
-  if (!validUrl(url)) return "";
+async function fetchPageMetadata(url) {
+  if (!validUrl(url)) return { title: "", description: "" };
   try {
     const metadataUrl = `https://api.microlink.io/?url=${encodeURIComponent(url)}`;
     const response = await fetch(metadataUrl, {
@@ -906,24 +917,32 @@ async function fetchPageTitle(url) {
     });
     if (!response.ok) throw new Error("read failed");
     const payload = await response.json();
-    return payload?.data?.title?.trim().slice(0, 180) || "";
+    return {
+      title: payload?.data?.title?.trim().slice(0, 180) || "",
+      description: payload?.data?.description?.trim().slice(0, 500) || "",
+    };
   } catch {
-    return "";
+    return { title: "", description: "" };
   }
 }
 
-async function saveIntakeToLibrary({ material, files }) {
+async function saveIntakeToLibrary({ material, files }, onProgress = () => {}) {
   const url = firstHttpUrl(material);
   const textTitle = titleFromIntake(material, files, url);
   const onlyUrl = Boolean(url) &&
     material.replace(url, "").replace(/\s+/g, "").length === 0 &&
     !files.length;
-  const detectedTitle = onlyUrl ? await fetchPageTitle(url) : "";
+  let metadata = { title: "", description: "" };
+  if (onlyUrl) {
+    onProgress("正在读取页面标题与摘要…");
+    metadata = await fetchPageMetadata(url);
+  }
+  onProgress("正在识别标题、分组、类型与标签…");
   const now = new Date().toISOString();
   const report = {
     id: id("report"),
     groupId: "inbox",
-    title: detectedTitle || textTitle,
+    title: metadata.title || textTitle,
     url,
     pinned: false,
     position: 0,
@@ -936,10 +955,12 @@ async function saveIntakeToLibrary({ material, files }) {
     archivedAt: "",
     savedContent: material,
     savedFiles: files,
+    detectedDescription: metadata.description,
   };
   report.workType = inferWorkType(report);
   report.groupId = inferGroupId(report);
   report.tags = inferTags(report, report.workType);
+  onProgress("正在保存到成果库…");
   report.position = state.reports.filter((item) =>
     !item.archived && item.groupId === report.groupId).length;
 
@@ -1622,7 +1643,7 @@ async function detectTitle(form) {
   button.innerHTML = '<span class="mini-spinner"></span>';
   hint.textContent = "正在读取网页标题…";
   try {
-    const title = await fetchPageTitle(url);
+    const { title } = await fetchPageMetadata(url);
     if (!title) throw new Error("read failed");
     titleInput.value = title;
     hint.textContent = "已识别网页标题";

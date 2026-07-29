@@ -6595,3 +6595,213 @@ body.global-drag-ready .global-drop-overlay {
     max-width: none;
   }
 }
+
+/* Balanced page frame and save recognition feedback */
+:root {
+  --studio-width: 1280px;
+}
+
+.workspace {
+  width: min(var(--studio-width), calc(100% - clamp(64px, 8vw, 112px)));
+  margin-inline: auto;
+}
+
+.topbar {
+  padding-inline: max(32px, calc((100vw - var(--studio-width)) / 2));
+}
+
+.intake-save-status {
+  width: fit-content;
+  max-width: calc(100% - 50px);
+  min-height: 32px;
+  margin: 1px 0 10px 50px;
+  padding: 7px 11px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #dfe3f8;
+  border-radius: 999px;
+  background: #f6f6ff;
+  color: #5055ad;
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+.intake-save-status[hidden] {
+  display: none;
+}
+
+.intake-save-status strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.intake-loading-ring {
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+  border: 2px solid #d7d9f8;
+  border-top-color: #6369ef;
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+}
+
+.prompt-composer.is-saving {
+  border-color: #aeb2fa;
+  box-shadow:
+    0 24px 64px rgb(71 77 182 / 12%),
+    0 0 0 4px rgb(91 98 244 / 6%);
+}
+
+.prompt-composer.is-saving textarea {
+  color: #777a84;
+}
+
+.simple-intake .compact-intake-composer {
+  padding: 10px 12px;
+  border-radius: 16px;
+}
+
+.compact-intake-row {
+  display: grid;
+  grid-template-columns: auto minmax(120px, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+}
+
+.compact-intake-row textarea {
+  width: 100%;
+  min-height: 40px;
+  max-height: 180px;
+  border: 0;
+  background: transparent;
+  padding: 9px 4px;
+  color: #24252b;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.45;
+  outline: 0;
+  resize: none;
+}
+
+.compact-intake-row textarea:focus-visible {
+  border: 0;
+  outline: 0;
+}
+
+.compact-upload-button {
+  min-height: 38px;
+  border-radius: 9px;
+  padding-inline: 11px;
+}
+
+.compact-upload-button strong {
+  font-size: 11px;
+}
+
+.compact-task-actions {
+  width: auto;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border: 0;
+  background: transparent;
+  padding: 0;
+}
+
+.compact-task-actions .intake-action {
+  min-width: 56px;
+  min-height: 36px;
+  justify-content: center;
+  border: 1px solid #e1e3e9;
+  border-radius: 9px;
+  background: #fff;
+  padding: 0 12px;
+  color: #555b65;
+}
+
+.compact-task-actions .intake-action:hover {
+  border-color: #bec2f7;
+  background: #f6f6ff;
+  color: #5056d9;
+}
+
+.compact-task-actions .primary-intake-action {
+  border-color: #5e65ec;
+  background: #6269ef;
+  color: #fff;
+}
+
+.compact-task-actions .primary-intake-action:hover {
+  border-color: #5057df;
+  background: #555ce5;
+  color: #fff;
+}
+
+.compact-task-actions .intake-action:disabled {
+  cursor: wait;
+  opacity: 0.68;
+}
+
+.compact-intake-composer > .attachment-list {
+  margin: 8px 0 2px 0;
+}
+
+.compact-intake-composer .intake-save-status {
+  margin: 8px 0 2px 0;
+}
+
+@media (max-width: 840px) {
+  .workspace {
+    width: calc(100% - 40px);
+  }
+}
+
+@media (max-width: 680px) {
+  .workspace {
+    width: calc(100% - 24px);
+  }
+
+  .topbar {
+    padding-inline: 14px;
+  }
+
+  .intake-save-status {
+    max-width: 100%;
+    margin-left: 0;
+  }
+
+  .compact-intake-row {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .compact-task-actions {
+    grid-column: 1 / -1;
+    justify-content: flex-end;
+    border-top: 1px solid #ececf2;
+    padding-top: 9px;
+  }
+}
+
+@media (max-width: 350px) {
+  .compact-upload-button strong {
+    display: none;
+  }
+
+  .compact-upload-button {
+    width: 40px;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .compact-task-actions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .compact-task-actions .intake-action {
+    min-width: 0;
+    padding-inline: 8px;
+  }
+}
