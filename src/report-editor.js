@@ -22,6 +22,8 @@ const editor = {
   pendingSave: false,
   saving: false,
   lastCommit: "",
+  isLocal: false,
+  saveLocal: null,
   protection: null,
   loadPromise: null,
   render: null,
@@ -70,16 +72,27 @@ function clearStoredDraft(reportId = editor.reportId) {
 
 function revisionState() {
   if (editor.dirty && editor.hasDraft) {
-    return { tone: "changed", label: "有新修订 · 上次暂存待推送" };
+    return {
+      tone: "changed",
+      label: editor.isLocal
+        ? "有新修订 · 上次暂存待保存"
+        : "有新修订 · 上次暂存待推送",
+    };
   }
   if (editor.dirty) {
     return { tone: "changed", label: "已修订 · 未暂存" };
   }
   if (editor.hasDraft) {
-    return { tone: "staged", label: "已暂存 · 待推送生产" };
+    return {
+      tone: "staged",
+      label: editor.isLocal ? "已暂存 · 待保存成果库" : "已暂存 · 待推送生产",
+    };
   }
   if (editor.lastCommit) {
-    return { tone: "published", label: "生产档案已更新" };
+    return {
+      tone: "published",
+      label: editor.isLocal ? "成果库 HTML 已更新" : "生产档案已更新",
+    };
   }
   return { tone: "clean", label: "未修改" };
 }
@@ -102,7 +115,9 @@ function updateEditorChrome() {
   if (publishButton) {
     publishButton.disabled =
       editor.status !== "ready" || editor.saving || (!editor.dirty && !editor.hasDraft);
-    const label = editor.saving ? "正在推送生产" : "推送生产";
+    const label = editor.saving
+      ? editor.isLocal ? "正在保存到成果库" : "正在推送生产"
+      : editor.isLocal ? "保存到成果库" : "推送生产";
     publishButton.setAttribute("aria-label", label);
     publishButton.title = label;
     publishButton.classList.toggle("is-saving", editor.saving);
@@ -448,18 +463,34 @@ function buildEditorDocument(html, baseUrl) {
   return `<!DOCTYPE html>\n${documentNode.documentElement.outerHTML}`;
 }
 
+function localReportHtml(report) {
+  if (report.url) return "";
+  if (report.savedHtml) return report.savedHtml;
+  const htmlFile = (report.savedFiles || []).find((file) =>
+    /\.html?$/i.test(file.name || ""));
+  if (htmlFile?.content || htmlFile?.excerpt) {
+    return htmlFile.content || htmlFile.excerpt;
+  }
+  return /<!doctype\s+html|<html[\s>]/i.test(report.savedContent || "")
+    ? report.savedContent.trim()
+    : "";
+}
+
 async function loadReport(report) {
   try {
-    const inferred = githubPagesTarget(report.url);
+    const localHtml = localReportHtml(report);
+    const inferred = localHtml ? null : githubPagesTarget(report.url);
     let result = null;
-    if (inferred) {
+    if (localHtml) {
+      result = { html: localHtml, target: null };
+    } else if (inferred) {
       try {
         result = await readGithubFile(inferred);
       } catch {
         // Production Pages can still be read directly when the repository path is unusual.
       }
     }
-    if (!result) {
+    if (!result && report.url) {
       const response = await fetch(report.url, { cache: "no-store" });
       if (!response.ok) throw new Error(`报告读取失败（HTTP ${response.status}）`);
       result = { html: await response.text(), target: inferred };
@@ -484,7 +515,10 @@ async function loadReport(report) {
       }
     }
     editor.html = activeHtml;
-    editor.editorDocument = buildEditorDocument(activeHtml, report.url);
+    editor.editorDocument = buildEditorDocument(
+      activeHtml,
+      report.url || window.location.href,
+    );
     editor.status = "ready";
     editor.error = "";
   } catch (error) {
@@ -517,6 +551,8 @@ function resetEditor() {
     pendingSave: false,
     saving: false,
     lastCommit: "",
+    isLocal: false,
+    saveLocal: null,
     protection: null,
     loadPromise: null,
     render,
@@ -601,7 +637,9 @@ function openDraftPreview(report) {
   if (!editor.hasDraft || !editor.draftHtml) {
     throw new Error("请先暂存当前修订，再另开预览");
   }
-  const blob = new Blob([htmlWithPreviewBase(editor.draftHtml, report.url)], {
+  const blob = new Blob([
+    htmlWithPreviewBase(editor.draftHtml, report.url || window.location.href),
+  ], {
     type: "text/html;charset=utf-8",
   });
   const url = URL.createObjectURL(blob);
@@ -639,8 +677,39 @@ async function performStash(report, { silent = false } = {}) {
   editor.dirty = false;
   editor.lastCommit = "";
   updateEditorChrome();
-  if (!silent) editor.showToast?.("已暂存在当前浏览器会话，尚未更新 GitHub");
+  if (!silent) {
+    editor.showToast?.(
+      editor.isLocal
+        ? "已暂存在当前浏览器会话，尚未写回成果库"
+        : "已暂存在当前浏览器会话，尚未更新 GitHub",
+    );
+  }
   return plainHtml;
+}
+
+async function performLocalSave(report) {
+  if (editor.saving || !editor.saveLocal) return;
+  editor.saving = true;
+  updateEditorChrome();
+  try {
+    const html = editor.dirty
+      ? await performStash(report, { silent: true })
+      : editor.draftHtml || await requestSerializedHtml();
+    await editor.saveLocal(html);
+    editor.html = html;
+    editor.dirty = false;
+    editor.hasDraft = false;
+    editor.draftHtml = "";
+    editor.draftAt = "";
+    editor.lastCommit = "local";
+    clearStoredDraft(report.id);
+    editor.showToast?.("已更新成果库中的 HTML");
+  } catch (error) {
+    editor.showToast?.(error?.message || "保存失败，请下载 HTML 备份");
+  } finally {
+    editor.saving = false;
+    updateEditorChrome();
+  }
 }
 
 async function saveToGithub(plainHtml) {
@@ -848,7 +917,7 @@ export function isEditingReport(reportId = "") {
   return Boolean(editor.reportId && (!reportId || editor.reportId === reportId));
 }
 
-export function beginReportEditing(report, { render, showToast }) {
+export function beginReportEditing(report, { render, showToast, saveLocal = null }) {
   resetEditor();
   Object.assign(editor, {
     reportId: report.id,
@@ -857,13 +926,17 @@ export function beginReportEditing(report, { render, showToast }) {
     status: "loading",
     render,
     showToast,
+    isLocal: Boolean(localReportHtml(report) && saveLocal),
+    saveLocal,
   });
   render();
   editor.loadPromise = loadReport(report);
 }
 
 export function reportEditorMarkup(report, escapeHtml) {
-  const targetLabel = editor.target
+  const targetLabel = editor.isLocal
+    ? "本地成果 · 保存在当前浏览器"
+    : editor.target
     ? `${editor.target.owner}/${editor.target.repository} · ${editor.target.path}${editor.target.mirrors?.length ? ` · 同步 ${editor.target.mirrors.length + 1} 处` : ""}`
     : "尚未识别 GitHub 源文件";
   const revision = revisionState();
@@ -898,7 +971,7 @@ export function reportEditorMarkup(report, escapeHtml) {
       </div>`
     : "";
   const body = editor.status === "loading"
-    ? `<div class="editor-state"><span class="editor-loader"></span><strong>正在载入可编辑 HTML…</strong><p>会自动识别对应 GitHub 仓库与源文件。</p></div>`
+    ? `<div class="editor-state"><span class="editor-loader"></span><strong>正在载入可编辑 HTML…</strong><p>${editor.isLocal ? "修改后可保存回成果库，也可下载 HTML。" : "会自动识别对应 GitHub 仓库与源文件。"}</p></div>`
     : editor.status === "error"
       ? `<div class="editor-state editor-error"><strong>这份报告暂时无法进入编辑模式</strong><p>${escapeHtml(editor.error)}</p><div><button class="quiet-button" type="button" data-editor-action="retry">重试</button><button class="primary-button" type="button" data-editor-action="download-published">下载原 HTML</button></div></div>`
       : `<div class="report-editor-frame-wrap"><iframe class="report-editor-frame" title="${escapeHtml(report.title)}编辑画布"
@@ -913,7 +986,9 @@ export function reportEditorMarkup(report, escapeHtml) {
     publish: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4"></path><path d="m8 8 4-4 4 4"></path><path d="M5 14v6h14v-6"></path></svg>`,
   })[name];
   const stashLabel = !editor.dirty && editor.hasDraft ? "已暂存" : "暂存修改";
-  const publishLabel = editor.saving ? "正在推送生产" : "推送生产";
+  const publishLabel = editor.saving
+    ? editor.isLocal ? "正在保存到成果库" : "正在推送生产"
+    : editor.isLocal ? "保存到成果库" : "推送生产";
   return `
     <main class="reader-shell report-editor-shell compact-editor-shell">
       <header class="reader-header editor-header compact-reader-header compact-editor-header">
@@ -927,8 +1002,9 @@ export function reportEditorMarkup(report, escapeHtml) {
           </div>
         </div>
         <div class="reader-actions editor-actions compact-reader-actions compact-editor-actions" aria-label="编辑操作">
-          <button class="reader-icon-button" type="button" data-editor-action="settings"
-            aria-label="保存权限" title="保存权限">${icon("settings")}</button>
+          ${editor.isLocal ? "" : `
+            <button class="reader-icon-button" type="button" data-editor-action="settings"
+              aria-label="保存权限" title="保存权限">${icon("settings")}</button>`}
           <button class="reader-icon-button" type="button" data-editor-action="stash"
             aria-label="${stashLabel}" title="${stashLabel}"
             ${editor.status !== "ready" || editor.saving || !editor.dirty ? "disabled" : ""}>${icon("stash")}</button>
@@ -937,8 +1013,9 @@ export function reportEditorMarkup(report, escapeHtml) {
             ${editor.status !== "ready" || !editor.hasDraft ? "disabled" : ""}>${icon("preview")}</button>
           <button class="reader-icon-button" type="button" data-editor-action="download"
             aria-label="下载 HTML" title="下载 HTML">${icon("download")}</button>
-          <button class="reader-icon-button" type="button" data-editor-action="share"
-            aria-label="复制生产 URL" title="复制生产 URL">${icon("copy")}</button>
+          ${report.url ? `
+            <button class="reader-icon-button" type="button" data-editor-action="share"
+              aria-label="复制生产 URL" title="复制生产 URL">${icon("copy")}</button>` : ""}
           <button class="reader-icon-button publish-icon-action${editor.saving ? " is-saving" : ""}" type="button"
             data-editor-action="publish" aria-label="${publishLabel}" title="${publishLabel}"
             ${editor.status !== "ready" || editor.saving || (!editor.dirty && !editor.hasDraft) ? "disabled" : ""}>${icon("publish")}</button>
@@ -1028,6 +1105,10 @@ export function bindReportEditor(report) {
         }
       } else if (action === "publish") {
         try {
+          if (editor.isLocal) {
+            await performLocalSave(report);
+            return;
+          }
           if (editor.dirty) await performStash(report, { silent: true });
           if (!editor.hasDraft) {
             editor.showToast?.("当前没有待推送的修订");

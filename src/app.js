@@ -861,9 +861,11 @@ function migrateState(saved) {
     normalizedSavedReports.map((report) => [normalizedUrl(report.url), report]),
   );
   const catalogUrls = new Set();
+  const catalogReportIds = new Set();
   const reports = catalog.reports.map((report) => {
     const reportUrl = normalizedUrl(report.url);
     catalogUrls.add(reportUrl);
+    catalogReportIds.add(report.id);
     const savedReport = savedById.get(report.id) || savedByUrl.get(reportUrl);
     if (!savedReport) return report;
     return {
@@ -893,8 +895,11 @@ function migrateState(saved) {
   });
   normalizedSavedReports.forEach((report) => {
     const reportUrl = normalizedUrl(report.url);
-    if (catalogUrls.has(reportUrl)) return;
-    catalogUrls.add(reportUrl);
+    if (catalogReportIds.has(report.id) || (reportUrl && catalogUrls.has(reportUrl))) {
+      return;
+    }
+    catalogReportIds.add(report.id);
+    if (reportUrl) catalogUrls.add(reportUrl);
     reports.push(report);
   });
   const migrated = {
@@ -990,7 +995,8 @@ function htmlUrl(url = "") {
 
 function htmlFromIntake(material = "", files = []) {
   if (/<!doctype\s+html|<html[\s>]/i.test(material)) return material.trim();
-  return files.find((file) => /\.html?$/i.test(file.name) && file.excerpt)?.excerpt || "";
+  const htmlFile = files.find((file) => /\.html?$/i.test(file.name));
+  return htmlFile?.content || htmlFile?.excerpt || "";
 }
 
 function permissionTarget(url = "") {
@@ -1140,7 +1146,16 @@ async function saveIntakeToLibrary({ material, files }, onProgress = () => {}) {
     !item.archived && item.groupId === report.groupId).length;
 
   state.reports.push(report);
-  saveState();
+  try {
+    saveState();
+  } catch {
+    state.reports.pop();
+    return {
+      rejected: true,
+      duplicate: false,
+      reason: "HTML 内容超过当前浏览器可保存容量，请先下载或精简后重试",
+    };
+  }
   archiveView = false;
   catalogView = "topic";
   query = "";
@@ -1406,8 +1421,13 @@ function cardMarkup(report, archivedView = false) {
     : report.access === "account"
       ? "需账号登录"
       : "生产可访问";
+  const localHtml = localHtmlForReport(report);
   const hasPreview = !restricted && initialState.reports.some((item) => item.id === report.id);
-  const preview = hasPreview
+  const preview = localHtml && report.isHtml
+    ? `<iframe class="local-html-preview-frame" title="${escapeHtml(report.title)}视觉预览"
+        srcdoc="${escapeHtml(localHtml)}" sandbox="allow-scripts" loading="lazy"
+        tabindex="-1" aria-hidden="true"></iframe>`
+    : hasPreview
     ? `<img src="./previews/${escapeHtml(report.id)}.png" alt="" loading="lazy" decoding="async" />`
     : `
       <div class="preview-placeholder ${restricted ? "preview-restricted" : ""}">
@@ -1583,7 +1603,9 @@ function readerMarkup(report) {
     report.savedContent,
     report.savedFiles,
   );
-  const editAction = report.url
+  const editAction = localHtml
+    ? "edit-local-document"
+    : report.url
     ? restricted
       ? "edit"
       : "edit-document"
@@ -1947,6 +1969,25 @@ function bindApp() {
         const report = state.reports.find((item) => item.id === itemId);
         if (!report || report.access !== "production") return;
         beginReportEditing(report, { render, showToast });
+      } else if (action === "edit-local-document") {
+        const report = state.reports.find((item) => item.id === itemId);
+        if (!report || !localHtmlForReport(report)) return;
+        beginReportEditing(report, {
+          render,
+          showToast,
+          saveLocal: async (html) => {
+            const previousHtml = report.savedHtml;
+            report.savedHtml = html;
+            report.isHtml = true;
+            report.tags = inferTags(report, report.workType);
+            try {
+              saveState();
+            } catch {
+              report.savedHtml = previousHtml;
+              throw new Error("修改后的 HTML 超过当前浏览器可保存容量，请先下载备份");
+            }
+          },
+        });
       } else if (action === "download-report") {
         const report = state.reports.find((item) => item.id === itemId);
         if (!report) return;

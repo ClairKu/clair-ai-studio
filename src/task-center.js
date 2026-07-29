@@ -77,12 +77,17 @@ async function filesToRecords(fileList) {
   return Promise.all(files.map(async (file) => {
     const textLike = file.type.startsWith("text/")
       || /\.(md|txt|csv|json|html|xml)$/i.test(file.name);
+    const isHtml = /\.html?$/i.test(file.name);
     let excerpt = "";
+    let content = "";
     if (textLike && file.size <= 1024 * 1024) {
       try {
-        excerpt = (await file.text()).slice(0, 12000);
+        const text = await file.text();
+        excerpt = text.slice(0, 12000);
+        if (isHtml) content = text;
       } catch {
         excerpt = "";
+        content = "";
       }
     }
     return {
@@ -92,6 +97,7 @@ async function filesToRecords(fileList) {
       size: file.size,
       sizeLabel: fileSize(file.size),
       excerpt,
+      content,
     };
   }));
 }

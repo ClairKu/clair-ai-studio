@@ -4091,6 +4091,35 @@ textarea:focus-visible {
   transition: transform 240ms ease;
 }
 
+.local-html-preview-frame {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 400%;
+  height: 400%;
+  border: 0;
+  background: #fff;
+  pointer-events: none;
+  transform: scale(0.25);
+  transform-origin: top left;
+}
+
+.report-card:has(.local-html-preview-frame) .report-preview::before {
+  content: "HTML";
+  position: absolute;
+  z-index: 2;
+  top: 10px;
+  left: 10px;
+  border: 1px solid rgb(255 255 255 / 65%);
+  border-radius: 999px;
+  background: rgb(22 25 31 / 72%);
+  padding: 4px 7px;
+  color: #fff;
+  font-size: 8px;
+  font-weight: 760;
+  letter-spacing: 0.12em;
+  backdrop-filter: blur(8px);
+}
+
 .report-card:hover .report-preview img {
   transform: scale(1.018);
 }
