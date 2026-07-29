@@ -26,8 +26,7 @@ const intakeIcons = {
     </svg>`,
   upload: `
     <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M12 16V4M8 8l4-4 4 4"></path>
-      <path d="M5 14v5.5h14V14"></path>
+      <path d="M12 5v14M5 12h14"></path>
     </svg>`,
 };
 
@@ -129,12 +128,12 @@ export function taskWorkspaceMarkup(escapeHtml) {
           <span class="intake-entry-mark" aria-hidden="true">✦</span>
           <textarea id="task-goal" rows="1" aria-label="输入或粘贴内容">${escapeHtml(draft.material)}</textarea>
           <div class="intake-actions compact-task-actions" aria-label="处理方式">
-            ${intakeActionsMarkup(escapeHtml)}
             <label class="intake-action intake-icon-action compact-upload-button"
               for="task-files" aria-label="上传档案" title="上传档案">
               <input id="task-files" type="file" multiple />
               ${intakeIcons.upload}
             </label>
+            ${intakeActionsMarkup(escapeHtml)}
           </div>
         </div>
         ${attachmentsMarkup(escapeHtml)}

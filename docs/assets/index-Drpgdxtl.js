@@ -14,8 +14,7 @@
       <path d="m8 13 2.2 2.2L16 9.5"></path>
     </svg>`,upload:`
     <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M12 16V4M8 8l4-4 4 4"></path>
-      <path d="M5 14v5.5h14V14"></path>
+      <path d="M12 5v14M5 12h14"></path>
     </svg>`},W=[{id:"requirement",name:"需求评审"},{id:"solution",name:"方案评审"},{id:"decision",name:"决策推演"},{id:"agreement",name:"协议审查"},{id:"career",name:"履历评估"}];let S=mt();function mt(){return{material:"",files:[]}}function Nt(){var t;return((t=crypto.randomUUID)==null?void 0:t.call(crypto))||`${Date.now()}-${Math.random()}`}function le(t){var r;const e=t.toLowerCase(),a=((r=[["agreement",["协议","合同","条款","保密","签署","数据处理"]],["career",["简历","履历","候选人","晋升","岗位","面试"]],["decision",["决策","选型","取舍","是否推进","选择"]],["requirement",["需求","prd","用户故事","验收","原型"]],["solution",["方案","流程","架构","设计","上线"]]].find(([,n])=>n.some(c=>e.includes(c))))==null?void 0:r[0])||"solution";return W.find(n=>n.id===a)||W[1]}function de(t){return t<1024?`${t} B`:t<1024*1024?`${Math.ceil(t/1024)} KB`:`${(t/1024/1024).toFixed(1)} MB`}async function U(t){const e=[...t].slice(0,20);return Promise.all(e.map(async i=>{const a=i.type.startsWith("text/")||/\.(md|txt|csv|json|html|xml)$/i.test(i.name),r=/\.html?$/i.test(i.name);let n="",c="";if(a&&i.size<=1024*1024)try{const s=await i.text();n=s.slice(0,12e3),r&&(c=s)}catch{n="",c=""}return{id:Nt(),name:i.name,type:i.type||"文件",size:i.size,sizeLabel:de(i.size),excerpt:n,content:c}}))}function ue(t){return S.files.length?`<div class="attachment-list">${S.files.map(e=>`
     <span class="attachment-chip">
       <b>${t(e.name)}</b><small>${t(e.sizeLabel)}</small>
@@ -33,12 +32,12 @@
           <span class="intake-entry-mark" aria-hidden="true">✦</span>
           <textarea id="task-goal" rows="1" aria-label="输入或粘贴内容">${t(S.material)}</textarea>
           <div class="intake-actions compact-task-actions" aria-label="处理方式">
-            ${pe(t)}
             <label class="intake-action intake-icon-action compact-upload-button"
               for="task-files" aria-label="上传档案" title="上传档案">
               <input id="task-files" type="file" multiple />
               ${Ut.upload}
             </label>
+            ${pe(t)}
           </div>
         </div>
         ${ue(t)}
@@ -535,6 +534,11 @@ ${i.documentElement.outerHTML}`}function De(t){if(!o.hasDraft||!o.draftHtml)thro
         <div class="results-toolbar unified-results-toolbar">
           <h1 class="sr-only">Clair's Studio 成果库</h1>
           <div class="results-toolbar-side">
+            <label class="search results-search">
+              <span aria-hidden="true">⌕</span>
+              <input id="search-input" value="${h(T)}" placeholder="搜索标题、标签或来源" aria-label="搜索成果" />
+              ${T?'<button type="button" data-action="clear-search">清除</button>':""}
+            </label>
             <div class="studio-summary compact-summary" aria-label="成果统计">
               <strong>${i.length}</strong><span>成果</span>
               <i></i>
@@ -542,11 +546,6 @@ ${i.documentElement.outerHTML}`}function De(t){if(!o.hasDraft||!o.draftHtml)thro
               <i></i>
               <strong>${n}</strong><span>直达</span>
             </div>
-            <label class="search results-search">
-              <span aria-hidden="true">⌕</span>
-              <input id="search-input" value="${h(T)}" placeholder="搜索标题、标签或来源" aria-label="搜索成果" />
-              ${T?'<button type="button" data-action="clear-search">清除</button>':""}
-            </label>
           </div>
         </div>
         <section class="groups-section">
@@ -555,20 +554,19 @@ ${i.documentElement.outerHTML}`}function De(t){if(!o.hasDraft||!o.draftHtml)thro
               <div><strong>正在整理报告</strong><span>选择目标${z()}的“移到这里”，或直接拖动卡片。</span></div>
               <button type="button" data-action="cancel-move">取消</button>
             </div>`:""}
-          <div class="collection-toolbar">
-            <div class="classification-actions">
-              <div class="view-switcher" role="tablist" aria-label="成果分类方式">
-                <button type="button" role="tab" aria-selected="${k==="topic"}" class="${k==="topic"?"active":""}" data-action="set-view" data-id="topic">主题</button>
-                <button type="button" role="tab" aria-selected="${k==="type"}" class="${k==="type"?"active":""}" data-action="set-view" data-id="type">类型</button>
-                <button type="button" role="tab" aria-selected="${k==="tag"}" class="${k==="tag"?"active":""}" data-action="set-view" data-id="tag">标签</button>
-                <button type="button" role="tab" aria-selected="${k==="time"}" class="${k==="time"?"active":""}" data-action="set-view" data-id="time">新增</button>
-              </div>
-              <button class="quiet-button add-topic-button" type="button" data-action="add-group">＋ 主题</button>
-            </div>
-          </div>
           ${s.length?`
             <div class="library-layout">
               <nav class="topic-nav" aria-label="报告${l}">
+                <div class="library-nav-controls">
+                  <div class="library-view-switcher" role="tablist" aria-label="成果分类方式">
+                    <button type="button" role="tab" aria-selected="${k==="topic"}" class="${k==="topic"?"active":""}" data-action="set-view" data-id="topic">主题</button>
+                    <button type="button" role="tab" aria-selected="${k==="type"}" class="${k==="type"?"active":""}" data-action="set-view" data-id="type">任务</button>
+                    <button type="button" role="tab" aria-selected="${k==="tag"}" class="${k==="tag"?"active":""}" data-action="set-view" data-id="tag">标签</button>
+                    <button type="button" role="tab" aria-selected="${k==="time"}" class="${k==="time"?"active":""}" data-action="set-view" data-id="time">时间</button>
+                  </div>
+                  <button class="add-topic-icon" type="button" data-action="add-group"
+                    aria-label="添加主题" title="添加主题">＋</button>
+                </div>
                 ${s.map((d,p)=>`<a href="#bucket-${p}"><span class="nav-index">${String(p+1).padStart(2,"0")}</span>${h(d.name)}<span>${d.reports.length}</span></a>`).join("")}
                 <span class="library-nav-spacer" aria-hidden="true"></span>
                 <button class="library-nav-utility" type="button" data-action="show-archive">

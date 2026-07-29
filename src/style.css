@@ -6803,9 +6803,132 @@ body.global-drag-ready .global-drop-overlay {
   margin: 8px 0 2px 0;
 }
 
+/* Unified command/search rows + navigation-integrated classification */
+.simple-intake .compact-intake-composer,
+.unified-results-toolbar {
+  min-height: 62px;
+  border: 1px solid #dfe2e8;
+  border-radius: 16px;
+  background: rgb(255 255 255 / 88%);
+  padding: 10px 12px;
+  box-shadow: 0 10px 34px rgb(33 37 48 / 4%);
+}
+
+.unified-results-toolbar {
+  display: block;
+  margin-top: 10px;
+}
+
+.results-toolbar-side {
+  min-height: 40px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  justify-content: stretch;
+  gap: 18px;
+}
+
+.results-search {
+  height: 40px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 0;
+}
+
+.results-search:focus-within {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.results-search > span {
+  width: 32px;
+  min-width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: #f1f2f6;
+  color: #676d79;
+  font-size: 15px;
+}
+
+.results-search input {
+  padding-inline: 10px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.studio-summary.compact-summary {
+  justify-self: end;
+  white-space: nowrap;
+}
+
+.groups-section {
+  padding-top: 16px;
+}
+
+.library-nav-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 32px;
+  gap: 6px;
+  margin-bottom: 5px;
+  border-bottom: 1px solid #eceef2;
+  padding: 0 0 8px;
+}
+
+.library-view-switcher {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2px;
+  border-radius: 9px;
+  background: #f0f1f4;
+  padding: 3px;
+}
+
+.library-view-switcher button,
+.add-topic-icon {
+  min-width: 0;
+  height: 30px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: #777c86;
+  font-size: 9px;
+  cursor: pointer;
+}
+
+.library-view-switcher button:hover,
+.add-topic-icon:hover {
+  background: #fff;
+  color: #202126;
+}
+
+.library-view-switcher button.active {
+  background: #fff;
+  color: #202126;
+  box-shadow: 0 2px 8px rgb(31 33 40 / 8%);
+  font-weight: 680;
+}
+
+.add-topic-icon {
+  border: 1px solid #e2e4e9;
+  background: #f8f9fb;
+  font-size: 17px;
+  line-height: 1;
+}
+
 @media (max-width: 840px) {
   .workspace {
     width: calc(100% - 40px);
+  }
+
+  .results-toolbar-side {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .studio-summary.compact-summary {
+    display: flex;
   }
 }
 
@@ -6824,20 +6947,91 @@ body.global-drag-ready .global-drop-overlay {
   }
 
   .compact-intake-row {
-    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-columns: 32px minmax(0, 1fr) auto;
+    gap: 6px;
   }
 
   .compact-task-actions {
-    grid-column: 1 / -1;
-    justify-content: flex-end;
-    border-top: 1px solid #ececf2;
-    padding-top: 9px;
+    grid-column: auto;
+    gap: 3px;
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  .compact-task-actions .intake-action {
+    width: 32px;
+    min-width: 32px;
+    height: 32px;
+    min-height: 32px;
+  }
+
+  .compact-intake-row textarea {
+    min-height: 32px;
+    padding-inline: 2px;
+    font-size: 13px;
+  }
+
+  .simple-intake .compact-intake-composer,
+  .unified-results-toolbar {
+    border-radius: 15px;
+    padding: 10px;
+  }
+
+  .results-toolbar-side {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px;
+  }
+
+  .results-search input {
+    font-size: 13px;
+  }
+
+  .results-search {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .studio-summary.compact-summary {
+    display: flex;
+    gap: 4px;
+  }
+
+  .studio-summary.compact-summary strong {
+    font-size: 13px;
+  }
+
+  .studio-summary.compact-summary span {
+    display: none;
+  }
+
+  .studio-summary.compact-summary i {
+    margin-inline: 3px;
+  }
+
+  .library-nav-controls {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    min-width: 224px;
+    flex: 0 0 224px;
+    margin: 0 3px 0 0;
+    border: 0;
+    border-right: 1px solid #e2e4e9;
+    padding: 0 8px 0 0;
+    background: rgb(247 248 251 / 98%);
   }
 }
 
 @media (max-width: 350px) {
   .compact-task-actions {
-    gap: 4px;
+    gap: 2px;
+  }
+
+  .compact-task-actions .intake-action {
+    width: 30px;
+    min-width: 30px;
+    height: 30px;
+    min-height: 30px;
   }
 }
 

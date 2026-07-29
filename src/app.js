@@ -1864,6 +1864,11 @@ function workbenchMarkup() {
         <div class="results-toolbar unified-results-toolbar">
           <h1 class="sr-only">Clair's Studio 成果库</h1>
           <div class="results-toolbar-side">
+            <label class="search results-search">
+              <span aria-hidden="true">⌕</span>
+              <input id="search-input" value="${escapeHtml(query)}" placeholder="搜索标题、标签或来源" aria-label="搜索成果" />
+              ${query ? '<button type="button" data-action="clear-search">清除</button>' : ""}
+            </label>
             <div class="studio-summary compact-summary" aria-label="成果统计">
               <strong>${activeReports.length}</strong><span>成果</span>
               <i></i>
@@ -1871,11 +1876,6 @@ function workbenchMarkup() {
               <i></i>
               <strong>${productionCount}</strong><span>直达</span>
             </div>
-            <label class="search results-search">
-              <span aria-hidden="true">⌕</span>
-              <input id="search-input" value="${escapeHtml(query)}" placeholder="搜索标题、标签或来源" aria-label="搜索成果" />
-              ${query ? '<button type="button" data-action="clear-search">清除</button>' : ""}
-            </label>
           </div>
         </div>
         <section class="groups-section">
@@ -1884,20 +1884,19 @@ function workbenchMarkup() {
               <div><strong>正在整理报告</strong><span>选择目标${currentBucketLabel()}的“移到这里”，或直接拖动卡片。</span></div>
               <button type="button" data-action="cancel-move">取消</button>
             </div>` : ""}
-          <div class="collection-toolbar">
-            <div class="classification-actions">
-              <div class="view-switcher" role="tablist" aria-label="成果分类方式">
-                <button type="button" role="tab" aria-selected="${catalogView === "topic"}" class="${catalogView === "topic" ? "active" : ""}" data-action="set-view" data-id="topic">主题</button>
-                <button type="button" role="tab" aria-selected="${catalogView === "type"}" class="${catalogView === "type" ? "active" : ""}" data-action="set-view" data-id="type">类型</button>
-                <button type="button" role="tab" aria-selected="${catalogView === "tag"}" class="${catalogView === "tag" ? "active" : ""}" data-action="set-view" data-id="tag">标签</button>
-                <button type="button" role="tab" aria-selected="${catalogView === "time"}" class="${catalogView === "time" ? "active" : ""}" data-action="set-view" data-id="time">新增</button>
-              </div>
-              <button class="quiet-button add-topic-button" type="button" data-action="add-group">＋ 主题</button>
-            </div>
-          </div>
           ${visibleBuckets.length ? `
             <div class="library-layout">
               <nav class="topic-nav" aria-label="报告${viewName}">
+                <div class="library-nav-controls">
+                  <div class="library-view-switcher" role="tablist" aria-label="成果分类方式">
+                    <button type="button" role="tab" aria-selected="${catalogView === "topic"}" class="${catalogView === "topic" ? "active" : ""}" data-action="set-view" data-id="topic">主题</button>
+                    <button type="button" role="tab" aria-selected="${catalogView === "type"}" class="${catalogView === "type" ? "active" : ""}" data-action="set-view" data-id="type">任务</button>
+                    <button type="button" role="tab" aria-selected="${catalogView === "tag"}" class="${catalogView === "tag" ? "active" : ""}" data-action="set-view" data-id="tag">标签</button>
+                    <button type="button" role="tab" aria-selected="${catalogView === "time"}" class="${catalogView === "time" ? "active" : ""}" data-action="set-view" data-id="time">时间</button>
+                  </div>
+                  <button class="add-topic-icon" type="button" data-action="add-group"
+                    aria-label="添加主题" title="添加主题">＋</button>
+                </div>
                 ${visibleBuckets.map((bucket, index) => `<a href="#bucket-${index}"><span class="nav-index">${String(index + 1).padStart(2, "0")}</span>${escapeHtml(bucket.name)}<span>${bucket.reports.length}</span></a>`).join("")}
                 <span class="library-nav-spacer" aria-hidden="true"></span>
                 <button class="library-nav-utility" type="button" data-action="show-archive">
