@@ -14,7 +14,7 @@ import {
 const STORAGE_KEY = "clair-service-report-workbench-v1";
 const AUTH_KEY = "clair-service-report-workbench-access";
 const VIEW_KEY = "clair-service-report-workbench-view";
-const DATA_VERSION = 7;
+const DATA_VERSION = 8;
 
 const WORK_TYPES = [
   { id: "requirement-review", name: "需求评审" },
@@ -379,12 +379,12 @@ const initialState = {
     {
       id: "oap-reporting-framework",
       groupId: "ai-platform",
-      title: "盈米 AI 开放平台｜汇报框架与母版 V1.0",
+      title: "盈米 AI 开放平台｜阶段复盘与 2026 下半年经营计划",
       url: "https://clairku.github.io/qieman-product-research-library/pages/oap/oap-reporting-framework-2026-07-28.html",
       pinned: true,
       position: 5,
-      createdAt: "2026-07-30T00:38:00.000Z",
-      source: "OAP 汇报母版",
+      createdAt: "2026-07-30T08:00:00.000Z",
+      source: "OAP 管理层汇报成稿",
       access: "production",
     },
     {
