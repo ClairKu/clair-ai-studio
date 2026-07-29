@@ -9,7 +9,7 @@ import {
 
 const STORAGE_KEY = "clair-service-report-workbench-v1";
 const AUTH_KEY = "clair-service-report-workbench-access";
-const DATA_VERSION = 4;
+const DATA_VERSION = 5;
 
 const initialState = {
   version: DATA_VERSION,
@@ -85,6 +85,17 @@ const initialState = {
       position: 1,
       createdAt: "2026-07-28T09:30:00.000Z",
       source: "近月新增",
+      access: "production",
+    },
+    {
+      id: "storage-big-three-fund-screening",
+      groupId: "research",
+      title: "存储三巨头基金筛选｜境内 QDII 与港股通",
+      url: "https://clairku.github.io/skills/reports/storage-big-three-fund-screening-2026-07-29/",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-07-29T04:49:24.000Z",
+      source: "盈米 Skills / MCP",
       access: "production",
     },
     {
@@ -543,6 +554,7 @@ function migrateState(saved) {
     "seed-xiaogu": "xiaogu",
     "seed-strategy": "research",
     "seed-ecosystem": "ai-platform",
+    "storage-big-three-fund-screening": "research",
   };
   const oldGroupFallback = {
     inbox: "inbox",
