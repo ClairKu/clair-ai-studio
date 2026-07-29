@@ -1,10 +1,8 @@
 import {
   bindTaskCenter,
-  clearActiveTask,
   confirmedResultsMarkup,
   getTaskCounts,
-  hasActiveTask,
-  taskCenterMarkup,
+  taskWorkspaceMarkup,
 } from "./task-center.js";
 
 const STORAGE_KEY = "clair-service-report-workbench-v1";
@@ -478,7 +476,6 @@ const initialState = {
 let state = loadState();
 let query = "";
 let readerId = "";
-let activeView = "tasks";
 let archiveView = false;
 let draggingId = "";
 let draggingGroupId = "";
@@ -873,21 +870,15 @@ function studioTopbarMarkup(archiveCount) {
         <div class="brand-mark small">C</div>
         <div><strong>Clair的工作台</strong><span>AI WORKSPACE</span></div>
       </div>
-      <nav class="workspace-tabs" aria-label="工作台导航">
-        <button type="button" data-action="show-tasks" class="${activeView === "tasks" && !archiveView ? "active" : ""}">
-          任务中心${taskCounts.active ? `<span>${taskCounts.active}</span>` : ""}
-        </button>
-        <button type="button" data-action="show-results" class="${activeView === "results" && !archiveView ? "active" : ""}">
-          成果区${taskCounts.confirmed ? `<span>${taskCounts.confirmed}</span>` : ""}
-        </button>
-      </nav>
+      <div class="topbar-location">
+        <strong>${archiveView ? "归档区" : "成果区"}</strong>
+        ${!archiveView && taskCounts.active ? `<span>${taskCounts.active} 项待处理</span>` : ""}
+      </div>
       <div class="top-actions">
-        ${activeView === "results" || archiveView
-          ? `<button class="quiet-button archive-nav-button" type="button" data-action="${archiveView ? "show-results" : "show-archive"}">
-              ${archiveView ? "返回成果区" : `归档${archiveCount ? `<span>${archiveCount}</span>` : ""}`}
-            </button>
-            ${archiveView ? "" : '<button class="primary-button" type="button" data-action="add-report">新增成果</button>'}`
-          : '<button class="quiet-button" type="button" data-action="lock">退出</button>'}
+        <button class="quiet-button archive-nav-button" type="button" data-action="${archiveView ? "show-catalog" : "show-archive"}">
+          ${archiveView ? "返回成果区" : `归档${archiveCount ? `<span>${archiveCount}</span>` : ""}`}
+        </button>
+        ${archiveView ? "" : '<button class="primary-button" type="button" data-action="add-report">新增成果</button>'}
       </div>
     </header>`;
 }
@@ -942,23 +933,6 @@ function archiveMarkup() {
 
 function workbenchMarkup() {
   if (archiveView) return archiveMarkup();
-  if (hasActiveTask()) {
-    return `
-      <main class="app-shell">
-        ${studioTopbarMarkup(state.reports.filter((report) => report.archived).length)}
-        ${taskCenterMarkup(escapeHtml)}
-        <footer><span>CLAIR'S WORKSPACE</span><span>Human in the loop · 2026-07-29</span></footer>
-      </main>`;
-  }
-  if (activeView === "tasks") {
-    return `
-      <main class="app-shell">
-        ${studioTopbarMarkup(state.reports.filter((report) => report.archived).length)}
-        ${taskCenterMarkup(escapeHtml)}
-        <footer><span>CLAIR'S WORKSPACE</span><span>Human in the loop · 2026-07-29</span></footer>
-        ${modalMarkup()}
-      </main>`;
-  }
   const normalized = query.trim().toLowerCase();
   const activeReports = state.reports.filter((report) => !report.archived);
   const reports = normalized
@@ -985,31 +959,28 @@ function workbenchMarkup() {
     <main class="app-shell">
       ${studioTopbarMarkup(archiveCount)}
       <section class="workspace">
-        <div class="results-toolbar">
-          <div><span class="eyebrow">RESULTS</span><h1>成果区</h1></div>
-          <label class="search results-search">
-            <input id="search-input" value="${escapeHtml(query)}" placeholder="搜索成果" aria-label="搜索成果" />
-            ${query ? '<button type="button" data-action="clear-search">清除</button>' : ""}
-          </label>
+        ${taskWorkspaceMarkup(escapeHtml)}
+        <div class="results-toolbar unified-results-toolbar">
+          <div class="results-title">
+            <span class="eyebrow">RESULTS LIBRARY</span>
+            <h1>我的成果</h1>
+            <p>已确认的任务成果与发布报告，按工作主题持续沉淀。</p>
+          </div>
+          <div class="results-toolbar-side">
+            <div class="studio-summary compact-summary" aria-label="成果统计">
+              <strong>${activeReports.length}</strong><span>份成果</span>
+              <i></i>
+              <strong>${visibleGroups.length}</strong><span>个主题</span>
+              <i></i>
+              <strong>${productionCount}</strong><span>可直接访问</span>
+            </div>
+            <label class="search results-search">
+              <input id="search-input" value="${escapeHtml(query)}" placeholder="搜索成果" aria-label="搜索成果" />
+              ${query ? '<button type="button" data-action="clear-search">清除</button>' : ""}
+            </label>
+          </div>
         </div>
         ${confirmedResultsMarkup(escapeHtml)}
-        <div class="hero-row">
-          <div class="hero-copy">
-            <span class="eyebrow">PUBLISHED WORK</span>
-            <h1>已发布成果</h1>
-            <p>按工作主题整理，可拖动分组与内容。</p>
-          </div>
-          <div class="studio-summary" aria-label="报告统计">
-            <strong>${activeReports.length}</strong>
-            <span>份成果</span>
-            <i></i>
-            <strong>${visibleGroups.length}</strong>
-            <span>个主题</span>
-            <i></i>
-            <strong>${productionCount}</strong>
-            <span>可直接访问</span>
-          </div>
-        </div>
         <section class="groups-section">
           ${movingReportId ? `
             <div class="move-mode-banner" role="status">
@@ -1088,7 +1059,6 @@ function render() {
     escapeHtml,
     showToast,
     showResults: () => {
-      activeView = "results";
       archiveView = false;
     },
   });
@@ -1181,21 +1151,7 @@ function bindApp() {
           render();
           showToast("报告已移入目标主题");
         }
-      } else if (action === "show-tasks") {
-        activeView = "tasks";
-        archiveView = false;
-        readerId = "";
-        clearActiveTask();
-        render();
-      } else if (action === "show-results") {
-        activeView = "results";
-        archiveView = false;
-        readerId = "";
-        query = "";
-        clearActiveTask();
-        render();
       } else if (action === "show-archive") {
-        activeView = "results";
         archiveView = true;
         query = "";
         readerId = "";

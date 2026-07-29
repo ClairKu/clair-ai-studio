@@ -13,6 +13,7 @@ let tasks = loadTasks();
 let draft = { skillId: "auto", goal: "", material: "", files: [] };
 let activeTaskId = "";
 let taskMode = "compose";
+let launcherExpanded = false;
 
 function loadTasks() {
   try {
@@ -141,6 +142,89 @@ function taskListMarkup(escapeHtml) {
     </button>`).join("");
 }
 
+function taskProgressMarkup(escapeHtml) {
+  const activeTasks = tasks
+    .filter((task) => task.status !== "confirmed")
+    .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+  if (!activeTasks.length) return "";
+  return `
+    <div class="inline-task-progress">
+      <div class="progress-summary">
+        <span class="task-status-dot"></span>
+        <div><strong>${activeTasks.length} 项任务等待处理</strong><small>查看草稿，人工确认后才会进入成果区</small></div>
+      </div>
+      <div class="progress-task-list">
+        ${activeTasks.slice(0, 3).map((task) => `
+          <button type="button" data-task-action="open-task" data-task-id="${task.id}">
+            <span>${escapeHtml(skillById(task.skillId).icon)}</span>
+            <div><strong>${escapeHtml(task.title)}</strong><small>${task.status === "review" ? "待确认" : "处理中"} · ${formatDate(task.updatedAt)}</small></div>
+            <i>→</i>
+          </button>`).join("")}
+      </div>
+    </div>`;
+}
+
+export function taskWorkspaceMarkup(escapeHtml) {
+  if (activeTaskId) {
+    const task = tasks.find((item) => item.id === activeTaskId);
+    if (task) return taskDetailMarkup(task, escapeHtml);
+    activeTaskId = "";
+  }
+  if (!launcherExpanded) {
+    return `
+      <section class="inline-task-launcher" aria-label="发起任务">
+        <div class="quick-task-entry">
+          <span class="quick-task-icon" aria-hidden="true">✦</span>
+          <input id="task-quick-goal" value="${escapeHtml(draft.goal)}" placeholder="今天想完成什么？" aria-label="今天想完成什么" />
+          <div class="quick-task-actions">
+            <button class="attachment-shortcut" type="button" data-task-action="expand-launcher">＋ 素材</button>
+            <button class="primary-button" type="button" data-task-action="expand-launcher">发起任务</button>
+          </div>
+        </div>
+        <div class="quick-task-hint">
+          <span>支持需求评审、方案推演、协议审查、履历评估</span>
+          <span>AI 初稿 → 人工确认 → 成果沉淀</span>
+        </div>
+        ${taskProgressMarkup(escapeHtml)}
+      </section>`;
+  }
+  return `
+    <section class="inline-task-launcher expanded" aria-label="任务工作区">
+      <form class="task-composer inline-task-composer" id="task-composer">
+        <header class="inline-composer-header">
+          <div><span class="section-kicker">NEW TASK</span><h2>发起任务</h2><p>先说清目标，再补材料与输出偏好。</p></div>
+          <button class="quiet-button" type="button" data-task-action="collapse-launcher">收起</button>
+        </header>
+        <section class="inline-goal-panel">
+          <label for="task-goal">希望最后帮你解决什么？</label>
+          <textarea id="task-goal" rows="3" placeholder="例如：判断这个需求能否进入研发，并给出必须补齐的 P0 问题">${escapeHtml(draft.goal)}</textarea>
+        </section>
+        <div class="inline-composer-grid">
+          <section class="inline-material-panel">
+            <div class="inline-panel-heading"><span>01</span><div><strong>投入材料</strong><small>拖文件，或粘贴文字、链接和会议纪要</small></div></div>
+            <label class="material-drop" id="material-drop">
+              <input id="task-files" type="file" multiple />
+              <span class="drop-icon">＋</span>
+              <strong>添加文件</strong>
+              <small>PDF、Word、PPT、表格、图片</small>
+            </label>
+            ${attachmentsMarkup(escapeHtml)}
+            <textarea id="task-material" rows="6" placeholder="粘贴文字、聊天记录、链接、会议纪要……">${escapeHtml(draft.material)}</textarea>
+          </section>
+          <section class="inline-skill-panel">
+            <div class="inline-panel-heading"><span>02</span><div><strong>选择能力</strong><small>不确定就保持智能识别</small></div></div>
+            <div class="skill-grid">${skillCardsMarkup(escapeHtml)}</div>
+          </section>
+        </div>
+        <div class="composer-submit">
+          <span>任务完成后先进入待确认，不会自动发布到成果区</span>
+          <button class="primary-button task-start-button" type="submit">开始工作 <i>↗</i></button>
+        </div>
+      </form>
+      ${taskProgressMarkup(escapeHtml)}
+    </section>`;
+}
+
 export function taskCenterMarkup(escapeHtml) {
   if (activeTaskId) {
     const task = tasks.find((item) => item.id === activeTaskId);
@@ -194,8 +278,8 @@ export function taskCenterMarkup(escapeHtml) {
 function taskDetailMarkup(task, escapeHtml) {
   const isConfirmed = task.status === "confirmed";
   return `
-    <section class="task-center workspace task-detail">
-      <button class="back-to-tasks" type="button" data-task-action="close-task">← ${isConfirmed ? "返回成果区" : "返回任务中心"}</button>
+    <section class="task-center task-detail inline-task-detail">
+      <button class="back-to-tasks" type="button" data-task-action="close-task">← 返回成果区</button>
       <div class="task-detail-header">
         <div><span class="eyebrow">${escapeHtml(task.skillName)} · SKILL V${escapeHtml(task.skillVersion)}</span><h1>${escapeHtml(task.title)}</h1></div>
         <span class="status-pill ${isConfirmed ? "done" : ""}">${isConfirmed ? "已进入成果区" : "等待人工确认"}</span>
@@ -260,13 +344,23 @@ export function hasActiveTask() {
 export function clearActiveTask() {
   activeTaskId = "";
   taskMode = "compose";
+  launcherExpanded = false;
 }
 
 export function bindTaskCenter({ render, escapeHtml, showToast, showResults }) {
   document.querySelectorAll("[data-task-action]").forEach((element) => {
     element.addEventListener("click", async (event) => {
       const action = event.currentTarget.dataset.taskAction;
-      if (action === "choose-skill") {
+      if (action === "expand-launcher") {
+        captureDraft();
+        launcherExpanded = true;
+        render();
+        requestAnimationFrame(() => document.getElementById("task-goal")?.focus());
+      } else if (action === "collapse-launcher") {
+        captureDraft();
+        launcherExpanded = false;
+        render();
+      } else if (action === "choose-skill") {
         draft.skillId = event.currentTarget.dataset.skillId;
         captureDraft();
         render();
@@ -282,6 +376,7 @@ export function bindTaskCenter({ render, escapeHtml, showToast, showResults }) {
         const closingTask = tasks.find((item) => item.id === activeTaskId);
         activeTaskId = "";
         taskMode = "compose";
+        launcherExpanded = false;
         if (closingTask?.status === "confirmed") showResults?.();
         render();
       } else if (action === "edit-result") {
@@ -311,6 +406,7 @@ export function bindTaskCenter({ render, escapeHtml, showToast, showResults }) {
         saveTasks();
         activeTaskId = "";
         taskMode = "compose";
+        launcherExpanded = true;
         render();
       } else if (action === "confirm-task") {
         const task = tasks.find((item) => item.id === event.currentTarget.dataset.taskId);
@@ -321,6 +417,7 @@ export function bindTaskCenter({ render, escapeHtml, showToast, showResults }) {
         saveTasks();
         activeTaskId = "";
         taskMode = "compose";
+        launcherExpanded = false;
         showResults?.();
         render();
         showToast("已确认并放入成果区");
@@ -366,6 +463,7 @@ export function bindTaskCenter({ render, escapeHtml, showToast, showResults }) {
     tasks.push(task);
     saveTasks();
     activeTaskId = task.id;
+    launcherExpanded = false;
     draft = { skillId: "auto", goal: "", material: "", files: [] };
     render();
     showToast(`已创建任务，并匹配“${skill.name}”`);
@@ -394,11 +492,28 @@ export function bindTaskCenter({ render, escapeHtml, showToast, showResults }) {
     render();
     showToast(`已加入 ${files.length} 个文件`);
   });
+
+  const quickGoal = document.getElementById("task-quick-goal");
+  quickGoal?.addEventListener("input", () => {
+    draft.goal = quickGoal.value;
+  });
+  quickGoal?.addEventListener("focus", () => {
+    draft.goal = quickGoal.value;
+    launcherExpanded = true;
+    render();
+    requestAnimationFrame(() => {
+      const goal = document.getElementById("task-goal");
+      goal?.focus();
+      goal?.setSelectionRange(goal.value.length, goal.value.length);
+    });
+  }, { once: true });
 }
 
 function captureDraft() {
   const material = document.getElementById("task-material");
   const goal = document.getElementById("task-goal");
+  const quickGoal = document.getElementById("task-quick-goal");
   if (material) draft.material = material.value;
   if (goal) draft.goal = goal.value;
+  if (quickGoal) draft.goal = quickGoal.value;
 }
