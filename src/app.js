@@ -868,7 +868,7 @@ function studioTopbarMarkup(archiveCount) {
     <header class="topbar">
       <div class="brand">
         <div class="brand-mark small">C</div>
-        <div><strong>Clair的工作台</strong><span>AI WORKSPACE</span></div>
+        <div><strong>Clair的工作台</strong></div>
       </div>
       <div class="topbar-location">
         <strong>${archiveView ? "归档区" : "成果区"}</strong>
@@ -962,9 +962,7 @@ function workbenchMarkup() {
         ${taskWorkspaceMarkup(escapeHtml)}
         <div class="results-toolbar unified-results-toolbar">
           <div class="results-title">
-            <span class="eyebrow">RESULTS LIBRARY</span>
             <h1>我的成果</h1>
-            <p>已确认的任务成果与发布报告，按工作主题持续沉淀。</p>
           </div>
           <div class="results-toolbar-side">
             <div class="studio-summary compact-summary" aria-label="成果统计">
@@ -989,9 +987,7 @@ function workbenchMarkup() {
             </div>` : ""}
           <div class="collection-toolbar">
             <div>
-              <span class="section-kicker">WORK TOPICS</span>
-              <h2>工作主题与分组</h2>
-              <p>拖动卡片可调整顺序或移入其他主题；拖动主题标题左侧把手可调整主题顺序。</p>
+              <h2>工作主题</h2>
             </div>
             <button class="primary-button" type="button" data-action="add-group">＋ 新建工作主题</button>
           </div>
@@ -1009,7 +1005,7 @@ function workbenchMarkup() {
                       <small>${String(index + 1).padStart(2, "0")}</small>
                     </span>
                     <div class="group-heading-copy">
-                      <div><h2>${escapeHtml(group.name)}</h2><p>${escapeHtml(group.description || "自定义工作主题")}</p></div>
+                      <div><h2>${escapeHtml(group.name)}</h2></div>
                       <span class="count">${group.reports.length} 份</span>
                     </div>
                     <div class="group-menu">

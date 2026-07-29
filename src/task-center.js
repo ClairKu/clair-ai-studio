@@ -181,10 +181,6 @@ export function taskWorkspaceMarkup(escapeHtml) {
             <button class="primary-button" type="button" data-task-action="expand-launcher">发起任务</button>
           </div>
         </div>
-        <div class="quick-task-hint">
-          <span>支持需求评审、方案推演、协议审查、履历评估</span>
-          <span>AI 初稿 → 人工确认 → 成果沉淀</span>
-        </div>
         ${taskProgressMarkup(escapeHtml)}
       </section>`;
   }
@@ -192,7 +188,7 @@ export function taskWorkspaceMarkup(escapeHtml) {
     <section class="inline-task-launcher expanded" aria-label="任务工作区">
       <form class="task-composer inline-task-composer" id="task-composer">
         <header class="inline-composer-header">
-          <div><span class="section-kicker">NEW TASK</span><h2>发起任务</h2><p>先说清目标，再补材料与输出偏好。</p></div>
+          <div><h2>发起任务</h2></div>
           <button class="quiet-button" type="button" data-task-action="collapse-launcher">收起</button>
         </header>
         <section class="inline-goal-panel">
@@ -201,7 +197,7 @@ export function taskWorkspaceMarkup(escapeHtml) {
         </section>
         <div class="inline-composer-grid">
           <section class="inline-material-panel">
-            <div class="inline-panel-heading"><span>01</span><div><strong>投入材料</strong><small>拖文件，或粘贴文字、链接和会议纪要</small></div></div>
+            <div class="inline-panel-heading"><span>01</span><div><strong>投入材料</strong></div></div>
             <label class="material-drop" id="material-drop">
               <input id="task-files" type="file" multiple />
               <span class="drop-icon">＋</span>
@@ -212,12 +208,11 @@ export function taskWorkspaceMarkup(escapeHtml) {
             <textarea id="task-material" rows="6" placeholder="粘贴文字、聊天记录、链接、会议纪要……">${escapeHtml(draft.material)}</textarea>
           </section>
           <section class="inline-skill-panel">
-            <div class="inline-panel-heading"><span>02</span><div><strong>选择能力</strong><small>不确定就保持智能识别</small></div></div>
+            <div class="inline-panel-heading"><span>02</span><div><strong>选择能力</strong></div></div>
             <div class="skill-grid">${skillCardsMarkup(escapeHtml)}</div>
           </section>
         </div>
         <div class="composer-submit">
-          <span>任务完成后先进入待确认，不会自动发布到成果区</span>
           <button class="primary-button task-start-button" type="submit">开始工作 <i>↗</i></button>
         </div>
       </form>
@@ -318,13 +313,13 @@ export function confirmedResultsMarkup(escapeHtml) {
   return `
     <section class="generated-results">
       <div class="section-heading">
-        <div><span class="section-kicker">AI RESULTS</span><h2>任务成果</h2></div>
+        <div><h2>任务成果</h2></div>
         <span>${results.length} 份已确认</span>
       </div>
       <div class="generated-result-grid">${results.map((task) => `
         <button class="generated-result-card" type="button" data-task-action="open-task" data-task-id="${task.id}">
           <span>${escapeHtml(skillById(task.skillId).icon)}</span>
-          <div><small>${escapeHtml(task.skillName)} · V${escapeHtml(task.skillVersion)}</small><strong>${escapeHtml(task.title)}</strong><em>${formatDate(task.confirmedAt)}</em></div>
+          <div><small>${escapeHtml(task.skillName)}</small><strong>${escapeHtml(task.title)}</strong></div>
           <i>→</i>
         </button>`).join("")}</div>
     </section>`;
