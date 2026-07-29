@@ -872,6 +872,11 @@ footer {
   background: #e9eaec;
 }
 
+.report-editor-shell {
+  grid-template-rows: 68px auto minmax(0, 1fr);
+  background: #eef0f3;
+}
+
 .reader-header {
   display: grid;
   grid-template-columns: 170px minmax(0, 1fr) auto;
@@ -955,6 +960,175 @@ footer {
   border: 1px solid #cfd2d7;
   border-radius: 10px;
   background: #fff;
+}
+
+.editor-header {
+  grid-template-columns: 150px minmax(0, 1fr) auto;
+}
+
+.editor-target-label {
+  max-width: min(560px, 60vw);
+}
+
+.editor-actions .primary-button:disabled {
+  cursor: wait;
+  opacity: 0.58;
+}
+
+.editor-toolbar {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+  overflow-x: auto;
+  border-bottom: 1px solid #d2d4d8;
+  background: #fff;
+  padding: 8px 14px;
+  scrollbar-width: thin;
+}
+
+.editor-toolbar button,
+.editor-toolbar select {
+  flex: 0 0 auto;
+  min-height: 34px;
+  border: 1px solid #d8dade;
+  border-radius: 8px;
+  background: #fff;
+  padding: 0 10px;
+  color: var(--ink);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.editor-toolbar button:hover,
+.editor-toolbar button.active,
+.editor-toolbar select:hover {
+  border-color: #9bbfe5;
+  background: var(--blue-soft);
+  color: var(--blue);
+}
+
+.editor-divider {
+  width: 1px;
+  height: 22px;
+  flex: 0 0 1px;
+  margin: 0 3px;
+  background: #dfe2e5;
+}
+
+.report-editor-frame-wrap {
+  min-height: 0;
+  padding: 10px;
+}
+
+.report-editor-frame {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #c7cbd1;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 12px 36px rgb(20 27 38 / 8%);
+}
+
+.editor-state {
+  min-height: 0;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 10px;
+  padding: 32px;
+  text-align: center;
+}
+
+.editor-state strong {
+  font-size: 20px;
+}
+
+.editor-state p {
+  max-width: 520px;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.editor-state > div {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.editor-loader {
+  width: 28px;
+  height: 28px;
+  border: 3px solid #dbe7f4;
+  border-top-color: var(--blue);
+  border-radius: 50%;
+  animation: editor-spin 0.8s linear infinite;
+}
+
+@keyframes editor-spin {
+  to { transform: rotate(360deg); }
+}
+
+.editor-settings-backdrop {
+  z-index: 150;
+}
+
+.editor-settings-dialog {
+  width: min(720px, calc(100vw - 32px));
+}
+
+.editor-security-note {
+  display: grid;
+  gap: 4px;
+  border: 1px solid #cfe1f5;
+  border-radius: 12px;
+  background: #f4f8fd;
+  padding: 12px 14px;
+}
+
+.editor-security-note strong {
+  color: #195d9e;
+  font-size: 13px;
+}
+
+.editor-security-note span {
+  color: #55718c;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.github-token-input {
+  -webkit-text-security: disc;
+}
+
+.editor-target-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.editor-path-field {
+  grid-column: 1 / -1;
+}
+
+.editor-permission-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.editor-permission-links a {
+  color: var(--blue);
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.editor-permission-links a:hover {
+  text-decoration: underline;
 }
 
 .login-handoff-wrap {
@@ -1149,14 +1323,71 @@ footer {
     padding: 32px 24px;
   }
   .reader-header {
-    grid-template-columns: 120px minmax(0, 1fr);
-    padding: 0 10px;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas:
+      "back title"
+      "actions actions";
+    gap: 8px;
+    padding: 8px 10px;
+  }
+  .reader-shell {
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+  .reader-header .back-button {
+    grid-area: back;
   }
   .reader-actions {
-    display: none;
+    grid-area: actions;
+    display: flex;
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 1px;
+  }
+  .reader-actions > * {
+    flex: 0 0 auto;
   }
   .reader-title {
+    grid-area: title;
     align-items: flex-start;
+  }
+  .report-editor-shell {
+    grid-template-rows: auto auto minmax(0, 1fr);
+  }
+  .editor-header {
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas:
+      "back title"
+      "actions actions";
+    gap: 8px;
+    padding: 8px 10px;
+  }
+  .editor-header .back-button {
+    grid-area: back;
+  }
+  .editor-header .reader-title {
+    grid-area: title;
+  }
+  .editor-header .editor-actions {
+    grid-area: actions;
+    display: flex;
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 1px;
+  }
+  .editor-header .editor-actions button {
+    flex: 0 0 auto;
+  }
+  .editor-target-label {
+    max-width: 58vw;
+  }
+  .editor-toolbar {
+    padding-inline: 10px;
+  }
+  .editor-target-grid {
+    grid-template-columns: 1fr;
+  }
+  .editor-path-field {
+    grid-column: auto;
   }
   .login-handoff-wrap {
     padding: 24px 14px;

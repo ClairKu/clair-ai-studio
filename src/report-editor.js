@@ -1,0 +1,861 @@
+const EDITOR_CHANNEL = "clair-report-editor-v1";
+const GITHUB_API = "https://api.github.com";
+const WORKBENCH_PASSWORD = "2026";
+
+const editor = {
+  reportId: "",
+  reportTitle: "",
+  reportUrl: "",
+  status: "idle",
+  error: "",
+  html: "",
+  editorDocument: "",
+  dirty: false,
+  target: null,
+  token: "",
+  settingsOpen: false,
+  pendingSave: false,
+  saving: false,
+  lastCommit: "",
+  protection: null,
+  loadPromise: null,
+  render: null,
+  showToast: null,
+};
+
+const serializeRequests = new Map();
+let hooksBound = false;
+
+function unique(values) {
+  return [...new Set(values.filter(Boolean))];
+}
+
+function escapeAttribute(value = "") {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+function decodeBase64Utf8(value) {
+  const binary = atob(String(value || "").replace(/\s/g, ""));
+  const bytes = Uint8Array.from(binary, (character) => character.charCodeAt(0));
+  return new TextDecoder().decode(bytes);
+}
+
+function encodeBase64Utf8(value) {
+  const bytes = new TextEncoder().encode(value);
+  let binary = "";
+  const chunkSize = 0x8000;
+  for (let index = 0; index < bytes.length; index += chunkSize) {
+    binary += String.fromCharCode(...bytes.subarray(index, index + chunkSize));
+  }
+  return btoa(binary);
+}
+
+function bytesToBase64(bytes) {
+  let binary = "";
+  const chunkSize = 0x8000;
+  for (let index = 0; index < bytes.length; index += chunkSize) {
+    binary += String.fromCharCode(...bytes.subarray(index, index + chunkSize));
+  }
+  return btoa(binary);
+}
+
+function base64ToBytes(value) {
+  return Uint8Array.from(atob(value), (character) => character.charCodeAt(0));
+}
+
+async function deriveEncryptionKey(password, salt) {
+  const material = await crypto.subtle.importKey(
+    "raw",
+    new TextEncoder().encode(password),
+    "PBKDF2",
+    false,
+    ["deriveKey"],
+  );
+  return crypto.subtle.deriveKey(
+    {
+      name: "PBKDF2",
+      salt,
+      iterations: 210000,
+      hash: "SHA-256",
+    },
+    material,
+    { name: "AES-GCM", length: 256 },
+    false,
+    ["encrypt", "decrypt"],
+  );
+}
+
+async function unpackProtectedHtml(wrapperHtml) {
+  const match = wrapperHtml.match(/const\s+payload\s*=\s*(\{"salt":"[^"]+","iv":"[^"]+","data":"[^"]+"\})\s*;/);
+  if (!match) return { html: wrapperHtml, protection: null };
+  try {
+    const payload = JSON.parse(match[1]);
+    const salt = base64ToBytes(payload.salt);
+    const iv = base64ToBytes(payload.iv);
+    const key = await deriveEncryptionKey(WORKBENCH_PASSWORD, salt);
+    const decrypted = await crypto.subtle.decrypt(
+      { name: "AES-GCM", iv },
+      key,
+      base64ToBytes(payload.data),
+    );
+    const html = new TextDecoder().decode(decrypted);
+    if (!/<html[\s>]/i.test(html)) throw new Error("解密结果不是 HTML");
+    return {
+      html,
+      protection: {
+        type: "aes-gcm-wrapper",
+        wrapperHtml,
+        payloadSource: match[1],
+      },
+    };
+  } catch {
+    throw new Error("检测到加密报告，但无法用工作台口令解锁");
+  }
+}
+
+async function repackProtectedHtml(plainHtml) {
+  if (editor.protection?.type !== "aes-gcm-wrapper") return plainHtml;
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const key = await deriveEncryptionKey(WORKBENCH_PASSWORD, salt);
+  const encrypted = await crypto.subtle.encrypt(
+    { name: "AES-GCM", iv },
+    key,
+    new TextEncoder().encode(plainHtml),
+  );
+  const payload = JSON.stringify({
+    salt: bytesToBase64(salt),
+    iv: bytesToBase64(iv),
+    data: bytesToBase64(new Uint8Array(encrypted)),
+  });
+  return editor.protection.wrapperHtml.replace(editor.protection.payloadSource, payload);
+}
+
+function githubPagesTarget(urlValue) {
+  try {
+    const url = new URL(urlValue);
+    if (url.hostname.toLowerCase() !== "clairku.github.io") return null;
+    const segments = url.pathname.split("/").filter(Boolean).map(decodeURIComponent);
+    const repository = segments.shift() || "ClairKu.github.io";
+    let pagePath = segments.join("/");
+    if (!pagePath || url.pathname.endsWith("/")) {
+      pagePath = `${pagePath ? `${pagePath}/` : ""}index.html`;
+    }
+    const candidates = unique([
+      `docs/${pagePath}`,
+      pagePath,
+      `public/${pagePath}`,
+    ]);
+    return {
+      owner: "ClairKu",
+      repository,
+      branch: "main",
+      path: candidates[0],
+      candidates,
+      source: "auto",
+    };
+  } catch {
+    return null;
+  }
+}
+
+async function githubRequest(path, { token = "", method = "GET", body } = {}) {
+  const headers = {
+    Accept: "application/vnd.github+json",
+    "X-GitHub-Api-Version": "2022-11-28",
+  };
+  if (token) headers.Authorization = `Bearer ${token}`;
+  if (body !== undefined) headers["Content-Type"] = "application/json";
+  const response = await fetch(`${GITHUB_API}${path}`, {
+    method,
+    headers,
+    body: body === undefined ? undefined : JSON.stringify(body),
+  });
+  if (!response.ok) {
+    let detail = "";
+    try {
+      detail = (await response.json())?.message || "";
+    } catch {
+      detail = await response.text();
+    }
+    const error = new Error(detail || `GitHub API ${response.status}`);
+    error.status = response.status;
+    throw error;
+  }
+  return response.status === 204 ? null : response.json();
+}
+
+async function readGithubFile(target) {
+  const repo = await githubRequest(
+    `/repos/${encodeURIComponent(target.owner)}/${encodeURIComponent(target.repository)}`,
+  );
+  target.branch = repo.default_branch || target.branch || "main";
+  const candidates = unique(target.candidates?.length ? target.candidates : [target.path]);
+  let lastError = null;
+  let selected = null;
+  const mirrors = [];
+  for (const candidate of candidates) {
+    try {
+      const encodedPath = candidate.split("/").map(encodeURIComponent).join("/");
+      const endpoint = `/repos/${encodeURIComponent(target.owner)}/${encodeURIComponent(target.repository)}/contents/${encodedPath}?ref=${encodeURIComponent(target.branch)}`;
+      const payload = await githubRequest(endpoint);
+      let html = "";
+      if (payload.encoding === "base64" && payload.content) {
+        html = decodeBase64Utf8(payload.content);
+      } else if (payload.download_url) {
+        const rawResponse = await fetch(payload.download_url, { cache: "no-store" });
+        if (!rawResponse.ok) throw new Error("无法读取 GitHub 原始文件");
+        html = await rawResponse.text();
+      }
+      if (!html) throw new Error("GitHub 文件内容为空");
+      if (!selected) {
+        selected = {
+          html,
+          target: {
+            ...target,
+            path: candidate,
+            sha: payload.sha,
+            candidates,
+          },
+        };
+      } else if (html === selected.html) {
+        mirrors.push({ path: candidate, sha: payload.sha });
+      }
+    } catch (error) {
+      lastError = error;
+      if (error.status && ![403, 404].includes(error.status)) break;
+    }
+  }
+  if (selected) {
+    selected.target.mirrors = mirrors;
+    return selected;
+  }
+  throw lastError || new Error("没有找到对应的 GitHub HTML 文件");
+}
+
+function disableActiveContent(documentNode) {
+  documentNode.querySelectorAll("script").forEach((script) => {
+    script.dataset.clairOriginalType = script.getAttribute("type") ?? "__empty__";
+    script.setAttribute("type", "application/x-clair-disabled");
+  });
+  documentNode.querySelectorAll("*").forEach((element) => {
+    [...element.attributes].forEach((attribute) => {
+      if (/^on/i.test(attribute.name)) {
+        element.setAttribute(`data-clair-event-${attribute.name.toLowerCase()}`, attribute.value);
+        element.removeAttribute(attribute.name);
+      }
+    });
+    const href = element.getAttribute("href");
+    if (href && /^\s*javascript:/i.test(href)) {
+      element.dataset.clairJavascriptHref = href;
+      element.removeAttribute("href");
+    }
+  });
+}
+
+function editorBridgeScript() {
+  return `
+(() => {
+  const channel = ${JSON.stringify(EDITOR_CHANNEL)};
+  const send = (type, payload = {}) => parent.postMessage({ channel, type, ...payload }, "*");
+  const body = document.body;
+  body.contentEditable = "true";
+  body.spellcheck = true;
+  body.dataset.clairEditable = "true";
+
+  const restoreDocument = () => {
+    const clone = document.documentElement.cloneNode(true);
+    clone.removeAttribute("contenteditable");
+    clone.querySelector("body")?.removeAttribute("contenteditable");
+    clone.querySelector("body")?.removeAttribute("spellcheck");
+    clone.querySelector("body")?.removeAttribute("data-clair-editable");
+    clone.querySelector("#clair-editor-style")?.remove();
+    clone.querySelector("#clair-editor-bridge")?.remove();
+    clone.querySelector("base[data-clair-editor-base]")?.remove();
+    clone.querySelectorAll("meta[data-clair-editor-http-equiv]").forEach((meta) => {
+      meta.setAttribute("http-equiv", meta.dataset.clairEditorHttpEquiv);
+      meta.removeAttribute("data-clair-editor-http-equiv");
+    });
+    clone.querySelectorAll("script[data-clair-original-type]").forEach((script) => {
+      const originalType = script.dataset.clairOriginalType;
+      script.removeAttribute("data-clair-original-type");
+      if (originalType === "__empty__") script.removeAttribute("type");
+      else script.setAttribute("type", originalType);
+    });
+    clone.querySelectorAll("*").forEach((element) => {
+      [...element.attributes].forEach((attribute) => {
+        if (!attribute.name.startsWith("data-clair-event-on")) return;
+        element.setAttribute(attribute.name.slice("data-clair-event-".length), attribute.value);
+        element.removeAttribute(attribute.name);
+      });
+      if (element.hasAttribute("data-clair-javascript-href")) {
+        element.setAttribute("href", element.dataset.clairJavascriptHref);
+        element.removeAttribute("data-clair-javascript-href");
+      }
+    });
+    return "<!DOCTYPE html>\\n" + clone.outerHTML;
+  };
+
+  window.addEventListener("message", (event) => {
+    if (event.source !== parent || event.data?.channel !== channel) return;
+    const message = event.data;
+    if (message.type === "command") {
+      body.focus();
+      document.execCommand(message.command, false, message.value ?? null);
+      send("command-state", { command: message.command });
+      return;
+    }
+    if (message.type === "serialize") {
+      send("serialized", { requestId: message.requestId, html: restoreDocument() });
+    }
+  });
+
+  document.addEventListener("input", () => send("dirty"), true);
+  document.addEventListener("selectionchange", () => {
+    send("selection", {
+      bold: document.queryCommandState("bold"),
+      italic: document.queryCommandState("italic"),
+      underline: document.queryCommandState("underline")
+    });
+  });
+  send("ready");
+})();
+`;
+}
+
+function buildEditorDocument(html, baseUrl) {
+  const parser = new DOMParser();
+  const documentNode = parser.parseFromString(html, "text/html");
+  documentNode.querySelectorAll('meta[http-equiv="Content-Security-Policy" i]').forEach((meta) => {
+    meta.dataset.clairEditorHttpEquiv =
+      meta.getAttribute("http-equiv") || "Content-Security-Policy";
+    meta.setAttribute("http-equiv", "x-clair-csp-disabled");
+  });
+  disableActiveContent(documentNode);
+
+  const base = documentNode.createElement("base");
+  base.href = baseUrl;
+  base.dataset.clairEditorBase = "true";
+  documentNode.head.prepend(base);
+
+  const style = documentNode.createElement("style");
+  style.id = "clair-editor-style";
+  style.textContent = `
+    html { scroll-behavior: smooth; }
+    body[data-clair-editable="true"] { min-height: 100vh; cursor: text; }
+    body[data-clair-editable="true"]:focus { outline: none; }
+    body[data-clair-editable="true"] *:hover {
+      outline: 1px dashed rgba(27, 136, 238, .35);
+      outline-offset: 2px;
+    }
+    body[data-clair-editable="true"] a { cursor: text !important; }
+    ::selection { background: rgba(27, 136, 238, .22); }
+  `;
+  documentNode.head.append(style);
+
+  const bridge = documentNode.createElement("script");
+  bridge.id = "clair-editor-bridge";
+  bridge.textContent = editorBridgeScript();
+  documentNode.body.append(bridge);
+  return `<!DOCTYPE html>\n${documentNode.documentElement.outerHTML}`;
+}
+
+async function loadReport(report) {
+  try {
+    const inferred = githubPagesTarget(report.url);
+    let result = null;
+    if (inferred) {
+      try {
+        result = await readGithubFile(inferred);
+      } catch {
+        // Production Pages can still be read directly when the repository path is unusual.
+      }
+    }
+    if (!result) {
+      const response = await fetch(report.url, { cache: "no-store" });
+      if (!response.ok) throw new Error(`报告读取失败（HTTP ${response.status}）`);
+      result = { html: await response.text(), target: inferred };
+    }
+    const unpacked = await unpackProtectedHtml(result.html);
+    editor.html = unpacked.html;
+    editor.protection = unpacked.protection;
+    editor.target = result.target || inferred;
+    editor.editorDocument = buildEditorDocument(unpacked.html, report.url);
+    editor.status = "ready";
+    editor.error = "";
+  } catch (error) {
+    editor.status = "error";
+    editor.error = error?.message || "无法读取这份 HTML";
+  } finally {
+    editor.loadPromise = null;
+    editor.render?.();
+  }
+}
+
+function resetEditor() {
+  const render = editor.render;
+  const showToast = editor.showToast;
+  Object.assign(editor, {
+    reportId: "",
+    reportTitle: "",
+    reportUrl: "",
+    status: "idle",
+    error: "",
+    html: "",
+    editorDocument: "",
+    dirty: false,
+    target: null,
+    settingsOpen: false,
+    pendingSave: false,
+    saving: false,
+    lastCommit: "",
+    protection: null,
+    loadPromise: null,
+    render,
+    showToast,
+  });
+}
+
+function editorFrame() {
+  return document.querySelector(".report-editor-frame");
+}
+
+function sendCommand(command, value = null) {
+  const frame = editorFrame();
+  frame?.contentWindow?.postMessage({
+    channel: EDITOR_CHANNEL,
+    type: "command",
+    command,
+    value,
+  }, "*");
+}
+
+function requestSerializedHtml() {
+  const frame = editorFrame();
+  if (!frame?.contentWindow) return Promise.reject(new Error("编辑画布尚未就绪"));
+  const requestId = crypto.randomUUID?.() || `${Date.now()}-${Math.random()}`;
+  return new Promise((resolve, reject) => {
+    const timer = window.setTimeout(() => {
+      serializeRequests.delete(requestId);
+      reject(new Error("读取编辑内容超时"));
+    }, 10000);
+    serializeRequests.set(requestId, {
+      resolve: (html) => {
+        clearTimeout(timer);
+        resolve(html);
+      },
+    });
+    frame.contentWindow.postMessage({
+      channel: EDITOR_CHANNEL,
+      type: "serialize",
+      requestId,
+    }, "*");
+  });
+}
+
+function safeFilename(title) {
+  const cleaned = String(title || "report")
+    .replace(/[\\/:*?"<>|]+/g, "-")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "")
+    .slice(0, 80);
+  return `${cleaned || "report"}.html`;
+}
+
+function downloadHtml(html, title) {
+  const blob = new Blob([html], { type: "text/html;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement("a");
+  anchor.href = url;
+  anchor.download = safeFilename(title);
+  document.body.append(anchor);
+  anchor.click();
+  anchor.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+async function copyReportLink(url) {
+  await navigator.clipboard.writeText(url);
+}
+
+async function saveToGithub(plainHtml) {
+  const target = editor.target;
+  if (!target?.owner || !target.repository || !target.path || !target.branch) {
+    throw new Error("请先填写 GitHub 仓库、分支和 HTML 路径");
+  }
+  if (!editor.token) throw new Error("请先提供 GitHub Fine-grained Token");
+  const outputHtml = await repackProtectedHtml(plainHtml);
+  const mirrorPaths = (target.mirrors || []).map((item) => item.path);
+  const paths = unique([
+    ...mirrorPaths.filter((path) => path.startsWith("public/")),
+    ...mirrorPaths.filter((path) => !path.startsWith("public/") && path !== target.path),
+    target.path,
+  ]);
+  let commit = "";
+  const completed = [];
+  for (const path of paths) {
+    try {
+      const encodedPath = path.split("/").map(encodeURIComponent).join("/");
+      const endpoint = `/repos/${encodeURIComponent(target.owner)}/${encodeURIComponent(target.repository)}/contents/${encodedPath}`;
+      const current = await githubRequest(`${endpoint}?ref=${encodeURIComponent(target.branch)}`, {
+        token: editor.token,
+      });
+      const payload = await githubRequest(endpoint, {
+        token: editor.token,
+        method: "PUT",
+        body: {
+          message: `Update ${editor.reportTitle} from Clair's Studio`,
+          content: encodeBase64Utf8(outputHtml),
+          sha: current.sha,
+          branch: target.branch,
+        },
+      });
+      commit = payload?.commit?.sha || commit;
+      completed.push(path);
+    } catch (error) {
+      if (completed.length) {
+        throw new Error(`已更新 ${completed.join("、")}，但 ${path} 同步失败：${error.message}`);
+      }
+      throw error;
+    }
+  }
+  return { commit, files: completed.length };
+}
+
+async function performSave() {
+  if (editor.saving) return;
+  editor.saving = true;
+  const saveButton = document.querySelector('[data-editor-action="save"]');
+  if (saveButton) {
+    saveButton.disabled = true;
+    saveButton.textContent = "保存中…";
+  }
+  try {
+    const html = await requestSerializedHtml();
+    const result = await saveToGithub(html);
+    editor.html = html;
+    editor.dirty = false;
+    editor.lastCommit = result.commit;
+    if (saveButton) saveButton.textContent = "已保存";
+    editor.showToast?.(
+      result.files > 1
+        ? `已同步 ${result.files} 个 GitHub 文件，Pages 正在更新`
+        : "已提交 GitHub，Pages 正在更新",
+    );
+  } catch (error) {
+    if (saveButton) saveButton.textContent = "保存";
+    editor.showToast?.(error?.message || "保存失败，请下载 HTML 备份");
+  } finally {
+    editor.saving = false;
+    if (saveButton) saveButton.disabled = false;
+  }
+}
+
+function settingsMarkup(escapeHtml) {
+  const target = editor.target || {
+    owner: "ClairKu",
+    repository: "",
+    branch: "main",
+    path: "",
+  };
+  return `
+    <div class="dialog-backdrop editor-settings-backdrop" ${editor.settingsOpen ? "" : "hidden"}>
+      <form class="dialog editor-settings-dialog" id="editor-settings-form">
+        <div class="dialog-title-row">
+          <div>
+            <span class="section-kicker">GITHUB SAVE PERMISSION</span>
+            <h2>设置安全保存</h2>
+          </div>
+          <button type="button" data-editor-action="close-settings" aria-label="关闭">×</button>
+        </div>
+        <div class="editor-security-note">
+          <strong>Token 只保留在当前页面内存</strong>
+          <span>刷新或关闭页面后自动清除，不写入 localStorage，也不会传给被编辑的 HTML。</span>
+        </div>
+        <div class="editor-target-grid">
+          <label>GitHub 所有者
+            <input name="owner" value="${escapeHtml(target.owner || "ClairKu")}" required />
+          </label>
+          <label>仓库
+            <input name="repository" value="${escapeHtml(target.repository || "")}" placeholder="clair-ai-studio" required />
+          </label>
+          <label>分支
+            <input name="branch" value="${escapeHtml(target.branch || "main")}" required />
+          </label>
+          <label class="editor-path-field">HTML 文件路径
+            <input name="path" value="${escapeHtml(target.path || "")}" placeholder="docs/reports/example/index.html" required />
+          </label>
+        </div>
+        <label>Fine-grained personal access token
+          <input class="github-token-input" name="github-token-not-password" type="text" value=""
+            autocomplete="off" autocapitalize="off" spellcheck="false" data-form-type="other" data-1p-ignore
+            placeholder="${editor.token ? "已连接；留空可继续使用当前 Token" : "github_pat_…"}" ${editor.token ? "" : "required"} />
+        </label>
+        <p class="field-hint">只授权目标仓库，并仅开启 Contents：Read and write。请设置过期时间；不要使用经典全仓库 Token。</p>
+        <div class="editor-permission-links">
+          <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noreferrer">创建最小权限 Token ↗</a>
+          <a href="https://docs.github.com/en/rest/repos/contents#create-or-update-file-contents" target="_blank" rel="noreferrer">权限说明 ↗</a>
+        </div>
+        <div class="dialog-actions">
+          <button type="button" class="quiet-button" data-editor-action="close-settings">取消</button>
+          <button type="submit" class="primary-button">${editor.pendingSave ? "连接并保存" : "保存设置"}</button>
+        </div>
+      </form>
+    </div>`;
+}
+
+function showSettings({ pendingSave = false } = {}) {
+  editor.settingsOpen = true;
+  editor.pendingSave = pendingSave;
+  const backdrop = document.querySelector(".editor-settings-backdrop");
+  if (!backdrop) return;
+  backdrop.hidden = false;
+  const form = backdrop.querySelector("#editor-settings-form");
+  const target = editor.target || {};
+  if (form) {
+    form.elements.owner.value = target.owner || "ClairKu";
+    form.elements.repository.value = target.repository || "";
+    form.elements.branch.value = target.branch || "main";
+    form.elements.path.value = target.path || "";
+    const submit = form.querySelector('button[type="submit"]');
+    if (submit) submit.textContent = pendingSave ? "连接并保存" : "保存设置";
+  }
+}
+
+function hideSettings() {
+  editor.settingsOpen = false;
+  editor.pendingSave = false;
+  const backdrop = document.querySelector(".editor-settings-backdrop");
+  if (backdrop) backdrop.hidden = true;
+}
+
+export function isEditingReport(reportId = "") {
+  return Boolean(editor.reportId && (!reportId || editor.reportId === reportId));
+}
+
+export function beginReportEditing(report, { render, showToast }) {
+  resetEditor();
+  Object.assign(editor, {
+    reportId: report.id,
+    reportTitle: report.title,
+    reportUrl: report.url,
+    status: "loading",
+    render,
+    showToast,
+  });
+  render();
+  editor.loadPromise = loadReport(report);
+}
+
+export function reportEditorMarkup(report, escapeHtml) {
+  const targetLabel = editor.target
+    ? `${editor.target.owner}/${editor.target.repository} · ${editor.target.path}${editor.target.mirrors?.length ? ` · 同步 ${editor.target.mirrors.length + 1} 处` : ""}`
+    : "尚未识别 GitHub 源文件";
+  const saveLabel = editor.saving ? "保存中…" : editor.lastCommit ? "已保存" : "保存";
+  const toolbar = editor.status === "ready"
+    ? `
+      <div class="editor-toolbar" role="toolbar" aria-label="文本排版工具">
+        <select data-editor-format aria-label="段落格式">
+          <option value="p">正文</option>
+          <option value="h1">标题 1</option>
+          <option value="h2">标题 2</option>
+          <option value="h3">标题 3</option>
+          <option value="blockquote">引用</option>
+        </select>
+        <span class="editor-divider"></span>
+        <button type="button" data-editor-command="bold" title="粗体"><strong>B</strong></button>
+        <button type="button" data-editor-command="italic" title="斜体"><em>I</em></button>
+        <button type="button" data-editor-command="underline" title="下划线"><u>U</u></button>
+        <span class="editor-divider"></span>
+        <button type="button" data-editor-command="insertUnorderedList" title="项目列表">• 列表</button>
+        <button type="button" data-editor-command="insertOrderedList" title="编号列表">1. 列表</button>
+        <span class="editor-divider"></span>
+        <button type="button" data-editor-command="justifyLeft" title="左对齐">左</button>
+        <button type="button" data-editor-command="justifyCenter" title="居中">中</button>
+        <button type="button" data-editor-command="justifyRight" title="右对齐">右</button>
+        <button type="button" data-editor-command="justifyFull" title="两端对齐">齐</button>
+        <span class="editor-divider"></span>
+        <button type="button" data-editor-action="link" title="添加链接">🔗 链接</button>
+        <button type="button" data-editor-command="unlink" title="移除链接">取消链接</button>
+        <span class="editor-divider"></span>
+        <button type="button" data-editor-command="undo" title="撤销">↶</button>
+        <button type="button" data-editor-command="redo" title="重做">↷</button>
+      </div>`
+    : "";
+  const body = editor.status === "loading"
+    ? `<div class="editor-state"><span class="editor-loader"></span><strong>正在载入可编辑 HTML…</strong><p>会自动识别对应 GitHub 仓库与源文件。</p></div>`
+    : editor.status === "error"
+      ? `<div class="editor-state editor-error"><strong>这份报告暂时无法进入编辑模式</strong><p>${escapeHtml(editor.error)}</p><div><button class="quiet-button" type="button" data-editor-action="retry">重试</button><button class="primary-button" type="button" data-editor-action="download-published">下载原 HTML</button></div></div>`
+      : `<div class="report-editor-frame-wrap"><iframe class="report-editor-frame" title="${escapeHtml(report.title)}编辑画布"
+          sandbox="allow-scripts allow-modals" srcdoc="${escapeAttribute(editor.editorDocument)}"></iframe></div>`;
+  return `
+    <main class="reader-shell report-editor-shell">
+      <header class="reader-header editor-header">
+        <button class="back-button" type="button" data-editor-action="exit"><span aria-hidden="true">←</span>退出编辑</button>
+        <div class="reader-title">
+          <strong>${escapeHtml(report.title)}</strong>
+          <span class="editor-target-label" title="${escapeHtml(targetLabel)}">${escapeHtml(targetLabel)}</span>
+        </div>
+        <div class="reader-actions editor-actions">
+          <button class="quiet-button" type="button" data-editor-action="settings">保存权限</button>
+          <button class="quiet-button" type="button" data-editor-action="download">下载 HTML</button>
+          <button class="quiet-button" type="button" data-editor-action="share">分享</button>
+          <button class="primary-button" type="button" data-editor-action="save" ${editor.status !== "ready" || editor.saving ? "disabled" : ""}>${saveLabel}</button>
+        </div>
+      </header>
+      ${toolbar}
+      ${body}
+      ${settingsMarkup(escapeHtml)}
+    </main>`;
+}
+
+export function bindReportEditor(report) {
+  if (!isEditingReport(report.id)) return;
+  if (!hooksBound) {
+    hooksBound = true;
+    window.addEventListener("message", (event) => {
+      const frame = editorFrame();
+      if (!frame?.contentWindow || event.source !== frame.contentWindow) return;
+      if (event.data?.channel !== EDITOR_CHANNEL) return;
+      if (event.data.type === "dirty") editor.dirty = true;
+      if (event.data.type === "serialized") {
+        const pending = serializeRequests.get(event.data.requestId);
+        if (!pending) return;
+        serializeRequests.delete(event.data.requestId);
+        pending.resolve(event.data.html);
+      }
+      if (event.data.type === "selection") {
+        document.querySelectorAll("[data-editor-command]").forEach((button) => {
+          const command = button.dataset.editorCommand;
+          if (!["bold", "italic", "underline"].includes(command)) return;
+          button.classList.toggle("active", Boolean(event.data[command]));
+        });
+      }
+    });
+    window.addEventListener("beforeunload", (event) => {
+      if (!editor.reportId || !editor.dirty) return;
+      event.preventDefault();
+      event.returnValue = "";
+    });
+  }
+
+  document.querySelectorAll("[data-editor-command]").forEach((button) => {
+    button.addEventListener("mousedown", (event) => event.preventDefault());
+    button.addEventListener("click", () => sendCommand(button.dataset.editorCommand));
+  });
+
+  const format = document.querySelector("[data-editor-format]");
+  format?.addEventListener("change", () => {
+    sendCommand("formatBlock", format.value);
+    format.value = "p";
+  });
+
+  document.querySelectorAll("[data-editor-action]").forEach((button) => {
+    button.addEventListener("click", async () => {
+      const action = button.dataset.editorAction;
+      if (action === "exit") {
+        if (editor.dirty && !confirm("还有未保存的修改。确定退出编辑模式吗？")) return;
+        const render = editor.render;
+        resetEditor();
+        render?.();
+      } else if (action === "settings") {
+        showSettings();
+      } else if (action === "close-settings") {
+        hideSettings();
+      } else if (action === "save") {
+        if (!editor.token || !editor.target?.path) {
+          showSettings({ pendingSave: true });
+        } else {
+          await performSave();
+        }
+      } else if (action === "download") {
+        try {
+          const plainHtml = await requestSerializedHtml();
+          downloadHtml(await repackProtectedHtml(plainHtml), report.title);
+          editor.showToast?.("HTML 已下载");
+        } catch (error) {
+          editor.showToast?.(error?.message || "下载失败");
+        }
+      } else if (action === "download-published") {
+        await downloadPublishedReport(report, editor.showToast);
+      } else if (action === "share") {
+        try {
+          await copyReportLink(report.url);
+          editor.showToast?.("报告链接已复制");
+        } catch {
+          editor.showToast?.("复制失败，请从地址栏复制");
+        }
+      } else if (action === "link") {
+        const link = prompt("输入链接地址（https://…）");
+        if (!link) return;
+        try {
+          const url = new URL(link);
+          if (!["http:", "https:", "mailto:"].includes(url.protocol)) throw new Error();
+          sendCommand("createLink", url.href);
+        } catch {
+          editor.showToast?.("请输入有效的 http、https 或 mailto 链接");
+        }
+      } else if (action === "retry") {
+        editor.status = "loading";
+        editor.error = "";
+        editor.render?.();
+        editor.loadPromise ||= loadReport(report);
+      }
+    });
+  });
+
+  const settingsForm = document.getElementById("editor-settings-form");
+  settingsForm?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const data = new FormData(settingsForm);
+    const nextToken = String(data.get("github-token-not-password") || "").trim();
+    if (nextToken) editor.token = nextToken;
+    const nextPath = String(data.get("path") || "").trim().replace(/^\/+/, "");
+    editor.target = {
+      ...(editor.target || {}),
+      owner: String(data.get("owner") || "").trim(),
+      repository: String(data.get("repository") || "").trim(),
+      branch: String(data.get("branch") || "main").trim(),
+      path: nextPath,
+      mirrors: nextPath === editor.target?.path ? editor.target?.mirrors || [] : [],
+      source: "manual",
+    };
+    const shouldSave = editor.pendingSave;
+    hideSettings();
+    const targetLabel = document.querySelector(".editor-target-label");
+    if (targetLabel) {
+      const value = `${editor.target.owner}/${editor.target.repository} · ${editor.target.path}`;
+      targetLabel.textContent = value;
+      targetLabel.title = value;
+    }
+    editor.showToast?.("保存权限已连接");
+    if (shouldSave) await performSave();
+  });
+}
+
+export async function downloadPublishedReport(report, showToast) {
+  try {
+    const response = await fetch(report.url, { cache: "no-store" });
+    if (!response.ok) throw new Error();
+    downloadHtml(await response.text(), report.title);
+    showToast?.("HTML 已下载");
+  } catch {
+    window.open(report.url, "_blank", "noopener,noreferrer");
+    showToast?.("浏览器限制了直接下载，已打开原页面");
+  }
+}
+
+export async function sharePublishedReport(report, showToast) {
+  try {
+    await copyReportLink(report.url);
+    showToast?.("报告链接已复制");
+  } catch {
+    showToast?.("复制失败，请从地址栏复制");
+  }
+}

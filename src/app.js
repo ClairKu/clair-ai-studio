@@ -3,6 +3,14 @@ import {
   confirmedResultsMarkup,
   taskWorkspaceMarkup,
 } from "./task-center.js";
+import {
+  beginReportEditing,
+  bindReportEditor,
+  downloadPublishedReport,
+  isEditingReport,
+  reportEditorMarkup,
+  sharePublishedReport,
+} from "./report-editor.js";
 
 const STORAGE_KEY = "clair-service-report-workbench-v1";
 const AUTH_KEY = "clair-service-report-workbench-access";
@@ -563,6 +571,17 @@ const initialState = {
       access: "production",
     },
     {
+      id: "html-editor-guide",
+      groupId: "ai-workbench",
+      title: "Clair's Studio｜HTML 编辑器使用与安全说明",
+      url: "https://clairku.github.io/clair-ai-studio/reports/html-editor-guide-2026-07-29/",
+      pinned: true,
+      position: 1,
+      createdAt: "2026-07-29T16:00:00.000Z",
+      source: "产品能力",
+      access: "production",
+    },
+    {
       id: "yingmi-ai-capability-system",
       groupId: "ai-platform",
       title: "盈米 AI 能力体系专业报告｜2026.07",
@@ -619,6 +638,7 @@ const WORK_TYPE_BY_REPORT = {
   "advisor-2-business-onboarding": "reporting",
   "schwab-ria-benchmark": "competitive-research",
   "skill-audit-2026-07-16": "governance-review",
+  "html-editor-guide": "product-demo",
   "yingmi-ai-capability-system": "reporting",
 };
 
@@ -1181,6 +1201,7 @@ function gateMarkup() {
 }
 
 function readerMarkup(report) {
+  if (isEditingReport(report.id)) return reportEditorMarkup(report, escapeHtml);
   const restricted = report.access !== "production";
   const accessLabel = report.access === "org" ? "组织账号" : "站点账号";
   const readerBody = restricted
@@ -1218,7 +1239,10 @@ function readerMarkup(report) {
         </div>
         <div class="reader-actions">
           <a class="${restricted ? "primary-button" : "quiet-button"}" href="${escapeHtml(report.url)}" target="_blank" rel="noreferrer">${restricted ? "登录打开 ↗" : "新窗口 ↗"}</a>
-          <button class="quiet-button" type="button" data-action="edit" data-id="${escapeHtml(report.id)}">编辑</button>
+          ${restricted ? "" : `<button class="primary-button" type="button" data-action="edit-document" data-id="${escapeHtml(report.id)}">编辑文档</button>`}
+          <button class="quiet-button" type="button" data-action="download-report" data-id="${escapeHtml(report.id)}">下载 HTML</button>
+          <button class="quiet-button" type="button" data-action="share-report" data-id="${escapeHtml(report.id)}">分享</button>
+          <button class="quiet-button" type="button" data-action="edit" data-id="${escapeHtml(report.id)}">编辑信息</button>
         </div>
       </header>
       ${readerBody}
@@ -1504,6 +1528,16 @@ function bindApp() {
       if (action === "open") {
         readerId = itemId;
         render();
+      } else if (action === "edit-document") {
+        const report = state.reports.find((item) => item.id === itemId);
+        if (!report || report.access !== "production") return;
+        beginReportEditing(report, { render, showToast });
+      } else if (action === "download-report") {
+        const report = state.reports.find((item) => item.id === itemId);
+        if (report) await downloadPublishedReport(report, showToast);
+      } else if (action === "share-report") {
+        const report = state.reports.find((item) => item.id === itemId);
+        if (report) await sharePublishedReport(report, showToast);
       } else if (action === "back") {
         readerId = "";
         modal = null;
@@ -1880,6 +1914,9 @@ function bindApp() {
     render();
     showToast("报告已保存");
   });
+
+  const activeReport = readerId && state.reports.find((item) => item.id === readerId);
+  if (activeReport) bindReportEditor(activeReport);
 }
 
 export function renderApp() {
