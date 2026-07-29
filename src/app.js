@@ -28,6 +28,7 @@ const WORK_TYPES = [
 ];
 
 const TAG_ORDER = [
+  "手动保存",
   "本体",
   "飞书",
   "调研",
@@ -686,6 +687,7 @@ function inferTags(report, workType = inferWorkType(report)) {
   const add = (tag) => {
     if (!tags.includes(tag)) tags.push(tag);
   };
+  if (report.manualSaved) add("手动保存");
   if (/ontology\.yingmi-inc\.com|本体/.test(text)) add("本体");
   if (/feishu\.cn|飞书|community-ai-review|oap-h2-plan/.test(text)) add("飞书");
   if (workType === "competitive-research" || /调研|研究|盘点/.test(text)) add("调研");
@@ -907,6 +909,38 @@ function titleFromIntake(material, files, url) {
   return url ? domainOf(url) : "未命名成果";
 }
 
+function normalizedSavedContent(value = "") {
+  return String(value)
+    .trim()
+    .replace(/\s+/g, " ")
+    .toLocaleLowerCase();
+}
+
+function savedFilesFingerprint(files = []) {
+  return files
+    .map((file) => `${String(file.name || "").trim().toLocaleLowerCase()}:${file.size || 0}:${file.type || ""}`)
+    .sort()
+    .join("|");
+}
+
+function findDuplicateReport({ material, files, url }) {
+  const normalizedIntakeUrl = url ? normalizedUrl(url) : "";
+  const normalizedContent = normalizedSavedContent(material);
+  const filesFingerprint = savedFilesFingerprint(files);
+
+  return state.reports.find((report) => {
+    if (normalizedIntakeUrl && normalizedUrl(report.url) === normalizedIntakeUrl) {
+      return true;
+    }
+    if (normalizedContent &&
+      normalizedSavedContent(report.savedContent) === normalizedContent) {
+      return true;
+    }
+    return !normalizedContent && Boolean(filesFingerprint) &&
+      savedFilesFingerprint(report.savedFiles) === filesFingerprint;
+  }) || null;
+}
+
 async function fetchPageMetadata(url) {
   if (!validUrl(url)) return { title: "", description: "" };
   try {
@@ -928,6 +962,17 @@ async function fetchPageMetadata(url) {
 
 async function saveIntakeToLibrary({ material, files }, onProgress = () => {}) {
   const url = firstHttpUrl(material);
+  onProgress("正在检查成果库是否已有相同内容…");
+  const duplicate = findDuplicateReport({ material, files, url });
+  if (duplicate) {
+    return {
+      ...duplicate,
+      duplicate: true,
+      groupName: state.groups.find((group) => group.id === duplicate.groupId)?.name || "待整理",
+      workTypeName: workTypeName(duplicate.workType),
+    };
+  }
+
   const textTitle = titleFromIntake(material, files, url);
   const onlyUrl = Boolean(url) &&
     material.replace(url, "").replace(/\s+/g, "").length === 0 &&
@@ -956,6 +1001,7 @@ async function saveIntakeToLibrary({ material, files }, onProgress = () => {}) {
     savedContent: material,
     savedFiles: files,
     detectedDescription: metadata.description,
+    manualSaved: true,
   };
   report.workType = inferWorkType(report);
   report.groupId = inferGroupId(report);
@@ -964,35 +1010,17 @@ async function saveIntakeToLibrary({ material, files }, onProgress = () => {}) {
   report.position = state.reports.filter((item) =>
     !item.archived && item.groupId === report.groupId).length;
 
-  const existing = url
-    ? state.reports.find((item) => normalizedUrl(item.url) === normalizedUrl(url))
-    : null;
-  if (existing) {
-    Object.assign(existing, {
-      title: report.title,
-      groupId: report.groupId,
-      workType: report.workType,
-      tags: report.tags,
-      source: report.source,
-      access: report.access,
-      savedContent: report.savedContent,
-      savedFiles: report.savedFiles,
-      archived: false,
-      archivedAt: "",
-    });
-  } else {
-    state.reports.push(report);
-  }
+  state.reports.push(report);
   saveState();
   archiveView = false;
   catalogView = "topic";
   query = "";
   localStorage.setItem(VIEW_KEY, catalogView);
-  const savedReport = existing || report;
   return {
-    ...savedReport,
-    groupName: state.groups.find((group) => group.id === savedReport.groupId)?.name || "待整理",
-    workTypeName: workTypeName(savedReport.workType),
+    ...report,
+    duplicate: false,
+    groupName: state.groups.find((group) => group.id === report.groupId)?.name || "待整理",
+    workTypeName: workTypeName(report.workType),
   };
 }
 

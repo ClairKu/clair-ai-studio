@@ -169,6 +169,13 @@ export function bindTaskCenter({
 
       try {
         const saved = await saveToLibrary(payload, updateSaving);
+        if (saved.duplicate) {
+          render();
+          showToast(
+            `成果库已有“${saved.title}” · 位于“${saved.groupName}”，未重复保存`,
+          );
+          return;
+        }
         draft = emptyDraft();
         render();
         showToast(
