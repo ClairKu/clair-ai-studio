@@ -1,6 +1,6 @@
 const STORAGE_KEY = "clair-service-report-workbench-v1";
 const AUTH_KEY = "clair-service-report-workbench-access";
-const DATA_VERSION = 3;
+const DATA_VERSION = 4;
 
 const initialState = {
   version: DATA_VERSION,
@@ -458,6 +458,7 @@ const initialState = {
 let state = loadState();
 let query = "";
 let readerId = "";
+let archiveView = false;
 let draggingId = "";
 let draggingGroupId = "";
 let modal = null;
@@ -564,6 +565,8 @@ function migrateState(saved) {
       position: Number.isFinite(savedReport.position)
         ? savedReport.position
         : report.position,
+      archived: Boolean(savedReport.archived),
+      archivedAt: savedReport.archivedAt || "",
     };
   });
   normalizedSavedReports.forEach((report) => {
@@ -639,7 +642,7 @@ function showToast(message) {
   toastTimer = window.setTimeout(() => toast.remove(), 2600);
 }
 
-function cardMarkup(report) {
+function cardMarkup(report, archivedView = false) {
   const restricted = report.access !== "production";
   const accessLabel = report.access === "org"
     ? "需组织登录"
@@ -655,7 +658,7 @@ function cardMarkup(report) {
         <strong>${restricted ? accessLabel : "预览待补充"}</strong>
       </div>`;
   return `
-    <article class="report-card ${restricted ? "restricted-card" : ""}" draggable="true" data-report-id="${escapeHtml(report.id)}">
+    <article class="report-card ${restricted ? "restricted-card" : ""} ${archivedView ? "archived-card" : ""}" draggable="${archivedView ? "false" : "true"}" data-report-id="${escapeHtml(report.id)}">
       <button class="card-main" type="button" data-action="open" data-id="${escapeHtml(report.id)}">
         <span class="report-preview">
           ${preview}
@@ -663,12 +666,17 @@ function cardMarkup(report) {
         <span class="report-copy">
           <span class="report-source">${escapeHtml(report.source || "手动添加")}</span>
           <strong>${escapeHtml(report.title)}</strong>
-          <span class="report-open-label">${restricted ? "登录后查看" : "查看完整报告"}</span>
+          <span class="report-open-label">${archivedView ? "查看归档内容" : restricted ? "登录后查看" : "查看完整报告"}</span>
         </span>
       </button>
       <div class="card-actions">
-        <button type="button" data-action="edit" data-id="${escapeHtml(report.id)}">编辑</button>
-        <button type="button" data-action="delete" data-id="${escapeHtml(report.id)}">删除</button>
+        ${archivedView
+          ? `
+            <button type="button" data-action="restore" data-id="${escapeHtml(report.id)}">恢复</button>
+            <button type="button" data-action="delete" data-id="${escapeHtml(report.id)}">永久删除</button>`
+          : `
+            <button type="button" data-action="edit" data-id="${escapeHtml(report.id)}">编辑</button>
+            <button type="button" data-action="archive" data-id="${escapeHtml(report.id)}">归档</button>`}
       </div>
     </article>`;
 }
@@ -801,16 +809,87 @@ function readerMarkup(report) {
     </main>`;
 }
 
+function studioTopbarMarkup(archiveCount) {
+  return `
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark small">C</div>
+        <div><strong>Clair AI Studio</strong><span>Decision Library</span></div>
+      </div>
+      <label class="search">
+        <input id="search-input" value="${escapeHtml(query)}" placeholder="${archiveView ? "搜索归档报告" : "搜索报告"}" aria-label="${archiveView ? "搜索归档报告" : "搜索报告"}" />
+        ${query ? '<button type="button" data-action="clear-search">清除</button>' : ""}
+      </label>
+      <div class="top-actions">
+        <button class="quiet-button archive-nav-button" type="button" data-action="${archiveView ? "show-catalog" : "show-archive"}">
+          ${archiveView ? "返回主目录" : `归档区${archiveCount ? `<span>${archiveCount}</span>` : ""}`}
+        </button>
+        ${archiveView ? "" : '<button class="primary-button" type="button" data-action="add-report">新增报告</button>'}
+      </div>
+    </header>`;
+}
+
+function archiveMarkup() {
+  const archivedReports = state.reports
+    .filter((report) => report.archived)
+    .filter((report) => {
+      if (!query.trim()) return true;
+      const normalized = query.trim().toLowerCase();
+      return `${report.title} ${report.url} ${report.source || ""}`
+        .toLowerCase()
+        .includes(normalized);
+    })
+    .sort((a, b) => new Date(b.archivedAt || 0) - new Date(a.archivedAt || 0));
+  const archiveCount = state.reports.filter((report) => report.archived).length;
+  return `
+    <main class="app-shell archive-shell">
+      ${studioTopbarMarkup(archiveCount)}
+      <section class="workspace archive-workspace">
+        <div class="archive-hero">
+          <div>
+            <span class="eyebrow">SAFE ARCHIVE · REVERSIBLE</span>
+            <h1>先收起来，<br />随时找回来。</h1>
+            <p>归档只会让报告离开主目录，不会删除内容。预览、主题和原始入口都会保留，也可以随时恢复。</p>
+          </div>
+          <div class="archive-total"><strong>${archiveCount}</strong><span>份已归档</span></div>
+        </div>
+        ${archivedReports.length ? `
+          <section class="archive-results">
+            <div class="archive-heading">
+              <div><h2>${query ? "搜索结果" : "归档内容"}</h2><p>按最近归档时间排列</p></div>
+              <span>${archivedReports.length} 份</span>
+            </div>
+            <div class="archive-grid">${archivedReports.map((report) => cardMarkup(report, true)).join("")}</div>
+          </section>` : `
+          <section class="archive-empty">
+            <span>ARCHIVE</span>
+            <h2>${query ? "没有找到相关归档" : "归档区还是空的"}</h2>
+            <p>${query ? "换个关键词，或返回查看全部归档内容。" : "在主目录的报告卡片上选择“归档”，内容就会安全收纳在这里。"}</p>
+            <button class="quiet-button" type="button" data-action="${query ? "clear-search" : "show-catalog"}">${query ? "清除搜索" : "返回主目录"}</button>
+          </section>`}
+        <div class="archive-safety-note">
+          <strong>不会自动删除</strong>
+          <span>只有在归档区主动选择“永久删除”，报告才会从当前浏览器清单移除。</span>
+        </div>
+      </section>
+      <footer><span>CLAIR AI STUDIO</span><span>Safe archive</span></footer>
+      ${modalMarkup()}
+    </main>`;
+}
+
 function workbenchMarkup() {
+  if (archiveView) return archiveMarkup();
   const normalized = query.trim().toLowerCase();
+  const activeReports = state.reports.filter((report) => !report.archived);
   const reports = normalized
-    ? state.reports.filter((report) =>
+    ? activeReports.filter((report) =>
       `${report.title} ${report.url} ${report.source || ""} ${report.access || ""}`
         .toLowerCase()
         .includes(normalized))
-    : state.reports;
-  const productionCount = state.reports.filter((report) => report.access === "production").length;
-  const restrictedCount = state.reports.filter((report) => report.access !== "production").length;
+    : activeReports;
+  const archiveCount = state.reports.filter((report) => report.archived).length;
+  const productionCount = activeReports.filter((report) => report.access === "production").length;
+  const restrictedCount = activeReports.filter((report) => report.access !== "production").length;
   const visibleGroups = state.groups
     .map((group) => ({
       ...group,
@@ -821,20 +900,7 @@ function workbenchMarkup() {
     .filter((group) => group.reports.length);
   return `
     <main class="app-shell">
-      <header class="topbar">
-        <div class="brand">
-          <div class="brand-mark small">C</div>
-          <div><strong>Clair AI Studio</strong><span>Decision Library</span></div>
-        </div>
-        <label class="search">
-          <input id="search-input" value="${escapeHtml(query)}" placeholder="搜索报告" aria-label="搜索报告" />
-          ${query ? '<button type="button" data-action="clear-search">清除</button>' : ""}
-        </label>
-        <div class="top-actions">
-          <button class="quiet-button desktop-only" type="button" data-action="add-group">新增主题</button>
-          <button class="primary-button" type="button" data-action="add-report">新增报告</button>
-        </div>
-      </header>
+      ${studioTopbarMarkup(archiveCount)}
       <section class="workspace">
         <div class="hero-row">
           <div class="hero-copy">
@@ -843,7 +909,7 @@ function workbenchMarkup() {
             <p>围绕产品、AI、投研与经营，按主题归档已发布成果。先看关键画面，再进入完整报告；需要权限的内容也有明确登录路径。</p>
           </div>
           <div class="studio-summary" aria-label="报告统计">
-            <strong>${state.reports.length}</strong>
+            <strong>${activeReports.length}</strong>
             <span>份成果</span>
             <i></i>
             <strong>${visibleGroups.length}</strong>
@@ -881,8 +947,8 @@ function workbenchMarkup() {
               <button type="button" data-action="clear-search">清除搜索</button>
             </div>`}
           <div class="catalog-note">
-            <span>${restrictedCount} 份报告需要组织或账号登录</span>
-            <button type="button" data-action="lock">退出工作台</button>
+            <span>${restrictedCount} 份报告需要组织或账号登录${archiveCount ? ` · ${archiveCount} 份已安全归档` : ""}</span>
+            <div><button type="button" data-action="add-group">新增主题</button><button type="button" data-action="lock">退出工作台</button></div>
           </div>
         </section>
       </section>
@@ -981,6 +1047,16 @@ function bindApp() {
       } else if (action === "clear-search") {
         query = "";
         render();
+      } else if (action === "show-archive") {
+        archiveView = true;
+        query = "";
+        readerId = "";
+        render();
+      } else if (action === "show-catalog") {
+        archiveView = false;
+        query = "";
+        readerId = "";
+        render();
       } else if (action === "add-report") {
         modal = { type: "report", mode: "create", groupId: state.groups[1]?.id || state.groups[0]?.id };
         render();
@@ -995,14 +1071,30 @@ function bindApp() {
         render();
       } else if (action === "detect-title") {
         await detectTitle(event.currentTarget.closest("form"));
+      } else if (action === "archive") {
+        const report = state.reports.find((item) => item.id === itemId);
+        if (!report) return;
+        report.archived = true;
+        report.archivedAt = new Date().toISOString();
+        saveState();
+        render();
+        showToast("已归档，可随时恢复");
+      } else if (action === "restore") {
+        const report = state.reports.find((item) => item.id === itemId);
+        if (!report) return;
+        report.archived = false;
+        report.archivedAt = "";
+        saveState();
+        render();
+        showToast("报告已恢复到原主题");
       } else if (action === "delete") {
         const report = state.reports.find((item) => item.id === itemId);
-        if (report && confirm(`确定删除“${report.title}”吗？此操作不可撤销。`)) {
+        if (report?.archived && confirm(`永久删除“${report.title}”？删除后无法从归档区恢复。`)) {
           state.reports = state.reports.filter((item) => item.id !== itemId);
           if (readerId === itemId) readerId = "";
           saveState();
           render();
-          showToast("报告已删除");
+          showToast("报告已永久删除");
         }
       } else if (action === "add-group") {
         modal = { type: "group" };
@@ -1199,6 +1291,10 @@ function bindApp() {
         pinned: false,
         position: state.reports.filter((report) => report.groupId === groupId).length,
         createdAt: new Date().toISOString(),
+        source: "手动添加",
+        access: "production",
+        archived: false,
+        archivedAt: "",
       });
     }
     saveState();
