@@ -5,7 +5,7 @@ date: 2026-07-30
 data_cutoff: 2026-07-30
 site_url: https://clairku.github.io/clair-ai-studio/reports/qieman-ai-product-practice-2026-07-30/
 site_status: production
-published_at: 2026-07-30T02:49:33Z
+published_at: 2026-07-30T03:10:51Z
 ---
 
 # 盈米 AI 产品实践
