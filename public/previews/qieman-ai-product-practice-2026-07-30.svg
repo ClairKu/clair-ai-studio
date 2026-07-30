@@ -3,20 +3,20 @@
   <desc id="desc">且慢产品团队：以业务蓝图串联微信与千问外部入口、小顾手机端服务、规模化验证与机构合作路径</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f8f9fc"/><stop offset="1" stop-color="#e9effb"/></linearGradient>
-    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#4b7bec"/><stop offset="1" stop-color="#75d5c8"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8067e8"/><stop offset="1" stop-color="#a992ff"/></linearGradient>
     <filter id="shadow"><feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#18213a" flood-opacity=".2"/></filter>
   </defs>
   <rect width="1200" height="675" fill="url(#bg)"/>
   <rect width="1200" height="7" fill="url(#accent)"/>
   <rect x="570" width="630" height="675" fill="#081127"/>
-  <circle cx="1115" cy="95" r="230" fill="#4b7bec" opacity=".09"/>
-  <circle cx="1020" cy="650" r="250" fill="#75d5c8" opacity=".08"/>
+  <circle cx="1115" cy="95" r="230" fill="#8067e8" opacity=".09"/>
+  <circle cx="1020" cy="650" r="250" fill="#a992ff" opacity=".08"/>
   <g transform="translate(68 82)">
     <rect width="246" height="36" rx="18" fill="#e8efff"/>
     <circle cx="19" cy="18" r="5" fill="#56bfb3"/>
-    <text x="35" y="23" fill="#4967c7" font-family="Georgia, Songti SC, serif" font-size="11" font-weight="700" letter-spacing="1">且慢产品团队 · PRODUCT TEAM</text>
+    <text x="35" y="23" fill="#6d58d5" font-family="Georgia, Songti SC, serif" font-size="11" font-weight="700" letter-spacing="1">且慢产品团队 · PRODUCT TEAM</text>
     <text x="0" y="120" fill="#151a25" font-family="Georgia, Songti SC, serif" font-size="70" font-weight="600">盈米 AI</text>
-    <text x="0" y="198" fill="#4b68c7" font-family="Georgia, Songti SC, serif" font-size="70" font-weight="600">产品实践</text>
+    <text x="0" y="198" fill="#6d58d5" font-family="Georgia, Songti SC, serif" font-size="70" font-weight="600">产品实践</text>
     <text x="0" y="244" fill="#657086" font-family="Georgia, Songti SC, serif" font-size="18">从外部 AI 入口，到手机服务与共同经营</text>
     <g transform="translate(0 294)" font-family="Georgia, Songti SC, serif">
       <g><rect width="142" height="74" rx="17" fill="#fff" stroke="#e1e5ed"/><text x="18" y="31" fill="#151a25" font-size="21" font-weight="700">6</text><text x="18" y="53" fill="#657086" font-size="11">手机端连续场景</text></g>
@@ -25,7 +25,7 @@
     </g>
     <g transform="translate(0 405)">
       <rect width="450" height="104" rx="22" fill="#15213c"/>
-      <text x="24" y="31" fill="#75d5c8" font-family="Georgia, Songti SC, serif" font-size="10" font-weight="700" letter-spacing="1.5">SERVICE → EVIDENCE → COLLABORATION</text>
+      <text x="24" y="31" fill="#a992ff" font-family="Georgia, Songti SC, serif" font-size="10" font-weight="700" letter-spacing="1.5">SERVICE → EVIDENCE → COLLABORATION</text>
       <text x="24" y="62" fill="#fff" font-family="Georgia, Songti SC, serif" font-size="19" font-weight="700">外部入口 → 金融服务 → 转化经营</text>
       <text x="24" y="86" fill="#aeb9ce" font-family="Georgia, Songti SC, serif" font-size="11">微信 / 千问 · 用户授权 · 资产诊断 · 小程序承接</text>
     </g>
@@ -38,19 +38,19 @@
       <rect x="7" y="45" width="236" height="22" fill="#fff"/>
       <text x="22" y="28" fill="#17213a" font-size="8" font-weight="700">9:41</text>
       <text x="125" y="53" fill="#17213a" text-anchor="middle" font-size="12" font-weight="700">且慢小顾</text>
-      <rect x="20" y="81" width="210" height="89" rx="16" fill="#eaf2ff"/>
-      <text x="34" y="103" fill="#4967c7" font-size="8" font-weight="700">早上好 · 已读取授权记忆</text>
+      <rect x="20" y="81" width="210" height="89" rx="16" fill="#f0edff"/>
+      <text x="34" y="103" fill="#6d58d5" font-size="8" font-weight="700">早上好 · 已读取授权记忆</text>
       <text x="34" y="130" fill="#17213a" font-size="17" font-weight="700">今天有 3 件事</text>
       <text x="34" y="150" fill="#17213a" font-size="17" font-weight="700">和你的投资有关</text>
       <rect x="20" y="182" width="210" height="128" rx="16" fill="#fff" stroke="#dfe5ef"/>
       <text x="34" y="204" fill="#8792a6" font-size="8">长赢计划 · 持仓陪伴</text>
-      <rect x="170" y="193" width="46" height="18" rx="9" fill="#edf9f7"/>
+      <rect x="170" y="193" width="46" height="18" rx="9" fill="#f4f1ff"/>
       <text x="193" y="205" fill="#4d9c92" text-anchor="middle" font-size="7" font-weight="700">无需动作</text>
       <text x="34" y="231" fill="#17213a" font-size="12" font-weight="700">组合仍在计划区间内</text>
       <text x="34" y="250" fill="#6d788d" font-size="8">固收与现金缓冲了权益波动</text>
       <g transform="translate(34 268)">
-        <rect width="50" height="25" rx="7" fill="#f3f7ff"/><rect x="58" width="50" height="25" rx="7" fill="#f3f7ff"/><rect x="116" width="50" height="25" rx="7" fill="#f3f7ff"/>
-        <text x="25" y="16" fill="#4967c7" text-anchor="middle" font-size="7" font-weight="700">无需调仓</text><text x="83" y="16" fill="#4967c7" text-anchor="middle" font-size="7" font-weight="700">继续定投</text><text x="141" y="16" fill="#4967c7" text-anchor="middle" font-size="7" font-weight="700">等待发车</text>
+        <rect width="50" height="25" rx="7" fill="#f3f0ff"/><rect x="58" width="50" height="25" rx="7" fill="#f3f0ff"/><rect x="116" width="50" height="25" rx="7" fill="#f3f0ff"/>
+        <text x="25" y="16" fill="#6d58d5" text-anchor="middle" font-size="7" font-weight="700">无需调仓</text><text x="83" y="16" fill="#6d58d5" text-anchor="middle" font-size="7" font-weight="700">继续定投</text><text x="141" y="16" fill="#6d58d5" text-anchor="middle" font-size="7" font-weight="700">等待发车</text>
       </g>
       <rect x="20" y="322" width="210" height="92" rx="16" fill="#fff9ef" stroke="#efdfbd"/>
       <text x="34" y="345" fill="#9b6b1e" font-size="8">自动跟车任务 · 需要处理</text>
@@ -68,11 +68,11 @@
       <rect x="7" y="45" width="236" height="22" fill="#fff"/>
       <text x="22" y="28" fill="#17213a" font-size="8" font-weight="700">9:44</text>
       <text x="125" y="53" fill="#17213a" text-anchor="middle" font-size="12" font-weight="700">生成新服务</text>
-      <rect x="48" y="84" width="182" height="62" rx="14" fill="#4b7bec"/>
+      <rect x="48" y="84" width="182" height="62" rx="14" fill="#8067e8"/>
       <text x="62" y="107" fill="#fff" font-size="8">以后大跌时，请结合长赢计划</text>
       <text x="62" y="125" fill="#fff" font-size="8">直接告诉我要不要行动。</text>
       <rect x="20" y="160" width="210" height="315" rx="18" fill="#17213a"/>
-      <text x="36" y="187" fill="#75d5c8" font-size="8" font-weight="700">NEW SERVICE · 由对话生成</text>
+      <text x="36" y="187" fill="#a992ff" font-size="8" font-weight="700">NEW SERVICE · 由对话生成</text>
       <text x="36" y="225" fill="#fff" font-size="20" font-weight="700">长赢行动提醒</text>
       <text x="36" y="247" fill="#b9c5d8" font-size="8">市场明显波动时，结合计划与持仓</text>
       <text x="36" y="262" fill="#b9c5d8" font-size="8">直接判断是否需要行动。</text>
@@ -82,10 +82,10 @@
         <text x="12" y="67" fill="#fff" font-size="8" font-weight="700">读取什么</text><text x="12" y="81" fill="#aeb9ce" font-size="7">计划 · 持仓 · 定投 · 风险偏好</text>
         <text x="12" y="117" fill="#fff" font-size="8" font-weight="700">告诉我什么</text><text x="12" y="131" fill="#aeb9ce" font-size="7">无需动作 · 观察 · 需要处理</text>
       </g>
-      <rect x="36" y="440" width="178" height="25" rx="9" fill="#4b7bec"/>
+      <rect x="36" y="440" width="178" height="25" rx="9" fill="#8067e8"/>
       <text x="125" y="456" fill="#fff" text-anchor="middle" font-size="8" font-weight="700">保存为我的小顾服务</text>
       <rect x="20" y="489" width="210" height="61" rx="15" fill="#fff" stroke="#dfe5ef"/>
-      <text x="34" y="514" fill="#4967c7" font-size="9" font-weight="700">进阶创建仍在手机端完成</text>
+      <text x="34" y="514" fill="#6d58d5" font-size="9" font-weight="700">进阶创建仍在手机端完成</text>
       <text x="34" y="534" fill="#6d788d" font-size="8">工具 · Prompt · 触发规则渐进披露</text>
     </g>
   </g>
