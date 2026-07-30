@@ -184,7 +184,7 @@ const initialState = {
       pinned: true,
       position: 1,
       createdAt: "2026-07-30T10:30:00.000Z",
-      source: "且慢产品团队｜两张业务蓝图 × 小顾与顾问双端原型",
+      source: "且慢产品团队｜业务蓝图 × 小顾服务地图 × 规模验证 × 合作路径",
       access: "production",
     },
     {
