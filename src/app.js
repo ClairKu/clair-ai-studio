@@ -140,7 +140,7 @@ const initialState = {
     {
       id: "ai-three-projects-management-deck-2026-07-30",
       groupId: "reporting",
-      title: "三个 AI 项目管理层汇报｜一条金融服务生产链",
+      title: "盈米 AI 金融服务操作系统蓝图｜用 AI 重做服务生产",
       url: "https://clairku.github.io/clair-ai-studio/reports/ai-three-projects-management-deck-2026-07-30/",
       preview: "ai-three-projects-management-deck-2026-07-30.png",
       pinned: true,
