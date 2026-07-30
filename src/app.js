@@ -122,7 +122,7 @@ const initialState = {
       preview: "content-classification-review-sop-2026-07-30.svg",
       pinned: true,
       position: 0,
-      createdAt: "2026-07-30T19:05:00.000Z",
+      createdAt: "2026-07-30T10:40:00.000Z",
       source: "盈米内容治理｜两级分类、事前审核、双轨巡检与记录留痕",
       access: "production",
       workType: "governance-review",
