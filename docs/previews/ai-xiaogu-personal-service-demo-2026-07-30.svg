@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750">
+  <defs>
+    <linearGradient id="hero" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#153f31"/>
+      <stop offset="1" stop-color="#28644d"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="18" flood-color="#263d32" flood-opacity=".12"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="750" fill="#f4f6f3"/>
+  <rect width="196" height="750" fill="#173e32"/>
+  <rect x="22" y="22" width="38" height="38" rx="12" fill="#f0f5ef"/>
+  <text x="41" y="48" text-anchor="middle" fill="#173e32" font-size="21" font-family="sans-serif" font-weight="700">顾</text>
+  <text x="72" y="42" fill="#f1f6f3" font-size="16" font-family="sans-serif" font-weight="700">AI 小顾</text>
+  <text x="72" y="57" fill="#9fc0b3" font-size="8" font-family="sans-serif" letter-spacing="2">PERSONAL ADVISOR</text>
+  <rect x="15" y="87" width="166" height="42" rx="12" fill="#315c4e"/>
+  <text x="48" y="113" fill="white" font-size="13" font-family="sans-serif">今天</text>
+  <g fill="#abc7bb" font-size="13" font-family="sans-serif">
+    <text x="48" y="166">问小顾</text><text x="48" y="212">账户报告</text>
+    <text x="48" y="258">卡片工作室</text><text x="48" y="304">应用广场</text>
+  </g>
+  <rect x="196" width="1004" height="62" fill="#f7f8f6"/>
+  <circle cx="226" cy="31" r="5" fill="#38a97c"/>
+  <text x="238" y="35" fill="#68726c" font-size="11" font-family="sans-serif">账户数据已更新至 15:04 · 脱敏模拟数据</text>
+  <rect x="226" y="86" width="646" height="292" rx="25" fill="url(#hero)" filter="url(#shadow)"/>
+  <text x="252" y="124" fill="#b9d5c8" font-size="9" font-family="sans-serif" font-weight="700" letter-spacing="2">WEDNESDAY · 30 JUL</text>
+  <text x="252" y="175" fill="white" font-size="28" font-family="sans-serif" font-weight="700">下午好，林先生。</text>
+  <text x="252" y="212" fill="white" font-size="28" font-family="sans-serif" font-weight="700">今天有 3 件事值得你关注。</text>
+  <text x="252" y="246" fill="#cfe1d9" font-size="12" font-family="sans-serif">市场波动放大了成长资产回撤，但账户整体风险仍在目标区间。</text>
+  <text x="252" y="304" fill="#b9d0c6" font-size="10" font-family="sans-serif">总资产</text>
+  <text x="252" y="338" fill="white" font-size="28" font-family="sans-serif" font-weight="700">¥1,286,420</text>
+  <text x="412" y="304" fill="#b9d0c6" font-size="10" font-family="sans-serif">今日收益</text>
+  <text x="412" y="338" fill="#ffaaa2" font-size="28" font-family="sans-serif" font-weight="700">−¥18,642</text>
+  <path d="M680 325 C705 304 720 349 746 326 S786 305 812 339 S838 332 852 328" fill="none" stroke="#a9dcc4" stroke-width="3"/>
+  <rect x="890" y="86" width="282" height="292" rx="25" fill="white" stroke="#dfe4df" filter="url(#shadow)"/>
+  <text x="914" y="124" fill="#c27b2f" font-size="9" font-family="sans-serif" font-weight="700" letter-spacing="2">NEEDS ATTENTION</text>
+  <text x="914" y="151" fill="#18201c" font-size="20" font-family="sans-serif" font-weight="700">待处理事项</text>
+  <g font-family="sans-serif">
+    <rect x="914" y="180" width="34" height="34" rx="11" fill="#fbefe0"/><text x="931" y="203" text-anchor="middle" fill="#c27b2f" font-size="13" font-weight="700">¥</text>
+    <text x="960" y="194" fill="#18201c" font-size="12" font-weight="700">扣款失败</text><text x="960" y="211" fill="#67716b" font-size="10">招行尾号 4821 · 定投 ¥3,000</text>
+    <line x1="914" y1="230" x2="1146" y2="230" stroke="#e6eae7"/>
+    <rect x="914" y="246" width="34" height="34" rx="11" fill="#f9e8e6"/><text x="931" y="269" text-anchor="middle" fill="#bd554d" font-size="13" font-weight="700">!</text>
+    <text x="960" y="260" fill="#18201c" font-size="12" font-weight="700">限价单今天失效</text><text x="960" y="277" fill="#67716b" font-size="10">沪深300指数增强 · 14:50</text>
+    <line x1="914" y1="296" x2="1146" y2="296" stroke="#e6eae7"/>
+    <rect x="914" y="312" width="34" height="34" rx="11" fill="#dfeee7"/><text x="931" y="335" text-anchor="middle" fill="#1d6b4f" font-size="13" font-weight="700">↗</text>
+    <text x="960" y="326" fill="#18201c" font-size="12" font-weight="700">活钱高于目标</text><text x="960" y="343" fill="#67716b" font-size="10">多出 ¥26,240 · 已闲置 12 天</text>
+  </g>
+  <text x="226" y="418" fill="#1d6b4f" font-size="9" font-family="sans-serif" font-weight="700" letter-spacing="2">MY PORTFOLIO</text>
+  <text x="226" y="445" fill="#18201c" font-size="20" font-family="sans-serif" font-weight="700">账户关键数据</text>
+  <g filter="url(#shadow)">
+    <rect x="226" y="468" width="302" height="245" rx="21" fill="white" stroke="#dfe4df"/>
+    <rect x="544" y="468" width="302" height="245" rx="21" fill="white" stroke="#dfe4df"/>
+    <rect x="862" y="468" width="310" height="245" rx="21" fill="white" stroke="#dfe4df"/>
+  </g>
+  <text x="248" y="501" fill="#18201c" font-size="15" font-family="sans-serif" font-weight="700">资产配置</text>
+  <circle cx="330" cy="600" r="57" fill="none" stroke="#d9dedb" stroke-width="24"/>
+  <circle cx="330" cy="600" r="57" fill="none" stroke="#1d6b4f" stroke-width="24" stroke-dasharray="132 226" transform="rotate(-90 330 600)"/>
+  <text x="330" y="598" text-anchor="middle" fill="#18201c" font-size="17" font-family="sans-serif" font-weight="700">4 类</text>
+  <text x="330" y="615" text-anchor="middle" fill="#67716b" font-size="9" font-family="sans-serif">资产</text>
+  <text x="565" y="501" fill="#18201c" font-size="15" font-family="sans-serif" font-weight="700">今日收益归因</text>
+  <g font-family="sans-serif" font-size="11">
+    <text x="565" y="549" fill="#18201c">科技成长</text><rect x="661" y="540" width="112" height="9" rx="5" fill="#cf766f"/><text x="788" y="550" fill="#bd554d">−0.82%</text>
+    <text x="565" y="584" fill="#18201c">港股互联网</text><rect x="697" y="575" width="76" height="9" rx="5" fill="#cf766f"/><text x="788" y="585" fill="#bd554d">−0.46%</text>
+    <text x="565" y="619" fill="#18201c">中短债</text><rect x="773" y="610" width="18" height="9" rx="5" fill="#4f9277"/><text x="800" y="620" fill="#1d6b4f">+0.08%</text>
+  </g>
+  <text x="884" y="501" fill="#18201c" font-size="15" font-family="sans-serif" font-weight="700">重点持仓</text>
+  <g font-family="sans-serif">
+    <text x="884" y="549" fill="#18201c" font-size="12" font-weight="700">全球科技精选</text><text x="1138" y="549" text-anchor="end" fill="#bd554d" font-size="12" font-weight="700">−3.62%</text>
+    <line x1="884" y1="570" x2="1138" y2="570" stroke="#e6eae7"/>
+    <text x="884" y="604" fill="#18201c" font-size="12" font-weight="700">港股互联网策略</text><text x="1138" y="604" text-anchor="end" fill="#bd554d" font-size="12" font-weight="700">−4.11%</text>
+    <line x1="884" y1="625" x2="1138" y2="625" stroke="#e6eae7"/>
+    <text x="884" y="659" fill="#18201c" font-size="12" font-weight="700">稳健中短债</text><text x="1138" y="659" text-anchor="end" fill="#1d6b4f" font-size="12" font-weight="700">+0.09%</text>
+  </g>
+</svg>

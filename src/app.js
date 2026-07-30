@@ -115,6 +115,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "ai-xiaogu-personal-service-demo-2026-07-30",
+      groupId: "xiaogu",
+      title: "AI 小顾｜个人投资服务与卡片广场 Demo",
+      url: "https://clairku.github.io/clair-ai-studio/reports/ai-xiaogu-personal-service-demo-2026-07-30/",
+      preview: "ai-xiaogu-personal-service-demo-2026-07-30.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-07-30T18:00:00.000Z",
+      source: "AI 小顾主动服务、追问归因、账户报告与卡片市场产品原型",
+      access: "production",
+      workType: "product-demo",
+      tags: ["AI 小顾", "投顾服务", "产品规划", "HTML", "生产"],
+    },
+    {
       id: "ai-service-blueprint-serif-2026-07-30",
       groupId: "reporting",
       title: "盈米 AI 服务蓝图｜统一能力底座与三端业务",

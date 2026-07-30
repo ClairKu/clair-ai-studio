@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f4f6f3">
+  <meta name="description" content="AI 小顾个人投资服务 Demo：主动服务、账户归因、报告生成与可复用服务卡片。">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%231d6b4f'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-size='18' fill='white'%3E%E9%A1%BE%3C/text%3E%3C/svg%3E">
+  <title>AI 小顾｜个人投资服务 Demo</title>
+  <style>
+    :root{
+      --ink:#18201c;--muted:#67716b;--line:#dfe4df;--paper:#f4f6f3;--card:#fff;
+      --green:#1d6b4f;--green-2:#dfeee7;--green-3:#b8d9ca;--amber:#c27b2f;
+      --amber-bg:#fbefe0;--red:#bd554d;--red-bg:#f9e8e6;--blue:#426f83;
+      --shadow:0 18px 50px rgba(37,55,46,.08);--radius:22px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;color:var(--ink);background:var(--paper);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;-webkit-font-smoothing:antialiased}
+    button,input,select,textarea{font:inherit}
+    button{cursor:pointer}
+    a{color:inherit;text-decoration:none}
+    .app{min-height:100vh;display:grid;grid-template-columns:238px minmax(0,1fr)}
+    .side{position:sticky;top:0;height:100vh;padding:24px 18px;background:#173e32;color:#e9f2ed;display:flex;flex-direction:column;z-index:20}
+    .brand{display:flex;align-items:center;gap:11px;padding:4px 10px 26px;font-weight:750;letter-spacing:.02em}
+    .brand-mark{width:34px;height:34px;border-radius:12px;background:#f0f5ef;color:#173e32;display:grid;place-items:center;font-size:18px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.45)}
+    .brand small{display:block;margin-top:2px;color:#a9c4b9;font-size:10px;font-weight:600;letter-spacing:.13em;text-transform:uppercase}
+    .nav{display:grid;gap:5px}
+    .nav button{border:0;background:transparent;color:#bcd0c7;text-align:left;padding:11px 12px;border-radius:12px;display:flex;gap:11px;align-items:center;font-size:14px}
+    .nav button svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.7}
+    .nav button.active,.nav button:hover{color:white;background:rgba(255,255,255,.11)}
+    .side-insight{margin-top:auto;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.06);border-radius:17px;padding:15px}
+    .side-insight .eyebrow{color:#9fc0b3}
+    .side-insight strong{display:block;font-size:13px;line-height:1.5;margin:8px 0 12px}
+    .side-insight button{border:0;background:#eff5f1;color:#174132;border-radius:10px;padding:8px 10px;font-size:12px;font-weight:700}
+    main{min-width:0}
+    .topbar{height:72px;padding:0 36px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;background:rgba(244,246,243,.93);backdrop-filter:blur(12px);position:sticky;top:0;z-index:10}
+    .status{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:12px}
+    .pulse{width:7px;height:7px;border-radius:50%;background:#35a477;box-shadow:0 0 0 4px rgba(53,164,119,.12)}
+    .top-actions{display:flex;align-items:center;gap:10px}
+    .icon-btn,.avatar{width:36px;height:36px;border:1px solid var(--line);border-radius:12px;background:#fff;display:grid;place-items:center;color:#526159}
+    .avatar{border:0;background:#dfeee7;color:#17543d;font-weight:800}
+    .content{max-width:1320px;margin:0 auto;padding:30px 36px 80px}
+    .screen{display:none}
+    .screen.active{display:block;animation:rise .3s ease}
+    @keyframes rise{from{opacity:.2;transform:translateY(7px)}to{opacity:1;transform:none}}
+    .eyebrow{font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--green)}
+    h1,h2,h3,p{margin-top:0}
+    h1{font-size:32px;letter-spacing:-.03em;line-height:1.18;margin-bottom:10px}
+    h2{font-size:21px;letter-spacing:-.02em;margin-bottom:6px}
+    h3{font-size:16px;margin-bottom:5px}
+    .muted{color:var(--muted)}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:18px;margin:28px 0 13px}
+    .section-head p{font-size:13px;margin:3px 0 0}
+    .hero{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(280px,.65fr);gap:16px}
+    .hero-card{border-radius:28px;background:linear-gradient(135deg,#153f31,#255e49);color:white;min-height:292px;padding:30px;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+    .hero-card:before,.hero-card:after{content:"";position:absolute;border-radius:50%;border:1px solid rgba(255,255,255,.1)}
+    .hero-card:before{width:310px;height:310px;right:-118px;top:-118px}
+    .hero-card:after{width:190px;height:190px;right:-24px;top:-48px}
+    .hero-card .eyebrow{color:#b7d6c8}
+    .hero-card h1{max-width:590px;margin-top:11px}
+    .hero-card p{max-width:520px;color:#cfe1d9;font-size:14px;line-height:1.7}
+    .hero-metrics{display:flex;gap:28px;align-items:flex-end;margin-top:30px;position:relative;z-index:1}
+    .hero-metrics strong{display:block;font-size:30px;letter-spacing:-.04em}
+    .hero-metrics small{color:#b9cfc5}
+    .negative{color:#d16b63}
+    .hero-card .negative{color:#ffaaa2}
+    .tiny-chart{margin-left:auto;width:170px;height:62px}
+    .tiny-chart path{fill:none;stroke:#a9dcc4;stroke-width:2.5}
+    .brief-card{background:#fff;border:1px solid var(--line);border-radius:28px;padding:25px;box-shadow:var(--shadow)}
+    .brief-head{display:flex;align-items:center;justify-content:space-between}
+    .brief-head span{color:var(--amber);font-size:12px;font-weight:800}
+    .brief-list{display:grid;gap:13px;margin-top:18px}
+    .brief-item{display:grid;grid-template-columns:33px 1fr auto;gap:11px;align-items:start;padding:12px 0;border-top:1px solid #eef1ee}
+    .brief-item:first-child{border-top:0}
+    .brief-icon{width:33px;height:33px;border-radius:11px;background:var(--amber-bg);color:var(--amber);display:grid;place-items:center;font-size:14px;font-weight:800}
+    .brief-item:nth-child(2) .brief-icon{background:var(--red-bg);color:var(--red)}
+    .brief-item:nth-child(3) .brief-icon{background:var(--green-2);color:var(--green)}
+    .brief-item b{font-size:13px;display:block}
+    .brief-item small{color:var(--muted);line-height:1.5}
+    .brief-item button{border:0;background:transparent;color:var(--green);font-weight:800;font-size:12px;padding:2px}
+    .grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:21px;box-shadow:0 8px 30px rgba(31,49,39,.04);min-width:0}
+    .span-4{grid-column:span 4}.span-5{grid-column:span 5}.span-6{grid-column:span 6}.span-7{grid-column:span 7}.span-8{grid-column:span 8}.span-12{grid-column:span 12}
+    .card-head{display:flex;align-items:start;justify-content:space-between;gap:12px}
+    .card-head p{font-size:12px;margin:0}
+    .chip{border:1px solid var(--line);background:#f8faf8;border-radius:999px;padding:5px 9px;font-size:11px;color:var(--muted);white-space:nowrap}
+    .allocation{display:flex;align-items:center;gap:22px;margin-top:20px}
+    .donut{width:132px;height:132px;border-radius:50%;background:conic-gradient(#1d6b4f 0 37%,#7eaa97 37% 63%,#c9a369 63% 82%,#d9dedb 82%);position:relative;flex:none}
+    .donut:after{content:"";position:absolute;inset:24px;border-radius:50%;background:#fff}
+    .donut-label{position:absolute;inset:0;z-index:1;display:grid;place-content:center;text-align:center;font-size:10px;color:var(--muted)}
+    .donut-label strong{color:var(--ink);font-size:18px}
+    .legend{display:grid;gap:9px;flex:1}
+    .legend-row{display:grid;grid-template-columns:9px 1fr auto;gap:8px;align-items:center;font-size:12px}
+    .dot{width:8px;height:8px;border-radius:50%}
+    .progress{height:7px;background:#edf0ed;border-radius:999px;overflow:hidden}
+    .progress i{display:block;height:100%;border-radius:inherit;background:var(--green)}
+    .holding-list{display:grid;gap:4px;margin-top:13px}
+    .holding{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;padding:10px 0;border-top:1px solid #edf0ed}
+    .fund-icon{width:34px;height:34px;border-radius:10px;background:#eff3f0;display:grid;place-items:center;font-size:11px;font-weight:800;color:#577065}
+    .holding b{font-size:13px}.holding small{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+    .holding-value{text-align:right;font-size:12px}.holding-value b{display:block}.holding-value .negative{font-size:11px}
+    .attribution{display:grid;gap:12px;margin-top:18px}
+    .attr-row{display:grid;grid-template-columns:94px minmax(0,1fr) 48px;gap:10px;align-items:center;font-size:12px}
+    .bar-track{height:10px;position:relative;background:linear-gradient(90deg,transparent 49.5%,#cbd2ce 49.5% 50.5%,transparent 50.5%);display:flex;align-items:center}
+    .bar{height:8px;border-radius:999px;position:absolute}
+    .bar.neg{right:50%;background:#cf766f}.bar.pos{left:50%;background:#4f9277}
+    .action-strip{display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:12px}
+    .action-card{border:1px solid var(--line);border-radius:17px;padding:16px;background:#fbfcfb}
+    .action-card.urgent{border-color:#efd3cf;background:#fff8f7}
+    .action-card b{font-size:13px;display:block;margin:7px 0 4px}.action-card p{font-size:11px;color:var(--muted);line-height:1.5;margin:0 0 12px}
+    .action-card button,.primary,.secondary{border:0;border-radius:10px;padding:9px 12px;font-size:12px;font-weight:800}
+    .action-card button,.primary{background:var(--green);color:white}.secondary{background:#eef3f0;color:var(--green)}
+    .ask-bar{position:sticky;bottom:18px;z-index:8;margin-top:28px;background:rgba(255,255,255,.94);border:1px solid #d8ded9;border-radius:18px;padding:9px;display:flex;gap:8px;box-shadow:0 18px 50px rgba(28,48,37,.14);backdrop-filter:blur(12px)}
+    .ask-bar input{border:0;outline:0;flex:1;min-width:0;padding:9px;background:transparent;color:var(--ink)}
+    .ask-bar button{width:40px;height:40px;border:0;border-radius:12px;background:var(--green);color:white;font-size:18px}
+    .suggestions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .suggestions button{border:1px solid var(--line);background:white;color:#53615a;border-radius:999px;padding:7px 11px;font-size:11px}
+    .chat-shell{max-width:900px;margin:0 auto}
+    .chat-intro{text-align:center;padding:45px 0 25px}
+    .chat-intro .orb{width:62px;height:62px;border-radius:22px;background:linear-gradient(145deg,#19523e,#93bdaa);display:grid;place-items:center;color:white;font-size:25px;margin:0 auto 17px;box-shadow:0 12px 30px rgba(29,107,79,.2)}
+    .message{display:flex;gap:12px;margin:17px 0}.message.user{justify-content:flex-end}
+    .bubble{max-width:78%;padding:15px 17px;border-radius:18px;background:white;border:1px solid var(--line);font-size:13px;line-height:1.7}
+    .user .bubble{background:#1d6b4f;color:white;border:0;border-bottom-right-radius:5px}
+    .answer-card{margin:14px 0 0;border:1px solid var(--line);border-radius:18px;background:white;padding:18px}
+    .impact-score{display:flex;align-items:center;justify-content:space-between;gap:14px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+    .score-pill{color:var(--amber);background:var(--amber-bg);padding:7px 10px;border-radius:10px;font-weight:800;font-size:12px}
+    .impact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:13px}
+    .impact-grid div{background:#f6f8f6;border-radius:13px;padding:12px;font-size:11px;color:var(--muted)}
+    .impact-grid b{display:block;color:var(--ink);font-size:14px;margin-bottom:4px}
+    .report-hero,.studio-hero{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:26px;background:linear-gradient(135deg,#fff,#edf5f0);border:1px solid var(--line);border-radius:24px}
+    .period-tabs{display:flex;gap:6px;padding:4px;background:#e9eeea;border-radius:12px}
+    .period-tabs button{border:0;background:transparent;padding:8px 11px;border-radius:9px;font-size:12px;color:var(--muted)}
+    .period-tabs button.active{background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(32,48,39,.08)}
+    .report-preview{margin-top:18px;background:white;border:1px solid var(--line);border-radius:25px;overflow:hidden}
+    .report-cover{padding:28px;background:#183f33;color:white;display:flex;justify-content:space-between;align-items:end}
+    .report-cover strong{font-size:28px}.report-cover small{color:#bad1c6}
+    .report-body{padding:25px}
+    .report-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+    .report-summary div{padding:13px;border-radius:14px;background:#f6f8f6;font-size:11px;color:var(--muted)}
+    .report-summary b{display:block;font-size:17px;color:var(--ink);margin-top:5px}
+    .diagnosis-list{display:grid;gap:10px;margin-top:16px}
+    .diagnosis{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:start;padding:13px;border:1px solid var(--line);border-radius:14px;font-size:12px}
+    .diagnosis .rank{width:28px;height:28px;border-radius:9px;background:var(--green-2);color:var(--green);display:grid;place-items:center;font-weight:800}
+    .diagnosis p{color:var(--muted);font-size:11px;margin:4px 0 0;line-height:1.5}
+    .studio-grid{display:grid;grid-template-columns:280px 1fr;gap:18px;margin-top:18px}
+    .settings{background:white;border:1px solid var(--line);border-radius:22px;padding:20px;align-self:start;position:sticky;top:91px}
+    .field{display:grid;gap:7px;margin-top:16px}
+    .field label{font-size:11px;color:var(--muted);font-weight:700}
+    .field select,.field input{width:100%;border:1px solid var(--line);background:#fbfcfb;border-radius:11px;padding:11px;color:var(--ink);outline:none}
+    .toggle-row{display:flex;justify-content:space-between;align-items:center;font-size:12px;margin-top:16px}
+    .toggle{width:38px;height:22px;border:0;border-radius:999px;background:#cfd6d1;padding:3px;display:flex}
+    .toggle:after{content:"";width:16px;height:16px;background:white;border-radius:50%;transition:.2s}
+    .toggle.on{background:var(--green);justify-content:flex-end}
+    .template-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .template{background:white;border:1px solid var(--line);border-radius:21px;padding:19px;min-height:210px;position:relative;overflow:hidden}
+    .template.selected{border-color:#7daf98;box-shadow:0 0 0 3px rgba(29,107,79,.08)}
+    .template .top{display:flex;justify-content:space-between;align-items:start}
+    .template-icon{width:40px;height:40px;border-radius:13px;background:var(--green-2);color:var(--green);display:grid;place-items:center;font-weight:900}
+    .template .star{border:0;background:transparent;color:#a7afa9;font-size:20px}.template .star.on{color:#d49b45}
+    .mini-bars{display:flex;align-items:end;gap:5px;height:46px;margin:18px 0 12px}
+    .mini-bars i{display:block;width:12%;background:#b7d0c4;border-radius:5px 5px 2px 2px}
+    .template-footer{position:absolute;left:19px;right:19px;bottom:17px;display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:10px}
+    .template-footer button{border:0;background:var(--green);color:#fff;border-radius:9px;padding:7px 9px;font-weight:800}
+    .market-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:18px}
+    .market-card{background:white;border:1px solid var(--line);border-radius:20px;padding:18px}
+    .market-card .creator{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:11px;margin-top:14px}
+    .market-card .creator i{width:24px;height:24px;border-radius:8px;background:#dcebe4;display:grid;place-items:center;color:var(--green);font-style:normal;font-weight:800}
+    .market-card p{font-size:11px;color:var(--muted);line-height:1.6;min-height:36px}
+    .market-meta{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:12px;margin-top:13px;color:var(--muted);font-size:10px}
+    .market-meta button{border:0;background:var(--green-2);color:var(--green);border-radius:8px;padding:6px 8px;font-weight:800}
+    .modal{position:fixed;inset:0;background:rgba(16,29,22,.48);display:none;place-items:center;padding:20px;z-index:50;backdrop-filter:blur(6px)}
+    .modal.open{display:grid}
+    .modal-panel{width:min(520px,100%);background:white;border-radius:24px;padding:24px;box-shadow:0 30px 90px rgba(15,31,22,.25)}
+    .modal-head{display:flex;justify-content:space-between;gap:12px}.modal-head button{border:0;background:#eff2ef;width:31px;height:31px;border-radius:10px}
+    .publish-options{display:grid;gap:9px;margin:16px 0}
+    .publish-option{border:1px solid var(--line);border-radius:13px;padding:12px;display:flex;gap:10px;align-items:start}
+    .publish-option input{accent-color:var(--green)}
+    .modal-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:18px}
+    .toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);opacity:0;background:#132f26;color:white;padding:11px 16px;border-radius:12px;font-size:12px;z-index:80;transition:.25s;pointer-events:none;box-shadow:0 12px 35px rgba(0,0,0,.2)}
+    .toast.show{opacity:1;transform:translate(-50%,0)}
+    .mobile-nav{display:none}
+    .demo-note{font-size:11px;color:var(--muted);margin-top:12px}
+    @media(max-width:1040px){
+      .span-4,.span-5,.span-7,.span-8{grid-column:span 6}
+      .hero{grid-template-columns:1fr}.brief-list{grid-template-columns:repeat(3,1fr)}.brief-item{grid-template-columns:33px 1fr}.brief-item button{grid-column:2;text-align:left}
+      .market-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:760px){
+      .app{display:block}.side{display:none}.topbar{height:58px;padding:0 17px}.content{padding:21px 15px 90px}
+      .status span:last-child{display:none}h1{font-size:25px}.hero-card{padding:23px;min-height:300px}
+      .hero-metrics{gap:18px;flex-wrap:wrap}.hero-metrics strong{font-size:25px}.tiny-chart{width:100%;margin:0}
+      .brief-card{padding:20px}.brief-list{grid-template-columns:1fr;gap:4px}.brief-item{grid-template-columns:33px 1fr auto}.brief-item button{grid-column:auto}
+      .grid{display:block}.card{margin-bottom:13px}.allocation{align-items:flex-start}.donut{width:110px;height:110px}.donut:after{inset:20px}
+      .action-strip,.impact-grid,.report-summary{grid-template-columns:1fr 1fr}.action-card:first-child{grid-column:span 2}
+      .ask-bar{bottom:74px}.suggestions{flex-wrap:nowrap;overflow:auto;padding-bottom:4px}.suggestions button{white-space:nowrap}
+      .bubble{max-width:90%}.report-hero,.studio-hero{display:block}.period-tabs{margin-top:17px;overflow:auto}.report-cover{display:block}.report-cover strong{display:block;margin-bottom:12px}
+      .studio-grid{display:block}.settings{position:static;margin-bottom:14px}.template-list,.market-grid{grid-template-columns:1fr}
+      .mobile-nav{position:fixed;left:0;right:0;bottom:0;height:64px;padding:7px 9px calc(7px + env(safe-area-inset-bottom));background:rgba(255,255,255,.96);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);z-index:30;backdrop-filter:blur(14px)}
+      .mobile-nav button{border:0;background:transparent;color:#7b8580;font-size:9px;display:grid;place-items:center;gap:2px}.mobile-nav button b{font-size:17px;font-weight:500}.mobile-nav button.active{color:var(--green)}
+    }
+    @media(max-width:390px){
+      .content{padding-left:12px;padding-right:12px}.hero-card{border-radius:23px}.hero-metrics{gap:14px}.hero-metrics strong{font-size:22px}.allocation{gap:14px}.donut{width:96px;height:96px}
+      .attr-row{grid-template-columns:78px minmax(0,1fr) 43px}.action-strip{grid-template-columns:1fr}.action-card:first-child{grid-column:auto}.report-summary{grid-template-columns:1fr 1fr}
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="side">
+      <div class="brand"><div class="brand-mark">顾</div><div>AI 小顾<small>Personal Advisor</small></div></div>
+      <nav class="nav" aria-label="主导航">
+        <button class="active" data-screen="today"><svg viewBox="0 0 24 24"><path d="M4 11.5 12 5l8 6.5V20H4z"/><path d="M9 20v-6h6v6"/></svg>今天</button>
+        <button data-screen="chat"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg>问小顾</button>
+        <button data-screen="report"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 12h7M9 16h5"/></svg>账户报告</button>
+        <button data-screen="studio"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM9 5v14M9 10h11"/></svg>卡片工作室</button>
+        <button data-screen="market"><svg viewBox="0 0 24 24"><path d="M5 9h14l-1 11H6zM8 9V7a4 4 0 0 1 8 0v2"/></svg>应用广场</button>
+      </nav>
+      <div class="side-insight">
+        <span class="eyebrow">今日洞察</span>
+        <strong>你的账户对科技成长波动更敏感，影响约为市场的 1.24 倍。</strong>
+        <button data-question="为什么我的账户跌得更多？">查看归因 →</button>
+      </div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <div class="status"><span class="pulse"></span><span>账户数据已更新至 15:04</span><span>·</span><span>脱敏模拟数据</span></div>
+        <div class="top-actions"><button class="icon-btn" aria-label="通知">◌</button><div class="avatar">林</div></div>
+      </header>
+
+      <div class="content">
+        <section class="screen active" id="today">
+          <div class="hero">
+            <article class="hero-card">
+              <span class="eyebrow">Wednesday · 30 JUL</span>
+              <h1>下午好，林先生。<br>今天有 3 件事值得你关注。</h1>
+              <p>市场波动放大了成长资产回撤，但账户整体风险仍在目标区间。小顾已把最需要处理的交易与资金事项排在前面。</p>
+              <div class="hero-metrics">
+                <div><small>总资产</small><strong>¥1,286,420</strong></div>
+                <div><small>今日收益</small><strong class="negative">−¥18,642</strong></div>
+                <svg class="tiny-chart" viewBox="0 0 170 62" aria-label="近七日资产走势"><path d="M2 31 C16 29 20 16 33 20 S52 45 66 35 S84 22 99 25 S120 9 134 20 S148 48 168 45"/></svg>
+              </div>
+            </article>
+            <aside class="brief-card">
+              <div class="brief-head"><div><span class="eyebrow">NEEDS ATTENTION</span><h2>待处理事项</h2></div><span>3 项</span></div>
+              <div class="brief-list">
+                <div class="brief-item"><div class="brief-icon">¥</div><div><b>扣款失败</b><small>招行尾号 4821 · 定投 ¥3,000</small></div><button data-toast="已进入补款流程（演示）">处理</button></div>
+                <div class="brief-item"><div class="brief-icon">!</div><div><b>限价单今天失效</b><small>沪深300指数增强 · 14:50</small></div><button data-toast="已打开订单详情（演示）">查看</button></div>
+                <div class="brief-item"><div class="brief-icon">↗</div><div><b>活钱高于目标</b><small>多出 ¥26,240 · 已闲置 12 天</small></div><button data-toast="已生成闲钱安排建议（演示）">建议</button></div>
+              </div>
+            </aside>
+          </div>
+
+          <div class="section-head"><div><span class="eyebrow">MY PORTFOLIO</span><h2>账户关键数据</h2><p class="muted">先解释今天发生了什么，再判断是否需要动作</p></div><span class="chip">全部账户 · 近 1 周</span></div>
+          <div class="grid">
+            <article class="card span-4">
+              <div class="card-head"><div><h3>资产配置</h3><p class="muted">实际 vs 目标</p></div><span class="chip">偏离 3.8%</span></div>
+              <div class="allocation">
+                <div class="donut"><div class="donut-label"><strong>4 类</strong>资产</div></div>
+                <div class="legend">
+                  <div class="legend-row"><i class="dot" style="background:#1d6b4f"></i><span>权益</span><b>37%</b></div>
+                  <div class="legend-row"><i class="dot" style="background:#7eaa97"></i><span>固收</span><b>26%</b></div>
+                  <div class="legend-row"><i class="dot" style="background:#c9a369"></i><span>另类</span><b>19%</b></div>
+                  <div class="legend-row"><i class="dot" style="background:#d9dedb"></i><span>现金</span><b>18%</b></div>
+                </div>
+              </div>
+              <p class="demo-note">权益低于目标 2%，现金高于目标 3%。无需因单日波动调仓。</p>
+            </article>
+            <article class="card span-4">
+              <div class="card-head"><div><h3>今日收益归因</h3><p class="muted">−1.43% · 超额 −0.31%</p></div><span class="chip">展开 7 项</span></div>
+              <div class="attribution">
+                <div class="attr-row"><span>科技成长</span><div class="bar-track"><i class="bar neg" style="width:42%"></i></div><b class="negative">−0.82%</b></div>
+                <div class="attr-row"><span>港股互联网</span><div class="bar-track"><i class="bar neg" style="width:27%"></i></div><b class="negative">−0.46%</b></div>
+                <div class="attr-row"><span>中短债</span><div class="bar-track"><i class="bar pos" style="width:7%"></i></div><b style="color:var(--green)">+0.08%</b></div>
+                <div class="attr-row"><span>黄金</span><div class="bar-track"><i class="bar pos" style="width:4%"></i></div><b style="color:var(--green)">+0.03%</b></div>
+              </div>
+              <button class="secondary" style="margin-top:18px" data-question="今天的回撤主要来自哪里？">问小顾详细解释</button>
+            </article>
+            <article class="card span-4">
+              <div class="card-head"><div><h3>重点持仓</h3><p class="muted">按今日影响排序</p></div><span class="chip">13 只</span></div>
+              <div class="holding-list">
+                <div class="holding"><div class="fund-icon">科</div><div><b>全球科技精选</b><small>占比 14.2% · ¥182,670</small></div><div class="holding-value"><b>−3.62%</b><span class="negative">−¥6,641</span></div></div>
+                <div class="holding"><div class="fund-icon">港</div><div><b>港股互联网策略</b><small>占比 9.8% · ¥126,067</small></div><div class="holding-value"><b>−4.11%</b><span class="negative">−¥5,183</span></div></div>
+                <div class="holding"><div class="fund-icon">债</div><div><b>稳健中短债</b><small>占比 18.7% · ¥240,711</small></div><div class="holding-value"><b>+0.09%</b><span style="color:var(--green)">+¥217</span></div></div>
+              </div>
+            </article>
+            <article class="card span-12">
+              <div class="card-head"><div><h3>下一步建议</h3><p class="muted">按紧急程度排序；建议不等于代客下单</p></div><span class="chip">基于你的风险偏好</span></div>
+              <div class="action-strip" style="margin-top:15px">
+                <div class="action-card urgent"><span class="eyebrow" style="color:var(--red)">TODAY</span><b>先修复定投扣款，再决定是否加仓</b><p>避免计划性交易因资金账户余额不足而中断；今天的波动尚未触发你的再平衡阈值。</p><button data-toast="补款提醒已设置（演示）">设置补款提醒</button></div>
+                <div class="action-card"><span class="eyebrow">THIS WEEK</span><b>核对海外科技集中度</b><p>相关性上升后，三只产品的穿透暴露合计达到 21.6%。</p><button data-question="我的科技资产是不是太多了？">查看穿透分析</button></div>
+                <div class="action-card"><span class="eyebrow">WATCH</span><b>现金保持 6 个月开支</b><p>当前活钱覆盖 7.3 个月，可安排约 ¥26,240。</p><button data-toast="已生成三档资金安排方案（演示）">查看安排</button></div>
+              </div>
+            </article>
+          </div>
+          <div class="suggestions">
+            <button data-question="最近市场波动对我影响多大？">最近波动对我影响多大？</button>
+            <button data-question="为什么我的账户跌得更多？">为什么我跌得更多？</button>
+            <button data-question="现在需要调仓吗？">现在需要调仓吗？</button>
+            <button data-screen="report">生成近一周账户报告</button>
+          </div>
+          <form class="ask-bar" id="globalAsk"><input aria-label="向小顾提问" placeholder="随时问小顾：这次波动对我有什么影响？"><button aria-label="发送">↑</button></form>
+        </section>
+
+        <section class="screen" id="chat">
+          <div class="chat-shell">
+            <div class="chat-intro"><div class="orb">✦</div><span class="eyebrow">ASK XIAOGU</span><h1>关于你的账户，随时问我</h1><p class="muted">我会结合持仓、交易、资金与市场变化回答，而不是只讲市场。</p></div>
+            <div id="chatMessages">
+              <div class="message"><div class="bubble">我已经看过你今天的账户变化。科技成长与港股互联网贡献了 89% 的回撤，但整体风险没有越过你设定的警戒线。</div></div>
+            </div>
+            <div class="suggestions">
+              <button data-question="最近市场波动对我影响多大？">市场波动影响</button>
+              <button data-question="现在需要调仓吗？">是否需要调仓</button>
+              <button data-question="如果再跌 5% 会怎样？">压力测试</button>
+            </div>
+            <form class="ask-bar" id="chatAsk"><input aria-label="继续追问" placeholder="继续追问，例如：如果再跌 5% 会怎样？"><button aria-label="发送">↑</button></form>
+          </div>
+        </section>
+
+        <section class="screen" id="report">
+          <div class="report-hero">
+            <div><span class="eyebrow">ACCOUNT REPORT</span><h1>指定期间账户报告</h1><p class="muted">把收益、交易、资金与持仓诊断整合成一份可读、可追问的报告。</p></div>
+            <div><div class="period-tabs"><button data-period="本周" class="active">本周</button><button data-period="本月">本月</button><button data-period="今年">今年</button><button data-period="自定义">自定义</button></div><button class="primary" style="margin-top:10px;width:100%" data-toast="报告已重新生成（演示）">重新生成</button></div>
+          </div>
+          <div class="report-preview">
+            <div class="report-cover"><div><small>AI 小顾 · 个人账户报告</small><strong id="reportPeriod">2026.07.24 — 2026.07.30</strong></div><div><small>报告范围</small><b>全部账户 · 13 个持仓</b></div></div>
+            <div class="report-body">
+              <div class="report-summary">
+                <div>期末资产<b>¥1,286,420</b></div><div>期间收益<b class="negative">−1.12%</b></div><div>最大回撤<b>−2.36%</b></div><div>净流入<b style="color:var(--green)">+¥12,000</b></div>
+              </div>
+              <div class="section-head"><div><h2>最新持仓诊断</h2><p class="muted">不是简单打分，而是定位“哪里需要处理”</p></div><span class="chip">综合 76 / 100</span></div>
+              <div class="diagnosis-list">
+                <div class="diagnosis"><div class="rank">1</div><div><b>资产结构基本健康</b><p>四类资产齐全，权益风险仍在目标带内；现金略高可优化。</p></div><span class="chip">良好</span></div>
+                <div class="diagnosis"><div class="rank">2</div><div><b>风格暴露偏成长</b><p>科技、互联网在穿透后存在重叠，组合对单一风格的敏感度偏高。</p></div><span class="chip" style="color:var(--amber)">关注</span></div>
+                <div class="diagnosis"><div class="rank">3</div><div><b>交易执行有一项中断</b><p>本周定投扣款失败，应先恢复执行纪律，再考虑临时加仓。</p></div><span class="chip" style="color:var(--red)">处理</span></div>
+              </div>
+              <div class="modal-actions"><button class="secondary" data-toast="报告链接已复制（演示）">分享报告</button><button class="primary" data-toast="PDF 已开始生成（演示）">导出 PDF</button></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="screen" id="studio">
+          <div class="studio-hero"><div><span class="eyebrow">CARD STUDIO</span><h1>把服务变成你想看的样子</h1><p class="muted">选择数据范围与提醒规则，生成一个可长期复用的服务卡片。</p></div><button class="primary" id="generateCard">＋ 生成新卡片</button></div>
+          <div class="studio-grid">
+            <aside class="settings">
+              <span class="eyebrow">CARD SETTINGS</span><h3 style="margin-top:8px">服务参数</h3>
+              <div class="field"><label>默认时间范围</label><select id="rangeSetting"><option>近一周</option><option>近一个月</option><option>今年以来</option><option>自定义区间</option></select></div>
+              <div class="field"><label>资金账户</label><select id="accountSetting"><option>全部资金账户</option><option>仅招行 · 4821</option><option>仅且慢钱包</option><option>仅海外投资账户</option></select></div>
+              <div class="field"><label>卡片名称</label><input id="cardName" value="每周账户变化与归因"></div>
+              <div class="toggle-row"><span>主动提醒重大变化</span><button class="toggle on" aria-label="切换提醒"></button></div>
+              <div class="toggle-row"><span>显示具体金额</span><button class="toggle on" aria-label="切换金额"></button></div>
+              <div class="toggle-row"><span>纳入交易待办</span><button class="toggle on" aria-label="切换待办"></button></div>
+              <button class="primary" style="width:100%;margin-top:19px" id="applySettings">应用到预览</button>
+            </aside>
+            <div>
+              <div class="section-head" style="margin-top:0"><div><h2>我的服务卡片</h2><p class="muted">点击星标收藏，或发布给其他人使用</p></div><span class="chip" id="cardCount">4 张</span></div>
+              <div class="template-list" id="templateList">
+                <article class="template selected">
+                  <div class="top"><div class="template-icon">周</div><button class="star on" aria-label="取消收藏">★</button></div>
+                  <h3 style="margin-top:15px">每周账户变化与归因</h3><p class="muted" style="font-size:11px">近一周 · 全部资金账户 · 含交易待办</p>
+                  <div class="mini-bars"><i style="height:45%"></i><i style="height:68%"></i><i style="height:36%"></i><i style="height:80%"></i><i style="height:62%"></i><i style="height:48%"></i></div>
+                  <div class="template-footer"><span>今天 15:04 更新</span><button data-publish="每周账户变化与归因">发布</button></div>
+                </article>
+                <article class="template">
+                  <div class="top"><div class="template-icon" style="background:#f3e9d9;color:#9b6829">资</div><button class="star" aria-label="收藏">☆</button></div>
+                  <h3 style="margin-top:15px">闲钱与扣款提醒</h3><p class="muted" style="font-size:11px">近一个月 · 招行 4821 · 阈值 ¥20,000</p>
+                  <div class="mini-bars"><i style="height:32%;background:#ddc79e"></i><i style="height:42%;background:#ddc79e"></i><i style="height:57%;background:#ddc79e"></i><i style="height:54%;background:#ddc79e"></i><i style="height:71%;background:#ddc79e"></i><i style="height:76%;background:#ddc79e"></i></div>
+                  <div class="template-footer"><span>2 条待处理</span><button data-publish="闲钱与扣款提醒">发布</button></div>
+                </article>
+                <article class="template">
+                  <div class="top"><div class="template-icon" style="background:#e7eef1;color:#426f83">波</div><button class="star" aria-label="收藏">☆</button></div>
+                  <h3 style="margin-top:15px">市场波动对我的影响</h3><p class="muted" style="font-size:11px">实时 · 全部账户 · 影响归因与压力测试</p>
+                  <svg viewBox="0 0 250 55" style="width:100%;height:55px;margin-top:15px"><path d="M2 30 C28 8 45 48 69 28 S110 14 128 34 S164 49 183 22 S218 10 248 31" fill="none" stroke="#7194a3" stroke-width="3"/></svg>
+                  <div class="template-footer"><span>影响系数 1.24×</span><button data-publish="市场波动对我的影响">发布</button></div>
+                </article>
+                <article class="template">
+                  <div class="top"><div class="template-icon" style="background:#f6e6e4;color:#b75c54">诊</div><button class="star" aria-label="收藏">☆</button></div>
+                  <h3 style="margin-top:15px">月度持仓诊断</h3><p class="muted" style="font-size:11px">每月 1 日 · 全部持仓 · 穿透与集中度</p>
+                  <div style="display:flex;gap:7px;margin-top:20px"><span class="chip">配置 82</span><span class="chip">分散 68</span><span class="chip">纪律 76</span></div>
+                  <div class="template-footer"><span>下次 8 月 1 日</span><button data-publish="月度持仓诊断">发布</button></div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="screen" id="market">
+          <div class="studio-hero"><div><span class="eyebrow">SERVICE MARKETPLACE</span><h1>发现别人设计的服务卡片</h1><p class="muted">复用的是服务设定与分析框架，不会共享任何个人账户数据。</p></div><button class="secondary" data-screen="studio">查看我的卡片</button></div>
+          <div class="market-grid">
+            <article class="market-card"><span class="eyebrow">热门</span><h3 style="margin-top:9px">大跌后，我需要做什么？</h3><p>市场单日跌幅超过 2% 时，自动生成个人影响、仓位压力与行动清单。</p><div class="creator"><i>陈</i>陈教练 · 认证主理人</div><div class="market-meta"><span>12.8k 使用 · 96% 好评</span><button data-toast="已添加到我的服务卡片（演示）">＋ 使用</button></div></article>
+            <article class="market-card"><span class="eyebrow">资金管理</span><h3 style="margin-top:9px">工资到账后的四笔钱安排</h3><p>识别新增资金，先留应急金，再按目标缺口给出分配建议。</p><div class="creator"><i>顾</i>且慢投顾研究室</div><div class="market-meta"><span>8.6k 使用 · 94% 好评</span><button data-toast="已添加到我的服务卡片（演示）">＋ 使用</button></div></article>
+            <article class="market-card"><span class="eyebrow">亲子账户</span><h3 style="margin-top:9px">教育金目标进度卡</h3><p>只看教育金账户，按目标日期、投入进度与概率缺口持续跟踪。</p><div class="creator"><i>周</i>周周 · 理财规划师</div><div class="market-meta"><span>5.2k 使用 · 97% 好评</span><button data-toast="已添加到我的服务卡片（演示）">＋ 使用</button></div></article>
+            <article class="market-card"><span class="eyebrow">海外资产</span><h3 style="margin-top:9px">美元账户风险雷达</h3><p>整合汇率、科技集中度与海外账户现金余额，输出周度风险提示。</p><div class="creator"><i>何</i>何所思 · 专业用户</div><div class="market-meta"><span>3.1k 使用 · 92% 好评</span><button data-toast="已添加到我的服务卡片（演示）">＋ 使用</button></div></article>
+            <article class="market-card"><span class="eyebrow">退休规划</span><h3 style="margin-top:9px">退休现金流安全垫</h3><p>追踪可覆盖月份、提款率与组合回撤，提示需要降低支出的情形。</p><div class="creator"><i>梁</i>梁老师 · 认证主理人</div><div class="market-meta"><span>7.7k 使用 · 98% 好评</span><button data-toast="已添加到我的服务卡片（演示）">＋ 使用</button></div></article>
+            <article class="market-card"><span class="eyebrow">交易纪律</span><h3 style="margin-top:9px">追涨杀跌行为提醒</h3><p>识别短期高频申赎、情绪交易和计划偏离，事前提醒而非事后总结。</p><div class="creator"><i>AI</i>小顾实验室</div><div class="market-meta"><span>16.3k 使用 · 95% 好评</span><button data-toast="已添加到我的服务卡片（演示）">＋ 使用</button></div></article>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <nav class="mobile-nav" aria-label="移动端导航">
+    <button class="active" data-screen="today"><b>⌂</b>今天</button><button data-screen="chat"><b>✦</b>问小顾</button><button data-screen="report"><b>▤</b>报告</button><button data-screen="studio"><b>▦</b>卡片</button><button data-screen="market"><b>◇</b>广场</button>
+  </nav>
+
+  <div class="modal" id="publishModal" role="dialog" aria-modal="true">
+    <div class="modal-panel">
+      <div class="modal-head"><div><span class="eyebrow">PUBLISH CARD</span><h2 style="margin-top:7px">发布到应用广场</h2></div><button data-close-modal>×</button></div>
+      <p class="muted" style="font-size:12px">只发布卡片的参数模板和分析逻辑，不包含你的金额、账户或持仓数据。</p>
+      <div class="field"><label>卡片名称</label><input id="publishName"></div>
+      <div class="publish-options">
+        <label class="publish-option"><input type="radio" name="visibility" checked><span><b>公开发布</b><small class="muted" style="display:block;margin-top:3px">所有用户都可以搜索和使用</small></span></label>
+        <label class="publish-option"><input type="radio" name="visibility"><span><b>仅链接可用</b><small class="muted" style="display:block;margin-top:3px">知道链接的人可以使用</small></span></label>
+      </div>
+      <label style="font-size:11px;color:var(--muted)"><input type="checkbox" id="publishAgree" style="accent-color:var(--green)"> 我确认卡片不包含个人敏感信息</label>
+      <div class="modal-actions"><button class="secondary" data-close-modal>取消</button><button class="primary" id="confirmPublish">确认发布</button></div>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const screens = [...document.querySelectorAll('.screen')];
+    const navButtons = [...document.querySelectorAll('[data-screen]')];
+    const toastEl = document.getElementById('toast');
+    let toastTimer;
+    const showToast = (message) => {
+      clearTimeout(toastTimer); toastEl.textContent = message; toastEl.classList.add('show');
+      toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2300);
+    };
+    const showScreen = (id) => {
+      screens.forEach(s => s.classList.toggle('active', s.id === id));
+      document.querySelectorAll('.nav [data-screen],.mobile-nav [data-screen]').forEach(b => b.classList.toggle('active', b.dataset.screen === id));
+      window.scrollTo({top:0,behavior:'smooth'});
+    };
+    navButtons.forEach(btn => btn.addEventListener('click', () => showScreen(btn.dataset.screen)));
+    document.querySelectorAll('[data-toast]').forEach(btn => btn.addEventListener('click', () => showToast(btn.dataset.toast)));
+    document.querySelectorAll('.toggle').forEach(btn => btn.addEventListener('click', () => btn.classList.toggle('on')));
+    document.querySelectorAll('.star').forEach(btn => btn.addEventListener('click', () => {
+      const on = btn.classList.toggle('on'); btn.textContent = on ? '★' : '☆'; btn.setAttribute('aria-label', on ? '取消收藏' : '收藏'); showToast(on ? '已收藏卡片' : '已取消收藏');
+    }));
+    const answers = {
+      '最近市场波动对我影响多大？': ['中等偏高','你的账户近 5 日回撤 2.36%，比参考市场多 0.45 个百分点。主要因为科技成长与港股互联网合计占 24%，且两者近期相关性升高。','−¥30,540','89%','未触发'],
+      '为什么我的账户跌得更多？': ['可解释','不是所有持仓都跌得更多。超额回撤主要来自科技成长与港股互联网，两类资产贡献了 0.39 个百分点；固收与黄金抵消了 0.11 个百分点。','−0.31%','2 类','结构性'],
+      '今天的回撤主要来自哪里？': ['集中来源','全球科技精选贡献 −¥6,641，港股互联网策略贡献 −¥5,183，是今天最主要的两个回撤来源。','−¥11,824','63%','2 只'],
+      '我的科技资产是不是太多了？': ['需要关注','名义占比 18.4%，穿透底层重合后科技相关暴露约 21.6%，高于你设定的 18% 观察线，但未超过 25% 警戒线。','21.6%','+3.6%','观察'],
+      '现在需要调仓吗？': ['暂不需要','当前配置偏离 3.8%，小于你设定的 5% 再平衡阈值。优先修复扣款失败，并继续观察成长风格相关性。','3.8%','5.0%','等待'],
+      '如果再跌 5% 会怎样？': ['压力可控','按当前持仓相关性估算，若科技与港股成长再下跌 5%，账户可能再回撤约 1.26%，仍不会触发你的总风险警戒线。','−1.26%','≈¥16,210','可承受']
+    };
+    function ask(question){
+      showScreen('chat');
+      const wrap = document.getElementById('chatMessages');
+      const data = answers[question] || ['正在分析','我会把这个问题拆成市场变化、持仓暴露、资金与交易四部分。Demo 当前返回示例分析；正式产品会基于实时账户数据生成。','实时','4 维','可追问'];
+      wrap.insertAdjacentHTML('beforeend', `<div class="message user"><div class="bubble">${question.replace(/[<>]/g,'')}</div></div><div class="message"><div class="bubble"><b>${data[1]}</b><div class="answer-card"><div class="impact-score"><div><span class="eyebrow">PERSONAL IMPACT</span><h3 style="margin-top:5px">个人影响判断</h3></div><span class="score-pill">${data[0]}</span></div><div class="impact-grid"><div>预计影响<b>${data[2]}</b></div><div>主要来源<b>${data[3]}</b></div><div>行动判断<b>${data[4]}</b></div></div></div></div></div>`);
+      setTimeout(() => window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'}),80);
+    }
+    document.querySelectorAll('[data-question]').forEach(btn => btn.addEventListener('click', () => ask(btn.dataset.question)));
+    [document.getElementById('globalAsk'),document.getElementById('chatAsk')].forEach(form => form.addEventListener('submit', e => {
+      e.preventDefault(); const input=form.querySelector('input'); if(!input.value.trim()) return; const q=input.value.trim(); input.value=''; ask(q);
+    }));
+    const periodText={本周:'2026.07.24 — 2026.07.30',本月:'2026.07.01 — 2026.07.30',今年:'2026.01.01 — 2026.07.30',自定义:'2026.06.15 — 2026.07.30'};
+    document.querySelectorAll('[data-period]').forEach(btn => btn.addEventListener('click', () => {
+      document.querySelectorAll('[data-period]').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.getElementById('reportPeriod').textContent=periodText[btn.dataset.period];showToast(`已切换为${btn.dataset.period}报告`);
+    }));
+    document.getElementById('applySettings').addEventListener('click',()=>{
+      const card=document.querySelector('.template.selected'); const name=document.getElementById('cardName').value||'自定义服务卡片';
+      card.querySelector('h3').textContent=name;card.querySelector('p').textContent=`${document.getElementById('rangeSetting').value} · ${document.getElementById('accountSetting').value} · 含交易待办`;showToast('设置已应用到卡片预览');
+    });
+    document.getElementById('generateCard').addEventListener('click',()=>{
+      const name=document.getElementById('cardName').value||'自定义服务卡片';const list=document.getElementById('templateList');
+      list.insertAdjacentHTML('afterbegin',`<article class="template selected"><div class="top"><div class="template-icon">新</div><button class="star on" aria-label="取消收藏">★</button></div><h3 style="margin-top:15px">${name.replace(/[<>]/g,'')}</h3><p class="muted" style="font-size:11px">${document.getElementById('rangeSetting').value} · ${document.getElementById('accountSetting').value}</p><div class="mini-bars"><i style="height:38%"></i><i style="height:55%"></i><i style="height:72%"></i><i style="height:44%"></i><i style="height:64%"></i><i style="height:80%"></i></div><div class="template-footer"><span>刚刚生成</span><button data-publish="${name.replace(/"/g,'&quot;')}">发布</button></div></article>`);
+      [...list.querySelectorAll('.template')].forEach((c,i)=>c.classList.toggle('selected',i===0));document.getElementById('cardCount').textContent=`${list.children.length} 张`;bindDynamic();showToast('新服务卡片已生成并保存');
+    });
+    const modal=document.getElementById('publishModal');
+    function openPublish(name){document.getElementById('publishName').value=name;document.getElementById('publishAgree').checked=false;modal.classList.add('open')}
+    function bindDynamic(){document.querySelectorAll('[data-publish]').forEach(btn=>{btn.onclick=()=>openPublish(btn.dataset.publish)});document.querySelectorAll('.star').forEach(btn=>{if(btn.dataset.bound)return;btn.dataset.bound='1';btn.onclick=()=>{const on=btn.classList.toggle('on');btn.textContent=on?'★':'☆';showToast(on?'已收藏卡片':'已取消收藏')}})}
+    bindDynamic();
+    document.querySelectorAll('[data-close-modal]').forEach(btn=>btn.addEventListener('click',()=>modal.classList.remove('open')));
+    modal.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('open')});
+    document.getElementById('confirmPublish').addEventListener('click',()=>{
+      if(!document.getElementById('publishAgree').checked){showToast('请先确认不包含个人敏感信息');return}
+      modal.classList.remove('open');showScreen('market');showToast('卡片已发布到应用广场（演示）');
+    });
+  </script>
+</body>
+</html>
