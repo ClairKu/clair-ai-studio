@@ -1,0 +1,889 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0d162b">
+  <meta name="description" content="盈米 AI 服务蓝图与三端业务视觉稿">
+  <title>盈米 AI 服务蓝图｜统一能力底座与三端业务</title>
+  <style>
+    :root {
+      --navy: #0d162b;
+      --navy-2: #151f38;
+      --paper: #f6f7fb;
+      --white: #fff;
+      --ink: #121827;
+      --muted: #65708a;
+      --line: #d9deeb;
+      --violet: #7352ed;
+      --violet-2: #5d43d4;
+      --violet-soft: #eeeaff;
+      --mint: #16a998;
+      --mint-soft: #e2f7f3;
+      --serif: "Songti SC", "STSong", "SimSun", "Noto Serif CJK SC", "Source Han Serif SC", serif;
+      --shadow: 0 22px 60px rgba(10, 18, 37, .14);
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: var(--serif);
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-snap-type: y mandatory;
+      background: #eef0f5;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 8%, rgba(115, 82, 237, .08), transparent 27rem),
+        linear-gradient(135deg, #f7f7fa 0%, #e9ecf3 100%);
+    }
+
+    button, a {
+      color: inherit;
+      font: inherit;
+    }
+
+    .deck {
+      width: 100%;
+    }
+
+    .page {
+      min-height: 100svh;
+      padding: clamp(18px, 2.7vw, 54px);
+      display: grid;
+      place-items: center;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+    }
+
+    .slide {
+      width: min(1820px, 100%);
+      aspect-ratio: 16 / 9;
+      min-height: 680px;
+      max-height: calc(100svh - clamp(36px, 5.4vw, 108px));
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: clamp(20px, 2vw, 38px);
+      padding: clamp(34px, 3.2vw, 64px);
+      border: 1px solid rgba(255, 255, 255, .11);
+      border-radius: clamp(30px, 3vw, 58px);
+      background: var(--navy);
+      box-shadow: var(--shadow);
+    }
+
+    .eyebrow {
+      margin: 0;
+      color: rgba(255, 255, 255, .88);
+      font-size: clamp(13px, 1vw, 18px);
+      font-weight: 700;
+      letter-spacing: .09em;
+    }
+
+    .status {
+      position: absolute;
+      top: clamp(26px, 2.6vw, 52px);
+      right: clamp(30px, 3vw, 58px);
+      padding: 10px 18px;
+      border: 1px solid rgba(255, 255, 255, .16);
+      border-radius: 999px;
+      color: rgba(255, 255, 255, .64);
+      background: rgba(255, 255, 255, .06);
+      font-size: clamp(12px, .9vw, 16px);
+      letter-spacing: .04em;
+    }
+
+    .canvas {
+      min-height: 0;
+      overflow: hidden;
+      border-radius: clamp(24px, 2vw, 42px);
+      background: var(--paper);
+    }
+
+    /* Page 1 */
+    .blueprint {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: clamp(16px, 1.7vw, 30px);
+      padding: clamp(30px, 3vw, 58px);
+    }
+
+    .blueprint-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 28px;
+    }
+
+    .kicker {
+      margin: 0 0 12px;
+      color: var(--violet);
+      font-size: clamp(12px, .85vw, 16px);
+      font-weight: 700;
+      letter-spacing: .16em;
+    }
+
+    h1, h2, h3, p {
+      margin-top: 0;
+    }
+
+    .blueprint h1 {
+      max-width: 1200px;
+      margin-bottom: 0;
+      font-size: clamp(36px, 3vw, 58px);
+      font-weight: 700;
+      line-height: 1.12;
+      letter-spacing: -.03em;
+      white-space: nowrap;
+    }
+
+    .blueprint h1 span {
+      white-space: nowrap;
+    }
+
+    .head-mark {
+      padding: 11px 16px;
+      border-radius: 999px;
+      color: var(--violet);
+      background: var(--violet-soft);
+      font-size: clamp(12px, .85vw, 16px);
+      white-space: nowrap;
+    }
+
+    .flow {
+      min-height: 0;
+      display: grid;
+      grid-template-columns: minmax(210px, .82fr) minmax(250px, 1fr) minmax(300px, 1.15fr);
+      align-items: center;
+      gap: clamp(48px, 5vw, 100px);
+      padding: 0 clamp(8px, 1vw, 20px);
+    }
+
+    .node {
+      position: relative;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: rgba(255, 255, 255, .96);
+      box-shadow: 0 12px 34px rgba(22, 30, 56, .07);
+    }
+
+    .node::after {
+      content: "";
+      position: absolute;
+      z-index: 0;
+      top: 50%;
+      left: 100%;
+      width: clamp(48px, 5vw, 100px);
+      height: 3px;
+      background: linear-gradient(90deg, var(--violet), #9c86f6);
+      transform: translateY(-50%);
+    }
+
+    .node-base,
+    .node-lab {
+      min-height: clamp(220px, 23vh, 340px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(26px, 2.3vw, 42px);
+    }
+
+    .node-lab {
+      border-color: #aa98f4;
+      background:
+        radial-gradient(circle at 88% 8%, rgba(115, 82, 237, .10), transparent 42%),
+        #fff;
+    }
+
+    .node-label {
+      margin-bottom: 30px;
+      color: var(--violet);
+      font-size: clamp(14px, 1vw, 19px);
+      font-weight: 700;
+      letter-spacing: .04em;
+    }
+
+    .node-title {
+      margin-bottom: 20px;
+      font-size: clamp(27px, 2vw, 39px);
+      line-height: 1.2;
+    }
+
+    .node-copy {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: clamp(15px, 1.05vw, 20px);
+      line-height: 1.65;
+    }
+
+    .junction {
+      position: absolute;
+      top: 50%;
+      right: -8px;
+      z-index: 2;
+      width: 17px;
+      height: 17px;
+      border: 4px solid #e6e0ff;
+      border-radius: 50%;
+      background: var(--violet);
+      transform: translate(50%, -50%);
+      box-shadow: 0 0 0 2px #9178f0;
+    }
+
+    .ends {
+      position: relative;
+      display: grid;
+      gap: clamp(18px, 2.2vh, 32px);
+    }
+
+    .ends::before {
+      content: "";
+      position: absolute;
+      top: 25%;
+      right: 100%;
+      width: clamp(48px, 5vw, 100px);
+      height: 50%;
+      border-left: 3px solid var(--violet);
+      border-top: 3px solid var(--violet);
+      border-bottom: 3px solid var(--violet);
+      border-radius: 16px 0 0 16px;
+    }
+
+    .end-card {
+      min-height: clamp(130px, 15vh, 190px);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 20px;
+      padding: clamp(22px, 2vw, 36px);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: #fff;
+      box-shadow: 0 10px 28px rgba(22, 30, 56, .06);
+    }
+
+    .end-kicker {
+      margin-bottom: 14px;
+      color: var(--violet);
+      font-size: clamp(12px, .85vw, 16px);
+      font-weight: 700;
+      letter-spacing: .06em;
+    }
+
+    .end-card h3 {
+      margin-bottom: 10px;
+      font-size: clamp(23px, 1.75vw, 34px);
+    }
+
+    .end-card p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: clamp(13px, .95vw, 18px);
+      line-height: 1.5;
+    }
+
+    .icon {
+      width: clamp(46px, 3.7vw, 70px);
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      color: var(--mint);
+      background: var(--mint-soft);
+      font-size: clamp(23px, 1.8vw, 34px);
+    }
+
+    .flywheel {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 18px;
+      padding: clamp(18px, 1.5vw, 26px) clamp(24px, 2.2vw, 38px);
+      border: 1px solid #d8d4ee;
+      border-radius: 20px;
+      background: #fff;
+    }
+
+    .flywheel strong {
+      color: var(--violet);
+      font-size: clamp(13px, .9vw, 17px);
+      letter-spacing: .06em;
+    }
+
+    .flywheel-line {
+      height: 1px;
+      background: linear-gradient(90deg, #c8bfef, transparent);
+    }
+
+    .flywheel span {
+      font-size: clamp(15px, 1.1vw, 21px);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .summary {
+      margin: 0;
+      padding-left: 22px;
+      border-left: 5px solid var(--violet);
+      color: #282e40;
+      font-size: clamp(16px, 1.15vw, 22px);
+      font-weight: 700;
+      line-height: 1.6;
+    }
+
+    /* Page 2 */
+    .three-ends {
+      display: grid;
+      grid-template-columns: minmax(390px, 1fr) 2.65fr;
+      min-height: 0;
+    }
+
+    .story {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: clamp(34px, 3vw, 60px);
+      color: #fff;
+      background:
+        radial-gradient(circle at 10% 5%, rgba(115, 82, 237, .24), transparent 28rem),
+        var(--navy-2);
+    }
+
+    .story .kicker {
+      color: #a992ff;
+    }
+
+    .story h2 {
+      max-width: 410px;
+      margin-bottom: 28px;
+      font-size: clamp(38px, 2.8vw, 54px);
+      line-height: 1.18;
+      letter-spacing: -.04em;
+    }
+
+    .nowrap {
+      white-space: nowrap;
+    }
+
+    .story-rule {
+      width: 52px;
+      height: 4px;
+      margin: 0 0 30px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--violet), #a992ff);
+    }
+
+    .story-copy {
+      max-width: 420px;
+      margin: 0;
+      color: rgba(255, 255, 255, .68);
+      font-size: clamp(14px, 1vw, 19px);
+      line-height: 1.82;
+    }
+
+    .story-foot {
+      color: rgba(255, 255, 255, .4);
+      font-size: clamp(11px, .8vw, 15px);
+      letter-spacing: .09em;
+    }
+
+    .business-canvas {
+      min-width: 0;
+      display: grid;
+      align-content: center;
+      gap: clamp(22px, 2.3vw, 42px);
+      padding: clamp(34px, 3vw, 62px);
+      background: var(--paper);
+    }
+
+    .business-intro {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .business-intro h3 {
+      margin-bottom: 0;
+      font-size: clamp(25px, 2vw, 39px);
+    }
+
+    .business-intro p {
+      max-width: 640px;
+      margin-bottom: 2px;
+      color: var(--muted);
+      font-size: clamp(13px, .9vw, 17px);
+      line-height: 1.65;
+      text-align: right;
+    }
+
+    .business-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(14px, 1.5vw, 26px);
+    }
+
+    .business-card {
+      min-height: clamp(410px, 50vh, 590px);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: clamp(24px, 2vw, 38px);
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      background: #fff;
+      box-shadow: 0 10px 30px rgba(22, 30, 56, .05);
+    }
+
+    .letter {
+      position: absolute;
+      top: -16px;
+      right: 18px;
+      color: rgba(115, 82, 237, .11);
+      font-size: clamp(100px, 9vw, 168px);
+      font-weight: 700;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .audience {
+      position: relative;
+      z-index: 1;
+      margin-bottom: clamp(44px, 5vh, 74px);
+      color: var(--violet);
+      font-size: clamp(13px, .9vw, 17px);
+      font-weight: 700;
+      letter-spacing: .02em;
+    }
+
+    .business-card h4 {
+      position: relative;
+      z-index: 1;
+      margin: 0 0 24px;
+      font-size: clamp(23px, 1.65vw, 32px);
+      line-height: 1.35;
+    }
+
+    .business-card > p {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 28px;
+      color: var(--muted);
+      font-size: clamp(13px, .95vw, 18px);
+      line-height: 1.75;
+    }
+
+    .metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: auto;
+    }
+
+    .metric {
+      min-width: 104px;
+      flex: 1 1 104px;
+      padding: 16px 14px 14px;
+      border: 1px solid #e2ddf8;
+      border-radius: 16px;
+      background: linear-gradient(145deg, #f9f7ff, #f0edfc);
+    }
+
+    .metric strong {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--violet-2);
+      font-size: clamp(22px, 1.6vw, 31px);
+      line-height: 1.1;
+    }
+
+    .metric span {
+      color: #42495c;
+      font-size: clamp(11px, .75vw, 14px);
+      line-height: 1.35;
+    }
+
+    .pager {
+      position: fixed;
+      z-index: 20;
+      right: max(12px, env(safe-area-inset-right));
+      top: 50%;
+      display: grid;
+      gap: 10px;
+      padding: 10px;
+      border: 1px solid rgba(255, 255, 255, .2);
+      border-radius: 999px;
+      background: rgba(13, 22, 43, .74);
+      box-shadow: 0 10px 28px rgba(13, 22, 43, .16);
+      backdrop-filter: blur(12px);
+      transform: translateY(-50%);
+    }
+
+    .pager a {
+      width: 11px;
+      height: 11px;
+      display: block;
+      border: 1px solid rgba(255, 255, 255, .72);
+      border-radius: 50%;
+      background: transparent;
+      text-decoration: none;
+    }
+
+    .pager a[aria-current="page"] {
+      border-color: #a990ff;
+      background: #a990ff;
+      box-shadow: 0 0 0 4px rgba(169, 144, 255, .16);
+    }
+
+    @media (max-width: 1100px) {
+      html {
+        scroll-snap-type: none;
+      }
+
+      .page {
+        min-height: auto;
+        padding: 14px;
+      }
+
+      .slide {
+        aspect-ratio: auto;
+        min-height: 0;
+        max-height: none;
+        padding: 24px;
+        border-radius: 28px;
+      }
+
+      .status {
+        position: static;
+        width: fit-content;
+        margin-top: -4px;
+      }
+
+      .blueprint-head,
+      .flow,
+      .three-ends,
+      .business-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .blueprint-head {
+        align-items: start;
+      }
+
+      .blueprint h1 {
+        white-space: normal;
+      }
+
+      .head-mark {
+        width: fit-content;
+      }
+
+      .flow {
+        gap: 16px;
+        padding: 0;
+      }
+
+      .node-base,
+      .node-lab {
+        min-height: 0;
+      }
+
+      .node::after,
+      .ends::before,
+      .junction {
+        display: none;
+      }
+
+      .ends {
+        gap: 16px;
+      }
+
+      .flywheel {
+        grid-template-columns: 1fr;
+      }
+
+      .flywheel-line {
+        display: none;
+      }
+
+      .three-ends {
+        border-radius: 24px;
+      }
+
+      .story {
+        gap: 46px;
+      }
+
+      .business-intro {
+        display: block;
+      }
+
+      .business-intro p {
+        margin-top: 14px;
+        text-align: left;
+      }
+
+      .business-grid {
+        gap: 16px;
+      }
+
+      .business-card {
+        min-height: 420px;
+      }
+
+      .pager {
+        display: none;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .page {
+        padding: 8px;
+      }
+
+      .slide {
+        gap: 18px;
+        padding: 18px;
+        border-radius: 24px;
+      }
+
+      .canvas {
+        border-radius: 20px;
+      }
+
+      .blueprint,
+      .business-canvas,
+      .story {
+        padding: 24px 20px;
+      }
+
+      .blueprint h1,
+      .story h2 {
+        font-size: 34px;
+      }
+
+      .end-card {
+        grid-template-columns: 1fr;
+      }
+
+      .icon {
+        display: none;
+      }
+
+      .flywheel span {
+        white-space: normal;
+      }
+
+      .summary {
+        font-size: 15px;
+      }
+
+      .story-copy {
+        font-size: 15px;
+      }
+
+      .business-card {
+        min-height: 390px;
+      }
+    }
+
+    @media print {
+      html, body {
+        background: #fff;
+      }
+
+      .page {
+        min-height: 0;
+        padding: 0;
+        break-after: page;
+      }
+
+      .slide {
+        width: 100%;
+        min-height: 0;
+        max-height: none;
+        aspect-ratio: 16 / 9;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      .pager {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="pager" aria-label="页面导航">
+    <a href="#blueprint" aria-label="前往第 1 页" aria-current="page"></a>
+    <a href="#three-ends" aria-label="前往第 2 页"></a>
+  </nav>
+
+  <main class="deck">
+    <section class="page" id="blueprint" data-page="1">
+      <article class="slide">
+        <p class="eyebrow">AI 服务操作系统 · 业务蓝图</p>
+        <span class="status">能力资产 → 服务生产 → 业务结果</span>
+
+        <div class="canvas blueprint">
+          <header class="blueprint-head">
+            <div>
+              <p class="kicker">THE BLUEPRINT</p>
+              <h1><span>一个底座、</span><span>一座工厂、</span><span>两个终端、</span><span>一个增长飞轮</span></h1>
+            </div>
+            <span class="head-mark">ONE SYSTEM · TWO ENDS</span>
+          </header>
+
+          <div class="flow">
+            <article class="node node-base">
+              <span class="node-label">一个底座</span>
+              <h2 class="node-title">AI 开放平台</h2>
+              <p class="node-copy">能力供给与治理</p>
+              <span class="junction" aria-hidden="true"></span>
+            </article>
+
+            <article class="node node-lab">
+              <span class="node-label">一座工厂</span>
+              <h2 class="node-title">AI 实验室</h2>
+              <p class="node-copy">组装 · 测试 · 审核<br>发布 · 运营</p>
+              <span class="junction" aria-hidden="true"></span>
+            </article>
+
+            <div class="ends">
+              <article class="end-card">
+                <div>
+                  <p class="end-kicker">两个服务终端 · C 端</p>
+                  <h3>AI 小顾</h3>
+                  <p>持续陪伴用户，推动理解与行动</p>
+                </div>
+                <span class="icon" aria-hidden="true">C</span>
+              </article>
+
+              <article class="end-card">
+                <div>
+                  <p class="end-kicker">两个服务终端 · B 端</p>
+                  <h3>AI 顾问工作台</h3>
+                  <p>人机协同，标准化交付专业服务</p>
+                </div>
+                <span class="icon" aria-hidden="true">B</span>
+              </article>
+
+              <div class="flywheel">
+                <strong>一个增长飞轮</strong>
+                <span class="flywheel-line" aria-hidden="true"></span>
+                <span>结果 → 反馈 → 下一次服务</span>
+              </div>
+            </div>
+          </div>
+
+          <p class="summary">平台决定能不能调用；实验室决定能不能生产；两端决定能不能产生结果。</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="page" id="three-ends" data-page="2">
+      <article class="slide">
+        <p class="eyebrow">03 · ONE AI, THREE ENDS</p>
+        <span class="status">统一能力资产 · 差异化服务</span>
+
+        <div class="canvas three-ends">
+          <aside class="story">
+            <div>
+              <p class="kicker">ONE AI, THREE ENDS</p>
+              <h2><span class="nowrap">同一能力底座，</span><br><span class="nowrap">服务三端业务</span></h2>
+              <div class="story-rule" aria-hidden="true"></div>
+              <p class="story-copy">
+                不是为三端分别重复建设 AI，而是以统一能力资产支撑差异化服务：C 端获得更懂、更主动的陪伴；A 端获得专家级辅助；B 端获得可集成的金融能力底座。
+              </p>
+            </div>
+            <p class="story-foot">CUSTOMER · ADVISOR · BUSINESS</p>
+          </aside>
+
+          <div class="business-canvas">
+            <header class="business-intro">
+              <h3>同一套能力，创造三类结果</h3>
+              <p>面向用户更懂，面向顾问更强，面向机构更开放。</p>
+            </header>
+
+            <div class="business-grid">
+              <article class="business-card">
+                <span class="letter" aria-hidden="true">C</span>
+                <p class="audience">投资者 · CUSTOMER</p>
+                <h4>更懂、更主动、更会分析</h4>
+                <p>AI 小顾提供 7×24 小时的账户解释、投资规划、产品分析、市场解读与投后陪伴。</p>
+                <div class="metrics">
+                  <div class="metric"><strong>20 万</strong><span>服务用户</span></div>
+                  <div class="metric"><strong>300 万</strong><span>次调用</span></div>
+                  <div class="metric"><strong>95%+</strong><span>通过率</span></div>
+                </div>
+              </article>
+
+              <article class="business-card">
+                <span class="letter" aria-hidden="true">A</span>
+                <p class="audience">顾问 / 运营 · ADVISOR</p>
+                <h4>把专家方法复制给每位顾问</h4>
+                <p>客户洞察、方案生成、沟通陪伴、内容生产与服务复盘形成闭环。</p>
+                <div class="metrics">
+                  <div class="metric"><strong>5×</strong><span>报告产能</span></div>
+                  <div class="metric"><strong>2×</strong><span>转化提升案例</span></div>
+                </div>
+              </article>
+
+              <article class="business-card">
+                <span class="letter" aria-hidden="true">B</span>
+                <p class="audience">机构伙伴 · BUSINESS</p>
+                <h4>可集成、可复用、可治理</h4>
+                <p>通过 MCP、Skills、开放平台与机构共建，把金融专业能力嵌入各类 AI 产品和业务工作台。</p>
+                <div class="metrics">
+                  <div class="metric"><strong>400+</strong><span>金融机构</span></div>
+                  <div class="metric"><strong>1600+</strong><span>接入机构总数</span></div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    const pages = [...document.querySelectorAll("[data-page]")];
+    const dots = [...document.querySelectorAll(".pager a")];
+    const activate = (index) => {
+      dots.forEach((dot, dotIndex) => {
+        if (dotIndex === index) dot.setAttribute("aria-current", "page");
+        else dot.removeAttribute("aria-current");
+      });
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (visible) activate(pages.indexOf(visible.target));
+    }, { threshold: [.45, .7] });
+
+    pages.forEach((page) => observer.observe(page));
+
+    document.addEventListener("keydown", (event) => {
+      if (!["ArrowLeft", "ArrowRight", "PageUp", "PageDown"].includes(event.key)) return;
+      const current = dots.findIndex((dot) => dot.hasAttribute("aria-current"));
+      const direction = ["ArrowRight", "PageDown"].includes(event.key) ? 1 : -1;
+      const next = Math.max(0, Math.min(pages.length - 1, current + direction));
+      if (next !== current) {
+        event.preventDefault();
+        pages[next].scrollIntoView({ behavior: "smooth" });
+      }
+    });
+  </script>
+</body>
+</html>

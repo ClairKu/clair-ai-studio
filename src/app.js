@@ -115,6 +115,18 @@ const initialState = {
   ],
   reports: [
     {
+      id: "ai-service-blueprint-serif-2026-07-30",
+      groupId: "reporting",
+      title: "盈米 AI 服务蓝图｜统一能力底座与三端业务",
+      url: "https://clairku.github.io/clair-ai-studio/reports/ai-service-blueprint-serif-2026-07-30/",
+      preview: "ai-service-blueprint-serif-2026-07-30.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-07-30T16:30:00.000Z",
+      source: "两张业务蓝图视觉稿｜统一宋体版",
+      access: "production",
+    },
+    {
       id: "ai-xiaogu-product-experience-2026-07-30",
       groupId: "xiaogu",
       title: "且慢 AI 小顾｜八条关键产品经验",
@@ -736,6 +748,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "ai-service-blueprint-serif-2026-07-30": "reporting",
   "yingmi-ai-materials-compendium-2026-07-30": "ai-platform",
   "qieman-ai-product-practice-2026-07-30": "ai-platform",
   "qieman-home-entry-analysis": "product-planning",
