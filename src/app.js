@@ -16,7 +16,7 @@ const STORAGE_KEY = "clair-service-report-workbench-v1";
 const AUTH_KEY = "clair-service-report-workbench-access";
 const VIEW_KEY = "clair-service-report-workbench-view";
 const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
-const DATA_VERSION = 8;
+const DATA_VERSION = 9;
 
 const WORK_TYPES = [
   { id: "requirement-review", name: "需求评审" },
@@ -114,6 +114,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "qieman-longwin-group-page-review-2026-07-30",
+      groupId: "product-planning",
+      title: "长赢同路人小组详情页｜双版产品评审",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-longwin-group-page-review-2026-07-30/",
+      preview: "qieman-longwin-group-page-review-2026-07-30.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-07-30T08:57:42.000Z",
+      source: "左右双版视觉稿｜信息层级、加入资格、协议状态与转化闭环",
+      access: "production",
+      workType: "requirement-review",
+      tags: ["且慢", "需求评审", "投顾服务", "产品规划", "HTML", "生产"],
+    },
     {
       id: "ai-xiaogu-personal-service-demo-2026-07-30",
       groupId: "xiaogu",

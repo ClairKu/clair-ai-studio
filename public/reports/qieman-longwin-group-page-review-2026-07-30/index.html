@@ -1,0 +1,964 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>长赢同路人小组详情页双版评审｜Clair's Studio</title>
+  <meta name="description" content="长赢同路人小组详情页左右双版产品评审：推荐右版信息架构，并给出资格状态机、合规披露、文案、验收与指标建议。">
+  <meta name="theme-color" content="#0a1929">
+  <meta property="og:title" content="长赢同路人小组详情页双版评审">
+  <meta property="og:description" content="右版方向有条件通过：分层正确，但需压缩首屏并补齐加入资格状态机。">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="https://clairku.github.io/clair-ai-studio/previews/qieman-longwin-group-page-review-2026-07-30.svg">
+  <style>
+    :root {
+      --ink: #0b1826;
+      --muted: #5f6f7f;
+      --line: #dce5ed;
+      --paper: #f6f9fb;
+      --white: #fff;
+      --blue: #1187d1;
+      --blue-deep: #075985;
+      --cyan: #56c7e8;
+      --green: #0f8a64;
+      --amber: #a15c00;
+      --red: #c73e36;
+      --navy: #07131f;
+      --shadow: 0 18px 50px rgba(11, 24, 38, .09);
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 90% 6%, rgba(86, 199, 232, .13), transparent 25rem),
+        var(--paper);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC",
+        "Microsoft YaHei", sans-serif;
+      line-height: 1.65;
+    }
+
+    a { color: inherit; }
+    img { max-width: 100%; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+
+    .skip {
+      position: absolute;
+      left: -9999px;
+      top: 8px;
+      z-index: 20;
+      padding: 8px 12px;
+      background: #fff;
+      border-radius: 8px;
+    }
+    .skip:focus { left: 8px; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      min-height: 64px;
+      padding: 0 5vw;
+      color: #d9f0ff;
+      background: rgba(7, 19, 31, .88);
+      border-bottom: 1px solid rgba(255, 255, 255, .1);
+      backdrop-filter: blur(18px);
+    }
+    .brand {
+      text-decoration: none;
+      font-weight: 800;
+      letter-spacing: .05em;
+    }
+    .topbar nav {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-size: 14px;
+    }
+    .topbar nav a {
+      color: #b9d1e2;
+      text-decoration: none;
+    }
+    .topbar nav a:hover { color: #fff; }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 610px;
+      padding: 92px 5vw 72px;
+      color: #fff;
+      background:
+        linear-gradient(115deg, rgba(7, 19, 31, .98), rgba(8, 46, 74, .94) 55%, rgba(22, 124, 166, .88));
+    }
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      pointer-events: none;
+    }
+    .hero::before {
+      width: 520px;
+      height: 520px;
+      right: -90px;
+      top: -220px;
+      background: rgba(86, 199, 232, .18);
+      filter: blur(8px);
+    }
+    .hero::after {
+      width: 280px;
+      height: 280px;
+      right: 17vw;
+      bottom: -190px;
+      border: 1px solid rgba(255, 255, 255, .18);
+    }
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(320px, .85fr);
+      gap: 7vw;
+      align-items: end;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .eyebrow {
+      margin: 0 0 20px;
+      color: #70d1ee;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+    h1 {
+      max-width: 850px;
+      margin: 0;
+      font-size: clamp(42px, 5.2vw, 66px);
+      line-height: 1.06;
+      letter-spacing: -.04em;
+    }
+    h1 span { display: block; white-space: nowrap; }
+    .hero-lead {
+      max-width: 750px;
+      margin: 28px 0 0;
+      color: #d7e7f1;
+      font-size: clamp(18px, 2vw, 24px);
+    }
+    .verdict {
+      padding: 28px;
+      border: 1px solid rgba(255, 255, 255, .18);
+      border-radius: 24px;
+      background: rgba(255, 255, 255, .09);
+      box-shadow: 0 22px 60px rgba(0, 0, 0, .18);
+      backdrop-filter: blur(12px);
+    }
+    .verdict-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      color: #fef3c7;
+      background: rgba(245, 158, 11, .18);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .08em;
+    }
+    .verdict h2 {
+      margin: 18px 0 8px;
+      font-size: 28px;
+      line-height: 1.25;
+    }
+    .verdict p {
+      margin: 0;
+      color: #c8dbe7;
+    }
+    .verdict-score {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 24px;
+    }
+    .verdict-score div {
+      padding: 13px 10px;
+      border-radius: 14px;
+      text-align: center;
+      background: rgba(4, 16, 28, .34);
+    }
+    .verdict-score strong {
+      display: block;
+      font-size: 22px;
+    }
+    .verdict-score span {
+      display: block;
+      color: #b5cbd9;
+      font-size: 11px;
+    }
+
+    main { max-width: 1280px; margin: 0 auto; padding: 0 5vw 96px; }
+    section { scroll-margin-top: 86px; }
+    .section {
+      margin-top: 86px;
+    }
+    .section-heading {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 420px);
+      gap: 36px;
+      align-items: end;
+      margin-bottom: 28px;
+    }
+    .section-index {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .16em;
+    }
+    h2 {
+      margin: 0;
+      font-size: clamp(30px, 4vw, 52px);
+      line-height: 1.12;
+      letter-spacing: -.035em;
+    }
+    .section-heading p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .evidence {
+      display: grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 22px;
+      align-items: start;
+    }
+    .image-card {
+      position: relative;
+      overflow: hidden;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #070707;
+      box-shadow: var(--shadow);
+    }
+    .image-card img {
+      display: block;
+      width: 100%;
+      border-radius: 12px;
+    }
+    .image-card figcaption {
+      padding: 14px 4px 0;
+      color: #aebdca;
+      font-size: 13px;
+    }
+    .evidence-notes {
+      display: grid;
+      gap: 14px;
+    }
+    .note {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--white);
+    }
+    .note b {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 16px;
+    }
+    .note p { margin: 0; color: var(--muted); font-size: 14px; }
+    .note.confirmed { border-left: 4px solid var(--green); }
+    .note.inference { border-left: 4px solid var(--amber); }
+    .note.missing { border-left: 4px solid var(--red); }
+
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+    .variant {
+      position: relative;
+      overflow: hidden;
+      min-height: 360px;
+      padding: 32px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--white);
+      box-shadow: var(--shadow);
+    }
+    .variant.recommended { border-color: rgba(17, 135, 209, .45); }
+    .variant-tag {
+      display: inline-flex;
+      padding: 7px 10px;
+      border-radius: 999px;
+      color: var(--blue-deep);
+      background: #e4f4fb;
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .variant h3 { margin: 18px 0 4px; font-size: 30px; }
+    .variant > p { margin: 0; color: var(--muted); }
+    .variant ul {
+      margin: 24px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    .variant li {
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      gap: 10px;
+      padding: 12px 0;
+      border-top: 1px solid var(--line);
+    }
+    .variant li::before {
+      content: "—";
+      color: var(--blue);
+      font-weight: 800;
+    }
+
+    .matrix-wrap,
+    .issue-table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--white);
+      box-shadow: var(--shadow);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 760px;
+    }
+    th, td {
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      color: #43566a;
+      background: #eef4f7;
+      font-size: 13px;
+      letter-spacing: .02em;
+    }
+    tbody tr:last-child td { border-bottom: 0; }
+    td { color: #33465a; }
+    td strong { color: var(--ink); }
+    .winner { color: var(--green); font-weight: 800; }
+
+    .issues {
+      display: grid;
+      gap: 16px;
+    }
+    .issue {
+      display: grid;
+      grid-template-columns: 90px minmax(0, 1fr) minmax(260px, .8fr);
+      gap: 22px;
+      align-items: start;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: #fff;
+    }
+    .priority {
+      display: inline-flex;
+      justify-content: center;
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 900;
+    }
+    .p0 { color: #fff; background: var(--red); }
+    .p1 { color: #78350f; background: #fde68a; }
+    .p2 { color: #075985; background: #bae6fd; }
+    .issue h3 { margin: 0 0 6px; font-size: 21px; }
+    .issue p { margin: 0; color: var(--muted); }
+    .fix {
+      padding-left: 18px;
+      border-left: 2px solid var(--cyan);
+      color: #244257;
+      font-size: 14px;
+    }
+
+    .solution {
+      display: grid;
+      grid-template-columns: minmax(330px, .82fr) 1.18fr;
+      gap: 30px;
+      align-items: center;
+      padding: 38px;
+      border-radius: 30px;
+      color: #fff;
+      background: var(--navy);
+      box-shadow: 0 26px 70px rgba(7, 19, 31, .2);
+    }
+    .wireframe {
+      width: min(100%, 360px);
+      margin: 0 auto;
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,.24);
+      border-radius: 36px;
+      background: #eef3f6;
+      box-shadow: 0 25px 80px rgba(0,0,0,.3);
+    }
+    .phone-hero {
+      min-height: 136px;
+      padding: 22px;
+      border-radius: 24px 24px 18px 18px;
+      background: linear-gradient(145deg, #6793b9, #aa9f9d);
+    }
+    .phone-hero span {
+      display: block;
+      width: 74%;
+      height: 14px;
+      margin-top: 48px;
+      border-radius: 7px;
+      background: rgba(255,255,255,.88);
+    }
+    .compact-card {
+      margin: -16px 10px 10px;
+      padding: 16px;
+      border-radius: 17px;
+      color: var(--ink);
+      background: #fff;
+      box-shadow: 0 8px 26px rgba(15,23,42,.09);
+    }
+    .profile-line {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 10px;
+      align-items: center;
+    }
+    .avatar { width: 36px; height: 36px; border-radius: 50%; background: #8ad0e8; }
+    .lines i {
+      display: block;
+      height: 8px;
+      margin: 5px 0;
+      border-radius: 4px;
+      background: #aab7c2;
+    }
+    .lines i:first-child { width: 72%; background: #334155; }
+    .compact-card hr { border: 0; border-top: 1px solid #e2e8f0; margin: 13px 0; }
+    .compact-card b { display: block; font-size: 12px; }
+    .compact-card small { display: block; margin-top: 4px; color: #64748b; }
+    .preview-line {
+      margin: 8px 12px 10px;
+      padding: 9px 12px;
+      border-radius: 10px;
+      color: #557084;
+      background: #dfeef5;
+      font-size: 10px;
+    }
+    .tabs {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 4px;
+      margin: 0 10px;
+      padding: 4px;
+      border-radius: 999px;
+      color: #74808a;
+      background: #dde3e7;
+      font-size: 9px;
+      text-align: center;
+    }
+    .tabs b { padding: 5px; border-radius: 999px; color: #087ec5; background: #fff; }
+    .post-placeholder {
+      min-height: 96px;
+      margin: 10px;
+      border-radius: 15px;
+      background:
+        linear-gradient(#fff,#fff) padding-box,
+        linear-gradient(135deg,#d6e2e8,#fff) border-box;
+      border: 1px solid transparent;
+    }
+    .sticky-action {
+      margin: 10px;
+      padding: 12px;
+      border-radius: 12px;
+      color: #fff;
+      background: var(--blue);
+      font-size: 13px;
+      text-align: center;
+    }
+    .solution-copy .eyebrow { margin-bottom: 12px; }
+    .solution-copy h2 { max-width: 700px; }
+    .solution-copy > p { color: #bed2df; }
+    .solution-copy ol {
+      display: grid;
+      gap: 14px;
+      margin: 28px 0 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: solution;
+    }
+    .solution-copy li {
+      position: relative;
+      padding: 16px 16px 16px 58px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 15px;
+      background: rgba(255,255,255,.05);
+    }
+    .solution-copy li::before {
+      counter-increment: solution;
+      content: "0" counter(solution);
+      position: absolute;
+      left: 16px;
+      color: #5ad0ee;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .copy-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+    .copy-card {
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: #fff;
+    }
+    .copy-card h3 { margin: 0 0 12px; font-size: 20px; }
+    .copy-card p { margin: 0; color: #385066; }
+    .copy-card .copy-label {
+      display: inline-block;
+      margin-bottom: 12px;
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .12em;
+    }
+
+    .acceptance {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      counter-reset: case;
+    }
+    .case {
+      position: relative;
+      padding: 24px 24px 24px 70px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #fff;
+    }
+    .case::before {
+      counter-increment: case;
+      content: counter(case);
+      position: absolute;
+      left: 22px;
+      top: 24px;
+      display: grid;
+      width: 30px;
+      height: 30px;
+      place-items: center;
+      border-radius: 50%;
+      color: #fff;
+      background: var(--blue);
+      font-weight: 900;
+    }
+    .case b { display: block; margin-bottom: 6px; }
+    .case p { margin: 0; color: var(--muted); font-size: 14px; }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .metric {
+      padding: 26px;
+      border-radius: 20px;
+      color: #fff;
+      background: linear-gradient(145deg, #0c2436, #124b6a);
+    }
+    .metric span {
+      display: block;
+      color: #7dd3fc;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .14em;
+    }
+    .metric h3 { margin: 10px 0 8px; font-size: 22px; }
+    .metric p { margin: 0; color: #c4d8e5; font-size: 14px; }
+
+    .final-call {
+      margin-top: 88px;
+      padding: 46px;
+      border-radius: 30px;
+      color: #0d2a3e;
+      background: linear-gradient(135deg, #dff4fb, #fff 65%);
+      border: 1px solid #bfe3ef;
+    }
+    .final-call h2 { max-width: 900px; }
+    .final-call p { max-width: 820px; margin: 20px 0 0; color: #38596c; font-size: 18px; }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 34px 5vw 46px;
+      color: #8ba1b2;
+      background: #07131f;
+      font-size: 13px;
+    }
+
+    @media (max-width: 920px) {
+      .hero-grid,
+      .section-heading,
+      .evidence,
+      .solution { grid-template-columns: 1fr; }
+      .hero { min-height: auto; padding-top: 72px; }
+      .hero-grid { gap: 36px; }
+      .section-heading { gap: 12px; }
+      .issue { grid-template-columns: 74px 1fr; }
+      .issue .fix { grid-column: 2; }
+      .metrics { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 680px) {
+      .topbar { padding: 0 18px; }
+      .topbar nav a:not(:last-child) { display: none; }
+      .hero { padding: 58px 20px 48px; }
+      h1 { font-size: 38px; }
+      .hero-lead { font-size: 18px; }
+      main { padding: 0 18px 72px; }
+      .section { margin-top: 64px; }
+      .compare-grid,
+      .copy-grid,
+      .acceptance { grid-template-columns: 1fr; }
+      .variant { min-height: auto; padding: 25px; }
+      .issue {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      .issue .priority { width: max-content; }
+      .issue .fix { grid-column: auto; }
+      .solution { padding: 24px 18px; }
+      .final-call { padding: 30px 24px; }
+      footer { flex-direction: column; padding-inline: 20px; }
+    }
+
+    @media print {
+      .topbar { display: none; }
+      body { background: #fff; }
+      .hero { min-height: 0; padding: 36px; background: #0b2537 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      main { max-width: none; padding: 0 22px; }
+      .section { break-inside: avoid; margin-top: 44px; }
+      .image-card, .variant, .matrix-wrap, .issue, .solution { box-shadow: none; }
+      footer { margin-top: 40px; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">跳到正文</a>
+  <header class="topbar">
+    <a class="brand" href="../../">CLAIR'S STUDIO</a>
+    <nav aria-label="页内导航">
+      <a href="#evidence">证据</a>
+      <a href="#decision">对比</a>
+      <a href="#risks">问题</a>
+      <a href="#proposal">方案</a>
+    </nav>
+  </header>
+
+  <header class="hero">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">Product review · Qieman · 2026.07.30</p>
+        <h1><span>长赢同路人</span><span>小组详情页双版评审</span></h1>
+        <p class="hero-lead">选择右版的信息架构，但用混合方案拿回首屏效率。真正的上线阻断项不是圆角和间距，而是“加入小组”背后的资格、协议与异常状态没有闭环。</p>
+      </div>
+      <aside class="verdict" aria-label="评审结论">
+        <span class="verdict-label">有条件通过</span>
+        <h2>右版方向正确，不能直接定稿</h2>
+        <p>分层清楚、信任感更强；需压缩头部，并在设计锁定前补齐资格状态机和必要条件披露。</p>
+        <div class="verdict-score">
+          <div><strong>右版</strong><span>视觉方向</span></div>
+          <div><strong>2</strong><span>P0 阻断</span></div>
+          <div><strong>80–120px</strong><span>建议压缩</span></div>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section" id="evidence">
+      <div class="section-heading">
+        <div>
+          <span class="section-index">01 · EVIDENCE</span>
+          <h2>先确认我们真正看到了什么</h2>
+        </div>
+        <p>本次仅收到左右双版视觉稿，没有 PRD、完整交互、接口或合规材料。因此可以做方向决策，但不能把静态稿当成已具备上线条件。</p>
+      </div>
+
+      <div class="evidence">
+        <figure class="image-card">
+          <img src="./assets/design-compare.png" alt="长赢同路人小组详情页左右两版视觉稿：左版在渐变区放置组长和加入须知，右版拆成两个白色卡片">
+          <figcaption>原始评审材料 · 左版强调紧凑，右版强调分层。数据截止：2026-07-30。</figcaption>
+        </figure>
+        <div class="evidence-notes">
+          <article class="note confirmed">
+            <b>已确认</b>
+            <p>页面包含小组介绍、组长、加入条件、公开内容预览、分类标签，以及底部“联系助理 / 加入小组”。</p>
+          </article>
+          <article class="note inference">
+            <b>合理推断</b>
+            <p>小组内容权限可能依赖“跟投客户 + 有效投顾服务协议”，加入动作不是普通社区关注。</p>
+          </article>
+          <article class="note missing">
+            <b>尚未验证</b>
+            <p>资格规则、协议版本、退出/解约、失败恢复、埋点、客服后台和审核留痕均未出现在材料中。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="decision">
+      <div class="section-heading">
+        <div>
+          <span class="section-index">02 · DIRECTION</span>
+          <h2>选右版，但保留左版的效率</h2>
+        </div>
+        <p>右版解决的是结构和信任问题，左版保住的是内容曝光效率。不是二选一，而是以右版为底稿做一次明确的首屏压缩。</p>
+      </div>
+
+      <div class="compare-grid">
+        <article class="variant">
+          <span class="variant-tag">LEFT · 不建议定稿</span>
+          <h3>左版：紧凑，但信息挤在一起</h3>
+          <p>内容更早出现，却牺牲了资格信息的可读性与正式服务感。</p>
+          <ul>
+            <li>组长和须知共用半透明框，语义边界不清。</li>
+            <li>渐变背景上的灰白文字对比不足，长文阅读吃力。</li>
+            <li>描边像禁用态，“查看更多”链接位置随文案漂移。</li>
+            <li>后续增加多条件、协议状态或异常提示时容易失控。</li>
+          </ul>
+        </article>
+        <article class="variant recommended">
+          <span class="variant-tag">RIGHT · 推荐方向</span>
+          <h3>右版：清楚，但首屏过长</h3>
+          <p>白卡分层提升可读性、信任和扩展性，是更好的设计底稿。</p>
+          <ul>
+            <li>组长、条件、预览范围被用户快速识别。</li>
+            <li>黑白层级更稳，适合服务资格与协议信息。</li>
+            <li>两个大卡叠加导致第一条内容价值被推到第二屏。</li>
+            <li>灰色标签控件仍像不可用状态，CTA 语义仍未随资格变化。</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="matrix-wrap" style="margin-top:22px">
+        <table>
+          <thead>
+            <tr><th>维度</th><th>左版</th><th>右版</th><th>判断</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>信息层级</strong></td><td>组长与须知挤在渐变区</td><td>独立白卡，结构清楚</td><td class="winner">右版</td></tr>
+            <tr><td><strong>可读性</strong></td><td>低对比灰字、描边弱</td><td>黑白层级稳定</td><td class="winner">右版</td></tr>
+            <tr><td><strong>首屏效率</strong></td><td>内容更早出现</td><td>页面头部偏长</td><td class="winner">左版</td></tr>
+            <tr><td><strong>信任与服务感</strong></td><td>像附属说明</td><td>像正式服务信息</td><td class="winner">右版</td></tr>
+            <tr><td><strong>扩展性</strong></td><td>条件变多后拥挤</td><td>可容纳更多状态与条款</td><td class="winner">右版</td></tr>
+            <tr><td><strong>转化闭环</strong></td><td>CTA 与条件关系弱</td><td>增加预览提示，但状态仍缺失</td><td>两版都需补</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" id="risks">
+      <div class="section-heading">
+        <div>
+          <span class="section-index">03 · BLOCKERS</span>
+          <h2>设计锁定前必须解决的事情</h2>
+        </div>
+        <p>以下问题按“问题 → 影响 → 建议改法”排列。P0 未补齐前，页面无法形成可测试、可解释、可恢复的加入流程。</p>
+      </div>
+
+      <div class="issues">
+        <article class="issue">
+          <span class="priority p0">P0 阻断</span>
+          <div>
+            <h3>“加入小组”没有资格与协议状态机</h3>
+            <p>同一个按钮无法覆盖未登录、资格符合、协议待签/失效、已加入、接口失败和解约退出。</p>
+          </div>
+          <div class="fix"><strong>建议：</strong>逐一指定按钮、提示、接口结果、内容权限与客服可查字段；禁止仅靠前端提示承载服务资格。</div>
+        </article>
+
+        <article class="issue">
+          <span class="priority p0">P0 阻断</span>
+          <div>
+            <h3>必要条件被省略在“查看更多”之后</h3>
+            <p>影响能否加入的条件不能等用户点击动作后才出现，否则披露时点过晚。</p>
+          </div>
+          <div class="fix"><strong>建议：</strong>资格条件在加入前完整可见；“查看更多”只承载解释、FAQ 和非关键细则。</div>
+        </article>
+
+        <article class="issue">
+          <span class="priority p1">P1 重要</span>
+          <div>
+            <h3>“满足任一条件”与只展示一条规则矛盾</h3>
+            <p>用户无法判断是满足这一条，还是还有隐藏的替代条件。</p>
+          </div>
+          <div class="fix"><strong>建议：</strong>只有一条就改成“加入需满足以下条件”；多条时标注总数并全部展开。</div>
+        </article>
+
+        <article class="issue">
+          <span class="priority p1">P1 重要</span>
+          <div>
+            <h3>组长名称“E大 / ETF拯救世界”不一致</h3>
+            <p>服务主体、内容署名和客服口径可能出现错位。</p>
+          </div>
+          <div class="fix"><strong>建议：</strong>确定唯一主显示名，别名放在括号或个人页中，例如“ETF拯救世界（E大）”。</div>
+        </article>
+
+        <article class="issue">
+          <span class="priority p1">P1 重要</span>
+          <div>
+            <h3>不符合资格的用户仍看到强“加入”动作</h3>
+            <p>可能让用户把购买/签署投顾服务理解成解锁内容的前置消费，混淆服务与内容权益。</p>
+          </div>
+          <div class="fix"><strong>建议：</strong>不符合资格时改为“查看加入条件”或“了解投顾服务”，独立承接适当性、费用与风险披露。</div>
+        </article>
+
+        <article class="issue">
+          <span class="priority p1">P1 重要</span>
+          <div>
+            <h3>“解锁全部精彩内容”承诺过满</h3>
+            <p>若不同成员仍有策略、服务状态或内容权限差异，容易产生投诉。</p>
+          </div>
+          <div class="fix"><strong>建议：</strong>改为“加入后可查看该小组向成员开放的内容”，避免无边界的“全部”。</div>
+        </article>
+
+        <article class="issue">
+          <span class="priority p2">P2 优化</span>
+          <div>
+            <h3>分类控件和联系助理都偏弱</h3>
+            <p>灰色标签像禁用态；出现资格异常时，恢复入口的可见性又不足。</p>
+          </div>
+          <div class="fix"><strong>建议：</strong>分类栏吸顶并强化选中态；扩大助理触控区，联系时自动带入具体失败原因。</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="proposal">
+      <div class="solution">
+        <div class="wireframe" role="img" aria-label="推荐混合方案线框：紧凑的组长和条件卡、预览说明、分类标签、内容卡和底部加入按钮">
+          <div class="phone-hero"><span></span></div>
+          <div class="compact-card">
+            <div class="profile-line">
+              <i class="avatar"></i>
+              <div class="lines"><i></i><i></i></div>
+            </div>
+            <hr>
+            <b>加入条件</b>
+            <small>有效服务关系与协议状态摘要</small>
+          </div>
+          <div class="preview-line">你正在浏览公开内容 · 加入后查看成员内容</div>
+          <div class="tabs"><b>帖子</b><span>直播</span><span>课程</span><span>工具</span><span>策略</span></div>
+          <div class="post-placeholder"></div>
+          <div class="sticky-action">根据资格状态显示主动作</div>
+        </div>
+        <div class="solution-copy">
+          <p class="eyebrow">04 · RECOMMENDED HYBRID</p>
+          <h2>右版分层，左版效率</h2>
+          <p>把两个大白卡压成一张紧凑卡，保留资格信息的正式层级；用一条轻提示说明公开预览范围，把内容价值重新拉回首屏。</p>
+          <ol>
+            <li>组长一行 + 条件两行，总高控制在约 180–220 px。</li>
+            <li>必要资格完整展示；条件多时先显示数量，但加入前必须全部可见。</li>
+            <li>分类标签滚动后吸顶，底部操作栏保持固定。</li>
+            <li>主按钮根据身份、服务和协议状态动态变化。</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <div>
+          <span class="section-index">05 · COPY</span>
+          <h2>可以直接替换的文案</h2>
+        </div>
+        <p>文案目标是让用户在行动前知道“为什么能加入、加入后能看到什么、当前还缺什么”。</p>
+      </div>
+      <div class="copy-grid">
+        <article class="copy-card">
+          <span class="copy-label">加入条件</span>
+          <h3>正在跟投「思远定投全球好资产」，且投顾服务协议处于有效状态。</h3>
+          <p>若确有多条互斥条件，标题改为“满足以下任一条件即可加入（共 2 项）”。</p>
+        </article>
+        <article class="copy-card">
+          <span class="copy-label">预览说明</span>
+          <h3>你正在浏览公开内容。</h3>
+          <p>加入后可查看该小组向成员开放的帖子、直播、课程、工具和策略。</p>
+        </article>
+      </div>
+
+      <div class="matrix-wrap" style="margin-top:22px">
+        <table>
+          <thead><tr><th>用户状态</th><th>主按钮</th><th>说明</th></tr></thead>
+          <tbody>
+            <tr><td>未登录</td><td><strong>登录后查看资格</strong></td><td>先建立身份，再判断服务关系</td></tr>
+            <tr><td>符合资格、未加入</td><td><strong>加入小组</strong></td><td>唯一直接加入状态</td></tr>
+            <tr><td>服务有效、协议待签</td><td><strong>去签署协议</strong></td><td>明确动作对象，不伪装成加入</td></tr>
+            <tr><td>不符合资格</td><td><strong>查看加入条件</strong></td><td>不直接驱动投资购买</td></tr>
+            <tr><td>校验中</td><td><strong>正在检查资格…</strong></td><td>禁用重复提交</td></tr>
+            <tr><td>已加入</td><td><strong>进入小组</strong></td><td>避免重复创建关系</td></tr>
+            <tr><td>校验失败</td><td><strong>重新检查</strong></td><td>同时提供联系助理</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <div>
+          <span class="section-index">06 · ACCEPTANCE</span>
+          <h2>研发与测试可直接采用的验收条件</h2>
+        </div>
+        <p>每条都同时覆盖页面反馈、权限变化和追溯字段，避免“前端看起来成功，后台无法解释”。</p>
+      </div>
+      <div class="acceptance">
+        <article class="case"><b>正常加入</b><p>Given 登录、服务和协议均有效，When 点击加入，Then 创建成员关系并解锁内容，And 留存资格快照、协议版本、时间与结果。</p></article>
+        <article class="case"><b>不符合资格</b><p>Given 用户不符合资格，When 进入页面，Then 不直接显示可执行的加入动作，And 完整说明缺失条件和下一步。</p></article>
+        <article class="case"><b>协议失效或撤销</b><p>When 用户尝试加入，Then 保持公开预览状态并说明原因，And 联系助理时带入失败原因。</p></article>
+        <article class="case"><b>接口超时或失败</b><p>When 加入请求失败，Then 不乐观解锁内容，And 提供重试与客服恢复路径。</p></article>
+        <article class="case"><b>已经加入</b><p>When 再次打开页面，Then 直接显示“进入小组”，And 不重复创建成员关系。</p></article>
+        <article class="case"><b>规则版本变化</b><p>When 用户再次加入或恢复资格，Then 使用当前有效规则判断，And 历史判断仍可追溯。</p></article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <div>
+          <span class="section-index">07 · METRICS</span>
+          <h2>不要只看整体加入转化</h2>
+        </div>
+        <p>不符合资格的人天然不能加入，直接用全量页面访客做分母会误导判断。核心指标必须限定在“符合资格用户”。</p>
+      </div>
+      <div class="metrics">
+        <article class="metric"><span>CORE</span><h3>资格用户加入成功率</h3><p>符合资格且看到页面的用户中，成功建立成员关系的比例。</p></article>
+        <article class="metric"><span>DIAGNOSTIC</span><h3>失败原因与浏览深度</h3><p>条件查看、资格失败、接口失败、公开内容浏览和联系助理。</p></article>
+        <article class="metric"><span>GUARDRAIL</span><h3>误解、退出与投诉</h3><p>无法加入类咨询、加入后 7 日退出、资格或协议相关投诉。</p></article>
+      </div>
+    </section>
+
+    <section class="final-call">
+      <span class="section-index">FINAL DECISION</span>
+      <h2>视觉选右版，产品采用压缩后的混合方案。</h2>
+      <p>补齐 P0 状态机与资格披露闭环后再进入设计锁定。否则它仍是一张“更清楚的静态页面”，不是可以上线的加入流程。</p>
+    </section>
+  </main>
+
+  <footer>
+    <span>CLAIR'S STUDIO · REQUIREMENT REVIEW</span>
+    <span>最后更新 2026-07-30 · 证据截止 2026-07-30</span>
+  </footer>
+</body>
+</html>
