@@ -4,8 +4,8 @@ subtitle: 从金融能力底座，到每个人都能获得与生产服务
 date: 2026-07-30
 data_cutoff: 2026-07-30
 site_url: https://clairku.github.io/clair-ai-studio/reports/qieman-ai-product-practice-2026-07-30/
-site_status: pending
-published_at:
+site_status: production
+published_at: 2026-07-30T02:39:26Z
 ---
 
 # 且慢 AI 产品实践
