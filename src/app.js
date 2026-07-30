@@ -150,6 +150,18 @@ const initialState = {
       access: "production",
     },
     {
+      id: "qieman-ai-product-practice-2026-07-30",
+      groupId: "ai-platform",
+      title: "且慢 AI 产品实践｜从能力底座到服务应用广场",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-ai-product-practice-2026-07-30/",
+      preview: "qieman-ai-product-practice-2026-07-30.svg",
+      pinned: true,
+      position: 1,
+      createdAt: "2026-07-30T10:30:00.000Z",
+      source: "两份生产报告整合与终极形态原型",
+      access: "production",
+    },
+    {
       id: "ai-three-projects-management-deck-2026-07-30",
       groupId: "reporting",
       title: "盈米 AI 金融服务操作系统蓝图｜用 AI 重做服务生产",
@@ -674,6 +686,7 @@ const WORK_TYPE_BY_REPORT = {
   "ai-xiaogu-product-experience-2026-07-30": "product-planning",
   "workbench-quality-audit-2026-07-30": "governance-review",
   "yingmi-ai-materials-compendium-2026-07-30": "reporting",
+  "qieman-ai-product-practice-2026-07-30": "product-planning",
   "seed-mcp-benchmark": "competitive-research",
   "seed-fund-report": "investment-research",
   "storage-big-three-fund-screening": "investment-research",
@@ -724,6 +737,7 @@ const WORK_TYPE_BY_REPORT = {
 
 const TOPIC_BY_REPORT = {
   "yingmi-ai-materials-compendium-2026-07-30": "ai-platform",
+  "qieman-ai-product-practice-2026-07-30": "ai-platform",
   "qieman-home-entry-analysis": "product-planning",
   "qieman-app-map": "product-planning",
   "qieman-app-deep-analysis": "product-planning",

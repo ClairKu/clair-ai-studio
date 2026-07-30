@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f5f6f9">
+  <meta name="description" content="且慢 AI 产品实践：从金融能力底座，到每个人都能获得、生产并发布金融服务。">
+  <meta property="og:title" content="且慢 AI 产品实践">
+  <meta property="og:description" content="OAP、AI 实验室、AI 小顾与顾问工作台组成的金融服务生产与交付闭环。">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="https://clairku.github.io/clair-ai-studio/previews/qieman-ai-product-practice-2026-07-30.svg">
+  <title>且慢 AI 产品实践｜2026.07.30</title>
+  <style>
+    :root{
+      --ink:#151a25;--muted:#657086;--line:#e4e7ef;--paper:#f5f6f9;--card:#fff;
+      --violet:#7158e8;--violet-2:#9a6cf0;--soft:#efedff;--teal:#1ca69a;--teal-soft:#e6f8f5;
+      --amber:#d99b2b;--navy:#15213c;--red:#d55764;--shadow:0 22px 70px rgba(40,48,68,.08);
+      color-scheme:light;
+    }
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:76px}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,"PingFang SC","Microsoft YaHei",system-ui,-apple-system,sans-serif;line-height:1.72}
+    a{color:inherit;text-decoration:none}button{font:inherit}.topline{height:5px;background:linear-gradient(90deg,var(--violet),#a960ee,var(--teal));position:fixed;inset:0 0 auto;z-index:80}
+    .progress{height:5px;background:linear-gradient(90deg,#b997ff,#61dfd2);position:fixed;left:0;top:0;width:0;z-index:90}
+    .nav-shell{position:sticky;top:0;z-index:60;background:rgba(245,246,249,.88);backdrop-filter:blur(18px);border-bottom:1px solid rgba(113,88,232,.10)}
+    .nav{max-width:1240px;height:68px;margin:auto;padding:0 52px;display:flex;align-items:center;justify-content:space-between;gap:28px}
+    .brand{display:flex;align-items:center;gap:11px;white-space:nowrap;font-weight:900}.brand-mark{width:36px;height:36px;border-radius:12px;background:var(--navy);color:white;display:grid;place-items:center;font:700 12px Georgia;box-shadow:inset 0 0 0 1px rgba(255,255,255,.16)}.brand small{display:block;font-size:9px;letter-spacing:.15em;color:var(--muted);line-height:1}
+    .nav-links{display:flex;gap:4px;overflow:auto;scrollbar-width:none}.nav-links a{white-space:nowrap;padding:8px 10px;border-radius:999px;font-size:12px;color:var(--muted)}.nav-links a:hover,.nav-links a.active{background:white;color:var(--violet)}
+    .status{font:700 10px ui-monospace,SFMono-Regular,monospace;color:var(--violet);border:1px solid #d9d4ff;border-radius:999px;padding:6px 9px;white-space:nowrap}
+    .hero{max-width:1240px;margin:0 auto;padding:82px 52px 52px;display:grid;grid-template-columns:1.03fr .97fr;align-items:center;min-height:660px;gap:34px}.hero-copy,.hero-visual{min-width:0}
+    .eyebrow{display:inline-flex;align-items:center;gap:7px;letter-spacing:.14em;font-size:11px;font-weight:800;color:var(--violet);background:#ece9ff;border-radius:999px;padding:7px 12px}.eyebrow:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--teal)}
+    h1,h2,.serif{font-family:Georgia,"Songti SC",serif}.hero h1{font-size:clamp(54px,6.4vw,82px);line-height:1.02;letter-spacing:-.05em;margin:22px 0 23px;font-weight:600}.hero h1 em{font-style:normal;color:var(--violet)}.hero-copy>p{max-width:620px;font-size:20px;color:#4d5870;overflow-wrap:anywhere}.hero-copy>p strong{color:var(--ink)}
+    .hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}.hero-meta span{background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 13px;color:var(--muted);font-size:12px}.hero-meta b{color:var(--ink);font-size:18px;margin-right:4px}
+    .hero-visual{background:linear-gradient(145deg,#171e34,#10182b);border-radius:34px;padding:18px;box-shadow:0 35px 90px rgba(22,29,49,.18);position:relative;overflow:hidden}.hero-visual:before{content:"";position:absolute;width:280px;height:280px;border-radius:50%;background:#795fff;filter:blur(90px);opacity:.32;right:-90px;top:-100px}.hero-visual svg{display:block;width:100%;height:auto;position:relative}
+    .thesis{max-width:1240px;margin:0 auto 44px;padding:0 52px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.thesis article{background:#fff;border:1px solid var(--line);border-radius:22px;padding:24px;min-height:204px}.thesis article>span{font:600 26px Georgia;color:var(--violet)}.thesis h3{font-size:18px;margin:29px 0 8px}.thesis p{font-size:13px;color:var(--muted);margin:0;line-height:1.6}
+    .north-star{max-width:1136px;margin:0 auto 76px;border-radius:26px;padding:25px 28px;background:var(--navy);color:#fff;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:22px}.north-star small{font-size:10px;letter-spacing:.15em;color:#6fe0d2;font-weight:900}.north-star strong{font-size:20px}.north-star p{margin:0;color:#c8d1e4;font-size:13px}.north-star .formula{border:1px solid rgba(255,255,255,.15);border-radius:15px;padding:10px 14px;font:700 11px ui-monospace,SFMono-Regular,monospace;color:#fff;white-space:nowrap}
+    .section{padding:96px 28px}.section.white{background:white}.section.dark{background:var(--navy);color:#fff}.wrap{max-width:1136px;margin:auto}
+    .section-head{display:grid;grid-template-columns:.9fr 1.1fr;gap:72px;align-items:end;margin-bottom:48px}.kicker{font-size:11px;letter-spacing:.17em;color:var(--violet);font-weight:900;margin-bottom:12px;text-transform:uppercase}.dark .kicker{color:#6fe0d2}.section h2{font-size:clamp(34px,4vw,54px);line-height:1.13;letter-spacing:-.035em;margin:0;font-weight:600}.section-head>p{margin:0;color:var(--muted);font-size:16px}.dark .section-head>p{color:#adb8cf}.note{font-size:12px;color:var(--muted)}
+    .architecture{display:grid;gap:12px}.layer{background:#fff;border:1px solid var(--line);border-radius:19px;padding:21px 25px;display:grid;grid-template-columns:124px 1fr 220px;align-items:center;gap:22px;transition:.22s}.layer:hover{transform:translateX(5px);box-shadow:var(--shadow)}.layer .code{font:800 11px ui-monospace,SFMono-Regular,monospace;color:var(--violet);letter-spacing:.12em}.layer h3{margin:0 0 4px;font-size:19px}.layer p{margin:0;color:var(--muted);font-size:13px}.layer .tags{display:flex;justify-content:flex-end;gap:6px;flex-wrap:wrap}.tag{font-size:10px;border-radius:999px;background:var(--paper);padding:6px 8px;color:#4d5870}.layer.em{background:linear-gradient(135deg,var(--violet),#5946c5);border-color:transparent;color:white;box-shadow:0 22px 60px rgba(113,88,232,.2)}.layer.em .code{color:#c9fffa}.layer.em p{color:#e2ddff}.layer.em .tag{background:rgba(255,255,255,.13);color:white}.connector{height:14px;border-left:1px dashed #b9b1ea;margin-left:63px}
+    .control-plane{margin-top:18px;background:linear-gradient(135deg,#f2f0ff,#eefaf8);border:1px solid #ddd9ff;border-radius:20px;padding:20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}.control-plane b{font-size:13px;color:var(--violet)}.control-plane span{font-size:11px;background:white;border:1px solid var(--line);border-radius:999px;padding:7px 10px;color:#566077}
+    .roles{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.role{background:#fff;border:1px solid var(--line);border-radius:23px;padding:26px;min-height:330px;display:flex;flex-direction:column}.role .icon{width:44px;height:44px;border-radius:14px;background:var(--soft);color:var(--violet);display:grid;place-items:center;font-weight:900}.role:nth-child(2) .icon{background:var(--teal-soft);color:var(--teal)}.role h3{font-size:21px;margin:30px 0 4px}.role .role-en{font:800 9px ui-monospace,SFMono-Regular,monospace;letter-spacing:.12em;color:var(--violet)}.role p{font-size:13px;color:var(--muted);flex:1}.role footer{padding-top:15px;border-top:1px solid var(--line);font-size:11px;color:#4c576c}.role footer b{display:block;color:var(--ink);margin-bottom:4px}
+    .trinity{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.tri{background:#fff;color:var(--ink);border-radius:24px;padding:30px;min-height:344px;position:relative;overflow:hidden}.tri-num{position:absolute;right:15px;top:5px;font:600 78px/1 Georgia;color:#edeafc}.tri .sub{font:800 10px ui-monospace,SFMono-Regular,monospace;color:var(--violet);letter-spacing:.13em}.tri h3{font-size:26px;margin:64px 0 7px}.tri p{font-size:13px;color:var(--muted)}.tri ul{padding:0;list-style:none;margin:21px 0 0}.tri li{padding:9px 0;border-top:1px solid var(--line);font-size:12px;display:flex;justify-content:space-between}.tri li span{color:var(--muted)}
+    .capability-flow{margin-top:20px;padding:20px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);border-radius:21px;display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.flow-cell{background:rgba(255,255,255,.06);border-radius:13px;padding:14px;color:#b7c1d7;font-size:11px;position:relative}.flow-cell b{display:block;color:#fff;font-size:13px;margin-bottom:5px}.flow-cell:not(:last-child):after{content:"→";position:absolute;right:-9px;top:32px;color:#6fe0d2;z-index:2}
+    .demo-shell{background:#10172a;border-radius:32px;padding:16px;box-shadow:0 34px 90px rgba(21,31,57,.2)}.demo-disclaimer{display:flex;align-items:center;justify-content:space-between;color:#a9b3c8;font-size:11px;padding:5px 6px 15px}.demo-disclaimer span:first-child{color:#fff;font-weight:800}.demo-badge{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);padding:5px 9px;border-radius:999px}
+    .demo-grid{display:grid;grid-template-columns:230px minmax(0,1fr);gap:12px}.demo-steps{display:grid;gap:8px;align-content:start}.demo-step{border:1px solid rgba(255,255,255,.09);background:#171f35;color:#8995ad;border-radius:16px;padding:15px;text-align:left;cursor:pointer;transition:.2s}.demo-step:hover{border-color:#6e5ad8}.demo-step.active{background:linear-gradient(135deg,#7158e8,#5b47c7);color:#fff;border-color:transparent;box-shadow:0 16px 34px rgba(88,67,198,.28)}.demo-step small{display:block;font:800 9px ui-monospace,SFMono-Regular,monospace;letter-spacing:.12em;opacity:.72}.demo-step b{display:block;margin-top:5px;font-size:13px}.demo-stage{background:#f7f8fb;border-radius:23px;min-height:650px;overflow:hidden;position:relative}.stage{display:none;min-height:650px}.stage.active{display:grid}
+    .xiaogu{grid-template-columns:.87fr 1.13fr}.phone-side{background:#eef0f6;padding:28px;display:grid;place-items:center}.phone{width:280px;max-width:100%;height:566px;border:9px solid #181e2d;border-radius:39px;background:#fff;box-shadow:0 22px 55px rgba(24,30,45,.22);overflow:hidden;display:flex;flex-direction:column}.phone-top{height:41px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;font-size:10px}.phone-title{padding:5px 18px 14px}.phone-title b{font-size:20px}.phone-title small{display:block;color:var(--muted)}.chat{padding:5px 14px;display:grid;gap:10px;overflow:auto}.bubble{max-width:88%;padding:10px 12px;border-radius:14px;background:#f1f2f6;font-size:11px;color:#455067}.bubble.me{justify-self:end;background:#7560e9;color:white}.service-card{border:1px solid #dddff0;background:#fff;border-radius:18px;padding:13px;box-shadow:0 8px 24px rgba(40,48,68,.07)}.service-card-head{display:flex;justify-content:space-between;gap:8px}.service-card h4{margin:0;font-size:13px}.service-card p{margin:4px 0 9px;font-size:10px;color:var(--muted)}.service-card .pill{font-size:8px;background:var(--teal-soft);color:var(--teal);padding:3px 6px;border-radius:999px;height:max-content}.permissions{display:flex;gap:4px;flex-wrap:wrap}.permissions span{font-size:8px;background:#f1f2f6;padding:4px 6px;border-radius:7px;color:#657086}.primary{border:0;border-radius:11px;background:var(--violet);color:white;padding:9px 12px;font-weight:800;font-size:10px;cursor:pointer}.phone .primary{width:100%;margin-top:9px}
+    .stage-copy{padding:42px;display:flex;flex-direction:column;justify-content:center}.stage-label{font:800 10px ui-monospace,SFMono-Regular,monospace;color:var(--violet);letter-spacing:.14em}.stage-copy h3{font:600 36px/1.15 Georgia,"Songti SC",serif;margin:13px 0}.stage-copy>p{color:var(--muted);font-size:14px}.check-list{display:grid;gap:10px;margin-top:20px}.check{display:grid;grid-template-columns:25px 1fr;gap:10px;align-items:start;background:white;border:1px solid var(--line);border-radius:13px;padding:11px}.check i{font-style:normal;width:25px;height:25px;border-radius:8px;background:var(--teal-soft);color:var(--teal);display:grid;place-items:center;font-size:11px;font-weight:900}.check b{display:block;font-size:12px}.check span{display:block;font-size:10px;color:var(--muted)}
+    .runner{grid-template-columns:1fr 1fr;padding:30px;gap:20px}.run-card{background:white;border:1px solid var(--line);border-radius:20px;padding:22px}.run-head{display:flex;justify-content:space-between;align-items:center}.run-head b{font-size:14px}.live{font-size:9px;color:var(--teal);background:var(--teal-soft);border-radius:999px;padding:5px 8px}.run-timeline{margin-top:20px;display:grid;gap:0}.run-item{display:grid;grid-template-columns:32px 1fr;gap:11px;min-height:76px}.run-dot{width:26px;height:26px;border-radius:9px;background:var(--soft);color:var(--violet);display:grid;place-items:center;font-size:9px;font-weight:900;position:relative}.run-item:not(:last-child) .run-dot:after{content:"";position:absolute;top:29px;height:45px;border-left:1px dashed #c9c4e9}.run-item b{font-size:12px}.run-item p{font-size:10px;color:var(--muted);margin:2px 0}.run-output{background:linear-gradient(145deg,#18213a,#101727);color:white;border-radius:20px;padding:24px;display:flex;flex-direction:column}.run-output small{color:#77dfd4;font:800 9px ui-monospace,SFMono-Regular,monospace;letter-spacing:.12em}.run-output h3{font-size:24px;margin:16px 0 8px}.risk-chart{height:148px;margin:15px 0;background:linear-gradient(180deg,rgba(113,88,232,.28),transparent);border-bottom:1px solid rgba(255,255,255,.14);position:relative;overflow:hidden}.risk-chart svg{width:100%;height:100%}.result-list{display:grid;gap:8px}.result-list div{background:rgba(255,255,255,.07);border-radius:11px;padding:10px;font-size:10px;color:#cbd3e3}.result-list b{color:#fff}
+    .studio{grid-template-rows:auto 1fr}.studio-bar{height:64px;background:white;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 22px}.studio-bar strong{font-size:14px}.studio-bar span{font-size:10px;color:var(--muted)}.studio-body{display:grid;grid-template-columns:180px 1fr 210px;min-height:586px}.component-panel,.config-panel{background:#f0f2f7;padding:18px}.panel-title{font:800 9px ui-monospace,SFMono-Regular,monospace;letter-spacing:.12em;color:var(--muted);margin-bottom:12px}.component{background:white;border:1px solid var(--line);border-radius:11px;padding:10px;margin-bottom:8px;font-size:10px}.component b{display:block;font-size:11px}.component span{color:var(--muted)}.canvas{padding:24px;background:#fbfbfd}.workflow{display:grid;gap:10px;max-width:440px;margin:auto}.node-card{background:white;border:1px solid var(--line);border-radius:15px;padding:14px;display:grid;grid-template-columns:32px 1fr auto;gap:10px;align-items:center;box-shadow:0 7px 20px rgba(40,48,68,.05)}.node-card i{font-style:normal;width:32px;height:32px;border-radius:10px;background:var(--soft);color:var(--violet);display:grid;place-items:center;font-size:10px;font-weight:900}.node-card b{font-size:11px}.node-card span{display:block;font-size:9px;color:var(--muted)}.node-card em{font-style:normal;font-size:8px;color:var(--teal);background:var(--teal-soft);border-radius:999px;padding:4px 6px}.node-line{height:16px;border-left:1px dashed #bcb6e1;margin-left:16px}.field{margin-bottom:12px}.field label{display:block;font-size:9px;font-weight:800;margin-bottom:5px}.fake-input{background:white;border:1px solid var(--line);border-radius:9px;padding:8px;font-size:9px;color:#59647a}.toggle-row{display:flex;justify-content:space-between;font-size:9px;margin:10px 0}.toggle{width:27px;height:15px;border-radius:999px;background:var(--violet);position:relative}.toggle:after{content:"";width:11px;height:11px;border-radius:50%;background:white;position:absolute;right:2px;top:2px}
+    .market{grid-template-columns:1fr .86fr;padding:30px;gap:22px}.publish-checks{background:white;border:1px solid var(--line);border-radius:21px;padding:23px}.publish-checks h3{font-size:22px;margin:0 0 7px}.publish-checks>p{font-size:11px;color:var(--muted)}.gate{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-top:1px solid var(--line);font-size:11px}.gate span:last-child{color:var(--teal);font-weight:800}.publish-actions{display:flex;align-items:center;gap:9px;margin-top:17px}.secondary{border:1px solid var(--line);background:white;border-radius:11px;padding:9px 12px;font-size:10px;cursor:pointer}.market-preview{background:linear-gradient(145deg,#e9e6ff,#e5f8f5);border-radius:22px;padding:22px;display:flex;flex-direction:column;justify-content:center}.market-preview>small{font:800 9px ui-monospace,SFMono-Regular,monospace;color:var(--violet);letter-spacing:.13em}.market-card{background:white;border:1px solid rgba(113,88,232,.14);border-radius:22px;padding:19px;margin-top:13px;box-shadow:0 18px 45px rgba(62,51,123,.12)}.market-card .market-icon{width:44px;height:44px;background:linear-gradient(145deg,var(--violet),var(--teal));border-radius:14px;display:grid;place-items:center;color:white;font-weight:900}.market-card h4{font-size:18px;margin:14px 0 3px}.market-card p{font-size:11px;color:var(--muted)}.market-meta{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:14px 0}.market-meta span{background:#f5f6f9;border-radius:9px;padding:7px;font-size:9px;color:#5b657a}.publish-state{font-size:10px;color:var(--amber);font-weight:800}.publish-state.live-state{color:var(--teal)}
+    .business-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.business-card{background:white;border:1px solid var(--line);border-radius:23px;padding:27px;min-height:286px;position:relative;overflow:hidden}.business-card:after{content:attr(data-letter);position:absolute;right:13px;top:-32px;font:600 140px Georgia;color:#f0eff8}.business-card>*{position:relative;z-index:1}.business-card small{color:var(--violet);font-weight:900}.business-card h3{font-size:23px;margin:38px 0 8px}.business-card p{font-size:13px;color:var(--muted)}.business-card ul{padding-left:17px;font-size:11px;color:#4c576c}
+    .evidence-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:18px}.evidence-card{background:#fff;border:1px solid var(--line);border-radius:23px;padding:27px}.evidence-card h3{font-size:20px;margin:0 0 7px}.metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}.metric{background:var(--paper);border-radius:14px;padding:15px}.metric strong{font:600 26px Georgia;color:var(--violet);display:block}.metric span{font-size:10px;color:var(--muted)}.boundary{background:linear-gradient(145deg,#171f36,#11182a);color:white;border:0}.boundary p,.boundary li{color:#b9c3d8;font-size:12px}.boundary strong{color:#fff}.boundary ul{padding-left:18px}.boundary .warn{background:rgba(217,155,43,.12);border:1px solid rgba(217,155,43,.23);color:#ffd58c;border-radius:13px;padding:11px;margin-top:18px;font-size:10px}
+    .governance{display:grid;grid-template-columns:.78fr 1.22fr;gap:18px}.gov-core{background:linear-gradient(145deg,var(--violet),#4c3bab);color:white;border-radius:25px;padding:30px;min-height:400px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;position:relative}.gov-core:after{content:"TRUST";position:absolute;right:-8px;bottom:-28px;font:600 90px Georgia;color:rgba(255,255,255,.07)}.gov-core h3{font:600 34px/1.2 Georgia,"Songti SC",serif;margin:0}.gov-core p{font-size:12px;color:#e0dcff}.gov-core .shield{width:120px;height:138px;background:linear-gradient(145deg,#c9fffa,#72d8ce);clip-path:polygon(50% 0,92% 18%,84% 72%,50% 100%,16% 72%,8% 18%);display:grid;place-items:center;color:#174d54;font-weight:900;text-align:center}.gov-list{display:grid;grid-template-columns:1fr 1fr;gap:12px}.gov{background:#fff;border:1px solid var(--line);border-radius:17px;padding:20px}.gov b{display:block;font-size:13px;color:var(--violet);margin-bottom:5px}.gov span{font-size:11px;color:var(--muted)}
+    .roadmap{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.road{background:#fff;border:1px solid var(--line);border-radius:22px;padding:27px;min-height:300px}.road small{font:800 9px ui-monospace,SFMono-Regular,monospace;color:var(--violet);letter-spacing:.12em}.road h3{font-size:21px;margin:48px 0 8px}.road p,.road li{font-size:12px;color:var(--muted)}.road ul{padding-left:16px}.road.now{background:var(--navy);color:white;border:0;transform:translateY(-10px);box-shadow:var(--shadow)}.road.now small{color:#6fe0d2}.road.now p,.road.now li{color:#b9c3d8}
+    .source-box{margin-top:50px;background:linear-gradient(135deg,#f2f0ff,#eefaf8);border:1px solid #ddd9ff;border-radius:20px;padding:23px}.source-box h3{margin:0 0 8px;font-size:16px}.source-box p,.source-box li{font-size:11px;color:var(--muted)}.source-box a{color:var(--violet);text-decoration:underline}.source-box code{font-size:10px;background:white;padding:3px 6px;border-radius:7px}
+    .closing{padding:100px 28px;background:var(--navy);color:white;text-align:center}.closing h2{max-width:900px;margin:0 auto 21px;font-size:clamp(38px,5.6vw,68px);line-height:1.14}.closing h2 em{font-style:normal;color:#6fe0d2}.closing p{max-width:710px;margin:auto;color:#adb8cf;font-size:16px}.closing .source{margin-top:42px;font-size:10px;color:#75819a;line-height:1.7}
+    .reveal{opacity:0;transform:translateY(20px);transition:.65s ease}.reveal.show{opacity:1;transform:none}
+    @media(max-width:1000px){.nav{padding:0 28px}.status{display:none}.hero{grid-template-columns:1fr;padding:65px 28px 40px}.hero-visual{max-width:620px}.thesis{grid-template-columns:1fr 1fr;padding:0 28px}.north-star{margin:0 28px 64px;grid-template-columns:1fr}.section-head{grid-template-columns:1fr;gap:16px}.roles{grid-template-columns:1fr 1fr}.demo-grid{grid-template-columns:1fr}.demo-steps{grid-template-columns:repeat(4,1fr)}.demo-step{padding:12px}.studio-body{grid-template-columns:150px 1fr}.config-panel{display:none}.evidence-grid,.governance{grid-template-columns:1fr}}
+    @media(max-width:720px){.nav{padding:0 16px}.nav-links{display:none}.hero{padding:50px 18px 30px;min-height:auto}.hero h1{font-size:43px}.hero-copy>p{font-size:16px}.hero-meta span{padding:8px 10px}.hero-visual{border-radius:24px}.thesis{grid-template-columns:1fr;padding:0 18px}.thesis article{min-height:auto}.north-star{margin:0 18px 48px;padding:21px}.north-star strong{font-size:17px}.north-star .formula{white-space:normal}.section{padding:68px 16px}.roles,.trinity,.business-grid,.roadmap{grid-template-columns:1fr}.role{min-height:auto}.layer{grid-template-columns:74px 1fr;padding:18px}.layer .tags{display:none}.connector{margin-left:38px}.capability-flow{grid-template-columns:1fr}.flow-cell:not(:last-child):after{content:"↓";right:auto;left:50%;top:auto;bottom:-15px}.demo-shell{padding:8px;border-radius:24px}.demo-disclaimer{padding:7px 6px 10px}.demo-grid{gap:8px}.demo-steps{display:flex;overflow:auto}.demo-step{min-width:142px}.demo-stage,.stage{min-height:0}.xiaogu,.runner,.market{grid-template-columns:1fr}.stage-copy{padding:27px}.stage-copy h3{font-size:28px}.phone-side{padding:22px}.runner,.market{padding:16px}.run-output{min-height:420px}.studio-body{grid-template-columns:1fr}.component-panel{display:none}.canvas{padding:17px}.studio-bar{padding:0 14px}.market-preview{min-height:430px}.metric-grid,.gov-list{grid-template-columns:1fr}.road.now{transform:none}.north-star{grid-template-columns:1fr}.control-plane{align-items:flex-start}.section h2{font-size:35px}}
+    @media print{.nav-shell,.progress,.demo-steps,.publish-actions{display:none}.reveal{opacity:1;transform:none}.section{padding:55px 25px;break-inside:avoid}.demo-grid{display:block}.stage{display:none!important}.stage.active{display:grid!important}.hero{min-height:620px}.road.now{transform:none}}
+  </style>
+</head>
+<body>
+  <div class="topline"></div><div class="progress" id="progress"></div>
+  <header class="nav-shell">
+    <div class="nav">
+      <a class="brand" href="#top"><span class="brand-mark">QM</span><span>且慢 AI<small>PRODUCT PRACTICE</small></span></a>
+      <nav class="nav-links" aria-label="报告导航">
+        <a href="#judgment">核心判断</a><a href="#architecture">能力架构</a><a href="#roles">产品角色</a><a href="#demo">终极形态</a><a href="#value">业务价值</a><a href="#governance">治理</a><a href="#roadmap">路线图</a>
+      </nav>
+      <span class="status">TARGET STATE · DEMO</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="top">
+      <div class="hero-copy">
+        <span class="eyebrow">YINGMI × QIEMAN · 2026.07.30</span>
+        <h1>且慢 AI<br><em>产品实践</em></h1>
+        <p>从金融能力底座，到每个人都能<strong>获得服务、使用能力、生产服务并发布到应用广场</strong>。</p>
+        <div class="hero-meta">
+          <span><b>1</b> 个统一底座</span><span><b>4</b> 个产品角色</span><span><b>5</b> 层能力架构</span><span><b>1</b> 条服务闭环</span>
+        </div>
+      </div>
+      <div class="hero-visual" aria-label="且慢 AI 金融服务闭环图">
+        <svg viewBox="0 0 600 520" role="img">
+          <defs>
+            <linearGradient id="heroG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9879ff"/><stop offset="1" stop-color="#41d6c8"/></linearGradient>
+            <filter id="heroShadow"><feDropShadow dx="0" dy="14" stdDeviation="18" flood-opacity=".24"/></filter>
+          </defs>
+          <text x="42" y="49" fill="#71809b" font-size="11" font-weight="700" letter-spacing="2">FINANCIAL SERVICE LOOP</text>
+          <g fill="none" stroke="#2d3852"><circle cx="300" cy="278" r="193"/><circle cx="300" cy="278" r="126"/></g>
+          <path d="M300 85C406 85 493 171 493 278" fill="none" stroke="url(#heroG)" stroke-width="8" stroke-linecap="round"/>
+          <path d="M300 471C194 471 107 385 107 278" fill="none" stroke="url(#heroG)" stroke-width="8" stroke-linecap="round"/>
+          <g filter="url(#heroShadow)">
+            <rect x="183" y="211" width="234" height="134" rx="30" fill="#fff"/>
+            <text x="300" y="255" fill="#151a25" text-anchor="middle" font-size="20" font-weight="800">成功金融服务任务</text>
+            <text x="300" y="286" fill="#657086" text-anchor="middle" font-size="12">发现 · 授权 · 运行 · 复核 · 交付</text>
+            <rect x="231" y="306" width="138" height="22" rx="11" fill="#e9f8f6"/>
+            <text x="300" y="321" fill="#1ca69a" text-anchor="middle" font-size="10" font-weight="700">结果回流与持续经营</text>
+          </g>
+          <g font-size="13" font-weight="800">
+            <g><rect x="231" y="48" width="138" height="54" rx="17" fill="#222b43" stroke="#3d4864"/><text x="300" y="80" fill="#fff" text-anchor="middle">AI 小顾 · 获得</text></g>
+            <g><rect x="425" y="251" width="156" height="54" rx="17" fill="#222b43" stroke="#3d4864"/><text x="503" y="283" fill="#fff" text-anchor="middle">服务运行 · 使用</text></g>
+            <g><rect x="215" y="454" width="170" height="54" rx="17" fill="#222b43" stroke="#3d4864"/><text x="300" y="486" fill="#fff" text-anchor="middle">应用广场 · 发行</text></g>
+            <g><rect x="19" y="251" width="164" height="54" rx="17" fill="#222b43" stroke="#3d4864"/><text x="101" y="283" fill="#fff" text-anchor="middle">AI 实验室 · 生产</text></g>
+          </g>
+          <g fill="#7f8ca5" font-size="10"><text x="403" y="127">用户目标与授权</text><text x="421" y="432">效果、采纳与反馈</text><text x="85" y="432">审核、版本与发布</text><text x="80" y="127">能力、数据与知识</text></g>
+        </svg>
+      </div>
+    </section>
+
+    <section class="thesis" id="judgment" aria-label="核心判断">
+      <article><span>01</span><h3>一个能力底座</h3><p>数据、知识、MCP、Skills 与 Agent 在所有产品间共享，不再重复建设。</p></article>
+      <article><span>02</span><h3>一个服务生产层</h3><p>AI 实验室负责组装、测试、审核、发布和运营服务，而非陈列工具。</p></article>
+      <article><span>03</span><h3>两个交付端</h3><p>AI 小顾服务投资者，顾问工作台服务专业人员，共享任务与结果。</p></article>
+      <article><span>04</span><h3>一个经营闭环</h3><p>用户获得服务，创作者生产服务，平台治理服务，结果持续回流。</p></article>
+    </section>
+    <section class="north-star" aria-label="共同北极星">
+      <div><small>ONE NORTH STAR</small><br><strong>成功金融服务任务</strong></div>
+      <p>从“工具数、调用量、对话量”升级为真实业务结果；让四个产品围绕同一价值单元协同，而不是各自优化局部指标。</p>
+      <div class="formula">成功任务 × 复用率 × 采纳率 × 合规质量</div>
+    </section>
+
+    <section class="section white" id="architecture">
+      <div class="wrap">
+        <div class="section-head reveal"><div><div class="kicker">01 · Capability Architecture</div><h2>一条贯通的<br>金融服务生产线</h2></div><p>底层能力不是目的。它必须经过产品化、编排与治理，最终变成用户看得懂、愿意授权、能够持续使用的金融服务。</p></div>
+        <div class="architecture reveal">
+          <div class="layer"><div class="code">05 · SERVICE</div><div><h3>服务与应用</h3><p>AI 小顾、顾问工作台、AI 实验室应用广场、合作方 Agent 与外部平台</p></div><div class="tags"><span class="tag">发现</span><span class="tag">订阅</span><span class="tag">交付</span></div></div>
+          <div class="connector"></div>
+          <div class="layer em"><div class="code">04 · AGENT</div><div><h3>Agent / Workflow · 任务执行</h3><p>理解目标、规划步骤、编排能力、处理异常、连接人工复核并交付结果</p></div><div class="tags"><span class="tag">规划</span><span class="tag">编排</span><span class="tag">闭环</span></div></div>
+          <div class="connector"></div>
+          <div class="layer"><div class="code">03 · SKILLS</div><div><h3>Skills · 业务能力资产</h3><p>将 SOP、规则、脚本、模板与质量检查封装为可复用的专业能力</p></div><div class="tags"><span class="tag">基金诊断</span><span class="tag">财富规划</span></div></div>
+          <div class="connector"></div>
+          <div class="layer"><div class="code">02 · MCP</div><div><h3>MCP / Tool / API · 标准工具</h3><p>让模型查得到、算得准、知道何时调用，并返回可解释的金融依据</p></div><div class="tags"><span class="tag">查询</span><span class="tag">计算</span><span class="tag">动作</span></div></div>
+          <div class="connector"></div>
+          <div class="layer"><div class="code">01 · DATA</div><div><h3>金融数据与专业知识</h3><p>用户授权数据、资产持仓、市场与基金数据、投研观点、投顾规则与 RAG</p></div><div class="tags"><span class="tag">真实数据</span><span class="tag">专家经验</span></div></div>
+        </div>
+        <div class="control-plane reveal"><b>横向治理控制面</b><span>身份与最小权限</span><span>用户授权</span><span>版本与依赖</span><span>质量与测试</span><span>合规与 HITL</span><span>审计与计量</span><span>下线机制</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="roles">
+      <div class="wrap">
+        <div class="section-head reveal"><div><div class="kicker">02 · Four Product Roles</div><h2>四个产品，<br>共同完成一个任务</h2></div><p>它们不是四条平行产品线，而是同一服务链的不同责任主体：供给能力、生产服务、消费服务、专业接力。</p></div>
+        <div class="roles reveal">
+          <article class="role"><div class="icon">O</div><span class="role-en">CAPABILITY SUPPLY</span><h3>OAP</h3><p>把金融数据、计算、投研与投顾方法变成 AI 可调用、可治理、可计量的能力。</p><footer><b>核心指标</b>有效调用 · 成功任务 · 复用 · 质量 · SLA</footer></article>
+          <article class="role"><div class="icon">L</div><span class="role-en">SERVICE FACTORY</span><h3>AI 实验室</h3><p>将能力组装成服务，完成模板、测试、审核、版本、发布、运营与效果回收。</p><footer><b>核心指标</b>生产周期 · 发布数 · 复用数 · 服务效果</footer></article>
+          <article class="role"><div class="icon">小</div><span class="role-en">CUSTOMER DELIVERY</span><h3>AI 小顾</h3><p>让用户发现并获得服务，从一次问答升级为记得你、主动触发、持续跟进。</p><footer><b>核心指标</b>任务持续率 · 问题解决 · 建议采纳 · 转化</footer></article>
+          <article class="role"><div class="icon">顾</div><span class="role-en">PROFESSIONAL DELIVERY</span><h3>顾问工作台</h3><p>为高价值或高风险任务提供人工复核、专业判断、客户沟通与后续服务。</p><footer><b>核心指标</b>交付时长 · 一次通过 · 客户覆盖 · 动作完成</footer></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section dark">
+      <div class="wrap">
+        <div class="section-head reveal"><div><div class="kicker">03 · Capability Productization</div><h2>能力递进，<br>不是技术名词堆叠</h2></div><p>MCP、Skills 与 Agent 分别回答“可调用、可交付、可完成”。只有进入 AI 实验室的服务生产与发行机制，它们才真正成为产品。</p></div>
+        <div class="trinity reveal">
+          <article class="tri"><div class="tri-num">01</div><div class="sub">MCP · CAN CALL</div><h3>准确调用</h3><p>标准化查询、计算与业务动作，返回有来源、有结构、可解释的结果。</p><ul><li>输入契约<span>参数与权限</span></li><li>结果契约<span>结构与错误</span></li><li>调用治理<span>配额与审计</span></li></ul></article>
+          <article class="tri"><div class="tri-num">02</div><div class="sub">SKILLS · CAN DELIVER</div><h3>稳定交付</h3><p>把脚本、参考资料、规则、模板和质量检查组合成业务能力包。</p><ul><li>确定性计算<span>可复算</span></li><li>专家方法<span>可复制</span></li><li>交付模板<span>可审查</span></li></ul></article>
+          <article class="tri"><div class="tri-num">03</div><div class="sub">AGENT · CAN COMPLETE</div><h3>端到端完成</h3><p>围绕用户目标动态规划、编排能力、处理异常并连接人工确认。</p><ul><li>理解目标<span>识别边界</span></li><li>管理状态<span>持续任务</span></li><li>结果闭环<span>反馈回流</span></li></ul></article>
+        </div>
+        <div class="capability-flow reveal"><div class="flow-cell"><b>用户目标</b>自然语言与业务上下文</div><div class="flow-cell"><b>服务匹配</b>适用人群、权限与风险</div><div class="flow-cell"><b>能力运行</b>MCP、Skills、Agent</div><div class="flow-cell"><b>人工确认</b>事实、建议与关键动作</div><div class="flow-cell"><b>结果交付</b>提醒、报告与后续服务</div></div>
+      </div>
+    </section>
+
+    <section class="section white" id="demo">
+      <div class="wrap">
+        <div class="section-head reveal"><div><div class="kicker">04 · Target State Demo</div><h2>关键产品<br>终极形态演示</h2></div><p>下面用一个完整场景串起目标态：用户在 AI 小顾获得服务，服务调用 AI 实验室能力；创作者生产自定义服务，并把它发布到 AI 实验室应用广场。</p></div>
+        <div class="demo-shell reveal">
+          <div class="demo-disclaimer"><span>组合波动哨兵 · 产品概念原型</span><span class="demo-badge">目标态演示，不代表已上线</span></div>
+          <div class="demo-grid">
+            <div class="demo-steps" role="tablist" aria-label="终极形态演示步骤">
+              <button class="demo-step active" data-stage="1" role="tab" aria-selected="true"><small>STEP 01</small><b>AI 小顾获得服务</b></button>
+              <button class="demo-step" data-stage="2" role="tab" aria-selected="false"><small>STEP 02</small><b>运行实验室能力</b></button>
+              <button class="demo-step" data-stage="3" role="tab" aria-selected="false"><small>STEP 03</small><b>生产自定义服务</b></button>
+              <button class="demo-step" data-stage="4" role="tab" aria-selected="false"><small>STEP 04</small><b>发布到应用广场</b></button>
+            </div>
+            <div class="demo-stage">
+              <section class="stage xiaogu active" data-panel="1">
+                <div class="phone-side">
+                  <div class="phone" aria-label="AI 小顾服务订阅界面">
+                    <div class="phone-top"><b>9:41</b><span>● ●● 100%</span></div>
+                    <div class="phone-title"><b>AI 小顾</b><small>今天想让我帮你做什么？</small></div>
+                    <div class="chat">
+                      <div class="bubble me">我的组合最近波动变大，帮我持续盯住，需要时提醒我。</div>
+                      <div class="bubble">我找到一个适合你的持续服务。启用前，你可以先确认使用的数据和触发规则。</div>
+                      <div class="service-card">
+                        <div class="service-card-head"><div><h4>组合波动哨兵</h4><p>监控波动、集中度与重大变化</p></div><span class="pill">已审核</span></div>
+                        <div class="permissions"><span>读取持仓</span><span>每周监控</span><span>重要变化提醒</span></div>
+                        <button class="primary" data-next-stage="2">确认授权并启用</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="stage-copy">
+                  <span class="stage-label">DISCOVER → EXPLAIN → AUTHORIZE</span>
+                  <h3>服务被用户理解，<br>而不是工具被用户猜测</h3>
+                  <p>AI 小顾先理解目标，再匹配服务。服务卡必须说明适用对象、数据权限、触发频率、风险边界和退出方式。</p>
+                  <div class="check-list">
+                    <div class="check"><i>✓</i><div><b>目标识别</b><span>把“帮我盯住”识别为持续监控任务，而不是一次问答。</span></div></div>
+                    <div class="check"><i>✓</i><div><b>知情授权</b><span>用户在启用前看见所需数据、频率、用途和撤回方式。</span></div></div>
+                    <div class="check"><i>✓</i><div><b>服务订阅</b><span>用户获得的是可暂停、可追踪、有结果的服务实例。</span></div></div>
+                  </div>
+                </div>
+              </section>
+
+              <section class="stage runner" data-panel="2">
+                <div class="run-card">
+                  <div class="run-head"><b>服务运行记录</b><span class="live">● RUNNING</span></div>
+                  <div class="run-timeline">
+                    <div class="run-item"><div class="run-dot">01</div><div><b>读取授权上下文</b><p>账户、组合、风险偏好、提醒偏好</p></div></div>
+                    <div class="run-item"><div class="run-dot">02</div><div><b>MCP 获取数据</b><p>净值、持仓、指数、市场与基金信息</p></div></div>
+                    <div class="run-item"><div class="run-dot">03</div><div><b>Skill 计算与诊断</b><p>波动、回撤、集中度、风格与事件影响</p></div></div>
+                    <div class="run-item"><div class="run-dot">04</div><div><b>Agent 形成任务结果</b><p>证据、判断、建议、下一步与风险边界</p></div></div>
+                    <div class="run-item"><div class="run-dot">05</div><div><b>人工确认门</b><p>涉及投顾建议或重要动作时转交顾问复核</p></div></div>
+                  </div>
+                </div>
+                <div class="run-output">
+                  <small>WEEKLY RESULT · 2026/07/30</small>
+                  <h3>本周波动上升，<br>但未触发调整条件</h3>
+                  <div class="risk-chart">
+                    <svg viewBox="0 0 420 140" preserveAspectRatio="none" aria-label="组合波动趋势示意">
+                      <path d="M0 108 C42 102 58 90 92 97 S151 79 185 85 S243 52 278 67 S335 38 420 24" fill="none" stroke="#7ce0d6" stroke-width="4"/>
+                      <path d="M0 108 C42 102 58 90 92 97 S151 79 185 85 S243 52 278 67 S335 38 420 24 L420 140 L0 140Z" fill="rgba(113,88,232,.2)"/>
+                    </svg>
+                  </div>
+                  <div class="result-list">
+                    <div><b>事实</b> · 近 20 日波动率较上周上升，主要来自权益仓位。</div>
+                    <div><b>判断</b> · 当前仍在策略容忍区间，暂不建议因短期波动调整。</div>
+                    <div><b>动作</b> · 继续监控；若回撤或集中度触发阈值，再发起顾问复核。</div>
+                  </div>
+                </div>
+              </section>
+
+              <section class="stage studio" data-panel="3">
+                <div class="studio-bar"><div><strong>AI 实验室 · 服务工作室</strong><br><span>组合波动哨兵 / Draft v0.8</span></div><button class="primary" data-next-stage="4">完成测试，准备发布</button></div>
+                <div class="studio-body">
+                  <aside class="component-panel">
+                    <div class="panel-title">CAPABILITY</div>
+                    <div class="component"><b>用户授权</b><span>Account Context</span></div>
+                    <div class="component"><b>基金数据 MCP</b><span>Market & Fund Data</span></div>
+                    <div class="component"><b>组合诊断 Skill</b><span>Portfolio Diagnosis</span></div>
+                    <div class="component"><b>顾问复核</b><span>Human Review</span></div>
+                    <div class="component"><b>消息触达</b><span>Notification</span></div>
+                  </aside>
+                  <div class="canvas">
+                    <div class="workflow">
+                      <div class="node-card"><i>IN</i><div><b>触发：每周一 09:00</b><span>或回撤 / 集中度超过阈值</span></div><em>TRIGGER</em></div><div class="node-line"></div>
+                      <div class="node-card"><i>M</i><div><b>获取持仓与市场数据</b><span>用户授权 + 基金与指数 MCP</span></div><em>DATA</em></div><div class="node-line"></div>
+                      <div class="node-card"><i>S</i><div><b>运行组合诊断 Skill</b><span>确定性计算 + 证据结构化</span></div><em>SKILL</em></div><div class="node-line"></div>
+                      <div class="node-card"><i>A</i><div><b>Agent 形成结果</b><span>事实 / 判断 / 动作 / 风险边界</span></div><em>AGENT</em></div><div class="node-line"></div>
+                      <div class="node-card"><i>H</i><div><b>高风险人工确认</b><span>触及建议或交易动作时拦截</span></div><em>HITL</em></div>
+                    </div>
+                  </div>
+                  <aside class="config-panel">
+                    <div class="panel-title">SERVICE CONFIG</div>
+                    <div class="field"><label>适用人群</label><div class="fake-input">已持有基金组合的且慢用户</div></div>
+                    <div class="field"><label>结果形态</label><div class="fake-input">消息卡片 + 诊断报告</div></div>
+                    <div class="field"><label>依赖版本</label><div class="fake-input">portfolio-diagnosis@3.10</div></div>
+                    <div class="toggle-row"><span>允许周期任务</span><span class="toggle"></span></div>
+                    <div class="toggle-row"><span>高风险人工复核</span><span class="toggle"></span></div>
+                    <div class="toggle-row"><span>结果反馈回流</span><span class="toggle"></span></div>
+                  </aside>
+                </div>
+              </section>
+
+              <section class="stage market" data-panel="4">
+                <div class="publish-checks">
+                  <span class="stage-label">REVIEW → VERSION → PUBLISH</span>
+                  <h3>发布前质量门</h3>
+                  <p>应用广场不是文件上传区。每个服务都必须完成依赖、权限、测试、合规、版本和运营检查。</p>
+                  <div class="gate"><span>依赖与版本可解析</span><span>✓ 通过</span></div>
+                  <div class="gate"><span>12 个测试样例</span><span>✓ 通过</span></div>
+                  <div class="gate"><span>隐私与最小权限</span><span>✓ 通过</span></div>
+                  <div class="gate"><span>投顾合规与人工确认</span><span>✓ 通过</span></div>
+                  <div class="gate"><span>Owner、SLA 与下线机制</span><span>✓ 已配置</span></div>
+                  <div class="publish-actions"><button class="primary" id="publishDemo">发布到应用广场</button><button class="secondary" id="resetDemo">重置演示</button></div>
+                </div>
+                <div class="market-preview">
+                  <small>AI LAB · APP MARKETPLACE</small>
+                  <div class="market-card">
+                    <div class="market-icon">波</div>
+                    <h4>组合波动哨兵</h4>
+                    <p>持续监控组合波动、回撤与集中度，在真正需要行动时提醒你。</p>
+                    <div class="market-meta"><span>服务者：且慢投顾</span><span>版本：v1.0</span><span>需要：持仓读取</span><span>频率：每周 / 事件</span></div>
+                    <div class="publish-state" id="publishState">● 待发布 · 仅团队可见</div>
+                    <button class="primary" style="width:100%;margin-top:13px" disabled id="marketButton">等待发布</button>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="value">
+      <div class="wrap">
+        <div class="section-head reveal"><div><div class="kicker">05 · One AI, Three Ends</div><h2>同一能力底座，<br>服务三端业务</h2></div><p>差异化来自服务对象和交付方式，不来自重复建设：C 端要连续陪伴，A 端要专家增强，B 端要可集成与可治理。</p></div>
+        <div class="business-grid reveal">
+          <article class="business-card" data-letter="C"><small>CUSTOMER · 投资者</small><h3>从问答到持续服务</h3><p>记得用户、主动触发、深度分析，并把提醒、诊断、报告和下一步交付给用户。</p><ul><li>任务开启与持续率</li><li>问题解决与建议采纳</li><li>服务结果与长期留存</li></ul></article>
+          <article class="business-card" data-letter="A"><small>ADVISOR · 顾问</small><h3>把专家方法规模复制</h3><p>确定性计算与受约束叙述先由机器完成，事实、建议和高风险动作由人复核。</p><ul><li>报告交付与一次通过</li><li>顾问覆盖与服务完成</li><li>客户沟通与后续动作</li></ul></article>
+          <article class="business-card" data-letter="B"><small>BUSINESS · 机构</small><h3>把金融能力嵌入业务</h3><p>以 MCP、Skills、Agent 与服务形态嵌入机构系统，并提供权限、审计、计量与 SLA。</p><ul><li>能力复用与成功任务</li><li>场景共建与平台集成</li><li>联合运营与商业化</li></ul></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section white">
+      <div class="wrap">
+        <div class="section-head reveal"><div><div class="kicker">06 · Evidence & Boundary</div><h2>保留证据，<br>不拼接伪实时快照</h2></div><p>两份源报告包含规模、能力、调用、机构与服务量等阶段性证据，但日期、统计对象和定义不同。本页保留它们证明的产品阶段，不把它们合并成单一“当前值”。</p></div>
+        <div class="evidence-grid reveal">
+          <article class="evidence-card">
+            <h3>既有报告中的阶段性证据</h3><p class="note">以下为源报告显性口径，仅用于说明能力与产品已形成的基础；正式披露前必须回源复核。</p>
+            <div class="metric-grid">
+              <div class="metric"><strong>540 亿</strong><span>投顾规模 · 源稿标注 2026.03</span></div>
+              <div class="metric"><strong>69</strong><span>正式能力 · 2026-07-21 路线图快照</span></div>
+              <div class="metric"><strong>880 万+</strong><span>MCP 累计调用 · 源能力报告口径</span></div>
+              <div class="metric"><strong>240 万+</strong><span>AI 小顾解决投资问题 · 源能力报告口径</span></div>
+            </div>
+          </article>
+          <article class="evidence-card boundary">
+            <h3>对外使用前的五项复核</h3>
+            <ul>
+              <li><strong>来源：</strong>后台、报表、公开披露或人工汇总。</li>
+              <li><strong>时间：</strong>累计值、周期值、期末值还是当前值。</li>
+              <li><strong>对象：</strong>路由、工具、正式能力、Skill、Agent 或服务。</li>
+              <li><strong>分母：</strong>活跃用户、任务用户、服务用户或全量用户。</li>
+              <li><strong>状态：</strong>已上线事实、历史快照、规划目标或概念方案。</li>
+            </ul>
+            <div class="warn">本报告未实时重拉后台数据。页面中的终极形态是产品概念演示，不作为当前功能已上线的证明。</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="governance">
+      <div class="wrap">
+        <div class="section-head reveal"><div><div class="kicker">07 · Trust by Design</div><h2>服务可以开放，<br>控制面必须统一</h2></div><p>金融 AI 的差异化不仅是“会做什么”，更是“在什么授权下、以什么版本、经过什么测试、由谁负责、出了问题如何停下”。</p></div>
+        <div class="governance reveal">
+          <div class="gov-core"><div><h3>以确定性治理<br>约束概率性 AI</h3><p>身份、权限、数据、规则、质量、审计和人工复核必须前置进入服务定义。</p></div><div class="shield">TRUST<br>CONTROL</div></div>
+          <div class="gov-list">
+            <div class="gov"><b>用户授权与数据边界</b><span>明确数据归属、用途、期限、撤回与删除。</span></div>
+            <div class="gov"><b>最小权限与能力分级</b><span>按用户、机构、场景和风险授予最小权限。</span></div>
+            <div class="gov"><b>测试集与质量门</b><span>上线前验证准确性、失败路径和输出契约。</span></div>
+            <div class="gov"><b>合规与人工确认</b><span>建议、交易和客户敏感动作保留 HITL。</span></div>
+            <div class="gov"><b>版本、依赖与下线</b><span>能力变更可追踪，服务可降级、回滚与下线。</span></div>
+            <div class="gov"><b>审计、计量与责任</b><span>记录输入、调用、结果、复核、owner 与 SLA。</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section white" id="roadmap">
+      <div class="wrap">
+        <div class="section-head reveal"><div><div class="kicker">08 · Action Roadmap</div><h2>先接通闭环，<br>再扩展能力数量</h2></div><p>最重要的不是再画一张更完整的蓝图，而是用一个真实服务证明：发现、授权、运行、复核、交付、反馈和停用都能工作。</p></div>
+        <div class="roadmap reveal">
+          <article class="road now"><small>NOW · 0—6 WEEKS</small><h3>接通一个真实闭环</h3><p>以“组合波动哨兵”或“持仓体检”为种子服务。</p><ul><li>完整用户授权与停用</li><li>真实能力运行与异常处理</li><li>人工确认与结果反馈</li></ul></article>
+          <article class="road"><small>NEXT · 6—12 WEEKS</small><h3>形成服务生产线</h3><p>把生产、测试、审核、发布与运营标准化。</p><ul><li>服务模板与测试集</li><li>版本、依赖和质量门</li><li>少量高质量种子服务</li></ul></article>
+          <article class="road"><small>THEN · 3—6 MONTHS</small><h3>开放生态与经营</h3><p>允许内部专家和合作伙伴共创并运营服务。</p><ul><li>创作者与服务市场</li><li>计量、计费与收益分配</li><li>SLA 与联合运营</li></ul></article>
+        </div>
+        <aside class="source-box reveal">
+          <h3>来源、更新与边界</h3>
+          <p>本页整合了两份已发布报告，沿用第一份的“核心判断—能力架构—业务价值—证据—治理—路线”结构，采用第二份的紫色渐变、档案式卡片与轻量 SVG 视觉。数据截止 <code>2026-07-30</code>。</p>
+          <ol>
+            <li><a href="https://clairku.github.io/clair-ai-studio/reports/yingmi-ai-capability-system-2026-07/">盈米 AI 能力体系专业报告｜2026.07</a></li>
+            <li><a href="https://clairku.github.io/clair-ai-studio/reports/yingmi-ai-materials-compendium-2026-07-30/">盈米 AI 业务全景档案｜2026.07.30</a></li>
+          </ol>
+          <p>页面中的“组合波动哨兵”仅用于演示目标产品闭环；未使用真实客户数据，不代表当前功能、合规审批或商业状态。</p>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="closing">
+    <h2>让专业金融能力，<br>成为每个人都能获得的 <em>服务</em></h2>
+    <p>OAP 供给能力，AI 实验室生产与发行服务，AI 小顾和顾问工作台完成交付；结果持续回流，形成可信、可复用、可经营的金融服务操作系统。</p>
+    <div class="source">且慢 AI 产品实践 · 2026.07.30<br>证据截止 2026-07-30 · 目标态交互为概念原型 · 正式对外数据需逐项回源复核</div>
+  </footer>
+
+  <script>
+    (() => {
+      const progress = document.getElementById('progress');
+      const navLinks = [...document.querySelectorAll('.nav-links a')];
+      const sections = navLinks.map((a) => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+      const reveal = new IntersectionObserver((entries) => entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add('show');
+      }), { threshold: .1 });
+      document.querySelectorAll('.reveal').forEach((el) => reveal.observe(el));
+
+      const setStage = (id) => {
+        document.querySelectorAll('.demo-step').forEach((button) => {
+          const active = button.dataset.stage === String(id);
+          button.classList.toggle('active', active);
+          button.setAttribute('aria-selected', String(active));
+        });
+        document.querySelectorAll('.stage').forEach((panel) => {
+          panel.classList.toggle('active', panel.dataset.panel === String(id));
+        });
+      };
+      document.querySelectorAll('.demo-step').forEach((button) => button.addEventListener('click', () => setStage(button.dataset.stage)));
+      document.querySelectorAll('[data-next-stage]').forEach((button) => button.addEventListener('click', () => setStage(button.dataset.nextStage)));
+
+      const publish = document.getElementById('publishDemo');
+      const reset = document.getElementById('resetDemo');
+      const publishState = document.getElementById('publishState');
+      const marketButton = document.getElementById('marketButton');
+      publish?.addEventListener('click', () => {
+        publishState.textContent = '● 已发布 · 应用广场可见';
+        publishState.classList.add('live-state');
+        marketButton.textContent = '在 AI 小顾中启用';
+        marketButton.disabled = false;
+        publish.textContent = '发布成功';
+        publish.disabled = true;
+      });
+      reset?.addEventListener('click', () => {
+        publishState.textContent = '● 待发布 · 仅团队可见';
+        publishState.classList.remove('live-state');
+        marketButton.textContent = '等待发布';
+        marketButton.disabled = true;
+        publish.textContent = '发布到应用广场';
+        publish.disabled = false;
+      });
+
+      const onScroll = () => {
+        const max = document.documentElement.scrollHeight - innerHeight;
+        progress.style.width = (max ? scrollY / max * 100 : 0) + '%';
+        let current = sections[0];
+        sections.forEach((section) => { if (scrollY >= section.offsetTop - 110) current = section; });
+        navLinks.forEach((a) => a.classList.toggle('active', a.getAttribute('href') === '#' + current?.id));
+      };
+      addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    })();
+  </script>
+</body>
+</html>

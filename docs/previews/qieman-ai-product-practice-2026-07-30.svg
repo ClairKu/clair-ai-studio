@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">且慢 AI 产品实践</title>
+  <desc id="desc">从金融能力底座到服务应用广场的产品闭环</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f7f7fb"/><stop offset="1" stop-color="#eeecff"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8064ed"/><stop offset="1" stop-color="#24b2a5"/></linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="16" stdDeviation="22" flood-color="#303751" flood-opacity=".13"/></filter>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <rect width="1200" height="7" fill="url(#accent)"/>
+  <circle cx="1020" cy="110" r="250" fill="#7358e8" opacity=".06"/>
+  <circle cx="1130" cy="650" r="280" fill="#25b0a3" opacity=".06"/>
+  <g transform="translate(76 80)">
+    <rect width="218" height="36" rx="18" fill="#ebe7ff"/>
+    <circle cx="19" cy="18" r="5" fill="#23a99d"/>
+    <text x="35" y="23" fill="#7158e8" font-family="Arial, PingFang SC, sans-serif" font-size="12" font-weight="700" letter-spacing="1.4">YINGMI × QIEMAN</text>
+    <text x="0" y="118" fill="#151a25" font-family="Georgia, Songti SC, serif" font-size="70" font-weight="600">且慢 AI</text>
+    <text x="0" y="196" fill="#7158e8" font-family="Georgia, Songti SC, serif" font-size="70" font-weight="600">产品实践</text>
+    <text x="0" y="240" fill="#657086" font-family="Arial, PingFang SC, sans-serif" font-size="19">从金融能力底座，到每个人都能获得与生产服务</text>
+    <g transform="translate(0 292)" font-family="Arial, PingFang SC, sans-serif">
+      <g><rect width="130" height="70" rx="16" fill="#fff" stroke="#e3e4ed"/><text x="17" y="30" fill="#151a25" font-size="21" font-weight="700">1</text><text x="17" y="51" fill="#657086" font-size="11">统一底座</text></g>
+      <g transform="translate(142 0)"><rect width="130" height="70" rx="16" fill="#fff" stroke="#e3e4ed"/><text x="17" y="30" fill="#151a25" font-size="21" font-weight="700">4</text><text x="17" y="51" fill="#657086" font-size="11">产品角色</text></g>
+      <g transform="translate(284 0)"><rect width="130" height="70" rx="16" fill="#fff" stroke="#e3e4ed"/><text x="17" y="30" fill="#151a25" font-size="21" font-weight="700">5</text><text x="17" y="51" fill="#657086" font-size="11">能力架构</text></g>
+    </g>
+    <g transform="translate(0 405)">
+      <rect width="428" height="92" rx="22" fill="#15213c"/>
+      <text x="24" y="34" fill="#69dacf" font-family="Arial, sans-serif" font-size="10" font-weight="700" letter-spacing="1.5">ONE NORTH STAR</text>
+      <text x="24" y="66" fill="#fff" font-family="Arial, PingFang SC, sans-serif" font-size="20" font-weight="700">成功金融服务任务</text>
+      <text x="241" y="66" fill="#aeb9ce" font-family="Arial, PingFang SC, sans-serif" font-size="11">复用 × 采纳 × 合规</text>
+    </g>
+  </g>
+  <g transform="translate(617 75)" filter="url(#shadow)" font-family="Arial, PingFang SC, sans-serif">
+    <rect width="510" height="525" rx="34" fill="#151d32"/>
+    <text x="34" y="45" fill="#75829c" font-size="10" font-weight="700" letter-spacing="1.7">FINANCIAL SERVICE LOOP</text>
+    <circle cx="255" cy="276" r="178" fill="none" stroke="#303b55"/>
+    <circle cx="255" cy="276" r="110" fill="none" stroke="#303b55"/>
+    <path d="M255 98C353 98 433 178 433 276" fill="none" stroke="url(#accent)" stroke-width="7" stroke-linecap="round"/>
+    <path d="M255 454C157 454 77 374 77 276" fill="none" stroke="url(#accent)" stroke-width="7" stroke-linecap="round"/>
+    <rect x="155" y="213" width="200" height="126" rx="28" fill="#fff"/>
+    <text x="255" y="258" fill="#151a25" text-anchor="middle" font-size="17" font-weight="700">成功金融服务任务</text>
+    <text x="255" y="286" fill="#657086" text-anchor="middle" font-size="11">发现 · 授权 · 运行 · 复核 · 交付</text>
+    <rect x="192" y="303" width="126" height="20" rx="10" fill="#e6f8f5"/>
+    <text x="255" y="317" fill="#1ca69a" text-anchor="middle" font-size="9" font-weight="700">结果回流与持续经营</text>
+    <g fill="#222b43" stroke="#3c4964">
+      <rect x="195" y="66" width="120" height="45" rx="14"/><rect x="368" y="254" width="126" height="45" rx="14"/>
+      <rect x="181" y="441" width="148" height="45" rx="14"/><rect x="16" y="254" width="142" height="45" rx="14"/>
+    </g>
+    <g fill="#fff" font-size="11" font-weight="700" text-anchor="middle">
+      <text x="255" y="93">AI 小顾 · 获得</text><text x="431" y="281">服务运行 · 使用</text>
+      <text x="255" y="468">应用广场 · 发行</text><text x="87" y="281">AI 实验室 · 生产</text>
+    </g>
+  </g>
+</svg>
