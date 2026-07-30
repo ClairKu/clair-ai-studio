@@ -182,8 +182,315 @@
 
     <section class="section white" id="demo">
       <div class="wrap">
-        <div class="section-head reveal"><div><div class="kicker">04 · Core Product Demo</div><h2>从“懂你”开始，<br>长出一整个服务生态</h2></div><p>这是整份汇报的核心演示：AI 小顾基于记忆主动服务，用户通过追问把一次回答变成自定义服务；简单服务在对话中即时生成，复杂服务无缝进入 AI 实验室；所有结果都能固化、收藏、复用与发布，并由 AI 开放平台统一支撑。</p></div>
-        <div class="demo-shell core-demo reveal">
+        <div class="section-head reveal"><div><div class="kicker">04 · Core Product Demo</div><h2>从“懂你”开始，<br>长出一整个服务生态</h2></div><p>整段演示延续且慢小顾手机端形态：从真实投资问题出发，主动发现、延伸追问、生成服务、进阶创建、成果固化与服务广场都在同一条移动体验中完成；AI 实验室与开放平台能力被自然隐藏在服务背后。</p></div>
+        <div class="demo-shell core-demo phone-demo reveal">
+          <div class="demo-disclaimer">
+            <span>一位且慢用户 · 六段手机端连续体验 · 从真实投资问题长出服务</span>
+            <span class="demo-badge">历史真实问题原型 · 数据脱敏示意 · 非当前行情</span>
+          </div>
+          <div class="mobile-story-steps" role="tablist" aria-label="且慢小顾核心产品演示">
+            <button class="demo-step active" data-stage="1" role="tab" aria-selected="true"><small>01 · 主动服务</small><b>先发现，再解释</b><span>持仓、定投与关注更新</span></button>
+            <button class="demo-step" data-stage="2" role="tab" aria-selected="false"><small>02 · 延伸追问</small><b>组合要不要动</b><span>诊断卡与个性回答</span></button>
+            <button class="demo-step" data-stage="3" role="tab" aria-selected="false"><small>03 · 对话生成</small><b>把答案变服务</b><span>长赢行动提醒</span></button>
+            <button class="demo-step" data-stage="4" role="tab" aria-selected="false"><small>04 · 进阶创建</small><b>复杂服务也在手机</b><span>基金周报与规则设置</span></button>
+            <button class="demo-step" data-stage="5" role="tab" aria-selected="false"><small>05 · 成果固化</small><b>五类服务形态</b><span>卡片、报告、任务与结果</span></button>
+            <button class="demo-step" data-stage="6" role="tab" aria-selected="false"><small>06 · 服务生态</small><b>发布与使用</b><span>小顾服务广场</span></button>
+          </div>
+          <div class="mobile-demo-stage">
+            <section class="stage mobile-scene active" data-panel="1">
+              <div class="phone-scene-grid">
+                <div class="qieman-phone">
+                  <div class="phone-status"><span>9:41</span><span>● ● ᯤ</span></div>
+                  <header class="qieman-appbar"><button aria-label="返回">‹</button><div><b>且慢小顾</b><small>懂投资，也记得你</small></div><span>···</span></header>
+                  <div class="phone-scroll">
+                    <div class="xiaogu-hello">
+                      <small>早上好 · 已读取你授权的服务记忆</small>
+                      <h3>今天有 3 件事<br>和你的投资有关</h3>
+                      <p>我过滤了普通行情波动，只保留需要你理解或行动的内容。</p>
+                      <div class="phone-memory"><span>长赢计划持有人</span><span>每月定投</span><span>稳健偏好</span><span>少打扰</span></div>
+                    </div>
+                    <div class="xiaogu-row">
+                      <div class="xiaogu-avatar">小顾</div>
+                      <div class="xiaogu-bubble">市场今天有明显波动，但结合你的持仓与计划，<b>暂时没有需要立即调仓的信号</b>。我把真正相关的变化放在下面。</div>
+                    </div>
+                    <article class="phone-card soft-blue">
+                      <div class="phone-card-head"><small>长赢计划 · 持仓陪伴</small><em>无需动作</em></div>
+                      <h4>组合比主要指数更抗跌，仍在计划区间内</h4>
+                      <p>固收和现金部分缓冲了权益波动，当前变化没有破坏原有资产配置。</p>
+                      <div class="mobile-stat-grid"><div class="mobile-stat"><b>正常</b><span>计划状态</span></div><div class="mobile-stat"><b>可承受</b><span>波动水平</span></div><div class="mobile-stat"><b>继续</b><span>定投节奏</span></div></div>
+                      <div class="phone-card-actions"><button class="mobile-action primary-mobile" data-mobile-next="2">为什么不用调？</button><button class="mobile-action">查看持仓</button></div>
+                    </article>
+                    <article class="phone-card soft-amber">
+                      <div class="phone-card-head"><small>自动跟车任务</small><em>需要处理</em></div>
+                      <h4>一笔自动跟车失败</h4>
+                      <p>账户可用余额不足。本次未成交，不影响已有持仓；补足余额后可手动跟车。</p>
+                      <div class="phone-card-actions"><button class="mobile-action">去处理</button><button class="mobile-action">以后只提醒失败</button></div>
+                    </article>
+                    <article class="phone-card">
+                      <div class="phone-card-head"><small>基金季报与估值关注</small><em>2 项更新</em></div>
+                      <h4>你关注的基金与指数有新变化</h4>
+                      <p>基金经理季报观点已更新；中证A估值仍处于历史偏低区域。</p>
+                    </article>
+                  </div>
+                  <div class="phone-composer"><span>继续问小顾…</span><button aria-label="发送">↑</button></div>
+                </div>
+                <aside class="scene-story">
+                  <div class="story-kicker">PROACTIVE SERVICE · 手机端原生</div>
+                  <h3>小顾先替用户<br>判断“要不要管”</h3>
+                  <p>不做泛化资讯流，而是把行情、持仓、计划、任务和用户偏好组合起来，主动推送与本人有关的投资问题。</p>
+                  <div class="story-points">
+                    <div class="story-point"><i>记</i><div><b>记得用户的投资上下文</b><span>计划、持仓、定投、风险偏好与提醒偏好</span></div></div>
+                    <div class="story-point"><i>筛</i><div><b>过滤噪声，只保留相关变化</b><span>无需动作、需要理解、必须处理三种优先级</span></div></div>
+                    <div class="story-point"><i>卡</i><div><b>沿用小顾已有卡片语言</b><span>持仓诊断、基金表现、估值温度、任务异常与关注更新</span></div></div>
+                  </div>
+                  <div class="story-evidence"><b>真实问题原型</b><span>“市场跌了，我的组合要不要动？”“自动跟车失败怎么办？”“这只基金最近发生了什么？”</span></div>
+                </aside>
+              </div>
+            </section>
+
+            <section class="stage mobile-scene" data-panel="2">
+              <div class="phone-scene-grid">
+                <div class="qieman-phone">
+                  <div class="phone-status"><span>9:42</span><span>● ● ᯤ</span></div>
+                  <header class="qieman-appbar"><button aria-label="返回">‹</button><div><b>且慢小顾</b><small>长赢计划陪伴</small></div><span>···</span></header>
+                  <div class="phone-scroll">
+                    <div class="mobile-message user">今天市场跌了，我的长赢计划要不要调仓？</div>
+                    <div class="mobile-message answer" id="mobileFollowupAnswer">先不用。你的计划本身是多资产配置，当前下跌主要来自权益部分，固收与现金仍在发挥缓冲作用；组合没有偏离原有风险区间，也没有出现计划发车信号。</div>
+                    <article class="phone-card">
+                      <div class="phone-card-head"><small>持仓诊断 · 脱敏案例</small><em>诊断已完成</em></div>
+                      <h4>组合承压可控，主要风险仍来自权益集中</h4>
+                      <div class="mini-allocation">
+                        <div class="mini-donut"></div>
+                        <div class="mini-bars">
+                          <div class="mini-bar"><span>权益资产</span><i style="--w:72%"></i></div>
+                          <div class="mini-bar"><span>固收资产</span><i style="--w:58%"></i></div>
+                          <div class="mini-bar"><span>现金缓冲</span><i style="--w:34%"></i></div>
+                          <div class="mini-bar"><span>分散程度</span><i style="--w:64%"></i></div>
+                        </div>
+                      </div>
+                      <p>42 分来自历史诊断案例的脱敏示意，不代表当前用户或当前市场。</p>
+                    </article>
+                    <div class="mobile-prompt-row" aria-label="继续追问示例">
+                      <button data-mobile-question="why">为什么比沪深300跌得少？</button>
+                      <button data-mobile-question="invest">还需要继续定投吗？</button>
+                      <button data-mobile-question="risk">最大风险在哪里？</button>
+                    </div>
+                    <div class="memory-writeback">
+                      <small id="mobileMemoryStatus">本轮理解 · 等待用户确认</small>
+                      <b id="mobileMemoryTitle">用户关心“下跌时是否需要行动”</b>
+                      <p id="mobileMemoryText">后续回答优先给出行动结论，再解释持仓结构与计划规则。</p>
+                    </div>
+                    <article class="phone-card soft-green">
+                      <div class="phone-card-head"><small>下一步</small><em>可以固化</em></div>
+                      <h4>要不要把这种判断变成固定服务？</h4>
+                      <p>以后遇到明显下跌，小顾直接结合你的长赢计划告诉你“是否需要行动”。</p>
+                      <div class="phone-card-actions"><button class="mobile-action primary-mobile" data-mobile-next="3">生成“长赢行动提醒”</button></div>
+                    </article>
+                  </div>
+                  <div class="phone-composer"><span>继续追问…</span><button aria-label="发送">↑</button></div>
+                </div>
+                <aside class="scene-story">
+                  <div class="story-kicker">FOLLOW-UP · 从行情问题到个人判断</div>
+                  <h3>追问不是多聊一句，<br>而是继续变得更懂用户</h3>
+                  <p>同一句“市场跌了怎么办”，对不同持仓、不同计划和不同风险承受能力的人，答案与行动建议都应该不同。</p>
+                  <div class="story-points">
+                    <div class="story-point"><i>问</i><div><b>先给行动结论</b><span>是否调仓、是否继续定投、是否需要处理任务</span></div></div>
+                    <div class="story-point"><i>图</i><div><b>用已有小顾卡片解释</b><span>资产配置、风险诊断、阶段收益与同类比较</span></div></div>
+                    <div class="story-point"><i>回</i><div><b>把关注点写回记忆</b><span>下一次主动服务直接采用用户偏好的解释方式</span></div></div>
+                  </div>
+                </aside>
+              </div>
+            </section>
+
+            <section class="stage mobile-scene" data-panel="3">
+              <div class="phone-scene-grid">
+                <div class="qieman-phone">
+                  <div class="phone-status"><span>9:44</span><span>● ● ᯤ</span></div>
+                  <header class="qieman-appbar"><button aria-label="返回">‹</button><div><b>生成新服务</b><small>由本次小顾对话创建</small></div><span>···</span></header>
+                  <div class="phone-scroll">
+                    <div class="mobile-message user">以后大跌时，不要只告诉我跌了多少。请结合我的长赢计划，直接告诉我要不要行动。</div>
+                    <div class="xiaogu-row"><div class="xiaogu-avatar">小顾</div><div class="xiaogu-bubble">明白。我已经把你的问题整理成一个可持续运行的服务，你确认后就会加入“我的小顾服务”。</div></div>
+                    <article class="phone-service-card">
+                      <small>NEW SERVICE · 由对话生成</small>
+                      <h4>长赢行动提醒</h4>
+                      <p>市场出现明显波动时，结合你的计划、持仓和定投状态，直接判断是否需要行动。</p>
+                      <div class="service-rule-list">
+                        <div><b>什么时候运行</b>市场明显下跌、计划发车、持仓风险变化或用户主动询问</div>
+                        <div><b>会读取什么</b>长赢计划、持仓结构、风险偏好、定投与任务状态</div>
+                        <div><b>会给出什么</b>先给“无需动作 / 继续观察 / 需要处理”，再解释原因</div>
+                        <div><b>记住什么</b>用户更关心行动结论，不希望被普通波动频繁打扰</div>
+                      </div>
+                      <button class="mobile-action primary-mobile block" id="mobileSaveService">确认并保存为固定服务</button>
+                      <div class="save-state" id="mobileSaveState">○ 目前仅存在于这次对话</div>
+                    </article>
+                    <article class="phone-card">
+                      <div class="phone-card-head"><small>还想进一步设置？</small><em>可选</em></div>
+                      <h4>加入更多基金、估值或季报条件</h4>
+                      <p>复杂场景可以继续进入进阶创建，但仍然在小顾手机端完成。</p>
+                      <div class="phone-card-actions"><button class="mobile-action" data-mobile-next="4">继续进阶编辑</button></div>
+                    </article>
+                  </div>
+                  <div class="phone-composer"><span>告诉小顾还要修改什么…</span><button aria-label="发送">↑</button></div>
+                </div>
+                <aside class="scene-story">
+                  <div class="story-kicker">IN CHAT · 一句话生成服务</div>
+                  <h3>简单规则，<br>直接在对话里完成</h3>
+                  <p>用户不需要理解 Prompt、MCP 或工作流。小顾把自然语言自动翻译成触发条件、所需数据、输出方式和记忆策略。</p>
+                  <div class="story-points">
+                    <div class="story-point"><i>1</i><div><b>从真实问题提炼服务意图</b><span>不是另起一套表单，而是承接当前上下文</span></div></div>
+                    <div class="story-point"><i>2</i><div><b>先生成可理解的规则摘要</b><span>用户确认的是“什么时候、看什么、告诉我什么”</span></div></div>
+                    <div class="story-point"><i>3</i><div><b>保存后形成服务闭环</b><span>主动运行、交付结果、保存反馈并持续更新记忆</span></div></div>
+                  </div>
+                </aside>
+              </div>
+            </section>
+
+            <section class="stage mobile-scene" data-panel="4">
+              <div class="phone-scene-grid">
+                <div class="qieman-phone">
+                  <div class="phone-status"><span>9:46</span><span>● ● ᯤ</span></div>
+                  <header class="qieman-appbar"><button aria-label="返回">‹</button><div><b>进阶创建服务</b><small id="mobileLabSub">承接小顾对话 · 长赢行动提醒</small></div><span>···</span></header>
+                  <div class="phone-scroll">
+                    <div class="mobile-segment"><button class="active" data-mobile-lab-entry="xiaogu">从小顾继续</button><button data-mobile-lab-entry="new">新建一个服务</button></div>
+                    <div class="memory-writeback" id="mobileLabNote">
+                      <small>上下文已带入</small>
+                      <b>不用重新描述持仓与关注点</b>
+                      <p>已继承本次对话、长赢计划、授权数据和“先给行动结论”的回复偏好。</p>
+                    </div>
+                    <div class="mobile-message user">每周再帮我比较三只持有基金：阶段收益、同类排名、基金经理季报和指数估值；只有发生明显变化时提醒。</div>
+                    <section class="mobile-form-section">
+                      <small>服务名称</small><b>我的基金周报</b><p>每周一次，发生基金经理或风险重大变化时提前运行。</p>
+                    </section>
+                    <section class="mobile-form-section">
+                      <small>小顾自动选择的能力</small><b>已匹配 5 项金融能力</b>
+                      <div class="ability-chips"><span>持仓查询</span><span>阶段收益</span><span>同类排名</span><span>季报解读</span><span>估值温度</span></div>
+                    </section>
+                    <section class="mobile-form-section">
+                      <small>服务规则</small>
+                      <div class="mobile-setting"><span>运行时间</span><b>每周六 09:00</b></div>
+                      <div class="mobile-setting"><span>提前触发</span><b>经理变更 / 风险变化</b></div>
+                      <div class="mobile-setting"><span>回复方式</span><b>先结论，再图表</b></div>
+                      <div class="mobile-setting"><span>触达偏好</span><b>无明显变化不打扰</b></div>
+                    </section>
+                    <section class="mobile-form-section">
+                      <small>数据与安全</small>
+                      <div class="mobile-setting"><span>授权数据</span><b>仅持仓与关注列表</b></div>
+                      <div class="mobile-setting"><span>涉及交易建议</span><b>需要用户确认</b></div>
+                    </section>
+                    <button class="mobile-action primary-mobile block" data-mobile-next="5">测试并生成服务成果</button>
+                    <div class="mobile-note">底层 Prompt、工具编排与异常处理由 AI 实验室完成；用户看到的是服务规则。</div>
+                  </div>
+                </div>
+                <aside class="scene-story">
+                  <div class="story-kicker">AI LAB · 能力隐藏在手机端服务背后</div>
+                  <h3>复杂创建仍然丝滑，<br>但不变成 PC 工作台</h3>
+                  <p>实验室负责更复杂的工具、Prompt、场景与治理编排；在用户侧，它表现为手机里的进阶服务编辑，而不是专业配置后台。</p>
+                  <div class="story-points">
+                    <div class="story-point"><i>接</i><div><b>从小顾对话无缝接续</b><span>问题、持仓、偏好、授权与草稿规则自动带入</span></div></div>
+                    <div class="story-point"><i>选</i><div><b>系统自动匹配金融能力</b><span>持仓、收益、同类、季报、估值和任务能力</span></div></div>
+                    <div class="story-point"><i>折</i><div><b>高级配置渐进披露</b><span>普通用户只确认服务规则，进阶用户再展开 Prompt 与工具详情</span></div></div>
+                  </div>
+                  <div class="oap-mobile-rail"><div><b>MCP / API</b><span>查数与计算</span></div><div><b>Skills</b><span>诊断与解读</span></div><div><b>Agent</b><span>触发与闭环</span></div></div>
+                </aside>
+              </div>
+            </section>
+
+            <section class="stage mobile-scene" data-panel="5">
+              <div class="phone-scene-grid">
+                <div class="qieman-phone">
+                  <div class="phone-status"><span>9:49</span><span>● ● ᯤ</span></div>
+                  <header class="qieman-appbar"><button aria-label="返回">‹</button><div><b>我的小顾服务</b><small>生成的成果都可以继续使用</small></div><span>···</span></header>
+                  <div class="phone-scroll">
+                    <div class="mobile-artifact-tabs" role="tablist" aria-label="服务成果形态">
+                      <button class="active" data-mobile-artifact="card" role="tab" aria-selected="true">服务卡片</button>
+                      <button data-mobile-artifact="bundle" role="tab" aria-selected="false">一组服务</button>
+                      <button data-mobile-artifact="report" role="tab" aria-selected="false">报告</button>
+                      <button data-mobile-artifact="task" role="tab" aria-selected="false">任务设置</button>
+                      <button data-mobile-artifact="result" role="tab" aria-selected="false">一次结果</button>
+                    </div>
+                    <article class="artifact-mobile-preview">
+                      <small id="mobileArtifactEyebrow">SERVICE CARD · 已生成</small>
+                      <h3 id="mobileArtifactTitle">长赢行动提醒</h3>
+                      <p id="mobileArtifactDescription">嵌入小顾首页与对话的服务卡，先显示是否需要行动，再提供持仓与计划解释。</p>
+                      <div class="artifact-mobile-body"><b id="mobileArtifactBodyTitle">今天无需调整长赢计划</b><p id="mobileArtifactBodyText">组合仍在计划区间内；继续原定定投。如发生发车或风险变化，小顾会再次提醒。</p></div>
+                      <div class="mobile-lifecycle"><span>收藏</span><span>固化</span><span>持续运行</span><span>发布</span></div>
+                      <div class="phone-card-actions"><button class="mobile-action primary-mobile" id="mobileSaveArtifact">收藏并固化</button><button class="mobile-action" data-mobile-next="6">去服务广场</button></div>
+                      <div class="save-state" id="mobileArtifactStatus">○ 当前是一次生成结果，尚未收藏</div>
+                    </article>
+                    <article class="phone-card">
+                      <div class="phone-card-head"><small>同一个服务的不同形态</small><em>统一管理</em></div>
+                      <h4>不是五套产品，而是五种交付方式</h4>
+                      <p>底层共享目标、能力、触发条件、用户上下文、记忆与治理规则。</p>
+                    </article>
+                  </div>
+                  <div class="phone-composer"><span>继续让小顾修改服务…</span><button aria-label="发送">↑</button></div>
+                </div>
+                <aside class="scene-story">
+                  <div class="story-kicker">ARTIFACTS · 从一次结果到长期服务</div>
+                  <h3>所有成果都留在<br>用户熟悉的手机端</h3>
+                  <p>服务可以是一张即时卡片、一组组合服务、一份报告、一个持续任务，或某次可追溯结果；都能收藏、固化、复用和发布。</p>
+                  <div class="story-points">
+                    <div class="story-point"><i>卡</i><div><b>服务卡片</b><span>嵌入小顾首页和对话，适合即时判断与动作</span></div></div>
+                    <div class="story-point"><i>报</i><div><b>服务组与报告</b><span>把持仓、收益、基金经理和估值组织成完整交付</span></div></div>
+                    <div class="story-point"><i>任</i><div><b>任务与运行结果</b><span>定义持续触发，并保留每次输入、判断和用户反馈</span></div></div>
+                  </div>
+                </aside>
+              </div>
+            </section>
+
+            <section class="stage mobile-scene" data-panel="6">
+              <div class="phone-scene-grid">
+                <div class="qieman-phone">
+                  <div class="phone-status"><span>9:51</span><span>● ● ᯤ</span></div>
+                  <header class="qieman-appbar"><button aria-label="返回">‹</button><div><b>小顾服务广场</b><small>发现并使用别人做好的服务</small></div><span>···</span></header>
+                  <div class="phone-scroll">
+                    <div class="xiaogu-hello">
+                      <small>为你推荐</small>
+                      <h3>更适合你持仓与计划的服务</h3>
+                      <p>推荐会参考用户授权的持仓、关注、计划与服务偏好。</p>
+                    </div>
+                    <article class="mobile-market-card mine">
+                      <div class="market-mobile-head"><div class="market-mobile-icon">赢</div><div><b>长赢行动提醒</b><span>我创建的 · 且慢小顾</span></div><em id="mobilePublishState">草稿</em></div>
+                      <p>市场明显波动时，结合长赢计划与持仓判断是否需要行动。</p>
+                      <footer><span id="mobileEcosystemNotice">仅自己可见</span><button class="mobile-action" id="mobileMarketButton" disabled>等待发布</button></footer>
+                      <div class="phone-card-actions"><button class="mobile-action primary-mobile" id="mobilePublish">发布到服务广场</button><button class="mobile-action" id="mobileReset">重置</button></div>
+                    </article>
+                    <article class="mobile-market-card">
+                      <div class="market-mobile-head"><div class="market-mobile-icon">季</div><div><b>基金经理季报追踪</b><span>且慢基金研究团队</span></div><em>4.8</em></div>
+                      <p>季报发布后比较投资策略、持仓与观点变化，只推送真正的新变化。</p>
+                      <footer><span>8,600 人使用</span><button class="mobile-action primary-mobile" data-mobile-market-use="基金经理季报追踪">启用</button></footer>
+                    </article>
+                    <article class="mobile-market-card">
+                      <div class="market-mobile-head"><div class="market-mobile-icon">温</div><div><b>指数估值温度提醒</b><span>用户 Mia 发布</span></div><em>4.7</em></div>
+                      <p>关注指数进入偏低或偏高区间时，结合定投计划给出解释。</p>
+                      <footer><span>2.3 万人使用</span><button class="mobile-action primary-mobile" data-mobile-market-use="指数估值温度提醒">启用</button></footer>
+                    </article>
+                    <article class="mobile-market-card">
+                      <div class="market-mobile-head"><div class="market-mobile-icon">检</div><div><b>每月持仓诊断</b><span>且慢投顾团队</span></div><em>4.9</em></div>
+                      <p>生成资产分布、风险等级、配置问题与调整关注点。</p>
+                      <footer><span>1.2 万人使用</span><button class="mobile-action primary-mobile" data-mobile-market-use="每月持仓诊断">启用</button></footer>
+                    </article>
+                  </div>
+                  <div class="phone-composer"><span>搜索或描述想要的服务…</span><button aria-label="发送">↑</button></div>
+                </div>
+                <aside class="scene-story">
+                  <div class="story-kicker">ECOSYSTEM · 用户也是服务创作者</div>
+                  <h3>服务在手机端被发现、<br>使用、反馈与再创造</h3>
+                  <p>用户从真实投资问题中创建服务，通过审核后发布给别人；其他用户启用、反馈，结果继续改善服务版本与平台能力。</p>
+                  <div class="story-points">
+                    <div class="story-point"><i>得</i><div><b>获得服务</b><span>小顾主动推荐，或在服务广场主动发现</span></div></div>
+                    <div class="story-point"><i>创</i><div><b>创建与发布</b><span>从对话直接生成，也能从进阶创建独立发起</span></div></div>
+                    <div class="story-point"><i>长</i><div><b>使用结果反哺生态</b><span>采纳、修改、失败原因与停用反馈进入服务版本</span></div></div>
+                  </div>
+                  <div class="story-evidence"><b>统一由盈米 AI 开放平台支撑</b><span>金融数据、MCP / API、Skills、Agent、模型知识、用户授权、质量与审计共同构成服务底座。</span></div>
+                  <div class="oap-mobile-rail"><div><b>金融数据</b><span>基金·市场·账户</span></div><div><b>MCP / API</b><span>查询·计算·动作</span></div><div><b>Skills</b><span>诊断·解读·报告</span></div><div><b>Agent</b><span>触发·编排·闭环</span></div><div><b>模型知识</b><span>LLM·RAG·观点</span></div><div><b>信任控制</b><span>授权·质量·审计</span></div></div>
+                </aside>
+              </div>
+            </section>
+          </div>
+        </div>
+
+        <div class="demo-shell core-demo legacy-demo" hidden>
           <div class="demo-disclaimer"><span>一位用户 · 六个连续场景 · 一条服务生态闭环</span><span class="demo-badge">目标态交互原型，不代表已上线</span></div>
           <div class="demo-grid">
             <div class="demo-steps" role="tablist" aria-label="核心产品演示步骤">
@@ -641,6 +948,153 @@
       };
       document.querySelectorAll('.demo-step').forEach((button) => button.addEventListener('click', () => setStage(button.dataset.stage)));
       document.querySelectorAll('[data-next-stage]').forEach((button) => button.addEventListener('click', () => setStage(button.dataset.nextStage)));
+      document.querySelectorAll('[data-mobile-next]').forEach((button) => button.addEventListener('click', () => setStage(button.dataset.mobileNext)));
+
+      const mobileFollowupAnswers = {
+        why: {
+          answer: '因为你的长赢计划不是单一权益指数。固收与现金提供了缓冲，权益部分也分散在不同资产上，所以本次跌幅小于沪深300；这不代表组合不会跌，而是风险来源不同。',
+          title: '新增关注：希望理解组合相对抗跌的原因',
+          text: '以后遇到市场下跌，优先解释资产配置与指数涨跌差异，不只展示单日收益。',
+        },
+        invest: {
+          answer: '仍可按原计划继续定投。当前没有出现应急资金不足、计划风险区间被突破或自动跟车异常；如果后续发生发车或现金流变化，我会单独提醒你确认。',
+          title: '确认偏好：坚持计划，但异常必须提醒',
+          text: '普通波动不改变定投节奏；计划发车、现金流不足或任务失败时主动触达。',
+        },
+        risk: {
+          answer: '当前最需要关注的是权益资产内部仍有一定集中，而不是今天的跌幅本身。下一次诊断我会重点比较行业集中度、基金风格变化和固收缓冲是否减弱。',
+          title: '新增关注：权益集中与风格漂移',
+          text: '后续持仓诊断优先检查行业集中、基金风格变化与分散程度。',
+        },
+      };
+      const mobileFollowupAnswer = document.getElementById('mobileFollowupAnswer');
+      const mobileMemoryTitle = document.getElementById('mobileMemoryTitle');
+      const mobileMemoryText = document.getElementById('mobileMemoryText');
+      const mobileMemoryStatus = document.getElementById('mobileMemoryStatus');
+      document.querySelectorAll('[data-mobile-question]').forEach((button) => button.addEventListener('click', () => {
+        const item = mobileFollowupAnswers[button.dataset.mobileQuestion];
+        if (!item) return;
+        mobileFollowupAnswer.textContent = item.answer;
+        mobileMemoryTitle.textContent = item.title;
+        mobileMemoryText.textContent = item.text;
+        mobileMemoryStatus.textContent = '记忆已更新 · 可随时查看或撤回';
+      }));
+
+      const mobileSaveService = document.getElementById('mobileSaveService');
+      const mobileSaveState = document.getElementById('mobileSaveState');
+      mobileSaveService?.addEventListener('click', () => {
+        mobileSaveState.textContent = '● 已固化 · 已加入“我的小顾服务”，遇到相关变化会主动运行';
+        mobileSaveService.textContent = '已保存为固定服务';
+        mobileSaveService.disabled = true;
+      });
+
+      const mobileLabSub = document.getElementById('mobileLabSub');
+      const mobileLabNote = document.getElementById('mobileLabNote');
+      document.querySelectorAll('[data-mobile-lab-entry]').forEach((button) => button.addEventListener('click', () => {
+        document.querySelectorAll('[data-mobile-lab-entry]').forEach((item) => item.classList.toggle('active', item === button));
+        const fromXiaogu = button.dataset.mobileLabEntry === 'xiaogu';
+        mobileLabSub.textContent = fromXiaogu ? '承接小顾对话 · 长赢行动提醒' : '独立新建 · 未命名金融服务';
+        mobileLabNote.innerHTML = fromXiaogu
+          ? '<small>上下文已带入</small><b>不用重新描述持仓与关注点</b><p>已继承本次对话、长赢计划、授权数据和“先给行动结论”的回复偏好。</p>'
+          : '<small>从一个投资问题开始</small><b>告诉小顾想持续解决什么</b><p>例如：每周比较持有基金的阶段收益、同类排名、基金经理季报与指数估值。</p>';
+      }));
+
+      const mobileArtifactCopy = {
+        card: {
+          eyebrow: 'SERVICE CARD · 已生成',
+          title: '长赢行动提醒',
+          description: '嵌入小顾首页与对话的服务卡，先显示是否需要行动，再提供持仓与计划解释。',
+          bodyTitle: '今天无需调整长赢计划',
+          bodyText: '组合仍在计划区间内；继续原定定投。如发生发车或风险变化，小顾会再次提醒。',
+        },
+        bundle: {
+          eyebrow: 'SERVICE BUNDLE · 4 项协同',
+          title: '长赢计划陪伴服务组',
+          description: '把持仓诊断、行动提醒、自动跟车异常与月度复盘组织成一组持续服务。',
+          bodyTitle: '4 项服务正在协同运行',
+          bodyText: '诊断解释风险，提醒判断行动，任务处理异常，月度复盘沉淀变化。',
+        },
+        report: {
+          eyebrow: 'INVESTMENT REPORT · 可追溯',
+          title: '我的基金周报',
+          description: '结构化交付持有基金的阶段收益、同类排名、基金经理季报与指数估值变化。',
+          bodyTitle: '本周没有需要行动的重大变化',
+          bodyText: '一只基金同类排名回升；基金经理观点未发生实质变化；关注指数仍处于偏低区域。',
+        },
+        task: {
+          eyebrow: 'AUTOMATED TASK · 运行中',
+          title: '每周持仓与基金检查',
+          description: '定义运行周期、提前触发条件、授权数据、触达方式与用户确认规则。',
+          bodyTitle: '下次运行：周六 09:00',
+          bodyText: '若基金经理变更、持仓风险显著变化或自动跟车失败，将提前运行并提醒。',
+        },
+        result: {
+          eyebrow: 'RUN RESULT · 已留档',
+          title: '本次持仓诊断结果',
+          description: '保留输入数据、能力调用、判断依据、用户追问与反馈，成为下一次服务的上下文。',
+          bodyTitle: '运行成功 · 当前无需调仓',
+          bodyText: '完成资产配置、风险等级、集中度与任务状态检查；用户选择继续原定定投。',
+        },
+      };
+      const mobileArtifactEyebrow = document.getElementById('mobileArtifactEyebrow');
+      const mobileArtifactTitle = document.getElementById('mobileArtifactTitle');
+      const mobileArtifactDescription = document.getElementById('mobileArtifactDescription');
+      const mobileArtifactBodyTitle = document.getElementById('mobileArtifactBodyTitle');
+      const mobileArtifactBodyText = document.getElementById('mobileArtifactBodyText');
+      const mobileArtifactStatus = document.getElementById('mobileArtifactStatus');
+      const mobileSaveArtifact = document.getElementById('mobileSaveArtifact');
+      document.querySelectorAll('[data-mobile-artifact]').forEach((button) => button.addEventListener('click', () => {
+        const item = mobileArtifactCopy[button.dataset.mobileArtifact];
+        if (!item) return;
+        document.querySelectorAll('[data-mobile-artifact]').forEach((tab) => {
+          const active = tab === button;
+          tab.classList.toggle('active', active);
+          tab.setAttribute('aria-selected', String(active));
+        });
+        mobileArtifactEyebrow.textContent = item.eyebrow;
+        mobileArtifactTitle.textContent = item.title;
+        mobileArtifactDescription.textContent = item.description;
+        mobileArtifactBodyTitle.textContent = item.bodyTitle;
+        mobileArtifactBodyText.textContent = item.bodyText;
+        mobileArtifactStatus.textContent = '○ 当前形态尚未收藏，可继续切换预览';
+        mobileSaveArtifact.textContent = '收藏并固化';
+        mobileSaveArtifact.disabled = false;
+      }));
+      mobileSaveArtifact?.addEventListener('click', () => {
+        mobileArtifactStatus.textContent = '● 已收藏 · 已固化为“我的小顾服务”，可持续运行或发布';
+        mobileSaveArtifact.textContent = '已收藏并固化';
+        mobileSaveArtifact.disabled = true;
+      });
+
+      const mobilePublish = document.getElementById('mobilePublish');
+      const mobileReset = document.getElementById('mobileReset');
+      const mobilePublishState = document.getElementById('mobilePublishState');
+      const mobileMarketButton = document.getElementById('mobileMarketButton');
+      const mobileEcosystemNotice = document.getElementById('mobileEcosystemNotice');
+      mobilePublish?.addEventListener('click', () => {
+        mobilePublishState.textContent = '已发布';
+        mobileMarketButton.textContent = '查看服务';
+        mobileMarketButton.disabled = false;
+        mobileMarketButton.classList.add('primary-mobile');
+        mobilePublish.textContent = '已发布到服务广场';
+        mobilePublish.disabled = true;
+        mobileEcosystemNotice.textContent = '其他用户现在可以发现并启用';
+      });
+      mobileReset?.addEventListener('click', () => {
+        mobilePublishState.textContent = '草稿';
+        mobileMarketButton.textContent = '等待发布';
+        mobileMarketButton.disabled = true;
+        mobileMarketButton.classList.remove('primary-mobile');
+        mobilePublish.textContent = '发布到服务广场';
+        mobilePublish.disabled = false;
+        mobileEcosystemNotice.textContent = '仅自己可见';
+      });
+      document.querySelectorAll('[data-mobile-market-use]').forEach((button) => button.addEventListener('click', () => {
+        const service = button.dataset.mobileMarketUse;
+        button.textContent = '已启用';
+        button.disabled = true;
+        mobileEcosystemNotice.textContent = `已启用“${service}”，小顾会按授权规则主动运行`;
+      }));
 
       const followupAnswers = {
         cashflow: {

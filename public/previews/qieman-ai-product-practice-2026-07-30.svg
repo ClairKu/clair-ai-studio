@@ -1,53 +1,92 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
   <title id="title">盈米 AI 产品实践</title>
-  <desc id="desc">且慢产品团队：AI 小顾与顾问工作台共用同一金融服务能力底座</desc>
+  <desc id="desc">且慢产品团队：以且慢小顾手机端串联主动服务、投资问答、服务创建与应用广场</desc>
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f7f7fb"/><stop offset="1" stop-color="#eeecff"/></linearGradient>
-    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8064ed"/><stop offset="1" stop-color="#24b2a5"/></linearGradient>
-    <filter id="shadow"><feDropShadow dx="0" dy="16" stdDeviation="22" flood-color="#303751" flood-opacity=".13"/></filter>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f8f9fc"/><stop offset="1" stop-color="#e9effb"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#4b7bec"/><stop offset="1" stop-color="#75d5c8"/></linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#18213a" flood-opacity=".2"/></filter>
   </defs>
   <rect width="1200" height="675" fill="url(#bg)"/>
   <rect width="1200" height="7" fill="url(#accent)"/>
-  <circle cx="1020" cy="110" r="250" fill="#7358e8" opacity=".06"/>
-  <circle cx="1130" cy="650" r="280" fill="#25b0a3" opacity=".06"/>
-  <g transform="translate(76 80)">
-    <rect width="246" height="36" rx="18" fill="#ebe7ff"/>
-    <circle cx="19" cy="18" r="5" fill="#23a99d"/>
-    <text x="35" y="23" fill="#7158e8" font-family="Arial, PingFang SC, sans-serif" font-size="11" font-weight="700" letter-spacing="1">且慢产品团队 · PRODUCT TEAM</text>
-    <text x="0" y="118" fill="#151a25" font-family="Georgia, Songti SC, serif" font-size="70" font-weight="600">盈米 AI</text>
-    <text x="0" y="196" fill="#7158e8" font-family="Georgia, Songti SC, serif" font-size="70" font-weight="600">产品实践</text>
-    <text x="0" y="240" fill="#657086" font-family="Arial, PingFang SC, sans-serif" font-size="19">从金融能力底座，到每个人都能获得与生产服务</text>
-    <g transform="translate(0 292)" font-family="Arial, PingFang SC, sans-serif">
-      <g><rect width="130" height="70" rx="16" fill="#fff" stroke="#e3e4ed"/><text x="17" y="30" fill="#151a25" font-size="21" font-weight="700">1</text><text x="17" y="51" fill="#657086" font-size="11">统一底座</text></g>
-      <g transform="translate(142 0)"><rect width="130" height="70" rx="16" fill="#fff" stroke="#e3e4ed"/><text x="17" y="30" fill="#151a25" font-size="21" font-weight="700">2</text><text x="17" y="51" fill="#657086" font-size="11">交付端演示</text></g>
-      <g transform="translate(284 0)"><rect width="130" height="70" rx="16" fill="#fff" stroke="#e3e4ed"/><text x="17" y="30" fill="#151a25" font-size="21" font-weight="700">5</text><text x="17" y="51" fill="#657086" font-size="11">成果形态</text></g>
+  <rect x="570" width="630" height="675" fill="#081127"/>
+  <circle cx="1115" cy="95" r="230" fill="#4b7bec" opacity=".09"/>
+  <circle cx="1020" cy="650" r="250" fill="#75d5c8" opacity=".08"/>
+  <g transform="translate(68 82)">
+    <rect width="246" height="36" rx="18" fill="#e8efff"/>
+    <circle cx="19" cy="18" r="5" fill="#56bfb3"/>
+    <text x="35" y="23" fill="#4967c7" font-family="Arial, PingFang SC, sans-serif" font-size="11" font-weight="700" letter-spacing="1">且慢产品团队 · PRODUCT TEAM</text>
+    <text x="0" y="120" fill="#151a25" font-family="Georgia, Songti SC, serif" font-size="70" font-weight="600">盈米 AI</text>
+    <text x="0" y="198" fill="#4b68c7" font-family="Georgia, Songti SC, serif" font-size="70" font-weight="600">产品实践</text>
+    <text x="0" y="244" fill="#657086" font-family="Arial, PingFang SC, sans-serif" font-size="18">真实投资问题，长出持续金融服务</text>
+    <g transform="translate(0 294)" font-family="Arial, PingFang SC, sans-serif">
+      <g><rect width="142" height="74" rx="17" fill="#fff" stroke="#e1e5ed"/><text x="18" y="31" fill="#151a25" font-size="21" font-weight="700">6</text><text x="18" y="53" fill="#657086" font-size="11">手机端连续场景</text></g>
+      <g transform="translate(154 0)"><rect width="142" height="74" rx="17" fill="#fff" stroke="#e1e5ed"/><text x="18" y="31" fill="#151a25" font-size="21" font-weight="700">5</text><text x="18" y="53" fill="#657086" font-size="11">服务成果形态</text></g>
+      <g transform="translate(308 0)"><rect width="142" height="74" rx="17" fill="#fff" stroke="#e1e5ed"/><text x="18" y="31" fill="#151a25" font-size="21" font-weight="700">1</text><text x="18" y="53" fill="#657086" font-size="11">统一 OAP 底座</text></g>
     </g>
     <g transform="translate(0 405)">
-      <rect width="428" height="92" rx="22" fill="#15213c"/>
-      <text x="24" y="34" fill="#69dacf" font-family="Arial, sans-serif" font-size="10" font-weight="700" letter-spacing="1.5">ONE NORTH STAR</text>
-      <text x="24" y="66" fill="#fff" font-family="Arial, PingFang SC, sans-serif" font-size="20" font-weight="700">成功金融服务任务</text>
-      <text x="241" y="66" fill="#aeb9ce" font-family="Arial, PingFang SC, sans-serif" font-size="11">复用 × 采纳 × 合规</text>
+      <rect width="450" height="104" rx="22" fill="#15213c"/>
+      <text x="24" y="31" fill="#75d5c8" font-family="Arial, sans-serif" font-size="10" font-weight="700" letter-spacing="1.5">MOBILE-NATIVE SERVICE LOOP</text>
+      <text x="24" y="62" fill="#fff" font-family="Arial, PingFang SC, sans-serif" font-size="19" font-weight="700">主动发现 → 个性问答 → 创建服务</text>
+      <text x="24" y="86" fill="#aeb9ce" font-family="Arial, PingFang SC, sans-serif" font-size="11">收藏固化 · 持续运行 · 发布共享 · 结果回流</text>
     </g>
   </g>
-  <g transform="translate(617 75)" filter="url(#shadow)" font-family="Arial, PingFang SC, sans-serif">
-    <rect width="510" height="525" rx="34" fill="#151d32"/>
-    <text x="34" y="45" fill="#75829c" font-size="10" font-weight="700" letter-spacing="1.7">FINANCIAL SERVICE LOOP</text>
-    <circle cx="255" cy="276" r="178" fill="none" stroke="#303b55"/>
-    <circle cx="255" cy="276" r="110" fill="none" stroke="#303b55"/>
-    <path d="M255 98C353 98 433 178 433 276" fill="none" stroke="url(#accent)" stroke-width="7" stroke-linecap="round"/>
-    <path d="M255 454C157 454 77 374 77 276" fill="none" stroke="url(#accent)" stroke-width="7" stroke-linecap="round"/>
-    <rect x="155" y="213" width="200" height="126" rx="28" fill="#fff"/>
-    <text x="255" y="258" fill="#151a25" text-anchor="middle" font-size="16" font-weight="700">小顾主动服务 · 顾问专业交付</text>
-    <text x="255" y="286" fill="#657086" text-anchor="middle" font-size="11">记忆 · SOP · Agent · 人工确认 · 发布</text>
-    <rect x="192" y="303" width="126" height="20" rx="10" fill="#e6f8f5"/>
-    <text x="255" y="317" fill="#1ca69a" text-anchor="middle" font-size="9" font-weight="700">结果回流与持续经营</text>
-    <g fill="#222b43" stroke="#3c4964">
-      <rect x="195" y="66" width="120" height="45" rx="14"/><rect x="368" y="254" width="126" height="45" rx="14"/>
-      <rect x="181" y="441" width="148" height="45" rx="14"/><rect x="16" y="254" width="142" height="45" rx="14"/>
+  <g transform="translate(625 43)" filter="url(#shadow)" font-family="Arial, PingFang SC, sans-serif">
+    <g>
+      <rect width="250" height="590" rx="38" fill="#11182a"/>
+      <rect x="7" y="7" width="236" height="576" rx="32" fill="#f3f5f9"/>
+      <rect x="7" y="7" width="236" height="59" rx="32" fill="#fff"/>
+      <rect x="7" y="45" width="236" height="22" fill="#fff"/>
+      <text x="22" y="28" fill="#17213a" font-size="8" font-weight="700">9:41</text>
+      <text x="125" y="53" fill="#17213a" text-anchor="middle" font-size="12" font-weight="700">且慢小顾</text>
+      <rect x="20" y="81" width="210" height="89" rx="16" fill="#eaf2ff"/>
+      <text x="34" y="103" fill="#4967c7" font-size="8" font-weight="700">早上好 · 已读取授权记忆</text>
+      <text x="34" y="130" fill="#17213a" font-size="17" font-weight="700">今天有 3 件事</text>
+      <text x="34" y="150" fill="#17213a" font-size="17" font-weight="700">和你的投资有关</text>
+      <rect x="20" y="182" width="210" height="128" rx="16" fill="#fff" stroke="#dfe5ef"/>
+      <text x="34" y="204" fill="#8792a6" font-size="8">长赢计划 · 持仓陪伴</text>
+      <rect x="170" y="193" width="46" height="18" rx="9" fill="#edf9f7"/>
+      <text x="193" y="205" fill="#4d9c92" text-anchor="middle" font-size="7" font-weight="700">无需动作</text>
+      <text x="34" y="231" fill="#17213a" font-size="12" font-weight="700">组合仍在计划区间内</text>
+      <text x="34" y="250" fill="#6d788d" font-size="8">固收与现金缓冲了权益波动</text>
+      <g transform="translate(34 268)">
+        <rect width="50" height="25" rx="7" fill="#f3f7ff"/><rect x="58" width="50" height="25" rx="7" fill="#f3f7ff"/><rect x="116" width="50" height="25" rx="7" fill="#f3f7ff"/>
+        <text x="25" y="16" fill="#4967c7" text-anchor="middle" font-size="7" font-weight="700">无需调仓</text><text x="83" y="16" fill="#4967c7" text-anchor="middle" font-size="7" font-weight="700">继续定投</text><text x="141" y="16" fill="#4967c7" text-anchor="middle" font-size="7" font-weight="700">等待发车</text>
+      </g>
+      <rect x="20" y="322" width="210" height="92" rx="16" fill="#fff9ef" stroke="#efdfbd"/>
+      <text x="34" y="345" fill="#9b6b1e" font-size="8">自动跟车任务 · 需要处理</text>
+      <text x="34" y="371" fill="#17213a" font-size="12" font-weight="700">一笔自动跟车失败</text>
+      <text x="34" y="391" fill="#6d788d" font-size="8">余额不足，本次未成交</text>
+      <rect x="20" y="426" width="210" height="86" rx="16" fill="#fff" stroke="#dfe5ef"/>
+      <text x="34" y="450" fill="#8792a6" font-size="8">基金季报与估值关注</text>
+      <text x="34" y="476" fill="#17213a" font-size="12" font-weight="700">你关注的内容有 2 项更新</text>
+      <text x="34" y="496" fill="#6d788d" font-size="8">季报观点 · 指数估值温度</text>
     </g>
-    <g fill="#fff" font-size="11" font-weight="700" text-anchor="middle">
-      <text x="255" y="93">AI 小顾 · 主动</text><text x="431" y="281">顾问服务 · 交付</text>
-      <text x="255" y="468">AI 实验室 · 再造</text><text x="87" y="281">OAP 能力 · 随处调用</text>
+    <g transform="translate(278 36)">
+      <rect width="250" height="590" rx="38" fill="#11182a"/>
+      <rect x="7" y="7" width="236" height="576" rx="32" fill="#f3f5f9"/>
+      <rect x="7" y="7" width="236" height="59" rx="32" fill="#fff"/>
+      <rect x="7" y="45" width="236" height="22" fill="#fff"/>
+      <text x="22" y="28" fill="#17213a" font-size="8" font-weight="700">9:44</text>
+      <text x="125" y="53" fill="#17213a" text-anchor="middle" font-size="12" font-weight="700">生成新服务</text>
+      <rect x="48" y="84" width="182" height="62" rx="14" fill="#4b7bec"/>
+      <text x="62" y="107" fill="#fff" font-size="8">以后大跌时，请结合长赢计划</text>
+      <text x="62" y="125" fill="#fff" font-size="8">直接告诉我要不要行动。</text>
+      <rect x="20" y="160" width="210" height="315" rx="18" fill="#17213a"/>
+      <text x="36" y="187" fill="#75d5c8" font-size="8" font-weight="700">NEW SERVICE · 由对话生成</text>
+      <text x="36" y="225" fill="#fff" font-size="20" font-weight="700">长赢行动提醒</text>
+      <text x="36" y="247" fill="#b9c5d8" font-size="8">市场明显波动时，结合计划与持仓</text>
+      <text x="36" y="262" fill="#b9c5d8" font-size="8">直接判断是否需要行动。</text>
+      <g transform="translate(36 284)">
+        <rect width="178" height="42" rx="10" fill="#222d47"/><rect y="50" width="178" height="42" rx="10" fill="#222d47"/><rect y="100" width="178" height="42" rx="10" fill="#222d47"/>
+        <text x="12" y="17" fill="#fff" font-size="8" font-weight="700">什么时候运行</text><text x="12" y="31" fill="#aeb9ce" font-size="7">明显下跌 · 计划发车 · 风险变化</text>
+        <text x="12" y="67" fill="#fff" font-size="8" font-weight="700">读取什么</text><text x="12" y="81" fill="#aeb9ce" font-size="7">计划 · 持仓 · 定投 · 风险偏好</text>
+        <text x="12" y="117" fill="#fff" font-size="8" font-weight="700">告诉我什么</text><text x="12" y="131" fill="#aeb9ce" font-size="7">无需动作 · 观察 · 需要处理</text>
+      </g>
+      <rect x="36" y="440" width="178" height="25" rx="9" fill="#4b7bec"/>
+      <text x="125" y="456" fill="#fff" text-anchor="middle" font-size="8" font-weight="700">保存为我的小顾服务</text>
+      <rect x="20" y="489" width="210" height="61" rx="15" fill="#fff" stroke="#dfe5ef"/>
+      <text x="34" y="514" fill="#4967c7" font-size="9" font-weight="700">进阶创建仍在手机端完成</text>
+      <text x="34" y="534" fill="#6d788d" font-size="8">工具 · Prompt · 触发规则渐进披露</text>
     </g>
   </g>
 </svg>
