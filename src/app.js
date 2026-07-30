@@ -115,6 +115,18 @@ const initialState = {
   ],
   reports: [
     {
+      id: "ai-xiaogu-product-experience-2026-07-30",
+      groupId: "xiaogu",
+      title: "且慢 AI 小顾｜八条关键产品经验",
+      url: "https://clairku.github.io/clair-ai-studio/reports/ai-xiaogu-product-experience-2026-07-30/",
+      preview: "ai-xiaogu-product-experience-2026-07-30.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-07-30T12:00:00.000Z",
+      source: "AI 小顾产品经验总结",
+      access: "production",
+    },
+    {
       id: "workbench-quality-audit-2026-07-30",
       groupId: "ai-workbench",
       title: "Clair's Studio｜全站质量审计与修复报告",
@@ -659,6 +671,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "ai-xiaogu-product-experience-2026-07-30": "product-planning",
   "workbench-quality-audit-2026-07-30": "governance-review",
   "yingmi-ai-materials-compendium-2026-07-30": "reporting",
   "seed-mcp-benchmark": "competitive-research",

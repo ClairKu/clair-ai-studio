@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" role="img" aria-labelledby="title desc">
+  <title id="title">且慢 AI 小顾八条关键产品经验</title>
+  <desc id="desc">深色封面，核心观点为不是一个聊天框，而是一套投顾服务操作系统。</desc>
+  <defs>
+    <radialGradient id="glow" cx="45%" cy="30%" r="70%">
+      <stop offset="0" stop-color="#d8ed8d" stop-opacity=".9"/>
+      <stop offset="1" stop-color="#d8ed8d" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="warm" cx="50%" cy="50%" r="60%">
+      <stop offset="0" stop-color="#ed875d" stop-opacity=".58"/>
+      <stop offset="1" stop-color="#ed875d" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1440" height="900" fill="#0b1820"/>
+  <circle cx="1310" cy="92" r="320" fill="url(#glow)"/>
+  <circle cx="90" cy="870" r="250" fill="url(#warm)"/>
+  <text x="130" y="44" fill="#fffdf8" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="17" font-weight="800" letter-spacing="1.4">Qieman × Yingmi AI</text>
+  <text x="1088" y="44" fill="#c2ced2" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="13">PRODUCT EXPERIENCE · 2026.07.30</text>
+  <text x="130" y="140" fill="#d8ed8d" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="15" font-weight="800" letter-spacing="2">八条关键产品经验</text>
+  <text x="130" y="238" fill="#fffdf8" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="82" font-weight="900" letter-spacing="-4">
+    <tspan x="130">不是一个聊天框，</tspan>
+    <tspan x="130" dy="100">是一套投顾服务</tspan>
+    <tspan x="130" dy="100">操作系统</tspan>
+  </text>
+  <text x="132" y="598" fill="#d2dde1" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="24">
+    <tspan x="132">把买方投顾经验、真实账户数据、金融能力、持续服务与金融级治理，</tspan>
+    <tspan x="132" dy="42">组合成一个长期服务客户的数字顾问系统。</tspan>
+  </text>
+  <rect x="130" y="704" width="4" height="40" fill="#ed875d"/>
+  <text x="154" y="732" fill="#fffdf8" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="18" font-weight="800">别人容易复制界面和模型；难复制的是对话框背后的服务体系。</text>
+  <g transform="translate(1065 430)">
+    <circle r="215" fill="none" stroke="#fff" stroke-opacity=".24"/>
+    <circle r="155" fill="none" stroke="#fff" stroke-opacity=".24" stroke-dasharray="4 5"/>
+    <circle r="94" fill="#d8ed8d"/>
+    <text x="0" y="-10" fill="#0b1820" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="26" font-weight="900">AI 小顾</text>
+    <text x="0" y="24" fill="#0b1820" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="25" font-weight="900">数字顾问</text>
+    <g font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="14" font-weight="800" text-anchor="middle" fill="#0b1820">
+      <rect x="-60" y="-210" width="120" height="56" rx="28" fill="#b7e1d2"/><text x="0" y="-176">买方投顾方法</text>
+      <rect x="140" y="-28" width="120" height="56" rx="28" fill="#8fc5e8"/><text x="200" y="6">账户级数据</text>
+      <rect x="60" y="155" width="128" height="56" rx="28" fill="#e8c770"/><text x="124" y="189">金融能力平台</text>
+      <rect x="-188" y="155" width="128" height="56" rx="28" fill="#ed875d"/><text x="-124" y="189">持续服务机制</text>
+      <rect x="-260" y="-28" width="120" height="56" rx="28" fill="#fffdf8"/><text x="-200" y="6">合规与治理</text>
+    </g>
+  </g>
+</svg>
