@@ -119,7 +119,7 @@ const initialState = {
       groupId: "reporting",
       title: "盈米 AI 服务蓝图｜统一能力底座与三端业务",
       url: "https://clairku.github.io/clair-ai-studio/reports/ai-service-blueprint-serif-2026-07-30/",
-      preview: "ai-service-blueprint-serif-2026-07-30.svg",
+      preview: "ai-service-blueprint-serif-2026-07-30.png",
       pinned: true,
       position: 0,
       createdAt: "2026-07-30T16:30:00.000Z",
