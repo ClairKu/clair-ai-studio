@@ -152,13 +152,13 @@ const initialState = {
     {
       id: "qieman-ai-product-practice-2026-07-30",
       groupId: "ai-platform",
-      title: "且慢 AI 产品实践｜从能力底座到服务应用广场",
+      title: "盈米 AI 产品实践｜且慢产品团队",
       url: "https://clairku.github.io/clair-ai-studio/reports/qieman-ai-product-practice-2026-07-30/",
       preview: "qieman-ai-product-practice-2026-07-30.svg",
       pinned: true,
       position: 1,
       createdAt: "2026-07-30T10:30:00.000Z",
-      source: "两份生产报告整合与终极形态原型",
+      source: "且慢产品团队｜两份生产报告整合与终极形态原型",
       access: "production",
     },
     {
