@@ -184,7 +184,7 @@ const initialState = {
       pinned: true,
       position: 1,
       createdAt: "2026-07-30T10:30:00.000Z",
-      source: "且慢产品团队｜业务蓝图 × 小顾全局规划 × 开放平台增长 × 服务生态",
+      source: "且慢产品团队｜业务蓝图 × 微信/千问外部入口 × 小顾全局规划 × 服务生态",
       access: "production",
     },
     {
