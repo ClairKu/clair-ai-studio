@@ -170,7 +170,7 @@ const initialState = {
       pinned: true,
       position: 1,
       createdAt: "2026-07-30T10:30:00.000Z",
-      source: "且慢产品团队｜两份生产报告整合与终极形态原型",
+      source: "且慢产品团队｜AI 小顾主动服务与顾问财务规划双端原型",
       access: "production",
     },
     {

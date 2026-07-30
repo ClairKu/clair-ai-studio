@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
   <title id="title">盈米 AI 产品实践</title>
-  <desc id="desc">且慢产品团队：从金融能力底座到服务应用广场的产品闭环</desc>
+  <desc id="desc">且慢产品团队：AI 小顾与顾问工作台共用同一金融服务能力底座</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f7f7fb"/><stop offset="1" stop-color="#eeecff"/></linearGradient>
     <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8064ed"/><stop offset="1" stop-color="#24b2a5"/></linearGradient>
@@ -19,7 +19,7 @@
     <text x="0" y="240" fill="#657086" font-family="Arial, PingFang SC, sans-serif" font-size="19">从金融能力底座，到每个人都能获得与生产服务</text>
     <g transform="translate(0 292)" font-family="Arial, PingFang SC, sans-serif">
       <g><rect width="130" height="70" rx="16" fill="#fff" stroke="#e3e4ed"/><text x="17" y="30" fill="#151a25" font-size="21" font-weight="700">1</text><text x="17" y="51" fill="#657086" font-size="11">统一底座</text></g>
-      <g transform="translate(142 0)"><rect width="130" height="70" rx="16" fill="#fff" stroke="#e3e4ed"/><text x="17" y="30" fill="#151a25" font-size="21" font-weight="700">6</text><text x="17" y="51" fill="#657086" font-size="11">核心场景</text></g>
+      <g transform="translate(142 0)"><rect width="130" height="70" rx="16" fill="#fff" stroke="#e3e4ed"/><text x="17" y="30" fill="#151a25" font-size="21" font-weight="700">2</text><text x="17" y="51" fill="#657086" font-size="11">交付端演示</text></g>
       <g transform="translate(284 0)"><rect width="130" height="70" rx="16" fill="#fff" stroke="#e3e4ed"/><text x="17" y="30" fill="#151a25" font-size="21" font-weight="700">5</text><text x="17" y="51" fill="#657086" font-size="11">成果形态</text></g>
     </g>
     <g transform="translate(0 405)">
@@ -37,8 +37,8 @@
     <path d="M255 98C353 98 433 178 433 276" fill="none" stroke="url(#accent)" stroke-width="7" stroke-linecap="round"/>
     <path d="M255 454C157 454 77 374 77 276" fill="none" stroke="url(#accent)" stroke-width="7" stroke-linecap="round"/>
     <rect x="155" y="213" width="200" height="126" rx="28" fill="#fff"/>
-    <text x="255" y="258" fill="#151a25" text-anchor="middle" font-size="17" font-weight="700">主动服务长出新服务</text>
-    <text x="255" y="286" fill="#657086" text-anchor="middle" font-size="11">记忆 · 追问 · 创建 · 固化 · 发布</text>
+    <text x="255" y="258" fill="#151a25" text-anchor="middle" font-size="16" font-weight="700">小顾主动服务 · 顾问专业交付</text>
+    <text x="255" y="286" fill="#657086" text-anchor="middle" font-size="11">记忆 · SOP · Agent · 人工确认 · 发布</text>
     <rect x="192" y="303" width="126" height="20" rx="10" fill="#e6f8f5"/>
     <text x="255" y="317" fill="#1ca69a" text-anchor="middle" font-size="9" font-weight="700">结果回流与持续经营</text>
     <g fill="#222b43" stroke="#3c4964">
@@ -46,8 +46,8 @@
       <rect x="181" y="441" width="148" height="45" rx="14"/><rect x="16" y="254" width="142" height="45" rx="14"/>
     </g>
     <g fill="#fff" font-size="11" font-weight="700" text-anchor="middle">
-      <text x="255" y="93">AI 小顾 · 主动</text><text x="431" y="281">多形态 · 固化</text>
-      <text x="255" y="468">应用广场 · 生态</text><text x="87" y="281">AI 实验室 · 创建</text>
+      <text x="255" y="93">AI 小顾 · 主动</text><text x="431" y="281">顾问服务 · 交付</text>
+      <text x="255" y="468">AI 实验室 · 再造</text><text x="87" y="281">OAP 能力 · 随处调用</text>
     </g>
   </g>
 </svg>
