@@ -16,7 +16,7 @@ const STORAGE_KEY = "clair-service-report-workbench-v1";
 const AUTH_KEY = "clair-service-report-workbench-access";
 const VIEW_KEY = "clair-service-report-workbench-view";
 const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
-const DATA_VERSION = 9;
+const DATA_VERSION = 10;
 
 const WORK_TYPES = [
   { id: "requirement-review", name: "需求评审" },
@@ -114,6 +114,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "content-classification-review-sop-2026-07-30",
+      groupId: "knowledge",
+      title: "宣传推介材料｜内容分层标准与审核 SOP",
+      url: "https://clairku.github.io/clair-ai-studio/reports/content-classification-review-sop-2026-07-30/",
+      preview: "content-classification-review-sop-2026-07-30.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-07-30T19:05:00.000Z",
+      source: "盈米内容治理｜两级分类、事前审核、双轨巡检与记录留痕",
+      access: "production",
+      workType: "governance-review",
+      tags: ["知识治理", "HTML", "生产"],
+    },
     {
       id: "qieman-longwin-group-page-review-2026-07-30",
       groupId: "product-planning",

@@ -15,6 +15,8 @@ const input = args.input;
 const output = args.output;
 const title = args.title || "加密报告";
 const subtitle = args.subtitle || "输入访问口令后查看完整内容";
+const eyebrow = args.eyebrow || "INTERNAL REPORT";
+const mark = args.mark || "YM";
 
 if (!password || !input || !output) {
   throw new Error(
@@ -112,8 +114,8 @@ const shell = `<!doctype html>
 </head>
 <body>
   <main class="gate">
-    <div class="mark">盈米 AI</div>
-    <div class="eyebrow">且慢产品团队 · INTERNAL REPORT</div>
+    <div class="mark">${escapeHtml(mark)}</div>
+    <div class="eyebrow">${escapeHtml(eyebrow)}</div>
     <h1>${escapeHtml(title)}</h1>
     <p>${escapeHtml(subtitle)}</p>
     <form id="unlock">
