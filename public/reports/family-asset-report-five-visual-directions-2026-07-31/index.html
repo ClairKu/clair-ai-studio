@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="家庭资产分析与规划报告五套全新视觉方向：理性秩序、东方现代、静奢私行、研究年鉴、且慢定制。">
+  <title>家庭资产报告｜五套全新视觉方向</title>
+  <style>
+    :root{
+      --ink:#132433;--muted:#667784;--line:#dbe3e7;--paper:#f4f6f7;
+      --white:#fff;--blue:#0877bd;--deep:#073b67;--coral:#d35d4a;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.65}
+    button,a{font:inherit}
+    a{color:inherit}
+    .shell{max-width:1440px;margin:auto;padding:18px 22px 72px}
+    .topbar{display:flex;justify-content:space-between;align-items:center;padding:8px 0 20px}
+    .brand{font-weight:700;letter-spacing:.08em;font-size:14px}
+    .topbar a{font-size:13px;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line)}
+    .hero{background:#102c42;color:#fff;padding:52px 56px 50px;position:relative;overflow:hidden}
+    .hero:after{content:"";position:absolute;width:680px;height:220px;right:-90px;bottom:-78px;border:1px solid rgba(111,202,230,.42);border-radius:50%;transform:rotate(-7deg);box-shadow:0 -24px 0 -23px rgba(111,202,230,.34),0 -48px 0 -47px rgba(111,202,230,.24)}
+    .eyebrow{font-size:12px;letter-spacing:.14em;color:#86c9e4;font-weight:700}
+    h1{font-size:clamp(34px,5vw,66px);line-height:1.14;margin:18px 0 20px;max-width:980px;letter-spacing:-.03em}
+    .hero p{max-width:820px;margin:0;color:#c5d8e4;font-size:17px}
+    .hero-meta{display:flex;gap:28px;flex-wrap:wrap;margin-top:36px;color:#a9c3d3;font-size:13px}
+    .hero-meta strong{display:block;color:#fff;font-size:24px;line-height:1.2}
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:32px;position:relative;z-index:1}
+    .button{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 18px;text-decoration:none;font-weight:700;font-size:14px;background:#fff;color:#123148}
+    .button.secondary{background:transparent;color:#fff;border:1px solid #678aa0}
+    .principles{display:grid;grid-template-columns:1.15fr 1fr 1fr;margin-top:18px;background:#fff;border:1px solid var(--line)}
+    .principles>div{padding:24px 26px;border-right:1px solid var(--line)}
+    .principles>div:last-child{border-right:0}
+    .principles span{display:block;font-size:11px;color:var(--blue);font-weight:700;letter-spacing:.08em;margin-bottom:7px}
+    .principles b{font-size:18px}
+    .principles p{font-size:13px;color:var(--muted);margin:7px 0 0}
+    .section{margin-top:58px}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:18px}
+    .section h2{font-size:30px;line-height:1.25;margin:0}
+    .section-head p{margin:0;color:var(--muted);font-size:14px}
+    .tabs{display:flex;gap:8px;overflow-x:auto;padding:2px 0 12px;scrollbar-width:thin}
+    .tab{border:1px solid var(--line);background:#fff;color:var(--muted);white-space:nowrap;padding:10px 14px;cursor:pointer;font-weight:700;font-size:13px}
+    .tab[aria-selected="true"]{background:var(--deep);border-color:var(--deep);color:#fff}
+    .stage{background:#dfe6e9;border:1px solid #ccd7dc;overflow:hidden}
+    .stage img{display:block;width:100%;height:auto}
+    .detail{display:grid;grid-template-columns:1.4fr .8fr;background:#fff;border:1px solid var(--line);border-top:0}
+    .detail-main,.detail-side{padding:28px 30px}
+    .detail-side{border-left:1px solid var(--line);background:#f9faf9}
+    .index{color:var(--coral);font-weight:800;font-size:12px;letter-spacing:.08em}
+    .detail h3{font-size:26px;margin:7px 0 10px}
+    .detail p{margin:0;color:var(--muted)}
+    .chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:17px}
+    .chip{border:1px solid var(--line);padding:5px 9px;font-size:12px;color:#405561}
+    .detail-side b{display:block;margin-bottom:8px}
+    .detail-side ul{margin:0;padding-left:18px;color:var(--muted);font-size:14px}
+    .matrix-wrap{overflow-x:auto;border:1px solid var(--line);background:#fff}
+    table{width:100%;border-collapse:collapse;min-width:930px}
+    th,td{padding:15px 16px;text-align:left;border-bottom:1px solid #e7edef;font-size:13px;vertical-align:top}
+    th{font-size:11px;color:var(--muted);letter-spacing:.05em;background:#f8fafb}
+    tr:last-child td{border-bottom:0}
+    td:first-child{font-weight:800;white-space:nowrap}
+    .fit{display:inline-block;padding:3px 8px;background:#e7f2f8;color:#075b8a;font-weight:700;font-size:11px}
+    .recommendation{display:grid;grid-template-columns:.9fr 1.1fr;background:#102c42;color:#fff}
+    .recommendation>div{padding:38px 42px}
+    .recommendation .left{background:#0877bd}
+    .recommendation h2{font-size:30px;margin:8px 0 12px}
+    .recommendation p{margin:0;color:#d3e4ee}
+    .recommendation .left p{color:#e7f4fb}
+    .path{display:grid;grid-template-columns:repeat(3,1fr);margin-top:24px;border-top:1px solid #476579}
+    .path div{padding:20px 18px 0 0}
+    .path b{display:block;color:#80c9e3;margin-bottom:5px}
+    .note{margin-top:18px;padding:18px 20px;border-left:4px solid var(--coral);background:#fff;color:#465b67;font-size:14px}
+    footer{text-align:center;color:#85939c;font-size:12px;margin-top:34px}
+    @media(max-width:800px){
+      .shell{padding:10px 12px 48px}.hero{padding:34px 24px 38px}.hero p{font-size:15px}
+      .principles{grid-template-columns:1fr}.principles>div{border-right:0;border-bottom:1px solid var(--line)}
+      .principles>div:last-child{border-bottom:0}.section{margin-top:42px}.section-head{display:block}
+      .section-head p{margin-top:8px}.detail{grid-template-columns:1fr}.detail-main,.detail-side{padding:22px}
+      .detail-side{border-left:0;border-top:1px solid var(--line)}.recommendation{grid-template-columns:1fr}
+      .recommendation>div{padding:30px 24px}.path{grid-template-columns:1fr}.path div{padding-top:16px}
+      .stage{overflow-x:auto}.stage img{width:1180px;max-width:none}.topbar{padding-inline:4px}
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <nav class="topbar">
+      <div class="brand">且慢 · REPORT DESIGN</div>
+      <a href="https://clairku.github.io/clair-ai-studio/">返回 Clair AI Studio</a>
+    </nav>
+
+    <header class="hero">
+      <div class="eyebrow">FAMILY ASSET REPORT · FIVE NEW DIRECTIONS</div>
+      <h1>不再修补旧模板，<br>重新建立五套视觉语言</h1>
+      <p>从专业感、精致度、长文可读性和品牌独特性重新出发。五套方案都不使用 AI 生图、超大图标、可爱字体，也不在封面出现风险等级。</p>
+      <div class="hero-meta">
+        <div><strong>5</strong>套独立视觉系统</div>
+        <div><strong>30</strong>张可编辑 A4 样张</div>
+        <div><strong>6</strong>类关键报告页面</div>
+      </div>
+      <div class="actions">
+        <a class="button" href="#directions">开始看方案</a>
+        <a class="button secondary" href="https://www.figma.com/design/4AAuFlfoAzm1kxVudvJM0m/%E5%AE%B6%E5%BA%AD%E8%B5%84%E4%BA%A7%E5%88%86%E6%9E%90%E8%A7%84%E5%88%92%E6%8A%A5%E5%91%8A%E8%A7%86%E8%A7%89?node-id=837-1379" target="_blank" rel="noreferrer">打开 Figma 可编辑稿</a>
+      </div>
+    </header>
+
+    <section class="principles" aria-label="设计底线">
+      <div><span>01 / PROFESSIONAL</span><b>专业来自信息秩序</b><p>统一网格、字体层级、脚注口径与数据表达，不靠图标制造“丰富”。</p></div>
+      <div><span>02 / DISTINCTIVE</span><b>每套都有明确立场</b><p>五套不是换色皮肤，而是五种不同的品牌气质与内容组织方法。</p></div>
+      <div><span>03 / SCALABLE</span><b>能做整本，不只做封面</b><p>每套同时验证封面、目录、章节、数据、建议和顾问页。</p></div>
+    </section>
+
+    <section class="section" id="directions">
+      <div class="section-head">
+        <h2>五套方向，逐套查看</h2>
+        <p>点击标签切换；手机端可横向拖动查看完整 6 页样张。</p>
+      </div>
+      <div class="tabs" role="tablist" aria-label="视觉方向">
+        <button class="tab" role="tab" aria-selected="true" data-id="0">01 理性秩序</button>
+        <button class="tab" role="tab" aria-selected="false" data-id="1">02 东方现代</button>
+        <button class="tab" role="tab" aria-selected="false" data-id="2">03 静奢私行</button>
+        <button class="tab" role="tab" aria-selected="false" data-id="3">04 研究年鉴</button>
+        <button class="tab" role="tab" aria-selected="false" data-id="4">05 且慢定制</button>
+      </div>
+      <div class="stage"><img id="direction-image" src="./assets/direction-01.png" alt="理性秩序六页视觉样张"></div>
+      <div class="detail">
+        <div class="detail-main">
+          <div class="index" id="direction-index">01 · RATIONAL ORDER</div>
+          <h3 id="direction-title">理性秩序</h3>
+          <p id="direction-desc">最稳健、最耐用的一套。严格栅格、无衬线排版与数据优先原则，适合高频生成和全品类报告扩展。</p>
+          <div class="chips" id="direction-chips"></div>
+        </div>
+        <div class="detail-side">
+          <b>更适合</b>
+          <ul id="direction-fit"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>选型不是审美投票</h2>
+        <p>先确定这份报告最需要建立什么，再选择主方向。</p>
+      </div>
+      <div class="matrix-wrap">
+        <table>
+          <thead><tr><th>方向</th><th>核心气质</th><th>专业可信</th><th>精致独特</th><th>数据承载</th><th>批量延展</th><th>最适合</th></tr></thead>
+          <tbody>
+            <tr><td>01 理性秩序</td><td>清晰、克制、现代</td><td>强</td><td>中高</td><td>强</td><td>最强</td><td><span class="fit">通用母版</span></td></tr>
+            <tr><td>02 东方现代</td><td>温润、人文、细致</td><td>强</td><td>强</td><td>中高</td><td>高</td><td><span class="fit">家庭财务规划</span></td></tr>
+            <tr><td>03 静奢私行</td><td>尊贵、安静、专属</td><td>强</td><td>最强</td><td>中高</td><td>中高</td><td><span class="fit">高净值专属报告</span></td></tr>
+            <tr><td>04 研究年鉴</td><td>严谨、可核验、研究感</td><td>最强</td><td>高</td><td>最强</td><td>强</td><td><span class="fit">年度复盘 / 长报告</span></td></tr>
+            <tr><td>05 且慢定制</td><td>长期、陪伴、品牌专属</td><td>强</td><td>强</td><td>强</td><td>强</td><td><span class="fit">品牌系列化</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note">所有评分均为设计选型判断，不是用户研究结论。下一步应拿 1—2 套进入完整 20 页母版和真实内容压力测试，而不是继续增加更多风格。</div>
+    </section>
+
+    <section class="section recommendation">
+      <div class="left">
+        <div class="eyebrow">RECOMMENDED SHORTLIST</div>
+        <h2>建议优先保留<br>02 + 05</h2>
+        <p>02 负责“家庭财富规划应有的人文与精致”，05 负责“且慢独有、可长期积累的品牌资产”。如果首要目标是批量稳定生产，则用 01 作为底层排版母版。</p>
+      </div>
+      <div>
+        <div class="eyebrow">NEXT DESIGN GATE</div>
+        <h2>下一轮只验证三件事</h2>
+        <div class="path">
+          <div><b>01</b>用真实 20 页内容检查长文、表格与图表。</div>
+          <div><b>02</b>打印 A4，验证字号、灰阶、色差和页间节奏。</div>
+          <div><b>03</b>沉淀字体、色彩、网格、图表和页眉页脚规范。</div>
+        </div>
+      </div>
+    </section>
+    <footer>设计稿更新于 2026-07-31 · 五套方向均为 Figma 原生可编辑结构</footer>
+  </main>
+  <script>
+    const directions = [
+      {index:"01 · RATIONAL ORDER",title:"理性秩序",image:"direction-01.png",alt:"理性秩序六页视觉样张",desc:"最稳健、最耐用的一套。严格栅格、无衬线排版与数据优先原则，适合高频生成和全品类报告扩展。",chips:["严格栅格","数据优先","高可读","易规模化"],fit:["需要长期稳定维护的通用母版","数据页和图表页占比较高","多类报告共享同一套底层规范"]},
+      {index:"02 · EASTERN MODERN",title:"东方现代",image:"direction-02.png",alt:"东方现代六页视觉样张",desc:"现代宋体、暖纸色与朱砂细节建立含蓄的人文感。不使用竹、山水、印章堆叠等传统符号，东方感只来自字体、节奏和留白。",chips:["现代宋体","暖纸质感","朱砂点睛","人文克制"],fit:["家庭财务规划与长期目标叙事","希望精致但不显奢华","重视顾问温度和收藏感"]},
+      {index:"03 · QUIET LUXURY",title:"静奢私行",image:"direction-03.png",alt:"静奢私行六页视觉样张",desc:"炭黑、骨白和哑光黄铜形成私行级质感。尊贵感来自比例、材质色与排版纪律，不靠渐变金、徽章或奢侈品装饰。",chips:["炭黑骨白","哑光黄铜","专属感","强仪式感"],fit:["高净值家庭与专属顾问服务","封面和章节页需要更强仪式感","报告频次不高但单份价值较高"]},
+      {index:"04 · RESEARCH ANNUAL",title:"研究年鉴",image:"direction-04.png",alt:"研究年鉴六页视觉样张",desc:"期刊式栅格、批注、脚注、图表编号和数据口径，让报告像一份可被核验的研究成果，而不是销售宣传材料。",chips:["研究期刊","证据链","脚注口径","多人协作"],fit:["年度资产复盘与长篇报告","需要引用数据和说明计算口径","管理层或专业客户阅读"]},
+      {index:"05 · QIEMAN SIGNATURE",title:"且慢定制",image:"direction-05.png",alt:"且慢定制六页视觉样张",desc:"以“长期、陪伴、从容”为核心，把品牌蓝转化为克制的流动细线系统。小标识、强内容，可逐渐沉淀为且慢自己的报告语言。",chips:["品牌专属","长期陪伴","流动细线","系列化"],fit:["希望一眼识别为且慢出品","财务规划、持仓、投资规划系列报告","需要品牌资产持续积累"]},
+    ];
+    const image = document.querySelector("#direction-image");
+    const index = document.querySelector("#direction-index");
+    const title = document.querySelector("#direction-title");
+    const desc = document.querySelector("#direction-desc");
+    const chips = document.querySelector("#direction-chips");
+    const fit = document.querySelector("#direction-fit");
+    function renderDirection(id){
+      const item=directions[id];
+      image.src=`./assets/${item.image}`; image.alt=item.alt;
+      index.textContent=item.index; title.textContent=item.title; desc.textContent=item.desc;
+      chips.innerHTML=item.chips.map(x=>`<span class="chip">${x}</span>`).join("");
+      fit.innerHTML=item.fit.map(x=>`<li>${x}</li>`).join("");
+      document.querySelectorAll(".tab").forEach((tab,i)=>tab.setAttribute("aria-selected",String(i===id)));
+    }
+    document.querySelectorAll(".tab").forEach(tab=>tab.addEventListener("click",()=>renderDirection(Number(tab.dataset.id))));
+    renderDirection(0);
+  </script>
+</body>
+</html>

@@ -16,7 +16,7 @@ const STORAGE_KEY = "clair-service-report-workbench-v1";
 const AUTH_KEY = "clair-service-report-workbench-access";
 const VIEW_KEY = "clair-service-report-workbench-view";
 const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
-const DATA_VERSION = 11;
+const DATA_VERSION = 12;
 
 const WORK_TYPES = [
   { id: "requirement-review", name: "需求评审" },
@@ -115,15 +115,29 @@ const initialState = {
   ],
   reports: [
     {
-      id: "family-asset-report-visual-review-2026-07-31",
+      id: "family-asset-report-five-visual-directions-2026-07-31",
       groupId: "product-planning",
-      title: "家庭资产分析规划报告｜视觉方案评审",
-      url: "https://clairku.github.io/clair-ai-studio/reports/family-asset-report-visual-review-2026-07-31/",
-      preview: "family-asset-report-visual-review-2026-07-31.svg",
+      title: "家庭资产报告｜五套全新视觉方向",
+      url: "https://clairku.github.io/clair-ai-studio/reports/family-asset-report-five-visual-directions-2026-07-31/",
+      preview: "family-asset-report-five-visual-directions-2026-07-31.svg",
       pinned: true,
       position: 0,
+      createdAt: "2026-07-31T14:30:00.000Z",
+      source: "五套 Figma 原生视觉系统｜30 张 A4 样张与选型建议",
+      access: "production",
+      workType: "requirement-review",
+      tags: ["且慢", "需求评审", "产品规划", "投顾服务", "HTML", "生产"],
+    },
+    {
+      id: "family-asset-report-visual-review-2026-07-31",
+      groupId: "product-planning",
+      title: "家庭资产报告｜旧版视觉评审（已迭代）",
+      url: "https://clairku.github.io/clair-ai-studio/reports/family-asset-report-visual-review-2026-07-31/",
+      preview: "family-asset-report-visual-review-2026-07-31.svg",
+      pinned: false,
+      position: 0,
       createdAt: "2026-07-31T13:30:00.000Z",
-      source: "春燕 Figma 视觉方案｜高端尊享、强化品牌与系列化母版建议",
+      source: "旧版 Figma 视觉方案评审｜已由五套全新视觉方向替代",
       access: "production",
       workType: "requirement-review",
       tags: ["且慢", "需求评审", "产品规划", "投顾服务", "HTML", "生产"],

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect width="1280" height="720" fill="#102c42"/>
+  <path d="M690 542C842 442 950 590 1104 492C1170 450 1222 456 1280 416" fill="none" stroke="#4ab4c8" stroke-width="3"/>
+  <path d="M690 580C852 490 968 622 1120 532C1188 492 1236 500 1280 470" fill="none" stroke="#4ab4c8" stroke-opacity=".45" stroke-width="2"/>
+  <text x="72" y="84" fill="#86c9e4" font-family="PingFang SC, sans-serif" font-size="18" font-weight="700" letter-spacing="3">FIVE NEW DIRECTIONS · 2026.07.31</text>
+  <text x="72" y="178" fill="#fff" font-family="PingFang SC, sans-serif" font-size="56" font-weight="700">家庭资产报告</text>
+  <text x="72" y="248" fill="#fff" font-family="PingFang SC, sans-serif" font-size="56" font-weight="700">五套全新视觉方向</text>
+  <text x="72" y="304" fill="#bdd2df" font-family="PingFang SC, sans-serif" font-size="22">不修补旧模板，重新建立专业、精致、可延展的视觉语言</text>
+  <g transform="translate(72 390)">
+    <rect width="190" height="116" fill="#f7fafc"/>
+    <rect x="202" width="190" height="116" fill="#eee9de"/>
+    <rect x="404" width="190" height="116" fill="#242321"/>
+    <rect x="606" width="190" height="116" fill="#e6eaec"/>
+    <rect x="808" width="190" height="116" fill="#d9effa"/>
+    <text x="18" y="40" fill="#0877bd" font-family="PingFang SC, sans-serif" font-size="13" font-weight="700">01 理性秩序</text>
+    <text x="220" y="40" fill="#a23e31" font-family="PingFang SC, sans-serif" font-size="13" font-weight="700">02 东方现代</text>
+    <text x="422" y="40" fill="#a88e5a" font-family="PingFang SC, sans-serif" font-size="13" font-weight="700">03 静奢私行</text>
+    <text x="624" y="40" fill="#d35d4a" font-family="PingFang SC, sans-serif" font-size="13" font-weight="700">04 研究年鉴</text>
+    <text x="826" y="40" fill="#0077c8" font-family="PingFang SC, sans-serif" font-size="13" font-weight="700">05 且慢定制</text>
+  </g>
+  <text x="72" y="638" fill="#8fb0c3" font-family="PingFang SC, sans-serif" font-size="17">5 套系统 · 30 张可编辑 A4 样张 · Figma 原生结构</text>
+</svg>
