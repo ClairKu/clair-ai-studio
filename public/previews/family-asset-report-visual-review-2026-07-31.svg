@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">家庭资产报告视觉评审</title>
+  <desc id="desc">视觉四做母版，强化品牌做系统</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#06152f"/>
+      <stop offset=".64" stop-color="#082e67"/>
+      <stop offset="1" stop-color="#0b61ad"/>
+    </linearGradient>
+    <radialGradient id="glow">
+      <stop stop-color="#7bd8ff" stop-opacity=".72"/>
+      <stop offset=".34" stop-color="#2a9ee7" stop-opacity=".25"/>
+      <stop offset="1" stop-color="#071938" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <circle cx="998" cy="240" r="300" fill="url(#glow)"/>
+  <path d="M730 580c152-126 309-110 527-30" fill="none" stroke="#fff" stroke-opacity=".18" stroke-width="2"/>
+  <path d="M680 615c184-145 371-128 590-48" fill="none" stroke="#fff" stroke-opacity=".1" stroke-width="26"/>
+  <circle cx="996" cy="238" r="92" fill="none" stroke="#d8b974" stroke-width="3" stroke-opacity=".8"/>
+  <circle cx="996" cy="238" r="66" fill="none" stroke="#fff" stroke-width="1" stroke-opacity=".55"/>
+  <g transform="translate(76 68)">
+    <circle cx="12" cy="12" r="11" fill="none" stroke="#8dd8ff" stroke-width="2"/>
+    <path d="M3 14c6 5 12 5 18 0" fill="none" stroke="#47ace6" stroke-width="4"/>
+    <text x="36" y="18" fill="#dbeeff" font-size="16" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif">DESIGN REVIEW · 2026.07.31</text>
+  </g>
+  <text x="76" y="230" fill="#fff" font-size="70" font-weight="600" font-family="'Songti SC','STSong','SimSun',serif">家庭资产报告视觉评审</text>
+  <text x="76" y="315" fill="#fff" font-size="46" font-weight="600" font-family="'Songti SC','STSong','SimSun',serif">视觉四做母版，强化品牌做系统</text>
+  <rect x="76" y="364" width="90" height="3" rx="1.5" fill="#d8b974"/>
+  <text x="76" y="425" fill="#c9dbee" font-size="24" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif">高端尊享 70% × 强化品牌 30%</text>
+  <text x="76" y="478" fill="#91b6d9" font-size="18" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif">封面与章节负责价值感 · 正文与数据负责专业和品牌一致性</text>
+  <g transform="translate(76 548)" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="16">
+    <rect width="136" height="42" rx="21" fill="#fff" fill-opacity=".08" stroke="#fff" stroke-opacity=".18"/>
+    <text x="24" y="27" fill="#dcecff">视觉决策</text>
+    <rect x="150" width="166" height="42" rx="21" fill="#fff" fill-opacity=".08" stroke="#fff" stroke-opacity=".18"/>
+    <text x="174" y="27" fill="#dcecff">设计系统</text>
+    <rect x="330" width="166" height="42" rx="21" fill="#fff" fill-opacity=".08" stroke="#fff" stroke-opacity=".18"/>
+    <text x="354" y="27" fill="#dcecff">落地清单</text>
+  </g>
+</svg>
