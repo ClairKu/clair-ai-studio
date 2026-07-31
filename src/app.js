@@ -16,7 +16,7 @@ const STORAGE_KEY = "clair-service-report-workbench-v1";
 const AUTH_KEY = "clair-service-report-workbench-access";
 const VIEW_KEY = "clair-service-report-workbench-view";
 const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
-const DATA_VERSION = 13;
+const DATA_VERSION = 14;
 
 const WORK_TYPES = [
   { id: "requirement-review", name: "需求评审" },
@@ -114,6 +114,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "yingmi-ai-communications-evidence-report-2026-07-31",
+      groupId: "ai-platform",
+      title: "盈米 AI 开放平台｜阶段成果与传播证据链",
+      url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-ai-communications-evidence-report-2026-07-31/",
+      preview: "yingmi-ai-communications-evidence-report-2026-07-31.png",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-07-31T08:30:00.000Z",
+      source: "2025.03—2026.07｜产品、生态、媒体、荣誉与 44 个公开证据链接",
+      access: "production",
+      workType: "reporting",
+      tags: ["AI 开放平台", "OAP", "MCP", "Skills", "经营汇报", "调研", "HTML", "生产"],
+    },
     {
       id: "oap-project-report-2026-08-03",
       groupId: "ai-platform",
