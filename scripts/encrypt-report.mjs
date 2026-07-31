@@ -112,7 +112,6 @@ const shell = `<!doctype html>
     .note{margin-top:22px;padding-top:18px;border-top:1px solid #ece8fb;color:#8a8499;font-size:12px}
     @media(max-width:560px){.gate{padding:32px 22px;border-radius:22px}h1{font-size:29px}form{grid-template-columns:1fr}button{width:100%}}
   </style>
-  <script src="/clair-ai-studio/report-template-v2.js"></script>
 </head>
 <body>
   <main class="gate">
@@ -141,10 +140,8 @@ const shell = `<!doctype html>
         const material=await crypto.subtle.importKey("raw",new TextEncoder().encode(document.getElementById("password").value.trim()),"PBKDF2",false,["deriveKey"]);
         const key=await crypto.subtle.deriveKey({name:"PBKDF2",salt:decode(payload.salt),iterations:payload.iterations,hash:"SHA-256"},material,{name:"AES-GCM",length:256},false,["decrypt"]);
         const plain=await crypto.subtle.decrypt({name:"AES-GCM",iv:decode(payload.iv)},key,decode(payload.data));
-        const source=new TextDecoder().decode(plain);
-        const enhanced=globalThis.enhanceReportTemplate?.(source)??source;
         document.open();
-        document.write(enhanced);
+        document.write(new TextDecoder().decode(plain));
         document.close();
       }catch(errorValue){
         submit.disabled=false;
