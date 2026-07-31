@@ -17,6 +17,7 @@ const title = args.title || "加密报告";
 const subtitle = args.subtitle || "输入访问口令后查看完整内容";
 const eyebrow = args.eyebrow || "INTERNAL REPORT";
 const mark = args.mark || "YM";
+const note = args.note || "报告正文已加密，将在当前浏览器内完成解锁。";
 
 if (!password || !input || !output) {
   throw new Error(
@@ -123,7 +124,7 @@ const shell = `<!doctype html>
       <button id="submit" type="submit">打开报告</button>
     </form>
     <div class="error" id="error" role="status" aria-live="polite"></div>
-    <div class="note">报告正文已加密，将在当前浏览器内完成解锁。</div>
+    <div class="note">${escapeHtml(note)}</div>
   </main>
   <script>
     const payload=${JSON.stringify(payload)};
