@@ -598,7 +598,7 @@ const initialState = {
       pinned: true,
       position: 5,
       createdAt: "2026-08-02T13:40:00.000Z",
-      source: "17 个时间组 × 32 件事项 × 发布/生态/品牌/里程碑 × 用户走势联动 · 密码 2026",
+      source: "17 个时间组 × 32 件事项 × 紧凑历程 × 四色双侧坐标 × 用户走势联动 · 密码 2026",
       access: "production",
     },
     {
