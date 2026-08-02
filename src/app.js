@@ -598,7 +598,7 @@ const initialState = {
       pinned: true,
       position: 5,
       createdAt: "2026-08-02T13:40:00.000Z",
-      source: "月度主线 × 重点建设/合作/突破 × 四指标悬停联动 · 密码 2026",
+      source: "关键历程 × 建设/合作/突破分列 × 用户走势悬停联动 · 密码 2026",
       access: "production",
     },
     {

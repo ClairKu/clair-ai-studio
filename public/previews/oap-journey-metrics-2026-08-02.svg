@@ -19,7 +19,7 @@
   <rect width="1600" height="900" rx="42" fill="url(#bg)"/>
   <rect x="0" y="0" width="450" height="900" fill="#fbfaff"/>
   <text x="68" y="92" fill="#8067e8" font-family="Songti SC,STSong,serif" font-size="22" font-weight="700" letter-spacing="4">YINGMI AI · OAP JOURNEY</text>
-  <text x="68" y="164" fill="#171525" font-family="Songti SC,STSong,serif" font-size="46" font-weight="700">月度关键历程</text>
+  <text x="68" y="164" fill="#171525" font-family="Songti SC,STSong,serif" font-size="46" font-weight="700">关键历程</text>
   <g font-family="Songti SC,STSong,serif" font-size="17" font-weight="700">
     <rect x="64" y="194" width="102" height="36" rx="10" fill="#f3efff"/><text x="115" y="218" text-anchor="middle" fill="#745ed0">重点建设</text>
     <rect x="176" y="194" width="102" height="36" rx="10" fill="#eaf8f5"/><text x="227" y="218" text-anchor="middle" fill="#299b8c">重点合作</text>
