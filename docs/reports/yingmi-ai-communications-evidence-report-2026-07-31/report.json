@@ -1,0 +1,179 @@
+{
+  "meta": {
+    "title": "盈米AI阶段成果与三路布局",
+    "subtitle": "目标完成、渠道分发、机构使用与品牌影响力",
+    "eyebrow": "YINGMI AI · EXECUTIVE SUMMARY",
+    "date": "2026-08-02",
+    "cutoff": "经营指标 2026-07-31｜历程 2026-08-02",
+    "owner": "盈米 AI 开放平台",
+    "confidentiality": "管理摘要 · 不含个人与机构明细",
+    "accent": "#456fdb"
+  },
+  "hero": {
+    "conclusion": "17个月完成从能力开放到生态分发、C端服务和商业验证的四级跃迁；下一阶段要把接入转成持续使用，把曝光转成获客，把试点转成收入。",
+    "thesis": "按 7 月 28 日阶段线，调用、申请用户、MAU 完成度分别为 91.5%、82.9%、84.7%；按 7 月 31 日正式 H2 口径，调用目标完成 70.7%，用户和 MAU 分别完成 85.6% 与 90.6%。",
+    "badges": ["MCP · Skills · Agents", "三路分发", "机构商业验证", "数据口径分层"]
+  },
+  "sections": [
+    {
+      "id": "stage-goals",
+      "kicker": "01 · TARGET PROGRESS",
+      "title": "三项阶段目标均超八成",
+      "lead": "截图口径截至 2026-07-28；1,000 万调用是阶段线，不能替代正式 H2 年末目标。",
+      "layout": "metrics",
+      "tone": "light",
+      "items": [
+        {"title": "累计 MCP 调用", "metric": "91.5%", "body": "9,145,099 / 10,000,000", "meta": "缺口 854,901｜阶段线", "status": "confirmed", "source": "目标完成度截图 · 2026-07-28"},
+        {"title": "累计申请用户", "metric": "82.9%", "body": "8,292 / 10,000", "meta": "缺口 1,708", "status": "confirmed", "source": "目标完成度截图 · 2026-07-28"},
+        {"title": "月活用户", "metric": "84.7%", "body": "1,694 / 2,000", "meta": "缺口 306", "status": "confirmed", "source": "目标完成度截图 · 2026-07-28"},
+        {"title": "当日调用用户", "metric": "353", "body": "近 30 日日均 266.9", "meta": "7/28 当日值", "status": "confirmed", "source": "OAP 经营快照 · 2026-07-28"}
+      ],
+      "callout": {"label": "口径判断", "text": "阶段线已经接近达成，但不能据此宣布 H2 调用 OKR 完成；正式 1,300 万目标截至 7/31 完成 70.7%。", "status": "confirmed"}
+    },
+    {
+      "id": "formal-okr",
+      "kicker": "02 · FORMAL H2 OKR",
+      "title": "正式口径更接近经营真相",
+      "lead": "7 月 31 日最新快照显示用户和 MAU 更接近年末目标，调用规模仍需继续增长。",
+      "layout": "metrics",
+      "tone": "soft",
+      "items": [
+        {"title": "累计调用", "metric": "9,194,916", "body": "正式年末目标 13,000,000", "meta": "完成 70.7%", "status": "confirmed", "source": "OAP 项目汇报快照 · 2026-07-31"},
+        {"title": "累计用户", "metric": "8,560", "body": "正式年末目标 10,000", "meta": "完成 85.6%", "status": "confirmed", "source": "STARGATE 看板 · 2026-07-31"},
+        {"title": "MAU", "metric": "1,812", "body": "正式年末目标 2,000", "meta": "完成 90.6%", "status": "confirmed", "source": "STARGATE 看板 · 2026-07-31"},
+        {"title": "近 30 日调用净增", "metric": "439,950", "body": "新增申请用户 1,620", "meta": "日均调用用户 266.9", "status": "confirmed", "source": "OAP 经营快照 · 截至 2026-07-28"}
+      ],
+      "callout": {"label": "阶段判断", "text": "规模已经跨过“是否有人用”的验证期，下一步要下钻到任务完成、复用、渠道转化和收入。", "status": "inferred"}
+    },
+    {
+      "id": "three-routes",
+      "kicker": "03 · DISTRIBUTION MODEL",
+      "title": "一套能力形成三路分发",
+      "lead": "统一能力底座被分别包装为自有平台资产、大厂 AI 平台能力与 C 端持续服务。",
+      "layout": "architecture",
+      "tone": "dark",
+      "items": [
+        {"index": "04", "eyebrow": "C-SIDE", "title": "C端产品接入", "body": "百度 AI 搜索验证外部入口；AI 小顾承接自有闭环；千问 A2A、微信小微探索能力走出且慢。", "bullets": ["查询入口", "账户关联", "持续任务与回流"], "status": "confirmed", "source": "里程碑材料 · 更新至 2026-08-02"},
+        {"index": "03", "eyebrow": "AI PLATFORMS", "title": "大厂AI平台接入", "body": "通过能力广场、MCP、Skills、Agent 与 A2A 进入阿里、百度、火山、华为、千问、腾讯/微信生态。", "bullets": ["生态分发", "联合产品", "联合宣发"], "status": "confirmed", "source": "里程碑材料 · 2025-04—2026-08"},
+        {"index": "02", "eyebrow": "OWNED PLATFORM", "title": "自有平台与总体接入", "body": "官网统一展示和申请；OAP/STARGATE 治理身份、授权、审计、计量与渠道；AI 小顾承接服务。", "bullets": ["统一门户", "统一治理", "统一运营"], "status": "confirmed", "source": "平台与项目汇报材料 · 2026-07-31"},
+        {"index": "01", "eyebrow": "CAPABILITY CORE", "title": "MCP·Skills·Agents", "body": "MCP 提供标准工具，Skills 固化专业流程，Agents 编排端到端任务；测评集、模型、知识库与 A2A 持续强化质量。", "bullets": ["标准连接", "专业 SOP", "完整任务"], "status": "confirmed", "source": "用户提供阶段成果 · 2026-08-02"}
+      ],
+      "callout": {"label": "布局价值", "text": "一次建设、多端复用；但渠道接通只是握手，授权完成、任务交付、结果回流才叫有效获客。", "status": "inferred"}
+    },
+    {
+      "id": "institution-use",
+      "kicker": "04 · INSTITUTION ADOPTION",
+      "title": "机构使用已出现但仍集中",
+      "lead": "证券机构切片证明需求不再是零，但客户身份、使用归属和商业转化仍需治理。",
+      "layout": "metrics",
+      "tone": "light",
+      "items": [
+        {"title": "去重机构标签", "metric": "78", "body": "后台原始记录 85 条", "meta": "完全同名去重｜仅证券分类", "status": "confirmed", "source": "证券机构切片 · 2026-07-24"},
+        {"title": "机构用户", "metric": "319", "body": "证券机构切片用户数", "meta": "不等于全部金融机构用户", "status": "confirmed", "source": "证券机构切片 · 2026-07-24"},
+        {"title": "累计调用", "metric": "2.83万", "body": "后台聚合 28,322 次", "meta": "用户明细汇总相差 56 次", "status": "confirmed", "source": "证券机构切片 · 2026-07-24"},
+        {"title": "前十集中度", "metric": "74.3%", "body": "前五机构标签贡献 56.6%", "meta": "需求出现，但集中度高", "status": "confirmed", "source": "证券机构切片 · 2026-07-24"}
+      ],
+      "callout": {"label": "经营判断", "text": "机构使用不是零到一问题，而是从离散试用转成可识别客户、可归属场景、可承诺 SLA、可形成合同的问题。", "status": "inferred"}
+    },
+    {
+      "id": "commercial-proof",
+      "kicker": "05 · COMMERCIAL PROOF",
+      "title": "商业化完成两个零到一",
+      "lead": "收入与机构项目均出现首个验证，但距离可复制商业模式仍有关键缺口。",
+      "layout": "comparison",
+      "tone": "soft",
+      "items": [
+        {"index": "01", "eyebrow": "FIRST REVENUE", "title": "智谱采购", "body": "大模型数据训练场景形成首笔收入，说明能力具备被外部采购的可能。", "meta": "2025-06", "status": "confirmed", "source": "用户提供里程碑 · 2026-08-02"},
+        {"index": "02", "eyebrow": "FIRST BID", "title": "山西证券项目", "body": "形成首个投标/采购验证；投标、等待结果、中标、签约与回款必须分开记录。", "meta": "2026-07", "status": "confirmed", "source": "用户材料与项目汇报 · 2026-07-31"},
+        {"index": "03", "eyebrow": "MISSING LOOP", "title": "规模经营待证明", "body": "当前缺少生产机构数、付费机构数、合同额、收入、复购、SLA 与单位任务成本的统一看板。", "meta": "下一阶段补齐", "status": "missing"}
+      ],
+      "callout": {"label": "商业边界", "text": "首笔收入证明能卖，首个投标证明有人询价；持续合同、复购与单位经济性才证明是生意。", "status": "inferred"}
+    },
+    {
+      "id": "milestone-2025",
+      "kicker": "06 · 2025 MILESTONES",
+      "title": "2025完成能力与生态占位",
+      "lead": "从启动平台、发布 MCP，到完成首个 C 端接入、首笔收入和全栈战略合作。",
+      "layout": "timeline",
+      "tone": "light",
+      "items": [
+        {"title": "启动 AI 开放平台", "body": "从财富管理专业能力的标准化开放起步。", "meta": "2025.03", "status": "confirmed"},
+        {"title": "官网与首批 MCP 发布", "body": "官网上线、开放申请；陆续进入百炼、魔塔、百度 MCP 广场。", "meta": "2025.04—05", "status": "confirmed"},
+        {"title": "大师赛与首个 C 端接入", "body": "举办 MCP 大师赛；百度 AI 搜索接入；用户破千、调用破百万。", "meta": "2025.06", "status": "confirmed"},
+        {"title": "首笔收入与生态合作", "body": "智谱采购；成为火山 AI 伙伴；与阿里云达成 AI 全栈战略合作。", "meta": "2025.06—07", "status": "confirmed"},
+        {"title": "模型与评测集联合发布", "body": "联合发布投顾智能体模型与行业首个评测集，持续进入行业论坛。", "meta": "2025.09—11", "status": "confirmed"}
+      ]
+    },
+    {
+      "id": "milestone-2026",
+      "kicker": "07 · 2026 MILESTONES",
+      "title": "2026走向终端与交易验证",
+      "lead": "能力开始进入 AI 小顾、OpenClaw、千问、腾讯/微信，并触达机构采购。",
+      "layout": "timeline",
+      "tone": "dark",
+      "items": [
+        {"title": "能力接入 AI 小顾", "body": "自有能力进入 C 端投顾产品。", "meta": "2026.02", "status": "confirmed"},
+        {"title": "发布投顾 OpenClaw", "body": "对外发布服务并在阿里云金融虾友会分享实践。", "meta": "2026.03—04", "status": "confirmed"},
+        {"title": "首批 Skills 与官网升级", "body": "加入阿里云金融 AI 联盟，发布首批 Skills，参加金融创新峰会。", "meta": "2026.05", "status": "confirmed"},
+        {"title": "小顾3.0与千问接入", "body": "阿里云联合宣发；千问接入盈米 Skills，成为首批三方合作伙伴之一。", "meta": "2026.06", "status": "confirmed"},
+        {"title": "腾讯、山西与千问 A2A", "body": "WorkBuddy 接入 MCP；山西证券项目形成首个投标；千问 A2A 接入 AI 小顾。", "meta": "2026.07", "status": "confirmed"},
+        {"title": "微信小微接入", "body": "材料记录微信小微接入且慢 AI 能力；生产可用和真实服务需继续验收。", "meta": "2026.08", "status": "target", "source": "用户提供里程碑 · 2026-08-02"}
+      ]
+    },
+    {
+      "id": "brand-impact",
+      "kicker": "08 · BRAND IMPACT",
+      "title": "全网曝光形成盈米AI标签",
+      "lead": "传播已从单次发布升级为平台、产品、模型、行业方法论与管理层观点的持续输出。",
+      "layout": "metrics",
+      "tone": "soft",
+      "items": [
+        {"title": "相关报道", "metric": "8,965篇", "body": "其中盈米 MCP 相关 3,329 篇", "meta": "内部传播监测口径", "status": "confirmed", "source": "用户提供传播数据 · 2026-08-02"},
+        {"title": "全网互动", "metric": "300万+", "body": "跨渠道累计互动", "meta": "不与 OAP 调用混算", "status": "confirmed", "source": "用户提供传播数据 · 2026-08-02"},
+        {"title": "全网浏览", "metric": "1,000万+", "body": "传播浏览规模", "meta": "不等于官网 UV/PV", "status": "confirmed", "source": "用户提供传播数据 · 2026-08-02"},
+        {"title": "自有与渠道内容", "metric": "50+ / 300+", "body": "原创文章视频 50+；全网渠道发布 300+", "meta": "公众号累计阅读 3 万+", "status": "confirmed", "source": "用户提供传播数据 · 2026-08-02"}
+      ],
+      "callout": {"label": "传播判断", "text": "真正沉淀的是“盈米 AI”品牌标签，以及与阿里、百度、火山、AWS、腾讯/微信共同发声的生态位置。", "status": "inferred"}
+    },
+    {
+      "id": "evidence",
+      "kicker": "09 · EVIDENCE",
+      "title": "增长证据来自三张原图",
+      "lead": "保留原始趋势、经营快照和目标完成度，避免视觉重绘改变数据含义。",
+      "layout": "evidence",
+      "tone": "light",
+      "items": [
+        {"title": "上线以来用户与调用趋势", "body": "累计调用与累计用户持续增长，日调用用户在 2026 年 3 月后进入更高平台。", "image": "assets/oap-trend-2026-07-28.png", "alt": "OAP 2025年3月27日至2026年7月28日累计调用、累计申请用户、每日调用用户和每日新增用户趋势", "source": "用户提供 OAP 趋势截图 · 2026-07-28", "status": "confirmed"},
+        {"title": "经营快照", "body": "累计调用 9,145,099、用户 8,292、MAU 1,694、当日调用用户 353。", "image": "assets/oap-snapshot-2026-07-28.png", "alt": "OAP 经营快照与近30日新增用户、调用净增和日均调用用户", "source": "用户提供经营快照 · 2026-07-28", "status": "confirmed"},
+        {"title": "阶段目标完成度", "body": "阶段线完成度分别为调用 91.5%、申请用户 82.9%、MAU 84.7%。", "image": "assets/oap-target-progress-2026-07-28.png", "alt": "OAP MCP调用、累计申请和月活三个阶段目标的进度条", "source": "用户提供目标完成度截图 · 2026-07-28", "status": "confirmed"}
+      ]
+    },
+    {
+      "id": "next-actions",
+      "kicker": "10 · NEXT ACTIONS",
+      "title": "下一阶段要验证经营闭环",
+      "lead": "继续建设能力，但经营验收要从数量转向有效服务、机构合同和可归因增长。",
+      "layout": "actions",
+      "tone": "dark",
+      "items": [
+        {"index": "P0", "eyebrow": "CHANNEL", "title": "逐渠道验收黄金闭环", "body": "按生产可用、授权完成、任务交付、复用和结果回流验收千问、微信、WorkBuddy 与百炼。", "meta": "责任：渠道 × 产品 × 技术｜8 月", "status": "target"},
+        {"index": "P0", "eyebrow": "INSTITUTION", "title": "建立机构经营台账", "body": "统一机构法定名、客户归属、使用场景、合同、收入、SLA 与单位任务成本。", "meta": "责任：商务 × 运营 × 数据｜8—9 月", "status": "target"},
+        {"index": "P1", "eyebrow": "GROWTH", "title": "把传播接到增长归因", "body": "将内容、活动、平台合作与注册、激活、复用、付费建立可追踪关联。", "meta": "责任：市场 × 运营｜Q3", "status": "target"}
+      ],
+      "callout": {"label": "管理层决策", "text": "认可“有效服务完成 × 复用 × 可变现”为下一阶段北极星，不再用接口数或曝光量替代业务结果。", "status": "target"}
+    }
+  ],
+  "sources": [
+    {"label": "OAP 经营趋势与快照", "detail": "用户提供截图｜截止 2026-07-28"},
+    {"label": "OAP 项目汇报快照", "detail": "STARGATE 经营数据｜截止 2026-07-31"},
+    {"label": "证券机构使用切片", "detail": "后台证券分类｜截止 2026-07-24"},
+    {"label": "历程与里程碑清单", "detail": "用户提供材料｜更新至 2026-08-02"},
+    {"label": "传播影响力数据", "detail": "盈米内部传播监测｜用户提供口径"}
+  ],
+  "openQuestions": [
+    {"title": "阶段线与正式 OKR", "detail": "调用 1,000 万为阶段线，正式 H2 年末目标为 1,300 万；后续汇报需固定双口径。"},
+    {"title": "渠道生产验收", "detail": "接入、上架、生产可用、授权完成、有效任务和获客需逐项核验。"},
+    {"title": "机构商业指标", "detail": "待补生产机构数、付费机构数、合同额、收入、复购、SLA 与单位任务成本。"},
+    {"title": "机构主体清洗", "detail": "78 个同名去重标签仍需映射到法定机构名，不能外推为全部金融机构覆盖。"}
+  ]
+}

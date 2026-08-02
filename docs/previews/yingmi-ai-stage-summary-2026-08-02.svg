@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750" role="img" aria-labelledby="title desc">
+  <title id="title">盈米 AI 阶段成果与三路布局</title>
+  <desc id="desc">目标完成度、三路分发、机构使用和品牌影响力管理摘要预览</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0c1830"/><stop offset="1" stop-color="#192950"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#59c6c9"/><stop offset="1" stop-color="#456fdb"/></linearGradient>
+  </defs>
+  <rect width="1200" height="750" rx="36" fill="url(#bg)"/>
+  <text x="72" y="74" fill="#79d2d0" font-family="Songti SC, serif" font-size="18" font-weight="700" letter-spacing="3">YINGMI AI · EXECUTIVE SUMMARY</text>
+  <text x="72" y="148" fill="#fff" font-family="Songti SC, serif" font-size="54" font-weight="700">阶段成果与三路布局</text>
+  <text x="72" y="194" fill="#aebbd2" font-family="Songti SC, serif" font-size="23">目标完成 · 渠道分发 · 机构使用 · 品牌影响力</text>
+  <g transform="translate(72 250)">
+    <rect width="320" height="156" rx="22" fill="#fff" opacity=".96"/>
+    <text x="24" y="38" fill="#53627a" font-family="Songti SC, serif" font-size="15">累计 MCP 调用</text>
+    <text x="24" y="98" fill="#456fdb" font-family="Songti SC, serif" font-size="48" font-weight="700">91.5%</text>
+    <text x="24" y="130" fill="#758199" font-family="Songti SC, serif" font-size="14">9,145,099 / 1,000 万阶段线</text>
+  </g>
+  <g transform="translate(414 250)">
+    <rect width="320" height="156" rx="22" fill="#fff" opacity=".96"/>
+    <text x="24" y="38" fill="#53627a" font-family="Songti SC, serif" font-size="15">累计申请用户</text>
+    <text x="24" y="98" fill="#456fdb" font-family="Songti SC, serif" font-size="48" font-weight="700">82.9%</text>
+    <text x="24" y="130" fill="#758199" font-family="Songti SC, serif" font-size="14">8,292 / 10,000</text>
+  </g>
+  <g transform="translate(756 250)">
+    <rect width="320" height="156" rx="22" fill="#fff" opacity=".96"/>
+    <text x="24" y="38" fill="#53627a" font-family="Songti SC, serif" font-size="15">月活用户</text>
+    <text x="24" y="98" fill="#456fdb" font-family="Songti SC, serif" font-size="48" font-weight="700">84.7%</text>
+    <text x="24" y="130" fill="#758199" font-family="Songti SC, serif" font-size="14">1,694 / 2,000</text>
+  </g>
+  <path d="M188 526H1014" stroke="url(#accent)" stroke-width="5" stroke-linecap="round"/>
+  <g fill="#fff" font-family="Songti SC, serif" text-anchor="middle">
+    <circle cx="260" cy="526" r="12" fill="#59c6c9"/><text x="260" y="575" font-size="25" font-weight="700">自有平台</text><text x="260" y="606" fill="#aebbd2" font-size="16">OAP · STARGATE · AI 小顾</text>
+    <circle cx="600" cy="526" r="12" fill="#5999e4"/><text x="600" y="575" font-size="25" font-weight="700">大厂 AI 平台</text><text x="600" y="606" fill="#aebbd2" font-size="16">阿里 · 百度 · 火山 · 千问 · 腾讯</text>
+    <circle cx="940" cy="526" r="12" fill="#456fdb"/><text x="940" y="575" font-size="25" font-weight="700">C 端产品</text><text x="940" y="606" fill="#aebbd2" font-size="16">搜索 · 小顾 · A2A · 微信</text>
+  </g>
+  <text x="72" y="696" fill="#7f8ba4" font-family="Songti SC, serif" font-size="15">数据截止：经营指标 2026-07-31｜历程 2026-08-02</text>
+</svg>
