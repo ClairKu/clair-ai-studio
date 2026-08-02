@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "title": "盈米 AI｜两大模式与四个持续",
+    "subtitle": "一张总图看清接入模式、持续行动与阶段势能",
+    "eyebrow": "盈米 AI 开放平台 · EXECUTIVE ACTION MAP",
+    "date": "2026-08-02",
+    "cutoff": "2026-08-02（材料日；分项统计口径见来源）",
+    "owner": "盈米 AI 开放平台",
+    "confidentiality": "公开 · 口径分项标注",
+    "accent": "#8067e8",
+    "downloadUrl": "assets/yingmi-ai-two-modes-four-continuous.svg",
+    "downloadLabel": "下载一张总图"
+  },
+  "hero": {
+    "conclusion": "两大模式扩大分发，四个持续形成能力、首发、生态与品牌的复利。",
+    "thesis": "大厂 AI 平台与 C 端产品是两条放大通路；持续建设、持续抢先、持续合作、持续曝光共同把开放能力转成新入口与新机会。",
+    "badges": ["2 大接入模式", "4 条持续行动", "MCP · Skills · Agent", "传播与生态势能"]
+  },
+  "sections": [
+    {
+      "id": "one-map",
+      "kicker": "01 · ONE MAP",
+      "title": "两大模式汇流，四线放大",
+      "lead": "两条分发入口汇入盈米 AI 开放平台，再由四个持续形成可复用的增长飞轮。",
+      "layout": "architecture",
+      "tone": "dark",
+      "items": [
+        {"index": "01", "eyebrow": "MODE A", "title": "大厂 AI 平台接入", "body": "通过平台生态与能力广场放大专业能力分发。", "bullets": ["平台级入口", "联合接入", "生态分发"], "status": "confirmed", "source": "用户提供关键行动素材 · 2026-08-02"},
+        {"index": "02", "eyebrow": "MODE B", "title": "C 端产品接入", "body": "把专业能力送入用户已有的产品与服务入口。", "bullets": ["用户触达", "场景承接", "持续服务"], "status": "confirmed", "source": "用户提供关键行动素材 · 2026-08-02"},
+        {"index": "03", "eyebrow": "KEEP BUILDING", "title": "持续建设", "body": "MCP、Skills、Agent 三层能力持续产品化。", "bullets": ["标准连接", "专业流程", "完整任务"], "status": "confirmed", "source": "阶段成果源稿 · 更新至 2026-08-02"},
+        {"index": "04", "eyebrow": "KEEP LEADING", "title": "持续抢先", "body": "用首个与首批形成金融 AI 的时间窗口与行业认知。", "bullets": ["财富 MCP Server", "测评集与立体模型", "投顾 OpenClaw", "千问 MCP / A2A"], "status": "confirmed", "source": "用户提供关键行动素材 · 2026-08-02"},
+        {"index": "05", "eyebrow": "KEEP PARTNERING", "title": "持续合作", "body": "连接云、模型、超级入口、办公生态与金融机构。", "bullets": ["阿里 / 百度 / 火山", "华为 / 千问 / 腾讯", "智谱 / 金融机构"], "status": "confirmed", "source": "用户提供关键行动素材 · 2026-08-02"},
+        {"index": "06", "eyebrow": "KEEP VISIBLE", "title": "持续曝光", "body": "以原创内容、媒体声量与行业活动持续占位。", "bullets": ["内容传播", "媒体报道", "活动交流"], "status": "confirmed", "source": "传播源稿与用户材料 · 2026-08-02"}
+      ],
+      "callout": {"label": "关键判断", "text": "模式负责放大入口，持续行动负责积累复利。", "status": "inferred"}
+    },
+    {
+      "id": "first-mover",
+      "kicker": "02 · FIRST MOVER",
+      "title": "四次抢先，建立行业占位",
+      "lead": "抢先不是一次发布，而是从标准能力、评价体系、智能体产品到平台合作的连续占位。",
+      "layout": "cards",
+      "tone": "light",
+      "items": [
+        {"index": "01", "eyebrow": "STANDARD", "title": "首个财富 MCP Server", "body": "以标准化连接方式对外开放财富管理专业能力。", "status": "confirmed", "source": "用户提供关键行动素材 · 2026-08-02"},
+        {"index": "02", "eyebrow": "EVALUATION", "title": "首个理财测评集 / 投顾智能立体模型", "body": "从能力供给进一步走向质量评价与投顾智能建模。", "status": "confirmed", "source": "用户提供关键行动素材 · 2026-08-02"},
+        {"index": "03", "eyebrow": "AGENT", "title": "首个投顾龙虾 OpenClaw", "body": "把投顾能力从工具调用推进到可完成任务的 Agent 形态。", "status": "confirmed", "source": "用户提供关键行动素材 · 2026-08-02"},
+        {"index": "04", "eyebrow": "ECOSYSTEM", "title": "首批千问 MCP / A2A 合作商", "body": "同时验证能力调用与完整 Agent 服务的两类接入模式。", "status": "confirmed", "source": "用户提供关键行动素材 · 2026-08-02"}
+      ],
+      "callout": {"label": "证据边界", "text": "“首个 / 首批”按用户提供材料呈现；用于外部独立引用时仍需补公开链接。", "status": "missing"}
+    },
+    {
+      "id": "ecosystem",
+      "kicker": "03 · ECOSYSTEM",
+      "title": "合作网络覆盖四类关键节点",
+      "lead": "合作对象已跨越云与开发平台、C 端入口、办公生态、模型伙伴与金融机构。",
+      "layout": "cards",
+      "tone": "soft",
+      "items": [
+        {"index": "01", "eyebrow": "CLOUD & BUILDER", "title": "云与开发平台", "body": "阿里云 / 百炼、百度、火山引擎 / 扣子。", "status": "confirmed", "source": "用户提供关键行动素材 · 2026-08-02"},
+        {"index": "02", "eyebrow": "CONSUMER ENTRY", "title": "超级入口", "body": "华为 / 小艺、夸克 / 千问。", "status": "confirmed", "source": "用户提供关键行动素材 · 2026-08-02"},
+        {"index": "03", "eyebrow": "WORK & MODEL", "title": "办公与模型生态", "body": "腾讯 / 微信 / WorkBuddy、智谱。", "status": "confirmed", "source": "用户提供关键行动素材 · 2026-08-02"},
+        {"index": "04", "eyebrow": "FINANCE", "title": "金融机构", "body": "以机构场景承接专业能力、项目合作与商业验证。", "status": "confirmed", "source": "用户提供关键行动素材 · 2026-08-02"}
+      ],
+      "callout": {"label": "验收原则", "text": "平台接入不等于有效使用；合作应继续验收到生产可用、任务完成、复用与结果回流。", "status": "inferred"}
+    },
+    {
+      "id": "reach",
+      "kicker": "04 · REACH",
+      "title": "内容、媒体与活动形成势能",
+      "lead": "数字按来源原样呈现；传播指标与 OAP 调用、官网 UV / PV 不混算。",
+      "layout": "metrics",
+      "tone": "light",
+      "items": [
+        {"title": "原创文章视频", "metric": "50+", "body": "盈米 AI 开放平台公众号原创内容", "meta": "累计口径 · 截至 2026-07", "status": "confirmed", "source": "传播成果源稿 · 2026-07-31"},
+        {"title": "原创内容总阅读", "metric": "3万+次", "body": "公众号原创文章与视频累计阅读", "meta": "累计口径 · 截至 2026-07", "status": "confirmed", "source": "阶段成果源稿 · 2026-08-02"},
+        {"title": "全网渠道发布", "metric": "300+篇", "body": "全网渠道累计发布内容", "meta": "累计口径 · 截至 2026-07", "status": "confirmed", "source": "阶段成果源稿 · 2026-08-02"},
+        {"title": "盈米 AI 相关报道", "metric": "8,965篇", "body": "其中盈米 MCP 相关 3,329 篇", "meta": "内部传播监测口径 · 2025-03—2026-07", "status": "confirmed", "source": "传播证据报告 · 2026-07-31"},
+        {"title": "全网互动 / 浏览", "metric": "300万+ / 1,000万+", "body": "互动 300 万+；浏览 1,000 万+", "meta": "内部传播监测口径 · 2025-03—2026-07", "status": "confirmed", "source": "传播证据报告 · 2026-07-31"},
+        {"title": "活动 / 交流机构", "metric": "10场+ / 30家+", "body": "活动 10 场+；交流机构 30 家+", "meta": "累计区间与去重口径待补", "status": "missing", "source": "用户提供关键行动素材 · 2026-08-02"}
+      ],
+      "callout": {"label": "传播判断", "text": "曝光已经形成行业声量；下一步要把内容、活动与注册、激活、复用、付费建立归因。", "status": "inferred"}
+    },
+    {
+      "id": "next",
+      "kicker": "05 · NEXT",
+      "title": "把势能继续转成经营结果",
+      "lead": "四个持续不只追求数量增长，还需要建立从接入、使用到复用与增长的验收链。",
+      "layout": "actions",
+      "tone": "soft",
+      "items": [
+        {"index": "01", "eyebrow": "ADOPTION", "title": "接入转有效使用", "body": "为每个大厂平台与 C 端产品建立生产可用、授权、任务完成、复用与回流指标。", "meta": "责任人 / 时间：待确认", "status": "inferred"},
+        {"index": "02", "eyebrow": "REUSE", "title": "首发转可复用资产", "body": "把 MCP、Skills、Agent、测评集与模型沉淀为版本化、可治理、可规模交付的能力资产。", "meta": "责任人 / 时间：待确认", "status": "inferred"},
+        {"index": "03", "eyebrow": "ATTRIBUTION", "title": "曝光转可归因增长", "body": "把原创内容、媒体报道、活动与注册、激活、复用、线索和付费建立可追踪关联。", "meta": "责任人 / 时间：待确认", "status": "inferred"}
+      ],
+      "callout": {"label": "下一阶段", "text": "继续放大入口，同时用有效使用、复用率与增长归因衡量四个持续。", "status": "inferred"}
+    }
+  ],
+  "sources": [
+    {"label": "用户提供关键行动素材", "detail": "2026-08-02 · 两大模式、四个持续、合作伙伴、传播与活动数据"},
+    {"label": "盈米 AI 阶段成果与三路布局", "detail": "research/yingmi-ai-stage-summary-2026-08-02.md · 传播指标与接入边界复核"},
+    {"label": "盈米 AI 传播证据报告", "detail": "research/yingmi-ai-communications-evidence-report-2026-07-31.md · 2025-03—2026-07 内部传播监测口径"},
+    {"label": "来源覆盖清单", "detail": "research/yingmi-ai-two-modes-four-continuous-2026-08-02-coverage.md · 全量要点去向与未外推边界"}
+  ],
+  "openQuestions": [
+    {"title": "活动与机构统计口径", "detail": "补充 10 场+活动、30 家+交流机构的统计区间、名单边界和去重规则。"},
+    {"title": "首个 / 首批公开证据", "detail": "如用于对外媒体或投标材料，需逐项补充首发时间与公开链接。"},
+    {"title": "四个持续责任链", "detail": "补充下一阶段负责人、目标日期和有效使用 / 复用 / 归因指标。"}
+  ]
+}

@@ -36,6 +36,8 @@
   <path d="M520 760 C650 736 742 690 832 660 C928 626 1004 622 1094 560 C1192 493 1224 430 1308 398 C1390 367 1440 300 1520 246 L1520 760 Z" fill="url(#area)"/>
   <path d="M520 760 C650 736 742 690 832 660 C928 626 1004 622 1094 560 C1192 493 1224 430 1308 398 C1390 367 1440 300 1520 246" fill="none" stroke="url(#line)" stroke-width="10" stroke-linecap="round" filter="url(#glow)"/>
   <path d="M520 772 C620 704 684 790 770 690 C860 760 930 640 1008 700 C1092 594 1160 660 1238 514 C1312 588 1402 390 1520 470" fill="none" stroke="#45c6b6" stroke-width="5" stroke-linecap="round" opacity=".9"/>
+  <path d="M520 744 C668 730 792 704 910 684 C1044 658 1164 620 1288 534 C1382 470 1450 402 1520 318" fill="none" stroke="#ff82b2" stroke-width="5" stroke-linecap="round" opacity=".9"/>
+  <path d="M520 790 C620 758 682 806 752 766 C842 802 918 730 1006 782 C1100 718 1182 762 1264 668 C1352 736 1418 612 1520 702" fill="none" stroke="#ffb86c" stroke-width="4" stroke-linecap="round" opacity=".9"/>
   <g fill="#fff"><circle cx="832" cy="660" r="9"/><circle cx="1094" cy="560" r="9"/><circle cx="1308" cy="398" r="9"/><circle cx="1520" cy="246" r="11"/></g>
   <rect x="1290" y="760" width="230" height="56" rx="28" fill="rgba(255,255,255,.09)" stroke="rgba(255,255,255,.16)"/>
   <text x="1405" y="797" text-anchor="middle" fill="#d8dcec" font-family="Songti SC,STSong,serif" font-size="20">内部 · 密码访问</text>
