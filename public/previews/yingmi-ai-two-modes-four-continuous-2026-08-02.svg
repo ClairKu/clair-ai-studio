@@ -1,24 +1,63 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="720" height="405" viewBox="0 0 720 405" role="img" aria-labelledby="title desc">
-  <title id="title">盈米 AI 两大模式与四个持续预览</title>
-  <desc id="desc">两大接入模式与四个持续行动组成的高管汇报总图。</desc>
+  <title id="title">盈米 AI 持续引擎与势能放大预览</title>
+  <desc id="desc">四个持续驱动盈米 AI 开放平台运转，平台通过两种接入模式触达更多群体并放大势能。</desc>
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fbfaff"/><stop offset="1" stop-color="#ebe6fa"/></linearGradient>
-    <linearGradient id="violet" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8067e8"/><stop offset="1" stop-color="#a992ff"/></linearGradient>
-    <style>text{font-family:"Songti SC",STSong,SimSun,serif;fill:#161927}.label{font:700 12px "PingFang SC",sans-serif;fill:#8067e8;letter-spacing:2px}.title{font-size:29px;font-weight:700}.small{font-size:12px;fill:#687287}.card{font-size:17px;font-weight:700}.metric{font-size:20px;font-weight:700;fill:#8067e8}.note{font-size:10px;fill:#687287}</style>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fbfaff"/><stop offset="1" stop-color="#e9e4fa"/></linearGradient>
+    <linearGradient id="violet" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#7358d8"/><stop offset="1" stop-color="#a38af7"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#5e4b9f" flood-opacity=".15"/></filter>
+    <style>
+      text{font-family:"PingFang SC","Microsoft YaHei",sans-serif;fill:#161927}.eyebrow{font-size:10px;font-weight:700;letter-spacing:1.8px;fill:#7358d8}.headline{font-size:21px;font-weight:800}.label{font-size:14px;font-weight:750}.small{font-size:10px;fill:#667087}.tiny{font-size:9px;fill:#727b90}.white{fill:#fff}.pale{fill:#eeeaff}.metric{font-size:11px;font-weight:750;fill:#7358d8}
+    </style>
   </defs>
   <rect width="720" height="405" rx="28" fill="url(#bg)"/>
-  <text x="34" y="36" class="label">YINGMI AI · ACTION MAP</text>
-  <text x="34" y="76" class="title">两大模式放大势能 · 四个持续换新机会</text>
-  <rect x="34" y="102" width="194" height="52" rx="15" fill="#fff" stroke="#ded8f4"/><text x="131" y="133" class="card" text-anchor="middle">大厂 AI 平台接入</text>
-  <rect x="263" y="96" width="194" height="64" rx="18" fill="url(#violet)"/><text x="360" y="126" class="card" fill="#fff" text-anchor="middle">盈米 AI 开放平台</text><text x="360" y="146" class="small" fill="#eeeaff" text-anchor="middle">MCP · Skills · Agent</text>
-  <rect x="492" y="102" width="194" height="52" rx="15" fill="#fff" stroke="#ded8f4"/><text x="589" y="133" class="card" text-anchor="middle">C 端产品接入</text>
-  <path d="M228 128H258M462 128H492" stroke="#8067e8" stroke-width="3" stroke-linecap="round"/>
-  <g transform="translate(34 182)"><rect width="155" height="108" rx="17" fill="#fff" stroke="#ded8f4"/><text x="18" y="30" class="label">01</text><text x="18" y="58" class="card">持续建设</text><text x="18" y="84" class="small">MCP · Skills · Agent</text></g>
-  <g transform="translate(199 182)"><rect width="155" height="108" rx="17" fill="#151e36"/><text x="18" y="30" class="label" fill="#b8a7ff">02</text><text x="18" y="58" class="card" fill="#fff">持续抢先</text><text x="18" y="84" class="small" fill="#b7c1d5">首个 · 首批 · 占位</text></g>
-  <g transform="translate(364 182)"><rect width="155" height="108" rx="17" fill="#fff" stroke="#ded8f4"/><text x="18" y="30" class="label">03</text><text x="18" y="58" class="card">持续合作</text><text x="18" y="84" class="small">平台 · 入口 · 机构</text></g>
-  <g transform="translate(529 182)"><rect width="157" height="108" rx="17" fill="#fff" stroke="#ded8f4"/><text x="18" y="30" class="label">04</text><text x="18" y="58" class="card">持续曝光</text><text x="18" y="84" class="small">内容 · 媒体 · 活动</text></g>
-  <rect x="34" y="316" width="652" height="56" rx="16" fill="#fff" stroke="#ded8f4"/>
-  <text x="56" y="343" class="metric">50+</text><text x="122" y="343" class="metric">300+篇</text><text x="232" y="343" class="metric">8,965篇</text><text x="347" y="343" class="metric">300万+</text><text x="457" y="343" class="metric">1,000万+</text><text x="580" y="343" class="metric">10场+</text>
-  <text x="56" y="360" class="note">原创内容</text><text x="122" y="360" class="note">渠道发布</text><text x="232" y="360" class="note">相关报道</text><text x="347" y="360" class="note">互动</text><text x="457" y="360" class="note">浏览</text><text x="580" y="360" class="note">活动 · 30家+</text>
-  <text x="34" y="391" class="note">模式负责放大入口，持续行动负责积累复利</text>
+  <text x="32" y="27" class="eyebrow">YINGMI AI · CAUSAL ACTION MAP</text>
+  <text x="32" y="54" class="headline">持续引擎驱动平台 · 两种模式放大势能</text>
+
+  <g filter="url(#shadow)">
+    <rect x="241" y="70" width="238" height="45" rx="14" fill="#161e35"/>
+    <text x="360" y="89" class="eyebrow pale" text-anchor="middle">OUTCOME · 势能结果</text>
+    <text x="360" y="106" class="label white" text-anchor="middle">触达更多群体 · 放大平台势能</text>
+  </g>
+  <path d="M360 154V120" stroke="#7358d8" stroke-width="3" stroke-linecap="round"/>
+  <path d="M355 126l5-7 5 7" fill="none" stroke="#7358d8" stroke-width="3" stroke-linecap="round"/>
+
+  <text x="32" y="137" class="eyebrow">MODULE 02 · 势能放大路径</text>
+  <rect x="32" y="148" width="315" height="59" rx="15" fill="#fff" stroke="#dcd4f3"/>
+  <text x="52" y="171" class="label">大厂 AI 平台接入</text>
+  <text x="52" y="190" class="small">借助平台入口与流量，触达平台原生用户</text>
+  <rect x="373" y="148" width="315" height="59" rx="15" fill="#fff" stroke="#dcd4f3"/>
+  <text x="393" y="171" class="label">C 端产品接入</text>
+  <text x="393" y="190" class="small">进入真实产品场景，承接持续服务关系</text>
+  <path d="M190 219V208M530 219V208" stroke="#7358d8" stroke-width="2.5" stroke-linecap="round"/>
+
+  <g filter="url(#shadow)">
+    <rect x="170" y="219" width="380" height="53" rx="17" fill="url(#violet)"/>
+    <text x="360" y="241" class="eyebrow pale" text-anchor="middle">PLATFORM CORE · 能力中枢</text>
+    <text x="360" y="262" class="label white" text-anchor="middle">盈米 AI 开放平台｜MCP · Skills · Agent</text>
+  </g>
+  <path d="M360 305V278" stroke="#7358d8" stroke-width="3" stroke-linecap="round"/>
+  <path d="M355 284l5-7 5 7" fill="none" stroke="#7358d8" stroke-width="3" stroke-linecap="round"/>
+
+  <text x="32" y="298" class="eyebrow">MODULE 01 · 核心运转引擎</text>
+  <g transform="translate(32 309)">
+    <rect width="155" height="68" rx="14" fill="#fff" stroke="#dcd4f3"/>
+    <text x="15" y="23" class="label">持续建设</text><text x="139" y="23" class="metric" text-anchor="end">3层能力</text>
+    <text x="15" y="43" class="small">MCP · Skills · Agent</text><text x="15" y="58" class="tiny">标准连接 → 专业流程 → 完整任务</text>
+  </g>
+  <g transform="translate(199 309)">
+    <rect width="155" height="68" rx="14" fill="#171f37"/>
+    <text x="15" y="23" class="label white">持续抢先</text><text x="139" y="23" class="metric pale" text-anchor="end">4项</text>
+    <text x="15" y="43" class="small pale">首个 / 首批持续占位</text><text x="15" y="58" class="tiny pale">MCP Server · 测评集 · OpenClaw</text>
+  </g>
+  <g transform="translate(366 309)">
+    <rect width="155" height="68" rx="14" fill="#fff" stroke="#dcd4f3"/>
+    <text x="15" y="23" class="label">持续合作</text><text x="139" y="23" class="metric" text-anchor="end">8类伙伴</text>
+    <text x="15" y="43" class="small">平台 · 入口 · 金融机构</text><text x="15" y="58" class="tiny">活动10场+ · 交流机构30家+</text>
+  </g>
+  <g transform="translate(533 309)">
+    <rect width="155" height="68" rx="14" fill="#fff" stroke="#dcd4f3"/>
+    <text x="15" y="23" class="label">持续曝光</text><text x="139" y="23" class="metric" text-anchor="end">8,965篇</text>
+    <text x="15" y="43" class="small">互动300万+ · 浏览1000万+</text><text x="15" y="58" class="tiny">原创50+ · 渠道发布300+篇</text>
+  </g>
+  <text x="32" y="394" class="tiny">四个持续（核心努力） → 开放平台（能力中枢） → 两种模式（放大路径） → 更多群体与势能</text>
 </svg>
