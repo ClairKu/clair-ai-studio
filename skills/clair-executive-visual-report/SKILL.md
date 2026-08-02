@@ -5,7 +5,7 @@ description: 将任意 Word、PDF、PPT、Markdown、网页摘录、聊天记录
 
 # Clair Executive Visual Report
 
-版本：1.3.1
+版本：1.3.2
 
 ## 目标
 
@@ -48,6 +48,8 @@ description: 将任意 Word、PDF、PPT、Markdown、网页摘录、聊天记录
 - 固定一屏一模块、滚动吸附、上下左右键与 PageUp/PageDown 逐屏切换、Home/End 首尾定位；
 - 54px 紧凑粘性导航；当前章节随页面切换自动滚到导航中间，同时保留前后章节可见；
 - 顶部品牌一键回顶、右侧可点击页轨、页码、阅读进度、移动端抽屉、Demo 标签切换；不显示常驻操作提示块；
+- 章节副标不使用左侧装饰竖线；页轨按钮不保留浏览器默认蓝色焦点圈，键盘焦点用紫色形态变化表达；
+- 章节标题在中文标点等语义停顿处优先换行；副标紧跟标题下方，并与标题共享同一内容宽度；
 - 模块内容超长时保留内部滚动能力，但模块内部与页面主滚动区域都不展示竖向滚动条；
 - `cards`、`metrics`、`architecture`、`timeline`、`process`、`evidence`、`comparison`、`demo`、`actions` 九类模块；
 - 打印样式、减少动态偏好、图片懒加载与 390px 响应式布局。
