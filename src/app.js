@@ -115,6 +115,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "yingmi-ai-two-modes-four-continuous-2026-08-02",
+      groupId: "ai-platform",
+      title: "盈米 AI｜两大模式与四个持续",
+      url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-ai-two-modes-four-continuous-2026-08-02/",
+      preview: "yingmi-ai-two-modes-four-continuous-2026-08-02.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-02T14:30:00.000Z",
+      source: "一张总图｜两大接入模式 × 四个持续 × 阶段传播势能",
+      access: "production",
+      workType: "reporting",
+      tags: ["AI 开放平台", "OAP", "MCP", "Skills", "Agent", "经营汇报", "渠道布局", "HTML", "生产"],
+    },
+    {
       id: "clair-executive-visual-report-template-2026-08-02",
       groupId: "ai-workbench",
       title: "Clair 视觉报告生成器",
