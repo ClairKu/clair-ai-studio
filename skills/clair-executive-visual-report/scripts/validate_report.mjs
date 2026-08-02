@@ -80,7 +80,7 @@ if (htmlPath) {
     ['height:132px', "HTML 缺少统一桌面标题带高度"],
     ['grid-template-columns:minmax(0,760px)', "HTML 标题与副标未使用统一内容列宽"],
     ['-webkit-line-clamp:2', "HTML 缺少标题防遮挡行数约束"],
-    ['const titleHtml=value=>', "HTML 缺少标题语义断行处理"],
+    ['margin:12px 0 0', "HTML 章节编号与标题间距不足"],
     ['margin-top:0;margin-bottom:0', "HTML 章节容器未锁定统一顶部基线"],
     ['.hero-grid::-webkit-scrollbar,.section>.wrap::-webkit-scrollbar', "HTML 未隐藏模块内部滚动条"],
     ['html::-webkit-scrollbar,body::-webkit-scrollbar{display:none}', "HTML 未隐藏页面纵向滚动条"],
@@ -98,6 +98,7 @@ if (htmlPath) {
     if (!html.includes(signal)) errors.push(message);
   }
   if (html.includes("keyboard-hint")) errors.push("HTML 不应显示常驻键盘操作提示");
+  if (html.includes("const titleHtml=value=>")) errors.push("HTML 标题不应按语句强制断行");
   if (html.includes("border-left:2px solid var(--accent-soft)")) errors.push("HTML 章节副标不应显示装饰竖线");
   if (/https?:\/\/(?:cdn|fonts)\./i.test(html)) errors.push("HTML 含外部 CDN 或字体依赖");
 }
