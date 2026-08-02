@@ -1,0 +1,100 @@
+{
+  "meta": {
+    "title": "盈米 AI 开放平台项目汇报",
+    "subtitle": "平台架构、业务规模与商业化进展全景视图",
+    "eyebrow": "盈米 AI 开放平台 · EXECUTIVE ACTION MAP",
+    "date": "2026-08-03",
+    "cutoff": "2026-08-03",
+    "owner": "盈米 AI 开放平台",
+    "confidentiality": "内部公开",
+    "accent": "#8067e8"
+  },
+  "hero": {
+    "conclusion": "盈米AI开放平台在用户规模与头部渠道接入上取得关键突破，正通过重构三层能力架构与资产治理底座，迈向精细化运营与商业化探索期。",
+    "thesis": "从初期能力搭建走向深度治理：流量渠道取得重大进展的同时，重点建立“MCP-Skill-Agent”三层体系与三维治理资产底座。核心挑战已转移到底层系统基建、合规风险控制及跨团队资源的调配。",
+    "badges": ["8,700+ 总用户", "9.2M+ 调用量", "头部渠道突破", "三维资产治理", "商业化落地"]
+  },
+  "sections": [
+    {
+      "id": "progress",
+      "kicker": "01 · PROGRESS",
+      "title": "流量与渠道超预期突破，跑通服务闭环",
+      "lead": "调用量与用户数迅速攀升，且通过千问首批接入，在超级入口打通商业变现雏形。",
+      "layout": "metrics",
+      "tone": "dark",
+      "items": [
+        {"title": "累计调用量", "metric": "9.2M+", "body": "每日调用量向 10M 逼近。", "status": "confirmed"},
+        {"title": "总用户", "metric": "8,700+", "body": "日活用户数突破 400 大关。", "status": "confirmed"},
+        {"title": "服务机构数", "metric": "480+", "body": "金融机构使用规模持续扩大。", "status": "confirmed"},
+        {"title": "千问战略级合作", "metric": "首发", "body": "入围首批合作第三方品牌智能体，首个且唯一接入的金融Agent。", "status": "confirmed"}
+      ],
+      "callout": {"label": "闭环效应", "text": "在产品形态上首次实现了“新用户获取 → AI服务 → 外链完成交易”的流量转化闭环。", "status": "confirmed"}
+    },
+    {
+      "id": "channels",
+      "kicker": "02 · CHANNELS",
+      "title": "多平台矩阵战略上新",
+      "lead": "打破单一渠道局限，通过MCP及Skills形式入驻多端平台，实现全场景覆盖。",
+      "layout": "cards",
+      "tone": "light",
+      "items": [
+        {"index": "A", "eyebrow": "WorkBuddy", "title": "MCP 强势增长", "body": "首周申请超千人，7月单月新增1855人。", "status": "confirmed"},
+        {"index": "B", "eyebrow": "支付宝 AI 开放平台", "title": "金融类首家入驻", "body": "作为金融类首家MCP进驻支付宝AI资源市场（邀测中）。", "status": "confirmed"},
+        {"index": "C", "eyebrow": "阿里云百炼", "title": "核心伙伴定制", "body": "成为阿里邀请上架的首批 One Key MCP 核心伙伴（不超过10家）。", "status": "confirmed"},
+        {"index": "D", "eyebrow": "SkillHub", "title": "企业版专区", "body": "企业版账号开通，计划接入 SkillPay，Skills上架推进中。", "status": "confirmed"}
+      ]
+    },
+    {
+      "id": "governance",
+      "kicker": "03 · GOVERNANCE",
+      "title": "从野蛮生长转向“三维治理”",
+      "lead": "结束分散维护状态，围绕业务域、能力类型、生命周期三维分类，上线统一治理看板。",
+      "layout": "architecture",
+      "tone": "soft",
+      "items": [
+        {"index": "01", "eyebrow": "Foundation", "title": "统一资产底座", "body": "MCP、Skills、Agent 统一进入多维表格「资产治理总览」，确保多渠道同源。", "bullets": ["多维表格集成", "可视化总览看板", "渠道上架对齐"], "status": "confirmed"},
+        {"index": "02", "eyebrow": "Matrix", "title": "专家业务矩阵", "body": "构建“6个单专家 + 1个专家团”双布局，覆盖投顾全闭环。", "bullets": ["基金分析专家", "策略分析专家", "家庭理财/顾问资产方案"], "status": "confirmed"},
+        {"index": "03", "eyebrow": "Boundaries", "title": "财富线明确划界", "body": "自家计规划与理财师方案隔离，避免服务路由冲突。", "bullets": ["20个Skill入表", "18个进入业务包", "精准业务分流"], "status": "confirmed"}
+      ]
+    },
+    {
+      "id": "commercial",
+      "kicker": "04 · COMMERCIAL",
+      "title": "商业化破局，寻找场景深度护城河",
+      "lead": "完成不同客群的价格分层设计，并在传统数据终端强敌环伺中明确自身差异化打法。",
+      "layout": "cards",
+      "tone": "light",
+      "items": [
+        {"index": "01", "eyebrow": "To B: 机构企业版", "title": "成功落地标杆", "body": "年包（轻量10W/高阶20W/旗舰60W）已被山西证券投标购买使用。", "status": "confirmed"},
+        {"index": "02", "eyebrow": "To C/SMB: 云市场", "title": "按量自助计费", "body": "标准包至顶配包定价策略（¥9.9 至 ¥9999）就绪，全面覆盖长尾客户。", "status": "confirmed"},
+        {"index": "03", "eyebrow": "Competitive Edge", "title": "坚守场景深度", "body": "全市场数据广度无法抗衡Wind等，破局点在于：投顾深度工作流、穿透质量及交付效率。", "status": "inferred"}
+      ],
+      "callout": {"label": "商业策略核心", "text": "存量终端客户以“AI增值层”切入；新增项目以场景能力、合规治理和总体拥有成本（TCO）参与同层竞标。", "status": "inferred"}
+    },
+    {
+      "id": "risks",
+      "kicker": "05 · RISKS & ACTIONS",
+      "title": "警惕技术债，弥补基建与资源短板",
+      "lead": "向内看，阻碍平台规模化和商业化扩展的核心痛点正在向底层与系统合规转移。",
+      "layout": "process",
+      "tone": "dark",
+      "items": [
+        {"title": "底层系统迭代", "body": "AI协议与框架更迭快，SSE转HTTP、APIKey转Oauth带来频繁改造。", "status": "missing"},
+        {"title": "核心商业基建", "body": "亟需补齐SSO登录、调用审计、计量计费等OAP系统基础功能，由Stargate推进。", "status": "missing"},
+        {"title": "合规与数据限制", "body": "基础金融数据采购成本与授权边界受限；跨团队（如私募火富牛）合作合规需定调。", "status": "missing"},
+        {"title": "组织资源瓶颈", "body": "复合人才短缺，产品被动补位商务；技术团队跨BU协调成本高。", "status": "missing"}
+      ],
+      "callout": {"label": "NEXT STEP", "text": "业务拓展高歌猛进的同时，必须稳住后方系统架构（Stargate迭代）、梳理团队权责并排雷对外接口质量。", "status": "inferred"}
+    }
+  ],
+  "sources": [
+    {"label": "盈米AI开放平台项目汇报", "detail": "飞书文档（2026/8/3）"},
+    {"label": "盈米MCP竞品调研报告（B端金融数据商）", "detail": "2026-08-03"},
+    {"label": "云市场金融MCP竞品调研报告", "detail": "2026-07-27"}
+  ],
+  "openQuestions": [
+    {"title": "差异化竞争的实战胜率", "detail": "在同题POC竞标中，我们的“财富规划与投顾诊断”优势能否转化为绝对订单说服力？"},
+    {"title": "定价的实际TCO测算", "detail": "我们的云市场和阶梯包定价，面对客户实际的场景消耗，是否能维持利润与竞争力？"},
+    {"title": "内部合作进展与合规风险", "detail": "私募/火富牛的合规沟通及Vesta商业化支持能否如期推进？"}
+  ]
+}

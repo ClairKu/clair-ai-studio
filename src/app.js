@@ -115,6 +115,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "yingmi-ai-open-platform-progress-2026-08-03",
+      groupId: "ai-platform",
+      title: "盈米 AI 开放平台项目汇报",
+      url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-ai-open-platform-progress-2026-08-03/",
+      preview: "yingmi-ai-oap-framework-2026-08-03.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-03T18:00:00.000Z",
+      source: "飞书文档｜平台架构、业务规模与商业化进展全景视图",
+      access: "production",
+      workType: "reporting",
+      tags: ["AI 开放平台", "OAP", "MCP", "Skills", "Agent", "商业化", "项目汇报", "HTML", "生产"],
+    },
+    {
       id: "yingmi-ai-oap-framework-2026-08-03",
       groupId: "ai-platform",
       title: "盈米 AI 开放平台｜8/3 项目汇报（十项框架）",
