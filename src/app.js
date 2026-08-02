@@ -16,7 +16,7 @@ const STORAGE_KEY = "clair-service-report-workbench-v1";
 const AUTH_KEY = "clair-service-report-workbench-access";
 const VIEW_KEY = "clair-service-report-workbench-view";
 const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
-const DATA_VERSION = 16;
+const DATA_VERSION = 17;
 
 const WORK_TYPES = [
   { id: "requirement-review", name: "需求评审" },
@@ -145,16 +145,16 @@ const initialState = {
     {
       id: "oap-project-report-2026-08-03",
       groupId: "ai-platform",
-      title: "OAP 项目汇报｜AI 开放平台 × STARGATE",
+      title: "盈米 AI 开放平台项目汇报｜从能力规模走向经营闭环",
       url: "https://clairku.github.io/clair-ai-studio/reports/oap-project-report-2026-08-03/",
       preview: "oap-project-report-2026-08-03.svg",
       pinned: true,
       position: 0,
       createdAt: "2026-07-31T10:00:00.000Z",
-      source: "8/3 管理汇报｜线上经营快照、能力治理、系统建设、商业化与 H2 路线图",
+      source: "8/3 老板汇报｜经营进展、千问/微信、三层能力、系统蓝图、AI 实验室、商化与竞争研判",
       access: "production",
       workType: "reporting",
-      tags: ["AI 开放平台", "OAP", "MCP", "Skills", "经营汇报", "HTML", "生产"],
+      tags: ["AI 开放平台", "OAP", "MCP", "Skills", "Agent", "商业化", "老板汇报", "HTML", "生产"],
     },
     {
       id: "family-asset-report-five-visual-directions-2026-07-31",

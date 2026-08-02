@@ -1,36 +1,36 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" role="img" aria-labelledby="title desc">
-  <title id="title">OAP 项目汇报预览</title>
-  <desc id="desc">深蓝色 OAP 与 STARGATE 管理汇报封面，展示累计调用、用户与 MAU。</desc>
+  <title id="title">盈米 AI 开放平台项目汇报预览</title>
+  <desc id="desc">紫色盈米 AI 开放平台老板汇报封面，展示经营指标与经营闭环主题。</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#071324"/>
-      <stop offset=".64" stop-color="#0b203b"/>
-      <stop offset="1" stop-color="#123151"/>
+      <stop offset="0" stop-color="#171934"/>
+      <stop offset=".64" stop-color="#2b2457"/>
+      <stop offset="1" stop-color="#5945a4"/>
     </linearGradient>
     <linearGradient id="line" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#4b72ee"/>
-      <stop offset="1" stop-color="#38c6d8"/>
+      <stop offset="0" stop-color="#7158e8"/>
+      <stop offset="1" stop-color="#b397ff"/>
     </linearGradient>
   </defs>
   <rect width="960" height="600" fill="url(#bg)"/>
-  <ellipse cx="790" cy="188" rx="320" ry="112" fill="none" stroke="#5ebfd9" stroke-opacity=".18" stroke-width="2" transform="rotate(-13 790 188)"/>
-  <ellipse cx="790" cy="220" rx="320" ry="112" fill="none" stroke="#5ebfd9" stroke-opacity=".12" stroke-width="2" transform="rotate(-13 790 220)"/>
+  <ellipse cx="790" cy="188" rx="320" ry="112" fill="none" stroke="#c8baff" stroke-opacity=".22" stroke-width="2" transform="rotate(-13 790 188)"/>
+  <ellipse cx="790" cy="220" rx="320" ry="112" fill="none" stroke="#c8baff" stroke-opacity=".14" stroke-width="2" transform="rotate(-13 790 220)"/>
   <path d="M584 442 C682 406 744 361 908 312" fill="none" stroke="url(#line)" stroke-width="5"/>
-  <circle cx="584" cy="442" r="7" fill="#4b72ee"/><circle cx="744" cy="361" r="7" fill="#557fe9"/><circle cx="908" cy="312" r="8" fill="#38c6d8"/>
-  <text x="72" y="72" fill="#72dce8" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="16" font-weight="800" letter-spacing="3">OAP · STARGATE / 2026 H2</text>
-  <text x="72" y="166" fill="#ffffff" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="54" font-weight="850">从接口开放</text>
-  <text x="72" y="229" fill="#ffffff" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="54" font-weight="850">进入可治理的服务基础设施</text>
-  <text x="72" y="278" fill="#a9bdd1" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="18">AI 开放平台 × STARGATE 项目管理汇报</text>
+  <circle cx="584" cy="442" r="7" fill="#7158e8"/><circle cx="744" cy="361" r="7" fill="#9075f0"/><circle cx="908" cy="312" r="8" fill="#b397ff"/>
+  <text x="72" y="72" fill="#d7ceff" font-family="'Songti SC','STSong',serif" font-size="16" font-weight="800" letter-spacing="3">YINGMI AI OPEN PLATFORM / 2026 H2</text>
+  <text x="72" y="166" fill="#ffffff" font-family="'Songti SC','STSong',serif" font-size="54" font-weight="850">从能力规模</text>
+  <text x="72" y="229" fill="#ffffff" font-family="'Songti SC','STSong',serif" font-size="54" font-weight="850">走向可经营的金融 AI 服务</text>
+  <text x="72" y="278" fill="#d2cfe8" font-family="'Songti SC','STSong',serif" font-size="18">经营进展 × 能力治理 × 系统蓝图 × 商业化</text>
   <g transform="translate(72 377)">
-    <rect width="250" height="120" fill="#0a1d35" stroke="#2b4058"/>
+    <rect width="250" height="120" rx="16" fill="#242147" stroke="#62569a"/>
     <text x="22" y="45" fill="#ffffff" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="30" font-weight="800">9,194,916</text>
-    <text x="22" y="77" fill="#88a0b8" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="14">累计调用 · 目标 91.9%</text>
-    <rect x="22" y="94" width="206" height="5" fill="#21364d"/><rect x="22" y="94" width="189" height="5" fill="url(#line)"/>
+    <text x="22" y="77" fill="#b9b2d3" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="14">累计调用 · 年末 OKR 70.7%</text>
+    <rect x="22" y="94" width="206" height="5" fill="#403966"/><rect x="22" y="94" width="146" height="5" fill="url(#line)"/>
   </g>
   <g transform="translate(338 377)">
-    <rect width="190" height="120" fill="#0a1d35" stroke="#2b4058"/>
+    <rect width="190" height="120" rx="16" fill="#242147" stroke="#62569a"/>
     <text x="22" y="45" fill="#ffffff" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="30" font-weight="800">8,560</text>
     <text x="22" y="77" fill="#88a0b8" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="14">累计用户</text>
   </g>
-  <text x="72" y="555" fill="#7890a9" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="14">管理结论 · 能力体系 · 系统建设 · 商化准备 · H2 路线图</text>
+  <text x="72" y="555" fill="#b7b1cf" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="14">老板决策 · 渠道合作 · AI 实验室 · 商业化 · H2 路线图</text>
 </svg>
