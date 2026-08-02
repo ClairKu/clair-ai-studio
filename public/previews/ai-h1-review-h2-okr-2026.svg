@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">AI 产品上半年复盘与下半年 OKR</title>
+  <desc id="desc">紫色 CLAIR 管理报告封面，从多线探索收口到投顾服务、顾问提效、开放生态与组织转型四条主线。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#fbfaff"/>
+      <stop offset=".55" stop-color="#eeeaff"/>
+      <stop offset="1" stop-color="#dcd3ff"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#7158e8"/>
+      <stop offset="1" stop-color="#a992ff"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#3c287f" flood-opacity=".16"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <circle cx="1100" cy="40" r="250" fill="#7158e8" opacity=".08"/>
+  <circle cx="1010" cy="690" r="250" fill="#a992ff" opacity=".10"/>
+  <g transform="translate(68 78)" font-family="Songti SC, STSong, serif">
+    <text fill="#6650cf" font-size="13" font-weight="700" letter-spacing="2.4">CLAIR · EXECUTIVE REPORT / 2026 H2</text>
+    <text y="102" fill="#171827" font-size="67" font-weight="600">AI 产品上半年复盘</text>
+    <text y="180" fill="#7158e8" font-size="67" font-weight="600">下半年 OKR</text>
+    <text y="226" fill="#5e687d" font-size="18">从多线探索进入四条主线收口</text>
+    <g transform="translate(0 282)">
+      <rect width="510" height="208" rx="28" fill="#ffffff" fill-opacity=".84" stroke="#ddd5ff" filter="url(#shadow)"/>
+      <text x="26" y="40" fill="#7158e8" font-size="11" font-weight="700" letter-spacing="1.6">ONE-LINE CONCLUSION</text>
+      <text x="26" y="82" fill="#171827" font-size="23" font-weight="700">入口、能力和需求已经得到验证，</text>
+      <text x="26" y="116" fill="#171827" font-size="23" font-weight="700">下一步必须收口成可验收的服务闭环。</text>
+      <line x1="26" y1="146" x2="484" y2="146" stroke="#e5e0f8"/>
+      <text x="26" y="177" fill="#687287" font-size="13">事实 / 判断 / 缺失 / 目标态 · 13 屏分屏叙事 · 内部加密</text>
+    </g>
+  </g>
+  <g transform="translate(660 78)" font-family="Songti SC, STSong, serif" filter="url(#shadow)">
+    <rect width="468" height="520" rx="34" fill="#0b1224"/>
+    <text x="34" y="48" fill="#b9a9ff" font-size="11" font-weight="700" letter-spacing="1.5">FOUR PILLARS · ONE SERVICE LOOP</text>
+    <g transform="translate(34 78)">
+      <g>
+        <rect width="190" height="142" rx="20" fill="#171f38" stroke="#453d71"/>
+        <text x="20" y="34" fill="#a992ff" font-size="11">01 · SERVICE</text>
+        <text x="20" y="72" fill="#ffffff" font-size="24" font-weight="700">AI 投顾</text>
+        <text x="20" y="102" fill="#aeb8cc" font-size="13">从主动服务到交易闭环</text>
+      </g>
+      <g transform="translate(210)">
+        <rect width="190" height="142" rx="20" fill="#171f38" stroke="#453d71"/>
+        <text x="20" y="34" fill="#a992ff" font-size="11">02 · PRODUCTIVITY</text>
+        <text x="20" y="72" fill="#ffffff" font-size="24" font-weight="700">AI 顾问</text>
+        <text x="20" y="102" fill="#aeb8cc" font-size="13">从报告提效到工作重做</text>
+      </g>
+      <g transform="translate(0 162)">
+        <rect width="190" height="142" rx="20" fill="#171f38" stroke="#453d71"/>
+        <text x="20" y="34" fill="#a992ff" font-size="11">03 · PLATFORM</text>
+        <text x="20" y="72" fill="#ffffff" font-size="24" font-weight="700">开放生态</text>
+        <text x="20" y="102" fill="#aeb8cc" font-size="13">能力治理与新入口</text>
+      </g>
+      <g transform="translate(210 162)">
+        <rect width="190" height="142" rx="20" fill="#171f38" stroke="#453d71"/>
+        <text x="20" y="34" fill="#a992ff" font-size="11">04 · ORGANIZATION</text>
+        <text x="20" y="72" fill="#ffffff" font-size="24" font-weight="700">组织转型</text>
+        <text x="20" y="102" fill="#aeb8cc" font-size="13">方法、能力与协作升级</text>
+      </g>
+      <g transform="translate(0 330)">
+        <rect width="400" height="74" rx="20" fill="url(#accent)"/>
+        <text x="22" y="29" fill="#eeeaff" font-size="10" font-weight="700" letter-spacing="1.3">MANAGEMENT ACTION</text>
+        <text x="22" y="55" fill="#ffffff" font-size="17" font-weight="700">唯一负责人 × 唯一口径 × 唯一里程碑</text>
+      </g>
+    </g>
+  </g>
+</svg>

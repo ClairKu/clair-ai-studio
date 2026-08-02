@@ -16,7 +16,7 @@ const STORAGE_KEY = "clair-service-report-workbench-v1";
 const AUTH_KEY = "clair-service-report-workbench-access";
 const VIEW_KEY = "clair-service-report-workbench-view";
 const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
-const DATA_VERSION = 18;
+const DATA_VERSION = 19;
 
 const WORK_TYPES = [
   { id: "requirement-review", name: "需求评审" },
@@ -155,6 +155,20 @@ const initialState = {
       access: "production",
       workType: "reporting",
       tags: ["AI 开放平台", "OAP", "MCP", "Skills", "Agent", "商业化", "老板汇报", "HTML", "生产"],
+    },
+    {
+      id: "ai-h1-review-h2-okr-2026",
+      groupId: "ai-platform",
+      title: "AI 产品上半年复盘｜下半年 OKR",
+      url: "https://clairku.github.io/clair-ai-studio/reports/ai-h1-review-h2-okr-2026/",
+      preview: "ai-h1-review-h2-okr-2026.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-02T09:55:00.000Z",
+      source: "飞书源文档｜挑战、规模证据、千问/微信、小顾、顾问提效、开放生态与组织转型",
+      access: "production",
+      workType: "reporting",
+      tags: ["AI 开放平台", "AI 小顾", "顾问工作台", "OKR", "经营汇报", "产品规划", "HTML", "生产"],
     },
     {
       id: "family-asset-report-five-visual-directions-2026-07-31",
