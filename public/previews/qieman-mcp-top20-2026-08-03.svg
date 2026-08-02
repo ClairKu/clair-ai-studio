@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" role="img" aria-labelledby="title desc">
+  <title id="title">MCP 全量调用 TOP20 分析预览</title>
+  <desc id="desc">紫色数据分析封面，展示 69 项全量审计、业务 TOP20 覆盖率和五类能力结构。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#15172f"/>
+      <stop offset=".58" stop-color="#2c2359"/>
+      <stop offset="1" stop-color="#735bd1"/>
+    </linearGradient>
+    <linearGradient id="bar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#8067e8"/>
+      <stop offset="1" stop-color="#c8b9ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="600" fill="url(#bg)"/>
+  <circle cx="830" cy="106" r="220" fill="none" stroke="#d9d0ff" stroke-opacity=".13" stroke-width="2"/>
+  <circle cx="830" cy="106" r="156" fill="none" stroke="#d9d0ff" stroke-opacity=".09" stroke-width="2"/>
+  <text x="70" y="70" fill="#d8ceff" font-family="'Songti SC','STSong',serif" font-size="16" font-weight="800" letter-spacing="3">YINGMI MCP / FULL CATALOG AUDIT</text>
+  <text x="70" y="158" fill="#fff" font-family="'Songti SC','STSong',serif" font-size="56" font-weight="850">MCP 全量调用</text>
+  <text x="70" y="220" fill="#bcaaff" font-family="'Songti SC','STSong',serif" font-size="54" font-weight="850">TOP20</text>
+  <text x="70" y="265" fill="#d7d2e9" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="18">69 项逐页审计 · 剔除时间查询 · 识别任务转化机会</text>
+  <g transform="translate(70 330)">
+    <rect width="210" height="132" rx="18" fill="#242147" stroke="#65599a"/>
+    <text x="24" y="54" fill="#fff" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="42" font-weight="800">69</text>
+    <text x="24" y="86" fill="#bdb6d4" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="15">接口全量审计</text>
+    <text x="24" y="112" fill="#8f86ae" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="13">7 页 · 69 个唯一名称</text>
+  </g>
+  <g transform="translate(300 330)">
+    <rect width="250" height="132" rx="18" fill="#242147" stroke="#65599a"/>
+    <text x="24" y="54" fill="#fff" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="42" font-weight="800">94.6%</text>
+    <text x="24" y="86" fill="#bdb6d4" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="15">业务 TOP20 覆盖率</text>
+    <rect x="24" y="106" width="202" height="7" rx="4" fill="#423a67"/>
+    <rect x="24" y="106" width="191" height="7" rx="4" fill="url(#bar)"/>
+  </g>
+  <g transform="translate(570 330)">
+    <rect width="290" height="132" rx="18" fill="#242147" stroke="#65599a"/>
+    <text x="24" y="54" fill="#fff" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="42" font-weight="800">84.8%</text>
+    <text x="24" y="86" fill="#bdb6d4" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="15">内容 + 金融数据</text>
+    <text x="24" y="112" fill="#8f86ae" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="13">投顾服务仅占约 4.0%</text>
+  </g>
+  <text x="70" y="540" fill="#bcb5d2" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="14">页面累计口径 · 采集于 2026-08-03 · 展示值估算</text>
+</svg>

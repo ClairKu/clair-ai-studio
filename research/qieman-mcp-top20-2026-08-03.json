@@ -1,0 +1,177 @@
+{
+  "meta": {
+    "title": "MCP 全量调用 TOP20",
+    "subtitle": "审计全部 69 个接口后的累计调用结构与业务转化机会",
+    "eyebrow": "YINGMI MCP · FULL CATALOG AUDIT",
+    "date": "2026-08-03",
+    "cutoff": "2026-08-03 页面采集；累计起始时间未展示",
+    "owner": "Clair AI Studio",
+    "confidentiality": "公开数据分析",
+    "accent": "#8067e8"
+  },
+  "hero": {
+    "conclusion": "剔除时间查询后，业务 TOP20 覆盖展示调用量的 94.6%；平台流量集中在内容与金融数据，投顾服务尚未形成同等规模的任务承接。",
+    "thesis": "逐页审计 7 页、69 个唯一接口后，页面展示值求和约 855.27 万次；剔除“获取当前时间”4.9 万次后，68 个业务接口合计约 850.37 万次。财经资讯单项占 42.9%，投顾内容与金融数据合计占 84.8%，而 11 个投顾服务接口合计仅占 4.0%。",
+    "badges": ["69 项全量审计", "7 页逐项复核", "剔除时间查询", "TOP20 覆盖 94.6%"]
+  },
+  "sections": [
+    {
+      "id": "scope",
+      "kicker": "01 · SCOPE & METHOD",
+      "title": "全量审计再取前二十",
+      "lead": "接口市场按调用量降序分页展示，每页 10 项、末页 9 项；本次逐页读取名称、二级分类、说明和调用量，校验 69 项无重复后再生成榜单。",
+      "layout": "metrics",
+      "tone": "light",
+      "items": [
+        {"metric": "69", "title": "接口总数", "body": "7 页完整覆盖，69 个唯一名称，与页面目录数量一致。", "meta": "页面 1—7 · 采集于 2026-08-03", "status": "confirmed"},
+        {"metric": "68", "title": "业务接口", "body": "从 69 项中剔除“获取当前时间”后用于业务结构分析。", "meta": "时间工具原始排名第 14 · 4.9 万次", "status": "confirmed"},
+        {"metric": "850.37万", "title": "业务展示值求和", "body": "按页面展示值换算后求和，不等同于平台精确后台累计值。", "meta": "约 855.27 万 − 4.9 万；存在万位四舍五入", "status": "confirmed"},
+        {"metric": "94.6%", "title": "业务 TOP20 覆盖", "body": "业务 TOP20 约 804.1 万次，占 68 项业务展示值之和。", "meta": "804.1 ÷ 850.3699；四舍五入至 1 位小数", "status": "confirmed"}
+      ],
+      "callout": {"label": "审计结论", "text": "页面原始顺序与按展示调用量重排结果完全一致；榜单可直接按页面顺序复核。", "status": "confirmed"}
+    },
+    {
+      "id": "top1-10",
+      "kicker": "02 · BUSINESS TOP 01—10",
+      "title": "前十覆盖近九成调用",
+      "lead": "以下为剔除时间查询后的业务榜前 10，合计约 757.8 万次，占业务展示值 89.1%。",
+      "layout": "metrics",
+      "tone": "soft",
+      "items": [
+        {"metric": "364.4万", "title": "01 财经资讯", "body": "检索财经资讯并提取核心事件摘要。", "meta": "投顾内容 / 公开内容 · 页面原始第 1", "status": "confirmed"},
+        {"metric": "124.2万", "title": "02 搜索基金", "body": "按多维条件搜索筛选目标基金清单。", "meta": "金融数据 / 基金数据 · 页面原始第 2", "status": "confirmed"},
+        {"metric": "83.8万", "title": "03 基金经理观点", "body": "检索基金经理公开观点与市场看法。", "meta": "投顾内容 / 盈米生产 · 页面原始第 3", "status": "confirmed"},
+        {"metric": "45.1万", "title": "04 基金净值历史", "body": "批量获取历史净值走势与区间表现。", "meta": "金融数据 / 基金数据 · 页面原始第 4", "status": "confirmed"},
+        {"metric": "38.4万", "title": "05 基金代码模糊匹配", "body": "把模糊基金名称匹配为准确代码。", "meta": "通用服务 / 金融工具 · 页面原始第 5", "status": "confirmed"},
+        {"metric": "30.5万", "title": "06 批量获取基金详情", "body": "批量获取基金基础详情与产品属性。", "meta": "金融数据 / 基金数据 · 页面原始第 6", "status": "confirmed"},
+        {"metric": "25.0万", "title": "07 基金诊断", "body": "对单只基金做多维度全景量化诊断。", "meta": "投研服务 / 投前分析 · 页面原始第 7", "status": "confirmed"},
+        {"metric": "21.6万", "title": "08 获取资产配置方案", "body": "基于目标需求生成资产配置规划方案。", "meta": "投顾服务 / 投资顾问 · 页面原始第 8", "status": "confirmed"},
+        {"metric": "12.5万", "title": "09 批量获取基金业绩表现", "body": "批量对比基金业绩与收益风险指标。", "meta": "金融数据 / 基金数据 · 页面原始第 9", "status": "confirmed"},
+        {"metric": "12.3万", "title": "10 获取近期热门基金", "body": "获取当前市场热度较高的基金列表。", "meta": "投研服务 / 投前分析 · 页面原始第 10", "status": "confirmed"}
+      ],
+      "callout": {"label": "集中度", "text": "财经资讯一项约为搜索基金的 2.93 倍；前三项已覆盖业务展示值 67.3%。", "status": "confirmed"}
+    },
+    {
+      "id": "top11-20",
+      "kicker": "03 · BUSINESS TOP 11—20",
+      "title": "后二十仍以基金为主",
+      "lead": "原始第 14 名“获取当前时间”被剔除，原始第 21 名“行业配置比例”顺延进入业务 TOP20。",
+      "layout": "metrics",
+      "tone": "light",
+      "items": [
+        {"metric": "9.6万", "title": "11 基金风险分析", "body": "评估基金风险收益特征与暴露。", "meta": "金融数据 / 基金数据 · 原始第 11", "status": "confirmed"},
+        {"metric": "6.5万", "title": "12 市场温度计", "body": "输出市场温度与宽基指数行情快照。", "meta": "投研服务 / 投前分析 · 原始第 12", "status": "confirmed"},
+        {"metric": "5.7万", "title": "13 策略关键词搜索", "body": "按关键词搜索匹配投顾策略产品。", "meta": "投顾服务 / 投资顾问 · 原始第 13", "status": "confirmed"},
+        {"metric": "4.6万", "title": "14 基金交易限制信息", "body": "查询基金交易状态、限额与申赎限制。", "meta": "金融数据 / 基金数据 · 原始第 15", "status": "confirmed"},
+        {"metric": "3.4万", "title": "15 权益仓位偏好", "body": "测算基金长期权益仓位与攻守属性。", "meta": "金融数据 / 基金数据 · 原始第 16", "status": "confirmed"},
+        {"metric": "3.4万", "title": "16 搜索投顾内容", "body": "检索投顾观点、研报与策略解读。", "meta": "投顾内容 / 盈米生产 · 原始第 17", "status": "confirmed"},
+        {"metric": "3.4万", "title": "17 基金分红记录", "body": "批量获取基金分红记录与明细。", "meta": "金融数据 / 基金数据 · 原始第 18", "status": "confirmed"},
+        {"metric": "3.3万", "title": "18 策略详情查询", "body": "查询投顾策略全量详情与核心信息。", "meta": "金融数据 / 策略数据 · 原始第 19", "status": "confirmed"},
+        {"metric": "3.3万", "title": "19 热点财经话题榜单", "body": "聚合市场热点并提炼驱动逻辑。", "meta": "投顾内容 / 公开内容 · 原始第 20", "status": "confirmed"},
+        {"metric": "3.1万", "title": "20 行业配置比例", "body": "解析基金季度行业配置比例。", "meta": "金融数据 / 基金数据 · 原始第 21；顺延入榜", "status": "confirmed"}
+      ],
+      "callout": {"label": "边界值", "text": "业务第 20 名约 3.1 万次；下一名“基金交易规则”约 2.9 万次，榜尾差距约 0.2 万次。", "status": "confirmed"}
+    },
+    {
+      "id": "concentration",
+      "kicker": "04 · CONCENTRATION",
+      "title": "调用呈极强头部集中",
+      "lead": "按 68 项业务接口的页面展示值求和计算；百分比是估算结构，不是后台精确计量结果。",
+      "layout": "comparison",
+      "tone": "soft",
+      "items": [
+        {"index": "01", "eyebrow": "TOP 1", "title": "单一入口占四成", "body": "财经资讯约 364.4 万次，占业务展示值 42.9%。", "meta": "364.4 ÷ 850.3699", "bullets": ["原始与业务榜均第 1", "约为第 2 名的 2.93 倍"], "status": "confirmed"},
+        {"index": "10", "eyebrow": "TOP 10", "title": "前十覆盖近九成", "body": "业务前 10 约 757.8 万次，覆盖 89.1%。", "meta": "757.8 ÷ 850.3699", "bullets": ["入口高度集中", "第 10 名仍为 12.3 万次"], "status": "confirmed"},
+        {"index": "20", "eyebrow": "TOP 20", "title": "前二十覆盖九成五", "body": "业务前 20 约 804.1 万次，覆盖 94.6%。", "meta": "804.1 ÷ 850.3699", "bullets": ["仅 20 个接口承接绝大多数调用", "剩余 48 项合计约 46.27 万次"], "status": "confirmed"},
+        {"index": "48", "eyebrow": "LONG TAIL", "title": "大量能力处于长尾", "body": "剩余 48 个业务接口仅占 5.4%，业务接口调用中位数约 1.4 万次。", "meta": "按页面展示值计算", "bullets": ["能力供给丰富", "复用与入口发现需要治理"], "status": "confirmed"}
+      ],
+      "callout": {"label": "经营判断", "text": "继续增加接口不会自动带来调用增长；更关键的是把头部入口转化为专业任务链。", "status": "inferred"}
+    },
+    {
+      "id": "categories",
+      "kicker": "05 · FIVE CAPABILITY GROUPS",
+      "title": "内容数据占八成五",
+      "lead": "按页面五大一级类别重组 68 个业务接口；剔除时间工具后，通用服务接口数由 5 个降为 4 个。",
+      "layout": "metrics",
+      "tone": "light",
+      "items": [
+        {"metric": "53.7%", "title": "投顾内容", "body": "5 个接口约 456.9 万次，单接口平均约 91.38 万次。", "meta": "公开内容 2 + 盈米生产 3", "status": "confirmed"},
+        {"metric": "31.0%", "title": "金融数据", "body": "35 个接口约 263.85 万次，单接口平均约 7.54 万次。", "meta": "基金数据 28 + 策略数据 7", "status": "confirmed"},
+        {"metric": "6.2%", "title": "投研服务", "body": "13 个接口约 52.97 万次，单接口平均约 4.07 万次。", "meta": "投前分析 8 + 测算能力 2 + 投后诊断 3", "status": "confirmed"},
+        {"metric": "5.0%", "title": "通用服务", "body": "剔除时间后 4 个接口约 42.9 万次。", "meta": "金融工具 1 + 常用工具 3", "status": "confirmed"},
+        {"metric": "4.0%", "title": "投顾服务", "body": "11 个接口约 33.75 万次，单接口平均约 3.07 万次。", "meta": "投资顾问 11", "status": "confirmed"}
+      ],
+      "callout": {"label": "供需错位", "text": "投顾内容单接口平均调用量约为投顾服务的 29.8 倍；内容流量尚未等比例进入规划与诊断任务。", "status": "inferred"}
+    },
+    {
+      "id": "funnel",
+      "kicker": "06 · TASK FUNNEL",
+      "title": "流量停在信息获取层",
+      "lead": "类别结构显示清晰的漏斗：内容触达和数据检索强，投研加工明显变窄，进入资产配置与家庭规划的调用更少。",
+      "layout": "architecture",
+      "tone": "dark",
+      "items": [
+        {"index": "04", "eyebrow": "ADVISE", "title": "投顾任务承接", "body": "11 个投顾服务接口仅占 4.0%。", "meta": "337,460 ÷ 8,503,699；展示值估算", "bullets": ["资产配置方案进入 TOP10", "家庭规划类多处于长尾"], "status": "confirmed"},
+        {"index": "03", "eyebrow": "RESEARCH", "title": "投研加工与验证", "body": "13 个投研服务接口占 6.2%。", "meta": "529,716 ÷ 8,503,699；展示值估算", "bullets": ["基金诊断是最强投研接口", "回测、投后诊断仍偏长尾"], "status": "confirmed"},
+        {"index": "02", "eyebrow": "LOOKUP", "title": "金融数据检索", "body": "35 个金融数据接口占 31.0%。", "meta": "2,638,523 ÷ 8,503,699；展示值估算", "bullets": ["基金搜索、净值、详情居前", "基金数据强于策略数据"], "status": "confirmed"},
+        {"index": "01", "eyebrow": "DISCOVER", "title": "内容触达入口", "body": "5 个投顾内容接口占 53.7%。", "meta": "4,569,000 ÷ 8,503,699；展示值估算", "bullets": ["财经资讯绝对头部", "基金经理观点位列第三"], "status": "confirmed"}
+      ],
+      "callout": {"label": "产品机会", "text": "在财经资讯、基金搜索和基金经理观点的结果页直接编排“诊断—配置—验证”下一步，比新增孤立入口更可能放大投顾调用。", "status": "target"}
+    },
+    {
+      "id": "evidence",
+      "kicker": "07 · EVIDENCE & GAP",
+      "title": "顶部总量与明细不一致",
+      "lead": "页面顶部显示“9.2M+ 总调用次数”，但 69 项卡片展示值换算求和约 855.27 万，两者至少相差 64.73 万次；必须分开使用。",
+      "layout": "evidence",
+      "tone": "soft",
+      "items": [
+        {"index": "01", "eyebrow": "SCREEN EVIDENCE", "title": "接口市场第一页", "body": "截图展示 69 项目录、分类数量、前 10 名接口与分页结构。", "source": "用户提供截图 · 2026-08-03", "image": "assets/qieman-mcp-market-page1.png", "alt": "盈米 MCP 接口市场第一页，展示调用量前十与七页分页" , "status": "confirmed"},
+        {"index": "02", "eyebrow": "DETAIL SUM", "title": "69 项展示值约 855.27 万", "body": "万级数值按页面一位小数换算，低量接口使用页面整数；合计是展示值估算。", "source": "qieman.com/mcp/mcp-market · 7 页 69 项 · 2026-08-03", "status": "confirmed"},
+        {"index": "03", "eyebrow": "BANNER", "title": "顶部显示 9.2M+", "body": "顶部总量未给出精确值、统计起点、更新时刻及与接口卡片的对账规则。", "source": "qieman.com/mcp/mcp-market 顶部指标 · 2026-08-03", "status": "confirmed"},
+        {"index": "04", "eyebrow": "MISSING", "title": "差异原因待确认", "body": "可能涉及更新时间、隐藏/下线接口、卡片四舍五入或不同统计口径；现有页面不足以判断。", "source": "基于页面字段审计；未获得后台明细", "status": "missing"}
+      ],
+      "callout": {"label": "使用规则", "text": "本报告的排名和占比统一基于 69 项卡片展示值；9.2M+ 仅作为页面顶部参考，不参与分母计算。", "status": "confirmed"}
+    },
+    {
+      "id": "actions",
+      "kicker": "08 · ACTIONS",
+      "title": "从调用榜转向任务经营",
+      "lead": "头部入口已经成立，下一阶段应追踪“调用后发生了什么”，让内容与数据流量进入可验证的投顾任务闭环。",
+      "layout": "actions",
+      "tone": "light",
+      "items": [
+        {"index": "P0", "eyebrow": "METRICS", "title": "先统一累计口径", "body": "明确顶部总量与接口明细的统计起点、更新时间、下线接口和失败调用规则，建立可对账台账。", "meta": "平台 / 数据 · 负责人和完成时间待确认", "status": "target"},
+        {"index": "P0", "eyebrow": "CONVERSION", "title": "让内容入口分发任务", "body": "在财经资讯和基金经理观点结果中嵌入基金搜索、诊断、资产配置和回测的连续动作。", "meta": "产品 / Agent 编排 · 以跨工具转化率验收", "status": "target"},
+        {"index": "P1", "eyebrow": "JOURNEY", "title": "固化基金决策链", "body": "把搜索基金—详情—净值—风险—诊断—配置串成可复用模板，减少用户逐项发现成本。", "meta": "产品 / 运营 · 以任务完成率与复用率验收", "status": "target"},
+        {"index": "P1", "eyebrow": "PORTFOLIO", "title": "分层治理四十八项长尾", "body": "区分基础依赖、专业低频和低价值接口，分别采用编排内置、场景运营或下线评估。", "meta": "平台 / 产品 · 按月复盘待确认", "status": "target"}
+      ],
+      "callout": {"label": "经营指标", "text": "下一版榜单应同时显示调用量、成功率、独立用户、会话转化、二次调用与结果采纳，避免用次数代替价值。", "status": "target"}
+    },
+    {
+      "id": "audit",
+      "kicker": "09 · AUDIT TRAIL",
+      "title": "完整台账可逐项复核",
+      "lead": "研究源保留 69 项接口的页面排名、名称、二级分类、展示调用量、换算值和功能说明；报告未静默删除长尾数据。",
+      "layout": "cards",
+      "tone": "soft",
+      "items": [
+        {"index": "01", "eyebrow": "FULL LEDGER", "title": "69 项全量接口台账", "body": "`research/qieman-mcp-all-69-2026-08-03.csv`，覆盖 7 页全部卡片字段。", "meta": "接口市场 7 页逐项采集 · 2026-08-03", "bullets": ["69 行数据", "69 个唯一接口", "页面顺序与调用量降序一致"], "status": "confirmed"},
+        {"index": "02", "eyebrow": "RAW TOP20", "title": "原始榜保留时间工具", "body": "原始第 14 名“获取当前时间”4.9 万次保留在台账中，用于复核页面排序。", "meta": "全量台账第 14 行；页面展示值", "bullets": ["不进入业务 TOP20", "业务榜由原始第 21 名顺延"], "status": "confirmed"},
+        {"index": "03", "eyebrow": "DISPLAY VALUE", "title": "占比基于展示值估算", "body": "“万”级数值只有一位小数，无法还原精确后台整数，因此所有求和和占比均为估算。", "bullets": ["排名按页面展示", "不与 9.2M+ 混用"], "status": "confirmed"},
+        {"index": "04", "eyebrow": "CUTOFF", "title": "统计周期仍待补", "body": "页面称“调用”但未展示累计起始日期、数据更新时间、是否包含失败调用。", "bullets": ["不可解读为近 7 天", "不可直接推算日均增速"], "status": "missing"}
+      ],
+      "callout": {"label": "复核状态", "text": "全量数量、唯一性、页面排序、TOP20 顺延和算术加总均已通过脚本式复核。", "status": "confirmed"}
+    }
+  ],
+  "sources": [
+    {"label": "盈米 MCP 接口市场", "detail": "https://qieman.com/mcp/mcp-market · 7 页 69 项接口 · 采集于 2026-08-03"},
+    {"label": "用户提供截图", "detail": "codex-clipboard-93468cbd-9ac8-4868-8d5b-53896c1fc1b0.png · 接口市场第一页"},
+    {"label": "69 项全量台账", "detail": "research/qieman-mcp-all-69-2026-08-03.csv · 名称、分类、说明、展示调用量、换算值"}
+  ],
+  "openQuestions": [
+    {"title": "累计统计起点", "detail": "页面未展示接口调用量从何时开始累计。"},
+    {"title": "顶部总量对账", "detail": "9.2M+ 与 69 项展示值求和至少相差 64.73 万次，原因待平台确认。"},
+    {"title": "调用质量与结果", "detail": "缺少成功率、独立用户、渠道、会话链路、延迟、结果采纳和业务转化。"}
+  ]
+}

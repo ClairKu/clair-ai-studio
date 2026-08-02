@@ -16,7 +16,7 @@ const STORAGE_KEY = "clair-service-report-workbench-v1";
 const AUTH_KEY = "clair-service-report-workbench-access";
 const VIEW_KEY = "clair-service-report-workbench-view";
 const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
-const DATA_VERSION = 31;
+const DATA_VERSION = 33;
 
 const WORK_TYPES = [
   { id: "requirement-review", name: "需求评审" },
@@ -212,18 +212,18 @@ const initialState = {
       tags: ["AI 开放平台", "OAP", "项目汇报", "飞书框架", "千问", "微信", "AI 实验室", "商化准备", "HTML", "生产"],
     },
     {
-      id: "qieman-mcp-top10-2026-08-03",
+      id: "qieman-mcp-top20-2026-08-03",
       groupId: "ai-platform",
-      title: "MCP 调用 TOP10｜剔除时间查询",
-      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-mcp-top10-2026-08-03/",
-      preview: "qieman-mcp-top10-2026-08-03.svg",
+      title: "MCP 全量调用 TOP20｜69 项接口审计",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-mcp-top20-2026-08-03/",
+      preview: "qieman-mcp-top20-2026-08-03.svg",
       pinned: true,
       position: 0,
-      createdAt: "2026-08-03T04:00:00.000Z",
-      source: "且慢 MCP 个人中心近 7 天调用统计｜剔除时间查询后的 23 次调用与 18 个工具",
+      createdAt: "2026-08-03T05:00:00.000Z",
+      source: "盈米 MCP 接口市场 7 页 69 项全量审计｜剔除时间查询后的业务 TOP20、集中度与类别结构",
       access: "production",
       workType: "data-analysis",
-      tags: ["AI 开放平台", "OAP", "MCP", "数据分析", "且慢", "HTML", "生产"],
+      tags: ["AI 开放平台", "OAP", "MCP", "数据分析", "调用统计", "且慢", "HTML", "生产"],
     },
     {
       id: "yingmi-ai-bottom-up-architecture-2026-08-03",
