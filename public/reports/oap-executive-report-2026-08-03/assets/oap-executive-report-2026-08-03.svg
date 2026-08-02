@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-labelledby="title desc">
+  <title id="title">盈米 AI 开放平台 8·3 项目汇报十项框架总图</title>
+  <desc id="desc">上层展示年度目标完成度与两类模式四个持续的关键举措，中层展示微信千问双入口与九平台三层货架，下层展示能力体系、系统建设走向 AI 实验室与商化闭环。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fbfaff"/><stop offset="1" stop-color="#ede9fa"/></linearGradient>
+    <linearGradient id="violet" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#7058d8"/><stop offset="1" stop-color="#a58df7"/></linearGradient>
+    <linearGradient id="navy" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#121a32"/><stop offset="1" stop-color="#263151"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#342568" flood-opacity=".12"/></filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12Z" fill="#8067e8"/></marker>
+    <style>
+      text{font-family:"PingFang SC","Microsoft YaHei",Arial,sans-serif;fill:#171a2a}.serif{font-family:"Songti SC","Noto Serif SC",STSong,SimSun,serif}.eyebrow{font-size:15px;font-weight:750;letter-spacing:3px;fill:#735bd8}.headline{font-size:46px;font-weight:750}.subhead{font-size:20px;fill:#647086}.group-title{font-size:26px;font-weight:750}.group-note{font-size:15px;fill:#6b7588}.card-title{font-size:22px;font-weight:750}.metric{font-size:44px;font-weight:800;fill:#735bd8}.body{font-size:16px;fill:#59647a}.tiny{font-size:13px;fill:#707b8e}.white{fill:#fff}.stage{font-size:12px;font-weight:800;letter-spacing:2px;fill:#735bd8}.bar-label{font-size:16px;font-weight:700}.bar-pct{font-size:22px;font-weight:800;fill:#735bd8}
+    </style>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+  <circle cx="1840" cy="50" r="230" fill="none" stroke="#8067e8" stroke-opacity=".07" stroke-width="2"/>
+  <circle cx="1840" cy="50" r="165" fill="none" stroke="#8067e8" stroke-opacity=".06" stroke-width="2"/>
+
+  <text x="60" y="58" class="eyebrow">OAP · PROJECT REVIEW · 2026-08-03</text>
+  <text x="60" y="114" class="headline serif">目标收尾，双入口打通，走向经营闭环</text>
+  <text x="60" y="152" class="subhead">飞书十项框架｜进展 · 举措 · 增长 · 流量 · 货架 · 能力 · 系统 · AI 实验室 · 商化 · 复盘</text>
+  <rect x="1470" y="78" width="390" height="56" rx="28" fill="#fff" stroke="#dcd5f2"/>
+  <text x="1665" y="113" class="group-note" text-anchor="middle">能力铺设 → 多端交付 → 商业验证</text>
+
+  <rect x="60" y="190" width="580" height="402" rx="28" fill="#fff" stroke="#dbd5ef" filter="url(#shadow)"/>
+  <text x="92" y="232" class="stage">01 · OKR PROGRESS</text>
+  <text x="92" y="270" class="group-title serif">年度目标完成度</text>
+  <text x="92" y="298" class="group-note">截至 2026-08-03 · 复算口径见报告</text>
+
+  <text x="92" y="344" class="bar-label">申请用户 8,569 / 10,000</text>
+  <text x="608" y="344" class="bar-pct" text-anchor="end">85.6%</text>
+  <rect x="92" y="356" width="516" height="14" rx="7" fill="#ece8f8"/>
+  <rect x="92" y="356" width="442" height="14" rx="7" fill="url(#violet)"/>
+
+  <text x="92" y="414" class="bar-label">月活用户 1,812 / 2,000</text>
+  <text x="608" y="414" class="bar-pct" text-anchor="end">90.6%</text>
+  <rect x="92" y="426" width="516" height="14" rx="7" fill="#ece8f8"/>
+  <rect x="92" y="426" width="467" height="14" rx="7" fill="url(#violet)"/>
+
+  <text x="92" y="484" class="bar-label">累计调用 9,194,916 / 13,000,000</text>
+  <text x="608" y="484" class="bar-pct" text-anchor="end">70.7%</text>
+  <rect x="92" y="496" width="516" height="14" rx="7" fill="#ece8f8"/>
+  <rect x="92" y="496" width="365" height="14" rx="7" fill="url(#violet)"/>
+
+  <rect x="92" y="524" width="516" height="48" rx="14" fill="#f2f0fa"/>
+  <text x="112" y="554" class="tiny">AI 实验室目标：用户 5,000 · 应用 1,000 —— 完成度 0%（目标态）</text>
+
+  <rect x="660" y="190" width="600" height="402" rx="28" fill="url(#navy)" filter="url(#shadow)"/>
+  <text x="692" y="232" class="stage" style="fill:#b8a7ff">02 · KEY MOVES</text>
+  <text x="692" y="270" class="group-title serif white">两类模式 × 四个持续</text>
+  <text x="692" y="298" class="group-note" style="fill:#a9b2c9">核心引擎持续运转，接入模式向外放大</text>
+
+  <rect x="692" y="322" width="264" height="118" rx="18" fill="#313c5e"/>
+  <text x="716" y="354" class="eyebrow" style="fill:#b8a7ff">模式 A</text>
+  <text x="716" y="386" class="card-title white">大厂 AI 平台接入</text>
+  <text x="716" y="416" class="tiny" style="fill:#cbd1e1">能力广场 · 智能助手生态</text>
+  <rect x="972" y="322" width="264" height="118" rx="18" fill="#313c5e"/>
+  <text x="996" y="354" class="eyebrow" style="fill:#b8a7ff">模式 B</text>
+  <text x="996" y="386" class="card-title white">C 端流量平台接入</text>
+  <text x="996" y="416" class="tiny" style="fill:#cbd1e1">嵌入真实产品与服务场景</text>
+
+  <rect x="692" y="458" width="130" height="98" rx="16" fill="#3d4870"/>
+  <text x="757" y="492" class="body white" text-anchor="middle">持续建设</text>
+  <text x="757" y="520" class="tiny" style="fill:#cbd1e1" text-anchor="middle">MCP·Skills·Agent</text>
+  <rect x="830" y="458" width="130" height="98" rx="16" fill="#3d4870"/>
+  <text x="895" y="492" class="body white" text-anchor="middle">持续抢先</text>
+  <text x="895" y="520" class="tiny" style="fill:#cbd1e1" text-anchor="middle">5 项首个/首批</text>
+  <rect x="968" y="458" width="130" height="98" rx="16" fill="#3d4870"/>
+  <text x="1033" y="492" class="body white" text-anchor="middle">持续合作</text>
+  <text x="1033" y="520" class="tiny" style="fill:#cbd1e1" text-anchor="middle">8 类生态伙伴</text>
+  <rect x="1106" y="458" width="130" height="98" rx="16" fill="#3d4870"/>
+  <text x="1171" y="492" class="body white" text-anchor="middle">持续曝光</text>
+  <text x="1171" y="520" class="tiny" style="fill:#cbd1e1" text-anchor="middle">报道 8,965 篇</text>
+
+  <rect x="1280" y="190" width="580" height="402" rx="28" fill="#fff" stroke="#dbd5ef" filter="url(#shadow)"/>
+  <text x="1312" y="232" class="stage">03 · NEW TRAFFIC × SHELF</text>
+  <text x="1312" y="270" class="group-title serif">双入口与三层货架</text>
+  <text x="1312" y="298" class="group-note">微信 + 千问两大超级入口打通转化闭环</text>
+
+  <rect x="1312" y="322" width="262" height="132" rx="18" fill="#f7f5fc"/>
+  <text x="1336" y="354" class="eyebrow">微信</text>
+  <text x="1336" y="386" class="card-title">Skills＋小程序</text>
+  <text x="1336" y="416" class="body">近 7 日日活 1.37 万</text>
+  <text x="1336" y="442" class="tiny">累计用户 8 万+ · 达小微首批试点资质</text>
+  <rect x="1590" y="322" width="238" height="132" rx="18" fill="url(#violet)"/>
+  <text x="1614" y="354" class="eyebrow" style="fill:#eeeaff">千问</text>
+  <text x="1614" y="386" class="card-title white">MCP＋A2A</text>
+  <text x="1614" y="416" class="body white">首批品牌智能体</text>
+  <text x="1614" y="442" class="tiny" style="fill:#e9e2ff">一期唯一金融 Agent · 8·10 宣发</text>
+
+  <text x="1312" y="492" class="bar-label">九平台三层货架</text>
+  <rect x="1312" y="506" width="516" height="56" rx="14" fill="#f7f5fc"/>
+  <text x="1332" y="530" class="body">MCP</text>
+  <text x="1808" y="530" class="bar-pct" text-anchor="end">9 / 9 已上架</text>
+  <text x="1332" y="552" class="tiny">含支付宝金融类首家 · 百炼首批 one key MCP</text>
+  <rect x="1312" y="572" width="252" height="40" rx="12" fill="#f2f0fa"/>
+  <text x="1332" y="597" class="body">Skills</text>
+  <text x="1544" y="597" class="tiny" text-anchor="end">2 上架 · 2 推进</text>
+  <rect x="1576" y="572" width="252" height="40" rx="12" fill="#f2f0fa"/>
+  <text x="1596" y="597" class="body">Agent</text>
+  <text x="1808" y="597" class="tiny" text-anchor="end">2 上架 · 2 推进</text>
+
+  <rect x="60" y="622" width="1800" height="400" rx="28" fill="#fff" stroke="#dbd5ef" filter="url(#shadow)"/>
+  <text x="92" y="664" class="stage">04 · WHAT'S NEXT</text>
+  <text x="92" y="702" class="group-title serif">从能力治理走向 AI 实验室与商化闭环</text>
+  <text x="92" y="730" class="group-note">产品规划四步：收敛治理 → 可追溯系统 → 共创场域 → 收费验证</text>
+
+  <rect x="92" y="764" width="396" height="218" rx="22" fill="#f7f5fc"/>
+  <text x="120" y="802" class="stage">能力体系</text>
+  <text x="120" y="834" class="card-title serif">三维分类 · 三层治理</text>
+  <text x="120" y="868" class="body">业务域 × 类型 × 权限生命周期</text>
+  <text x="120" y="898" class="body">MCP 修旧拓新 · SKILL 收敛精细</text>
+  <text x="120" y="928" class="body">AGENT 自有 Runtime</text>
+  <text x="120" y="962" class="tiny">财报 MCP 内部先行 · 火富牛待合规</text>
+
+  <path d="M500 873H548" stroke="#8067e8" stroke-width="5" stroke-linecap="round" marker-end="url(#arrow)"/>
+
+  <rect x="560" y="764" width="396" height="218" rx="22" fill="#f7f5fc"/>
+  <text x="588" y="802" class="stage">系统建设</text>
+  <text x="588" y="834" class="card-title serif">鉴权可追溯</text>
+  <text x="588" y="868" class="body">8 月拟新增 SSO 登录</text>
+  <text x="588" y="898" class="body">API Key＋OAuth 共存 → OAuth</text>
+  <text x="588" y="928" class="body">Stargate：审计 · 渠道 · 计量 · 统计</text>
+  <text x="588" y="962" class="tiny">统一可下钻的接入治理看板</text>
+
+  <path d="M968 873H1016" stroke="#8067e8" stroke-width="5" stroke-linecap="round" marker-end="url(#arrow)"/>
+
+  <rect x="1028" y="764" width="396" height="218" rx="22" fill="url(#navy)"/>
+  <text x="1056" y="802" class="stage" style="fill:#b8a7ff">AI 实验室 · 目标态</text>
+  <text x="1056" y="834" class="card-title serif white">全民 AI 共创场域</text>
+  <text x="1056" y="868" class="body" style="fill:#cbd1e1">低代码搭建 · 快速分发</text>
+  <text x="1056" y="898" class="body" style="fill:#cbd1e1">使用 / 创作双界面</text>
+  <text x="1056" y="928" class="body" style="fill:#cbd1e1">能力调用＋AI 资产交易</text>
+  <text x="1056" y="962" class="tiny" style="fill:#a9b2c9">回答「小顾、且慢如何破圈」命题</text>
+
+  <path d="M1436 873H1484" stroke="#8067e8" stroke-width="5" stroke-linecap="round" marker-end="url(#arrow)"/>
+
+  <rect x="1496" y="764" width="332" height="218" rx="22" fill="url(#violet)"/>
+  <text x="1524" y="802" class="stage" style="fill:#eeeaff">商化闭环</text>
+  <text x="1524" y="834" class="card-title serif white">收费方案验证</text>
+  <text x="1524" y="868" class="body white">付费咨询需求 30+</text>
+  <text x="1524" y="898" class="body white">个人版 / 企业版方案</text>
+  <text x="1524" y="928" class="body white">积分体系 · 机构合作模式</text>
+  <text x="1524" y="962" class="tiny" style="fill:#e9e2ff">机构需求聚焦 Agent 服务输出</text>
+
+  <text x="60" y="1056" class="tiny">数据来源：飞书《8/3 盈米 AI 开放平台项目汇报 v2》revision 30 · 2026-08-03；AI 实验室与商化方案为目标态内容，不代表已上线；内网链接已脱敏。</text>
+</svg>

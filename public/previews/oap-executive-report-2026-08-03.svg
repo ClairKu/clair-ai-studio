@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="405" viewBox="0 0 720 405" role="img" aria-labelledby="title desc">
+  <title id="title">盈米 AI 开放平台 8·3 项目汇报预览</title>
+  <desc id="desc">三项核心指标完成 70.7% 至 90.6%，微信千问双入口打通，九平台三层货架，走向 AI 实验室与商化闭环。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fbfaff"/><stop offset="1" stop-color="#e9e3fb"/></linearGradient>
+    <linearGradient id="violet" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#7058d8"/><stop offset="1" stop-color="#a58df7"/></linearGradient>
+    <linearGradient id="navy" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#121a32"/><stop offset="1" stop-color="#263151"/></linearGradient>
+    <style>
+      text{font-family:"PingFang SC","Microsoft YaHei",Arial,sans-serif;fill:#171a2a}.serif{font-family:"Songti SC","Noto Serif SC",STSong,SimSun,serif}.eyebrow{font-size:10px;font-weight:750;letter-spacing:2.5px;fill:#735bd8}.headline{font-size:27px;font-weight:750}.sub{font-size:12px;fill:#647086}.metric{font-size:26px;font-weight:800;fill:#735bd8}.label{font-size:10.5px;fill:#59647a}.white{fill:#fff}.card-title{font-size:13px;font-weight:750}.tiny{font-size:9.5px;fill:#707b8e}
+    </style>
+  </defs>
+
+  <rect width="720" height="405" fill="url(#bg)"/>
+  <circle cx="692" cy="18" r="88" fill="none" stroke="#8067e8" stroke-opacity=".09" stroke-width="2"/>
+  <circle cx="692" cy="18" r="62" fill="none" stroke="#8067e8" stroke-opacity=".07" stroke-width="2"/>
+
+  <text x="34" y="40" class="eyebrow">OAP · PROJECT REVIEW · 2026-08-03</text>
+  <text x="34" y="76" class="headline serif">盈米 AI 开放平台｜8·3 项目汇报</text>
+  <text x="34" y="100" class="sub">目标收尾 · 双入口打通 · 走向经营闭环（飞书十项框架）</text>
+
+  <rect x="34" y="122" width="200" height="104" rx="14" fill="#fff" stroke="#dbd5ef"/>
+  <text x="52" y="150" class="label">申请用户</text>
+  <text x="52" y="188" class="metric serif">85.6%</text>
+  <text x="52" y="210" class="tiny">8,569 / 10,000</text>
+
+  <rect x="248" y="122" width="200" height="104" rx="14" fill="#fff" stroke="#dbd5ef"/>
+  <text x="266" y="150" class="label">月活用户</text>
+  <text x="266" y="188" class="metric serif">90.6%</text>
+  <text x="266" y="210" class="tiny">1,812 / 2,000</text>
+
+  <rect x="462" y="122" width="224" height="104" rx="14" fill="#fff" stroke="#dbd5ef"/>
+  <text x="480" y="150" class="label">累计调用</text>
+  <text x="480" y="188" class="metric serif">70.7%</text>
+  <text x="480" y="210" class="tiny">9,194,916 / 13,000,000</text>
+
+  <rect x="34" y="240" width="316" height="128" rx="14" fill="url(#navy)"/>
+  <text x="52" y="266" class="eyebrow" style="fill:#b8a7ff">NEW TRAFFIC</text>
+  <text x="52" y="292" class="card-title white">微信 × 千问双入口</text>
+  <text x="52" y="316" class="tiny" style="fill:#cbd1e1">小程序近 7 日日活 1.37 万</text>
+  <text x="52" y="336" class="tiny" style="fill:#cbd1e1">千问首批品牌智能体 · 一期唯一金融 Agent</text>
+  <text x="52" y="356" class="tiny" style="fill:#cbd1e1">新用户获取 → AI 服务 → 外链交易闭环</text>
+
+  <rect x="366" y="240" width="320" height="128" rx="14" fill="url(#violet)"/>
+  <text x="384" y="266" class="eyebrow" style="fill:#eeeaff">WHAT'S NEXT</text>
+  <text x="384" y="292" class="card-title white">AI 实验室 · 商化闭环</text>
+  <text x="384" y="316" class="tiny" style="fill:#e9e2ff">低代码共创场域 · 能力调用＋AI 资产交易</text>
+  <text x="384" y="336" class="tiny" style="fill:#e9e2ff">个人版 / 企业版收费方案 · 付费咨询 30+</text>
+  <text x="384" y="356" class="tiny" style="fill:#e9e2ff">机构需求聚焦 Agent 服务输出</text>
+
+  <text x="34" y="392" class="tiny">来源：飞书《8/3 盈米 AI 开放平台项目汇报 v2》revision 30 · 九平台三层货架 MCP 9/9 已上架</text>
+</svg>

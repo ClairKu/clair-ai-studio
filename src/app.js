@@ -115,6 +115,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "oap-executive-report-2026-08-03",
+      groupId: "ai-platform",
+      title: "盈米 AI 开放平台｜8·3 项目汇报（Executive 视觉版）",
+      url: "https://clairku.github.io/clair-ai-studio/reports/oap-executive-report-2026-08-03/",
+      preview: "oap-executive-report-2026-08-03.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-03T20:00:00.000Z",
+      source: "飞书 revision 30 十项框架｜OKR 复算 · 微信千问双入口 · 九平台三层货架 · AI 实验室 · 商化闭环",
+      access: "production",
+      workType: "reporting",
+      tags: ["AI 开放平台", "OAP", "项目汇报", "OKR 复算", "微信", "千问", "AI 实验室", "商业化", "HTML", "生产"],
+    },
+    {
       id: "oap-project-report-feishu-framework-2026-08-03",
       groupId: "ai-platform",
       title: "盈米 AI 开放平台｜8·3 汇报（十项框架）",
