@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Clair 报告模板｜从任意材料到视觉决策报告",
-    "subtitle": "抽象自《盈米 AI 产品实践》的内容引擎、视觉语言与发布质量门",
+    "title": "Clair 视觉报告生成器",
+    "subtitle": "把任意材料变成证据清晰、结构紧凑的管理层报告",
     "eyebrow": "CLAIR AI STUDIO · REPORT SYSTEM",
     "date": "2026-08-02",
     "cutoff": "2026-08-02",
@@ -14,13 +14,13 @@
   "hero": {
     "conclusion": "这不是一套固定章节，而是一台把证据、判断与行动编排成管理层视觉报告的生成引擎。",
     "thesis": "未来只需提供原始材料；Skill 先审证据、提炼中心判断，再选择合适的结构模块，最终生成与原报告同类的独立 HTML，并完成移动端与发布校验。",
-    "badges": ["任意材料输入", "一屏一模块", "键盘逐屏切换", "HTML 一键生成"]
+    "badges": ["任意材料输入", "紧凑分屏", "导航跟随", "HTML 一键生成"]
   },
   "sections": [
     {
       "id": "anatomy",
       "kicker": "01 · TEMPLATE ANATOMY",
-      "title": "保留原报告的灵魂，而不是复制它的章节",
+      "title": "保留报告灵魂，不复制章节",
       "lead": "原报告效果来自三层协同：结论先行的内容结构、紫色档案式视觉、以及能把抽象战略变成可操作场景的交互。",
       "layout": "cards",
       "tone": "light",
@@ -62,7 +62,7 @@
     {
       "id": "engine",
       "kicker": "02 · GENERATION ENGINE",
-      "title": "材料先被结构化，再被视觉化",
+      "title": "材料先结构化，再视觉化",
       "lead": "内容和皮肤彻底解耦：Agent 负责判断材料应该说什么，模板负责稳定地把结构渲染出来。",
       "layout": "architecture",
       "tone": "soft",
@@ -79,7 +79,7 @@
           "index": "04",
           "eyebrow": "RENDER",
           "title": "统一模板渲染九类模块",
-          "body": "同一份 JSON 进入固定视觉系统，自动生成一屏一模块、滚动吸附、键盘逐屏切换、顶部回顶、状态标签与打印样式。",
+          "body": "同一份 JSON 进入固定视觉系统，自动生成紧凑分屏、滚动吸附、导航居中跟随、键盘切换、顶部回顶与打印样式。",
           "bullets": ["无 CDN", "响应式", "可离线打开"],
           "status": "confirmed"
         },
@@ -117,12 +117,12 @@
     {
       "id": "modules",
       "kicker": "03 · MODULE KIT",
-      "title": "九类模块覆盖大多数专业报告关系",
+      "title": "九类模块覆盖专业报告",
       "lead": "模块不是装饰组件，而是九种常见信息关系的视觉表达。Agent 根据材料选择，不要求每份报告全部使用。",
       "layout": "metrics",
       "tone": "light",
       "items": [
-        {"metric": "9", "title": "结构模块", "body": "卡片、指标、架构、时间线、流程、证据、对比、演示、行动。", "meta": "Skill 1.1.0 模板定义", "status": "confirmed"},
+        {"metric": "9", "title": "结构模块", "body": "卡片、指标、架构、时间线、流程、证据、对比、演示、行动。", "meta": "Skill 1.2.0 模板定义", "status": "confirmed"},
         {"metric": "4", "title": "证据状态", "body": "已确认、判断、待补、目标态，避免把推断包装成事实。", "meta": "内容契约 v1", "status": "confirmed"},
         {"metric": "390px", "title": "移动端基线", "body": "所有模块在手机宽度下转为单列，保持导航、交互与可读性。", "meta": "质量门定义", "status": "confirmed"},
         {"metric": "0", "title": "外部运行依赖", "body": "不依赖 CDN、远端字体或前端框架，生成后可独立打开。", "meta": "模板源码审计", "status": "confirmed"}
@@ -136,7 +136,7 @@
     {
       "id": "narrative",
       "kicker": "04 · NARRATIVE RHYTHM",
-      "title": "默认叙事从“为什么”推进到“怎么办”",
+      "title": "从“为什么”到“怎么办”",
       "lead": "这是一个可裁剪的阅读节奏，不是强制目录。材料证据不足的章节应删掉或标为待补。",
       "layout": "timeline",
       "tone": "soft",
@@ -150,7 +150,7 @@
     {
       "id": "workflow",
       "kicker": "05 · SKILL WORKFLOW",
-      "title": "一份材料经过五个质量关口再交付",
+      "title": "五道质量关，再交付",
       "lead": "Skill 把最容易失真的环节显式化：不是直接生成漂亮页面，而是在结构化前后都做质量控制。",
       "layout": "process",
       "tone": "dark",
@@ -170,13 +170,13 @@
     {
       "id": "evidence",
       "kicker": "06 · EVIDENCE BOUNDARY",
-      "title": "证据边界成为页面的一等信息",
+      "title": "证据与边界写进页面",
       "lead": "模板把来源与状态写进页面结构，既保留原报告的可信感，也能适应研究、复盘、产品方案和经营汇报。",
       "layout": "evidence",
       "tone": "light",
       "items": [
         {"index": "01", "eyebrow": "REFERENCE REPORT", "title": "《盈米 AI 产品实践》", "body": "用于抽象叙事结构、视觉语言、深浅节奏、卡片系统和连续场景 Demo。", "source": "clair-ai-studio/research/qieman-ai-product-practice-2026-07-30.md 与历史明文页面", "status": "confirmed"},
-        {"index": "02", "eyebrow": "GENERATED SKILL", "title": "Clair Executive Visual Report 1.1.0", "body": "包含 SKILL.md、内容契约、质量门、固定分屏 HTML 模板、键盘与滚动导航、生成器和校验器。", "source": "skills/clair-executive-visual-report · 2026-08-02", "status": "confirmed"}
+        {"index": "02", "eyebrow": "GENERATED SKILL", "title": "Clair Executive Visual Report 1.2.0", "body": "包含 SKILL.md、内容契约、质量门、紧凑分屏模板、居中跟随导航、生成器和校验器。", "source": "skills/clair-executive-visual-report · 2026-08-02", "status": "confirmed"}
       ],
       "callout": {
         "label": "发布边界",
@@ -187,7 +187,7 @@
     {
       "id": "demo",
       "kicker": "07 · LIVE DEMO",
-      "title": "同一套模板能把三类材料变成不同报告",
+      "title": "一套模板，适配三类报告",
       "lead": "点击切换场景。模块保持统一视觉，但叙事与信息关系随材料类型变化。",
       "layout": "demo",
       "tone": "dark",
@@ -205,7 +205,7 @@
     {
       "id": "comparison",
       "kicker": "08 · BEFORE / AFTER",
-      "title": "从一次性页面，升级为可重复生产系统",
+      "title": "从单页复制到生产系统",
       "lead": "真正的复用不是复制 HTML，而是把判断规则、内容契约、视觉资产和质量门一起封装。",
       "layout": "comparison",
       "tone": "soft",
@@ -218,7 +218,7 @@
     {
       "id": "actions",
       "kicker": "09 · READY TO USE",
-      "title": "以后你只需要把材料丢给我",
+      "title": "以后只需提供材料",
       "lead": "默认指令可以很短；Skill 会主动完成盘点、提炼、生成、校验和发布，不要求你先整理成标准格式。",
       "layout": "actions",
       "tone": "light",
@@ -245,7 +245,7 @@
     },
     {
       "label": "Clair Executive Visual Report Skill",
-      "detail": "skills/clair-executive-visual-report · v1.1.0 · 2026-08-02"
+      "detail": "skills/clair-executive-visual-report · v1.2.0 · 2026-08-02"
     }
   ],
   "openQuestions": [

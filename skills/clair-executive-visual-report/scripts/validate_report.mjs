@@ -25,6 +25,7 @@ need(report.meta?.title, "meta.title");
 need(report.meta?.date, "meta.date");
 need(report.meta?.cutoff, "meta.cutoff");
 need(report.hero?.conclusion, "hero.conclusion");
+if ([...(report.meta?.title || "")].length > 30) errors.push("meta.title 过长，请压缩到 30 字以内");
 if (report.meta?.accent && !/^#[0-9a-f]{6}$/i.test(report.meta.accent)) {
   errors.push("meta.accent 必须是六位十六进制颜色");
 }
@@ -37,6 +38,7 @@ for (const [sectionIndex, section] of (report.sections || []).entries()) {
   const path = `sections[${sectionIndex}]`;
   need(section.id, `${path}.id`);
   need(section.title, `${path}.title`);
+  if ([...(section.title || "")].length > 22) errors.push(`${path}.title 过长，请压缩到 22 字以内`);
   if (ids.has(section.id)) errors.push(`章节 id 重复：${section.id}`);
   ids.add(section.id);
   if (!allowedLayouts.has(section.layout)) errors.push(`${path}.layout 未知：${section.layout}`);
@@ -75,6 +77,9 @@ if (htmlPath) {
     ['id="report-data"', "HTML 未嵌入报告数据"],
     ['scroll-snap-type:y mandatory', "HTML 缺少强制滚动吸附"],
     ['height:calc(100svh - var(--nav-h))', "HTML 缺少固定分屏高度"],
+    ['--nav-h:54px', "HTML 顶部导航未使用 54px 紧凑高度"],
+    ['--mono:"Songti SC"', "HTML 未统一使用宋体字体族"],
+    ['chapterNav.scrollTo', "HTML 缺少章节导航居中跟随"],
     ['"ArrowDown","ArrowRight","PageDown"', "HTML 缺少向后逐屏键盘导航"],
     ['event.key==="Home"', "HTML 缺少首屏键盘导航"],
     ['@media(max-width:720px)', "HTML 缺少移动端规则"],
@@ -82,6 +87,7 @@ if (htmlPath) {
   ]) {
     if (!html.includes(signal)) errors.push(message);
   }
+  if (html.includes("keyboard-hint")) errors.push("HTML 不应显示常驻键盘操作提示");
   if (/https?:\/\/(?:cdn|fonts)\./i.test(html)) errors.push("HTML 含外部 CDN 或字体依赖");
 }
 

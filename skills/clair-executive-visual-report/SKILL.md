@@ -5,7 +5,7 @@ description: 将任意 Word、PDF、PPT、Markdown、网页摘录、聊天记录
 
 # Clair Executive Visual Report
 
-版本：1.1.0
+版本：1.2.0
 
 ## 目标
 
@@ -14,14 +14,16 @@ description: 将任意 Word、PDF、PPT、Markdown、网页摘录、聊天记录
 ## 工作流
 
 1. 建立材料清单。记录文件名、链接、版本、日期、提供方和可公开边界；不覆盖原材料。
-2. 先审证据再写结论。把内容分成 `confirmed`、`inferred`、`missing`、`target` 四类；数字必须有口径、周期、分母或明确标为待补。
-3. 提炼一条中心判断。用一句话回答“发生了什么、为什么重要、下一步做什么”，再组织支撑模块。
-4. 按 [references/content-contract.md](references/content-contract.md) 生成 `report.json`。从材料中选择 6—10 个必要章节，不为凑版式制造内容。
-5. 选择模块：总图用 `architecture`，阶段变化用 `timeline`，责任链用 `process`，量化结果用 `metrics`，事实材料用 `evidence`，对比用 `comparison`，行动用 `actions`，体验走查用 `demo`。
-6. 运行生成器：`node scripts/render_report.mjs report.json <output-dir>`。
-7. 运行质量门：`node scripts/validate_report.mjs report.json <output-dir>/index.html`。
-8. 打开 HTML，检查桌面与 390px 手机布局、固定分屏高度、滚动吸附、上下左右键逐屏切换、顶部品牌回顶、右侧页轨、图片加载、交互标签、无横向溢出和中文编码。遵循 [references/quality-gates.md](references/quality-gates.md)。
-9. 若用户要求发布，保留研究源稿与 JSON，复制页面和资产至站点，登记唯一工作台入口，构建、测试、推送并验证生产 URL。
+2. 建立来源覆盖清单。逐项盘点原材料的标题层级、关键结论、规则、数字、案例、表格、图表、截图和附录，并登记其报告去向。
+3. 先审证据再写结论。把内容分成 `confirmed`、`inferred`、`missing`、`target` 四类；数字必须有口径、周期、分母或明确标为待补。
+4. 提炼一条中心判断。用一句话回答“发生了什么、为什么重要、下一步做什么”，再组织支撑模块；摘要不得替代完整内容。
+5. 按 [references/content-contract.md](references/content-contract.md) 生成 `report.json`。章节数量由材料复杂度决定，不为凑版式制造内容，也不为控制篇幅静默删减关键信息。
+6. 选择模块：总图用 `architecture`，阶段变化用 `timeline`，责任链用 `process`，量化结果用 `metrics`，事实材料用 `evidence`，对比用 `comparison`，行动用 `actions`，体验走查用 `demo`。
+7. 原材料的业务图表、流程图、架构图和关键截图原则上保留原图；确需重绘时提供逐项信息对照。
+8. 运行生成器：`node scripts/render_report.mjs report.json <output-dir>`。
+9. 运行质量门：`node scripts/validate_report.mjs report.json <output-dir>/index.html`。
+10. 打开 HTML，检查桌面与 390px 手机布局、固定分屏高度、统一定位、章节导航居中跟随、滚动吸附、上下左右键逐屏切换、顶部品牌回顶、右侧页轨、图片加载、无横向溢出和中文编码。遵循 [references/quality-gates.md](references/quality-gates.md)。
+11. 若用户要求发布，保留研究源稿与 JSON，复制页面和资产至站点，登记唯一工作台入口，构建、测试、推送并验证生产 URL。
 
 ## 内容编排
 
@@ -33,6 +35,8 @@ description: 将任意 Word、PDF、PPT、Markdown、网页摘录、聊天记录
 - 每章只回答一个问题；标题写结论，不写“情况介绍”这类空标题。
 - 正文优先“事实—判断—行动”；证据卡写来源和状态。
 - 复杂关系必须配结构图、流程、时间线或对比卡；不要用装饰图替代信息。
+- 原材料中的关键规则、案例、检查清单、时限、责任、表格和图表必须能在报告中逐项定位；管理层摘要不能成为删减正文的理由。
+- 内容过长时，通过增加章节、完整附录或拆分主报告与附件解决；不得静默省略。
 - `target` 和概念原型必须显式标注“不代表已上线”。
 - 内部或敏感内容发布前必须加密正文；CSS 隐藏不等于保护。
 
@@ -40,9 +44,10 @@ description: 将任意 Word、PDF、PPT、Markdown、网页摘录、聊天记录
 
 直接使用 `assets/report-template.html`，不要重新手写整套 CSS。模板内置：
 
-- 宋体/衬线大标题、无衬线正文、紫色渐变强调、深色演示舞台、档案卡片；
+- 全页面统一宋体字体族，紧凑标题带、紫色渐变强调、深色演示舞台、档案卡片；
 - 固定一屏一模块、滚动吸附、上下左右键与 PageUp/PageDown 逐屏切换、Home/End 首尾定位；
-- 粘性章节导航、顶部品牌一键回顶、右侧可点击页轨、页码、阅读进度、移动端抽屉、Demo 标签切换；
+- 54px 紧凑粘性导航；当前章节随页面切换自动滚到导航中间，同时保留前后章节可见；
+- 顶部品牌一键回顶、右侧可点击页轨、页码、阅读进度、移动端抽屉、Demo 标签切换；不显示常驻操作提示块；
 - `cards`、`metrics`、`architecture`、`timeline`、`process`、`evidence`、`comparison`、`demo`、`actions` 九类模块；
 - 打印样式、减少动态偏好、图片懒加载与 390px 响应式布局。
 
@@ -54,6 +59,7 @@ description: 将任意 Word、PDF、PPT、Markdown、网页摘录、聊天记录
 
 - `report.json`：结构化单一事实源；
 - `index.html`：可独立打开的生成结果；
+- 来源关键要点与图表的完整覆盖清单；
 - 原材料/研究源清单；
 - 校验结果与尚待确认事项；
 - 发布任务中的生产 URL 与工作台入口。
@@ -65,8 +71,9 @@ description: 将任意 Word、PDF、PPT、Markdown、网页摘录、聊天记录
 以下任一情况必须停止发布并修正：
 
 - 缺少标题、中心判断、截止日期、章节或证据边界；
+- 关键要点或原始图表未登记报告去向；
 - 重复章节 ID、未知布局、无来源的关键数字；
 - `target` 内容没有状态标签；
-- HTML 未嵌入报告数据、分屏导航、键盘切换、顶部回顶、阅读进度或响应式样式；
+- HTML 未嵌入报告数据、居中跟随导航、分屏导航、键盘切换、顶部回顶、阅读进度或响应式样式；
 - 页面存在外部 CDN 依赖，或生产资源引用不存在；
 - 敏感正文以明文进入公开仓库。
