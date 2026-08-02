@@ -1,0 +1,157 @@
+{
+  "meta": {
+    "title": "MCP 调用 TOP10｜剔除时间",
+    "subtitle": "近 7 天个人调用结构、需求信号与下一步优化建议",
+    "eyebrow": "YINGMI MCP · USAGE ANALYSIS",
+    "date": "2026-08-03",
+    "cutoff": "2026-08-03（页面默认近 7 天）",
+    "owner": "Clair AI Studio",
+    "confidentiality": "公开脱敏摘要",
+    "accent": "#8067e8"
+  },
+  "hero": {
+    "conclusion": "剔除时间查询后，23 次调用只在两个工具上发生重复：资讯入口已经形成，专业场景仍处在广泛试用阶段。",
+    "thesis": "近 7 天原始调用 26 次，其中“获取当前时间”3 次；剔除后覆盖 18 个工具。财经资讯 5 次、市场温度计 2 次，其余 16 个工具均为 1 次，说明当前需求呈现“高频看市场、低频试专业能力”的早期结构。",
+    "badges": ["近 7 天", "剔除时间查询", "23 次有效调用", "18 个非时间工具"]
+  },
+  "sections": [
+    {
+      "id": "scope",
+      "kicker": "01 · SCOPE",
+      "title": "先把统计口径算清",
+      "lead": "榜单来自个人中心“调用统计”默认近 7 天视图；从 26 次总调用中剔除“获取当前时间”3 次，再按页面原顺序顺延补足 TOP10。",
+      "layout": "metrics",
+      "tone": "light",
+      "items": [
+        {"metric": "23", "title": "非时间调用", "body": "26 次总调用减去 3 次“获取当前时间”。", "meta": "近 7 天 · 页面采集于 2026-08-03", "status": "confirmed"},
+        {"metric": "18", "title": "非时间工具", "body": "剔除时间工具后仍有 18 个不同工具被调用。", "meta": "两页榜单去重统计", "status": "confirmed"},
+        {"metric": "2", "title": "发生重复调用", "body": "只有财经资讯与市场温度计的调用次数大于 1。", "meta": "财经资讯 5 次；市场温度计 2 次", "status": "confirmed"},
+        {"metric": "65.2%", "title": "TOP10 覆盖率", "body": "顺延后的 TOP10 合计 15 次，占 23 次非时间调用。", "meta": "15 ÷ 23；四舍五入至 1 位小数", "status": "confirmed"}
+      ],
+      "callout": {"label": "中心判断", "text": "不是没有专业需求，而是除资讯类外尚未形成稳定复用路径。", "status": "inferred"}
+    },
+    {
+      "id": "top10",
+      "kicker": "02 · RANKING",
+      "title": "TOP10 由资讯领跑",
+      "lead": "同为 1 次的工具属于并列；下列先后沿用页面展示顺序，不代表统计显著性或业务优先级差异。",
+      "layout": "metrics",
+      "tone": "soft",
+      "items": [
+        {"metric": "5次", "title": "01 财经资讯", "body": "占非时间调用 21.7%，是唯一达到 5 次的工具。", "meta": "5 ÷ 23", "status": "confirmed"},
+        {"metric": "2次", "title": "02 市场温度计", "body": "第二个发生重复调用的市场信号工具。", "meta": "2 ÷ 23 = 8.7%", "status": "confirmed"},
+        {"metric": "1次", "title": "03 获取资产配置方案", "body": "一次性调用。", "meta": "并列 1 次 · 页面顺序", "status": "confirmed"},
+        {"metric": "1次", "title": "04 热点财经话题榜单", "body": "一次性调用。", "meta": "并列 1 次 · 页面顺序", "status": "confirmed"},
+        {"metric": "1次", "title": "05 收入支出分析接口", "body": "一次性调用。", "meta": "并列 1 次 · 页面顺序", "status": "confirmed"},
+        {"metric": "1次", "title": "06 账户诊断", "body": "一次性调用。", "meta": "并列 1 次 · 页面顺序", "status": "confirmed"},
+        {"metric": "1次", "title": "07 财务状况分析", "body": "一次性调用。", "meta": "并列 1 次 · 页面顺序", "status": "confirmed"},
+        {"metric": "1次", "title": "08 资产负债分析", "body": "一次性调用。", "meta": "并列 1 次 · 页面顺序", "status": "confirmed"},
+        {"metric": "1次", "title": "09 回测分析", "body": "一次性调用。", "meta": "并列 1 次 · 页面顺序", "status": "confirmed"},
+        {"metric": "1次", "title": "10 批量查询策略持仓", "body": "从榜单第二页顺延补入 TOP10。", "meta": "并列 1 次 · 页面顺序", "status": "confirmed"}
+      ],
+      "callout": {"label": "排序提醒", "text": "第 3—10 名全部为 1 次；真正可辨识的频次差异只存在于前两名。", "status": "confirmed"}
+    },
+    {
+      "id": "mix",
+      "kicker": "03 · DEMAND MIX",
+      "title": "需求先看市场再诊断",
+      "lead": "把 TOP10 按业务意图归类，可以看到资讯与市场信号占比最高；分类是分析映射，不是平台原始标签。",
+      "layout": "architecture",
+      "tone": "light",
+      "items": [
+        {"index": "03", "eyebrow": "VALIDATE", "title": "投研与验证", "body": "回测分析、批量查询策略持仓，共 2 次。", "bullets": ["占 TOP10 调用 13.3%", "占全部非时间调用 8.7%"], "status": "inferred"},
+        {"index": "02", "eyebrow": "DIAGNOSE", "title": "规划与诊断", "body": "资产配置、收支、账户、财务状况、资产负债，共 5 次。", "bullets": ["占 TOP10 调用 33.3%", "五项均只调用 1 次"], "status": "inferred"},
+        {"index": "01", "eyebrow": "DISCOVER", "title": "资讯与市场信号", "body": "财经资讯、市场温度计、热点财经话题，共 8 次。", "bullets": ["占 TOP10 调用 53.3%", "财经资讯贡献其中 5 次"], "status": "inferred"}
+      ],
+      "callout": {"label": "结构判断", "text": "市场信息是当前最清晰的入口，但从“看见信号”到“形成方案、验证决策”的连续链路尚未被频次证明。", "status": "inferred"}
+    },
+    {
+      "id": "concentration",
+      "kicker": "04 · CONCENTRATION",
+      "title": "头部清晰长尾很分散",
+      "lead": "TOP10 覆盖 65.2%，但非时间调用仍有 34.8% 分散在另外 8 个工具；广度已经出现，深度尚不足。",
+      "layout": "comparison",
+      "tone": "soft",
+      "items": [
+        {"index": "A", "eyebrow": "HEAD", "title": "一个强入口", "body": "财经资讯 5 次，占非时间调用 21.7%。", "meta": "5 ÷ 23；近 7 天", "bullets": ["调用次数第一", "适合作为后续任务分发入口"], "status": "confirmed"},
+        {"index": "B", "eyebrow": "REPEAT", "title": "两个复用工具", "body": "财经资讯与市场温度计合计 7 次，占 30.4%。", "meta": "(5 + 2) ÷ 23；近 7 天", "bullets": ["只有这两项大于 1 次", "重复行为集中在市场信息"], "status": "confirmed"},
+        {"index": "C", "eyebrow": "LONG TAIL", "title": "十六个一次性尝试", "body": "其余 16 个非时间工具各 1 次，共占 69.6%。", "meta": "16 ÷ 23；近 7 天", "bullets": ["需求面很宽", "尚不能判断留存或稳定价值"], "status": "confirmed"}
+      ],
+      "callout": {"label": "产品含义", "text": "当前最值得优化的不是继续增加入口，而是让一次性专业调用更容易进入第二次。", "status": "inferred"}
+    },
+    {
+      "id": "journey",
+      "kicker": "05 · POSSIBLE JOURNEY",
+      "title": "把散点串成决策链",
+      "lead": "从工具意图可以提出一条候选链路，但现有榜单没有会话级数据，不能证明这些调用由同一用户按此顺序完成。",
+      "layout": "process",
+      "tone": "dark",
+      "items": [
+        {"index": "01", "title": "发现信号", "body": "财经资讯、热点话题、市场温度。", "status": "inferred"},
+        {"index": "02", "title": "理解自身", "body": "收支、财务状况、资产负债、账户诊断。", "status": "inferred"},
+        {"index": "03", "title": "生成方案", "body": "获取资产配置方案。", "status": "inferred"},
+        {"index": "04", "title": "验证决策", "body": "回测与策略持仓查询。", "status": "inferred"}
+      ],
+      "callout": {"label": "证据边界", "text": "这是一条基于工具组合提出的产品假设，不是已验证的用户旅程。", "status": "missing"}
+    },
+    {
+      "id": "actions",
+      "kicker": "06 · ACTIONS",
+      "title": "先提升第二次调用",
+      "lead": "目标应从“工具被试过”转向“任务完成后自然进入下一步”，并用会话级指标验证是否形成复用。",
+      "layout": "actions",
+      "tone": "light",
+      "items": [
+        {"index": "P0", "eyebrow": "ENTRY", "title": "把资讯做成任务入口", "body": "财经资讯返回后推荐“看市场温度—查账户影响—生成配置方案”的下一步动作。", "meta": "产品 / Agent 编排 · 下个迭代待确认", "status": "target"},
+        {"index": "P0", "eyebrow": "MEASURE", "title": "补齐复用与结果指标", "body": "新增调用成功率、次日/7 日复用、会话转化、下游工具点击与结果采纳。", "meta": "数据 / 平台 · 口径与负责人待确认", "status": "target"},
+        {"index": "P1", "eyebrow": "ACTIVATE", "title": "激活一次性专业工具", "body": "优先挑选诊断、配置、回测三类工具，设计可复现问题模板和连续任务示例。", "meta": "运营 / 产品 · 以二次调用率验收", "status": "target"},
+        {"index": "P1", "eyebrow": "CLEAN DATA", "title": "统计中独立标注工具调用", "body": "时间查询等基础工具单列，业务榜单默认展示剔除后的有效调用，保留原始总量供审计。", "meta": "平台统计 · 规则待评审", "status": "target"}
+      ],
+      "callout": {"label": "优先级原则", "text": "先让高频入口带动专业能力复用，再判断是否需要扩充更多工具。", "status": "inferred"}
+    },
+    {
+      "id": "gaps",
+      "kicker": "07 · DATA GAPS",
+      "title": "现有榜单无法回答结果",
+      "lead": "调用次数只能证明工具被触发，不能证明调用成功、用户满意、任务完成或产生业务价值。",
+      "layout": "evidence",
+      "tone": "soft",
+      "items": [
+        {"index": "01", "eyebrow": "DENOMINATOR", "title": "缺用户与会话分母", "body": "无法计算人均调用、用户留存、会话内转化，也无法区分一人多次与多人一次。", "source": "当前页面仅展示工具名称与调用次数 · 采集于 2026-08-03", "status": "missing"},
+        {"index": "02", "eyebrow": "QUALITY", "title": "缺成功与体验信号", "body": "未展示成功率、错误率、延迟、返回质量或用户反馈。", "source": "当前调用统计页面字段审计 · 2026-08-03", "status": "missing"},
+        {"index": "03", "eyebrow": "OUTCOME", "title": "缺结果与业务闭环", "body": "无法判断结果是否被阅读、采纳、分享，或是否带来后续交易、咨询与服务行为。", "source": "当前调用统计页面字段审计 · 2026-08-03", "status": "missing"},
+        {"index": "04", "eyebrow": "CHANNEL", "title": "缺来源渠道拆分", "body": "未展示调用来自 CLI、外部平台、自有系统还是具体 Agent。", "source": "当前调用统计页面字段审计 · 2026-08-03", "status": "missing"}
+      ],
+      "callout": {"label": "审慎结论", "text": "本报告判断的是调用结构，不是用户价值、模型质量或商业化效果。", "status": "confirmed"}
+    },
+    {
+      "id": "appendix",
+      "kicker": "08 · AUDIT TRAIL",
+      "title": "长尾八项完整保留",
+      "lead": "以下是顺延 TOP10 后的剩余 8 个非时间工具，均为 1 次；与 TOP10 合并后完整覆盖 23 次非时间调用。",
+      "layout": "cards",
+      "tone": "light",
+      "items": [
+        {"index": "11", "title": "家庭结构分析", "body": "1 次。", "source": "调用统计第 2 页", "status": "confirmed"},
+        {"index": "12", "title": "策略交易成分", "body": "1 次。", "source": "调用统计第 2 页", "status": "confirmed"},
+        {"index": "13", "title": "基金交易限制信息", "body": "1 次。", "source": "调用统计第 2 页", "status": "confirmed"},
+        {"index": "14", "title": "现金流分析与财务规划", "body": "1 次。", "source": "调用统计第 2 页", "status": "confirmed"},
+        {"index": "15", "title": "基金净值历史", "body": "1 次。", "source": "调用统计第 2 页", "status": "confirmed"},
+        {"index": "16", "title": "实时资讯AI解读", "body": "1 次。", "source": "调用统计第 2 页", "status": "confirmed"},
+        {"index": "17", "title": "搜索投顾内容", "body": "1 次。", "source": "调用统计第 2 页", "status": "confirmed"},
+        {"index": "18", "title": "批量获取基金详情", "body": "1 次。", "source": "调用统计第 2 页", "status": "confirmed"}
+      ],
+      "callout": {"label": "完整性校验", "text": "TOP10 15 次 + 长尾 8 次 = 23 次；与剔除时间查询后的分析基数一致。", "status": "confirmed"}
+    }
+  ],
+  "sources": [
+    {"label": "用户提供入口", "detail": "https://qieman.com/mcp/landing · 访问后进入盈米 AI 开放平台"},
+    {"label": "个人中心调用统计", "detail": "https://qieman.com/mcp/account · 盈米 MCP → 调用统计 → 近 7 天 · 采集于 2026-08-03"},
+    {"label": "统计页两页榜单", "detail": "第一页 10 项、第二页 9 项；原始合计 26 次，包含“获取当前时间”3 次"}
+  ],
+  "openQuestions": [
+    {"title": "近 7 天的精确起止时刻", "detail": "页面只展示“近7天”，未显示时区、起止时刻或是否包含当日。"},
+    {"title": "调用是否全部成功", "detail": "页面未展示成功、失败、取消或重试口径。"},
+    {"title": "工具间是否属于同一会话", "detail": "缺少会话链路，因此不能把工具组合当成已验证的连续用户旅程。"}
+  ]
+}
