@@ -70,7 +70,13 @@ if (htmlPath) {
     ['<html lang="zh-CN">', "HTML 缺少中文语言声明"],
     ['name="viewport"', "HTML 缺少 viewport"],
     ['id="reading-progress"', "HTML 缺少阅读进度"],
+    ['id="page-rail"', "HTML 缺少分屏页轨"],
+    ['aria-label="返回报告顶部"', "HTML 缺少顶部回顶入口"],
     ['id="report-data"', "HTML 未嵌入报告数据"],
+    ['scroll-snap-type:y mandatory', "HTML 缺少强制滚动吸附"],
+    ['height:calc(100svh - var(--nav-h))', "HTML 缺少固定分屏高度"],
+    ['"ArrowDown","ArrowRight","PageDown"', "HTML 缺少向后逐屏键盘导航"],
+    ['event.key==="Home"', "HTML 缺少首屏键盘导航"],
     ['@media(max-width:720px)', "HTML 缺少移动端规则"],
     ['prefers-reduced-motion', "HTML 未尊重减少动态偏好"],
   ]) {

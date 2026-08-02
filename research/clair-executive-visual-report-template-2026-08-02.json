@@ -14,7 +14,7 @@
   "hero": {
     "conclusion": "这不是一套固定章节，而是一台把证据、判断与行动编排成管理层视觉报告的生成引擎。",
     "thesis": "未来只需提供原始材料；Skill 先审证据、提炼中心判断，再选择合适的结构模块，最终生成与原报告同类的独立 HTML，并完成移动端与发布校验。",
-    "badges": ["任意材料输入", "证据化叙事", "9 类可视模块", "HTML 一键生成"]
+    "badges": ["任意材料输入", "一屏一模块", "键盘逐屏切换", "HTML 一键生成"]
   },
   "sections": [
     {
@@ -79,7 +79,7 @@
           "index": "04",
           "eyebrow": "RENDER",
           "title": "统一模板渲染九类模块",
-          "body": "同一份 JSON 进入固定视觉系统，自动生成导航、状态标签、交互与打印样式。",
+          "body": "同一份 JSON 进入固定视觉系统，自动生成一屏一模块、滚动吸附、键盘逐屏切换、顶部回顶、状态标签与打印样式。",
           "bullets": ["无 CDN", "响应式", "可离线打开"],
           "status": "confirmed"
         },
@@ -122,7 +122,7 @@
       "layout": "metrics",
       "tone": "light",
       "items": [
-        {"metric": "9", "title": "结构模块", "body": "卡片、指标、架构、时间线、流程、证据、对比、演示、行动。", "meta": "Skill 1.0.0 模板定义", "status": "confirmed"},
+        {"metric": "9", "title": "结构模块", "body": "卡片、指标、架构、时间线、流程、证据、对比、演示、行动。", "meta": "Skill 1.1.0 模板定义", "status": "confirmed"},
         {"metric": "4", "title": "证据状态", "body": "已确认、判断、待补、目标态，避免把推断包装成事实。", "meta": "内容契约 v1", "status": "confirmed"},
         {"metric": "390px", "title": "移动端基线", "body": "所有模块在手机宽度下转为单列，保持导航、交互与可读性。", "meta": "质量门定义", "status": "confirmed"},
         {"metric": "0", "title": "外部运行依赖", "body": "不依赖 CDN、远端字体或前端框架，生成后可独立打开。", "meta": "模板源码审计", "status": "confirmed"}
@@ -176,7 +176,7 @@
       "tone": "light",
       "items": [
         {"index": "01", "eyebrow": "REFERENCE REPORT", "title": "《盈米 AI 产品实践》", "body": "用于抽象叙事结构、视觉语言、深浅节奏、卡片系统和连续场景 Demo。", "source": "clair-ai-studio/research/qieman-ai-product-practice-2026-07-30.md 与历史明文页面", "status": "confirmed"},
-        {"index": "02", "eyebrow": "GENERATED SKILL", "title": "Clair Executive Visual Report 1.0.0", "body": "包含 SKILL.md、内容契约、质量门、HTML 模板、生成器和校验器。", "source": "skills/clair-executive-visual-report · 2026-08-02", "status": "confirmed"}
+        {"index": "02", "eyebrow": "GENERATED SKILL", "title": "Clair Executive Visual Report 1.1.0", "body": "包含 SKILL.md、内容契约、质量门、固定分屏 HTML 模板、键盘与滚动导航、生成器和校验器。", "source": "skills/clair-executive-visual-report · 2026-08-02", "status": "confirmed"}
       ],
       "callout": {
         "label": "发布边界",
@@ -245,7 +245,7 @@
     },
     {
       "label": "Clair Executive Visual Report Skill",
-      "detail": "skills/clair-executive-visual-report · v1.0.0 · 2026-08-02"
+      "detail": "skills/clair-executive-visual-report · v1.1.0 · 2026-08-02"
     }
   ],
   "openQuestions": [

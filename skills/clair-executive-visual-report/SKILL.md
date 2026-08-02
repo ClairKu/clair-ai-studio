@@ -5,7 +5,7 @@ description: 将任意 Word、PDF、PPT、Markdown、网页摘录、聊天记录
 
 # Clair Executive Visual Report
 
-版本：1.0.0
+版本：1.1.0
 
 ## 目标
 
@@ -20,7 +20,7 @@ description: 将任意 Word、PDF、PPT、Markdown、网页摘录、聊天记录
 5. 选择模块：总图用 `architecture`，阶段变化用 `timeline`，责任链用 `process`，量化结果用 `metrics`，事实材料用 `evidence`，对比用 `comparison`，行动用 `actions`，体验走查用 `demo`。
 6. 运行生成器：`node scripts/render_report.mjs report.json <output-dir>`。
 7. 运行质量门：`node scripts/validate_report.mjs report.json <output-dir>/index.html`。
-8. 打开 HTML，检查桌面与 390px 手机布局、图片加载、滚动导航、交互标签、无横向溢出和中文编码。遵循 [references/quality-gates.md](references/quality-gates.md)。
+8. 打开 HTML，检查桌面与 390px 手机布局、固定分屏高度、滚动吸附、上下左右键逐屏切换、顶部品牌回顶、右侧页轨、图片加载、交互标签、无横向溢出和中文编码。遵循 [references/quality-gates.md](references/quality-gates.md)。
 9. 若用户要求发布，保留研究源稿与 JSON，复制页面和资产至站点，登记唯一工作台入口，构建、测试、推送并验证生产 URL。
 
 ## 内容编排
@@ -41,7 +41,8 @@ description: 将任意 Word、PDF、PPT、Markdown、网页摘录、聊天记录
 直接使用 `assets/report-template.html`，不要重新手写整套 CSS。模板内置：
 
 - 宋体/衬线大标题、无衬线正文、紫色渐变强调、深色演示舞台、档案卡片；
-- 粘性章节导航、滚动显现、阅读进度、移动端抽屉、Demo 标签切换；
+- 固定一屏一模块、滚动吸附、上下左右键与 PageUp/PageDown 逐屏切换、Home/End 首尾定位；
+- 粘性章节导航、顶部品牌一键回顶、右侧可点击页轨、页码、阅读进度、移动端抽屉、Demo 标签切换；
 - `cards`、`metrics`、`architecture`、`timeline`、`process`、`evidence`、`comparison`、`demo`、`actions` 九类模块；
 - 打印样式、减少动态偏好、图片懒加载与 390px 响应式布局。
 
@@ -66,6 +67,6 @@ description: 将任意 Word、PDF、PPT、Markdown、网页摘录、聊天记录
 - 缺少标题、中心判断、截止日期、章节或证据边界；
 - 重复章节 ID、未知布局、无来源的关键数字；
 - `target` 内容没有状态标签；
-- HTML 未嵌入报告数据、导航、阅读进度或响应式样式；
+- HTML 未嵌入报告数据、分屏导航、键盘切换、顶部回顶、阅读进度或响应式样式；
 - 页面存在外部 CDN 依赖，或生产资源引用不存在；
 - 敏感正文以明文进入公开仓库。
