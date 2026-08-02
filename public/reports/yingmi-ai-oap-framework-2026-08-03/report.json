@@ -1,18 +1,18 @@
 {
   "meta": {
     "title": "盈米 AI 开放平台｜2026/8/3 项目汇报",
-    "subtitle": "按飞书文档十项框架梳理：从年度目标到问题回顾，平台已跨过能力验证期，进入规模放大与商化验证阶段",
+    "subtitle": "按飞书文档十项框架梳理：年度目标、关键举措、用户增长、新流量入口、产品规划、能力建设、AI 实验室、商化准备、行业机会与问题回顾",
     "eyebrow": "盈米 AI 开放平台 · OAP PROJECT REPORT",
     "date": "2026-08-03",
-    "cutoff": "2026-08-03（汇报材料日；分项数据口径见来源标注，实时经营数据截至 2026-07-31）",
+    "cutoff": "2026-08-03（飞书文档 revision 1934；分项时间见来源）",
     "owner": "盈米 AI 开放平台",
     "confidentiality": "内部管理汇报 · 口径分项标注",
     "accent": "#8067e8"
   },
   "hero": {
-    "conclusion": "累计调用 9.19M（OKR 70.7%）、累计用户 8,560（85.6%）、MAU 1,812（90.6%）；平台跨过能力验证期，下半场主线是规模放大与商化验证。",
-    "thesis": "按飞书文档十项框架汇报：年度目标已逼近阶段线，关键举措以「两类接入模式 + 四个持续」放大势能，用户增长可视化显示调用与用户双升，新流量入口、产品规划、能力建设、AI 实验室、商化准备、行业机会与问题回顾七线同步推进。",
-    "badges": ["累计调用 9.19M", "累计用户 8,560", "MAU 1,812", "正式能力 69 项", "AI 实验室完成度 0%"]
+    "conclusion": "申请用户与月活已完成年度目标八成以上，累计调用完成 70.7%；下一阶段要把微信、千问等新入口转成可追溯、可经营的服务闭环。",
+    "thesis": "当前增长来自「两类接入模式 + 四个持续举措」。能力侧已形成 MCP、Skill、Agent 三层建设方向，但 AI 实验室、OAuth/SSO、商化配套和稳定资源仍是明确缺口。",
+    "badges": ["申请用户 8,569", "累计调用 9,194,916", "月活 1,812", "微信近 7 日日活 1.37 万", "AI 实验室完成度 0%"]
   },
   "sections": [
     {
@@ -23,12 +23,12 @@
       "layout": "metrics",
       "tone": "soft",
       "items": [
-        {"title": "累计调用", "metric": "9,194,916", "body": "年末正式 OKR 13,000,000，完成度 70.7%；1,000 万为阶段线，已达 91.9%。", "meta": "累计口径 · 截至 2026-07-31 · STARGATE 看板", "status": "confirmed", "source": "OAP 项目汇报研究源稿 · 2026-08-03"},
-        {"title": "累计用户", "metric": "8,560", "body": "申请用户年末目标 10,000，完成度 85.6%。", "meta": "累计口径 · 截至 2026-07-31 · STARGATE 看板", "status": "confirmed", "source": "OAP 项目汇报研究源稿 · 2026-08-03"},
-        {"title": "月活用户 MAU", "metric": "1,812", "body": "年末目标 2,000，完成度 90.6%；WAU 996（36% 周活率），复用用户 2,770（54% 复用率）。", "meta": "月度口径 · 截至 2026-07-31 · STARGATE 看板", "status": "confirmed", "source": "OAP 项目汇报研究源稿 · 2026-08-03"},
-        {"title": "AI 实验室经营指标", "metric": "0%", "body": "目标用户 5,000 个、应用 1,000 个，当前完成度 0%；实验室定位与 OAP 官网结合仍在规划。", "meta": "目标态 · 截至 2026-08-03", "status": "target", "source": "飞书文档《8/3 盈米 AI 开放平台项目汇报》· 2026-08-03"}
+        {"title": "累计调用", "metric": "70.7%", "body": "当前 9,194,916；目标 13,000,000。", "meta": "9,194,916 ÷ 13,000,000 = 70.73%", "status": "confirmed", "source": "飞书源稿 P1 · revision 1934"},
+        {"title": "申请用户", "metric": "85.7%", "body": "当前 8,569；目标 10,000。", "meta": "8,569 ÷ 10,000 = 85.69%；源稿显示 85.6%", "status": "confirmed", "source": "飞书源稿 P1 · revision 1934"},
+        {"title": "月活用户", "metric": "90.6%", "body": "当前 1,812；目标 2,000。", "meta": "1,812 ÷ 2,000 = 90.60%", "status": "confirmed", "source": "飞书源稿 P1 · revision 1934"},
+        {"title": "AI 实验室", "metric": "0%", "body": "目标用户 5,000、应用 1,000；源稿未给实际值。", "meta": "完成度口径 · 2026-08-03", "status": "missing", "source": "飞书源稿 P1 · revision 1934"}
       ],
-      "callout": {"label": "目标缺口", "text": "规模指标逼近阶段线，但价值指标（任务完成、复用、付费）与 AI 实验室经营指标是 H2 必须补齐的两类缺口。", "status": "inferred"}
+      "callout": {"label": "目标缺口", "text": "还差 1,431 名申请用户、188 名月活用户和 3,805,084 次调用；实验室需先建立可计量基线。", "status": "confirmed"}
     },
     {
       "id": "key-map",
@@ -39,7 +39,7 @@
       "tone": "dark",
       "items": [
         {"index": "01", "eyebrow": "CORE ENGINE", "title": "四个持续运转", "body": "持续建设、持续抢先、持续合作、持续曝光，为平台持续注入能力、机会、伙伴与声量。", "bullets": ["建设供给能力", "抢先建立占位", "合作扩展生态", "曝光积累品牌"], "status": "confirmed", "source": "飞书文档《8/3 盈米 AI 开放平台项目汇报》· 2026-08-03"},
-        {"index": "02", "eyebrow": "PLATFORM CORE", "title": "盈米 AI 开放平台", "body": "承接四个持续的投入，完成能力标准化、场景编排与服务输出；69 项正式能力已形成五类 Scope。", "bullets": ["MCP 标准连接", "Skills 专业流程", "Agent 完整任务"], "status": "confirmed", "source": "OAP 项目汇报研究源稿 · 2026-08-03"},
+        {"index": "02", "eyebrow": "PLATFORM CORE", "title": "盈米 AI 开放平台", "body": "承接四个持续的投入，完成能力标准化、场景编排与服务输出。", "bullets": ["MCP 标准连接", "Skills 专业流程", "Agent 完整任务"], "status": "confirmed", "source": "飞书源稿 P2 · revision 1934"},
         {"index": "03", "eyebrow": "MOMENTUM MULTIPLIER", "title": "两类接入模式放大", "body": "大厂 AI 平台接入与 C 端流量平台产品接入，把平台能力送到更多入口、场景与群体。", "bullets": ["大厂 AI 平台接入", "C 端产品接入", "触达更多群体"], "status": "confirmed", "source": "飞书文档《8/3 盈米 AI 开放平台项目汇报》· 2026-08-03"}
       ],
       "callout": {"label": "正确关系", "text": "四个持续 → 盈米 AI 开放平台 → 两类接入模式 → 更多群体 → 势能放大。", "status": "confirmed"}
@@ -52,7 +52,7 @@
       "layout": "metrics",
       "tone": "light",
       "items": [
-        {"title": "持续建设", "metric": "3 层能力", "body": "MCP · Skills · Agent 三层能力体系；69 项正式能力按五类 Scope 管理。", "meta": "标准连接 → 专业流程 → 完整任务", "status": "confirmed", "source": "OAP 项目汇报研究源稿 · 2026-08-03"},
+        {"title": "持续建设", "metric": "3 层能力", "body": "MCP · Skills · Agent 三层能力体系。", "meta": "标准连接 → 专业流程 → 完整任务", "status": "confirmed", "source": "飞书源稿 P2 · revision 1934"},
         {"title": "持续抢先", "metric": "5 项首发", "body": "首个财富 MCP Server；首个理财测评集 / 投顾智能立体模型；首个投顾龙虾 OpenClaw；首批千问 MCP / A2A 接入合作商；首批微信 AI 接入合作方。", "meta": "首个 / 首批按材料原样呈现", "status": "confirmed", "source": "飞书文档《8/3 盈米 AI 开放平台项目汇报》· 2026-08-03"},
         {"title": "持续合作", "metric": "8 类伙伴", "body": "阿里云 / 百炼、百度、火山引擎 / 扣子、华为 / 小艺、夸克 / 千问、腾讯 / 微信 / WorkBuddy、智谱、金融机构。", "meta": "另有活动 10 场+、交流机构 30 家+", "status": "confirmed", "source": "飞书文档《8/3 盈米 AI 开放平台项目汇报》· 2026-08-03"},
         {"title": "持续曝光", "metric": "8,965 篇", "body": "公众号原创 50+、阅读 3 万+、全网渠道发布 300+ 篇；盈米 AI 相关报道 8,965 篇（其中 MCP 3,329 篇）；互动 300 万+、浏览 1,000 万+。", "meta": "内部传播监测口径 · 2025-03—2026-07", "status": "confirmed", "source": "盈米 AI 传播证据报告 · 2026-07-31"}

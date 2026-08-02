@@ -1,0 +1,230 @@
+{
+  "meta": {
+    "title": "盈米 AI 开放平台 (OAP) 项目汇报",
+    "subtitle": "年度目标与关键举措、用户增长、系统建设及后续商业化规划",
+    "eyebrow": "盈米AI开放平台 / PROJECT REPORT",
+    "date": "2026-08-03",
+    "cutoff": "2026-08-03",
+    "owner": "盈米AI开放平台团队",
+    "confidentiality": "内部",
+    "accent": "#8067e8"
+  },
+  "hero": {
+    "conclusion": "盈米AI开放平台(OAP)能力开放已初见成效，通过MCP、Skills和Agent三维能力矩阵接入超级流量平台，成功入围千问首批第三方品牌智能体，下一步将打造AI实验室并探索商业化落地。",
+    "thesis": "自2025年3月项目启动以来，完成了核心内部能力建设并逐步向外部生态扩展。当前面临如何破圈获取新流量、应对AI协议快速更迭、以及实现商业化验证等挑战。",
+    "badges": [
+      "项目进展",
+      "能力建设",
+      "生态合作",
+      "流量获取"
+    ]
+  },
+  "sections": [
+    {
+      "id": "okr-status",
+      "kicker": "01 · OKR STATUS",
+      "title": "目标实现与缺口",
+      "lead": "记录当前的申请用户、月活、调用量等关键经营指标 (目标数据截至 2026-08-02)",
+      "layout": "metrics",
+      "tone": "light",
+      "items": [
+        {
+          "index": "01",
+          "title": "申请用户",
+          "metric": "85.6%",
+          "meta": "8,569 / 目标 10,000",
+          "status": "confirmed"
+        },
+        {
+          "index": "02",
+          "title": "月活用户",
+          "metric": "90.6%",
+          "meta": "1,812 / 目标 2,000",
+          "status": "confirmed"
+        },
+        {
+          "index": "03",
+          "title": "累计调用",
+          "metric": "70.7%",
+          "meta": "9,194,916 / 目标 13,000,000",
+          "status": "confirmed"
+        },
+        {
+          "index": "04",
+          "title": "AI实验室指标",
+          "metric": "0%",
+          "meta": "用户5,000，应用1,000",
+          "status": "target"
+        }
+      ]
+    },
+    {
+      "id": "key-initiatives",
+      "kicker": "02 · KEY INITIATIVES",
+      "title": "关键举措与模式",
+      "lead": "放大势能：结合大厂AI平台与C端流量平台产品，持续挖掘新机会",
+      "layout": "cards",
+      "tone": "light",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "CAPABILITY",
+          "title": "持续建设基础能力",
+          "body": "建设 MCP、Skills、Agent 三维能力矩阵，构建可信的金融 AI 服务基础设施。"
+        },
+        {
+          "index": "02",
+          "eyebrow": "MILESTONE",
+          "title": "持续抢占行业先机",
+          "body": "发布首个财富 MCP Server、理财测评集及投顾龙虾 Openclaw。入围首批千问 MCP/A2A 接入合作商，并成为首批微信 AI 接入合作方。"
+        },
+        {
+          "index": "03",
+          "eyebrow": "ECOSYSTEM",
+          "title": "持续拓展生态合作",
+          "body": "合作方包含阿里云/百炼、百度、火山引擎/扣子、华为/小艺、夸克/千问、腾讯/微信/Workbuddy、智谱及金融机构。"
+        },
+        {
+          "index": "04",
+          "eyebrow": "MARKETING",
+          "title": "持续曝光全网声量",
+          "body": "全网媒体关于盈米 AI 的报道达8,965篇（其中盈米 MCP 占3,329篇），全网互动超300万、浏览超1,000万；自有公众号阅读3万+。"
+        }
+      ]
+    },
+    {
+      "id": "journey-metrics",
+      "kicker": "03 · JOURNEY METRICS",
+      "title": "用户增长历程与里程碑",
+      "lead": "能力开放 → 生态铺设 → 行业影响 → 产品化 → 多端交付与商业验证",
+      "layout": "evidence",
+      "tone": "soft",
+      "items": [
+        {
+          "index": "01",
+          "title": "历程・里程碑：全网曝光与标签形成",
+          "body": "从 2025 年 3 月启动以来，经历数次重要发布：上线官网、入驻阿里云/火山/百度等大厂生态、发布投顾智能体模型与测评集。在 2026 年中成功切入千问和微信等超级流量生态，实现从B端渗透到C端触达的闭环。",
+          "image": "assets/journey-metrics.png",
+          "alt": "OAP 历程指标趋势",
+          "source": "盈米AI开放平台 · 2026-08-02",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "new-traffic",
+      "kicker": "04 · NEW TRAFFIC",
+      "title": "新流量：微信与千问合作",
+      "lead": "结合微信小程序生态与千问 Agent 平台，打通“新用户获取 → AI服务 → 交易”的闭环。",
+      "layout": "cards",
+      "tone": "light",
+      "items": [
+        {
+          "index": "01",
+          "title": "微信：Skills ＋ 小程序模式",
+          "body": "将且慢服务转为 AI，嵌入微信 Agent 并以小程序承接服务。小程序目前累积用户 8 万+，近7日日活达 1.37 万，已获微信小微首批试点资质。",
+          "image": "assets/wechat-growth.png",
+          "alt": "微信小程序日活及新增用户趋势"
+        },
+        {
+          "index": "02",
+          "title": "千问：MCP 模式与 A2A 模式",
+          "body": "在千问 Agent 中调用盈米 Skills/MCP；盈米且慢小顾入围千问首批合作第三方品牌智能体，预计 8 月完成联合宣发，用户可在千问获取且慢服务并最终完成交易闭环。",
+          "image": "assets/qianwen-coop.png",
+          "alt": "千问合作与 A2A 模式截图"
+        }
+      ]
+    },
+    {
+      "id": "system-architecture",
+      "kicker": "05 · ARCHITECTURE",
+      "title": "能力建设与系统架构",
+      "lead": "新能力体系采用“业务域、能力类型、权限和生命周期”三维分类，对接内外部服务矩阵",
+      "layout": "architecture",
+      "tone": "light",
+      "items": [
+        {
+          "index": "01",
+          "title": "系统关系",
+          "body": "以 Stargate 为后台治理核心，链接 Agent/Skills 平台、官网及外部调用端。身份鉴权规划从 API Key 逐步过渡至 OAuth，实现全链路的调用追溯与合规审计。",
+          "image": "assets/system-arch.png",
+          "alt": "系统架构与交互关系图"
+        },
+        {
+          "index": "02",
+          "title": "服务架构",
+          "body": "包含 AI 开放平台、AI 实验室、AI 小顾、AI 工作台的关联。MCP 已对外输出，内部正搭建自有 Agent runtime，并逐步把散落的 Skills 纳入统一治理体系。",
+          "image": "assets/service-arch.png",
+          "alt": "AI开放平台各服务关系"
+        }
+      ]
+    },
+    {
+      "id": "next-steps",
+      "kicker": "06 · NEXT STEPS",
+      "title": "下一步：AI 实验室与商业化",
+      "lead": "解决单场景破圈速度有限的问题，打造全民参与的 AI 工具场域",
+      "layout": "evidence",
+      "tone": "light",
+      "items": [
+        {
+          "index": "01",
+          "title": "AI 实验室场域",
+          "body": "集众人之力搭建的探索环境。通过结合自有模型、业务数据及接口，支持用户低代码构建应用，并快速分发到自身工作流中，兼顾破圈与风险规避。",
+          "image": "assets/ai-lab-arch.png",
+          "alt": "AI 实验室业务关系图",
+          "source": "AI 实验室规划 · 2026-08",
+          "status": "target"
+        },
+        {
+          "index": "02",
+          "title": "商业化准备与验证",
+          "body": "响应超过 30 家机构的付费咨询需求。开始探索向外输出 Agent 模式，同时制定个人版与企业版收费方案，配套积分体系与用户激励策略。",
+          "source": "商业化方案规划 · 2026-08",
+          "status": "target"
+        }
+      ]
+    },
+    {
+      "id": "reflection",
+      "kicker": "07 · REFLECTION",
+      "title": "问题回顾与挑战",
+      "lead": "向内看，技术演进与资源协同仍存在瓶颈",
+      "layout": "cards",
+      "tone": "dark",
+      "items": [
+        {
+          "index": "01",
+          "title": "技术架构迭代压力",
+          "body": "AI 协议与技术框架更迭快，需频繁升级并解决多套协议兼容问题（如 SSE -> HTTP，API Key -> OAuth）。"
+        },
+        {
+          "index": "02",
+          "title": "团队资源与分工",
+          "body": "复合型 AI 人才难招，产品需持续补位商务运营工作；跨多个 BU 与团队间的分工和资源协同面临稳定性挑战。"
+        },
+        {
+          "index": "03",
+          "title": "数据与合规评估",
+          "body": "需跟进 MCP 调用质量；金融数据采购与外部合作（如股票、财报、私募数据等）仍需进行合规评估与推进。"
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "title": "8/3 盈米AI開项平台项目汇报",
+      "url": "https://yingmi.feishu.cn/wiki/ELoLwjzXmidhs6kscvbczByYnod",
+      "provider": "盈米AI开放平台团队",
+      "date": "2026-08-03"
+    }
+  ],
+  "openQuestions": [
+    {
+      "question": "AI 实验室的具体商业化计费标准与结算体系何时上线？"
+    },
+    {
+      "question": "在跨团队与 BU 协同中，如何解决当前的资源瓶颈与分工界限模糊问题？"
+    }
+  ]
+}
