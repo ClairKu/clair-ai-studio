@@ -1,11 +1,11 @@
 ---
 name: clair-executive-visual-report
-description: 将任意 Word、PDF、PPT、Markdown、网页摘录、聊天记录或零散业务材料，整理成与《盈米 AI 产品实践》同类的证据化、管理层友好、图文并茂、移动端响应式单页 HTML 报告。用户要求套用 Clair 报告模板、制作视觉报告、管理汇报、项目复盘、产品实践报告、研究报告、材料整合、发布到 Clair AI Studio，或要求“做成和盈米 AI 产品实践一样的效果”时使用。
+description: 将任意 Word、PDF、PPT、Markdown、网页摘录、聊天记录或零散业务材料，整理成与《盈米 AI 产品实践》同类的证据化、管理层友好、图文并茂、移动端响应式单页 HTML 报告。用户说“用 CLAIR 模版”“用 CLAIR 模板”“套用 Clair 报告模板”，或要求制作视觉报告、管理汇报、项目复盘、产品实践报告、研究报告、材料整合、发布到 Clair AI Studio、做成和盈米 AI 产品实践一样的效果时使用。
 ---
 
 # Clair Executive Visual Report
 
-版本：1.3.0
+版本：1.3.1
 
 ## 目标
 
