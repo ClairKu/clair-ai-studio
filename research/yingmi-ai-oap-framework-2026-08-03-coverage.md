@@ -2,7 +2,7 @@
 
 主源：飞书《8/3 盈米AI开放平台项目汇报》  
 链接：https://yingmi.feishu.cn/wiki/ELoLwjzXmidhs6kscvbczByYnod  
-版本：revision 1934  
+版本：revision 1978
 边界：内部管理汇报；不使用主源之外的价格、成交、能力数量、审计比例或竞品数据。
 
 | 原材料 / 要点 | 状态 | 报告去向 |
@@ -10,22 +10,23 @@
 | P1：申请用户 8,569 / 10,000 | confirmed | 01 年度目标 |
 | P1：月活 1,812 / 2,000 | confirmed | 01 年度目标 |
 | P1：累计调用 9,194,916 / 13,000,000 | confirmed | 01 年度目标 |
-| P1：实验室 5,000 用户、1,000 应用、完成度 0% | missing / target | 01、08 |
+| P1：实验室 5,000 用户、1,000 应用、完成度 0% | missing / target | 01、09 |
 | P2：两类接入模式、四个持续 | confirmed | 02、03 |
 | P2：建设、首发、合作、传播、活动数据 | confirmed | 03 |
-| P3：2025-03 至 2026-08 里程碑 | confirmed | 04 |
-| P5 微信：Skills + 小程序及 8 万+、6,000+、1 万+、1.37 万 | confirmed | 05 |
-| P6 千问：MCP、A2A、连接广场、预计 8 月 10 日宣发 | confirmed / target | 05 |
-| P6 平台矩阵：MCP 9/9、Skills 4/9、Agent 4/9 | confirmed | 05 |
-| P7：业务域、能力类型、权限和生命周期 | confirmed | 06 |
-| P8：MCP 修复与新增、Skill 收敛、Agent runtime | confirmed | 07 |
-| P9：财报 MCP、Vesta、火富牛 | confirmed | 07 |
-| P10—P12：系统关系、SSO、OAuth、Stargate 治理 | confirmed / target | 06 |
-| P13—P14：实验室目标、低代码、商业模式、Agent 输出缺口 | confirmed / target / missing | 08 |
-| P15：30+需求、个人 / 企业收费、积分、运营、机构合作 | missing / target | 09 |
-| 金融机构需求：400+ 总量，分布与名单待补 | missing | 10 |
-| 竞品分析：可信基础设施、账户闭环、控制面、服务飞轮 | confirmed | 10 |
-| 向内看：技术、资源、用户、数据 | confirmed | 11 |
+| P2：2025.09—2026.04 四项行业认可 | confirmed | 04 |
+| P3：2025-03 至 2026-08 里程碑；可视化链接更新为 `?v=6cfb8df` | confirmed | 05 |
+| P5 微信：Skills + 小程序及 8 万+、6,000+、1 万+、1.37 万 | confirmed | 06 |
+| P6 千问：MCP、A2A、连接广场、预计 8 月 10 日宣发 | confirmed / target | 06 |
+| P6 平台矩阵：MCP 9/9、Skills 4/9、Agent 4/9 | confirmed | 06 |
+| P7：业务域、能力类型、权限和生命周期 | confirmed | 07 |
+| P8：MCP 修复与新增、Skill 收敛、Agent runtime | confirmed | 08 |
+| P9：财报 MCP、Vesta、火富牛 | confirmed | 08 |
+| P10—P12：系统关系、SSO、OAuth、Stargate 治理 | confirmed / target | 07 |
+| P13—P14：实验室目标、低代码、商业模式、Agent 输出缺口 | confirmed / target / missing | 09 |
+| P15：30+需求、个人 / 企业收费、积分、运营、机构合作 | missing / target | 10 |
+| 金融机构需求：400+ 总量，分布与名单待补 | missing | 11 |
+| 竞品分析：可信基础设施、账户闭环、控制面、服务飞轮 | confirmed | 11 |
+| 向内看：技术、资源、用户、数据 | confirmed | 12 |
 
 ## 数字双重校验
 
