@@ -16,7 +16,7 @@ const STORAGE_KEY = "clair-service-report-workbench-v1";
 const AUTH_KEY = "clair-service-report-workbench-access";
 const VIEW_KEY = "clair-service-report-workbench-view";
 const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
-const DATA_VERSION = 15;
+const DATA_VERSION = 16;
 
 const WORK_TYPES = [
   { id: "requirement-review", name: "需求评审" },
@@ -114,6 +114,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "clair-executive-visual-report-template-2026-08-02",
+      groupId: "ai-workbench",
+      title: "Clair 报告模板｜从任意材料到视觉决策报告",
+      url: "https://clairku.github.io/clair-ai-studio/reports/clair-executive-visual-report-template-2026-08-02/",
+      preview: "clair-executive-visual-report-template-2026-08-02.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-02T15:30:00.000Z",
+      source: "抽象自《盈米 AI 产品实践》｜内容契约 × 九类模块 × HTML 生成器 × 质量门",
+      access: "production",
+      workType: "reporting",
+      tags: ["AI 工作台", "Skills", "经营汇报", "产品规划", "HTML", "生产"],
+    },
     {
       id: "yingmi-ai-communications-evidence-report-2026-07-31",
       groupId: "ai-platform",
