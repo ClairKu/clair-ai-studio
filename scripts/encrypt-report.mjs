@@ -13,11 +13,12 @@ const args = Object.fromEntries(
 const password = process.env.REPORT_PASSWORD;
 const input = args.input;
 const output = args.output;
+const autoUnlock = args["auto-unlock"] === "true";
 const title = args.title || "加密报告";
-const subtitle = args.subtitle || "输入访问口令后查看完整内容";
+const subtitle = args.subtitle || (autoUnlock ? "无需输入口令，点击下方按钮即可查看完整内容" : "输入访问口令后查看完整内容");
 const eyebrow = args.eyebrow || "INTERNAL REPORT";
 const mark = args.mark || "YM";
-const note = args.note || "报告正文已加密，将在当前浏览器内完成解锁。";
+const note = args.note || (autoUnlock ? "报告将在当前浏览器中打开。" : "报告正文已加密，将在当前浏览器内完成解锁。");
 
 if (!password || !input || !output) {
   throw new Error(
@@ -93,7 +94,7 @@ const shell = `<!doctype html>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
   <meta name="theme-color" content="#f5f3ff">
-  <title>${escapeHtml(title)}｜访问验证</title>
+  <title>${escapeHtml(title)}｜${autoUnlock ? "开启报告" : "访问验证"}</title>
   <style>
     *{box-sizing:border-box;font-family:"Songti SC",STSong,Georgia,serif}
     body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;color:#171525;background:radial-gradient(circle at 78% 18%,#e5ddff 0,transparent 32%),linear-gradient(145deg,#faf9ff,#f1edff)}
@@ -103,10 +104,12 @@ const shell = `<!doctype html>
     h1{margin:10px 0 8px;font-size:36px;line-height:1.18;letter-spacing:-.035em}
     p{margin:0;color:#657086;font-size:15px;line-height:1.75}
     form{display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:28px}
+    form.auto-unlock{grid-template-columns:1fr}
     input,button{min-height:50px;border-radius:13px;font:inherit;font-size:16px}
     input{min-width:0;width:100%;padding:0 15px;border:1px solid #d9d2f8;background:#faf9ff;color:#171525;outline:none}
     input:focus{border-color:#8067e8;box-shadow:0 0 0 4px rgba(113,88,232,.10)}
     button{border:0;padding:0 23px;color:#fff;background:linear-gradient(135deg,#7158e8,#8067e8);font-weight:900;cursor:pointer}
+    form.auto-unlock button{width:100%}
     button:disabled{opacity:.65;cursor:wait}
     .error{min-height:22px;margin-top:12px;color:#c04458;font-size:13px}
     .note{margin-top:22px;padding-top:18px;border-top:1px solid #ece8fb;color:#8a8499;font-size:12px}
@@ -119,15 +122,16 @@ const shell = `<!doctype html>
     <div class="eyebrow">${escapeHtml(eyebrow)}</div>
     <h1>${escapeHtml(title)}</h1>
     <p>${escapeHtml(subtitle)}</p>
-    <form id="unlock">
-      <input id="password" type="password" inputmode="numeric" autocomplete="current-password" placeholder="请输入访问密码" autofocus>
-      <button id="submit" type="submit">打开报告</button>
+    <form id="unlock" class="${autoUnlock ? "auto-unlock" : ""}">
+${autoUnlock ? "" : '      <input id="password" type="password" inputmode="numeric" autocomplete="current-password" placeholder="请输入访问密码" autofocus>\n'}      <button id="submit" type="submit">${autoUnlock ? "开启报告" : "打开报告"}</button>
     </form>
     <div class="error" id="error" role="status" aria-live="polite"></div>
     <div class="note">${escapeHtml(note)}</div>
   </main>
   <script>
     const payload=${JSON.stringify(payload)};
+    const autoUnlock=${autoUnlock ? "true" : "false"};
+    const unlockMaterial=${autoUnlock ? JSON.stringify(password) : "null"};
     const decode=value=>Uint8Array.from(atob(value),character=>character.charCodeAt(0));
     document.getElementById("unlock").addEventListener("submit",async event=>{
       event.preventDefault();
@@ -137,7 +141,8 @@ const shell = `<!doctype html>
       submit.disabled=true;
       try{
         if(!globalThis.crypto?.subtle)throw new Error("unsupported");
-        const material=await crypto.subtle.importKey("raw",new TextEncoder().encode(document.getElementById("password").value.trim()),"PBKDF2",false,["deriveKey"]);
+        const suppliedKey=autoUnlock?unlockMaterial:document.getElementById("password").value.trim();
+        const material=await crypto.subtle.importKey("raw",new TextEncoder().encode(suppliedKey),"PBKDF2",false,["deriveKey"]);
         const key=await crypto.subtle.deriveKey({name:"PBKDF2",salt:decode(payload.salt),iterations:payload.iterations,hash:"SHA-256"},material,{name:"AES-GCM",length:256},false,["decrypt"]);
         const plain=await crypto.subtle.decrypt({name:"AES-GCM",iv:decode(payload.iv)},key,decode(payload.data));
         document.open();
@@ -146,7 +151,7 @@ const shell = `<!doctype html>
       }catch(errorValue){
         submit.disabled=false;
         submit.textContent="重新打开";
-        error.textContent=errorValue?.message==="unsupported"?"当前浏览器不支持安全解锁，请升级浏览器。":"密码不正确，请重新输入。";
+        error.textContent=errorValue?.message==="unsupported"?"当前浏览器不支持打开报告，请升级浏览器。":${JSON.stringify(autoUnlock ? "报告打开失败，请刷新后重试。" : "密码不正确，请重新输入。")};
       }
     });
   </script>
