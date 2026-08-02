@@ -1,146 +1,118 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-labelledby="title desc">
-  <title id="title">盈米 AI 四个持续驱动平台运转、两种模式放大势能</title>
-  <desc id="desc">自下而上展示四个持续作为核心运转引擎，向盈米 AI 开放平台注入能力，再通过大厂 AI 平台接入和 C 端产品接入触达更多群体、放大势能。</desc>
+  <title id="title">盈米 AI 持续运转与势能放大关键行动图</title>
+  <desc id="desc">从左到右展示四个持续作为核心运转引擎，向盈米 AI 开放平台注入能力，再通过大厂 AI 平台接入和 C 端产品接入触达更多群体、放大势能。</desc>
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#fbfaff"/>
-      <stop offset="0.58" stop-color="#f4f1fc"/>
-      <stop offset="1" stop-color="#eae5fa"/>
-    </linearGradient>
-    <linearGradient id="violet" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#6f59d9"/>
-      <stop offset="1" stop-color="#a992ff"/>
-    </linearGradient>
-    <linearGradient id="navy" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#111a33"/>
-      <stop offset="1" stop-color="#202a49"/>
-    </linearGradient>
-    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#3b2a75" flood-opacity="0.12"/>
-    </filter>
-    <marker id="arrow" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto">
-      <path d="M0,0 L11,5.5 L0,11 Z" fill="#8067e8"/>
-    </marker>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fbfaff"/><stop offset="1" stop-color="#ede9fa"/></linearGradient>
+    <linearGradient id="violet" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#7058d8"/><stop offset="1" stop-color="#a58df7"/></linearGradient>
+    <linearGradient id="navy" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#121a32"/><stop offset="1" stop-color="#263151"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#342568" flood-opacity=".12"/></filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12Z" fill="#8067e8"/></marker>
     <style>
-      text{font-family:"Songti SC","Noto Serif SC",STSong,SimSun,serif;fill:#161927}
-      .sans{font-family:"PingFang SC","Microsoft YaHei",Arial,sans-serif}
-      .eyebrow{font-size:16px;font-weight:700;letter-spacing:3px;fill:#8067e8}
-      .title{font-size:48px;font-weight:700;letter-spacing:-1px}
-      .subtitle{font-size:20px;fill:#687287}
-      .module{font-size:15px;font-weight:700;letter-spacing:2px;fill:#8067e8}
-      .outcome{font-size:35px;font-weight:700;fill:#ffffff}
-      .outcome-sub{font-size:17px;fill:#ede9ff}
-      .mode-title{font-size:27px;font-weight:700}
-      .mode-body{font-size:16px;fill:#687287}
-      .platform-title{font-size:32px;font-weight:700;fill:#ffffff}
-      .platform-sub{font-size:17px;fill:#d9dff0}
-      .card-title{font-size:27px;font-weight:700}
-      .card-sub{font-size:15px;fill:#687287}
-      .metric{font-size:34px;font-weight:700;fill:#8067e8}
-      .metric-light{font-size:34px;font-weight:700;fill:#b8a7ff}
-      .bullet{font-size:16px;fill:#354058}
-      .bullet-light{font-size:16px;fill:#eef0f8}
-      .chip{font-size:15px;fill:#354058}
-      .chip-light{font-size:15px;fill:#eef0f8}
-      .note{font-size:13px;fill:#7a8497}
+      text{font-family:"PingFang SC","Microsoft YaHei",Arial,sans-serif;fill:#171a2a}.serif{font-family:"Songti SC","Noto Serif SC",STSong,SimSun,serif}.eyebrow{font-size:15px;font-weight:750;letter-spacing:3px;fill:#735bd8}.headline{font-size:48px;font-weight:750}.subhead{font-size:20px;fill:#647086}.group-title{font-size:27px;font-weight:750}.group-note{font-size:15px;fill:#6b7588}.card-title{font-size:24px;font-weight:750}.metric{font-size:32px;font-weight:750;fill:#735bd8}.body{font-size:16px;fill:#59647a}.tiny{font-size:13px;fill:#707b8e}.white{fill:#fff}.pale{fill:#e6e9f4}.mode-title{font-size:25px;font-weight:750}.result-main{font-size:35px;font-weight:750;fill:#fff}.result-number{font-size:56px;font-weight:800;fill:#fff}.stage{font-size:12px;font-weight:800;letter-spacing:2px;fill:#735bd8}
     </style>
   </defs>
 
   <rect width="1920" height="1080" fill="url(#bg)"/>
-  <circle cx="1740" cy="70" r="260" fill="none" stroke="#8067e8" stroke-opacity="0.08" stroke-width="2"/>
-  <circle cx="1740" cy="70" r="190" fill="none" stroke="#8067e8" stroke-opacity="0.07" stroke-width="2"/>
+  <circle cx="1830" cy="60" r="240" fill="none" stroke="#8067e8" stroke-opacity=".07" stroke-width="2"/>
+  <circle cx="1830" cy="60" r="170" fill="none" stroke="#8067e8" stroke-opacity=".06" stroke-width="2"/>
 
-  <text x="64" y="48" class="eyebrow sans">YINGMI AI · CAUSAL ACTION MAP</text>
-  <text x="64" y="104" class="title">四个持续驱动平台运转 · 两种模式放大势能</text>
-  <text x="64" y="141" class="subtitle">核心举措持续供给 → 平台沉淀与编排 → 两种接入触达更多群体 → 放大势能</text>
+  <text x="60" y="58" class="eyebrow">YINGMI AI · KEY ACTION MAP</text>
+  <text x="60" y="116" class="headline serif">持续运转，放大势能</text>
+  <text x="60" y="154" class="subhead">四个持续做深平台｜两种接入做大触达</text>
+  <rect x="1392" y="81" width="468" height="54" rx="27" fill="#fff" stroke="#dcd5f2"/>
+  <text x="1626" y="116" class="group-note" text-anchor="middle">核心引擎 → 能力中枢 → 放大路径 → 势能结果</text>
 
-  <text x="64" y="188" class="module sans">MODULE 02 · 势能放大模块</text>
-  <rect x="456" y="166" width="1008" height="116" rx="30" fill="url(#violet)" filter="url(#shadow)"/>
-  <text x="960" y="213" class="outcome" text-anchor="middle">触达更多群体 · 放大平台势能</text>
-  <text x="960" y="248" class="outcome-sub" text-anchor="middle">更多入口｜更多场景｜更多用户｜更多机会</text>
-  <rect x="1490" y="175" width="132" height="42" rx="13" fill="#ffffff" fill-opacity="0.18"/>
-  <text x="1556" y="202" class="sans" font-size="15" fill="#ffffff" text-anchor="middle">互动 300万+</text>
-  <rect x="1634" y="175" width="154" height="42" rx="13" fill="#ffffff" fill-opacity="0.18"/>
-  <text x="1711" y="202" class="sans" font-size="15" fill="#ffffff" text-anchor="middle">浏览 1,000万+</text>
-  <rect x="1490" y="228" width="298" height="38" rx="13" fill="#ffffff" fill-opacity="0.14"/>
-  <text x="1639" y="253" class="sans" font-size="14" fill="#ffffff" text-anchor="middle">原创阅读 3万+ · 全网报道 8,965篇</text>
+  <!-- 01 核心运转 -->
+  <rect x="60" y="200" width="720" height="812" rx="30" fill="#fff" stroke="#dbd5ef" filter="url(#shadow)"/>
+  <text x="94" y="245" class="stage">01 · CORE ENGINE</text>
+  <text x="94" y="286" class="group-title serif">四个持续｜核心运转引擎</text>
+  <text x="94" y="316" class="group-note">持续积累能力、先发、生态与品牌机会</text>
+  <path d="M116 346H724" stroke="#e6e1f4" stroke-width="2"/>
 
-  <path d="M550 348 C550 312 700 306 820 282" fill="none" stroke="#8067e8" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)"/>
-  <path d="M1370 348 C1370 312 1220 306 1100 282" fill="none" stroke="#8067e8" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)"/>
-  <text x="960" y="314" class="sans" font-size="14" fill="#8067e8" text-anchor="middle">扩大触达</text>
+  <rect x="94" y="378" width="314" height="258" rx="22" fill="#f7f5fc"/>
+  <text x="120" y="417" class="eyebrow">持续建设</text>
+  <text x="120" y="468" class="metric serif">3层能力</text>
+  <rect x="120" y="492" width="262" height="54" rx="15" fill="#ebe6fa"/>
+  <text x="251" y="527" class="card-title" text-anchor="middle">MCP · Skills · Agent</text>
+  <text x="120" y="580" class="body">连接 → 流程 → 完整任务</text>
+  <text x="120" y="610" class="tiny">把专业能力沉淀为可复用资产</text>
 
-  <rect x="160" y="344" width="760" height="126" rx="24" fill="#ffffff" stroke="#ddd7f1" filter="url(#shadow)"/>
-  <circle cx="215" cy="407" r="30" fill="#eeeaff"/>
-  <text x="215" y="417" class="sans" font-size="27" font-weight="700" fill="#8067e8" text-anchor="middle">A</text>
-  <text x="266" y="395" class="mode-title">大厂 AI 平台接入</text>
-  <text x="266" y="428" class="mode-body">借助平台原生入口，把财富管理专业能力分发给更多用户</text>
-  <text x="266" y="452" class="sans" font-size="13" fill="#8067e8">百炼 · 百度 · 扣子 · 小艺 · 千问 · 微信 / WorkBuddy</text>
+  <rect x="432" y="378" width="314" height="258" rx="22" fill="url(#navy)"/>
+  <text x="458" y="417" class="eyebrow" style="fill:#b8a7ff">持续抢先</text>
+  <text x="458" y="468" class="metric serif" style="fill:#fff">4项首个 / 首批</text>
+  <text x="458" y="514" class="body" style="fill:#eef0f8">财富 MCP Server</text>
+  <text x="458" y="548" class="body" style="fill:#eef0f8">理财测评集 / 投顾模型</text>
+  <text x="458" y="582" class="body" style="fill:#eef0f8">投顾 OpenClaw</text>
+  <text x="458" y="616" class="body" style="fill:#eef0f8">千问 MCP / A2A 首批合作</text>
 
-  <rect x="1000" y="344" width="760" height="126" rx="24" fill="#ffffff" stroke="#ddd7f1" filter="url(#shadow)"/>
-  <circle cx="1055" cy="407" r="30" fill="#eeeaff"/>
-  <text x="1055" y="417" class="sans" font-size="27" font-weight="700" fill="#8067e8" text-anchor="middle">B</text>
-  <text x="1106" y="395" class="mode-title">C 端产品接入</text>
-  <text x="1106" y="428" class="mode-body">把平台能力嵌入用户正在使用的产品与具体服务场景</text>
-  <text x="1106" y="452" class="sans" font-size="13" fill="#8067e8">用户入口 · 真实场景 · 持续服务 · 结果回流</text>
+  <rect x="94" y="660" width="314" height="292" rx="22" fill="#f7f5fc"/>
+  <text x="120" y="699" class="eyebrow">持续合作</text>
+  <text x="120" y="750" class="metric serif">8类生态伙伴</text>
+  <text x="120" y="794" class="body">大厂平台 · C端入口 · 金融机构</text>
+  <rect x="120" y="824" width="120" height="44" rx="14" fill="#ebe6fa"/><text x="180" y="853" class="body" text-anchor="middle">活动 10场+</text>
+  <rect x="252" y="824" width="130" height="44" rx="14" fill="#eeeef3"/><text x="317" y="853" class="body" text-anchor="middle">机构 30家+</text>
+  <text x="120" y="909" class="tiny">合作覆盖平台、产品入口与行业伙伴</text>
 
-  <path d="M760 522 C720 510 620 502 540 470" fill="none" stroke="#8067e8" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)"/>
-  <path d="M1160 522 C1200 510 1300 502 1380 470" fill="none" stroke="#8067e8" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)"/>
-  <text x="960" y="507" class="sans" font-size="14" fill="#8067e8" text-anchor="middle">标准能力输出与场景编排</text>
+  <rect x="432" y="660" width="314" height="292" rx="22" fill="#f7f5fc"/>
+  <text x="458" y="699" class="eyebrow">持续曝光</text>
+  <text x="458" y="750" class="metric serif">8,965篇报道</text>
+  <text x="458" y="792" class="body">互动 300万+｜浏览 1,000万+</text>
+  <text x="458" y="826" class="body">原创 50+｜渠道发布 300+篇</text>
+  <text x="458" y="860" class="body">其中 MCP 相关报道 3,329篇</text>
+  <text x="458" y="909" class="tiny">用内容、媒体与活动持续积累声量</text>
 
-  <rect x="486" y="514" width="948" height="116" rx="28" fill="url(#navy)" filter="url(#shadow)"/>
-  <text x="960" y="558" class="platform-title" text-anchor="middle">盈米 AI 开放平台</text>
-  <text x="960" y="593" class="platform-sub" text-anchor="middle">MCP 标准连接｜Skills 专业流程｜Agent 完整任务</text>
-  <text x="960" y="617" class="sans" font-size="13" style="fill:#9fabc1" text-anchor="middle">沉淀能力 · 统一编排 · 服务输出</text>
+  <!-- 汇聚箭头 -->
+  <path d="M806 606H858" stroke="#8067e8" stroke-width="5" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <text x="832" y="582" class="stage" text-anchor="middle">持续注入</text>
 
-  <path d="M267 690 C267 660 550 652 720 630" fill="none" stroke="#8067e8" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)"/>
-  <path d="M729 690 C729 660 820 652 900 630" fill="none" stroke="#8067e8" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)"/>
-  <path d="M1191 690 C1191 660 1100 652 1020 630" fill="none" stroke="#8067e8" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)"/>
-  <path d="M1653 690 C1653 660 1370 652 1200 630" fill="none" stroke="#8067e8" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)"/>
-  <text x="960" y="665" class="sans" font-size="14" fill="#8067e8" text-anchor="middle">持续注入能力、首发机会、合作生态与品牌声量</text>
+  <!-- 平台中枢 -->
+  <rect x="874" y="318" width="306" height="576" rx="36" fill="url(#navy)" filter="url(#shadow)"/>
+  <text x="1027" y="374" class="stage" text-anchor="middle" style="fill:#b8a7ff">PLATFORM CORE</text>
+  <text x="1027" y="430" class="group-title serif white" text-anchor="middle">盈米 AI</text>
+  <text x="1027" y="470" class="group-title serif white" text-anchor="middle">开放平台</text>
+  <path d="M930 502H1124" stroke="#465171" stroke-width="2"/>
+  <rect x="925" y="548" width="204" height="58" rx="18" fill="#313c5e"/><text x="1027" y="585" class="card-title white" text-anchor="middle">MCP 标准连接</text>
+  <rect x="925" y="628" width="204" height="58" rx="18" fill="#313c5e"/><text x="1027" y="665" class="card-title white" text-anchor="middle">Skills 专业流程</text>
+  <rect x="925" y="708" width="204" height="58" rx="18" fill="#313c5e"/><text x="1027" y="745" class="card-title white" text-anchor="middle">Agent 完整任务</text>
+  <text x="1027" y="822" class="body" text-anchor="middle" style="fill:#cbd1e1">沉淀 · 编排 · 输出</text>
 
-  <text x="64" y="692" class="module sans">MODULE 01 · 核心运转模块｜四个持续</text>
+  <path d="M1196 606H1248" stroke="#8067e8" stroke-width="5" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <text x="1222" y="582" class="stage" text-anchor="middle">向外放大</text>
 
-  <rect x="56" y="708" width="422" height="316" rx="24" fill="#ffffff" stroke="#ddd7f1" filter="url(#shadow)"/>
-  <text x="84" y="748" class="eyebrow sans">01 · KEEP BUILDING</text>
-  <text x="84" y="790" class="card-title">持续建设</text>
-  <text x="84" y="823" class="metric">3层能力</text>
-  <rect x="84" y="844" width="366" height="62" rx="16" fill="#f1edfc"/>
-  <text x="267" y="884" class="sans" font-size="27" font-weight="700" fill="#8067e8" text-anchor="middle">MCP · Skills · Agent</text>
-  <circle cx="92" cy="938" r="4" fill="#8067e8"/><text x="108" y="944" class="bullet">标准连接 → 专业流程 → 完整任务</text>
-  <circle cx="92" cy="978" r="4" fill="#8067e8"/><text x="108" y="984" class="bullet">能力持续沉淀并形成可复用资产</text>
+  <!-- 02 势能放大 -->
+  <rect x="1264" y="200" width="596" height="812" rx="30" fill="#fff" stroke="#dbd5ef" filter="url(#shadow)"/>
+  <text x="1298" y="245" class="stage">02 · MOMENTUM MULTIPLIER</text>
+  <text x="1298" y="286" class="group-title serif">两种接入｜势能放大路径</text>
+  <text x="1298" y="316" class="group-note">把平台能力送进用户已经存在的入口与场景</text>
+  <path d="M1298 346H1826" stroke="#e6e1f4" stroke-width="2"/>
 
-  <rect x="518" y="708" width="422" height="316" rx="24" fill="url(#navy)" filter="url(#shadow)"/>
-  <text x="546" y="748" class="sans" font-size="16" font-weight="700" letter-spacing="3" style="fill:#b8a7ff">02 · KEEP LEADING</text>
-  <text x="546" y="790" class="sans" font-size="27" font-weight="700" style="fill:#ffffff">持续抢先</text>
-  <text x="546" y="823" class="metric-light">4项首个 / 首批</text>
-  <circle cx="554" cy="862" r="4" fill="#b8a7ff"/><text x="570" y="868" class="bullet-light">首个财富 MCP Server</text>
-  <circle cx="554" cy="900" r="4" fill="#b8a7ff"/><text x="570" y="906" class="bullet-light">首个理财测评集 / 投顾智能立体模型</text>
-  <circle cx="554" cy="938" r="4" fill="#b8a7ff"/><text x="570" y="944" class="bullet-light">首个投顾龙虾 OpenClaw</text>
-  <circle cx="554" cy="976" r="4" fill="#b8a7ff"/><text x="570" y="982" class="bullet-light">首批千问 MCP / A2A 接入合作商</text>
+  <rect x="1298" y="382" width="338" height="176" rx="22" fill="#f7f5fc"/>
+  <circle cx="1340" cy="424" r="22" fill="#e9e4fa"/><text x="1340" y="433" class="card-title" text-anchor="middle">A</text>
+  <text x="1380" y="432" class="mode-title serif">大厂 AI 平台接入</text>
+  <text x="1324" y="484" class="body">借助平台入口与流量</text>
+  <text x="1324" y="516" class="body">触达平台原生用户</text>
 
-  <rect x="980" y="708" width="422" height="316" rx="24" fill="#ffffff" stroke="#ddd7f1" filter="url(#shadow)"/>
-  <text x="1008" y="748" class="eyebrow sans">03 · KEEP PARTNERING</text>
-  <text x="1008" y="790" class="card-title">持续合作</text>
-  <text x="1008" y="823" class="metric">8类生态伙伴</text>
-  <text x="1008" y="856" class="bullet">阿里云 / 百炼 · 百度 · 火山 / 扣子</text>
-  <text x="1008" y="884" class="bullet">华为 / 小艺 · 夸克 / 千问</text>
-  <text x="1008" y="912" class="bullet">腾讯 / 微信 / WorkBuddy · 智谱</text>
-  <text x="1008" y="940" class="bullet">金融机构</text>
-  <rect x="1008" y="960" width="168" height="42" rx="13" fill="#eeeaff"/>
-  <text x="1092" y="987" class="chip" text-anchor="middle">活动 10场+</text>
-  <rect x="1188" y="960" width="186" height="42" rx="13" fill="#f2f0f7"/>
-  <text x="1281" y="987" class="chip" text-anchor="middle">交流机构 30家+</text>
+  <rect x="1298" y="582" width="338" height="176" rx="22" fill="#f7f5fc"/>
+  <circle cx="1340" cy="624" r="22" fill="#e9e4fa"/><text x="1340" y="633" class="card-title" text-anchor="middle">B</text>
+  <text x="1380" y="632" class="mode-title serif">C 端产品接入</text>
+  <text x="1324" y="684" class="body">嵌入真实产品场景</text>
+  <text x="1324" y="716" class="body">承接持续服务关系</text>
 
-  <rect x="1442" y="708" width="422" height="316" rx="24" fill="#ffffff" stroke="#ddd7f1" filter="url(#shadow)"/>
-  <text x="1470" y="748" class="eyebrow sans">04 · KEEP VISIBLE</text>
-  <text x="1470" y="790" class="card-title">持续曝光</text>
-  <text x="1470" y="823" class="metric">8,965篇报道</text>
-  <rect x="1470" y="844" width="176" height="44" rx="13" fill="#eeeaff"/><text x="1558" y="872" class="chip" text-anchor="middle">原创 50+</text>
-  <rect x="1658" y="844" width="178" height="44" rx="13" fill="#f2f0f7"/><text x="1747" y="872" class="chip" text-anchor="middle">阅读 3万+</text>
-  <rect x="1470" y="900" width="176" height="44" rx="13" fill="#f2f0f7"/><text x="1558" y="928" class="chip" text-anchor="middle">发布 300+篇</text>
-  <rect x="1658" y="900" width="178" height="44" rx="13" fill="#eeeaff"/><text x="1747" y="928" class="chip" text-anchor="middle">MCP 3,329篇</text>
-  <rect x="1470" y="956" width="176" height="44" rx="13" fill="#eeeaff"/><text x="1558" y="984" class="chip" text-anchor="middle">互动 300万+</text>
-  <rect x="1658" y="956" width="178" height="44" rx="13" fill="#f2f0f7"/><text x="1747" y="984" class="chip" text-anchor="middle">浏览 1,000万+</text>
+  <path d="M1654 470H1695" stroke="#8067e8" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <path d="M1654 670H1695" stroke="#8067e8" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)"/>
 
-  <text x="64" y="1060" class="note sans">来源：用户提供关键行动素材（2026-08-02）及盈米 AI 阶段成果源稿；“首个 / 首批”、活动与机构口径用于外部引用前仍需补公开证据。</text>
+  <rect x="1710" y="382" width="116" height="376" rx="28" fill="url(#violet)"/>
+  <text x="1768" y="430" class="stage" text-anchor="middle" style="fill:#eeeaff">OUTCOME</text>
+  <text x="1768" y="492" class="result-main serif" text-anchor="middle">更多</text>
+  <text x="1768" y="532" class="result-main serif" text-anchor="middle">群体</text>
+  <path d="M1736 568H1800" stroke="#cfc5ff" stroke-width="2"/>
+  <text x="1768" y="630" class="result-number serif" text-anchor="middle">势能</text>
+  <text x="1768" y="694" class="result-number" text-anchor="middle">↑</text>
+
+  <rect x="1298" y="802" width="528" height="150" rx="22" fill="#171f37"/>
+  <text x="1562" y="846" class="stage" text-anchor="middle" style="fill:#b8a7ff">最终效果</text>
+  <text x="1562" y="893" class="group-title serif white" text-anchor="middle">更多入口 · 更多场景 · 更多用户</text>
+  <text x="1562" y="927" class="body" text-anchor="middle" style="fill:#cbd1e1">让专业财富管理能力在更多地方被看见、被使用</text>
+
+  <text x="60" y="1052" class="tiny">数据口径：用户提供关键行动素材，更新至 2026-08-02；“首个 / 首批”及活动、机构数量用于内部汇报，对外使用需补公开证据与统计口径。</text>
 </svg>
