@@ -78,6 +78,7 @@ if (htmlPath) {
     ['scroll-snap-type:y mandatory', "HTML 缺少强制滚动吸附"],
     ['height:calc(100svh - var(--nav-h))', "HTML 缺少固定分屏高度"],
     ['height:104px', "HTML 缺少统一桌面标题带高度"],
+    ['margin-top:0;margin-bottom:0', "HTML 章节容器未锁定统一顶部基线"],
     ['--nav-h:54px', "HTML 顶部导航未使用 54px 紧凑高度"],
     ['--mono:"Songti SC"', "HTML 未统一使用宋体字体族"],
     ['chapterNav.scrollTo', "HTML 缺少章节导航居中跟随"],
