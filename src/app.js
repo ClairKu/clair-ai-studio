@@ -16,7 +16,7 @@ const STORAGE_KEY = "clair-service-report-workbench-v1";
 const AUTH_KEY = "clair-service-report-workbench-access";
 const VIEW_KEY = "clair-service-report-workbench-view";
 const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
-const DATA_VERSION = 25;
+const DATA_VERSION = 26;
 
 const WORK_TYPES = [
   { id: "requirement-review", name: "需求评审" },
@@ -114,6 +114,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "yingmi-ai-bottom-up-architecture-2026-08-03",
+      groupId: "ai-platform",
+      title: "盈米 AI｜从底座到服务",
+      url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-ai-bottom-up-architecture-2026-08-03/",
+      preview: "yingmi-ai-bottom-up-architecture-2026-08-03.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-03T10:30:00.000Z",
+      source: "系统关系图 × 服务关系图｜AI 开放平台置底 · 自下而上统一架构",
+      access: "production",
+      workType: "product-planning",
+      tags: ["AI 开放平台", "OAP", "AI 实验室", "AI 工作台", "Stargate", "产品规划", "经营汇报", "HTML", "生产"],
+    },
     {
       id: "yingmi-ai-brand-building-effects-2026-08-03",
       groupId: "ai-platform",
