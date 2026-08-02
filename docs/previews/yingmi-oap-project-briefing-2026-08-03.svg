@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="405" viewBox="0 0 720 405" role="img" aria-labelledby="title desc">
+  <title id="title">盈米 AI 开放平台 8·3 项目汇报（框架版）预览</title>
+  <desc id="desc">按飞书源稿框架呈现年度目标、关键举措、用户增长、新流量入口、产品规划、系统建设、AI 实验室、商化准备、行业机会与问题回顾；核心指标为申请用户 8,569、月活 1,812、累计调用 919 万。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fbfaff"/><stop offset="1" stop-color="#eae6f8"/></linearGradient>
+    <linearGradient id="violet" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#7058d8"/><stop offset="1" stop-color="#a58df7"/></linearGradient>
+    <linearGradient id="navy" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#121a32"/><stop offset="1" stop-color="#263151"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#342568" flood-opacity=".12"/></filter>
+    <style>text{font-family:"PingFang SC","Microsoft YaHei",sans-serif;fill:#171a2a}.serif{font-family:"Songti SC",STSong,SimSun,serif}.eyebrow{font-size:9px;font-weight:800;letter-spacing:1.5px;fill:#735bd8}.title{font-size:24px;font-weight:800}.sub{font-size:10px;fill:#687287}.card{font-size:11px;font-weight:750}.metric{font-size:20px;font-weight:800;fill:#735bd8}.label{font-size:9px;fill:#687287}.white{fill:#fff}.pale{fill:#cfd6f2}</style>
+  </defs>
+  <rect width="720" height="405" rx="28" fill="url(#bg)"/>
+  <text x="28" y="30" class="eyebrow">YINGMI AI OPEN PLATFORM · PROJECT BRIEFING</text>
+  <text x="28" y="60" class="title serif">盈米 AI 开放平台 8·3 项目汇报</text>
+  <text x="28" y="79" class="sub">年度目标 · 关键举措 · 用户增长 · 新流量入口 · 产品规划 · 商化准备｜2026-08-03</text>
+  <rect x="28" y="98" width="156" height="92" rx="14" fill="#fff" stroke="#ddd7f1" filter="url(#shadow)"/>
+  <text x="44" y="126" class="label">申请用户</text>
+  <text x="44" y="156" class="metric">8,569</text>
+  <rect x="198" y="98" width="156" height="92" rx="14" fill="#fff" stroke="#ddd7f1" filter="url(#shadow)"/>
+  <text x="214" y="126" class="label">月活用户</text>
+  <text x="214" y="156" class="metric">1,812</text>
+  <rect x="368" y="98" width="156" height="92" rx="14" fill="#fff" stroke="#ddd7f1" filter="url(#shadow)"/>
+  <text x="384" y="126" class="label">累计调用</text>
+  <text x="384" y="156" class="metric">919 万</text>
+  <rect x="538" y="98" width="154" height="92" rx="14" fill="#fff" stroke="#ddd7f1" filter="url(#shadow)"/>
+  <text x="554" y="126" class="label">且慢小程序用户</text>
+  <text x="554" y="156" class="metric">8 万+</text>
+  <rect x="28" y="208" width="320" height="80" rx="14" fill="url(#navy)" filter="url(#shadow)"/>
+  <text x="44" y="234" class="card white">新流量 · 千问首批品牌智能体</text>
+  <text x="44" y="254" class="label pale">预计一期唯一金融 Agent · 预计 8.10 联合宣发</text>
+  <text x="44" y="272" class="label pale">新用户获取 → AI 服务 → 外链完成交易</text>
+  <rect x="364" y="208" width="328" height="80" rx="14" fill="#fff" stroke="#ddd7f1" filter="url(#shadow)"/>
+  <text x="380" y="234" class="card">渠道矩阵 · MCP 九平台全量</text>
+  <text x="380" y="254" class="label">Skills 2 上架 · 2 推进｜Agent 2 上架 · 2 推进</text>
+  <text x="380" y="272" class="label">支付宝邀测 · 百炼 one key MCP · SkillHub 入驻</text>
+  <rect x="28" y="306" width="320" height="70" rx="14" fill="url(#violet)" filter="url(#shadow)"/>
+  <text x="44" y="332" class="card white">产品规划 · 三维分类三层治理</text>
+  <text x="44" y="352" class="label pale">业务域 × 能力类型 × 权限与生命周期</text>
+  <rect x="364" y="306" width="328" height="70" rx="14" fill="#fff" stroke="#ddd7f1" filter="url(#shadow)"/>
+  <text x="380" y="332" class="card">向内看 · 四类问题如实呈现</text>
+  <text x="380" y="352" class="label">技术 · 资源 · 用户 · 数据</text>
+</svg>
