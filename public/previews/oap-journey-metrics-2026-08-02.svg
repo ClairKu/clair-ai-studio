@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
-  <title id="title">盈米 AI 开放平台用户走视图预览</title>
-  <desc id="desc">左侧为关键举措，右侧为四项用户指标联动走势；完整内容需密码访问。</desc>
+  <title id="title">盈米 AI 开放平台历程・里程碑预览</title>
+  <desc id="desc">左侧按月归并重点建设、重点合作与重点突破，右侧为四项用户指标联动走势；完整内容需密码访问。</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#111629"/>
@@ -19,17 +19,21 @@
   <rect width="1600" height="900" rx="42" fill="url(#bg)"/>
   <rect x="0" y="0" width="450" height="900" fill="#fbfaff"/>
   <text x="68" y="92" fill="#8067e8" font-family="Songti SC,STSong,serif" font-size="22" font-weight="700" letter-spacing="4">YINGMI AI · OAP JOURNEY</text>
-  <text x="68" y="164" fill="#171525" font-family="Songti SC,STSong,serif" font-size="50" font-weight="700">历程・里程碑</text>
-  <line x1="106" y1="226" x2="106" y2="790" stroke="#ded9ee" stroke-width="2"/>
+  <text x="68" y="164" fill="#171525" font-family="Songti SC,STSong,serif" font-size="46" font-weight="700">月度关键历程</text>
+  <g font-family="Songti SC,STSong,serif" font-size="17" font-weight="700">
+    <rect x="64" y="194" width="102" height="36" rx="10" fill="#f3efff"/><text x="115" y="218" text-anchor="middle" fill="#745ed0">重点建设</text>
+    <rect x="176" y="194" width="102" height="36" rx="10" fill="#eaf8f5"/><text x="227" y="218" text-anchor="middle" fill="#299b8c">重点合作</text>
+    <rect x="288" y="194" width="102" height="36" rx="10" fill="#fff4df"/><text x="339" y="218" text-anchor="middle" fill="#b7791d">重点突破</text>
+  </g>
   <g font-family="Songti SC,STSong,serif">
-    <g transform="translate(0 0)"><circle cx="106" cy="270" r="12" fill="#8067e8"/><text x="148" y="260" fill="#8067e8" font-size="20" font-weight="700">2025.03</text><text x="148" y="296" fill="#171525" font-size="27">能力开放</text></g>
-    <g transform="translate(0 128)"><circle cx="106" cy="270" r="12" fill="#42bbaa"/><text x="148" y="260" fill="#42a99c" font-size="20" font-weight="700">2025.06</text><text x="148" y="296" fill="#171525" font-size="27">生态分发</text></g>
-    <g transform="translate(0 256)"><circle cx="106" cy="270" r="12" fill="#d59a3d"/><text x="148" y="260" fill="#b57a20" font-size="20" font-weight="700">2025.09</text><text x="148" y="296" fill="#171525" font-size="27">模型与评测</text></g>
-    <g transform="translate(0 384)"><circle cx="106" cy="270" r="12" fill="#e0627c"/><text x="148" y="260" fill="#c34b65" font-size="20" font-weight="700">2026.07</text><text x="148" y="296" fill="#171525" font-size="27">终端与商业验证</text></g>
+    <g transform="translate(0 0)"><rect x="60" y="252" width="340" height="106" rx="18" fill="#f7f4ff"/><rect x="60" y="252" width="6" height="106" rx="3" fill="#8067e8"/><text x="86" y="290" fill="#8067e8" font-size="19" font-weight="700">2025.04 · 重点建设</text><text x="86" y="328" fill="#171525" font-size="25">开放官网与首批 MCP</text></g>
+    <g transform="translate(0 126)"><rect x="60" y="252" width="340" height="106" rx="18" fill="#effaf8"/><rect x="60" y="252" width="6" height="106" rx="3" fill="#42bbaa"/><text x="86" y="290" fill="#299b8c" font-size="19" font-weight="700">2025.07 · 重点合作</text><text x="86" y="328" fill="#171525" font-size="25">升级 AI 全栈合作</text></g>
+    <g transform="translate(0 252)"><rect x="60" y="252" width="340" height="106" rx="18" fill="#fff8ea"/><rect x="60" y="252" width="6" height="106" rx="3" fill="#d59a3d"/><text x="86" y="290" fill="#b7791d" font-size="19" font-weight="700">2026.06 · 重点突破</text><text x="86" y="328" fill="#171525" font-size="25">千问合作 · 超级入口</text></g>
+    <g transform="translate(0 378)"><rect x="60" y="252" width="340" height="106" rx="18" fill="#fff8ea"/><rect x="60" y="252" width="6" height="106" rx="3" fill="#d59a3d"/><text x="86" y="290" fill="#b7791d" font-size="19" font-weight="700">2026.07 · 重点突破</text><text x="86" y="328" fill="#171525" font-size="25">A2A · 首个机构投标</text></g>
   </g>
   <text x="520" y="92" fill="#a99aff" font-family="Songti SC,STSong,serif" font-size="22" font-weight="700" letter-spacing="4">2025.03 — 2026.08</text>
-  <text x="520" y="172" fill="#ffffff" font-family="Songti SC,STSong,serif" font-size="56" font-weight="700">盈米 AI 开放平台用户走视图</text>
-  <text x="520" y="218" fill="#aeb6ca" font-family="Songti SC,STSong,serif" font-size="24">关键举措 × 累计用户、累计调用、月活与日活实时联动</text>
+  <text x="520" y="172" fill="#ffffff" font-family="Songti SC,STSong,serif" font-size="56" font-weight="700">盈米 AI 开放平台用户</text>
+  <text x="520" y="218" fill="#aeb6ca" font-family="Songti SC,STSong,serif" font-size="24">关键举措描述随月份区间与用户走势悬停联动</text>
   <g opacity=".28" stroke="#8d95ac" stroke-width="1">
     <line x1="520" y1="330" x2="1520" y2="330"/><line x1="520" y1="470" x2="1520" y2="470"/><line x1="520" y1="610" x2="1520" y2="610"/><line x1="520" y1="750" x2="1520" y2="750"/>
   </g>
