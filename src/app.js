@@ -578,13 +578,13 @@ const initialState = {
     {
       id: "oap-journey-metrics-2026-08-02",
       groupId: "ai-platform",
-      title: "盈米 AI 开放平台｜关键历程 × 用户增长",
+      title: "盈米 AI 开放平台用户走视图",
       url: "https://clairku.github.io/qieman-product-research-library/pages/oap/oap-journey-metrics-2026-08-02.html",
       preview: "oap-journey-metrics-2026-08-02.svg",
       pinned: true,
       position: 5,
       createdAt: "2026-08-02T13:40:00.000Z",
-      source: "里程碑 × OAP 日序列 · 密码 2026",
+      source: "关键举措 × 四项用户指标实时联动 · 密码 2026",
       access: "production",
     },
     {
