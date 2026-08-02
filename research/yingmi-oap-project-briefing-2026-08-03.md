@@ -3,13 +3,15 @@ title: "盈米 AI 开放平台｜8·3 项目汇报（框架版）"
 meeting_date: "2026-08-03"
 data_cutoff: "2026-08-03"
 classification: "内部管理汇报"
-source_doc: "https://yingmi.feishu.cn/wiki/ELoLwjzXmidhs6kscvbczByYnod （revision 1934）"
+source_doc: "https://yingmi.feishu.cn/wiki/SmjXwVjxhiYVEPkd7ulcwV5knUc （revision 30）"
 report_url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-oap-project-briefing-2026-08-03/"
 ---
 
 # 盈米 AI 开放平台 8·3 项目汇报：研究源稿
 
-> 本源稿按飞书汇报文档《8/3 盈米AI開项平台项目汇报》（wiki ELoLwjzXmidhs6kscvbczByYnod，revision 1934）的框架与内容整理，供 Clair Executive Visual Report 渲染。源稿大纲：年度目标 · 关键举措 · 用户增长 · 新流量入口 · 产品规划 · 能力建设 · AI 实验室 · 商化准备 · 行业机会 · 问题回顾。
+> 本源稿按飞书汇报文档《8/3 盈米AI開项平台项目汇报_v2》（wiki SmjXwVjxhiYVEPkd7ulcwV5knUc，revision 30）的框架与内容整理，供 Clair Executive Visual Report 渲染。源稿大纲：年度目标 · 关键举措 · 用户增长 · 新流量入口 · 产品规划 · 能力建设 · AI 实验室 · 商化准备 · 行业机会 · 问题回顾。
+
+> 证据审计：P6 矩阵把九个平台 MCP 全部标为 V，但同页明细仍有“支付宝邀测中”“阿里云市场 / 百炼待上架”；报告不把矩阵覆盖等同为全部上线。主稿写“400+ 金融机构”，同文附件对应的统计报告入口写“488 家接入”，报告将该数字保留为待统一口径，不外推为签约或付费机构。
 
 ## 一句话结论
 

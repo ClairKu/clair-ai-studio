@@ -16,7 +16,7 @@ const STORAGE_KEY = "clair-service-report-workbench-v1";
 const AUTH_KEY = "clair-service-report-workbench-access";
 const VIEW_KEY = "clair-service-report-workbench-view";
 const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
-const DATA_VERSION = 29;
+const DATA_VERSION = 30;
 
 const WORK_TYPES = [
   { id: "requirement-review", name: "需求评审" },
@@ -123,7 +123,7 @@ const initialState = {
       pinned: true,
       position: 0,
       createdAt: "2026-08-03T19:45:00.000Z",
-      source: "飞书 revision 1934 十项大纲逐项成稿｜OKR 复算 · 千问微信双入口 · 九平台三层货架 · 加密正文",
+      source: "飞书 v2 revision 30 十项大纲｜OKR 复算 · 千问微信双入口 · 渠道状态审计 · 加密正文",
       access: "production",
       workType: "reporting",
       tags: ["AI 开放平台", "OAP", "项目汇报", "OKR 复算", "千问", "微信", "货架矩阵", "AI 实验室", "加密", "HTML", "生产"],

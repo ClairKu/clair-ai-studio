@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="720" height="405" viewBox="0 0 720 405" role="img" aria-labelledby="title desc">
   <title id="title">盈米 AI 开放平台 8·3 项目汇报（十项框架版）预览</title>
-  <desc id="desc">按飞书 revision 1934 十项大纲生成：申请用户 8,569（85.7%）、月活 1,812（90.6%）、累计调用 9,194,916（70.7%）、AI 实验室 0%；含千问与微信双入口、九平台三层货架矩阵与四类问题回顾。</desc>
+  <desc id="desc">按飞书 v2 revision 30 十项大纲生成：申请用户 8,569（85.7%）、月活 1,812（90.6%）、累计调用 9,194,916（70.7%）、AI 实验室 0%；含千问与微信双入口、九平台状态审计与四类问题回顾。</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fbfaff"/><stop offset="1" stop-color="#eae6f8"/></linearGradient>
     <linearGradient id="violet" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#7058d8"/><stop offset="1" stop-color="#a58df7"/></linearGradient>
@@ -11,7 +11,7 @@
   <rect width="720" height="405" rx="28" fill="url(#bg)"/>
   <text x="28" y="30" class="eyebrow">YINGMI AI OPEN PLATFORM · OAP PROJECT REPORT</text>
   <text x="28" y="60" class="title serif">盈米 AI 开放平台｜8·3 汇报</text>
-  <text x="28" y="79" class="sub">飞书 revision 1934 十项框架：年度目标 · 关键举措 · 用户增长 · 新流量入口 · 产品规划 · 能力建设 · AI 实验室 · 商化准备 · 行业机会 · 问题回顾</text>
+  <text x="28" y="79" class="sub">飞书 v2 revision 30 十项框架：年度目标 · 关键举措 · 用户增长 · 新流量入口 · 产品规划 · 能力建设 · AI 实验室 · 商化准备 · 行业机会 · 问题回顾</text>
   <rect x="28" y="96" width="156" height="88" rx="14" fill="#fff" stroke="#ddd7f1" filter="url(#shadow)"/>
   <text x="44" y="122" class="label">申请用户 / 目标 1 万</text>
   <text x="44" y="149" class="metric">8,569</text>
@@ -37,8 +37,8 @@
   <text x="380" y="248" class="label">累计用户 8 万+ · 日均 6,000+ 用户</text>
   <text x="380" y="266" class="label">近 7 日日活 1.37 万，达小微首批试点资质</text>
   <rect x="28" y="300" width="320" height="76" rx="14" fill="url(#violet)" filter="url(#shadow)"/>
-  <text x="44" y="326" class="card white">九平台三层货架 · MCP 已满覆盖</text>
-  <text x="44" y="346" class="label pale">MCP 9/9 · Skills 2/9 · Agent 2/9</text>
+  <text x="44" y="326" class="card white">九平台三层货架 · 覆盖不等于上线</text>
+  <text x="44" y="346" class="label pale">MCP 9/9 纳入矩阵 · V / ING 定义待统一</text>
   <text x="44" y="364" class="label pale">支付宝邀测中 · 百炼 one key MCP 待上架</text>
   <rect x="364" y="300" width="328" height="76" rx="14" fill="#fff" stroke="#ddd7f1" filter="url(#shadow)"/>
   <text x="380" y="326" class="card">向内看 · 四类问题制约节奏</text>
