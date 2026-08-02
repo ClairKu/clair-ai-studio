@@ -77,17 +77,24 @@
     {
       "id": "user-growth",
       "kicker": "05 · 用户增长",
-      "title": "能力开放走向商业验证",
-      "lead": "源稿里程碑从 2025 年 3 月项目启动延伸至 2026 年 8 月微信接入，经历能力开放、生态铺设、产品化和新入口验证。",
-      "layout": "timeline",
+      "title": "关键历程 × 四指标增长",
+      "lead": "以 19 个主节点与 489 日序列双向联动，复盘平台从能力开放、生态铺设到产品化与新入口验证的增长轨迹。",
+      "layout": "evidence",
       "tone": "soft",
       "items": [
-        {"index": "01", "eyebrow": "2025.03—05", "title": "开放与生态铺设", "body": "OAP 启动并上线官网，发布首批 MCP，陆续进入百炼、ModelScope、百度、火山与扣子生态。", "status": "confirmed", "source": "飞书源稿 P3 · revision 1978"},
-        {"index": "02", "eyebrow": "2025.06—11", "title": "收入与品牌验证", "body": "百度 AI 搜索接入、智谱采购带来首个 C 端接入与首笔收入；大师赛及行业活动持续放大品牌。", "status": "confirmed", "source": "飞书源稿 P3 · revision 1978"},
-        {"index": "03", "eyebrow": "2026.02—06", "title": "产品化与首批合作", "body": "AI 小顾、投顾 OpenClaw、首批 Skills 与官网升级相继发布；千问进入首批第三方合作。", "status": "confirmed", "source": "飞书源稿 P3 · revision 1978"},
-        {"index": "04", "eyebrow": "2026.07—08", "title": "超级入口验证", "body": "WorkBuddy 接入、山西证券项目投标、千问 A2A 接入与微信小微接入并行推进。", "status": "confirmed", "source": "飞书源稿 P3 · revision 1978"}
+        {
+          "index": "01",
+          "eyebrow": "2025.03—2026.07 · 历史序列",
+          "title": "里程碑与增长曲线联动",
+          "body": "左侧按重要发布、生态建设、品牌运营与里程碑串联关键节点；右侧联动累计申请、每日调用、每日新增与总调用量，展示事件与增长变化的对应关系。",
+          "meta": "原图快照 · 数据截至 2026-07-28",
+          "status": "confirmed",
+          "source": "OAP 用户增长可视化 · 2026-08-02",
+          "image": "assets/oap-journey-metrics-2026-08-02.png",
+          "alt": "盈米 AI 开放平台关键历程与累计申请、每日调用、每日新增、总调用量四指标增长可视化"
+        }
       ],
-      "callout": {"label": "阶段判断", "text": "项目已从「能力有没有」走到「入口能否带来持续使用与商业结果」。", "status": "inferred"}
+      "callout": {"label": "口径边界", "text": "图中 8,292 申请、9,145,009 总调用、MAU 1,694 为截至 2026-07-28 的历史快照；报告首屏 P1 数据使用飞书 revision 1978 的更新口径。", "status": "confirmed"}
     },
     {
       "id": "channels",
@@ -217,6 +224,7 @@
   ],
   "sources": [
     {"label": "飞书文档《8/3 盈米 AI 开放平台项目汇报》", "detail": "yingmi.feishu.cn/wiki/ELoLwjzXmidhs6kscvbczByYnod · revision 1978 · 报告十项框架与关键举措事实基础"},
+    {"label": "OAP 关键历程 × 四指标增长可视化", "detail": "clairku.github.io/qieman-product-research-library/pages/oap/oap-journey-metrics-2026-08-02.html · 19 个主节点与 489 日序列 · 图表数据截至 2026-07-28"},
     {"label": "来源覆盖清单", "detail": "research/yingmi-ai-oap-framework-2026-08-03-coverage.md · 源稿要点去向、数字复核与未外推边界"},
     {"label": "Clair Executive Visual Report 模板", "detail": "clairku.github.io/clair-ai-studio/reports/yingmi-ai-two-modes-four-continuous-2026-08-02/ · 视觉与交互模板参考"}
   ],
