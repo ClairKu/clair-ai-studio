@@ -115,6 +115,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "yingmi-ai-brand-building-effects-2026-08-03",
+      groupId: "ai-platform",
+      title: "盈米 AI｜品牌建设与效果",
+      url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-ai-brand-building-effects-2026-08-03/",
+      preview: "yingmi-ai-brand-building-effects-2026-08-03.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-03T02:00:00.000Z",
+      source: "MCP 首发 → 分层内容 → 生态共建 → 行业标准｜品牌效果与经营闭环",
+      access: "production",
+      workType: "reporting",
+      tags: ["盈米 AI", "品牌建设", "MCP", "传播复盘", "生态合作", "经营汇报", "HTML", "生产"],
+    },
+    {
       id: "yingmi-ai-two-modes-four-continuous-2026-08-02",
       groupId: "ai-platform",
       title: "盈米 AI｜持续引擎与势能放大",

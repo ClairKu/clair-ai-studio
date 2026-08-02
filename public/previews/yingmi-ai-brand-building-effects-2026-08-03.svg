@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">盈米 AI 品牌建设与效果</title>
+  <desc id="desc">从 MCP 首发到技术能力、场景案例、生态共建和行业标准四层品牌资产的管理报告封面</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#17152d"/>
+      <stop offset="0.55" stop-color="#30265f"/>
+      <stop offset="1" stop-color="#6f58d9"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#c6b9ff" stop-opacity=".15"/>
+      <stop offset="1" stop-color="#fff" stop-opacity=".75"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" rx="36" fill="url(#bg)"/>
+  <circle cx="1070" cy="90" r="210" fill="#a999ff" opacity=".12"/>
+  <circle cx="1040" cy="610" r="280" fill="#fff" opacity=".06"/>
+  <text x="76" y="88" fill="#c8bfff" font-size="22" font-family="Songti SC, STSong, serif" letter-spacing="4">YINGMI AI · BRAND IMPACT REVIEW</text>
+  <text x="76" y="190" fill="#fff" font-size="68" font-weight="700" font-family="Songti SC, STSong, serif">盈米 AI 品牌建设与效果</text>
+  <text x="78" y="244" fill="#ded9ff" font-size="28" font-family="Songti SC, STSong, serif">从 MCP 首发，到财富管理 AI 能力品牌</text>
+  <path d="M90 400 H1080" stroke="url(#glow)" stroke-width="3"/>
+  <g font-family="Songti SC, STSong, serif" text-anchor="middle">
+    <g transform="translate(130 340)">
+      <circle r="54" fill="#7f6bea"/>
+      <text y="8" fill="#fff" font-size="30" font-weight="700">能力</text>
+    </g>
+    <g transform="translate(430 340)">
+      <circle r="54" fill="#8d79ef"/>
+      <text y="8" fill="#fff" font-size="30" font-weight="700">案例</text>
+    </g>
+    <g transform="translate(730 340)">
+      <circle r="54" fill="#9b88f4"/>
+      <text y="8" fill="#fff" font-size="30" font-weight="700">生态</text>
+    </g>
+    <g transform="translate(1030 340)">
+      <circle r="54" fill="#ad9cf9"/>
+      <text y="8" fill="#261f4b" font-size="30" font-weight="700">标准</text>
+    </g>
+  </g>
+  <g fill="#fff" font-family="Songti SC, STSong, serif">
+    <text x="78" y="510" font-size="46" font-weight="700">8,965 篇</text>
+    <text x="78" y="548" font-size="21" opacity=".72">盈米 AI 相关报道 · 截至 2026-07-31</text>
+    <text x="430" y="510" font-size="46" font-weight="700">1,000 万+</text>
+    <text x="430" y="548" font-size="21" opacity=".72">全网浏览 · 内部传播监测口径</text>
+    <text x="820" y="510" font-size="38" font-weight="700">被看见 → 被使用 → 被采购</text>
+    <text x="820" y="548" font-size="21" opacity=".72">下一阶段：把品牌势能接到经营结果</text>
+  </g>
+  <text x="78" y="623" fill="#d8d1ff" font-size="18" font-family="Songti SC, STSong, serif">CLAIR EXECUTIVE VISUAL REPORT · 2026-08-03</text>
+</svg>

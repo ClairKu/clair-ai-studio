@@ -1,0 +1,198 @@
+{
+  "meta": {
+    "title": "盈米 AI 品牌建设与效果",
+    "subtitle": "从 MCP 首发到财富管理 AI 能力品牌",
+    "eyebrow": "YINGMI AI · BRAND IMPACT REVIEW",
+    "date": "2026-08-03",
+    "cutoff": "主项目页 2026-01-04｜传播监测 2026-07-31",
+    "owner": "盈米 AI 开放平台",
+    "confidentiality": "公开摘要 · 已移除个人沟通与未完成计划",
+    "accent": "#6f58d9"
+  },
+  "hero": {
+    "conclusion": "盈米 AI 已从一次 MCP 产品首发，演进为“技术能力、场景案例、生态共建、行业标准”四层品牌资产。",
+    "thesis": "首发期用高密度媒体覆盖建立认知，深耕期用教程、案例与测评建立可信度，持续期借助头部生态伙伴与行业认可放大背书；下一阶段要把“被看见”接到“被使用、被复用、被采购”。",
+    "badges": ["首发 3 天 320 篇", "近 100 份合作申请", "2026-07 累计 8,965 篇报道", "品牌经营闭环"]
+  },
+  "sections": [
+    {
+      "id": "brand-system",
+      "kicker": "01 · BRAND SYSTEM",
+      "title": "品牌不是一次宣发",
+      "lead": "盈米 AI 的品牌资产由能力、案例、生态和标准共同构成，传播只是把这些事实送到目标人群。",
+      "layout": "architecture",
+      "tone": "dark",
+      "items": [
+        {"index": "01", "eyebrow": "ABILITY", "title": "技术能力", "body": "从财富管理 MCP Server 起步，持续扩展到 MCP、Skills、Agents 的专业能力体系。", "bullets": ["可连接", "可复用", "可治理"], "status": "confirmed", "source": "MCP 宣传专项 + 阶段成果源稿"},
+        {"index": "02", "eyebrow": "PROOF", "title": "场景案例", "body": "把抽象能力转成财务诊断、投资规划、投顾报告、理财经理服务与多平台教程。", "bullets": ["真实任务", "可复现实操", "用户故事"], "status": "confirmed", "source": "Wiki 案例与教程清单 · 2025"},
+        {"index": "03", "eyebrow": "ECOSYSTEM", "title": "生态共建", "body": "通过阿里云、百度、火山引擎、AWS 等伙伴进入平台入口、行业大会与联合发布。", "bullets": ["平台分发", "联合发布", "伙伴背书"], "status": "confirmed", "source": "Wiki 生态合作与论坛清单 · 2025"},
+        {"index": "04", "eyebrow": "AUTHORITY", "title": "行业标准", "body": "从产品新闻走向评测集、模型、行业报告收录、奖项与管理层方法论表达。", "bullets": ["评测标准", "第三方认可", "议题占位"], "status": "confirmed", "source": "传播证据报告 · 截至 2026-07-31"}
+      ],
+      "callout": {"label": "品牌飞轮", "text": "能力供给 → 案例验证 → 生态放大 → 行业认可 → 反哺合作与使用。", "status": "inferred"}
+    },
+    {
+      "id": "launch-impact",
+      "kicker": "02 · LAUNCH IMPACT",
+      "title": "首发即形成高密度声量",
+      "lead": "2025 年 4 月首发把产品创新迅速转成媒体覆盖与合作申请；以下均为内部项目页记录口径。",
+      "layout": "metrics",
+      "tone": "light",
+      "items": [
+        {"title": "首发期报道", "metric": "320 篇", "body": "覆盖央媒、财经媒体、科技社区与垂直论坛", "meta": "4/8—4/11｜项目页称 3 天累计", "status": "confirmed", "source": "盈米MCPServer宣传专项 · 2026-01-04 版本"},
+        {"title": "首轮单日", "metric": "115 篇", "body": "主流财经媒体集中首发", "meta": "2025-04-08", "status": "confirmed", "source": "盈米MCPServer宣传专项"},
+        {"title": "第二轮单日", "metric": "103 篇", "body": "媒体沟通叠加技术社区发布", "meta": "2025-04-10", "status": "confirmed", "source": "盈米MCPServer宣传专项"},
+        {"title": "新华财经阅读", "metric": "33.8 万", "body": "首发重点稿件阅读量", "meta": "项目页记录；未附监测截图", "status": "confirmed", "source": "盈米MCPServer宣传专项"},
+        {"title": "中国基金报阅读", "metric": "1.5 万+", "body": "公众号与 App 合计，并被多平台转载", "meta": "项目页记录", "status": "confirmed", "source": "盈米MCPServer宣传专项"},
+        {"title": "合作申请", "metric": "近 100 份", "body": "从 62 份到 85 份，再形成长尾申请", "meta": "截至 2025-04-15；4/20 仍有新增", "status": "confirmed", "source": "盈米MCPServer宣传专项"}
+      ],
+      "callout": {"label": "效果判断", "text": "首发同时产生“媒体认知”和“合作意向”两类结果，但申请到激活、复用和采购的后链路尚未统一归因。", "status": "inferred"}
+    },
+    {
+      "id": "three-stages",
+      "kicker": "03 · CAMPAIGN PATH",
+      "title": "三阶段让声量持续复利",
+      "lead": "传播节奏从抢占首发窗口，转向受众分层与内容深耕，再进入生态合作和行业认可。",
+      "layout": "timeline",
+      "tone": "soft",
+      "items": [
+        {"title": "预热与集中首发", "body": "一对一媒体通气、官方矩阵与主流财经媒体同步首发，快速建立“财富管理 MCP”认知。", "meta": "2025.04.07—04.11", "status": "confirmed", "source": "Wiki 第一阶段"},
+        {"title": "深度解读与精准触达", "body": "借百炼上线窗口，面向金融机构、开发者和资深投资者分别组织访谈、测评、教程与案例。", "meta": "2025.04.25 起", "status": "confirmed", "source": "Wiki 第二阶段"},
+        {"title": "持续曝光与生态拓展", "body": "通过闭门会、行业大会、平台入驻、联合发布和成功案例保持议题热度。", "meta": "2025.06—12", "status": "confirmed", "source": "Wiki 第三阶段"},
+        {"title": "能力品牌持续扩张", "body": "2026 年品牌叙事延展至 Skills、Agents、AI 小顾、机构智能体、合规治理与 Token 效率。", "meta": "2026.01—07", "status": "confirmed", "source": "传播证据报告 · 2026-07-31"}
+      ],
+      "callout": {"label": "方法论", "text": "首发拿认知、案例建信任、生态做分发、标准定位置；四步缺一，品牌就会退化为短期流量。", "status": "inferred"}
+    },
+    {
+      "id": "audiences",
+      "kicker": "04 · AUDIENCE DESIGN",
+      "title": "四类人群分层触达",
+      "lead": "同一套技术事实被翻译为不同价值主张，避免用一篇通稿面对所有人。",
+      "layout": "architecture",
+      "tone": "light",
+      "items": [
+        {"index": "A", "eyebrow": "INSTITUTIONS", "title": "金融机构", "body": "强调服务效率、场景落地、治理边界与可复制的机构解决方案。", "bullets": ["高管访谈", "业务案例", "行业深度稿"], "status": "confirmed", "source": "Wiki TO 金融机构"},
+        {"index": "B", "eyebrow": "DEVELOPERS", "title": "开发者", "body": "强调低门槛接入、跨平台教程、技术亮点与可参与的案例征集。", "bullets": ["MCP 大师赛", "Aily / TRAE 教程", "技术社区分发"], "status": "confirmed", "source": "Wiki TO 开发者"},
+        {"index": "C", "eyebrow": "INVESTORS", "title": "资深投资者", "body": "通过大 V 实测、投资者教育和真实任务解释专业能力如何改善服务体验。", "bullets": ["产品实测", "口碑故事", "普惠金融科普"], "status": "confirmed", "source": "Wiki TO 资深投资者"},
+        {"index": "D", "eyebrow": "MEDIA & PARTNERS", "title": "媒体与伙伴", "body": "用公开里程碑、行业观点与联合发布建立持续选题，而非只在产品上线时发声。", "bullets": ["财经媒体", "科技媒体", "生态伙伴"], "status": "confirmed", "source": "Wiki 媒体与生态清单"}
+      ]
+    },
+    {
+      "id": "content-assets",
+      "kicker": "05 · CONTENT ASSETS",
+      "title": "内容从通稿升级为证据",
+      "lead": "品牌可信度来自可复现的内容资产组合：新闻回答“发生了什么”，案例和教程回答“为什么可信、怎么使用”。",
+      "layout": "cards",
+      "tone": "soft",
+      "items": [
+        {"index": "01", "eyebrow": "NEWS", "title": "发布与里程碑", "body": "首发、平台上架、合作签约、模型与评测集发布，持续提供明确新闻钩子。", "status": "confirmed", "source": "Wiki 22 组表格"},
+        {"index": "02", "eyebrow": "CASE", "title": "真实业务案例", "body": "3 分钟财务诊断、投顾报告生产、基金转换服务，把能力转成可理解的结果。", "status": "confirmed", "source": "Wiki 案例分享系列"},
+        {"index": "03", "eyebrow": "HOW-TO", "title": "跨平台教程", "body": "百炼、Aily、TRAE 等教程降低接入门槛，让开发者能复现而非只围观。", "status": "confirmed", "source": "Wiki 教程系列"},
+        {"index": "04", "eyebrow": "PEOPLE", "title": "人物与观点", "body": "高管、顾问、开发者和用户故事让“盈米 AI”拥有具体实践者与方法论。", "status": "confirmed", "source": "Wiki 访谈与高管内容"},
+        {"index": "05", "eyebrow": "STANDARD", "title": "评测与标准", "body": "FinMCP-Bench、投顾智能体模型与行业报告收录，把传播从产品功能推向行业标准。", "status": "confirmed", "source": "Wiki + 传播证据报告"}
+      ],
+      "callout": {"label": "内容资产化", "text": "每个能力至少需要 1 个公开案例、1 份可复现教程、1 个第三方证据和 1 条可归因转化链路。", "status": "target"}
+    },
+    {
+      "id": "case-proof",
+      "kicker": "06 · CASE PROOF",
+      "title": "案例与教程建立可信度",
+      "lead": "原始项目页已经形成从场景案例到工具教程、人物访谈和评测集的内容梯度。",
+      "layout": "cards",
+      "tone": "dark",
+      "items": [
+        {"title": "3 分钟财务诊断与投资规划", "body": "首期案例展示如何把专业数据和分析能力组合为面向个人的完整报告。", "source": "盈米 AI 开放平台公众号 · 2025-06-18", "status": "confirmed"},
+        {"title": "投顾报告生产流程", "body": "叩富投顾团队案例以“提效超 5 倍、转化率翻番”为传播主张；样本、基线与测量方法仍待补。", "source": "盈米 AI 开放平台公众号 · 2025-07-02", "status": "confirmed"},
+        {"title": "理财经理客户服务", "body": "基金转换报告案例把 MCP 从开发者工具转成一线理财经理的客户沟通能力。", "source": "盈米 AI 开放平台公众号 · 2025-07-16", "status": "confirmed"},
+        {"title": "Aily 与 TRAE 实操", "body": "跨平台教程证明能力可被不同智能助手和开发环境复用。", "source": "Wiki 教程清单 · 2025", "status": "confirmed"},
+        {"title": "FinMCP-Bench", "body": "开源财富管理 AI 智能体评测集，并附主流模型测试结果，形成标准化技术叙事。", "source": "Wiki FinMCP 评测集清单 · 2025-12", "status": "confirmed"}
+      ]
+    },
+    {
+      "id": "milestones",
+      "kicker": "07 · MILESTONES",
+      "title": "里程碑不断抬高品牌位置",
+      "lead": "品牌表达从“首个产品”逐步抬升为生态能力、评测标准和行业认可。",
+      "layout": "timeline",
+      "tone": "light",
+      "items": [
+        {"title": "财富管理 MCP 首发", "body": "主流财经与科技媒体集中报道，建立新品类认知。", "meta": "2025.04", "status": "confirmed", "source": "Wiki 第一阶段"},
+        {"title": "主流 AI 平台分发", "body": "进入阿里云百炼、火山引擎与百度 AI 搜索/AI Day 等入口。", "meta": "2025.04—07", "status": "confirmed", "source": "Wiki 生态合作清单"},
+        {"title": "阿里云全栈战略合作", "body": "从单点上架升级为联合建设财富管理专业模型和解决方案。", "meta": "2025.07.21", "status": "confirmed", "source": "Wiki 联合推广清单"},
+        {"title": "评测集与模型发布", "body": "联合发布理财智能体评测集和投顾智能体模型，传播由产品转向标准。", "meta": "2025.09.25", "status": "confirmed", "source": "Wiki 25 条发布清单"},
+        {"title": "第三方行业认可", "body": "入选钛媒体年度榜单并被投顾行业报告收录，形成权威背书。", "meta": "2025.09—12", "status": "confirmed", "source": "Wiki 奖项与报告收录清单"},
+        {"title": "品牌延展至 AI 原生能力", "body": "2026 年继续延展至 Skills、Agents、AI 小顾、机构智能体和合规治理。", "meta": "2026.01—07", "status": "confirmed", "source": "传播证据报告 · 2026-07-31"}
+      ]
+    },
+    {
+      "id": "ecosystem",
+      "kicker": "08 · ECOSYSTEM",
+      "title": "生态共建放大品牌背书",
+      "lead": "伙伴不仅提供流量，更提供入口、场景、联合产品和第三方可信度。",
+      "layout": "process",
+      "tone": "soft",
+      "items": [
+        {"index": "01", "eyebrow": "DISTRIBUTE", "title": "平台上架", "body": "百炼、火山引擎、百度等入口扩大开发者与终端用户触达。", "status": "confirmed", "source": "Wiki 生态平台清单"},
+        {"index": "02", "eyebrow": "DEMONSTRATE", "title": "大会与实测", "body": "闭门会、FORCE、AI Day、AWS 峰会等场合提供现场演示和同行交流。", "status": "confirmed", "source": "Wiki 行业会议清单"},
+        {"index": "03", "eyebrow": "CO-BUILD", "title": "联合产品", "body": "与阿里云从上架、签约走向评测集、模型与机构智能体解决方案。", "status": "confirmed", "source": "Wiki + 传播证据报告"},
+        {"index": "04", "eyebrow": "ENDORSE", "title": "联合传播", "body": "财经媒体、科技媒体、生态伙伴和行业机构共同放大品牌可信度。", "status": "confirmed", "source": "Wiki 传播清单"},
+        {"index": "05", "eyebrow": "CONVERT", "title": "转成合作", "body": "把联合发布继续接到授权、有效任务、复用、线索和采购。", "status": "target", "source": "品牌经营建议 · 2026-08-03"}
+      ]
+    },
+    {
+      "id": "brand-effect",
+      "kicker": "09 · BRAND EFFECT",
+      "title": "品牌认知已完成四次升级",
+      "lead": "传播结果最重要的变化，不是篇数本身，而是市场如何重新定义盈米。",
+      "layout": "comparison",
+      "tone": "dark",
+      "items": [
+        {"index": "01", "eyebrow": "CATEGORY", "title": "从投顾机构到 AI 能力开放者", "body": "品牌外延从基金投顾服务扩展到财富管理 AI 专业能力与开放平台。", "status": "inferred", "source": "跨期传播主题归纳"},
+        {"index": "02", "eyebrow": "TRUST", "title": "从产品自述到生态背书", "body": "由官方发布变为阿里云、百度、火山、AWS 与行业媒体共同证明。", "status": "inferred", "source": "生态合作与联合发布清单"},
+        {"index": "03", "eyebrow": "DEPTH", "title": "从功能新闻到行业方法论", "body": "主题从 MCP 上线延展到评测、模型、合规、Token 效率与机构智能体。", "status": "inferred", "source": "传播证据报告 · 2026-07-31"},
+        {"index": "04", "eyebrow": "ASSET", "title": "从单次曝光到复用资产", "body": "案例、教程、访谈、评测集、奖项和高管观点共同构成可持续内容库。", "status": "inferred", "source": "Wiki 全量内容分类"}
+      ],
+      "callout": {"label": "累计传播规模", "text": "截至 2026-07-31：盈米 AI 相关报道 8,965 篇，其中 MCP 3,329 篇；互动 300 万+、浏览 1,000 万+。", "status": "confirmed"}
+    },
+    {
+      "id": "next-actions",
+      "kicker": "10 · NEXT ACTIONS",
+      "title": "把品牌势能接到经营结果",
+      "lead": "品牌建设已过“有没有声量”的阶段，下一步要统一证据口径并提高对使用、合作和收入的归因能力。",
+      "layout": "actions",
+      "tone": "light",
+      "items": [
+        {"index": "P0", "eyebrow": "MEASUREMENT", "title": "建立品牌证据账本", "body": "统一媒体原发/转载、阅读/浏览/互动、申请、激活、复用、线索、合同和收入定义。", "meta": "责任：品牌 × 运营 × 数据｜30 天", "status": "target"},
+        {"index": "P0", "eyebrow": "ATTRIBUTION", "title": "打通内容到线索归因", "body": "为重点内容、活动与生态入口设置独立链接、来源标签和后链路状态。", "meta": "责任：市场 × 产品｜30—60 天", "status": "target"},
+        {"index": "P1", "eyebrow": "CASE FACTORY", "title": "把案例做成生产线", "body": "每季度沉淀机构、顾问、开发者与 C 端四类案例，并补齐样本、基线和可复现步骤。", "meta": "责任：产品 × 客户成功 × 品牌｜季度", "status": "target"},
+        {"index": "P1", "eyebrow": "NARRATIVE", "title": "固定五类品牌叙事", "body": "能力进展、客户结果、生态合作、行业观点、可归因增长形成稳定内容节奏。", "meta": "责任：品牌 × 管理层｜季度", "status": "target"},
+        {"index": "P2", "eyebrow": "GOVERNANCE", "title": "公开前做证据分级", "body": "区分材料确认、公开可验证、推断和目标态；首个、首批、行业唯一等表述逐项留证。", "meta": "责任：品牌 × 法务合规｜持续", "status": "target"}
+      ],
+      "callout": {"label": "管理指标", "text": "品牌北极星不只看曝光量，而看有效触达 × 使用复用 × 合作转化 × 行业心智。", "status": "target"}
+    },
+    {
+      "id": "source-evidence",
+      "kicker": "11 · SOURCE EVIDENCE",
+      "title": "原始三阶段路径完整保留",
+      "lead": "原图显示首发、深度触达和持续拓展的完整传播设计；报告对其进行了事实/计划分离。",
+      "layout": "evidence",
+      "tone": "soft",
+      "items": [
+        {"title": "MCP 品牌传播三阶段", "body": "快速发布与引发关注 → 针对不同群体深度解读 → 持续曝光、合作与案例发布。", "image": "assets/mcp-brand-campaign-three-stage.png", "alt": "盈米 MCP 品牌传播三阶段流程图，包括预热初步曝光、深度解读精准触达、持续曝光拓展，以及面向金融机构、开发者、投资者的内容策略", "source": "盈米 Wiki《盈米MCPServer宣传专项》附件 · 2025-04-14", "status": "confirmed"},
+        {"title": "品牌资产链重绘", "body": "报告把全量事实归纳为能力、案例、生态、标准四层资产；这是管理判断，不替代原始证据。", "image": "assets/yingmi-ai-brand-asset-chain.svg", "alt": "盈米 AI 品牌资产链，从技术能力、场景案例、生态共建到行业标准，并连接曝光、申请、使用和采购", "source": "基于 Wiki 全量材料与传播证据报告重绘 · 2026-08-03", "status": "inferred"}
+      ],
+      "callout": {"label": "证据边界", "text": "主 Wiki 最后更新于 2026-01-04；记者沟通、拟选题和未完成合作均未计为公开成果。", "status": "confirmed"}
+    }
+  ],
+  "sources": [
+    {"label": "盈米 Wiki《盈米MCPServer宣传专项》", "detail": "pageId 242730417｜版本 82｜最后更新 2026-01-04｜主来源"},
+    {"label": "盈米 AI 传播证据报告", "detail": "research/yingmi-ai-communications-evidence-report-2026-07-31.md｜品牌延展与累计监测口径"},
+    {"label": "来源覆盖清单", "detail": "research/yingmi-ai-brand-building-effects-2026-08-03-coverage.md｜22 组表格、图片与报告去向"},
+    {"label": "公开报道与案例链接", "detail": "Wiki 页面收录的财经媒体、科技媒体、开发者社区、生态伙伴与行业报告链接"}
+  ],
+  "openQuestions": [
+    {"title": "传播数据审计", "detail": "补充 320 篇、33.8 万、8,965 篇等指标的监测工具、去重规则、采样范围与后台截图。"},
+    {"title": "申请后链路", "detail": "补充近 100 份申请中激活、首个有效任务、30 日复用、机构线索、合同和收入。"},
+    {"title": "案例效果口径", "detail": "为“提效超 5 倍、转化率翻番”等案例补齐样本、基线、统计周期和复核人。"},
+    {"title": "品牌认知研究", "detail": "当前以传播证据推断心智升级；若用于年度品牌决策，应补充客户/开发者认知调研与竞品对照。"}
+  ]
+}
