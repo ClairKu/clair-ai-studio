@@ -1,28 +1,32 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-labelledby="title desc">
-  <title id="title">盈米 AI 从底座到服务</title>
-  <desc id="desc">AI 开放平台位于最底层，向上支撑 AI 资产、生产治理、交付协同和服务生态。</desc>
+  <title id="title">盈米 AI 双关系图视觉重绘</title>
+  <desc id="desc">服务关系图与系统关系图使用 CLAIR 紫色系和宋体重绘，原图内容与关系保持不变。</desc>
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f7f5ff"/><stop offset="1" stop-color="#e9e3ff"/></linearGradient>
-    <linearGradient id="core" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#6f4fe4"/><stop offset="1" stop-color="#9a84ff"/></linearGradient>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#faf9ff"/><stop offset="1" stop-color="#e9e3ff"/></linearGradient>
+    <linearGradient id="core" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#5738c8"/><stop offset="1" stop-color="#9a84ff"/></linearGradient>
     <filter id="shadow"><feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#3b277f" flood-opacity=".14"/></filter>
   </defs>
   <rect width="640" height="400" rx="32" fill="url(#bg)"/>
-  <circle cx="558" cy="58" r="120" fill="#fff" opacity=".42"/>
-  <text x="44" y="54" fill="#7457e8" font-family="Songti SC,serif" font-size="13" font-weight="700" letter-spacing="2">ARCHITECTURE REFRAME</text>
-  <text x="44" y="91" fill="#171727" font-family="Songti SC,serif" font-size="30" font-weight="700">从底座到服务</text>
-  <text x="44" y="116" fill="#6b7081" font-family="Songti SC,serif" font-size="13">统一为自下而上的价值生长逻辑</text>
+  <circle cx="570" cy="54" r="120" fill="#fff" opacity=".45"/>
+  <text x="42" y="52" fill="#7457e8" font-family="Songti SC,STSong,SimSun,serif" font-size="12" font-weight="700" letter-spacing="2">VISUAL REDRAW</text>
+  <text x="42" y="90" fill="#171727" font-family="Songti SC,STSong,SimSun,serif" font-size="29" font-weight="700">双关系图视觉重绘</text>
+  <text x="42" y="116" fill="#6b7081" font-family="Songti SC,STSong,SimSun,serif" font-size="13">内容与关系不变 · CLAIR 紫色系 · 全局宋体</text>
   <g filter="url(#shadow)">
-    <rect x="90" y="146" width="460" height="42" rx="14" fill="#fff"/>
-    <rect x="116" y="198" width="408" height="42" rx="14" fill="#fff"/>
-    <rect x="142" y="250" width="356" height="42" rx="14" fill="#fff"/>
-    <rect x="168" y="302" width="304" height="52" rx="16" fill="url(#core)"/>
+    <rect x="42" y="145" width="267" height="198" rx="20" fill="#fff" stroke="#d9d1ee"/>
+    <rect x="331" y="145" width="267" height="198" rx="20" fill="#fff" stroke="#d9d1ee"/>
   </g>
-  <text x="320" y="173" text-anchor="middle" fill="#26273a" font-family="Songti SC,serif" font-size="14" font-weight="700">服务与生态</text>
-  <text x="320" y="225" text-anchor="middle" fill="#26273a" font-family="Songti SC,serif" font-size="14" font-weight="700">交付协同 · 生产治理</text>
-  <text x="320" y="277" text-anchor="middle" fill="#26273a" font-family="Songti SC,serif" font-size="14" font-weight="700">MCP · Skills · Agent</text>
-  <text x="320" y="334" text-anchor="middle" fill="#fff" font-family="Songti SC,serif" font-size="16" font-weight="700">AI 开放平台</text>
-  <path d="M320 297v-78" fill="none" stroke="#7457e8" stroke-width="3" stroke-linecap="round" stroke-dasharray="4 7"/>
-  <path d="m311 226 9-11 9 11" fill="none" stroke="#7457e8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-  <rect x="44" y="361" width="552" height="1" fill="#7457e8" opacity=".18"/>
-  <text x="44" y="382" fill="#6b7081" font-family="Songti SC,serif" font-size="11">主链向上创造价值 · 反馈向下驱动迭代</text>
+  <text x="62" y="174" fill="#5d48bd" font-family="Songti SC,STSong,SimSun,serif" font-size="13" font-weight="700">服务关系图</text>
+  <rect x="72" y="192" width="207" height="31" rx="10" fill="url(#core)"/>
+  <rect x="72" y="235" width="207" height="38" rx="10" fill="#fff6f1" stroke="#efb28f"/>
+  <rect x="72" y="285" width="207" height="26" rx="9" fill="#eef5ff" stroke="#abc7ec"/>
+  <path d="M176 223v10M176 273v10M176 311v11" fill="none" stroke="#7457e8" stroke-width="2"/>
+  <circle cx="92" cy="253" r="7" fill="#ff7a3d"/><circle cx="258" cy="253" r="7" fill="#4f83db"/>
+  <text x="351" y="174" fill="#5d48bd" font-family="Songti SC,STSong,SimSun,serif" font-size="13" font-weight="700">系统关系图</text>
+  <rect x="353" y="192" width="223" height="29" rx="9" fill="#fff" stroke="#d8d1ed"/>
+  <rect x="373" y="232" width="183" height="38" rx="10" fill="url(#core)"/>
+  <rect x="393" y="281" width="143" height="24" rx="8" fill="#f2eeff" stroke="#c9bcf0"/>
+  <rect x="413" y="316" width="103" height="18" rx="7" fill="#f7f5fc" stroke="#ddd7ed"/>
+  <path d="M465 316v-9M465 281v-9M465 232v-9" fill="none" stroke="#7457e8" stroke-width="2"/>
+  <rect x="42" y="366" width="556" height="1" fill="#7457e8" opacity=".2"/>
+  <text x="42" y="387" fill="#6b7081" font-family="Songti SC,STSong,SimSun,serif" font-size="11">只换样式、颜色与字体，不改变图中的任何关系与内容</text>
 </svg>

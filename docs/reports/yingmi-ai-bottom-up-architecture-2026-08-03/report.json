@@ -1,274 +1,74 @@
 {
   "meta": {
-    "title": "盈米 AI｜从底座到服务",
-    "subtitle": "系统关系图 × 服务关系图｜自下而上的统一架构重构",
-    "eyebrow": "盈米 AI · ARCHITECTURE REFRAME",
+    "title": "盈米 AI｜双关系图视觉重绘",
+    "subtitle": "服务关系图 × 系统关系图｜只改样式与配色，不改内容与关系",
+    "eyebrow": "盈米 AI · VISUAL REDRAW",
     "date": "2026-08-03",
-    "cutoff": "2026-08-03（基于两张用户提供原图）",
+    "cutoff": "2026-08-03（基于用户提供两张原图）",
     "owner": "盈米 AI 产品团队",
-    "confidentiality": "架构重构稿 · 目标态不代表已上线",
+    "confidentiality": "视觉重绘稿 · 原图内容与关系保持不变",
     "accent": "#7457E8"
   },
   "hero": {
-    "conclusion": "AI 开放平台不是最上层入口，而是全链路最底层基础设施；价值自下而上生长，反馈再向下回流。",
-    "thesis": "底层负责把数据、工具、权限与 AI 资产变成可调用基础设施；中层负责生产、治理与分发；顶层才是官网、工作台、AI 小顾和行业应用等服务触点。",
+    "conclusion": "两张原图仅统一为 CLAIR 紫色系视觉语言；节点、文字、层级、箭头方向和反馈关系全部保持不变。",
+    "thesis": "新版使用宋体、紫色渐变、轻质卡片与更清晰的关系线，只解决视觉一致性与阅读层级，不重新解释产品架构。",
     "badges": [
-      "方向：由下至上",
-      "底座：AI 开放平台",
-      "主链：沉淀 → 生产 → 分发 → 服务",
-      "回路：使用反馈 → 迭代优化"
+      "内容不变",
+      "关系不变",
+      "CLAIR 紫色系",
+      "全局宋体"
     ]
   },
   "sections": [
     {
-      "id": "reframe",
-      "kicker": "01 · REFRAME",
-      "title": "先把入口与底座分开",
-      "lead": "原图的主要问题不是元素缺失，而是层级方向与产品职责混在一起；重构后只保留一条向上的价值主链。",
-      "layout": "comparison",
-      "tone": "light",
-      "items": [
-        {
-          "index": "BEFORE",
-          "eyebrow": "原图信息冲突",
-          "title": "官网被当成开放平台",
-          "body": "服务关系图把 OAP 官网放在最上方，容易让人把展示入口误解为能力底座；系统图又把开放平台放在顶层，方向不一致。",
-          "bullets": [
-            "入口、生产、治理、交付混在同一层",
-            "主链和反馈线同时抢视觉焦点",
-            "AI 实验室与工作台边界不够清晰"
-          ],
-          "status": "confirmed",
-          "source": "用户提供两张原图 · 2026-08-03"
-        },
-        {
-          "index": "AFTER",
-          "eyebrow": "统一后的判断",
-          "title": "开放平台回到底座",
-          "body": "官网改为开放门户；AI 开放平台下沉，承载数据、工具、资产、账号权限与治理能力，向上支撑实验室、工作台和各类服务。",
-          "bullets": [
-            "价值主链统一为自下而上",
-            "Stargate 归位为治理中枢",
-            "反馈闭环独立为向下回路"
-          ],
-          "status": "inferred",
-          "source": "基于两张原图的关系重构 · 2026-08-03"
-        }
-      ],
-      "callout": {
-        "label": "中心判断",
-        "text": "门户负责被看见，实验室负责生产，工作台负责交付，开放平台负责让一切可调用、可治理、可复用。",
-        "status": "inferred"
-      }
-    },
-    {
-      "id": "system-stack",
-      "kicker": "02 · SYSTEM MAP",
-      "title": "系统从底座向上生长",
-      "lead": "先看系统关系：基础能力沉淀为 AI 资产，经生产与治理进入交付环境，最终成为用户可感知的服务与生态入口。",
+      "id": "service-map",
+      "kicker": "01 · SERVICE RELATIONSHIP",
+      "title": "盈米 AI 服务关系图",
+      "lead": "围绕 AI开放平台、AI实验室、AI工作台 与 AI小顾，形成创作—发布—分发—使用—反馈闭环。",
       "layout": "architecture",
-      "tone": "dark",
-      "items": [
-        {
-          "index": "01",
-          "title": "AI 开放平台",
-          "body": "服务与能力底座",
-          "status": "inferred"
-        },
-        {
-          "index": "02",
-          "title": "AI 资产层",
-          "body": "MCP · Skills · Agent",
-          "status": "inferred"
-        },
-        {
-          "index": "03",
-          "title": "生产与治理",
-          "body": "AI 实验室 · Stargate",
-          "status": "inferred"
-        },
-        {
-          "index": "04",
-          "title": "交付与协同",
-          "body": "AI 工作台",
-          "status": "inferred"
-        },
-        {
-          "index": "05",
-          "title": "服务与生态",
-          "body": "门户 · 小顾 · 应用 · Agent",
-          "status": "inferred"
-        }
-      ],
-      "callout": {
-        "label": "读图顺序",
-        "text": "从最底层 01 开始向上读；越向上越接近用户，越向下越强调复用、标准与治理。",
-        "status": "inferred"
-      }
-    },
-    {
-      "id": "service-stack",
-      "kicker": "03 · SERVICE MAP",
-      "title": "服务从平台向用户交付",
-      "lead": "再看服务关系：AI 开放平台固定在最下面；创作者与使用者在同一生产—分发—使用链路中协作，行为数据沿反馈通道回流。",
-      "layout": "process",
-      "tone": "soft",
-      "items": [
-        {
-          "index": "01",
-          "title": "AI 开放平台",
-          "body": "统一底座",
-          "status": "inferred"
-        },
-        {
-          "index": "02",
-          "title": "AI 实验室",
-          "body": "搭建与试用",
-          "status": "target"
-        },
-        {
-          "index": "03",
-          "title": "AI 工作台",
-          "body": "发布与分发",
-          "status": "inferred"
-        },
-        {
-          "index": "04",
-          "title": "AI 服务",
-          "body": "小顾 · 应用 · Agent",
-          "status": "inferred"
-        },
-        {
-          "index": "05",
-          "title": "角色与结果",
-          "body": "创作者 · 使用者",
-          "status": "inferred"
-        }
-      ],
-      "callout": {
-        "label": "闭环逻辑",
-        "text": "主链向上创造价值；使用反馈、数据沉淀与迭代优化沿独立回路向下返回平台。",
-        "status": "inferred"
-      }
-    },
-    {
-      "id": "boundaries",
-      "kicker": "04 · OWNERSHIP",
-      "title": "四类系统各司其职",
-      "lead": "用一句职责定义和一组验收对象，避免同一能力被多个产品重复承诺。",
-      "layout": "cards",
       "tone": "light",
       "items": [
         {
           "index": "01",
-          "eyebrow": "FOUNDATION",
-          "title": "AI 开放平台",
-          "body": "把金融数据、工具和 AI 资产变成统一可调用服务。",
-          "bullets": [
-            "统一账号与权限",
-            "统一能力目录与调用",
-            "统一可观测与运营数据"
-          ],
-          "status": "inferred"
-        },
-        {
-          "index": "02",
-          "eyebrow": "GOVERNANCE",
-          "title": "Stargate",
-          "body": "作为治理后台，不与门户争夺用户心智。",
-          "bullets": [
-            "内容与发布配置",
-            "用户、角色与权限",
-            "运行维护与数据统计"
-          ],
-          "status": "inferred"
-        },
-        {
-          "index": "03",
-          "eyebrow": "PRODUCTION",
-          "title": "AI 实验室",
-          "body": "面向创作者完成低代码搭建、测试和发布准备。",
-          "bullets": [
-            "搭建 Agent / Workflow",
-            "配置 Skills / MCP",
-            "测试体验与发布"
-          ],
-          "status": "target"
-        },
-        {
-          "index": "04",
-          "eyebrow": "DELIVERY",
-          "title": "AI 工作台",
-          "body": "面向个人与团队组织应用、场景入口和协作消息。",
-          "bullets": [
-            "我的应用 / 团队应用",
-            "场景入口与消息协作",
-            "发布、分发与持续使用"
-          ],
-          "status": "inferred"
+          "title": "AI开放平台（OAP 官网）",
+          "body": "统一入口 · 品牌展示 · 开发者 / 创作者入口",
+          "status": "confirmed",
+          "source": "用户提供原服务关系图 · 2026-08-03"
         }
       ],
       "callout": {
-        "label": "角色边界",
-        "text": "开放门户只是对外展示与接入入口；它位于服务触点层，不再与底层的 AI 开放平台同名。",
-        "status": "inferred"
+        "label": "重绘约束",
+        "text": "仅修改样式、颜色与字体；图中内容、位置关系、箭头方向与闭环含义保持原样。",
+        "status": "confirmed"
       }
     },
     {
-      "id": "loop",
-      "kicker": "05 · VALUE LOOP",
-      "title": "双角色共用一条闭环",
-      "lead": "创作者和使用者不是两套割裂系统，而是在同一条价值链的不同阶段进入。",
-      "layout": "process",
+      "id": "system-map",
+      "kicker": "02 · SYSTEM RELATIONSHIP",
+      "title": "盈米 AI 系统关系图",
+      "lead": "金字塔结构：底层 数据基础 / 工具能力 → 中层 MCP · Skills · Agent · Stargate 管理后台 → 顶层 官网 / Agent · Skills 平台 / 个人中心 / 开放平台。",
+      "layout": "architecture",
       "tone": "soft",
       "items": [
         {
           "index": "01",
-          "eyebrow": "CREATOR",
-          "title": "创作",
-          "body": "运营、产品与业务人员组合 MCP、Skills、Agent 与 Workflow。",
-          "status": "target"
-        },
-        {
-          "index": "02",
-          "eyebrow": "LAB",
-          "title": "测试",
-          "body": "在 AI 实验室验证配置、体验、权限和发布条件。",
-          "status": "target"
-        },
-        {
-          "index": "03",
-          "eyebrow": "WORKBENCH",
-          "title": "分发",
-          "body": "通过工作台进入个人、团队或具体业务场景。",
-          "status": "inferred"
-        },
-        {
-          "index": "04",
-          "eyebrow": "USER",
-          "title": "使用",
-          "body": "用户以浏览、收藏、启用、对话或任务完成的方式使用服务。",
-          "status": "inferred"
-        },
-        {
-          "index": "05",
-          "eyebrow": "FEEDBACK",
-          "title": "优化",
-          "body": "反馈、数据和运营判断回到平台，驱动资产与体验迭代。",
-          "status": "inferred"
+          "title": "数据基础 / 工具能力",
+          "body": "提供底层数据与工具，支撑上层能力",
+          "status": "confirmed",
+          "source": "用户提供原系统关系图 · 2026-08-03"
         }
       ],
       "callout": {
-        "label": "验收建议",
-        "text": "分别验收能否生产、能否治理、能否分发、能否完成任务、能否形成复用与回流。",
-        "status": "inferred"
+        "label": "重绘约束",
+        "text": "基础层、AI 资产层、管理中枢、前台 / 生态层及能力沉淀链路均按原图保留。",
+        "status": "confirmed"
       }
     },
     {
-      "id": "evidence",
-      "kicker": "06 · SOURCE",
-      "title": "原图完整保留可追溯",
-      "lead": "重绘调整的是层级、命名与读图路径；原始元素全部登记，规划态与推导关系不包装为已上线事实。",
+      "id": "source-check",
+      "kicker": "03 · SOURCE CHECK",
+      "title": "原图逐项核对",
+      "lead": "原图作为唯一内容依据；重绘稿未新增系统、未删减节点、未改变连接方向。",
       "layout": "evidence",
       "tone": "light",
       "items": [
@@ -276,7 +76,7 @@
           "index": "01",
           "eyebrow": "SOURCE IMAGE",
           "title": "原服务关系图",
-          "body": "保留创作者 / 使用者、AI 实验室双界面、AI 工作台、三类应用与反馈闭环。",
+          "body": "用于核对角色、双界面、工作台、三类应用、关系说明与反馈闭环。",
           "status": "confirmed",
           "source": "用户提供图片 · 2026-08-03",
           "image": "assets/source-service-relationship.png",
@@ -286,7 +86,7 @@
           "index": "02",
           "eyebrow": "SOURCE IMAGE",
           "title": "原系统关系图",
-          "body": "保留数据与工具、MCP / Skills / Agent、Stargate、门户与开放生态等要素。",
+          "body": "用于核对三层结构、Stargate、MCP / Skills / Agent、基础能力与沉淀链路。",
           "status": "confirmed",
           "source": "用户提供图片 · 2026-08-03",
           "image": "assets/source-system-relationship.png",
@@ -294,38 +94,25 @@
         }
       ],
       "callout": {
-        "label": "证据边界",
-        "text": "本报告是基于原图的架构重构建议；除原图明确标注外，不代表系统已上线、已打通或已有使用结果。",
-        "status": "inferred"
+        "label": "核对结果",
+        "text": "重绘仅发生在视觉层：配色、边框、阴影、圆角、字号层级与宋体字体。",
+        "status": "confirmed"
       }
     }
   ],
   "sources": [
     {
       "label": "盈米 AI 服务关系图",
-      "detail": "用户提供 PNG · 2026-08-03 · 作为角色、生产、分发、应用与反馈关系来源"
+      "detail": "用户提供 PNG · 2026-08-03 · 重绘内容与关系的唯一依据"
     },
     {
       "label": "盈米 AI 系统关系图",
-      "detail": "用户提供 PNG · 2026-08-03 · 作为数据、工具、资产、治理、门户与生态关系来源"
+      "detail": "用户提供 PNG · 2026-08-03 · 重绘内容与关系的唯一依据"
     },
     {
       "label": "来源覆盖清单",
-      "detail": "research/yingmi-ai-bottom-up-architecture-2026-08-03-coverage.md · 原图要素与重绘去向逐项登记"
+      "detail": "research/yingmi-ai-bottom-up-architecture-2026-08-03-coverage.md · 原图元素逐项核对"
     }
   ],
-  "openQuestions": [
-    {
-      "title": "开放平台与开放门户正式命名",
-      "detail": "建议产品命名评审时确认是否采用“AI 开放平台（底座）/ 开放门户（入口）”的区分，避免同名歧义。"
-    },
-    {
-      "title": "AI 实验室上线边界",
-      "detail": "原图标注“规划中”；本报告继续按目标态呈现，待补具体版本范围与上线验收标准。"
-    },
-    {
-      "title": "Stargate 与 OAP 的产品归属",
-      "detail": "当前按“开放平台内的治理中枢”表达；最终产品架构需由团队确认模块归属与权限边界。"
-    }
-  ]
+  "openQuestions": []
 }
