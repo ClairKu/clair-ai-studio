@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="405" viewBox="0 0 720 405" role="img" aria-labelledby="title desc">
+  <title id="title">盈米 AI 开放平台 2026 H2 项目汇报预览</title>
+  <desc id="desc">五条主线支撑 OAP 从能力沉淀走向商业闭环：项目进展、产品规划、商化准备、往外看、向内看。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fbfaff"/><stop offset="1" stop-color="#eae6f8"/></linearGradient>
+    <linearGradient id="violet" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#7058d8"/><stop offset="1" stop-color="#a58df7"/></linearGradient>
+    <linearGradient id="navy" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#121a32"/><stop offset="1" stop-color="#263151"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#342568" flood-opacity=".12"/></filter>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9Z" fill="#8067e8"/></marker>
+    <style>text{font-family:"PingFang SC","Microsoft YaHei",sans-serif;fill:#171a2a}.serif{font-family:"Songti SC",STSong,SimSun,serif}.eyebrow{font-size:9px;font-weight:800;letter-spacing:1.5px;fill:#735bd8}.title{font-size:24px;font-weight:800}.sub{font-size:10px;fill:#687287}.group{font-size:13px;font-weight:750}.card{font-size:11px;font-weight:750}.metric{font-size:13px;font-weight:800;fill:#735bd8}.white{fill:#fff}.pale{fill:#e8eafd}</style>
+  </defs>
+  <rect width="720" height="405" rx="28" fill="url(#bg)"/>
+  <text x="28" y="28" class="eyebrow">YINGMI AI OAP · 2026 H2 PROJECT REPORT</text>
+  <text x="28" y="58" class="title serif">从能力沉淀到商业闭环</text>
+  <text x="28" y="77" class="sub">五条主线｜千问超级入口 × 三大渠道上架 × 商化样板</text>
+
+  <rect x="28" y="96" width="200" height="270" rx="19" fill="#fff" stroke="#ddd7f1" filter="url(#shadow)"/>
+  <text x="46" y="120" class="eyebrow">01 · STAGE RESULTS</text>
+  <text x="46" y="142" class="group serif">阶段成果｜可见势能</text>
+  <text x="46" y="170" class="metric serif">9.2M+</text><text x="46" y="186" class="sub">累计调用量</text>
+  <text x="46" y="208" class="metric serif">480+</text><text x="46" y="224" class="sub">服务金融机构</text>
+  <text x="46" y="246" class="metric serif">8,700+</text><text x="46" y="262" class="sub">总用户</text>
+  <text x="46" y="284" class="metric serif">400+</text><text x="46" y="300" class="sub">每日使用用户</text>
+  <rect x="46" y="316" width="164" height="30" rx="10" fill="#171f37"/><text x="128" y="336" class="sub pale" text-anchor="middle">快速放量期</text>
+
+  <path d="M234 231H257" stroke="#8067e8" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="266" y="96" width="200" height="270" rx="19" fill="url(#navy)" filter="url(#shadow)"/>
+  <text x="284" y="120" class="eyebrow pale">02 · KEY BREAKTHROUGH</text>
+  <text x="284" y="142" class="group serif white">千问合作｜超级入口</text>
+  <rect x="284" y="158" width="164" height="56" rx="13" fill="#394465"/>
+  <text x="296" y="180" class="card pale">且慢 AI 小顾</text><text x="296" y="200" class="sub pale">千问首批 · 唯一金融 Agent</text>
+  <rect x="284" y="226" width="164" height="56" rx="13" fill="#394465"/>
+  <text x="296" y="248" class="card pale">流量转化闭环</text><text x="296" y="268" class="sub pale">获取 → AI 服务 → 外链交易</text>
+  <rect x="284" y="294" width="164" height="52" rx="13" fill="#394465"/>
+  <text x="296" y="316" class="card pale">任务模式 MCP + 连接广场</text><text x="296" y="334" class="sub pale">8 月 10 日联合宣发</text>
+
+  <path d="M472 231H495" stroke="#8067e8" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="504" y="96" width="188" height="270" rx="19" fill="#fff" stroke="#ddd7f1" filter="url(#shadow)"/>
+  <text x="522" y="120" class="eyebrow">03 · CHANNELS &amp; COMMERCIAL</text>
+  <text x="522" y="142" class="group serif">渠道上架 × 商化样板</text>
+  <rect x="522" y="158" width="152" height="44" rx="11" fill="#f5f2fb"/><text x="534" y="178" class="card">WorkBuddy · MCP</text><text x="534" y="194" class="sub">已上架 · 7 月新增 1,855</text>
+  <rect x="522" y="210" width="152" height="44" rx="11" fill="#f5f2fb"/><text x="534" y="230" class="card">支付宝 / 百炼 / SkillHub</text><text x="534" y="246" class="sub">邀测 / 待上架 / 入驻</text>
+  <rect x="522" y="262" width="152" height="44" rx="11" fill="url(#violet)"/><text x="534" y="282" class="card white">企业版年包</text><text x="534" y="298" class="sub pale">10 / 20 / 60 万 · 山西证券</text>
+  <rect x="522" y="314" width="152" height="40" rx="11" fill="#f5f2fb"/><text x="534" y="334" class="card">个人资源包 10 档</text><text x="660" y="334" class="sub" text-anchor="end">¥9.9 — ¥9,999</text>
+
+  <text x="28" y="390" class="sub">项目进展 · 产品规划 · 商化准备 · 往外看 · 向内看 → OAP 商业闭环</text>
+</svg>
