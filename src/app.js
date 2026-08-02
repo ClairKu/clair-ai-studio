@@ -16,7 +16,7 @@ const STORAGE_KEY = "clair-service-report-workbench-v1";
 const AUTH_KEY = "clair-service-report-workbench-access";
 const VIEW_KEY = "clair-service-report-workbench-view";
 const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
-const DATA_VERSION = 20;
+const DATA_VERSION = 21;
 
 const WORK_TYPES = [
   { id: "requirement-review", name: "需求评审" },
@@ -578,13 +578,13 @@ const initialState = {
     {
       id: "oap-journey-metrics-2026-08-02",
       groupId: "ai-platform",
-      title: "盈米 AI 开放平台｜关键历程 × 用户增长",
+      title: "盈米 AI 开放平台｜关键历程 × 四指标增长",
       url: "https://clairku.github.io/qieman-product-research-library/pages/oap/oap-journey-metrics-2026-08-02.html",
       preview: "oap-journey-metrics-2026-08-02.svg",
       pinned: true,
       position: 5,
       createdAt: "2026-08-02T13:40:00.000Z",
-      source: "里程碑 × OAP 日序列 · 密码 2026",
+      source: "19 个主节点 × 489 日序列 × 四指标双向联动 · 密码 2026",
       access: "production",
     },
     {
