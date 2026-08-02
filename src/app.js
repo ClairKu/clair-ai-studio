@@ -16,7 +16,7 @@ const STORAGE_KEY = "clair-service-report-workbench-v1";
 const AUTH_KEY = "clair-service-report-workbench-access";
 const VIEW_KEY = "clair-service-report-workbench-view";
 const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
-const DATA_VERSION = 24;
+const DATA_VERSION = 25;
 
 const WORK_TYPES = [
   { id: "requirement-review", name: "需求评审" },
@@ -164,8 +164,8 @@ const initialState = {
       preview: "oap-project-report-2026-08-03.svg",
       pinned: true,
       position: 0,
-      createdAt: "2026-07-31T10:00:00.000Z",
-      source: "8/3 老板汇报｜经营进展、千问/微信、三层能力、系统蓝图、AI 实验室、商化与竞争研判",
+      createdAt: "2026-08-02T16:30:00.000Z",
+      source: "8/3 管理层汇报｜结论、规模、渠道、三层能力、治理、商化、竞品与 90 天行动",
       access: "production",
       workType: "reporting",
       tags: ["AI 开放平台", "OAP", "MCP", "Skills", "Agent", "商业化", "老板汇报", "HTML", "生产"],
