@@ -179,7 +179,7 @@ const initialState = {
       pinned: true,
       position: 0,
       createdAt: "2026-08-02T19:30:00.000Z",
-      source: "飞书源稿 rev.1934｜OKR 数据 × 微信/千问双入口 × 渠道矩阵 × 能力治理 × AI 实验室 × 商化，15 章节 13 张原图证据",
+      source: "指定飞书 Wiki revision 30｜OKR 数据 × 用户增长可视化 × 微信/千问双入口 × 渠道矩阵 × 能力治理 × AI 实验室 × 商化，15 章节 13 张原图证据",
       access: "production",
       workType: "reporting",
       tags: ["AI 开放平台", "OAP", "项目汇报", "OKR", "微信", "千问", "AI 实验室", "商化准备", "HTML", "生产"],
