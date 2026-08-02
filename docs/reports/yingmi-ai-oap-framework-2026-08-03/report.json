@@ -1,0 +1,216 @@
+{
+  "meta": {
+    "title": "盈米 AI 开放平台｜2026/8/3 项目汇报",
+    "subtitle": "按飞书文档十项框架梳理：从年度目标到问题回顾，平台已跨过能力验证期，进入规模放大与商化验证阶段",
+    "eyebrow": "盈米 AI 开放平台 · OAP PROJECT REPORT",
+    "date": "2026-08-03",
+    "cutoff": "2026-08-03（汇报材料日；分项数据口径见来源标注，实时经营数据截至 2026-07-31）",
+    "owner": "盈米 AI 开放平台",
+    "confidentiality": "内部管理汇报 · 口径分项标注",
+    "accent": "#8067e8"
+  },
+  "hero": {
+    "conclusion": "累计调用 9.19M（OKR 70.7%）、累计用户 8,560（85.6%）、MAU 1,812（90.6%）；平台跨过能力验证期，下半场主线是规模放大与商化验证。",
+    "thesis": "按飞书文档十项框架汇报：年度目标已逼近阶段线，关键举措以「两类接入模式 + 四个持续」放大势能，用户增长可视化显示调用与用户双升，新流量入口、产品规划、能力建设、AI 实验室、商化准备、行业机会与问题回顾七线同步推进。",
+    "badges": ["累计调用 9.19M", "累计用户 8,560", "MAU 1,812", "正式能力 69 项", "AI 实验室完成度 0%"]
+  },
+  "sections": [
+    {
+      "id": "okr",
+      "kicker": "01 · 年度目标",
+      "title": "规模达标，AI 实验室待启动",
+      "lead": "三项规模指标完成度 70%—91%，但 AI 实验室经营指标（用户 5,000 / 应用 1,000）完成度为 0%，是下半年最大缺口。",
+      "layout": "metrics",
+      "tone": "soft",
+      "items": [
+        {"title": "累计调用", "metric": "9,194,916", "body": "年末正式 OKR 13,000,000，完成度 70.7%；1,000 万为阶段线，已达 91.9%。", "meta": "累计口径 · 截至 2026-07-31 · STARGATE 看板", "status": "confirmed", "source": "OAP 项目汇报研究源稿 · 2026-08-03"},
+        {"title": "累计用户", "metric": "8,560", "body": "申请用户年末目标 10,000，完成度 85.6%。", "meta": "累计口径 · 截至 2026-07-31 · STARGATE 看板", "status": "confirmed", "source": "OAP 项目汇报研究源稿 · 2026-08-03"},
+        {"title": "月活用户 MAU", "metric": "1,812", "body": "年末目标 2,000，完成度 90.6%；WAU 996（36% 周活率），复用用户 2,770（54% 复用率）。", "meta": "月度口径 · 截至 2026-07-31 · STARGATE 看板", "status": "confirmed", "source": "OAP 项目汇报研究源稿 · 2026-08-03"},
+        {"title": "AI 实验室经营指标", "metric": "0%", "body": "目标用户 5,000 个、应用 1,000 个，当前完成度 0%；实验室定位与 OAP 官网结合仍在规划。", "meta": "目标态 · 截至 2026-08-03", "status": "target", "source": "飞书文档《8/3 盈米 AI 开放平台项目汇报》· 2026-08-03"}
+      ],
+      "callout": {"label": "目标缺口", "text": "规模指标逼近阶段线，但价值指标（任务完成、复用、付费）与 AI 实验室经营指标是 H2 必须补齐的两类缺口。", "status": "inferred"}
+    },
+    {
+      "id": "key-map",
+      "kicker": "02 · 关键举措",
+      "title": "四个持续运转，两类模式放大",
+      "lead": "四个持续是平台核心运转引擎，两类接入模式是在平台之上向外放大势能的路径；二者不并列，而是「持续 → 平台 → 模式 → 更多群体」。",
+      "layout": "architecture",
+      "tone": "dark",
+      "items": [
+        {"index": "01", "eyebrow": "CORE ENGINE", "title": "四个持续运转", "body": "持续建设、持续抢先、持续合作、持续曝光，为平台持续注入能力、机会、伙伴与声量。", "bullets": ["建设供给能力", "抢先建立占位", "合作扩展生态", "曝光积累品牌"], "status": "confirmed", "source": "飞书文档《8/3 盈米 AI 开放平台项目汇报》· 2026-08-03"},
+        {"index": "02", "eyebrow": "PLATFORM CORE", "title": "盈米 AI 开放平台", "body": "承接四个持续的投入，完成能力标准化、场景编排与服务输出；69 项正式能力已形成五类 Scope。", "bullets": ["MCP 标准连接", "Skills 专业流程", "Agent 完整任务"], "status": "confirmed", "source": "OAP 项目汇报研究源稿 · 2026-08-03"},
+        {"index": "03", "eyebrow": "MOMENTUM MULTIPLIER", "title": "两类接入模式放大", "body": "大厂 AI 平台接入与 C 端流量平台产品接入，把平台能力送到更多入口、场景与群体。", "bullets": ["大厂 AI 平台接入", "C 端产品接入", "触达更多群体"], "status": "confirmed", "source": "飞书文档《8/3 盈米 AI 开放平台项目汇报》· 2026-08-03"}
+      ],
+      "callout": {"label": "正确关系", "text": "四个持续 → 盈米 AI 开放平台 → 两类接入模式 → 更多群体 → 势能放大。", "status": "confirmed"}
+    },
+    {
+      "id": "four-continuous",
+      "kicker": "03 · 关键举措 · 四个持续",
+      "title": "建设、抢先、合作、曝光四线并行",
+      "lead": "每个持续都对应明确举措，并用能力层级、首发占位、合作覆盖和传播数据衡量投入结果。",
+      "layout": "metrics",
+      "tone": "light",
+      "items": [
+        {"title": "持续建设", "metric": "3 层能力", "body": "MCP · Skills · Agent 三层能力体系；69 项正式能力按五类 Scope 管理。", "meta": "标准连接 → 专业流程 → 完整任务", "status": "confirmed", "source": "OAP 项目汇报研究源稿 · 2026-08-03"},
+        {"title": "持续抢先", "metric": "5 项首发", "body": "首个财富 MCP Server；首个理财测评集 / 投顾智能立体模型；首个投顾龙虾 OpenClaw；首批千问 MCP / A2A 接入合作商；首批微信 AI 接入合作方。", "meta": "首个 / 首批按材料原样呈现", "status": "confirmed", "source": "飞书文档《8/3 盈米 AI 开放平台项目汇报》· 2026-08-03"},
+        {"title": "持续合作", "metric": "8 类伙伴", "body": "阿里云 / 百炼、百度、火山引擎 / 扣子、华为 / 小艺、夸克 / 千问、腾讯 / 微信 / WorkBuddy、智谱、金融机构。", "meta": "另有活动 10 场+、交流机构 30 家+", "status": "confirmed", "source": "飞书文档《8/3 盈米 AI 开放平台项目汇报》· 2026-08-03"},
+        {"title": "持续曝光", "metric": "8,965 篇", "body": "公众号原创 50+、阅读 3 万+、全网渠道发布 300+ 篇；盈米 AI 相关报道 8,965 篇（其中 MCP 3,329 篇）；互动 300 万+、浏览 1,000 万+。", "meta": "内部传播监测口径 · 2025-03—2026-07", "status": "confirmed", "source": "盈米 AI 传播证据报告 · 2026-07-31"}
+      ],
+      "callout": {"label": "运转逻辑", "text": "建设供给能力，抢先建立占位，合作扩展生态，曝光积累品牌与机会；四者持续循环。", "status": "inferred"}
+    },
+    {
+      "id": "user-growth",
+      "kicker": "04 · 用户增长",
+      "title": "调用与用户双升，激活与复用待深挖",
+      "lead": "OAP 全历史趋势显示申请用户、月活、调用量同步上升；但有调用用户占比约六成，平台价值需从注册下钻到有效任务完成与复用。",
+      "layout": "evidence",
+      "tone": "soft",
+      "items": [
+        {"index": "01", "eyebrow": "TREND", "title": "四指标同图趋势", "body": "总调用量、申请用户、最新月活、每日调用用户四指标同图；每日调用用户以原值柱 + 7 日均线呈现，可按 7/30/90 日及上线以来切换。详见外部可视化页面：clairku.github.io/qieman-product-research-library/pages/oap/oap-metrics-trend-2026-07-28.html", "meta": "数据源：OAP 后台「整体数据」只读查询 · Asia/Shanghai", "status": "confirmed", "source": "OAP 用户趋势可视化 · 2026-07-28"},
+        {"index": "02", "eyebrow": "SNAPSHOT", "title": "近 30 日经营切片", "body": "截至 2026-07-28 近 30 日：新增用户 1,620、调用 439,950、日均调用用户约 267；近 7 日日均调用用户约 337。7.21—7.31 累计用户 +1,117（+15.0%），有调用用户 +630（+14.0%）。", "meta": "区间口径 · 截至 2026-07-31", "status": "confirmed", "source": "OAP 项目汇报研究源稿 · 2026-08-03"}
+      ],
+      "callout": {"label": "增长结构", "text": "调用与用户双升已成立，但有调用用户 / 累计用户约 59.8%，激活与复用是下一阶段价值放大点。", "status": "inferred"}
+    },
+    {
+      "id": "channels",
+      "kicker": "05 · 新流量入口",
+      "title": "六条渠道分层推进，千问为首发窗口",
+      "lead": "已上架、邀测、待上架、内测、招投标——不同平台、不同形态（MCP / Agent / Skills）分层推进；千问 8/10 联合宣发是下一个关键节点。",
+      "layout": "timeline",
+      "tone": "light",
+      "items": [
+        {"index": "01", "eyebrow": "千问 AGENT · 生产准备", "title": "千问品牌 Agent", "body": "且慢 AI 小顾入围千问首批第三方品牌智能体，预计一期唯一接入的金融 Agent；8/5 起逐步开放、8/10 联合宣发，当前处于 Bug 修复与上线前准备。", "meta": "节点：2026-08-10 联合宣发", "status": "target", "source": "飞书文档《8/3 盈米 AI 开放平台项目汇报》· 2026-08-03"},
+        {"index": "02", "eyebrow": "千问 MCP · 接入完成", "title": "千问 MCP + 连接广场", "body": "能力已完成接入；PC「连接广场」展示以实际可见与可调用验收为准；Agent 承接品牌服务，MCP 承接底层金融能力。", "meta": "生产可见性待验收", "status": "confirmed", "source": "OAP 项目汇报研究源稿 · 2026-08-03"},
+        {"index": "03", "eyebrow": "微信 · 内测治理", "title": "微信小程序卡片 + 接力页", "body": "已形成「小程序卡片 + 接力页」可行服务模式与内测治理准备；候选 / 内测材料不作为正式上线证据。", "meta": "候选 / 内测 · 非正式上线", "status": "target", "source": "OAP 项目汇报研究源稿 · 2026-08-03"},
+        {"index": "04", "eyebrow": "WORKBUDDY · OAuth 验证", "title": "WorkBuddy 首个平台级 OAuth", "body": "作为 STARGATE OAuth 统一接入方案的首个平台级验证，目标链路 Platform → Client → User → Scope → MCP；首周申请 1,000+，7 月新增 1,855 人。", "meta": "已上架 · 首周申请 1,000+", "status": "confirmed", "source": "OAP 项目汇报研究源稿 · 2026-08-03"}
+      ],
+      "callout": {"label": "渠道策略", "text": "千问是首发窗口，微信是下一重点；MCP 走平台市场与连接器，Agent 走品牌入口，Skills 走企业专区。", "status": "inferred"}
+    },
+    {
+      "id": "product-plan",
+      "kicker": "06 · 产品规划",
+      "title": "三层交叉分类 + 四面系统关系",
+      "lead": "能力体系采用资产形态 × 业务任务 × 经营属性三维口径；系统建设按控制面、生产面、交付面、供给面四面分工。",
+      "layout": "architecture",
+      "tone": "light",
+      "items": [
+        {"index": "01", "eyebrow": "TAXONOMY", "title": "三层交叉分类", "body": "资产形态（MCP / Skill / Agent）× 业务任务（数据查询、投顾、投研、内容、通用）× 经营属性（公开 / 授权 / 内部、免费 / 积分 / 订阅 / 机构、实验 / 内测 / 正式 / 退役）。", "status": "confirmed", "source": "OAP 项目汇报研究源稿 · 2026-08-03"},
+        {"index": "02", "eyebrow": "CONTROL PLANE", "title": "STARGATE 统一控制面", "body": "管理后台负责服务组、路由、OAuth Client、Scope、用户授权、发布审核、审计与计量；六项关键能力：身份鉴权、账号体系、合规审计、上架渠道管理、计量计费、统一数据统计。", "status": "confirmed", "source": "OAP 项目汇报研究源稿 · 2026-08-03"},
+        {"index": "03", "eyebrow": "PRODUCTION", "title": "能力生产面", "body": "Agent / Skills 平台、AI 实验室、能力市场、开发者控制台；能力生命周期统一为注册 → 评审 → 测试 → 发布 → 运营 → 降级 / 退役。", "status": "confirmed", "source": "OAP 项目汇报研究源稿 · 2026-08-03"},
+        {"index": "04", "eyebrow": "DELIVERY", "title": "服务交付面", "body": "OAP 官网、AI 小顾、AI 工作台、千问 / 微信 / 百炼 / WorkBuddy 等外部渠道；8 月拟新增 SSO 登录，支持盈米员工在第三方 AI 平台调用更丰富能力。", "status": "target", "source": "OAP 项目汇报研究源稿 · 2026-08-03"},
+        {"index": "05", "eyebrow": "SUPPLY", "title": "基础供给面", "body": "金融数据、知识研究、模型评估和账户 / 业务系统；数据采购以「高价值任务缺口 + 商业化机会 + 单位经济性」排序。", "status": "confirmed", "source": "OAP 项目汇报研究源稿 · 2026-08-03"}
+      ],
+      "callout": {"label": "建设原则", "text": "内外部能力接入不应以「接进来」作为完成，而应进入同一套准入：来源合规、身份授权、稳定性、输出质量、成本、日志与退出机制。", "status": "confirmed"}
+    },
+    {
+      "id": "capability",
+      "kicker": "07 · 能力建设",
+      "title": "三层能力与五类 Scope",
+      "lead": "69 项正式能力按 fund:read / strategy:read / portfolio:read / analysis:run / content:generate 五类 Scope 管理；API Key → OAuth 双轨过渡。",
+      "layout": "cards",
+      "tone": "soft",
+      "items": [
+        {"index": "01", "eyebrow": "MCP", "title": "标准连接与工具调用", "body": "标准连接层；规划新增 10 个持仓类 MCP，鉴权需走登录授权（OAuth）并同步开发；对外接口问题已梳理并提交对接各提供方修复。", "status": "confirmed", "source": "OAP 项目汇报研究源稿 · 2026-08-03"},
+        {"index": "02", "eyebrow": "SKILLS", "title": "流程化与精细化收敛", "body": "围绕 MCP 迭代做收敛，不追求数量；多来源 Skills 统一管理，逐步把散落各 BU 或产品的 Skills 纳入 Stargate 治理体系。", "status": "confirmed", "source": "OAP 项目汇报研究源稿 · 2026-08-03"},
+        {"index": "03", "eyebrow": "AGENT", "title": "自有 Agent Runtime", "body": "搭建盈米自有 Agent runtime，治理与调试通过 Stargate、AI marketplace 或盈米 AI 实验室承接；保持 Skills + MCP 能力矩阵模块化管理。", "status": "confirmed", "source": "OAP 项目汇报研究源稿 · 2026-08-03"},
+        {"index": "04", "eyebrow": "SCOPE", "title": "五类权限范围", "body": "fund:read · strategy:read · portfolio:read · analysis:run · content:generate；内外部能力以唯一资产 ID 串联 Owner、版本、质量、渠道、用量、成本和收入。", "status": "confirmed", "source": "OAP 项目汇报研究源稿 · 2026-08-03"},
+        {"index": "05", "eyebrow": "AUTH", "title": "API Key → OAuth 双轨", "body": "既有 MCP 均走 API Key，不好追溯；短期 API Key + OAuth 共存，逐步过渡到 OAuth，方便追溯每次调用对应的平台、客户端、用户、Scope 和 MCP。", "status": "target", "source": "OAP 项目汇报研究源稿 · 2026-08-03"},
+        {"index": "06", "eyebrow": "ECOSYSTEM", "title": "内外部 MCP 接入", "body": "投研团队财报 MCP 已纳入 OAP 规划（先支持内部员工调用）；私募团队与火富牛合作模式 7.28 反馈有调整，合规沟通中；Vesta 商业化模式其内部仍在规划。", "status": "confirmed", "source": "OAP 项目汇报研究源稿 · 2026-08-03"}
+      ],
+      "callout": {"label": "建设原则", "text": "第三方 runtime 场景会越来越多，关键是保持 Skills + MCP 能力矩阵的模块化管理和精细化设计。", "status": "inferred"}
+    },
+    {
+      "id": "ai-lab",
+      "kicker": "08 · AI 实验室",
+      "title": "从工具列表到生产环境，四步建设",
+      "lead": "AI 实验室不是另一个工具列表，而是「发现问题、组合能力、验证应用、把可复用结果沉淀回开放平台」的生产环境；经营指标完成度 0%，是 H2 重点启动项。",
+      "layout": "process",
+      "tone": "light",
+      "items": [
+        {"index": "01", "eyebrow": "STEP 1 · 发现", "title": "按任务发现 MCP / Skill", "body": "从真实业务任务出发，定位可复用的 MCP 与 Skill，避免先有工具再找场景。", "status": "target", "source": "OAP 项目汇报研究源稿 · 2026-08-03"},
+        {"index": "02", "eyebrow": "STEP 2 · 编排", "title": "编排输入输出与失败兜底", "body": "组合多能力形成完整任务链，定义输入输出契约与失败兜底策略。", "status": "target", "source": "OAP 项目汇报研究源稿 · 2026-08-03"},
+        {"index": "03", "eyebrow": "STEP 3 · 评估", "title": "真实任务集评估", "body": "用真实任务集评估正确性、时效性、合规性和成本；首批黄金任务集建议：基金诊断、组合分析、市场影响解读、客户陪伴、机构研究助手。", "status": "target", "source": "OAP 项目汇报研究源稿 · 2026-08-03"},
+        {"index": "04", "eyebrow": "STEP 4 · 回流", "title": "统一资产身份回流 OAP", "body": "生成统一资产身份并回流 OAP 多渠道上架；参考电商区分使用与创作两种界面形态。", "status": "target", "source": "OAP 项目汇报研究源稿 · 2026-08-03"},
+        {"index": "05", "eyebrow": "MODEL", "title": "商业模式", "body": "能力调用 + AI 资产交易；初版设计持续进行中，与 OAP 官网结合。", "status": "target", "source": "OAP 项目汇报研究源稿 · 2026-08-03"}
+      ],
+      "callout": {"label": "经营缺口", "text": "AI 实验室目标用户 5,000、应用 1,000，当前完成度 0%；H2 需从规划转入建设，并明确季度动作与结果指标。", "status": "target"}
+    },
+    {
+      "id": "monetization",
+      "kicker": "09 · 商化准备",
+      "title": "三类包装先跑付费样板",
+      "lead": "三类产品包装先各跑一个付费 / 签约试点，不以功能清单代替成交验证；山西证券基金诊断 MCP 招投标已完成、等待结果。",
+      "layout": "comparison",
+      "tone": "soft",
+      "items": [
+        {"index": "01", "eyebrow": "PERSONAL", "title": "个人版", "body": "面向研究者、顾问、专业个人；更高额度、专业 Skills、个人空间。管理讨论价格带：Free ¥0；Pro ¥99/月或 ¥899/年。首个验证：付费转化、30 日复用、续费。", "status": "target", "source": "OAP 项目汇报研究源稿 · 2026-08-03"},
+        {"index": "02", "eyebrow": "ENTERPRISE", "title": "企业版", "body": "面向券商、银行、财富机构；专属能力、团队管理、审计、SLA。管理讨论价格带：试点 ¥5—10 万；标准 ¥20—50 万/年 + 用量。首个验证：1 个签约试点（山西证券招投标已完成、等待结果）。", "status": "target", "source": "OAP 项目汇报研究源稿 · 2026-08-03"},
+        {"index": "03", "eyebrow": "PLATFORM", "title": "平台合作版", "body": "面向 AI 平台、渠道、Agent 开发者；标准 MCP/OAuth、计量、渠道分发。管理讨论价格带：平台费 ¥5—20 万/年 + 用量/分成。首个验证：1 个渠道结算闭环。", "status": "target", "source": "OAP 项目汇报研究源稿 · 2026-08-03"},
+        {"index": "04", "eyebrow": "POINTS", "title": "积分与机构合作", "body": "积分只奖励有效行为：首次授权、任务复用、可复现问题反馈、发布合格应用、邀请有效团队成员；机构合作四类：标准订阅、联合方案、渠道分发/分成、私有化/专属域。", "status": "target", "source": "OAP 项目汇报研究源稿 · 2026-08-03"}
+      ],
+      "callout": {"label": "定价原则", "text": "先把「可卖的任务结果」定义清楚，再定套餐；不以接口数量、Skill 数量替代客户价值。以上非正式报价，正式定价前需按数据授权、模型成本、交付工时、SLA、并发与部署方式重算单位经济性。", "status": "confirmed"}
+    },
+    {
+      "id": "industry",
+      "kicker": "10 · 行业机会",
+      "title": "差异化在买方投顾合规闭环",
+      "lead": "「数据 + AI + MCP + Skill」已成赛道通用配置，竞争重点从是否支持协议转向场景深度、结果质量、合规治理和交付效率。",
+      "layout": "comparison",
+      "tone": "light",
+      "items": [
+        {"index": "01", "eyebrow": "中金", "title": "首席分析师 Skills", "body": "公开媒体披露首批首席分析师 Skills，覆盖宏观、策略、资产配置等任务；专家方法、品牌信任和高质量交付正在被 Skill 化。", "status": "confirmed", "source": "OAP 项目汇报研究源稿 · 2026-08-03"},
+        {"index": "02", "eyebrow": "东方财富", "title": "金融大模型 + 数据 + Agent", "body": "金融大模型、数据、图表、Agent 与公开生态 Skills；数据覆盖与流量入口形成壁垒，OAP 需突出授权后的长期账户服务。", "status": "confirmed", "source": "OAP 项目汇报研究源稿 · 2026-08-03"},
+        {"index": "03", "eyebrow": "同花顺", "title": "iFinD MCP + Skills + Agent", "body": "公开信息显示 iFinD 已布局 MCP、Skills 与研报 / 风控 / 舆情 Agent；从查询入口扩展到机构 Agent 能力基础设施。", "status": "confirmed", "source": "OAP 项目汇报研究源稿 · 2026-08-03"},
+        {"index": "04", "eyebrow": "聚源", "title": "AI 原生数据 + 控制面", "body": "AI 原生数据集、Agent 协同、MCP/Skills 控制面、私有化和资源点计量；最直接的平台化参照，OAP 应强化授权治理、投顾 SOP 与渠道飞轮。", "status": "confirmed", "source": "OAP 项目汇报研究源稿 · 2026-08-03"},
+        {"index": "05", "eyebrow": "OAP 差异化", "title": "买方投顾合规闭环", "body": "差异化不是「也有 MCP/Skills/Agent」，而是：买方投顾与账户服务的合规闭环；能力从开放到授权、审计、计量、结算的一体化控制面；AI 小顾 → AI 实验室 → 应用 / 渠道 → 真实反馈回流的持续服务飞轮。", "status": "confirmed", "source": "OAP 项目汇报研究源稿 · 2026-08-03"}
+      ],
+      "callout": {"label": "验收建议", "text": "用基金诊断、组合穿透、收益推演、财富规划和内容合规五类真实任务同题 POC，统一比较正确率、引用完整度、时延、权限隔离、日志审计和交付工时。", "status": "confirmed"}
+    },
+    {
+      "id": "retro",
+      "kicker": "11 · 问题回顾",
+      "title": "协议、用户、资源三类债务",
+      "lead": "技术、用户、资源三条线的压力点，需要在下半年计划中逐项回应；核心矛盾是外部机会窗口快于内部供给与治理能力的建设速度。",
+      "layout": "cards",
+      "tone": "dark",
+      "items": [
+        {"index": "01", "eyebrow": "TECH · 协议与治理债务", "title": "SSE → HTTP、API Key → OAuth", "body": "AI 协议与技术框架更迭快，需频繁升级及多套兼容；2026-07-21 资产盘点显示 85.3% 路由未分组、96.2% 未分类、471 条缺少 Operation ID；不先统一资产身份，授权、计费、质量和经营分析都会产生多套口径。", "status": "confirmed", "source": "OAP 项目汇报研究源稿 · 2026-08-03"},
+        {"index": "02", "eyebrow": "USER · 用户与质量", "title": "从调用成功升级到任务完成", "body": "应从「调用成功」升级到「任务是否完成、结果是否可用、是否被复用」；质量评估需覆盖正确性、时效性、稳定性、可解释性、合规性与单位成本；证券机构标签存在重复和非标准命名。", "status": "confirmed", "source": "OAP 项目汇报研究源稿 · 2026-08-03"},
+        {"index": "03", "eyebrow": "RESOURCE · 资源与组织", "title": "跨 BU 分工不稳与产品补位", "body": "OAP、STARGATE、AI 实验室、Agent Platform、小顾和外部渠道是一个系统，不宜分别以功能上线衡量；产品持续补位商务与运营、技术团队转移、跨 BU 分工不稳，需固定核心战队和关键岗位招聘 / 借调时限。", "status": "confirmed", "source": "OAP 项目汇报研究源稿 · 2026-08-03"},
+        {"index": "04", "eyebrow": "DATA · 数据采购", "title": "按价值与单位经济性排序", "body": "金融数据采购评估；数据采购以「高价值任务缺口 + 商业化机会 + 单位经济性」排序，避免先买数据再找场景；MCP 质量问题、用户需求和大量机构交流要进入统一 VOC/缺陷/商机池。", "status": "confirmed", "source": "OAP 项目汇报研究源稿 · 2026-08-03"}
+      ],
+      "callout": {"label": "复盘视角", "text": "四个问题均指向同一矛盾：外部机会窗口快于内部供给与治理能力的建设速度。", "status": "inferred"}
+    },
+    {
+      "id": "next",
+      "kicker": "12 · 下一步",
+      "title": "把窗口变成结果：三段路线图",
+      "lead": "对外把超级入口的首发窗口转成真实调用与交易，对内把资产、鉴权、计费治理收敛到单一数据源。",
+      "layout": "actions",
+      "tone": "soft",
+      "items": [
+        {"index": "01", "eyebrow": "8 月 · 统一基线", "title": "69 项能力唯一资产 ID + 双鉴权闭环", "body": "完成 69 项能力唯一资产 ID、五类 Scope、双鉴权、审计与撤销闭环；质量分层、机构法定名映射、渠道台账；千问 / 微信各跑通一条可审计 P0 闭环。8/15 前完成 STARGATE 接入治理与 WorkBuddy OAuth；8/31 前完成 SSO 与员工渠道基础能力。", "meta": "节点：SSO 拟 8 月上线 · 8/10 千问联合宣发", "status": "target"},
+        {"index": "02", "eyebrow": "9—10 月 · 可卖样板", "title": "三类产品包装 + 两个试点", "body": "个人、机构、平台三类产品包装；任务完成率、复用率、业务转化与成本看板；1 个机构签约试点、1 个平台结算试点；AI 实验室沉淀可复用应用，回流 OAP 目录。", "meta": "责任人 / 时间：待确认", "status": "inferred"},
+        {"index": "03", "eyebrow": "11—12 月 · 规模化", "title": "达成 H2 OKR + 验证三个新增渠道", "body": "达成 1,300 万调用、10,000 用户、MAU 2,000 的正式 H2 OKR；建立稳定的发布、SLA、计量计费与运营机制；验证三个新增 AI 渠道，而不是只完成技术接入。", "meta": "节点：2026 年末 OKR", "status": "target"},
+        {"index": "04", "eyebrow": "组织机制", "title": "单一 Owner + 周度发布闸门", "body": "设置单一项目 Owner 和周度发布闸门，产品、研发、数据、安全、合规、运营共同签署；OAP、STARGATE、Agent Platform、AI 实验室、小顾共同使用一张资产台账、一套质量门槛和一个周度发布闸门。", "meta": "责任人 / 时间：待确认", "status": "inferred"}
+      ],
+      "callout": {"label": "下半年主线", "text": "放大（渠道与入口）与变现（年包与资源包）并举，用治理底座保证规模化不失控；北极星：有效服务完成量 × 复用率 × 可变现率。", "status": "inferred"}
+    }
+  ],
+  "sources": [
+    {"label": "飞书文档《8/3 盈米 AI 开放平台项目汇报》", "detail": "yingmi.feishu.cn/wiki/ELoLwjzXmidhs6kscvbczByYnod · 报告十项框架与关键举措事实基础"},
+    {"label": "OAP 项目汇报研究源稿", "detail": "research/oap-project-report-2026-08-03.md · 经营快照、渠道、产品规划、商化、竞品、问题与 H2 路线图"},
+    {"label": "OAP 用户趋势可视化", "detail": "clairku.github.io/qieman-product-research-library/pages/oap/oap-metrics-trend-2026-07-28.html · 四指标同图趋势与区间经营汇总"},
+    {"label": "盈米 AI 传播证据报告", "detail": "research/yingmi-ai-communications-evidence-report-2026-07-31.md · 2025-03—2026-07 内部传播监测口径"},
+    {"label": "Clair Executive Visual Report 模板", "detail": "clairku.github.io/clair-ai-studio/reports/yingmi-ai-two-modes-four-continuous-2026-08-02/ · 视觉与交互模板参考"}
+  ],
+  "openQuestions": [
+    {"title": "微信合作进展细节", "detail": "文档将「微信、千问」并列为重点突破，但正文仅千问有实质内容，微信侧合作内容与时间节点待补。"},
+    {"title": "AI 实验室建设排期", "detail": "经营指标完成度 0%，四步建设与初版设计仍在进行中，季度动作、负责人与结果指标待确认。"},
+    {"title": "持仓类 MCP 开发排期", "detail": "规划新增的 10 个持仓类 MCP 需走登录授权（OAuth）并同步开发，排期与上线窗口未定。"},
+    {"title": "火富牛合作模式结论", "detail": "7.28 反馈与火富牛 MCP 合作模式有调整，合规沟通结论待同步。"},
+    {"title": "金融数据采购评估", "detail": "向内看提出的问题，评估范围、结论与预算口径待补。"},
+    {"title": "三类产品包装正式定价", "detail": "个人 / 企业 / 平台三类价格带为管理讨论口径，非正式报价；正式定价前需按数据授权、模型成本、交付工时、SLA、并发与部署方式重算单位经济性。"}
+  ]
+}

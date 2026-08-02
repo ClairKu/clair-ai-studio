@@ -115,6 +115,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "yingmi-ai-oap-framework-2026-08-03",
+      groupId: "ai-platform",
+      title: "盈米 AI 开放平台｜8/3 项目汇报（十项框架）",
+      url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-ai-oap-framework-2026-08-03/",
+      preview: "yingmi-ai-oap-framework-2026-08-03.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-03T02:55:00.000Z",
+      source: "飞书文档十项框架｜年度目标 → 关键举措 → 用户增长 → 新流量入口 → 产品规划 → 能力建设 → AI 实验室 → 商化准备 → 行业机会 → 问题回顾",
+      access: "production",
+      workType: "reporting",
+      tags: ["AI 开放平台", "OAP", "项目汇报", "飞书框架", "千问", "微信", "AI 实验室", "商化准备", "HTML", "生产"],
+    },
+    {
       id: "yingmi-ai-bottom-up-architecture-2026-08-03",
       groupId: "ai-platform",
       title: "盈米 AI｜从底座到服务",
