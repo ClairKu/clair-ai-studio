@@ -1,0 +1,178 @@
+{
+  "meta": {
+    "title": "盈米 AI 开放平台｜8·3 项目汇报",
+    "subtitle": "年度目标 · 关键举措 · 用户增长 · 新流量入口 · 产品规划 · 能力建设 · AI 实验室 · 商化准备 · 行业机会 · 问题回顾",
+    "eyebrow": "盈米 AI 开放平台 · PROJECT BRIEFING",
+    "date": "2026-08-03",
+    "cutoff": "2026-08-03（用户增长可视化数据截至 2026-07-28）",
+    "owner": "盈米 AI 开放平台",
+    "confidentiality": "内部管理汇报 · 口令访问",
+    "accent": "#8067e8"
+  },
+  "hero": {
+    "conclusion": "申请用户 8,569、月活 1,812 逼近年度目标，累计调用 919 万冲向千万关口；微信、千问两大超级入口接通，平台从能力开放走向多端交付与商业验证。",
+    "thesis": "四个持续举措向平台注入能力与机会，两类接入模式把专业能力送进大厂 AI 平台与 C 端产品；下半场主线是规模放大、治理完善与商业化验证，AI 实验室与商化配套是最大待启动缺口。",
+    "badges": ["申请用户 85.6%", "月活 90.6%", "累计调用 70.7%", "微信 · 千问双入口", "AI 实验室待启动"]
+  },
+  "sections": [
+    {
+      "id": "goal",
+      "kicker": "01 · ANNUAL GOAL",
+      "title": "年度目标：三项逼近，一项未启动",
+      "lead": "申请用户与月活已过 85%，累计调用过七成；AI 实验室经营指标仍为零，是下半年最大缺口。",
+      "layout": "metrics",
+      "tone": "dark",
+      "items": [
+        {"title": "申请用户", "metric": "8,569", "body": "年度目标 10,000，完成 85.6%", "meta": "源稿口径 · 截至 2026-08-03", "status": "confirmed", "source": "飞书汇报文档 · 2026-08-03"},
+        {"title": "月活用户", "metric": "1,812", "body": "年度目标 2,000，完成 90.6%", "meta": "源稿口径 · 截至 2026-08-03", "status": "confirmed", "source": "飞书汇报文档 · 2026-08-03"},
+        {"title": "累计调用", "metric": "919万", "body": "9,194,916 次，年度目标 1,300 万，完成 70.7%", "meta": "源稿口径 · 截至 2026-08-03", "status": "confirmed", "source": "飞书汇报文档 · 2026-08-03"},
+        {"title": "AI 实验室", "metric": "0%", "body": "目标用户 5,000 个、应用 1,000 个，当前为 0", "meta": "尚未启动 · 启动计划待定", "status": "missing", "source": "飞书汇报文档 · 2026-08-03"}
+      ],
+      "callout": {"label": "目标判断", "text": "平台跨过能力验证期：三项核心指标逼近年度线，缺口集中在调用规模爬坡与 AI 实验室从零启动。", "status": "inferred"}
+    },
+    {
+      "id": "initiatives",
+      "kicker": "02 · KEY INITIATIVES",
+      "title": "关键举措：四个持续 × 两类模式",
+      "lead": "四个持续是平台不断运转的核心引擎；两类接入模式是在平台之上触达更多群体、放大势能的路径。",
+      "layout": "architecture",
+      "tone": "light",
+      "items": [
+        {"index": "01", "eyebrow": "CORE ENGINE", "title": "四个持续", "body": "持续建设（MCP · Skills · Agent）、持续抢先、持续合作、持续曝光，为平台注入能力、机会、伙伴与声量。", "bullets": ["首个财富 MCP Server / 投顾评测集 / OpenClaw", "首批千问 MCP·A2A、微信 AI 接入合作方", "报道 8,965 篇 · 互动 300 万+ · 浏览 1,000 万+"], "status": "confirmed", "source": "飞书汇报文档 · 2026-08-03"},
+        {"index": "02", "eyebrow": "PLATFORM CORE", "title": "盈米 AI 开放平台", "body": "承接四个持续的投入，完成能力标准化、场景编排与服务输出。", "bullets": ["MCP 标准连接", "Skills 专业流程", "Agent 完整任务"], "status": "confirmed", "source": "飞书汇报文档 · 2026-08-03"},
+        {"index": "03", "eyebrow": "AMPLIFIER", "title": "两类接入模式", "body": "大厂 AI「平台」接入 + C 端流量平台「产品」接入，把专业能力送到更多入口、场景与群体。", "bullets": ["阿里云/百炼 · 百度 · 火山/扣子 · 华为", "夸克/千问 · 腾讯/微信/WorkBuddy · 智谱", "活动 10 场+ · 交流机构 30 家+"], "status": "confirmed", "source": "飞书汇报文档 · 2026-08-03"}
+      ],
+      "callout": {"label": "运转逻辑", "text": "四个持续 → 盈米 AI 开放平台 → 两类接入模式 → 更多群体 → 势能放大。", "status": "confirmed"}
+    },
+    {
+      "id": "growth",
+      "kicker": "03 · USER GROWTH",
+      "title": "用户增长：历程、里程碑与走势",
+      "lead": "主线：能力开放 → 生态铺设 → 行业影响 → 产品化 → 多端交付与商业验证，逐步形成「盈米 AI」标签。下方为交互式可视化，可悬停查看关键举措与当日数据。",
+      "layout": "embed",
+      "tone": "soft",
+      "embed": {
+        "src": "assets/oap-journey-metrics.html",
+        "title": "盈米 AI 开放平台历程·里程碑与用户增长走势",
+        "note": "来源：qieman-product-research-library · oap-journey-metrics-2026-08-02｜可视化数据截至 2026-07-28（累计申请 8,292、总调用 9,145,099、MAU 1,694），与 8/3 汇报口径存在数日时间差"
+      },
+      "items": [],
+      "callout": {"label": "里程碑主线", "text": "2025-03 项目启动 → 首批 MCP 与生态上架 → 百度 AI 搜索首个 C 端接入、智谱首笔收入 → OpenClaw 与首批 Skills → 千问 A2A、微信小微双超级入口。", "status": "confirmed"}
+    },
+    {
+      "id": "traffic",
+      "kicker": "04 · NEW TRAFFIC",
+      "title": "新流量入口：微信与千问双线接通",
+      "lead": "微信走 Skills + 小程序承接，千问走 MCP + A2A 双模式；盈米 AI 能力首次切入 AI 时代超级流量入口。",
+      "layout": "cards",
+      "tone": "light",
+      "items": [
+        {"index": "A", "eyebrow": "WECHAT", "title": "微信：Skills + 小程序", "body": "将且慢服务转成 AI 嵌入微信 Agent，再以小程序承接服务；小程序 0→1 完整版 6 月建成。", "bullets": ["累积用户 8 万+，6 月来日均 6,000+", "日均启动上万次", "近 7 日日活 1.37 万，达微信小微首批试点资质"], "status": "confirmed", "source": "飞书汇报文档 · 2026-08-03"},
+        {"index": "B", "eyebrow": "QWEN", "title": "千问：MCP + A2A 双模式", "body": "千问 Agent 内调用盈米 Skills / MCP / Agent；且慢 AI 小顾入围千问首批第三方品牌智能体，预计为一期唯一金融 Agent。", "bullets": ["预计 8 月 10 日完成联合宣发", "新用户获取 → AI 服务 → 外链完成交易的转化闭环", "PC 端连接广场展示，提升覆盖与品牌露出"], "status": "confirmed", "source": "飞书汇报文档 · 2026-08-03"},
+        {"index": "C", "eyebrow": "BAIDU", "title": "百度：再对接评估中", "body": "去年百度 AI 搜索接入盈米 MCP 后下架替换自家服务；今年拟再对接、升级服务，正在评估。", "bullets": ["首个 C 端产品接入的先例在百度", "评估结论与时间待定"], "status": "missing", "source": "飞书汇报文档 · 2026-08-03"}
+      ],
+      "callout": {"label": "意义", "text": "千问合作意味着盈米 AI 能力首次切入 AI 时代超级流量入口，并在产品形态上跑通「获客 → 服务 → 交易」闭环。", "status": "confirmed"}
+    },
+    {
+      "id": "shelf",
+      "kicker": "05 · DISTRIBUTION",
+      "title": "产品规划：九大平台上架与重点上新",
+      "lead": "MCP 已铺满九大平台，Skills 与 Agent 半程推进；支付宝、百炼 one key、SkillHub 三处重点上新。",
+      "layout": "metrics",
+      "tone": "soft",
+      "items": [
+        {"title": "能力上架矩阵", "metric": "9/4/3", "body": "MCP 已上 9 平台；Skills 已上百炼、WorkBuddy（阿里云、点金推进中）；Agent 已上百炼、扣子（点金、WorkBuddy 推进中）。", "meta": "阿里云 · 百炼 · 点金 · 火山 · 扣子 · 腾讯云 · WorkBuddy · 支付宝 · ModelScope", "status": "confirmed", "source": "飞书汇报文档 · 2026-08-03"},
+        {"title": "支付宝 AI 开放平台", "metric": "邀测中", "body": "MCP 入驻 open.alipay.com AI 资源市场，金融类首家 MCP 入驻。", "meta": "重点上新 · 进行中", "status": "confirmed", "source": "飞书汇报文档 · 2026-08-03"},
+        {"title": "百炼 one key MCP", "metric": "首批≤10家", "body": "阿里提名盈米为 AI 核心伙伴，邀请上架首批 one key MCP；百炼平台高度面向商业化的重要变革。", "meta": "MCP 已完成开发与上架申请，待上架", "status": "confirmed", "source": "飞书汇报文档 · 2026-08-03"},
+        {"title": "SkillHub 企业版", "metric": "入驻完成", "body": "Skills 入驻 skillhub.cn 企业专区，企业版账号已开通；计划接入 skillpay，Skills 上架推进中。", "meta": "商业化测试 · 支付模式走通", "status": "confirmed", "source": "飞书汇报文档 · 2026-08-03"}
+      ],
+      "callout": {"label": "上线计划", "text": "已上架平台补齐能力完整度；同时探索商业化测试与支付模式走通的新模式。", "status": "confirmed"}
+    },
+    {
+      "id": "capability",
+      "kicker": "06 · CAPABILITY",
+      "title": "能力建设：三维分类与统一治理",
+      "lead": "以业务域、能力类型、权限与生命周期三维分类为底座，MCP 提质、Skills 收敛、Agent 建 runtime，系统侧补齐鉴权与治理。",
+      "layout": "cards",
+      "tone": "light",
+      "items": [
+        {"index": "01", "eyebrow": "TAXONOMY", "title": "三维分类框架", "body": "业务域 × 能力类型 × 权限和生命周期；新增能力或新资产类型（如知识库）可直接纳入，无需推翻分类。", "status": "confirmed", "source": "飞书汇报文档 · 2026-08-03"},
+        {"index": "02", "eyebrow": "MCP", "title": "MCP：审计与新增", "body": "已梳理对外接口问题并提交老吴团队专人修复（盈米 MCP 质量审计报告）；规划新增 10 个持仓类 MCP，鉴权需走登录授权同步开发。", "status": "confirmed", "source": "飞书汇报文档 · 2026-08-03"},
+        {"index": "03", "eyebrow": "SKILLS", "title": "Skills：收敛与统管", "body": "不追求数量，围绕 MCP 迭代做精细化修改，优化第三方平台调用准确性；把散落各 BU 的 Skills 纳入 Stargate 治理体系。", "status": "confirmed", "source": "飞书汇报文档 · 2026-08-03"},
+        {"index": "04", "eyebrow": "AGENT", "title": "Agent：自有 runtime", "body": "老吴团队搭建盈米自有 Agent runtime，治理与调试由 Stargate 和 AI marketplace / AI 实验室承接；保持 Skills + MCP 矩阵模块化。", "status": "confirmed", "source": "飞书汇报文档 · 2026-08-03"},
+        {"index": "05", "eyebrow": "IDENTITY", "title": "账号与鉴权升级", "body": "8 月拟新增 SSO 登录；API Key 与 OAuth 短期共存、逐步过渡到 OAuth，可追溯每次调用的平台、客户端、用户、Scope 与 MCP。", "status": "confirmed", "source": "飞书汇报文档 · 2026-08-03"},
+        {"index": "06", "eyebrow": "GOVERNANCE", "title": "Stargate 治理看板", "body": "合规审计、上架渠道管理、计量计费、数据统计由 Stargate 承接；推进授权查询、撤销、调用审计与异常排查，形成可下钻的接入治理看板。", "status": "confirmed", "source": "飞书汇报文档 · 2026-08-03"}
+      ],
+      "callout": {"label": "内外部接入", "text": "内部：财报 MCP 纳入规划、投研 Vesta 商业化模式沟通中；外部：火富牛私募数据合作模式调整、合规沟通中。", "status": "confirmed"}
+    },
+    {
+      "id": "ailab",
+      "kicker": "07 · AI LAB",
+      "title": "AI 实验室：集众人之力找破圈点",
+      "lead": "从「AI 小顾、且慢如何破圈」出发，做面向大众的金融 AI 应用创作与分发场域；经营指标尚未启动。",
+      "layout": "cards",
+      "tone": "soft",
+      "items": [
+        {"index": "01", "eyebrow": "WHY", "title": "为什么做", "body": "提高金融服务生产效率、储备面向 AI 的能力与工具；回应 2025 年 2 月肖总永哥提出的破圈命题——单场景破圈速度有限，集众人之力做全民 AI 场域。", "status": "confirmed", "source": "飞书汇报文档 · 2026-08-03"},
+        {"index": "02", "eyebrow": "PLAN", "title": "初步规划", "body": "与 OAP 官网结合，支持创作类用户以低代码搭建 AI 应用并快速分发到自己的工作环境；参考电商方式区分使用 / 创作两种界面形态。", "bullets": ["集成用户数据、平台数据、投顾工具 API", "实验室场域定位，与用户约定告知规避风险", "初版设计 yingmi-ai-hub.lovable.app 持续设计中"], "status": "confirmed", "source": "飞书汇报文档 · 2026-08-03"},
+        {"index": "03", "eyebrow": "BUSINESS", "title": "商业模式与缺口", "body": "商业模式为能力调用 + AI 资产交易；年度经营指标（用户 5,000、应用 1,000）完成度 0%，启动计划待定。", "status": "missing", "source": "飞书汇报文档 · 2026-08-03"}
+      ],
+      "callout": {"label": "另一条线", "text": "「Agent 服务输出」在源稿中仅有标题，内容尚未展开。", "status": "missing"}
+    },
+    {
+      "id": "monetize",
+      "kicker": "08 · MONETIZATION",
+      "title": "商化准备：需求已出现，方案在路上",
+      "lead": "个人使用额度扩充与 30+ 付费咨询需求已经出现；收费方案与配套体系是下一步落地重点。",
+      "layout": "actions",
+      "tone": "dark",
+      "items": [
+        {"index": "01", "eyebrow": "DEMAND", "title": "需求信号", "body": "个人使用额度扩充诉求持续出现，付费咨询需求 30+；智谱采购盈米 MCP 已验证首笔收入，山西证券 AI 项目完成首个投标。", "meta": "需求侧已验证", "status": "confirmed"},
+        {"index": "02", "eyebrow": "PRICING", "title": "收费方案", "body": "制定个人版 / 企业版收费方案，结合 SkillHub skillpay、百炼 one key MCP 等渠道商业化机制测试支付模式。", "meta": "方案设计中", "status": "confirmed"},
+        {"index": "03", "eyebrow": "OPERATION", "title": "配套体系", "body": "积分体系建设、用户激励方案、运营计划与机构合作模式表；落地责任人与时间待确认。", "meta": "责任人 / 时间：待确认", "status": "missing"}
+      ],
+      "callout": {"label": "商化判断", "text": "从「能力开放」到「商业验证」的关键一跳：需求信号充分，缺的是定价、激励与机构合作的成套机制。", "status": "inferred"}
+    },
+    {
+      "id": "industry",
+      "kicker": "09 · INDUSTRY",
+      "title": "行业机会：400+ 机构与基础设施定位",
+      "lead": "往外看：金融机构使用广泛、需求转向 Agent 模式输出；竞品对照下的定位是可信的金融 AI 服务基础设施。",
+      "layout": "cards",
+      "tone": "light",
+      "items": [
+        {"index": "01", "eyebrow": "INSTITUTIONS", "title": "400+ 金融机构在用", "body": "金融机构使用分布广泛，含多家知名机构，用量靠前的机构高亮呈现（Stargate 平台金融机构使用统计 · 2026-08-02）。", "bullets": ["交流咨询机构持续增加", "机构需求：Agent 模式输出"], "status": "confirmed", "source": "飞书汇报文档 · 2026-08-03"},
+        {"index": "02", "eyebrow": "POSITIONING", "title": "可信的金融 AI 基础设施", "body": "不是更多工具的集合，而是把合规能力变成可被 Agent 安全调用、稳定交付和持续经营的系统。", "bullets": ["买方投顾与账户服务闭环：公开信息 → 授权后个人化服务", "统一控制面：开放、授权、审计、计量、结算同一资产体系"], "status": "confirmed", "source": "飞书汇报文档 · 2026-08-03"},
+        {"index": "03", "eyebrow": "FLYWHEEL", "title": "持续服务飞轮", "body": "小顾发现问题 → 实验室验证 → OAP 沉淀 → 渠道规模化 → 结果再回流。", "status": "confirmed", "source": "飞书汇报文档 · 2026-08-03"}
+      ],
+      "callout": {"label": "数据需求", "text": "金融数据采购 / 联盟合作（股票、财报、私募、海外等）评估中，是机构服务纵深的前置条件。", "status": "confirmed"}
+    },
+    {
+      "id": "issues",
+      "kicker": "10 · RETROSPECT",
+      "title": "问题回顾：四类约束如实呈现",
+      "lead": "向内看：技术更迭、资源缺口、用户跟进与数据采购四类问题，不被成绩掩盖。",
+      "layout": "metrics",
+      "tone": "soft",
+      "items": [
+        {"title": "技术", "metric": "兼容", "body": "AI 协议与技术框架更迭快，需频繁升级并维护多套兼容（SSE→HTTP、APIKey→OAuth）。", "meta": "持续投入项", "status": "confirmed", "source": "飞书汇报文档 · 2026-08-03"},
+        {"title": "资源", "metric": "补位", "body": "复合人选难招，产品持续补位商务运营；技术团队转移，跨多 BU 多团队分工分界与稳定资源待解。", "meta": "组织与人力约束", "status": "confirmed", "source": "飞书汇报文档 · 2026-08-03"},
+        {"title": "用户", "metric": "跟进", "body": "MCP 质量问题跟进、用户需求跟进，市场行业内大量机构沟通交流需求。", "meta": "服务与响应压力", "status": "confirmed", "source": "飞书汇报文档 · 2026-08-03"},
+        {"title": "数据", "metric": "采购", "body": "金融数据采购 / 联盟合作评估：股票、财报、私募、海外等数据。", "meta": "评估中", "status": "confirmed", "source": "飞书汇报文档 · 2026-08-03"}
+      ],
+      "callout": {"label": "下一步", "text": "把四类问题转成明确的责任人、时间与验收口径，与年度目标缺口一起进入下半年行动清单。", "status": "inferred"}
+    }
+  ],
+  "sources": [
+    {"label": "飞书汇报文档《8/3 盈米 AI 开放平台项目汇报》", "detail": "yingmi.feishu.cn/wiki/SmjXwVjxhiYVEPkd7ulcwV5knUc · 内容基于本地提取稿（revision 1934）整理"},
+    {"label": "OAP 项目汇报研究源稿", "detail": "research/yingmi-oap-project-briefing-2026-08-03.md · 十项框架全文提取与口径复核"},
+    {"label": "OAP 历程·里程碑与用户增长可视化", "detail": "qieman-product-research-library · pages/oap/oap-journey-metrics-2026-08-02.html · 数据截至 2026-07-28"},
+    {"label": "盈米 AI 传播证据报告", "detail": "research/yingmi-ai-communications-evidence-report-2026-07-31.md · 2025-03—2026-07 内部传播监测口径"}
+  ],
+  "openQuestions": [
+    {"title": "飞书最新版本在线核对", "detail": "本报告基于 revision 1934 提取稿生成；如飞书文档此后有更新，需登录后核对差异并刷新。"},
+    {"title": "P4 与 Agent 服务输出未展开", "detail": "源稿 P4（仅一张 OCR / 财报识别截图）与 P14「Agent 服务输出」（仅标题）内容待补。"},
+    {"title": "AI 实验室启动计划", "detail": "经营指标（用户 5,000 / 应用 1,000）完成度 0%，启动时间与负责人待定。"},
+    {"title": "商化配套与百度评估", "detail": "积分体系、用户激励、运营计划、机构合作模式表的落地责任与时间；百度再对接评估结论待出。"}
+  ]
+}
