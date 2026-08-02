@@ -1,24 +1,49 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="720" height="405" viewBox="0 0 720 405" role="img" aria-labelledby="title desc">
-  <title id="title">盈米 AI 两大模式与四个持续预览</title>
-  <desc id="desc">两大接入模式与四个持续行动组成的高管汇报总图。</desc>
+  <title id="title">盈米 AI 持续运转与势能放大预览</title>
+  <desc id="desc">四个持续驱动平台运转，平台通过两种接入模式触达更多群体并放大势能。</desc>
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fbfaff"/><stop offset="1" stop-color="#ebe6fa"/></linearGradient>
-    <linearGradient id="violet" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8067e8"/><stop offset="1" stop-color="#a992ff"/></linearGradient>
-    <style>text{font-family:"Songti SC",STSong,SimSun,serif;fill:#161927}.label{font:700 12px "PingFang SC",sans-serif;fill:#8067e8;letter-spacing:2px}.title{font-size:29px;font-weight:700}.small{font-size:12px;fill:#687287}.card{font-size:17px;font-weight:700}.metric{font-size:20px;font-weight:700;fill:#8067e8}.note{font-size:10px;fill:#687287}</style>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fbfaff"/><stop offset="1" stop-color="#eae6f8"/></linearGradient>
+    <linearGradient id="violet" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#7058d8"/><stop offset="1" stop-color="#a58df7"/></linearGradient>
+    <linearGradient id="navy" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#121a32"/><stop offset="1" stop-color="#263151"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#342568" flood-opacity=".12"/></filter>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9Z" fill="#8067e8"/></marker>
+    <style>text{font-family:"PingFang SC","Microsoft YaHei",sans-serif;fill:#171a2a}.serif{font-family:"Songti SC",STSong,SimSun,serif}.eyebrow{font-size:9px;font-weight:800;letter-spacing:1.5px;fill:#735bd8}.title{font-size:24px;font-weight:800}.sub{font-size:10px;fill:#687287}.group{font-size:13px;font-weight:750}.card{font-size:11px;font-weight:750}.metric{font-size:13px;font-weight:800;fill:#735bd8}.white{fill:#fff}.pale{fill:#e8eafd}</style>
   </defs>
   <rect width="720" height="405" rx="28" fill="url(#bg)"/>
-  <text x="34" y="36" class="label">YINGMI AI · ACTION MAP</text>
-  <text x="34" y="76" class="title">两大模式放大势能 · 四个持续换新机会</text>
-  <rect x="34" y="102" width="194" height="52" rx="15" fill="#fff" stroke="#ded8f4"/><text x="131" y="133" class="card" text-anchor="middle">大厂 AI 平台接入</text>
-  <rect x="263" y="96" width="194" height="64" rx="18" fill="url(#violet)"/><text x="360" y="126" class="card" fill="#fff" text-anchor="middle">盈米 AI 开放平台</text><text x="360" y="146" class="small" fill="#eeeaff" text-anchor="middle">MCP · Skills · Agent</text>
-  <rect x="492" y="102" width="194" height="52" rx="15" fill="#fff" stroke="#ded8f4"/><text x="589" y="133" class="card" text-anchor="middle">C 端产品接入</text>
-  <path d="M228 128H258M462 128H492" stroke="#8067e8" stroke-width="3" stroke-linecap="round"/>
-  <g transform="translate(34 182)"><rect width="155" height="108" rx="17" fill="#fff" stroke="#ded8f4"/><text x="18" y="30" class="label">01</text><text x="18" y="58" class="card">持续建设</text><text x="18" y="84" class="small">MCP · Skills · Agent</text></g>
-  <g transform="translate(199 182)"><rect width="155" height="108" rx="17" fill="#151e36"/><text x="18" y="30" class="label" fill="#b8a7ff">02</text><text x="18" y="58" class="card" fill="#fff">持续抢先</text><text x="18" y="84" class="small" fill="#b7c1d5">首个 · 首批 · 占位</text></g>
-  <g transform="translate(364 182)"><rect width="155" height="108" rx="17" fill="#fff" stroke="#ded8f4"/><text x="18" y="30" class="label">03</text><text x="18" y="58" class="card">持续合作</text><text x="18" y="84" class="small">平台 · 入口 · 机构</text></g>
-  <g transform="translate(529 182)"><rect width="157" height="108" rx="17" fill="#fff" stroke="#ded8f4"/><text x="18" y="30" class="label">04</text><text x="18" y="58" class="card">持续曝光</text><text x="18" y="84" class="small">内容 · 媒体 · 活动</text></g>
-  <rect x="34" y="316" width="652" height="56" rx="16" fill="#fff" stroke="#ded8f4"/>
-  <text x="56" y="343" class="metric">50+</text><text x="122" y="343" class="metric">300+篇</text><text x="232" y="343" class="metric">8,965篇</text><text x="347" y="343" class="metric">300万+</text><text x="457" y="343" class="metric">1,000万+</text><text x="580" y="343" class="metric">10场+</text>
-  <text x="56" y="360" class="note">原创内容</text><text x="122" y="360" class="note">渠道发布</text><text x="232" y="360" class="note">相关报道</text><text x="347" y="360" class="note">互动</text><text x="457" y="360" class="note">浏览</text><text x="580" y="360" class="note">活动 · 30家+</text>
-  <text x="34" y="391" class="note">模式负责放大入口，持续行动负责积累复利</text>
+  <text x="28" y="28" class="eyebrow">YINGMI AI · KEY ACTION MAP</text>
+  <text x="28" y="58" class="title serif">持续运转，放大势能</text>
+  <text x="28" y="77" class="sub">四个持续做深平台｜两种接入做大触达</text>
+
+  <rect x="28" y="96" width="286" height="270" rx="19" fill="#fff" stroke="#ddd7f1" filter="url(#shadow)"/>
+  <text x="46" y="120" class="eyebrow">01 · CORE ENGINE</text>
+  <text x="46" y="142" class="group serif">四个持续｜核心引擎</text>
+  <rect x="46" y="158" width="118" height="82" rx="13" fill="#f5f2fb"/>
+  <text x="58" y="179" class="card">持续建设</text><text x="58" y="202" class="metric serif">3层能力</text><text x="58" y="222" class="sub">MCP · Skills · Agent</text>
+  <rect x="178" y="158" width="118" height="82" rx="13" fill="url(#navy)"/>
+  <text x="190" y="179" class="card pale">持续抢先</text><text x="190" y="202" class="metric serif white">4项</text><text x="190" y="222" class="sub pale">首个 / 首批</text>
+  <rect x="46" y="252" width="118" height="92" rx="13" fill="#f5f2fb"/>
+  <text x="58" y="273" class="card">持续合作</text><text x="58" y="296" class="metric serif">8类伙伴</text><text x="58" y="316" class="sub">10场+ · 30家+</text>
+  <rect x="178" y="252" width="118" height="92" rx="13" fill="#f5f2fb"/>
+  <text x="190" y="273" class="card">持续曝光</text><text x="190" y="296" class="metric serif">8,965篇</text><text x="190" y="316" class="sub">300万+互动</text><text x="190" y="332" class="sub">1,000万+浏览</text>
+
+  <path d="M320 231H343" stroke="#8067e8" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="352" y="131" width="112" height="200" rx="20" fill="url(#navy)" filter="url(#shadow)"/>
+  <text x="408" y="158" class="eyebrow pale" text-anchor="middle">PLATFORM</text>
+  <text x="408" y="191" class="group serif white" text-anchor="middle">盈米 AI</text><text x="408" y="211" class="group serif white" text-anchor="middle">开放平台</text>
+  <rect x="370" y="234" width="76" height="24" rx="8" fill="#394465"/><text x="408" y="250" class="sub pale" text-anchor="middle">MCP</text>
+  <rect x="370" y="266" width="76" height="24" rx="8" fill="#394465"/><text x="408" y="282" class="sub pale" text-anchor="middle">Skills</text>
+  <rect x="370" y="298" width="76" height="24" rx="8" fill="#394465"/><text x="408" y="314" class="sub pale" text-anchor="middle">Agent</text>
+  <path d="M470 231H491" stroke="#8067e8" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="500" y="96" width="192" height="270" rx="19" fill="#fff" stroke="#ddd7f1" filter="url(#shadow)"/>
+  <text x="518" y="120" class="eyebrow">02 · AMPLIFY</text>
+  <text x="518" y="142" class="group serif">两种接入｜放大路径</text>
+  <rect x="518" y="158" width="118" height="66" rx="13" fill="#f5f2fb"/><text x="530" y="183" class="card">大厂 AI 平台</text><text x="530" y="205" class="sub">入口与流量</text>
+  <rect x="518" y="236" width="118" height="66" rx="13" fill="#f5f2fb"/><text x="530" y="261" class="card">C 端产品</text><text x="530" y="283" class="sub">真实服务场景</text>
+  <path d="M642 191H650M642 269H650" stroke="#8067e8" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="656" y="158" width="24" height="144" rx="12" fill="url(#violet)"/>
+  <text x="668" y="200" class="card white" text-anchor="middle" writing-mode="vertical-rl">更多群体</text>
+  <text x="668" y="284" class="card white" text-anchor="middle">↑</text>
+  <rect x="518" y="316" width="162" height="30" rx="10" fill="#171f37"/><text x="599" y="336" class="sub pale" text-anchor="middle">更多入口 · 场景 · 用户</text>
+  <text x="28" y="390" class="sub">四个持续 → 开放平台 → 两种接入 → 更多群体与势能</text>
 </svg>

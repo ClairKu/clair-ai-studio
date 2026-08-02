@@ -2,8 +2,9 @@
 
 | 原材料 / 要点 | 状态 | 报告去向 |
 |---|---|---|
-| 用户本次提供的“两大模式” | confirmed by supplied material | 总图、两大模式章节 |
-| 用户本次提供的“四个持续” | confirmed by supplied material | 总图、抢先与合作章节 |
+| 两模块的非并列关系 | confirmed by user clarification | 总图、中心判断：四个持续 → 平台 → 两种模式 → 更多群体 → 势能放大 |
+| 用户本次提供的“两大模式” | confirmed by supplied material | 势能放大模块、两种模式章节 |
+| 用户本次提供的“四个持续” | confirmed by supplied material | 核心运转模块、举措与数据章节 |
 | MCP、Skills、Agent 三层能力 | confirmed | 总图、持续建设 |
 | 四项“首个 / 首批” | confirmed by supplied material | 总图、抢先占位章节 |
 | 八类合作伙伴与金融机构 | confirmed by supplied material | 总图、合作生态章节 |

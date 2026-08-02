@@ -16,7 +16,7 @@ const STORAGE_KEY = "clair-service-report-workbench-v1";
 const AUTH_KEY = "clair-service-report-workbench-access";
 const VIEW_KEY = "clair-service-report-workbench-view";
 const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
-const DATA_VERSION = 22;
+const DATA_VERSION = 24;
 
 const WORK_TYPES = [
   { id: "requirement-review", name: "需求评审" },
@@ -117,13 +117,13 @@ const initialState = {
     {
       id: "yingmi-ai-two-modes-four-continuous-2026-08-02",
       groupId: "ai-platform",
-      title: "盈米 AI｜两大模式与四个持续",
+      title: "盈米 AI｜持续引擎与势能放大",
       url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-ai-two-modes-four-continuous-2026-08-02/",
       preview: "yingmi-ai-two-modes-four-continuous-2026-08-02.svg",
       pinned: true,
       position: 0,
       createdAt: "2026-08-02T14:30:00.000Z",
-      source: "一张总图｜两大接入模式 × 四个持续 × 阶段传播势能",
+      source: "一张总图｜四个持续核心引擎 → 开放平台 → 两种接入模式 → 更多群体与势能",
       access: "production",
       workType: "reporting",
       tags: ["AI 开放平台", "OAP", "MCP", "Skills", "Agent", "经营汇报", "渠道布局", "HTML", "生产"],
