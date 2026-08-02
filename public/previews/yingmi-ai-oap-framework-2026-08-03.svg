@@ -16,8 +16,8 @@
   <text x="44" y="124" class="label">累计调用 OKR</text>
   <text x="44" y="154" class="metric">70.7%</text>
   <rect x="198" y="98" width="156" height="80" rx="14" fill="#fff" stroke="#ddd7f1" filter="url(#shadow)"/>
-  <text x="214" y="124" class="label">累计用户</text>
-  <text x="214" y="154" class="metric">8,560</text>
+  <text x="214" y="124" class="label">申请用户</text>
+  <text x="214" y="154" class="metric">8,569</text>
   <rect x="368" y="98" width="156" height="80" rx="14" fill="#fff" stroke="#ddd7f1" filter="url(#shadow)"/>
   <text x="384" y="124" class="label">月活 MAU</text>
   <text x="384" y="154" class="metric">1,812</text>
@@ -29,15 +29,15 @@
   <text x="44" y="240" class="label pale">建设 / 抢先 / 合作 / 曝光 → 平台</text>
   <text x="44" y="258" class="label pale">→ 大厂 AI 平台 + C 端产品 → 势能放大</text>
   <rect x="364" y="194" width="328" height="80" rx="14" fill="#fff" stroke="#ddd7f1" filter="url(#shadow)"/>
-  <text x="380" y="220" class="card">新流量入口 · 千问首发窗口</text>
-  <text x="380" y="240" class="label">千问 Agent 8/10 联合宣发 · MCP 连接广场</text>
-  <text x="380" y="258" class="label">微信内测 · WorkBuddy OAuth · 百炼 · 支付宝</text>
+  <text x="380" y="220" class="card">新流量入口 · 微信 + 千问</text>
+  <text x="380" y="240" class="label">微信 Skills + 小程序 · 千问 MCP / A2A</text>
+  <text x="380" y="258" class="label">MCP 9/9 · Skills 4/9 · Agent 4/9</text>
   <rect x="28" y="290" width="320" height="86" rx="14" fill="url(#violet)" filter="url(#shadow)"/>
-  <text x="44" y="316" class="card white">商化准备 · 三类包装先跑样板</text>
-  <text x="44" y="336" class="label pale">个人版 / 企业版 / 平台合作版</text>
-  <text x="44" y="354" class="label pale">山西证券招投标已完成 · 等待结果</text>
+  <text x="44" y="316" class="card white">商化准备 · 需求已出现，方案待补齐</text>
+  <text x="44" y="336" class="label pale">个人 / 企业收费 · 积分激励 · 运营计划</text>
+  <text x="44" y="354" class="label pale">机构合作模式 · 责任人与时间待确认</text>
   <rect x="364" y="290" width="328" height="86" rx="14" fill="#fff" stroke="#ddd7f1" filter="url(#shadow)"/>
-  <text x="380" y="316" class="card">行业机会 · 买方投顾合规闭环</text>
-  <text x="380" y="336" class="label">中金 / 东方财富 / 同花顺 / 聚源 同质化</text>
-  <text x="380" y="354" class="label">OAP：授权治理 + 投顾 SOP + 渠道飞轮</text>
+  <text x="380" y="316" class="card">行业机会 · 可信金融 AI 基础设施</text>
+  <text x="380" y="336" class="label">买方投顾与账户服务闭环 · 统一控制面</text>
+  <text x="380" y="354" class="label">小顾 → 实验室 → OAP → 渠道 → 回流</text>
 </svg>
