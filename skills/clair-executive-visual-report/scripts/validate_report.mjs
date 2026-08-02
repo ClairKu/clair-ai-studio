@@ -38,7 +38,7 @@ for (const [sectionIndex, section] of (report.sections || []).entries()) {
   const path = `sections[${sectionIndex}]`;
   need(section.id, `${path}.id`);
   need(section.title, `${path}.title`);
-  if ([...(section.title || "")].length > 22) errors.push(`${path}.title 过长，请压缩到 22 字以内`);
+  if ([...(section.title || "")].length > 16) errors.push(`${path}.title 过长，请压缩到 16 字以内`);
   if (ids.has(section.id)) errors.push(`章节 id 重复：${section.id}`);
   ids.add(section.id);
   if (!allowedLayouts.has(section.layout)) errors.push(`${path}.layout 未知：${section.layout}`);
@@ -78,10 +78,15 @@ if (htmlPath) {
     ['scroll-snap-type:y mandatory', "HTML 缺少强制滚动吸附"],
     ['height:calc(100svh - var(--nav-h))', "HTML 缺少固定分屏高度"],
     ['height:104px', "HTML 缺少统一桌面标题带高度"],
+    ['-webkit-line-clamp:2', "HTML 缺少标题防遮挡行数约束"],
     ['margin-top:0;margin-bottom:0', "HTML 章节容器未锁定统一顶部基线"],
+    ['.hero-grid::-webkit-scrollbar,.section>.wrap::-webkit-scrollbar', "HTML 未隐藏模块内部滚动条"],
+    ['html::-webkit-scrollbar,body::-webkit-scrollbar{display:none}', "HTML 未隐藏页面纵向滚动条"],
     ['--nav-h:54px', "HTML 顶部导航未使用 54px 紧凑高度"],
     ['--mono:"Songti SC"', "HTML 未统一使用宋体字体族"],
-    ['chapterNav.scrollTo', "HTML 缺少章节导航居中跟随"],
+    ['linkRect.left-navRect.left+chapterNav.scrollLeft', "HTML 缺少章节导航精确居中跟随"],
+    ['panel.offsetTop-navOffset', "HTML 缺少固定导航偏移下的精确分屏定位"],
+    ['scrollFrame=requestAnimationFrame(tick)', "HTML 缺少可取消的丝滑分屏动画"],
     ['"ArrowDown","ArrowRight","PageDown"', "HTML 缺少向后逐屏键盘导航"],
     ['event.key==="Home"', "HTML 缺少首屏键盘导航"],
     ['@media(max-width:720px)', "HTML 缺少移动端规则"],
