@@ -1068,11 +1068,7 @@
           "body": "完整呈现基础层、AI 资产层、管理中枢、前台 / 生态层与能力沉淀链路。",
           "source": "用户提供系统关系图 · 2026-08-03"
         }
-      ],
-      "callout": {
-        "label": "阅读方式",
-        "text": "默认完整适配；点击“放大阅读”后可按 1280px 原始尺寸横向与纵向浏览。"
-      }
+      ]
     },
     {
       "id": "ai-lab",
@@ -1124,8 +1120,48 @@
       }
     },
     {
+      "id": "service-blueprint",
+      "kicker": "17 · AI 实验室 · 服务蓝图",
+      "title": "从能力走到结果交付",
+      "lead": "这不是四个彼此独立的 AI 产品，而是一套金融服务操作系统：开放平台供给并治理能力，实验室把能力生产成服务，两端完成交付，结果与反馈回到下一次服务。",
+      "layout": "architecture",
+      "tone": "dark",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "SUPPLY · 一个底座",
+          "title": "AI 开放平台",
+          "body": "金融数据、知识、工具、Skills 与 Agent 形成统一能力资产，做到可调用、可治理。"
+        },
+        {
+          "index": "02",
+          "eyebrow": "PRODUCTION · 一座工厂",
+          "title": "AI 实验室",
+          "body": "完成能力组装、测试、审核、版本、发布与运营，让一次能力可以被反复交付。"
+        },
+        {
+          "index": "03",
+          "eyebrow": "C-END · 服务终端",
+          "title": "AI 小顾",
+          "body": "持续陪伴用户，推动理解、行动与长期服务。"
+        },
+        {
+          "index": "04",
+          "eyebrow": "B-END · 服务终端",
+          "title": "AI 顾问工作台",
+          "body": "人机协同承接专业任务，形成标准化服务交付。"
+        }
+      ],
+      "callout": {
+        "label": "增长飞轮",
+        "text": "平台决定能不能调用，实验室决定能不能生产，两端决定能不能产生结果；业务结果与反馈继续回流。"
+      },
+      "navHidden": true,
+      "navTarget": "ai-lab"
+    },
+    {
       "id": "user-service-creation",
-      "kicker": "17 · AI 实验室 · 服务创作",
+      "kicker": "18 · AI 实验室 · 服务创作",
       "title": "从真实需求，生成个性化服务",
       "lead": "实验室把需求理解、能力编排、质量审核与发布运营串成一条生产线，让用户从真实投顾问题出发，在手机端丝滑生产自己需要的个性化服务。",
       "layout": "demo",
@@ -1196,7 +1232,7 @@
     },
     {
       "id": "service-relationship",
-      "kicker": "18 · AI 实验室 · 服务关系",
+      "kicker": "19 · AI 实验室 · 服务关系",
       "title": "创作—分发—使用—反馈闭环",
       "lead": "完整呈现创作者、使用者、OAP 官网、AI 实验室、AI 工作台与三类应用之间的服务关系和反馈闭环。",
       "layout": "architecture",
@@ -1210,50 +1246,6 @@
           "source": "用户提供服务关系图 · 2026-08-03"
         }
       ],
-      "callout": {
-        "label": "阅读方式",
-        "text": "默认完整适配；点击“放大阅读”后可按 1280px 原始尺寸横向与纵向浏览。"
-      },
-      "navHidden": true,
-      "navTarget": "ai-lab"
-    },
-    {
-      "id": "service-blueprint",
-      "kicker": "19 · AI 实验室 · 服务蓝图",
-      "title": "从能力走到结果交付",
-      "lead": "这不是四个彼此独立的 AI 产品，而是一套金融服务操作系统：开放平台供给并治理能力，实验室把能力生产成服务，两端完成交付，结果与反馈回到下一次服务。",
-      "layout": "architecture",
-      "tone": "dark",
-      "items": [
-        {
-          "index": "01",
-          "eyebrow": "SUPPLY · 一个底座",
-          "title": "AI 开放平台",
-          "body": "金融数据、知识、工具、Skills 与 Agent 形成统一能力资产，做到可调用、可治理。"
-        },
-        {
-          "index": "02",
-          "eyebrow": "PRODUCTION · 一座工厂",
-          "title": "AI 实验室",
-          "body": "完成能力组装、测试、审核、版本、发布与运营，让一次能力可以被反复交付。"
-        },
-        {
-          "index": "03",
-          "eyebrow": "C-END · 服务终端",
-          "title": "AI 小顾",
-          "body": "持续陪伴用户，推动理解、行动与长期服务。"
-        },
-        {
-          "index": "04",
-          "eyebrow": "B-END · 服务终端",
-          "title": "AI 顾问工作台",
-          "body": "人机协同承接专业任务，形成标准化服务交付。"
-        }
-      ],
-      "callout": {
-        "label": "增长飞轮",
-        "text": "平台决定能不能调用，实验室决定能不能生产，两端决定能不能产生结果；业务结果与反馈继续回流。"
-      },
       "navHidden": true,
       "navTarget": "ai-lab"
     },
