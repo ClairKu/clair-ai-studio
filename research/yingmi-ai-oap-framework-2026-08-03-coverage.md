@@ -10,23 +10,23 @@
 | P1：申请用户 8,569 / 10,000 | confirmed | 01 年度目标 |
 | P1：月活 1,812 / 2,000 | confirmed | 01 年度目标 |
 | P1：累计调用 9,194,916 / 13,000,000 | confirmed | 01 年度目标 |
-| P1：实验室 5,000 用户、1,000 应用、完成度 0% | missing / target | 01、09 |
+| P1：实验室 5,000 用户、1,000 应用、完成度 0% | confirmed / annual plan | 01、11 |
 | P2：两类接入模式、四个持续 | confirmed | 02、03 |
 | P2：建设、首发、合作、传播、活动数据 | confirmed | 03 |
 | P2：2025.09—2026.04 四项行业认可 | confirmed | 04 |
-| P3：2025-03 至 2026-08 里程碑；原始可视化保真嵌入 | confirmed | 05 用户增长 |
+| P3：用户增长与四指标趋势；489 日真实数据交互组件 | confirmed | 05 用户增长 |
 | P5 微信：Skills + 小程序及 8 万+、6,000+、1 万+、1.37 万 | confirmed | 06 |
-| P6 千问：MCP、A2A、连接广场、预计 8 月 10 日宣发 | confirmed / target | 06 |
-| P6 平台矩阵：MCP 9/9、Skills 4/9、Agent 4/9 | confirmed | 06 |
-| P7：业务域、能力类型、权限和生命周期 | confirmed | 07 |
-| P8：MCP 修复与新增、Skill 收敛、Agent runtime | confirmed | 08 |
-| P9：财报 MCP、Vesta、火富牛 | confirmed | 08 |
-| P10—P12：系统关系、SSO、OAuth、Stargate 治理 | confirmed / target | 07 |
-| P13—P14：实验室目标、低代码、商业模式、Agent 输出缺口 | confirmed / target / missing | 09 |
-| P15：30+需求、个人 / 企业收费、积分、运营、机构合作 | missing / target | 10 |
-| 金融机构需求：400+ 总量，分布与名单待补 | missing | 11 |
-| 竞品分析：可信基础设施、账户闭环、控制面、服务飞轮 | confirmed | 11 |
-| 向内看：技术、资源、用户、数据 | confirmed | 12 |
+| P6 千问：MCP、A2A、连接广场、8 月 10 日联合宣发节点 | confirmed / planned milestone | 07 千问合作 |
+| P6 平台矩阵：MCP 9/9、Skills 4/9、Agent 4/9 | confirmed / listing plan | 08 平台能力上架 |
+| P7：业务域、能力类型、权限和生命周期 | confirmed | 09 |
+| P8：MCP 修复与新增、Skill 收敛、Agent runtime | confirmed | 10 |
+| P9：财报 MCP、Vesta、火富牛 | confirmed | 10 |
+| P10—P12：系统关系、SSO、OAuth、Stargate 治理 | confirmed / planned work | 09 |
+| P13—P14：实验室目标、低代码、商业模式与 Agent 输出 | confirmed / annual plan | 11 |
+| P15：30+需求、个人 / 企业收费、积分、运营、机构合作 | confirmed / planned work | 12 |
+| 金融机构需求：400+ 总量 | confirmed | 13 |
+| 竞品分析：可信基础设施、账户闭环、控制面、服务飞轮 | confirmed | 13 |
+| 向内看：技术、资源、用户、数据 | confirmed | 14 |
 
 ## 数字双重校验
 
@@ -38,9 +38,9 @@
 
 ## 用户增长图表口径
 
-- 原始可视化：<https://clairku.github.io/qieman-product-research-library/pages/oap/oap-journey-metrics-2026-08-02.html>
-- 报告第 05 章使用原图快照，呈现 19 个主节点与 489 日序列，以及累计申请、每日调用、每日新增、总调用量四项指标。
-- 原图数据截至 2026-07-28：累计申请 8,292、总调用量 9,145,009、MAU 1,694；属于历史快照，不替代 P1 revision 1978 的更新指标。
+- 原始可视化：<https://clairku.github.io/qieman-product-research-library/pages/oap/oap-journey-metrics-2026-08-02.html?v=43ce5c7>
+- 报告第 05 章以全宽 iframe 直接嵌入指定版本，呈现 19 个主节点与 489 日真实序列；不再放置右侧说明卡。
+- 交互支持图例开关、7 / 30 / 90 日范围、悬浮读数和时间滑块；数据截至 2026-07-28，不替代 P1 revision 1978 的更新指标。
 
 ## 未纳入或未外推
 
