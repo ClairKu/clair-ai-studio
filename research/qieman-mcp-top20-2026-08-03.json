@@ -34,9 +34,10 @@
       "id": "top20-bars",
       "kicker": "02 · BUSINESS TOP 20",
       "title": "一张图看清调用断层",
-      "lead": "横条按调用量统一使用线性尺度；原始第 14 名“获取当前时间”已剔除，原始第 21 名“行业配置比例”顺延入榜。",
+      "lead": "为看清长尾，第 1 名固定为 100%、第 2 名按约 80% 展示，第 3—20 名再按相对第 2 名的真实调用量比例缩放；精确调用量以右侧数字为准。",
       "layout": "comparison",
       "chart": "horizontal-bars",
+      "chartScale": "rank-1-100-rank-2-80-tail-proportional",
       "tone": "soft",
       "items": [
         {"rank": 1, "title": "财经资讯", "metric": "364.4万", "valueWan": 364.4, "category": "投顾内容", "subCategory": "公开内容", "rawRank": 1, "meta": "页面展示值 · 原始第 1", "status": "confirmed"},

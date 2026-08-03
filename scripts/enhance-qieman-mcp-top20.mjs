@@ -48,16 +48,18 @@ const chartCss = `
 const chartFunction = `    function horizontalBars(section){
       const values=section.items.map(item=>Number(item.valueWan)||0);
       const maxValue=Math.max(...values,1);
+      const secondValue=values[1]||maxValue;
       const categoryClass={"金融数据":"cat-data","投研服务":"cat-research","投顾服务":"cat-advisor","通用服务":"cat-utility","投顾内容":"cat-content"};
       const rows=section.items.map((item,index)=>{
-        const width=Math.max(0,(Number(item.valueWan)||0)/maxValue*100).toFixed(2);
+        const value=Number(item.valueWan)||0;
+        const width=(index===0?100:Math.max(0,value/secondValue*80)).toFixed(2);
         const rank=String(item.rank||index+1).padStart(2,"0");
         const category=esc(item.category||item.subCategory||"");
         const cssClass=categoryClass[item.category]||"cat-content";
         const aria=esc(\`第\${rank}名，\${item.title}，\${item.metric}次，\${item.category||"未分类"}\`);
         return \`<div class="bar-row" aria-label="\${aria}"><span class="bar-rank">\${rank}</span><div class="bar-label"><b>\${esc(item.title)}</b><span>\${category}</span></div><div class="bar-track" aria-hidden="true"><span class="bar-fill \${cssClass}" style="--bar-width:\${width}%"></span></div><strong class="bar-value">\${esc(item.metric)}</strong></div>\`;
       }).join("");
-      return \`<div class="items bar-chart reveal" role="img" aria-label="MCP 业务调用量前二十横向长条图，按调用量从高到低排序，单位为万次"><div class="bar-chart-scale" aria-hidden="true"><span>0</span><span>调用量 · 万次 · 线性刻度</span><span>\${esc(String(maxValue))}万</span></div><div class="bar-chart-list">\${rows}</div><p class="bar-chart-note">统一线性尺度；榜尾保留最小可见宽度，精确值以右侧数字为准。</p></div>\`;
+      return \`<div class="items bar-chart reveal" role="img" aria-label="MCP 业务调用量前二十横向长条图。第一名固定为百分之百，第二名按百分之八十展示，第三至第二十名按相对第二名的真实调用量比例缩放；精确调用量以右侧万次数字为准"><div class="bar-chart-scale" aria-hidden="true"><span>0</span><span>视觉压缩尺度 · 第2名 = 80%</span><span>第1名 = 100%</span></div><div class="bar-chart-list">\${rows}</div><p class="bar-chart-note">视觉压缩：第1名固定100%、第2名固定80%；第3—20名按相对第2名的调用量同比缩放。条长用于看清长尾，真实调用量以右侧数字为准。</p></div>\`;
     }
 `;
 
