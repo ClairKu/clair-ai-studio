@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="720" height="405" viewBox="0 0 720 405" role="img" aria-labelledby="title desc">
-  <title id="title">盈米 AI 开放平台 8/3 项目汇报预览</title>
-  <desc id="desc">按飞书文档十项框架：年度目标、关键举措、用户增长、新流量入口、产品规划、能力建设、AI 实验室、商化准备、行业机会、问题回顾。</desc>
+  <title id="title">盈米 AI 开放平台：把能力做成入口，把入口做成增长</title>
+  <desc id="desc">真实增长、微信与千问入口、五层能力生产线、AI 实验室用户共创与服务蓝图。</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fbfaff"/><stop offset="1" stop-color="#eae6f8"/></linearGradient>
     <linearGradient id="violet" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#7058d8"/><stop offset="1" stop-color="#a58df7"/></linearGradient>
@@ -9,12 +9,12 @@
     <style>text{font-family:"PingFang SC","Microsoft YaHei",sans-serif;fill:#171a2a}.serif{font-family:"Songti SC",STSong,SimSun,serif}.eyebrow{font-size:9px;font-weight:800;letter-spacing:1.5px;fill:#735bd8}.title{font-size:24px;font-weight:800}.sub{font-size:10px;fill:#687287}.card{font-size:11px;font-weight:750}.metric{font-size:20px;font-weight:800;fill:#735bd8}.label{font-size:9px;fill:#687287}.white{fill:#fff}.pale{fill:#cfd6f2}</style>
   </defs>
   <rect width="720" height="405" rx="28" fill="url(#bg)"/>
-  <text x="28" y="30" class="eyebrow">YINGMI AI OPEN PLATFORM · 10-ITEM FRAMEWORK</text>
-  <text x="28" y="60" class="title serif">盈米 AI 开放平台｜8/3 项目汇报</text>
-  <text x="28" y="79" class="sub">年度目标 · 关键举措 · 用户增长 · 新流量入口 · 产品规划 · 能力建设 · AI 实验室 · 商化准备 · 行业机会 · 问题回顾</text>
+  <text x="28" y="30" class="eyebrow">YINGMI AI · OAP PROJECT REPORT / 2026.08.03</text>
+  <text x="28" y="60" class="title serif">盈米 AI 开放平台</text>
+  <text x="28" y="79" class="sub">把能力做成入口，把入口做成增长</text>
   <rect x="28" y="98" width="156" height="80" rx="14" fill="#fff" stroke="#ddd7f1" filter="url(#shadow)"/>
-  <text x="44" y="124" class="label">累计调用 OKR</text>
-  <text x="44" y="154" class="metric">70.7%</text>
+  <text x="44" y="124" class="label">累计调用</text>
+  <text x="44" y="154" class="metric">919 万+</text>
   <rect x="198" y="98" width="156" height="80" rx="14" fill="#fff" stroke="#ddd7f1" filter="url(#shadow)"/>
   <text x="214" y="124" class="label">申请用户</text>
   <text x="214" y="154" class="metric">8,569</text>
@@ -33,11 +33,11 @@
   <text x="380" y="240" class="label">微信 Skills + 小程序 · 千问 MCP / A2A</text>
   <text x="380" y="258" class="label">MCP 9/9 · Skills 4/9 · Agent 4/9</text>
   <rect x="28" y="290" width="320" height="86" rx="14" fill="url(#violet)" filter="url(#shadow)"/>
-  <text x="44" y="316" class="card white">商化准备 · 需求已出现，方案待补齐</text>
-  <text x="44" y="336" class="label pale">个人 / 企业收费 · 积分激励 · 运营计划</text>
-  <text x="44" y="354" class="label pale">机构合作模式 · 责任人与时间待确认</text>
+  <text x="44" y="316" class="card white">五层能力生产线</text>
+  <text x="44" y="336" class="label pale">数据 → MCP → Skills → Agent → 服务</text>
+  <text x="44" y="354" class="label pale">身份 · 授权 · 质量 · 合规 · 审计贯穿治理</text>
   <rect x="364" y="290" width="328" height="86" rx="14" fill="#fff" stroke="#ddd7f1" filter="url(#shadow)"/>
-  <text x="380" y="316" class="card">行业机会 · 可信金融 AI 基础设施</text>
-  <text x="380" y="336" class="label">买方投顾与账户服务闭环 · 统一控制面</text>
-  <text x="380" y="354" class="label">小顾 → 实验室 → OAP → 渠道 → 回流</text>
+  <text x="380" y="316" class="card">AI 实验室 · 用户共创服务</text>
+  <text x="380" y="336" class="label">真实需求 → 个性化服务 → 审核发布</text>
+  <text x="380" y="354" class="label">开放平台 → 实验室 → 两端交付 → 反馈回流</text>
 </svg>
