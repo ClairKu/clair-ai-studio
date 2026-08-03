@@ -21,11 +21,11 @@
     <marker id="arrowB" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth"><path d="M0 0L8 4L0 8Z" fill="#4d7fd1"/></marker>
     <style>
       text{font-family:"Songti SC","STSong","SimSun",serif;fill:#222338}
-      .h1{font-size:34px;font-weight:700}.sub{font-size:14px;fill:#6c7185}.kicker{font-size:11px;font-weight:700;letter-spacing:2px;fill:#7457e8}
+      .h1{font-size:38px;font-weight:700}.sub{font-size:16px;fill:#596176}.kicker{font-size:12px;font-weight:700;letter-spacing:2px;fill:#7457e8}
       .box{fill:#fff;stroke:#d9d3ea;stroke-width:1.2}.box-v{fill:url(#violet);stroke:#7457e8}.box-lab{fill:url(#lab);stroke:#e2a782;stroke-width:1.25}.box-blue{fill:url(#blueSoft);stroke:#9ebfeb;stroke-width:1.2}
-      .label{font-size:15px;font-weight:700}.label-v{font-size:21px;font-weight:700;fill:#fff}.small{font-size:11px;fill:#6f7589}.small-v{font-size:11px;fill:#ebe6ff}.tiny{font-size:9.5px;fill:#7c8294}
+      .label{font-size:17px;font-weight:700}.label-v{font-size:24px;font-weight:700;fill:#fff}.small{font-size:12.5px;fill:#626a7e}.small-v{font-size:13px;fill:#fff}.role-small{font-size:11.8px;fill:#626a7e}.tiny{font-size:11.2px;fill:#697185}.on-dark{fill:#fff}
       .pill{fill:#faf9fe;stroke:#ded9ef}.pill-o{fill:#fff7f1;stroke:#f2b895}.pill-b{fill:#f2f7ff;stroke:#b8ceee}.pill-v{fill:#eeeaff;stroke:#d3c9ff}
-      .pillText{font-size:10px;fill:#5b6173}.pillTextO{font-size:10px;fill:#d5622e}.pillTextB{font-size:10px;fill:#426da8}.num{font-size:22px;font-weight:700;fill:#7457e8}.numO{font-size:22px;font-weight:700;fill:#f1783c}
+      .pillText{font-size:11.2px;fill:#4f566a}.pillTextO{font-size:11.2px;fill:#c95322}.pillTextB{font-size:11.2px;fill:#345f9a}.num{font-size:23px;font-weight:700;fill:#7457e8}.numO{font-size:23px;font-weight:700;fill:#f1783c}
       .lineV{fill:none;stroke:#7457e8;stroke-width:1.8;marker-end:url(#arrowV)}.lineB{fill:none;stroke:#4d7fd1;stroke-width:1.7;marker-end:url(#arrowB)}.dash{stroke-dasharray:5 6}
     </style>
   </defs>
@@ -41,13 +41,13 @@
     <rect x="42" y="164" width="140" height="44" rx="12" fill="#f3f0fb"/>
     <text x="58" y="191" class="label" fill="#5c48bd">服务角色</text>
     <rect x="43" y="230" width="138" height="106" rx="16" class="pill-o"/>
-    <circle cx="70" cy="267" r="17" fill="#ff7a3d"/><text x="70" y="273" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">创</text>
+    <circle cx="70" cy="267" r="17" fill="#ff7a3d"/><text x="70" y="273" text-anchor="middle" font-size="14" font-weight="700" class="on-dark">创</text>
     <text x="98" y="264" class="label" fill="#d9642d">创作者</text>
-    <text x="98" y="285" class="small">运营 / 产品 / 业务</text>
+    <text x="98" y="285" class="role-small">运营 / 产品 / 业务</text>
     <rect x="43" y="365" width="138" height="106" rx="16" class="pill-b"/>
-    <circle cx="70" cy="402" r="17" fill="#4f83db"/><text x="70" y="408" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">用</text>
+    <circle cx="70" cy="402" r="17" fill="#4f83db"/><text x="70" y="408" text-anchor="middle" font-size="14" font-weight="700" class="on-dark">用</text>
     <text x="98" y="399" class="label" fill="#426fae">使用者</text>
-    <text x="98" y="420" class="small">顾问 / 员工 / 用户</text>
+    <text x="98" y="420" class="role-small">顾问 / 员工 / 用户</text>
   </g>
 
   <!-- AI开放平台 -->
@@ -58,17 +58,17 @@
     <text x="365" y="143" class="label-v">AI开放平台（OAP 官网）</text>
     <text x="365" y="168" class="small-v">统一入口 · 品牌展示 · 开发者 / 创作者入口</text>
     <g>
-      <rect x="365" y="177" width="88" height="20" rx="10" fill="#fff" opacity=".15"/><text x="409" y="191" text-anchor="middle" font-size="9.5" fill="#fff">官网入口</text>
-      <rect x="463" y="177" width="88" height="20" rx="10" fill="#fff" opacity=".15"/><text x="507" y="191" text-anchor="middle" font-size="9.5" fill="#fff">开放能力</text>
-      <rect x="561" y="177" width="88" height="20" rx="10" fill="#fff" opacity=".15"/><text x="605" y="191" text-anchor="middle" font-size="9.5" fill="#fff">应用入口</text>
+      <rect x="365" y="177" width="88" height="20" rx="10" fill="#fff" opacity=".18"/><text x="409" y="191" text-anchor="middle" font-size="11" font-weight="700" class="on-dark">官网入口</text>
+      <rect x="463" y="177" width="88" height="20" rx="10" fill="#fff" opacity=".18"/><text x="507" y="191" text-anchor="middle" font-size="11" font-weight="700" class="on-dark">开放能力</text>
+      <rect x="561" y="177" width="88" height="20" rx="10" fill="#fff" opacity=".18"/><text x="605" y="191" text-anchor="middle" font-size="11" font-weight="700" class="on-dark">应用入口</text>
     </g>
   </g>
 
   <!-- AI实验室 -->
   <g filter="url(#shadow)">
     <rect x="274" y="240" width="686" height="210" rx="22" class="box-lab"/>
-    <rect x="858" y="230" width="76" height="26" rx="13" fill="#7457e8"/><text x="896" y="247" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">规划中</text>
-    <text x="617" y="274" text-anchor="middle" font-size="22" font-weight="700" fill="#7443c8">AI实验室</text>
+    <rect x="858" y="230" width="76" height="26" rx="13" fill="#7457e8"/><text x="896" y="247" text-anchor="middle" font-size="11.5" font-weight="700" class="on-dark">规划中</text>
+    <text x="617" y="274" text-anchor="middle" font-size="24" font-weight="700" fill="#7443c8">AI实验室</text>
     <text x="617" y="296" text-anchor="middle" class="small">低代码搭建 AI 应用，后续将与 OAP 官网融合</text>
     <rect x="298" y="316" width="309" height="114" rx="17" fill="#fffaf7" stroke="#efb18e"/>
     <text x="452" y="343" text-anchor="middle" class="label" fill="#d9632d">创作界面</text>
@@ -89,7 +89,7 @@
   <!-- AI工作台 -->
   <g filter="url(#shadow)">
     <rect x="274" y="486" width="686" height="86" rx="20" class="box-blue"/>
-    <text x="617" y="517" text-anchor="middle" font-size="20" font-weight="700" fill="#4a70bc">AI工作台</text>
+    <text x="617" y="517" text-anchor="middle" font-size="22" font-weight="700" fill="#4a70bc">AI工作台</text>
     <text x="617" y="537" text-anchor="middle" class="small">个人 / 团队工作环境</text>
     <rect x="392" y="544" width="102" height="20" rx="10" class="pill-b"/><text x="443" y="558" text-anchor="middle" class="pillTextB">我的应用</text>
     <rect x="504" y="544" width="102" height="20" rx="10" class="pill-b"/><text x="555" y="558" text-anchor="middle" class="pillTextB">团队应用</text>
@@ -130,10 +130,10 @@
     <rect x="1070" y="146" width="182" height="538" rx="22" class="box"/>
     <text x="1092" y="181" class="label" fill="#5f49c3">关系说明</text>
     <line x1="1092" y1="195" x2="1230" y2="195" stroke="#e3dfef"/>
-    <g transform="translate(0 0)"><text x="1092" y="236" class="num">01</text><text x="1132" y="225" font-size="11" font-weight="700" fill="#5d48bd">AI开放平台：</text><text x="1132" y="243" class="tiny">承载官网与统一入口</text></g>
-    <g transform="translate(0 88)"><text x="1092" y="236" class="numO">02</text><text x="1132" y="225" font-size="11" font-weight="700" fill="#d96831">AI实验室：</text><text x="1132" y="243" class="tiny">支持低代码搭建与</text><text x="1132" y="258" class="tiny">应用管理</text></g>
-    <g transform="translate(0 188)"><text x="1092" y="236" class="num">03</text><text x="1132" y="225" font-size="11" font-weight="700" fill="#5d48bd">双界面：</text><text x="1132" y="243" class="tiny">区分创作与使用</text><text x="1132" y="258" class="tiny">两种体验形态</text></g>
-    <g transform="translate(0 288)"><text x="1092" y="236" class="num">04</text><text x="1132" y="225" font-size="11" font-weight="700" fill="#5d48bd">AI工作台：</text><text x="1132" y="243" class="tiny">承接应用分发与</text><text x="1132" y="258" class="tiny">工作环境使用</text></g>
-    <g transform="translate(0 397)"><text x="1092" y="236" class="numO">05</text><text x="1132" y="225" font-size="11" font-weight="700" fill="#d96831">AI小顾：</text><text x="1132" y="243" class="tiny">旗舰应用，也可作为</text><text x="1132" y="258" class="tiny">实验室分发应用之一</text></g>
+    <g transform="translate(0 0)"><text x="1092" y="236" class="num">01</text><text x="1132" y="225" font-size="12.5" font-weight="700" fill="#5d48bd">AI开放平台：</text><text x="1132" y="243" class="tiny">承载官网与统一入口</text></g>
+    <g transform="translate(0 88)"><text x="1092" y="236" class="numO">02</text><text x="1132" y="225" font-size="12.5" font-weight="700" fill="#d96831">AI实验室：</text><text x="1132" y="243" class="tiny">支持低代码搭建与</text><text x="1132" y="258" class="tiny">应用管理</text></g>
+    <g transform="translate(0 188)"><text x="1092" y="236" class="num">03</text><text x="1132" y="225" font-size="12.5" font-weight="700" fill="#5d48bd">双界面：</text><text x="1132" y="243" class="tiny">区分创作与使用</text><text x="1132" y="258" class="tiny">两种体验形态</text></g>
+    <g transform="translate(0 288)"><text x="1092" y="236" class="num">04</text><text x="1132" y="225" font-size="12.5" font-weight="700" fill="#5d48bd">AI工作台：</text><text x="1132" y="243" class="tiny">承接应用分发与</text><text x="1132" y="258" class="tiny">工作环境使用</text></g>
+    <g transform="translate(0 397)"><text x="1092" y="236" class="numO">05</text><text x="1132" y="225" font-size="12.5" font-weight="700" fill="#d96831">AI小顾：</text><text x="1132" y="243" class="tiny">旗舰应用，也可作为</text><text x="1132" y="258" class="tiny">实验室分发应用之一</text></g>
   </g>
 </svg>

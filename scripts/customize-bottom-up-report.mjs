@@ -13,18 +13,19 @@ const css = String.raw`
     /* Original-relationship visual redraw */
     #service-map .section-head,#system-map .section-head{height:108px;margin-bottom:8px}
     .diagram-module{display:grid;gap:8px;margin:0}
-    .diagram-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 4px;color:#777f92;font-size:9.5px}
+    .diagram-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 4px;color:#667084;font-size:11px}
     .diagram-toolbar strong{color:#5d48c4;letter-spacing:.08em}
     .diagram-actions{display:flex;align-items:center;gap:6px}
-    .diagram-action{display:inline-flex;align-items:center;min-height:28px;padding:5px 9px;border:1px solid #dcd6ef;border-radius:9px;background:#fff;color:#5c49bd;text-decoration:none;font:700 9px var(--serif);cursor:pointer}
+    .diagram-action{display:inline-flex;align-items:center;min-height:30px;padding:5px 10px;border:1px solid #dcd6ef;border-radius:9px;background:#fff;color:#5c49bd;text-decoration:none;font:700 11px var(--serif);cursor:pointer}
     .diagram-action:hover{border-color:#a896e7;background:#f5f2ff}.diagram-action:focus-visible{outline:2px solid #7457e8;outline-offset:2px}
-    .diagram-stage{position:relative;height:min(470px,calc(100svh - var(--nav-h) - 220px));min-height:390px;border:1px solid rgba(116,87,232,.18);border-radius:22px;background:linear-gradient(145deg,#fbfaff,#f0edfa);box-shadow:0 22px 60px rgba(42,31,88,.12);overflow:hidden}
-    .diagram-scroll{width:100%;height:100%;display:grid;place-items:center;overflow:auto;scrollbar-width:none;overscroll-behavior:contain}
+    .diagram-stage{position:relative;height:min(540px,calc(100svh - var(--nav-h) - 205px));min-height:400px;border:1px solid rgba(116,87,232,.18);border-radius:22px;background:linear-gradient(145deg,#fbfaff,#f0edfa);box-shadow:0 22px 60px rgba(42,31,88,.12);overflow:hidden}
+    .diagram-scroll{width:100%;height:100%;display:grid;place-items:start center;overflow:auto;scrollbar-width:none;overscroll-behavior:contain}
     .diagram-scroll::-webkit-scrollbar{display:none}
-    .diagram-scroll img{display:block;width:auto;height:min(470px,calc(100svh - var(--nav-h) - 220px));max-width:none;max-height:none;font-family:"Songti SC","STSong","SimSun",serif;transition:min-width .25s ease}
-    .diagram-scroll.detail{place-items:start}.diagram-scroll.detail img{width:auto;min-width:1120px;max-width:none;height:auto;min-height:100%}
-    .diagram-caption{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 4px;color:#858c9d;font-size:9px}.diagram-caption b{color:#7457e8}
-    @media(max-width:720px){#service-map .section-head,#system-map .section-head{height:136px}.diagram-toolbar{align-items:flex-start}.diagram-toolbar>span{display:none}.diagram-stage{height:230px;min-height:230px;border-radius:17px}.diagram-stage:has(.diagram-scroll.detail){height:420px;min-height:420px}.diagram-action{min-height:30px}.diagram-scroll:not(.detail) img{width:100%;height:auto;max-width:100%;min-width:0}.diagram-scroll.detail img{min-width:980px}.diagram-caption span:last-child{display:none}.section#service-map .callout,.section#system-map .callout{margin-top:10px}}
+    .diagram-scroll img{display:block;width:min(1024px,100%);height:auto;max-width:none;max-height:none;font-family:"Songti SC","STSong","SimSun",serif;transition:min-width .25s ease}
+    .diagram-scroll.detail{place-items:start}.diagram-scroll.detail img{width:auto;min-width:1280px;max-width:none;height:auto;min-height:100%}
+    .diagram-caption{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 4px;color:#737c90;font-size:10.5px}.diagram-caption b{color:#7457e8}
+    .section.dark h2,.section.dark h3,.section.dark .callout p,.closing h2,.closing h3,.closing .source b,.closing .question b{color:#fff}
+    @media(max-width:720px){#service-map .section-head,#system-map .section-head{height:136px}.diagram-toolbar{align-items:flex-start}.diagram-toolbar>span{display:none}.diagram-stage{height:260px;min-height:260px;border-radius:17px}.diagram-stage:has(.diagram-scroll.detail){height:470px;min-height:470px}.diagram-action{min-height:32px}.diagram-scroll:not(.detail){place-items:start center}.diagram-scroll:not(.detail) img{width:100%;height:auto;max-width:100%;min-width:0}.diagram-scroll.detail img{min-width:1280px}.diagram-caption span:last-child{display:none}.section#service-map .callout,.section#system-map .callout{margin-top:10px}}
     @media print{.diagram-toolbar{display:none}.diagram-stage{height:auto;min-height:0;overflow:visible;box-shadow:none}.diagram-scroll{overflow:visible}.diagram-scroll img,.diagram-scroll.detail img{width:100%;height:auto;max-width:100%;min-width:0}.diagram-caption{margin-top:8px}}
 `;
 
