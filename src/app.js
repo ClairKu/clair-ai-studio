@@ -220,10 +220,10 @@ const initialState = {
       pinned: true,
       position: 0,
       createdAt: "2026-08-03T02:55:00.000Z",
-      source: "飞书文档 revision 1978｜真实增长图 × 微信/千问场景 × 五层能力生产线 × AI 实验室用户共创 × 系统与服务关系图 × 机构使用 × MCP TOP20",
+      source: "飞书文档 revision 1978｜真实增长图 × 微信/千问场景 × 五层能力生产线 × AI 实验室用户共创 × 商化收费路由 × 机构使用 × MCP TOP20",
       access: "production",
       workType: "reporting",
-      tags: ["AI 开放平台", "OAP", "项目汇报", "微信", "千问", "能力生产线", "AI 实验室", "用户共创", "系统关系", "服务蓝图", "机构使用", "MCP TOP20", "HTML", "生产"],
+      tags: ["AI 开放平台", "OAP", "项目汇报", "微信", "千问", "能力生产线", "AI 实验室", "用户共创", "商化收费", "企业年包", "按量预付", "机构使用", "MCP TOP20", "HTML", "生产"],
     },
     {
       id: "qieman-mcp-top20-2026-08-03",
