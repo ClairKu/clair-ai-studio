@@ -232,18 +232,45 @@
     {
       "id": "industry",
       "kicker": "15 · 行业机会",
-      "title": "机构需要可信基础设施",
-      "lead": "源稿记录 400+ 金融机构使用；机构下一步需要的不是更多工具，而是可安全调用、稳定交付和持续经营的系统。",
-      "layout": "cards",
+      "title": "标杆机构验证真实需求",
+      "lead": "机构使用已经从广泛覆盖分化出深度集成、团队渗透与类目头部样板；MCP 调用则明显集中在基金研究链路。",
+      "layout": "usage-dashboard",
       "tone": "light",
       "items": [
-        {"index": "01", "eyebrow": "USAGE", "title": "400+ 金融机构", "body": "平台已覆盖 400+ 金融机构，规模效应与行业触达开始显现。", "source": "飞书源稿「金融机构需求」· revision 1978"},
-        {"index": "02", "eyebrow": "POSITIONING", "title": "可信金融 AI 基础设施", "body": "定位不是更多工具集合，而是把合规能力变成可被 Agent 安全调用、稳定交付和持续经营的系统。", "source": "飞书源稿「竞品分析」· revision 1978"},
-        {"index": "03", "eyebrow": "ACCOUNT SERVICE", "title": "买方投顾与账户闭环", "body": "从公开信息服务延伸到授权后的个人化投顾与账户服务。", "source": "飞书源稿「竞品分析」· revision 1978"},
-        {"index": "04", "eyebrow": "CONTROL PLANE", "title": "统一控制面", "body": "开放、授权、审计、计量与结算进入同一资产体系。", "source": "飞书源稿「竞品分析」· revision 1978"},
-        {"index": "05", "eyebrow": "FLYWHEEL", "title": "持续服务飞轮", "body": "小顾发现问题，实验室验证，OAP 沉淀，渠道规模化，结果再回流。", "source": "飞书源稿「竞品分析」· revision 1978"}
+        {"index": "01", "eyebrow": "深度集成样板", "title": "陆基金", "metric": "135,176", "meta": "4 位用户", "status": "confirmed", "source": "Stargate 机构使用统计截图 · 2026-08-02"},
+        {"index": "02", "eyebrow": "团队化使用", "title": "创金合信基金", "metric": "13,040", "meta": "20 位用户", "status": "confirmed", "source": "Stargate 机构使用统计截图 · 2026-08-02"},
+        {"index": "03", "eyebrow": "用户规模领先", "title": "汇添富", "metric": "11,436", "meta": "23 位用户", "status": "confirmed", "source": "Stargate 机构使用统计截图 · 2026-07-31"},
+        {"index": "04", "eyebrow": "金融机构用户数第一", "title": "易方达基金", "metric": "11,260", "meta": "30 位用户", "status": "confirmed", "source": "Stargate 机构使用统计截图 · 2026-07-31"},
+        {"index": "05", "eyebrow": "银行类第一", "title": "浙商银行", "metric": "10,642", "meta": "6 位用户", "status": "confirmed", "source": "Stargate 机构使用统计截图 · 2026-08-02"},
+        {"index": "06", "eyebrow": "证券类第一", "title": "东吴证券", "metric": "7,109", "meta": "4 位用户", "status": "confirmed", "source": "Stargate 机构使用统计截图 · 2026-08-01"},
+        {"index": "07", "eyebrow": "基金销售类第一", "title": "好买基金", "metric": "3,886", "meta": "6 位用户", "status": "confirmed", "source": "Stargate 机构使用统计截图 · 2026-07-31"},
+        {"index": "08", "eyebrow": "多人团队试用", "title": "招商银行", "metric": "1,766", "meta": "17 位用户", "status": "confirmed", "source": "Stargate 机构使用统计截图 · 2026-08-02"}
       ],
-      "callout": {"label": "行业机会", "text": "差异化应落在买方投顾与账户服务闭环、统一控制面和持续服务飞轮，而不是协议数量。"}
+      "institutionTypes": [
+        {"label": "公募基金", "count": "94 家", "names": "陆基金、创金合信、汇添富、易方达"},
+        {"label": "证券", "count": "93 家", "names": "东吴、中银、广发、华泰"},
+        {"label": "银行", "count": "59 家", "names": "浙商、苏州、广州、招商"},
+        {"label": "基金销售", "count": "35 家", "names": "好买、晋金财富、和耕、天天", "note": "已剔除盈米"}
+      ],
+      "mcpTools": [
+        {"rank": 1, "name": "基金诊断", "calls": 136060},
+        {"rank": 2, "name": "批量获取基金详情", "calls": 21982},
+        {"rank": 3, "name": "批量获取基金业绩表现", "calls": 18678},
+        {"rank": 4, "name": "财经资讯", "calls": 15390},
+        {"rank": 5, "name": "基金净值历史", "calls": 13358},
+        {"rank": 6, "name": "搜索基金", "calls": 9258},
+        {"rank": 7, "name": "行业配置比例", "calls": 8392},
+        {"rank": 8, "name": "基金经理观点", "calls": 6631},
+        {"rank": 9, "name": "实时资讯 AI 解读", "calls": 5381},
+        {"rank": 10, "name": "账户诊断", "calls": 5110},
+        {"rank": 11, "name": "市场温度计", "calls": 4604},
+        {"rank": 12, "name": "获取当前时间", "calls": 4436},
+        {"rank": 13, "name": "基金持仓", "calls": 4395},
+        {"rank": 14, "name": "HTML 转 PDF", "calls": 3414},
+        {"rank": 15, "name": "热点财经话题榜单", "calls": 3023}
+      ],
+      "mcpMeta": {"requested": 20, "visible": 15, "period": "截图未标注统一统计周期", "insight": "基金诊断约为第 2 名的 6.2×；前 8 名中 7 项属于基金研究链路。"},
+      "callout": {"label": "经营判断", "text": "标杆机构已经证明真实需求；下一步要用统一鉴权、审计、计量和服务运营，把高频调用转成稳定交付与商业闭环。", "status": "inferred"}
     },
     {
       "id": "retro",
@@ -280,7 +307,8 @@
     {"label": "飞书文档《8/3 盈米 AI 开放平台项目汇报》", "detail": "yingmi.feishu.cn/wiki/ELoLwjzXmidhs6kscvbczByYnod · revision 1978 · 报告十项框架与关键举措事实基础"},
     {"label": "OAP 关键历程 × 四指标增长可视化", "detail": "clairku.github.io/qieman-product-research-library/pages/oap/oap-journey-metrics-2026-08-02.html?v=43ce5c7 · 19 个主节点与 489 日序列 · 图表数据截至 2026-07-28"},
     {"label": "盈米 AI 系统关系图与服务关系图", "detail": "用户提供 PNG · 2026-08-03；报告内使用内容、层级与箭头关系 1:1 保留的 SVG 可视化"},
-    {"label": "来源覆盖清单", "detail": "research/yingmi-ai-oap-framework-2026-08-03-coverage.md · 源稿要点映射与数字复核"},
+    {"label": "Stargate 金融机构使用统计截图", "detail": "用户于 2026-08-03 提供 · 公募 / 证券 / 银行 / 基金销售机构分类、重点机构调用与用户数、MCP 工具调用可见 TOP15；第 16—20 名与统一统计周期待补"},
+    {"label": "来源覆盖清单", "detail": "research/yingmi-ai-oap-framework-2026-08-03-coverage.md · 源稿要点去向、数字复核与未外推边界"},
     {"label": "Clair Executive Visual Report 模板", "detail": "clairku.github.io/clair-ai-studio/reports/yingmi-ai-two-modes-four-continuous-2026-08-02/ · 视觉与交互模板参考"}
   ]
 }

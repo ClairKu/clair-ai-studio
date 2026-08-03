@@ -48,7 +48,7 @@
 }
 ```
 
-- `layout`：`cards`、`metrics`、`architecture`、`timeline`、`process`、`evidence`、`comparison`、`demo`、`actions`。
+- `layout`：`cards`、`metrics`、`architecture`、`timeline`、`process`、`evidence`、`comparison`、`demo`、`actions`、`usage-dashboard`。
 - `tone`：`light`、`soft`、`dark`。
 - `status`：`confirmed`、`inferred`、`missing`、`target`。
 
@@ -85,6 +85,7 @@
 | 产品体验、场景故事 | `demo` | 可切换的连续场景 |
 | 决策、建议、路线图 | `actions` | 优先级与下一步 |
 | 并列观点、角色、原则 | `cards` | 等级相同的要点 |
+| 机构覆盖、重点机构与工具调用排行 | `usage-dashboard` | 机构结构、标杆样板与横向长条图 |
 
 ## 证据规则
 

@@ -12,7 +12,7 @@ const report = JSON.parse(readFileSync(absoluteInput, "utf8"));
 const errors = [];
 const allowedLayouts = new Set([
   "cards", "metrics", "architecture", "timeline", "process",
-  "evidence", "comparison", "demo", "actions",
+  "evidence", "comparison", "demo", "actions", "usage-dashboard",
 ]);
 const allowedTones = new Set(["light", "soft", "dark"]);
 const allowedStatuses = new Set(["confirmed", "inferred", "missing", "target"]);
@@ -44,6 +44,14 @@ for (const [sectionIndex, section] of (report.sections || []).entries()) {
   if (!allowedLayouts.has(section.layout)) errors.push(`${path}.layout 未知：${section.layout}`);
   if (section.tone && !allowedTones.has(section.tone)) errors.push(`${path}.tone 未知：${section.tone}`);
   if (!Array.isArray(section.items) || !section.items.length) errors.push(`${path}.items 为空`);
+  if (section.layout === "usage-dashboard") {
+    if (!Array.isArray(section.institutionTypes) || !section.institutionTypes.length) errors.push(`${path}.institutionTypes 为空`);
+    if (!Array.isArray(section.mcpTools) || !section.mcpTools.length) errors.push(`${path}.mcpTools 为空`);
+    for (const [toolIndex, tool] of (section.mcpTools || []).entries()) {
+      need(tool.name, `${path}.mcpTools[${toolIndex}].name`);
+      if (!Number.isFinite(Number(tool.calls))) errors.push(`${path}.mcpTools[${toolIndex}].calls 不是数字`);
+    }
+  }
   for (const [itemIndex, item] of (section.items || []).entries()) {
     const itemPath = `${path}.items[${itemIndex}]`;
     need(item.title, `${itemPath}.title`);
