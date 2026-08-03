@@ -158,8 +158,20 @@
       "callout": {"label": "建设目标", "text": "形成统一、可下钻的接入治理看板，使授权、撤销、调用和异常排查可以追溯。"}
     },
     {
+      "id": "system-relationship",
+      "kicker": "10 · 系统关系",
+      "title": "从基础能力到开放生态",
+      "lead": "完整呈现数据与工具、MCP / Skills / Agent、Stargate 管理后台及前台生态之间的系统关系与能力沉淀链路。",
+      "layout": "architecture",
+      "tone": "soft",
+      "items": [
+        {"index": "01", "eyebrow": "SYSTEM MAP", "title": "盈米 AI 系统关系图", "body": "基础层、AI 资产层、管理中枢、前台 / 生态层与能力沉淀链路按原图完整呈现。", "source": "用户提供系统关系图 · 2026-08-03"}
+      ],
+      "callout": {"label": "阅读方式", "text": "默认完整适配；点击“放大阅读”后可按 1280px 原始尺寸横向与纵向浏览。"}
+    },
+    {
       "id": "capability",
-      "kicker": "10 · 能力建设",
+      "kicker": "11 · 能力建设",
       "title": "三层能力走向统一治理",
       "lead": "MCP、Skill、Agent 分层建设；对外接口修复、持仓类 MCP 新增、Skills 收敛与自有 Agent runtime 同步推进。",
       "layout": "cards",
@@ -176,7 +188,7 @@
     },
     {
       "id": "ai-lab",
-      "kicker": "11 · AI 实验室",
+      "kicker": "12 · AI 实验室",
       "title": "实验室承担应用生产与破圈",
       "lead": "实验室面向金融 AI 产品生产、员工和用户参与、实验风险边界与低代码创作；经营指标完成度 0%。",
       "layout": "process",
@@ -191,8 +203,20 @@
       "callout": {"label": "经营抓手", "text": "H2 启动实验室建设，以 5,000 用户、1,000 应用为结果指标，形成应用生产与分发增长引擎。"}
     },
     {
+      "id": "service-relationship",
+      "kicker": "13 · 服务关系",
+      "title": "创作—分发—使用—反馈闭环",
+      "lead": "完整呈现创作者、使用者、OAP 官网、AI 实验室、AI 工作台与三类应用之间的服务关系和反馈闭环。",
+      "layout": "architecture",
+      "tone": "light",
+      "items": [
+        {"index": "01", "eyebrow": "SERVICE MAP", "title": "盈米 AI 服务关系图", "body": "服务角色、双界面、发布分发、三类应用与反馈迭代关系按原图完整呈现。", "source": "用户提供服务关系图 · 2026-08-03"}
+      ],
+      "callout": {"label": "阅读方式", "text": "默认完整适配；点击“放大阅读”后可按 1280px 原始尺寸横向与纵向浏览。"}
+    },
+    {
       "id": "monetization",
-      "kicker": "12 · 商化准备",
+      "kicker": "14 · 商化准备",
       "title": "商化进入方案落地",
       "lead": "30+ 额度扩充与付费咨询需求形成验证样本，围绕个人 / 企业收费、积分运营和机构合作推进商业闭环。",
       "layout": "actions",
@@ -207,7 +231,7 @@
     },
     {
       "id": "industry",
-      "kicker": "13 · 行业机会",
+      "kicker": "15 · 行业机会",
       "title": "机构需要可信基础设施",
       "lead": "源稿记录 400+ 金融机构使用；机构下一步需要的不是更多工具，而是可安全调用、稳定交付和持续经营的系统。",
       "layout": "cards",
@@ -223,7 +247,7 @@
     },
     {
       "id": "retro",
-      "kicker": "14 · 问题回顾",
+      "kicker": "16 · 问题回顾",
       "title": "四类问题制约规模化",
       "lead": "技术、资源、用户与数据问题共同指向：外部机会窗口快于内部供给与治理能力建设。",
       "layout": "cards",
@@ -238,7 +262,7 @@
     },
     {
       "id": "next",
-      "kicker": "15 · 下一步",
+      "kicker": "17 · 下一步",
       "title": "四项行动进入落地",
       "lead": "下半年围绕新入口经营、OAuth / SSO、AI 实验室和商化配套四项行动集中落地。",
       "layout": "actions",
@@ -255,6 +279,7 @@
   "sources": [
     {"label": "飞书文档《8/3 盈米 AI 开放平台项目汇报》", "detail": "yingmi.feishu.cn/wiki/ELoLwjzXmidhs6kscvbczByYnod · revision 1978 · 报告十项框架与关键举措事实基础"},
     {"label": "OAP 关键历程 × 四指标增长可视化", "detail": "clairku.github.io/qieman-product-research-library/pages/oap/oap-journey-metrics-2026-08-02.html?v=43ce5c7 · 19 个主节点与 489 日序列 · 图表数据截至 2026-07-28"},
+    {"label": "盈米 AI 系统关系图与服务关系图", "detail": "用户提供 PNG · 2026-08-03；报告内使用内容、层级与箭头关系 1:1 保留的 SVG 可视化"},
     {"label": "来源覆盖清单", "detail": "research/yingmi-ai-oap-framework-2026-08-03-coverage.md · 源稿要点映射与数字复核"},
     {"label": "Clair Executive Visual Report 模板", "detail": "clairku.github.io/clair-ai-studio/reports/yingmi-ai-two-modes-four-continuous-2026-08-02/ · 视觉与交互模板参考"}
   ]

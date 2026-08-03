@@ -18,15 +18,17 @@ template_reference: clairku.github.io/clair-ai-studio/reports/yingmi-ai-two-mode
 |---|---|---|
 | 年度目标 | 01 · 年度目标（OKR） | metrics |
 | 关键举措 | 02 · 关键举措（总图）+ 03 · 四个持续 | architecture + metrics |
-| 用户增长 | 04 · 用户增长（趋势） | evidence |
-| 新流量入口 | 05 · 新流量入口（渠道） | timeline |
-| 产品规划 | 06 · 产品规划 | architecture |
-| 能力建设 | 07 · 能力建设 | cards |
-| AI 实验室 | 08 · AI 实验室 | process |
-| 商化准备 | 09 · 商化准备 | comparison |
-| 行业机会 | 10 · 行业机会 | comparison |
-| 问题回顾 | 11 · 问题回顾 | cards |
-| —（补） | 12 · 下一步（H2 路线图） | actions |
+| 用户增长 | 05 · 用户增长（趋势） | evidence |
+| 新流量入口 | 06 · 新流量入口 + 07 · 千问合作 + 08 · 平台能力上架 | cards + architecture |
+| 产品规划 | 09 · 产品规划 | architecture |
+| 系统关系图（新增完整可视化） | 10 · 系统关系 | architecture + SVG |
+| 能力建设 | 11 · 能力建设 | cards |
+| AI 实验室 | 12 · AI 实验室 | process |
+| 服务关系图（新增完整可视化） | 13 · 服务关系 | architecture + SVG |
+| 商化准备 | 14 · 商化准备 | actions |
+| 行业机会 | 15 · 行业机会 | cards |
+| 问题回顾 | 16 · 问题回顾 | cards |
+| —（补） | 17 · 下一步（H2 路线图） | actions |
 
 ## 关键数据与口径
 
