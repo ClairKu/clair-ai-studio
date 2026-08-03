@@ -710,50 +710,46 @@
     {
       "id": "ai-lab",
       "kicker": "14 · AI 实验室",
-      "title": "实验室承担应用生产与破圈",
-      "lead": "实验室面向金融 AI 产品生产、员工和用户参与、实验风险边界与低代码创作；经营指标完成度 0%。",
-      "layout": "process",
-      "tone": "light",
+      "title": "AI 实验室承接破圈与共创",
+      "lead": "回答「AI 小顾、且慢如何破圈」的最初构想，用全民 AI 场域集结众力寻找破圈点。",
+      "layout": "architecture",
+      "tone": "dark",
       "items": [
         {
           "index": "01",
-          "eyebrow": "EFFICIENCY",
-          "title": "提高生产效率",
-          "body": "为金融 AI 产品建设储备模型、数据、投顾工具 API 与开发工具。",
-          "source": "飞书源稿 P13 · revision 1978"
+          "eyebrow": "WHY",
+          "title": "为什么做",
+          "body": "提高金融服务生产效率，为 AI 产品建设储备面向 AI 的能力与工具。",
+          "bullets": [
+            "单场景破圈速度有限，希望集众人之力",
+            "在模型上集成用户数据、平台数据、投顾工具 API，快速落地场景服务"
+          ]
         },
         {
           "index": "02",
-          "eyebrow": "PARTICIPATION",
-          "title": "扩大参与",
-          "body": "让员工与用户探索、发布、分享自己的场景服务或智能体。",
-          "source": "飞书源稿 P13 · revision 1978"
+          "eyebrow": "WHAT",
+          "title": "做成什么",
+          "body": "打造类似豆包的工具集场域：既面向研发工具与服务场景，也鼓励员工竞赛成果和用户自主探索、发布、分享智能体。",
+          "bullets": [
+            "吸引用户在金融投资场景使用推理模型，参与 AI 探索",
+            "与用户约定告知：明确探索实验室场域、规避风险",
+            "集结大家力量找到破圈点"
+          ]
         },
         {
           "index": "03",
-          "eyebrow": "BOUNDARY",
-          "title": "明确实验边界",
-          "body": "向用户明确告知探索属性，降低实验场景的风险与预期错配。",
-          "source": "飞书源稿 P13 · revision 1978"
-        },
-        {
-          "index": "04",
-          "eyebrow": "CREATE",
-          "title": "低代码搭建与分发",
-          "body": "与 OAP 官网结合，区分使用与创作界面，支持低代码搭建并快速分发到工作环境。",
-          "source": "飞书源稿 P13 · revision 1978"
-        },
-        {
-          "index": "05",
-          "eyebrow": "MODEL",
-          "title": "能力调用 + 资产交易",
-          "body": "以能力调用和资产交易为商业模式方向，并纳入 Agent 服务输出设计。",
-          "source": "飞书源稿 P13—P14 · revision 1978"
+          "eyebrow": "HOW",
+          "title": "怎么落地",
+          "body": "与 OAP 官网结合，支持创作者用低代码搭建 AI 应用，并快速分发到自己的工作环境；区分使用与创作两种界面形态。",
+          "bullets": [
+            "初版设计稿持续迭代中",
+            "商业模式：能力调用 + AI 资产交易"
+          ]
         }
       ],
       "callout": {
-        "label": "经营抓手",
-        "text": "H2 启动实验室建设，以 5,000 用户、1,000 应用为结果指标，形成应用生产与分发增长引擎。"
+        "label": "定位判断",
+        "text": "AI 实验室是「产品化」流程段的承载物：把平台能力变成大众可参与、可共创的场域。"
       }
     },
     {
@@ -888,7 +884,7 @@
     },
     {
       "id": "user-demand",
-      "kicker": "18 · 行业机会 · MCP TOP20",
+      "kicker": "18 · 行业机会",
       "title": "MCP 工具调用 TOP20",
       "lead": "剔除时间查询后的业务 TOP20 显示，用户首先需要资讯发现、基金检索和经理观点；内容与金融数据是高频入口，诊断与配置承接进一步价值。",
       "layout": "comparison",
@@ -1246,9 +1242,132 @@
       "navTarget": "user-demand"
     },
     {
+      "id": "industry-outlook",
+      "kicker": "20 · 行业机会 · 向外看",
+      "title": "400+ 机构用起来了",
+      "lead": "金融机构真实使用与需求共同指向 Agent 模式输出，盈米的差异化定位是可信的金融 AI 服务基础设施。",
+      "layout": "architecture",
+      "tone": "dark",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "INSTITUTIONS",
+          "title": "400+ 金融机构使用",
+          "body": "400+ 金融机构使用平台能力，覆盖公募、证券、银行、基金销售等多类机构，使用从单点试用走向团队化与深度集成。",
+          "bullets": [
+            "公募、证券、银行、基金销售多类型覆盖",
+            "机构使用从工具调用走向团队协同"
+          ]
+        },
+        {
+          "index": "02",
+          "eyebrow": "DEMAND",
+          "title": "机构要的是 Agent",
+          "body": "机构需求集中指向 Agent 模式输出——不只调用工具，而是可交付的完整智能服务。",
+          "bullets": [
+            "从工具调用升级为可完成任务的服务单元"
+          ]
+        },
+        {
+          "index": "03",
+          "eyebrow": "POSITIONING",
+          "title": "可信的金融 AI 基础设施",
+          "body": "不是更多工具的集合，而是把合规能力变成可被 Agent 安全调用、稳定交付和持续经营的系统。",
+          "bullets": [
+            "买方投顾与账户服务闭环：从公开信息到授权后的个性化服务",
+            "统一控制面：开放、授权、审计、计量、结算在同一资产体系",
+            "持续服务飞轮：小顾发现问题 → 实验室验证 → OAP 沉淀 → 渠道规模化 → 结果回流"
+          ]
+        }
+      ],
+      "callout": {
+        "label": "竞争解读",
+        "text": "差异化立足点不是工具数量，而是账户级闭环、统一控制面与持续服务飞轮。"
+      },
+      "navHidden": true,
+      "navTarget": "user-demand"
+    },
+    {
+      "id": "competitor-analysis",
+      "kicker": "21 · 竞品分析",
+      "title": "竞品强在数据与终端，盈米胜在服务闭环",
+      "lead": "公开产品状态显示，主流厂商正从数据库与金融终端向 MCP、Skills 和 Agent 延伸；盈米的机会是把专业能力、账户服务与交易承接组合成可持续交付。",
+      "layout": "comparison",
+      "visual": "competitor-benchmark",
+      "tone": "soft",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "DATA & TERMINAL",
+          "title": "数据与终端型竞品",
+          "body": "Wind、iFinD、恒生聚源与 DataYes 以全市场数据、终端入口、机构投研和高阶分析见长，并加速补齐 MCP、Skills 与 Agent。"
+        },
+        {
+          "index": "02",
+          "eyebrow": "SCENARIO & AGENT",
+          "title": "场景与智能体竞品",
+          "body": "Choice、朝阳永续等从资讯终端、基金与私募投研场景切入，利用问答、研究 Agent 与金融 Skills 提升用户黏性。"
+        },
+        {
+          "index": "03",
+          "eyebrow": "YINGMI ADVANTAGE",
+          "title": "盈米的差异化抓手",
+          "body": "不追求原始数据最全，而把基金诊断、组合配置、专业 Skills、合规授权、账户服务和交易承接连成可交付的服务闭环。"
+        }
+      ],
+      "embeds": [
+        {
+          "title": "聚源 Gildata MCP × 盈米且慢 MCP 实测",
+          "meta": "数据深度与投顾交付能力的互补对标",
+          "url": "https://mcp.edgeone.site/share/usAyeOT8Io1w33SRb0bbH"
+        },
+        {
+          "title": "东方财富 MCP / Skills 能力对标",
+          "meta": "主流金融产品的 AI、Agent 与 Skills 公开能力对比",
+          "url": "https://clairku.github.io/skills/reports/eastmoney-mcp-skills-benchmark-2026-07-28/"
+        }
+      ],
+      "callout": {
+        "label": "竞争策略",
+        "text": "不与数据厂商比数据库；用 MCP + Skills + Agent + 账户闭环，把数据加工成可信、可交付、可持续经营的金融服务。"
+      }
+    },
+    {
       "id": "monetization",
-      "kicker": "20 · 商化准备",
-      "title": "稳定卖承诺，波动卖额度",
+      "kicker": "22 · 商化准备",
+      "title": "商业化从需求信号走向收费方案",
+      "lead": "真实付费信号已经出现，收费方案与运营机制进入设计。",
+      "layout": "architecture",
+      "tone": "light",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "SIGNAL",
+          "title": "需求信号",
+          "body": "个人使用额度扩充需求、付费咨询需求 30+。"
+        },
+        {
+          "index": "02",
+          "eyebrow": "PRICING",
+          "title": "收费方案",
+          "body": "个人版 / 企业版收费方案设计中。"
+        },
+        {
+          "index": "03",
+          "eyebrow": "OPERATION",
+          "title": "运营机制",
+          "body": "积分体系建设、用户激励方案、运营计划与机构合作模式表。"
+        }
+      ],
+      "callout": {
+        "label": "商化节奏",
+        "text": "先用方案接住已有的付费信号，再以积分与激励放大留存与转介绍。"
+      }
+    },
+    {
+      "id": "monetization-pricing",
+      "kicker": "23 · 商化准备 · 收费方案",
+      "title": "服务定价，体现服务价值",
       "lead": "30+ 额度扩充与付费咨询证明需求已出现；底层统一积分 / 调用计量，个人与企业根据使用稳定性选择主收费。",
       "layout": "cards",
       "visual": "pricing-routing",
@@ -1262,9 +1381,7 @@
           "facts": [
             "T1 / T2 / T3 = ¥0.3 / 0.5 / 0.9 每次",
             "多工具混用，单位成本透明"
-          ],
-          "status": "target",
-          "source": "飞书 API 收费表 · 2026-08-03"
+          ]
         },
         {
           "segment": "企业合同 / SLA",
@@ -1274,9 +1391,7 @@
           "facts": [
             "参考 ¥10 / 20 / 60 万 · 200 / 500 / 1,000 QPS",
             "POC / 主链路 / 多部门并行"
-          ],
-          "status": "target",
-          "source": "用户提供企业年包设计 · 2026-08-03"
+          ]
         },
         {
           "segment": "个人自助",
@@ -1286,9 +1401,7 @@
           "facts": [
             "参考 ¥9.9—¥9,999 · 1 个月—2 年",
             "一次性额度，作为订阅补充"
-          ],
-          "status": "target",
-          "source": "用户提供资源包设计 · 2026-08-03"
+          ]
         },
         {
           "segment": "个人自助",
@@ -1298,9 +1411,7 @@
           "facts": [
             "单月 / 连续包月 / 按年",
             "月度积分 + 分享邀请促活"
-          ],
-          "status": "target",
-          "source": "用户提供订阅与积分设计 · 2026-08-03"
+          ]
         }
       ],
       "pricingPhases": [
@@ -1329,14 +1440,15 @@
         "企业：打款、合同、开票、对账、用量预警与 SLA"
       ],
       "callout": {
-        "label": "建议主线 · 管理判断",
-        "text": "上线期个人订阅为主、资源包补充；企业按量预付为主，稳定主链路再转年包。",
-        "status": "inferred"
-      }
+        "label": "建议主线",
+        "text": "上线期个人订阅为主、资源包补充；企业按量预付为主，稳定主链路再转年包。"
+      },
+      "navHidden": true,
+      "navTarget": "monetization"
     },
     {
       "id": "retro",
-      "kicker": "21 · 问题回顾",
+      "kicker": "24 · 问题回顾",
       "title": "四类问题制约规模化",
       "lead": "技术、资源、用户与数据问题共同指向：外部机会窗口快于内部供给与治理能力建设。",
       "layout": "cards",
@@ -1378,7 +1490,7 @@
     },
     {
       "id": "next",
-      "kicker": "22 · 下一步",
+      "kicker": "25 · 下一步",
       "title": "四项行动进入落地",
       "lead": "下半年围绕新入口经营、OAuth / SSO、AI 实验室和商化配套四项行动集中落地。",
       "layout": "actions",
