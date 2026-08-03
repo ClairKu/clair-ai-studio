@@ -220,10 +220,10 @@ const initialState = {
       pinned: true,
       position: 0,
       createdAt: "2026-08-03T02:55:00.000Z",
-      source: "飞书文档十项框架｜年度目标 → 关键举措 → 用户增长 → 新流量入口 → 产品规划 → 能力建设 → AI 实验室 → 商化准备 → 行业机会 → 问题回顾",
+      source: "飞书文档十项框架 + MCP 69 项全量调用核对｜行业机会后新增业务 TOP20 用户需求图，剔除时间查询",
       access: "production",
       workType: "reporting",
-      tags: ["AI 开放平台", "OAP", "项目汇报", "飞书框架", "千问", "微信", "AI 实验室", "商化准备", "HTML", "生产"],
+      tags: ["AI 开放平台", "OAP", "项目汇报", "飞书框架", "用户需求", "MCP TOP20", "千问", "微信", "AI 实验室", "商化准备", "HTML", "生产"],
     },
     {
       id: "qieman-mcp-top20-2026-08-03",
