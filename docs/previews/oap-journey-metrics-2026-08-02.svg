@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
-  <title id="title">盈米 AI 开放平台历程・里程碑预览</title>
-  <desc id="desc">左侧以 17 个时间组展示 32 件重要发布、生态建设、品牌运营与里程碑，右侧为四项用户指标联动走势；完整内容需密码访问。</desc>
+  <title id="title">关键历程 × 用户增长预览</title>
+  <desc id="desc">左侧以 16 个时间组展示 32 件重要发布、生态建设、品牌运营与里程碑，右侧为四项用户指标联动走势；公开链接可直接访问。</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#111629"/>
@@ -33,7 +33,7 @@
     <g transform="translate(0 378)"><rect x="60" y="252" width="340" height="106" rx="18" fill="#fff8ea"/><rect x="60" y="252" width="6" height="106" rx="3" fill="#d59a3d"/><text x="86" y="290" fill="#b7791d" font-size="19" font-weight="700">2026.07 · 里程碑</text><text x="86" y="328" fill="#171525" font-size="25">A2A 接入 · 首个投标</text></g>
   </g>
   <text x="520" y="92" fill="#a99aff" font-family="Songti SC,STSong,serif" font-size="22" font-weight="700" letter-spacing="4">2025.03 — 2026.08</text>
-  <text x="520" y="172" fill="#ffffff" font-family="Songti SC,STSong,serif" font-size="56" font-weight="700">盈米 AI 开放平台用户</text>
+  <text x="520" y="172" fill="#ffffff" font-family="Songti SC,STSong,serif" font-size="48" font-weight="700">盈米 AI 开放平台用户增长走势图</text>
   <text x="520" y="218" fill="#aeb6ca" font-family="Songti SC,STSong,serif" font-size="24">关键举措描述随月份区间与用户走势悬停联动</text>
   <g opacity=".28" stroke="#8d95ac" stroke-width="1">
     <line x1="520" y1="330" x2="1520" y2="330"/><line x1="520" y1="470" x2="1520" y2="470"/><line x1="520" y1="610" x2="1520" y2="610"/><line x1="520" y1="750" x2="1520" y2="750"/>
@@ -45,5 +45,5 @@
   <path d="M520 790 C620 758 682 806 752 766 C842 802 918 730 1006 782 C1100 718 1182 762 1264 668 C1352 736 1418 612 1520 702" fill="none" stroke="#ffb86c" stroke-width="4" stroke-linecap="round" opacity=".9"/>
   <g fill="#fff"><circle cx="832" cy="660" r="9"/><circle cx="1094" cy="560" r="9"/><circle cx="1308" cy="398" r="9"/><circle cx="1520" cy="246" r="11"/></g>
   <rect x="1290" y="760" width="230" height="56" rx="28" fill="rgba(255,255,255,.09)" stroke="rgba(255,255,255,.16)"/>
-  <text x="1405" y="797" text-anchor="middle" fill="#d8dcec" font-family="Songti SC,STSong,serif" font-size="20">内部 · 密码访问</text>
+  <text x="1405" y="797" text-anchor="middle" fill="#d8dcec" font-family="Songti SC,STSong,serif" font-size="20">公开 · 直接访问</text>
 </svg>
