@@ -498,7 +498,8 @@
     },
     {
       "id": "capability-stack",
-      "kicker": "10 · 能力生产线",
+      "kicker": "10 · 产品规划 · 能力生产",
+      "navLabel": "产品规划",
       "title": "五层能力，把底座变成服务",
       "lead": "底层能力不是目的；它必须经过产品化、编排与治理，最终变成用户看得懂、愿意授权、能够持续使用的金融服务。",
       "layout": "architecture",
@@ -574,7 +575,7 @@
     },
     {
       "id": "capability",
-      "kicker": "11 · 能力递进",
+      "kicker": "11 · 产品规划 · 能力递进",
       "title": "降低门槛，放大服务群体",
       "lead": "MCP 让能力可调用，Skills 让专业方法可交付，Agent 让复杂任务可完成，再通过 AI 实验室生产为可持续服务。",
       "layout": "cards",
@@ -639,60 +640,103 @@
       "callout": {
         "label": "能力生产",
         "text": "三层能力逐级降低使用门槛，并通过 AI 实验室进入标准化生产与服务交付。"
-      }
+      },
+      "navHidden": true,
+      "navTarget": "capability-stack"
     },
     {
-      "id": "product-plan",
-      "kicker": "12 · 产品规划",
-      "title": "新能力分类体系规划；底座能力建设",
-      "lead": "分类采用业务域、能力类型、权限和生命周期三维口径；系统建设覆盖身份鉴权、账号、审计、渠道、计费与统计。",
+      "id": "product-capability-governance",
+      "kicker": "12 · 产品规划 · 能力体系",
+      "title": "能力体系，新分类框架与能力治理",
+      "lead": "新分类框架统一按业务域、能力类型、权限与生命周期纳管资产；MCP、Skills、Agent 分层治理，内外部能力进入同一体系。",
       "layout": "architecture",
       "tone": "light",
       "items": [
         {
           "index": "01",
           "eyebrow": "TAXONOMY",
-          "title": "三维分类",
-          "body": "业务域 × 能力类型 × 权限和生命周期；新增能力或知识库等新资产可直接纳管。",
-          "source": "飞书源稿 P7 · revision 1978"
+          "title": "三维分类框架",
+          "body": "业务域 × 能力类型 × 权限和生命周期；新增能力、知识库等新资产可直接纳管，不再堆叠孤立分类。"
         },
         {
           "index": "02",
-          "eyebrow": "ACCOUNT",
-          "title": "账号与 SSO",
-          "body": "OAP 官网基于且慢账号体系，8 月推进 SSO，支持员工从第三方 AI 平台调用更多能力。",
-          "source": "飞书源稿 P12 · revision 1978"
+          "eyebrow": "MCP",
+          "title": "MCP：修旧与拓新",
+          "body": "修复既有接口与流程问题，推进质量审计、登录授权，并规划新增持仓类 MCP，让标准能力更完整、更可靠。",
+          "bullets": ["修复存量接口", "新增持仓能力", "质量审计与授权"]
         },
         {
           "index": "03",
-          "eyebrow": "AUTH",
-          "title": "API Key + OAuth",
-          "body": "短期双轨共存，逐步过渡到 OAuth，以追溯平台、客户端、用户、Scope 和 MCP。",
-          "source": "飞书源稿 P12 · revision 1978"
+          "eyebrow": "SKILLS",
+          "title": "Skills：收敛精细化",
+          "body": "迭代既有 MCP Skills，不追求数量；统一管理多来源 Skills，并逐步把业务团队能力纳入 Stargate 治理。",
+          "bullets": ["统一管理", "质量与版本治理", "业务能力逐步纳管"]
         },
         {
           "index": "04",
-          "eyebrow": "STARGATE",
-          "title": "统一接入治理",
-          "body": "Stargate 承接合规审计、上架渠道管理、计量计费和数据统计，并完善授权查询、撤销、调用审计与异常排查。",
-          "source": "飞书源稿 P12 · revision 1978"
+          "eyebrow": "AGENT",
+          "title": "Agent：自有 Runtime",
+          "body": "搭建自有 Agent Runtime，保持 Skills + MCP 能力矩阵模块化管理，同时兼容第三方 Agent Runtime 场景。",
+          "bullets": ["自有运行时", "能力矩阵模块化", "兼容第三方场景"]
         },
         {
           "index": "05",
-          "eyebrow": "SYSTEM MAP",
-          "title": "系统与服务关系",
-          "body": "Stargate、Agent / Skills 平台、官网、AI 实验室、AI 小顾和 AI 工作台统一纳入系统关系与治理架构。",
-          "source": "飞书源稿 P10—P11 · revision 1978"
+          "eyebrow": "INTERNAL & EXTERNAL",
+          "title": "内外部能力接入",
+          "body": "内部财报、投研等能力与外部数据和专业能力分批接入，在统一标准下完成授权、质量、版本与调用治理。",
+          "bullets": ["内部专业能力", "外部数据能力", "统一接入标准"]
         }
       ],
       "callout": {
-        "label": "建设目标",
-        "text": "形成统一、可下钻的接入治理看板，使授权、撤销、调用和异常排查可以追溯。"
-      }
+        "label": "治理主线",
+        "text": "从铺数量转向提质量：分类统一、MCP 修复、Skills 收敛、Agent 自主、内外能力有序接入。"
+      },
+      "navHidden": true,
+      "navTarget": "capability-stack"
+    },
+    {
+      "id": "product-system",
+      "kicker": "13 · 产品规划 · 系统能力",
+      "title": "系统能力，账号鉴权与治理审计",
+      "lead": "账号、鉴权、统一治理与系统关系共同补齐接入底座，让每一次能力调用可授权、可撤销、可审计、可计量、可追溯。",
+      "layout": "architecture",
+      "tone": "light",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "ACCOUNT",
+          "title": "账号体系与 SSO",
+          "body": "OAP 官网基于且慢账号体系，推进 SSO，支持员工从第三方 AI 平台调用更多经过授权的盈米 AI 能力。"
+        },
+        {
+          "index": "02",
+          "eyebrow": "AUTH",
+          "title": "API Key + OAuth",
+          "body": "短期双轨共存，逐步过渡到 OAuth，以追溯平台、客户端、用户、Scope 与具体 MCP 的授权关系。"
+        },
+        {
+          "index": "03",
+          "eyebrow": "STARGATE",
+          "title": "统一治理与审计",
+          "body": "Stargate 承接合规审计、上架渠道、计量计费与数据统计，补齐授权查询、撤销、调用审计和异常排查。"
+        },
+        {
+          "index": "04",
+          "eyebrow": "SYSTEM MAP",
+          "title": "系统与服务关系",
+          "body": "Stargate、Agent / Skills 平台、官网、AI 实验室、AI 小顾和 AI 工作台统一纳入系统关系与治理架构。"
+        }
+      ],
+      "callout": {
+        "label": "建设指向",
+        "text": "形成统一、可下钻的治理看板，使授权、撤销、调用、计量与异常排查形成完整证据链。"
+      },
+      "navHidden": true,
+      "navTarget": "capability-stack"
     },
     {
       "id": "system-relationship",
-      "kicker": "13 · 系统关系",
+      "kicker": "14 · 系统关系",
       "title": "从基础能力到开放生态",
       "lead": "完整呈现数据与工具、MCP / Skills / Agent、Stargate 管理后台及前台生态之间的系统关系与能力沉淀链路。",
       "layout": "architecture",
@@ -709,7 +753,7 @@
     },
     {
       "id": "ai-lab",
-      "kicker": "14 · AI 实验室",
+      "kicker": "15 · AI 实验室",
       "title": "AI 实验室承接破圈与共创",
       "lead": "回答「AI 小顾、且慢如何破圈」的最初构想，用全民 AI 场域集结众力寻找破圈点。",
       "layout": "architecture",
@@ -754,7 +798,7 @@
     },
     {
       "id": "service-blueprint",
-      "kicker": "15 · AI 实验室 · 服务蓝图",
+      "kicker": "16 · AI 实验室 · 服务蓝图",
       "title": "从能力走到结果交付",
       "lead": "这不是四个彼此独立的 AI 产品，而是一套金融服务操作系统：开放平台供给并治理能力，实验室把能力生产成服务，两端完成交付，结果与反馈回到下一次服务。",
       "layout": "architecture",
@@ -794,7 +838,7 @@
     },
     {
       "id": "user-service-creation",
-      "kicker": "16 · AI 实验室 · 服务创作",
+      "kicker": "17 · AI 实验室 · 服务创作",
       "title": "从真实需求，生成个性化服务",
       "lead": "实验室把需求理解、能力编排、质量审核与发布运营串成一条生产线，让用户从真实投顾问题出发，在手机端丝滑生产自己需要的个性化服务。",
       "layout": "demo",
@@ -865,7 +909,7 @@
     },
     {
       "id": "service-relationship",
-      "kicker": "17 · AI 实验室 · 服务关系",
+      "kicker": "18 · AI 实验室 · 服务关系",
       "title": "创作—分发—使用—反馈闭环",
       "lead": "完整呈现创作者、使用者、OAP 官网、AI 实验室、AI 工作台与三类应用之间的服务关系和反馈闭环。",
       "layout": "architecture",
@@ -884,7 +928,7 @@
     },
     {
       "id": "user-demand",
-      "kicker": "18 · 行业机会",
+      "kicker": "19 · 行业机会",
       "title": "MCP 工具调用 TOP20",
       "lead": "剔除时间查询后的业务 TOP20 显示，用户首先需要资讯发现、基金检索和经理观点；内容与金融数据是高频入口，诊断与配置承接进一步价值。",
       "layout": "comparison",
@@ -1060,7 +1104,7 @@
     },
     {
       "id": "industry",
-      "kicker": "19 · 行业机会 · 金融机构",
+      "kicker": "20 · 行业机会 · 金融机构",
       "title": "金融机构真实调用情况",
       "lead": "",
       "layout": "cards",
@@ -1243,7 +1287,7 @@
     },
     {
       "id": "industry-outlook",
-      "kicker": "20 · 行业机会 · 向外看",
+      "kicker": "21 · 行业机会 · 向外看",
       "title": "400+ 机构用起来了",
       "lead": "金融机构真实使用与需求共同指向 Agent 模式输出，盈米的差异化定位是可信的金融 AI 服务基础设施。",
       "layout": "architecture",
@@ -1289,7 +1333,7 @@
     },
     {
       "id": "competitor-analysis",
-      "kicker": "21 · 竞品分析",
+      "kicker": "22 · 竞品分析",
       "title": "竞品强在数据与终端，盈米胜在服务闭环",
       "lead": "公开产品状态显示，主流厂商正从数据库与金融终端向 MCP、Skills 和 Agent 延伸；盈米的机会是把专业能力、账户服务与交易承接组合成可持续交付。",
       "layout": "comparison",
@@ -1334,7 +1378,7 @@
     },
     {
       "id": "monetization",
-      "kicker": "22 · 商化准备",
+      "kicker": "23 · 商化准备",
       "title": "商业化从需求信号走向收费方案",
       "lead": "真实付费信号已经出现，收费方案与运营机制进入设计。",
       "layout": "architecture",
@@ -1366,7 +1410,7 @@
     },
     {
       "id": "monetization-pricing",
-      "kicker": "23 · 商化准备 · 收费方案",
+      "kicker": "24 · 商化准备 · 收费方案",
       "title": "服务定价，体现服务价值",
       "lead": "30+ 额度扩充与付费咨询证明需求已出现；底层统一积分 / 调用计量，个人与企业根据使用稳定性选择主收费。",
       "layout": "cards",
@@ -1448,9 +1492,9 @@
     },
     {
       "id": "retro",
-      "kicker": "24 · 问题回顾",
-      "title": "四类问题制约规模化",
-      "lead": "技术、资源、用户与数据问题共同指向：外部机会窗口快于内部供给与治理能力建设。",
+      "kicker": "25 · 问题回顾",
+      "title": "问题回顾，从技术、资源、用户到数据需求探讨",
+      "lead": "技术更迭、框架翻新需求快速，人员资源调整与适应要求高。",
       "layout": "cards",
       "tone": "dark",
       "items": [
@@ -1482,15 +1526,11 @@
           "body": "推进股票、财报、私募、海外等数据采购与联盟合作评估。",
           "source": "飞书源稿「向内看」· revision 1978"
         }
-      ],
-      "callout": {
-        "label": "复盘视角",
-        "text": "四个问题均指向同一矛盾：外部机会窗口快于内部供给与治理能力的建设速度。"
-      }
+      ]
     },
     {
       "id": "next",
-      "kicker": "25 · 下一步",
+      "kicker": "26 · 下一步",
       "title": "四项行动进入落地",
       "lead": "下半年围绕新入口经营、OAuth / SSO、AI 实验室和商化配套四项行动集中落地。",
       "layout": "actions",
