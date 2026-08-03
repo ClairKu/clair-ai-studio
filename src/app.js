@@ -151,7 +151,7 @@ const initialState = {
       pinned: true,
       position: 0,
       createdAt: "2026-08-03T19:45:00.000Z",
-      source: "飞书 v2 revision 30 十项大纲｜OKR 复算 · 千问微信双入口 · 渠道状态审计 · 加密正文",
+      source: "飞书 v2 revision 30 十项大纲｜用户增长可视化已纳入 · OKR 复算 · 千问微信双入口 · 加密正文",
       access: "production",
       workType: "reporting",
       tags: ["AI 开放平台", "OAP", "项目汇报", "OKR 复算", "千问", "微信", "货架矩阵", "AI 实验室", "加密", "HTML", "生产"],
