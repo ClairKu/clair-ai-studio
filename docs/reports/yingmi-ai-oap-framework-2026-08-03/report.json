@@ -145,8 +145,8 @@
           "source": "飞书文档《8/3 盈米 AI 开放平台项目汇报》· 2026-08-03"
         },
         {
-          "title": "生态合作",
-          "metric": "30 家+",
+          "title": "持续合作",
+          "metric": "生态合作",
           "body": "持续合作上架、10 场+活动、30 家+交流谘询。",
           "bullets": [
             "阿里云 / 百炼",
@@ -159,8 +159,8 @@
           "source": "飞书文档《8/3 盈米 AI 开放平台项目汇报》· 2026-08-03"
         },
         {
-          "title": "品牌建设",
-          "metric": "1,000 万+",
+          "title": "持续曝光",
+          "metric": "品牌建设",
           "body": "全网互动超 300 万、浏览超 1,000 万。",
           "bullets": [
             "公众号原创 50+ 篇",
@@ -233,8 +233,8 @@
           "title": "四指标真实数据交互图",
           "body": "点击图例开关指标，切换 7 / 30 / 90 日或上线以来范围，悬浮查看单日数据，并通过时间滑块自定义区间。",
           "meta": "OAP 后台整体数据 · 截至 2026-07-28",
-          "source": "OAP 关键历程 × 四指标增长可视化 · v=43ce5c7",
-          "embed": "https://clairku.github.io/qieman-product-research-library/pages/oap/oap-journey-metrics-2026-08-02.html?v=43ce5c7",
+          "source": "OAP 关键历程 × 四指标增长可视化 · v=256e4c9",
+          "embed": "https://clairku.github.io/qieman-product-research-library/pages/oap/oap-journey-metrics-2026-08-02.html?v=256e4c9",
           "alt": "盈米 AI 开放平台关键历程与四指标增长交互图"
         }
       ]
@@ -242,7 +242,7 @@
     {
       "id": "channels",
       "kicker": "06 · 新流量入口",
-      "title": "新超级入口打开服务增量",
+      "title": "新超级入口，打开用户增量",
       "lead": "微信承接服务路由，千问兼顾能力直连与完整 Agent 嵌入，百度等待恢复并升级既有合作。",
       "layout": "cards",
       "visual": "channel-entrances",
@@ -644,7 +644,7 @@
     {
       "id": "product-plan",
       "kicker": "12 · 产品规划",
-      "title": "三维分类衔接六类系统能力",
+      "title": "新能力分类体系规划；底座能力建设",
       "lead": "分类采用业务域、能力类型、权限和生命周期三维口径；系统建设覆盖身份鉴权、账号、审计、渠道、计费与统计。",
       "layout": "architecture",
       "tone": "light",
@@ -1422,7 +1422,7 @@
     },
     {
       "label": "OAP 关键历程 × 四指标增长可视化",
-      "detail": "clairku.github.io/qieman-product-research-library/pages/oap/oap-journey-metrics-2026-08-02.html?v=43ce5c7 · 19 个主节点与 489 日序列 · 图表数据截至 2026-07-28"
+      "detail": "clairku.github.io/qieman-product-research-library/pages/oap/oap-journey-metrics-2026-08-02.html?v=256e4c9 · 19 个主节点与 489 日序列 · 图表数据截至 2026-07-28"
     },
     {
       "label": "能力生产与服务生态补充模块",
