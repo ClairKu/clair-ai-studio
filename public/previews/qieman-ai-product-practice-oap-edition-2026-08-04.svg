@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="405" viewBox="0 0 720 405" role="img" aria-labelledby="title desc">
+  <title id="title">盈米 AI 产品实践：OAP 模版重制版</title>
+  <desc id="desc">原报告内容完整迁移到 OAP 分屏模板，呈现一个底座、一座工厂、两个终端和一个增长飞轮。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fbfaff"/><stop offset="1" stop-color="#e7e1ff"/></linearGradient>
+    <linearGradient id="violet" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#7457e8"/><stop offset="1" stop-color="#9d86f2"/></linearGradient>
+    <linearGradient id="dark" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#10182c"/><stop offset="1" stop-color="#202b49"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="7" stdDeviation="10" flood-color="#342568" flood-opacity=".12"/></filter>
+    <style>text{font-family:"Songti SC",STSong,SimSun,serif;fill:#171a27}.eyebrow{font-size:9px;font-weight:800;letter-spacing:1.6px;fill:#7457e8}.title{font-size:31px;font-weight:700}.sub{font-size:12px;fill:#687287}.label{font-size:9px;fill:#687287}.card{font-size:12px;font-weight:700}.white{fill:#fff}.pale{fill:#d7def2}.num{font-size:26px;font-weight:700;fill:#7457e8}</style>
+  </defs>
+  <rect width="720" height="405" rx="28" fill="url(#bg)"/>
+  <circle cx="664" cy="46" r="108" fill="#d7ccff" opacity=".45"/>
+  <text x="30" y="34" class="eyebrow">QIEMAN PRODUCT TEAM · OAP TEMPLATE EDITION / 2026.08.04</text>
+  <text x="30" y="72" class="title">盈米 AI 产品实践</text>
+  <text x="30" y="96" class="sub">把能力生产成服务 · 把服务交付为结果</text>
+  <rect x="30" y="120" width="660" height="66" rx="16" fill="#fff" stroke="#ddd7f1" filter="url(#shadow)"/>
+  <text x="48" y="146" class="label">ONE-LINE CONCLUSION</text>
+  <text x="48" y="169" class="card">不是聊天入口或工具集合，而是可生产、可交付、可复用、可经营的金融服务操作系统</text>
+  <rect x="30" y="204" width="150" height="116" rx="18" fill="url(#dark)" filter="url(#shadow)"/>
+  <text x="48" y="232" class="num white">01</text><text x="48" y="260" class="card white">一个底座</text><text x="48" y="282" class="label pale">能力供给与治理</text>
+  <rect x="194" y="204" width="150" height="116" rx="18" fill="#fff" stroke="#ddd7f1" filter="url(#shadow)"/>
+  <text x="212" y="232" class="num">02</text><text x="212" y="260" class="card">一座工厂</text><text x="212" y="282" class="label">组装、测试、发行</text>
+  <rect x="358" y="204" width="150" height="116" rx="18" fill="url(#violet)" filter="url(#shadow)"/>
+  <text x="376" y="232" class="num white">03</text><text x="376" y="260" class="card white">两个终端</text><text x="376" y="282" class="label pale">小顾 · 投顾工作台</text>
+  <rect x="522" y="204" width="168" height="116" rx="18" fill="#fff" stroke="#ddd7f1" filter="url(#shadow)"/>
+  <text x="540" y="232" class="num">04</text><text x="540" y="260" class="card">一个增长飞轮</text><text x="540" y="282" class="label">结果回流质量与经营</text>
+  <rect x="30" y="338" width="660" height="38" rx="12" fill="#fff" opacity=".78"/>
+  <text x="48" y="361" class="label">20 章统一分屏 · 54px 章节导航 · 页轨与键盘逐屏 · 390px 响应式 · 事实 / 推断 / 缺失 / 目标态</text>
+</svg>
