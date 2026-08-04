@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "files": [
+    {"path": "qwen-qieman-agent-service-flow.png", "sha256": "9116eb6f24afa7266735adb4b2582516ad227f826cc08424148b58aaba7deff0"},
+    {"path": "wechat-xiaowei-dialogue-01.png", "sha256": "8dfef99d2a2451ef20275b0dcef37e230b197beecb8c43a8c10da2402f5c617a"},
+    {"path": "wechat-xiaowei-dialogue-02.png", "sha256": "7921a5bafeb5ac5bbc24d02a78d2b4e914e859c521fca15047f85824a2e1765a"},
+    {"path": "system-relationship.svg", "sha256": "1acfc70356a4560d97b59ed664a46c8924caaa6a86d55e756b1e38a834d00d14"},
+    {"path": "service-relationship.svg", "sha256": "dd8f118bb2189beb0547c6f9ea857537990ae0bade75b63e59c50a69902ba72f"}
+  ]
+}
