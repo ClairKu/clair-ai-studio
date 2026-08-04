@@ -16,7 +16,7 @@ const STORAGE_KEY = "clair-service-report-workbench-v1";
 const AUTH_KEY = "clair-service-report-workbench-access";
 const VIEW_KEY = "clair-service-report-workbench-view";
 const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
-const DATA_VERSION = 33;
+const DATA_VERSION = 35;
 
 const WORK_TYPES = [
   { id: "requirement-review", name: "需求评审" },
@@ -238,6 +238,20 @@ const initialState = {
       access: "production",
       workType: "reporting",
       tags: ["盈米 AI", "且慢产品", "OAP 模版", "金融服务操作系统", "AI 小顾", "投顾工作台", "微信", "千问", "CLAIR", "HTML", "生产"],
+    },
+    {
+      id: "yingmi-ai-oap-outline-concepts-2026-08-04",
+      groupId: "ai-platform",
+      title: "OAP 报告大纲页｜三版设计预览",
+      url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-ai-oap-outline-concepts-2026-08-04/",
+      preview: "yingmi-ai-oap-outline-concepts-2026-08-04.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-04T07:10:00.000Z",
+      source: "盈米 AI OAP 28 屏正式报告｜管理层决策地图 × 增长叙事路线 × 平台系统全景",
+      access: "production",
+      workType: "product-planning",
+      tags: ["AI 开放平台", "OAP", "报告大纲", "管理汇报", "信息架构", "视觉设计", "CLAIR", "HTML", "生产"],
     },
     {
       id: "yingmi-ai-oap-framework-2026-08-03",
