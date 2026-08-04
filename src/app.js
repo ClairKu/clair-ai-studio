@@ -16,7 +16,7 @@ const STORAGE_KEY = "clair-service-report-workbench-v1";
 const AUTH_KEY = "clair-service-report-workbench-access";
 const VIEW_KEY = "clair-service-report-workbench-view";
 const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
-const DATA_VERSION = 35;
+const DATA_VERSION = 36;
 
 const WORK_TYPES = [
   { id: "requirement-review", name: "需求评审" },
@@ -114,6 +114,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "gpt-codex-plan-analysis-2026-08-04",
+      groupId: "ai-workbench",
+      title: "GPT / Codex 使用分析与方案建议",
+      url: "https://clairku.github.io/clair-ai-studio/reports/gpt-codex-plan-analysis-2026-08-04/",
+      preview: "gpt-codex-plan-analysis-2026-08-04.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-04T09:25:00.000Z",
+      source: "近两个月本地 Codex Token 结构 × 官方套餐与费率核验 × 模型路由建议｜正文与图表加密",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["个人", "Codex", "GPT", "Token", "数据分析", "模型路由", "套餐建议", "加密", "CLAIR", "HTML", "生产"],
+    },
     {
       id: "yingmi-oap-report-2026-08-03",
       groupId: "ai-platform",
