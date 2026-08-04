@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "assets": [
+    {
+      "path": "assets/design-system.svg",
+      "bytes": 2112,
+      "sha256": "826c35370d67ba5ebe26ee85deb83252202e9b11671edc030ec51ad03df971d7"
+    }
+  ]
+}

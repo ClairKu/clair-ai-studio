@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Clair 报告设计令牌示意</title>
+  <desc id="desc">展示紫色品牌色、宋体标题、间距刻度与卡片圆角。</desc>
+  <rect width="1200" height="675" fill="#f7f7fa"/>
+  <rect x="54" y="54" width="1092" height="567" rx="34" fill="#fff" stroke="#e3e5ec" stroke-width="2"/>
+  <text x="96" y="126" fill="#7457e8" font-family="Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="4">CLAIR EDITORIAL SYSTEM</text>
+  <text x="96" y="214" fill="#171a27" font-family="Songti SC, STSong, serif" font-size="60" font-weight="600">统一风格，也保留内容锋芒</text>
+  <g transform="translate(96 282)">
+    <rect width="120" height="120" rx="22" fill="#7457e8"/><rect x="140" width="120" height="120" rx="22" fill="#9d86f2"/><rect x="280" width="120" height="120" rx="22" fill="#f2efff"/><rect x="420" width="120" height="120" rx="22" fill="#10182c"/>
+    <text x="0" y="154" fill="#687287" font-family="Arial, sans-serif" font-size="15">ACCENT</text><text x="140" y="154" fill="#687287" font-family="Arial, sans-serif" font-size="15">SECONDARY</text><text x="280" y="154" fill="#687287" font-family="Arial, sans-serif" font-size="15">SOFT</text><text x="420" y="154" fill="#687287" font-family="Arial, sans-serif" font-size="15">DARK</text>
+  </g>
+  <g transform="translate(700 292)" fill="none" stroke="#d9d2f2" stroke-width="2">
+    <rect width="380" height="54" rx="27"/><rect y="76" width="300" height="54" rx="18"/><rect y="152" width="220" height="54" rx="12"/>
+  </g>
+  <g fill="#5138b5" font-family="Arial, sans-serif" font-size="16" font-weight="700"><text x="728" y="326">TAG · RADIUS 999</text><text x="728" y="402">CARD · RADIUS 18</text><text x="728" y="478">SPACE · 24 / 32 / 48</text></g>
+  <line x1="96" y1="560" x2="1104" y2="560" stroke="#e3e5ec" stroke-width="2"/>
+  <text x="96" y="594" fill="#687287" font-family="Arial, sans-serif" font-size="16">STRUCTURE → EVIDENCE → DECISION → ACTION</text>
+</svg>
