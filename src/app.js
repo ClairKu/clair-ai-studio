@@ -10,12 +10,14 @@ import {
   reportEditorMarkup,
   sharePublishedReport,
 } from "./report-editor.js";
-import { normalizeSearchText, reportMatchesQuery } from "./search.js";
+import { normalizeSearchText, reportMatchesQuery, reportSearchScore, searchTokens } from "./search.js";
 
 const STORAGE_KEY = "clair-service-report-workbench-v1";
 const AUTH_KEY = "clair-service-report-workbench-access";
 const VIEW_KEY = "clair-service-report-workbench-view";
+const TIME_SORT_KEY = "clair-service-report-time-sort-v1";
 const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
+const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const DATA_VERSION = 36;
 
 const WORK_TYPES = [
@@ -1238,20 +1240,65 @@ initialState.reports = initialState.reports.map((report) => {
 
 let state = loadState();
 let bucketOrder = loadBucketOrder();
+let reportOrder = loadReportOrder();
 let query = "";
 let readerId = "";
 let archiveView = false;
+let featuredOnly = false;
 let catalogView = ["topic", "type", "tag", "time"].includes(localStorage.getItem(VIEW_KEY))
   ? localStorage.getItem(VIEW_KEY)
   : "topic";
+let reportTimeSort = ["created", "modified"].includes(localStorage.getItem(TIME_SORT_KEY))
+  ? localStorage.getItem(TIME_SORT_KEY)
+  : "created";
 let draggingId = "";
 let draggingGroupId = "";
 let movingReportId = "";
+let dragDropTarget = null;
+let dragPlaceholder = null;
 let modal = null;
 let toastTimer = 0;
+let searchContentIndex = {};
+let searchIndexPromise = null;
 
 function clone(value) {
   return JSON.parse(JSON.stringify(value));
+}
+
+function searchIndexKey(report) {
+  try {
+    const parts = new URL(report.url).pathname.split("/").filter(Boolean);
+    const reportsIndex = parts.indexOf("reports");
+    return reportsIndex >= 0 ? parts[reportsIndex + 1] || report.id : report.id;
+  } catch {
+    return report.id;
+  }
+}
+
+function indexedReport(report) {
+  return {
+    ...report,
+    searchContent: searchContentIndex[report.id] || searchContentIndex[searchIndexKey(report)] || "",
+  };
+}
+
+function ensureSearchIndex() {
+  if (searchIndexPromise) return searchIndexPromise;
+  searchIndexPromise = fetch("./search-index.json", { cache: "no-store" })
+    .then((response) => response.ok ? response.json() : {})
+    .then((index) => {
+      searchContentIndex = index && typeof index === "object" ? index : {};
+      if (query && !readerId && !archiveView) {
+        const selection = document.getElementById("search-input")?.selectionStart ?? query.length;
+        render();
+        const input = document.getElementById("search-input");
+        input?.focus();
+        input?.setSelectionRange(selection, selection);
+      }
+      return searchContentIndex;
+    })
+    .catch(() => (searchContentIndex = {}));
+  return searchIndexPromise;
 }
 
 function loadBucketOrder() {
@@ -1269,6 +1316,20 @@ function loadBucketOrder() {
     // Fall back to the default order when saved data is invalid.
   }
   return {};
+}
+
+function loadReportOrder() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(REPORT_ORDER_KEY));
+    if (saved && typeof saved === "object") return saved;
+  } catch {
+    // Keep the catalog's default order when local ordering data is invalid.
+  }
+  return {};
+}
+
+function saveReportOrder() {
+  localStorage.setItem(REPORT_ORDER_KEY, JSON.stringify(reportOrder));
 }
 
 function normalizedUrl(value = "") {
@@ -1386,6 +1447,7 @@ function migrateState(saved) {
         ? savedReport.tags
         : report.tags,
       pinned: Boolean(savedReport.pinned),
+      modifiedAt: savedReport.modifiedAt || report.modifiedAt || report.createdAt,
       position: Number.isFinite(savedReport.position)
         ? savedReport.position
         : report.position,
@@ -1650,6 +1712,7 @@ async function saveIntakeToLibrary({ material, files }, onProgress = () => {}) {
     pinned: false,
     position: 0,
     createdAt: now,
+    modifiedAt: now,
     source: url ? "快捷保存" : "本地保存",
     access: inspected.access,
     archived: false,
@@ -1721,6 +1784,7 @@ function orderBuckets(buckets, kind) {
 
 function moveBucket(sourceId, targetId, kind = catalogView) {
   if (!sourceId || !targetId || sourceId === targetId) return false;
+  if (kind === "time" || kind === "featured") return false;
   if (kind === "topic") return moveGroup(sourceId, targetId);
   const activeReports = state.reports.filter((report) => !report.archived);
   const ids = classificationBuckets(activeReports)
@@ -1736,7 +1800,45 @@ function moveBucket(sourceId, targetId, kind = catalogView) {
   return true;
 }
 
-function moveReport(reportId, targetGroupId, targetReportId = "") {
+function touchReport(report) {
+  report.modifiedAt = new Date().toISOString();
+}
+
+function reportOrderKey(kind, bucketId) {
+  return `${kind}:${bucketId}`;
+}
+
+function orderReports(reports, kind, bucketId, fallbackSort) {
+  const ordered = typeof fallbackSort === "function" ? [...reports].sort(fallbackSort) : [...reports];
+  const saved = reportOrder[reportOrderKey(kind, bucketId)] || [];
+  if (!saved.length) return ordered;
+  const rank = new Map(saved.map((id, index) => [id, index]));
+  return ordered.sort((a, b) => {
+    const aRank = rank.has(a.id) ? rank.get(a.id) : Number.MAX_SAFE_INTEGER;
+    const bRank = rank.has(b.id) ? rank.get(b.id) : Number.MAX_SAFE_INTEGER;
+    return aRank - bRank;
+  });
+}
+
+function rememberReportOrder(kind, bucketId, reportId, targetReportId = "", placeAfter = false) {
+  if (!["type", "tag", "featured"].includes(kind) || !bucketId) return;
+  const reports = kind === "featured"
+    ? state.reports.filter((item) => !item.archived && item.pinned)
+    : kind === "type"
+      ? state.reports.filter((item) => !item.archived && item.workType === bucketId)
+      : state.reports.filter((item) => !item.archived && (item.tags || []).includes(bucketId));
+  const ids = orderReports(reports, kind, bucketId, (a, b) => reportCreatedTime(b) - reportCreatedTime(a))
+    .map((item) => item.id)
+    .filter((id) => id !== reportId);
+  let index = targetReportId ? ids.indexOf(targetReportId) : ids.length;
+  if (index < 0) index = ids.length;
+  if (targetReportId && placeAfter) index += 1;
+  ids.splice(index, 0, reportId);
+  reportOrder[reportOrderKey(kind, bucketId)] = ids;
+  saveReportOrder();
+}
+
+function moveReport(reportId, targetGroupId, targetReportId = "", placeAfter = false) {
   const report = state.reports.find((item) => item.id === reportId);
   if (!report || report.archived) return false;
   const targetGroup = state.groups.find((group) => group.id === targetGroupId);
@@ -1744,10 +1846,12 @@ function moveReport(reportId, targetGroupId, targetReportId = "") {
   const ordered = state.reports
     .filter((item) => !item.archived && item.groupId === targetGroupId && item.id !== reportId)
     .sort((a, b) => (a.position || 0) - (b.position || 0));
-  const targetIndex = targetReportId
+  let targetIndex = targetReportId
     ? ordered.findIndex((item) => item.id === targetReportId)
     : ordered.length;
+  if (targetIndex >= 0 && targetReportId && placeAfter) targetIndex += 1;
   report.groupId = targetGroupId;
+  touchReport(report);
   ordered.splice(targetIndex < 0 ? ordered.length : targetIndex, 0, report);
   ordered.forEach((item, index) => {
     item.position = index;
@@ -1762,6 +1866,11 @@ function workTypeName(workTypeId) {
 
 function reportCreatedTime(report) {
   const timestamp = new Date(report.createdAt || 0).getTime();
+  return Number.isFinite(timestamp) ? timestamp : 0;
+}
+
+function reportModifiedTime(report) {
+  const timestamp = new Date(report.modifiedAt || report.createdAt || 0).getTime();
   return Number.isFinite(timestamp) ? timestamp : 0;
 }
 
@@ -1794,10 +1903,10 @@ function dateBucketLabel(key) {
     : `${year}年 · ${dateLabel}`;
 }
 
-function addedTimeLabel(value) {
+function addedTimeLabel(value, mode = "created") {
   const date = new Date(value || 0);
   if (!Number.isFinite(date.getTime())) return "新增时间待补";
-  return `新增于 ${new Intl.DateTimeFormat("zh-CN", {
+  return `${mode === "modified" ? "修改" : "创建"}于 ${new Intl.DateTimeFormat("zh-CN", {
     month: "numeric",
     day: "numeric",
     hour: "2-digit",
@@ -1812,19 +1921,23 @@ function classificationBuckets(reports, normalizedQuery = "") {
   if (catalogView === "time") {
     const byDate = new Map();
     [...reports]
-      .sort((a, b) => reportCreatedTime(b) - reportCreatedTime(a))
+      .sort((a, b) => reportTimeSort === "modified"
+        ? reportModifiedTime(b) - reportModifiedTime(a)
+        : reportCreatedTime(b) - reportCreatedTime(a))
       .forEach((report) => {
-        const key = localDateKey(report.createdAt);
+        const key = localDateKey(reportTimeSort === "modified"
+          ? report.modifiedAt || report.createdAt
+          : report.createdAt);
         if (!byDate.has(key)) byDate.set(key, []);
         byDate.get(key).push(report);
       });
-    return orderBuckets([...byDate.entries()].map(([key, items]) => ({
+    return [...byDate.entries()].map(([key, items]) => ({
       id: key,
       name: dateBucketLabel(key),
       kind: "time",
       accent: "slate",
       reports: items,
-    })), "time");
+    }));
   }
   if (catalogView === "type") {
     return orderBuckets(WORK_TYPES
@@ -1833,11 +1946,14 @@ function classificationBuckets(reports, normalizedQuery = "") {
         name: type.name,
         kind: "type",
         accent: "blue",
-        reports: reports
-          .filter((report) => report.workType === type.id)
-          .sort((a, b) =>
+        reports: orderReports(
+          reports.filter((report) => report.workType === type.id),
+          "type",
+          type.id,
+          (a, b) =>
             Number(Boolean(b.pinned)) - Number(Boolean(a.pinned)) ||
-            new Date(b.createdAt) - new Date(a.createdAt)),
+            new Date(b.createdAt) - new Date(a.createdAt),
+        ),
       }))
       .filter((bucket) => !normalizedQuery || bucket.reports.length || matchesName(bucket.name)), "type");
   }
@@ -1861,11 +1977,14 @@ function classificationBuckets(reports, normalizedQuery = "") {
         name: tag,
         kind: "tag",
         accent: "violet",
-        reports: reports
-          .filter((report) => (report.tags || []).includes(tag))
-          .sort((a, b) =>
+        reports: orderReports(
+          reports.filter((report) => (report.tags || []).includes(tag)),
+          "tag",
+          tag,
+          (a, b) =>
             Number(Boolean(b.pinned)) - Number(Boolean(a.pinned)) ||
-            new Date(b.createdAt) - new Date(a.createdAt)),
+            new Date(b.createdAt) - new Date(a.createdAt),
+        ),
       }))
       .filter((bucket) => bucket.reports.length && (!normalizedQuery || matchesName(bucket.name) || bucket.reports.length)), "tag");
   }
@@ -1883,22 +2002,33 @@ function classificationBuckets(reports, normalizedQuery = "") {
       matchesName(`${bucket.name} ${bucket.description || ""}`));
 }
 
-function assignReportToBucket(reportId, bucketKind, bucketId, targetReportId = "") {
+function assignReportToBucket(reportId, bucketKind, bucketId, targetReportId = "", placeAfter = false) {
   const report = state.reports.find((item) => item.id === reportId);
   if (!report || report.archived) return false;
   if (bucketKind === "topic") {
-    return moveReport(reportId, bucketId, targetReportId);
+    return moveReport(reportId, bucketId, targetReportId, placeAfter);
   }
   if (bucketKind === "type") {
     if (!WORK_TYPES.some((item) => item.id === bucketId)) return false;
     report.workType = bucketId;
+    touchReport(report);
     saveState();
+    rememberReportOrder("type", bucketId, reportId, targetReportId, placeAfter);
     return true;
   }
   if (bucketKind === "tag") {
     report.tags = Array.isArray(report.tags) ? report.tags : [];
     if (!report.tags.includes(bucketId)) report.tags.push(bucketId);
+    touchReport(report);
     saveState();
+    rememberReportOrder("tag", bucketId, reportId, targetReportId, placeAfter);
+    return true;
+  }
+  if (bucketKind === "featured") {
+    report.pinned = true;
+    touchReport(report);
+    saveState();
+    rememberReportOrder("featured", "featured", reportId, targetReportId, placeAfter);
     return true;
   }
   return false;
@@ -1912,6 +2042,48 @@ function currentBucketLabel() {
       : catalogView === "time"
         ? "新增时间"
         : "主题";
+}
+
+function buildSearchHits(reports, normalizedQuery) {
+  return reports
+    .map((report) => ({
+      report,
+      score: reportSearchScore(indexedReport(report), normalizedQuery, {
+        group: state.groups.find((group) => group.id === report.groupId),
+        workTypeName: workTypeName(report.workType),
+      }),
+    }))
+    .filter((item) => item.score > 0)
+    .sort((a, b) =>
+      b.score - a.score ||
+      reportModifiedTime(b.report) - reportModifiedTime(a.report) ||
+      String(a.report.title).localeCompare(b.report.title, "zh-CN"))
+    .map((item) => item.report);
+}
+
+function reportSearchExcerpt(report, normalizedQuery) {
+  const indexedContent = searchContentIndex[report.id] || searchContentIndex[searchIndexKey(report)] || "";
+  const content = [
+    report.source,
+    report.description,
+    report.savedContent,
+    report.savedHtml,
+    ...(report.savedFiles || []).flatMap((file) => [file?.name, file?.excerpt, file?.content]),
+    indexedContent,
+  ].filter(Boolean).join(" · ")
+    .replace(/<style[\s\S]*?<\/style>/gi, " ")
+    .replace(/<script[\s\S]*?<\/script>/gi, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (!content) return "";
+  const normalizedContent = normalizeSearchText(content);
+  const matchedToken = searchTokens(normalizedQuery).find((token) => normalizedContent.includes(token));
+  if (!matchedToken) return content.slice(0, 96);
+  const index = normalizedContent.indexOf(matchedToken);
+  const start = Math.max(0, index - 34);
+  const end = Math.min(content.length, index + matchedToken.length + 62);
+  return `${start ? "…" : ""}${content.slice(start, end).trim()}${end < content.length ? "…" : ""}`;
 }
 
 function id(prefix) {
@@ -2045,7 +2217,7 @@ function openReportInBrowser(report) {
   return true;
 }
 
-function cardMarkup(report, archivedView = false) {
+function cardMarkup(report, archivedView = false, options = {}) {
   const localSaved = !report.url &&
     (Boolean(report.savedContent) || Boolean((report.savedFiles || []).length));
   const restricted = ["org", "account"].includes(report.access);
@@ -2055,8 +2227,12 @@ function cardMarkup(report, archivedView = false) {
       ? "需账号登录"
       : "生产可访问";
   const localHtml = localHtmlForReport(report);
+  const isPinned = Boolean(report.pinned);
   const sourceLabel = catalogView === "time"
-    ? addedTimeLabel(report.createdAt)
+    ? addedTimeLabel(
+        reportTimeSort === "modified" ? report.modifiedAt || report.createdAt : report.createdAt,
+        reportTimeSort,
+      )
     : report.source || "手动添加";
   const hasPreview = !restricted && initialState.reports.some((item) => item.id === report.id);
   const previewAsset = report.preview || `${report.id}.png`;
@@ -2072,7 +2248,7 @@ function cardMarkup(report, archivedView = false) {
         <strong>${restricted ? accessLabel : localSaved ? "本地内容" : "预览待补充"}</strong>
       </div>`;
   return `
-    <article class="report-card ${restricted ? "restricted-card" : ""} ${archivedView ? "archived-card" : ""} ${movingReportId === report.id ? "is-move-selected" : ""}" data-report-id="${escapeHtml(report.id)}">
+    <article class="report-card ${restricted ? "restricted-card" : ""} ${archivedView ? "archived-card" : ""} ${isPinned ? "is-featured" : ""} ${movingReportId === report.id ? "is-move-selected" : ""}" data-report-id="${escapeHtml(report.id)}">
       <button class="card-main" type="button" data-action="open" data-id="${escapeHtml(report.id)}" aria-label="打开${escapeHtml(report.title)}">
         <span class="report-preview">
           ${preview}
@@ -2080,9 +2256,11 @@ function cardMarkup(report, archivedView = false) {
         <span class="report-copy">
           <span class="report-source">${escapeHtml(sourceLabel)}</span>
           <strong>${escapeHtml(report.title)}</strong>
+          ${isPinned ? '<span class="featured-mark">精选</span>' : ""}
           ${(report.tags || []).length
             ? `<span class="report-tags">${report.tags.slice(0, 3).map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</span>`
             : ""}
+          ${options.searchExcerpt ? `<span class="report-search-excerpt">${escapeHtml(options.searchExcerpt)}</span>` : ""}
           ${restricted ? `<span class="report-access-note">${escapeHtml(accessLabel)}</span>` : ""}
         </span>
       </button>
@@ -2091,6 +2269,9 @@ function cardMarkup(report, archivedView = false) {
           aria-label="拖动《${escapeHtml(report.title)}》到其他${currentBucketLabel()}" title="拖动到其他${currentBucketLabel()}">
           <span aria-hidden="true">⠿</span>
         </span>`}
+      ${archivedView ? "" : `
+        <button type="button" class="feature-action" data-action="toggle-pin" data-id="${escapeHtml(report.id)}"
+          title="${isPinned ? "取消精选" : "设为精选"}" aria-label="${isPinned ? "取消精选" : "设为精选"}">${isPinned ? "★" : "☆"}</button>`}
       <div class="card-actions">
         ${archivedView
           ? `
@@ -2406,19 +2587,35 @@ function workbenchMarkup() {
   const normalized = normalizeSearchText(query);
   const activeReports = state.reports.filter((report) => !report.archived);
   const reports = normalized
-    ? activeReports.filter((report) => reportMatchesQuery(report, normalized, {
-      group: state.groups.find((group) => group.id === report.groupId),
-      workTypeName: workTypeName(report.workType),
-    }))
+    ? buildSearchHits(activeReports, normalized)
     : activeReports;
+  const featuredReports = orderReports(
+    activeReports.filter((report) => report.pinned),
+    "featured",
+    "featured",
+    (a, b) => reportModifiedTime(b) - reportModifiedTime(a),
+  );
+  const featuredBucket = {
+    id: "featured",
+    name: "精选成果",
+    kind: "featured",
+    accent: "violet",
+    reports: featuredReports,
+  };
   const archiveCount = state.reports.filter((report) => report.archived).length;
   const productionCount = activeReports.filter((report) => report.access === "production").length;
   const restrictedCount = activeReports.filter((report) => report.access !== "production").length;
-  const visibleBuckets = classificationBuckets(reports, normalized)
-    .filter((bucket) =>
-      bucket.reports.length ||
-      movingReportId ||
-      (catalogView === "topic" && !normalized));
+  const catalogBuckets = classificationBuckets(activeReports, "");
+  const navBuckets = catalogView === "topic" && featuredReports.length
+    ? [featuredBucket, ...catalogBuckets]
+    : catalogBuckets;
+  const visibleBuckets = normalized
+    ? []
+    : (featuredOnly && catalogView === "topic" ? [featuredBucket] : catalogBuckets)
+      .filter((bucket) =>
+        bucket.reports.length ||
+        movingReportId ||
+        catalogView === "topic");
   const viewName = catalogView === "type"
     ? "工作类型"
     : catalogView === "tag"
@@ -2442,7 +2639,7 @@ function workbenchMarkup() {
               ${query ? '<button type="button" data-action="clear-search">Clear</button>' : ""}
             </label>
             <div class="studio-summary compact-summary" aria-label="成果统计">
-              <strong>${normalized ? reports.length : activeReports.length}</strong><span>${normalized ? "匹配" : "成果"}</span>
+              <strong>${normalized ? reports.length : featuredOnly ? featuredReports.length : activeReports.length}</strong><span>${normalized ? "匹配" : featuredOnly ? "精选" : "成果"}</span>
               <i></i>
               <strong>${state.groups.length}</strong><span>主题</span>
               <i></i>
@@ -2456,7 +2653,7 @@ function workbenchMarkup() {
               <div><strong>正在整理报告</strong><span>选择目标${currentBucketLabel()}的“移到这里”，或直接拖动卡片。</span></div>
               <button type="button" data-action="cancel-move">Cancel</button>
             </div>` : ""}
-          ${visibleBuckets.length ? `
+          ${normalized || visibleBuckets.length ? `
             <div class="library-layout">
               <nav class="topic-nav" aria-label="报告${viewName}">
                 <div class="library-nav-controls">
@@ -2469,7 +2666,20 @@ function workbenchMarkup() {
                   <button class="add-topic-icon" type="button" data-action="add-group"
                     aria-label="Add topic" title="Add topic">＋</button>
                 </div>
-                ${visibleBuckets.map((bucket, index) => `<a href="#bucket-${index}">${escapeHtml(bucket.name)}<span>${bucket.reports.length}</span></a>`).join("")}
+                ${catalogView === "time" ? `
+                  <label class="library-time-sort">
+                    <span>TIME ORDER</span>
+                    <select data-action="set-time-sort" aria-label="时间排序">
+                      <option value="created"${reportTimeSort === "created" ? " selected" : ""}>创建时间倒序</option>
+                      <option value="modified"${reportTimeSort === "modified" ? " selected" : ""}>修改时间倒序</option>
+                    </select>
+                  </label>` : ""}
+                ${navBuckets.map((bucket, index) => `
+                  <a href="#bucket-${index}" data-nav-bucket-kind="${escapeHtml(bucket.kind)}"
+                    data-nav-bucket-id="${escapeHtml(bucket.id)}" ${bucket.kind === "featured" ? 'data-action="show-featured"' : ""}
+                    class="${featuredOnly && bucket.kind === "featured" ? "is-current" : ""}">
+                    ${escapeHtml(bucket.name)}<span>${bucket.reports.length}</span>
+                  </a>`).join("")}
                 <span class="library-nav-spacer" aria-hidden="true"></span>
                 <button class="library-nav-utility" type="button" data-action="show-archive">
                   <span aria-hidden="true">⌑</span>
@@ -2478,13 +2688,28 @@ function workbenchMarkup() {
                 </button>
               </nav>
               <div class="board catalog-view-${catalogView}">
-              ${visibleBuckets.map((bucket, index) => `
+              ${normalized ? `
+                <section class="search-results-panel" aria-live="polite">
+                  <header class="search-results-header">
+                    <div><span>SEARCH RESULTS</span><h2>“${escapeHtml(query.trim())}”</h2></div>
+                    <strong>${reports.length} 份匹配</strong>
+                  </header>
+                  ${reports.length
+                    ? `<div class="group-cards search-results-cards">${reports.map((report) => cardMarkup(report, false, {
+                        searchExcerpt: reportSearchExcerpt(report, normalized),
+                      })).join("")}</div>`
+                    : `<div class="no-results search-no-results">
+                        <strong>没有找到“${escapeHtml(query.trim())}”</strong>
+                        <span>可搜索标题、标签、成果正文、来源、任务类型或主题</span>
+                        <button type="button" data-action="clear-search">Clear search</button>
+                      </div>`}
+                </section>` : visibleBuckets.map((bucket, index) => `
                 <section id="bucket-${index}" class="group-column topic-section bucket-${escapeHtml(bucket.kind)} accent-${escapeHtml(bucket.accent || "blue")}"
                   data-bucket-kind="${escapeHtml(bucket.kind)}"
                   data-bucket-id="${escapeHtml(bucket.id)}"
                   data-group-id="${escapeHtml(bucket.id)}">
                   <header class="group-header">
-                    <div class="group-heading-copy group-drag-handle" role="button" tabindex="0"
+                    <div class="group-heading-copy ${["time", "featured"].includes(bucket.kind) ? "" : "group-drag-handle"}" ${["time", "featured"].includes(bucket.kind) ? "" : `role="button" tabindex="0"`}
                       data-group-drag-id="${escapeHtml(bucket.id)}"
                       data-group-drag-kind="${escapeHtml(bucket.kind)}"
                       aria-label="Drag ${escapeHtml(bucket.name)} to reorder"
@@ -2493,7 +2718,7 @@ function workbenchMarkup() {
                       <span class="count">${bucket.reports.length} 份</span>
                     </div>
                     <div class="group-menu">
-                      ${movingReportId ? `<button class="move-here-button" type="button" data-action="move-here" data-id="${escapeHtml(bucket.id)}" data-bucket-kind="${escapeHtml(bucket.kind)}">Move here</button>` : ""}
+                      ${movingReportId && bucket.kind !== "time" ? `<button class="move-here-button" type="button" data-action="move-here" data-id="${escapeHtml(bucket.id)}" data-bucket-kind="${escapeHtml(bucket.kind)}">Move here</button>` : ""}
                       ${bucket.kind === "topic"
                         ? `<button type="button" data-action="add-to-group" data-id="${escapeHtml(bucket.id)}">Add report</button>
                            <button type="button" data-action="rename-group" data-id="${escapeHtml(bucket.id)}">Rename</button>
@@ -2599,6 +2824,7 @@ function bindApp() {
     // 注音、拼音等输入法组合输入期间不能重绘，否则候选字会被逐键拆开。
     if (event.isComposing) return;
     query = event.target.value;
+    if (query) featuredOnly = false;
     const selectionStart = event.target.selectionStart;
     const selectionEnd = event.target.selectionEnd;
     render();
@@ -2612,6 +2838,13 @@ function bindApp() {
     query = "";
     render();
     document.getElementById("search-input")?.focus();
+  });
+
+  document.querySelector('[data-action="set-time-sort"]')?.addEventListener("change", (event) => {
+    if (!["created", "modified"].includes(event.target.value)) return;
+    reportTimeSort = event.target.value;
+    localStorage.setItem(TIME_SORT_KEY, reportTimeSort);
+    render();
   });
 
   document.querySelectorAll("[data-action]").forEach((element) => {
@@ -2639,6 +2872,7 @@ function bindApp() {
             report.savedHtml = html;
             report.isHtml = true;
             report.tags = inferTags(report, report.workType);
+            touchReport(report);
             try {
               saveState();
             } catch {
@@ -2678,11 +2912,20 @@ function bindApp() {
         render();
       } else if (action === "clear-search") {
         query = "";
+        featuredOnly = false;
         render();
         document.getElementById("search-input")?.focus();
+      } else if (action === "show-featured") {
+        event.preventDefault();
+        featuredOnly = true;
+        query = "";
+        render();
+        document.querySelector('.group-column[data-bucket-kind="featured"]')
+          ?.scrollIntoView({ behavior: "smooth", block: "start" });
       } else if (action === "set-view") {
         if (!["topic", "type", "tag", "time"].includes(itemId)) return;
         catalogView = itemId;
+        featuredOnly = false;
         movingReportId = "";
         localStorage.setItem(VIEW_KEY, catalogView);
         render();
@@ -2721,6 +2964,14 @@ function bindApp() {
       } else if (action === "edit-tags") {
         modal = { type: "tags", reportId: itemId };
         render();
+      } else if (action === "toggle-pin") {
+        const report = state.reports.find((item) => item.id === itemId);
+        if (!report) return;
+        report.pinned = !report.pinned;
+        touchReport(report);
+        saveState();
+        render();
+        showToast(report.pinned ? "已加入精选成果" : "已移出精选成果");
       } else if (action === "close-modal") {
         modal = null;
         render();
@@ -2780,17 +3031,153 @@ function bindApp() {
     scrollPageTop("smooth");
   });
 
+  document.querySelectorAll('.topic-nav a[data-nav-bucket-id]:not([data-action="show-featured"])')
+    .forEach((link) => {
+      link.addEventListener("click", (event) => {
+        if (!featuredOnly && !query) return;
+        event.preventDefault();
+        const bucketKind = link.dataset.navBucketKind;
+        const bucketId = link.dataset.navBucketId;
+        featuredOnly = false;
+        query = "";
+        render();
+        requestAnimationFrame(() => {
+          document.querySelector(`.group-column[data-bucket-kind="${CSS.escape(bucketKind)}"][data-bucket-id="${CSS.escape(bucketId)}"]`)
+            ?.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      });
+    });
+
   document.querySelectorAll(".report-drag-handle").forEach((handle) => {
     let pointerStart = null;
     let pointerMoved = false;
+    let dragPreview = null;
+    let autoScrollFrame = 0;
+    let lastPointerY = 0;
+
+    const clearAutoScroll = () => {
+      if (!autoScrollFrame) return;
+      cancelAnimationFrame(autoScrollFrame);
+      autoScrollFrame = 0;
+    };
+
+    const runAutoScroll = () => {
+      if (!draggingId) return clearAutoScroll();
+      const edge = Math.min(110, window.innerHeight * 0.18);
+      const distance = lastPointerY < edge
+        ? lastPointerY - edge
+        : lastPointerY > window.innerHeight - edge
+          ? lastPointerY - (window.innerHeight - edge)
+          : 0;
+      if (!distance) return clearAutoScroll();
+      const speed = Math.sign(distance) * Math.min(24, 5 + Math.abs(distance) * 0.2);
+      window.scrollBy(0, speed);
+      autoScrollFrame = requestAnimationFrame(runAutoScroll);
+    };
+
+    const showDragPreview = (event) => {
+      const sourceCard = handle.closest(".report-card");
+      if (!sourceCard) return;
+      if (!dragPreview) {
+        const rect = sourceCard.getBoundingClientRect();
+        dragPreview = sourceCard.cloneNode(true);
+        dragPreview.className = "report-card report-drag-preview";
+        dragPreview.style.width = `${rect.width}px`;
+        dragPreview.style.height = `${rect.height}px`;
+        dragPreview.querySelectorAll("button, [role='button']").forEach((node) => {
+          node.removeAttribute("data-action");
+          node.setAttribute("tabindex", "-1");
+        });
+        document.body.append(dragPreview);
+      }
+      dragPreview.style.transform = `translate3d(${event.clientX + 16}px, ${event.clientY + 16}px, 0)`;
+    };
+
+    const clearReportDropTarget = () => {
+      dragDropTarget = null;
+      dragPlaceholder?.remove();
+      dragPlaceholder = null;
+      document.querySelectorAll(".report-card, .group-column, .topic-nav a")
+        .forEach((element) => element.classList.remove(
+          "is-card-drop-target",
+          "is-card-drop-before",
+          "is-card-drop-after",
+          "is-drop-ready",
+          "is-nav-drop-target",
+        ));
+    };
+
+    const ensurePlaceholder = (container, targetCard, placeAfter) => {
+      if (!container) return;
+      if (!dragPlaceholder) {
+        dragPlaceholder = document.createElement("div");
+        dragPlaceholder.className = "report-card report-card-placeholder";
+        dragPlaceholder.innerHTML = "<span>放在这里</span>";
+        const sourceHeight = handle.closest(".report-card")?.getBoundingClientRect().height;
+        if (sourceHeight) dragPlaceholder.style.minHeight = `${sourceHeight}px`;
+      }
+      if (!targetCard || targetCard.parentElement !== container) {
+        container.append(dragPlaceholder);
+        return;
+      }
+      container.insertBefore(dragPlaceholder, placeAfter ? targetCard.nextSibling : targetCard);
+    };
+
+    const updateDropTarget = (event) => {
+      const hovered = document.elementFromPoint(event.clientX, event.clientY);
+      const navItem = hovered?.closest(".topic-nav a[data-nav-bucket-id]");
+      clearReportDropTarget();
+      if (navItem) {
+        navItem.classList.add("is-nav-drop-target");
+        dragDropTarget = {
+          bucketKind: navItem.dataset.navBucketKind,
+          bucketId: navItem.dataset.navBucketId,
+          targetReportId: "",
+          placeAfter: false,
+          nav: true,
+        };
+        return;
+      }
+      const sourceCard = handle.closest(".report-card");
+      const targetCard = hovered?.closest(".report-card:not(.report-card-placeholder)");
+      const targetColumn = hovered?.closest(".group-column");
+      if (targetCard && targetCard !== sourceCard) {
+        const column = targetCard.closest(".group-column");
+        const rect = targetCard.getBoundingClientRect();
+        const placeAfter = event.clientY > rect.top + rect.height / 2;
+        targetCard.classList.add("is-card-drop-target", placeAfter ? "is-card-drop-after" : "is-card-drop-before");
+        ensurePlaceholder(column?.querySelector(".group-cards"), targetCard, placeAfter);
+        dragDropTarget = {
+          bucketKind: column?.dataset.bucketKind || catalogView,
+          bucketId: column?.dataset.bucketId || "",
+          targetReportId: targetCard.dataset.reportId || "",
+          placeAfter,
+          nav: false,
+        };
+        return;
+      }
+      if (targetColumn && targetColumn.dataset.bucketKind !== "time") {
+        targetColumn.classList.add("is-drop-ready");
+        ensurePlaceholder(targetColumn.querySelector(".group-cards"), null, false);
+        dragDropTarget = {
+          bucketKind: targetColumn.dataset.bucketKind || catalogView,
+          bucketId: targetColumn.dataset.bucketId || "",
+          targetReportId: "",
+          placeAfter: false,
+          nav: false,
+        };
+      }
+    };
+
     const clearReportPointerDrag = () => {
       draggingId = "";
       pointerStart = null;
       pointerMoved = false;
+      clearAutoScroll();
+      dragPreview?.remove();
+      dragPreview = null;
+      clearReportDropTarget();
       handle.closest(".report-card")?.classList.remove("is-dragging");
-      document.querySelectorAll(".report-card, .group-column").forEach((element) => {
-        element.classList.remove("is-card-drop-target", "is-drop-ready");
-      });
     };
     handle.addEventListener("pointerdown", (event) => {
       event.preventDefault();
@@ -2808,18 +3195,10 @@ function bindApp() {
         Math.hypot(event.clientX - pointerStart.x, event.clientY - pointerStart.y) < 7
       ) return;
       pointerMoved = true;
-      const hovered = document.elementFromPoint(event.clientX, event.clientY);
-      const targetCard = hovered?.closest(".report-card");
-      const targetColumn = hovered?.closest(".group-column");
-      document.querySelectorAll(".report-card").forEach((card) => {
-        card.classList.toggle(
-          "is-card-drop-target",
-          Boolean(targetCard && targetCard !== handle.closest(".report-card") && card === targetCard),
-        );
-      });
-      document.querySelectorAll(".group-column").forEach((column) => {
-        column.classList.toggle("is-drop-ready", Boolean(targetColumn && column === targetColumn));
-      });
+      lastPointerY = event.clientY;
+      showDragPreview(event);
+      updateDropTarget(event);
+      if (!autoScrollFrame) autoScrollFrame = requestAnimationFrame(runAutoScroll);
     });
     handle.addEventListener("pointerup", (event) => {
       if (!draggingId) return;
@@ -2831,22 +3210,34 @@ function bindApp() {
         showToast(`请选择目标${currentBucketLabel()}`);
         return;
       }
-      const hovered = document.elementFromPoint(event.clientX, event.clientY);
-      const targetCard = hovered?.closest(".report-card");
-      const targetColumn = hovered?.closest(".group-column");
-      const targetReportId = targetCard?.dataset.reportId || "";
-      const targetBucketId = targetColumn?.dataset.bucketId || "";
-      const targetBucketKind = targetColumn?.dataset.bucketKind || catalogView;
-      const moved = targetReportId && targetReportId !== sourceId
-        ? assignReportToBucket(sourceId, targetBucketKind, targetBucketId, targetReportId)
-        : targetBucketId
-          ? assignReportToBucket(sourceId, targetBucketKind, targetBucketId)
-          : false;
+      const target = dragDropTarget;
+      const targetReportId = target?.targetReportId || "";
+      const targetBucketId = target?.bucketId || "";
+      const targetBucketKind = target?.bucketKind || catalogView;
+      const moved = targetBucketId && targetBucketKind !== "time"
+        ? assignReportToBucket(
+            sourceId,
+            targetBucketKind,
+            targetBucketId,
+            targetReportId,
+            Boolean(target?.placeAfter),
+          )
+        : false;
       clearReportPointerDrag();
       if (moved) {
         render();
+        requestAnimationFrame(() => {
+          const bucketSelector = `.group-column[data-bucket-kind="${CSS.escape(targetBucketKind)}"][data-bucket-id="${CSS.escape(targetBucketId)}"]`;
+          const movedCard = document.querySelector(`${bucketSelector} .report-card[data-report-id="${CSS.escape(sourceId)}"]`)
+            || document.querySelector(`.search-results-cards .report-card[data-report-id="${CSS.escape(sourceId)}"]`);
+          movedCard?.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+          movedCard?.classList.add("is-drop-landed");
+          window.setTimeout(() => movedCard?.classList.remove("is-drop-landed"), 900);
+        });
         showToast(
-          targetBucketKind === "tag"
+          targetBucketKind === "featured"
+            ? "已加入精选成果"
+            : targetBucketKind === "tag"
             ? "已添加目标标签"
             : targetBucketKind === "type"
               ? "工作类型已更新"
@@ -2989,6 +3380,7 @@ function bindApp() {
     const report = state.reports.find((item) => item.id === modal.reportId);
     if (!report) return;
     report.tags = parseTags(new FormData(tagForm).get("tags"));
+    touchReport(report);
     saveState();
     modal = null;
     render();
@@ -3085,14 +3477,17 @@ function bindApp() {
     if (modal.mode === "edit") {
       const report = state.reports.find((item) => item.id === modal.reportId);
       Object.assign(report, saveMetadata, { tags });
+      touchReport(report);
     } else {
+      const now = new Date().toISOString();
       const newReport = {
         id: id("report"),
         groupId,
         ...saveMetadata,
         pinned: false,
         position: state.reports.filter((report) => report.groupId === groupId).length,
-        createdAt: new Date().toISOString(),
+        createdAt: now,
+        modifiedAt: now,
         archived: false,
         archivedAt: "",
         tags,
@@ -3110,5 +3505,6 @@ function bindApp() {
 }
 
 export function renderApp() {
+  ensureSearchIndex();
   render();
 }

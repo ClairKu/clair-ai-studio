@@ -28,6 +28,8 @@ const editor = {
   loadPromise: null,
   render: null,
   showToast: null,
+  currentPage: 0,
+  pageCount: 1,
 };
 
 const serializeRequests = new Map();
@@ -126,6 +128,14 @@ function updateEditorChrome() {
   if (previewButton) {
     previewButton.disabled = editor.status !== "ready" || editor.saving || !editor.hasDraft;
   }
+  const pageCounter = document.querySelector("[data-editor-page-counter]");
+  const pageControls = document.querySelector("[data-editor-page-controls]");
+  if (pageCounter) pageCounter.textContent = `${editor.currentPage + 1} / ${Math.max(1, editor.pageCount)}`;
+  if (pageControls) pageControls.hidden = editor.pageCount <= 1;
+  const previous = document.querySelector('[data-editor-action="prev-page"]');
+  const next = document.querySelector('[data-editor-action="next-page"]');
+  if (previous) previous.disabled = editor.currentPage <= 0;
+  if (next) next.disabled = editor.currentPage >= editor.pageCount - 1;
 }
 
 function escapeAttribute(value = "") {
@@ -366,12 +376,58 @@ function editorBridgeScript() {
   body.spellcheck = true;
   body.dataset.clairEditable = "true";
 
+  const pageSelectors = [
+    "[data-editor-page]",
+    "[data-slide]",
+    "[data-page]",
+    ".report-page",
+    ".slide",
+    ".screen",
+    "main > section",
+    "body > section"
+  ];
+  const collectPageNodes = () => {
+    for (const selector of pageSelectors) {
+      const candidates = Array.from(document.querySelectorAll(selector))
+        .filter((node) => !node.closest("nav, header, footer") && (node.textContent || "").trim().length > 8);
+      if (candidates.length < 2) continue;
+      const groups = new Map();
+      candidates.forEach((node) => {
+        const parent = node.parentElement;
+        if (!parent) return;
+        if (!groups.has(parent)) groups.set(parent, []);
+        groups.get(parent).push(node);
+      });
+      const peers = Array.from(groups.values()).sort((a, b) => b.length - a.length)[0] || [];
+      if (peers.length > 1) return peers;
+    }
+    return [body];
+  };
+  let pageNodes = collectPageNodes();
+  let activePageIndex = 0;
+  const renderPage = () => {
+    pageNodes.forEach((page, index) => {
+      page.classList.toggle("clair-editor-page-hidden", pageNodes.length > 1 && index !== activePageIndex);
+    });
+    send("page-info", { page: activePageIndex, pageCount: pageNodes.length });
+  };
+  const setPage = (value) => {
+    pageNodes = collectPageNodes();
+    activePageIndex = Math.max(0, Math.min(pageNodes.length - 1, Number(value) || 0));
+    renderPage();
+    pageNodes[activePageIndex]?.scrollIntoView({ block: "start" });
+    pageNodes[activePageIndex]?.focus?.({ preventScroll: true });
+  };
+
   const restoreDocument = () => {
     const clone = document.documentElement.cloneNode(true);
     clone.removeAttribute("contenteditable");
     clone.querySelector("body")?.removeAttribute("contenteditable");
     clone.querySelector("body")?.removeAttribute("spellcheck");
     clone.querySelector("body")?.removeAttribute("data-clair-editable");
+    clone.querySelectorAll(".clair-editor-page-hidden").forEach((page) => {
+      page.classList.remove("clair-editor-page-hidden");
+    });
     clone.querySelector("#clair-editor-style")?.remove();
     clone.querySelector("#clair-editor-bridge")?.remove();
     clone.querySelector("base[data-clair-editor-base]")?.remove();
@@ -408,6 +464,10 @@ function editorBridgeScript() {
       send("command-state", { command: message.command });
       return;
     }
+    if (message.type === "set-page") {
+      setPage(message.page);
+      return;
+    }
     if (message.type === "serialize") {
       send("serialized", { requestId: message.requestId, html: restoreDocument() });
     }
@@ -421,6 +481,7 @@ function editorBridgeScript() {
       underline: document.queryCommandState("underline")
     });
   });
+  renderPage();
   send("ready");
 })();
 `;
@@ -452,6 +513,7 @@ function buildEditorDocument(html, baseUrl) {
       outline-offset: 2px;
     }
     body[data-clair-editable="true"] a { cursor: text !important; }
+    .clair-editor-page-hidden { display: none !important; }
     ::selection { background: rgba(27, 136, 238, .22); }
   `;
   documentNode.head.append(style);
@@ -555,6 +617,8 @@ function resetEditor() {
     saveLocal: null,
     protection: null,
     loadPromise: null,
+    currentPage: 0,
+    pageCount: 1,
     render,
     showToast,
   });
@@ -572,6 +636,19 @@ function sendCommand(command, value = null) {
     command,
     value,
   }, "*");
+}
+
+function setEditorPage(page) {
+  const frame = editorFrame();
+  if (!frame?.contentWindow) return;
+  const nextPage = Math.max(0, Math.min(editor.pageCount - 1, Number(page) || 0));
+  editor.currentPage = nextPage;
+  frame.contentWindow.postMessage({
+    channel: EDITOR_CHANNEL,
+    type: "set-page",
+    page: nextPage,
+  }, "*");
+  updateEditorChrome();
 }
 
 function requestSerializedHtml() {
@@ -928,6 +1005,8 @@ export function beginReportEditing(report, { render, showToast, saveLocal = null
     showToast,
     isLocal: Boolean(localReportHtml(report) && saveLocal),
     saveLocal,
+    currentPage: 0,
+    pageCount: 1,
   });
   render();
   editor.loadPromise = loadReport(report);
@@ -968,6 +1047,16 @@ export function reportEditorMarkup(report, escapeHtml) {
         <span class="editor-divider"></span>
         <button type="button" data-editor-command="undo" title="撤销">↶</button>
         <button type="button" data-editor-command="redo" title="重做">↷</button>
+        <span class="editor-divider"></span>
+        <button type="button" data-editor-command="copy" title="复制选中内容">Copy</button>
+        <button type="button" data-editor-action="paste" title="粘贴纯文本">Paste</button>
+        <button type="button" data-editor-command="delete" title="删除选中内容">Delete</button>
+        <span class="editor-divider"></span>
+        <span class="editor-page-controls" data-editor-page-controls hidden>
+          <button type="button" data-editor-action="prev-page" title="上一页">←</button>
+          <span data-editor-page-counter>1 / 1</span>
+          <button type="button" data-editor-action="next-page" title="下一页">→</button>
+        </span>
       </div>`
     : "";
   const body = editor.status === "loading"
@@ -1039,6 +1128,11 @@ export function bindReportEditor(report) {
       if (event.data.type === "dirty") {
         editor.dirty = true;
         editor.lastCommit = "";
+        updateEditorChrome();
+      }
+      if (event.data.type === "page-info") {
+        editor.pageCount = Math.max(1, Number(event.data.pageCount) || 1);
+        editor.currentPage = Math.max(0, Math.min(editor.pageCount - 1, Number(event.data.page) || 0));
         updateEditorChrome();
       }
       if (event.data.type === "serialized") {
@@ -1151,6 +1245,18 @@ export function bindReportEditor(report) {
         } catch {
           editor.showToast?.("请输入有效的 http、https 或 mailto 链接");
         }
+      } else if (action === "paste") {
+        try {
+          const text = await navigator.clipboard.readText();
+          if (!text) return;
+          sendCommand("insertText", text);
+        } catch {
+          editor.showToast?.("请在编辑区域使用 ⌘V 粘贴");
+        }
+      } else if (action === "prev-page") {
+        setEditorPage(editor.currentPage - 1);
+      } else if (action === "next-page") {
+        setEditorPage(editor.currentPage + 1);
       } else if (action === "retry") {
         editor.status = "loading";
         editor.error = "";

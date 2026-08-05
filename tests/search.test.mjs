@@ -4,6 +4,7 @@ import assert from "node:assert/strict";
 import {
   normalizeSearchText,
   reportMatchesQuery,
+  reportSearchScore,
   searchTokens,
 } from "../src/search.js";
 
@@ -53,4 +54,31 @@ test("requires every keyword to match", () => {
 test("supports access-state aliases and blank queries", () => {
   assert.equal(reportMatchesQuery(report, "生产 直达", context), true);
   assert.equal(reportMatchesQuery(report, "   ", context), true);
+});
+
+test("ranks title matches before tags and body content", () => {
+  const titleMatch = { ...report, title: "OAP 产品档案", tags: [], savedContent: "" };
+  const tagMatch = { ...report, title: "产品档案", tags: ["OAP"], savedContent: "" };
+  const bodyMatch = { ...report, title: "产品档案", tags: [], savedContent: "正文包含 OAP" };
+  assert.ok(
+    reportSearchScore(titleMatch, "OAP", context) > reportSearchScore(tagMatch, "OAP", context),
+  );
+  assert.ok(
+    reportSearchScore(tagMatch, "OAP", context) > reportSearchScore(bodyMatch, "OAP", context),
+  );
+});
+
+test("searches saved HTML and uploaded-file excerpts", () => {
+  assert.equal(
+    reportMatchesQuery({ ...report, title: "其他", tags: [], savedHtml: "<p>关键结论：客户旅程</p>" }, "客户旅程", context),
+    true,
+  );
+  assert.equal(
+    reportMatchesQuery({ ...report, title: "其他", tags: [], savedFiles: [{ name: "memo.md", excerpt: "增长飞轮" }] }, "增长飞轮", context),
+    true,
+  );
+  assert.equal(
+    reportMatchesQuery({ ...report, title: "其他", tags: [], searchContent: "正文中的机器可读令牌" }, "机器可读令牌", context),
+    true,
+  );
 });

@@ -8,6 +8,8 @@ const fail = (message) => {
 };
 
 const appSource = read("src/app.js");
+const editorSource = read("src/report-editor.js");
+const searchIndexPath = join(new URL(".", root).pathname, "public", "search-index.json");
 const taskSource = read("src/task-center.js");
 const styleSource = read("src/style.css");
 const reportStart = appSource.indexOf("  reports: [");
@@ -54,6 +56,12 @@ if (missingPreviews.length) {
   fail(`生产成果缺少预览图：${missingPreviews.join("、")}`);
 }
 
+if (!existsSync(searchIndexPath)) fail("缺少 HTML 正文搜索索引");
+const searchIndex = JSON.parse(readFileSync(searchIndexPath, "utf8"));
+if (Object.keys(searchIndex).length < 40) {
+  fail(`HTML 正文搜索索引数量异常：${Object.keys(searchIndex).length}`);
+}
+
 const requiredSignals = [
   [appSource, 'aria-label="搜索归档"', "归档搜索入口缺失"],
   [appSource, 'data-id="type">Type</button>', "分类按钮未使用英文"],
@@ -64,6 +72,19 @@ const requiredSignals = [
   [appSource, "function moveBucket(", "缺少跨维度分组排序"],
   [appSource, 'data-group-drag-kind="${escapeHtml(bucket.kind)}"', "并非所有分组都可拖动"],
   [appSource, 'data-action="scroll-top"', "顶部缺少回顶操作"],
+  [appSource, "function buildSearchHits(", "缺少独立搜索结果排序"],
+  [appSource, 'fetch("./search-index.json"', "搜索未加载 HTML 正文索引"],
+  [appSource, 'class="search-results-panel"', "搜索仍未进入独立结果模式"],
+  [appSource, 'data-nav-bucket-id="${escapeHtml(bucket.id)}"', "左侧分组不能作为拖放目标"],
+  [appSource, "reportTimeSort === \"modified\"", "TIME 缺少修改时间倒序"],
+  [appSource, 'data-action="toggle-pin"', "卡片缺少精选操作"],
+  [appSource, 'className = "report-card report-drag-preview"', "拖动时缺少跟手卡片"],
+  [appSource, 'className = "report-card report-card-placeholder"', "卡片排序缺少实时占位"],
+  [appSource, "scrollIntoView({ behavior: \"smooth\"", "拖放完成后没有定位到新位置"],
+  [editorSource, 'data-editor-page-counter', "HTML 编辑器缺少多页导航"],
+  [editorSource, 'data-editor-command="copy"', "HTML 编辑器缺少复制操作"],
+  [editorSource, 'data-editor-action="paste"', "HTML 编辑器缺少粘贴操作"],
+  [editorSource, 'data-editor-command="delete"', "HTML 编辑器缺少删除操作"],
   [styleSource, ".archive-shell .top-actions .quiet-button", "移动端归档返回修复缺失"],
   [styleSource, ".topic-nav a .nav-index", "分组标题对齐修复缺失"],
 ];
