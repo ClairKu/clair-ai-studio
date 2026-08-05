@@ -6903,7 +6903,7 @@ body.global-drag-ready .global-drop-overlay {
   grid-template-columns: minmax(0, 1fr) 32px;
   gap: 6px;
   margin-bottom: 5px;
-  border-bottom: 1px solid #eceef2;
+  border-bottom: 0;
   padding: 0 0 8px;
 }
 
@@ -7472,6 +7472,7 @@ body.global-drag-ready .global-drop-overlay {
 /* Interaction follow-up — quieter headings, explicit English actions, stable scroll. */
 html {
   scroll-behavior: auto;
+  overflow-anchor: none;
 }
 
 .topbar {
@@ -7563,31 +7564,88 @@ html {
 }
 
 /* Catalog interactions — deliberately reuses the existing Studio visual language. */
-.library-time-sort {
-  display: grid;
+.library-time-order {
+  min-height: 30px;
+  display: flex;
+  align-items: center;
   gap: 5px;
-  margin: 5px 4px 7px;
-  border-top: 1px solid #eceef2;
-  padding: 10px 6px 2px;
+  padding: 7px 10px 4px;
+  color: #9a9ea7;
 }
 
-.library-time-sort > span {
-  color: #a0a4ad;
+.library-time-order > span {
   font-size: 8px;
-  font-weight: 650;
-  letter-spacing: 0.1em;
+  font-weight: 620;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
-.library-time-sort select {
-  width: 100%;
-  min-height: 32px;
-  border: 1px solid #e2e4e9;
-  border-radius: 9px;
-  background: #fff;
-  padding: 0 8px;
-  color: #616670;
-  font: inherit;
-  font-size: 10px;
+.library-time-order button {
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  padding: 0;
+  color: #8d919a;
+  cursor: pointer;
+}
+
+.library-time-order button:hover {
+  background: #efeff3;
+  color: #25262b;
+}
+
+.library-time-order button:focus-visible {
+  outline: 2px solid rgb(102 91 195 / 28%);
+  outline-offset: 1px;
+}
+
+.library-time-order svg {
+  width: 12px;
+  height: 12px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.35;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.library-time-titles {
+  min-height: 0;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  overflow-y: auto;
+  padding: 2px 0 6px;
+  scrollbar-width: thin;
+  scrollbar-color: #d8dae0 transparent;
+}
+
+.topic-nav:has(.library-time-titles) {
+  height: calc(100dvh - 124px);
+  min-height: 0;
+}
+
+.topic-nav .library-time-titles a {
+  min-height: 28px;
+  display: block;
+  overflow: hidden;
+  padding: 7px 10px;
+  color: #6f747e;
+  font-size: 9px;
+  font-weight: 520;
+  line-height: 1.45;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.topic-nav .library-time-titles a:hover {
+  background: #f1f1f4;
+  color: #222329;
 }
 
 .search-results-panel {
@@ -7635,41 +7693,16 @@ html {
   -webkit-line-clamp: 2;
 }
 
-.featured-mark {
-  width: fit-content;
-  border-radius: 999px;
-  background: #f3f0ff;
-  padding: 3px 7px;
-  color: #7169b8;
-  font-size: 8px;
-  font-weight: 650;
-}
-
-.report-card.is-featured {
-  border-color: #ddd9ef;
-}
-
 .feature-action {
-  position: absolute;
-  top: 9px;
-  right: 9px;
-  z-index: 5;
-  width: 28px;
-  height: 28px;
-  border: 1px solid rgb(255 255 255 / 70%);
-  border-radius: 9px;
-  background: rgb(255 255 255 / 90%);
-  color: #777d87;
-  box-shadow: 0 5px 14px rgb(22 25 34 / 10%);
-  cursor: pointer;
+  min-width: 27px;
+  color: #2d2e34 !important;
+  font-size: 13px !important;
+  line-height: 1;
 }
 
 .report-card.is-featured .feature-action {
-  color: #7169b8;
-}
-
-.report-card:not(.archived-card) .card-actions {
-  right: 44px;
+  background: #f0edff;
+  color: #665bc3 !important;
 }
 
 .report-drag-preview {
@@ -7679,8 +7712,8 @@ html {
   z-index: 120;
   overflow: hidden;
   pointer-events: none;
-  opacity: 0.92;
-  box-shadow: 0 24px 64px rgb(27 30 41 / 22%);
+  opacity: 0.96;
+  box-shadow: 0 28px 72px rgb(27 30 41 / 25%);
   will-change: transform;
 }
 
@@ -7689,14 +7722,31 @@ html {
   display: none;
 }
 
+.report-card.is-dragging {
+  display: none;
+}
+
+.report-drag-session {
+  user-select: none;
+  cursor: grabbing;
+}
+
+.report-drag-session * {
+  cursor: grabbing !important;
+}
+
 .report-card-placeholder {
   min-height: 220px;
   display: grid;
   place-items: center;
-  border: 1px dashed #b8bfd0;
+  border: 1px solid #aeadde;
   border-radius: 16px;
-  background: #f4f5f9;
-  color: #838996;
+  background: linear-gradient(145deg, #f5f3ff, #f7f7fa);
+  color: #6d64be;
+  box-shadow: inset 0 0 0 3px rgb(102 91 195 / 6%);
+  pointer-events: none;
+  transform: none !important;
+  animation: report-placeholder-in 120ms ease-out;
 }
 
 .report-card-placeholder span {
@@ -7704,10 +7754,15 @@ html {
   font-weight: 600;
 }
 
+@keyframes report-placeholder-in {
+  from { opacity: 0.45; transform: scale(0.985); }
+  to { opacity: 1; transform: scale(1); }
+}
+
 .topic-nav a.is-nav-drop-target {
-  background: #eeeffb;
-  color: #555ccf;
-  box-shadow: inset 0 0 0 1px #bfc3ef;
+  background: #efedfb;
+  color: #5c52b2;
+  box-shadow: inset 0 0 0 1px #bdb6df;
   transform: translateX(3px);
 }
 
@@ -7741,14 +7796,32 @@ html {
 }
 
 @media (max-width: 840px) {
-  .library-time-sort {
-    min-width: 138px;
-    margin: 0;
-    border: 0;
+  .topic-nav:has(.library-time-titles) {
+    width: auto;
+    height: auto;
+  }
+
+  .library-time-order {
+    min-width: max-content;
+    padding: 6px 4px;
+  }
+
+  .library-time-titles {
+    max-width: none;
+    flex: 0 0 auto;
+    flex-direction: row;
+    overflow: visible;
     padding: 0;
   }
 
-  .library-time-sort > span { display: none; }
+  .topic-nav .library-time-titles a {
+    width: min(220px, 58vw);
+    min-height: 32px;
+    border: 1px solid #e2e4e9;
+    border-radius: 999px;
+    background: #fff;
+    padding: 8px 11px;
+  }
 
   .search-results-panel { padding-top: 0; }
 }

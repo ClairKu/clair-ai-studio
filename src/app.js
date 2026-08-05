@@ -1258,6 +1258,7 @@ let dragDropTarget = null;
 let dragPlaceholder = null;
 let modal = null;
 let toastTimer = 0;
+let controlledScrollFrame = 0;
 let searchContentIndex = {};
 let searchIndexPromise = null;
 
@@ -1919,25 +1920,17 @@ function classificationBuckets(reports, normalizedQuery = "") {
   const matchesName = (name) =>
     !normalizedQuery || normalizeSearchText(name).includes(normalizedQuery);
   if (catalogView === "time") {
-    const byDate = new Map();
-    [...reports]
+    const sortedReports = [...reports]
       .sort((a, b) => reportTimeSort === "modified"
         ? reportModifiedTime(b) - reportModifiedTime(a)
-        : reportCreatedTime(b) - reportCreatedTime(a))
-      .forEach((report) => {
-        const key = localDateKey(reportTimeSort === "modified"
-          ? report.modifiedAt || report.createdAt
-          : report.createdAt);
-        if (!byDate.has(key)) byDate.set(key, []);
-        byDate.get(key).push(report);
-      });
-    return [...byDate.entries()].map(([key, items]) => ({
-      id: key,
-      name: dateBucketLabel(key),
+        : reportCreatedTime(b) - reportCreatedTime(a));
+    return [{
+      id: reportTimeSort,
+      name: reportTimeSort === "modified" ? "Modified" : "Created",
       kind: "time",
       accent: "slate",
-      reports: items,
-    }));
+      reports: sortedReports,
+    }];
   }
   if (catalogView === "type") {
     return orderBuckets(WORK_TYPES
@@ -2173,6 +2166,87 @@ function scrollPageTop(behavior = "auto") {
   });
 }
 
+function cancelControlledScroll() {
+  if (!controlledScrollFrame) return;
+  cancelAnimationFrame(controlledScrollFrame);
+  controlledScrollFrame = 0;
+}
+
+function contentStartOffset() {
+  const topbarBottom = document.querySelector(".topbar")?.getBoundingClientRect().bottom || 0;
+  if (!window.matchMedia("(max-width: 840px)").matches) return topbarBottom + 12;
+  const nav = document.querySelector(".topic-nav");
+  const navStyle = nav ? getComputedStyle(nav) : null;
+  const navRect = nav?.getBoundingClientRect();
+  const navBottom = navStyle?.position === "sticky" && navRect?.bottom > 0
+    ? navRect.bottom
+    : 0;
+  return Math.max(topbarBottom, navBottom) + 10;
+}
+
+function scrollElementToStart(element, behavior = "smooth") {
+  if (!element) return;
+  cancelControlledScroll();
+  const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+  const destination = Math.max(0, Math.min(
+    maxScroll,
+    window.scrollY + element.getBoundingClientRect().top - contentStartOffset(),
+  ));
+  const origin = window.scrollY;
+  const distance = destination - origin;
+  if (Math.abs(distance) < 2) return;
+  if (behavior !== "smooth" || matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    window.scrollTo({ top: destination, left: 0, behavior: "auto" });
+    return;
+  }
+  const duration = Math.min(360, Math.max(180, Math.abs(distance) * 0.22));
+  const startedAt = performance.now();
+  const tick = (now) => {
+    const progress = Math.min(1, (now - startedAt) / duration);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    window.scrollTo(0, origin + distance * eased);
+    if (progress < 1) {
+      controlledScrollFrame = requestAnimationFrame(tick);
+    } else {
+      controlledScrollFrame = 0;
+      window.scrollTo(0, destination);
+    }
+  };
+  controlledScrollFrame = requestAnimationFrame(tick);
+}
+
+function bucketElement(bucketKind, bucketId) {
+  return document.querySelector(
+    `.group-column[data-bucket-kind="${CSS.escape(bucketKind)}"][data-bucket-id="${CSS.escape(bucketId)}"]`,
+  );
+}
+
+function reportElement(reportId) {
+  return document.querySelector(`.board .report-card[data-report-id="${CSS.escape(reportId)}"]`);
+}
+
+function scheduleElementAlignment(resolveElement, behavior = "smooth") {
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    scrollElementToStart(resolveElement(), behavior);
+  }));
+}
+
+function renderAtCurrentScroll() {
+  cancelControlledScroll();
+  const previousScroll = window.scrollY;
+  render();
+  const restore = () => window.scrollTo(0, Math.min(
+      previousScroll,
+      Math.max(0, document.documentElement.scrollHeight - window.innerHeight),
+    ));
+  restore();
+  requestAnimationFrame(() => requestAnimationFrame(restore));
+}
+
+["wheel", "touchstart", "pointerdown"].forEach((eventName) => {
+  window.addEventListener(eventName, cancelControlledScroll, { passive: true });
+});
+
 function localHtmlForReport(report) {
   return report.savedHtml || htmlFromIntake(
     report.savedContent,
@@ -2256,7 +2330,6 @@ function cardMarkup(report, archivedView = false, options = {}) {
         <span class="report-copy">
           <span class="report-source">${escapeHtml(sourceLabel)}</span>
           <strong>${escapeHtml(report.title)}</strong>
-          ${isPinned ? '<span class="featured-mark">精选</span>' : ""}
           ${(report.tags || []).length
             ? `<span class="report-tags">${report.tags.slice(0, 3).map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</span>`
             : ""}
@@ -2269,15 +2342,14 @@ function cardMarkup(report, archivedView = false, options = {}) {
           aria-label="拖动《${escapeHtml(report.title)}》到其他${currentBucketLabel()}" title="拖动到其他${currentBucketLabel()}">
           <span aria-hidden="true">⠿</span>
         </span>`}
-      ${archivedView ? "" : `
-        <button type="button" class="feature-action" data-action="toggle-pin" data-id="${escapeHtml(report.id)}"
-          title="${isPinned ? "取消精选" : "设为精选"}" aria-label="${isPinned ? "取消精选" : "设为精选"}">${isPinned ? "★" : "☆"}</button>`}
       <div class="card-actions">
         ${archivedView
           ? `
             <button type="button" data-action="restore" data-id="${escapeHtml(report.id)}">Restore</button>
             <button type="button" data-action="delete" data-id="${escapeHtml(report.id)}">Delete permanently</button>`
           : `
+            <button type="button" class="feature-action" data-action="toggle-pin" data-id="${escapeHtml(report.id)}"
+              title="${isPinned ? "取消精选" : "设为精选"}" aria-label="${isPinned ? "取消精选" : "设为精选"}">${isPinned ? "★" : "☆"}</button>
             <button type="button" class="tag-edit-action" data-action="edit-tags" data-id="${escapeHtml(report.id)}" title="编辑标签" aria-label="编辑标签">#</button>
             ${report.url ? `<button type="button" data-action="edit" data-id="${escapeHtml(report.id)}">Edit</button>` : ""}
             <button type="button" data-action="archive" data-id="${escapeHtml(report.id)}">Archive</button>`}
@@ -2609,6 +2681,7 @@ function workbenchMarkup() {
   const navBuckets = catalogView === "topic" && featuredReports.length
     ? [featuredBucket, ...catalogBuckets]
     : catalogBuckets;
+  const timeReports = catalogView === "time" ? catalogBuckets[0]?.reports || [] : [];
   const visibleBuckets = normalized
     ? []
     : (featuredOnly && catalogView === "topic" ? [featuredBucket] : catalogBuckets)
@@ -2667,16 +2740,21 @@ function workbenchMarkup() {
                     aria-label="Add topic" title="Add topic">＋</button>
                 </div>
                 ${catalogView === "time" ? `
-                  <label class="library-time-sort">
-                    <span>TIME ORDER</span>
-                    <select data-action="set-time-sort" aria-label="时间排序">
-                      <option value="created"${reportTimeSort === "created" ? " selected" : ""}>创建时间倒序</option>
-                      <option value="modified"${reportTimeSort === "modified" ? " selected" : ""}>修改时间倒序</option>
-                    </select>
-                  </label>` : ""}
-                ${navBuckets.map((bucket, index) => `
-                  <a href="#bucket-${index}" data-nav-bucket-kind="${escapeHtml(bucket.kind)}"
-                    data-nav-bucket-id="${escapeHtml(bucket.id)}" ${bucket.kind === "featured" ? 'data-action="show-featured"' : ""}
+                  <div class="library-time-order" aria-label="时间排序">
+                    <span>${reportTimeSort === "modified" ? "Modified" : "Created"}</span>
+                    <button type="button" data-action="toggle-time-sort"
+                      title="切换为按${reportTimeSort === "modified" ? "创建" : "修改"}时间排序"
+                      aria-label="切换为按${reportTimeSort === "modified" ? "创建" : "修改"}时间倒序">
+                      <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 3v9m0 0L2 10m2 2 2-2M12 13V4m0 0-2 2m2-2 2 2"></path></svg>
+                    </button>
+                  </div>
+                  <div class="library-time-titles" aria-label="按${reportTimeSort === "modified" ? "修改" : "创建"}时间排列的成果">
+                    ${timeReports.map((report) => `
+                      <a href="#" data-nav-report-id="${escapeHtml(report.id)}"
+                        title="${escapeHtml(report.title)}">${escapeHtml(report.title)}</a>`).join("")}
+                  </div>` : navBuckets.map((bucket) => `
+                  <a href="#" data-nav-bucket-kind="${escapeHtml(bucket.kind)}"
+                    data-nav-bucket-id="${escapeHtml(bucket.id)}" data-nav-featured="${bucket.kind === "featured" ? "true" : "false"}"
                     class="${featuredOnly && bucket.kind === "featured" ? "is-current" : ""}">
                     ${escapeHtml(bucket.name)}<span>${bucket.reports.length}</span>
                   </a>`).join("")}
@@ -2703,17 +2781,17 @@ function workbenchMarkup() {
                         <span>可搜索标题、标签、成果正文、来源、任务类型或主题</span>
                         <button type="button" data-action="clear-search">Clear search</button>
                       </div>`}
-                </section>` : visibleBuckets.map((bucket, index) => `
-                <section id="bucket-${index}" class="group-column topic-section bucket-${escapeHtml(bucket.kind)} accent-${escapeHtml(bucket.accent || "blue")}"
+                </section>` : visibleBuckets.map((bucket) => `
+                <section class="group-column topic-section bucket-${escapeHtml(bucket.kind)} accent-${escapeHtml(bucket.accent || "blue")}"
                   data-bucket-kind="${escapeHtml(bucket.kind)}"
                   data-bucket-id="${escapeHtml(bucket.id)}"
                   data-group-id="${escapeHtml(bucket.id)}">
                   <header class="group-header">
-                    <div class="group-heading-copy ${["time", "featured"].includes(bucket.kind) ? "" : "group-drag-handle"}" ${["time", "featured"].includes(bucket.kind) ? "" : `role="button" tabindex="0"`}
+                    <div class="group-heading-copy ${["time", "featured"].includes(bucket.kind) ? "" : "group-drag-handle"}" ${["time", "featured"].includes(bucket.kind) ? "" : `role="button" tabindex="0"
                       data-group-drag-id="${escapeHtml(bucket.id)}"
                       data-group-drag-kind="${escapeHtml(bucket.kind)}"
                       aria-label="Drag ${escapeHtml(bucket.name)} to reorder"
-                      title="Drag to reorder · use left or right arrow keys">
+                      title="Drag to reorder · use left or right arrow keys"`}>
                       <div><h2>${escapeHtml(bucket.name)}</h2></div>
                       <span class="count">${bucket.reports.length} 份</span>
                     </div>
@@ -2818,6 +2896,283 @@ async function detectTitle(form) {
   }
 }
 
+function bindReportDragging() {
+  const board = document.querySelector(".board");
+  if (!board) return;
+  let session = null;
+
+  const clearTargetClasses = () => {
+    document.querySelectorAll(".report-card, .group-column, .topic-nav a").forEach((element) => {
+      element.classList.remove(
+        "is-card-drop-target",
+        "is-card-drop-before",
+        "is-card-drop-after",
+        "is-drop-ready",
+        "is-nav-drop-target",
+      );
+    });
+  };
+
+  const targetKey = (target) => target
+    ? [target.bucketKind, target.bucketId, target.targetReportId, Number(target.placeAfter), Number(target.nav)].join("|")
+    : "";
+
+  const createPreview = () => {
+    const rect = session.sourceCard.getBoundingClientRect();
+    const preview = session.sourceCard.cloneNode(true);
+    preview.removeAttribute("id");
+    preview.className = "report-card report-drag-preview";
+    preview.style.width = `${rect.width}px`;
+    preview.style.height = `${rect.height}px`;
+    preview.querySelectorAll("button, [role='button'], iframe").forEach((node) => {
+      node.removeAttribute("data-action");
+      node.setAttribute("tabindex", "-1");
+    });
+    document.body.append(preview);
+    return preview;
+  };
+
+  const positionPreview = () => {
+    if (!session?.preview) return;
+    session.preview.style.transform = `translate3d(${session.x + 14}px, ${session.y + 14}px, 0)`;
+  };
+
+  const placePlaceholder = (container, targetCard = null, placeAfter = false) => {
+    if (!container || !session?.placeholder) return;
+    if (!targetCard || targetCard.parentElement !== container) {
+      container.append(session.placeholder);
+      return;
+    }
+    container.insertBefore(session.placeholder, placeAfter ? targetCard.nextSibling : targetCard);
+  };
+
+  const readDropTarget = () => {
+    const hovered = document.elementFromPoint(session.x, session.y);
+    if (hovered?.closest(".report-card-placeholder")) return session.target;
+    const navItem = hovered?.closest(".topic-nav a[data-nav-bucket-id]");
+    if (navItem) {
+      return {
+        bucketKind: navItem.dataset.navBucketKind,
+        bucketId: navItem.dataset.navBucketId,
+        targetReportId: "",
+        placeAfter: false,
+        nav: true,
+        element: navItem,
+      };
+    }
+    const targetCard = hovered?.closest(".report-card:not(.report-card-placeholder):not(.report-drag-preview)");
+    const targetColumn = hovered?.closest(".group-column");
+    if (targetCard && targetCard !== session.sourceCard) {
+      const column = targetCard.closest(".group-column");
+      if (!column || column.dataset.bucketKind === "time") return null;
+      const rect = targetCard.getBoundingClientRect();
+      const placeAfter = session.y > rect.bottom - rect.height * 0.22 || (
+        session.y >= rect.top + rect.height * 0.22 &&
+        session.y <= rect.bottom - rect.height * 0.22 &&
+        session.x > rect.left + rect.width / 2
+      );
+      return {
+        bucketKind: column.dataset.bucketKind || catalogView,
+        bucketId: column.dataset.bucketId || "",
+        targetReportId: targetCard.dataset.reportId || "",
+        placeAfter,
+        nav: false,
+        element: targetCard,
+        container: column.querySelector(".group-cards"),
+      };
+    }
+    if (targetColumn && targetColumn.dataset.bucketKind !== "time") {
+      return {
+        bucketKind: targetColumn.dataset.bucketKind || catalogView,
+        bucketId: targetColumn.dataset.bucketId || "",
+        targetReportId: "",
+        placeAfter: false,
+        nav: false,
+        element: targetColumn,
+        container: targetColumn.querySelector(".group-cards"),
+      };
+    }
+    return null;
+  };
+
+  const applyDropTarget = (nextTarget) => {
+    if (!session || targetKey(nextTarget) === targetKey(session.target)) return;
+    clearTargetClasses();
+    session.target = nextTarget;
+    dragDropTarget = nextTarget;
+    if (!nextTarget) return;
+    if (nextTarget.nav) {
+      nextTarget.element.classList.add("is-nav-drop-target");
+      return;
+    }
+    if (nextTarget.targetReportId) {
+      nextTarget.element.classList.add(
+        "is-card-drop-target",
+        nextTarget.placeAfter ? "is-card-drop-after" : "is-card-drop-before",
+      );
+      placePlaceholder(nextTarget.container, nextTarget.element, nextTarget.placeAfter);
+      return;
+    }
+    nextTarget.element.classList.add("is-drop-ready");
+    placePlaceholder(nextTarget.container);
+  };
+
+  const updateDropTarget = () => {
+    if (!session?.active) return;
+    applyDropTarget(readDropTarget());
+  };
+
+  const edgeVelocity = () => {
+    const topBoundary = Math.min(window.innerHeight * 0.34, contentStartOffset() + 72);
+    const bottomBoundary = window.innerHeight - 72;
+    if (session.y < topBoundary) {
+      const ratio = Math.min(1, (topBoundary - session.y) / 84);
+      return -Math.max(1, Math.round(12 * ratio * ratio));
+    }
+    if (session.y > bottomBoundary) {
+      const ratio = Math.min(1, (session.y - bottomBoundary) / 84);
+      return Math.max(1, Math.round(12 * ratio * ratio));
+    }
+    return 0;
+  };
+
+  const runAutoScroll = () => {
+    if (!session?.active) return;
+    const velocity = edgeVelocity();
+    if (velocity) {
+      const before = window.scrollY;
+      window.scrollBy(0, velocity);
+      if (window.scrollY !== before) updateDropTarget();
+    }
+    session.autoScrollFrame = requestAnimationFrame(runAutoScroll);
+  };
+
+  const activateSession = () => {
+    if (!session || session.active) return;
+    session.active = true;
+    draggingId = session.reportId;
+    draggingGroupId = "";
+    session.preview = createPreview();
+    session.placeholder = document.createElement("div");
+    session.placeholder.className = "report-card report-card-placeholder";
+    session.placeholder.innerHTML = "<span>放在这里</span>";
+    session.placeholder.style.minHeight = `${session.sourceCard.getBoundingClientRect().height}px`;
+    session.sourceCard.before(session.placeholder);
+    session.sourceCard.classList.add("is-dragging");
+    document.body.classList.add("report-drag-session");
+    positionPreview();
+    updateDropTarget();
+    session.autoScrollFrame = requestAnimationFrame(runAutoScroll);
+  };
+
+  const cleanupSession = () => {
+    if (!session) return;
+    if (session.autoScrollFrame) cancelAnimationFrame(session.autoScrollFrame);
+    session.preview?.remove();
+    session.placeholder?.remove();
+    session.sourceCard.classList.remove("is-dragging");
+    document.body.classList.remove("report-drag-session");
+    clearTargetClasses();
+    draggingId = "";
+    dragDropTarget = null;
+  };
+
+  const finishSession = () => {
+    if (!session) return;
+    const finished = session;
+    const target = finished.active ? finished.target : null;
+    const sourceId = finished.reportId;
+    cleanupSession();
+    session = null;
+    if (!target?.bucketId || target.bucketKind === "time") return;
+    const moved = assignReportToBucket(
+      sourceId,
+      target.bucketKind,
+      target.bucketId,
+      target.targetReportId || "",
+      Boolean(target.placeAfter),
+    );
+    if (!moved) return;
+    if (target.nav) featuredOnly = target.bucketKind === "featured";
+    renderAtCurrentScroll();
+    if (target.nav) {
+      scheduleElementAlignment(() => bucketElement(target.bucketKind, target.bucketId));
+    } else {
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        const movedCard = reportElement(sourceId);
+        movedCard?.classList.add("is-drop-landed");
+        window.setTimeout(() => movedCard?.classList.remove("is-drop-landed"), 700);
+      }));
+    }
+    showToast(
+      target.bucketKind === "featured"
+        ? "已加入精选成果"
+        : target.bucketKind === "tag"
+          ? "已添加目标标签"
+          : target.bucketKind === "type"
+            ? "工作类型已更新"
+            : target.targetReportId
+              ? "报告顺序已更新"
+              : "已移入新主题",
+    );
+  };
+
+  board.addEventListener("pointerdown", (event) => {
+    const handle = event.target.closest(".report-drag-handle");
+    if (!handle || event.button !== 0) return;
+    const sourceCard = handle.closest(".report-card");
+    if (!sourceCard) return;
+    event.preventDefault();
+    handle.setPointerCapture?.(event.pointerId);
+    session = {
+      pointerId: event.pointerId,
+      reportId: handle.dataset.reportDragId,
+      sourceCard,
+      startX: event.clientX,
+      startY: event.clientY,
+      x: event.clientX,
+      y: event.clientY,
+      active: false,
+      target: null,
+      preview: null,
+      placeholder: null,
+      autoScrollFrame: 0,
+    };
+  });
+
+  board.addEventListener("pointermove", (event) => {
+    if (!session || event.pointerId !== session.pointerId) return;
+    session.x = event.clientX;
+    session.y = event.clientY;
+    if (!session.active && Math.hypot(session.x - session.startX, session.y - session.startY) >= 8) {
+      activateSession();
+    }
+    if (!session.active) return;
+    event.preventDefault();
+    positionPreview();
+    updateDropTarget();
+  });
+
+  board.addEventListener("pointerup", (event) => {
+    if (!session || event.pointerId !== session.pointerId) return;
+    finishSession();
+  });
+  board.addEventListener("pointercancel", () => {
+    cleanupSession();
+    session = null;
+  });
+
+  board.querySelectorAll(".report-drag-handle").forEach((handle) => {
+    handle.addEventListener("keydown", (event) => {
+      if (!["Enter", " "].includes(event.key)) return;
+      event.preventDefault();
+      movingReportId = handle.dataset.reportDragId;
+      renderAtCurrentScroll();
+      showToast(`请选择目标${currentBucketLabel()}`);
+    });
+  });
+}
+
 function bindApp() {
   const searchInput = document.getElementById("search-input");
   searchInput?.addEventListener("input", (event) => {
@@ -2838,13 +3193,6 @@ function bindApp() {
     query = "";
     render();
     document.getElementById("search-input")?.focus();
-  });
-
-  document.querySelector('[data-action="set-time-sort"]')?.addEventListener("change", (event) => {
-    if (!["created", "modified"].includes(event.target.value)) return;
-    reportTimeSort = event.target.value;
-    localStorage.setItem(TIME_SORT_KEY, reportTimeSort);
-    render();
   });
 
   document.querySelectorAll("[data-action]").forEach((element) => {
@@ -2915,21 +3263,17 @@ function bindApp() {
         featuredOnly = false;
         render();
         document.getElementById("search-input")?.focus();
-      } else if (action === "show-featured") {
-        event.preventDefault();
-        featuredOnly = true;
-        query = "";
-        render();
-        document.querySelector('.group-column[data-bucket-kind="featured"]')
-          ?.scrollIntoView({ behavior: "smooth", block: "start" });
       } else if (action === "set-view") {
         if (!["topic", "type", "tag", "time"].includes(itemId)) return;
         catalogView = itemId;
         featuredOnly = false;
         movingReportId = "";
         localStorage.setItem(VIEW_KEY, catalogView);
-        render();
-        scrollPageTop();
+        renderAtCurrentScroll();
+      } else if (action === "toggle-time-sort") {
+        reportTimeSort = reportTimeSort === "created" ? "modified" : "created";
+        localStorage.setItem(TIME_SORT_KEY, reportTimeSort);
+        renderAtCurrentScroll();
       } else if (action === "cancel-move") {
         movingReportId = "";
         render();
@@ -2970,7 +3314,7 @@ function bindApp() {
         report.pinned = !report.pinned;
         touchReport(report);
         saveState();
-        render();
+        renderAtCurrentScroll();
         showToast(report.pinned ? "已加入精选成果" : "已移出精选成果");
       } else if (action === "close-modal") {
         modal = null;
@@ -3031,24 +3375,35 @@ function bindApp() {
     scrollPageTop("smooth");
   });
 
-  document.querySelectorAll('.topic-nav a[data-nav-bucket-id]:not([data-action="show-featured"])')
+  document.querySelectorAll(".topic-nav a[data-nav-bucket-id]")
     .forEach((link) => {
       link.addEventListener("click", (event) => {
-        if (!featuredOnly && !query) return;
         event.preventDefault();
         const bucketKind = link.dataset.navBucketKind;
         const bucketId = link.dataset.navBucketId;
-        featuredOnly = false;
-        query = "";
-        render();
-        requestAnimationFrame(() => {
-          document.querySelector(`.group-column[data-bucket-kind="${CSS.escape(bucketKind)}"][data-bucket-id="${CSS.escape(bucketId)}"]`)
-            ?.scrollIntoView({ behavior: "smooth", block: "start" });
-        });
+        const wantsFeatured = link.dataset.navFeatured === "true";
+        if (query || featuredOnly !== wantsFeatured) {
+          featuredOnly = wantsFeatured;
+          query = "";
+          renderAtCurrentScroll();
+          scheduleElementAlignment(() => bucketElement(bucketKind, bucketId));
+          return;
+        }
+        scrollElementToStart(bucketElement(bucketKind, bucketId));
       });
     });
 
-  document.querySelectorAll(".report-drag-handle").forEach((handle) => {
+  document.querySelectorAll(".topic-nav a[data-nav-report-id]").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      scrollElementToStart(reportElement(link.dataset.navReportId));
+    });
+  });
+
+  bindReportDragging();
+
+  // Kept inert during the transition from the original per-card drag listeners.
+  document.querySelectorAll(".legacy-report-drag-handle").forEach((handle) => {
     let pointerStart = null;
     let pointerMoved = false;
     let dragPreview = null;
@@ -3230,7 +3585,7 @@ function bindApp() {
           const bucketSelector = `.group-column[data-bucket-kind="${CSS.escape(targetBucketKind)}"][data-bucket-id="${CSS.escape(targetBucketId)}"]`;
           const movedCard = document.querySelector(`${bucketSelector} .report-card[data-report-id="${CSS.escape(sourceId)}"]`)
             || document.querySelector(`.search-results-cards .report-card[data-report-id="${CSS.escape(sourceId)}"]`);
-          movedCard?.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+          scrollElementToStart(movedCard);
           movedCard?.classList.add("is-drop-landed");
           window.setTimeout(() => movedCard?.classList.remove("is-drop-landed"), 900);
         });

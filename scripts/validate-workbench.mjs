@@ -77,10 +77,13 @@ const requiredSignals = [
   [appSource, 'class="search-results-panel"', "搜索仍未进入独立结果模式"],
   [appSource, 'data-nav-bucket-id="${escapeHtml(bucket.id)}"', "左侧分组不能作为拖放目标"],
   [appSource, "reportTimeSort === \"modified\"", "TIME 缺少修改时间倒序"],
+  [appSource, 'data-action="toggle-time-sort"', "TIME 缺少简洁的创建/修改切换"],
+  [appSource, 'class="library-time-titles"', "TIME 左栏缺少成果标题清单"],
   [appSource, 'data-action="toggle-pin"', "卡片缺少精选操作"],
+  [appSource, "function bindReportDragging()", "缺少统一卡片拖动会话"],
   [appSource, 'className = "report-card report-drag-preview"', "拖动时缺少跟手卡片"],
   [appSource, 'className = "report-card report-card-placeholder"', "卡片排序缺少实时占位"],
-  [appSource, "scrollIntoView({ behavior: \"smooth\"", "拖放完成后没有定位到新位置"],
+  [appSource, "scheduleElementAlignment(() => bucketElement", "拖放完成后没有精确定位到分组"],
   [editorSource, 'data-editor-page-counter', "HTML 编辑器缺少多页导航"],
   [editorSource, 'data-editor-command="copy"', "HTML 编辑器缺少复制操作"],
   [editorSource, 'data-editor-action="paste"', "HTML 编辑器缺少粘贴操作"],
@@ -100,6 +103,17 @@ for (const removedSignal of [
 ]) {
   if (taskSource.includes(removedSignal)) {
     fail(`处理队列仍有残留：${removedSignal}`);
+  }
+}
+
+for (const removedSignal of [
+  "library-time-sort",
+  "set-time-sort",
+  "featured-mark",
+  "scrollIntoView",
+]) {
+  if (appSource.includes(removedSignal) || styleSource.includes(removedSignal)) {
+    fail(`旧交互仍有残留：${removedSignal}`);
   }
 }
 
