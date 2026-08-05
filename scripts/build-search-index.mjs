@@ -17,7 +17,11 @@ const decodeEntities = (value) => value
   .replace(/&#x([\da-f]+);/gi, (_, code) => String.fromCodePoint(parseInt(code, 16)));
 
 const jsonStrings = (value, output = []) => {
-  if (typeof value === "string") output.push(value);
+  if (typeof value === "string") {
+    const text = value.trim();
+    const structuralToken = /^[a-z][a-z0-9_-]{1,31}$/.test(text);
+    if (text.length > 1 && !structuralToken) output.push(text);
+  }
   else if (Array.isArray(value)) value.forEach((item) => jsonStrings(item, output));
   else if (value && typeof value === "object") {
     Object.values(value).forEach((item) => jsonStrings(item, output));
