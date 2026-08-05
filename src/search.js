@@ -23,9 +23,25 @@ export function reportMatchesQuery(
   query,
   { group = {}, workTypeName = "" } = {},
 ) {
-  const tokens = searchTokens(query);
-  if (!tokens.length) return true;
+  return reportSearchScore(report, query, { group, workTypeName }) > 0;
+}
 
+export function reportSearchScore(
+  report,
+  query,
+  { group = {}, workTypeName = "" } = {},
+) {
+  const tokens = searchTokens(query);
+  if (!tokens.length) return 1;
+
+  const normalizedTitle = normalizeSearchText(report.title);
+  const normalizedSource = normalizeSearchText(report.source);
+  const normalizedGroup = normalizeSearchText(group.name);
+  const normalizedGroupDesc = normalizeSearchText(group.description);
+  const normalizedTags = normalizeSearchText((report.tags || []).join(" "));
+  const normalizedWorkType = normalizeSearchText(workTypeName);
+  const normalizedUrl = normalizeSearchText(report.url);
+  const normalizedAccess = normalizeSearchText(ACCESS_SEARCH_LABELS[report.access]);
   const haystack = normalizeSearchText([
     report.title,
     report.source,
@@ -38,5 +54,17 @@ export function reportMatchesQuery(
     group.description,
   ].filter(Boolean).join(" "));
 
-  return tokens.every((token) => haystack.includes(token));
+  let score = 0;
+  for (const token of tokens) {
+    if (!haystack.includes(token)) return 0;
+    if (normalizedTitle.includes(token)) score += 140;
+    if ((report.tags || []).some((tag) => normalizeSearchText(tag) === token)) score += 60;
+    if (normalizedTags.includes(token)) score += 40;
+    if (normalizedSource.includes(token)) score += 35;
+    if (normalizedUrl.includes(token)) score += 25;
+    if (normalizedWorkType.includes(token)) score += 30;
+    if (normalizedGroup.includes(token) || normalizedGroupDesc.includes(token)) score += 20;
+    if (normalizedAccess.includes(token)) score += 8;
+  }
+  return score + normalizedTitle.length * 0.01;
 }

@@ -1051,6 +1051,19 @@ footer {
   color: var(--blue);
 }
 
+.editor-page-info {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #d8dade;
+  border-radius: 8px;
+  padding: 0 10px;
+  height: 34px;
+  font-size: 11px;
+  white-space: nowrap;
+  color: #5e6672;
+}
+
 .editor-divider {
   width: 1px;
   height: 22px;
@@ -2888,6 +2901,31 @@ footer {
 .report-card.is-dragging {
   opacity: 0.5;
   transform: scale(0.98);
+  box-shadow: 0 24px 60px rgb(20 25 35 / 18%);
+  filter: saturate(1.08);
+}
+
+.report-card.is-card-drop-target {
+  position: relative;
+  border-color: rgba(27, 136, 238, 0.58);
+}
+
+.report-card.is-card-drop-before::before,
+.report-card.is-card-drop-after::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(27, 136, 238, 0.65), transparent);
+}
+
+.report-card.is-card-drop-before::before {
+  top: -1px;
+}
+
+.report-card.is-card-drop-after::after {
+  bottom: -1px;
 }
 
 .report-card.is-card-drop-target,
@@ -2896,8 +2934,73 @@ footer {
   box-shadow: 0 0 0 3px rgb(27 136 238 / 13%);
 }
 
+.report-card-placeholder {
+  position: relative;
+  min-height: 86px;
+  border: 2px dashed #b9c0d0;
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgb(243 247 255), rgb(255 255 255));
+  color: #7c8390;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.report-card-placeholder span {
+  font-size: 11px;
+  color: #6f7783;
+  font-weight: 550;
+}
+
 .report-copy {
   min-height: 88px;
+}
+
+.card-actions {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  z-index: 4;
+  display: flex;
+  gap: 7px;
+  opacity: 0.85;
+}
+
+.report-card:hover .card-actions,
+.report-card:focus-within .card-actions {
+  opacity: 1;
+}
+
+.card-actions button {
+  min-height: 28px;
+  min-width: 28px;
+  border-radius: 9px;
+  border: 1px solid rgb(255 255 255 / 74%);
+  background: rgb(255 255 255 / 92%);
+  color: #66717e;
+  box-shadow: 0 6px 18px rgb(24 32 42 / 12%);
+  cursor: pointer;
+  padding: 0 6px;
+}
+
+.card-actions button:hover,
+.card-actions button:focus-visible {
+  color: var(--blue);
+}
+
+.report-pin-note {
+  position: absolute;
+  top: 10px;
+  left: 50px;
+  z-index: 4;
+  border-radius: 999px;
+  border: 1px solid #ffd36a;
+  padding: 3px 8px;
+  background: #fff7e0;
+  color: #92690e;
+  font-size: 10px;
+  font-weight: 620;
 }
 
 .report-copy .report-access-note {
@@ -3484,6 +3587,12 @@ textarea:focus-visible {
   gap: 12px;
 }
 
+.search-results-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
 .generated-result-card {
   min-height: 92px;
   display: grid;
@@ -3534,6 +3643,33 @@ textarea:focus-visible {
   font-size: 12px;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.search-result-card {
+  min-height: 82px;
+  cursor: grab;
+}
+
+.search-result-card .report-preview {
+  aspect-ratio: 16 / 10;
+  border-bottom: 0;
+}
+
+.search-result-card .search-result-placeholder {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: var(--blue-soft);
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.search-result-meta {
+  color: var(--muted);
+  font-size: 9px;
 }
 
 .task-detail {
@@ -3708,7 +3844,8 @@ textarea:focus-visible {
     grid-template-columns: 1fr;
   }
 
-  .generated-result-grid {
+  .generated-result-grid,
+  .search-results-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -3945,6 +4082,21 @@ textarea:focus-visible {
 .topic-nav a span {
   color: #959ca5;
   font-size: 9px;
+}
+
+.topic-nav-item.is-nav-drop-target,
+.library-nav-utility.is-nav-drop-target {
+  border-color: var(--blue);
+  background: linear-gradient(180deg, rgba(39, 109, 214, 0.12), rgba(255, 255, 255, 0.9));
+  color: #1c2f55;
+}
+
+.topic-nav-item.is-nav-drop-target .nav-index,
+.topic-nav-item.is-nav-drop-target span:last-child,
+.library-nav-utility.is-nav-drop-target span,
+.library-nav-utility.is-nav-drop-target strong,
+.library-nav-utility.is-nav-drop-target em {
+  color: #1b4f9a;
 }
 
 .board {

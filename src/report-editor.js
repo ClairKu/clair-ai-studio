@@ -24,6 +24,8 @@ const editor = {
   lastCommit: "",
   isLocal: false,
   saveLocal: null,
+  currentPage: 0,
+  pageCount: 1,
   protection: null,
   loadPromise: null,
   render: null,
@@ -125,6 +127,23 @@ function updateEditorChrome() {
   const previewButton = document.querySelector('[data-editor-action="preview"]');
   if (previewButton) {
     previewButton.disabled = editor.status !== "ready" || editor.saving || !editor.hasDraft;
+  }
+
+  const pageInfo = document.querySelector("[data-editor-page-counter]");
+  if (pageInfo) {
+    const total = Math.max(1, Number(editor.pageCount) || 1);
+    const current = Math.max(0, Math.min(Number(editor.currentPage) || 0, total - 1));
+    pageInfo.textContent = `${current + 1} / ${total}`;
+    const prevButton = document.querySelector('[data-editor-action="prev-page"]');
+    const nextButton = document.querySelector('[data-editor-action="next-page"]');
+    if (prevButton) {
+      prevButton.disabled = editor.status !== "ready" || total <= 1 || current <= 0;
+    }
+    if (nextButton) {
+      nextButton.disabled = editor.status !== "ready" || total <= 1 || current >= total - 1;
+    }
+    editor.currentPage = current;
+    editor.pageCount = total;
   }
 }
 
@@ -365,6 +384,87 @@ function editorBridgeScript() {
   body.contentEditable = "true";
   body.spellcheck = true;
   body.dataset.clairEditable = "true";
+  let readyDispatched = false;
+
+  const isPageCandidate = (node) => {
+    if (!(node instanceof Element)) return false;
+    const tag = node.tagName?.toUpperCase();
+    if (!tag) return false;
+    if (["SCRIPT", "STYLE", "LINK", "NOSCRIPT", "META", "TITLE", "HEAD"].includes(tag)) return false;
+    if (node.closest("script,style,link,meta,title,head")) return false;
+    const textLength = node.textContent?.replace(/\\s+/g, "").length || 0;
+    return textLength > 10 || node.children.length > 0;
+  };
+
+  const collectPageNodes = () => {
+    const selectors = [
+      "[data-editor-page]",
+      "[data-page]",
+      "[class*='page']",
+      "[class*='sheet']",
+      "[class*='slide']",
+      "main",
+      "section",
+      "article",
+    ];
+    const explicit = [...document.querySelectorAll(selectors.join(","))]
+      .filter((node) => node !== document.body && isPageCandidate(node))
+      .filter((node) => node.closest("body") === document.body);
+    if (explicit.length > 1) return explicit;
+
+    const children = [...document.body.children].filter((node) => isPageCandidate(node));
+    if (children.length > 1) return children;
+    return [document.body];
+  };
+
+  let pageNodes = collectPageNodes();
+  let activePageIndex = 0;
+
+  const normalizePageIndex = (index, max) => {
+    const total = Math.max(1, max || pageNodes.length);
+    if (index < 0) return 0;
+    if (index >= total) return total - 1;
+    return index;
+  };
+
+  const applyActivePage = () => {
+    const count = pageNodes.length;
+    pageNodes.forEach((pageNode, nodeIndex) => {
+      if (nodeIndex === activePageIndex) {
+        pageNode.classList.remove("clair-editor-page-hidden");
+      } else if (count > 1) {
+        pageNode.classList.add("clair-editor-page-hidden");
+      }
+    });
+  };
+
+  const sendPageInfo = () => {
+    send("page-info", {
+      currentPage: activePageIndex,
+      pageCount: Math.max(1, pageNodes.length),
+    });
+  };
+
+  const refreshPages = () => {
+    pageNodes = collectPageNodes();
+    if (!pageNodes.length) pageNodes = [document.body];
+    activePageIndex = normalizePageIndex(activePageIndex, pageNodes.length);
+    applyActivePage();
+    sendPageInfo();
+  };
+
+  const setActivePage = (nextIndex) => {
+    activePageIndex = normalizePageIndex(Number(nextIndex), pageNodes.length);
+    applyActivePage();
+    sendPageInfo();
+  };
+
+  const dispatchReady = () => {
+    if (readyDispatched) return;
+    readyDispatched = true;
+    refreshPages();
+    send("ready");
+  };
 
   const restoreDocument = () => {
     const clone = document.documentElement.cloneNode(true);
@@ -385,6 +485,9 @@ function editorBridgeScript() {
       if (originalType === "__empty__") script.removeAttribute("type");
       else script.setAttribute("type", originalType);
     });
+    clone.querySelectorAll("body .clair-editor-page-hidden").forEach((page) => {
+      page.classList.remove("clair-editor-page-hidden");
+    });
     clone.querySelectorAll("*").forEach((element) => {
       [...element.attributes].forEach((attribute) => {
         if (!attribute.name.startsWith("data-clair-event-on")) return;
@@ -402,6 +505,10 @@ function editorBridgeScript() {
   window.addEventListener("message", (event) => {
     if (event.source !== parent || event.data?.channel !== channel) return;
     const message = event.data;
+    if (message.type === "set-page") {
+      setActivePage(message.page);
+      return;
+    }
     if (message.type === "command") {
       body.focus();
       document.execCommand(message.command, false, message.value ?? null);
@@ -410,6 +517,7 @@ function editorBridgeScript() {
     }
     if (message.type === "serialize") {
       send("serialized", { requestId: message.requestId, html: restoreDocument() });
+      return;
     }
   });
 
@@ -421,7 +529,12 @@ function editorBridgeScript() {
       underline: document.queryCommandState("underline")
     });
   });
-  send("ready");
+
+  if (document.readyState === "loading") {
+    window.addEventListener("load", dispatchReady);
+  } else {
+    dispatchReady();
+  }
 })();
 `;
 }
@@ -445,6 +558,7 @@ function buildEditorDocument(html, baseUrl) {
   style.id = "clair-editor-style";
   style.textContent = `
     html { scroll-behavior: smooth; }
+    .clair-editor-page-hidden { display: none !important; }
     body[data-clair-editable="true"] { min-height: 100vh; cursor: text; }
     body[data-clair-editable="true"]:focus { outline: none; }
     body[data-clair-editable="true"] *:hover {
@@ -520,6 +634,8 @@ async function loadReport(report) {
       report.url || window.location.href,
     );
     editor.status = "ready";
+    editor.currentPage = 0;
+    editor.pageCount = 1;
     editor.error = "";
   } catch (error) {
     editor.status = "error";
@@ -554,6 +670,8 @@ function resetEditor() {
     isLocal: false,
     saveLocal: null,
     protection: null,
+    currentPage: 0,
+    pageCount: 1,
     loadPromise: null,
     render,
     showToast,
@@ -572,6 +690,21 @@ function sendCommand(command, value = null) {
     command,
     value,
   }, "*");
+}
+
+function sendEditorPage(pageIndex) {
+  const frame = editorFrame();
+  if (!frame?.contentWindow) return;
+  const total = Math.max(1, Number(editor.pageCount) || 1);
+  const next = Number.isFinite(Number(pageIndex)) ? Number(pageIndex) : editor.currentPage;
+  const normalized = Math.max(0, Math.min(total - 1, next));
+  frame.contentWindow.postMessage({
+    channel: EDITOR_CHANNEL,
+    type: "set-page",
+    page: normalized,
+  }, "*");
+  editor.currentPage = normalized;
+  updateEditorChrome();
 }
 
 function requestSerializedHtml() {
@@ -924,6 +1057,8 @@ export function beginReportEditing(report, { render, showToast, saveLocal = null
     reportTitle: report.title,
     reportUrl: report.url,
     status: "loading",
+    currentPage: 0,
+    pageCount: 1,
     render,
     showToast,
     isLocal: Boolean(localReportHtml(report) && saveLocal),
@@ -963,11 +1098,20 @@ export function reportEditorMarkup(report, escapeHtml) {
         <button type="button" data-editor-command="justifyRight" title="右对齐">Right</button>
         <button type="button" data-editor-command="justifyFull" title="两端对齐">Justify</button>
         <span class="editor-divider"></span>
-        <button type="button" data-editor-action="link" title="添加链接">🔗 Link</button>
-        <button type="button" data-editor-command="unlink" title="移除链接">Unlink</button>
-        <span class="editor-divider"></span>
         <button type="button" data-editor-command="undo" title="撤销">↶</button>
         <button type="button" data-editor-command="redo" title="重做">↷</button>
+        <button type="button" data-editor-command="cut" title="剪切">✂</button>
+        <button type="button" data-editor-command="copy" title="复制">⎘</button>
+        <button type="button" data-editor-command="paste" title="粘贴">📋</button>
+        <button type="button" data-editor-command="delete" title="删除">🗑</button>
+        <button type="button" data-editor-command="selectAll" title="全选">A̲</button>
+        <span class="editor-divider"></span>
+        <button type="button" data-editor-action="prev-page" title="上一页">⟵</button>
+        <span class="editor-page-info" data-editor-page-counter>1 / 1</span>
+        <button type="button" data-editor-action="next-page" title="下一页">⟶</button>
+        <span class="editor-divider"></span>
+        <button type="button" data-editor-action="link" title="添加链接">🔗 Link</button>
+        <button type="button" data-editor-command="unlink" title="移除链接">Unlink</button>
       </div>`
     : "";
   const body = editor.status === "loading"
@@ -1039,6 +1183,17 @@ export function bindReportEditor(report) {
       if (event.data.type === "dirty") {
         editor.dirty = true;
         editor.lastCommit = "";
+        updateEditorChrome();
+      }
+      if (event.data.type === "page-info") {
+        const nextPage = Number.isFinite(Number(event.data.currentPage))
+          ? Number(event.data.currentPage)
+          : 0;
+        const nextCount = Number.isFinite(Number(event.data.pageCount))
+          ? Number(event.data.pageCount)
+          : 1;
+        editor.currentPage = nextPage;
+        editor.pageCount = Math.max(1, nextCount);
         updateEditorChrome();
       }
       if (event.data.type === "serialized") {
@@ -1124,6 +1279,10 @@ export function bindReportEditor(report) {
         hidePublishConfirm();
         if (!editor.token || !editor.target?.path) showSettings({ pendingSave: true });
         else await performSave(report);
+      } else if (action === "prev-page") {
+        sendEditorPage(editor.currentPage - 1);
+      } else if (action === "next-page") {
+        sendEditorPage(editor.currentPage + 1);
       } else if (action === "download") {
         try {
           const plainHtml = await requestSerializedHtml();
