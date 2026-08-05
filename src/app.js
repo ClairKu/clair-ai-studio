@@ -10,16 +10,11 @@ import {
   reportEditorMarkup,
   sharePublishedReport,
 } from "./report-editor.js";
-import {
-  normalizeSearchText,
-  reportMatchesQuery,
-  reportSearchScore,
-} from "./search.js";
+import { normalizeSearchText, reportMatchesQuery } from "./search.js";
 
 const STORAGE_KEY = "clair-service-report-workbench-v1";
 const AUTH_KEY = "clair-service-report-workbench-access";
 const VIEW_KEY = "clair-service-report-workbench-view";
-const TIME_SORT_KEY = "clair-service-report-time-sort";
 const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const DATA_VERSION = 36;
 
@@ -1243,29 +1238,17 @@ initialState.reports = initialState.reports.map((report) => {
 
 let state = loadState();
 let bucketOrder = loadBucketOrder();
-let customTags = new Set(Array.isArray(state.customTags)
-  ? state.customTags.filter((tag) => typeof tag === "string" && tag.trim())
-  : []);
 let query = "";
 let readerId = "";
 let archiveView = false;
 let catalogView = ["topic", "type", "tag", "time"].includes(localStorage.getItem(VIEW_KEY))
   ? localStorage.getItem(VIEW_KEY)
   : "topic";
-let reportTimeSort = ["created", "modified"].includes(localStorage.getItem(TIME_SORT_KEY))
-  ? localStorage.getItem(TIME_SORT_KEY)
-  : "created";
 let draggingId = "";
 let draggingGroupId = "";
 let movingReportId = "";
-let dragDropTarget = null;
-let dragPlaceholder = null;
 let modal = null;
 let toastTimer = 0;
-
-function persistCustomTags() {
-  saveState();
-}
 
 function clone(value) {
   return JSON.parse(JSON.stringify(value));
@@ -1362,9 +1345,6 @@ function migrateState(saved) {
   };
   const normalizedSavedReports = saved.reports.map((report) => ({
     ...report,
-    modifiedAt: Number.isFinite(Number(new Date(report.modifiedAt)))
-      ? report.modifiedAt
-      : report.createdAt,
     groupId:
       TOPIC_BY_REPORT[report.id] ||
       knownReportGroups[report.id] ||
@@ -1406,7 +1386,6 @@ function migrateState(saved) {
         ? savedReport.tags
         : report.tags,
       pinned: Boolean(savedReport.pinned),
-      modifiedAt: savedReport.modifiedAt || report.modifiedAt || report.createdAt,
       position: Number.isFinite(savedReport.position)
         ? savedReport.position
         : report.position,
@@ -1427,9 +1406,6 @@ function migrateState(saved) {
     version: DATA_VERSION,
     groups: uniqueGroups,
     reports,
-    customTags: Array.isArray(saved?.customTags)
-      ? [...new Set(saved.customTags.filter((tag) => typeof tag === "string" && tag.trim()))]
-      : [],
   };
   localStorage.setItem(STORAGE_KEY, JSON.stringify(migrated));
   return migrated;
@@ -1440,7 +1416,6 @@ function saveState() {
   state.groups.forEach((group, index) => {
     group.position = index;
   });
-  state.customTags = [...customTags];
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 }
 
@@ -1761,11 +1736,7 @@ function moveBucket(sourceId, targetId, kind = catalogView) {
   return true;
 }
 
-function touchReport(report) {
-  report.modifiedAt = new Date().toISOString();
-}
-
-function moveReport(reportId, targetGroupId, targetReportId = "", placeAfter = false) {
+function moveReport(reportId, targetGroupId, targetReportId = "") {
   const report = state.reports.find((item) => item.id === reportId);
   if (!report || report.archived) return false;
   const targetGroup = state.groups.find((group) => group.id === targetGroupId);
@@ -1774,14 +1745,13 @@ function moveReport(reportId, targetGroupId, targetReportId = "", placeAfter = f
     .filter((item) => !item.archived && item.groupId === targetGroupId && item.id !== reportId)
     .sort((a, b) => (a.position || 0) - (b.position || 0));
   const targetIndex = targetReportId
-    ? ordered.findIndex((item) => item.id === targetReportId) + (placeAfter ? 1 : 0)
+    ? ordered.findIndex((item) => item.id === targetReportId)
     : ordered.length;
   report.groupId = targetGroupId;
   ordered.splice(targetIndex < 0 ? ordered.length : targetIndex, 0, report);
   ordered.forEach((item, index) => {
     item.position = index;
   });
-  touchReport(report);
   saveState();
   return true;
 }
@@ -1792,11 +1762,6 @@ function workTypeName(workTypeId) {
 
 function reportCreatedTime(report) {
   const timestamp = new Date(report.createdAt || 0).getTime();
-  return Number.isFinite(timestamp) ? timestamp : 0;
-}
-
-function reportModifiedTime(report) {
-  const timestamp = new Date(report.modifiedAt || report.createdAt || 0).getTime();
   return Number.isFinite(timestamp) ? timestamp : 0;
 }
 
@@ -1847,13 +1812,9 @@ function classificationBuckets(reports, normalizedQuery = "") {
   if (catalogView === "time") {
     const byDate = new Map();
     [...reports]
-      .sort((a, b) => (reportTimeSort === "modified"
-        ? reportModifiedTime(b) - reportModifiedTime(a)
-        : reportCreatedTime(b) - reportCreatedTime(a)))
+      .sort((a, b) => reportCreatedTime(b) - reportCreatedTime(a))
       .forEach((report) => {
-        const key = localDateKey(
-          reportTimeSort === "modified" ? report.modifiedAt || report.createdAt : report.createdAt,
-        );
+        const key = localDateKey(report.createdAt);
         if (!byDate.has(key)) byDate.set(key, []);
         byDate.get(key).push(report);
       });
@@ -1881,7 +1842,7 @@ function classificationBuckets(reports, normalizedQuery = "") {
       .filter((bucket) => !normalizedQuery || bucket.reports.length || matchesName(bucket.name)), "type");
   }
   if (catalogView === "tag") {
-    const knownTags = new Set([...TAG_ORDER, ...customTags]);
+    const knownTags = new Set(TAG_ORDER);
     state.reports.forEach((report) => {
       (report.tags || []).forEach((tag) => knownTags.add(tag));
     });
@@ -1922,27 +1883,21 @@ function classificationBuckets(reports, normalizedQuery = "") {
       matchesName(`${bucket.name} ${bucket.description || ""}`));
 }
 
-function assignReportToBucket(reportId, bucketKind, bucketId, targetReportId = "", targetPlaceAfter = false) {
+function assignReportToBucket(reportId, bucketKind, bucketId, targetReportId = "") {
   const report = state.reports.find((item) => item.id === reportId);
   if (!report || report.archived) return false;
   if (bucketKind === "topic") {
-    return moveReport(reportId, bucketId, targetReportId, targetPlaceAfter);
+    return moveReport(reportId, bucketId, targetReportId);
   }
   if (bucketKind === "type") {
     if (!WORK_TYPES.some((item) => item.id === bucketId)) return false;
     report.workType = bucketId;
-    report.tags = report.tags || [];
-    touchReport(report);
     saveState();
     return true;
   }
   if (bucketKind === "tag") {
     report.tags = Array.isArray(report.tags) ? report.tags : [];
-    if (!bucketId) return false;
-    const nextTag = String(bucketId).trim();
-    if (!nextTag) return false;
-    if (!report.tags.includes(nextTag)) report.tags.push(nextTag);
-    touchReport(report);
+    if (!report.tags.includes(bucketId)) report.tags.push(bucketId);
     saveState();
     return true;
   }
@@ -1957,102 +1912,6 @@ function currentBucketLabel() {
       : catalogView === "time"
         ? "新增时间"
         : "主题";
-}
-
-function buildSearchHits(reports, normalizedQuery) {
-  const candidates = reports.filter((report) => reportMatchesQuery(report, normalizedQuery, {
-    group: state.groups.find((group) => group.id === report.groupId),
-    workTypeName: workTypeName(report.workType),
-  }));
-  return candidates
-    .map((report) => ({
-      report,
-      score: reportSearchScore(report, normalizedQuery, {
-        group: state.groups.find((group) => group.id === report.groupId),
-        workTypeName: workTypeName(report.workType),
-      }),
-    }))
-    .filter((item) => item.score > 0)
-    .sort((a, b) => {
-      const scoreDelta = b.score - a.score;
-      if (scoreDelta !== 0) return scoreDelta;
-      return (b.report.pinned ? 1 : 0) - (a.report.pinned ? 1 : 0) || String(a.report.title).localeCompare(b.report.title, "zh-CN");
-    })
-    .map((item) => item.report);
-}
-
-function searchResultsMarkup(hits) {
-  return `
-    <section class="generated-results">
-      <div class="section-heading">
-        <div>
-          <span class="section-kicker">SEARCH RESULTS</span>
-          <h2>搜索结果</h2>
-        </div>
-        <span>${hits.length} 份命中</span>
-      </div>
-      <div class="search-result-grid search-results-grid">
-        ${hits.length ? hits.map((report) => searchResultMarkup(report)).join("") : `
-          <p class="generated-empty">未检索到匹配内容，换一个关键词试试。</p>
-        `}
-      </div>
-    </section>`;
-}
-
-function searchResultMarkup(report) {
-  const query = normalizeSearchText(query);
-  const labelParts = [
-    report.source ? escapeHtml(report.source) : "手动添加",
-    (report.tags || []).length ? `标签：${escapeHtml((report.tags || []).slice(0, 4).join(" / "))}` : "",
-    searchResultExcerpt(report, query),
-  ].filter(Boolean);
-  return `
-    <article class="report-card search-result-card" data-report-id="${escapeHtml(report.id)}">
-      <a class="card-main card-link" href="#"
-        data-action="open" data-id="${escapeHtml(report.id)}" aria-label="打开${escapeHtml(report.title)}">
-        <span class="report-preview">
-          ${report.url
-            ? `<img src="./previews/${escapeHtml(report.id)}.png" alt="" loading="lazy" decoding="async" onerror="this.remove()" />`
-            : "<span class=\"search-result-placeholder\">R</span>"}
-        </span>
-        <span class="report-copy">
-          <span class="report-source">${labelParts[0] || "搜索结果"}</span>
-          <strong>${escapeHtml(report.title)}</strong>
-          ${labelParts.slice(1).map((part) => `<span class=\"search-result-meta\">${part}</span>`).join("")}
-        </span>
-      </a>
-      <span class="report-drag-handle" role="button" tabindex="0" data-report-drag-id="${escapeHtml(report.id)}"
-        aria-label="拖动《${escapeHtml(report.title)}」到其他${currentBucketLabel()}" title="拖动到其他${currentBucketLabel()}">
-        <span aria-hidden="true">⠿</span>
-      </span>
-      <div class="card-actions">
-        <button type="button" data-action="toggle-pin" data-id="${escapeHtml(report.id)}" title="${report.pinned ? "取消精选" : "设置精选"}">
-          ${report.pinned ? "★" : "☆"}
-        </button>
-      </div>
-      ${report.pinned ? `<span class="report-pin-note">精选</span>` : ""}
-    </article>`;
-}
-
-function searchResultExcerpt(report, normalizedQuery = "") {
-  if (!normalizedQuery) return "";
-  const fields = [
-    report.source,
-    report.title,
-    report.url,
-    (report.tags || []).join(" "),
-  ];
-  const text = fields.filter(Boolean).join(" | ");
-  const base = String(text).replace(/<[^>]+>/g, " ").replace(/\\s+/g, " ").trim();
-  const plain = base.toLocaleLowerCase("zh-CN");
-  const token = searchTokens(normalizedQuery)[0];
-  if (!token || plain.length < token.length) return "";
-  const index = plain.indexOf(token);
-  if (index === -1) return "";
-  const start = Math.max(0, index - 30);
-  const end = Math.min(base.length, index + token.length + 36);
-  const fragment = base.slice(start, end).trim();
-  return `${start > 0 ? "…" : ""}${escapeHtml(fragment)}${end < base.length ? "…" : ""}`;
 }
 
 function id(prefix) {
@@ -2199,7 +2058,6 @@ function cardMarkup(report, archivedView = false) {
   const sourceLabel = catalogView === "time"
     ? addedTimeLabel(report.createdAt)
     : report.source || "手动添加";
-  const isPinned = Boolean(report.pinned);
   const hasPreview = !restricted && initialState.reports.some((item) => item.id === report.id);
   const previewAsset = report.preview || `${report.id}.png`;
   const preview = localHtml && report.isHtml
@@ -2214,7 +2072,7 @@ function cardMarkup(report, archivedView = false) {
         <strong>${restricted ? accessLabel : localSaved ? "本地内容" : "预览待补充"}</strong>
       </div>`;
   return `
-    <article class="report-card ${restricted ? "restricted-card" : ""} ${archivedView ? "archived-card" : ""} ${isPinned ? "is-pinned" : ""} ${movingReportId === report.id ? "is-move-selected" : ""}" data-report-id="${escapeHtml(report.id)}">
+    <article class="report-card ${restricted ? "restricted-card" : ""} ${archivedView ? "archived-card" : ""} ${movingReportId === report.id ? "is-move-selected" : ""}" data-report-id="${escapeHtml(report.id)}">
       <button class="card-main" type="button" data-action="open" data-id="${escapeHtml(report.id)}" aria-label="打开${escapeHtml(report.title)}">
         <span class="report-preview">
           ${preview}
@@ -2222,14 +2080,13 @@ function cardMarkup(report, archivedView = false) {
         <span class="report-copy">
           <span class="report-source">${escapeHtml(sourceLabel)}</span>
           <strong>${escapeHtml(report.title)}</strong>
-          ${isPinned ? '<span class="report-pin-note">精选</span>' : ""}
           ${(report.tags || []).length
             ? `<span class="report-tags">${report.tags.slice(0, 3).map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</span>`
             : ""}
           ${restricted ? `<span class="report-access-note">${escapeHtml(accessLabel)}</span>` : ""}
         </span>
       </button>
-      ${archivedView ? "" : `
+      ${archivedView || catalogView === "time" ? "" : `
         <span class="report-drag-handle" role="button" tabindex="0" data-report-drag-id="${escapeHtml(report.id)}"
           aria-label="拖动《${escapeHtml(report.title)}》到其他${currentBucketLabel()}" title="拖动到其他${currentBucketLabel()}">
           <span aria-hidden="true">⠿</span>
@@ -2242,7 +2099,6 @@ function cardMarkup(report, archivedView = false) {
           : `
             <button type="button" class="tag-edit-action" data-action="edit-tags" data-id="${escapeHtml(report.id)}" title="编辑标签" aria-label="编辑标签">#</button>
             ${report.url ? `<button type="button" data-action="edit" data-id="${escapeHtml(report.id)}">Edit</button>` : ""}
-            <button type="button" data-action="toggle-pin" data-id="${escapeHtml(report.id)}" title="${isPinned ? "取消精选" : "设置精选"}" aria-label="${isPinned ? "取消精选" : "设置精选"}">${isPinned ? "★" : "☆"}</button>
             <button type="button" data-action="archive" data-id="${escapeHtml(report.id)}">Archive</button>`}
       </div>
     </article>`;
@@ -2550,24 +2406,19 @@ function workbenchMarkup() {
   const normalized = normalizeSearchText(query);
   const activeReports = state.reports.filter((report) => !report.archived);
   const reports = normalized
-    ? buildSearchHits(activeReports, normalized)
+    ? activeReports.filter((report) => reportMatchesQuery(report, normalized, {
+      group: state.groups.find((group) => group.id === report.groupId),
+      workTypeName: workTypeName(report.workType),
+    }))
     : activeReports;
-  const pinnedReports = activeReports
-    .filter((report) => report.pinned)
-    .sort((a, b) => {
-      const aAt = reportModifiedTime(a) || reportCreatedTime(a);
-      const bAt = reportModifiedTime(b) || reportCreatedTime(b);
-      return bAt - aAt;
-    });
-  const navBuckets = classificationBuckets(activeReports, "");
-  const visibleBuckets = classificationBuckets(activeReports, normalized)
+  const archiveCount = state.reports.filter((report) => report.archived).length;
+  const productionCount = activeReports.filter((report) => report.access === "production").length;
+  const restrictedCount = activeReports.filter((report) => report.access !== "production").length;
+  const visibleBuckets = classificationBuckets(reports, normalized)
     .filter((bucket) =>
       bucket.reports.length ||
       movingReportId ||
       (catalogView === "topic" && !normalized));
-  const archiveCount = state.reports.filter((report) => report.archived).length;
-  const productionCount = activeReports.filter((report) => report.access === "production").length;
-  const restrictedCount = activeReports.filter((report) => report.access !== "production").length;
   const viewName = catalogView === "type"
     ? "工作类型"
     : catalogView === "tag"
@@ -2596,36 +2447,16 @@ function workbenchMarkup() {
               <strong>${state.groups.length}</strong><span>主题</span>
               <i></i>
               <strong>${productionCount}</strong><span>直达</span>
-              <i></i>
-              <strong>${reportTimeSort === "modified" ? "修改" : "创建"}倒序</strong><span>时间</span>
             </div>
-            <label class="time-sort-control">
-              <span>时间排序</span>
-              <select data-action="set-time-sort">
-                <option value="created"${reportTimeSort === "created" ? " selected" : ""}>创建时间</option>
-                <option value="modified"${reportTimeSort === "modified" ? " selected" : ""}>修改时间</option>
-              </select>
-            </label>
           </div>
         </div>
         <section class="groups-section">
-          ${pinnedReports.length ? `
-            <section class="pinned-section">
-              <div class="section-heading">
-                <div>
-                  <span class="section-kicker">精选成就</span>
-                  <h2>精选成果</h2>
-                </div>
-                <span>${pinnedReports.length} 份</span>
-              </div>
-              <div class="pinned-grid">${pinnedReports.map((report) => cardMarkup(report)).join("")}</div>
-            </section>` : ""}
           ${movingReportId ? `
             <div class="move-mode-banner" role="status">
               <div><strong>正在整理报告</strong><span>选择目标${currentBucketLabel()}的“移到这里”，或直接拖动卡片。</span></div>
               <button type="button" data-action="cancel-move">Cancel</button>
             </div>` : ""}
-          ${visibleBuckets.length || normalized ? `
+          ${visibleBuckets.length ? `
             <div class="library-layout">
               <nav class="topic-nav" aria-label="报告${viewName}">
                 <div class="library-nav-controls">
@@ -2638,18 +2469,8 @@ function workbenchMarkup() {
                   <button class="add-topic-icon" type="button" data-action="add-group"
                     aria-label="Add topic" title="Add topic">＋</button>
                 </div>
-                ${navBuckets.map((bucket, index) => `
-                  <a href="#bucket-${index}" class="topic-nav-item" data-nav-bucket-kind="${escapeHtml(bucket.kind)}"
-                    data-nav-bucket-id="${escapeHtml(bucket.id)}" data-nav-index="${index}" title="拖到此处快速归类：${escapeHtml(bucket.name)}">
-                    ${escapeHtml(bucket.name)}<span>${bucket.reports.length}</span>
-                  </a>`).join("")}
+                ${visibleBuckets.map((bucket, index) => `<a href="#bucket-${index}">${escapeHtml(bucket.name)}<span>${bucket.reports.length}</span></a>`).join("")}
                 <span class="library-nav-spacer" aria-hidden="true"></span>
-                ${catalogView === "tag" ? `
-                  <button class="library-nav-utility" type="button" data-create-tag="1" data-action="add-tag"
-                    aria-label="新增标签" title="新增标签（拖拽后快速创建）">
-                    <span aria-hidden="true">＋</span>
-                    <strong>新增标签</strong>
-                  </button>` : ""}
                 <button class="library-nav-utility" type="button" data-action="show-archive">
                   <span aria-hidden="true">⌑</span>
                   <strong>Archive</strong>
@@ -2657,48 +2478,40 @@ function workbenchMarkup() {
                 </button>
               </nav>
               <div class="board catalog-view-${catalogView}">
-              ${normalized
-                ? `${reports.length
-                  ? searchResultsMarkup(reports)
-                  : `<div class="no-results">
-                      <strong>没有找到“${escapeHtml(query.trim())}”</strong>
-                      <span>可搜索标题、标签、来源、任务类型或主题</span>
-                      <button type="button" data-action="clear-search">Clear search</button>
-                    </div>`}`
-                : visibleBuckets.map((bucket, index) => `
-                  <section id="bucket-${index}" class="group-column topic-section bucket-${escapeHtml(bucket.kind)} accent-${escapeHtml(bucket.accent || "blue")}"
-                    data-bucket-kind="${escapeHtml(bucket.kind)}"
-                    data-bucket-id="${escapeHtml(bucket.id)}"
-                    data-group-id="${escapeHtml(bucket.id)}">
-                    <header class="group-header">
-                      <div class="group-heading-copy group-drag-handle" role="button" tabindex="0"
-                        data-group-drag-id="${escapeHtml(bucket.id)}"
-                        data-group-drag-kind="${escapeHtml(bucket.kind)}"
-                        aria-label="Drag ${escapeHtml(bucket.name)} to reorder"
-                        title="Drag to reorder · use left or right arrow keys">
-                        <div><h2>${escapeHtml(bucket.name)}</h2></div>
-                        <span class="count">${bucket.reports.length} 份</span>
-                      </div>
-                      <div class="group-menu">
-                        ${movingReportId ? `<button class="move-here-button" type="button" data-action="move-here" data-id="${escapeHtml(bucket.id)}" data-bucket-kind="${escapeHtml(bucket.kind)}">Move here</button>` : ""}
-                        ${bucket.kind === "topic"
-                          ? `<button type="button" data-action="add-to-group" data-id="${escapeHtml(bucket.id)}">Add report</button>
-                             <button type="button" data-action="rename-group" data-id="${escapeHtml(bucket.id)}">Rename</button>
-                             ${bucket.id !== "inbox" ? `<button type="button" data-action="delete-group" data-id="${escapeHtml(bucket.id)}">Delete</button>` : ""}`
-                          : ""}
-                      </div>
-                    </header>
-                    <div class="group-cards">
-                      ${bucket.reports.length
-                        ? bucket.reports.map((report) => cardMarkup(report)).join("")
-                        : bucket.kind === "topic"
-                          ? `<button class="empty-topic-drop" type="button" data-action="add-to-group" data-id="${escapeHtml(bucket.id)}">
-                              <strong>Drop reports here</strong>
-                              <span>or add the first report</span>
-                            </button>`
-                          : `<div class="empty-topic-drop passive-drop"><strong>拖报告到这里</strong></div>`}
+              ${visibleBuckets.map((bucket, index) => `
+                <section id="bucket-${index}" class="group-column topic-section bucket-${escapeHtml(bucket.kind)} accent-${escapeHtml(bucket.accent || "blue")}"
+                  data-bucket-kind="${escapeHtml(bucket.kind)}"
+                  data-bucket-id="${escapeHtml(bucket.id)}"
+                  data-group-id="${escapeHtml(bucket.id)}">
+                  <header class="group-header">
+                    <div class="group-heading-copy group-drag-handle" role="button" tabindex="0"
+                      data-group-drag-id="${escapeHtml(bucket.id)}"
+                      data-group-drag-kind="${escapeHtml(bucket.kind)}"
+                      aria-label="Drag ${escapeHtml(bucket.name)} to reorder"
+                      title="Drag to reorder · use left or right arrow keys">
+                      <div><h2>${escapeHtml(bucket.name)}</h2></div>
+                      <span class="count">${bucket.reports.length} 份</span>
                     </div>
-                  </section>`).join("")}
+                    <div class="group-menu">
+                      ${movingReportId ? `<button class="move-here-button" type="button" data-action="move-here" data-id="${escapeHtml(bucket.id)}" data-bucket-kind="${escapeHtml(bucket.kind)}">Move here</button>` : ""}
+                      ${bucket.kind === "topic"
+                        ? `<button type="button" data-action="add-to-group" data-id="${escapeHtml(bucket.id)}">Add report</button>
+                           <button type="button" data-action="rename-group" data-id="${escapeHtml(bucket.id)}">Rename</button>
+                           ${bucket.id !== "inbox" ? `<button type="button" data-action="delete-group" data-id="${escapeHtml(bucket.id)}">Delete</button>` : ""}`
+                        : ""}
+                    </div>
+                  </header>
+                  <div class="group-cards">
+                    ${bucket.reports.length
+                      ? bucket.reports.map((report) => cardMarkup(report)).join("")
+                      : bucket.kind === "topic"
+                        ? `<button class="empty-topic-drop" type="button" data-action="add-to-group" data-id="${escapeHtml(bucket.id)}">
+                            <strong>Drop reports here</strong>
+                            <span>or add the first report</span>
+                          </button>`
+                        : `<div class="empty-topic-drop passive-drop"><strong>拖报告到这里</strong></div>`}
+                  </div>
+                </section>`).join("")}
               </div>
             </div>` : `
             <div class="no-results">
@@ -2874,23 +2687,6 @@ function bindApp() {
         localStorage.setItem(VIEW_KEY, catalogView);
         render();
         scrollPageTop();
-      } else if (action === "set-time-sort") {
-        const value = event.currentTarget.value || "created";
-        if (["created", "modified"].includes(value)) {
-          reportTimeSort = value;
-          localStorage.setItem(TIME_SORT_KEY, reportTimeSort);
-          render();
-        }
-      } else if (action === "toggle-pin") {
-        const report = state.reports.find((item) => item.id === itemId);
-        if (!report) return;
-        report.pinned = !report.pinned;
-        if (report.pinned) {
-          touchReport(report);
-        }
-        saveState();
-        render();
-        showToast(report.pinned ? "已设为精选" : "已取消精选");
       } else if (action === "cancel-move") {
         movingReportId = "";
         render();
@@ -2918,19 +2714,6 @@ function bindApp() {
         render();
       } else if (action === "add-to-group") {
         modal = { type: "report", mode: "create", groupId: itemId };
-        render();
-      } else if (action === "add-tag") {
-        const name = window.prompt("输入新标签名称（例如：用户反馈）");
-        if (!name) return;
-        const normalized = String(name).trim().slice(0, 20);
-        if (!normalized) return;
-        if (TAG_ORDER.includes(normalized) || customTags.has(normalized)) {
-          showToast(`标签「${normalized}」已存在`);
-          return;
-        }
-        customTags.add(normalized);
-        persistCustomTags();
-        showToast(`已新增标签：${normalized}`);
         render();
       } else if (action === "edit") {
         modal = { type: "report", mode: "edit", reportId: itemId };
@@ -3000,129 +2783,14 @@ function bindApp() {
   document.querySelectorAll(".report-drag-handle").forEach((handle) => {
     let pointerStart = null;
     let pointerMoved = false;
-    let autoScrollRaf = 0;
-    const clearReportDropTarget = () => {
-      dragDropTarget = null;
-      dragPlaceholder?.remove();
-      dragPlaceholder = null;
-      document.querySelectorAll(".topic-nav-item, .group-column, .library-nav-utility, .report-card")
-        .forEach((element) => {
-          element.classList.remove("is-nav-drop-target", "is-drop-ready", "is-card-drop-target", "is-card-drop-before", "is-card-drop-after");
-        });
-    };
-    const clearAutoScroll = () => {
-      if (autoScrollRaf) {
-        cancelAnimationFrame(autoScrollRaf);
-        autoScrollRaf = 0;
-      }
-    };
-    const autoScrollForDrag = (pageY) => {
-      if (!draggingId) return;
-      const margin = 80;
-      const speed = 14;
-      if (pageY < margin) {
-        autoScrollRaf ||= requestAnimationFrame(() => {
-          window.scrollBy(0, -speed);
-          autoScrollRaf = 0;
-          autoScrollForDrag(pageY);
-        });
-      } else if (pageY > window.innerHeight - margin) {
-        autoScrollRaf ||= requestAnimationFrame(() => {
-          window.scrollBy(0, speed);
-          autoScrollRaf = 0;
-          autoScrollForDrag(pageY);
-        });
-      } else {
-        clearAutoScroll();
-      }
-    };
-    const ensureDropPlaceholder = (container, targetNode, placeAfter) => {
-      if (!container) return;
-      if (!dragPlaceholder) {
-        dragPlaceholder = document.createElement("div");
-        dragPlaceholder.className = "report-card report-card-placeholder";
-        dragPlaceholder.innerHTML = `<span>放置位置</span>`;
-      }
-      if (targetNode && targetNode.parentElement === container) {
-        const node = placeAfter ? targetNode.nextSibling : targetNode;
-        container.insertBefore(dragPlaceholder, node);
-      } else {
-        container.appendChild(dragPlaceholder);
-      }
-    };
-    const setReportDropTarget = (event) => {
-      const sourceCard = handle.closest(".report-card");
-      const hovered = document.elementFromPoint(event.clientX, event.clientY);
-      const nav = hovered?.closest(".topic-nav-item");
-      const createTagUtility = hovered?.closest("[data-create-tag='1']");
-      const shouldShowPlaceholder = hovered?.closest(".report-card-placeholder");
-      if (shouldShowPlaceholder) return;
-      if (createTagUtility) {
-        clearReportDropTarget();
-        createTagUtility.classList.add("is-nav-drop-target");
-        dragDropTarget = {
-          bucketKind: "__create-tag__",
-          bucketId: "__create-tag__",
-          reportId: "",
-          placeAfter: false,
-          nav: true,
-        };
-        return;
-      }
-      if (nav) {
-        clearReportDropTarget();
-        nav.classList.add("is-nav-drop-target");
-        dragDropTarget = {
-          bucketKind: nav.dataset.navBucketKind || catalogView,
-          bucketId: nav.dataset.navBucketId || "",
-          reportId: "",
-          placeAfter: false,
-          nav: true,
-        };
-        return;
-      }
-      const targetCard = hovered?.closest(".report-card");
-      if (targetCard && targetCard.classList.contains("report-card-placeholder")) {
-        return;
-      }
-      const targetColumn = hovered?.closest(".group-column");
-      clearReportDropTarget();
-      if (targetCard) {
-        if (targetCard === sourceCard) return;
-        const column = targetCard.closest(".group-column");
-        const rect = targetCard.getBoundingClientRect();
-        const placeAfter = event.clientY > rect.top + rect.height / 2;
-        targetCard.classList.add("is-card-drop-target", placeAfter ? "is-card-drop-after" : "is-card-drop-before");
-        ensureDropPlaceholder(column.querySelector(".group-cards"), targetCard, placeAfter);
-        dragDropTarget = {
-          bucketKind: column?.dataset.bucketKind || catalogView,
-          bucketId: column?.dataset.bucketId || "",
-          reportId: targetCard.dataset.reportId || "",
-          placeAfter,
-          nav: false,
-        };
-        return;
-      }
-      if (targetColumn) {
-        targetColumn.classList.add("is-drop-ready");
-        const columnCards = targetColumn.querySelector(".group-cards");
-        ensureDropPlaceholder(columnCards, null, false);
-        dragDropTarget = {
-          bucketKind: targetColumn.dataset.bucketKind || catalogView,
-          bucketId: targetColumn.dataset.bucketId || "",
-          reportId: "",
-          placeAfter: false,
-          nav: false,
-        };
-      }
-    };
     const clearReportPointerDrag = () => {
       draggingId = "";
       pointerStart = null;
       pointerMoved = false;
-      clearAutoScroll();
-      clearReportDropTarget();
       handle.closest(".report-card")?.classList.remove("is-dragging");
+      document.querySelectorAll(".report-card, .group-column").forEach((element) => {
+        element.classList.remove("is-card-drop-target", "is-drop-ready");
+      });
     };
     handle.addEventListener("pointerdown", (event) => {
       event.preventDefault();
@@ -3140,8 +2808,18 @@ function bindApp() {
         Math.hypot(event.clientX - pointerStart.x, event.clientY - pointerStart.y) < 7
       ) return;
       pointerMoved = true;
-      autoScrollForDrag(event.clientY);
-      setReportDropTarget(event);
+      const hovered = document.elementFromPoint(event.clientX, event.clientY);
+      const targetCard = hovered?.closest(".report-card");
+      const targetColumn = hovered?.closest(".group-column");
+      document.querySelectorAll(".report-card").forEach((card) => {
+        card.classList.toggle(
+          "is-card-drop-target",
+          Boolean(targetCard && targetCard !== handle.closest(".report-card") && card === targetCard),
+        );
+      });
+      document.querySelectorAll(".group-column").forEach((column) => {
+        column.classList.toggle("is-drop-ready", Boolean(targetColumn && column === targetColumn));
+      });
     });
     handle.addEventListener("pointerup", (event) => {
       if (!draggingId) return;
@@ -3153,38 +2831,17 @@ function bindApp() {
         showToast(`请选择目标${currentBucketLabel()}`);
         return;
       }
-      const target = dragDropTarget;
       const hovered = document.elementFromPoint(event.clientX, event.clientY);
-      const targetReportId = target?.reportId || "";
-      const targetBucketId = target?.bucketId || hovered?.closest(".group-column")?.dataset.bucketId || "";
-      const targetBucketKind = target?.bucketKind || hovered?.closest(".group-column")?.dataset.bucketKind || catalogView;
-      const targetPlaceAfter = target?.placeAfter || false;
-      const sourceCard = state.reports.find((item) => item.id === sourceId);
-      let moved = false;
-      if (target?.nav) {
-        if (targetBucketKind === "__create-tag__" && sourceCard) {
-          const tagName = window.prompt(`请输入新标签（将“${sourceCard.title}”加入此标签）：`)?.trim();
-          if (tagName) {
-            if (!TAG_ORDER.includes(tagName) && !customTags.has(tagName)) {
-              customTags.add(tagName);
-              persistCustomTags();
-            }
-            moved = assignReportToBucket(sourceId, "tag", tagName);
-          }
-        } else {
-          moved = assignReportToBucket(sourceId, targetBucketKind, targetBucketId);
-        }
-      } else if (targetReportId && targetReportId !== sourceId) {
-        moved = assignReportToBucket(
-          sourceId,
-          targetBucketKind,
-          targetBucketId,
-          targetReportId,
-          targetPlaceAfter,
-        );
-      } else if (targetBucketId) {
-        moved = assignReportToBucket(sourceId, targetBucketKind, targetBucketId);
-      }
+      const targetCard = hovered?.closest(".report-card");
+      const targetColumn = hovered?.closest(".group-column");
+      const targetReportId = targetCard?.dataset.reportId || "";
+      const targetBucketId = targetColumn?.dataset.bucketId || "";
+      const targetBucketKind = targetColumn?.dataset.bucketKind || catalogView;
+      const moved = targetReportId && targetReportId !== sourceId
+        ? assignReportToBucket(sourceId, targetBucketKind, targetBucketId, targetReportId)
+        : targetBucketId
+          ? assignReportToBucket(sourceId, targetBucketKind, targetBucketId)
+          : false;
       clearReportPointerDrag();
       if (moved) {
         render();
