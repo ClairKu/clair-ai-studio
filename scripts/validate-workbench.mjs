@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
 const root = new URL("../", import.meta.url);
@@ -12,6 +12,7 @@ const editorSource = read("src/report-editor.js");
 const searchIndexPath = join(new URL(".", root).pathname, "public", "search-index.json");
 const taskSource = read("src/task-center.js");
 const styleSource = read("src/style.css");
+const reportsRoot = join(new URL(".", root).pathname, "public", "reports");
 const reportStart = appSource.indexOf("  reports: [");
 const reportEnd = appSource.indexOf("\n  ],\n};", reportStart);
 
@@ -126,6 +127,30 @@ for (const removedSignal of [
   if (taskSource.includes(removedSignal)) {
     fail(`处理队列仍有残留：${removedSignal}`);
   }
+}
+
+for (const removedSignal of [
+  "AUTH_KEY",
+  "gateMarkup",
+  'id="login-form"',
+  'data-action="lock"',
+  "Sign out",
+]) {
+  if (appSource.includes(removedSignal)) {
+    fail(`工作台访问密码仍有残留：${removedSignal}`);
+  }
+}
+
+const reportHtmlPaths = readdirSync(reportsRoot, { withFileTypes: true })
+  .filter((entry) => entry.isDirectory())
+  .map((entry) => join(reportsRoot, entry.name, "index.html"))
+  .filter(existsSync);
+const passwordGatePattern = /type=["']password["']|id=["']password["']|id=["']pass["']|const\s+protectedPayload\s*=|const\s+payload\s*=\s*\{"salt"/i;
+const gatedReports = reportHtmlPaths
+  .filter((path) => passwordGatePattern.test(readFileSync(path, "utf8")))
+  .map((path) => path.slice(reportsRoot.length + 1, -"/index.html".length));
+if (gatedReports.length) {
+  fail(`成果报告仍包含访问密码：${gatedReports.join("、")}`);
 }
 
 if (taskSource.includes("intake-action-label")) {

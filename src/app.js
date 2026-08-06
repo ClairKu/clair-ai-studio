@@ -13,7 +13,6 @@ import {
 import { normalizeSearchText, reportMatchesQuery, reportSearchScore, searchTokens } from "./search.js";
 
 const STORAGE_KEY = "clair-service-report-workbench-v1";
-const AUTH_KEY = "clair-service-report-workbench-access";
 const VIEW_KEY = "clair-service-report-workbench-view";
 const TIME_SORT_KEY = "clair-service-report-time-sort-v1";
 const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
@@ -127,10 +126,10 @@ const initialState = {
       pinned: true,
       position: 0,
       createdAt: "2026-08-04T09:25:00.000Z",
-      source: "近两个月本地 Codex Token 结构 × 官方套餐与费率核验 × 模型路由建议｜正文与图表加密",
+      source: "近两个月本地 Codex Token 结构 × 官方套餐与费率核验 × 模型路由建议｜公开直达",
       access: "production",
       workType: "data-analysis",
-      tags: ["个人", "Codex", "GPT", "Token", "数据分析", "模型路由", "套餐建议", "加密", "CLAIR", "HTML", "生产"],
+      tags: ["个人", "Codex", "GPT", "Token", "数据分析", "模型路由", "套餐建议", "公开", "CLAIR", "HTML", "生产"],
     },
     {
       id: "yingmi-oap-report-2026-08-03",
@@ -141,7 +140,7 @@ const initialState = {
       pinned: true,
       position: 0,
       createdAt: "2026-08-03T22:30:00.000Z",
-      source: "飞书十项框架 × Clair 视觉模版｜用户增长章节内嵌 OAP 历程·里程碑与增长走势交互图（oap-journey-metrics-2026-08-02）· 口令访问",
+      source: "飞书十项框架 × Clair 视觉模版｜用户增长章节内嵌 OAP 历程·里程碑与增长走势交互图（oap-journey-metrics-2026-08-02）",
       access: "production",
       workType: "reporting",
       tags: ["AI 开放平台", "OAP", "项目汇报", "飞书框架", "用户增长", "微信", "千问", "AI 实验室", "商化准备", "HTML", "生产"],
@@ -169,10 +168,10 @@ const initialState = {
       pinned: true,
       position: 0,
       createdAt: "2026-08-03T19:45:00.000Z",
-      source: "飞书 v2 revision 66 十项大纲｜用户增长可视化已纳入 · 四类机构榜单 · OKR 复算 · 千问微信双入口 · 加密正文",
+      source: "飞书 v2 revision 66 十项大纲｜用户增长可视化已纳入 · 四类机构榜单 · OKR 复算 · 千问微信双入口 · 公开直达",
       access: "production",
       workType: "reporting",
-      tags: ["AI 开放平台", "OAP", "项目汇报", "OKR 复算", "千问", "微信", "货架矩阵", "AI 实验室", "加密", "HTML", "生产"],
+      tags: ["AI 开放平台", "OAP", "项目汇报", "OKR 复算", "千问", "微信", "货架矩阵", "AI 实验室", "公开", "HTML", "生产"],
     },
     {
       id: "yingmi-ai-oap-h2-2026-08-03",
@@ -392,10 +391,10 @@ const initialState = {
       pinned: false,
       position: 1,
       createdAt: "2026-08-02T14:30:00.000Z",
-      source: "生产数仓实查（ying99_oap）｜剔除盈米口径、类型 TOP10、需求场景与重点机构，正文口令加密",
+      source: "生产数仓实查（ying99_oap）｜剔除盈米口径、类型 TOP10、需求场景与重点机构",
       access: "production",
       workType: "reporting",
-      tags: ["AI 开放平台", "OAP", "Stargate", "金融机构", "数据报告", "CLAIR", "加密", "HTML", "生产"],
+      tags: ["AI 开放平台", "OAP", "Stargate", "金融机构", "数据报告", "CLAIR", "公开", "HTML", "生产"],
     },
     {
       id: "ai-h1-review-h2-okr-2026",
@@ -420,10 +419,10 @@ const initialState = {
       pinned: true,
       position: 0,
       createdAt: "2026-08-04T14:30:00.000Z",
-      source: "QMRD-46867｜三页面同一收益额对应三种收益率；证据审计、算法有效域、指标治理与 PM 决策，正文加密",
+      source: "QMRD-46867｜三页面同一收益额对应三种收益率；证据审计、算法有效域、指标治理与 PM 决策，公开直达",
       access: "production",
       workType: "data-analysis",
-      tags: ["且慢", "累计收益率", "数据分析", "产品规划", "需求评审", "Modified Dietz", "TWR", "口径治理", "加密", "HTML", "生产"],
+      tags: ["且慢", "累计收益率", "数据分析", "产品规划", "需求评审", "Modified Dietz", "TWR", "口径治理", "公开", "HTML", "生产"],
     },
     {
       id: "family-asset-report-five-visual-directions-2026-07-31",
@@ -861,7 +860,7 @@ const initialState = {
       pinned: true,
       position: 7,
       createdAt: "2026-07-31T15:30:00.000Z",
-      source: "OAP 管理层汇报 · 密码 2026",
+      source: "OAP 管理层汇报",
       access: "production",
     },
     {
@@ -2605,29 +2604,6 @@ function modalMarkup() {
     </div>`;
 }
 
-function gateMarkup() {
-  return `
-    <main class="gate-shell">
-      <section class="gate-card">
-        <div class="gate-brand">
-          <div class="brand-mark">C</div>
-          <span>PERSONAL STUDIO</span>
-        </div>
-        <h1>Clair's Studio</h1>
-        <p>把思考、决策与成果，放在同一个地方。</p>
-        <form class="login-form" id="login-form">
-          <label class="sr-only" for="password">访问口令</label>
-          <div class="password-row">
-            <input id="password" name="password" type="password" inputmode="numeric" autocomplete="current-password" placeholder="访问口令" autofocus />
-            <button type="submit" class="primary-button" aria-label="进入 Clair's Studio">→</button>
-          </div>
-          <p class="form-error" hidden></p>
-        </form>
-        <div class="gate-foot"><span>Light access gate</span><span>Local-only data</span></div>
-      </section>
-    </main>`;
-}
-
 function readerMarkup(report) {
   if (isEditingReport(report.id)) return reportEditorMarkup(report, escapeHtml);
   const localSaved = !report.url &&
@@ -2970,7 +2946,7 @@ function workbenchMarkup() {
             </div>`}
           <div class="catalog-note">
             <span>${restrictedCount} 份报告需要组织或账号登录${archiveCount ? ` · ${archiveCount} 份已安全归档` : ""}</span>
-            <div><span>分类调整仅保存在当前浏览器</span><button type="button" data-action="lock">Sign out</button></div>
+            <div><span>分类调整仅保存在当前浏览器</span></div>
           </div>
         </section>
       </section>
@@ -2981,11 +2957,6 @@ function workbenchMarkup() {
 
 function render() {
   const app = document.getElementById("app");
-  if (sessionStorage.getItem(AUTH_KEY) !== "ok") {
-    app.innerHTML = gateMarkup();
-    bindGate();
-    return;
-  }
   const report = readerId && state.reports.find((item) => item.id === readerId);
   app.innerHTML = report ? readerMarkup(report) : workbenchMarkup();
   bindApp();
@@ -2993,22 +2964,6 @@ function render() {
     render: () => renderAtCurrentScroll(() => document.querySelector(".prompt-composer")),
     showToast,
     saveToLibrary: saveIntakeToLibrary,
-  });
-}
-
-function bindGate() {
-  const form = document.getElementById("login-form");
-  form?.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const password = new FormData(form).get("password");
-    if (password !== "2026") {
-      const error = form.querySelector(".form-error");
-      error.hidden = false;
-      error.textContent = "口令不正确，请再试一次";
-      return;
-    }
-    sessionStorage.setItem(AUTH_KEY, "ok");
-    render();
   });
 }
 
@@ -3399,9 +3354,6 @@ function bindApp() {
         modal = null;
         renderWithViewportSnapshot(catalogViewportSnapshot || { scrollY: 0 });
         catalogViewportSnapshot = null;
-      } else if (action === "lock") {
-        sessionStorage.removeItem(AUTH_KEY);
-        render();
       } else if (action === "clear-search") {
         query = "";
         featuredOnly = false;

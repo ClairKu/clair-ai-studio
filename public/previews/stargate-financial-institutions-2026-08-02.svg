@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" role="img" aria-labelledby="title desc">
   <title id="title">Stargate 金融机构使用统计报告预览</title>
-  <desc id="desc">紫色加密报告封面，展示金融机构接入与调用统计主题，正文需口令解锁。</desc>
+  <desc id="desc">紫色公开存档报告封面，展示金融机构接入与调用统计主题。</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#171934"/>
@@ -30,5 +30,5 @@
     <circle cx="60" cy="64" r="10" fill="#b7a6ff"/>
     <rect x="55" y="64" width="10" height="26" rx="5" fill="#b7a6ff"/>
   </g>
-  <text x="64" y="566" font-family="Songti SC, STSong, Georgia, serif" font-size="18" letter-spacing="2" fill="#9b8fd9">正文已加密 · 输入访问口令后查看</text>
+  <text x="64" y="566" font-family="Songti SC, STSong, Georgia, serif" font-size="18" letter-spacing="2" fill="#9b8fd9">公开存档 · 无需访问口令</text>
 </svg>

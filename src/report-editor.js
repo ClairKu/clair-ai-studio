@@ -1,6 +1,5 @@
 const EDITOR_CHANNEL = "clair-report-editor-v1";
 const GITHUB_API = "https://api.github.com";
-const WORKBENCH_PASSWORD = "2026";
 const DRAFT_STORAGE_PREFIX = "clair-report-editor-draft-v1:";
 
 const editor = {
@@ -163,85 +162,12 @@ function encodeBase64Utf8(value) {
   return btoa(binary);
 }
 
-function bytesToBase64(bytes) {
-  let binary = "";
-  const chunkSize = 0x8000;
-  for (let index = 0; index < bytes.length; index += chunkSize) {
-    binary += String.fromCharCode(...bytes.subarray(index, index + chunkSize));
-  }
-  return btoa(binary);
-}
-
-function base64ToBytes(value) {
-  return Uint8Array.from(atob(value), (character) => character.charCodeAt(0));
-}
-
-async function deriveEncryptionKey(password, salt) {
-  const material = await crypto.subtle.importKey(
-    "raw",
-    new TextEncoder().encode(password),
-    "PBKDF2",
-    false,
-    ["deriveKey"],
-  );
-  return crypto.subtle.deriveKey(
-    {
-      name: "PBKDF2",
-      salt,
-      iterations: 210000,
-      hash: "SHA-256",
-    },
-    material,
-    { name: "AES-GCM", length: 256 },
-    false,
-    ["encrypt", "decrypt"],
-  );
-}
-
 async function unpackProtectedHtml(wrapperHtml) {
-  const match = wrapperHtml.match(/const\s+payload\s*=\s*(\{"salt":"[^"]+","iv":"[^"]+","data":"[^"]+"\})\s*;/);
-  if (!match) return { html: wrapperHtml, protection: null };
-  try {
-    const payload = JSON.parse(match[1]);
-    const salt = base64ToBytes(payload.salt);
-    const iv = base64ToBytes(payload.iv);
-    const key = await deriveEncryptionKey(WORKBENCH_PASSWORD, salt);
-    const decrypted = await crypto.subtle.decrypt(
-      { name: "AES-GCM", iv },
-      key,
-      base64ToBytes(payload.data),
-    );
-    const html = new TextDecoder().decode(decrypted);
-    if (!/<html[\s>]/i.test(html)) throw new Error("解密结果不是 HTML");
-    return {
-      html,
-      protection: {
-        type: "aes-gcm-wrapper",
-        wrapperHtml,
-        payloadSource: match[1],
-      },
-    };
-  } catch {
-    throw new Error("检测到加密报告，但无法用工作台口令解锁");
-  }
+  return { html: wrapperHtml, protection: null };
 }
 
 async function repackProtectedHtml(plainHtml) {
-  if (editor.protection?.type !== "aes-gcm-wrapper") return plainHtml;
-  const salt = crypto.getRandomValues(new Uint8Array(16));
-  const iv = crypto.getRandomValues(new Uint8Array(12));
-  const key = await deriveEncryptionKey(WORKBENCH_PASSWORD, salt);
-  const encrypted = await crypto.subtle.encrypt(
-    { name: "AES-GCM", iv },
-    key,
-    new TextEncoder().encode(plainHtml),
-  );
-  const payload = JSON.stringify({
-    salt: bytesToBase64(salt),
-    iv: bytesToBase64(iv),
-    data: bytesToBase64(new Uint8Array(encrypted)),
-  });
-  return editor.protection.wrapperHtml.replace(editor.protection.payloadSource, payload);
+  return plainHtml;
 }
 
 function githubPagesTarget(urlValue) {
