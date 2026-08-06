@@ -84,6 +84,8 @@ const requiredSignals = [
   [appSource, 'className = "report-card report-drag-preview"', "拖动时缺少跟手卡片"],
   [appSource, 'className = "report-card report-card-placeholder"', "卡片排序缺少实时占位"],
   [appSource, "scheduleElementAlignment(() => bucketElement", "拖放完成后没有精确定位到分组"],
+  [appSource, "Math.max(topbarBottom + 22, navStickyTop)", "桌面成果锚点没有与固定目录吸顶位置对齐"],
+  [appSource, "const liveDestination = Math.max", "成果锚点没有在滚动动画中校正布局漂移"],
   [editorSource, 'data-editor-page-counter', "HTML 编辑器缺少多页导航"],
   [editorSource, 'data-editor-command="copy"', "HTML 编辑器缺少复制操作"],
   [editorSource, 'data-editor-action="paste"', "HTML 编辑器缺少粘贴操作"],

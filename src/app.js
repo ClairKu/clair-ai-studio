@@ -2174,10 +2174,15 @@ function cancelControlledScroll() {
 
 function contentStartOffset() {
   const topbarBottom = document.querySelector(".topbar")?.getBoundingClientRect().bottom || 0;
-  if (!window.matchMedia("(max-width: 840px)").matches) return topbarBottom + 12;
   const nav = document.querySelector(".topic-nav");
   const navStyle = nav ? getComputedStyle(nav) : null;
   const navRect = nav?.getBoundingClientRect();
+  if (!window.matchMedia("(max-width: 840px)").matches) {
+    const navStickyTop = navStyle?.position === "sticky"
+      ? Number.parseFloat(navStyle.top) || 0
+      : 0;
+    return Math.max(topbarBottom + 22, navStickyTop);
+  }
   const navBottom = navStyle?.position === "sticky" && navRect?.bottom > 0
     ? navRect.bottom
     : 0;
@@ -2193,7 +2198,7 @@ function scrollElementToStart(element, behavior = "smooth") {
     window.scrollY + element.getBoundingClientRect().top - contentStartOffset(),
   ));
   const origin = window.scrollY;
-  const distance = destination - origin;
+  let distance = destination - origin;
   if (Math.abs(distance) < 2) return;
   if (behavior !== "smooth" || matchMedia("(prefers-reduced-motion: reduce)").matches) {
     window.scrollTo({ top: destination, left: 0, behavior: "auto" });
@@ -2202,14 +2207,23 @@ function scrollElementToStart(element, behavior = "smooth") {
   const duration = Math.min(360, Math.max(180, Math.abs(distance) * 0.22));
   const startedAt = performance.now();
   const tick = (now) => {
+    if (!element.isConnected) {
+      controlledScrollFrame = 0;
+      return;
+    }
     const progress = Math.min(1, (now - startedAt) / duration);
     const eased = 1 - Math.pow(1 - progress, 3);
+    const liveDestination = Math.max(0, Math.min(
+      Math.max(0, document.documentElement.scrollHeight - window.innerHeight),
+      window.scrollY + element.getBoundingClientRect().top - contentStartOffset(),
+    ));
+    distance = liveDestination - origin;
     window.scrollTo(0, origin + distance * eased);
     if (progress < 1) {
       controlledScrollFrame = requestAnimationFrame(tick);
     } else {
       controlledScrollFrame = 0;
-      window.scrollTo(0, destination);
+      window.scrollTo(0, liveDestination);
     }
   };
   controlledScrollFrame = requestAnimationFrame(tick);
