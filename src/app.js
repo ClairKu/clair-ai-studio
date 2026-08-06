@@ -17,7 +17,7 @@ const VIEW_KEY = "clair-service-report-workbench-view";
 const TIME_SORT_KEY = "clair-service-report-time-sort-v1";
 const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
-const DATA_VERSION = 36;
+const DATA_VERSION = 37;
 
 const WORK_TYPES = [
   { id: "requirement-review", name: "需求评审" },
@@ -121,6 +121,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "clair-product-design-reviewer-2026-08-06",
+      groupId: "ai-workbench",
+      title: "Clair Review OS｜产品与设计智能评审器",
+      url: "https://clairku.github.io/clair-ai-studio/reports/clair-product-design-reviewer-2026-08-06/",
+      preview: "clair-product-design-reviewer-2026-08-06.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-06T16:30:00.000Z",
+      source: "高级产品原则 × 且慢业务红线 × Clair 个人规则 × 正反边界案例｜原文定位、PM 版复制、案例学习与受控进化",
+      access: "production",
+      workType: "requirement-review",
+      tags: ["AI 工作台", "需求评审", "产品设计", "案例库", "受控进化", "且慢", "Skills", "HTML", "生产"],
+    },
     {
       id: "gpt-codex-plan-analysis-2026-08-04",
       groupId: "ai-workbench",
@@ -1102,6 +1116,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "clair-product-design-reviewer-2026-08-06": "requirement-review",
   "ai-xiaogu-product-experience-2026-07-30": "product-planning",
   "workbench-quality-audit-2026-07-30": "governance-review",
   "yingmi-ai-materials-compendium-2026-07-30": "reporting",
@@ -1156,6 +1171,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "clair-product-design-reviewer-2026-08-06": "ai-workbench",
   "ai-service-blueprint-serif-2026-07-30": "reporting",
   "yingmi-ai-materials-compendium-2026-07-30": "ai-platform",
   "qieman-ai-product-practice-2026-07-30": "ai-platform",
