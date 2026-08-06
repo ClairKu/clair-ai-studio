@@ -8156,3 +8156,93 @@ input[type="search"]::-webkit-search-cancel-button {
     grid-template-columns: 1fr;
   }
 }
+
+/* Final cascade for the bucket action layout. */
+.group-header {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.group-heading-area {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.group-heading-area .group-heading-copy {
+  min-width: 0;
+  flex: 0 1 auto;
+}
+
+.group-primary-actions,
+.group-menu {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.group-primary-actions .studio-icon-button,
+.group-menu .studio-icon-button {
+  width: 28px;
+  min-width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  padding: 0;
+}
+
+.group-primary-actions .studio-icon-button svg,
+.group-menu .studio-icon-button svg {
+  width: 14px;
+  height: 14px;
+}
+
+.group-order-button:disabled {
+  opacity: 0.24;
+  cursor: default;
+}
+
+.group-order-button:disabled:hover {
+  background: transparent;
+  color: #69727e;
+}
+
+@media (hover: hover) {
+  .group-primary-actions,
+  .group-menu {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-1px);
+    transition: opacity 140ms ease, transform 140ms ease;
+  }
+
+  .group-column:hover .group-primary-actions,
+  .group-column:focus-within .group-primary-actions,
+  .group-column:hover .group-menu,
+  .group-column:focus-within .group-menu {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+}
+
+@media (hover: none) {
+  .group-primary-actions,
+  .group-menu {
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+  }
+}
+
+@media (max-width: 680px) {
+  .group-heading-area {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .group-menu {
+    max-width: 150px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+}

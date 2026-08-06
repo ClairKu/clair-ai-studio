@@ -75,8 +75,10 @@ const requiredSignals = [
   [taskSource, "brief copied", "决策与评审没有明确的即时结果"],
   [taskSource, "has-intake-content", "统一输入操作没有按交互意图显隐"],
   [taskSource, 'M12 4v11', "保存操作仍使用旧软盘图标"],
-  [appSource, "function moveBucket(", "缺少跨维度分组排序"],
-  [appSource, 'data-group-drag-kind="${escapeHtml(bucket.kind)}"', "并非所有分组都可拖动"],
+  [appSource, "function moveBucketByCommand(", "缺少按钮式跨维度分组排序"],
+  [appSource, 'data-action="move-group"', "分组缺少排序按钮"],
+  [appSource, 'data-direction="${direction}"', "分组排序按钮缺少方向指令"],
+  [appSource, "[featuredBucket, ...catalogBuckets]", "精选成果未置于主题分组顶部"],
   [appSource, 'data-action="scroll-top"', "顶部缺少回顶操作"],
   [appSource, "function buildSearchHits(", "缺少独立搜索结果排序"],
   [appSource, 'fetch("./search-index.json"', "搜索未加载 HTML 正文索引"],
@@ -167,6 +169,10 @@ for (const removedSignal of [
   'modal.type === "tags"',
   'id="tag-form"',
   'class="tag-edit-action"',
+  "featuredOnly",
+  "draggingGroupId",
+  "data-group-drag-id",
+  "data-group-drag-kind",
 ]) {
   if (appSource.includes(removedSignal) || styleSource.includes(removedSignal)) {
     fail(`旧交互仍有残留：${removedSignal}`);
