@@ -72,7 +72,8 @@ const requiredSignals = [
   [taskSource, 'placeholder="Set an idea in motion"', "统一输入缺少英文提示"],
   [taskSource, 'name: "Decide"', "统一输入操作未使用英文"],
   [taskSource, "brief copied", "决策与评审没有明确的即时结果"],
-  [taskSource, 'class="intake-action-label"', "统一输入操作缺少可见标签"],
+  [taskSource, "has-intake-content", "统一输入操作没有按交互意图显隐"],
+  [taskSource, 'M12 4v11', "保存操作仍使用旧软盘图标"],
   [appSource, "function moveBucket(", "缺少跨维度分组排序"],
   [appSource, 'data-group-drag-kind="${escapeHtml(bucket.kind)}"', "并非所有分组都可拖动"],
   [appSource, 'data-action="scroll-top"', "顶部缺少回顶操作"],
@@ -88,7 +89,11 @@ const requiredSignals = [
   [appSource, 'data-report-draggable="true"', "卡片主体未启用按住拖动"],
   [appSource, "session.holdTimer = window.setTimeout", "卡片缺少长按拖动触发"],
   [appSource, "data-add-report-tag", "编辑成果缺少新增标签入口"],
-  [appSource, 'class="card-icon-action"', "编辑与归档未使用简约图标"],
+  [appSource, "card-icon-action", "编辑与归档未使用简约图标"],
+  [appSource, 'class="studio-icon-button add-topic-icon"', "新增分组图标没有统一样式"],
+  [appSource, 'class="studio-icon-button dialog-close-button"', "关闭图标没有统一样式"],
+  [appSource, "const contextualTags =", "卡片没有整合分组、类型与完整标签"],
+  [appSource, "report-context-tag", "卡片缺少分组与类型的上下文标签"],
   [appSource, 'className = "report-card report-drag-preview"', "拖动时缺少跟手卡片"],
   [appSource, 'className = "report-card report-card-placeholder"', "卡片排序缺少实时占位"],
   [appSource, "scheduleElementAlignment(() => bucketElement", "拖放完成后没有精确定位到分组"],
@@ -114,6 +119,10 @@ for (const removedSignal of [
   if (taskSource.includes(removedSignal)) {
     fail(`处理队列仍有残留：${removedSignal}`);
   }
+}
+
+if (taskSource.includes("intake-action-label")) {
+  fail("统一输入操作仍显示文字标签");
 }
 
 for (const removedSignal of [

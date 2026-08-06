@@ -55,6 +55,15 @@ const TAG_ORDER = [
   "知识治理",
 ];
 
+const UI_ICONS = {
+  plus: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>',
+  minus: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"></path></svg>',
+  edit: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4l10.5-10.5a2.8 2.8 0 0 0-4-4L4 16v4Z"></path><path d="m13 7 4 4"></path></svg>',
+  archive: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v13H4z"></path><path d="M3 4h18v3H3zM9 11h6"></path></svg>',
+  close: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"></path></svg>',
+  star: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3Z"></path></svg>',
+};
+
 const initialState = {
   version: DATA_VERSION,
   groups: [
@@ -2319,12 +2328,12 @@ function cardMarkup(report, archivedView = false, options = {}) {
       : "生产可访问";
   const localHtml = localHtmlForReport(report);
   const isPinned = Boolean(report.pinned);
-  const sourceLabel = catalogView === "time"
-    ? addedTimeLabel(
-        reportTimeSort === "modified" ? report.modifiedAt || report.createdAt : report.createdAt,
-        reportTimeSort,
-      )
-    : report.source || "手动添加";
+  const groupLabel = state.groups.find((group) => group.id === report.groupId)?.name || "未归类";
+  const contextualTags = [...new Set([
+    groupLabel,
+    workTypeName(report.workType),
+    ...(report.tags || []),
+  ])];
   const hasPreview = !restricted && initialState.reports.some((item) => item.id === report.id);
   const previewAsset = report.preview || `${report.id}.png`;
   const preview = localHtml && report.isHtml
@@ -2346,11 +2355,8 @@ function cardMarkup(report, archivedView = false, options = {}) {
           ${preview}
         </span>
         <span class="report-copy">
-          <span class="report-source">${escapeHtml(sourceLabel)}</span>
           <strong>${escapeHtml(report.title)}</strong>
-          ${(report.tags || []).length
-            ? `<span class="report-tags">${report.tags.slice(0, 3).map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</span>`
-            : ""}
+          <span class="report-tags">${contextualTags.map((tag, index) => `<span class="${index < 2 ? "report-context-tag" : ""}">${escapeHtml(tag)}</span>`).join("")}</span>
           ${options.searchExcerpt ? `<span class="report-search-excerpt">${escapeHtml(options.searchExcerpt)}</span>` : ""}
           ${restricted ? `<span class="report-access-note">${escapeHtml(accessLabel)}</span>` : ""}
         </span>
@@ -2361,13 +2367,13 @@ function cardMarkup(report, archivedView = false, options = {}) {
             <button type="button" data-action="restore" data-id="${escapeHtml(report.id)}">Restore</button>
             <button type="button" data-action="delete" data-id="${escapeHtml(report.id)}">Delete permanently</button>`
           : `
-            <button type="button" class="feature-action" data-action="toggle-pin" data-id="${escapeHtml(report.id)}"
-              title="${isPinned ? "取消精选" : "设为精选"}" aria-label="${isPinned ? "取消精选" : "设为精选"}">${isPinned ? "★" : "☆"}</button>
-            ${report.url ? `<button type="button" class="card-icon-action" data-action="edit" data-id="${escapeHtml(report.id)}" title="编辑成果" aria-label="编辑成果">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4l10.5-10.5a2.8 2.8 0 0 0-4-4L4 16v4Z"></path><path d="m13 7 4 4"></path></svg>
+            <button type="button" class="studio-icon-button feature-action" data-action="toggle-pin" data-id="${escapeHtml(report.id)}"
+              title="${isPinned ? "取消精选" : "设为精选"}" aria-label="${isPinned ? "取消精选" : "设为精选"}">${UI_ICONS.star}</button>
+            ${report.url ? `<button type="button" class="studio-icon-button card-icon-action" data-action="edit" data-id="${escapeHtml(report.id)}" title="编辑成果" aria-label="编辑成果">
+              ${UI_ICONS.edit}
             </button>` : ""}
-            <button type="button" class="card-icon-action" data-action="archive" data-id="${escapeHtml(report.id)}" title="归档成果" aria-label="归档成果">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v13H4z"></path><path d="M3 4h18v3H3zM9 11h6"></path></svg>
+            <button type="button" class="studio-icon-button card-icon-action" data-action="archive" data-id="${escapeHtml(report.id)}" title="归档成果" aria-label="归档成果">
+              ${UI_ICONS.archive}
             </button>`}
       </div>
     </article>`;
@@ -2387,7 +2393,7 @@ function modalMarkup() {
               <span class="section-kicker">WORK TOPIC / GROUP</span>
               <h2>${editingGroup ? "编辑工作主题" : "新建工作主题"}</h2>
             </div>
-            <button type="button" data-action="close-modal">×</button>
+            <button type="button" class="studio-icon-button dialog-close-button" data-action="close-modal" title="关闭" aria-label="关闭">${UI_ICONS.close}</button>
           </div>
           <label>主题 / 分组名称
             <input name="name" value="${escapeHtml(editingGroup?.name || "")}" placeholder="例如：AI 产品、投研报告" maxlength="60" required autofocus />
@@ -2416,7 +2422,7 @@ function modalMarkup() {
             <span class="section-kicker">${editing ? "EDIT REPORT" : "NEW REPORT"}</span>
             <h2>${editing ? "编辑服务报告" : "新增服务报告"}</h2>
           </div>
-          <button type="button" data-action="close-modal">×</button>
+          <button type="button" class="studio-icon-button dialog-close-button" data-action="close-modal" title="关闭" aria-label="关闭">${UI_ICONS.close}</button>
         </div>
         <label>网站地址
           <div class="url-input-row">
@@ -2629,7 +2635,7 @@ function archiveMarkup() {
           <span aria-hidden="true">⌕</span>
           <input id="search-input" value="${escapeHtml(query)}"
             placeholder="搜索归档标题、来源或网址" aria-label="搜索归档" />
-          ${query ? '<button type="button" data-action="clear-search">Clear</button>' : ""}
+          ${query ? `<button type="button" class="studio-icon-button search-clear-button" data-action="clear-search" title="清除搜索" aria-label="清除搜索">${UI_ICONS.close}</button>` : ""}
         </label>
         ${archivedReports.length ? `
           <section class="archive-results">
@@ -2710,7 +2716,7 @@ function workbenchMarkup() {
               <input id="search-input" type="search" value="${escapeHtml(query)}"
                 placeholder="Rediscover your work" aria-label="找到一个成果"
                 autocomplete="off" spellcheck="false" enterkeyhint="search" />
-              ${query ? '<button type="button" data-action="clear-search">Clear</button>' : ""}
+              ${query ? `<button type="button" class="studio-icon-button search-clear-button" data-action="clear-search" title="清除搜索" aria-label="清除搜索">${UI_ICONS.close}</button>` : ""}
             </label>
             <div class="studio-summary compact-summary" aria-label="成果统计">
               <strong>${normalized ? reports.length : featuredOnly ? featuredReports.length : activeReports.length}</strong><span>${normalized ? "匹配" : featuredOnly ? "精选" : "成果"}</span>
@@ -2737,8 +2743,8 @@ function workbenchMarkup() {
                     <button type="button" role="tab" aria-selected="${catalogView === "tag"}" class="${catalogView === "tag" ? "active" : ""}" data-action="set-view" data-id="tag">Tag</button>
                     <button type="button" role="tab" aria-selected="${catalogView === "time"}" class="${catalogView === "time" ? "active" : ""}" data-action="set-view" data-id="time">Time</button>
                   </div>
-                  <button class="add-topic-icon" type="button" data-action="add-group"
-                    aria-label="Add topic" title="Add topic">＋</button>
+                  <button class="studio-icon-button add-topic-icon" type="button" data-action="add-group"
+                    aria-label="Add topic" title="Add topic">${UI_ICONS.plus}</button>
                 </div>
                 ${catalogView === "time" ? `
                   <div class="library-time-order" aria-label="时间排序">
@@ -2799,9 +2805,9 @@ function workbenchMarkup() {
                     <div class="group-menu">
                       ${movingReportId && bucket.kind !== "time" ? `<button class="move-here-button" type="button" data-action="move-here" data-id="${escapeHtml(bucket.id)}" data-bucket-kind="${escapeHtml(bucket.kind)}">Move here</button>` : ""}
                       ${bucket.kind === "topic"
-                        ? `<button type="button" data-action="add-to-group" data-id="${escapeHtml(bucket.id)}">Add report</button>
-                           <button type="button" data-action="rename-group" data-id="${escapeHtml(bucket.id)}">Rename</button>
-                           <button type="button" data-action="delete-group" data-id="${escapeHtml(bucket.id)}">Delete</button>`
+                        ? `<button type="button" class="studio-icon-button" data-action="add-to-group" data-id="${escapeHtml(bucket.id)}" title="新增成果" aria-label="新增成果">${UI_ICONS.plus}</button>
+                           <button type="button" class="studio-icon-button" data-action="rename-group" data-id="${escapeHtml(bucket.id)}" title="编辑分组" aria-label="编辑分组">${UI_ICONS.edit}</button>
+                           <button type="button" class="studio-icon-button" data-action="delete-group" data-id="${escapeHtml(bucket.id)}" title="删除分组" aria-label="删除分组">${UI_ICONS.minus}</button>`
                         : ""}
                     </div>
                   </header>

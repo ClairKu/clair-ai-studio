@@ -7,24 +7,28 @@ const intakeActions = [
 const intakeIcons = {
   save: `
     <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M5 4.5h11l3 3v12H5z"></path>
-      <path d="M8 4.5v5h7v-5M8 19.5v-6h8v6"></path>
+      <path d="M12 4v11"></path>
+      <path d="m8 11 4 4 4-4"></path>
+      <path d="M5 19h14"></path>
     </svg>`,
   decision: `
     <svg viewBox="0 0 24 24" aria-hidden="true">
-      <circle cx="6" cy="6" r="2"></circle>
-      <circle cx="18" cy="6" r="2"></circle>
-      <circle cx="12" cy="18" r="2"></circle>
-      <path d="M7.8 7.2 10.8 16M16.2 7.2 13.2 16M8 6h8"></path>
+      <path d="M8 4h8l2 3-2 3H8z"></path>
+      <path d="M12 10v10"></path>
+      <path d="M12 14H7l-2 3 2 3h5"></path>
     </svg>`,
   review: `
     <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M8 4.5h8M9 3h6v3H9zM6 5.5H4.5v15h15v-15H18"></path>
-      <path d="m8 13 2.2 2.2L16 9.5"></path>
+      <circle cx="12" cy="12" r="8"></circle>
+      <path d="m8.5 12 2.3 2.3 4.8-5"></path>
     </svg>`,
   upload: `
     <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M12 5v14M5 12h14"></path>
+      <path d="m9 12 5.8-5.8a3 3 0 1 1 4.2 4.2l-7.2 7.2a5 5 0 0 1-7.1-7.1l7.5-7.5"></path>
+    </svg>`,
+  close: `
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="m6 6 12 12M18 6 6 18"></path>
     </svg>`,
 };
 
@@ -118,7 +122,7 @@ function attachmentsMarkup(escapeHtml) {
     <span class="attachment-chip">
       <b>${escapeHtml(file.name)}</b><small>${escapeHtml(file.sizeLabel)}</small>
       <button type="button" aria-label="移除 ${escapeHtml(file.name)}"
-        data-task-action="remove-file" data-file-id="${file.id}">×</button>
+        data-task-action="remove-file" data-file-id="${file.id}">${intakeIcons.close}</button>
     </span>`).join("")}</div>`;
 }
 
@@ -128,14 +132,14 @@ function intakeActionsMarkup(escapeHtml) {
       data-submit-action="${action.id}" aria-label="${escapeHtml(action.name)}"
       title="${escapeHtml(action.name)} · ${escapeHtml(action.hint)}">
       ${intakeIcons[action.id]}
-      <span class="intake-action-label">${escapeHtml(action.name)}</span>
     </button>`).join("");
 }
 
 export function taskWorkspaceMarkup(escapeHtml) {
+  const hasContent = Boolean(draft.material.trim() || draft.files.length);
   return `
     <section class="inline-task-launcher prompt-launcher simple-intake" aria-label="新增内容">
-      <form class="prompt-composer compact-intake-composer" id="task-composer">
+      <form class="prompt-composer compact-intake-composer ${hasContent ? "has-intake-content" : ""}" id="task-composer">
         <div class="compact-intake-row">
           <span class="intake-entry-mark" aria-hidden="true">✦</span>
           <textarea id="task-goal" rows="1" aria-label="Set an idea in motion"
@@ -145,7 +149,6 @@ export function taskWorkspaceMarkup(escapeHtml) {
               for="task-files" aria-label="Attach files" title="Attach files">
               <input id="task-files" type="file" multiple />
               ${intakeIcons.upload}
-              <span class="intake-action-label">Attach</span>
             </label>
             ${intakeActionsMarkup(escapeHtml)}
           </div>
@@ -293,6 +296,7 @@ export function bindTaskCenter({
   requestAnimationFrame(() => resizePrompt(prompt));
   prompt?.addEventListener("input", () => {
     draft.material = prompt.value;
+    composer?.classList.toggle("has-intake-content", Boolean(prompt.value.trim() || draft.files.length));
     resizePrompt(prompt);
   });
   prompt?.addEventListener("paste", async (event) => {

@@ -7939,3 +7939,218 @@ html {
   .search-results-cards { grid-template-columns: 1fr; }
   .report-drag-preview { max-width: calc(100vw - 32px); }
 }
+
+/* Unified Studio icon language */
+.studio-icon-button {
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: transparent;
+  padding: 0;
+  color: #646b76;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 150ms ease, background 150ms ease,
+    color 150ms ease, transform 150ms ease;
+}
+
+.studio-icon-button svg,
+.compact-task-actions .intake-action svg,
+.attachment-chip button svg {
+  width: 16px;
+  height: 16px;
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.studio-icon-button:hover,
+.studio-icon-button:focus-visible {
+  border-color: #dfe1e7;
+  background: #f4f4f7;
+  color: #24262c;
+  outline: 0;
+}
+
+.compact-task-actions {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(6px);
+  transition: opacity 150ms ease, transform 150ms ease;
+}
+
+.compact-intake-composer:hover .compact-task-actions,
+.compact-intake-composer:focus-within .compact-task-actions,
+.compact-intake-composer.has-intake-content .compact-task-actions,
+.compact-intake-composer.drag-over .compact-task-actions {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+}
+
+.compact-task-actions .intake-action {
+  width: 38px;
+  min-width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  gap: 0;
+  border-radius: 10px;
+  padding: 0;
+}
+
+.group-menu {
+  align-items: center;
+  gap: 3px;
+}
+
+.group-menu .studio-icon-button {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  padding: 0;
+}
+
+.report-card:not(.archived-card) .card-actions .studio-icon-button {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+}
+
+.feature-action svg {
+  fill: none;
+}
+
+.report-card.is-featured .feature-action svg {
+  fill: currentColor;
+}
+
+.dialog-title-row > .dialog-close-button {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #e5e7eb;
+  border-radius: 9px;
+  background: #f7f7f9;
+  color: #737985;
+  font-size: 0;
+}
+
+.search-clear-button {
+  width: 30px;
+  height: 30px;
+  margin-right: 2px;
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+  display: none;
+  appearance: none;
+}
+
+.library-nav-controls {
+  align-items: center;
+}
+
+.library-nav-controls .add-topic-icon {
+  width: 30px;
+  min-width: 30px;
+  height: 30px;
+  border: 1px solid #e2e4e9;
+  border-radius: 7px;
+  background: #f8f9fb;
+  padding: 0;
+}
+
+.library-nav-controls .add-topic-icon svg {
+  width: 15px;
+  height: 15px;
+}
+
+.attachment-chip button {
+  display: inline-grid;
+  place-items: center;
+}
+
+.attachment-chip button svg {
+  width: 12px;
+  height: 12px;
+}
+
+@media (max-width: 680px) {
+  .compact-task-actions {
+    justify-content: flex-end;
+  }
+
+  .compact-task-actions .intake-action {
+    min-width: 38px;
+    flex: 0 0 38px;
+    padding: 0;
+  }
+}
+
+/* Denser result cards: preview, title, complete context */
+.group-cards,
+.search-results-cards {
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.report-card {
+  border-radius: 14px;
+}
+
+.report-card:hover {
+  transform: translateY(-2px);
+}
+
+.report-preview {
+  aspect-ratio: 16 / 8.8;
+}
+
+.report-copy {
+  min-height: 0;
+  gap: 7px;
+  padding: 11px 12px 12px;
+}
+
+.report-copy > strong {
+  min-height: 36px;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.report-tags {
+  gap: 3px;
+  margin-top: 1px;
+  padding-top: 0;
+}
+
+.report-tags > span {
+  padding: 3px 6px;
+  font-size: 7.5px !important;
+  line-height: 1.15;
+}
+
+.report-tags > .report-context-tag {
+  border: 1px solid #e1def5;
+  background: #f4f2ff;
+  color: #6259a7 !important;
+  font-weight: 650;
+}
+
+.report-card:not(.archived-card) .card-actions {
+  top: 7px;
+  right: 7px;
+}
+
+@media (max-width: 680px) {
+  .group-cards,
+  .search-results-cards {
+    grid-template-columns: 1fr;
+  }
+}
