@@ -7795,6 +7795,114 @@ html {
   35% { border-color: #8d92e9; box-shadow: 0 0 0 5px rgb(98 105 230 / 14%); }
 }
 
+/* Whole-card hold-to-drag + compact report actions */
+.report-card[data-report-draggable="true"],
+.report-card[data-report-draggable="true"] .card-main {
+  cursor: grab;
+  touch-action: pan-y;
+}
+
+.report-card:not(.archived-card) .card-actions {
+  align-items: center;
+}
+
+.report-card:not(.archived-card) .card-actions button {
+  width: 30px;
+  height: 30px;
+  display: inline-grid;
+  place-items: center;
+  padding: 0;
+}
+
+.card-icon-action svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.report-tag-field {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.report-tag-field legend {
+  margin-bottom: 9px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.report-tag-picker {
+  max-height: 148px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  overflow-y: auto;
+  padding: 1px 4px 5px 1px;
+}
+
+.report-tag-picker button {
+  min-height: 29px;
+  border: 1px solid #e2e6eb;
+  border-radius: 999px;
+  background: #fff;
+  padding: 0 10px;
+  color: #6f7884;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.report-tag-picker button:hover,
+.report-tag-picker button.selected {
+  border-color: #beb8eb;
+  background: #f0edff;
+  color: #6258b7;
+}
+
+.report-tag-picker .add-report-tag {
+  width: 29px;
+  padding: 0;
+  border-style: dashed;
+  font-size: 16px;
+}
+
+.new-report-tag-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  margin-top: 9px;
+}
+
+.new-report-tag-row[hidden] {
+  display: none;
+}
+
+.new-report-tag-row button {
+  min-width: 58px;
+  border: 0;
+  border-radius: 10px;
+  background: #26272c;
+  color: #fff;
+  cursor: pointer;
+}
+
+.report-tag-field > .field-hint {
+  display: block;
+  margin-top: 7px;
+}
+
+@media (max-width: 680px) {
+  .report-card:not(.archived-card) .card-actions {
+    opacity: 1;
+  }
+}
+
 @media (max-width: 840px) {
   .topic-nav:has(.library-time-titles) {
     width: auto;

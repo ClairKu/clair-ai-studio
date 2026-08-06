@@ -59,60 +59,53 @@ const initialState = {
   version: DATA_VERSION,
   groups: [
     {
-      id: "inbox",
-      name: "待整理",
-      description: "临时入口，等待归档",
-      accent: "slate",
-      position: 0,
-    },
-    {
       id: "xiaogu",
       name: "AI 小顾与投顾服务",
       description: "AI 小顾、顾问服务与客户体验",
       accent: "green",
-      position: 1,
+      position: 0,
     },
     {
       id: "ai-workbench",
       name: "AI 工作台与生产力",
       description: "个人工作台、评审工具与 AI 生产力",
       accent: "blue",
-      position: 2,
+      position: 1,
     },
     {
       id: "ai-platform",
       name: "AI 开放平台",
       description: "OAP、MCP、Skills、Agents 与治理",
       accent: "violet",
-      position: 3,
+      position: 2,
     },
     {
       id: "product-planning",
       name: "且慢产品与体验",
       description: "产品规划、体验分析与交互方案",
       accent: "blue",
-      position: 4,
+      position: 3,
     },
     {
       id: "research",
       name: "投研与策略研究",
       description: "基金、策略与资产配置研究",
       accent: "amber",
-      position: 5,
+      position: 4,
     },
     {
       id: "reporting",
       name: "经营分析与汇报",
       description: "业务分析、周报与管理汇报",
       accent: "blue",
-      position: 6,
+      position: 5,
     },
     {
       id: "knowledge",
       name: "知识治理与组织协同",
       description: "本体、飞书、SOUL 与知识资产",
       accent: "slate",
-      position: 7,
+      position: 6,
     },
   ],
   reports: [
@@ -1228,7 +1221,7 @@ function inferGroupId(report) {
     "governance-review": "knowledge",
     "product-demo": "ai-workbench",
     "product-planning": "product-planning",
-  }[report.workType] || "inbox";
+  }[report.workType] || "product-planning";
 }
 
 initialState.reports = initialState.reports.map((report) => {
@@ -1259,6 +1252,8 @@ let dragPlaceholder = null;
 let modal = null;
 let toastTimer = 0;
 let controlledScrollFrame = 0;
+let suppressReportOpenId = "";
+let suppressReportOpenUntil = 0;
 let searchContentIndex = {};
 let searchIndexPromise = null;
 
@@ -1400,7 +1395,7 @@ function migrateState(saved) {
     "storage-big-three-fund-screening": "research",
   };
   const oldGroupFallback = {
-    inbox: "inbox",
+    inbox: "product-planning",
     today: "product-planning",
     product: "xiaogu",
     research: "research",
@@ -1410,9 +1405,9 @@ function migrateState(saved) {
     groupId:
       TOPIC_BY_REPORT[report.id] ||
       knownReportGroups[report.id] ||
-      oldGroupFallback[report.groupId] ||
+      (report.groupId === "inbox" ? inferGroupId(report) : oldGroupFallback[report.groupId]) ||
       report.groupId ||
-      "inbox",
+      inferGroupId(report),
     workType: report.workType || WORK_TYPE_BY_REPORT[report.id] || inferWorkType(report),
     tags: Array.isArray(report.tags) && report.tags.length
       ? report.tags
@@ -1687,7 +1682,7 @@ async function saveIntakeToLibrary({ material, files }, onProgress = () => {}) {
     return {
       ...duplicate,
       duplicate: true,
-      groupName: state.groups.find((group) => group.id === duplicate.groupId)?.name || "待整理",
+      groupName: state.groups.find((group) => group.id === duplicate.groupId)?.name || "未归类",
       workTypeName: workTypeName(duplicate.workType),
     };
   }
@@ -1707,7 +1702,7 @@ async function saveIntakeToLibrary({ material, files }, onProgress = () => {}) {
   const now = new Date().toISOString();
   const report = {
     id: id("report"),
-    groupId: "inbox",
+    groupId: "product-planning",
     title: metadata.title || textTitle,
     url,
     pinned: false,
@@ -1753,7 +1748,7 @@ async function saveIntakeToLibrary({ material, files }, onProgress = () => {}) {
   return {
     ...report,
     duplicate: false,
-    groupName: state.groups.find((group) => group.id === report.groupId)?.name || "待整理",
+    groupName: state.groups.find((group) => group.id === report.groupId)?.name || "未归类",
     workTypeName: workTypeName(report.workType),
   };
 }
@@ -2149,6 +2144,14 @@ function parseTags(value = "") {
   )].slice(0, 8);
 }
 
+function availableReportTags() {
+  const tags = new Set(TAG_ORDER);
+  state.reports.forEach((report) => {
+    (report.tags || []).forEach((tag) => tags.add(tag));
+  });
+  return [...tags];
+}
+
 function showToast(message) {
   document.querySelector(".toast")?.remove();
   const toast = document.createElement("div");
@@ -2336,7 +2339,8 @@ function cardMarkup(report, archivedView = false, options = {}) {
         <strong>${restricted ? accessLabel : localSaved ? "本地内容" : "预览待补充"}</strong>
       </div>`;
   return `
-    <article class="report-card ${restricted ? "restricted-card" : ""} ${archivedView ? "archived-card" : ""} ${isPinned ? "is-featured" : ""} ${movingReportId === report.id ? "is-move-selected" : ""}" data-report-id="${escapeHtml(report.id)}">
+    <article class="report-card ${restricted ? "restricted-card" : ""} ${archivedView ? "archived-card" : ""} ${isPinned ? "is-featured" : ""} ${movingReportId === report.id ? "is-move-selected" : ""}"
+      data-report-id="${escapeHtml(report.id)}" ${archivedView || catalogView === "time" ? "" : 'data-report-draggable="true"'}>
       <button class="card-main" type="button" data-action="open" data-id="${escapeHtml(report.id)}" aria-label="打开${escapeHtml(report.title)}">
         <span class="report-preview">
           ${preview}
@@ -2351,11 +2355,6 @@ function cardMarkup(report, archivedView = false, options = {}) {
           ${restricted ? `<span class="report-access-note">${escapeHtml(accessLabel)}</span>` : ""}
         </span>
       </button>
-      ${archivedView || catalogView === "time" ? "" : `
-        <span class="report-drag-handle" role="button" tabindex="0" data-report-drag-id="${escapeHtml(report.id)}"
-          aria-label="拖动《${escapeHtml(report.title)}》到其他${currentBucketLabel()}" title="拖动到其他${currentBucketLabel()}">
-          <span aria-hidden="true">⠿</span>
-        </span>`}
       <div class="card-actions">
         ${archivedView
           ? `
@@ -2364,42 +2363,18 @@ function cardMarkup(report, archivedView = false, options = {}) {
           : `
             <button type="button" class="feature-action" data-action="toggle-pin" data-id="${escapeHtml(report.id)}"
               title="${isPinned ? "取消精选" : "设为精选"}" aria-label="${isPinned ? "取消精选" : "设为精选"}">${isPinned ? "★" : "☆"}</button>
-            <button type="button" class="tag-edit-action" data-action="edit-tags" data-id="${escapeHtml(report.id)}" title="编辑标签" aria-label="编辑标签">#</button>
-            ${report.url ? `<button type="button" data-action="edit" data-id="${escapeHtml(report.id)}">Edit</button>` : ""}
-            <button type="button" data-action="archive" data-id="${escapeHtml(report.id)}">Archive</button>`}
+            ${report.url ? `<button type="button" class="card-icon-action" data-action="edit" data-id="${escapeHtml(report.id)}" title="编辑成果" aria-label="编辑成果">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4l10.5-10.5a2.8 2.8 0 0 0-4-4L4 16v4Z"></path><path d="m13 7 4 4"></path></svg>
+            </button>` : ""}
+            <button type="button" class="card-icon-action" data-action="archive" data-id="${escapeHtml(report.id)}" title="归档成果" aria-label="归档成果">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v13H4z"></path><path d="M3 4h18v3H3zM9 11h6"></path></svg>
+            </button>`}
       </div>
     </article>`;
 }
 
 function modalMarkup() {
   if (!modal) return "";
-  if (modal.type === "tags") {
-    const report = state.reports.find((item) => item.id === modal.reportId);
-    if (!report) return "";
-    return `
-      <div class="dialog-backdrop">
-        <form class="dialog compact-dialog tag-dialog" id="tag-form">
-          <div class="dialog-title-row">
-            <div>
-              <span class="section-kicker">REPORT TAGS</span>
-              <h2>编辑关键标签</h2>
-            </div>
-            <button type="button" data-action="close-modal">×</button>
-          </div>
-          <p class="tag-dialog-title">${escapeHtml(report.title)}</p>
-          <label>标签
-            <input name="tags" value="${escapeHtml((report.tags || []).join("、"))}" placeholder="例如：本体、飞书、调研" autofocus />
-          </label>
-          <div class="tag-suggestions">
-            ${TAG_ORDER.map((tag) => `<button type="button" class="${(report.tags || []).includes(tag) ? "selected" : ""}" data-tag-suggestion="${escapeHtml(tag)}">${escapeHtml(tag)}</button>`).join("")}
-          </div>
-          <div class="dialog-actions">
-            <button type="button" class="quiet-button" data-action="close-modal">Cancel</button>
-            <button type="submit" class="primary-button">Save tags</button>
-          </div>
-        </form>
-      </div>`;
-  }
   if (modal.type === "group") {
     const editingGroup = modal.mode === "edit"
       ? state.groups.find((group) => group.id === modal.groupId)
@@ -2432,6 +2407,7 @@ function modalMarkup() {
     ? state.reports.find((report) => report.id === modal.reportId)
     : null;
   const groupId = editing?.groupId || modal.groupId || state.groups[0]?.id || "";
+  const selectedTags = parseTags((editing?.tags || []).join("、"));
   return `
     <div class="dialog-backdrop">
       <form class="dialog" id="report-form">
@@ -2462,9 +2438,20 @@ function modalMarkup() {
             ${WORK_TYPES.map((type) => `<option value="${escapeHtml(type.id)}" ${type.id === (editing?.workType || "product-planning") ? "selected" : ""}>${escapeHtml(type.name)}</option>`).join("")}
           </select>
         </label>
-        <label>关键标签
-          <input name="tags" value="${escapeHtml((editing?.tags || []).join("、"))}" placeholder="本体、飞书、调研" />
-        </label>
+        <fieldset class="report-tag-field">
+          <legend>关键标签</legend>
+          <input type="hidden" name="tags" value="${escapeHtml(selectedTags.join("、"))}" />
+          <div class="report-tag-picker" aria-label="选择关键标签">
+            ${availableReportTags().map((tag) => `<button type="button" class="${selectedTags.includes(tag) ? "selected" : ""}"
+              data-report-tag="${escapeHtml(tag)}" aria-pressed="${selectedTags.includes(tag)}">${escapeHtml(tag)}</button>`).join("")}
+            <button type="button" class="add-report-tag" data-add-report-tag aria-label="新增标签" title="新增标签">＋</button>
+          </div>
+          <div class="new-report-tag-row" hidden>
+            <input type="text" data-new-report-tag maxlength="20" placeholder="输入新的标签名称" />
+            <button type="button" data-confirm-report-tag>添加</button>
+          </div>
+          <small class="field-hint">选择已有标签，或点＋新增；最多 8 个</small>
+        </fieldset>
         <div class="dialog-actions">
           <button type="button" class="quiet-button" data-action="close-modal">Cancel</button>
           <button type="submit" class="primary-button">Save</button>
@@ -2814,7 +2801,7 @@ function workbenchMarkup() {
                       ${bucket.kind === "topic"
                         ? `<button type="button" data-action="add-to-group" data-id="${escapeHtml(bucket.id)}">Add report</button>
                            <button type="button" data-action="rename-group" data-id="${escapeHtml(bucket.id)}">Rename</button>
-                           ${bucket.id !== "inbox" ? `<button type="button" data-action="delete-group" data-id="${escapeHtml(bucket.id)}">Delete</button>` : ""}`
+                           <button type="button" data-action="delete-group" data-id="${escapeHtml(bucket.id)}">Delete</button>`
                         : ""}
                     </div>
                   </header>
@@ -3063,6 +3050,8 @@ function bindReportDragging() {
 
   const activateSession = () => {
     if (!session || session.active) return;
+    clearTimeout(session.holdTimer);
+    session.sourceCard.setPointerCapture?.(session.pointerId);
     session.active = true;
     draggingId = session.reportId;
     draggingGroupId = "";
@@ -3081,6 +3070,7 @@ function bindReportDragging() {
 
   const cleanupSession = () => {
     if (!session) return;
+    clearTimeout(session.holdTimer);
     if (session.autoScrollFrame) cancelAnimationFrame(session.autoScrollFrame);
     session.preview?.remove();
     session.placeholder?.remove();
@@ -3096,6 +3086,10 @@ function bindReportDragging() {
     const finished = session;
     const target = finished.active ? finished.target : null;
     const sourceId = finished.reportId;
+    if (finished.active) {
+      suppressReportOpenId = sourceId;
+      suppressReportOpenUntil = Date.now() + 500;
+    }
     cleanupSession();
     session = null;
     if (!target?.bucketId || target.bucketKind === "time") return;
@@ -3132,15 +3126,12 @@ function bindReportDragging() {
   };
 
   board.addEventListener("pointerdown", (event) => {
-    const handle = event.target.closest(".report-drag-handle");
-    if (!handle || event.button !== 0) return;
-    const sourceCard = handle.closest(".report-card");
-    if (!sourceCard) return;
-    event.preventDefault();
-    handle.setPointerCapture?.(event.pointerId);
+    if (event.button !== 0 || event.target.closest(".card-actions")) return;
+    const sourceCard = event.target.closest('.report-card[data-report-draggable="true"]');
+    if (!sourceCard?.closest(".group-column")) return;
     session = {
       pointerId: event.pointerId,
-      reportId: handle.dataset.reportDragId,
+      reportId: sourceCard.dataset.reportId,
       sourceCard,
       startX: event.clientX,
       startY: event.clientY,
@@ -3151,7 +3142,9 @@ function bindReportDragging() {
       preview: null,
       placeholder: null,
       autoScrollFrame: 0,
+      holdTimer: 0,
     };
+    session.holdTimer = window.setTimeout(() => activateSession(), 240);
   });
 
   board.addEventListener("pointermove", (event) => {
@@ -3174,16 +3167,6 @@ function bindReportDragging() {
   board.addEventListener("pointercancel", () => {
     cleanupSession();
     session = null;
-  });
-
-  board.querySelectorAll(".report-drag-handle").forEach((handle) => {
-    handle.addEventListener("keydown", (event) => {
-      if (!["Enter", " "].includes(event.key)) return;
-      event.preventDefault();
-      movingReportId = handle.dataset.reportDragId;
-      renderAtCurrentScroll();
-      showToast(`请选择目标${currentBucketLabel()}`);
-    });
   });
 }
 
@@ -3216,6 +3199,7 @@ function bindApp() {
       if (action === "scroll-top") {
         scrollPageTop("smooth");
       } else if (action === "open") {
+        if (itemId === suppressReportOpenId && Date.now() < suppressReportOpenUntil) return;
         readerId = itemId;
         render();
         scrollPageTop();
@@ -3311,16 +3295,13 @@ function bindApp() {
         render();
         scrollPageTop();
       } else if (action === "add-report") {
-        modal = { type: "report", mode: "create", groupId: state.groups[1]?.id || state.groups[0]?.id };
+        modal = { type: "report", mode: "create", groupId: state.groups[0]?.id };
         render();
       } else if (action === "add-to-group") {
         modal = { type: "report", mode: "create", groupId: itemId };
         render();
       } else if (action === "edit") {
         modal = { type: "report", mode: "edit", reportId: itemId };
-        render();
-      } else if (action === "edit-tags") {
-        modal = { type: "tags", reportId: itemId };
         render();
       } else if (action === "toggle-pin") {
         const report = state.reports.find((item) => item.id === itemId);
@@ -3371,14 +3352,17 @@ function bindApp() {
         }
       } else if (action === "delete-group") {
         const group = state.groups.find((item) => item.id === itemId);
-        if (group && confirm(`删除“${group.name}”？其中的报告会移到“待整理”。`)) {
+        const fallbackGroup = state.groups.find((item) => item.id !== itemId);
+        if (group && !fallbackGroup) {
+          showToast("请先新增另一个分组，再删除当前分组");
+        } else if (group && confirm(`删除“${group.name}”？其中的报告会移到“${fallbackGroup.name}”。`)) {
           state.reports.forEach((report) => {
-            if (report.groupId === itemId) report.groupId = "inbox";
+            if (report.groupId === itemId) report.groupId = fallbackGroup.id;
           });
           state.groups = state.groups.filter((item) => item.id !== itemId);
           saveState();
           render();
-          showToast("分组已删除，报告已移到待整理");
+          showToast(`分组已删除，报告已移到“${fallbackGroup.name}”`);
         }
       }
     });
@@ -3729,33 +3713,6 @@ function bindApp() {
     });
   });
 
-  document.querySelectorAll("[data-tag-suggestion]").forEach((button) => {
-    button.addEventListener("click", () => {
-      const input = document.querySelector('#tag-form input[name="tags"]');
-      if (!input) return;
-      const tags = parseTags(input.value);
-      const suggestion = button.dataset.tagSuggestion;
-      input.value = tags.includes(suggestion)
-        ? tags.filter((tag) => tag !== suggestion).join("、")
-        : [...tags, suggestion].slice(0, 8).join("、");
-      button.classList.toggle("selected", !tags.includes(suggestion));
-      input.focus();
-    });
-  });
-
-  const tagForm = document.getElementById("tag-form");
-  tagForm?.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const report = state.reports.find((item) => item.id === modal.reportId);
-    if (!report) return;
-    report.tags = parseTags(new FormData(tagForm).get("tags"));
-    touchReport(report);
-    saveState();
-    modal = null;
-    render();
-    showToast("标签已更新");
-  });
-
   const groupForm = document.getElementById("group-form");
   groupForm?.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -3786,6 +3743,67 @@ function bindApp() {
   });
 
   const reportForm = document.getElementById("report-form");
+  const reportTagsInput = reportForm?.elements.tags;
+  const updateReportTagButton = (button) => {
+    const selected = parseTags(reportTagsInput?.value).includes(button.dataset.reportTag);
+    button.classList.toggle("selected", selected);
+    button.setAttribute("aria-pressed", String(selected));
+  };
+  const bindReportTagButton = (button) => {
+    button.addEventListener("click", () => {
+      const selected = parseTags(reportTagsInput.value);
+      const tag = button.dataset.reportTag;
+      reportTagsInput.value = selected.includes(tag)
+        ? selected.filter((item) => item !== tag).join("、")
+        : [...selected, tag].slice(0, 8).join("、");
+      updateReportTagButton(button);
+    });
+  };
+  reportForm?.querySelectorAll("[data-report-tag]").forEach(bindReportTagButton);
+  const addReportTagButton = reportForm?.querySelector("[data-add-report-tag]");
+  const newReportTagRow = reportForm?.querySelector(".new-report-tag-row");
+  const newReportTagInput = reportForm?.querySelector("[data-new-report-tag]");
+  const revealNewReportTag = () => {
+    newReportTagRow.hidden = false;
+    newReportTagInput.focus();
+  };
+  const addNewReportTag = () => {
+    const [tag] = parseTags(newReportTagInput.value);
+    if (!tag) return;
+    const selected = parseTags(reportTagsInput.value);
+    if (!selected.includes(tag) && selected.length >= 8) {
+      showToast("最多选择 8 个标签");
+      return;
+    }
+    reportTagsInput.value = [...new Set([...selected, tag])].slice(0, 8).join("、");
+    let tagButton = [...reportForm.querySelectorAll("[data-report-tag]")]
+      .find((button) => button.dataset.reportTag === tag);
+    if (!tagButton) {
+      tagButton = document.createElement("button");
+      tagButton.type = "button";
+      tagButton.dataset.reportTag = tag;
+      tagButton.textContent = tag;
+      addReportTagButton.before(tagButton);
+      bindReportTagButton(tagButton);
+    }
+    updateReportTagButton(tagButton);
+    newReportTagInput.value = "";
+    newReportTagRow.hidden = true;
+    addReportTagButton.focus();
+  };
+  addReportTagButton?.addEventListener("click", revealNewReportTag);
+  reportForm?.querySelector("[data-confirm-report-tag]")?.addEventListener("click", addNewReportTag);
+  newReportTagInput?.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      addNewReportTag();
+    } else if (event.key === "Escape") {
+      event.preventDefault();
+      newReportTagInput.value = "";
+      newReportTagRow.hidden = true;
+      addReportTagButton.focus();
+    }
+  });
   reportForm?.addEventListener("submit", async (event) => {
     event.preventDefault();
     const url = reportForm.elements.url.value.trim();
@@ -3839,10 +3857,9 @@ function bindApp() {
       isHtml: inspected.isHtml,
       loginProvider: inspected.loginProvider,
     };
-    const tags = [...new Set([
-      ...inferTags(saveMetadata, workType),
-      ...manualTags,
-    ])].slice(0, 8);
+    const tags = modal.mode === "edit"
+      ? manualTags
+      : [...new Set([...inferTags(saveMetadata, workType), ...manualTags])].slice(0, 8);
     if (modal.mode === "edit") {
       const report = state.reports.find((item) => item.id === modal.reportId);
       Object.assign(report, saveMetadata, { tags });

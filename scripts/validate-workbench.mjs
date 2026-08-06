@@ -18,6 +18,10 @@ const reportEnd = appSource.indexOf("\n  ],\n};", reportStart);
 if (reportStart < 0 || reportEnd < 0) fail("未找到初始成果目录");
 
 const reportBlock = appSource.slice(reportStart, reportEnd);
+const groupBlock = appSource.slice(appSource.indexOf("  groups: ["), reportStart);
+if (/\bid:\s*"inbox"/.test(groupBlock) || /\bname:\s*"待整理"/.test(groupBlock)) {
+  fail("默认成果目录仍包含系统待整理分组");
+}
 const reportChunks = reportBlock
   .split(/\n\s{4}\},\n\s{4}\{/)
   .map((chunk) => chunk.replace(/^.*?reports:\s*\[/s, "").trim())
@@ -81,6 +85,10 @@ const requiredSignals = [
   [appSource, 'class="library-time-titles"', "TIME 左栏缺少成果标题清单"],
   [appSource, 'data-action="toggle-pin"', "卡片缺少精选操作"],
   [appSource, "function bindReportDragging()", "缺少统一卡片拖动会话"],
+  [appSource, 'data-report-draggable="true"', "卡片主体未启用按住拖动"],
+  [appSource, "session.holdTimer = window.setTimeout", "卡片缺少长按拖动触发"],
+  [appSource, "data-add-report-tag", "编辑成果缺少新增标签入口"],
+  [appSource, 'class="card-icon-action"', "编辑与归档未使用简约图标"],
   [appSource, 'className = "report-card report-drag-preview"', "拖动时缺少跟手卡片"],
   [appSource, 'className = "report-card report-card-placeholder"', "卡片排序缺少实时占位"],
   [appSource, "scheduleElementAlignment(() => bucketElement", "拖放完成后没有精确定位到分组"],
@@ -113,6 +121,11 @@ for (const removedSignal of [
   "set-time-sort",
   "featured-mark",
   "scrollIntoView",
+  'class="report-drag-handle"',
+  'data-action="edit-tags"',
+  'modal.type === "tags"',
+  'id="tag-form"',
+  'class="tag-edit-action"',
 ]) {
   if (appSource.includes(removedSignal) || styleSource.includes(removedSignal)) {
     fail(`旧交互仍有残留：${removedSignal}`);
