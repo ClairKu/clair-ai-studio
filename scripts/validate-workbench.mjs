@@ -99,12 +99,19 @@ const requiredSignals = [
   [appSource, "scheduleElementAlignment(() => bucketElement", "拖放完成后没有精确定位到分组"],
   [appSource, "Math.max(topbarBottom + 22, navStickyTop)", "桌面成果锚点没有与固定目录吸顶位置对齐"],
   [appSource, "const liveDestination = Math.max", "成果锚点没有在滚动动画中校正布局漂移"],
+  [appSource, "function captureViewportSnapshot(", "重绘前没有记录语义化视口锚点"],
+  [appSource, "function restoreViewportSnapshot(", "重绘后没有恢复语义化视口锚点"],
+  [appSource, "catalogViewportSnapshot = captureViewportSnapshot", "进入成果后没有保存目录现场"],
+  [appSource, "renderWithViewportSnapshot(catalogViewportSnapshot", "返回成果库没有恢复目录现场"],
+  [appSource, 'renderAtCurrentScroll(() => document.querySelector(".results-toolbar, .archive-search"))', "搜索重绘没有固定结果工具栏"],
+  [appSource, "adjacentReportSnapshot(itemId)", "删除或归档成果时没有相邻成果兜底锚点"],
   [editorSource, 'data-editor-page-counter', "HTML 编辑器缺少多页导航"],
   [editorSource, 'data-editor-command="copy"', "HTML 编辑器缺少复制操作"],
   [editorSource, 'data-editor-action="paste"', "HTML 编辑器缺少粘贴操作"],
   [editorSource, 'data-editor-command="delete"', "HTML 编辑器缺少删除操作"],
   [styleSource, ".archive-shell .top-actions .quiet-button", "移动端归档返回修复缺失"],
   [styleSource, ".topic-nav a .nav-index", "分组标题对齐修复缺失"],
+  [styleSource, "overflow-anchor: none", "浏览器原生锚点仍会与应用恢复机制冲突"],
 ];
 
 for (const [source, signal, message] of requiredSignals) {

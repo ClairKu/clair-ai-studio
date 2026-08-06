@@ -19,6 +19,8 @@
 
 html {
   background: var(--background);
+  /* The app restores a semantic anchor after each render. */
+  overflow-anchor: none;
 }
 
 body {

@@ -1261,8 +1261,12 @@ let dragPlaceholder = null;
 let modal = null;
 let toastTimer = 0;
 let controlledScrollFrame = 0;
+let pendingScrollFrame = 0;
+let viewportRestoreFrame = 0;
 let suppressReportOpenId = "";
 let suppressReportOpenUntil = 0;
+let catalogViewportSnapshot = null;
+let modalViewportSnapshot = null;
 let searchContentIndex = {};
 let searchIndexPromise = null;
 
@@ -1295,9 +1299,9 @@ function ensureSearchIndex() {
       searchContentIndex = index && typeof index === "object" ? index : {};
       if (query && !readerId && !archiveView) {
         const selection = document.getElementById("search-input")?.selectionStart ?? query.length;
-        render();
+        renderAtCurrentScroll(() => document.querySelector(".results-toolbar, .archive-search"));
         const input = document.getElementById("search-input");
-        input?.focus();
+        input?.focus({ preventScroll: true });
         input?.setSelectionRange(selection, selection);
       }
       return searchContentIndex;
@@ -2173,15 +2177,20 @@ function showToast(message) {
 }
 
 function scrollPageTop(behavior = "auto") {
-  requestAnimationFrame(() => {
+  cancelControlledScroll();
+  pendingScrollFrame = requestAnimationFrame(() => {
+    pendingScrollFrame = 0;
     window.scrollTo({ top: 0, left: 0, behavior });
   });
 }
 
 function cancelControlledScroll() {
-  if (!controlledScrollFrame) return;
-  cancelAnimationFrame(controlledScrollFrame);
+  if (controlledScrollFrame) cancelAnimationFrame(controlledScrollFrame);
+  if (pendingScrollFrame) cancelAnimationFrame(pendingScrollFrame);
+  if (viewportRestoreFrame) cancelAnimationFrame(viewportRestoreFrame);
   controlledScrollFrame = 0;
+  pendingScrollFrame = 0;
+  viewportRestoreFrame = 0;
 }
 
 function contentStartOffset() {
@@ -2251,22 +2260,152 @@ function reportElement(reportId) {
   return document.querySelector(`.board .report-card[data-report-id="${CSS.escape(reportId)}"]`);
 }
 
-function scheduleElementAlignment(resolveElement, behavior = "smooth") {
-  requestAnimationFrame(() => requestAnimationFrame(() => {
-    scrollElementToStart(resolveElement(), behavior);
-  }));
+function viewportAnchorIdentity(element) {
+  if (!element) return null;
+  const report = element.closest?.(".report-card[data-report-id]");
+  if (report) {
+    const reportBucket = report.closest(".group-column[data-bucket-kind][data-bucket-id]");
+    return {
+      type: "report",
+      id: report.dataset.reportId,
+      bucketKind: reportBucket?.dataset.bucketKind || "",
+      bucketId: reportBucket?.dataset.bucketId || "",
+    };
+  }
+  const bucket = element.closest?.(".group-column[data-bucket-kind][data-bucket-id]");
+  if (bucket) {
+    return {
+      type: "bucket",
+      kind: bucket.dataset.bucketKind,
+      id: bucket.dataset.bucketId,
+    };
+  }
+  const stableElement = element.closest?.(
+    ".results-toolbar, .archive-search, .prompt-composer, .groups-section, .library-layout",
+  );
+  if (!stableElement) return null;
+  return {
+    type: "selector",
+    selector: stableElement.classList.contains("results-toolbar")
+      ? ".results-toolbar"
+      : stableElement.classList.contains("archive-search")
+        ? ".archive-search"
+        : stableElement.classList.contains("prompt-composer")
+        ? ".prompt-composer"
+        : stableElement.classList.contains("groups-section")
+          ? ".groups-section"
+          : ".library-layout",
+  };
 }
 
-function renderAtCurrentScroll() {
+function resolveViewportAnchor(identity) {
+  if (!identity) return null;
+  if (identity.type === "report") {
+    const bucket = identity.bucketKind && identity.bucketId
+      ? bucketElement(identity.bucketKind, identity.bucketId)
+      : null;
+    return bucket?.querySelector(`.report-card[data-report-id="${CSS.escape(identity.id)}"]`)
+      || reportElement(identity.id);
+  }
+  if (identity.type === "bucket") return bucketElement(identity.kind, identity.id);
+  if (identity.type === "selector") return document.querySelector(identity.selector);
+  return null;
+}
+
+function firstVisibleViewportAnchor() {
+  const top = contentStartOffset();
+  const firstVisible = (selector) => [...document.querySelectorAll(selector)].filter((element) => {
+    const rect = element.getBoundingClientRect();
+    return rect.bottom > top && rect.top < window.innerHeight;
+  }).sort((left, right) => (
+    Math.abs(left.getBoundingClientRect().top - top)
+    - Math.abs(right.getBoundingClientRect().top - top)
+  ))[0];
+  return firstVisible(".board .report-card[data-report-id]")
+    || firstVisible(".group-column[data-bucket-id]")
+    || firstVisible(".results-toolbar, .archive-search, .prompt-composer")
+    || document.querySelector(".results-toolbar, .archive-search, .groups-section, .library-layout");
+}
+
+function captureViewportSnapshot(preferredElement = null) {
   cancelControlledScroll();
-  const previousScroll = window.scrollY;
-  render();
-  const restore = () => window.scrollTo(0, Math.min(
-      previousScroll,
-      Math.max(0, document.documentElement.scrollHeight - window.innerHeight),
-    ));
+  const element = preferredElement || firstVisibleViewportAnchor();
+  return {
+    scrollY: window.scrollY,
+    identity: viewportAnchorIdentity(element),
+    viewportTop: element?.getBoundingClientRect().top ?? null,
+  };
+}
+
+function restoreViewportSnapshot(snapshot) {
+  if (!snapshot) return;
+  cancelControlledScroll();
+  const restore = () => {
+    const anchor = resolveViewportAnchor(snapshot.identity);
+    const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    const target = anchor && Number.isFinite(snapshot.viewportTop)
+      ? window.scrollY + anchor.getBoundingClientRect().top - snapshot.viewportTop
+      : snapshot.scrollY;
+    window.scrollTo({ top: Math.max(0, Math.min(maxScroll, target)), left: 0, behavior: "auto" });
+  };
   restore();
-  requestAnimationFrame(() => requestAnimationFrame(restore));
+  viewportRestoreFrame = requestAnimationFrame(() => {
+    viewportRestoreFrame = requestAnimationFrame(() => {
+      viewportRestoreFrame = 0;
+      restore();
+    });
+  });
+}
+
+function renderWithViewportSnapshot(snapshot) {
+  render();
+  restoreViewportSnapshot(snapshot);
+}
+
+function adjacentReportSnapshot(reportId) {
+  const card = reportElement(reportId);
+  let sibling = card?.nextElementSibling?.matches?.(".report-card[data-report-id]")
+    ? card.nextElementSibling
+    : card?.previousElementSibling?.matches?.(".report-card[data-report-id]")
+      ? card.previousElementSibling
+      : null;
+  if (!sibling) {
+    const bucket = card?.closest(".group-column[data-bucket-id]");
+    const adjacentBucket = bucket?.nextElementSibling?.matches?.(".group-column[data-bucket-id]")
+      ? bucket.nextElementSibling
+      : bucket?.previousElementSibling?.matches?.(".group-column[data-bucket-id]")
+        ? bucket.previousElementSibling
+        : null;
+    sibling = adjacentBucket?.querySelector(".report-card[data-report-id]") || adjacentBucket || card;
+  }
+  return captureViewportSnapshot(sibling);
+}
+
+function adjacentBucketSnapshot(bucketKind, bucketId) {
+  const bucket = bucketElement(bucketKind, bucketId);
+  const sibling = bucket?.nextElementSibling?.matches?.(".group-column[data-bucket-id]")
+    ? bucket.nextElementSibling
+    : bucket?.previousElementSibling?.matches?.(".group-column[data-bucket-id]")
+      ? bucket.previousElementSibling
+      : bucket;
+  return captureViewportSnapshot(sibling);
+}
+
+function scheduleElementAlignment(resolveElement, behavior = "smooth") {
+  cancelControlledScroll();
+  pendingScrollFrame = requestAnimationFrame(() => {
+    pendingScrollFrame = requestAnimationFrame(() => {
+      pendingScrollFrame = 0;
+      scrollElementToStart(resolveElement(), behavior);
+    });
+  });
+}
+
+function renderAtCurrentScroll(resolvePreferredElement = null) {
+  const preferredElement = typeof resolvePreferredElement === "function"
+    ? resolvePreferredElement()
+    : resolvePreferredElement;
+  renderWithViewportSnapshot(captureViewportSnapshot(preferredElement));
 }
 
 ["wheel", "touchstart", "pointerdown"].forEach((eventName) => {
@@ -2851,7 +2990,7 @@ function render() {
   app.innerHTML = report ? readerMarkup(report) : workbenchMarkup();
   bindApp();
   bindTaskCenter({
-    render,
+    render: () => renderAtCurrentScroll(() => document.querySelector(".prompt-composer")),
     showToast,
     saveToLibrary: saveIntakeToLibrary,
   });
@@ -3108,7 +3247,7 @@ function bindReportDragging() {
     );
     if (!moved) return;
     if (target.nav) featuredOnly = target.bucketKind === "featured";
-    renderAtCurrentScroll();
+    renderAtCurrentScroll(() => reportElement(sourceId));
     if (target.nav) {
       scheduleElementAlignment(() => bucketElement(target.bucketKind, target.bucketId));
     } else {
@@ -3185,17 +3324,17 @@ function bindApp() {
     if (query) featuredOnly = false;
     const selectionStart = event.target.selectionStart;
     const selectionEnd = event.target.selectionEnd;
-    render();
+    renderAtCurrentScroll(() => document.querySelector(".results-toolbar, .archive-search"));
     const input = document.getElementById("search-input");
-    input?.focus();
+    input?.focus({ preventScroll: true });
     input?.setSelectionRange(selectionStart, selectionEnd);
   });
   searchInput?.addEventListener("keydown", (event) => {
     if (event.key !== "Escape" || !query) return;
     event.preventDefault();
     query = "";
-    render();
-    document.getElementById("search-input")?.focus();
+    renderAtCurrentScroll(() => document.querySelector(".results-toolbar, .archive-search"));
+    document.getElementById("search-input")?.focus({ preventScroll: true });
   });
 
   document.querySelectorAll("[data-action]").forEach((element) => {
@@ -3206,6 +3345,7 @@ function bindApp() {
         scrollPageTop("smooth");
       } else if (action === "open") {
         if (itemId === suppressReportOpenId && Date.now() < suppressReportOpenUntil) return;
+        catalogViewportSnapshot = captureViewportSnapshot(reportElement(itemId));
         readerId = itemId;
         render();
         scrollPageTop();
@@ -3257,16 +3397,16 @@ function bindApp() {
       } else if (action === "back") {
         readerId = "";
         modal = null;
-        render();
-        scrollPageTop();
+        renderWithViewportSnapshot(catalogViewportSnapshot || { scrollY: 0 });
+        catalogViewportSnapshot = null;
       } else if (action === "lock") {
         sessionStorage.removeItem(AUTH_KEY);
         render();
       } else if (action === "clear-search") {
         query = "";
         featuredOnly = false;
-        render();
-        document.getElementById("search-input")?.focus();
+        renderAtCurrentScroll(() => document.querySelector(".results-toolbar, .archive-search"));
+        document.getElementById("search-input")?.focus({ preventScroll: true });
       } else if (action === "set-view") {
         if (!["topic", "type", "tag", "time"].includes(itemId)) return;
         catalogView = itemId;
@@ -3280,12 +3420,13 @@ function bindApp() {
         renderAtCurrentScroll();
       } else if (action === "cancel-move") {
         movingReportId = "";
-        render();
+        renderAtCurrentScroll();
       } else if (action === "move-here") {
         const bucketKind = event.currentTarget.dataset.bucketKind || catalogView;
         if (movingReportId && assignReportToBucket(movingReportId, bucketKind, itemId)) {
+          const movedReportId = movingReportId;
           movingReportId = "";
-          render();
+          renderAtCurrentScroll(() => reportElement(movedReportId));
           showToast(bucketKind === "tag" ? "已添加目标标签" : `报告已移入目标${currentBucketLabel()}`);
         }
       } else if (action === "show-archive") {
@@ -3301,60 +3442,72 @@ function bindApp() {
         render();
         scrollPageTop();
       } else if (action === "add-report") {
+        modalViewportSnapshot = captureViewportSnapshot(document.querySelector(".results-toolbar"));
         modal = { type: "report", mode: "create", groupId: state.groups[0]?.id };
-        render();
+        renderWithViewportSnapshot(modalViewportSnapshot);
       } else if (action === "add-to-group") {
+        modalViewportSnapshot = captureViewportSnapshot(bucketElement("topic", itemId));
         modal = { type: "report", mode: "create", groupId: itemId };
-        render();
+        renderWithViewportSnapshot(modalViewportSnapshot);
       } else if (action === "edit") {
+        modalViewportSnapshot = captureViewportSnapshot(reportElement(itemId));
         modal = { type: "report", mode: "edit", reportId: itemId };
-        render();
+        renderWithViewportSnapshot(modalViewportSnapshot);
       } else if (action === "toggle-pin") {
         const report = state.reports.find((item) => item.id === itemId);
         if (!report) return;
+        const snapshot = featuredOnly && report.pinned
+          ? adjacentReportSnapshot(itemId)
+          : captureViewportSnapshot(reportElement(itemId));
         report.pinned = !report.pinned;
         touchReport(report);
         saveState();
-        renderAtCurrentScroll();
+        renderWithViewportSnapshot(snapshot);
         showToast(report.pinned ? "已加入精选成果" : "已移出精选成果");
       } else if (action === "close-modal") {
         modal = null;
-        render();
+        renderWithViewportSnapshot(modalViewportSnapshot || captureViewportSnapshot());
+        modalViewportSnapshot = null;
       } else if (action === "detect-title") {
         await detectTitle(event.currentTarget.closest("form"));
       } else if (action === "archive") {
         const report = state.reports.find((item) => item.id === itemId);
         if (!report) return;
+        const snapshot = adjacentReportSnapshot(itemId);
         report.archived = true;
         report.archivedAt = new Date().toISOString();
         saveState();
-        render();
+        renderWithViewportSnapshot(snapshot);
         showToast("已归档，可随时恢复");
       } else if (action === "restore") {
         const report = state.reports.find((item) => item.id === itemId);
         if (!report) return;
+        const snapshot = adjacentReportSnapshot(itemId);
         report.archived = false;
         report.archivedAt = "";
         saveState();
-        render();
+        renderWithViewportSnapshot(snapshot);
         showToast("报告已恢复到原主题");
       } else if (action === "delete") {
         const report = state.reports.find((item) => item.id === itemId);
         if (report?.archived && confirm(`二次确认：永久删除“${report.title}”？\n\n删除后无法从归档区恢复。`)) {
+          const snapshot = adjacentReportSnapshot(itemId);
           state.reports = state.reports.filter((item) => item.id !== itemId);
           if (readerId === itemId) readerId = "";
           saveState();
-          render();
+          renderWithViewportSnapshot(snapshot);
           showToast("报告已永久删除");
         }
       } else if (action === "add-group") {
+        modalViewportSnapshot = captureViewportSnapshot(document.querySelector(".results-toolbar"));
         modal = { type: "group", mode: "create" };
-        render();
+        renderWithViewportSnapshot(modalViewportSnapshot);
       } else if (action === "rename-group") {
         const group = state.groups.find((item) => item.id === itemId);
         if (group) {
+          modalViewportSnapshot = captureViewportSnapshot(bucketElement("topic", itemId));
           modal = { type: "group", mode: "edit", groupId: itemId };
-          render();
+          renderWithViewportSnapshot(modalViewportSnapshot);
         }
       } else if (action === "delete-group") {
         const group = state.groups.find((item) => item.id === itemId);
@@ -3362,12 +3515,13 @@ function bindApp() {
         if (group && !fallbackGroup) {
           showToast("请先新增另一个分组，再删除当前分组");
         } else if (group && confirm(`删除“${group.name}”？其中的报告会移到“${fallbackGroup.name}”。`)) {
+          const snapshot = adjacentBucketSnapshot("topic", itemId);
           state.reports.forEach((report) => {
             if (report.groupId === itemId) report.groupId = fallbackGroup.id;
           });
           state.groups = state.groups.filter((item) => item.id !== itemId);
           saveState();
-          render();
+          renderWithViewportSnapshot(snapshot);
           showToast(`分组已删除，报告已移到“${fallbackGroup.name}”`);
         }
       }
@@ -3565,7 +3719,7 @@ function bindApp() {
       if (!pointerMoved) {
         movingReportId = sourceId;
         clearReportPointerDrag();
-        render();
+        renderAtCurrentScroll(() => reportElement(sourceId));
         showToast(`请选择目标${currentBucketLabel()}`);
         return;
       }
@@ -3584,7 +3738,7 @@ function bindApp() {
         : false;
       clearReportPointerDrag();
       if (moved) {
-        render();
+        renderAtCurrentScroll(() => reportElement(sourceId));
         requestAnimationFrame(() => {
           const bucketSelector = `.group-column[data-bucket-kind="${CSS.escape(targetBucketKind)}"][data-bucket-id="${CSS.escape(targetBucketId)}"]`;
           const movedCard = document.querySelector(`${bucketSelector} .report-card[data-report-id="${CSS.escape(sourceId)}"]`)
@@ -3643,7 +3797,7 @@ function bindApp() {
         target.dataset.bucketKind,
       )) {
         draggingGroupId = "";
-        render();
+        renderAtCurrentScroll(() => bucketElement(target.dataset.bucketKind, sourceId));
         showToast("分组顺序已更新");
         return;
       }
@@ -3664,7 +3818,7 @@ function bindApp() {
         target.dataset.bucketId,
         handle.dataset.groupDragKind,
       )) return;
-      render();
+      renderAtCurrentScroll(() => bucketElement(handle.dataset.groupDragKind, handle.dataset.groupDragId));
       showToast("分组顺序已更新");
       document
         .querySelector(`[data-group-drag-id="${CSS.escape(handle.dataset.groupDragId)}"]`)
@@ -3690,8 +3844,9 @@ function bindApp() {
           column.dataset.bucketId,
           column.dataset.bucketKind,
         )) {
+          const movedGroupId = draggingGroupId;
           draggingGroupId = "";
-          render();
+          renderAtCurrentScroll(() => bucketElement(column.dataset.bucketKind, movedGroupId));
           showToast("分组顺序已更新");
           return;
         }
@@ -3705,8 +3860,9 @@ function bindApp() {
         report &&
         assignReportToBucket(draggingId, bucketKind, column.dataset.bucketId)
       ) {
+        const movedReportId = draggingId;
         draggingId = "";
-        render();
+        renderAtCurrentScroll(() => reportElement(movedReportId));
         showToast(
           bucketKind === "tag"
             ? "已添加目标标签"
@@ -3744,7 +3900,8 @@ function bindApp() {
     saveState();
     const message = modal.mode === "edit" ? "工作主题已更新" : "工作主题已创建，可直接拖入报告";
     modal = null;
-    render();
+    renderWithViewportSnapshot(modalViewportSnapshot || captureViewportSnapshot());
+    modalViewportSnapshot = null;
     showToast(message);
   });
 
@@ -3888,7 +4045,8 @@ function bindApp() {
     }
     saveState();
     modal = null;
-    render();
+    renderWithViewportSnapshot(modalViewportSnapshot || captureViewportSnapshot());
+    modalViewportSnapshot = null;
     showToast("报告已保存");
   });
 
