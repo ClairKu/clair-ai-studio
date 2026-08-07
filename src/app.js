@@ -20,7 +20,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 38;
+const DATA_VERSION = 39;
 
 const WORK_TYPES = [
   { id: "requirement-review", name: "需求评审" },
