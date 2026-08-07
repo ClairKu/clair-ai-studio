@@ -1,0 +1,789 @@
+{
+  "meta": {
+    "title": "且慢投顾服务重构",
+    "subtitle": "从策略货架，升级为\n个人投资服务首页",
+    "eyebrow": "且慢产品 · 产品盘点与目标态设计",
+    "date": "2026-08-07",
+    "cutoff": "2026-08-07",
+    "owner": "且慢产品 / 待确认",
+    "confidentiality": "公开去敏版 · 内部经营口径仅保留已公开聚合值",
+    "accent": "#7457E8",
+    "brand": "Clair AI Studio",
+    "brandMark": "C",
+    "downloadUrl": "prototype.html",
+    "downloadLabel": "打开目标态原型"
+  },
+  "hero": {
+    "conclusion": "保留四笔钱与策略供给，但把投顾页的默认任务从“自己挑产品”改成“确认我的下一步”。",
+    "thesis": "新版应由一份持续更新的个人投资计划统领规划、持仓、策略、工具与投后；AI 小顾负责识别状态、主动编排和解释，自助筛选与用户组件自定义作为弹性层存在，而不是与顾问主链竞争。",
+    "badges": ["现状盘点", "转化分析", "目标态设计", "概念原型"]
+  },
+  "agenda": {
+    "enabled": true,
+    "label": "AGENDA",
+    "title": "报告大纲",
+    "groups": [
+      {
+        "index": "01",
+        "eyebrow": "EVIDENCE · 证据",
+        "title": "现状与使用真相",
+        "summary": "页面、能力、迭代与转化分别核对",
+        "sections": ["证据边界", "线上现况", "能力盘点", "迭代路径", "使用漏斗"]
+      },
+      {
+        "index": "02",
+        "eyebrow": "DIAGNOSIS · 诊断",
+        "title": "增长卡点在哪里",
+        "summary": "供给不弱，统一判断与闭环不足",
+        "sections": ["策略转化", "小顾现况", "根因判断"]
+      },
+      {
+        "index": "03",
+        "eyebrow": "DESIGN · 设计",
+        "title": "新版投顾服务架构",
+        "summary": "规划主链、三种模式、统一计划状态",
+        "sections": ["设计原则", "三种模式", "页面结构", "服务流程"]
+      },
+      {
+        "index": "04",
+        "eyebrow": "DELIVERY · 落地",
+        "title": "组件、指标与路线图",
+        "summary": "可配置但不失控，以结果而非点击验收",
+        "sections": ["组件协议", "主动边界", "指标体系", "分期路线"]
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "evidence-boundary",
+      "kicker": "01 · EVIDENCE",
+      "title": "先把证据分清",
+      "lead": "本报告同时使用现场页面、历史神策分析、产品材料与本体查询；不同截止日与不同状态不得混成一张“当前全景”。",
+      "layout": "cards",
+      "tone": "light",
+      "navLabel": "证据边界",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "LIVE · 已确认",
+          "title": "公开页现场核验",
+          "body": "2026-08-07 直接读取 qieman.com/m4 的可见页面与链接，确认当前公开投顾页结构、策略卡与工具入口。",
+          "status": "confirmed",
+          "source": "qieman.com/m4 · 2026-08-07"
+        },
+        {
+          "index": "02",
+          "eyebrow": "ANALYTICS · 历史快照",
+          "title": "点击与请求漏斗",
+          "body": "2026-07-01—07-23 的 App UV/PV、页面访客点击代理值、10 分钟到达与 7 日下单请求率。不是 8 月实时数据，也不是最终签约率。",
+          "status": "confirmed",
+          "source": "《且慢投顾页点击与转化分析》· 2026-07-24"
+        },
+        {
+          "index": "03",
+          "eyebrow": "INTERNAL · 本体",
+          "title": "跨源经营口径",
+          "body": "本体核对了服务关系、功能迭代、AI 小顾行为与资金口径；公开版仅保留已公开或可安全披露的聚合信息，资产与净流入明细留在组织内报告。",
+          "status": "confirmed",
+          "source": "盈米本体任务 sr5kk9q2 · 2026-08-07"
+        }
+      ],
+      "callout": {
+        "label": "口径原则",
+        "text": "“点击、到达、下单请求、签约、AUM、净流入”是六类不同指标，任何一个都不能替代另外五个。",
+        "status": "confirmed"
+      }
+    },
+    {
+      "id": "live-page",
+      "kicker": "02 · AS-IS",
+      "title": "线上仍是货架主导",
+      "lead": "当前公开页已经有定制和养老入口，但主体空间、比较方式与行动逻辑仍围绕四笔钱下的策略列表展开。",
+      "layout": "architecture",
+      "tone": "soft",
+      "navLabel": "线上现况",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "TOP",
+          "title": "两个运营入口",
+          "body": "“新增资金如何合理投资”与“一站式养老专区”位于首屏顶部；规划以 Banner 进入，不是持续可见的个人状态。",
+          "status": "confirmed",
+          "source": "qieman.com/m4 · 2026-08-07"
+        },
+        {
+          "index": "02",
+          "eyebrow": "CORE",
+          "title": "四笔钱策略货架",
+          "body": "活钱、短期稳健、长期投资、保险保障构成主导航；策略卡混用七日年化、历史年化、策略目标、适合人群等表达。",
+          "status": "confirmed",
+          "source": "qieman.com/m4 · 2026-08-07"
+        },
+        {
+          "index": "03",
+          "eyebrow": "TAIL",
+          "title": "更多投资选择",
+          "body": "攒钱计划、严选策略、每日估值位于货架之后，工具与专区仍以入口存在，结果没有统一写回一份投资计划。",
+          "status": "confirmed",
+          "source": "qieman.com/m4 · 2026-08-07"
+        },
+        {
+          "index": "04",
+          "eyebrow": "GAP",
+          "title": "小顾不是编排中枢",
+          "body": "当前页面能看到小顾形象和定制文案，但没有以个人计划状态、账户变化或待办为第一信息层。",
+          "status": "inferred",
+          "source": "现场结构判断 · 2026-08-07"
+        }
+      ],
+      "callout": {
+        "label": "结构性问题",
+        "text": "定制已经存在，但被表现为“一个入口”；要真正定制优先，必须把方案状态变成页面骨架。",
+        "status": "inferred"
+      }
+    },
+    {
+      "id": "capability-inventory",
+      "kicker": "03 · INVENTORY",
+      "title": "能力很多，关系不统一",
+      "lead": "四组能力都已形成资产，问题不是缺模块，而是规划、工具、营销与小顾可能各自给建议，用户缺少一个最终判断者。",
+      "layout": "cards",
+      "tone": "light",
+      "navLabel": "能力盘点",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "ADVISORY",
+          "title": "投顾与规划",
+          "body": "四笔钱、定制方案、投资规划、养老规划、持仓诊断、方案执行与投后跟进。",
+          "bullets": ["已确认：四笔钱、严选与五类定制方案上线", "缺口：规划状态未统领一级页", "新版角色：服务主链"],
+          "status": "confirmed",
+          "source": "历史产品材料与公开页交叉核验"
+        },
+        {
+          "index": "02",
+          "eyebrow": "TOOLS",
+          "title": "投资工具",
+          "body": "每日估值、风险收益比较、回测、自建组合、资产分析、攒钱与场景计算器。",
+          "bullets": ["近 7 天：估值 UV 5,401；账户分析 2,000+", "攒钱 1,305；规划 558；自建组合仅 9", "回测无独立埋点；新版需把工具结果写回计划"],
+          "status": "confirmed",
+          "source": "公开页与历史盘点 · 截止 2026-08-07"
+        },
+        {
+          "index": "03",
+          "eyebrow": "GROWTH",
+          "title": "策略营销与货架",
+          "body": "运营 Banner、四笔钱分桶、严选策略、重点策略、养老/全球/保险等专区，以及详情与下单链路。",
+          "bullets": ["优势：供给丰富且可形成档期", "缺口：曝光与推荐理由不统一", "新版角色：计划后的解释与执行层"],
+          "status": "confirmed",
+          "source": "qieman.com/m4 与历史策略矩阵"
+        },
+        {
+          "index": "04",
+          "eyebrow": "AI ADVISOR",
+          "title": "AI 小顾",
+          "body": "小顾 v3 自 2026-06-30 起灰度，v2 仍并行；正在从入口问答走向账户理解、复杂分析、主动任务与持续服务。",
+          "bullets": ["优势：可连接账户与金融能力", "缺口：v2/v3 埋点暂不能直接区分", "新版角色：计划编排与解释中枢"],
+          "status": "confirmed",
+          "source": "AI 小顾 3.0 产品材料 · 截止 2026-07-30"
+        }
+      ]
+    },
+    {
+      "id": "iteration",
+      "kicker": "04 · ITERATION",
+      "title": "迭代正从入口走向服务",
+      "lead": "产品演进已经积累了规划、账户与 AI 资产，但一级页仍停留在上一阶段的信息组织方式。",
+      "layout": "timeline",
+      "tone": "soft",
+      "navLabel": "迭代路径",
+      "items": [
+        {
+          "index": "01",
+          "meta": "2022—2023",
+          "title": "四笔钱与规划建立",
+          "body": "用资金用途组织策略，并形成千人千面规划、账户读取与产品匹配；2023 年现投顾页框架上线。",
+          "status": "confirmed",
+          "source": "历史设计/现况盘点材料"
+        },
+        {
+          "index": "02",
+          "meta": "2024—2025",
+          "title": "小顾与场景扩展",
+          "body": "AI 小顾、养老专区、更多严选与工具持续增加，服务供给变丰富，但入口数量和推荐主体也随之增加。",
+          "status": "confirmed",
+          "source": "AI 小顾与公开页面迭代材料"
+        },
+        {
+          "index": "03",
+          "meta": "2026 H1—07",
+          "title": "账户服务深化",
+          "body": "规划、诊断、主动服务、复杂分析与报告沉淀成为重点；小顾 v3 于 6 月 30 日起灰度，v2 仍并行。",
+          "status": "confirmed",
+          "source": "AI 小顾 3.0 产品升级方案与 PRD"
+        },
+        {
+          "index": "04",
+          "meta": "目标态",
+          "title": "统一服务操作系统",
+          "body": "一级页围绕计划状态与下一行动编排，工具结果写回计划，货架负责解释与执行，用户可自定义弹性组件。",
+          "status": "target",
+          "source": "本报告建议"
+        }
+      ]
+    },
+    {
+      "id": "usage-funnel",
+      "kicker": "05 · FUNNEL",
+      "title": "新鲜数据仍不是完整漏斗",
+      "lead": "本体近 7 天埋点补齐了页面曝光与点击规模，但策略打开、签约按钮与实际签约来自不同事件范围，不能直接串成同一条转化链。",
+      "layout": "metrics",
+      "tone": "dark",
+      "navLabel": "使用漏斗",
+      "items": [
+        {
+          "metric": "16,522",
+          "title": "投顾 Tab 曝光 UV",
+          "body": "近 7 天页面曝光去重用户，是本次较新的入口规模口径。",
+          "meta": "本体近 7 天 · 截止 2026-08-07",
+          "status": "confirmed",
+          "source": "本体任务 sr5kk9q2"
+        },
+        {
+          "metric": "6,736",
+          "title": "页内点击 UV",
+          "body": "约为曝光 UV 的 40.8%；用户可能点击多个分类与组件。",
+          "meta": "近 7 天 · 页面内任一点击",
+          "status": "confirmed",
+          "source": "本体任务 sr5kk9q2"
+        },
+        {
+          "metric": "203",
+          "title": "策略卡打开 UV",
+          "body": "显著低于页面点击，但不能用它作为所有签约入口的统一上游。",
+          "meta": "近 7 天 · 策略卡打开事件",
+          "status": "confirmed",
+          "source": "本体任务 sr5kk9q2"
+        },
+        {
+          "metric": "不可直连",
+          "title": "签约与资产结果",
+          "body": "签约按钮、产品签约与 AUM 是另一组事件/表，现有值不能与 203 直接相除。",
+          "meta": "需补 component_id + plan_id + strategy_id",
+          "status": "missing",
+          "source": "本体跨源核验 · 2026-08-07"
+        }
+      ],
+      "callout": {
+        "label": "不要误读",
+        "text": "四笔钱四格点击远高于严选入口，说明用户仍依赖资金用途导航；但按钮、卡片与签约表未共享同一归因键。",
+        "status": "confirmed"
+      }
+    },
+    {
+      "id": "strategy-performance",
+      "kicker": "06 · STRATEGY",
+      "title": "策略表现分成三类",
+      "lead": "同一页面里，流量规模、技术到达与交易意向呈现不同组合，说明策略排序不能只看点击。",
+      "layout": "comparison",
+      "tone": "light",
+      "navLabel": "策略转化",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "当前薄弱点",
+          "title": "规划最后一跳",
+          "body": "近 7 天投资规划建议书 UV 255，“转入一笔试试”点击 38，约 15%；规划价值到资金行动仍有明显损耗。",
+          "meta": "38 / 255 · 近 7 天",
+          "status": "confirmed",
+          "source": "本体任务 sr5kk9q2"
+        },
+        {
+          "index": "02",
+          "eyebrow": "高点击 · 低意向",
+          "title": "全球丰收",
+          "body": "页面点击代理 4.30%，但 7 日同策略下单请求率 8.35%；应优先补价值解释与适配判断。",
+          "meta": "点击 UV 3,298；完整样本 2,443",
+          "status": "confirmed",
+          "source": "2026-07-01—07-23 历史窗口"
+        },
+        {
+          "index": "03",
+          "eyebrow": "低点击 · 高意向",
+          "title": "盈米宝",
+          "body": "页面点击代理 2.71%，7 日同策略下单请求率 35.89%；值得保护并试验性提权。",
+          "meta": "点击 UV 2,079；原生到达事件口径不可比",
+          "status": "confirmed",
+          "source": "2026-07-01—07-23 历史窗口"
+        }
+      ],
+      "callout": {
+        "label": "排序公式",
+        "text": "新版推荐位应综合适配度、任务相关性、解释完整度与业务结果；点击热度只能是一个输入。",
+        "status": "inferred"
+      }
+    },
+    {
+      "id": "xiaogu",
+      "kicker": "07 · AI XIAOGU",
+      "title": "小顾有使用，代际口径未统一",
+      "lead": "本体补齐了近 7 天与近 30 天会话规模，但 v2/v3 仍并行，现有会话事件无法直接区分代际，也没有与计划推进和资产结果自然贯通。",
+      "layout": "metrics",
+      "tone": "soft",
+      "navLabel": "小顾现况",
+      "items": [
+        {
+          "metric": "1,859",
+          "title": "近 7 天会话 UV",
+          "body": "mia_bot_start 去重用户；只代表发起会话，不代表任务完成。",
+          "meta": "近 7 天 · 截止 2026-08-07",
+          "status": "confirmed",
+          "source": "本体任务 sr5kk9q2"
+        },
+        {
+          "metric": "9,769",
+          "title": "近 30 天会话 UV",
+          "body": "同一会话启动事件的 30 天去重用户；不可与 YTD 全量行为口径混用。",
+          "meta": "近 30 天 · 截止 2026-08-07",
+          "status": "confirmed",
+          "source": "本体任务 sr5kk9q2"
+        },
+        {
+          "metric": "并行",
+          "title": "v2 与 v3",
+          "body": "v3 自 6 月 30 日起灰度，v2 保留；现有埋点不能直接比较两代使用、任务完成与转化。",
+          "meta": "需以 sessionId / 版本字段补齐",
+          "status": "missing",
+          "source": "本体系统与埋点核验"
+        },
+        {
+          "metric": "长尾不足",
+          "title": "20 万以下触达",
+          "body": "本体判断会话渗透更偏向高净值，20 万以下长尾覆盖不足；公开版不展开资产与人数明细。",
+          "meta": "组织内报告保留完整口径",
+          "status": "missing",
+          "source": "本体任务 sr5kk9q2"
+        }
+      ]
+    },
+    {
+      "id": "root-cause",
+      "kicker": "08 · DIAGNOSIS",
+      "title": "根因是没有统一计划",
+      "lead": "现有模块各自成立，却没有共享一个用户可见、系统可计算、运营可归因的方案状态，导致推荐冲突与转化断点。",
+      "layout": "comparison",
+      "tone": "dark",
+      "navLabel": "根因判断",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "TODAY",
+          "title": "入口各自营业",
+          "body": "规划、四笔钱、诊断、估值、专区、严选和小顾都能提出建议，但用户看不到谁负责最终判断。",
+          "status": "inferred"
+        },
+        {
+          "index": "02",
+          "eyebrow": "CONSEQUENCE",
+          "title": "点击多，闭环弱",
+          "body": "页面能产生分类点击与策略请求，但工具结果、方案生成、签约和投后没有统一 ID 串联。",
+          "status": "confirmed"
+        },
+        {
+          "index": "03",
+          "eyebrow": "TARGET",
+          "title": "一份计划统领",
+          "body": "目标、四笔钱、风险、持仓、建议、执行和复盘写入同一计划对象；所有入口只读取和更新它。",
+          "status": "target"
+        }
+      ],
+      "callout": {
+        "label": "中心判断",
+        "text": "新版不是再做一个更漂亮的货架，而是把“计划”变成投顾服务的共享状态与增长主线。",
+        "status": "inferred"
+      }
+    },
+    {
+      "id": "design-principles",
+      "kicker": "09 · PRINCIPLES",
+      "title": "新版坚持六条原则",
+      "lead": "既要提高定制与主动服务效率，也要保护用户的自主选择、理解成本与适当性边界。",
+      "layout": "cards",
+      "tone": "light",
+      "navLabel": "设计原则",
+      "items": [
+        {
+          "index": "01",
+          "title": "规划默认",
+          "body": "首屏先显示计划状态、缺口与下一行动；不是先展示当期主推策略。",
+          "status": "target"
+        },
+        {
+          "index": "02",
+          "title": "定制优先",
+          "body": "信息足够时给定制方案；信息不足时先给临时建议并逐步补准，标准策略只兜底。",
+          "status": "target"
+        },
+        {
+          "index": "03",
+          "title": "主动但可控",
+          "body": "只推重要、相关、可行动的事项；说明为什么找我、何时失效，并允许静音与降频。",
+          "status": "target"
+        },
+        {
+          "index": "04",
+          "title": "自助不失联",
+          "body": "用户可筛选、比较与自建，但结果可一键带回计划做适配校验。",
+          "status": "target"
+        },
+        {
+          "index": "05",
+          "title": "组件有边界",
+          "body": "主链组件不可移除；工具、内容、策略观察与报告可增删排序。",
+          "status": "target"
+        },
+        {
+          "index": "06",
+          "title": "建议可追溯",
+          "body": "每个建议保留数据时间、规则/模型版本、适当性依据与用户确认。",
+          "status": "target"
+        }
+      ]
+    },
+    {
+      "id": "three-modes",
+      "kicker": "10 · MODES",
+      "title": "一个首页，三种控制权",
+      "lead": "不是在“AI 自动推荐”和“用户自己选”之间二选一，而是让不同用户随时切换服务强度。",
+      "layout": "demo",
+      "tone": "dark",
+      "navLabel": "三种模式",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "RECOMMEND FOR ME",
+          "title": "替我规划",
+          "body": "默认模式。小顾读取目标、账户、持仓与风险状态，给一个主建议、原因、替代和下一行动。",
+          "meta": "适合多数跟推荐用户",
+          "bullets": ["首屏只保留一项主行动", "定制方案优先", "重大变化主动提醒"],
+          "status": "target"
+        },
+        {
+          "index": "02",
+          "eyebrow": "PLAN WITH ME",
+          "title": "和我一起配",
+          "body": "小顾追问金额、期限、目标与约束，用户可以在推荐方案上调整风险、分桶与执行节奏。",
+          "meta": "适合希望参与决策的用户",
+          "bullets": ["对话 + 可视化双通道", "每次调整解释影响", "确认后写回计划"],
+          "status": "target"
+        },
+        {
+          "index": "03",
+          "eyebrow": "LET ME EXPLORE",
+          "title": "我自己选",
+          "body": "进入风险光谱、筛选、对比、自建组合与工具；系统不打断，但保留适当性与计划回流。",
+          "meta": "适合高活跃 DIY 用户",
+          "bullets": ["完整货架不占默认首屏", "可保存筛选与观察列表", "一键让小顾校验"],
+          "status": "target"
+        }
+      ]
+    },
+    {
+      "id": "page-structure",
+      "kicker": "11 · INFORMATION ARCHITECTURE",
+      "title": "首屏只回答下一步",
+      "lead": "页面从“内容分区”转为“服务优先级”，越靠前越个人、越需行动；越靠后越通用、越可自定义。",
+      "layout": "architecture",
+      "tone": "soft",
+      "navLabel": "页面结构",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "LOCKED",
+          "title": "计划状态",
+          "body": "目标、四笔钱、完整度、风险与执行进度。",
+          "status": "target"
+        },
+        {
+          "index": "02",
+          "eyebrow": "LOCKED",
+          "title": "下一行动",
+          "body": "按重要性只给一个主行动，可查看原因、稍后提醒或拒绝。",
+          "status": "target"
+        },
+        {
+          "index": "03",
+          "eyebrow": "ORCHESTRATED",
+          "title": "小顾服务流",
+          "body": "新增资金、到期、偏离、市场冲击、目标变化触发解释与任务。",
+          "status": "target"
+        },
+        {
+          "index": "04",
+          "eyebrow": "ELASTIC",
+          "title": "自助与组件",
+          "body": "策略地图、工具、周报、内容、观察与提醒由用户添加、排序和隐藏。",
+          "status": "target"
+        }
+      ],
+      "callout": {
+        "label": "交互原型",
+        "text": "报告首屏按钮可打开独立目标态原型，支持切换用户状态、计划/自助/组件页面与基础交互。",
+        "status": "target"
+      }
+    },
+    {
+      "id": "service-flow",
+      "kicker": "12 · SERVICE LOOP",
+      "title": "把工具接回服务闭环",
+      "lead": "每一次浏览、计算或筛选都应该产生可保存的结论，并推动同一份计划，而不是在工具页结束。",
+      "layout": "process",
+      "tone": "light",
+      "navLabel": "服务流程",
+      "items": [
+        {
+          "index": "01",
+          "title": "识别状态",
+          "body": "目标、资金、持仓、风险、行为与事件。",
+          "status": "target"
+        },
+        {
+          "index": "02",
+          "title": "判断任务",
+          "body": "缺规划、需执行、需校正、可探索或无需动作。",
+          "status": "target"
+        },
+        {
+          "index": "03",
+          "title": "给出方案",
+          "body": "一个主建议、理由、替代、风险与有效期。",
+          "status": "target"
+        },
+        {
+          "index": "04",
+          "title": "确认执行",
+          "body": "适当性校验、用户确认、下单/定投/调整。",
+          "status": "target"
+        },
+        {
+          "index": "05",
+          "title": "持续跟进",
+          "body": "执行进度、偏离、复盘与下一次触发。",
+          "status": "target"
+        }
+      ]
+    },
+    {
+      "id": "component-protocol",
+      "kicker": "13 · COMPONENTS",
+      "title": "自定义不等于随意拼装",
+      "lead": "组件要成为可治理的服务资产：既支持用户弹性，也让运营、合规与数据能够审计版本和效果。",
+      "layout": "cards",
+      "tone": "soft",
+      "navLabel": "组件协议",
+      "items": [
+        {
+          "index": "01",
+          "title": "统一数据契约",
+          "body": "component_id、user_state、plan_id、data_as_of、规则/模型版本、降级态。",
+          "status": "target"
+        },
+        {
+          "index": "02",
+          "title": "统一行动契约",
+          "body": "每个组件只声明一个主行动、一个回流计划的结果，以及是否需要适当性与确认。",
+          "status": "target"
+        },
+        {
+          "index": "03",
+          "title": "统一曝光契约",
+          "body": "稳定记录曝光、点击、完成、方案、签约和 AUM，关联规则版本与档期。",
+          "status": "target"
+        },
+        {
+          "index": "04",
+          "title": "两级自定义",
+          "body": "用户可调内容与频率；专业用户可创建观察服务，但发布到组件库前需审核、评估与可回滚。",
+          "status": "target"
+        }
+      ]
+    },
+    {
+      "id": "proactive-boundary",
+      "kicker": "14 · PROACTIVE SERVICE",
+      "title": "主动服务要克制可信",
+      "lead": "主动并不是多发提醒，而是只有在重要、相关、可行动且有明确有效期时才打扰用户。",
+      "layout": "comparison",
+      "tone": "dark",
+      "navLabel": "主动边界",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "TRIGGER",
+          "title": "为什么找我",
+          "body": "到账、到期、计划偏离、风险越界、目标变化或与持仓相关的重大市场事件。",
+          "status": "target"
+        },
+        {
+          "index": "02",
+          "eyebrow": "MESSAGE",
+          "title": "为什么重要",
+          "body": "说明影响账户、紧急程度、判断依据、有效期和不行动的后果。",
+          "status": "target"
+        },
+        {
+          "index": "03",
+          "eyebrow": "CONTROL",
+          "title": "用户如何控制",
+          "body": "稍后、静音、降频、关闭某类提醒；任何交易必须再次确认，不以“主动”替代授权。",
+          "status": "target"
+        }
+      ]
+    },
+    {
+      "id": "metrics-system",
+      "kicker": "15 · METRICS",
+      "title": "北极星改看计划推进",
+      "lead": "页面点击只能判断信息是否被看见，新版要衡量计划是否更完整、方案是否被接受、资产是否被持续服务。",
+      "layout": "architecture",
+      "tone": "light",
+      "navLabel": "指标体系",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "NORTH STAR",
+          "title": "有效计划资产覆盖",
+          "body": "已关联有效个人计划并处于持续服务中的资产 / 目标客群资产。",
+          "status": "target"
+        },
+        {
+          "index": "02",
+          "eyebrow": "FUNNEL",
+          "title": "计划推进漏斗",
+          "body": "识别 → 补信息 → 方案生成 → 接受 → 签约/执行 → 30/90 日持续服务。",
+          "status": "target"
+        },
+        {
+          "index": "03",
+          "eyebrow": "BUSINESS",
+          "title": "资产与收入结果",
+          "body": "签约 AUM、净流入、定投持续、调优贡献与投顾费；按计划和组件归因。",
+          "status": "target"
+        },
+        {
+          "index": "04",
+          "eyebrow": "GUARDRAIL",
+          "title": "信任与合规护栏",
+          "body": "不适配率、撤销/后悔、投诉、提醒关闭、解释查看与人工复核。",
+          "status": "target"
+        }
+      ]
+    },
+    {
+      "id": "roadmap",
+      "kicker": "16 · ROADMAP",
+      "title": "先统一主链，再开放编排",
+      "lead": "首期不需要同时建设完整 AI 页面工厂；先让计划与归因贯通，再逐步增加运营编排、用户自定义和模型排序。",
+      "layout": "actions",
+      "tone": "soft",
+      "navLabel": "分期路线",
+      "items": [
+        {
+          "index": "P0",
+          "eyebrow": "0—6 周",
+          "title": "补数与统一对象",
+          "body": "定义 plan_id、component_id、strategy_id、rule_version；补曝光和签约事件；统一四笔钱与策略字典。",
+          "meta": "责任：产品 + 数据 + 研发 + 合规 · DRI 待确认",
+          "status": "target"
+        },
+        {
+          "index": "P1",
+          "eyebrow": "6—12 周",
+          "title": "规划主链 MVP",
+          "body": "上线计划状态、下一行动、小顾解释、定制优先与自助策略地图；保持四笔钱心智兼容。",
+          "meta": "成功标准：计划生成、接受、签约漏斗可归因",
+          "status": "target"
+        },
+        {
+          "index": "P2",
+          "eyebrow": "12—20 周",
+          "title": "编排与主动服务",
+          "body": "按新客/未规划/执行中/DIY 四类状态编排，灰度事件触发与提醒控制。",
+          "meta": "成功标准：人群差异与提醒护栏均可测",
+          "status": "target"
+        },
+        {
+          "index": "P3",
+          "eyebrow": "20 周以后",
+          "title": "组件与模型排序",
+          "body": "开放组件增删排序、专业服务创作与审核；模型只排序候选，不绕过适当性与人工确认。",
+          "meta": "成功标准：自定义提升留存且不损伤主链完成",
+          "status": "target"
+        }
+      ],
+      "callout": {
+        "label": "首个决策",
+        "text": "先确认“个人计划”是否成为唯一方案状态，以及 P1 是否以计划推进而非策略 CTR 作为验收主线。",
+        "status": "target"
+      }
+    }
+  ],
+  "closing": {
+    "mark": "CLAIR · PRODUCT DECISION REPORT",
+    "line1": "让每个入口都回到计划，",
+    "line2": "让每一次建议都通向",
+    "accent": "行动",
+    "lead": "且慢不缺策略、工具或 AI 能力；下一步价值在于把它们组织成一个用户能理解、系统能计算、运营能归因、合规能审计的持续投顾服务。",
+    "metaPrimary": "且慢产品 · 2026-08-07",
+    "metaSecondary": "公开去敏版 · 目标态均不代表已上线"
+  },
+  "sources": [
+    {
+      "title": "且慢投顾公开页",
+      "type": "live-page",
+      "date": "2026-08-07",
+      "location": "https://qieman.com/m4",
+      "status": "confirmed"
+    },
+    {
+      "title": "且慢 APP 投顾模块｜现况盘点与改版方向",
+      "type": "historical-report",
+      "date": "2026-07-23",
+      "status": "confirmed"
+    },
+    {
+      "title": "且慢投顾页点击与转化分析",
+      "type": "analytics-snapshot",
+      "date": "2026-07-24",
+      "window": "2026-07-01—2026-07-23",
+      "status": "confirmed"
+    },
+    {
+      "title": "AI 小顾 3.0 产品升级方案与 PRD",
+      "type": "product-material",
+      "date": "2026-07",
+      "status": "confirmed"
+    },
+    {
+      "title": "盈米本体历史指标核验",
+      "type": "ontology-result",
+      "date": "2026-07-16",
+      "task": "7f727a6b",
+      "status": "confirmed"
+    },
+    {
+      "title": "盈米本体本次盘点",
+      "type": "ontology-query",
+      "date": "2026-08-07",
+      "task": "sr5kk9q2",
+      "location": "https://ontology.yingmi-inc.com/a/knjgahd2dk?k=UWRKLCw6ls61wAIgl7rPbbwph0n-CYAl",
+      "status": "confirmed"
+    }
+  ],
+  "openQuestions": [
+    "本体近 7 天、近 30 天与历史 23 日窗口不得混用；公开版不展开组织内 AUM、净流入与用户明细。",
+    "规划、诊断、工具与策略签约之间仍缺少统一的曝光—方案—签约—AUM 归因链。",
+    "用户组件自定义的开放范围、审核责任人与合规 SLA 待确认。",
+    "P1 的资源、DRI、灰度人群和上线日期待业务与研发共同排期。"
+  ]
+}

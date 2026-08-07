@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="description" content="且慢新版投顾页目标态交互原型：规划优先、定制优先、主动服务，并保留自助筛选与组件自定义。">
+  <title>且慢新版投顾页｜目标态交互原型</title>
+  <style>
+    :root{
+      --ink:#172033;--muted:#6b7485;--paper:#fbfaf7;--line:#e6e3dc;--purple:#7457e8;
+      --purple-2:#5e45c7;--purple-soft:#f0edff;--green:#2d8d78;--amber:#b77318;--blue:#3d7bd9;
+      --shadow:0 24px 80px rgba(25,28,48,.16);--phone:390px;--radius:24px;
+      font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+    }
+    *{box-sizing:border-box}html{background:#efece5;color:var(--ink)}body{margin:0;min-height:100vh;background:
+      radial-gradient(circle at 8% 8%,rgba(116,87,232,.16),transparent 28%),
+      radial-gradient(circle at 92% 92%,rgba(61,123,217,.11),transparent 26%),#f2f0eb}
+    button,input{font:inherit}button{cursor:pointer}.skip{position:fixed;left:12px;top:-60px;z-index:100;padding:10px 14px;background:#111;color:#fff;border-radius:10px}.skip:focus{top:12px}
+    .workspace{width:min(1180px,calc(100% - 32px));margin:auto;min-height:100vh;display:grid;grid-template-columns:minmax(300px,1fr) minmax(430px,.88fr);gap:42px;align-items:center;padding:34px 0}
+    .brief{max-width:620px}.eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--purple-2);font-size:11px;font-weight:850;letter-spacing:.13em;text-transform:uppercase}.eyebrow:before{content:"";width:20px;height:2px;background:currentColor}
+    h1{max-width:620px;margin:18px 0 16px;font:650 clamp(42px,5.4vw,74px)/.98 "Songti SC",STSong,serif;letter-spacing:-.055em}.lead{max-width:590px;margin:0;color:#565f70;font-size:16px;line-height:1.8}
+    .thesis{margin:26px 0;padding:18px 20px;border:1px solid rgba(116,87,232,.22);border-radius:20px;background:rgba(255,255,255,.7);box-shadow:0 10px 30px rgba(45,38,90,.05)}.thesis b{display:block;margin-bottom:7px;color:#5138b5;font-size:14px}.thesis p{margin:0;color:#5d6575;font-size:13px;line-height:1.65}
+    .control-panel{display:grid;gap:14px;margin-top:24px}.control-group{padding:16px;border:1px solid rgba(50,50,60,.08);border-radius:18px;background:rgba(255,255,255,.72)}.control-group label{display:block;margin-bottom:10px;color:#737988;font-size:11px;font-weight:800;letter-spacing:.08em}.segmented{display:flex;flex-wrap:wrap;gap:7px}.segment{padding:9px 12px;border:1px solid #dedbe8;border-radius:999px;background:#fff;color:#5e6573;font-size:12px}.segment[aria-pressed="true"]{border-color:var(--purple);background:var(--purple);color:#fff;box-shadow:0 8px 18px rgba(116,87,232,.22)}
+    .principles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}.principle{padding:14px;border-radius:16px;background:#171e31;color:#fff}.principle small{display:block;color:#afa8da;font-size:9px;letter-spacing:.1em}.principle b{display:block;margin-top:9px;font:600 16px/1.25 "Songti SC",serif}.principle span{display:block;margin-top:6px;color:#aeb6c6;font-size:10px;line-height:1.45}
+    .prototype-stage{position:relative;display:grid;place-items:center}.target-tag{position:absolute;z-index:2;top:4px;right:6px;padding:8px 11px;border-radius:999px;background:#171e31;color:#fff;font-size:10px;font-weight:800;letter-spacing:.09em}.target-tag span{color:#b7a8ff}
+    .phone{width:var(--phone);height:min(844px,calc(100vh - 50px));min-height:680px;border:9px solid #171a22;border-radius:44px;background:#f8f7f3;box-shadow:var(--shadow);overflow:hidden;position:relative}.phone:before{content:"";position:absolute;z-index:20;top:8px;left:50%;width:92px;height:24px;transform:translateX(-50%);border-radius:14px;background:#171a22}
+    .app{height:100%;display:grid;grid-template-rows:auto 1fr auto}.statusbar{height:38px;display:flex;align-items:center;justify-content:space-between;padding:8px 22px 0;color:#555b68;font-size:10px;font-weight:700}.statusbar i{font-style:normal;letter-spacing:.1em}
+    .screen{display:none;min-height:0;overflow:auto;padding:6px 15px 26px;scrollbar-width:none}.screen::-webkit-scrollbar{display:none}.screen.active{display:block}.app-head{display:flex;align-items:center;justify-content:space-between;margin:4px 0 14px}.brand{display:flex;align-items:center;gap:9px;font:650 20px "Songti SC",serif}.brand-mark{display:grid;place-items:center;width:34px;height:34px;border-radius:12px;background:linear-gradient(145deg,var(--purple),#a490ff);color:#fff;font-family:serif}.icon-btn{display:grid;place-items:center;width:35px;height:35px;border:1px solid var(--line);border-radius:12px;background:#fff;color:#5e6572}.pill{display:inline-flex;align-items:center;gap:6px;padding:6px 9px;border-radius:999px;background:var(--purple-soft);color:#5b43c7;font-size:9px;font-weight:800}.pill:before{content:"";width:6px;height:6px;border-radius:50%;background:#7457e8}
+    .hero-card{padding:18px;border-radius:22px;background:linear-gradient(145deg,#171e31,#25304a);color:#fff;box-shadow:0 15px 34px rgba(23,30,49,.18)}.hero-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.hero-card h2{margin:11px 0 5px;font:600 25px/1.15 "Songti SC",serif}.hero-card p{margin:0;color:#b9c2d2;font-size:11px;line-height:1.55}.progress{height:7px;margin:15px 0 8px;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden}.progress i{display:block;height:100%;width:62%;border-radius:inherit;background:linear-gradient(90deg,#a996ff,#7ccbbb)}.progress-meta{display:flex;justify-content:space-between;color:#aeb7c8;font-size:9px}.primary{width:100%;margin-top:15px;padding:12px 14px;border:0;border-radius:13px;background:#8b72f3;color:#fff;font-weight:800}.primary:hover{background:#765be8}.secondary{padding:10px 12px;border:1px solid #dedbe8;border-radius:12px;background:#fff;color:#5f48c7;font-size:11px;font-weight:800}
+    .section-title{display:flex;align-items:end;justify-content:space-between;margin:20px 2px 10px}.section-title h3{margin:0;font:650 18px/1.2 "Songti SC",serif}.section-title span,.section-title button{border:0;background:none;color:#7b8090;font-size:9px}.section-title button{color:var(--purple);font-weight:800}
+    .notice{padding:14px;border:1px solid #e5e1d7;border-radius:17px;background:#fff}.notice-head{display:flex;gap:11px}.signal{display:grid;place-items:center;flex:0 0 36px;height:36px;border-radius:12px;background:#fff2d9;color:#a35f0e;font-weight:900}.notice h4{margin:1px 0 5px;font-size:13px}.notice p{margin:0;color:#777e8c;font-size:10px;line-height:1.5}.notice-actions{display:flex;gap:8px;margin-top:12px}.notice-actions button{flex:1;padding:9px;border:0;border-radius:11px;background:#f1eff8;color:#5744b2;font-size:10px;font-weight:750}.notice-actions button:first-child{background:#171e31;color:#fff}
+    .four-money{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.money{padding:11px 7px;border:1px solid var(--line);border-radius:15px;background:#fff;text-align:center}.money i{display:grid;place-items:center;width:30px;height:30px;margin:0 auto 7px;border-radius:10px;background:#eff4ff;color:var(--blue);font-style:normal;font-size:11px}.money:nth-child(2) i{background:#edf7f2;color:var(--green)}.money:nth-child(3) i{background:#f4eeff;color:var(--purple)}.money:nth-child(4) i{background:#fff1e4;color:#b06a23}.money b{display:block;font-size:10px}.money small{display:block;margin-top:4px;color:#8a8e99;font-size:8px}
+    .xiaogu{position:relative;padding:15px 14px 14px 50px;border:1px solid rgba(116,87,232,.2);border-radius:17px;background:linear-gradient(135deg,#f5f2ff,#fff)}.xiaogu:before{content:"顾";position:absolute;left:13px;top:14px;display:grid;place-items:center;width:28px;height:28px;border-radius:9px;background:linear-gradient(145deg,var(--purple),#9c87ff);color:#fff;font:650 13px "Songti SC",serif}.xiaogu b{font-size:11px}.xiaogu p{margin:4px 0 10px;color:#777e8d;font-size:9px;line-height:1.45}.quick-asks{display:flex;gap:6px;overflow:hidden}.quick-asks button{flex:0 0 auto;padding:7px 8px;border:0;border-radius:9px;background:#fff;color:#6755b9;font-size:8px;box-shadow:0 3px 12px rgba(70,55,130,.08)}
+    .plan-map{display:grid;gap:8px}.goal-card{display:grid;grid-template-columns:42px 1fr auto;gap:10px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:15px;background:#fff}.goal-icon{display:grid;place-items:center;width:40px;height:40px;border-radius:13px;background:#edf7f2;color:var(--green);font-weight:900}.goal-card h4{margin:0 0 4px;font-size:11px}.goal-card p{margin:0;color:#858a96;font-size:8px}.goal-card strong{color:#454b59;font-size:10px}.goal-card em{display:block;margin-top:4px;color:#8a8f9d;font-size:8px;font-style:normal;text-align:right}
+    .mode-card{padding:14px;border-radius:17px;background:#fff;border:1px solid var(--line)}.mode-card h4{margin:0 0 6px;font-size:12px}.mode-card p{margin:0;color:#7d8390;font-size:9px;line-height:1.45}
+    .filter-row{display:flex;gap:7px;overflow:auto;margin-bottom:11px;scrollbar-width:none}.filter-row button{flex:0 0 auto;padding:8px 10px;border:1px solid #e0dde8;border-radius:999px;background:#fff;color:#6b7080;font-size:9px}.filter-row button.active{border-color:var(--purple);background:var(--purple-soft);color:#5b43c7;font-weight:800}
+    .spectrum{position:relative;height:90px;margin-bottom:12px;padding:13px;border-radius:16px;background:#171e31;color:#fff}.spectrum small{color:#aeb7c8;font-size:8px}.spectrum-line{position:absolute;left:16px;right:16px;bottom:25px;height:8px;border-radius:99px;background:linear-gradient(90deg,#52ad95,#d7bd58,#dc7a5d)}.spectrum-line i{position:absolute;left:42%;top:-6px;width:20px;height:20px;border:4px solid #fff;border-radius:50%;background:#7457e8;box-shadow:0 4px 10px #0005}.spectrum-scale{position:absolute;left:15px;right:15px;bottom:8px;display:flex;justify-content:space-between;color:#9ba6ba;font-size:7px}
+    .strategy-list{display:grid;gap:8px}.strategy{padding:13px;border:1px solid var(--line);border-radius:16px;background:#fff}.strategy-top{display:flex;align-items:flex-start;justify-content:space-between;gap:9px}.strategy h4{margin:0 0 4px;font-size:12px}.strategy p{margin:0;color:#7c8290;font-size:8px;line-height:1.4}.fit{padding:5px 7px;border-radius:999px;background:#edf7f2;color:#2b7d69;font-size:7px;font-weight:800}.strategy-data{display:flex;gap:16px;margin-top:11px;padding-top:10px;border-top:1px solid #ece9e2}.strategy-data b{display:block;font-size:10px}.strategy-data small{color:#8b909a;font-size:7px}.strategy-actions{display:flex;gap:7px;margin-top:10px}.strategy-actions button{flex:1;padding:8px;border:0;border-radius:10px;font-size:9px;font-weight:800}.strategy-actions button:first-child{background:#171e31;color:#fff}.strategy-actions button:last-child{background:#f1eff8;color:#5b43c7}
+    .custom-note{padding:12px 13px;border-radius:14px;background:#fff7e8;color:#835818;font-size:9px;line-height:1.5}.component-list{display:grid;gap:8px;margin-top:11px}.component{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:15px;background:#fff}.component[hidden]{display:none}.component-icon{display:grid;place-items:center;width:34px;height:34px;border-radius:11px;background:var(--purple-soft);color:#604ac8;font-size:11px}.component h4{margin:0 0 4px;font-size:10px}.component p{margin:0;color:#888d98;font-size:8px}.component-tools{display:flex;gap:4px}.component-tools button{width:26px;height:26px;border:1px solid #e2dfea;border-radius:8px;background:#faf9fd;color:#6e5fc0;font-size:10px}.switch{position:relative;width:34px!important;border:0!important;border-radius:99px!important;background:#cfcbd9!important}.switch:after{content:"";position:absolute;top:4px;left:4px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.2s}.switch.on{background:var(--purple)!important}.switch.on:after{left:12px}
+    .bottom-nav{height:68px;display:grid;grid-template-columns:repeat(4,1fr);align-items:start;padding:8px 9px 0;border-top:1px solid #e5e2dc;background:rgba(252,251,248,.96);backdrop-filter:blur(14px)}.bottom-nav button{display:grid;justify-items:center;gap:4px;border:0;background:transparent;color:#8a8e98;font-size:8px}.bottom-nav button b{display:grid;place-items:center;width:29px;height:29px;border-radius:10px;font-size:13px}.bottom-nav button.active{color:#5943c1;font-weight:800}.bottom-nav button.active b{background:var(--purple-soft)}
+    .toast{position:absolute;z-index:40;left:50%;bottom:78px;width:calc(100% - 36px);padding:11px 14px;transform:translate(-50%,20px);border-radius:13px;background:#171e31;color:#fff;font-size:10px;text-align:center;opacity:0;pointer-events:none;transition:.25s}.toast.show{transform:translate(-50%,0);opacity:1}
+    .disclosure{margin:16px 2px 0;color:#9b9da4;font-size:7px;line-height:1.5;text-align:center}
+    @media(max-width:900px){.workspace{grid-template-columns:1fr;padding:28px 0 40px}.brief{max-width:none}.prototype-stage{margin-top:8px}.phone{height:844px;max-height:calc(100vh - 34px)}.target-tag{right:calc(50% - 185px)}}
+    @media(max-width:480px){body{background:#171a22}.workspace{width:100%;padding:0;display:block}.brief,.target-tag{display:none}.phone{width:100%;height:100svh;min-height:620px;max-height:none;border:0;border-radius:0;box-shadow:none}.phone:before{display:none}.statusbar{padding-top:max(8px,env(safe-area-inset-top))}.bottom-nav{padding-bottom:env(safe-area-inset-bottom);height:calc(68px + env(safe-area-inset-bottom))}}
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#prototype">跳到交互原型</a>
+  <main class="workspace">
+    <section class="brief" aria-labelledby="page-title">
+      <span class="eyebrow">Target state · 目标态原型</span>
+      <h1 id="page-title">从策略货架，走向个人投资服务首页</h1>
+      <p class="lead">默认替用户回答“我现在最该做什么”，小顾以规划状态和账户变化主动编排服务；用户仍可随时进入可视化货架、自助筛选，或把工具与服务组件改成自己顺手的页面。</p>
+      <div class="thesis"><b>核心取舍</b><p>规划、适当性与下一行动属于不可移除的“服务主链”；工具、内容、策略观察与提醒属于可添加、排序和隐藏的“弹性组件”。自定义不会破坏顾问责任。</p></div>
+      <div class="control-panel" aria-label="原型控制器">
+        <div class="control-group"><label>切换用户状态，观察首屏如何变化</label><div class="segmented" id="persona-controls">
+          <button class="segment" data-persona="new" aria-pressed="false">新用户</button>
+          <button class="segment" data-persona="unplanned" aria-pressed="true">有资产未规划</button>
+          <button class="segment" data-persona="executing" aria-pressed="false">方案执行中</button>
+          <button class="segment" data-persona="diy" aria-pressed="false">高活跃 DIY</button>
+        </div></div>
+      </div>
+      <div class="principles">
+        <article class="principle"><small>01 · DEFAULT</small><b>规划默认</b><span>先判断目标、资金用途与缺口。</span></article>
+        <article class="principle"><small>02 · ORCHESTRATE</small><b>主动编排</b><span>账户与事件触发下一行动。</span></article>
+        <article class="principle"><small>03 · CONTROL</small><b>自助可控</b><span>可筛选、可比较、可自定义。</span></article>
+      </div>
+    </section>
+
+    <section class="prototype-stage" id="prototype" aria-label="新版投顾页手机交互原型">
+      <div class="target-tag"><span>概念原型</span> · 非已上线页面</div>
+      <div class="phone">
+        <div class="app">
+          <header class="statusbar"><span>9:41</span><i>◔ ◒ ▰</i></header>
+          <section class="screen active" data-screen="today">
+            <div class="app-head"><div class="brand"><span class="brand-mark">且</span><span>我的投顾</span></div><button class="icon-btn" data-toast="你有 2 条服务消息（演示）" aria-label="服务消息">◌</button></div>
+            <article class="hero-card">
+              <div class="hero-top"><div><span class="pill" id="persona-label">有资产未规划</span><h2 id="hero-title">先把这笔钱放进计划里</h2><p id="hero-copy">已识别 8.6 万元未纳入目标。完成期限与用途确认后，小顾会生成一份可执行的定制方案。</p></div></div>
+              <div class="progress"><i id="plan-progress"></i></div><div class="progress-meta"><span id="progress-label">计划完整度 62%</span><span id="progress-step">还差 2 项</span></div>
+              <button class="primary" id="hero-action" data-toast="已进入计划确认流程（演示）">继续完善计划</button>
+            </article>
+            <div class="section-title"><h3>今天需要你处理</h3><span>按重要性排序</span></div>
+            <article class="notice" id="next-action"><div class="notice-head"><span class="signal">!</span><div><h4>新增资金到账，需要安排</h4><p>先保留 6 个月开支，剩余资金与教育金目标仍有 2.4 万元缺口相关。</p></div></div><div class="notice-actions"><button data-toast="已生成三档资金安排（演示）">看建议</button><button data-toast="已设为明天提醒（演示）">稍后提醒</button></div></article>
+            <div class="section-title"><h3>你的四笔钱</h3><button data-nav="plan">查看计划 →</button></div>
+            <div class="four-money"><article class="money"><i>活</i><b>活钱</b><small>已充足</small></article><article class="money"><i>稳</i><b>稳钱</b><small>缺 1.2 万</small></article><article class="money"><i>长</i><b>长钱</b><small>待规划</small></article><article class="money"><i>保</i><b>保障</b><small>待检查</small></article></div>
+            <div class="section-title"><h3>小顾已为你准备</h3><span>基于账户与目标</span></div>
+            <article class="xiaogu"><b>不是所有市场变化都需要行动</b><p>过去一周的回撤主要来自成长资产，但账户整体仍在目标风险带内。需要处理的是新增资金，而不是追涨杀跌。</p><div class="quick-asks"><button data-toast="正在解释本次波动（演示）">对我有什么影响？</button><button data-toast="已展开判断依据（演示）">为什么不需要调仓？</button></div></article>
+            <p class="disclosure">概念原型 · 所有金额与建议均为脱敏模拟数据，不构成投资建议。真实服务需完成适当性校验、风险揭示与用户确认。</p>
+          </section>
+
+          <section class="screen" data-screen="plan">
+            <div class="app-head"><div class="brand"><span class="brand-mark">规</span><span>我的计划</span></div><span class="pill">持续更新</span></div>
+            <article class="mode-card"><h4>同一份计划，连接目标、账户、策略与投后</h4><p>新增资产、目标变化、执行偏离和市场事件都只更新这一个计划状态，避免多个入口各自给出一套建议。</p></article>
+            <div class="section-title"><h3>目标与账户</h3><button data-toast="准备创建新目标（演示）">＋ 新目标</button></div>
+            <div class="plan-map">
+              <article class="goal-card"><span class="goal-icon">稳</span><div><h4>家庭安全垫</h4><p>目标 12 万 · 当前 10.8 万</p></div><div><strong>90%</strong><em>按计划</em></div></article>
+              <article class="goal-card"><span class="goal-icon">教</span><div><h4>教育金</h4><p>2034 年 · 当前缺口 2.4 万</p></div><div><strong>68%</strong><em>需补配</em></div></article>
+              <article class="goal-card"><span class="goal-icon">退</span><div><h4>退休规划</h4><p>尚未确认退休年龄与支出</p></div><div><strong>—</strong><em>待规划</em></div></article>
+            </div>
+            <div class="section-title"><h3>方案执行</h3><span>小顾持续跟进</span></div>
+            <article class="notice"><div class="notice-head"><span class="signal" style="background:#edf7f2;color:#2d8d78">✓</span><div><h4>定制方案已执行 4 / 6 项</h4><p>剩余两项不会自动交易，需要你逐项确认。当前方案仍符合 R3 风险等级。</p></div></div><div class="notice-actions"><button data-toast="已打开待确认交易（演示）">继续执行</button><button data-toast="已打开方案依据（演示）">查看依据</button></div></article>
+            <div class="section-title"><h3>计划如何产生建议</h3></div>
+            <div class="plan-map"><article class="mode-card"><h4>资金用途 → 目标期限 → 风险能力 → 当前持仓</h4><p>四笔钱是结构层，定制方案是主结论，诊断与市场信号只负责校正。任何策略推荐都要能回到这条判断链。</p></article></div>
+          </section>
+
+          <section class="screen" data-screen="explore">
+            <div class="app-head"><div class="brand"><span class="brand-mark">选</span><span>自助选方案</span></div><button class="icon-btn" data-toast="已打开对比清单（演示）" aria-label="对比清单">≡</button></div>
+            <article class="mode-card"><h4>先给建议，也允许自己选</h4><p>风险光谱、筛选器和对比表共享同一策略字典；货架不是另一个推荐系统，选择结果可带回计划让小顾校验。</p></article>
+            <div class="section-title"><h3>可视化策略地图</h3><span>默认显示适合范围</span></div>
+            <div class="filter-row" id="filters"><button class="active" data-filter="all">全部</button><button data-filter="稳钱">稳钱</button><button data-filter="长钱">长钱</button><button data-filter="全球">全球</button><button data-filter="R3">R3</button></div>
+            <div class="spectrum"><small>你当前适合 R2–R3 · 圆点为建议风险中心</small><div class="spectrum-line"><i></i></div><div class="spectrum-scale"><span>低波动</span><span>平衡</span><span>高波动</span></div></div>
+            <div class="strategy-list" id="strategies">
+              <article class="strategy" data-tags="稳钱 R2"><div class="strategy-top"><div><h4>我要稳稳的幸福</h4><p>固收+ · 建议持有 1 年以上</p></div><span class="fit">适配度高</span></div><div class="strategy-data"><div><b>R2</b><small>风险等级</small></div><div><b>中低</b><small>历史波动</small></div><div><b>1 年+</b><small>建议期限</small></div></div><div class="strategy-actions"><button data-toast="已加入计划适配检查（演示）">看是否适合我</button><button data-toast="已加入对比（演示）">＋ 对比</button></div></article>
+              <article class="strategy" data-tags="长钱 全球 R3"><div class="strategy-top"><div><h4>全球多资产方案</h4><p>全球配置 · 建议持有 3 年以上</p></div><span class="fit">分散配置</span></div><div class="strategy-data"><div><b>R3</b><small>风险等级</small></div><div><b>中</b><small>历史波动</small></div><div><b>3 年+</b><small>建议期限</small></div></div><div class="strategy-actions"><button data-toast="已加入计划适配检查（演示）">看是否适合我</button><button data-toast="已加入对比（演示）">＋ 对比</button></div></article>
+              <article class="strategy" data-tags="长钱 R3"><div class="strategy-top"><div><h4>春华秋实</h4><p>大类资产配置 · 长期灵活转入</p></div><span class="fit">长期配置</span></div><div class="strategy-data"><div><b>R3</b><small>风险等级</small></div><div><b>中</b><small>历史波动</small></div><div><b>3 年+</b><small>建议期限</small></div></div><div class="strategy-actions"><button data-toast="已加入计划适配检查（演示）">看是否适合我</button><button data-toast="已加入对比（演示）">＋ 对比</button></div></article>
+            </div>
+          </section>
+
+          <section class="screen" data-screen="custom">
+            <div class="app-head"><div class="brand"><span class="brand-mark">组</span><span>自定义服务</span></div><button class="icon-btn" data-toast="布局已保存（演示）" aria-label="保存布局">✓</button></div>
+            <div class="custom-note"><b>不可移除：</b>计划状态、下一行动、风险与合规提醒。<br><b>可以自定义：</b>工具、内容、策略观察、定期报告与提醒频率。</div>
+            <div class="section-title"><h3>我的服务组件</h3><span>可排序与隐藏</span></div>
+            <div class="component-list" id="component-list">
+              <article class="component" data-component="valuation"><span class="component-icon">温</span><div><h4>市场温度与每日估值</h4><p>每周一 · 仅在出现机会时提醒</p></div><div class="component-tools"><button class="move" data-dir="up" aria-label="上移">↑</button><button class="switch on" aria-label="启用或停用"></button></div></article>
+              <article class="component" data-component="report"><span class="component-icon">报</span><div><h4>我的账户周报</h4><p>每周五 · 收益归因与偏离</p></div><div class="component-tools"><button class="move" data-dir="up" aria-label="上移">↑</button><button class="switch on" aria-label="启用或停用"></button></div></article>
+              <article class="component" data-component="savings"><span class="component-icon">攒</span><div><h4>工资到账后的安排</h4><p>事件触发 · 先留活钱再补目标</p></div><div class="component-tools"><button class="move" data-dir="up" aria-label="上移">↑</button><button class="switch on" aria-label="启用或停用"></button></div></article>
+              <article class="component" data-component="content"><span class="component-icon">读</span><div><h4>主理人陪伴内容</h4><p>按持仓关联 · 每周最多 2 条</p></div><div class="component-tools"><button class="move" data-dir="up" aria-label="上移">↑</button><button class="switch" aria-label="启用或停用"></button></div></article>
+            </div>
+            <button class="primary" data-toast="已打开服务组件库（演示）">＋ 添加服务组件</button>
+            <div class="section-title"><h3>主动服务边界</h3></div>
+            <article class="mode-card"><h4>你决定频率，小顾说明原因</h4><p>每条主动提醒都展示触发原因、重要性、有效期和“为什么是我”；一键静音或降低频率，交易永远需要再次确认。</p></article>
+          </section>
+
+          <nav class="bottom-nav" aria-label="原型页面导航">
+            <button class="active" data-nav="today"><b>⌂</b>今天</button>
+            <button data-nav="plan"><b>◎</b>计划</button>
+            <button data-nav="explore"><b>◇</b>自助</button>
+            <button data-nav="custom"><b>▦</b>组件</button>
+          </nav>
+        </div>
+        <div class="toast" role="status" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
+  <script>
+    const $=(s,r=document)=>r.querySelector(s);const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+    const toast=$('.toast');let toastTimer;
+    function showToast(text){toast.textContent=text;toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),1800)}
+    function navigate(name){$$('.screen').forEach(n=>n.classList.toggle('active',n.dataset.screen===name));$$('[data-nav]').forEach(n=>n.classList.toggle('active',n.dataset.nav===name));const screen=$(`.screen[data-screen="${name}"]`);if(screen)screen.scrollTop=0}
+    $$('[data-nav]').forEach(b=>b.addEventListener('click',()=>navigate(b.dataset.nav)));
+    $$('[data-toast]').forEach(b=>b.addEventListener('click',()=>showToast(b.dataset.toast)));
+    const personaData={
+      new:{label:'新用户',title:'先告诉我这笔钱要做什么',copy:'不需要一次填完资料。回答金额与期限两个问题，小顾先给可解释的临时建议，再逐步补准。',progress:'18%',step:'先回答 2 个问题',action:'开始 1 分钟规划',notice:'先建立你的第一笔钱计划'},
+      unplanned:{label:'有资产未规划',title:'先把这笔钱放进计划里',copy:'已识别 8.6 万元未纳入目标。完成期限与用途确认后，小顾会生成一份可执行的定制方案。',progress:'62%',step:'还差 2 项',action:'继续完善计划',notice:'新增资金到账，需要安排'},
+      executing:{label:'方案执行中',title:'还有 2 项方案待你确认',copy:'定制方案已完成 4 / 6 项。市场波动没有改变目标，优先完成原计划，不追加临时推荐。',progress:'78%',step:'已执行 4 / 6',action:'继续执行方案',notice:'两笔计划内交易待确认'},
+      diy:{label:'高活跃 DIY',title:'先看你的组合偏离，再自己选',copy:'你常用估值和筛选工具。小顾保留风险边界与计划校验，把首屏更多空间交给自助探索。',progress:'84%',step:'计划状态正常',action:'进入可视化策略地图',notice:'长钱集中度高于你的设定'}
+    };
+    function setPersona(key){const d=personaData[key];$$('[data-persona]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.persona===key)));$('#persona-label').textContent=d.label;$('#hero-title').textContent=d.title;$('#hero-copy').textContent=d.copy;$('#plan-progress').style.width=d.progress;$('#progress-label').textContent=`计划完整度 ${d.progress}`;$('#progress-step').textContent=d.step;$('#hero-action').textContent=d.action;$('#next-action h4').textContent=d.notice;if(key==='diy')navigate('explore');else navigate('today')}
+    $$('[data-persona]').forEach(b=>b.addEventListener('click',()=>setPersona(b.dataset.persona)));
+    $$('#filters button').forEach(b=>b.addEventListener('click',()=>{$$('#filters button').forEach(x=>x.classList.toggle('active',x===b));$$('.strategy').forEach(card=>card.hidden=b.dataset.filter!=='all'&&!card.dataset.tags.includes(b.dataset.filter));showToast(`已筛选：${b.textContent}`)}));
+    $$('.switch').forEach(b=>b.addEventListener('click',()=>{b.classList.toggle('on');showToast(b.classList.contains('on')?'组件已启用':'组件已停用')}));
+    $$('.move').forEach(b=>b.addEventListener('click',()=>{const item=b.closest('.component'),prev=item.previousElementSibling;if(prev){item.parentElement.insertBefore(item,prev);showToast('组件已上移')}else showToast('已经在最前面')}));
+  </script>
+</body>
+</html>

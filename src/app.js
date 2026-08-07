@@ -17,7 +17,7 @@ const VIEW_KEY = "clair-service-report-workbench-view";
 const TIME_SORT_KEY = "clair-service-report-time-sort-v1";
 const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
-const DATA_VERSION = 37;
+const DATA_VERSION = 38;
 
 const WORK_TYPES = [
   { id: "requirement-review", name: "需求评审" },
@@ -121,6 +121,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "qieman-advisor-service-redesign-2026-08-07",
+      groupId: "xiaogu",
+      title: "且慢投顾服务重构｜从策略货架到个人投资服务首页",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-advisor-service-redesign-2026-08-07/",
+      preview: "qieman-advisor-service-redesign-2026-08-07.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-07T18:20:00.000+08:00",
+      source: "本体实时盘点 × 公开页现场核验 × 神策转化分析｜规划默认、定制优先、主动编排、自助筛选与用户组件自定义",
+      access: "production",
+      workType: "product-planning",
+      tags: ["且慢", "投顾服务", "AI 小顾", "产品规划", "数据分析", "本体", "概念原型", "HTML", "生产"],
+    },
     {
       id: "clair-product-design-reviewer-2026-08-06",
       groupId: "ai-workbench",
