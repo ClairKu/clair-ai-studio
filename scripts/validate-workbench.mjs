@@ -35,8 +35,8 @@ const reports = reportChunks.map((chunk) => ({
   access: chunk.match(/\baccess:\s*"([^"]+)"/)?.[1] || "",
 }));
 
-if (reports.length !== 84) {
-  fail(`初始成果数量异常：预期 84，实际 ${reports.length}`);
+if (reports.length !== 85) {
+  fail(`初始成果数量异常：预期 85，实际 ${reports.length}`);
 }
 
 for (const field of ["id", "url"]) {

@@ -20,7 +20,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 38;
+const DATA_VERSION = 39;
 
 const WORK_TYPES = [
   { id: "requirement-review", name: "需求评审" },
@@ -124,6 +124,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "qianwen-qieman-task-assistant-demo-2026-08-07",
+      groupId: "ai-platform",
+      title: "千问任务助理 × 且慢 AI 小顾｜理财诊断合作方案与产品 DEMO",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qianwen-qieman-task-assistant-demo-2026-08-07/",
+      preview: "qianwen-qieman-task-assistant-demo-2026-08-07.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-07T18:40:00.000+08:00",
+      source: "完全参照千问 APP 任务助理设计的 11 屏高保真 DEMO｜全市场基金诊断 · 风险偏好 · 持仓匹配 · 家庭财务 · 市场周报 → 一键转入且慢定制方案 / AI 小顾解读 / 人工顾问",
+      access: "production",
+      workType: "product-demo",
+      tags: ["千问", "且慢", "AI 小顾", "AI 开放平台", "MCP", "合作方案", "基金诊断", "家庭财务", "概念原型", "HTML", "生产"],
+    },
     {
       id: "qieman-advisor-service-redesign-2026-08-07",
       groupId: "xiaogu",

@@ -1,0 +1,1278 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#eef2fb">
+<meta name="description" content="千问任务助理 × 盈米且慢·AI 小顾合作方案产品 DEMO：全市场基金诊断、风险测评、持仓匹配、家庭财务诊断与市场周报，完全参照千问 APP 原有设计的高保真界面。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23315efb'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-size='16' fill='white'%3E%E2%9C%B3%3C/text%3E%3C/svg%3E">
+<title>千问任务助理 × 且慢 AI 小顾｜合作方案产品 DEMO</title>
+<style>
+:root{
+  --ink:#15181f;--sub:#6d7380;--faint:#9aa0ab;--line:#ebedf1;--line2:#e3e5ea;
+  --paper:#f3f5f9;--card:#fff;
+  --blue:#3b5bfe;--blue-soft:#e8eeff;--bubble:#d6e7fc;
+  --qm:#0eaf7d;--qm-soft:#e4f6ef;--qm-ink:#0b7c5a;
+  --amber:#d98a1f;--amber-soft:#fbf1df;--red:#d4574d;--red-soft:#fbe9e7;
+  --shadow:0 22px 60px rgba(30,42,80,.10);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Segoe UI","Microsoft YaHei",sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,p{margin:0}
+a{color:inherit}
+.wrap{max-width:1360px;margin:0 auto;padding:0 28px}
+
+/* ===== 页面头部 ===== */
+.hero{background:linear-gradient(150deg,#dce9fd 0%,#e9e5fb 42%,#fdf0ea 100%);border-bottom:1px solid #e6e3ef}
+.hero-in{padding:54px 0 40px;display:flex;flex-wrap:wrap;gap:34px;align-items:flex-end;justify-content:space-between}
+.eyebrow{font-size:11px;font-weight:800;letter-spacing:.18em;color:#5a63d8;text-transform:uppercase}
+.hero h1{font-size:34px;letter-spacing:-.02em;line-height:1.25;margin:12px 0 14px;max-width:760px}
+.hero p.lead{font-size:15px;line-height:1.8;color:#4c5265;max-width:760px}
+.hero-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.hero-badges span{background:rgba(255,255,255,.72);border:1px solid rgba(90,99,216,.18);border-radius:99px;padding:6px 13px;font-size:12.5px;font-weight:600;color:#3c4370}
+.hero-meta{font-size:12.5px;color:#6b7188;line-height:2;text-align:right;min-width:240px}
+.hero-meta b{color:#343a54}
+.toc{position:sticky;top:0;z-index:50;background:rgba(243,245,249,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line2)}
+.toc-in{display:flex;gap:6px;overflow-x:auto;padding:10px 0}
+.toc a{white-space:nowrap;text-decoration:none;font-size:13px;font-weight:600;color:#565d6e;padding:8px 14px;border-radius:99px;border:1px solid transparent}
+.toc a:hover{background:#fff;border-color:var(--line2);color:var(--ink)}
+
+/* ===== 方案速览 ===== */
+.sec{padding:52px 0 18px}
+.sec-h{max-width:820px;margin-bottom:26px}
+.kicker{font-size:11px;font-weight:800;letter-spacing:.16em;color:var(--blue);text-transform:uppercase}
+.sec-h h2{font-size:25px;letter-spacing:-.02em;margin:8px 0 10px}
+.sec-h p{font-size:14.5px;line-height:1.85;color:var(--sub)}
+.ov-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.ov-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 8px 26px rgba(30,42,80,.05)}
+.ov-card h3{font-size:15.5px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.ov-card h3 em{font-style:normal;font-size:10.5px;font-weight:800;letter-spacing:.1em;color:var(--blue);background:var(--blue-soft);border-radius:6px;padding:3px 7px}
+.ov-card p,.ov-card li{font-size:13.5px;line-height:1.8;color:var(--sub)}
+.ov-card ul{margin:0;padding-left:18px}
+.ov-card li b{color:var(--ink)}
+.pipe{display:flex;flex-direction:column;gap:8px}
+.pipe-node{border:1px solid var(--line2);border-radius:12px;padding:11px 14px;font-size:13px;line-height:1.6;background:#fafbfd}
+.pipe-node b{display:block;font-size:13.5px;color:var(--ink);margin-bottom:2px}
+.pipe-arrow{text-align:center;color:var(--faint);font-size:14px;line-height:1}
+.scene-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:8px}
+.scene{border:1px solid var(--line);border-radius:14px;background:#fff;padding:16px}
+.scene .tag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.08em;border-radius:6px;padding:3px 7px;margin-bottom:9px}
+.scene .tag.p0{color:#fff;background:var(--blue)}
+.scene .tag.p1{color:var(--blue);background:var(--blue-soft)}
+.scene h4{font-size:14.5px;margin-bottom:6px}
+.scene p{font-size:12.5px;line-height:1.7;color:var(--sub)}
+.funnel{display:flex;flex-direction:column;gap:7px;margin-top:6px}
+.fstep{display:flex;align-items:center;gap:10px;font-size:12.5px;color:var(--sub)}
+.fbar{height:26px;border-radius:8px;background:linear-gradient(90deg,#3b5bfe,#7a90ff);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;padding:0 10px;white-space:nowrap}
+.fstep:nth-child(2) .fbar{width:78%;opacity:.92}
+.fstep:nth-child(3) .fbar{width:56%;opacity:.85}
+.fstep:nth-child(4) .fbar{width:38%;background:linear-gradient(90deg,#0eaf7d,#3ecfa4)}
+.fstep:nth-child(5) .fbar{width:24%;background:linear-gradient(90deg,#0b8a63,#0eaf7d)}
+.fstep .fbar{width:100%}
+
+/* ===== 章节与手机排版 ===== */
+.chapter{padding:46px 0 10px}
+.ch-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:8px}
+.ch-num{font-size:12px;font-weight:800;letter-spacing:.14em;color:var(--blue)}
+.ch-head h2{font-size:23px;letter-spacing:-.02em}
+.ch-lead{font-size:14px;line-height:1.85;color:var(--sub);max-width:860px;margin:6px 0 30px}
+.stage{display:flex;flex-wrap:wrap;gap:34px;align-items:flex-start}
+figure.shot{margin:0;width:393px}
+.phone{background:#0b0c10;border-radius:52px;padding:9px;box-shadow:var(--shadow)}
+.scr{position:relative;background:#fff;border-radius:44px;overflow:hidden;display:flex;flex-direction:column;min-height:800px}
+figcaption{padding:16px 6px 0}
+figcaption b{display:block;font-size:14.5px;margin-bottom:7px}
+figcaption b i{font-style:normal;color:var(--blue);font-size:11.5px;font-weight:800;letter-spacing:.06em;margin-right:8px}
+.notes{margin:0;padding-left:16px}
+.notes li{font-size:12.5px;line-height:1.75;color:var(--sub);margin-bottom:3px}
+.notes li b{display:inline;font-size:12.5px;color:var(--qm-ink);margin:0}
+
+/* ===== 手机通用组件（千问风格）===== */
+.sbar{display:flex;align-items:center;justify-content:space-between;padding:13px 24px 4px;font-size:14.5px;font-weight:700}
+.island{background:#000;border-radius:22px;height:34px;min-width:172px;display:flex;align-items:center;justify-content:space-between;padding:0 5px 0 4px;color:#fff}
+.island .ic-check{width:26px;height:26px;border-radius:50%;background:#2f6bff;display:grid;place-items:center}
+.island .ic-check svg{width:13px;height:13px;stroke:#fff;stroke-width:3;fill:none}
+.island .mins{font-size:12.5px;font-weight:600;color:#d8d8de;padding-right:8px}
+.sicons{display:flex;align-items:center;gap:5px}
+.sicons svg{height:12px;display:block}
+.batt{border:1px solid #b9bdc6;border-radius:4px;width:26px;height:13px;position:relative;font-size:8.5px;font-weight:800;display:grid;place-items:center;color:#15181f}
+.batt.low{background:#f6b73c;border-color:#f6b73c}
+.batt::after{content:"";position:absolute;right:-3.5px;top:3.5px;width:2px;height:5px;border-radius:0 2px 2px 0;background:#b9bdc6}
+
+.navbar{display:flex;align-items:center;justify-content:space-between;padding:12px 18px 10px}
+.navbar .nv-title{font-size:17px;font-weight:700;letter-spacing:.01em}
+.nv-ico{width:26px;height:26px;display:grid;place-items:center;color:#20232b}
+.nv-ico svg{width:21px;height:21px;stroke:currentColor;stroke-width:1.9;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.nv-ghost{width:26px}
+.pill-btn{border:1px solid #e3e5ea;background:rgba(255,255,255,.8);border-radius:99px;font-size:12.5px;font-weight:600;padding:6px 12px;color:#2c2f38}
+
+.gennote{margin-top:auto;font-size:10.5px;color:#b7bcc6;text-align:center;padding:10px 0 14px}
+
+/* 聊天 */
+.chat-h{display:flex;align-items:center;justify-content:space-between;padding:12px 18px}
+.menu-dot{position:relative}
+.menu-dot::after{content:"";position:absolute;top:-1px;right:-3px;width:6px;height:6px;border-radius:50%;background:#3b5bfe}
+.chat-title{display:flex;align-items:center;gap:6px;font-size:17px;font-weight:700}
+.chat-title svg{width:15px;height:15px;stroke:#8a8f99;stroke-width:1.8;fill:none;stroke-linecap:round}
+.chat-body{padding:6px 16px 4px;display:flex;flex-direction:column;gap:12px}
+.bub-u{margin-left:auto;max-width:84%;background:var(--bubble);border-radius:16px;padding:11px 14px;font-size:15px;line-height:1.7}
+.bub-u .att{margin-top:8px;background:rgba(255,255,255,.75);border-radius:10px;padding:8px 10px;display:flex;align-items:center;gap:9px;font-size:12.5px;color:#3c4356}
+.bub-u .att b{display:block;font-size:12.5px}
+.bub-u .att small{color:#7d8496;font-size:11px}
+.a-text{font-size:15px;line-height:1.78;color:#20232b}
+.a-text p{margin:0 0 10px}
+.a-text p:last-child{margin:0}
+
+/* 任务卡 */
+.tcard{border:1px solid #ececf0;border-radius:16px;background:#fff;box-shadow:0 8px 28px rgba(20,28,50,.06)}
+.tcard-h{display:flex;align-items:center;gap:9px;padding:13px 14px;border-bottom:1px solid #f1f2f5;font-size:14px;font-weight:700}
+.tcard-h svg{width:17px;height:17px;stroke:#20232b;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.tcard-h .sp{margin-left:auto;color:#b0b4bd}
+.tcard-b{padding:10px 14px 12px}
+.step{display:flex;gap:10px;padding:7px 0;font-size:14px;line-height:1.55}
+.step .st-ic{flex:0 0 20px;height:20px;margin-top:1px;display:grid;place-items:center}
+.step .st-ic svg{width:16px;height:16px;stroke:#20232b;stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.step.done{font-weight:600}
+.step.dim{color:#9aa0ab}
+.ring{position:relative;width:22px;height:22px;flex:0 0 22px}
+.ring svg{width:22px;height:22px;transform:rotate(-90deg)}
+.ring .lbl{position:absolute;inset:0;display:grid;place-items:center;font-size:7.5px;font-weight:800;color:var(--blue)}
+.st-sub{margin:2px 0 4px 30px;display:flex;flex-direction:column;gap:6px}
+.tool-chip{display:flex;align-items:center;gap:8px;background:#f5f6f8;border-radius:10px;padding:8px 10px;font-size:12.5px;color:#5c6370;border:1px solid #f0f1f4}
+.tool-chip .t-ico{width:18px;height:18px;border-radius:5px;display:grid;place-items:center;font-size:10px;font-weight:800;color:#fff;flex:0 0 18px}
+.t-qm{background:linear-gradient(135deg,#0eaf7d,#0b8a63)}
+.t-md{background:#20232b}
+.tool-chip b{color:#2c2f38;font-weight:600}
+.file-chip{display:flex;align-items:center;gap:9px;border:1px solid #e9eaee;background:#fff;border-radius:10px;padding:8px 10px;font-size:12.5px;color:#3c4150}
+.file-chip .f-ico{width:20px;height:20px;border-radius:5px;background:#20232b;color:#fff;font-size:8.5px;font-weight:800;display:grid;place-items:center;flex:0 0 20px}
+.file-chip .f-ico.pdf{background:#d4574d}
+.tcard-f{display:flex;align-items:center;gap:8px;border-top:1px solid #f1f2f5;padding:11px 14px;font-size:12.5px;color:#8a8f99}
+.tcard-f .mini{width:19px;height:19px;border-radius:5px;display:grid;place-items:center;font-size:9.5px;color:#fff;font-weight:800}
+.tcard-f .sep{margin-left:auto}
+
+/* 快捷行与输入条 */
+.quickrow{display:flex;gap:8px;padding:10px 14px 2px;overflow:hidden}
+.qchip{display:flex;align-items:center;gap:6px;border:1px solid #e7e8ec;background:#fff;border-radius:12px;padding:8px 11px;font-size:13px;font-weight:600;color:#2c2f38;white-space:nowrap}
+.qchip.blue{color:var(--blue);border-color:#ccd7ff}
+.qchip svg{width:14px;height:14px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round}
+.inbar{margin:8px 14px 4px;display:flex;align-items:center;gap:10px;border:1px solid #e7e8ec;border-radius:26px;padding:11px 8px 11px 14px;background:#fff}
+.inbar .ph{flex:1;font-size:15px;color:#a8adb8}
+.inbar svg{width:22px;height:22px;stroke:#494e5b;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.inbar .send{width:32px;height:32px;border-radius:50%;background:#e9ebf0;display:grid;place-items:center}
+.inbar .send.on{background:var(--blue)}
+.inbar .send.on svg{stroke:#fff}
+.inbar .send.stop{background:#20232b}
+.inbar .send.stop i{width:11px;height:11px;border-radius:2.5px;background:#fff;display:block}
+
+/* 任务助理落地页 */
+.landing{background:linear-gradient(168deg,#dbe9fd 0%,#e9e6fb 40%,#fdf2ec 100%)}
+.mark{width:52px;height:52px;margin:6px auto 12px;display:block}
+.land-title{display:flex;align-items:center;justify-content:center;gap:7px;font-size:23px;font-weight:800}
+.beta{font-size:9px;font-weight:800;letter-spacing:.08em;color:#fff;background:#20232b;border-radius:5px;padding:3px 5px;transform:translateY(-6px)}
+.land-sub{margin-top:8px;text-align:center;font-size:13px;color:#6d7380}
+.tabs{display:flex;gap:22px;padding:22px 20px 0;font-size:15px;color:#7a8090;overflow:hidden}
+.tabs span{white-space:nowrap;padding-bottom:9px}
+.tabs .on{color:#15181f;font-weight:800;position:relative}
+.tabs .on::after{content:"";position:absolute;left:50%;transform:translateX(-50%);bottom:0;width:18px;height:3px;border-radius:3px;background:#15181f}
+.subchips{display:flex;gap:8px;padding:14px 20px 0}
+.subchips span{border:1px solid rgba(59,91,254,.0);background:rgba(255,255,255,.7);border-radius:99px;padding:7px 13px;font-size:12.5px;color:#565d6e;white-space:nowrap}
+.subchips .on{color:var(--blue);background:#e5edff;font-weight:700}
+.hairline-tip{display:flex;align-items:center;gap:10px;color:#9aa0ab;font-size:11.5px;justify-content:center;margin:16px 24px 0}
+.hairline-tip::before,.hairline-tip::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,#c9cedd)}
+.hairline-tip::after{background:linear-gradient(90deg,#c9cedd,transparent)}
+.carousel{position:relative;display:flex;align-items:center;justify-content:center;margin:18px 0 4px;min-height:378px}
+.side-card{position:absolute;top:26px;width:120px;height:300px;border-radius:18px;background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.8);overflow:hidden}
+.side-card.l{left:-64px}
+.side-card.r{right:-64px}
+.side-card .sc-img{height:150px;background:linear-gradient(140deg,#cfe3f8,#e8dff6)}
+.side-card.r .sc-img{background:linear-gradient(140deg,#d9f0e6,#cfe3f8)}
+.side-card p{font-size:11px;color:#565d6e;padding:10px;line-height:1.5}
+.main-card{position:relative;width:252px;background:#fff;border-radius:22px;box-shadow:0 24px 50px rgba(52,66,120,.16);overflow:hidden;z-index:2}
+.mc-img{position:relative;height:196px;background:linear-gradient(150deg,#e8f1fd 0%,#eef3ff 55%,#fdf3ec 100%);display:grid;place-items:center}
+.mc-img .chip{position:absolute;left:10px;bottom:10px;background:rgba(22,25,32,.78);color:#fff;font-size:10.5px;border-radius:7px;padding:4px 8px}
+.mc-img .x1{position:absolute;right:12px;top:10px;background:#fff;border-radius:8px;font-size:11px;font-weight:800;padding:3px 7px;color:#20232b;box-shadow:0 4px 10px rgba(0,0,0,.08)}
+.mc-body{padding:13px 14px 14px;text-align:center}
+.mc-body h4{font-size:13.5px;line-height:1.55;font-weight:700}
+.mc-body .by{margin-top:5px;font-size:10.5px;color:#9aa0ab;display:flex;align-items:center;justify-content:center;gap:5px}
+.mc-body .by i{width:12px;height:12px;border-radius:3.5px;background:linear-gradient(135deg,#0eaf7d,#0b8a63);display:inline-grid;place-items:center;color:#fff;font-size:7.5px;font-weight:800;font-style:normal}
+.try{margin-top:11px;width:100%;border:1px solid #e3e5ea;background:#fff;border-radius:12px;padding:10px 0;font-size:13.5px;font-weight:700;text-align:center}
+.left-times{text-align:center;font-size:11.5px;color:#9aa0ab;margin-top:14px}
+.ask-bar{margin:16px 16px 4px;display:flex;align-items:center;gap:10px;background:#fff;border-radius:26px;padding:13px 12px 13px 15px;box-shadow:0 10px 30px rgba(52,66,120,.10)}
+.ask-bar .ph{flex:1;font-size:14.5px;color:#a8adb8}
+.ask-bar svg{width:21px;height:21px;stroke:#494e5b;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.mytask{position:absolute;right:16px;top:60px}
+
+/* prompt 编辑浮层 + 键盘 */
+.dimmer{position:absolute;inset:0;background:rgba(28,32,44,.32);z-index:5;display:flex;flex-direction:column;justify-content:flex-end}
+.prompt-card{background:#fff;border-radius:18px;margin:0 12px 10px;padding:16px 16px 12px;position:relative}
+.prompt-card .exp{position:absolute;right:12px;top:12px;color:#9aa0ab}
+.prompt-card .exp svg{width:15px;height:15px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round}
+.prompt-card p{font-size:14.5px;line-height:1.75;color:#20232b;margin:0 0 8px}
+.prompt-card .caret{border-right:2px solid var(--blue);animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{border-color:transparent}}
+.prompt-tools{display:flex;align-items:center;justify-content:space-between;padding-top:6px}
+.prompt-tools svg{width:22px;height:22px;stroke:#494e5b;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.prompt-tools .grp{display:flex;gap:12px;align-items:center}
+.prompt-tools .send-on{width:32px;height:32px;border-radius:50%;background:var(--blue);display:grid;place-items:center}
+.prompt-tools .send-on svg{stroke:#fff;width:18px;height:18px}
+.kbd{background:#d2d5dc;padding:8px 4px 6px}
+.krow{display:flex;gap:5px;justify-content:center;margin-bottom:7px}
+.key{background:#fff;border-radius:6px;box-shadow:0 1px 0 rgba(0,0,0,.25);height:40px;flex:1;max-width:34px}
+.key.w{max-width:52px;background:#b8bcc7}
+.key.space{max-width:170px}
+.kbd .kfoot{display:flex;justify-content:space-between;padding:6px 22px 2px;color:#4a4f5c}
+.kbd .kfoot svg{width:20px;height:20px;stroke:currentColor;stroke-width:1.7;fill:none}
+
+/* 输入组件卡 / 表单卡 */
+.pick{border:1px solid #ececf0;border-radius:16px;overflow:hidden;background:#fff}
+.pick-h{padding:13px 15px 4px}
+.pick-h b{font-size:14.5px}
+.pick-h small{display:block;margin-top:3px;font-size:11.5px;color:#9aa0ab}
+.pick-row{display:flex;align-items:center;gap:11px;padding:12px 15px;border-bottom:1px solid #f4f5f7;font-size:14px}
+.pick-row:last-of-type{border-bottom:0}
+.pk-ico{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;flex:0 0 34px}
+.pk-ico svg{width:18px;height:18px;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.pk-xls{background:#e6f5ec;color:#1d8a4e}
+.pk-img{background:#eaf0ff;color:#3b5bfe}
+.pk-bank{background:#fbf1df;color:#c07a12}
+.pk-qm{background:var(--qm-soft);color:var(--qm-ink)}
+.pick-row b{display:block;font-size:14px}
+.pick-row small{display:block;color:#9aa0ab;font-size:11.5px;margin-top:2px}
+.pick-row .rec{margin-left:auto;display:flex;align-items:center;gap:6px}
+.pick-row .rec i{font-style:normal;font-size:10px;font-weight:800;color:var(--qm-ink);background:var(--qm-soft);border-radius:5px;padding:3px 6px}
+.pick-row .chev{color:#c3c7cf}
+.safe{display:flex;gap:8px;align-items:flex-start;background:#fafbfd;padding:11px 15px;font-size:11.5px;color:#8a8f99;line-height:1.6}
+.safe svg{width:14px;height:14px;flex:0 0 14px;margin-top:2px;stroke:#8a8f99;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.btn-pair{display:flex;gap:10px;margin-top:2px}
+.btn{flex:1;border-radius:12px;text-align:center;font-size:14px;font-weight:700;padding:12px 0;border:1px solid #e3e5ea;background:#fff}
+.btn.pri{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn.qm{background:var(--qm);border-color:var(--qm);color:#fff}
+.form-row{display:flex;align-items:center;justify-content:space-between;padding:11.5px 15px;border-bottom:1px solid #f4f5f7;font-size:14px}
+.form-row:last-of-type{border-bottom:0}
+.form-row span{color:#565d6e}
+.form-row b{font-weight:700}
+.form-row b small{color:#9aa0ab;font-weight:500;margin-left:4px}
+
+/* 测评页 */
+.quiz-prog{display:flex;align-items:center;gap:10px;padding:4px 18px 0;font-size:12px;color:#9aa0ab}
+.qbar{flex:1;height:5px;border-radius:5px;background:#edeff3;overflow:hidden}
+.qbar i{display:block;height:100%;width:100%;border-radius:5px;background:var(--blue)}
+.qz{margin:14px 16px 0;border:1px solid #ececf0;border-radius:16px;background:#fff;padding:16px 15px}
+.qz h4{font-size:15.5px;line-height:1.6;margin-bottom:12px}
+.opt{display:flex;align-items:center;gap:10px;border:1.5px solid #eceef2;border-radius:12px;padding:12px 13px;font-size:13.5px;color:#3c4150;margin-bottom:9px}
+.opt i{width:17px;height:17px;border-radius:50%;border:1.5px solid #cdd1da;flex:0 0 17px}
+.opt.sel{border-color:var(--blue);background:#f3f6ff;color:var(--ink);font-weight:600}
+.opt.sel i{border:5px solid var(--blue)}
+.score-card{margin:14px 16px 0;border:1px solid #ececf0;border-radius:16px;background:#fff;padding:18px 16px;text-align:center}
+.score-ring{position:relative;width:128px;height:128px;margin:4px auto 8px}
+.score-ring svg{transform:rotate(-90deg)}
+.score-ring .num{position:absolute;inset:0;display:grid;place-items:center}
+.score-ring .num b{font-size:34px;letter-spacing:-.02em}
+.score-ring .num small{display:block;font-size:10.5px;color:#9aa0ab;font-weight:600;margin-top:2px}
+.lv-pills{display:flex;gap:6px;justify-content:center;margin:10px 0 4px}
+.lv-pills span{font-size:11px;font-weight:700;color:#9aa0ab;background:#f2f3f6;border-radius:8px;padding:5px 9px}
+.lv-pills .on{color:#fff;background:var(--blue)}
+.score-desc{font-size:12.5px;color:#6d7380;line-height:1.75;text-align:left;background:#fafbfd;border-radius:12px;padding:11px 13px;margin-top:12px}
+.score-desc b{color:var(--ink)}
+
+/* 任务进度页 */
+.timeline{padding:6px 18px 8px;position:relative}
+.tl-item{position:relative;padding:0 0 18px 32px}
+.tl-item::before{content:"";position:absolute;left:9.5px;top:24px;bottom:-2px;width:1.5px;background:#e7e9ee}
+.tl-item:last-child::before{display:none}
+.tl-dot{position:absolute;left:0;top:1px;width:21px;height:21px;border-radius:50%;display:grid;place-items:center;background:#fff}
+.tl-dot svg{width:17px;height:17px;stroke:#20232b;stroke-width:2.3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.tl-title{font-size:15px;font-weight:700;line-height:1.5;display:flex;gap:8px}
+.tl-title .cv{margin-left:auto;color:#b0b4bd;flex:0 0 auto}
+.tl-sub{margin-top:9px;display:flex;flex-direction:column;gap:7px}
+.tl-text{font-size:13.5px;color:#565d6e;line-height:1.7;margin-top:8px}
+.float-view{position:absolute;right:14px;bottom:88px;width:158px;border-radius:14px;background:#0e1116;box-shadow:0 16px 34px rgba(0,0,0,.3);overflow:hidden;z-index:6;border:1px solid rgba(255,255,255,.12)}
+.fv-head{display:flex;align-items:center;gap:6px;padding:7px 9px;color:#7ee2ae;font-size:11px;font-weight:700}
+.fv-head i{width:7px;height:7px;border-radius:50%;background:#35d488}
+.fv-body{padding:2px 9px 9px;font-size:8.5px;line-height:1.65;color:#9aa4b5;font-family:ui-monospace,Menlo,monospace}
+.fv-body em{color:#7ea9ff;font-style:normal}
+.replay{margin:8px 12px 6px;display:flex;align-items:center;gap:8px;background:#fff;border:1px solid #e7e8ec;border-radius:16px;padding:9px 10px 9px 16px;box-shadow:0 10px 26px rgba(30,42,80,.08)}
+.replay .txt{flex:1;font-size:14px;color:#565d6e}
+.rbtn{border:1px solid #e3e5ea;border-radius:10px;background:#fff;font-size:13px;font-weight:700;padding:9px 13px;white-space:nowrap}
+.rbtn.pri{background:var(--blue);border-color:var(--blue);color:#fff}
+
+/* 报告卡 */
+.report{border:1px solid #ececf0;border-radius:18px;background:#fff;overflow:hidden}
+.rp-head{padding:15px 16px 13px;background:linear-gradient(140deg,#f5f8ff,#f2fbf7);border-bottom:1px solid #eef0f4}
+.rp-head .src{display:flex;align-items:center;gap:6px;font-size:10.5px;color:#8a8f99;margin-bottom:7px}
+.rp-head .src i{width:13px;height:13px;border-radius:4px;display:inline-grid;place-items:center;color:#fff;font-size:8px;font-weight:800;font-style:normal}
+.rp-head .src .iq{background:var(--blue)}
+.rp-head .src .im{background:linear-gradient(135deg,#0eaf7d,#0b8a63)}
+.rp-head h4{font-size:16.5px;letter-spacing:-.01em}
+.rp-head small{display:block;margin-top:4px;font-size:10.5px;color:#9aa0ab}
+.rp-sec{padding:13px 16px;border-bottom:1px solid #f4f5f7}
+.rp-sec:last-child{border-bottom:0}
+.rp-k{font-size:10.5px;font-weight:800;letter-spacing:.1em;color:#9aa0ab;margin-bottom:9px}
+.total-row{display:flex;align-items:center;gap:16px}
+.total-num b{font-size:44px;letter-spacing:-.03em;line-height:1}
+.total-num b em{font-style:normal;font-size:15px;color:#b0b4bd;font-weight:600}
+.total-num .grade{display:inline-block;margin-top:6px;font-size:11px;font-weight:800;color:#0b7c5a;background:var(--qm-soft);border-radius:6px;padding:3px 8px}
+.total-meta{margin-left:auto;display:grid;gap:6px}
+.total-meta div{font-size:11.5px;color:#8a8f99}
+.total-meta div b{color:var(--ink);font-size:12.5px;margin-right:2px}
+.gauge{display:flex;gap:14px;align-items:center}
+.gauge svg{flex:0 0 108px}
+.gauge .gd{font-size:12.5px;color:#565d6e;line-height:1.75}
+.gauge .gd b{color:var(--ink)}
+.gauge .gd .warn{display:inline-block;margin-top:6px;font-size:11px;font-weight:700;color:#b4612a;background:var(--amber-soft);border-radius:6px;padding:3px 8px}
+.bars{display:grid;gap:9px}
+.brow{display:grid;grid-template-columns:44px 1fr 76px;gap:9px;align-items:center;font-size:12px;color:#565d6e}
+.btrack{height:16px;border-radius:6px;background:#f1f2f6;overflow:hidden;position:relative}
+.bfill{position:absolute;inset:0 auto 0 0;border-radius:6px;background:#9db4ff;display:flex;align-items:center;justify-content:flex-end;padding-right:5px;color:#fff;font-size:9.5px;font-weight:800}
+.bfill.qm{background:#59cdaa}
+.bfill.amber{background:#eec27c}
+.bfill.red{background:#e79b93}
+.brow .tgt{color:#9aa0ab;font-size:10.5px;text-align:right}
+.fund-row{display:flex;align-items:center;gap:9px;padding:9px 0;border-bottom:1px dashed #eef0f4;font-size:12.5px}
+.fund-row:last-of-type{border-bottom:0}
+.fund-row .fname b{display:block;font-size:13px}
+.fund-row .fname small{color:#9aa0ab;font-size:10.5px}
+.verdict{margin-left:auto;font-size:11px;font-weight:800;border-radius:7px;padding:4px 9px;white-space:nowrap}
+.v-rep{color:#b03c33;background:var(--red-soft)}
+.v-cut{color:#b4612a;background:var(--amber-soft)}
+.v-keep{color:#0b7c5a;background:var(--qm-soft)}
+.more-link{display:block;text-align:center;font-size:12px;color:var(--blue);font-weight:700;padding-top:9px}
+.advice{margin:0;padding-left:18px;display:grid;gap:7px}
+.advice li{font-size:13px;line-height:1.7;color:#3c4150}
+.advice li b{color:var(--ink)}
+.rp-foot{padding:10px 16px 13px;font-size:10px;color:#b0b4bd;line-height:1.65;background:#fafbfd}
+
+/* 方案承接卡 */
+.plan-card{border:1px solid #d9f0e7;border-radius:18px;overflow:hidden;background:#fff}
+.plan-h{background:linear-gradient(135deg,#0eaf7d,#0b8a63);color:#fff;padding:14px 16px}
+.plan-h .lg{display:flex;align-items:center;gap:7px;font-size:11px;opacity:.92;margin-bottom:7px}
+.plan-h .lg i{width:16px;height:16px;border-radius:5px;background:rgba(255,255,255,.22);display:grid;place-items:center;font-size:9.5px;font-weight:800;font-style:normal}
+.plan-h h4{font-size:16.5px}
+.plan-h small{display:block;margin-top:4px;font-size:11px;opacity:.85}
+.plan-b{padding:13px 16px 15px}
+.delta{display:flex;align-items:center;justify-content:center;gap:12px;background:#f2fbf7;border-radius:12px;padding:11px;margin-bottom:12px}
+.delta b{font-size:23px;letter-spacing:-.02em}
+.delta .to{color:var(--qm-ink)}
+.delta svg{width:18px;height:18px;stroke:#0eaf7d;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.delta small{display:block;font-size:10px;color:#9aa0ab;font-weight:600;margin-top:2px}
+.plan-list{margin:0 0 12px;padding:0;list-style:none;display:grid;gap:7px}
+.plan-list li{display:flex;gap:8px;font-size:12.5px;color:#3c4150;line-height:1.65}
+.plan-list li::before{content:"";width:5px;height:5px;border-radius:50%;background:#0eaf7d;margin-top:8px;flex:0 0 5px}
+.svc-row{display:flex;gap:9px}
+.svc{flex:1;border:1px solid #ececf0;border-radius:14px;padding:12px;background:#fff}
+.svc .av{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:800;color:#fff;margin-bottom:8px}
+.svc .av.gu{background:linear-gradient(135deg,#0eaf7d,#0b8a63)}
+.svc .av.hu{background:linear-gradient(135deg,#5470f2,#3b5bfe)}
+.svc b{display:block;font-size:13px;margin-bottom:3px}
+.svc small{font-size:10.5px;color:#9aa0ab;line-height:1.55;display:block}
+.disc{border:1px solid #f0f1f4;background:#fafbfd;border-radius:12px;padding:10px 13px;font-size:10px;color:#9aa0ab;line-height:1.7}
+
+/* 指标红绿灯 / 雷达 / 温度 */
+.ind{display:flex;align-items:center;gap:9px;padding:9px 0;border-bottom:1px dashed #eef0f4;font-size:12.5px}
+.ind:last-of-type{border-bottom:0}
+.dot{width:9px;height:9px;border-radius:50%;flex:0 0 9px}
+.dot.g{background:#23b573}.dot.y{background:#efae3c}.dot.r{background:#e05c50}
+.ind .iname{font-weight:700;font-size:13px}
+.ind .ival{margin-left:auto;text-align:right}
+.ind .ival b{font-size:13.5px}
+.ind .ival small{display:block;color:#9aa0ab;font-size:10px;margin-top:1px}
+.radar-wrap{display:flex;gap:6px;align-items:center;justify-content:center}
+.temp{position:relative;height:14px;border-radius:8px;background:linear-gradient(90deg,#38b880 0%,#8fd6a8 30%,#f0cf7c 55%,#eda15c 78%,#e05c50 100%);margin:8px 2px 22px}
+.temp .cursor{position:absolute;top:-7px;left:34%;transform:translateX(-50%);width:4px;height:28px;border-radius:3px;background:#15181f}
+.temp .cursor::after{content:"34°";position:absolute;top:30px;left:50%;transform:translateX(-50%);font-size:11px;font-weight:800;color:#15181f}
+.idx-row{display:flex;align-items:center;gap:9px;padding:8.5px 0;border-bottom:1px dashed #eef0f4;font-size:12.5px}
+.idx-row:last-of-type{border-bottom:0}
+.idx-row .pct{margin-left:auto;font-weight:800;font-size:13px}
+.idx-row .st{font-size:10.5px;font-weight:800;border-radius:6px;padding:3px 7px}
+.st.low{color:#0b7c5a;background:var(--qm-soft)}
+.st.mid{color:#6d7380;background:#f2f3f6}
+.st.high{color:#b4612a;background:var(--amber-soft)}
+
+.foot{padding:56px 0 64px;color:var(--sub);font-size:12.5px;line-height:2}
+.foot b{color:var(--ink)}
+@media (max-width:860px){
+  .hero-in{padding:40px 0 30px}
+  .hero h1{font-size:26px}
+  .hero-meta{text-align:left}
+  .stage{justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 4.5 7.5 12l7.5 7.5"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><path d="M9 8H6.5A1.5 1.5 0 0 0 5 9.5v9A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 17.5 8H15"/><path d="M12 3v10M8.5 6 12 2.8 15.5 6"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h10M4 17h16"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M6 3.8h3l1.6 4.2-2 1.6a12.5 12.5 0 0 0 5.8 5.8l1.6-2 4.2 1.6v3a1.8 1.8 0 0 1-2 1.8C10.5 19.1 4.9 13.5 4.2 5.8A1.8 1.8 0 0 1 6 3.8Z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-chev-d" viewBox="0 0 24 24"><path d="m6 9.5 6 6 6-6"/></symbol>
+  <symbol id="i-chev-u" viewBox="0 0 24 24"><path d="m6 14.5 6-6 6 6"/></symbol>
+  <symbol id="i-chev-r" viewBox="0 0 24 24"><path d="m9.5 6 6 6-6 6"/></symbol>
+  <symbol id="i-monitor" viewBox="0 0 24 24"><rect x="3.2" y="4.5" width="17.6" height="12" rx="1.6"/><path d="M9 20h6M12 16.5V20"/></symbol>
+  <symbol id="i-cam" viewBox="0 0 24 24"><path d="M4 8.2A1.8 1.8 0 0 1 5.8 6.4h2.4L9.8 4h4.4l1.6 2.4h2.4A1.8 1.8 0 0 1 20 8.2v9A1.8 1.8 0 0 1 18.2 19H5.8A1.8 1.8 0 0 1 4 17.2Z"/><circle cx="12" cy="12.4" r="3.4"/></symbol>
+  <symbol id="i-plus-c" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></symbol>
+  <symbol id="i-wave" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 10.5v3M12 8.5v7M15.5 10v4"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V6M6.5 11.5 12 6l5.5 5.5"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M7 3.5h7L19 8.5v11a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-15a1 1 0 0 1 1-1Z"/><path d="M14 3.5v5h5"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3.5 5 6v6c0 4.4 3 7.4 7 8.5 4-1.1 7-4.1 7-8.5V6Z"/><path d="m9 12 2.2 2.2L15.5 10"/></symbol>
+  <symbol id="i-xls" viewBox="0 0 24 24"><path d="M7 3.5h7L19 8.5v11a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-15a1 1 0 0 1 1-1Z"/><path d="m9.5 11.5 5 6m0-6-5 6"/></symbol>
+  <symbol id="i-img" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="m5 17.5 4.5-4.5 3 3 3.5-3.5 3 3"/></symbol>
+  <symbol id="i-bank" viewBox="0 0 24 24"><path d="m12 3.5 8.5 4.5v1.5h-17V8Z"/><path d="M6 10v7m4-7v7m4-7v7m4-7v7M4.5 19.5h15"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14.5a4 4 0 0 0 5.7 0l3-3a4 4 0 1 0-5.7-5.6l-1.3 1.3"/><path d="M14 9.5a4 4 0 0 0-5.7 0l-3 3a4 4 0 1 0 5.7 5.6l1.3-1.3"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 3 5 13.5h5.5L11 21l8-10.5h-5.5Z"/></symbol>
+  <symbol id="i-life" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5v17M3.5 12h17"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.6 2.3 3.9 5.1 3.9 8.5s-1.3 6.2-3.9 8.5c-2.6-2.3-3.9-5.1-3.9-8.5s1.3-6.2 3.9-8.5Z"/></symbol>
+  <symbol id="i-expand" viewBox="0 0 24 24"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3.5" width="6" height="11" rx="3"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v2.8"/></symbol>
+  <symbol id="i-star6" viewBox="0 0 24 24"><path d="M12 2.6v18.8M3.9 7.3l16.2 9.4M3.9 16.7l16.2-9.4"/></symbol>
+</svg>
+
+<!-- ================= 页面头部 ================= -->
+<header class="hero">
+  <div class="wrap hero-in">
+    <div>
+      <div class="eyebrow">Qianwen Task Assistant × Qieman / PRODUCT DEMO</div>
+      <h1>千问任务助理 × 盈米且慢·AI 小顾<br>「理财诊断」合作方案与高保真产品 DEMO</h1>
+      <p class="lead">把且慢的「诊断 — 方案 — 陪伴」投顾能力，封装成千问任务助理里刚需、简单、吸睛的诊断任务：用户点一张任务卡，上传持仓 / 授权且慢账户 / 完成风险测评，几分钟拿到一份高质量诊断报告；报告尾部由且慢承接——按方案一键转入、AI 小顾解读、预约人工顾问。以下 11 屏完全参照千问 APP 原有设计绘制。</p>
+      <div class="hero-badges">
+        <span>全市场基金诊断</span><span>风险偏好诊断</span><span>投资持仓诊断</span><span>家庭财务诊断</span><span>产品匹配度诊断</span><span>市场诊断周报</span>
+      </div>
+    </div>
+    <div class="hero-meta">
+      <div><b>日期</b>｜2026-08-07</div>
+      <div><b>配套方案</b>｜research/qianwen-qieman-coop-2026-08-07.md</div>
+      <div><b>数据口径</b>｜界面内持仓、评分、收益均为演示示意数据</div>
+      <div><b>合规</b>｜不构成投资建议 · 交易在盈米持牌主体域内完成</div>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="wrap toc-in">
+    <a href="#overview">方案速览</a>
+    <a href="#ch1">01 入口与任务卡</a>
+    <a href="#ch2">02 全市场基金诊断流程</a>
+    <a href="#ch3">03 诊断报告与且慢承接</a>
+    <a href="#ch4">04 家庭财务诊断</a>
+    <a href="#ch5">05 市场诊断周报</a>
+  </div>
+</nav>
+
+<!-- ================= 方案速览 ================= -->
+<section class="sec" id="overview">
+  <div class="wrap">
+    <div class="sec-h">
+      <div class="kicker">Overview · 合作模式一页看懂</div>
+      <h2>诊断报告是入口，投顾服务是闭环</h2>
+      <p>千问出「容器与流量」，且慢出「牌照、数据与投顾引擎」：诊断在千问域内完成（一般性分析，不构成投资建议），方案、开户、签约、交易全部深链进入且慢/盈米持牌域内完成。技术上复用且慢已对外服务 150 家机构、累计调用 600 万+ 次的 OAP / MCP 通道。</p>
+    </div>
+    <div class="ov-grid">
+      <div class="ov-card">
+        <h3><em>模式</em>三层协作架构</h3>
+        <div class="pipe">
+          <div class="pipe-node"><b>千问 APP · 任务助理</b>任务卡分发 · Agent 规划与执行 · 报告文件生成 · 回放/通知</div>
+          <div class="pipe-arrow">↓ MCP 工具调用（OAP 通道）</div>
+          <div class="pipe-node"><b>且慢 OAP / MCP 工具层</b>风险测评 · 持仓解析（Excel/截图/E账户单）· 全市场基金数据与诊断 · 匹配度计算 · 家庭财务诊断 · 市场温度计 · 方案生成 · 且慢账户只读授权</div>
+          <div class="pipe-arrow">↓ 深链跳转（持牌域内）</div>
+          <div class="pipe-node"><b>且慢 APP / 小程序 · 盈米基金</b>定制方案一键转入 · 开户/签约/交易 · AI 小顾解读 · 人工顾问 · 投后陪伴</div>
+        </div>
+      </div>
+      <div class="ov-card">
+        <h3><em>场景</em>六大诊断任务卡</h3>
+        <div class="scene-grid" style="grid-template-columns:1fr 1fr">
+          <div class="scene"><span class="tag p0">P0 旗舰</span><h4>全市场基金诊断</h4><p>上传/授权持仓 → 健康总分 + 单基金评级 + 匹配度</p></div>
+          <div class="scene"><span class="tag p0">P0</span><h4>风险偏好诊断</h4><p>8 题快测 → 风险承受分与舒适区</p></div>
+          <div class="scene"><span class="tag p0">P0</span><h4>投资持仓诊断</h4><p>承受能力 × 持仓风险 → 匹配分与缺口</p></div>
+          <div class="scene"><span class="tag p0">P0</span><h4>家庭财务诊断</h4><p>1 分钟填报 → 指标健康度 + 四笔钱方案</p></div>
+          <div class="scene"><span class="tag p1">P1</span><h4>产品匹配度 / 产品诊断</h4><p>输入代码 → 单品体检 + 适合我吗</p></div>
+          <div class="scene"><span class="tag p1">P1</span><h4>市场诊断（周报）</h4><p>零输入 → 温度计 + 估值分位 + 订阅</p></div>
+        </div>
+      </div>
+      <div class="ov-card">
+        <h3><em>漏斗</em>转化主线与阶段</h3>
+        <div class="funnel">
+          <div class="fstep"><div class="fbar">任务卡曝光 · 千问投资理财分类</div></div>
+          <div class="fstep"><div class="fbar">诊断任务完成 · 报告生成</div></div>
+          <div class="fstep"><div class="fbar">承接组件点击 · 方案/小顾/顾问</div></div>
+          <div class="fstep"><div class="fbar">且慢域内 · 开户/签约</div></div>
+          <div class="fstep"><div class="fbar">AUM 沉淀与投后陪伴</div></div>
+        </div>
+        <ul style="margin-top:14px">
+          <li><b>Phase 1</b>：市场诊断 + 风险测评（零/轻输入两卡）</li>
+          <li><b>Phase 2</b>：全市场基金诊断 + 持仓诊断（四种输入、OAuth、一键转入）</li>
+          <li><b>Phase 3</b>：家庭财务 + 产品匹配 + 订阅周报、人工顾问预约</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 第 1 章 入口 ================= -->
+<section class="chapter" id="ch1">
+  <div class="wrap">
+    <div class="ch-head"><span class="ch-num">CHAPTER 01</span><h2>入口：任务助理新增「投资理财」分类</h2></div>
+    <p class="ch-lead">完全沿用千问任务助理现有的卡片广场范式：分类 Tab、场景卡轮播、「试一试」预填 prompt、每日限次。且慢以「服务提供方」身份出现在卡片署名位，用户零学习成本。</p>
+    <div class="stage">
+
+      <!-- S1 任务助理首页 -->
+      <figure class="shot">
+        <div class="phone"><div class="scr landing">
+          <div class="sbar">
+            <span>16:31</span>
+            <div class="island"><span class="ic-check"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg></span><span class="mins">25m</span></div>
+            <div class="sicons">
+              <svg viewBox="0 0 18 12" width="18"><g fill="#15181f"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0.5" width="3" height="11.5" rx="1" opacity=".35"/></g></svg>
+              <svg viewBox="0 0 16 12" width="15"><path d="M8 10.8 1.2 4.5A9.6 9.6 0 0 1 8 1.8a9.6 9.6 0 0 1 6.8 2.7Z" fill="#15181f"/></svg>
+              <span class="batt low">18</span>
+            </div>
+          </div>
+          <div class="navbar">
+            <span class="nv-ico"><svg><use href="#i-back"/></svg></span>
+            <span></span>
+            <span class="pill-btn">我的任务</span>
+          </div>
+          <svg class="mark" viewBox="0 0 24 24" fill="none" stroke="#15181f" stroke-width="2.6" stroke-linecap="round"><use href="#i-star6"/></svg>
+          <div class="land-title">任务助理 <span class="beta">BETA</span></div>
+          <div class="land-sub">自主规划，使用工具办事的超级助理模式</div>
+          <div class="tabs"><span>精选</span><span class="on">投资理财</span><span>咨询调研</span><span>office办公</span><span>应用开发</span></div>
+          <div class="subchips"><span class="on">基金诊断</span><span>家庭财务</span><span>风险测评</span><span>市场报告</span></div>
+          <div class="hairline-tip">用一份诊断报告，看清自己的钱</div>
+          <div class="carousel">
+            <div class="side-card l"><div class="sc-img"></div><p>家庭财务诊断：测测家里的钱放对了吗</p></div>
+            <div class="side-card r"><div class="sc-img"></div><p>市场温度报告：本周低估了吗</p></div>
+            <div class="main-card">
+              <div class="mc-img">
+                <span class="x1">×1</span>
+                <svg width="150" height="120" viewBox="0 0 150 120">
+                  <g transform="translate(75,66)">
+                    <path d="M -48 0 A 48 48 0 0 1 48 0" fill="none" stroke="#e6ebf7" stroke-width="12" stroke-linecap="round"/>
+                    <path d="M -48 0 A 48 48 0 0 1 26 -40.3" fill="none" stroke="#3b5bfe" stroke-width="12" stroke-linecap="round"/>
+                    <text x="0" y="-8" text-anchor="middle" font-size="24" font-weight="800" fill="#15181f">72</text>
+                    <text x="0" y="8" text-anchor="middle" font-size="8" fill="#9aa0ab">持仓健康分</text>
+                  </g>
+                  <g transform="translate(24,86)">
+                    <rect width="30" height="8" rx="4" fill="#59cdaa"/><rect x="36" width="52" height="8" rx="4" fill="#9db4ff"/><rect x="94" width="14" height="8" rx="4" fill="#eec27c"/>
+                  </g>
+                </svg>
+                <span class="chip">全市场诊断</span>
+              </div>
+              <div class="mc-body">
+                <h4>上传持仓，给你的基金做一次全面体检</h4>
+                <div class="by"><i>且</i>投研与诊断由盈米基金·且慢提供</div>
+                <div class="try">试一试</div>
+              </div>
+            </div>
+          </div>
+          <div class="left-times">今日剩 15 次</div>
+          <div class="ask-bar">
+            <svg><use href="#i-wave"/></svg><span class="ph">给我布置一个任务</span>
+            <svg><use href="#i-cam"/></svg><svg><use href="#i-plus-c"/></svg>
+          </div>
+          <div class="gennote">内容由 AI 生成，请注意核实</div>
+        </div></div>
+        <figcaption>
+          <b><i>S1</i>任务助理首页 · 新增「投资理财」分类</b>
+          <ul class="notes">
+            <li>沿用千问原生卡片广场：分类 Tab + 轮播卡 + 试一试 + 每日限次，仅新增一个分类与四组子场景。</li>
+            <li><b>合作点：</b>卡片署名「投研与诊断由盈米基金·且慢提供」，品牌前置且合规披露。</li>
+          </ul>
+        </figcaption>
+      </figure>
+
+      <!-- S2 预填 prompt -->
+      <figure class="shot">
+        <div class="phone"><div class="scr landing">
+          <div class="sbar">
+            <span>16:31</span>
+            <div class="island"><span class="ic-check"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg></span><span class="mins">25m</span></div>
+            <div class="sicons">
+              <svg viewBox="0 0 18 12" width="18"><g fill="#15181f"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0.5" width="3" height="11.5" rx="1" opacity=".35"/></g></svg>
+              <svg viewBox="0 0 16 12" width="15"><path d="M8 10.8 1.2 4.5A9.6 9.6 0 0 1 8 1.8a9.6 9.6 0 0 1 6.8 2.7Z" fill="#15181f"/></svg>
+              <span class="batt low">18</span>
+            </div>
+          </div>
+          <div class="navbar">
+            <span class="nv-ico"><svg><use href="#i-back"/></svg></span>
+            <span class="nv-title">任务助理</span>
+            <span class="pill-btn">我的任务</span>
+          </div>
+          <div class="tabs" style="padding-top:6px"><span>精选</span><span class="on">投资理财</span><span>咨询调研</span><span>office办公</span><span>应用开发</span></div>
+          <div style="flex:1"></div>
+          <div class="dimmer" style="position:relative;background:transparent">
+            <div class="prompt-card" style="box-shadow:0 -14px 44px rgba(30,42,80,.16)">
+              <span class="exp"><svg><use href="#i-expand"/></svg></span>
+              <p>帮我做一次<b>全市场基金诊断</b>。我会提供我的基金持仓（Excel / 持仓截图 / 基金 E 账户对账单，或授权关联且慢持仓），请分析持仓健康度、风险匹配度、基金重合度与费率，指出问题基金，并生成一份可视化诊断报告。结果以报告形式交付。<span class="caret">&nbsp;</span></p>
+              <div class="prompt-tools">
+                <svg><use href="#i-wave"/></svg>
+                <div class="grp"><svg><use href="#i-plus-c"/></svg><span class="send-on"><svg><use href="#i-up"/></svg></span></div>
+              </div>
+            </div>
+            <div class="kbd">
+              <div class="krow"><div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div></div>
+              <div class="krow"><div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div></div>
+              <div class="krow"><div class="key w"></div><div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div><div class="key w"></div></div>
+              <div class="krow"><div class="key w"></div><div class="key space"></div><div class="key w" style="background:#3b5bfe"></div></div>
+              <div class="kfoot"><svg viewBox="0 0 24 24"><use href="#i-globe"/></svg><svg viewBox="0 0 24 24"><use href="#i-mic"/></svg></div>
+            </div>
+          </div>
+        </div></div>
+        <figcaption>
+          <b><i>S2</i>试一试 · 预填 prompt 可编辑</b>
+          <ul class="notes">
+            <li>与千问现有「试一试」交互一致：模板 prompt 预填进输入卡，用户可改可直接发送。</li>
+            <li><b>合作点：</b>prompt 模板由且慢投研侧维护，明确输入方式与交付物，保证任务成功率。</li>
+          </ul>
+        </figcaption>
+      </figure>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= 第 2 章 诊断流程 ================= -->
+<section class="chapter" id="ch2">
+  <div class="wrap">
+    <div class="ch-head"><span class="ch-num">CHAPTER 02</span><h2>旗舰场景：全市场基金诊断（输入 → 测评 → 执行）</h2></div>
+    <p class="ch-lead">一次输入即可出报告：Excel、持仓截图、基金 E 账户对账单、关联且慢持仓四选一；强引导 90 秒风险测评，产出「风险承受分」，让报告从「基金体检」升级为「人与持仓的匹配体检」。任务执行完全复用千问原生的任务卡与进度页。</p>
+    <div class="stage">
+
+      <!-- S3 对话确认 + 输入组件 -->
+      <figure class="shot">
+        <div class="phone"><div class="scr">
+          <div class="sbar">
+            <span>16:33</span>
+            <div class="island"><span class="ic-check"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg></span><span class="mins">25m</span></div>
+            <div class="sicons">
+              <svg viewBox="0 0 18 12" width="18"><g fill="#15181f"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0.5" width="3" height="11.5" rx="1" opacity=".35"/></g></svg>
+              <svg viewBox="0 0 16 12" width="15"><path d="M8 10.8 1.2 4.5A9.6 9.6 0 0 1 8 1.8a9.6 9.6 0 0 1 6.8 2.7Z" fill="#15181f"/></svg>
+              <span class="batt">17</span>
+            </div>
+          </div>
+          <div class="chat-h">
+            <span class="nv-ico menu-dot"><svg><use href="#i-menu"/></svg></span>
+            <span class="chat-title">千问 <svg viewBox="0 0 24 24"><path d="M4 10v4h4l5 4V6l-5 4H4Z"/><path d="M16 9.5a4 4 0 0 1 0 5"/></svg></span>
+            <span class="nv-ico"><svg><use href="#i-phone"/></svg></span>
+          </div>
+          <div class="chat-body">
+            <div class="bub-u">帮我做一次全市场基金诊断，看看我买的基金到底行不行，需要怎么调整。</div>
+            <div class="a-text">
+              <p>好的，收到你的需求。我将为你完成一次全市场基金诊断：分析持仓健康度、风险匹配度、重合度与费率，并生成可视化报告。</p>
+              <p>为了诊断更准确，请先提供你的持仓信息（四选一）：</p>
+            </div>
+            <div class="pick">
+              <div class="pick-h"><b>提供你的持仓（四选一）</b><small>仅用于本次诊断，报告生成后可一键删除</small></div>
+              <div class="pick-row"><span class="pk-ico pk-xls"><svg><use href="#i-xls"/></svg></span><span><b>上传 Excel / CSV</b><small>支持券商、支付宝、天天基金导出格式</small></span><span class="rec chev"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-chev-r"/></svg></span></div>
+              <div class="pick-row"><span class="pk-ico pk-img"><svg><use href="#i-img"/></svg></span><span><b>上传持仓截图</b><small>支持多张，自动识别基金与金额</small></span><span class="rec chev"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-chev-r"/></svg></span></div>
+              <div class="pick-row"><span class="pk-ico pk-bank"><svg><use href="#i-bank"/></svg></span><span><b>上传基金 E 账户对账单</b><small>一站式核对名下全部基金账户</small></span><span class="rec chev"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-chev-r"/></svg></span></div>
+              <div class="pick-row"><span class="pk-ico pk-qm"><svg><use href="#i-link"/></svg></span><span><b>关联且慢账户</b><small>只读授权 · 一键同步持仓 · 可随时解除</small></span><span class="rec"><i>推荐</i><span class="chev"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-chev-r"/></svg></span></span></div>
+              <div class="safe"><svg><use href="#i-shield"/></svg>文件与持仓数据仅用于生成本次报告，不用于其他用途；解析由盈米基金·且慢在持牌域内完成。</div>
+            </div>
+            <div class="bub-u">
+              已上传
+              <div class="att"><span class="pk-ico pk-xls" style="width:28px;height:28px;flex:0 0 28px"><svg style="width:15px;height:15px"><use href="#i-xls"/></svg></span><span><b>我的基金持仓.xlsx</b><small>23 只基金 · 28.6 万元（示意）</small></span></div>
+            </div>
+            <div class="a-text">
+              <p>解析完成：识别 23 只基金，合计 28.6 万元。建议先花 90 秒完成风险测评，这样我可以帮你算出「风险承受能力 × 现有持仓」的匹配分。</p>
+            </div>
+            <div class="btn-pair"><div class="btn pri">开始风险测评（约 90 秒）</div><div class="btn">跳过，直接诊断</div></div>
+          </div>
+          <div class="quickrow">
+            <span class="qchip blue"><svg><use href="#i-star6"/></svg>待确认 <svg style="width:12px"><use href="#i-chev-r"/></svg></span>
+            <span class="qchip"><svg><use href="#i-bolt"/></svg>快速 <svg style="width:12px"><use href="#i-chev-d"/></svg></span>
+            <span class="qchip"><svg><use href="#i-life"/></svg>生活帮手</span>
+            <span class="qchip"><svg><use href="#i-globe"/></svg>美加墨</span>
+          </div>
+          <div class="inbar"><svg><use href="#i-wave"/></svg><span class="ph">发消息或按住说话...</span><svg><use href="#i-plus-c"/></svg><span class="send"><svg><use href="#i-up"/></svg></span></div>
+          <div class="gennote">内容由 Qwen-3.7 大模型生成</div>
+        </div></div>
+        <figcaption>
+          <b><i>S3</i>需求确认 · 四种持仓输入方式</b>
+          <ul class="notes">
+            <li>Excel / 截图 OCR / 基金 E 账户对账单 / 且慢账户 OAuth 四选一，覆盖从小白到老基民的全部数据形态。</li>
+            <li><b>合作点：</b>文件解析与账户授权（`holding_parse`、`qieman_account_link`）由且慢 MCP 工具完成，千问不落库原始文件。</li>
+          </ul>
+        </figcaption>
+      </figure>
+
+      <!-- S4 风险测评 -->
+      <figure class="shot">
+        <div class="phone"><div class="scr">
+          <div class="sbar">
+            <span>16:34</span>
+            <div class="island"><span class="ic-check"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg></span><span class="mins">25m</span></div>
+            <div class="sicons">
+              <svg viewBox="0 0 18 12" width="18"><g fill="#15181f"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0.5" width="3" height="11.5" rx="1" opacity=".35"/></g></svg>
+              <svg viewBox="0 0 16 12" width="15"><path d="M8 10.8 1.2 4.5A9.6 9.6 0 0 1 8 1.8a9.6 9.6 0 0 1 6.8 2.7Z" fill="#15181f"/></svg>
+              <span class="batt">17</span>
+            </div>
+          </div>
+          <div class="navbar">
+            <span class="nv-ico"><svg><use href="#i-back"/></svg></span>
+            <span class="nv-title">风险承受能力快测</span>
+            <span class="nv-ghost"></span>
+          </div>
+          <div class="quiz-prog"><span>8 / 8</span><div class="qbar"><i></i></div><span>由且慢提供</span></div>
+          <div class="qz">
+            <h4>Q8 · 如果你的投资在 3 个月内下跌了 15%，你会？</h4>
+            <div class="opt"><i></i>立刻全部卖出，落袋为安</div>
+            <div class="opt"><i></i>卖出一部分，降低仓位</div>
+            <div class="opt sel"><i></i>继续持有，观察后再决定</div>
+            <div class="opt"><i></i>逢低加仓，这是机会</div>
+          </div>
+          <div class="score-card">
+            <div style="font-size:11px;font-weight:800;letter-spacing:.1em;color:#9aa0ab">测评完成 · 你的风险承受分</div>
+            <div class="score-ring">
+              <svg width="128" height="128" viewBox="0 0 128 128">
+                <circle cx="64" cy="64" r="55" fill="none" stroke="#eef0f5" stroke-width="11"/>
+                <circle cx="64" cy="64" r="55" fill="none" stroke="#3b5bfe" stroke-width="11" stroke-linecap="round" stroke-dasharray="214 346"/>
+              </svg>
+              <div class="num"><span><b>62</b><small>/ 100</small></span></div>
+            </div>
+            <div class="lv-pills"><span>C1 保守</span><span>C2 稳健</span><span class="on">C3 稳健进取</span><span>C4 进取</span><span>C5 激进</span></div>
+            <div class="score-desc"><b>C3 · 稳健进取型：</b>你能接受的最大回撤舒适区约为 <b>-15% ～ -20%</b>，适合以稳健资产打底、适度配置权益的组合。这个分数将用于计算你与现有持仓的匹配度。<span style="color:#b0b4bd">（示意结果，正式适当性评估在且慢域内完成）</span></div>
+            <div class="btn pri" style="margin-top:13px">生成诊断报告</div>
+          </div>
+          <div class="gennote">测评题目与计分模型由盈米基金·且慢提供 · 内容由 AI 生成，请注意核实</div>
+        </div></div>
+        <figcaption>
+          <b><i>S4</i>风险偏好诊断 · 90 秒快测出承受分</b>
+          <ul class="notes">
+            <li>8 题快测（也可对话式作答），产出 0—100 风险承受分 + C1—C5 等级 + 回撤舒适区。</li>
+            <li><b>合作点：</b>题库与计分（`risk_assessment`）复用且慢测评体系；该分数是「匹配度诊断」的输入，也可单独作为 P0 任务卡。</li>
+          </ul>
+        </figcaption>
+      </figure>
+
+      <!-- S5 任务执行中 -->
+      <figure class="shot">
+        <div class="phone"><div class="scr">
+          <div class="sbar">
+            <span>16:35</span>
+            <div class="island"><span class="ic-check"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg></span><span class="mins">25m</span></div>
+            <div class="sicons">
+              <svg viewBox="0 0 18 12" width="18"><g fill="#15181f"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0.5" width="3" height="11.5" rx="1" opacity=".35"/></g></svg>
+              <svg viewBox="0 0 16 12" width="15"><path d="M8 10.8 1.2 4.5A9.6 9.6 0 0 1 8 1.8a9.6 9.6 0 0 1 6.8 2.7Z" fill="#15181f"/></svg>
+              <span class="batt">16</span>
+            </div>
+          </div>
+          <div class="chat-h">
+            <span class="nv-ico menu-dot"><svg><use href="#i-menu"/></svg></span>
+            <span class="chat-title">千问 <svg viewBox="0 0 24 24"><path d="M4 10v4h4l5 4V6l-5 4H4Z"/><path d="M16 9.5a4 4 0 0 1 0 5"/></svg></span>
+            <span class="nv-ico"><svg><use href="#i-phone"/></svg></span>
+          </div>
+          <div class="chat-body">
+            <div class="a-text">
+              <p>好的，我已经拿到你的持仓明细（23 只基金）与风险测评结果（承受分 62 · C3）。我将立即开始为你执行全市场基金诊断。</p>
+            </div>
+            <div class="tcard">
+              <div class="tcard-h"><svg><use href="#i-monitor"/></svg>任务执行中<span class="sp"><svg style="width:15px;height:15px"><use href="#i-chev-r"/></svg></span></div>
+              <div class="tcard-b">
+                <div class="step done"><span class="st-ic"><svg><use href="#i-check"/></svg></span>分析持仓结构与风险测评结果</div>
+                <div class="step done"><span class="st-ic"><svg><use href="#i-check"/></svg></span>调用且慢投顾获取全市场基金数据</div>
+                <div class="step">
+                  <span class="ring"><svg viewBox="0 0 22 22"><circle cx="11" cy="11" r="9" fill="none" stroke="#e8ebf2" stroke-width="2.4"/><circle cx="11" cy="11" r="9" fill="none" stroke="#3b5bfe" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="42 57"/></svg><span class="lbl">3/4</span></span>
+                  <span><b>基金诊断与匹配度计算</b>
+                    <span class="st-sub">
+                      <span class="tool-chip"><span class="t-ico t-qm">且</span>正在使用且慢投顾 <b>诊断 易方达蓝筹精选混合</b></span>
+                      <span class="tool-chip"><span class="t-ico t-qm">且</span>正在使用且慢投顾 <b>计算 持仓重合度</b></span>
+                    </span>
+                  </span>
+                </div>
+                <div class="step dim"><span class="st-ic" style="opacity:.35"><svg><use href="#i-check"/></svg></span>生成可视化诊断报告</div>
+              </div>
+              <div class="tcard-f">工具调用：<span class="mini t-qm">且</span><span class="mini t-md">MD</span><span class="sep">已耗时：01:47</span></div>
+            </div>
+            <div class="a-text" style="color:#565d6e;font-size:14.5px">
+              <p>任务执行过程中可以继续跟我聊别的话题或者离开对话，任务不会中止，完成后我会发消息通知你。</p>
+            </div>
+          </div>
+          <div class="quickrow">
+            <span class="qchip blue"><svg><use href="#i-star6"/></svg>执行中 <svg style="width:12px"><use href="#i-chev-r"/></svg></span>
+            <span class="qchip"><svg><use href="#i-bolt"/></svg>快速 <svg style="width:12px"><use href="#i-chev-d"/></svg></span>
+            <span class="qchip"><svg><use href="#i-life"/></svg>生活帮手</span>
+            <span class="qchip"><svg><use href="#i-globe"/></svg>美加墨</span>
+          </div>
+          <div class="inbar"><svg><use href="#i-wave"/></svg><span class="ph">发消息或按住说话...</span><svg><use href="#i-plus-c"/></svg><span class="send stop"><i></i></span></div>
+          <div class="gennote">内容由 Qwen-3.7 大模型生成</div>
+        </div></div>
+        <figcaption>
+          <b><i>S5</i>任务执行中 · 千问原生任务卡</b>
+          <ul class="notes">
+            <li>四步计划、进度环、工具调用 chips、耗时——与千问「淘宝闪购点单」等现有任务完全同构。</li>
+            <li><b>合作点：</b>工具位从「淘宝闪购」换成「且慢投顾」，调用 `fund_data`、`fund_diagnose`、`portfolio_match` 等 MCP 工具。</li>
+          </ul>
+        </figcaption>
+      </figure>
+
+      <!-- S6 任务进度页 -->
+      <figure class="shot">
+        <div class="phone"><div class="scr">
+          <div class="sbar">
+            <span>16:36</span>
+            <div class="island"><span class="ic-check"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg></span><span class="mins">25m</span></div>
+            <div class="sicons">
+              <svg viewBox="0 0 18 12" width="18"><g fill="#15181f"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0.5" width="3" height="11.5" rx="1" opacity=".35"/></g></svg>
+              <svg viewBox="0 0 16 12" width="15"><path d="M8 10.8 1.2 4.5A9.6 9.6 0 0 1 8 1.8a9.6 9.6 0 0 1 6.8 2.7Z" fill="#15181f"/></svg>
+              <span class="batt">16</span>
+            </div>
+          </div>
+          <div class="navbar">
+            <span class="nv-ico"><svg><use href="#i-back"/></svg></span>
+            <span class="nv-title">任务进度</span>
+            <span class="nv-ico"><svg><use href="#i-share"/></svg></span>
+          </div>
+          <div class="timeline">
+            <div class="tl-item">
+              <span class="tl-dot"><svg><use href="#i-check"/></svg></span>
+              <div class="tl-title">分析用户持仓与风险数据 <span class="cv"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-chev-u"/></svg></span></div>
+              <div class="tl-sub"><span class="file-chip"><span class="f-ico">MD</span>正在生成文件 持仓解析.md</span></div>
+            </div>
+            <div class="tl-item">
+              <span class="tl-dot"><svg><use href="#i-check"/></svg></span>
+              <div class="tl-title">调用且慢获取全市场基金数据 <span class="cv"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-chev-u"/></svg></span></div>
+              <div class="tl-sub">
+                <span class="tool-chip"><span class="t-ico t-qm">且</span>正在使用且慢投顾 <b>查询 基金评级 易方达蓝筹精选</b></span>
+                <span class="tool-chip"><span class="t-ico t-qm">且</span>正在使用且慢投顾 <b>查询 同类分位 中欧医疗健康</b></span>
+                <span class="tool-chip"><span class="t-ico t-qm">且</span>正在使用且慢投顾 <b>计算 持仓重合度</b></span>
+                <span class="tool-chip"><span class="t-ico t-qm">且</span>正在使用且慢投顾 <b>核对 费率与销售服务费</b></span>
+                <span class="tool-chip"><span class="t-ico t-qm">且</span>正在使用且慢投顾 <b>获取 组合风险分</b></span>
+                <span class="tool-chip"><span class="t-ico t-qm">且</span>正在使用且慢投顾 <b>市场温度计</b></span>
+                <span class="file-chip"><span class="f-ico">MD</span>正在生成文件 全市场数据快照.md</span>
+              </div>
+            </div>
+            <div class="tl-item">
+              <span class="tl-dot"><svg><use href="#i-check"/></svg></span>
+              <div class="tl-title">基金诊断与匹配度计算 <span class="cv"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-chev-u"/></svg></span></div>
+              <p class="tl-text">我将对 23 只持仓基金逐一体检，横向对比同类分位、费率与风格漂移，并把组合风险分（78）与你的承受分（62）做匹配计算，为最终报告提供依据。</p>
+            </div>
+            <div class="tl-item">
+              <span class="tl-dot" style="background:#fff"><span class="ring" style="width:21px;height:21px"><svg viewBox="0 0 22 22"><circle cx="11" cy="11" r="9" fill="none" stroke="#e8ebf2" stroke-width="2.4"/><circle cx="11" cy="11" r="9" fill="none" stroke="#3b5bfe" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="56 57"/></svg></span></span>
+              <div class="tl-title"><span style="color:#3b5bfe;font-size:12px;font-weight:800;margin-right:2px">4/4</span> 制定诊断结论与调仓思路 <span class="cv"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-chev-u"/></svg></span></div>
+              <p class="tl-text">正在为你标注 3 只需要处理的问题基金</p>
+              <div class="tl-sub"><span class="file-chip"><span class="f-ico">MD</span>完成诊断草稿 诊断结论预览.md</span></div>
+              <p class="tl-text">开始生成最终报告</p>
+            </div>
+          </div>
+          <div class="float-view">
+            <div class="fv-head"><i></i>02:31</div>
+            <div class="fv-body">"risk_match": {<br>&nbsp;&nbsp;<em>"tolerance"</em>: 62,<br>&nbsp;&nbsp;<em>"holding_risk"</em>: 78,<br>&nbsp;&nbsp;<em>"gap"</em>: -16,<br>&nbsp;&nbsp;<em>"flag"</em>: "超出舒适区"<br>}</div>
+          </div>
+          <div style="flex:1"></div>
+          <div class="replay"><span class="txt">正在回放...</span><span class="rbtn">跳到结果</span><span class="rbtn pri">新建任务</span></div>
+          <div class="gennote">内容由 AI 生成</div>
+        </div></div>
+        <figcaption>
+          <b><i>S6</i>任务进度 · 且慢工具调用全透明</b>
+          <ul class="notes">
+            <li>完全复刻千问任务进度页：步骤时间线、工具 chips、文件生成、右下角执行预览浮窗、回放条。</li>
+            <li><b>合作点：</b>每一次「正在使用且慢投顾」都是一次 MCP 计费调用，天然形成合作结算依据。</li>
+          </ul>
+        </figcaption>
+      </figure>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= 第 3 章 报告与承接 ================= -->
+<section class="chapter" id="ch3">
+  <div class="wrap">
+    <div class="ch-head"><span class="ch-num">CHAPTER 03</span><h2>诊断报告与且慢服务承接</h2></div>
+    <p class="ch-lead">报告有总分、有仪表盘、有问题清单、有行动建议——天然可分享的社交素材；报告尾部三个承接组件把「看报告」变成「进入理财大门」：按方案一键转入且慢、AI 小顾解读报告、预约人工顾问。</p>
+    <div class="stage">
+
+      <!-- S7 报告 -->
+      <figure class="shot">
+        <div class="phone"><div class="scr">
+          <div class="sbar">
+            <span>16:39</span>
+            <div class="island"><span class="ic-check"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg></span><span class="mins">25m</span></div>
+            <div class="sicons">
+              <svg viewBox="0 0 18 12" width="18"><g fill="#15181f"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0.5" width="3" height="11.5" rx="1" opacity=".35"/></g></svg>
+              <svg viewBox="0 0 16 12" width="15"><path d="M8 10.8 1.2 4.5A9.6 9.6 0 0 1 8 1.8a9.6 9.6 0 0 1 6.8 2.7Z" fill="#15181f"/></svg>
+              <span class="batt low">15</span>
+            </div>
+          </div>
+          <div class="navbar">
+            <span class="nv-ico"><svg><use href="#i-back"/></svg></span>
+            <span class="nv-title">任务助理</span>
+            <span class="nv-ico"><svg><use href="#i-share"/></svg></span>
+          </div>
+          <div class="chat-body">
+            <div class="a-text"><p>你的全市场基金诊断已完成。整体结论：<b>持仓底子不差，但风险超出了你的承受舒适区</b>——权益仓位偏高、3 只基金高度重合，另有 1 只长期跑输同类。以下是完整报告：</p></div>
+            <div class="report">
+              <div class="rp-head">
+                <div class="src"><i class="iq">✳</i>千问任务助理<span>×</span><i class="im">且</i>且慢 AI 小顾<span>· 联合生成 · 示意数据</span></div>
+                <h4>全市场基金诊断报告</h4>
+                <small>2026-08-07 16:39 · 23 只基金 · 数据截至 2026-08-06</small>
+              </div>
+              <div class="rp-sec">
+                <div class="rp-k">综合健康度</div>
+                <div class="total-row">
+                  <div class="total-num"><b>72<em>/100</em></b><br><span class="grade">良好 · 高于 68% 的同规模持仓（示意）</span></div>
+                  <div class="total-meta">
+                    <div><b>23</b>只基金</div>
+                    <div><b>28.6万</b>持仓金额</div>
+                    <div><b>6</b>个诊断维度</div>
+                  </div>
+                </div>
+              </div>
+              <div class="rp-sec">
+                <div class="rp-k">风险匹配度 · 承受能力 × 现有持仓</div>
+                <div class="gauge">
+                  <svg width="108" height="72" viewBox="0 0 108 72">
+                    <path d="M 10 64 A 44 44 0 0 1 98 64" fill="none" stroke="#eef0f5" stroke-width="10" stroke-linecap="round"/>
+                    <path d="M 10 64 A 44 44 0 0 1 85.5 36.5" fill="none" stroke="#e8a13c" stroke-width="10" stroke-linecap="round"/>
+                    <text x="54" y="52" text-anchor="middle" font-size="21" font-weight="800" fill="#15181f">71</text>
+                    <text x="54" y="66" text-anchor="middle" font-size="8" fill="#9aa0ab">匹配度 / 100</text>
+                  </svg>
+                  <div class="gd">你的承受分 <b>62（C3）</b>，持仓风险分 <b>78</b>，超出舒适区 <b>16 分</b>。<span class="warn">权益仓位偏高，回撤可能超出你的心理预期</span></div>
+                </div>
+              </div>
+              <div class="rp-sec">
+                <div class="rp-k">四笔钱结构 · 现状 vs 建议</div>
+                <div class="bars">
+                  <div class="brow"><span>活钱</span><div class="btrack"><div class="bfill red" style="width:6%"></div></div><span class="tgt">3% → 建议 10%</span></div>
+                  <div class="brow"><span>稳钱</span><div class="btrack"><div class="bfill amber" style="width:18%"></div></div><span class="tgt">12% → 建议 30%</span></div>
+                  <div class="brow"><span>长钱</span><div class="btrack"><div class="bfill" style="width:92%"></div></div><span class="tgt">82% → 建议 55%</span></div>
+                  <div class="brow"><span>保险</span><div class="btrack"><div class="bfill qm" style="width:6%"></div></div><span class="tgt">3% → 建议 5%</span></div>
+                </div>
+              </div>
+              <div class="rp-sec">
+                <div class="rp-k">问题基金清单 · 3 / 23 需处理</div>
+                <div class="fund-row"><span class="fname"><b>某白酒主题混合 A</b><small>与另 2 只重仓重合度 68% · 集中度过高</small></span><span class="verdict v-rep">建议替换</span></div>
+                <div class="fund-row"><span class="fname"><b>某灵活配置混合 C</b><small>连续 3 年跑输业绩基准 · 同类后 25%</small></span><span class="verdict v-cut">建议减持</span></div>
+                <div class="fund-row"><span class="fname"><b>某中证红利指数 A</b><small>费率与跟踪误差正常 · 同类前 40%</small></span><span class="verdict v-keep">保留</span></div>
+                <span class="more-link">查看全部 23 只基金诊断明细 →</span>
+              </div>
+              <div class="rp-sec">
+                <div class="rp-k">三条行动建议</div>
+                <ol class="advice">
+                  <li><b>先补安全垫：</b>从长钱中划出约 4.8 万，补足活钱与稳钱缺口，把回撤拉回舒适区。</li>
+                  <li><b>处理重合：</b>替换重合度最高的 1 只白酒主题基金，行业集中度从 31% 降至 18%。</li>
+                  <li><b>停止无效持有：</b>长期跑输的 1 只灵活配置基金分批减持，转入稳钱策略。</li>
+                </ol>
+              </div>
+              <div class="rp-foot">本报告为一般性分析，基于你提供的持仓与测评信息生成，不构成投资建议；示意数据仅用于产品演示。个性化投顾建议由珠海盈米基金销售有限公司在其持牌域内提供。基金有风险，投资须谨慎。</div>
+            </div>
+            <div style="display:grid;gap:7px">
+              <span class="file-chip"><span class="f-ico pdf">PDF</span>全市场基金诊断报告.pdf</span>
+              <span class="file-chip"><span class="f-ico">MD</span>单基金诊断明细（23 只）.md</span>
+            </div>
+          </div>
+          <div style="flex:1"></div>
+          <div class="replay"><span class="txt">已播放完毕</span><span class="rbtn">重新播放</span><span class="rbtn pri">试一试</span></div>
+          <div class="gennote">内容由 AI 生成</div>
+        </div></div>
+        <figcaption>
+          <b><i>S7</i>全市场基金诊断报告 · 总分 + 匹配仪表 + 问题清单</b>
+          <ul class="notes">
+            <li>总分、匹配度仪表、四笔钱结构、问题基金清单、三条行动建议——一屏讲清「哪里有问题、该做什么」。</li>
+            <li><b>合作点：</b>报告双品牌署名；「风险匹配度」把风险测评与持仓诊断串成千问域内的完整价值闭环。</li>
+          </ul>
+        </figcaption>
+      </figure>
+
+      <!-- S8 承接 -->
+      <figure class="shot">
+        <div class="phone"><div class="scr">
+          <div class="sbar">
+            <span>16:40</span>
+            <div class="island"><span class="ic-check"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg></span><span class="mins">25m</span></div>
+            <div class="sicons">
+              <svg viewBox="0 0 18 12" width="18"><g fill="#15181f"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0.5" width="3" height="11.5" rx="1" opacity=".35"/></g></svg>
+              <svg viewBox="0 0 16 12" width="15"><path d="M8 10.8 1.2 4.5A9.6 9.6 0 0 1 8 1.8a9.6 9.6 0 0 1 6.8 2.7Z" fill="#15181f"/></svg>
+              <span class="batt low">15</span>
+            </div>
+          </div>
+          <div class="chat-h">
+            <span class="nv-ico menu-dot"><svg><use href="#i-menu"/></svg></span>
+            <span class="chat-title">千问 <svg viewBox="0 0 24 24"><path d="M4 10v4h4l5 4V6l-5 4H4Z"/><path d="M16 9.5a4 4 0 0 1 0 5"/></svg></span>
+            <span class="nv-ico"><svg><use href="#i-phone"/></svg></span>
+          </div>
+          <div class="chat-body">
+            <div class="a-text"><p>基于诊断结果，且慢为你预生成了一套 <b>C3 适配的调仓方案</b>。你可以一键转入执行，也可以先让 AI 小顾逐条解读报告：</p></div>
+            <div class="plan-card">
+              <div class="plan-h">
+                <div class="lg"><i>且</i>且慢 · 定制方案<span style="margin-left:auto;font-size:10px;opacity:.8">C3 稳健进取适配</span></div>
+                <h4>稳健增值 · 持仓优化方案</h4>
+                <small>按你的风险承受分与四笔钱缺口生成 · 示意方案</small>
+              </div>
+              <div class="plan-b">
+                <div class="delta">
+                  <span><b>71</b><small>当前匹配度</small></span>
+                  <svg viewBox="0 0 24 24"><path d="M4 12h14M13 6.5 19.5 12 13 17.5"/></svg>
+                  <span class="to"><b>92</b><small>执行后预估（示意）</small></span>
+                </div>
+                <ul class="plan-list">
+                  <li>替换 1 只高重合白酒主题基金 → 全市场严选替代（同风险档，费率更低）</li>
+                  <li>减持 1 只长期跑输基金，转入稳钱策略（目标占比 30%）</li>
+                  <li>新增活钱管理 2.9 万，建立 3 个月应急垫</li>
+                  <li>剩余长钱保持不动，避免不必要的申赎成本</li>
+                </ul>
+                <div class="btn qm" style="width:100%">按方案一键转入且慢</div>
+                <div style="text-align:center;font-size:11.5px;color:#9aa0ab;margin-top:9px">未开户将先完成开户与适当性评估 · 约 3 分钟</div>
+              </div>
+            </div>
+            <div class="svc-row">
+              <div class="svc"><span class="av gu">顾</span><b>AI 小顾解读报告</b><small>24h 在线 · 逐条讲解诊断结论，回答「为什么要换」</small></div>
+              <div class="svc"><span class="av hu">约</span><b>预约人工顾问</b><small>家庭资产蓝图 · 大额与复杂情况 1v1 解读</small></div>
+            </div>
+            <div class="disc">投顾服务由珠海盈米基金销售有限公司（证监会首批基金投顾试点机构）提供；开户、签约与交易均在且慢 APP / 小程序内完成，千问不参与资金往来。基金有风险，投资须谨慎。</div>
+          </div>
+          <div class="quickrow">
+            <span class="qchip blue"><svg><use href="#i-star6"/></svg>已完成 <svg style="width:12px"><use href="#i-chev-r"/></svg></span>
+            <span class="qchip"><svg><use href="#i-bolt"/></svg>快速 <svg style="width:12px"><use href="#i-chev-d"/></svg></span>
+            <span class="qchip"><svg><use href="#i-life"/></svg>生活帮手</span>
+            <span class="qchip"><svg><use href="#i-globe"/></svg>美加墨</span>
+          </div>
+          <div class="inbar"><svg><use href="#i-wave"/></svg><span class="ph">发消息或按住说话...</span><svg><use href="#i-plus-c"/></svg><span class="send"><svg><use href="#i-up"/></svg></span></div>
+          <div class="gennote">内容由 Qwen-3.7 大模型生成</div>
+        </div></div>
+        <figcaption>
+          <b><i>S8</i>且慢承接 · 一键转入 / 小顾解读 / 预约顾问</b>
+          <ul class="notes">
+            <li>方案卡展示「匹配度 71 → 92」的可感知收益，调仓动作收敛为 4 条，主按钮一键深链进入且慢。</li>
+            <li><b>合作点：</b>转化三件套（方案转入 / AI 小顾 / 人工顾问）全部落在盈米持牌域内，完成开户、签约、交易与投后陪伴；主体与风险披露前置。</li>
+          </ul>
+        </figcaption>
+      </figure>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= 第 4 章 家庭财务诊断 ================= -->
+<section class="chapter" id="ch4">
+  <div class="wrap">
+    <div class="ch-head"><span class="ch-num">CHAPTER 04</span><h2>家庭财务诊断：从「买基金」升维到「管好家里的钱」</h2></div>
+    <p class="ch-lead">面向没有持仓的纯小白与家庭财务焦虑人群：1 分钟填报（或语音说给助理听）→ 5 项指标红绿灯 + 健康总分 + 改进清单 + 四笔钱配置方案。这是与用户建立最深关系的场景，也是人工顾问升级的天然入口。</p>
+    <div class="stage">
+
+      <!-- S9 家庭财务对话 -->
+      <figure class="shot">
+        <div class="phone"><div class="scr">
+          <div class="sbar">
+            <span>16:41</span>
+            <div class="island"><span class="ic-check"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg></span><span class="mins">25m</span></div>
+            <div class="sicons">
+              <svg viewBox="0 0 18 12" width="18"><g fill="#15181f"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0.5" width="3" height="11.5" rx="1" opacity=".35"/></g></svg>
+              <svg viewBox="0 0 16 12" width="15"><path d="M8 10.8 1.2 4.5A9.6 9.6 0 0 1 8 1.8a9.6 9.6 0 0 1 6.8 2.7Z" fill="#15181f"/></svg>
+              <span class="batt low">15</span>
+            </div>
+          </div>
+          <div class="chat-h">
+            <span class="nv-ico menu-dot"><svg><use href="#i-menu"/></svg></span>
+            <span class="chat-title">千问 <svg viewBox="0 0 24 24"><path d="M4 10v4h4l5 4V6l-5 4H4Z"/><path d="M16 9.5a4 4 0 0 1 0 5"/></svg></span>
+            <span class="nv-ico"><svg><use href="#i-phone"/></svg></span>
+          </div>
+          <div class="chat-body">
+            <div class="bub-u">帮我做个家庭财务诊断。我 34 岁，两个孩子，有房贷，想知道家里的钱这样安排合不合理。</div>
+            <div class="a-text">
+              <p>好的。做一次家庭财务诊断只需要 6 个数字，1 分钟填完（也可以直接语音说给我听），我会给出 5 项指标的健康度、总分和改进清单：</p>
+            </div>
+            <div class="pick">
+              <div class="pick-h"><b>家庭财务快照</b><small>信息仅用于本次诊断 · 可随时删除</small></div>
+              <div class="form-row"><span>家庭月收入</span><b>32,000<small>元</small></b></div>
+              <div class="form-row"><span>家庭月支出（含房贷）</span><b>21,500<small>元</small></b></div>
+              <div class="form-row"><span>房贷月供</span><b>9,800<small>元</small></b></div>
+              <div class="form-row"><span>活期现金</span><b>26,000<small>元</small></b></div>
+              <div class="form-row"><span>定期与银行理财</span><b>234,000<small>元</small></b></div>
+              <div class="form-row"><span>投资中基金/股票</span><b>45,000<small>元</small></b></div>
+              <div class="form-row"><span>家庭保障</span><b>社保 + 1 份重疾（保额 30 万）</b></div>
+              <div class="safe"><svg><use href="#i-shield"/></svg>指标计算模型由盈米基金·且慢提供，全部数字为你手动填报，可随时更正。</div>
+            </div>
+            <div class="btn pri" style="margin:2px 0">生成家庭财务诊断报告</div>
+          </div>
+          <div class="quickrow">
+            <span class="qchip blue"><svg><use href="#i-star6"/></svg>待确认 <svg style="width:12px"><use href="#i-chev-r"/></svg></span>
+            <span class="qchip"><svg><use href="#i-bolt"/></svg>快速 <svg style="width:12px"><use href="#i-chev-d"/></svg></span>
+            <span class="qchip"><svg><use href="#i-life"/></svg>生活帮手</span>
+            <span class="qchip"><svg><use href="#i-globe"/></svg>美加墨</span>
+          </div>
+          <div class="inbar"><svg><use href="#i-wave"/></svg><span class="ph">发消息或按住说话...</span><svg><use href="#i-plus-c"/></svg><span class="send"><svg><use href="#i-up"/></svg></span></div>
+          <div class="gennote">内容由 Qwen-3.7 大模型生成</div>
+        </div></div>
+        <figcaption>
+          <b><i>S9</i>家庭财务快照 · 6 个数字 1 分钟填完</b>
+          <ul class="notes">
+            <li>结构化表单 + 语音填报双通道，输入门槛压到最低；无需任何持仓即可参与。</li>
+            <li><b>合作点：</b>指标模型（`family_finance_diagnose`）来自且慢四笔钱方法论——2018 年首创、已成行业事实标准。</li>
+          </ul>
+        </figcaption>
+      </figure>
+
+      <!-- S10 家庭财务报告 -->
+      <figure class="shot">
+        <div class="phone"><div class="scr">
+          <div class="sbar">
+            <span>16:43</span>
+            <div class="island"><span class="ic-check"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg></span><span class="mins">25m</span></div>
+            <div class="sicons">
+              <svg viewBox="0 0 18 12" width="18"><g fill="#15181f"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0.5" width="3" height="11.5" rx="1" opacity=".35"/></g></svg>
+              <svg viewBox="0 0 16 12" width="15"><path d="M8 10.8 1.2 4.5A9.6 9.6 0 0 1 8 1.8a9.6 9.6 0 0 1 6.8 2.7Z" fill="#15181f"/></svg>
+              <span class="batt">14</span>
+            </div>
+          </div>
+          <div class="navbar">
+            <span class="nv-ico"><svg><use href="#i-back"/></svg></span>
+            <span class="nv-title">任务助理</span>
+            <span class="nv-ico"><svg><use href="#i-share"/></svg></span>
+          </div>
+          <div class="chat-body">
+            <div class="report">
+              <div class="rp-head">
+                <div class="src"><i class="iq">✳</i>千问任务助理<span>×</span><i class="im">且</i>且慢 AI 小顾<span>· 联合生成 · 示意数据</span></div>
+                <h4>家庭财务健康诊断报告</h4>
+                <small>2026-08-07 16:43 · 34 岁 · 四口之家 · 有房贷</small>
+              </div>
+              <div class="rp-sec">
+                <div class="rp-k">财务健康总分</div>
+                <div class="total-row">
+                  <div class="total-num"><b>68<em>/100</em></b><br><span class="grade" style="color:#b4612a;background:var(--amber-soft)">中等 · 挣钱能力强，防守偏弱</span></div>
+                  <svg width="128" height="118" viewBox="0 0 128 118">
+                    <g transform="translate(64,60)" stroke="#e7eaf1" fill="none">
+                      <polygon points="0,-46 43.7,-14.2 27,37.2 -27,37.2 -43.7,-14.2"/>
+                      <polygon points="0,-30.5 29.1,-9.5 18,24.8 -18,24.8 -29.1,-9.5"/>
+                      <polygon points="0,-15.3 14.6,-4.7 9,12.4 -9,12.4 -14.6,-4.7"/>
+                      <path d="M0 0 0 -46M0 0 43.7 -14.2M0 0 27 37.2M0 0 -27 37.2M0 0 -43.7 -14.2"/>
+                      <polygon points="0,-13.8 38.5,-12.5 20.2,27.9 -13.5,18.6 -30.6,-9.9" fill="rgba(59,91,254,.16)" stroke="#3b5bfe" stroke-width="1.8"/>
+                    </g>
+                    <g font-size="9" fill="#8a8f99" text-anchor="middle">
+                      <text x="64" y="9">应急储备</text><text x="117" y="46">结余率</text><text x="98" y="112">负债</text><text x="30" y="112">保障</text><text x="10" y="46">增值</text>
+                    </g>
+                  </svg>
+                </div>
+              </div>
+              <div class="rp-sec">
+                <div class="rp-k">五项指标健康度</div>
+                <div class="ind"><span class="dot r"></span><span class="iname">应急储备</span><span class="ival"><b>1.2 个月</b><small>建议 3–6 个月支出</small></span></div>
+                <div class="ind"><span class="dot g"></span><span class="iname">结余率</span><span class="ival"><b>32.8%</b><small>≥ 20% 达标 · 月结余 10,500 元</small></span></div>
+                <div class="ind"><span class="dot y"></span><span class="iname">负债收入比</span><span class="ival"><b>30.6%</b><small>&lt; 35% 尚可 · 已接近上限</small></span></div>
+                <div class="ind"><span class="dot r"></span><span class="iname">保障覆盖</span><span class="ival"><b>明显不足</b><small>重疾保额缺口约 85 万（示意）</small></span></div>
+                <div class="ind"><span class="dot y"></span><span class="iname">钱生钱比例</span><span class="ival"><b>14.8%</b><small>投资资产占比偏低 · 定期占大头</small></span></div>
+              </div>
+              <div class="rp-sec">
+                <div class="rp-k">改进清单（按优先级）</div>
+                <ol class="advice">
+                  <li><b>补应急垫：</b>从定期中划出 6.5 万补足 3 个月应急金，放入活钱管理。</li>
+                  <li><b>补保障：</b>优先补齐两位大人的重疾与定寿，年保费预算约 1.2 万（示意）。</li>
+                  <li><b>让结余干活：</b>每月结余中拿 5,000 元定投长钱组合，先稳后长。</li>
+                </ol>
+              </div>
+              <div class="rp-sec">
+                <div class="rp-k">对应四笔钱配置方案</div>
+                <div class="bars">
+                  <div class="brow"><span>活钱</span><div class="btrack"><div class="bfill qm" style="width:22%"></div></div><span class="tgt">目标 10%</span></div>
+                  <div class="brow"><span>稳钱</span><div class="btrack"><div class="bfill qm" style="width:66%"></div></div><span class="tgt">目标 45%</span></div>
+                  <div class="brow"><span>长钱</span><div class="btrack"><div class="bfill" style="width:52%"></div></div><span class="tgt">目标 35%</span></div>
+                  <div class="brow"><span>保险</span><div class="btrack"><div class="bfill amber" style="width:18%"></div></div><span class="tgt">目标 10%</span></div>
+                </div>
+                <div class="btn-pair" style="margin-top:13px"><div class="btn qm">按方案一键转入且慢</div><div class="btn">预约顾问做家庭蓝图</div></div>
+              </div>
+              <div class="rp-foot">本报告为一般性财务教育内容，基于你填报的信息生成，不构成投资建议；示意数据仅用于产品演示。个性化配置方案与保险规划由盈米基金持牌域内服务提供。</div>
+            </div>
+          </div>
+          <div style="flex:1"></div>
+          <div class="replay"><span class="txt">已播放完毕</span><span class="rbtn">重新播放</span><span class="rbtn pri">试一试</span></div>
+          <div class="gennote">内容由 AI 生成</div>
+        </div></div>
+        <figcaption>
+          <b><i>S10</i>家庭财务健康报告 · 红绿灯 + 雷达 + 四笔钱方案</b>
+          <ul class="notes">
+            <li>5 项指标红绿灯直观呈现「哪里健康、哪里要补」，改进清单按优先级排列，直接对应四笔钱方案。</li>
+            <li><b>合作点：</b>保障缺口与家庭蓝图是「预约人工顾问」的天然升级点，衔接且慢同路人权益中的家庭财务分析服务。</li>
+          </ul>
+        </figcaption>
+      </figure>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= 第 5 章 市场诊断 ================= -->
+<section class="chapter" id="ch5">
+  <div class="wrap">
+    <div class="ch-head"><span class="ch-num">CHAPTER 05</span><h2>市场诊断周报：零输入的获客钩子与留存订阅</h2></div>
+    <p class="ch-lead">完全零门槛：不上传任何东西，一键获取本周市场诊断。它是六个场景里的「流量入口」——先让用户免费养成每周看一眼的习惯，再顺着「低估品类 → 对应策略」把人带进诊断与配置主线。</p>
+    <div class="stage">
+
+      <!-- S11 市场周报 -->
+      <figure class="shot">
+        <div class="phone"><div class="scr">
+          <div class="sbar">
+            <span>16:45</span>
+            <div class="island"><span class="ic-check"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg></span><span class="mins">25m</span></div>
+            <div class="sicons">
+              <svg viewBox="0 0 18 12" width="18"><g fill="#15181f"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0.5" width="3" height="11.5" rx="1" opacity=".35"/></g></svg>
+              <svg viewBox="0 0 16 12" width="15"><path d="M8 10.8 1.2 4.5A9.6 9.6 0 0 1 8 1.8a9.6 9.6 0 0 1 6.8 2.7Z" fill="#15181f"/></svg>
+              <span class="batt">14</span>
+            </div>
+          </div>
+          <div class="navbar">
+            <span class="nv-ico"><svg><use href="#i-back"/></svg></span>
+            <span class="nv-title">任务助理</span>
+            <span class="nv-ico"><svg><use href="#i-share"/></svg></span>
+          </div>
+          <div class="chat-body">
+            <div class="a-text"><p>本周市场诊断已生成。一句话结论：<b>市场整体处于偏低估区间，股债性价比偏向权益</b>，适合按纪律分批布局，不适合一把梭哈。</p></div>
+            <div class="report">
+              <div class="rp-head">
+                <div class="src"><i class="iq">✳</i>千问任务助理<span>×</span><i class="im">且</i>且慢 AI 小顾<span>· 联合生成 · 示意数据</span></div>
+                <h4>市场诊断周报 · 第 32 周</h4>
+                <small>2026-08-07 · 数据截至 2026-08-06 收盘</small>
+              </div>
+              <div class="rp-sec">
+                <div class="rp-k">全市场温度计</div>
+                <div class="temp"><span class="cursor"></span></div>
+                <div style="font-size:12.5px;color:#565d6e;line-height:1.7">当前温度 <b>34°（偏低估）</b>：处于近 10 年估值分位的偏低区域。温度越低，长期布局的性价比越高；但低估之后仍可能更低估，请用纪律代替预测。</div>
+              </div>
+              <div class="rp-sec">
+                <div class="rp-k">股债性价比</div>
+                <div style="font-size:12.5px;color:#565d6e;line-height:1.7">股债利差处于近 10 年 <b>82% 分位（示意）</b>——相对债券，权益资产当前更具吸引力；稳钱部分仍建议保持中性配置。</div>
+              </div>
+              <div class="rp-sec">
+                <div class="rp-k">宽基指数估值分位</div>
+                <div class="idx-row"><span>沪深 300</span><span class="pct">28%</span><span class="st low">低估</span></div>
+                <div class="idx-row"><span>中证 500</span><span class="pct">41%</span><span class="st mid">正常</span></div>
+                <div class="idx-row"><span>创业板指</span><span class="pct">18%</span><span class="st low">低估</span></div>
+                <div class="idx-row"><span>中证红利</span><span class="pct">62%</span><span class="st high">偏高</span></div>
+              </div>
+              <div class="rp-sec">
+                <div class="rp-k">下一步</div>
+                <div class="btn-pair"><div class="btn qm">订阅每周市场报告</div><div class="btn">看看低估品类对应的且慢策略</div></div>
+              </div>
+              <div class="rp-foot">估值分位与温度为一般性市场信息（示意数据），不构成投资建议，历史分位不预示未来表现。策略适配与交易在盈米基金持牌域内完成。</div>
+            </div>
+          </div>
+          <div style="flex:1"></div>
+          <div class="replay"><span class="txt">已播放完毕</span><span class="rbtn">重新播放</span><span class="rbtn pri">试一试</span></div>
+          <div class="gennote">内容由 AI 生成</div>
+        </div></div>
+        <figcaption>
+          <b><i>S11</i>市场诊断周报 · 温度计 + 估值分位 + 订阅</b>
+          <ul class="notes">
+            <li>零输入即可完成的任务，是任务卡矩阵里的获客钩子；订阅形成每周回访习惯。</li>
+            <li><b>合作点：</b>数据来自且慢每日估值/温度计体系（本体订阅 10.9 万人），出口「低估品类 → 对应且慢策略」把资讯流量导入配置主线。</li>
+          </ul>
+        </figcaption>
+      </figure>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= 页脚 ================= -->
+<footer class="foot">
+  <div class="wrap">
+    <b>说明与口径</b><br>
+    ① 本页为千问 APP × 盈米且慢合作方案的产品 DEMO，界面样式参照千问任务助理 2026-08 实测截图绘制；千问、Qwen 相关商标归其权利人所有。<br>
+    ② 界面中的持仓明细、评分、收益率、估值分位等全部为<b>演示示意数据</b>，不构成任何投资建议或真实诊断结论。<br>
+    ③ 合作方案全文见 <b>research/qianwen-qieman-coop-2026-08-07.md</b>：六大场景、MCP 工具清单、合规边界、商业模式、KPI 与三阶段路线。<br>
+    ④ 引用的且慢/盈米经营数字（投顾规模 540 亿+、盈利占比 96%、平均持有 772 天、MCP 调用 600 万+ 次等）来自仓库既有研究并随文标注来源。
+  </div>
+</footer>
+
+</body>
+</html>
