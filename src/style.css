@@ -8111,6 +8111,206 @@ input[type="search"]::-webkit-search-cancel-button {
   height: 12px;
 }
 
+/* Uploaded files — format-first chips and durable reader previews */
+.compact-intake-composer .attachment-chip {
+  min-width: 0;
+  border: 1px solid #e3e5ea;
+  border-radius: 11px;
+  background: #f7f7fa;
+  padding: 5px 7px 5px 5px;
+}
+
+.attachment-format,
+.saved-file-format {
+  display: inline-grid;
+  place-items: center;
+  min-width: 38px;
+  height: 26px;
+  border-radius: 7px;
+  background: #e8eaf0;
+  padding: 0 6px;
+  color: #555d69;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.attachment-copy {
+  min-width: 0;
+  display: grid;
+  gap: 1px;
+}
+
+.attachment-copy b {
+  max-width: min(340px, 42vw);
+}
+
+.file-kind-pdf > .attachment-format,
+.file-kind-pdf .saved-file-format { background: #f8e7e6; color: #a64038; }
+.file-kind-html > .attachment-format,
+.file-kind-html .saved-file-format { background: #e8e9ed; color: #323741; }
+.file-kind-image > .attachment-format,
+.file-kind-image .saved-file-format { background: #eee9fb; color: #6750ae; }
+.file-kind-word > .attachment-format,
+.file-kind-word .saved-file-format { background: #e7eefb; color: #315fa8; }
+.file-kind-excel > .attachment-format,
+.file-kind-excel .saved-file-format { background: #e5f2ea; color: #287148; }
+.file-kind-ppt > .attachment-format,
+.file-kind-ppt .saved-file-format { background: #faeade; color: #a55127; }
+.file-kind-markdown > .attachment-format,
+.file-kind-markdown .saved-file-format { background: #e9eaf0; color: #4f5661; }
+
+.saved-file-visual {
+  position: relative;
+  min-height: 148px;
+  overflow: hidden;
+  border: 1px solid #e5e6ea;
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at 85% 12%, rgb(255 255 255 / 86%), transparent 30%),
+    linear-gradient(145deg, #eef0f5, #f8f7f4);
+}
+
+.saved-file-visual.compact {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  border: 0;
+  border-radius: 0;
+}
+
+.saved-file-visual > img,
+.saved-file-visual > iframe {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border: 0;
+  object-fit: cover;
+  object-position: top center;
+  pointer-events: none;
+}
+
+.saved-file-visual > .saved-file-format {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
+  box-shadow: 0 5px 16px rgb(28 32 40 / 10%);
+}
+
+.saved-file-fallback {
+  min-height: inherit;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 8px;
+  padding: 24px;
+  text-align: center;
+}
+
+.saved-file-fallback strong {
+  color: #353a43;
+  font-family: Georgia, "Noto Serif SC", serif;
+  font-size: clamp(25px, 4vw, 42px);
+  letter-spacing: -0.03em;
+}
+
+.saved-file-fallback small {
+  overflow: hidden;
+  width: 100%;
+  color: #858b94;
+  font-size: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.saved-file-visual pre {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  padding: 48px 18px 18px;
+  color: #4f5661;
+  font: 10px/1.65 ui-monospace, SFMono-Regular, Menlo, monospace;
+  text-align: left;
+  white-space: pre-wrap;
+}
+
+.rich-file-list {
+  gap: 12px;
+}
+
+.saved-file-card {
+  display: grid;
+  grid-template-columns: minmax(180px, 240px) minmax(0, 1fr);
+  gap: 18px;
+  align-items: stretch;
+  border: 1px solid #e7e7e5;
+  border-radius: 16px;
+  background: #fafafa;
+  padding: 10px;
+}
+
+.saved-file-details {
+  min-width: 0;
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: 8px;
+  padding: 10px 12px 10px 0;
+}
+
+.saved-file-details > div:not(.saved-file-actions) {
+  min-width: 0;
+  display: grid;
+  gap: 3px;
+}
+
+.saved-file-details b {
+  overflow-wrap: anywhere;
+  font-size: 13px;
+}
+
+.saved-file-details small,
+.saved-file-details p {
+  margin: 0;
+  color: #858b94;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.saved-file-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.saved-file-actions button {
+  min-height: 30px;
+  border: 1px solid #dfe1e6;
+  border-radius: 8px;
+  background: #fff;
+  padding: 0 11px;
+  color: #4e5560;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.saved-file-actions button:hover,
+.saved-file-actions button:focus-visible {
+  border-color: #cfd2d9;
+  background: #f2f2f5;
+  color: #202329;
+  outline: 0;
+}
+
+@media (max-width: 620px) {
+  .attachment-copy b { max-width: 200px; }
+  .saved-file-card { grid-template-columns: 1fr; }
+  .saved-file-details { padding: 4px 4px 8px; }
+}
+
 @media (max-width: 680px) {
   .compact-task-actions {
     justify-content: flex-end;

@@ -9,6 +9,7 @@ const fail = (message) => {
 
 const appSource = read("src/app.js");
 const editorSource = read("src/report-editor.js");
+const fileTypesSource = read("src/file-types.js");
 const searchIndexPath = join(new URL(".", root).pathname, "public", "search-index.json");
 const taskSource = read("src/task-center.js");
 const styleSource = read("src/style.css");
@@ -91,6 +92,18 @@ const requiredSignals = [
   [appSource, "function bindReportDragging()", "缺少统一卡片拖动会话"],
   [appSource, 'addEventListener("compositionend"', "搜索框缺少中文输入法完成事件"],
   [appSource, "commitSearchInput", "搜索框没有统一提交查询状态"],
+  [appSource, "persistUploadedFiles", "上传档案没有保存到浏览器文件库"],
+  [appSource, "hydrateSavedFilePreviews", "已保存档案没有恢复预览"],
+  [appSource, 'data-action="download-saved-file"', "已保存档案缺少下载入口"],
+  [taskSource, "SUPPORTED_FILE_ACCEPT", "上传入口没有限制为支持的档案格式"],
+  [taskSource, "attachment-format", "上传档案没有显示格式标识"],
+  [fileTypesSource, 'label: "PDF"', "档案类型缺少 PDF"],
+  [fileTypesSource, 'label: "HTML"', "档案类型缺少 HTML"],
+  [fileTypesSource, 'label: "PNG"', "档案类型缺少 PNG"],
+  [fileTypesSource, 'label: "WORD"', "档案类型缺少 WORD"],
+  [fileTypesSource, 'label: "EXCEL"', "档案类型缺少 EXCEL"],
+  [fileTypesSource, 'label: "PPT"', "档案类型缺少 PPT"],
+  [fileTypesSource, 'label: "MD"', "档案类型缺少 MD"],
   [appSource, 'data-report-draggable="true"', "卡片主体未启用按住拖动"],
   [appSource, "session.holdTimer = window.setTimeout", "卡片缺少长按拖动触发"],
   [appSource, "session.previewOffsetX", "拖动预览没有保持整卡抓取位置"],

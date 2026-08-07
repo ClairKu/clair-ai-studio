@@ -1,3 +1,9 @@
+import {
+  filePresentation,
+  isSupportedFile,
+  SUPPORTED_FILE_ACCEPT,
+} from "./file-types.js";
+
 const intakeActions = [
   { id: "save", name: "Save", hint: "Recognize and add to the library" },
   { id: "decision", name: "Decide", hint: "Copy a decision brief" },
@@ -87,8 +93,9 @@ function fileSize(bytes) {
 }
 
 async function filesToRecords(fileList) {
-  const files = [...fileList].slice(0, 20);
+  const files = [...fileList];
   return Promise.all(files.map(async (file) => {
+    const presentation = filePresentation(file);
     const textLike = file.type.startsWith("text/")
       || /\.(md|txt|csv|json|html|xml)$/i.test(file.name);
     const isHtml = /\.html?$/i.test(file.name);
@@ -107,20 +114,47 @@ async function filesToRecords(fileList) {
     return {
       id: uid(),
       name: file.name,
-      type: file.type || "文件",
+      type: file.type || "application/octet-stream",
       size: file.size,
       sizeLabel: fileSize(file.size),
+      kind: presentation.kind,
+      format: presentation.label,
+      extension: presentation.extension,
+      previewMode: presentation.preview,
       excerpt,
       content,
+      blob: file,
     };
   }));
+}
+
+async function addFilesToDraft(fileList) {
+  const incoming = [...fileList];
+  const supported = incoming.filter(isSupportedFile);
+  const remaining = Math.max(0, 20 - draft.files.length);
+  const accepted = supported.slice(0, remaining);
+  const records = await filesToRecords(accepted);
+  draft.files.push(...records);
+  return {
+    added: records.length,
+    unsupported: incoming.length - supported.length,
+    overflow: Math.max(0, supported.length - accepted.length),
+  };
+}
+
+function fileAddedMessage(result) {
+  const notes = [`已加入 ${result.added} 个文件`];
+  if (result.unsupported) notes.push(`${result.unsupported} 个格式不支持`);
+  if (result.overflow) notes.push(`${result.overflow} 个超过 20 个上限`);
+  return notes.join(" · ");
 }
 
 function attachmentsMarkup(escapeHtml) {
   if (!draft.files.length) return "";
   return `<div class="attachment-list">${draft.files.map((file) => `
-    <span class="attachment-chip">
-      <b>${escapeHtml(file.name)}</b><small>${escapeHtml(file.sizeLabel)}</small>
+    <span class="attachment-chip file-kind-${escapeHtml(file.kind || "file")}" title="${escapeHtml(file.format || "FILE")} · ${escapeHtml(file.name)}">
+      <span class="attachment-format">${escapeHtml(file.format || "FILE")}</span>
+      <span class="attachment-copy"><b>${escapeHtml(file.name)}</b><small>${escapeHtml(file.sizeLabel)}</small></span>
       <button type="button" aria-label="移除 ${escapeHtml(file.name)}"
         data-task-action="remove-file" data-file-id="${file.id}">${intakeIcons.close}</button>
     </span>`).join("")}</div>`;
@@ -147,7 +181,7 @@ export function taskWorkspaceMarkup(escapeHtml) {
           <div class="intake-actions compact-task-actions" aria-label="Actions">
             <label class="intake-action intake-icon-action compact-upload-button"
               for="task-files" aria-label="Attach files" title="Attach files">
-              <input id="task-files" type="file" multiple />
+              <input id="task-files" type="file" accept="${SUPPORTED_FILE_ACCEPT}" multiple />
               ${intakeIcons.upload}
             </label>
             ${intakeActionsMarkup(escapeHtml)}
@@ -269,9 +303,9 @@ export function bindTaskCenter({
   const fileInput = document.getElementById("task-files");
   fileInput?.addEventListener("change", async (event) => {
     captureDraft();
-    draft.files.push(...await filesToRecords(event.target.files));
+    const result = await addFilesToDraft(event.target.files);
     render();
-    showToast(`已加入 ${event.target.files.length} 个文件`);
+    showToast(fileAddedMessage(result));
   });
 
   const composer = document.querySelector(".prompt-composer");
@@ -287,9 +321,9 @@ export function bindTaskCenter({
     composer.classList.remove("drag-over");
     captureDraft();
     const files = event.dataTransfer.files;
-    draft.files.push(...await filesToRecords(files));
+    const result = await addFilesToDraft(files);
     render();
-    showToast(`已加入 ${files.length} 个文件`);
+    showToast(fileAddedMessage(result));
   });
 
   const prompt = document.getElementById("task-goal");
@@ -310,9 +344,9 @@ export function bindTaskCenter({
     const start = prompt.selectionStart ?? prompt.value.length;
     const end = prompt.selectionEnd ?? start;
     draft.material = `${prompt.value.slice(0, start)}${pastedText}${prompt.value.slice(end)}`;
-    draft.files.push(...await filesToRecords(pastedFiles));
+    const result = await addFilesToDraft(pastedFiles);
     render();
-    showToast(`已从剪贴板加入 ${pastedFiles.length} 个材料`);
+    showToast(`已从剪贴板${fileAddedMessage(result)}`);
   });
 
   bindGlobalPaste({ render, showToast });
@@ -355,10 +389,10 @@ function bindGlobalPaste({ render, showToast }) {
     if (!files.length && !text.trim()) return;
     event.preventDefault();
     draft.material = [draft.material.trim(), text.trim()].filter(Boolean).join("\n\n");
-    if (files.length) draft.files.push(...await filesToRecords(files));
+    const result = files.length ? await addFilesToDraft(files) : null;
     render();
     requestAnimationFrame(focusComposer);
-    showToast(files.length ? `已从剪贴板加入 ${files.length} 个材料` : "已把粘贴内容放入输入框");
+    showToast(result ? `已从剪贴板${fileAddedMessage(result)}` : "已把粘贴内容放入输入框");
   };
 
   document.ondragover = (event) => {
@@ -370,9 +404,9 @@ function bindGlobalPaste({ render, showToast }) {
     const files = event.dataTransfer?.files || [];
     if (!files.length) return;
     event.preventDefault();
-    draft.files.push(...await filesToRecords(files));
+    const result = await addFilesToDraft(files);
     render();
     requestAnimationFrame(focusComposer);
-    showToast(`已拖入 ${files.length} 个文件`);
+    showToast(fileAddedMessage(result));
   };
 }

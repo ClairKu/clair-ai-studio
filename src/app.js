@@ -10,6 +10,7 @@ import {
   reportEditorMarkup,
   sharePublishedReport,
 } from "./report-editor.js";
+import { filePresentation } from "./file-types.js";
 import { normalizeSearchText, reportMatchesQuery, reportSearchScore, searchTokens } from "./search.js";
 
 const STORAGE_KEY = "clair-service-report-workbench-v1";
@@ -17,6 +18,8 @@ const VIEW_KEY = "clair-service-report-workbench-view";
 const TIME_SORT_KEY = "clair-service-report-time-sort-v1";
 const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
+const FILE_DATABASE_NAME = "clair-ai-studio-files";
+const FILE_STORE_NAME = "files";
 const DATA_VERSION = 38;
 
 const WORK_TYPES = [
@@ -1595,7 +1598,9 @@ function htmlUrl(url = "") {
 
 function htmlFromIntake(material = "", files = []) {
   if (/<!doctype\s+html|<html[\s>]/i.test(material)) return material.trim();
-  const htmlFile = files.find((file) => /\.html?$/i.test(file.name));
+  const htmlFile = files.length === 1 && /\.html?$/i.test(files[0]?.name)
+    ? files[0]
+    : null;
   return htmlFile?.content || htmlFile?.excerpt || "";
 }
 
@@ -1672,19 +1677,19 @@ async function inspectSaveTarget({ material = "", files = [], url = "" }, onProg
   const localHtml = htmlFromIntake(material, files);
   const hasHtmlFile = files.some((file) => /\.html?$/i.test(file.name));
   if (!url) {
-    if (!localHtml) {
+    if (!localHtml && !files.length) {
       return {
         allowed: false,
         reason: hasHtmlFile
           ? "HTML 文件过大或无法读取，未保存；请上传 1MB 以内的 HTML"
-          : "只能保存可正常访问的网址或 HTML 内容",
+          : "请上传支持的档案、粘贴内容，或输入可正常访问的网址",
       };
     }
     return {
       allowed: true,
       access: "local",
       metadata: { title: "", description: "", reachable: true, checked: true },
-      isHtml: true,
+      isHtml: Boolean(localHtml),
       savedHtml: localHtml,
       loginProvider: "",
     };
@@ -1756,7 +1761,7 @@ async function saveIntakeToLibrary({ material, files }, onProgress = () => {}) {
     archived: false,
     archivedAt: "",
     savedContent: material,
-    savedFiles: files,
+    savedFiles: [],
     detectedDescription: metadata.description,
     manualSaved: true,
     isProduction: inspected.access === "production",
@@ -1765,6 +1770,15 @@ async function saveIntakeToLibrary({ material, files }, onProgress = () => {}) {
     savedHtml: inspected.savedHtml,
     loginProvider: inspected.loginProvider,
   };
+  try {
+    report.savedFiles = await persistUploadedFiles(report.id, files);
+  } catch {
+    return {
+      rejected: true,
+      duplicate: false,
+      reason: "档案无法写入浏览器文件库，请检查浏览器储存空间后重试",
+    };
+  }
   report.workType = inferWorkType(report);
   report.groupId = inferGroupId(report);
   report.tags = inferTags(report, report.workType);
@@ -1777,10 +1791,11 @@ async function saveIntakeToLibrary({ material, files }, onProgress = () => {}) {
     saveState();
   } catch {
     state.reports.pop();
+    await deleteStoredFilesForReport(report.id);
     return {
       rejected: true,
       duplicate: false,
-      reason: "HTML 内容超过当前浏览器可保存容量，请先下载或精简后重试",
+      reason: "成果资料超过当前浏览器可保存容量，请先精简内容后重试",
     };
   }
   archiveView = false;
@@ -2444,6 +2459,183 @@ function renderAtCurrentScroll(resolvePreferredElement = null) {
   window.addEventListener(eventName, cancelControlledScroll, { passive: true });
 });
 
+let fileDatabasePromise = null;
+const activeFileObjectUrls = new Set();
+
+function openFileDatabase() {
+  if (fileDatabasePromise) return fileDatabasePromise;
+  fileDatabasePromise = new Promise((resolve, reject) => {
+    if (!window.indexedDB) {
+      reject(new Error("IndexedDB unavailable"));
+      return;
+    }
+    const request = indexedDB.open(FILE_DATABASE_NAME, 1);
+    request.onupgradeneeded = () => {
+      const database = request.result;
+      if (!database.objectStoreNames.contains(FILE_STORE_NAME)) {
+        const store = database.createObjectStore(FILE_STORE_NAME, { keyPath: "id" });
+        store.createIndex("reportId", "reportId", { unique: false });
+      }
+    };
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error || new Error("File database failed"));
+  });
+  return fileDatabasePromise;
+}
+
+async function persistUploadedFiles(reportId, files = []) {
+  const storedFiles = files.map((file) => {
+    const { blob, ...metadata } = file;
+    return {
+      ...metadata,
+      storageId: blob instanceof Blob ? `${reportId}:${file.id}` : file.storageId || "",
+      blob,
+    };
+  });
+  const binaryFiles = storedFiles.filter((file) => file.blob instanceof Blob && file.storageId);
+  if (binaryFiles.length) {
+    const database = await openFileDatabase();
+    await new Promise((resolve, reject) => {
+      const transaction = database.transaction(FILE_STORE_NAME, "readwrite");
+      const store = transaction.objectStore(FILE_STORE_NAME);
+      binaryFiles.forEach((file) => {
+        store.put({
+          id: file.storageId,
+          reportId,
+          name: file.name,
+          type: file.type,
+          size: file.size,
+          blob: file.blob,
+          updatedAt: new Date().toISOString(),
+        });
+      });
+      transaction.oncomplete = resolve;
+      transaction.onerror = () => reject(transaction.error || new Error("File save failed"));
+      transaction.onabort = () => reject(transaction.error || new Error("File save aborted"));
+    });
+  }
+  return storedFiles.map(({ blob, ...metadata }) => metadata);
+}
+
+async function storedFileBlob(file) {
+  if (file?.storageId) {
+    try {
+      const database = await openFileDatabase();
+      const stored = await new Promise((resolve, reject) => {
+        const request = database.transaction(FILE_STORE_NAME, "readonly")
+          .objectStore(FILE_STORE_NAME)
+          .get(file.storageId);
+        request.onsuccess = () => resolve(request.result);
+        request.onerror = () => reject(request.error || new Error("File read failed"));
+      });
+      if (stored?.blob instanceof Blob) return stored.blob;
+    } catch {
+      return null;
+    }
+  }
+  const fallback = file?.content || file?.excerpt;
+  return fallback
+    ? new Blob([fallback], { type: file.type || "text/plain;charset=utf-8" })
+    : null;
+}
+
+async function deleteStoredFilesForReport(reportId) {
+  try {
+    const database = await openFileDatabase();
+    await new Promise((resolve, reject) => {
+      const transaction = database.transaction(FILE_STORE_NAME, "readwrite");
+      const store = transaction.objectStore(FILE_STORE_NAME);
+      const request = store.index("reportId").openKeyCursor(IDBKeyRange.only(reportId));
+      request.onsuccess = () => {
+        const cursor = request.result;
+        if (!cursor) return;
+        store.delete(cursor.primaryKey);
+        cursor.continue();
+      };
+      request.onerror = () => reject(request.error || new Error("File cleanup failed"));
+      transaction.oncomplete = resolve;
+      transaction.onerror = () => reject(transaction.error || new Error("File cleanup failed"));
+    });
+  } catch {
+    // A missing browser file database should not block catalog cleanup.
+  }
+}
+
+function revokeFileObjectUrls() {
+  activeFileObjectUrls.forEach((url) => URL.revokeObjectURL(url));
+  activeFileObjectUrls.clear();
+}
+
+function fileObjectUrl(blob) {
+  const url = URL.createObjectURL(blob);
+  activeFileObjectUrls.add(url);
+  return url;
+}
+
+async function hydrateSavedFilePreviews() {
+  const previews = [...document.querySelectorAll("[data-saved-file-preview]")];
+  await Promise.all(previews.map(async (preview) => {
+    const report = state.reports.find((item) => item.id === preview.dataset.reportId);
+    const file = report?.savedFiles?.find((item) => item.id === preview.dataset.fileId);
+    if (!file) return;
+    const blob = await storedFileBlob(file);
+    if (!blob || !preview.isConnected) return;
+    const url = fileObjectUrl(blob);
+    const mode = preview.dataset.previewMode;
+    if (mode === "image") {
+      const image = document.createElement("img");
+      image.src = url;
+      image.alt = file.name || "图片预览";
+      image.draggable = false;
+      preview.replaceChildren(image);
+    } else if (mode === "pdf" || mode === "html") {
+      const frame = document.createElement("iframe");
+      frame.src = mode === "pdf" ? `${url}#toolbar=0&navpanes=0&view=FitH` : url;
+      frame.title = `${file.name || (mode === "pdf" ? "PDF" : "HTML")}预览`;
+      frame.tabIndex = -1;
+      if (mode === "html") {
+        frame.setAttribute("sandbox", "allow-forms allow-modals allow-popups allow-scripts");
+      }
+      preview.replaceChildren(frame);
+    }
+    preview.classList.add("is-ready");
+  }));
+}
+
+async function downloadSavedFile(file) {
+  const blob = await storedFileBlob(file);
+  if (!blob) return false;
+  const url = fileObjectUrl(blob);
+  const anchor = document.createElement("a");
+  anchor.href = url;
+  anchor.download = file.name || "download";
+  document.body.append(anchor);
+  anchor.click();
+  anchor.remove();
+  window.setTimeout(() => {
+    URL.revokeObjectURL(url);
+    activeFileObjectUrls.delete(url);
+  }, 1000);
+  return true;
+}
+
+async function openSavedFile(file) {
+  const popup = window.open("", "_blank");
+  const blob = await storedFileBlob(file);
+  if (!blob) {
+    popup?.close();
+    return false;
+  }
+  const url = fileObjectUrl(blob);
+  if (popup) popup.location.href = url;
+  else window.open(url, "_blank", "noopener,noreferrer");
+  window.setTimeout(() => {
+    URL.revokeObjectURL(url);
+    activeFileObjectUrls.delete(url);
+  }, 60000);
+  return true;
+}
+
 function localHtmlForReport(report) {
   return report.savedHtml || htmlFromIntake(
     report.savedContent,
@@ -2488,6 +2680,54 @@ function openReportInBrowser(report) {
   return true;
 }
 
+function savedFilePreviewMarkup(report, file, compact = false) {
+  const presentation = filePresentation(file);
+  const format = file.format || presentation.label;
+  const canHydrate = Boolean(file.storageId && ["image", "pdf", "html"].includes(presentation.preview));
+  const previewAttributes = canHydrate
+    ? `data-saved-file-preview data-report-id="${escapeHtml(report.id)}" data-file-id="${escapeHtml(file.id)}" data-preview-mode="${presentation.preview}"`
+    : "";
+  const textPreview = presentation.preview === "text" && (file.excerpt || file.content)
+    ? `<pre>${escapeHtml((file.excerpt || file.content).slice(0, compact ? 280 : 8000))}</pre>`
+    : "";
+  return `
+    <div class="saved-file-visual file-kind-${presentation.kind} ${compact ? "compact" : ""}" ${previewAttributes}>
+      <span class="saved-file-format">${escapeHtml(format)}</span>
+      ${textPreview || `<div class="saved-file-fallback">
+        <strong>${escapeHtml(format)}</strong>
+        <small>${escapeHtml(file.name || "未命名文件")}</small>
+      </div>`}
+    </div>`;
+}
+
+function savedFilesReaderMarkup(report) {
+  const files = report.savedFiles || [];
+  if (!files.length) return "";
+  return `<section class="saved-file-list rich-file-list" aria-label="已保存档案">
+    <strong>已保存档案 · ${files.length}</strong>
+    ${files.map((file) => {
+      const presentation = filePresentation(file);
+      const format = file.format || presentation.label;
+      const hasInlinePreview = ["image", "pdf", "html", "text"].includes(presentation.preview)
+        && Boolean(file.storageId || file.content || file.excerpt);
+      const canOpenPreview = ["image", "pdf", "text"].includes(presentation.preview)
+        && Boolean(file.storageId || file.content || file.excerpt);
+      return `<article class="saved-file-card file-kind-${presentation.kind}">
+        ${savedFilePreviewMarkup(report, file)}
+        <div class="saved-file-details">
+          <span class="saved-file-format">${escapeHtml(format)}</span>
+          <div><b>${escapeHtml(file.name)}</b><small>${escapeHtml(file.sizeLabel || "")}</small></div>
+          <p>${hasInlinePreview ? "文件已保存在当前浏览器，可直接查看并下载。" : "该格式由系统完整保存，请下载后使用对应应用打开。"}</p>
+          <div class="saved-file-actions">
+            ${canOpenPreview ? `<button type="button" data-action="preview-saved-file" data-id="${escapeHtml(report.id)}" data-file-id="${escapeHtml(file.id)}">预览</button>` : ""}
+            <button type="button" data-action="download-saved-file" data-id="${escapeHtml(report.id)}" data-file-id="${escapeHtml(file.id)}">下载原文件</button>
+          </div>
+        </div>
+      </article>`;
+    }).join("")}
+  </section>`;
+}
+
 function cardMarkup(report, archivedView = false, options = {}) {
   const localSaved = !report.url &&
     (Boolean(report.savedContent) || Boolean((report.savedFiles || []).length));
@@ -2508,12 +2748,15 @@ function cardMarkup(report, archivedView = false, options = {}) {
   ])].filter((tag) => !hiddenCardTags.has(tag));
   const hasPreview = !restricted && initialState.reports.some((item) => item.id === report.id);
   const previewAsset = report.preview || `${report.id}.png`;
+  const primarySavedFile = (report.savedFiles || [])[0];
   const preview = localHtml && report.isHtml
     ? `<iframe class="local-html-preview-frame" title="${escapeHtml(report.title)}视觉预览"
         srcdoc="${escapeHtml(localHtml)}" sandbox="allow-scripts" loading="lazy"
         tabindex="-1" aria-hidden="true"></iframe>`
     : hasPreview
     ? `<img src="./previews/${escapeHtml(previewAsset)}" alt="" loading="lazy" decoding="async" draggable="false" />`
+    : localSaved && primarySavedFile
+    ? savedFilePreviewMarkup(report, primarySavedFile, true)
     : `
       <div class="preview-placeholder ${restricted ? "preview-restricted" : ""}">
         <span>${restricted ? "ACCESS" : escapeHtml(report.title.slice(0, 2))}</span>
@@ -2673,13 +2916,8 @@ function readerMarkup(report) {
           ${report.savedContent
             ? `<div class="saved-material-content">${escapeHtml(report.savedContent).replaceAll("\n", "<br />")}</div>`
             : ""}
-          ${(report.savedFiles || []).length
-            ? `<section class="saved-file-list">
-                <strong>附件记录</strong>
-                ${report.savedFiles.map((file) => `<span><b>${escapeHtml(file.name)}</b><small>${escapeHtml(file.sizeLabel || "")}</small></span>`).join("")}
-              </section>`
-            : ""}
-          <p class="saved-material-note">内容保存在当前浏览器；原文件不会上传到 GitHub Pages。</p>
+          ${savedFilesReaderMarkup(report)}
+          <p class="saved-material-note">档案完整保存在当前浏览器的专用文件库；不会上传到 GitHub Pages。</p>
         </article>
       </div>`
     : restricted
@@ -3010,6 +3248,7 @@ function workbenchMarkup() {
 function render() {
   const app = document.getElementById("app");
   const report = readerId && state.reports.find((item) => item.id === readerId);
+  revokeFileObjectUrls();
   app.innerHTML = report ? readerMarkup(report) : workbenchMarkup();
   bindApp();
   bindTaskCenter({
@@ -3017,6 +3256,7 @@ function render() {
     showToast,
     saveToLibrary: saveIntakeToLibrary,
   });
+  hydrateSavedFilePreviews();
 }
 
 async function detectTitle(form) {
@@ -3373,6 +3613,14 @@ function bindApp() {
         readerId = itemId;
         render();
         scrollPageTop();
+      } else if (action === "preview-saved-file" || action === "download-saved-file") {
+        const report = state.reports.find((item) => item.id === itemId);
+        const file = report?.savedFiles?.find((item) => item.id === event.currentTarget.dataset.fileId);
+        if (!file) return;
+        const completed = action === "preview-saved-file"
+          ? await openSavedFile(file)
+          : await downloadSavedFile(file);
+        if (!completed) showToast("原文件未找到，请重新上传后保存");
       } else if (action === "edit-document") {
         const report = state.reports.find((item) => item.id === itemId);
         if (!report || report.access !== "production") return;
@@ -3516,6 +3764,7 @@ function bindApp() {
           state.reports = state.reports.filter((item) => item.id !== itemId);
           if (readerId === itemId) readerId = "";
           saveState();
+          await deleteStoredFilesForReport(itemId);
           renderWithViewportSnapshot(snapshot);
           showToast("报告已永久删除");
         }
