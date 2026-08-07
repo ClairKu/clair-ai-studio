@@ -97,6 +97,7 @@ const requiredSignals = [
   [appSource, "hydrateSavedFilePreviews", "已保存档案没有恢复预览"],
   [appSource, 'class="saved-file-embedded-content"', "阅读页没有直接嵌入档案正文"],
   [appSource, "renderRichFile", "阅读页没有接入富文件解析器"],
+  [appSource, '"pdf-thumb"', "成果卡片没有限制为 PDF 单页缩略图"],
   [appSource, 'data-action="download-saved-file"', "已保存档案缺少下载入口"],
   [taskSource, "SUPPORTED_FILE_ACCEPT", "上传入口没有限制为支持的档案格式"],
   [taskSource, "attachment-format", "上传档案没有显示格式标识"],

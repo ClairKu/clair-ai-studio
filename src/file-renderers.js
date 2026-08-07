@@ -175,7 +175,7 @@ function renderFrame(container, srcdoc, title, type) {
   container.replaceChildren(frame);
 }
 
-async function renderPdf(container, blob, file) {
+async function renderPdf(container, blob, file, singlePage = false) {
   const [{ default: workerUrl }, pdfjs] = await Promise.all([
     import("pdfjs-dist/build/pdf.worker.min.mjs?url"),
     import("pdfjs-dist/build/pdf.mjs"),
@@ -185,7 +185,8 @@ async function renderPdf(container, blob, file) {
   const pdf = await loadingTask.promise;
   const stack = document.createElement("div");
   stack.className = "embedded-pdf-pages";
-  const pages = Array.from({ length: pdf.numPages }, (_, pageIndex) => {
+  const pageCount = singlePage ? Math.min(1, pdf.numPages) : pdf.numPages;
+  const pages = Array.from({ length: pageCount }, (_, pageIndex) => {
     const figure = document.createElement("figure");
     figure.className = "embedded-pdf-page";
     figure.dataset.pageNumber = String(pageIndex + 1);
@@ -278,8 +279,8 @@ async function renderPresentation(container, blob, file) {
 }
 
 export async function renderRichFile(container, blob, file, mode) {
-  if (mode === "pdf") {
-    await renderPdf(container, blob, file);
+  if (mode === "pdf" || mode === "pdf-thumb") {
+    await renderPdf(container, blob, file, mode === "pdf-thumb");
     return;
   }
   if (mode === "text") {

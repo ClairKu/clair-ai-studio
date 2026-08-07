@@ -2719,8 +2719,11 @@ function savedFilePreviewMarkup(report, file, compact = false) {
   const presentation = filePresentation(file);
   const format = file.format || presentation.label;
   const canHydrate = Boolean(file.storageId && ["image", "pdf", "html"].includes(presentation.preview));
+  const previewMode = compact && presentation.preview === "pdf"
+    ? "pdf-thumb"
+    : presentation.preview;
   const previewAttributes = canHydrate
-    ? `data-saved-file-preview data-report-id="${escapeHtml(report.id)}" data-file-id="${escapeHtml(file.id)}" data-preview-mode="${presentation.preview}"`
+    ? `data-saved-file-preview data-report-id="${escapeHtml(report.id)}" data-file-id="${escapeHtml(file.id)}" data-preview-mode="${previewMode}"`
     : "";
   const textPreview = presentation.preview === "text" && (file.excerpt || file.content)
     ? `<pre>${escapeHtml((file.excerpt || file.content).slice(0, compact ? 280 : 8000))}</pre>`

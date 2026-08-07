@@ -8475,6 +8475,28 @@ input[type="search"]::-webkit-search-cancel-button {
   content: "这一页暂时无法显示";
 }
 
+.saved-file-visual.compact .embedded-pdf-pages {
+  width: 100%;
+  height: 100%;
+  gap: 0;
+  padding: 0;
+}
+
+.saved-file-visual.compact .embedded-pdf-page {
+  width: 100%;
+  min-height: 100%;
+  box-shadow: none;
+}
+
+.saved-file-visual.compact .embedded-pdf-page canvas {
+  width: 100% !important;
+  height: auto !important;
+}
+
+.saved-file-visual.compact .embedded-pdf-page figcaption {
+  display: none;
+}
+
 .saved-file-loading {
   min-height: inherit;
   display: grid;
