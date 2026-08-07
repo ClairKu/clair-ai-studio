@@ -91,8 +91,13 @@ const requiredSignals = [
   [appSource, "function bindReportDragging()", "缺少统一卡片拖动会话"],
   [appSource, 'data-report-draggable="true"', "卡片主体未启用按住拖动"],
   [appSource, "session.holdTimer = window.setTimeout", "卡片缺少长按拖动触发"],
+  [appSource, "session.previewOffsetX", "拖动预览没有保持整卡抓取位置"],
+  [appSource, "const scheduleDragUpdate =", "拖动更新没有按动画帧节流"],
+  [appSource, 'draggable="false"', "预览图片仍会触发浏览器原生半卡拖动"],
   [appSource, "data-add-report-tag", "编辑成果缺少新增标签入口"],
   [appSource, "card-icon-action", "编辑与归档未使用简约图标"],
+  [appSource, "const hiddenCardTags", "卡片没有过滤保存介质标签"],
+  [appSource, "const editingLocalCard", "本地成果仍不能使用统一编辑操作"],
   [appSource, 'class="studio-icon-button add-topic-icon"', "新增分组图标没有统一样式"],
   [appSource, 'class="studio-icon-button dialog-close-button"', "关闭图标没有统一样式"],
   [appSource, "const contextualTags =", "卡片没有整合分组、类型与完整标签"],
@@ -112,6 +117,20 @@ const requiredSignals = [
   [editorSource, 'data-editor-command="copy"', "HTML 编辑器缺少复制操作"],
   [editorSource, 'data-editor-action="paste"', "HTML 编辑器缺少粘贴操作"],
   [editorSource, 'data-editor-command="delete"', "HTML 编辑器缺少删除操作"],
+  [editorSource, 'data-editor-block="copy"', "HTML 编辑器缺少区块复制"],
+  [editorSource, 'data-editor-block="paste"', "HTML 编辑器缺少区块粘贴"],
+  [editorSource, 'data-editor-block="up"', "HTML 编辑器缺少区块上移"],
+  [editorSource, 'data-editor-block="down"', "HTML 编辑器缺少区块下移"],
+  [editorSource, 'data-editor-block="delete"', "HTML 编辑器缺少区块删除"],
+  [editorSource, 'data-editor-insert', "HTML 编辑器缺少内容插入入口"],
+  [editorSource, '<option value="markdown">Markdown</option>', "HTML 编辑器缺少 Markdown 区块"],
+  [editorSource, '<option value="html">HTML</option>', "HTML 编辑器缺少 HTML 区块"],
+  [editorSource, 'data-editor-image-input', "HTML 编辑器缺少图片插入"],
+  [editorSource, 'data-editor-file-input', "HTML 编辑器缺少文件插入"],
+  [editorSource, 'data-block-kind="table"', "HTML 编辑器缺少表格插入"],
+  [editorSource, 'data-editor-color="foreColor"', "HTML 编辑器缺少文字颜色"],
+  [editorSource, 'resize: both', "HTML 编辑器区块不能拖拉缩放"],
+  [editorSource, 'document.addEventListener("dragstart"', "HTML 编辑器区块不能拖动"],
   [styleSource, ".archive-shell .top-actions .quiet-button", "移动端归档返回修复缺失"],
   [styleSource, ".topic-nav a .nav-index", "分组标题对齐修复缺失"],
   [styleSource, "overflow-anchor: none", "浏览器原生锚点仍会与应用恢复机制冲突"],
@@ -119,6 +138,29 @@ const requiredSignals = [
 
 for (const [source, signal, message] of requiredSignals) {
   if (!source.includes(signal)) fail(message);
+}
+
+const cardActionsSource = appSource.slice(
+  appSource.indexOf('<div class="card-actions">'),
+  appSource.indexOf("function modalMarkup"),
+);
+const cardActionOrder = [
+  'data-action="archive"',
+  'data-action="edit"',
+  'data-action="toggle-pin"',
+].map((signal) => cardActionsSource.indexOf(signal));
+if (cardActionOrder.some((index) => index < 0) ||
+    !(cardActionOrder[0] < cardActionOrder[1] && cardActionOrder[1] < cardActionOrder[2])) {
+  fail("卡片操作未按归档、编辑、收藏排列");
+}
+if (styleSource.includes(".report-card:has(.local-html-preview-frame) .report-preview::before")) {
+  fail("本地 HTML 卡片仍显示特殊角标");
+}
+if (/\.report-card\.is-card-drop-(?:before|after)/.test(styleSource)) {
+  fail("卡片拖动仍显示蓝色插入定位线");
+}
+if (!/\.report-tags\s*>\s*\.report-context-tag\s*\{[^}]*border:\s*0;/s.test(styleSource)) {
+  fail("紫色上下文标签仍有边框");
 }
 
 for (const removedSignal of [

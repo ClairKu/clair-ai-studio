@@ -345,6 +345,106 @@ function editorBridgeScript() {
     pageNodes[activePageIndex]?.focus?.({ preventScroll: true });
   };
 
+  let selectedBlock = null;
+  let blockClipboardHtml = "";
+  let draggedBlock = null;
+  const blockSelector = "[data-clair-editor-block]";
+  const markBlocks = () => {
+    const candidates = document.querySelectorAll([
+      "main > section", "main > article", "main > div",
+      "body > section", "body > article", "body > div",
+      "section > article", "figure", "table", "pre", "img", "[data-block-kind]"
+    ].join(","));
+    candidates.forEach((node) => {
+      if (node.closest("nav, header, footer, script, style")) return;
+      node.dataset.clairEditorBlock = "true";
+    });
+  };
+  const selectBlock = (block) => {
+    selectedBlock?.classList.remove("clair-editor-selected");
+    selectedBlock?.removeAttribute("draggable");
+    selectedBlock = block?.closest?.(blockSelector) || null;
+    if (!selectedBlock) {
+      send("block-selection", { selected: false });
+      return;
+    }
+    selectedBlock.classList.add("clair-editor-selected");
+    selectedBlock.draggable = true;
+    send("block-selection", {
+      selected: true,
+      kind: selectedBlock.tagName.toLowerCase()
+    });
+  };
+  const cleanInsertedHtml = (html) => {
+    const template = document.createElement("template");
+    template.innerHTML = String(html || "");
+    template.content.querySelectorAll("script, iframe, object, embed").forEach((node) => node.remove());
+    template.content.querySelectorAll("*").forEach((node) => {
+      [...node.attributes].forEach((attribute) => {
+        if (/^on/i.test(attribute.name)) node.removeAttribute(attribute.name);
+        if (["href", "src"].includes(attribute.name) && /^\s*javascript:/i.test(attribute.value)) {
+          node.removeAttribute(attribute.name);
+        }
+      });
+    });
+    return template.innerHTML;
+  };
+  const insertAfterSelection = (html) => {
+    const holder = document.createElement("div");
+    holder.innerHTML = cleanInsertedHtml(html);
+    const nodes = [...holder.childNodes];
+    const activePage = pageNodes[activePageIndex] || body;
+    if (selectedBlock?.parentNode) {
+      let reference = selectedBlock;
+      nodes.forEach((node) => {
+        reference.parentNode?.insertBefore(node, reference.nextSibling);
+        reference = node;
+      });
+    } else {
+      const container = activePage === body ? body : activePage;
+      nodes.forEach((node) => container.appendChild(node));
+    }
+    markBlocks();
+    const inserted = nodes.find((node) => node.nodeType === 1);
+    if (inserted) selectBlock(inserted);
+    send("dirty");
+  };
+  const moveSelectedBlock = (direction) => {
+    if (!selectedBlock) return;
+    const sibling = direction === "up"
+      ? selectedBlock.previousElementSibling
+      : selectedBlock.nextElementSibling;
+    if (!sibling) return;
+    if (direction === "up") sibling.before(selectedBlock);
+    else sibling.after(selectedBlock);
+    selectedBlock.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    send("dirty");
+  };
+  const runBlockCommand = async (command) => {
+    if (command === "copy" && selectedBlock) {
+      blockClipboardHtml = selectedBlock.outerHTML;
+      try { await navigator.clipboard.writeText(blockClipboardHtml); } catch {}
+      send("block-feedback", { message: "区块已复制" });
+      return;
+    }
+    if (command === "paste") {
+      let html = blockClipboardHtml;
+      if (!html) {
+        try { html = await navigator.clipboard.readText(); } catch {}
+      }
+      if (html) insertAfterSelection(html);
+      return;
+    }
+    if (command === "delete" && selectedBlock) {
+      const next = selectedBlock.nextElementSibling || selectedBlock.previousElementSibling;
+      selectedBlock.remove();
+      selectBlock(next);
+      send("dirty");
+      return;
+    }
+    if (command === "up" || command === "down") moveSelectedBlock(command);
+  };
+
   const restoreDocument = () => {
     const clone = document.documentElement.cloneNode(true);
     clone.removeAttribute("contenteditable");
@@ -353,6 +453,11 @@ function editorBridgeScript() {
     clone.querySelector("body")?.removeAttribute("data-clair-editable");
     clone.querySelectorAll(".clair-editor-page-hidden").forEach((page) => {
       page.classList.remove("clair-editor-page-hidden");
+    });
+    clone.querySelectorAll(".clair-editor-selected").forEach((node) => node.classList.remove("clair-editor-selected"));
+    clone.querySelectorAll("[data-clair-editor-block]").forEach((node) => {
+      node.removeAttribute("data-clair-editor-block");
+      node.removeAttribute("draggable");
     });
     clone.querySelector("#clair-editor-style")?.remove();
     clone.querySelector("#clair-editor-bridge")?.remove();
@@ -390,6 +495,14 @@ function editorBridgeScript() {
       send("command-state", { command: message.command });
       return;
     }
+    if (message.type === "block-command") {
+      runBlockCommand(message.command);
+      return;
+    }
+    if (message.type === "insert-block") {
+      insertAfterSelection(message.html || "");
+      return;
+    }
     if (message.type === "set-page") {
       setPage(message.page);
       return;
@@ -400,6 +513,41 @@ function editorBridgeScript() {
   });
 
   document.addEventListener("input", () => send("dirty"), true);
+  document.addEventListener("click", (event) => {
+    const block = event.target.closest?.(blockSelector);
+    if (block) selectBlock(block);
+  }, true);
+  document.addEventListener("dragstart", (event) => {
+    const block = event.target.closest?.(blockSelector);
+    if (!block || block !== selectedBlock) return;
+    draggedBlock = block;
+    event.dataTransfer.effectAllowed = "move";
+    event.dataTransfer.setData("text/plain", block.textContent?.slice(0, 80) || "区块");
+    block.classList.add("clair-editor-dragging");
+  });
+  document.addEventListener("dragover", (event) => {
+    if (!draggedBlock) return;
+    const target = event.target.closest?.(blockSelector);
+    if (!target || target === draggedBlock) return;
+    event.preventDefault();
+    document.querySelectorAll(".clair-editor-drop-target").forEach((node) => node.classList.remove("clair-editor-drop-target"));
+    target.classList.add("clair-editor-drop-target");
+  });
+  document.addEventListener("drop", (event) => {
+    if (!draggedBlock) return;
+    const target = event.target.closest?.(blockSelector);
+    if (!target || target === draggedBlock) return;
+    event.preventDefault();
+    const rect = target.getBoundingClientRect();
+    if (event.clientY < rect.top + rect.height / 2) target.before(draggedBlock);
+    else target.after(draggedBlock);
+    send("dirty");
+  });
+  document.addEventListener("dragend", () => {
+    draggedBlock?.classList.remove("clair-editor-dragging");
+    document.querySelectorAll(".clair-editor-drop-target").forEach((node) => node.classList.remove("clair-editor-drop-target"));
+    draggedBlock = null;
+  });
   document.addEventListener("selectionchange", () => {
     send("selection", {
       bold: document.queryCommandState("bold"),
@@ -407,6 +555,7 @@ function editorBridgeScript() {
       underline: document.queryCommandState("underline")
     });
   });
+  markBlocks();
   renderPage();
   send("ready");
 })();
@@ -434,9 +583,37 @@ function buildEditorDocument(html, baseUrl) {
     html { scroll-behavior: smooth; }
     body[data-clair-editable="true"] { min-height: 100vh; cursor: text; }
     body[data-clair-editable="true"]:focus { outline: none; }
-    body[data-clair-editable="true"] *:hover {
-      outline: 1px dashed rgba(27, 136, 238, .35);
+    body[data-clair-editable="true"] [data-clair-editor-block]:hover {
+      outline: 1px dashed rgba(102, 91, 195, .38);
       outline-offset: 2px;
+    }
+    body[data-clair-editable="true"] .clair-editor-selected {
+      position: relative;
+      min-width: 72px;
+      min-height: 36px;
+      overflow: auto !important;
+      outline: 2px solid rgba(102, 91, 195, .82) !important;
+      outline-offset: 3px !important;
+      resize: both;
+      cursor: move;
+    }
+    body[data-clair-editable="true"] .clair-editor-selected::after {
+      content: "拖动移动 · 右下角缩放";
+      position: absolute;
+      z-index: 2147483000;
+      right: 2px;
+      bottom: 2px;
+      border-radius: 5px;
+      background: #17191e;
+      padding: 3px 5px;
+      color: #fff;
+      font: 10px/1.2 system-ui, sans-serif;
+      pointer-events: none;
+    }
+    body[data-clair-editable="true"] .clair-editor-dragging { opacity: .38; }
+    body[data-clair-editable="true"] .clair-editor-drop-target {
+      box-shadow: 0 0 0 4px rgba(102, 91, 195, .18) !important;
+      outline-color: #665bc3 !important;
     }
     body[data-clair-editable="true"] a { cursor: text !important; }
     .clair-editor-page-hidden { display: none !important; }
@@ -562,6 +739,19 @@ function sendCommand(command, value = null) {
     command,
     value,
   }, "*");
+}
+
+function sendEditorMessage(type, payload = {}) {
+  const frame = editorFrame();
+  frame?.contentWindow?.postMessage({ channel: EDITOR_CHANNEL, type, ...payload }, "*");
+}
+
+function escapeEditorText(value = "") {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
 }
 
 function setEditorPage(page) {
@@ -954,11 +1144,16 @@ export function reportEditorMarkup(report, escapeHtml) {
           <option value="h2">标题 2</option>
           <option value="h3">标题 3</option>
           <option value="blockquote">引用</option>
+          <option value="pre">代码</option>
         </select>
         <span class="editor-divider"></span>
         <button type="button" data-editor-command="bold" title="粗体"><strong>B</strong></button>
         <button type="button" data-editor-command="italic" title="斜体"><em>I</em></button>
         <button type="button" data-editor-command="underline" title="下划线"><u>U</u></button>
+        <button type="button" data-editor-command="strikeThrough" title="删除线"><s>S</s></button>
+        <button type="button" data-editor-command="removeFormat" title="清除格式">Clear</button>
+        <label class="editor-color-control" title="文字颜色"><span>A</span><input type="color" data-editor-color="foreColor" value="#222222" aria-label="文字颜色" /></label>
+        <label class="editor-color-control" title="高亮颜色"><span>▰</span><input type="color" data-editor-color="hiliteColor" value="#fff0a8" aria-label="高亮颜色" /></label>
         <span class="editor-divider"></span>
         <button type="button" data-editor-command="insertUnorderedList" title="项目列表">• List</button>
         <button type="button" data-editor-command="insertOrderedList" title="编号列表">1. List</button>
@@ -977,6 +1172,27 @@ export function reportEditorMarkup(report, escapeHtml) {
         <button type="button" data-editor-command="copy" title="复制选中内容">Copy</button>
         <button type="button" data-editor-action="paste" title="粘贴纯文本">Paste</button>
         <button type="button" data-editor-command="delete" title="删除选中内容">Delete</button>
+        <span class="editor-divider"></span>
+        <select data-editor-insert aria-label="插入内容区块">
+          <option value="">＋ 插入区块</option>
+          <option value="text">文本</option>
+          <option value="rich">富文本</option>
+          <option value="image">图片</option>
+          <option value="table">表格</option>
+          <option value="file">文件</option>
+          <option value="markdown">Markdown</option>
+          <option value="html">HTML</option>
+        </select>
+        <span class="editor-divider"></span>
+        <span class="editor-block-tools" aria-label="区块操作">
+          <button type="button" data-editor-block="copy" title="复制区块" disabled>Copy block</button>
+          <button type="button" data-editor-block="paste" title="粘贴区块">Paste block</button>
+          <button type="button" data-editor-block="up" title="上移区块" disabled>↑</button>
+          <button type="button" data-editor-block="down" title="下移区块" disabled>↓</button>
+          <button type="button" data-editor-block="delete" title="删除区块" disabled>Delete block</button>
+        </span>
+        <input type="file" data-editor-image-input accept="image/*" hidden />
+        <input type="file" data-editor-file-input hidden />
         <span class="editor-divider"></span>
         <span class="editor-page-controls" data-editor-page-controls hidden>
           <button type="button" data-editor-action="prev-page" title="上一页">←</button>
@@ -1074,6 +1290,14 @@ export function bindReportEditor(report) {
           button.classList.toggle("active", Boolean(event.data[command]));
         });
       }
+      if (event.data.type === "block-selection") {
+        document.querySelectorAll("[data-editor-block]").forEach((button) => {
+          button.disabled = !event.data.selected && button.dataset.editorBlock !== "paste";
+        });
+      }
+      if (event.data.type === "block-feedback") {
+        editor.showToast?.(event.data.message || "区块操作已完成");
+      }
     });
     window.addEventListener("beforeunload", (event) => {
       if (!editor.reportId || !editor.dirty) return;
@@ -1096,6 +1320,84 @@ export function bindReportEditor(report) {
   format?.addEventListener("change", () => {
     sendCommand("formatBlock", format.value);
     format.value = "p";
+  });
+
+  document.querySelectorAll("[data-editor-color]").forEach((input) => {
+    input.addEventListener("input", () => sendCommand(input.dataset.editorColor, input.value));
+  });
+
+  document.querySelectorAll("[data-editor-block]").forEach((button) => {
+    button.addEventListener("mousedown", (event) => event.preventDefault());
+    button.addEventListener("click", () => {
+      sendEditorMessage("block-command", { command: button.dataset.editorBlock });
+    });
+  });
+
+  const imageInput = document.querySelector("[data-editor-image-input]");
+  const fileInput = document.querySelector("[data-editor-file-input]");
+  const readFileAsDataUrl = (file) => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = () => reject(reader.error || new Error("文件读取失败"));
+    reader.readAsDataURL(file);
+  });
+  imageInput?.addEventListener("change", async () => {
+    const file = imageInput.files?.[0];
+    if (!file) return;
+    try {
+      const src = await readFileAsDataUrl(file);
+      sendEditorMessage("insert-block", {
+        html: `<figure data-block-kind="image"><img src="${src}" alt="${escapeEditorText(file.name)}" style="max-width:100%;height:auto" /><figcaption>${escapeEditorText(file.name)}</figcaption></figure>`,
+      });
+    } catch {
+      editor.showToast?.("图片读取失败");
+    } finally {
+      imageInput.value = "";
+    }
+  });
+  fileInput?.addEventListener("change", async () => {
+    const file = fileInput.files?.[0];
+    if (!file) return;
+    try {
+      const href = await readFileAsDataUrl(file);
+      sendEditorMessage("insert-block", {
+        html: `<div data-block-kind="file"><a href="${href}" download="${escapeEditorText(file.name)}">📎 ${escapeEditorText(file.name)}</a></div>`,
+      });
+    } catch {
+      editor.showToast?.("文件读取失败");
+    } finally {
+      fileInput.value = "";
+    }
+  });
+
+  const insert = document.querySelector("[data-editor-insert]");
+  insert?.addEventListener("change", () => {
+    const type = insert.value;
+    insert.value = "";
+    if (!type) return;
+    if (type === "text") {
+      sendEditorMessage("insert-block", { html: "<p data-block-kind=\"text\">新文本</p>" });
+    } else if (type === "rich") {
+      sendEditorMessage("insert-block", { html: "<section data-block-kind=\"rich\"><h2>新区块</h2><p>在这里编辑富文本内容。</p></section>" });
+    } else if (type === "image") {
+      imageInput?.click();
+    } else if (type === "file") {
+      fileInput?.click();
+    } else if (type === "table") {
+      const value = prompt("表格大小，例如 3x4", "3x3") || "3x3";
+      const sizes = value.toLowerCase().split("x").map((item) => Math.max(1, Math.min(12, Number(item) || 3)));
+      const rows = sizes[0] || 3;
+      const columns = sizes[1] || sizes[0] || 3;
+      const cells = (tag) => Array.from({ length: columns }, (_, index) => `<${tag}>${tag === "th" ? `标题 ${index + 1}` : "内容"}</${tag}>`).join("");
+      const html = `<table data-block-kind="table"><thead><tr>${cells("th")}</tr></thead><tbody>${Array.from({ length: rows }, () => `<tr>${cells("td")}</tr>`).join("")}</tbody></table>`;
+      sendEditorMessage("insert-block", { html });
+    } else if (type === "markdown") {
+      const value = prompt("输入 Markdown 内容");
+      if (value !== null) sendEditorMessage("insert-block", { html: `<pre data-block-kind="markdown" data-format="markdown">${escapeEditorText(value)}</pre>` });
+    } else if (type === "html") {
+      const value = prompt("输入 HTML 区块（脚本与危险属性会自动移除）");
+      if (value) sendEditorMessage("insert-block", { html: `<div data-block-kind="html">${value}</div>` });
+    }
   });
 
   document.querySelectorAll("[data-editor-action]").forEach((button) => {

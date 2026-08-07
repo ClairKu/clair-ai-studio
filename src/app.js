@@ -1207,10 +1207,8 @@ function inferTags(report, workType = inferWorkType(report)) {
   const add = (tag) => {
     if (!tags.includes(tag)) tags.push(tag);
   };
-  if (report.manualSaved) add("手动保存");
   if (report.isProduction) add("生产");
   if (report.isPersonal) add("个人");
-  if (report.isHtml) add("HTML");
   if (/ontology\.yingmi-inc\.com|本体/.test(text)) add("本体");
   if (/feishu\.cn|飞书|community-ai-review|oap-h2-plan/.test(text)) add("飞书");
   if (workType === "competitive-research" || /调研|研究|盘点/.test(text)) add("调研");
@@ -2182,7 +2180,7 @@ function availableReportTags() {
   state.reports.forEach((report) => {
     (report.tags || []).forEach((tag) => tags.add(tag));
   });
-  return [...tags];
+  return [...tags].filter((tag) => !["HTML", "手动保存", "生产"].includes(tag));
 }
 
 function showToast(message) {
@@ -2488,11 +2486,12 @@ function cardMarkup(report, archivedView = false, options = {}) {
   const localHtml = localHtmlForReport(report);
   const isPinned = Boolean(report.pinned);
   const groupLabel = state.groups.find((group) => group.id === report.groupId)?.name || "未归类";
+  const hiddenCardTags = new Set(["HTML", "手动保存", "生产"]);
   const contextualTags = [...new Set([
     groupLabel,
     workTypeName(report.workType),
     ...(report.tags || []),
-  ])];
+  ])].filter((tag) => !hiddenCardTags.has(tag));
   const hasPreview = !restricted && initialState.reports.some((item) => item.id === report.id);
   const previewAsset = report.preview || `${report.id}.png`;
   const preview = localHtml && report.isHtml
@@ -2500,7 +2499,7 @@ function cardMarkup(report, archivedView = false, options = {}) {
         srcdoc="${escapeHtml(localHtml)}" sandbox="allow-scripts" loading="lazy"
         tabindex="-1" aria-hidden="true"></iframe>`
     : hasPreview
-    ? `<img src="./previews/${escapeHtml(previewAsset)}" alt="" loading="lazy" decoding="async" />`
+    ? `<img src="./previews/${escapeHtml(previewAsset)}" alt="" loading="lazy" decoding="async" draggable="false" />`
     : `
       <div class="preview-placeholder ${restricted ? "preview-restricted" : ""}">
         <span>${restricted ? "ACCESS" : escapeHtml(report.title.slice(0, 2))}</span>
@@ -2526,14 +2525,14 @@ function cardMarkup(report, archivedView = false, options = {}) {
             <button type="button" data-action="restore" data-id="${escapeHtml(report.id)}">Restore</button>
             <button type="button" data-action="delete" data-id="${escapeHtml(report.id)}">Delete permanently</button>`
           : `
-            <button type="button" class="studio-icon-button feature-action" data-action="toggle-pin" data-id="${escapeHtml(report.id)}"
-              title="${isPinned ? "取消精选" : "设为精选"}" aria-label="${isPinned ? "取消精选" : "设为精选"}">${UI_ICONS.star}</button>
-            ${report.url ? `<button type="button" class="studio-icon-button card-icon-action" data-action="edit" data-id="${escapeHtml(report.id)}" title="编辑成果" aria-label="编辑成果">
-              ${UI_ICONS.edit}
-            </button>` : ""}
             <button type="button" class="studio-icon-button card-icon-action" data-action="archive" data-id="${escapeHtml(report.id)}" title="归档成果" aria-label="归档成果">
               ${UI_ICONS.archive}
-            </button>`}
+            </button>
+            <button type="button" class="studio-icon-button card-icon-action" data-action="edit" data-id="${escapeHtml(report.id)}" title="编辑成果" aria-label="编辑成果">
+              ${UI_ICONS.edit}
+            </button>
+            <button type="button" class="studio-icon-button feature-action" data-action="toggle-pin" data-id="${escapeHtml(report.id)}"
+              title="${isPinned ? "取消精选" : "设为精选"}" aria-label="${isPinned ? "取消精选" : "设为精选"}">${UI_ICONS.star}</button>`}
       </div>
     </article>`;
 }
@@ -2572,7 +2571,8 @@ function modalMarkup() {
     ? state.reports.find((report) => report.id === modal.reportId)
     : null;
   const groupId = editing?.groupId || modal.groupId || state.groups[0]?.id || "";
-  const selectedTags = parseTags((editing?.tags || []).join("、"));
+  const selectedTags = parseTags((editing?.tags || []).join("、"))
+    .filter((tag) => !["HTML", "手动保存", "生产"].includes(tag));
   return `
     <div class="dialog-backdrop">
       <form class="dialog" id="report-form">
@@ -2585,7 +2585,7 @@ function modalMarkup() {
         </div>
         <label>网站地址
           <div class="url-input-row">
-            <input name="url" type="url" value="${escapeHtml(editing?.url || "")}" placeholder="https://..." required autofocus />
+            <input name="url" type="url" value="${escapeHtml(editing?.url || "")}" placeholder="https://..." ${!editing || editing.url ? "required" : ""} autofocus />
             <button type="button" class="detect-button" data-action="detect-title">Detect title</button>
           </div>
           <small class="field-hint">${editing ? "修改网址后可重新识别" : "保存时会自动识别网页标题"}</small>
@@ -3043,10 +3043,6 @@ function bindReportDragging() {
   const clearTargetClasses = () => {
     document.querySelectorAll(".report-card, .group-column, .topic-nav a").forEach((element) => {
       element.classList.remove(
-        "is-card-drop-target",
-        "is-card-drop-before",
-        "is-card-drop-after",
-        "is-drop-ready",
         "is-nav-drop-target",
       );
     });
@@ -3068,12 +3064,30 @@ function bindReportDragging() {
       node.setAttribute("tabindex", "-1");
     });
     document.body.append(preview);
+    session.previewWidth = rect.width;
+    session.previewHeight = rect.height;
+    session.previewOffsetX = Math.max(18, Math.min(rect.width - 18, session.startX - rect.left));
+    session.previewOffsetY = Math.max(18, Math.min(rect.height - 18, session.startY - rect.top));
     return preview;
   };
 
   const positionPreview = () => {
     if (!session?.preview) return;
-    session.preview.style.transform = `translate3d(${session.x + 14}px, ${session.y + 14}px, 0)`;
+    const maxX = Math.max(8, window.innerWidth - session.previewWidth - 8);
+    const maxY = Math.max(8, window.innerHeight - session.previewHeight - 8);
+    const left = Math.max(8, Math.min(maxX, session.x - session.previewOffsetX));
+    const top = Math.max(8, Math.min(maxY, session.y - session.previewOffsetY));
+    session.preview.style.transform = `translate3d(${left}px, ${top}px, 0)`;
+  };
+
+  const scheduleDragUpdate = () => {
+    if (!session?.active || session.updateFrame) return;
+    session.updateFrame = requestAnimationFrame(() => {
+      if (!session?.active) return;
+      session.updateFrame = 0;
+      positionPreview();
+      updateDropTarget();
+    });
   };
 
   const placePlaceholder = (container, targetCard = null, placeAfter = false) => {
@@ -3145,14 +3159,9 @@ function bindReportDragging() {
       return;
     }
     if (nextTarget.targetReportId) {
-      nextTarget.element.classList.add(
-        "is-card-drop-target",
-        nextTarget.placeAfter ? "is-card-drop-after" : "is-card-drop-before",
-      );
       placePlaceholder(nextTarget.container, nextTarget.element, nextTarget.placeAfter);
       return;
     }
-    nextTarget.element.classList.add("is-drop-ready");
     placePlaceholder(nextTarget.container);
   };
 
@@ -3209,6 +3218,7 @@ function bindReportDragging() {
     if (!session) return;
     clearTimeout(session.holdTimer);
     if (session.autoScrollFrame) cancelAnimationFrame(session.autoScrollFrame);
+    if (session.updateFrame) cancelAnimationFrame(session.updateFrame);
     session.preview?.remove();
     session.placeholder?.remove();
     session.sourceCard.classList.remove("is-dragging");
@@ -3241,12 +3251,6 @@ function bindReportDragging() {
     renderAtCurrentScroll(() => reportElement(sourceId));
     if (target.nav) {
       scheduleElementAlignment(() => bucketElement(target.bucketKind, target.bucketId));
-    } else {
-      requestAnimationFrame(() => requestAnimationFrame(() => {
-        const movedCard = reportElement(sourceId);
-        movedCard?.classList.add("is-drop-landed");
-        window.setTimeout(() => movedCard?.classList.remove("is-drop-landed"), 700);
-      }));
     }
     showToast(
       target.bucketKind === "featured"
@@ -3265,6 +3269,7 @@ function bindReportDragging() {
     if (event.button !== 0 || event.target.closest(".card-actions")) return;
     const sourceCard = event.target.closest('.report-card[data-report-draggable="true"]');
     if (!sourceCard?.closest(".group-column")) return;
+    if (event.pointerType === "mouse") event.preventDefault();
     session = {
       pointerId: event.pointerId,
       reportId: sourceCard.dataset.reportId,
@@ -3278,6 +3283,7 @@ function bindReportDragging() {
       preview: null,
       placeholder: null,
       autoScrollFrame: 0,
+      updateFrame: 0,
       holdTimer: 0,
     };
     session.holdTimer = window.setTimeout(() => activateSession(), 240);
@@ -3292,8 +3298,7 @@ function bindReportDragging() {
     }
     if (!session.active) return;
     event.preventDefault();
-    positionPreview();
-    updateDropTarget();
+    scheduleDragUpdate();
   });
 
   board.addEventListener("pointerup", (event) => {
@@ -3761,37 +3766,6 @@ function bindApp() {
     handle.addEventListener("pointercancel", clearReportPointerDrag);
   });
 
-  document.querySelectorAll(".group-column").forEach((column) => {
-    column.addEventListener("dragover", (event) => {
-      event.preventDefault();
-      column.classList.add("is-drop-ready");
-    });
-    column.addEventListener("dragleave", () => {
-      column.classList.remove("is-drop-ready");
-    });
-    column.addEventListener("drop", (event) => {
-      event.preventDefault();
-      const report = state.reports.find((item) => item.id === draggingId);
-      const bucketKind = column.dataset.bucketKind || catalogView;
-      if (
-        report &&
-        assignReportToBucket(draggingId, bucketKind, column.dataset.bucketId)
-      ) {
-        const movedReportId = draggingId;
-        draggingId = "";
-        renderAtCurrentScroll(() => reportElement(movedReportId));
-        showToast(
-          bucketKind === "tag"
-            ? "已添加目标标签"
-            : bucketKind === "type"
-              ? "工作类型已更新"
-              : "已移入新主题",
-        );
-      }
-      draggingId = "";
-    });
-  });
-
   const groupForm = document.getElementById("group-form");
   groupForm?.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -3887,12 +3861,31 @@ function bindApp() {
   reportForm?.addEventListener("submit", async (event) => {
     event.preventDefault();
     const url = reportForm.elements.url.value.trim();
-    if (!validUrl(url)) return;
+    const editingId = modal.mode === "edit" ? modal.reportId : "";
+    const editingReport = editingId
+      ? state.reports.find((report) => report.id === editingId)
+      : null;
+    const editingLocalCard = Boolean(editingReport && !editingReport.url && !url);
+    if (!validUrl(url) && !editingLocalCard) return;
     const submit = reportForm.querySelector('button[type="submit"]');
     const hint = reportForm.querySelector(".field-hint");
     submit.disabled = true;
     submit.innerHTML = '<span class="mini-spinner"></span>';
-    const editingId = modal.mode === "edit" ? modal.reportId : "";
+    if (editingLocalCard) {
+      const title = reportForm.elements.title.value.trim() || editingReport.title;
+      const groupId = reportForm.elements.groupId.value;
+      const workType = reportForm.elements.workType.value;
+      const tags = parseTags(reportForm.elements.tags.value)
+        .filter((tag) => !["HTML", "手动保存", "生产"].includes(tag));
+      Object.assign(editingReport, { title, groupId, workType, tags });
+      touchReport(editingReport);
+      saveState();
+      modal = null;
+      renderWithViewportSnapshot(modalViewportSnapshot || captureViewportSnapshot());
+      modalViewportSnapshot = null;
+      showToast("报告已保存");
+      return;
+    }
     const duplicate = findDuplicateReport({
       material: url,
       files: [],
