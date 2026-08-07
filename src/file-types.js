@@ -26,21 +26,21 @@ const FILE_TYPES = [
     label: "WORD",
     extensions: ["doc", "docx"],
     mime: ["application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"],
-    preview: "download",
+    preview: "word",
   },
   {
     kind: "excel",
     label: "EXCEL",
     extensions: ["xls", "xlsx"],
     mime: ["application/vnd.ms-excel", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"],
-    preview: "download",
+    preview: "excel",
   },
   {
     kind: "ppt",
     label: "PPT",
     extensions: ["ppt", "pptx"],
     mime: ["application/vnd.ms-powerpoint", "application/vnd.openxmlformats-officedocument.presentationml.presentation"],
-    preview: "download",
+    preview: "ppt",
   },
   { kind: "markdown", label: "MD", extensions: ["md", "markdown"], mime: ["text/markdown"], preview: "text" },
 ];
@@ -69,4 +69,3 @@ export function filePresentation(file = {}) {
 export function isSupportedFile(file = {}) {
   return filePresentation(file).supported;
 }
-

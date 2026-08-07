@@ -9,6 +9,7 @@ const fail = (message) => {
 
 const appSource = read("src/app.js");
 const editorSource = read("src/report-editor.js");
+const fileRendererSource = read("src/file-renderers.js");
 const fileTypesSource = read("src/file-types.js");
 const searchIndexPath = join(new URL(".", root).pathname, "public", "search-index.json");
 const taskSource = read("src/task-center.js");
@@ -94,6 +95,8 @@ const requiredSignals = [
   [appSource, "commitSearchInput", "搜索框没有统一提交查询状态"],
   [appSource, "persistUploadedFiles", "上传档案没有保存到浏览器文件库"],
   [appSource, "hydrateSavedFilePreviews", "已保存档案没有恢复预览"],
+  [appSource, 'class="saved-file-embedded-content"', "阅读页没有直接嵌入档案正文"],
+  [appSource, "renderRichFile", "阅读页没有接入富文件解析器"],
   [appSource, 'data-action="download-saved-file"', "已保存档案缺少下载入口"],
   [taskSource, "SUPPORTED_FILE_ACCEPT", "上传入口没有限制为支持的档案格式"],
   [taskSource, "attachment-format", "上传档案没有显示格式标识"],
@@ -104,6 +107,11 @@ const requiredSignals = [
   [fileTypesSource, 'label: "EXCEL"', "档案类型缺少 EXCEL"],
   [fileTypesSource, 'label: "PPT"', "档案类型缺少 PPT"],
   [fileTypesSource, 'label: "MD"', "档案类型缺少 MD"],
+  [fileRendererSource, 'import("mammoth")', "缺少 Word 页面内解析"],
+  [fileRendererSource, 'import("pdfjs-dist/build/pdf.mjs")', "缺少 PDF 逐页正文渲染"],
+  [fileRendererSource, 'import("xlsx")', "缺少 Excel 页面内解析"],
+  [fileRendererSource, 'import("pptx-preview")', "缺少 PPT 页面内解析"],
+  [fileRendererSource, "markdownToHtml", "缺少 Markdown 页面内渲染"],
   [appSource, 'data-report-draggable="true"', "卡片主体未启用按住拖动"],
   [appSource, "session.holdTimer = window.setTimeout", "卡片缺少长按拖动触发"],
   [appSource, "session.previewOffsetX", "拖动预览没有保持整卡抓取位置"],

@@ -8305,10 +8305,253 @@ input[type="search"]::-webkit-search-cancel-button {
   outline: 0;
 }
 
+/* Saved-file reader — content is the page, not a preview card */
+.saved-material-card {
+  width: min(1240px, 100%);
+  padding: clamp(24px, 4vw, 48px);
+}
+
+.embedded-file-list {
+  gap: clamp(24px, 4vw, 42px);
+  border-top-color: #e8e8e6;
+}
+
+.embedded-file-list-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.embedded-file-list-heading strong {
+  color: #202329;
+  font: 700 18px/1.3 Georgia, "Noto Serif SC", serif;
+}
+
+.embedded-file-list-heading span {
+  color: #8a9099;
+  font-size: 10px;
+}
+
+.saved-file-embed {
+  overflow: hidden;
+  border: 1px solid #dfe1e6;
+  border-radius: 18px;
+  background: #f8f8fa;
+  box-shadow: 0 16px 45px rgb(28 32 40 / 6%);
+}
+
+.saved-file-embed-header {
+  min-height: 66px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  border-bottom: 1px solid #e3e5e9;
+  background: rgb(255 255 255 / 96%);
+  padding: 12px 14px;
+}
+
+.saved-file-identity {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.saved-file-identity > div {
+  min-width: 0;
+  display: grid;
+  gap: 3px;
+}
+
+.saved-file-identity b {
+  overflow: hidden;
+  color: #252930;
+  font-size: 12px;
+  font-weight: 650;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.saved-file-identity small {
+  color: #9197a0;
+  font-size: 9px;
+}
+
+.saved-file-download {
+  flex: 0 0 auto;
+  min-height: 32px;
+  border: 1px solid #dfe1e6;
+  border-radius: 8px;
+  background: #fff;
+  padding: 0 12px;
+  color: #555c67;
+  font: 600 10px/1 ui-sans-serif, sans-serif;
+  cursor: pointer;
+}
+
+.saved-file-download:hover,
+.saved-file-download:focus-visible {
+  border-color: #c8cad2;
+  background: #f2f2f5;
+  color: #1f2228;
+  outline: 0;
+}
+
+.saved-file-embedded-content {
+  position: relative;
+  min-height: 420px;
+  overflow: hidden;
+  background: #eceef2;
+}
+
+.saved-file-embedded-content > iframe,
+.saved-file-embedded-content > img {
+  display: block;
+  width: 100%;
+  border: 0;
+  background: #fff;
+}
+
+.saved-file-embedded-content > iframe {
+  min-height: min(820px, 78dvh);
+}
+
+.file-kind-pdf .saved-file-embedded-content > iframe,
+.file-kind-html .saved-file-embedded-content > iframe {
+  height: min(920px, 82dvh);
+}
+
+.saved-file-embedded-content > img {
+  height: auto;
+  object-fit: contain;
+}
+
+.embedded-pdf-pages {
+  display: grid;
+  gap: 18px;
+  background: #dfe2e7;
+  padding: 18px;
+}
+
+.embedded-pdf-page {
+  position: relative;
+  min-height: 320px;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  overflow: hidden;
+  background: #f3f4f6;
+  box-shadow: 0 8px 24px rgb(20 26 36 / 12%);
+}
+
+.embedded-pdf-page canvas {
+  display: block;
+  max-width: 100%;
+  height: auto !important;
+  background: #fff;
+}
+
+.embedded-pdf-page figcaption {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  border-radius: 999px;
+  background: rgb(24 27 33 / 76%);
+  padding: 4px 8px;
+  color: #fff;
+  font-size: 9px;
+  line-height: 1;
+}
+
+.embedded-pdf-page:not([data-rendered="true"])::before {
+  content: "正在载入第 " attr(data-page-number) " 页";
+  color: #858b94;
+  font-size: 10px;
+}
+
+.embedded-pdf-page.has-render-error::before {
+  content: "这一页暂时无法显示";
+}
+
+.saved-file-loading {
+  min-height: inherit;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 12px;
+  color: #737a85;
+  font-size: 11px;
+}
+
+.saved-file-loading span {
+  width: 26px;
+  height: 26px;
+  border: 2px solid #d9dbe2;
+  border-top-color: #7163e9;
+  border-radius: 50%;
+  animation: saved-file-spin .8s linear infinite;
+}
+
+@keyframes saved-file-spin {
+  to { transform: rotate(360deg); }
+}
+
+.saved-file-render-error {
+  min-height: 420px;
+  display: grid;
+  place-content: center;
+  gap: 8px;
+  padding: 30px;
+  text-align: center;
+}
+
+.saved-file-render-error strong {
+  color: #30343b;
+  font: 700 22px/1.3 Georgia, "Noto Serif SC", serif;
+}
+
+.saved-file-render-error p {
+  max-width: 520px;
+  margin: 0;
+  color: #858b94;
+  font-size: 11px;
+  line-height: 1.65;
+}
+
+.embedded-ppt-viewport {
+  width: 100%;
+  min-height: 540px;
+  overflow: auto;
+  background: #e7e9ee;
+  padding: 24px;
+}
+
+.embedded-ppt-stage {
+  width: 960px;
+  min-height: 540px;
+  margin: 0 auto;
+}
+
 @media (max-width: 620px) {
   .attachment-copy b { max-width: 200px; }
   .saved-file-card { grid-template-columns: 1fr; }
   .saved-file-details { padding: 4px 4px 8px; }
+  .saved-material-wrap { padding: 18px 10px 32px; }
+  .saved-material-card { border-radius: 18px; padding: 20px 12px; }
+  .saved-material-card h1 { margin-bottom: 22px; }
+  .embedded-file-list-heading { align-items: flex-start; flex-direction: column; gap: 4px; }
+  .saved-file-embed { border-radius: 14px; }
+  .saved-file-embed-header { align-items: flex-start; flex-direction: column; gap: 10px; }
+  .saved-file-download { align-self: stretch; }
+  .saved-file-embedded-content { min-height: 360px; }
+  .saved-file-embedded-content > iframe { min-height: 70dvh; }
+  .file-kind-pdf .saved-file-embedded-content > iframe,
+  .file-kind-html .saved-file-embedded-content > iframe { height: 72dvh; }
+  .embedded-ppt-viewport { padding: 12px; }
+  .embedded-pdf-pages { gap: 10px; padding: 8px; }
+  .embedded-pdf-page { min-height: 240px; }
 }
 
 @media (max-width: 680px) {

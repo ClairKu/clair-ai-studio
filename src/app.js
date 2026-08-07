@@ -11,6 +11,7 @@ import {
   sharePublishedReport,
 } from "./report-editor.js";
 import { filePresentation } from "./file-types.js";
+import { renderRichFile } from "./file-renderers.js";
 import { normalizeSearchText, reportMatchesQuery, reportSearchScore, searchTokens } from "./search.js";
 
 const STORAGE_KEY = "clair-service-report-workbench-v1";
@@ -2592,27 +2593,47 @@ async function hydrateSavedFilePreviews() {
     const report = state.reports.find((item) => item.id === preview.dataset.reportId);
     const file = report?.savedFiles?.find((item) => item.id === preview.dataset.fileId);
     if (!file) return;
+    preview.classList.add("is-loading");
+    preview.setAttribute("aria-busy", "true");
     const blob = await storedFileBlob(file);
-    if (!blob || !preview.isConnected) return;
-    const url = fileObjectUrl(blob);
-    const mode = preview.dataset.previewMode;
-    if (mode === "image") {
-      const image = document.createElement("img");
-      image.src = url;
-      image.alt = file.name || "图片预览";
-      image.draggable = false;
-      preview.replaceChildren(image);
-    } else if (mode === "pdf" || mode === "html") {
-      const frame = document.createElement("iframe");
-      frame.src = mode === "pdf" ? `${url}#toolbar=0&navpanes=0&view=FitH` : url;
-      frame.title = `${file.name || (mode === "pdf" ? "PDF" : "HTML")}预览`;
-      frame.tabIndex = -1;
-      if (mode === "html") {
-        frame.setAttribute("sandbox", "allow-forms allow-modals allow-popups allow-scripts");
-      }
-      preview.replaceChildren(frame);
+    if (!blob || !preview.isConnected) {
+      preview.classList.remove("is-loading");
+      preview.setAttribute("aria-busy", "false");
+      return;
     }
-    preview.classList.add("is-ready");
+    const mode = preview.dataset.previewMode;
+    try {
+      if (mode === "image") {
+        const image = document.createElement("img");
+        image.src = fileObjectUrl(blob);
+        image.alt = file.name || "图片预览";
+        image.draggable = false;
+        preview.replaceChildren(image);
+      } else if (mode === "html") {
+        const frame = document.createElement("iframe");
+        const url = fileObjectUrl(blob);
+        frame.src = url;
+        frame.title = `${file.name || "HTML"}内容`;
+        frame.setAttribute("sandbox", "allow-forms allow-modals allow-popups allow-scripts");
+        preview.replaceChildren(frame);
+      } else {
+        await renderRichFile(preview, blob, file, mode);
+      }
+      preview.classList.add("is-ready");
+    } catch (error) {
+      const fallback = document.createElement("div");
+      fallback.className = "saved-file-render-error";
+      const title = document.createElement("strong");
+      title.textContent = "暂时无法直接显示这个文件";
+      const detail = document.createElement("p");
+      detail.textContent = error?.message || "请下载原文件后使用对应应用打开";
+      fallback.append(title, detail);
+      preview.replaceChildren(fallback);
+      preview.classList.add("has-error");
+    } finally {
+      preview.classList.remove("is-loading");
+      preview.setAttribute("aria-busy", "false");
+    }
   }));
 }
 
@@ -2714,31 +2735,33 @@ function savedFilePreviewMarkup(report, file, compact = false) {
     </div>`;
 }
 
+function savedFileEmbeddedMarkup(report, file, index, total) {
+  const presentation = filePresentation(file);
+  const format = file.format || presentation.label;
+  const canHydrate = Boolean(file.storageId || file.content || file.excerpt);
+  const previewAttributes = canHydrate
+    ? `data-saved-file-preview data-report-id="${escapeHtml(report.id)}" data-file-id="${escapeHtml(file.id)}" data-preview-mode="${escapeHtml(presentation.preview)}"`
+    : "";
+  return `<article class="saved-file-embed file-kind-${presentation.kind}">
+    <header class="saved-file-embed-header">
+      <div class="saved-file-identity">
+        <span class="saved-file-format">${escapeHtml(format)}</span>
+        <div><b>${escapeHtml(file.name || "未命名文件")}</b><small>${escapeHtml(file.sizeLabel || "")} · ${index + 1}/${total}</small></div>
+      </div>
+      <button type="button" class="saved-file-download" data-action="download-saved-file" data-id="${escapeHtml(report.id)}" data-file-id="${escapeHtml(file.id)}">下载原文件</button>
+    </header>
+    <div class="saved-file-embedded-content" ${previewAttributes}>
+      <div class="saved-file-loading" aria-hidden="true"><span></span><strong>正在展开 ${escapeHtml(format)} 内容</strong></div>
+    </div>
+  </article>`;
+}
+
 function savedFilesReaderMarkup(report) {
   const files = report.savedFiles || [];
   if (!files.length) return "";
-  return `<section class="saved-file-list rich-file-list" aria-label="已保存档案">
-    <strong>已保存档案 · ${files.length}</strong>
-    ${files.map((file) => {
-      const presentation = filePresentation(file);
-      const format = file.format || presentation.label;
-      const hasInlinePreview = ["image", "pdf", "html", "text"].includes(presentation.preview)
-        && Boolean(file.storageId || file.content || file.excerpt);
-      const canOpenPreview = ["image", "pdf", "text"].includes(presentation.preview)
-        && Boolean(file.storageId || file.content || file.excerpt);
-      return `<article class="saved-file-card file-kind-${presentation.kind}">
-        ${savedFilePreviewMarkup(report, file)}
-        <div class="saved-file-details">
-          <span class="saved-file-format">${escapeHtml(format)}</span>
-          <div><b>${escapeHtml(file.name)}</b><small>${escapeHtml(file.sizeLabel || "")}</small></div>
-          <p>${hasInlinePreview ? "文件已保存在当前浏览器，可直接查看并下载。" : "该格式由系统完整保存，请下载后使用对应应用打开。"}</p>
-          <div class="saved-file-actions">
-            ${canOpenPreview ? `<button type="button" data-action="preview-saved-file" data-id="${escapeHtml(report.id)}" data-file-id="${escapeHtml(file.id)}">预览</button>` : ""}
-            <button type="button" data-action="download-saved-file" data-id="${escapeHtml(report.id)}" data-file-id="${escapeHtml(file.id)}">下载原文件</button>
-          </div>
-        </div>
-      </article>`;
-    }).join("")}
+  return `<section class="saved-file-list embedded-file-list" aria-label="档案正文">
+    <div class="embedded-file-list-heading"><strong>档案正文</strong><span>${files.length} 个文件 · 已直接展开</span></div>
+    ${files.map((file, index) => savedFileEmbeddedMarkup(report, file, index, files.length)).join("")}
   </section>`;
 }
 
@@ -2925,13 +2948,13 @@ function readerMarkup(report) {
     ? `
       <div class="saved-material-wrap">
         <article class="saved-material-card">
-          <span class="section-kicker">SAVED MATERIAL</span>
+          <span class="section-kicker">LOCAL FILE · INLINE READER</span>
           <h1>${escapeHtml(report.title)}</h1>
           ${report.savedContent
             ? `<div class="saved-material-content">${escapeHtml(report.savedContent).replaceAll("\n", "<br />")}</div>`
             : ""}
           ${savedFilesReaderMarkup(report)}
-          <p class="saved-material-note">档案完整保存在当前浏览器的专用文件库；不会上传到 GitHub Pages。</p>
+          <p class="saved-material-note">档案正文已在本页直接展开；原文件仍完整保存在当前浏览器的专用文件库，不会上传到 GitHub Pages。</p>
         </article>
       </div>`
     : restricted
