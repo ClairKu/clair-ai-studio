@@ -1,12 +1,12 @@
 {
   "meta": {
-    "title": "且慢投顾服务重构",
+    "title": "且慢投顾全生命周期盘点与重构",
     "subtitle": "从策略货架，升级为\n个人投资服务首页",
-    "eyebrow": "且慢产品 · 产品盘点与目标态设计",
+    "eyebrow": "且慢产品 · 全量页面经营分析与目标态设计",
     "date": "2026-08-07",
     "cutoff": "2026-08-07",
     "owner": "且慢产品 / 待确认",
-    "confidentiality": "公开去敏版 · 内部经营口径仅保留已公开聚合值",
+    "confidentiality": "公开去敏版 · 页面经营明细与资金数据保留在组织内报告",
     "accent": "#7457E8",
     "brand": "Clair AI Studio",
     "brandMark": "C",
@@ -14,9 +14,14 @@
     "downloadLabel": "打开目标态原型"
   },
   "hero": {
-    "conclusion": "保留四笔钱与策略供给，但把投顾页的默认任务从“自己挑产品”改成“确认我的下一步”。",
-    "thesis": "新版应由一份持续更新的个人投资计划统领规划、持仓、策略、工具与投后；AI 小顾负责识别状态、主动编排和解释，自助筛选与用户组件自定义作为弹性层存在，而不是与顾问主链竞争。",
-    "badges": ["现状盘点", "转化分析", "目标态设计", "概念原型"]
+    "conclusion": "且慢不缺页面和能力，缺的是一条能从页面、计划一直归因到资金结果的统一服务主链。",
+    "thesis": "全量页面与2026月度趋势显示：四笔钱、策略详情和交易页仍承担主要流量，规划、养老、攒钱持续处于低量级；旧小顾入口快速迁移，但缺少版本可比与跨源入金归因。新版应以个人计划统领入口、工具、策略与小顾，并先补齐页面画像、停留和资金归因的数据底座。",
+    "badges": [
+      "全量页面",
+      "2026 月度趋势",
+      "资金归因审计",
+      "目标态设计"
+    ]
   },
   "agenda": {
     "enabled": true,
@@ -25,31 +30,55 @@
     "groups": [
       {
         "index": "01",
-        "eyebrow": "EVIDENCE · 证据",
-        "title": "现状与使用真相",
-        "summary": "页面、能力、迭代与转化分别核对",
-        "sections": ["证据边界", "线上现况", "能力盘点", "迭代路径", "使用漏斗"]
+        "eyebrow": "EVIDENCE · 全量证据",
+        "title": "页面、时间与口径",
+        "summary": "从短窗口扩展到全量页面、YTD与月度变化",
+        "sections": [
+          "证据边界",
+          "线上现况",
+          "能力盘点",
+          "迭代路径",
+          "页面宇宙",
+          "年度趋势"
+        ]
       },
       {
         "index": "02",
-        "eyebrow": "DIAGNOSIS · 诊断",
-        "title": "增长卡点在哪里",
-        "summary": "供给不弱，统一判断与闭环不足",
-        "sections": ["策略转化", "小顾现况", "根因判断"]
+        "eyebrow": "BUSINESS · 经营结果",
+        "title": "使用、资金与画像",
+        "summary": "行为和资金分层展示，不制造伪漏斗",
+        "sections": [
+          "资金结果",
+          "画像停留",
+          "使用漏斗",
+          "策略转化",
+          "小顾现况"
+        ]
       },
       {
         "index": "03",
-        "eyebrow": "DESIGN · 设计",
-        "title": "新版投顾服务架构",
-        "summary": "规划主链、三种模式、统一计划状态",
-        "sections": ["设计原则", "三种模式", "页面结构", "服务流程"]
+        "eyebrow": "DIAGNOSIS · 诊断",
+        "title": "增长卡点在哪里",
+        "summary": "规划入口弱、版本不可比、结果无法逐页归因",
+        "sections": [
+          "版本证据",
+          "根因判断",
+          "设计原则"
+        ]
       },
       {
         "index": "04",
-        "eyebrow": "DELIVERY · 落地",
-        "title": "组件、指标与路线图",
-        "summary": "可配置但不失控，以结果而非点击验收",
-        "sections": ["组件协议", "主动边界", "指标体系", "分期路线"]
+        "eyebrow": "DESIGN · 落地",
+        "title": "新版服务架构",
+        "summary": "规划主链、三种控制权、组件与测量体系",
+        "sections": [
+          "三种模式",
+          "页面结构",
+          "服务流程",
+          "组件协议",
+          "指标体系",
+          "分期路线"
+        ]
       }
     ]
   },
@@ -156,7 +185,11 @@
           "eyebrow": "ADVISORY",
           "title": "投顾与规划",
           "body": "四笔钱、定制方案、投资规划、养老规划、持仓诊断、方案执行与投后跟进。",
-          "bullets": ["已确认：四笔钱、严选与五类定制方案上线", "缺口：规划状态未统领一级页", "新版角色：服务主链"],
+          "bullets": [
+            "已确认：四笔钱、严选与五类定制方案上线",
+            "缺口：规划状态未统领一级页",
+            "新版角色：服务主链"
+          ],
           "status": "confirmed",
           "source": "历史产品材料与公开页交叉核验"
         },
@@ -165,7 +198,11 @@
           "eyebrow": "TOOLS",
           "title": "投资工具",
           "body": "每日估值、风险收益比较、回测、自建组合、资产分析、攒钱与场景计算器。",
-          "bullets": ["近 7 天：估值 UV 5,401；账户分析 2,000+", "攒钱 1,305；规划 558；自建组合仅 9", "回测无独立埋点；新版需把工具结果写回计划"],
+          "bullets": [
+            "近 7 天：估值 UV 5,401；账户分析 2,000+",
+            "攒钱 1,305；规划 558；自建组合仅 9",
+            "回测无独立埋点；新版需把工具结果写回计划"
+          ],
           "status": "confirmed",
           "source": "公开页与历史盘点 · 截止 2026-08-07"
         },
@@ -174,7 +211,11 @@
           "eyebrow": "GROWTH",
           "title": "策略营销与货架",
           "body": "运营 Banner、四笔钱分桶、严选策略、重点策略、养老/全球/保险等专区，以及详情与下单链路。",
-          "bullets": ["优势：供给丰富且可形成档期", "缺口：曝光与推荐理由不统一", "新版角色：计划后的解释与执行层"],
+          "bullets": [
+            "优势：供给丰富且可形成档期",
+            "缺口：曝光与推荐理由不统一",
+            "新版角色：计划后的解释与执行层"
+          ],
           "status": "confirmed",
           "source": "qieman.com/m4 与历史策略矩阵"
         },
@@ -183,7 +224,11 @@
           "eyebrow": "AI ADVISOR",
           "title": "AI 小顾",
           "body": "小顾 v3 自 2026-06-30 起灰度，v2 仍并行；正在从入口问答走向账户理解、复杂分析、主动任务与持续服务。",
-          "bullets": ["优势：可连接账户与金融能力", "缺口：v2/v3 埋点暂不能直接区分", "新版角色：计划编排与解释中枢"],
+          "bullets": [
+            "优势：可连接账户与金融能力",
+            "缺口：v2/v3 埋点暂不能直接区分",
+            "新版角色：计划编排与解释中枢"
+          ],
           "status": "confirmed",
           "source": "AI 小顾 3.0 产品材料 · 截止 2026-07-30"
         }
@@ -233,56 +278,307 @@
       ]
     },
     {
+      "id": "page-universe",
+      "kicker": "05 · PAGE UNIVERSE",
+      "title": "页面很多，主链很少",
+      "lead": "本体从2026年神策真实 page_name 反推页面宇宙，识别21个核心投顾页面/模块与更多长尾页面；现状不是缺入口，而是入口没有共享计划与归因对象。",
+      "layout": "cards",
+      "tone": "light",
+      "navLabel": "页面宇宙",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "CORE & SHELF",
+          "title": "首页与策略货架",
+          "body": "投顾Tab、首页、四笔钱、严选/策略介绍、策略详情、策略跟投与盈米宝充值页。",
+          "bullets": [
+            "承担主要浏览与交易入口",
+            "策略介绍与详情并存",
+            "跟投页不是入金成功页"
+          ],
+          "status": "confirmed",
+          "source": "本体任务 9zf5rqz7 · 2026YTD page_name 字典"
+        },
+        {
+          "index": "02",
+          "eyebrow": "PLAN & GOAL",
+          "title": "规划与目标场景",
+          "body": "投资规划首页、养老专区、攒钱计划、心愿攒钱欢迎页。",
+          "bullets": [
+            "2026各月均为较低量级",
+            "规划首屏不是默认路径",
+            "需要回到同一计划状态"
+          ],
+          "status": "confirmed",
+          "source": "本体任务 9zf5rqz7 · 2026YTD 月度趋势"
+        },
+        {
+          "index": "03",
+          "eyebrow": "TOOLS",
+          "title": "分析与投资工具",
+          "body": "每日估值、温度计、账户分析、账户报告、账户诊断、自建/定投/调仓等长尾工具页。",
+          "bullets": [
+            "账户分析与估值具有稳定使用",
+            "诊断部分页面分母失真",
+            "原生页缺停留/退出事件"
+          ],
+          "status": "confirmed",
+          "source": "本体任务 9zf5rqz7 · 页面与事件审计"
+        },
+        {
+          "index": "04",
+          "eyebrow": "AI & MARKETING",
+          "title": "小顾与策略营销",
+          "body": "超级入口、AI小顾3.0焕新页、策略营销落地页、主理人推广集合页和长赢发车信息页。",
+          "bullets": [
+            "旧入口2026年快速下行",
+            "营销与发车带来明显峰值",
+            "入口迁移不能等同产品效果"
+          ],
+          "status": "confirmed",
+          "source": "本体任务 9zf5rqz7 · 2026YTD 月度趋势"
+        }
+      ],
+      "callout": {
+        "label": "完整明细",
+        "text": "21个核心页面的YTD、近30日与月度值，以及Top100页面快照，均保留在组织内本体报告与CSV；公开页只展示结构与相对变化。",
+        "status": "confirmed"
+      }
+    },
+    {
+      "id": "ytd-trend",
+      "kicker": "06 · YTD TREND",
+      "title": "今年不是自然增长曲线",
+      "lead": "以2026年1月PV=100观察至7月：多数核心服务页下降，首页、小顾旧入口与长赢发车又受到版本迁移、春节和发车节奏干扰，不能把月度变化直接归因给单次改版。",
+      "layout": "metrics",
+      "tone": "dark",
+      "navLabel": "年度趋势",
+      "items": [
+        {
+          "metric": "42",
+          "title": "投顾Tab · 7月指数",
+          "body": "相对1月下降约58%；3月短暂回升后继续下行。",
+          "meta": "2026月度PV · 1月=100",
+          "status": "confirmed",
+          "source": "本体任务 9zf5rqz7"
+        },
+        {
+          "metric": "35",
+          "title": "投资规划 · 7月指数",
+          "body": "相对1月下降约65%，规划仍未成为一级页的默认承接。",
+          "meta": "2026月度PV · 1月=100",
+          "status": "confirmed",
+          "source": "本体任务 9zf5rqz7"
+        },
+        {
+          "metric": "45",
+          "title": "账户分析 · 7月指数",
+          "body": "相对1月下降约55%；绝对量仍显著高于规划、养老与攒钱。",
+          "meta": "2026月度PV · 1月=100",
+          "status": "confirmed",
+          "source": "本体任务 9zf5rqz7"
+        },
+        {
+          "metric": "6",
+          "title": "小顾旧入口 · 7月指数",
+          "body": "相对1月下降约94%，与2.0→3.0迁移方向吻合，但当前事件不能证明迁移质量。",
+          "meta": "超级入口月度PV · 1月=100",
+          "status": "confirmed",
+          "source": "本体任务 9zf5rqz7"
+        }
+      ],
+      "callout": {
+        "label": "异常提醒",
+        "text": "7月首页PV出现异常抬升，长赢页面和订单受发车节奏驱动；没有发布日与统一事件版本前，不做迭代效果归因。",
+        "status": "confirmed"
+      }
+    },
+    {
+      "id": "funds-result",
+      "kicker": "07 · FUNDS RESULT",
+      "title": "资金结果不能逐页归因",
+      "lead": "资金侧已经取得月度充值、取现、净流入、签约与买入成功，但行为侧distinct_id尚未沉淀到account3_id的离线宽表，因此只能并列观察，不能计算每页入金转化率。",
+      "layout": "comparison",
+      "tone": "soft",
+      "navLabel": "资金结果",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "CONFIRMED",
+          "title": "7月转为净流出",
+          "body": "2026年1—6月严格口径净流入均为正，7月首次转负，8月前7日延续净流出；具体金额保留在内部报告。",
+          "status": "confirmed",
+          "source": "redash ds31/ds41 · 本体任务 9zf5rqz7"
+        },
+        {
+          "index": "02",
+          "eyebrow": "CONFIRMED",
+          "title": "签约新增持续放缓",
+          "body": "月度新增签约从1月高位逐步下行至7月，说明不能只以页面点击热度评价货架效率。",
+          "status": "confirmed",
+          "source": "sign_record · 2026-01—07"
+        },
+        {
+          "index": "03",
+          "eyebrow": "SEASONAL",
+          "title": "买入受发车驱动",
+          "body": "3、5、6月形成买入峰值，6月订单数尤高；长赢发车与节奏效应需要从产品改版效果中剥离。",
+          "status": "confirmed",
+          "source": "portfolio_order · 2026-01—07"
+        },
+        {
+          "index": "04",
+          "eyebrow": "MISSING",
+          "title": "逐页入金未取到",
+          "body": "同会话、当日、7日、30日归因均需 distinct_id → po_manager_id → account3_id 临时表；本次工具返回限制下未执行。",
+          "status": "missing",
+          "source": "本体跨源审计 · 2026-08-07"
+        }
+      ],
+      "callout": {
+        "label": "禁止误算",
+        "text": "页面曝光、跟投页访问、月度新增签约、买入成功人数和充值金额来自不同人群/窗口，任何两项都不能直接相除。",
+        "status": "confirmed"
+      }
+    },
+    {
+      "id": "persona-dwell",
+      "kicker": "08 · PERSONA & DWELL",
+      "title": "画像与停留缺一半",
+      "lead": "近30日只能稳定取得端、地区和渠道画像；用户资产、签约、持仓与小顾使用尚未逐页跨源关联。App原生页没有停留/退出埋点，H5也无法直接计算P75/P90。",
+      "layout": "cards",
+      "tone": "light",
+      "navLabel": "画像停留",
+      "items": [
+        {
+          "index": "01",
+          "title": "当前可用画像",
+          "body": "投顾Tab以Android与HarmonyOS为主，地区集中于广东、浙江、北京、江苏、上海；渠道以自然量/直达为主。",
+          "status": "confirmed",
+          "source": "sensor近30日 · 截止2026-08-07"
+        },
+        {
+          "index": "02",
+          "title": "逐页画像缺失",
+          "body": "年龄、性别、AUM分层、是否签约/持仓、四笔钱偏好与小顾使用都需要跨源宽表；当前不能给每页可靠标签。",
+          "status": "missing",
+          "source": "本体任务 9zf5rqz7"
+        },
+        {
+          "index": "03",
+          "title": "原生停留缺失",
+          "body": "投顾Tab、首页、账户分析等原生页未上报App PageLeave与event_duration，无法计算停留、退出和跳失。",
+          "status": "missing",
+          "source": "sensor事件审计 · 2026-08-07"
+        },
+        {
+          "index": "04",
+          "title": "H5仅有局部均值",
+          "body": "少数策略H5存在WebStay，历史样本可算均值；SQL引擎不支持分位函数，P75/P90需导出明细离线计算。",
+          "status": "missing",
+          "source": "sensor SQL能力探测 · 2026-08-07"
+        }
+      ],
+      "callout": {
+        "label": "数据产品建议",
+        "text": "建设 account3_id × page_id × first_seen × plan_version × sign/buy × AUM_band 的日级宽表，并补App离开事件，才能稳定回答逐页画像、停留和入金转化。",
+        "status": "target"
+      }
+    },
+    {
+      "id": "version-evidence",
+      "kicker": "09 · VERSION EVIDENCE",
+      "title": "版本变化暂不可归因",
+      "lead": "2026年埋点首见日不是页面真实上线日；大多数页面在1月1日前已存在。只有少数新增页和入口迁移可定位，版本前后±14日可比窗口仍需补前端Git与发布记录。",
+      "layout": "timeline",
+      "tone": "soft",
+      "navLabel": "版本证据",
+      "items": [
+        {
+          "index": "01",
+          "meta": "2026-03-04",
+          "title": "小顾3.0焕新页首见",
+          "body": "可作为迁移信号，不等同3.0全量上线或使用效果。",
+          "status": "confirmed",
+          "source": "sensor page_name 首见日"
+        },
+        {
+          "index": "02",
+          "meta": "2026-03-30",
+          "title": "简慢额度提升页首见",
+          "body": "属于营销/运营页面信号，需对照发布记录判断正式上线与流量来源。",
+          "status": "confirmed",
+          "source": "sensor page_name 首见日"
+        },
+        {
+          "index": "03",
+          "meta": "2026-04-13",
+          "title": "账户诊断结果页首见",
+          "body": "可定位新增结果页，但诊断入口与点击分母仍存在上报不完整。",
+          "status": "confirmed",
+          "source": "sensor page_name 首见日"
+        },
+        {
+          "index": "04",
+          "meta": "待补",
+          "title": "建立上线日维表",
+          "body": "回查romeo、qieman-mobile-home、nova、albus前端Git与发布记录，再按发布日±14日重算可比指标。",
+          "status": "target",
+          "source": "本体数据治理建议"
+        }
+      ]
+    },
+    {
       "id": "usage-funnel",
-      "kicker": "05 · FUNNEL",
-      "title": "新鲜数据仍不是完整漏斗",
-      "lead": "本体近 7 天埋点补齐了页面曝光与点击规模，但策略打开、签约按钮与实际签约来自不同事件范围，不能直接串成同一条转化链。",
+      "kicker": "10 · RECENT STRUCTURE",
+      "title": "近30日仍不是漏斗",
+      "lead": "近30日已经取得投顾Tab、页面点击、部分策略详情与跟投页规模，但这些值与月度签约、买入和充值不属于同源用户队列。",
       "layout": "metrics",
       "tone": "dark",
       "navLabel": "使用漏斗",
       "items": [
         {
-          "metric": "16,522",
-          "title": "投顾 Tab 曝光 UV",
-          "body": "近 7 天页面曝光去重用户，是本次较新的入口规模口径。",
-          "meta": "本体近 7 天 · 截止 2026-08-07",
+          "metric": "51.6%",
+          "title": "投顾Tab页面点击代理",
+          "body": "页面点击UV / 页面访问UV；页面可能重复点击，不是策略CTR。",
+          "meta": "近30日 · sensor",
           "status": "confirmed",
-          "source": "本体任务 sr5kk9q2"
+          "source": "本体任务 9zf5rqz7"
         },
         {
-          "metric": "6,736",
-          "title": "页内点击 UV",
-          "body": "约为曝光 UV 的 40.8%；用户可能点击多个分类与组件。",
-          "meta": "近 7 天 · 页面内任一点击",
+          "metric": "2类",
+          "title": "可稳定对齐的策略详情",
+          "body": "长赢150份与稳稳的幸福有较完整的页面UV；其他策略仍缺统一page/strategy_id。",
+          "meta": "近30日 · page_name",
           "status": "confirmed",
-          "source": "本体任务 sr5kk9q2"
+          "source": "本体任务 9zf5rqz7"
         },
         {
-          "metric": "203",
-          "title": "策略卡打开 UV",
-          "body": "显著低于页面点击，但不能用它作为所有签约入口的统一上游。",
-          "meta": "近 7 天 · 策略卡打开事件",
+          "metric": "聚合",
+          "title": "跟投页只代表到达",
+          "body": "策略跟投页访问不能代表已签约、已买入或充值成功。",
+          "meta": "近30日 · 页面事件",
           "status": "confirmed",
-          "source": "本体任务 sr5kk9q2"
+          "source": "本体跨源审计"
         },
         {
-          "metric": "不可直连",
-          "title": "签约与资产结果",
-          "body": "签约按钮、产品签约与 AUM 是另一组事件/表，现有值不能与 203 直接相除。",
-          "meta": "需补 component_id + plan_id + strategy_id",
+          "metric": "未取到",
+          "title": "多窗口入金转化",
+          "body": "同会话、当日、7日、30日需离线人级join；当前不发布伪转化率。",
+          "meta": "需统一用户与账户映射",
           "status": "missing",
-          "source": "本体跨源核验 · 2026-08-07"
+          "source": "本体任务 9zf5rqz7"
         }
       ],
       "callout": {
-        "label": "不要误读",
-        "text": "四笔钱四格点击远高于严选入口，说明用户仍依赖资金用途导航；但按钮、卡片与签约表未共享同一归因键。",
+        "label": "正确用法",
+        "text": "当前数据可以回答页面热度、月度变化和资金侧结果，不能回答某页面带来了多少入金。",
         "status": "confirmed"
       }
     },
     {
       "id": "strategy-performance",
-      "kicker": "06 · STRATEGY",
+      "kicker": "11 · STRATEGY",
       "title": "策略表现分成三类",
       "lead": "同一页面里，流量规模、技术到达与交易意向呈现不同组合，说明策略排序不能只看点击。",
       "layout": "comparison",
@@ -325,7 +621,7 @@
     },
     {
       "id": "xiaogu",
-      "kicker": "07 · AI XIAOGU",
+      "kicker": "12 · AI XIAOGU",
       "title": "小顾有使用，代际口径未统一",
       "lead": "本体补齐了近 7 天与近 30 天会话规模，但 v2/v3 仍并行，现有会话事件无法直接区分代际，也没有与计划推进和资产结果自然贯通。",
       "layout": "metrics",
@@ -368,7 +664,7 @@
     },
     {
       "id": "root-cause",
-      "kicker": "08 · DIAGNOSIS",
+      "kicker": "13 · DIAGNOSIS",
       "title": "根因是没有统一计划",
       "lead": "现有模块各自成立，却没有共享一个用户可见、系统可计算、运营可归因的方案状态，导致推荐冲突与转化断点。",
       "layout": "comparison",
@@ -405,7 +701,7 @@
     },
     {
       "id": "design-principles",
-      "kicker": "09 · PRINCIPLES",
+      "kicker": "14 · PRINCIPLES",
       "title": "新版坚持六条原则",
       "lead": "既要提高定制与主动服务效率，也要保护用户的自主选择、理解成本与适当性边界。",
       "layout": "cards",
@@ -452,7 +748,7 @@
     },
     {
       "id": "three-modes",
-      "kicker": "10 · MODES",
+      "kicker": "15 · MODES",
       "title": "一个首页，三种控制权",
       "lead": "不是在“AI 自动推荐”和“用户自己选”之间二选一，而是让不同用户随时切换服务强度。",
       "layout": "demo",
@@ -465,7 +761,11 @@
           "title": "替我规划",
           "body": "默认模式。小顾读取目标、账户、持仓与风险状态，给一个主建议、原因、替代和下一行动。",
           "meta": "适合多数跟推荐用户",
-          "bullets": ["首屏只保留一项主行动", "定制方案优先", "重大变化主动提醒"],
+          "bullets": [
+            "首屏只保留一项主行动",
+            "定制方案优先",
+            "重大变化主动提醒"
+          ],
           "status": "target"
         },
         {
@@ -474,7 +774,11 @@
           "title": "和我一起配",
           "body": "小顾追问金额、期限、目标与约束，用户可以在推荐方案上调整风险、分桶与执行节奏。",
           "meta": "适合希望参与决策的用户",
-          "bullets": ["对话 + 可视化双通道", "每次调整解释影响", "确认后写回计划"],
+          "bullets": [
+            "对话 + 可视化双通道",
+            "每次调整解释影响",
+            "确认后写回计划"
+          ],
           "status": "target"
         },
         {
@@ -483,14 +787,18 @@
           "title": "我自己选",
           "body": "进入风险光谱、筛选、对比、自建组合与工具；系统不打断，但保留适当性与计划回流。",
           "meta": "适合高活跃 DIY 用户",
-          "bullets": ["完整货架不占默认首屏", "可保存筛选与观察列表", "一键让小顾校验"],
+          "bullets": [
+            "完整货架不占默认首屏",
+            "可保存筛选与观察列表",
+            "一键让小顾校验"
+          ],
           "status": "target"
         }
       ]
     },
     {
       "id": "page-structure",
-      "kicker": "11 · INFORMATION ARCHITECTURE",
+      "kicker": "16 · INFORMATION ARCHITECTURE",
       "title": "首屏只回答下一步",
       "lead": "页面从“内容分区”转为“服务优先级”，越靠前越个人、越需行动；越靠后越通用、越可自定义。",
       "layout": "architecture",
@@ -534,7 +842,7 @@
     },
     {
       "id": "service-flow",
-      "kicker": "12 · SERVICE LOOP",
+      "kicker": "17 · SERVICE LOOP",
       "title": "把工具接回服务闭环",
       "lead": "每一次浏览、计算或筛选都应该产生可保存的结论，并推动同一份计划，而不是在工具页结束。",
       "layout": "process",
@@ -575,7 +883,7 @@
     },
     {
       "id": "component-protocol",
-      "kicker": "13 · COMPONENTS",
+      "kicker": "18 · COMPONENTS",
       "title": "自定义不等于随意拼装",
       "lead": "组件要成为可治理的服务资产：既支持用户弹性，也让运营、合规与数据能够审计版本和效果。",
       "layout": "cards",
@@ -610,7 +918,7 @@
     },
     {
       "id": "proactive-boundary",
-      "kicker": "14 · PROACTIVE SERVICE",
+      "kicker": "19 · PROACTIVE SERVICE",
       "title": "主动服务要克制可信",
       "lead": "主动并不是多发提醒，而是只有在重要、相关、可行动且有明确有效期时才打扰用户。",
       "layout": "comparison",
@@ -642,7 +950,7 @@
     },
     {
       "id": "metrics-system",
-      "kicker": "15 · METRICS",
+      "kicker": "20 · METRICS",
       "title": "北极星改看计划推进",
       "lead": "页面点击只能判断信息是否被看见，新版要衡量计划是否更完整、方案是否被接受、资产是否被持续服务。",
       "layout": "architecture",
@@ -681,7 +989,7 @@
     },
     {
       "id": "roadmap",
-      "kicker": "16 · ROADMAP",
+      "kicker": "21 · ROADMAP",
       "title": "先统一主链，再开放编排",
       "lead": "首期不需要同时建设完整 AI 页面工厂；先让计划与归因贯通，再逐步增加运营编排、用户自定义和模型排序。",
       "layout": "actions",
@@ -733,9 +1041,9 @@
     "line1": "让每个入口都回到计划，",
     "line2": "让每一次建议都通向",
     "accent": "行动",
-    "lead": "且慢不缺策略、工具或 AI 能力；下一步价值在于把它们组织成一个用户能理解、系统能计算、运营能归因、合规能审计的持续投顾服务。",
+    "lead": "且慢的页面与能力已经很丰富；下一步先把页面、计划、用户与资金结果连接成同一条可测量服务主链，再谈AI编排和组件自定义。",
     "metaPrimary": "且慢产品 · 2026-08-07",
-    "metaSecondary": "公开去敏版 · 目标态均不代表已上线"
+    "metaSecondary": "公开去敏版 · 内部全生命周期明细另行保留 · 目标态均不代表已上线"
   },
   "sources": [
     {
@@ -776,14 +1084,23 @@
       "type": "ontology-query",
       "date": "2026-08-07",
       "task": "sr5kk9q2",
-      "location": "https://ontology.yingmi-inc.com/a/knjgahd2dk?k=UWRKLCw6ls61wAIgl7rPbbwph0n-CYAl",
+      "location": "组织内本体报告 · 登录后访问",
+      "status": "confirmed"
+    },
+    {
+      "title": "且慢投顾服务全生命周期经营分析",
+      "type": "ontology-lifecycle-analysis",
+      "date": "2026-08-07",
+      "task": "9zf5rqz7",
+      "window": "2026-01-01—2026-08-07，含近30日参照",
       "status": "confirmed"
     }
   ],
   "openQuestions": [
-    "本体近 7 天、近 30 天与历史 23 日窗口不得混用；公开版不展开组织内 AUM、净流入与用户明细。",
-    "规划、诊断、工具与策略签约之间仍缺少统一的曝光—方案—签约—AUM 归因链。",
-    "用户组件自定义的开放范围、审核责任人与合规 SLA 待确认。",
-    "P1 的资源、DRI、灰度人群和上线日期待业务与研发共同排期。"
+    "公开版仅展示页面结构、相对趋势与口径边界；内部AUM、净流入、签约、买入、逐页PV/UV明细不进入GitHub Pages。",
+    "年龄、性别、AUM分层、签约/持仓、小顾使用等逐页画像未完成跨源join，不能以整体画像代替每页画像。",
+    "App原生页缺PageLeave与event_duration，H5分位停留需导出明细离线计算；当前不能给所有页面P75/P90。",
+    "同会话、当日、7日、30日页面入金归因均未取到；需建设distinct_id—po_manager_id—account3_id离线宽表。",
+    "真实上线日与发布日需回查前端Git和发布记录，之后才能按版本前后可比窗口评估迭代效果。"
   ]
 }
