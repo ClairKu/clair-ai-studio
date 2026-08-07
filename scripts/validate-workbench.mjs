@@ -89,6 +89,8 @@ const requiredSignals = [
   [appSource, 'class="library-time-titles"', "TIME 左栏缺少成果标题清单"],
   [appSource, 'data-action="toggle-pin"', "卡片缺少精选操作"],
   [appSource, "function bindReportDragging()", "缺少统一卡片拖动会话"],
+  [appSource, 'addEventListener("compositionend"', "搜索框缺少中文输入法完成事件"],
+  [appSource, "commitSearchInput", "搜索框没有统一提交查询状态"],
   [appSource, 'data-report-draggable="true"', "卡片主体未启用按住拖动"],
   [appSource, "session.holdTimer = window.setTimeout", "卡片缺少长按拖动触发"],
   [appSource, "session.previewOffsetX", "拖动预览没有保持整卡抓取位置"],

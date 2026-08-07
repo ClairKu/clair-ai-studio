@@ -3313,17 +3313,31 @@ function bindReportDragging() {
 
 function bindApp() {
   const searchInput = document.getElementById("search-input");
+  let searchCompositionActive = false;
+  const commitSearchInput = (input) => {
+    const nextQuery = input?.value || "";
+    if (nextQuery === query) return;
+    const selectionStart = input.selectionStart;
+    const selectionEnd = input.selectionEnd;
+    query = nextQuery;
+    renderAtCurrentScroll(() => document.querySelector(".results-toolbar, .archive-search"));
+    const nextInput = document.getElementById("search-input");
+    nextInput?.focus({ preventScroll: true });
+    nextInput?.setSelectionRange(selectionStart, selectionEnd);
+  };
+  searchInput?.addEventListener("compositionstart", () => {
+    searchCompositionActive = true;
+  });
+  searchInput?.addEventListener("compositionend", (event) => {
+    searchCompositionActive = false;
+    commitSearchInput(event.currentTarget);
+  });
   searchInput?.addEventListener("input", (event) => {
     // 注音、拼音等输入法组合输入期间不能重绘，否则候选字会被逐键拆开。
-    if (event.isComposing) return;
-    query = event.target.value;
-    const selectionStart = event.target.selectionStart;
-    const selectionEnd = event.target.selectionEnd;
-    renderAtCurrentScroll(() => document.querySelector(".results-toolbar, .archive-search"));
-    const input = document.getElementById("search-input");
-    input?.focus({ preventScroll: true });
-    input?.setSelectionRange(selectionStart, selectionEnd);
+    if (event.isComposing || searchCompositionActive) return;
+    commitSearchInput(event.currentTarget);
   });
+  searchInput?.addEventListener("search", (event) => commitSearchInput(event.currentTarget));
   searchInput?.addEventListener("keydown", (event) => {
     if (event.key !== "Escape" || !query) return;
     event.preventDefault();
