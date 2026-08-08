@@ -21,7 +21,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 39;
+const DATA_VERSION = 40;
 
 const WORK_TYPES = [
   { id: "requirement-review", name: "需求评审" },
@@ -125,6 +125,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "third-party-platform-regulatory-filing-2026-08-08",
+      groupId: "knowledge",
+      title: "第三方平台合作监管报送｜受控材料索引",
+      url: "https://clairku.github.io/clair-ai-studio/reports/third-party-platform-regulatory-filing-2026-08-08/",
+      preview: "third-party-platform-regulatory-filing-2026-08-08.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-08T23:20:00.000+08:00",
+      source: "内部监管报送准备｜公开页仅保留脱敏索引，不存储申请正文、业务流程、系统边界、测试截图或个人信息",
+      access: "production",
+      workType: "governance-review",
+      tags: ["知识治理", "治理审查", "监管报备", "第三方平台", "HTML", "生产"],
+    },
     {
       id: "qieman-advisor-service-redesign-2026-08-07",
       groupId: "xiaogu",

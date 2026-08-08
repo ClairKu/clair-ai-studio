@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">第三方平台合作监管报送受控材料索引</title>
+  <desc id="desc">深蓝色受控材料卡片，展示证据核验、合规定性、监管沟通和分阶段开放四个步骤。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#102a43"/>
+      <stop offset="1" stop-color="#1f5f8b"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#081a2b" flood-opacity=".24"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="1000" rx="48" fill="#eef4f8"/>
+  <rect x="64" y="64" width="1472" height="872" rx="40" fill="url(#bg)" filter="url(#shadow)"/>
+  <g transform="translate(128 126)">
+    <rect width="176" height="46" rx="23" fill="#e8b95c"/>
+    <text x="88" y="31" text-anchor="middle" font-family="Arial, PingFang SC, sans-serif" font-size="22" font-weight="700" fill="#17324d">受控材料</text>
+    <text x="0" y="126" font-family="Arial, PingFang SC, sans-serif" font-size="58" font-weight="700" fill="#fff">第三方平台合作监管报送</text>
+    <text x="0" y="178" font-family="Arial, PingFang SC, sans-serif" font-size="28" fill="#cfe0ed">公开站点仅保存脱敏索引，不保存申请正文、系统细节或测试截图</text>
+  </g>
+  <g transform="translate(128 390)" font-family="Arial, PingFang SC, sans-serif">
+    <g>
+      <rect width="300" height="230" rx="28" fill="#fff" fill-opacity=".96"/>
+      <circle cx="52" cy="56" r="24" fill="#2e74b5"/>
+      <text x="52" y="64" text-anchor="middle" font-size="24" font-weight="700" fill="#fff">1</text>
+      <text x="32" y="120" font-size="30" font-weight="700" fill="#17324d">证据核验</text>
+      <text x="32" y="164" font-size="22" fill="#5c6b77">事实、主体、协议</text>
+      <text x="32" y="198" font-size="22" fill="#5c6b77">数据与上线状态</text>
+    </g>
+    <g transform="translate(348)">
+      <rect width="300" height="230" rx="28" fill="#fff" fill-opacity=".96"/>
+      <circle cx="52" cy="56" r="24" fill="#2e74b5"/>
+      <text x="52" y="64" text-anchor="middle" font-size="24" font-weight="700" fill="#fff">2</text>
+      <text x="32" y="120" font-size="30" font-weight="700" fill="#17324d">合规定性</text>
+      <text x="32" y="164" font-size="22" fill="#5c6b77">网络营销、转接</text>
+      <text x="32" y="198" font-size="22" fill="#5c6b77">互动与数据边界</text>
+    </g>
+    <g transform="translate(696)">
+      <rect width="300" height="230" rx="28" fill="#fff" fill-opacity=".96"/>
+      <circle cx="52" cy="56" r="24" fill="#2e74b5"/>
+      <text x="52" y="64" text-anchor="middle" font-size="24" font-weight="700" fill="#fff">3</text>
+      <text x="32" y="120" font-size="30" font-weight="700" fill="#17324d">监管沟通</text>
+      <text x="32" y="164" font-size="22" fill="#5c6b77">报送、问询</text>
+      <text x="32" y="198" font-size="22" fill="#5c6b77">书面意见与留痕</text>
+    </g>
+    <g transform="translate(1044)">
+      <rect width="300" height="230" rx="28" fill="#fff" fill-opacity=".96"/>
+      <circle cx="52" cy="56" r="24" fill="#1f7a61"/>
+      <text x="52" y="64" text-anchor="middle" font-size="24" font-weight="700" fill="#fff">4</text>
+      <text x="32" y="120" font-size="30" font-weight="700" fill="#17324d">分阶段开放</text>
+      <text x="32" y="164" font-size="22" fill="#5c6b77">逐能力验收</text>
+      <text x="32" y="198" font-size="22" fill="#5c6b77">不以整体审批替代</text>
+    </g>
+  </g>
+  <g transform="translate(128 704)" font-family="Arial, PingFang SC, sans-serif">
+    <rect width="1344" height="142" rx="28" fill="#0a2239" fill-opacity=".56" stroke="#8ab3cf"/>
+    <path d="M46 54v-9c0-23 18-41 41-41s41 18 41 41v9h18v58H28V54h18zm18 0h46v-9c0-13-10-23-23-23S64 32 64 45v9z" fill="#e8b95c" transform="translate(18 10) scale(.72)"/>
+    <text x="142" y="59" font-size="28" font-weight="700" fill="#fff">完整材料仅在内部受控目录保存</text>
+    <text x="142" y="102" font-size="22" fill="#cfe0ed">送审稿 ≠ 已报送 ≠ 已备案 ≠ 获准上线</text>
+  </g>
+</svg>
