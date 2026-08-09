@@ -12,7 +12,13 @@ import {
 } from "./report-editor.js";
 import { filePresentation } from "./file-types.js";
 import { renderRichFile } from "./file-renderers.js";
-import { normalizeSearchText, reportMatchesQuery, reportSearchScore, searchTokens } from "./search.js";
+import {
+  normalizeSearchText,
+  reportMatchesQuery,
+  reportSearchMatchFields,
+  reportSearchScore,
+  searchTokens,
+} from "./search.js";
 
 const STORAGE_KEY = "clair-service-report-workbench-v1";
 const VIEW_KEY = "clair-service-report-workbench-view";
@@ -1335,6 +1341,8 @@ let dragDropTarget = null;
 let dragPlaceholder = null;
 let modal = null;
 let toastTimer = 0;
+let modalFocusReturn = null;
+let modalOpenScrollY = 0;
 let controlledScrollFrame = 0;
 let pendingScrollFrame = 0;
 let viewportRestoreFrame = 0;
@@ -1344,6 +1352,7 @@ let catalogViewportSnapshot = null;
 let modalViewportSnapshot = null;
 let searchContentIndex = {};
 let searchIndexPromise = null;
+let searchIndexReady = false;
 
 function clone(value) {
   return JSON.parse(JSON.stringify(value));
@@ -1366,22 +1375,79 @@ function indexedReport(report) {
   };
 }
 
+function reportSearchCoverage(report) {
+  if (["org", "account"].includes(report.access)) return "restricted";
+  if (searchContentIndex[report.id] || searchContentIndex[searchIndexKey(report)]) return "body";
+  if (!report.url) return "metadata";
+  try {
+    const url = new URL(report.url);
+    const isStudioReport = url.hostname.toLowerCase() === "clairku.github.io"
+      && url.pathname.startsWith("/clair-ai-studio/reports/");
+    return isStudioReport ? "metadata" : "external";
+  } catch {
+    return "metadata";
+  }
+}
+
+function searchCoverageSummary(reports) {
+  const coverage = { body: 0, metadata: 0, restricted: 0, external: 0 };
+  reports.forEach((report) => {
+    coverage[reportSearchCoverage(report)] += 1;
+  });
+  return coverage;
+}
+
+const SEARCH_MATCH_LABELS = {
+  title: "标题",
+  tags: "标签",
+  content: "正文",
+  source: "来源",
+  type: "类型",
+  topic: "主题",
+  url: "网址",
+  access: "权限",
+};
+
+const SEARCH_COVERAGE_LABELS = {
+  body: "已索引正文",
+  metadata: "仅标题 / 标签",
+  restricted: "受限不可索引",
+  external: "外部页面不可抓取",
+};
+
+function reportSearchMatches(report, normalizedQuery) {
+  const context = {
+    group: state.groups.find((group) => group.id === report.groupId),
+    workTypeName: workTypeName(report.workType),
+  };
+  return reportSearchMatchFields(indexedReport(report), normalizedQuery, context)
+    .map((field) => SEARCH_MATCH_LABELS[field])
+    .filter(Boolean);
+}
+
 function ensureSearchIndex() {
   if (searchIndexPromise) return searchIndexPromise;
   searchIndexPromise = fetch("./search-index.json", { cache: "no-store" })
     .then((response) => response.ok ? response.json() : {})
     .then((index) => {
       searchContentIndex = index && typeof index === "object" ? index : {};
-      if (query && !readerId && !archiveView) {
+      searchIndexReady = true;
+      if (!readerId && !archiveView) {
         const selection = document.getElementById("search-input")?.selectionStart ?? query.length;
         renderAtCurrentScroll(() => document.querySelector(".results-toolbar, .archive-search"));
         const input = document.getElementById("search-input");
-        input?.focus({ preventScroll: true });
-        input?.setSelectionRange(selection, selection);
+        if (query) {
+          input?.focus({ preventScroll: true });
+          input?.setSelectionRange(selection, selection);
+        }
       }
       return searchContentIndex;
     })
-    .catch(() => (searchContentIndex = {}));
+    .catch(() => {
+      searchIndexReady = true;
+      searchContentIndex = {};
+      return searchContentIndex;
+    });
   return searchIndexPromise;
 }
 
@@ -2255,15 +2321,140 @@ function availableReportTags() {
   return [...tags].filter((tag) => !["HTML", "手动保存", "生产"].includes(tag));
 }
 
-function showToast(message) {
+function showToast(message, { duration = 2600, actionLabel = "", onAction = null } = {}) {
   document.querySelector(".toast")?.remove();
   const toast = document.createElement("div");
   toast.className = "toast";
   toast.setAttribute("role", "status");
-  toast.textContent = message;
+  const copy = document.createElement("span");
+  copy.textContent = message;
+  toast.append(copy);
+  if (actionLabel && typeof onAction === "function") {
+    const action = document.createElement("button");
+    action.type = "button";
+    action.className = "toast-action";
+    action.textContent = actionLabel;
+    action.addEventListener("click", () => {
+      clearTimeout(toastTimer);
+      toast.remove();
+      onAction();
+    });
+    toast.append(action);
+  }
   document.body.append(toast);
   clearTimeout(toastTimer);
-  toastTimer = window.setTimeout(() => toast.remove(), 2600);
+  toastTimer = window.setTimeout(() => toast.remove(), duration);
+}
+
+function showUndoToast(message, onUndo) {
+  showToast(message, {
+    duration: 8000,
+    actionLabel: "撤销",
+    onAction: () => {
+      onUndo();
+      showToast("已撤销刚才的操作");
+    },
+  });
+}
+
+function focusReturnIdentity(element) {
+  const action = element?.closest?.("[data-action]");
+  if (!action) return null;
+  return {
+    action: action.dataset.action || "",
+    id: action.dataset.id || "",
+    bucketKind: action.dataset.bucketKind || "",
+    direction: action.dataset.direction || "",
+  };
+}
+
+function resolveFocusReturn(identity) {
+  if (!identity?.action) return null;
+  const attributes = [
+    `[data-action="${CSS.escape(identity.action)}"]`,
+    identity.id ? `[data-id="${CSS.escape(identity.id)}"]` : "",
+    identity.bucketKind ? `[data-bucket-kind="${CSS.escape(identity.bucketKind)}"]` : "",
+    identity.direction ? `[data-direction="${CSS.escape(identity.direction)}"]` : "",
+  ].join("");
+  return document.querySelector(attributes);
+}
+
+function openAppModal(nextModal, snapshot, trigger) {
+  modalViewportSnapshot = snapshot || captureViewportSnapshot();
+  modalFocusReturn = focusReturnIdentity(trigger || document.activeElement);
+  modalOpenScrollY = window.scrollY;
+  modal = nextModal;
+  renderWithViewportSnapshot(modalViewportSnapshot);
+}
+
+function closeAppModal({ fallbackSelector = ".results-toolbar, .archive-search, .reader-header" } = {}) {
+  if (!modal) return;
+  const snapshot = modalViewportSnapshot || { scrollY: modalOpenScrollY };
+  const focusIdentity = modalFocusReturn;
+  modal = null;
+  renderWithViewportSnapshot(snapshot);
+  modalViewportSnapshot = null;
+  modalFocusReturn = null;
+  requestAnimationFrame(() => {
+    const fallbackContainer = document.querySelector(fallbackSelector);
+    const focusTarget = resolveFocusReturn(focusIdentity)
+      || fallbackContainer?.querySelector("button, input, [tabindex]:not([tabindex='-1'])")
+      || fallbackContainer;
+    focusTarget?.focus?.({ preventScroll: true });
+  });
+}
+
+function bindAppModal() {
+  const backdrop = document.querySelector(".app-shell > .dialog-backdrop");
+  if (backdrop) document.body.style.setProperty("--studio-modal-scroll-top", `${-modalOpenScrollY}px`);
+  else document.body.style.removeProperty("--studio-modal-scroll-top");
+  document.body.classList.toggle("studio-modal-open", Boolean(backdrop));
+  if (!backdrop) return;
+  [...backdrop.parentElement.children].forEach((element) => {
+    if (element === backdrop) return;
+    element.inert = true;
+    element.setAttribute("aria-hidden", "true");
+  });
+  const dialog = backdrop.querySelector('[role="dialog"]');
+  if (!dialog) return;
+  const focusable = () => [...dialog.querySelectorAll([
+    "a[href]",
+    "button:not([disabled])",
+    "input:not([disabled]):not([type='hidden'])",
+    "select:not([disabled])",
+    "textarea:not([disabled])",
+    "[tabindex]:not([tabindex='-1'])",
+  ].join(","))].filter((element) => !element.hidden && element.getClientRects().length);
+  backdrop.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      event.preventDefault();
+      closeAppModal();
+      return;
+    }
+    if (event.key !== "Tab") return;
+    const targets = focusable();
+    if (!targets.length) {
+      event.preventDefault();
+      dialog.focus({ preventScroll: true });
+      return;
+    }
+    const first = targets[0];
+    const last = targets.at(-1);
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus({ preventScroll: true });
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus({ preventScroll: true });
+    }
+  });
+  backdrop.addEventListener("click", (event) => {
+    if (event.target === backdrop) closeAppModal();
+  });
+  requestAnimationFrame(() => {
+    (dialog.querySelector("[autofocus]") || focusable()[0] || dialog)
+      ?.focus?.({ preventScroll: true });
+  });
 }
 
 function scrollPageTop(behavior = "auto") {
@@ -2840,6 +3031,10 @@ function cardMarkup(report, archivedView = false, options = {}) {
         <span class="report-copy">
           <strong>${escapeHtml(report.title)}</strong>
           <span class="report-tags">${contextualTags.map((tag, index) => `<span class="${index < 2 ? "report-context-tag" : ""}">${escapeHtml(tag)}</span>`).join("")}</span>
+          ${options.searchMatches?.length || options.searchCoverage ? `<span class="report-search-meta">
+            ${options.searchMatches?.length ? `<span class="report-match-source">匹配于 ${escapeHtml(options.searchMatches.join(" · "))}</span>` : ""}
+            ${options.searchCoverage ? `<span class="report-index-state">${escapeHtml(options.searchCoverage)}</span>` : ""}
+          </span>` : ""}
           ${options.searchExcerpt ? `<span class="report-search-excerpt">${escapeHtml(options.searchExcerpt)}</span>` : ""}
           ${restricted ? `<span class="report-access-note">${escapeHtml(accessLabel)}</span>` : ""}
         </span>
@@ -2864,17 +3059,42 @@ function cardMarkup(report, archivedView = false, options = {}) {
 
 function modalMarkup() {
   if (!modal) return "";
+  if (modal.type === "delete-report") {
+    const deletingReport = state.reports.find((report) => report.id === modal.reportId);
+    if (!deletingReport) return "";
+    return `
+      <div class="dialog-backdrop">
+        <section class="dialog compact-dialog destructive-dialog" role="dialog" aria-modal="true"
+          aria-labelledby="delete-report-dialog-title" aria-describedby="delete-report-dialog-description" tabindex="-1">
+          <div class="dialog-title-row">
+            <div>
+              <span class="section-kicker">PERMANENT DELETE</span>
+              <h2 id="delete-report-dialog-title">永久删除这份成果？</h2>
+            </div>
+            <button type="button" class="studio-icon-button dialog-close-button" data-action="close-modal" title="关闭" aria-label="关闭">${UI_ICONS.close}</button>
+          </div>
+          <p id="delete-report-dialog-description" class="destructive-dialog-copy">
+            将永久删除“<strong>${escapeHtml(deletingReport.title)}</strong>”。此操作完成后无法从归档区恢复。
+          </p>
+          <div class="dialog-actions">
+            <button type="button" class="quiet-button" data-action="close-modal" autofocus>Cancel</button>
+            <button type="button" class="danger-button" data-action="confirm-delete" data-id="${escapeHtml(deletingReport.id)}">Delete permanently</button>
+          </div>
+        </section>
+      </div>`;
+  }
   if (modal.type === "group") {
     const editingGroup = modal.mode === "edit"
       ? state.groups.find((group) => group.id === modal.groupId)
       : null;
     return `
       <div class="dialog-backdrop">
-        <form class="dialog compact-dialog" id="group-form">
+        <form class="dialog compact-dialog" id="group-form" role="dialog" aria-modal="true"
+          aria-labelledby="group-dialog-title" tabindex="-1">
           <div class="dialog-title-row">
             <div>
               <span class="section-kicker">WORK TOPIC / GROUP</span>
-              <h2>${editingGroup ? "编辑工作主题" : "新建工作主题"}</h2>
+              <h2 id="group-dialog-title">${editingGroup ? "编辑工作主题" : "新建工作主题"}</h2>
             </div>
             <button type="button" class="studio-icon-button dialog-close-button" data-action="close-modal" title="关闭" aria-label="关闭">${UI_ICONS.close}</button>
           </div>
@@ -2900,11 +3120,12 @@ function modalMarkup() {
     .filter((tag) => !["HTML", "手动保存", "生产"].includes(tag));
   return `
     <div class="dialog-backdrop">
-      <form class="dialog" id="report-form">
+      <form class="dialog" id="report-form" role="dialog" aria-modal="true"
+        aria-labelledby="report-dialog-title" tabindex="-1">
         <div class="dialog-title-row">
           <div>
             <span class="section-kicker">${editing ? "EDIT REPORT" : "NEW REPORT"}</span>
-            <h2>${editing ? "编辑服务报告" : "新增服务报告"}</h2>
+            <h2 id="report-dialog-title">${editing ? "编辑服务报告" : "新增服务报告"}</h2>
           </div>
           <button type="button" class="studio-icon-button dialog-close-button" data-action="close-modal" title="关闭" aria-label="关闭">${UI_ICONS.close}</button>
         </div>
@@ -3159,6 +3380,7 @@ function workbenchMarkup() {
   const archiveCount = state.reports.filter((report) => report.archived).length;
   const productionCount = activeReports.filter((report) => report.access === "production").length;
   const restrictedCount = activeReports.filter((report) => report.access !== "production").length;
+  const searchCoverage = searchCoverageSummary(activeReports);
   const catalogBuckets = classificationBuckets(activeReports, "");
   const navBuckets = catalogView === "topic" && featuredReports.length
     ? [featuredBucket, ...catalogBuckets]
@@ -3201,6 +3423,15 @@ function workbenchMarkup() {
               <strong>${productionCount}</strong><span>直达</span>
             </div>
           </div>
+        </div>
+        <div class="search-coverage-strip" aria-label="搜索索引覆盖">
+          ${searchIndexReady ? `
+            <span><b>${searchCoverage.body}</b> 已索引正文</span>
+            <span><b>${searchCoverage.metadata}</b> 仅标题 / 标签</span>
+            <span><b>${searchCoverage.restricted}</b> 受限不可索引</span>
+            <span><b>${searchCoverage.external}</b> 外部页面不可抓取</span>
+            <em>索引库 ${Object.keys(searchContentIndex).length} 条 · ${activeReports.length}/${activeReports.length} 份成果的标题与标签可搜索</em>`
+            : "<span>正在载入正文搜索索引…</span>"}
         </div>
         <section class="groups-section">
           ${movingReportId ? `
@@ -3248,13 +3479,15 @@ function workbenchMarkup() {
               </nav>
               <div class="board catalog-view-${catalogView}">
               ${normalized ? `
-                <section class="search-results-panel" aria-live="polite">
+                <section class="search-results-panel">
                   <header class="search-results-header">
                     <div><span>SEARCH RESULTS</span><h2>“${escapeHtml(query.trim())}”</h2></div>
-                    <strong>${reports.length} 份匹配</strong>
+                    <strong class="search-results-announcement" role="status" aria-live="polite">${reports.length} 份匹配</strong>
                   </header>
                   ${reports.length
                     ? `<div class="group-cards search-results-cards">${reports.map((report) => cardMarkup(report, false, {
+                        searchMatches: reportSearchMatches(report, normalized),
+                        searchCoverage: SEARCH_COVERAGE_LABELS[reportSearchCoverage(report)],
                         searchExcerpt: reportSearchExcerpt(report, normalized),
                       })).join("")}</div>`
                     : `<div class="no-results search-no-results">
@@ -3318,6 +3551,7 @@ function render() {
   const report = readerId && state.reports.find((item) => item.id === readerId);
   revokeFileObjectUrls();
   app.innerHTML = report ? readerMarkup(report) : workbenchMarkup();
+  bindAppModal();
   bindApp();
   bindTaskCenter({
     render: () => renderAtCurrentScroll(() => document.querySelector(".prompt-composer")),
@@ -3562,6 +3796,8 @@ function bindReportDragging() {
     cleanupSession();
     session = null;
     if (!target?.bucketId || target.bucketKind === "time") return;
+    const beforeState = clone(state);
+    const beforeOrder = clone(reportOrder);
     const moved = assignReportToBucket(
       sourceId,
       target.bucketKind,
@@ -3574,8 +3810,7 @@ function bindReportDragging() {
     if (target.nav) {
       scheduleElementAlignment(() => bucketElement(target.bucketKind, target.bucketId));
     }
-    showToast(
-      target.bucketKind === "featured"
+    const message = target.bucketKind === "featured"
         ? "已加入精选成果"
         : target.bucketKind === "tag"
           ? "已添加目标标签"
@@ -3583,8 +3818,14 @@ function bindReportDragging() {
             ? "工作类型已更新"
             : target.targetReportId
               ? "报告顺序已更新"
-              : "已移入新主题",
-    );
+              : "已移入新主题";
+    showUndoToast(message, () => {
+      state = beforeState;
+      reportOrder = beforeOrder;
+      saveState();
+      saveReportOrder();
+      renderAtCurrentScroll(() => reportElement(sourceId));
+    });
   };
 
   board.addEventListener("pointerdown", (event) => {
@@ -3745,10 +3986,15 @@ function bindApp() {
         document.getElementById("search-input")?.focus({ preventScroll: true });
       } else if (action === "set-view") {
         if (!["topic", "type", "tag", "time"].includes(itemId)) return;
+        const stableScroll = { scrollY: window.scrollY, identity: null, viewportTop: null };
         catalogView = itemId;
         movingReportId = "";
         localStorage.setItem(VIEW_KEY, catalogView);
-        renderAtCurrentScroll();
+        renderWithViewportSnapshot(stableScroll);
+        requestAnimationFrame(() => {
+          document.querySelector(`[data-action="set-view"][data-id="${CSS.escape(itemId)}"]`)
+            ?.focus({ preventScroll: true });
+        });
       } else if (action === "toggle-time-sort") {
         reportTimeSort = reportTimeSort === "created" ? "modified" : "created";
         localStorage.setItem(TIME_SORT_KEY, reportTimeSort);
@@ -3758,11 +4004,22 @@ function bindApp() {
         renderAtCurrentScroll();
       } else if (action === "move-here") {
         const bucketKind = event.currentTarget.dataset.bucketKind || catalogView;
+        const beforeState = clone(state);
+        const beforeOrder = clone(reportOrder);
         if (movingReportId && assignReportToBucket(movingReportId, bucketKind, itemId)) {
           const movedReportId = movingReportId;
           movingReportId = "";
           renderAtCurrentScroll(() => reportElement(movedReportId));
-          showToast(bucketKind === "tag" ? "已添加目标标签" : `报告已移入目标${currentBucketLabel()}`);
+          showUndoToast(
+            bucketKind === "tag" ? "已添加目标标签" : `报告已移入目标${currentBucketLabel()}`,
+            () => {
+              state = beforeState;
+              reportOrder = beforeOrder;
+              saveState();
+              saveReportOrder();
+              renderAtCurrentScroll(() => reportElement(movedReportId));
+            },
+          );
         }
       } else if (action === "show-archive") {
         archiveView = true;
@@ -3777,20 +4034,27 @@ function bindApp() {
         render();
         scrollPageTop();
       } else if (action === "add-report") {
-        modalViewportSnapshot = captureViewportSnapshot(document.querySelector(".results-toolbar"));
-        modal = { type: "report", mode: "create", groupId: state.groups[0]?.id };
-        renderWithViewportSnapshot(modalViewportSnapshot);
+        openAppModal(
+          { type: "report", mode: "create", groupId: state.groups[0]?.id },
+          captureViewportSnapshot(document.querySelector(".results-toolbar")),
+          event.currentTarget,
+        );
       } else if (action === "add-to-group") {
-        modalViewportSnapshot = captureViewportSnapshot(bucketElement("topic", itemId));
-        modal = { type: "report", mode: "create", groupId: itemId };
-        renderWithViewportSnapshot(modalViewportSnapshot);
+        openAppModal(
+          { type: "report", mode: "create", groupId: itemId },
+          captureViewportSnapshot(bucketElement("topic", itemId)),
+          event.currentTarget,
+        );
       } else if (action === "edit") {
-        modalViewportSnapshot = captureViewportSnapshot(actionCard || reportElement(itemId));
-        modal = { type: "report", mode: "edit", reportId: itemId };
-        renderWithViewportSnapshot(modalViewportSnapshot);
+        openAppModal(
+          { type: "report", mode: "edit", reportId: itemId },
+          captureViewportSnapshot(actionCard || reportElement(itemId)),
+          event.currentTarget,
+        );
       } else if (action === "toggle-pin") {
         const report = state.reports.find((item) => item.id === itemId);
         if (!report) return;
+        const beforeReport = clone(report);
         const removingVisibleFeaturedCard = report.pinned
           && actionCard?.closest('[data-bucket-kind="featured"]');
         const snapshot = removingVisibleFeaturedCard
@@ -3800,52 +4064,85 @@ function bindApp() {
         touchReport(report);
         saveState();
         renderWithViewportSnapshot(snapshot);
-        showToast(report.pinned ? "已加入精选成果" : "已移出精选成果");
+        const message = report.pinned ? "已加入精选成果" : "已移出精选成果";
+        showUndoToast(message, () => {
+          const current = state.reports.find((item) => item.id === itemId);
+          if (!current) return;
+          Object.assign(current, beforeReport);
+          current.archived = Boolean(beforeReport.archived);
+          current.archivedAt = beforeReport.archivedAt || "";
+          saveState();
+          renderAtCurrentScroll(() => reportElement(itemId));
+        });
       } else if (action === "close-modal") {
-        modal = null;
-        renderWithViewportSnapshot(modalViewportSnapshot || captureViewportSnapshot());
-        modalViewportSnapshot = null;
+        closeAppModal();
       } else if (action === "detect-title") {
         await detectTitle(event.currentTarget.closest("form"));
       } else if (action === "archive") {
         const report = state.reports.find((item) => item.id === itemId);
         if (!report) return;
+        const beforeReport = clone(report);
         const snapshot = adjacentReportSnapshot(itemId, actionCard);
         report.archived = true;
         report.archivedAt = new Date().toISOString();
         saveState();
         renderWithViewportSnapshot(snapshot);
-        showToast("已归档，可随时恢复");
+        showUndoToast("已归档，可随时恢复", () => {
+          const current = state.reports.find((item) => item.id === itemId);
+          if (!current) return;
+          Object.assign(current, beforeReport);
+          current.archived = Boolean(beforeReport.archived);
+          current.archivedAt = beforeReport.archivedAt || "";
+          saveState();
+          renderAtCurrentScroll(() => reportElement(itemId));
+        });
       } else if (action === "restore") {
         const report = state.reports.find((item) => item.id === itemId);
         if (!report) return;
+        const beforeReport = clone(report);
         const snapshot = adjacentReportSnapshot(itemId);
         report.archived = false;
         report.archivedAt = "";
         saveState();
         renderWithViewportSnapshot(snapshot);
-        showToast("报告已恢复到原主题");
+        showUndoToast("报告已恢复到原主题", () => {
+          const current = state.reports.find((item) => item.id === itemId);
+          if (!current) return;
+          Object.assign(current, beforeReport);
+          saveState();
+          renderAtCurrentScroll(() => reportElement(itemId));
+        });
       } else if (action === "delete") {
         const report = state.reports.find((item) => item.id === itemId);
-        if (report?.archived && confirm(`二次确认：永久删除“${report.title}”？\n\n删除后无法从归档区恢复。`)) {
-          const snapshot = adjacentReportSnapshot(itemId);
-          state.reports = state.reports.filter((item) => item.id !== itemId);
-          if (readerId === itemId) readerId = "";
-          saveState();
-          await deleteStoredFilesForReport(itemId);
-          renderWithViewportSnapshot(snapshot);
-          showToast("报告已永久删除");
-        }
+        if (!report?.archived) return;
+        openAppModal(
+          { type: "delete-report", reportId: itemId },
+          adjacentReportSnapshot(itemId),
+          event.currentTarget,
+        );
+      } else if (action === "confirm-delete") {
+        const report = state.reports.find((item) => item.id === itemId);
+        if (!report?.archived || modal?.type !== "delete-report") return;
+        state.reports = state.reports.filter((item) => item.id !== itemId);
+        if (readerId === itemId) readerId = "";
+        saveState();
+        await deleteStoredFilesForReport(itemId);
+        closeAppModal({ fallbackSelector: ".archive-grid, .archive-search" });
+        showToast(`已永久删除“${report.title}”`);
       } else if (action === "add-group") {
-        modalViewportSnapshot = captureViewportSnapshot(document.querySelector(".results-toolbar"));
-        modal = { type: "group", mode: "create" };
-        renderWithViewportSnapshot(modalViewportSnapshot);
+        openAppModal(
+          { type: "group", mode: "create" },
+          captureViewportSnapshot(document.querySelector(".results-toolbar")),
+          event.currentTarget,
+        );
       } else if (action === "rename-group") {
         const group = state.groups.find((item) => item.id === itemId);
         if (group) {
-          modalViewportSnapshot = captureViewportSnapshot(bucketElement("topic", itemId));
-          modal = { type: "group", mode: "edit", groupId: itemId };
-          renderWithViewportSnapshot(modalViewportSnapshot);
+          openAppModal(
+            { type: "group", mode: "edit", groupId: itemId },
+            captureViewportSnapshot(bucketElement("topic", itemId)),
+            event.currentTarget,
+          );
         }
       } else if (action === "move-group") {
         const bucketKind = event.currentTarget.dataset.bucketKind;
@@ -4135,9 +4432,7 @@ function bindApp() {
     }
     saveState();
     const message = modal.mode === "edit" ? "工作主题已更新" : "工作主题已创建，可直接拖入报告";
-    modal = null;
-    renderWithViewportSnapshot(modalViewportSnapshot || captureViewportSnapshot());
-    modalViewportSnapshot = null;
+    closeAppModal();
     showToast(message);
   });
 
@@ -4225,9 +4520,7 @@ function bindApp() {
       Object.assign(editingReport, { title, groupId, workType, tags });
       touchReport(editingReport);
       saveState();
-      modal = null;
-      renderWithViewportSnapshot(modalViewportSnapshot || captureViewportSnapshot());
-      modalViewportSnapshot = null;
+      closeAppModal();
       showToast("报告已保存");
       return;
     }
@@ -4299,9 +4592,7 @@ function bindApp() {
       state.reports.push(newReport);
     }
     saveState();
-    modal = null;
-    renderWithViewportSnapshot(modalViewportSnapshot || captureViewportSnapshot());
-    modalViewportSnapshot = null;
+    closeAppModal();
     showToast("报告已保存");
   });
 

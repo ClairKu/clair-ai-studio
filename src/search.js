@@ -39,6 +39,35 @@ function reportContentText(report) {
   ].filter(Boolean).join(" ");
 }
 
+function reportSearchFields(report, { group = {}, workTypeName = "" } = {}) {
+  return {
+    title: normalizeSearchText(report.title),
+    tags: normalizeSearchText((report.tags || []).join(" ")),
+    source: normalizeSearchText(report.source),
+    content: normalizeSearchText(reportContentText(report)),
+    type: normalizeSearchText(workTypeName),
+    topic: normalizeSearchText([group.name, group.description].filter(Boolean).join(" ")),
+    url: normalizeSearchText(report.url),
+    access: normalizeSearchText([
+      report.access,
+      ACCESS_SEARCH_LABELS[report.access],
+    ].filter(Boolean).join(" ")),
+  };
+}
+
+export function reportSearchMatchFields(
+  report,
+  query,
+  context = {},
+) {
+  const tokens = searchTokens(query);
+  if (!tokens.length) return [];
+  const fields = reportSearchFields(report, context);
+  return Object.entries(fields)
+    .filter(([, value]) => value && tokens.some((token) => value.includes(token)))
+    .map(([field]) => field);
+}
+
 export function reportSearchScore(
   report,
   query,
@@ -47,16 +76,7 @@ export function reportSearchScore(
   const tokens = searchTokens(query);
   if (!tokens.length) return 1;
 
-  const fields = {
-    title: normalizeSearchText(report.title),
-    tags: normalizeSearchText((report.tags || []).join(" ")),
-    source: normalizeSearchText(report.source),
-    content: normalizeSearchText(reportContentText(report)),
-    type: normalizeSearchText(workTypeName),
-    topic: normalizeSearchText([group.name, group.description].filter(Boolean).join(" ")),
-    url: normalizeSearchText(report.url),
-    access: normalizeSearchText([report.access, ACCESS_SEARCH_LABELS[report.access]].filter(Boolean).join(" ")),
-  };
+  const fields = reportSearchFields(report, { group, workTypeName });
   const haystack = normalizeSearchText([
     report.title,
     report.source,

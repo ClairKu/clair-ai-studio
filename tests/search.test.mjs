@@ -4,6 +4,7 @@ import assert from "node:assert/strict";
 import {
   normalizeSearchText,
   reportMatchesQuery,
+  reportSearchMatchFields,
   reportSearchScore,
   searchTokens,
 } from "../src/search.js";
@@ -81,4 +82,16 @@ test("searches saved HTML and uploaded-file excerpts", () => {
     reportMatchesQuery({ ...report, title: "其他", tags: [], searchContent: "正文中的机器可读令牌" }, "机器可读令牌", context),
     true,
   );
+});
+
+test("reports whether a query matched title, body, or tags", () => {
+  const searchable = {
+    ...report,
+    title: "资产配置工作台",
+    tags: ["投顾服务"],
+    searchContent: "正文包含客户旅程和持仓诊断",
+  };
+  assert.deepEqual(reportSearchMatchFields(searchable, "资产配置", context), ["title"]);
+  assert.deepEqual(reportSearchMatchFields(searchable, "投顾服务", context), ["tags"]);
+  assert.deepEqual(reportSearchMatchFields(searchable, "持仓诊断", context), ["content"]);
 });

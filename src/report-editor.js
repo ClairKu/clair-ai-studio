@@ -33,6 +33,7 @@ const editor = {
 
 const serializeRequests = new Map();
 let hooksBound = false;
+let editorModalFocusReturn = null;
 
 function unique(values) {
   return [...new Set(values.filter(Boolean))];
@@ -198,6 +199,20 @@ function githubPagesTarget(urlValue) {
   }
 }
 
+function localStudioReportUrl(urlValue) {
+  try {
+    const url = new URL(urlValue);
+    const prefix = "/clair-ai-studio/reports/";
+    if (url.hostname.toLowerCase() !== "clairku.github.io" || !url.pathname.startsWith(prefix)) {
+      return "";
+    }
+    const reportPath = url.pathname.slice(prefix.length).replace(/\/+$/, "");
+    return `./reports/${reportPath}/index.html`;
+  } catch {
+    return "";
+  }
+}
+
 async function githubRequest(path, { token = "", method = "GET", body } = {}) {
   const headers = {
     Accept: "application/vnd.github+json",
@@ -273,7 +288,20 @@ async function readGithubFile(target) {
 }
 
 function disableActiveContent(documentNode) {
+  const dataScriptIds = new Set([...documentNode.querySelectorAll(
+    'script[type="application/json"][id]',
+  )].map((script) => script.id));
   documentNode.querySelectorAll("script").forEach((script) => {
+    const scriptType = (script.getAttribute("type") || "").toLowerCase();
+    const scriptText = script.textContent || "";
+    const isStructuredData = scriptType === "application/json";
+    const isInlineHydrator = !script.src
+      && [...dataScriptIds].some((scriptId) => scriptText.includes(scriptId))
+      && /(?:innerHTML|insertAdjacentHTML|appendChild|\.append\(|textContent\s*=)/.test(scriptText);
+    if (isStructuredData || isInlineHydrator) {
+      if (isInlineHydrator) script.dataset.clairHydrationScript = "true";
+      return;
+    }
     script.dataset.clairOriginalType = script.getAttribute("type") ?? "__empty__";
     script.setAttribute("type", "application/x-clair-disabled");
   });
@@ -459,6 +487,9 @@ function editorBridgeScript() {
       node.removeAttribute("data-clair-editor-block");
       node.removeAttribute("draggable");
     });
+    clone.querySelectorAll("[data-clair-hydration-script]").forEach((node) => {
+      node.removeAttribute("data-clair-hydration-script");
+    });
     clone.querySelector("#clair-editor-style")?.remove();
     clone.querySelector("#clair-editor-bridge")?.remove();
     clone.querySelector("base[data-clair-editor-base]")?.remove();
@@ -555,9 +586,17 @@ function editorBridgeScript() {
       underline: document.queryCommandState("underline")
     });
   });
-  markBlocks();
-  renderPage();
-  send("ready");
+  const startEditor = () => requestAnimationFrame(() => {
+    pageNodes = collectPageNodes();
+    markBlocks();
+    renderPage();
+    send("ready");
+  });
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", startEditor, { once: true });
+  } else {
+    startEditor();
+  }
 })();
 `;
 }
@@ -645,10 +684,19 @@ async function loadReport(report) {
   try {
     const localHtml = localReportHtml(report);
     const inferred = localHtml ? null : githubPagesTarget(report.url);
+    const localMirrorUrl = localHtml ? "" : localStudioReportUrl(report.url);
     let result = null;
     if (localHtml) {
       result = { html: localHtml, target: null };
-    } else if (inferred) {
+    } else if (localMirrorUrl) {
+      try {
+        const response = await fetch(localMirrorUrl, { cache: "no-store" });
+        if (response.ok) result = { html: await response.text(), target: inferred };
+      } catch {
+        // Continue through the source and production fallbacks below.
+      }
+    }
+    if (!result && inferred) {
       try {
         result = await readGithubFile(inferred);
       } catch {
@@ -995,11 +1043,12 @@ function settingsMarkup(escapeHtml) {
   };
   return `
     <div class="dialog-backdrop editor-settings-backdrop" ${editor.settingsOpen ? "" : "hidden"}>
-      <form class="dialog editor-settings-dialog" id="editor-settings-form">
+      <form class="dialog editor-settings-dialog" id="editor-settings-form" role="dialog" aria-modal="true"
+        aria-labelledby="editor-settings-title" tabindex="-1">
         <div class="dialog-title-row">
           <div>
             <span class="section-kicker">GITHUB SAVE PERMISSION</span>
-            <h2>设置安全保存</h2>
+            <h2 id="editor-settings-title">设置安全保存</h2>
           </div>
           <button type="button" data-editor-action="close-settings" aria-label="关闭">×</button>
         </div>
@@ -1045,7 +1094,7 @@ function publishConfirmMarkup(escapeHtml) {
     : "尚未识别 GitHub 文件路径";
   return `
     <div class="dialog-backdrop editor-publish-backdrop" ${editor.publishConfirmOpen ? "" : "hidden"}>
-      <section class="dialog compact-dialog editor-publish-dialog" role="dialog" aria-modal="true" aria-labelledby="publish-confirm-title">
+      <section class="dialog compact-dialog editor-publish-dialog" role="dialog" aria-modal="true" aria-labelledby="publish-confirm-title" tabindex="-1">
         <div class="dialog-title-row">
           <div>
             <span class="section-kicker">PRODUCTION ARCHIVE</span>
@@ -1069,12 +1118,77 @@ function publishConfirmMarkup(escapeHtml) {
     </div>`;
 }
 
+function editorModalFocusable(dialog) {
+  return [...dialog.querySelectorAll([
+    "a[href]",
+    "button:not([disabled])",
+    "input:not([disabled]):not([type='hidden'])",
+    "select:not([disabled])",
+    "textarea:not([disabled])",
+    "[tabindex]:not([tabindex='-1'])",
+  ].join(","))].filter((element) => !element.hidden && element.getClientRects().length);
+}
+
+function activateEditorModal(backdrop) {
+  editorModalFocusReturn = document.activeElement;
+  document.body.style.setProperty("--studio-modal-scroll-top", `${-window.scrollY}px`);
+  document.body.classList.add("studio-modal-open");
+  [...backdrop.parentElement.children].forEach((element) => {
+    if (element === backdrop || element.classList.contains("dialog-backdrop")) return;
+    element.inert = true;
+    element.dataset.editorModalInert = "true";
+    element.setAttribute("aria-hidden", "true");
+  });
+  const dialog = backdrop.querySelector('[role="dialog"]');
+  if (!dialog) return;
+  backdrop.onkeydown = (event) => {
+    if (event.key === "Escape") {
+      event.preventDefault();
+      event.stopPropagation();
+      if (backdrop.classList.contains("editor-settings-backdrop")) hideSettings();
+      else hidePublishConfirm();
+      return;
+    }
+    if (event.key !== "Tab") return;
+    const targets = editorModalFocusable(dialog);
+    const first = targets[0];
+    const last = targets.at(-1);
+    if (!first) {
+      event.preventDefault();
+      dialog.focus({ preventScroll: true });
+    } else if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus({ preventScroll: true });
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus({ preventScroll: true });
+    }
+  };
+  requestAnimationFrame(() => {
+    (editorModalFocusable(dialog)[0] || dialog).focus({ preventScroll: true });
+  });
+}
+
+function deactivateEditorModal() {
+  document.querySelectorAll("[data-editor-modal-inert]").forEach((element) => {
+    element.inert = false;
+    element.removeAttribute("data-editor-modal-inert");
+    element.removeAttribute("aria-hidden");
+  });
+  document.body.classList.remove("studio-modal-open");
+  document.body.style.removeProperty("--studio-modal-scroll-top");
+  const focusReturn = editorModalFocusReturn;
+  editorModalFocusReturn = null;
+  requestAnimationFrame(() => focusReturn?.focus?.({ preventScroll: true }));
+}
+
 function showSettings({ pendingSave = false } = {}) {
   editor.settingsOpen = true;
   editor.pendingSave = pendingSave;
   const backdrop = document.querySelector(".editor-settings-backdrop");
   if (!backdrop) return;
   backdrop.hidden = false;
+  activateEditorModal(backdrop);
   const form = backdrop.querySelector("#editor-settings-form");
   const target = editor.target || {};
   if (form) {
@@ -1092,18 +1206,23 @@ function hideSettings() {
   editor.pendingSave = false;
   const backdrop = document.querySelector(".editor-settings-backdrop");
   if (backdrop) backdrop.hidden = true;
+  deactivateEditorModal();
 }
 
 function showPublishConfirm() {
   editor.publishConfirmOpen = true;
   const backdrop = document.querySelector(".editor-publish-backdrop");
-  if (backdrop) backdrop.hidden = false;
+  if (backdrop) {
+    backdrop.hidden = false;
+    activateEditorModal(backdrop);
+  }
 }
 
 function hidePublishConfirm() {
   editor.publishConfirmOpen = false;
   const backdrop = document.querySelector(".editor-publish-backdrop");
   if (backdrop) backdrop.hidden = true;
+  deactivateEditorModal();
 }
 
 export function isEditingReport(reportId = "") {
