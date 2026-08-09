@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="yingmi-skill 核心能力三轮稳定性评测：真实不稳定、测试误报与修复建议。">
+  <title>yingmi-skill 三轮稳定性评测</title>
+  <style>
+    :root{--navy:#10213d;--ink:#20304a;--muted:#65748a;--paper:#f5f8fc;--card:#fff;--line:#dce6f0;--blue:#3976e8;--green:#17875f;--amber:#a76008;--red:#be3f45;--violet:#6f55d9;--shadow:0 18px 55px rgba(23,48,83,.1)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 8% -4%,#dfeaff 0,transparent 28%),radial-gradient(circle at 96% 8%,#dff7f0 0,transparent 22%),var(--paper);color:var(--ink);font:15px/1.65 -apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Microsoft YaHei",sans-serif}
+    main{width:min(1120px,calc(100% - 30px));margin:auto;padding:28px 0 64px}.hero{position:relative;overflow:hidden;padding:50px;border-radius:30px;background:linear-gradient(135deg,#10264a,#254e8a 55%,#16777b);color:#fff;box-shadow:var(--shadow)}.hero:after{content:"";position:absolute;width:420px;height:420px;border-radius:50%;border:1px solid rgba(255,255,255,.14);right:-150px;top:-190px;box-shadow:0 0 0 72px rgba(255,255,255,.035),0 0 0 144px rgba(255,255,255,.02)}
+    .eyebrow{position:relative;z-index:1;display:inline-flex;align-items:center;gap:8px;padding:6px 11px;border:1px solid rgba(255,255,255,.22);border-radius:99px;background:rgba(255,255,255,.08);font-size:12px;letter-spacing:.08em}.dot{width:8px;height:8px;border-radius:50%;background:#6ff0bb;box-shadow:0 0 16px #6ff0bb}h1{position:relative;z-index:1;max-width:820px;margin:20px 0 14px;font-size:clamp(38px,6vw,66px);line-height:1.06;letter-spacing:-.045em}.lead{position:relative;z-index:1;max-width:790px;margin:0;color:#dceaff;font-size:18px}.scope{position:relative;z-index:1;margin-top:25px;color:#bdd3ee;font-size:13px}
+    .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:18px 0 26px}.kpi{padding:21px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.95);box-shadow:0 10px 34px rgba(30,62,100,.06)}.kpi b{display:block;font-size:34px;line-height:1.05;letter-spacing:-.045em;color:#173c70}.kpi span{display:block;margin-top:8px;color:var(--muted);font-size:13px}.kpi.good b{color:var(--green)}.kpi.warn b{color:var(--amber)}
+    section{margin-top:22px;padding:30px;border:1px solid var(--line);border-radius:24px;background:rgba(255,255,255,.96);box-shadow:0 12px 40px rgba(30,62,100,.055)}h2{margin:0 0 7px;font-size:26px;letter-spacing:-.025em}.sub{margin:0 0 22px;color:var(--muted)}
+    .verdict{display:grid;grid-template-columns:1.15fr .85fr;gap:16px}.callout{padding:22px;border:1px solid #cde2f4;border-radius:19px;background:#f0f7ff}.callout.alert{border-color:#f0d7a8;background:#fff9ed}.callout h3{margin:0 0 8px;font-size:18px}.callout p{margin:0;color:#50627b}.pill{display:inline-flex;padding:3px 9px;border-radius:99px;font-size:11px;font-weight:760}.confirmed{background:#dff6eb;color:var(--green)}.flaky{background:#fff0d9;color:#915508}.false-negative{background:#eeeaff;color:#6548bd}.stable{background:#e8f0ff;color:#2f62b1}
+    .matrix{overflow:auto;border:1px solid var(--line);border-radius:18px}table{width:100%;border-collapse:collapse;min-width:760px}th,td{padding:15px 16px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{background:#f7faff;color:#4c607b;font-size:12px;text-transform:uppercase;letter-spacing:.04em}tr:last-child td{border-bottom:0}.score{font-weight:800;font-size:18px;white-space:nowrap}.score.ok{color:var(--green)}.score.partial{color:var(--amber)}.muted{color:var(--muted);font-size:13px}
+    .timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.run{padding:18px;border:1px solid var(--line);border-radius:17px;background:linear-gradient(180deg,#fff,#f8fbff)}.run strong{font-size:17px}.run ul{margin:10px 0 0;padding-left:20px;color:var(--muted)}.run li{margin:5px 0}.mark-pass{color:var(--green);font-weight:700}.mark-fail{color:var(--amber);font-weight:700}
+    .issue-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.issue{padding:20px;border:1px solid var(--line);border-radius:18px;background:#fff}.issue h3{margin:10px 0 6px;font-size:17px}.issue p{margin:0;color:var(--muted);font-size:13px}.issue code,.steps code{padding:2px 5px;border-radius:6px;background:#eef3f9;color:#294b76;font-family:"SFMono-Regular",Consolas,monospace;font-size:.92em}
+    .steps{counter-reset:step;display:grid;gap:11px}.step{display:grid;grid-template-columns:38px 1fr;gap:12px;padding:17px;border:1px solid var(--line);border-radius:16px}.step:before{counter-increment:step;content:counter(step);display:grid;place-items:center;width:32px;height:32px;border-radius:10px;background:#e7f0ff;color:#2e63b3;font-weight:800}.step h3{margin:0 0 4px;font-size:16px}.step p{margin:0;color:var(--muted)}
+    .method{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.method div{padding:15px;border:1px solid var(--line);border-radius:15px;background:#f9fbfe}.method b{display:block}.method span{display:block;margin-top:4px;color:var(--muted);font-size:12px}.footnote{margin:18px 0 0;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}footer{padding:24px 4px 0;text-align:center;color:#78879b;font-size:12px}
+    @media(max-width:900px){.hero{padding:38px 28px}.kpis{grid-template-columns:repeat(2,1fr)}.verdict{grid-template-columns:1fr}.timeline,.issue-grid{grid-template-columns:1fr}.method{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:560px){main{width:min(100% - 20px,1120px);padding-top:10px}.hero{padding:31px 22px;border-radius:22px}h1{font-size:40px}.lead{font-size:16px}.kpis,.method{grid-template-columns:1fr}section{padding:21px;border-radius:20px}.kpi b{font-size:29px}}
+  </style>
+</head>
+<body>
+<main>
+  <header class="hero">
+    <div class="eyebrow"><span class="dot"></span> SKILL-UP STABILITY AUDIT · 2026-08-09</div>
+    <h1>yingmi-skill<br>三轮稳定性评测</h1>
+    <p class="lead">4 个核心场景 × 3 次独立执行。结论：用户答案 12/12 正确；严格工具路由 11/12；只识别出 1 个真实不稳定点。</p>
+    <div class="scope">公开脱敏版｜不含 API Key、内部 MCP 配置、原始 agent trace、本机路径或私有数据</div>
+  </header>
+
+  <div class="kpis">
+    <div class="kpi"><b>12</b><span>正式执行次数 · 0 ERROR</span></div>
+    <div class="kpi good"><b>12 / 12</b><span>用户答案事实正确</span></div>
+    <div class="kpi warn"><b>11 / 12</b><span>严格工具路由命中</span></div>
+    <div class="kpi"><b>1</b><span>确认的真实不稳定用例</span></div>
+  </div>
+
+  <section>
+    <h2>一句话结论</h2>
+    <p class="sub">原始机器判分为 9/12；逐条审计后，2 次失败属于断言误报，1 次属于“答案正确但工具路径不一致”。</p>
+    <div class="verdict">
+      <div class="callout alert">
+        <span class="pill flaky">TRUE FLAKY</span>
+        <h3>交易状态查询的工具选择会漂移</h3>
+        <p>第 1 次使用 <code>BatchGetFundsDetail</code> 内嵌的 <code>tradeLimit</code>；第 2、3 次使用专用 <code>BatchGetFundTradeLimit</code>。三次语义结论都正确，但专用路径命中率只有 2/3。</p>
+      </div>
+      <div class="callout">
+        <span class="pill confirmed">CONFIRMED</span>
+        <h3>其余核心能力稳定</h3>
+        <p>基金检索与证据、相关性实时查询、缺失工具边界处理均达到 3/3。相关性原始两次失败已确认为测试词面误报。</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>四项核心能力矩阵</h2>
+    <p class="sub">“原始判分”保留第一次正式执行的机械结果；“审计后”区分能力问题、路由问题和测试问题。</p>
+    <div class="matrix">
+      <table>
+        <thead><tr><th>核心用例</th><th>原始判分</th><th>审计后</th><th>判断</th><th>关键证据</th></tr></thead>
+        <tbody>
+          <tr><td><b>基金检索与证据</b><div class="muted">名称、代码、类型、收益、净值日、资产规模</div></td><td class="score ok">3 / 3</td><td class="score ok">3 / 3</td><td><span class="pill stable">稳定</span></td><td class="muted">搜索 → 详情 → 当前时间；字段与日期均来自 MCP。</td></tr>
+          <tr><td><b>申购 / 认购语义</b><div class="muted">canAllot 与 canSubscribe</div></td><td class="score partial">2 / 3</td><td><b>答案 3/3<br>路由 2/3</b></td><td><span class="pill flaky">真实路由波动</span></td><td class="muted">替代工具含同一组实时字段，因此结论正确，但没有稳定走专用工具。</td></tr>
+          <tr><td><b>基金相关性</b><div class="muted">005827 × 110011</div></td><td class="score partial">1 / 3</td><td class="score ok">3 / 3</td><td><span class="pill false-negative">测试误报</span></td><td class="muted">两次回答写“相关系数”而非断言要求的“相关性”；放宽同义词后复跑 3/3。</td></tr>
+          <tr><td><b>缺失工具边界</b><div class="muted">静态文档与实时工具清单冲突</div></td><td class="score ok">3 / 3</td><td class="score ok">3 / 3</td><td><span class="pill stable">稳定</span></td><td class="muted">能先查实时清单并明确说明工具不可用，没有编造持仓数据。</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>三轮执行轨迹</h2>
+    <p class="sub">每轮均从独立 agent 上下文启动，使用同一份目标 Skill 副本与确定性脚本 Judge。</p>
+    <div class="timeline">
+      <div class="run"><strong>Iteration 1</strong><ul><li class="mark-pass">基金检索 PASS</li><li class="mark-fail">交易状态 FAIL · 替代路由</li><li class="mark-pass">相关性 PASS</li><li class="mark-pass">缺失工具 PASS</li></ul></div>
+      <div class="run"><strong>Iteration 2</strong><ul><li class="mark-pass">基金检索 PASS</li><li class="mark-pass">交易状态 PASS</li><li class="mark-fail">相关性 FAIL · 词面误报</li><li class="mark-pass">缺失工具 PASS</li></ul></div>
+      <div class="run"><strong>Iteration 3</strong><ul><li class="mark-pass">基金检索 PASS</li><li class="mark-pass">交易状态 PASS</li><li class="mark-fail">相关性 FAIL · 词面误报</li><li class="mark-pass">缺失工具 PASS</li></ul></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>发现的三个问题，不混为一谈</h2>
+    <p class="sub">稳定性、测试质量与静态资料漂移分别治理，避免把“判分失败”直接等同于“能力失败”。</p>
+    <div class="issue-grid">
+      <article class="issue"><span class="pill flaky">P0 · Skill 路由</span><h3>专用工具优先级不够硬</h3><p>只问交易状态时，应显式规定优先使用 <code>BatchGetFundTradeLimit</code>；只有同时需要完整详情时才复用 <code>BatchGetFundsDetail</code>。</p></article>
+      <article class="issue"><span class="pill false-negative">P0 · Eval 设计</span><h3>词面断言过窄</h3><p>“相关性”和“相关系数”语义等价。断言已改为接受二者，并完成 3 次复跑验证。</p></article>
+      <article class="issue"><span class="pill stable">P1 · 工具目录</span><h3>静态清单存在漂移</h3><p><code>BatchGetFundsHolding</code> 出现在 Skill 静态说明中，但本次实时 CLI Schema 不存在。边界处理稳定，目录本身需要同步。</p></article>
+    </div>
+  </section>
+
+  <section>
+    <h2>建议的修复顺序</h2>
+    <p class="sub">本轮只做测试与诊断，没有改动已安装的 <code>yingmi-skill</code>。</p>
+    <div class="steps">
+      <div class="step"><div><h3>把交易状态路由写成可执行规则</h3><p>新增一句硬约束：仅查询可申购/可认购/可赎回时，优先 schema + call <code>BatchGetFundTradeLimit</code>。</p></div></div>
+      <div class="step"><div><h3>保留语义型 Eval，减少词面误报</h3><p>核心字段与工具调用用脚本校验；自然语言标签接受等价表达，避免把文案差异当成能力波动。</p></div></div>
+      <div class="step"><div><h3>让工具目录以实时 <code>mcp list</code> 为准</h3><p>静态清单标注“可能随服务变化”，并对持仓类能力增加存在性检查和替代路径说明。</p></div></div>
+      <div class="step"><div><h3>隔离评测运行环境</h3><p>本机还有 15 个缺少 YAML frontmatter 的无关 Skill，以及多个无关 MCP 启动告警；没有影响本次结论，但显著增加噪声与时延。</p></div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>方法与边界</h2>
+    <div class="method">
+      <div><b>skill-upper 0.7.0</b><span>配置校验、独立运行、JSON/HTML 结果</span></div>
+      <div><b>yingmi-skill 0.1.5</b><span>目标 Skill；测试副本与安装源哈希一致</span></div>
+      <div><b>CLI 0.0.18</b><span>初始化、doctor、实时 MCP schema/call 已验证</span></div>
+      <div><b>4 × 3</b><span>基金检索、交易语义、相关性、缺失工具边界</span></div>
+    </div>
+    <p class="footnote">结论状态：能力结果与路由轨迹为 confirmed；“应该使用哪条专用路径”是基于工具职责的治理建议。样本仅覆盖四个核心公开数据场景，不代表账户、私有组合、全量工具与长周期网络稳定性。</p>
+  </section>
+
+  <footer>yingmi-skill Stability Evaluation · Sanitized evidence snapshot · 2026-08-09</footer>
+</main>
+</body>
+</html>

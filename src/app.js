@@ -132,6 +132,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "yingmi-skill-stability-eval-2026-08-09",
+      groupId: "ai-platform",
+      title: "yingmi-skill 三轮稳定性评测｜真实波动与测试误报",
+      url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-skill-stability-eval-2026-08-09/",
+      preview: "yingmi-skill-stability-eval-2026-08-09.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-09T20:00:00.000+08:00",
+      source: "skill-upper 0.7.0 × yingmi-skill 0.1.5｜4 个核心用例 × 3 次独立运行｜公开页仅保留脱敏结果与治理建议",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["AI 开放平台", "Skills", "yingmi-skill", "稳定性评测", "MCP", "数据分析", "HTML", "脱敏", "生产"],
+    },
+    {
       id: "skill-governance-audit-2026-08-09",
       groupId: "knowledge",
       title: "Skill 全量治理审计｜重复、失效、风险与可删减清单",
