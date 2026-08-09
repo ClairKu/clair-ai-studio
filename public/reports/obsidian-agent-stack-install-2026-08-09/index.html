@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Obsidian × Agent 本地知识栈安装、验证与安全边界。">
+  <title>Obsidian × Agent 本地知识栈｜安装状态</title>
+  <style>
+    :root{--ink:#15243b;--muted:#5d6d83;--paper:#f5f8fc;--card:#fff;--line:#dce6f0;--blue:#3976e8;--cyan:#20a3b8;--green:#188862;--amber:#b06b12;--violet:#7658d6;--shadow:0 18px 60px rgba(24,55,95,.10)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 10% -10%,#ddecff 0,transparent 30%),radial-gradient(circle at 92% 4%,#dcf7f2 0,transparent 24%),var(--paper);color:var(--ink);font:15px/1.65 -apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC","Microsoft YaHei",sans-serif}
+    a{color:inherit}main{width:min(1160px,calc(100% - 32px));margin:auto;padding:28px 0 70px}.hero{position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.7);border-radius:30px;padding:54px;background:linear-gradient(135deg,#102b52 0%,#173e75 52%,#176c78 100%);color:#fff;box-shadow:var(--shadow)}
+    .hero:after{content:"";position:absolute;width:380px;height:380px;border:1px solid rgba(255,255,255,.14);border-radius:50%;right:-120px;top:-170px;box-shadow:0 0 0 70px rgba(255,255,255,.035),0 0 0 140px rgba(255,255,255,.02)}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 11px;border:1px solid rgba(255,255,255,.22);border-radius:99px;background:rgba(255,255,255,.09);font-size:12px;letter-spacing:.08em;text-transform:uppercase}.dot{width:8px;height:8px;border-radius:50%;background:#72f0c0;box-shadow:0 0 16px #72f0c0}
+    h1{position:relative;z-index:1;max-width:780px;margin:22px 0 14px;font-size:clamp(36px,6vw,64px);line-height:1.07;letter-spacing:-.045em}.lead{position:relative;z-index:1;max-width:720px;margin:0;color:#dbeaff;font-size:17px}.hero-note{position:relative;z-index:1;margin-top:28px;font-size:13px;color:#b9d5f5}
+    .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:18px 0 30px}.kpi{background:rgba(255,255,255,.93);border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:0 10px 35px rgba(30,70,110,.07)}.kpi b{display:block;font-size:32px;line-height:1.1;letter-spacing:-.04em;color:#153b70}.kpi span{display:block;margin-top:7px;color:var(--muted);font-size:13px}
+    section{margin-top:24px;background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:24px;padding:30px;box-shadow:0 12px 42px rgba(30,70,110,.06)}h2{margin:0 0 8px;font-size:25px;letter-spacing:-.025em}.section-lead{margin:0 0 22px;color:var(--muted)}
+    .flow{display:grid;grid-template-columns:1fr 38px 1fr 38px 1fr 38px 1fr;align-items:center;gap:7px}.node{min-height:120px;border:1px solid var(--line);border-radius:18px;padding:17px;background:linear-gradient(180deg,#fff,#f8fbff)}.node small{display:block;color:var(--muted);margin-bottom:6px}.node b{font-size:18px}.node p{margin:7px 0 0;color:var(--muted);font-size:13px}.arrow{text-align:center;color:#7d91aa;font-size:22px}
+    .status-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.item{position:relative;border:1px solid var(--line);border-radius:18px;padding:18px;background:#fff}.item h3{margin:8px 0 6px;font-size:16px}.item p{margin:0;color:var(--muted);font-size:13px}.item a{display:inline-block;margin-top:12px;color:var(--blue);font-size:12px;text-decoration:none}.pill{display:inline-flex;padding:3px 8px;border-radius:99px;font-size:11px;font-weight:700;letter-spacing:.03em}.on{background:#dff7ec;color:var(--green)}.local{background:#e4efff;color:#2e63b5}.ref{background:#eee9ff;color:#6544b5}.gate{background:#fff0d7;color:#8d560f}
+    .plugin-list{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.plugin{border:1px solid var(--line);border-radius:16px;padding:17px;background:linear-gradient(145deg,#fff,#f5f9ff)}.plugin strong{display:block}.plugin span{display:block;margin-top:5px;color:var(--muted);font-size:12px}.check{display:inline-block;margin-top:11px;color:var(--green);font-size:12px;font-weight:700}
+    .decision{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}.callout{border-radius:18px;padding:21px;background:#eef5ff;border:1px solid #cfe0f7}.callout.warn{background:#fff8ea;border-color:#f0dcaf}.callout h3{margin:0 0 7px;font-size:17px}.callout p{margin:0;color:#50647d}.steps{margin:0;padding-left:20px}.steps li{margin:9px 0;padding-left:3px}.source-row{display:flex;flex-wrap:wrap;gap:8px}.source-row a{padding:7px 10px;border:1px solid var(--line);border-radius:10px;background:#fff;text-decoration:none;color:#3e5f88;font-size:12px}
+    footer{padding:24px 4px 0;color:#718096;font-size:12px;text-align:center}
+    @media(max-width:900px){.hero{padding:38px 28px}.kpis{grid-template-columns:repeat(2,1fr)}.flow{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}.status-grid{grid-template-columns:repeat(2,1fr)}.plugin-list{grid-template-columns:repeat(2,1fr)}.decision{grid-template-columns:1fr}}
+    @media(max-width:560px){main{width:min(100% - 20px,1160px);padding-top:10px}.hero{border-radius:22px;padding:32px 22px}h1{font-size:39px}.kpis,.status-grid,.plugin-list{grid-template-columns:1fr}section{padding:22px;border-radius:20px}.kpi b{font-size:28px}}
+  </style>
+</head>
+<body>
+<main>
+  <header class="hero">
+    <div class="eyebrow"><span class="dot"></span> Installation verified · 2026-08-09</div>
+    <h1>Obsidian × Agent<br>本地知识栈已装好</h1>
+    <p class="lead">不是把 9 个仓库盲目堆进同一个 Vault，而是按“全局能力、主 Vault 接入、隔离实验、只读索引”四层安装，兼顾可用性、隐私和回滚边界。</p>
+    <div class="hero-note">公开页仅展示公共项目、版本与验证结论；不包含本机路径、私有知识内容、凭据或企业配置。</div>
+  </header>
+
+  <div class="kpis">
+    <div class="kpi"><b>69</b><span>已接入 Agent Skills</span></div>
+    <div class="kpi"><b>79,958</b><span>ctx 本地索引节点</span></div>
+    <div class="kpi"><b>4</b><span>Obsidian 社区插件</span></div>
+    <div class="kpi"><b>9 / 9</b><span>文章仓库均已落位</span></div>
+  </div>
+
+  <section>
+    <h2>一条能工作的主链，而不是九套互相覆盖的规则</h2>
+    <p class="section-lead">主链服务真实知识库；其余框架进入隔离区，避免 hooks、AGENTS、目录模型和自动写入规则冲突。</p>
+    <div class="flow">
+      <div class="node"><small>知识载体</small><b>Obsidian</b><p>本地 Markdown 与社区插件，现有笔记不迁移。</p></div><div class="arrow">→</div>
+      <div class="node"><small>规范基座</small><b>Obsidian Skills</b><p>Markdown、Bases、Canvas、CLI、网页净化五件套。</p></div><div class="arrow">→</div>
+      <div class="node"><small>Agent 操作层</small><b>Second Brain</b><p>项目级 46 个 Skills；未启动后台任务或自动改写。</p></div><div class="arrow">→</div>
+      <div class="node"><small>检索与发现</small><b>ctx + OpenKnowledge</b><p>本地索引推荐与 Codex MCP，默认不分享、不上传。</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>9 个项目的真实落位</h2>
+    <p class="section-lead">“安装”不等于“全部激活”。高冲突框架保留在隔离工作区，合集只作为搜索目录。</p>
+    <div class="status-grid">
+      <article class="item"><span class="pill on">已激活</span><h3>anthropics/skills</h3><p>17 个官方办公与创作 Skill 完整可发现；已有 skill-creator 复用现有版本。</p><a href="https://github.com/anthropics/skills">查看公共仓库 ↗</a></article>
+      <article class="item"><span class="pill on">已激活</span><h3>kepano/obsidian-skills</h3><p>5/5 安装：Markdown、Bases、JSON Canvas、Obsidian CLI、Defuddle。</p><a href="https://github.com/kepano/obsidian-skills">查看公共仓库 ↗</a></article>
+      <article class="item"><span class="pill on">主 Vault</span><h3>obsidian-second-brain</h3><p>Agent Skills 构建接入 46/46；真实大 Vault 健康检查已跑通。</p><a href="https://github.com/eugeniughelbur/obsidian-second-brain">查看公共仓库 ↗</a></article>
+      <article class="item"><span class="pill on">已验证</span><h3>stevesolun/ctx</h3><p>v1.0.20 与 79,958 节点运行时索引已安装，Obsidian 推荐查询已返回结果。</p><a href="https://github.com/stevesolun/ctx">查看公共仓库 ↗</a></article>
+      <article class="item"><span class="pill ref">参考库</span><h3>awesome-skills-cn</h3><p>10,446 个 SKILL.md 本地可检索，不全量注入 Agent 上下文。</p><a href="https://github.com/lingxling/awesome-skills-cn">查看公共仓库 ↗</a></article>
+      <article class="item"><span class="pill local">隔离运行</span><h3>Compabob</h3><p>独立工作区初始化完成；11 agents、18 skills 与安全 hooks 自检通过。</p><a href="https://github.com/chacosoldier/compabob">查看公共仓库 ↗</a></article>
+      <article class="item"><span class="pill on">已安装</span><h3>obsidian-ai-setup</h3><p>Bootstrap Skill 已进入全局目录；未在已有主 Vault 上执行覆盖式初始化。</p><a href="https://github.com/anliberant/obsidian-ai-setup">查看公共仓库 ↗</a></article>
+      <article class="item"><span class="pill local">隔离模板</span><h3>AI Second Brain Template</h3><p>Codex/Claude 模板完整保留为独立实验 Vault，不接管主知识库。</p><a href="https://github.com/ibrahimkobeissy/ai-second-brain-template">查看公共仓库 ↗</a></article>
+      <article class="item"><span class="pill on">MCP 已启用</span><h3>OpenKnowledge</h3><p>CLI 0.49.2 与 Codex MCP 已注册为 local-only；内容范围锁定到主 Vault。</p><a href="https://github.com/inkeep/open-knowledge">查看公共仓库 ↗</a></article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Obsidian 插件：装入、兼容、启用配置三项均通过</h2>
+    <p class="section-lead">Templater 主动降级到与当前 Obsidian 兼容的版本，避免“最新版已下载、实际无法加载”的假成功。</p>
+    <div class="plugin-list">
+      <div class="plugin"><strong>Templater</strong><span>2.20.6 · 兼容性锁定</span><i class="check">✓ 已安装并加入启用列表</i></div>
+      <div class="plugin"><strong>Calendar</strong><span>1.5.10 · 稳定版本</span><i class="check">✓ 已安装并加入启用列表</i></div>
+      <div class="plugin"><strong>Text Generator</strong><span>0.8.7 · 未配置云端 Key</span><i class="check">✓ 已安装并加入启用列表</i></div>
+      <div class="plugin"><strong>Excalidraw</strong><span>2.26.4 · Canvas 绘图</span><i class="check">✓ 已安装并加入启用列表</i></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>安全结论：可以读和检索，暂不放开自动重写</h2>
+    <div class="decision">
+      <div class="callout"><h3>已经可以做</h3><p>Codex 按 Obsidian 语法创建/编辑笔记、查询 ctx 索引、通过 OpenKnowledge MCP 检索，以及在明确指令下运行项目级 Skill。</p></div>
+      <div class="callout warn"><h3>仍保持门禁</h3><p>主 Vault 尚未建立覆盖全部笔记的 Git 回滚基线，因此没有执行 bootstrap、obsidian-init、后台 agent 或定时自动写入。</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>下一步建议</h2>
+    <ol class="steps">
+      <li>在 Obsidian 设置中手动开启官方 CLI 开关，让 <code>obsidian-cli</code> 从“Skill 已装”升级为“命令可调用”。</li>
+      <li>单独评估主 Vault 的 Git 基线范围与敏感文件排除规则，再提交首个可回滚快照。</li>
+      <li>先选一个低风险文件夹做 7 天试点，只开放“捕捉、查找、日报”，暂缓自动 reconcile / synthesize。</li>
+      <li>Text Generator 若未来接入外部模型，先明确数据去向与脱敏规则，再配置 API Key。</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>公共来源</h2>
+    <p class="section-lead">版本与安装方式来自项目仓库和官方 Obsidian 社区插件目录，核验截止 2026-08-09（Asia/Shanghai）。</p>
+    <div class="source-row">
+      <a href="https://github.com/obsidianmd/obsidian-releases">Obsidian 社区目录</a><a href="https://github.com/SilentVoid13/Templater">Templater</a><a href="https://github.com/liamcain/obsidian-calendar-plugin">Calendar</a><a href="https://github.com/nhaouari/obsidian-textgenerator-plugin">Text Generator</a><a href="https://github.com/zsviczian/obsidian-excalidraw-plugin">Excalidraw</a>
+    </div>
+  </section>
+  <footer>Obsidian × Agent Local Stack · Verified installation snapshot · 2026-08-09</footer>
+</main>
+</body>
+</html>

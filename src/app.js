@@ -126,6 +126,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "obsidian-agent-stack-install-2026-08-09",
+      groupId: "knowledge",
+      title: "Obsidian × Agent 本地知识栈｜安装与安全验证",
+      url: "https://clairku.github.io/clair-ai-studio/reports/obsidian-agent-stack-install-2026-08-09/",
+      preview: "obsidian-agent-stack-install-2026-08-09.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-09T18:50:00.000+08:00",
+      source: "9 个公共仓库 × 69 个 Skills × ctx 本地索引 × 4 个 Obsidian 插件｜分层安装、真实运行验证与自动写入门禁",
+      access: "production",
+      workType: "governance-review",
+      tags: ["Obsidian", "Agent Skills", "Codex", "知识治理", "本地优先", "安全审查", "HTML", "生产"],
+    },
+    {
       id: "third-party-platform-regulatory-filing-2026-08-08",
       groupId: "knowledge",
       title: "第三方平台合作监管报送｜受控材料索引",
