@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1350" viewBox="0 0 2400 1350" role="img" aria-labelledby="title desc">
+  <title id="title">Skill 全量治理审计</title>
+  <desc id="desc">重复、失效、风险与可删减清单，248 个目录，28 个 P0。</desc>
+  <defs>
+    <radialGradient id="glow" cx="80%" cy="10%" r="80%"><stop offset="0" stop-color="#d8d0ff"/><stop offset=".48" stop-color="#f3f0ff"/><stop offset="1" stop-color="#fbfaff"/></radialGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="22" stdDeviation="30" flood-color="#3b2e73" flood-opacity=".15"/></filter>
+  </defs>
+  <rect width="2400" height="1350" fill="url(#glow)"/>
+  <circle cx="2140" cy="1190" r="520" fill="none" stroke="#c9bef8" stroke-width="2" opacity=".65"/><circle cx="2140" cy="1190" r="340" fill="#e7e1ff" opacity=".45"/>
+  <g transform="translate(132 140)">
+    <rect width="88" height="88" rx="28" fill="#191b2a"/><text x="44" y="59" text-anchor="middle" font-family="Georgia,serif" font-size="46" font-weight="700" fill="#fff">C</text>
+    <text x="0" y="160" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="24" font-weight="800" letter-spacing="5" fill="#7457e8">CLAIR × CODEX · SKILL GOVERNANCE</text>
+    <text x="0" y="320" font-family="'Songti SC','STSong',serif" font-size="150" font-weight="700" letter-spacing="-8" fill="#181a28">Skill 全量治理审计</text>
+    <text x="0" y="465" font-family="'Songti SC','STSong',serif" font-size="90" font-weight="700" fill="#7457e8">重复、失效、风险与可删减清单</text>
+  </g>
+  <g transform="translate(132 770)" filter="url(#shadow)">
+    <g><rect width="410" height="190" rx="36" fill="#fff" opacity=".9"/><circle cx="50" cy="52" r="12" fill="#61c4b5"/><text x="82" y="64" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="30" font-weight="750" fill="#4a4f5f">目录总量</text><text x="42" y="145" font-family="Georgia,serif" font-size="74" font-weight="700" fill="#181a28">248</text></g>
+    <g transform="translate(448)"><rect width="410" height="190" rx="36" fill="#fff" opacity=".9"/><circle cx="50" cy="52" r="12" fill="#7457e8"/><text x="82" y="64" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="30" font-weight="750" fill="#4a4f5f">可加载</text><text x="42" y="145" font-family="Georgia,serif" font-size="74" font-weight="700" fill="#181a28">189</text></g>
+    <g transform="translate(896)"><rect width="410" height="190" rx="36" fill="#fff" opacity=".9"/><circle cx="50" cy="52" r="12" fill="#e15252"/><text x="82" y="64" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="30" font-weight="750" fill="#4a4f5f">P0 先处理</text><text x="42" y="145" font-family="Georgia,serif" font-size="74" font-weight="700" fill="#181a28">28</text></g>
+    <g transform="translate(1344)"><rect width="410" height="190" rx="36" fill="#191b2a"/><circle cx="50" cy="52" r="12" fill="#d9ceff"/><text x="82" y="64" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="30" font-weight="750" fill="#fff">首批可归档</text><text x="42" y="145" font-family="Georgia,serif" font-size="74" font-weight="700" fill="#fff">18</text></g>
+  </g>
+  <g transform="translate(132 1130)"><rect width="940" height="76" rx="38" fill="#7457e8"/><text x="42" y="51" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="30" font-weight="750" fill="#fff">公开脱敏摘要 · 完整逐项清单仅本地保存</text></g>
+</svg>

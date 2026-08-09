@@ -132,6 +132,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "skill-governance-audit-2026-08-09",
+      groupId: "knowledge",
+      title: "Skill 全量治理审计｜重复、失效、风险与可删减清单",
+      url: "https://clairku.github.io/clair-ai-studio/reports/skill-governance-audit-2026-08-09/",
+      preview: "skill-governance-audit-2026-08-09.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-09T19:28:00.000+08:00",
+      source: "248 个 Skill 目录实时盘点｜公开页仅保留数量、方法与治理结论；完整名称、路径、逐项判断和 CSV 仅本地保存",
+      access: "production",
+      workType: "governance-review",
+      tags: ["Skill 治理", "知识治理", "安全审查", "重复清理", "Codex", "HTML", "脱敏", "生产"],
+    },
+    {
       id: "obsidian-agent-stack-install-2026-08-09",
       groupId: "knowledge",
       title: "Obsidian × Agent 本地知识栈｜安装与安全验证",

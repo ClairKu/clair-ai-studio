@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "assets": [
+    {
+      "path": "assets/portfolio.svg",
+      "bytes": 3138,
+      "sha256": "c9e80be7cf922224546a9996f64cbd86c8f0b919321cba5cb2c48823558ba6db"
+    }
+  ]
+}

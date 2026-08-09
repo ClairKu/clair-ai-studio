@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">Skill 组合优先级与来源结构</title>
+  <desc id="desc">248 个 Skill 目录中，P0 28 个、P1 21 个、P2 28 个、P3 171 个；来源为用户目录 148、共享目录 30、系统托管 6、插件缓存与运行时 64。</desc>
+  <style>
+    text{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;fill:#172033}
+    .eyebrow{font-size:13px;font-weight:700;letter-spacing:2px;fill:#7457e8}
+    .title{font-size:28px;font-weight:750}.label{font-size:16px;font-weight:650}.sub{font-size:13px;fill:#6b7280}.num{font-size:30px;font-weight:760;fill:#fff}
+  </style>
+  <rect width="1200" height="620" rx="32" fill="#fbfaff"/>
+  <text x="64" y="58" class="eyebrow">PORTFOLIO MAP · 2026-08-09</text>
+  <text x="64" y="98" class="title">重点不是一口气删，而是先隔离失效与高风险触发</text>
+  <text x="64" y="132" class="sub">P0/P1/P2/P3 为审计处置优先级，不等同于删除指令</text>
+
+  <text x="64" y="190" class="label">处置优先级</text>
+  <rect x="64" y="216" width="121" height="92" rx="14" fill="#e54b4b"/>
+  <rect x="185" y="216" width="91" height="92" fill="#f59e0b"/>
+  <rect x="276" y="216" width="121" height="92" fill="#d7a940"/>
+  <rect x="397" y="216" width="739" height="92" rx="14" fill="#6d59d9"/>
+  <text x="84" y="255" class="num">28</text><text x="84" y="285" font-size="13" fill="#fff">P0 先处理</text>
+  <text x="201" y="255" class="num">21</text><text x="201" y="285" font-size="13" fill="#fff">P1 收敛</text>
+  <text x="292" y="255" class="num">28</text><text x="292" y="285" font-size="13" fill="#fff">P2 观察</text>
+  <text x="423" y="255" class="num">171</text><text x="423" y="285" font-size="13" fill="#fff">P3 保留 / 托管</text>
+
+  <text x="64" y="376" class="label">来源结构</text>
+  <g transform="translate(64 404)">
+    <rect width="254" height="142" rx="18" fill="#efeafe"/><text x="22" y="48" font-size="32" font-weight="760" fill="#7457e8">148</text><text x="22" y="78" class="label">个人目录</text><text x="22" y="108" class="sub">其中 15 个未注册</text>
+  </g>
+  <g transform="translate(336 404)">
+    <rect width="254" height="142" rx="18" fill="#e9f7f2"/><text x="22" y="48" font-size="32" font-weight="760" fill="#0d8f6f">30</text><text x="22" y="78" class="label">共享目录</text><text x="22" y="108" class="sub">飞书等团队 Skill</text>
+  </g>
+  <g transform="translate(608 404)">
+    <rect width="254" height="142" rx="18" fill="#fff2e5"/><text x="22" y="48" font-size="32" font-weight="760" fill="#d97706">6</text><text x="22" y="78" class="label">系统托管</text><text x="22" y="108" class="sub">不要手工删除</text>
+  </g>
+  <g transform="translate(880 404)">
+    <rect width="256" height="142" rx="18" fill="#edf2ff"/><text x="22" y="48" font-size="32" font-weight="760" fill="#3f63d3">64</text><text x="22" y="78" class="label">插件 / 运行时</text><text x="22" y="108" class="sub">38 个仅缓存</text>
+  </g>
+</svg>
