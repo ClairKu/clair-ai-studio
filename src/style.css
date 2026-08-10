@@ -32,6 +32,17 @@ body {
     Helvetica, sans-serif;
 }
 
+/*
+ * Search swaps the whole results tree in place. Chrome may otherwise pick a
+ * report card as its native scroll anchor and follow that card to a completely
+ * different position when switching between catalog and search layouts. The
+ * app already restores the toolbar/report position explicitly, so the dynamic
+ * subtree must never participate in browser scroll anchoring.
+ */
+.groups-section {
+  overflow-anchor: none;
+}
+
 button,
 input,
 select {

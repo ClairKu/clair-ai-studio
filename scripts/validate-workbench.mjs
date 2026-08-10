@@ -189,7 +189,7 @@ const requiredSignals = [
   [editorSource, 'document.addEventListener("dragstart"', "HTML 编辑器区块不能拖动"],
   [styleSource, ".archive-shell .top-actions .quiet-button", "移动端归档返回修复缺失"],
   [styleSource, ".topic-nav a .nav-index", "分组标题对齐修复缺失"],
-  [styleSource, "overflow-anchor: none", "浏览器原生锚点仍会与应用恢复机制冲突"],
+  [styleSource, ".groups-section {\n  overflow-anchor: none;", "动态成果区仍会被浏览器选为原生滚动锚点"],
 ];
 
 for (const [source, signal, message] of requiredSignals) {
