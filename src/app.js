@@ -15,8 +15,7 @@ import { renderRichFile } from "./file-renderers.js";
 import {
   normalizeSearchText,
   reportArchiveMatchesQuery,
-  reportSearchMatchFields,
-  reportSearchScore,
+  reportSearchDetails,
 } from "./search.js";
 
 const STORAGE_KEY = "clair-service-report-workbench-v1";
@@ -2205,13 +2204,14 @@ function buildSearchHits(reports, normalizedQuery) {
         workTypeName: workTypeName(report.workType),
       };
       const searchableReport = indexedReport(report);
-      const dimensions = reportSearchMatchFields(searchableReport, normalizedQuery, context);
+      const searchDetails = reportSearchDetails(searchableReport, normalizedQuery, context);
+      const dimensions = searchDetails.fields;
       return {
         report,
         dimensions,
         dimensionRank: Math.min(...dimensions.map((dimension) =>
           SEARCH_DIMENSIONS.findIndex((item) => item.id === dimension))),
-        score: reportSearchScore(searchableReport, normalizedQuery, context),
+        score: searchDetails.score,
       };
     })
     .filter((item) => item.score > 0)

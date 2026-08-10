@@ -5,6 +5,7 @@ import {
   normalizeSearchText,
   reportArchiveMatchesQuery,
   reportMatchesQuery,
+  reportSearchDetails,
   reportSearchMatchFields,
   reportSearchScore,
   searchTokens,
@@ -33,6 +34,8 @@ test("normalizes case, full-width characters, accents, and whitespace", () => {
 
 test("splits multi-keyword queries", () => {
   assert.deepEqual(searchTokens(" OAP   数据 "), ["oap", "数据"]);
+  assert.deepEqual(searchTokens("且慢AI小顾"), ["且慢", "ai", "小顾"]);
+  assert.deepEqual(searchTokens("且 慢 / A I - 小 顾"), ["且慢", "ai", "小顾"]);
 });
 
 test("matches title, category, tags, and body content", () => {
@@ -108,5 +111,81 @@ test("reports whether a query matched title, category, tags, or content", () => 
   assert.deepEqual(
     reportSearchMatchFields(searchable, "资产配置 投顾服务", context),
     ["title", "tags"],
+  );
+});
+
+test("handles mixed Chinese and Latin text without spaces or with arbitrary separators", () => {
+  const qiemanReport = {
+    ...report,
+    title: "且慢投顾页｜本体盘点与新版设计方案",
+    tags: ["AI 小顾", "投顾服务"],
+    searchContent: "从投前了解、持仓诊断到投后陪伴",
+  };
+  assert.equal(reportMatchesQuery(qiemanReport, "且慢AI小顾", context), true);
+  assert.equal(reportMatchesQuery(qiemanReport, "且 慢 / A I - 小 顾", context), true);
+  assert.deepEqual(
+    reportSearchMatchFields(qiemanReport, "且慢AI小顾", context),
+    ["title", "category", "tags"],
+  );
+});
+
+test("segments a continuous Chinese compound only when the whole phrase is absent", () => {
+  const qiemanReport = {
+    ...report,
+    title: "且慢投顾服务重构",
+    tags: ["AI 小顾"],
+  };
+  assert.equal(reportMatchesQuery(qiemanReport, "且慢小顾", context), true);
+  assert.deepEqual(reportSearchMatchFields(qiemanReport, "且慢小顾", context), ["title", "tags"]);
+});
+
+test("accepts one controlled Chinese typo and an adjacent Latin transposition", () => {
+  const qiemanReport = {
+    ...report,
+    title: "且慢投顾服务重构",
+    tags: ["AI 小顾"],
+  };
+  assert.equal(reportMatchesQuery(qiemanReport, "且曼AI小顾", context), true);
+  assert.equal(reportMatchesQuery(report, "Agnets 治理", context), true);
+  assert.equal(reportMatchesQuery(qiemanReport, "完全无关词", context), false);
+  assert.equal(reportSearchDetails(qiemanReport, "且曼AI小顾", context).fuzzy, true);
+});
+
+test("keeps exact matches ahead of typo-only matches", () => {
+  const exact = { ...report, title: "且曼观察", tags: [] };
+  const fuzzy = { ...report, title: "且慢观察", tags: [] };
+  assert.ok(
+    reportSearchScore(exact, "且曼", { group: {}, workTypeName: "" })
+      > reportSearchScore(fuzzy, "且曼", { group: {}, workTypeName: "" }),
+  );
+});
+
+test("keeps an exact continuous phrase ahead of a segmented phrase", () => {
+  const exact = {
+    ...report,
+    title: "报告甲",
+    tags: [],
+    searchContent: "接口调用量从何时开始累计",
+  };
+  const segmented = {
+    ...report,
+    title: "报告乙",
+    tags: [],
+    searchContent: "接口调用量、从何时、开始累计",
+  };
+  assert.ok(
+    reportSearchScore(exact, "接口调用量从何时开始累计", { group: {}, workTypeName: "" })
+      > reportSearchScore(segmented, "接口调用量从何时开始累计", { group: {}, workTypeName: "" }),
+  );
+});
+
+test("treats short Latin abbreviations as whole words", () => {
+  assert.equal(
+    reportMatchesQuery({ ...report, title: "AI 产品方案", tags: [] }, "AI", { group: {}, workTypeName: "" }),
+    true,
+  );
+  assert.equal(
+    reportMatchesQuery({ ...report, title: "Daily detail", tags: [] }, "AI", { group: {}, workTypeName: "" }),
+    false,
   );
 });

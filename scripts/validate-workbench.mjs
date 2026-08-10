@@ -11,6 +11,7 @@ const appSource = read("src/app.js");
 const editorSource = read("src/report-editor.js");
 const fileRendererSource = read("src/file-renderers.js");
 const fileTypesSource = read("src/file-types.js");
+const searchSource = read("src/search.js");
 const searchIndexPath = join(new URL(".", root).pathname, "public", "search-index.json");
 const taskSource = read("src/task-center.js");
 const styleSource = read("src/style.css");
@@ -112,6 +113,10 @@ const requiredSignals = [
   [appSource, "function renderSearchResultsInPlace()", "搜索仍会替换整个工作台"],
   [appSource, "currentGroups.replaceWith(nextGroups)", "搜索结果没有局部更新"],
   [appSource, "appSearchBound", "局部更新后搜索事件可能重复绑定"],
+  [searchSource, "function segmentHanToken(", "搜索缺少连续中文短语拆分"],
+  [searchSource, "function damerauLevenshteinWithin(", "搜索缺少错别字与相邻字符颠倒容错"],
+  [searchSource, "function fuzzyDistanceLimit(", "搜索模糊范围缺少长度约束"],
+  [searchSource, "SEARCH_FIELD_WEIGHTS", "搜索模糊结果缺少字段降权排序"],
   [appSource, "persistUploadedFiles", "上传档案没有保存到浏览器文件库"],
   [appSource, "hydrateSavedFilePreviews", "已保存档案没有恢复预览"],
   [appSource, 'class="saved-file-embedded-content"', "阅读页没有直接嵌入档案正文"],
