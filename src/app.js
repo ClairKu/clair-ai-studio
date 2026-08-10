@@ -27,6 +27,7 @@ const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
 const DATA_VERSION = 41;
+const SEARCH_INPUT_DEBOUNCE_MS = 160;
 
 const WORK_TYPES = [
   { id: "requirement-review", name: "需求评审" },
@@ -1394,6 +1395,7 @@ let modalViewportSnapshot = null;
 let searchContentIndex = {};
 let searchIndexPromise = null;
 let searchDimensionFilters = new Set();
+let searchInputCommitTimer = 0;
 
 function clone(value) {
   return JSON.parse(JSON.stringify(value));
@@ -1429,9 +1431,9 @@ function ensureSearchIndex() {
     .then((response) => response.ok ? response.json() : {})
     .then((index) => {
       searchContentIndex = index && typeof index === "object" ? index : {};
-      if (query && !readerId && !archiveView) {
+      if (query && !readerId && !archiveView && !searchInputCommitTimer) {
         const selection = document.getElementById("search-input")?.selectionStart ?? query.length;
-        renderAtCurrentScroll(() => document.querySelector(".results-toolbar, .archive-search"));
+        renderWithViewportSnapshot({ scrollY: window.scrollY });
         const input = document.getElementById("search-input");
         input?.focus({ preventScroll: true });
         input?.setSelectionRange(selection, selection);
@@ -2721,6 +2723,45 @@ function renderAtCurrentScroll(resolvePreferredElement = null) {
   renderWithViewportSnapshot(captureViewportSnapshot(preferredElement));
 }
 
+function renderSearchResultsInPlace() {
+  if (readerId || archiveView || modal) return false;
+  const currentToolbarSide = document.querySelector(".results-toolbar-side");
+  const currentSearch = currentToolbarSide?.querySelector(".results-search");
+  const currentGroups = document.querySelector(".groups-section");
+  if (!currentToolbarSide || !currentSearch || !currentGroups) return false;
+
+  const template = document.createElement("template");
+  template.innerHTML = workbenchMarkup();
+  const nextToolbarSide = template.content.querySelector(".results-toolbar-side");
+  const nextSearch = nextToolbarSide?.querySelector(".results-search");
+  const nextGroups = template.content.querySelector(".groups-section");
+  if (!nextToolbarSide || !nextSearch || !nextGroups) return false;
+
+  currentSearch.querySelector(".search-clear-button")?.remove();
+  const nextClear = nextSearch.querySelector(".search-clear-button");
+  if (nextClear) currentSearch.append(nextClear);
+  [...currentToolbarSide.children]
+    .filter((element) => element !== currentSearch)
+    .forEach((element) => element.remove());
+  [...nextToolbarSide.children]
+    .filter((element) => !element.classList.contains("results-search"))
+    .forEach((element) => currentToolbarSide.append(element));
+  currentToolbarSide.className = nextToolbarSide.className;
+  currentGroups.replaceWith(nextGroups);
+  bindApp();
+  hydrateSavedFilePreviews();
+  return true;
+}
+
+function renderSearchAtCurrentScroll() {
+  const scrollY = window.scrollY;
+  if (!renderSearchResultsInPlace()) {
+    renderWithViewportSnapshot({ scrollY });
+    return;
+  }
+  window.scrollTo({ top: scrollY, left: 0, behavior: "auto" });
+}
+
 ["wheel", "touchstart", "pointerdown"].forEach((eventName) => {
   window.addEventListener(eventName, cancelControlledScroll, { passive: true });
 });
@@ -3618,7 +3659,8 @@ async function detectTitle(form) {
 
 function bindReportDragging() {
   const board = document.querySelector(".board");
-  if (!board) return;
+  if (!board || board.dataset.appDraggingBound === "true") return;
+  board.dataset.appDraggingBound = "true";
   let session = null;
 
   const clearTargetClasses = () => {
@@ -3901,48 +3943,76 @@ function bindReportDragging() {
 
 function bindApp() {
   const searchInput = document.getElementById("search-input");
-  let searchCompositionActive = false;
-  const commitSearchInput = (input) => {
-    const nextQuery = input?.value || "";
-    if (nextQuery === query) return;
-    const selectionStart = input.selectionStart;
-    const selectionEnd = input.selectionEnd;
-    if (!normalizeSearchText(query) || !normalizeSearchText(nextQuery)) {
+  if (searchInput && searchInput.dataset.appSearchBound !== "true") {
+    searchInput.dataset.appSearchBound = "true";
+    let searchCompositionActive = false;
+    const commitSearchInput = ({ value = "", selectionStart = 0, selectionEnd = 0 } = {}) => {
+      if (searchInputCommitTimer) window.clearTimeout(searchInputCommitTimer);
+      searchInputCommitTimer = 0;
+      const nextQuery = value;
+      if (nextQuery === query) return;
+      if (!normalizeSearchText(query) || !normalizeSearchText(nextQuery)) {
+        searchDimensionFilters.clear();
+      }
+      query = nextQuery;
+      renderSearchAtCurrentScroll();
+      const nextInput = document.getElementById("search-input");
+      nextInput?.focus({ preventScroll: true });
+      nextInput?.setSelectionRange(selectionStart, selectionEnd);
+    };
+    const inputSnapshot = (input) => ({
+      value: input?.value || "",
+      selectionStart: input?.selectionStart ?? 0,
+      selectionEnd: input?.selectionEnd ?? input?.selectionStart ?? 0,
+    });
+    const scheduleSearchInput = (input) => {
+      const snapshot = inputSnapshot(input);
+      if (searchInputCommitTimer) window.clearTimeout(searchInputCommitTimer);
+      searchInputCommitTimer = window.setTimeout(() => {
+        searchInputCommitTimer = 0;
+        commitSearchInput(snapshot);
+      }, SEARCH_INPUT_DEBOUNCE_MS);
+    };
+    searchInput.addEventListener("compositionstart", () => {
+      searchCompositionActive = true;
+    });
+    searchInput.addEventListener("compositionend", (event) => {
+      searchCompositionActive = false;
+      commitSearchInput(inputSnapshot(event.currentTarget));
+    });
+    searchInput.addEventListener("input", (event) => {
+      // 注音、拼音等输入法组合输入期间不能重绘，否则候选字会被逐键拆开。
+      if (event.isComposing || searchCompositionActive) return;
+      scheduleSearchInput(event.currentTarget);
+    });
+    searchInput.addEventListener("search", (event) => commitSearchInput(inputSnapshot(event.currentTarget)));
+    searchInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" && event.currentTarget.value !== query) {
+        event.preventDefault();
+        commitSearchInput(inputSnapshot(event.currentTarget));
+        return;
+      }
+      if (event.key !== "Escape" || (!query && !event.currentTarget.value)) return;
+      event.preventDefault();
+      if (searchInputCommitTimer) window.clearTimeout(searchInputCommitTimer);
+      searchInputCommitTimer = 0;
+      query = "";
+      event.currentTarget.value = "";
       searchDimensionFilters.clear();
-    }
-    query = nextQuery;
-    renderAtCurrentScroll(() => document.querySelector(".results-toolbar, .archive-search"));
-    const nextInput = document.getElementById("search-input");
-    nextInput?.focus({ preventScroll: true });
-    nextInput?.setSelectionRange(selectionStart, selectionEnd);
-  };
-  searchInput?.addEventListener("compositionstart", () => {
-    searchCompositionActive = true;
-  });
-  searchInput?.addEventListener("compositionend", (event) => {
-    searchCompositionActive = false;
-    commitSearchInput(event.currentTarget);
-  });
-  searchInput?.addEventListener("input", (event) => {
-    // 注音、拼音等输入法组合输入期间不能重绘，否则候选字会被逐键拆开。
-    if (event.isComposing || searchCompositionActive) return;
-    commitSearchInput(event.currentTarget);
-  });
-  searchInput?.addEventListener("search", (event) => commitSearchInput(event.currentTarget));
-  searchInput?.addEventListener("keydown", (event) => {
-    if (event.key !== "Escape" || !query) return;
-    event.preventDefault();
-    query = "";
-    searchDimensionFilters.clear();
-    renderAtCurrentScroll(() => document.querySelector(".results-toolbar, .archive-search"));
-    document.getElementById("search-input")?.focus({ preventScroll: true });
-  });
+      renderSearchAtCurrentScroll();
+      document.getElementById("search-input")?.focus({ preventScroll: true });
+    });
+  }
 
   document.querySelectorAll("[data-action]").forEach((element) => {
+    if (element.dataset.appActionBound === "true") return;
+    element.dataset.appActionBound = "true";
     element.addEventListener("click", async (event) => {
       const action = event.currentTarget.dataset.action;
       const itemId = event.currentTarget.dataset.id;
       const actionCard = event.currentTarget.closest(".report-card");
+      if (searchInputCommitTimer) window.clearTimeout(searchInputCommitTimer);
+      searchInputCommitTimer = 0;
       if (action === "scroll-top") {
         scrollPageTop("smooth");
       } else if (action === "open") {
@@ -4010,9 +4080,13 @@ function bindApp() {
         renderWithViewportSnapshot(catalogViewportSnapshot || { scrollY: 0 });
         catalogViewportSnapshot = null;
       } else if (action === "clear-search") {
+        if (searchInputCommitTimer) window.clearTimeout(searchInputCommitTimer);
+        searchInputCommitTimer = 0;
         query = "";
+        const liveSearchInput = document.getElementById("search-input");
+        if (liveSearchInput) liveSearchInput.value = "";
         searchDimensionFilters.clear();
-        renderAtCurrentScroll(() => document.querySelector(".results-toolbar, .archive-search"));
+        renderSearchAtCurrentScroll();
         document.getElementById("search-input")?.focus({ preventScroll: true });
       } else if (action === "toggle-search-dimension") {
         if (itemId === "all") {
@@ -4227,13 +4301,19 @@ function bindApp() {
     });
   });
 
-  document.querySelector(".topbar")?.addEventListener("click", (event) => {
-    if (event.target.closest("button, a")) return;
-    scrollPageTop("smooth");
-  });
+  const topbar = document.querySelector(".topbar");
+  if (topbar && topbar.dataset.appTopbarBound !== "true") {
+    topbar.dataset.appTopbarBound = "true";
+    topbar.addEventListener("click", (event) => {
+      if (event.target.closest("button, a")) return;
+      scrollPageTop("smooth");
+    });
+  }
 
   document.querySelectorAll(".topic-nav a[data-nav-bucket-id]")
     .forEach((link) => {
+      if (link.dataset.appNavBound === "true") return;
+      link.dataset.appNavBound = "true";
       link.addEventListener("click", (event) => {
         event.preventDefault();
         const bucketKind = link.dataset.navBucketKind;
@@ -4249,6 +4329,8 @@ function bindApp() {
     });
 
   document.querySelectorAll(".topic-nav a[data-nav-report-id]").forEach((link) => {
+    if (link.dataset.appNavBound === "true") return;
+    link.dataset.appNavBound = "true";
     link.addEventListener("click", (event) => {
       event.preventDefault();
       scrollElementToStart(reportElement(link.dataset.navReportId));
