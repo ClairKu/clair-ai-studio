@@ -189,6 +189,7 @@ const requiredSignals = [
   [editorSource, 'document.addEventListener("dragstart"', "HTML 编辑器区块不能拖动"],
   [styleSource, ".archive-shell .top-actions .quiet-button", "移动端归档返回修复缺失"],
   [styleSource, ".topic-nav a .nav-index", "分组标题对齐修复缺失"],
+  [styleSource, "body {\n  margin: 0;\n  overflow-anchor: none;", "工作台根节点仍会触发浏览器原生滚动锚定"],
   [styleSource, ".groups-section {\n  overflow-anchor: none;", "动态成果区仍会被浏览器选为原生滚动锚点"],
   [appSource, 'searchInput.addEventListener("beforeinput"', "搜索输入前未捕获滚动位置"],
 ];
