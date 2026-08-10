@@ -1412,6 +1412,7 @@ let searchContentIndex = {};
 let searchIndexPromise = null;
 let searchDimensionFilters = new Set();
 let searchInputCommitTimer = 0;
+let pendingSearchViewportSnapshot = null;
 let applicationUpdateCheckPromise = null;
 let applicationUpdateLastCheckedAt = 0;
 let applicationUpdateAvailable = false;
@@ -2858,12 +2859,14 @@ function renderWorkbenchWithViewportSnapshot(snapshot) {
   restoreViewportSnapshot(snapshot);
 }
 
-function renderSearchAtCurrentScroll(resolvePreferredElement = null) {
+function renderSearchAtCurrentScroll(resolvePreferredElement = null, viewportSnapshot = null) {
   const preferredElement = typeof resolvePreferredElement === "function"
     ? resolvePreferredElement()
     : resolvePreferredElement;
   const stableElement = preferredElement || document.querySelector(".results-toolbar");
-  renderWorkbenchWithViewportSnapshot(captureViewportSnapshot(stableElement));
+  renderWorkbenchWithViewportSnapshot(
+    viewportSnapshot || captureViewportSnapshot(stableElement),
+  );
 }
 
 ["wheel", "touchstart", "pointerdown"].forEach((eventName) => {
@@ -4050,16 +4053,22 @@ function bindApp() {
   if (searchInput && searchInput.dataset.appSearchBound !== "true") {
     searchInput.dataset.appSearchBound = "true";
     let searchCompositionActive = false;
-    const commitSearchInput = ({ value = "", selectionStart = 0, selectionEnd = 0 } = {}) => {
+    const commitSearchInput = ({
+      value = "",
+      selectionStart = 0,
+      selectionEnd = 0,
+      viewportSnapshot = null,
+    } = {}) => {
       if (searchInputCommitTimer) window.clearTimeout(searchInputCommitTimer);
       searchInputCommitTimer = 0;
+      pendingSearchViewportSnapshot = null;
       const nextQuery = value;
       if (nextQuery === query) return;
       if (!normalizeSearchText(query) || !normalizeSearchText(nextQuery)) {
         searchDimensionFilters.clear();
       }
       query = nextQuery;
-      renderSearchAtCurrentScroll();
+      renderSearchAtCurrentScroll(null, viewportSnapshot);
       const nextInput = document.getElementById("search-input");
       nextInput?.focus({ preventScroll: true });
       nextInput?.setSelectionRange(selectionStart, selectionEnd);
@@ -4068,9 +4077,11 @@ function bindApp() {
       value: input?.value || "",
       selectionStart: input?.selectionStart ?? 0,
       selectionEnd: input?.selectionEnd ?? input?.selectionStart ?? 0,
+      viewportSnapshot: pendingSearchViewportSnapshot,
     });
     const scheduleSearchInput = (input) => {
       const snapshot = inputSnapshot(input);
+      pendingSearchViewportSnapshot = null;
       if (searchInputCommitTimer) window.clearTimeout(searchInputCommitTimer);
       searchInputCommitTimer = window.setTimeout(() => {
         searchInputCommitTimer = 0;
@@ -4079,10 +4090,20 @@ function bindApp() {
     };
     searchInput.addEventListener("compositionstart", () => {
       searchCompositionActive = true;
+      pendingSearchViewportSnapshot = captureViewportSnapshot(
+        document.querySelector(".results-toolbar"),
+      );
     });
     searchInput.addEventListener("compositionend", (event) => {
       searchCompositionActive = false;
       commitSearchInput(inputSnapshot(event.currentTarget));
+    });
+    searchInput.addEventListener("beforeinput", () => {
+      if (!pendingSearchViewportSnapshot) {
+        pendingSearchViewportSnapshot = captureViewportSnapshot(
+          document.querySelector(".results-toolbar"),
+        );
+      }
     });
     searchInput.addEventListener("input", (event) => {
       // 注音、拼音等输入法组合输入期间不能重绘，否则候选字会被逐键拆开。
