@@ -1433,7 +1433,7 @@ function ensureSearchIndex() {
       searchContentIndex = index && typeof index === "object" ? index : {};
       if (query && !readerId && !archiveView && !searchInputCommitTimer) {
         const selection = document.getElementById("search-input")?.selectionStart ?? query.length;
-        renderWithViewportSnapshot({ scrollY: window.scrollY });
+        renderSearchAtCurrentScroll();
         const input = document.getElementById("search-input");
         input?.focus({ preventScroll: true });
         input?.setSelectionRange(selection, selection);
