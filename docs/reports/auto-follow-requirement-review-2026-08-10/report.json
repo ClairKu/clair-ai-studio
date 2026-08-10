@@ -1,0 +1,646 @@
+{
+  "meta": {
+    "title": "长赢自动跟车即时提醒｜需求评审",
+    "subtitle": "先修复交易状态与防重，再优化用户感知\nA 有条件通过 · B 不上线 · 根因治理同版门禁",
+    "eyebrow": "QIEMAN · REQUIREMENT REVIEW",
+    "date": "2026-08-10",
+    "cutoff": "需求提交 e10f400 · 2026-08-04；Figma 只读核对 · 2026-08-10",
+    "owner": "需求责任人与研发 / 合规 DRI 待确认",
+    "confidentiality": "内部产品评审 · 经用户授权发布",
+    "accent": "#7457E8",
+    "brand": "Clair AI Studio",
+    "brandMark": "C"
+  },
+  "hero": {
+    "conclusion": "结论：需补充后再评审。方案 A 只有在状态语义、自动/手动原子防重、验收与回滚补齐后才可开发；方案 B 对未完成用户宣称“已执行完毕”，不建议上线；直接命中 7·15 事故根因的最小治理必须进入同版上线门槛。",
+    "thesis": "本需求准确识别了发车后信息空窗，却把一次交易执行事故主要收敛成前端提示与安抚通知。文案可以缓解焦虑，但不能替代真实状态、交易幂等、跨 15:00 的交易日承诺和可追溯执行链。",
+    "badges": ["需补充后再评审", "6 项 P0", "方案 B 阻断", "交易语义优先"]
+  },
+  "agenda": {
+    "enabled": true,
+    "label": "AGENDA",
+    "title": "报告大纲",
+    "groups": [
+      {
+        "index": "01",
+        "eyebrow": "DECISION · 结论",
+        "title": "先定是否能做",
+        "summary": "把 A、B、C 与根因治理拆开决策",
+        "sections": ["评审结论", "事实与偏差"]
+      },
+      {
+        "index": "02",
+        "eyebrow": "RISK · 风险",
+        "title": "再定为何不能直接做",
+        "summary": "状态真实性、交易防重、交易日一致性",
+        "sections": ["六项阻断", "状态机", "防重门禁"]
+      },
+      {
+        "index": "03",
+        "eyebrow": "DESIGN · 方案",
+        "title": "把提示改成真实服务",
+        "summary": "以证据、文案与验收场景重写方案",
+        "sections": ["原型证据", "文案重写", "验收门槛"]
+      },
+      {
+        "index": "04",
+        "eyebrow": "ACTION · 行动",
+        "title": "形成可上线闭环",
+        "summary": "补齐指标、责任与发布顺序",
+        "sections": ["指标闭环", "决策清单"]
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "decision",
+      "kicker": "01 · GO / NO-GO",
+      "title": "A 有条件通过，B 阻断",
+      "lead": "方案不是三选一：A 是用户状态可见性，B 是通知口径，C 只是 A+B 的合称。三者应分别过真实性、交易安全与可验收门槛。",
+      "layout": "cards",
+      "tone": "light",
+      "navLabel": "评审结论",
+      "items": [
+        {
+          "index": "A",
+          "eyebrow": "CONDITIONAL PASS",
+          "title": "前端发车态有价值，但不能按现稿开工",
+          "body": "A1/A2 能填补信息空窗；必须先把“排队、提交、受理、结果”拆清，并用服务端真实状态驱动。近 15:00 的手动入口只有在原子接管可用时才能出现。",
+          "bullets": ["状态语义先定", "防重能力先验", "04 验收补齐"],
+          "status": "inferred",
+          "source": "主文档 §1.3、§3.1；01 前端展示"
+        },
+        {
+          "index": "B",
+          "eyebrow": "NO-GO",
+          "title": "未完成却宣称完成，不能上线",
+          "body": "系统筛选的是仍未执行完毕用户，对客却必须说任务已执行完毕。这不是安抚，而是可被后台状态直接证伪的事实陈述。",
+          "bullets": ["信息失真", "投诉举证风险", "后续结果冲突"],
+          "status": "confirmed",
+          "source": "主文档 88、95、182–190；02 第 2.2 节"
+        },
+        {
+          "index": "C",
+          "eyebrow": "BLOCKED BY B",
+          "title": "C 不成立，除非先重写 B",
+          "body": "C 只是 A+B。B 未过真实性门槛时，不能以“完整方案”名义打包进入研发；可先交付经收口的 A，再单独评估真实通知。",
+          "bullets": ["不捆绑上线", "分开灰度", "分开回滚"],
+          "status": "inferred"
+        },
+        {
+          "index": "03",
+          "eyebrow": "SAME-RELEASE GATE",
+          "title": "最小根因治理必须同版",
+          "body": "7·15 的直接原因包括晚发车、Job 中断和重试失败。单 CA 异常隔离、首轮与重试分离、心跳告警、可追溯状态至少应与前端方案同版。",
+          "bullets": ["减少整批停摆", "缩短异常发现", "为状态页提供真数据"],
+          "status": "inferred",
+          "source": "主文档 62–73；03 第 1 节与第 8 节"
+        }
+      ],
+      "callout": {
+        "label": "建议决策",
+        "text": "退回补充，不进入完整研发评审。产品先在 1 个工作日内完成状态、文案和验收收口，再安排研发 / 交易 / 测试 / 合规联合评审。",
+        "status": "target"
+      }
+    },
+    {
+      "id": "facts",
+      "kicker": "02 · EVIDENCE",
+      "title": "识别对了空窗，解法偏向安抚",
+      "lead": "提交材料对 7·15 事件和体验矛盾有清楚描述；风险在于把“用户不知道系统在做什么”简化成“多露出一条提示”，而没有先解决系统究竟做到了哪一步。",
+      "layout": "timeline",
+      "tone": "soft",
+      "navLabel": "事实与偏差",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "14:38 · SIGNAL",
+          "title": "发车时间偏晚",
+          "body": "材料记录 2026-07-15 约 14:38 发车，留给自动跟车与手动补救的窗口都很短。",
+          "meta": "来源：主文档 62、80–86",
+          "status": "confirmed"
+        },
+        {
+          "index": "02",
+          "eyebrow": "20–40 MIN · JOB",
+          "title": "自动执行本就可能跨点",
+          "body": "单批自动跟车估计需要 20–40 分钟；Job 异常中断与多次重试又放大延迟。",
+          "meta": "来源：主文档 62、69、71",
+          "status": "confirmed"
+        },
+        {
+          "index": "03",
+          "eyebrow": "15:00 · CUTOFF",
+          "title": "交易日发生分叉",
+          "body": "自动任务可继续执行，但用户手动处理窗口关闭；同一发车批次可能落入不同交易日。",
+          "meta": "来源：主文档 62、69",
+          "status": "confirmed"
+        },
+        {
+          "index": "04",
+          "eyebrow": "CURRENT PROPOSAL",
+          "title": "方案主要处理感知",
+          "body": "A 增加前端态，B 增加盘后安抚；03 的执行治理被定义为独立评估、不阻塞 A/B。",
+          "meta": "来源：主文档 92–106",
+          "status": "confirmed"
+        }
+      ],
+      "callout": {
+        "label": "关键判断",
+        "text": "“用户看不见”是表象；真正要治理的是状态不可证、执行不可控和手动接管不安全。",
+        "status": "inferred"
+      }
+    },
+    {
+      "id": "blockers",
+      "kicker": "03 · P0 BLOCKERS",
+      "title": "六项阻断未解，不应开工",
+      "lead": "以下不是可在测试阶段补的普通细节，而是会改变交易结果、对客事实或上线可控性的核心契约。",
+      "layout": "comparison",
+      "tone": "dark",
+      "navLabel": "六项阻断",
+      "items": [
+        {
+          "index": "P0-1",
+          "eyebrow": "TRUTH",
+          "title": "通知事实失真",
+          "body": "对未执行完毕用户宣称已执行完毕；后台筛选条件与前台事实相反。",
+          "bullets": ["删除 B 现稿", "只说受理 / 处理中 / 等结果中", "合规复核真实状态映射"],
+          "source": "主文档 88、95、182–190；02 第 2.2 节",
+          "status": "confirmed"
+        },
+        {
+          "index": "P0-2",
+          "eyebrow": "STATE MODEL",
+          "title": "排队与执行被合并",
+          "body": "任务纳入批次、处理中、提交结果都被压成“正在执行”；过 15:00 又升级为“已按指令执行”。",
+          "bullets": ["后台必须保留细态", "前台可聚合但不可越级", "每态有时间与版本"],
+          "source": "01 前端展示 33–41、110–116；主文档 164–169",
+          "status": "confirmed"
+        },
+        {
+          "index": "P0-3",
+          "eyebrow": "RACE",
+          "title": "自动与手动无原子防重",
+          "body": "现稿把极端同步提交当低概率，并将原子冲突控制列为可选；金融交易要按影响而非概率定级。",
+          "bullets": ["服务端幂等键", "接管锁 / 撤回规则", "过期页面请求仍需拦截"],
+          "source": "主文档 70、173；01 前端展示 438–447",
+          "status": "confirmed"
+        },
+        {
+          "index": "P0-4",
+          "eyebrow": "ACCEPTANCE",
+          "title": "04 验收文档缺失",
+          "body": "主文档所有实施、埋点、验收和待确认都指向 04，但提交明确不含该文件，无法形成可测试需求。",
+          "bullets": ["补 Given / When / Then", "补灰度与回滚", "补监控告警"],
+          "source": "提交信息；主文档 31–40、196–215",
+          "status": "confirmed"
+        },
+        {
+          "index": "P0-5",
+          "eyebrow": "TRADING DAY",
+          "title": "跨 15:00 承诺未定义",
+          "body": "材料确认同一发车可能落入不同交易日，却没有给出批次一致性原则、异常处置或对客承诺。",
+          "bullets": ["明确信号归属日", "定义跨日策略", "客服可还原"],
+          "source": "主文档 62、69、74–76",
+          "status": "confirmed"
+        },
+        {
+          "index": "P0-6",
+          "eyebrow": "ROOT CAUSE",
+          "title": "事故治理被延期",
+          "body": "低成本异常隔离、重试后置与心跳告警已在 03 提出，却没有成为 A 的上线前置。",
+          "bullets": ["同版最小包", "逐项开关", "失败可回退"],
+          "source": "主文档 106；03 执行时效 133–172",
+          "status": "confirmed"
+        }
+      ],
+      "callout": {
+        "label": "门槛",
+        "text": "任一 P0 未关闭，结论维持“需补充后再评审”。其中 P0-1 与 P0-3 为上线否决项。",
+        "status": "target"
+      }
+    },
+    {
+      "id": "state-machine",
+      "kicker": "04 · SOURCE OF TRUTH",
+      "title": "先定义状态，再设计文案",
+      "lead": "页面可以把细态聚合成用户能懂的语言，但交易链路必须保留可审计状态与时间戳；任何文案只能表达当前已经发生的事实。",
+      "layout": "architecture",
+      "tone": "light",
+      "navLabel": "状态机",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "SIGNAL",
+          "title": "signal_published",
+          "body": "发车信号已发布；记录 signal_id、策略、正式生效时间与撤回版本。",
+          "bullets": ["不可直接等同已跟车"],
+          "status": "target"
+        },
+        {
+          "index": "02",
+          "eyebrow": "ELIGIBILITY",
+          "title": "eligibility_snapshotted",
+          "body": "该 CA 已完成资格、开关、持仓与计划有效性快照；仍需执行前复核。",
+          "bullets": ["锁定规则版本"],
+          "status": "target"
+        },
+        {
+          "index": "03",
+          "eyebrow": "TASK",
+          "title": "task_created / queued",
+          "body": "自动任务已创建或正在排队；只能说“已受理 / 正在处理”，不能说已执行。",
+          "bullets": ["展示更新时间"],
+          "status": "target"
+        },
+        {
+          "index": "04",
+          "eyebrow": "ORDER",
+          "title": "submitting / accepted",
+          "body": "订单提交中或已被交易系统受理；按真实能力区分“提交”与“受理”。",
+          "bullets": ["记录 order_id / accepted_at"],
+          "status": "target"
+        },
+        {
+          "index": "05",
+          "eyebrow": "FINAL",
+          "title": "success / partial / fail",
+          "body": "每个 CA 与交易项进入终态；批次完成不替代逐项结果和失败原因。",
+          "bullets": ["结果版本", "可重放证据"],
+          "status": "target"
+        }
+      ],
+      "callout": {
+        "label": "UI 聚合规则",
+        "text": "“处理中”可以覆盖 queued / submitting，但“已执行”至少要绑定一个被业务、交易与合规共同确认的不可逆事件，不能由时间点或队列结束推断。",
+        "status": "target"
+      }
+    },
+    {
+      "id": "dedupe",
+      "kicker": "05 · TRANSACTION SAFETY",
+      "title": "手动接管必须是服务端能力",
+      "lead": "“进入手动页后再识别”与“前端先核对”都不足以阻止并发提交。正确做法是把自动与手动放在同一交易意图锁下。",
+      "layout": "process",
+      "tone": "soft",
+      "navLabel": "防重门禁",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "CHECK",
+          "title": "读取可接管状态",
+          "body": "服务端返回 manual_takeover_allowed、状态版本、截止时间与冲突原因。页面不自行猜测。",
+          "status": "target"
+        },
+        {
+          "index": "02",
+          "eyebrow": "LOCK",
+          "title": "原子占用交易意图",
+          "body": "用户确认手动跟车时，以 user + CA + signal + trade_item 作为幂等域，锁定唯一执行方。",
+          "status": "target"
+        },
+        {
+          "index": "03",
+          "eyebrow": "RESOLVE",
+          "title": "取消、接管或拒绝",
+          "body": "自动任务尚可撤回则交给手动；已进入不可逆状态则拒绝手动并展示真实原因。",
+          "status": "target"
+        },
+        {
+          "index": "04",
+          "eyebrow": "REVALIDATE",
+          "title": "提交前再次校验",
+          "body": "即使页面已过期，服务端仍以当前状态、版本与 15:00 边界决定是否接受。",
+          "status": "target"
+        },
+        {
+          "index": "05",
+          "eyebrow": "TRACE",
+          "title": "记录最终赢家",
+          "body": "留下触发源、锁结果、拒绝原因、订单号与时间，客服可一屏还原。",
+          "status": "target"
+        }
+      ],
+      "callout": {
+        "label": "产品原则",
+        "text": "低概率不代表低优先级：重复交易的影响高，必须由服务端原子性兜底，前端提醒只能做第二道防线。",
+        "status": "inferred"
+      }
+    },
+    {
+      "id": "prototype",
+      "kicker": "06 · FIGMA EVIDENCE",
+      "title": "原型覆盖主流程，边界仍空缺",
+      "lead": "Figma 已覆盖 ≥30 分钟、＜30 分钟、过 15:00 和批完成的主要表达，也展示了“查看详情 / 手动跟车”路径；但终态、失效态与时间口径存在冲突。",
+      "layout": "evidence",
+      "tone": "dark",
+      "navLabel": "原型证据",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "TIME MATRIX",
+          "title": "三个时间档已被设计",
+          "body": "原型按距 15:00 ≥30 分钟、＜30 分钟和已过 15:00 展示不同提示；临近档引导用户先核对再操作。",
+          "source": "Figma 节点 1894:63643 · 2026-08-10 只读",
+          "image": "assets/figma-scenario-1.png",
+          "alt": "自动跟车在不同时间档的提示原型",
+          "imagePriority": "high",
+          "status": "confirmed"
+        },
+        {
+          "index": "02",
+          "eyebrow": "DETAIL PAGE",
+          "title": "发车提示进入业务主页面",
+          "body": "策略详情顶部出现高曝光提示并提供查看详情；底部仍保留立即跟投，需要由真实 CA 状态决定显隐与路由。",
+          "source": "Figma 节点 1896:67748 · 2026-08-10 只读",
+          "image": "assets/figma-new-signal.png",
+          "alt": "策略详情页顶部发车提示与底部立即跟投入口",
+          "status": "confirmed"
+        },
+        {
+          "index": "03",
+          "eyebrow": "A2 BANNER",
+          "title": "一级黄条跨页触达",
+          "body": "首页与资产页使用同一黄条，一处关闭即全关。需求写默认展示至 16:00，但部分原型分组又标到 24:00，需统一。",
+          "source": "Figma A2 首页 / 资产页节点 · 2026-08-10 只读",
+          "image": "assets/figma-a2-home.png",
+          "alt": "首页一级发车小黄条",
+          "status": "confirmed"
+        }
+      ],
+      "callout": {
+        "label": "原型补齐",
+        "text": "至少增加：接口加载 / 失败 / 陈旧状态、部分成功、任务撤回、15:00:00 精确边界、不可手动接管、未开自动且已过窗口、双系列同时发车。",
+        "status": "target"
+      }
+    },
+    {
+      "id": "copy",
+      "kicker": "07 · COPY CONTRACT",
+      "title": "文案只描述已发生的事实",
+      "lead": "以下是可直接进入下一版 PRD 的候选口径。最终用词仍需由交易状态定义和合规审批共同确认，不能脱离后端事件单独定稿。",
+      "layout": "cards",
+      "tone": "light",
+      "navLabel": "文案重写",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "QUEUED / SUBMITTING",
+          "title": "自动跟车正在处理",
+          "body": "系统正在处理本次自动跟车，请勿重复提交。最终结果以跟车详情和结果通知为准。",
+          "bullets": ["仅 task_created 后展示", "不声称已完成"],
+          "status": "target"
+        },
+        {
+          "index": "02",
+          "eyebrow": "AFTER 15:00",
+          "title": "结果仍在确认",
+          "body": "本次自动跟车已受理，结果仍在确认中，通知可能延后。请勿重复提交，最终结果以跟车详情为准。",
+          "bullets": ["“已受理”须有明确交易事件", "否则改为正在处理"],
+          "status": "target"
+        },
+        {
+          "index": "03",
+          "eyebrow": "FINAL",
+          "title": "处理完毕后再给结论",
+          "body": "本次自动跟车已处理完毕，请查看各计划的跟车结果。",
+          "bullets": ["逐 CA 展示成功 / 部分 / 失败", "不得用批结束代替结果"],
+          "status": "target"
+        },
+        {
+          "index": "04",
+          "eyebrow": "NOT ENABLED · CLOSED",
+          "title": "过窗后保留只读记录",
+          "body": "本次跟车窗口已结束，您未完成本次跟车。可查看发车记录；开启自动跟车仅对下次发车生效。",
+          "bullets": ["不隐藏历史", "不提供交易入口"],
+          "status": "target"
+        }
+      ],
+      "callout": {
+        "label": "禁用词",
+        "text": "对非终态禁用“已执行完毕、已完成、已成功”；对未被真实容量指标触发的场景禁用“当前计划较多”。",
+        "status": "target"
+      }
+    },
+    {
+      "id": "acceptance",
+      "kicker": "08 · ACCEPTANCE",
+      "title": "补齐 04 才能进入研发评审",
+      "lead": "提交信息明确“不含埋点与验收”，而主文档又把实施与所有待确认统一指向 04。以下八类 Given / When / Then 是最低验收集。",
+      "layout": "comparison",
+      "tone": "soft",
+      "navLabel": "验收门槛",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "BOUNDARY",
+          "title": "14:30 与 15:00:00",
+          "body": "半小时边界与截止秒必须唯一；跨页、跨设备和服务端结果一致，陈旧页面提交仍被拒绝。",
+          "status": "target"
+        },
+        {
+          "index": "02",
+          "eyebrow": "MULTI-CA",
+          "title": "多 CA 部分完成",
+          "body": "集合页逐 CA 显示终态；只允许对仍可接管的未覆盖交易项操作。",
+          "status": "target"
+        },
+        {
+          "index": "03",
+          "eyebrow": "RACE",
+          "title": "自动与手动同时提交",
+          "body": "同一幂等域只能有一个执行方成功；另一方得到可解释且可追溯的拒绝。",
+          "status": "target"
+        },
+        {
+          "index": "04",
+          "eyebrow": "STALE DATA",
+          "title": "状态接口超时或陈旧",
+          "body": "展示“状态更新中”，关闭强交易入口；不能用缓存状态诱导用户重复操作。",
+          "status": "target"
+        },
+        {
+          "index": "05",
+          "eyebrow": "REVOCATION",
+          "title": "信号撤回与版本变化",
+          "body": "A1/A2 同步撤回，未执行任务停止，已提交订单按既定异常流程处理并留痕。",
+          "status": "target"
+        },
+        {
+          "index": "06",
+          "eyebrow": "NOTIFICATION",
+          "title": "四渠道去重与乱序",
+          "body": "同一 signal 只触发一次策略级安抚；结果先到时不再发等待通知，重复消费不重复触达。",
+          "status": "target"
+        },
+        {
+          "index": "07",
+          "eyebrow": "VISIBILITY",
+          "title": "未开自动的过窗记录",
+          "body": "过 15:00 后保留只读结果与原因，不把模块直接隐藏，不出现可交易按钮。",
+          "status": "target"
+        },
+        {
+          "index": "08",
+          "eyebrow": "ROLLBACK",
+          "title": "功能开关与回退",
+          "body": "A1、A2、文案、通知、低成本 Job 优化均可独立关闭；回退不改变已提交订单。",
+          "status": "target"
+        }
+      ]
+    },
+    {
+      "id": "metrics",
+      "kicker": "09 · MEASUREMENT",
+      "title": "成功指标要证明风险下降",
+      "lead": "曝光和点击只能证明页面被看见，不能证明需求解决。指标应围绕交易日一致性、重复交易、执行时效与可追溯性建立。",
+      "layout": "metrics",
+      "tone": "dark",
+      "navLabel": "指标闭环",
+      "items": [
+        {
+          "metric": "TBD",
+          "title": "同批交易日一致率",
+          "body": "同一 signal 下自动 / 手动 CA 落入承诺交易日的一致比例；先由交易方确认“同批”的业务规则。",
+          "meta": "主指标 · 分母与目标待补",
+          "status": "missing"
+        },
+        {
+          "metric": "0",
+          "title": "自动 / 手动重复订单",
+          "body": "同一 user + CA + signal + trade_item 的重复有效订单数。",
+          "meta": "安全护栏 · 目标值 0",
+          "status": "target"
+        },
+        {
+          "metric": "P50/P95",
+          "title": "端到端阶段耗时",
+          "body": "signal 发布、task 创建、order 提交 / 受理、终态、结果通知的阶段耗时。",
+          "meta": "诊断指标 · 按支付方式与 CA 分层",
+          "status": "target"
+        },
+        {
+          "metric": "TBD",
+          "title": "状态与通知错配率",
+          "body": "页面或通知表达的状态与同一版本后台事实不一致的次数 / 曝光次数。",
+          "meta": "质量护栏 · 口径待数据确认",
+          "status": "missing"
+        },
+        {
+          "metric": "TBD",
+          "title": "重复操作与投诉率",
+          "body": "信号后重复点击、手动接管失败、相关客服咨询与投诉，按自动开关、时间档和页面分层。",
+          "meta": "业务结果 · 基线待补",
+          "status": "missing"
+        }
+      ],
+      "callout": {
+        "label": "最小事件链",
+        "text": "signal_id、user_id、CA_id、trade_item_id、state_version、signal_at、task_created_at、submit_at、accepted_at、final_at、notify_at、manual_takeover_at、result。",
+        "status": "target"
+      }
+    },
+    {
+      "id": "actions",
+      "kicker": "10 · NEXT DECISION",
+      "title": "按五步收口后再开评审",
+      "lead": "不要再继续补散落文案。先把业务承诺、状态源、交易安全、验收和发布策略收成一个可签字的需求包。",
+      "layout": "actions",
+      "tone": "light",
+      "navLabel": "决策清单",
+      "items": [
+        {
+          "index": "P0",
+          "eyebrow": "PRODUCT + TRADING",
+          "title": "冻结交易日与状态定义",
+          "body": "明确同一批次的交易日承诺、15:00:00 边界、“已受理 / 已执行 / 完成”的事件定义和用户可见聚合。",
+          "meta": "责任：产品 + 交易研发 + 运营 · 1 个工作日",
+          "status": "target"
+        },
+        {
+          "index": "P0",
+          "eyebrow": "BACKEND",
+          "title": "确认原子防重与状态接口",
+          "body": "给出幂等域、手动接管锁、不可逆点、版本校验、状态新鲜度、异常回退与客服查询字段。",
+          "meta": "责任：交易研发 · 联合评审前",
+          "status": "target"
+        },
+        {
+          "index": "P0",
+          "eyebrow": "PRODUCT + COMPLIANCE",
+          "title": "删除 B 现稿并做事实映射",
+          "body": "逐个后台状态对应可用文案；任何状态无法真实表达时不发送，不用安抚覆盖系统不确定性。",
+          "meta": "责任：产品 + 合规 · 联合评审前",
+          "status": "target"
+        },
+        {
+          "index": "P0",
+          "eyebrow": "QA + DATA",
+          "title": "补齐 04 验收与埋点",
+          "body": "把八类边界场景、指标口径、监控阈值、灰度、开关和回滚写入同一 SSOT，并解除所有“隐藏或禁用”二选一。",
+          "meta": "责任：产品 + 测试 + 数据 · 联合评审前",
+          "status": "target"
+        },
+        {
+          "index": "P1",
+          "eyebrow": "SAME RELEASE",
+          "title": "先上 A1 精确态与最小根因包",
+          "body": "首版优先 CA 精确态、只读过窗记录、异常隔离、重试后置、心跳告警；A2 仅在晚发车 / 异常时触发，B 暂不上。",
+          "meta": "责任：产品 + 研发 + 测试 · 排期待评估",
+          "status": "target"
+        }
+      ],
+      "callout": {
+        "label": "重新评审的通过条件",
+        "text": "6 项 P0 全部关闭；状态与文案逐项映射；04 存在且能执行；交易、测试、合规对同一版本给出明确结论。",
+        "status": "target"
+      }
+    }
+  ],
+  "closing": {
+    "mark": "CLAIR · REQUIREMENT REVIEW",
+    "line1": "先让系统真的可证，",
+    "line2": "再让用户感到",
+    "accent": "安心",
+    "lead": "自动跟车的信任不来自更强的安抚，而来自真实状态、唯一交易意图、可解释的交易日承诺和客服可还原的完整证据链。",
+    "metaPrimary": "且慢需求评审 · 2026-08-10",
+    "metaSecondary": "材料截止 e10f400 · 原型只读核对 · 目标态不代表已上线"
+  },
+  "sources": [
+    {
+      "label": "GitLab 需求提交",
+      "detail": "qieman/qm-brain · commit e10f400e6f21277cd5dc0489cc9bac65f3e8bcc2 · 2026-08-04 · 4 份 Markdown，明确不含埋点与验收"
+    },
+    {
+      "label": "主需求与三份子文档",
+      "detail": "长赢发车即时提醒_产品需求文档.md、01_前端展示.md、02_跟车结果安抚通知.md、03_执行时效与顺序优化.md"
+    },
+    {
+      "label": "Figma 原型",
+      "detail": "自动跟车优化 · file WX2wotuujd0YQIiiJor3hk · 起始节点 1819:14591 · 2026-08-10 只读核对"
+    },
+    {
+      "label": "评审方法",
+      "detail": "且慢交易类需求评审：业务边界、交易语义、合规、状态可追溯、验收、监控与回滚"
+    }
+  ],
+  "openQuestions": [
+    {
+      "title": "“已执行”绑定哪个真实事件？",
+      "detail": "是任务创建、订单提交、交易系统受理，还是全部交易项进入终态？需要业务、交易与合规统一定义。"
+    },
+    {
+      "title": "同一发车批次的交易日承诺是什么？",
+      "detail": "是否要求自动与手动进入同一交易日；若发车过晚无法保证，是否整批顺延或分层告知？"
+    },
+    {
+      "title": "手动接管的不可逆点在哪里？",
+      "detail": "自动任务在哪个状态后不能撤回；冲突时谁胜出；用户看到过期页面提交时服务端如何处理？"
+    },
+    {
+      "title": "04 文档与 DRI 何时补齐？",
+      "detail": "当前提交缺少埋点、验收、灰度、回滚和待确认总表；产品、交易研发、测试、数据、客服、合规责任人均未冻结。"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "assets": [
+    {
+      "path": "assets/figma-scenario-1.png",
+      "bytes": 50647,
+      "sha256": "e43342736a974fb213d711bc31f5270c0ac426f5e8bd38f91303bb2da23b3d2e"
+    },
+    {
+      "path": "assets/figma-new-signal.png",
+      "bytes": 60289,
+      "sha256": "3cf95430b6d160047717da9c8b3aa23b201180aaedd8db1bebc584a0373a0f09"
+    },
+    {
+      "path": "assets/figma-a2-home.png",
+      "bytes": 9213,
+      "sha256": "199567ea66064dace0e50b170fb400f683b96064e86c832894e3c3ae5bd44a2f"
+    }
+  ]
+}

@@ -131,6 +131,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "auto-follow-requirement-review-2026-08-10",
+      groupId: "product-planning",
+      title: "长赢自动跟车即时提醒｜需求评审",
+      url: "https://clairku.github.io/clair-ai-studio/reports/auto-follow-requirement-review-2026-08-10/",
+      preview: "auto-follow-requirement-review-2026-08-10.png",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-10T14:12:00.000+08:00",
+      source: "GitLab e10f400 × Figma 自动跟车优化｜交易状态、自动/手动防重、跨 15:00 交易日一致性、验收与根因治理",
+      access: "production",
+      workType: "requirement-review",
+      tags: ["且慢", "长赢", "需求评审", "自动跟车", "交易安全", "Figma", "CLAIR", "HTML", "生产"],
+    },
+    {
       id: "individual-finance-agent-evaluation-2026-08-10",
       groupId: "ai-platform",
       title: "个人理财 Agent 候选作品｜全场景能力测评",
@@ -1223,6 +1237,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "auto-follow-requirement-review-2026-08-10": "requirement-review",
   "clair-product-design-reviewer-2026-08-06": "requirement-review",
   "ai-xiaogu-product-experience-2026-07-30": "product-planning",
   "workbench-quality-audit-2026-07-30": "governance-review",
@@ -1278,6 +1293,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "auto-follow-requirement-review-2026-08-10": "product-planning",
   "clair-product-design-reviewer-2026-08-06": "ai-workbench",
   "ai-service-blueprint-serif-2026-07-30": "reporting",
   "yingmi-ai-materials-compendium-2026-07-30": "ai-platform",
