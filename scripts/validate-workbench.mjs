@@ -192,6 +192,7 @@ const requiredSignals = [
   [styleSource, "body {\n  margin: 0;\n  overflow-anchor: none;", "工作台根节点仍会触发浏览器原生滚动锚定"],
   [styleSource, ".groups-section {\n  overflow-anchor: none;", "动态成果区仍会被浏览器选为原生滚动锚点"],
   [appSource, 'searchInput.addEventListener("beforeinput"', "搜索输入前未捕获滚动位置"],
+  [appSource, "VIEWPORT_RESTORE_SETTLE_MS = 720", "搜索重绘后未覆盖浏览器延迟布局修正"],
 ];
 
 for (const [source, signal, message] of requiredSignals) {

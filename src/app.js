@@ -27,6 +27,7 @@ const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
 const DATA_VERSION = 41;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
+const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
 
 const WORK_TYPES = [
@@ -2756,6 +2757,7 @@ function captureViewportSnapshot(preferredElement = null) {
 function restoreViewportSnapshot(snapshot) {
   if (!snapshot) return;
   cancelControlledScroll();
+  const startedAt = performance.now();
   const restore = () => {
     const anchor = resolveViewportAnchor(snapshot.identity);
     const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
@@ -2765,12 +2767,15 @@ function restoreViewportSnapshot(snapshot) {
     window.scrollTo({ top: Math.max(0, Math.min(maxScroll, target)), left: 0, behavior: "auto" });
   };
   restore();
-  viewportRestoreFrame = requestAnimationFrame(() => {
-    viewportRestoreFrame = requestAnimationFrame(() => {
+  const settle = (now) => {
+    restore();
+    if (now - startedAt >= VIEWPORT_RESTORE_SETTLE_MS) {
       viewportRestoreFrame = 0;
-      restore();
-    });
-  });
+      return;
+    }
+    viewportRestoreFrame = requestAnimationFrame(settle);
+  };
+  viewportRestoreFrame = requestAnimationFrame(settle);
 }
 
 function renderWithViewportSnapshot(snapshot) {
@@ -4082,6 +4087,9 @@ function bindApp() {
     const scheduleSearchInput = (input) => {
       const snapshot = inputSnapshot(input);
       pendingSearchViewportSnapshot = null;
+      if (snapshot.viewportSnapshot) {
+        restoreViewportSnapshot(snapshot.viewportSnapshot);
+      }
       if (searchInputCommitTimer) window.clearTimeout(searchInputCommitTimer);
       searchInputCommitTimer = window.setTimeout(() => {
         searchInputCommitTimer = 0;
@@ -4112,6 +4120,17 @@ function bindApp() {
     });
     searchInput.addEventListener("search", (event) => commitSearchInput(inputSnapshot(event.currentTarget)));
     searchInput.addEventListener("keydown", (event) => {
+      const key = event.key.toLowerCase();
+      const modifiesValue = event.key === "Backspace"
+        || event.key === "Delete"
+        || event.key === "Enter"
+        || (event.key.length === 1 && !event.metaKey && !event.ctrlKey && !event.altKey)
+        || ((event.metaKey || event.ctrlKey) && ["v", "x"].includes(key));
+      if (modifiesValue && !pendingSearchViewportSnapshot) {
+        pendingSearchViewportSnapshot = captureViewportSnapshot(
+          document.querySelector(".results-toolbar"),
+        );
+      }
       if (event.key === "Enter" && event.currentTarget.value !== query) {
         event.preventDefault();
         commitSearchInput(inputSnapshot(event.currentTarget));
