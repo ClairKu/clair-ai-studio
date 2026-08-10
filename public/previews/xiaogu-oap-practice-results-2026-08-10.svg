@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="405" viewBox="0 0 720 405" role="img" aria-labelledby="title desc">
+  <title id="title">且慢 AI 小顾 × 盈米 AI 开放平台：产品实践与成效</title>
+  <desc id="desc">中层汇报：小顾把投顾做成持续服务，开放平台把能力开放成行业入口；月活 2,155 超年度目标，累计调用突破 935 万。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fbfaff"/><stop offset="1" stop-color="#e7e1ff"/></linearGradient>
+    <linearGradient id="violet" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#7457e8"/><stop offset="1" stop-color="#9d86f2"/></linearGradient>
+    <linearGradient id="dark" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#10182c"/><stop offset="1" stop-color="#202b49"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="7" stdDeviation="10" flood-color="#342568" flood-opacity=".12"/></filter>
+    <style>text{font-family:"Songti SC",STSong,SimSun,serif;fill:#171a27}.eyebrow{font-size:9px;font-weight:800;letter-spacing:1.6px;fill:#7457e8}.title{font-size:30px;font-weight:700}.sub{font-size:12px;fill:#687287}.label{font-size:9px;fill:#687287}.metric{font-size:22px;font-weight:700;fill:#7457e8}.chip-label{font-size:8.5px;fill:#9aa3b8}.chip-light{font-size:8.5px;fill:#cfc5ff}</style>
+  </defs>
+  <rect width="720" height="405" fill="url(#bg)"/>
+  <rect x="0" y="0" width="720" height="5" fill="url(#violet)"/>
+  <text class="eyebrow" x="48" y="64">QIEMAN × YINGMI AI · MID-LEVEL REVIEW / 2026.08.10</text>
+  <text class="title" x="48" y="108">且慢 AI 小顾 × 盈米 AI 开放平台</text>
+  <text class="sub" x="48" y="136">产品实践与成效：把能力生产成服务，把服务交付为结果</text>
+  <g filter="url(#shadow)">
+    <rect x="48" y="168" width="148" height="86" rx="12" fill="#fff"/>
+    <text class="metric" x="64" y="212">2,155</text>
+    <text class="chip-label" x="64" y="232">月活用户 · 超年度目标</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="208" y="168" width="148" height="86" rx="12" fill="#fff"/>
+    <text class="metric" x="224" y="212">935 万</text>
+    <text class="chip-label" x="224" y="232">累计调用 · 完成 72%</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="368" y="168" width="148" height="86" rx="12" fill="#fff"/>
+    <text class="metric" x="384" y="212">9,520</text>
+    <text class="chip-label" x="384" y="232">申请用户 · 完成 95.2%</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="528" y="168" width="148" height="86" rx="12" fill="#fff"/>
+    <text class="metric" x="544" y="212">400+</text>
+    <text class="chip-label" x="544" y="232">金融机构真实调用</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="48" y="278" width="628" height="82" rx="14" fill="url(#dark)"/>
+    <text class="chip-light" x="72" y="310">C 端 · 小顾从问答走向持续服务（定位 / 演进 / 主动服务 / 八条经验）</text>
+    <text class="chip-light" x="72" y="330">平台 · 四个持续 × 行业认可 × 用户增长 × 微信/千问新入口</text>
+    <text class="chip-light" x="72" y="350">数据截至 2026-08-10 · 22 章节 · 内嵌四指标增长交互图</text>
+  </g>
+</svg>
