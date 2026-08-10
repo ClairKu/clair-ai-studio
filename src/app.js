@@ -26,7 +26,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 40;
+const DATA_VERSION = 41;
 
 const WORK_TYPES = [
   { id: "requirement-review", name: "需求评审" },
@@ -130,6 +130,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "individual-finance-agent-evaluation-2026-08-10",
+      groupId: "ai-platform",
+      title: "个人理财 Agent 候选作品｜全场景能力测评",
+      url: "https://clairku.github.io/clair-ai-studio/reports/individual-finance-agent-evaluation-2026-08-10/",
+      preview: "individual-finance-agent-evaluation-2026-08-10.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-10T13:30:00.000+08:00",
+      source: "公开仓库 master@7f117a1｜构建、562 条单测、52 条 E2E、9 类场景、3 基金问答矩阵、桌面/390px 与安全审计",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["Agents", "候选人评测", "金融 Agent", "数据分析", "安全审查", "响应式", "HTML", "生产"],
+    },
     {
       id: "yingmi-skill-stability-eval-2026-08-09",
       groupId: "ai-platform",

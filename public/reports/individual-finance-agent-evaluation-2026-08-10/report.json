@@ -1,0 +1,239 @@
+{
+  "meta": {
+    "title": "个人理财 Agent 候选作品测评",
+    "subtitle": "从能跑、能答到能安全交付：全场景实测、金融事实复核与录用建议",
+    "eyebrow": "CANDIDATE WORK SAMPLE · AGENT EVALUATION",
+    "date": "2026-08-10",
+    "cutoff": "仓库 master@7f117a1 · 2026-08-10 评测",
+    "owner": "Clair AI Studio",
+    "confidentiality": "候选作品技术评测 · 公开仓库证据",
+    "accent": "#e26a3f",
+    "downloadUrl": "./evidence-appendix.md",
+    "downloadLabel": "下载完整测试证据附录"
+  },
+  "hero": {
+    "conclusion": "45/100：复杂系统与场景搭建能力突出，但金融答案、移动端、安全与可复现交付存在生产阻断；适合有条件复试，不宜仅凭本作品认定其可独立负责 C 端金融 Agent 上线。",
+    "thesis": "作品覆盖画像、规划、持仓、基金、报告、定时任务与多类设置，代码量和架构完整度高；但当前干净环境无法按 README 完成端到端启动，官方测试大量失败，货币基金指标语义错误，直接问答泄露模板占位语，云端设置还可能把密钥与用户数据暴露给匿名角色。",
+    "badges": ["45 / 100", "全场景覆盖", "P0 安全与数据语义", "强原型 · 弱交付"]
+  },
+  "sections": [
+    {
+      "id": "decision",
+      "kicker": "01 · HIRING DECISION",
+      "title": "有条件复试，不作上线背书",
+      "lead": "这不是一个低水平作品：候选人能把多 Agent、工具层、知识库、工作流和页面拼成大系统；问题在于最关键的最后一公里——答案是否对、系统是否安全、别人能否稳定跑起来。",
+      "layout": "cards",
+      "tone": "light",
+      "items": [
+        {
+          "index": "A",
+          "eyebrow": "BEST FIT",
+          "title": "适合 AI 应用原型与复杂流程搭建",
+          "body": "场景拆解、目录组织、工具抽象、人机确认节点和基金知识库设计明显高于普通 Demo，能迅速把业务概念变成可操作产品骨架。",
+          "bullets": ["529 个 src 文件", "107 个单测文件", "画像—规划—持仓—基金多场景"],
+          "status": "confirmed",
+          "source": "公开仓库源码与本地构建审计 · 2026-08-10"
+        },
+        {
+          "index": "B",
+          "eyebrow": "NOT YET PROVEN",
+          "title": "尚未证明生产级 Agent 交付能力",
+          "body": "官方路径依赖缺失、CI 分支配置失效、22 个单测失败、移动端不可用；关键基金问题虽返回内容，却不稳定返回用户真正要的结论。",
+          "bullets": ["README 命令缺失", "E2E 被未配置模型阻塞", "金融问答检索命中不等于答案正确"],
+          "status": "confirmed",
+          "source": "README、package scripts、Vitest、Playwright 与浏览器实测 · 2026-08-10"
+        },
+        {
+          "index": "C",
+          "eyebrow": "ROLE BAR",
+          "title": "岗位不同，结论不同",
+          "body": "若岗位偏快速原型、AI 产品工程，可进入带修复任务的复试；若岗位要求独立承担 C 端金融 Agent、全栈生产或安全负责人，本作品当前不通过。",
+          "bullets": ["复试看修复与解释能力", "不以代码量代替质量判断", "不连接真实客户数据或生产密钥"],
+          "status": "inferred"
+        }
+      ],
+      "callout": {
+        "label": "一句话画像",
+        "text": "强在把“大系统做出来”，弱在把“关键答案做对、把系统安全稳定交给别人”。",
+        "status": "inferred"
+      }
+    },
+    {
+      "id": "score",
+      "kicker": "02 · SCORECARD",
+      "title": "总分 45，短板集中在底线项",
+      "lead": "评分不是对代码规模的奖励，而是按用户价值、金融正确性、工程可复现、安全与体验的生产门槛加权。任一 P0 都足以阻断上线。",
+      "layout": "metrics",
+      "tone": "soft",
+      "items": [
+        {"metric": "12/15", "title": "产品与场景设计", "body": "场景广、流程深、对象模型完整；能看出对个人理财任务链的系统理解。", "meta": "源码、路由与页面盘点", "status": "confirmed"},
+        {"metric": "8/15", "title": "Agent 编排", "body": "场景内规划较完整；自由对话对“分析持仓”“解读基金”的跨场景路由漏判。", "meta": "15 条确定性 planner 用例", "status": "confirmed"},
+        {"metric": "5/20", "title": "金融事实与语义", "body": "部分净值、回撤和费率可取到；货币基金把万份收益当净值并计算出 -15.4% 收益、-59.8% 回撤。", "meta": "3 只基金 × 3 类问题 + 盈米 MCP 复核", "status": "confirmed"},
+        {"metric": "5/15", "title": "答案质量", "body": "基金问答常返回 1,400—2,200 字原文，并出现“用 L0”“从风险揭示摘”等内部模板语。", "meta": "9 次确定性基金问答", "status": "confirmed"},
+        {"metric": "9/15", "title": "工程质量", "body": "生产构建通过、测试量可观；但 22 个单测失败，CI 不触发默认分支且 README 无法复现。", "meta": "构建、Vitest、GitHub Actions 与文档审计", "status": "confirmed"},
+        {"metric": "4/10", "title": "体验与响应式", "body": "桌面端信息架构清晰；390px 下固定 320px 侧栏把主区挤成约 70px。", "meta": "1440×900 与 390×844 浏览器实测", "status": "confirmed"},
+        {"metric": "2/10", "title": "安全与可交付", "body": "无用户鉴权，云端 anon 可读全表；模型 key、service role 与数据库密码均存在明文路径。", "meta": "API、设置模块与 Supabase migration 审计", "status": "confirmed"}
+      ],
+      "callout": {
+        "label": "总分",
+        "text": "45 / 100。不是“功能少”，而是底线项失败：金融数据语义、安全、移动端与可复现交付。",
+        "status": "confirmed"
+      }
+    },
+    {
+      "id": "lab",
+      "kicker": "03 · RUNTIME LAB",
+      "title": "能编译，不等于能完整跑通",
+      "lead": "在全新目录、Node 24.3 / npm 11.4.2、无 Docker、无候选人本地密钥的环境中按公开材料复现；所有缺失依赖均按“未验证”处理，没有用模拟成功代替真实通过。",
+      "layout": "metrics",
+      "tone": "dark",
+      "items": [
+        {"metric": "PASS", "title": "生产构建", "body": "npm run build 编译、类型检查与静态生成通过。", "meta": "master@7f117a1 · 2026-08-10", "status": "confirmed"},
+        {"metric": "539/562", "title": "单元测试通过", "body": "22 失败、1 跳过；失败含缺样例文件、server-only 解析与解析器/默认配置回归。", "meta": "107 个 Vitest 文件", "status": "confirmed"},
+        {"metric": "10/52", "title": "官方 E2E 通过", "body": "30 失败、2 跳过、10 未执行；主流程多被缺配置、种子失败与禁用输入框阻断。", "meta": "Playwright · 15.7 分钟", "status": "confirmed"},
+        {"metric": "19", "title": "依赖漏洞", "body": "1 low、7 moderate、11 high；Next、js-yaml、hyperframes、xlsx 等链路受影响。", "meta": "npm audit · 干净安装", "status": "confirmed"},
+        {"metric": "BROKEN", "title": "官方快速开始", "body": "README 中 supabase:sync-settings、data:init、env:bootstrap 均不存在；当前机器也无 Docker。", "meta": "README 与 package.json 对照", "status": "confirmed"}
+      ],
+      "callout": {
+        "label": "官方 E2E",
+        "text": "52 条 Playwright 用例：10 通过、30 失败、2 跳过、10 未执行，耗时 15.7 分钟。失败覆盖画像、规划、持仓、报告与流水线锁等主流程。",
+        "status": "confirmed"
+      }
+    },
+    {
+      "id": "coverage",
+      "kicker": "04 · SCENARIO COVERAGE",
+      "title": "九类使用面均已覆盖",
+      "lead": "“覆盖”指每一场景都做了运行态、确定性逻辑或源码审计；只有真实完成才记通过，因模型、数据库或样例缺失而中断的链路均保留为阻塞证据。",
+      "layout": "comparison",
+      "tone": "light",
+      "items": [
+        {"index": "01", "eyebrow": "CHAT", "title": "自由对话：部分通过", "body": "能力介绍与需求梳理可规划；“分析持仓”“解读 019305”仍落到 simple_qa，未跨场景交接。", "bullets": ["UI 可加载", "模型未就绪时输入禁用", "跨场景召回不足"], "source": "15 条 planner 用例与浏览器实测", "status": "confirmed"},
+        {"index": "02", "eyebrow": "PROFILE", "title": "画像：部分通过", "body": "键值解析能提取核心字段，但常见同义字段被列为 unknown；非法数值 abc 被转成 0，可能污染用户画像。", "bullets": ["正式流程可规划", "输入容错不稳", "E2E 未跑通"], "source": "profile parser 确定性用例", "status": "confirmed"},
+        {"index": "03", "eyebrow": "PLAN", "title": "规划：流程有，闭环缺", "body": "大类配置、基金明细与替换均能生成步骤；README/E2E 示例缺“计划开始日期”即解析失败，字段契约未对齐。", "bullets": ["步骤设计完整", "样例与解析器冲突", "依赖画像与数据库"], "source": "planner、goal parser 与官方 E2E 样例", "status": "confirmed"},
+        {"index": "04", "eyebrow": "PORTFOLIO", "title": "持仓：生产链路阻塞", "body": "读仓、行情同步、报告草拟与核验均有规划；普通管道表格在真实调用中仍先要求推理模型，官方 E2E 多次超时。", "bullets": ["工作流深", "确定性格式不应依赖 LLM", "全角/空白兼容未被真实证明"], "source": "holdings parser 与官方 Playwright", "status": "confirmed"},
+        {"index": "05", "eyebrow": "FUND", "title": "基金：能检索，答不好", "body": "本地知识库、L0 与引用链可工作；9 次问答显示费用、业绩、风险的片段选择与答案合成不稳定。", "bullets": ["14 基金 / 141 文档 / 355 chunks", "019305 指标部分可复核", "000198 出现 P0 语义错误"], "source": "fund_matrix.ts 与浏览器实测", "status": "confirmed"},
+        {"index": "06", "eyebrow": "REPORTS", "title": "报告：页面通过，生成未闭环", "body": "报告列表与查看页可访问；上游画像、规划、持仓链路未在干净环境完成，因此不能证明端到端产出。", "bullets": ["桌面 UI 正常", "移动端严重挤压", "依赖数据库与模型"], "status": "confirmed"},
+        {"index": "07", "eyebrow": "SCHEDULED", "title": "定时任务：壳层可用", "body": "任务页与部分 API smoke 可加载；数据库种子与真实调度执行未完成，不能把列表展示视为任务可靠运行。", "bullets": ["UI 可访问", "执行证据缺失", "恢复与幂等未实测"], "status": "confirmed"},
+        {"index": "08", "eyebrow": "SETTINGS", "title": "设置：功能广但风险高", "body": "模型、数据库、数据源和记忆页均可打开；密钥字段命名为 encrypted 却直接保存原值，数据库凭据还有文件与云端双写路径。", "bullets": ["配置面完整", "就绪门禁明确", "秘密管理不合格"], "status": "confirmed"},
+        {"index": "09", "eyebrow": "MOBILE", "title": "移动端：不通过", "body": "固定侧栏在 390px 仍保持 320px，主内容被压缩到不可读；聊天、基金库、报告与设置均复现。", "bullets": ["非单页偶发", "无响应式抽屉", "C 端场景生产阻断"], "source": "390×844 Chromium 与 ResizableSidebar 源码", "status": "confirmed"}
+      ]
+    },
+    {
+      "id": "fund-cases",
+      "kicker": "05 · FINANCIAL QA",
+      "title": "三只基金暴露答案链问题",
+      "lead": "覆盖海外指数、货币与债券三种产品类型，每只基金固定询问费率、近一年收益/回撤、风险与稳健用户适配；重点检查“取到数据后是否说对人话”。",
+      "layout": "demo",
+      "tone": "dark",
+      "items": [
+        {"index": "01", "eyebrow": "019305 · QDII INDEX", "title": "数据可取到，费用却答不出", "body": "lookup 返回净值 1.6974、近一年约 16%、最大回撤 -9.3%，与盈米 MCP 复核方向一致；但问“管理费多少”返回 2,016 字招募书绪言，没有给出底层已存在的 0.50%。", "meta": "盈米复核：2026-08-06 净值 1.6974、近一年 14.83%、最大回撤 -9.30%", "bullets": ["事实层部分可靠", "答案层召回段落错误", "风险等级口径存在 R4 / 中风险分歧，需注明来源"], "status": "confirmed"},
+        {"index": "02", "eyebrow": "000198 · MONEY MARKET", "title": "货币基金发生 P0 语义错误", "body": "系统把 0.2252 当作净值，并推导近一年 -15.4%、最大回撤 -59.8%；这更像把每万份收益序列误当净值序列，结论与货币基金指标定义冲突。", "meta": "候选系统输出 · 2026-08-09", "bullets": ["低风险产品被呈现为巨幅亏损", "必须按万份收益与七日年化专门建模", "错误可直接误导用户决策"], "status": "confirmed"},
+        {"index": "03", "eyebrow": "217022 · BOND", "title": "费用命中，风险仍答非所问", "body": "管理费 0.60%、托管费 0.20% 能直接返回；但风险问题仍输出“从风险揭示摘 3 条以内”等内部指令，并拼接历史业绩段落。", "meta": "确定性 fund_matrix.ts 结果", "bullets": ["证明知识库不是完全失效", "产品类型间稳定性不足", "需要答案契约与相关性评测"], "status": "confirmed"}
+      ],
+      "callout": {
+        "label": "根因判断",
+        "text": "检索、指标计算与答案生成没有用统一产品语义和输出契约收口；系统能找到很多材料，却缺少“选对证据—校验口径—给出简洁结论”的最后一层。",
+        "status": "inferred"
+      }
+    },
+    {
+      "id": "answer-quality",
+      "kicker": "06 · AGENT EFFECT",
+      "title": "有输出不等于有效",
+      "lead": "9 次基金问答均返回 ok=true，但成功标志只代表函数产出了字符串，并不代表答案相关、正确或可交付。对于金融 Agent，效果评测必须跨过这个陷阱。",
+      "layout": "cards",
+      "tone": "soft",
+      "items": [
+        {"index": "01", "eyebrow": "RELEVANCE", "title": "费用问题命中错误章节", "body": "019305 与 000198 的费用问答分别返回招募书绪言、市场回顾；用户需要的数字被底层 lookup 拿到，却没有进入最终答案。", "bullets": ["检索段落排序错误", "缺少字段优先回答", "长文掩盖空答"], "status": "confirmed", "source": "fund_matrix.ts · 2026-08-10"},
+        {"index": "02", "eyebrow": "PROMPT LEAK", "title": "内部模板直接泄露给用户", "body": "回答中出现“用 L0 return_1y”“从风险揭示摘 3 条以内”“依产品类型取舍”等未执行指令，以及“如何样”“哦？”等低质变体。", "bullets": ["后处理缺失", "模板与答案未分层", "严重损害可信度"], "status": "confirmed", "source": "3 基金 × 业绩/风险问题 · 2026-08-10"},
+        {"index": "03", "eyebrow": "BASIC ROUTING", "title": "短问被简单问答吞掉", "body": "聊天场景中的“帮我分析持仓”“请解读 019305”没有转入 portfolio/fund 专用链路，说明路由规则优先级对短句不够敏感。", "bullets": ["强场景提示词未优先", "无法利用专用工具", "自由入口体验打折"], "status": "confirmed", "source": "15 条 planner 用例 · 2026-08-10"}
+      ]
+    },
+    {
+      "id": "ux-evidence",
+      "kicker": "07 · VISUAL EVIDENCE",
+      "title": "桌面清晰，手机不可用",
+      "lead": "同一版本、同一数据环境在两类视口中实测。桌面端能看出成熟的信息架构；手机端问题来自全局布局，不是单个页面的小样式瑕疵。",
+      "layout": "evidence",
+      "tone": "light",
+      "items": [
+        {"index": "01", "eyebrow": "1440 × 900", "title": "桌面聊天壳层", "body": "侧栏、对话区、场景入口与模型就绪提示层级清晰；未配置模型时输入框被明确禁用。", "source": "本地浏览器实测 · 2026-08-10", "image": "./assets/desktop-chat.png", "alt": "候选作品桌面聊天页面" , "status": "confirmed"},
+        {"index": "02", "eyebrow": "1440 × 900", "title": "基金知识库", "body": "可见 14 只基金、141 份文档、355 个 chunks，搜索、基金列表与知识树结构清楚。", "source": "本地浏览器实测 · 2026-08-10", "image": "./assets/desktop-fund-knowledge.png", "alt": "候选作品桌面基金知识库页面", "status": "confirmed"},
+        {"index": "03", "eyebrow": "390 × 844", "title": "移动端全局坍缩", "body": "320px 固定侧栏仍常驻，主内容只剩约 70px；聊天、基金知识、报告和设置页均出现逐字竖排与不可操作。", "source": "本地浏览器实测 · 2026-08-10", "image": "./assets/mobile-chat.png", "alt": "候选作品移动端聊天页面严重挤压", "status": "confirmed"},
+        {"index": "04", "eyebrow": "390 × 844", "title": "移动基金页同样失效", "body": "基金知识页主区被侧栏挤压，标题、筛选和内容卡片无法正常阅读，证明问题来自 AppShell / ResizableSidebar。", "source": "本地浏览器实测与源码定位 · 2026-08-10", "image": "./assets/mobile-fund-knowledge.png", "alt": "候选作品移动端基金知识库页面严重挤压", "status": "confirmed"}
+      ],
+      "callout": {
+        "label": "源码根因",
+        "text": "ResizableSidebar 始终渲染 shrink-0 aside，默认宽度 320px，仅做 200—600px 拖拽限制，没有断点抽屉或移动端隐藏策略。",
+        "status": "confirmed"
+      }
+    },
+    {
+      "id": "engineering",
+      "kicker": "08 · ENGINEERING",
+      "title": "工程深度可见，质量闭环断裂",
+      "lead": "代码组织与测试意愿值得肯定；但仓库默认分支、CI 触发、脚本、样例、依赖与文档没有形成一个可由第三方复现的交付面。",
+      "layout": "comparison",
+      "tone": "soft",
+      "items": [
+        {"index": "+", "eyebrow": "STRENGTH", "title": "复杂度与模块化", "body": "529 个 src 文件覆盖 planner、scene agents、SSE、工具调用、基金知识库、报告、任务与设置；生产构建能通过。", "bullets": ["多层抽象", "人机确认节点", "107 个单测文件"], "source": "公开仓库文件盘点与 npm run build", "status": "confirmed"},
+        {"index": "+", "eyebrow": "STRENGTH", "title": "证据与知识库意识", "body": "基金答案带日期、脚注与知识库路径，数据源有备用层；敏感本地文件已进入 .gitignore，仓库未发现真实密钥。", "bullets": ["本地 vault", "引用路径", "基础路径防穿越"], "status": "confirmed"},
+        {"index": "−", "eyebrow": "DELIVERY GAP", "title": "CI 实际不工作", "body": "工作流只监听 main，但仓库默认且唯一分支是 master；同时 npm ci 与 lint 配置在当前版本也无法无交互通过。", "bullets": ["无真实 CI 运行", "E2E 在 workflow 中注释", "质量门仅存在于代码"], "status": "confirmed"},
+        {"index": "−", "eyebrow": "PROVENANCE", "title": "过程证据不足", "body": "公开仓库仅 9 次提交、单一作者、无 PR/Issue、无 License；可确认 Git 作者记录，不能据此独立证明全部代码的原创过程。", "bullets": ["建议现场讲解关键模块", "查看提交演进与取舍", "补 License 与贡献说明"], "source": "GitHub 元数据与本地 Git 历史", "status": "confirmed"}
+      ]
+    },
+    {
+      "id": "security",
+      "kicker": "09 · SECURITY",
+      "title": "当前不得接真实数据与密钥",
+      "lead": "这是整份测评最硬的否决项。即便定位为单机个人工具，仓库同时提供 Supabase 云模式和 C 端产品叙事，就必须对云端暴露面负责。",
+      "layout": "architecture",
+      "tone": "dark",
+      "items": [
+        {"index": "05", "eyebrow": "IMPACT", "title": "客户数据与凭据可能泄露", "body": "会话、消息、画像、持仓、模型 key、service role 与数据库密码都可能进入匿名可读范围。", "bullets": ["隐私泄露", "账户接管", "生产数据库破坏"], "status": "confirmed"},
+        {"index": "04", "eyebrow": "DATABASE", "title": "anon 被授予全表读取", "body": "migration 对 ALL TABLES / SEQUENCES 授予 anon、authenticated SELECT，未发现 ENABLE ROW LEVEL SECURITY 与策略。", "bullets": ["默认开放", "无租户隔离", "云模式 P0"], "status": "confirmed"},
+        {"index": "03", "eyebrow": "SECRETS", "title": "秘密被当普通设置保存", "body": "api_key_encrypted 字段直接使用输入原值；数据库 URL、anon、service role、密码同时写入本地 JSON 和 app_settings。", "bullets": ["命名误导", "无加密封装", "不应回传到普通设置表"], "status": "confirmed"},
+        {"index": "02", "eyebrow": "API", "title": "写接口没有用户鉴权", "body": "大量 POST、PATCH、DELETE API 未见会话、用户身份、CSRF 或来源校验。", "bullets": ["任何可达客户端均可调用", "单机与云端边界不清", "服务角色放大影响"], "status": "confirmed"},
+        {"index": "01", "eyebrow": "FIX ORDER", "title": "先封口，再谈体验", "body": "立即撤销 anon 全表权限、启用 RLS 与租户策略、把秘密移入服务端 secret store、增加鉴权与审计，并轮换所有曾写入的数据。", "bullets": ["deny by default", "最小权限", "密钥轮换"], "status": "target"}
+      ],
+      "callout": {
+        "label": "使用边界",
+        "text": "评测仅使用公开仓库与本地测试数据；不建议在修复前输入真实姓名、资产、持仓、模型 API Key 或 Supabase service role。",
+        "status": "confirmed"
+      }
+    },
+    {
+      "id": "interview",
+      "kicker": "10 · INTERVIEW PLAN",
+      "title": "用修复任务验证真实能力",
+      "lead": "下一轮不要继续听功能介绍；让候选人在限定时间内修复最能区分“会搭 Demo”和“能做生产 Agent”的问题。",
+      "layout": "actions",
+      "tone": "light",
+      "items": [
+        {"index": "P0", "eyebrow": "90 MIN LIVE", "title": "修复货币基金指标语义", "body": "为 000198 建立货币基金专用指标模型，解释万份收益、七日年化与净值型基金的差异，补回归测试并说明迁移影响。", "meta": "面试看建模、调试与金融常识", "status": "target"},
+        {"index": "P0", "eyebrow": "DESIGN REVIEW", "title": "重做安全边界", "body": "现场画出本地模式与 Supabase 云模式的数据流，给出 RLS、租户隔离、secret store、密钥轮换和 API 鉴权方案。", "meta": "面试看威胁建模与责任意识", "status": "target"},
+        {"index": "P1", "eyebrow": "PAIR FIX", "title": "让费用问题只答费用", "body": "用 019305 证明 lookup 的 0.50% 能稳定进入最终答案，限制在 120 字内，保留日期与来源，禁止模板占位语泄露。", "meta": "面试看检索、结构化输出与质量评测", "status": "target"},
+        {"index": "P1", "eyebrow": "DELIVERY", "title": "把陌生机器一键跑通", "body": "修正 README、脚本、默认分支 CI、样例文件和模型/数据库最小路径；要求 build、unit、E2E 与 390px smoke 全绿。", "meta": "面试看交付纪律与工程闭环", "status": "target"},
+        {"index": "P2", "eyebrow": "EXPLAIN", "title": "讲清最关键三处原创决策", "body": "从 planner、基金知识库与持仓工作流各选一处，说明为何这样设计、失败过什么、如何用测试证明，而不是只展示最终代码。", "meta": "面试看真实 ownership", "status": "target"}
+      ],
+      "callout": {
+        "label": "通过标准",
+        "text": "能定位根因、主动缩小范围、补测试、说明取舍并留下可复现证据；只改提示词或绕过门禁不算通过。",
+        "status": "target"
+      }
+    }
+  ],
+  "sources": [
+    {"label": "候选作品公开仓库", "detail": "github.com/zaz199110/Individual-finance-management-agent · master@7f117a1 · 截止 2026-08-10"},
+    {"label": "本地复现与自动化测试", "detail": "npm clean install、build、Vitest、Playwright、15 条 planner、画像/目标/持仓解析、3 基金 × 3 问题"},
+    {"label": "浏览器体验证据", "detail": "Next dev · Chromium · 1440×900 与 390×844 · 9 类产品表面"},
+    {"label": "独立金融数据复核", "detail": "盈米 MCP / yingmi-skill · 019305 净值、收益、回撤、费率与风险口径 · 2026-08-10"},
+    {"label": "安全与供应链审计", "detail": "API 路由、settings、Supabase migrations、.gitignore、GitHub Actions、npm audit"}
+  ],
+  "openQuestions": [
+    {"title": "模型与数据库完整链路", "detail": "公开仓库未提供可直接运行的本地模型/数据库最小配置，画像—规划—持仓—报告的真实端到端效果仍待候选人现场复现。"},
+    {"title": "019305 风险等级口径", "detail": "候选系统显示 R4 中高风险，盈米复核显示风险等级 3 中风险；需确认数据源、评级时间与映射标准。"},
+    {"title": "代码原创与过程 ownership", "detail": "公开 Git 历史只能证明单一账号提交，不能独立证明全部实现过程；建议现场定位、修改与讲解关键模块。"}
+  ]
+}
