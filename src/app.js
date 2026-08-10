@@ -2201,12 +2201,16 @@ function buildSearchHits(reports, normalizedQuery) {
     .filter((item) => item.score > 0)
     .sort((a, b) =>
       a.dimensionRank - b.dimensionRank ||
-      b.score - a.score ||
-      reportModifiedTime(b.report) - reportModifiedTime(a.report) ||
-      String(a.report.title).localeCompare(b.report.title, "zh-CN"));
+      compareSearchHitRelevance(a, b));
 }
 
-function searchDimensionControlsMarkup(hits) {
+function compareSearchHitRelevance(a, b) {
+  return b.score - a.score ||
+    reportModifiedTime(b.report) - reportModifiedTime(a.report) ||
+    String(a.report.title).localeCompare(b.report.title, "zh-CN");
+}
+
+function searchDimensionControlsMarkup(hits, visibleCount) {
   const countFor = (dimension) => hits.filter((hit) => hit.dimensions.includes(dimension)).length;
   const option = (id, label, count) => {
     const selected = id === "all"
@@ -2215,14 +2219,45 @@ function searchDimensionControlsMarkup(hits) {
     const disabled = id !== "all" && count === 0 && !selected;
     return `<button type="button" data-action="toggle-search-dimension" data-id="${id}"
       class="${selected ? "active" : ""}" aria-pressed="${selected}"
-      ${disabled ? "disabled" : ""}>${label}<em>${count}</em></button>`;
+      ${disabled ? "disabled" : ""} title="${label}匹配 ${count} 份">${label}<em>${count}</em></button>`;
   };
-  return `<div class="search-dimension-controls" aria-label="筛选搜索匹配维度">
-    <div class="search-dimension-label"><strong>匹配维度</strong><span>可多选</span></div>
+  return `<div class="search-toolbar-dimensions" aria-label="按匹配维度筛选，可多选">
     <div class="search-dimension-options">
       ${option("all", "全部", hits.length)}
       ${SEARCH_DIMENSIONS.map(({ id, label }) => option(id, label, countFor(id))).join("")}
     </div>
+    <span class="sr-only search-results-announcement" role="status" aria-live="polite">匹配到了 ${visibleCount} 份</span>
+  </div>`;
+}
+
+function searchPriorityGroupsMarkup(hits) {
+  const enabledDimensions = searchDimensionFilters.size
+    ? new Set(searchDimensionFilters)
+    : new Set(SEARCH_DIMENSIONS.map((dimension) => dimension.id));
+  const groupedHits = new Map(SEARCH_DIMENSIONS.map(({ id }) => [id, []]));
+  hits.forEach((hit) => {
+    const primary = SEARCH_DIMENSIONS.find(({ id }) =>
+      enabledDimensions.has(id) && hit.dimensions.includes(id));
+    if (primary) groupedHits.get(primary.id).push(hit);
+  });
+  const groups = SEARCH_DIMENSIONS
+    .map((dimension, index) => ({
+      ...dimension,
+      priority: String(index + 1).padStart(2, "0"),
+      hits: groupedHits.get(dimension.id).sort(compareSearchHitRelevance),
+    }))
+    .filter(({ id }) => enabledDimensions.has(id))
+    .filter((group) => group.hits.length);
+  return `<div class="search-priority-groups" aria-label="按最高匹配优先级排列的搜索结果">
+    ${groups.map((group) => `<section class="search-priority-group" data-search-dimension="${group.id}">
+      <header class="search-priority-header">
+        <div><span>${group.priority}</span><strong>${group.label}匹配</strong></div>
+        <em>${group.hits.length} 份</em>
+      </header>
+      <div class="group-cards search-results-cards">
+        ${group.hits.map(({ report }) => cardMarkup(report)).join("")}
+      </div>
+    </section>`).join("")}
   </div>`;
 }
 
@@ -3346,9 +3381,6 @@ function workbenchMarkup() {
     ? allSearchHits.filter((hit) => hit.dimensions.some((dimension) =>
         searchDimensionFilters.has(dimension)))
     : allSearchHits;
-  const reports = normalized
-    ? visibleSearchHits.map((hit) => hit.report)
-    : activeReports;
   const featuredReports = orderReports(
     activeReports.filter((report) => report.pinned),
     "featured",
@@ -3391,7 +3423,7 @@ function workbenchMarkup() {
         ${taskWorkspaceMarkup(escapeHtml)}
         <div class="results-toolbar unified-results-toolbar">
           <h1 class="sr-only">Clair's Studio 成果库</h1>
-          <div class="results-toolbar-side">
+          <div class="results-toolbar-side ${normalized ? "has-search-results" : ""}">
             <label class="search results-search">
               <span aria-hidden="true">⌕</span>
               <input id="search-input" type="search" value="${escapeHtml(query)}"
@@ -3399,13 +3431,15 @@ function workbenchMarkup() {
                 autocomplete="off" spellcheck="false" enterkeyhint="search" />
               ${query ? `<button type="button" class="studio-icon-button search-clear-button" data-action="clear-search" title="清除搜索" aria-label="清除搜索">${UI_ICONS.close}</button>` : ""}
             </label>
-            <div class="studio-summary compact-summary" aria-label="成果统计">
-              <strong>${normalized ? reports.length : activeReports.length}</strong><span>${normalized ? "匹配" : "成果"}</span>
-              <i></i>
-              <strong>${state.groups.length}</strong><span>主题</span>
-              <i></i>
-              <strong>${productionCount}</strong><span>直达</span>
-            </div>
+            ${normalized
+              ? searchDimensionControlsMarkup(allSearchHits, visibleSearchHits.length)
+              : `<div class="studio-summary compact-summary" aria-label="成果统计">
+                  <strong>${activeReports.length}</strong><span>成果</span>
+                  <i></i>
+                  <strong>${state.groups.length}</strong><span>主题</span>
+                  <i></i>
+                  <strong>${productionCount}</strong><span>直达</span>
+                </div>`}
           </div>
         </div>
         <section class="groups-section">
@@ -3457,11 +3491,10 @@ function workbenchMarkup() {
                 <section class="search-results-panel">
                   <header class="search-results-header">
                     <div><span>SEARCH RESULTS</span><h2>“${escapeHtml(query.trim())}”</h2></div>
-                    <strong class="search-results-announcement" role="status" aria-live="polite">匹配到了 ${reports.length} 份</strong>
+                    ${visibleSearchHits.length ? "<p>按最高匹配优先级归类</p>" : ""}
                   </header>
-                  ${searchDimensionControlsMarkup(allSearchHits)}
-                  ${reports.length
-                    ? `<div class="group-cards search-results-cards">${reports.map((report) => cardMarkup(report)).join("")}</div>`
+                  ${visibleSearchHits.length
+                    ? searchPriorityGroupsMarkup(visibleSearchHits)
                     : allSearchHits.length
                       ? `<div class="no-results search-no-results">
                           <strong>当前匹配维度下没有成果</strong>
@@ -3974,14 +4007,14 @@ function bindApp() {
           if (searchDimensionFilters.has(itemId)) searchDimensionFilters.delete(itemId);
           else searchDimensionFilters.add(itemId);
         }
-        renderAtCurrentScroll(() => document.querySelector(".search-dimension-controls"));
+        renderAtCurrentScroll(() => document.querySelector(".search-toolbar-dimensions"));
         requestAnimationFrame(() => {
           document.querySelector(`[data-action="toggle-search-dimension"][data-id="${CSS.escape(itemId)}"]`)
             ?.focus({ preventScroll: true });
         });
       } else if (action === "reset-search-dimensions") {
         searchDimensionFilters.clear();
-        renderAtCurrentScroll(() => document.querySelector(".search-dimension-controls"));
+        renderAtCurrentScroll(() => document.querySelector(".search-toolbar-dimensions"));
         requestAnimationFrame(() => {
           document.querySelector('[data-action="toggle-search-dimension"][data-id="all"]')
             ?.focus({ preventScroll: true });

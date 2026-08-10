@@ -84,10 +84,13 @@ const requiredSignals = [
   [appSource, 'data-action="scroll-top"', "顶部缺少回顶操作"],
   [appSource, "function buildSearchHits(", "缺少独立搜索结果排序"],
   [appSource, 'fetch("./search-index.json"', "搜索未加载 HTML 正文索引"],
-  [appSource, 'class="search-dimension-controls"', "搜索结果缺少匹配维度筛选"],
+  [appSource, 'class="search-toolbar-dimensions"', "搜索框右侧缺少匹配维度筛选"],
   [appSource, 'data-action="toggle-search-dimension"', "搜索匹配维度不可切换"],
   [appSource, "searchDimensionFilters", "搜索匹配维度不支持多选"],
   [appSource, "匹配到了", "搜索结果缺少明确命中数量"],
+  [appSource, "function searchPriorityGroupsMarkup(", "搜索结果没有按匹配优先级分组"],
+  [appSource, 'class="search-priority-group"', "搜索结果缺少优先级区分"],
+  [styleSource, ".results-search .search-clear-button", "搜索清除按钮未统一视觉样式"],
   [appSource, "function bindAppModal()", "弹窗缺少统一无障碍管理"],
   [appSource, "element.inert = true", "弹窗背景没有设置 inert"],
   [appSource, 'event.key === "Escape"', "弹窗缺少 Escape 关闭"],
@@ -257,6 +260,7 @@ for (const removedSignal of [
   "report-search-excerpt",
   "report-match-source",
   "report-index-state",
+  "search-dimension-controls",
 ]) {
   if (appSource.includes(removedSignal) || styleSource.includes(removedSignal)) {
     fail(`旧交互仍有残留：${removedSignal}`);
