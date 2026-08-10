@@ -21,6 +21,7 @@ html {
   background: var(--background);
   /* The app restores a semantic anchor after each render. */
   overflow-anchor: none;
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -7695,6 +7696,7 @@ html {
 
 .search-results-panel {
   min-width: 0;
+  min-height: 100dvh;
   padding: 8px 0 40px;
 }
 
@@ -8878,6 +8880,38 @@ body.studio-modal-open {
   cursor: pointer;
 }
 
+.app-update-notice {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 130;
+  max-width: min(440px, calc(100vw - 32px));
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid rgb(255 255 255 / 24%);
+  border-radius: 14px;
+  background: #202126;
+  padding: 10px 11px 10px 15px;
+  color: #fff;
+  box-shadow: 0 18px 48px rgb(21 22 27 / 24%);
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.app-update-notice button {
+  min-height: 32px;
+  flex: none;
+  border: 0;
+  border-radius: 9px;
+  background: #fff;
+  padding: 0 12px;
+  color: #202126;
+  font: inherit;
+  font-weight: 750;
+  cursor: pointer;
+}
+
 @media (max-width: 680px) {
   .results-toolbar-side.has-search-results {
     grid-template-columns: minmax(0, 1fr);
@@ -8912,6 +8946,13 @@ body.studio-modal-open {
   }
 
   .toast {
+    right: 16px;
+    bottom: 16px;
+    left: 16px;
+    justify-content: space-between;
+  }
+
+  .app-update-notice {
     right: 16px;
     bottom: 16px;
     left: 16px;

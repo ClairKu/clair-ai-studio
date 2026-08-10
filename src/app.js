@@ -27,6 +27,7 @@ const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
 const DATA_VERSION = 41;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
+const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
 
 const WORK_TYPES = [
   { id: "requirement-review", name: "需求评审" },
@@ -1411,6 +1412,9 @@ let searchContentIndex = {};
 let searchIndexPromise = null;
 let searchDimensionFilters = new Set();
 let searchInputCommitTimer = 0;
+let applicationUpdateCheckPromise = null;
+let applicationUpdateLastCheckedAt = 0;
+let applicationUpdateAvailable = false;
 
 function clone(value) {
   return JSON.parse(JSON.stringify(value));
@@ -2407,6 +2411,84 @@ function showUndoToast(message, onUndo) {
   });
 }
 
+function currentApplicationAssetUrl() {
+  const script = document.querySelector('script[type="module"][src*="/assets/index-"]');
+  return script?.src ? new URL(script.src, location.href) : null;
+}
+
+function applicationAssetUrlFromHtml(html) {
+  const documentCopy = new DOMParser().parseFromString(html, "text/html");
+  const script = documentCopy.querySelector('script[type="module"][src*="/assets/index-"]');
+  const source = script?.getAttribute("src") || "";
+  return source ? new URL(source, location.href) : null;
+}
+
+function showApplicationUpdateNotice() {
+  if (document.querySelector(".app-update-notice")) return;
+  const notice = document.createElement("div");
+  notice.className = "app-update-notice";
+  notice.setAttribute("role", "status");
+  const message = document.createElement("span");
+  message.textContent = "Studio 已更新，刷新后使用最新修复";
+  const action = document.createElement("button");
+  action.type = "button";
+  action.textContent = "立即刷新";
+  action.addEventListener("click", () => {
+    const latestUrl = new URL(location.href);
+    latestUrl.searchParams.set("v", Date.now().toString(36));
+    location.replace(latestUrl);
+  });
+  notice.append(message, action);
+  document.body.append(notice);
+}
+
+function checkForApplicationUpdate({ force = false } = {}) {
+  if (applicationUpdateAvailable) {
+    showApplicationUpdateNotice();
+    return Promise.resolve(true);
+  }
+  const currentAsset = currentApplicationAssetUrl();
+  if (!currentAsset) return Promise.resolve(false);
+  const now = Date.now();
+  if (!force && now - applicationUpdateLastCheckedAt < APPLICATION_UPDATE_CHECK_INTERVAL_MS) {
+    return applicationUpdateCheckPromise || Promise.resolve(false);
+  }
+  if (applicationUpdateCheckPromise) return applicationUpdateCheckPromise;
+  applicationUpdateLastCheckedAt = now;
+  const indexUrl = new URL("./", location.href);
+  indexUrl.searchParams.set("studio-update-check", now.toString(36));
+  applicationUpdateCheckPromise = fetch(indexUrl, { cache: "no-store" })
+    .then((response) => response.ok ? response.text() : "")
+    .then((html) => {
+      const latestAsset = applicationAssetUrlFromHtml(html);
+      applicationUpdateAvailable = Boolean(
+        latestAsset && latestAsset.pathname !== currentAsset.pathname,
+      );
+      if (applicationUpdateAvailable) showApplicationUpdateNotice();
+      return applicationUpdateAvailable;
+    })
+    .catch(() => false)
+    .finally(() => {
+      applicationUpdateCheckPromise = null;
+    });
+  return applicationUpdateCheckPromise;
+}
+
+function bindApplicationUpdateChecks() {
+  if (document.documentElement.dataset.studioUpdateBound === "true") return;
+  document.documentElement.dataset.studioUpdateBound = "true";
+  window.addEventListener("focus", () => checkForApplicationUpdate({ force: true }));
+  window.addEventListener("pageshow", () => checkForApplicationUpdate({ force: true }));
+  window.addEventListener("online", () => checkForApplicationUpdate({ force: true }));
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") checkForApplicationUpdate({ force: true });
+  });
+  window.setTimeout(() => checkForApplicationUpdate({ force: true }), 1200);
+  window.setInterval(() => {
+    if (document.visibilityState === "visible") checkForApplicationUpdate();
+  }, APPLICATION_UPDATE_CHECK_INTERVAL_MS);
+}
+
 function focusReturnIdentity(element) {
   const action = element?.closest?.("[data-action]");
   if (!action) return null;
@@ -2661,10 +2743,12 @@ function firstVisibleViewportAnchor() {
 function captureViewportSnapshot(preferredElement = null) {
   cancelControlledScroll();
   const element = preferredElement || firstVisibleViewportAnchor();
+  const identity = viewportAnchorIdentity(element);
+  const anchor = resolveViewportAnchor(identity) || element;
   return {
     scrollY: window.scrollY,
-    identity: viewportAnchorIdentity(element),
-    viewportTop: element?.getBoundingClientRect().top ?? null,
+    identity,
+    viewportTop: anchor?.getBoundingClientRect().top ?? null,
   };
 }
 
@@ -2769,13 +2853,17 @@ function renderSearchResultsInPlace() {
   return true;
 }
 
-function renderSearchAtCurrentScroll() {
-  const scrollY = window.scrollY;
-  if (!renderSearchResultsInPlace()) {
-    renderWithViewportSnapshot({ scrollY });
-    return;
-  }
-  window.scrollTo({ top: scrollY, left: 0, behavior: "auto" });
+function renderWorkbenchWithViewportSnapshot(snapshot) {
+  if (!renderSearchResultsInPlace()) render();
+  restoreViewportSnapshot(snapshot);
+}
+
+function renderSearchAtCurrentScroll(resolvePreferredElement = null) {
+  const preferredElement = typeof resolvePreferredElement === "function"
+    ? resolvePreferredElement()
+    : resolvePreferredElement;
+  const stableElement = preferredElement || document.querySelector(".results-toolbar");
+  renderWorkbenchWithViewportSnapshot(captureViewportSnapshot(stableElement));
 }
 
 ["wheel", "touchstart", "pointerdown"].forEach((eventName) => {
@@ -4111,14 +4199,14 @@ function bindApp() {
           if (searchDimensionFilters.has(itemId)) searchDimensionFilters.delete(itemId);
           else searchDimensionFilters.add(itemId);
         }
-        renderAtCurrentScroll(() => document.querySelector(".search-toolbar-dimensions"));
+        renderSearchAtCurrentScroll(() => document.querySelector(".search-toolbar-dimensions"));
         requestAnimationFrame(() => {
           document.querySelector(`[data-action="toggle-search-dimension"][data-id="${CSS.escape(itemId)}"]`)
             ?.focus({ preventScroll: true });
         });
       } else if (action === "reset-search-dimensions") {
         searchDimensionFilters.clear();
-        renderAtCurrentScroll(() => document.querySelector(".search-toolbar-dimensions"));
+        renderSearchAtCurrentScroll(() => document.querySelector(".search-toolbar-dimensions"));
         requestAnimationFrame(() => {
           document.querySelector('[data-action="toggle-search-dimension"][data-id="all"]')
             ?.focus({ preventScroll: true });
@@ -4129,7 +4217,8 @@ function bindApp() {
         catalogView = itemId;
         movingReportId = "";
         localStorage.setItem(VIEW_KEY, catalogView);
-        renderWithViewportSnapshot(stableScroll);
+        if (normalizeSearchText(query)) renderSearchAtCurrentScroll();
+        else renderWithViewportSnapshot(stableScroll);
         requestAnimationFrame(() => {
           document.querySelector(`[data-action="set-view"][data-id="${CSS.escape(itemId)}"]`)
             ?.focus({ preventScroll: true });
@@ -4137,7 +4226,8 @@ function bindApp() {
       } else if (action === "toggle-time-sort") {
         reportTimeSort = reportTimeSort === "created" ? "modified" : "created";
         localStorage.setItem(TIME_SORT_KEY, reportTimeSort);
-        renderAtCurrentScroll();
+        if (normalizeSearchText(query)) renderSearchAtCurrentScroll();
+        else renderAtCurrentScroll();
       } else if (action === "cancel-move") {
         movingReportId = "";
         renderAtCurrentScroll();
@@ -4204,7 +4294,8 @@ function bindApp() {
         report.pinned = !report.pinned;
         touchReport(report);
         saveState();
-        renderWithViewportSnapshot(snapshot);
+        if (normalizeSearchText(query)) renderWorkbenchWithViewportSnapshot(snapshot);
+        else renderWithViewportSnapshot(snapshot);
         const message = report.pinned ? "已加入精选成果" : "已移出精选成果";
         showUndoToast(message, () => {
           const current = state.reports.find((item) => item.id === itemId);
@@ -4213,7 +4304,11 @@ function bindApp() {
           current.archived = Boolean(beforeReport.archived);
           current.archivedAt = beforeReport.archivedAt || "";
           saveState();
-          renderAtCurrentScroll(() => reportElement(itemId));
+          if (normalizeSearchText(query)) {
+            renderSearchAtCurrentScroll(() => reportElement(itemId));
+          } else {
+            renderAtCurrentScroll(() => reportElement(itemId));
+          }
         });
       } else if (action === "close-modal") {
         closeAppModal();
@@ -4227,7 +4322,8 @@ function bindApp() {
         report.archived = true;
         report.archivedAt = new Date().toISOString();
         saveState();
-        renderWithViewportSnapshot(snapshot);
+        if (normalizeSearchText(query)) renderWorkbenchWithViewportSnapshot(snapshot);
+        else renderWithViewportSnapshot(snapshot);
         showUndoToast("已归档，可随时恢复", () => {
           const current = state.reports.find((item) => item.id === itemId);
           if (!current) return;
@@ -4235,7 +4331,11 @@ function bindApp() {
           current.archived = Boolean(beforeReport.archived);
           current.archivedAt = beforeReport.archivedAt || "";
           saveState();
-          renderAtCurrentScroll(() => reportElement(itemId));
+          if (normalizeSearchText(query)) {
+            renderSearchAtCurrentScroll(() => reportElement(itemId));
+          } else {
+            renderAtCurrentScroll(() => reportElement(itemId));
+          }
         });
       } else if (action === "restore") {
         const report = state.reports.find((item) => item.id === itemId);
@@ -4336,7 +4436,7 @@ function bindApp() {
         const bucketId = link.dataset.navBucketId;
         if (query) {
           query = "";
-          renderAtCurrentScroll();
+          renderSearchAtCurrentScroll();
           scheduleElementAlignment(() => bucketElement(bucketKind, bucketId));
           return;
         }
@@ -4750,6 +4850,7 @@ function bindApp() {
 }
 
 export function renderApp() {
+  bindApplicationUpdateChecks();
   ensureSearchIndex();
   render();
 }
