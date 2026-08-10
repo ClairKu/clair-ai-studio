@@ -42,16 +42,13 @@ function reportContentText(report) {
 function reportSearchFields(report, { group = {}, workTypeName = "" } = {}) {
   return {
     title: normalizeSearchText(report.title),
-    tags: normalizeSearchText((report.tags || []).join(" ")),
-    source: normalizeSearchText(report.source),
-    content: normalizeSearchText(reportContentText(report)),
-    type: normalizeSearchText(workTypeName),
-    topic: normalizeSearchText([group.name, group.description].filter(Boolean).join(" ")),
-    url: normalizeSearchText(report.url),
-    access: normalizeSearchText([
-      report.access,
-      ACCESS_SEARCH_LABELS[report.access],
+    category: normalizeSearchText([
+      workTypeName,
+      group.name,
+      group.description,
     ].filter(Boolean).join(" ")),
+    tags: normalizeSearchText((report.tags || []).join(" ")),
+    content: normalizeSearchText(reportContentText(report)),
   };
 }
 
@@ -77,33 +74,39 @@ export function reportSearchScore(
   if (!tokens.length) return 1;
 
   const fields = reportSearchFields(report, { group, workTypeName });
-  const haystack = normalizeSearchText([
-    report.title,
+  const haystack = Object.values(fields).join(" ");
+
+  let score = 0;
+  if (fields.title === normalizeSearchText(query)) score += 900;
+  else if (fields.title.startsWith(normalizeSearchText(query))) score += 520;
+  for (const token of tokens) {
+    if (!haystack.includes(token)) return 0;
+    if (fields.title === token) score += 420;
+    else if (fields.title.startsWith(token)) score += 340;
+    else if (fields.title.includes(token)) score += 280;
+    if (fields.category === token) score += 220;
+    else if (fields.category.includes(token)) score += 180;
+    if ((report.tags || []).some((tag) => normalizeSearchText(tag) === token)) score += 140;
+    else if (fields.tags.includes(token)) score += 110;
+    if (fields.content.includes(token)) score += 36;
+  }
+  return score;
+}
+
+export function reportArchiveMatchesQuery(
+  report,
+  query,
+  context = {},
+) {
+  const tokens = searchTokens(query);
+  if (!tokens.length) return true;
+  const fields = reportSearchFields(report, context);
+  const archiveHaystack = normalizeSearchText([
+    ...Object.values(fields),
     report.source,
     report.url,
     report.access,
     ACCESS_SEARCH_LABELS[report.access],
-    workTypeName,
-    ...(report.tags || []),
-    group.name,
-    group.description,
-    reportContentText(report),
   ].filter(Boolean).join(" "));
-
-  let score = 0;
-  for (const token of tokens) {
-    if (!haystack.includes(token)) return 0;
-    if (fields.title === token) score += 600;
-    else if (fields.title.startsWith(token)) score += 360;
-    else if (fields.title.includes(token)) score += 280;
-    if ((report.tags || []).some((tag) => normalizeSearchText(tag) === token)) score += 150;
-    else if (fields.tags.includes(token)) score += 110;
-    if (fields.source.includes(token)) score += 75;
-    if (fields.type.includes(token)) score += 60;
-    if (fields.topic.includes(token)) score += 45;
-    if (fields.content.includes(token)) score += 32;
-    if (fields.url.includes(token)) score += 18;
-    if (fields.access.includes(token)) score += 8;
-  }
-  return score;
+  return tokens.every((token) => archiveHaystack.includes(token));
 }

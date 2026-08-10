@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 
 import {
   normalizeSearchText,
+  reportArchiveMatchesQuery,
   reportMatchesQuery,
   reportSearchMatchFields,
   reportSearchScore,
@@ -34,12 +35,11 @@ test("splits multi-keyword queries", () => {
   assert.deepEqual(searchTokens(" OAP   数据 "), ["oap", "数据"]);
 });
 
-test("matches title, tags, source, URL, work type, and topic metadata", () => {
+test("matches title, category, tags, and body content", () => {
   for (const query of [
     "上线以来",
     "经营汇报",
     "AI 开放平台",
-    "oap-trend",
     "数据分析",
     "Agents 治理",
   ]) {
@@ -52,20 +52,30 @@ test("requires every keyword to match", () => {
   assert.equal(reportMatchesQuery(report, "OAP 基金", context), false);
 });
 
-test("supports access-state aliases and blank queries", () => {
-  assert.equal(reportMatchesQuery(report, "生产 直达", context), true);
+test("keeps archive search compatible with source, URL, and access metadata", () => {
+  assert.equal(reportArchiveMatchesQuery(report, "AI 开放平台", context), true);
+  assert.equal(reportArchiveMatchesQuery(report, "oap-trend", context), true);
+  assert.equal(reportArchiveMatchesQuery(report, "生产 直达", context), true);
   assert.equal(reportMatchesQuery(report, "   ", context), true);
 });
 
-test("ranks title matches before tags and body content", () => {
+test("ranks title before category, tags, and body content", () => {
   const titleMatch = { ...report, title: "OAP 产品档案", tags: [], savedContent: "" };
+  const categoryMatch = { ...report, title: "产品档案", tags: [], savedContent: "" };
   const tagMatch = { ...report, title: "产品档案", tags: ["OAP"], savedContent: "" };
   const bodyMatch = { ...report, title: "产品档案", tags: [], savedContent: "正文包含 OAP" };
+  const categoryContext = { group: { name: "OAP 分类" }, workTypeName: "" };
   assert.ok(
-    reportSearchScore(titleMatch, "OAP", context) > reportSearchScore(tagMatch, "OAP", context),
+    reportSearchScore(titleMatch, "OAP", { group: {}, workTypeName: "" })
+      > reportSearchScore(categoryMatch, "OAP", categoryContext),
   );
   assert.ok(
-    reportSearchScore(tagMatch, "OAP", context) > reportSearchScore(bodyMatch, "OAP", context),
+    reportSearchScore(categoryMatch, "OAP", categoryContext)
+      > reportSearchScore(tagMatch, "OAP", { group: {}, workTypeName: "" }),
+  );
+  assert.ok(
+    reportSearchScore(tagMatch, "OAP", { group: {}, workTypeName: "" })
+      > reportSearchScore(bodyMatch, "OAP", { group: {}, workTypeName: "" }),
   );
 });
 
@@ -84,7 +94,7 @@ test("searches saved HTML and uploaded-file excerpts", () => {
   );
 });
 
-test("reports whether a query matched title, body, or tags", () => {
+test("reports whether a query matched title, category, tags, or content", () => {
   const searchable = {
     ...report,
     title: "资产配置工作台",
@@ -92,6 +102,11 @@ test("reports whether a query matched title, body, or tags", () => {
     searchContent: "正文包含客户旅程和持仓诊断",
   };
   assert.deepEqual(reportSearchMatchFields(searchable, "资产配置", context), ["title"]);
+  assert.deepEqual(reportSearchMatchFields(searchable, "Agents", context), ["category"]);
   assert.deepEqual(reportSearchMatchFields(searchable, "投顾服务", context), ["tags"]);
   assert.deepEqual(reportSearchMatchFields(searchable, "持仓诊断", context), ["content"]);
+  assert.deepEqual(
+    reportSearchMatchFields(searchable, "资产配置 投顾服务", context),
+    ["title", "tags"],
+  );
 });

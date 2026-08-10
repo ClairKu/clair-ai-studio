@@ -14,10 +14,9 @@ import { filePresentation } from "./file-types.js";
 import { renderRichFile } from "./file-renderers.js";
 import {
   normalizeSearchText,
-  reportMatchesQuery,
+  reportArchiveMatchesQuery,
   reportSearchMatchFields,
   reportSearchScore,
-  searchTokens,
 } from "./search.js";
 
 const STORAGE_KEY = "clair-service-report-workbench-v1";
@@ -1380,7 +1379,7 @@ let catalogViewportSnapshot = null;
 let modalViewportSnapshot = null;
 let searchContentIndex = {};
 let searchIndexPromise = null;
-let searchIndexReady = false;
+let searchDimensionFilters = new Set();
 
 function clone(value) {
   return JSON.parse(JSON.stringify(value));
@@ -1403,55 +1402,12 @@ function indexedReport(report) {
   };
 }
 
-function reportSearchCoverage(report) {
-  if (["org", "account"].includes(report.access)) return "restricted";
-  if (searchContentIndex[report.id] || searchContentIndex[searchIndexKey(report)]) return "body";
-  if (!report.url) return "metadata";
-  try {
-    const url = new URL(report.url);
-    const isStudioReport = url.hostname.toLowerCase() === "clairku.github.io"
-      && url.pathname.startsWith("/clair-ai-studio/reports/");
-    return isStudioReport ? "metadata" : "external";
-  } catch {
-    return "metadata";
-  }
-}
-
-function searchCoverageSummary(reports) {
-  const coverage = { body: 0, metadata: 0, restricted: 0, external: 0 };
-  reports.forEach((report) => {
-    coverage[reportSearchCoverage(report)] += 1;
-  });
-  return coverage;
-}
-
-const SEARCH_MATCH_LABELS = {
-  title: "标题",
-  tags: "标签",
-  content: "正文",
-  source: "来源",
-  type: "类型",
-  topic: "主题",
-  url: "网址",
-  access: "权限",
-};
-
-const SEARCH_COVERAGE_LABELS = {
-  body: "已索引正文",
-  metadata: "仅标题 / 标签",
-  restricted: "受限不可索引",
-  external: "外部页面不可抓取",
-};
-
-function reportSearchMatches(report, normalizedQuery) {
-  const context = {
-    group: state.groups.find((group) => group.id === report.groupId),
-    workTypeName: workTypeName(report.workType),
-  };
-  return reportSearchMatchFields(indexedReport(report), normalizedQuery, context)
-    .map((field) => SEARCH_MATCH_LABELS[field])
-    .filter(Boolean);
-}
+const SEARCH_DIMENSIONS = [
+  { id: "title", label: "标题" },
+  { id: "category", label: "分类" },
+  { id: "tags", label: "标签" },
+  { id: "content", label: "内容" },
+];
 
 function ensureSearchIndex() {
   if (searchIndexPromise) return searchIndexPromise;
@@ -1459,20 +1415,16 @@ function ensureSearchIndex() {
     .then((response) => response.ok ? response.json() : {})
     .then((index) => {
       searchContentIndex = index && typeof index === "object" ? index : {};
-      searchIndexReady = true;
-      if (!readerId && !archiveView) {
+      if (query && !readerId && !archiveView) {
         const selection = document.getElementById("search-input")?.selectionStart ?? query.length;
         renderAtCurrentScroll(() => document.querySelector(".results-toolbar, .archive-search"));
         const input = document.getElementById("search-input");
-        if (query) {
-          input?.focus({ preventScroll: true });
-          input?.setSelectionRange(selection, selection);
-        }
+        input?.focus({ preventScroll: true });
+        input?.setSelectionRange(selection, selection);
       }
       return searchContentIndex;
     })
     .catch(() => {
-      searchIndexReady = true;
       searchContentIndex = {};
       return searchContentIndex;
     });
@@ -2231,44 +2183,47 @@ function currentBucketLabel() {
 
 function buildSearchHits(reports, normalizedQuery) {
   return reports
-    .map((report) => ({
-      report,
-      score: reportSearchScore(indexedReport(report), normalizedQuery, {
+    .map((report) => {
+      const context = {
         group: state.groups.find((group) => group.id === report.groupId),
         workTypeName: workTypeName(report.workType),
-      }),
-    }))
+      };
+      const searchableReport = indexedReport(report);
+      const dimensions = reportSearchMatchFields(searchableReport, normalizedQuery, context);
+      return {
+        report,
+        dimensions,
+        dimensionRank: Math.min(...dimensions.map((dimension) =>
+          SEARCH_DIMENSIONS.findIndex((item) => item.id === dimension))),
+        score: reportSearchScore(searchableReport, normalizedQuery, context),
+      };
+    })
     .filter((item) => item.score > 0)
     .sort((a, b) =>
+      a.dimensionRank - b.dimensionRank ||
       b.score - a.score ||
       reportModifiedTime(b.report) - reportModifiedTime(a.report) ||
-      String(a.report.title).localeCompare(b.report.title, "zh-CN"))
-    .map((item) => item.report);
+      String(a.report.title).localeCompare(b.report.title, "zh-CN"));
 }
 
-function reportSearchExcerpt(report, normalizedQuery) {
-  const indexedContent = searchContentIndex[report.id] || searchContentIndex[searchIndexKey(report)] || "";
-  const content = [
-    report.source,
-    report.description,
-    report.savedContent,
-    report.savedHtml,
-    ...(report.savedFiles || []).flatMap((file) => [file?.name, file?.excerpt, file?.content]),
-    indexedContent,
-  ].filter(Boolean).join(" · ")
-    .replace(/<style[\s\S]*?<\/style>/gi, " ")
-    .replace(/<script[\s\S]*?<\/script>/gi, " ")
-    .replace(/<[^>]+>/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-  if (!content) return "";
-  const normalizedContent = normalizeSearchText(content);
-  const matchedToken = searchTokens(normalizedQuery).find((token) => normalizedContent.includes(token));
-  if (!matchedToken) return content.slice(0, 96);
-  const index = normalizedContent.indexOf(matchedToken);
-  const start = Math.max(0, index - 34);
-  const end = Math.min(content.length, index + matchedToken.length + 62);
-  return `${start ? "…" : ""}${content.slice(start, end).trim()}${end < content.length ? "…" : ""}`;
+function searchDimensionControlsMarkup(hits) {
+  const countFor = (dimension) => hits.filter((hit) => hit.dimensions.includes(dimension)).length;
+  const option = (id, label, count) => {
+    const selected = id === "all"
+      ? searchDimensionFilters.size === 0
+      : searchDimensionFilters.has(id);
+    const disabled = id !== "all" && count === 0 && !selected;
+    return `<button type="button" data-action="toggle-search-dimension" data-id="${id}"
+      class="${selected ? "active" : ""}" aria-pressed="${selected}"
+      ${disabled ? "disabled" : ""}>${label}<em>${count}</em></button>`;
+  };
+  return `<div class="search-dimension-controls" aria-label="筛选搜索匹配维度">
+    <div class="search-dimension-label"><strong>匹配维度</strong><span>可多选</span></div>
+    <div class="search-dimension-options">
+      ${option("all", "全部", hits.length)}
+      ${SEARCH_DIMENSIONS.map(({ id, label }) => option(id, label, countFor(id))).join("")}
+    </div>
+  </div>`;
 }
 
 function id(prefix) {
@@ -3015,7 +2970,7 @@ function savedFilesReaderMarkup(report) {
   </section>`;
 }
 
-function cardMarkup(report, archivedView = false, options = {}) {
+function cardMarkup(report, archivedView = false) {
   const localSaved = !report.url &&
     (Boolean(report.savedContent) || Boolean((report.savedFiles || []).length));
   const restricted = ["org", "account"].includes(report.access);
@@ -3059,11 +3014,6 @@ function cardMarkup(report, archivedView = false, options = {}) {
         <span class="report-copy">
           <strong>${escapeHtml(report.title)}</strong>
           <span class="report-tags">${contextualTags.map((tag, index) => `<span class="${index < 2 ? "report-context-tag" : ""}">${escapeHtml(tag)}</span>`).join("")}</span>
-          ${options.searchMatches?.length || options.searchCoverage ? `<span class="report-search-meta">
-            ${options.searchMatches?.length ? `<span class="report-match-source">匹配于 ${escapeHtml(options.searchMatches.join(" · "))}</span>` : ""}
-            ${options.searchCoverage ? `<span class="report-index-state">${escapeHtml(options.searchCoverage)}</span>` : ""}
-          </span>` : ""}
-          ${options.searchExcerpt ? `<span class="report-search-excerpt">${escapeHtml(options.searchExcerpt)}</span>` : ""}
           ${restricted ? `<span class="report-access-note">${escapeHtml(accessLabel)}</span>` : ""}
         </span>
       </button>
@@ -3318,7 +3268,7 @@ function studioTopbarMarkup(archiveCount) {
 function archiveMarkup() {
   const archivedReports = state.reports
     .filter((report) => report.archived)
-    .filter((report) => reportMatchesQuery(report, query, {
+    .filter((report) => reportArchiveMatchesQuery(report, query, {
       group: state.groups.find((group) => group.id === report.groupId),
       workTypeName: workTypeName(report.workType),
     }))
@@ -3389,8 +3339,15 @@ function workbenchMarkup() {
   if (archiveView) return archiveMarkup();
   const normalized = normalizeSearchText(query);
   const activeReports = state.reports.filter((report) => !report.archived);
-  const reports = normalized
+  const allSearchHits = normalized
     ? buildSearchHits(activeReports, normalized)
+    : [];
+  const visibleSearchHits = searchDimensionFilters.size
+    ? allSearchHits.filter((hit) => hit.dimensions.some((dimension) =>
+        searchDimensionFilters.has(dimension)))
+    : allSearchHits;
+  const reports = normalized
+    ? visibleSearchHits.map((hit) => hit.report)
     : activeReports;
   const featuredReports = orderReports(
     activeReports.filter((report) => report.pinned),
@@ -3408,7 +3365,6 @@ function workbenchMarkup() {
   const archiveCount = state.reports.filter((report) => report.archived).length;
   const productionCount = activeReports.filter((report) => report.access === "production").length;
   const restrictedCount = activeReports.filter((report) => report.access !== "production").length;
-  const searchCoverage = searchCoverageSummary(activeReports);
   const catalogBuckets = classificationBuckets(activeReports, "");
   const navBuckets = catalogView === "topic" && featuredReports.length
     ? [featuredBucket, ...catalogBuckets]
@@ -3451,15 +3407,6 @@ function workbenchMarkup() {
               <strong>${productionCount}</strong><span>直达</span>
             </div>
           </div>
-        </div>
-        <div class="search-coverage-strip" aria-label="搜索索引覆盖">
-          ${searchIndexReady ? `
-            <span><b>${searchCoverage.body}</b> 已索引正文</span>
-            <span><b>${searchCoverage.metadata}</b> 仅标题 / 标签</span>
-            <span><b>${searchCoverage.restricted}</b> 受限不可索引</span>
-            <span><b>${searchCoverage.external}</b> 外部页面不可抓取</span>
-            <em>索引库 ${Object.keys(searchContentIndex).length} 条 · ${activeReports.length}/${activeReports.length} 份成果的标题与标签可搜索</em>`
-            : "<span>正在载入正文搜索索引…</span>"}
         </div>
         <section class="groups-section">
           ${movingReportId ? `
@@ -3510,19 +3457,22 @@ function workbenchMarkup() {
                 <section class="search-results-panel">
                   <header class="search-results-header">
                     <div><span>SEARCH RESULTS</span><h2>“${escapeHtml(query.trim())}”</h2></div>
-                    <strong class="search-results-announcement" role="status" aria-live="polite">${reports.length} 份匹配</strong>
+                    <strong class="search-results-announcement" role="status" aria-live="polite">匹配到了 ${reports.length} 份</strong>
                   </header>
+                  ${searchDimensionControlsMarkup(allSearchHits)}
                   ${reports.length
-                    ? `<div class="group-cards search-results-cards">${reports.map((report) => cardMarkup(report, false, {
-                        searchMatches: reportSearchMatches(report, normalized),
-                        searchCoverage: SEARCH_COVERAGE_LABELS[reportSearchCoverage(report)],
-                        searchExcerpt: reportSearchExcerpt(report, normalized),
-                      })).join("")}</div>`
-                    : `<div class="no-results search-no-results">
-                        <strong>没有找到“${escapeHtml(query.trim())}”</strong>
-                        <span>可搜索标题、标签、成果正文、来源、任务类型或主题</span>
-                        <button type="button" data-action="clear-search">Clear search</button>
-                      </div>`}
+                    ? `<div class="group-cards search-results-cards">${reports.map((report) => cardMarkup(report)).join("")}</div>`
+                    : allSearchHits.length
+                      ? `<div class="no-results search-no-results">
+                          <strong>当前匹配维度下没有成果</strong>
+                          <span>可增加其他匹配维度，或查看全部搜索结果。</span>
+                          <button type="button" data-action="reset-search-dimensions">查看全部</button>
+                        </div>`
+                      : `<div class="no-results search-no-results">
+                          <strong>没有找到“${escapeHtml(query.trim())}”</strong>
+                          <span>可搜索标题、分类、标签与成果正文</span>
+                          <button type="button" data-action="clear-search">Clear search</button>
+                        </div>`}
                 </section>` : visibleBuckets.map((bucket) => `
                 <section class="group-column topic-section bucket-${escapeHtml(bucket.kind)} accent-${escapeHtml(bucket.accent || "blue")}"
                   data-bucket-kind="${escapeHtml(bucket.kind)}"
@@ -3910,6 +3860,9 @@ function bindApp() {
     if (nextQuery === query) return;
     const selectionStart = input.selectionStart;
     const selectionEnd = input.selectionEnd;
+    if (!normalizeSearchText(query) || !normalizeSearchText(nextQuery)) {
+      searchDimensionFilters.clear();
+    }
     query = nextQuery;
     renderAtCurrentScroll(() => document.querySelector(".results-toolbar, .archive-search"));
     const nextInput = document.getElementById("search-input");
@@ -3933,6 +3886,7 @@ function bindApp() {
     if (event.key !== "Escape" || !query) return;
     event.preventDefault();
     query = "";
+    searchDimensionFilters.clear();
     renderAtCurrentScroll(() => document.querySelector(".results-toolbar, .archive-search"));
     document.getElementById("search-input")?.focus({ preventScroll: true });
   });
@@ -4010,8 +3964,28 @@ function bindApp() {
         catalogViewportSnapshot = null;
       } else if (action === "clear-search") {
         query = "";
+        searchDimensionFilters.clear();
         renderAtCurrentScroll(() => document.querySelector(".results-toolbar, .archive-search"));
         document.getElementById("search-input")?.focus({ preventScroll: true });
+      } else if (action === "toggle-search-dimension") {
+        if (itemId === "all") {
+          searchDimensionFilters.clear();
+        } else if (SEARCH_DIMENSIONS.some((dimension) => dimension.id === itemId)) {
+          if (searchDimensionFilters.has(itemId)) searchDimensionFilters.delete(itemId);
+          else searchDimensionFilters.add(itemId);
+        }
+        renderAtCurrentScroll(() => document.querySelector(".search-dimension-controls"));
+        requestAnimationFrame(() => {
+          document.querySelector(`[data-action="toggle-search-dimension"][data-id="${CSS.escape(itemId)}"]`)
+            ?.focus({ preventScroll: true });
+        });
+      } else if (action === "reset-search-dimensions") {
+        searchDimensionFilters.clear();
+        renderAtCurrentScroll(() => document.querySelector(".search-dimension-controls"));
+        requestAnimationFrame(() => {
+          document.querySelector('[data-action="toggle-search-dimension"][data-id="all"]')
+            ?.focus({ preventScroll: true });
+        });
       } else if (action === "set-view") {
         if (!["topic", "type", "tag", "time"].includes(itemId)) return;
         const stableScroll = { scrollY: window.scrollY, identity: null, viewportTop: null };
@@ -4052,12 +4026,14 @@ function bindApp() {
       } else if (action === "show-archive") {
         archiveView = true;
         query = "";
+        searchDimensionFilters.clear();
         readerId = "";
         render();
         scrollPageTop();
       } else if (action === "show-catalog") {
         archiveView = false;
         query = "";
+        searchDimensionFilters.clear();
         readerId = "";
         render();
         scrollPageTop();
