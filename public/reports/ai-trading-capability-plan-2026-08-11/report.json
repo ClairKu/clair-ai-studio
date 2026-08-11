@@ -1,0 +1,653 @@
+{
+  "meta": {
+    "title": "AI 交易能力规划与项目收口",
+    "subtitle": "先跑通一条受控的最小服务闭环\n再让五条任务共享同一套能力底座",
+    "eyebrow": "Qieman · CAPABILITY ROADMAP",
+    "date": "2026-08-11",
+    "cutoff": "材料截止 2026-08-11 11:17（Asia/Shanghai）",
+    "owner": "Clair × AI 产品协同",
+    "confidentiality": "脱敏公开版 · 不含聊天原图、姓名与内部链接",
+    "accent": "#7457E8",
+    "brand": "Clair AI Studio",
+    "brandMark": "C"
+  },
+  "hero": {
+    "conclusion": "现在应启动的不是更多并行需求，而是一条受控的最小交易服务闭环；先守住现有合规与交易 WIP，再用一条端到端样板串联内容、温度、工具治理和投顾页。",
+    "thesis": "五项任务看似分散，实质分别对应资产、数据、治理、入口与执行。若继续按需求清单推进，会重复建设、争抢研发并留下责任断点；按能力链收口，才能让每个阶段都可验收、可复用、可暂停。",
+    "badges": [
+      "5 条任务",
+      "1 条能力链",
+      "人工确认",
+      "目标态规划"
+    ]
+  },
+  "agenda": {
+    "enabled": true,
+    "label": "AGENDA",
+    "title": "报告大纲",
+    "groups": [
+      {
+        "index": "01",
+        "eyebrow": "DIAGNOSIS · 诊断",
+        "title": "先判断真正的问题",
+        "summary": "旧排期、当前拥堵与任务间依赖",
+        "sections": ["任务信号", "组合判断", "能力蓝图"]
+      },
+      {
+        "index": "02",
+        "eyebrow": "PRIORITY · 优先级",
+        "title": "把并行清单改成能力序列",
+        "summary": "P0、P1、P2 与在途工作保护",
+        "sections": ["优先级", "交易闭环", "内容工作包"]
+      },
+      {
+        "index": "03",
+        "eyebrow": "ENABLEMENT · 支撑",
+        "title": "让数据治理和入口复用",
+        "summary": "市场温度、工具治理与投顾页",
+        "sections": ["市场温度", "工具治理", "投顾页"]
+      },
+      {
+        "index": "04",
+        "eyebrow": "DELIVERY · 交付",
+        "title": "用四周样板验证方向",
+        "summary": "阶段、验收与未决问题",
+        "sections": ["四周路径", "验收门槛", "待确认"]
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "signals",
+      "kicker": "01 · SOURCE SIGNALS",
+      "navLabel": "任务信号",
+      "title": "需求已从排队转向收口",
+      "lead": "7 月底的五项计划仍以单点任务表述；8 月 11 日的新指令已经要求先规划 AI 交易能力，并把市场温度等前置沟通事项前排。",
+      "layout": "cards",
+      "tone": "light",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "CONFIRMED",
+          "title": "旧清单有五项",
+          "body": "陪伴内容、市场温度、工具治理、投顾页、交易执行被分别排期；当时已有八月中和八月底的目标口径。",
+          "meta": "截图含 2026-07-28 时间标记",
+          "status": "confirmed",
+          "source": "用户提供聊天截图 03"
+        },
+        {
+          "index": "02",
+          "eyebrow": "CONFIRMED",
+          "title": "在途任务已拥堵",
+          "body": "合规整改、条件交易、长赢优化等研发与验收工作同时占用资源，旧讨论已明确新需求难以直接插入。",
+          "meta": "截图含 2026-07-28—07-29 时间标记",
+          "status": "confirmed",
+          "source": "用户提供聊天截图 04—05"
+        },
+        {
+          "index": "03",
+          "eyebrow": "CURRENT ASK",
+          "title": "当前要求先做规划",
+          "body": "最新对话要求先完成 AI 交易规划设计，让研发开工；常规优化可以随后排队。",
+          "meta": "2026-08-11 11:02—11:17",
+          "status": "confirmed",
+          "source": "用户提供聊天截图 01"
+        }
+      ],
+      "callout": {
+        "label": "判断",
+        "text": "旧时间点只能作为历史承诺，不能直接当作当前研发计划；重新承诺前必须先做状态和容量核对。",
+        "status": "inferred"
+      }
+    },
+    {
+      "id": "portfolio-diagnosis",
+      "kicker": "02 · PORTFOLIO DIAGNOSIS",
+      "navLabel": "组合判断",
+      "title": "五条任务实为一条能力链",
+      "lead": "任务不是五个彼此独立的项目：它们分别提供知识资产、市场信号、治理门禁、服务入口与真实执行。",
+      "layout": "comparison",
+      "tone": "soft",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "OLD MODEL",
+          "title": "继续按需求排队",
+          "body": "每条需求单独找负责人、接口、模板和验收；前端入口先于服务契约，容易重复取数和重复审核。",
+          "bullets": ["研发被五次切换", "状态不可横向比较", "上线不等于闭环"],
+          "status": "inferred"
+        },
+        {
+          "index": "02",
+          "eyebrow": "RECOMMENDED",
+          "title": "按服务闭环收口",
+          "body": "先定义从意图到结果写回的统一链路，再把内容、温度、工具和页面作为可插拔能力。",
+          "bullets": ["一套上下文契约", "一套合规与人工闸门", "一套可观测与验收口径"],
+          "status": "target"
+        },
+        {
+          "index": "03",
+          "eyebrow": "CONTROL",
+          "title": "不推翻在途工作",
+          "body": "现有合规、条件交易和高优交易问题继续按原线收口；新规划只建立下一个可插拔的共同骨架。",
+          "bullets": ["保护 WIP", "先解决阻断项", "把常规优化留在队列"],
+          "status": "target"
+        }
+      ],
+      "callout": {
+        "label": "组合原则",
+        "text": "优先级应由风险、闭环依赖和复用价值决定，而不是由谁先提出或页面是否更显眼决定。",
+        "status": "inferred"
+      }
+    },
+    {
+      "id": "capability-architecture",
+      "kicker": "03 · TARGET ARCHITECTURE",
+      "navLabel": "能力蓝图",
+      "title": "七层结构承接五类任务",
+      "lead": "所有能力围绕同一份用户上下文、计划对象和审计记录运行；页面只是入口，工具只是动作，人工确认是不可删除的门。",
+      "layout": "architecture",
+      "tone": "dark",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "INTENT",
+          "title": "用户意图与约束",
+          "body": "目标、账户、资金、期限、风险、适当性、持仓与授权。",
+          "status": "target"
+        },
+        {
+          "index": "02",
+          "eyebrow": "PLAN",
+          "title": "计划与解释",
+          "body": "把建议拆成可验证步骤，解释依据、影响、替代方案和不可执行原因。",
+          "status": "target"
+        },
+        {
+          "index": "03",
+          "eyebrow": "SIGNAL",
+          "title": "市场与策略信号",
+          "body": "市场温度、策略知识、基金事实与主理人判断以明确口径进入。",
+          "status": "target"
+        },
+        {
+          "index": "04",
+          "eyebrow": "GOVERN",
+          "title": "治理与预检",
+          "body": "适当性、集中度、额度、可交易性、合规与工具风险分级。",
+          "status": "target"
+        },
+        {
+          "index": "05",
+          "eyebrow": "CONFIRM",
+          "title": "人工确认",
+          "body": "真实交易前展示最终指令、费用、风险和撤销条件，由用户显式确认。",
+          "status": "target"
+        },
+        {
+          "index": "06",
+          "eyebrow": "EXECUTE",
+          "title": "执行与幂等",
+          "body": "支持试算、沙箱、正式执行、去重、超时恢复和结果对账。",
+          "status": "target"
+        },
+        {
+          "index": "07",
+          "eyebrow": "WRITEBACK",
+          "title": "结果写回与陪伴",
+          "body": "更新计划、账户与任务状态，并生成后续提醒、解释和陪伴内容。",
+          "status": "target"
+        }
+      ],
+      "callout": {
+        "label": "边界",
+        "text": "这是一套目标态能力蓝图，不代表相关接口、Skill 或真实交易权限已经可用。",
+        "status": "target"
+      }
+    },
+    {
+      "id": "priority-stack",
+      "kicker": "04 · PRIORITY STACK",
+      "navLabel": "优先级",
+      "title": "先闭环再扩面",
+      "lead": "把在途工作与新增规划分成三层，避免“规划完成”再次演变成多个同时开工的需求。",
+      "layout": "actions",
+      "tone": "light",
+      "items": [
+        {
+          "index": "P0",
+          "eyebrow": "NOW · 守住基线",
+          "title": "收口在途与画主链",
+          "body": "合规、交易安全、高优故障继续收口；同时完成统一对象、状态机、人工门和一条沙箱纵切。",
+          "meta": "目标窗口：第 0—2 周｜责任：待确认",
+          "bullets": ["不新增大页面", "不直接放开真实交易", "先证明端到端可观测"],
+          "status": "target"
+        },
+        {
+          "index": "P1",
+          "eyebrow": "NEXT · 验证复用",
+          "title": "三个低耦合样板",
+          "body": "陪伴工作包先做一策略两模板；市场温度先做只读适配；工具治理先定分级和上线门。",
+          "meta": "目标窗口：第 2—4 周｜责任：待确认",
+          "bullets": ["可独立验收", "共用一套契约", "失败不拖垮主链"],
+          "status": "target"
+        },
+        {
+          "index": "P2",
+          "eyebrow": "LATER · 再扩入口",
+          "title": "投顾页与常规优化",
+          "body": "等服务编排契约稳定后再升级投顾页；非阻断的长赢与业务体验优化回到队列按收益排序。",
+          "meta": "目标窗口：样板复盘后｜责任：待确认",
+          "bullets": ["页面消费能力而非定义能力", "避免二次返工", "按真实使用数据扩面"],
+          "status": "target"
+        }
+      ],
+      "callout": {
+        "label": "停止规则",
+        "text": "若 P0 连统一对象、人工确认和结果写回都未跑通，不应同时启动更多执行型场景。",
+        "status": "target"
+      }
+    },
+    {
+      "id": "transaction-loop",
+      "kicker": "05 · MINIMUM LOOP",
+      "navLabel": "交易闭环",
+      "title": "先跑一条可撤回纵切",
+      "lead": "第一版的价值不是覆盖所有交易，而是证明规划、预检、确认、执行和写回之间没有责任断点。",
+      "layout": "process",
+      "tone": "soft",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "CAPTURE",
+          "title": "确认意图",
+          "body": "结构化目标、金额、账户、期限与禁止条件；信息不足则暂停追问。",
+          "status": "target"
+        },
+        {
+          "index": "02",
+          "eyebrow": "PLAN",
+          "title": "生成可执行计划",
+          "body": "输出动作、依据、影响、替代方案和所需工具，不把建议直接等同于订单。",
+          "status": "target"
+        },
+        {
+          "index": "03",
+          "eyebrow": "PREFLIGHT",
+          "title": "完成交易预检",
+          "body": "校验适当性、集中度、额度、交易状态、费用与重复提交风险。",
+          "status": "target"
+        },
+        {
+          "index": "04",
+          "eyebrow": "CONFIRM",
+          "title": "用户最终确认",
+          "body": "用稳定格式展示最终动作和风险；确认必须对应当次不可变指令。",
+          "status": "target"
+        },
+        {
+          "index": "05",
+          "eyebrow": "EXECUTE",
+          "title": "沙箱执行",
+          "body": "先接试算或模拟订单，验证幂等键、超时、失败恢复和审计日志。",
+          "status": "target"
+        },
+        {
+          "index": "06",
+          "eyebrow": "WRITEBACK",
+          "title": "写回与解释",
+          "body": "回写成功、失败、部分完成或待处理状态，并生成下一步任务。",
+          "status": "target"
+        }
+      ],
+      "callout": {
+        "label": "验证对象",
+        "text": "现有规划 MCP/Skill 与第三方下单 Skill 只能先作为候选样板；授权、沙箱、幂等和真实可调用性均待核实。",
+        "status": "missing"
+      }
+    },
+    {
+      "id": "content-kit",
+      "kicker": "06 · CONTENT PACKAGE",
+      "navLabel": "内容工作包",
+      "title": "工作包先做小样板",
+      "lead": "飞书原始方案已明确：陪伴内容不是单一写作 Skill，而是编排规则、能力、模板、策略资产、口吻资产与人工闸门的组合。",
+      "layout": "architecture",
+      "tone": "light",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "RECIPE",
+          "title": "内容路径",
+          "body": "先只选碎碎念与周观点两种，分别约定输入、必填字段、取数与输出模板。",
+          "status": "target"
+        },
+        {
+          "index": "02",
+          "eyebrow": "STRATEGY",
+          "title": "策略资产",
+          "body": "策略理念、配置逻辑和禁区作为本地可维护资产，不灌入公共远端能力。",
+          "status": "confirmed",
+          "source": "内部 Wiki《内容生产工作包构思》revision 258"
+        },
+        {
+          "index": "03",
+          "eyebrow": "VOICE",
+          "title": "主理人口吻",
+          "body": "由样章提炼表达和判断习惯；缺关键判断时停下来问人，不能由通用 AI 补满。",
+          "status": "confirmed",
+          "source": "内部 Wiki《内容生产工作包构思》revision 258"
+        },
+        {
+          "index": "04",
+          "eyebrow": "GATE",
+          "title": "合规与发布门",
+          "body": "基础初检可自动化，投资判断与发布前终审保留人工责任。",
+          "status": "confirmed",
+          "source": "内部 Wiki《内容生产工作包构思》revision 258"
+        }
+      ],
+      "callout": {
+        "label": "试点范围",
+        "text": "一条策略、一个主理人、两类内容、三次真实使用后复盘；不要一开始收全公司模板。",
+        "status": "target"
+      }
+    },
+    {
+      "id": "market-temperature",
+      "kicker": "07 · SIGNAL ADAPTER",
+      "navLabel": "市场温度",
+      "title": "市场温度先做只读适配",
+      "lead": "它的优先级来自复用价值与现有替换需求，不应直接承担交易决策；第一阶段只做来源、口径和降级。",
+      "layout": "cards",
+      "tone": "soft",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "CONTRACT",
+          "title": "统一输出契约",
+          "body": "输出温度值、区间解释、时间戳、数据来源、覆盖市场、置信与失效条件。",
+          "status": "target"
+        },
+        {
+          "index": "02",
+          "eyebrow": "ADAPTER",
+          "title": "替换而非绑定",
+          "body": "上层只依赖统一契约；研究院工具作为适配器接入，未来可平滑切换来源。",
+          "status": "target"
+        },
+        {
+          "index": "03",
+          "eyebrow": "BOUNDARY",
+          "title": "只做信息信号",
+          "body": "温度可影响解释与提醒，但不能单独触发交易，也不能替代适当性和组合约束。",
+          "status": "target"
+        }
+      ],
+      "callout": {
+        "label": "缺口",
+        "text": "接口字段、刷新频率、历史可回放性、授权边界和当前替换对象尚未提供。",
+        "status": "missing"
+      }
+    },
+    {
+      "id": "tool-governance",
+      "kicker": "08 · TOOL GOVERNANCE",
+      "navLabel": "工具治理",
+      "title": "治理标准必须先于扩量",
+      "lead": "目标不是给业务设更长审批，而是把不同风险工具分级：读信息、产内容、改计划、发交易不能走同一条上线门。",
+      "layout": "process",
+      "tone": "dark",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "INTAKE",
+          "title": "登记能力",
+          "body": "明确用途、输入输出、数据来源、责任方、用户范围和禁止场景。",
+          "status": "target"
+        },
+        {
+          "index": "02",
+          "eyebrow": "TIER",
+          "title": "按风险分级",
+          "body": "L1 只读、L2 生成、L3 改状态、L4 交易；等级越高，门禁与审计越强。",
+          "status": "target"
+        },
+        {
+          "index": "03",
+          "eyebrow": "EVIDENCE",
+          "title": "提交验收证据",
+          "body": "包含测试样例、失败模式、权限、回滚、监控、合规确认与变更记录。",
+          "status": "target"
+        },
+        {
+          "index": "04",
+          "eyebrow": "PUBLISH",
+          "title": "受控发布",
+          "body": "低风险自助，高风险人工审批；所有能力有版本、灰度、停用和责任追踪。",
+          "status": "target"
+        }
+      ],
+      "callout": {
+        "label": "第一版交付",
+        "text": "本周只需要一页分级规则、一份提交清单和一个样板能力；无需先建设完整治理平台。",
+        "status": "target"
+      }
+    },
+    {
+      "id": "advisor-page",
+      "kicker": "09 · SERVICE SURFACE",
+      "navLabel": "投顾页",
+      "title": "页面应消费服务契约",
+      "lead": "投顾页升级的产品构思可以继续，但研发开工要等计划、任务和结果对象稳定，否则页面会反向固化旧流程。",
+      "layout": "comparison",
+      "tone": "light",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "NOW",
+          "title": "先做信息架构",
+          "body": "定义计划、建议、待确认、执行中、异常、结果与陪伴内容在页面中的位置。",
+          "status": "target"
+        },
+        {
+          "index": "02",
+          "eyebrow": "AFTER CONTRACT",
+          "title": "再接真实状态",
+          "body": "页面读取统一任务状态，不自行推断订单成功，不在多个入口重复实现确认逻辑。",
+          "status": "target"
+        },
+        {
+          "index": "03",
+          "eyebrow": "LATER",
+          "title": "最后扩展编排",
+          "body": "样板闭环稳定后，再把温度、内容、提醒和交易能力组合成连续服务体验。",
+          "status": "target"
+        }
+      ],
+      "callout": {
+        "label": "排期条件",
+        "text": "投顾页进入研发的前置条件是统一对象、状态机、确认门和异常回写通过端到端验收。",
+        "status": "target"
+      }
+    },
+    {
+      "id": "four-week-path",
+      "kicker": "10 · FOUR WEEK PATH",
+      "navLabel": "四周路径",
+      "title": "四周只验证一条主链",
+      "lead": "时间窗口是建议目标，不是已承诺排期；每阶段结束都必须有可演示、可否决的证据。",
+      "layout": "timeline",
+      "tone": "soft",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "DAY 0—3",
+          "title": "状态与契约核对",
+          "body": "盘点在途工作、候选工具、权限与依赖；冻结统一对象、状态机、风险等级和样板场景。",
+          "meta": "出口：决策记录 + 接口草案 + WIP 清单",
+          "status": "target"
+        },
+        {
+          "index": "02",
+          "eyebrow": "WEEK 1",
+          "title": "跑通无交易闭环",
+          "body": "完成意图、计划、预检、确认和模拟结果写回；所有失败可解释、可重试、可审计。",
+          "meta": "出口：端到端 Demo + 失败用例",
+          "status": "target"
+        },
+        {
+          "index": "03",
+          "eyebrow": "WEEK 2",
+          "title": "接一个执行沙箱",
+          "body": "接入一个可控执行候选，验证幂等、超时、部分成功、重复确认和撤销边界。",
+          "meta": "出口：沙箱验收 + 风险评审",
+          "status": "target"
+        },
+        {
+          "index": "04",
+          "eyebrow": "WEEK 3—4",
+          "title": "并行三个支撑样板",
+          "body": "交付内容工作包小样、市场温度适配器和工具治理样板；以复用率和人工改动量复盘。",
+          "meta": "出口：Go / Pivot / Stop 决策",
+          "status": "target"
+        }
+      ],
+      "callout": {
+        "label": "不做清单",
+        "text": "四周内不同时覆盖多账户、多交易品类、全量模板、完整投顾页重构和真实无人值守交易。",
+        "status": "target"
+      }
+    },
+    {
+      "id": "acceptance-gates",
+      "kicker": "11 · ACCEPTANCE GATES",
+      "navLabel": "验收门槛",
+      "title": "用闭环证据代替已上线",
+      "lead": "每个样板必须回答“谁输入、系统做什么、谁确认、失败怎么办、结果写到哪”；缺一项就不能算走通。",
+      "layout": "actions",
+      "tone": "light",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "FUNCTION",
+          "title": "端到端可证明",
+          "body": "同一 trace 可串起意图、计划、工具调用、人工确认、模拟执行与结果写回。",
+          "meta": "责任：研发 / 产品待确认",
+          "status": "target"
+        },
+        {
+          "index": "02",
+          "eyebrow": "RISK",
+          "title": "失败可控",
+          "body": "覆盖权限不足、数据过期、重复提交、超时、部分成功、合规阻断与人工拒绝。",
+          "meta": "责任：合规 / 研发待确认",
+          "status": "target"
+        },
+        {
+          "index": "03",
+          "eyebrow": "VALUE",
+          "title": "人工成本下降",
+          "body": "记录生成时间、人工改动轮次、被阻断原因、复用次数和最终采用率，不先设无来源增长数字。",
+          "meta": "责任：业务 / 数据待确认",
+          "status": "target"
+        }
+      ],
+      "callout": {
+        "label": "真实交易门",
+        "text": "只有安全、合规、幂等、审计和用户确认全部通过，且责任人明确后，才讨论从沙箱进入小流量真实交易。",
+        "status": "target"
+      }
+    },
+    {
+      "id": "open-decisions",
+      "kicker": "12 · OPEN DECISIONS",
+      "navLabel": "待确认",
+      "title": "开工前只需定五件事",
+      "lead": "这些缺口会改变排期或风险边界，不能由聊天记录或方案作者代替责任方确认。",
+      "layout": "evidence",
+      "tone": "soft",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "WIP",
+          "title": "当前容量与阻断",
+          "body": "核实现有合规、条件交易、长赢与验收任务的真实状态、剩余工期和可释放资源。",
+          "status": "missing",
+          "source": "聊天截图只反映历史讨论，未提供 2026-08-11 最新任务板"
+        },
+        {
+          "index": "02",
+          "eyebrow": "TOOLS",
+          "title": "候选工具是否可用",
+          "body": "确认规划与下单能力的安装、授权、沙箱、幂等、限额、审计和失败回传。",
+          "status": "missing",
+          "source": "聊天截图提及使用案例，未提供可调用验证"
+        },
+        {
+          "index": "03",
+          "eyebrow": "OWNERS",
+          "title": "谁对每道门负责",
+          "body": "产品、研发、投研、内容、合规与业务分别确认输入、审批、验收和升级责任。",
+          "status": "missing",
+          "source": "现有材料未形成责任矩阵"
+        },
+        {
+          "index": "04",
+          "eyebrow": "SCOPE",
+          "title": "首个样板选什么",
+          "body": "只选一个策略、一个账户形态、一个模拟执行动作和两类内容，避免样板本身变成大项目。",
+          "status": "missing",
+          "source": "需要业务与研发共同决策"
+        },
+        {
+          "index": "05",
+          "eyebrow": "BOUNDARY",
+          "title": "公开与内部边界",
+          "body": "原始聊天、姓名、内部链接、策略细节、权限和真实订单信息不进入公开站点。",
+          "status": "confirmed",
+          "source": "本报告发布前的脱敏规则"
+        }
+      ],
+      "callout": {
+        "label": "建议会议",
+        "text": "用 45 分钟完成一次 Decision Review：15 分钟状态核对，15 分钟样板选择，15 分钟责任与门禁确认。",
+        "status": "target"
+      }
+    }
+  ],
+  "closing": {
+    "mark": "CLAIR · CAPABILITY ROADMAP",
+    "line1": "先让一条链路闭环，",
+    "line2": "再让需求沉淀为",
+    "accent": "能力",
+    "lead": "这份规划不替代真实排期；它把五项任务从并行争抢，改造成有前置条件、有人工责任、有退出规则的能力演进。",
+    "metaPrimary": "Clair × AI 产品协同 · 2026-08-11",
+    "metaSecondary": "材料截止 11:17 · 目标态不代表已上线"
+  },
+  "sources": [
+    {
+      "label": "用户提供聊天截图 01",
+      "detail": "2026-08-11 11:02—11:17｜当前 AI 交易规划要求、在途任务与优先级冲突"
+    },
+    {
+      "label": "用户提供聊天截图 02",
+      "detail": "2026-08-11 获取｜陪伴内容工作包说明、模板确认与渐进个性化原则"
+    },
+    {
+      "label": "用户提供聊天截图 03—05",
+      "detail": "对话内含 2026-07-28—07-29 时间标记｜五项旧计划、资源拥堵、模板和责任讨论"
+    },
+    {
+      "label": "内部 Wiki《内容生产工作包构思》",
+      "detail": "revision 258｜更新时间 2026-08-10｜已读取正文与三个嵌入表格；公开版未保留 URL、token 或原图"
+    }
+  ],
+  "openQuestions": [
+    "在途任务截至 2026-08-11 的真实进度、依赖与可释放研发容量待确认。",
+    "规划与下单候选能力的安装、授权、沙箱、幂等、审计和真实调用状态待验证。",
+    "市场温度的接口、口径、更新频率、授权和替换对象待确认。",
+    "首个样板的策略、账户形态、执行动作、主理人与验收责任人待确认。",
+    "本报告为脱敏公开版；内部原始截图与链接仅保存在本地研究材料中。"
+  ]
+}

@@ -25,7 +25,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 41;
+const DATA_VERSION = 42;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -132,6 +132,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "ai-trading-capability-plan-2026-08-11",
+      groupId: "xiaogu",
+      title: "AI 交易能力规划｜从五条任务收口为一条服务闭环",
+      url: "https://clairku.github.io/clair-ai-studio/reports/ai-trading-capability-plan-2026-08-11/",
+      preview: "ai-trading-capability-plan-2026-08-11.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-11T11:17:00.000+08:00",
+      source: "5 张内部协同截图 × 内容生产工作包 Wiki revision 258｜脱敏公开版：P0 沙箱纵切、P1 三个支撑样板、P2 服务入口扩展",
+      access: "production",
+      workType: "product-planning",
+      tags: ["且慢", "AI 小顾", "投顾服务", "AI 交易", "产品规划", "市场温度", "Skills", "工具治理", "CLAIR", "HTML", "脱敏", "生产"],
+    },
     {
       id: "auto-follow-requirement-review-2026-08-10",
       groupId: "product-planning",
