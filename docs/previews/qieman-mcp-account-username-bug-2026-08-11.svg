@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">且慢 MCP 个人中心用户名异常 BUG 与修复前置准备</title>
+  <desc id="desc">深蓝色报告封面，展示四位受影响用户、百分之零点零四三影响比例、P2 缺陷等级和红色交付风险。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0f172a"/><stop offset=".66" stop-color="#17264d"/><stop offset="1" stop-color="#18305d"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8fb3ff"/><stop offset="1" stop-color="#7357d9"/></linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="18" stdDeviation="28" flood-color="#050914" flood-opacity=".32"/></filter>
+  </defs>
+  <rect width="1600" height="1000" rx="42" fill="url(#bg)"/>
+  <circle cx="1460" cy="120" r="330" fill="none" stroke="#fff" stroke-opacity=".07" stroke-width="2"/>
+  <circle cx="1460" cy="120" r="430" fill="none" stroke="#fff" stroke-opacity=".035" stroke-width="80"/>
+  <text x="90" y="102" fill="#90b2ff" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="24" font-weight="800" letter-spacing="4">QIEMAN MCP · BUG PREFLIGHT · 2026-08-11</text>
+  <text x="90" y="230" fill="#fff" font-family="'Songti SC',STSong,serif" font-size="82" font-weight="700">用户名异常不是文案问题</text>
+  <text x="90" y="330" fill="url(#accent)" font-family="'Songti SC',STSong,serif" font-size="82" font-weight="700">是脏数据被忠实展示</text>
+  <text x="90" y="400" fill="#bac6da" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="28">停止 CLI 写脏 · 加固 STARGATE 守门 · 修复存量 · 前端兜底</text>
+  <g transform="translate(90 500)" filter="url(#shadow)">
+    <g><rect width="310" height="205" rx="26" fill="#fff" fill-opacity=".075" stroke="#fff" stroke-opacity=".12"/><text x="28" y="48" fill="#b4c0d5" font-size="22" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif">命中用户</text><text x="28" y="133" fill="#ff8f8f" font-size="78" font-weight="700" font-family="'Songti SC',STSong,serif">4</text><text x="28" y="172" fill="#97a5bc" font-size="18" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif">4 条记录 / 4 位用户</text></g>
+    <g transform="translate(335)"><rect width="310" height="205" rx="26" fill="#fff" fill-opacity=".075" stroke="#fff" stroke-opacity=".12"/><text x="28" y="48" fill="#b4c0d5" font-size="22" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif">影响比例</text><text x="28" y="133" fill="#ff8f8f" font-size="70" font-weight="700" font-family="'Songti SC',STSong,serif">0.043%</text><text x="28" y="172" fill="#97a5bc" font-size="18" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif">4 / 9,379 approved users</text></g>
+    <g transform="translate(670)"><rect width="310" height="205" rx="26" fill="#fff" fill-opacity=".075" stroke="#fff" stroke-opacity=".12"/><text x="28" y="48" fill="#b4c0d5" font-size="22" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif">BUG 严重度</text><text x="28" y="133" fill="#8fb3ff" font-size="78" font-weight="700" font-family="'Songti SC',STSong,serif">P2</text><text x="28" y="172" fill="#97a5bc" font-size="18" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif">低覆盖 · 高信任影响</text></g>
+    <g transform="translate(1005)"><rect width="310" height="205" rx="26" fill="#fff" fill-opacity=".075" stroke="#fff" stroke-opacity=".12"/><text x="28" y="48" fill="#b4c0d5" font-size="22" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif">交付风险</text><text x="28" y="133" fill="#ffb46e" font-size="67" font-weight="700" font-family="'Songti SC',STSong,serif">RED</text><text x="28" y="172" fill="#97a5bc" font-size="18" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif">账号 · 接口 · 数据库</text></g>
+  </g>
+  <g transform="translate(90 805)"><rect width="1315" height="88" rx="20" fill="#8fb3ff" fill-opacity=".11" stroke="#8fb3ff" stroke-opacity=".25"/><text x="28" y="38" fill="#dfe8fb" font-size="24" font-weight="700" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif">准备包已就绪，执行门禁未打开</text><text x="28" y="68" fill="#9facbf" font-size="18" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif">待定位 CLI 源仓库 · 待开通 STARGATE 权限 · 待研发 / QA / DBA 评审</text></g>
+  <text x="90" y="952" fill="#79869b" font-size="18" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif">脱敏公开版 · 无 PII / API Key / 生产明细 / 更新语句</text>
+</svg>

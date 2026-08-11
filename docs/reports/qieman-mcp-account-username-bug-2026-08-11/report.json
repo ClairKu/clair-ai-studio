@@ -1,0 +1,19 @@
+{
+  "title": "且慢 MCP 个人中心用户名异常｜BUG 与修复前置准备",
+  "date": "2026-08-11",
+  "classification": "脱敏公开版",
+  "status": "read-only-preflight",
+  "headline": "4 位生产用户命中，占已批准申请用户约 0.043%；异常写入链路仍在活动。",
+  "confirmed": [
+    "申请记录 name 字段为占位符且前端优先展示该字段",
+    "4 条记录对应 4 位去重用户",
+    "调用链为 albus、pmdj-service、STARGATE 和申请数据层"
+  ],
+  "inferred": [
+    "某个 CLI 或自动化客户端提交占位符，后端缺少语义校验"
+  ],
+  "missing": [
+    "具体 CLI 仓库与版本",
+    "STARGATE 当前代码实现与执行负责人"
+  ]
+}

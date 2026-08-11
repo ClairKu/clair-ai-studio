@@ -133,6 +133,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "qieman-mcp-account-username-bug-2026-08-11",
+      groupId: "ai-platform",
+      title: "且慢 MCP 个人中心用户名异常｜BUG 与修复前置准备",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-mcp-account-username-bug-2026-08-11/",
+      preview: "qieman-mcp-account-username-bug-2026-08-11.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-11T15:55:00.000+08:00",
+      source: "实践文档 × 线上复现 × 当前主干 × 本体生产聚合｜4 位用户、0.043%；脱敏公开版不含 PII、API Key、生产明细或更新语句",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["且慢", "MCP", "BUG", "STARGATE", "本体", "根因分析", "数据质量", "修复准备", "HTML", "脱敏", "生产"],
+    },
+    {
       id: "ai-trading-capability-plan-2026-08-11",
       groupId: "xiaogu",
       title: "AI 交易能力规划｜从五条任务收口为一条服务闭环",
