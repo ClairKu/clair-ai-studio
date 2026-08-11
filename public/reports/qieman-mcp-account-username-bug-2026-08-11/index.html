@@ -53,10 +53,10 @@
     <section class="section soft" id="impact">
       <div class="wrap">
         <header class="section-head"><div><div class="kicker">02 · PRODUCTION IMPACT</div><h2>影响面很小，但写入链路仍在活动</h2></div><p class="lead">统计于 2026-08-11 15:28—15:32（北京时间），按生产已批准申请的 user_id 去重；不是网站 UV、注册用户或调用用户。</p></header>
-        <div class="metrics"><article class="metric warning"><span>命中用户</span><strong>4</strong><small>4 条记录 / 4 位去重用户</small></article><article class="metric"><span>批准申请用户</span><strong>9,379</strong><small>生产 approved 去重分母</small></article><article class="metric warning"><span>影响比例</span><strong>0.043%</strong><small>4 ÷ 9,379，独立复算</small></article><article class="metric warning"><span>最近写入</span><strong>8·10</strong><small>06:31 北京时间，仍在新增</small></article></div>
+        <div class="metrics"><article class="metric warning"><span>命中用户</span><strong>4</strong><small>4 条记录 / 4 位去重用户</small></article><article class="metric"><span>批准申请用户</span><strong>9,379</strong><small>生产 approved 去重分母</small></article><article class="metric warning"><span>影响比例</span><strong>0.043%</strong><small>4 ÷ 9,379，独立复算</small></article><article class="metric warning"><span>最近写入</span><strong>8·09</strong><small>22:31 北京时间，仍在新增</small></article></div>
         <div class="impact-grid" style="margin-top:20px">
           <article class="impact-card"><div class="ratio"><div class="ratio-copy"><b>4</b><span>of 9,379 users</span></div></div><p>低覆盖不等于低信任风险。账号中心出现技术占位符，会让用户怀疑资料串号、测试数据泄露或账号异常。</p></article>
-          <article class="evidence-card"><div class="evidence-list"><div class="evidence-row"><b>精确命中</b><span>4 条，名称完全一致</span><i class="status confirmed">已确认</i></div><div class="evidence-row"><b>相似扫描</b><span>%CLI% 4；%占位符% 4；英文 placeholder 0</span><i class="status confirmed">已确认</i></div><div class="evidence-row"><b>记录状态</b><span>4 条均为 approved，平台类型均为 0008</span><i class="status confirmed">已确认</i></div><div class="evidence-row"><b>最早出现</b><span>2026-03-18 11:32:53（北京时间）</span><i class="status confirmed">已确认</i></div><div class="evidence-row"><b>字段扩散</b><span>姓名、组织、职位同值，并生成 user_org_cli 字典项</span><i class="status confirmed">已确认</i></div></div></article>
+          <article class="evidence-card"><div class="evidence-list"><div class="evidence-row"><b>精确命中</b><span>4 条，名称完全一致</span><i class="status confirmed">已确认</i></div><div class="evidence-row"><b>相似扫描</b><span>%CLI% 4；%占位符% 4；英文 placeholder 0</span><i class="status confirmed">已确认</i></div><div class="evidence-row"><b>记录状态</b><span>4 条均为 approved，平台类型均为 0008</span><i class="status confirmed">已确认</i></div><div class="evidence-row"><b>最早字段值</b><span>2026-03-18 03:32:53（北京时间）</span><i class="status confirmed">已确认</i></div><div class="evidence-row"><b>字段扩散</b><span>姓名、组织、职位同值，并生成 user_org_cli 字典项</span><i class="status confirmed">已确认</i></div></div></article>
         </div>
       </div>
     </section>
@@ -71,7 +71,7 @@
     </section>
 
     <section class="section" aria-labelledby="timeline-title">
-      <div class="wrap"><header class="section-head"><div><div class="kicker">04 · EVIDENCE TIMELINE</div><h2 id="timeline-title">四个时间点锁定问题演化</h2></div><p class="lead">时间线说明这是存量数据被新页面暴露，同时仍有新的异常写入，不是一次性的历史残留。</p></header><div class="timeline"><article class="time-item"><time>2026-03-18</time><h3>首条脏数据</h3><p>申请姓名已被写成占位符。</p></article><article class="time-item"><time>2026-03-31—04-03</time><h3>页面显示上线</h3><p>账号卡统一采用申请姓名优先规则。</p></article><article class="time-item"><time>2026-08-10</time><h3>最近仍在新增</h3><p>06:31 新申请再次写入同一占位符。</p></article><article class="time-item"><time>2026-08-11</time><h3>影响核实</h3><p>本体只读统计确认 4 位用户、0.043%。</p></article></div></div>
+      <div class="wrap"><header class="section-head"><div><div class="kicker">04 · EVIDENCE TIMELINE</div><h2 id="timeline-title">四个时间点锁定问题演化</h2></div><p class="lead">时间线说明这是存量数据被新页面暴露，同时仍有新的异常写入，不是一次性的历史残留。</p></header><div class="timeline"><article class="time-item"><time>2026-03-18</time><h3>首条脏数据</h3><p>申请姓名已被写成占位符；历史 created_at 疑似少记 8 小时。</p></article><article class="time-item"><time>2026-03-31—04-03</time><h3>页面显示上线</h3><p>账号卡统一采用申请姓名优先规则。</p></article><article class="time-item"><time>2026-08-09</time><h3>最近仍在新增</h3><p>22:31 新申请再次写入同一占位符。</p></article><article class="time-item"><time>2026-08-11</time><h3>影响核实</h3><p>本体只读统计确认 4 位用户、0.043%。</p></article></div></div>
     </section>
 
     <section class="section soft" id="services">
