@@ -1,0 +1,51 @@
+window.DEMAND_PULSE_DATA = {
+  "meta": {
+    "cutoff": "2026-08-11T18:40:00+08:00",
+    "last_change_at": "2026-08-11T16:08:13+08:00",
+    "headline": "累计确认 2 个用户体验痛点进入交付链路：1 项已合并主干，1 项已合入测试并完成复验；生产上线与用户效果仍待确认。",
+    "source_note": "本体核对 Wiki、Jira 与代码线索；本机登录态补核 3 条代码合并记录。公开页只保留脱敏汇总。"
+  },
+  "records": [
+    {
+      "id": "R1",
+      "unique": true,
+      "kind": "user_pain",
+      "person_id": "P01",
+      "person_display": "闪电浣熊",
+      "submitted_at": "2026-08-10",
+      "status": "merged",
+      "public_title": "群组人数展示口径",
+      "pain_category": "同一策略的人数信息不够清楚",
+      "public_outcome": "后端与前端改动均已合并主干；生产上线与用户实际感知仍待确认。",
+      "evidence_level": "代码已合并主干 · 生产待核"
+    },
+    {
+      "id": "R2",
+      "unique": true,
+      "kind": "user_pain",
+      "person_id": "P01",
+      "person_display": "闪电浣熊",
+      "submitted_at": "2026-08-10",
+      "status": "merged",
+      "public_title": "功能弹窗术语修正",
+      "pain_category": "同一功能出现容易混淆的错误术语",
+      "public_outcome": "修正文案已合入测试分支并完成多端复验；生产上线与用户效果仍待确认。",
+      "evidence_level": "测试已复验 · 生产待核"
+    }
+  ],
+  "people": [
+    {
+      "id": "P01",
+      "display_name": "闪电浣熊",
+      "avatar": "🦝",
+      "total": 2,
+      "landed": 0
+    }
+  ],
+  "boundaries": [
+    "主指标只统计去重后的用户痛点，不以任务数代替价值",
+    "同一需求的追问、补充和重复任务不重复计算",
+    "代码合并不自动等于用户痛点已解决，仍需生产上线或效果证据",
+    "公开页使用趣味代号，不公开姓名、需求原文、内部链接或代码细节"
+  ]
+};

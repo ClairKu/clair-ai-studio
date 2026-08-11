@@ -25,7 +25,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 42;
+const DATA_VERSION = 43;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -132,6 +132,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "product-demand-pulse-2026-08-11",
+      groupId: "product-planning",
+      title: "痛点消消乐｜产品团队本体共创战报",
+      url: "https://clairku.github.io/clair-ai-studio/reports/product-demand-pulse/",
+      preview: "product-demand-pulse-2026-08-11.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-11T19:20:00.000+08:00",
+      source: "本体 × Wiki/Jira × 登录态代码状态补核｜累计 2 个用户体验痛点进入交付链路；0 个确认上线解决；公开页仅保留脱敏总量与趣味代号",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["且慢", "产品团队", "本体", "用户痛点", "需求统计", "团队共创", "数据分析", "HTML", "脱敏", "生产"],
+    },
     {
       id: "qieman-mcp-account-username-bug-2026-08-11",
       groupId: "ai-platform",

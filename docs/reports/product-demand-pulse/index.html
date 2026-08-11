@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="产品团队通过盈米本体推动用户痛点解决的累计进度墙。" />
+  <meta name="theme-color" content="#17151f" />
+  <title>痛点消消乐｜产品团队本体共创战报</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <div class="noise" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="回到顶部">
+      <span class="brand-mark">P!</span>
+      <span>PAIN OFF · 痛点消消乐</span>
+    </a>
+    <div class="live-chip"><i aria-hidden="true"></i><span id="freshness-label">每日检查 · 等待数据</span></div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">PRODUCT TEAM × ONTOLOGY</p>
+        <h1 id="hero-title">我们一起<br />向 <span id="pain-count">—</span> 个<span class="scribble">用户痛点</span><br />发起了进攻</h1>
+        <p class="hero-lead" id="hero-lead">正在核对需求、研发与上线证据。只把真实解决的问题算进来。</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#scoreboard">看团队战绩 <span>↓</span></a>
+          <button class="button ghost" type="button" id="celebrate-button">为行动鼓掌 ✦</button>
+        </div>
+      </div>
+      <div class="hero-visual" aria-label="用户痛点消除进度">
+        <div class="orbit orbit-a"></div>
+        <div class="orbit orbit-b"></div>
+        <div class="burst" id="burst">
+          <span class="burst-word">PAIN</span>
+          <span class="burst-slash"></span>
+          <span class="burst-word burst-word-bottom">OFF!</span>
+        </div>
+        <div class="stamp" id="impact-stamp">累计核验中</div>
+      </div>
+    </section>
+
+    <section class="marquee" aria-label="统计原则">
+      <div class="marquee-track">
+        <span>解决一个真问题，比堆十个任务更重要 ✦</span>
+        <span>累计口径 · 需求去重 · 结果有证据 ✦</span>
+        <span>代码合并不等于用户痛点已解决 ✦</span>
+        <span aria-hidden="true">解决一个真问题，比堆十个任务更重要 ✦</span>
+      </div>
+    </section>
+
+    <section class="stats section-shell" aria-labelledby="stats-title">
+      <div class="section-heading">
+        <p class="eyebrow">THE SCORE · 累计总量</p>
+        <h2 id="stats-title">把改动，算成用户真正得到的变化</h2>
+        <p>主指标按去重后的用户痛点统计；内部效率优化与效果待验证项单列，不混入“已解决”。</p>
+      </div>
+      <div class="score-grid" id="score-grid" aria-live="polite"></div>
+    </section>
+
+    <section class="scoreboard section-shell" id="scoreboard" aria-labelledby="scoreboard-title">
+      <div class="section-heading compact">
+        <div>
+          <p class="eyebrow">TEAM ENERGY · 团队能量</p>
+          <h2 id="scoreboard-title">每一次提交，都是向用户靠近一步</h2>
+        </div>
+        <p>按累计唯一需求排序；同时看进入开发与落地结果，避免只比数量。</p>
+      </div>
+      <div class="leaderboard" id="leaderboard"></div>
+    </section>
+
+    <section class="pipeline section-shell" aria-labelledby="pipeline-title">
+      <div class="section-heading compact">
+        <div>
+          <p class="eyebrow">FROM ASK TO IMPACT · 交付链路</p>
+          <h2 id="pipeline-title">痛点不是“提完了”，而是“解决了”</h2>
+        </div>
+        <p>需求沿证据链前进：已提交 → 开发中 → 已合并 → 已上线 → 效果确认。</p>
+      </div>
+      <div class="pipeline-board" id="pipeline-board"></div>
+    </section>
+
+    <section class="wall section-shell" aria-labelledby="wall-title">
+      <div class="section-heading compact">
+        <div>
+          <p class="eyebrow">PAIN-OFF WALL · 战果墙</p>
+          <h2 id="wall-title">这些问题，正在从用户生活里消失</h2>
+        </div>
+        <p>公开页仅展示脱敏类别与状态；姓名、需求原文、内部链接和代码细节不进入公开仓库。</p>
+      </div>
+      <div class="impact-wall" id="impact-wall"></div>
+    </section>
+
+    <section class="rules section-shell" aria-labelledby="rules-title">
+      <div class="rule-card rule-card-dark">
+        <p class="eyebrow">WHAT COUNTS · 什么才算解决</p>
+        <h2 id="rules-title">“用户痛点已解决”有三道门</h2>
+        <ol>
+          <li><b>问题真实</b><span>有用户反馈、业务记录或可定位的体验证据</span></li>
+          <li><b>改动落地</b><span>有代码合并、配置生效或生产环境验证</span></li>
+          <li><b>结果可见</b><span>原问题已不可复现，或有明确效果数据</span></li>
+        </ol>
+      </div>
+      <div class="rule-card">
+        <p class="eyebrow">DATA BOUNDARY · 数据边界</p>
+        <h2>诚实，比热闹更重要</h2>
+        <div id="boundary-list" class="boundary-list"></div>
+        <p class="source-note" id="source-note">等待本体返回可核验证据。</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>产品团队 × 盈米本体</span>
+    <strong>把每一次改动，变成用户能感受到的变化。</strong>
+    <span id="cutoff-label">数据截止：—</span>
+  </footer>
+
+  <div class="confetti" id="confetti" aria-hidden="true"></div>
+  <script src="./data/fallback-data.js"></script>
+  <script src="./app.js" type="module"></script>
+</body>
+</html>
