@@ -149,7 +149,7 @@ const initialState = {
     {
       id: "product-demand-pulse-2026-08-11",
       groupId: "product-planning",
-      title: "痛点消消乐｜产品团队本体共创战报",
+      title: "痛点消消乐｜产品共创作战台",
       url: "https://clairku.github.io/clair-ai-studio/reports/product-demand-pulse/",
       preview: "product-demand-pulse-2026-08-11.svg",
       pinned: true,
