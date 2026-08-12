@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "files": [
+    {
+      "path": "index.html",
+      "bytes": 351653,
+      "sha256": "c6804538df09c219ce75057da8183dcb5c576edf8bbc4deb4cb8e0a95bfe97e7"
+    },
+    {
+      "path": "briefing.html",
+      "bytes": 55995,
+      "sha256": "a9159c28e1fd532b9e82679380ec70e87fed00cc2933085ac4a50fc06028e5d3"
+    },
+    {
+      "path": "records.json",
+      "bytes": 341785,
+      "sha256": "fee4bdd047e9c1f34520974f6c0ee62df86a88c14a23368b4ff210262d8958b1"
+    },
+    {
+      "path": "report.json",
+      "bytes": 11311,
+      "sha256": "6ee3394423711a633dd9435e169898946cb6bd6adde6d63ee740405c1792c370"
+    },
+    {
+      "path": "source-register.md",
+      "bytes": 1017,
+      "sha256": "6ab130210bed64f15a41474c2a17560642716f165452a4ec0c577ae20f7d0144"
+    },
+    {
+      "path": "source-coverage.md",
+      "bytes": 1720,
+      "sha256": "5cf8721a76fd76daa1519b27b3ab8a2da080d1ad45f968b8c476e34864a94878"
+    }
+  ]
+}

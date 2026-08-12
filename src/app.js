@@ -133,6 +133,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "yingmi-qianwen-launch-media-monitor-2026-08-12",
+      groupId: "reporting",
+      title: "盈米 × 千问上线事件｜互动传播分析",
+      url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-qianwen-launch-media-monitor-2026-08-12/",
+      preview: "yingmi-qianwen-launch-media-monitor-2026-08-12.png",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-12T16:20:00.000+08:00",
+      source: "媒体监测导出 296 条｜传播峰值、情感 × 相关度、动态汇总、筛选搜索排序、明细查看与 CSV 导出｜公开脱敏版",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["盈米基金", "且慢小顾", "阿里千问", "舆情分析", "传播分析", "数据看板", "筛选汇总", "CLAIR", "HTML", "脱敏", "生产"],
+    },
+    {
       id: "fund-benchmark-display-audit-2026-08-12",
       groupId: "product-planning",
       title: "基金业绩比较基准同步展示｜监管、盈米与平台实测",

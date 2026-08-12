@@ -1,0 +1,333 @@
+{
+  "meta": {
+    "title": "盈米 × 千问上线传播｜证据化简报",
+    "subtitle": "传播峰值已经出现\n品牌信号仍需从生态热度中分离",
+    "eyebrow": "CLAIR · MEDIA SIGNAL REPORT",
+    "date": "2026-08-12",
+    "cutoff": "2026-08-12 15:44",
+    "owner": "用户提供媒体监测导出",
+    "confidentiality": "公开脱敏版",
+    "accent": "#7457E8",
+    "brand": "Clair AI Studio",
+    "brandMark": "C"
+  },
+  "hero": {
+    "conclusion": "上线事件快速形成传播峰值，但千问生态热度不能直接等同于盈米品牌声量，负面标签更不能未经语境复核就归因。",
+    "thesis": "296 条导出记录中，124 条在标题或摘要检出盈米、且慢或小顾；10 条负面中仅 2 条检出相关实体、0 条标题直指。",
+    "badges": [
+      "296 条事件",
+      "2026-08-07—08-12",
+      "公开脱敏",
+      "互动看板"
+    ]
+  },
+  "closing": {
+    "mark": "CLAIR · MEDIA SIGNAL REPORT",
+    "line1": "把平台热度拆成品牌信号，",
+    "line2": "让舆情监测真正通向",
+    "accent": "行动",
+    "lead": "先用相关度分层控制误报，再以原始链接、语境与渠道口径完成人工复核。",
+    "metaPrimary": "Clair AI Studio · 2026-08-12",
+    "metaSecondary": "材料截止 2026-08-12 15:44 · 单次导出快照"
+  },
+  "agenda": {
+    "enabled": true,
+    "label": "AGENDA",
+    "title": "报告大纲",
+    "groups": [
+      {
+        "index": "01",
+        "eyebrow": "VOLUME · 传播",
+        "title": "传播峰值",
+        "summary": "事件在哪一天爆发",
+        "sections": [
+          "总体结果",
+          "传播节奏"
+        ]
+      },
+      {
+        "index": "02",
+        "eyebrow": "SIGNAL · 信号",
+        "title": "品牌关联",
+        "summary": "多少内容真正涉及盈米",
+        "sections": [
+          "相关度",
+          "负面语境"
+        ]
+      },
+      {
+        "index": "03",
+        "eyebrow": "QUALITY · 口径",
+        "title": "数据边界",
+        "summary": "哪些数字可用、哪些只能参考",
+        "sections": [
+          "数据质量"
+        ]
+      },
+      {
+        "index": "04",
+        "eyebrow": "ACTION · 行动",
+        "title": "后续机制",
+        "summary": "把监测变成运营闭环",
+        "sections": [
+          "建议动作"
+        ]
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "result",
+      "navLabel": "总体结果",
+      "kicker": "01 · RESULT",
+      "title": "峰值已成，信号需分层",
+      "lead": "事件总量证明千问开放平台获得关注，但只有文本检出的内容才能作为盈米品牌信号的第一层代理。",
+      "layout": "metrics",
+      "tone": "light",
+      "items": [
+        {
+          "metric": "296",
+          "title": "事件记录",
+          "body": "媒体监测导出全量记录。",
+          "meta": "2026-08-07—08-12",
+          "status": "confirmed",
+          "source": "用户提供 Excel"
+        },
+        {
+          "metric": "90.5%",
+          "title": "两日集中",
+          "body": "8 月 10—11 日合计记录。",
+          "meta": "268 / 296",
+          "status": "confirmed",
+          "source": "发布时间字段"
+        },
+        {
+          "metric": "41.9%",
+          "title": "实体内容检出",
+          "body": "标题或摘要出现盈米、且慢或小顾。",
+          "meta": "124 / 296",
+          "status": "inferred",
+          "source": "标题与摘要启发式"
+        },
+        {
+          "metric": "0",
+          "title": "负面标题直指",
+          "body": "10 条负面中没有标题直接出现相关实体。",
+          "meta": "相关实体检出 2 条",
+          "status": "confirmed",
+          "source": "倾向性 × 相关度交叉"
+        }
+      ],
+      "callout": {
+        "label": "中心判断",
+        "text": "传播结果值得肯定，但报告口径应从“296 条品牌声量”修正为“296 条事件生态覆盖，其中 124 条文本检出品牌相关实体”。",
+        "status": "inferred"
+      }
+    },
+    {
+      "id": "timeline",
+      "navLabel": "传播节奏",
+      "kicker": "02 · TIMELINE",
+      "title": "上线首日贡献近三分之二",
+      "lead": "传播重心集中在 8 月 10 日，次日仍保持延续，此后明显回落。",
+      "layout": "timeline",
+      "tone": "soft",
+      "items": [
+        {
+          "index": "01",
+          "meta": "8 月 7—9 日",
+          "title": "预热 6 条",
+          "body": "上线前零散内容，尚未形成规模。",
+          "status": "confirmed"
+        },
+        {
+          "index": "02",
+          "meta": "8 月 10 日",
+          "title": "爆发 188 条",
+          "body": "占全量 63.5%，上午 10—12 点最密集。",
+          "status": "confirmed"
+        },
+        {
+          "index": "03",
+          "meta": "8 月 11 日",
+          "title": "延续 80 条",
+          "body": "进入二次报道、解读与多平台扩散。",
+          "status": "confirmed"
+        },
+        {
+          "index": "04",
+          "meta": "8 月 12 日 12:36 前",
+          "title": "回落 22 条",
+          "body": "当前数据尚非完整自然日。",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "relevance",
+      "navLabel": "相关度",
+      "kicker": "03 · RELEVANCE",
+      "title": "品牌信号分成四层",
+      "lead": "关键词列全部相同，不能承担相关性判断；需从标题和摘要重新提取可解释信号。",
+      "layout": "comparison",
+      "tone": "light",
+      "items": [
+        {
+          "index": "01",
+          "title": "标题直指",
+          "metric": "25",
+          "body": "标题出现盈米、且慢或小顾，是最强品牌关联信号。",
+          "status": "confirmed",
+          "source": "标题字段 · 296 条"
+        },
+        {
+          "index": "02",
+          "title": "正文提及",
+          "metric": "99",
+          "body": "标题未直指，但摘要至少一次出现相关实体。",
+          "status": "inferred"
+        },
+        {
+          "index": "03",
+          "title": "文本未检出",
+          "metric": "172",
+          "body": "导出标题与摘要未出现相关实体，更多反映千问生态热度。",
+          "status": "inferred"
+        }
+      ],
+      "callout": {
+        "label": "边界",
+        "text": "摘要可能被截断，因此“未检出”不是证明文章绝对未提及，只是当前导出文本内没有证据。",
+        "status": "missing"
+      }
+    },
+    {
+      "id": "negative",
+      "navLabel": "负面语境",
+      "kicker": "04 · RISK",
+      "title": "负面标签不能直接归因",
+      "lead": "负面内容主要来自平台、隐私、AI 生态或无关主题；仅 2 条在摘要检出相关实体。",
+      "layout": "cards",
+      "tone": "dark",
+      "items": [
+        {
+          "index": "01",
+          "title": "0 条标题直指",
+          "body": "没有负面标题直接出现盈米、且慢或小顾。",
+          "status": "confirmed"
+        },
+        {
+          "index": "02",
+          "title": "2 条文本检出",
+          "body": "1 条单次提及，1 条多次提及；需要阅读原文确认评价对象。",
+          "status": "confirmed",
+          "source": "倾向性 × 标题/摘要相关度"
+        },
+        {
+          "index": "03",
+          "title": "8 条未检出",
+          "body": "包括 AI 硬件、搬家内容、行业早报等，不能纳入品牌负面。",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "quality",
+      "navLabel": "数据质量",
+      "kicker": "05 · DATA QUALITY",
+      "title": "曝光字段只能看作下限",
+      "lead": "URL、阅读数与粉丝量的跨平台可得性不一致，汇总数字不能被解释为完整曝光或独立触达。",
+      "layout": "metrics",
+      "tone": "soft",
+      "items": [
+        {
+          "metric": "96.3%",
+          "title": "URL 缺失",
+          "body": "仅 11 条提供 URL，明细回溯能力有限。",
+          "source": "URL 字段 · 285 / 296",
+          "status": "confirmed"
+        },
+        {
+          "metric": "78.0%",
+          "title": "阅读数为 0",
+          "body": "0 可能代表未采到，不等于无人阅读。",
+          "source": "阅读数字段 · 231 / 296",
+          "status": "confirmed"
+        },
+        {
+          "metric": "58.8%",
+          "title": "粉丝量为 0",
+          "body": "粉丝量合计不可去重，也不能代表实际触达。",
+          "source": "粉丝量字段 · 174 / 296",
+          "status": "confirmed"
+        },
+        {
+          "metric": "286",
+          "title": "唯一标题",
+          "body": "296 条记录中有 10 条重复标题，需区分跨平台转载与疑似重复采集。",
+          "source": "标题字段去重",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "actions",
+      "navLabel": "建议动作",
+      "kicker": "06 · ACTION",
+      "title": "把事件监测变成运营闭环",
+      "lead": "下一步重点不是继续堆声量总数，而是建立可复核、可追踪、可比较的品牌信号口径。",
+      "layout": "actions",
+      "tone": "light",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "P0 · NOW",
+          "title": "复核 2 条相关负面",
+          "body": "阅读全文，标注评价对象、事实争议、响应必要性与负责人。",
+          "meta": "责任：品牌/公关 + 产品 · 成功：逐条闭环",
+          "status": "target"
+        },
+        {
+          "index": "02",
+          "eyebrow": "P0 · WEEKLY",
+          "title": "固定三层口径",
+          "body": "事件生态覆盖、品牌文本检出、标题直指分别汇报。",
+          "meta": "责任：数据运营 · 成功：不再混用总量",
+          "status": "target"
+        },
+        {
+          "index": "03",
+          "eyebrow": "P1 · NEXT",
+          "title": "补原文与统一指标",
+          "body": "提升 URL 完整率；分平台记录阅读/互动更新时间和不可得原因。",
+          "meta": "责任：监测供应方 · 成功：可回溯、可比较",
+          "status": "target"
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "label": "盈米基金阿里千问上线事件全部导出-202608121544 (1).xlsx",
+      "detail": "工作表：信息 · 296 行 × 20 列 · SHA-256 55bd32dbbd8ed146b06227071ceb772221b6dd7ea8b112b8c54e69791701b8b3"
+    },
+    {
+      "label": "互动看板",
+      "detail": "公开脱敏版移除作者 ID、空白列与完整摘要；筛选后即时计算。"
+    }
+  ],
+  "openQuestions": [
+    {
+      "title": "倾向性模型口径",
+      "detail": "导出未提供情感模型、置信度或标注准则，负面必须人工复核。"
+    },
+    {
+      "title": "曝光字段完整性",
+      "detail": "不同平台的阅读、互动与粉丝字段采集率不同，不能推导完整曝光或转化。"
+    },
+    {
+      "title": "摘要截断",
+      "detail": "相关度仅依据当前标题和摘要文本，未检出不等同于原文绝对未提及。"
+    }
+  ]
+}
