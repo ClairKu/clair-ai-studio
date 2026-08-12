@@ -1,34 +1,34 @@
 {
   "meta": {
-    "title": "盈米 × 千问上线传播｜更新简报",
-    "subtitle": "20 条破万内容已补可点击入口\n原帖、同稿转载与待核项清楚分层",
+    "title": "盈米 × 千问上线传播｜去重更新版",
+    "subtitle": "先去重，再更新阅读\n每个数字都标明来自公开页还是佳静表格",
     "eyebrow": "CLAIR · MEDIA SIGNAL REPORT",
     "date": "2026-08-12",
-    "cutoff": "2026-08-12 16:49",
-    "owner": "用户提供媒体监测导出 + 企微人工补充",
+    "cutoff": "2026-08-12 18:58",
+    "owner": "佳静两版媒体监测表 + 公开页面核验",
     "confidentiality": "公开脱敏版",
     "accent": "#7457E8",
     "brand": "Clair AI Studio",
     "brandMark": "C"
   },
   "hero": {
-    "conclusion": "阅读量破万的 20 条监测记录已全部提供可点击入口；12 条是原平台原帖、7 条为已核同标题公开转载，另有 1 条仅确认作者主页。",
-    "thesis": "20 条破万记录合计贡献 5,544,565 次已采集阅读，占总阅读量 99.2%；公开链接类型已分层，避免把转载页或主页误报成原文。",
+    "conclusion": "最终确认 285 个独立内容：263 篇文章、22 条视频；采用阅读量 4,367,850。13 个破万内容全部有可点击入口。",
+    "thesis": "公开页可更新的两条已升至 197,603 和 229,751；其余 283 个内容明确回退佳静表格，不把旧值伪装成实时值。",
     "badges": [
-      "20 条破万记录",
-      "12 条原帖",
-      "7 条同稿转载",
-      "1 条待核原帖"
+      "285 个独立内容",
+      "13 个阅读破万",
+      "破万链接 13 / 13",
+      "公开更新 2 条"
     ]
   },
   "closing": {
     "mark": "CLAIR · MEDIA SIGNAL REPORT",
-    "line1": "把传播条数、独立内容与曝光下限拆开，",
-    "line2": "让每个数字都能回到",
-    "accent": "证据",
-    "lead": "保留不去重传播记录用于观察扩散面，同时把原平台原帖、同稿转载和待核入口分开，提升可复核性。",
+    "line1": "先解决重复计数，",
+    "line2": "再让每个阅读数回到",
+    "accent": "来源",
+    "lead": "不去重明细保留传播路径，去重内容用于文章/视频数量与阅读汇总；公开最新值和表格回退分层标注。",
     "metaPrimary": "Clair AI Studio · 2026-08-12",
-    "metaSecondary": "材料截止 2026-08-12 16:49 · 原始 1,478 条 + 1 条来源补录"
+    "metaSecondary": "公开更新至 2026-08-12 18:58 · 去重版 296 条 · 不去重版 1478 条"
   },
   "agenda": {
     "enabled": true,
@@ -37,41 +37,41 @@
     "groups": [
       {
         "index": "01",
-        "eyebrow": "SCALE · 规模",
-        "title": "总量与形态",
+        "eyebrow": "COUNT · 去重",
+        "title": "内容总量",
         "summary": "一共有多少文章和视频",
         "sections": [
-          "总体结果",
+          "去重结果",
           "传播节奏"
         ]
       },
       {
         "index": "02",
-        "eyebrow": "REACH · 曝光",
-        "title": "阅读量边界",
-        "summary": "总阅读量和破万内容说明什么",
+        "eyebrow": "READ · 阅读",
+        "title": "最新与回退",
+        "summary": "总阅读量如何组成",
         "sections": [
-          "阅读口径",
-          "破万链接",
-          "重点内容"
+          "阅读来源",
+          "破万内容"
         ]
       },
       {
         "index": "03",
-        "eyebrow": "SIGNAL · 信号",
-        "title": "品牌关联",
-        "summary": "多少内容真正涉及盈米",
+        "eyebrow": "TRACE · 链接",
+        "title": "证据回溯",
+        "summary": "破万内容是否能打开",
         "sections": [
-          "相关度",
-          "负面语境"
+          "链接覆盖",
+          "企微重点"
         ]
       },
       {
         "index": "04",
         "eyebrow": "ACTION · 行动",
-        "title": "监测闭环",
-        "summary": "下一轮如何更可复核",
+        "title": "持续更新",
+        "summary": "下一轮如何少补数据",
         "sections": [
+          "信号边界",
           "建议动作"
         ]
       }
@@ -80,328 +80,273 @@
   "sections": [
     {
       "id": "result",
-      "navLabel": "总体结果",
-      "kicker": "01 · RESULT",
-      "title": "记录扩张，内容仍可去重",
-      "lead": "不去重版本适合衡量跨平台扩散，但不能直接当作独立内容数量。",
+      "navLabel": "去重结果",
+      "kicker": "01 · DEDUP",
+      "title": "296 条母表归并为 285 个内容",
+      "lead": "删除标题全部空白并区分文章/视频，可合并空格差异与同账号跨平台同题视频。",
       "layout": "metrics",
       "tone": "light",
       "items": [
         {
-          "metric": "1,479",
-          "title": "传播记录",
-          "body": "原始 1,478 条，加 1 条缺失的微信来源记录。",
-          "meta": "2026-08-07—08-12",
+          "metric": "285",
+          "title": "独立内容",
+          "body": "用于回答文章、视频和总阅读量。",
           "status": "confirmed",
-          "source": "更新版 Excel"
+          "source": "去重内容总表"
         },
         {
-          "metric": "1,451",
+          "metric": "263",
           "title": "文章",
-          "body": "除短视频、网络视频外的传播记录。",
-          "meta": "98.1%",
-          "status": "confirmed",
-          "source": "媒体类型映射"
+          "body": "除短视频、网络视频外。",
+          "meta": "92.3%",
+          "status": "confirmed"
         },
         {
-          "metric": "28",
+          "metric": "22",
           "title": "视频",
-          "body": "短视频与网络视频记录。",
-          "meta": "1.9%",
-          "status": "confirmed",
-          "source": "媒体类型映射"
+          "body": "短视频与网络视频去重后。",
+          "meta": "7.7%",
+          "status": "confirmed"
         },
         {
-          "metric": "431",
-          "title": "独立标题",
-          "body": "按清洗空白后的完整标题精确去重。",
-          "meta": "原始记录 / 标题 = 3.4x",
-          "status": "confirmed",
-          "source": "标题去重工作表"
+          "metric": "1,478",
+          "title": "传播明细",
+          "body": "仅用于追溯跨平台扩散，不进入内容总量。",
+          "status": "confirmed"
         }
       ],
       "callout": {
-        "label": "中心判断",
-        "text": "对外看扩散面用 1,479 条，对内看独立内容用 431 个规范标题；两者不能混用。",
+        "label": "中心口径",
+        "text": "对外回答“一共有多少”用 285；分析传播覆盖时再看 1,478 条不去重明细。",
+        "status": "confirmed"
+      }
+    },
+    {
+      "id": "read-source",
+      "navLabel": "阅读来源",
+      "kicker": "02 · READ SOURCE",
+      "title": "采用阅读量 436.8 万",
+      "lead": "两条可从公开页确认最新值，其余逐条回退佳静表格。",
+      "layout": "metrics",
+      "tone": "soft",
+      "items": [
+        {
+          "metric": "4,367,850",
+          "title": "采用阅读量",
+          "body": "公开最新值优先，再加表格回退值。",
+          "status": "confirmed"
+        },
+        {
+          "metric": "2",
+          "title": "公开页面更新",
+          "body": "合计 427,354 阅读。",
+          "meta": "2026-08-12 18:58",
+          "status": "confirmed"
+        },
+        {
+          "metric": "283",
+          "title": "佳静表格回退",
+          "body": "合计 3,940,496 阅读。",
+          "meta": "2026-08-12 15:53",
+          "status": "confirmed"
+        },
+        {
+          "metric": "188",
+          "title": "仍为 0",
+          "body": "可能代表未采到，不等于无人阅读。",
+          "status": "missing"
+        }
+      ],
+      "callout": {
+        "label": "最新变化",
+        "text": "马男聊投资：27,570 → 197,603；财经单挑社：48,390 → 229,751。",
+        "status": "confirmed"
+      }
+    },
+    {
+      "id": "high",
+      "navLabel": "破万内容",
+      "kicker": "03 · HIGH READ",
+      "title": "13 个破万内容贡献 99.3%",
+      "lead": "合计 4,336,256 阅读，占采用阅读量 99.3%。",
+      "layout": "metrics",
+      "tone": "light",
+      "items": [
+        {
+          "metric": "13",
+          "title": "破万内容",
+          "body": "按独立内容计数，不重复累计转载。",
+          "status": "confirmed"
+        },
+        {
+          "metric": "13",
+          "title": "有可点击入口",
+          "body": "原帖或同标题公开转载。",
+          "status": "confirmed"
+        },
+        {
+          "metric": "13",
+          "title": "原帖/源表链接",
+          "body": "可回到同平台内容或源表公开链接。",
+          "status": "confirmed"
+        },
+        {
+          "metric": "0",
+          "title": "同标题转载",
+          "body": "只供阅读同稿，不冒充监测原帖。",
+          "status": "confirmed"
+        }
+      ],
+      "callout": {
+        "label": "凤凰网边界",
+        "text": "《AI入口，开始收费》原帖可打开，但公开页不展示阅读量，因此回退佳静表内 137,522。",
         "status": "confirmed"
       }
     },
     {
       "id": "timeline",
       "navLabel": "传播节奏",
-      "kicker": "02 · TIMELINE",
-      "title": "上线日贡献八成记录",
-      "lead": "传播高度集中在 8 月 10 日，次日延续后快速回落。",
+      "kicker": "04 · TIMELINE",
+      "title": "独立内容仍集中在上线日",
+      "lead": "按每个独立内容的最早发布时间统计。",
       "layout": "timeline",
       "tone": "soft",
       "items": [
         {
           "index": "01",
           "meta": "8 月 7—9 日",
-          "title": "预热 9 条",
+          "title": "预热 6 个",
           "body": "上线前零散内容。",
           "status": "confirmed"
         },
         {
           "index": "02",
           "meta": "8 月 10 日",
-          "title": "爆发 1,193 条",
-          "body": "占全量 80.7%。",
+          "title": "爆发 181 个",
+          "body": "独立内容首发峰值。",
           "status": "confirmed"
         },
         {
           "index": "03",
           "meta": "8 月 11 日",
-          "title": "延续 221 条",
-          "body": "进入二次报道和跨平台扩散。",
+          "title": "延续 76 个",
+          "body": "二次报道与解读。",
           "status": "confirmed"
         },
         {
           "index": "04",
-          "meta": "8 月 12 日 15:53 前",
-          "title": "回落 56 条",
-          "body": "当前数据不是完整自然日。",
+          "meta": "8 月 12 日",
+          "title": "新增 22 个",
+          "body": "当前并非完整自然日。",
           "status": "confirmed"
         }
-      ],
-      "callout": {
-        "label": "峰值",
-        "text": "8 月 10—11 日合计 1,414 条，占全量 95.6%。",
-        "status": "confirmed"
-      }
-    },
-    {
-      "id": "reads",
-      "navLabel": "阅读口径",
-      "kicker": "03 · REACH",
-      "title": "五百五十九万只是下限",
-      "lead": "阅读字段跨平台可得性不一致，零值尤其需要与“未采到”区分。",
-      "layout": "metrics",
-      "tone": "light",
-      "items": [
-        {
-          "metric": "5,590,563",
-          "title": "阅读量合计",
-          "body": "对导出阅读数字段直接求和。",
-          "meta": "已采集下限",
-          "status": "confirmed",
-          "source": "阅读数字段"
-        },
-        {
-          "metric": "208",
-          "title": "有阅读数记录",
-          "body": "阅读数大于 0 的记录。",
-          "meta": "14.1%",
-          "status": "confirmed"
-        },
-        {
-          "metric": "1,271",
-          "title": "阅读数为 0",
-          "body": "0 可能代表未采到，不等于无人阅读。",
-          "meta": "85.9%",
-          "status": "missing"
-        },
-        {
-          "metric": "0",
-          "title": "视频阅读字段",
-          "body": "28 条视频均未采到播放量。",
-          "meta": "不能解释为零播放",
-          "status": "missing"
-        }
-      ],
-      "callout": {
-        "label": "证据边界",
-        "text": "总阅读量可以作为已采集下限，不宜作为完整曝光，更不能与粉丝量相加。",
-        "status": "confirmed"
-      }
-    },
-    {
-      "id": "high-read-links",
-      "navLabel": "破万链接",
-      "kicker": "04 · TRACEABILITY",
-      "title": "破万内容已可逐条打开",
-      "lead": "20 条阅读破万记录合计贡献 5,544,565 次已采集阅读，优先完成链接回溯最能提升这份监测的可用性。",
-      "layout": "metrics",
-      "tone": "soft",
-      "items": [
-        {
-          "metric": "12",
-          "title": "原平台原帖",
-          "body": "同一监测平台的公开页面，标题或正文已核对。",
-          "status": "confirmed",
-          "source": "公开网页逐条核验 · 2026-08-12"
-        },
-        {
-          "metric": "7",
-          "title": "同标题公开转载",
-          "body": "可阅读同稿，但不冒充监测来源的原始 URL。",
-          "status": "confirmed",
-          "source": "公开网页逐条核验 · 2026-08-12"
-        },
-        {
-          "metric": "1",
-          "title": "仅确认作者主页",
-          "body": "财经单挑社微头条未检出稳定单帖 URL，保留作者页供继续回溯。",
-          "status": "missing",
-          "source": "今日头条公开搜索 · 2026-08-12"
-        },
-        {
-          "metric": "5,544,565",
-          "title": "破万内容阅读量",
-          "body": "20 条记录阅读数直接求和。",
-          "meta": "占总阅读量 99.2%",
-          "status": "confirmed",
-          "source": "阅读数字段"
-        }
-      ],
-      "callout": {
-        "label": "查看方式",
-        "text": "Excel 新增“破万内容链接”工作表；互动看板可直接筛选“阅读破万”，并从明细打开来源。",
-        "status": "confirmed"
-      }
+      ]
     },
     {
       "id": "focus",
-      "navLabel": "重点内容",
-      "kicker": "05 · EVIDENCE",
-      "title": "四条分享已逐条对上",
-      "lead": "企微分享内容均在表内完成标题级或来源级反查，避免重复追加。",
+      "navLabel": "企微重点",
+      "kicker": "05 · WECOM",
+      "title": "重点内容合并，不重复追加",
+      "lead": "四条企微内容在独立内容表中各占一个内容；原始来源仍保留在追溯表。",
       "layout": "cards",
-      "tone": "soft",
+      "tone": "light",
       "items": [
         {
           "index": "01",
           "title": "未尽研究微信文章",
-          "body": "原表微信记录已存在，回填用户提供的公开原文链接。",
-          "source": "用户提供 URL · 2026-08-12",
+          "body": "已回填用户提供的微信原文链接。",
           "status": "confirmed"
         },
         {
           "index": "02",
-          "title": "AI普瑞斯微信文章",
-          "body": "同标题在 7 个其他渠道已存在；补录微信来源记录，公开原文链接待补。",
-          "source": "企微分享 · 2026-08-12",
-          "status": "missing"
+          "title": "AI普瑞斯同题内容",
+          "body": "腾讯视频与腾讯网按文章/视频分别保留，不额外补一条空记录。",
+          "status": "confirmed"
         },
         {
           "index": "03",
           "title": "海峡导报搜狐文章",
-          "body": "原表搜狐与微信记录均存在，回填本次分享的搜狐公开链接。",
-          "source": "企微分享 · 2026-08-12",
+          "body": "已回填搜狐公开链接。",
           "status": "confirmed"
         },
         {
           "index": "04",
           "title": "AI科技评论视频号",
-          "body": "原表视频号记录已存在；人工确认转发量 2362，覆盖原导出 0。",
-          "source": "企微人工补充 · 2026-08-12",
+          "body": "转发量采用企微人工确认的 2,362。",
           "status": "confirmed"
         }
-      ],
-      "callout": {
-        "label": "处理原则",
-        "text": "同标题不等于同一来源记录：能精确匹配则补字段，来源缺失才新增一条。",
-        "status": "confirmed"
-      }
+      ]
     },
     {
-      "id": "relevance",
-      "navLabel": "相关度",
-      "kicker": "06 · RELEVANCE",
-      "title": "品牌信号仍需单独拆出",
-      "lead": "关键词列全部相同，不能承担相关性判断；从标题和摘要重新提取可解释信号。",
+      "id": "signal",
+      "navLabel": "信号边界",
+      "kicker": "06 · SIGNAL",
+      "title": "品牌相关与生态热度仍需分开",
+      "lead": "标题/摘要检出只是一层可解释代理，不能替代全文语境。",
       "layout": "comparison",
-      "tone": "light",
-      "items": [
-        {
-          "index": "01",
-          "title": "标题直指",
-          "metric": "184",
-          "body": "标题出现盈米、且慢或小顾。",
-          "status": "confirmed",
-          "source": "标题字段"
-        },
-        {
-          "index": "02",
-          "title": "正文提及",
-          "metric": "672",
-          "body": "标题未直指，但摘要检出相关实体。",
-          "status": "inferred"
-        },
-        {
-          "index": "03",
-          "title": "文本未检出",
-          "metric": "623",
-          "body": "更多反映千问生态热度。",
-          "status": "inferred"
-        }
-      ],
-      "callout": {
-        "label": "边界",
-        "text": "摘要可能被截断，因此“未检出”不是证明原文绝对未提及。",
-        "status": "missing"
-      }
-    },
-    {
-      "id": "negative",
-      "navLabel": "负面语境",
-      "kicker": "07 · RISK",
-      "title": "十三条负面不能直接归因",
-      "lead": "13 条负面中仅 2 条在摘要检出相关实体，标题直指为 0。",
-      "layout": "cards",
       "tone": "dark",
       "items": [
         {
           "index": "01",
-          "title": "0 条标题直指",
-          "body": "没有负面标题直接出现盈米、且慢或小顾。",
+          "metric": "25",
+          "title": "标题直指",
+          "body": "标题出现盈米、且慢或小顾。",
           "status": "confirmed"
         },
         {
           "index": "02",
-          "title": "2 条文本检出",
-          "body": "需要阅读全文确认评价对象。",
-          "status": "confirmed"
+          "metric": "92",
+          "title": "摘要提及",
+          "body": "标题未直指，摘要至少一次出现。",
+          "status": "inferred"
         },
         {
           "index": "03",
-          "title": "11 条未检出",
-          "body": "不应直接纳入品牌负面。",
-          "status": "confirmed"
+          "metric": "168",
+          "title": "文本未检出",
+          "body": "更多反映千问生态热度。",
+          "status": "inferred"
+        },
+        {
+          "index": "04",
+          "metric": "9",
+          "title": "负面标签",
+          "body": "仍需逐条阅读后再归因。",
+          "status": "missing"
         }
       ]
     },
     {
       "id": "actions",
       "navLabel": "建议动作",
-      "kicker": "08 · ACTION",
-      "title": "剩余缺口集中在平台采集",
-      "lead": "破万内容已优先补链；下一步聚焦视频播放、微头条单帖与跨平台阅读口径。",
+      "kicker": "07 · ACTION",
+      "title": "下一次让监测天然可汇总",
+      "lead": "把“内容 ID、原帖 URL、指标时间、指标类型”变成采集必填项。",
       "layout": "actions",
       "tone": "light",
       "items": [
         {
           "index": "01",
           "eyebrow": "P0 · NOW",
-          "title": "补最后两类原文",
-          "body": "继续追 AI普瑞斯微信原文与财经单挑社微头条单帖。",
-          "meta": "责任：品牌/公关 + 监测供应方 · 成功：重点内容原帖可回溯",
+          "title": "固定双表口径",
+          "body": "独立内容表回答数量与阅读；传播明细表回答渠道扩散。",
+          "meta": "成功：不再混用内容数与转载数",
           "status": "target"
         },
         {
           "index": "02",
-          "eyebrow": "P0 · WEEKLY",
-          "title": "固定双口径",
-          "body": "同时汇报传播记录数与独立标题数。",
-          "meta": "责任：数据运营 · 成功：不再混用 1479 与 431",
+          "eyebrow": "P0 · NEXT",
+          "title": "保存平台内容 ID",
+          "body": "抓取时同时保存内容 ID、原帖 URL、指标名称和更新时间。",
+          "meta": "成功：最新阅读可自动刷新",
           "status": "target"
         },
         {
           "index": "03",
-          "eyebrow": "P1 · NEXT",
-          "title": "按平台定义曝光",
-          "body": "分平台记录阅读/播放/互动的更新时间、不可得原因与采集规则。",
-          "meta": "责任：监测供应方 · 成功：曝光下限可解释",
+          "eyebrow": "P1 · WEEKLY",
+          "title": "建立回退告警",
+          "body": "公开值不可得时显式标成表格回退；0 值进入待补清单。",
+          "meta": "成功：旧值不再被误报为实时值",
           "status": "target"
         }
       ]
@@ -409,38 +354,30 @@
   ],
   "sources": [
     {
+      "label": "盈米基金阿里千问上线事件全部导出-202608121544 (1).xlsx",
+      "detail": "内容母表 · 296 条 · SHA-256 55bd32dbbd8ed146b06227071ceb772221b6dd7ea8b112b8c54e69791701b8b3"
+    },
+    {
       "label": "盈米基金阿里千问事件全部导出不去重版本-202608121553.xlsx",
-      "detail": "工作表：信息 · 1478 行 × 20 列 · SHA-256 0b571f111f82e7959da16cc61258ae697d0321cc6abf9ba96893c50269edf5f4"
+      "detail": "来源/链接/表格阅读回退与审计 · 1478 条 · SHA-256 0b571f111f82e7959da16cc61258ae697d0321cc6abf9ba96893c50269edf5f4"
     },
     {
-      "label": "企微公开内容补充",
-      "detail": "4 条重点内容；3 条补字段，1 条补录微信来源记录；未保存私人聊天正文。"
-    },
-    {
-      "label": "微信原文",
-      "detail": "千问开放第三方智能体，AI时代的“懂你”战争开始了 · 未尽研究 · 2026-08-10 · 已确认公开链接。"
-    },
-    {
-      "label": "破万内容公开链接核验",
-      "detail": "20 条记录：12 条原平台原帖、7 条同标题公开转载、1 条仅确认作者主页。"
+      "label": "今日头条公开作者信息流",
+      "detail": "两条内容按单帖 ID 核对 read_count/display_count · 2026-08-12 18:58"
     }
   ],
   "openQuestions": [
     {
-      "title": "AI普瑞斯微信原文链接",
-      "detail": "当前材料未提供可确认的公开 URL，已标为 partial。"
-    },
-    {
       "title": "视频播放量",
-      "detail": "28 条视频阅读/播放字段均为 0，需从平台或监测供应方补采。"
+      "detail": "22 个独立视频的阅读/播放字段仍为 0，需要平台或监测供应方补采。"
     },
     {
-      "title": "财经单挑社微头条单帖",
-      "detail": "已确认作者主页，但公开搜索未返回稳定单帖 URL；当前标记 partial。"
+      "title": "其他公开阅读值",
+      "detail": "除两条今日头条外，其余 283 个内容未取得可比最新值，已清楚标成佳静表格回退。"
     },
     {
-      "title": "阅读字段完整性",
-      "detail": "仅 208 / 1479 条阅读数大于 0；总量仅作已采集下限。"
+      "title": "阅读量仍非完整曝光",
+      "detail": "不同平台指标定义不一致，0 可能代表未采到；不推导独立用户或转化率。"
     }
   ]
 }

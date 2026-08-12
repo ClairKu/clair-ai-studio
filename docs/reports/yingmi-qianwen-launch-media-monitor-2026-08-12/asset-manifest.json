@@ -1,41 +1,46 @@
 {
   "report_id": "yingmi-qianwen-launch-media-monitor-2026-08-12",
-  "updated_at": "2026-08-12T18:38:00+08:00",
+  "updated_at": "2026-08-12T19:20:00+08:00",
   "files": [
     {
       "path": "index.html",
-      "bytes": 1604078,
-      "sha256": "631f3194b6b2e66c9af09b061716871c7a1c248e666e51274b50bfa1b232cc95"
+      "bytes": 455101,
+      "sha256": "26a841ec3c023debb21246332dc39e42e01012487503f5ce5a2c905e6de316a8"
     },
     {
       "path": "briefing.html",
-      "bytes": 58711,
-      "sha256": "2a8e30a0b526c6847e399f3a43a7fe36fc9b46b31143a7ee5acbda85dcf0e59f"
+      "bytes": 56461,
+      "sha256": "a1a0ce9247f680ca9a5160834b834705446def39eee2581ce93d28625c09f838"
     },
     {
       "path": "records.json",
-      "bytes": 1759404,
-      "sha256": "ac1a2d48aa0b5600d73b1ab84de432ef10e95a9711cef64e8b16a0e24a309702"
+      "bytes": 456304,
+      "sha256": "c8c9194857d8cac266bbe8b31a8a34e801ca10d7eccac0551aafeb987eea1600"
     },
     {
       "path": "report.json",
-      "bytes": 15105,
-      "sha256": "b498c31260f1b97d557701642c9c54909bea0d9db2401969ae5a5733f98ebec3"
+      "bytes": 12251,
+      "sha256": "12c55b587b10c52f4ad1ef7b2f11a6bc9b34bb3dac1fb6f6dc7252c6e1ec30fb"
     },
     {
       "path": "source-register.md",
-      "bytes": 1035,
-      "sha256": "41020d9754f817306a0924d66dc2cbdcb7fcadfcf3d2ec4c0d09f891ba4a9784"
+      "bytes": 669,
+      "sha256": "633e64ad81ed597924ed5a2a65a906f5b45df5015d66c178ebe23689c1e80156"
     },
     {
       "path": "source-coverage.md",
-      "bytes": 1282,
-      "sha256": "48503968dbd15db887f6a3d60b441d77911a5042f7a3e9c357472914b09b238d"
+      "bytes": 591,
+      "sha256": "ba5633cb5429bd5d7dd9c66de8b71f50631241d7c5e9a5fc0c5491985d194e3d"
+    },
+    {
+      "path": "public-read-evidence.json",
+      "bytes": 578,
+      "sha256": "7230d1ccc72f87176b688c422055a5f8bdd131f3d93379dccb29e47d9a15f5bd"
     },
     {
       "path": "preview.png",
-      "bytes": 269792,
-      "sha256": "3bda5dd07f54d5a61555a4259fdeb4782383525c1fefa3bb8aa970491f0e7408"
+      "bytes": 268273,
+      "sha256": "35139eed79804b0e9a3196907a896a14eb4abcd44662e21a24ccefae7c63b885"
     }
   ]
 }
