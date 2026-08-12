@@ -1,41 +1,41 @@
 {
   "report_id": "yingmi-qianwen-launch-media-monitor-2026-08-12",
-  "updated_at": "2026-08-12T16:49:00+08:00",
+  "updated_at": "2026-08-12T18:38:00+08:00",
   "files": [
     {
       "path": "index.html",
-      "bytes": 1599050,
-      "sha256": "bd75cfa82dcef248f295826748e1bcc703426e9aed5e67ae12b10d72129751a6"
+      "bytes": 1604078,
+      "sha256": "631f3194b6b2e66c9af09b061716871c7a1c248e666e51274b50bfa1b232cc95"
     },
     {
       "path": "briefing.html",
-      "bytes": 57070,
-      "sha256": "0959345fe7344c28b7516095aa59daa46fc88406903a3acb86c20139e9462509"
+      "bytes": 58711,
+      "sha256": "2a8e30a0b526c6847e399f3a43a7fe36fc9b46b31143a7ee5acbda85dcf0e59f"
     },
     {
       "path": "records.json",
-      "bytes": 1755242,
-      "sha256": "45dfcc8adbf3fb1e4e9d05400997a83f57844b956cdf879f01092aa85050f27d"
+      "bytes": 1759404,
+      "sha256": "ac1a2d48aa0b5600d73b1ab84de432ef10e95a9711cef64e8b16a0e24a309702"
     },
     {
       "path": "report.json",
-      "bytes": 12952,
-      "sha256": "3eeb337ae60d8664c687b4fd3b1866fa11e908a1c5e0715d64c26be963c266ca"
+      "bytes": 15105,
+      "sha256": "b498c31260f1b97d557701642c9c54909bea0d9db2401969ae5a5733f98ebec3"
     },
     {
       "path": "source-register.md",
-      "bytes": 850,
-      "sha256": "b9e56f90da7ee18a0fc1812d012bfcc4a956dbeb35dbf94f542af01c8d9a32ea"
+      "bytes": 1035,
+      "sha256": "41020d9754f817306a0924d66dc2cbdcb7fcadfcf3d2ec4c0d09f891ba4a9784"
     },
     {
       "path": "source-coverage.md",
-      "bytes": 1212,
-      "sha256": "0305bf4f7d1b23216d4759e7938a203fe4cd185d3a5772909dd1d3766a33dcb1"
+      "bytes": 1282,
+      "sha256": "48503968dbd15db887f6a3d60b441d77911a5042f7a3e9c357472914b09b238d"
     },
     {
       "path": "preview.png",
-      "bytes": 269251,
-      "sha256": "cf17939c3c08022c62c4f6bb39e8daf82acbeae1eaf0d54e9469337832e5f37d"
+      "bytes": 269792,
+      "sha256": "3bda5dd07f54d5a61555a4259fdeb4782383525c1fefa3bb8aa970491f0e7408"
     }
   ]
 }
