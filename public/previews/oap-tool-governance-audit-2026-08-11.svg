@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">OAP 工具全量审计</title>
+  <desc id="desc">紫色数据治理报告封面，对比官网六十九项、首页七十二项与官方空间一百七十四条记录。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f7f4ff"/><stop offset=".62" stop-color="#eee9ff"/><stop offset="1" stop-color="#e4dcff"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8067e8"/><stop offset="1" stop-color="#a992ff"/></linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="18" stdDeviation="28" flood-color="#493691" flood-opacity=".14"/></filter>
+  </defs>
+  <rect width="1600" height="1000" rx="42" fill="url(#bg)"/>
+  <circle cx="1450" cy="130" r="310" fill="none" stroke="#8067e8" stroke-opacity=".12" stroke-width="2"/>
+  <circle cx="1450" cy="130" r="420" fill="none" stroke="#8067e8" stroke-opacity=".05" stroke-width="84"/>
+  <text x="90" y="102" fill="#7457e8" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="24" font-weight="800" letter-spacing="4">OAP GOVERNANCE AUDIT · 2026-08-11</text>
+  <text x="90" y="240" fill="#202334" font-family="'Songti SC',STSong,serif" font-size="88" font-weight="700">OAP 工具全量审计</text>
+  <text x="90" y="344" fill="url(#accent)" font-family="'Songti SC',STSong,serif" font-size="78" font-weight="700">官网目录 ≠ 后台资产池</text>
+  <text x="90" y="414" fill="#5f687a" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="28">逐项映射 · 重复识别 · 分类漂移 · 历史增减 · 来源责任 · 调用关系</text>
+  <g transform="translate(90 505)" filter="url(#shadow)">
+    <g><rect width="420" height="225" rx="28" fill="#fff" fill-opacity=".84" stroke="#8067e8" stroke-opacity=".18"/><text x="32" y="54" fill="#6c7486" font-size="22" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif">官网市场目录</text><text x="32" y="152" fill="#8067e8" font-size="92" font-weight="700" font-family="'Songti SC',STSong,serif">69</text><text x="32" y="196" fill="#8a91a0" font-size="19" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif">当前唯一可逐项核验的对外清单</text></g>
+    <g transform="translate(445)"><rect width="420" height="225" rx="28" fill="#fff" fill-opacity=".84" stroke="#8067e8" stroke-opacity=".18"/><text x="32" y="54" fill="#6c7486" font-size="22" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif">官网首页文案</text><text x="32" y="152" fill="#a06bd8" font-size="92" font-weight="700" font-family="'Songti SC',STSong,serif">72</text><text x="32" y="196" fill="#8a91a0" font-size="19" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif">静态文案，与市场目录相差 3</text></g>
+    <g transform="translate(890)"><rect width="420" height="225" rx="28" fill="#171d31" stroke="#8067e8" stroke-opacity=".34"/><text x="32" y="54" fill="#b9c1d3" font-size="22" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif">官方空间记录</text><text x="32" y="152" fill="#a992ff" font-size="92" font-weight="700" font-family="'Songti SC',STSong,serif">174</text><text x="32" y="196" fill="#98a4bb" font-size="19" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif">171 个唯一 Operation ID</text></g>
+  </g>
+  <g transform="translate(90 805)"><rect width="1310" height="88" rx="20" fill="#8067e8" fill-opacity=".1" stroke="#8067e8" stroke-opacity=".24"/><text x="28" y="38" fill="#5240ad" font-size="24" font-weight="700" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif">结论｜数量对不上，不是百炼造成</text><text x="28" y="68" fill="#737b8c" font-size="18" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif">官网目录、后台资产池和渠道分组被当成了同一个指标</text></g>
+  <text x="90" y="952" fill="#7c8495" font-size="18" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif">公开脱敏版 · 人员、客户与逐工具调用方明细见本地审计底表</text>
+</svg>

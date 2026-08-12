@@ -25,7 +25,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 43;
+const DATA_VERSION = 44;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -132,6 +132,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "oap-tool-governance-audit-2026-08-11",
+      groupId: "ai-platform",
+      title: "OAP 工具全量审计｜官网 69 项 vs 官方空间 174 条",
+      url: "https://clairku.github.io/clair-ai-studio/reports/oap-tool-governance-audit-2026-08-11/",
+      preview: "oap-tool-governance-audit-2026-08-11.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-12T10:04:27.000+08:00",
+      source: "OAP 官网 × 官方空间 Dashboard × 服务分组 × 发布审核 × 审计日志｜公开脱敏版：69/174 口径、逐项映射、重复、分类漂移、历史与治理",
+      access: "production",
+      workType: "governance-review",
+      tags: ["OAP", "MCP", "工具治理", "数据口径", "重复审计", "发布治理", "HTML", "脱敏", "生产"],
+    },
     {
       id: "product-demand-pulse-2026-08-11",
       groupId: "product-planning",

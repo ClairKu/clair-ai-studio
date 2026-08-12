@@ -1,0 +1,152 @@
+{
+  "meta": {
+    "title": "OAP 工具全量审计",
+    "subtitle": "69 项才是当前官网清单\n174 条是后台资产池",
+    "eyebrow": "OAP GOVERNANCE AUDIT · 2026.08.11",
+    "date": "2026-08-11",
+    "cutoff": "2026-08-11 19:00 CST",
+    "owner": "Clair / OAP",
+    "confidentiality": "公开脱敏版 · 人员与客户明细见本地底表",
+    "accent": "#7457E8",
+    "brand": "Clair AI Studio",
+    "brandMark": "C"
+  },
+  "hero": {
+    "conclusion": "数量对不上，不是百炼造成，而是官网目录、后台资产池、渠道分组被当成了同一个指标。",
+    "thesis": "官网市场当前展示 69 项；首页仍写 72 项；官方工作空间有 174 条记录、171 个唯一 Operation ID。先统一对象和口径，再谈增减与治理。",
+    "badges": ["官网69项", "后台174条", "逐项映射", "公开脱敏版"]
+  },
+  "closing": {
+    "mark": "CLAIR · OAP GOVERNANCE AUDIT",
+    "line1": "先让每个数字指向同一对象，",
+    "line2": "再让每个工具都有",
+    "accent": "主人",
+    "lead": "官网清单、后台资产池、渠道分组和分类体系分开治理；新增、变更、下线走完整证据链，Owner 与使用方持续可见。",
+    "metaPrimary": "OAP 工具全量审计 · 公开脱敏版 · 2026.08.11",
+    "metaSecondary": "详细人员、客户与逐工具调用方仅保存在本地审计底表"
+  },
+  "agenda": {
+    "enabled": true,
+    "label": "AGENDA",
+    "title": "报告大纲",
+    "groups": [
+      {"index":"01","eyebrow":"SCOPE · 口径","title":"先解释三套对象","summary":"官网、资产池、渠道不是同一层","sections":["数量口径","三层对象"]},
+      {"index":"02","eyebrow":"DIFF · 差异","title":"再拆清单与重复","summary":"69项全映射，但结构仍漂移","sections":["逐项结果","重复风险","分类漂移"]},
+      {"index":"03","eyebrow":"TRACE · 追溯","title":"还原历史和责任","summary":"可确认维护人，不能编造原作者","sections":["历史增减","来源责任","谁在使用"]},
+      {"index":"04","eyebrow":"ACTION · 治理","title":"把口径变成机制","summary":"主数据、Owner、发布流与运营闭环","sections":["治理动作","证据边界"]}
+    ]
+  },
+  "sections": [
+    {
+      "id":"counts","navLabel":"数量口径","kicker":"01 · SCOPE","title":"同一页面就有三种数","lead":"三者统计对象不同；只有官网市场目录可直接回答“当前对外有多少工具”。","layout":"metrics","tone":"light",
+      "items":[
+        {"metric":"69","title":"官网市场目录","body":"当前对外工具事实清单，五大类与工具卡片均为69。","meta":"qieman.com/mcp/mcp-market · 2026-08-11","status":"confirmed","source":"OAP官网市场"},
+        {"metric":"72","title":"官网首页文案","body":"“预置72项”是静态文案，与市场目录相差3。","meta":"qieman.com/mcp · 2026-08-11","status":"confirmed","source":"OAP官网首页"},
+        {"metric":"174","title":"官方空间记录","body":"后台工具清单的行记录数；对应171个唯一Operation ID。","meta":"官方工作空间Dashboard · 2026-08-11","status":"confirmed","source":"OAP内部Dashboard"},
+        {"metric":"69","title":"五大分组工具数","body":"后台五大服务分组的唯一并集，恰好对应官网69。","meta":"41+12+5+4+7","status":"confirmed","source":"OAP服务分组"}
+      ],
+      "callout":{"label":"唯一对外口径","text":"官网市场69项。首页72应改为动态取数；后台174不能再被称为“对外工具数”。","status":"confirmed"}
+    },
+    {
+      "id":"layers","navLabel":"三层对象","kicker":"02 · MODEL","title":"三层对象必须分开治理","lead":"资产、发布和渠道的生命周期不同，共用“工具数量”会持续制造误解。","layout":"architecture","tone":"dark",
+      "items":[
+        {"index":"01","eyebrow":"ASSET POOL","title":"官方空间资产池","metric":"174条","body":"包含对外、内部、专项、历史和候选路由；以记录ID为行键。"},
+        {"index":"02","eyebrow":"PUBLIC CATALOG","title":"官网发布目录","metric":"69项","body":"由五大对外服务分组组成，是官网与MCP用户看到的能力清单。"},
+        {"index":"03","eyebrow":"CHANNEL GROUPS","title":"渠道与产品分组","metric":"38组","body":"百炼、且慢小顾、SCRM、测试等按场景组合；同一工具可进入多个渠道。"},
+        {"index":"04","eyebrow":"CHANNEL","title":"百炼只是新渠道","metric":"69项","body":"ali-bailian在2026-07-29建立，当前复用了69项；不是官网总量的定义来源。"}
+      ],
+      "callout":{"label":"对象关系","text":"资产池提供候选，发布目录决定对外，渠道分组负责组合分发。","status":"confirmed"}
+    },
+    {
+      "id":"mapping","navLabel":"逐项结果","kicker":"03 · MAPPING","title":"官网69项可以全部对上","lead":"官网卡片展示名、Operation ID、内部来源、远程路径与五大分组已完成69/69映射。","layout":"metrics","tone":"soft",
+      "items":[
+        {"metric":"69/69","title":"Operation ID完整","body":"腾讯云清单中的69个ID均在官方空间与五大分组找到。","meta":"精确匹配率100%","status":"confirmed","source":"OAP官网 + 腾讯云MCP收录 + OAP内部"},
+        {"metric":"8","title":"接口来源服务","body":"bmdj、pmdj、cms_backend、oap-api、qm-agent、ai_tools、pomodel、tp-all。","meta":"当前官网69项来源","status":"confirmed","source":"OAP API来源与路由"},
+        {"metric":"105","title":"后台非官网记录","body":"不是官网“少展示”；是当前未进入官网69的内部、专项、历史与候选资产。","meta":"174−69","status":"inferred","source":"逐记录匹配结果"},
+        {"metric":"0","title":"五大分组跨组重复","body":"五大分组原始条数之和为69，Operation ID并集也是69。","meta":"41+12+5+4+7","status":"confirmed","source":"OAP服务分组"}
+      ]
+    },
+    {
+      "id":"duplicates","navLabel":"重复风险","kicker":"04 · DUPLICATION","title":"重复风险分两档","lead":"同ID冲突是确定问题；语义相近只是候选，必须由业务与技术Owner判断。","layout":"comparison","tone":"light",
+      "items":[
+        {"index":"01","eyebrow":"CONFIRMED","title":"3组同ID冲突","metric":"6条记录","body":"SearchFunds、GetTxnDayRange、GetStrategyAdjustments分别指向两个来源或路径。","bullets":["Operation ID应全局唯一","保留主版本；旧路由改名或下线"],"status":"confirmed","source":"官方空间174条逐项审计"},
+        {"index":"02","eyebrow":"REVIEW","title":"9组语义重复候选","body":"包括Batch/单条、旧版/新版、同展示名或同路径等关系。","bullets":["RenderHtmlToPdf 与旧版","SearchPortfolioStrategies 与 SearchStrategies","GetPomodelTradeRule 与 GetStrategyTradeRule"],"status":"inferred","source":"规范化ID、展示名与路径比对"},
+        {"index":"03","eyebrow":"LONG TAIL","title":"26条极低使用","metric":"≤10次","body":"后台非官网记录中26条累计调用不超过10次。","bullets":["不代表应直接删除","先确认Owner、依赖与替代能力"],"status":"confirmed","source":"官方空间Dashboard调用统计"}
+      ],
+      "callout":{"label":"删除原则","text":"先确认语义、调用方、替代路径和下线窗口，再执行；不能只靠名称相似做清理。","status":"confirmed"}
+    },
+    {
+      "id":"taxonomy","navLabel":"分类漂移","kicker":"05 · TAXONOMY","title":"五大类同名但结构不一致","lead":"后台五大服务分组与官网五大类总数都为69，但逐项有10项归属漂移。","layout":"comparison","tone":"soft",
+      "items":[
+        {"index":"01","eyebrow":"WEBSITE","title":"官网五大类","body":"金融数据35、投研服务13、通用服务5、投顾服务11、投顾内容5。","status":"confirmed","source":"OAP官网市场"},
+        {"index":"02","eyebrow":"BACKEND","title":"后台五大分组","body":"data 41、research 7、common 4、advisor 12、content 5。","status":"confirmed","source":"OAP服务分组"},
+        {"index":"03","eyebrow":"DRIFT","title":"10项归属漂移","body":"例如基金诊断在后台归金融数据、官网归投研服务；基金代码匹配在后台归金融数据、官网归通用服务。","bullets":["GetPortfolioNavHistory方向相反","5个筛选/诊断工具由数据移到投研"],"status":"confirmed","source":"69项逐项交叉表"}
+      ],
+      "callout":{"label":"主数据建议","text":"建立唯一primary_category；渠道group另列。官网只能消费同一主分类字段，不能自行二次归类。","status":"target"}
+    },
+    {
+      "id":"history","navLabel":"历史增减","kicker":"06 · HISTORY","title":"历史只能分证据层追溯","lead":"公开传播、后台统计创建、正式发布审批不能混为一个时间线。","layout":"timeline","tone":"light",
+      "items":[
+        {"index":"01","eyebrow":"LAUNCH","title":"30余个工具","body":"首次公开发布阶段的对外传播口径。","meta":"2025-04","status":"confirmed","source":"IT之家 · 2025-07-22"},
+        {"index":"02","eyebrow":"GROWTH","title":"超过70个工具","body":"2026年4月的外部传播口径，说明能力池曾以“超70”表达。","meta":"2026-04","status":"confirmed","source":"每日经济新闻 · 2026-04-08"},
+        {"index":"03","eyebrow":"SYNC","title":"两次官网分组同步","body":"当前发布系统可见data分组两次描述同步，均走草稿—双审—发布。","meta":"2026-07-29 / 2026-08-06","status":"confirmed","source":"OAP发布审核"},
+        {"index":"04","eyebrow":"CURRENT","title":"市场69、首页72","body":"当前唯一可以完整逐项核验的对外快照为官网市场69项。","meta":"2026-08-11","status":"confirmed","source":"OAP官网"}
+      ],
+      "callout":{"label":"历史缺口","text":"现有审计与发布流晚于五大分组首次建立，无法可靠还原69项最初每一次新增与原始添加人。","status":"missing"}
+    },
+    {
+      "id":"ownership","navLabel":"来源责任","kicker":"07 · OWNERSHIP","title":"能查到来源，查不到主人","lead":"系统登记了服务来源与地址，但没有结构化business_owner、tech_owner和oncall_owner。","layout":"cards","tone":"soft",
+      "items":[
+        {"index":"01","eyebrow":"SOURCE","title":"来源服务可确认","metric":"8个","body":"其中bmdj 30项、pmdj 22项，占官网69的75%。","status":"confirmed","source":"OAP API来源与69项映射"},
+        {"index":"02","eyebrow":"OPERATOR","title":"维护操作可追溯","body":"部分来源能从审计记录看到创建、同步或更新操作人。","bullets":["操作人不等于接口作者","操作人不等于长期Owner"],"status":"confirmed","source":"OAP系统审计"},
+        {"index":"03","eyebrow":"OWNER","title":"原作者大多缺失","body":"五大分组建立早于当前发布流；多数路由无法确认谁做、谁加、谁长期负责。","status":"missing","source":"审计窗口与分组创建时间比对"},
+        {"index":"04","eyebrow":"CONTROL","title":"发布治理有流程","body":"新增/关联需团队负责人一审、信息安全二审、申请人发布；但“取消关联”即时生效。","status":"confirmed","source":"OAP服务分组操作说明"}
+      ],
+      "callout":{"label":"风险","text":"下线比上线更容易：取消关联可即时生效，而审批链无法替代Owner责任和变更通知。","status":"confirmed"}
+    },
+    {
+      "id":"usage","navLabel":"谁在使用","kicker":"08 · USAGE","title":"调用高度集中于头部用户","lead":"公开版仅展示汇总；具体个人、机构与逐工具Top5调用方在本地底表。","layout":"metrics","tone":"dark",
+      "items":[
+        {"metric":"937.6万","title":"调用矩阵总量","body":"Dashboard调用详情矩阵当前总量。","meta":"截至2026-08-11","status":"confirmed","source":"OAP Dashboard"},
+        {"metric":"71.7%","title":"最大调用方占比","body":"单一头部调用方约672.1万次，形成明显集中风险。","meta":"672.1万 / 937.6万","status":"confirmed","source":"OAP Dashboard"},
+        {"metric":"69/69","title":"逐工具使用方可定位","body":"每个官网工具均已提取Top5调用方和调用次数。","meta":"明细仅限本地底表","status":"confirmed","source":"OAP Dashboard调用矩阵"},
+        {"metric":"13","title":"百炼当前排名","body":"阿里云百炼平台约4.13万次；它是使用渠道之一，不是总量定义。","meta":"当前调用方排名","status":"confirmed","source":"OAP Dashboard"}
+      ],
+      "callout":{"label":"运营动作","text":"为头部调用方设置单客户依赖看板、配额/限流、降级演练和重点工具SLA。","status":"target"}
+    },
+    {
+      "id":"actions","navLabel":"治理动作","kicker":"09 · ACTION","title":"先修口径，再补责任","lead":"治理不从“删工具”开始，而从对象模型、主键、Owner和发布链开始。","layout":"actions","tone":"soft",
+      "items":[
+        {"index":"01","eyebrow":"P0 · 48H","title":"统一唯一口径","body":"官网市场69作为对外唯一事实源；首页72改为同源动态取数。","meta":"责任：OAP产品 + 官网运营 · 成功：所有页面同数","status":"target"},
+        {"index":"02","eyebrow":"P0 · 1W","title":"修3组同ID冲突","body":"确认主版本、调用方迁移、旧版本改名或下线。","meta":"责任：OAP平台 + 来源Owner · 成功：Operation ID全局唯一","status":"target"},
+        {"index":"03","eyebrow":"P0 · 2W","title":"补69项责任矩阵","body":"每项补business_owner、tech_owner、source_owner、oncall与下线通知组。","meta":"责任：OAP平台 + 各服务团队 · 成功：69/69有Owner","status":"target"},
+        {"index":"04","eyebrow":"P1 · 2W","title":"对齐10项分类漂移","body":"唯一主分类进入路由模型；渠道分组单独建模。","meta":"责任：OAP产品 + 官网运营 · 成功：逐项一致","status":"target"},
+        {"index":"05","eyebrow":"P1 · 1M","title":"分层105条资产","body":"标为candidate/internal/special/legacy/deprecated，配退出标准。","meta":"责任：OAP产品 · 成功：后台不再混称对外","status":"target"},
+        {"index":"06","eyebrow":"P1 · MONTHLY","title":"建立增减台账","body":"上线、同步、下线都输出版本快照、diff、审批人与通知记录。","meta":"责任：OAP运营 · 成功：任意日期可还原对外清单","status":"target"}
+      ]
+    },
+    {
+      "id":"evidence","navLabel":"证据边界","kicker":"10 · EVIDENCE","title":"确认、推断、缺失要分开","lead":"公开版保留结论与方法，不披露内部域名、人员、客户与调用方明细。","layout":"evidence","tone":"light",
+      "items":[
+        {"title":"已确认","body":"官网69、首页72、后台174/171、五大分组69、3组同ID、9组语义候选、10项分类漂移、8个来源与当前调用汇总。","source":"OAP官网与内部系统 · 2026-08-11","status":"confirmed"},
+        {"title":"合理推断","body":"105条后台非官网资产主要是内部、专项、历史或候选；仍需逐条补资产层级。","source":"174−69逐记录匹配","status":"inferred"},
+        {"title":"仍然缺失","body":"首页72对应的历史3项具体名称、69项首次上线人、绝大多数接口原作者与长期Owner。","source":"当前系统未提供足够证据","status":"missing"},
+        {"title":"详细底表","body":"完整69×174映射、来源证据、逐工具Top5调用方、历史与待办已整理为本地审计工作簿。","source":"OAP工具全量审计_2026-08-11.xlsx","status":"confirmed"}
+      ]
+    }
+  ],
+  "sources": [
+    {"label":"OAP官网市场","detail":"https://qieman.com/mcp/mcp-market · 2026-08-11"},
+    {"label":"OAP官网首页","detail":"https://qieman.com/mcp · 2026-08-11"},
+    {"label":"盈米官网文章","detail":"https://yingmi.com/archives/871"},
+    {"label":"腾讯云MCP收录","detail":"https://cloud.tencent.com/developer/mcp/server/11801"},
+    {"label":"IT之家历史报道","detail":"https://www.ithome.com/0/869/950.htm · 2025-07-22"},
+    {"label":"每日经济新闻历史报道","detail":"https://www.nbd.com.cn/articles/2026-04-08/4330009.html · 2026-04-08"},
+    {"label":"OAP内部系统","detail":"Dashboard、服务分组、发布审核、API来源、系统审计 · 内部证据"}
+  ],
+  "openQuestions": [
+    {"title":"首页72的3项是什么","detail":"当前没有72项清单或历史官网快照，只能确认文案差3，不能编造具体工具。"},
+    {"title":"谁做、谁加、谁管","detail":"部分维护操作人可查；原始作者和长期Owner大多缺失，详见本地底表证据状态。"},
+    {"title":"隐私边界","detail":"公开报告不含内部域名、人员、客户与调用方明细；这些只保留在本地审计工作簿。"}
+  ]
+}
