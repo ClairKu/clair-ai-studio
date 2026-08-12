@@ -81,9 +81,13 @@ h2 { margin-bottom: 14px; font-size: clamp(35px, 5vw, 70px); line-height: .98; l
 .leader-row:last-child { border-bottom: 0; }
 .rank { font-size: 36px; font-weight: 1000; color: var(--violet); }
 .person { display: flex; align-items: center; gap: 12px; font-weight: 900; }
+.person-copy { display: grid; gap: 4px; }
+.person-copy b { font-size: 15px; }
+.person-copy small { color: var(--muted); font-size: 11px; font-weight: 700; }
 .avatar { display: grid; place-items: center; width: 48px; height: 48px; border: 2px solid var(--ink); border-radius: 50%; background: var(--acid); font-size: 24px; }
 .energy-track { height: 16px; border: 2px solid var(--ink); background: white; overflow: hidden; }
 .energy-fill { height: 100%; min-width: 4px; background: repeating-linear-gradient(135deg, var(--coral) 0 9px, var(--acid) 9px 18px); border-right: 2px solid var(--ink); }
+.energy-fill.is-zero { min-width: 0; border-right: 0; }
 .leader-metric { text-align: right; }
 .leader-metric b { display: block; font-size: 28px; line-height: 1; }
 .leader-metric span { font-size: 11px; color: var(--muted); }
@@ -159,6 +163,7 @@ body > footer span { font-size: 12px; color: rgba(255,255,255,.62); }
   .leader-metric.landed { display: none; }
   .avatar { width: 40px; height: 40px; font-size: 20px; }
   .person { gap: 8px; font-size: 13px; }
+  .person-copy small { font-size: 10px; }
   .impact-wall { grid-template-columns: 1fr; }
   .impact-card:nth-child(n) { transform: none; }
   .rules { grid-template-columns: 1fr; }

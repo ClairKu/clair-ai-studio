@@ -35,23 +35,26 @@ async function loadData() {
 function derive(data) {
   const records = Array.isArray(data.records) ? data.records : [];
   const painPoints = records.filter((item) => item.kind === "user_pain" && item.unique !== false);
-  const resolvedPainPoints = painPoints.filter((item) => item.status === "impact_confirmed");
+  const resolvedPainPoints = painPoints.filter((item) => ["released", "impact_confirmed"].includes(item.status));
+  const impactConfirmed = painPoints.filter((item) => item.status === "impact_confirmed");
   const landed = records.filter((item) => ["released", "impact_confirmed"].includes(item.status));
   const inDelivery = records.filter((item) => ["building", "merged"].includes(item.status));
   const contributors = new Set(records.map((item) => item.person_id).filter(Boolean));
-  return { records, painPoints, resolvedPainPoints, landed, inDelivery, contributors };
+  return { records, painPoints, resolvedPainPoints, impactConfirmed, landed, inDelivery, contributors };
 }
 
 function renderScore(data, derived) {
   const total = derived.records.filter((item) => item.unique !== false).length;
   const confirmed = derived.resolvedPainPoints.length;
-  const rate = derived.painPoints.length ? Math.round((confirmed / derived.painPoints.length) * 100) : 0;
+  const coverage = data.meta?.coverage || {};
+  const checked = Number(coverage.checked_members) || 0;
+  const active = Number(coverage.active_members) || 0;
   const stats = [
-    ["已解决用户痛点", confirmed, "需通过问题真实、改动落地、结果可见三道门"],
+    ["已上线用户痛点", confirmed, "生产环境可直接验证，不把测试完成当上线"],
     ["累计唯一需求", total, "追问、补充与重复任务不重复计算"],
-    ["参与共创队友", derived.contributors.size, "公开页使用稳定趣味代号"],
-    ["正在推进", derived.inDelivery.length, "开发中与已合并、待上线"],
-    ["痛点解决率", `${rate}%`, `已确认解决 ${confirmed} / 用户痛点 ${derived.painPoints.length}`],
+    ["全团队已核验", active ? `${checked}/${active}` : checked, "先拿完整名单，再逐人查记录"],
+    ["提交过的队友", derived.contributors.size, "需求提出人与代码协作者分开识别"],
+    ["仍在推进", derived.inDelivery.length, "已开发或测试完成、生产待核"],
   ];
   document.querySelector("#score-grid").innerHTML = stats.map(([label, value, note]) => `
     <article class="score-card">
@@ -61,9 +64,9 @@ function renderScore(data, derived) {
     </article>`).join("");
 
   document.querySelector("#pain-count").textContent = derived.painPoints.length;
-  document.querySelector("#impact-stamp").textContent = `${confirmed} 个解决 · ${derived.painPoints.length} 个推进`;
+  document.querySelector("#impact-stamp").textContent = `${confirmed} 个上线 · ${derived.inDelivery.length} 个推进`;
   document.querySelector("#hero-lead").textContent = data.meta?.headline
-    || `累计识别 ${derived.painPoints.length} 个用户痛点，其中 ${confirmed} 个已有解决证据。`;
+    || `累计识别 ${derived.painPoints.length} 个用户痛点，其中 ${confirmed} 个已在生产环境验证。`;
 }
 
 function renderLeaders(data) {
@@ -78,10 +81,10 @@ function renderLeaders(data) {
   target.innerHTML = people.map((person, index) => `
     <article class="leader-row">
       <span class="rank">${String(index + 1).padStart(2, "0")}</span>
-      <div class="person"><span class="avatar">${escapeHtml(person.avatar || "✦")}</span><span>${escapeHtml(person.display_name || "共创队友")}</span></div>
-      <div class="energy" aria-label="累计 ${person.total || 0} 项"><div class="energy-track"><div class="energy-fill" style="width:${Math.max(6, Math.round(((person.total || 0) / max) * 100))}%"></div></div></div>
+      <div class="person"><span class="avatar">${escapeHtml(person.avatar || "✦")}</span><span class="person-copy"><b>${escapeHtml(person.display_name || "共创队友")}</b><small>${person.total ? `${person.landed || 0} 项已上线` : "已核验 · 暂无记录"}</small></span></div>
+      <div class="energy" aria-label="累计 ${person.total || 0} 项"><div class="energy-track"><div class="energy-fill${person.total ? "" : " is-zero"}" style="width:${person.total ? Math.round(((person.total || 0) / max) * 100) : 0}%"></div></div></div>
       <div class="leader-metric"><b>${person.total || 0}</b><span>累计需求</span></div>
-      <div class="leader-metric landed"><b>${person.landed || 0}</b><span>已落地</span></div>
+      <div class="leader-metric landed"><b>${person.landed || 0}</b><span>已上线</span></div>
     </article>`).join("");
 }
 
@@ -116,7 +119,7 @@ function renderWall(derived) {
 function renderMeta(data, derived) {
   const cutoff = data.meta?.cutoff || "—";
   document.querySelector("#cutoff-label").textContent = `数据截止：${formatDate(cutoff)}`;
-  document.querySelector("#freshness-label").textContent = `每日检查 · 最近变化 ${formatDate(data.meta?.last_change_at || cutoff)}`;
+  document.querySelector("#freshness-label").textContent = `定期核验 · 最近变化 ${formatDate(data.meta?.last_change_at || cutoff)}`;
   const boundaries = Array.isArray(data.boundaries) && data.boundaries.length
     ? data.boundaries
     : ["只统计有可定位证据的记录", "同一需求的追问与补充不重复计算", "代码合并不自动等于用户痛点已解决"];

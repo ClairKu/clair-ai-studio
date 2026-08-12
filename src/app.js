@@ -25,7 +25,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 44;
+const DATA_VERSION = 45;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -155,7 +155,7 @@ const initialState = {
       pinned: true,
       position: 0,
       createdAt: "2026-08-11T19:20:00.000+08:00",
-      source: "本体 × Wiki/Jira × 登录态代码状态补核｜累计 2 个用户体验痛点进入交付链路；0 个确认上线解决；公开页仅保留脱敏总量与趣味代号",
+      source: "实时在岗名单 × Wiki/Jira × 登录态代码与生产核验｜团队 7/7 已核验；累计 4 个唯一改动，3 个已上线；按产品同学展示",
       access: "production",
       workType: "data-analysis",
       tags: ["且慢", "产品团队", "本体", "用户痛点", "需求统计", "团队共创", "数据分析", "HTML", "脱敏", "生产"],

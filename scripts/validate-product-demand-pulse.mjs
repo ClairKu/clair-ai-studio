@@ -8,21 +8,21 @@ const fallbackPath = join(root, "public/reports/product-demand-pulse/data/fallba
 const data = JSON.parse(readFileSync(dataPath, "utf8"));
 const fail = (message) => { throw new Error(`需求战报数据校验失败：${message}`); };
 const allowedStatuses = new Set(["submitted", "building", "merged", "released", "impact_confirmed", "unknown"]);
-const allowedAliases = new Set([
-  "闪电浣熊", "火箭水獭", "冲浪海豹", "像素狐狸", "霓虹熊猫", "飞行企鹅",
-  "星际兔子", "机智海豚", "暴走松鼠", "快乐水豚", "雷达猫猫", "宇宙柯基",
-]);
+const allowedDisplayNames = new Set(["嘉鸿", "家亮", "腾玉", "春燕", "刘晨", "金星", "佳殊"]);
 
 if (!data.meta?.cutoff) fail("meta.cutoff 缺失");
 if (!Array.isArray(data.records)) fail("records 必须是数组");
 if (!Array.isArray(data.people)) fail("people 必须是数组");
 if (!Array.isArray(data.boundaries)) fail("boundaries 必须是数组");
+if (!data.meta?.coverage || !Number.isInteger(data.meta.coverage.active_members)) fail("meta.coverage 缺失");
+if (data.meta.coverage.active_members !== data.people.length) fail("团队在岗人数与 people 数量不一致");
+if (data.meta.coverage.checked_members !== data.people.filter((person) => person.checked).length) fail("团队核验人数不一致");
 
 const personIds = new Set();
 for (const person of data.people) {
   if (!/^P\d{2}$/.test(person.id || "")) fail(`人员代号不合规：${person.id || "空"}`);
   if (personIds.has(person.id)) fail(`人员代号重复：${person.id}`);
-  if (!allowedAliases.has(person.display_name)) fail(`人员展示名不在脱敏代号表：${person.id}`);
+  if (!allowedDisplayNames.has(person.display_name)) fail(`人员展示名不在产品团队名单：${person.id}`);
   if (!Number.isInteger(person.total) || person.total < 0) fail(`人员累计数异常：${person.id}`);
   if (!Number.isInteger(person.landed) || person.landed < 0) fail(`人员落地数异常：${person.id}`);
   personIds.add(person.id);
@@ -65,4 +65,4 @@ if (process.argv.includes("--write-fallback")) {
   writeFileSync(fallbackPath, `window.DEMAND_PULSE_DATA = ${JSON.stringify(data, null, 2)};\n`);
 }
 
-console.log(`需求战报数据通过：${data.records.length} 条记录，${data.people.length} 位脱敏贡献者。`);
+console.log(`需求战报数据通过：${data.records.length} 条记录，${data.people.length} 位产品同学全部核验。`);

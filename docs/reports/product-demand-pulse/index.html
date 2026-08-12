@@ -17,7 +17,7 @@
       <span class="brand-mark">P!</span>
       <span>PAIN OFF · 痛点消消乐</span>
     </a>
-    <div class="live-chip"><i aria-hidden="true"></i><span id="freshness-label">每日检查 · 等待数据</span></div>
+    <div class="live-chip"><i aria-hidden="true"></i><span id="freshness-label">定期核验 · 等待数据</span></div>
   </header>
 
   <main id="main">
@@ -56,7 +56,7 @@
       <div class="section-heading">
         <p class="eyebrow">THE SCORE · 累计总量</p>
         <h2 id="stats-title">把改动，算成用户真正得到的变化</h2>
-        <p>主指标按去重后的用户痛点统计；内部效率优化与效果待验证项单列，不混入“已解决”。</p>
+        <p>主指标按去重后的用户痛点统计；生产环境可验证才算“已上线”，效果确认再单独升级。</p>
       </div>
       <div class="score-grid" id="score-grid" aria-live="polite"></div>
     </section>
@@ -67,7 +67,7 @@
           <p class="eyebrow">TEAM ENERGY · 团队能量</p>
           <h2 id="scoreboard-title">每一次提交，都是向用户靠近一步</h2>
         </div>
-        <p>按累计唯一需求排序；同时看进入开发与落地结果，避免只比数量。</p>
+        <p>完整覆盖在岗 7 人；有记录看数量和上线结果，无记录也明确展示已核验状态。</p>
       </div>
       <div class="leaderboard" id="leaderboard"></div>
     </section>
@@ -89,7 +89,7 @@
           <p class="eyebrow">PAIN-OFF WALL · 战果墙</p>
           <h2 id="wall-title">这些问题，正在从用户生活里消失</h2>
         </div>
-        <p>公开页仅展示脱敏类别与状态；姓名、需求原文、内部链接和代码细节不进入公开仓库。</p>
+        <p>公开页展示产品同学名字、脱敏类别与状态；账号、内部链接和代码细节不进入公开数据。</p>
       </div>
       <div class="impact-wall" id="impact-wall"></div>
     </section>
@@ -97,11 +97,11 @@
     <section class="rules section-shell" aria-labelledby="rules-title">
       <div class="rule-card rule-card-dark">
         <p class="eyebrow">WHAT COUNTS · 什么才算解决</p>
-        <h2 id="rules-title">“用户痛点已解决”有三道门</h2>
+        <h2 id="rules-title">从“提交”到“真的解决”有三道门</h2>
         <ol>
           <li><b>问题真实</b><span>有用户反馈、业务记录或可定位的体验证据</span></li>
-          <li><b>改动落地</b><span>有代码合并、配置生效或生产环境验证</span></li>
-          <li><b>结果可见</b><span>原问题已不可复现，或有明确效果数据</span></li>
+          <li><b>改动上线</b><span>生产页面、脚本、配置或部署状态可以直接验证</span></li>
+          <li><b>效果可见</b><span>原问题不可复现或有明确效果数据，再升级为效果确认</span></li>
         </ol>
       </div>
       <div class="rule-card">
