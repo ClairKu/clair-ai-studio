@@ -4,23 +4,23 @@
   "files": [
     {
       "path": "index.html",
-      "bytes": 455101,
-      "sha256": "26a841ec3c023debb21246332dc39e42e01012487503f5ce5a2c905e6de316a8"
+      "bytes": 455178,
+      "sha256": "a2682d348677260e656fc248223cc34297c9e70042c6ace51214b5f57c3c5598"
     },
     {
       "path": "briefing.html",
-      "bytes": 56461,
-      "sha256": "a1a0ce9247f680ca9a5160834b834705446def39eee2581ce93d28625c09f838"
+      "bytes": 56460,
+      "sha256": "242f798300a5357ce59e07a5f15bc5f0e7a010fdab509a495728cebefc63b6fc"
     },
     {
       "path": "records.json",
-      "bytes": 456304,
-      "sha256": "c8c9194857d8cac266bbe8b31a8a34e801ca10d7eccac0551aafeb987eea1600"
+      "bytes": 456381,
+      "sha256": "3866aa6c2a2b387288ebea9e75d5f5a79830c3959677b5c1b32fe00b7fb8e5af"
     },
     {
       "path": "report.json",
-      "bytes": 12251,
-      "sha256": "12c55b587b10c52f4ad1ef7b2f11a6bc9b34bb3dac1fb6f6dc7252c6e1ec30fb"
+      "bytes": 12250,
+      "sha256": "a37cd59cfe4027f2a0cea79701e92a0c69a2bb38c2327b931d0cbd6758f7964b"
     },
     {
       "path": "source-register.md",
