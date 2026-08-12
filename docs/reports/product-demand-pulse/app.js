@@ -91,15 +91,14 @@ function derive() {
 
 function renderStats(derived) {
   const stats = [
-    { label: "已上线用户痛点", value: derived.released.length, note: "用户已经用得上", tone: "acid" },
-    { label: "已提交", value: derived.records.length, note: pending.length ? `含 ${pending.length} 个本地待处理` : "累计唯一需求", tone: "paper" },
-    { label: "端到端能力升级", value: `${derived.e2ePeople.size}人`, note: "已从需求跑到上线", tone: "cyan" },
+    { label: "已上线用户痛点", value: derived.released.length, tone: "acid" },
+    { label: "已提交", value: derived.records.length, tone: "paper" },
+    { label: "端到端能力升级", value: `${derived.e2ePeople.size}人`, tone: "cyan" },
   ];
   document.querySelector("#score-grid").innerHTML = stats.map((item) => `
     <article class="score-card ${item.tone}">
       <span>${escapeHtml(item.label)}</span>
       <strong>${escapeHtml(item.value)}</strong>
-      <small>${escapeHtml(item.note)}</small>
     </article>`).join("");
   document.querySelector("#hero-lead").textContent = data.meta?.headline
     || `${derived.records.length} 个已提交，${derived.released.length} 个已上线。`;
@@ -112,7 +111,7 @@ function renderPending() {
     target.innerHTML = `
       <div class="pending-empty">
         <span>✦</span>
-        <div><b>待处理区还是空的</b><p>把那些“小到排不上、大到用户天天遇见”的问题先放进来。</p></div>
+        <div><b>待处理区还是空的</b></div>
         <button class="text-button" type="button" data-open-composer>创建第一个需求 →</button>
       </div>`;
     return;
@@ -151,7 +150,7 @@ function renderQuadrants(derived) {
     const released = records.filter((item) => LANDED.has(item.status)).length;
     return `
       <section class="quadrant quadrant-${categoryKey}">
-        <header><span class="quadrant-symbol">${meta.symbol}</span><div><h3>${escapeHtml(meta.title)}</h3><small>${escapeHtml(meta.kicker)}</small></div><b>${records.length}</b></header>
+        <header><span class="quadrant-symbol">${meta.symbol}</span><div><h3>${escapeHtml(meta.title)}</h3></div><b>${records.length}</b></header>
         <div class="quadrant-items">${records.length ? records.map((item) => `
           <div class="map-ticket ${LANDED.has(item.status) ? "is-done" : "is-open"}">
             <i aria-hidden="true"></i><span>${escapeHtml(item.public_title || item.pain_category)}</span><small>${escapeHtml(item.person_display)} · ${escapeHtml(STATUS_LABELS[item.status] || "待处理")}</small>
@@ -179,7 +178,7 @@ function renderTeam(derived) {
       <dl><div><dt>已提交</dt><dd>${person.total}</dd></div><div><dt>已上线</dt><dd>${person.released}</dd></div></dl>
     </article>`).join("");
   document.querySelector("#starter-dock").innerHTML = starters.length ? `
-    <div class="starter-copy"><span>READY?</span><b>等待首发</b><p>给一个真实问题，就能开始。</p></div>
+    <div class="starter-copy"><span>READY?</span><b>等待首发</b></div>
     <div class="starter-people">${starters.map((person) => `
       <button type="button" data-start-pm="${escapeHtml(person.id)}"><span>${escapeHtml(person.avatar)}</span><b>${escapeHtml(person.display_name)}</b><small>给 TA 一个需求 ＋</small></button>`).join("")}</div>` : "";
 }
@@ -194,11 +193,11 @@ function renderValue(derived) {
     ? derived.released.filter((item) => item.originally_unscheduled === true).length
     : "待记录";
   const cards = [
-    { symbol: "↯", label: "平均提前交付", value: average, note: dayValues.length ? "用户少等的平均天数" : "有计划日与上线日后自动计算" },
-    { symbol: "∞", label: "排期外解锁", value: unlocked, note: trackedUnscheduled.length ? "原本无排期但最终上线" : "从新需求开始标记" },
+    { symbol: "↯", label: "平均提前交付", value: average },
+    { symbol: "∞", label: "排期外解锁", value: unlocked },
   ];
   document.querySelector("#value-grid").innerHTML = cards.map((item) => `
-    <article class="value-card"><span>${item.symbol}</span><div><small>${item.label}</small><strong>${item.value}</strong><p>${item.note}</p></div></article>`).join("");
+    <article class="value-card"><span>${item.symbol}</span><div><small>${item.label}</small><strong>${item.value}</strong></div></article>`).join("");
 }
 
 function renderWall(derived) {

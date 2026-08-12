@@ -8,7 +8,7 @@ const fallbackPath = join(root, "public/reports/product-demand-pulse/data/fallba
 const data = JSON.parse(readFileSync(dataPath, "utf8"));
 const fail = (message) => { throw new Error(`需求战报数据校验失败：${message}`); };
 const allowedStatuses = new Set(["submitted", "building", "merged", "released", "impact_confirmed", "unknown"]);
-const allowedDisplayNames = new Set(["嘉鸿", "家亮", "春燕", "刘晨", "金星"]);
+const allowedDisplayNames = new Set(["嘉鸿", "家亮", "春燕", "刘晨", "金星", "刘佳", "嘉烨"]);
 const allowedCategories = new Set(["user_request", "important", "surprise", "urgent_bug"]);
 const allowedPriorities = new Set(["P0", "P1", "P2"]);
 
@@ -16,7 +16,7 @@ if (!data.meta?.cutoff) fail("meta.cutoff 缺失");
 if (data.meta?.update_rule_version !== "delta-first-v1") fail("增量更新规则版本异常");
 if (!Array.isArray(data.records)) fail("records 必须是数组");
 if (!Array.isArray(data.people)) fail("people 必须是数组");
-if (data.people.length !== allowedDisplayNames.size) fail("PM 范围应为 5 人");
+if (data.people.length !== allowedDisplayNames.size) fail("PM 范围应为 7 人");
 if (!data.value_definition?.early_delivery_days || !data.value_definition?.backlog_unlocked_count) fail("价值指标定义缺失");
 
 const personIds = new Set();
