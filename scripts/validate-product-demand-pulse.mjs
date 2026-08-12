@@ -8,24 +8,30 @@ const fallbackPath = join(root, "public/reports/product-demand-pulse/data/fallba
 const data = JSON.parse(readFileSync(dataPath, "utf8"));
 const fail = (message) => { throw new Error(`需求战报数据校验失败：${message}`); };
 const allowedStatuses = new Set(["submitted", "building", "merged", "released", "impact_confirmed", "unknown"]);
-const allowedDisplayNames = new Set(["嘉鸿", "家亮", "腾玉", "春燕", "刘晨", "金星", "佳殊"]);
+const allowedDisplayNames = new Set(["嘉鸿", "家亮", "春燕", "刘晨", "金星"]);
+const allowedCategories = new Set(["user_request", "important", "surprise", "urgent_bug"]);
+const allowedPriorities = new Set(["P0", "P1", "P2"]);
 
 if (!data.meta?.cutoff) fail("meta.cutoff 缺失");
+if (data.meta?.update_rule_version !== "delta-first-v1") fail("增量更新规则版本异常");
 if (!Array.isArray(data.records)) fail("records 必须是数组");
 if (!Array.isArray(data.people)) fail("people 必须是数组");
-if (!Array.isArray(data.boundaries)) fail("boundaries 必须是数组");
-if (!data.meta?.coverage || !Number.isInteger(data.meta.coverage.active_members)) fail("meta.coverage 缺失");
-if (data.meta.coverage.active_members !== data.people.length) fail("团队在岗人数与 people 数量不一致");
-if (data.meta.coverage.checked_members !== data.people.filter((person) => person.checked).length) fail("团队核验人数不一致");
+if (data.people.length !== allowedDisplayNames.size) fail("PM 范围应为 5 人");
+if (!data.value_definition?.early_delivery_days || !data.value_definition?.backlog_unlocked_count) fail("价值指标定义缺失");
 
 const personIds = new Set();
+const personNames = new Set();
 for (const person of data.people) {
   if (!/^P\d{2}$/.test(person.id || "")) fail(`人员代号不合规：${person.id || "空"}`);
   if (personIds.has(person.id)) fail(`人员代号重复：${person.id}`);
-  if (!allowedDisplayNames.has(person.display_name)) fail(`人员展示名不在产品团队名单：${person.id}`);
-  if (!Number.isInteger(person.total) || person.total < 0) fail(`人员累计数异常：${person.id}`);
-  if (!Number.isInteger(person.landed) || person.landed < 0) fail(`人员落地数异常：${person.id}`);
+  if (!allowedDisplayNames.has(person.display_name)) fail(`人员展示名不在当前 PM 范围：${person.id}`);
+  if (personNames.has(person.display_name)) fail(`人员展示名重复：${person.display_name}`);
   personIds.add(person.id);
+  personNames.add(person.display_name);
+}
+
+for (const displayName of allowedDisplayNames) {
+  if (!personNames.has(displayName)) fail(`缺少 PM：${displayName}`);
 }
 
 const recordIds = new Set();
@@ -34,17 +40,14 @@ for (const record of data.records) {
   if (recordIds.has(record.id)) fail(`记录代号重复：${record.id}`);
   if (!personIds.has(record.person_id)) fail(`记录人员不存在：${record.id}`);
   if (!allowedStatuses.has(record.status)) fail(`未知状态：${record.id} / ${record.status}`);
-  if (record.person_display !== data.people.find((person) => person.id === record.person_id)?.display_name) {
-    fail(`记录人员代号不一致：${record.id}`);
-  }
+  if (!allowedCategories.has(record.category)) fail(`未知需求类型：${record.id} / ${record.category}`);
+  if (!allowedPriorities.has(record.priority)) fail(`未知优先级：${record.id} / ${record.priority}`);
+  if (!record.public_title || !record.pain_category || !record.public_outcome) fail(`公开信息不完整：${record.id}`);
+  if (record.person_display !== data.people.find((person) => person.id === record.person_id)?.display_name) fail(`记录人员代号不一致：${record.id}`);
+  if (record.baseline_date && !/^\d{4}-\d{2}-\d{2}$/.test(record.baseline_date)) fail(`计划日期格式异常：${record.id}`);
+  if (record.released_at && !/^\d{4}-\d{2}-\d{2}$/.test(record.released_at)) fail(`上线日期格式异常：${record.id}`);
+  if (record.released_at && !["released", "impact_confirmed"].includes(record.status)) fail(`未上线记录不应有上线日期：${record.id}`);
   recordIds.add(record.id);
-}
-
-for (const person of data.people) {
-  const total = data.records.filter((record) => record.person_id === person.id && record.unique !== false).length;
-  const landed = data.records.filter((record) => record.person_id === person.id && ["released", "impact_confirmed"].includes(record.status)).length;
-  if (person.total !== total) fail(`${person.id} 累计数应为 ${total}，实际 ${person.total}`);
-  if (person.landed !== landed) fail(`${person.id} 落地数应为 ${landed}，实际 ${person.landed}`);
 }
 
 const forbiddenKeys = /(^|_)(submitter|username|real_name|source_id|source_url|internal_url|mr_url)($|_)/i;
@@ -65,4 +68,5 @@ if (process.argv.includes("--write-fallback")) {
   writeFileSync(fallbackPath, `window.DEMAND_PULSE_DATA = ${JSON.stringify(data, null, 2)};\n`);
 }
 
-console.log(`需求战报数据通过：${data.records.length} 条记录，${data.people.length} 位产品同学全部核验。`);
+const released = data.records.filter((record) => ["released", "impact_confirmed"].includes(record.status)).length;
+console.log(`需求战报数据通过：${data.records.length} 条已提交，${released} 条已上线，${data.people.length} 位 PM。`);

@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="产品团队通过盈米本体推动用户痛点解决的累计进度墙。" />
+  <meta name="description" content="产品团队用本体推动用户痛点解决的共创作战台。" />
   <meta name="theme-color" content="#17151f" />
-  <title>痛点消消乐｜产品团队本体共创战报</title>
+  <title>痛点消消乐｜产品共创作战台</title>
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
@@ -17,21 +17,21 @@
       <span class="brand-mark">P!</span>
       <span>PAIN OFF · 痛点消消乐</span>
     </a>
-    <div class="live-chip"><i aria-hidden="true"></i><span id="freshness-label">定期核验 · 等待数据</span></div>
+    <div class="live-chip"><i aria-hidden="true"></i><span id="freshness-label">更新于 —</span></div>
   </header>
 
   <main id="main">
     <section class="hero" id="top" aria-labelledby="hero-title">
       <div class="hero-copy">
         <p class="eyebrow">PRODUCT TEAM × ONTOLOGY</p>
-        <h1 id="hero-title">我们一起<br />向 <span id="pain-count">—</span> 个<span class="scribble">用户痛点</span><br />发起了进攻</h1>
-        <p class="hero-lead" id="hero-lead">正在核对需求、研发与上线证据。只把真实解决的问题算进来。</p>
+        <h1 id="hero-title">让小痛点，<br /><span class="scribble">不再等大版本</span></h1>
+        <p class="hero-lead" id="hero-lead">正在加载最新战报。</p>
         <div class="hero-actions">
-          <a class="button primary" href="#scoreboard">看团队战绩 <span>↓</span></a>
-          <button class="button ghost" type="button" id="celebrate-button">为行动鼓掌 ✦</button>
+          <button class="button primary" type="button" data-open-composer>＋ 新增需求</button>
+          <button class="button ghost" type="button" data-export-update>↗ 一键更新战报</button>
         </div>
       </div>
-      <div class="hero-visual" aria-label="用户痛点消除进度">
+      <div class="hero-visual" aria-label="用户痛点消除行动">
         <div class="orbit orbit-a"></div>
         <div class="orbit orbit-b"></div>
         <div class="burst" id="burst">
@@ -39,86 +39,130 @@
           <span class="burst-slash"></span>
           <span class="burst-word burst-word-bottom">OFF!</span>
         </div>
-        <div class="stamp" id="impact-stamp">累计核验中</div>
+        <div class="stamp" id="impact-stamp">加载中</div>
       </div>
     </section>
 
-    <section class="marquee" aria-label="统计原则">
+    <section class="marquee" aria-label="团队共创氛围">
       <div class="marquee-track">
-        <span>解决一个真问题，比堆十个任务更重要 ✦</span>
-        <span>累计口径 · 需求去重 · 结果有证据 ✦</span>
-        <span>代码合并不等于用户痛点已解决 ✦</span>
-        <span aria-hidden="true">解决一个真问题，比堆十个任务更重要 ✦</span>
+        <span>一个真问题，一次真改变 ✦</span>
+        <span>小需求也值得被看见 ✦</span>
+        <span>从想法到上线，PM 也能端到端 ✦</span>
+        <span aria-hidden="true">一个真问题，一次真改变 ✦</span>
       </div>
     </section>
 
     <section class="stats section-shell" aria-labelledby="stats-title">
-      <div class="section-heading">
-        <p class="eyebrow">THE SCORE · 累计总量</p>
-        <h2 id="stats-title">把改动，算成用户真正得到的变化</h2>
-        <p>主指标按去重后的用户痛点统计；生产环境可验证才算“已上线”，效果确认再单独升级。</p>
+      <div class="section-heading compact">
+        <div>
+          <p class="eyebrow">THE SCORE · 累计战绩</p>
+          <h2 id="stats-title">用户已经得到什么</h2>
+        </div>
+        <p>看总量，也看有多少人真正跑通了从需求到上线。</p>
       </div>
       <div class="score-grid" id="score-grid" aria-live="polite"></div>
     </section>
 
-    <section class="scoreboard section-shell" id="scoreboard" aria-labelledby="scoreboard-title">
+    <section class="workbench section-shell" id="workbench" aria-labelledby="workbench-title">
       <div class="section-heading compact">
         <div>
-          <p class="eyebrow">TEAM ENERGY · 团队能量</p>
-          <h2 id="scoreboard-title">每一次提交，都是向用户靠近一步</h2>
+          <p class="eyebrow">NEXT PAIN · 需求待处理区</p>
+          <h2 id="workbench-title">下一个，解决什么？</h2>
         </div>
-        <p>完整覆盖在岗 7 人；有记录看数量和上线结果，无记录也明确展示已核验状态。</p>
+        <div class="section-actions">
+          <button class="button primary" type="button" data-open-composer>＋ 新增需求</button>
+          <button class="button mini" type="button" data-export-update>生成更新包</button>
+        </div>
       </div>
-      <div class="leaderboard" id="leaderboard"></div>
+
+      <form class="demand-composer" id="demand-composer" hidden>
+        <div class="composer-head">
+          <div><span class="step-number">01</span><h3>把这个痛点放上台面</h3></div>
+          <button class="icon-button" type="button" data-close-composer aria-label="关闭新增需求">×</button>
+        </div>
+        <div class="form-grid">
+          <label class="field field-wide"><span>用户想要什么 <b>*</b></span><input id="demand-title" name="title" maxlength="60" required placeholder="一句话说清用户遇到的问题" /></label>
+          <label class="field field-wide"><span>补充信息</span><textarea id="demand-detail" name="detail" rows="3" maxlength="240" placeholder="场景、影响范围、参考链接或为什么现在要做"></textarea></label>
+          <label class="field"><span>选择 PM <b>*</b></span><select id="demand-pm" name="person_id" required></select></label>
+          <label class="field"><span>需求类型 <b>*</b></span><select id="demand-category" name="category" required>
+            <option value="user_request">用户想要</option>
+            <option value="important">重要建设</option>
+            <option value="surprise">惊喜探索</option>
+            <option value="urgent_bug">紧急 BUG</option>
+          </select></label>
+          <label class="field"><span>优先级 <b>*</b></span><select id="demand-priority" name="priority" required>
+            <option value="P1">P1 · 重要</option>
+            <option value="P0">P0 · 立刻处理</option>
+            <option value="P2">P2 · 可排期</option>
+          </select></label>
+          <label class="field"><span>原计划上线日</span><input id="demand-baseline" name="baseline_date" type="date" /></label>
+          <label class="check-field field-wide"><input id="demand-unscheduled" name="originally_unscheduled" type="checkbox" /><span>这个需求原本排不上计划</span></label>
+        </div>
+        <div class="composer-actions">
+          <button class="button primary" type="submit">加入待处理区</button>
+          <span>有计划日就填，未来可以计算用户提前享受了多少天。</span>
+        </div>
+      </form>
+
+      <div class="pending-list" id="pending-list" aria-live="polite"></div>
     </section>
 
-    <section class="pipeline section-shell" aria-labelledby="pipeline-title">
+    <section class="map-section section-shell" aria-labelledby="map-title">
       <div class="section-heading compact">
         <div>
-          <p class="eyebrow">FROM ASK TO IMPACT · 交付链路</p>
-          <h2 id="pipeline-title">痛点不是“提完了”，而是“解决了”</h2>
+          <p class="eyebrow">DEMAND MAP · 需求组合</p>
+          <h2 id="map-title">不只看多少，还要看为何而做</h2>
         </div>
-        <p>需求沿证据链前进：已提交 → 开发中 → 已合并 → 已上线 → 效果确认。</p>
+        <p id="map-summary">正在整理需求分布。</p>
       </div>
-      <div class="pipeline-board" id="pipeline-board"></div>
+      <div class="quadrant-wrap">
+        <span class="axis-label axis-y-top">必须尽快 ↑</span>
+        <span class="axis-label axis-y-bottom">日常改善 ↓</span>
+        <div class="quadrant-grid" id="quadrant-grid"></div>
+        <div class="axis-x"><span>← 用户牵引</span><span>团队牵引 →</span></div>
+      </div>
+    </section>
+
+    <section class="team section-shell" aria-labelledby="team-title">
+      <div class="section-heading compact">
+        <div>
+          <p class="eyebrow">TEAM ENERGY · 共创能量</p>
+          <h2 id="team-title">有人跑通，也等你首发</h2>
+        </div>
+        <p>已出发的人看结果；还没记录的人，不用从一条空进度条开始。</p>
+      </div>
+      <div class="achiever-grid" id="achiever-grid"></div>
+      <div class="starter-dock" id="starter-dock"></div>
+    </section>
+
+    <section class="value section-shell" aria-labelledby="value-title">
+      <div class="value-copy">
+        <p class="eyebrow">TIME TO VALUE · 用户更早得到</p>
+        <h2 id="value-title">真正的价值，是少等了多久</h2>
+        <p>从今天开始补齐计划基线：不仅统计“做了多少”，也统计“提前了多少”和“解锁了多少原本排不上的需求”。</p>
+      </div>
+      <div class="value-grid" id="value-grid"></div>
     </section>
 
     <section class="wall section-shell" aria-labelledby="wall-title">
       <div class="section-heading compact">
         <div>
-          <p class="eyebrow">PAIN-OFF WALL · 战果墙</p>
-          <h2 id="wall-title">这些问题，正在从用户生活里消失</h2>
+          <p class="eyebrow">PAIN-OFF WALL · 已发生的改变</p>
+          <h2 id="wall-title">这些痛点，正在消失</h2>
         </div>
-        <p>公开页展示产品同学名字、脱敏类别与状态；账号、内部链接和代码细节不进入公开数据。</p>
+        <button class="button mini" type="button" id="celebrate-button">为行动鼓掌 ✦</button>
       </div>
       <div class="impact-wall" id="impact-wall"></div>
-    </section>
-
-    <section class="rules section-shell" aria-labelledby="rules-title">
-      <div class="rule-card rule-card-dark">
-        <p class="eyebrow">WHAT COUNTS · 什么才算解决</p>
-        <h2 id="rules-title">从“提交”到“真的解决”有三道门</h2>
-        <ol>
-          <li><b>问题真实</b><span>有用户反馈、业务记录或可定位的体验证据</span></li>
-          <li><b>改动上线</b><span>生产页面、脚本、配置或部署状态可以直接验证</span></li>
-          <li><b>效果可见</b><span>原问题不可复现或有明确效果数据，再升级为效果确认</span></li>
-        </ol>
-      </div>
-      <div class="rule-card">
-        <p class="eyebrow">DATA BOUNDARY · 数据边界</p>
-        <h2>诚实，比热闹更重要</h2>
-        <div id="boundary-list" class="boundary-list"></div>
-        <p class="source-note" id="source-note">等待本体返回可核验证据。</p>
-      </div>
     </section>
   </main>
 
   <footer>
     <span>产品团队 × 盈米本体</span>
-    <strong>把每一次改动，变成用户能感受到的变化。</strong>
-    <span id="cutoff-label">数据截止：—</span>
+    <strong>让每一个小痛点，都有被解决的机会。</strong>
+    <span id="cutoff-label">更新于 —</span>
   </footer>
 
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <div class="confetti" id="confetti" aria-hidden="true"></div>
   <script src="./data/fallback-data.js"></script>
   <script src="./app.js" type="module"></script>

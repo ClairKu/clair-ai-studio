@@ -1,16 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
-  <title id="title">痛点消消乐产品团队共创战报预览</title>
-  <desc id="desc">米白背景上的荧光黄爆炸图形、全团队核验覆盖、痛点累计与上线总量。</desc>
+  <title id="title">痛点消消乐产品共创作战台预览</title>
+  <desc id="desc">米白背景上的荧光黄爆炸图形，以及已上线痛点、已提交和端到端能力升级三项指标。</desc>
   <rect width="1200" height="720" fill="#f7f4ec"/>
   <path d="M0 82h1200M0 650h1200" stroke="#17151f" stroke-width="4"/>
   <rect x="54" y="24" width="54" height="54" fill="#dfff4f" stroke="#17151f" stroke-width="4" transform="rotate(-5 81 51)"/>
   <text x="66" y="60" font-family="Arial,sans-serif" font-weight="900" font-size="28" fill="#17151f">P!</text>
-  <text x="126" y="58" font-family="Arial,'PingFang SC',sans-serif" font-weight="900" font-size="24" fill="#17151f">PAIN OFF · 痛点消消乐</text>
+  <text x="126" y="58" font-family="Arial,'PingFang SC',sans-serif" font-weight="900" font-size="24" fill="#17151f">PAIN OFF · 产品共创作战台</text>
   <text x="66" y="178" font-family="Arial,'PingFang SC',sans-serif" font-weight="900" font-size="22" letter-spacing="4" fill="#17151f">PRODUCT TEAM × ONTOLOGY</text>
-  <text x="62" y="282" font-family="Arial,'PingFang SC',sans-serif" font-weight="1000" font-size="94" fill="#17151f">向 4 个用户痛点</text>
-  <rect x="452" y="304" width="440" height="28" fill="#dfff4f" transform="rotate(-1 672 318)"/>
-  <text x="62" y="390" font-family="Arial,'PingFang SC',sans-serif" font-weight="1000" font-size="94" fill="#17151f">发起进攻</text>
-  <text x="68" y="458" font-family="Arial,'PingFang SC',sans-serif" font-size="26" fill="#6d6877">7/7 全员核验 · 4 项累计 · 3 项已上线</text>
+  <text x="62" y="284" font-family="Arial,'PingFang SC',sans-serif" font-weight="1000" font-size="88" fill="#17151f">让小痛点，</text>
+  <rect x="62" y="385" width="530" height="28" fill="#dfff4f" transform="rotate(-1 327 399)"/>
+  <text x="62" y="390" font-family="Arial,'PingFang SC',sans-serif" font-weight="1000" font-size="88" fill="#17151f">不再等大版本</text>
+  <text x="68" y="458" font-family="Arial,'PingFang SC',sans-serif" font-size="26" fill="#6d6877">4 个已提交 · 3 个已上线 · 2 位 PM 跑通端到端</text>
   <g transform="translate(894 360) rotate(4)">
     <path d="M0-184 46-120 118-158 120-74 204-46 145 14 198 82 116 102 90 190 20 138-38 204-66 126-150 158-142 76-214 36-152-22-210-92-126-106-98-186-28-136Z" fill="#dfff4f" stroke="#17151f" stroke-width="7"/>
     <text x="-118" y="-8" font-family="Arial,sans-serif" font-weight="1000" font-size="82" fill="#17151f">PAIN</text>
@@ -18,19 +18,19 @@
     <text x="-98" y="92" font-family="Arial,sans-serif" font-weight="1000" font-size="82" fill="#ff6b58" stroke="#17151f" stroke-width="2">OFF!</text>
   </g>
   <g transform="translate(66 540)">
-    <rect width="206" height="78" fill="#fffdf7" stroke="#17151f" stroke-width="4"/>
-    <text x="18" y="30" font-family="Arial,'PingFang SC',sans-serif" font-weight="800" font-size="16" fill="#17151f">已上线痛点</text>
-    <text x="172" y="58" font-family="Arial,sans-serif" font-weight="1000" font-size="52" text-anchor="end" fill="#ff6b58">3</text>
+    <rect width="206" height="78" fill="#dfff4f" stroke="#17151f" stroke-width="4"/>
+    <text x="18" y="30" font-family="Arial,'PingFang SC',sans-serif" font-weight="800" font-size="16" fill="#17151f">已上线用户痛点</text>
+    <text x="172" y="59" font-family="Arial,sans-serif" font-weight="1000" font-size="52" text-anchor="end" fill="#17151f">3</text>
   </g>
   <g transform="translate(294 540)">
-    <rect width="206" height="78" fill="#50d6d1" stroke="#17151f" stroke-width="4"/>
-    <text x="18" y="30" font-family="Arial,'PingFang SC',sans-serif" font-weight="800" font-size="16" fill="#17151f">累计唯一需求</text>
-    <text x="172" y="58" font-family="Arial,sans-serif" font-weight="1000" font-size="52" text-anchor="end" fill="#17151f">4</text>
+    <rect width="206" height="78" fill="#fffdf7" stroke="#17151f" stroke-width="4"/>
+    <text x="18" y="30" font-family="Arial,'PingFang SC',sans-serif" font-weight="800" font-size="16" fill="#17151f">已提交</text>
+    <text x="172" y="59" font-family="Arial,sans-serif" font-weight="1000" font-size="52" text-anchor="end" fill="#17151f">4</text>
   </g>
   <g transform="translate(522 540)">
-    <rect width="206" height="78" fill="#7b61ff" stroke="#17151f" stroke-width="4"/>
-    <text x="18" y="30" font-family="Arial,'PingFang SC',sans-serif" font-weight="800" font-size="16" fill="#fff">参与共创队友</text>
-    <text x="172" y="58" font-family="Arial,sans-serif" font-weight="1000" font-size="52" text-anchor="end" fill="#fff">2</text>
+    <rect width="250" height="78" fill="#50d6d1" stroke="#17151f" stroke-width="4"/>
+    <text x="18" y="30" font-family="Arial,'PingFang SC',sans-serif" font-weight="800" font-size="16" fill="#17151f">端到端能力升级</text>
+    <text x="216" y="59" font-family="Arial,'PingFang SC',sans-serif" font-weight="1000" font-size="52" text-anchor="end" fill="#17151f">2人</text>
   </g>
-  <text x="66" y="686" font-family="Arial,'PingFang SC',sans-serif" font-size="15" fill="#fff">完整名单 · 逐人核验 · 累计口径 · 结果有证据</text>
+  <text x="66" y="686" font-family="Arial,'PingFang SC',sans-serif" font-size="15" fill="#fff">新增需求 · PM 指派 · 四象限 · 一键增量更新</text>
 </svg>

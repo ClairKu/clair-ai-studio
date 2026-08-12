@@ -25,7 +25,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 45;
+const DATA_VERSION = 46;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -155,10 +155,10 @@ const initialState = {
       pinned: true,
       position: 0,
       createdAt: "2026-08-11T19:20:00.000+08:00",
-      source: "实时在岗名单 × Wiki/Jira × 登录态代码与生产核验｜团队 7/7 已核验；累计 4 个唯一改动，3 个已上线；按产品同学展示",
+      source: "产品共创作战台｜4 个已提交，3 个已上线，2 位 PM 跑通端到端；支持新增待处理需求、PM 指派、四象限与增量更新包",
       access: "production",
       workType: "data-analysis",
-      tags: ["且慢", "产品团队", "本体", "用户痛点", "需求统计", "团队共创", "数据分析", "HTML", "脱敏", "生产"],
+      tags: ["且慢", "产品团队", "本体", "用户痛点", "需求共创", "端到端", "需求地图", "HTML", "脱敏", "生产"],
     },
     {
       id: "qieman-mcp-account-username-bug-2026-08-11",
