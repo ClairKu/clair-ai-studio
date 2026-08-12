@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "assets": [
+    {
+      "path": "assets/02-csrc-article16-08.png",
+      "bytes": 445010,
+      "sha256": "a6adff3a478971793f475f54059d3cdfc2da323441359865dda00c22645bd66c"
+    },
+    {
+      "path": "assets/03-csrc-transition-10.png",
+      "bytes": 321089,
+      "sha256": "148f0326ed55bb493d44c9967b4507e04f54326f7b6eafd367bedfe397ab3b6d"
+    },
+    {
+      "path": "assets/04-qieman-005827-current.png",
+      "bytes": 40183,
+      "sha256": "ff6ebbe290c135b2d9f879ecb827fd54d356c28eec62307b11ef3d805b24fdc1"
+    },
+    {
+      "path": "assets/07-xueqiu-005827-current.png",
+      "bytes": 47260,
+      "sha256": "69142c0261c4a39858d428df09c90a89684ec5a2d1854752172e3d7843e10621"
+    },
+    {
+      "path": "assets/05-eastmoney-005827-current.png",
+      "bytes": 105551,
+      "sha256": "a2ead03c5d22c6ede5b1069a8320df2db01214f8087653729a6c833bcaa244e8"
+    },
+    {
+      "path": "assets/08-fund-contract-benchmark.png",
+      "bytes": 103551,
+      "sha256": "a0c821ce3fd373a101f8edf91bda9ef7233263da94e8cd0c444e6c0cb78615d8"
+    },
+    {
+      "path": "assets/06-howbuy-page.png",
+      "bytes": 91453,
+      "sha256": "eda0a4a7d5eb0a4960967caf9b503271fc12eef424236545fb84bd50f31fd240"
+    }
+  ]
+}

@@ -133,6 +133,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "fund-benchmark-display-audit-2026-08-12",
+      groupId: "product-planning",
+      title: "基金业绩比较基准同步展示｜监管、盈米与平台实测",
+      url: "https://clairku.github.io/clair-ai-studio/reports/fund-benchmark-display-audit-2026-08-12/",
+      preview: "fund-benchmark-display-audit-2026-08-12.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-12T18:00:00.000+08:00",
+      source: "证监会第 3 号公告 × 基金业协会操作细则 × 内部受限项目台账 × 且慢/天天/好买/雪球 005827 网页实测｜公开脱敏版",
+      access: "production",
+      workType: "competitive-research",
+      tags: ["且慢", "业绩比较基准", "合规", "竞品调研", "需求评审", "证据审计", "CLAIR", "HTML", "脱敏", "生产"],
+    },
+    {
       id: "oap-tool-governance-audit-2026-08-11",
       groupId: "ai-platform",
       title: "OAP 工具全量审计｜官网 69 项 vs 官方空间 174 条",
