@@ -1,0 +1,226 @@
+{
+  "meta": {
+    "title": "且慢小顾服务卡片全景",
+    "subtitle": "35 个组件已经形成丰富底座\n下一步要把出卡变成稳定的服务编排",
+    "eyebrow": "QIEMAN XIAOGU · PRODUCTION EXPERIENCE AUDIT",
+    "date": "2026-08-13",
+    "cutoff": "2026-08-13",
+    "owner": "Clair",
+    "confidentiality": "生产体验 · 公开脱敏版",
+    "accent": "#7457E8",
+    "brand": "Clair AI Studio",
+    "brandMark": "C"
+  },
+  "hero": {
+    "conclusion": "小顾已经不只是“回答问题”：生产端注册 35 个业务卡片，其中 23 个可在真实对话中独立落卡，覆盖账户、收益、诊断、基金、策略、市场、内容与服务。",
+    "thesis": "丰富度已经成立，但用户最终感知取决于三件事：能否说一句自然话稳定触发、同轮图文口径是否一致、卡片是否把用户带到正确的下一步。",
+    "badges": ["生产实测", "35 个业务组件", "公开脱敏", "移动端验收"]
+  },
+  "agenda": {
+    "enabled": true,
+    "label": "AGENDA",
+    "title": "从组件数量到服务价值",
+    "groups": [
+      {"index": "01", "eyebrow": "RESULT · 结果", "title": "先看真实覆盖", "summary": "注册、落卡、降级与缺口分别有多少", "sections": ["关键结果", "能力蓝图"]},
+      {"index": "02", "eyebrow": "LANDSCAPE · 全景", "title": "再看服务场景", "summary": "35 个组件如何分布在用户旅程中", "sections": ["账户收益", "基金研究", "诊断策略", "市场服务"]},
+      {"index": "03", "eyebrow": "EXPERIENCE · 体验", "title": "用服务链而非卡片墙演示", "summary": "一问多卡、逐层下钻、下一步承接", "sections": ["场景演示", "关键问题"]},
+      {"index": "04", "eyebrow": "ACTION · 行动", "title": "把丰富度转化为确定性", "summary": "优先修复一致性、跳转与触发契约", "sections": ["行动建议", "证据边界"]}
+    ]
+  },
+  "sections": [
+    {
+      "id": "results",
+      "navLabel": "关键结果",
+      "kicker": "01 · RESULT",
+      "title": "卡片丰富度已成立",
+      "lead": "分母是生产前端 CARD_REGISTRY 中 35 个已注册业务卡片；分子是 2026-08-13 当前登录态新对话里实际渲染的独立卡片类型。",
+      "layout": "metrics",
+      "tone": "light",
+      "items": [
+        {"metric": "35", "title": "注册业务卡片", "body": "覆盖基金、账户、收益、诊断、策略、市场、内容和服务。", "meta": "生产包静态清点 · 2026-08-13", "status": "confirmed", "source": "生产前端 CARD_REGISTRY"},
+        {"metric": "23", "title": "真实独立落卡", "body": "自然语言触发后出现可识别的专用卡片结构。", "meta": "占注册组件 65.7%", "status": "confirmed", "source": "生产对话实测"},
+        {"metric": "5", "title": "降级呈现", "body": "需求完成，但由通用图表、资产分析或文字替代专用卡。", "meta": "占注册组件 14.3%", "status": "inferred", "source": "生产对话与组件实现对照"},
+        {"metric": "7", "title": "未独立落卡", "body": "数据已返回、无数据或被其他组件承接，本轮未看到专用卡。", "meta": "占注册组件 20.0%", "status": "missing", "source": "生产对话实测"}
+      ],
+      "callout": {"label": "一句话判断", "text": "适合对外展示的口径不是“我们有 35 张卡”，而是“35 个业务组件支撑 8 类服务域，23 个已能在真实对话中形成可操作体验”。", "status": "confirmed"}
+    },
+    {
+      "id": "blueprint",
+      "navLabel": "能力蓝图",
+      "kicker": "02 · SYSTEM",
+      "title": "卡片服务四层链路",
+      "lead": "用户只说目标；系统完成理解、取数、选择渲染器，并由卡片承担解释和下一步。通用卡片是横向底座，不计入 35 个业务组件。",
+      "layout": "architecture",
+      "tone": "dark",
+      "items": [
+        {"index": "01", "eyebrow": "INTENT", "title": "一句自然话", "body": "“看看最近收益”“诊断我的账户”“这只基金怎么样”。"},
+        {"index": "02", "eyebrow": "SERVICE", "title": "8 类服务域", "body": "账户持仓、收益账单、诊断复盘、基金研究、策略规划、市场内容、消息服务、通用承接。"},
+        {"index": "03", "eyebrow": "RENDER", "title": "35 个业务渲染器", "body": "专用卡表达业务语义；通用图表在专卡缺失时兜底。"},
+        {"index": "04", "eyebrow": "NEXT STEP", "title": "可执行下一步", "body": "查看详情、切换口径、选择账户、进入报告、转人工或继续追问。"},
+        {"index": "05", "eyebrow": "COMMON LAYER", "title": "3 类通用体验卡", "body": "文件附件、引用来源与追问建议在历史/当前生产会话可见，形成证据与连续对话底座。"}
+      ],
+      "callout": {"label": "体验标准", "text": "一张好卡必须同时回答：我看到了什么、为什么可信、下一步能做什么。", "status": "target"}
+    },
+    {
+      "id": "account-return",
+      "navLabel": "账户收益",
+      "kicker": "03 · ACCOUNT & RETURN",
+      "title": "账户收益服务主链",
+      "lead": "这一组是目前完成度最高、最能体现投后服务价值的卡片集合。每项均给出可复用触发示例与实际效果。",
+      "layout": "cards",
+      "tone": "soft",
+      "items": [
+        {"index": "01", "eyebrow": "CONFIRMED · card_asset_analysis_visualization", "title": "资产分析", "body": "场景：从全账户或指定账户查看资产类别、基金类型、风险等级和穿透行业。", "bullets": ["触发：分析我的全部持仓，显示资产分布旭日图", "效果：真实落卡，可切换 5 种视图，是账户侧信息密度最高的卡片"], "status": "confirmed"},
+        {"index": "02", "eyebrow": "CONFIRMED · card_asset_flow_summary", "title": "资金流水", "body": "场景：解释期初资产如何经转入、转出、收益和其他项目变成期末资产。", "bullets": ["触发：展示最近一个完整月的资金流水卡", "效果：真实落卡，支持流程图与列表图切换"], "status": "confirmed"},
+        {"index": "03", "eyebrow": "MISSING · card_asset_cert_result", "title": "资产证明", "body": "场景：确认可开立证明的日期范围与下一步入口。", "bullets": ["触发：展示我可开立资产证明的日期范围卡", "效果：后端返回范围，但当前没有独立卡片工具，仅文字呈现"], "status": "missing"},
+        {"index": "04", "eyebrow": "CONFIRMED · card_latest_profit", "title": "最新收益", "body": "场景：快速查看总账户或指定账户最近一个收益日的金额与收益率。", "bullets": ["触发：用卡片展示我的最新收益", "效果：真实落卡，适合作为每日回访第一张卡"], "status": "confirmed"},
+        {"index": "05", "eyebrow": "CONFIRMED · card_profit_calendar", "title": "收益日历", "body": "场景：观察连续盈亏、极端日和月内节奏。", "bullets": ["触发：展示最近 30 天收益日历", "效果：支持日/月/年切换；移动端应控制长列表信息量"], "status": "confirmed"},
+        {"index": "06", "eyebrow": "CONFIRMED · card_sub_account_profit", "title": "子账户收益", "body": "场景：识别哪些目标账户贡献收益、哪些账户拖累。", "bullets": ["触发：按子账户展示投资以来收益", "效果：真实落卡，展示账户级累计收益与收益率"], "status": "confirmed"},
+        {"index": "07", "eyebrow": "CONFIRMED · card_product_profit", "title": "产品收益", "body": "场景：在同一账户下比较不同策略或基金产品的贡献。", "bullets": ["触发：按产品展示投资以来收益", "效果：从账户层继续下钻到产品层"], "status": "confirmed"},
+        {"index": "08", "eyebrow": "INFERRED · card_product_holding_summary", "title": "持仓汇总", "body": "场景：汇总账户、子账户和产品层级，建立持仓全景。", "bullets": ["触发：展示我的全部持仓汇总卡", "效果：文字汇总 + 资产分析替代，未确认专卡"], "status": "inferred"},
+        {"index": "09", "eyebrow": "CONFIRMED · card_monthly_statement", "title": "月度账单", "body": "场景：按月份选择对账单并进入详情。", "bullets": ["触发：展示可查看的月度账单", "效果：真实落卡，月份选择与详情入口完整"], "status": "confirmed"},
+        {"index": "10", "eyebrow": "CONFIRMED · card_processing_asset", "title": "在途资产", "body": "场景：查看待确认订单、到账时间或资金状态。", "bullets": ["触发：展示当前在途资产", "效果：本轮为空态但专用卡真实落地，仍保留服务入口"], "status": "confirmed"}
+      ]
+    },
+    {
+      "id": "fund-research",
+      "navLabel": "基金研究",
+      "kicker": "04 · FUND RESEARCH",
+      "title": "基金研究专卡与兜底",
+      "lead": "单基金详情稳定，但经理、列表和四类专用对比尚未形成一致的组件体验。通用 ECharts 是当前最有效的兜底。",
+      "layout": "cards",
+      "tone": "light",
+      "items": [
+        {"index": "01", "eyebrow": "CONFIRMED · card_fund_detail", "title": "基金详情", "body": "场景：集中查看收益、波动、回撤、夏普和详情入口。", "bullets": ["触发：001180 这只基金怎么样？请用基金详情卡展示", "效果：多只公开基金均真实落卡，适合逐只下钻"], "status": "confirmed"},
+        {"index": "02", "eyebrow": "MISSING · card_fund_manager_detail", "title": "基金经理", "body": "场景：查看经理履历、在管规模、任期与代表产品。", "bullets": ["触发：展示霍华明的基金经理详情卡", "效果：结构化数据已返回，但无独立渲染工具"], "status": "missing"},
+        {"index": "03", "eyebrow": "MISSING · card_fund_list", "title": "基金列表", "body": "场景：按主题、类型或条件集中呈现候选基金。", "bullets": ["触发：列出 3 只医药指数基金并用基金列表卡展示", "效果：被连续 3 张基金详情卡替代"], "status": "missing"},
+        {"index": "04", "eyebrow": "INFERRED · card_fund_holding_concentration_compare", "title": "持仓集中度对比", "body": "场景：判断基金是否过度集中于少数行业或个股。", "bullets": ["触发：对比 3 只基金的持仓集中度", "效果：需求完成，由通用 ECharts 降级承载"], "status": "inferred"},
+        {"index": "05", "eyebrow": "INFERRED · card_fund_basic_info_compare", "title": "基金信息对比", "body": "场景：同口径比较规模、成立年限、风险等级与近期收益。", "bullets": ["触发：对比 3 只基金的基本信息", "效果：通用图表落地，专用组件仍为骨架占位"], "status": "inferred"},
+        {"index": "06", "eyebrow": "INFERRED · card_fund_fee_compare", "title": "费率对比", "body": "场景：发现长期持有中的成本差异。", "bullets": ["触发：对比管理费、托管费、申购费和综合成本", "效果：通用图表落地，专用费率卡未落地"], "status": "inferred"},
+        {"index": "07", "eyebrow": "INFERRED · card_fund_performance_compare", "title": "业绩对比", "body": "场景：观察短中长期表现差异，避免只看单一周期。", "bullets": ["触发：对比近 1 周、1 月、3 月、1 年和今年来收益", "效果：通用图表落地，专用业绩卡未落地"], "status": "inferred"},
+        {"index": "08", "eyebrow": "CONFIRMED · card_echart", "title": "通用图表", "body": "场景：没有专卡或需要自定义维度时承载结构化对比。", "bullets": ["触发：把阶段收益、费率、集中度和基本信息做成对比图", "效果：一次产生 4 种对比图，是丰富度的重要兜底能力"], "status": "confirmed"}
+      ],
+      "callout": {"label": "演示建议", "text": "先展示一张基金详情，再让小顾对比 3 只基金的四个维度，最容易同时体现专业深度和生成式灵活性。", "status": "confirmed"}
+    },
+    {
+      "id": "diagnosis-strategy",
+      "navLabel": "诊断策略",
+      "kicker": "05 · DIAGNOSIS & PLAN",
+      "title": "诊断到规划服务链",
+      "lead": "从账户体检、月度复盘，到组合详情、推荐和定制方案，已经能组成连续服务链；搜索与调仓记录仍以文字承接。",
+      "layout": "cards",
+      "tone": "soft",
+      "items": [
+        {"index": "01", "eyebrow": "CONFIRMED · card_account_diagnose_report", "title": "账户诊断报告", "body": "场景：从风险、配置、回测和相关性维度完成整体体检。", "bullets": ["触发：用卡片展示我的完整账户诊断报告", "效果：结论清晰、维度完整，是投后服务核心承接卡"], "status": "confirmed"},
+        {"index": "02", "eyebrow": "CONFIRMED · card_account_diagnose_entry", "title": "账户诊断入口", "body": "场景：尚未选定对象时，引导选择账户或导入资产。", "bullets": ["触发：展示账户诊断入口卡", "效果：抗风险值、账户选择与导入入口完整"], "status": "confirmed"},
+        {"index": "03", "eyebrow": "CONFIRMED · card_monthly_analysis_specify", "title": "指定月分析", "body": "场景：查看指定月份的账户分析报告。", "bullets": ["触发：展示 2026 年 7 月的月度分析", "效果：真实落卡，提供月份与查看报告入口"], "status": "confirmed"},
+        {"index": "04", "eyebrow": "CONFIRMED · card_monthly_analysis_range", "title": "月度分析区间", "body": "场景：回顾一段时间内月末资产与月度收益变化。", "bullets": ["触发：展示最近 12 个月月度分析", "效果：专卡突出最新月份，历史区间由文字摘要承载"], "status": "confirmed"},
+        {"index": "05", "eyebrow": "CONFIRMED · card_prod_detail", "title": "组合详情", "body": "场景：查看主理人、运行时长、风险、持有期限、回撤与年化收益。", "bullets": ["触发：展示长赢指数投资计划-150份的组合详情", "效果：真实落卡，也可复用为推荐候选卡"], "status": "confirmed"},
+        {"index": "06", "eyebrow": "MISSING · card_prod_search", "title": "组合搜索", "body": "场景：按名称或关键词从多个组合中定位目标。", "bullets": ["触发：搜索长赢指数投资计划并用组合搜索卡展示", "效果：搜索成功但直接跳到详情，搜索结果卡未落地"], "status": "missing"},
+        {"index": "07", "eyebrow": "CONFIRMED · card_recommend_product", "title": "推荐组合", "body": "场景：采集风险、期限和目标后进入产品方案。", "bullets": ["触发：按中风险、3 年以上、长期增值需求推荐组合", "效果：真实落卡，先展示条件选择入口"], "status": "confirmed"},
+        {"index": "08", "eyebrow": "CONFIRMED · card_account_invest_plan", "title": "定制方案", "body": "场景：从资金用途出发设置账户目标并获取投资方案。", "bullets": ["触发：展示且慢定制方案卡", "效果：覆盖活钱、短期、长钱、养老金、家庭、伴侣、教育和自定义 8 类场景"], "status": "confirmed"},
+        {"index": "09", "eyebrow": "MISSING · card_rebalance_adjust_list", "title": "调仓记录", "body": "场景：查看调仓日期、买卖方向、基金和跟车信息。", "bullets": ["触发：用卡片展示组合最近 3 个月调仓记录", "效果：数据查询成功并形成文字表格，专卡未落地"], "status": "missing"}
+      ]
+    },
+    {
+      "id": "market-service",
+      "navLabel": "市场服务",
+      "kicker": "06 · MARKET, CONTENT & SERVICE",
+      "title": "市场内容与服务入口",
+      "lead": "这一组让小顾从“投后助手”扩展为日常服务入口，但同轮口径冲突与自动跳转会直接损害信任。",
+      "layout": "cards",
+      "tone": "light",
+      "items": [
+        {"index": "01", "eyebrow": "CONFIRMED · card_market_thermometer", "title": "市场温度计", "body": "场景：在中证全A、沪深300、中证500间切换，快速理解估值温度。", "bullets": ["触发：展示当前市场温度计", "效果：真实落卡；同轮文字与指数详情曾出现评级冲突"], "status": "confirmed", "source": "生产对话实测 · 2026-08-13"},
+        {"index": "02", "eyebrow": "CONFIRMED · card_idx_eval_detail", "title": "指数估值", "body": "场景：查看 PE、历史百分位、ROE、指数基金与估值走势。", "bullets": ["触发：展示沪深300指数估值详情", "效果：图表与推荐基金联动完整，需明确区间和数据源"], "status": "confirmed"},
+        {"index": "03", "eyebrow": "MISSING · card_industry_viewpoint", "title": "行业观点", "body": "场景：汇总行业结论并下钻基金经理观点。", "bullets": ["触发：展示医药生物行业观点卡", "效果：所选行业暂无观点数据，也没有渲染空态卡"], "status": "missing"},
+        {"index": "04", "eyebrow": "MISSING · card_news", "title": "资讯", "body": "场景：按标题、时间、来源和摘要浏览市场动态。", "bullets": ["触发：用卡片展示最新 3 条市场资讯", "效果：查询成功但只在文字摘要中列出"], "status": "missing"},
+        {"index": "05", "eyebrow": "CONFIRMED · card_subscribed_content", "title": "订阅内容", "body": "场景：查看已关注内容并进入更多内容。", "bullets": ["触发：展示我的订阅内容", "效果：本轮为空态仍真实落卡并保留查看更多"], "status": "confirmed"},
+        {"index": "06", "eyebrow": "CONFIRMED · card_todo_items", "title": "待办事项", "body": "场景：聚合价格预警、跟调确认、补仓提醒等需要处理的任务。", "bullets": ["触发：展示我的待办事项", "效果：真实落卡；公开版不披露数量和正文"], "status": "confirmed"},
+        {"index": "07", "eyebrow": "CONFIRMED · card_inbox_msgs", "title": "消息", "body": "场景：横向浏览策略文章、半年报、直播和投教通知。", "bullets": ["触发：展示我的未读消息", "效果：真实落卡并支持左右滑动；公开版不披露个性化正文"], "status": "confirmed"},
+        {"index": "08", "eyebrow": "CONFIRMED · card_feedback_human_service", "title": "反馈 / 人工", "body": "场景：AI 无法解决或用户要求人工确认时转接在线客服。", "bullets": ["触发：展示反馈/人工服务入口", "效果：卡片落地后自动跳第三方并结束会话，明显打断对话"], "status": "confirmed"}
+      ]
+    },
+    {
+      "id": "demo",
+      "navLabel": "场景演示",
+      "kicker": "07 · DEMO",
+      "title": "三段真实服务故事",
+      "lead": "每段都从一个自然问题出发，串联多张卡，并以可操作下一步收束。这样才能同时体现丰富度、理解力与业务价值。",
+      "layout": "demo",
+      "tone": "dark",
+      "items": [
+        {"index": "01", "eyebrow": "DAILY REVIEW", "title": "今天我的钱怎么样？", "body": "最新收益 → 收益日历 → 子账户收益 → 产品收益 → 资金流水 → 月度账单。", "meta": "日常投后回访", "status": "confirmed", "bullets": ["一次提问可连续落 6 类卡", "从结果下钻到原因和凭证"]},
+        {"index": "02", "eyebrow": "HEALTH CHECK", "title": "这个账户健康吗？", "body": "资产分析 → 账户诊断 → 指定月分析 → 月度区间 → 定制方案。", "meta": "账户体检与规划", "status": "confirmed", "bullets": ["从现状解释走向目标规划", "账户选择、报告入口与方案承接清晰"]},
+        {"index": "03", "eyebrow": "INVESTMENT RESEARCH", "title": "这只基金值得继续看吗？", "body": "基金详情 → 多维对比图 → 市场温度计 → 指数估值 → 组合推荐。", "meta": "投前研究与选择", "status": "confirmed", "bullets": ["专用卡 + 通用图表组合展示", "仍需统一估值口径并补齐经理/列表专卡"]}
+      ],
+      "callout": {"label": "演示脚本原则", "text": "用一问多卡体现广度，用逐层下钻体现深度，用明确 CTA 体现服务闭环。", "status": "confirmed"}
+    },
+    {
+      "id": "issues",
+      "navLabel": "关键问题",
+      "kicker": "08 · PRIORITY ISSUES",
+      "title": "三个问题影响确定性",
+      "lead": "按用户信任和任务中断程度排序：先修口径一致性，再修未经确认的跳转，最后让触发条件可见。",
+      "layout": "comparison",
+      "tone": "soft",
+      "items": [
+        {"index": "P0", "eyebrow": "CONSISTENCY", "title": "同轮估值评级冲突", "body": "同一回答中，文字摘要称沪深300偏低估，而指数详情卡显示高估值与高历史百分位。", "bullets": ["风险：直接伤害专业可信度", "标准：同一数据快照、同一分段规则、同一文案生成源"], "status": "confirmed", "source": "生产对话实测 · 2026-08-13"},
+        {"index": "P0", "eyebrow": "CONTROL", "title": "人工服务自动跳转", "body": "人工服务卡渲染完成后，页面未经点击自动进入第三方客服并结束当前会话。", "bullets": ["风险：对话上下文丢失，用户失去控制", "标准：必须由用户显式点击，跳转前说明影响并保留回到小顾入口"], "status": "confirmed"},
+        {"index": "P1", "eyebrow": "DISCOVERABILITY", "title": "自然话术与出卡契约不透明", "body": "点击“资产分析”快捷入口只得到追问；明确说“全部持仓 + 旭日图”才稳定落卡。", "bullets": ["风险：能力存在但用户感知不到", "标准：快捷入口自带最小参数、缺参时用结构化选择器补齐"], "status": "confirmed"},
+        {"index": "P1", "eyebrow": "DELIVERY", "title": "注册不等于可触发", "body": "经理、列表、资产证明、搜索、调仓、行业观点和资讯共 7 个注册项未独立落卡。", "bullets": ["风险：前台能力口径虚高", "标准：建立“注册—工具—数据—渲染—CTA”五段式健康检查"], "status": "confirmed", "source": "35 卡触发清单 · 2026-08-13"}
+      ]
+    },
+    {
+      "id": "actions",
+      "navLabel": "行动建议",
+      "kicker": "09 · ACTION",
+      "title": "三步升级服务系统",
+      "lead": "优先把已有能力变得稳定、可发现、可度量，再补充新卡。新增组件数量不应成为下一阶段的唯一目标。",
+      "layout": "actions",
+      "tone": "light",
+      "items": [
+        {"index": "01", "eyebrow": "P0 · TRUST", "title": "建立卡片数据一致性门禁", "body": "同一回答中的文字、图表、评级、时间窗和来源必须复用同一结构化快照；发布前增加冲突检测。", "meta": "责任建议：AI 产品 + 投研数据 + 前端 · 立即", "status": "target"},
+        {"index": "02", "eyebrow": "P0 · CONTROL", "title": "修复人工服务跳转与会话保留", "body": "改为用户显式点击后跳转，保留当前上下文，并提供清晰返回入口。", "meta": "责任建议：前端 + 客服平台 · 立即", "status": "target"},
+        {"index": "03", "eyebrow": "P1 · OPERATE", "title": "建设 35 卡触发回归集", "body": "每张卡固定最小话术、前置数据、空态、异常态、CTA 与 390px 截图，版本发布自动回归。", "meta": "责任建议：AI 产品 + QA · 下一迭代", "status": "target"},
+        {"index": "04", "eyebrow": "P1 · DISCOVER", "title": "把入口改造成场景启动器", "body": "资产分析、收益回顾、账户体检等入口直接带齐最小参数；缺参时用卡片化选择器，而不是再问一遍。", "meta": "责任建议：产品设计 + 对话策略 · 下一迭代", "status": "target"},
+        {"index": "05", "eyebrow": "P2 · GOVERN", "title": "统一能力口径与版本命名", "body": "对外清晰区分已注册、已接工具、已取到数据、已独立落卡、已完成闭环，并统一“小顾 2.0 / 页面 3.0”名称。", "meta": "责任建议：产品运营 · 发布前", "status": "target"}
+      ],
+      "callout": {"label": "北极星指标", "text": "以“目标话术稳定落卡率 × 卡片数据一致率 × CTA 完成率”衡量服务质量，而非只统计组件数量。", "status": "target"}
+    },
+    {
+      "id": "evidence",
+      "navLabel": "证据边界",
+      "kicker": "10 · EVIDENCE",
+      "title": "生产证据与公开边界",
+      "lead": "原始生产截图含账户、持仓、诊断、保单和消息信息，仅保存在本地证据目录；公开页面使用结构化重绘，不上传个人数据。",
+      "layout": "evidence",
+      "tone": "soft",
+      "items": [
+        {"title": "35 卡覆盖结构图", "body": "把注册、独立落卡、降级和未落卡放在同一分母下，避免用前端注册量替代真实体验。", "source": "生产前端 CARD_REGISTRY + 登录态对话实测 · 2026-08-13", "image": "assets/card-landscape.svg", "alt": "且慢小顾 35 个服务卡片的覆盖结构与服务链路示意", "imagePriority": "high", "status": "confirmed"},
+        {"title": "口径与限制", "body": "当前页面标题为“且慢AI小顾 3.0”，与用户给定“小顾2.0”命名不一致；结论是单账户、单日生产体验快照，不代表所有账号权限、数据状态或未来版本。", "source": "生产页面标题与当前会话 · 2026-08-13", "status": "confirmed"},
+        {"title": "公共市场信息不构成建议", "body": "报告中的基金代码、指数与话术仅用于验证组件字段和触发路径，不构成产品推荐或投资建议。", "source": "本报告公开边界", "status": "confirmed"}
+      ]
+    }
+  ],
+  "closing": {
+    "mark": "CLAIR · PRODUCT EXPERIENCE REPORT",
+    "line1": "把 35 个组件变成一套稳定服务，",
+    "line2": "让每一次出卡都通向",
+    "accent": "理解与行动",
+    "lead": "小顾的卡片底座已经足够丰富。下一阶段的关键不是继续堆数量，而是让每个场景都能被自然触发、使用同一事实、保留用户控制，并把下一步稳稳接住。",
+    "metaPrimary": "且慢小顾服务卡片全景 · 2026-08-13",
+    "metaSecondary": "生产体验快照 · 公开脱敏版 · 原始账户证据未上传"
+  },
+  "sources": [
+    {"label": "且慢小顾生产服务", "detail": "用户提供的生产地址 · 页面标题“且慢AI小顾 3.0” · 2026-08-13"},
+    {"label": "生产前端 CARD_REGISTRY", "detail": "assets/index-20260807145100-d532eefa.js · 35 个注册业务卡片"},
+    {"label": "登录态生产对话", "detail": "新建测试会话 · 35 类组件触发与降级验证 · 2026-08-13"},
+    {"label": "历史生产会话", "detail": "仅用于确认文件附件、引用来源与追问建议等通用体验卡；敏感正文未公开"}
+  ],
+  "openQuestions": [
+    {"title": "跨账号覆盖", "detail": "本轮只有一个登录账号与当前数据状态；无持仓、无消息、无订阅、无观点数据等空态需单独回归。"},
+    {"title": "交易闭环", "detail": "为避免真实副作用，本轮未执行购买、调仓跟车、证明申请、分享或客服提交。"},
+    {"title": "版本口径", "detail": "用户名称为“小顾2.0”，生产页面标题为“且慢AI小顾 3.0”，正式传播前需统一。"}
+  ]
+}

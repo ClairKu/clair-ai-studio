@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "assets": [
+    {
+      "path": "assets/card-landscape.svg",
+      "bytes": 5658,
+      "sha256": "d1e380008fbd9e37456fef89c73de85fc8ac7cad8af61a51ae4d4be6af25348e"
+    }
+  ]
+}

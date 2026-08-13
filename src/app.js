@@ -25,7 +25,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 46;
+const DATA_VERSION = 47;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -132,6 +132,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "qieman-xiaogu-service-card-landscape-2026-08-13",
+      groupId: "xiaogu",
+      title: "且慢小顾服务卡片全景｜35 个组件的真实出卡与场景效果",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-xiaogu-service-card-landscape-2026-08-13/",
+      preview: "qieman-xiaogu-service-card-landscape-2026-08-13.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-13T10:48:42.000+08:00",
+      source: "且慢小顾生产前端 CARD_REGISTRY × 当前登录态生产对话实测｜35 个注册业务组件、23 个真实独立落卡、5 个降级呈现、7 个未独立落卡｜账户、收益、诊断、基金、策略、市场、内容与服务场景全清单｜公开脱敏版",
+      access: "production",
+      workType: "competitive-research",
+      tags: ["且慢", "AI 小顾", "服务卡片", "生产体验", "组件清单", "场景测试", "账户服务", "基金研究", "产品评测", "CLAIR", "HTML", "脱敏", "生产"],
+    },
     {
       id: "yingmi-qianwen-launch-media-monitor-2026-08-12",
       groupId: "reporting",
