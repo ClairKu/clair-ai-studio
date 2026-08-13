@@ -133,6 +133,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "qieman-ai-growth-practice-2026-08-14",
+      groupId: "ai-platform",
+      title: "且慢怎么快起来、怎么破圈？｜从服务验证到增长闭环",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-ai-growth-practice-2026-08-14/",
+      preview: "qieman-ai-growth-practice-2026-08-14.png",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-14T03:10:00.000+08:00",
+      source: "飞书汇报 revision 1748 × 8·14 CAP 模式 × 8·13 小顾生产实测 × OAP 近期经营报告 × 千问传播与归因审计｜13 章单线叙事：服务价值验证—能力资产化—外部入口分发—经营闭环｜20 万 / 300 万及 95% / 80% / 40% 等冲突口径不做成果大屏｜公开脱敏交互式 HTML",
+      access: "production",
+      workType: "reporting",
+      tags: ["且慢", "AI 小顾", "AI 开放平台", "OAP", "CAP", "增长", "服务生产", "千问", "产品实践", "管理汇报", "证据治理", "CLAIR", "HTML", "公开脱敏", "生产"],
+    },
+    {
       id: "qieman-cap-product-paradigm-2026-08-14",
       groupId: "product-planning",
       title: "且慢 CAP 产品模式｜从固定产品到服务生产系统",
