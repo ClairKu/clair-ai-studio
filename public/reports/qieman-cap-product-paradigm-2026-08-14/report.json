@@ -1,0 +1,586 @@
+{
+  "meta": {
+    "title": "CAP 产品模式",
+    "subtitle": "不是做更多功能\n而是重构服务生产",
+    "eyebrow": "且慢产品规划 · INTERACTIVE EXECUTIVE REPORT",
+    "date": "2026-08-14",
+    "cutoff": "源文件最后修改于 2026-06-12；本报告重绘于 2026-08-14",
+    "owner": "且慢产品规划材料",
+    "confidentiality": "产品方法概念稿 · 目标态与已上线状态分开标注",
+    "accent": "#7457E8",
+    "brand": "Clair AI Studio",
+    "brandMark": "C"
+  },
+  "hero": {
+    "conclusion": "CAP 的真正价值不是让 AI 帮产品经理更快堆功能，而是把产品改造成“能力可复用、规则可治理、服务可即时编排”的生产系统。",
+    "thesis": "传统产品同时受制于两组不可能三角：能力、体验与个性化难以兼得；多元需求、有限资源与交付效率持续冲突。CAP 试图用原子能力、业务规则、样板与 AI 编排改变供给方式，但原稿中的 70% 和 1 小时～1 天仍是目标，必须经过真实需求与服务质量验证。",
+    "badges": [
+      "7 页原稿全量重绘",
+      "CAP 产品范式",
+      "目标态显式标注",
+      "390px 可交互"
+    ]
+  },
+  "closing": {
+    "mark": "QIEMAN · CAP PRODUCT PARADIGM",
+    "line1": "未来产品的竞争，",
+    "line2": "不只是谁做出更多功能，而是谁能持续生成",
+    "accent": "更合适的服务",
+    "lead": "CAP 要成立，关键不是画出一张漂亮的能力地图，而是让真实需求能被准确拆解、能力能被可靠调用、结果能被持续评测、服务能被安全复用。先验证一条黄金链路，再扩展能力池与生态生产权。",
+    "metaPrimary": "且慢产品规划 · 交互重绘版 · 2026-08-14",
+    "metaSecondary": "源稿截止 2026-06-12 · 70% 与 1 小时～1 天均为目标口径"
+  },
+  "agenda": {
+    "enabled": true,
+    "label": "AGENDA",
+    "title": "报告大纲",
+    "groups": [
+      {
+        "index": "01",
+        "eyebrow": "WHY · 问题",
+        "title": "传统产品为什么越来越慢",
+        "summary": "两组不可能三角，让需求、资源与体验彼此挤压",
+        "sections": ["中心判断", "双重三角"]
+      },
+      {
+        "index": "02",
+        "eyebrow": "WHAT · 范式",
+        "title": "CAP 改变的不是界面而是生产方式",
+        "summary": "从交付固定成品，转向建设可组合的能力系统",
+        "sections": ["CAP 定义", "产品对比", "组织对比"]
+      },
+      {
+        "index": "03",
+        "eyebrow": "SYSTEM · 系统",
+        "title": "AI 实验室如何组织服务供给",
+        "summary": "能力、规则、样板、编排、分发形成生产闭环",
+        "sections": ["生态蓝图", "需求分流", "目标口径", "生成服务"]
+      },
+      {
+        "index": "04",
+        "eyebrow": "ACTION · 落地",
+        "title": "从概念图走向可验证系统",
+        "summary": "先锁定黄金链路、成功标准与治理边界",
+        "sections": ["生态角色", "验证路线"]
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "core-judgement",
+      "navLabel": "中心判断",
+      "kicker": "01 · CORE JUDGEMENT",
+      "title": "目标不是多做功能",
+      "lead": "AI 实验室的角色，是把服务生产所需的边界、能力、规则与协作方式组织起来。",
+      "layout": "cards",
+      "tone": "light",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "PLATFORM",
+          "title": "平台定义边界",
+          "body": "明确哪些能力可以被调用、怎样组合、谁能发布，以及服务必须满足什么规则。",
+          "status": "confirmed",
+          "source": "《2026且慢产品思考规划》P2 · 2026-06-12"
+        },
+        {
+          "index": "02",
+          "eyebrow": "AI",
+          "title": "AI 理解与编排",
+          "body": "把自然语言需求拆成任务，选择能力与样板，并依据情境组织服务流程。",
+          "status": "target",
+          "source": "《2026且慢产品思考规划》P2 · 目标态"
+        },
+        {
+          "index": "03",
+          "eyebrow": "ECOSYSTEM",
+          "title": "生态共同生产",
+          "body": "产品、业务、开发者、系统商、主理人和机构不再只提需求，也可以沉淀与发布服务。",
+          "status": "target",
+          "source": "《2026且慢产品思考规划》P1–P2 · 目标态"
+        },
+        {
+          "index": "04",
+          "eyebrow": "USER",
+          "title": "用户获得适配服务",
+          "body": "结果不再是所有人共用一套固定页面，而是根据目标、数据与偏好生成更合适的服务形态。",
+          "status": "target",
+          "source": "《2026且慢产品思考规划》P2 · 目标态"
+        }
+      ],
+      "callout": {
+        "label": "中心判断",
+        "text": "CAP 不是一个新功能名，而是一种新的产品供给制度：产品团队从设计全部成品，转向建设能力、规则、样板与治理。",
+        "status": "inferred"
+      }
+    },
+    {
+      "id": "impossible-triangles",
+      "navLabel": "双重三角",
+      "kicker": "02 · TWO IMPOSSIBLE TRIANGLES",
+      "title": "传统模式被双重约束",
+      "lead": "一个三角来自用户价值，一个三角来自组织供给；只优化其中一个角，通常会把压力转移到另外两个角。",
+      "layout": "evidence",
+      "tone": "soft",
+      "items": [
+        {
+          "title": "价值三角：强、简、准",
+          "body": "功能强大意味着复杂度上升；体验简洁要求降低认知负担；个性化又需要更多数据、路径与差异化。固定产品难以长期同时做到。",
+          "source": "《2026且慢产品思考规划》P3 · 重绘",
+          "image": "assets/triangle-value.svg",
+          "alt": "功能强大、简洁易用、个性化三者形成的产品价值不可能三角",
+          "imagePriority": "high",
+          "status": "confirmed"
+        },
+        {
+          "title": "供给三角：多、少、快",
+          "body": "小白、资深、高客、顾问、业务、主理人与机构持续提出差异化需求，但产研资源和固定交互容量有限，交付效率因而被挤压。",
+          "source": "《2026且慢产品思考规划》P3 · 重绘",
+          "image": "assets/triangle-supply.svg",
+          "alt": "多元需求、有限资源、快速交付三者形成的产品供给不可能三角",
+          "imagePriority": "high",
+          "status": "confirmed"
+        }
+      ],
+      "callout": {
+        "label": "问题本质",
+        "text": "传统模式把每个需求都翻译成页面和功能，因此需求越多，产品越厚、排期越长、个体适配越弱。",
+        "status": "inferred"
+      }
+    },
+    {
+      "id": "cap-definition",
+      "navLabel": "CAP 定义",
+      "kicker": "03 · CAP DEFINITION",
+      "title": "产品变成生成系统",
+      "lead": "Composable Adaptive Paradigm：把稳定能力拆成原子单元，由规则、样板和 AI 根据场景组合成服务。",
+      "layout": "architecture",
+      "tone": "dark",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "ATOMIC ABILITIES",
+          "title": "原子能力",
+          "body": "数据、算法、模型、工具、组件与 API 被标准化为可发现、可调用的最小能力单元。",
+          "bullets": ["单一职责", "输入输出明确", "可复用与可评测"],
+          "status": "target",
+          "source": "《2026且慢产品思考规划》P4"
+        },
+        {
+          "index": "02",
+          "eyebrow": "RULES + BLUEPRINTS",
+          "title": "规则与样板",
+          "body": "业务逻辑、边界条件和标准服务范例沉淀为 AI 能理解并遵循的生产约束。",
+          "bullets": ["Prompts / Rules", "案例样板库", "合规与适当性"],
+          "status": "target",
+          "source": "《2026且慢产品思考规划》P1、P4"
+        },
+        {
+          "index": "03",
+          "eyebrow": "AI ORCHESTRATION",
+          "title": "理解与编排",
+          "body": "AI 识别意图、拆解任务、选择能力并生成 workflow，而不是直接凭空给出结果。",
+          "bullets": ["情境理解", "能力路由", "过程可追溯"],
+          "status": "target",
+          "source": "《2026且慢产品思考规划》P2、P7"
+        },
+        {
+          "index": "04",
+          "eyebrow": "ADAPTIVE SERVICE",
+          "title": "自适应服务",
+          "body": "服务可以被保存、复用、调整和发布；生成的是可持续执行的流程，不只是一份一次性结果。",
+          "bullets": ["按需生成", "保存 workflow", "订阅与复用"],
+          "status": "target",
+          "source": "《2026且慢产品思考规划》P7"
+        }
+      ],
+      "callout": {
+        "label": "定义边界",
+        "text": "可组合不等于任意拼接；自适应不等于无规则生成。金融服务必须在能力、权限、数据与合规边界内编排。",
+        "status": "inferred"
+      }
+    },
+    {
+      "id": "product-comparison",
+      "navLabel": "产品对比",
+      "kicker": "04 · PRODUCT PARADIGM",
+      "title": "从固定成品到能力系统",
+      "lead": "CAP 将产品团队的核心交付物，从界面与功能清单，改为可以持续生成服务的能力体系。",
+      "layout": "comparison",
+      "tone": "light",
+      "items": [
+        {
+          "index": "A",
+          "eyebrow": "FIXED PRODUCT",
+          "title": "传统产品模式",
+          "body": "交付一个确定的成品，PM 预先决定所有用户看到什么、怎么走。",
+          "bullets": [
+            "PM 设计全部界面与流程",
+            "通过排期修改页面和功能",
+            "需求越多，产品越厚、门槛越高",
+            "每个需求都等待分析与开发"
+          ],
+          "status": "confirmed",
+          "source": "《2026且慢产品思考规划》P5"
+        },
+        {
+          "index": "B",
+          "eyebrow": "CAP PRODUCT",
+          "title": "CAP 产品模式",
+          "body": "建设一套可组合能力系统，PM 设计生产条件，用户与 AI 共同决定最终服务。",
+          "bullets": [
+            "PM 构建能力、规则与范例",
+            "通过能力升级和规则更新迭代",
+            "需求越多，组合方式越丰富",
+            "已有能力可由 AI 即时编排"
+          ],
+          "status": "target",
+          "source": "《2026且慢产品思考规划》P5 · 目标态"
+        }
+      ],
+      "callout": {
+        "label": "价值逻辑",
+        "text": "传统模式是“功能 → 价值”；CAP 追求“能力体系 → 多种服务 → 更大的价值空间”。",
+        "status": "confirmed"
+      }
+    },
+    {
+      "id": "organization-comparison",
+      "navLabel": "组织对比",
+      "kicker": "05 · ORGANIZATION SHIFT",
+      "title": "生产权开始外放",
+      "lead": "范式变化不仅影响产品界面，还会改变协作方式、资产沉淀和生态关系。",
+      "layout": "comparison",
+      "tone": "soft",
+      "items": [
+        {
+          "index": "A",
+          "eyebrow": "LINEAR DELIVERY",
+          "title": "线性功能交付",
+          "body": "需求经 PM、设计、研发串行流转，BU 与机构各自重复建设相似功能。",
+          "bullets": [
+            "所有用户看到同一视图与服务",
+            "PM 独占服务定义权",
+            "BU 各自造轮子",
+            "能力难复用、难对外开放"
+          ],
+          "status": "confirmed",
+          "source": "《2026且慢产品思考规划》P5"
+        },
+        {
+          "index": "B",
+          "eyebrow": "PARALLEL CAPABILITY",
+          "title": "多角色能力共建",
+          "body": "产品、业务与生态并行沉淀能力，用户可按需生成自己的视图与服务。",
+          "bullets": [
+            "AI 生成个体化视图与服务",
+            "服务生产权在治理下外放",
+            "公司形成统一能力池",
+            "能力可复用、共享与扩散"
+          ],
+          "status": "target",
+          "source": "《2026且慢产品思考规划》P5 · 目标态"
+        }
+      ],
+      "callout": {
+        "label": "组织含义",
+        "text": "PM 的价值不会消失，但会从“决定每个页面”升级为“设计能力体系、生产规则与质量标准”。",
+        "status": "inferred"
+      }
+    },
+    {
+      "id": "ecosystem-blueprint",
+      "navLabel": "生态蓝图",
+      "kicker": "06 · AI LAB BLUEPRINT",
+      "title": "实验室连接生产与分发",
+      "lead": "原稿蓝图被重新整理为六层服务生产链：能力供给、业务约束、AI 编排、应用搭建、范例与分发。",
+      "layout": "evidence",
+      "tone": "dark",
+      "items": [
+        {
+          "title": "服务生产系统总图",
+          "body": "底层能力与业务规则进入 AI 编排；服务可在应用搭建车间生成，并通过 AI 小顾官方范例和应用广场触达用户与生态伙伴。",
+          "source": "《2026且慢产品思考规划》P1 · 全量重绘",
+          "image": "assets/ecosystem-map.svg",
+          "alt": "且慢 AI 实验室从原子能力、业务规则到 AI 编排、服务搭建、样板和应用广场的生态蓝图",
+          "imagePriority": "high",
+          "status": "confirmed"
+        },
+        {
+          "title": "图中关系的准确口径",
+          "body": "箭头表达目标态的供给与反馈关系，不代表所有模块、权限、发布流程或生态角色已经上线。",
+          "source": "原稿计划页与本报告证据审计 · 2026-08-14",
+          "image": "assets/status-boundary.svg",
+          "alt": "概念蓝图、运行证据和规模结果之间的证据边界",
+          "status": "target"
+        }
+      ],
+      "callout": {
+        "label": "系统闭环",
+        "text": "能力池决定能做什么，规则与样板决定怎样做，AI 决定如何组合，评测与反馈决定能否持续复用。",
+        "status": "inferred"
+      }
+    },
+    {
+      "id": "demand-routing",
+      "navLabel": "需求分流",
+      "kicker": "07 · DEMAND ROUTING",
+      "title": "先编排，再决定开发",
+      "lead": "CAP 试图把需求分析的第一问从“排哪个版本”，改成“现有能力能否组合解决”。",
+      "layout": "evidence",
+      "tone": "light",
+      "items": [
+        {
+          "title": "70 / 30 需求分流目标",
+          "body": "目标流程：已有能力的需求由 PM 或生态玩家在实验室即时编排；确实缺少能力的需求才进入能力建设排期。",
+          "source": "《2026且慢产品思考规划》P6 · 目标态重绘",
+          "image": "assets/demand-routing.svg",
+          "alt": "用户需求先经过能力匹配，70% 进入即时编排，30% 进入新能力建设的目标流程",
+          "imagePriority": "high",
+          "status": "target"
+        },
+        {
+          "title": "原稿需求样本",
+          "body": "排序、时间区间、资产表现、收益率与净值、板块盈利率、资产负债表、持仓对比、份额到期日、收益日历等九类诉求。",
+          "source": "《2026且慢产品思考规划》P6 · 逐项保留",
+          "image": "assets/demand-examples.svg",
+          "alt": "原稿列出的九类真实产品需求样本，按展示、分析、规划和对比进行归类",
+          "status": "confirmed"
+        }
+      ],
+      "callout": {
+        "label": "关键前提",
+        "text": "“已有能力”不能只看接口是否存在，还要同时验证数据可用、组合正确、结果可解释、体验可接受与合规可发布。",
+        "status": "inferred"
+      }
+    },
+    {
+      "id": "target-metrics",
+      "navLabel": "目标口径",
+      "kicker": "08 · TARGET METRICS",
+      "title": "数字是目标不是结果",
+      "lead": "原稿提出了清晰的目标，但没有给出样本期、分母、命中判定和质量门，因此不能解读为已达成。",
+      "layout": "metrics",
+      "tone": "soft",
+      "items": [
+        {
+          "metric": "70%",
+          "title": "需求即时编排",
+          "body": "已有能力覆盖的需求，目标是无须进入传统功能开发。",
+          "meta": "目标口径 · 分母与验收规则待定义",
+          "status": "target",
+          "source": "《2026且慢产品思考规划》P6"
+        },
+        {
+          "metric": "30%",
+          "title": "进入能力建设",
+          "body": "缺少原子能力、数据或组件时，进入迭代排期建设。",
+          "meta": "目标口径 · 分类规则待验证",
+          "status": "target",
+          "source": "《2026且慢产品思考规划》P6"
+        },
+        {
+          "metric": "1h–1d",
+          "title": "PM 创建服务",
+          "body": "PM 使用现有能力、规则和样板完成服务编排。",
+          "meta": "目标时长 · 起止点与复杂度分层待定义",
+          "status": "target",
+          "source": "《2026且慢产品思考规划》P6"
+        },
+        {
+          "metric": "1h–1d",
+          "title": "生态 DIY 服务",
+          "body": "生态玩家在权限与治理边界内生成并发布服务。",
+          "meta": "目标时长 · 准入、审核与发布链路待定义",
+          "status": "target",
+          "source": "《2026且慢产品思考规划》P6"
+        }
+      ],
+      "callout": {
+        "label": "建议口径",
+        "text": "建议把 70% 拆成：可编排率 × 一次生成成功率 × 任务完成率 × 复用率；只有同时过质量门，才算真正替代开发。",
+        "status": "inferred"
+      }
+    },
+    {
+      "id": "service-generation",
+      "navLabel": "生成服务",
+      "kicker": "09 · SERVICE GENERATION",
+      "title": "生成的是工作流",
+      "lead": "以“查看持仓组合内单只基金每日收益日历”为例，服务从自然语言出发，完成拆解、取数、呈现、任务化与复用。",
+      "layout": "demo",
+      "tone": "dark",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "INTENT",
+          "title": "理解用户目标",
+          "body": "识别对象是当前用户持仓组合、粒度是单只基金、时间频率是每日、呈现形式是日历。",
+          "meta": "自然语言 → 结构化任务",
+          "bullets": ["确认账户与组合范围", "识别时间区间", "澄清收益口径"],
+          "status": "target",
+          "source": "《2026且慢产品思考规划》P7"
+        },
+        {
+          "index": "02",
+          "eyebrow": "ABILITY",
+          "title": "组合数据与组件",
+          "body": "调用用户数据、持仓收益能力和标准日历组件；缺失任何一项都不能假装已经完成服务。",
+          "meta": "用户数据 × 持仓收益 × 日历组件",
+          "bullets": ["权限校验", "收益数据查询", "标准模板渲染"],
+          "status": "target",
+          "source": "《2026且慢产品思考规划》P7"
+        },
+        {
+          "index": "03",
+          "eyebrow": "WORKFLOW",
+          "title": "保存可执行流程",
+          "body": "保存的是 workflow，而不是某一时点的截图；数据更新后可以再次运行或设置定期任务。",
+          "meta": "一次生成 → 持续执行",
+          "bullets": ["设置定期任务", "保留配置与口径", "记录运行与异常"],
+          "status": "target",
+          "source": "《2026且慢产品思考规划》P7"
+        },
+        {
+          "index": "04",
+          "eyebrow": "REUSE",
+          "title": "收藏、复用、发布",
+          "body": "用户可自己反复使用，也可在审核与权限边界内发布到应用广场供他人订阅。",
+          "meta": "个人服务 → 生态服务",
+          "bullets": ["个人收藏", "参数化复用", "审核后发布"],
+          "status": "target",
+          "source": "《2026且慢产品思考规划》P7"
+        }
+      ],
+      "callout": {
+        "label": "交付定义",
+        "text": "一个 CAP 服务至少应包含：目标、输入、权限、能力链、规则、呈现、运行状态、异常处理和复用范围。",
+        "status": "inferred"
+      }
+    },
+    {
+      "id": "ecosystem-roles",
+      "navLabel": "生态角色",
+      "kicker": "10 · ECOSYSTEM ROLES",
+      "title": "四类角色共同供给",
+      "lead": "原稿中的生态参与者可以按供给责任重组，避免把所有外部对象都当作同一种“开发者”。",
+      "layout": "cards",
+      "tone": "light",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "QIEMAN",
+          "title": "产品与业务团队",
+          "body": "建设能力、规则、范例与官方服务，维护质量标准和用户体验。",
+          "status": "target",
+          "source": "《2026且慢产品思考规划》P1"
+        },
+        {
+          "index": "02",
+          "eyebrow": "BUILDERS",
+          "title": "开发者与系统商",
+          "body": "提供技术能力、数据连接、组件和行业系统集成，扩大可组合能力范围。",
+          "status": "target",
+          "source": "《2026且慢产品思考规划》P1"
+        },
+        {
+          "index": "03",
+          "eyebrow": "PROFESSIONALS",
+          "title": "主理人与金融机构",
+          "body": "沉淀专业方法与场景服务，通过样板和规则参与服务生产。",
+          "status": "target",
+          "source": "《2026且慢产品思考规划》P1、P3"
+        },
+        {
+          "index": "04",
+          "eyebrow": "USERS",
+          "title": "用户与更多投资人",
+          "body": "提出任务、生成个人服务、收藏复用并通过真实使用反馈改进供给。",
+          "status": "target",
+          "source": "《2026且慢产品思考规划》P1、P7"
+        }
+      ],
+      "callout": {
+        "label": "治理原则",
+        "text": "生产权可以外放，但最终的准入、授权、适当性、审核、运行监控与下架责任不能外包给 AI。",
+        "status": "inferred"
+      }
+    },
+    {
+      "id": "validation-roadmap",
+      "navLabel": "验证路线",
+      "kicker": "11 · VALIDATION ROADMAP",
+      "title": "先验证一条黄金链路",
+      "lead": "原稿已经给出范式与目标，下一步应把“是否成立”变成可回答的问题，而不是继续扩充概念图。",
+      "layout": "actions",
+      "tone": "soft",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "GOLDEN TASK",
+          "title": "锁定收益日历链路",
+          "body": "用原稿 P7 的需求做端到端样板：从自然语言、取数、日历呈现到定期任务、收藏和复用。",
+          "meta": "责任：待确认 · 时间：先行验证",
+          "status": "target"
+        },
+        {
+          "index": "02",
+          "eyebrow": "CAPABILITY GATE",
+          "title": "定义原子能力门槛",
+          "body": "每个能力补齐输入输出、权限、错误码、性能、质量评测、版本与可观测性。",
+          "meta": "责任：产品 / 研发 / 数据 / 合规待确认",
+          "status": "target"
+        },
+        {
+          "index": "03",
+          "eyebrow": "METRIC",
+          "title": "重写 70% 的算法",
+          "body": "明确需求样本、分母、能力命中、一次成功、任务完成、人工修正和复用判定。",
+          "meta": "责任：产品分析待确认 · 周期：试点期",
+          "status": "target"
+        },
+        {
+          "index": "04",
+          "eyebrow": "GOVERNANCE",
+          "title": "建立发布与回滚机制",
+          "body": "在服务进入 AI 小顾或应用广场前，完成身份、授权、适当性、审计、监控、停用和版本回滚。",
+          "meta": "责任：平台 / 合规 / 安全待确认",
+          "status": "target"
+        }
+      ],
+      "callout": {
+        "label": "阶段成功标准",
+        "text": "不是“页面搭出来了”，而是同一条真实需求能被稳定生成、正确执行、可解释复用，并且比传统开发显著更快。",
+        "status": "inferred"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "label": "《2026且慢产品思考规划》",
+      "detail": "7 页 PPTX · 源文件最后修改于 2026-06-12 · 本报告唯一直接业务来源"
+    },
+    {
+      "label": "Clair Editorial System 2.1",
+      "detail": "用于结构、视觉、交互、证据状态与移动端质量门 · 2026-08-14"
+    }
+  ],
+  "openQuestions": [
+    {
+      "title": "上线与计划边界",
+      "detail": "源稿以【计划】【目标】【预期效果】表述，未提供真实上线范围；本报告统一标为 target。"
+    },
+    {
+      "title": "70% 与 1 小时～1 天",
+      "detail": "缺少样本期、需求分母、复杂度分层、起止点、质量门与达成数据，不能视为确认结果。"
+    },
+    {
+      "title": "责任与时间",
+      "detail": "源稿未指定 DRI、资源、阶段日期与审批机制；行动页使用待确认，不推测负责人。"
+    },
+    {
+      "title": "公开边界",
+      "detail": "报告不含客户数据、接口密钥或运营指标；公开内容仅为产品方法与概念目标，不代表对外承诺。"
+    }
+  ]
+}

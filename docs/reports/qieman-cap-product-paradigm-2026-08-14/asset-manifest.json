@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "assets": [
+    {
+      "path": "assets/triangle-value.svg",
+      "bytes": 2981,
+      "sha256": "f2326bb2d3f43ec53672b3bbfffa37b76ac3a0da152c2ce13e52d9b4e1a18362"
+    },
+    {
+      "path": "assets/triangle-supply.svg",
+      "bytes": 3019,
+      "sha256": "85646208a3c0ef92fb619d4a60fa99f9fa8e80ab10e99fcfddce8df47bd80753"
+    },
+    {
+      "path": "assets/ecosystem-map.svg",
+      "bytes": 7265,
+      "sha256": "08131fb7b6ceed44259feb38ce0b53ecef76d732d660754308b0e9bc474ef6d9"
+    },
+    {
+      "path": "assets/status-boundary.svg",
+      "bytes": 5224,
+      "sha256": "6f4c64ec31df2ea66eab717e9328b7667929acbf9b8e9124fb97d7c2f6403400"
+    },
+    {
+      "path": "assets/demand-routing.svg",
+      "bytes": 5667,
+      "sha256": "e053f0c5ed3058af7ef460267df37ed334f390989db4f308124ff878c56dbd90"
+    },
+    {
+      "path": "assets/demand-examples.svg",
+      "bytes": 4309,
+      "sha256": "c20377d983c6f2cc4b7618dd9da1a4cdc35190255d2441e5eb0417a27cfef263"
+    }
+  ]
+}
