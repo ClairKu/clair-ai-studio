@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">投资行为分析与矫正能力示意</title>
+  <desc id="desc">将逐笔交易证据归纳为八类行为模式，再形成可执行的矫正计划；示意图不包含用户真实金额。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f8f6ff"/>
+      <stop offset="1" stop-color="#ece8ff"/>
+    </linearGradient>
+    <linearGradient id="purple" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7457e8"/>
+      <stop offset="1" stop-color="#9d86f2"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="26" flood-color="#30236b" flood-opacity=".12"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" rx="34" fill="url(#bg)"/>
+  <text x="72" y="78" fill="#7457e8" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="18" font-weight="800" letter-spacing="3">BEHAVIOR ANALYSIS · 公开脱敏重绘</text>
+  <text x="72" y="142" fill="#171a27" font-family="Songti SC,STSong,serif" font-size="54" font-weight="600">从逐笔证据，到行为矫正方案</text>
+  <text x="72" y="184" fill="#687287" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="21">不是给标签，而是回答“哪笔交易证明了什么、下一次如何避免重演”。</text>
+
+  <g transform="translate(82 236)" filter="url(#shadow)">
+    <rect width="680" height="586" rx="28" fill="#fff"/>
+    <text x="36" y="55" fill="#171a27" font-family="Songti SC,STSong,serif" font-size="31" font-weight="600">八类行为模式全景</text>
+    <text x="36" y="87" fill="#8b91a0" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="15">仅展示分析结构，不展示用户分数与资产明细</text>
+    <g transform="translate(338 318)">
+      <g fill="none" stroke="#e3e0ee" stroke-width="2">
+        <polygon points="0,-194 137,-137 194,0 137,137 0,194 -137,137 -194,0 -137,-137"/>
+        <polygon points="0,-145.5 103,-103 145.5,0 103,103 0,145.5 -103,103 -145.5,0 -103,-103"/>
+        <polygon points="0,-97 69,-69 97,0 69,69 0,97 -69,69 -97,0 -69,-69"/>
+        <polygon points="0,-48.5 34,-34 48.5,0 34,34 0,48.5 -34,34 -48.5,0 -34,-34"/>
+        <path d="M0-205V205M-205 0H205M-145-145L145 145M145-145L-145 145"/>
+      </g>
+      <polygon points="0,-166 118,-118 158,0 99,99 0,138 -121,121 -150,0 -94,-94" fill="#d65869" fill-opacity=".18" stroke="#d65869" stroke-width="5"/>
+      <g fill="#d65869">
+        <circle cx="0" cy="-166" r="7"/><circle cx="118" cy="-118" r="7"/><circle cx="158" cy="0" r="7"/><circle cx="99" cy="99" r="7"/>
+        <circle cx="0" cy="138" r="7"/><circle cx="-121" cy="121" r="7"/><circle cx="-150" cy="0" r="7"/><circle cx="-94" cy="-94" r="7"/>
+      </g>
+      <g fill="#4c5364" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="17" font-weight="650" text-anchor="middle">
+        <text x="0" y="-222">风险错配</text><text x="178" y="-156">过度分散</text><text x="245" y="6">心理账户</text><text x="178" y="168">过度自信</text>
+        <text x="0" y="232">追涨杀跌</text><text x="-181" y="168">频繁交易</text><text x="-246" y="6">锚定效应</text><text x="-178" y="-156">处置效应</text>
+      </g>
+    </g>
+  </g>
+
+  <g transform="translate(806 236)" filter="url(#shadow)">
+    <rect width="712" height="586" rx="28" fill="#10182c"/>
+    <text x="38" y="57" fill="#c9beff" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="16" font-weight="800" letter-spacing="2">EVIDENCE → JUDGEMENT → ACTION</text>
+    <text x="38" y="105" fill="#fff" font-family="Songti SC,STSong,serif" font-size="33" font-weight="600">一份可执行的行为矫正报告</text>
+    <g transform="translate(38 142)">
+      <rect width="636" height="104" rx="18" fill="#fff" fill-opacity=".075" stroke="#fff" stroke-opacity=".11"/>
+      <circle cx="46" cy="52" r="25" fill="url(#purple)"/><text x="46" y="59" fill="#fff" text-anchor="middle" font-family="sans-serif" font-size="20" font-weight="800">1</text>
+      <text x="88" y="43" fill="#fff" font-family="Songti SC,STSong,serif" font-size="25" font-weight="600">逐笔交易证据</text>
+      <text x="88" y="73" fill="#aeb8cd" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="16">交易时间、资金流向、持仓变化与市场情境逐项核对</text>
+    </g>
+    <g transform="translate(38 264)">
+      <rect width="636" height="104" rx="18" fill="#fff" fill-opacity=".075" stroke="#fff" stroke-opacity=".11"/>
+      <circle cx="46" cy="52" r="25" fill="url(#purple)"/><text x="46" y="59" fill="#fff" text-anchor="middle" font-family="sans-serif" font-size="20" font-weight="800">2</text>
+      <text x="88" y="43" fill="#fff" font-family="Songti SC,STSong,serif" font-size="25" font-weight="600">行为模式判断</text>
+      <text x="88" y="73" fill="#aeb8cd" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="16">把孤立交易串成可验证模式，并允许追问与修正</text>
+    </g>
+    <g transform="translate(38 386)">
+      <rect width="636" height="104" rx="18" fill="#fff" fill-opacity=".075" stroke="#fff" stroke-opacity=".11"/>
+      <circle cx="46" cy="52" r="25" fill="url(#purple)"/><text x="46" y="59" fill="#fff" text-anchor="middle" font-family="sans-serif" font-size="20" font-weight="800">3</text>
+      <text x="88" y="43" fill="#fff" font-family="Songti SC,STSong,serif" font-size="25" font-weight="600">矫正方案与追踪</text>
+      <text x="88" y="73" fill="#aeb8cd" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="16">仓位规则、冷静期、行为日志与周期复盘形成闭环</text>
+    </g>
+    <rect x="38" y="515" width="636" height="43" rx="12" fill="#7457e8" fill-opacity=".22"/>
+    <text x="356" y="543" fill="#ded7ff" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="14" font-weight="700">本图为录屏内容重绘，不代表分析结论已由人工验证</text>
+  </g>
+</svg>
