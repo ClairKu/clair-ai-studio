@@ -2,6 +2,41 @@
   "version": 1,
   "assets": [
     {
+      "path": "assets/scene-asset-analysis-redacted.png",
+      "bytes": 885148,
+      "sha256": "841a7fd975441e91422c3b3b21d173d6cd1f78cb7b8e7b1a1c2550a0cb8c9cc1"
+    },
+    {
+      "path": "assets/scene-monthly-statement-redacted.png",
+      "bytes": 908548,
+      "sha256": "6ace4351d0e5bddd58102ae5cfe5817674207e9ca02d59930bb1eb748e3d3832"
+    },
+    {
+      "path": "assets/scene-monthly-analysis-redacted.png",
+      "bytes": 876486,
+      "sha256": "9d35d61c97ed4a094ba62a41502d0788759867b6969b45a39556a083d6291c8c"
+    },
+    {
+      "path": "assets/scene-fund-comparison.png",
+      "bytes": 36314,
+      "sha256": "1582388b7f761ad90937781ad55c442b4c498b5b544a26faf06ef1fe99efe152"
+    },
+    {
+      "path": "assets/scene-strategy-plan.png",
+      "bytes": 33681,
+      "sha256": "dc21028394acd815486695787bf55e10964745c4775150bb675dbd602ab9bd01"
+    },
+    {
+      "path": "assets/scene-human-service-card.png",
+      "bytes": 34855,
+      "sha256": "0f4744d5a22a639109dca1a8089a3123cace0698fc31a001f534d31db0b05745"
+    },
+    {
+      "path": "assets/scene-human-service-autojump.png",
+      "bytes": 20515,
+      "sha256": "7191f541ad300e90917432f70d8f45dc74a00d262c6083e7053272e1fd2fa305"
+    },
+    {
       "path": "assets/fund-detail-live.png",
       "bytes": 255831,
       "sha256": "c47f81bd05d16819a28bad6eb6646580e762290860390fa1573a1184e000ac73"
