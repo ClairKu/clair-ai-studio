@@ -1734,13 +1734,16 @@ function migrateState(saved) {
   const catalogReportIds = new Set();
   const reports = catalog.reports.map((report) => {
     const reportUrl = normalizedUrl(report.url);
+    const refreshCatalogMetadata = report.id === "qieman-xiaogu-service-card-landscape-2026-08-13";
     catalogUrls.add(reportUrl);
     catalogReportIds.add(report.id);
     const savedReport = savedById.get(report.id) || savedByUrl.get(reportUrl);
     if (!savedReport) return report;
     return {
       ...report,
-      title: saved.version >= DATA_VERSION
+      title: refreshCatalogMetadata
+        ? report.title
+        : saved.version >= DATA_VERSION
         ? savedReport.title || report.title
         : report.title,
       groupId: saved.version >= DATA_VERSION &&
@@ -1756,7 +1759,9 @@ function migrateState(saved) {
         ? savedReport.tags
         : report.tags,
       pinned: Boolean(savedReport.pinned),
-      modifiedAt: savedReport.modifiedAt || report.modifiedAt || report.createdAt,
+      modifiedAt: refreshCatalogMetadata
+        ? report.modifiedAt || report.createdAt
+        : savedReport.modifiedAt || report.modifiedAt || report.createdAt,
       position: Number.isFinite(savedReport.position)
         ? savedReport.position
         : report.position,
