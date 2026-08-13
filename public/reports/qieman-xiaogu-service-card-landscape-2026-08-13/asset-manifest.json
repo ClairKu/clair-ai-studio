@@ -2,9 +2,14 @@
   "version": 1,
   "assets": [
     {
-      "path": "assets/card-landscape.svg",
-      "bytes": 5658,
-      "sha256": "d1e380008fbd9e37456fef89c73de85fc8ac7cad8af61a51ae4d4be6af25348e"
+      "path": "assets/fund-detail-live.png",
+      "bytes": 255831,
+      "sha256": "c47f81bd05d16819a28bad6eb6646580e762290860390fa1573a1184e000ac73"
+    },
+    {
+      "path": "assets/index-valuation-live.png",
+      "bytes": 192362,
+      "sha256": "235f17a91233aa6c57ced18065ea59ac64b8af7d4b6e1588df0961189f5fe98a"
     }
   ]
 }
