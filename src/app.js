@@ -133,6 +133,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "qieman-ai-practice-sharing-visual-2026-08-14",
+      groupId: "reporting",
+      title: "且慢 AI 实践分享｜逐章配图可视化报告",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-ai-practice-sharing-visual-2026-08-14/",
+      preview: "qieman-ai-practice-sharing-visual-2026-08-14.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-14T05:20:00.000+08:00",
+      source: "飞书《AI 实践分享》revision 1748｜按十二章指引逐章配图：双重不可能三角原图 × 入口迁移重绘图 × 服务/系统关系图 × 小顾脱敏生产画面 × 千问链路与微信联调截图 × 5 段完整录屏演示（页面内可播放）｜冲突口径数字不上大屏｜公开脱敏交互式 HTML",
+      access: "production",
+      workType: "reporting",
+      tags: ["且慢", "AI 小顾", "AI 开放平台", "OAP", "千问", "微信", "录屏演示", "逐章配图", "管理汇报", "证据治理", "CLAIR", "HTML", "公开脱敏", "生产"],
+    },
+    {
       id: "qieman-ai-growth-oap-integrated-2026-08-14",
       groupId: "reporting",
       title: "且慢 AI 增长全景｜小顾 × OAP 完整整合版",

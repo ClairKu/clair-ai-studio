@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="650" viewBox="0 0 1200 650" role="img" aria-labelledby="title desc">
+  <title id="title">且慢 AI 服务的三次跨越</title>
+  <desc id="desc">从走出小顾、走出 APP 到走出且慢，服务从功能点进入完整旅程、多终端和生态入口。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f7f5ff"/>
+      <stop offset="1" stop-color="#ebe7ff"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6245d9"/>
+      <stop offset="1" stop-color="#8a72f0"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#5138b5" flood-opacity="0.12"/>
+    </filter>
+    <style>
+      .serif{font-family:"Songti SC","STSong",serif}.sans{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}.eyebrow{font-size:18px;font-weight:700;letter-spacing:3px;fill:#7457e8}.title{font-size:50px;font-weight:700;fill:#171a27}.stage{font-size:30px;font-weight:700;fill:#171a27}.body{font-size:19px;fill:#687287}.tag{font-size:16px;font-weight:650;fill:#5138b5}.num{font-size:64px;font-weight:800;fill:#7457e8}.arrow{font-size:42px;font-weight:800;fill:#7457e8}
+    </style>
+  </defs>
+  <rect width="1200" height="650" rx="34" fill="url(#bg)"/>
+  <circle cx="1080" cy="60" r="170" fill="#ffffff" opacity="0.42"/>
+  <text x="64" y="66" class="sans eyebrow">QIEMAN AI · THREE LEAPS</text>
+  <text x="64" y="126" class="serif title">服务从功能点，走向用户所在之处</text>
+  <g transform="translate(64 184)" filter="url(#shadow)">
+    <rect width="298" height="338" rx="28" fill="#fff"/>
+    <text x="28" y="72" class="sans num">01</text>
+    <text x="28" y="130" class="serif stage">走出小顾</text>
+    <text x="28" y="174" class="sans body">融入且慢完整旅程</text>
+    <rect x="28" y="218" width="88" height="38" rx="19" fill="#f2efff"/><text x="48" y="243" class="sans tag">首页</text>
+    <rect x="126" y="218" width="88" height="38" rx="19" fill="#f2efff"/><text x="146" y="243" class="sans tag">持仓</text>
+    <rect x="28" y="268" width="88" height="38" rx="19" fill="#f2efff"/><text x="48" y="293" class="sans tag">交易</text>
+    <rect x="126" y="268" width="116" height="38" rx="19" fill="#f2efff"/><text x="146" y="293" class="sans tag">消息任务</text>
+  </g>
+  <text x="382" y="368" class="sans arrow">→</text>
+  <g transform="translate(450 184)" filter="url(#shadow)">
+    <rect width="298" height="338" rx="28" fill="#fff"/>
+    <text x="28" y="72" class="sans num">02</text>
+    <text x="28" y="130" class="serif stage">走出 APP</text>
+    <text x="28" y="174" class="sans body">进入多个服务终端</text>
+    <rect x="28" y="218" width="102" height="38" rx="19" fill="#f2efff"/><text x="48" y="243" class="sans tag">小程序</text>
+    <rect x="140" y="218" width="76" height="38" rx="19" fill="#f2efff"/><text x="164" y="243" class="sans tag">H5</text>
+    <rect x="28" y="268" width="88" height="38" rx="19" fill="#f2efff"/><text x="48" y="293" class="sans tag">微信</text>
+    <rect x="126" y="268" width="130" height="38" rx="19" fill="#f2efff"/><text x="146" y="293" class="sans tag">工作环境</text>
+  </g>
+  <text x="768" y="368" class="sans arrow">→</text>
+  <g transform="translate(836 184)" filter="url(#shadow)">
+    <rect width="300" height="338" rx="28" fill="url(#accent)"/>
+    <text x="28" y="72" class="sans num" fill="#fff" style="fill:#fff;opacity:.72">03</text>
+    <text x="28" y="130" class="serif stage" fill="#fff" style="fill:#fff">走出且慢</text>
+    <text x="28" y="174" class="sans body" fill="#fff" style="fill:#ede9ff">进入 AI 与机构生态</text>
+    <rect x="28" y="218" width="88" height="38" rx="19" fill="#ffffff" opacity="0.9"/><text x="48" y="243" class="sans tag">千问</text>
+    <rect x="126" y="218" width="104" height="38" rx="19" fill="#ffffff" opacity="0.9"/><text x="146" y="243" class="sans tag">机构 AI</text>
+    <rect x="28" y="268" width="118" height="38" rx="19" fill="#ffffff" opacity="0.9"/><text x="48" y="293" class="sans tag">WorkBuddy</text>
+    <rect x="156" y="268" width="96" height="38" rx="19" fill="#ffffff" opacity="0.9"/><text x="176" y="293" class="sans tag">Cursor</text>
+  </g>
+  <text x="64" y="590" class="sans body">从功能到全旅程 · 从单端到多终端 · 从自有产品到生态入口</text>
+</svg>
