@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "assets": [
+    {
+      "path": "assets/system-relationship.svg",
+      "bytes": 15307,
+      "sha256": "1acfc70356a4560d97b59ed664a46c8924caaa6a86d55e756b1e38a834d00d14"
+    },
+    {
+      "path": "assets/service-relationship.svg",
+      "bytes": 12799,
+      "sha256": "dd8f118bb2189beb0547c6f9ea857537990ae0bade75b63e59c50a69902ba72f"
+    },
+    {
+      "path": "assets/qwen-qieman-agent-service-flow.png",
+      "bytes": 712721,
+      "sha256": "9116eb6f24afa7266735adb4b2582516ad227f826cc08424148b58aaba7deff0"
+    },
+    {
+      "path": "assets/three-leaps.svg",
+      "bytes": 4561,
+      "sha256": "0447743382301b2f371037459dfc5d0be8ea7d5132a7e783324175596b1de43a"
+    }
+  ]
+}
