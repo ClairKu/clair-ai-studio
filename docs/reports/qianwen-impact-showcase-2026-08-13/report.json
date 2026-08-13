@@ -1,0 +1,280 @@
+{
+  "meta": {
+    "title": "盈米 × 千问｜上线传播成效",
+    "subtitle": "一次上线，形成内容爆发、媒体验证与用户场景扩散",
+    "eyebrow": "CLAIR · IMPACT SHOWCASE",
+    "date": "2026-08-13",
+    "cutoff": "2026-08-13 09:10",
+    "owner": "佳静两版媒体监测表 + 公开页面核验 + 用户提供录屏",
+    "confidentiality": "公开脱敏版",
+    "accent": "#7457E8",
+    "brand": "Clair AI Studio",
+    "brandMark": "C"
+  },
+  "hero": {
+    "conclusion": "盈米随千问开放平台完成集中破圈：257 个独立内容带来 327.4 万表内阅读，并沉淀 5 个可复用的经典传播案例。",
+    "thesis": "阅读、展现、播放采用不同定义，不合并成单一总曝光；页面并列展示可审计指标。",
+    "badges": [
+      "327.4 万表内阅读",
+      "257 个独立内容",
+      "235 篇文章 · 22 条视频",
+      "5 个经典案例"
+    ]
+  },
+  "agenda": {
+    "enabled": false,
+    "groups": []
+  },
+  "sections": [
+    {
+      "id": "impact",
+      "kicker": "01 · IMPACT",
+      "title": "传播规模集中爆发",
+      "lead": "正文证据去重后统计；同一内容跨平台转载只追溯扩散，不重复进入内容总量。",
+      "navLabel": "传播成效",
+      "layout": "metrics",
+      "tone": "light",
+      "items": [
+        {
+          "metric": "327.4 万",
+          "title": "表内阅读量",
+          "body": "同一内容取监测表最大值，不重复累加。",
+          "meta": "2026-08-12 监测快照",
+          "status": "confirmed",
+          "source": "佳静两版媒体监测表"
+        },
+        {
+          "metric": "257",
+          "title": "独立内容",
+          "body": "296 条母表记录经正文证据归并后的内容数。",
+          "meta": "235 篇文章 + 22 条视频",
+          "status": "confirmed",
+          "source": "正文去重内容总表"
+        },
+        {
+          "metric": "44.9 万",
+          "title": "公开展现量",
+          "body": "今日头条两条公开内容的“展现”，不等同阅读。",
+          "meta": "2026-08-13 09:10",
+          "status": "confirmed",
+          "source": "今日头条公开作者信息流"
+        },
+        {
+          "metric": "11",
+          "title": "阅读破万内容",
+          "body": "全部具备可点击原帖、源表入口或同标题转载。",
+          "meta": "11 / 11 已定位入口",
+          "status": "confirmed",
+          "source": "破万内容核验表"
+        }
+      ],
+      "callout": {
+        "label": "一句话结论",
+        "text": "这不是单点新闻露出，而是上线日形成内容峰值、随后持续扩散，并由深度文章与原生短视频共同完成场景教育。",
+        "status": "inferred"
+      }
+    },
+    {
+      "id": "momentum",
+      "kicker": "02 · MOMENTUM",
+      "title": "上线日形成传播峰值",
+      "lead": "独立内容主要集中在 8 月 10 日上线当天，次日仍保持较强延续。",
+      "navLabel": "传播节奏",
+      "layout": "timeline",
+      "tone": "soft",
+      "items": [
+        {
+          "index": "01",
+          "meta": "8 月 7—9 日",
+          "title": "预热 6 个",
+          "body": "上线前零散内容，为正式发布蓄水。",
+          "status": "confirmed",
+          "source": "正文去重内容总表"
+        },
+        {
+          "index": "02",
+          "meta": "8 月 10 日",
+          "title": "爆发 162 个",
+          "body": "独立内容首发峰值，占全部内容 63%。",
+          "status": "confirmed",
+          "source": "正文去重内容总表"
+        },
+        {
+          "index": "03",
+          "meta": "8 月 11 日",
+          "title": "延续 69 个",
+          "body": "媒体二次报道与真实体验解读继续扩散。",
+          "status": "confirmed",
+          "source": "正文去重内容总表"
+        },
+        {
+          "index": "04",
+          "meta": "8 月 12 日",
+          "title": "新增 20 个",
+          "body": "在非完整自然日中仍持续产生新内容。",
+          "status": "confirmed",
+          "source": "正文去重内容总表"
+        }
+      ]
+    },
+    {
+      "id": "cases",
+      "kicker": "03 · CLASSIC CASES",
+      "title": "五类内容让价值被看见",
+      "lead": "从平台叙事、横向测评到短视频实测：点击标签切换案例，视频可在页面内直接播放。",
+      "navLabel": "经典案例",
+      "layout": "demo",
+      "tone": "dark",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "未尽研究 · 深度文章",
+          "title": "“懂你”战争开始了",
+          "body": "从个人 AI 入口与现实服务连接的高度解释千问开放第三方智能体，把盈米基金放进“理解需求—执行服务”的新平台叙事。",
+          "meta": "39 秒录屏 · 可播放",
+          "bullets": ["平台级叙事", "盈米基金进入首批生态伙伴语境"],
+          "status": "confirmed",
+          "source": "用户提供录屏 · 2026-08-13",
+          "video": "assets/videos/01-insight-article.mp4",
+          "poster": "assets/posters/01-insight-article.jpg"
+        },
+        {
+          "index": "02",
+          "eyebrow": "海峡导报 · 横向测评",
+          "title": "五个智能体实用测评",
+          "body": "省级新闻媒体将盈米基金与租房、出行、家政等服务放在同一真实任务中横向比较，理财顾问的专业输出成为场景证据。",
+          "meta": "19 秒录屏 · 可播放",
+          "bullets": ["媒体背书", "从发布信息转向实际体验"],
+          "status": "confirmed",
+          "source": "海峡导报公开内容 + 用户提供录屏",
+          "video": "assets/videos/02-five-agent-review.mp4",
+          "poster": "assets/posters/02-five-agent-review.jpg"
+        },
+        {
+          "index": "03",
+          "eyebrow": "AI 普瑞斯 · 深度测评",
+          "title": "一周使用后的理财判断",
+          "body": "围绕“年化 5%—8% 稳健收益”等真实问题，展示盈米基金 Agent 不只罗列产品，而是给出资产配置、风险解释与适配判断。",
+          "meta": "37 秒录屏 · 可播放",
+          "bullets": ["真实用户问题", "专业顾问式解释"],
+          "status": "confirmed",
+          "source": "AI 普瑞斯公开内容 + 用户提供录屏",
+          "video": "assets/videos/03-agent-deep-review.mp4",
+          "poster": "assets/posters/03-agent-deep-review.jpg"
+        },
+        {
+          "index": "04",
+          "eyebrow": "AI 科技评论 · 短视频",
+          "title": "千问先做了 AI 小程序",
+          "body": "用机器人热梗、服务实测与投资判断制造高密度传播；人工确认转发 2,362 次，是本批案例中最强的显性扩散信号。",
+          "meta": "89 秒录屏 · 可播放",
+          "bullets": ["短视频原生表达", "2,362 次人工确认转发"],
+          "status": "confirmed",
+          "source": "微信视频号源表链接 + 企微人工确认",
+          "video": "assets/videos/04-ai-tech-review.mp4",
+          "poster": "assets/posters/04-ai-tech-review.jpg"
+        },
+        {
+          "index": "05",
+          "eyebrow": "第四波 · 全流程实测",
+          "title": "专业 Agent 帮你办事",
+          "body": "真人出镜串联租房、寄件与理财任务，突出盈米基金 Agent 能理解复杂条件、输出具体配置并完成专业判断。",
+          "meta": "94 秒录屏 · 可播放",
+          "bullets": ["真人讲解", "跨场景连续任务验证"],
+          "status": "confirmed",
+          "source": "用户提供录屏 · 2026-08-13",
+          "video": "assets/videos/05-fourth-wave-review.mp4",
+          "poster": "assets/posters/05-fourth-wave-review.jpg"
+        }
+      ],
+      "callout": {
+        "label": "案例价值",
+        "text": "5 个案例覆盖“解释平台价值—横向对比—深度体验—短视频扩散—全流程实测”，可直接复用在管理汇报、合作介绍与品牌传播中。",
+        "status": "confirmed"
+      }
+    },
+    {
+      "id": "meaning",
+      "kicker": "04 · SO WHAT",
+      "title": "成效不止是数量增长",
+      "lead": "传播已经开始替产品完成三件事：解释新入口、验证专业性、放大品牌认知。",
+      "navLabel": "成效判断",
+      "layout": "cards",
+      "tone": "light",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "CATEGORY",
+          "title": "建立新品类认知",
+          "body": "媒体把千问从“能聊”解释成“能办事”的服务入口，降低第三方智能体的理解成本。",
+          "status": "inferred"
+        },
+        {
+          "index": "02",
+          "eyebrow": "PROOF",
+          "title": "专业输出成为证据",
+          "body": "盈米基金不只被列入合作名单，还在基金选择、资产配置与风险解释中被具体测评。",
+          "status": "confirmed",
+          "source": "5 个用户提供录屏案例"
+        },
+        {
+          "index": "03",
+          "eyebrow": "BRAND",
+          "title": "进入跨行业首批心智",
+          "body": "盈米与租房、快递、出行等高频服务共同出现，获得跨圈层曝光，但品牌直接提及仍有提升空间。",
+          "status": "inferred"
+        }
+      ],
+      "callout": {
+        "label": "下一步",
+        "text": "将“媒体曝光”继续推进到“可归因增长”：为每个内容保留平台内容 ID、指标名称、更新时间与业务入口参数，形成曝光—访问—服务—交易的统一漏斗。",
+        "status": "target"
+      }
+    }
+  ],
+  "closing": {
+    "mark": "CLAIR · IMPACT SHOWCASE",
+    "line1": "让一次上线形成声量，",
+    "line2": "让每次传播沉淀为",
+    "accent": "增长资产",
+    "lead": "257 个独立内容证明市场关注已经形成；5 个经典案例进一步证明，盈米的价值可以被媒体讲清、被用户看懂、被渠道复用。",
+    "metaPrimary": "盈米 × 千问 · 2026-08-13",
+    "metaSecondary": "数据截止 2026-08-13 09:10 · 公开脱敏版"
+  },
+  "sources": [
+    {
+      "label": "盈米基金阿里千问上线事件全部导出-202608121544 (1).xlsx",
+      "detail": "内容母表 · 296 条 · 2026-08-12"
+    },
+    {
+      "label": "盈米基金阿里千问事件全部导出不去重版本-202608121553.xlsx",
+      "detail": "传播明细 · 1,478 条 · 2026-08-12"
+    },
+    {
+      "label": "今日头条公开作者信息流",
+      "detail": "两条内容公开展现 · 2026-08-13 09:10"
+    },
+    {
+      "label": "五段屏幕录影",
+      "detail": "用户提供 · 2026-08-13 · 原片不修改，网页使用压缩副本"
+    }
+  ],
+  "openQuestions": [
+    {
+      "title": "没有单一总曝光",
+      "detail": "阅读、展现、播放定义不同，本页不相加；327.4 万是表内阅读快照，44.9 万是公开展现。"
+    },
+    {
+      "title": "视频播放待补",
+      "detail": "22 个独立视频的播放字段仍为 0，可能代表未采到，不等于无人观看。"
+    },
+    {
+      "title": "转发显示差异",
+      "detail": "AI 科技评论录屏画面显示 2,363，企微人工确认口径为 2,362；本页采用人工确认数。"
+    },
+    {
+      "title": "品牌触达待归因",
+      "detail": "内容总量包含千问生态热度，不能全部解释为盈米品牌直接曝光。"
+    }
+  ]
+}
