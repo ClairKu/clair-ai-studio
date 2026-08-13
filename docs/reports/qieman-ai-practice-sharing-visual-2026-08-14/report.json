@@ -1,0 +1,577 @@
+{
+  "meta": {
+    "title": "且慢怎么快起来、怎么破圈？",
+    "subtitle": "AI 实践分享可视化报告 · 按 15 分钟分享逐章还原，配原图、重绘图与完整录屏演示",
+    "eyebrow": "QIEMAN AI / PRACTICE SHARING",
+    "date": "2026-08-14",
+    "cutoff": "2026-08-14",
+    "owner": "且慢 AI 产品团队",
+    "confidentiality": "公开（脱敏）",
+    "accent": "#8067e8"
+  },
+  "hero": {
+    "conclusion": "小顾做深存量，平台打开增量：先把专业投顾能力做成低门槛可持续的服务，再把服务拆成可调用、可治理、可分发的增长资产。",
+    "thesis": "且慢的 AI 战略不是多做一个聊天框。本报告按分享文档的十二个章节逐一还原：为什么必须换路、新路如何成立、已经证明什么、下一步要证明什么；每章配有原图、重绘图或脱敏生产画面，并附千问入口完整录屏演示。",
+    "badges": ["证据化", "逐章配图", "完整录屏演示", "移动端适配"]
+  },
+  "sections": [
+    {
+      "id": "real-question",
+      "kicker": "01 · WHY CHANGE",
+      "title": "资源不变，入口先变",
+      "lead": "真正的题是：且慢怎么快起来、怎么破圈？“三无一强”意味着继续拼投放、拼网点是在别人最擅长的战场追赶，必须换一条路。",
+      "layout": "evidence",
+      "tone": "light",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "价值不可能三角",
+          "title": "个性化、专业深度与普惠成本难以同时成立",
+          "body": "传统人力投顾模式下，个性化、专业深度与普惠成本三者不可兼得，这是用户长期得不到好服务的结构原因。",
+          "status": "confirmed",
+          "source": "飞书《AI 实践分享》revision 1748 · 2026-08-14",
+          "image": "assets/triangle-value.svg",
+          "alt": "价值端不可能三角：个性化、专业深度、普惠成本三者难以同时满足"
+        },
+        {
+          "index": "02",
+          "eyebrow": "供给不可能三角",
+          "title": "服务产能、质量一致性与响应速度互相牵制",
+          "body": "供给端同样存在产能、质量一致性与响应速度的三角约束；AI 的价值在于同时松动两组三角，而不是做一个效率插件。",
+          "status": "confirmed",
+          "source": "飞书《AI 实践分享》revision 1748 · 《CAP 产品模式》2026-08-14",
+          "image": "assets/triangle-supply.svg",
+          "alt": "供给端不可能三角：服务产能、质量一致性、响应速度互相牵制"
+        }
+      ],
+      "callout": {
+        "label": "本章判断",
+        "text": "AI 对且慢不是效率工具优先，而是一次重新定义增长方式的机会。",
+        "status": "confirmed"
+      }
+    },
+    {
+      "id": "entry-shift",
+      "kicker": "02 · ENTRY MIGRATION",
+      "title": "入口从页面迁到任务",
+      "lead": "过去用户自己打开 App、找页面、拼答案；AI 时代用户先说一句问题，AI 补齐情境、调度能力、给出下一步。入口从图标变成意图，服务单位从页面变成任务。",
+      "layout": "evidence",
+      "tone": "soft",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "重绘示意图",
+          "title": "两条路径对比：App 导航 vs AI 任务",
+          "body": "威胁：若用户不再先打开且慢，专业能力会变成藏在 App 深处、用户找不到的资产。机会：能力被 AI 理解和调用后，且慢可以出现在用户提问和行动发生的任何地方。",
+          "status": "confirmed",
+          "source": "按分享文档第 2 章指引重绘 · 2026-08-14",
+          "image": "assets/entry-migration.svg",
+          "alt": "入口迁移对比图：过去打开 App、找页面、拼答案；AI 时代说出问题、AI 补齐情境、调度能力、给出下一步"
+        }
+      ],
+      "callout": {
+        "label": "核心问题",
+        "text": "如果未来用户不再先打开且慢，且慢积累的专业投顾能力还能不能被找到、理解和调用？",
+        "status": "inferred"
+      }
+    },
+    {
+      "id": "one-strategy",
+      "kicker": "03 · ONE STRATEGY",
+      "title": "小顾做深，平台放大",
+      "lead": "小顾解决存量：让现有用户低门槛获得个性化、可持续的投顾服务。开放平台解决增量：把服务拆出来进入千问、微信、工作台等新入口。两者共用同一套底座。",
+      "layout": "evidence",
+      "tone": "light",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "关系总图",
+          "title": "同一战略的两个前台，共用一套能力底座",
+          "body": "小顾是最重要的业务前台和试验场：验证什么问题值得解决、什么服务用户愿意使用；开放平台再把验证过的服务标准化、治理并规模化分发。共用底座包括数据与知识、MCP、Skills、Agent、身份授权、评测治理、服务记忆与任务结果。",
+          "status": "confirmed",
+          "source": "飞书《AI 实践分享》revision 1748 · 服务关系图 2026-08-13",
+          "image": "assets/service-relationship.svg",
+          "alt": "小顾与开放平台的服务关系图：两个前台共用数据、MCP、Skills、Agent、身份授权与评测治理底座"
+        }
+      ],
+      "callout": {
+        "label": "金句",
+        "text": "小顾把专业能力做成服务，开放平台把服务做成增长资产。",
+        "status": "inferred"
+      }
+    },
+    {
+      "id": "xiaogu-position",
+      "kicker": "04 · POSITIONING",
+      "title": "不是入口，是柜台",
+      "lead": "入口只负责把用户带到功能；柜台要负责把事情交付完成。小顾要解决用户获得专业投顾服务的四个长期痛点。",
+      "layout": "cards",
+      "tone": "soft",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "痛点一",
+          "title": "没想法，不知从哪开始",
+          "body": "让用户用一句自然语言进入服务，不需要先理解且慢有哪些功能。",
+          "status": "confirmed"
+        },
+        {
+          "index": "02",
+          "eyebrow": "痛点二",
+          "title": "专业服务门槛太高",
+          "body": "原本要跨多个页面、工具甚至依赖专业顾问的分析，被组织为随时可获得的数字服务。",
+          "status": "confirmed"
+        },
+        {
+          "index": "03",
+          "eyebrow": "痛点三",
+          "title": "问题多元、复杂、带情境",
+          "body": "一个问题可能同时需要市场、投研、基金、账户和规划能力，不能用固定问答兜住。",
+          "status": "confirmed"
+        },
+        {
+          "index": "04",
+          "eyebrow": "痛点四",
+          "title": "有价值的投顾是持续服务",
+          "body": "不是一次回答，而是理解这个人、记得他的计划、在关键时点继续服务。",
+          "status": "confirmed"
+        }
+      ],
+      "callout": {
+        "label": "目标一句话",
+        "text": "用普通用户可获得的成本，交付接近私人银行的服务体验。",
+        "status": "target"
+      }
+    },
+    {
+      "id": "evolution",
+      "kicker": "05 · EVOLUTION",
+      "title": "四次升级四个矛盾",
+      "lead": "1.0 做真实价值，2.0 扩解题广度，3.0 做服务深度，4.0 完成用户任务。1.0—4.0 是能力演进，不是对外发布日期。",
+      "layout": "timeline",
+      "tone": "light",
+      "items": [
+        {
+          "index": "1.0",
+          "eyebrow": "真实价值",
+          "title": "从账户与持仓痛点出发",
+          "body": "不从“AI 能回答什么”出发，而是投前能不能规划、投中能不能解释、投后能不能持续陪伴。",
+          "meta": "已验证",
+          "status": "confirmed"
+        },
+        {
+          "index": "2.0",
+          "eyebrow": "解题广度",
+          "title": "模型成为治理边界内的总指挥",
+          "body": "提高模型的规划与调度权，协调市场、投研、规划等专家能力；新场景不再每次从头硬编码。",
+          "meta": "已验证",
+          "status": "confirmed"
+        },
+        {
+          "index": "3.0",
+          "eyebrow": "服务深度",
+          "title": "记得住、跟得上的长期服务",
+          "body": "处理长期记忆、持续任务、主动触发、动作执行和结果写回；部分能力仍在建设。",
+          "meta": "建设中",
+          "status": "target"
+        },
+        {
+          "index": "4.0",
+          "eyebrow": "完成任务",
+          "title": "从发现需求到确认后的动作闭环",
+          "body": "从发现需求、生成方案，到用户确认后的动作与反馈，真正形成服务闭环。目标态，不代表已上线。",
+          "meta": "目标态",
+          "status": "target"
+        }
+      ],
+      "callout": {
+        "label": "归纳",
+        "text": "每次升级解决一个矛盾；3.0、4.0 含建设中与目标态内容，不写成已上线。",
+        "status": "confirmed"
+      }
+    },
+    {
+      "id": "service-loop",
+      "kicker": "06 · SERVICE LOOP",
+      "title": "一条问题长成服务",
+      "lead": "运营场景：“这只基金现在还适合买么？”五步走完——识别真实意图、补齐个人情境、调度专业能力、形成下一步、固化成持续服务。以下为脱敏生产画面。",
+      "layout": "evidence",
+      "tone": "dark",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "生产画面 · 脱敏",
+          "title": "月度账单：账户级持续服务的真实交付",
+          "body": "小顾基于授权读取的账户数据生成月度账单，先给判断、再给证据，并把结果写回下一次服务。",
+          "status": "confirmed",
+          "source": "小顾生产实测（脱敏） · 截至 2026-08-13",
+          "image": "assets/scene-monthly-statement-redacted.png",
+          "alt": "小顾月度账单脱敏生产截图，展示账户级持续服务卡片"
+        },
+        {
+          "index": "02",
+          "eyebrow": "生产画面 · 脱敏",
+          "title": "资产分析：多能力调度后的行动建议",
+          "body": "同时调用业绩与同类、基金经理与季报、估值与市场、组合配置等能力；涉及交易的关键动作必须由用户本人确认。",
+          "status": "confirmed",
+          "source": "小顾生产实测（脱敏） · 截至 2026-08-13",
+          "image": "assets/scene-asset-analysis-redacted.png",
+          "alt": "小顾资产分析脱敏生产截图，展示多能力调度后的分析与建议"
+        }
+      ],
+      "callout": {
+        "label": "演示目的",
+        "text": "不证明模型“知道很多”，而证明且慢能把复杂专业能力组织成用户能理解、能行动、能持续的服务。规模数字（20 万用户 / 300 万问题）因口径冲突暂不上大屏。",
+        "status": "confirmed"
+      }
+    },
+    {
+      "id": "practice-lessons",
+      "kicker": "07 · LESSONS",
+      "title": "酸甜苦辣是系统问题",
+      "lead": "配上大模型后的四条实践经验，本质都是产品系统问题，不是模型问题。",
+      "layout": "cards",
+      "tone": "light",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "经验一",
+          "title": "业务需求驱动",
+          "body": "不为 AI 而做 AI：先问哪件用户任务没有被完成，再判断模型是不是更好的解法。",
+          "status": "confirmed"
+        },
+        {
+          "index": "02",
+          "eyebrow": "经验二",
+          "title": "敢于砍掉重练",
+          "body": "必须沉淀的是数据、能力、评测、方法、服务记忆；可以放弃的是绑死入口的界面和一次性实现。",
+          "status": "confirmed"
+        },
+        {
+          "index": "03",
+          "eyebrow": "经验三",
+          "title": "权力与治理同步提升",
+          "body": "模型越能规划和执行，标注、评测、数据引用、白盒解释、风险提示、授权审计和人工确认越要前置。",
+          "status": "confirmed"
+        },
+        {
+          "index": "04",
+          "eyebrow": "经验四",
+          "title": "指标必须升级",
+          "body": "从问题解决率到场景覆盖、用户覆盖，再到黏性、复用、服务转化和交易转化；每个数字带周期、分母和定义。",
+          "status": "confirmed"
+        }
+      ],
+      "callout": {
+        "label": "金句",
+        "text": "清晰方向不是一次选对，而是在不断砍掉重练时，始终知道什么必须沉淀、什么可以放弃。",
+        "status": "inferred"
+      }
+    },
+    {
+      "id": "open-platform",
+      "kicker": "08 · OPEN PLATFORM",
+      "title": "功能点长成能力体系",
+      "lead": "小顾证明服务有价值之后，下一个问题是：怎么让它们不只存在于小顾里？开放平台做四件事。",
+      "layout": "process",
+      "tone": "soft",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "STEP 1",
+          "title": "拆解",
+          "body": "把金融数据查询、计算分析、专业规则、投顾流程和业务动作拆到边界清楚、可以组合的最小颗粒。",
+          "status": "confirmed"
+        },
+        {
+          "index": "02",
+          "eyebrow": "STEP 2",
+          "title": "重构",
+          "body": "MCP 解决“能不能接”，Skills 解决“能不能稳定交付”，Agent 解决“能不能端到端完成任务”。",
+          "status": "confirmed"
+        },
+        {
+          "index": "03",
+          "eyebrow": "STEP 3",
+          "title": "治理",
+          "body": "统一身份、权限、发布、审计、计量、版本和生命周期，让能力越开放、风险仍然可控。",
+          "status": "confirmed"
+        },
+        {
+          "index": "04",
+          "eyebrow": "STEP 4",
+          "title": "分发",
+          "body": "同一项服务可以进入且慢、AI 工作台、微信、千问、Cursor、WorkBuddy 或机构自己的 Agent。",
+          "status": "confirmed"
+        }
+      ],
+      "callout": {
+        "label": "两个不要混淆的价值",
+        "text": "提效价值：能力不再重复建设；增长价值：能力进入用户已经存在的新入口。速度来自复用，破圈来自分发。",
+        "status": "confirmed"
+      }
+    },
+    {
+      "id": "architecture",
+      "kicker": "09 · ARCHITECTURE",
+      "title": "从底层能力到入口",
+      "lead": "按文档指引从下向上讲：底层供给（数据与知识、工具与计算）→ 能力产品化（MCP、Skills、Agent）→ 治理控制面（Stargate）→ 上层入口（官网、能力平台、自有 Agent 与开放生态）。",
+      "layout": "evidence",
+      "tone": "light",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "系统总图",
+          "title": "开放平台不是接口商城，是统一控制面",
+          "body": "每项能力都具备明确 owner、版本、适用人群、权限范围、质量门、SLA、下线机制和结果指标。能力越开放，治理越要集中；入口可以分散，责任不能分散。",
+          "status": "confirmed",
+          "source": "飞书《AI 实践分享》revision 1748 · 系统关系图 2026-08-13",
+          "image": "assets/system-relationship.svg",
+          "alt": "系统架构图：底层数据与工具供给、MCP/Skills/Agent 能力产品化、Stargate 治理控制面、上层多入口分发"
+        }
+      ],
+      "callout": {
+        "label": "本章判断",
+        "text": "平台的价值不在暴露能力，而在让能力可治理地被复用。",
+        "status": "confirmed"
+      }
+    },
+    {
+      "id": "distribution",
+      "kicker": "10 · DISTRIBUTION",
+      "title": "走出小顾走出且慢",
+      "lead": "三次走出：走出小顾（融入完整用户旅程）、走出 APP（进入小程序、H5、微信）、走出且慢（以 MCP、Skills、Agent 或 A2A 形态进入千问和机构生态）。",
+      "layout": "evidence",
+      "tone": "soft",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "总览图",
+          "title": "三次跨越：服务从功能点进入生态入口",
+          "body": "服务先融入且慢首页、持仓、交易、消息和任务；再进入用户的微信与工作环境；最终成为外部 AI 平台可发现、可调度的能力。",
+          "status": "confirmed",
+          "source": "飞书《AI 实践分享》revision 1748 · 三次跨越图 2026-08-13",
+          "image": "assets/three-leaps.svg",
+          "alt": "三次跨越示意图：走出小顾、走出 APP、走出且慢"
+        },
+        {
+          "index": "02",
+          "eyebrow": "千问链路",
+          "title": "发现 → 绑定授权 → 原位服务 → 回到且慢",
+          "body": "用户在千问发现盈米基金智能体，绑定且慢账号并授权，服务结果原位返回；开户、交易和长期陪伴回到且慢由用户确认。联调截图只证明当次链路，不代表全部能力已生产上线。",
+          "status": "confirmed",
+          "source": "千问专项联调材料 · 2026-08",
+          "image": "assets/qwen-qieman-agent-service-flow.png",
+          "alt": "千问与且慢智能体服务链路截图：发现、绑定授权、账户分析与且慢承接"
+        },
+        {
+          "index": "03",
+          "eyebrow": "微信入口",
+          "title": "服务出现在问题发生的地方",
+          "body": "小顾能力以对话形态进入微信环境的联调画面；只证明链路可行，微信规模化上线暂无可核验事实。",
+          "status": "confirmed",
+          "source": "微信小惟联调画面（脱敏） · 2026-08",
+          "image": "assets/wechat-xiaowei-dialogue-01.png",
+          "alt": "微信内小顾服务对话联调脱敏截图"
+        }
+      ],
+      "callout": {
+        "label": "合作意义",
+        "text": "千问合作的真正价值，是验证“专业能力 + AI 超级入口”可以成为财富管理的新分发范式。",
+        "status": "inferred"
+      }
+    },
+    {
+      "id": "live-demo",
+      "kicker": "11 · LIVE DEMO",
+      "title": "千问入口完整录屏",
+      "lead": "五段完整录屏演示画面：外部创作者与媒体在千问真实使用盈米基金智能体的全过程。录屏证明服务可被外部发现和使用，不等于规模化转化。",
+      "layout": "demo",
+      "tone": "dark",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "未尽研究 · 深度文章",
+          "title": "“懂你”战争开始了",
+          "body": "从个人 AI 入口与现实服务连接的高度解释千问开放第三方智能体，把盈米基金放进“理解需求—执行服务”的新平台叙事。",
+          "meta": "39 秒录屏 · 可播放",
+          "status": "confirmed",
+          "source": "用户提供录屏 · 2026-08-13",
+          "video": "assets/videos/01-insight-article.mp4",
+          "poster": "assets/posters/01-insight-article.jpg"
+        },
+        {
+          "index": "02",
+          "eyebrow": "海峡导报 · 横向测评",
+          "title": "五个智能体实用测评",
+          "body": "省级新闻媒体将盈米基金与租房、出行、家政等服务放在同一真实任务中横向比较，理财顾问的专业输出成为场景证据。",
+          "meta": "19 秒录屏 · 可播放",
+          "status": "confirmed",
+          "source": "海峡导报公开内容 + 用户提供录屏",
+          "video": "assets/videos/02-five-agent-review.mp4",
+          "poster": "assets/posters/02-five-agent-review.jpg"
+        },
+        {
+          "index": "03",
+          "eyebrow": "AI 普瑞斯 · 深度测评",
+          "title": "一周使用后的理财判断",
+          "body": "围绕“年化 5%—8% 稳健收益”等真实问题，展示盈米基金 Agent 不只罗列产品，而是给出资产配置、风险解释与适配判断。",
+          "meta": "37 秒录屏 · 可播放",
+          "status": "confirmed",
+          "source": "AI 普瑞斯公开内容 + 用户提供录屏",
+          "video": "assets/videos/03-agent-deep-review.mp4",
+          "poster": "assets/posters/03-agent-deep-review.jpg"
+        },
+        {
+          "index": "04",
+          "eyebrow": "AI 科技评论 · 短视频",
+          "title": "千问先做了 AI 小程序",
+          "body": "用机器人热梗、服务实测与投资判断制造高密度传播；人工确认转发 2,362 次，是本批案例中最强的显性扩散信号。",
+          "meta": "89 秒录屏 · 可播放",
+          "status": "confirmed",
+          "source": "微信视频号源表链接 + 企微人工确认",
+          "video": "assets/videos/04-ai-tech-review.mp4",
+          "poster": "assets/posters/04-ai-tech-review.jpg"
+        },
+        {
+          "index": "05",
+          "eyebrow": "第四波 · 全流程实测",
+          "title": "专业 Agent 帮你办事",
+          "body": "真人出镜串联租房、寄件与理财任务，突出盈米基金 Agent 能理解复杂条件、输出具体配置并完成专业判断。",
+          "meta": "94 秒录屏 · 可播放",
+          "status": "confirmed",
+          "source": "用户提供录屏 · 2026-08-13",
+          "video": "assets/videos/05-fourth-wave-review.mp4",
+          "poster": "assets/posters/05-fourth-wave-review.jpg"
+        }
+      ],
+      "callout": {
+        "label": "证据边界",
+        "text": "录屏证明服务能被外部发现、理解和使用；智能体启用、账号绑定与转化归因仍需后续数据补齐。",
+        "status": "confirmed"
+      }
+    },
+    {
+      "id": "stage-evidence",
+      "kicker": "12 · EVIDENCE",
+      "title": "能力被用，声量形成",
+      "lead": "两类阶段证据：能力真实使用与新入口传播势能。两类数据都不等于业务闭环——调用量不等于任务完成，传播阅读不等于智能体启用。",
+      "layout": "metrics",
+      "tone": "light",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "能力使用",
+          "title": "OAP 累计调用",
+          "metric": "9,353,911",
+          "meta": "同口径生产库累计，截至 2026-08-10",
+          "body": "平台不是概念架构，能力确实在被使用。",
+          "status": "confirmed",
+          "source": "OAP 经营报告 · 2026-08-10"
+        },
+        {
+          "index": "02",
+          "eyebrow": "能力使用",
+          "title": "OAP 月活用户",
+          "metric": "2,155",
+          "meta": "截至 2026-08-10，已超年度目标 2,000",
+          "body": "月活口径与调用口径截止点不同，不合并解读。",
+          "status": "confirmed",
+          "source": "OAP 经营报告 · 2026-08-10"
+        },
+        {
+          "index": "03",
+          "eyebrow": "传播势能",
+          "title": "千问上线独立内容",
+          "metric": "285",
+          "meta": "去重后独立内容；品牌相关 119 个",
+          "body": "标题、摘要、作者或站点含盈米、且慢、小顾关键词的为 119 个。",
+          "status": "confirmed",
+          "source": "千问上线传播严格窗口审计 · 2026-08-10—12"
+        },
+        {
+          "index": "04",
+          "eyebrow": "传播势能",
+          "title": "品牌相关采用阅读",
+          "metric": "约 255.8 万",
+          "meta": "品牌相关 119 个内容合计；声量≠新增≠AUM",
+          "body": "传播阅读不等于智能体启用，更不等于新增和交易。",
+          "status": "confirmed",
+          "source": "千问上线传播严格窗口审计 · 2026-08-10—12"
+        }
+      ],
+      "callout": {
+        "label": "必须主动说出的边界",
+        "text": "已经证明能力能被使用、新入口能被看见；下一阶段还要证明任务能完成、用户会复用、线索可归因、服务能转化。",
+        "status": "confirmed"
+      }
+    },
+    {
+      "id": "next-steps",
+      "kicker": "13 · NEXT 90 DAYS",
+      "title": "把势能转成经营结果",
+      "lead": "未来 90 天，资源只围绕三条闭环集中，同时重写指标：从对话量、工具量、调用量，升级为成功服务任务、7/30 日复用、建议采纳、服务转化、渠道归因和信任指标。",
+      "layout": "actions",
+      "tone": "soft",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "闭环一",
+          "title": "跑通三条端到端服务任务",
+          "body": "投前规划、投后诊断、持续陪伴；每条都从一句问题走到明确下一步、任务写回和复用。",
+          "meta": "未来 90 天 · 责任方待确认",
+          "status": "target"
+        },
+        {
+          "index": "02",
+          "eyebrow": "闭环二",
+          "title": "经营千问与微信入口",
+          "body": "打通曝光、智能体启用、账号绑定、授权完成、服务完成、且慢回流和交易确认的归因链。",
+          "meta": "未来 90 天 · 责任方待确认",
+          "status": "target"
+        },
+        {
+          "index": "03",
+          "eyebrow": "闭环三",
+          "title": "建立金融服务质量门",
+          "body": "标注评测、数据引用、白盒解释、风险提示、最小授权、人工确认、审计和降级成为上线前置条件。",
+          "meta": "未来 90 天 · 责任方待确认",
+          "status": "target"
+        }
+      ],
+      "callout": {
+        "label": "收束",
+        "text": "AI 真正的价值，是让过去没有资源、没有入口、没有机会被完成的专业服务开始大规模发生：小顾让服务发生，开放平台让服务被更多人找到。",
+        "status": "inferred"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "title": "飞书《AI 实践分享》",
+      "meta": "revision 1748 · 2026-08-14 · 章节结构、配图指引与全部主张的主来源"
+    },
+    {
+      "title": "《且慢怎么快起来、怎么破圈？》15 分钟逐页讲稿",
+      "meta": "2026-08-13 · 章节时间轴、屏幕标题与讲法"
+    },
+    {
+      "title": "小顾生产实测（脱敏）",
+      "meta": "截至 2026-08-13 · 月度账单与资产分析画面"
+    },
+    {
+      "title": "千问专项联调材料与用户提供录屏",
+      "meta": "2026-08 · 服务链路截图与五段完整录屏演示"
+    },
+    {
+      "title": "OAP 经营报告与千问传播严格窗口审计",
+      "meta": "2026-08-10—12 · 调用、月活、独立内容与采用阅读"
+    }
+  ],
+  "openQuestions": [
+    "小顾 20 万用户 / 300 万问题与 2025-11-20 官方口径（15 万+ / 180 万+）冲突，需统一后台口径后方可对外。",
+    "95% 解决率、80% 场景覆盖、40% 复用、转化翻倍缺周期、样本与分母定义。",
+    "外部入口到注册、服务复用、交易和 AUM 的完整归因链尚未建立。",
+    "微信规模化上线暂无可核验事实，本报告仅呈现联调画面。"
+  ]
+}
