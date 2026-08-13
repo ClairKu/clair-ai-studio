@@ -89,8 +89,8 @@
 
     /* 2.1 — match the accepted OAP cover, ending and heading rhythm */
     .wrap{width:min(1180px,calc(100% - 64px))}
-    .hero{background:radial-gradient(circle at 80% 15%,rgba(157,134,242,.28),transparent 29%),linear-gradient(140deg,#fcfbff 0,#f0edff 55%,#e7e0ff 100%)}
-    .hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr);align-items:center;max-height:100svh;padding:clamp(64px,10vh,104px) 0 clamp(52px,8vh,82px);overflow:auto}
+    .hero{align-items:start;background:radial-gradient(circle at 80% 15%,rgba(157,134,242,.28),transparent 29%),linear-gradient(140deg,#fcfbff 0,#f0edff 55%,#e7e0ff 100%)}
+    .hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr);align-content:start;align-items:start;max-height:100svh;margin:0 auto;padding:clamp(32px,5vh,56px) 0 clamp(40px,6vh,60px);overflow:auto}
     .hero-copy{width:min(1080px,100%)}
     .hero h1{margin:22px 0 12px;max-width:none;font:600 clamp(64px,8.2vw,112px)/.96 var(--serif);letter-spacing:-.045em}
     .subtitle{max-width:1040px;margin:0;color:var(--accent);font:600 clamp(44px,6vw,80px)/1.06 var(--serif);letter-spacing:-.035em;white-space:pre-line}
@@ -122,7 +122,7 @@
     #sources .question b{display:block;color:#c5ccda;font:700 9px/1.3 var(--sans)}
     #sources .question span{display:block;margin-top:2px;color:#74829b;font:8px/1.45 var(--sans)}
     @media(max-width:980px){#sources .question-list{grid-template-columns:repeat(3,minmax(0,1fr))}}
-    @media(max-width:720px){.wrap,.section>.wrap{width:min(100% - 28px,1180px)}.hero-grid{grid-template-columns:minmax(0,1fr);min-width:0;overflow-x:hidden;padding:62px 0 42px}.hero h1{font-size:52px;line-height:1}.subtitle{font-size:39px;line-height:1.08}.hero-badges{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:34px}.hero-badges .badge{min-width:0;justify-content:center;padding:10px 8px;font-size:11px;white-space:nowrap}.brand i{width:28px;height:28px;margin-right:0}.section>.wrap{padding-bottom:28px}.section-head{margin-bottom:22px}.section-head h2{margin-left:-1px;font-size:28px;line-height:1.18}.section-head .lead{margin-top:9px;font-size:12.5px;line-height:1.55;white-space:normal}.report-ending-inner{padding-bottom:18px}#sources h2{font-size:30px}.ending-line{white-space:nowrap}.ending-mark{margin-bottom:16px}.ending-lead{margin-top:20px;font-size:12px}.ending-meta{margin-top:28px}.ending-boundary{margin-top:24px}#sources .question-list{grid-template-columns:1fr}#sources .question span{display:none}}
+    @media(max-width:720px){.wrap,.section>.wrap{width:min(100% - 28px,1180px)}.hero-grid{grid-template-columns:minmax(0,1fr);min-width:0;overflow-x:hidden;padding:max(20px,env(safe-area-inset-top)) 0 28px}.hero h1{font-size:52px;line-height:1}.subtitle{font-size:39px;line-height:1.08}.hero-badges{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:34px}.hero-badges .badge{min-width:0;justify-content:center;padding:10px 8px;font-size:11px;white-space:nowrap}.brand i{width:28px;height:28px;margin-right:0}.section>.wrap{padding-bottom:28px}.section-head{margin-bottom:22px}.section-head h2{margin-left:-1px;font-size:28px;line-height:1.18}.section-head .lead{margin-top:9px;font-size:12.5px;line-height:1.55;white-space:normal}.report-ending-inner{padding-bottom:18px}#sources h2{font-size:30px}.ending-line{white-space:nowrap}.ending-mark{margin-bottom:16px}.ending-lead{margin-top:20px;font-size:12px}.ending-meta{margin-top:28px}.ending-boundary{margin-top:24px}#sources .question-list{grid-template-columns:1fr}#sources .question span{display:none}}
   </style>
 </head>
 <body>
