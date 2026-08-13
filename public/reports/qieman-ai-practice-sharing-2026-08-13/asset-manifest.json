@@ -13,8 +13,8 @@
     },
     {
       "path": "assets/behavior-analysis-redrawn.svg",
-      "bytes": 6373,
-      "sha256": "bf6c3e0e9159b688fda4c2d5751e254b84deaff66a87478bf8853cdb65ae5092"
+      "bytes": 6662,
+      "sha256": "fb7ac741d7ab251a9ccb2da594f708bb7cc7ae7c61848af41e1a7652ee529201"
     },
     {
       "path": "assets/evolution-1-to-4.png",
@@ -42,9 +42,9 @@
       "sha256": "7921a5bafeb5ac5bbc24d02a78d2b4e914e859c521fca15047f85824a2e1765a"
     },
     {
-      "path": "assets/qwen-qieman-agent-service-flow.png",
-      "bytes": 712721,
-      "sha256": "9116eb6f24afa7266735adb4b2582516ad227f826cc08424148b58aaba7deff0"
+      "path": "assets/qwen-service-flow-redrawn.svg",
+      "bytes": 9719,
+      "sha256": "d3367d04fb0932c266f20cef7d15d267ef941408c9a3c7b6bead5d755e6bc9ea"
     },
     {
       "path": "assets/service-relationship.svg",
@@ -73,8 +73,8 @@
     },
     {
       "path": "assets/oap-journey-metrics.html",
-      "bytes": 97830,
-      "sha256": "bd91e2bd2cc9541738ab9219aa1e07e674ad5e9abb09aea3b2de19ac73896275"
+      "bytes": 97826,
+      "sha256": "b6b4c0d76cf07ec04e207ec530c69de40f90278eedd62b657663783f08d46ddc"
     }
   ]
 }

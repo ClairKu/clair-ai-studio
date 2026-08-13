@@ -203,7 +203,7 @@
       "navHidden": true,
       "kicker": "P4 · COMPLETE SCREEN RECORDING",
       "title": "复杂任务如何被完成",
-      "lead": "完整录屏展示从持仓与历史交易取数、多轮工具调用、生成报告，到用户追问并修正判断的全过程。",
+      "lead": "完整录屏展示：取数、调用、成稿、追问与判断修正。",
       "layout": "demo",
       "tone": "dark",
       "items": [
@@ -486,11 +486,23 @@
           "eyebrow": "DISCOVER → BIND → ADVISE → ACT",
           "title": "完整服务链路",
           "body": "用户在千问发现盈米基金智能体，绑定且慢账号获得账户级服务，再由且慢页面承接后续动作。",
-          "image": "assets/qwen-qieman-agent-service-flow.png",
-          "alt": "千问中发现盈米基金智能体、绑定且慢账号、获得小顾服务并进入且慢基金页面的服务链路",
+          "image": "assets/qwen-service-flow-redrawn.svg",
+          "alt": "公开匿名重绘的千问服务链路：发现盈米基金智能体、授权绑定且慢账号、获得小顾分析，再由且慢页面承接受监管动作",
           "imagePriority": "high",
+          "mobileSummary": {
+            "eyebrow": "MOBILE FLOW · 公开匿名重绘",
+            "title": "四步完成服务衔接",
+            "body": "手机端按服务顺序阅读；完整横版流程图可单独打开。",
+            "steps": [
+              {"index": "01", "title": "找到智能体", "body": "用户在千问发现盈米基金智能体。"},
+              {"index": "02", "title": "授权绑定", "body": "登录或注册且慢账号，确认授权范围。"},
+              {"index": "03", "title": "获得顾问服务", "body": "小顾在授权范围内完成分析与建议。"},
+              {"index": "04", "title": "回到且慢行动", "body": "账户和交易动作由且慢承接，用户最终确认。"}
+            ],
+            "linkLabel": "打开完整横版流程图"
+          },
           "status": "confirmed",
-          "source": "千问专项历史联调材料 · 2026-08"
+          "source": "千问专项历史联调材料 · 2026-08 · 公开匿名重绘"
         }
       ],
       "callout": {
@@ -622,6 +634,17 @@
           "meta": "趋势数据截至 2026-08-10",
           "embed": "assets/oap-journey-metrics.html",
           "alt": "盈米 AI 开放平台 502 日关键历程与四指标增长交互图",
+          "mobileSummary": {
+            "eyebrow": "MOBILE SUMMARY · 截至 2026-08-10",
+            "title": "502 日增长趋势已形成",
+            "body": "手机端先看三项可读快照；完整趋势、四指标切换与里程碑联动请在新页面打开。",
+            "metrics": [
+              { "value": "9,520", "label": "累计申请" },
+              { "value": "935.4万", "label": "累计调用" },
+              { "value": "2,155", "label": "月活用户" }
+            ],
+            "linkLabel": "打开完整交互增长图"
+          },
           "status": "confirmed",
           "source": "OAP 关键历程 × 四指标增长可视化"
         }

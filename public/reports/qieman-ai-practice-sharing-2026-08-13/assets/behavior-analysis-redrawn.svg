@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
   <title id="title">投资行为分析与矫正能力示意</title>
-  <desc id="desc">将逐笔交易证据归纳为八类行为模式，再形成可执行的矫正计划；示意图不包含用户真实金额。</desc>
+  <desc id="desc">将逐笔交易证据归纳为八类行为模式，再形成可执行的矫正计划；八类标签等权展示，不编码任何用户分数或金额。</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#f8f6ff"/>
@@ -22,7 +22,7 @@
   <g transform="translate(82 236)" filter="url(#shadow)">
     <rect width="680" height="586" rx="28" fill="#fff"/>
     <text x="36" y="55" fill="#171a27" font-family="Songti SC,STSong,serif" font-size="31" font-weight="600">八类行为模式全景</text>
-    <text x="36" y="87" fill="#8b91a0" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="15">仅展示分析结构，不展示用户分数与资产明细</text>
+    <text x="36" y="87" fill="#6650cf" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="17" font-weight="750">结构示意 · 八类标签等权，不编码任何个人得分</text>
     <g transform="translate(338 318)">
       <g fill="none" stroke="#e3e0ee" stroke-width="2">
         <polygon points="0,-194 137,-137 194,0 137,137 0,194 -137,137 -194,0 -137,-137"/>
@@ -31,11 +31,13 @@
         <polygon points="0,-48.5 34,-34 48.5,0 34,34 0,48.5 -34,34 -48.5,0 -34,-34"/>
         <path d="M0-205V205M-205 0H205M-145-145L145 145M145-145L-145 145"/>
       </g>
-      <polygon points="0,-166 118,-118 158,0 99,99 0,138 -121,121 -150,0 -94,-94" fill="#d65869" fill-opacity=".18" stroke="#d65869" stroke-width="5"/>
-      <g fill="#d65869">
-        <circle cx="0" cy="-166" r="7"/><circle cx="118" cy="-118" r="7"/><circle cx="158" cy="0" r="7"/><circle cx="99" cy="99" r="7"/>
-        <circle cx="0" cy="138" r="7"/><circle cx="-121" cy="121" r="7"/><circle cx="-150" cy="0" r="7"/><circle cx="-94" cy="-94" r="7"/>
+      <circle r="151" fill="none" stroke="#7457e8" stroke-width="5" stroke-dasharray="11 10" opacity=".82"/>
+      <g fill="#7457e8">
+        <circle cx="0" cy="-151" r="6"/><circle cx="107" cy="-107" r="6"/><circle cx="151" cy="0" r="6"/><circle cx="107" cy="107" r="6"/>
+        <circle cx="0" cy="151" r="6"/><circle cx="-107" cy="107" r="6"/><circle cx="-151" cy="0" r="6"/><circle cx="-107" cy="-107" r="6"/>
       </g>
+      <rect x="-66" y="-23" width="132" height="46" rx="23" fill="#f2efff" stroke="#d8d0fb"/>
+      <text x="0" y="7" fill="#5c49bd" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="18" font-weight="800">结构示意</text>
       <g fill="#4c5364" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="17" font-weight="650" text-anchor="middle">
         <text x="0" y="-222">风险错配</text><text x="178" y="-156">过度分散</text><text x="245" y="6">心理账户</text><text x="178" y="168">过度自信</text>
         <text x="0" y="232">追涨杀跌</text><text x="-181" y="168">频繁交易</text><text x="-246" y="6">锚定效应</text><text x="-178" y="-156">处置效应</text>
