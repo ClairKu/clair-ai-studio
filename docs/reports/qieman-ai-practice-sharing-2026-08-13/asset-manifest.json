@@ -2,14 +2,44 @@
   "version": 1,
   "assets": [
     {
+      "path": "assets/source/transaction-export-current-limit.png",
+      "bytes": 347454,
+      "sha256": "7b69825858e19bcb1b17416f316278c8d25eecac9fbd3ec2607fe6822f97eab8"
+    },
+    {
+      "path": "assets/scene-monthly-statement-redacted.png",
+      "bytes": 908548,
+      "sha256": "6ace4351d0e5bddd58102ae5cfe5817674207e9ca02d59930bb1eb748e3d3832"
+    },
+    {
+      "path": "assets/behavior-analysis-redrawn.svg",
+      "bytes": 6373,
+      "sha256": "bf6c3e0e9159b688fda4c2d5751e254b84deaff66a87478bf8853cdb65ae5092"
+    },
+    {
+      "path": "assets/evolution-1-to-4.png",
+      "bytes": 464230,
+      "sha256": "cf7a30af75273f2f0efd9c9bdf1ffadff4428afec97551a7339e8777be35c071"
+    },
+    {
+      "path": "assets/three-leaps.svg",
+      "bytes": 4561,
+      "sha256": "0447743382301b2f371037459dfc5d0be8ea7d5132a7e783324175596b1de43a"
+    },
+    {
       "path": "assets/system-relationship.svg",
       "bytes": 15307,
       "sha256": "1acfc70356a4560d97b59ed664a46c8924caaa6a86d55e756b1e38a834d00d14"
     },
     {
-      "path": "assets/service-relationship.svg",
-      "bytes": 12799,
-      "sha256": "dd8f118bb2189beb0547c6f9ea857537990ae0bade75b63e59c50a69902ba72f"
+      "path": "assets/wechat-xiaowei-dialogue-01.png",
+      "bytes": 873405,
+      "sha256": "8dfef99d2a2451ef20275b0dcef37e230b197beecb8c43a8c10da2402f5c617a"
+    },
+    {
+      "path": "assets/wechat-xiaowei-dialogue-02.png",
+      "bytes": 145128,
+      "sha256": "7921a5bafeb5ac5bbc24d02a78d2b4e914e859c521fca15047f85824a2e1765a"
     },
     {
       "path": "assets/qwen-qieman-agent-service-flow.png",
@@ -17,9 +47,34 @@
       "sha256": "9116eb6f24afa7266735adb4b2582516ad227f826cc08424148b58aaba7deff0"
     },
     {
-      "path": "assets/three-leaps.svg",
-      "bytes": 4561,
-      "sha256": "0447743382301b2f371037459dfc5d0be8ea7d5132a7e783324175596b1de43a"
+      "path": "assets/service-relationship.svg",
+      "bytes": 12799,
+      "sha256": "dd8f118bb2189beb0547c6f9ea857537990ae0bade75b63e59c50a69902ba72f"
+    },
+    {
+      "path": "assets/videos/behavior-analysis-task-redacted.mp4",
+      "bytes": 1366769,
+      "sha256": "ae48e4a3f6d96abcfb7cb188cf9ba7d3228e3db647627321020659f5a9337edd"
+    },
+    {
+      "path": "assets/videos/behavior-analysis-report-redacted.mp4",
+      "bytes": 1357276,
+      "sha256": "640f67051fb9afda8ae6f412d26bbb58279c045479b787ea26d09fe3677891a9"
+    },
+    {
+      "path": "assets/posters/behavior-analysis-task-redacted.jpg",
+      "bytes": 23776,
+      "sha256": "3860765822b72eba54ba0eb8cd2c95a5ceca3f7d0a69337760497a74d071c78c"
+    },
+    {
+      "path": "assets/posters/behavior-analysis-report-redacted.jpg",
+      "bytes": 23474,
+      "sha256": "6f0b5e480d8c99d40f4166e95888d51be931939c0f02231ba0bf74d63945d897"
+    },
+    {
+      "path": "assets/oap-journey-metrics.html",
+      "bytes": 97830,
+      "sha256": "bd91e2bd2cc9541738ab9219aa1e07e674ad5e9abb09aea3b2de19ac73896275"
     }
   ]
 }
