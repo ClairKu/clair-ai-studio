@@ -1,0 +1,636 @@
+{
+  "meta": {
+    "title": "且慢 AI 产品实践｜服务做深，能力破圈",
+    "subtitle": "小顾做深存量服务\n开放平台打开微信与千问增量入口",
+    "eyebrow": "且慢产品团队 · AI PRACTICE REPORT",
+    "date": "2026-08-14",
+    "cutoff": "飞书源稿 revision 1742；增长趋势截至 2026-08-10；经营快照读取于 2026-08-14 00:37",
+    "owner": "且慢产品团队 × 盈米 AI 开放平台",
+    "confidentiality": "公开脱敏汇报版",
+    "accent": "#7457E8",
+    "brand": "Clair AI Studio",
+    "brandMark": "C"
+  },
+  "hero": {
+    "conclusion": "真正的破圈不是多一个聊天框，而是把投顾能力从固定产品变成可组合、可治理、可进入新入口的持续服务。",
+    "thesis": "AI 小顾先在且慢内部验证服务价值；CAP 与 OAP 再把数据、方法、工具和任务拆成可复用能力，通过微信、千问等新入口完成发现、服务与回流。增长证据、传播效果和目标态在报告中分层呈现。",
+    "badges": [
+      "小顾 × OAP",
+      "微信 × 千问",
+      "502 日增长趋势",
+      "8 图位 × 4 影片位"
+    ]
+  },
+  "agenda": {
+    "enabled": true,
+    "label": "AGENDA",
+    "title": "报告大纲",
+    "groups": [
+      {
+        "index": "01",
+        "eyebrow": "WHY · 为什么",
+        "title": "为什么必须换一条路",
+        "summary": "入口从页面迁移到任务，旧产品模式无法同时满足效率、体验与个性化。",
+        "sections": ["入口迁移", "同一系统", "小顾演进"]
+      },
+      {
+        "index": "02",
+        "eyebrow": "SYSTEM · 怎么做",
+        "title": "把能力变成可组合服务",
+        "summary": "用 CAP 重写产品生产，用 OAP 承接治理、分发与增长。",
+        "sections": ["CAP 范式", "增长快照", "增长曲线"]
+      },
+      {
+        "index": "03",
+        "eyebrow": "PROOF · 证据",
+        "title": "新入口开始承接服务",
+        "summary": "微信负责需求发现与路由，千问兼顾能力直连、完整 Agent 与传播放大。",
+        "sections": ["入口分工", "微信场景", "千问场景", "传播口径", "证据舱"]
+      },
+      {
+        "index": "04",
+        "eyebrow": "STORY · 汇报",
+        "title": "把证据沉淀成可复用叙事",
+        "summary": "视频案例与大量媒体槽位让后续素材可直接进入同一套汇报系统。",
+        "sections": ["视频案例", "图像槽位", "影片槽位", "下一步"]
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "why-change",
+      "kicker": "01 · WHY NOW",
+      "title": "入口变了，服务也要重做",
+      "lead": "有限资源下，固定页面很难同时兼顾强能力、低门槛与因人而异；AI 让服务单位从页面变成任务。",
+      "layout": "evidence",
+      "tone": "light",
+      "navLabel": "入口迁移",
+      "items": [
+        {
+          "eyebrow": "SOURCE VIEW · PRODUCT TENSION",
+          "title": "两个不可能三角",
+          "body": "内部产品要在效率、体验与能力间取舍；外部需求又在用户、业务与关系人之间拉扯。AI 的价值是改变生产方法，而不是再加一个入口。",
+          "image": "assets/product-triangle.png",
+          "alt": "传统产品模式中的效率、体验、能力与多方需求两个不可能三角",
+          "imagePriority": "high",
+          "status": "confirmed",
+          "source": "飞书文档《且慢AI产品实践》· revision 1742"
+        },
+        {
+          "eyebrow": "JUDGEMENT · ENTRY SHIFT",
+          "title": "用户不再先找页面",
+          "body": "当用户先向 AI 描述目标，谁能被理解、被调用、把任务交付到底，谁才拥有新入口。且慢需要把专业能力从 App 内部释放出来。",
+          "status": "inferred",
+          "source": "飞书源稿与微信、千问历史联调材料 · 2026-08"
+        }
+      ],
+      "callout": {
+        "label": "中心判断",
+        "text": "不是用 AI 优化旧页面，而是把专业服务重新组织为可完成的任务。",
+        "status": "inferred"
+      }
+    },
+    {
+      "id": "one-system",
+      "kicker": "02 · ONE SYSTEM",
+      "title": "一套能力，两条增长路径",
+      "lead": "小顾与开放平台不是两条分散产品线：一个验证服务深度，一个放大能力分发。",
+      "layout": "architecture",
+      "tone": "soft",
+      "navLabel": "同一系统",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "STOCK · 存量",
+          "title": "AI 小顾",
+          "body": "让用户用一句话获得账户、产品、市场与规划服务，逐步从问答走向持续任务。",
+          "bullets": ["降低服务门槛", "扩大场景覆盖", "沉淀服务关系"],
+          "status": "confirmed",
+          "source": "飞书源稿 · revision 1742"
+        },
+        {
+          "index": "02",
+          "eyebrow": "CAP · 生产",
+          "title": "可组合产品范式",
+          "body": "把数据、算法、模型、工具、组件和 API 变成原子能力，用样板与搭建层即时组合。",
+          "bullets": ["原子能力", "应用搭建", "案例复用"],
+          "status": "target",
+          "source": "飞书源稿 CAP 章节 · revision 1742"
+        },
+        {
+          "index": "03",
+          "eyebrow": "OAP · 治理",
+          "title": "AI 开放平台",
+          "body": "统一承接身份、权限、能力发布、调用审计与计量，让开放能力可用、可控、可持续。",
+          "bullets": ["标准连接", "统一治理", "多端分发"],
+          "status": "confirmed",
+          "source": "既有 OAP 管理汇报 · 2026-08-03"
+        },
+        {
+          "index": "04",
+          "eyebrow": "NEW ENTRY · 增量",
+          "title": "微信与千问",
+          "body": "微信在对话里发现需求并路由，千问以 MCP 与 A2A 承接能力和完整 Agent，且慢负责受监管服务闭环。",
+          "bullets": ["被发现", "被调用", "回流且慢"],
+          "status": "confirmed",
+          "source": "历史联调页面与生产报告 · 2026-08"
+        }
+      ]
+    },
+    {
+      "id": "xiaogu-evolution",
+      "kicker": "03 · XIAOGU",
+      "title": "小顾从问答走向任务闭环",
+      "lead": "四次能力升级对应四个业务矛盾；路线图表达演进方向，不等同于所有能力均已全量上线。",
+      "layout": "evidence",
+      "tone": "light",
+      "navLabel": "小顾演进",
+      "items": [
+        {
+          "eyebrow": "1.0 → 4.0",
+          "title": "从账户服务到投资闭环",
+          "body": "1.0 做账户服务一体化，2.0 由总指挥调度多专家，3.0 引入记忆、任务与执行，4.0 面向完整投资任务闭环。",
+          "image": "assets/evolution-1-to-4.png",
+          "alt": "AI 小顾从 1.0 账户服务、2.0 多专家、3.0 记忆任务到 4.0 投资闭环的演进路线",
+          "imagePriority": "high",
+          "status": "target",
+          "source": "飞书文档《且慢AI产品实践》· revision 1742"
+        },
+        {
+          "eyebrow": "HUMAN × AI",
+          "title": "AI 规模化，顾问深度化",
+          "body": "AI 负责高频账户服务与初步分层，专属顾问承接高意向、高资产与深度服务；具体 20 万阈值来自源稿主张，仍需补足定义与审批边界。",
+          "image": "assets/ai-intake-flow.png",
+          "alt": "登录后由 AI 接住用户并根据需求和服务深度进行人机协同分层的交互示意",
+          "status": "inferred",
+          "source": "飞书源稿人机协同示意 · revision 1742"
+        }
+      ]
+    },
+    {
+      "id": "cap-paradigm",
+      "kicker": "04 · CAP",
+      "title": "CAP 把产品变成可组合服务",
+      "lead": "固定产品依赖排期；CAP 把能力拆开、把样板留下，让用户需求可以被即时编排并重复使用。",
+      "layout": "evidence",
+      "tone": "soft",
+      "navLabel": "CAP 范式",
+      "items": [
+        {
+          "eyebrow": "COMPOSABLE ADAPTIVE PARADIGM",
+          "title": "三层产品生产方法",
+          "body": "原子能力层提供数据、算法、模型、工具、组件与 API；应用搭建层完成组合；案例样板库让有效方案被复用。",
+          "image": "assets/oap-cap-architecture.png",
+          "alt": "CAP 的案例样板库、应用搭建层与原子能力层三层架构",
+          "imagePriority": "high",
+          "status": "target",
+          "source": "飞书源稿 CAP 架构图 · revision 1742"
+        },
+        {
+          "eyebrow": "WORKFLOW EXAMPLE",
+          "title": "收益日历变成可复用流程",
+          "body": "从一句需求出发，组合收益数据、日历组件与定时任务，保存为 workflow，再供自己复用或发布给其他用户。",
+          "image": "assets/cap-workflow-example.png",
+          "alt": "将持仓收益日历需求拆解为数据、组件和定时任务并保存为可复用工作流",
+          "status": "target",
+          "source": "飞书源稿 CAP 案例图 · revision 1742"
+        }
+      ]
+    },
+    {
+      "id": "growth-snapshot",
+      "kicker": "05 · BUSINESS SNAPSHOT",
+      "title": "增长快照逼近年度目标",
+      "lead": "经营快照与趋势图不是同一时点：本页采用 8 月 14 日读取值，下一页曲线停在 8 月 10 日，二者不拼接。",
+      "layout": "metrics",
+      "tone": "dark",
+      "navLabel": "增长快照",
+      "items": [
+        {
+          "metric": "941.7 万",
+          "title": "累计调用",
+          "body": "9,416,755 / 13,000,000，完成 72.4%；8 月 14 日为部分日。",
+          "meta": "读取于 2026-08-14 00:37",
+          "status": "confirmed",
+          "source": "OAP Stargate 管理后台默认口径"
+        },
+        {
+          "metric": "9,851",
+          "title": "申请用户",
+          "body": "年度目标 10,000，完成 98.5%，尚差 149 人。",
+          "meta": "累计用户表最新至 2026-08-13",
+          "status": "confirmed",
+          "source": "OAP Stargate 累计用户表"
+        },
+        {
+          "metric": "2,292",
+          "title": "月活用户",
+          "body": "年度目标 2,000，完成 114.6%，超目标 292 人。",
+          "meta": "读取于 2026-08-14 00:37",
+          "status": "confirmed",
+          "source": "OAP Stargate 管理后台默认口径"
+        },
+        {
+          "metric": "59.3%",
+          "title": "已使用用户占比",
+          "body": "已使用用户 5,837 / 申请用户 9,851；用于观察从申请到实际使用的转化。",
+          "meta": "研究底稿复算 · 2026-08-14",
+          "status": "confirmed",
+          "source": "OAP 8·14 研究底稿与来源覆盖清单"
+        }
+      ],
+      "callout": {
+        "label": "经营判断",
+        "text": "规模验证已经成立；下一阶段的关键不再是申请数，而是使用、复用、服务完成与渠道归因。",
+        "status": "inferred"
+      }
+    },
+    {
+      "id": "growth-journey",
+      "kicker": "06 · 502-DAY JOURNEY",
+      "title": "502 日增长曲线可交互",
+      "lead": "内嵌 OAP 关键历程 × 四指标走势图：切换指标和时间范围，悬浮读数，拖动区间，并与里程碑联动。",
+      "layout": "evidence",
+      "tone": "soft",
+      "navLabel": "增长曲线",
+      "items": [
+        {
+          "eyebrow": "INTERACTIVE EMBED",
+          "title": "关键历程 × 四指标增长",
+          "body": "502 日清洗快照覆盖 2025-03-27—2026-08-10；累计调用、累计申请、每日新增、每日调用用户可分别查看。",
+          "status": "confirmed",
+          "source": "OAP 增长可视化 · f2069bb · 数据截至 2026-08-10"
+        }
+      ],
+      "callout": {
+        "label": "口径提醒",
+        "text": "曲线停在 8 月 10 日；顶部经营快照读取于 8 月 14 日 00:37，且累计调用为部分日。",
+        "status": "confirmed"
+      }
+    },
+    {
+      "id": "entry-roles",
+      "kicker": "07 · NEW ENTRIES",
+      "title": "微信承接，千问放大",
+      "lead": "两个入口承担不同任务：微信把需求路由到受监管服务，千问把能力与完整 Agent 放进新的超级入口。",
+      "layout": "comparison",
+      "tone": "light",
+      "navLabel": "入口分工",
+      "items": [
+        {
+          "index": "W",
+          "eyebrow": "WECHAT · SERVICE ROUTING",
+          "title": "微信发现与承接",
+          "body": "Agent 在原生对话里识别投资意图，且慢 Skills 给出专业判断，小程序承接身份、账户、交易与陪伴。",
+          "bullets": ["发现需求", "路由服务", "用户确认"],
+          "status": "confirmed",
+          "source": "微信小微历史联调页面 · 2026-08-03"
+        },
+        {
+          "index": "Q",
+          "eyebrow": "QWEN · MCP + A2A",
+          "title": "千问能力与品牌放大",
+          "body": "MCP 让标准能力被按需调用；A2A 嵌入完整且慢小顾；上线传播进一步放大新品类与品牌认知。",
+          "bullets": ["能力直连", "完整 Agent", "传播扩散"],
+          "status": "confirmed",
+          "source": "千问合作与传播生产报告 · 2026-08-10—13"
+        }
+      ]
+    },
+    {
+      "id": "wechat-scene",
+      "kicker": "08 · WECHAT",
+      "title": "微信把需求路由给且慢",
+      "lead": "历史联调截图证明了当次“识别意图—打开小程序—用户确认”链路；不外推为当前全量上线或规模化获客。",
+      "layout": "evidence",
+      "tone": "soft",
+      "navLabel": "微信场景",
+      "items": [
+        {
+          "eyebrow": "STEP 01 · DISCOVER",
+          "title": "对话里识别投资意图",
+          "body": "微信小微理解用户购买且慢基金的意图，并找到且慢投顾小程序作为服务入口。",
+          "image": "assets/wechat-dialogue-01.png",
+          "alt": "微信小微识别购买且慢基金需求并路由到且慢投顾小程序",
+          "imagePriority": "high",
+          "status": "confirmed",
+          "source": "用户提供的微信小微真实对话截图 · 2026-08-03"
+        },
+        {
+          "eyebrow": "STEP 02 · CONFIRM",
+          "title": "受监管动作由用户确认",
+          "body": "小程序承接产品页面，账户、金额、风险测评和支付等敏感动作由用户本人完成。",
+          "image": "assets/wechat-dialogue-02.png",
+          "alt": "微信小微打开且慢跟投页面并提示用户手动完成交易",
+          "status": "confirmed",
+          "source": "用户提供的微信小微真实对话截图 · 2026-08-03"
+        }
+      ],
+      "callout": {
+        "label": "人机分工",
+        "text": "Agent 负责发现与路由；且慢负责专业判断与受监管服务；用户完成最终确认。",
+        "status": "confirmed"
+      }
+    },
+    {
+      "id": "qwen-scene",
+      "kicker": "09 · QWEN",
+      "title": "千问打通服务与传播",
+      "lead": "合作价值有两层：产品侧把完整服务送进千问，传播侧把“AI 能办事”转化为可见的品类与品牌证据。",
+      "layout": "evidence",
+      "tone": "light",
+      "navLabel": "千问场景",
+      "items": [
+        {
+          "eyebrow": "SERVICE FLOW · MCP + A2A",
+          "title": "从发现智能体到且慢承接",
+          "body": "用户发现盈米基金智能体，绑定且慢账号，在千问获得资产与配置诊断，再由且慢承接后续受监管动作。",
+          "image": "assets/qwen-service-flow.png",
+          "alt": "千问中从发现盈米基金智能体、绑定且慢账号、获得资产配置诊断到进入且慢承接页面的服务流程",
+          "imagePriority": "high",
+          "status": "confirmed",
+          "source": "既有 OAP 千问合作页面 · 2026-08-03"
+        },
+        {
+          "eyebrow": "BOUNDARY · ATTRIBUTION",
+          "title": "接入不等于可归因增长",
+          "body": "联调与发布证明入口形成；直接新增、品牌声量、服务完成和交易转化仍需独立归因链，不能用短期相关性替代因果。",
+          "status": "inferred",
+          "source": "千问注册与传播效果分析 · 2026-08-12"
+        }
+      ]
+    },
+    {
+      "id": "qwen-impact",
+      "kicker": "10 · MEDIA IMPACT",
+      "title": "千问传播需要分开计量",
+      "lead": "阅读、展现、视频和案例不是同一个指标；本页冻结 8 月 13 日公开脱敏快照，保留去重与来源边界。",
+      "layout": "metrics",
+      "tone": "dark",
+      "navLabel": "传播口径",
+      "items": [
+        {
+          "metric": "257",
+          "title": "独立内容",
+          "body": "296 条母表经正文证据归并后，得到 235 篇文章与 22 条视频。",
+          "meta": "正文证据去重 · 截至 2026-08-13 09:10",
+          "status": "confirmed",
+          "source": "千问传播数据报告 records.json"
+        },
+        {
+          "metric": "327.4 万",
+          "title": "表内阅读",
+          "body": "同一内容取监测表最大值，不与公开展现、播放或互动相加。",
+          "meta": "佳静两版媒体监测表快照",
+          "status": "confirmed",
+          "source": "千问传播数据报告 · 2026-08-12"
+        },
+        {
+          "metric": "44.9 万",
+          "title": "公开展现",
+          "body": "今日头条两条公开内容的展现量；它不是阅读量。",
+          "meta": "448,514 · 2026-08-13 09:10",
+          "status": "confirmed",
+          "source": "今日头条公开作者信息流核验"
+        },
+        {
+          "metric": "5",
+          "title": "经典视频案例",
+          "body": "五段用户提供或公开内容录屏已进入独立视频页面，可直接播放。",
+          "meta": "19—94 秒 · H.264",
+          "status": "confirmed",
+          "source": "千问上线传播成效与经典案例页"
+        }
+      ]
+    },
+    {
+      "id": "evidence-cockpit",
+      "kicker": "11 · SOURCE COCKPIT",
+      "title": "旧报告成为可复用证据舱",
+      "lead": "微信、千问合作、传播数据与视频页不被复制成静态截图，而是作为可切换的生产页面嵌入本报告。",
+      "layout": "cards",
+      "tone": "soft",
+      "navLabel": "证据舱",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "WECHAT",
+          "title": "微信合作页",
+          "body": "查看人机分工、对话路由与且慢小程序承接。",
+          "status": "confirmed",
+          "source": "Studio 生产报告"
+        },
+        {
+          "index": "02",
+          "eyebrow": "QWEN",
+          "title": "千问合作页",
+          "body": "查看 MCP、A2A 与完整服务链路。",
+          "status": "confirmed",
+          "source": "Studio 生产报告"
+        },
+        {
+          "index": "03",
+          "eyebrow": "DATA",
+          "title": "千问数据页",
+          "body": "筛选、搜索、排序、汇总与审计 257 条独立内容。",
+          "status": "confirmed",
+          "source": "Studio 生产报告"
+        },
+        {
+          "index": "04",
+          "eyebrow": "VIDEO",
+          "title": "千问视频页",
+          "body": "直接播放五段经典传播案例。",
+          "status": "confirmed",
+          "source": "Studio 生产报告"
+        }
+      ]
+    },
+    {
+      "id": "video-cases",
+      "kicker": "12 · VIDEO STORIES",
+      "title": "五段视频沉淀经典场景",
+      "lead": "不重复发布 28 MB 视频资产；沿用既有生产视频页，并在本页以五张海报快速进入对应案例。",
+      "layout": "demo",
+      "tone": "dark",
+      "navLabel": "视频案例",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "平台叙事",
+          "title": "懂你战争开始了",
+          "body": "解释千问从聊天入口走向现实服务平台，盈米基金进入首批生态伙伴语境。",
+          "meta": "39 秒录屏",
+          "status": "confirmed",
+          "source": "未尽研究 + 用户提供录屏"
+        },
+        {
+          "index": "02",
+          "eyebrow": "横向测评",
+          "title": "五个智能体实测",
+          "body": "把盈米基金与租房、出行、家政等服务置于同一真实任务中比较。",
+          "meta": "19 秒录屏",
+          "status": "confirmed",
+          "source": "海峡导报 + 用户提供录屏"
+        },
+        {
+          "index": "03",
+          "eyebrow": "专业判断",
+          "title": "一周后的理财判断",
+          "body": "展示 Agent 不只罗列产品，而是提供配置、风险解释与适配判断。",
+          "meta": "37 秒录屏",
+          "status": "confirmed",
+          "source": "AI 普瑞斯 + 用户提供录屏"
+        },
+        {
+          "index": "04",
+          "eyebrow": "短视频表达",
+          "title": "千问先做 AI 小程序",
+          "body": "短视频用服务实测与投资判断形成显性扩散；2,362 是转发，不是播放。",
+          "meta": "89 秒录屏",
+          "status": "confirmed",
+          "source": "微信视频号 + 企微人工确认"
+        },
+        {
+          "index": "05",
+          "eyebrow": "连续任务",
+          "title": "专业 Agent 帮你办事",
+          "body": "真人串联租房、寄件与理财任务，突出复杂条件理解与专业配置输出。",
+          "meta": "94 秒录屏",
+          "status": "confirmed",
+          "source": "用户提供录屏"
+        }
+      ]
+    },
+    {
+      "id": "image-slots",
+      "kicker": "13 · IMAGE RESERVE",
+      "title": "预留八个图像证据位",
+      "lead": "点击或拖入本地图片即可在浏览器里预览；文件不会上传，刷新页面后自动清空。",
+      "layout": "cards",
+      "tone": "light",
+      "navLabel": "图像槽位",
+      "items": [
+        {"index": "01", "title": "用户原声", "body": "建议放真实反馈或访谈截图。", "status": "missing"},
+        {"index": "02", "title": "产品现场", "body": "建议放小顾关键体验或服务卡。", "status": "missing"},
+        {"index": "03", "title": "微信链路", "body": "建议放最新联调或生产验证。", "status": "missing"},
+        {"index": "04", "title": "千问链路", "body": "建议放智能体、授权与回流。", "status": "missing"},
+        {"index": "05", "title": "增长证据", "body": "建议放看板、趋势或转化漏斗。", "status": "missing"},
+        {"index": "06", "title": "行业背书", "body": "建议放榜单、报道或合作现场。", "status": "missing"},
+        {"index": "07", "title": "组织协同", "body": "建议放共创、评审或交付过程。", "status": "missing"},
+        {"index": "08", "title": "下一阶段", "body": "建议放路线图、原型或目标态。", "status": "missing"}
+      ]
+    },
+    {
+      "id": "video-slots",
+      "kicker": "14 · VIDEO RESERVE",
+      "title": "预留四个影片证据位",
+      "lead": "同时支持横版与竖版影片本地预览；每个槽位保留标题、来源、时长与证据状态。",
+      "layout": "cards",
+      "tone": "soft",
+      "navLabel": "影片槽位",
+      "items": [
+        {"index": "01", "title": "用户任务实录", "body": "从提出问题到服务完成。", "status": "missing"},
+        {"index": "02", "title": "产品操作演示", "body": "关键交互与结果回写。", "status": "missing"},
+        {"index": "03", "title": "合作入口实测", "body": "微信、千问或其他入口。", "status": "missing"},
+        {"index": "04", "title": "管理者观点", "body": "战略判断、复盘或下一步。", "status": "missing"}
+      ]
+    },
+    {
+      "id": "next-actions",
+      "kicker": "15 · NEXT 90 DAYS",
+      "title": "下一步只验收经营闭环",
+      "lead": "能力数量不是经营结果；下一阶段用任务完成、真实使用、渠道归因与金融级信任四组指标验收。",
+      "layout": "actions",
+      "tone": "dark",
+      "navLabel": "下一步",
+      "items": [
+        {
+          "index": "P0",
+          "eyebrow": "TASK",
+          "title": "跑通三条端到端任务",
+          "body": "选择投前规划、投后诊断与持续陪伴，从一句问题跑到明确行动、任务写回和复用。",
+          "meta": "责任：产品 × 业务 × 数据｜90 天｜成功标准：任务完成率与 7/30 日复用",
+          "status": "target"
+        },
+        {
+          "index": "P0",
+          "eyebrow": "GROWTH",
+          "title": "建立入口归因链",
+          "body": "贯通曝光、启用、账号绑定、授权完成、服务完成、且慢回流与交易确认。",
+          "meta": "责任：渠道 × 产品 × 运营｜90 天｜成功标准：可归因新增与服务转化",
+          "status": "target"
+        },
+        {
+          "index": "P0",
+          "eyebrow": "TRUST",
+          "title": "建立金融服务质量门",
+          "body": "统一评测、引用、解释、最小授权、人工确认、审计与降级策略。",
+          "meta": "责任：产品 × 技术 × 合规｜持续｜成功标准：关键场景通过率与重大风险为 0",
+          "status": "target"
+        },
+        {
+          "index": "P1",
+          "eyebrow": "EVIDENCE",
+          "title": "把素材槽变成证据库",
+          "body": "每张图、每段片都补齐来源、日期、口径和状态，再进入公开汇报。",
+          "meta": "责任：产品 × 运营｜30 天｜成功标准：八图四片完成证据登记",
+          "status": "target"
+        }
+      ]
+    }
+  ],
+  "closing": {
+    "mark": "CLAIR · AI PRACTICE REPORT",
+    "line1": "把专业能力做成服务，",
+    "line2": "把每一个新入口变成可经营的",
+    "accent": "增长",
+    "lead": "小顾验证服务价值，CAP 改写产品生产，OAP 统一治理与分发；微信、千问等入口只有进入可归因的任务闭环，才真正成为且慢的新增量。",
+    "metaPrimary": "且慢产品团队 × 盈米 AI 开放平台 · 2026.08.14",
+    "metaSecondary": "公开脱敏版 · 趋势截至 8·10 · 经营快照读取于 8·14 00:37"
+  },
+  "sources": [
+    {
+      "label": "飞书文档《且慢AI产品实践》",
+      "detail": "yingmi.feishu.cn/docx/Vk6VdNQEEoMg7IxQuEKcrMH4nzd · revision 1742 · 2026-08-14 只读抽取"
+    },
+    {
+      "label": "OAP Stargate 经营快照",
+      "detail": "既有生产报告于 2026-08-14 00:37 只读核对；累计调用为部分日，累计用户最新至 8 月 13 日"
+    },
+    {
+      "label": "OAP 关键历程 × 四指标增长",
+      "detail": "qieman-product-research-library · f2069bb · 502 日序列 · 数据截至 2026-08-10"
+    },
+    {
+      "label": "微信与千问合作页面",
+      "detail": "Studio 报告 yingmi-ai-oap-framework-2026-08-03 · 历史联调与服务关系证据"
+    },
+    {
+      "label": "千问传播数据报告",
+      "detail": "yingmi-qianwen-launch-media-monitor-2026-08-12 · 正文证据去重与指标分列"
+    },
+    {
+      "label": "千问视频案例页",
+      "detail": "qianwen-impact-showcase-2026-08-13 · 5 段可播放录屏与来源说明"
+    }
+  ],
+  "openQuestions": [
+    {
+      "title": "源稿指标待补口径",
+      "detail": "20 万用户、300 万次问题、95% 解决率、80% 场景覆盖、40% 复用和转化翻倍均缺时间窗、分母或底表，本报告不把它们作为已审计经营成果。"
+    },
+    {
+      "title": "微信状态边界",
+      "detail": "历史截图证明当次联调链路，不代表 2026-08-14 当前全量生产可用、规模化获客或审批完成。"
+    },
+    {
+      "title": "千问归因边界",
+      "detail": "接入、传播峰值与新增注册变化分属不同证据；直接贡献、品牌声量与交易转化仍需渠道标记和更长窗口。"
+    },
+    {
+      "title": "素材占位不是发布证据",
+      "detail": "八个图片槽和四个影片槽仅用于本地预览；素材正式进入公开报告前必须补来源、日期、公开边界与证据状态。"
+    }
+  ]
+}

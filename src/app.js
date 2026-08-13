@@ -25,7 +25,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 47;
+const DATA_VERSION = 49;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -132,6 +132,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "yingmi-ai-oap-growth-showcase-2026-08-14",
+      groupId: "reporting",
+      title: "且慢 AI 产品实践｜服务做深，能力破圈",
+      url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-ai-oap-growth-showcase-2026-08-14/",
+      preview: "yingmi-ai-oap-growth-showcase-2026-08-14.png",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-14T02:55:00.000+08:00",
+      source: "飞书《且慢AI产品实践》revision 1742 × OAP 502 日四指标增长图 × 微信/千问既有生产报告 × 千问传播数据与 5 段视频｜15 屏 CLAIR 汇报，内含 8 个图片槽、4 个影片槽与本地拖放预览｜公开脱敏版",
+      access: "production",
+      workType: "reporting",
+      tags: ["且慢", "AI 小顾", "AI 开放平台", "OAP", "CAP", "用户增长", "微信", "千问", "视频案例", "媒体槽位", "管理汇报", "CLAIR", "HTML", "脱敏", "生产"],
+    },
     {
       id: "qieman-ai-growth-practice-2026-08-14",
       groupId: "ai-platform",
