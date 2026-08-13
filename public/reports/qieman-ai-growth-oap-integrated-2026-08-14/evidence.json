@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "reportId": "qieman-ai-growth-oap-integrated-2026-08-14",
+  "cutoff": "2026-08-14",
+  "claims": [
+    {
+      "id": "E01",
+      "claim": "小顾 35 个前端注册卡片中，23 个两轮生产测试独立落卡，5 个降级完成，7 个未形成专卡。",
+      "status": "confirmed",
+      "source": "qieman-xiaogu-service-card-landscape-2026-08-13",
+      "definition": "独立落卡指两轮测试至少一次出现对应专卡。",
+      "limits": "不是完整生产验收。"
+    },
+    {
+      "id": "E02",
+      "claim": "OAP 累计调用为 9,416,755，申请用户 9,851，MAU 2,292。",
+      "status": "confirmed",
+      "source": "OAP Stargate 管理后台",
+      "definition": "调用和 MAU 读取于 2026-08-14 00:37；累计用户表最新至 8 月 13 日。",
+      "limits": "调用为部分日，三项指标不是同一分母。"
+    },
+    {
+      "id": "E03",
+      "claim": "OAP 源稿矩阵记录 MCP 覆盖九个平台。",
+      "status": "confirmed",
+      "source": "飞书 OAP 源稿 P6 · revision 1978",
+      "definition": "源稿状态矩阵中的 live / planned / none。",
+      "limits": "未在本轮逐平台生产复测。"
+    },
+    {
+      "id": "E04",
+      "claim": "微信与千问均出现从外部发现到且慢承接的联调路径。",
+      "status": "confirmed",
+      "source": "用户提供微信对话与千问专项联调材料",
+      "definition": "截图或录屏中可见的端到端路径。",
+      "limits": "不证明规模、审批、注册、交易或 AUM。"
+    },
+    {
+      "id": "E05",
+      "claim": "MCP 需求从资讯和基金发现向诊断、配置与策略延伸。",
+      "status": "inferred",
+      "source": "接口市场 69 项全量核对与业务 TOP20",
+      "definition": "页面展示调用值截至 2026-08-03。",
+      "limits": "不外推用户类型或收入贡献。"
+    },
+    {
+      "id": "E06",
+      "claim": "OAP 覆盖公募 94、证券 93、银行 59、基金销售 35 家。",
+      "status": "confirmed",
+      "source": "Stargate 机构分类截图",
+      "definition": "截图可见分类，基金销售已剔除盈米。",
+      "limits": "统计周期与活跃定义未统一。"
+    },
+    {
+      "id": "E07",
+      "claim": "30+ 额度扩充与付费咨询需求说明商业化信号出现。",
+      "status": "confirmed",
+      "source": "飞书 OAP 源稿 P15",
+      "definition": "需求样本数。",
+      "limits": "不等于付费用户、订单、转化率或收入。"
+    },
+    {
+      "id": "E08",
+      "claim": "AI 实验室、完整服务创作体系、个人/企业收费与外部入口经营闭环已经形成。",
+      "status": "target",
+      "source": "OAP 产品规划与本报告行动建议",
+      "definition": "H2 规划和目标态。",
+      "limits": "不代表全部上线或审批完成。"
+    },
+    {
+      "id": "E09",
+      "claim": "外部入口已经稳定带来可归因的注册、交易、收入和 AUM。",
+      "status": "missing",
+      "source": "当前材料未提供完整事件链",
+      "definition": "需串联曝光、启用、绑定、服务完成、回流、交易、收入和 AUM。",
+      "limits": "当前只能确认联调、传播和平台使用。"
+    }
+  ]
+}

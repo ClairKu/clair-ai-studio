@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "assets": [
+    {
+      "path": "assets/triangle-value.svg",
+      "bytes": 2981,
+      "sha256": "f2326bb2d3f43ec53672b3bbfffa37b76ac3a0da152c2ce13e52d9b4e1a18362"
+    },
+    {
+      "path": "assets/triangle-supply.svg",
+      "bytes": 3019,
+      "sha256": "85646208a3c0ef92fb619d4a60fa99f9fa8e80ab10e99fcfddce8df47bd80753"
+    },
+    {
+      "path": "assets/scene-monthly-statement-redacted.png",
+      "bytes": 908548,
+      "sha256": "6ace4351d0e5bddd58102ae5cfe5817674207e9ca02d59930bb1eb748e3d3832"
+    },
+    {
+      "path": "assets/scene-asset-analysis-redacted.png",
+      "bytes": 885148,
+      "sha256": "841a7fd975441e91422c3b3b21d173d6cd1f78cb7b8e7b1a1c2550a0cb8c9cc1"
+    },
+    {
+      "path": "assets/system-relationship.svg",
+      "bytes": 15307,
+      "sha256": "1acfc70356a4560d97b59ed664a46c8924caaa6a86d55e756b1e38a834d00d14"
+    },
+    {
+      "path": "assets/service-relationship.svg",
+      "bytes": 12799,
+      "sha256": "dd8f118bb2189beb0547c6f9ea857537990ae0bade75b63e59c50a69902ba72f"
+    },
+    {
+      "path": "assets/three-leaps.svg",
+      "bytes": 4561,
+      "sha256": "0447743382301b2f371037459dfc5d0be8ea7d5132a7e783324175596b1de43a"
+    },
+    {
+      "path": "assets/wechat-xiaowei-dialogue-01.png",
+      "bytes": 873405,
+      "sha256": "8dfef99d2a2451ef20275b0dcef37e230b197beecb8c43a8c10da2402f5c617a"
+    },
+    {
+      "path": "assets/wechat-xiaowei-dialogue-02.png",
+      "bytes": 145128,
+      "sha256": "7921a5bafeb5ac5bbc24d02a78d2b4e914e859c521fca15047f85824a2e1765a"
+    },
+    {
+      "path": "assets/qwen-qieman-agent-service-flow.png",
+      "bytes": 712721,
+      "sha256": "9116eb6f24afa7266735adb4b2582516ad227f826cc08424148b58aaba7deff0"
+    }
+  ]
+}

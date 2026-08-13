@@ -133,6 +133,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "qieman-ai-growth-oap-integrated-2026-08-14",
+      groupId: "reporting",
+      title: "且慢 AI 增长全景｜小顾 × OAP 完整整合版",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-ai-growth-oap-integrated-2026-08-14/",
+      preview: "qieman-ai-growth-oap-integrated-2026-08-14.png",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-14T03:18:00.000+08:00",
+      source: "上一版 13 章且慢 AI 增长报告 × 盈米 AI 开放平台 26 章生产报告｜38 章完整整合：小顾真实任务与生产实测—OAP 能力治理—AI 实验室—微信/千问/百度分发—MCP TOP20—八家机构样本与机构工具 TOP15—商业化与 90 天行动｜公开脱敏交互式 HTML；原两份报告不更新",
+      access: "production",
+      workType: "reporting",
+      tags: ["且慢", "AI 小顾", "AI 开放平台", "OAP", "MCP", "Skills", "Agent", "AI 实验室", "机构服务", "增长", "管理汇报", "证据治理", "CLAIR", "HTML", "公开脱敏", "生产"],
+    },
+    {
       id: "yingmi-ai-oap-growth-showcase-2026-08-14",
       groupId: "reporting",
       title: "且慢 AI 产品实践｜服务做深，能力破圈",
