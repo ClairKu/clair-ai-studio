@@ -37,14 +37,44 @@
       "sha256": "7191f541ad300e90917432f70d8f45dc74a00d262c6083e7053272e1fd2fa305"
     },
     {
-      "path": "assets/fund-detail-live.png",
-      "bytes": 255831,
-      "sha256": "c47f81bd05d16819a28bad6eb6646580e762290860390fa1573a1184e000ac73"
+      "path": "assets/quick-services-live.png",
+      "bytes": 35933,
+      "sha256": "4aedd17deced13e6f2f41576f98dfd2e04d93faa53e79099da810a19b55cf3de"
     },
     {
-      "path": "assets/index-valuation-live.png",
-      "bytes": 192362,
-      "sha256": "235f17a91233aa6c57ced18065ea59ac64b8af7d4b6e1588df0961189f5fe98a"
+      "path": "assets/recommended-questions-live.png",
+      "bytes": 33018,
+      "sha256": "afca4c63abe98004e1543df5dcaa7455db2693df5446f110e4fa0c1623f02467"
+    },
+    {
+      "path": "assets/market-thermometer-live.png",
+      "bytes": 37941,
+      "sha256": "00f21059307eb4a8abd6f45fd6cd00bda348908293eb551a48b4307e32045ae8"
+    },
+    {
+      "path": "assets/index-valuation-gallery-live.png",
+      "bytes": 42009,
+      "sha256": "95b01d83a3f2a2d8f83a5a9a644692816bce2b79c3bd2d51ff6486ca8ea03793"
+    },
+    {
+      "path": "assets/fund-detail-gallery-live.png",
+      "bytes": 54155,
+      "sha256": "7932777b41141b0d84f9201f4792b4bb3eb6e8d0fcfa6a409330450850ed2082"
+    },
+    {
+      "path": "assets/product-cards-live.png",
+      "bytes": 41284,
+      "sha256": "2b2be3482139d7e4a978a1f05b83509c460dbc2d6b4b97f4a9d3aab3096085c7"
+    },
+    {
+      "path": "assets/account-plan-redacted.png",
+      "bytes": 943039,
+      "sha256": "0117e56259594fadf6bd8b6fd83a6dd1d29dc6e905a6e14f90764809df5d6bdc"
+    },
+    {
+      "path": "assets/latest-profit-redacted.png",
+      "bytes": 924829,
+      "sha256": "39b9b7819ec4d9631a10892057d1908150129e38285ea93e19e6187b13ca05c8"
     }
   ]
 }
