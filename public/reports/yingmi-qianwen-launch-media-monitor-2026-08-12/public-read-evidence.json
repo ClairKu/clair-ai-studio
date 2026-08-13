@@ -1,18 +1,28 @@
 {
-  "retrieved_at": "2026-08-12 18:58",
+  "retrieved_at": "2026-08-13 09:10",
   "items": [
     {
       "title": "预测一下，接下来的中国社会将会出现这两个明显的变化…",
       "platform": "今日头条",
       "content_id": "1873114273965192",
-      "read_count": 197603,
+      "metric_name": "展现",
+      "metric_value": 213422,
+      "show_text": "展现",
+      "read_count": 213422,
+      "display_count": 213422,
+      "show_count": 213422,
       "url": "https://www.toutiao.com/w/1873114273965192/"
     },
     {
       "title": "大家发现没有，国内正在发生一个新变化…",
       "platform": "今日头条",
       "content_id": "1873107265025033",
-      "read_count": 229751,
+      "metric_name": "展现",
+      "metric_value": 235092,
+      "show_text": "展现",
+      "read_count": 235092,
+      "display_count": 235092,
+      "show_count": 235092,
       "url": "https://www.toutiao.com/w/1873107265025033/"
     }
   ]
