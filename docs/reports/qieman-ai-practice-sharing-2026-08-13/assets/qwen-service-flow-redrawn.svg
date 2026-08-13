@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">千问与且慢四阶段服务链路</title>
+  <desc id="desc">公开安全重绘：从发现盈米基金智能体、用户授权绑定且慢账号、小顾提供账户级分析，到且慢页面承接受监管动作。图中不含真实身份、账户或交易数据。</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fbfaff"/>
+      <stop offset="1" stop-color="#eeeaff"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6245d9"/>
+      <stop offset="1" stop-color="#8f78f2"/>
+    </linearGradient>
+    <linearGradient id="darkCard" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#17213a"/>
+      <stop offset="1" stop-color="#10182c"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-30%" width="140%" height="170%">
+      <feDropShadow dx="0" dy="20" stdDeviation="24" flood-color="#5138b5" flood-opacity=".12"/>
+    </filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M1 1L11 6L1 11Z" fill="#7457e8"/>
+    </marker>
+    <style>
+      .serif{font-family:"Songti SC","STSong","SimSun",serif}
+      .sans{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}
+      .eyebrow{font-size:18px;font-weight:800;letter-spacing:3.6px;fill:#7457e8}
+      .headline{font-size:54px;font-weight:650;letter-spacing:-1px;fill:#171a27}
+      .subtitle{font-size:20px;fill:#687287}
+      .stage-en{font-size:16px;font-weight:800;letter-spacing:2.6px;fill:#7457e8}
+      .stage-no{font-size:60px;font-weight:650;fill:#e6e0fb}
+      .card-title{font-size:29px;font-weight:650;fill:#171a27}
+      .body{font-size:18px;fill:#687287}
+      .pill{font-size:15px;font-weight:700;fill:#5138b5}
+      .arrow-label{font-size:14px;font-weight:800;letter-spacing:1.5px;fill:#7457e8}
+      .on-dark{fill:#fff}.on-dark-muted{fill:#b9c2d5}.on-dark-soft{fill:#cfc5ff}
+    </style>
+  </defs>
+
+  <rect width="1600" height="900" rx="36" fill="url(#paper)"/>
+  <circle cx="1490" cy="16" r="245" fill="#fff" opacity=".52"/>
+  <circle cx="1510" cy="40" r="152" fill="none" stroke="#7457e8" stroke-opacity=".09" stroke-width="2"/>
+  <circle cx="88" cy="846" r="150" fill="#7457e8" opacity=".035"/>
+
+  <text x="80" y="76" class="sans eyebrow">QWEN × QIEMAN · PUBLIC-SAFE REDRAW</text>
+  <text x="80" y="144" class="serif headline">从发现，到受监管动作的四阶段服务链路</text>
+  <text x="80" y="184" class="sans subtitle">入口负责发现，用户决定授权，小顾提供专业分析，且慢承接需确认的后续动作。</text>
+
+  <!-- Stage 01 -->
+  <g transform="translate(80 256)" filter="url(#shadow)">
+    <rect width="326" height="430" rx="28" fill="#fff" stroke="#ded9ef"/>
+    <text x="28" y="62" class="sans stage-no">01</text>
+    <text x="28" y="104" class="sans stage-en">DISCOVER</text>
+    <g transform="translate(28 130)">
+      <circle cx="39" cy="39" r="39" fill="#f2efff"/>
+      <circle cx="35" cy="35" r="14" fill="none" stroke="#7457e8" stroke-width="4"/>
+      <path d="M45 45L58 58" fill="none" stroke="#7457e8" stroke-width="4" stroke-linecap="round"/>
+      <path d="M58 17V27M53 22H63" fill="none" stroke="#45bfb1" stroke-width="3" stroke-linecap="round"/>
+    </g>
+    <text x="28" y="246" class="serif card-title">发现盈米基金智能体</text>
+    <text x="28" y="286" class="sans body">用户在通用 AI 平台提出</text>
+    <text x="28" y="316" class="sans body">投资问题，发现专业服务入口。</text>
+    <rect x="28" y="360" width="116" height="38" rx="19" fill="#f2efff"/>
+    <text x="86" y="385" text-anchor="middle" class="sans pill">问题触发</text>
+    <rect x="154" y="360" width="118" height="38" rx="19" fill="#e5f8f4"/>
+    <text x="213" y="385" text-anchor="middle" class="sans pill" fill="#187f73" style="fill:#187f73">入口发现</text>
+  </g>
+
+  <!-- Stage 02 -->
+  <g transform="translate(450 256)" filter="url(#shadow)">
+    <rect width="326" height="430" rx="28" fill="#fff" stroke="#ded9ef"/>
+    <text x="28" y="62" class="sans stage-no">02</text>
+    <text x="28" y="104" class="sans stage-en">BIND</text>
+    <g transform="translate(28 130)">
+      <circle cx="39" cy="39" r="39" fill="#f2efff"/>
+      <path d="M26 40a12 12 0 0 1 12-12h8M52 40a12 12 0 0 1-12 12h-8" fill="none" stroke="#7457e8" stroke-width="4" stroke-linecap="round"/>
+      <path d="M36 40h18" fill="none" stroke="#7457e8" stroke-width="4" stroke-linecap="round"/>
+      <path d="M55 19l9 4v9c0 7-4 12-9 15-5-3-9-8-9-15v-9Z" fill="#45bfb1"/>
+      <path d="M51 32l3 3 6-7" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+    <text x="28" y="246" class="serif card-title">授权绑定且慢账号</text>
+    <text x="28" y="286" class="sans body">用户主动确认授权，建立账户级</text>
+    <text x="28" y="316" class="sans body">服务所需的身份连接。</text>
+    <rect x="28" y="360" width="116" height="38" rx="19" fill="#f2efff"/>
+    <text x="86" y="385" text-anchor="middle" class="sans pill">用户确认</text>
+    <rect x="154" y="360" width="118" height="38" rx="19" fill="#f2efff"/>
+    <text x="213" y="385" text-anchor="middle" class="sans pill">最小授权</text>
+  </g>
+
+  <!-- Stage 03 -->
+  <g transform="translate(820 256)" filter="url(#shadow)">
+    <rect width="326" height="430" rx="28" fill="#fff" stroke="#ded9ef"/>
+    <text x="28" y="62" class="sans stage-no">03</text>
+    <text x="28" y="104" class="sans stage-en">ADVISE</text>
+    <g transform="translate(28 130)">
+      <circle cx="39" cy="39" r="39" fill="#f2efff"/>
+      <path d="M19 54h41M24 50V38M36 50V27M48 50V33M60 50V20" fill="none" stroke="#7457e8" stroke-width="4" stroke-linecap="round"/>
+      <path d="M20 27c10 2 17-8 25-5 7 2 10-4 17-9" fill="none" stroke="#45bfb1" stroke-width="3" stroke-linecap="round"/>
+    </g>
+    <text x="28" y="246" class="serif card-title">小顾提供账户级分析</text>
+    <text x="28" y="286" class="sans body">在授权范围内组织诊断、解释</text>
+    <text x="28" y="316" class="sans body">与可继续追问的下一步建议。</text>
+    <rect x="28" y="360" width="116" height="38" rx="19" fill="#f2efff"/>
+    <text x="86" y="385" text-anchor="middle" class="sans pill">专业分析</text>
+    <rect x="154" y="360" width="118" height="38" rx="19" fill="#f2efff"/>
+    <text x="213" y="385" text-anchor="middle" class="sans pill">可追问</text>
+  </g>
+
+  <!-- Stage 04 -->
+  <g transform="translate(1190 256)" filter="url(#shadow)">
+    <rect width="330" height="430" rx="28" fill="url(#darkCard)" stroke="#2a3553"/>
+    <text x="28" y="62" class="sans stage-no" style="fill:#8271ce;opacity:.52">04</text>
+    <text x="28" y="104" class="sans stage-en on-dark-soft">ACT</text>
+    <g transform="translate(28 130)">
+      <circle cx="39" cy="39" r="39" fill="#fff" opacity=".09"/>
+      <rect x="20" y="18" width="39" height="48" rx="8" fill="none" stroke="#cfc5ff" stroke-width="3"/>
+      <path d="M29 31h21M29 41h16M29 51h12" fill="none" stroke="#cfc5ff" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="59" cy="58" r="13" fill="#45bfb1"/>
+      <path d="M53 58l4 4 8-10" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+    <text x="28" y="246" class="serif card-title on-dark" font-size="24" style="font-size:24px">且慢页面承接受监管动作</text>
+    <text x="28" y="286" class="sans body on-dark-muted">风险测评、交易与支付等动作，</text>
+    <text x="28" y="316" class="sans body on-dark-muted">仍由用户本人在且慢页面确认。</text>
+    <rect x="28" y="360" width="132" height="38" rx="19" fill="#7457e8" opacity=".4"/>
+    <text x="94" y="385" text-anchor="middle" class="sans pill on-dark">受监管动作</text>
+    <rect x="170" y="360" width="118" height="38" rx="19" fill="#fff" opacity=".1"/>
+    <text x="229" y="385" text-anchor="middle" class="sans pill on-dark">用户确认</text>
+  </g>
+
+  <!-- Handoffs -->
+  <g class="sans">
+    <path d="M414 471H440" fill="none" stroke="#7457e8" stroke-width="3" marker-end="url(#arrow)"/>
+    <text x="427" y="448" text-anchor="middle" class="arrow-label">发现</text>
+    <path d="M784 471H810" fill="none" stroke="#7457e8" stroke-width="3" marker-end="url(#arrow)"/>
+    <text x="797" y="448" text-anchor="middle" class="arrow-label">授权</text>
+    <path d="M1154 471H1180" fill="none" stroke="#7457e8" stroke-width="3" marker-end="url(#arrow)"/>
+    <text x="1167" y="448" text-anchor="middle" class="arrow-label">承接</text>
+  </g>
+
+  <g transform="translate(80 744)">
+    <rect width="1440" height="84" rx="24" fill="#fff" stroke="#d8d2eb"/>
+    <circle cx="42" cy="42" r="20" fill="#f2efff"/>
+    <path d="M34 42l6 6 11-14" fill="none" stroke="#7457e8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="78" y="36" class="sans" font-size="17" font-weight="800" fill="#5138b5">链路边界</text>
+    <text x="78" y="61" class="sans" font-size="16" fill="#687287">公开概念重绘，不含真实账户、身份或交易数据；只说明服务交接，不代表新增归因或当前全量生产状态。</text>
+    <rect x="1246" y="24" width="164" height="36" rx="18" fill="#f2efff"/>
+    <text x="1328" y="48" text-anchor="middle" class="sans" font-size="14" font-weight="800" fill="#5138b5">PUBLIC-SAFE</text>
+  </g>
+</svg>

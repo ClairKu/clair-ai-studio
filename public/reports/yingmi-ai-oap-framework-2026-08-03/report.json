@@ -355,7 +355,7 @@
       "visual": "qwen-scene",
       "tone": "soft",
       "image": "assets/qwen-qieman-agent-service-flow.png",
-      "alt": "千问中从发现盈米基金智能体、绑定且慢账号、获得小顾服务到进入基金买入页面的完整服务链路",
+      "alt": "公开匿名重绘的千问服务链路：发现、授权绑定、顾问服务与且慢承接受监管动作",
       "items": [
         {
           "index": "01",
