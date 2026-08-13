@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "且慢小顾生产卡片服务图谱",
-    "subtitle": "9 张生产效果截图先讲清场景\n35 个组件再展开完整能力",
+    "title": "且慢小顾全服务问题与卡片画廊",
+    "subtitle": "15 张生产效果截图 · 15 个核心问题\n覆盖 20 个快捷服务与 35 个注册组件",
     "eyebrow": "且慢小顾 · PRODUCTION EXPERIENCE AUDIT",
     "date": "2026-08-13",
     "cutoff": "生产体验与前端构建证据截至 2026-08-13",
@@ -12,12 +12,12 @@
     "brandMark": "C"
   },
   "hero": {
-    "conclusion": "且慢小顾的卡片丰富度可以被直观看见：资产、账单、月度复盘、基金研究、目标规划、市场估值与人工服务都已在生产对话中真实落卡。",
-    "thesis": "本版先用 9 张生产效果截图回答“用户问什么、卡片长什么样、解决什么问题、下一步在哪里”，再展开 35 个注册组件的完整核验。两轮交叉测试中 23 种独立落卡、5 种降级完成、7 种仍未形成独立专卡。",
+    "conclusion": "一套 15 问核心回归集，已经可以覆盖 35 种注册卡片；15 张生产画面把入口、资产、账单、基金、规划、市场与人工服务串成完整体验。",
+    "thesis": "这份画廊既展示可见效果，也保留真实边界：23 种生产独立落卡，5 种需求由通用组件或文字降级完成，7 种仍未形成独立专卡。账户类画面只发布脱敏版本。",
     "badges": [
-      "9 张效果截图",
-      "35 注册",
-      "23 独立落卡",
+      "15 张效果截图",
+      "15 问覆盖",
+      "35 注册 / 23 落卡",
       "公开脱敏"
     ]
   },
@@ -71,8 +71,8 @@
         "index": "03",
         "eyebrow": "CATALOG · 清单",
         "title": "35 种卡片逐项核验",
-        "summary": "每项都附可复用问法、交互与状态",
-        "sections": ["生产证据", "基金卡片", "账户卡片", "产品卡片", "市场运营"]
+        "summary": "15 个核心问题覆盖全部注册卡片",
+        "sections": ["核心问题集", "生产证据", "基金卡片", "账户卡片", "产品卡片", "市场运营"]
       },
       {
         "index": "04",
@@ -531,38 +531,129 @@
       ]
     },
     {
+      "id": "question-suite",
+      "navLabel": "核心问题集",
+      "kicker": "08 · QUESTION SUITE",
+      "title": "15 问覆盖 35 卡",
+      "lead": "复杂问法用于全量回归；正式运营时可以拆成单问题逐张触发。每个问题都明确“只查询”，避免误操作。",
+      "layout": "cards",
+      "tone": "light",
+      "items": [
+        {"index":"Q01","eyebrow":"资产全景","title":"我的钱现在怎么分布？","body":"请展示资产分析、今年资金流入流出和在途资产。","status":"confirmed","source":"覆盖资产分析 / 资金流 / 在途资产"},
+        {"index":"Q02","eyebrow":"收益复盘","title":"今年到底赚得怎么样？","body":"请展示最新收益、收益日历、子账户收益和产品收益。","status":"confirmed","source":"覆盖 4 张收益卡"},
+        {"index":"Q03","eyebrow":"账单与证明","title":"最新对账单和资产证明能办吗？","body":"请展示月度账单、持仓汇总和资产证明办理结果。","status":"inferred","source":"账单可落卡；证明与持仓存在降级"},
+        {"index":"Q04","eyebrow":"账户诊断","title":"我的账户健康吗？","body":"请展示账户诊断入口和最新诊断报告。","status":"confirmed","source":"覆盖诊断入口 / 诊断报告"},
+        {"index":"Q05","eyebrow":"月度报告","title":"7 月发生了什么，5—7 月怎么变？","body":"请展示指定月度分析和多月区间对比。","status":"confirmed","source":"覆盖两类月度分析卡"},
+        {"index":"Q06","eyebrow":"基金研究","title":"广发聚富和基金经理怎么样？","body":"请展示基金详情、基金经理和同经理产品列表。","status":"missing","source":"详情可落卡；经理与列表未形成专卡"},
+        {"index":"Q07","eyebrow":"基金对比","title":"三只基金谁更适合我？","body":"比较基本信息、费率、业绩和持仓集中度，并用图表总结。","status":"inferred","source":"通用图表 / 文字可完成，专卡仍降级"},
+        {"index":"Q08","eyebrow":"产品搜索","title":"回撤小于 5% 的策略有哪些？","body":"先用搜索筛选，再打开一个策略详情。","status":"missing","source":"详情可落卡；搜索回退为文字"},
+        {"index":"Q09","eyebrow":"推荐规划","title":"稳健型、持有 3 年，怎么配？","body":"请展示推荐组合和账户定制方案。","status":"confirmed","source":"覆盖推荐组合 / 定制方案"},
+        {"index":"Q10","eyebrow":"调仓跟踪","title":"稳稳的幸福最近为什么调仓？","body":"请展示最近调仓记录和调整原因。","status":"missing","source":"本次为 Markdown，未形成独立卡"},
+        {"index":"Q11","eyebrow":"市场估值","title":"现在市场贵不贵？","body":"请展示市场温度计和沪深 300 指数估值。","status":"confirmed","source":"覆盖两张高视觉卡"},
+        {"index":"Q12","eyebrow":"内容服务","title":"医药行业、热点和订阅有什么更新？","body":"请展示行业观点、最新资讯和订阅内容。","status":"missing","source":"订阅可落卡；行业与资讯未形成专卡"},
+        {"index":"Q13","eyebrow":"运营提醒","title":"有什么需要我处理？","body":"请展示待办、收件箱，并用图表汇总分类。","status":"confirmed","source":"覆盖待办 / 消息 / ECharts"},
+        {"index":"Q14","eyebrow":"人工承接","title":"这个问题我想找人工继续聊","body":"请只展示人工客服入口，不自动跳转、不发送消息。","status":"confirmed","source":"卡片可见；当前仍会自动跳转"},
+        {"index":"Q15","eyebrow":"空状态","title":"没有在途或没有未读时会怎样？","body":"验证在途资产、订阅和待办的空态文案与下一步。","status":"confirmed","source":"用于验证空态而非制造数据"}
+      ],
+      "callout": {
+        "label": "使用方式",
+        "text": "全量回归时按 Q01—Q15 执行；日常演示时优先用 Q01、Q02、Q04、Q09、Q11、Q13，能快速体现账户、规划、市场与运营四类丰富度。",
+        "status": "confirmed"
+      }
+    },
+    {
       "id": "live-evidence",
       "navLabel": "生产证据",
-      "kicker": "08 · LIVE EVIDENCE",
-      "title": "公开基金与市场卡片的生产可见效果",
-      "lead": "以下画面直接来自生产服务，保留公开基金与指数信息；账户金额、持仓、消息与待办均未进入公开报告。",
+      "kicker": "09 · LIVE EVIDENCE",
+      "title": "八组生产画面",
+      "lead": "公开基金与指数画面保留原始生产数据；账户收益与定制方案基于生产截图脱敏处理，不公开账户名、金额、收益率与风险画像。",
       "layout": "evidence",
       "tone": "dark",
       "items": [
         {
           "index": "01",
-          "eyebrow": "FUND DETAIL",
-          "title": "基金详情：把指标、走势和持仓组织进一张卡",
-          "body": "用户问“广发聚富最近一年的收益怎么样”，页面出现基金详情卡，可继续查看风险、规模、行业与持仓。",
-          "image": "assets/fund-detail-live.png",
-          "alt": "且慢小顾生产环境中的广发聚富基金详情卡片",
+          "eyebrow": "SERVICE ENTRANCES",
+          "title": "20 个快捷服务：用户不用先学会提问",
+          "body": "五类意图覆盖投资、账户、市场内容、咨询与保险；其中聊天触发、页面深链和人工服务入口并存。",
+          "image": "assets/quick-services-live.png",
+          "alt": "且慢小顾生产环境中的二十个快捷服务入口",
           "status": "confirmed",
           "source": "且慢小顾生产服务 · 2026-08-13"
         },
         {
           "index": "02",
+          "eyebrow": "PROMPT PANEL",
+          "title": "推荐问法：把场景目录直接放进输入区",
+          "body": "“推荐策略、看基金、查在途、问长赢计划”等高频问法可直接点选，并与首页快捷标签联动。",
+          "image": "assets/recommended-questions-live.png",
+          "alt": "且慢小顾生产环境中的推荐问题面板",
+          "status": "confirmed",
+          "source": "且慢小顾生产服务 · 2026-08-13"
+        },
+        {
+          "index": "03",
+          "eyebrow": "MARKET THERMOMETER",
+          "title": "市场温度计：一句话得到可扫读的市场状态",
+          "body": "用户问“现在市场贵不贵”，页面同时出现温度计和指数估值，可继续切换主要指数。",
+          "image": "assets/market-thermometer-live.png",
+          "alt": "且慢小顾生产环境中的市场温度计卡片",
+          "status": "confirmed",
+          "source": "且慢小顾生产服务 · 2026-08-13"
+        },
+        {
+          "index": "04",
           "eyebrow": "INDEX VALUATION",
           "title": "指数估值：把结论、分位和走势放在同一视图",
-          "body": "用户问“看看沪深 300 的估值情况”，页面出现估值状态、历史分位与图表，适合快速解释高低估。",
-          "image": "assets/index-valuation-live.png",
+          "body": "沪深 300 估值卡包含指数基金列表、历史分位和估值走势，适合解释高低估。",
+          "image": "assets/index-valuation-gallery-live.png",
           "alt": "且慢小顾生产环境中的沪深300指数估值卡片",
           "status": "confirmed",
           "source": "且慢小顾生产服务 · 2026-08-13"
+        },
+        {
+          "index": "05",
+          "eyebrow": "FUND DETAIL",
+          "title": "基金详情：把收益、波动、回撤与性价比组织成卡",
+          "body": "用户问单只基金表现，生产页出现四维指标卡，可继续查看详情和相关材料。",
+          "image": "assets/fund-detail-gallery-live.png",
+          "alt": "且慢小顾生产环境中的基金详情指标卡片",
+          "status": "confirmed",
+          "source": "且慢小顾生产服务 · 2026-08-13"
+        },
+        {
+          "index": "06",
+          "eyebrow": "PRODUCT CARDS",
+          "title": "产品组合：从阶段收益继续进入策略详情",
+          "body": "产品详情卡展示风险、建议持有期、最大回撤和年化收益，并提供详情入口。",
+          "image": "assets/product-cards-live.png",
+          "alt": "且慢小顾生产环境中的策略产品卡片",
+          "status": "confirmed",
+          "source": "且慢小顾生产服务 · 2026-08-13"
+        },
+        {
+          "index": "07",
+          "eyebrow": "ACCOUNT PLAN · REDACTED",
+          "title": "定制方案：把目标、期限、收益风险与投入组织成表单",
+          "body": "生产卡片支持稳钱/长钱目标预览；公开版已遮蔽风险画像与投入金额，且测试未生成方案、未交易。",
+          "image": "assets/account-plan-redacted.png",
+          "alt": "且慢小顾生产环境中的定制方案卡片脱敏图",
+          "status": "confirmed",
+          "source": "且慢小顾生产服务 · 生产截图脱敏处理"
+        },
+        {
+          "index": "08",
+          "eyebrow": "LATEST PROFIT · REDACTED",
+          "title": "收益分析：结果之后还能进入月度账户报告",
+          "body": "生产卡片展示最近收益与报告入口；公开版已遮蔽账户名、金额、收益率与日期。",
+          "image": "assets/latest-profit-redacted.png",
+          "alt": "且慢小顾生产环境中的最新收益卡片脱敏图",
+          "status": "confirmed",
+          "source": "且慢小顾生产服务 · 生产截图脱敏处理"
         }
       ],
       "callout": {
         "label": "脱敏说明",
-        "text": "公开页不展示任何真实账户金额、账户名、持仓、风险画像、消息正文或待办明细；账户域效果用结构化场景说明替代截图。",
+        "text": "公开页不展示任何真实账户金额、账户名、持仓、风险画像、消息正文或待办明细；账户截图仅保留生产布局和交互结构，并明确标注脱敏。",
         "status": "confirmed"
       }
     },
