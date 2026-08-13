@@ -292,7 +292,7 @@ async function exportUpdatePacket() {
     update_rule: [
       "只核验 source_cutoff 之后的新增或状态变化",
       "按问题与交付结果去重，补充信息不新增计数",
-      "生产可用才标记 released，代码合并只标记 merged",
+      "同一需求的有效 MR 链路已合并且生产环境生效，才标记 released；只有合并或只有产品验收均不算",
       "核验后更新 latest.json、构建测试并发布",
     ],
   };
