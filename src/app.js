@@ -227,7 +227,7 @@ const initialState = {
       pinned: true,
       position: 0,
       createdAt: "2026-08-11T19:20:00.000+08:00",
-      source: "产品共创作战台｜4 个已提交，3 个已上线，2 位 PM 跑通端到端；支持新增待处理需求、PM 指派、四象限与增量更新包",
+      source: "产品共创作战台｜4 个已提交，4 个已上线，2 位 PM 跑通端到端；支持新增待处理需求、PM 指派、四象限与增量更新包",
       access: "production",
       workType: "data-analysis",
       tags: ["且慢", "产品团队", "本体", "用户痛点", "需求共创", "端到端", "需求地图", "HTML", "脱敏", "生产"],

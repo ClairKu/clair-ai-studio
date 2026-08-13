@@ -1,8 +1,8 @@
 {
   "meta": {
     "cutoff": "2026-08-12T11:05:00+08:00",
-    "last_change_at": "2026-08-12T11:05:00+08:00",
-    "headline": "4 个已提交，3 个已上线，2 位 PM 完成端到端交付。",
+    "last_change_at": "2026-08-14T00:46:00+08:00",
+    "headline": "4 个已提交，4 个已上线，2 位 PM 完成端到端交付。",
     "update_rule_version": "delta-first-v1"
   },
   "records": [
@@ -28,13 +28,14 @@
       "person_id": "P01",
       "person_display": "嘉鸿",
       "submitted_at": "2026-08-11",
-      "status": "merged",
+      "released_at": "2026-08-14",
+      "status": "released",
       "category": "urgent_bug",
       "priority": "P1",
       "public_title": "加仓计划术语修正",
       "pain_category": "加仓规则弹窗残留错误术语",
-      "public_outcome": "已完成多端复验，等待生产确认。",
-      "evidence_level": "待上线"
+      "public_outcome": "生产规则弹窗中的错误术语已修正为“加仓计划”。",
+      "evidence_level": "已上线"
     },
     {
       "id": "R3",
