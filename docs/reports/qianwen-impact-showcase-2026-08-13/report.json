@@ -136,7 +136,9 @@
           "status": "confirmed",
           "source": "用户提供录屏 · 2026-08-13",
           "video": "assets/videos/01-insight-article.mp4",
-          "poster": "assets/posters/01-insight-article.jpg"
+          "poster": "assets/posters/01-insight-article.jpg",
+          "videoWidth": 720,
+          "videoHeight": 1066
         },
         {
           "index": "02",
@@ -148,7 +150,9 @@
           "status": "confirmed",
           "source": "海峡导报公开内容 + 用户提供录屏",
           "video": "assets/videos/02-five-agent-review.mp4",
-          "poster": "assets/posters/02-five-agent-review.jpg"
+          "poster": "assets/posters/02-five-agent-review.jpg",
+          "videoWidth": 720,
+          "videoHeight": 1066
         },
         {
           "index": "03",
@@ -160,7 +164,9 @@
           "status": "confirmed",
           "source": "AI 普瑞斯公开内容 + 用户提供录屏",
           "video": "assets/videos/03-agent-deep-review.mp4",
-          "poster": "assets/posters/03-agent-deep-review.jpg"
+          "poster": "assets/posters/03-agent-deep-review.jpg",
+          "videoWidth": 720,
+          "videoHeight": 1274
         },
         {
           "index": "04",
@@ -172,7 +178,9 @@
           "status": "confirmed",
           "source": "微信视频号源表链接 + 企微人工确认",
           "video": "assets/videos/04-ai-tech-review.mp4",
-          "poster": "assets/posters/04-ai-tech-review.jpg"
+          "poster": "assets/posters/04-ai-tech-review.jpg",
+          "videoWidth": 720,
+          "videoHeight": 1292
         },
         {
           "index": "05",
@@ -184,7 +192,9 @@
           "status": "confirmed",
           "source": "用户提供录屏 · 2026-08-13",
           "video": "assets/videos/05-fourth-wave-review.mp4",
-          "poster": "assets/posters/05-fourth-wave-review.jpg"
+          "poster": "assets/posters/05-fourth-wave-review.jpg",
+          "videoWidth": 720,
+          "videoHeight": 1292
         }
       ],
       "callout": {
