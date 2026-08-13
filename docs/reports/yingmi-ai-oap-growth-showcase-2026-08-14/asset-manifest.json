@@ -1,31 +1,70 @@
 {
-  "version": 1,
+  "version": 2,
   "assets": [
-    {"path": "assets/ai-intake-flow.png", "bytes": 448611, "sha256": "c2bb649eb93e3e9a382a0079d4338161b8a5a1041060349d4ba85b55fd06b021"},
-    {"path": "assets/cap-comparison.png", "bytes": 402184, "sha256": "1a38c5c475299bd19f29957fcdb7d4f97827a1ce5a5218a8f736c7ef61a7f902"},
-    {"path": "assets/cap-workflow-example.png", "bytes": 269671, "sha256": "255af8aa3ec7da65c3798cd29fe2b76d34cfa9ffd29e98dc4796f22c4859c531"},
-    {"path": "assets/evolution-1-to-4.png", "bytes": 464230, "sha256": "cf7a30af75273f2f0efd9c9bdf1ffadff4428afec97551a7339e8777be35c071"},
-    {"path": "assets/oap-cap-architecture.png", "bytes": 166186, "sha256": "193def7fe1aa07d343ebb25b302850bf35a391c278e34fa0c077c98d1560e7ff"},
-    {"path": "assets/oap-journey-metrics.html", "bytes": 97830, "sha256": "bd91e2bd2cc9541738ab9219aa1e07e674ad5e9abb09aea3b2de19ac73896275"},
-    {"path": "assets/posters/01-insight-article.jpg", "bytes": 123533, "sha256": "5540eb80273f4634d7149636c2f305848eb1b66d84a7ab194cae020ef32be0cc"},
-    {"path": "assets/posters/02-five-agent-review.jpg", "bytes": 96856, "sha256": "1bb03b67cd551d14108c65213a944f25366eba9205e0408320388ab18dbea9cc"},
-    {"path": "assets/posters/03-agent-deep-review.jpg", "bytes": 105011, "sha256": "de99feff23c26193da8a9e1da1174475276a2441931f3eb138af090b52a15fc6"},
-    {"path": "assets/posters/04-ai-tech-review.jpg", "bytes": 78152, "sha256": "f20fc112de225925b81bc7ae0b8b36dc793427c0213f1b4649464714e0606eca"},
-    {"path": "assets/posters/05-fourth-wave-review.jpg", "bytes": 109928, "sha256": "c1f3c890979ef681a89fec0521b044eca09f10e0928ef4e8ad16ec5a22b5ee4e"},
-    {"path": "assets/product-triangle.png", "bytes": 247441, "sha256": "cc2db5e68478f3dc225c23199c15c0262b029ce8112d4baef7a4eca549bb7f46"},
-    {"path": "assets/qwen-service-flow.png", "bytes": 712721, "sha256": "9116eb6f24afa7266735adb4b2582516ad227f826cc08424148b58aaba7deff0"},
-    {"path": "assets/wechat-dialogue-01.png", "bytes": 873405, "sha256": "8dfef99d2a2451ef20275b0dcef37e230b197beecb8c43a8c10da2402f5c617a"},
-    {"path": "assets/wechat-dialogue-02.png", "bytes": 145128, "sha256": "7921a5bafeb5ac5bbc24d02a78d2b4e914e859c521fca15047f85824a2e1765a"}
+    {
+      "path": "assets/images/p3-trade-export-boundary.png",
+      "bytes": 347454,
+      "sha256": "7b69825858e19bcb1b17416f316278c8d25eecac9fbd3ec2607fe6822f97eab8"
+    },
+    {
+      "path": "assets/images/qwen-service-flow.png",
+      "bytes": 712721,
+      "sha256": "9116eb6f24afa7266735adb4b2582516ad227f826cc08424148b58aaba7deff0"
+    },
+    {
+      "path": "assets/images/wechat-dialogue-01.png",
+      "bytes": 873405,
+      "sha256": "8dfef99d2a2451ef20275b0dcef37e230b197beecb8c43a8c10da2402f5c617a"
+    },
+    {
+      "path": "assets/images/wechat-dialogue-02.png",
+      "bytes": 145128,
+      "sha256": "7921a5bafeb5ac5bbc24d02a78d2b4e914e859c521fca15047f85824a2e1765a"
+    },
+    {
+      "path": "assets/oap-journey-metrics.html",
+      "bytes": 97830,
+      "sha256": "bd91e2bd2cc9541738ab9219aa1e07e674ad5e9abb09aea3b2de19ac73896275"
+    },
+    {
+      "path": "assets/posters/qieman-ai-behavior-analysis-demo.png",
+      "bytes": 414317,
+      "sha256": "6f7a1136b7f3a11f305c7a773722d66176d641661d7194a44f45ae5a2e8db414"
+    },
+    {
+      "path": "assets/videos/qieman-ai-behavior-analysis-demo.mp4",
+      "bytes": 817107,
+      "sha256": "c825c7187e679cae5f6173ce3ad1409787cd8800e254fedfc678b10334158fe8"
+    }
   ],
   "files": [
-    {"path": "assets/ai-intake-flow.png", "sha256": "c2bb649eb93e3e9a382a0079d4338161b8a5a1041060349d4ba85b55fd06b021"},
-    {"path": "assets/cap-workflow-example.png", "sha256": "255af8aa3ec7da65c3798cd29fe2b76d34cfa9ffd29e98dc4796f22c4859c531"},
-    {"path": "assets/evolution-1-to-4.png", "sha256": "cf7a30af75273f2f0efd9c9bdf1ffadff4428afec97551a7339e8777be35c071"},
-    {"path": "assets/oap-cap-architecture.png", "sha256": "193def7fe1aa07d343ebb25b302850bf35a391c278e34fa0c077c98d1560e7ff"},
-    {"path": "assets/oap-journey-metrics.html", "sha256": "bd91e2bd2cc9541738ab9219aa1e07e674ad5e9abb09aea3b2de19ac73896275"},
-    {"path": "assets/product-triangle.png", "sha256": "cc2db5e68478f3dc225c23199c15c0262b029ce8112d4baef7a4eca549bb7f46"},
-    {"path": "assets/qwen-service-flow.png", "sha256": "9116eb6f24afa7266735adb4b2582516ad227f826cc08424148b58aaba7deff0"},
-    {"path": "assets/wechat-dialogue-01.png", "sha256": "8dfef99d2a2451ef20275b0dcef37e230b197beecb8c43a8c10da2402f5c617a"},
-    {"path": "assets/wechat-dialogue-02.png", "sha256": "7921a5bafeb5ac5bbc24d02a78d2b4e914e859c521fca15047f85824a2e1765a"}
+    {
+      "path": "assets/images/p3-trade-export-boundary.png",
+      "sha256": "7b69825858e19bcb1b17416f316278c8d25eecac9fbd3ec2607fe6822f97eab8"
+    },
+    {
+      "path": "assets/images/qwen-service-flow.png",
+      "sha256": "9116eb6f24afa7266735adb4b2582516ad227f826cc08424148b58aaba7deff0"
+    },
+    {
+      "path": "assets/images/wechat-dialogue-01.png",
+      "sha256": "8dfef99d2a2451ef20275b0dcef37e230b197beecb8c43a8c10da2402f5c617a"
+    },
+    {
+      "path": "assets/images/wechat-dialogue-02.png",
+      "sha256": "7921a5bafeb5ac5bbc24d02a78d2b4e914e859c521fca15047f85824a2e1765a"
+    },
+    {
+      "path": "assets/oap-journey-metrics.html",
+      "sha256": "bd91e2bd2cc9541738ab9219aa1e07e674ad5e9abb09aea3b2de19ac73896275"
+    },
+    {
+      "path": "assets/posters/qieman-ai-behavior-analysis-demo.png",
+      "sha256": "6f7a1136b7f3a11f305c7a773722d66176d641661d7194a44f45ae5a2e8db414"
+    },
+    {
+      "path": "assets/videos/qieman-ai-behavior-analysis-demo.mp4",
+      "sha256": "c825c7187e679cae5f6173ce3ad1409787cd8800e254fedfc678b10334158fe8"
+    }
   ]
 }

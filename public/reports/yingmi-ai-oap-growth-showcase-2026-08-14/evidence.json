@@ -1,0 +1,44 @@
+{
+  "document": {
+    "id": "Vk6VdNQEEoMg7IxQuEKcrMH4nzd",
+    "revision": 2157,
+    "fetchedAs": "user",
+    "fetchedAt": "2026-08-14",
+    "chapterCount": 17
+  },
+  "originalMedia": {
+    "images": 7,
+    "videos": 1,
+    "whiteboards": 0,
+    "originalVideoPublic": false
+  },
+  "publicDemo": {
+    "kind": "sanitized-reconstruction",
+    "width": 1280,
+    "height": 720,
+    "durationSeconds": 17.48,
+    "codec": "h264",
+    "pixelFormat": "yuv420p",
+    "containsRealAccountData": false
+  },
+  "corrections": [
+    {
+      "chapter": "P3",
+      "sourceClaim": "从找功能到交任务",
+      "evidenceFinding": "截图显示暂不支持直接批量导出，只证明边界解释与替代方案",
+      "status": "missing"
+    },
+    {
+      "chapter": "P14",
+      "sourceClaim": "全网报道1478篇",
+      "evidenceFinding": "审计后为257个独立内容，1478是未去重传播明细",
+      "status": "confirmed"
+    },
+    {
+      "chapter": "P19",
+      "sourceClaim": "70%以上个性化需求可以被快速解决",
+      "evidenceFinding": "目标缺分母、SLA、排除项与验收周期",
+      "status": "target"
+    }
+  ]
+}

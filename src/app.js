@@ -155,10 +155,10 @@ const initialState = {
       pinned: true,
       position: 0,
       createdAt: "2026-08-14T02:55:00.000+08:00",
-      source: "飞书《且慢AI产品实践》revision 1742 × OAP 502 日四指标增长图 × 微信/千问既有生产报告 × 千问传播数据与 5 段视频｜15 屏 CLAIR 汇报，内含 8 个图片槽、4 个影片槽与本地拖放预览｜公开脱敏版",
+      source: "飞书《且慢AI产品实践》revision 2157 × P3 能力边界实证 × P5 脱敏完成态录频 × OAP 502 日增长图 × 千问传播去重审计｜18 屏逐章完整覆盖，含可播放 MP4｜公开脱敏版",
       access: "production",
       workType: "reporting",
-      tags: ["且慢", "AI 小顾", "AI 开放平台", "OAP", "CAP", "用户增长", "微信", "千问", "视频案例", "媒体槽位", "管理汇报", "CLAIR", "HTML", "脱敏", "生产"],
+      tags: ["且慢", "AI 小顾", "AI 开放平台", "OAP", "CAP", "用户增长", "微信", "千问", "完成态录频", "证据审计", "管理汇报", "CLAIR", "HTML", "脱敏", "生产"],
     },
     {
       id: "qieman-ai-growth-practice-2026-08-14",
