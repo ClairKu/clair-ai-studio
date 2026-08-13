@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "reportId": "qieman-cap-product-paradigm-2026-08-14",
+  "cutoff": "2026-06-12",
+  "generatedAt": "2026-08-14",
+  "sourceFiles": [
+    {
+      "label": "2026且慢产品思考规划.pptx",
+      "type": "pptx",
+      "slides": 7,
+      "lastModified": "2026-06-12 11:22:33 +08:00",
+      "role": "唯一直接业务来源",
+      "publication": "不发布原始二进制文件；仅发布重绘后的方法与目标口径"
+    }
+  ],
+  "evidencePolicy": {
+    "confirmed": "可在 PPT 指定页定位的原始表述或关系",
+    "inferred": "基于原稿结构提炼的产品判断与落地建议",
+    "missing": "原稿没有给出且不能推定的信息",
+    "target": "原稿使用计划、目标、预期效果表达的概念态"
+  },
+  "keyClaims": [
+    {
+      "claim": "AI 实验室的定位是可持续演化的服务生产体系，而非增加更多功能",
+      "status": "confirmed",
+      "source": "P2"
+    },
+    {
+      "claim": "传统产品存在能力、体验、个性化与多元需求、有限资源、交付效率两组冲突",
+      "status": "confirmed",
+      "source": "P3"
+    },
+    {
+      "claim": "CAP 由原子能力、规则与样板、AI 编排、自适应服务构成",
+      "status": "target",
+      "source": "P1、P2、P4、P7"
+    },
+    {
+      "claim": "70% 需求可即时编排、30% 进入能力建设",
+      "status": "target",
+      "source": "P6",
+      "missing": "样本期、分母、命中规则、质量门与真实达成数据"
+    },
+    {
+      "claim": "PM 与生态玩家可在 1 小时至 1 天内创建服务",
+      "status": "target",
+      "source": "P6",
+      "missing": "计时起止、复杂度分层、准入审核、发布与回滚口径"
+    },
+    {
+      "claim": "自然语言生成的服务可保存 workflow、定期执行、收藏复用并发布",
+      "status": "target",
+      "source": "P7"
+    }
+  ],
+  "openEvidence": [
+    "AI 实验室、能力池、应用搭建车间、应用广场的当前上线范围",
+    "原子能力准入标准、版本治理与服务质量评测方式",
+    "70% 与 1 小时至 1 天目标的基线和实测结果",
+    "生态玩家准入、金融服务适当性、审核、审计、下架与回滚机制",
+    "试点负责人、资源、里程碑与成功标准"
+  ]
+}

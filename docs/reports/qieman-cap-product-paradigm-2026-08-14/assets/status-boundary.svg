@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">概念蓝图的证据边界</title>
+  <desc id="desc">原稿蓝图确认了目标关系，但上线范围、运行证据和规模结果仍待验证。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#F7F5FF"/><stop offset="1" stop-color="#EEF4FF"/></linearGradient>
+    <linearGradient id="arrow" x1="0" x2="1"><stop stop-color="#7457E8"/><stop offset="1" stop-color="#4E93F6"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#2B214F" flood-opacity=".10"/></filter>
+    <marker id="tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#7457E8"/></marker>
+  </defs>
+  <rect width="1200" height="675" rx="34" fill="url(#bg)"/>
+  <text x="58" y="68" fill="#7457E8" font-family="Arial,sans-serif" font-size="17" font-weight="700" letter-spacing="3">EVIDENCE BOUNDARY · TARGET ≠ LIVE</text>
+  <text x="58" y="116" fill="#171A27" font-family="Songti SC,STSong,serif" font-size="39" font-weight="600">箭头确认目标关系，不证明系统已经运行</text>
+
+  <g transform="translate(58 184)" font-family="Arial,'PingFang SC',sans-serif" filter="url(#shadow)">
+    <g>
+      <rect width="300" height="286" rx="28" fill="#FFF"/>
+      <circle cx="46" cy="48" r="24" fill="#EDE9FF"/><text x="46" y="55" text-anchor="middle" fill="#7457E8" font-size="20" font-weight="900">✓</text>
+      <text x="82" y="42" fill="#7457E8" font-size="13" font-weight="800" letter-spacing="2">CONFIRMED</text>
+      <text x="28" y="91" fill="#171A27" font-size="27" font-weight="800">蓝图关系已表达</text>
+      <text x="28" y="127" fill="#687287" font-size="16">能力、规则、AI 编排、应用与</text>
+      <text x="28" y="153" fill="#687287" font-size="16">分发之间的目标供给关系。</text>
+      <g fill="#F4F1FF"><rect x="28" y="184" width="244" height="34" rx="17"/><rect x="28" y="228" width="244" height="34" rx="17"/></g>
+      <g fill="#5138B5" font-size="14" font-weight="700" text-anchor="middle"><text x="150" y="206">源稿 P1 计划蓝图</text><text x="150" y="250">本报告逐项重绘</text></g>
+    </g>
+    <g transform="translate(392)">
+      <rect width="300" height="286" rx="28" fill="#FFF"/>
+      <circle cx="46" cy="48" r="24" fill="#FFF1D9"/><text x="46" y="55" text-anchor="middle" fill="#C68115" font-size="20" font-weight="900">?</text>
+      <text x="82" y="42" fill="#C68115" font-size="13" font-weight="800" letter-spacing="2">MISSING</text>
+      <text x="28" y="91" fill="#171A27" font-size="27" font-weight="800">运行证据仍缺失</text>
+      <text x="28" y="127" fill="#687287" font-size="16">模块是否上线、权限是否贯通、</text>
+      <text x="28" y="153" fill="#687287" font-size="16">服务是否稳定，都需真实验证。</text>
+      <g fill="#FFF7E8"><rect x="28" y="184" width="244" height="34" rx="17"/><rect x="28" y="228" width="244" height="34" rx="17"/></g>
+      <g fill="#8A5B0F" font-size="14" font-weight="700" text-anchor="middle"><text x="150" y="206">上线范围 / 运行日志</text><text x="150" y="250">评测 / 审核 / 回滚</text></g>
+    </g>
+    <g transform="translate(784)">
+      <rect width="300" height="286" rx="28" fill="#FFF"/>
+      <circle cx="46" cy="48" r="24" fill="#FFE9EC"/><text x="46" y="55" text-anchor="middle" fill="#D65869" font-size="20" font-weight="900">!</text>
+      <text x="82" y="42" fill="#D65869" font-size="13" font-weight="800" letter-spacing="2">NOT PROVEN</text>
+      <text x="28" y="91" fill="#171A27" font-size="27" font-weight="800">规模结果不能推定</text>
+      <text x="28" y="127" fill="#687287" font-size="16">不能从架构图直接推出 70% 命中、</text>
+      <text x="28" y="153" fill="#687287" font-size="16">1h–1d 交付或生态增长已发生。</text>
+      <g fill="#FFF0F2"><rect x="28" y="184" width="244" height="34" rx="17"/><rect x="28" y="228" width="244" height="34" rx="17"/></g>
+      <g fill="#9D3544" font-size="14" font-weight="700" text-anchor="middle"><text x="150" y="206">目标 ≠ 实绩</text><text x="150" y="250">概念图 ≠ 生产验证</text></g>
+    </g>
+  </g>
+
+  <path d="M208 520H992" fill="none" stroke="url(#arrow)" stroke-width="6" stroke-linecap="round" marker-end="url(#tip)"/>
+  <g font-family="Arial,'PingFang SC',sans-serif" text-anchor="middle">
+    <circle cx="208" cy="520" r="11" fill="#7457E8"/><circle cx="600" cy="520" r="11" fill="#8670E8"/><circle cx="992" cy="520" r="11" fill="#4E93F6"/>
+    <text x="208" y="562" fill="#5138B5" font-size="15" font-weight="800">概念关系</text>
+    <text x="600" y="562" fill="#5138B5" font-size="15" font-weight="800">黄金链路验证</text>
+    <text x="992" y="562" fill="#305A90" font-size="15" font-weight="800">生产与规模证据</text>
+    <text x="600" y="618" fill="#687287" font-size="16">只有越过真实运行、质量与治理门槛，目标态才能升级为 confirmed。</text>
+  </g>
+</svg>

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">原稿九类产品需求样本</title>
+  <desc id="desc">将原稿中的九条产品建议归类为展示排序、收益与市场分析、资产规划、对比与提醒四类。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#F8F7FC"/><stop offset="1" stop-color="#FFF"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#2B214F" flood-opacity=".08"/></filter>
+  </defs>
+  <rect width="1200" height="675" rx="34" fill="url(#bg)"/>
+  <text x="58" y="68" fill="#7457E8" font-family="Arial,sans-serif" font-size="17" font-weight="700" letter-spacing="3">REAL DEMAND SAMPLES · PPT P6</text>
+  <text x="58" y="116" fill="#171A27" font-family="Songti SC,STSong,serif" font-size="39" font-weight="600">九条诉求，指向四类可复用能力</text>
+
+  <g font-family="Arial,'PingFang SC',sans-serif" filter="url(#shadow)">
+    <g transform="translate(58 164)">
+      <rect width="526" height="204" rx="26" fill="#F0EDFF"/>
+      <text x="24" y="38" fill="#7457E8" font-size="13" font-weight="800" letter-spacing="2">DISPLAY · 展示与排序</text>
+      <text x="24" y="76" fill="#171A27" font-size="22" font-weight="800">把常用视图变成可配置偏好</text>
+      <g fill="#FFF" stroke="#D9D2F2"><rect x="24" y="100" width="232" height="38" rx="19"/><rect x="270" y="100" width="232" height="38" rx="19"/><rect x="24" y="150" width="478" height="38" rx="19"/></g>
+      <g fill="#5138B5" font-size="14" font-weight="700" text-anchor="middle"><text x="140" y="124">策略按每日涨跌幅排序</text><text x="386" y="124">默认“投资以来”区间</text><text x="263" y="174">估值计划与基金明细补充收益率 / 净值 / 资产</text></g>
+    </g>
+    <g transform="translate(616 164)">
+      <rect width="526" height="204" rx="26" fill="#EDF6FF"/>
+      <text x="24" y="38" fill="#357ACB" font-size="13" font-weight="800" letter-spacing="2">ANALYSIS · 收益与市场</text>
+      <text x="24" y="76" fill="#171A27" font-size="22" font-weight="800">把数据查询变成结构化分析</text>
+      <g fill="#FFF" stroke="#C8DCF4"><rect x="24" y="100" width="232" height="38" rx="19"/><rect x="270" y="100" width="232" height="38" rx="19"/><rect x="24" y="150" width="478" height="38" rx="19"/></g>
+      <g fill="#305A90" font-size="14" font-weight="700" text-anchor="middle"><text x="140" y="124">大类资产月度 / 年度表现</text><text x="386" y="124">板块混合盈利率</text><text x="263" y="174">组合内单只基金每日收益日历</text></g>
+    </g>
+    <g transform="translate(58 398)">
+      <rect width="526" height="176" rx="26" fill="#EDF8F6"/>
+      <text x="24" y="38" fill="#178C83" font-size="13" font-weight="800" letter-spacing="2">PLANNING · 资产规划</text>
+      <text x="24" y="76" fill="#171A27" font-size="22" font-weight="800">从持仓视角走向家庭资产视角</text>
+      <rect x="24" y="105" width="478" height="42" rx="21" fill="#FFF" stroke="#BFE4DE"/>
+      <text x="263" y="132" text-anchor="middle" fill="#176D66" font-size="15" font-weight="800">增加资产负债表功能</text>
+    </g>
+    <g transform="translate(616 398)">
+      <rect width="526" height="176" rx="26" fill="#FFF3ED"/>
+      <text x="24" y="38" fill="#D86E42" font-size="13" font-weight="800" letter-spacing="2">COMPARE &amp; ALERT · 对比与提醒</text>
+      <text x="24" y="76" fill="#171A27" font-size="22" font-weight="800">让差异和关键日期主动出现</text>
+      <g fill="#FFF" stroke="#F1CDBE"><rect x="24" y="105" width="232" height="42" rx="21"/><rect x="270" y="105" width="232" height="42" rx="21"/></g>
+      <g fill="#A24C2A" font-size="14" font-weight="800" text-anchor="middle"><text x="140" y="132">我的持仓 vs 主理人持仓</text><text x="386" y="132">持有期 / 滚动基金到期日</text></g>
+    </g>
+  </g>
+  <text x="58" y="628" fill="#687287" font-family="Arial,'PingFang SC',sans-serif" font-size="15">这些样本是需求线索，不代表已完成、优先级已确认或都适合直接由 AI 编排。</text>
+</svg>

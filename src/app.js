@@ -133,6 +133,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "qieman-cap-product-paradigm-2026-08-14",
+      groupId: "product-planning",
+      title: "且慢 CAP 产品模式｜从固定产品到服务生产系统",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-cap-product-paradigm-2026-08-14/",
+      preview: "qieman-cap-product-paradigm-2026-08-14.png",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-14T00:45:00.000+08:00",
+      source: "《2026且慢产品思考规划》7 页 PPTX｜完整重绘双重产品不可能三角、CAP 范式、AI 实验室服务生产蓝图、70/30 需求分流与自然语言 workflow｜70%、30%、1 小时～1 天均按原稿标为目标态，不作为已达成结果｜可交互 CLAIR 报告",
+      access: "production",
+      workType: "product-planning",
+      tags: ["且慢", "CAP", "产品模式", "产品规划", "AI 实验室", "AI 开放平台", "服务生产", "原子能力", "需求分流", "工作流", "管理汇报", "CLAIR", "HTML", "生产"],
+    },
+    {
       id: "qianwen-impact-showcase-2026-08-13",
       groupId: "reporting",
       title: "盈米 × 千问｜上线传播成效与经典案例",
