@@ -4,7 +4,7 @@
     "subtitle": "把能力做成入口\n把入口做成增长",
     "eyebrow": "YINGMI AI · OAP PROJECT REPORT / 2026.08.03",
     "date": "2026-08-03",
-    "cutoff": "2026-08-14（总调用与 MAU 读取于 00:37，调用为部分日；累计用户最新至 8 月 13 日）",
+    "cutoff": "2026-08-14（总调用与 MAU 读取于 00:37，调用为部分日；累计用户最新至 8 月 13 日；千问传播材料截至 8 月 13 日）",
     "owner": "盈米 AI 开放平台",
     "confidentiality": "内部管理汇报 · 老板直读版",
     "accent": "#8067e8"
@@ -180,7 +180,8 @@
     {
       "id": "industry-recognition",
       "kicker": "04 · 行业认可",
-      "title": "行业背书，盈米 MCP 服务体系已获四项行业认可",
+      "title": "四项行业认可形成背书",
+      "displayTitle": "行业背书，盈米 MCP 服务体系已获四项行业认可",
       "lead": "2025 年 9 月至 2026 年 4 月连续获得榜单、报告与案例认可，行业背书由单点传播走向连续验证。",
       "layout": "timeline",
       "tone": "soft",
@@ -349,7 +350,8 @@
       "navHidden": true,
       "navTarget": "channels",
       "kicker": "08 · 新流量入口 · 千问",
-      "title": "千问既能调用盈米能力，也能嵌入完整且慢小顾",
+      "title": "千问双模式承接服务",
+      "displayTitle": "千问既能调用盈米能力，也能嵌入完整且慢小顾",
       "lead": "千问同时采用 MCP 与 A2A 两种模式：前者按需调用盈米标准能力，后者把且慢 AI 小顾作为完整金融 Agent 嵌入千问。",
       "layout": "architecture",
       "visual": "qwen-scene",
@@ -401,9 +403,94 @@
       }
     },
     {
+      "id": "brand-exposure",
+      "navHidden": true,
+      "navTarget": "channels",
+      "kicker": "08 · 新流量入口 · 品牌曝光",
+      "title": "品牌曝光形成破圈效应",
+      "displayTitle": "品牌曝光：千问与全网形成 1,478 条传播触点，采用阅读量 436.8 万",
+      "lead": "完整事件周期 2026-08-07—12：285 个独立内容的采用阅读量为 4,367,850；1,478 是未去重传播明细，不等于独立报道。下方 5 个案例可直接播放。",
+      "layout": "demo",
+      "visual": "brand-exposure",
+      "tone": "dark",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "未尽研究 · 深度文章",
+          "title": "“懂你”战争开始了",
+          "body": "从个人 AI 入口与现实服务连接的高度解释千问开放第三方智能体，把盈米基金放进“理解需求—执行服务”的新平台叙事。",
+          "meta": "39 秒录屏 · 可播放",
+          "status": "confirmed",
+          "source": "用户提供录屏 · 2026-08-13",
+          "video": "assets/brand-exposure/videos/01-insight-article.mp4",
+          "poster": "assets/brand-exposure/posters/01-insight-article.jpg",
+          "videoWidth": 720,
+          "videoHeight": 1066
+        },
+        {
+          "index": "02",
+          "eyebrow": "海峡导报 · 横向测评",
+          "title": "五个智能体实用测评",
+          "body": "省级新闻媒体将盈米基金与租房、出行、家政等服务放在同一真实任务中横向比较，理财顾问的专业输出成为场景证据。",
+          "meta": "19 秒录屏 · 可播放",
+          "status": "confirmed",
+          "source": "海峡导报公开内容 + 用户提供录屏",
+          "video": "assets/brand-exposure/videos/02-five-agent-review.mp4",
+          "poster": "assets/brand-exposure/posters/02-five-agent-review.jpg",
+          "videoWidth": 720,
+          "videoHeight": 1066
+        },
+        {
+          "index": "03",
+          "eyebrow": "AI 普瑞斯 · 深度测评",
+          "title": "一周使用后的理财判断",
+          "body": "围绕“年化 5%—8% 稳健收益”等真实问题，展示盈米基金 Agent 不只罗列产品，而是给出资产配置、风险解释与适配判断。",
+          "meta": "37 秒录屏 · 可播放",
+          "status": "confirmed",
+          "source": "AI 普瑞斯公开内容 + 用户提供录屏",
+          "video": "assets/brand-exposure/videos/03-agent-deep-review.mp4",
+          "poster": "assets/brand-exposure/posters/03-agent-deep-review.jpg",
+          "videoWidth": 720,
+          "videoHeight": 1274
+        },
+        {
+          "index": "04",
+          "eyebrow": "AI 科技评论 · 短视频",
+          "title": "千问先做了 AI 小程序",
+          "body": "用机器人热梗、服务实测与投资判断制造高密度传播；企微人工确认转发 2,362 次（录屏画面显示 2,363），本报告按人工确认口径采用 2,362。",
+          "meta": "89 秒录屏 · 可播放",
+          "status": "confirmed",
+          "source": "微信视频号源表链接 + 企微人工确认",
+          "video": "assets/brand-exposure/videos/04-ai-tech-review.mp4",
+          "poster": "assets/brand-exposure/posters/04-ai-tech-review.jpg",
+          "videoWidth": 720,
+          "videoHeight": 1292
+        },
+        {
+          "index": "05",
+          "eyebrow": "第四波 · 全流程实测",
+          "title": "专业 Agent 帮你办事",
+          "body": "真人出镜串联租房、寄件与理财任务，突出盈米基金 Agent 能理解复杂条件、输出具体配置并完成专业判断。",
+          "meta": "94 秒录屏 · 可播放",
+          "status": "confirmed",
+          "source": "用户提供录屏 · 2026-08-13",
+          "video": "assets/brand-exposure/videos/05-fourth-wave-review.mp4",
+          "poster": "assets/brand-exposure/posters/05-fourth-wave-review.jpg",
+          "videoWidth": 720,
+          "videoHeight": 1292
+        }
+      ],
+      "callout": {
+        "label": "传播口径",
+        "text": "436.8 万是公开页面更新与监测表回退组成的采用阅读量，不是“全网真实总阅读”；阅读、展现、播放不混加。严格 8 月 10—12 日口径为 279 个独立内容、4,367,839 采用阅读。",
+        "status": "confirmed"
+      }
+    },
+    {
       "id": "platform-listing",
       "kicker": "09 · 平台能力上架",
-      "title": "主流 AI 平台逐步覆盖・商化与支付模式探索上架",
+      "title": "主流 AI 平台逐步覆盖",
+      "displayTitle": "主流 AI 平台逐步覆盖・商化与支付模式探索上架",
       "lead": "MCP 已覆盖九个平台；Skills 与 Agent 采用重点平台分层推进，以清晰状态呈现已上架能力与计划上架节奏。",
       "layout": "cards",
       "tone": "dark",
@@ -1350,7 +1437,8 @@
     {
       "id": "competitor-analysis",
       "kicker": "22 · 竞品分析",
-      "title": "竞品强在数据与终端，盈米胜在服务闭环",
+      "title": "盈米胜在服务闭环",
+      "displayTitle": "竞品强在数据与终端，盈米胜在服务闭环",
       "lead": "公开产品状态显示，主流厂商正从数据库与金融终端向 MCP、Skills 和 Agent 延伸；盈米的机会是把专业能力、账户服务与交易承接组合成可持续交付。",
       "layout": "comparison",
       "visual": "competitor-benchmark",
@@ -1509,7 +1597,8 @@
     {
       "id": "retro",
       "kicker": "25 · 问题回顾",
-      "title": "问题回顾，从技术、资源、用户到数据需求探讨",
+      "title": "四类问题进入治理",
+      "displayTitle": "问题回顾，从技术、资源、用户到数据需求探讨",
       "lead": "技术更迭、框架翻新需求快速，人员资源调整与适应要求高。",
       "layout": "cards",
       "tone": "dark",
@@ -1637,6 +1726,10 @@
       "detail": "用户提供的两张微信小微真实对话截图 · 合成为一条连续对话视觉 · 2026-08-03"
     },
     {
+      "label": "盈米 × 千问上线传播监测与五段经典案例",
+      "detail": "完整事件周期 2026-08-07—12：285 个独立内容、采用阅读量 4,367,850；不去重传播明细 1,478 条。阅读由 2 条公开页面更新与 283 条监测表回退组成；5 段录屏由用户提供并经脱敏压缩。"
+    },
+    {
       "label": "商化收费方案与场景路由",
       "detail": "飞书 API 收费表 + 用户提供订阅、积分、个人资源包与企业年包设计 · 2026-08-03；价格与包型为方案参考，不代表已上线"
     }
@@ -1653,6 +1746,10 @@
     {
       "title": "机构统计边界",
       "detail": "机构统计周期尚未完全统一，机构去重口径仍待补齐。"
+    },
+    {
+      "title": "千问传播口径",
+      "detail": "1,478 是未去重传播明细，不是独立报道篇数；436.8 万是公开页面更新与监测表回退组成的采用阅读量，不等于全网真实总阅读。阅读、展现、播放不相加，也不能直接归因到新增用户、交易或 AUM。"
     },
     {
       "title": "商化证据",

@@ -1,7 +1,7 @@
 ---
 title: "盈米 AI 开放平台｜2026/8/3 项目汇报（飞书文档十项框架）"
 material_date: 2026-08-03
-report_cutoff: 2026-08-14（总调用与 MAU 读取于 00:37，调用为部分日；累计用户最新至 8 月 13 日）
+report_cutoff: 2026-08-14（总调用与 MAU 读取于 00:37，调用为部分日；累计用户最新至 8 月 13 日；千问传播材料截至 8 月 13 日）
 confidentiality: 内部管理汇报 · 口径分项标注
 template_reference: clairku.github.io/clair-ai-studio/reports/yingmi-ai-two-modes-four-continuous-2026-08-02/
 ---
@@ -10,7 +10,7 @@ template_reference: clairku.github.io/clair-ai-studio/reports/yingmi-ai-two-mode
 
 ## 用户目标
 
-按飞书文档《8/3 盈米 AI 开放平台项目汇报》的十项框架生成报告：年度目标、关键举措、用户增长、新流量入口、产品规划、能力建设、AI 实验室、商化准备、行业机会、问题回顾。用户补充 MCP 业务调用 TOP20，要求作为“行业机会 · 用户需求”紧接行业机会模块。报告模板参考 Clair Executive Visual Report（yingmi-ai-two-modes-four-continuous-2026-08-02）。
+按飞书文档《8/3 盈米 AI 开放平台项目汇报》的十项框架生成报告：年度目标、关键举措、用户增长、新流量入口、产品规划、能力建设、AI 实验室、商化准备、行业机会、问题回顾。用户补充 MCP 业务调用 TOP20，并于 2026-08-14 要求把千问传播报告中的五个经典案例作为“品牌曝光”子屏加入千问合作之后。报告模板参考 Clair Executive Visual Report（yingmi-ai-two-modes-four-continuous-2026-08-02）。
 
 ## 框架与章节映射
 
@@ -19,16 +19,15 @@ template_reference: clairku.github.io/clair-ai-studio/reports/yingmi-ai-two-mode
 | 年度目标 | 01 · 年度目标（OKR） | metrics |
 | 关键举措 | 02 · 关键举措（总图）+ 03 · 四个持续 | architecture + metrics |
 | 用户增长 | 05 · 用户增长（趋势） | evidence |
-| 新流量入口 | 06 · 新流量入口 + 07 · 千问合作 + 08 · 平台能力上架 | cards + architecture |
-| 产品规划 | 09 · 产品规划 | architecture |
-| 系统关系图（新增完整可视化） | 10 · 系统关系 | architecture + SVG |
-| 能力建设 | 11 · 能力建设 | cards |
-| AI 实验室 | 12 · AI 实验室 | process |
-| 服务关系图（新增完整可视化） | 13 · 服务关系 | architecture + SVG |
-| 商化准备 | 14 · 商化准备 | actions |
-| 行业机会 | 15 · 标杆机构需求 + 16 · 用户需求 | institution-dashboard + horizontal-bars |
-| 问题回顾 | 17 · 问题回顾 | cards |
-| —（补） | 18 · 下一步（H2 路线图） | actions |
+| 新流量入口 | 06 · 新流量入口 + 07 · 微信合作 + 08 · 千问合作 / 品牌曝光 + 09 · 平台能力上架 | cards + evidence + video gallery + architecture |
+| 产品规划 / 能力建设 | 10—13 · 能力生产、递进、治理与系统能力 | architecture + cards |
+| 系统关系图（新增完整可视化） | 14 · 系统关系 | architecture + SVG |
+| AI 实验室 | 15—17 · AI 实验室、服务蓝图与服务创作 | process + architecture |
+| 服务关系图（新增完整可视化） | 18 · 服务关系 | architecture + SVG |
+| 行业机会 | 19—22 · 用户需求、金融机构、外部机会与竞品 | horizontal-bars + institution-dashboard + comparison |
+| 商化准备 | 23—24 · 商化路径与收费方案 | actions + pricing-routing |
+| 问题回顾 | 25 · 问题回顾 | cards |
+| —（补） | 26 · 下一步（H2 路线图） | actions |
 
 ## 关键数据与口径
 
@@ -37,6 +36,8 @@ template_reference: clairku.github.io/clair-ai-studio/reports/yingmi-ai-two-mode
 - MAU 2,292 / 2,000 = 114.6%（超目标 292 人）· 读取于 2026-08-14 00:37 · OAP Stargate 管理后台默认口径
 - 已使用用户 5,837；占总用户 9,851 的 59.3% · 读取于 2026-08-14 00:37 · OAP Stargate 管理后台默认口径
 - MCP 用户需求补充证据：接口市场 69 项页面全量核对，剔除时间查询后的业务调用 TOP20，页面展示值截至 2026-08-03；不与 STARGATE 总调用量混算
+- 千问传播完整事件周期（2026-08-07—12）：285 个独立内容、采用阅读量 4,367,850；严格 2026-08-10—12 为 279 个独立内容、采用阅读量 4,367,839；1,478 是未去重传播明细，不是独立报道篇数。采用阅读由公开页面更新与监测表回退组成，不表述为全网真实总阅读
+- 五个经典案例：深度文章、横向测评、深度体验、短视频与全流程实测；五段录屏及封面由用户提供 / 公开内容核验，网页使用 H.264 压缩副本
 - AI 实验室经营指标：用户 5,000、应用 1,000，完成度 0%（目标态）
 - 近 30 日（截至 2026-07-28）：新增用户 1,620、调用 439,950、日均调用用户约 267；近 7 日日均约 337
 - 7.21—7.31：累计用户 +1,117（+15.0%），有调用用户 +630（+14.0%），累计调用 +165,615（+1.8%）
@@ -45,7 +46,7 @@ template_reference: clairku.github.io/clair-ai-studio/reports/yingmi-ai-two-mode
 
 ## 证据状态
 
-- `confirmed`：OKR 数据、四个持续举措、渠道进展、产品规划、能力体系、竞品格局、问题回顾，可在 OAP 项目汇报研究源稿与飞书文档中定位；业务调用 TOP20 可在用户原图与 69 项复核台账中定位。
+- `confirmed`：OKR 数据、四个持续举措、渠道进展、产品规划、能力体系、竞品格局、问题回顾，可在 OAP 项目汇报研究源稿与飞书文档中定位；业务调用 TOP20 可在用户原图与 69 项复核台账中定位；千问传播触点、采用阅读和五个案例可在媒体监测报告、来源登记与用户录屏中定位。
 - `target`：AI 实验室经营指标（0%）、千问 8/10 联合宣发、微信内测、SSO 8 月上线、三类产品包装定价、H2 路线图节点——均为计划/目标态，不写成已上线。
 - `inferred`：增长结构、渠道策略、运转逻辑、用户需求任务链、复盘视角、下半年主线等判断性收束。
 - `missing`：活动与交流机构统计区间/去重口径、微信合作实质内容、AI 实验室排期、持仓类 MCP 排期、火富牛合作结论、金融数据采购评估、三类产品正式定价——已登记到 openQuestions。
@@ -58,6 +59,7 @@ template_reference: clairku.github.io/clair-ai-studio/reports/yingmi-ai-two-mode
 
 - 不把「接入」外推为生产可用、有效获客或收入；千问、微信、百炼均按计划/内测/自测状态标注，不写成已上线。
 - 不把传播浏览量与 OAP 调用量、官网 UV/PV 混算。
+- 不把 1,478 条未去重传播明细写成 1,478 篇独立报道，不把采用阅读量写成全网真实总阅读，也不把阅读、展现、播放混加。
 - 不把 MCP 接口市场的页面累计调用量与 STARGATE 总调用量混算，也不由业务 TOP20 推断用户类型或收入结构。
 - 不展示未提供的活动名单、机构逐项名单、负责人或完成日期。
 - 三类产品价格带为管理讨论口径，非正式报价；正式定价前需重算单位经济性。
