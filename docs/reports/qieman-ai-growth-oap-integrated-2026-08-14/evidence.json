@@ -74,6 +74,38 @@
       "source": "当前材料未提供完整事件链",
       "definition": "需串联曝光、启用、绑定、服务完成、回流、交易、收入和 AUM。",
       "limits": "当前只能确认联调、传播和平台使用。"
+    },
+    {
+      "id": "E10",
+      "claim": "且慢未来将以信任责任内核、服务操作系统、App / 品牌 Agent 双端与分布式入口四层形态存在。",
+      "status": "inferred",
+      "source": "且慢 AI 产品实践、CAP、OAP、用户方法截图与本报告综合判断",
+      "definition": "用于回答 AI 时代的目标经营形态。",
+      "limits": "不是已完成组织架构或生产系统；AI 实验室、跨入口统一身份与完整飞轮仍属目标态。"
+    },
+    {
+      "id": "E11",
+      "claim": "App 能力正在走向系统级入口和 Agent 工作流，但 App 不会因此自动消失。",
+      "status": "inferred",
+      "source": "Apple App Intents、Google Gemini 3.5 与 Anthropic MCP 官方资料",
+      "definition": "官方产品与协议方向的趋势判断。",
+      "limits": "不是独立用户行为研究，不能直接外推中国零售投资者入口已经迁移。"
+    },
+    {
+      "id": "E12",
+      "claim": "AI 投顾能力外部化不能转移资质、适当性、披露、留痕、人工干预与风险管理责任。",
+      "status": "confirmed",
+      "source": "四部门资管新规第 23 条；IOSCO AI in Capital Markets",
+      "definition": "智能投顾与金融 AI 的治理要求和风险结构。",
+      "limits": "具体功能是否构成个性化投顾需逐场景定性；本报告不是法律意见。"
+    },
+    {
+      "id": "E13",
+      "claim": "月度可归因成功服务任务应成为且慢 AI 增长北极星。",
+      "status": "target",
+      "source": "本报告基于当前归因缺口提出的指标设计",
+      "definition": "明确用户与来源、任务结束、通过质量门、用户确认解决、风险已处理且后续可追踪。",
+      "limits": "尚未形成统一底表、阈值、看板与管理共识。"
     }
   ]
 }

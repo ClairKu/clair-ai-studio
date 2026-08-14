@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="840" viewBox="0 0 1440 840" role="img" aria-labelledby="title desc">
+  <title id="title">且慢 AI 增长指标树</title>
+  <desc id="desc">以可归因成功服务任务为北极星，下设质量、关系、分发和经济四组指标，并由合规与风险护栏兜底。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#10182C"/>
+      <stop offset="1" stop-color="#17213A"/>
+    </linearGradient>
+    <linearGradient id="hero" x1="0" x2="1">
+      <stop stop-color="#7457E8"/>
+      <stop offset="1" stop-color="#9B87F0"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#050813" flood-opacity=".28"/>
+    </filter>
+  </defs>
+  <rect width="1440" height="840" rx="36" fill="url(#bg)"/>
+  <text x="88" y="88" fill="#A998F0" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="18" font-weight="700" letter-spacing="3">METRIC TREE · 指标树</text>
+  <text x="88" y="142" fill="#FFFFFF" font-family="Songti SC,STSong,serif" font-size="43" font-weight="700">接口数与对话数是产能，成功任务才是经营结果</text>
+  <text x="88" y="184" fill="#B2BCD0" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="20">北极星必须同时满足完成、质量、归因与用户确认，避免把曝光或调用误写成增长。</text>
+
+  <g filter="url(#shadow)">
+    <rect x="388" y="232" width="664" height="118" rx="30" fill="url(#hero)"/>
+    <text x="720" y="271" text-anchor="middle" fill="#E9E4FF" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="15" font-weight="800" letter-spacing="2">NORTH STAR</text>
+    <text x="720" y="318" text-anchor="middle" fill="#FFFFFF" font-family="Songti SC,STSong,serif" font-size="36" font-weight="700">月度可归因成功服务任务</text>
+  </g>
+
+  <path d="M720 350 V407 M208 407 H1232 M208 407 V450 M550 407 V450 M890 407 V450 M1232 407 V450" stroke="#746A9D" stroke-width="3" fill="none"/>
+
+  <g filter="url(#shadow)">
+    <rect x="74" y="450" width="268" height="242" rx="26" fill="#FFFFFF"/>
+    <text x="108" y="490" fill="#7457E8" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="14" font-weight="800" letter-spacing="1.5">QUALITY</text>
+    <text x="108" y="532" fill="#171A27" font-family="Songti SC,STSong,serif" font-size="28" font-weight="700">任务质量</text>
+    <text x="108" y="574" fill="#596277" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="17">• 任务完成率</text>
+    <text x="108" y="608" fill="#596277" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="17">• 正确 / 可解释率</text>
+    <text x="108" y="642" fill="#596277" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="17">• 人工接管与纠错</text>
+    <text x="108" y="676" fill="#596277" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="17">• 风险拦截</text>
+
+    <rect x="378" y="450" width="268" height="242" rx="26" fill="#FFFFFF"/>
+    <text x="412" y="490" fill="#7457E8" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="14" font-weight="800" letter-spacing="1.5">RELATIONSHIP</text>
+    <text x="412" y="532" fill="#171A27" font-family="Songti SC,STSong,serif" font-size="28" font-weight="700">关系沉淀</text>
+    <text x="412" y="574" fill="#596277" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="17">• 身份绑定率</text>
+    <text x="412" y="608" fill="#596277" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="17">• 30 日任务复用</text>
+    <text x="412" y="642" fill="#596277" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="17">• 服务订阅 / 留存</text>
+    <text x="412" y="676" fill="#596277" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="17">• 交易 / AUM 贡献</text>
+
+    <rect x="682" y="450" width="268" height="242" rx="26" fill="#FFFFFF"/>
+    <text x="716" y="490" fill="#7457E8" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="14" font-weight="800" letter-spacing="1.5">DISTRIBUTION</text>
+    <text x="716" y="532" fill="#171A27" font-family="Songti SC,STSong,serif" font-size="28" font-weight="700">有效分发</text>
+    <text x="716" y="574" fill="#596277" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="17">• 意图 → 调用率</text>
+    <text x="716" y="608" fill="#596277" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="17">• 调用 → 成功率</text>
+    <text x="716" y="642" fill="#596277" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="17">• 入口增量贡献</text>
+    <text x="716" y="676" fill="#596277" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="17">• 品牌归属与回流</text>
+
+    <rect x="986" y="450" width="380" height="242" rx="26" fill="#FFFFFF"/>
+    <text x="1020" y="490" fill="#7457E8" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="14" font-weight="800" letter-spacing="1.5">ECONOMICS</text>
+    <text x="1020" y="532" fill="#171A27" font-family="Songti SC,STSong,serif" font-size="28" font-weight="700">单位经济</text>
+    <text x="1020" y="574" fill="#596277" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="17">• 单任务模型 / 人工成本</text>
+    <text x="1020" y="608" fill="#596277" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="17">• 获得一个关系的成本</text>
+    <text x="1020" y="642" fill="#596277" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="17">• 任务带来的收入 / LTV</text>
+    <text x="1020" y="676" fill="#596277" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="17">• 渠道分成与毛利</text>
+  </g>
+
+  <rect x="74" y="730" width="1292" height="64" rx="32" fill="#252E4C" stroke="#4A567C"/>
+  <text x="720" y="770" text-anchor="middle" fill="#D9DEEA" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="18" font-weight="650">统一护栏：适当性 · 用户授权 · 引用与解释 · 数据最小化 · 审计留痕 · 人工确认 · 可撤销 / 下架</text>
+</svg>

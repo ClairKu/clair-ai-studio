@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="810" viewBox="0 0 1440 810" role="img" aria-labelledby="title desc">
+  <title id="title">且慢 AI 能力重构方法</title>
+  <desc id="desc">拆解到最小颗粒，重构为 AI 能力体系，再融入新时代的入口、场景与工作流。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#10182C"/>
+      <stop offset="1" stop-color="#252B51"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" x2="1">
+      <stop stop-color="#7457E8"/>
+      <stop offset="1" stop-color="#A998F0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="810" rx="36" fill="url(#bg)"/>
+  <rect x="82" y="92" width="116" height="38" rx="19" fill="#FFFFFF" fill-opacity=".1" stroke="#FFFFFF" stroke-opacity=".18"/>
+  <text x="140" y="117" text-anchor="middle" fill="#FFFFFF" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="15" font-weight="800" letter-spacing="2">方法</text>
+  <text x="82" y="252" fill="#FFFFFF" font-family="Songti SC,STSong,serif" font-size="54" font-weight="700">拆解到最小颗粒，重构为 AI 能力体系，</text>
+  <text x="82" y="340" fill="#FFFFFF" font-family="Songti SC,STSong,serif" font-size="54" font-weight="700">再融入新时代的入口、场景与工作流。</text>
+  <rect x="82" y="424" width="1276" height="2" fill="url(#accent)"/>
+  <g font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="18" font-weight="700">
+    <rect x="82" y="510" width="246" height="72" rx="36" fill="#FFFFFF" fill-opacity=".08" stroke="#7F69E7"/>
+    <text x="205" y="554" text-anchor="middle" fill="#D9D1FF">01 · 能力原子化</text>
+    <path d="M350 546 H446" stroke="#A998F0" stroke-width="3"/>
+    <path d="M436 537 L448 546 L436 555" fill="none" stroke="#A998F0" stroke-width="3"/>
+    <rect x="470" y="510" width="270" height="72" rx="36" fill="#FFFFFF" fill-opacity=".08" stroke="#7F69E7"/>
+    <text x="605" y="554" text-anchor="middle" fill="#D9D1FF">02 · 服务系统化</text>
+    <path d="M762 546 H858" stroke="#A998F0" stroke-width="3"/>
+    <path d="M848 537 L860 546 L848 555" fill="none" stroke="#A998F0" stroke-width="3"/>
+    <rect x="882" y="510" width="476" height="72" rx="36" fill="#FFFFFF" fill-opacity=".08" stroke="#7F69E7"/>
+    <text x="1120" y="554" text-anchor="middle" fill="#D9D1FF">03 · 入口 / 场景 / 工作流分布式交付</text>
+  </g>
+  <text x="82" y="690" fill="#AEB7CC" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="20">方法成立的前提：品牌、授权、适当性、审计与任务归因不能随入口一起分散。</text>
+</svg>

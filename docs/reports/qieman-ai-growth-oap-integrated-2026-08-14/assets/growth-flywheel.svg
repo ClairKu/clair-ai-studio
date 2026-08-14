@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="840" viewBox="0 0 1440 840" role="img" aria-labelledby="title desc">
+  <title id="title">且慢从外部意图到长期关系的增长飞轮</title>
+  <desc id="desc">外部 AI 入口发现投资意图，且慢完成专业理解、授权和任务交付，沉淀信任关系与服务记忆，再通过复用和分发扩大下一轮增长。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#F8F7FC"/>
+      <stop offset="1" stop-color="#EFECFA"/>
+    </linearGradient>
+    <filter id="shadow" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="13" stdDeviation="18" flood-color="#3E315D" flood-opacity=".13"/>
+    </filter>
+    <marker id="arrow" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto">
+      <path d="M0,0 L11,5.5 L0,11 Z" fill="#7457E8"/>
+    </marker>
+  </defs>
+  <rect width="1440" height="840" rx="36" fill="url(#bg)"/>
+  <text x="88" y="88" fill="#7457E8" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="18" font-weight="700" letter-spacing="3">GROWTH LOOP · 经营飞轮</text>
+  <text x="88" y="142" fill="#171A27" font-family="Songti SC,STSong,serif" font-size="43" font-weight="700">增长不再从“打开 App”开始，而从“发生任务”开始</text>
+  <text x="88" y="184" fill="#687287" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="20">每一环都必须可归因；任一环断裂，都只能算流量、调用或演示，不算增长。</text>
+
+  <circle cx="720" cy="520" r="224" fill="none" stroke="#D9D1F7" stroke-width="5" stroke-dasharray="10 14"/>
+
+  <g stroke="#7457E8" stroke-width="4" fill="none" marker-end="url(#arrow)">
+    <path d="M720 282 C856 282 964 342 1024 438"/>
+    <path d="M1062 502 C1061 635 973 728 860 756"/>
+    <path d="M787 775 C662 811 537 763 466 674"/>
+    <path d="M429 609 C375 490 430 365 528 316"/>
+    <path d="M590 286 C634 270 678 267 720 272"/>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="574" y="233" width="292" height="102" rx="24" fill="#FFFFFF"/>
+    <text x="720" y="270" text-anchor="middle" fill="#7457E8" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="14" font-weight="800" letter-spacing="1.3">01 · DISCOVER</text>
+    <text x="720" y="306" text-anchor="middle" fill="#171A27" font-family="Songti SC,STSong,serif" font-size="26" font-weight="700">外部入口发现意图</text>
+
+    <rect x="995" y="417" width="328" height="108" rx="24" fill="#FFFFFF"/>
+    <text x="1159" y="456" text-anchor="middle" fill="#7457E8" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="14" font-weight="800" letter-spacing="1.3">02 · UNDERSTAND</text>
+    <text x="1159" y="493" text-anchor="middle" fill="#171A27" font-family="Songti SC,STSong,serif" font-size="26" font-weight="700">且慢完成专业理解</text>
+
+    <rect x="828" y="708" width="360" height="108" rx="24" fill="#FFFFFF"/>
+    <text x="1008" y="747" text-anchor="middle" fill="#7457E8" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="14" font-weight="800" letter-spacing="1.3">03 · AUTHORIZE &amp; DELIVER</text>
+    <text x="1008" y="784" text-anchor="middle" fill="#171A27" font-family="Songti SC,STSong,serif" font-size="26" font-weight="700">授权后完成服务任务</text>
+
+    <rect x="262" y="692" width="380" height="124" rx="24" fill="#FFFFFF"/>
+    <text x="452" y="731" text-anchor="middle" fill="#7457E8" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="14" font-weight="800" letter-spacing="1.3">04 · RELATIONSHIP</text>
+    <text x="452" y="768" text-anchor="middle" fill="#171A27" font-family="Songti SC,STSong,serif" font-size="26" font-weight="700">沉淀身份与服务关系</text>
+    <text x="452" y="795" text-anchor="middle" fill="#7D8698" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="15">复用 · 订阅 · 交易 / AUM · 留存</text>
+
+    <rect x="116" y="414" width="338" height="122" rx="24" fill="#FFFFFF"/>
+    <text x="285" y="453" text-anchor="middle" fill="#7457E8" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="14" font-weight="800" letter-spacing="1.3">05 · LEARN &amp; DISTRIBUTE</text>
+    <text x="285" y="490" text-anchor="middle" fill="#171A27" font-family="Songti SC,STSong,serif" font-size="26" font-weight="700">反馈提升服务与分发</text>
+    <text x="285" y="517" text-anchor="middle" fill="#7D8698" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="15">能力复用 · 入口扩散 · 成本下降</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <circle cx="720" cy="520" r="147" fill="#171E35"/>
+    <circle cx="720" cy="520" r="126" fill="#252D4A" stroke="#7457E8" stroke-width="3"/>
+    <text x="720" y="478" text-anchor="middle" fill="#A998F0" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="14" font-weight="800" letter-spacing="1.5">NORTH STAR</text>
+    <text x="720" y="526" text-anchor="middle" fill="#FFFFFF" font-family="Songti SC,STSong,serif" font-size="32" font-weight="700">可归因的</text>
+    <text x="720" y="568" text-anchor="middle" fill="#FFFFFF" font-family="Songti SC,STSong,serif" font-size="32" font-weight="700">成功服务任务</text>
+    <text x="720" y="604" text-anchor="middle" fill="#B7C0D3" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="15">完成 × 正确 × 用户确认 × 可追溯</text>
+  </g>
+</svg>
