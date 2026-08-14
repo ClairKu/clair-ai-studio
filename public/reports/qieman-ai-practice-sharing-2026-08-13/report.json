@@ -349,9 +349,78 @@
       }
     },
     {
+      "id": "capability-progression",
+      "kicker": "P7 · CAPABILITY PROGRESSION",
+      "title": "降低门槛，放大服务群体",
+      "lead": "MCP 让能力可调用，Skills 让专业方法可交付，Agent 让复杂任务可完成，再通过 AI 实验室生产为可持续服务。",
+      "layout": "cards",
+      "tone": "dark",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "MCP · CAN CALL",
+          "title": "准确调用",
+          "body": "标准化查询、计算与业务动作，返回有结构、可解释的结果。",
+          "bullets": [
+            "输入契约｜参数与权限",
+            "结果契约｜结构与错误",
+            "调用治理｜配额与审计"
+          ]
+        },
+        {
+          "index": "02",
+          "eyebrow": "SKILLS · CAN DELIVER",
+          "title": "稳定交付",
+          "body": "把脚本、参考资料、规则、模板和质量检查组合成业务能力包。",
+          "bullets": [
+            "确定性计算｜可复算",
+            "专家方法｜可复制",
+            "交付模板｜可审查"
+          ]
+        },
+        {
+          "index": "03",
+          "eyebrow": "AGENT · CAN COMPLETE",
+          "title": "端到端完成",
+          "body": "围绕用户目标动态规划、编排能力、处理异常并连接人工确认。",
+          "bullets": [
+            "理解目标｜识别边界",
+            "管理状态｜持续任务",
+            "结果闭环｜反馈回流"
+          ]
+        }
+      ],
+      "workflow": [
+        {
+          "title": "用户目标",
+          "body": "自然语言与业务上下文"
+        },
+        {
+          "title": "服务匹配",
+          "body": "适用人群、权限与风险"
+        },
+        {
+          "title": "能力运行",
+          "body": "MCP、Skills、Agent"
+        },
+        {
+          "title": "人工确认",
+          "body": "事实、建议与关键动作"
+        },
+        {
+          "title": "结果交付",
+          "body": "提醒、报告与后续服务"
+        }
+      ],
+      "callout": {
+        "label": "能力生产",
+        "text": "三层能力逐级降低使用门槛，并通过 AI 实验室进入标准化生产与服务交付。"
+      },
+      "navLabel": "能力下沉"
+    },
+    {
       "id": "three-leaps",
-      "navLabel": "能力下沉",
-      "kicker": "P7 · CAPABILITY STACK",
+      "kicker": "P8 · CAPABILITY STACK",
       "title": "五层能力，把底座变成服务",
       "lead": "底层能力不是目的；它必须经过产品化、编排与治理，最终变成用户看得懂、愿意授权、能够持续使用的金融服务。",
       "layout": "architecture",
@@ -423,12 +492,13 @@
       "callout": {
         "label": "横向治理控制面",
         "text": "身份、授权、质量、合规、审计与生命周期贯穿五层能力，确保能力可用、可控、可持续。"
-      }
+      },
+      "navHidden": true
     },
     {
       "id": "open-platform-system",
       "navHidden": true,
-      "kicker": "P8 · CAPABILITY GOVERNANCE",
+      "kicker": "P9 · CAPABILITY GOVERNANCE",
       "title": "能力体系，新分类框架与能力治理",
       "lead": "新分类框架统一按业务域、能力类型、权限与生命周期纳管资产；MCP、Skills、Agent 分层治理，内外部能力进入同一体系。",
       "layout": "architecture",
@@ -493,7 +563,7 @@
     {
       "id": "service-to-capability",
       "navHidden": true,
-      "kicker": "P9 · SYSTEM CAPABILITY",
+      "kicker": "P10 · SYSTEM CAPABILITY",
       "title": "系统能力，账号鉴权与治理审计",
       "lead": "账号、鉴权、统一治理与系统关系共同补齐接入底座，让每一次能力调用可授权、可撤销、可审计、可计量、可追溯。",
       "layout": "architecture",
@@ -532,7 +602,7 @@
     {
       "id": "super-entrances",
       "navLabel": "走出且慢",
-      "kicker": "P10 · SUPER ENTRANCES",
+      "kicker": "P11 · SUPER ENTRANCES",
       "title": "接入超级流量入口",
       "lead": "不同入口完成需求发现、能力调用、身份承接与交易确认，把专业服务带到用户所在场景。",
       "layout": "entrances",
@@ -577,7 +647,7 @@
     {
       "id": "wechat-cooperation",
       "navHidden": true,
-      "kicker": "P11 · WECHAT COOPERATION",
+      "kicker": "P12 · WECHAT COOPERATION",
       "title": "微信识别需求，且慢承接服务",
       "lead": "微信 Agent 发现用户的投资与购买意图，且慢 Skills 提供专业判断，小程序承接身份、账户、交易与持续服务，形成清晰的人机分工。",
       "layout": "evidence",
@@ -614,7 +684,7 @@
     {
       "id": "qwen-cooperation",
       "navHidden": true,
-      "kicker": "P12 · QWEN COOPERATION",
+      "kicker": "P13 · QWEN COOPERATION",
       "title": "千问既能调用盈米能力，也能嵌入完整且慢小顾",
       "displayTitle": "千问既能调用盈米能力，也能嵌入完整且慢小顾",
       "lead": "千问同时采用 MCP 与 A2A 两种模式：前者按需调用盈米标准能力，后者把且慢 AI 小顾作为完整金融 Agent 嵌入千问。",
@@ -667,7 +737,7 @@
     {
       "id": "publicity-impact",
       "navHidden": true,
-      "kicker": "P13 · PUBLICITY IMPACT",
+      "kicker": "P14 · PUBLICITY IMPACT",
       "title": "宣发效果",
       "lead": "跨界合作形成多层传播：独立内容沉淀专业表达，传播触点放大覆盖，阅读与展现持续扩散。",
       "layout": "metrics",
@@ -718,7 +788,7 @@
     {
       "id": "cooperation-modes",
       "navLabel": "AI开放平台",
-      "kicker": "P14 · PLATFORM LISTING",
+      "kicker": "P15 · PLATFORM LISTING",
       "title": "主流 AI 平台逐步覆盖・商化与支付模式探索上架",
       "displayTitle": "主流 AI 平台逐步覆盖・商化与支付模式探索上架",
       "lead": "MCP 已覆盖九个平台；Skills 与 Agent 采用重点平台分层推进，以清晰状态呈现已上架能力与计划上架节奏。",
@@ -813,7 +883,7 @@
     {
       "id": "oap-growth",
       "navHidden": true,
-      "kicker": "P15 · OAP USER GROWTH",
+      "kicker": "P16 · OAP USER GROWTH",
       "title": "AI 开放平台用户增长",
       "lead": "502 日持续演进，从能力开放、生态上架到超级入口接入，用户与调用同步增长。",
       "layout": "embed-page",
@@ -829,7 +899,7 @@
     {
       "id": "service-relationship",
       "navHidden": true,
-      "kicker": "P16 · SERVICE CREATION",
+      "kicker": "P17 · SERVICE CREATION",
       "title": "从真实需求，生成个性化服务",
       "lead": "实验室把需求理解、能力编排、质量审核与发布运营串成一条生产线，让用户从真实投顾问题出发，在手机端丝滑生产自己需要的个性化服务。",
       "layout": "demo",
@@ -899,7 +969,7 @@
     {
       "id": "review",
       "navLabel": "NEXT",
-      "kicker": "P17 · REVIEW",
+      "kicker": "P18 · REVIEW",
       "title": "回顾",
       "lead": "MCP 与 Skills 可以创造收入，更重要的是让有限资源生产的服务持续沉淀流量、用户与 AUM。",
       "layout": "cards",
@@ -932,7 +1002,7 @@
     {
       "id": "imagination",
       "navHidden": true,
-      "kicker": "P18 · IMAGINE",
+      "kicker": "P19 · IMAGINE",
       "title": "想像",
       "lead": "理想不是把 App 做得更大，而是让且慢服务不受形态与场景限制，在用户真正需要时出现。",
       "layout": "cards",
