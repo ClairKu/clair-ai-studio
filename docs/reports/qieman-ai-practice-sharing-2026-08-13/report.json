@@ -185,8 +185,15 @@
       "tone": "dark",
       "beforeLabel": "以前",
       "beforeLead": "找入口 · 按月获取",
+      "beforeBody": "用户需要先找到入口，再按月份逐次查看或获取交易记录。",
       "nowLabel": "现在",
       "nowLead": "一句话交任务 · Excel 直接下载",
+      "nowBody": "用户只需说清范围与格式，AI 自动汇总全量记录并生成 Excel。",
+      "nowTags": [
+        "全量取数",
+        "自动合并",
+        "Excel 交付"
+      ],
       "oldWays": [
         {
           "index": "01",
@@ -1187,49 +1194,64 @@
     {
       "id": "review",
       "navLabel": "NEXT",
-      "kicker": "P21 · FROM CAPABILITY TO GROWTH",
-      "title": "从一次调用，到每次有投资问题都遇见且慢",
-      "lead": "让可组合能力提升供给，让超级入口扩大触达，让持续陪伴最终沉淀用户、交易与 AUM。",
-      "layout": "cards",
+      "kicker": "P21 · REVIEW & NEXT",
+      "title": "回顾问题，明确下一程",
+      "lead": "回到最初，我们要用 AI 提升产能、获取外部流量；走向未来，我们要让服务无所不在、持续陪伴，并真正沉淀流量、用户与 AUM。",
+      "layout": "review-expectation",
       "tone": "soft",
-      "items": [
+      "groups": [
         {
-          "index": "01",
-          "eyebrow": "COMPOSABLE",
-          "title": "能力规模化",
-          "body": "成熟能力被快速组装与编排，让有限资源也能快速承接个性化需求，不再排队等待开发。",
-          "bullets": [
-            "快速组装",
-            "七成需求",
-            "效率提升"
+          "eyebrow": "REVIEW · 回顾问题",
+          "title": "为什么出发",
+          "items": [
+            {
+              "index": "01",
+              "eyebrow": "EFFICIENCY",
+              "title": "提升产能效率",
+              "body": "成熟能力被快速组装与编排，让个性化服务不再排队等待开发。"
+            },
+            {
+              "index": "02",
+              "eyebrow": "DISTRIBUTION",
+              "title": "获取外部流量",
+              "body": "让专业服务进入微信、千问与机构场景，在用户提出问题的地方被发现。"
+            },
+            {
+              "index": "03",
+              "eyebrow": "BUSINESS RESULT",
+              "title": "沉淀流量、用户、AUM",
+              "body": "不只看调用量，更要把触达转化为用户复用、交易与长期经营关系。"
+            }
           ]
         },
         {
-          "index": "02",
-          "eyebrow": "EVERYWHERE",
-          "title": "服务无处不在",
-          "body": "且慢服务进入 App、小程序、H5、微信、千问、工作环境与机构终端，在用户提出问题的地方被发现。",
-          "bullets": [
-            "走出 App",
-            "进入入口",
-            "扩大触达"
-          ]
-        },
-        {
-          "index": "03",
-          "eyebrow": "RELATIONSHIP",
-          "title": "关系持续生长",
-          "body": "从一次调用走向主动引导、持续陪伴、授权确认与交易承接，沉淀用户复用、交易与 AUM。",
-          "bullets": [
-            "主动陪伴",
-            "用户复用",
-            "交易与 AUM"
+          "eyebrow": "NEXT · 目标期待",
+          "title": "要走到哪里",
+          "items": [
+            {
+              "index": "01",
+              "eyebrow": "EVERYWHERE",
+              "title": "服务无所不在",
+              "body": "且慢服务进入 App、小程序、H5、AI 平台、工作环境与机构终端。"
+            },
+            {
+              "index": "02",
+              "eyebrow": "PROACTIVE",
+              "title": "持续陪伴，降低决策负担",
+              "body": "小顾主动引导、持续陪伴，在关键时点提供专业建议，用户保有最终决定权。"
+            },
+            {
+              "index": "03",
+              "eyebrow": "COMPOSABLE",
+              "title": "七成需求快速解决",
+              "body": "通过可组合能力，让 70% 以上个性化需求得到快速响应与解决。"
+            }
           ]
         }
       ],
       "callout": {
-        "label": "终局",
-        "text": "用户可以不知道且慢，但每次有投资问题时，都有机会遇见且慢。"
+        "label": "北极星",
+        "text": "成功服务任务，以及由此带来的用户复用、交易与 AUM。"
       }
     }
   ]
