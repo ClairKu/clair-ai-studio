@@ -1,145 +1,211 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
-  <title id="title">盈米 AI 系统关系图</title>
-  <desc id="desc">按原图金字塔结构重绘的盈米 AI 系统关系图，三层结构、管理中枢和能力沉淀链路保持不变。</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 760" role="img" aria-labelledby="title desc">
+  <title id="title">盈米 AI 能力体系与产品化路径</title>
+  <desc id="desc">当前能力体系由数据与工具、MCP Skills Agent、AI 开放平台治理和现有服务入口组成，并延展出正在建设的 YingWork 工作台与下一阶段的 AI 实验室。</desc>
   <defs>
-    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fbfaff"/><stop offset="1" stop-color="#f0edfa"/></linearGradient>
-    <linearGradient id="core" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#5738c8"/><stop offset=".58" stop-color="#7457e8"/><stop offset="1" stop-color="#9c85ff"/></linearGradient>
-    <linearGradient id="soft" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f2eeff"/><stop offset="1" stop-color="#fff"/></linearGradient>
-    <filter id="shadow" x="-20%" y="-30%" width="140%" height="170%"><feDropShadow dx="0" dy="9" stdDeviation="11" flood-color="#35266f" flood-opacity=".12"/></filter>
-    <marker id="arrowV" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth"><path d="M0 0L8 4L0 8Z" fill="#7457e8"/></marker>
-    <marker id="arrowD" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth"><path d="M0 0L8 4L0 8Z" fill="#9283cb"/></marker>
+    <linearGradient id="canvas" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#f8f7fc"/>
+      <stop offset="1" stop-color="#f0eef9"/>
+    </linearGradient>
+    <linearGradient id="governance" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#4d31bc"/>
+      <stop offset=".58" stop-color="#6e4fe0"/>
+      <stop offset="1" stop-color="#8c72f1"/>
+    </linearGradient>
+    <linearGradient id="yingwork" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#fffaf1"/>
+      <stop offset="1" stop-color="#fff3dc"/>
+    </linearGradient>
+    <linearGradient id="lab" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#f7f5ff"/>
+      <stop offset="1" stop-color="#eeebfa"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-30%" width="140%" height="170%">
+      <feDropShadow dx="0" dy="10" stdDeviation="13" flood-color="#30245f" flood-opacity=".10"/>
+    </filter>
+    <filter id="softShadow" x="-20%" y="-30%" width="140%" height="170%">
+      <feDropShadow dx="0" dy="7" stdDeviation="9" flood-color="#30245f" flood-opacity=".07"/>
+    </filter>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0L9 4.5L0 9Z" fill="#7357df"/>
+    </marker>
     <style>
-      text{font-family:"Songti SC","STSong","SimSun",serif;fill:#222338}
-      .h1{font-size:38px;font-weight:700}.sub{font-size:15.5px;fill:#596176}.label{font-size:16.5px;font-weight:700}.small{font-size:12px;fill:#626a7e}.tiny{font-size:10.5px;fill:#697185}.on-dark{fill:#fff}
-      .box{fill:#fff;stroke:#d9d3ea;stroke-width:1.15}.box-soft{fill:url(#soft);stroke:#cabff0;stroke-width:1.15}.box-core{fill:url(#core);stroke:#7457e8}
-      .pill{fill:#f5f3fb;stroke:#ded9ef}.pillV{fill:#5235bd;fill-opacity:.72;stroke:#b8a9ff}.pillText{font-size:11px;fill:#4f566a}.pillTextV{font-size:11px;font-weight:700;fill:#fff}
-      .line{fill:none;stroke:#7457e8;stroke-width:1.6;marker-end:url(#arrowV)}.dash{fill:none;stroke:#9687cc;stroke-width:1.35;stroke-dasharray:5 6;marker-end:url(#arrowD)}
-      .num{font-size:15px;font-weight:700;fill:#7457e8}.numO{font-size:15px;font-weight:700;fill:#f2763a}
+      text{font-family:"PingFang SC","Noto Sans CJK SC","Microsoft YaHei",sans-serif;fill:#202238}
+      .eyebrow{font-size:15px;font-weight:700;letter-spacing:2.5px;fill:#7357df}
+      .headline{font-size:34px;font-weight:700;letter-spacing:.5px}
+      .lead{font-size:17px;fill:#646b80}
+      .stage{font-size:14px;font-weight:700;letter-spacing:1.3px;fill:#7357df}
+      .cardTitle{font-size:24px;font-weight:700}
+      .cardLead{font-size:16px;fill:#656d82}
+      .rowTitle{font-size:17px;font-weight:700}
+      .rowText{font-size:14px;fill:#6b7285}
+      .tag{font-size:13px;font-weight:600;fill:#56439f}
+      .white{fill:#fff}
+      .whiteSoft{fill:#f3efff}
+      .routeState{font-size:15px;font-weight:700;letter-spacing:1.5px}
+      .routeTitle{font-size:27px;font-weight:700}
+      .routeText{font-size:15px;fill:#626a7d}
+      .routeItems{font-size:14px;font-weight:600}
+      .footer{font-size:20px;font-weight:700;fill:#44358a}
+      .node{fill:#fff;stroke:#ddd8ec;stroke-width:1.2}
+      .softNode{fill:#faf9fe;stroke:#ddd8ec;stroke-width:1.2}
+      .tagBox{fill:#f4f1fc;stroke:#e3def1;stroke-width:1}
+      .flow{fill:none;stroke:#7357df;stroke-width:2.4;stroke-linecap:round;marker-end:url(#arrow)}
+      .branch{fill:none;stroke:#a79ad5;stroke-width:2;stroke-linecap:round;stroke-dasharray:6 7;marker-end:url(#arrow)}
+      .icon{fill:none;stroke:#7357df;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+      .iconWhite{fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+      .iconOrange{fill:none;stroke:#e68a25;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+      .iconGray{fill:none;stroke:#8076aa;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
     </style>
   </defs>
 
-  <rect width="1280" height="720" rx="28" fill="url(#paper)"/>
-  <circle cx="1124" cy="42" r="150" fill="#fff" opacity=".55"/>
-  <text x="640" y="42" text-anchor="middle" class="h1">盈米 AI 系统关系图</text>
-  <text x="640" y="68" text-anchor="middle" class="sub">金字塔结构：底层 数据基础 / 工具能力 → 中层 MCP · Skills · Agent · Stargate 管理后台 → 顶层 官网 / Agent · Skills 平台 / 个人中心 / 开放平台。</text>
+  <rect width="1600" height="760" fill="url(#canvas)"/>
+  <circle cx="1490" cy="18" r="220" fill="#fff" opacity=".48"/>
+  <circle cx="52" cy="736" r="170" fill="#e9e4fa" opacity=".45"/>
 
-  <!-- 左侧层级 -->
+  <text x="56" y="48" class="eyebrow">CAPABILITY SYSTEM / PRODUCT ROUTES</text>
+  <text x="56" y="91" class="headline">能力体系已经形成，产品化路径正在展开</text>
+  <text x="56" y="122" class="lead">同一套金融能力，经标准化、治理与编排，既服务现有用户入口，也开始进入新的工作与创新场景。</text>
+
+  <!-- 当前能力体系：单一主链 -->
   <g filter="url(#shadow)">
-    <rect x="22" y="112" width="160" height="105" rx="18" class="box"/>
-    <text x="38" y="142" font-size="16" font-weight="700" fill="#f2763a">03 · 前台 / 生态层</text>
-    <text x="38" y="172" class="small">面向用户与生态</text><text x="38" y="190" class="small">提供应用与接入</text>
-    <rect x="22" y="232" width="160" height="120" rx="18" class="box"/>
-    <text x="38" y="266" class="label" fill="#654fc4">管理中枢</text>
-    <text x="38" y="296" class="small">统一管理与编排</text><text x="38" y="314" class="small">资源与能力</text>
-    <rect x="22" y="369" width="160" height="110" rx="18" class="box"/>
-    <text x="38" y="401" font-size="16" font-weight="700" fill="#7457e8">02 · AI 资产层</text>
-    <text x="38" y="431" class="small">标准化资产与能力</text><text x="38" y="449" class="small">被管理与调用</text>
-    <rect x="22" y="496" width="160" height="116" rx="18" class="box"/>
-    <text x="38" y="529" font-size="16" font-weight="700" fill="#7457e8">01 · 基础层</text>
-    <text x="38" y="559" class="small">提供底层数据与工具</text><text x="38" y="577" class="small">支撑上层能力</text>
+    <rect x="50" y="160" width="1118" height="476" rx="30" fill="#fff"/>
+  </g>
+  <text x="82" y="198" class="stage">当前能力体系</text>
+  <text x="82" y="226" font-size="17" font-weight="600" fill="#4a5064">从底层资产到服务入口，能力可以被统一调用、组合与持续运营</text>
+
+  <!-- 01 数据与工具 -->
+  <g filter="url(#softShadow)">
+    <rect x="80" y="258" width="230" height="310" rx="24" class="softNode"/>
+  </g>
+  <g transform="translate(104 282)">
+    <ellipse cx="22" cy="8" rx="18" ry="7" class="icon"/>
+    <path d="M4 8v23c0 4 8 7 18 7s18-3 18-7V8M4 20c0 4 8 7 18 7s18-3 18-7" class="icon"/>
+    <path d="M48 27h24M55 18l-9 9 9 9M65 18l9 9-9 9" class="icon"/>
+  </g>
+  <text x="104" y="343" class="stage">01 / 基础资产</text>
+  <text x="104" y="379" class="cardTitle">数据与工具</text>
+  <text x="104" y="408" class="cardLead">把金融数据与专业工具</text>
+  <text x="104" y="431" class="cardLead">整理成 AI 可理解的底座</text>
+  <rect x="104" y="460" width="86" height="30" rx="9" class="tagBox"/>
+  <text x="147" y="480" text-anchor="middle" class="tag">数据基础</text>
+  <rect x="198" y="460" width="86" height="30" rx="9" class="tagBox"/>
+  <text x="241" y="480" text-anchor="middle" class="tag">工具能力</text>
+  <text x="104" y="521" class="rowText">基金 · 市场 · 账户 · 资讯</text>
+  <text x="104" y="546" class="rowText">查询 · 计算 · 分析 · 诊断</text>
+
+  <!-- 02 MCP / Skills / Agent -->
+  <g filter="url(#softShadow)">
+    <rect x="342" y="258" width="310" height="310" rx="24" class="node"/>
+  </g>
+  <g transform="translate(368 283)">
+    <circle cx="12" cy="22" r="7" class="icon"/>
+    <circle cx="38" cy="9" r="7" class="icon"/>
+    <circle cx="38" cy="35" r="7" class="icon"/>
+    <path d="M18 19l14-7M18 25l14 7M45 9h18M45 35h18" class="icon"/>
+  </g>
+  <text x="368" y="343" class="stage">02 / 能力资产</text>
+  <text x="368" y="379" class="cardTitle">MCP · Skills · Agent</text>
+
+  <circle cx="386" cy="419" r="14" fill="#f0ecfd"/>
+  <path d="M380 419h12M386 413v12" class="icon"/>
+  <text x="414" y="416" class="rowTitle">MCP</text>
+  <text x="414" y="437" class="rowText">底层能力标准化为可调用接口</text>
+
+  <circle cx="386" cy="468" r="14" fill="#f0ecfd"/>
+  <path d="M379 463h14v11h-14zM382 459h14v11" class="icon"/>
+  <text x="414" y="465" class="rowTitle">Skills</text>
+  <text x="414" y="486" class="rowText">业务知识、流程与模板封装</text>
+
+  <circle cx="386" cy="517" r="14" fill="#f0ecfd"/>
+  <path d="M378 521c2-8 14-8 16 0M381 511a5 5 0 1 1 10 0M386 501v-4M376 505l-3-3M396 505l3-3" class="icon"/>
+  <text x="414" y="514" class="rowTitle">Agent</text>
+  <text x="414" y="535" class="rowText">理解意图，规划并完成复杂任务</text>
+
+  <!-- 03 开放平台治理 -->
+  <g filter="url(#shadow)">
+    <rect x="684" y="258" width="250" height="310" rx="24" fill="url(#governance)"/>
+  </g>
+  <g transform="translate(710 282)">
+    <path d="M6 12h42M6 28h42M6 44h42" class="iconWhite"/>
+    <circle cx="20" cy="12" r="5" fill="#6c50dd" stroke="#fff" stroke-width="2"/>
+    <circle cx="37" cy="28" r="5" fill="#6c50dd" stroke="#fff" stroke-width="2"/>
+    <circle cx="27" cy="44" r="5" fill="#6c50dd" stroke="#fff" stroke-width="2"/>
+  </g>
+  <text x="710" y="343" class="stage whiteSoft">03 / 治理中枢</text>
+  <text x="710" y="379" class="cardTitle white">AI 开放平台</text>
+  <text x="710" y="407" class="cardLead whiteSoft">统一管理能力、用户与运行过程</text>
+  <line x1="710" y1="435" x2="908" y2="435" stroke="#fff" stroke-opacity=".22"/>
+  <g class="whiteSoft" font-size="15" font-weight="600">
+    <text x="710" y="469">权限与身份</text>
+    <text x="814" y="469">内容与配置</text>
+    <text x="710" y="503">发布与版本</text>
+    <text x="814" y="503">审计与计量</text>
+    <text x="710" y="537">运营与数据</text>
   </g>
 
-  <!-- 顶层入口 -->
-  <g filter="url(#shadow)">
-    <rect x="230" y="112" width="170" height="90" rx="17" class="box"/>
-    <circle cx="266" cy="151" r="19" fill="#7457e8" opacity=".12"/><text x="266" y="157" text-anchor="middle" font-size="14" font-weight="700" fill="#7457e8">网</text>
-    <text x="294" y="143" class="label" fill="#604bc0">官网</text><text x="294" y="163" class="small">品牌展示与内容入口</text>
-    <rect x="414" y="112" width="200" height="90" rx="17" class="box"/>
-    <circle cx="450" cy="151" r="19" fill="#7457e8" opacity=".12"/><text x="450" y="157" text-anchor="middle" font-size="12" font-weight="700" fill="#7457e8">AI</text>
-    <text x="478" y="143" class="label" fill="#604bc0">Agent / Skills 平台</text><text x="478" y="163" class="small">能力浏览、调用与体验</text>
-    <rect x="628" y="112" width="170" height="90" rx="17" class="box"/>
-    <circle cx="664" cy="151" r="19" fill="#7457e8" opacity=".12"/><text x="664" y="157" text-anchor="middle" font-size="14" font-weight="700" fill="#7457e8">个</text>
-    <text x="692" y="143" class="label" fill="#604bc0">个人中心</text><text x="692" y="163" class="small">账户、权限与使用记录</text>
-    <rect x="812" y="112" width="170" height="90" rx="17" class="box"/>
-    <circle cx="848" cy="151" r="19" fill="#7457e8" opacity=".12"/><text x="848" y="157" text-anchor="middle" font-size="14" font-weight="700" fill="#7457e8">开</text>
-    <text x="876" y="143" class="label" fill="#604bc0">开放平台</text><text x="876" y="163" class="small">面向开发者与合作接入</text>
+  <!-- 04 现有服务入口 -->
+  <g filter="url(#softShadow)">
+    <rect x="966" y="258" width="170" height="310" rx="24" class="node"/>
+  </g>
+  <g transform="translate(990 284)">
+    <rect x="4" y="5" width="43" height="34" rx="6" class="icon"/>
+    <path d="M13 45h25M18 39v6M34 39v6M12 14h27M12 21h20" class="icon"/>
+  </g>
+  <text x="990" y="343" class="stage">04 / 服务出口</text>
+  <text x="990" y="379" class="cardTitle">现有入口</text>
+  <text x="990" y="407" class="cardLead">能力已经进入</text>
+  <text x="990" y="430" class="cardLead">用户与合作场景</text>
+  <g font-size="15" font-weight="600" fill="#4c5166">
+    <circle cx="998" cy="468" r="3" fill="#7357df"/><text x="1012" y="474">且慢 App</text>
+    <circle cx="998" cy="502" r="3" fill="#7357df"/><text x="1012" y="508">小程序 / H5</text>
+    <circle cx="998" cy="536" r="3" fill="#7357df"/><text x="1012" y="542">微信与千问</text>
   </g>
 
-  <!-- Stargate -->
-  <g filter="url(#shadow)">
-    <rect x="284" y="235" width="644" height="114" rx="22" class="box-core"/>
-    <circle cx="348" cy="283" r="30" fill="#fff" opacity=".14"/>
-    <path d="M331 286c7-19 28-23 40-8M367 272l5 7-8 1M365 287c-7 19-28 23-40 8M329 301l-5-7 8-1" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-    <text x="392" y="276" font-size="27" font-weight="700" class="on-dark">Stargate 管理后台</text>
-    <text x="392" y="300" font-size="13" font-weight="700" class="on-dark">统一管理中枢</text>
-    <g>
-      <rect x="310" y="315" width="84" height="22" rx="11" class="pillV"/><text x="352" y="330" text-anchor="middle" class="pillTextV">权限管理</text>
-      <rect x="404" y="315" width="84" height="22" rx="11" class="pillV"/><text x="446" y="330" text-anchor="middle" class="pillTextV">内容配置</text>
-      <rect x="498" y="315" width="84" height="22" rx="11" class="pillV"/><text x="540" y="330" text-anchor="middle" class="pillTextV">发布管理</text>
-      <rect x="592" y="315" width="94" height="22" rx="11" class="pillV"/><text x="639" y="330" text-anchor="middle" class="pillTextV">用户与角色</text>
-      <rect x="696" y="315" width="84" height="22" rx="11" class="pillV"/><text x="738" y="330" text-anchor="middle" class="pillTextV">运营维护</text>
-      <rect x="790" y="315" width="84" height="22" rx="11" class="pillV"/><text x="832" y="330" text-anchor="middle" class="pillTextV">数据统计</text>
-    </g>
+  <!-- 主链箭头 -->
+  <path d="M316 413H332" class="flow"/>
+  <path d="M658 413H674" class="flow"/>
+  <path d="M940 413H956" class="flow"/>
+
+  <!-- 右侧产品化路线 -->
+  <text x="1210" y="198" class="stage">产品化路径</text>
+  <text x="1210" y="226" font-size="17" font-weight="600" fill="#4a5064">让能力进入新的工作与创新现场</text>
+
+  <g filter="url(#softShadow)">
+    <rect x="1204" y="258" width="346" height="142" rx="24" fill="url(#yingwork)" stroke="#efc988" stroke-width="1.2"/>
   </g>
-
-  <!-- AI 资产层 -->
-  <g filter="url(#shadow)">
-    <rect x="230" y="385" width="225" height="112" rx="18" class="box"/>
-    <circle cx="268" cy="426" r="22" fill="#7457e8" opacity=".12"/><text x="268" y="432" text-anchor="middle" font-size="12" font-weight="700" fill="#7457e8">MCP</text>
-    <text x="302" y="418" font-size="19" font-weight="700" fill="#604bc0">MCP</text><text x="302" y="438" class="small">标准化能力接口 / 工具调用</text>
-    <rect x="250" y="461" width="54" height="22" rx="11" class="pill"/><text x="277" y="476" text-anchor="middle" class="pillText">查询</text>
-    <rect x="314" y="461" width="54" height="22" rx="11" class="pill"/><text x="341" y="476" text-anchor="middle" class="pillText">计算</text>
-    <rect x="378" y="461" width="54" height="22" rx="11" class="pill"/><text x="405" y="476" text-anchor="middle" class="pillText">分析</text>
-    <rect x="475" y="385" width="225" height="112" rx="18" class="box"/>
-    <circle cx="513" cy="426" r="22" fill="#7457e8" opacity=".12"/><text x="513" y="432" text-anchor="middle" font-size="12" font-weight="700" fill="#7457e8">SK</text>
-    <text x="547" y="418" font-size="19" font-weight="700" fill="#604bc0">Skills</text><text x="547" y="438" class="small">业务规则、流程与模板封装</text>
-    <rect x="495" y="461" width="54" height="22" rx="11" class="pill"/><text x="522" y="476" text-anchor="middle" class="pillText">SOP</text>
-    <rect x="559" y="461" width="54" height="22" rx="11" class="pill"/><text x="586" y="476" text-anchor="middle" class="pillText">模板</text>
-    <rect x="623" y="461" width="54" height="22" rx="11" class="pill"/><text x="650" y="476" text-anchor="middle" class="pillText">编排</text>
-    <rect x="720" y="385" width="262" height="112" rx="18" class="box"/>
-    <circle cx="758" cy="426" r="22" fill="#7457e8" opacity=".12"/><text x="758" y="432" text-anchor="middle" font-size="11" font-weight="700" fill="#7457e8">Agent</text>
-    <text x="792" y="418" font-size="19" font-weight="700" fill="#604bc0">Agent</text><text x="792" y="438" class="small">意向任务规划、执行与结果输出</text>
-    <rect x="742" y="461" width="58" height="22" rx="11" class="pill"/><text x="771" y="476" text-anchor="middle" class="pillText">规划</text>
-    <rect x="810" y="461" width="58" height="22" rx="11" class="pill"/><text x="839" y="476" text-anchor="middle" class="pillText">执行</text>
-    <rect x="878" y="461" width="58" height="22" rx="11" class="pill"/><text x="907" y="476" text-anchor="middle" class="pillText">报告</text>
+  <g transform="translate(1230 282)">
+    <path d="M7 8h35v27H7zM13 14h23M13 21h16M13 28h10M17 41h15" class="iconOrange"/>
+    <path d="M23 35v6" class="iconOrange"/>
   </g>
+  <text x="1292" y="290" class="routeState" fill="#c66b15">正在建设</text>
+  <text x="1292" y="326" class="routeTitle">YingWork 工作台</text>
+  <text x="1230" y="356" class="routeText">把内部能力装配成面向员工的 AI 工作入口</text>
+  <text x="1230" y="383" class="routeItems" fill="#a85f19">搜索 · 分析 · 写作 · 执行</text>
 
-  <!-- 基础层 -->
-  <g filter="url(#shadow)">
-    <rect x="230" y="532" width="355" height="108" rx="18" class="box-soft"/>
-    <circle cx="271" cy="574" r="22" fill="#7457e8" opacity=".14"/><text x="271" y="580" text-anchor="middle" font-size="13" font-weight="700" fill="#7457e8">数</text>
-    <text x="306" y="566" font-size="19" font-weight="700" fill="#604bc0">数据基础</text><text x="306" y="587" class="small">AI 可理解的金融数据</text>
-    <rect x="250" y="603" width="62" height="22" rx="11" class="pill"/><text x="281" y="618" text-anchor="middle" class="pillText">基金</text>
-    <rect x="322" y="603" width="62" height="22" rx="11" class="pill"/><text x="353" y="618" text-anchor="middle" class="pillText">市场</text>
-    <rect x="394" y="603" width="62" height="22" rx="11" class="pill"/><text x="425" y="618" text-anchor="middle" class="pillText">账户</text>
-    <rect x="466" y="603" width="62" height="22" rx="11" class="pill"/><text x="497" y="618" text-anchor="middle" class="pillText">资讯</text>
-    <rect x="605" y="532" width="377" height="108" rx="18" class="box-soft"/>
-    <circle cx="646" cy="574" r="22" fill="#7457e8" opacity=".14"/><text x="646" y="580" text-anchor="middle" font-size="13" font-weight="700" fill="#7457e8">工</text>
-    <text x="681" y="566" font-size="19" font-weight="700" fill="#604bc0">工具能力</text><text x="681" y="587" class="small">可计算、可诊断的金融工具</text>
-    <rect x="625" y="603" width="62" height="22" rx="11" class="pill"/><text x="656" y="618" text-anchor="middle" class="pillText">查询</text>
-    <rect x="697" y="603" width="62" height="22" rx="11" class="pill"/><text x="728" y="618" text-anchor="middle" class="pillText">计算</text>
-    <rect x="769" y="603" width="62" height="22" rx="11" class="pill"/><text x="800" y="618" text-anchor="middle" class="pillText">分析</text>
-    <rect x="841" y="603" width="62" height="22" rx="11" class="pill"/><text x="872" y="618" text-anchor="middle" class="pillText">诊断</text>
+  <g filter="url(#softShadow)">
+    <rect x="1204" y="426" width="346" height="142" rx="24" fill="url(#lab)" stroke="#bcb3d8" stroke-width="1.2" stroke-dasharray="7 6"/>
   </g>
-
-  <!-- 实线主关系 -->
-  <path d="M342 385V354" class="line"/><path d="M587 385V354" class="line"/><path d="M851 385V354" class="line"/>
-  <path d="M315 235V205" class="line"/><path d="M514 235V205" class="line"/><path d="M713 235V205" class="line"/><path d="M897 235V205" class="line"/>
-  <path d="M342 532V501" class="line"/><path d="M587 532V501" class="line"/><path d="M851 532V501" class="line"/>
-
-  <!-- 原图中的外围虚线管理 / 调用关系 -->
-  <path d="M230 438C185 438 185 158 226 158" class="dash"/>
-  <path d="M982 438C1020 438 1021 157 987 157" class="dash"/>
-  <path d="M182 292H278" class="dash"/>
-  <path d="M182 424H224" class="dash"/>
-
-  <!-- 能力沉淀链路 -->
-  <g filter="url(#shadow)">
-    <rect x="1010" y="112" width="242" height="528" rx="22" class="box"/>
-    <text x="1032" y="148" font-size="19" font-weight="700" fill="#604bc0">能力沉淀链路</text>
-    <line x1="1032" y1="163" x2="1230" y2="163" stroke="#e2deef"/>
-    <path d="M1045 190V590" fill="none" stroke="#c9bef0" stroke-width="1.4" stroke-dasharray="4 5"/>
-    <g><circle cx="1045" cy="199" r="15" fill="#f2eeff" stroke="#7457e8"/><text x="1045" y="204" text-anchor="middle" class="num">01</text><text x="1072" y="194" font-size="13.5" font-weight="700" fill="#604bc0">数据与工具</text><text x="1072" y="212" class="tiny">采集、清洗、市场分析能力沉淀</text></g>
-    <g><circle cx="1045" cy="274" r="15" fill="#f2eeff" stroke="#7457e8"/><text x="1045" y="279" text-anchor="middle" class="num">02</text><text x="1072" y="269" font-size="13.5" font-weight="700" fill="#604bc0">MCP</text><text x="1072" y="287" class="tiny">挖掘底层能力标准化为可调用工具</text></g>
-    <g><circle cx="1045" cy="349" r="15" fill="#f2eeff" stroke="#7457e8"/><text x="1045" y="354" text-anchor="middle" class="num">03</text><text x="1072" y="344" font-size="13.5" font-weight="700" fill="#604bc0">Skills</text><text x="1072" y="362" class="tiny">将业务知识、流程与模板封装为技能</text></g>
-    <g><circle cx="1045" cy="424" r="15" fill="#f2eeff" stroke="#7457e8"/><text x="1045" y="429" text-anchor="middle" class="num">04</text><text x="1072" y="419" font-size="13.5" font-weight="700" fill="#604bc0">Agent</text><text x="1072" y="437" class="tiny">意图聚合、调度工具与技能完成任务</text></g>
-    <g><circle cx="1045" cy="499" r="15" fill="#fff6f0" stroke="#f2763a"/><text x="1045" y="504" text-anchor="middle" class="numO">05</text><text x="1072" y="494" font-size="13.5" font-weight="700" fill="#dd6a34">应用场景</text><text x="1072" y="512" class="tiny">官网、Agent 平台、个人中心等</text><text x="1072" y="527" class="tiny">场景使用</text></g>
-    <g><circle cx="1045" cy="584" r="15" fill="#fff6f0" stroke="#f2763a"/><text x="1045" y="589" text-anchor="middle" class="numO">06</text><text x="1072" y="579" font-size="13.5" font-weight="700" fill="#dd6a34">开放生态</text><text x="1072" y="597" class="tiny">面向开发者、持续导合的外部输出</text><text x="1072" y="612" class="tiny">能力</text></g>
+  <g transform="translate(1230 450)">
+    <path d="M15 5h20M20 5v13L8 39c-3 5 1 9 7 9h20c6 0 10-4 7-9L30 18V5" class="iconGray"/>
+    <path d="M14 36h23M18 29c5 3 10-3 17 1" class="iconGray"/>
   </g>
+  <text x="1292" y="458" class="routeState" fill="#746a9e">下一阶段</text>
+  <text x="1292" y="494" class="routeTitle">AI 实验室</text>
+  <text x="1230" y="524" class="routeText">为业务团队提供受控的试验、评测与孵化空间</text>
+  <text x="1230" y="551" class="routeItems" fill="#6f6597">试验 · 评测 · 沙盒 · 发布</text>
 
-  <g filter="url(#shadow)">
-    <rect x="110" y="664" width="1058" height="36" rx="18" fill="#fff" stroke="#d7d0eb"/>
-    <circle cx="338" cy="682" r="13" fill="#7457e8" opacity=".13"/><text x="338" y="687" text-anchor="middle" font-size="11" font-weight="700" fill="#7457e8">✓</text>
-    <text x="365" y="688" font-size="16" font-weight="700" fill="#4d3bac">让金融能力从内部经验，变成 AI 可调用、可组合、可复用的基础设施。</text>
-  </g>
+  <!-- 从现有体系延展到两条路线 -->
+  <path d="M1136 397H1176V329H1194" class="branch"/>
+  <path d="M1176 397V497H1194" class="branch"/>
+  <circle cx="1176" cy="397" r="5" fill="#7357df"/>
+
+  <!-- 底部结论 -->
+  <circle cx="58" cy="687" r="6" fill="#7357df"/>
+  <text x="78" y="695" class="footer">能力已形成</text>
+  <path d="M222 687H278" stroke="#c8c1df" stroke-width="2"/>
+  <circle cx="300" cy="687" r="6" fill="#e68a25"/>
+  <text x="320" y="695" class="footer">YingWork 把能力带进工作现场</text>
+  <path d="M672 687H728" stroke="#c8c1df" stroke-width="2"/>
+  <circle cx="750" cy="687" r="6" fill="#8e83b5"/>
+  <text x="770" y="695" class="footer">AI 实验室承接下一轮试验与孵化</text>
 </svg>

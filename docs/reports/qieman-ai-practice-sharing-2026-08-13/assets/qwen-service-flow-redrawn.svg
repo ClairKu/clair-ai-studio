@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
   <title id="title">千问与且慢四阶段服务链路</title>
-  <desc id="desc">公开安全重绘：从发现盈米基金智能体、用户授权绑定且慢账号、小顾提供账户级分析，到且慢页面承接受监管动作。图中不含真实身份、账户或交易数据。</desc>
+  <desc id="desc">从发现专业服务、用户授权绑定账号、小顾完成账户分析，到且慢承接后续服务的四步链路。</desc>
   <defs>
     <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#fbfaff"/>
@@ -41,9 +41,9 @@
   <circle cx="1510" cy="40" r="152" fill="none" stroke="#7457e8" stroke-opacity=".09" stroke-width="2"/>
   <circle cx="88" cy="846" r="150" fill="#7457e8" opacity=".035"/>
 
-  <text x="80" y="76" class="sans eyebrow">QWEN × QIEMAN · PUBLIC-SAFE REDRAW</text>
-  <text x="80" y="144" class="serif headline">从发现，到受监管动作的四阶段服务链路</text>
-  <text x="80" y="184" class="sans subtitle">入口负责发现，用户决定授权，小顾提供专业分析，且慢承接需确认的后续动作。</text>
+  <text x="80" y="76" class="sans eyebrow">QWEN × QIEMAN · SERVICE LOOP</text>
+  <text x="80" y="144" class="serif headline">从发现，到且慢承接的四步服务链路</text>
+  <text x="80" y="184" class="sans subtitle">千问承接用户需求，且慢以专业能力完成账户服务与交易闭环。</text>
 
   <!-- Stage 01 -->
   <g transform="translate(80 256)" filter="url(#shadow)">
@@ -56,9 +56,9 @@
       <path d="M45 45L58 58" fill="none" stroke="#7457e8" stroke-width="4" stroke-linecap="round"/>
       <path d="M58 17V27M53 22H63" fill="none" stroke="#45bfb1" stroke-width="3" stroke-linecap="round"/>
     </g>
-    <text x="28" y="246" class="serif card-title">发现盈米基金智能体</text>
-    <text x="28" y="286" class="sans body">用户在通用 AI 平台提出</text>
-    <text x="28" y="316" class="sans body">投资问题，发现专业服务入口。</text>
+    <text x="28" y="246" class="serif card-title">发现专业服务</text>
+    <text x="28" y="286" class="sans body">用户在千问提出投资问题，</text>
+    <text x="28" y="316" class="sans body">发现且慢的专业服务入口。</text>
     <rect x="28" y="360" width="116" height="38" rx="19" fill="#f2efff"/>
     <text x="86" y="385" text-anchor="middle" class="sans pill">问题触发</text>
     <rect x="154" y="360" width="118" height="38" rx="19" fill="#e5f8f4"/>
@@ -77,9 +77,9 @@
       <path d="M55 19l9 4v9c0 7-4 12-9 15-5-3-9-8-9-15v-9Z" fill="#45bfb1"/>
       <path d="M51 32l3 3 6-7" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
     </g>
-    <text x="28" y="246" class="serif card-title">授权绑定且慢账号</text>
-    <text x="28" y="286" class="sans body">用户主动确认授权，建立账户级</text>
-    <text x="28" y="316" class="sans body">服务所需的身份连接。</text>
+    <text x="28" y="246" class="serif card-title">授权绑定账号</text>
+    <text x="28" y="286" class="sans body">用户确认授权与账号绑定，</text>
+    <text x="28" y="316" class="sans body">连接账户级服务所需信息。</text>
     <rect x="28" y="360" width="116" height="38" rx="19" fill="#f2efff"/>
     <text x="86" y="385" text-anchor="middle" class="sans pill">用户确认</text>
     <rect x="154" y="360" width="118" height="38" rx="19" fill="#f2efff"/>
@@ -96,9 +96,9 @@
       <path d="M19 54h41M24 50V38M36 50V27M48 50V33M60 50V20" fill="none" stroke="#7457e8" stroke-width="4" stroke-linecap="round"/>
       <path d="M20 27c10 2 17-8 25-5 7 2 10-4 17-9" fill="none" stroke="#45bfb1" stroke-width="3" stroke-linecap="round"/>
     </g>
-    <text x="28" y="246" class="serif card-title">小顾提供账户级分析</text>
-    <text x="28" y="286" class="sans body">在授权范围内组织诊断、解释</text>
-    <text x="28" y="316" class="sans body">与可继续追问的下一步建议。</text>
+    <text x="28" y="246" class="serif card-title">小顾完成分析</text>
+    <text x="28" y="286" class="sans body">围绕账户完成诊断与解释，</text>
+    <text x="28" y="316" class="sans body">并给出可继续追问的建议。</text>
     <rect x="28" y="360" width="116" height="38" rx="19" fill="#f2efff"/>
     <text x="86" y="385" text-anchor="middle" class="sans pill">专业分析</text>
     <rect x="154" y="360" width="118" height="38" rx="19" fill="#f2efff"/>
@@ -117,11 +117,11 @@
       <circle cx="59" cy="58" r="13" fill="#45bfb1"/>
       <path d="M53 58l4 4 8-10" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
     </g>
-    <text x="28" y="246" class="serif card-title on-dark" font-size="24" style="font-size:24px">且慢页面承接受监管动作</text>
-    <text x="28" y="286" class="sans body on-dark-muted">风险测评、交易与支付等动作，</text>
-    <text x="28" y="316" class="sans body on-dark-muted">仍由用户本人在且慢页面确认。</text>
+    <text x="28" y="246" class="serif card-title on-dark">且慢承接服务</text>
+    <text x="28" y="286" class="sans body on-dark-muted">用户回到且慢完成风险确认、</text>
+    <text x="28" y="316" class="sans body on-dark-muted">交易与后续持续服务。</text>
     <rect x="28" y="360" width="132" height="38" rx="19" fill="#7457e8" opacity=".4"/>
-    <text x="94" y="385" text-anchor="middle" class="sans pill on-dark">受监管动作</text>
+    <text x="94" y="385" text-anchor="middle" class="sans pill on-dark">服务闭环</text>
     <rect x="170" y="360" width="118" height="38" rx="19" fill="#fff" opacity=".1"/>
     <text x="229" y="385" text-anchor="middle" class="sans pill on-dark">用户确认</text>
   </g>
@@ -129,9 +129,9 @@
   <!-- Handoffs -->
   <g class="sans">
     <path d="M414 471H440" fill="none" stroke="#7457e8" stroke-width="3" marker-end="url(#arrow)"/>
-    <text x="427" y="448" text-anchor="middle" class="arrow-label">发现</text>
+    <text x="427" y="448" text-anchor="middle" class="arrow-label">授权</text>
     <path d="M784 471H810" fill="none" stroke="#7457e8" stroke-width="3" marker-end="url(#arrow)"/>
-    <text x="797" y="448" text-anchor="middle" class="arrow-label">授权</text>
+    <text x="797" y="448" text-anchor="middle" class="arrow-label">分析</text>
     <path d="M1154 471H1180" fill="none" stroke="#7457e8" stroke-width="3" marker-end="url(#arrow)"/>
     <text x="1167" y="448" text-anchor="middle" class="arrow-label">承接</text>
   </g>
@@ -140,9 +140,9 @@
     <rect width="1440" height="84" rx="24" fill="#fff" stroke="#d8d2eb"/>
     <circle cx="42" cy="42" r="20" fill="#f2efff"/>
     <path d="M34 42l6 6 11-14" fill="none" stroke="#7457e8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-    <text x="78" y="36" class="sans" font-size="17" font-weight="800" fill="#5138b5">链路边界</text>
-    <text x="78" y="61" class="sans" font-size="16" fill="#687287">公开概念重绘，不含真实账户、身份或交易数据；只说明服务交接，不代表新增归因或当前全量生产状态。</text>
+    <text x="78" y="36" class="sans" font-size="17" font-weight="800" fill="#5138b5">合作价值</text>
+    <text x="78" y="61" class="sans" font-size="16" fill="#687287">用户在千问发现且慢，在授权后获得账户分析，并在且慢完成后续服务。</text>
     <rect x="1246" y="24" width="164" height="36" rx="18" fill="#f2efff"/>
-    <text x="1328" y="48" text-anchor="middle" class="sans" font-size="14" font-weight="800" fill="#5138b5">PUBLIC-SAFE</text>
+    <text x="1328" y="48" text-anchor="middle" class="sans" font-size="14" font-weight="800" fill="#5138b5">发现 → 服务 → 转化</text>
   </g>
 </svg>
