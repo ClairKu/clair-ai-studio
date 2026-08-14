@@ -42,11 +42,6 @@
       "sha256": "15ceb15578a9153c43add3e06a6a9b8f885027dbc45edacd6fe6fc9d9d2d241b"
     },
     {
-      "path": "assets/system-relationship.svg",
-      "bytes": 11453,
-      "sha256": "3aa5730dae4fce6c0965e0f93f28e26f670b2c2de76da939d4047231c320fc24"
-    },
-    {
       "path": "assets/wechat-xiaowei-dialogue-01.png",
       "bytes": 873405,
       "sha256": "8dfef99d2a2451ef20275b0dcef37e230b197beecb8c43a8c10da2402f5c617a"
@@ -67,49 +62,14 @@
       "sha256": "9116eb6f24afa7266735adb4b2582516ad227f826cc08424148b58aaba7deff0"
     },
     {
-      "path": "assets/service-relationship.svg",
-      "bytes": 8673,
-      "sha256": "cc489636c5383cc979f66687f898818e5156a62c6dcb2af88573684401f636e6"
-    },
-    {
-      "path": "assets/videos/behavior-analysis-task-redacted.mp4",
-      "bytes": 12252283,
-      "sha256": "4015e8b3b1e3db89a6a5d0e2a8e7c78a3f81a442b6527b416f57a70d6d688f6d"
-    },
-    {
-      "path": "assets/videos/behavior-analysis-report-redacted.mp4",
-      "bytes": 10211361,
-      "sha256": "beaa4382e41b083f9b4c24defffb2acf3d3954dd51ed296b1b5368b700ecc5fb"
-    },
-    {
-      "path": "assets/posters/behavior-analysis-task-redacted.jpg",
-      "bytes": 61680,
-      "sha256": "2c8ec96f958118031be0ac1d09184f6f24a7b67f412afeb08412a2f77bd17014"
-    },
-    {
-      "path": "assets/posters/behavior-analysis-report-redacted.jpg",
-      "bytes": 56097,
-      "sha256": "ff559837319fdc4c96e1322367dc524fcf5273a4ac423fbb4fb47863f0d51c20"
-    },
-    {
       "path": "assets/videos/behavior-analysis-full-process.mp4",
       "bytes": 9658103,
       "sha256": "3e86dfa93dd9d4a8e9a979376ef002b954be98ce1d4121b41f9a3719ba8bde16"
     },
     {
-      "path": "assets/videos/behavior-analysis-full-report.mp4",
-      "bytes": 8948860,
-      "sha256": "3de2c78de56e1887c4e24b7a5aba5bc7f7cdf97aa6664f8efe465456854377cb"
-    },
-    {
       "path": "assets/posters/behavior-analysis-full-process.jpg",
       "bytes": 90317,
       "sha256": "9b27e039f5b32b25008da1e9a2184b5dbaa9a7cb636410a676a13de77a637e8e"
-    },
-    {
-      "path": "assets/posters/behavior-analysis-full-report.jpg",
-      "bytes": 46464,
-      "sha256": "c82facb684b214c14fe9d118a45cb8350dfa0331ea44dc2c80af17028cbc496f"
     },
     {
       "path": "assets/oap-journey-metrics.html",
