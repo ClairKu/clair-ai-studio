@@ -25,3 +25,11 @@
 - 本次更新沿用工作台既有唯一 slug：`qieman-ai-growth-oap-integrated-2026-08-14`，避免产生内容重复的第二张卡片。
 - 未修改 `qieman-ai-growth-practice-2026-08-14`。
 - 未修改 `yingmi-ai-oap-framework-2026-08-03`。
+
+## 生产验证
+
+- 内容合并：PR #33，merge SHA `489e0819395f155654e47863e80f3de06ac805de`。
+- GitHub Pages `pages-build-deployment` 构建、状态回报与部署三项任务全部通过。
+- 报告、工作台搜索索引与预览图均为 HTTP 200；生产页标题和 4 个新增战略章节已生效。
+- 生产清单 14 / 14 个资源逐一通过 HTTP、字节数与 SHA256 校验。
+- 生产 Playwright 复验：1440 × 900 与 390 × 844 均为 0 横向溢出、0 坏图、0 缺失 alt、0 控制台错误、0 页面错误、0 失败响应；翻页、回顶与移动目录通过。
