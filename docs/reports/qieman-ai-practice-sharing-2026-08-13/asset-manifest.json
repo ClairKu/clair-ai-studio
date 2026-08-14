@@ -17,6 +17,11 @@
       "sha256": "924d86eee4bef9979e52a2f8f2e031e7a26ba9a0244f86f916452fb667f66738"
     },
     {
+      "path": "assets/transaction-export-before-proof-statement.png",
+      "bytes": 270928,
+      "sha256": "3327ff44848536db0ad604c2d368eb92afda610d6fde49080902f9c638e2bdb1"
+    },
+    {
       "path": "assets/videos/transaction-export-full.mp4",
       "bytes": 1902785,
       "sha256": "1af9496cab765e7538f21c19a21f39c7050aa681ce6a505f062fee6107a9e1b2"
