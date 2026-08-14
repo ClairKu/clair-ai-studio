@@ -72,6 +72,71 @@
       "sha256": "9b27e039f5b32b25008da1e9a2184b5dbaa9a7cb636410a676a13de77a637e8e"
     },
     {
+      "path": "assets/videos/behavior-analysis-full-report.mp4",
+      "bytes": 8948860,
+      "sha256": "3de2c78de56e1887c4e24b7a5aba5bc7f7cdf97aa6664f8efe465456854377cb"
+    },
+    {
+      "path": "assets/posters/behavior-analysis-full-report.jpg",
+      "bytes": 46464,
+      "sha256": "c82facb684b214c14fe9d118a45cb8350dfa0331ea44dc2c80af17028cbc496f"
+    },
+    {
+      "path": "assets/brand-exposure/posters/01-insight-article.jpg",
+      "bytes": 123533,
+      "sha256": "5540eb80273f4634d7149636c2f305848eb1b66d84a7ab194cae020ef32be0cc"
+    },
+    {
+      "path": "assets/brand-exposure/posters/02-five-agent-review.jpg",
+      "bytes": 96856,
+      "sha256": "1bb03b67cd551d14108c65213a944f25366eba9205e0408320388ab18dbea9cc"
+    },
+    {
+      "path": "assets/brand-exposure/posters/03-agent-deep-review.jpg",
+      "bytes": 105011,
+      "sha256": "de99feff23c26193da8a9e1da1174475276a2441931f3eb138af090b52a15fc6"
+    },
+    {
+      "path": "assets/brand-exposure/posters/04-ai-tech-review.jpg",
+      "bytes": 78152,
+      "sha256": "f20fc112de225925b81bc7ae0b8b36dc793427c0213f1b4649464714e0606eca"
+    },
+    {
+      "path": "assets/brand-exposure/posters/05-fourth-wave-review.jpg",
+      "bytes": 109928,
+      "sha256": "c1f3c890979ef681a89fec0521b044eca09f10e0928ef4e8ad16ec5a22b5ee4e"
+    },
+    {
+      "path": "assets/brand-exposure/videos/01-insight-article.mp4",
+      "bytes": 9630295,
+      "sha256": "17a472cb5c52239da6729f439f91463a228afbbeadde5281ab3e07d8b1067848"
+    },
+    {
+      "path": "assets/brand-exposure/videos/02-five-agent-review.mp4",
+      "bytes": 3432959,
+      "sha256": "c95851857f1df94a1f7815913210e437223108fc05882832c3d3d4071b7ef378"
+    },
+    {
+      "path": "assets/brand-exposure/videos/03-agent-deep-review.mp4",
+      "bytes": 3962388,
+      "sha256": "3d973545cd762e541924fcabda624faa0fab149a408bb5daa1d33d66f1123fbd"
+    },
+    {
+      "path": "assets/brand-exposure/videos/04-ai-tech-review.mp4",
+      "bytes": 3977388,
+      "sha256": "1be4748cbf5b3bb800f37a22eb523c8ef30bccc96777cb86e71d5d89d92aa9f6"
+    },
+    {
+      "path": "assets/brand-exposure/videos/05-fourth-wave-review.mp4",
+      "bytes": 6776976,
+      "sha256": "a0c8f97f291c720b60da7ca8474a06e173660be97f39adb0632cb2ec659e30b9"
+    },
+    {
+      "path": "assets/system-relationship.svg",
+      "bytes": 15307,
+      "sha256": "1acfc70356a4560d97b59ed664a46c8924caaa6a86d55e756b1e38a834d00d14"
+    },
+    {
       "path": "assets/oap-journey-metrics.html",
       "bytes": 97830,
       "sha256": "bd91e2bd2cc9541738ab9219aa1e07e674ad5e9abb09aea3b2de19ac73896275"

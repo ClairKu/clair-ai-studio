@@ -6,8 +6,8 @@
     "date": "2026-08-14",
     "owner": "且慢产品团队 × 盈米 AI 开放平台",
     "accent": "#7457E8",
-    "brand": "Clair AI Studio",
-    "brandMark": "C"
+    "brand": "Qieman AI",
+    "brandMark": "Q"
   },
   "hero": {
     "conclusion": "且慢的 AI 实践不是多做一个聊天框，而是先用小顾证明专业服务可以被低门槛交付，再把服务拆成可复用、可治理、可分发的能力，进入新的超级入口。",
@@ -32,7 +32,7 @@
   "agenda": {
     "enabled": true,
     "label": "AGENDA",
-    "title": "导航目录",
+    "title": "报告大纲",
     "groups": [
       {
         "index": "01",
@@ -47,9 +47,10 @@
         "index": "02",
         "eyebrow": "VALIDATION · 价值验证",
         "title": "小顾先把服务做出来",
-        "summary": "真实任务、完整录屏与深度报告验证价值",
+        "summary": "真实任务验证价值，产品进程解释演进，经验总结沉淀方法",
         "sections": [
           "价值验证",
+          "产品进程",
           "经验总结"
         ]
       },
@@ -182,6 +183,10 @@
       "lead": "案例一｜导出交易记录。过去只能查看记录或逐月获取对账单；现在只需说清目的，AI 即可完成全量取数、文件生成与交付。",
       "layout": "export-case",
       "tone": "dark",
+      "beforeLabel": "以前",
+      "beforeLead": "找入口 · 按月获取",
+      "nowLabel": "现在",
+      "nowLead": "一句话交任务 · Excel 直接下载",
       "oldWays": [
         {
           "index": "01",
@@ -231,8 +236,8 @@
       "navHidden": true,
       "kicker": "P4 · VALUE PROOF / BEHAVIOR",
       "title": "价值验证：从“不可能”到“可能”",
-      "lead": "从逐笔交易与资金流向识别行为模式，再形成有解释、有方案、有跟踪的完整服务。",
-      "layout": "demo",
+      "lead": "两支完整录屏展示：AI 如何从全量交易记录出发，识别行为偏差、给出逐笔证据，并形成可执行的矫正方案。",
+      "layout": "behavior-proof",
       "tone": "dark",
       "items": [
         {
@@ -241,60 +246,48 @@
           "title": "复杂任务如何被完成",
           "body": "从需求理解、取数、分析成稿到连续追问，完整展示 AI 如何把复杂问题推进到结果。",
           "meta": "TASK FLOW · FULL PROCESS",
-          "bullets": [
-            "取数",
-            "分析",
-            "成稿",
-            "追问"
-          ],
           "video": "assets/videos/behavior-analysis-full-process.mp4",
           "poster": "assets/posters/behavior-analysis-full-process.jpg"
+        },
+        {
+          "index": "02",
+          "eyebrow": "完整报告 · 00:59",
+          "title": "完整报告如何被交付",
+          "body": "从全景洞察、逐笔依据到矫正方案与进度追踪，结果可浏览、复看并继续追问。",
+          "meta": "REPORT DELIVERY · FULL REPORT",
+          "video": "assets/videos/behavior-analysis-full-report.mp4",
+          "poster": "assets/posters/behavior-analysis-full-report.jpg"
+        }
+      ],
+      "capabilityEyebrow": "FROM TRANSACTIONS TO ACTION",
+      "capabilityTitle": "四项能力，把交易事实变成行动",
+      "capabilities": [
+        {
+          "index": "01",
+          "title": "全量交易记录分析",
+          "body": "在用户授权范围内汇总完整历史交易，逐笔计算买卖时点、金额与持有变化。"
+        },
+        {
+          "index": "02",
+          "title": "行为偏差识别",
+          "body": "从交易频率、买卖节奏与盈亏处置中识别反复出现的行为模式。"
+        },
+        {
+          "index": "03",
+          "title": "真实交易证明",
+          "body": "每项判断回到具体交易时间、价格、金额与后续表现，形成可核对证据链。"
+        },
+        {
+          "index": "04",
+          "title": "矫正方案",
+          "body": "把识别结果转成可执行规则、提醒与复盘节奏，并持续追踪改进。"
         }
       ]
     },
     {
-      "id": "experience-summary",
-      "navLabel": "经验总结",
-      "kicker": "P5 · EXPERIENCE SUMMARY",
-      "title": "经验总结",
-      "lead": "真正困难的不是接上大模型，而是让业务、服务、生产和治理四套机制一起工作。",
-      "layout": "cards",
-      "tone": "light",
-      "items": [
-        {
-          "index": "01",
-          "eyebrow": "BUSINESS",
-          "title": "业务驱动",
-          "body": "从真实需求出发，不为 AI 而 AI；问题先于模型，结果先于功能。"
-        },
-        {
-          "index": "02",
-          "eyebrow": "SERVICE",
-          "title": "服务设计",
-          "body": "投顾引导降低门槛，引用与白盒建立信任，卡片与人机交接承接体验。"
-        },
-        {
-          "index": "03",
-          "eyebrow": "PRODUCTION",
-          "title": "生产机制",
-          "body": "能力可拆、可配、可复用，并能快速接入不同系统与终端。"
-        },
-        {
-          "index": "04",
-          "eyebrow": "GOVERNANCE",
-          "title": "治理机制",
-          "body": "数据标注、评测、风险提示、授权与用户预期管理同步前置。"
-        }
-      ],
-      "callout": {
-        "label": "核心经验",
-        "text": "模型越自由，系统越要清楚什么能做、谁确认、如何追溯、失败怎样降级。"
-      }
-    },
-    {
       "id": "product-evolution",
       "navHidden": true,
-      "kicker": "P6 · PRODUCT PROCESS",
+      "kicker": "P5 · PRODUCT PROCESS",
       "title": "产品进程",
       "lead": "小顾从解决账户服务痛点出发，持续扩展解题广度、服务深度与任务执行能力，最终走向用户投资任务闭环。",
       "layout": "timeline",
@@ -352,6 +345,65 @@
       "callout": {
         "label": "演进主线",
         "text": "1.0 做真实价值 → 2.0 扩展解题广度 → 3.0 做服务深度 → 4.0 完成用户任务。"
+      }
+    },
+    {
+      "id": "experience-summary",
+      "navLabel": "经验总结",
+      "kicker": "P6 · EXPERIENCE SUMMARY",
+      "title": "小顾从0-1，到3.0，产品经验总结",
+      "lead": "从 0→1 验证真实价值，到 3.0 建设记忆、任务与执行，小顾真正沉淀的不是一个模型，而是一套能随技术演进持续升级的产品方法。",
+      "layout": "cards",
+      "tone": "light",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "0→1 · VALUE",
+          "title": "真实问题，先于 AI",
+          "body": "从真实投资任务出发，先验证用户价值与业务结果，再选择模型和功能。",
+          "bullets": [
+            "真实任务",
+            "价值先行",
+            "结果验证"
+          ]
+        },
+        {
+          "index": "02",
+          "eyebrow": "1.0 · SERVICE",
+          "title": "服务闭环，先于功能",
+          "body": "用引导、引用、卡片与人机交接，把一次回答做成可理解、可完成、可持续的投顾服务。",
+          "bullets": [
+            "低门槛",
+            "白盒解释",
+            "人机协同"
+          ]
+        },
+        {
+          "index": "03",
+          "eyebrow": "2.0→3.0 · FRAMEWORK",
+          "title": "框架升级，跟上技术",
+          "body": "不押注单一模型；持续吸收模型、MCP、Skills 与 Agent 的迭代，让能力可拆、可配、可替换。",
+          "bullets": [
+            "模型可替换",
+            "能力可组合",
+            "框架可升级"
+          ]
+        },
+        {
+          "index": "04",
+          "eyebrow": "ALWAYS · GOVERNANCE",
+          "title": "治理前置，才能放大",
+          "body": "能力越接近执行，授权、评测、风险提示、审计与失败降级越要前置，关键动作始终由用户确认。",
+          "bullets": [
+            "授权可追溯",
+            "评测可复现",
+            "失败可降级"
+          ]
+        }
+      ],
+      "callout": {
+        "label": "一条主线",
+        "text": "业务目标保持稳定，模型与能力层保持可替换，产品框架持续升级。"
       }
     },
     {
@@ -712,48 +764,67 @@
     },
     {
       "id": "super-entrances",
-      "navLabel": "走出且慢",
       "kicker": "P13 · SUPER ENTRANCES",
-      "title": "接入超级流量入口",
-      "lead": "不同入口完成需求发现、能力调用、身份承接与交易确认，把专业服务带到用户所在场景。",
-      "layout": "entrances",
-      "tone": "soft",
+      "title": "新超级入口，打开用户增量",
+      "lead": "微信承接服务路由，千问兼顾能力直连与完整 Agent 嵌入，百度恢复并升级既有合作。",
+      "layout": "cards",
+      "visual": "channel-entrances",
+      "tone": "light",
       "items": [
         {
-          "index": "01",
           "eyebrow": "WECHAT · SKILLS + MINI PROGRAM",
+          "tag": "服务路由",
           "title": "微信：把且慢服务变成 AI 能力",
-          "body": "微信 Agent 识别投资问题与购买意图，且慢 Skills 提供专业服务，小程序承接身份、账户与交易。",
-          "bullets": [
-            "Skills 嵌入对话",
-            "小程序承接服务"
+          "body": "微信 Agent 负责识别投资问题与购买意图，且慢 Skills 提供专业服务，小程序承接身份、账户、交易和持续陪伴。",
+          "details": [
+            {
+              "title": "Skills 嵌入 Agent",
+              "body": "让金融判断出现在用户原有微信对话里。"
+            },
+            {
+              "title": "小程序承接服务",
+              "body": "涉及个人数据和受监管动作时，回到且慢完成确认。"
+            }
           ]
         },
         {
-          "index": "02",
           "eyebrow": "QWEN · MCP + A2A",
-          "title": "千问：能力直连，嵌入完整小顾",
-          "body": "MCP 按需调用标准金融能力，A2A 则把且慢小顾作为完整 Agent 嵌入通用 AI 平台。",
-          "bullets": [
-            "MCP 标准能力直连",
-            "A2A 完整小顾嵌入"
+          "tag": "能力与 Agent 双模式",
+          "title": "千问：能力直连，嵌完整 AI 小顾",
+          "body": "MCP 适合让千问按需调用标准金融数据与工具；A2A 则把且慢小顾 Agent 完整嵌入，拥有数据、记忆与持续服务。",
+          "details": [
+            {
+              "title": "MCP · 标准能力直连",
+              "body": "千问 Agent 自主编排盈米数据、工具和 Skills。"
+            },
+            {
+              "title": "A2A · 且慢小顾嵌入",
+              "body": "把成熟投顾 Agent 作为整体服务能力交给千问调用。"
+            }
           ]
         },
         {
-          "index": "03",
-          "eyebrow": "MORE ECOSYSTEMS · MCP",
-          "title": "更多生态：扩大服务触点",
-          "body": "百度、WorkBuddy、Cursor 与机构 Agent 共同拓展且慢能力的发现、调用与服务场景。",
-          "bullets": [
-            "标准能力接入",
-            "联合运营与服务扩展"
+          "eyebrow": "BAIDU · MCP",
+          "tag": "能力接入",
+          "title": "百度：能力接入，升级合作",
+          "body": "2025 年百度 AI 搜索曾接入盈米 MCP，后下架并替换为自有服务；2026 年拟重新对接并升级服务。",
+          "details": [
+            {
+              "title": "恢复接口调用",
+              "body": "需要把能力版本、质量、效果与服务连续性纳入联合运营。"
+            },
+            {
+              "title": "升级合作深度",
+              "body": "由单次 MCP 调用升级为可治理能力与 Agent 解决方案输出。"
+            }
           ]
         }
       ],
       "callout": {
         "label": "入口策略",
-        "text": "入口负责发现与编排，且慢负责专业服务，用户完成最终授权与交易确认。"
-      }
+        "text": "微信承接服务，千问放大能力与品牌，百度恢复并升级合作；三类入口共同扩大盈米 AI 的触达与转化。"
+      },
+      "navLabel": "走出且慢"
     },
     {
       "id": "wechat-cooperation",
@@ -923,52 +994,72 @@
     {
       "id": "publicity-impact",
       "navHidden": true,
-      "kicker": "P17 · PUBLICITY IMPACT",
-      "title": "宣发效果",
-      "lead": "跨界合作形成多层传播：独立内容沉淀专业表达，传播触点放大覆盖，阅读与展现持续扩散。",
-      "layout": "metrics",
-      "tone": "soft",
+      "kicker": "P17 · BRAND EXPOSURE",
+      "title": "借助千问首发资源，1,478 个传播触点，采用阅读超 400 万",
+      "lead": "完整事件周期形成 285 个独立内容、超过 436.7 万采用阅读；下方 5 个代表性传播案例可直接播放。",
+      "layout": "demo",
+      "visual": "brand-exposure",
+      "tone": "dark",
       "items": [
         {
-          "eyebrow": "CONTENT",
-          "metric": "257",
-          "title": "独立内容",
-          "body": "形成可持续传播的内容资产"
+          "index": "01",
+          "eyebrow": "未尽研究 · 深度文章",
+          "title": "“懂你”战争开始了",
+          "body": "从个人 AI 入口与现实服务连接的高度解释千问开放第三方智能体，把盈米基金放进“理解需求—执行服务”的新平台叙事。",
+          "meta": "39 秒录屏 · 可播放",
+          "video": "assets/brand-exposure/videos/01-insight-article.mp4",
+          "poster": "assets/brand-exposure/posters/01-insight-article.jpg",
+          "videoWidth": 720,
+          "videoHeight": 1066
         },
         {
-          "eyebrow": "ARTICLE",
-          "metric": "235",
-          "title": "篇文章",
-          "body": "覆盖财经、科技与行业媒体"
+          "index": "02",
+          "eyebrow": "海峡导报 · 横向测评",
+          "title": "五个智能体实用测评",
+          "body": "省级新闻媒体将盈米基金与租房、出行、家政等服务放在同一真实任务中横向比较，理财顾问的专业输出成为场景证据。",
+          "meta": "19 秒录屏 · 可播放",
+          "video": "assets/brand-exposure/videos/02-five-agent-review.mp4",
+          "poster": "assets/brand-exposure/posters/02-five-agent-review.jpg",
+          "videoWidth": 720,
+          "videoHeight": 1066
         },
         {
-          "eyebrow": "VIDEO",
-          "metric": "22",
-          "title": "条视频",
-          "body": "用更直观的形式扩散合作价值"
+          "index": "03",
+          "eyebrow": "AI 普瑞斯 · 深度测评",
+          "title": "一周使用后的理财判断",
+          "body": "围绕“年化 5%—8% 稳健收益”等真实问题，展示盈米基金 Agent 不只罗列产品，而是给出资产配置、风险解释与适配判断。",
+          "meta": "37 秒录屏 · 可播放",
+          "video": "assets/brand-exposure/videos/03-agent-deep-review.mp4",
+          "poster": "assets/brand-exposure/posters/03-agent-deep-review.jpg",
+          "videoWidth": 720,
+          "videoHeight": 1274
         },
         {
-          "eyebrow": "READ",
-          "metric": "327.4万",
-          "title": "内容阅读",
-          "body": "合作主题获得规模化关注"
+          "index": "04",
+          "eyebrow": "AI 科技评论 · 短视频",
+          "title": "千问先做了 AI 小程序",
+          "body": "用机器人热梗、服务实测与投资判断制造高密度传播；企微人工确认转发 2,362 次（录屏画面显示 2,363），本报告按人工确认口径采用 2,362。",
+          "meta": "89 秒录屏 · 可播放",
+          "video": "assets/brand-exposure/videos/04-ai-tech-review.mp4",
+          "poster": "assets/brand-exposure/posters/04-ai-tech-review.jpg",
+          "videoWidth": 720,
+          "videoHeight": 1292
         },
         {
-          "eyebrow": "IMPRESSION",
-          "metric": "44.9万",
-          "title": "公开展现",
-          "body": "平台内容继续放大触达"
-        },
-        {
-          "eyebrow": "TOUCHPOINT",
-          "metric": "1,478",
-          "title": "传播触点",
-          "body": "形成多层次传播网络"
+          "index": "05",
+          "eyebrow": "第四波 · 全流程实测",
+          "title": "专业 Agent 帮你办事",
+          "body": "真人出镜串联租房、寄件与理财任务，突出盈米基金 Agent 能理解复杂条件、输出具体配置并完成专业判断。",
+          "meta": "94 秒录屏 · 可播放",
+          "video": "assets/brand-exposure/videos/05-fourth-wave-review.mp4",
+          "poster": "assets/brand-exposure/posters/05-fourth-wave-review.jpg",
+          "videoWidth": 720,
+          "videoHeight": 1292
         }
       ],
       "callout": {
-        "label": "传播结构",
-        "text": "权威媒体解读、行业讨论与平台内容扩散，共同放大“专业能力 + AI 超级入口”的行业认知。"
+        "label": "传播价值",
+        "text": "深度文章、横向测评、实测短视频与全流程体验，共同放大“专业能力 + AI 超级入口”的行业认知。"
       }
     },
     {
@@ -1083,69 +1174,62 @@
       ]
     },
     {
-      "id": "review",
-      "navLabel": "NEXT",
-      "kicker": "P20 · REVIEW",
-      "title": "回顾",
-      "lead": "MCP 与 Skills 可以创造收入，更重要的是让有限资源生产的服务持续沉淀流量、用户与 AUM。",
-      "layout": "cards",
-      "tone": "light",
-      "items": [
-        {
-          "index": "01",
-          "eyebrow": "EFFICIENCY",
-          "title": "提升产能效率",
-          "body": "成熟能力被快速组装与编排，让个性化服务不再排队等待开发。"
-        },
-        {
-          "index": "02",
-          "eyebrow": "DISTRIBUTION",
-          "title": "获取外部流量",
-          "body": "让专业服务进入微信、千问与机构场景，在用户提出问题的地方被发现。"
-        },
-        {
-          "index": "03",
-          "eyebrow": "BUSINESS RESULT",
-          "title": "沉淀流量、用户、AUM",
-          "body": "从一次调用走向身份、复用、服务与交易，形成长期经营关系。"
-        }
-      ],
-      "callout": {
-        "label": "北极星",
-        "text": "成功服务任务，以及由此带来的用户复用、交易与 AUM。"
-      }
+      "id": "system-relationship",
+      "navHidden": true,
+      "kicker": "P20 · SYSTEM RELATIONSHIP",
+      "title": "从基础能力到开放生态",
+      "lead": "完整呈现数据与工具、MCP / Skills / Agent、Stargate 管理后台及前台生态之间的系统关系与能力沉淀链路。",
+      "layout": "relationship",
+      "tone": "soft",
+      "asset": "assets/system-relationship.svg",
+      "alt": "盈米 AI 系统关系图完整可视化"
     },
     {
-      "id": "imagination",
-      "navHidden": true,
-      "kicker": "P21 · IMAGINE",
-      "title": "想像",
-      "lead": "理想不是把 App 做得更大，而是让且慢服务不受形态与场景限制，在用户真正需要时出现。",
+      "id": "review",
+      "navLabel": "NEXT",
+      "kicker": "P21 · FROM CAPABILITY TO GROWTH",
+      "title": "从一次调用，到每次有投资问题都遇见且慢",
+      "lead": "让可组合能力提升供给，让超级入口扩大触达，让持续陪伴最终沉淀用户、交易与 AUM。",
       "layout": "cards",
       "tone": "soft",
       "items": [
         {
           "index": "01",
-          "eyebrow": "EVERYWHERE",
-          "title": "服务无所不在",
-          "body": "且慢服务进入 App、小程序、H5、AI 平台、工作环境与机构终端。"
+          "eyebrow": "COMPOSABLE",
+          "title": "能力规模化",
+          "body": "成熟能力被快速组装与编排，让有限资源也能快速承接个性化需求，不再排队等待开发。",
+          "bullets": [
+            "快速组装",
+            "七成需求",
+            "效率提升"
+          ]
         },
         {
           "index": "02",
-          "eyebrow": "PROACTIVE",
-          "title": "持续陪伴，降低决策负担",
-          "body": "小顾主动引导、持续陪伴，在关键时点提供专业建议，用户始终保有授权与最终决定权。"
+          "eyebrow": "EVERYWHERE",
+          "title": "服务无处不在",
+          "body": "且慢服务进入 App、小程序、H5、微信、千问、工作环境与机构终端，在用户提出问题的地方被发现。",
+          "bullets": [
+            "走出 App",
+            "进入入口",
+            "扩大触达"
+          ]
         },
         {
           "index": "03",
-          "eyebrow": "COMPOSABLE",
-          "title": "七成需求快速解决",
-          "body": "通过可组合能力，让 70% 以上个性化需求得到快速响应与解决。"
+          "eyebrow": "RELATIONSHIP",
+          "title": "关系持续生长",
+          "body": "从一次调用走向主动引导、持续陪伴、授权确认与交易承接，沉淀用户复用、交易与 AUM。",
+          "bullets": [
+            "主动陪伴",
+            "用户复用",
+            "交易与 AUM"
+          ]
         }
       ],
       "callout": {
-        "label": "终局想像",
-        "text": "用户可以不先想到且慢，但每次有投资问题时，都有机会遇见且慢。"
+        "label": "终局",
+        "text": "用户可以不知道且慢，但每次有投资问题时，都有机会遇见且慢。"
       }
     }
   ]
