@@ -10,7 +10,7 @@ template_reference: clairku.github.io/clair-ai-studio/reports/yingmi-ai-two-mode
 
 ## 用户目标
 
-按飞书文档《8/3 盈米 AI 开放平台项目汇报》的十项框架生成报告：年度目标、关键举措、用户增长、新流量入口、产品规划、能力建设、AI 实验室、商化准备、行业机会、问题回顾。用户补充 MCP 业务调用 TOP20，并于 2026-08-14 要求把千问传播报告中的五个经典案例作为“品牌曝光”子屏加入千问合作之后。报告模板参考 Clair Executive Visual Report（yingmi-ai-two-modes-four-continuous-2026-08-02）。
+按飞书文档《8/3 盈米 AI 开放平台项目汇报》的十项框架生成报告：年度目标、关键举措、用户增长、新流量入口、产品规划、能力建设、AI 实验室、商化准备、行业机会、问题回顾。用户补充 MCP 业务调用 TOP20，并于 2026-08-14 要求把千问传播报告中的五个经典案例作为“品牌曝光”子屏加入千问合作之后；该屏标题采用“借助千问首发资源，全网超 1,478 篇报道，曝光阅读量超 400 万”，同屏保留 1,478 为未去重传播明细、采用阅读量为 4,367,850 的口径说明。报告模板参考 Clair Executive Visual Report（yingmi-ai-two-modes-four-continuous-2026-08-02）。
 
 ## 框架与章节映射
 
