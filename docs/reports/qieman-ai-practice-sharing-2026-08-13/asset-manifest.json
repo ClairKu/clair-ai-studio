@@ -53,23 +53,23 @@
     },
     {
       "path": "assets/videos/behavior-analysis-task-redacted.mp4",
-      "bytes": 1366769,
-      "sha256": "ae48e4a3f6d96abcfb7cb188cf9ba7d3228e3db647627321020659f5a9337edd"
+      "bytes": 12252283,
+      "sha256": "4015e8b3b1e3db89a6a5d0e2a8e7c78a3f81a442b6527b416f57a70d6d688f6d"
     },
     {
       "path": "assets/videos/behavior-analysis-report-redacted.mp4",
-      "bytes": 1357276,
-      "sha256": "640f67051fb9afda8ae6f412d26bbb58279c045479b787ea26d09fe3677891a9"
+      "bytes": 10211361,
+      "sha256": "beaa4382e41b083f9b4c24defffb2acf3d3954dd51ed296b1b5368b700ecc5fb"
     },
     {
       "path": "assets/posters/behavior-analysis-task-redacted.jpg",
-      "bytes": 23776,
-      "sha256": "3860765822b72eba54ba0eb8cd2c95a5ceca3f7d0a69337760497a74d071c78c"
+      "bytes": 61680,
+      "sha256": "2c8ec96f958118031be0ac1d09184f6f24a7b67f412afeb08412a2f77bd17014"
     },
     {
       "path": "assets/posters/behavior-analysis-report-redacted.jpg",
-      "bytes": 23474,
-      "sha256": "6f0b5e480d8c99d40f4166e95888d51be931939c0f02231ba0bf74d63945d897"
+      "bytes": 56097,
+      "sha256": "ff559837319fdc4c96e1322367dc524fcf5273a4ac423fbb4fb47863f0d51c20"
     },
     {
       "path": "assets/oap-journey-metrics.html",

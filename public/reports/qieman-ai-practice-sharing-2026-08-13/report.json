@@ -64,40 +64,42 @@
       "id": "strategic-question",
       "navLabel": "解什么题",
       "kicker": "P1 · THE STRATEGIC QUESTION",
-      "title": "战略问题：且慢破圈",
-      "lead": "两类情景正在同时发生：自身不靠资源灌入，外部环境又在重写增长规则。",
+      "title": "解什么题：且慢破圈",
+      "lead": "过去的打法还有用吗？我们的禀赋在哪里？环境与入口正在怎样变化？",
       "layout": "strategic",
-      "tone": "light",
+      "tone": "dark",
+      "decision": {
+        "eyebrow": "STRATEGIC CHOICE · 战略选择",
+        "quote": "换条路走，也许能再弯道超车",
+        "title": "用 AI 重塑且慢与且慢服务",
+        "body": "在有限资源条件下，寻求新方法，同时解决存量与增量问题。"
+      },
       "contexts": [
         {
-          "eyebrow": "01 · 自身条件",
-          "title": "三无",
+          "eyebrow": "01 · 自身禀赋",
+          "title": "三无企业",
           "tags": ["无流量", "无线下", "无大腿"],
-          "conclusion": "增长只能靠产品价值与专业能力"
+          "conclusion": "且长期处于严格监管环境"
         },
         {
-          "eyebrow": "02 · 环境变化",
-          "title": "旧打法被重新定价",
-          "tags": ["监管收紧", "市场波动", "技术跃迁"],
+          "eyebrow": "02 · 外部环境",
+          "title": "环境巨变",
+          "tags": ["监管收紧", "市场波动", "技术发展"],
           "conclusion": "用户入口与服务方式正在迁移"
         }
       ],
       "problems": [
         {
-          "eyebrow": "眼前问题",
+          "eyebrow": "01 · 眼前问题 / 存量",
           "title": "解决用户痛点",
           "body": "让存量用户更容易获得专业服务"
         },
         {
-          "eyebrow": "未来问题",
+          "eyebrow": "02 · 未来问题 / 增量",
           "title": "找到新时代流量入口",
           "body": "让且慢在 AI 场景中被发现和使用"
         }
-      ],
-      "callout": {
-        "label": "战略选择",
-        "text": "换条路走，也许能再弯道超车：用 AI 重塑且慢与且慢服务。"
-      }
+      ]
     },
     {
       "id": "solve-user-problems",
@@ -108,12 +110,12 @@
       "layout": "metrics",
       "tone": "soft",
       "items": [
-        {"eyebrow": "SCALE · 服务规模", "metric": "20万", "title": "累计服务用户", "body": "让更多普通用户获得顾问式引导"},
-        {"eyebrow": "SCALE · 服务规模", "metric": "300万", "title": "累计解决投资问题", "body": "从一次提问延展到持续服务"},
-        {"eyebrow": "QUALITY · 服务质量", "metric": "95%", "title": "问题解决率", "body": "从给出回答走向解决问题"},
-        {"eyebrow": "QUALITY · 服务质量", "metric": "80%", "title": "服务场景覆盖", "body": "覆盖投前、投中与投后关键需求"},
-        {"eyebrow": "ADOPTION · 用户使用", "metric": "60%", "title": "活跃用户使用", "body": "小顾成为日常服务的重要入口"},
-        {"eyebrow": "IMPACT · 经营转化", "metric": "2×", "title": "服务到交易转化", "body": "服务与交易转化实现翻倍增长"}
+        {"eyebrow": "01 · 用户规模", "metric": "20万", "title": "累计服务用户", "body": "让更多用户低门槛获得专业服务"},
+        {"eyebrow": "02 · 问题规模", "metric": "300万", "title": "累计解决投资问题", "body": "从一次提问延展到持续服务"},
+        {"eyebrow": "03 · 场景覆盖", "metric": "80%", "title": "服务场景覆盖率", "body": "覆盖投前、投中与投后关键需求"},
+        {"eyebrow": "04 · 用户使用", "metric": "60%", "title": "活跃用户使用率", "body": "小顾成为日常服务的重要入口"},
+        {"eyebrow": "05 · 经营转化", "metric": "2×", "title": "用户转化率翻倍", "body": "服务到交易的转化实现翻倍"},
+        {"eyebrow": "06 · 服务质量", "metric": "95%", "title": "问题解决率", "body": "从给出回答走向解决问题"}
       ]
     },
     {
@@ -268,9 +270,52 @@
       }
     },
     {
+      "id": "open-platform-system",
+      "navHidden": true,
+      "kicker": "P9 · OPEN PLATFORM",
+      "title": "从一个功能点，长成可分发能力体系",
+      "lead": "小顾解决“服务怎么做深”，开放平台解决“同一套服务怎么更快接入、复用、治理和分发”。",
+      "layout": "architecture",
+      "tone": "soft",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "DECOMPOSE",
+          "title": "拆解到最小颗粒",
+          "body": "把数据查询、计算分析、专业规则、投顾流程和业务动作拆成边界清晰的能力。",
+          "bullets": ["数据与知识", "工具与计算", "规则与流程"]
+        },
+        {
+          "index": "02",
+          "eyebrow": "RECOMPOSE",
+          "title": "重构为三层资产",
+          "body": "MCP 解决能不能接，Skills 解决能不能稳定交付，Agent 解决能不能端到端完成任务。",
+          "bullets": ["MCP · 连接", "Skills · 交付", "Agent · 完成"]
+        },
+        {
+          "index": "03",
+          "eyebrow": "GOVERN",
+          "title": "统一身份与治理",
+          "body": "Stargate 统一承接身份、权限、发布、审计、计量、版本与生命周期，让开放不是失控。",
+          "bullets": ["最小授权", "过程可追溯", "结果可计量"]
+        },
+        {
+          "index": "04",
+          "eyebrow": "DISTRIBUTE",
+          "title": "融入新时代入口",
+          "body": "同一能力可进入且慢、AI 工作台、微信、千问、Cursor、WorkBuddy 与机构 Agent。",
+          "bullets": ["产品内嵌", "平台接入", "生态共建"]
+        }
+      ],
+      "callout": {
+        "label": "能力路径",
+        "text": "拆解 → 重构 → 治理 → 分发，让一次服务沉淀为可复用、可组合、可扩展的能力体系。"
+      }
+    },
+    {
       "id": "service-to-capability",
       "navHidden": true,
-      "kicker": "P9 · SERVICE AS CAPABILITY",
+      "kicker": "P10 · SERVICE AS CAPABILITY",
       "title": "服务变成能力，再把能力输出",
       "lead": "金融服务先沉淀为可调用、可组合、可治理的能力，再进入自有终端、外部平台与新的工作场景。",
       "layout": "evidence",
@@ -302,7 +347,7 @@
     {
       "id": "report-recording",
       "navHidden": true,
-      "kicker": "P10 · CASE VIDEO 02 · 53.9 SEC",
+      "kicker": "P11 · CASE VIDEO 02 · 53.9 SEC",
       "title": "完整录屏：交易行为分析报告",
       "lead": "点击播放，观看行为金融报告如何呈现全景洞察、逐项分析、矫正方案与进度追踪。",
       "layout": "demo",
@@ -327,7 +372,7 @@
     {
       "id": "super-entrances",
       "navLabel": "走出且慢",
-      "kicker": "P11 · SUPER ENTRANCES",
+      "kicker": "P12 · SUPER ENTRANCES",
       "title": "接入超级流量入口",
       "lead": "不同入口完成需求发现、能力调用、身份承接与交易确认，把专业服务带到用户所在场景。",
       "layout": "entrances",
@@ -363,7 +408,7 @@
     {
       "id": "wechat-cooperation",
       "navHidden": true,
-      "kicker": "P12 · WECHAT",
+      "kicker": "P13 · WECHAT",
       "title": "微信合作",
       "lead": "微信对话识别投资需求，一键打开且慢小程序，由且慢继续承接账户与交易服务。",
       "layout": "evidence",
@@ -389,7 +434,7 @@
     {
       "id": "qwen-cooperation",
       "navHidden": true,
-      "kicker": "P13 · QWEN",
+      "kicker": "P14 · QWEN",
       "title": "千问合作",
       "lead": "千问同时采用 MCP 与 A2A 两种模式：既能按需调用盈米标准能力，也能嵌入完整且慢 AI 小顾。",
       "layout": "qwen-scene",
@@ -409,7 +454,7 @@
     {
       "id": "publicity-impact",
       "navHidden": true,
-      "kicker": "P14 · PUBLICITY IMPACT",
+      "kicker": "P15 · PUBLICITY IMPACT",
       "title": "宣发效果",
       "lead": "跨界合作形成多层传播：独立内容沉淀专业表达，传播触点放大覆盖，阅读与展现持续扩散。",
       "layout": "metrics",
@@ -430,7 +475,7 @@
     {
       "id": "cooperation-modes",
       "navLabel": "AI开放平台",
-      "kicker": "P15 · COOPERATION MODES",
+      "kicker": "P16 · COOPERATION MODES",
       "title": "更多合作模式",
       "lead": "围绕品牌曝光、用户增量与交易闭环，六种模式把知识、能力、流程与完整服务按需组合。",
       "layout": "cards",
@@ -447,7 +492,7 @@
     {
       "id": "oap-growth",
       "navHidden": true,
-      "kicker": "P16 · OAP USER GROWTH",
+      "kicker": "P17 · OAP USER GROWTH",
       "title": "AI 开放平台用户增长",
       "lead": "502 日持续演进，从能力开放、生态上架到超级入口接入，用户与调用同步增长。",
       "layout": "embed-page",
@@ -463,7 +508,7 @@
     {
       "id": "service-relationship",
       "navHidden": true,
-      "kicker": "P17 · SERVICE RELATIONSHIP",
+      "kicker": "P18 · SERVICE RELATIONSHIP",
       "title": "盈米AI服务关系图",
       "lead": "用户需求进入服务创作，能力被组合成应用，经多端分发交付给用户，使用结果再回流为下一轮生产信号。",
       "layout": "evidence",
@@ -494,7 +539,7 @@
     {
       "id": "review",
       "navLabel": "NEXT",
-      "kicker": "P18 · REVIEW",
+      "kicker": "P19 · REVIEW",
       "title": "回顾",
       "lead": "MCP 与 Skills 可以创造收入，更重要的是让有限资源生产的服务持续沉淀流量、用户与 AUM。",
       "layout": "cards",
@@ -512,7 +557,7 @@
     {
       "id": "imagination",
       "navHidden": true,
-      "kicker": "P19 · IMAGINE",
+      "kicker": "P20 · IMAGINE",
       "title": "想像",
       "lead": "理想不是把 App 做得更大，而是让且慢服务不受形态与场景限制，在用户真正需要时出现。",
       "layout": "cards",
