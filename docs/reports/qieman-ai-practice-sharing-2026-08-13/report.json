@@ -183,60 +183,41 @@
       "lead": "案例一｜导出交易记录。过去只能查看记录或逐月获取对账单；现在只需说清目的，AI 即可完成全量取数、文件生成与交付。",
       "layout": "export-case",
       "tone": "dark",
-      "beforeLabel": "以前",
-      "beforeLead": "找入口 · 按月获取",
-      "beforeBody": "用户需要先找到入口，再按月份逐次查看或获取交易记录。",
-      "nowLabel": "现在",
-      "nowLead": "一句话交任务 · Excel 直接下载",
-      "nowBody": "用户只需说清范围与格式，AI 自动汇总全量记录并生成 Excel。",
-      "nowTags": [
-        "全量取数",
-        "自动合并",
-        "Excel 交付"
-      ],
-      "oldWays": [
-        {
-          "index": "01",
-          "eyebrow": "OLD WAY · 查看路径",
-          "title": "告诉用户去哪里查看",
-          "image": "assets/source/transaction-export-current-limit.png",
-          "alt": "旧作法中，小顾说明交易记录的查看入口与可用替代路径"
-        },
-        {
-          "index": "02",
-          "eyebrow": "OLD WAY · 按月获取",
-          "title": "选择月份再查看对账单",
-          "image": "assets/transaction-export-monthly-statement.png",
-          "alt": "旧作法中，用户选择月份后查看对应的月度交易对账单"
-        }
-      ],
+      "beforeDemo": {
+        "index": "01",
+        "eyebrow": "BEFORE · 查看 / 按月获取",
+        "title": "先找入口，再逐月查看",
+        "image": "assets/transaction-export-before-proof-statement.png",
+        "alt": "以前的小顾对话：可开立最新资产证明，并需按月份选择查看或下载月度对账单"
+      },
       "newWay": {
-        "index": "03",
-        "eyebrow": "NEW WAY · 00:12",
+        "index": "02",
+        "eyebrow": "NOW · 00:12",
         "title": "生成全量交易明细 Excel",
         "video": "assets/videos/transaction-export-full.mp4",
         "poster": "assets/posters/transaction-export-full.jpg"
       },
-      "changeTitle": "从引导用户操作，到 AI 直接完成任务",
-      "changeLead": "关键跃迁不是多一个按钮，而是 AI 真正替用户把任务做完。",
+      "changeEyebrow": "BEFORE → NOW",
+      "changeTitle": "从“按月获取”到“全量交付”",
+      "changeLead": "变化不在于换一张界面，而在于用户说清目的后，AI 直接完成取数、合并与文件交付。",
       "changes": [
         {
           "index": "01",
-          "title": "需求理解",
-          "body": "用户只说目的，不再先找入口。"
+          "title": "从找入口，到说目的",
+          "body": "过去先进入记录或对账单入口；现在直接说明目的、范围与格式。"
         },
         {
           "index": "02",
-          "title": "任务执行",
-          "body": "AI 跨月分批取数，合并 1,818 条明细并生成 Excel。"
+          "title": "从逐月获取，到全量合并",
+          "body": "过去按月份逐次查看或获取；现在按指定范围全量取数并自动合并。"
         },
         {
           "index": "03",
-          "title": "结果交付",
-          "body": "文件直接回到对话，可下载、复用并继续分析。"
+          "title": "从分月结果，到 Excel 交付",
+          "body": "合并后的交易记录生成一个 Excel，直接回到对话中下载。"
         }
       ],
-      "flow": "说清目的 → AI 取数整合 → 生成 Excel → 直接下载"
+      "flow": "说清目的 → 全量取数 → 自动合并 → Excel 交付"
     },
     {
       "id": "task-recording",
@@ -358,7 +339,7 @@
       "id": "experience-summary",
       "navHidden": true,
       "kicker": "P6 · EXPERIENCE SUMMARY",
-      "title": "经验总结，始于业务，围绕用户体验，逐步放权大模型。",
+      "title": "经验总结，围绕用户体验，逐步放权大模型",
       "lead": "从 0→1 验证真实价值，到 3.0 建设记忆、任务与执行，小顾真正沉淀的不是一个模型，而是一套能随技术演进持续升级的产品方法。",
       "layout": "cards",
       "tone": "light",
@@ -893,56 +874,76 @@
     {
       "id": "traffic-entry-models",
       "navHidden": true,
-      "kicker": "P15 · TRAFFIC ENTRY MODES",
-      "title": "流量入口合作模式",
-      "lead": "围绕用户在 AI 入口提出的真实需求，以完整 Agent、专业 Skills、标准 MCP 与知识库形成四种接入深度。",
+      "kicker": "P15 · SUPER TRAFFIC ENTRY MODES",
+      "title": "大胆想像，超级流量入口合作模式",
+      "lead": "面向超级流量入口，形成六种合作方式：知识库、MCP、Skills 与 Agent 是四类标准接入形态；任务结果承接与共建理财助手是在这些能力之上的进阶合作。",
       "layout": "cards",
       "tone": "soft",
       "items": [
         {
           "index": "01",
-          "eyebrow": "AGENT APPLICATION",
-          "title": "Agent 应用接入",
-          "body": "把且慢小顾或共建理财助手作为完整 Agent 嵌入合作平台，承接规划、账户与持续服务。",
+          "eyebrow": "KNOWLEDGE BASE · 接入形态",
+          "title": "知识库模式",
+          "body": "通用 Agent 获取盈米基金知识与专业观点，为用户完成知识类问答。",
           "bullets": [
-            "发现 Agent → 绑定且慢账号 → 获得持续服务",
-            "形成用户获取、个性化服务与交易承接闭环"
+            "用户路径｜在千问提问 → 检索盈米知识 → 平台生成回答",
+            "效果｜快速扩大专业内容触达与品牌认知"
           ]
         },
         {
           "index": "02",
-          "eyebrow": "SKILLS",
-          "title": "Skills 能力接入",
-          "body": "Skills 组织专业规则、服务流程与关联 MCP，把专家方法封装为可稳定交付的能力。",
+          "eyebrow": "AGENT · A2A · 接入形态",
+          "title": "完整小顾接入",
+          "body": "把且慢小顾作为完整金融 Agent 嵌入合作平台，承接账户级服务。",
           "bullets": [
-            "提出复杂问题 → 编排专业能力 → 交付结构化服务",
-            "把专家方法稳定复制到更多入口与场景"
+            "用户路径｜发现小顾 → 注册绑定且慢账号 → 持续获得服务",
+            "效果｜形成新用户、个性化服务与交易承接闭环"
           ]
         },
         {
           "index": "03",
-          "eyebrow": "MCP",
-          "title": "MCP 接入",
+          "eyebrow": "MCP · 接入形态",
+          "title": "标准能力调用",
           "body": "合作方 Agent 按需调用盈米标准金融工具，再由平台组织最终回答。",
           "bullets": [
-            "提出数据或计算需求 → 调用标准工具 → 获得结果",
-            "让标准金融能力被多平台快速复用与规模分发"
+            "用户路径｜提出数据或计算问题 → 调用 MCP → 获得结果",
+            "效果｜标准能力可被多个入口快速复用与规模分发"
           ]
         },
         {
           "index": "04",
-          "eyebrow": "KNOWLEDGE BASE",
-          "title": "知识库接入",
-          "body": "通用 Agent 获取盈米基金知识与专业观点，为用户完成知识类问答。",
+          "eyebrow": "SKILLS · 接入形态",
+          "title": "专业流程调用",
+          "body": "Skills 组织专业规则、流程与关联 MCP，完成更复杂的金融服务任务。",
           "bullets": [
-            "在 AI 入口提问 → 检索盈米知识 → 平台生成回答",
-            "扩大专业内容触达与品牌认知"
+            "用户路径｜提出复杂问题 → Skill 编排能力 → 交付结构化结果",
+            "效果｜把专家方法稳定复制到更多场景"
+          ]
+        },
+        {
+          "index": "05",
+          "eyebrow": "TASK · 进阶合作",
+          "title": "任务结果承接",
+          "body": "从用户的明确目标出发，直接生成报告并连接下一步服务。",
+          "bullets": [
+            "用户路径｜发起资产诊断 → 生成报告 → 配置优化或真人顾问",
+            "效果｜让一次问答进入可行动、可转化的任务闭环"
+          ]
+        },
+        {
+          "index": "06",
+          "eyebrow": "CO-BUILD · 进阶合作",
+          "title": "共建理财助手",
+          "body": "平台与盈米共同打造以四笔钱和投资规划为核心的理财助手。",
+          "bullets": [
+            "用户路径｜进入共建助手 → 完成规划 → 连接且慢持续服务",
+            "效果｜共同沉淀品牌、用户关系与长期服务价值"
           ]
         }
       ],
       "callout": {
         "label": "合作深度",
-        "text": "知识库提供内容，MCP 提供标准工具，Skills 提供专业流程，Agent 承接完整服务与经营闭环。"
+        "text": "知识库 / MCP / Skills / Agent 回答“接入什么”；任务交付 / 联合共建回答“如何共同交付结果”。"
       }
     },
     {
@@ -1078,7 +1079,7 @@
       "groups": [
         {
           "eyebrow": "REVIEW · 回顾问题",
-          "title": "为什么出发",
+          "title": "解决问题",
           "items": [
             {
               "index": "01",
@@ -1102,7 +1103,7 @@
         },
         {
           "eyebrow": "NEXT · 目标期待",
-          "title": "要走到哪里",
+          "title": "理想目标",
           "items": [
             {
               "index": "01",
