@@ -47,6 +47,11 @@
       "sha256": "5255a83be3df697e7e44a31a9ecf1b01c0ba41607166d6d703a100fb61152f12"
     },
     {
+      "path": "assets/qwen-qieman-agent-service-flow.png",
+      "bytes": 712721,
+      "sha256": "9116eb6f24afa7266735adb4b2582516ad227f826cc08424148b58aaba7deff0"
+    },
+    {
       "path": "assets/service-relationship.svg",
       "bytes": 8673,
       "sha256": "cc489636c5383cc979f66687f898818e5156a62c6dcb2af88573684401f636e6"
@@ -70,6 +75,26 @@
       "path": "assets/posters/behavior-analysis-report-redacted.jpg",
       "bytes": 56097,
       "sha256": "ff559837319fdc4c96e1322367dc524fcf5273a4ac423fbb4fb47863f0d51c20"
+    },
+    {
+      "path": "assets/videos/behavior-analysis-full-process.mp4",
+      "bytes": 9658103,
+      "sha256": "3e86dfa93dd9d4a8e9a979376ef002b954be98ce1d4121b41f9a3719ba8bde16"
+    },
+    {
+      "path": "assets/videos/behavior-analysis-full-report.mp4",
+      "bytes": 8948860,
+      "sha256": "3de2c78de56e1887c4e24b7a5aba5bc7f7cdf97aa6664f8efe465456854377cb"
+    },
+    {
+      "path": "assets/posters/behavior-analysis-full-process.jpg",
+      "bytes": 90317,
+      "sha256": "9b27e039f5b32b25008da1e9a2184b5dbaa9a7cb636410a676a13de77a637e8e"
+    },
+    {
+      "path": "assets/posters/behavior-analysis-full-report.jpg",
+      "bytes": 46464,
+      "sha256": "c82facb684b214c14fe9d118a45cb8350dfa0331ea44dc2c80af17028cbc496f"
     },
     {
       "path": "assets/oap-journey-metrics.html",
