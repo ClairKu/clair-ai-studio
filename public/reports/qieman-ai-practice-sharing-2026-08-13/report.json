@@ -163,7 +163,7 @@
         },
         {
           "eyebrow": "05 · 经营转化",
-          "metric": "2×",
+          "metric": "2倍",
           "title": "用户转化率翻倍",
           "body": "服务到交易的转化实现翻倍"
         },
@@ -377,7 +377,7 @@
         {
           "index": "02",
           "eyebrow": "1.0 · SERVICE",
-          "title": "服务闭环，先于功能",
+          "title": "降低用户使用门槛",
           "body": "用引导、引用、卡片与人机交接，把一次回答做成可理解、可完成、可持续的投顾服务。",
           "bullets": [
             "低门槛",
@@ -666,112 +666,8 @@
       "navHidden": true
     },
     {
-      "id": "capability-governance",
-      "navHidden": true,
-      "kicker": "P11 · CAPABILITY GOVERNANCE",
-      "title": "能力体系，新分类框架与能力治理",
-      "lead": "新分类框架统一按业务域、能力类型、权限与生命周期纳管资产；MCP、Skills、Agent 分层治理，内外部能力进入同一体系。",
-      "layout": "architecture",
-      "tone": "light",
-      "items": [
-        {
-          "index": "01",
-          "eyebrow": "TAXONOMY",
-          "title": "三维分类框架",
-          "body": "业务域 × 能力类型 × 权限和生命周期；新增能力、知识库等新资产可直接纳管，不再堆叠孤立分类。"
-        },
-        {
-          "index": "02",
-          "eyebrow": "MCP",
-          "title": "MCP：修旧与拓新",
-          "body": "修复既有接口与流程问题，推进质量审计、登录授权，并规划新增持仓类 MCP，让标准能力更完整、更可靠。",
-          "bullets": [
-            "修复存量接口",
-            "新增持仓能力",
-            "质量审计与授权"
-          ]
-        },
-        {
-          "index": "03",
-          "eyebrow": "SKILLS",
-          "title": "Skills：收敛精细化",
-          "body": "迭代既有 MCP Skills，不追求数量；统一管理多来源 Skills，并逐步把业务团队能力纳入 Stargate 治理。",
-          "bullets": [
-            "统一管理",
-            "质量与版本治理",
-            "业务能力逐步纳管"
-          ]
-        },
-        {
-          "index": "04",
-          "eyebrow": "AGENT",
-          "title": "Agent：自有 Runtime",
-          "body": "搭建自有 Agent Runtime，保持 Skills + MCP 能力矩阵模块化管理，同时兼容第三方 Agent Runtime 场景。",
-          "bullets": [
-            "自有运行时",
-            "能力矩阵模块化",
-            "兼容第三方场景"
-          ]
-        },
-        {
-          "index": "05",
-          "eyebrow": "INTERNAL & EXTERNAL",
-          "title": "内外部能力接入",
-          "body": "内部财报、投研等能力与外部数据和专业能力分批接入，在统一标准下完成授权、质量、版本与调用治理。",
-          "bullets": [
-            "内部专业能力",
-            "外部数据能力",
-            "统一接入标准"
-          ]
-        }
-      ],
-      "callout": {
-        "label": "治理主线",
-        "text": "从铺数量转向提质量：分类统一、MCP 修复、Skills 收敛、Agent 自主、内外能力有序接入。"
-      }
-    },
-    {
-      "id": "system-capability",
-      "navHidden": true,
-      "kicker": "P12 · SYSTEM CAPABILITY",
-      "title": "系统能力，账号鉴权与治理审计",
-      "lead": "账号、鉴权、统一治理与系统关系共同补齐接入底座，让每一次能力调用可授权、可撤销、可审计、可计量、可追溯。",
-      "layout": "architecture",
-      "tone": "light",
-      "items": [
-        {
-          "index": "01",
-          "eyebrow": "ACCOUNT",
-          "title": "账号体系与 SSO",
-          "body": "OAP 官网基于且慢账号体系，推进 SSO，支持员工从第三方 AI 平台调用更多经过授权的盈米 AI 能力。"
-        },
-        {
-          "index": "02",
-          "eyebrow": "AUTH",
-          "title": "API Key + OAuth",
-          "body": "短期双轨共存，逐步过渡到 OAuth，以追溯平台、客户端、用户、Scope 与具体 MCP 的授权关系。"
-        },
-        {
-          "index": "03",
-          "eyebrow": "STARGATE",
-          "title": "统一治理与审计",
-          "body": "Stargate 承接合规审计、上架渠道、计量计费与数据统计，补齐授权查询、撤销、调用审计和异常排查。"
-        },
-        {
-          "index": "04",
-          "eyebrow": "SYSTEM MAP",
-          "title": "系统与服务关系",
-          "body": "Stargate、Agent / Skills 平台、官网、AI 实验室、AI 小顾和 AI 工作台统一纳入系统关系与治理架构。"
-        }
-      ],
-      "callout": {
-        "label": "建设指向",
-        "text": "形成统一、可下钻的治理看板，使授权、撤销、调用、计量与异常排查形成完整证据链。"
-      }
-    },
-    {
       "id": "super-entrances",
-      "kicker": "P13 · SUPER ENTRANCES",
+      "kicker": "P11 · SUPER ENTRANCES",
       "title": "新超级入口，打开用户增量",
       "lead": "微信承接服务路由，千问兼顾能力直连与完整 Agent 嵌入，百度恢复并升级既有合作。",
       "layout": "cards",
@@ -836,7 +732,7 @@
     {
       "id": "wechat-cooperation",
       "navHidden": true,
-      "kicker": "P14 · WECHAT COOPERATION",
+      "kicker": "P12 · WECHAT COOPERATION",
       "title": "微信识别需求，且慢承接服务",
       "lead": "微信 Agent 发现用户的投资与购买意图，且慢 Skills 提供专业判断，小程序承接身份、账户、交易与持续服务，形成清晰的人机分工。",
       "layout": "evidence",
@@ -873,7 +769,7 @@
     {
       "id": "qwen-cooperation",
       "navHidden": true,
-      "kicker": "P15 · QWEN COOPERATION",
+      "kicker": "P13 · QWEN COOPERATION",
       "title": "千问既能调用盈米能力，也能嵌入完整且慢小顾",
       "displayTitle": "千问既能调用盈米能力，也能嵌入完整且慢小顾",
       "lead": "千问同时采用 MCP 与 A2A 两种模式：前者按需调用盈米标准能力，后者把且慢 AI 小顾作为完整金融 Agent 嵌入千问。",
@@ -924,9 +820,80 @@
       }
     },
     {
+      "id": "publicity-impact",
+      "navHidden": true,
+      "kicker": "P14 · BRAND EXPOSURE",
+      "title": "借助千问首发资源，1,478 个传播触点，采用阅读超 400 万",
+      "lead": "完整事件周期形成 285 个独立内容、超过 436.7 万采用阅读；下方 5 个代表性传播案例可直接播放。",
+      "layout": "demo",
+      "visual": "brand-exposure",
+      "tone": "dark",
+      "items": [
+        {
+          "index": "01",
+          "eyebrow": "未尽研究 · 深度文章",
+          "title": "“懂你”战争开始了",
+          "body": "从个人 AI 入口与现实服务连接的高度解释千问开放第三方智能体，把盈米基金放进“理解需求—执行服务”的新平台叙事。",
+          "meta": "39 秒录屏 · 可播放",
+          "video": "assets/brand-exposure/videos/01-insight-article.mp4",
+          "poster": "assets/brand-exposure/posters/01-insight-article.jpg",
+          "videoWidth": 720,
+          "videoHeight": 1066
+        },
+        {
+          "index": "02",
+          "eyebrow": "海峡导报 · 横向测评",
+          "title": "五个智能体实用测评",
+          "body": "省级新闻媒体将盈米基金与租房、出行、家政等服务放在同一真实任务中横向比较，理财顾问的专业输出成为场景证据。",
+          "meta": "19 秒录屏 · 可播放",
+          "video": "assets/brand-exposure/videos/02-five-agent-review.mp4",
+          "poster": "assets/brand-exposure/posters/02-five-agent-review.jpg",
+          "videoWidth": 720,
+          "videoHeight": 1066
+        },
+        {
+          "index": "03",
+          "eyebrow": "AI 普瑞斯 · 深度测评",
+          "title": "一周使用后的理财判断",
+          "body": "围绕“年化 5%—8% 稳健收益”等真实问题，展示盈米基金 Agent 不只罗列产品，而是给出资产配置、风险解释与适配判断。",
+          "meta": "37 秒录屏 · 可播放",
+          "video": "assets/brand-exposure/videos/03-agent-deep-review.mp4",
+          "poster": "assets/brand-exposure/posters/03-agent-deep-review.jpg",
+          "videoWidth": 720,
+          "videoHeight": 1274
+        },
+        {
+          "index": "04",
+          "eyebrow": "AI 科技评论 · 短视频",
+          "title": "千问先做了 AI 小程序",
+          "body": "用机器人热梗、服务实测与投资判断制造高密度传播；企微人工确认转发 2,362 次（录屏画面显示 2,363），本报告按人工确认口径采用 2,362。",
+          "meta": "89 秒录屏 · 可播放",
+          "video": "assets/brand-exposure/videos/04-ai-tech-review.mp4",
+          "poster": "assets/brand-exposure/posters/04-ai-tech-review.jpg",
+          "videoWidth": 720,
+          "videoHeight": 1292
+        },
+        {
+          "index": "05",
+          "eyebrow": "第四波 · 全流程实测",
+          "title": "专业 Agent 帮你办事",
+          "body": "真人出镜串联租房、寄件与理财任务，突出盈米基金 Agent 能理解复杂条件、输出具体配置并完成专业判断。",
+          "meta": "94 秒录屏 · 可播放",
+          "video": "assets/brand-exposure/videos/05-fourth-wave-review.mp4",
+          "poster": "assets/brand-exposure/posters/05-fourth-wave-review.jpg",
+          "videoWidth": 720,
+          "videoHeight": 1292
+        }
+      ],
+      "callout": {
+        "label": "传播价值",
+        "text": "深度文章、横向测评、实测短视频与全流程体验，共同放大“专业能力 + AI 超级入口”的行业认知。"
+      }
+    },
+    {
       "id": "traffic-entry-models",
       "navHidden": true,
-      "kicker": "P16 · TRAFFIC ENTRY MODES",
+      "kicker": "P15 · TRAFFIC ENTRY MODES",
       "title": "流量入口合作模式",
       "lead": "用户都从 AI 入口提出需求，但不同模式承接的服务深度不同：从知识触达、能力调用，到账号服务、任务结果与交易闭环。",
       "layout": "cards",
@@ -999,80 +966,9 @@
       }
     },
     {
-      "id": "publicity-impact",
-      "navHidden": true,
-      "kicker": "P17 · BRAND EXPOSURE",
-      "title": "借助千问首发资源，1,478 个传播触点，采用阅读超 400 万",
-      "lead": "完整事件周期形成 285 个独立内容、超过 436.7 万采用阅读；下方 5 个代表性传播案例可直接播放。",
-      "layout": "demo",
-      "visual": "brand-exposure",
-      "tone": "dark",
-      "items": [
-        {
-          "index": "01",
-          "eyebrow": "未尽研究 · 深度文章",
-          "title": "“懂你”战争开始了",
-          "body": "从个人 AI 入口与现实服务连接的高度解释千问开放第三方智能体，把盈米基金放进“理解需求—执行服务”的新平台叙事。",
-          "meta": "39 秒录屏 · 可播放",
-          "video": "assets/brand-exposure/videos/01-insight-article.mp4",
-          "poster": "assets/brand-exposure/posters/01-insight-article.jpg",
-          "videoWidth": 720,
-          "videoHeight": 1066
-        },
-        {
-          "index": "02",
-          "eyebrow": "海峡导报 · 横向测评",
-          "title": "五个智能体实用测评",
-          "body": "省级新闻媒体将盈米基金与租房、出行、家政等服务放在同一真实任务中横向比较，理财顾问的专业输出成为场景证据。",
-          "meta": "19 秒录屏 · 可播放",
-          "video": "assets/brand-exposure/videos/02-five-agent-review.mp4",
-          "poster": "assets/brand-exposure/posters/02-five-agent-review.jpg",
-          "videoWidth": 720,
-          "videoHeight": 1066
-        },
-        {
-          "index": "03",
-          "eyebrow": "AI 普瑞斯 · 深度测评",
-          "title": "一周使用后的理财判断",
-          "body": "围绕“年化 5%—8% 稳健收益”等真实问题，展示盈米基金 Agent 不只罗列产品，而是给出资产配置、风险解释与适配判断。",
-          "meta": "37 秒录屏 · 可播放",
-          "video": "assets/brand-exposure/videos/03-agent-deep-review.mp4",
-          "poster": "assets/brand-exposure/posters/03-agent-deep-review.jpg",
-          "videoWidth": 720,
-          "videoHeight": 1274
-        },
-        {
-          "index": "04",
-          "eyebrow": "AI 科技评论 · 短视频",
-          "title": "千问先做了 AI 小程序",
-          "body": "用机器人热梗、服务实测与投资判断制造高密度传播；企微人工确认转发 2,362 次（录屏画面显示 2,363），本报告按人工确认口径采用 2,362。",
-          "meta": "89 秒录屏 · 可播放",
-          "video": "assets/brand-exposure/videos/04-ai-tech-review.mp4",
-          "poster": "assets/brand-exposure/posters/04-ai-tech-review.jpg",
-          "videoWidth": 720,
-          "videoHeight": 1292
-        },
-        {
-          "index": "05",
-          "eyebrow": "第四波 · 全流程实测",
-          "title": "专业 Agent 帮你办事",
-          "body": "真人出镜串联租房、寄件与理财任务，突出盈米基金 Agent 能理解复杂条件、输出具体配置并完成专业判断。",
-          "meta": "94 秒录屏 · 可播放",
-          "video": "assets/brand-exposure/videos/05-fourth-wave-review.mp4",
-          "poster": "assets/brand-exposure/posters/05-fourth-wave-review.jpg",
-          "videoWidth": 720,
-          "videoHeight": 1292
-        }
-      ],
-      "callout": {
-        "label": "传播价值",
-        "text": "深度文章、横向测评、实测短视频与全流程体验，共同放大“专业能力 + AI 超级入口”的行业认知。"
-      }
-    },
-    {
       "id": "cooperation-modes",
       "navLabel": "AI开放平台",
-      "kicker": "P18 · PLATFORM LISTING",
+      "kicker": "P16 · PLATFORM LISTING",
       "title": "主流 AI 平台逐步覆盖・商化与支付模式探索上架",
       "displayTitle": "主流 AI 平台逐步覆盖・商化与支付模式探索上架",
       "lead": "MCP 已覆盖九个平台；Skills 与 Agent 采用重点平台分层推进，以清晰状态呈现已上架能力与计划上架节奏。",
@@ -1167,7 +1063,7 @@
     {
       "id": "oap-growth",
       "navHidden": true,
-      "kicker": "P19 · OAP USER GROWTH",
+      "kicker": "P17 · OAP USER GROWTH",
       "title": "AI 开放平台用户增长",
       "lead": "502 日持续演进，从能力开放、生态上架到超级入口接入，用户与调用同步增长。",
       "layout": "embed-page",
@@ -1183,7 +1079,7 @@
     {
       "id": "system-relationship",
       "navHidden": true,
-      "kicker": "P20 · SYSTEM RELATIONSHIP",
+      "kicker": "P18 · SYSTEM RELATIONSHIP",
       "title": "从基础能力到开放生态",
       "lead": "完整呈现数据与工具、MCP / Skills / Agent、Stargate 管理后台及前台生态之间的系统关系与能力沉淀链路。",
       "layout": "relationship",
@@ -1194,10 +1090,10 @@
     {
       "id": "review",
       "navLabel": "NEXT",
-      "kicker": "P21 · REVIEW & NEXT",
-      "title": "回顾问题，明确下一程",
-      "lead": "回到最初，我们要用 AI 提升产能、获取外部流量；走向未来，我们要让服务无所不在、持续陪伴，并真正沉淀流量、用户与 AUM。",
-      "layout": "review-expectation",
+      "kicker": "P19 · FROM CAPABILITY TO GROWTH",
+      "title": "从一次调用，到每次有投资问题都遇见且慢",
+      "lead": "让可组合能力提升供给，让超级入口扩大触达，让持续陪伴最终沉淀用户、交易与 AUM。",
+      "layout": "cards",
       "tone": "soft",
       "groups": [
         {
