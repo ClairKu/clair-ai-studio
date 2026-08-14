@@ -562,7 +562,7 @@ const initialState = {
       pinned: true,
       position: 0,
       createdAt: "2026-08-13T12:00:00.000+08:00",
-      source: "完整实践报告｜战略问题—小顾价值验证—一支完整可播放案例视频—三次走出—能力体系—微信/千问超级入口—流量入口合作模式—502 日 OAP 交互增长—NEXT",
+      source: "完整实践报告｜战略问题—小顾价值验证—三支清晰产品演示—三次走出—能力与系统关系—微信/千问超级入口—五支传播案例—502 日 OAP 交互增长—NEXT",
       access: "production",
       workType: "reporting",
       tags: ["且慢", "AI 小顾", "AI 开放平台", "OAP", "千问", "微信", "增长", "产品实践", "案例视频", "CLAIR", "HTML", "生产"],
