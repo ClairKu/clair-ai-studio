@@ -179,31 +179,52 @@
       "navLabel": "价值验证",
       "kicker": "P3 · VALUE PROOF / EXPORT",
       "title": "价值验证：从“找功能”到“交任务”",
-      "lead": "案例一｜导出交易记录。用户说清资料范围与用途，AI 理解任务，并把交易记录、对账单与资产证明等获取路径集中交付。",
-      "layout": "evidence",
-      "tone": "light",
-      "items": [
+      "lead": "案例一｜导出交易记录。过去只能查看记录或逐月获取对账单；现在只需说清目的，AI 即可完成全量取数、文件生成与交付。",
+      "layout": "export-case",
+      "tone": "dark",
+      "oldWays": [
         {
-          "eyebrow": "ASK · 说清任务",
-          "title": "一句话提出交易资料需求",
-          "body": "用户不必先记住入口，只需说明想获取的交易记录范围与用途。",
+          "index": "01",
+          "eyebrow": "OLD WAY · 查看路径",
+          "title": "告诉用户去哪里查看",
           "image": "assets/source/transaction-export-current-limit.png",
-          "alt": "用户向小顾提出导出历史交易记录的需求，小顾识别范围并组织资料获取路径",
-          "imagePriority": "high"
+          "alt": "旧作法中，小顾说明交易记录的查看入口与可用替代路径"
         },
         {
-          "eyebrow": "DELIVER · 组织交付",
-          "title": "月度对账单直接获取",
-          "body": "小顾把可用资料与获取方式组织到眼前，让查询动作进入任务式交付。",
-          "image": "assets/scene-monthly-statement-redacted.png",
-          "alt": "小顾月度对账单选择与查看界面",
-          "imagePriority": "high"
+          "index": "02",
+          "eyebrow": "OLD WAY · 按月获取",
+          "title": "选择月份再查看对账单",
+          "image": "assets/transaction-export-monthly-statement.png",
+          "alt": "旧作法中，用户选择月份后查看对应的月度交易对账单"
         }
       ],
-      "callout": {
-        "label": "价值跃迁",
-        "text": "从告诉用户在哪里找，走向理解任务并把结果交到用户眼前。"
-      }
+      "newWay": {
+        "index": "03",
+        "eyebrow": "NEW WAY · 00:12",
+        "title": "生成全量交易明细 Excel",
+        "video": "assets/videos/transaction-export-full.mp4",
+        "poster": "assets/posters/transaction-export-full.jpg"
+      },
+      "changeTitle": "从引导用户操作，到 AI 直接完成任务",
+      "changeLead": "关键跃迁不是多一个按钮，而是 AI 真正替用户把任务做完。",
+      "changes": [
+        {
+          "index": "01",
+          "title": "需求理解",
+          "body": "用户只说目的，不再先找入口。"
+        },
+        {
+          "index": "02",
+          "title": "任务执行",
+          "body": "AI 跨月分批取数，合并 1,818 条明细并生成 Excel。"
+        },
+        {
+          "index": "03",
+          "title": "结果交付",
+          "body": "文件直接回到对话，可下载、复用并继续分析。"
+        }
+      ],
+      "flow": "说清目的 → AI 取数整合 → 生成 Excel → 直接下载"
     },
     {
       "id": "task-recording",
