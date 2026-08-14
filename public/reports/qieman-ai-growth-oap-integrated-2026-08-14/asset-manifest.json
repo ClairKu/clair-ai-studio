@@ -2,6 +2,16 @@
   "version": 1,
   "assets": [
     {
+      "path": "assets/qieman-form-map.svg",
+      "bytes": 5474,
+      "sha256": "aa51d7a119cf602a4bdfe3d4272c0c994e0779ff72a9fe389352804e37a57ff0"
+    },
+    {
+      "path": "assets/method-statement.svg",
+      "bytes": 2736,
+      "sha256": "b7527fa6c684c1d7a1512ce2523d34d6f991eff406405cd7ca63f6475b0046b3"
+    },
+    {
       "path": "assets/triangle-value.svg",
       "bytes": 2981,
       "sha256": "f2326bb2d3f43ec53672b3bbfffa37b76ac3a0da152c2ce13e52d9b4e1a18362"
@@ -50,6 +60,16 @@
       "path": "assets/qwen-qieman-agent-service-flow.png",
       "bytes": 827398,
       "sha256": "60dd2d1259f4c4ba4555b6885baa71ee46f9290f9a720f27285090f75f41ce8e"
+    },
+    {
+      "path": "assets/growth-flywheel.svg",
+      "bytes": 5697,
+      "sha256": "f87c7f07dc2a07ca7056cb874251797a0696accebb370a707304e3d84f24670a"
+    },
+    {
+      "path": "assets/metric-tree.svg",
+      "bytes": 6749,
+      "sha256": "e3b0674bac96fb40c44ef62fa7c3e2cc51ac9e06621a13122d98e516f723d32e"
     }
   ]
 }

@@ -22,10 +22,12 @@ if (!manifests.length) throw new Error("未找到报告资源清单");
 let checked = 0;
 for (const manifestPath of manifests) {
   const manifest = JSON.parse(await readFile(manifestPath, "utf8"));
-  for (const entry of manifest.files || []) {
+  const entries = manifest.files?.length ? manifest.files : (manifest.assets || []);
+  for (const entry of entries) {
     const assetPath = join(dirname(manifestPath), entry.path);
     const assetStat = await stat(assetPath);
     if (!assetStat.isFile() || assetStat.size === 0) throw new Error(`报告资源缺失或为空：${assetPath}`);
+    if (entry.bytes && assetStat.size !== entry.bytes) throw new Error(`报告资源大小不匹配：${assetPath}`);
     const contents = await readFile(assetPath);
     const digest = createHash("sha256").update(contents).digest("hex");
     if (entry.sha256 && digest !== entry.sha256) throw new Error(`报告资源校验失败：${assetPath}`);

@@ -1,10 +1,10 @@
 {
   "meta": {
-    "title": "且慢 AI 增长全景",
-    "subtitle": "小顾把服务做深\n开放平台把能力与增长做宽",
-    "eyebrow": "QIEMAN × YINGMI AI · INTEGRATED GROWTH REPORT",
+    "title": "AI时代，且慢如何存在与增长",
+    "subtitle": "不是守住一款 App\n而是成为可被 AI 调用的投顾服务网络",
+    "eyebrow": "QIEMAN · AI ERA FORM & GROWTH REPORT",
     "date": "2026-08-14",
-    "cutoff": "小顾生产实测截至 2026-08-13；OAP 调用与 MAU 读取于 2026-08-14 00:37，累计用户最新至 8 月 13 日；其他数据分项截止",
+    "cutoff": "小顾生产实测截至 2026-08-13；OAP 调用与 MAU 读取于 2026-08-14 00:37；外部平台与监管资料检索于 2026-08-14；其他数据分项截止",
     "owner": "且慢产品团队 × 盈米 AI 开放平台",
     "confidentiality": "公开脱敏整合版 · 原两份报告保持不变",
     "accent": "#7457E8",
@@ -12,21 +12,21 @@
     "brandMark": "C"
   },
   "hero": {
-    "conclusion": "且慢的 AI 增长不是“小顾 + 开放平台”两个项目相加，而是一套完整的金融服务操作系统：小顾验证服务，OAP 沉淀与治理能力，AI 实验室生产应用，微信、千问和机构渠道完成分发，最终用可归因任务把能力转成用户、关系与 AUM。",
-    "thesis": "这份整合版保留上一份增长报告的因果主线，并完整吸收 OAP 26 章中的年度目标、四个持续、平台覆盖、能力栈、治理、AI 实验室、机构需求、竞品、商业化与复盘内容。重点不再是“能力有多少”，而是能力如何从真实任务出发，被生产、分发、使用、反馈并形成经营结果。",
+    "conclusion": "且慢既不应只以一款 App 继续存在，也不能退化成匿名接口供应商；更优形态是“可被任意 AI 入口调用、但由且慢持续负责的投顾服务网络”。",
+    "thesis": "品牌与受监管责任关系构成内核，AI 小顾与且慢品牌 Agent 负责双端交付，CAP / AI 实验室负责生产服务，OAP 负责标准化、治理与分发。增长不再从“打开 App”开始，而从一个真实投资任务被发现、正确完成并沉淀为长期关系开始。",
     "badges": [
-      "小顾服务验证",
-      "OAP 全量整合",
-      "能力生产与分发",
+      "投顾信任层",
+      "双端交付",
+      "能力服务网络",
       "公开脱敏"
     ]
   },
   "closing": {
     "mark": "QIEMAN × YINGMI AI · FULL GROWTH SYSTEM",
-    "line1": "用户可以不先想到且慢，",
-    "line2": "但每次有投资问题时，都有机会",
-    "accent": "遇见且慢",
-    "lead": "小顾让专业服务在真实账户任务里成立，OAP 让这份服务成为可调用、可治理、可计量的能力，AI 实验室让能力变成可发布的应用，外部入口让服务走到用户所在的地方。下一阶段只验收一件事：可归因的成功服务任务是否持续增长。",
+    "line1": "让且慢从一个必须被打开的 App，",
+    "line2": "变成一个随处可被调用、始终可被信任的",
+    "accent": "投顾服务关系",
+    "lead": "入口会变化，模型会变化，协议也会变化；且慢应把不可替代的信任与责任留在内核，把可复用的专业服务送到用户任务发生的地方，再用真实结果把关系带回来。",
     "metaPrimary": "且慢产品团队 × 盈米 AI 开放平台 · 2026-08-14",
     "metaSecondary": "能力事实、渠道验证、经营结果与目标态分开标注 · 原报告均保持不变"
   },
@@ -38,9 +38,9 @@
       {
         "index": "01",
         "eyebrow": "THESIS · 命题",
-        "title": "资源约束下重建服务入口",
-        "summary": "入口迁移不是渠道变化，而是且慢经营形态的变化",
-        "sections": ["真正的题", "年度目标", "增长历程", "四个持续", "行业背书"]
+        "title": "先定义且慢要成为什么",
+        "summary": "App 会换位，但信任、责任与服务关系不能丢",
+        "sections": ["存在形态", "真正的题", "双端角色", "战略主线", "年度目标"]
       },
       {
         "index": "02",
@@ -67,12 +67,79 @@
         "index": "05",
         "eyebrow": "GROWTH · 经营",
         "title": "从外部分发走向可归因增长",
-        "summary": "入口、需求、机构、竞争、商化、复盘和下一阶段行动",
-        "sections": ["外部入口", "阶段证据", "机构采用", "商业化", "下一步"]
+        "summary": "能力与入口只有形成成功任务和长期关系才算增长",
+        "sections": ["外部入口", "阶段证据", "增长飞轮", "指标树", "下一步"]
       }
     ]
   },
   "sections": [
+    {
+      "id": "future-form",
+      "navLabel": "存在形态",
+      "kicker": "00 · FUTURE FORM",
+      "title": "且慢将以四层形态存在",
+      "lead": "且慢既不应只守住一款 App，也不能退化成匿名接口供应商；入口可以分散，信任、授权、治理与长期关系必须回到同一个内核。",
+      "layout": "evidence",
+      "tone": "dark",
+      "items": [
+        {
+          "title": "一个责任内核，一套系统，两端交付，N 个入口",
+          "body": "底层是且慢信任账户；中间由 CAP / AI 实验室与 OAP 形成服务生产、治理和分发系统；上层由 AI 小顾和且慢品牌 Agent 分别承接自有与外部服务。",
+          "source": "本报告综合且慢 AI 产品实践、CAP、OAP 与用户方法句重绘 · 2026-08-14",
+          "image": "assets/qieman-form-map.svg",
+          "alt": "且慢 AI 时代四层存在形态图，从信任账户、服务操作系统、两类终端到多个分布式入口",
+          "imagePriority": "high",
+          "status": "target"
+        },
+        {
+          "title": "拆解与重构之后，还要回答经营归属",
+          "body": "用户提出的“拆解—重构—融入”明确了产品方法；若外部入口保留用户意图、身份与反馈，且慢只获得匿名调用，技术分发成功，且慢经营却可能被稀释。",
+          "source": "用户提供方法截图 · 2026-08-14；本报告战略判断",
+          "image": "assets/method-statement.svg",
+          "alt": "根据用户截图逐字重绘的且慢 AI 能力重构方法，从能力原子化到服务系统化和分布式交付",
+          "status": "inferred"
+        }
+      ],
+      "callout": {
+        "label": "中心判断",
+        "text": "且慢未来是一层可信投顾责任关系、一套服务操作系统、两类交付终端与一张分布式能力网络。",
+        "status": "inferred"
+      }
+    },
+    {
+      "id": "app-agent-roles",
+      "navLabel": "双端角色",
+      "kicker": "00B · APP × AGENT",
+      "title": "App与Agent各有角色",
+      "lead": "系统级智能与开放协议正在让能力走出 App；更稳健的终局是“App + Agent 共存”，而不是 App 消失或通用 Agent 自动接管投顾。",
+      "layout": "comparison",
+      "tone": "light",
+      "items": [
+        {
+          "index": "A",
+          "eyebrow": "OWNED HOME",
+          "title": "App 是高信任归宿",
+          "body": "且慢 App 从唯一流量入口转为授权、解释、交易确认和关系账户，承接最难外包的高信任动作。",
+          "bullets": ["身份与数据授权", "依据与风险解释", "关键动作确认", "长期服务与记忆"],
+          "status": "target",
+          "source": "且慢 AI 产品实践、OAP 治理与金融责任边界综合判断"
+        },
+        {
+          "index": "B",
+          "eyebrow": "DISTRIBUTED AGENT",
+          "title": "Agent 是分布式门面",
+          "body": "且慢品牌 Agent 在微信、千问、搜索、智能硬件和机构工作流中发现意图、交付服务，并把身份与结果安全回流。",
+          "bullets": ["入口是用户意图", "产品单位是任务", "能力按风险分级", "品牌与归因不丢失"],
+          "status": "target",
+          "source": "Apple App Intents · 2025-06；Google Gemini 3.5 官方发布 · 2026-05-19；且慢外部联调材料"
+        }
+      ],
+      "callout": {
+        "label": "趋势边界",
+        "text": "可信趋势是入口外移、能力外露；不是 App 消亡，更不是持牌责任随调用一起外包。",
+        "status": "inferred"
+      }
+    },
     {
       "id": "real-question",
       "navLabel": "真正的题",
@@ -103,7 +170,7 @@
       ],
       "callout": {
         "label": "开场判断",
-        "text": "入口迁移已经发生；不迁移，且慢的专业能力就会被困在旧入口。",
+        "text": "入口结构正在变化；若能力仍只存在于 App 页面，且慢将难以进入新的任务分发链路。",
         "status": "inferred"
       }
     },
@@ -1614,6 +1681,31 @@
       }
     },
     {
+      "id": "growth-flywheel",
+      "navLabel": "增长飞轮",
+      "kicker": "32B · ATTRIBUTED FLYWHEEL",
+      "title": "任务飞轮重写增长",
+      "lead": "增长链路从“曝光—下载—打开”改写为“意图—服务—授权—任务—关系—反馈”；任何一步缺证，都不能宣称破圈。",
+      "layout": "evidence",
+      "tone": "dark",
+      "items": [
+        {
+          "title": "从外部意图回到长期关系",
+          "body": "外部入口负责发现，且慢负责专业理解和任务交付；身份绑定、服务复用、交易或 AUM 关系与反馈回流，决定一次调用能否变成经营结果。",
+          "source": "本报告综合且慢增长主线与归因证据缺口重绘 · 2026-08-14",
+          "image": "assets/growth-flywheel.svg",
+          "alt": "且慢 AI 增长飞轮，从外部入口发现意图到专业理解、授权交付、关系沉淀和反馈分发",
+          "imagePriority": "high",
+          "status": "target"
+        }
+      ],
+      "callout": {
+        "label": "经营起点",
+        "text": "AI 时代的增长不再从用户打开且慢开始，而从一个真实投资任务由且慢成功完成开始。",
+        "status": "inferred"
+      }
+    },
+    {
       "id": "growth-loop",
       "navLabel": "经营闭环",
       "kicker": "33 · GROWTH LOOP",
@@ -1659,6 +1751,31 @@
         "label": "北极星指标",
         "text": "可归因的成功服务任务，而不是对话数、接口数、调用数或媒体声量。",
         "status": "target"
+      }
+    },
+    {
+      "id": "growth-metric-tree",
+      "navLabel": "指标树",
+      "kicker": "33B · METRIC TREE",
+      "title": "北极星必须换指标",
+      "lead": "如果继续只看 MAU、对话数和接口调用，团队会被激励去制造更多活动，而不是完成更重要的投资任务。",
+      "layout": "evidence",
+      "tone": "dark",
+      "items": [
+        {
+          "title": "一个北极星，四组结果指标，一套护栏",
+          "body": "北极星定义为月度可归因成功服务任务；下设质量、关系、分发和经济指标，适当性、授权、解释、留痕和人工确认贯穿全程。",
+          "source": "本报告基于当前归因缺口设计 · 2026-08-14",
+          "image": "assets/metric-tree.svg",
+          "alt": "且慢 AI 增长指标树，以月度可归因成功服务任务为北极星，下设质量、关系、分发和经济指标",
+          "imagePriority": "high",
+          "status": "target"
+        }
+      ],
+      "callout": {
+        "label": "防止偷换",
+        "text": "接口数与调用量衡量产能；成功任务、复用、关系和单位经济才衡量增长。",
+        "status": "inferred"
       }
     },
     {
@@ -1745,7 +1862,7 @@
     },
     {
       "label": "飞书《AI 实践分享》现稿",
-      "detail": "docx/Vk6VdNQEEoMg7IxQuEKcrMH4nzd · revision 1748 · 2026-08-14 只读抽取"
+      "detail": "docx/Vk6VdNQEEoMg7IxQuEKcrMH4nzd · 最新审计 revision 2157 · 2026-08-14 只读抽取"
     },
     {
       "label": "飞书《8/3 盈米 AI 开放平台项目汇报》",
@@ -1778,9 +1895,33 @@
     {
       "label": "CAP 产品模式与服务生产材料",
       "detail": "qieman-cap-product-paradigm-2026-08-14 · 双重不可能三角、服务生产与目标态边界"
+    },
+    {
+      "label": "用户提供的方法截图",
+      "detail": "“拆解到最小颗粒，重构为 AI 能力体系，再融入新时代的入口、场景与工作流” · 2026-08-14 · 方法论推断，不是生产完成证明"
+    },
+    {
+      "label": "Apple App Intents 与 Google Gemini 3.5",
+      "detail": "https://developer.apple.com/documentation/appintents · https://blog.google/intl/en-africa/products/explore-get-answers/gemini-3-5/ · 只作为 App 能力走向系统入口与 Agent 任务执行的官方产品信号"
+    },
+    {
+      "label": "Anthropic MCP / Agentic AI Foundation",
+      "detail": "https://www.anthropic.com/news/donating-the-model-context-protocol-and-establishing-of-the-agentic-ai-foundation · 2025-12-09 · 协议采用不等于金融级安全或真实使用"
+    },
+    {
+      "label": "IOSCO AI in Capital Markets",
+      "detail": "https://www.iosco.org/library/pubdocs/pdf/IOSCOPD788.pdf · 2025-03-12 · 金融 AI 风险、部署顺序、适当性与第三方依赖"
+    },
+    {
+      "label": "智能投顾与投顾规则边界",
+      "detail": "https://www.safe.gov.cn/safe/2018/0427/8876.html · https://www.csrc.gov.cn/csrc/c100028/c7625742/content.shtml · 资质、授权、适当性、留痕、人工干预与规则演进"
     }
   ],
   "openQuestions": [
+    {
+      "title": "且慢的外部身份尚未决策",
+      "detail": "品牌 Agent、联合品牌服务或匿名能力供给，会带来不同的用户认知、关系归属、渠道议价与责任边界；需要形成统一渠道契约。"
+    },
     {
       "title": "小顾用户与交互口径冲突",
       "detail": "现稿 20 万用户、300 万次问题与历史 15 万+用户、180 万+问题及“300 万调用”不一致；待统一对象、截止点、去重和问题/调用定义。"

@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="840" viewBox="0 0 1440 840" role="img" aria-labelledby="title desc">
+  <title id="title">AI 时代且慢的四层存在形态</title>
+  <desc id="desc">且慢以信任与责任关系为内核，以服务生产与治理系统为底座，通过自有小顾与外部品牌 Agent 交付，并分布到多种 AI 入口。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#10182C"/>
+      <stop offset="1" stop-color="#18213B"/>
+    </linearGradient>
+    <linearGradient id="core" x1="0" x2="1">
+      <stop stop-color="#7457E8"/>
+      <stop offset="1" stop-color="#957FEB"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="22" flood-color="#070B16" flood-opacity=".28"/>
+    </filter>
+    <marker id="arrow" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto">
+      <path d="M0,0 L11,5.5 L0,11 Z" fill="#A998F0"/>
+    </marker>
+  </defs>
+  <rect width="1440" height="840" rx="36" fill="url(#bg)"/>
+  <text x="88" y="86" fill="#A998F0" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="18" font-weight="700" letter-spacing="3">TARGET FORM · 目标形态</text>
+  <text x="88" y="139" fill="#FFFFFF" font-family="Songti SC,STSong,serif" font-size="42" font-weight="700">一个责任内核，一套服务系统，两类交付终端，N 个入口</text>
+  <text x="88" y="180" fill="#AEB7CC" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="20">入口可以分散，身份、授权、适当性、服务记忆与最终责任必须统一。</text>
+
+  <g filter="url(#shadow)">
+    <rect x="86" y="243" width="1268" height="118" rx="28" fill="#202B49" stroke="#4D5D83"/>
+    <text x="122" y="283" fill="#8FA0C2" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="16" font-weight="700" letter-spacing="2">N · DISTRIBUTED ENTRANCES</text>
+    <text x="122" y="326" fill="#FFFFFF" font-family="Songti SC,STSong,serif" font-size="31" font-weight="700">微信 · 千问 · 搜索 / 浏览器 · 智能硬件 · 机构工作流 · 更多 Agent</text>
+    <rect x="1116" y="271" width="188" height="53" rx="26.5" fill="#30275C" stroke="#7457E8"/>
+    <text x="1210" y="305" text-anchor="middle" fill="#D8D0FF" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="17" font-weight="700">发现用户意图</text>
+  </g>
+
+  <path d="M720 361 L720 402" stroke="#A998F0" stroke-width="4" marker-end="url(#arrow)"/>
+
+  <g filter="url(#shadow)">
+    <rect x="86" y="418" width="608" height="142" rx="28" fill="#FFFFFF"/>
+    <circle cx="145" cy="475" r="30" fill="#EDE9FF"/>
+    <text x="145" y="483" text-anchor="middle" fill="#5E44C9" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="23" font-weight="800">A</text>
+    <text x="194" y="461" fill="#7457E8" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="16" font-weight="700" letter-spacing="1.5">OWNED TERMINAL</text>
+    <text x="194" y="500" fill="#171A27" font-family="Songti SC,STSong,serif" font-size="30" font-weight="700">且慢 App × AI 小顾</text>
+    <text x="194" y="532" fill="#687287" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="17">高信任阵地 · 账户承接 · 交易确认 · 长期服务</text>
+
+    <rect x="746" y="418" width="608" height="142" rx="28" fill="#FFFFFF"/>
+    <circle cx="805" cy="475" r="30" fill="#EDE9FF"/>
+    <text x="805" y="483" text-anchor="middle" fill="#5E44C9" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="23" font-weight="800">B</text>
+    <text x="854" y="461" fill="#7457E8" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="16" font-weight="700" letter-spacing="1.5">EMBEDDED TERMINAL</text>
+    <text x="854" y="500" fill="#171A27" font-family="Songti SC,STSong,serif" font-size="30" font-weight="700">且慢品牌 Agent</text>
+    <text x="854" y="532" fill="#687287" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="17">外部发现 · 专业交付 · 身份绑定 · 受监管回流</text>
+  </g>
+
+  <path d="M720 560 L720 601" stroke="#A998F0" stroke-width="4" marker-end="url(#arrow)"/>
+
+  <g filter="url(#shadow)">
+    <rect x="86" y="618" width="1268" height="92" rx="26" fill="#F1EEFF" stroke="#B7AAF5"/>
+    <text x="122" y="654" fill="#7457E8" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="16" font-weight="700" letter-spacing="1.5">SERVICE OPERATING SYSTEM</text>
+    <text x="122" y="689" fill="#312A54" font-family="Songti SC,STSong,serif" font-size="26" font-weight="700">CAP / AI 实验室生产服务 · OAP 标准化与分发 · 统一评测、权限、审计与生命周期</text>
+  </g>
+
+  <path d="M720 710 L720 744" stroke="#A998F0" stroke-width="4" marker-end="url(#arrow)"/>
+
+  <g filter="url(#shadow)">
+    <rect x="270" y="756" width="900" height="62" rx="31" fill="url(#core)"/>
+    <text x="720" y="795" text-anchor="middle" fill="#FFFFFF" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="21" font-weight="750">且慢信任账户：品牌承诺 × 用户授权 × 适当性 × 服务记忆 × 最终责任</text>
+  </g>
+</svg>
