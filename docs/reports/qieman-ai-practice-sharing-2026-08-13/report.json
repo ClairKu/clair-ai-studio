@@ -37,7 +37,7 @@
       {
         "index": "01",
         "eyebrow": "QUESTION · 解什么题",
-        "title": "且慢为什么要换条路",
+        "title": "解决什么业务问题",
         "summary": "自身条件与环境变化，共同改变增长方式",
         "sections": [
           "解什么题"
@@ -132,7 +132,7 @@
       "id": "solve-user-problems",
       "navHidden": true,
       "kicker": "P2 · SOLVE USER PROBLEMS",
-      "title": "先解决用户问题",
+      "title": "先用AI小顾解决用户问题",
       "lead": "一个入口接住“不知道怎么开始、服务获取不便、需求多元复杂”，让专业、实时、个性化的顾问服务随问随得。",
       "layout": "metrics",
       "tone": "soft",
@@ -197,27 +197,26 @@
         "video": "assets/videos/transaction-export-full.mp4",
         "poster": "assets/posters/transaction-export-full.jpg"
       },
-      "changeEyebrow": "BEFORE → NOW",
-      "changeTitle": "从“按月获取”到“全量交付”",
-      "changeLead": "变化不在于换一张界面，而在于用户说清目的后，AI 直接完成取数、合并与文件交付。",
+      "changeEyebrow": "CAPABILITY EVOLUTION · 三阶段能力",
+      "changeLead": "从“人找功能”，到“AI 找功能”，再到“AI 直接交付结果”。",
       "changes": [
         {
           "index": "01",
-          "title": "从找入口，到说目的",
-          "body": "过去先进入记录或对账单入口；现在直接说明目的、范围与格式。"
+          "title": "用户自己找功能",
+          "body": "先进入交易记录或对账单入口，再按月份查看与下载。"
         },
         {
           "index": "02",
-          "title": "从逐月获取，到全量合并",
-          "body": "过去按月份逐次查看或获取；现在按指定范围全量取数并自动合并。"
+          "title": "AI 帮用户找功能",
+          "body": "用户说清想查什么，AI 定位对应功能并引导完成操作。"
         },
         {
           "index": "03",
-          "title": "从分月结果，到 Excel 交付",
-          "body": "合并后的交易记录生成一个 Excel，直接回到对话中下载。"
+          "title": "AI 帮用户完成任务",
+          "body": "用户只说目标，AI 直接完成全量取数、自动合并与 Excel 交付。"
         }
       ],
-      "flow": "说清目的 → 全量取数 → 自动合并 → Excel 交付"
+      "flow": "用户自己找功能 → AI 帮用户找功能 → AI 帮用户完成任务"
     },
     {
       "id": "task-recording",
