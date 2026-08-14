@@ -356,7 +356,7 @@
       "layout": "architecture",
       "visual": "qwen-scene",
       "tone": "soft",
-      "image": "assets/qwen-qieman-agent-service-flow.png",
+      "image": "assets/qwen-qieman-agent-service-flow.png?v=9116eb6f",
       "alt": "千问中从发现盈米基金智能体、绑定且慢账号、获得小顾服务到进入基金买入页面的真实链路截图",
       "items": [
         {
