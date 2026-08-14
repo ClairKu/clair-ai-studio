@@ -133,8 +133,8 @@
     },
     {
       "path": "assets/system-relationship.svg",
-      "bytes": 15307,
-      "sha256": "1acfc70356a4560d97b59ed664a46c8924caaa6a86d55e756b1e38a834d00d14"
+      "bytes": 11010,
+      "sha256": "f4ce3ebd964151f88c36ff868257855f611fe19ed96e3be7cb8ca90ec460fb0e"
     },
     {
       "path": "assets/oap-journey-metrics.html",
