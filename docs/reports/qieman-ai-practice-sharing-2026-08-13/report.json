@@ -235,7 +235,7 @@
       "id": "task-recording",
       "navHidden": true,
       "kicker": "P4 · VALUE PROOF / BEHAVIOR",
-      "title": "价值验证：从“不可能”到“可能”",
+      "title": "从交易记录到行为分析",
       "lead": "两支完整录屏展示：AI 如何从全量交易记录出发，识别行为偏差、给出逐笔证据，并形成可执行的矫正方案。",
       "layout": "behavior-proof",
       "tone": "dark",
