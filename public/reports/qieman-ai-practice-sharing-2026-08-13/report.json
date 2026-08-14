@@ -293,7 +293,7 @@
     },
     {
       "id": "product-evolution",
-      "navHidden": true,
+      "navLabel": "经验总结",
       "kicker": "P5 · PRODUCT PROCESS",
       "title": "产品进程，逐步实现真千人千面、与长期持续的服务闭环",
       "lead": "小顾从解决账户服务痛点出发，持续扩展解题广度、服务深度与任务执行能力，最终走向用户投资任务闭环。",
@@ -356,7 +356,7 @@
     },
     {
       "id": "experience-summary",
-      "navLabel": "经验总结",
+      "navHidden": true,
       "kicker": "P6 · EXPERIENCE SUMMARY",
       "title": "经验总结，始于业务，围绕用户体验，逐步放权大模型。",
       "lead": "从 0→1 验证真实价值，到 3.0 建设记忆、任务与执行，小顾真正沉淀的不是一个模型，而是一套能随技术演进持续升级的产品方法。",
@@ -947,7 +947,7 @@
     },
     {
       "id": "cooperation-modes",
-      "navLabel": "AI开放平台",
+      "navHidden": true,
       "kicker": "P16 · PLATFORM LISTING",
       "title": "主流 AI 平台逐步覆盖・商化与支付模式探索上架",
       "displayTitle": "主流 AI 平台逐步覆盖・商化与支付模式探索上架",
@@ -1058,7 +1058,7 @@
     },
     {
       "id": "system-relationship",
-      "navHidden": true,
+      "navLabel": "开放生态",
       "kicker": "P18 · SYSTEM RELATIONSHIP",
       "title": "从基础能力到开放生态",
       "lead": "完整呈现数据与工具、MCP / Skills / Agent、Stargate 管理后台及前台生态之间的系统关系与能力沉淀链路。",
@@ -1069,7 +1069,7 @@
     },
     {
       "id": "review",
-      "navLabel": "NEXT",
+      "navLabel": "未来目标",
       "kicker": "P19 · FROM CAPABILITY TO GROWTH",
       "title": "回顾问题，明确下一程",
       "lead": "回到最初，我们要用 AI 提升产能、获取外部流量；走向未来，我们要让服务无所不在、持续陪伴，并真正沉淀流量、用户与 AUM。",
