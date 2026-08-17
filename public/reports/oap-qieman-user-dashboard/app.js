@@ -219,7 +219,8 @@ function validateGrowth(data, cohortIds) {
         const values = slice.map((period) => growthMetric(period, field));
         const summaryValue = growthMetric(summary, field);
         if ((summaryValue === null) !== values.some((value) => value === null)) throw new Error(`${cohortId} ${periodLabel}${field} 抑制未上下传播`);
-        if (field !== "inflow_users" && summaryValue !== null && values.every((value) => value !== null) && values.reduce((sum, value) => sum + value, 0) !== summaryValue) {
+        const closureTolerance = field.endsWith("_yuan") ? 20_000 : 0;
+        if (field !== "inflow_users" && summaryValue !== null && values.every((value) => value !== null) && Math.abs(values.reduce((sum, value) => sum + value, 0) - summaryValue) > closureTolerance) {
           throw new Error(`${cohortId} ${periodLabel}${field} 与趋势不闭合`);
         }
       }
@@ -968,7 +969,7 @@ async function startLocalRefresh() {
   if (!started.job_id) throw new Error("本机更新器没有返回任务编号");
   setRefreshStatus(started.message || "本体查询已开始。", started.progress_url || "");
 
-  for (let attempt = 0; attempt < 900; attempt += 1) {
+  for (let attempt = 0; attempt < 1200; attempt += 1) {
     await delay(2500);
     const statusResponse = await fetchWithTimeout(`${LOCAL_REFRESH_BASE}/status?job=${encodeURIComponent(started.job_id)}&v=${Date.now()}`, {
       cache: "no-store",

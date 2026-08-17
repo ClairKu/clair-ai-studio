@@ -3,7 +3,7 @@
   "meta": {
     "title": "OAP 用户画像 × 且慢持仓与行为看板",
     "contract_revision": "journey-growth-2026-08-17",
-    "generated_at": "2026-08-17T14:57:36.657+08:00",
+    "generated_at": "2026-08-17T16:24:53+08:00",
     "data_cutoff": "2026-08-16T23:59:59+08:00",
     "asset_snapshot_date": "2026-08-17",
     "behavior_window_start": "2026-05-19",
@@ -200,44 +200,44 @@
       "detail": "使用账户日级资产入账与出账作为代理；可观察资金变化，但尚未等价于权威外部现金流，也不是买入或赎回额。"
     },
     "comparison": {
-      "current_start": "2026-07-15",
-      "current_end": "2026-08-13",
-      "previous_start": "2026-06-15",
-      "previous_end": "2026-07-14"
+      "current_start": "2026-07-16",
+      "current_end": "2026-08-14",
+      "previous_start": "2026-06-16",
+      "previous_end": "2026-07-15"
     },
     "trend": {
-      "window_start": "2026-05-16",
-      "window_end": "2026-08-13",
+      "window_start": "2026-05-17",
+      "window_end": "2026-08-14",
       "grain_days": 10,
       "period_count": 9
     },
     "funnel": {
-      "registration_start": "2026-06-15",
-      "registration_end": "2026-07-14",
+      "registration_start": "2026-06-16",
+      "registration_end": "2026-07-15",
       "followup_days": 30
     },
-    "cashflow_max_date": "2026-08-13",
+    "cashflow_max_date": "2026-08-14",
     "join_key_state": "confirmed",
     "by_cohort": {
       "approved": {
         "cohort_n": 9855,
         "registration_time_coverage_state": "high",
         "current": {
-          "new_registrations": 1875,
+          "new_registrations": 1914,
           "first_inflow_users": null,
-          "inflow_users": 734,
-          "inflow_yuan": 8630000,
+          "inflow_users": 727,
+          "inflow_yuan": 10400000,
           "outflow_yuan": 11270000,
           "suppressed_fields": [
             "first_inflow_users"
           ]
         },
         "previous": {
-          "new_registrations": 586,
+          "new_registrations": 599,
           "first_inflow_users": null,
-          "inflow_users": 751,
-          "inflow_yuan": 11870000,
-          "outflow_yuan": 9520000,
+          "inflow_users": 746,
+          "inflow_yuan": 11350000,
+          "outflow_yuan": 8940000,
           "suppressed_fields": [
             "first_inflow_users"
           ]
@@ -248,116 +248,116 @@
             "first_inflow_d30_users",
             "still_holding_users"
           ],
-          "eligible_registrations": 586,
+          "eligible_registrations": 599,
           "first_inflow_d7_users": null,
           "first_inflow_d30_users": null,
           "still_holding_users": null
         },
         "trend_periods": [
           {
-            "start": "2026-05-16",
-            "end": "2026-05-25",
-            "new_registrations": 192,
+            "start": "2026-05-17",
+            "end": "2026-05-26",
+            "new_registrations": 202,
             "first_inflow_users": null,
-            "inflow_users": 509,
-            "inflow_yuan": 5990000,
-            "outflow_yuan": 4200000,
+            "inflow_users": 526,
+            "inflow_yuan": 6670000,
+            "outflow_yuan": 4590000,
             "suppressed_fields": [
               "first_inflow_users"
             ]
           },
           {
-            "start": "2026-05-26",
-            "end": "2026-06-04",
-            "new_registrations": 184,
-            "first_inflow_users": null,
-            "inflow_users": 515,
-            "inflow_yuan": 6000000,
-            "outflow_yuan": 6920000,
-            "suppressed_fields": [
-              "first_inflow_users"
-            ]
-          },
-          {
-            "start": "2026-06-05",
-            "end": "2026-06-14",
-            "new_registrations": 206,
-            "first_inflow_users": null,
-            "inflow_users": 331,
-            "inflow_yuan": 3190000,
-            "outflow_yuan": 4610000,
-            "suppressed_fields": [
-              "first_inflow_users"
-            ]
-          },
-          {
-            "start": "2026-06-15",
-            "end": "2026-06-24",
-            "new_registrations": 179,
-            "first_inflow_users": null,
-            "inflow_users": 497,
-            "inflow_yuan": 4730000,
-            "outflow_yuan": 4520000,
-            "suppressed_fields": [
-              "first_inflow_users"
-            ]
-          },
-          {
-            "start": "2026-06-25",
-            "end": "2026-07-04",
+            "start": "2026-05-27",
+            "end": "2026-06-05",
             "new_registrations": 183,
             "first_inflow_users": null,
-            "inflow_users": 473,
-            "inflow_yuan": 4300000,
-            "outflow_yuan": 3130000,
+            "inflow_users": 501,
+            "inflow_yuan": 5890000,
+            "outflow_yuan": 7580000,
             "suppressed_fields": [
               "first_inflow_users"
             ]
           },
           {
-            "start": "2026-07-05",
-            "end": "2026-07-14",
-            "new_registrations": 224,
+            "start": "2026-06-06",
+            "end": "2026-06-15",
+            "new_registrations": 200,
             "first_inflow_users": null,
-            "inflow_users": 650,
-            "inflow_yuan": 2840000,
-            "outflow_yuan": 1870000,
+            "inflow_users": 279,
+            "inflow_yuan": 3460000,
+            "outflow_yuan": 4310000,
             "suppressed_fields": [
               "first_inflow_users"
             ]
           },
           {
-            "start": "2026-07-15",
-            "end": "2026-07-24",
-            "new_registrations": 556,
+            "start": "2026-06-16",
+            "end": "2026-06-25",
+            "new_registrations": 187,
             "first_inflow_users": null,
-            "inflow_users": 274,
-            "inflow_yuan": 2370000,
-            "outflow_yuan": 3080000,
+            "inflow_users": 498,
+            "inflow_yuan": 5110000,
+            "outflow_yuan": 4620000,
             "suppressed_fields": [
               "first_inflow_users"
             ]
           },
           {
-            "start": "2026-07-25",
-            "end": "2026-08-03",
-            "new_registrations": 606,
+            "start": "2026-06-26",
+            "end": "2026-07-05",
+            "new_registrations": 170,
             "first_inflow_users": null,
-            "inflow_users": 318,
-            "inflow_yuan": 2990000,
-            "outflow_yuan": 4790000,
+            "inflow_users": 401,
+            "inflow_yuan": 3070000,
+            "outflow_yuan": 2280000,
             "suppressed_fields": [
               "first_inflow_users"
             ]
           },
           {
-            "start": "2026-08-04",
-            "end": "2026-08-13",
-            "new_registrations": 713,
+            "start": "2026-07-06",
+            "end": "2026-07-15",
+            "new_registrations": 242,
             "first_inflow_users": null,
-            "inflow_users": 642,
-            "inflow_yuan": 3270000,
-            "outflow_yuan": 3400000,
+            "inflow_users": 658,
+            "inflow_yuan": 3170000,
+            "outflow_yuan": 2040000,
+            "suppressed_fields": [
+              "first_inflow_users"
+            ]
+          },
+          {
+            "start": "2026-07-16",
+            "end": "2026-07-25",
+            "new_registrations": 590,
+            "first_inflow_users": null,
+            "inflow_users": 245,
+            "inflow_yuan": 2040000,
+            "outflow_yuan": 2910000,
+            "suppressed_fields": [
+              "first_inflow_users"
+            ]
+          },
+          {
+            "start": "2026-07-26",
+            "end": "2026-08-04",
+            "new_registrations": 596,
+            "first_inflow_users": null,
+            "inflow_users": 339,
+            "inflow_yuan": 3180000,
+            "outflow_yuan": 5150000,
+            "suppressed_fields": [
+              "first_inflow_users"
+            ]
+          },
+          {
+            "start": "2026-08-05",
+            "end": "2026-08-14",
+            "new_registrations": 728,
+            "first_inflow_users": null,
+            "inflow_users": 637,
+            "inflow_yuan": 5180000,
+            "outflow_yuan": 3210000,
             "suppressed_fields": [
               "first_inflow_users"
             ]
@@ -368,21 +368,22 @@
         "cohort_n": 5816,
         "registration_time_coverage_state": "high",
         "current": {
-          "new_registrations": 1024,
+          "new_registrations": null,
           "first_inflow_users": null,
-          "inflow_users": 443,
-          "inflow_yuan": 6540000,
-          "outflow_yuan": 6020000,
+          "inflow_users": 439,
+          "inflow_yuan": 8460000,
+          "outflow_yuan": 6010000,
           "suppressed_fields": [
-            "first_inflow_users"
+            "first_inflow_users",
+            "new_registrations"
           ]
         },
         "previous": {
-          "new_registrations": 407,
+          "new_registrations": 421,
           "first_inflow_users": null,
-          "inflow_users": 452,
-          "inflow_yuan": 8190000,
-          "outflow_yuan": 6920000,
+          "inflow_users": 449,
+          "inflow_yuan": 7640000,
+          "outflow_yuan": 6460000,
           "suppressed_fields": [
             "first_inflow_users"
           ]
@@ -393,118 +394,121 @@
             "first_inflow_d30_users",
             "still_holding_users"
           ],
-          "eligible_registrations": 407,
+          "eligible_registrations": 421,
           "first_inflow_d7_users": null,
           "first_inflow_d30_users": null,
           "still_holding_users": null
         },
         "trend_periods": [
           {
-            "start": "2026-05-16",
-            "end": "2026-05-25",
-            "new_registrations": 141,
+            "start": "2026-05-17",
+            "end": "2026-05-26",
+            "new_registrations": 153,
             "first_inflow_users": null,
-            "inflow_users": 296,
-            "inflow_yuan": 3900000,
-            "outflow_yuan": 2600000,
+            "inflow_users": 309,
+            "inflow_yuan": 4320000,
+            "outflow_yuan": 2880000,
             "suppressed_fields": [
               "first_inflow_users"
             ]
           },
           {
-            "start": "2026-05-26",
-            "end": "2026-06-04",
-            "new_registrations": 128,
-            "first_inflow_users": null,
-            "inflow_users": 316,
-            "inflow_yuan": 3930000,
-            "outflow_yuan": 4620000,
-            "suppressed_fields": [
-              "first_inflow_users"
-            ]
-          },
-          {
-            "start": "2026-06-05",
-            "end": "2026-06-14",
-            "new_registrations": 131,
-            "first_inflow_users": null,
-            "inflow_users": 200,
-            "inflow_yuan": 1740000,
-            "outflow_yuan": 2500000,
-            "suppressed_fields": [
-              "first_inflow_users"
-            ]
-          },
-          {
-            "start": "2026-06-15",
-            "end": "2026-06-24",
-            "new_registrations": 119,
-            "first_inflow_users": null,
-            "inflow_users": 307,
-            "inflow_yuan": 3480000,
-            "outflow_yuan": 3260000,
-            "suppressed_fields": [
-              "first_inflow_users"
-            ]
-          },
-          {
-            "start": "2026-06-25",
-            "end": "2026-07-04",
+            "start": "2026-05-27",
+            "end": "2026-06-05",
             "new_registrations": 123,
             "first_inflow_users": null,
-            "inflow_users": 289,
-            "inflow_yuan": 2750000,
-            "outflow_yuan": 2370000,
+            "inflow_users": 307,
+            "inflow_yuan": 3730000,
+            "outflow_yuan": 4630000,
             "suppressed_fields": [
               "first_inflow_users"
             ]
           },
           {
-            "start": "2026-07-05",
-            "end": "2026-07-14",
-            "new_registrations": 165,
+            "start": "2026-06-06",
+            "end": "2026-06-15",
+            "new_registrations": 126,
             "first_inflow_users": null,
-            "inflow_users": 386,
-            "inflow_yuan": 1960000,
-            "outflow_yuan": 1290000,
+            "inflow_users": 164,
+            "inflow_yuan": 2250000,
+            "outflow_yuan": 2840000,
             "suppressed_fields": [
               "first_inflow_users"
             ]
           },
           {
-            "start": "2026-07-15",
-            "end": "2026-07-24",
-            "new_registrations": 327,
+            "start": "2026-06-16",
+            "end": "2026-06-25",
+            "new_registrations": 124,
             "first_inflow_users": null,
-            "inflow_users": 171,
-            "inflow_yuan": 1870000,
-            "outflow_yuan": 2450000,
+            "inflow_users": 305,
+            "inflow_yuan": 3210000,
+            "outflow_yuan": 3350000,
             "suppressed_fields": [
               "first_inflow_users"
             ]
           },
           {
-            "start": "2026-07-25",
-            "end": "2026-08-03",
-            "new_registrations": 337,
+            "start": "2026-06-26",
+            "end": "2026-07-05",
+            "new_registrations": 117,
             "first_inflow_users": null,
-            "inflow_users": 188,
-            "inflow_yuan": 2280000,
-            "outflow_yuan": 1470000,
+            "inflow_users": 253,
+            "inflow_yuan": 2300000,
+            "outflow_yuan": 1660000,
             "suppressed_fields": [
               "first_inflow_users"
             ]
           },
           {
-            "start": "2026-08-04",
-            "end": "2026-08-13",
-            "new_registrations": 360,
+            "start": "2026-07-06",
+            "end": "2026-07-15",
+            "new_registrations": 180,
             "first_inflow_users": null,
-            "inflow_users": 386,
-            "inflow_yuan": 2390000,
-            "outflow_yuan": 2100000,
+            "inflow_users": 392,
+            "inflow_yuan": 2130000,
+            "outflow_yuan": 1450000,
             "suppressed_fields": [
               "first_inflow_users"
+            ]
+          },
+          {
+            "start": "2026-07-16",
+            "end": "2026-07-25",
+            "new_registrations": null,
+            "first_inflow_users": null,
+            "inflow_users": 151,
+            "inflow_yuan": 1700000,
+            "outflow_yuan": 2290000,
+            "suppressed_fields": [
+              "first_inflow_users",
+              "new_registrations"
+            ]
+          },
+          {
+            "start": "2026-07-26",
+            "end": "2026-08-04",
+            "new_registrations": null,
+            "first_inflow_users": null,
+            "inflow_users": 202,
+            "inflow_yuan": 2350000,
+            "outflow_yuan": 1710000,
+            "suppressed_fields": [
+              "first_inflow_users",
+              "new_registrations"
+            ]
+          },
+          {
+            "start": "2026-08-05",
+            "end": "2026-08-14",
+            "new_registrations": null,
+            "first_inflow_users": null,
+            "inflow_users": 385,
+            "inflow_yuan": 4410000,
+            "outflow_yuan": 2010000,
+            "suppressed_fields": [
+              "first_inflow_users",
+              "new_registrations"
             ]
           }
         ]
@@ -513,21 +517,21 @@
         "cohort_n": 2266,
         "registration_time_coverage_state": "complete",
         "current": {
-          "new_registrations": 1000,
+          "new_registrations": 1013,
           "first_inflow_users": null,
-          "inflow_users": 222,
-          "inflow_yuan": 4530000,
-          "outflow_yuan": 3650000,
+          "inflow_users": 219,
+          "inflow_yuan": 6440000,
+          "outflow_yuan": 3730000,
           "suppressed_fields": [
             "first_inflow_users"
           ]
         },
         "previous": {
-          "new_registrations": 128,
+          "new_registrations": 136,
           "first_inflow_users": null,
-          "inflow_users": 224,
-          "inflow_yuan": 4870000,
-          "outflow_yuan": 3810000,
+          "inflow_users": 221,
+          "inflow_yuan": 4370000,
+          "outflow_yuan": 3370000,
           "suppressed_fields": [
             "first_inflow_users"
           ]
@@ -538,116 +542,116 @@
             "first_inflow_d30_users",
             "still_holding_users"
           ],
-          "eligible_registrations": 128,
+          "eligible_registrations": 136,
           "first_inflow_d7_users": null,
           "first_inflow_d30_users": null,
           "still_holding_users": null
         },
         "trend_periods": [
           {
-            "start": "2026-05-16",
-            "end": "2026-05-25",
-            "new_registrations": 27,
+            "start": "2026-05-17",
+            "end": "2026-05-26",
+            "new_registrations": 28,
             "first_inflow_users": null,
-            "inflow_users": 140,
-            "inflow_yuan": 1860000,
-            "outflow_yuan": 900000,
+            "inflow_users": 146,
+            "inflow_yuan": 2100000,
+            "outflow_yuan": 1070000,
             "suppressed_fields": [
               "first_inflow_users"
             ]
           },
           {
-            "start": "2026-05-26",
-            "end": "2026-06-04",
+            "start": "2026-05-27",
+            "end": "2026-06-05",
+            "new_registrations": 38,
+            "first_inflow_users": null,
+            "inflow_users": 153,
+            "inflow_yuan": 2060000,
+            "outflow_yuan": 2140000,
+            "suppressed_fields": [
+              "first_inflow_users"
+            ]
+          },
+          {
+            "start": "2026-06-06",
+            "end": "2026-06-15",
             "new_registrations": 34,
             "first_inflow_users": null,
-            "inflow_users": 157,
-            "inflow_yuan": 2200000,
-            "outflow_yuan": 2120000,
+            "inflow_users": 90,
+            "inflow_yuan": 1920000,
+            "outflow_yuan": 1480000,
             "suppressed_fields": [
               "first_inflow_users"
             ]
           },
           {
-            "start": "2026-06-05",
-            "end": "2026-06-14",
-            "new_registrations": 37,
+            "start": "2026-06-16",
+            "end": "2026-06-25",
+            "new_registrations": 39,
             "first_inflow_users": null,
-            "inflow_users": 104,
-            "inflow_yuan": 1360000,
-            "outflow_yuan": 1170000,
+            "inflow_users": 156,
+            "inflow_yuan": 1540000,
+            "outflow_yuan": 1680000,
             "suppressed_fields": [
               "first_inflow_users"
             ]
           },
           {
-            "start": "2026-06-15",
-            "end": "2026-06-24",
-            "new_registrations": 35,
+            "start": "2026-06-26",
+            "end": "2026-07-05",
+            "new_registrations": 33,
             "first_inflow_users": null,
-            "inflow_users": 158,
-            "inflow_yuan": 1960000,
-            "outflow_yuan": 2160000,
+            "inflow_users": 138,
+            "inflow_yuan": 1220000,
+            "outflow_yuan": 1160000,
             "suppressed_fields": [
               "first_inflow_users"
             ]
           },
           {
-            "start": "2026-06-25",
-            "end": "2026-07-04",
-            "new_registrations": 37,
+            "start": "2026-07-06",
+            "end": "2026-07-15",
+            "new_registrations": 64,
             "first_inflow_users": null,
-            "inflow_users": 154,
-            "inflow_yuan": 1460000,
-            "outflow_yuan": 1190000,
+            "inflow_users": 192,
+            "inflow_yuan": 1610000,
+            "outflow_yuan": 530000,
             "suppressed_fields": [
               "first_inflow_users"
             ]
           },
           {
-            "start": "2026-07-05",
-            "end": "2026-07-14",
-            "new_registrations": 56,
+            "start": "2026-07-16",
+            "end": "2026-07-25",
+            "new_registrations": 325,
             "first_inflow_users": null,
-            "inflow_users": 187,
-            "inflow_yuan": 1450000,
-            "outflow_yuan": 460000,
+            "inflow_users": 75,
+            "inflow_yuan": 1140000,
+            "outflow_yuan": 1520000,
             "suppressed_fields": [
               "first_inflow_users"
             ]
           },
           {
-            "start": "2026-07-15",
-            "end": "2026-07-24",
-            "new_registrations": 303,
+            "start": "2026-07-26",
+            "end": "2026-08-04",
+            "new_registrations": 334,
             "first_inflow_users": null,
-            "inflow_users": 91,
-            "inflow_yuan": 1290000,
-            "outflow_yuan": 1590000,
+            "inflow_users": 103,
+            "inflow_yuan": 1690000,
+            "outflow_yuan": 910000,
             "suppressed_fields": [
               "first_inflow_users"
             ]
           },
           {
-            "start": "2026-07-25",
-            "end": "2026-08-03",
-            "new_registrations": 337,
+            "start": "2026-08-05",
+            "end": "2026-08-14",
+            "new_registrations": 354,
             "first_inflow_users": null,
-            "inflow_users": 94,
-            "inflow_yuan": 1670000,
-            "outflow_yuan": 840000,
-            "suppressed_fields": [
-              "first_inflow_users"
-            ]
-          },
-          {
-            "start": "2026-08-04",
-            "end": "2026-08-13",
-            "new_registrations": 360,
-            "first_inflow_users": null,
-            "inflow_users": 193,
-            "inflow_yuan": 1570000,
-            "outflow_yuan": 1220000,
+            "inflow_users": 192,
+            "inflow_yuan": 3620000,
+            "outflow_yuan": 1290000,
             "suppressed_fields": [
               "first_inflow_users"
             ]
