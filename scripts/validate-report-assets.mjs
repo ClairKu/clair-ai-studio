@@ -4,6 +4,35 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = fileURLToPath(new URL("../public/reports/", import.meta.url));
+const prohibitedPublicArtifacts = new Set([
+  "qwen-authorize.jpg",
+  "qwen-assets.jpg",
+  "qwen-diagnosis.jpg",
+  "qwen-product.jpg",
+  "wechat-agent-routing.jpg",
+]);
+
+async function assertNoProhibitedArtifacts(directory) {
+  const entries = await readdir(directory, { withFileTypes: true });
+  for (const entry of entries) {
+    const path = join(directory, entry.name);
+    if (entry.isDirectory()) {
+      await assertNoProhibitedArtifacts(path);
+      continue;
+    }
+    if (prohibitedPublicArtifacts.has(entry.name)) {
+      throw new Error(`公开成果包含已禁用的账户／交易联调素材：${path}`);
+    }
+    if (entry.name.endsWith(".html")) {
+      const html = await readFile(path, "utf8");
+      for (const filename of prohibitedPublicArtifacts) {
+        if (html.includes(filename)) {
+          throw new Error(`公开成果仍引用已禁用的账户／交易联调素材：${path} -> ${filename}`);
+        }
+      }
+    }
+  }
+}
 
 async function findManifests(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
@@ -18,6 +47,7 @@ async function findManifests(directory) {
 
 const manifests = await findManifests(root);
 if (!manifests.length) throw new Error("未找到报告资源清单");
+await assertNoProhibitedArtifacts(root);
 
 let checked = 0;
 for (const manifestPath of manifests) {

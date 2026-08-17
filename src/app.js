@@ -25,7 +25,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 52;
+const DATA_VERSION = 53;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -132,6 +132,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "yingmi-ai-financial-innovation-public-overview-2026-08-17",
+      groupId: "reporting",
+      title: "盈米 AI 金融创新与生态合作｜公开信息索引",
+      url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-ai-financial-innovation-public-overview-2026-08-17/",
+      preview: "yingmi-ai-financial-innovation-public-overview-2026-08-17.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-17T12:00:00.000+08:00",
+      source: "盈米基金官网 × 阿里云开发者社区 × 千问开放平台公开报道 × 广州 AI 投顾十条 × 金融产品网络营销及基金销售规则｜公开脱敏索引：不含监管沟通正文、内部运行数据、账户画像、联调截图、代码缺陷或证据附件｜不构成产品推荐、业务许可或监管认可",
+      access: "production",
+      workType: "reporting",
+      tags: ["盈米基金", "AI 金融创新", "AI 小顾", "MCP", "Skills", "Agent", "A2A", "千问", "生态合作", "审慎治理", "公开信息", "CLAIR", "HTML", "公开脱敏", "生产"],
+    },
     {
       id: "oap-qieman-user-dashboard",
       groupId: "reporting",

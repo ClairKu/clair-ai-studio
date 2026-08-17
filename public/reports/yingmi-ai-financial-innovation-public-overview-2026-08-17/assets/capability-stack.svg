@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" fill="#16273F" role="img" aria-labelledby="title desc">
+  <title id="title">AI 能力栈：MCP 到 A2A</title>
+  <desc id="desc">展示从工具接口、流程编排、智能服务到跨智能体协同的四层能力，以及贯穿全程的治理轨道。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F8FAFD"/>
+      <stop offset="1" stop-color="#EEF3F8"/>
+    </linearGradient>
+    <linearGradient id="cap" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#3478F6"/>
+      <stop offset="0.52" stop-color="#675DE6"/>
+      <stop offset="1" stop-color="#0E8C78"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="12" stdDeviation="18" flood-color="#18304D" flood-opacity="0.10"/>
+    </filter>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" fill="none" stroke="#B8C6D8" stroke-width="1" opacity="0.18"/>
+    </pattern>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10Z" fill="#71839B"/>
+    </marker>
+    <style>
+      text{font-family:"PingFang SC","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+      .eyebrow{font-size:18px;font-weight:700;letter-spacing:3px;fill:#3478F6}
+      .title{font-size:48px;font-weight:700;letter-spacing:-1px}
+      .sub{font-size:23px;fill:#5F7087}
+      .step{font-size:18px;font-weight:700;fill:#FFFFFF}
+      .en{font-size:20px;font-weight:700;letter-spacing:2px}
+      .cn{font-size:34px;font-weight:700}
+      .lead{font-size:22px;font-weight:600}
+      .bullet{font-size:20px;fill:#5B6C82}
+      .bulletLight{font-size:20px;fill:#DDEBF0}
+      .rail{font-size:20px;font-weight:600}
+      .note{font-size:17px;fill:#738399}
+    </style>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect width="1600" height="900" fill="url(#grid)"/>
+  <circle cx="1480" cy="80" r="210" fill="#DDE8F8" opacity="0.45"/>
+  <circle cx="92" cy="840" r="170" fill="#DDF3EE" opacity="0.55"/>
+
+  <text x="78" y="78" class="eyebrow">AI SERVICE ARCHITECTURE · 建议目标态</text>
+  <text x="78" y="140" class="title">从工具调用，到跨智能体协同</text>
+  <text x="78" y="181" class="sub">能力逐级增强，治理约束同步加固｜MCP → Skills → Agent → A2A</text>
+  <rect x="78" y="211" width="1444" height="6" rx="3" fill="url(#cap)" opacity="0.92"/>
+  <text x="78" y="244" class="note">标准化</text>
+  <text x="1455" y="244" text-anchor="end" class="note">协同化</text>
+
+  <!-- MCP -->
+  <g filter="url(#shadow)">
+    <rect x="78" y="272" width="326" height="366" rx="28" fill="#FFFFFF"/>
+  </g>
+  <rect x="78" y="272" width="326" height="12" rx="6" fill="#3478F6"/>
+  <circle cx="122" cy="326" r="22" fill="#3478F6"/>
+  <text x="122" y="333" text-anchor="middle" class="step">01</text>
+  <g transform="translate(314 306)" fill="none" stroke="#3478F6" stroke-width="4" stroke-linecap="round">
+    <path d="M0 12h22v24H0zM7 0v12M15 0v12M6 36v12h10V36"/>
+  </g>
+  <text x="110" y="382" class="en" fill="#3478F6">MCP</text>
+  <text x="110" y="428" class="cn">工具接口</text>
+  <text x="110" y="470" class="lead">把专业能力变成标准调用</text>
+  <circle cx="115" cy="516" r="4" fill="#3478F6"/><text x="131" y="523" class="bullet">标准接口</text>
+  <circle cx="115" cy="558" r="4" fill="#3478F6"/><text x="131" y="565" class="bullet">受控查询</text>
+  <circle cx="115" cy="600" r="4" fill="#3478F6"/><text x="131" y="607" class="bullet">调用可审计</text>
+
+  <!-- arrow 1 -->
+  <line x1="418" y1="455" x2="454" y2="455" stroke="#71839B" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- Skills -->
+  <g filter="url(#shadow)">
+    <rect x="466" y="272" width="326" height="366" rx="28" fill="#FFFFFF"/>
+  </g>
+  <rect x="466" y="272" width="326" height="12" rx="6" fill="#675DE6"/>
+  <circle cx="510" cy="326" r="22" fill="#675DE6"/>
+  <text x="510" y="333" text-anchor="middle" class="step">02</text>
+  <g transform="translate(702 305)" fill="none" stroke="#675DE6" stroke-width="4">
+    <rect x="0" y="0" width="42" height="11" rx="5"/><rect x="6" y="17" width="36" height="11" rx="5"/><rect x="12" y="34" width="30" height="11" rx="5"/>
+  </g>
+  <text x="498" y="382" class="en" fill="#675DE6">SKILLS</text>
+  <text x="498" y="428" class="cn">流程编排</text>
+  <text x="498" y="470" class="lead">把工具组合成受控工作流</text>
+  <circle cx="503" cy="516" r="4" fill="#675DE6"/><text x="519" y="523" class="bullet">场景编排</text>
+  <circle cx="503" cy="558" r="4" fill="#675DE6"/><text x="519" y="565" class="bullet">规则前置</text>
+  <circle cx="503" cy="600" r="4" fill="#675DE6"/><text x="519" y="607" class="bullet">结果校验</text>
+
+  <!-- arrow 2 -->
+  <line x1="806" y1="455" x2="842" y2="455" stroke="#71839B" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- Agent -->
+  <g filter="url(#shadow)">
+    <rect x="854" y="272" width="326" height="366" rx="28" fill="#FFFFFF"/>
+  </g>
+  <rect x="854" y="272" width="326" height="12" rx="6" fill="#C17621"/>
+  <circle cx="898" cy="326" r="22" fill="#C17621"/>
+  <text x="898" y="333" text-anchor="middle" class="step">03</text>
+  <g transform="translate(1090 302)" fill="none" stroke="#C17621" stroke-width="4">
+    <circle cx="22" cy="19" r="17"/><path d="M2 48c4-15 36-15 40 0"/><path d="M36 4l9-8M43 11l11-2" stroke-linecap="round"/>
+  </g>
+  <text x="886" y="382" class="en" fill="#C17621">AGENT</text>
+  <text x="886" y="428" class="cn">智能服务</text>
+  <text x="886" y="470" class="lead">围绕用户任务持续协作</text>
+  <circle cx="891" cy="516" r="4" fill="#C17621"/><text x="907" y="523" class="bullet">多轮理解</text>
+  <circle cx="891" cy="558" r="4" fill="#C17621"/><text x="907" y="565" class="bullet">任务规划</text>
+  <circle cx="891" cy="600" r="4" fill="#C17621"/><text x="907" y="607" class="bullet">人机协同</text>
+
+  <!-- arrow 3 -->
+  <line x1="1194" y1="455" x2="1230" y2="455" stroke="#71839B" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- A2A -->
+  <g filter="url(#shadow)">
+    <rect x="1242" y="272" width="280" height="366" rx="28" fill="#163E55"/>
+  </g>
+  <rect x="1242" y="272" width="280" height="12" rx="6" fill="#20B29A"/>
+  <circle cx="1286" cy="326" r="22" fill="#20B29A"/>
+  <text x="1286" y="333" text-anchor="middle" class="step">04</text>
+  <g transform="translate(1430 302)" fill="none" stroke="#62D3C0" stroke-width="4" stroke-linecap="round">
+    <circle cx="8" cy="17" r="8"/><circle cx="44" cy="17" r="8"/><path d="M16 12h18M36 22H18"/>
+  </g>
+  <text x="1274" y="382" class="en" fill="#62D3C0">A2A</text>
+  <text x="1274" y="428" class="cn" fill="#FFFFFF">智能体协同</text>
+  <text x="1274" y="470" class="lead" fill="#DDEBF0">机构能力跨平台连接</text>
+  <circle cx="1279" cy="516" r="4" fill="#62D3C0"/><text x="1295" y="523" class="bulletLight">身份可识别</text>
+  <circle cx="1279" cy="558" r="4" fill="#62D3C0"/><text x="1295" y="565" class="bulletLight">任务可路由</text>
+  <circle cx="1279" cy="600" r="4" fill="#62D3C0"/><text x="1295" y="607" class="bulletLight">状态可回传</text>
+
+  <!-- Governance rail -->
+  <rect x="78" y="686" width="1444" height="112" rx="28" fill="#16273F"/>
+  <text x="112" y="724" font-size="16" font-weight="700" letter-spacing="2" fill="#8FB4D9">GOVERNANCE RAIL · 全程不变的底线</text>
+  <g transform="translate(110 752)">
+    <circle cx="10" cy="10" r="10" fill="#20B29A"/><path d="M5 10l3 3 7-7" fill="none" stroke="#fff" stroke-width="2.5"/>
+    <text x="32" y="17" class="rail" fill="#FFFFFF">能力白名单</text>
+  </g>
+  <g transform="translate(380 752)">
+    <circle cx="10" cy="10" r="10" fill="#20B29A"/><path d="M5 10l3 3 7-7" fill="none" stroke="#fff" stroke-width="2.5"/>
+    <text x="32" y="17" class="rail" fill="#FFFFFF">最小权限</text>
+  </g>
+  <g transform="translate(625 752)">
+    <circle cx="10" cy="10" r="10" fill="#20B29A"/><path d="M5 10l3 3 7-7" fill="none" stroke="#fff" stroke-width="2.5"/>
+    <text x="32" y="17" class="rail" fill="#FFFFFF">全链路留痕</text>
+  </g>
+  <g transform="translate(910 752)">
+    <circle cx="10" cy="10" r="10" fill="#20B29A"/><path d="M5 10l3 3 7-7" fill="none" stroke="#fff" stroke-width="2.5"/>
+    <text x="32" y="17" class="rail" fill="#FFFFFF">分级授权</text>
+  </g>
+  <g transform="translate(1170 752)">
+    <circle cx="10" cy="10" r="10" fill="#F0A640"/><path d="M5 10h10" fill="none" stroke="#fff" stroke-width="2.5"/>
+    <text x="32" y="17" class="rail" fill="#FFFFFF">监测 · 降级 · 熔断</text>
+  </g>
+
+  <text x="78" y="850" class="note">监管沟通示意图｜用于说明能力演进与治理原则，不代表任何业务许可或现状确认</text>
+  <text x="1522" y="850" text-anchor="end" class="note">01 / 04</text>
+</svg>

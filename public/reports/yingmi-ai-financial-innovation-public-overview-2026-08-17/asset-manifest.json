@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "assets": [
+    {
+      "path": "assets/capability-stack.svg",
+      "bytes": 9086,
+      "sha256": "2aa7440d28415c697ff9fa5455719621721b5af81af807f0e15b47e1be88ed08"
+    },
+    {
+      "path": "assets/responsibility-boundary.svg",
+      "bytes": 9027,
+      "sha256": "415bb2643c6b149718d72f69ba7c912b2e1e679cd20340a17eb2e3239e02317e"
+    },
+    {
+      "path": "assets/policy-alignment.svg",
+      "bytes": 8182,
+      "sha256": "35be47e476759beeb84bf5301de6baf7b4a1ca79bbf49d00f953a8d91988a3e0"
+    }
+  ]
+}
