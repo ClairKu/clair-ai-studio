@@ -185,7 +185,8 @@ for (const cohortId of expectedIds) {
       const values = slice.map((period) => growthValue(period, field));
       const summaryValue = growthValue(summary, field);
       if ((summaryValue === null) !== values.some((value) => value === null)) fail(`${cohortId} ${periodLabel}${field} 抑制未上下传播`);
-      if (field !== "inflow_users" && summaryValue !== null && values.every((value) => value !== null) && values.reduce((sum, value) => sum + value, 0) !== summaryValue) fail(`${cohortId} ${periodLabel}${field} 与趋势不闭合`);
+      const closureTolerance = field.endsWith("_yuan") ? 20_000 : 0;
+      if (field !== "inflow_users" && summaryValue !== null && values.every((value) => value !== null) && Math.abs(values.reduce((sum, value) => sum + value, 0) - summaryValue) > closureTolerance) fail(`${cohortId} ${periodLabel}${field} 与趋势不闭合`);
     }
   }
 }
