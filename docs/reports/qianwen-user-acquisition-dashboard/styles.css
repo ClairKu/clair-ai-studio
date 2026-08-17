@@ -268,9 +268,8 @@ summary:focus-visible,
 .legend { display: flex; gap: 18px; color: var(--muted); font-size: 12px; }
 .legend span { display: inline-flex; align-items: center; gap: 7px; }
 .legend i { display: inline-block; width: 20px; }
-.legend-bar { height: 10px; background: var(--violet); }
-.legend-line { height: 2px; background: var(--jade-dark); position: relative; }
-.legend-line::after { content: ""; position: absolute; right: 0; top: 50%; width: 6px; height: 6px; border-radius: 50%; background: var(--jade-dark); transform: translateY(-50%); }
+.legend-new { height: 10px; background: rgba(37, 201, 165, 0.82); }
+.legend-existing { height: 10px; background: rgba(124, 99, 255, 0.7); }
 
 .trend-layout { display: grid; grid-template-columns: minmax(0, 1.8fr) minmax(260px, 0.65fr); gap: 30px; }
 .chart-panel { min-width: 0; border-top: 1px solid var(--text); padding-top: 22px; }
@@ -278,13 +277,27 @@ summary:focus-visible,
 #trend-chart { display: block; width: 100%; height: auto; overflow: visible; }
 .chart-grid { stroke: rgba(17, 24, 43, 0.1); stroke-width: 1; }
 .chart-axis-label { fill: var(--muted); font: 11px var(--mono); }
-.chart-bar { fill: var(--violet); opacity: 0.87; transition: opacity 0.16s, transform 0.16s; transform-box: fill-box; transform-origin: bottom; }
-.chart-point:hover .chart-bar, .chart-point:focus .chart-bar { opacity: 1; transform: scaleY(1.035); }
-.chart-line { fill: none; stroke: var(--jade-dark); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
-.chart-dot { fill: var(--paper); stroke: var(--jade-dark); stroke-width: 3; }
+.chart-area { transition: opacity 0.16s; }
+.chart-area-new { fill: rgba(37, 201, 165, 0.68); }
+.chart-area-existing { fill: rgba(124, 99, 255, 0.62); }
+.chart-area-unclassified { fill: rgba(255, 128, 108, 0.62); }
+.chart-line { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.chart-line-new { stroke: var(--jade-dark); stroke-width: 3; }
+.chart-line-bound { stroke: #5d45dd; stroke-width: 2.5; }
+.chart-hit { fill: transparent; }
+.chart-hover-line { stroke: rgba(17, 24, 43, 0.24); stroke-width: 1; stroke-dasharray: 3 4; opacity: 0; transition: opacity 0.16s; }
+.chart-point:hover .chart-hover-line, .chart-point:focus .chart-hover-line { opacity: 1; }
+.chart-dot { fill: var(--paper); stroke-width: 2.5; opacity: 0; transition: opacity 0.16s; pointer-events: none; }
+.chart-dot-bound { stroke: #5d45dd; }
+.chart-dot-new { stroke: var(--jade-dark); }
+.chart-point:hover .chart-dot, .chart-point:focus .chart-dot { opacity: 1; }
 .chart-partial { fill: var(--coral); font: 700 9px var(--mono); }
+.chart-area-label { font: 700 10px/1 var(--mono); paint-order: stroke; stroke: rgba(244, 247, 255, 0.82); stroke-width: 3px; stroke-linejoin: round; }
+.chart-area-label-new { fill: #075f55; }
+.chart-area-label-existing, .chart-area-label-bound { fill: #5138b5; }
 .chart-tooltip { position: absolute; z-index: 4; min-width: 156px; padding: 12px 14px; color: var(--white); background: var(--ink); box-shadow: 0 10px 30px rgba(3, 8, 24, 0.25); pointer-events: none; font-size: 12px; line-height: 1.55; transform: translate(-50%, -108%); }
 .chart-tooltip strong { display: block; margin-bottom: 4px; color: var(--jade); font: 700 13px var(--mono); }
+.chart-tooltip small { color: rgba(255, 255, 255, 0.6); font-size: 10px; }
 .chart-note { margin: 10px 0 0; color: var(--muted); font-size: 12px; }
 
 .pulse-notes { display: grid; align-content: start; border-top: 1px solid var(--text); }
@@ -308,12 +321,12 @@ th { color: var(--muted); font-size: 11px; }
 .quality-card { min-height: 190px; padding: 26px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .quality-card::before { content: "✓"; display: grid; place-items: center; width: 27px; height: 27px; margin-bottom: 26px; color: var(--ink); background: var(--jade); border-radius: 50%; font-weight: 900; }
 .quality-card span { color: var(--muted); font-size: 12px; }
-.quality-card strong { display: block; margin-top: 8px; font: 720 24px/1.1 var(--mono); }
+.quality-card strong { display: block; margin-top: 8px; font: 720 20px/1.15 var(--mono); }
 .quality-card p { margin: 11px 0 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
 
 .definition-heading { align-items: start; }
 .definition-heading > p { max-width: 410px; margin: 4px 0 0; color: var(--muted); font-size: 14px; line-height: 1.85; }
-.definition-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.definition-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
 .definition-card { position: relative; min-height: 180px; padding: 30px 32px; background: var(--paper); }
 .definition-card span { color: var(--violet); font: 700 10px/1 var(--mono); letter-spacing: 0.12em; }
 .definition-card.is-missing span { color: var(--coral); }

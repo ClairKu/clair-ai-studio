@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
-  <title id="title">千问到且慢账号映射数据看板预览</title>
-  <desc id="desc">深蓝背景上显示一千零六十五个映射账号，以及七百五十六个新注册和三百零九个既有账号的分流。</desc>
+  <title id="title">千问 X 且慢AI小顾用户数据看板预览</title>
+  <desc id="desc">深蓝背景上显示一千零六十七个绑定且慢账号，以及七百五十七个新注册和三百一十个老用户。</desc>
   <defs>
     <pattern id="grid" width="72" height="72" patternUnits="userSpaceOnUse">
       <path d="M72 0H0V72" fill="none" stroke="#7C63FF" stroke-opacity=".12"/>
@@ -19,38 +19,38 @@
       <circle cx="17" cy="17" r="17" fill="#7C63FF"/><text x="17" y="22" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Q</text>
       <path d="M34 17h28" stroke="#fff" stroke-opacity=".45"/>
       <circle cx="79" cy="17" r="17" fill="#25C9A5"/><text x="79" y="22" text-anchor="middle" fill="#0B1020" font-size="13" font-weight="700">且</text>
-      <text x="112" y="14" fill="#fff" font-size="14" font-weight="700">千问 → 且慢</text>
-      <text x="112" y="31" fill="#fff" fill-opacity=".45" font-family="SFMono-Regular,monospace" font-size="9" letter-spacing="2">ACCOUNT HANDOFF</text>
+      <text x="112" y="14" fill="#fff" font-size="14" font-weight="700">千问 X 且慢AI小顾</text>
+      <text x="112" y="31" fill="#fff" fill-opacity=".45" font-family="SFMono-Regular,monospace" font-size="9" letter-spacing="2">USER DATA DASHBOARD</text>
     </g>
     <text x="68" y="200" fill="#B6A9FF" font-family="SFMono-Regular,monospace" font-size="13" font-weight="700" letter-spacing="2">QWEN APP · SINCE 2026.08.10</text>
-    <text x="68" y="284" fill="#fff" font-family="Songti SC,STSong,serif" font-size="68" font-weight="700">从一次外部触达，</text>
-    <text x="68" y="366" fill="#fff" font-family="Songti SC,STSong,serif" font-size="68" font-weight="700">到一个<tspan fill="#25C9A5">可服务账号</tspan>。</text>
-    <text x="70" y="422" fill="#fff" fill-opacity=".58" font-size="17">成功映射，不等于完整访问转化；把结果叫对，才能继续做对。</text>
+    <text x="68" y="284" fill="#fff" font-family="Songti SC,STSong,serif" font-size="68" font-weight="700">千问 X 且慢AI小顾</text>
+    <text x="68" y="366" fill="#25C9A5" font-family="Songti SC,STSong,serif" font-size="68" font-weight="700">用户数据看板</text>
+    <text x="70" y="422" fill="#fff" fill-opacity=".58" font-size="17">绑定且慢账号持续增长，新注册已经成为主要来源。</text>
   </g>
   <g transform="translate(755 128)">
     <rect width="460" height="490" fill="#F4F7FF"/>
     <rect x="10" y="10" width="440" height="470" fill="none" stroke="#0B1020" stroke-opacity=".08"/>
     <g font-family="PingFang SC,Microsoft YaHei,sans-serif">
-      <text x="42" y="62" fill="#65708A" font-size="14">已成功建立映射</text>
-      <text x="418" y="129" fill="#0B1020" text-anchor="end" font-family="SFMono-Regular,monospace" font-size="82" font-weight="800" letter-spacing="-5">1,065</text>
-      <text x="42" y="126" fill="#0B1020" font-size="13">个去重且慢账号</text>
+      <text x="42" y="62" fill="#65708A" font-size="14">绑定且慢账号</text>
+      <text x="418" y="129" fill="#0B1020" text-anchor="end" font-family="SFMono-Regular,monospace" font-size="82" font-weight="800" letter-spacing="-5">1,067</text>
+      <text x="42" y="126" fill="#0B1020" font-size="13">个用户</text>
       <circle cx="62" cy="184" r="22" fill="#7C63FF"/><text x="62" y="189" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">千问</text>
       <path d="M84 184h290" stroke="url(#route)" stroke-width="6"/>
       <circle cx="398" cy="184" r="22" fill="#25C9A5"/><text x="398" y="189" text-anchor="middle" fill="#0B1020" font-size="11" font-weight="700">且慢</text>
-      <text x="42" y="263" fill="#65708A" font-size="13">接入后新注册</text>
-      <text x="180" y="264" fill="#0B1020" font-family="SFMono-Regular,monospace" font-size="24" font-weight="700">756</text>
+      <text x="42" y="263" fill="#65708A" font-size="13">新注册</text>
+      <text x="180" y="264" fill="#0B1020" font-family="SFMono-Regular,monospace" font-size="24" font-weight="700">757</text>
       <rect x="42" y="282" width="330" height="10" fill="#0B1020" fill-opacity=".08"/>
       <rect x="42" y="282" width="234" height="10" fill="#25C9A5"/>
       <text x="418" y="291" text-anchor="end" fill="#0B1020" font-family="SFMono-Regular,monospace" font-size="14" font-weight="700">71.0%</text>
-      <text x="42" y="350" fill="#65708A" font-size="13">绑定既有账号</text>
-      <text x="180" y="351" fill="#0B1020" font-family="SFMono-Regular,monospace" font-size="24" font-weight="700">309</text>
+      <text x="42" y="350" fill="#65708A" font-size="13">老用户</text>
+      <text x="180" y="351" fill="#0B1020" font-family="SFMono-Regular,monospace" font-size="24" font-weight="700">310</text>
       <rect x="42" y="369" width="330" height="10" fill="#0B1020" fill-opacity=".08"/>
       <rect x="42" y="369" width="96" height="10" fill="#7C63FF"/>
       <text x="418" y="378" text-anchor="end" fill="#0B1020" font-family="SFMono-Regular,monospace" font-size="14" font-weight="700">29.0%</text>
       <path d="M42 422h376" stroke="#0B1020" stroke-opacity=".12"/>
-      <text x="42" y="452" fill="#65708A" font-size="12">生产只读聚合 · 数据截至 2026-08-17 10:32</text>
+      <text x="42" y="452" fill="#65708A" font-size="12">盈米本体 · 数据截至 2026-08-17 10:41</text>
     </g>
   </g>
   <rect x="0" y="688" width="1280" height="32" fill="#7C63FF"/>
-  <text x="68" y="709" fill="#fff" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="12" font-weight="700">CONFIRMED · 1,065 = 756 + 309 · DUPLICATES 0 · UNMATCHED 0</text>
+  <text x="68" y="709" fill="#fff" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="12" font-weight="700">UPDATED · 1,067 = 757 + 310 · NEW USERS ARE THE MAIN GROWTH SOURCE</text>
 </svg>

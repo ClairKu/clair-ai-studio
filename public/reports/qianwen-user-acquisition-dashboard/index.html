@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="千问上线后成功建立千问—且慢账号映射的脱敏聚合数据看板。" />
+  <meta name="description" content="千问 X 且慢AI小顾用户数据看板，展示绑定且慢账号总量及新注册、老用户累计增长。" />
   <meta name="theme-color" content="#0b1020" />
   <meta name="robots" content="noindex,nofollow" />
-  <title>千问 → 且慢｜账号映射数据看板</title>
+  <title>千问 X 且慢AI小顾｜用户数据看板</title>
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
@@ -18,7 +18,7 @@
       <span class="brand-node brand-node-q">Q</span>
       <span class="brand-line" aria-hidden="true"></span>
       <span class="brand-node brand-node-m">且</span>
-      <span class="brand-copy"><strong>千问 → 且慢</strong><small>ACCOUNT HANDOFF</small></span>
+      <span class="brand-copy"><strong>千问 X 且慢AI小顾</strong><small>USER DATA DASHBOARD</small></span>
     </a>
     <div class="topbar-actions">
       <span class="freshness" id="freshness"><i aria-hidden="true"></i><span>正在读取数据</span></span>
@@ -32,20 +32,20 @@
   <main id="main">
     <section class="hero shell" id="top" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <p class="eyebrow">QWEN APP · SINCE 2026.08.10 08:00 CST</p>
-        <h1 id="hero-title">从一次外部触达，<br />到一个<span>可服务账号</span>。</h1>
-        <p class="hero-lead" id="hero-lead">正在核对生产快照与指标口径。</p>
+        <p class="eyebrow">QWEN APP × QIEMAN AI XIAOGU</p>
+        <h1 id="hero-title">千问 X 且慢AI小顾<br /><span>用户数据看板</span></h1>
+        <p class="hero-lead" id="hero-lead">正在读取最新用户数据。</p>
         <div class="hero-meta">
-          <span><b>口径</b> 去重账号首次映射</span>
-          <span><b>状态</b> 本体生产数据已确认</span>
+          <span><b>范围</b> 8 月 10 日上线以来</span>
+          <span><b>来源</b> 盈米本体生产数据</span>
         </div>
       </div>
 
-      <div class="handoff-card" aria-label="千问到且慢账号映射结构">
+      <div class="handoff-card" aria-label="千问引流且慢用户构成">
         <div class="handoff-head">
-          <span>已成功建立映射</span>
-          <strong id="mapped-total">—</strong>
-          <small>个去重且慢账号</small>
+          <span>绑定且慢账号</span>
+          <strong id="bound-total">—</strong>
+          <small>个用户</small>
         </div>
         <div class="handoff-route" aria-hidden="true">
           <span class="route-origin">千问</span>
@@ -54,45 +54,45 @@
         </div>
         <div class="route-split">
           <div class="split-row split-new">
-            <div><span>接入后新注册</span><strong id="new-accounts">—</strong></div>
+            <div><span>新注册</span><strong id="new-accounts">—</strong></div>
             <div class="split-meter"><i id="new-meter"></i></div>
             <em id="new-share">—</em>
           </div>
           <div class="split-row split-existing">
-            <div><span>绑定既有账号</span><strong id="existing-accounts">—</strong></div>
+            <div><span>老用户</span><strong id="existing-accounts">—</strong></div>
             <div class="split-meter"><i id="existing-meter"></i></div>
             <em id="existing-share">—</em>
           </div>
         </div>
-        <p class="handoff-note">这里记录的是“成功跨过来的人”，不包含千问侧只看过、未完成映射或映射失败的人。</p>
+        <p class="handoff-note">新注册：8 月 10 日 08:00 及之后注册且慢；老用户：此前已注册且慢。本页统计已完成且慢账号绑定的用户。</p>
       </div>
     </section>
 
     <section class="verdict-band" aria-label="核心判断">
       <div class="shell verdict-inner">
-        <span class="verdict-label">一句话判断</span>
+        <span class="verdict-label">汇报结论</span>
         <p id="verdict">正在生成判断。</p>
-        <span class="evidence-chip">CONFIRMED</span>
+        <span class="evidence-chip">UPDATED</span>
       </div>
     </section>
 
     <section class="section shell" aria-labelledby="pulse-title">
       <div class="section-heading">
         <div>
-          <p class="eyebrow">DAILY PULSE · 首次映射趋势</p>
-          <h2 id="pulse-title">首发冲高之后，增长脉冲如何延续</h2>
+          <p class="eyebrow">USER GROWTH · 新老用户累计走势</p>
+          <h2 id="pulse-title">千问引流且慢用户增长走势图</h2>
         </div>
         <div class="legend" aria-label="图例">
-          <span><i class="legend-bar"></i>当日新增</span>
-          <span><i class="legend-line"></i>累计映射</span>
+          <span><i class="legend-new"></i>新注册（累计）</span>
+          <span><i class="legend-existing"></i>老用户（累计）</span>
         </div>
       </div>
       <div class="trend-layout">
         <article class="chart-panel">
           <div class="chart-wrap" id="chart-wrap">
             <svg id="trend-chart" viewBox="0 0 840 330" role="img" aria-labelledby="chart-title chart-desc">
-              <title id="chart-title">每日新增与累计映射账号趋势</title>
-              <desc id="chart-desc">柱状图表示每日新增，折线表示累计映射账号。</desc>
+              <title id="chart-title">千问引流且慢用户增长走势图</title>
+              <desc id="chart-desc">累计面积图展示每天新注册、老用户及绑定且慢账号总量。</desc>
             </svg>
             <div class="chart-tooltip" id="chart-tooltip" hidden></div>
           </div>
@@ -104,7 +104,7 @@
         <summary>查看每日明细</summary>
         <div class="table-scroll">
           <table>
-            <thead><tr><th>日期</th><th>当日新增</th><th>累计映射</th><th>完整性</th></tr></thead>
+            <thead><tr><th>日期</th><th>绑定且慢账号</th><th>新注册</th><th>老用户</th><th>数据完整性</th></tr></thead>
             <tbody id="daily-table"></tbody>
           </table>
         </div>
@@ -115,10 +115,10 @@
       <div class="shell">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">DATA HEALTH · 为什么这组数可以信</p>
-            <h2 id="quality-title">四项校验全部闭合</h2>
+            <p class="eyebrow">DATA STATUS · 最新数据核对</p>
+            <h2 id="quality-title">最新数据已完成核对</h2>
           </div>
-          <span class="quality-score"><b>4/4</b> PASS</span>
+          <span class="quality-score"><b>4/4</b> 已确认</span>
         </div>
         <div class="quality-grid" id="quality-grid"></div>
       </div>
@@ -127,44 +127,44 @@
     <section class="section shell" aria-labelledby="definition-title">
       <div class="section-heading definition-heading">
         <div>
-          <p class="eyebrow">METRIC CONTRACT · 先把名字叫对</p>
-          <h2 id="definition-title">这不是完整“千问引流转化率”</h2>
+          <p class="eyebrow">DATA NOTES · 数据说明</p>
+          <h2 id="definition-title">三项核心数据口径</h2>
         </div>
-        <p>当前数据只覆盖成功映射的下游账号，缺少千问侧访问与失败分母。把“接入后新注册”直接写成“千问带来的有效用户”，会高估已经验证的业务结果。</p>
+        <p>本页用于汇报完成且慢账号绑定的用户规模及新老构成。完整转化率需与千问侧访问人数配套使用。</p>
       </div>
       <div class="definition-grid" id="definition-grid"></div>
     </section>
 
     <section class="section shell action-section" aria-labelledby="next-title">
       <div class="action-intro">
-        <p class="eyebrow">NEXT PROOF · 下一步不是继续堆总数</p>
-        <h2 id="next-title">从“账号已建立”，走到“用户真的留下来”</h2>
-        <p>下一版看板应沿同一批去重账号补三层结果，才足以判断千问入口的真实质量。</p>
+        <p class="eyebrow">NEXT · 后续关注</p>
+        <h2 id="next-title">从用户增长，走向用户留存</h2>
+        <p>下一阶段继续关注激活、回访和服务转化，判断千问入口带来的长期用户价值。</p>
       </div>
       <div class="next-grid">
-        <article><span>01</span><strong>24 小时激活</strong><p>映射后是否打开且慢、完成首次有效服务。</p><em>缺失 · P0</em></article>
-        <article><span>02</span><strong>7 日回访</strong><p>新注册账号是否在首周再次使用小顾或且慢。</p><em>缺失 · P0</em></article>
-        <article><span>03</span><strong>服务转化</strong><p>是否进入诊断、规划、签约或交易等真实服务链路。</p><em>缺失 · P1</em></article>
+        <article><span>01</span><strong>24 小时激活</strong><p>绑定后是否打开且慢、完成首次有效服务。</p><em>待补充 · P0</em></article>
+        <article><span>02</span><strong>7 日回访</strong><p>新注册用户是否在首周再次使用小顾或且慢。</p><em>待补充 · P0</em></article>
+        <article><span>03</span><strong>服务转化</strong><p>是否进入诊断、规划、签约或交易等真实服务链路。</p><em>待补充 · P1</em></article>
       </div>
     </section>
 
     <section class="refresh-explainer shell" aria-labelledby="refresh-title">
       <div>
-        <p class="eyebrow">ONE-CLICK REFRESH · 安全更新</p>
-        <h2 id="refresh-title">按钮查本体，网页只接收聚合结果</h2>
+        <p class="eyebrow">ONE-CLICK UPDATE · 一键更新</p>
+        <h2 id="refresh-title">点击更新，刷新最新数据</h2>
       </div>
-      <div class="refresh-flow" aria-label="更新数据链路">
-        <span>更新数据</span><i>→</i><span>本机只读更新器</span><i>→</i><span>盈米本体</span><i>→</i><span>脱敏汇总</span>
+      <div class="refresh-flow" aria-label="更新数据流程">
+        <span>点击更新数据</span><i>→</i><span>盈米本体查询</span><i>→</i><span>数据自动核对</span><i>→</i><span>看板更新</span>
       </div>
-      <p>在 Clair 的 Mac 上，按钮会调用仅监听本机的更新器重新查库；在其他设备上，则刷新最近发布快照。任何数据库凭证、账号明细与内部查询能力都不会进入公开页面。</p>
-      <div class="refresh-status" id="refresh-status" role="status" aria-live="polite">当前展示最近发布快照。</div>
+      <p>在 Clair 的 Mac 上，点击按钮会从盈米本体查询最新生产数据；其他设备显示最近发布的数据。对外仅展示用户统计结果，不含账号明细与数据库凭证。</p>
+      <div class="refresh-status" id="refresh-status" role="status" aria-live="polite">当前展示最近发布数据。</div>
     </section>
   </main>
 
   <footer>
-    <span>千问 × 且慢 · 账号映射数据看板</span>
+    <span>千问 X 且慢AI小顾 · 用户数据看板</span>
     <strong id="footer-cutoff">数据截至 —</strong>
-    <span>公开脱敏聚合</span>
+    <span>仅展示用户统计结果</span>
   </footer>
 
   <button class="doc-fab" id="doc-fab" type="button" aria-controls="doc-panel" aria-expanded="false">
@@ -174,7 +174,7 @@
   <div class="doc-overlay" id="doc-overlay"></div>
   <aside class="doc-panel" id="doc-panel" aria-hidden="true" aria-labelledby="doc-title">
     <div class="doc-panel-head">
-      <h2 id="doc-title">看板口径文档</h2>
+      <h2 id="doc-title">看板数据说明</h2>
       <div><button id="copy-doc" type="button">复制 Markdown</button><button id="close-doc" type="button" aria-label="关闭口径文档">×</button></div>
     </div>
     <pre id="doc-content"></pre>
