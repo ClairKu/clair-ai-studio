@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="OAP 用户画像、且慢持仓与近 90 日交易行为的脱敏聚合经营看板，支持本机一键更新。" />
+  <meta name="description" content="OAP 用户新注册、资产入账代理、且慢持仓与近 90 日行为的脱敏聚合经营看板，支持本机一键更新。" />
   <meta name="theme-color" content="#071922" />
   <meta name="robots" content="noindex,nofollow" />
   <title>OAP 用户画像 × 且慢持仓与行为看板</title>
@@ -73,10 +73,86 @@
           <p class="eyebrow">COHORT LADDER · 使用深度</p>
           <h2 id="cohort-title">从“申请过”，走到“持续在用”</h2>
         </div>
-        <p>三组人群是嵌套关系，不可相加。点击任一层，后续持仓、资产和行为模块会同步切换。</p>
+        <p>三组是相互重叠的使用深度视角，不可相加；后两组按调用深度递进。点击任一层，后续模块会同步切换。</p>
       </div>
       <div class="cohort-ladder" id="cohort-ladder" role="group" aria-label="切换 OAP 用户人群"></div>
       <div class="cohort-footnotes" id="cohort-footnotes"></div>
+    </section>
+
+    <section class="section section-growth" aria-labelledby="growth-title">
+      <div class="shell">
+        <div class="section-heading split-heading growth-heading">
+          <div>
+            <p class="eyebrow">NEW GROWTH · REGISTRATION → CAPITAL</p>
+            <h2 id="growth-title">从新注册，到首次资产入账（代理）</h2>
+          </div>
+          <div class="growth-scope">
+            <span>当前人群</span>
+            <strong id="growth-cohort-title">近 30 日活跃</strong>
+            <p id="growth-scope-copy">注册按且慢真实注册时间；资金口径和截止日以当前证据状态为准。</p>
+          </div>
+        </div>
+
+        <div class="growth-bridge" id="growth-summary" aria-label="近 30 日新注册与入金概览">
+          <article class="growth-node growth-person">
+            <span>近 30 日新注册</span>
+            <strong id="growth-new-registrations">—</strong>
+            <em id="growth-new-registrations-change">等待数据</em>
+            <p>以且慢账户真实注册时间为准</p>
+          </article>
+          <article class="growth-node growth-person">
+            <span id="growth-first-label">首次资产入账用户（代理）</span>
+            <strong id="growth-first-inflow-users">—</strong>
+            <em id="growth-first-inflow-users-change">等待数据</em>
+            <p id="growth-first-note">全历史首次正资产入账日落在窗口内</p>
+          </article>
+          <article class="growth-node growth-money">
+            <span id="growth-inflow-label">资产入账 / 新入金代理</span>
+            <strong id="growth-inflow">—</strong>
+            <em id="growth-inflow-change">等待数据</em>
+            <p id="growth-inflow-note">窗口内资产入账日代理流入总额</p>
+          </article>
+          <article class="growth-node growth-net">
+            <span id="growth-net-label">净资产入账（代理）</span>
+            <strong id="growth-net-inflow">—</strong>
+            <em id="growth-net-inflow-change">等待数据</em>
+            <p id="growth-net-note">同源资产入账减出账，可为负</p>
+          </article>
+        </div>
+
+        <div class="growth-layout">
+          <article class="growth-trend-panel">
+            <div class="panel-head growth-panel-head">
+              <div><span>90 日趋势 · 每 10 日</span><h3>增长不是一个点，是一段连续信号</h3></div>
+              <div class="growth-mode" role="group" aria-label="增长趋势指标切换">
+                <button type="button" data-growth-mode="registrations" class="active" aria-pressed="true">新注册</button>
+                <button id="growth-mode-first-label" type="button" data-growth-mode="first_inflow" aria-pressed="false">首次资产入账</button>
+                <button id="growth-mode-inflow-label" type="button" data-growth-mode="inflow" aria-pressed="false">资产入账</button>
+                <button id="growth-mode-net-label" type="button" data-growth-mode="net_inflow" aria-pressed="false">净资产入账</button>
+              </div>
+            </div>
+            <p class="growth-trend-copy" id="growth-trend-copy">正在核对近 90 日趋势与同期变化。</p>
+            <div class="growth-trend-scroll">
+              <div class="growth-trend" id="growth-trend" role="img" aria-label="近 90 日增长趋势" aria-live="polite"></div>
+            </div>
+          </article>
+
+          <article class="growth-funnel-panel">
+            <div class="panel-head growth-panel-head">
+              <div><span>完整观察窗</span><h3 id="growth-funnel-title">注册 → 首次资产入账 → 仍持仓</h3></div>
+              <em>每位用户至少观察 30 日</em>
+            </div>
+            <p class="growth-funnel-window" id="growth-funnel-window">正在读取注册观察窗口。</p>
+            <div class="growth-funnel" id="growth-funnel" role="img" aria-label="注册到首次入金漏斗"></div>
+            <div class="growth-speed" id="growth-speed"><span id="growth-speed-label">7 日内完成首次资产入账</span><strong>—</strong></div>
+          </article>
+        </div>
+
+        <div class="growth-boundary" id="growth-boundary">
+          <strong>🔗 相关性，不是因果</strong>
+          <p id="growth-boundary-copy">注册、资金变化和当前 OAP 使用深度存在时间关系；尚未排除渠道、活动、资产基础与自选择影响，不能直接表述为“OAP 带来新增”。</p>
+        </div>
+      </div>
     </section>
 
     <section class="section section-ink" aria-labelledby="holdings-title">
@@ -229,7 +305,7 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script type="application/json" id="report-data">
-    {"topic":"OAP 用户画像、且慢持仓与行为","stable_metrics":["批准用户","历史调用用户","近30日活跃用户","真人可归属调用","且慢账户率","持仓率","资产结构","近90日行为参与率","画像覆盖率"],"evidence_states":["confirmed","partial","missing"],"privacy":"公开脱敏聚合；小样本不展示；无用户明细"}
+    {"topic":"OAP 用户画像、且慢持仓、增长与行为","stable_metrics":["批准用户","历史调用用户","近30日活跃用户","真人可归属调用","新注册用户","首次入金用户","资金流入","新入金代理","净入金","且慢账户率","持仓率","资产结构","近90日行为参与率","画像覆盖率"],"evidence_states":["confirmed","partial","missing","suppressed"],"privacy":"公开脱敏聚合；小样本不展示；无用户明细"}
   </script>
   <script src="./data/fallback-data.js"></script>
   <script src="./app.js" type="module"></script>

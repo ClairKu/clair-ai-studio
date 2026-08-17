@@ -25,7 +25,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 55;
+const DATA_VERSION = 56;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -155,10 +155,10 @@ const initialState = {
       pinned: true,
       position: 0,
       createdAt: "2026-08-17T11:12:46.000+08:00",
-      source: "盈米本体 × 生产数仓只读聚合｜批准、历史调用、近 30 日活跃三组用户联动｜且慢账户、持仓、资产结构、近 90 日行为与低覆盖画像｜数据截止以页内各数据源为准｜支持 Clair Mac 本机一键更新｜公开脱敏聚合，不含用户明细与数据库凭证",
+      source: "盈米本体 × 生产数仓只读聚合｜批准、历史调用、近 30 日活跃三组用户联动｜且慢新注册、资产入账代理、账户持仓、资产结构、近 90 日行为与低覆盖画像｜数据截止与资金口径以页内为准｜支持 Clair Mac 本机一键更新｜公开脱敏聚合，不含用户明细与数据库凭证",
       access: "production",
       workType: "data-analysis",
-      tags: ["OAP", "且慢", "用户画像", "用户行为", "用户持仓", "AUM", "活跃用户", "交易行为", "数据分析", "数据看板", "本体", "一键更新", "证据边界", "公开脱敏", "HTML", "生产"],
+      tags: ["OAP", "且慢", "新注册用户", "资产入账代理", "增长分析", "用户画像", "用户行为", "用户持仓", "AUM", "活跃用户", "交易行为", "数据分析", "数据看板", "本体", "一键更新", "证据边界", "公开脱敏", "HTML", "生产"],
     },
     {
       id: "qianwen-user-acquisition-dashboard",
