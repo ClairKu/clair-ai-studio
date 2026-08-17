@@ -37,8 +37,7 @@
     },
     "accepted_client_ids": {
       "type": "array",
-      "items": { "type": "string", "maxLength": 80 },
-      "uniqueItems": true
+      "items": { "type": "string", "maxLength": 80 }
     },
     "checked_through_at": { "type": "string", "format": "date-time" },
     "source_cursor": { "type": ["string", "null"], "maxLength": 300 },

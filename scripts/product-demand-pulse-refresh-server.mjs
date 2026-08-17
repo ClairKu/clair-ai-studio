@@ -209,7 +209,7 @@ export function createRefreshService(options = {}) {
       "--json",
       "--color", "never",
       "--sandbox", "danger-full-access",
-      "--ask-for-approval", "never",
+      "-c", 'approval_policy="never"',
       "--cd", repo,
       "--output-schema", schemaPath,
       "--output-last-message", outputPath,
