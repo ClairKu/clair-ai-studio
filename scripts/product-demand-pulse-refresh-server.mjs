@@ -106,15 +106,16 @@ async function readCheckpoint(path) {
 export function buildRefreshPrompt({ packet, checkpoint, repo }) {
   return `立即执行一次“痛点消消乐”按钮触发的增量核验，并在必要时发布生产战报。
 
-仓库：${repo}
+仓库锚点：${repo}
 数据：public/reports/product-demand-pulse/data/latest.json
 生产页：https://clairku.github.io/clair-ai-studio/reports/product-demand-pulse/
 
 取数范围：
-1. 读取 latest.json 和下面的本机 checkpoint。优先使用 checkpoint.source_cursor；否则使用 checkpoint.checked_through_at；再否则使用 latest.json 的 meta.last_change_at / meta.cutoff 中较晚者。
-2. 只查该游标之后新增或被修改的需求，以及 latest.json 中 status 不是 released / impact_confirmed 的既有记录。已经确认上线的历史记录不要重新检查。
-3. 若 packet.changes 非空，逐条核验并纳入本次增量；按“问题 + 交付结果”去重，补充与追问不新增。
-4. 当前 PM 范围仅：嘉鸿、家亮、春燕、刘晨、金星、刘佳、嘉烨。公开数据必须脱敏。
+1. 先用 git worktree list 定位最新 main 工作树；若 main 被占用或工作区不干净，使用安全临时 worktree，不切换或覆盖其他任务的分支与改动。
+2. 读取 latest.json 和下面的本机 checkpoint。优先使用 checkpoint.source_cursor；否则使用 checkpoint.checked_through_at；再否则使用 latest.json 的 meta.last_change_at / meta.cutoff 中较晚者。
+3. 只查该游标之后新增或被修改的需求，以及 latest.json 中 status 不是 released / impact_confirmed 的既有记录。已经确认上线的历史记录不要重新检查。
+4. 若 packet.changes 非空，逐条核验并纳入本次增量；按“问题 + 交付结果”去重，补充与追问不新增。
+5. 当前 PM 范围仅：嘉鸿、家亮、春燕、刘晨、金星、刘佳、嘉烨。公开数据必须脱敏。
 
 状态证据：
 - submitted：确认已有新需求；building：已进入开发但还没有有效合并；merged：同一需求的有效 MR 链路已合并、但生产还未确认生效；released：有效 MR 链路已合并且生产环境实际生效。
