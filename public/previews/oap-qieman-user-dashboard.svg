@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
   <title id="title">OAP 用户画像 × 且慢持仓与行为看板预览</title>
-  <desc id="desc">深色背景中由 OAP 调用信号连接到且慢资产价值，展示三层用户阶梯和持仓行为指标。</desc>
+  <desc id="desc">深色背景中由 OAP 调用信号连接到且慢资产价值，展示新注册、资产入账代理、三层用户阶梯和持仓行为指标。</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#071922"/><stop offset="1" stop-color="#0c2c35"/></linearGradient>
     <linearGradient id="bridge" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#f2b647"/><stop offset="1" stop-color="#28c9b4"/></linearGradient>
@@ -24,7 +24,7 @@
     <text font-family="monospace" font-size="11" font-weight="700" letter-spacing="2.4" fill="#a7e6d7">OAP USER SIGNAL → QIEMAN VALUE</text>
     <text y="61" font-family="serif" font-size="50" font-weight="700" fill="#fffef9">先把<tspan fill="#f2b647">机器规模</tspan></text>
     <text y="119" font-family="serif" font-size="50" font-weight="700" fill="#fffef9">与<tspan fill="#28c9b4">真人价值</tspan>分开。</text>
-    <text y="158" font-family="sans-serif" font-size="13" fill="#ffffff" opacity=".6">三组用户联动 · 且慢资产快照 · 近 90 日行为 · 证据边界</text>
+    <text y="158" font-family="sans-serif" font-size="13" fill="#ffffff" opacity=".6">新注册与资产入账代理 · 三组用户联动 · 持仓行为 · 证据边界</text>
   </g>
 
   <g transform="translate(550 118)" filter="url(#shadow)">

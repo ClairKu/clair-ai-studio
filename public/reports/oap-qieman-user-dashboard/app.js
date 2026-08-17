@@ -2,15 +2,36 @@ const DATA_URL = "./data/latest.json";
 const LOCAL_REFRESH_BASE = "http://127.0.0.1:41792";
 const LOCAL_DATA_KEY = "clair-oap-qieman-dashboard-latest-v1";
 const LOCAL_HEADER = { "X-Clair-Dashboard": "oap-qieman-user-dashboard-v1" };
+const CONTRACT_REVISION = "journey-growth-2026-08-17";
 
 const number = new Intl.NumberFormat("zh-CN");
 const oneDecimal = new Intl.NumberFormat("zh-CN", { maximumFractionDigits: 1 });
 const percent = new Intl.NumberFormat("zh-CN", { style: "percent", maximumFractionDigits: 1 });
 const $ = (selector) => document.querySelector(selector);
+const GROWTH_MODES = {
+  registrations: { field: "new_registrations", label: "新注册用户", kind: "count" },
+  first_inflow: { field: "first_inflow_users", label: "首次入金用户", kind: "count" },
+  inflow: { field: "inflow_yuan", label: "资金流入 / 新入金代理", kind: "money" },
+  net_inflow: { field: "net_inflow_yuan", label: "净入金", kind: "money", derived: true },
+};
+const GROWTH_SUMMARY_FIELDS = [
+  "new_registrations",
+  "first_inflow_users",
+  "inflow_users",
+  "inflow_yuan",
+  "outflow_yuan",
+];
+const GROWTH_FUNNEL_FIELDS = [
+  "eligible_registrations",
+  "first_inflow_d30_users",
+  "first_inflow_d7_users",
+  "still_holding_users",
+];
 
 let currentData = null;
 let selectedCohortId = "active_30d";
 let behaviorMode = "penetration";
+let growthMode = "registrations";
 let toastTimer = null;
 
 function escapeHtml(value) {
@@ -60,6 +81,19 @@ function formatDay(value) {
   return `${year}年${Number(month)}月${Number(day)}日`;
 }
 
+function dateOrdinal(value) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(String(value))) return NaN;
+  return Date.parse(`${value}T00:00:00Z`) / 86_400_000;
+}
+
+function inclusiveDays(start, end) {
+  return dateOrdinal(end) - dateOrdinal(start) + 1;
+}
+
+function datesAreAdjacent(left, right) {
+  return dateOrdinal(right) - dateOrdinal(left) === 1;
+}
+
 function compact(value) {
   const amount = Number(value) || 0;
   if (Math.abs(amount) >= 100000000) return `${oneDecimal.format(amount / 100000000)} 亿`;
@@ -72,6 +106,152 @@ function money(value) {
   if (Math.abs(amount) >= 100000000) return `${(amount / 100000000).toFixed(2)} 亿`;
   if (Math.abs(amount) >= 10000) return `${oneDecimal.format(amount / 10000)} 万`;
   return `${number.format(amount)} 元`;
+}
+
+function growthFieldSuppressed(row, field) {
+  return row?.[field] === null || row?.suppressed_fields?.includes(field);
+}
+
+function growthMetric(row, field) {
+  if (!row) return null;
+  if (field === "net_inflow_yuan") {
+    if (growthFieldSuppressed(row, "inflow_yuan") || growthFieldSuppressed(row, "outflow_yuan")) return null;
+    return row.inflow_yuan - row.outflow_yuan;
+  }
+  return growthFieldSuppressed(row, field) ? null : row[field];
+}
+
+function validateGrowthRow(row, fields, label, minimumPublicCell) {
+  if (!row || !Array.isArray(row.suppressed_fields)) throw new Error(`${label} 缺少小样本抑制声明`);
+  const suppressed = new Set(row.suppressed_fields);
+  if (suppressed.size !== row.suppressed_fields.length || [...suppressed].some((field) => !fields.includes(field))) {
+    throw new Error(`${label} 小样本抑制字段异常`);
+  }
+  for (const field of fields) {
+    const value = row[field];
+    if (value === null) {
+      if (!suppressed.has(field)) throw new Error(`${label}.${field} 为空但未标记 suppressed`);
+      continue;
+    }
+    if (suppressed.has(field)) throw new Error(`${label}.${field} 已有值却标记 suppressed`);
+    if (!Number.isSafeInteger(value) || value < 0) throw new Error(`${label}.${field} 无效`);
+    const isAmount = field.endsWith("_yuan");
+    if (isAmount && value % 10_000 !== 0) throw new Error(`${label}.${field} 未按万元汇总`);
+    if (!isAmount && value > 0 && value < minimumPublicCell) throw new Error(`${label}.${field} 小于公开样本阈值`);
+  }
+  return row;
+}
+
+function validateGrowth(data, cohortIds) {
+  const growth = data.growth;
+  if (!growth || data.meta?.contract_revision !== CONTRACT_REVISION) throw new Error("增长数据契约缺失；旧缓存已停用");
+  if (!["confirmed_with_boundaries", "partial"].includes(growth.evidence_state)) throw new Error("增长证据状态无效");
+  const registrationSource = growth.registration_definition?.source_field || growth.registration_definition?.source;
+  if (growth.registration_definition?.state !== "confirmed" || registrationSource !== "registered_at") {
+    throw new Error("新注册未按且慢真实注册时间统计");
+  }
+  const cashflowDefinition = growth.cash_flow_definition || {};
+  if (!["confirmed", "partial"].includes(cashflowDefinition.state) || cashflowDefinition.first_inflow_scope !== "all_history") {
+    throw new Error("资金流入或全历史首次入金口径未声明");
+  }
+  const cashflowPartial = cashflowDefinition.state === "partial";
+  if (growth.join_key_state !== "confirmed" || !/^\d{4}-\d{2}-\d{2}$/.test(growth.cashflow_max_date)) throw new Error("增长关联键或资金截止日未确认");
+  if (cashflowPartial && (cashflowDefinition.source_type !== "asset_delta_proxy" || growth.evidence_state !== "partial" || data.meta.evidence_state !== "partial")) throw new Error("资产入账代理证据状态不一致");
+  if (!cashflowPartial && (cashflowDefinition.source_type !== "authoritative_cashflow_daily" || growth.evidence_state !== "confirmed_with_boundaries")) throw new Error("权威现金流证据状态不一致");
+
+  const { comparison, trend, funnel } = growth;
+  if (!comparison || inclusiveDays(comparison.current_start, comparison.current_end) !== 30 || inclusiveDays(comparison.previous_start, comparison.previous_end) !== 30) {
+    throw new Error("增长同期窗口必须各为 30 个完整自然日");
+  }
+  if (!datesAreAdjacent(comparison.previous_end, comparison.current_start) || comparison.current_end !== data.meta.data_cutoff.slice(0, 10)) {
+    if (!cashflowPartial || comparison.current_end !== growth.cashflow_max_date) throw new Error("增长同期窗口与数据截止日不连续");
+  }
+  if (comparison.current_end !== growth.cashflow_max_date) throw new Error("增长窗口与资金完整日不一致");
+  const cashflowLagDays = dateOrdinal(data.meta.data_cutoff.slice(0, 10)) - dateOrdinal(growth.cashflow_max_date);
+  if (cashflowLagDays < 0 || (cashflowPartial && cashflowLagDays > 7)) throw new Error("资产入账代理数据落后总看板超过 7 天");
+  if (!trend || trend.grain_days !== 10 || inclusiveDays(trend.window_start, trend.window_end) !== 90 || trend.window_end !== comparison.current_end) {
+    throw new Error("增长趋势必须为截至口径日的 90 日、每 10 日一段");
+  }
+  if (!funnel || funnel.followup_days !== 30 || funnel.registration_start !== comparison.previous_start || funnel.registration_end !== comparison.previous_end) {
+    throw new Error("注册漏斗必须使用完整 30 日观察窗");
+  }
+
+  const minimum = data.meta.minimum_public_cell;
+  if (!growth.by_cohort || cohortIds.some((id) => !growth.by_cohort[id])) throw new Error("增长人群数据缺失");
+  for (const cohortId of cohortIds) {
+    const cohortGrowth = growth.by_cohort[cohortId];
+    const expectedCohortUsers = data.usage[cohortId === "approved" ? "approved_users" : cohortId === "called" ? "ever_called_users" : "active_30d_users"];
+    if (cohortGrowth.cohort_n !== expectedCohortUsers || !["complete", "high", "medium", "low"].includes(cohortGrowth.registration_time_coverage_state)) throw new Error(`${cohortId} 注册覆盖契约异常`);
+    if ("registered_at_nonnull_n" in cohortGrowth || "registered_at_missing_n" in cohortGrowth || "registration_time_coverage" in cohortGrowth) throw new Error(`${cohortId} 公开快照不得暴露可反推注册缺失数`);
+    const current = validateGrowthRow(cohortGrowth.current, GROWTH_SUMMARY_FIELDS, `${cohortId}.growth.current`, minimum);
+    const previous = validateGrowthRow(cohortGrowth.previous, GROWTH_SUMMARY_FIELDS, `${cohortId}.growth.previous`, minimum);
+    for (const row of [current, previous]) {
+      const first = growthMetric(row, "first_inflow_users");
+      const inflowUsers = growthMetric(row, "inflow_users");
+      if (first !== null && inflowUsers !== null && first > inflowUsers) throw new Error(`${cohortId} 首次入金用户大于资金流入用户`);
+      if (inflowUsers === 0 && growthMetric(row, "inflow_yuan") !== 0) throw new Error(`${cohortId} 无资金流入用户但存在流入金额`);
+      if (inflowUsers === null && growthMetric(row, "inflow_yuan") !== null) throw new Error(`${cohortId} 流入人数被抑制时金额也必须抑制`);
+    }
+
+    const funnelRow = validateGrowthRow(cohortGrowth.funnel, GROWTH_FUNNEL_FIELDS, `${cohortId}.growth.funnel`, minimum);
+    const eligible = growthMetric(funnelRow, "eligible_registrations");
+    const d30 = growthMetric(funnelRow, "first_inflow_d30_users");
+    const d7 = growthMetric(funnelRow, "first_inflow_d7_users");
+    const holding = growthMetric(funnelRow, "still_holding_users");
+    if (eligible !== null && d30 !== null && d30 > eligible) throw new Error(`${cohortId} 30 日首次入金大于可观察注册用户`);
+    if (d30 !== null && d7 !== null && d7 > d30) throw new Error(`${cohortId} 7 日首次入金大于 30 日首次入金`);
+    if (d30 !== null && holding !== null && holding > d30) throw new Error(`${cohortId} 仍持仓人数大于 30 日首次入金人数`);
+    const previousRegistrations = growthMetric(previous, "new_registrations");
+    if ((eligible === null) !== (previousRegistrations === null) || (eligible !== null && eligible !== previousRegistrations)) throw new Error(`${cohortId} 漏斗起点与前30日新注册不一致`);
+
+    const periods = cohortGrowth.trend_periods;
+    if (!Array.isArray(periods) || periods.length !== 9) throw new Error(`${cohortId} 增长趋势必须为 9 段`);
+    periods.forEach((period, index) => {
+      validateGrowthRow(period, GROWTH_SUMMARY_FIELDS, `${cohortId}.growth.trend[${index}]`, minimum);
+      if (inclusiveDays(period.start, period.end) !== 10) throw new Error(`${cohortId} 第 ${index + 1} 个趋势段不是 10 日`);
+      if (index === 0 && period.start !== trend.window_start) throw new Error(`${cohortId} 趋势起点不一致`);
+      if (index > 0 && !datesAreAdjacent(periods[index - 1].end, period.start)) throw new Error(`${cohortId} 趋势段不连续`);
+      if (index === periods.length - 1 && period.end !== trend.window_end) throw new Error(`${cohortId} 趋势终点不一致`);
+    });
+    const closureFields = ["new_registrations", "first_inflow_users", "inflow_users", "inflow_yuan", "outflow_yuan"];
+    for (const field of closureFields) {
+      for (const [summary, slice, periodLabel] of [[previous, periods.slice(3, 6), "前 30 日"], [current, periods.slice(6), "近 30 日"]]) {
+        const values = slice.map((period) => growthMetric(period, field));
+        const summaryValue = growthMetric(summary, field);
+        if ((summaryValue === null) !== values.some((value) => value === null)) throw new Error(`${cohortId} ${periodLabel}${field} 抑制未上下传播`);
+        if (field !== "inflow_users" && summaryValue !== null && values.every((value) => value !== null) && values.reduce((sum, value) => sum + value, 0) !== summaryValue) {
+          throw new Error(`${cohortId} ${periodLabel}${field} 与趋势不闭合`);
+        }
+      }
+    }
+  }
+  const rejectSmallNestedDifference = (rows, field, relatedAmount = null, label = field) => {
+    for (let index = 0; index < rows.length - 1; index += 1) {
+      const broader = growthMetric(rows[index], field);
+      const narrower = growthMetric(rows[index + 1], field);
+      if (broader === null) {
+        if (relatedAmount && growthMetric(rows[index], relatedAmount) !== null) throw new Error(`${label} 人数隐藏时关联金额仍公开`);
+        continue;
+      }
+      if (narrower === null) continue;
+      const difference = broader - narrower;
+      if (difference < 0 || (difference > 0 && difference < minimum)) throw new Error(`${label} 嵌套人群可差分反推小样本`);
+    }
+  };
+  for (const period of ["current", "previous"]) {
+    const rows = cohortIds.map((id) => growth.by_cohort[id][period]);
+    rejectSmallNestedDifference(rows, "new_registrations", null, `${period} 新注册`);
+    rejectSmallNestedDifference(rows, "first_inflow_users", null, `${period} 首次入金`);
+    rejectSmallNestedDifference(rows, "inflow_users", "inflow_yuan", `${period} 资金流入`);
+  }
+  for (let index = 0; index < 9; index += 1) {
+    const rows = cohortIds.map((id) => growth.by_cohort[id].trend_periods[index]);
+    rejectSmallNestedDifference(rows, "new_registrations", null, `trend ${index + 1} 新注册`);
+    rejectSmallNestedDifference(rows, "first_inflow_users", null, `trend ${index + 1} 首次入金`);
+    rejectSmallNestedDifference(rows, "inflow_users", "inflow_yuan", `trend ${index + 1} 资金流入`);
+  }
+  for (const field of GROWTH_FUNNEL_FIELDS) rejectSmallNestedDifference(cohortIds.map((id) => growth.by_cohort[id].funnel), field, null, `funnel ${field}`);
+  return growth;
 }
 
 function validateData(data) {
@@ -88,6 +268,38 @@ function validateData(data) {
   }
   if (!(usage.approved_users >= usage.ever_called_users && usage.ever_called_users >= usage.active_30d_users)) throw new Error("三组人群层级不闭合");
   if (usage.total_calls !== usage.attributed_calls + usage.unattributed_calls) throw new Error("调用归属无法闭合");
+
+  {
+    const journey = data.journey_metrics;
+    if (!journey || journey.schema_version !== "oap-journey-metrics-v1" || !Array.isArray(journey.rows) || !journey.rows.length) throw new Error("关键历程数据契约异常");
+    const fieldMap = { cumulativeCalls: "cumulative_calls", cumulativeUsers: "cumulative_users", dailyCalls: "daily_calls", dailyNewUsers: "daily_new_users", dailyCallingUsers: "daily_calling_users" };
+    let previousDate = null;
+    journey.rows.forEach((row) => {
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(row.date) || (previousDate && dateOrdinal(row.date) - dateOrdinal(previousDate) !== 1)) throw new Error("关键历程日序列不连续");
+      previousDate = row.date;
+      const suppressed = new Set(row.suppressed_fields || []);
+      if (suppressed.size !== (row.suppressed_fields || []).length || [...suppressed].some((field) => !Object.values(fieldMap).includes(field))) throw new Error("关键历程抑制字段异常");
+      for (const [publicField, marker] of Object.entries(fieldMap)) {
+        const value = row[publicField];
+        if (value === null) {
+          if (!suppressed.has(marker)) throw new Error(`关键历程 ${row.date}.${publicField} 为空但未声明抑制`);
+          continue;
+        }
+        if (!Number.isSafeInteger(value) || value < 0 || suppressed.has(marker)) throw new Error(`关键历程 ${row.date}.${publicField} 异常`);
+        if (publicField.startsWith("daily") && value > 0 && value < data.meta.minimum_public_cell) throw new Error(`关键历程 ${row.date}.${publicField} 低于公开阈值`);
+        if (publicField.startsWith("cumulative") && value % data.meta.minimum_public_cell !== 0) throw new Error(`关键历程 ${row.date}.${publicField} 未按公开阈值取整`);
+      }
+    });
+    const cutoffDay = data.meta.data_cutoff.slice(0, 10);
+    if (journey.timezone !== "Asia/Shanghai" || journey.as_of !== cutoffDay || journey.range_start !== journey.rows[0].date || journey.rows.at(-1).date !== cutoffDay) {
+      throw new Error("关键历程时间边界异常");
+    }
+    if (journey.rows.length !== inclusiveDays(journey.range_start, journey.as_of)) throw new Error("关键历程没有覆盖每个完整自然日");
+    const journeyTail = journey.rows.at(-1);
+    if (Math.abs(journeyTail.cumulativeCalls - usage.total_calls) >= data.meta.minimum_public_cell || Math.abs(journeyTail.cumulativeUsers - usage.approved_users) >= data.meta.minimum_public_cell) {
+      throw new Error("关键历程累计值与使用规模不闭合");
+    }
+  }
 
   const expectedIds = ["approved", "called", "active_30d"];
   if (!Array.isArray(data.cohorts) || data.cohorts.length !== expectedIds.length) throw new Error("人群数据缺失");
@@ -115,6 +327,8 @@ function validateData(data) {
     if (cohort.asset_buckets.some((row) => row.count < data.meta.minimum_public_cell)) throw new Error(`${cohort.id} 出现小于公开阈值的分组`);
   }
 
+  validateGrowth(data, expectedIds);
+
   if (!data.behavior?.by_cohort || !Array.isArray(data.behavior.categories)) throw new Error("行为数据缺失");
   const categoryKeys = data.behavior.categories.map((item) => item.key);
   for (const cohort of data.cohorts) {
@@ -132,10 +346,18 @@ function validateData(data) {
   for (const item of data.profile.dimensions) {
     if (item.sample < data.meta.minimum_public_cell || item.count > item.sample || !approximately(item.share, item.count / item.sample, 0.002)) throw new Error(`画像 ${item.key} 不闭合`);
   }
-  if (!Array.isArray(data.quality_checks) || data.quality_checks.length < 4 || !Array.isArray(data.definitions)) throw new Error("数据健康或口径缺失");
+  if (!Array.isArray(data.quality_checks) || data.quality_checks.length !== 6 || !data.quality_checks.some((item) => item.label === "注册与入金口径" && ["pass", "warn"].includes(item.status)) || !Array.isArray(data.definitions)) {
+    throw new Error("数据健康或增长口径缺失");
+  }
+  const cashflowPartial = data.growth.cash_flow_definition.state === "partial";
+  const growthQuality = data.quality_checks.find((item) => item.label === "注册与入金口径");
+  if (growthQuality.status !== (cashflowPartial ? "warn" : "pass")) throw new Error("增长口径与质量状态不一致");
+  for (const term of ["首次入金用户", "净入金"]) {
+    if (!data.definitions.some((item) => item.term === term && item.state === (cashflowPartial ? "partial" : "confirmed"))) throw new Error(`${term}定义与证据状态不一致`);
+  }
 
   const publicText = JSON.stringify(data);
-  const forbidden = /(account3|broker_user|union_id|user_id|po_manager|手机号|phone|email|邮箱|ying99_|redash|api[_ -]?key|access[_ -]?token|view[_ -]?token)/i;
+  const forbidden = /(account3|broker_user|union_id|user_id|po_manager|portfolio_manager_info|relation_account|\broot\b|手机号|phone|email|邮箱|ying99_|redash|api[_ -]?key|access[_ -]?token|view[_ -]?token)/i;
   if (forbidden.test(publicText)) throw new Error("公开数据包含内部标识、PII 或凭证字段");
   return data;
 }
@@ -247,13 +469,185 @@ function renderCohortControls() {
   $("#cohort-switch").innerHTML = currentData.cohorts.map((cohort, index) => cohortButtonMarkup(cohort, index, true)).join("");
   const usage = currentData.usage;
   $("#cohort-footnotes").innerHTML = [
-    `<p><b>${percent.format(usage.ever_called_users / usage.approved_users)}</b> 的批准用户曾产生可归属调用。</p>`,
-    `<p><b>${percent.format(usage.active_30d_users / usage.ever_called_users)}</b> 的历史调用用户近 30 日仍活跃。</p>`,
-    `<p>近 30 日共 <b>${compact(usage.calls_30d)}</b> 次调用；三组嵌套，不可相加。</p>`,
+    `<p>历史调用用户规模相当于批准用户的 <b>${percent.format(usage.ever_called_users / usage.approved_users)}</b>。</p>`,
+    `<p>近 30 日活跃规模相当于历史调用用户的 <b>${percent.format(usage.active_30d_users / usage.ever_called_users)}</b>。</p>`,
+    `<p>近 30 日共 <b>${compact(usage.calls_30d)}</b> 次调用；三组相互重叠，不可相加。</p>`,
   ].join("");
   document.querySelectorAll("[data-cohort]").forEach((button) => {
     button.addEventListener("click", () => selectCohort(button.dataset.cohort));
   });
+}
+
+function growthByCohort(id = selectedCohortId) {
+  return currentData?.growth?.by_cohort?.[id] || currentData?.growth?.by_cohort?.active_30d;
+}
+
+function growthEvidenceLabels() {
+  const definition = currentData.growth.cash_flow_definition;
+  const partial = definition.state === "partial";
+  return {
+    partial,
+    first: partial ? "首次资产入账用户（代理）" : "首次入金用户",
+    firstShort: partial ? "首次资产入账" : "首次入金",
+    inflow: partial ? "资产入账 / 新入金代理" : "外部资金流入 / 新入金",
+    inflowShort: partial ? "资产入账" : "外部资金流入",
+    net: partial ? "净资产入账（代理）" : "净入金",
+  };
+}
+
+function applyGrowthEvidenceLabels() {
+  const labels = growthEvidenceLabels();
+  const definition = currentData.growth.cash_flow_definition;
+  const cutoff = formatDay(currentData.growth.cashflow_max_date);
+  $("#growth-title").textContent = labels.partial ? "从新注册，到首次资产入账" : "从新注册，到首次外部资金进入且慢";
+  $("#growth-scope-copy").textContent = `注册按且慢正式注册时间；${definition.label}，资金数据截至 ${cutoff}。它不是买入或赎回金额。`;
+  $("#growth-first-label").textContent = labels.first;
+  $("#growth-first-note").textContent = labels.partial ? "全历史首次正资产入账日落在窗口内" : "全历史首次外部资金流入日落在窗口内";
+  $("#growth-inflow-label").textContent = labels.inflow;
+  $("#growth-inflow-note").textContent = labels.partial ? "窗口内资产入账日代理流入总额" : "窗口内外部资金流入总额";
+  $("#growth-net-label").textContent = labels.net;
+  $("#growth-net-note").textContent = labels.partial ? "同源资产入账减出账，可为负" : "外部资金流入减流出，可为负";
+  $("#growth-mode-first-label").textContent = labels.firstShort;
+  $("#growth-mode-inflow-label").textContent = labels.inflowShort;
+  $("#growth-mode-net-label").textContent = labels.net;
+  $("#growth-funnel-title").textContent = `注册 → ${labels.firstShort} → 仍持仓`;
+  $("#growth-speed-label").textContent = `7 日内完成${labels.firstShort}`;
+  $("#growth-boundary-copy").textContent = `注册、${labels.inflowShort}和当前 OAP 使用深度只存在时间关系，尚未排除渠道、活动、资产基础与自选择影响，不能表述为“OAP 带来新增”。${labels.partial ? "当前资金口径为 partial，权威现金流恢复后再升级。" : ""}`;
+}
+
+function growthValueLabel(row, field, kind = "count") {
+  const value = growthMetric(row, field);
+  if (value === null) return "样本不足";
+  return kind === "money" ? `约 ${money(value)}` : `${number.format(value)} 人`;
+}
+
+function growthComparison(current, previous, field, kind = "count") {
+  const currentValue = growthMetric(current, field);
+  const previousValue = growthMetric(previous, field);
+  if (currentValue === null || previousValue === null) return { text: "小样本已隐藏，环比不展示", tone: "neutral" };
+  if (currentValue === previousValue) return { text: "与前 30 日持平", tone: "neutral" };
+  const delta = currentValue - previousValue;
+  if (field === "net_inflow_yuan" && (currentValue < 0 || previousValue <= 0)) {
+    return { text: `较前 30 日${delta > 0 ? "净增加" : "净减少"} ${money(Math.abs(delta))}`, tone: delta > 0 ? "up" : "down" };
+  }
+  if (previousValue === 0) return { text: "前 30 日为 0，暂不计算环比", tone: "neutral" };
+  const rate = Math.abs(delta / previousValue);
+  return { text: `较前 30 日${delta > 0 ? "上升" : "下降"} ${percent.format(rate)}`, tone: delta > 0 ? "up" : "down" };
+}
+
+function setGrowthHeadline(valueSelector, changeSelector, current, previous, field, kind) {
+  const value = growthMetric(current, field);
+  const comparison = growthComparison(current, previous, field, kind);
+  $(valueSelector).textContent = growthValueLabel(current, field, kind);
+  const change = $(changeSelector);
+  change.textContent = comparison.text;
+  change.classList.toggle("is-down", comparison.tone === "down");
+  change.classList.toggle("is-neutral", comparison.tone === "neutral");
+  return value;
+}
+
+function shortGrowthPeriod(start, end) {
+  const startParts = String(start).split("-").map(Number);
+  const endParts = String(end).split("-").map(Number);
+  if (startParts.length !== 3 || endParts.length !== 3) return `${start}—${end}`;
+  return `${startParts[1]}.${startParts[2]}–${endParts[1]}.${endParts[2]}`;
+}
+
+function renderGrowthSummary() {
+  applyGrowthEvidenceLabels();
+  const cohort = cohortById();
+  const growth = growthByCohort();
+  const { current, previous } = growth;
+  $("#growth-cohort-title").textContent = cohort.short_label;
+  setGrowthHeadline("#growth-new-registrations", "#growth-new-registrations-change", current, previous, "new_registrations", "count");
+  setGrowthHeadline("#growth-first-inflow-users", "#growth-first-inflow-users-change", current, previous, "first_inflow_users", "count");
+  setGrowthHeadline("#growth-inflow", "#growth-inflow-change", current, previous, "inflow_yuan", "money");
+  const net = setGrowthHeadline("#growth-net-inflow", "#growth-net-inflow-change", current, previous, "net_inflow_yuan", "money");
+  $(".growth-net").classList.toggle("is-negative", net !== null && net < 0);
+  $("#growth-summary").setAttribute(
+    "aria-label",
+    `${cohort.short_label}近30日：新注册${growthValueLabel(current, "new_registrations")}; ${growthEvidenceLabels().firstShort}${growthValueLabel(current, "first_inflow_users")}; ${growthEvidenceLabels().inflowShort}${growthValueLabel(current, "inflow_yuan", "money")}; ${growthEvidenceLabels().net}${growthValueLabel(current, "net_inflow_yuan", "money")}。`,
+  );
+}
+
+function renderGrowthTrend() {
+  const cohort = cohortById();
+  const cohortGrowth = growthByCohort();
+  const labels = growthEvidenceLabels();
+  const dynamicLabels = { registrations: "新注册", first_inflow: labels.firstShort, inflow: labels.inflowShort, net_inflow: labels.net };
+  const config = { ...GROWTH_MODES[growthMode], label: dynamicLabels[growthMode] };
+  const periods = cohortGrowth.trend_periods;
+  const values = periods.map((period) => growthMetric(period, config.field));
+  const numericValues = values.filter((value) => value !== null);
+  const domainMax = Math.max(0, ...numericValues, 1);
+  const domainMin = Math.min(0, ...numericValues);
+  const domainRange = domainMax - domainMin || 1;
+  const zeroPercent = domainMax / domainRange * 100;
+  const zeroTop = 28 + 172 * zeroPercent / 100;
+
+  const columns = periods.map((period, index) => {
+    const value = values[index];
+    const phase = index >= 6 ? "current" : index >= 3 ? "previous" : "older";
+    const suppressed = value === null;
+    const top = value === null
+      ? 42
+      : value >= 0
+        ? (domainMax - value) / domainRange * 100
+        : zeroPercent;
+    const height = value === null ? 18 : Math.max(value === 0 ? 1 : Math.abs(value) / domainRange * 100, 2);
+    const label = suppressed ? "样本不足" : config.kind === "money" ? money(value) : number.format(value);
+    return `<div class="growth-period ${suppressed ? "is-suppressed" : ""} ${value !== null && value < 0 ? "is-negative" : ""}" data-phase="${phase}" data-mode="${growthMode}">
+      <strong>${escapeHtml(label)}</strong>
+      <div class="growth-bar-slot"><i style="top:${top.toFixed(2)}%;height:${height.toFixed(2)}%"></i></div>
+      <span>${escapeHtml(shortGrowthPeriod(period.start, period.end))}</span>
+    </div>`;
+  }).join("");
+  const chart = $("#growth-trend");
+  chart.style.setProperty("--zero", `${zeroTop.toFixed(2)}px`);
+  chart.innerHTML = `<i class="growth-zero-line" aria-hidden="true"></i><div class="growth-trend-columns">${columns}</div>`;
+  chart.setAttribute("aria-label", `${cohort.short_label}${config.label}近90日趋势：${periods.map((period, index) => `${shortGrowthPeriod(period.start, period.end)} ${values[index] === null ? "样本不足" : config.kind === "money" ? money(values[index]) : `${number.format(values[index])}人`}`).join("；")}`);
+
+  const comparison = growthComparison(cohortGrowth.current, cohortGrowth.previous, config.field, config.kind);
+  $("#growth-trend-copy").textContent = `${cohort.short_label}近 30 日${config.label}为 ${growthValueLabel(cohortGrowth.current, config.field, config.kind)}，${comparison.text}。浅蓝底为前 30 日，浅绿底为近 30 日；斜纹表示样本不足，不展示数值。`;
+}
+
+function funnelValueMarkup(row, field) {
+  const value = growthMetric(row, field);
+  return value === null ? "样本不足" : `${number.format(value)} 人`;
+}
+
+function renderGrowthFunnel() {
+  const cohort = cohortById();
+  const labels = growthEvidenceLabels();
+  const funnel = growthByCohort().funnel;
+  const eligible = growthMetric(funnel, "eligible_registrations");
+  const d30 = growthMetric(funnel, "first_inflow_d30_users");
+  const d7 = growthMetric(funnel, "first_inflow_d7_users");
+  const holding = growthMetric(funnel, "still_holding_users");
+  const widthFor = (value, denominator, fallback) => value === null || denominator === null
+    ? fallback
+    : denominator <= 0
+      ? 0
+      : Math.max(2, value / denominator * 100);
+  const conversion = eligible && d30 !== null ? percent.format(d30 / eligible) : "样本不足";
+  const holdingRate = d30 && holding !== null ? percent.format(holding / d30) : "样本不足";
+  const stages = [
+    { label: "完整观察的新注册", note: "漏斗起点", field: "eligible_registrations", width: 100 },
+    { label: `30 日内完成${labels.firstShort}`, note: `注册转化 ${conversion}`, field: "first_inflow_d30_users", width: widthFor(d30, eligible, 100) },
+    { label: "截至快照仍持仓", note: `占${labels.firstShort} ${holdingRate}`, field: "still_holding_users", width: widthFor(holding, eligible, 100) },
+  ];
+  $("#growth-funnel").innerHTML = stages.map((stage) => `<div class="growth-funnel-step ${growthMetric(funnel, stage.field) === null ? "is-suppressed" : ""}" style="--funnel-width:${stage.width.toFixed(2)}%">
+    <span><b>${escapeHtml(stage.label)}</b>${escapeHtml(stage.note)}</span><strong>${escapeHtml(funnelValueMarkup(funnel, stage.field))}</strong>
+  </div>`).join("");
+  $("#growth-funnel").setAttribute("aria-label", `${cohort.short_label}完整观察窗漏斗：新注册${funnelValueMarkup(funnel, "eligible_registrations")}；30日内${labels.firstShort}${funnelValueMarkup(funnel, "first_inflow_d30_users")}；当前仍持仓${funnelValueMarkup(funnel, "still_holding_users")}。`);
+  $("#growth-funnel-window").textContent = `注册窗口 ${formatDay(currentData.growth.funnel.registration_start)}—${formatDay(currentData.growth.funnel.registration_end)}；统一观察注册后 30 日，避免未成熟用户拉低转化。`;
+  $("#growth-speed strong").textContent = eligible && d7 !== null ? `${number.format(d7)} 人 · ${percent.format(d7 / eligible)}` : "样本不足";
+}
+
+function renderGrowth() {
+  renderGrowthSummary();
+  renderGrowthTrend();
+  renderGrowthFunnel();
 }
 
 function compareRowsMarkup() {
@@ -363,36 +757,95 @@ function renderQuality() {
 function buildDocument() {
   const data = currentData;
   const cohort = cohortById();
+  const growth = growthByCohort();
+  const labels = growthEvidenceLabels();
   const humanRate = data.usage.attributed_calls / data.usage.total_calls;
   const cohortRows = data.cohorts.map((item) => `| ${item.label} | ${number.format(item.users)} | ${percent.format(item.qieman_account_rate)} | ${percent.format(item.holder_rate)} | ${money(item.aum_yuan)} | ${money(item.average_holder_asset_yuan)} |`).join("\n");
+  const growthRows = [
+    ["新注册用户", "new_registrations", "count"],
+    [labels.first, "first_inflow_users", "count"],
+    [labels.inflow, "inflow_yuan", "money"],
+    [labels.net, "net_inflow_yuan", "money"],
+  ].map(([label, field, kind]) => `| ${label} | ${growthValueLabel(growth.current, field, kind)} | ${growthValueLabel(growth.previous, field, kind)} | ${growthComparison(growth.current, growth.previous, field, kind).text} |`).join("\n");
+  const trendRows = growth.trend_periods.map((row) => `| ${row.start}—${row.end} | ${growthValueLabel(row, "new_registrations")} | ${growthValueLabel(row, "first_inflow_users")} | ${growthValueLabel(row, "inflow_yuan", "money")} | ${growthValueLabel(row, "net_inflow_yuan", "money")} |`).join("\n");
   const behaviorRows = data.behavior.by_cohort[cohort.id].map((row) => {
     const category = data.behavior.categories.find((item) => item.key === row.key);
     return `| ${category.label} | ${number.format(row.actors)} | ${percent.format(row.penetration)} | ${number.format(row.events)} | ${oneDecimal.format(row.events_per_actor)} | ${category.state} |`;
   }).join("\n");
   const profileRows = data.profile.dimensions.map((item) => `| ${item.label} | ${item.count}/${item.sample} | ${percent.format(item.share)} | ${item.qieman_baseline === null ? "—" : percent.format(item.qieman_baseline)} |`).join("\n");
-  return `# OAP 用户画像 × 且慢持仓与行为看板
+  const cashflowDefinition = data.growth.cash_flow_definition;
+  const d30 = growthMetric(growth.funnel, "first_inflow_d30_users");
+  const d7 = growthMetric(growth.funnel, "first_inflow_d7_users");
+  const eligible = growthMetric(growth.funnel, "eligible_registrations");
+  const holding = growthMetric(growth.funnel, "still_holding_users");
+  const d30Rate = eligible && d30 !== null ? percent.format(d30 / eligible) : "样本不足";
+  const d7Rate = eligible && d7 !== null ? percent.format(d7 / eligible) : "样本不足";
+  const holdingRate = d30 && holding !== null ? percent.format(holding / d30) : "样本不足";
+  return `# OAP 用户画像 × 且慢增长、持仓与行为看板
 
 > OAP / 行为数据截至：${formatDateTime(data.meta.data_cutoff, true)}
 > 资产快照：${formatDay(data.meta.asset_snapshot_date)}
+> 增长趋势：${formatDay(data.growth.trend.window_start)}—${formatDay(data.growth.trend.window_end)}（每 10 日）
 > 近 90 日行为窗口：${formatDay(data.meta.behavior_window_start)}—${formatDay(data.meta.behavior_window_end)}
 > 来源：${data.meta.source}
 > 隐私：${data.meta.privacy}
 
-## 1. 核心判断
+## 1. 分析目标
 
-OAP 的“平台规模”和“真人用户价值”必须分开经营。累计 ${compact(data.usage.total_calls)} 次调用中，只有 ${percent.format(humanRate)} 可归属到具体用户；近 30 日活跃人群的且慢持仓率为 ${percent.format(cohortById("active_30d").holder_rate)}，高于批准用户的 ${percent.format(cohortById("approved").holder_rate)}，说明活跃人群与更强的且慢资产、行为特征相关，但尚不能证明由 OAP 导致。
+回答 OAP 用户中，谁在近期新注册且慢、谁完成${labels.firstShort}、${labels.inflowShort}与${labels.net}如何变化，以及这些领先指标与当前持仓、行为之间呈现什么关系。用于判断增长链路应优先补哪一步，不把时间相关性误写成 OAP 的因果贡献。
 
-## 2. 三组人群
+## 2. 核心判断
+
+OAP 的“平台规模”“注册激活”“资金变化”和“存量价值”必须分开经营。累计 ${compact(data.usage.total_calls)} 次调用中，只有 ${percent.format(humanRate)} 可归属到具体用户；${cohort.short_label}近 30 日新注册为 ${growthValueLabel(growth.current, "new_registrations")}、${labels.firstShort}为 ${growthValueLabel(growth.current, "first_inflow_users")}、${labels.inflowShort}为 ${growthValueLabel(growth.current, "inflow_yuan", "money")}。这些数据描述同期关系，不证明由 OAP 导致。
+
+## 3. 数据健康度
+
+${data.quality_checks.map((item) => `- **${item.status.toUpperCase()}｜${item.label}**：${item.detail}`).join("\n")}
+
+- 公开单元格最小样本量为 n ≥ ${data.meta.minimum_public_cell}；不足时显示“样本不足”，不展示人数或关联金额。
+- 新注册以且慢正式 \`registered_at\` 为准。
+- 资金口径为 **${cashflowDefinition.state}**：${cashflowDefinition.detail}
+
+## 4. 指标拆解
+
+\`增长结果 = 新注册规模 × 30 日${labels.firstShort}转化 × ${labels.firstShort}后仍持仓比例\`
+
+账户资金同时拆成：\`${labels.net} = 同源流入 - 同源流出\`。${labels.firstShort}以全历史首次正资金入账日识别，不推断交易级先后顺序。
+
+### 4.1 三组人群
 
 | 人群 | 用户数 | 且慢账户率 | 持仓率 | 持仓规模 | 持仓户均 |
 |---|---:|---:|---:|---:|---:|
 ${cohortRows}
 
-- 历史调用用户占批准用户 ${percent.format(data.usage.ever_called_users / data.usage.approved_users)}。
-- 近 30 日活跃用户占历史调用用户 ${percent.format(data.usage.active_30d_users / data.usage.ever_called_users)}。
-- 三组为嵌套关系，不可相加。
+- 历史调用用户规模相当于批准用户的 ${percent.format(data.usage.ever_called_users / data.usage.approved_users)}。
+- 近 30 日活跃规模相当于历史调用用户的 ${percent.format(data.usage.active_30d_users / data.usage.ever_called_users)}。
+- 三组相互重叠，不可相加；后两组按调用深度递进。
 
-## 3. 当前选择：${cohort.label}
+## 5. 新增增长：${cohort.label}
+
+当前窗口：${formatDay(data.growth.comparison.current_start)}—${formatDay(data.growth.comparison.current_end)}；对比窗口：${formatDay(data.growth.comparison.previous_start)}—${formatDay(data.growth.comparison.previous_end)}。
+
+| 指标 | 近 30 日 | 前 30 日 | 同期变化 |
+|---|---:|---:|---|
+${growthRows}
+
+### 5.1 完整观察窗漏斗
+
+- 完整观察的新注册：${funnelValueMarkup(growth.funnel, "eligible_registrations")}
+- 30 日内完成${labels.firstShort}：${funnelValueMarkup(growth.funnel, "first_inflow_d30_users")}，注册转化 ${d30Rate}
+- 其中 7 日内完成：${funnelValueMarkup(growth.funnel, "first_inflow_d7_users")}，占注册 ${d7Rate}
+- 截至资产快照仍持仓：${funnelValueMarkup(growth.funnel, "still_holding_users")}，占 30 日${labels.firstShort} ${holdingRate}
+
+注册窗口为 ${formatDay(data.growth.funnel.registration_start)}—${formatDay(data.growth.funnel.registration_end)}，每位用户至少拥有 30 日观察期。
+
+### 5.2 近 90 日趋势
+
+| 10 日区间 | 新注册 | ${labels.firstShort} | ${labels.inflowShort} | ${labels.net} |
+|---|---:|---:|---:|---:|
+${trendRows}
+
+## 6. 当前持仓：${cohort.label}
 
 - 用户：${number.format(cohort.users)}
 - 可关联且慢账户：${number.format(cohort.qieman_accounts)}（${percent.format(cohort.qieman_account_rate)}）
@@ -402,7 +855,7 @@ ${cohortRows}
 - 持仓户均：${money(cohort.average_holder_asset_yuan)}；且慢可比口径约 ${money(data.qieman_baseline.average_asset_yuan)}
 - 累计收益为正：${number.format(cohort.profitable_holders)}/${number.format(cohort.holders)}（${percent.format(cohort.profitable_holder_rate)}）
 
-## 4. 近 90 日行为
+### 6.1 近 90 日行为
 
 行为按未撤销事件汇总，不等同于最终成交或确认份额。
 
@@ -412,7 +865,7 @@ ${behaviorRows}
 
 “其他计划交易”仅部分确认；“SI 交易”含义待补，不能擅自解释成定投。
 
-## 5. 画像样本
+## 7. 画像样本
 
 画像问卷覆盖约 ${percent.format(data.profile.survey_coverage_approx)}，关键字段缺失率约 84%–89%。以下结论只代表非缺失样本。
 
@@ -420,19 +873,31 @@ ${behaviorRows}
 |---|---:|---:|---:|
 ${profileRows}
 
-## 6. 证据边界
+## 8. 假设列表
 
-${data.quality_checks.map((item) => `- **${item.status.toUpperCase()}｜${item.label}**：${item.detail}`).join("\n")}
+| # | 假设 | 支撑证据 | 关系类型 | 可信度 | 验证方式 |
+|---|---|---|---|---|---|
+| H1 | 注册变化可能传导至后续${labels.firstShort} | 新注册${growthComparison(growth.current, growth.previous, "new_registrations").text}；${labels.firstShort}${growthComparison(growth.current, growth.previous, "first_inflow_users").text} | 🔗 相关性 | 中 | 按注册批次比较 D7 / D30，控制渠道、活动与资产基础 |
+| H2 | OAP 使用更深的人群可能有更强资金与持仓表现 | 近 30 日活跃人群持仓率 ${percent.format(cohortById("active_30d").holder_rate)}，批准人群 ${percent.format(cohortById("approved").holder_rate)} | 🔗 相关性 | 低 | 按注册时点、历史资产与使用倾向匹配对照 |
+| H3 | 资金变化可能受市场、活动与渠道共同影响 | 当前为资产入账日代理口径，且没有控制同期运营与市场因素 | 🔗 相关性 | 低 | 权威现金流恢复后，再分渠道、活动暴露和市场阶段做匹配对照 |
 
-## 7. 产品动作
+## 9. 行动建议
 
-1. 平台规模拆账：固定分开真人可归属调用与服务/集成调用。
-2. 活跃增量验证：按注册时点与资产层级匹配对照，持续观察后续持仓和服务行为。
-3. 补画像采集：把画像采集嵌入高价值服务链路；覆盖未达阈值前不做全量外推。
+1. **P0｜经营注册到${labels.firstShort}漏斗**：固定观察 D7 / D30，并按注册批次定位转化下降发生在哪一批。
+2. **P0｜升级权威现金流**：恢复受控查询权限后，先复核资产入账代理与权威现金流的差异，再按来源识别变化贡献。
+3. **P1｜做活跃增量验证**：按注册时点、历史资产、渠道匹配对照，持续观察后续入金、持仓与服务行为。
+4. **P1｜补画像采集**：覆盖未达阈值前只展示样本结论，不做人群外推。
 
-## 8. 更新机制
+## 10. 验证计划
 
-Clair 的 Mac 上通过仅监听本机的只读更新器调用盈米本体，网页只接收脱敏聚合；浏览器不能传 SQL。结构、口径或隐私校验失败时，保留上一版快照。其他设备只读取最近发布快照。`;
+- **核心指标**：注册后 D7 / D30 ${labels.firstShort}率、30 日${labels.net}、${labels.firstShort}后仍持仓率。
+- **护栏指标**：赎回/资金流出、投诉、风险等级不匹配、样本抑制比例。
+- **设计**：匹配对照或分层随机触达；至少跑满 30 日观察期。
+- **决策规则**：只有控制混杂因素后仍稳定提升，才升级为疑似因果；未经实验不标记“已验证因果”。
+
+## 11. 口径与更新机制
+
+Clair 的 Mac 上通过仅监听本机的只读更新器调用盈米本体，网页只接收脱敏聚合；浏览器不能传 SQL。结构、窗口闭合、小样本抑制或隐私校验失败时，保留上一版完整快照，不混用不同截止日的数据。其他设备只读取最近发布快照。`;
 }
 
 function renderDocument() {
@@ -444,6 +909,7 @@ function render(data, mode = "published") {
   if (!currentData.cohorts.some((item) => item.id === selectedCohortId)) selectedCohortId = "active_30d";
   renderHero();
   renderCohortControls();
+  renderGrowth();
   renderHoldings();
   renderAssets();
   renderBehavior();
@@ -457,6 +923,7 @@ function selectCohort(id) {
   if (!currentData?.cohorts.some((item) => item.id === id)) return;
   selectedCohortId = id;
   renderCohortControls();
+  renderGrowth();
   renderHoldings();
   renderAssets();
   renderBehavior();
@@ -470,13 +937,25 @@ function selectBehaviorMode(mode) {
   renderBehavior();
 }
 
+function selectGrowthMode(mode) {
+  if (!GROWTH_MODES[mode]) return;
+  growthMode = mode;
+  document.querySelectorAll("[data-growth-mode]").forEach((button) => {
+    const active = button.dataset.growthMode === mode;
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
+  renderGrowthTrend();
+  renderDocument();
+}
+
 function delay(ms) { return new Promise((resolve) => window.setTimeout(resolve, ms)); }
 
 async function startLocalRefresh() {
   const health = await fetchWithTimeout(`${LOCAL_REFRESH_BASE}/health`, { cache: "no-store", headers: LOCAL_HEADER }, 2000);
   if (!health.ok) throw new Error("本机更新器未就绪");
   const healthData = await health.json();
-  if (healthData.schema_version && healthData.schema_version !== "oap-qieman-user-dashboard-v1") throw new Error("本机更新器版本不兼容");
+  if (healthData.schema_version !== "oap-qieman-user-dashboard-v1" || healthData.contract_revision !== CONTRACT_REVISION) throw new Error("本机更新器版本不兼容");
 
   const response = await fetchWithTimeout(`${LOCAL_REFRESH_BASE}/refresh`, {
     method: "POST",
@@ -489,7 +968,7 @@ async function startLocalRefresh() {
   if (!started.job_id) throw new Error("本机更新器没有返回任务编号");
   setRefreshStatus(started.message || "本体查询已开始。", started.progress_url || "");
 
-  for (let attempt = 0; attempt < 360; attempt += 1) {
+  for (let attempt = 0; attempt < 900; attempt += 1) {
     await delay(2500);
     const statusResponse = await fetchWithTimeout(`${LOCAL_REFRESH_BASE}/status?job=${encodeURIComponent(started.job_id)}&v=${Date.now()}`, {
       cache: "no-store",
@@ -556,6 +1035,7 @@ function setDocumentOpen(open) {
 function bindInteractions() {
   $("#refresh-button").addEventListener("click", refreshData);
   document.querySelectorAll("[data-behavior-mode]").forEach((button) => button.addEventListener("click", () => selectBehaviorMode(button.dataset.behaviorMode)));
+  document.querySelectorAll("[data-growth-mode]").forEach((button) => button.addEventListener("click", () => selectGrowthMode(button.dataset.growthMode)));
   $("#doc-fab").addEventListener("click", () => setDocumentOpen(true));
   $("#close-doc").addEventListener("click", () => setDocumentOpen(false));
   $("#doc-overlay").addEventListener("click", () => setDocumentOpen(false));
