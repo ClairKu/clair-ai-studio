@@ -27,6 +27,15 @@ function parseTime(value) {
   return Number.isFinite(timestamp) ? timestamp : 0;
 }
 
+function isNewerSnapshot(candidate, baseline) {
+  if (!candidate) return false;
+  if (!baseline) return true;
+  const candidateCutoff = parseTime(candidate.meta?.data_cutoff);
+  const baselineCutoff = parseTime(baseline.meta?.data_cutoff);
+  if (candidateCutoff !== baselineCutoff) return candidateCutoff > baselineCutoff;
+  return parseTime(candidate.meta?.generated_at) > parseTime(baseline.meta?.generated_at);
+}
+
 function approximately(left, right, tolerance = 0.0015) {
   return Math.abs(Number(left) - Number(right)) <= tolerance;
 }
@@ -516,7 +525,7 @@ async function refreshData() {
     try {
       const published = await loadPublishedData(true);
       const saved = loadSavedLocalData();
-      const newest = saved && parseTime(saved.meta.data_cutoff) > parseTime(published.meta.data_cutoff) ? saved : published;
+      const newest = isNewerSnapshot(saved, published) ? saved : published;
       render(newest, newest === saved ? "local-cache" : "published");
       setRefreshStatus(`本机更新器未连接，已保留最近可用快照（截至 ${formatDateTime(newest.meta.data_cutoff)}）。`);
       showToast("未连接本机更新器，已保留最近快照");
@@ -570,7 +579,7 @@ async function init() {
   try {
     const published = await loadPublishedData();
     const saved = loadSavedLocalData();
-    const newest = saved && parseTime(saved.meta.data_cutoff) > parseTime(published.meta.data_cutoff) ? saved : published;
+    const newest = isNewerSnapshot(saved, published) ? saved : published;
     render(newest, newest === saved ? "local-cache" : "published");
     setRefreshStatus(newest === saved
       ? `当前展示这台 Mac 上次本体查询结果，数据截至 ${formatDateTime(newest.meta.data_cutoff)}。`
