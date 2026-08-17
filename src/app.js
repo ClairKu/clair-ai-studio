@@ -133,6 +133,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "oap-qieman-user-dashboard",
+      groupId: "reporting",
+      title: "OAP 用户画像 × 且慢持仓与行为看板",
+      url: "https://clairku.github.io/clair-ai-studio/reports/oap-qieman-user-dashboard/",
+      preview: "oap-qieman-user-dashboard.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-17T11:12:46.000+08:00",
+      source: "盈米本体 × 生产数仓只读聚合｜批准、历史调用、近 30 日活跃三组用户联动｜且慢账户、持仓、资产结构、近 90 日行为与低覆盖画像｜数据截止以页内各数据源为准｜支持 Clair Mac 本机一键更新｜公开脱敏聚合，不含用户明细与数据库凭证",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["OAP", "且慢", "用户画像", "用户行为", "用户持仓", "AUM", "活跃用户", "交易行为", "数据分析", "数据看板", "本体", "一键更新", "证据边界", "公开脱敏", "HTML", "生产"],
+    },
+    {
       id: "qianwen-user-acquisition-dashboard",
       groupId: "xiaogu",
       title: "千问 X 且慢AI小顾｜用户数据看板",
