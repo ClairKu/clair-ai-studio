@@ -105,7 +105,7 @@ for (const signal of [
 for (const term of ["批准用户", "历史调用用户", "近30日活跃用户", "且慢持仓", "参与率", "画像覆盖率", "confirmed", "partial", "missing"]) {
   if (!html.includes(term)) fail(`搜索索引稳定文本缺少 ${term}`);
 }
-for (const signal of ["LOCAL_REFRESH_BASE", "127.0.0.1:41792", "validateData", "startLocalRefresh", "selectCohort", "selectBehaviorMode", "buildDocument"]) {
+for (const signal of ["LOCAL_REFRESH_BASE", "127.0.0.1:41792", "validateData", "isNewerSnapshot", "startLocalRefresh", "selectCohort", "selectBehaviorMode", "buildDocument"]) {
   if (!app.includes(signal)) fail(`交互缺少 ${signal}`);
 }
 for (const signal of ["@media (max-width: 680px)", "prefers-reduced-motion", "@media print", ".doc-panel", ".signal-bridge"]) {
