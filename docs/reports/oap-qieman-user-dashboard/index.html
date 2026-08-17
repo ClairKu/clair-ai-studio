@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="OAP 用户画像、且慢持仓与近 90 日交易行为的脱敏聚合经营看板，支持本机一键更新。" />
+  <meta name="theme-color" content="#071922" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>OAP 用户画像 × 且慢持仓与行为看板</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <div class="ambient" aria-hidden="true"><i></i><i></i><i></i></div>
+
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="回到页面顶部">
+      <span class="brand-mark"><b>O</b><i></i><b>且</b></span>
+      <span class="brand-copy"><strong>OAP × 且慢</strong><small>USER VALUE RADAR</small></span>
+    </a>
+    <div class="topbar-actions">
+      <span class="freshness" id="freshness"><i aria-hidden="true"></i><span>正在读取数据</span></span>
+      <button class="refresh-button" id="refresh-button" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"></path><path d="M20 5v6h-6"></path></svg>
+        <span>更新数据</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero shell" id="top" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">OAP USER SIGNAL → QIEMAN VALUE</p>
+        <h1 id="hero-title">先把<span>机器规模</span><br />与<span>真人价值</span>分开。</h1>
+        <p class="hero-lead" id="hero-lead">正在核对 OAP 使用、且慢资产与行为快照。</p>
+        <div class="hero-tags">
+          <span>稳定主键关联</span><span>三组重叠人群</span><span>公开脱敏聚合</span>
+        </div>
+      </div>
+
+      <div class="signal-bridge" aria-label="OAP 调用信号与且慢用户价值连接图">
+        <div class="bridge-side bridge-platform">
+          <span>PLATFORM SIGNAL</span>
+          <strong id="total-calls">—</strong>
+          <small>累计调用</small>
+          <div class="attribution-track" aria-label="调用归属结构"><i id="human-call-share"></i></div>
+          <p><b id="human-call-rate">—</b> 可归属真人 · <b id="service-call-rate">—</b> 服务/集成</p>
+        </div>
+        <div class="bridge-spine" aria-hidden="true">
+          <i></i><span></span><i></i>
+          <em>IDENTITY BRIDGE</em>
+        </div>
+        <div class="bridge-side bridge-value">
+          <span>QIEMAN VALUE</span>
+          <strong id="hero-aum">—</strong>
+          <small id="hero-aum-label">近 30 日活跃人群持仓规模</small>
+          <p><b id="hero-holders">—</b> 位持仓用户 · <b id="hero-holder-rate">—</b> 人群持仓率</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="verdict-band" aria-label="核心判断">
+      <div class="shell verdict-inner">
+        <span>一句话判断</span>
+        <p id="verdict">正在生成判断。</p>
+        <em>相关性，不是因果</em>
+      </div>
+    </section>
+
+    <section class="section shell" aria-labelledby="cohort-title">
+      <div class="section-heading split-heading">
+        <div>
+          <p class="eyebrow">COHORT LADDER · 使用深度</p>
+          <h2 id="cohort-title">从“申请过”，走到“持续在用”</h2>
+        </div>
+        <p>三组人群是嵌套关系，不可相加。点击任一层，后续持仓、资产和行为模块会同步切换。</p>
+      </div>
+      <div class="cohort-ladder" id="cohort-ladder" role="group" aria-label="切换 OAP 用户人群"></div>
+      <div class="cohort-footnotes" id="cohort-footnotes"></div>
+    </section>
+
+    <section class="section section-ink" aria-labelledby="holdings-title">
+      <div class="shell">
+        <div class="section-heading holdings-heading">
+          <div>
+            <p class="eyebrow">HOLDINGS · 且慢账户与资产</p>
+            <h2 id="holdings-title"><span id="selected-cohort-title">近 30 日活跃用户</span>，在且慢留下了什么</h2>
+          </div>
+          <div class="cohort-switch" id="cohort-switch" role="group" aria-label="持仓模块人群切换"></div>
+        </div>
+
+        <div class="metric-rail">
+          <article><span>可关联且慢账户</span><strong id="qieman-accounts">—</strong><em id="qieman-account-rate">—</em><p>有可用于资产汇总的且慢投资账户</p></article>
+          <article><span>当前持仓用户</span><strong id="holders">—</strong><em id="holder-rate">—</em><p>资产快照日总资产大于 0</p></article>
+          <article><span>持仓规模</span><strong id="aum">—</strong><em id="aum-user-share">—</em><p>仅所选人群当前持仓汇总</p></article>
+          <article><span>持仓户均</span><strong id="avg-asset">—</strong><em id="baseline-multiple">—</em><p>相对且慢可比口径户均</p></article>
+        </div>
+
+        <div class="holdings-grid">
+          <article class="panel cohort-compare-panel">
+            <div class="panel-head"><div><span>三组横向比较</span><h3>使用越深，且慢持仓渗透越高</h3></div><em>分母 = 各组 OAP 用户</em></div>
+            <div class="cohort-compare" id="cohort-compare"></div>
+          </article>
+          <article class="panel profit-panel">
+            <div class="panel-head"><div><span>收益状态</span><h3>累计收益为正</h3></div><em>非业绩承诺</em></div>
+            <div class="profit-ring" id="profit-ring" role="img" aria-label="累计收益为正的持仓用户比例">
+              <div><strong id="profit-rate">—</strong><span id="profit-count">—</span></div>
+            </div>
+            <p id="profit-note">仅描述资产快照日的历史累计状态，不能归因于 OAP。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section shell" aria-labelledby="asset-title">
+      <div class="section-heading split-heading">
+        <div>
+          <p class="eyebrow">ASSET MIX · 持仓用户内部结构</p>
+          <h2 id="asset-title">高户均，不等于人人都是高净值</h2>
+        </div>
+        <p id="asset-summary">资产分布按当前持仓用户为分母；且慢全量基线仅用于结构参照。</p>
+      </div>
+      <article class="asset-panel">
+        <div class="asset-stacked" id="asset-stacked" role="img" aria-label="所选人群资产区间结构"></div>
+        <div class="asset-legend" id="asset-legend"></div>
+        <div class="baseline-callout" id="baseline-callout"></div>
+      </article>
+    </section>
+
+    <section class="section section-warm" aria-labelledby="behavior-title">
+      <div class="shell">
+        <div class="section-heading behavior-heading">
+          <div>
+            <p class="eyebrow">90-DAY BEHAVIOR · 未撤销事件</p>
+            <h2 id="behavior-title">不只“有资产”，还在持续行动</h2>
+          </div>
+          <div class="behavior-mode" role="group" aria-label="行为指标切换">
+            <button type="button" data-behavior-mode="penetration" class="active">参与率</button>
+            <button type="button" data-behavior-mode="events">事件数</button>
+            <button type="button" data-behavior-mode="frequency">人均频次</button>
+          </div>
+        </div>
+        <div class="behavior-layout">
+          <article class="behavior-chart" id="behavior-chart" aria-live="polite"></article>
+          <aside class="behavior-insight">
+            <span>最强行动信号</span>
+            <strong id="behavior-highlight">—</strong>
+            <p id="behavior-highlight-copy">正在计算所选人群的行为特征。</p>
+            <div class="semantics-note"><b>口径边界</b><p>买入、赎回、策略跟投、调仓、转换已确认；“其他计划交易”仅部分确认，“SI 交易”语义待补，不擅自解释为定投。</p></div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section shell" aria-labelledby="profile-title">
+      <div class="section-heading split-heading">
+        <div>
+          <p class="eyebrow">PROFILE · 非缺失问卷样本</p>
+          <h2 id="profile-title">更懂投资、更偏权益，<br />但还不能代表全部用户</h2>
+        </div>
+        <div class="coverage-badge"><strong id="survey-coverage">—</strong><span>约有画像问卷覆盖</span><em>LOW COVERAGE</em></div>
+      </div>
+      <div class="profile-layout">
+        <article class="profile-chart" id="profile-chart" aria-label="OAP 问卷样本与且慢基线对比"></article>
+        <aside class="profile-warning">
+          <span>谨慎解读</span>
+          <strong>这是“回答了的人”，不是“所有 OAP 用户”。</strong>
+          <p id="profile-note">关键字段缺失率较高，年龄、城市、家庭等维度暂不展示。</p>
+          <dl><div><dt>结构化画像</dt><dd id="profile-rows">—</dd></div><div><dt>最小样本</dt><dd>n ≥ 20</dd></div></dl>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section section-soft" aria-labelledby="quality-title">
+      <div class="shell">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">DATA HEALTH · 能信到哪一步</p>
+            <h2 id="quality-title">不是“全绿”，才是可信看板</h2>
+          </div>
+          <span class="quality-score" id="quality-score">—</span>
+        </div>
+        <div class="quality-grid" id="quality-grid"></div>
+      </div>
+    </section>
+
+    <section class="section shell action-section" aria-labelledby="action-title">
+      <div class="action-intro">
+        <p class="eyebrow">DECISIONS · 看完要做什么</p>
+        <h2 id="action-title">把规模、质量、转化拆成三张经营账</h2>
+        <p>当前最重要的不是继续放大累计调用，而是把“谁在用、谁有价值、是否因 OAP 产生增量”逐层证实。</p>
+      </div>
+      <div class="action-list">
+        <article><span>01</span><div><strong>平台规模拆账</strong><p>仪表盘固定分开真人可归属调用与服务/集成调用，避免机器流量掩盖用户使用。</p></div><em>P0 · 本周</em></article>
+        <article><span>02</span><div><strong>做活跃增量验证</strong><p>以近 30 日活跃为暴露组，按注册时点、资产层级匹配对照，观察后续持仓与服务行为。</p></div><em>P0 · 30 天</em></article>
+        <article><span>03</span><div><strong>补画像采集</strong><p>把画像采集嵌入高价值服务链路；覆盖未达阈值前，只展示样本结论，不做人群外推。</p></div><em>P1 · 60 天</em></article>
+      </div>
+    </section>
+
+    <section class="refresh-explainer shell" aria-labelledby="refresh-title">
+      <div>
+        <p class="eyebrow">ONE-CLICK REFRESH · 安全更新</p>
+        <h2 id="refresh-title">按钮查本体，网页只接收脱敏聚合</h2>
+      </div>
+      <div class="refresh-flow" aria-label="更新数据链路"><span>更新数据</span><i>→</i><span>本机只读更新器</span><i>→</i><span>盈米本体</span><i>→</i><span>结构与隐私校验</span><i>→</i><span>看板换数</span></div>
+      <p>在 Clair 的 Mac 上，按钮调用仅监听本机的固定查询；浏览器不能提交 SQL。任一关键闭合失败会保留上一版快照。其他设备只读取最近发布的脱敏汇总，数据库凭证和用户明细不会进入网页。</p>
+      <div class="refresh-status" id="refresh-status" role="status" aria-live="polite">当前展示最近发布快照。</div>
+    </section>
+  </main>
+
+  <footer>
+    <span>OAP × 且慢 · 用户价值雷达</span>
+    <strong id="footer-cutoff">数据截至 —</strong>
+    <span>confirmed / partial / missing 分层</span>
+  </footer>
+
+  <button class="doc-fab" id="doc-fab" type="button" aria-controls="doc-panel" aria-expanded="false">
+    <span class="doc-fab-label">分析文档</span>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6M8 13h8M8 17h8"></path></svg>
+  </button>
+  <div class="doc-overlay" id="doc-overlay"></div>
+  <aside class="doc-panel" id="doc-panel" aria-hidden="true" aria-labelledby="doc-title">
+    <div class="doc-panel-head">
+      <h2 id="doc-title">看板分析与口径</h2>
+      <div><button id="copy-doc" type="button">复制 Markdown</button><button id="close-doc" type="button" aria-label="关闭分析文档">×</button></div>
+    </div>
+    <pre id="doc-content"></pre>
+  </aside>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script type="application/json" id="report-data">
+    {"topic":"OAP 用户画像、且慢持仓与行为","stable_metrics":["批准用户","历史调用用户","近30日活跃用户","真人可归属调用","且慢账户率","持仓率","资产结构","近90日行为参与率","画像覆盖率"],"evidence_states":["confirmed","partial","missing"],"privacy":"公开脱敏聚合；小样本不展示；无用户明细"}
+  </script>
+  <script src="./data/fallback-data.js"></script>
+  <script src="./app.js" type="module"></script>
+</body>
+</html>
