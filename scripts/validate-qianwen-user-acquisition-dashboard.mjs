@@ -110,17 +110,18 @@ for (const signal of [
   if (!html.includes(signal)) fail(`页面缺少 ${signal}`);
 }
 for (const signal of [
-  'name="metric" value="bound"',
-  'name="metric" value="new"',
-  'name="metric" value="existing"',
-  'name="trend" value="daily"',
-  'name="trend" value="cumulative"',
+  'name="series" value="bound"',
+  'name="series" value="new"',
+  'name="series" value="existing"',
+  'name="series" value="daily"',
   'name="range" value="since-launch"',
   'name="range" value="last-7"',
   'name="range" value="custom"',
 ]) {
   if (!html.includes(signal)) fail(`交互控件缺少 ${signal}`);
 }
+if ((html.match(/<article class="kpi-card/g) || []).length !== 3) fail("关键数据卡必须为三个静态展示卡");
+if ((html.match(/name="series"/g) || []).length !== 4) fail("走势图必须有四个独立数据开关");
 for (const removed of [
   "阶段",
   "数据状态",
@@ -132,6 +133,14 @@ for (const removed of [
   "quality-title",
   "definition-title",
   "汇报结论",
+  "chart-summary",
+  "analysis-value",
+  "analysis-label",
+  "analysis-context",
+  'name="metric"',
+  'name="trend"',
+  "选择指标，查看对应走势",
+  "查看走势",
 ]) {
   if (html.includes(removed) || app.includes(removed)) fail(`页面仍包含已移除内容：${removed}`);
 }
@@ -144,6 +153,11 @@ for (const signal of [
   "renderChart",
   "renderTable",
   "window_cumulative_bound",
+  "visibleSeries",
+  "chart-area-new",
+  "chart-area-existing",
+  "chart-bound-line",
+  "chart-bar",
   "selectedDate",
 ]) {
   if (!app.includes(signal)) fail(`页面脚本缺少 ${signal}`);

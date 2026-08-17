@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
   <title id="title">千问 X 且慢AI小顾用户数据看板预览</title>
-  <desc id="desc">服务上线以来累计绑定用户一千零七十五人，其中新用户七百六十二人、老用户三百一十三人，下方展示可切换增长走势。</desc>
+  <desc id="desc">服务上线以来累计绑定用户一千零七十五人，其中新用户七百六十二人、老用户三百一十三人，下方以堆叠面积、累计轮廓与每日新增柱展示组合走势。</desc>
   <defs>
     <linearGradient id="newCard" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#DDF7F0"/><stop offset="1" stop-color="#FFFFFF"/>
@@ -54,15 +54,40 @@
 
     <g transform="translate(62 518)">
       <rect width="1154" height="164" fill="#111522"/>
-      <text x="28" y="33" fill="#fff" fill-opacity=".6" font-size="12">累计绑定用户走势</text>
+      <text x="28" y="33" fill="#fff" fill-opacity=".6" font-size="12">用户增长组合走势</text>
       <text x="28" y="72" fill="#fff" font-family="SFMono-Regular,monospace" font-size="34" font-weight="800">1,075</text>
-      <g transform="translate(850 20)">
-        <rect width="88" height="36" fill="#2B3044"/><text x="44" y="23" text-anchor="middle" fill="#fff" font-size="11">每日新增</text>
-        <rect x="88" width="66" height="36" fill="#7357E8"/><text x="121" y="23" text-anchor="middle" fill="#fff" font-size="11">累计</text>
-        <rect x="166" width="108" height="36" fill="#2B3044"/><text x="220" y="23" text-anchor="middle" fill="#fff" font-size="11">上线以来</text>
+      <text x="28" y="92" fill="#fff" fill-opacity=".42" font-size="10">累计绑定 · 8 个日期</text>
+      <g transform="translate(520 20)" fill="#fff" font-size="10">
+        <rect width="14" height="10" rx="2" fill="#18B894" fill-opacity=".82"/>
+        <text x="21" y="9" fill-opacity=".72">新用户累计</text>
+        <rect x="130" width="14" height="10" rx="2" fill="#9A8CB9" fill-opacity=".88"/>
+        <text x="151" y="9" fill-opacity=".72">老用户累计</text>
+        <line x1="260" y1="5" x2="278" y2="5" stroke="#A493FF" stroke-width="3" stroke-linecap="round"/>
+        <text x="286" y="9" fill-opacity=".72">累计绑定</text>
+        <rect x="390" y="-1" width="10" height="12" rx="2" fill="#F6C85F"/>
+        <text x="408" y="9" fill-opacity=".72">当日新增</text>
       </g>
-      <path d="M280 132 L280 116 L400 95 L520 78 L640 65 L760 52 L880 44 L1000 37 L1120 32 L1120 132 Z" fill="url(#chartArea)"/>
-      <path d="M280 116 L400 95 L520 78 L640 65 L760 52 L880 44 L1000 37 L1120 32" fill="none" stroke="#8068F2" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+      <path d="M280 132 L280 121.3 L400 116 L520 114.2 L640 112.9 L760 112 L880 111.4 L1000 110.9 L1120 110.5 L1120 132 Z" fill="#9A8CB9" fill-opacity=".88"/>
+      <path d="M280 107.1 L400 92.6 L520 83.1 L640 75.8 L760 70.6 L880 64.4 L1000 60.3 L1120 58 L1120 110.5 L1000 110.9 L880 111.4 L760 112 L640 112.9 L520 114.2 L400 116 L280 121.3 Z" fill="#18B894" fill-opacity=".78"/>
+
+      <g fill="#F6C85F" fill-opacity=".82">
+        <rect x="273" y="92" width="14" height="40" rx="2"/>
+        <rect x="393" y="108.8" width="14" height="23.2" rx="2"/>
+        <rect x="513" y="116.8" width="14" height="15.2" rx="2"/>
+        <rect x="633" y="120.3" width="14" height="11.7" rx="2"/>
+        <rect x="753" y="123.6" width="14" height="8.4" rx="2"/>
+        <rect x="873" y="122.1" width="14" height="9.9" rx="2"/>
+        <rect x="993" y="125.4" width="14" height="6.6" rx="2"/>
+        <rect x="1113" y="128.4" width="14" height="3.6" rx="2"/>
+      </g>
+
+      <path d="M280 121.3 L400 116 L520 114.2 L640 112.9 L760 112 L880 111.4 L1000 110.9 L1120 110.5" fill="none" stroke="#C9C0DC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M280 107.1 L400 92.6 L520 83.1 L640 75.8 L760 70.6 L880 64.4 L1000 60.3 L1120 58" fill="none" stroke="#A493FF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      <g fill="#A493FF">
+        <circle cx="280" cy="107.1" r="3"/><circle cx="400" cy="92.6" r="3"/><circle cx="520" cy="83.1" r="3"/><circle cx="640" cy="75.8" r="3"/>
+        <circle cx="760" cy="70.6" r="3"/><circle cx="880" cy="64.4" r="3"/><circle cx="1000" cy="60.3" r="3"/><circle cx="1120" cy="58" r="4"/>
+      </g>
       <g fill="#fff" fill-opacity=".42" font-family="SFMono-Regular,monospace" font-size="9">
         <text x="280" y="151" text-anchor="middle">8.10</text><text x="520" y="151" text-anchor="middle">8.12</text><text x="760" y="151" text-anchor="middle">8.14</text><text x="1000" y="151" text-anchor="middle">8.16</text><text x="1120" y="151" text-anchor="middle">8.17</text>
       </g>
