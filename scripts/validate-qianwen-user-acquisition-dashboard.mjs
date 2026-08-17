@@ -9,30 +9,35 @@ const fallbackPath = join(reportRoot, "data", "fallback-data.js");
 const data = JSON.parse(readFileSync(dataPath, "utf8"));
 const html = readFileSync(join(reportRoot, "index.html"), "utf8");
 const app = readFileSync(join(reportRoot, "app.js"), "utf8");
-const fail = (message) => { throw new Error(`千问账号映射看板校验失败：${message}`); };
+const preview = readFileSync(join(root, "public", "previews", "qianwen-user-acquisition-dashboard.svg"), "utf8");
+const workbench = readFileSync(join(root, "src", "app.js"), "utf8");
+const fail = (message) => { throw new Error(`千问用户数据看板校验失败：${message}`); };
 
-if (data.schema_version !== "qianwen-user-acquisition-v1") fail("数据版本异常");
+if (data.schema_version !== "qianwen-user-acquisition-v2") fail("数据版本异常");
 if (!data.meta?.data_cutoff || !data.meta?.launch_at || data.meta?.timezone !== "Asia/Shanghai") fail("时间口径不完整");
 if (data.meta?.evidence_state !== "confirmed") fail("生产快照未标记 confirmed");
 
 const metricKeys = [
-  "mapped_accounts",
+  "bound_accounts",
   "existing_accounts",
   "new_accounts",
   "missing_registration_time",
-  "duplicate_mappings",
+  "duplicate_bindings",
   "unmatched_accounts",
   "boundary_records",
 ];
 for (const key of metricKeys) {
   if (!Number.isInteger(data.metrics?.[key]) || data.metrics[key] < 0) fail(`指标 ${key} 无效`);
 }
-if (data.metrics.mapped_accounts !== data.metrics.existing_accounts + data.metrics.new_accounts + data.metrics.missing_registration_time) {
+if (data.metrics.bound_accounts !== data.metrics.existing_accounts + data.metrics.new_accounts + data.metrics.missing_registration_time) {
   fail("账号结构无法闭合");
 }
 
 if (!Array.isArray(data.daily) || !data.daily.length) fail("每日趋势缺失");
-let cumulative = 0;
+let cumulativeNew = 0;
+let cumulativeExisting = 0;
+let cumulativeUnclassified = 0;
+let cumulativeBound = 0;
 let prior = "";
 for (const row of data.daily) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(row.date || "")) fail(`日期格式异常：${row.date}`);
@@ -41,20 +46,47 @@ for (const row of data.daily) {
     expected.setUTCDate(expected.getUTCDate() + 1);
     if (row.date !== expected.toISOString().slice(0, 10)) fail(`日期不连续：${prior} → ${row.date}`);
   }
-  if (!Number.isInteger(row.new_mapped_accounts) || row.new_mapped_accounts < 0) fail(`每日新增异常：${row.date}`);
-  cumulative += row.new_mapped_accounts;
-  if (row.cumulative_mapped_accounts !== cumulative) fail(`累计值不闭合：${row.date}`);
+  for (const key of [
+    "new_accounts_today",
+    "existing_accounts_today",
+    "unclassified_accounts_today",
+    "bound_accounts_today",
+    "cumulative_new_accounts",
+    "cumulative_existing_accounts",
+    "cumulative_unclassified_accounts",
+    "cumulative_bound_accounts",
+  ]) {
+    if (!Number.isInteger(row[key]) || row[key] < 0) fail(`${key} 异常：${row.date}`);
+  }
+  if (row.bound_accounts_today !== row.new_accounts_today + row.existing_accounts_today + row.unclassified_accounts_today) {
+    fail(`每日账号结构不闭合：${row.date}`);
+  }
+  cumulativeNew += row.new_accounts_today;
+  cumulativeExisting += row.existing_accounts_today;
+  cumulativeUnclassified += row.unclassified_accounts_today;
+  cumulativeBound += row.bound_accounts_today;
+  if (
+    row.cumulative_new_accounts !== cumulativeNew
+    || row.cumulative_existing_accounts !== cumulativeExisting
+    || row.cumulative_unclassified_accounts !== cumulativeUnclassified
+    || row.cumulative_bound_accounts !== cumulativeBound
+  ) fail(`累计值不闭合：${row.date}`);
   prior = row.date;
 }
-if (cumulative !== data.metrics.mapped_accounts) fail("每日趋势与总数不闭合");
+if (
+  cumulativeNew !== data.metrics.new_accounts
+  || cumulativeExisting !== data.metrics.existing_accounts
+  || cumulativeUnclassified !== data.metrics.missing_registration_time
+  || cumulativeBound !== data.metrics.bound_accounts
+) fail("每日趋势与总数不闭合");
 
 if (!Array.isArray(data.quality_checks) || data.quality_checks.length !== 4) fail("数据健康度必须为 4 项");
-if (!Array.isArray(data.definitions) || !data.definitions.some((item) => item.state === "missing")) fail("口径边界缺少 missing 状态");
+if (!Array.isArray(data.definitions) || data.definitions.length !== 3) fail("核心数据口径必须为 3 项");
 
 const publicText = JSON.stringify(data);
 const forbidden = /(ying99_|union_id|user_id|po_manager_id|手机号|phone|redash|job[ _-]?id|api[_ -]?key|access[_ -]?token)/i;
 if (forbidden.test(publicText)) fail("公开快照包含内部标识、PII 或凭证字段");
-for (const signal of ["id=\"refresh-button\"", "id=\"trend-chart\"", "id=\"doc-panel\"", "data/fallback-data.js", "app.js"]) {
+for (const signal of ["id=\"refresh-button\"", "id=\"bound-total\"", "id=\"trend-chart\"", "id=\"doc-panel\"", "data/fallback-data.js", "app.js"]) {
   if (!html.includes(signal)) fail(`页面缺少 ${signal}`);
 }
 for (const signal of ["LOCAL_REFRESH_BASE", "127.0.0.1", "validateData", "startLocalRefresh", "loadPublishedData", "buildDocument"]) {
@@ -63,8 +95,19 @@ for (const signal of ["LOCAL_REFRESH_BASE", "127.0.0.1", "validateData", "startL
 if (/https?:\/\/(?!127\.0\.0\.1)/.test(app.replaceAll("https://ontology.yingmi-inc.com", ""))) fail("页面脚本含未审计外部服务");
 if (/(token|secret|password)\s*[:=]\s*["'][^"']+/i.test(app)) fail("页面脚本疑似硬编码凭证");
 
+const reportEntryStart = workbench.indexOf('id: "qianwen-user-acquisition-dashboard"');
+const reportEntryEnd = workbench.indexOf("\n    {", reportEntryStart + 1);
+if (reportEntryStart < 0 || reportEntryEnd < 0) fail("工作台入口缺失");
+const reportingCopy = [html, app, publicText, preview, workbench.slice(reportEntryStart, reportEntryEnd)].join("\n");
+for (const word of ["映射", "聚合", "去重", "关联", "存量", "ACCOUNT HANDOFF", "生产数仓"]) {
+  if (reportingCopy.includes(word)) fail(`汇报文案仍包含技术术语：${word}`);
+}
+for (const phrase of ["千问 X 且慢AI小顾", "绑定且慢账号", "新注册", "老用户", "千问引流且慢用户增长走势图"]) {
+  if (!reportingCopy.includes(phrase)) fail(`汇报文案缺少：${phrase}`);
+}
+
 if (process.argv.includes("--write-fallback")) {
   writeFileSync(fallbackPath, `window.QIANWEN_ACQUISITION_DATA = ${JSON.stringify(data, null, 2)};\n`);
 }
 
-console.log(`千问账号映射看板数据通过：${data.metrics.mapped_accounts} 个映射账号，${data.daily.length} 天趋势，截止 ${data.meta.data_cutoff}。`);
+console.log(`千问用户数据看板通过：${data.metrics.bound_accounts} 个绑定且慢账号，${data.daily.length} 天趋势，截止 ${data.meta.data_cutoff}。`);
