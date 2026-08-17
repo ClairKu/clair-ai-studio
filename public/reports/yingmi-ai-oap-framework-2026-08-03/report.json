@@ -4,13 +4,13 @@
     "subtitle": "把能力做成入口\n把入口做成增长",
     "eyebrow": "YINGMI AI · OAP PROJECT REPORT / 2026.08.03",
     "date": "2026-08-03",
-    "cutoff": "2026-08-16（年度目标采用截至 23:59:59 的完整自然日快照；千问传播材料截至 8 月 13 日）",
+    "cutoff": "2026-08-16（年度目标与用户增长采用同一完整自然日快照；千问传播材料截至 8 月 13 日）",
     "owner": "盈米 AI 开放平台",
     "confidentiality": "内部管理汇报 · 老板直读版",
     "accent": "#8067e8",
     "annualGoalSnapshot": {
       "schemaVersion": "oap-qieman-user-dashboard-v1",
-      "generatedAt": "2026-08-17T11:12:46+08:00",
+      "generatedAt": "2026-08-17T14:06:09.543+08:00",
       "dataCutoff": "2026-08-16T23:59:59+08:00",
       "source": "盈米本体 · 生产数仓只读聚合",
       "privacy": "公开脱敏聚合，不含用户明细、稳定主键与数据库凭证"
@@ -232,17 +232,17 @@
       "hideHeading": true,
       "kicker": "05 · 用户增长",
       "title": "关键历程 × 四指标增长",
-      "lead": "基于 502 日真实记录交互查看累计调用、累计申请、每日调用用户与每日新增用户；支持时间范围切换、悬浮读数与区间拖动。",
+      "lead": "基于 508 日真实记录交互查看累计调用、累计申请、每日调用凭据与每日新增用户；支持指标开关、悬浮读数与关键历程联动。",
       "layout": "evidence",
       "tone": "soft",
       "items": [
         {
-          "eyebrow": "2025.03—2026.08 · 502 日真实记录",
+          "eyebrow": "2025.03—2026.08 · 508 日真实记录",
           "title": "四指标真实数据交互图",
           "body": "点击图例开关指标，切换 7 / 30 / 90 日或上线以来范围，悬浮查看单日数据，并通过时间滑块自定义区间。",
-          "meta": "OAP 后台整体数据 · 截至 2026-08-10",
-          "source": "OAP 关键历程 × 四指标增长可视化 · v=f2069bb",
-          "embed": "https://clairku.github.io/qieman-product-research-library/pages/oap/oap-journey-metrics-2026-08-02.html?v=f2069bb",
+          "meta": "OAP 生产数仓只读聚合 · 截至 2026-08-16",
+          "source": "OAP 关键历程 × 四指标增长可视化 · v=b554008",
+          "embed": "https://clairku.github.io/qieman-product-research-library/pages/oap/oap-journey-metrics-2026-08-02.html?v=b554008",
           "alt": "盈米 AI 开放平台关键历程与四指标增长交互图"
         }
       ]
@@ -1702,7 +1702,7 @@
     },
     {
       "label": "OAP 关键历程 × 四指标增长可视化",
-      "detail": "clairku.github.io/qieman-product-research-library/pages/oap/oap-journey-metrics-2026-08-02.html?v=f2069bb · 19 个主节点与 502 日序列 · 图表数据截至 2026-08-10"
+      "detail": "clairku.github.io/qieman-product-research-library/pages/oap/oap-journey-metrics-2026-08-02.html?v=b554008 · 19 个主节点与 508 日序列 · 图表数据截至 2026-08-16"
     },
     {
       "label": "能力生产与服务生态补充模块",
@@ -1748,7 +1748,7 @@
   "uncertainties": [
     {
       "title": "数据截止口径",
-      "detail": "年度目标采用 OAP 生产数仓只读聚合：累计调用与批准申请用户截至 2026-08-16T23:59:59+08:00，活跃为最近 30 个完整自然日去重用户；点击“更新数据”时，Clair Mac 本机更新器可重新查询并校验脱敏聚合，未连接时只回退到最近发布快照。交互趋势图仍为截至 2026-08-10 的清洗快照，两者不直接拼接；机构统计分项日期不同。"
+      "detail": "年度目标与用户增长采用同一次 OAP 生产数仓只读聚合：累计调用、批准申请用户、每日新增与每日调用凭据均截至 2026-08-16T23:59:59+08:00；每日调用沿用历史趋势图的去重访问凭据口径，近 30 日活跃则按自然人去重，两者不可相加。更新入口位于“关键历程 × 四指标增长”图表右下角；本机更新器不可用时只回退到最近发布且通过联动闭合校验的快照。机构统计分项日期不同。"
     },
     {
       "title": "计划状态",

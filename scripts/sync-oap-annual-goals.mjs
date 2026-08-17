@@ -4,15 +4,21 @@ import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const reportDir = path.join(root, "public/reports/yingmi-ai-oap-framework-2026-08-03");
-const snapshotPath = path.join(root, "public/reports/oap-qieman-user-dashboard/data/latest.json");
+const snapshotPath = path.join(reportDir, "data/latest.json");
+const snapshotSourcePath = process.argv[2] ? path.resolve(process.argv[2]) : snapshotPath;
 const reportPath = path.join(reportDir, "report.json");
 const htmlPath = path.join(reportDir, "index.html");
 const researchPath = path.join(root, "research/yingmi-ai-oap-framework-2026-08-03.md");
 const coveragePath = path.join(root, "research/yingmi-ai-oap-framework-2026-08-03-coverage.md");
 
-const snapshot = JSON.parse(fs.readFileSync(snapshotPath, "utf8"));
+const snapshot = JSON.parse(fs.readFileSync(snapshotSourcePath, "utf8"));
 if (snapshot.schema_version !== "oap-qieman-user-dashboard-v1") throw new Error("Unsupported OAP snapshot schema");
 if (snapshot.meta?.timezone !== "Asia/Shanghai") throw new Error("Unexpected OAP snapshot timezone");
+if (snapshot.journey_metrics?.schema_version !== "oap-journey-metrics-v1") throw new Error("Missing linked journey metrics");
+if (snapshotSourcePath !== snapshotPath) {
+  fs.mkdirSync(path.dirname(snapshotPath), { recursive: true });
+  fs.writeFileSync(snapshotPath, `${JSON.stringify(snapshot, null, 2)}\n`);
+}
 
 const usage = snapshot.usage || {};
 for (const key of ["approved_users", "active_30d_users", "total_calls"]) {
@@ -33,7 +39,7 @@ const activeProgress = progress(usage.active_30d_users, goals.active30d);
 const activeOverPercent = Math.round((activeProgress - 100) * 10) / 10;
 
 const report = JSON.parse(fs.readFileSync(reportPath, "utf8"));
-report.meta.cutoff = `${cutoffDay}（年度目标采用截至 23:59:59 的完整自然日快照；千问传播材料截至 8 月 13 日）`;
+report.meta.cutoff = `${cutoffDay}（年度目标与用户增长采用同一完整自然日快照；千问传播材料截至 8 月 13 日）`;
 report.meta.annualGoalSnapshot = {
   schemaVersion: snapshot.schema_version,
   generatedAt: snapshot.meta.generated_at,
@@ -68,13 +74,20 @@ Object.assign(okr.items[2], {
 });
 okr.callout.text = `申请用户距离 1 万仅差 ${number(usersGap)} 人，近 30 日活跃已超年度目标 ${number(activeOver)} 人；累计调用距离 1,300 万仍差 ${number(callsGap)} 次，下一阶段要同时补足调用规模与实验室经营闭环。`;
 
+const growth = report.sections.find((section) => section.id === "user-growth");
+if (!growth || !growth.items?.length) throw new Error("User-growth section is missing");
+const journeyDays = Math.round((Date.parse(`${cutoffDay}T00:00:00Z`) - Date.parse("2025-03-27T00:00:00Z")) / 86_400_000) + 1;
+growth.lead = `基于 ${journeyDays} 日真实记录交互查看累计调用、累计申请、每日调用凭据与每日新增用户；支持指标开关、悬浮读数与关键历程联动。`;
+growth.items[0].eyebrow = `2025.03—2026.08 · ${journeyDays} 日真实记录`;
+growth.items[0].meta = `OAP 生产数仓只读聚合 · 截至 ${cutoffDay}`;
+
 const dashboardSource = report.sources.find((source) => source.label.includes("Stargate 管理后台 Dashboard"));
 if (dashboardSource) {
   dashboardSource.label = "OAP 生产数仓只读聚合快照";
   dashboardSource.detail = `${snapshot.meta.source} · ${snapshot.meta.data_cutoff} · 总调用 ${number(usage.total_calls)}、批准申请用户 ${number(usage.approved_users)}、近 30 个完整自然日活跃用户 ${number(usage.active_30d_users)} · ${snapshot.meta.privacy}`;
 }
 const cutoffBoundary = report.uncertainties.find((item) => item.title === "数据截止口径");
-if (cutoffBoundary) cutoffBoundary.detail = `年度目标采用 OAP 生产数仓只读聚合：累计调用与批准申请用户截至 ${snapshot.meta.data_cutoff}，活跃为最近 30 个完整自然日去重用户；点击“更新数据”时，Clair Mac 本机更新器可重新查询并校验脱敏聚合，未连接时只回退到最近发布快照。交互趋势图仍为截至 2026-08-10 的清洗快照，两者不直接拼接；机构统计分项日期不同。`;
+if (cutoffBoundary) cutoffBoundary.detail = `年度目标与用户增长采用同一次 OAP 生产数仓只读聚合：累计调用、批准申请用户、每日新增与每日调用凭据均截至 ${snapshot.meta.data_cutoff}；每日调用沿用历史趋势图的去重访问凭据口径，近 30 日活跃则按自然人去重，两者不可相加。更新入口位于“关键历程 × 四指标增长”图表右下角；本机更新器不可用时只回退到最近发布且通过联动闭合校验的快照。机构统计分项日期不同。`;
 
 fs.writeFileSync(reportPath, `${JSON.stringify(report, null, 2)}\n`);
 
@@ -86,13 +99,13 @@ html = html.replace(
 );
 html = html.replace(
   /<span id="ending-data-cutoff">[\s\S]*?<\/span>|<span>年度目标：调用与 MAU 读取于 2026\.08\.14 00:37（调用为部分日）；累计用户最新至 2026\.08\.13 · 计划状态与证据边界见下方说明<\/span>/,
-  `<span id="ending-data-cutoff">年度目标：生产数仓只读聚合截至 ${cutoffDay} 23:59:59；活跃采用最近 30 个完整自然日 · 更新机制与证据边界见下方说明</span>`,
+  `<span id="ending-data-cutoff">年度目标与用户增长：生产数仓只读聚合截至 ${cutoffDay} 23:59:59；活跃采用最近 30 个完整自然日 · 更新机制与证据边界见下方说明</span>`,
 );
 fs.writeFileSync(htmlPath, html);
 
 let research = fs.readFileSync(researchPath, "utf8");
 research = research
-  .replace(/^report_cutoff:.*$/m, `report_cutoff: ${cutoffDay}（年度目标采用截至 23:59:59 的完整自然日快照；千问传播材料截至 8 月 13 日）`)
+  .replace(/^report_cutoff:.*$/m, `report_cutoff: ${cutoffDay}（年度目标与用户增长采用同一完整自然日快照；千问传播材料截至 8 月 13 日）`)
   .replace(/- 累计调用 9,416,755 \/ 13,000,000 = 72\.4%（年末正式 OKR；距目标 3,583,245 次）· 截至 2026-08-14 00:37，为部分日数据 · OAP Stargate 管理后台默认口径/, `- 累计调用 ${number(usage.total_calls)} / ${number(goals.calls)} = ${callsProgress}%（年末正式 OKR；距目标 ${number(callsGap)} 次）· 截至 ${cutoffDay} 23:59:59，完整自然日 · OAP 生产数仓只读聚合`)
   .replace(/- 申请用户 9,851 \/ 10,000 = 98\.5%（距目标 149 人）· 累计用户表最新至 2026-08-13 · OAP Stargate 管理后台默认口径/, `- 批准申请用户 ${number(usage.approved_users)} / ${number(goals.users)} = ${usersProgress}%（距目标 ${number(usersGap)} 人）· 截至 ${cutoffDay} 23:59:59，完整自然日 · OAP 生产数仓只读聚合`)
   .replace(/- MAU 2,292 \/ 2,000 = 114\.6%（超目标 292 人）· 读取于 2026-08-14 00:37 · OAP Stargate 管理后台默认口径/, `- 近 30 日活跃用户 ${number(usage.active_30d_users)} / ${number(goals.active30d)} = ${activeProgress}%（超目标 ${number(activeOver)} 人）· 最近 30 个完整自然日 · OAP 生产数仓只读聚合`)
@@ -106,11 +119,13 @@ coverage = coverage
   .replace(/\| Stargate：申请用户 9,851 \/ 10,000（累计用户表最新至 2026-08-13） \| confirmed \| 01 年度目标 \|/, `| OAP 聚合：批准申请用户 ${number(usage.approved_users)} / ${number(goals.users)}（截至 ${cutoffDay} 完整自然日） | confirmed | 01 年度目标 |`)
   .replace(/\| Stargate：月活 2,292 \/ 2,000（读取于 2026-08-14 00:37） \| confirmed \| 01 年度目标 \|/, `| OAP 聚合：近 30 日活跃 ${number(usage.active_30d_users)} / ${number(goals.active30d)}（最近 30 个完整自然日） | confirmed | 01 年度目标 |`)
   .replace(/\| Stargate：累计调用 9,416,755 \/ 13,000,000（截至 2026-08-14 00:37，为部分日数据） \| confirmed \| 01 年度目标 \|/, `| OAP 聚合：累计调用 ${number(usage.total_calls)} / ${number(goals.calls)}（截至 ${cutoffDay} 完整自然日） | confirmed | 01 年度目标 |`)
+  .replace(/\| P3：用户增长与四指标趋势；\d+ 日真实数据交互组件 \| confirmed \| 05 用户增长 \|/, `| P3：用户增长与四指标趋势；${journeyDays} 日真实数据交互组件 | confirmed | 05 用户增长 |`)
   .replace(/- 9,851 ÷ 10,000 = 98\.51%，按一位小数显示 98\.5%。/, `- ${number(usage.approved_users)} ÷ ${number(goals.users)} = ${(usage.approved_users / goals.users * 100).toFixed(2)}%，按四舍五入一位小数显示 ${usersProgress}%。`)
   .replace(/- 2,292 ÷ 2,000 = 114\.60%，按一位小数显示 114\.6%，已超目标 292 人。/, `- ${number(usage.active_30d_users)} ÷ ${number(goals.active30d)} = ${(usage.active_30d_users / goals.active30d * 100).toFixed(2)}%，按一位小数显示 ${activeProgress}%，已超目标 ${number(activeOver)} 人。`)
   .replace(/- 9,416,755 ÷ 13,000,000 = 72\.44%，按一位小数显示 72\.4%。/, `- ${number(usage.total_calls)} ÷ ${number(goals.calls)} = ${(usage.total_calls / goals.calls * 100).toFixed(2)}%，按一位小数显示 ${callsProgress}%。`)
   .replace(/- 剩余缺口：149 名申请用户、3,583,245 次调用；MAU 已超额完成。/, `- 剩余缺口：${number(usersGap)} 名批准申请用户、${number(callsGap)} 次调用；近 30 日活跃已超额 ${number(activeOver)} 人。`)
-  .replace(/年度目标页已更新为 2026-08-14 管理后台默认口径/, `年度目标页已更新为 ${cutoffDay} 生产数仓只读聚合口径`);
+  .replace(/年度目标页已更新为 2026-08-14 管理后台默认口径/, `年度目标页已更新为 ${cutoffDay} 生产数仓只读聚合口径`)
+  .replace(/- 交互支持图例开关[^\n]*/, `- 交互支持四指标开关、悬浮读数与关键历程联动；年度目标与用户增长均采用截至 ${cutoffDay} 23:59:59 的同一次只读聚合。每日调用沿用去重访问凭据历史口径，近 30 日活跃按自然人去重；累计日序列按 20 取整、小于 20 的每日单元格抑制。`);
 fs.writeFileSync(coveragePath, coverage);
 
 console.log(`Synced annual goals to ${cutoffCn}: calls=${usage.total_calls}, users=${usage.approved_users}, active30d=${usage.active_30d_users}`);

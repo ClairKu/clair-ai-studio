@@ -1,0 +1,182 @@
+{
+  "schema_version": "oap-qieman-user-dashboard-v1",
+  "meta": {
+    "title": "OAP 年度目标 × 用户增长联动快照",
+    "contract_revision": "journey-growth-2026-08-17",
+    "generated_at": "2026-08-17T14:06:09.543+08:00",
+    "data_cutoff": "2026-08-16T23:59:59+08:00",
+    "timezone": "Asia/Shanghai",
+    "source": "盈米本体 · 生产数仓只读聚合",
+    "evidence_state": "confirmed_with_boundaries",
+    "privacy": "公开脱敏聚合，不含用户明细、稳定主键与数据库凭证"
+  },
+  "usage": {
+    "approved_users": 9855,
+    "ever_called_users": 5816,
+    "active_30d_users": 2266,
+    "total_calls": 9458599,
+    "attributed_calls": 1739054,
+    "unattributed_calls": 7719545,
+    "calls_30d": 471739
+  },
+  "journey_metrics": {
+    "schema_version": "oap-journey-metrics-v1",
+    "as_of": "2026-08-16",
+    "range_start": "2026-08-01",
+    "timezone": "Asia/Shanghai",
+    "rows": [
+      {
+        "date": "2026-08-01",
+        "cumulativeCalls": 9205840,
+        "cumulativeUsers": 8520,
+        "dailyCalls": 6366,
+        "dailyNewUsers": 71,
+        "dailyCallingUsers": 218,
+        "suppressed_fields": []
+      },
+      {
+        "date": "2026-08-02",
+        "cumulativeCalls": 9212420,
+        "cumulativeUsers": 8580,
+        "dailyCalls": 6573,
+        "dailyNewUsers": 62,
+        "dailyCallingUsers": 214,
+        "suppressed_fields": []
+      },
+      {
+        "date": "2026-08-03",
+        "cumulativeCalls": 9234980,
+        "cumulativeUsers": 8660,
+        "dailyCalls": 22564,
+        "dailyNewUsers": 77,
+        "dailyCallingUsers": 434,
+        "suppressed_fields": []
+      },
+      {
+        "date": "2026-08-04",
+        "cumulativeCalls": 9262140,
+        "cumulativeUsers": 8720,
+        "dailyCalls": 27158,
+        "dailyNewUsers": 75,
+        "dailyCallingUsers": 417,
+        "suppressed_fields": []
+      },
+      {
+        "date": "2026-08-05",
+        "cumulativeCalls": 9281220,
+        "cumulativeUsers": 8820,
+        "dailyCalls": 19073,
+        "dailyNewUsers": 94,
+        "dailyCallingUsers": 448,
+        "suppressed_fields": []
+      },
+      {
+        "date": "2026-08-06",
+        "cumulativeCalls": 9299180,
+        "cumulativeUsers": 8980,
+        "dailyCalls": 17959,
+        "dailyNewUsers": 151,
+        "dailyCallingUsers": 471,
+        "suppressed_fields": []
+      },
+      {
+        "date": "2026-08-07",
+        "cumulativeCalls": 9316540,
+        "cumulativeUsers": 9080,
+        "dailyCalls": 17357,
+        "dailyNewUsers": 108,
+        "dailyCallingUsers": 449,
+        "suppressed_fields": []
+      },
+      {
+        "date": "2026-08-08",
+        "cumulativeCalls": 9327460,
+        "cumulativeUsers": 9140,
+        "dailyCalls": 10922,
+        "dailyNewUsers": 69,
+        "dailyCallingUsers": 243,
+        "suppressed_fields": []
+      },
+      {
+        "date": "2026-08-09",
+        "cumulativeCalls": 9337500,
+        "cumulativeUsers": 9220,
+        "dailyCalls": 10047,
+        "dailyNewUsers": 66,
+        "dailyCallingUsers": 229,
+        "suppressed_fields": []
+      },
+      {
+        "date": "2026-08-10",
+        "cumulativeCalls": 9357220,
+        "cumulativeUsers": 9320,
+        "dailyCalls": 19710,
+        "dailyNewUsers": 108,
+        "dailyCallingUsers": 484,
+        "suppressed_fields": []
+      },
+      {
+        "date": "2026-08-11",
+        "cumulativeCalls": 9377080,
+        "cumulativeUsers": 9440,
+        "dailyCalls": 19875,
+        "dailyNewUsers": 113,
+        "dailyCallingUsers": 464,
+        "suppressed_fields": []
+      },
+      {
+        "date": "2026-08-12",
+        "cumulativeCalls": 9397120,
+        "cumulativeUsers": 9520,
+        "dailyCalls": 20025,
+        "dailyNewUsers": 91,
+        "dailyCallingUsers": 491,
+        "suppressed_fields": []
+      },
+      {
+        "date": "2026-08-13",
+        "cumulativeCalls": 9416400,
+        "cumulativeUsers": 9620,
+        "dailyCalls": 19290,
+        "dailyNewUsers": 98,
+        "dailyCallingUsers": 494,
+        "suppressed_fields": []
+      },
+      {
+        "date": "2026-08-14",
+        "cumulativeCalls": 9436200,
+        "cumulativeUsers": 9720,
+        "dailyCalls": 19799,
+        "dailyNewUsers": 87,
+        "dailyCallingUsers": 472,
+        "suppressed_fields": []
+      },
+      {
+        "date": "2026-08-15",
+        "cumulativeCalls": 9447920,
+        "cumulativeUsers": 9780,
+        "dailyCalls": 11712,
+        "dailyNewUsers": 65,
+        "dailyCallingUsers": 213,
+        "suppressed_fields": []
+      },
+      {
+        "date": "2026-08-16",
+        "cumulativeCalls": 9458600,
+        "cumulativeUsers": 9860,
+        "dailyCalls": 10687,
+        "dailyNewUsers": 78,
+        "dailyCallingUsers": 211,
+        "suppressed_fields": []
+      }
+    ],
+    "definitions": {
+      "cumulative_calls": "排除内部测试凭据的累计调用记录数，公开序列按20取整",
+      "cumulative_users": "当前已批准且具有非空稳定内部主键的累计去重用户，公开序列按20取整",
+      "daily_calls": "当日调用记录数；1–19 的小样本单元格不公开",
+      "daily_new_users": "按已批准用户最早申请日统计的每日新增去重用户",
+      "daily_calling_users": "当日产生 OAP 调用的去重访问凭据；沿用历史趋势图口径，不等于自然人去重，也不与近30日自然人活跃相加",
+      "privacy": "任一每日人数或调用数在 1–19 时返回 null；累计序列按20取整，避免由公开总数做尾部差分反推。"
+    }
+  }
+}

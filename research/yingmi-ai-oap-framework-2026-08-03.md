@@ -1,7 +1,7 @@
 ---
 title: "盈米 AI 开放平台｜2026/8/3 项目汇报（飞书文档十项框架）"
 material_date: 2026-08-03
-report_cutoff: 2026-08-16（年度目标采用截至 23:59:59 的完整自然日快照；千问传播材料截至 8 月 13 日）
+report_cutoff: 2026-08-16（年度目标与用户增长采用同一完整自然日快照；千问传播材料截至 8 月 13 日）
 confidentiality: 内部管理汇报 · 口径分项标注
 template_reference: clairku.github.io/clair-ai-studio/reports/yingmi-ai-two-modes-four-continuous-2026-08-02/
 ---
