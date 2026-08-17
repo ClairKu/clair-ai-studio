@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="千问 X 且慢AI小顾用户数据看板，展示服务上线以来的绑定用户、新用户、老用户及每日增长明细。" />
+  <meta name="description" content="千问 X 且慢AI小顾用户数据看板，展示服务上线以来的用户增长、资产与账户状态、首次投资及绑定后行为。" />
   <meta name="theme-color" content="#f5f6fb" />
   <meta name="robots" content="noindex,nofollow" />
   <title>千问 X 且慢AI小顾｜用户数据看板</title>
@@ -16,7 +16,7 @@
     <div class="topbar-inner">
       <a class="brand" href="#top" aria-label="回到页面顶部">
         <span class="brand-mark" aria-hidden="true"><i>Q</i><b>且</b></span>
-        <span class="brand-copy"><strong>千问 X 且慢AI小顾</strong><small>用户增长看板</small></span>
+        <span class="brand-copy"><strong>千问 X 且慢AI小顾</strong><small>用户增长与画像</small></span>
       </a>
       <div class="topbar-actions">
         <span class="freshness" id="freshness"><i aria-hidden="true"></i><span>正在读取数据</span></span>
@@ -66,7 +66,7 @@
       <div class="analysis-head">
         <div>
           <p class="eyebrow">INTERACTIVE USER GROWTH</p>
-          <h2 id="analysis-title">用户增长走势</h2>
+          <h2 id="analysis-title">千问引流且慢用户增长走势图</h2>
         </div>
         <div class="analysis-controls">
           <fieldset class="segmented range-segmented" aria-label="选择时间范围">
@@ -139,6 +139,76 @@
         </div>
         <p class="data-footnote" id="data-footnote"></p>
       </section>
+    </section>
+
+    <section class="audience shell" id="audience-analysis" aria-labelledby="audience-title">
+      <div class="audience-head">
+        <div class="audience-heading">
+          <p class="eyebrow">USER VALUE &amp; ENGAGEMENT</p>
+          <h2 id="audience-title">用户画像与行为</h2>
+          <p>看绑定后的资产、入金、投资，以及且慢APP和AI小顾使用情况。</p>
+        </div>
+        <fieldset class="segmented audience-segmented" id="audience-cohort-control" aria-label="选择用户类型">
+          <legend>用户</legend>
+          <label><input type="radio" name="audience-cohort" value="all" checked /><span>全部</span></label>
+          <label><input type="radio" name="audience-cohort" value="new" disabled /><span>新用户</span></label>
+          <label><input type="radio" name="audience-cohort" value="existing" disabled /><span>老用户</span></label>
+        </fieldset>
+      </div>
+
+      <div class="audience-summary">
+        <div>
+          <span id="audience-cohort-label">全部绑定用户</span>
+          <strong id="audience-population">—</strong>
+          <small>人</small>
+        </div>
+        <p id="audience-summary-copy">正在读取绑定后的用户情况。</p>
+      </div>
+
+      <div class="audience-panels">
+        <section class="audience-panel asset-panel" aria-labelledby="asset-panel-title">
+          <div class="audience-panel-head">
+            <div>
+              <span>01</span>
+              <h3 id="asset-panel-title">资产与账户状态</h3>
+            </div>
+            <p>当前所选用户</p>
+          </div>
+          <div class="asset-distribution" id="asset-distribution"></div>
+        </section>
+
+        <section class="audience-panel behavior-panel" aria-labelledby="behavior-panel-title">
+          <div class="audience-panel-head">
+            <div>
+              <span>02</span>
+              <h3 id="behavior-panel-title">绑定后关键行为</h3>
+            </div>
+            <p>各行为独立统计</p>
+          </div>
+          <div class="behavior-bars" id="behavior-bars"></div>
+        </section>
+      </div>
+
+      <section class="audience-detail" aria-labelledby="audience-detail-title">
+        <div class="audience-detail-head">
+          <div>
+            <span>03</span>
+            <h3 id="audience-detail-title">所选用户数据明细</h3>
+          </div>
+          <p id="audience-detail-context">—</p>
+        </div>
+        <div class="audience-table-wrap">
+          <table class="audience-table" id="audience-table">
+            <caption class="sr-only">所选用户的资产状态与绑定后关键行为人数、占比和说明</caption>
+            <thead>
+              <tr><th>类别</th><th>指标</th><th>人数</th><th>占比</th><th>说明</th></tr>
+            </thead>
+            <tbody id="audience-table-body"></tbody>
+          </table>
+        </div>
+        <p class="audience-footnote" id="audience-footnote"></p>
+      </section>
+      <output class="sr-only" id="audience-announcement" aria-live="polite"></output>
     </section>
   </main>
 
