@@ -8,36 +8,32 @@ const number = new Intl.NumberFormat("zh-CN");
 const percent = new Intl.NumberFormat("zh-CN", { style: "percent", maximumFractionDigits: 1 });
 const $ = (selector) => document.querySelector(selector);
 
-const METRICS = {
+const SERIES = {
   bound: {
-    label: "绑定用户",
-    cumulativeLabel: "累计绑定用户",
-    today: "bound_accounts_today",
-    cumulative: "window_cumulative_bound",
-    color: "#8068f2",
-    soft: "rgba(128, 104, 242, 0.28)",
+    label: "累计绑定",
+    field: "window_cumulative_bound",
+    type: "cumulative",
   },
   new: {
-    label: "新用户",
-    cumulativeLabel: "累计新用户",
-    today: "new_accounts_today",
-    cumulative: "window_cumulative_new",
-    color: "#25c9a5",
-    soft: "rgba(37, 201, 165, 0.28)",
+    label: "累计新用户",
+    field: "window_cumulative_new",
+    type: "cumulative",
   },
   existing: {
-    label: "老用户",
-    cumulativeLabel: "累计老用户",
-    today: "existing_accounts_today",
-    cumulative: "window_cumulative_existing",
-    color: "#aa97d8",
-    soft: "rgba(170, 151, 216, 0.28)",
+    label: "累计老用户",
+    field: "window_cumulative_existing",
+    type: "cumulative",
+  },
+  daily: {
+    label: "当日新增",
+    field: "bound_accounts_today",
+    type: "daily",
   },
 };
+const SERIES_ORDER = ["bound", "new", "existing", "daily"];
 
 const viewState = {
-  metric: "bound",
-  trend: "cumulative",
+  visibleSeries: new Set(SERIES_ORDER),
   range: "since-launch",
   start: "",
   end: "",
@@ -320,59 +316,108 @@ function niceMaximum(value) {
 }
 
 function chartMarkup(rows) {
-  const metric = METRICS[viewState.metric];
-  const field = viewState.trend === "daily" ? metric.today : metric.cumulative;
   const mobile = window.matchMedia("(max-width: 620px)").matches;
   const width = mobile ? 430 : 1040;
-  const height = mobile ? 350 : 420;
+  const height = mobile ? 380 : 440;
   const margin = mobile
-    ? { top: 42, right: 16, bottom: 54, left: 46 }
-    : { top: 46, right: 30, bottom: 58, left: 62 };
+    ? { top: 48, right: 46, bottom: 54, left: 46 }
+    : { top: 52, right: 66, bottom: 60, left: 66 };
   const plotWidth = width - margin.left - margin.right;
   const plotHeight = height - margin.top - margin.bottom;
-  const values = rows.map((row) => row[field]);
-  const maxValue = niceMaximum(Math.max(...values, 1));
+  const leftMaximum = niceMaximum(Math.max(...rows.map((row) => row.window_cumulative_bound), 1));
+  const rightMaximum = niceMaximum(Math.max(...rows.map((row) => row.bound_accounts_today), 1));
   const baseline = margin.top + plotHeight;
   const step = plotWidth / Math.max(rows.length, 1);
   const x = (index) => margin.left + step * index + step / 2;
-  const y = (value) => baseline - (value / maxValue) * plotHeight;
+  const yLeft = (value) => baseline - (value / leftMaximum) * plotHeight;
+  const yRight = (value) => baseline - (value / rightMaximum) * plotHeight;
+  const cumulativeVisible = ["bound", "new", "existing"].some((key) => viewState.visibleSeries.has(key));
+  const dailyVisible = viewState.visibleSeries.has("daily");
   const grids = [0, 0.25, 0.5, 0.75, 1].map((ratio) => {
     const gridY = baseline - ratio * plotHeight;
     return `<line class="chart-grid" x1="${margin.left}" y1="${gridY}" x2="${width - margin.right}" y2="${gridY}"></line>
-      <text class="chart-axis-label" x="${margin.left - 10}" y="${gridY + 4}" text-anchor="end">${number.format(Math.round(maxValue * ratio))}</text>`;
+      ${cumulativeVisible ? `<text class="chart-axis-label chart-axis-left" x="${margin.left - 10}" y="${gridY + 4}" text-anchor="end">${number.format(Math.round(leftMaximum * ratio))}</text>` : ""}
+      ${dailyVisible ? `<text class="chart-axis-label chart-axis-right" x="${width - margin.right + 10}" y="${gridY + 4}" text-anchor="start">${number.format(Math.round(rightMaximum * ratio))}</text>` : ""}`;
   }).join("");
-  const points = rows.map((row, index) => [x(index), y(row[field])]);
-  const pointList = points.map(([pointX, pointY]) => `${pointX},${pointY}`).join(" ");
-  const areaPoints = points.length ? `${points[0][0]},${baseline} ${pointList} ${points.at(-1)[0]},${baseline}` : "";
-  const bars = viewState.trend === "daily" ? rows.map((row, index) => {
-    const barWidth = Math.max(12, Math.min(56, step * 0.48));
-    const barY = y(row[field]);
-    return `<rect class="chart-bar" x="${x(index) - barWidth / 2}" y="${barY}" width="${barWidth}" height="${Math.max(0, baseline - barY)}" fill="${metric.color}"></rect>`;
+  const axisTitles = `${cumulativeVisible ? `<text class="chart-axis-title" x="${margin.left}" y="20">累计用户（人）</text>` : ""}
+    ${dailyVisible ? `<text class="chart-axis-title" x="${width - margin.right}" y="20" text-anchor="end">每日新增（人）</text>` : ""}`;
+  const linePoints = (values) => values.map((value, index) => `${x(index)},${yLeft(value)}`).join(" ");
+  const areaPath = (upper, lower) => {
+    if (!upper.length) return "";
+    const top = upper.map((value, index) => `${index ? "L" : "M"}${x(index)},${yLeft(value)}`).join(" ");
+    const bottom = lower.map((value, index) => [value, index]).reverse().map(([value, index]) => `L${x(index)},${yLeft(value)}`).join(" ");
+    return `${top} ${bottom} Z`;
+  };
+  const zeros = rows.map(() => 0);
+  const newValues = rows.map((row) => row.window_cumulative_new);
+  const existingValues = rows.map((row) => row.window_cumulative_existing);
+  const unknownValues = rows.map((row) => row.window_cumulative_unclassified);
+  const boundValues = rows.map((row) => row.window_cumulative_bound);
+  let stackTop = zeros;
+  let cohortMarkup = "";
+  if (viewState.visibleSeries.has("new")) {
+    const nextTop = stackTop.map((value, index) => value + newValues[index]);
+    cohortMarkup += `<path class="chart-area-new" data-series="new" d="${areaPath(nextTop, stackTop)}"></path>
+      <polyline class="chart-series-line chart-new-line" data-series="new" points="${linePoints(nextTop)}"></polyline>`;
+    stackTop = nextTop;
+  }
+  if (viewState.visibleSeries.has("existing")) {
+    const nextTop = stackTop.map((value, index) => value + existingValues[index]);
+    cohortMarkup += `<path class="chart-area-existing" data-series="existing" d="${areaPath(nextTop, stackTop)}"></path>
+      <polyline class="chart-series-line chart-existing-line" data-series="existing" points="${linePoints(nextTop)}"></polyline>`;
+    stackTop = nextTop;
+  }
+  if ((viewState.visibleSeries.has("new") || viewState.visibleSeries.has("existing")) && unknownValues.some(Boolean)) {
+    const nextTop = stackTop.map((value, index) => value + unknownValues[index]);
+    cohortMarkup += `<path class="chart-area-unclassified" data-series="unclassified" d="${areaPath(nextTop, stackTop)}"></path>`;
+    stackTop = nextTop;
+  }
+  const barWidth = Math.max(2, Math.min(mobile ? 22 : 34, step * 0.5));
+  const bars = dailyVisible ? rows.map((row, index) => {
+    const barY = yRight(row.bound_accounts_today);
+    const selected = row.date === viewState.selectedDate;
+    return `<rect class="chart-bar${selected ? " is-selected" : ""}" data-series="daily" data-date="${row.date}" x="${x(index) - barWidth / 2}" y="${barY}" width="${barWidth}" height="${Math.max(0, baseline - barY)}"></rect>`;
   }).join("") : "";
-  const series = viewState.trend === "cumulative"
-    ? `<polygon class="chart-area" points="${areaPoints}" fill="${metric.soft}"></polygon><polyline class="chart-line" points="${pointList}" stroke="${metric.color}"></polyline>`
-    : bars;
+  const boundLine = viewState.visibleSeries.has("bound")
+    ? `<polyline class="chart-series-line chart-bound-line" data-series="bound" points="${linePoints(boundValues)}"></polyline>`
+    : "";
   const showEvery = rows.length <= 10 ? 1 : Math.ceil(rows.length / (mobile ? 5 : 9));
   const selectedDate = viewState.selectedDate;
-  const interactivePoints = rows.map((row, index) => {
-    const centerX = x(index);
-    const centerY = y(row[field]);
+  const dateLabels = rows.map((row, index) => {
     const [month, day] = row.date.slice(5).split("-");
     const showDate = index === 0 || index === rows.length - 1 || index % showEvery === 0;
+    return showDate ? `<text class="chart-axis-label" x="${x(index)}" y="${height - 20}" text-anchor="middle">${Number(month)}.${Number(day)}</text>` : "";
+  }).join("");
+  const interactivePoints = viewState.visibleSeries.size ? rows.map((row, index) => {
+    const centerX = x(index);
+    const visibleStackValue = (viewState.visibleSeries.has("new") ? row.window_cumulative_new : 0)
+      + (viewState.visibleSeries.has("existing") ? row.window_cumulative_existing : 0);
+    const centerY = viewState.visibleSeries.has("bound")
+      ? yLeft(row.window_cumulative_bound)
+      : cumulativeVisible
+        ? yLeft(visibleStackValue)
+        : yRight(row.bound_accounts_today);
     const selected = row.date === selectedDate;
-    return `<g class="chart-point${selected ? " is-selected" : ""}" data-index="${index}" data-date="${row.date}" data-x="${centerX}" data-y="${centerY}" tabindex="${selected ? "0" : "-1"}" role="button" aria-pressed="${selected}" aria-label="${escapeHtml(formatDay(row.date))}，${escapeHtml(metric.label)}${viewState.trend === "daily" ? "新增" : "累计"} ${number.format(row[field])} 人">
+    const ariaValues = SERIES_ORDER.filter((key) => viewState.visibleSeries.has(key)).map((key) => `${SERIES[key].label}${key === "daily" ? "+" : ""}${number.format(row[SERIES[key].field])}人`).join("，");
+    const existingStackValue = (viewState.visibleSeries.has("new") ? row.window_cumulative_new : 0) + row.window_cumulative_existing;
+    return `<g class="chart-point${selected ? " is-selected" : ""}" data-index="${index}" data-date="${row.date}" data-x="${centerX}" data-y="${centerY}" tabindex="${selected ? "0" : "-1"}" role="button" aria-pressed="${selected}" aria-label="${escapeHtml(formatDay(row.date))}，${escapeHtml(ariaValues)}">
       <rect class="chart-hit" x="${centerX - step / 2}" y="${margin.top}" width="${step}" height="${plotHeight}"></rect>
       <line class="chart-hover-line" x1="${centerX}" y1="${margin.top}" x2="${centerX}" y2="${baseline}"></line>
-      <circle class="chart-dot" cx="${centerX}" cy="${centerY}" r="5" stroke="${metric.color}"></circle>
-      ${showDate ? `<text class="chart-axis-label" x="${centerX}" y="${height - 20}" text-anchor="middle">${Number(month)}.${Number(day)}</text>` : ""}
+      ${viewState.visibleSeries.has("new") ? `<circle class="chart-series-dot" data-series="new" cx="${centerX}" cy="${yLeft(row.window_cumulative_new)}" r="4" stroke="#36d1ad"></circle>` : ""}
+      ${viewState.visibleSeries.has("existing") ? `<circle class="chart-series-dot" data-series="existing" cx="${centerX}" cy="${yLeft(existingStackValue)}" r="4" stroke="#ac9bdd"></circle>` : ""}
+      ${viewState.visibleSeries.has("bound") ? `<circle class="chart-series-dot" data-series="bound" cx="${centerX}" cy="${yLeft(row.window_cumulative_bound)}" r="5" stroke="#b7a8ff"></circle>` : ""}
+      ${dailyVisible ? `<circle class="chart-series-dot" data-series="daily" cx="${centerX}" cy="${yRight(row.bound_accounts_today)}" r="4" stroke="#e66f61"></circle>` : ""}
     </g>`;
-  }).join("");
-  const latest = rows.at(-1);
-  const endLabel = latest ? `<text class="chart-value-label" x="${points.at(-1)[0] - 6}" y="${Math.max(22, points.at(-1)[1] - 14)}" text-anchor="end" fill="${metric.color}">${number.format(latest[field])}</text>` : "";
+  }).join("") : "";
   const firstLabel = rows[0]?.date === LAUNCH_AT.slice(0, 10)
-    ? `<text class="chart-launch-label" x="${x(0)}" y="${margin.top - 14}" text-anchor="middle">首日 08:00 起</text>`
+    ? `<text class="chart-launch-label" x="${x(0)}" y="${margin.top - 12}" text-anchor="middle">首日 08:00 起</text>`
     : "";
-  return { width, height, field, markup: `${grids}${series}${interactivePoints}${firstLabel}${endLabel}` };
+  const emptyState = viewState.visibleSeries.size
+    ? ""
+    : `<text class="chart-empty" x="${margin.left + plotWidth / 2}" y="${margin.top + plotHeight / 2}" text-anchor="middle">请选择至少一项数据</text>`;
+  const markup = `<defs><clipPath id="chart-clip"><rect x="${margin.left}" y="${margin.top}" width="${plotWidth}" height="${plotHeight}"></rect></clipPath></defs>
+    ${axisTitles}${grids}<g clip-path="url(#chart-clip)">${cohortMarkup}${bars}${boundLine}</g>${dateLabels}${interactivePoints}${firstLabel}${emptyState}`;
+  return { width, height, leftMaximum, rightMaximum, markup };
 }
 
 function selectedRowLabel(row) {
@@ -386,11 +431,20 @@ function selectedRowLabel(row) {
 
 function showChartTooltip(element, row) {
   const tooltip = $("#chart-tooltip");
-  const metric = METRICS[viewState.metric];
-  const primaryValue = viewState.trend === "daily" ? row[metric.today] : row[metric.cumulative];
-  tooltip.innerHTML = `<strong>${escapeHtml(selectedRowLabel(row))}</strong>
-    <b>${escapeHtml(metric.label)}${viewState.trend === "daily" ? "新增" : "累计"} ${number.format(primaryValue)}</b><br />
-    <small>当日绑定 ${number.format(row.bound_accounts_today)} · 新用户 ${number.format(row.new_accounts_today)}（${formatShare(row.new_accounts_today, row.bound_accounts_today)}） · 老用户 ${number.format(row.existing_accounts_today)}（${formatShare(row.existing_accounts_today, row.bound_accounts_today)}）</small>`;
+  const visibleKeys = SERIES_ORDER.filter((key) => viewState.visibleSeries.has(key));
+  if (!visibleKeys.length) {
+    tooltip.hidden = true;
+    return;
+  }
+  const entries = visibleKeys.map((key) => {
+    const value = row[SERIES[key].field];
+    const className = key === "new" ? "tooltip-new" : key === "existing" ? "tooltip-existing" : key === "daily" ? "tooltip-daily" : "";
+    return `<dt>${escapeHtml(SERIES[key].label)}</dt><dd class="${className}">${key === "daily" ? "+" : ""}${number.format(value)}</dd>`;
+  }).join("");
+  const dailyBreakdown = viewState.visibleSeries.has("daily")
+    ? `<small>当日：新用户 +${number.format(row.new_accounts_today)}（${formatShare(row.new_accounts_today, row.bound_accounts_today)}） · 老用户 +${number.format(row.existing_accounts_today)}（${formatShare(row.existing_accounts_today, row.bound_accounts_today)}）</small>`
+    : "";
+  tooltip.innerHTML = `<strong>${escapeHtml(selectedRowLabel(row))}</strong><dl>${entries}</dl>${dailyBreakdown}`;
   const viewBox = $("#trend-chart").viewBox.baseVal;
   const left = Number(element.dataset.x) / viewBox.width * 100;
   tooltip.style.left = `${Math.max(12, Math.min(88, left))}%`;
@@ -399,9 +453,8 @@ function showChartTooltip(element, row) {
 }
 
 function announceSelection(row) {
-  const metric = METRICS[viewState.metric];
-  const value = viewState.trend === "daily" ? row[metric.today] : row[metric.cumulative];
-  $("#selection-announcement").textContent = `${formatDay(row.date)}，${metric.label}${viewState.trend === "daily" ? "新增" : "累计"}${number.format(value)}人。`;
+  const values = SERIES_ORDER.filter((key) => viewState.visibleSeries.has(key)).map((key) => `${SERIES[key].label}${key === "daily" ? "+" : ""}${number.format(row[SERIES[key].field])}人`);
+  $("#selection-announcement").textContent = values.length ? `${formatDay(row.date)}，${values.join("，")}。` : "当前未选择走势图数据。";
 }
 
 function applySelectedDate(date, { announce = true, focusPoint = false, showTooltip = false } = {}) {
@@ -416,6 +469,7 @@ function applySelectedDate(date, { announce = true, focusPoint = false, showTool
     if (selected && focusPoint) point.focus();
     if (selected && showTooltip) showChartTooltip(point, row);
   });
+  document.querySelectorAll(".chart-bar").forEach((bar) => bar.classList.toggle("is-selected", bar.dataset.date === date));
   document.querySelectorAll("#daily-table tr").forEach((tableRow) => tableRow.classList.toggle("is-selected", tableRow.dataset.date === date));
   document.querySelectorAll(".date-button").forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.date === date)));
   if (announce) announceSelection(row);
@@ -449,25 +503,18 @@ function bindChartInteractions(rows) {
 }
 
 function renderChart(rows) {
-  const metric = METRICS[viewState.metric];
-  const totals = rangeTotals(rows);
   const chart = chartMarkup(rows);
   const svg = $("#trend-chart");
   svg.setAttribute("viewBox", `0 0 ${chart.width} ${chart.height}`);
-  svg.dataset.metric = viewState.metric;
-  svg.dataset.trend = viewState.trend;
-  svg.innerHTML = `<title id="chart-title">${escapeHtml(scopeLabel(rows))}${escapeHtml(metric.label)}${viewState.trend === "daily" ? "每日新增" : "累计"}走势</title>
-    <desc id="chart-desc">当前展示${escapeHtml(scopeLabel(rows))}${escapeHtml(metric.label)}${viewState.trend === "daily" ? "每日新增" : "所选时间范围累计"}随日期变化，图表与下方明细表联动。</desc>${chart.markup}`;
-  const selectedTotal = totals[viewState.metric];
-  const todayValues = rows.map((row) => row[metric.today]);
-  const average = rows.length ? selectedTotal / rows.length : 0;
-  const peak = todayValues.length ? Math.max(...todayValues) : 0;
-  $("#analysis-label").textContent = viewState.trend === "daily" ? `${scopeLabel(rows)}新增${metric.label}` : `${scopeLabel(rows)}累计${metric.label}`;
-  $("#analysis-value").textContent = number.format(selectedTotal);
-  $("#analysis-context").textContent = viewState.trend === "daily"
-    ? `日均 ${number.format(Math.round(average))} 人，单日峰值 ${number.format(peak)} 人。`
-    : `所选范围从 0 起累计；最新一天新增 ${number.format(rows.at(-1)?.[metric.today] || 0)} 人。`;
+  const visibleKeys = SERIES_ORDER.filter((key) => viewState.visibleSeries.has(key));
+  const visibleLabels = visibleKeys.map((key) => SERIES[key].label);
+  svg.dataset.visibleSeries = visibleKeys.join(",");
+  svg.dataset.leftMaximum = String(chart.leftMaximum);
+  svg.dataset.rightMaximum = String(chart.rightMaximum);
+  svg.innerHTML = `<title id="chart-title">${escapeHtml(scopeLabel(rows))}用户增长走势</title>
+    <desc id="chart-desc">${visibleLabels.length ? `当前同图显示${escapeHtml(visibleLabels.join("、"))}` : "当前未选择数据"}；图表与下方明细表按日期联动。</desc>${chart.markup}`;
   $("#chart-note").textContent = `当前范围：${formatDay(rows[0].date)}—${formatDay(rows.at(-1).date)}。服务上线首日从 08:00 起统计，最新数据截至 ${formatTime(currentData.meta.data_cutoff)}。`;
+  $("#chart-tooltip").hidden = true;
   bindChartInteractions(rows);
 }
 
@@ -506,9 +553,7 @@ function renderTable(rows) {
 }
 
 function syncControls() {
-  document.documentElement.dataset.metric = viewState.metric;
-  document.querySelectorAll('input[name="metric"]').forEach((input) => { input.checked = input.value === viewState.metric; });
-  document.querySelectorAll('input[name="trend"]').forEach((input) => { input.checked = input.value === viewState.trend; });
+  document.querySelectorAll('input[name="series"]').forEach((input) => { input.checked = viewState.visibleSeries.has(input.value); });
   document.querySelectorAll('input[name="range"]').forEach((input) => { input.checked = input.value === viewState.range; });
   $("#custom-range").hidden = viewState.range !== "custom";
 }
@@ -623,13 +668,13 @@ async function refreshData() {
 
 function bindInteractions() {
   $("#refresh-button").addEventListener("click", refreshData);
-  document.querySelectorAll('input[name="metric"]').forEach((input) => input.addEventListener("change", () => {
-    viewState.metric = input.value;
-    renderView({ announce: true });
-  }));
-  document.querySelectorAll('input[name="trend"]').forEach((input) => input.addEventListener("change", () => {
-    viewState.trend = input.value;
-    renderView({ announce: true });
+  document.querySelectorAll('input[name="series"]').forEach((input) => input.addEventListener("change", () => {
+    if (input.checked) viewState.visibleSeries.add(input.value);
+    else viewState.visibleSeries.delete(input.value);
+    renderChart(currentRows);
+    applySelectedDate(viewState.selectedDate, { announce: false });
+    const visibleCount = viewState.visibleSeries.size;
+    $("#selection-announcement").textContent = `${input.checked ? "已显示" : "已隐藏"}${SERIES[input.value].label}，当前显示 ${visibleCount} 项数据。`;
   }));
   document.querySelectorAll('input[name="range"]').forEach((input) => input.addEventListener("change", () => {
     viewState.range = input.value;

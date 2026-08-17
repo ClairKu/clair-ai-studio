@@ -39,35 +39,27 @@
 
       <div class="kpi-heading">
         <div>
-          <h2>关键数据</h2>
+          <h2 id="kpi-title">关键数据</h2>
           <p id="kpi-scope">服务上线以来</p>
         </div>
-        <span>选择指标，查看对应走势</span>
       </div>
-      <fieldset class="kpi-switch" aria-controls="trend-chart detail-table">
-        <legend class="sr-only">选择要查看的指标</legend>
-        <label class="kpi-card kpi-bound">
-          <input type="radio" name="metric" value="bound" checked />
+      <section class="kpi-grid" aria-labelledby="kpi-title">
+        <article class="kpi-card kpi-bound">
           <span class="kpi-select">累计绑定用户</span>
           <strong id="bound-total">—</strong>
           <small id="bound-context">服务上线以来</small>
-          <i aria-hidden="true">查看走势</i>
-        </label>
-        <label class="kpi-card kpi-new">
-          <input type="radio" name="metric" value="new" />
+        </article>
+        <article class="kpi-card kpi-new">
           <span class="kpi-select">其中新用户</span>
           <div><strong id="new-accounts">—</strong><em id="new-share">—</em></div>
           <small>上线后新注册且慢</small>
-          <i aria-hidden="true">查看走势</i>
-        </label>
-        <label class="kpi-card kpi-existing">
-          <input type="radio" name="metric" value="existing" />
+        </article>
+        <article class="kpi-card kpi-existing">
           <span class="kpi-select">老用户</span>
           <div><strong id="existing-accounts">—</strong><em id="existing-share">—</em></div>
           <small>上线前已注册且慢</small>
-          <i aria-hidden="true">查看走势</i>
-        </label>
-      </fieldset>
+        </article>
+      </section>
     </section>
 
     <section class="analysis shell" aria-labelledby="analysis-title">
@@ -77,11 +69,6 @@
           <h2 id="analysis-title">用户增长走势</h2>
         </div>
         <div class="analysis-controls">
-          <fieldset class="segmented" aria-label="选择走势形式">
-            <legend>走势</legend>
-            <label><input type="radio" name="trend" value="daily" /><span>每日新增</span></label>
-            <label><input type="radio" name="trend" value="cumulative" checked /><span>累计</span></label>
-          </fieldset>
           <fieldset class="segmented range-segmented" aria-label="选择时间范围">
             <legend>时间</legend>
             <label><input type="radio" name="range" value="since-launch" checked /><span>上线以来</span></label>
@@ -100,17 +87,33 @@
       </form>
 
       <div class="analysis-canvas">
-        <div class="chart-summary">
-          <div>
-            <span id="analysis-label">累计绑定用户</span>
-            <strong id="analysis-value">—</strong>
-          </div>
-          <p id="analysis-context">正在读取趋势数据。</p>
-        </div>
+        <fieldset class="series-legend" aria-controls="trend-chart">
+          <legend>显示数据</legend>
+          <label class="legend-bound">
+            <input type="checkbox" name="series" value="bound" checked />
+            <i class="legend-swatch swatch-bound" aria-hidden="true"></i>
+            <span>累计绑定</span>
+          </label>
+          <label class="legend-new">
+            <input type="checkbox" name="series" value="new" checked />
+            <i class="legend-swatch swatch-new" aria-hidden="true"></i>
+            <span>累计新用户</span>
+          </label>
+          <label class="legend-existing">
+            <input type="checkbox" name="series" value="existing" checked />
+            <i class="legend-swatch swatch-existing" aria-hidden="true"></i>
+            <span>累计老用户</span>
+          </label>
+          <label class="legend-daily">
+            <input type="checkbox" name="series" value="daily" checked />
+            <i class="legend-swatch swatch-daily" aria-hidden="true"></i>
+            <span>当日新增</span>
+          </label>
+        </fieldset>
         <div class="chart-wrap" id="chart-wrap">
-          <svg id="trend-chart" viewBox="0 0 1040 420" role="img" aria-labelledby="chart-title chart-desc" data-metric="bound" data-trend="cumulative">
-            <title id="chart-title">服务上线以来累计绑定用户走势</title>
-            <desc id="chart-desc">展示服务上线以来累计绑定用户随时间变化。</desc>
+          <svg id="trend-chart" viewBox="0 0 1040 440" role="img" aria-labelledby="chart-title chart-desc" data-visible-series="bound,new,existing,daily">
+            <title id="chart-title">服务上线以来用户增长走势</title>
+            <desc id="chart-desc">同图展示累计绑定、累计新用户、累计老用户和当日新增。</desc>
           </svg>
           <div class="chart-tooltip" id="chart-tooltip" hidden></div>
         </div>
