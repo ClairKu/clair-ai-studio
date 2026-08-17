@@ -1,8 +1,8 @@
 const DATA_URL = "./data/latest.json";
 const LOCAL_REFRESH_BASE = "http://127.0.0.1:41791";
-const LOCAL_DATA_KEY = "clair-qianwen-acquisition-latest-v4";
+const LOCAL_DATA_KEY = "clair-qianwen-acquisition-latest-v5";
 const LOCAL_HEADER = { "X-Clair-Dashboard": "qianwen-user-acquisition-v1" };
-const SCHEMA_VERSION = "qianwen-user-acquisition-v4";
+const SCHEMA_VERSION = "qianwen-user-acquisition-v5";
 const LAUNCH_AT = "2026-08-10T08:00:00+08:00";
 const number = new Intl.NumberFormat("zh-CN");
 const percent = new Intl.NumberFormat("zh-CN", { style: "percent", maximumFractionDigits: 1 });
@@ -31,6 +31,57 @@ const SERIES = {
   },
 };
 const SERIES_ORDER = ["bound", "new", "existing", "daily"];
+const COHORT_ORDER = ["all", "new", "existing"];
+const COHORT_LABELS = {
+  all: "全部绑定用户",
+  new: "新用户",
+  existing: "老用户",
+};
+const PROFILE_DIMENSIONS = {
+  asset_holding_status: {
+    label: "当前资产状态",
+    description: "使用每个可识别投资账户的最近资产记录",
+  },
+  asset_bucket: {
+    label: "资产规模分布",
+    description: "使用每个可识别投资账户的最近资产记录分组",
+  },
+  lifetime_investment_status: {
+    label: "历史投资情况",
+    description: "看是否曾在且慢完成投资",
+  },
+  bank_card_status: {
+    label: "银行卡准备情况",
+    description: "看是否已完成银行卡绑定",
+  },
+  risk_assessment_status: {
+    label: "风险测评情况",
+    description: "看是否已完成风险测评",
+  },
+};
+const BEHAVIOR_METRICS = {
+  first_investment_after_binding: {
+    label: "绑定后首次投资",
+    description: "首次投资里程碑发生在绑定后",
+  },
+  investment_activity_after_binding: {
+    label: "绑定后发起投资",
+    description: "绑定后发生受理且未取消的买入类交易",
+  },
+  xiaogu_used_after_binding: {
+    label: "绑定后有效使用AI小顾",
+    description: "绑定后至少一次有效提问",
+  },
+  funded_after_binding: {
+    label: "绑定后完成入金",
+    description: "权威外部资金入账口径待接入",
+  },
+  qieman_app_used_after_binding: {
+    label: "绑定后使用且慢APP",
+    description: "且慢APP有效使用口径待接入",
+  },
+};
+const PUBLIC_STATES = new Set(["confirmed", "suppressed", "unavailable"]);
 
 const viewState = {
   visibleSeries: new Set(SERIES_ORDER),
@@ -38,6 +89,7 @@ const viewState = {
   start: "",
   end: "",
   selectedDate: "",
+  audienceCohort: "all",
 };
 
 let currentData = null;
@@ -102,6 +154,111 @@ function nextDate(value) {
   const date = new Date(`${value}T12:00:00Z`);
   date.setUTCDate(date.getUTCDate() + 1);
   return date.toISOString().slice(0, 10);
+}
+
+function isWholeCount(value) {
+  return Number.isInteger(value) && value >= 0;
+}
+
+function validateAudienceData(data) {
+  const privacy = data.privacy || {};
+  const minimumCell = privacy.minimum_public_cell;
+  if (
+    !Number.isInteger(minimumCell)
+    || minimumCell < 20
+    || privacy.scope !== "profile_and_behavior_only"
+    || privacy.protected_sections?.join(",") !== "profile,behavior"
+    || privacy.multi_dimension_cross_tabs_public !== false
+  ) throw new Error("画像与行为隐私保护口径异常");
+  if (
+    data.behavior?.window_start_at !== LAUNCH_AT
+    || data.behavior?.window_end_at !== data.meta.data_cutoff
+    || data.behavior?.anchor !== "first_bound_at"
+  ) throw new Error("绑定后行为观察窗口异常");
+  const expectedPopulation = {
+    all: data.metrics.bound_accounts,
+    new: data.metrics.new_accounts,
+    existing: data.metrics.existing_accounts,
+  };
+  const assertPublicCount = (value, label) => {
+    if (!isWholeCount(value) || (value > 0 && value < minimumCell)) throw new Error(`${label} 未通过小样本保护`);
+  };
+  const sections = [
+    { key: "profile", listKey: "dimensions", allowed: PROFILE_DIMENSIONS },
+    { key: "behavior", listKey: "metrics", allowed: BEHAVIOR_METRICS },
+  ];
+  sections.forEach(({ key, listKey, allowed }) => {
+    const section = data[key];
+    if (!section || typeof section !== "object" || !section.cohorts || typeof section.cohorts !== "object") {
+      throw new Error(`${key === "profile" ? "用户画像" : "用户行为"}数据缺失`);
+    }
+    COHORT_ORDER.forEach((cohortKey) => {
+      const cohort = section.cohorts[cohortKey];
+      if (!cohort || cohort.population_accounts !== expectedPopulation[cohortKey] || !Array.isArray(cohort[listKey])) {
+        throw new Error(`${COHORT_LABELS[cohortKey]}数据格式异常`);
+      }
+      const ids = cohort[listKey].map((item) => item?.id);
+      const expectedIds = Object.keys(allowed);
+      if (ids.length !== expectedIds.length || new Set(ids).size !== ids.length || expectedIds.some((id) => !ids.includes(id))) {
+        throw new Error(`${COHORT_LABELS[cohortKey]}指标不完整`);
+      }
+      cohort[listKey].forEach((item) => {
+        if (!item || !Object.hasOwn(allowed, item.id) || !PUBLIC_STATES.has(item.state)) {
+          throw new Error(`${COHORT_LABELS[cohortKey]}存在未允许的公开指标`);
+        }
+        if (item.state !== "unavailable" && (!item.data_as_of || (parseTime(item.data_as_of) && parseTime(item.data_as_of) > parseTime(data.meta.data_cutoff)))) {
+          throw new Error(`${allowed[item.id].label}截止时间异常`);
+        }
+        if (item.state !== "confirmed") {
+          for (const forbidden of ["buckets", "population_accounts", "eligible_accounts", "excluded_accounts", "reached_accounts", "not_reached_accounts", "unknown_accounts", "event_count"]) {
+            if (Object.hasOwn(item, forbidden)) throw new Error(`${allowed[item.id].label}隐藏后仍带精确数据`);
+          }
+          return;
+        }
+        if (key === "profile") {
+          if (!Array.isArray(item.buckets) || !item.buckets.length) throw new Error("资产分布缺少分组");
+          let total = 0;
+          item.buckets.forEach((bucket) => {
+            if (!bucket || typeof bucket.id !== "string" || !bucket.id) {
+              throw new Error("资产分布人数异常");
+            }
+            assertPublicCount(bucket.accounts, `${allowed[item.id].label}${bucket.id}`);
+            total += bucket.accounts;
+          });
+          if (total !== cohort.population_accounts) throw new Error(`${allowed[item.id].label}无法闭合`);
+        }
+        if (key === "behavior") {
+          [
+            "population_accounts",
+            "eligible_accounts",
+            "excluded_accounts",
+            "reached_accounts",
+            "not_reached_accounts",
+            "unknown_accounts",
+          ].forEach((field) => {
+            assertPublicCount(item[field], `${BEHAVIOR_METRICS[item.id].label}${field}`);
+          });
+          if (item.population_accounts !== cohort.population_accounts || item.population_accounts !== item.eligible_accounts + item.excluded_accounts) {
+            throw new Error(`${BEHAVIOR_METRICS[item.id].label}总人数无法闭合`);
+          }
+          if (item.eligible_accounts !== item.reached_accounts + item.not_reached_accounts + item.unknown_accounts) {
+            throw new Error(`${BEHAVIOR_METRICS[item.id].label}可统计人数无法闭合`);
+          }
+          if (item.event_count !== undefined) {
+            assertPublicCount(item.event_count, `${BEHAVIOR_METRICS[item.id].label}次数`);
+            if (item.event_count < item.reached_accounts) throw new Error(`${BEHAVIOR_METRICS[item.id].label}次数异常`);
+          }
+        }
+      });
+    });
+  });
+  COHORT_ORDER.forEach((cohortKey) => {
+    const profilePopulation = data.profile.cohorts[cohortKey].population_accounts;
+    const behaviorPopulation = data.behavior.cohorts[cohortKey].population_accounts;
+    if (profilePopulation !== behaviorPopulation) {
+      throw new Error(`${COHORT_LABELS[cohortKey]}画像与行为人数不一致`);
+    }
+  });
 }
 
 function validateData(data) {
@@ -177,6 +334,7 @@ function validateData(data) {
     || runningUnclassified !== metrics.missing_registration_time
     || runningBound !== metrics.bound_accounts
   ) throw new Error("趋势总数与关键数据不一致");
+  validateAudienceData(data);
   return data;
 }
 
@@ -364,7 +522,7 @@ function chartMarkup(rows) {
   if (viewState.visibleSeries.has("existing")) {
     const nextTop = stackTop.map((value, index) => value + existingValues[index]);
     cohortMarkup += `<path class="chart-area-existing" data-series="existing" d="${areaPath(nextTop, stackTop)}"></path>
-      <polyline class="chart-series-line chart-existing-line" data-series="existing" points="${linePoints(nextTop)}"></polyline>`;
+      <polyline class="chart-series-line chart-existing-line" data-series="existing" points="${linePoints(existingValues)}"></polyline>`;
     stackTop = nextTop;
   }
   if ((viewState.visibleSeries.has("new") || viewState.visibleSeries.has("existing")) && unknownValues.some(Boolean)) {
@@ -399,12 +557,11 @@ function chartMarkup(rows) {
         : yRight(row.bound_accounts_today);
     const selected = row.date === selectedDate;
     const ariaValues = SERIES_ORDER.filter((key) => viewState.visibleSeries.has(key)).map((key) => `${SERIES[key].label}${key === "daily" ? "+" : ""}${number.format(row[SERIES[key].field])}人`).join("，");
-    const existingStackValue = (viewState.visibleSeries.has("new") ? row.window_cumulative_new : 0) + row.window_cumulative_existing;
     return `<g class="chart-point${selected ? " is-selected" : ""}" data-index="${index}" data-date="${row.date}" data-x="${centerX}" data-y="${centerY}" tabindex="${selected ? "0" : "-1"}" role="button" aria-pressed="${selected}" aria-label="${escapeHtml(formatDay(row.date))}，${escapeHtml(ariaValues)}">
       <rect class="chart-hit" x="${centerX - step / 2}" y="${margin.top}" width="${step}" height="${plotHeight}"></rect>
       <line class="chart-hover-line" x1="${centerX}" y1="${margin.top}" x2="${centerX}" y2="${baseline}"></line>
       ${viewState.visibleSeries.has("new") ? `<circle class="chart-series-dot" data-series="new" cx="${centerX}" cy="${yLeft(row.window_cumulative_new)}" r="4" stroke="#36d1ad"></circle>` : ""}
-      ${viewState.visibleSeries.has("existing") ? `<circle class="chart-series-dot" data-series="existing" cx="${centerX}" cy="${yLeft(existingStackValue)}" r="4" stroke="#ac9bdd"></circle>` : ""}
+      ${viewState.visibleSeries.has("existing") ? `<circle class="chart-series-dot" data-series="existing" cx="${centerX}" cy="${yLeft(row.window_cumulative_existing)}" r="4" stroke="#ac9bdd"></circle>` : ""}
       ${viewState.visibleSeries.has("bound") ? `<circle class="chart-series-dot" data-series="bound" cx="${centerX}" cy="${yLeft(row.window_cumulative_bound)}" r="5" stroke="#b7a8ff"></circle>` : ""}
       ${dailyVisible ? `<circle class="chart-series-dot" data-series="daily" cx="${centerX}" cy="${yRight(row.bound_accounts_today)}" r="4" stroke="#e66f61"></circle>` : ""}
     </g>`;
@@ -552,6 +709,219 @@ function renderTable(rows) {
   $("#data-footnote").textContent = `新用户指 8 月 10 日 08:00 及之后注册且慢；老用户指此前已注册且慢。8 月 10 日首日从 08:00 起统计；${formatDay(currentData.daily.at(-1).date)}截至 ${formatTime(currentData.meta.data_cutoff)}，首日与最新日均不是完整自然日。`;
 }
 
+function publicStateCopy(state) {
+  if (state === "suppressed") return "为保护较小分组，暂不展示";
+  return "数据源待确认";
+}
+
+function cohortSections(cohortKey) {
+  return {
+    profile: currentData?.profile?.cohorts?.[cohortKey] || null,
+    behavior: currentData?.behavior?.cohorts?.[cohortKey] || null,
+  };
+}
+
+function hasConfirmedAudienceMetric(cohortKey) {
+  const { profile, behavior } = cohortSections(cohortKey);
+  const hasProfile = profile?.dimensions?.some((item) => item.state === "confirmed");
+  const hasBehavior = behavior?.metrics?.some((item) => item.state === "confirmed");
+  return Boolean(hasProfile || hasBehavior);
+}
+
+function syncAudienceControls() {
+  const available = COHORT_ORDER.filter(hasConfirmedAudienceMetric);
+  if (!available.includes(viewState.audienceCohort)) viewState.audienceCohort = available[0] || "all";
+  document.querySelectorAll('input[name="audience-cohort"]').forEach((input) => {
+    const enabled = available.includes(input.value);
+    input.disabled = !enabled;
+    input.checked = input.value === viewState.audienceCohort;
+    input.parentElement.classList.toggle("is-disabled", !enabled);
+  });
+  return available;
+}
+
+function audiencePopulation(profile, behavior) {
+  if (isWholeCount(profile?.population_accounts)) return profile.population_accounts;
+  if (isWholeCount(behavior?.population_accounts)) return behavior.population_accounts;
+  return null;
+}
+
+function bucketLabel(bucket) {
+  const fixedLabels = {
+    has_asset: "有资产",
+    has_assets: "有资产",
+    no_asset: "暂无资产",
+    no_assets: "暂无资产",
+    with_asset: "有资产",
+    without_asset: "暂无资产",
+    invested: "曾投资",
+    not_invested: "尚未投资",
+    never_invested: "未投资",
+    lt_10k: "1 万元及以下",
+    "10k_100k": "1—10 万元",
+    "100k_500k": "10—50 万元",
+    gte_500k: "50 万元以上",
+    card_bound: "已绑卡",
+    card_not_bound: "尚未绑卡",
+    assessed: "已完成测评",
+    not_assessed: "尚未完成测评",
+    unknown: "暂无法判断",
+  };
+  return fixedLabels[bucket.id] || bucket.label || "其他";
+}
+
+function shareWidth(part, total) {
+  if (!total) return 0;
+  return Math.max(0, Math.min(100, part / total * 100));
+}
+
+function profileDimensionsFor(cohort) {
+  if (!cohort) return [];
+  const byId = new Map(cohort.dimensions.map((item) => [item.id, item]));
+  return Object.keys(PROFILE_DIMENSIONS).map((id) => byId.get(id)).filter(Boolean);
+}
+
+function behaviorMetricsFor(cohort) {
+  if (!cohort) return [];
+  const byId = new Map(cohort.metrics.map((item) => [item.id, item]));
+  return Object.keys(BEHAVIOR_METRICS).map((id) => byId.get(id)).filter(Boolean);
+}
+
+function renderAssetDistribution(profile, population) {
+  const dimensions = profileDimensionsFor(profile);
+  if (!dimensions.length) {
+    $("#asset-distribution").innerHTML = '<p class="audience-inline-empty">数据源待确认</p>';
+    return;
+  }
+  $("#asset-distribution").innerHTML = dimensions.map((dimension) => {
+    const config = PROFILE_DIMENSIONS[dimension.id];
+    if (dimension.state !== "confirmed") {
+      return `<section class="asset-group is-${dimension.state}">
+        <header><div><h4>${escapeHtml(config.label)}</h4><p>${escapeHtml(config.description)}</p></div></header>
+        <p class="audience-state-copy">${publicStateCopy(dimension.state)}</p>
+      </section>`;
+    }
+    const bars = dimension.buckets.map((bucket) => {
+      const share = safeShare(bucket.accounts, population);
+      return `<div class="asset-row">
+        <div class="asset-row-copy"><span>${escapeHtml(bucketLabel(bucket))}</span><strong>${number.format(bucket.accounts)}<small> 人</small></strong></div>
+        <div class="audience-progress" role="img" aria-label="${escapeHtml(bucketLabel(bucket))} ${number.format(bucket.accounts)} 人，占 ${share === null ? "未知" : percent.format(share)}">
+          <i style="--share: ${shareWidth(bucket.accounts, population)}%"></i>
+        </div>
+        <em>${share === null ? "—" : percent.format(share)}</em>
+      </div>`;
+    }).join("");
+    return `<section class="asset-group">
+      <header><div><h4>${escapeHtml(config.label)}</h4><p>${escapeHtml(config.description)}</p></div></header>
+      <div class="asset-rows">${bars}</div>
+    </section>`;
+  }).join("");
+}
+
+function renderBehaviorBars(behavior) {
+  const metrics = behaviorMetricsFor(behavior);
+  if (!metrics.length) {
+    $("#behavior-bars").innerHTML = '<p class="audience-inline-empty">数据源待确认</p>';
+    return;
+  }
+  $("#behavior-bars").innerHTML = metrics.map((metric) => {
+    const config = BEHAVIOR_METRICS[metric.id];
+    if (metric.state !== "confirmed") {
+      return `<article class="behavior-row is-${metric.state}">
+        <div class="behavior-copy"><h4>${escapeHtml(config.label)}</h4><p>${escapeHtml(config.description)}</p></div>
+        <strong class="behavior-state">${publicStateCopy(metric.state)}</strong>
+      </article>`;
+    }
+    const share = safeShare(metric.reached_accounts, metric.eligible_accounts);
+    const eventCopy = metric.event_count === undefined ? "" : ` · 共 ${number.format(metric.event_count)} 次`;
+    return `<article class="behavior-row">
+      <div class="behavior-copy"><h4>${escapeHtml(config.label)}</h4><p>${escapeHtml(config.description)}</p></div>
+      <div class="behavior-value"><strong>${number.format(metric.reached_accounts)}<small> 人</small></strong><em>${share === null ? "—" : percent.format(share)}</em></div>
+      <div class="audience-progress behavior-progress" role="img" aria-label="${escapeHtml(config.label)} ${number.format(metric.reached_accounts)} 人，占可统计用户 ${share === null ? "未知" : percent.format(share)}"><i style="--share: ${shareWidth(metric.reached_accounts, metric.eligible_accounts)}%"></i></div>
+      <p class="behavior-base">可统计 ${number.format(metric.eligible_accounts)} 人${eventCopy}</p>
+    </article>`;
+  }).join("");
+}
+
+function confirmedBehaviorNote(metric) {
+  const notes = [`可统计 ${number.format(metric.eligible_accounts)} 人`];
+  if (metric.not_reached_accounts) notes.push(`${number.format(metric.not_reached_accounts)} 人尚未发生`);
+  if (metric.unknown_accounts) notes.push(`${number.format(metric.unknown_accounts)} 人暂无法判断`);
+  if (metric.excluded_accounts) notes.push(`${number.format(metric.excluded_accounts)} 人不在本次统计范围`);
+  if (metric.event_count !== undefined) notes.push(`共 ${number.format(metric.event_count)} 次`);
+  return notes.join("；");
+}
+
+function renderAudienceTable(profile, behavior, population) {
+  const rows = [];
+  profileDimensionsFor(profile).forEach((dimension) => {
+    const config = PROFILE_DIMENSIONS[dimension.id];
+    if (dimension.state !== "confirmed") {
+      rows.push({ type: "用户画像", label: config.label, state: dimension.state, note: config.description });
+      return;
+    }
+    dimension.buckets.forEach((bucket) => rows.push({
+      type: config.label,
+      label: bucketLabel(bucket),
+      state: "confirmed",
+      accounts: bucket.accounts,
+      share: safeShare(bucket.accounts, population),
+      note: config.description,
+    }));
+  });
+  behaviorMetricsFor(behavior).forEach((metric) => {
+    const config = BEHAVIOR_METRICS[metric.id];
+    rows.push({
+      type: "绑定后行为",
+      label: config.label,
+      state: metric.state,
+      accounts: metric.state === "confirmed" ? metric.reached_accounts : null,
+      share: metric.state === "confirmed" ? safeShare(metric.reached_accounts, metric.eligible_accounts) : null,
+      note: metric.state === "confirmed" ? confirmedBehaviorNote(metric) : config.description,
+    });
+  });
+  if (!rows.length) {
+    $("#audience-table-body").innerHTML = '<tr><td class="audience-table-empty" colspan="5">数据源待确认</td></tr>';
+    return;
+  }
+  $("#audience-table-body").innerHTML = rows.map((row) => {
+    const stateCopy = row.state === "confirmed" ? "" : publicStateCopy(row.state);
+    return `<tr class="${row.state === "confirmed" ? "" : `is-${row.state}`}">
+      <td data-label="类别">${escapeHtml(row.type)}</td>
+      <td data-label="指标"><strong>${escapeHtml(row.label)}</strong></td>
+      <td data-label="人数" class="audience-number-cell">${row.state === "confirmed" ? number.format(row.accounts) : escapeHtml(stateCopy)}</td>
+      <td data-label="占比" class="audience-share-cell">${row.state === "confirmed" && row.share !== null ? percent.format(row.share) : "—"}</td>
+      <td data-label="说明" class="audience-note-cell">${escapeHtml(row.note)}</td>
+    </tr>`;
+  }).join("");
+}
+
+function renderAudience({ announce = false } = {}) {
+  const available = syncAudienceControls();
+  const cohortKey = viewState.audienceCohort;
+  const { profile, behavior } = cohortSections(cohortKey);
+  const population = audiencePopulation(profile, behavior);
+  const label = COHORT_LABELS[cohortKey];
+  $("#audience-cohort-label").textContent = label;
+  $("#audience-population").textContent = population === null ? "—" : number.format(population);
+  const asset = profile?.dimensions?.find((item) => item.id === "asset_holding_status" && item.state === "confirmed");
+  const invested = profile?.dimensions?.find((item) => item.id === "lifetime_investment_status" && item.state === "confirmed");
+  const activity = behavior?.metrics?.find((item) => item.id === "investment_activity_after_binding" && item.state === "confirmed");
+  const assetCount = asset?.buckets?.find((bucket) => bucket.id === "has_assets")?.accounts;
+  const investedCount = invested?.buckets?.find((bucket) => bucket.id === "invested")?.accounts;
+  const insight = [];
+  if (isWholeCount(assetCount)) insight.push(`可识别有资产 ${number.format(assetCount)} 人（${formatShare(assetCount, population)}）`);
+  if (isWholeCount(investedCount)) insight.push(`有历史投资记录 ${number.format(investedCount)} 人`);
+  if (isWholeCount(activity?.reached_accounts)) insight.push(`绑定后发起投资 ${number.format(activity.reached_accounts)} 人`);
+  $("#audience-summary-copy").textContent = available.length && insight.length ? `${insight.join("；")}。` : "数据源待确认";
+  renderAssetDistribution(profile, population);
+  renderBehaviorBars(behavior);
+  renderAudienceTable(profile, behavior, population);
+  $("#audience-detail-context").textContent = population === null ? label : `${label} · ${number.format(population)} 人`;
+  $("#audience-footnote").textContent = `资产截至查询时点使用各账户最近记录；绑定后行为按绑定时间至 ${formatCutoff(currentData.meta.data_cutoff)} 统计。各行为独立统计，不代表前后顺序；画像与行为中的较小分组已隐藏。`;
+  if (announce) $("#audience-announcement").textContent = `已切换至${label}，共 ${population === null ? "未知" : number.format(population)} 人。`;
+}
+
 function syncControls() {
   document.querySelectorAll('input[name="series"]').forEach((input) => { input.checked = viewState.visibleSeries.has(input.value); });
   document.querySelectorAll('input[name="range"]').forEach((input) => { input.checked = input.value === viewState.range; });
@@ -568,6 +938,7 @@ function renderView({ announce = false } = {}) {
   renderKpis(rows);
   renderChart(rows);
   renderTable(rows);
+  renderAudience();
   applySelectedDate(viewState.selectedDate, { announce });
 }
 
@@ -611,7 +982,7 @@ async function startLocalRefresh() {
   const started = await response.json();
   if (!started.job_id) throw new Error("更新服务没有返回任务编号");
   setRefreshStatus(started.message || "正在查询最新数据。", started.progress_url || "");
-  for (let attempt = 0; attempt < 330; attempt += 1) {
+  for (let attempt = 0; attempt < 900; attempt += 1) {
     await delay(2200);
     const statusResponse = await fetchWithTimeout(`${LOCAL_REFRESH_BASE}/status?job=${encodeURIComponent(started.job_id)}&v=${Date.now()}`, {
       cache: "no-store",
@@ -627,7 +998,7 @@ async function startLocalRefresh() {
     }
     if (status.status === "failed") throw new Error(status.message || "数据查询失败");
   }
-  throw new Error("数据查询超过 12 分钟，请稍后重试");
+  throw new Error("数据查询超过 30 分钟，请稍后重试");
 }
 
 async function refreshData() {
@@ -680,6 +1051,11 @@ function bindInteractions() {
     viewState.range = input.value;
     $("#range-error").textContent = "";
     renderView({ announce: true });
+  }));
+  document.querySelectorAll('input[name="audience-cohort"]').forEach((input) => input.addEventListener("change", () => {
+    if (input.disabled) return;
+    viewState.audienceCohort = input.value;
+    renderAudience({ announce: true });
   }));
   $("#custom-range").addEventListener("submit", (event) => {
     event.preventDefault();
