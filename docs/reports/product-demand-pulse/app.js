@@ -1,4 +1,7 @@
 const STORAGE_KEY = "pain-off-pending-v1";
+const REFRESH_ENDPOINT = "http://127.0.0.1:43117";
+const REFRESH_POLL_MS = 2500;
+const REFRESH_TIMEOUT_MS = 30 * 60 * 1000;
 const LANDED = new Set(["released", "impact_confirmed"]);
 const STATUS_LABELS = {
   submitted: "待处理",
@@ -51,8 +54,9 @@ function loadPending() {
   }
 }
 
-const data = await loadData();
+let data = await loadData();
 let pending = loadPending();
+let activeRefreshRun = null;
 
 function personById(id) {
   return data.people.find((person) => person.id === id);
@@ -277,8 +281,8 @@ function createPending(form) {
   showToast("已加入待处理区；可以继续补充信息或调整 PM。");
 }
 
-async function exportUpdatePacket() {
-  const packet = {
+function buildUpdatePacket() {
+  return {
     schema: "pain-off-update-packet/v1",
     generated_at: new Date().toISOString(),
     action: pending.length ? "verify_and_merge_delta" : "recheck_latest_delta",
@@ -296,20 +300,107 @@ async function exportUpdatePacket() {
       "核验后更新 latest.json、构建测试并发布",
     ],
   };
-  const json = `${JSON.stringify(packet, null, 2)}\n`;
-  const blob = new Blob([json], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = `pain-off-update-packet-${new Date().toISOString().slice(0, 10)}.json`;
-  document.body.append(link);
-  link.click();
-  link.remove();
-  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
-  try { await navigator.clipboard.writeText(json); } catch (error) { /* 下载已完成 */ }
-  showToast(pending.length
-    ? `更新包已生成：${pending.length} 个待核验需求。交给 Codex 即可增量更新。`
-    : "空增量包已生成，可用于复核截止时间后的最新变化。");
+}
+
+function setRefreshButtons(isRefreshing) {
+  document.querySelectorAll("[data-refresh-update]").forEach((button) => {
+    button.disabled = isRefreshing;
+    button.classList.toggle("is-refreshing", isRefreshing);
+    if (!button.dataset.idleLabel) button.dataset.idleLabel = button.textContent.trim();
+    button.textContent = isRefreshing ? "正在核验" : button.dataset.idleLabel;
+  });
+}
+
+function showRefreshResult(state, title, message, result = null) {
+  const panel = document.querySelector("#refresh-result");
+  panel.hidden = false;
+  panel.dataset.state = state;
+  document.querySelector("#refresh-result-badge").textContent = state === "running"
+    ? "LIVE CHECK"
+    : state === "blocked" ? "需要处理" : "本次结果";
+  document.querySelector("#refresh-result-title").textContent = title;
+  document.querySelector("#refresh-result-message").textContent = message;
+  const counts = document.querySelector("#refresh-counts");
+  const delta = result?.delta;
+  counts.hidden = !delta;
+  if (delta) {
+    document.querySelector("#refresh-new-submitted").textContent = delta.new_submitted ?? 0;
+    document.querySelector("#refresh-pending-release").textContent = delta.pending_release ?? 0;
+    document.querySelector("#refresh-new-released").textContent = delta.new_released ?? 0;
+  }
+}
+
+function codexFallback() {
+  const prompt = "立即增量更新痛点消消乐战报：只查上次检查后的新提交，以及未上线需求的 MR 合并与生产生效变化；不要重复检查已确认上线的历史。按 automation-2 的证据和发布规则执行。";
+  window.location.href = `codex://new?prompt=${encodeURIComponent(prompt)}`;
+}
+
+async function reloadPublishedData(result) {
+  data = await loadData();
+  const accepted = new Set(result.accepted_client_ids || []);
+  if (accepted.size) {
+    pending = pending.filter((item) => !accepted.has(item.id));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(pending));
+  }
+  renderMeta();
+  renderAll();
+}
+
+async function pollRefresh(runId) {
+  const startedAt = Date.now();
+  while (Date.now() - startedAt < REFRESH_TIMEOUT_MS) {
+    await new Promise((resolve) => window.setTimeout(resolve, REFRESH_POLL_MS));
+    const response = await fetch(`${REFRESH_ENDPOINT}/status?run_id=${encodeURIComponent(runId)}`, {
+      cache: "no-store",
+      credentials: "omit",
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const status = await response.json();
+    if (status.status === "running") continue;
+    if (status.status === "updated" || status.status === "no_change") return status;
+    throw Object.assign(new Error(status.summary || "核验未完成"), { refreshStatus: status });
+  }
+  throw new Error("核验时间超过 30 分钟，请到 Codex 查看进度。");
+}
+
+async function refreshBattleReport() {
+  if (activeRefreshRun) return;
+  setRefreshButtons(true);
+  showRefreshResult("running", "正在取最新进展", "只检查新提交，以及仍未上线需求的 MR 与生产状态变化。");
+  showToast("已开始增量核验；完成后会自动刷新战报。");
+  try {
+    const response = await fetch(`${REFRESH_ENDPOINT}/refresh`, {
+      method: "POST",
+      mode: "cors",
+      credentials: "omit",
+      cache: "no-store",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Pain-Off-Action": "refresh-v1",
+      },
+      body: JSON.stringify(buildUpdatePacket()),
+      signal: AbortSignal.timeout(8000),
+    });
+    if (!response.ok && response.status !== 409) throw new Error(`HTTP ${response.status}`);
+    const accepted = await response.json();
+    activeRefreshRun = accepted.run_id;
+    const result = await pollRefresh(activeRefreshRun);
+    await reloadPublishedData(result);
+    const title = result.status === "updated" ? "发现变化，战报已更新" : "没有新的状态变化";
+    const message = result.summary || "本次增量核验已完成。";
+    showRefreshResult(result.status === "updated" ? "updated" : "no_change", title, message, result);
+    showToast(message);
+    if ((result.delta?.new_released || 0) > 0) celebrate();
+  } catch (error) {
+    const status = error.refreshStatus;
+    const message = status?.summary || "本机更新服务未连接，已为你打开 Codex 更新入口。";
+    showRefreshResult("blocked", "暂时没有完成核验", message, status);
+    showToast(message);
+    if (!status) codexFallback();
+  } finally {
+    activeRefreshRun = null;
+    setRefreshButtons(false);
+  }
 }
 
 function celebrate() {
@@ -331,7 +422,7 @@ document.addEventListener("click", (event) => {
   const open = event.target.closest("[data-open-composer]");
   if (open) return openComposer();
   if (event.target.closest("[data-close-composer]")) return closeComposer();
-  if (event.target.closest("[data-export-update]")) return exportUpdatePacket();
+  if (event.target.closest("[data-refresh-update]")) return refreshBattleReport();
   const starter = event.target.closest("[data-start-pm]");
   if (starter) return openComposer(starter.dataset.startPm);
   if (event.target.closest("#celebrate-button")) return celebrate();

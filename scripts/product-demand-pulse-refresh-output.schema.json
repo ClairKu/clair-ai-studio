@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "status",
+    "summary",
+    "delta",
+    "snapshot",
+    "accepted_client_ids",
+    "checked_through_at",
+    "source_cursor",
+    "production_url"
+  ],
+  "properties": {
+    "status": { "type": "string", "enum": ["updated", "no_change", "blocked"] },
+    "summary": { "type": "string", "minLength": 1, "maxLength": 300 },
+    "delta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["new_submitted", "pending_release", "new_released"],
+      "properties": {
+        "new_submitted": { "type": "integer", "minimum": 0 },
+        "pending_release": { "type": "integer", "minimum": 0 },
+        "new_released": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "snapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["submitted", "pending_release", "released"],
+      "properties": {
+        "submitted": { "type": "integer", "minimum": 0 },
+        "pending_release": { "type": "integer", "minimum": 0 },
+        "released": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "accepted_client_ids": {
+      "type": "array",
+      "items": { "type": "string", "maxLength": 80 },
+      "uniqueItems": true
+    },
+    "checked_through_at": { "type": "string", "format": "date-time" },
+    "source_cursor": { "type": ["string", "null"], "maxLength": 300 },
+    "production_url": { "type": ["string", "null"], "maxLength": 300 }
+  }
+}

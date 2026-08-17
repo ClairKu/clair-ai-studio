@@ -7,6 +7,7 @@
     "build": "node scripts/validate-oap-qieman-user-dashboard.mjs --write-fallback && node scripts/validate-qianwen-user-acquisition-dashboard.mjs --write-fallback && node scripts/validate-product-demand-pulse.mjs --write-fallback && node scripts/build-search-index.mjs && vite build",
     "test": "node --test tests/*.test.mjs && node scripts/validate-oap-qieman-user-dashboard.mjs && node scripts/validate-qianwen-user-acquisition-dashboard.mjs && node scripts/validate-product-demand-pulse.mjs && node scripts/validate-workbench.mjs && node scripts/validate-report-assets.mjs",
     "package:reports": "node scripts/package-recent-reports.mjs",
+    "install:pain-off-refresh": "node scripts/install-product-demand-pulse-refresh.mjs",
     "preview": "vite preview"
   },
   "devDependencies": {

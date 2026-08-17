@@ -28,7 +28,7 @@
         <p class="hero-lead" id="hero-lead">正在加载最新战报。</p>
         <div class="hero-actions">
           <button class="button primary" type="button" data-open-composer>＋ 新增需求</button>
-          <button class="button ghost" type="button" data-export-update>↗ 一键更新战报</button>
+          <button class="button ghost" type="button" data-refresh-update>↻ 检查最新进展</button>
         </div>
       </div>
       <div class="hero-visual" aria-label="用户痛点消除行动">
@@ -70,9 +70,22 @@
         </div>
         <div class="section-actions">
           <button class="button primary" type="button" data-open-composer>＋ 新增需求</button>
-          <button class="button mini" type="button" data-export-update>生成更新包</button>
+          <button class="button mini" type="button" data-refresh-update>↻ 立即核验</button>
         </div>
       </div>
+
+      <section class="refresh-result" id="refresh-result" aria-live="polite" hidden>
+        <div class="refresh-result-head">
+          <span id="refresh-result-badge">核验中</span>
+          <strong id="refresh-result-title">正在取最新进展</strong>
+        </div>
+        <div class="refresh-counts" id="refresh-counts" hidden>
+          <div><span>新提交</span><b id="refresh-new-submitted">0</b></div>
+          <div><span>待发布</span><b id="refresh-pending-release">0</b></div>
+          <div><span>新上线</span><b id="refresh-new-released">0</b></div>
+        </div>
+        <p id="refresh-result-message">正在检查上次截止点之后的新需求与状态变化。</p>
+      </section>
 
       <form class="demand-composer" id="demand-composer" hidden>
         <div class="composer-head">
