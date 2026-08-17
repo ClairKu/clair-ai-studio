@@ -677,7 +677,7 @@ function renderHoldings() {
   $("#aum").textContent = money(cohort.aum_yuan);
   $("#aum-user-share").textContent = `${number.format(cohort.managed_accounts)} 位在管用户`;
   $("#avg-asset").textContent = money(cohort.average_holder_asset_yuan);
-  $("#baseline-multiple").textContent = `${oneDecimal.format(cohort.average_holder_asset_yuan / baseline.average_asset_yuan)}× 且慢户均`;
+  $("#baseline-multiple").textContent = "与且慢在管户均分母不同";
   $("#cohort-compare").innerHTML = compareRowsMarkup();
   const ring = $("#profit-ring");
   ring.style.setProperty("--rate", (cohort.profitable_holder_rate * 100).toFixed(2));
@@ -802,7 +802,7 @@ OAP 的“平台规模”“注册激活”“资金变化”和“存量价值�
 
 ${data.quality_checks.map((item) => `- **${item.status.toUpperCase()}｜${item.label}**：${item.detail}`).join("\n")}
 
-- 公开单元格最小样本量为 n ≥ ${data.meta.minimum_public_cell}；不足时显示“样本不足”，不展示人数或关联金额。
+- 公开非零人数单元格最小样本量为 n ≥ ${data.meta.minimum_public_cell}；1–19 显示“样本不足”，真实为 0 时可显示 0。
 - 新注册以且慢正式 \`registered_at\` 为准。
 - 资金口径为 **${cashflowDefinition.state}**：${cashflowDefinition.detail}
 
@@ -852,7 +852,7 @@ ${trendRows}
 - 当前持仓：${number.format(cohort.holders)}（${percent.format(cohort.holder_rate)}）
 - 在管用户：${number.format(cohort.managed_accounts)}（${percent.format(cohort.managed_rate)}）
 - 持仓规模：${money(cohort.aum_yuan)}
-- 持仓户均：${money(cohort.average_holder_asset_yuan)}；且慢可比口径约 ${money(data.qieman_baseline.average_asset_yuan)}
+- 持仓户均：${money(cohort.average_holder_asset_yuan)}；且慢在管户均约 ${money(data.qieman_baseline.average_asset_yuan)}，两者分母不同，不作倍数比较
 - 累计收益为正：${number.format(cohort.profitable_holders)}/${number.format(cohort.holders)}（${percent.format(cohort.profitable_holder_rate)}）
 
 ### 6.1 近 90 日行为
@@ -877,13 +877,13 @@ ${profileRows}
 
 | # | 假设 | 支撑证据 | 关系类型 | 可信度 | 验证方式 |
 |---|---|---|---|---|---|
-| H1 | 注册变化可能传导至后续${labels.firstShort} | 新注册${growthComparison(growth.current, growth.previous, "new_registrations").text}；${labels.firstShort}${growthComparison(growth.current, growth.previous, "first_inflow_users").text} | 🔗 相关性 | 中 | 按注册批次比较 D7 / D30，控制渠道、活动与资产基础 |
+| H1 | 注册变化可能传导至后续${labels.firstShort} | 当前只观察到新注册与全人群同期资金指标；首次入账漏斗受小样本抑制 | 🧪 待验证 | 低 | 按注册批次比较 D7 / D30，控制渠道、活动与资产基础 |
 | H2 | OAP 使用更深的人群可能有更强资金与持仓表现 | 近 30 日活跃人群持仓率 ${percent.format(cohortById("active_30d").holder_rate)}，批准人群 ${percent.format(cohortById("approved").holder_rate)} | 🔗 相关性 | 低 | 按注册时点、历史资产与使用倾向匹配对照 |
 | H3 | 资金变化可能受市场、活动与渠道共同影响 | 当前为资产入账日代理口径，且没有控制同期运营与市场因素 | 🔗 相关性 | 低 | 权威现金流恢复后，再分渠道、活动暴露和市场阶段做匹配对照 |
 
 ## 9. 行动建议
 
-1. **P0｜经营注册到${labels.firstShort}漏斗**：固定观察 D7 / D30，并按注册批次定位转化下降发生在哪一批。
+1. **P0｜经营注册到${labels.firstShort}漏斗**：固定观察 D7 / D30，按注册批次识别转化差异；不要把全人群同期资金变化直接当作新注册转化。
 2. **P0｜升级权威现金流**：恢复受控查询权限后，先复核资产入账代理与权威现金流的差异，再按来源识别变化贡献。
 3. **P1｜做活跃增量验证**：按注册时点、历史资产、渠道匹配对照，持续观察后续入金、持仓与服务行为。
 4. **P1｜补画像采集**：覆盖未达阈值前只展示样本结论，不做人群外推。
