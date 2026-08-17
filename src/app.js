@@ -25,7 +25,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 51;
+const DATA_VERSION = 52;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -155,10 +155,10 @@ const initialState = {
       pinned: true,
       position: 0,
       createdAt: "2026-08-17T10:38:15.000+08:00",
-      source: "盈米本体 × 生产数据库｜数据截至 2026-08-17 10:41（北京时间）｜绑定且慢账号 1,067：新注册 757、老用户 310｜8 天新老用户累计增长走势｜仅展示用户统计结果，不含账号明细与数据库凭证",
+      source: "盈米本体 × 生产数据库｜数据截至 2026-08-17 11:34（北京时间）｜8 月 3 日以来累计绑定用户 1,465：其中新用户 758、老用户 707｜正式上线后绑定 1,069｜15 天完整日表含增量、累计与占比｜仅展示用户统计结果，不含账号明细与数据库凭证",
       access: "production",
       workType: "data-analysis",
-      tags: ["千问", "且慢", "AI 小顾", "千问引流", "用户增长", "新注册", "老用户", "数据分析", "数据看板", "本体", "生产数据", "HTML", "生产"],
+      tags: ["千问", "且慢", "AI 小顾", "千问引流", "用户增长", "新用户", "老用户", "每日增量", "用户占比", "数据看板", "本体", "生产数据", "HTML", "生产"],
     },
     {
       id: "qieman-ai-growth-oap-integrated-2026-08-14",

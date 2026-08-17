@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="千问 X 且慢AI小顾用户数据看板，展示绑定且慢账号总量及新注册、老用户累计增长。" />
+  <meta name="description" content="千问 X 且慢AI小顾用户数据看板，展示累计绑定用户、新老用户每日增量、占比及累计增长。" />
   <meta name="theme-color" content="#0b1020" />
   <meta name="robots" content="noindex,nofollow" />
   <title>千问 X 且慢AI小顾｜用户数据看板</title>
@@ -36,16 +36,16 @@
         <h1 id="hero-title">千问 X 且慢AI小顾<br /><span>用户数据看板</span></h1>
         <p class="hero-lead" id="hero-lead">正在读取最新用户数据。</p>
         <div class="hero-meta">
-          <span><b>范围</b> 8 月 10 日上线以来</span>
+          <span><b>范围</b> 8 月 3 日起（8 月 10 日正式上线）</span>
           <span><b>来源</b> 盈米本体生产数据</span>
         </div>
       </div>
 
       <div class="handoff-card" aria-label="千问引流且慢用户构成">
         <div class="handoff-head">
-          <span>绑定且慢账号</span>
+          <span>累计绑定用户</span>
           <strong id="bound-total">—</strong>
-          <small>个用户</small>
+          <small>8 月 3 日以来 · 人</small>
         </div>
         <div class="handoff-route" aria-hidden="true">
           <span class="route-origin">千问</span>
@@ -54,7 +54,7 @@
         </div>
         <div class="route-split">
           <div class="split-row split-new">
-            <div><span>新注册</span><strong id="new-accounts">—</strong></div>
+            <div><span>其中新用户</span><strong id="new-accounts">—</strong></div>
             <div class="split-meter"><i id="new-meter"></i></div>
             <em id="new-share">—</em>
           </div>
@@ -64,26 +64,19 @@
             <em id="existing-share">—</em>
           </div>
         </div>
-        <p class="handoff-note">新注册：8 月 10 日 08:00 及之后注册且慢；老用户：此前已注册且慢。本页统计已完成且慢账号绑定的用户。</p>
-      </div>
-    </section>
-
-    <section class="verdict-band" aria-label="核心判断">
-      <div class="shell verdict-inner">
-        <span class="verdict-label">汇报结论</span>
-        <p id="verdict">正在生成判断。</p>
-        <span class="evidence-chip">UPDATED</span>
+        <p class="handoff-note">新用户指 8 月 10 日 08:00 及之后注册且慢的用户；老用户指此前已注册且慢的用户。本页统计已完成且慢账号绑定的用户。</p>
       </div>
     </section>
 
     <section class="section shell" aria-labelledby="pulse-title">
       <div class="section-heading">
         <div>
-          <p class="eyebrow">USER GROWTH · 新老用户累计走势</p>
+          <p class="eyebrow">USER GROWTH · 每日增量与累计走势</p>
           <h2 id="pulse-title">千问引流且慢用户增长走势图</h2>
         </div>
         <div class="legend" aria-label="图例">
-          <span><i class="legend-new"></i>新注册（累计）</span>
+          <span><i class="legend-bound"></i>累计绑定用户</span>
+          <span><i class="legend-new"></i>新用户（累计）</span>
           <span><i class="legend-existing"></i>老用户（累计）</span>
         </div>
       </div>
@@ -100,52 +93,28 @@
         </article>
         <aside class="pulse-notes" id="pulse-notes" aria-label="趋势解读"></aside>
       </div>
-      <details class="daily-details">
-        <summary>查看每日明细</summary>
+      <details class="daily-details" open>
+        <summary>完整逐日明细 <span id="daily-range">增量 · 累计 · 占比</span></summary>
         <div class="table-scroll">
           <table>
-            <thead><tr><th>日期</th><th>绑定且慢账号</th><th>新注册</th><th>老用户</th><th>数据完整性</th></tr></thead>
+            <thead>
+              <tr>
+                <th rowspan="2">日期</th>
+                <th rowspan="2">阶段</th>
+                <th colspan="5" class="group-heading">当日增量</th>
+                <th colspan="3" class="group-heading">累计用户</th>
+                <th rowspan="2">数据状态</th>
+              </tr>
+              <tr>
+                <th>绑定</th><th>新用户</th><th>老用户</th><th>新用户占比</th><th>老用户占比</th>
+                <th>绑定</th><th>新用户</th><th>老用户</th>
+              </tr>
+            </thead>
             <tbody id="daily-table"></tbody>
           </table>
         </div>
+        <p class="table-note">每日占比以当天绑定用户为分母；8 月 10 日 08:00 为正式上线节点，当天同时包含上线前后数据。</p>
       </details>
-    </section>
-
-    <section class="section section-soft" aria-labelledby="quality-title">
-      <div class="shell">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">DATA STATUS · 最新数据核对</p>
-            <h2 id="quality-title">最新数据已完成核对</h2>
-          </div>
-          <span class="quality-score"><b>4/4</b> 已确认</span>
-        </div>
-        <div class="quality-grid" id="quality-grid"></div>
-      </div>
-    </section>
-
-    <section class="section shell" aria-labelledby="definition-title">
-      <div class="section-heading definition-heading">
-        <div>
-          <p class="eyebrow">DATA NOTES · 数据说明</p>
-          <h2 id="definition-title">三项核心数据口径</h2>
-        </div>
-        <p>本页用于汇报完成且慢账号绑定的用户规模及新老构成。完整转化率需与千问侧访问人数配套使用。</p>
-      </div>
-      <div class="definition-grid" id="definition-grid"></div>
-    </section>
-
-    <section class="section shell action-section" aria-labelledby="next-title">
-      <div class="action-intro">
-        <p class="eyebrow">NEXT · 后续关注</p>
-        <h2 id="next-title">从用户增长，走向用户留存</h2>
-        <p>下一阶段继续关注激活、回访和服务转化，判断千问入口带来的长期用户价值。</p>
-      </div>
-      <div class="next-grid">
-        <article><span>01</span><strong>24 小时激活</strong><p>绑定后是否打开且慢、完成首次有效服务。</p><em>待补充 · P0</em></article>
-        <article><span>02</span><strong>7 日回访</strong><p>新注册用户是否在首周再次使用小顾或且慢。</p><em>待补充 · P0</em></article>
-        <article><span>03</span><strong>服务转化</strong><p>是否进入诊断、规划、签约或交易等真实服务链路。</p><em>待补充 · P1</em></article>
-      </div>
     </section>
 
     <section class="refresh-explainer shell" aria-labelledby="refresh-title">

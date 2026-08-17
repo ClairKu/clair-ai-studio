@@ -1,6 +1,6 @@
 const DATA_URL = "./data/latest.json";
 const LOCAL_REFRESH_BASE = "http://127.0.0.1:41791";
-const LOCAL_DATA_KEY = "clair-qianwen-acquisition-latest-v2";
+const LOCAL_DATA_KEY = "clair-qianwen-acquisition-latest-v3";
 const LOCAL_HEADER = { "X-Clair-Dashboard": "qianwen-user-acquisition-v1" };
 const number = new Intl.NumberFormat("zh-CN");
 const percent = new Intl.NumberFormat("zh-CN", { style: "percent", maximumFractionDigits: 1 });
@@ -42,8 +42,28 @@ function formatDay(value) {
   return year && month && day ? `${Number(month)}月${Number(day)}日` : value;
 }
 
+function safeShare(part, total) {
+  return total > 0 ? part / total : null;
+}
+
+function formatShare(part, total) {
+  const share = safeShare(part, total);
+  return share === null ? "—" : percent.format(share);
+}
+
+function launchDay(data) {
+  return String(data.meta.launch_at).slice(0, 10);
+}
+
+function rowPhase(row, data) {
+  const day = launchDay(data);
+  if (row.date < day) return "上线前";
+  if (row.date === day) return "上线节点日";
+  return "上线后";
+}
+
 function validateData(data) {
-  if (!data || data.schema_version !== "qianwen-user-acquisition-v2") {
+  if (!data || data.schema_version !== "qianwen-user-acquisition-v3") {
     throw new Error("数据版本不兼容");
   }
   const metrics = data.metrics || {};
@@ -54,7 +74,6 @@ function validateData(data) {
     "missing_registration_time",
     "duplicate_bindings",
     "unmatched_accounts",
-    "boundary_records",
   ];
   for (const key of required) {
     if (!Number.isInteger(metrics[key]) || metrics[key] < 0) throw new Error(`指标 ${key} 无效`);
@@ -62,6 +81,22 @@ function validateData(data) {
   if (metrics.bound_accounts !== metrics.existing_accounts + metrics.new_accounts + metrics.missing_registration_time) {
     throw new Error("账号分组与总数无法闭合");
   }
+  const launchMetrics = data.launch_metrics || {};
+  for (const key of [
+    "pre_launch_bound_accounts",
+    "post_launch_bound_accounts",
+    "post_launch_new_accounts",
+    "post_launch_existing_accounts",
+    "post_launch_unclassified_accounts",
+  ]) {
+    if (!Number.isInteger(launchMetrics[key]) || launchMetrics[key] < 0) throw new Error(`上线阶段指标 ${key} 无效`);
+  }
+  if (
+    launchMetrics.post_launch_bound_accounts !== launchMetrics.post_launch_new_accounts
+      + launchMetrics.post_launch_existing_accounts
+      + launchMetrics.post_launch_unclassified_accounts
+    || metrics.bound_accounts !== launchMetrics.pre_launch_bound_accounts + launchMetrics.post_launch_bound_accounts
+  ) throw new Error("上线前后数据无法闭合");
   if (!Array.isArray(data.daily) || !data.daily.length) throw new Error("缺少每日趋势");
   let runningNew = 0;
   let runningExisting = 0;
@@ -108,7 +143,10 @@ function validateData(data) {
     || runningUnclassified !== metrics.missing_registration_time
     || runningBound !== metrics.bound_accounts
   ) throw new Error("趋势总数与核心数据不一致");
-  if (!parseTime(data.meta?.data_cutoff)) throw new Error("数据截止时间缺失");
+  if (!parseTime(data.meta?.data_cutoff) || !parseTime(data.meta?.window_start_at) || !parseTime(data.meta?.launch_at)) {
+    throw new Error("数据时间范围缺失");
+  }
+  if (data.daily[0].date !== String(data.meta.window_start_at).slice(0, 10)) throw new Error("趋势起始日期异常");
   return data;
 }
 
@@ -183,8 +221,8 @@ function setRefreshStatus(message, progressUrl = "") {
 
 function renderHero(data) {
   const { metrics, meta } = data;
-  const newShare = metrics.bound_accounts ? metrics.new_accounts / metrics.bound_accounts : 0;
-  const existingShare = metrics.bound_accounts ? metrics.existing_accounts / metrics.bound_accounts : 0;
+  const newShare = safeShare(metrics.new_accounts, metrics.bound_accounts) || 0;
+  const existingShare = safeShare(metrics.existing_accounts, metrics.bound_accounts) || 0;
   $("#bound-total").textContent = number.format(metrics.bound_accounts);
   $("#new-accounts").textContent = number.format(metrics.new_accounts);
   $("#existing-accounts").textContent = number.format(metrics.existing_accounts);
@@ -194,8 +232,7 @@ function renderHero(data) {
     $("#new-meter").style.width = `${newShare * 100}%`;
     $("#existing-meter").style.width = `${existingShare * 100}%`;
   });
-  $("#hero-lead").textContent = `截至 ${formatCutoff(meta.data_cutoff)}，通过千问完成且慢账号绑定的用户达到 ${number.format(metrics.bound_accounts)} 个，其中新注册 ${number.format(metrics.new_accounts)} 个、老用户 ${number.format(metrics.existing_accounts)} 个。`;
-  $("#verdict").textContent = `新注册用户占 ${percent.format(newShare)}，已经成为主要增长来源；随着首批老用户集中绑定完成，后续增长预计将以新注册为主。`;
+  $("#hero-lead").textContent = `截至 ${formatCutoff(meta.data_cutoff)}，8 月 3 日以来累计绑定用户 ${number.format(metrics.bound_accounts)} 人，其中新用户 ${number.format(metrics.new_accounts)} 人，占 ${percent.format(newShare)}。`;
   $("#footer-cutoff").textContent = `数据截至 ${formatCutoff(meta.data_cutoff, true)}`;
   setFreshness("ready", `数据截至 ${formatCutoff(meta.data_cutoff)}`);
 }
@@ -203,11 +240,11 @@ function renderHero(data) {
 function chartMarkup(data) {
   const rows = data.daily;
   const mobile = window.matchMedia("(max-width: 620px)").matches;
-  const width = mobile ? 390 : 840;
-  const height = mobile ? 300 : 330;
+  const width = mobile ? 390 : 900;
+  const height = mobile ? 330 : 400;
   const margin = mobile
-    ? { top: 34, right: 18, bottom: 44, left: 38 }
-    : { top: 30, right: 24, bottom: 48, left: 48 };
+    ? { top: 40, right: 18, bottom: 52, left: 40 }
+    : { top: 38, right: 28, bottom: 54, left: 56 };
   const plotWidth = width - margin.left - margin.right;
   const plotHeight = height - margin.top - margin.bottom;
   const rawMax = Math.max(data.metrics.bound_accounts, 1);
@@ -230,17 +267,18 @@ function chartMarkup(data) {
   const existingArea = `${pointList(knownPoints)} ${pointList([...newPoints].reverse())}`;
   const unclassifiedArea = `${pointList(boundPoints)} ${pointList([...knownPoints].reverse())}`;
   const hasUnclassified = data.metrics.missing_registration_time > 0;
+  const launchIndex = rows.findIndex((row) => row.date === launchDay(data));
+  const launchX = launchIndex >= 0 ? x(launchIndex) : null;
   const points = rows.map((row, index) => {
     const center = x(index);
     const [month, day] = row.date.slice(5).split("-");
-    const note = index === 0 ? "上线日" : "";
-    return `<g class="chart-point" tabindex="0" data-index="${index}" data-x="${center}" data-y="${boundPoints[index][1]}" aria-label="${escapeHtml(formatDay(row.date))}，绑定且慢账号累计 ${row.cumulative_bound_accounts}，新注册累计 ${row.cumulative_new_accounts}，老用户累计 ${row.cumulative_existing_accounts}${row.partial ? "，非完整自然日" : ""}">
+    const showDate = rows.length <= 10 || index === 0 || index === launchIndex || index === rows.length - 1 || (!mobile && index % 2 === 0);
+    return `<g class="chart-point" tabindex="0" data-index="${index}" data-x="${center}" data-y="${boundPoints[index][1]}" aria-label="${escapeHtml(formatDay(row.date))}，累计绑定用户 ${row.cumulative_bound_accounts}，累计新用户 ${row.cumulative_new_accounts}，累计老用户 ${row.cumulative_existing_accounts}；当日新增 ${row.bound_accounts_today}${row.partial ? "，非完整自然日" : ""}">
       <rect class="chart-hit" x="${center - step / 2}" y="${margin.top}" width="${step}" height="${plotHeight}"></rect>
       <line class="chart-hover-line" x1="${center}" y1="${margin.top}" x2="${center}" y2="${baseline}"></line>
       <circle class="chart-dot chart-dot-bound" cx="${center}" cy="${boundPoints[index][1]}" r="4"></circle>
       <circle class="chart-dot chart-dot-new" cx="${center}" cy="${newPoints[index][1]}" r="3.5"></circle>
-      ${note ? `<text class="chart-partial" x="${center}" y="${Math.max(14, boundPoints[index][1] - 8)}" text-anchor="middle">${note}</text>` : ""}
-      <text class="chart-axis-label" x="${center}" y="${height - 18}" text-anchor="middle">${Number(month)}.${Number(day)}</text>
+      ${showDate ? `<text class="chart-axis-label chart-date-label" x="${center}" y="${height - 19}" text-anchor="middle">${Number(month)}.${Number(day)}</text>` : ""}
     </g>`;
   }).join("");
   const latest = rows.at(-1);
@@ -249,17 +287,18 @@ function chartMarkup(data) {
   const newLabelY = newPoints.at(-1)[1] + Math.min(28, (baseline - newPoints.at(-1)[1]) / 2);
   return {
     markup: `<title id="chart-title">千问引流且慢用户增长走势图</title>
-      <desc id="chart-desc">累计面积图展示每天新注册、老用户及绑定且慢账号总量。</desc>
+      <desc id="chart-desc">累计面积图展示 8 月 3 日以来每天的新用户、老用户和累计绑定用户，并标出 8 月 10 日正式上线节点。</desc>
       ${grids}
+      ${launchX === null ? "" : `<line class="chart-launch-line" x1="${launchX}" y1="${margin.top}" x2="${launchX}" y2="${baseline}"></line><text class="chart-launch-label" x="${launchX + 7}" y="${margin.top + 12}">8.10 正式上线</text>`}
       <polygon class="chart-area chart-area-new" points="${newArea}"></polygon>
       <polygon class="chart-area chart-area-existing" points="${existingArea}"></polygon>
       ${hasUnclassified ? `<polygon class="chart-area chart-area-unclassified" points="${unclassifiedArea}"></polygon>` : ""}
       <polyline class="chart-line chart-line-new" points="${pointList(newPoints)}"></polyline>
       <polyline class="chart-line chart-line-bound" points="${pointList(boundPoints)}"></polyline>
       ${points}
-      <text class="chart-area-label chart-area-label-bound" x="${labelX}" y="${Math.max(16, boundPoints.at(-1)[1] - 9)}" text-anchor="end">绑定 ${number.format(latest.cumulative_bound_accounts)}</text>
+      <text class="chart-area-label chart-area-label-bound" x="${labelX}" y="${Math.max(20, boundPoints.at(-1)[1] - 12)}" text-anchor="end">累计绑定 ${number.format(latest.cumulative_bound_accounts)}</text>
       <text class="chart-area-label chart-area-label-existing" x="${labelX}" y="${existingCenterY + 4}" text-anchor="end">老用户 ${number.format(latest.cumulative_existing_accounts)}</text>
-      <text class="chart-area-label chart-area-label-new" x="${labelX}" y="${newLabelY}" text-anchor="end">新注册 ${number.format(latest.cumulative_new_accounts)}</text>`,
+      <text class="chart-area-label chart-area-label-new" x="${labelX}" y="${newLabelY}" text-anchor="end">新用户 ${number.format(latest.cumulative_new_accounts)}</text>`,
     width,
     height,
   };
@@ -270,7 +309,7 @@ function bindChartTooltips(data) {
   const viewBox = $("#trend-chart").viewBox.baseVal;
   const show = (element) => {
     const row = data.daily[Number(element.dataset.index)];
-    tooltip.innerHTML = `<strong>${escapeHtml(formatDay(row.date))}${row.partial ? " · 非完整日" : ""}</strong>绑定且慢账号 ${number.format(row.cumulative_bound_accounts)}<br />新注册 ${number.format(row.cumulative_new_accounts)} · 老用户 ${number.format(row.cumulative_existing_accounts)}<br /><small>当日新增：${number.format(row.bound_accounts_today)}</small>`;
+    tooltip.innerHTML = `<strong>${escapeHtml(formatDay(row.date))} · ${escapeHtml(rowPhase(row, data))}${row.partial ? " · 非完整日" : ""}</strong><b>累计绑定 ${number.format(row.cumulative_bound_accounts)}</b><br />累计新用户 ${number.format(row.cumulative_new_accounts)} · 老用户 ${number.format(row.cumulative_existing_accounts)}<hr />当日新增 ${number.format(row.bound_accounts_today)}<br /><small>新用户 ${number.format(row.new_accounts_today)}（${formatShare(row.new_accounts_today, row.bound_accounts_today)}） · 老用户 ${number.format(row.existing_accounts_today)}（${formatShare(row.existing_accounts_today, row.bound_accounts_today)}）</small>`;
     tooltip.style.left = `${Number(element.dataset.x) / viewBox.width * 100}%`;
     tooltip.style.top = `${Number(element.dataset.y) / viewBox.height * 100}%`;
     tooltip.hidden = false;
@@ -291,64 +330,68 @@ function renderTrend(data) {
   $("#trend-chart").innerHTML = chart.markup;
   bindChartTooltips(data);
   const rows = data.daily;
-  const newShare = data.metrics.new_accounts / data.metrics.bound_accounts;
+  const newShare = safeShare(data.metrics.new_accounts, data.metrics.bound_accounts) || 0;
+  const existingShare = safeShare(data.metrics.existing_accounts, data.metrics.bound_accounts) || 0;
+  const postLaunchNewShare = safeShare(data.launch_metrics.post_launch_new_accounts, data.launch_metrics.post_launch_bound_accounts) || 0;
+  const postLaunchExistingShare = safeShare(data.launch_metrics.post_launch_existing_accounts, data.launch_metrics.post_launch_bound_accounts) || 0;
   $("#pulse-notes").innerHTML = [
-    ["新注册累计", number.format(data.metrics.new_accounts), `占当前绑定用户的 ${percent.format(newShare)}，是主要增长来源。`],
-    ["老用户累计", number.format(data.metrics.existing_accounts), "老用户主要集中在上线初期完成绑定。"],
-    ["增长结构", "新注册为主", "随着首批老用户完成绑定，后续新增预计仍以新注册为主。"],
-  ].map(([label, value, detail]) => `<article class="pulse-note"><span>${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong><p>${escapeHtml(detail)}</p></article>`).join("");
-  $("#daily-table").innerHTML = rows.map((row) => `<tr><td>${escapeHtml(formatDay(row.date))}</td><td>${number.format(row.cumulative_bound_accounts)}</td><td>${number.format(row.cumulative_new_accounts)}</td><td>${number.format(row.cumulative_existing_accounts)}</td><td class="${row.partial ? "partial-tag" : ""}">${row.partial ? (row === rows[0] ? "上线日 08:00 起" : "非全天") : "完整日"}</td></tr>`).join("");
+    ["累计绑定用户", number.format(data.metrics.bound_accounts), "", `8 月 3 日以来；其中正式上线后 ${number.format(data.launch_metrics.post_launch_bound_accounts)} 人。`, "primary"],
+    ["其中新用户", number.format(data.metrics.new_accounts), percent.format(newShare), `占全观察期 ${percent.format(newShare)}；正式上线后占 ${percent.format(postLaunchNewShare)}。`, "new"],
+    ["老用户", number.format(data.metrics.existing_accounts), percent.format(existingShare), `占全观察期 ${percent.format(existingShare)}；正式上线后占 ${percent.format(postLaunchExistingShare)}。`, "existing"],
+  ].map(([label, value, share, detail, tone]) => `<article class="pulse-note pulse-note-${tone}"><span>${escapeHtml(label)}</span><div><strong>${escapeHtml(value)}</strong>${share ? `<em>${escapeHtml(share)}</em>` : ""}</div><p>${escapeHtml(detail)}</p></article>`).join("");
+  $("#daily-table").innerHTML = rows.map((row) => {
+    const cumulativeNewShare = formatShare(row.cumulative_new_accounts, row.cumulative_bound_accounts);
+    const cumulativeExistingShare = formatShare(row.cumulative_existing_accounts, row.cumulative_bound_accounts);
+    const status = row.partial
+      ? `截至 ${formatCutoff(data.meta.data_cutoff).split(" ").at(-1)}`
+      : row.date === launchDay(data) ? "完整日 · 08:00 上线" : "完整日";
+    return `<tr>
+      <td>${escapeHtml(formatDay(row.date))}</td>
+      <td><span class="phase-tag phase-${row.date < launchDay(data) ? "before" : row.date === launchDay(data) ? "launch" : "after"}">${escapeHtml(rowPhase(row, data))}</span></td>
+      <td class="today-total">+${number.format(row.bound_accounts_today)}</td>
+      <td class="new-cell">+${number.format(row.new_accounts_today)}</td>
+      <td class="existing-cell">+${number.format(row.existing_accounts_today)}</td>
+      <td class="new-cell">${formatShare(row.new_accounts_today, row.bound_accounts_today)}</td>
+      <td class="existing-cell">${formatShare(row.existing_accounts_today, row.bound_accounts_today)}</td>
+      <td class="cumulative-total">${number.format(row.cumulative_bound_accounts)}</td>
+      <td class="new-cell cumulative-cell">${number.format(row.cumulative_new_accounts)}<small>${cumulativeNewShare}</small></td>
+      <td class="existing-cell cumulative-cell">${number.format(row.cumulative_existing_accounts)}<small>${cumulativeExistingShare}</small></td>
+      <td class="${row.partial ? "partial-tag" : ""}">${escapeHtml(status)}</td>
+    </tr>`;
+  }).join("");
+  $("#daily-range").textContent = `${formatDay(rows[0].date)}—${formatDay(rows.at(-1).date)} · ${rows.length} 天`;
   const latest = rows.at(-1);
   $("#chart-note").textContent = latest?.partial
-    ? `${formatDay(latest.date)} 截至 ${formatCutoff(data.meta.data_cutoff).split(" ").at(-1)}，是非完整自然日；走势按首次完成绑定日期累计。`
-    : "走势按首次完成绑定日期累计。";
-}
-
-function renderQuality(data) {
-  $("#quality-grid").innerHTML = data.quality_checks.map((item) => `<article class="quality-card"><span>${escapeHtml(item.label)}</span><strong>${escapeHtml(item.value)}</strong><p>${escapeHtml(item.detail)}</p></article>`).join("");
-  $("#definition-grid").innerHTML = data.definitions.map((item) => `<article class="definition-card ${item.state === "missing" ? "is-missing" : ""}"><span>${item.state === "missing" ? "待补充" : "已确认"}</span><strong>${escapeHtml(item.term)}</strong><p>${escapeHtml(item.definition)}</p></article>`).join("");
+    ? `${formatDay(latest.date)} 截至 ${formatCutoff(data.meta.data_cutoff).split(" ").at(-1)}，是非完整自然日；曲线按首次完成绑定日期累计。`
+    : "曲线按首次完成绑定日期累计。";
 }
 
 function buildDocument(data) {
   const { metrics, meta } = data;
-  const newShare = metrics.new_accounts / metrics.bound_accounts;
-  const dailyRows = data.daily.map((row) => `| ${row.date} | ${row.cumulative_bound_accounts} | ${row.cumulative_new_accounts} | ${row.cumulative_existing_accounts} | ${row.partial ? "非完整日" : "完整日"} |`).join("\n");
+  const newShare = safeShare(metrics.new_accounts, metrics.bound_accounts) || 0;
+  const dailyRows = data.daily.map((row) => `| ${row.date} | ${rowPhase(row, data)} | ${row.bound_accounts_today} | ${row.new_accounts_today} | ${formatShare(row.new_accounts_today, row.bound_accounts_today)} | ${row.existing_accounts_today} | ${formatShare(row.existing_accounts_today, row.bound_accounts_today)} | ${row.cumulative_bound_accounts} | ${row.cumulative_new_accounts} | ${row.cumulative_existing_accounts} | ${row.partial ? "非完整日" : row.date === launchDay(data) ? "完整日 · 08:00 上线" : "完整日"} |`).join("\n");
   return `# 千问 X 且慢AI小顾 用户数据看板
 
 > 数据截至：${formatCutoff(meta.data_cutoff, true)}（Asia/Shanghai）
 > 来源：${meta.source}
-> 状态：已确认
+> 观察范围：2026-08-03 起；2026-08-10 08:00 正式上线
 
-## 1. 汇报结论
+## 1. 核心结果
 
-千问上线后，通过千问完成且慢账号绑定的用户达到 ${number.format(metrics.bound_accounts)} 个。新注册占 ${percent.format(newShare)}，已经成为主要增长来源；后续增长预计将继续以新注册为主。
-
-## 2. 核心结果
-
-- 绑定且慢账号：${number.format(metrics.bound_accounts)}
-- 新注册：${number.format(metrics.new_accounts)}（${percent.format(newShare)}）
+- 累计绑定用户：${number.format(metrics.bound_accounts)}
+- 其中新用户：${number.format(metrics.new_accounts)}（${percent.format(newShare)}）
 - 老用户：${number.format(metrics.existing_accounts)}
+- 正式上线后绑定：${number.format(data.launch_metrics.post_launch_bound_accounts)}
 
-## 3. 千问引流且慢用户增长走势图
+## 2. 完整逐日明细
 
-| 日期 | 绑定且慢账号 | 新注册 | 老用户 | 数据完整性 |
-|---|---:|---:|---:|---|
+| 日期 | 阶段 | 当日绑定 | 当日新用户 | 新用户占比 | 当日老用户 | 老用户占比 | 累计绑定 | 累计新用户 | 累计老用户 | 数据状态 |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---|
 ${dailyRows}
 
-## 4. 数据说明
+新用户指 8 月 10 日 08:00 及之后注册且慢的用户；老用户指此前已注册且慢的用户。每日占比以当天绑定用户为分母；同一账号只计算一次。
 
-- 绑定且慢账号：8 月 10 日 08:00 之后，通过千问完成且慢账号绑定的用户；同一账号只计算一次。
-- 新注册：8 月 10 日 08:00 及之后注册且慢，并完成账号绑定的用户。
-- 老用户：8 月 10 日 08:00 前已注册且慢，之后完成账号绑定的用户。
-- 本页统计完成且慢账号绑定的用户，不含仅访问、未绑定或绑定失败的用户；完整转化率需补充千问侧访问人数。
-
-## 5. 后续关注
-
-1. 24 小时激活：绑定后首次打开且慢或完成首次有效服务。
-2. 7 日回访：首周再次使用小顾或且慢。
-3. 服务转化：进入诊断、规划、签约或交易链路。
-
-## 6. 更新方式
+## 3. 更新方式
 
 在 Clair 的 Mac 上点击“更新数据”，即可从盈米本体查询最新生产数据；其他设备显示最近发布的数据。页面仅展示用户统计结果，不含账号明细与数据库凭证。`;
 }
@@ -357,7 +400,6 @@ function render(data, mode = "published") {
   currentData = validateData(data);
   renderHero(currentData);
   renderTrend(currentData);
-  renderQuality(currentData);
   $("#doc-content").textContent = buildDocument(currentData);
   document.documentElement.dataset.dataMode = mode;
 }
@@ -383,7 +425,7 @@ async function startLocalRefresh() {
   if (!started.job_id) throw new Error("更新服务没有返回任务编号");
   setRefreshStatus(started.message || "正在查询最新数据。", started.progress_url || "");
 
-  for (let attempt = 0; attempt < 180; attempt += 1) {
+  for (let attempt = 0; attempt < 330; attempt += 1) {
     await delay(2200);
     const statusResponse = await fetchWithTimeout(`${LOCAL_REFRESH_BASE}/status?job=${encodeURIComponent(started.job_id)}&v=${Date.now()}`, {
       cache: "no-store",
@@ -399,7 +441,7 @@ async function startLocalRefresh() {
     }
     if (status.status === "failed") throw new Error(status.message || "数据查询失败");
   }
-  throw new Error("数据查询超过 6 分钟，请稍后重试");
+  throw new Error("数据查询超过 12 分钟，请稍后重试");
 }
 
 async function refreshData() {
