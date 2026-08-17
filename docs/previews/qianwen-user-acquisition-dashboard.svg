@@ -1,56 +1,71 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
   <title id="title">千问 X 且慢AI小顾用户数据看板预览</title>
-  <desc id="desc">深蓝背景上突出显示一千四百六十五个累计绑定用户，以及七百五十八个新用户和七百零七个老用户。</desc>
+  <desc id="desc">服务上线以来累计绑定用户一千零七十五人，其中新用户七百六十二人、老用户三百一十三人，下方展示可切换增长走势。</desc>
   <defs>
-    <pattern id="grid" width="72" height="72" patternUnits="userSpaceOnUse">
-      <path d="M72 0H0V72" fill="none" stroke="#7C63FF" stroke-opacity=".12"/>
-    </pattern>
-    <linearGradient id="route" x1="0" x2="1">
-      <stop offset="0" stop-color="#7C63FF"/>
-      <stop offset="1" stop-color="#25C9A5"/>
+    <linearGradient id="newCard" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#DDF7F0"/><stop offset="1" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="oldCard" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#EEEAF7"/><stop offset="1" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="chartArea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8068F2" stop-opacity=".42"/><stop offset="1" stop-color="#8068F2" stop-opacity="0"/>
     </linearGradient>
   </defs>
-  <rect width="1280" height="720" fill="#0B1020"/>
-  <rect width="1280" height="720" fill="url(#grid)"/>
-  <circle cx="1120" cy="210" r="305" fill="none" stroke="#7C63FF" stroke-opacity=".2"/>
-  <circle cx="1120" cy="210" r="185" fill="none" stroke="#7C63FF" stroke-opacity=".16"/>
+  <rect width="1280" height="720" fill="#F5F6FB"/>
+  <circle cx="1160" cy="30" r="260" fill="#7357E8" fill-opacity=".07"/>
   <g font-family="PingFang SC,Microsoft YaHei,sans-serif">
-    <g transform="translate(68 58)">
-      <circle cx="17" cy="17" r="17" fill="#7C63FF"/><text x="17" y="22" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Q</text>
-      <path d="M34 17h28" stroke="#fff" stroke-opacity=".45"/>
-      <circle cx="79" cy="17" r="17" fill="#25C9A5"/><text x="79" y="22" text-anchor="middle" fill="#0B1020" font-size="13" font-weight="700">且</text>
-      <text x="112" y="14" fill="#fff" font-size="14" font-weight="700">千问 X 且慢AI小顾</text>
-      <text x="112" y="31" fill="#fff" fill-opacity=".45" font-family="SFMono-Regular,monospace" font-size="9" letter-spacing="2">USER DATA DASHBOARD</text>
+    <g transform="translate(62 25)">
+      <circle cx="17" cy="17" r="17" fill="#7357E8"/><text x="17" y="22" text-anchor="middle" fill="#fff" font-size="12" font-family="SFMono-Regular,monospace" font-weight="700">Q</text>
+      <circle cx="45" cy="17" r="17" fill="#18B894"/><text x="45" y="22" text-anchor="middle" fill="#111522" font-size="12" font-weight="700">且</text>
+      <text x="76" y="14" fill="#171B29" font-size="14" font-weight="700">千问 X 且慢AI小顾</text>
+      <text x="76" y="31" fill="#697187" font-size="9" letter-spacing="1.5">用户增长看板</text>
     </g>
-    <text x="68" y="200" fill="#B6A9FF" font-family="SFMono-Regular,monospace" font-size="13" font-weight="700" letter-spacing="2">OBSERVATION 2026.08.03 · LAUNCH 2026.08.10</text>
-    <text x="68" y="284" fill="#fff" font-family="Songti SC,STSong,serif" font-size="68" font-weight="700">千问 X 且慢AI小顾</text>
-    <text x="68" y="366" fill="#25C9A5" font-family="Songti SC,STSong,serif" font-size="68" font-weight="700">用户数据看板</text>
-    <text x="70" y="422" fill="#fff" fill-opacity=".7" font-size="18">累计绑定 1,465 人，其中新用户 758 人。</text>
-  </g>
-  <g transform="translate(755 128)">
-    <rect width="460" height="490" fill="#F4F7FF"/>
-    <rect x="10" y="10" width="440" height="470" fill="none" stroke="#0B1020" stroke-opacity=".08"/>
-    <g font-family="PingFang SC,Microsoft YaHei,sans-serif">
-      <text x="42" y="62" fill="#11182B" font-size="17" font-weight="700">累计绑定用户</text>
-      <text x="418" y="129" fill="#0B1020" text-anchor="end" font-family="SFMono-Regular,monospace" font-size="86" font-weight="800" letter-spacing="-5">1,465</text>
-      <text x="42" y="126" fill="#0B1020" font-size="13">个用户</text>
-      <circle cx="62" cy="184" r="22" fill="#7C63FF"/><text x="62" y="189" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">千问</text>
-      <path d="M84 184h290" stroke="url(#route)" stroke-width="6"/>
-      <circle cx="398" cy="184" r="22" fill="#25C9A5"/><text x="398" y="189" text-anchor="middle" fill="#0B1020" font-size="11" font-weight="700">且慢</text>
-      <text x="42" y="263" fill="#087769" font-size="15" font-weight="700">其中新用户</text>
-      <text x="180" y="264" fill="#0B1020" font-family="SFMono-Regular,monospace" font-size="32" font-weight="700">758</text>
-      <rect x="42" y="282" width="330" height="10" fill="#0B1020" fill-opacity=".08"/>
-      <rect x="42" y="282" width="171" height="10" fill="#25C9A5"/>
-      <text x="418" y="291" text-anchor="end" fill="#087769" font-family="SFMono-Regular,monospace" font-size="18" font-weight="700">51.7%</text>
-      <text x="42" y="350" fill="#65708A" font-size="13">老用户</text>
-      <text x="180" y="351" fill="#0B1020" font-family="SFMono-Regular,monospace" font-size="24" font-weight="700">707</text>
-      <rect x="42" y="369" width="330" height="10" fill="#0B1020" fill-opacity=".08"/>
-      <rect x="42" y="369" width="159" height="10" fill="#7C63FF"/>
-      <text x="418" y="378" text-anchor="end" fill="#0B1020" font-family="SFMono-Regular,monospace" font-size="14" font-weight="700">48.3%</text>
-      <path d="M42 422h376" stroke="#0B1020" stroke-opacity=".12"/>
-      <text x="42" y="452" fill="#65708A" font-size="12">盈米本体 · 数据截至 2026-08-17 11:45</text>
+    <rect x="1080" y="22" width="136" height="40" rx="20" fill="#111522"/>
+    <text x="1148" y="47" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">更新数据</text>
+
+    <text x="62" y="128" fill="#7357E8" font-family="SFMono-Regular,monospace" font-size="11" font-weight="700" letter-spacing="2">SERVICE LAUNCH · SINCE 2026.08.10 08:00</text>
+    <text x="62" y="192" fill="#111522" font-family="Songti SC,STSong,serif" font-size="54" font-weight="700">千问 X 且慢AI小顾</text>
+    <text x="62" y="252" fill="#7357E8" font-family="Songti SC,STSong,serif" font-size="54" font-weight="700">用户数据看板</text>
+    <text x="715" y="222" fill="#697187" font-size="15">服务上线以来累计绑定 1,075 人</text>
+    <text x="715" y="248" fill="#697187" font-size="15">其中新用户 762 人，占 70.9%</text>
+
+    <g transform="translate(62 294)">
+      <rect width="430" height="190" fill="#111522"/>
+      <circle cx="397" cy="29" r="7" fill="#7357E8" stroke="#111522" stroke-width="4"/>
+      <text x="28" y="40" fill="#fff" fill-opacity=".62" font-size="14" font-weight="700">累计绑定用户</text>
+      <text x="28" y="122" fill="#fff" font-family="SFMono-Regular,monospace" font-size="70" font-weight="800" letter-spacing="-4">1,075</text>
+      <text x="28" y="161" fill="#fff" fill-opacity=".55" font-size="12">服务上线以来 · 8 个日期</text>
+    </g>
+    <g transform="translate(510 294)">
+      <rect width="330" height="190" fill="url(#newCard)"/>
+      <text x="26" y="40" fill="#087A68" font-size="14" font-weight="700">其中新用户</text>
+      <text x="26" y="114" fill="#087A68" font-family="SFMono-Regular,monospace" font-size="57" font-weight="800" letter-spacing="-3">762</text>
+      <text x="292" y="111" text-anchor="end" fill="#087A68" font-family="SFMono-Regular,monospace" font-size="21" font-weight="700">70.9%</text>
+      <text x="26" y="161" fill="#697187" font-size="12">上线后新注册且慢</text>
+    </g>
+    <g transform="translate(858 294)">
+      <rect width="358" height="190" fill="url(#oldCard)"/>
+      <text x="26" y="40" fill="#64547F" font-size="14" font-weight="700">老用户</text>
+      <text x="26" y="114" fill="#64547F" font-family="SFMono-Regular,monospace" font-size="52" font-weight="800" letter-spacing="-3">313</text>
+      <text x="320" y="111" text-anchor="end" fill="#64547F" font-family="SFMono-Regular,monospace" font-size="18" font-weight="700">29.1%</text>
+      <text x="26" y="161" fill="#697187" font-size="12">上线前已注册且慢</text>
+    </g>
+
+    <g transform="translate(62 518)">
+      <rect width="1154" height="164" fill="#111522"/>
+      <text x="28" y="33" fill="#fff" fill-opacity=".6" font-size="12">累计绑定用户走势</text>
+      <text x="28" y="72" fill="#fff" font-family="SFMono-Regular,monospace" font-size="34" font-weight="800">1,075</text>
+      <g transform="translate(850 20)">
+        <rect width="88" height="36" fill="#2B3044"/><text x="44" y="23" text-anchor="middle" fill="#fff" font-size="11">每日新增</text>
+        <rect x="88" width="66" height="36" fill="#7357E8"/><text x="121" y="23" text-anchor="middle" fill="#fff" font-size="11">累计</text>
+        <rect x="166" width="108" height="36" fill="#2B3044"/><text x="220" y="23" text-anchor="middle" fill="#fff" font-size="11">上线以来</text>
+      </g>
+      <path d="M280 132 L280 116 L400 95 L520 78 L640 65 L760 52 L880 44 L1000 37 L1120 32 L1120 132 Z" fill="url(#chartArea)"/>
+      <path d="M280 116 L400 95 L520 78 L640 65 L760 52 L880 44 L1000 37 L1120 32" fill="none" stroke="#8068F2" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      <g fill="#fff" fill-opacity=".42" font-family="SFMono-Regular,monospace" font-size="9">
+        <text x="280" y="151" text-anchor="middle">8.10</text><text x="520" y="151" text-anchor="middle">8.12</text><text x="760" y="151" text-anchor="middle">8.14</text><text x="1000" y="151" text-anchor="middle">8.16</text><text x="1120" y="151" text-anchor="middle">8.17</text>
+      </g>
     </g>
   </g>
-  <rect x="0" y="688" width="1280" height="32" fill="#7C63FF"/>
-  <text x="68" y="709" fill="#fff" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="12" font-weight="700">UPDATED · 1,465 = 758 + 707 · DAILY INCREMENT + SHARE + CUMULATIVE</text>
 </svg>

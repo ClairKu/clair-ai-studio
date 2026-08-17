@@ -3,151 +3,142 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="千问 X 且慢AI小顾用户数据看板，展示累计绑定用户、新老用户每日增量、占比及累计增长。" />
-  <meta name="theme-color" content="#0b1020" />
+  <meta name="description" content="千问 X 且慢AI小顾用户数据看板，展示服务上线以来的绑定用户、新用户、老用户及每日增长明细。" />
+  <meta name="theme-color" content="#f5f6fb" />
   <meta name="robots" content="noindex,nofollow" />
   <title>千问 X 且慢AI小顾｜用户数据看板</title>
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
   <a class="skip-link" href="#main">跳到主要内容</a>
-  <div class="signal-field" aria-hidden="true"></div>
 
   <header class="topbar">
-    <a class="brand" href="#top" aria-label="回到页面顶部">
-      <span class="brand-node brand-node-q">Q</span>
-      <span class="brand-line" aria-hidden="true"></span>
-      <span class="brand-node brand-node-m">且</span>
-      <span class="brand-copy"><strong>千问 X 且慢AI小顾</strong><small>USER DATA DASHBOARD</small></span>
-    </a>
-    <div class="topbar-actions">
-      <span class="freshness" id="freshness"><i aria-hidden="true"></i><span>正在读取数据</span></span>
-      <button class="refresh-button" id="refresh-button" type="button">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"></path><path d="M20 5v6h-6"></path></svg>
-        <span>更新数据</span>
-      </button>
+    <div class="topbar-inner">
+      <a class="brand" href="#top" aria-label="回到页面顶部">
+        <span class="brand-mark" aria-hidden="true"><i>Q</i><b>且</b></span>
+        <span class="brand-copy"><strong>千问 X 且慢AI小顾</strong><small>用户增长看板</small></span>
+      </a>
+      <div class="topbar-actions">
+        <span class="freshness" id="freshness"><i aria-hidden="true"></i><span>正在读取数据</span></span>
+        <button class="refresh-button" id="refresh-button" type="button" aria-busy="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"></path><path d="M20 5v6h-6"></path></svg>
+          <span>更新数据</span>
+        </button>
+      </div>
     </div>
+    <div class="refresh-status" id="refresh-status" role="status" aria-live="polite"></div>
   </header>
 
   <main id="main">
     <section class="hero shell" id="top" aria-labelledby="hero-title">
-      <div class="hero-copy">
-        <p class="eyebrow">QWEN APP × QIEMAN AI XIAOGU</p>
+      <div class="hero-heading">
+        <p class="eyebrow">SERVICE LAUNCH · SINCE 2026.08.10 08:00</p>
         <h1 id="hero-title">千问 X 且慢AI小顾<br /><span>用户数据看板</span></h1>
-        <p class="hero-lead" id="hero-lead">正在读取最新用户数据。</p>
-        <div class="hero-meta">
-          <span><b>范围</b> 8 月 3 日起（8 月 10 日正式上线）</span>
-          <span><b>来源</b> 盈米本体生产数据</span>
-        </div>
+        <p class="hero-lead" id="hero-lead">正在读取服务上线以来的最新用户数据。</p>
       </div>
 
-      <div class="handoff-card" aria-label="千问引流且慢用户构成">
-        <div class="handoff-head">
-          <span>累计绑定用户</span>
-          <strong id="bound-total">—</strong>
-          <small>8 月 3 日以来 · 人</small>
+      <div class="kpi-heading">
+        <div>
+          <h2>关键数据</h2>
+          <p id="kpi-scope">服务上线以来</p>
         </div>
-        <div class="handoff-route" aria-hidden="true">
-          <span class="route-origin">千问</span>
-          <span class="route-track"><i></i></span>
-          <span class="route-target">且慢</span>
-        </div>
-        <div class="route-split">
-          <div class="split-row split-new">
-            <div><span>其中新用户</span><strong id="new-accounts">—</strong></div>
-            <div class="split-meter"><i id="new-meter"></i></div>
-            <em id="new-share">—</em>
-          </div>
-          <div class="split-row split-existing">
-            <div><span>老用户</span><strong id="existing-accounts">—</strong></div>
-            <div class="split-meter"><i id="existing-meter"></i></div>
-            <em id="existing-share">—</em>
-          </div>
-        </div>
-        <p class="handoff-note">新用户指 8 月 10 日 08:00 及之后注册且慢的用户；老用户指此前已注册且慢的用户。本页统计已完成且慢账号绑定的用户。</p>
+        <span>选择指标，查看对应走势</span>
       </div>
+      <fieldset class="kpi-switch" aria-controls="trend-chart detail-table">
+        <legend class="sr-only">选择要查看的指标</legend>
+        <label class="kpi-card kpi-bound">
+          <input type="radio" name="metric" value="bound" checked />
+          <span class="kpi-select">累计绑定用户</span>
+          <strong id="bound-total">—</strong>
+          <small id="bound-context">服务上线以来</small>
+          <i aria-hidden="true">查看走势</i>
+        </label>
+        <label class="kpi-card kpi-new">
+          <input type="radio" name="metric" value="new" />
+          <span class="kpi-select">其中新用户</span>
+          <div><strong id="new-accounts">—</strong><em id="new-share">—</em></div>
+          <small>上线后新注册且慢</small>
+          <i aria-hidden="true">查看走势</i>
+        </label>
+        <label class="kpi-card kpi-existing">
+          <input type="radio" name="metric" value="existing" />
+          <span class="kpi-select">老用户</span>
+          <div><strong id="existing-accounts">—</strong><em id="existing-share">—</em></div>
+          <small>上线前已注册且慢</small>
+          <i aria-hidden="true">查看走势</i>
+        </label>
+      </fieldset>
     </section>
 
-    <section class="section shell" aria-labelledby="pulse-title">
-      <div class="section-heading">
+    <section class="analysis shell" aria-labelledby="analysis-title">
+      <div class="analysis-head">
         <div>
-          <p class="eyebrow">USER GROWTH · 每日增量与累计走势</p>
-          <h2 id="pulse-title">千问引流且慢用户增长走势图</h2>
+          <p class="eyebrow">INTERACTIVE USER GROWTH</p>
+          <h2 id="analysis-title">用户增长走势</h2>
         </div>
-        <div class="legend" aria-label="图例">
-          <span><i class="legend-bound"></i>累计绑定用户</span>
-          <span><i class="legend-new"></i>新用户（累计）</span>
-          <span><i class="legend-existing"></i>老用户（累计）</span>
+        <div class="analysis-controls">
+          <fieldset class="segmented" aria-label="选择走势形式">
+            <legend>走势</legend>
+            <label><input type="radio" name="trend" value="daily" /><span>每日新增</span></label>
+            <label><input type="radio" name="trend" value="cumulative" checked /><span>累计</span></label>
+          </fieldset>
+          <fieldset class="segmented range-segmented" aria-label="选择时间范围">
+            <legend>时间</legend>
+            <label><input type="radio" name="range" value="since-launch" checked /><span>上线以来</span></label>
+            <label><input type="radio" name="range" value="last-7"><span>近 7 日</span></label>
+            <label><input type="radio" name="range" value="custom"><span>自定义</span></label>
+          </fieldset>
         </div>
       </div>
-      <div class="trend-layout">
-        <article class="chart-panel">
-          <div class="chart-wrap" id="chart-wrap">
-            <svg id="trend-chart" viewBox="0 0 840 330" role="img" aria-labelledby="chart-title chart-desc">
-              <title id="chart-title">千问引流且慢用户增长走势图</title>
-              <desc id="chart-desc">累计面积图展示每天新注册、老用户及绑定且慢账号总量。</desc>
-            </svg>
-            <div class="chart-tooltip" id="chart-tooltip" hidden></div>
+
+      <form class="custom-range" id="custom-range" hidden>
+        <label>开始日期<input id="range-start" type="date" /></label>
+        <span aria-hidden="true">至</span>
+        <label>结束日期<input id="range-end" type="date" /></label>
+        <button type="submit">应用</button>
+        <p id="range-error" role="alert"></p>
+      </form>
+
+      <div class="analysis-canvas">
+        <div class="chart-summary">
+          <div>
+            <span id="analysis-label">累计绑定用户</span>
+            <strong id="analysis-value">—</strong>
           </div>
-          <p class="chart-note" id="chart-note">最新日期可能为非完整自然日，避免直接与完整日比较。</p>
-        </article>
-        <aside class="pulse-notes" id="pulse-notes" aria-label="趋势解读"></aside>
+          <p id="analysis-context">正在读取趋势数据。</p>
+        </div>
+        <div class="chart-wrap" id="chart-wrap">
+          <svg id="trend-chart" viewBox="0 0 1040 420" role="img" aria-labelledby="chart-title chart-desc" data-metric="bound" data-trend="cumulative">
+            <title id="chart-title">服务上线以来累计绑定用户走势</title>
+            <desc id="chart-desc">展示服务上线以来累计绑定用户随时间变化。</desc>
+          </svg>
+          <div class="chart-tooltip" id="chart-tooltip" hidden></div>
+        </div>
+        <p class="chart-note" id="chart-note"></p>
+        <output class="sr-only" id="selection-announcement" aria-live="polite"></output>
       </div>
-      <details class="daily-details" open>
-        <summary>完整逐日明细 <span id="daily-range">增量 · 累计 · 占比</span></summary>
-        <div class="table-scroll">
-          <table>
-            <thead>
-              <tr>
-                <th rowspan="2">日期</th>
-                <th rowspan="2">阶段</th>
-                <th colspan="5" class="group-heading">当日增量</th>
-                <th colspan="3" class="group-heading">累计用户</th>
-                <th rowspan="2">数据状态</th>
-              </tr>
-              <tr>
-                <th>绑定</th><th>新用户</th><th>老用户</th><th>新用户占比</th><th>老用户占比</th>
-                <th>绑定</th><th>新用户</th><th>老用户</th>
-              </tr>
-            </thead>
+
+      <section class="details" aria-labelledby="details-title">
+        <div class="details-head">
+          <div>
+            <p class="eyebrow">LINKED DATA DETAIL</p>
+            <h2 id="details-title">对应数据明细</h2>
+          </div>
+          <p><strong id="detail-range">—</strong><span id="detail-count">—</span></p>
+        </div>
+        <p class="scroll-hint" id="table-scroll-hint">可左右滑动查看完整数据</p>
+        <div class="table-scroll" role="region" tabindex="0" aria-labelledby="details-title" aria-describedby="table-scroll-hint">
+          <table id="detail-table">
+            <caption class="sr-only">所选时间范围内每天的绑定用户、新用户、老用户增量、占比与累计数据</caption>
+            <thead id="detail-head"></thead>
             <tbody id="daily-table"></tbody>
           </table>
         </div>
-        <p class="table-note">每日占比以当天绑定用户为分母；8 月 10 日 08:00 为正式上线节点，当天同时包含上线前后数据。</p>
-      </details>
-    </section>
-
-    <section class="refresh-explainer shell" aria-labelledby="refresh-title">
-      <div>
-        <p class="eyebrow">ONE-CLICK UPDATE · 一键更新</p>
-        <h2 id="refresh-title">点击更新，刷新最新数据</h2>
-      </div>
-      <div class="refresh-flow" aria-label="更新数据流程">
-        <span>点击更新数据</span><i>→</i><span>盈米本体查询</span><i>→</i><span>数据自动核对</span><i>→</i><span>看板更新</span>
-      </div>
-      <p>在 Clair 的 Mac 上，点击按钮会从盈米本体查询最新生产数据；其他设备显示最近发布的数据。对外仅展示用户统计结果，不含账号明细与数据库凭证。</p>
-      <div class="refresh-status" id="refresh-status" role="status" aria-live="polite">当前展示最近发布数据。</div>
+        <p class="data-footnote" id="data-footnote"></p>
+      </section>
     </section>
   </main>
 
-  <footer>
-    <span>千问 X 且慢AI小顾 · 用户数据看板</span>
-    <strong id="footer-cutoff">数据截至 —</strong>
-    <span>仅展示用户统计结果</span>
-  </footer>
-
-  <button class="doc-fab" id="doc-fab" type="button" aria-controls="doc-panel" aria-expanded="false">
-    <span class="doc-fab-label">口径文档</span>
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6M8 13h8M8 17h8"></path></svg>
-  </button>
-  <div class="doc-overlay" id="doc-overlay"></div>
-  <aside class="doc-panel" id="doc-panel" aria-hidden="true" aria-labelledby="doc-title">
-    <div class="doc-panel-head">
-      <h2 id="doc-title">看板数据说明</h2>
-      <div><button id="copy-doc" type="button">复制 Markdown</button><button id="close-doc" type="button" aria-label="关闭口径文档">×</button></div>
-    </div>
-    <pre id="doc-content"></pre>
-  </aside>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="./data/fallback-data.js"></script>

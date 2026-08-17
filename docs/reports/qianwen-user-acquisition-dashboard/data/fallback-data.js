@@ -1,11 +1,11 @@
 window.QIANWEN_ACQUISITION_DATA = {
-  "schema_version": "qianwen-user-acquisition-v3",
+  "schema_version": "qianwen-user-acquisition-v4",
   "meta": {
     "title": "千问 X 且慢AI小顾 用户数据看板",
-    "window_start_at": "2026-08-03T00:00:00+08:00",
+    "window_start_at": "2026-08-10T08:00:00+08:00",
     "launch_at": "2026-08-10T08:00:00+08:00",
-    "generated_at": "2026-08-17T11:45:27+08:00",
-    "data_cutoff": "2026-08-17T11:45:27+08:00",
+    "generated_at": "2026-08-17T13:08:37+08:00",
+    "data_cutoff": "2026-08-17T13:08:37+08:00",
     "timezone": "Asia/Shanghai",
     "source": "盈米本体 · 生产数据库",
     "evidence_state": "confirmed",
@@ -13,116 +13,25 @@ window.QIANWEN_ACQUISITION_DATA = {
     "latest_day_is_partial": true
   },
   "metrics": {
-    "bound_accounts": 1465,
-    "existing_accounts": 707,
-    "new_accounts": 758,
+    "bound_accounts": 1075,
+    "existing_accounts": 313,
+    "new_accounts": 762,
     "missing_registration_time": 0,
     "duplicate_bindings": 0,
     "unmatched_accounts": 0
   },
-  "launch_metrics": {
-    "pre_launch_bound_accounts": 396,
-    "post_launch_bound_accounts": 1069,
-    "post_launch_new_accounts": 758,
-    "post_launch_existing_accounts": 311,
-    "post_launch_unclassified_accounts": 0
-  },
   "daily": [
-    {
-      "date": "2026-08-03",
-      "new_accounts_today": 0,
-      "existing_accounts_today": 9,
-      "unclassified_accounts_today": 0,
-      "bound_accounts_today": 9,
-      "cumulative_new_accounts": 0,
-      "cumulative_existing_accounts": 9,
-      "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 9,
-      "partial": false
-    },
-    {
-      "date": "2026-08-04",
-      "new_accounts_today": 0,
-      "existing_accounts_today": 28,
-      "unclassified_accounts_today": 0,
-      "bound_accounts_today": 28,
-      "cumulative_new_accounts": 0,
-      "cumulative_existing_accounts": 37,
-      "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 37,
-      "partial": false
-    },
-    {
-      "date": "2026-08-05",
-      "new_accounts_today": 0,
-      "existing_accounts_today": 79,
-      "unclassified_accounts_today": 0,
-      "bound_accounts_today": 79,
-      "cumulative_new_accounts": 0,
-      "cumulative_existing_accounts": 116,
-      "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 116,
-      "partial": false
-    },
-    {
-      "date": "2026-08-06",
-      "new_accounts_today": 0,
-      "existing_accounts_today": 52,
-      "unclassified_accounts_today": 0,
-      "bound_accounts_today": 52,
-      "cumulative_new_accounts": 0,
-      "cumulative_existing_accounts": 168,
-      "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 168,
-      "partial": false
-    },
-    {
-      "date": "2026-08-07",
-      "new_accounts_today": 0,
-      "existing_accounts_today": 46,
-      "unclassified_accounts_today": 0,
-      "bound_accounts_today": 46,
-      "cumulative_new_accounts": 0,
-      "cumulative_existing_accounts": 214,
-      "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 214,
-      "partial": false
-    },
-    {
-      "date": "2026-08-08",
-      "new_accounts_today": 0,
-      "existing_accounts_today": 77,
-      "unclassified_accounts_today": 0,
-      "bound_accounts_today": 77,
-      "cumulative_new_accounts": 0,
-      "cumulative_existing_accounts": 291,
-      "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 291,
-      "partial": false
-    },
-    {
-      "date": "2026-08-09",
-      "new_accounts_today": 0,
-      "existing_accounts_today": 92,
-      "unclassified_accounts_today": 0,
-      "bound_accounts_today": 92,
-      "cumulative_new_accounts": 0,
-      "cumulative_existing_accounts": 383,
-      "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 383,
-      "partial": false
-    },
     {
       "date": "2026-08-10",
       "new_accounts_today": 207,
-      "existing_accounts_today": 168,
+      "existing_accounts_today": 155,
       "unclassified_accounts_today": 0,
-      "bound_accounts_today": 375,
+      "bound_accounts_today": 362,
       "cumulative_new_accounts": 207,
-      "cumulative_existing_accounts": 551,
+      "cumulative_existing_accounts": 155,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 758,
-      "partial": false
+      "cumulative_bound_accounts": 362,
+      "partial": true
     },
     {
       "date": "2026-08-11",
@@ -131,9 +40,9 @@ window.QIANWEN_ACQUISITION_DATA = {
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 210,
       "cumulative_new_accounts": 339,
-      "cumulative_existing_accounts": 629,
+      "cumulative_existing_accounts": 233,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 968,
+      "cumulative_bound_accounts": 572,
       "partial": false
     },
     {
@@ -143,9 +52,9 @@ window.QIANWEN_ACQUISITION_DATA = {
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 138,
       "cumulative_new_accounts": 451,
-      "cumulative_existing_accounts": 655,
+      "cumulative_existing_accounts": 259,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 1106,
+      "cumulative_bound_accounts": 710,
       "partial": false
     },
     {
@@ -155,9 +64,9 @@ window.QIANWEN_ACQUISITION_DATA = {
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 106,
       "cumulative_new_accounts": 538,
-      "cumulative_existing_accounts": 674,
+      "cumulative_existing_accounts": 278,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 1212,
+      "cumulative_bound_accounts": 816,
       "partial": false
     },
     {
@@ -167,9 +76,9 @@ window.QIANWEN_ACQUISITION_DATA = {
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 76,
       "cumulative_new_accounts": 602,
-      "cumulative_existing_accounts": 686,
+      "cumulative_existing_accounts": 290,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 1288,
+      "cumulative_bound_accounts": 892,
       "partial": false
     },
     {
@@ -179,9 +88,9 @@ window.QIANWEN_ACQUISITION_DATA = {
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 90,
       "cumulative_new_accounts": 682,
-      "cumulative_existing_accounts": 696,
+      "cumulative_existing_accounts": 300,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 1378,
+      "cumulative_bound_accounts": 982,
       "partial": false
     },
     {
@@ -191,21 +100,21 @@ window.QIANWEN_ACQUISITION_DATA = {
       "unclassified_accounts_today": 0,
       "bound_accounts_today": 60,
       "cumulative_new_accounts": 736,
-      "cumulative_existing_accounts": 702,
+      "cumulative_existing_accounts": 306,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 1438,
+      "cumulative_bound_accounts": 1042,
       "partial": false
     },
     {
       "date": "2026-08-17",
-      "new_accounts_today": 22,
-      "existing_accounts_today": 5,
+      "new_accounts_today": 26,
+      "existing_accounts_today": 7,
       "unclassified_accounts_today": 0,
-      "bound_accounts_today": 27,
-      "cumulative_new_accounts": 758,
-      "cumulative_existing_accounts": 707,
+      "bound_accounts_today": 33,
+      "cumulative_new_accounts": 762,
+      "cumulative_existing_accounts": 313,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 1465,
+      "cumulative_bound_accounts": 1075,
       "partial": true
     }
   ]
