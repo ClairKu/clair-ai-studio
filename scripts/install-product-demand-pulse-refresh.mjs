@@ -8,7 +8,18 @@ import { fileURLToPath } from "node:url";
 
 const label = "com.clair.product-demand-pulse-refresh";
 const sourceRepo = fileURLToPath(new URL("../", import.meta.url));
-const repo = resolve(process.argv[2] || sourceRepo);
+const findPersistentRepoAnchor = (path) => {
+  try {
+    const commonGitDir = execFileSync("/usr/bin/git", [
+      "-C", path,
+      "rev-parse", "--path-format=absolute", "--git-common-dir",
+    ], { encoding: "utf8" }).trim();
+    return resolve(commonGitDir, "..");
+  } catch {
+    return path;
+  }
+};
+const repo = resolve(process.argv[2] || findPersistentRepoAnchor(sourceRepo));
 const sourceServer = join(sourceRepo, "scripts", "product-demand-pulse-refresh-server.mjs");
 const sourceSchema = join(sourceRepo, "scripts", "product-demand-pulse-refresh-output.schema.json");
 const node = process.execPath;

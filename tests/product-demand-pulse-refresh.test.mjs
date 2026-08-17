@@ -26,6 +26,12 @@ test("刷新服务只接受生产战报来源", () => {
   assert.equal(isAllowedOrigin(undefined, origins), false);
 });
 
+test("安装器使用持久仓库锚点而不是临时 worktree", async () => {
+  const installer = await readFile(new URL("../scripts/install-product-demand-pulse-refresh.mjs", import.meta.url), "utf8");
+  assert.match(installer, /--git-common-dir/);
+  assert.match(installer, /findPersistentRepoAnchor/);
+});
+
 test("增量指令跳过已经上线的历史记录", () => {
   const prompt = buildRefreshPrompt({
     packet: { schema: "pain-off-update-packet/v1", changes: [] },
