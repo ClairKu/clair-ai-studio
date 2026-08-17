@@ -41,12 +41,14 @@ test("增量指令跳过已经上线的历史记录", () => {
   assert.match(prompt, /已经确认上线的历史记录不要重新检查/);
   assert.match(prompt, /status 不是 released \/ impact_confirmed/);
   assert.match(prompt, /有效 MR 链路已合并且生产环境实际生效/);
+  assert.match(prompt, /只发一次精准问题，effort 使用 medium/);
+  assert.match(prompt, /普通 Jira\/Wiki 新增或编辑不入榜/);
 });
 
 test("对外刷新结果会被脱敏和收敛", () => {
   const result = sanitizeAgentResult({
     status: "updated",
-    summary: "发现 1 个新上线需求",
+    summary: "发现 1 个新上线需求 https://internal.example/task/1",
     delta: { new_submitted: 1, pending_release: 2, new_released: 1 },
     snapshot: { submitted: 5, pending_release: 2, released: 5 },
     accepted_client_ids: ["LOCAL-1", "LOCAL-1"],
@@ -56,6 +58,7 @@ test("对外刷新结果会被脱敏和收敛", () => {
     internal_url: "https://internal.example",
   });
   assert.deepEqual(result.accepted_client_ids, ["LOCAL-1"]);
+  assert.equal(result.summary, "发现 1 个新上线需求");
   assert.equal(result.production_url, "https://clairku.github.io/clair-ai-studio/reports/product-demand-pulse/");
   assert.equal("internal_url" in result, false);
 });

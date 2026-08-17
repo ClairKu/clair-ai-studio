@@ -35,6 +35,14 @@ function cleanText(value, maxLength = 300) {
   return typeof value === "string" ? value.trim().slice(0, maxLength) : "";
 }
 
+function cleanSummary(value) {
+  return cleanText(value)
+    .replace(/https?:\/\/\S+/giu, "")
+    .replace(/\s+/gu, " ")
+    .trim()
+    .slice(0, 160);
+}
+
 function safeCount(value) {
   return Number.isInteger(value) && value >= 0 ? value : 0;
 }
@@ -54,7 +62,7 @@ export function sanitizeAgentResult(input) {
   const checkedThrough = new Date(input?.checked_through_at || "");
   return {
     status,
-    summary: cleanText(input?.summary) || "核验没有返回可用结果。",
+    summary: cleanSummary(input?.summary) || "核验没有返回可用结果。",
     delta: {
       new_submitted: safeCount(input?.delta?.new_submitted),
       pending_release: safeCount(input?.delta?.pending_release),
@@ -116,6 +124,11 @@ export function buildRefreshPrompt({ packet, checkpoint, repo }) {
 3. 只查该游标之后新增或被修改的需求，以及 latest.json 中 status 不是 released / impact_confirmed 的既有记录。已经确认上线的历史记录不要重新检查。
 4. 若 packet.changes 非空，逐条核验并纳入本次增量；按“问题 + 交付结果”去重，补充与追问不新增。
 5. 当前 PM 范围仅：嘉鸿、家亮、春燕、刘晨、金星、刘佳、嘉烨。公开数据必须脱敏。
+
+快速取数规则：
+- 首轮来源查询就同时核验“对应 PM 本人借助本体提交或推进”的一手证据；普通 Jira/Wiki 新增或编辑不入榜。证据不足直接排除，不再发起第二轮归因深挖。
+- 本体查询只开一个会话、只发一次精准问题，effort 使用 medium；不要派生子任务或并行代理。
+- 最终 summary 面向产品同学，只写结论与排除数量，不写仓库、HTTP、构建、内部链接等过程说明，控制在 120 个汉字内。
 
 状态证据：
 - submitted：确认已有新需求；building：已进入开发但还没有有效合并；merged：同一需求的有效 MR 链路已合并、但生产还未确认生效；released：有效 MR 链路已合并且生产环境实际生效。
