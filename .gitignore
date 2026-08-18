@@ -3,3 +3,6 @@ node_modules/
 __pycache__/
 *.pyc
 .private/
+
+# 本机取数明细，不发布
+automation/pain-off/state/

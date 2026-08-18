@@ -1,7 +1,22 @@
-const STORAGE_KEY = "pain-off-pending-v1";
-const REFRESH_ENDPOINT = "http://127.0.0.1:43117";
-const REFRESH_POLL_MS = 2500;
-const REFRESH_TIMEOUT_MS = 30 * 60 * 1000;
+/**
+ * 痛点消消乐 · 前端
+ *
+ * 数据只有一个方向：内网 agent 取数 → 中继 Worker / GitHub Pages → 这里读。
+ * 页面从不直接连内网，也不持有任何取数凭据。
+ *
+ * 「更新数据」分两步：
+ *   1. 先拉一次最新已发布快照（任何人、任何网络都能做，不要口令）
+ *   2. 快照过期、或用户主动要求时，才凭口令让中继排一个刷新请求，等内网 agent 回填
+ */
+
+const STORAGE_KEY = "pain-off-wishlist-v1";
+const PASSCODE_KEY = "pain-off-passcode";
+const RELAY_CONFIG_URL = "./data/relay-config.json";
+const SNAPSHOT_URL = "./data/latest.json";
+const JOB_POLL_MS = 3000;
+const JOB_TIMEOUT_MS = 10 * 60 * 1000;
+const DAY_MS = 86400000;
+
 const LANDED = new Set(["released", "impact_confirmed"]);
 const STATUS_LABELS = {
   submitted: "待处理",
@@ -18,6 +33,15 @@ const CATEGORY_META = {
   surprise: { title: "惊喜探索", kicker: "团队牵引 × 日常改善", symbol: "✦" },
 };
 const CATEGORY_ORDER = ["urgent_bug", "important", "user_request", "surprise"];
+const CRITERIA_LABELS = {
+  submitted: "累计提交",
+  released: "累计上线",
+  dedupe: "去重",
+  end_to_end: "端到端",
+  window: "统计区间",
+};
+
+const $ = (selector) => document.querySelector(selector);
 
 const escapeHtml = (value = "") => String(value)
   .replaceAll("&", "&amp;")
@@ -35,17 +59,111 @@ const formatDate = (value, withYear = false) => {
     : { month: "2-digit", day: "2-digit" }).format(date);
 };
 
-async function loadData() {
+function formatAge(value) {
+  if (!value) return "时间未知";
+  const minutes = Math.round((Date.now() - new Date(value).getTime()) / 60000);
+  if (!Number.isFinite(minutes) || minutes < 0) return formatDate(value, true);
+  if (minutes < 1) return "刚刚";
+  if (minutes < 60) return `${minutes} 分钟前`;
+  if (minutes < 60 * 24) return `${Math.round(minutes / 60)} 小时前`;
+  return `${Math.round(minutes / (60 * 24))} 天前`;
+}
+
+/* ---------------------------------------------------------------- 数据加载 */
+
+/**
+ * 老快照（v1）只有 records，没有汇总；新快照（v2）由内网 agent 从 GitLab 算好。
+ * 这里统一成一种形状，页面下面就不用再关心版本了。
+ */
+function normalize(raw) {
+  if (!raw || typeof raw !== "object") return null;
+  const people = Array.isArray(raw.people) ? raw.people : [];
+  const records = Array.isArray(raw.records) ? raw.records : [];
+
+  if (raw.schema_version === "product-demand-pulse/v2" && raw.summary) {
+    return { ...raw, people, records, demands: Array.isArray(raw.demands) ? raw.demands : [] };
+  }
+
+  const counted = records.filter((item) => item.unique !== false);
+  const released = counted.filter((item) => LANDED.has(item.status));
+  return {
+    schema_version: "product-demand-pulse/v1",
+    meta: {
+      ...(raw.meta || {}),
+      generated_at: raw.meta?.cutoff || null,
+      source_of_truth: "人工登记",
+      stale_after_minutes: raw.meta?.stale_after_minutes || 180,
+    },
+    summary: {
+      submitted: counted.length,
+      released: released.length,
+      in_flight: counted.length - released.length,
+      end_to_end_people: new Set(released.map((item) => item.person_id)).size,
+    },
+    people: people.map((person) => {
+      const mine = counted.filter((item) => item.person_id === person.id);
+      const mineReleased = mine.filter((item) => LANDED.has(item.status));
+      return {
+        ...person,
+        submitted: mine.length,
+        released: mineReleased.length,
+        in_flight: mine.length - mineReleased.length,
+        end_to_end: mineReleased.length > 0,
+      };
+    }),
+    demands: counted.map((item, index) => ({
+      id: item.id || `L${index}`,
+      person_id: item.person_id,
+      submitted_at: item.submitted_at,
+      released_at: item.released_at || null,
+      status: item.status,
+    })),
+    records,
+    criteria: raw.criteria || { submitted: "人工登记的需求条目。" },
+  };
+}
+
+async function fetchJson(url, init) {
+  const response = await fetch(url, { cache: "no-store", ...init });
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+  return response.json();
+}
+
+let relayBase = null;
+
+async function loadRelayConfig() {
   try {
-    const response = await fetch(`./data/latest.json?v=${Date.now()}`, { cache: "no-store" });
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    return await response.json();
+    const config = await fetchJson(`${RELAY_CONFIG_URL}?v=${Date.now()}`);
+    relayBase = config.worker_base ? String(config.worker_base).replace(/\/$/, "") : null;
   } catch (error) {
-    return window.DEMAND_PULSE_DATA || { meta: {}, records: [], people: [] };
+    relayBase = null;
   }
 }
 
-function loadPending() {
+/** 中继上的快照最新（内网一算完就推过去），Pages 上那份是兜底，内置数据是最后一道。 */
+async function loadSnapshot() {
+  if (relayBase) {
+    try {
+      return { data: normalize(await fetchJson(`${relayBase}/snapshot?v=${Date.now()}`)), origin: "relay" };
+    } catch (error) {
+      /* 中继不可用就往下走 */
+    }
+  }
+  try {
+    return { data: normalize(await fetchJson(`${SNAPSHOT_URL}?v=${Date.now()}`)), origin: "pages" };
+  } catch (error) {
+    return { data: normalize(window.DEMAND_PULSE_DATA), origin: "builtin" };
+  }
+}
+
+/* ---------------------------------------------------------------- 状态 */
+
+let data = normalize(window.DEMAND_PULSE_DATA) || { meta: {}, summary: {}, people: [], demands: [], records: [] };
+let dataOrigin = "builtin";
+let wishlist = loadWishlist();
+let refreshing = false;
+
+function loadWishlist() {
   try {
     const value = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
     return Array.isArray(value) ? value : [];
@@ -54,80 +172,169 @@ function loadPending() {
   }
 }
 
-let data = await loadData();
-let pending = loadPending();
-let activeRefreshRun = null;
+function saveWishlist() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(wishlist));
+  renderWishlist();
+  renderQuadrants();
+}
 
 function personById(id) {
-  return data.people.find((person) => person.id === id);
+  return (data.people || []).find((person) => person.id === id);
 }
 
-function normalizedPending() {
-  return pending.map((item) => ({
-    ...item,
-    kind: "user_pain",
-    unique: true,
-    status: "submitted",
-    person_display: personById(item.person_id)?.display_name || "待认领",
-    pain_category: item.title,
-    public_title: item.title,
-    public_outcome: item.detail || "等待补充处理信息。",
-    evidence_level: "待处理",
-    local: true,
-  }));
+function isStale() {
+  const generatedAt = data.meta?.generated_at || data.meta?.cutoff;
+  if (!generatedAt) return true;
+  const limit = (data.meta?.stale_after_minutes || 180) * 60000;
+  return Date.now() - new Date(generatedAt).getTime() > limit;
 }
 
-function combinedRecords() {
-  return [...data.records, ...normalizedPending()];
-}
+/* ---------------------------------------------------------------- 渲染 */
 
-function savePending() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(pending));
-  renderAll();
-}
-
-function derive() {
-  const records = combinedRecords().filter((item) => item.unique !== false);
-  const released = records.filter((item) => LANDED.has(item.status));
-  const e2ePeople = new Set(released.map((item) => item.person_id));
-  return { records, released, e2ePeople };
-}
-
-function renderStats(derived) {
+function renderStats() {
+  const summary = data.summary || {};
   const stats = [
-    { label: "已上线用户痛点", value: derived.released.length, tone: "acid" },
-    { label: "已提交", value: derived.records.length, tone: "paper" },
-    { label: "端到端能力升级", value: `${derived.e2ePeople.size}人`, tone: "cyan" },
+    { label: "累计提交需求", value: summary.submitted ?? 0, tone: "paper" },
+    { label: "累计上线需求", value: summary.released ?? 0, tone: "acid" },
+    { label: "端到端能力升级", value: `${summary.end_to_end_people ?? 0}人`, tone: "cyan" },
   ];
-  document.querySelector("#score-grid").innerHTML = stats.map((item) => `
+  $("#score-grid").innerHTML = stats.map((item) => `
     <article class="score-card ${item.tone}">
       <span>${escapeHtml(item.label)}</span>
       <strong>${escapeHtml(item.value)}</strong>
     </article>`).join("");
-  document.querySelector("#hero-lead").textContent = data.meta?.headline
-    || `${derived.records.length} 个已提交，${derived.released.length} 个已上线。`;
-  document.querySelector("#impact-stamp").textContent = `${derived.released.length} 个痛点 OFF`;
+  $("#hero-lead").textContent = data.meta?.headline
+    || `${summary.submitted ?? 0} 个已提交，${summary.released ?? 0} 个已上线。`;
+  $("#impact-stamp").textContent = `${summary.released ?? 0} 个痛点 OFF`;
 }
 
-function renderPending() {
-  const target = document.querySelector("#pending-list");
-  if (!pending.length) {
+function renderCriteria() {
+  const criteria = data.criteria || {};
+  $("#criteria-grid").innerHTML = Object.entries(criteria)
+    .filter(([, value]) => typeof value === "string" && value)
+    .map(([key, value]) => `
+      <div class="criteria-item">
+        <dt>${escapeHtml(CRITERIA_LABELS[key] || key)}</dt>
+        <dd>${escapeHtml(value)}</dd>
+      </div>`).join("");
+  $("#criteria-source").textContent = `来源：${data.meta?.source_of_truth || "未标注"}`;
+}
+
+function renderTeam() {
+  const people = data.people || [];
+  const achievers = people.filter((person) => (person.submitted || 0) > 0)
+    .sort((a, b) => (b.released || 0) - (a.released || 0) || (b.submitted || 0) - (a.submitted || 0));
+  const starters = people.filter((person) => !(person.submitted > 0));
+
+  $("#achiever-grid").innerHTML = achievers.map((person, index) => `
+    <article class="achiever-card">
+      <span class="achiever-rank">${String(index + 1).padStart(2, "0")}</span>
+      <span class="avatar">${escapeHtml(person.avatar || "✦")}</span>
+      <div><h3>${escapeHtml(person.display_name)}</h3><p>${person.released ? "<b>端到端已跑通</b>" : "正在推进首个需求"}</p></div>
+      <dl><div><dt>已提交</dt><dd>${person.submitted || 0}</dd></div><div><dt>已上线</dt><dd>${person.released || 0}</dd></div></dl>
+    </article>`).join("");
+
+  $("#starter-dock").innerHTML = starters.length ? `
+    <div class="starter-copy"><span>READY?</span><b>等待首发</b></div>
+    <div class="starter-people">${starters.map((person) => `
+      <button type="button" data-start-pm="${escapeHtml(person.id)}"><span>${escapeHtml(person.avatar || "✦")}</span><b>${escapeHtml(person.display_name)}</b><small>给 TA 记一个 ＋</small></button>`).join("")}</div>` : "";
+}
+
+function renderValue() {
+  const cycles = (data.demands || [])
+    .filter((demand) => demand.released_at && demand.submitted_at)
+    .map((demand) => (new Date(demand.released_at) - new Date(demand.submitted_at)) / DAY_MS)
+    .filter((days) => Number.isFinite(days) && days >= 0);
+
+  const average = cycles.length
+    ? `${(cycles.reduce((sum, value) => sum + value, 0) / cycles.length).toFixed(1)}天`
+    : "待积累";
+  const fastest = cycles.length ? `${Math.min(...cycles).toFixed(1)}天` : "待积累";
+
+  const cards = [
+    { symbol: "↯", label: "平均交付周期", value: average, note: "从发起到合入生产主干" },
+    { symbol: "⚡", label: "最快一次", value: fastest, note: cycles.length ? `${cycles.length} 个需求可计算` : "还没有可计算的样本" },
+    { symbol: "∞", label: "在途需求", value: String(data.summary?.in_flight ?? 0), note: "已提交、尚未合入生产主干" },
+  ];
+  $("#value-grid").innerHTML = cards.map((item) => `
+    <article class="value-card"><span>${item.symbol}</span><div><small>${escapeHtml(item.label)}</small><strong>${escapeHtml(item.value)}</strong><em>${escapeHtml(item.note)}</em></div></article>`).join("");
+}
+
+/** 需求类型只有人工登记过才有；GitLab 上的 MR 不带这个字段，所以这张图不等于全量。 */
+function renderQuadrants() {
+  const tagged = [
+    ...(data.records || []).map((item) => ({ ...item, source: "curated" })),
+    ...wishlist.map((item) => ({
+      ...item,
+      person_display: personById(item.person_id)?.display_name || "待认领",
+      pain_category: item.title,
+      public_title: item.title,
+      status: "submitted",
+      source: "local",
+    })),
+  ];
+
+  $("#quadrant-grid").innerHTML = CATEGORY_ORDER.map((categoryKey) => {
+    const meta = CATEGORY_META[categoryKey];
+    const items = tagged.filter((item) => item.category === categoryKey);
+    const released = items.filter((item) => LANDED.has(item.status)).length;
+    return `
+      <section class="quadrant quadrant-${categoryKey}">
+        <header><span class="quadrant-symbol">${meta.symbol}</span><div><h3>${escapeHtml(meta.title)}</h3></div><b>${items.length}</b></header>
+        <div class="quadrant-items">${items.length ? items.map((item) => `
+          <div class="map-ticket ${LANDED.has(item.status) ? "is-done" : "is-open"}">
+            <i aria-hidden="true"></i><span>${escapeHtml(item.public_title || item.pain_category || "")}</span><small>${escapeHtml(item.person_display || "")} · ${escapeHtml(STATUS_LABELS[item.status] || "待处理")}${item.source === "local" ? " · 本地" : ""}</small>
+          </div>`).join("") : '<span class="quadrant-empty">等待一个值得做的想法</span>'}</div>
+        <footer><span>${released} 已解决</span><span>${items.length - released} 待解决</span></footer>
+      </section>`;
+  }).join("");
+
+  const total = data.summary?.submitted ?? 0;
+  const curated = (data.records || []).length;
+  $("#map-summary").textContent = `${data.summary?.released ?? 0} 个已上线 · ${data.summary?.in_flight ?? 0} 个在途`;
+  $("#map-note").textContent = total > curated
+    ? `需求类型来自人工登记：口径内共 ${total} 个需求，其中 ${curated} 个登记了类型并出现在上图；其余只计入总数。`
+    : "需求类型来自人工登记，未登记类型的需求只计入总数。";
+}
+
+function renderWall() {
+  const target = $("#impact-wall");
+  const records = data.records || [];
+  if (!records.length) {
+    target.innerHTML = '<div class="empty-state">等待第一个可以被用户感受到的改变。</div>';
+    return;
+  }
+  target.innerHTML = records.map((item) => {
+    const category = CATEGORY_META[item.category] || CATEGORY_META.user_request;
+    return `
+      <article class="impact-card ${LANDED.has(item.status) ? "done" : "moving"}">
+        <div class="tag-row"><span class="tag category-${escapeHtml(item.category)}">${category.symbol} ${escapeHtml(category.title)}</span><span class="tag priority">${escapeHtml(item.priority || "")}</span></div>
+        <h3>${escapeHtml(item.pain_category)}</h3>
+        <p>${escapeHtml(item.public_outcome)}</p>
+        <footer><span>${escapeHtml(item.person_display)}</span><b>${escapeHtml(STATUS_LABELS[item.status] || item.evidence_level)}</b></footer>
+      </article>`;
+  }).join("");
+}
+
+function renderWishlist() {
+  const target = $("#pending-list");
+  if (!wishlist.length) {
     target.innerHTML = `
       <div class="pending-empty">
         <span>✦</span>
-        <div><b>待处理区还是空的</b></div>
-        <button class="text-button" type="button" data-open-composer>创建第一个需求 →</button>
+        <div><b>清单还是空的</b></div>
+        <button class="text-button" type="button" data-open-composer>记下第一个想法 →</button>
       </div>`;
     return;
   }
-  target.innerHTML = pending.map((item, index) => {
+  target.innerHTML = wishlist.map((item, index) => {
     const person = personById(item.person_id);
     const category = CATEGORY_META[item.category] || CATEGORY_META.user_request;
     return `
       <article class="pending-card" data-pending-id="${escapeHtml(item.id)}">
         <div class="pending-index">${String(index + 1).padStart(2, "0")}</div>
         <div class="pending-main">
-          <div class="tag-row"><span class="tag category-${escapeHtml(item.category)}">${category.symbol} ${escapeHtml(category.title)}</span><span class="tag priority">${escapeHtml(item.priority)}</span>${item.originally_unscheduled ? '<span class="tag unlocked">原本无排期</span>' : ""}</div>
+          <div class="tag-row"><span class="tag category-${escapeHtml(item.category)}">${category.symbol} ${escapeHtml(category.title)}</span><span class="tag priority">${escapeHtml(item.priority)}</span></div>
           <h3>${escapeHtml(item.title)}</h3>
           <p>${escapeHtml(item.detail || "还可以补充场景、影响范围或参考信息。")}</p>
           <div class="pending-edit" hidden>
@@ -136,7 +343,7 @@ function renderPending() {
           </div>
         </div>
         <div class="pending-owner">
-          <label>PM<select data-reassign aria-label="重新选择 PM">${data.people.map((option) => `<option value="${escapeHtml(option.id)}"${option.id === item.person_id ? " selected" : ""}>${escapeHtml(option.display_name)}</option>`).join("")}</select></label>
+          <label>PM<select data-reassign aria-label="重新选择 PM">${(data.people || []).map((option) => `<option value="${escapeHtml(option.id)}"${option.id === item.person_id ? " selected" : ""}>${escapeHtml(option.display_name)}</option>`).join("")}</select></label>
           <span>${escapeHtml(person?.avatar || "✦")} ${formatDate(item.submitted_at)}</span>
         </div>
         <div class="pending-actions">
@@ -147,264 +354,299 @@ function renderPending() {
   }).join("");
 }
 
-function renderQuadrants(derived) {
-  document.querySelector("#quadrant-grid").innerHTML = CATEGORY_ORDER.map((categoryKey) => {
-    const meta = CATEGORY_META[categoryKey];
-    const records = derived.records.filter((item) => item.category === categoryKey);
-    const released = records.filter((item) => LANDED.has(item.status)).length;
-    return `
-      <section class="quadrant quadrant-${categoryKey}">
-        <header><span class="quadrant-symbol">${meta.symbol}</span><div><h3>${escapeHtml(meta.title)}</h3></div><b>${records.length}</b></header>
-        <div class="quadrant-items">${records.length ? records.map((item) => `
-          <div class="map-ticket ${LANDED.has(item.status) ? "is-done" : "is-open"}">
-            <i aria-hidden="true"></i><span>${escapeHtml(item.public_title || item.pain_category)}</span><small>${escapeHtml(item.person_display)} · ${escapeHtml(STATUS_LABELS[item.status] || "待处理")}</small>
-          </div>`).join("") : '<span class="quadrant-empty">等待一个值得做的想法</span>'}</div>
-        <footer><span>${released} 已解决</span><span>${records.length - released} 待解决</span></footer>
-      </section>`;
-  }).join("");
-  document.querySelector("#map-summary").textContent = `${derived.released.length} 个已解决 · ${derived.records.length - derived.released.length} 个待解决`;
-}
-
-function renderTeam(derived) {
-  const peopleStats = data.people.map((person) => {
-    const records = derived.records.filter((item) => item.person_id === person.id);
-    const released = records.filter((item) => LANDED.has(item.status));
-    return { ...person, total: records.length, released: released.length };
-  });
-  const achievers = peopleStats.filter((person) => person.total > 0)
-    .sort((a, b) => b.released - a.released || b.total - a.total);
-  const starters = peopleStats.filter((person) => person.total === 0);
-  document.querySelector("#achiever-grid").innerHTML = achievers.map((person, index) => `
-    <article class="achiever-card">
-      <span class="achiever-rank">0${index + 1}</span>
-      <span class="avatar">${escapeHtml(person.avatar)}</span>
-      <div><h3>${escapeHtml(person.display_name)}</h3><p>${person.released ? '<b>端到端已跑通</b>' : "正在推进首个需求"}</p></div>
-      <dl><div><dt>已提交</dt><dd>${person.total}</dd></div><div><dt>已上线</dt><dd>${person.released}</dd></div></dl>
-    </article>`).join("");
-  document.querySelector("#starter-dock").innerHTML = starters.length ? `
-    <div class="starter-copy"><span>READY?</span><b>等待首发</b></div>
-    <div class="starter-people">${starters.map((person) => `
-      <button type="button" data-start-pm="${escapeHtml(person.id)}"><span>${escapeHtml(person.avatar)}</span><b>${escapeHtml(person.display_name)}</b><small>给 TA 一个需求 ＋</small></button>`).join("")}</div>` : "";
-}
-
-function renderValue(derived) {
-  const timed = derived.released.filter((item) => item.baseline_date && item.released_at);
-  const dayValues = timed.map((item) => Math.max(0, Math.round((new Date(item.baseline_date) - new Date(item.released_at)) / 86400000)))
-    .filter(Number.isFinite);
-  const average = dayValues.length ? `${Math.round(dayValues.reduce((sum, value) => sum + value, 0) / dayValues.length)}天` : "待基线";
-  const trackedUnscheduled = derived.records.filter((item) => typeof item.originally_unscheduled === "boolean");
-  const unlocked = trackedUnscheduled.length
-    ? derived.released.filter((item) => item.originally_unscheduled === true).length
-    : "待记录";
-  const cards = [
-    { symbol: "↯", label: "平均提前交付", value: average },
-    { symbol: "∞", label: "排期外解锁", value: unlocked },
-  ];
-  document.querySelector("#value-grid").innerHTML = cards.map((item) => `
-    <article class="value-card"><span>${item.symbol}</span><div><small>${item.label}</small><strong>${item.value}</strong></div></article>`).join("");
-}
-
-function renderWall(derived) {
-  const target = document.querySelector("#impact-wall");
-  if (!data.records.length) {
-    target.innerHTML = '<div class="empty-state">等待第一个可以被用户感受到的改变。</div>';
-    return;
-  }
-  target.innerHTML = data.records.map((item) => {
-    const category = CATEGORY_META[item.category] || CATEGORY_META.user_request;
-    return `
-      <article class="impact-card ${LANDED.has(item.status) ? "done" : "moving"}">
-        <div class="tag-row"><span class="tag category-${escapeHtml(item.category)}">${category.symbol} ${escapeHtml(category.title)}</span><span class="tag priority">${escapeHtml(item.priority)}</span></div>
-        <h3>${escapeHtml(item.pain_category)}</h3>
-        <p>${escapeHtml(item.public_outcome)}</p>
-        <footer><span>${escapeHtml(item.person_display)}</span><b>${escapeHtml(STATUS_LABELS[item.status] || item.evidence_level)}</b></footer>
-      </article>`;
-  }).join("");
-}
-
 function renderMeta() {
-  const cutoff = data.meta?.last_change_at || data.meta?.cutoff;
-  document.querySelector("#freshness-label").textContent = `更新于 ${formatDate(cutoff)}`;
-  document.querySelector("#cutoff-label").textContent = `更新于 ${formatDate(cutoff, true)}`;
-  document.querySelector("#demand-pm").innerHTML = data.people.map((person) => `<option value="${escapeHtml(person.id)}">${escapeHtml(person.display_name)}</option>`).join("");
+  const generatedAt = data.meta?.generated_at || data.meta?.cutoff;
+  const originLabel = { relay: "实时中继", pages: "已发布快照", builtin: "内置兜底" }[dataOrigin] || "";
+  $("#freshness-label").textContent = `数据 ${formatAge(generatedAt)}`;
+  $("#freshness-chip").dataset.state = isStale() ? "stale" : "fresh";
+  $("#freshness-chip").title = `${originLabel}｜${formatDate(generatedAt, true)}`;
+  $("#cutoff-label").textContent = `数据截至 ${formatDate(generatedAt, true)}`;
+  $("#hero-source").textContent = `数据口径：${data.meta?.source_of_truth || "未标注"} · ${originLabel} · ${formatAge(generatedAt)}`;
+  $("#demand-pm").innerHTML = (data.people || [])
+    .map((person) => `<option value="${escapeHtml(person.id)}">${escapeHtml(person.display_name)}</option>`).join("");
 }
 
 function renderAll() {
-  const derived = derive();
-  renderStats(derived);
-  renderPending();
-  renderQuadrants(derived);
-  renderTeam(derived);
-  renderValue(derived);
-  renderWall(derived);
+  renderMeta();
+  renderStats();
+  renderCriteria();
+  renderTeam();
+  renderValue();
+  renderWishlist();
+  renderQuadrants();
+  renderWall();
 }
 
+/* ---------------------------------------------------------------- 更新数据 */
+
 function showToast(message) {
-  const toast = document.querySelector("#toast");
+  const toast = $("#toast");
   toast.textContent = message;
   toast.classList.add("show");
   window.clearTimeout(showToast.timer);
   showToast.timer = window.setTimeout(() => toast.classList.remove("show"), 3600);
 }
 
+function setRefreshButtons(busy) {
+  refreshing = busy;
+  document.querySelectorAll("[data-refresh-update]").forEach((button) => {
+    button.disabled = busy;
+    button.classList.toggle("is-refreshing", busy);
+    if (!button.dataset.idleLabel) button.dataset.idleLabel = button.textContent.trim();
+    button.textContent = busy ? "正在更新" : button.dataset.idleLabel;
+  });
+}
+
+function showRefreshResult(state, title, message, delta = null, { offerRecompute = false } = {}) {
+  const panel = $("#refresh-result");
+  panel.hidden = false;
+  panel.dataset.state = state;
+  $("#refresh-result-badge").textContent = {
+    running: "LIVE CHECK",
+    updated: "已更新",
+    no_change: "无变化",
+    blocked: "需要处理",
+  }[state] || "本次结果";
+  $("#refresh-result-title").textContent = title;
+  $("#refresh-result-message").textContent = message;
+
+  const counts = $("#refresh-counts");
+  counts.hidden = !delta;
+  if (delta) {
+    $("#refresh-new-submitted").textContent = delta.new_submitted ?? 0;
+    $("#refresh-pending-release").textContent = delta.pending_release ?? 0;
+    $("#refresh-new-released").textContent = delta.new_released ?? 0;
+  }
+  $("#refresh-extra").hidden = !(offerRecompute && relayBase);
+}
+
+/** 两份快照之间发生了什么——公网这边只能靠比对，不做业务判断。 */
+function compareSnapshots(before, after) {
+  const beforeIds = new Set((before?.demands || []).map((demand) => demand.id));
+  const beforeReleased = new Set((before?.demands || []).filter((d) => d.status === "released").map((d) => d.id));
+  const afterDemands = after?.demands || [];
+  const newSubmitted = afterDemands.filter((demand) => !beforeIds.has(demand.id));
+  const newReleased = afterDemands.filter((demand) => demand.status === "released" && !beforeReleased.has(demand.id));
+  return {
+    new_submitted: newSubmitted.length,
+    pending_release: after?.summary?.in_flight ?? 0,
+    new_released: newReleased.length,
+    changed: newSubmitted.length > 0 || newReleased.length > 0,
+  };
+}
+
+function applySnapshot(next, origin) {
+  data = next;
+  dataOrigin = origin;
+  renderAll();
+}
+
+/* ---- 口令对话框 ---- */
+
+let passcodeResolver = null;
+
+function askPasscode(errorMessage = "") {
+  const backdrop = $("#passcode-backdrop");
+  const error = $("#passcode-error");
+  error.hidden = !errorMessage;
+  error.textContent = errorMessage;
+  backdrop.hidden = false;
+  window.setTimeout(() => $("#passcode-input").focus(), 50);
+  return new Promise((resolve) => {
+    passcodeResolver = resolve;
+  });
+}
+
+function closePasscode(value) {
+  $("#passcode-backdrop").hidden = true;
+  $("#passcode-input").value = "";
+  const resolve = passcodeResolver;
+  passcodeResolver = null;
+  if (resolve) resolve(value);
+}
+
+$("#passcode-form").addEventListener("submit", (event) => {
+  event.preventDefault();
+  closePasscode($("#passcode-input").value.trim());
+});
+$("#passcode-cancel").addEventListener("click", () => closePasscode(null));
+$("#passcode-backdrop").addEventListener("click", (event) => {
+  if (event.target === $("#passcode-backdrop")) closePasscode(null);
+});
+
+/* ---- 让内网重算一次 ---- */
+
+async function requestRecompute(reason) {
+  let passcode = sessionStorage.getItem(PASSCODE_KEY) || "";
+  let hint = "";
+
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    if (!passcode) {
+      passcode = await askPasscode(hint);
+      if (!passcode) return { cancelled: true };
+    }
+    const response = await fetch(`${relayBase}/jobs`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Pulse-Passcode": passcode },
+      body: JSON.stringify({ reason }),
+    });
+    if (response.ok) {
+      sessionStorage.setItem(PASSCODE_KEY, passcode);
+      return { job: (await response.json()).job };
+    }
+    if (response.status === 403) {
+      sessionStorage.removeItem(PASSCODE_KEY);
+      passcode = "";
+      hint = "口令不对，再试一次。";
+      continue;
+    }
+    if (response.status === 429) return { error: "触发太频繁了，等一分钟再点。" };
+    return { error: `中继返回 HTTP ${response.status}` };
+  }
+  return { error: "口令连续输错，已停止。" };
+}
+
+async function waitForJob(jobId) {
+  const startedAt = Date.now();
+  while (Date.now() - startedAt < JOB_TIMEOUT_MS) {
+    await new Promise((resolve) => window.setTimeout(resolve, JOB_POLL_MS));
+    const { job } = await fetchJson(`${relayBase}/jobs/${encodeURIComponent(jobId)}?v=${Date.now()}`);
+    if (job.status === "pending" || job.status === "running") continue;
+    return job;
+  }
+  throw new Error("等待超过 10 分钟——内网取数 agent 可能没在运行。");
+}
+
+async function recompute(reason) {
+  const requested = await requestRecompute(reason);
+  if (requested.cancelled) {
+    showRefreshResult("no_change", "已取消重算", "当前显示的仍是最近一次已发布的快照。", null, { offerRecompute: true });
+    return;
+  }
+  if (requested.error) {
+    showRefreshResult("blocked", "没能发起重算", requested.error, null, { offerRecompute: true });
+    return;
+  }
+
+  showRefreshResult("running", "内网正在重算", "已排入队列，取数完成后本页会自动刷新。通常 10–60 秒。");
+  const before = data;
+  const job = await waitForJob(requested.job.id);
+
+  if (job.status === "failed") {
+    showRefreshResult("blocked", "内网重算失败", job.summary || "取数没有完成。", null, { offerRecompute: true });
+    return;
+  }
+
+  const { data: next, origin } = await loadSnapshot();
+  if (next) applySnapshot(next, origin);
+  const delta = job.delta || compareSnapshots(before, next);
+  showRefreshResult(
+    job.status === "updated" ? "updated" : "no_change",
+    job.status === "updated" ? "重算完成，数字已更新" : "重算完成，没有新变化",
+    job.summary || "已按 GitLab 最新状态重算。",
+    delta,
+  );
+  showToast(job.summary || "重算完成。");
+  if ((delta?.new_released || 0) > 0) celebrate();
+}
+
+/**
+ * 「更新数据」的主入口。
+ * 先拉最新已发布快照（免口令、任何网络都行）；只有在快照过期或用户主动要求时，
+ * 才凭口令让内网重算——这样绝大多数点击是零成本的，也不用天天输口令。
+ */
+async function updateData({ force = false } = {}) {
+  if (refreshing) return;
+  setRefreshButtons(true);
+  showRefreshResult("running", "正在取最新进展", "先拉一次已发布的最新快照。");
+
+  try {
+    const before = data;
+    const { data: next, origin } = await loadSnapshot();
+    if (next) applySnapshot(next, origin);
+    const delta = compareSnapshots(before, next);
+
+    if (force) {
+      await recompute("公网手动强制重算");
+      return;
+    }
+
+    if (delta.changed) {
+      showRefreshResult("updated", "已拿到更新的数据", `快照生成于 ${formatAge(next?.meta?.generated_at)}。`, delta, {
+        offerRecompute: true,
+      });
+      showToast("战报已更新。");
+      if (delta.new_released > 0) celebrate();
+      return;
+    }
+
+    if (!relayBase) {
+      showRefreshResult(
+        "no_change",
+        "已是当前已发布的最新数据",
+        `快照生成于 ${formatAge(data.meta?.generated_at)}。实时重算尚未启用（中继未配置），本页只能读到定时发布的快照。`,
+        delta,
+      );
+      return;
+    }
+
+    if (isStale()) {
+      showRefreshResult("running", "快照有点旧了", "正在唤起内网重算，拿此刻的真实数字。");
+      await recompute("公网点击更新，快照已过期");
+      return;
+    }
+
+    showRefreshResult(
+      "no_change",
+      "已是最新，没有变化",
+      `快照生成于 ${formatAge(data.meta?.generated_at)}，还在新鲜期内，不需要打扰内网。`,
+      delta,
+      { offerRecompute: true },
+    );
+  } catch (error) {
+    showRefreshResult("blocked", "更新没有完成", error.message, null, { offerRecompute: true });
+    showToast(`更新失败：${error.message}`);
+  } finally {
+    setRefreshButtons(false);
+  }
+}
+
+/* ---------------------------------------------------------------- 本地清单 */
+
 function openComposer(personId = "") {
-  const form = document.querySelector("#demand-composer");
+  const form = $("#demand-composer");
   form.hidden = false;
-  if (personId) document.querySelector("#demand-pm").value = personId;
+  if (personId) $("#demand-pm").value = personId;
   form.scrollIntoView({ behavior: "smooth", block: "center" });
-  window.setTimeout(() => document.querySelector("#demand-title").focus(), 350);
+  window.setTimeout(() => $("#demand-title").focus(), 350);
 }
 
 function closeComposer() {
-  document.querySelector("#demand-composer").hidden = true;
+  $("#demand-composer").hidden = true;
 }
 
-function createPending(form) {
+function createWish(form) {
   const fields = new FormData(form);
   const title = String(fields.get("title") || "").trim();
   const personId = String(fields.get("person_id") || "");
   if (!title || !personById(personId)) return;
-  pending.unshift({
+  wishlist.unshift({
     id: `LOCAL-${Date.now()}`,
     title,
     detail: String(fields.get("detail") || "").trim(),
     person_id: personId,
     category: String(fields.get("category") || "user_request"),
     priority: String(fields.get("priority") || "P1"),
-    baseline_date: String(fields.get("baseline_date") || "") || null,
-    originally_unscheduled: fields.get("originally_unscheduled") === "on",
     submitted_at: new Date().toISOString(),
   });
   form.reset();
   closeComposer();
-  savePending();
-  showToast("已加入待处理区；可以继续补充信息或调整 PM。");
-}
-
-function buildUpdatePacket() {
-  return {
-    schema: "pain-off-update-packet/v1",
-    generated_at: new Date().toISOString(),
-    action: pending.length ? "verify_and_merge_delta" : "recheck_latest_delta",
-    source_cutoff: data.meta?.cutoff || null,
-    changes: pending.map(({ id, ...item }) => ({ client_id: id, ...item })),
-    current_snapshot: {
-      confirmed_records: data.records.length,
-      pending_records: pending.length,
-      pm_scope: data.people.map((person) => ({ id: person.id, display_name: person.display_name })),
-    },
-    update_rule: [
-      "只核验 source_cutoff 之后的新增或状态变化",
-      "按问题与交付结果去重，补充信息不新增计数",
-      "同一需求的有效 MR 链路已合并且生产环境生效，才标记 released；只有合并或只有产品验收均不算",
-      "核验后更新 latest.json、构建测试并发布",
-    ],
-  };
-}
-
-function setRefreshButtons(isRefreshing) {
-  document.querySelectorAll("[data-refresh-update]").forEach((button) => {
-    button.disabled = isRefreshing;
-    button.classList.toggle("is-refreshing", isRefreshing);
-    if (!button.dataset.idleLabel) button.dataset.idleLabel = button.textContent.trim();
-    button.textContent = isRefreshing ? "正在核验" : button.dataset.idleLabel;
-  });
-}
-
-function showRefreshResult(state, title, message, result = null) {
-  const panel = document.querySelector("#refresh-result");
-  panel.hidden = false;
-  panel.dataset.state = state;
-  document.querySelector("#refresh-result-badge").textContent = state === "running"
-    ? "LIVE CHECK"
-    : state === "blocked" ? "需要处理" : "本次结果";
-  document.querySelector("#refresh-result-title").textContent = title;
-  document.querySelector("#refresh-result-message").textContent = message;
-  const counts = document.querySelector("#refresh-counts");
-  const delta = result?.delta;
-  counts.hidden = !delta;
-  if (delta) {
-    document.querySelector("#refresh-new-submitted").textContent = delta.new_submitted ?? 0;
-    document.querySelector("#refresh-pending-release").textContent = delta.pending_release ?? 0;
-    document.querySelector("#refresh-new-released").textContent = delta.new_released ?? 0;
-  }
-}
-
-function codexFallback() {
-  const prompt = "立即增量更新痛点消消乐战报：只查上次检查后的新提交，以及未上线需求的 MR 合并与生产生效变化；不要重复检查已确认上线的历史。按 automation-2 的证据和发布规则执行。";
-  window.location.href = `codex://new?prompt=${encodeURIComponent(prompt)}`;
-}
-
-async function reloadPublishedData(result) {
-  data = await loadData();
-  const accepted = new Set(result.accepted_client_ids || []);
-  if (accepted.size) {
-    pending = pending.filter((item) => !accepted.has(item.id));
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(pending));
-  }
-  renderMeta();
-  renderAll();
-}
-
-async function pollRefresh(runId) {
-  const startedAt = Date.now();
-  while (Date.now() - startedAt < REFRESH_TIMEOUT_MS) {
-    await new Promise((resolve) => window.setTimeout(resolve, REFRESH_POLL_MS));
-    const response = await fetch(`${REFRESH_ENDPOINT}/status?run_id=${encodeURIComponent(runId)}`, {
-      cache: "no-store",
-      credentials: "omit",
-    });
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    const status = await response.json();
-    if (status.status === "running") continue;
-    if (status.status === "updated" || status.status === "no_change") return status;
-    throw Object.assign(new Error(status.summary || "核验未完成"), { refreshStatus: status });
-  }
-  throw new Error("核验时间超过 30 分钟，请到 Codex 查看进度。");
-}
-
-async function refreshBattleReport() {
-  if (activeRefreshRun) return;
-  setRefreshButtons(true);
-  showRefreshResult("running", "正在取最新进展", "只检查新提交，以及仍未上线需求的 MR 与生产状态变化。");
-  showToast("已开始增量核验；完成后会自动刷新战报。");
-  try {
-    const response = await fetch(`${REFRESH_ENDPOINT}/refresh`, {
-      method: "POST",
-      mode: "cors",
-      credentials: "omit",
-      cache: "no-store",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Pain-Off-Action": "refresh-v1",
-      },
-      body: JSON.stringify(buildUpdatePacket()),
-      signal: AbortSignal.timeout(8000),
-    });
-    if (!response.ok && response.status !== 409) throw new Error(`HTTP ${response.status}`);
-    const accepted = await response.json();
-    activeRefreshRun = accepted.run_id;
-    const result = await pollRefresh(activeRefreshRun);
-    await reloadPublishedData(result);
-    const title = result.status === "updated" ? "发现变化，战报已更新" : "没有新的状态变化";
-    const message = result.summary || "本次增量核验已完成。";
-    showRefreshResult(result.status === "updated" ? "updated" : "no_change", title, message, result);
-    showToast(message);
-    if ((result.delta?.new_released || 0) > 0) celebrate();
-  } catch (error) {
-    const status = error.refreshStatus;
-    const message = status?.summary || "本机更新服务未连接，已为你打开 Codex 更新入口。";
-    showRefreshResult("blocked", "暂时没有完成核验", message, status);
-    showToast(message);
-    if (!status) codexFallback();
-  } finally {
-    activeRefreshRun = null;
-    setRefreshButtons(false);
-  }
+  saveWishlist();
+  showToast("已记进你的本地清单；真正开工后会在 GitLab 上被自动统计到。");
 }
 
 function celebrate() {
-  const target = document.querySelector("#confetti");
+  const target = $("#confetti");
   const colors = ["#dfff4f", "#ff6b58", "#7b61ff", "#50d6d1", "#fffdf7"];
   target.replaceChildren(...Array.from({ length: 42 }, (_, index) => {
     const piece = document.createElement("i");
@@ -418,21 +660,24 @@ function celebrate() {
   window.setTimeout(() => target.replaceChildren(), 2300);
 }
 
+/* ---------------------------------------------------------------- 事件 */
+
 document.addEventListener("click", (event) => {
-  const open = event.target.closest("[data-open-composer]");
-  if (open) return openComposer();
+  if (event.target.closest("[data-refresh-update]")) return void updateData();
+  if (event.target.closest("#force-recompute")) return void updateData({ force: true });
+  if (event.target.closest("[data-open-composer]")) return openComposer();
   if (event.target.closest("[data-close-composer]")) return closeComposer();
-  if (event.target.closest("[data-refresh-update]")) return refreshBattleReport();
   const starter = event.target.closest("[data-start-pm]");
   if (starter) return openComposer(starter.dataset.startPm);
   if (event.target.closest("#celebrate-button")) return celebrate();
+
   const card = event.target.closest("[data-pending-id]");
   if (!card) return;
   const id = card.dataset.pendingId;
   if (event.target.closest("[data-remove-pending]")) {
-    pending = pending.filter((item) => item.id !== id);
-    savePending();
-    showToast("已从待处理区移除。");
+    wishlist = wishlist.filter((item) => item.id !== id);
+    saveWishlist();
+    showToast("已从清单移除。");
   }
   if (event.target.closest("[data-edit-detail]")) {
     const editor = card.querySelector(".pending-edit");
@@ -440,9 +685,9 @@ document.addEventListener("click", (event) => {
     if (!editor.hidden) editor.querySelector("textarea").focus();
   }
   if (event.target.closest("[data-save-detail]")) {
-    const item = pending.find((entry) => entry.id === id);
+    const item = wishlist.find((entry) => entry.id === id);
     if (item) item.detail = card.querySelector(".pending-edit textarea").value.trim();
-    savePending();
+    saveWishlist();
     showToast("补充信息已保存。");
   }
 });
@@ -451,18 +696,22 @@ document.addEventListener("change", (event) => {
   const select = event.target.closest("[data-reassign]");
   if (!select) return;
   const card = select.closest("[data-pending-id]");
-  const item = pending.find((entry) => entry.id === card.dataset.pendingId);
+  const item = wishlist.find((entry) => entry.id === card.dataset.pendingId);
   if (item && personById(select.value)) {
     item.person_id = select.value;
-    savePending();
+    saveWishlist();
     showToast(`已交给 ${personById(select.value).display_name}。`);
   }
 });
 
-document.querySelector("#demand-composer").addEventListener("submit", (event) => {
+$("#demand-composer").addEventListener("submit", (event) => {
   event.preventDefault();
-  createPending(event.currentTarget);
+  createWish(event.currentTarget);
 });
 
-renderMeta();
+/* ---------------------------------------------------------------- 启动 */
+
 renderAll();
+await loadRelayConfig();
+const initial = await loadSnapshot();
+if (initial.data) applySnapshot(initial.data, initial.origin);

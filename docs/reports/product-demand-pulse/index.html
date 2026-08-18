@@ -17,7 +17,7 @@
       <span class="brand-mark">P!</span>
       <span>PAIN OFF · 痛点消消乐</span>
     </a>
-    <div class="live-chip"><i aria-hidden="true"></i><span id="freshness-label">更新于 —</span></div>
+    <div class="live-chip" id="freshness-chip"><i aria-hidden="true"></i><span id="freshness-label">更新于 —</span></div>
   </header>
 
   <main id="main">
@@ -27,9 +27,10 @@
         <h1 id="hero-title">让小痛点，<br /><span class="scribble">不再等大版本</span></h1>
         <p class="hero-lead" id="hero-lead">正在加载最新战报。</p>
         <div class="hero-actions">
-          <button class="button primary" type="button" data-open-composer>＋ 新增需求</button>
-          <button class="button ghost" type="button" data-refresh-update>↻ 检查最新进展</button>
+          <button class="button primary" type="button" data-refresh-update>↻ 更新数据</button>
+          <button class="button ghost" type="button" data-open-composer>＋ 记一个想做的需求</button>
         </div>
+        <p class="hero-note" id="hero-source">数据口径：GitLab 合并请求 · 正在确认数据时间</p>
       </div>
       <div class="hero-visual" aria-label="用户痛点消除行动">
         <div class="orbit orbit-a"></div>
@@ -58,21 +59,9 @@
           <p class="eyebrow">THE SCORE · 累计战绩</p>
           <h2 id="stats-title">用户已经得到什么</h2>
         </div>
+        <button class="button mini" type="button" data-refresh-update>↻ 更新数据</button>
       </div>
       <div class="score-grid" id="score-grid" aria-live="polite"></div>
-    </section>
-
-    <section class="workbench section-shell" id="workbench" aria-labelledby="workbench-title">
-      <div class="section-heading compact">
-        <div>
-          <p class="eyebrow">NEXT PAIN · 需求待处理区</p>
-          <h2 id="workbench-title">下一个，解决什么？</h2>
-        </div>
-        <div class="section-actions">
-          <button class="button primary" type="button" data-open-composer>＋ 新增需求</button>
-          <button class="button mini" type="button" data-refresh-update>↻ 立即核验</button>
-        </div>
-      </div>
 
       <section class="refresh-result" id="refresh-result" aria-live="polite" hidden>
         <div class="refresh-result-head">
@@ -81,11 +70,57 @@
         </div>
         <div class="refresh-counts" id="refresh-counts" hidden>
           <div><span>新提交</span><b id="refresh-new-submitted">0</b></div>
-          <div><span>待发布</span><b id="refresh-pending-release">0</b></div>
+          <div><span>在途</span><b id="refresh-pending-release">0</b></div>
           <div><span>新上线</span><b id="refresh-new-released">0</b></div>
         </div>
         <p id="refresh-result-message">正在检查上次截止点之后的新需求与状态变化。</p>
+        <div class="refresh-extra" id="refresh-extra" hidden>
+          <button class="text-button" type="button" id="force-recompute">数据还不够新？回内网重算一次 →</button>
+        </div>
       </section>
+    </section>
+
+    <section class="criteria section-shell" id="criteria" aria-labelledby="criteria-title">
+      <div class="section-heading compact">
+        <div>
+          <p class="eyebrow">HOW WE COUNT · 查询口径</p>
+          <h2 id="criteria-title">这些数字是怎么算出来的</h2>
+        </div>
+        <span class="criteria-source" id="criteria-source">—</span>
+      </div>
+      <dl class="criteria-grid" id="criteria-grid"></dl>
+    </section>
+
+    <section class="team section-shell" aria-labelledby="team-title">
+      <div class="section-heading compact">
+        <div>
+          <p class="eyebrow">TEAM ENERGY · 共创能量</p>
+          <h2 id="team-title">有人跑通，也等你首发</h2>
+        </div>
+      </div>
+      <div class="achiever-grid" id="achiever-grid"></div>
+      <div class="starter-dock" id="starter-dock"></div>
+    </section>
+
+    <section class="value section-shell" aria-labelledby="value-title">
+      <div class="value-copy">
+        <p class="eyebrow">TIME TO VALUE · 交付节奏</p>
+        <h2 id="value-title">从提出到用户拿到，要多久</h2>
+      </div>
+      <div class="value-grid" id="value-grid"></div>
+    </section>
+
+    <section class="workbench section-shell" id="workbench" aria-labelledby="workbench-title">
+      <div class="section-heading compact">
+        <div>
+          <p class="eyebrow">MY LIST · 本地想法清单</p>
+          <h2 id="workbench-title">下一个，解决什么？</h2>
+        </div>
+        <div class="section-actions">
+          <button class="button primary" type="button" data-open-composer>＋ 记一个想做的需求</button>
+        </div>
+      </div>
+      <p class="section-note">这里只存在你自己的浏览器里，方便随手记。<b>不计入上面的战绩</b>——战绩一律以 GitLab 上真实发生的合并为准。</p>
 
       <form class="demand-composer" id="demand-composer" hidden>
         <div class="composer-head">
@@ -107,11 +142,9 @@
             <option value="P0">P0 · 立刻处理</option>
             <option value="P2">P2 · 可排期</option>
           </select></label>
-          <label class="field"><span>原计划上线日</span><input id="demand-baseline" name="baseline_date" type="date" /></label>
-          <label class="check-field field-wide"><input id="demand-unscheduled" name="originally_unscheduled" type="checkbox" /><span>这个需求原本排不上计划</span></label>
         </div>
         <div class="composer-actions">
-          <button class="button primary" type="submit">加入待处理区</button>
+          <button class="button primary" type="submit">加入我的清单</button>
         </div>
       </form>
 
@@ -132,25 +165,7 @@
         <div class="quadrant-grid" id="quadrant-grid"></div>
         <div class="axis-x"><span>← 用户牵引</span><span>团队牵引 →</span></div>
       </div>
-    </section>
-
-    <section class="team section-shell" aria-labelledby="team-title">
-      <div class="section-heading compact">
-        <div>
-          <p class="eyebrow">TEAM ENERGY · 共创能量</p>
-          <h2 id="team-title">有人跑通，也等你首发</h2>
-        </div>
-      </div>
-      <div class="achiever-grid" id="achiever-grid"></div>
-      <div class="starter-dock" id="starter-dock"></div>
-    </section>
-
-    <section class="value section-shell" aria-labelledby="value-title">
-      <div class="value-copy">
-        <p class="eyebrow">TIME TO VALUE · 用户更早得到</p>
-        <h2 id="value-title">真正的价值，是少等了多久</h2>
-      </div>
-      <div class="value-grid" id="value-grid"></div>
+      <p class="section-note" id="map-note"></p>
     </section>
 
     <section class="wall section-shell" aria-labelledby="wall-title">
@@ -170,6 +185,19 @@
     <strong>让每一个小痛点，都有被解决的机会。</strong>
     <span id="cutoff-label">更新于 —</span>
   </footer>
+
+  <div class="passcode-backdrop" id="passcode-backdrop" hidden>
+    <form class="passcode-card" id="passcode-form">
+      <h3>回内网重算一次</h3>
+      <p>公网这边只能读到已发布的快照。要拿此刻的真实数字，需要口令唤起内网取数。</p>
+      <label class="field"><span>口令</span><input id="passcode-input" type="password" data-gate="action" autocomplete="off" required placeholder="请输入口令" /></label>
+      <p class="passcode-error" id="passcode-error" hidden></p>
+      <div class="passcode-actions">
+        <button class="button ghost" type="button" id="passcode-cancel">取消</button>
+        <button class="button primary" type="submit">开始重算</button>
+      </div>
+    </form>
+  </div>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <div class="confetti" id="confetti" aria-hidden="true"></div>

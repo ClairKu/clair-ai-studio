@@ -1,0 +1,16 @@
+name = "pain-off-relay"
+main = "src/index.ts"
+compatibility_date = "2026-08-01"
+workers_dev = true
+
+# 建 KV：wrangler kv namespace create PAIN_OFF —— 把返回的 id 填到下面
+[[kv_namespaces]]
+binding = "PAIN_OFF"
+id = "REPLACE_WITH_KV_NAMESPACE_ID"
+
+[vars]
+ALLOWED_ORIGINS = "https://clairku.github.io"
+
+# secret 不写在这里，用命令设：
+#   wrangler secret put PULSE_PASSCODE   # 公网点更新时要输的口令
+#   wrangler secret put AGENT_TOKEN      # 本机 agent 的凭据，随便一串长随机字符串

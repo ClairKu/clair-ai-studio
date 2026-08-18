@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  常驻取数 agent：轮询公网中继，接住「公网点了更新」这件事。
+  安装： cp 到 ~/Library/LaunchAgents/ 后 launchctl load -w ~/Library/LaunchAgents/com.clair.pain-off.agent.plist
+  改动后： launchctl unload ... && launchctl load -w ...
+-->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.clair.pain-off.agent</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/local/bin/node</string>
+    <string>/Users/guty/AI/clair-ai-studio/automation/pain-off/agent.mjs</string>
+  </array>
+
+  <key>WorkingDirectory</key>
+  <string>/Users/guty/AI/clair-ai-studio</string>
+
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin</string>
+    <key>GIT_ACCESS_TOKEN</key>
+    <string>填入 GitLab read_api token</string>
+    <key>PAIN_OFF_WORKER_URL</key>
+    <string>填入 Worker 地址，例如 https://pain-off-relay.xxx.workers.dev</string>
+    <key>PAIN_OFF_AGENT_TOKEN</key>
+    <string>填入与 Worker secret AGENT_TOKEN 相同的字符串</string>
+  </dict>
+
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <true/>
+
+  <key>StandardOutPath</key>
+  <string>/tmp/pain-off-agent.log</string>
+  <key>StandardErrorPath</key>
+  <string>/tmp/pain-off-agent.err.log</string>
+</dict>
+</plist>

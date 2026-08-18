@@ -1,0 +1,13 @@
+{
+  "$comment": "产品团队成员名册。gitlab_username 必须逐个人工确认——按人聚合的一切都建立在这个映射上。用 `node automation/pain-off/resolve-roster.mjs` 可以从 GitLab 反查候选，但最终值请人工敲定后写死在这里。",
+  "roster_version": "2026-08-18",
+  "people": [
+    { "id": "P01", "display_name": "嘉鸿", "avatar": "🦝", "search_hints": ["嘉鸿"], "gitlab_username": null },
+    { "id": "P02", "display_name": "家亮", "avatar": "🦦", "search_hints": ["家亮"], "gitlab_username": null },
+    { "id": "P04", "display_name": "春燕", "avatar": "🐧", "search_hints": ["春燕"], "gitlab_username": null },
+    { "id": "P05", "display_name": "刘晨", "avatar": "🦊", "search_hints": ["刘晨"], "gitlab_username": null },
+    { "id": "P06", "display_name": "金星", "avatar": "🐰", "search_hints": ["金星"], "gitlab_username": null },
+    { "id": "P07", "display_name": "刘佳", "avatar": "🐨", "search_hints": ["刘佳"], "gitlab_username": null },
+    { "id": "P08", "display_name": "嘉烨", "avatar": "🐯", "search_hints": ["嘉烨"], "gitlab_username": null }
+  ]
+}

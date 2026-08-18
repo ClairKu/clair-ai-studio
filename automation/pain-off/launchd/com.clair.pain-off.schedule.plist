@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  定时快照：每天 09:10 / 13:10 / 18:10 无条件取一次数并发布。
+  这是「零运维那一半」——就算 Worker 没部署、agent 没跑，公网打开也总有近期数据。
+-->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.clair.pain-off.schedule</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/local/bin/node</string>
+    <string>/Users/guty/AI/clair-ai-studio/automation/pain-off/refresh.mjs</string>
+    <string>--publish</string>
+  </array>
+
+  <key>WorkingDirectory</key>
+  <string>/Users/guty/AI/clair-ai-studio</string>
+
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin</string>
+    <key>GIT_ACCESS_TOKEN</key>
+    <string>填入 GitLab read_api token</string>
+    <key>PAIN_OFF_WORKER_URL</key>
+    <string>填入 Worker 地址（没部署就留空，只发 Pages）</string>
+    <key>PAIN_OFF_AGENT_TOKEN</key>
+    <string>填入与 Worker secret AGENT_TOKEN 相同的字符串</string>
+  </dict>
+
+  <key>StartCalendarInterval</key>
+  <array>
+    <dict><key>Hour</key><integer>9</integer><key>Minute</key><integer>10</integer></dict>
+    <dict><key>Hour</key><integer>13</integer><key>Minute</key><integer>10</integer></dict>
+    <dict><key>Hour</key><integer>18</integer><key>Minute</key><integer>10</integer></dict>
+  </array>
+
+  <key>StandardOutPath</key>
+  <string>/tmp/pain-off-schedule.log</string>
+  <key>StandardErrorPath</key>
+  <string>/tmp/pain-off-schedule.err.log</string>
+</dict>
+</plist>

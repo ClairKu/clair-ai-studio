@@ -218,6 +218,35 @@ body > footer span { font-size: 12px; color: rgba(255,255,255,.62); }
 @keyframes fall { to { transform: translate3d(var(--drift), 110vh, 0) rotate(720deg); opacity: .1; } }
 .empty-state { padding: 34px; border: 2px dashed var(--ink); background: rgba(255,255,255,.48); color: var(--muted); text-align: center; }
 
+/* --- 数据新鲜度 / 口径 / 口令弹窗（公网更新链路） --- */
+.live-chip[data-state="fresh"] i { background: #2fbf71; box-shadow: 0 0 0 5px rgba(47,191,113,.16); }
+.live-chip[data-state="stale"] i { background: var(--coral); box-shadow: 0 0 0 5px rgba(255,107,88,.15); }
+
+.hero-note { margin: 18px 0 0; font-size: 12px; font-weight: 850; letter-spacing: .01em; color: var(--muted); }
+.section-note { max-width: 760px; margin: 18px 0 0; font-size: 13px; line-height: 1.6; color: var(--muted); }
+.workbench .section-note { margin: -22px 0 26px; color: rgba(255,255,255,.74); }
+.workbench .section-note b { color: var(--acid); }
+
+.refresh-extra { grid-column: 1 / -1; }
+.refresh-extra .text-button { font-size: 13px; }
+
+.criteria-source { align-self: end; font-size: 12px; font-weight: 900; color: var(--muted); white-space: nowrap; }
+.criteria-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 0; }
+.criteria-item { padding: 22px; border: 2px solid var(--ink); background: var(--card); box-shadow: 5px 5px 0 var(--ink); }
+.criteria-item dt { margin-bottom: 9px; font-size: 12px; font-weight: 950; letter-spacing: .08em; }
+.criteria-item dd { margin: 0; font-size: 14px; line-height: 1.65; color: #4f4a59; }
+
+.value-card em { display: block; margin-top: 4px; font-size: 12px; font-style: normal; color: rgba(255,255,255,.62); }
+
+.passcode-backdrop { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; padding: 20px; background: rgba(23,21,31,.66); backdrop-filter: blur(3px); }
+.passcode-backdrop[hidden] { display: none; }
+.passcode-card { width: min(420px, 100%); padding: clamp(24px, 4vw, 34px); border: 2px solid var(--ink); background: var(--paper); box-shadow: 10px 10px 0 var(--ink); }
+.passcode-card h3 { margin: 0 0 10px; font-size: 26px; letter-spacing: -.03em; }
+.passcode-card > p { margin: 0 0 20px; font-size: 13px; line-height: 1.6; color: var(--muted); }
+.passcode-error { margin: 12px 0 0; padding: 9px 11px; border: 1.5px solid var(--coral); background: #ffe2dc; font-size: 12px; font-weight: 850; }
+.passcode-error[hidden] { display: none; }
+.passcode-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 22px; }
+
 @media (max-width: 980px) {
   .hero { grid-template-columns: 1fr 1fr; }
   .form-grid { grid-template-columns: repeat(2, 1fr); }
