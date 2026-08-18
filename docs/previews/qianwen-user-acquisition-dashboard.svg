@@ -1,15 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
   <title id="title">千问 X 且慢AI小顾用户数据看板预览</title>
-  <desc id="desc">服务上线以来累计绑定用户一千零七十九人，其中新用户七百六十四人、老用户三百一十五人。画面同时展示每日累计与新增走势，以及资产和投资行为概览。</desc>
+  <desc id="desc">统计窗口从八月三日起，累计绑定用户一千五百五十五人，其中在绑定时新注册的新用户一千一百七十九人、绑定时已有账户的老用户三百七十六人。画面左侧是累计与每日新增两块分栏走势，右侧是这批用户在且慢的保有规模、入金、交易与触点情况。</desc>
   <defs>
     <linearGradient id="newCard" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#DDF7F0"/><stop offset="1" stop-color="#FFFFFF"/>
+      <stop offset="0" stop-color="#E6F6F1"/><stop offset="1" stop-color="#FFFFFF"/>
     </linearGradient>
     <linearGradient id="oldCard" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#EEEAF7"/><stop offset="1" stop-color="#FFFFFF"/>
-    </linearGradient>
-    <linearGradient id="growthArea" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#18B894" stop-opacity=".82"/><stop offset="1" stop-color="#18B894" stop-opacity=".18"/>
+      <stop offset="0" stop-color="#EDE9FD"/><stop offset="1" stop-color="#FFFFFF"/>
     </linearGradient>
     <filter id="shadow" x="-15%" y="-15%" width="130%" height="140%">
       <feDropShadow dx="0" dy="9" stdDeviation="16" flood-color="#171B29" flood-opacity=".07"/>
@@ -18,156 +15,215 @@
 
   <rect width="1280" height="720" fill="#F5F6FB"/>
   <circle cx="1185" cy="-4" r="250" fill="#7357E8" fill-opacity=".07"/>
-  <circle cx="1128" cy="666" r="170" fill="#18B894" fill-opacity=".045"/>
+  <circle cx="1128" cy="666" r="170" fill="#0F9D78" fill-opacity=".045"/>
 
   <g font-family="PingFang SC,Microsoft YaHei,sans-serif">
     <g transform="translate(62 24)">
       <circle cx="17" cy="17" r="17" fill="#7357E8"/>
       <text x="17" y="22" text-anchor="middle" fill="#FFFFFF" font-size="12" font-family="SFMono-Regular,monospace" font-weight="700">Q</text>
-      <circle cx="45" cy="17" r="17" fill="#18B894"/>
-      <text x="45" y="22" text-anchor="middle" fill="#111522" font-size="12" font-weight="700">且</text>
+      <circle cx="45" cy="17" r="17" fill="#0F9D78"/>
+      <text x="45" y="22" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="700">且</text>
       <text x="76" y="14" fill="#171B29" font-size="14" font-weight="700">千问 X 且慢AI小顾</text>
-      <text x="76" y="31" fill="#697187" font-size="9" letter-spacing="1.5">用户数据看板</text>
+      <text x="76" y="31" fill="#697187" font-size="9" letter-spacing="1.5">用户增长与画像</text>
     </g>
     <rect x="1080" y="22" width="136" height="40" rx="20" fill="#111522"/>
-    <circle cx="1104" cy="42" r="5" fill="#18B894"/>
+    <circle cx="1104" cy="42" r="5" fill="#0F9D78"/>
     <text x="1153" y="47" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="700">更新数据</text>
 
-    <text x="62" y="104" fill="#7357E8" font-family="SFMono-Regular,monospace" font-size="10" font-weight="700" letter-spacing="2">USER GROWTH · VALUE PROGRESS</text>
+    <text x="62" y="104" fill="#7357E8" font-family="SFMono-Regular,monospace" font-size="10" font-weight="700" letter-spacing="2">LAUNCH 08.10 08:00 · DATA WINDOW SINCE 08.03</text>
     <text x="62" y="157" fill="#111522" font-family="Songti SC,STSong,serif" font-size="44" font-weight="700">千问 X 且慢AI小顾 用户数据看板</text>
-    <text x="62" y="188" fill="#697187" font-size="13">从用户增长继续看资产与投资行为 · 数据截至 8月17日 15:45</text>
+    <text x="62" y="188" fill="#697187" font-size="13">窗口往前延长一周，从用户增长继续看在且慢的入金、规模与交易 · 数据截至 8月18日 10:38</text>
 
     <g transform="translate(62 215)" filter="url(#shadow)">
       <rect width="220" height="108" rx="2" fill="#111522"/>
       <text x="22" y="31" fill="#FFFFFF" fill-opacity=".62" font-size="12" font-weight="700">累计绑定用户</text>
-      <text x="22" y="78" fill="#FFFFFF" font-family="SFMono-Regular,monospace" font-size="40" font-weight="800" letter-spacing="-2">1,088</text>
+      <text x="22" y="78" fill="#FFFFFF" font-family="SFMono-Regular,monospace" font-size="40" font-weight="800" letter-spacing="-2">1,555</text>
       <circle cx="194" cy="26" r="5" fill="#A493FF"/>
     </g>
     <g transform="translate(296 215)" filter="url(#shadow)">
       <rect width="220" height="108" rx="2" fill="url(#newCard)"/>
-      <text x="22" y="31" fill="#087A68" font-size="12" font-weight="700">其中新用户</text>
-      <text x="22" y="78" fill="#087A68" font-family="SFMono-Regular,monospace" font-size="40" font-weight="800" letter-spacing="-2">772</text>
-      <text x="195" y="76" text-anchor="end" fill="#087A68" font-family="SFMono-Regular,monospace" font-size="14" font-weight="700">71.0%</text>
+      <text x="22" y="31" fill="#0A7A5E" font-size="12" font-weight="700">其中新用户</text>
+      <text x="22" y="78" fill="#0A7A5E" font-family="SFMono-Regular,monospace" font-size="40" font-weight="800" letter-spacing="-2">1,179</text>
+      <text x="195" y="76" text-anchor="end" fill="#0A7A5E" font-family="SFMono-Regular,monospace" font-size="14" font-weight="700">75.8%</text>
     </g>
     <g transform="translate(530 215)" filter="url(#shadow)">
       <rect width="228" height="108" rx="2" fill="url(#oldCard)"/>
-      <text x="22" y="31" fill="#64547F" font-size="12" font-weight="700">老用户</text>
-      <text x="22" y="78" fill="#64547F" font-family="SFMono-Regular,monospace" font-size="40" font-weight="800" letter-spacing="-2">316</text>
-      <text x="202" y="76" text-anchor="end" fill="#64547F" font-family="SFMono-Regular,monospace" font-size="14" font-weight="700">29.0%</text>
+      <text x="22" y="31" fill="#4F33BD" font-size="12" font-weight="700">老用户</text>
+      <text x="22" y="78" fill="#4F33BD" font-family="SFMono-Regular,monospace" font-size="40" font-weight="800" letter-spacing="-2">376</text>
+      <text x="202" y="76" text-anchor="end" fill="#4F33BD" font-family="SFMono-Regular,monospace" font-size="14" font-weight="700">24.2%</text>
     </g>
 
     <g transform="translate(62 341)" filter="url(#shadow)">
       <rect width="696" height="333" rx="2" fill="#FFFFFF"/>
-      <text x="26" y="32" fill="#7357E8" font-family="SFMono-Regular,monospace" font-size="9" font-weight="700" letter-spacing="1.4">GROWTH</text>
-      <text x="26" y="61" fill="#171B29" font-size="19" font-weight="700">每日累计与新增走势</text>
-      <text x="26" y="82" fill="#697187" font-size="10">每日同时查看累计绑定、新用户、老用户与当日新增</text>
+      <text x="26" y="30" fill="#7357E8" font-family="SFMono-Regular,monospace" font-size="9" font-weight="700" letter-spacing="1.4">GROWTH</text>
+      <text x="26" y="54" fill="#171B29" font-size="17" font-weight="700">累计与每日新增分栏走势</text>
 
-      <g transform="translate(337 28)" font-size="9">
-        <rect width="11" height="8" rx="2" fill="#18B894" fill-opacity=".78"/>
-        <text x="17" y="8" fill="#697187">新用户累计</text>
-        <rect x="92" width="11" height="8" rx="2" fill="#9A8CB9" fill-opacity=".9"/>
-        <text x="109" y="8" fill="#697187">老用户累计</text>
-        <line x1="184" y1="4" x2="199" y2="4" stroke="#7357E8" stroke-width="3" stroke-linecap="round"/>
-        <text x="205" y="8" fill="#697187">累计绑定</text>
-        <rect x="268" y="-1" width="8" height="10" rx="2" fill="#F2B84B"/>
-        <text x="282" y="8" fill="#697187">当日新增</text>
-      </g>
-
-      <g stroke="#E7E9F1" stroke-width="1">
-        <line x1="53" y1="76.5" x2="664" y2="76.5"/>
-        <line x1="53" y1="126" x2="664" y2="126"/>
-        <line x1="53" y1="175.5" x2="664" y2="175.5"/>
-        <line x1="53" y1="225" x2="664" y2="225"/>
-        <line x1="53" y1="258" x2="664" y2="258"/>
-      </g>
-      <g fill="#8C93A5" font-family="SFMono-Regular,monospace" font-size="8">
-        <text x="44" y="79.5" text-anchor="end">1,100</text>
-        <text x="44" y="129" text-anchor="end">800</text>
-        <text x="44" y="178.5" text-anchor="end">500</text>
-        <text x="44" y="228" text-anchor="end">200</text>
-        <text x="44" y="261" text-anchor="end">0</text>
+      <g font-size="9">
+        <line x1="286" y1="26" x2="301" y2="26" stroke="#111522" stroke-width="2.5" stroke-linecap="round"/>
+        <text x="307" y="29" fill="#697187">累计绑定</text>
+        <text x="307" y="45" fill="#111522" font-family="SFMono-Regular,monospace" font-size="11" font-weight="700">1,555</text>
+        <line x1="386" y1="26" x2="401" y2="26" stroke="#0F9D78" stroke-width="2" stroke-linecap="round"/>
+        <text x="407" y="29" fill="#697187">累计新用户</text>
+        <text x="407" y="45" fill="#111522" font-family="SFMono-Regular,monospace" font-size="11" font-weight="700">1,179</text>
+        <line x1="498" y1="26" x2="513" y2="26" stroke="#6A4CE2" stroke-width="2" stroke-linecap="round"/>
+        <text x="519" y="29" fill="#697187">累计老用户</text>
+        <text x="519" y="45" fill="#111522" font-family="SFMono-Regular,monospace" font-size="11" font-weight="700">376</text>
+        <rect x="612" y="21" width="9" height="10" rx="2" fill="#6A4CE2"/>
+        <text x="627" y="29" fill="#697187">当日新增</text>
+        <text x="627" y="45" fill="#111522" font-family="SFMono-Regular,monospace" font-size="11" font-weight="700">+32</text>
       </g>
 
-      <g fill="#F2B84B" fill-opacity=".82">
-        <rect x="79" y="198.3" width="10" height="59.7" rx="2"/>
-        <rect x="164" y="223.4" width="10" height="34.6" rx="2"/>
-        <rect x="249" y="235.2" width="10" height="22.8" rx="2"/>
-        <rect x="334" y="240.5" width="10" height="17.5" rx="2"/>
-        <rect x="419" y="245.5" width="10" height="12.5" rx="2"/>
-        <rect x="504" y="243.2" width="10" height="14.8" rx="2"/>
-        <rect x="589" y="248.1" width="10" height="9.9" rx="2"/>
-        <rect x="646" y="250.4" width="10" height="7.6" rx="2"/>
+      <rect x="53" y="90" width="267.3" height="120" fill="#F5F6FB"/>
+      <rect x="53" y="240" width="267.3" height="35" fill="#F5F6FB"/>
+      <line x1="320.3" y1="90" x2="320.3" y2="275" stroke="#CFD4E1" stroke-width="1"/>
+      <text x="186" y="104" text-anchor="middle" fill="#8A91A5" font-family="SFMono-Regular,monospace" font-size="8">上线前灰度</text>
+      <text x="327" y="104" fill="#111522" font-family="SFMono-Regular,monospace" font-size="8" font-weight="700">8/10 08:00 正式上线</text>
+
+      <text x="53" y="82" fill="#697187" font-size="9" font-weight="700">累计绑定用户（人）</text>
+      <g stroke="#E9EBF3" stroke-width="1">
+        <line x1="53" y1="90" x2="664" y2="90"/>
+        <line x1="53" y1="120" x2="664" y2="120"/>
+        <line x1="53" y1="150" x2="664" y2="150"/>
+        <line x1="53" y1="180" x2="664" y2="180"/>
+      </g>
+      <line x1="53" y1="210" x2="664" y2="210" stroke="#CFD4E1" stroke-width="1"/>
+      <g fill="#8A91A5" font-family="SFMono-Regular,monospace" font-size="8">
+        <text x="44" y="93" text-anchor="end">1,600</text>
+        <text x="44" y="123" text-anchor="end">1,200</text>
+        <text x="44" y="153" text-anchor="end">800</text>
+        <text x="44" y="183" text-anchor="end">400</text>
+        <text x="44" y="213" text-anchor="end">0</text>
       </g>
 
-      <path d="M84 258 L84 223.8 L169 202.1 L254 183.6 L339 169.2 L424 158.7 L509 145.5 L594 136.6 L651 130.6 L651 258 Z" fill="url(#growthArea)"/>
-      <path d="M84 198.3 L169 163.6 L254 140.8 L339 123.3 L424 110.8 L509 95.9 L594 86.0 L651 78.5 L651 130.6 L594 136.6 L509 145.5 L424 158.7 L339 169.2 L254 183.6 L169 202.1 L84 223.8 Z" fill="#9A8CB9" fill-opacity=".88"/>
-      <path d="M84 198.3 L169 163.6 L254 140.8 L339 123.3 L424 110.8 L509 95.9 L594 86.0 L651 78.5" fill="none" stroke="#7357E8" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M84 223.8 L169 202.1 L254 183.6 L339 169.2 L424 158.7 L509 145.5 L594 136.6 L651 130.6" fill="none" stroke="#18B894" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M84 232.4 L169 219.6 L254 215.3 L339 212.1 L424 210.2 L509 208.5 L594 207.5 L651 205.9" fill="none" stroke="#685A85" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      <g fill="#7357E8">
-        <circle cx="84" cy="198.3" r="2.8"/><circle cx="169" cy="163.6" r="2.8"/><circle cx="254" cy="140.8" r="2.8"/><circle cx="339" cy="123.3" r="2.8"/>
-        <circle cx="424" cy="110.8" r="2.8"/><circle cx="509" cy="95.9" r="2.8"/><circle cx="594" cy="86.0" r="2.8"/><circle cx="651" cy="78.5" r="4"/>
+      <path d="M72.1 209.9 L110.3 209.7 L148.5 209.0 L186.7 208.6 L224.9 207.8 L263.0 207.3 L301.2 206.4 L339.4 194.6 L377.6 188.5 L415.8 186.4 L454.0 185.0 L492.2 184.1 L530.4 183.4 L568.6 182.9 L606.8 181.9 L644.9 181.8" fill="none" stroke="#6A4CE2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M72.1 209.4 L110.3 207.5 L148.5 202.3 L186.7 198.8 L224.9 196.1 L263.0 190.9 L301.2 184.9 L339.4 168.6 L377.6 158.9 L415.8 150.6 L454.0 144.1 L492.2 139.3 L530.4 133.3 L568.6 129.2 L606.8 123.8 L644.9 121.6" fill="none" stroke="#0F9D78" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M72.1 209.3 L110.3 207.2 L148.5 201.3 L186.7 197.4 L224.9 193.9 L263.1 188.2 L301.3 181.3 L339.4 153.2 L377.6 137.4 L415.8 127.1 L454 119.1 L492.2 113.4 L530.4 106.7 L568.6 102.2 L606.8 95.8 L645 93.4" fill="none" stroke="#111522" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <g stroke="#FFFFFF" stroke-width="2">
+        <circle cx="645" cy="93.4" r="4.5" fill="#111522"/>
+        <circle cx="645" cy="121.6" r="4.5" fill="#0F9D78"/>
+        <circle cx="645" cy="181.8" r="4.5" fill="#6A4CE2"/>
       </g>
-      <rect x="606" y="49" width="57" height="22" rx="11" fill="#7357E8"/>
-      <text x="634.5" y="64" text-anchor="middle" fill="#FFFFFF" font-family="SFMono-Regular,monospace" font-size="9" font-weight="700">1,088</text>
-      <g fill="#697187" font-family="SFMono-Regular,monospace" font-size="8.5">
-        <text x="84" y="282" text-anchor="middle">8.10</text><text x="169" y="282" text-anchor="middle">8.11</text>
-        <text x="254" y="282" text-anchor="middle">8.12</text><text x="339" y="282" text-anchor="middle">8.13</text>
-        <text x="424" y="282" text-anchor="middle">8.14</text><text x="509" y="282" text-anchor="middle">8.15</text>
-        <text x="594" y="282" text-anchor="middle">8.16</text><text x="651" y="282" text-anchor="middle">8.17</text>
+
+      <text x="53" y="232" fill="#697187" font-size="9" font-weight="700">每日新增绑定（人）</text>
+      <g stroke="#E9EBF3" stroke-width="1">
+        <line x1="53" y1="240" x2="664" y2="240"/>
+        <line x1="53" y1="257.5" x2="664" y2="257.5"/>
       </g>
-      <text x="26" y="315" fill="#9AA0AF" font-size="9">8月10日从 08:00 起 · 8月17日为当日截至 15:45</text>
+      <line x1="53" y1="275" x2="664" y2="275" stroke="#CFD4E1" stroke-width="1"/>
+      <g fill="#8A91A5" font-family="SFMono-Regular,monospace" font-size="8">
+        <text x="44" y="243" text-anchor="end">400</text>
+        <text x="44" y="278" text-anchor="end">0</text>
+      </g>
+
+      <g fill="#6A4CE2">
+        <rect x="66.1" y="274.21" width="12" height="0.09"/>
+        <rect x="104.3" y="272.55" width="12" height="0.26"/>
+        <rect x="142.5" y="268.09" width="12" height="0.79"/>
+        <rect x="180.7" y="270.45" width="12" height="0.52"/>
+        <rect x="218.9" y="270.98" width="12" height="0.88"/>
+        <rect x="257.0" y="268.26" width="12" height="0.61"/>
+        <rect x="295.2" y="266.95" width="12" height="1.05"/>
+        <rect x="333.4" y="242.19" width="12" height="13.82" rx="2"/>
+        <rect x="371.6" y="256.62" width="12" height="7.09" rx="2"/>
+        <rect x="409.8" y="262.93" width="12" height="2.36"/>
+        <rect x="448.0" y="265.72" width="12" height="1.66"/>
+        <rect x="486.2" y="268.35" width="12" height="1.05"/>
+        <rect x="524.4" y="267.12" width="12" height="0.88"/>
+        <rect x="562.6" y="269.75" width="12" height="0.52"/>
+        <rect x="600.8" y="267.56" width="12" height="1.14"/>
+        <rect x="638.9" y="272.2" width="12" height="0.17"/>
+      </g>
+      <g fill="#0F9D78">
+        <rect x="66.1" y="274.3" width="12" height="0.7"/>
+        <rect x="104.3" y="272.81" width="12" height="2.19"/>
+        <rect x="142.5" y="268.88" width="12" height="6.12"/>
+        <rect x="180.7" y="270.98" width="12" height="4.02"/>
+        <rect x="218.9" y="271.85" width="12" height="3.15"/>
+        <rect x="257.0" y="268.88" width="12" height="6.12"/>
+        <rect x="295.2" y="268.0" width="12" height="7.0"/>
+        <rect x="333.4" y="256.01" width="12" height="18.99"/>
+        <rect x="371.6" y="263.71" width="12" height="11.29"/>
+        <rect x="409.8" y="265.29" width="12" height="9.71"/>
+        <rect x="448.0" y="267.39" width="12" height="7.61"/>
+        <rect x="486.2" y="269.4" width="12" height="5.6"/>
+        <rect x="524.4" y="268.0" width="12" height="7.0"/>
+        <rect x="562.6" y="270.27" width="12" height="4.72"/>
+        <rect x="600.8" y="268.7" width="12" height="6.3"/>
+        <rect x="638.9" y="272.38" width="12" height="2.62"/>
+      </g>
+      <text x="645" y="268" text-anchor="middle" fill="#171B29" font-family="SFMono-Regular,monospace" font-size="9" font-weight="700">+32</text>
+
+      <g fill="#8A91A5" font-family="SFMono-Regular,monospace" font-size="8.5">
+        <text x="72.1" y="292" text-anchor="middle">8.3</text><text x="148.5" y="292" text-anchor="middle">8.5</text>
+        <text x="224.9" y="292" text-anchor="middle">8.7</text><text x="301.3" y="292" text-anchor="middle">8.9</text>
+        <text x="377.6" y="292" text-anchor="middle">8.11</text><text x="454" y="292" text-anchor="middle">8.13</text>
+        <text x="530.4" y="292" text-anchor="middle">8.15</text><text x="606.8" y="292" text-anchor="middle">8.17</text>
+        <text x="645" y="292" text-anchor="middle">8.18</text>
+      </g>
+      <text x="26" y="316" fill="#9AA0AF" font-size="9">8月3日—8月9日为正式上线前的灰度绑定 383 人（新 335 / 老 48） · 8月18日截至 10:38，当日尚未走完</text>
     </g>
 
     <g transform="translate(790 215)" filter="url(#shadow)">
       <rect width="426" height="459" rx="2" fill="#111522"/>
-      <text x="28" y="33" fill="#5ED5BB" font-family="SFMono-Regular,monospace" font-size="9" font-weight="700" letter-spacing="1.4">USER VALUE</text>
-      <text x="28" y="67" fill="#FFFFFF" font-family="Songti SC,STSong,serif" font-size="27" font-weight="700">用户画像与行为</text>
-      <text x="28" y="89" fill="#FFFFFF" fill-opacity=".48" font-size="10">从“来了多少人”继续看“用户走到了哪里”</text>
+      <text x="28" y="33" fill="#5ED5BB" font-family="SFMono-Regular,monospace" font-size="9" font-weight="700" letter-spacing="1.4">QIEMAN VALUE</text>
+      <text x="28" y="67" fill="#FFFFFF" font-family="Songti SC,STSong,serif" font-size="26" font-weight="700">在且慢的经营与画像</text>
+      <text x="28" y="89" fill="#FFFFFF" fill-opacity=".48" font-size="10">入金、保有规模、交易，加上年龄性别居住地与触点</text>
 
-      <g transform="translate(28 112)">
-        <rect width="370" height="77" rx="2" fill="#FFFFFF" fill-opacity=".055"/>
-        <text x="18" y="26" fill="#FFFFFF" fill-opacity=".58" font-size="11">在且慢有资产</text>
-        <text x="18" y="61" fill="#5ED5BB" font-family="SFMono-Regular,monospace" font-size="30" font-weight="800">151</text>
-        <text x="352" y="56" text-anchor="end" fill="#FFFFFF" fill-opacity=".42" font-size="9">当前可确认</text>
+      <g transform="translate(28 108)">
+        <rect width="370" height="70" rx="2" fill="#FFFFFF" fill-opacity=".055"/>
+        <text x="18" y="24" fill="#FFFFFF" fill-opacity=".58" font-size="11">当前保有规模</text>
+        <text x="18" y="56" fill="#5ED5BB" font-family="SFMono-Regular,monospace" font-size="27" font-weight="800">5,326 万元</text>
+        <text x="352" y="52" text-anchor="end" fill="#FFFFFF" fill-opacity=".42" font-size="9">171 人持有</text>
       </g>
-      <g transform="translate(28 199)">
-        <rect width="177" height="76" rx="2" fill="#FFFFFF" fill-opacity=".055"/>
-        <text x="16" y="25" fill="#FFFFFF" fill-opacity=".58" font-size="10">历史投资用户</text>
-        <text x="16" y="59" fill="#C8BEFF" font-family="SFMono-Regular,monospace" font-size="27" font-weight="800">169</text>
+      <g transform="translate(28 186)">
+        <rect width="177" height="70" rx="2" fill="#FFFFFF" fill-opacity=".055"/>
+        <text x="16" y="24" fill="#FFFFFF" fill-opacity=".58" font-size="10">绑定后入金</text>
+        <text x="16" y="52" fill="#C8BEFF" font-family="SFMono-Regular,monospace" font-size="21" font-weight="800">144.8 万</text>
+        <text x="161" y="66" text-anchor="end" fill="#FFFFFF" fill-opacity=".38" font-size="8.5">114 人</text>
       </g>
-      <g transform="translate(221 199)">
-        <rect width="177" height="76" rx="2" fill="#FFFFFF" fill-opacity=".055"/>
-        <text x="16" y="25" fill="#FFFFFF" fill-opacity=".58" font-size="10">绑定后发起投资</text>
-        <text x="16" y="59" fill="#F2C05D" font-family="SFMono-Regular,monospace" font-size="27" font-weight="800">60</text>
+      <g transform="translate(221 186)">
+        <rect width="177" height="70" rx="2" fill="#FFFFFF" fill-opacity=".055"/>
+        <text x="16" y="24" fill="#FFFFFF" fill-opacity=".58" font-size="10">绑定后买入</text>
+        <text x="16" y="52" fill="#C8BEFF" font-family="SFMono-Regular,monospace" font-size="21" font-weight="800">42.3 万</text>
+        <text x="161" y="66" text-anchor="end" fill="#FFFFFF" fill-opacity=".38" font-size="8.5">74 人 · 264 笔</text>
       </g>
 
-      <line x1="28" y1="300" x2="398" y2="300" stroke="#FFFFFF" stroke-opacity=".12"/>
-      <text x="28" y="327" fill="#FFFFFF" fill-opacity=".62" font-size="11" font-weight="700">有资产用户金额区间</text>
-      <text x="398" y="327" text-anchor="end" fill="#FFFFFF" fill-opacity=".34" font-size="9">共 151 人</text>
+      <line x1="28" y1="278" x2="398" y2="278" stroke="#FFFFFF" stroke-opacity=".12"/>
+      <text x="28" y="302" fill="#FFFFFF" fill-opacity=".62" font-size="11" font-weight="700">保有规模分档</text>
+      <text x="398" y="302" text-anchor="end" fill="#FFFFFF" fill-opacity=".34" font-size="9">共 171 人持有</text>
 
-      <g transform="translate(28 345)" font-size="9">
+      <g transform="translate(28 316)" font-size="9">
         <text x="0" y="10" fill="#FFFFFF" fill-opacity=".5">1万元及以下</text>
-        <rect x="66" y="2" width="208" height="9" rx="4.5" fill="#FFFFFF" fill-opacity=".09"/>
-        <rect x="66" y="2" width="60" height="9" rx="4.5" fill="#5ED5BB"/>
-        <text x="360" y="10" text-anchor="end" fill="#FFFFFF" fill-opacity=".74" font-family="SFMono-Regular,monospace">30</text>
+        <rect x="76" y="2" width="198" height="9" rx="4.5" fill="#FFFFFF" fill-opacity=".09"/>
+        <rect x="76" y="2" width="66" height="9" rx="4.5" fill="#5ED5BB"/>
+        <text x="360" y="10" text-anchor="end" fill="#FFFFFF" fill-opacity=".74" font-family="SFMono-Regular,monospace">36</text>
 
-        <text x="0" y="34" fill="#FFFFFF" fill-opacity=".5">1—10万</text>
-        <rect x="66" y="26" width="208" height="9" rx="4.5" fill="#FFFFFF" fill-opacity=".09"/>
-        <rect x="66" y="26" width="82" height="9" rx="4.5" fill="#5ED5BB"/>
-        <text x="360" y="34" text-anchor="end" fill="#FFFFFF" fill-opacity=".74" font-family="SFMono-Regular,monospace">41</text>
+        <text x="0" y="32" fill="#FFFFFF" fill-opacity=".5">1—10万</text>
+        <rect x="76" y="24" width="198" height="9" rx="4.5" fill="#FFFFFF" fill-opacity=".09"/>
+        <rect x="76" y="24" width="82" height="9" rx="4.5" fill="#5ED5BB"/>
+        <text x="360" y="32" text-anchor="end" fill="#FFFFFF" fill-opacity=".74" font-family="SFMono-Regular,monospace">45</text>
 
-        <text x="0" y="58" fill="#FFFFFF" fill-opacity=".5">10—50万</text>
-        <rect x="66" y="50" width="208" height="9" rx="4.5" fill="#FFFFFF" fill-opacity=".09"/>
-        <rect x="66" y="50" width="100" height="9" rx="4.5" fill="#5ED5BB"/>
-        <text x="360" y="58" text-anchor="end" fill="#FFFFFF" fill-opacity=".74" font-family="SFMono-Regular,monospace">50</text>
+        <text x="0" y="54" fill="#FFFFFF" fill-opacity=".5">10—50万</text>
+        <rect x="76" y="46" width="198" height="9" rx="4.5" fill="#FFFFFF" fill-opacity=".09"/>
+        <rect x="76" y="46" width="99" height="9" rx="4.5" fill="#5ED5BB"/>
+        <text x="360" y="54" text-anchor="end" fill="#FFFFFF" fill-opacity=".74" font-family="SFMono-Regular,monospace">54</text>
 
-        <text x="0" y="82" fill="#FFFFFF" fill-opacity=".5">50万以上</text>
-        <rect x="66" y="74" width="208" height="9" rx="4.5" fill="#FFFFFF" fill-opacity=".09"/>
-        <rect x="66" y="74" width="60" height="9" rx="4.5" fill="#5ED5BB"/>
-        <text x="360" y="82" text-anchor="end" fill="#FFFFFF" fill-opacity=".74" font-family="SFMono-Regular,monospace">30</text>
+        <text x="0" y="76" fill="#FFFFFF" fill-opacity=".5">50万以上</text>
+        <rect x="76" y="68" width="198" height="9" rx="4.5" fill="#FFFFFF" fill-opacity=".09"/>
+        <rect x="76" y="68" width="66" height="9" rx="4.5" fill="#5ED5BB"/>
+        <text x="360" y="76" text-anchor="end" fill="#FFFFFF" fill-opacity=".74" font-family="SFMono-Regular,monospace">36</text>
       </g>
-      <text x="28" y="443" fill="#FFFFFF" fill-opacity=".28" font-size="8.5">仅展示符合公开口径的整体数据，不含个人明细与金额</text>
+
+      <line x1="28" y1="410" x2="398" y2="410" stroke="#FFFFFF" stroke-opacity=".12"/>
+      <g transform="translate(28 428)" font-size="9">
+        <text x="0" y="0" fill="#FFFFFF" fill-opacity=".5">公众号绑定</text>
+        <text x="66" y="0" fill="#FFFFFF" font-family="SFMono-Regular,monospace" font-weight="700">224</text>
+        <text x="124" y="0" fill="#FFFFFF" fill-opacity=".5">已绑卡</text>
+        <text x="168" y="0" fill="#FFFFFF" font-family="SFMono-Regular,monospace" font-weight="700">233</text>
+        <text x="224" y="0" fill="#FFFFFF" fill-opacity=".5">已测评</text>
+        <text x="268" y="0" fill="#FFFFFF" font-family="SFMono-Regular,monospace" font-weight="700">232</text>
+      </g>
+      <text x="28" y="452" fill="#FFFFFF" fill-opacity=".28" font-size="8.5">只展示符合公开口径的整体数据，不含个人明细与单人金额</text>
     </g>
   </g>
 </svg>

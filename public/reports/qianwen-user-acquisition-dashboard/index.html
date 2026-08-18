@@ -32,7 +32,7 @@
   <main id="main">
     <section class="hero shell" id="top" aria-labelledby="hero-title">
       <div class="hero-heading">
-        <p class="eyebrow">SERVICE LAUNCH · SINCE 2026.08.10 08:00</p>
+        <p class="eyebrow">LAUNCH 2026.08.10 08:00 · DATA WINDOW SINCE 08.03</p>
         <h1 id="hero-title">千问 X 且慢AI小顾<br /><span>用户数据看板</span></h1>
         <p class="hero-lead" id="hero-lead">正在读取服务上线以来的最新用户数据。</p>
       </div>
@@ -52,12 +52,12 @@
         <article class="kpi-card kpi-new">
           <span class="kpi-select">其中新用户</span>
           <div><strong id="new-accounts">—</strong><em id="new-share">—</em></div>
-          <small>上线后新注册且慢</small>
+          <small>绑定时新注册且慢</small>
         </article>
         <article class="kpi-card kpi-existing">
           <span class="kpi-select">老用户</span>
           <div><strong id="existing-accounts">—</strong><em id="existing-share">—</em></div>
-          <small>上线前已注册且慢</small>
+          <small>绑定时已有且慢账户</small>
         </article>
       </section>
     </section>
@@ -71,7 +71,8 @@
         <div class="analysis-controls">
           <fieldset class="segmented range-segmented" aria-label="选择时间范围">
             <legend>时间</legend>
-            <label><input type="radio" name="range" value="since-launch" checked /><span>上线以来</span></label>
+            <label><input type="radio" name="range" value="full-window" checked /><span>全部区间</span></label>
+            <label><input type="radio" name="range" value="since-launch"><span>上线以来</span></label>
             <label><input type="radio" name="range" value="last-7"><span>近 7 日</span></label>
             <label><input type="radio" name="range" value="custom"><span>自定义</span></label>
           </fieldset>
@@ -87,33 +88,40 @@
       </form>
 
       <div class="analysis-canvas">
-        <fieldset class="series-legend" aria-controls="trend-chart">
-          <legend>显示数据</legend>
-          <label class="legend-bound">
-            <input type="checkbox" name="series" value="bound" checked />
-            <i class="legend-swatch swatch-bound" aria-hidden="true"></i>
-            <span>累计绑定</span>
-          </label>
-          <label class="legend-new">
-            <input type="checkbox" name="series" value="new" checked />
-            <i class="legend-swatch swatch-new" aria-hidden="true"></i>
-            <span>累计新用户</span>
-          </label>
-          <label class="legend-existing">
-            <input type="checkbox" name="series" value="existing" checked />
-            <i class="legend-swatch swatch-existing" aria-hidden="true"></i>
-            <span>累计老用户</span>
-          </label>
-          <label class="legend-daily">
-            <input type="checkbox" name="series" value="daily" checked />
-            <i class="legend-swatch swatch-daily" aria-hidden="true"></i>
-            <span>当日新增</span>
-          </label>
-        </fieldset>
+        <div class="readout">
+          <p class="readout-head"><span id="readout-label">最新读数</span><time id="readout-date">—</time></p>
+          <fieldset class="series-legend" aria-controls="trend-chart">
+            <legend class="sr-only">显示的数据与当前读数</legend>
+            <label class="chip chip-bound">
+              <input type="checkbox" name="series" value="bound" checked />
+              <i class="chip-swatch" aria-hidden="true"></i>
+              <span class="chip-name">累计绑定</span>
+              <b class="chip-value" id="value-bound">—</b>
+            </label>
+            <label class="chip chip-new">
+              <input type="checkbox" name="series" value="new" checked />
+              <i class="chip-swatch" aria-hidden="true"></i>
+              <span class="chip-name">累计新用户</span>
+              <b class="chip-value" id="value-new">—</b>
+            </label>
+            <label class="chip chip-existing">
+              <input type="checkbox" name="series" value="existing" checked />
+              <i class="chip-swatch" aria-hidden="true"></i>
+              <span class="chip-name">累计老用户</span>
+              <b class="chip-value" id="value-existing">—</b>
+            </label>
+            <label class="chip chip-daily">
+              <input type="checkbox" name="series" value="daily" checked />
+              <i class="chip-swatch" aria-hidden="true"></i>
+              <span class="chip-name">当日新增</span>
+              <b class="chip-value" id="value-daily">—</b>
+            </label>
+          </fieldset>
+        </div>
         <div class="chart-wrap" id="chart-wrap">
-          <svg id="trend-chart" viewBox="0 0 1040 440" role="img" aria-labelledby="chart-title chart-desc" data-visible-series="bound,new,existing,daily">
+          <svg id="trend-chart" viewBox="0 0 1040 458" role="img" aria-labelledby="chart-title chart-desc" data-visible-series="bound,new,existing,daily">
             <title id="chart-title">服务上线以来用户增长走势</title>
-            <desc id="chart-desc">同图展示累计绑定、累计新用户、累计老用户和当日新增。</desc>
+            <desc id="chart-desc">上图为累计绑定、累计新用户、累计老用户，下图为每日新增绑定。</desc>
           </svg>
           <div class="chart-tooltip" id="chart-tooltip" hidden></div>
         </div>
@@ -144,9 +152,9 @@
     <section class="audience shell" id="audience-analysis" aria-labelledby="audience-title">
       <div class="audience-head">
         <div class="audience-heading">
-          <p class="eyebrow">USER VALUE &amp; ENGAGEMENT</p>
-          <h2 id="audience-title">用户画像与行为</h2>
-          <p>看绑定后的资产、入金、投资，以及且慢APP和AI小顾使用情况。</p>
+          <p class="eyebrow">QIEMAN VALUE &amp; USER PROFILE</p>
+          <h2 id="audience-title">在且慢的经营情况与用户画像</h2>
+          <p>这批用户在且慢的入金、保有规模与交易情况，以及年龄、性别、居住地，是否使用且慢APP、是否绑定微信公众号。</p>
         </div>
         <fieldset class="segmented audience-segmented" id="audience-cohort-control" aria-label="选择用户类型">
           <legend>用户</legend>
@@ -165,12 +173,14 @@
         <p id="audience-summary-copy">正在读取绑定后的用户情况。</p>
       </div>
 
+      <section class="metric-tiles" id="business-tiles" aria-label="且慢经营关键数据"></section>
+
       <div class="audience-panels">
         <section class="audience-panel asset-panel" aria-labelledby="asset-panel-title">
           <div class="audience-panel-head">
             <div>
               <span>01</span>
-              <h3 id="asset-panel-title">资产与账户状态</h3>
+              <h3 id="asset-panel-title">保有规模与账户状态</h3>
             </div>
             <p>当前所选用户</p>
           </div>
@@ -181,7 +191,7 @@
           <div class="audience-panel-head">
             <div>
               <span>02</span>
-              <h3 id="behavior-panel-title">绑定后关键行为</h3>
+              <h3 id="behavior-panel-title">绑定后入金与交易</h3>
             </div>
             <p>各行为独立统计</p>
           </div>
@@ -189,10 +199,34 @@
         </section>
       </div>
 
+      <div class="audience-panels">
+        <section class="audience-panel profile-panel" aria-labelledby="profile-panel-title">
+          <div class="audience-panel-head">
+            <div>
+              <span>03</span>
+              <h3 id="profile-panel-title">用户画像</h3>
+            </div>
+            <p>年龄 · 性别 · 居住地</p>
+          </div>
+          <div class="asset-distribution" id="profile-distribution"></div>
+        </section>
+
+        <section class="audience-panel touchpoint-panel" aria-labelledby="touchpoint-panel-title">
+          <div class="audience-panel-head">
+            <div>
+              <span>04</span>
+              <h3 id="touchpoint-panel-title">触点与投资准备度</h3>
+            </div>
+            <p>APP · 公众号 · 绑卡 · 测评</p>
+          </div>
+          <div class="asset-distribution" id="touchpoint-distribution"></div>
+        </section>
+      </div>
+
       <section class="audience-detail" aria-labelledby="audience-detail-title">
         <div class="audience-detail-head">
           <div>
-            <span>03</span>
+            <span>05</span>
             <h3 id="audience-detail-title">所选用户数据明细</h3>
           </div>
           <p id="audience-detail-context">—</p>
