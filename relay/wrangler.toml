@@ -1,0 +1,15 @@
+name = "clair-refresh-relay"
+main = "src/index.js"
+compatibility_date = "2026-08-18"
+
+# 任务、心跳与最近一次快照都放 KV。id 由 `wrangler kv namespace create RELAY` 生成后填入。
+[[kv_namespaces]]
+binding = "RELAY"
+id = "PLACEHOLDER_KV_NAMESPACE_ID"
+
+[observability]
+enabled = true
+
+# 两个密钥用 `wrangler secret put` 写入，不进仓库：
+#   DASHBOARD_PASSWORD —— 公网访客点「更新数据」时要输的口令
+#   AGENT_TOKEN        —— 本机刷新 agent 领任务、回传快照用的令牌

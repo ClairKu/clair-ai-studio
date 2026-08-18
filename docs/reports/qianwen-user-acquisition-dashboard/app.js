@@ -1,7 +1,9 @@
 const DATA_URL = "./data/latest.json";
-const LOCAL_REFRESH_BASE = "http://127.0.0.1:41791";
+// 盈米本体是内网服务，公网页面查不到它。更新走中继：页面把口令交给中继，中继派任务给
+// 内网侧的刷新服务，查完再把快照回传。口令只在中继校验，页面不保存也不缓存。
+const RELAY_BASE = "https://clair-refresh-relay.clairku.workers.dev";
+const DASHBOARD_ID = "qianwen-user-acquisition";
 const LOCAL_DATA_KEY = "clair-qianwen-acquisition-latest-v5";
-const LOCAL_HEADER = { "X-Clair-Dashboard": "qianwen-user-acquisition-v1" };
 const SCHEMA_VERSION = "qianwen-user-acquisition-v5";
 const LAUNCH_AT = "2026-08-10T08:00:00+08:00";
 const number = new Intl.NumberFormat("zh-CN");
@@ -965,70 +967,86 @@ function delay(ms) {
   return new Promise((resolve) => window.setTimeout(resolve, ms));
 }
 
-async function startLocalRefresh() {
-  const health = await fetchWithTimeout(`${LOCAL_REFRESH_BASE}/health`, { cache: "no-store", headers: LOCAL_HEADER }, 1800);
-  if (!health.ok) throw new Error("更新服务未就绪");
-  const healthData = await health.json();
-  if (healthData.schema_version !== SCHEMA_VERSION || healthData.window_start_at !== LAUNCH_AT) {
-    throw new Error("本机更新服务需要升级并重启");
+class RefreshError extends Error {
+  constructor(message, kind = "failed") {
+    super(message);
+    this.kind = kind;
   }
-  const response = await fetchWithTimeout(`${LOCAL_REFRESH_BASE}/refresh`, {
-    method: "POST",
-    cache: "no-store",
-    headers: { ...LOCAL_HEADER, "Content-Type": "application/json" },
-    body: JSON.stringify({ action: "refresh" }),
-  }, 5000);
-  if (!response.ok) throw new Error(`更新服务返回 ${response.status}`);
-  const started = await response.json();
-  if (!started.job_id) throw new Error("更新服务没有返回任务编号");
-  setRefreshStatus(started.message || "正在查询最新数据。", started.progress_url || "");
-  for (let attempt = 0; attempt < 900; attempt += 1) {
-    await delay(2200);
-    const statusResponse = await fetchWithTimeout(`${LOCAL_REFRESH_BASE}/status?job=${encodeURIComponent(started.job_id)}&v=${Date.now()}`, {
-      cache: "no-store",
-      headers: LOCAL_HEADER,
-    }, 5000);
-    if (!statusResponse.ok) throw new Error(`查询状态返回 ${statusResponse.status}`);
-    const status = await statusResponse.json();
-    setRefreshStatus(status.message || "正在查询最新数据。", status.progress_url || "");
-    if (status.status === "completed") {
-      const refreshed = validateData(status.data);
-      saveLocalData(refreshed);
-      return refreshed;
-    }
-    if (status.status === "failed") throw new Error(status.message || "数据查询失败");
-  }
-  throw new Error("数据查询超过 30 分钟，请稍后重试");
 }
 
-async function refreshData() {
+const relayMessage = (payload, fallback) => (typeof payload?.message === "string" && payload.message ? payload.message : fallback);
+
+/** 把口令交给中继换一个更新任务。口令错误单独标记，让弹窗留在原地等重输。 */
+async function startRelayRefresh(password) {
+  let response;
+  let payload;
+  try {
+    response = await fetchWithTimeout(`${RELAY_BASE}/refresh`, {
+      method: "POST",
+      cache: "no-store",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ dashboard: DASHBOARD_ID, password }),
+    }, 12000);
+    payload = await response.json();
+  } catch {
+    throw new RefreshError("连不上更新服务。");
+  }
+  if (response.status === 401 || (response.status === 429 && payload?.error === "too_many_attempts")) {
+    throw new RefreshError(relayMessage(payload, "口令不正确。"), "password");
+  }
+  if (!response.ok) throw new RefreshError(relayMessage(payload, `更新服务返回 ${response.status}。`));
+  if (!payload.job_id) throw new RefreshError("更新服务没有返回任务编号。");
+  return payload;
+}
+
+/** 轮询任务，直到本机侧查完把快照回传。 */
+async function pollRelayJob(jobId) {
+  for (let attempt = 0; attempt < 780; attempt += 1) {
+    await delay(2300);
+    const response = await fetchWithTimeout(`${RELAY_BASE}/status?job=${encodeURIComponent(jobId)}&v=${Date.now()}`, { cache: "no-store" }, 12000);
+    if (!response.ok) throw new RefreshError(`查询状态返回 ${response.status}。`);
+    const job = await response.json();
+    setRefreshStatus(relayMessage(job, "正在查询最新数据。"), job.progress_url || "");
+    if (job.status === "completed") return validateData(job.data);
+    if (job.status === "failed") throw new RefreshError(relayMessage(job, "数据查询失败。"));
+  }
+  throw new RefreshError("数据查询超过 30 分钟，请稍后重试。");
+}
+
+/** 任何一条更新失败的路径，都退回到最近一份能读到的数据，并把原因说清楚。 */
+async function fallbackToPublished(reason) {
+  try {
+    const published = await loadPublishedData(true);
+    const saved = loadSavedLocalData();
+    const newest = saved && parseTime(saved.meta.data_cutoff) > parseTime(published.meta.data_cutoff) ? saved : published;
+    render(newest, newest === saved ? "local-cache" : "published");
+    setRefreshStatus(`${reason}已展示最近数据（截至 ${formatCutoff(newest.meta.data_cutoff)}）。`);
+    showToast(reason);
+  } catch {
+    setFreshness("error", "更新失败");
+    setRefreshStatus(`更新失败：${reason}`);
+    showToast("更新失败，请稍后再试");
+  }
+}
+
+/** 口令通过之后的长流程：等本机侧查完，拿到快照就地重绘。 */
+async function runRefreshJob(job) {
   const button = $("#refresh-button");
-  if (button.disabled) return;
   button.disabled = true;
   button.classList.add("is-loading");
   button.setAttribute("aria-busy", "true");
   button.querySelector("span").textContent = "正在更新";
   setFreshness("loading", "正在查询数据");
-  setRefreshStatus("正在连接盈米本体，查询最新数据…");
+  setRefreshStatus(relayMessage(job, "已连接更新服务，正在查询最新数据…"), job.progress_url || "");
   try {
-    const refreshed = await startLocalRefresh();
-    render(refreshed, "local-live");
+    const refreshed = job.status === "completed" ? validateData(job.data) : await pollRelayJob(job.job_id);
+    saveLocalData(refreshed);
+    render(refreshed, "relay-live");
     setRefreshStatus(`更新完成，数据已刷新至 ${formatCutoff(refreshed.meta.data_cutoff)}。`);
     showToast("最新用户数据已更新");
     window.setTimeout(() => setRefreshStatus(""), 6000);
-  } catch (localError) {
-    try {
-      const published = await loadPublishedData(true);
-      const saved = loadSavedLocalData();
-      const newest = saved && parseTime(saved.meta.data_cutoff) > parseTime(published.meta.data_cutoff) ? saved : published;
-      render(newest, newest === saved ? "local-cache" : "published");
-      setRefreshStatus(`暂未连接本机更新服务，已保留最近数据（截至 ${formatCutoff(newest.meta.data_cutoff)}）。`);
-      showToast(localError.message || "已读取最近可用数据");
-    } catch {
-      setFreshness("error", "更新失败");
-      setRefreshStatus(`更新失败：${localError.message || "无法查询或读取数据"}`);
-      showToast("更新失败，请稍后再试");
-    }
+  } catch (error) {
+    await fallbackToPublished(error.message || "无法查询或读取数据。");
   } finally {
     button.disabled = false;
     button.classList.remove("is-loading");
@@ -1037,8 +1055,62 @@ async function refreshData() {
   }
 }
 
+function openRefreshDialog() {
+  if ($("#refresh-button").disabled) return;
+  const dialog = $("#refresh-dialog");
+  $("#refresh-password").value = "";
+  $("#refresh-error").textContent = "";
+  if (typeof dialog.showModal === "function") dialog.showModal();
+  else dialog.setAttribute("open", "");
+  window.setTimeout(() => $("#refresh-password").focus(), 0);
+}
+
+function closeRefreshDialog() {
+  const dialog = $("#refresh-dialog");
+  $("#refresh-password").value = "";
+  if (typeof dialog.close === "function") dialog.close();
+  else dialog.removeAttribute("open");
+}
+
+/** 每次点更新都要重新输一次口令：页面不记住，也不往任何地方存。 */
+async function requestRelayRefresh(event) {
+  event.preventDefault();
+  const input = $("#refresh-password");
+  const error = $("#refresh-error");
+  const submit = $("#refresh-submit");
+  const password = input.value;
+  if (!password) {
+    error.textContent = "请输入更新口令。";
+    input.focus();
+    return;
+  }
+  submit.disabled = true;
+  error.textContent = "正在核对口令…";
+  let job = null;
+  try {
+    job = await startRelayRefresh(password);
+  } catch (refreshError) {
+    if (refreshError.kind === "password") {
+      error.textContent = refreshError.message;
+      input.value = "";
+      input.focus();
+      return;
+    }
+    closeRefreshDialog();
+    await fallbackToPublished(refreshError.message);
+    return;
+  } finally {
+    submit.disabled = false;
+  }
+  closeRefreshDialog();
+  await runRefreshJob(job);
+}
+
 function bindInteractions() {
-  $("#refresh-button").addEventListener("click", refreshData);
+  $("#refresh-button").addEventListener("click", openRefreshDialog);
+  $("#refresh-form").addEventListener("submit", requestRelayRefresh);
+  $("#refresh-cancel").addEventListener("click", closeRefreshDialog);
+  $("#refresh-dialog").addEventListener("close", () => { $("#refresh-password").value = ""; });
   document.querySelectorAll('input[name="series"]').forEach((input) => input.addEventListener("change", () => {
     if (input.checked) viewState.visibleSeries.add(input.value);
     else viewState.visibleSeries.delete(input.value);

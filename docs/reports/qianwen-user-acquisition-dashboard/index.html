@@ -212,6 +212,22 @@
     </section>
   </main>
 
+  <dialog class="refresh-dialog" id="refresh-dialog" aria-labelledby="refresh-dialog-title">
+    <form class="refresh-form" id="refresh-form" novalidate>
+      <h2 id="refresh-dialog-title">更新看板数据</h2>
+      <p class="refresh-dialog-lead">更新会向盈米本体重新查询一次，通常需要 2 到 5 分钟。请输入更新口令。</p>
+      <label class="refresh-field" for="refresh-password">
+        <span>更新口令</span>
+        <input id="refresh-password" name="refresh-code" type="password" autocomplete="off" required />
+      </label>
+      <p class="refresh-error" id="refresh-error" role="alert"></p>
+      <div class="refresh-dialog-actions">
+        <button type="button" class="refresh-ghost" id="refresh-cancel">取消</button>
+        <button type="submit" class="refresh-submit" id="refresh-submit">开始更新</button>
+      </div>
+    </form>
+  </dialog>
+
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="./data/fallback-data.js"></script>
