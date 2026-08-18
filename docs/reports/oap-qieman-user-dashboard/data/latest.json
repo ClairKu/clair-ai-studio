@@ -3,9 +3,9 @@
  "meta": {
   "title": "OAP 用户新老结构 × 且慢资产、入金、行为与服务使用",
   "contract_revision": "segments-new-existing-2026-08-18",
-  "generated_at": "2026-08-17T16:24:53+08:00",
-  "data_cutoff": "2026-08-16T23:59:59+08:00",
-  "asset_snapshot_date": "2026-08-17",
+  "generated_at": "2026-08-18T13:18:46+08:00",
+  "data_cutoff": "2026-08-17T23:59:59+08:00",
+  "asset_snapshot_date": "2026-08-18",
   "behavior_window_start": "2026-05-19",
   "behavior_window_end": "2026-08-16",
   "timezone": "Asia/Shanghai",
@@ -13,20 +13,27 @@
   "evidence_state": "partial",
   "privacy": "公开脱敏聚合，不含用户明细、稳定主键与数据库凭证",
   "amount_precision": "金额按万元级汇总展示",
-  "minimum_public_cell": 20
+  "minimum_public_cell": 20,
+  "source_cutoffs": {
+   "oap_usage_and_registration": "2026-08-17",
+   "asset_snapshot": "2026-08-18",
+   "cashflow_proxy": "2026-08-17",
+   "behavior_events": "2026-08-16",
+   "survey_profile": "2026-08-16"
+  }
  },
  "usage": {
-  "approved_users": 9855,
-  "ever_called_users": 5816,
-  "active_30d_users": 2266,
-  "total_calls": 9458599,
-  "attributed_calls": 1739054,
-  "unattributed_calls": 7719545,
-  "calls_30d": 471739
+  "approved_users": 10009,
+  "ever_called_users": 5890,
+  "active_30d_users": 2332,
+  "total_calls": 9479992,
+  "attributed_calls": 1751603,
+  "unattributed_calls": 7728389,
+  "calls_30d": 485917
  },
  "journey_metrics": {
   "schema_version": "oap-journey-metrics-v1",
-  "as_of": "2026-08-16",
+  "as_of": "2026-08-17",
   "range_start": "2026-08-01",
   "timezone": "Asia/Shanghai",
   "rows": [
@@ -36,7 +43,7 @@
     "cumulativeUsers": 8520,
     "dailyCalls": 6366,
     "dailyNewUsers": 71,
-    "dailyCallingUsers": 218,
+    "dailyCallingUsers": 208,
     "suppressed_fields": []
    },
    {
@@ -45,7 +52,7 @@
     "cumulativeUsers": 8580,
     "dailyCalls": 6573,
     "dailyNewUsers": 62,
-    "dailyCallingUsers": 214,
+    "dailyCallingUsers": 205,
     "suppressed_fields": []
    },
    {
@@ -54,7 +61,7 @@
     "cumulativeUsers": 8660,
     "dailyCalls": 22564,
     "dailyNewUsers": 77,
-    "dailyCallingUsers": 434,
+    "dailyCallingUsers": 409,
     "suppressed_fields": []
    },
    {
@@ -63,7 +70,7 @@
     "cumulativeUsers": 8720,
     "dailyCalls": 27158,
     "dailyNewUsers": 75,
-    "dailyCallingUsers": 417,
+    "dailyCallingUsers": 400,
     "suppressed_fields": []
    },
    {
@@ -72,7 +79,7 @@
     "cumulativeUsers": 8820,
     "dailyCalls": 19073,
     "dailyNewUsers": 94,
-    "dailyCallingUsers": 448,
+    "dailyCallingUsers": 426,
     "suppressed_fields": []
    },
    {
@@ -81,7 +88,7 @@
     "cumulativeUsers": 8980,
     "dailyCalls": 17959,
     "dailyNewUsers": 151,
-    "dailyCallingUsers": 471,
+    "dailyCallingUsers": 450,
     "suppressed_fields": []
    },
    {
@@ -90,7 +97,7 @@
     "cumulativeUsers": 9080,
     "dailyCalls": 17357,
     "dailyNewUsers": 108,
-    "dailyCallingUsers": 449,
+    "dailyCallingUsers": 429,
     "suppressed_fields": []
    },
    {
@@ -99,7 +106,7 @@
     "cumulativeUsers": 9140,
     "dailyCalls": 10922,
     "dailyNewUsers": 69,
-    "dailyCallingUsers": 243,
+    "dailyCallingUsers": 232,
     "suppressed_fields": []
    },
    {
@@ -108,7 +115,7 @@
     "cumulativeUsers": 9220,
     "dailyCalls": 10047,
     "dailyNewUsers": 66,
-    "dailyCallingUsers": 229,
+    "dailyCallingUsers": 217,
     "suppressed_fields": []
    },
    {
@@ -117,7 +124,7 @@
     "cumulativeUsers": 9320,
     "dailyCalls": 19710,
     "dailyNewUsers": 108,
-    "dailyCallingUsers": 484,
+    "dailyCallingUsers": 467,
     "suppressed_fields": []
    },
    {
@@ -126,7 +133,7 @@
     "cumulativeUsers": 9440,
     "dailyCalls": 19875,
     "dailyNewUsers": 113,
-    "dailyCallingUsers": 464,
+    "dailyCallingUsers": 442,
     "suppressed_fields": []
    },
    {
@@ -135,7 +142,7 @@
     "cumulativeUsers": 9520,
     "dailyCalls": 20025,
     "dailyNewUsers": 91,
-    "dailyCallingUsers": 491,
+    "dailyCallingUsers": 472,
     "suppressed_fields": []
    },
    {
@@ -144,7 +151,7 @@
     "cumulativeUsers": 9620,
     "dailyCalls": 19290,
     "dailyNewUsers": 98,
-    "dailyCallingUsers": 494,
+    "dailyCallingUsers": 475,
     "suppressed_fields": []
    },
    {
@@ -153,7 +160,7 @@
     "cumulativeUsers": 9720,
     "dailyCalls": 19799,
     "dailyNewUsers": 87,
-    "dailyCallingUsers": 472,
+    "dailyCallingUsers": 451,
     "suppressed_fields": []
    },
    {
@@ -162,7 +169,7 @@
     "cumulativeUsers": 9780,
     "dailyCalls": 11712,
     "dailyNewUsers": 65,
-    "dailyCallingUsers": 213,
+    "dailyCallingUsers": 203,
     "suppressed_fields": []
    },
    {
@@ -171,7 +178,16 @@
     "cumulativeUsers": 9860,
     "dailyCalls": 10687,
     "dailyNewUsers": 78,
-    "dailyCallingUsers": 211,
+    "dailyCallingUsers": 199,
+    "suppressed_fields": []
+   },
+   {
+    "date": "2026-08-17",
+    "cumulativeCalls": 9480000,
+    "cumulativeUsers": 10000,
+    "dailyCalls": 21393,
+    "dailyNewUsers": 154,
+    "dailyCallingUsers": 504,
     "suppressed_fields": []
    }
   ],
@@ -197,167 +213,167 @@
    "label": "资产入账日资金流代理",
    "source_type": "asset_delta_proxy",
    "first_inflow_scope": "all_history",
-   "detail": "使用账户日级资产入账与出账作为代理；可观察资金变化，但尚未等价于权威外部现金流，也不是买入或赎回额。"
+   "detail": "使用账户日级资产入账与出账作为代理；可观察资金变化，但尚未等价于权威外部现金流，也不是买入或赎回额。本轮「首次资产入账」需要全历史扫描，查询无法在限时内完成，按缺失处理，不用窗口内入账人数替代。"
   },
   "comparison": {
-   "current_start": "2026-07-16",
-   "current_end": "2026-08-14",
-   "previous_start": "2026-06-16",
-   "previous_end": "2026-07-15"
+   "current_start": "2026-07-19",
+   "current_end": "2026-08-17",
+   "previous_start": "2026-06-19",
+   "previous_end": "2026-07-18"
   },
   "trend": {
-   "window_start": "2026-05-17",
-   "window_end": "2026-08-14",
+   "window_start": "2026-05-20",
+   "window_end": "2026-08-17",
    "grain_days": 10,
    "period_count": 9
   },
   "funnel": {
-   "registration_start": "2026-06-16",
-   "registration_end": "2026-07-15",
+   "registration_start": "2026-06-19",
+   "registration_end": "2026-07-18",
    "followup_days": 30
   },
-  "cashflow_max_date": "2026-08-14",
+  "cashflow_max_date": "2026-08-17",
   "join_key_state": "confirmed",
   "by_cohort": {
    "approved": {
-    "cohort_n": 9855,
-    "registration_time_coverage_state": "high",
+    "cohort_n": 10009,
+    "registration_time_coverage_state": "complete",
     "current": {
-     "new_registrations": 1914,
+     "new_registrations": 2068,
      "first_inflow_users": null,
-     "inflow_users": 727,
-     "inflow_yuan": 10400000,
-     "outflow_yuan": 11270000,
+     "inflow_users": 743,
+     "inflow_yuan": 9240000,
+     "outflow_yuan": 10290000,
      "suppressed_fields": [
       "first_inflow_users"
      ]
     },
     "previous": {
-     "new_registrations": 599,
+     "new_registrations": 591,
      "first_inflow_users": null,
-     "inflow_users": 746,
-     "inflow_yuan": 11350000,
-     "outflow_yuan": 8940000,
+     "inflow_users": 762,
+     "inflow_yuan": 10680000,
+     "outflow_yuan": 8920000,
      "suppressed_fields": [
       "first_inflow_users"
      ]
     },
     "funnel": {
+     "eligible_registrations": 591,
+     "first_inflow_d7_users": null,
+     "first_inflow_d30_users": null,
+     "still_holding_users": null,
      "suppressed_fields": [
       "first_inflow_d7_users",
       "first_inflow_d30_users",
       "still_holding_users"
-     ],
-     "eligible_registrations": 599,
-     "first_inflow_d7_users": null,
-     "first_inflow_d30_users": null,
-     "still_holding_users": null
+     ]
     },
     "trend_periods": [
      {
-      "start": "2026-05-17",
-      "end": "2026-05-26",
-      "new_registrations": 202,
+      "start": "2026-05-20",
+      "end": "2026-05-29",
+      "new_registrations": 212,
       "first_inflow_users": null,
-      "inflow_users": 526,
-      "inflow_yuan": 6670000,
-      "outflow_yuan": 4590000,
+      "inflow_users": 544,
+      "inflow_yuan": 7740000,
+      "outflow_yuan": 6520000,
       "suppressed_fields": [
        "first_inflow_users"
       ]
      },
      {
-      "start": "2026-05-27",
-      "end": "2026-06-05",
-      "new_registrations": 183,
+      "start": "2026-05-30",
+      "end": "2026-06-08",
+      "new_registrations": 199,
       "first_inflow_users": null,
-      "inflow_users": 501,
-      "inflow_yuan": 5890000,
-      "outflow_yuan": 7580000,
+      "inflow_users": 451,
+      "inflow_yuan": 3950000,
+      "outflow_yuan": 5280000,
       "suppressed_fields": [
        "first_inflow_users"
       ]
      },
      {
-      "start": "2026-06-06",
-      "end": "2026-06-15",
-      "new_registrations": 200,
+      "start": "2026-06-09",
+      "end": "2026-06-18",
+      "new_registrations": 190,
       "first_inflow_users": null,
-      "inflow_users": 279,
-      "inflow_yuan": 3460000,
-      "outflow_yuan": 4310000,
+      "inflow_users": 370,
+      "inflow_yuan": 4770000,
+      "outflow_yuan": 5240000,
       "suppressed_fields": [
        "first_inflow_users"
       ]
      },
      {
-      "start": "2026-06-16",
-      "end": "2026-06-25",
-      "new_registrations": 187,
+      "start": "2026-06-19",
+      "end": "2026-06-28",
+      "new_registrations": 163,
       "first_inflow_users": null,
-      "inflow_users": 498,
-      "inflow_yuan": 5110000,
-      "outflow_yuan": 4620000,
+      "inflow_users": 444,
+      "inflow_yuan": 4020000,
+      "outflow_yuan": 4470000,
       "suppressed_fields": [
        "first_inflow_users"
       ]
      },
      {
-      "start": "2026-06-26",
-      "end": "2026-07-05",
-      "new_registrations": 170,
+      "start": "2026-06-29",
+      "end": "2026-07-08",
+      "new_registrations": 208,
       "first_inflow_users": null,
-      "inflow_users": 401,
-      "inflow_yuan": 3070000,
-      "outflow_yuan": 2280000,
+      "inflow_users": 429,
+      "inflow_yuan": 4170000,
+      "outflow_yuan": 2850000,
       "suppressed_fields": [
        "first_inflow_users"
       ]
      },
      {
-      "start": "2026-07-06",
-      "end": "2026-07-15",
-      "new_registrations": 242,
+      "start": "2026-07-09",
+      "end": "2026-07-18",
+      "new_registrations": 220,
       "first_inflow_users": null,
-      "inflow_users": 658,
-      "inflow_yuan": 3170000,
-      "outflow_yuan": 2040000,
+      "inflow_users": 679,
+      "inflow_yuan": 2490000,
+      "outflow_yuan": 1600000,
       "suppressed_fields": [
        "first_inflow_users"
       ]
      },
      {
-      "start": "2026-07-16",
-      "end": "2026-07-25",
-      "new_registrations": 590,
+      "start": "2026-07-19",
+      "end": "2026-07-28",
+      "new_registrations": 744,
       "first_inflow_users": null,
-      "inflow_users": 245,
-      "inflow_yuan": 2040000,
-      "outflow_yuan": 2910000,
+      "inflow_users": 214,
+      "inflow_yuan": 1800000,
+      "outflow_yuan": 2540000,
       "suppressed_fields": [
        "first_inflow_users"
       ]
      },
      {
-      "start": "2026-07-26",
-      "end": "2026-08-04",
-      "new_registrations": 596,
+      "start": "2026-07-29",
+      "end": "2026-08-07",
+      "new_registrations": 666,
       "first_inflow_users": null,
-      "inflow_users": 339,
-      "inflow_yuan": 3180000,
-      "outflow_yuan": 5150000,
+      "inflow_users": 382,
+      "inflow_yuan": 3490000,
+      "outflow_yuan": 5800000,
       "suppressed_fields": [
        "first_inflow_users"
       ]
      },
      {
-      "start": "2026-08-05",
-      "end": "2026-08-14",
-      "new_registrations": 728,
+      "start": "2026-08-08",
+      "end": "2026-08-17",
+      "new_registrations": 658,
       "first_inflow_users": null,
-      "inflow_users": 637,
-      "inflow_yuan": 5180000,
-      "outflow_yuan": 3210000,
+      "inflow_users": 633,
+      "inflow_yuan": 3950000,
+      "outflow_yuan": 1950000,
       "suppressed_fields": [
        "first_inflow_users"
       ]
@@ -365,300 +381,297 @@
     ]
    },
    "called": {
-    "cohort_n": 5816,
-    "registration_time_coverage_state": "high",
+    "cohort_n": 5890,
+    "registration_time_coverage_state": "complete",
     "current": {
-     "new_registrations": null,
+     "new_registrations": 1063,
      "first_inflow_users": null,
-     "inflow_users": 439,
-     "inflow_yuan": 8460000,
-     "outflow_yuan": 6010000,
+     "inflow_users": 442,
+     "inflow_yuan": 7330000,
+     "outflow_yuan": 5070000,
      "suppressed_fields": [
-      "first_inflow_users",
-      "new_registrations"
+      "first_inflow_users"
      ]
     },
     "previous": {
-     "new_registrations": 421,
+     "new_registrations": 420,
      "first_inflow_users": null,
-     "inflow_users": 449,
-     "inflow_yuan": 7640000,
-     "outflow_yuan": 6460000,
+     "inflow_users": 451,
+     "inflow_yuan": 7050000,
+     "outflow_yuan": 5810000,
      "suppressed_fields": [
       "first_inflow_users"
      ]
     },
     "funnel": {
+     "eligible_registrations": 420,
+     "first_inflow_d7_users": null,
+     "first_inflow_d30_users": null,
+     "still_holding_users": null,
      "suppressed_fields": [
       "first_inflow_d7_users",
       "first_inflow_d30_users",
       "still_holding_users"
-     ],
-     "eligible_registrations": 421,
-     "first_inflow_d7_users": null,
-     "first_inflow_d30_users": null,
-     "still_holding_users": null
+     ]
     },
     "trend_periods": [
      {
-      "start": "2026-05-17",
-      "end": "2026-05-26",
-      "new_registrations": 153,
+      "start": "2026-05-20",
+      "end": "2026-05-29",
+      "new_registrations": 157,
       "first_inflow_users": null,
-      "inflow_users": 309,
-      "inflow_yuan": 4320000,
-      "outflow_yuan": 2880000,
+      "inflow_users": 314,
+      "inflow_yuan": 4720000,
+      "outflow_yuan": 3570000,
       "suppressed_fields": [
        "first_inflow_users"
       ]
      },
      {
-      "start": "2026-05-27",
-      "end": "2026-06-05",
-      "new_registrations": 123,
+      "start": "2026-05-30",
+      "end": "2026-06-08",
+      "new_registrations": 133,
       "first_inflow_users": null,
-      "inflow_users": 307,
-      "inflow_yuan": 3730000,
-      "outflow_yuan": 4630000,
+      "inflow_users": 284,
+      "inflow_yuan": 2400000,
+      "outflow_yuan": 3690000,
       "suppressed_fields": [
        "first_inflow_users"
       ]
      },
      {
-      "start": "2026-06-06",
-      "end": "2026-06-15",
-      "new_registrations": 126,
+      "start": "2026-06-09",
+      "end": "2026-06-18",
+      "new_registrations": 121,
       "first_inflow_users": null,
-      "inflow_users": 164,
-      "inflow_yuan": 2250000,
-      "outflow_yuan": 2840000,
+      "inflow_users": 221,
+      "inflow_yuan": 3150000,
+      "outflow_yuan": 3470000,
       "suppressed_fields": [
        "first_inflow_users"
       ]
      },
      {
-      "start": "2026-06-16",
-      "end": "2026-06-25",
-      "new_registrations": 124,
+      "start": "2026-06-19",
+      "end": "2026-06-28",
+      "new_registrations": 107,
       "first_inflow_users": null,
-      "inflow_users": 305,
-      "inflow_yuan": 3210000,
-      "outflow_yuan": 3350000,
+      "inflow_users": 263,
+      "inflow_yuan": 2330000,
+      "outflow_yuan": 2730000,
       "suppressed_fields": [
        "first_inflow_users"
       ]
      },
      {
-      "start": "2026-06-26",
-      "end": "2026-07-05",
-      "new_registrations": 117,
+      "start": "2026-06-29",
+      "end": "2026-07-08",
+      "new_registrations": 143,
       "first_inflow_users": null,
-      "inflow_users": 253,
-      "inflow_yuan": 2300000,
-      "outflow_yuan": 1660000,
+      "inflow_users": 266,
+      "inflow_yuan": 3150000,
+      "outflow_yuan": 1930000,
       "suppressed_fields": [
        "first_inflow_users"
       ]
      },
      {
-      "start": "2026-07-06",
-      "end": "2026-07-15",
-      "new_registrations": 180,
+      "start": "2026-07-09",
+      "end": "2026-07-18",
+      "new_registrations": 170,
       "first_inflow_users": null,
-      "inflow_users": 392,
-      "inflow_yuan": 2130000,
-      "outflow_yuan": 1450000,
+      "inflow_users": 397,
+      "inflow_yuan": 1570000,
+      "outflow_yuan": 1150000,
       "suppressed_fields": [
        "first_inflow_users"
       ]
      },
      {
-      "start": "2026-07-16",
-      "end": "2026-07-25",
-      "new_registrations": null,
+      "start": "2026-07-19",
+      "end": "2026-07-28",
+      "new_registrations": 411,
       "first_inflow_users": null,
-      "inflow_users": 151,
-      "inflow_yuan": 1700000,
-      "outflow_yuan": 2290000,
+      "inflow_users": 128,
+      "inflow_yuan": 1390000,
+      "outflow_yuan": 1910000,
       "suppressed_fields": [
-       "first_inflow_users",
-       "new_registrations"
+       "first_inflow_users"
       ]
      },
      {
-      "start": "2026-07-26",
-      "end": "2026-08-04",
-      "new_registrations": null,
+      "start": "2026-07-29",
+      "end": "2026-08-07",
+      "new_registrations": 353,
       "first_inflow_users": null,
-      "inflow_users": 202,
-      "inflow_yuan": 2350000,
-      "outflow_yuan": 1710000,
+      "inflow_users": 232,
+      "inflow_yuan": 2630000,
+      "outflow_yuan": 1790000,
       "suppressed_fields": [
-       "first_inflow_users",
-       "new_registrations"
+       "first_inflow_users"
       ]
      },
      {
-      "start": "2026-08-05",
-      "end": "2026-08-14",
-      "new_registrations": null,
+      "start": "2026-08-08",
+      "end": "2026-08-17",
+      "new_registrations": 299,
       "first_inflow_users": null,
-      "inflow_users": 385,
-      "inflow_yuan": 4410000,
-      "outflow_yuan": 2010000,
+      "inflow_users": 378,
+      "inflow_yuan": 3310000,
+      "outflow_yuan": 1370000,
       "suppressed_fields": [
-       "first_inflow_users",
-       "new_registrations"
+       "first_inflow_users"
       ]
      }
     ]
    },
    "active_30d": {
-    "cohort_n": 2266,
+    "cohort_n": 2332,
     "registration_time_coverage_state": "complete",
     "current": {
-     "new_registrations": 1013,
+     "new_registrations": 1063,
      "first_inflow_users": null,
-     "inflow_users": 219,
-     "inflow_yuan": 6440000,
-     "outflow_yuan": 3730000,
+     "inflow_users": 222,
+     "inflow_yuan": 5450000,
+     "outflow_yuan": 2880000,
      "suppressed_fields": [
       "first_inflow_users"
      ]
     },
     "previous": {
-     "new_registrations": 136,
+     "new_registrations": 142,
      "first_inflow_users": null,
-     "inflow_users": 221,
-     "inflow_yuan": 4370000,
-     "outflow_yuan": 3370000,
+     "inflow_users": 225,
+     "inflow_yuan": 4280000,
+     "outflow_yuan": 2850000,
      "suppressed_fields": [
       "first_inflow_users"
      ]
     },
     "funnel": {
+     "eligible_registrations": 142,
+     "first_inflow_d7_users": null,
+     "first_inflow_d30_users": null,
+     "still_holding_users": null,
      "suppressed_fields": [
       "first_inflow_d7_users",
       "first_inflow_d30_users",
       "still_holding_users"
-     ],
-     "eligible_registrations": 136,
-     "first_inflow_d7_users": null,
-     "first_inflow_d30_users": null,
-     "still_holding_users": null
+     ]
     },
     "trend_periods": [
      {
-      "start": "2026-05-17",
-      "end": "2026-05-26",
-      "new_registrations": 28,
+      "start": "2026-05-20",
+      "end": "2026-05-29",
+      "new_registrations": 30,
       "first_inflow_users": null,
-      "inflow_users": 146,
-      "inflow_yuan": 2100000,
-      "outflow_yuan": 1070000,
+      "inflow_users": 152,
+      "inflow_yuan": 2310000,
+      "outflow_yuan": 1260000,
       "suppressed_fields": [
        "first_inflow_users"
       ]
      },
      {
-      "start": "2026-05-27",
-      "end": "2026-06-05",
-      "new_registrations": 38,
-      "first_inflow_users": null,
-      "inflow_users": 153,
-      "inflow_yuan": 2060000,
-      "outflow_yuan": 2140000,
-      "suppressed_fields": [
-       "first_inflow_users"
-      ]
-     },
-     {
-      "start": "2026-06-06",
-      "end": "2026-06-15",
-      "new_registrations": 34,
-      "first_inflow_users": null,
-      "inflow_users": 90,
-      "inflow_yuan": 1920000,
-      "outflow_yuan": 1480000,
-      "suppressed_fields": [
-       "first_inflow_users"
-      ]
-     },
-     {
-      "start": "2026-06-16",
-      "end": "2026-06-25",
+      "start": "2026-05-30",
+      "end": "2026-06-08",
       "new_registrations": 39,
       "first_inflow_users": null,
-      "inflow_users": 156,
-      "inflow_yuan": 1540000,
-      "outflow_yuan": 1680000,
+      "inflow_users": 149,
+      "inflow_yuan": 1400000,
+      "outflow_yuan": 1760000,
       "suppressed_fields": [
        "first_inflow_users"
       ]
      },
      {
-      "start": "2026-06-26",
-      "end": "2026-07-05",
-      "new_registrations": 33,
+      "start": "2026-06-09",
+      "end": "2026-06-18",
+      "new_registrations": 39,
       "first_inflow_users": null,
-      "inflow_users": 138,
-      "inflow_yuan": 1220000,
-      "outflow_yuan": 1160000,
+      "inflow_users": 116,
+      "inflow_yuan": 2110000,
+      "outflow_yuan": 1840000,
       "suppressed_fields": [
        "first_inflow_users"
       ]
      },
      {
-      "start": "2026-07-06",
-      "end": "2026-07-15",
-      "new_registrations": 64,
+      "start": "2026-06-19",
+      "end": "2026-06-28",
+      "new_registrations": 31,
       "first_inflow_users": null,
-      "inflow_users": 192,
-      "inflow_yuan": 1610000,
-      "outflow_yuan": 530000,
+      "inflow_users": 136,
+      "inflow_yuan": 1330000,
+      "outflow_yuan": 1310000,
       "suppressed_fields": [
        "first_inflow_users"
       ]
      },
      {
-      "start": "2026-07-16",
-      "end": "2026-07-25",
-      "new_registrations": 325,
+      "start": "2026-06-29",
+      "end": "2026-07-08",
+      "new_registrations": 46,
       "first_inflow_users": null,
-      "inflow_users": 75,
-      "inflow_yuan": 1140000,
-      "outflow_yuan": 1520000,
+      "inflow_users": 148,
+      "inflow_yuan": 1870000,
+      "outflow_yuan": 1240000,
       "suppressed_fields": [
        "first_inflow_users"
       ]
      },
      {
-      "start": "2026-07-26",
-      "end": "2026-08-04",
-      "new_registrations": 334,
+      "start": "2026-07-09",
+      "end": "2026-07-18",
+      "new_registrations": 65,
       "first_inflow_users": null,
-      "inflow_users": 103,
-      "inflow_yuan": 1690000,
-      "outflow_yuan": 910000,
+      "inflow_users": 196,
+      "inflow_yuan": 1080000,
+      "outflow_yuan": 300000,
       "suppressed_fields": [
        "first_inflow_users"
       ]
      },
      {
-      "start": "2026-08-05",
-      "end": "2026-08-14",
-      "new_registrations": 354,
+      "start": "2026-07-19",
+      "end": "2026-07-28",
+      "new_registrations": 411,
       "first_inflow_users": null,
-      "inflow_users": 192,
-      "inflow_yuan": 3620000,
-      "outflow_yuan": 1290000,
+      "inflow_users": 65,
+      "inflow_yuan": 980000,
+      "outflow_yuan": 1200000,
+      "suppressed_fields": [
+       "first_inflow_users"
+      ]
+     },
+     {
+      "start": "2026-07-29",
+      "end": "2026-08-07",
+      "new_registrations": 353,
+      "first_inflow_users": null,
+      "inflow_users": 121,
+      "inflow_yuan": 1810000,
+      "outflow_yuan": 670000,
+      "suppressed_fields": [
+       "first_inflow_users"
+      ]
+     },
+     {
+      "start": "2026-08-08",
+      "end": "2026-08-17",
+      "new_registrations": 299,
+      "first_inflow_users": null,
+      "inflow_users": 191,
+      "inflow_yuan": 2660000,
+      "outflow_yuan": 1010000,
       "suppressed_fields": [
        "first_inflow_users"
       ]
      }
     ]
    }
-  }
+  },
+  "first_inflow_state": "missing"
  },
  "cohorts": [
   {
@@ -666,47 +679,47 @@
    "short_label": "批准用户",
    "label": "批准申请用户",
    "definition": "截至口径日已批准、且具有非空稳定内部主键的去重账号。",
-   "users": 9855,
-   "qieman_accounts": 2099,
-   "qieman_account_rate": 0.213,
-   "holders": 1281,
-   "holder_rate": 0.13,
-   "managed_accounts": 1166,
-   "managed_rate": 0.1183,
-   "aum_yuan": 370210000,
-   "average_holder_asset_yuan": 289004,
-   "profitable_holders": 1077,
-   "profitable_holder_rate": 0.8407,
+   "users": 10009,
+   "qieman_accounts": 2136,
+   "qieman_account_rate": 0.2134,
+   "holders": 1306,
+   "holder_rate": 0.1305,
+   "managed_accounts": 1192,
+   "managed_rate": 0.1191,
+   "aum_yuan": 381280000,
+   "average_holder_asset_yuan": 290000,
+   "profitable_holders": 1119,
+   "profitable_holder_rate": 0.8568,
    "asset_buckets": [
     {
      "key": "lt_10k",
      "label": "1 万以下",
-     "count": 385,
-     "share": 0.3005
+     "count": 390,
+     "share": 0.2986
     },
     {
      "key": "10k_100k",
      "label": "1–10 万",
-     "count": 329,
-     "share": 0.2568
+     "count": 337,
+     "share": 0.258
     },
     {
      "key": "100k_500k",
      "label": "10–50 万",
-     "count": 351,
-     "share": 0.274
+     "count": 358,
+     "share": 0.2741
     },
     {
      "key": "500k_1m",
      "label": "50–100 万",
-     "count": 125,
-     "share": 0.0976
+     "count": 128,
+     "share": 0.098
     },
     {
      "key": "gte_1m",
      "label": "100 万以上",
-     "count": 91,
-     "share": 0.071
+     "count": 93,
+     "share": 0.0712
     }
    ]
   },
@@ -715,47 +728,47 @@
    "short_label": "调用用户",
    "label": "历史调用用户",
    "definition": "截至口径日曾产生 OAP 调用、且可归属到人的去重账号。",
-   "users": 5816,
-   "qieman_accounts": 1315,
-   "qieman_account_rate": 0.2261,
-   "holders": 786,
-   "holder_rate": 0.1351,
-   "managed_accounts": 721,
-   "managed_rate": 0.124,
-   "aum_yuan": 240020000,
-   "average_holder_asset_yuan": 305372,
-   "profitable_holders": 658,
-   "profitable_holder_rate": 0.8372,
+   "users": 5890,
+   "qieman_accounts": 1331,
+   "qieman_account_rate": 0.226,
+   "holders": 794,
+   "holder_rate": 0.1348,
+   "managed_accounts": 730,
+   "managed_rate": 0.1239,
+   "aum_yuan": 243430000,
+   "average_holder_asset_yuan": 310000,
+   "profitable_holders": 674,
+   "profitable_holder_rate": 0.8489,
    "asset_buckets": [
     {
      "key": "lt_10k",
      "label": "1 万以下",
      "count": 232,
-     "share": 0.2952
+     "share": 0.2922
     },
     {
      "key": "10k_100k",
      "label": "1–10 万",
-     "count": 209,
-     "share": 0.2659
+     "count": 213,
+     "share": 0.2683
     },
     {
      "key": "100k_500k",
      "label": "10–50 万",
-     "count": 213,
-     "share": 0.271
+     "count": 215,
+     "share": 0.2708
     },
     {
      "key": "500k_1m",
      "label": "50–100 万",
-     "count": 72,
-     "share": 0.0916
+     "count": 74,
+     "share": 0.0932
     },
     {
      "key": "gte_1m",
      "label": "100 万以上",
      "count": 60,
-     "share": 0.0763
+     "share": 0.0756
     }
    ]
   },
@@ -764,59 +777,59 @@
    "short_label": "近 30 日活跃",
    "label": "近 30 日活跃调用用户",
    "definition": "最近 30 个完整自然日内产生 OAP 调用、且可归属到人的去重账号。",
-   "users": 2266,
-   "qieman_accounts": 602,
-   "qieman_account_rate": 0.2657,
-   "holders": 388,
-   "holder_rate": 0.1712,
-   "managed_accounts": 361,
-   "managed_rate": 0.1593,
-   "aum_yuan": 116570000,
-   "average_holder_asset_yuan": 300435,
-   "profitable_holders": 320,
-   "profitable_holder_rate": 0.8247,
+   "users": 2332,
+   "qieman_accounts": 619,
+   "qieman_account_rate": 0.2654,
+   "holders": 399,
+   "holder_rate": 0.1711,
+   "managed_accounts": 372,
+   "managed_rate": 0.1595,
+   "aum_yuan": 118590000,
+   "average_holder_asset_yuan": 300000,
+   "profitable_holders": 333,
+   "profitable_holder_rate": 0.8346,
    "asset_buckets": [
     {
      "key": "lt_10k",
      "label": "1 万以下",
-     "count": 123,
-     "share": 0.317
+     "count": 128,
+     "share": 0.3208
     },
     {
      "key": "10k_100k",
      "label": "1–10 万",
-     "count": 106,
-     "share": 0.2732
+     "count": 110,
+     "share": 0.2757
     },
     {
      "key": "100k_500k",
      "label": "10–50 万",
-     "count": 90,
-     "share": 0.232
+     "count": 91,
+     "share": 0.2281
     },
     {
      "key": "500k_1m",
      "label": "50–100 万",
-     "count": 41,
-     "share": 0.1057
+     "count": 42,
+     "share": 0.1053
     },
     {
      "key": "gte_1m",
      "label": "100 万以上",
      "count": 28,
-     "share": 0.0722
+     "share": 0.0702
     }
    ]
   }
  ],
  "qieman_baseline": {
-  "managed_accounts": 291789,
-  "aum_yuan": 40795580000,
-  "average_asset_yuan": 139812,
-  "approximate_median_asset_yuan": 52000,
-  "profitable_holder_rate": 0.8316,
-  "share_500k_plus": 0.0625,
-  "share_1m_plus": 0.0231,
+  "managed_accounts": 291936,
+  "aum_yuan": 41008110000,
+  "average_asset_yuan": 140000,
+  "approximate_median_asset_yuan": 30000,
+  "profitable_holder_rate": 0.84763,
+  "share_500k_plus": 0.06279,
+  "share_1m_plus": 0.02328,
   "note": "且慢全量可比口径；中位数与高资产占比为近似汇总，用于结构参照，不用于因果归因。"
  },
  "behavior": {
@@ -1036,7 +1049,15 @@
      "amount_yuan": 2390000
     }
    ]
-  }
+  },
+  "as_of": "2026-08-16",
+  "denominators": {
+   "approved": 9855,
+   "called": 5816,
+   "active_30d": 2266
+  },
+  "refresh_state": "not_refreshed",
+  "refresh_note": "7 类交易事件本轮未能刷新：买入/赎回/跟投等分类没有单一可直接按用户关联的事实表，需跨订单与调仓信号多源加撤单过滤的 ETL。这里沿用截至 2026-08-16 的窗口，参与率分母为该日的人群规模（批准 9855 / 历史调用 5816 / 近 30 日活跃 2266），不与新人群规模混算。"
  },
  "profile": {
   "survey_coverage_approx": 0.206,
@@ -1089,7 +1110,9 @@
     "state": "confirmed_sample"
    }
   ],
-  "note": "画像仅代表非缺失问卷样本，关键字段缺失率约 84%–89%；不可外推为全部 OAP 用户。"
+  "note": "画像仅代表非缺失问卷样本，关键字段缺失率约 84%–89%；不可外推为全部 OAP 用户。本轮未重算，沿用截至 2026-08-16 的问卷样本；分母为答卷样本本身，不随人群规模变化。",
+  "as_of": "2026-08-16",
+  "refresh_state": "not_refreshed"
  },
  "quality_checks": [
   {
@@ -1105,7 +1128,7 @@
   {
    "label": "注册与入金口径",
    "status": "warn",
-   "detail": "新注册只认且慢正式注册时间；资金暂用账户日级资产入账代理，可观察资金变化但不等价于权威外部现金流。"
+   "detail": "新注册只认且慢正式注册时间；资金为账户日级资产入账代理，已刷新至 2026-08-17，但「首次资产入账」需全历史扫描本轮无法完成，按缺失处理。"
   },
   {
    "label": "调用归属",
@@ -1114,13 +1137,13 @@
   },
   {
    "label": "行为语义",
-   "status": "warn",
-   "detail": "行为按未撤销事件统计；“其他计划交易”仅部分确认，“SI 交易”语义待补。"
+   "status": "missing",
+   "detail": "7 类交易事件本轮未能刷新，沿用截至 2026-08-16 的窗口与当时的人群分母；“其他计划交易”仅部分确认，“SI 交易”语义待补。"
   },
   {
    "label": "画像覆盖",
    "status": "missing",
-   "detail": "本次画像查询未通过口径或隐私校验，已沿用上次脱敏聚合；不可视为本次刷新结果。"
+   "detail": "问卷画像本轮未重算，沿用截至 2026-08-16 的脱敏聚合；覆盖率低，仅代表回答者。"
   },
   {
    "label": "新老用户切分",
@@ -1157,7 +1180,7 @@
   {
    "term": "首次入金用户",
    "state": "partial",
-   "definition": "全历史首次出现正资产入账代理值的用户；不等于首投，也不是交易级“首笔”统计。权威现金流恢复后将自动升级。"
+   "definition": "全历史首次出现正资产入账代理值的用户；不等于首投。本轮该指标需全历史扫描，查询无法在限时内完成，未发布数值。"
   },
   {
    "term": "净入金",
@@ -1251,454 +1274,18 @@
     "reason": "买入/赎回/跟投等 7 类事件没有统一事实表，需跨三套订单源加撤单过滤的 ETL，本轮无法按新老拆分"
    }
   ],
-  "snapshot_note": "新老分段为独立一次聚合，资产时点比人群卡片晚约一天，两段持仓规模之和比人群卡片高约 0.6%；比例与结构结论不受影响，绝对值不要跨模块相减。",
+  "snapshot_note": "新老分段与人群卡片同为 2026-08-18 资产快照，两段持仓之和与人群卡片一致；行为与问卷画像仍为 2026-08-16 口径，分母另行标注，不与本次人群规模混算。",
   "by_cohort": {
    "approved": {
     "unknown_users": 1,
     "new": {
-     "users": 6742,
-     "share": 0.6841,
+     "users": 6843,
+     "share": 0.6837,
      "qieman_accounts": 104,
      "holders": null,
      "managed_accounts": null,
      "profitable_holders": null,
-     "aum_yuan": 80000,
-     "average_holder_asset_yuan": null,
-     "qieman_account_rate": 0.0154,
-     "holder_rate": null,
-     "managed_rate": null,
-     "profitable_holder_rate": null,
-     "asset_buckets": [
-      {
-       "key": "lt_10k",
-       "label": "1 万以下",
-       "count": null,
-       "share": null
-      },
-      {
-       "key": "10k_100k",
-       "label": "1–10 万",
-       "count": null,
-       "share": null
-      },
-      {
-       "key": "100k_500k",
-       "label": "10–50 万",
-       "count": null,
-       "share": null
-      },
-      {
-       "key": "500k_1m",
-       "label": "50–100 万",
-       "count": null,
-       "share": null
-      },
-      {
-       "key": "gte_1m",
-       "label": "100 万以上",
-       "count": null,
-       "share": null
-      }
-     ],
-     "tenure": [
-      {
-       "bucket": "d0_7",
-       "users": 6742
-      },
-      {
-       "bucket": "d8_30",
-       "users": 0
-      },
-      {
-       "bucket": "d31_90",
-       "users": 0
-      },
-      {
-       "bucket": "d90_plus",
-       "users": 0
-      }
-     ],
-     "oap_usage": {
-      "calls_total": 955686,
-      "calls_per_user": 141.75
-     },
-     "services": [
-      {
-       "key": "si_plan",
-       "actors": 0,
-       "penetration": 0.0
-      }
-     ],
-     "suppressed_fields": [
-      "holders",
-      "managed_accounts",
-      "profitable_holders",
-      "average_holder_asset_yuan",
-      "holder_rate",
-      "managed_rate",
-      "profitable_holder_rate",
-      "asset_buckets"
-     ]
-    },
-    "existing": {
-     "users": 3112,
-     "share": 0.3158,
-     "qieman_accounts": 1997,
-     "holders": 1268,
-     "managed_accounts": 1161,
-     "profitable_holders": 1095,
-     "aum_yuan": 372230000,
-     "average_holder_asset_yuan": 293557,
-     "qieman_account_rate": 0.6417,
-     "holder_rate": 0.4075,
-     "managed_rate": 0.3731,
-     "profitable_holder_rate": 0.8636,
-     "asset_buckets": [
-      {
-       "key": "lt_10k",
-       "label": "1 万以下",
-       "count": 372,
-       "share": 0.2934
-      },
-      {
-       "key": "10k_100k",
-       "label": "1–10 万",
-       "count": 327,
-       "share": 0.2579
-      },
-      {
-       "key": "100k_500k",
-       "label": "10–50 万",
-       "count": 353,
-       "share": 0.2784
-      },
-      {
-       "key": "500k_1m",
-       "label": "50–100 万",
-       "count": 124,
-       "share": 0.0978
-      },
-      {
-       "key": "gte_1m",
-       "label": "100 万以上",
-       "count": 92,
-       "share": 0.0726
-      }
-     ],
-     "tenure": [
-      {
-       "bucket": "lt_1y",
-       "users": 560
-      },
-      {
-       "bucket": "y1_3",
-       "users": 431
-      },
-      {
-       "bucket": "y3_plus",
-       "users": 2121
-      }
-     ],
-     "oap_usage": {
-      "calls_total": 782345,
-      "calls_per_user": 251.4
-     },
-     "services": [
-      {
-       "key": "si_plan",
-       "actors": null,
-       "penetration": null
-      }
-     ],
-     "suppressed_fields": []
-    },
-    "all": {
-     "users": 9855,
-     "qieman_accounts": 2099,
-     "qieman_account_rate": 0.213,
-     "holders": 1281,
-     "holder_rate": 0.13,
-     "managed_accounts": 1166,
-     "managed_rate": 0.1183,
-     "aum_yuan": 370210000,
-     "average_holder_asset_yuan": 289004,
-     "profitable_holders": 1077,
-     "profitable_holder_rate": 0.8407,
-     "asset_buckets": [
-      {
-       "key": "lt_10k",
-       "label": "1 万以下",
-       "count": 385,
-       "share": 0.3005
-      },
-      {
-       "key": "10k_100k",
-       "label": "1–10 万",
-       "count": 329,
-       "share": 0.2568
-      },
-      {
-       "key": "100k_500k",
-       "label": "10–50 万",
-       "count": 351,
-       "share": 0.274
-      },
-      {
-       "key": "500k_1m",
-       "label": "50–100 万",
-       "count": 125,
-       "share": 0.0976
-      },
-      {
-       "key": "gte_1m",
-       "label": "100 万以上",
-       "count": 91,
-       "share": 0.071
-      }
-     ],
-     "share": 1.0,
-     "oap_usage": {
-      "calls_total": 1738031,
-      "calls_per_user": 176.36
-     },
-     "services": [
-      {
-       "key": "si_plan",
-       "actors": null,
-       "penetration": null
-      }
-     ],
-     "suppressed_fields": []
-    }
-   },
-   "called": {
-    "unknown_users": 3,
-    "new": {
-     "users": 3874,
-     "share": 0.6661,
-     "qieman_accounts": 63,
-     "holders": null,
-     "managed_accounts": null,
-     "profitable_holders": null,
-     "aum_yuan": 70000,
-     "average_holder_asset_yuan": null,
-     "qieman_account_rate": 0.0163,
-     "holder_rate": null,
-     "managed_rate": null,
-     "profitable_holder_rate": null,
-     "asset_buckets": [
-      {
-       "key": "lt_10k",
-       "label": "1 万以下",
-       "count": null,
-       "share": null
-      },
-      {
-       "key": "10k_100k",
-       "label": "1–10 万",
-       "count": null,
-       "share": null
-      },
-      {
-       "key": "100k_500k",
-       "label": "10–50 万",
-       "count": null,
-       "share": null
-      },
-      {
-       "key": "500k_1m",
-       "label": "50–100 万",
-       "count": null,
-       "share": null
-      },
-      {
-       "key": "gte_1m",
-       "label": "100 万以上",
-       "count": null,
-       "share": null
-      }
-     ],
-     "tenure": [
-      {
-       "bucket": "d0_7",
-       "users": 3874
-      },
-      {
-       "bucket": "d8_30",
-       "users": 0
-      },
-      {
-       "bucket": "d31_90",
-       "users": 0
-      },
-      {
-       "bucket": "d90_plus",
-       "users": 0
-      }
-     ],
-     "oap_usage": {
-      "calls_total": 955686,
-      "calls_per_user": 246.69
-     },
-     "services": [
-      {
-       "key": "si_plan",
-       "actors": 0,
-       "penetration": 0.0
-      }
-     ],
-     "suppressed_fields": [
-      "holders",
-      "managed_accounts",
-      "profitable_holders",
-      "average_holder_asset_yuan",
-      "holder_rate",
-      "managed_rate",
-      "profitable_holder_rate",
-      "asset_buckets"
-     ]
-    },
-    "existing": {
-     "users": 1939,
-     "share": 0.3334,
-     "qieman_accounts": 1254,
-     "holders": 779,
-     "managed_accounts": 717,
-     "profitable_holders": 667,
-     "aum_yuan": 241260000,
-     "average_holder_asset_yuan": 309705,
-     "qieman_account_rate": 0.6467,
-     "holder_rate": 0.4018,
-     "managed_rate": 0.3698,
-     "profitable_holder_rate": 0.8562,
-     "asset_buckets": [
-      {
-       "key": "lt_10k",
-       "label": "1 万以下",
-       "count": 226,
-       "share": 0.2901
-      },
-      {
-       "key": "10k_100k",
-       "label": "1–10 万",
-       "count": 208,
-       "share": 0.267
-      },
-      {
-       "key": "100k_500k",
-       "label": "10–50 万",
-       "count": 213,
-       "share": 0.2734
-      },
-      {
-       "key": "500k_1m",
-       "label": "50–100 万",
-       "count": 72,
-       "share": 0.0924
-      },
-      {
-       "key": "gte_1m",
-       "label": "100 万以上",
-       "count": 60,
-       "share": 0.077
-      }
-     ],
-     "tenure": [
-      {
-       "bucket": "lt_1y",
-       "users": 358
-      },
-      {
-       "bucket": "y1_3",
-       "users": 282
-      },
-      {
-       "bucket": "y3_plus",
-       "users": 1299
-      }
-     ],
-     "oap_usage": {
-      "calls_total": 782345,
-      "calls_per_user": 403.48
-     },
-     "services": [
-      {
-       "key": "si_plan",
-       "actors": null,
-       "penetration": null
-      }
-     ],
-     "suppressed_fields": []
-    },
-    "all": {
-     "users": 5816,
-     "qieman_accounts": 1315,
-     "qieman_account_rate": 0.2261,
-     "holders": 786,
-     "holder_rate": 0.1351,
-     "managed_accounts": 721,
-     "managed_rate": 0.124,
-     "aum_yuan": 240020000,
-     "average_holder_asset_yuan": 305372,
-     "profitable_holders": 658,
-     "profitable_holder_rate": 0.8372,
-     "asset_buckets": [
-      {
-       "key": "lt_10k",
-       "label": "1 万以下",
-       "count": 232,
-       "share": 0.2952
-      },
-      {
-       "key": "10k_100k",
-       "label": "1–10 万",
-       "count": 209,
-       "share": 0.2659
-      },
-      {
-       "key": "100k_500k",
-       "label": "10–50 万",
-       "count": 213,
-       "share": 0.271
-      },
-      {
-       "key": "500k_1m",
-       "label": "50–100 万",
-       "count": 72,
-       "share": 0.0916
-      },
-      {
-       "key": "gte_1m",
-       "label": "100 万以上",
-       "count": 60,
-       "share": 0.0763
-      }
-     ],
-     "share": 1.0,
-     "oap_usage": {
-      "calls_total": 1738031,
-      "calls_per_user": 298.84
-     },
-     "services": [
-      {
-       "key": "si_plan",
-       "actors": null,
-       "penetration": null
-      }
-     ],
-     "suppressed_fields": []
-    }
-   },
-   "active_30d": {
-    "unknown_users": 0,
-    "new": {
-     "users": 1379,
-     "share": 0.6086,
-     "qieman_accounts": 21,
-     "holders": null,
-     "managed_accounts": null,
-     "profitable_holders": null,
-     "aum_yuan": 40000,
+     "aum_yuan": null,
      "average_holder_asset_yuan": null,
      "qieman_account_rate": 0.0152,
      "holder_rate": null,
@@ -1739,7 +1326,7 @@
      "tenure": [
       {
        "bucket": "d0_7",
-       "users": 1379
+       "users": 6843
       },
       {
        "bucket": "d8_30",
@@ -1755,8 +1342,8 @@
       }
      ],
      "oap_usage": {
-      "calls_total": 630767,
-      "calls_per_user": 457.41
+      "calls_total": 961523,
+      "calls_per_user": 140.51
      },
      "services": [
       {
@@ -1769,6 +1356,7 @@
       "holders",
       "managed_accounts",
       "profitable_holders",
+      "aum_yuan",
       "average_holder_asset_yuan",
       "holder_rate",
       "managed_rate",
@@ -1777,67 +1365,67 @@
      ]
     },
     "existing": {
-     "users": 887,
-     "share": 0.3914,
-     "qieman_accounts": 583,
-     "holders": 384,
-     "managed_accounts": 359,
-     "profitable_holders": 325,
-     "aum_yuan": 117060000,
-     "average_holder_asset_yuan": 304844,
-     "qieman_account_rate": 0.6573,
-     "holder_rate": 0.4329,
-     "managed_rate": 0.4047,
-     "profitable_holder_rate": 0.8464,
+     "users": 3165,
+     "share": 0.3162,
+     "qieman_accounts": 2032,
+     "holders": 1291,
+     "managed_accounts": 1183,
+     "profitable_holders": 1112,
+     "aum_yuan": 381200000,
+     "average_holder_asset_yuan": 300000,
+     "qieman_account_rate": 0.642,
+     "holder_rate": 0.4079,
+     "managed_rate": 0.3738,
+     "profitable_holder_rate": 0.8613,
      "asset_buckets": [
       {
        "key": "lt_10k",
        "label": "1 万以下",
-       "count": 120,
-       "share": 0.3125
+       "count": 378,
+       "share": 0.2928
       },
       {
        "key": "10k_100k",
        "label": "1–10 万",
-       "count": 105,
-       "share": 0.2734
+       "count": 334,
+       "share": 0.2587
       },
       {
        "key": "100k_500k",
        "label": "10–50 万",
-       "count": 90,
-       "share": 0.2344
+       "count": 358,
+       "share": 0.2773
       },
       {
        "key": "500k_1m",
        "label": "50–100 万",
-       "count": 41,
-       "share": 0.1068
+       "count": 128,
+       "share": 0.0991
       },
       {
        "key": "gte_1m",
        "label": "100 万以上",
-       "count": 28,
-       "share": 0.0729
+       "count": 93,
+       "share": 0.072
       }
      ],
      "tenure": [
       {
        "bucket": "lt_1y",
-       "users": 170
+       "users": 566
       },
       {
        "bucket": "y1_3",
-       "users": 123
+       "users": 434
       },
       {
        "bucket": "y3_plus",
-       "users": 594
+       "users": 2165
       }
      ],
      "oap_usage": {
-      "calls_total": 623558,
-      "calls_per_user": 703.0
+      "calls_total": 789329,
+      "calls_per_user": 249.39
      },
      "services": [
       {
@@ -1849,53 +1437,491 @@
      "suppressed_fields": []
     },
     "all": {
-     "users": 2266,
-     "qieman_accounts": 602,
-     "qieman_account_rate": 0.2657,
-     "holders": 388,
-     "holder_rate": 0.1712,
-     "managed_accounts": 361,
-     "managed_rate": 0.1593,
-     "aum_yuan": 116570000,
-     "average_holder_asset_yuan": 300435,
-     "profitable_holders": 320,
-     "profitable_holder_rate": 0.8247,
+     "users": 10009,
+     "qieman_accounts": 2136,
+     "qieman_account_rate": 0.2134,
+     "holders": 1306,
+     "holder_rate": 0.1305,
+     "managed_accounts": 1192,
+     "managed_rate": 0.1191,
+     "aum_yuan": 381280000,
+     "average_holder_asset_yuan": 290000,
+     "profitable_holders": 1119,
+     "profitable_holder_rate": 0.8568,
      "asset_buckets": [
       {
        "key": "lt_10k",
        "label": "1 万以下",
-       "count": 123,
-       "share": 0.317
+       "count": 390,
+       "share": 0.2986
       },
       {
        "key": "10k_100k",
        "label": "1–10 万",
-       "count": 106,
-       "share": 0.2732
+       "count": 337,
+       "share": 0.258
       },
       {
        "key": "100k_500k",
        "label": "10–50 万",
-       "count": 90,
-       "share": 0.232
+       "count": 358,
+       "share": 0.2741
       },
       {
        "key": "500k_1m",
        "label": "50–100 万",
-       "count": 41,
-       "share": 0.1057
+       "count": 128,
+       "share": 0.098
+      },
+      {
+       "key": "gte_1m",
+       "label": "100 万以上",
+       "count": 93,
+       "share": 0.0712
+      }
+     ],
+     "share": 1.0,
+     "oap_usage": {
+      "calls_total": 1750852,
+      "calls_per_user": 174.93
+     },
+     "services": [
+      {
+       "key": "si_plan",
+       "actors": null,
+       "penetration": null
+      }
+     ],
+     "suppressed_fields": []
+    }
+   },
+   "called": {
+    "unknown_users": 3,
+    "new": {
+     "users": 3924,
+     "share": 0.6662,
+     "qieman_accounts": 63,
+     "holders": null,
+     "managed_accounts": null,
+     "profitable_holders": null,
+     "aum_yuan": null,
+     "average_holder_asset_yuan": null,
+     "qieman_account_rate": 0.0161,
+     "holder_rate": null,
+     "managed_rate": null,
+     "profitable_holder_rate": null,
+     "asset_buckets": [
+      {
+       "key": "lt_10k",
+       "label": "1 万以下",
+       "count": null,
+       "share": null
+      },
+      {
+       "key": "10k_100k",
+       "label": "1–10 万",
+       "count": null,
+       "share": null
+      },
+      {
+       "key": "100k_500k",
+       "label": "10–50 万",
+       "count": null,
+       "share": null
+      },
+      {
+       "key": "500k_1m",
+       "label": "50–100 万",
+       "count": null,
+       "share": null
+      },
+      {
+       "key": "gte_1m",
+       "label": "100 万以上",
+       "count": null,
+       "share": null
+      }
+     ],
+     "tenure": [
+      {
+       "bucket": "d0_7",
+       "users": 3924
+      },
+      {
+       "bucket": "d8_30",
+       "users": 0
+      },
+      {
+       "bucket": "d31_90",
+       "users": 0
+      },
+      {
+       "bucket": "d90_plus",
+       "users": 0
+      }
+     ],
+     "oap_usage": {
+      "calls_total": 961523,
+      "calls_per_user": 245.04
+     },
+     "services": [
+      {
+       "key": "si_plan",
+       "actors": 0,
+       "penetration": 0.0
+      }
+     ],
+     "suppressed_fields": [
+      "holders",
+      "managed_accounts",
+      "profitable_holders",
+      "aum_yuan",
+      "average_holder_asset_yuan",
+      "holder_rate",
+      "managed_rate",
+      "profitable_holder_rate",
+      "asset_buckets"
+     ]
+    },
+    "existing": {
+     "users": 1963,
+     "share": 0.3333,
+     "qieman_accounts": 1268,
+     "holders": 786,
+     "managed_accounts": 724,
+     "profitable_holders": 671,
+     "aum_yuan": 243360000,
+     "average_holder_asset_yuan": 310000,
+     "qieman_account_rate": 0.646,
+     "holder_rate": 0.4004,
+     "managed_rate": 0.3688,
+     "profitable_holder_rate": 0.8537,
+     "asset_buckets": [
+      {
+       "key": "lt_10k",
+       "label": "1 万以下",
+       "count": 227,
+       "share": 0.2888
+      },
+      {
+       "key": "10k_100k",
+       "label": "1–10 万",
+       "count": 210,
+       "share": 0.2672
+      },
+      {
+       "key": "100k_500k",
+       "label": "10–50 万",
+       "count": 215,
+       "share": 0.2735
+      },
+      {
+       "key": "500k_1m",
+       "label": "50–100 万",
+       "count": 74,
+       "share": 0.0941
+      },
+      {
+       "key": "gte_1m",
+       "label": "100 万以上",
+       "count": 60,
+       "share": 0.0763
+      }
+     ],
+     "tenure": [
+      {
+       "bucket": "lt_1y",
+       "users": 361
+      },
+      {
+       "bucket": "y1_3",
+       "users": 285
+      },
+      {
+       "bucket": "y3_plus",
+       "users": 1317
+      }
+     ],
+     "oap_usage": {
+      "calls_total": 789329,
+      "calls_per_user": 402.1
+     },
+     "services": [
+      {
+       "key": "si_plan",
+       "actors": null,
+       "penetration": null
+      }
+     ],
+     "suppressed_fields": []
+    },
+    "all": {
+     "users": 5890,
+     "qieman_accounts": 1331,
+     "qieman_account_rate": 0.226,
+     "holders": 794,
+     "holder_rate": 0.1348,
+     "managed_accounts": 730,
+     "managed_rate": 0.1239,
+     "aum_yuan": 243430000,
+     "average_holder_asset_yuan": 310000,
+     "profitable_holders": 674,
+     "profitable_holder_rate": 0.8489,
+     "asset_buckets": [
+      {
+       "key": "lt_10k",
+       "label": "1 万以下",
+       "count": 232,
+       "share": 0.2922
+      },
+      {
+       "key": "10k_100k",
+       "label": "1–10 万",
+       "count": 213,
+       "share": 0.2683
+      },
+      {
+       "key": "100k_500k",
+       "label": "10–50 万",
+       "count": 215,
+       "share": 0.2708
+      },
+      {
+       "key": "500k_1m",
+       "label": "50–100 万",
+       "count": 74,
+       "share": 0.0932
+      },
+      {
+       "key": "gte_1m",
+       "label": "100 万以上",
+       "count": 60,
+       "share": 0.0756
+      }
+     ],
+     "share": 1.0,
+     "oap_usage": {
+      "calls_total": 1750852,
+      "calls_per_user": 297.26
+     },
+     "services": [
+      {
+       "key": "si_plan",
+       "actors": null,
+       "penetration": null
+      }
+     ],
+     "suppressed_fields": []
+    }
+   },
+   "active_30d": {
+    "unknown_users": 0,
+    "new": {
+     "users": 1420,
+     "share": 0.6089,
+     "qieman_accounts": 20,
+     "holders": null,
+     "managed_accounts": null,
+     "profitable_holders": null,
+     "aum_yuan": null,
+     "average_holder_asset_yuan": null,
+     "qieman_account_rate": 0.0141,
+     "holder_rate": null,
+     "managed_rate": null,
+     "profitable_holder_rate": null,
+     "asset_buckets": [
+      {
+       "key": "lt_10k",
+       "label": "1 万以下",
+       "count": null,
+       "share": null
+      },
+      {
+       "key": "10k_100k",
+       "label": "1–10 万",
+       "count": null,
+       "share": null
+      },
+      {
+       "key": "100k_500k",
+       "label": "10–50 万",
+       "count": null,
+       "share": null
+      },
+      {
+       "key": "500k_1m",
+       "label": "50–100 万",
+       "count": null,
+       "share": null
+      },
+      {
+       "key": "gte_1m",
+       "label": "100 万以上",
+       "count": null,
+       "share": null
+      }
+     ],
+     "tenure": [
+      {
+       "bucket": "d0_7",
+       "users": 1420
+      },
+      {
+       "bucket": "d8_30",
+       "users": 0
+      },
+      {
+       "bucket": "d31_90",
+       "users": 0
+      },
+      {
+       "bucket": "d90_plus",
+       "users": 0
+      }
+     ],
+     "oap_usage": {
+      "calls_total": 638176,
+      "calls_per_user": 449.42
+     },
+     "services": [
+      {
+       "key": "si_plan",
+       "actors": 0,
+       "penetration": 0.0
+      }
+     ],
+     "suppressed_fields": [
+      "holders",
+      "managed_accounts",
+      "profitable_holders",
+      "aum_yuan",
+      "average_holder_asset_yuan",
+      "holder_rate",
+      "managed_rate",
+      "profitable_holder_rate",
+      "asset_buckets"
+     ]
+    },
+    "existing": {
+     "users": 912,
+     "share": 0.3911,
+     "qieman_accounts": 599,
+     "holders": 394,
+     "managed_accounts": 368,
+     "profitable_holders": 331,
+     "aum_yuan": 118550000,
+     "average_holder_asset_yuan": 300000,
+     "qieman_account_rate": 0.6568,
+     "holder_rate": 0.432,
+     "managed_rate": 0.4035,
+     "profitable_holder_rate": 0.8401,
+     "asset_buckets": [
+      {
+       "key": "lt_10k",
+       "label": "1 万以下",
+       "count": 125,
+       "share": 0.3173
+      },
+      {
+       "key": "10k_100k",
+       "label": "1–10 万",
+       "count": 108,
+       "share": 0.2741
+      },
+      {
+       "key": "100k_500k",
+       "label": "10–50 万",
+       "count": 91,
+       "share": 0.231
+      },
+      {
+       "key": "500k_1m",
+       "label": "50–100 万",
+       "count": 42,
+       "share": 0.1066
       },
       {
        "key": "gte_1m",
        "label": "100 万以上",
        "count": 28,
-       "share": 0.0722
+       "share": 0.0711
+      }
+     ],
+     "tenure": [
+      {
+       "bucket": "lt_1y",
+       "users": 173
+      },
+      {
+       "bucket": "y1_3",
+       "users": 126
+      },
+      {
+       "bucket": "y3_plus",
+       "users": 613
+      }
+     ],
+     "oap_usage": {
+      "calls_total": 617412,
+      "calls_per_user": 676.99
+     },
+     "services": [
+      {
+       "key": "si_plan",
+       "actors": null,
+       "penetration": null
+      }
+     ],
+     "suppressed_fields": []
+    },
+    "all": {
+     "users": 2332,
+     "qieman_accounts": 619,
+     "qieman_account_rate": 0.2654,
+     "holders": 399,
+     "holder_rate": 0.1711,
+     "managed_accounts": 372,
+     "managed_rate": 0.1595,
+     "aum_yuan": 118590000,
+     "average_holder_asset_yuan": 300000,
+     "profitable_holders": 333,
+     "profitable_holder_rate": 0.8346,
+     "asset_buckets": [
+      {
+       "key": "lt_10k",
+       "label": "1 万以下",
+       "count": 128,
+       "share": 0.3208
+      },
+      {
+       "key": "10k_100k",
+       "label": "1–10 万",
+       "count": 110,
+       "share": 0.2757
+      },
+      {
+       "key": "100k_500k",
+       "label": "10–50 万",
+       "count": 91,
+       "share": 0.2281
+      },
+      {
+       "key": "500k_1m",
+       "label": "50–100 万",
+       "count": 42,
+       "share": 0.1053
+      },
+      {
+       "key": "gte_1m",
+       "label": "100 万以上",
+       "count": 28,
+       "share": 0.0702
       }
      ],
      "share": 1.0,
      "oap_usage": {
-      "calls_total": 1254325,
-      "calls_per_user": 553.54
+      "calls_total": 1255588,
+      "calls_per_user": 538.42
      },
      "services": [
       {

@@ -340,13 +340,20 @@ function validateData(data) {
 
   if (!data.behavior?.by_cohort || !Array.isArray(data.behavior.categories)) throw new Error("行为数据缺失");
   const categoryKeys = data.behavior.categories.map((item) => item.key);
+  // 行为块停留在更早窗口时自带当时的人群分母，参与率按该分母复算，不与新人群混算
+  const behaviorDenominators = data.behavior.denominators || null;
+  if (behaviorDenominators && (!data.behavior.as_of || data.behavior.refresh_state !== "not_refreshed")) {
+    throw new Error("行为块自带分母但未申报口径日或未刷新状态");
+  }
   for (const cohort of data.cohorts) {
+    const denominator = behaviorDenominators ? behaviorDenominators[cohort.id] : cohort.users;
+    if (!Number.isInteger(denominator) || denominator <= 0) throw new Error(`${cohort.id} 行为分母无效`);
     const rows = data.behavior.by_cohort[cohort.id];
     if (!Array.isArray(rows) || rows.length !== categoryKeys.length) throw new Error(`${cohort.id} 行为分类缺失`);
     for (const [index, row] of rows.entries()) {
       if (row.key !== categoryKeys[index] || !Number.isInteger(row.actors) || !Number.isInteger(row.events)) throw new Error(`${cohort.id} 行为字段异常`);
-      if (row.actors > cohort.users || row.actors < data.meta.minimum_public_cell || row.events < row.actors) throw new Error(`${cohort.id}.${row.key} 行为数量异常`);
-      if (!approximately(row.penetration, row.actors / cohort.users, 0.00025)) throw new Error(`${cohort.id}.${row.key} 参与率不一致`);
+      if (row.actors > denominator || row.actors < data.meta.minimum_public_cell || row.events < row.actors) throw new Error(`${cohort.id}.${row.key} 行为数量异常`);
+      if (!approximately(row.penetration, row.actors / denominator, 0.00025)) throw new Error(`${cohort.id}.${row.key} 参与率不一致`);
       if (!approximately(row.events_per_actor, row.events / row.actors, 0.015)) throw new Error(`${cohort.id}.${row.key} 人均频次不一致`);
     }
   }
@@ -557,7 +564,7 @@ function renderHero() {
   $("#hero-holder-rate").textContent = percent.format(cohort.holder_rate);
   $("#hero-lead").textContent = `截至 ${formatDateTime(meta.data_cutoff)}，${number.format(usage.approved_users)} 位批准用户中，${percent.format(usage.ever_called_users / usage.approved_users)} 曾调用，${percent.format(usage.active_30d_users / usage.approved_users)} 在近 30 日保持活跃。`;
   $("#verdict").textContent = `近 30 日活跃人群的且慢持仓率为 ${percent.format(cohort.holder_rate)}，高于批准用户的 ${percent.format(cohortById("approved").holder_rate)}；但 ${percent.format(serviceRate)} 调用仍无法归属到人，规模与用户价值必须拆账。`;
-  $("#footer-cutoff").textContent = `OAP / 行为截至 ${formatDateTime(meta.data_cutoff, true)} · 资产快照 ${formatDay(meta.asset_snapshot_date)}`;
+  $("#footer-cutoff").textContent = footerCutoffText();
   setFreshness("ready", `数据截至 ${formatDateTime(meta.data_cutoff)}`);
 }
 
@@ -630,16 +637,37 @@ function applyGrowthEvidenceLabels() {
   $("#growth-boundary-copy").textContent = `注册、${labels.inflowShort}和当前 OAP 使用深度只存在时间关系，尚未排除渠道、活动、资产基础与自选择影响，不能表述为“OAP 带来新增”。${labels.partial ? "当前资金口径为 partial，权威现金流恢复后再升级。" : ""}`;
 }
 
+// 行为可能停留在更早窗口，页脚必须分源写清楚，不能一句「OAP / 行为截至」糊过去
+function footerCutoffText() {
+  const { meta, behavior } = currentData;
+  const parts = [`OAP 截至 ${formatDateTime(meta.data_cutoff, true)}`];
+  parts.push(behavior?.refresh_state === "not_refreshed"
+    ? `行为截至 ${formatDay(behavior.as_of)}`
+    : `行为截至 ${formatDateTime(meta.data_cutoff)}`);
+  parts.push(`资产快照 ${formatDay(meta.asset_snapshot_date)}`);
+  return parts.join(" · ");
+}
+
+const FIRST_INFLOW_FIELDS = new Set(["first_inflow_users", "first_inflow_d7_users", "first_inflow_d30_users", "still_holding_users"]);
+const UNAVAILABLE_TEXT = "本轮未能计算";
+
+// 源头查不到 ≠ 小样本被抑制，两者不能都显示成「样本不足」
+function unavailableLabel(field) {
+  return currentData?.growth?.first_inflow_state === "missing" && FIRST_INFLOW_FIELDS.has(field) ? UNAVAILABLE_TEXT : "样本不足";
+}
+
 function growthValueLabel(row, field, kind = "count") {
   const value = growthMetric(row, field);
-  if (value === null) return "样本不足";
+  if (value === null) return unavailableLabel(field);
   return kind === "money" ? `约 ${money(value)}` : `${number.format(value)} 人`;
 }
 
 function growthComparison(current, previous, field, kind = "count") {
   const currentValue = growthMetric(current, field);
   const previousValue = growthMetric(previous, field);
-  if (currentValue === null || previousValue === null) return { text: "小样本已隐藏，环比不展示", tone: "neutral" };
+  if (currentValue === null || previousValue === null) {
+    return { text: unavailableLabel(field) === UNAVAILABLE_TEXT ? "该指标本轮未能计算，环比不展示" : "小样本已隐藏，环比不展示", tone: "neutral" };
+  }
   if (currentValue === previousValue) return { text: "与前 30 日持平", tone: "neutral" };
   const delta = currentValue - previousValue;
   if (field === "net_inflow_yuan" && (currentValue < 0 || previousValue <= 0)) {
@@ -740,7 +768,7 @@ function renderGrowthTrend() {
 
 function funnelValueMarkup(row, field) {
   const value = growthMetric(row, field);
-  return value === null ? "样本不足" : `${number.format(value)} 人`;
+  return value === null ? unavailableLabel(field) : `${number.format(value)} 人`;
 }
 
 function renderGrowthFunnel() {
@@ -756,8 +784,8 @@ function renderGrowthFunnel() {
     : denominator <= 0
       ? 0
       : Math.max(2, value / denominator * 100);
-  const conversion = eligible && d30 !== null ? percent.format(d30 / eligible) : "样本不足";
-  const holdingRate = d30 && holding !== null ? percent.format(holding / d30) : "样本不足";
+  const conversion = eligible && d30 !== null ? percent.format(d30 / eligible) : unavailableLabel("first_inflow_d30_users");
+  const holdingRate = d30 && holding !== null ? percent.format(holding / d30) : unavailableLabel("still_holding_users");
   const stages = [
     { label: "完整观察的新注册", note: "漏斗起点", field: "eligible_registrations", width: 100 },
     { label: `30 日内完成${labels.firstShort}`, note: `注册转化 ${conversion}`, field: "first_inflow_d30_users", width: widthFor(d30, eligible, 100) },
@@ -768,7 +796,7 @@ function renderGrowthFunnel() {
   </div>`).join("");
   $("#growth-funnel").setAttribute("aria-label", `${cohort.short_label}完整观察窗漏斗：新注册${funnelValueMarkup(funnel, "eligible_registrations")}；30日内${labels.firstShort}${funnelValueMarkup(funnel, "first_inflow_d30_users")}；当前仍持仓${funnelValueMarkup(funnel, "still_holding_users")}。`);
   $("#growth-funnel-window").textContent = `注册窗口 ${formatDay(currentData.growth.funnel.registration_start)}—${formatDay(currentData.growth.funnel.registration_end)}；统一观察注册后 30 日，避免未成熟用户拉低转化。`;
-  $("#growth-speed strong").textContent = eligible && d7 !== null ? `${number.format(d7)} 人 · ${percent.format(d7 / eligible)}` : "样本不足";
+  $("#growth-speed strong").textContent = eligible && d7 !== null ? `${number.format(d7)} 人 · ${percent.format(d7 / eligible)}` : unavailableLabel("first_inflow_d7_users");
 }
 
 function renderGrowth() {
@@ -901,13 +929,17 @@ function renderBehavior() {
     .sort((a, b) => b.penetration - a.penetration)[0];
   const segmented = behaviorIsSegmented();
   const scope = segmented ? scopeLabel() : cohortById().short_label;
+  const stale = currentData.behavior.refresh_state === "not_refreshed" ? currentData.behavior : null;
+  const staleNote = stale
+    ? `本模块口径截至 ${formatDay(stale.as_of)}，未随本次刷新更新；参与率分母为当时的人群规模 ${number.format((stale.denominators || {})[selectedCohortId] ?? 0)} 人。`
+    : "";
   if (!strongest) {
     $("#behavior-highlight").textContent = SUPPRESSED_TEXT;
     $("#behavior-highlight-copy").textContent = `${scope}的已确认行为参与人数均低于公开阈值，未发布最强信号。`;
     return;
   }
   $("#behavior-highlight").textContent = (categoryMap.get(strongest.key) || {}).label || strongest.key;
-  $("#behavior-highlight-copy").textContent = `${scope}中有 ${countText(strongest.actors)} 人参与，渗透率 ${rateText(strongest.penetration)}，人均 ${strongest.events_per_actor === null || strongest.events_per_actor === undefined ? SUPPRESSED_TEXT : `${oneDecimal.format(strongest.events_per_actor)} 次`}。${segmented ? "参与率差异只是相关性，不能直接解释为 OAP 促成。" : "本轮行为数据尚未按新老拆分，这里是该人群全体口径。"}`;
+  $("#behavior-highlight-copy").textContent = `${scope}中有 ${countText(strongest.actors)} 人参与，渗透率 ${rateText(strongest.penetration)}，人均 ${strongest.events_per_actor === null || strongest.events_per_actor === undefined ? SUPPRESSED_TEXT : `${oneDecimal.format(strongest.events_per_actor)} 次`}。${segmented ? "参与率差异只是相关性，不能直接解释为 OAP 促成。" : "本轮行为数据尚未按新老拆分，这里是该人群全体口径。"}${staleNote ? ` ${staleNote}` : ""}`;
 }
 
 function renderSegmentControls() {
@@ -1212,9 +1244,10 @@ function renderTitles() {
   const strongest = [...behaviorRows()]
     .filter((row) => confirmedKeys.has(row.key) && row.penetration !== null && row.penetration !== undefined)
     .sort((a, b) => b.penetration - a.penetration)[0];
+  const behaviorStale = currentData.behavior.refresh_state === "not_refreshed" ? `（截至 ${formatDay(currentData.behavior.as_of)}）` : "";
   $("#behavior-title").textContent = strongest
-    ? `投资行为：最强信号${(categoryMap.get(strongest.key) || {}).label || strongest.key}，参与率 ${percent.format(strongest.penetration)}`
-    : `投资行为：${scopeLabel()}的已确认行为样本不足`;
+    ? `投资行为${behaviorStale}：最强信号${(categoryMap.get(strongest.key) || {}).label || strongest.key}，参与率 ${percent.format(strongest.penetration)}`
+    : `投资行为${behaviorStale}：${scopeLabel()}的已确认行为样本不足`;
 
   const profile = currentData.profile;
   $("#profile-title").innerHTML = `问卷画像：覆盖 ${escapeHtml(percent.format(profile.survey_coverage_approx))}，结构化仅 ${escapeHtml(number.format(profile.structured_profile_rows))} 条，<br />只代表回答者`;
@@ -1230,7 +1263,7 @@ function renderTitles() {
   } else {
     $("#hero-headline").textContent = `${number.format(usage.approved_users)} 位批准用户在且慢持仓 ${money(approved.aum_yuan)}；${percent.format(humanRate)} 的调用可归属到人。`;
   }
-  $("#footer-cutoff").textContent = `OAP / 行为截至 ${formatDateTime(meta.data_cutoff, true)} · 资产快照 ${formatDay(meta.asset_snapshot_date)}`;
+  $("#footer-cutoff").textContent = footerCutoffText();
 }
 
 function renderProfile() {

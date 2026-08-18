@@ -348,14 +348,29 @@ for (const field of growthFunnelFields) rejectSmallNestedDifference(expectedIds.
 if (!Array.isArray(data.behavior?.categories) || data.behavior.categories.length !== 7) fail("行为分类不完整");
 if (!data.behavior.categories.some((item) => item.state === "missing") || !data.behavior.categories.some((item) => item.state === "partial")) fail("行为语义没有保留 partial / missing");
 const categoryKeys = data.behavior.categories.map((item) => item.key);
+// 行为可能停留在更早的窗口（本轮无法刷新）。那时它必须自带当时的人群分母，
+// 参与率按该分母复算，绝不与新人群规模混算；同时要申报未刷新状态与口径日。
+const behaviorDenominators = data.behavior.denominators || null;
+if (behaviorDenominators) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(data.behavior.as_of || "")) fail("行为块自带分母时必须申报口径日");
+  if (data.behavior.refresh_state !== "not_refreshed" || !data.behavior.refresh_note) fail("行为块未刷新状态或说明缺失");
+  if (dateOrdinal(data.behavior.as_of) > dateOrdinal(data.meta.data_cutoff.slice(0, 10))) fail("行为口径日晚于总看板截止日");
+  for (const id of expectedIds) {
+    const value = behaviorDenominators[id];
+    if (!Number.isInteger(value) || value <= 0) fail(`${id} 行为分母无效`);
+    const current = data.usage[id === "called" ? "ever_called_users" : `${id}_users`];
+    if (value > current) fail(`${id} 行为分母大于当前人群规模`);
+  }
+}
 for (const cohort of data.cohorts) {
+  const denominator = behaviorDenominators ? behaviorDenominators[cohort.id] : cohort.users;
   const rows = data.behavior.by_cohort?.[cohort.id];
   if (!Array.isArray(rows) || rows.length !== categoryKeys.length) fail(`${cohort.id} 行为数组缺失`);
   for (const [index, row] of rows.entries()) {
     if (row.key !== categoryKeys[index]) fail(`${cohort.id} 行为分类顺序不一致`);
-    if (!Number.isInteger(row.actors) || !Number.isInteger(row.events) || row.actors > cohort.users || row.events < row.actors) fail(`${cohort.id}.${row.key} 行为数量异常`);
+    if (!Number.isInteger(row.actors) || !Number.isInteger(row.events) || row.actors > denominator || row.events < row.actors) fail(`${cohort.id}.${row.key} 行为数量异常`);
     if (row.actors < data.meta.minimum_public_cell) fail(`${cohort.id}.${row.key} 参与人数低于公开阈值`);
-    if (!approximately(row.penetration, row.actors / cohort.users, 0.00025)) fail(`${cohort.id}.${row.key} 参与率不可复算`);
+    if (!approximately(row.penetration, row.actors / denominator, 0.00025)) fail(`${cohort.id}.${row.key} 参与率不可复算`);
     if (!approximately(row.events_per_actor, row.events / row.actors, 0.015)) fail(`${cohort.id}.${row.key} 人均频次不可复算`);
   }
 }
