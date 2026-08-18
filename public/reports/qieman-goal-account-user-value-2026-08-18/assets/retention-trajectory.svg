@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">有目标账户与无目标账户的留存率轨迹</title>
+  <desc id="desc">两组从基准日百分之百出发。有目标账户用户12月留存91.86%，24月留存86.12%；无目标账户用户分别为81.30%和70.55%。差距由10.56个百分点扩大到15.57个百分点。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#F5F2FF"/>
+    </linearGradient>
+    <linearGradient id="gap" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7457E8" stop-opacity="0.03"/>
+      <stop offset="1" stop-color="#7457E8" stop-opacity="0.18"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="16" flood-color="#4B358F" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="675" rx="36" fill="url(#bg)"/>
+  <circle cx="1070" cy="-20" r="210" fill="#7457E8" opacity="0.035"/>
+
+  <text x="64" y="66" fill="#7457E8" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="14" font-weight="800" letter-spacing="2.2">RETENTION TRAJECTORY · 留存轨迹</text>
+  <text x="64" y="112" fill="#171A27" font-family="'Songti SC',STSong,serif" font-size="34" font-weight="600">留存优势随时间继续扩大</text>
+  <text x="64" y="142" fill="#687287" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="14">基准日两组均为 100%，分母固定；期末 AUM &gt; 100 元即视为留存</text>
+
+  <g font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="13" font-weight="700">
+    <circle cx="814" cy="92" r="6" fill="#7457E8"/>
+    <text x="830" y="97" fill="#5138B5">有目标账户</text>
+    <circle cx="962" cy="92" r="6" fill="#98A1B3"/>
+    <text x="978" y="97" fill="#687287">无目标账户</text>
+  </g>
+
+  <g stroke="#E3E5EC" stroke-width="1">
+    <line x1="130" y1="170" x2="1070" y2="170"/>
+    <line x1="130" y1="265" x2="1070" y2="265" stroke-dasharray="4 8"/>
+    <line x1="130" y1="360" x2="1070" y2="360" stroke-dasharray="4 8"/>
+    <line x1="130" y1="455" x2="1070" y2="455" stroke-dasharray="4 8"/>
+  </g>
+  <g fill="#8A92A3" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="12" text-anchor="end">
+    <text x="112" y="175">100%</text>
+    <text x="112" y="270">90%</text>
+    <text x="112" y="365">80%</text>
+    <text x="112" y="460">70%</text>
+  </g>
+
+  <path d="M130 170 L590 247.3 L1050 301.9 L1050 449.8 L590 347.7 L130 170 Z" fill="url(#gap)"/>
+  <path d="M130 170 C305 170 415 213 590 247.3 C765 281 875 286 1050 301.9" fill="none" stroke="#7457E8" stroke-width="8" stroke-linecap="round"/>
+  <path d="M130 170 C305 170 415 270 590 347.7 C765 425 875 430 1050 449.8" fill="none" stroke="#98A1B3" stroke-width="7" stroke-linecap="round"/>
+
+  <g>
+    <circle cx="130" cy="170" r="10" fill="#FFFFFF" stroke="#7457E8" stroke-width="5"/>
+    <circle cx="590" cy="247.3" r="11" fill="#FFFFFF" stroke="#7457E8" stroke-width="6"/>
+    <circle cx="1050" cy="301.9" r="11" fill="#FFFFFF" stroke="#7457E8" stroke-width="6"/>
+    <circle cx="590" cy="347.7" r="10" fill="#FFFFFF" stroke="#98A1B3" stroke-width="5"/>
+    <circle cx="1050" cy="449.8" r="10" fill="#FFFFFF" stroke="#98A1B3" stroke-width="5"/>
+  </g>
+
+  <g font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-weight="800">
+    <text x="590" y="221" text-anchor="middle" fill="#5138B5" font-size="18">91.86%</text>
+    <text x="590" y="379" text-anchor="middle" fill="#687287" font-size="18">81.30%</text>
+    <text x="1050" y="276" text-anchor="middle" fill="#5138B5" font-size="18">86.12%</text>
+    <text x="1050" y="482" text-anchor="middle" fill="#687287" font-size="18">70.55%</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="621" y="274" width="142" height="48" rx="24" fill="#FFFFFF"/>
+    <text x="692" y="304" text-anchor="middle" fill="#5138B5" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="16" font-weight="800">+10.56pp</text>
+    <rect x="869" y="350" width="151" height="52" rx="26" fill="#7457E8"/>
+    <text x="944.5" y="382" text-anchor="middle" fill="#FFFFFF" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="17" font-weight="800">+15.57pp</text>
+  </g>
+
+  <g fill="#687287" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="13" font-weight="700" text-anchor="middle">
+    <text x="130" y="520">基准日</text>
+    <text x="130" y="542" fill="#8A92A3" font-size="11">2024-06-28</text>
+    <text x="590" y="520">12个月</text>
+    <text x="590" y="542" fill="#8A92A3" font-size="11">2025-06-28</text>
+    <text x="1050" y="520">24个月</text>
+    <text x="1050" y="542" fill="#8A92A3" font-size="11">2026-06-28</text>
+  </g>
+
+  <rect x="64" y="574" width="1072" height="66" rx="18" fill="#10182C"/>
+  <text x="90" y="600" fill="#AFA5F7" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="11" font-weight="800" letter-spacing="1.4">24-MONTH VIEW · 换成流失视角</text>
+  <text x="90" y="626" fill="#FFFFFF" font-family="'Songti SC',STSong,serif" font-size="21" font-weight="600">目标组流失 13.88%，无目标组流失 29.45%</text>
+  <text x="1108" y="618" text-anchor="end" fill="#9D86F2" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="24" font-weight="900">相对低 52.9%</text>
+</svg>

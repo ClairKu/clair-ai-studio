@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "assets": [
+    {
+      "path": "assets/retention-trajectory.svg",
+      "bytes": 5699,
+      "sha256": "ae49174744d855206ebd0acce40bb925c774c92139992021c61913e202401a1b"
+    },
+    {
+      "path": "assets/behavior-intensity.svg",
+      "bytes": 6944,
+      "sha256": "d947098c072aa0f02c8bbbcc0bac01de7db750996a8d110a1ba4f6b8e0ad7699"
+    }
+  ]
+}

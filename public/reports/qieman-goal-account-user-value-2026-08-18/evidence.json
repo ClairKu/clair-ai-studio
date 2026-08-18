@@ -1,0 +1,76 @@
+{
+  "version": 1,
+  "reportDate": "2026-08-18",
+  "baseDate": "2024-06-28",
+  "population": {
+    "total": 263485,
+    "goal": 61056,
+    "noGoal": 202429,
+    "goalSharePct": 23.1724766116,
+    "noGoalSharePct": 76.8275233884,
+    "status": "confirmed",
+    "source": "S01 + S02"
+  },
+  "metrics": [
+    {
+      "id": "reinvest_rate",
+      "label": "复投率",
+      "goal": 98.57,
+      "noGoal": 89.54,
+      "unit": "%",
+      "differencePp": 9.03,
+      "relativeDifferencePct": 10.0848782667,
+      "status": "confirmed",
+      "source": "S01 + S02",
+      "missing": "观察截止、精确分母与重复申购排除规则"
+    },
+    {
+      "id": "managed_days_mean",
+      "label": "平均在管天数",
+      "goal": 1914.9,
+      "noGoal": 1702.6,
+      "unit": "天",
+      "difference": 212.3,
+      "relativeDifferencePct": 12.4691648068,
+      "differenceMonthsApprox": 6.9749486653,
+      "status": "confirmed",
+      "source": "S01 + S02",
+      "missing": "累计起止日、间断持有处理与分布"
+    },
+    {
+      "id": "retention_12m",
+      "label": "12月留存率",
+      "goal": 91.86,
+      "noGoal": 81.3,
+      "unit": "%",
+      "differencePp": 10.56,
+      "relativeDifferencePct": 12.9889298893,
+      "status": "confirmed",
+      "source": "S01 + S02"
+    },
+    {
+      "id": "retention_24m",
+      "label": "24月留存率",
+      "goal": 86.12,
+      "noGoal": 70.55,
+      "unit": "%",
+      "differencePp": 15.57,
+      "relativeDifferencePct": 22.0694542877,
+      "goalAttritionPct": 13.88,
+      "noGoalAttritionPct": 29.45,
+      "relativeAttritionReductionPct": 52.8692699491,
+      "status": "confirmed",
+      "source": "S01 + S02"
+    }
+  ],
+  "derived": [
+    {
+      "id": "retention_gap_expansion",
+      "formula": "15.57pp - 10.56pp",
+      "value": 5.01,
+      "unit": "pp",
+      "status": "confirmed"
+    }
+  ],
+  "evidenceBoundary": "观察性分组结果，反映用户特征与行为的相关关系；未经随机实验或基准特征匹配，不代表目标账户的净因果效应。"
+}
