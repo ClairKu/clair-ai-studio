@@ -1,8 +1,8 @@
 window.OAP_QIEMAN_DASHBOARD_DATA = {
   "schema_version": "oap-qieman-user-dashboard-v1",
   "meta": {
-    "title": "OAP 用户画像 × 且慢持仓与行为看板",
-    "contract_revision": "journey-growth-2026-08-17",
+    "title": "OAP 用户新老结构 × 且慢资产、入金、行为与服务使用",
+    "contract_revision": "segments-new-existing-2026-08-18",
     "generated_at": "2026-08-17T16:24:53+08:00",
     "data_cutoff": "2026-08-16T23:59:59+08:00",
     "asset_snapshot_date": "2026-08-17",
@@ -1121,6 +1121,11 @@ window.OAP_QIEMAN_DASHBOARD_DATA = {
       "label": "画像覆盖",
       "status": "missing",
       "detail": "本次画像查询未通过口径或隐私校验，已沿用上次脱敏聚合；不可视为本次刷新结果。"
+    },
+    {
+      "label": "新老用户切分",
+      "status": "warn",
+      "detail": "切分本身已确认且三组人数闭合；但新用户段的持仓人数低于公开阈值已整体隐藏，入金与 7 类交易行为本轮无法按新老拆分。"
     }
   ],
   "definitions": [
@@ -1168,6 +1173,740 @@ window.OAP_QIEMAN_DASHBOARD_DATA = {
       "term": "因果关系",
       "state": "missing",
       "definition": "活跃人群的持仓与行为更强是相关性；尚未排除自选择、注册时点等混杂因素。"
+    },
+    {
+      "term": "新老用户切分",
+      "state": "confirmed",
+      "definition": "新用户 = 且慢注册时间不早于 OAP 批准日；老用户 = 批准前已注册；两侧时间缺失记为无法判定。两组不是随机分配，差值不能当作 OAP 的获客或增量效果。"
     }
-  ]
+  ],
+  "segments": {
+    "definition": {
+      "state": "confirmed",
+      "label": "且慢正式注册时间 vs OAP 批准生效时间",
+      "approval_field": "OAP 批准生效时间（缺失时回退为申请时间），每位用户取最早一条",
+      "detail": "按日比较：注册日不早于批准日记为新用户，早于记为老用户；两侧时间任一缺失记为无法判定，不用建表或更新时间补值。人群、注册时间与持仓资产沿稳定内部主键关联，不使用姓名或联系方式模糊匹配。",
+      "cut": "registered_at >= approval_date → new"
+    },
+    "keys": [
+      {
+        "key": "all",
+        "short_label": "全部",
+        "label": "全部 OAP 用户",
+        "definition": "所选人群全体，不做新老切分。"
+      },
+      {
+        "key": "new",
+        "short_label": "新用户",
+        "label": "新用户（OAP 后注册）",
+        "definition": "且慢正式注册时间不早于 OAP 批准日：先接触 OAP，之后才注册且慢。"
+      },
+      {
+        "key": "existing",
+        "short_label": "老用户",
+        "label": "老用户（OAP 前已注册）",
+        "definition": "OAP 批准之前就已是且慢注册用户，资产多为存量积累。"
+      }
+    ],
+    "services": [
+      {
+        "key": "si_plan",
+        "label": "定投计划",
+        "state": "confirmed"
+      }
+    ],
+    "unavailable_services": [
+      {
+        "label": "AI 小顾对话",
+        "reason": "对话日志在独立系统，无法与 OAP 人群在同一库内按稳定主键关联，本轮未按人群聚合"
+      },
+      {
+        "label": "四笔钱方案",
+        "reason": "指标在另一套离线计算平台，与人群不同库，需单独取数后再关联"
+      },
+      {
+        "label": "内容/研究阅读、账户诊断",
+        "reason": "来自前端埋点，事件标识与稳定主键的串接依赖额外映射，本轮未聚合"
+      },
+      {
+        "label": "投顾签约",
+        "reason": "已核查的投顾库只有投资建议与组合调仓数据，未找到签约记录表，不用近似字段替代"
+      },
+      {
+        "label": "客服 / 投顾人工咨询",
+        "reason": "可入数仓的触达覆盖率约 2.8%，主要沟通走电话与线下，作为服务使用口径不可靠"
+      },
+      {
+        "label": "社区互动",
+        "reason": "业务概念存在，但底层数据表本轮未定位，未确认前不报数"
+      }
+    ],
+    "missing_dimensions": [
+      {
+        "label": "入金（资产入账代理）",
+        "reason": "日级资产入账表按日期窗口聚合两次均超时，全历史首次入账扫描不可行；未用另一套订单侧现金流冒充"
+      },
+      {
+        "label": "近 90 日交易行为",
+        "reason": "买入/赎回/跟投等 7 类事件没有统一事实表，需跨三套订单源加撤单过滤的 ETL，本轮无法按新老拆分"
+      }
+    ],
+    "snapshot_note": "新老分段为独立一次聚合，资产时点比人群卡片晚约一天，两段持仓规模之和比人群卡片高约 0.6%；比例与结构结论不受影响，绝对值不要跨模块相减。",
+    "by_cohort": {
+      "approved": {
+        "unknown_users": 1,
+        "new": {
+          "users": 6742,
+          "share": 0.6841,
+          "qieman_accounts": 104,
+          "holders": null,
+          "managed_accounts": null,
+          "profitable_holders": null,
+          "aum_yuan": 80000,
+          "average_holder_asset_yuan": null,
+          "qieman_account_rate": 0.0154,
+          "holder_rate": null,
+          "managed_rate": null,
+          "profitable_holder_rate": null,
+          "asset_buckets": [
+            {
+              "key": "lt_10k",
+              "label": "1 万以下",
+              "count": null,
+              "share": null
+            },
+            {
+              "key": "10k_100k",
+              "label": "1–10 万",
+              "count": null,
+              "share": null
+            },
+            {
+              "key": "100k_500k",
+              "label": "10–50 万",
+              "count": null,
+              "share": null
+            },
+            {
+              "key": "500k_1m",
+              "label": "50–100 万",
+              "count": null,
+              "share": null
+            },
+            {
+              "key": "gte_1m",
+              "label": "100 万以上",
+              "count": null,
+              "share": null
+            }
+          ],
+          "tenure": [
+            {
+              "bucket": "d0_7",
+              "users": 6742
+            },
+            {
+              "bucket": "d8_30",
+              "users": 0
+            },
+            {
+              "bucket": "d31_90",
+              "users": 0
+            },
+            {
+              "bucket": "d90_plus",
+              "users": 0
+            }
+          ],
+          "oap_usage": {
+            "calls_total": 955686,
+            "calls_per_user": 141.75
+          },
+          "services": [
+            {
+              "key": "si_plan",
+              "actors": 0,
+              "penetration": 0
+            }
+          ],
+          "suppressed_fields": [
+            "holders",
+            "managed_accounts",
+            "profitable_holders",
+            "average_holder_asset_yuan",
+            "holder_rate",
+            "managed_rate",
+            "profitable_holder_rate",
+            "asset_buckets"
+          ]
+        },
+        "existing": {
+          "users": 3112,
+          "share": 0.3158,
+          "qieman_accounts": 1997,
+          "holders": 1268,
+          "managed_accounts": 1161,
+          "profitable_holders": 1095,
+          "aum_yuan": 372230000,
+          "average_holder_asset_yuan": 293557,
+          "qieman_account_rate": 0.6417,
+          "holder_rate": 0.4075,
+          "managed_rate": 0.3731,
+          "profitable_holder_rate": 0.8636,
+          "asset_buckets": [
+            {
+              "key": "lt_10k",
+              "label": "1 万以下",
+              "count": 372,
+              "share": 0.2934
+            },
+            {
+              "key": "10k_100k",
+              "label": "1–10 万",
+              "count": 327,
+              "share": 0.2579
+            },
+            {
+              "key": "100k_500k",
+              "label": "10–50 万",
+              "count": 353,
+              "share": 0.2784
+            },
+            {
+              "key": "500k_1m",
+              "label": "50–100 万",
+              "count": 124,
+              "share": 0.0978
+            },
+            {
+              "key": "gte_1m",
+              "label": "100 万以上",
+              "count": 92,
+              "share": 0.0726
+            }
+          ],
+          "tenure": [
+            {
+              "bucket": "lt_1y",
+              "users": 560
+            },
+            {
+              "bucket": "y1_3",
+              "users": 431
+            },
+            {
+              "bucket": "y3_plus",
+              "users": 2121
+            }
+          ],
+          "oap_usage": {
+            "calls_total": 782345,
+            "calls_per_user": 251.4
+          },
+          "services": [
+            {
+              "key": "si_plan",
+              "actors": null,
+              "penetration": null
+            }
+          ],
+          "suppressed_fields": []
+        },
+        "all": {
+          "users": 9855,
+          "qieman_accounts": 2099,
+          "qieman_account_rate": 0.213,
+          "holders": 1281,
+          "holder_rate": 0.13,
+          "managed_accounts": 1166,
+          "managed_rate": 0.1183,
+          "aum_yuan": 370210000,
+          "average_holder_asset_yuan": 289004,
+          "profitable_holders": 1077,
+          "profitable_holder_rate": 0.8407,
+          "asset_buckets": [
+            {
+              "key": "lt_10k",
+              "label": "1 万以下",
+              "count": 385,
+              "share": 0.3005
+            },
+            {
+              "key": "10k_100k",
+              "label": "1–10 万",
+              "count": 329,
+              "share": 0.2568
+            },
+            {
+              "key": "100k_500k",
+              "label": "10–50 万",
+              "count": 351,
+              "share": 0.274
+            },
+            {
+              "key": "500k_1m",
+              "label": "50–100 万",
+              "count": 125,
+              "share": 0.0976
+            },
+            {
+              "key": "gte_1m",
+              "label": "100 万以上",
+              "count": 91,
+              "share": 0.071
+            }
+          ],
+          "share": 1,
+          "oap_usage": {
+            "calls_total": 1738031,
+            "calls_per_user": 176.36
+          },
+          "services": [
+            {
+              "key": "si_plan",
+              "actors": null,
+              "penetration": null
+            }
+          ],
+          "suppressed_fields": []
+        }
+      },
+      "called": {
+        "unknown_users": 3,
+        "new": {
+          "users": 3874,
+          "share": 0.6661,
+          "qieman_accounts": 63,
+          "holders": null,
+          "managed_accounts": null,
+          "profitable_holders": null,
+          "aum_yuan": 70000,
+          "average_holder_asset_yuan": null,
+          "qieman_account_rate": 0.0163,
+          "holder_rate": null,
+          "managed_rate": null,
+          "profitable_holder_rate": null,
+          "asset_buckets": [
+            {
+              "key": "lt_10k",
+              "label": "1 万以下",
+              "count": null,
+              "share": null
+            },
+            {
+              "key": "10k_100k",
+              "label": "1–10 万",
+              "count": null,
+              "share": null
+            },
+            {
+              "key": "100k_500k",
+              "label": "10–50 万",
+              "count": null,
+              "share": null
+            },
+            {
+              "key": "500k_1m",
+              "label": "50–100 万",
+              "count": null,
+              "share": null
+            },
+            {
+              "key": "gte_1m",
+              "label": "100 万以上",
+              "count": null,
+              "share": null
+            }
+          ],
+          "tenure": [
+            {
+              "bucket": "d0_7",
+              "users": 3874
+            },
+            {
+              "bucket": "d8_30",
+              "users": 0
+            },
+            {
+              "bucket": "d31_90",
+              "users": 0
+            },
+            {
+              "bucket": "d90_plus",
+              "users": 0
+            }
+          ],
+          "oap_usage": {
+            "calls_total": 955686,
+            "calls_per_user": 246.69
+          },
+          "services": [
+            {
+              "key": "si_plan",
+              "actors": 0,
+              "penetration": 0
+            }
+          ],
+          "suppressed_fields": [
+            "holders",
+            "managed_accounts",
+            "profitable_holders",
+            "average_holder_asset_yuan",
+            "holder_rate",
+            "managed_rate",
+            "profitable_holder_rate",
+            "asset_buckets"
+          ]
+        },
+        "existing": {
+          "users": 1939,
+          "share": 0.3334,
+          "qieman_accounts": 1254,
+          "holders": 779,
+          "managed_accounts": 717,
+          "profitable_holders": 667,
+          "aum_yuan": 241260000,
+          "average_holder_asset_yuan": 309705,
+          "qieman_account_rate": 0.6467,
+          "holder_rate": 0.4018,
+          "managed_rate": 0.3698,
+          "profitable_holder_rate": 0.8562,
+          "asset_buckets": [
+            {
+              "key": "lt_10k",
+              "label": "1 万以下",
+              "count": 226,
+              "share": 0.2901
+            },
+            {
+              "key": "10k_100k",
+              "label": "1–10 万",
+              "count": 208,
+              "share": 0.267
+            },
+            {
+              "key": "100k_500k",
+              "label": "10–50 万",
+              "count": 213,
+              "share": 0.2734
+            },
+            {
+              "key": "500k_1m",
+              "label": "50–100 万",
+              "count": 72,
+              "share": 0.0924
+            },
+            {
+              "key": "gte_1m",
+              "label": "100 万以上",
+              "count": 60,
+              "share": 0.077
+            }
+          ],
+          "tenure": [
+            {
+              "bucket": "lt_1y",
+              "users": 358
+            },
+            {
+              "bucket": "y1_3",
+              "users": 282
+            },
+            {
+              "bucket": "y3_plus",
+              "users": 1299
+            }
+          ],
+          "oap_usage": {
+            "calls_total": 782345,
+            "calls_per_user": 403.48
+          },
+          "services": [
+            {
+              "key": "si_plan",
+              "actors": null,
+              "penetration": null
+            }
+          ],
+          "suppressed_fields": []
+        },
+        "all": {
+          "users": 5816,
+          "qieman_accounts": 1315,
+          "qieman_account_rate": 0.2261,
+          "holders": 786,
+          "holder_rate": 0.1351,
+          "managed_accounts": 721,
+          "managed_rate": 0.124,
+          "aum_yuan": 240020000,
+          "average_holder_asset_yuan": 305372,
+          "profitable_holders": 658,
+          "profitable_holder_rate": 0.8372,
+          "asset_buckets": [
+            {
+              "key": "lt_10k",
+              "label": "1 万以下",
+              "count": 232,
+              "share": 0.2952
+            },
+            {
+              "key": "10k_100k",
+              "label": "1–10 万",
+              "count": 209,
+              "share": 0.2659
+            },
+            {
+              "key": "100k_500k",
+              "label": "10–50 万",
+              "count": 213,
+              "share": 0.271
+            },
+            {
+              "key": "500k_1m",
+              "label": "50–100 万",
+              "count": 72,
+              "share": 0.0916
+            },
+            {
+              "key": "gte_1m",
+              "label": "100 万以上",
+              "count": 60,
+              "share": 0.0763
+            }
+          ],
+          "share": 1,
+          "oap_usage": {
+            "calls_total": 1738031,
+            "calls_per_user": 298.84
+          },
+          "services": [
+            {
+              "key": "si_plan",
+              "actors": null,
+              "penetration": null
+            }
+          ],
+          "suppressed_fields": []
+        }
+      },
+      "active_30d": {
+        "unknown_users": 0,
+        "new": {
+          "users": 1379,
+          "share": 0.6086,
+          "qieman_accounts": 21,
+          "holders": null,
+          "managed_accounts": null,
+          "profitable_holders": null,
+          "aum_yuan": 40000,
+          "average_holder_asset_yuan": null,
+          "qieman_account_rate": 0.0152,
+          "holder_rate": null,
+          "managed_rate": null,
+          "profitable_holder_rate": null,
+          "asset_buckets": [
+            {
+              "key": "lt_10k",
+              "label": "1 万以下",
+              "count": null,
+              "share": null
+            },
+            {
+              "key": "10k_100k",
+              "label": "1–10 万",
+              "count": null,
+              "share": null
+            },
+            {
+              "key": "100k_500k",
+              "label": "10–50 万",
+              "count": null,
+              "share": null
+            },
+            {
+              "key": "500k_1m",
+              "label": "50–100 万",
+              "count": null,
+              "share": null
+            },
+            {
+              "key": "gte_1m",
+              "label": "100 万以上",
+              "count": null,
+              "share": null
+            }
+          ],
+          "tenure": [
+            {
+              "bucket": "d0_7",
+              "users": 1379
+            },
+            {
+              "bucket": "d8_30",
+              "users": 0
+            },
+            {
+              "bucket": "d31_90",
+              "users": 0
+            },
+            {
+              "bucket": "d90_plus",
+              "users": 0
+            }
+          ],
+          "oap_usage": {
+            "calls_total": 630767,
+            "calls_per_user": 457.41
+          },
+          "services": [
+            {
+              "key": "si_plan",
+              "actors": 0,
+              "penetration": 0
+            }
+          ],
+          "suppressed_fields": [
+            "holders",
+            "managed_accounts",
+            "profitable_holders",
+            "average_holder_asset_yuan",
+            "holder_rate",
+            "managed_rate",
+            "profitable_holder_rate",
+            "asset_buckets"
+          ]
+        },
+        "existing": {
+          "users": 887,
+          "share": 0.3914,
+          "qieman_accounts": 583,
+          "holders": 384,
+          "managed_accounts": 359,
+          "profitable_holders": 325,
+          "aum_yuan": 117060000,
+          "average_holder_asset_yuan": 304844,
+          "qieman_account_rate": 0.6573,
+          "holder_rate": 0.4329,
+          "managed_rate": 0.4047,
+          "profitable_holder_rate": 0.8464,
+          "asset_buckets": [
+            {
+              "key": "lt_10k",
+              "label": "1 万以下",
+              "count": 120,
+              "share": 0.3125
+            },
+            {
+              "key": "10k_100k",
+              "label": "1–10 万",
+              "count": 105,
+              "share": 0.2734
+            },
+            {
+              "key": "100k_500k",
+              "label": "10–50 万",
+              "count": 90,
+              "share": 0.2344
+            },
+            {
+              "key": "500k_1m",
+              "label": "50–100 万",
+              "count": 41,
+              "share": 0.1068
+            },
+            {
+              "key": "gte_1m",
+              "label": "100 万以上",
+              "count": 28,
+              "share": 0.0729
+            }
+          ],
+          "tenure": [
+            {
+              "bucket": "lt_1y",
+              "users": 170
+            },
+            {
+              "bucket": "y1_3",
+              "users": 123
+            },
+            {
+              "bucket": "y3_plus",
+              "users": 594
+            }
+          ],
+          "oap_usage": {
+            "calls_total": 623558,
+            "calls_per_user": 703
+          },
+          "services": [
+            {
+              "key": "si_plan",
+              "actors": null,
+              "penetration": null
+            }
+          ],
+          "suppressed_fields": []
+        },
+        "all": {
+          "users": 2266,
+          "qieman_accounts": 602,
+          "qieman_account_rate": 0.2657,
+          "holders": 388,
+          "holder_rate": 0.1712,
+          "managed_accounts": 361,
+          "managed_rate": 0.1593,
+          "aum_yuan": 116570000,
+          "average_holder_asset_yuan": 300435,
+          "profitable_holders": 320,
+          "profitable_holder_rate": 0.8247,
+          "asset_buckets": [
+            {
+              "key": "lt_10k",
+              "label": "1 万以下",
+              "count": 123,
+              "share": 0.317
+            },
+            {
+              "key": "10k_100k",
+              "label": "1–10 万",
+              "count": 106,
+              "share": 0.2732
+            },
+            {
+              "key": "100k_500k",
+              "label": "10–50 万",
+              "count": 90,
+              "share": 0.232
+            },
+            {
+              "key": "500k_1m",
+              "label": "50–100 万",
+              "count": 41,
+              "share": 0.1057
+            },
+            {
+              "key": "gte_1m",
+              "label": "100 万以上",
+              "count": 28,
+              "share": 0.0722
+            }
+          ],
+          "share": 1,
+          "oap_usage": {
+            "calls_total": 1254325,
+            "calls_per_user": 553.54
+          },
+          "services": [
+            {
+              "key": "si_plan",
+              "actors": null,
+              "penetration": null
+            }
+          ],
+          "suppressed_fields": []
+        }
+      }
+    }
+  }
 };

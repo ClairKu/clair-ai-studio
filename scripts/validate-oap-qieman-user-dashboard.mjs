@@ -122,8 +122,135 @@ for (const [index, cohort] of data.cohorts.entries()) {
   }
 }
 
+// 维度二：新老用户（且慢注册时间 vs OAP 批准时间）。旧快照没有该块时跳过。
+if (data.segments) {
+  const segments = data.segments;
+  const segmentIds = ["all", "new", "existing"];
+  const countFields = ["users", "qieman_accounts", "holders", "managed_accounts", "profitable_holders"];
+  if (!["confirmed", "partial"].includes(segments.definition?.state)) fail("新老切分缺少证据状态");
+  if (!segments.definition?.approval_field) fail("新老切分未声明 OAP 批准时间取自哪个字段");
+  if (!Array.isArray(segments.keys) || !segmentIds.every((key) => segments.keys.some((item) => item.key === key))) fail("新老分段标识缺失");
+  for (const cohort of data.cohorts) {
+    const bucket = segments.by_cohort?.[cohort.id];
+    if (!bucket) fail(`${cohort.id} 缺少新老分段`);
+    if (!Number.isInteger(bucket.unknown_users) || bucket.unknown_users < 0) fail(`${cohort.id} 未申报无法判定新老的人数`);
+    for (const key of segmentIds) {
+      const view = bucket[key];
+      const label = `${cohort.id}.${key}`;
+      if (!view || !Array.isArray(view.suppressed_fields)) fail(`${label} 缺少小样本抑制声明`);
+      for (const field of view.suppressed_fields) {
+        const value = view[field];
+        // 分档类字段以「每一档都为 null」表示抑制，其余字段必须为 null
+        if (Array.isArray(value)) {
+          if (value.some((row) => row.count !== null && row.count !== undefined)) fail(`${label}.${field} 标记 suppressed 但仍有可见分档`);
+          continue;
+        }
+        if (value !== null && value !== undefined) fail(`${label}.${field} 已有值却标记 suppressed`);
+      }
+      for (const field of countFields) {
+        const value = view[field];
+        if (value === null || value === undefined) {
+          if (!view.suppressed_fields.includes(field)) fail(`${label}.${field} 为空但未标记 suppressed`);
+          continue;
+        }
+        if (!Number.isSafeInteger(value) || value < 0) fail(`${label}.${field} 无效`);
+        if (value > 0 && value < data.meta.minimum_public_cell) fail(`${label}.${field} 小于公开样本阈值`);
+      }
+      for (const field of ["aum_yuan", "average_holder_asset_yuan"]) {
+        const value = view[field];
+        if (value === null || value === undefined) continue;
+        if (value < 0) fail(`${label}.${field} 为负`);
+        if (field === "aum_yuan" && value % 10_000 !== 0) fail(`${label}.${field} 未按万元汇总`);
+      }
+      if (view.users > cohort.users) fail(`${label} 人数超过所在人群`);
+      const chain = [view.users, view.qieman_accounts, view.holders, view.managed_accounts].filter((value) => value !== null && value !== undefined);
+      for (let index = 1; index < chain.length; index += 1) {
+        if (chain[index] > chain[index - 1]) fail(`${label} 账户、持仓与在管关系不闭合`);
+      }
+      for (const [rateKey, numerator, denominator] of [
+        ["qieman_account_rate", "qieman_accounts", "users"],
+        ["holder_rate", "holders", "users"],
+        ["managed_rate", "managed_accounts", "users"],
+        ["profitable_holder_rate", "profitable_holders", "holders"],
+      ]) {
+        const rate = view[rateKey];
+        const top = view[numerator];
+        const bottom = view[denominator];
+        if (rate === null || rate === undefined || top === null || top === undefined || !bottom) continue;
+        if (!approximately(rate, top / bottom, 0.002)) fail(`${label}.${rateKey} 无法由分子分母复算`);
+      }
+      if (Array.isArray(view.asset_buckets)) {
+        if (view.asset_buckets.length !== 5) fail(`${label} 资产分层数量异常`);
+        const published = view.asset_buckets.filter((row) => row.count !== null && row.count !== undefined);
+        for (const row of published) {
+          if (!Number.isInteger(row.count) || (row.count > 0 && row.count < data.meta.minimum_public_cell)) fail(`${label}.${row.key} 小于公开样本阈值`);
+        }
+        // 只有整档全部公开时才要求与持仓人数闭合，避免抑制档被相减反推
+        if (published.length === 5 && view.holders !== null && view.holders !== undefined) {
+          const total = published.reduce((sum, row) => sum + row.count, 0);
+          if (total !== view.holders) fail(`${label} 资产分层与持仓人数不闭合`);
+        }
+        if (published.length === 4) fail(`${label} 只抑制了一个资产档，可由持仓人数相减反推`);
+      }
+      if (Array.isArray(view.behavior)) {
+        const behaviorKeys = data.behavior.categories.map((item) => item.key);
+        if (view.behavior.length !== behaviorKeys.length) fail(`${label} 行为分类缺失`);
+        for (const [index, row] of view.behavior.entries()) {
+          if (row.key !== behaviorKeys[index]) fail(`${label} 行为分类顺序异常`);
+          if (row.actors === null || row.actors === undefined) continue;
+          if (!Number.isInteger(row.actors) || (row.actors > 0 && row.actors < data.meta.minimum_public_cell)) fail(`${label}.${row.key} 行为人数低于公开阈值`);
+          if (view.users && !approximately(row.penetration, row.actors / view.users, 0.002)) fail(`${label}.${row.key} 参与率无法复算`);
+        }
+      }
+      if (Array.isArray(view.services)) {
+        const serviceKeys = (segments.services || []).map((item) => item.key);
+        for (const row of view.services) {
+          if (!serviceKeys.includes(row.key)) fail(`${label} 出现未申报的服务口径 ${row.key}`);
+          if (row.actors === null || row.actors === undefined) continue;
+          if (!Number.isInteger(row.actors) || (row.actors > 0 && row.actors < data.meta.minimum_public_cell)) fail(`${label}.${row.key} 服务使用人数低于公开阈值`);
+          if (view.users && !approximately(row.penetration, row.actors / view.users, 0.002)) fail(`${label}.${row.key} 服务渗透率无法复算`);
+        }
+      }
+    }
+    if (bucket.new.users + bucket.existing.users + bucket.unknown_users !== cohort.users) fail(`${cohort.id} 新老与无法判定之和不等于人群规模`);
+    if (bucket.all.users !== cohort.users) fail(`${cohort.id}.all 人数与人群规模不一致`);
+    for (const key of ["new", "existing"]) {
+      const share = bucket[key].share;
+      if (share === null || share === undefined) continue;
+      if (!approximately(share, bucket[key].users / cohort.users, 0.002)) fail(`${cohort.id}.${key}.share 无法复算`);
+    }
+  }
+  for (const service of segments.services || []) {
+    if (!service.key || !service.label || !["confirmed", "partial"].includes(service.state)) fail("服务口径清单缺少标识、名称或证据状态");
+  }
+  for (const item of segments.unavailable_services || []) {
+    if (!item.label || !item.reason) fail("不可用服务口径必须写明原因");
+  }
+  // 本轮无法按新老拆分的维度必须显式申报，不允许静默留空
+  for (const item of segments.missing_dimensions || []) {
+    if (!item.label || !item.reason) fail("未拆分维度必须写明原因");
+  }
+  for (const cohort of data.cohorts) {
+    const bucket = segments.by_cohort[cohort.id];
+    for (const key of ["new", "existing"]) {
+      const view = bucket[key];
+      if (!Array.isArray(view.tenure)) continue;
+      const published = view.tenure.filter((row) => row.users !== null && row.users !== undefined);
+      for (const row of published) {
+        if (!Number.isInteger(row.users) || (row.users > 0 && row.users < data.meta.minimum_public_cell)) fail(`${cohort.id}.${key}.${row.bucket} 账龄分档低于公开阈值`);
+      }
+      if (published.length === view.tenure.length && view.tenure.length) {
+        const total = published.reduce((sum, row) => sum + row.users, 0);
+        if (total !== view.users) fail(`${cohort.id}.${key} 账龄分档之和不等于分段人数`);
+      }
+    }
+  }
+  if (!data.definitions.some((item) => item.term === "新老用户切分")) fail("术语表缺少新老用户切分定义");
+  if (!data.quality_checks.some((item) => item.label === "新老用户切分")) fail("数据健康缺少新老用户切分状态");
+}
+
 const growth = data.growth;
-if (!growth || data.meta?.contract_revision !== "journey-growth-2026-08-17") fail("增长数据契约缺失；旧缓存不得继续使用");
+if (!growth || data.meta?.contract_revision !== "segments-new-existing-2026-08-18") fail("增长数据契约缺失；旧缓存不得继续使用");
 if (!["confirmed_with_boundaries", "partial"].includes(growth.evidence_state)) fail("增长证据状态无效");
 const registrationSource = growth.registration_definition?.source_field || growth.registration_definition?.source;
 if (growth.registration_definition?.state !== "confirmed" || registrationSource !== "registered_at") fail("新注册未按且慢真实注册时间统计");
@@ -240,7 +367,8 @@ for (const item of data.profile.dimensions) {
   if (!approximately(item.share, item.count / item.sample, 0.002)) fail(`画像 ${item.key} 比例不可复算`);
 }
 
-if (!Array.isArray(data.quality_checks) || data.quality_checks.length !== 6) fail("数据健康度必须为 6 项");
+const expectedQualityChecks = data.segments ? 7 : 6;
+if (!Array.isArray(data.quality_checks) || data.quality_checks.length !== expectedQualityChecks) fail(`数据健康度必须为 ${expectedQualityChecks} 项`);
 for (const status of ["pass", "warn", "missing"]) {
   if (!data.quality_checks.some((item) => item.status === status)) fail(`数据健康缺少 ${status}`);
 }
@@ -263,6 +391,9 @@ for (const signal of [
   'id="growth-trend"',
   'id="growth-funnel"',
   'id="behavior-chart"',
+  'id="segment-switch"',
+  'id="compare-table"',
+  'id="services-chart"',
   'id="profile-chart"',
   'id="quality-grid"',
   'id="doc-panel"',
@@ -272,13 +403,13 @@ for (const signal of [
 ]) {
   if (!html.includes(signal)) fail(`页面缺少 ${signal}`);
 }
-for (const term of ["批准用户", "历史调用用户", "近30日活跃用户", "新注册用户", "首次入金用户", "资金流入", "净入金", "且慢持仓", "参与率", "画像覆盖率", "confirmed", "partial", "missing", "suppressed"]) {
+for (const term of ["批准用户", "历史调用用户", "近30日活跃用户", "新注册用户", "首次入金用户", "资金流入", "净入金", "且慢持仓", "参与率", "画像覆盖率", "平台服务", "confirmed", "partial", "missing", "suppressed"]) {
   if (!html.includes(term)) fail(`搜索索引稳定文本缺少 ${term}`);
 }
-for (const signal of ["LOCAL_REFRESH_BASE", "127.0.0.1:41792", "validateData", "validateGrowth", "isNewerSnapshot", "startLocalRefresh", "selectCohort", "selectGrowthMode", "renderGrowth", "selectBehaviorMode", "buildDocument"]) {
+for (const signal of ["LOCAL_REFRESH_BASE", "127.0.0.1:41792", "validateData", "validateGrowth", "isNewerSnapshot", "startLocalRefresh", "selectCohort", "selectSegment", "selectGrowthMode", "renderGrowth", "renderCompare", "renderServices", "renderTitles", "selectBehaviorMode", "buildDocument"]) {
   if (!app.includes(signal)) fail(`交互缺少 ${signal}`);
 }
-for (const signal of ["@media (max-width: 680px)", "prefers-reduced-motion", "@media print", ".doc-panel", ".signal-bridge", ".growth-bridge", ".growth-trend", ".growth-funnel"]) {
+for (const signal of ["@media (max-width: 680px)", "prefers-reduced-motion", "@media print", ".doc-panel", ".signal-bridge", ".growth-bridge", ".growth-trend", ".growth-funnel", ".segment-switch", ".compare-table", ".service-row"]) {
   if (!css.includes(signal)) fail(`样式缺少 ${signal}`);
 }
 if (/https?:\/\/(?!127\.0\.0\.1)/.test(app.replaceAll("https://ontology.yingmi-inc.com", ""))) fail("页面脚本含未审计外部服务");

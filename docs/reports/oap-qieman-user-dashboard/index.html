@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="OAP 用户新注册、资产入账代理、且慢持仓与近 90 日行为的脱敏聚合经营看板，支持本机一键更新。" />
+  <meta name="description" content="OAP 用户的新老结构（且慢注册早于/晚于 OAP 批准），以及新老用户分别的且慢资产、入金、投资行为与平台服务使用，脱敏聚合，支持本机一键更新。" />
   <meta name="theme-color" content="#071922" />
   <meta name="robots" content="noindex,nofollow" />
-  <title>OAP 用户画像 × 且慢持仓与行为看板</title>
+  <title>OAP 用户新老结构 × 且慢资产、入金、行为与服务使用</title>
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
@@ -30,11 +30,12 @@
   <main id="main">
     <section class="hero shell" id="top" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <p class="eyebrow">OAP USER SIGNAL → QIEMAN VALUE</p>
-        <h1 id="hero-title">先把<span>机器规模</span><br />与<span>真人价值</span>分开。</h1>
+        <p class="eyebrow">OAP 用户新老结构 × 且慢资产 / 入金 / 行为 / 服务使用</p>
+        <h1 id="hero-title">这批 OAP 用户是谁、<br />在且慢有多少资产、<br />新老差在哪。</h1>
+        <p class="hero-headline" id="hero-headline">正在核对新老用户结构。</p>
         <p class="hero-lead" id="hero-lead">正在核对 OAP 使用、且慢资产与行为快照。</p>
         <div class="hero-tags">
-          <span>稳定主键关联</span><span>三组重叠人群</span><span>公开脱敏聚合</span>
+          <span>稳定主键关联</span><span>三组重叠人群</span><span>新老用户切分</span><span>公开脱敏聚合</span>
         </div>
       </div>
 
@@ -70,8 +71,8 @@
     <section class="section shell" aria-labelledby="cohort-title">
       <div class="section-heading split-heading">
         <div>
-          <p class="eyebrow">COHORT LADDER · 使用深度</p>
-          <h2 id="cohort-title">从“申请过”，走到“持续在用”</h2>
+          <p class="eyebrow">维度一 · 使用深度（COHORT LADDER）</p>
+          <h2 id="cohort-title">人群规模：批准 — · 曾调用 — · 近 30 日活跃 —</h2>
         </div>
         <p>三组是相互重叠的使用深度视角，不可相加；后两组按调用深度递进。点击任一层，后续模块会同步切换。</p>
       </div>
@@ -79,15 +80,47 @@
       <div class="cohort-footnotes" id="cohort-footnotes"></div>
     </section>
 
+    <section class="section shell" aria-labelledby="segment-title">
+      <div class="section-heading split-heading">
+        <div>
+          <p class="eyebrow">维度二 · 新老用户（NEW vs EXISTING）</p>
+          <h2 id="segment-title">新老结构：— 位新用户（—）先用 OAP 后注册且慢</h2>
+        </div>
+        <p id="segment-scope-copy">新用户 = 且慢正式注册时间不早于 OAP 批准日；老用户 = OAP 批准前已注册。两个维度可叠加：先选使用深度，再选新老。</p>
+      </div>
+      <div class="segment-switch" id="segment-switch" role="group" aria-label="切换新老用户"></div>
+      <div class="segment-footnotes" id="segment-footnotes"></div>
+    </section>
+
+    <section class="section section-compare" aria-labelledby="compare-title">
+      <div class="shell">
+        <div class="section-heading split-heading">
+          <div>
+            <p class="eyebrow">NEW vs EXISTING · 并列对照</p>
+            <h2 id="compare-title">新老用户对照：资产、入金、行为、服务使用</h2>
+          </div>
+          <p id="compare-scope">当前人群为 <b id="compare-cohort-label">—</b>；下表不受上方新老切换影响，始终并列展示两组。小于公开阈值的单元格显示“样本不足”。</p>
+        </div>
+        <div class="compare-table-scroll">
+          <table class="compare-table" id="compare-table">
+            <caption id="compare-caption">新老用户在且慢的资产、入金、投资行为与平台服务使用对照</caption>
+            <thead id="compare-head"></thead>
+            <tbody id="compare-body"></tbody>
+          </table>
+        </div>
+        <div class="compare-readout" id="compare-readout"></div>
+      </div>
+    </section>
+
     <section class="section section-growth" aria-labelledby="growth-title">
       <div class="shell">
         <div class="section-heading split-heading growth-heading">
           <div>
-            <p class="eyebrow">NEW GROWTH · REGISTRATION → CAPITAL</p>
-            <h2 id="growth-title">从新注册，到首次资产入账（代理）</h2>
+            <p class="eyebrow">增长与入金 · 近 30 日新注册与资产入账代理</p>
+            <h2 id="growth-title">新注册 — 人、资产入账 — 、净额 —</h2>
           </div>
           <div class="growth-scope">
-            <span>当前人群</span>
+            <span>当前人群 / 维度</span>
             <strong id="growth-cohort-title">近 30 日活跃</strong>
             <p id="growth-scope-copy">注册按且慢真实注册时间；资金口径和截止日以当前证据状态为准。</p>
           </div>
@@ -123,7 +156,7 @@
         <div class="growth-layout">
           <article class="growth-trend-panel">
             <div class="panel-head growth-panel-head">
-              <div><span>90 日趋势 · 每 10 日</span><h3>增长不是一个点，是一段连续信号</h3></div>
+              <div><span>90 日趋势 · 每 10 日</span><h3>近 90 日分 9 段：新注册与资金代理走势</h3></div>
               <div class="growth-mode" role="group" aria-label="增长趋势指标切换">
                 <button type="button" data-growth-mode="registrations" class="active" aria-pressed="true">新注册</button>
                 <button id="growth-mode-first-label" type="button" data-growth-mode="first_inflow" aria-pressed="false">首次资产入账</button>
@@ -159,8 +192,8 @@
       <div class="shell">
         <div class="section-heading holdings-heading">
           <div>
-            <p class="eyebrow">HOLDINGS · 且慢账户与资产</p>
-            <h2 id="holdings-title"><span id="selected-cohort-title">近 30 日活跃用户</span>，在且慢留下了什么</h2>
+            <p class="eyebrow">且慢账户与资产 · 持仓率 / 规模 / 户均</p>
+            <h2 id="holdings-title"><span id="selected-cohort-title">近 30 日活跃用户</span>：持仓率 — · 规模 — · 户均 —</h2>
           </div>
           <div class="cohort-switch" id="cohort-switch" role="group" aria-label="持仓模块人群切换"></div>
         </div>
@@ -174,11 +207,11 @@
 
         <div class="holdings-grid">
           <article class="panel cohort-compare-panel">
-            <div class="panel-head"><div><span>三组横向比较</span><h3>使用越深，且慢持仓渗透越高</h3></div><em>分母 = 各组 OAP 用户</em></div>
+            <div class="panel-head"><div><span>三组横向比较</span><h3>账户率 / 持仓率 / 在管率：使用越深越高</h3></div><em>分母 = 各组 OAP 用户</em></div>
             <div class="cohort-compare" id="cohort-compare"></div>
           </article>
           <article class="panel profit-panel">
-            <div class="panel-head"><div><span>收益状态</span><h3>累计收益为正</h3></div><em>非业绩承诺</em></div>
+            <div class="panel-head"><div><span>收益状态</span><h3>累计收益为正的持仓用户占比</h3></div><em>非业绩承诺</em></div>
             <div class="profit-ring" id="profit-ring" role="img" aria-label="累计收益为正的持仓用户比例">
               <div><strong id="profit-rate">—</strong><span id="profit-count">—</span></div>
             </div>
@@ -191,8 +224,8 @@
     <section class="section shell" aria-labelledby="asset-title">
       <div class="section-heading split-heading">
         <div>
-          <p class="eyebrow">ASSET MIX · 持仓用户内部结构</p>
-          <h2 id="asset-title">高户均，不等于人人都是高净值</h2>
+          <p class="eyebrow">资产分布 · 持仓用户 5 档区间</p>
+          <h2 id="asset-title">资产分布：— 低于 10 万，— 在 50 万以上</h2>
         </div>
         <p id="asset-summary">资产分布按当前持仓用户为分母；且慢全量基线仅用于结构参照。</p>
       </div>
@@ -207,8 +240,8 @@
       <div class="shell">
         <div class="section-heading behavior-heading">
           <div>
-            <p class="eyebrow">90-DAY BEHAVIOR · 未撤销事件</p>
-            <h2 id="behavior-title">不只“有资产”，还在持续行动</h2>
+            <p class="eyebrow">投资行为 · 近 90 日未撤销交易事件</p>
+            <h2 id="behavior-title">投资行为：最强信号 — ，参与率 —</h2>
           </div>
           <div class="behavior-mode" role="group" aria-label="行为指标切换">
             <button type="button" data-behavior-mode="penetration" class="active">参与率</button>
@@ -228,11 +261,28 @@
       </div>
     </section>
 
+    <section class="section shell section-services" id="services-section" aria-labelledby="services-title" hidden>
+      <div class="section-heading split-heading">
+        <div>
+          <p class="eyebrow">平台服务使用 · 且慢侧功能触达</p>
+          <h2 id="services-title">平台服务使用：— 项可查口径，最高渗透 —</h2>
+        </div>
+        <p id="services-scope">这里统计的是且慢平台侧服务/功能的使用，不是 OAP 调用。分母为当前所选人群；口径不可靠的服务列在右侧，不做近似替代。</p>
+      </div>
+      <div class="services-layout">
+        <article class="services-chart" id="services-chart" aria-live="polite"></article>
+        <aside class="services-gap">
+          <span>查不到 / 口径不可靠</span>
+          <div id="services-unavailable"></div>
+        </aside>
+      </div>
+    </section>
+
     <section class="section shell" aria-labelledby="profile-title">
       <div class="section-heading split-heading">
         <div>
-          <p class="eyebrow">PROFILE · 非缺失问卷样本</p>
-          <h2 id="profile-title">更懂投资、更偏权益，<br />但还不能代表全部用户</h2>
+          <p class="eyebrow">问卷画像 · 非缺失样本（低覆盖）</p>
+          <h2 id="profile-title">问卷画像：覆盖 — ，结构化仅 — 条，<br />只代表回答者</h2>
         </div>
         <div class="coverage-badge"><strong id="survey-coverage">—</strong><span>约有画像问卷覆盖</span><em>LOW COVERAGE</em></div>
       </div>
@@ -251,8 +301,8 @@
       <div class="shell">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">DATA HEALTH · 能信到哪一步</p>
-            <h2 id="quality-title">不是“全绿”，才是可信看板</h2>
+            <p class="eyebrow">数据健康 · 能信到哪一步</p>
+            <h2 id="quality-title">数据健康：— 项通过、— 项有边界、— 项缺失</h2>
           </div>
           <span class="quality-score" id="quality-score">—</span>
         </div>
@@ -262,8 +312,8 @@
 
     <section class="section shell action-section" aria-labelledby="action-title">
       <div class="action-intro">
-        <p class="eyebrow">DECISIONS · 看完要做什么</p>
-        <h2 id="action-title">把规模、质量、转化拆成三张经营账</h2>
+        <p class="eyebrow">决策动作 · 3 项，含优先级与时限</p>
+        <h2 id="action-title">下一步 3 件事：调用拆账、新客承接、增量验证</h2>
         <p>当前最重要的不是继续放大累计调用，而是把“谁在用、谁有价值、是否因 OAP 产生增量”逐层证实。</p>
       </div>
       <div class="action-list">
@@ -275,8 +325,8 @@
 
     <section class="refresh-explainer shell" aria-labelledby="refresh-title">
       <div>
-        <p class="eyebrow">ONE-CLICK REFRESH · 安全更新</p>
-        <h2 id="refresh-title">按钮查本体，网页只接收脱敏聚合</h2>
+        <p class="eyebrow">一键更新 · 5 步只读链路</p>
+        <h2 id="refresh-title">更新机制：按钮查本体，网页只接收脱敏聚合</h2>
       </div>
       <div class="refresh-flow" aria-label="更新数据链路"><span>更新数据</span><i>→</i><span>本机只读更新器</span><i>→</i><span>盈米本体</span><i>→</i><span>结构与隐私校验</span><i>→</i><span>看板换数</span></div>
       <p>在 Clair 的 Mac 上，按钮调用仅监听本机的固定查询；浏览器不能提交 SQL。任一关键闭合失败会保留上一版快照。其他设备只读取最近发布的脱敏汇总，数据库凭证和用户明细不会进入网页。</p>
@@ -305,7 +355,7 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script type="application/json" id="report-data">
-    {"topic":"OAP 用户画像、且慢持仓、增长与行为","stable_metrics":["批准用户","历史调用用户","近30日活跃用户","真人可归属调用","新注册用户","首次入金用户","资金流入","新入金代理","净入金","且慢账户率","持仓率","资产结构","近90日行为参与率","画像覆盖率"],"evidence_states":["confirmed","partial","missing","suppressed"],"privacy":"公开脱敏聚合；小样本不展示；无用户明细"}
+    {"topic":"OAP 用户新老结构，以及新老用户分别的且慢持仓资产、入金、投资行为与平台服务使用","stable_metrics":["批准用户","历史调用用户","近30日活跃用户","真人可归属调用","新用户（OAP 后注册）","老用户（OAP 前已注册）","新注册用户","首次入金用户","资金流入","新入金代理","净入金","且慢账户率","持仓率","资产结构","近90日行为参与率","平台服务渗透率","画像覆盖率"],"evidence_states":["confirmed","partial","missing","suppressed"],"privacy":"公开脱敏聚合；小样本不展示；无用户明细"}
   </script>
   <script src="./data/fallback-data.js"></script>
   <script src="./app.js" type="module"></script>

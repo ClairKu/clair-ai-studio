@@ -2,7 +2,7 @@ const DATA_URL = "./data/latest.json";
 const LOCAL_REFRESH_BASE = "http://127.0.0.1:41792";
 const LOCAL_DATA_KEY = "clair-oap-qieman-dashboard-latest-v1";
 const LOCAL_HEADER = { "X-Clair-Dashboard": "oap-qieman-user-dashboard-v1" };
-const CONTRACT_REVISION = "journey-growth-2026-08-17";
+const CONTRACT_REVISION = "segments-new-existing-2026-08-18";
 
 const number = new Intl.NumberFormat("zh-CN");
 const oneDecimal = new Intl.NumberFormat("zh-CN", { maximumFractionDigits: 1 });
@@ -28,8 +28,16 @@ const GROWTH_FUNNEL_FIELDS = [
   "still_holding_users",
 ];
 
+const SEGMENT_ORDER = ["all", "new", "existing"];
+const SEGMENT_FALLBACK_LABELS = {
+  all: { short_label: "全部", label: "全部 OAP 用户" },
+  new: { short_label: "新用户", label: "新用户（OAP 后注册）" },
+  existing: { short_label: "老用户", label: "老用户（OAP 前已注册）" },
+};
+
 let currentData = null;
 let selectedCohortId = "active_30d";
+let selectedSegment = "all";
 let behaviorMode = "penetration";
 let growthMode = "registrations";
 let toastTimer = null;
@@ -347,7 +355,7 @@ function validateData(data) {
   for (const item of data.profile.dimensions) {
     if (item.sample < data.meta.minimum_public_cell || item.count > item.sample || !approximately(item.share, item.count / item.sample, 0.002)) throw new Error(`画像 ${item.key} 不闭合`);
   }
-  if (!Array.isArray(data.quality_checks) || data.quality_checks.length !== 6 || !data.quality_checks.some((item) => item.label === "注册与入金口径" && ["pass", "warn"].includes(item.status)) || !Array.isArray(data.definitions)) {
+  if (!Array.isArray(data.quality_checks) || data.quality_checks.length !== (data.segments ? 7 : 6) || !data.quality_checks.some((item) => item.label === "注册与入金口径" && ["pass", "warn"].includes(item.status)) || !Array.isArray(data.definitions)) {
     throw new Error("数据健康或增长口径缺失");
   }
   const cashflowPartial = data.growth.cash_flow_definition.state === "partial";
@@ -355,6 +363,46 @@ function validateData(data) {
   if (growthQuality.status !== (cashflowPartial ? "warn" : "pass")) throw new Error("增长口径与质量状态不一致");
   for (const term of ["首次入金用户", "净入金"]) {
     if (!data.definitions.some((item) => item.term === term && item.state === (cashflowPartial ? "partial" : "confirmed"))) throw new Error(`${term}定义与证据状态不一致`);
+  }
+
+  // 维度二：新老用户。旧快照没有 segments 块时跳过，页面自动隐藏相关模块。
+  if (data.segments) {
+    const segments = data.segments;
+    if (!["confirmed", "partial"].includes(segments.definition?.state)) throw new Error("新老切分缺少证据状态");
+    const keys = segments.keys;
+    if (!Array.isArray(keys) || !["all", "new", "existing"].every((key) => keys.some((item) => item.key === key))) throw new Error("新老分段标识缺失");
+    for (const cohort of data.cohorts) {
+      const bucket = segments.by_cohort?.[cohort.id];
+      if (!bucket) throw new Error(`${cohort.id} 缺少新老分段`);
+      if (!Number.isInteger(bucket.unknown_users) || bucket.unknown_users < 0) throw new Error(`${cohort.id} 未申报无法判定新老的人数`);
+      for (const key of ["all", "new", "existing"]) {
+        const view = bucket[key];
+        if (!view || !Array.isArray(view.suppressed_fields)) throw new Error(`${cohort.id}.${key} 缺少小样本抑制声明`);
+        if (!Number.isInteger(view.users) || view.users < 0) throw new Error(`${cohort.id}.${key} 人数无效`);
+        if (view.users > cohort.users) throw new Error(`${cohort.id}.${key} 人数超过所在人群`);
+        if (key !== "all" && view.users > 0 && view.users < data.meta.minimum_public_cell) throw new Error(`${cohort.id}.${key} 人数低于公开阈值`);
+        for (const [rateKey, numerator, denominator] of [
+          ["qieman_account_rate", "qieman_accounts", "users"],
+          ["holder_rate", "holders", "users"],
+          ["managed_rate", "managed_accounts", "users"],
+          ["profitable_holder_rate", "profitable_holders", "holders"],
+        ]) {
+          const rate = view[rateKey];
+          const top = view[numerator];
+          const bottom = view[denominator];
+          if (rate === null || rate === undefined || top === null || top === undefined || !bottom) continue;
+          if (!approximately(rate, top / bottom, 0.002)) throw new Error(`${cohort.id}.${key}.${rateKey} 与分子分母不一致`);
+        }
+        if (Array.isArray(view.asset_buckets)) {
+          if (view.asset_buckets.length !== 5) throw new Error(`${cohort.id}.${key} 资产分层数量异常`);
+          const published = view.asset_buckets.filter((row) => row.count !== null && row.count !== undefined);
+          if (published.some((row) => row.count > 0 && row.count < data.meta.minimum_public_cell)) throw new Error(`${cohort.id}.${key} 资产分层出现小样本`);
+          if (published.length === 4) throw new Error(`${cohort.id}.${key} 只抑制一个资产档，可被相减反推`);
+        }
+      }
+      if (bucket.new.users + bucket.existing.users + bucket.unknown_users !== cohort.users) throw new Error(`${cohort.id} 新老与无法判定之和不等于人群规模`);
+      if (bucket.all.users !== cohort.users) throw new Error(`${cohort.id}.all 人数与人群规模不一致`);
+    }
   }
 
   const publicText = JSON.stringify(data);
@@ -394,6 +442,72 @@ function saveLocalData(data) {
 
 function cohortById(id = selectedCohortId) {
   return currentData?.cohorts.find((item) => item.id === id) || currentData?.cohorts.at(-1);
+}
+
+/* ---- 维度二：新老用户 ---- */
+
+function segmentsAvailable() {
+  return Boolean(currentData?.segments?.by_cohort);
+}
+
+function segmentKeys() {
+  const declared = currentData?.segments?.keys;
+  if (!Array.isArray(declared) || !declared.length) return SEGMENT_ORDER.map((key) => ({ key, ...SEGMENT_FALLBACK_LABELS[key] }));
+  return declared;
+}
+
+function segmentMeta(key = selectedSegment) {
+  return segmentKeys().find((item) => item.key === key) || { key, ...(SEGMENT_FALLBACK_LABELS[key] || { short_label: key, label: key }) };
+}
+
+function segmentLabel(key = selectedSegment) {
+  return segmentMeta(key).short_label || segmentMeta(key).label || key;
+}
+
+// 所选人群 × 所选新老分段的指标视图。segment=all 时回落到 cohorts[]，
+// 保证旧快照（无 segments 块）也能照常渲染。
+function segmentView(cohortId = selectedCohortId, segmentKey = selectedSegment) {
+  const cohort = cohortById(cohortId);
+  if (!segmentsAvailable() || segmentKey === "all") {
+    if (!cohort) return null;
+    const stored = currentData?.segments?.by_cohort?.[cohortId]?.all;
+    return { ...cohort, ...(stored || {}), users: cohort.users, suppressed_fields: stored?.suppressed_fields || [] };
+  }
+  const view = currentData.segments.by_cohort?.[cohortId]?.[segmentKey];
+  if (!view) return null;
+  return { ...view, suppressed_fields: view.suppressed_fields || [] };
+}
+
+// 当前视图；分段数据缺失时退回全部，避免整页空白
+function activeView() {
+  return segmentView() || segmentView(selectedCohortId, "all");
+}
+
+function scopeLabel() {
+  const cohort = cohortById();
+  const short = cohort?.short_label || "所选人群";
+  return selectedSegment === "all" ? short : `${short} · ${segmentLabel()}`;
+}
+
+function metric(view, field) {
+  if (!view) return null;
+  const value = view[field];
+  if (value === undefined || value === null) return null;
+  return view.suppressed_fields?.includes(field) ? null : value;
+}
+
+const SUPPRESSED_TEXT = "样本不足";
+
+function countText(value, unit = "") {
+  return value === null || value === undefined ? SUPPRESSED_TEXT : `${number.format(value)}${unit}`;
+}
+
+function rateText(value) {
+  return value === null || value === undefined ? SUPPRESSED_TEXT : percent.format(value);
+}
+
+function moneyText(value) {
+  return value === null || value === undefined ? SUPPRESSED_TEXT : money(value);
 }
 
 function showToast(message) {
@@ -554,12 +668,23 @@ function shortGrowthPeriod(start, end) {
   return `${startParts[1]}.${startParts[2]}–${endParts[1]}.${endParts[2]}`;
 }
 
+// 新老分段的资金口径来自 segments…cashflow；缺失时退回全人群，并在文案里说明
+function growthRows() {
+  const cohortGrowth = growthByCohort();
+  if (selectedSegment === "all" || !segmentsAvailable()) return { current: cohortGrowth.current, previous: cohortGrowth.previous, segmented: false };
+  const cashflow = segmentView()?.cashflow;
+  if (!cashflow?.current || !cashflow?.previous) return { current: cohortGrowth.current, previous: cohortGrowth.previous, segmented: false };
+  return { current: cashflow.current, previous: cashflow.previous, segmented: true };
+}
+
 function renderGrowthSummary() {
   applyGrowthEvidenceLabels();
   const cohort = cohortById();
-  const growth = growthByCohort();
-  const { current, previous } = growth;
-  $("#growth-cohort-title").textContent = cohort.short_label;
+  const { current, previous, segmented } = growthRows();
+  $("#growth-cohort-title").textContent = scopeLabel();
+  if (selectedSegment !== "all" && !segmented) {
+    $("#growth-scope-copy").textContent = `${scopeLabel()}的资金口径本轮无法按新老拆分，以下为${cohort.short_label}全人群数字；注册按且慢正式注册时间。`;
+  }
   setGrowthHeadline("#growth-new-registrations", "#growth-new-registrations-change", current, previous, "new_registrations", "count");
   setGrowthHeadline("#growth-first-inflow-users", "#growth-first-inflow-users-change", current, previous, "first_inflow_users", "count");
   setGrowthHeadline("#growth-inflow", "#growth-inflow-change", current, previous, "inflow_yuan", "money");
@@ -567,7 +692,7 @@ function renderGrowthSummary() {
   $(".growth-net").classList.toggle("is-negative", net !== null && net < 0);
   $("#growth-summary").setAttribute(
     "aria-label",
-    `${cohort.short_label}近30日：新注册${growthValueLabel(current, "new_registrations")}; ${growthEvidenceLabels().firstShort}${growthValueLabel(current, "first_inflow_users")}; ${growthEvidenceLabels().inflowShort}${growthValueLabel(current, "inflow_yuan", "money")}; ${growthEvidenceLabels().net}${growthValueLabel(current, "net_inflow_yuan", "money")}。`,
+    `${scopeLabel()}近30日：新注册${growthValueLabel(current, "new_registrations")}; ${growthEvidenceLabels().firstShort}${growthValueLabel(current, "first_inflow_users")}; ${growthEvidenceLabels().inflowShort}${growthValueLabel(current, "inflow_yuan", "money")}; ${growthEvidenceLabels().net}${growthValueLabel(current, "net_inflow_yuan", "money")}。`,
   );
 }
 
@@ -609,7 +734,8 @@ function renderGrowthTrend() {
   chart.setAttribute("aria-label", `${cohort.short_label}${config.label}近90日趋势：${periods.map((period, index) => `${shortGrowthPeriod(period.start, period.end)} ${values[index] === null ? "样本不足" : config.kind === "money" ? money(values[index]) : `${number.format(values[index])}人`}`).join("；")}`);
 
   const comparison = growthComparison(cohortGrowth.current, cohortGrowth.previous, config.field, config.kind);
-  $("#growth-trend-copy").textContent = `${cohort.short_label}近 30 日${config.label}为 ${growthValueLabel(cohortGrowth.current, config.field, config.kind)}，${comparison.text}。浅蓝底为前 30 日，浅绿底为近 30 日；斜纹表示样本不足，不展示数值。`;
+  const trendScopeNote = selectedSegment === "all" ? "" : `趋势与漏斗按${cohort.short_label}全人群绘制，未按新老拆分。`;
+  $("#growth-trend-copy").textContent = `${cohort.short_label}近 30 日${config.label}为 ${growthValueLabel(cohortGrowth.current, config.field, config.kind)}，${comparison.text}。浅蓝底为前 30 日，浅绿底为近 30 日；斜纹表示样本不足，不展示数值。${trendScopeNote}`;
 }
 
 function funnelValueMarkup(row, field) {
@@ -668,64 +794,443 @@ function compareRowsMarkup() {
 }
 
 function renderHoldings() {
-  const cohort = cohortById();
   const baseline = currentData.qieman_baseline;
-  $("#selected-cohort-title").textContent = cohort.short_label;
-  $("#qieman-accounts").textContent = number.format(cohort.qieman_accounts);
-  $("#qieman-account-rate").textContent = `${percent.format(cohort.qieman_account_rate)} / 人群`;
-  $("#holders").textContent = number.format(cohort.holders);
-  $("#holder-rate").textContent = `${percent.format(cohort.holder_rate)} / 人群`;
-  $("#aum").textContent = money(cohort.aum_yuan);
-  $("#aum-user-share").textContent = `${number.format(cohort.managed_accounts)} 位在管用户`;
-  $("#avg-asset").textContent = money(cohort.average_holder_asset_yuan);
+  const view = activeView();
+  const accounts = metric(view, "qieman_accounts");
+  const accountRate = metric(view, "qieman_account_rate");
+  const holders = metric(view, "holders");
+  const holderRate = metric(view, "holder_rate");
+  const managed = metric(view, "managed_accounts");
+  const profitRate = metric(view, "profitable_holder_rate");
+  const profitHolders = metric(view, "profitable_holders");
+  $("#selected-cohort-title").textContent = scopeLabel();
+  $("#qieman-accounts").textContent = countText(accounts);
+  $("#qieman-account-rate").textContent = accountRate === null ? "分母 = 所选人群" : `${percent.format(accountRate)} / 人群`;
+  $("#holders").textContent = countText(holders);
+  $("#holder-rate").textContent = holderRate === null ? "分母 = 所选人群" : `${percent.format(holderRate)} / 人群`;
+  $("#aum").textContent = moneyText(metric(view, "aum_yuan"));
+  $("#aum-user-share").textContent = managed === null ? "在管人数样本不足" : `${number.format(managed)} 位在管用户`;
+  $("#avg-asset").textContent = moneyText(metric(view, "average_holder_asset_yuan"));
   $("#baseline-multiple").textContent = "与且慢在管户均分母不同";
   $("#cohort-compare").innerHTML = compareRowsMarkup();
   const ring = $("#profit-ring");
-  ring.style.setProperty("--rate", (cohort.profitable_holder_rate * 100).toFixed(2));
-  ring.setAttribute("aria-label", `${cohort.short_label}中累计收益为正的持仓用户占${percent.format(cohort.profitable_holder_rate)}`);
-  $("#profit-rate").textContent = percent.format(cohort.profitable_holder_rate);
-  $("#profit-count").textContent = `${number.format(cohort.profitable_holders)} / ${number.format(cohort.holders)} 位持仓用户`;
+  ring.style.setProperty("--rate", profitRate === null ? "0" : (profitRate * 100).toFixed(2));
+  ring.setAttribute("aria-label", profitRate === null
+    ? `${scopeLabel()}的累计收益为正比例样本不足，未公开`
+    : `${scopeLabel()}中累计收益为正的持仓用户占${percent.format(profitRate)}`);
+  $("#profit-rate").textContent = rateText(profitRate);
+  $("#profit-count").textContent = profitHolders === null || holders === null
+    ? "小样本已隐藏"
+    : `${number.format(profitHolders)} / ${number.format(holders)} 位持仓用户`;
   $("#profit-note").textContent = `且慢可比口径约为 ${percent.format(baseline.profitable_holder_rate)}。这里只描述历史累计状态，不能解释为 OAP 带来的收益。`;
 }
 
+function assetBucketRows() {
+  const view = activeView();
+  const buckets = metric(view, "asset_buckets");
+  if (!Array.isArray(buckets)) return null;
+  return buckets.some((row) => row.share === null || row.count === null) ? null : buckets;
+}
+
 function renderAssets() {
-  const cohort = cohortById();
-  const buckets = cohort.asset_buckets;
+  const baseline = currentData.qieman_baseline;
+  const view = activeView();
+  const buckets = assetBucketRows();
+  const holders = metric(view, "holders");
+  if (!buckets) {
+    $("#asset-stacked").innerHTML = `<div class="asset-segment" style="width:100%"><strong>${SUPPRESSED_TEXT}</strong></div>`;
+    $("#asset-legend").innerHTML = "";
+    $("#baseline-callout").innerHTML = `<span>${escapeHtml(scopeLabel())}的资产区间人数低于公开阈值，已整档隐藏，避免用相邻档相减反推。</span><span>且慢全量参照：50 万以上约 <strong>${percent.format(baseline.share_500k_plus)}</strong>，100 万以上约 <strong>${percent.format(baseline.share_1m_plus)}</strong>。</span>`;
+    $("#asset-summary").textContent = `${scopeLabel()}的资产分档未达公开样本阈值；请切回“全部”查看结构，或以对照表中的可公开口径为准。`;
+    return;
+  }
   $("#asset-stacked").innerHTML = buckets.map((row) => `<div class="asset-segment" style="width:${row.share * 100}%" title="${escapeHtml(row.label)}：${number.format(row.count)} 人，${percent.format(row.share)}"><strong>${percent.format(row.share)}</strong></div>`).join("");
   $("#asset-legend").innerHTML = buckets.map((row) => `<article><span>${escapeHtml(row.label)}</span><strong>${percent.format(row.share)}</strong><em>${number.format(row.count)} 人</em></article>`).join("");
   const highAsset = buckets.at(-1).share + buckets.at(-2).share;
-  const baseline = currentData.qieman_baseline;
-  $("#baseline-callout").innerHTML = `<span><strong>${escapeHtml(cohort.short_label)}</strong>中，50 万以上占 <strong>${percent.format(highAsset)}</strong>，100 万以上占 <strong>${percent.format(buckets.at(-1).share)}</strong>。</span><span>且慢全量参照：50 万以上约 <strong>${percent.format(baseline.share_500k_plus)}</strong>，100 万以上约 <strong>${percent.format(baseline.share_1m_plus)}</strong>。</span>`;
-  $("#asset-summary").textContent = `${cohort.short_label}共有 ${number.format(cohort.holders)} 位持仓用户；户均 ${money(cohort.average_holder_asset_yuan)}，但 ${percent.format(buckets[0].share + buckets[1].share)} 的持仓仍低于 10 万。`;
+  $("#baseline-callout").innerHTML = `<span><strong>${escapeHtml(scopeLabel())}</strong>中，50 万以上占 <strong>${percent.format(highAsset)}</strong>，100 万以上占 <strong>${percent.format(buckets.at(-1).share)}</strong>。</span><span>且慢全量参照：50 万以上约 <strong>${percent.format(baseline.share_500k_plus)}</strong>，100 万以上约 <strong>${percent.format(baseline.share_1m_plus)}</strong>。</span>`;
+  $("#asset-summary").textContent = `${scopeLabel()}共有 ${countText(holders)} 位持仓用户；户均 ${moneyText(metric(view, "average_holder_asset_yuan"))}，但 ${percent.format(buckets[0].share + buckets[1].share)} 的持仓仍低于 10 万。`;
 }
 
 function behaviorValue(row) {
-  if (behaviorMode === "events") return { value: row.events, label: number.format(row.events), maxKey: "events", note: `${number.format(row.actors)} 位参与者` };
-  if (behaviorMode === "frequency") return { value: row.events_per_actor, label: `${oneDecimal.format(row.events_per_actor)} 次`, maxKey: "events_per_actor", note: `${number.format(row.actors)} 位参与者` };
-  return { value: row.penetration, label: percent.format(row.penetration), maxKey: "penetration", note: `${number.format(row.actors)} 人 · ${number.format(row.events)} 次事件` };
+  const actors = row.actors === null || row.actors === undefined ? null : row.actors;
+  const actorNote = actors === null ? "参与人数样本不足" : `${number.format(actors)} 位参与者`;
+  if (behaviorMode === "events") return { value: row.events, label: countText(row.events, " 次"), note: actorNote };
+  if (behaviorMode === "frequency") {
+    return { value: row.events_per_actor, label: row.events_per_actor === null || row.events_per_actor === undefined ? SUPPRESSED_TEXT : `${oneDecimal.format(row.events_per_actor)} 次`, note: actorNote };
+  }
+  return {
+    value: row.penetration,
+    label: rateText(row.penetration),
+    note: actors === null ? "参与人数样本不足" : `${number.format(actors)} 人 · ${countText(row.events, " 次事件")}`,
+  };
+}
+
+// 行为尚未按新老拆分时返回 null，由调用方回落并说明，避免画出空图
+function segmentBehaviorRows(cohortId, segmentKey) {
+  if (segmentKey === "all" || !segmentsAvailable()) return currentData.behavior.by_cohort[cohortId] || [];
+  const view = segmentView(cohortId, segmentKey);
+  return Array.isArray(view?.behavior) && view.behavior.length ? view.behavior : null;
+}
+
+function behaviorRows(cohortId = selectedCohortId, segmentKey = selectedSegment) {
+  return segmentBehaviorRows(cohortId, segmentKey) || currentData.behavior.by_cohort[cohortId] || [];
+}
+
+function behaviorIsSegmented(cohortId = selectedCohortId, segmentKey = selectedSegment) {
+  return segmentKey === "all" || Boolean(segmentBehaviorRows(cohortId, segmentKey));
 }
 
 function renderBehavior() {
-  const cohort = cohortById();
-  const rows = currentData.behavior.by_cohort[cohort.id];
+  const rows = behaviorRows();
   const categoryMap = new Map(currentData.behavior.categories.map((item) => [item.key, item]));
-  const values = rows.map((row) => behaviorValue(row).value);
-  const max = Math.max(...values, 1e-9);
+  const max = Math.max(...rows.map((row) => behaviorValue(row).value ?? 0), 1e-9);
   $("#behavior-chart").innerHTML = rows.map((row) => {
-    const category = categoryMap.get(row.key);
-    const metric = behaviorValue(row);
+    const category = categoryMap.get(row.key) || { label: row.key, state: "partial" };
+    const shown = behaviorValue(row);
+    const width = shown.value === null || shown.value === undefined ? 0 : shown.value / max * 100;
     return `<div class="behavior-row" data-state="${escapeHtml(category.state)}">
       <span><i></i>${escapeHtml(category.label)}</span>
-      <div class="behavior-bar"><i style="width:${metric.value / max * 100}%"></i></div>
-      <strong>${escapeHtml(metric.label)}</strong>
-      <small>${escapeHtml(metric.note)}${row.amount_yuan ? ` · 金额约 ${money(row.amount_yuan)}` : ""}</small>
+      <div class="behavior-bar"><i style="width:${width}%"></i></div>
+      <strong>${escapeHtml(shown.label)}</strong>
+      <small>${escapeHtml(shown.note)}${row.amount_yuan ? ` · 金额约 ${money(row.amount_yuan)}` : ""}</small>
     </div>`;
   }).join("");
   const confirmedKeys = new Set(currentData.behavior.categories.filter((item) => item.state === "confirmed").map((item) => item.key));
-  const strongest = [...rows].filter((row) => confirmedKeys.has(row.key)).sort((a, b) => b.penetration - a.penetration)[0];
-  const strongestCategory = categoryMap.get(strongest.key);
-  $("#behavior-highlight").textContent = strongestCategory.label;
-  $("#behavior-highlight-copy").textContent = `${cohort.short_label}中有 ${number.format(strongest.actors)} 人参与，渗透率 ${percent.format(strongest.penetration)}，人均 ${oneDecimal.format(strongest.events_per_actor)} 次。活跃人群的多类行为参与率更高，但不能直接解释为 OAP 促成。`;
+  const strongest = [...rows]
+    .filter((row) => confirmedKeys.has(row.key) && row.penetration !== null && row.penetration !== undefined)
+    .sort((a, b) => b.penetration - a.penetration)[0];
+  const segmented = behaviorIsSegmented();
+  const scope = segmented ? scopeLabel() : cohortById().short_label;
+  if (!strongest) {
+    $("#behavior-highlight").textContent = SUPPRESSED_TEXT;
+    $("#behavior-highlight-copy").textContent = `${scope}的已确认行为参与人数均低于公开阈值，未发布最强信号。`;
+    return;
+  }
+  $("#behavior-highlight").textContent = (categoryMap.get(strongest.key) || {}).label || strongest.key;
+  $("#behavior-highlight-copy").textContent = `${scope}中有 ${countText(strongest.actors)} 人参与，渗透率 ${rateText(strongest.penetration)}，人均 ${strongest.events_per_actor === null || strongest.events_per_actor === undefined ? SUPPRESSED_TEXT : `${oneDecimal.format(strongest.events_per_actor)} 次`}。${segmented ? "参与率差异只是相关性，不能直接解释为 OAP 促成。" : "本轮行为数据尚未按新老拆分，这里是该人群全体口径。"}`;
+}
+
+function renderSegmentControls() {
+  const wrapper = $("#segment-switch");
+  const footnotes = $("#segment-footnotes");
+  if (!segmentsAvailable()) {
+    wrapper.closest("section").hidden = true;
+    return;
+  }
+  wrapper.closest("section").hidden = false;
+  const cohort = cohortById();
+  const bucket = currentData.segments.by_cohort[cohort.id] || {};
+  wrapper.innerHTML = segmentKeys().map((item) => {
+    const view = item.key === "all" ? cohort : bucket[item.key];
+    const users = item.key === "all" ? cohort.users : (view?.users ?? null);
+    const share = item.key === "all" ? 1 : (view?.share ?? null);
+    return `<button type="button" class="segment-button ${item.key === selectedSegment ? "active" : ""}" data-segment="${escapeHtml(item.key)}" aria-pressed="${item.key === selectedSegment}">
+      <span>${escapeHtml(item.short_label || item.key)}</span>
+      <strong>${countText(users)}</strong>
+      <em>${item.key === "all" ? "人群全体" : `${rateText(share)} / ${escapeHtml(cohort.short_label)}`}</em>
+      <p>${escapeHtml(item.definition || item.label || "")}</p>
+    </button>`;
+  }).join("");
+  const definition = currentData.segments.definition || {};
+  const unknown = bucket.unknown_users;
+  footnotes.innerHTML = [
+    `<p>切分依据：<b>${escapeHtml(definition.label || "且慢注册时间 vs OAP 批准时间")}</b>，证据状态 <b>${escapeHtml(definition.state || "partial")}</b>。</p>`,
+    `<p>时间缺失、无法判定新老：<b>${countText(unknown ?? null)}</b> 人，不计入新老任一侧。</p>`,
+    `<p>新老之和加上无法判定，等于 <b>${escapeHtml(cohort.short_label)}</b> 的 <b>${number.format(cohort.users)}</b> 人。</p>`,
+  ].join("");
+  wrapper.querySelectorAll("[data-segment]").forEach((button) => {
+    button.addEventListener("click", () => selectSegment(button.dataset.segment));
+  });
+}
+
+/* ---- 新老对照表 ---- */
+
+const COMPARE_GROUPS = [
+  {
+    title: "人群规模",
+    rows: [
+      { label: "人数", kind: "count", pick: (view) => metric(view, "users") },
+      { label: "占所选人群", kind: "rate", pick: (view) => metric(view, "share") },
+    ],
+  },
+  {
+    title: "且慢资产",
+    rows: [
+      { label: "可关联且慢账户率", kind: "rate", pick: (view) => metric(view, "qieman_account_rate") },
+      { label: "持仓用户", kind: "count", pick: (view) => metric(view, "holders") },
+      { label: "持仓率", kind: "rate", pick: (view) => metric(view, "holder_rate") },
+      { label: "持仓规模", kind: "money", pick: (view) => metric(view, "aum_yuan") },
+      { label: "持仓户均", kind: "money", pick: (view) => metric(view, "average_holder_asset_yuan") },
+      { label: "累计收益为正占比", kind: "rate", pick: (view) => metric(view, "profitable_holder_rate") },
+    ],
+  },
+  {
+    title: "OAP 使用深度（该分段用户的全历史调用）",
+    rows: [
+      { label: "累计调用次数", kind: "count", pick: (view) => metric(view.oap_usage || {}, "calls_total") },
+      { label: "人均调用次数", kind: "decimal", pick: (view) => metric(view.oap_usage || {}, "calls_per_user") },
+    ],
+  },
+  {
+    title: "入金（资产入账代理 · 近 30 日）",
+    rows: [
+      { label: "入账人数", kind: "count", pick: (view) => metric(view.cashflow?.current || {}, "inflow_users") },
+      { label: "入账金额", kind: "money", pick: (view) => metric(view.cashflow?.current || {}, "inflow_yuan") },
+      {
+        label: "净额",
+        kind: "money",
+        pick: (view) => {
+          const row = view.cashflow?.current || {};
+          const inflow = metric(row, "inflow_yuan");
+          const outflow = metric(row, "outflow_yuan");
+          return inflow === null || outflow === null ? null : inflow - outflow;
+        },
+      },
+    ],
+    requires: (view) => Boolean(view.cashflow?.current),
+  },
+];
+
+// 新用户看「注册相对 OAP 批准日的间隔」，老用户看「账龄」，两侧刻度不同，分别成行
+const TENURE_LABELS = {
+  d0_7: "批准后 0–7 日内注册",
+  d8_30: "批准后 8–30 日注册",
+  d31_90: "批准后 31–90 日注册",
+  d90_plus: "批准后 90 日以上注册",
+  lt_1y: "账龄 1 年以内",
+  y1_3: "账龄 1–3 年",
+  y3_plus: "账龄 3 年以上",
+};
+
+// 该刻度对另一段不适用（例如「账龄」对新用户），与小样本抑制必须区分开
+const NOT_APPLICABLE = "__NA__";
+
+// 接近 100% 时多给两位小数，避免 99.97% 被显示成 100%
+function preciseShare(value) {
+  if (value === null || value === undefined) return SUPPRESSED_TEXT;
+  if (value > 0.999 && value < 1) return `${(value * 100).toFixed(2)}%`;
+  if (value > 0 && value < 0.001) return `${(value * 100).toFixed(2)}%`;
+  return percent.format(value);
+}
+
+function compareCellText(value, kind) {
+  if (value === null || value === undefined) return SUPPRESSED_TEXT;
+  if (kind === "rate") return percent.format(value);
+  if (kind === "money") return money(value);
+  if (kind === "decimal") return oneDecimal.format(value);
+  return number.format(value);
+}
+
+function compareGapCell(newValue, oldValue, kind) {
+  if (newValue === NOT_APPLICABLE || oldValue === NOT_APPLICABLE) return `<td class="gap" data-tone="flat">刻度不同</td>`;
+  if (newValue === null || oldValue === null || newValue === undefined || oldValue === undefined) {
+    return `<td class="gap" data-tone="flat">—</td>`;
+  }
+  if (kind === "rate") {
+    const delta = (newValue - oldValue) * 100;
+    const tone = Math.abs(delta) < 0.05 ? "flat" : delta > 0 ? "new" : "existing";
+    return `<td class="gap" data-tone="${tone}">${delta > 0 ? "+" : ""}${oneDecimal.format(delta)} pt</td>`;
+  }
+  if (newValue === 0 && oldValue === 0) return `<td class="gap" data-tone="flat">同为 0</td>`;
+  if (oldValue === 0) return `<td class="gap" data-tone="flat">—</td>`;
+  const ratio = newValue / oldValue;
+  const tone = Math.abs(ratio - 1) < 0.02 ? "flat" : ratio > 1 ? "new" : "existing";
+  // 极端倍数不要被取整成 0× 或 1×，否则「4 万 vs 1.17 亿」看起来像持平
+  const label = tone === "flat"
+    ? "≈1×"
+    : ratio >= 100
+      ? `${number.format(Math.round(ratio))}×`
+      : ratio < 0.01
+        ? `1/${number.format(Math.round(1 / ratio))}`
+        : ratio < 0.1
+          ? `${ratio.toFixed(3)}×`
+          : `${oneDecimal.format(ratio)}×`;
+  return `<td class="gap" data-tone="${tone}" title="精确比值 ${ratio.toPrecision(3)}">${label}</td>`;
+}
+
+function renderCompare() {
+  const section = $("#compare-table").closest("section");
+  if (!segmentsAvailable()) {
+    section.hidden = true;
+    return;
+  }
+  section.hidden = false;
+  const cohort = cohortById();
+  const newView = segmentView(cohort.id, "new") || {};
+  const oldView = segmentView(cohort.id, "existing") || {};
+  const categories = currentData.behavior.categories;
+  const services = currentData.segments.services || [];
+
+  $("#compare-cohort-label").textContent = cohort.short_label;
+  $("#compare-head").innerHTML = `<tr>
+    <th scope="col">指标</th>
+    <th scope="col">新用户 · OAP 后注册</th>
+    <th scope="col">老用户 · OAP 前已注册</th>
+    <th scope="col">新 / 老</th>
+  </tr>`;
+
+  const groups = COMPARE_GROUPS.filter((group) => !group.requires || group.requires(newView) || group.requires(oldView));
+  const tenureRows = [...(newView.tenure || []), ...(oldView.tenure || [])];
+  if (tenureRows.length) {
+    const seen = new Set();
+    const buckets = tenureRows.map((row) => row.bucket).filter((bucket) => !seen.has(bucket) && seen.add(bucket));
+    groups.push({
+      title: "注册与 OAP 批准的时间关系 / 账龄",
+      rows: buckets.map((bucket) => ({
+        label: TENURE_LABELS[bucket] || bucket,
+        kind: "count",
+        pickRow: (segmentKey) => {
+          const view = segmentKey === "new" ? newView : oldView;
+          const tenure = view.tenure || [];
+          const row = tenure.find((item) => item.bucket === bucket);
+          // 该段没有这个刻度（新用户没有「账龄」档）→ 不适用，不是小样本
+          if (!row) return tenure.length ? NOT_APPLICABLE : null;
+          return row.users ?? null;
+        },
+      })),
+    });
+  }
+  if (behaviorIsSegmented(cohort.id, "new") && behaviorIsSegmented(cohort.id, "existing")) {
+    groups.push({
+      title: "投资行为参与率（近 90 日）",
+      rows: categories.map((category) => ({
+        label: `${category.label}${category.state === "confirmed" ? "" : category.state === "partial" ? "（口径部分确认）" : "（语义待补）"}`,
+        kind: "rate",
+        pickRow: (segmentKey) => {
+          const row = behaviorRows(cohort.id, segmentKey).find((item) => item.key === category.key);
+          return row ? (row.penetration ?? null) : null;
+        },
+      })),
+    });
+  }
+  if (services.length) {
+    groups.push({
+      title: "平台服务使用渗透率",
+      rows: services.map((service) => ({
+        label: `${service.label}${service.state === "confirmed" ? "" : "（口径部分确认）"}`,
+        kind: "rate",
+        pickRow: (segmentKey) => {
+          const view = segmentKey === "new" ? newView : oldView;
+          const row = (view.services || []).find((item) => item.key === service.key);
+          return row ? (row.penetration ?? null) : null;
+        },
+      })),
+    });
+  }
+
+  $("#compare-body").innerHTML = groups.map((group) => {
+    const header = `<tr data-group="head"><td colspan="4">${escapeHtml(group.title)}</td></tr>`;
+    const body = group.rows.map((row) => {
+      const newValue = row.pickRow ? row.pickRow("new") : row.pick(newView);
+      const oldValue = row.pickRow ? row.pickRow("existing") : row.pick(oldView);
+      const cell = (value) => value === NOT_APPLICABLE
+        ? `<td class="suppressed">不适用</td>`
+        : value === null || value === undefined
+          ? `<td class="suppressed">${SUPPRESSED_TEXT}</td>`
+          : `<td class="value">${escapeHtml(compareCellText(value, row.kind))}</td>`;
+      return `<tr><th scope="row">${escapeHtml(row.label)}</th>${cell(newValue)}${cell(oldValue)}${compareGapCell(newValue, oldValue, row.kind)}</tr>`;
+    }).join("");
+    return header + body;
+  }).join("");
+
+  const newAum = metric(newView, "aum_yuan");
+  const oldAum = metric(oldView, "aum_yuan");
+  const aumTotal = newAum !== null && oldAum !== null ? newAum + oldAum : null;
+  const missing = currentData.segments.missing_dimensions || [];
+  $("#compare-readout").innerHTML = [
+    `<article><span>资产侧读数</span><p>新用户持仓率 <b>${rateText(metric(newView, "holder_rate"))}</b>，老用户 <b>${rateText(metric(oldView, "holder_rate"))}</b>；持仓规模 <b>${moneyText(newAum)}</b> 对 <b>${moneyText(oldAum)}</b>${aumTotal ? `，老用户贡献两段合计的 <b>${preciseShare(oldAum / aumTotal)}</b>` : ""}。人数多的一侧，不等于资产多的一侧。</p></article>`,
+    missing.length
+      ? `<article><span>本轮查不到，未发布</span><p>${missing.map((item) => `<b>${escapeHtml(item.label)}</b>：${escapeHtml(item.reason)}`).join("；")}。这些维度没有按新老拆分，页面上不用近似口径顶替。</p></article>`
+      : `<article><span>边界</span><p>新老不是随机分配。老用户在 OAP 之前已在且慢积累资产，新用户账龄普遍更短，<b>差值只能描述结构，不能当作 OAP 的增量效果</b>。</p></article>`,
+  ].join("");
+}
+
+/* ---- 平台服务使用 ---- */
+
+function renderServices() {
+  const section = $("#services-section");
+  const services = currentData.segments?.services || [];
+  const unavailable = currentData.segments?.unavailable_services || [];
+  if (!segmentsAvailable() || (!services.length && !unavailable.length)) {
+    section.hidden = true;
+    return;
+  }
+  section.hidden = false;
+  const view = activeView() || {};
+  const rows = services.map((service) => {
+    const row = (view.services || []).find((item) => item.key === service.key) || {};
+    return { ...service, actors: row.actors ?? null, penetration: row.penetration ?? null, events_per_actor: row.events_per_actor ?? null };
+  });
+  const max = Math.max(...rows.map((row) => row.penetration ?? 0), 1e-9);
+  $("#services-chart").innerHTML = rows.length
+    ? rows.map((row) => `<div class="service-row ${row.penetration === null ? "is-suppressed" : ""}" data-state="${escapeHtml(row.state || "confirmed")}">
+        <span><i></i>${escapeHtml(row.label)}</span>
+        <div class="service-bar"><i style="width:${row.penetration === null ? 0 : row.penetration / max * 100}%"></i></div>
+        <strong>${escapeHtml(rateText(row.penetration))}</strong>
+        <small>${escapeHtml(countText(row.actors))} 人使用${row.events_per_actor ? ` · 人均 ${oneDecimal.format(row.events_per_actor)} 次` : ""}</small>
+      </div>`).join("")
+    : `<p class="services-empty">本次刷新没有通过口径校验的且慢服务使用指标，未发布任何渗透率。</p>`;
+  $("#services-unavailable").innerHTML = unavailable.length
+    ? unavailable.map((item) => `<article><strong>${escapeHtml(item.label)}</strong><p>${escapeHtml(item.reason)}</p></article>`).join("")
+    : `<p class="services-empty">本次没有额外标记为不可用的服务口径。</p>`;
+  const strongest = [...rows].filter((row) => row.penetration !== null).sort((a, b) => b.penetration - a.penetration)[0];
+  $("#services-title").textContent = `平台服务使用：${rows.length} 项可查口径，最高渗透 ${strongest ? `${strongest.label} ${percent.format(strongest.penetration)}` : SUPPRESSED_TEXT}`;
+  $("#services-scope").textContent = `这里统计的是且慢平台侧服务/功能的使用，不是 OAP 调用。分母为${scopeLabel()}；口径不可靠的服务列在右侧，不做近似替代。`;
+}
+
+/* ---- 标题：全部由数据生成，避免刷新后写死的数字变旧 ---- */
+
+function renderTitles() {
+  const { usage, meta } = currentData;
+  const cohort = cohortById();
+  const view = activeView();
+  const approved = cohortById("approved");
+
+  $("#cohort-title").textContent = `人群规模：批准 ${number.format(usage.approved_users)} · 曾调用 ${number.format(usage.ever_called_users)} · 近 30 日活跃 ${number.format(usage.active_30d_users)}`;
+
+  if (segmentsAvailable()) {
+    const newView = segmentView(cohort.id, "new") || {};
+    $("#segment-title").textContent = `新老结构：${countText(metric(newView, "users"))} 位新用户（${rateText(metric(newView, "share"))}）先用 OAP 后注册且慢`;
+    $("#compare-title").textContent = `新老用户对照：资产、入金、行为、服务使用（当前 ${cohort.short_label}）`;
+  }
+
+  const { current } = growthRows();
+  const registrations = growthMetric(current, "new_registrations");
+  const inflow = growthMetric(current, "inflow_yuan");
+  const net = growthMetric(current, "net_inflow_yuan");
+  $("#growth-title").textContent = `近 30 日：新注册 ${countText(registrations, " 人")}、资产入账 ${moneyText(inflow)}、净额 ${net === null ? SUPPRESSED_TEXT : `${net < 0 ? "-" : "+"}${money(Math.abs(net))}`}`;
+
+  $("#holdings-title").innerHTML = `<span id="selected-cohort-title">${escapeHtml(scopeLabel())}</span>：持仓率 ${escapeHtml(rateText(metric(view, "holder_rate")))} · 规模 ${escapeHtml(moneyText(metric(view, "aum_yuan")))} · 户均 ${escapeHtml(moneyText(metric(view, "average_holder_asset_yuan")))}`;
+
+  const buckets = assetBucketRows();
+  $("#asset-title").textContent = buckets
+    ? `资产分布：${percent.format(buckets[0].share + buckets[1].share)} 低于 10 万，${percent.format(buckets.at(-1).share + buckets.at(-2).share)} 在 50 万以上`
+    : `资产分布：${scopeLabel()}分档样本不足，未公开`;
+
+  const confirmedKeys = new Set(currentData.behavior.categories.filter((item) => item.state === "confirmed").map((item) => item.key));
+  const categoryMap = new Map(currentData.behavior.categories.map((item) => [item.key, item]));
+  const strongest = [...behaviorRows()]
+    .filter((row) => confirmedKeys.has(row.key) && row.penetration !== null && row.penetration !== undefined)
+    .sort((a, b) => b.penetration - a.penetration)[0];
+  $("#behavior-title").textContent = strongest
+    ? `投资行为：最强信号${(categoryMap.get(strongest.key) || {}).label || strongest.key}，参与率 ${percent.format(strongest.penetration)}`
+    : `投资行为：${scopeLabel()}的已确认行为样本不足`;
+
+  const profile = currentData.profile;
+  $("#profile-title").innerHTML = `问卷画像：覆盖 ${escapeHtml(percent.format(profile.survey_coverage_approx))}，结构化仅 ${escapeHtml(number.format(profile.structured_profile_rows))} 条，<br />只代表回答者`;
+
+  const counts = currentData.quality_checks.reduce((result, item) => ({ ...result, [item.status]: (result[item.status] || 0) + 1 }), {});
+  $("#quality-title").textContent = `数据健康：${counts.pass || 0} 项通过、${counts.warn || 0} 项有边界、${counts.missing || 0} 项缺失`;
+
+  const humanRate = usage.attributed_calls / usage.total_calls;
+  if (segmentsAvailable()) {
+    const approvedNew = segmentView("approved", "new") || {};
+    const approvedOld = segmentView("approved", "existing") || {};
+    $("#hero-headline").textContent = `${number.format(usage.approved_users)} 位批准用户里，${countText(metric(approvedNew, "users"))} 位（${rateText(metric(approvedNew, "share"))}）是先用 OAP 才注册且慢的新用户；但持仓资产几乎全部来自 ${countText(metric(approvedOld, "users"))} 位老用户。`;
+  } else {
+    $("#hero-headline").textContent = `${number.format(usage.approved_users)} 位批准用户在且慢持仓 ${money(approved.aum_yuan)}；${percent.format(humanRate)} 的调用可归属到人。`;
+  }
+  $("#footer-cutoff").textContent = `OAP / 行为截至 ${formatDateTime(meta.data_cutoff, true)} · 资产快照 ${formatDay(meta.asset_snapshot_date)}`;
 }
 
 function renderProfile() {
@@ -769,9 +1274,9 @@ function buildDocument() {
     [labels.net, "net_inflow_yuan", "money"],
   ].map(([label, field, kind]) => `| ${label} | ${growthValueLabel(growth.current, field, kind)} | ${growthValueLabel(growth.previous, field, kind)} | ${growthComparison(growth.current, growth.previous, field, kind).text} |`).join("\n");
   const trendRows = growth.trend_periods.map((row) => `| ${row.start}—${row.end} | ${growthValueLabel(row, "new_registrations")} | ${growthValueLabel(row, "first_inflow_users")} | ${growthValueLabel(row, "inflow_yuan", "money")} | ${growthValueLabel(row, "net_inflow_yuan", "money")} |`).join("\n");
-  const behaviorRows = data.behavior.by_cohort[cohort.id].map((row) => {
+  const behaviorDocRows = behaviorRows(cohort.id, "all").map((row) => {
     const category = data.behavior.categories.find((item) => item.key === row.key);
-    return `| ${category.label} | ${number.format(row.actors)} | ${percent.format(row.penetration)} | ${number.format(row.events)} | ${oneDecimal.format(row.events_per_actor)} | ${category.state} |`;
+    return `| ${category.label} | ${countText(row.actors)} | ${rateText(row.penetration)} | ${countText(row.events)} | ${row.events_per_actor === null || row.events_per_actor === undefined ? "样本不足" : oneDecimal.format(row.events_per_actor)} | ${category.state} |`;
   }).join("\n");
   const profileRows = data.profile.dimensions.map((item) => `| ${item.label} | ${item.count}/${item.sample} | ${percent.format(item.share)} | ${item.qieman_baseline === null ? "—" : percent.format(item.qieman_baseline)} |`).join("\n");
   const cashflowDefinition = data.growth.cash_flow_definition;
@@ -779,6 +1284,70 @@ function buildDocument() {
   const d7 = growthMetric(growth.funnel, "first_inflow_d7_users");
   const eligible = growthMetric(growth.funnel, "eligible_registrations");
   const holding = growthMetric(growth.funnel, "still_holding_users");
+  const segmentDocSection = (() => {
+    if (!segmentsAvailable()) return "\n本次快照未包含新老用户切分。\n";
+    const definition = data.segments.definition || {};
+    const bucket = data.segments.by_cohort[cohort.id] || {};
+    const newView = bucket.new || {};
+    const oldView = bucket.existing || {};
+    const usageRow = (view, field) => {
+      const value = metric(view.oap_usage || {}, field);
+      if (value === null) return "样本不足";
+      return field === "calls_per_user" ? `${oneDecimal.format(value)} 次` : `${number.format(value)} 次`;
+    };
+    const rows = [
+      ["人数", countText(metric(newView, "users")), countText(metric(oldView, "users"))],
+      ["占所选人群", rateText(metric(newView, "share")), rateText(metric(oldView, "share"))],
+      ["可关联且慢账户率", rateText(metric(newView, "qieman_account_rate")), rateText(metric(oldView, "qieman_account_rate"))],
+      ["持仓用户", countText(metric(newView, "holders")), countText(metric(oldView, "holders"))],
+      ["持仓率", rateText(metric(newView, "holder_rate")), rateText(metric(oldView, "holder_rate"))],
+      ["持仓规模", moneyText(metric(newView, "aum_yuan")), moneyText(metric(oldView, "aum_yuan"))],
+      ["持仓户均", moneyText(metric(newView, "average_holder_asset_yuan")), moneyText(metric(oldView, "average_holder_asset_yuan"))],
+      ["累计收益为正占比", rateText(metric(newView, "profitable_holder_rate")), rateText(metric(oldView, "profitable_holder_rate"))],
+      ["累计调用次数", usageRow(newView, "calls_total"), usageRow(oldView, "calls_total")],
+      ["人均调用次数", usageRow(newView, "calls_per_user"), usageRow(oldView, "calls_per_user")],
+    ].map(([label, left, right]) => `| ${label} | ${left} | ${right} |`).join("\n");
+    const tenureLines = [
+      ...(newView.tenure || []).map((row) => `| 新用户 · ${TENURE_LABELS[row.bucket] || row.bucket} | ${countText(row.users)} |`),
+      ...(oldView.tenure || []).map((row) => `| 老用户 · ${TENURE_LABELS[row.bucket] || row.bucket} | ${countText(row.users)} |`),
+    ].join("\n");
+    const serviceLines = (data.segments.services || []).map((service) => {
+      const pick = (view) => {
+        const row = (view.services || []).find((item) => item.key === service.key);
+        return row ? rateText(row.penetration ?? null) : "样本不足";
+      };
+      return `| ${service.label}（${service.state}） | ${pick(newView)} | ${pick(oldView)} |`;
+    }).join("\n");
+    const unavailableLines = (data.segments.unavailable_services || []).map((item) => `- **${item.label}**：${item.reason}`).join("\n");
+    const missingLines = (data.segments.missing_dimensions || []).map((item) => `- **${item.label}**：${item.reason}`).join("\n");
+    return `
+切分口径：${definition.label || "且慢注册时间 vs OAP 批准时间"}（证据状态 **${definition.state || "partial"}**）。${definition.detail || ""}
+
+- **新用户**：且慢正式注册时间不早于该用户的 OAP 批准日，即先接触 OAP、之后才注册且慢。
+- **老用户**：OAP 批准之前已是且慢注册用户。
+- **无法判定**：${countText(Number.isInteger(bucket.unknown_users) ? bucket.unknown_users : null)} 人，注册或批准时间缺失，不以建表/更新时间补值，也不并入任一侧。
+
+当前人群：${cohort.label}。
+
+| 指标 | 新用户 | 老用户 |
+|---|---:|---:|
+${rows}
+
+**注册与 OAP 批准的时间关系 / 账龄**
+
+| 分档 | 人数 |
+|---|---:|
+${tenureLines}
+
+**平台服务使用渗透率**
+
+${serviceLines ? `| 服务（口径状态） | 新用户 | 老用户 |\n|---|---:|---:|\n${serviceLines}` : "本次没有通过口径校验的且慢服务使用指标。"}
+
+${unavailableLines ? `服务口径查不到或不可靠，未发布：\n${unavailableLines}\n` : ""}
+${missingLines ? `本轮无法按新老拆分的维度：\n${missingLines}\n` : ""}
+边界：新老两组不是随机分配。老用户在 OAP 之前已在且慢积累资产与交易习惯，新用户账龄普遍更短，资产自然更低。两组差值只能描述结构，**不能当作 OAP 的获客或增量效果**；要回答因果，需按注册时点、初始资产与渠道匹配对照组。${data.segments.snapshot_note ? `\n\n${data.segments.snapshot_note}` : ""}
+`;
+  })();
   const d30Rate = eligible && d30 !== null ? percent.format(d30 / eligible) : "样本不足";
   const d7Rate = eligible && d7 !== null ? percent.format(d7 / eligible) : "样本不足";
   const holdingRate = d30 && holding !== null ? percent.format(holding / d30) : "样本不足";
@@ -823,6 +1392,9 @@ ${cohortRows}
 - 近 30 日活跃规模相当于历史调用用户的 ${percent.format(data.usage.active_30d_users / data.usage.ever_called_users)}。
 - 三组相互重叠，不可相加；后两组按调用深度递进。
 
+### 4.2 新老用户切分（维度二）
+${segmentDocSection}
+
 ## 5. 新增增长：${cohort.label}
 
 当前窗口：${formatDay(data.growth.comparison.current_start)}—${formatDay(data.growth.comparison.current_end)}；对比窗口：${formatDay(data.growth.comparison.previous_start)}—${formatDay(data.growth.comparison.previous_end)}。
@@ -862,7 +1434,7 @@ ${trendRows}
 
 | 行为 | 参与人数 | 人群参与率 | 事件数 | 人均频次 | 语义状态 |
 |---|---:|---:|---:|---:|---|
-${behaviorRows}
+${behaviorDocRows}
 
 “其他计划交易”仅部分确认；“SI 交易”含义待补，不能擅自解释成定投。
 
@@ -908,27 +1480,47 @@ function renderDocument() {
 function render(data, mode = "published") {
   currentData = validateData(data);
   if (!currentData.cohorts.some((item) => item.id === selectedCohortId)) selectedCohortId = "active_30d";
+  if (!segmentKeys().some((item) => item.key === selectedSegment)) selectedSegment = "all";
   renderHero();
   renderCohortControls();
+  renderSegmentControls();
+  renderCompare();
   renderGrowth();
   renderHoldings();
   renderAssets();
   renderBehavior();
+  renderServices();
   renderProfile();
   renderQuality();
+  renderTitles();
   renderDocument();
   document.documentElement.dataset.dataMode = mode;
+}
+
+// 换人群或换新老分段后要重画的模块
+function renderScopedModules() {
+  renderSegmentControls();
+  renderCompare();
+  renderGrowth();
+  renderHoldings();
+  renderAssets();
+  renderBehavior();
+  renderServices();
+  renderTitles();
+  renderDocument();
 }
 
 function selectCohort(id) {
   if (!currentData?.cohorts.some((item) => item.id === id)) return;
   selectedCohortId = id;
   renderCohortControls();
-  renderGrowth();
-  renderHoldings();
-  renderAssets();
-  renderBehavior();
-  renderDocument();
+  renderScopedModules();
+}
+
+function selectSegment(key) {
+  if (!segmentKeys().some((item) => item.key === key)) return;
+  selectedSegment = key;
+  renderScopedModules();
 }
 
 function selectBehaviorMode(mode) {
