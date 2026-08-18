@@ -110,3 +110,26 @@ test("没有变化时 changed 为 false", () => {
 test("从分支名里抽 Jira key", () => {
   assert.deepEqual(extractJiraKeys("feature/qmrd-47066 修文案"), ["QMRD-47066"]);
 });
+
+test("保留每条 MR 的可跳转信息，并标出哪条是生产合并", () => {
+  const [demand] = foldDemands(
+    [
+      mr({ iid: 11, target_branch: "test", merged_at: "2026-08-02T10:00:00Z", web_url: "https://git/x/-/merge_requests/11" }),
+      mr({ iid: 12, target_branch: "master", merged_at: "2026-08-03T10:00:00Z", web_url: "https://git/x/-/merge_requests/12" }),
+    ],
+    rules,
+  );
+  assert.equal(demand.mrs.length, 2);
+  assert.deepEqual(demand.mrs.map((item) => item.is_release), [false, true]);
+  assert.equal(demand.release_mr_url, "https://git/x/-/merge_requests/12");
+});
+
+test("从分支名收集需求单号，供反查上线单", () => {
+  const [demand] = foldDemands([mr({ source_branch: "feature/QMRD-46848-fix" })], rules);
+  assert.deepEqual(demand.jira_keys, ["QMRD-46848"]);
+});
+
+test("没有生产合并时不给上线 MR 链接", () => {
+  const [demand] = foldDemands([mr({ target_branch: "test" })], rules);
+  assert.equal(demand.release_mr_url, null);
+});

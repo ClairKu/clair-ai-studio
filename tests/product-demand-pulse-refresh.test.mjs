@@ -1,64 +1,55 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
-import { fileURLToPath } from "node:url";
 
-import {
-  buildRefreshPrompt,
-  isAllowedOrigin,
-  sanitizeAgentResult,
-} from "../scripts/product-demand-pulse-refresh-server.mjs";
+const read = (relative) => readFile(new URL(`../${relative}`, import.meta.url), "utf8");
+const REPORT = "public/reports/product-demand-pulse";
 
-const root = fileURLToPath(new URL("../", import.meta.url));
-
-test("刷新入口不再下载更新包", async () => {
-  const app = await readFile(new URL("../public/reports/product-demand-pulse/app.js", import.meta.url), "utf8");
-  const html = await readFile(new URL("../public/reports/product-demand-pulse/index.html", import.meta.url), "utf8");
+test("页面不再指望本机服务——公网点更新必须能走通", async () => {
+  const app = await read(`${REPORT}/app.js`);
+  assert.doesNotMatch(app, /127\.0\.0\.1|localhost:\d+/, "公网页面连不上本机地址");
+  assert.doesNotMatch(app, /codex:\/\//, "公网访客装不了 Codex，不能拿它当兜底");
   assert.doesNotMatch(app, /link\.download|exportUpdatePacket|data-export-update/);
-  assert.match(app, /refreshBattleReport/);
+});
+
+test("更新入口按『先拉快照，必要时才回内网重算』两段走", async () => {
+  const app = await read(`${REPORT}/app.js`);
+  const html = await read(`${REPORT}/index.html`);
+  assert.match(app, /async function updateData/);
+  assert.match(app, /loadSnapshot/);
+  assert.match(app, /relay-config\.json/, "中继地址要可配置，不能写死在代码里");
   assert.match(html, /data-refresh-update/);
 });
 
-test("刷新服务只接受生产战报来源", () => {
-  const origins = new Set(["https://clairku.github.io"]);
-  assert.equal(isAllowedOrigin("https://clairku.github.io", origins), true);
-  assert.equal(isAllowedOrigin("https://example.com", origins), false);
-  assert.equal(isAllowedOrigin(undefined, origins), false);
+test("口令只发给中继校验，页面里不留任何凭据", async () => {
+  const app = await read(`${REPORT}/app.js`);
+  assert.match(app, /X-Pulse-Passcode/);
+  // 页面里出现明文口令或哈希就等于没有口令
+  assert.doesNotMatch(app, /PASSCODE\s*=\s*["'][^"']+["']/);
+  assert.doesNotMatch(app, /AGENT_TOKEN/);
 });
 
-test("安装器使用持久仓库锚点而不是临时 worktree", async () => {
-  const installer = await readFile(new URL("../scripts/install-product-demand-pulse-refresh.mjs", import.meta.url), "utf8");
-  assert.match(installer, /--git-common-dir/);
-  assert.match(installer, /findPersistentRepoAnchor/);
+test("中继地址没配置时，页面要说清楚而不是假装在更新", async () => {
+  const app = await read(`${REPORT}/app.js`);
+  const config = JSON.parse(await read(`${REPORT}/data/relay-config.json`));
+  assert.ok("worker_base" in config);
+  assert.match(app, /实时重算尚未启用/);
 });
 
-test("增量指令跳过已经上线的历史记录", () => {
-  const prompt = buildRefreshPrompt({
-    packet: { schema: "pain-off-update-packet/v1", changes: [] },
-    checkpoint: { checked_through_at: "2026-08-14T00:46:00+08:00" },
-    repo: root,
-  });
-  assert.match(prompt, /已经确认上线的历史记录不要重新检查/);
-  assert.match(prompt, /status 不是 released \/ impact_confirmed/);
-  assert.match(prompt, /有效 MR 链路已合并且生产环境实际生效/);
-  assert.match(prompt, /只发一次精准问题，effort 使用 medium/);
-  assert.match(prompt, /普通 Jira\/Wiki 新增或编辑不入榜/);
+test("链路追溯模块存在，且链接一律新窗口打开", async () => {
+  const app = await read(`${REPORT}/app.js`);
+  const html = await read(`${REPORT}/index.html`);
+  assert.match(html, /id="trace-list"/);
+  assert.match(app, /function renderTrace/);
+  assert.match(app, /rel="noopener noreferrer"/);
+  assert.match(app, /target="_blank"/);
 });
 
-test("对外刷新结果会被脱敏和收敛", () => {
-  const result = sanitizeAgentResult({
-    status: "updated",
-    summary: "发现 1 个新上线需求 https://internal.example/task/1",
-    delta: { new_submitted: 1, pending_release: 2, new_released: 1 },
-    snapshot: { submitted: 5, pending_release: 2, released: 5 },
-    accepted_client_ids: ["LOCAL-1", "LOCAL-1"],
-    checked_through_at: "2026-08-17T12:00:00+08:00",
-    source_cursor: "cursor-1",
-    production_url: "https://clairku.github.io/clair-ai-studio/reports/product-demand-pulse/",
-    internal_url: "https://internal.example",
-  });
-  assert.deepEqual(result.accepted_client_ids, ["LOCAL-1"]);
-  assert.equal(result.summary, "发现 1 个新上线需求");
-  assert.equal(result.production_url, "https://clairku.github.io/clair-ai-studio/reports/product-demand-pulse/");
-  assert.equal("internal_url" in result, false);
+test("取数口径与链接暴露策略都写在配置里，不散落在脚本中", async () => {
+  const rules = JSON.parse(await read("automation/pain-off/config/rules.json"));
+  assert.equal(rules.source.system, "GitLab");
+  assert.ok(rules.released.requires.target_branch_in.includes("master"));
+  assert.equal(rules.demand_key.strategy, "project_id+source_branch");
+  assert.ok(["public", "internal_only"].includes(rules.publish_policy.link_exposure));
+  assert.equal("publish_mr_titles" in rules.publish_policy, false, "MR 标题不设开关，一律不发");
 });

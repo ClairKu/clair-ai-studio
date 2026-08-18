@@ -53,6 +53,8 @@
 | **在途** | 已提交但未合入生产主干（含只合到 test/dev 的） |
 | **端到端人数** | 名下 `released ≥ 1` 的成员数 |
 | **交付周期** | `released_at - submitted_at`，只对已上线需求计算 |
+| **需求单** | 从 `source_branch` / MR 标题里抽出的 Jira key（QMRD），链接 `https://jira.yingmi-inc.com/browse/<KEY>` |
+| **上线单** | Jira **YR**（Release Control）项目里 summary 含该需求 key 的单据。YR 单命名约定就是 `QMRD-xxxxx - 标题 - 上线`，所以能由需求反查 |
 
 ### 两个必须知道的口径限制
 
@@ -64,12 +66,21 @@
    按 MR 计数会直接翻倍；所以按 `source_branch` 归组。反过来，一个需求拆成多条分支会被算成多个——
    这是取舍，分支粒度是目前唯一稳定可自动判定的边界。
 
-### 不发布到公网的东西
+### 公网上发什么、不发什么
 
 看板是公开的，所以脚本产出两层（`config/rules.json` 的 `publish_policy`）：
 
-- **可发布**：计数、按人聚合、日期、状态、需求的哈希 id
-- **不发布**：MR 标题、MR 链接、仓库路径、分支名（只留在本机 `state/detail.json`）
+- **发布**：计数、按人聚合、日期、状态、需求哈希 id，以及**可跳转的链接**——需求单（QMRD）、
+  每条 MR（含目标分支，生产合并那条打 ✔）、上线单（YR）。
+- **永远不发布**：MR 标题、分支名、`demand_key`（只留在本机 `state/detail.json`）。
+  标题是最可能夹带内部信息的部分，这条没有开关，`scripts/validate-product-demand-pulse.mjs` 会挡下来。
+
+> ⚠️ **发 MR 链接就等于把仓库路径和内部域名放上公网**——URL 里本来就有 `git.frontnode.net/<group>/<project>`。
+> 链接本身要内网 + 账号才打得开，但地址是公开可见、可被搜索引擎抓的。
+> 这是「链路可跳转」的必然代价。不接受就把 `rules.json` 的 `publish_policy.link_exposure`
+> 改成 `internal_only`，追溯模块会自动退化成只有计数与日期。
+> 校验器同时兜住两头：`internal_only` 时出现任何链接会直接失败，`public` 时链接也必须是
+> 规范的 MR / Jira 地址，别的内部地址一律不许进公开数据。
 
 墙上「已发生的改变」的文案继续人工撰写在 [`config/curated-records.json`](config/curated-records.json)，
 脚本只负责把它的状态对齐到最新——不会把内部标题直接推到公网。
@@ -82,6 +93,12 @@
 
 ```bash
 export GIT_ACCESS_TOKEN="glpat-xxxxxxxx"
+```
+
+可选：配上 Jira token，追溯模块的「上线单」一栏才有内容（没配也能跑，只是那一栏留空）。
+
+```bash
+export JIRA_TOKEN="xxxxxxxx"   # jira.yingmi-inc.com 的 personal access token
 ```
 
 ### 1. 补齐人员映射（一次性）
@@ -142,6 +159,7 @@ automation/pain-off/
   config/curated-records.json  墙上展示文案（人工）
   lib/gitlab.mjs               GitLab 只读客户端
   lib/compute.mjs              需求折叠、按人汇总、增量比对
+  lib/jira.mjs                 需求单 → 上线单（YR）反查
   lib/snapshot.mjs             组装公网快照 + 本机明细
   lib/worker-client.mjs        和中继说话
   lib/paths.mjs                路径与读写
@@ -162,4 +180,6 @@ worker/pain-off-relay/         公网中继
 | 口令一直不对 | Worker secret `PULSE_PASSCODE` 与实际输入不一致，重新 `wrangler secret put` |
 | 取数报 401 | `GIT_ACCESS_TOKEN` 过期或 scope 不含 `read_api` |
 | 某人数字是 0 | `roster.json` 里 `gitlab_username` 填错，或此人确实没有作者身份的 MR |
+| 追溯里「上线单」全是空 | 没配 `JIRA_TOKEN`（快照 `meta.release_ticket_lookup` 会是 `skipped_no_token`），或该需求确实没建 YR 单 |
+| 追溯里「需求单」显示「分支名里没带单号」 | 该分支名里没有 `QMRD-xxxxx`，抽不出来；改分支命名或在 curated 里人工补 |
 | Pages 推送失败 | 这台机器到 github.com:443 的 SNI 被阻断；`publish.mjs` 已改走 api.github.com，若仍失败检查 `gh auth token` |

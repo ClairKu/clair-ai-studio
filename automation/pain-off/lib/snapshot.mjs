@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import { createClient } from "./gitlab.mjs";
 import { foldDemands, summarize, diffSnapshots } from "./compute.mjs";
+import { attachTickets } from "./jira.mjs";
 
 /** 需求在公网上的稳定 id：项目+分支的哈希，既能跨次比对，又不泄露仓库和分支名。 */
 export function publicDemandId(key) {
@@ -49,12 +50,33 @@ export async function buildSnapshot({
   const summary = summarize(demandsByPerson, roster);
   const delta = diffSnapshots(previousSnapshot?._detail || previousSnapshot, { demands: allDemands });
 
+  const ticketLookup = await attachTickets(allDemands, { rules, token: process.env[rules.jira.token_env] });
+  const policy = rules.publish_policy;
+  // internal_only 时一条链接都不发；公开页面上的追溯模块会只剩计数与日期。
+  const linksPublic = policy.link_exposure === "public";
+
   const publicDemands = allDemands.map((demand) => ({
     id: publicDemandId(demand.key),
     person_id: demand.person_id,
     submitted_at: demand.submitted_at,
     released_at: demand.released_at,
     status: demand.status,
+    links: {
+      // MR 标题永远不发——它才是最可能夹带内部信息的部分，只留在本机 detail.json。
+      merge_requests: linksPublic && policy.publish_mr_links
+        ? demand.mrs.map((mr) => ({
+            iid: mr.iid,
+            url: mr.url,
+            target_branch: mr.target_branch,
+            state: mr.state,
+            merged_at: mr.merged_at,
+            is_release: mr.is_release,
+          }))
+        : [],
+      release_mr_url: linksPublic && policy.publish_mr_links ? demand.release_mr_url : null,
+      demand_tickets: linksPublic && policy.publish_jira_links ? demand.demand_tickets : [],
+      release_tickets: linksPublic && policy.publish_jira_links ? demand.release_tickets : [],
+    },
   }));
 
   const generatedAt = now.toISOString();
@@ -71,6 +93,11 @@ export async function buildSnapshot({
       stale_after_minutes: rules.freshness.stale_after_minutes,
       headline: headline(summary),
       window_start: rules.window.program_start,
+      release_ticket_lookup: ticketLookup,
+      link_exposure: policy.link_exposure,
+      links_note: linksPublic
+        ? "链接只发单号与地址，不发 MR 标题；打开需要内网与相应系统权限。"
+        : "按当前策略不对外发布链接，追溯模块只展示计数与日期。",
     },
     summary: {
       submitted: summary.submitted,
@@ -82,8 +109,9 @@ export async function buildSnapshot({
     people: summary.people.map(({ gitlab_username, ...rest }) => rest),
     demands: publicDemands,
     // 墙上的展示文案始终人工撰写；脚本不把 MR 标题推到公网，只负责给它对上最新状态。
-    records: curated.map((record) => {
-      const matched = record.demand_key ? allDemands.find((d) => d.key === record.demand_key) : null;
+    // demand_key 含仓库与分支名，只在本机用来对状态，不进公开快照。
+    records: curated.map(({ demand_key: demandKey, ...record }) => {
+      const matched = demandKey ? allDemands.find((d) => d.key === demandKey) : null;
       return matched
         ? { ...record, status: matched.status, released_at: matched.released_at || record.released_at || null }
         : record;
@@ -94,6 +122,7 @@ export async function buildSnapshot({
       dedupe: "同一分支先合测试环境、再合生产主干只算 1 个需求。",
       end_to_end: "该 PM 名下至少有 1 个需求已合入生产主干。",
       window: `统计区间自 ${rules.window.program_start.slice(0, 10)} 起累计。`,
+      trace: `每个需求列出它的需求单（${rules.jira.demand_projects.join("/")}）、全部 MR、以及上线单（Jira ${rules.jira.release_project} 发布管控）。`,
     },
   };
 

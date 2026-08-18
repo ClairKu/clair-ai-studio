@@ -168,6 +168,25 @@
       <p class="section-note" id="map-note"></p>
     </section>
 
+    <section class="trace section-shell" id="trace" aria-labelledby="trace-title">
+      <div class="section-heading compact">
+        <div>
+          <p class="eyebrow">TRACE · 链路追溯</p>
+          <h2 id="trace-title">每个需求，从 MR 到上线单</h2>
+        </div>
+        <div class="trace-controls">
+          <div class="chip-row" id="trace-filters" role="group" aria-label="按状态筛选">
+            <button class="chip is-on" type="button" data-trace-filter="all">全部</button>
+            <button class="chip" type="button" data-trace-filter="released">已上线</button>
+            <button class="chip" type="button" data-trace-filter="open">在途</button>
+          </div>
+          <label class="trace-person"><span>按人</span><select id="trace-person" aria-label="按人筛选"></select></label>
+        </div>
+      </div>
+      <div class="trace-list" id="trace-list" aria-live="polite"></div>
+      <p class="section-note" id="trace-note"></p>
+    </section>
+
     <section class="wall section-shell" aria-labelledby="wall-title">
       <div class="section-heading compact">
         <div>

@@ -52,13 +52,21 @@ export function foldDemands(mergeRequests, rules) {
       released_at: released ? earliest(releaseMerges.map((mr) => mr.merged_at)) : null,
       status: released ? "released" : mergedToTest ? "merged" : "building",
       mr_count: mrs.length,
-      // 仅本机保留，不发布到公网（见 rules.publish_policy）
-      _private: {
-        titles: mrs.map((mr) => mr.title),
-        urls: mrs.map((mr) => mr.web_url),
-        target_branches: mrs.map((mr) => mr.target_branch),
-        jira_keys: [...new Set(mrs.flatMap((mr) => extractJiraKeys(`${mr.source_branch} ${mr.title}`)))],
-      },
+      release_mr_url: released ? releaseMerges.sort((a, b) => String(a.merged_at).localeCompare(String(b.merged_at)))[0].web_url : null,
+      jira_keys: [...new Set(mrs.flatMap((mr) => extractJiraKeys(`${mr.source_branch} ${mr.title}`)))],
+      // 每条 MR 的可追溯信息。哪些字段能进公网快照由 rules.publish_policy 决定，不在这里裁剪。
+      mrs: mrs
+        .map((mr) => ({
+          iid: mr.iid,
+          url: mr.web_url,
+          title: mr.title,
+          state: mr.state,
+          target_branch: mr.target_branch,
+          created_at: mr.created_at,
+          merged_at: mr.merged_at || null,
+          is_release: isReleaseMerge(mr, rules),
+        }))
+        .sort((a, b) => String(a.created_at).localeCompare(String(b.created_at))),
     });
   }
 

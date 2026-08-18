@@ -7,6 +7,14 @@
     "token_env": "GIT_ACCESS_TOKEN",
     "token_scope_required": "read_api"
   },
+  "jira": {
+    "$comment": "需求单在 QMRD，上线单在 YR（Release Control）。YR 单的 summary 里直接嵌源需求 key（如 'QMRD-46848 - xxx - 上线'），所以能由需求反查上线单。没有 JIRA_TOKEN 时只生成需求单链接，上线单一栏留空。",
+    "browse_base": "https://jira.yingmi-inc.com/browse",
+    "api_base": "https://jira.yingmi-inc.com/rest/api/2",
+    "token_env": "JIRA_TOKEN",
+    "demand_projects": ["QMRD"],
+    "release_project": "YR"
+  },
   "window": {
     "program_start": "2026-07-01T00:00:00+08:00",
     "$comment": "产品团队开始端到端自研的起算日。早于此日的 MR 不计入累计。"
@@ -41,12 +49,12 @@
     "rule": "该成员名下 released 需求数 >= 1"
   },
   "publish_policy": {
-    "$comment": "看板是公网可访问的，MR 原文可能含内部信息。",
+    "$comment": "看板是公网可访问的。link_exposure=public 意味着 MR 地址（含 git.frontnode.net 与仓库路径）和 Jira 单号会出现在公开页面上——链接本身要内网+登录才打得开，但地址是公开的。改成 internal_only 就一条链接都不发，追溯模块只剩计数与日期。MR 标题任何时候都不发，scripts/validate-product-demand-pulse.mjs 会挡。",
+    "link_exposure": "public",
     "publish_aggregates": true,
     "publish_person_level_counts": true,
-    "publish_mr_titles": false,
-    "publish_mr_urls": false,
-    "publish_project_paths": false,
+    "publish_mr_links": true,
+    "publish_jira_links": true,
     "curated_records_source": "data/curated-records.json",
     "curated_note": "墙上展示的文案（public_title / pain_category / public_outcome）继续走人工撰写，脚本只负责计数与状态，不把 MR 标题直接推到公网。"
   },

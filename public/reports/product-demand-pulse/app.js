@@ -39,6 +39,7 @@ const CRITERIA_LABELS = {
   dedupe: "去重",
   end_to_end: "端到端",
   window: "统计区间",
+  trace: "链路追溯",
 };
 
 const $ = (selector) => document.querySelector(selector);
@@ -297,6 +298,101 @@ function renderQuadrants() {
     : "需求类型来自人工登记，未登记类型的需求只计入总数。";
 }
 
+/* ---- 链路追溯：每个需求的 MR 与上线单 ---- */
+
+let traceFilter = "all";
+let tracePerson = "all";
+
+const externalLink = (href, label) =>
+  `<a class="trace-link" href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(label)} ↗</a>`;
+
+function traceLinkGroup(label, links, emptyText) {
+  return `
+    <div class="trace-link-group">
+      <span>${escapeHtml(label)}</span>
+      <div>${links.length ? links.join("") : `<em>${escapeHtml(emptyText)}</em>`}</div>
+    </div>`;
+}
+
+function renderTrace() {
+  const list = $("#trace-list");
+  const note = $("#trace-note");
+  const demands = data.demands || [];
+  const linked = demands.filter((demand) => demand.links);
+
+  const personSelect = $("#trace-person");
+  const previous = personSelect.value;
+  personSelect.innerHTML = [
+    '<option value="all">全部成员</option>',
+    ...(data.people || [])
+      .filter((person) => (person.submitted || 0) > 0)
+      .map((person) => `<option value="${escapeHtml(person.id)}">${escapeHtml(person.display_name)}</option>`),
+  ].join("");
+  personSelect.value = [...personSelect.options].some((option) => option.value === previous) ? previous : "all";
+  tracePerson = personSelect.value;
+
+  if (!linked.length) {
+    list.innerHTML = `
+      <div class="empty-state">
+        当前快照还没有链路数据——它是 GitLab 取数接通前的人工登记版本。<br />
+        下一次内网取数之后，这里会逐条列出每个需求的 MR 与上线单，点了就能跳。
+      </div>`;
+    note.textContent = "";
+    return;
+  }
+
+  const rows = linked
+    .filter((demand) => (traceFilter === "all" ? true : traceFilter === "released" ? demand.status === "released" : demand.status !== "released"))
+    .filter((demand) => tracePerson === "all" || demand.person_id === tracePerson)
+    .sort((a, b) => String(b.released_at || b.submitted_at).localeCompare(String(a.released_at || a.submitted_at)));
+
+  if (!rows.length) {
+    list.innerHTML = '<div class="empty-state">这个筛选下暂时没有需求。</div>';
+  } else {
+    list.innerHTML = rows.map((demand) => {
+      const person = personById(demand.person_id);
+      const links = demand.links || {};
+      const demandTickets = (links.demand_tickets || []).map((ticket) => externalLink(ticket.url, ticket.key));
+      const releaseTickets = (links.release_tickets || []).map((ticket) =>
+        externalLink(ticket.url, ticket.status ? `${ticket.key} · ${ticket.status}` : ticket.key));
+      const mergeRequests = (links.merge_requests || []).map((mr) =>
+        externalLink(mr.url, `!${mr.iid} → ${mr.target_branch}${mr.is_release ? " ✔" : ""}`));
+
+      const heading = links.demand_tickets?.[0]?.key || `需求 ${demand.id.slice(0, 6)}`;
+      const dates = [
+        `提交 ${formatDate(demand.submitted_at)}`,
+        demand.released_at ? `上线 ${formatDate(demand.released_at)}` : "尚未合入生产主干",
+      ].join(" → ");
+
+      return `
+        <article class="trace-row" data-status="${escapeHtml(demand.status)}">
+          <div class="trace-main">
+            <div class="tag-row">
+              <span class="tag trace-status trace-${escapeHtml(demand.status)}">${escapeHtml(STATUS_LABELS[demand.status] || demand.status)}</span>
+              <span class="tag">${escapeHtml(person?.avatar || "✦")} ${escapeHtml(person?.display_name || "未知")}</span>
+            </div>
+            <h3>${escapeHtml(heading)}</h3>
+            <p>${escapeHtml(dates)} · ${(links.merge_requests || []).length} 条 MR</p>
+          </div>
+          <div class="trace-links">
+            ${traceLinkGroup("需求单", demandTickets, "分支名里没带单号")}
+            ${traceLinkGroup("合并请求", mergeRequests, "无")}
+            ${traceLinkGroup("上线单", releaseTickets, demand.status === "released" ? "未登记" : "尚未提交")}
+          </div>
+        </article>`;
+    }).join("");
+  }
+
+  const lookup = data.meta?.release_ticket_lookup;
+  note.textContent = [
+    `共 ${linked.length} 个需求可追溯，当前筛选显示 ${rows.length} 个。`,
+    lookup === "skipped_no_token"
+      ? "上线单未接入：内网取数时没有配置 JIRA_TOKEN，本次只解析了需求单。"
+      : "上线单来自 Jira YR（发布管控）项目，按需求单号反查。",
+    data.meta?.links_note || "链接需要内网与相应系统权限才能打开。",
+  ].filter(Boolean).join(" ");
+}
+
 function renderWall() {
   const target = $("#impact-wall");
   const records = data.records || [];
@@ -374,6 +470,7 @@ function renderAll() {
   renderValue();
   renderWishlist();
   renderQuadrants();
+  renderTrace();
   renderWall();
 }
 
@@ -671,6 +768,13 @@ document.addEventListener("click", (event) => {
   if (starter) return openComposer(starter.dataset.startPm);
   if (event.target.closest("#celebrate-button")) return celebrate();
 
+  const filter = event.target.closest("[data-trace-filter]");
+  if (filter) {
+    traceFilter = filter.dataset.traceFilter;
+    document.querySelectorAll("[data-trace-filter]").forEach((chip) => chip.classList.toggle("is-on", chip === filter));
+    return renderTrace();
+  }
+
   const card = event.target.closest("[data-pending-id]");
   if (!card) return;
   const id = card.dataset.pendingId;
@@ -693,6 +797,11 @@ document.addEventListener("click", (event) => {
 });
 
 document.addEventListener("change", (event) => {
+  if (event.target.id === "trace-person") {
+    tracePerson = event.target.value;
+    return renderTrace();
+  }
+
   const select = event.target.closest("[data-reassign]");
   if (!select) return;
   const card = select.closest("[data-pending-id]");
