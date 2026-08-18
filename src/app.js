@@ -133,6 +133,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "qieman-goal-account-user-value-2026-08-18",
+      groupId: "xiaogu",
+      title: "且慢目标投顾｜有目标，更容易长期在场",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-goal-account-user-value-2026-08-18/",
+      preview: "qieman-goal-account-user-value-2026-08-18.png",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-18T23:56:33.000+08:00",
+      source: "且慢目标账户用户价值数据分析｜基准日 2024-06-28，活跃持仓用户 263,485 人｜有目标账户 61,056 人、无目标账户 202,429 人｜复投率、平均在管天数及 12/24 月留存对比｜观察性分组，仅证明相关关系，不代表净因果效应｜CLAIR 可视化 HTML",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["且慢", "目标账户", "目标投顾", "用户价值", "复投", "留存", "在管时长", "数据分析", "证据边界", "CLAIR", "HTML", "生产"],
+    },
+    {
       id: "yingmi-ai-financial-innovation-public-overview-2026-08-17",
       groupId: "reporting",
       title: "盈米 AI 金融创新与生态合作｜公开信息索引",
@@ -1479,6 +1493,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "qieman-goal-account-user-value-2026-08-18": "data-analysis",
   "auto-follow-requirement-review-2026-08-10": "requirement-review",
   "clair-product-design-reviewer-2026-08-06": "requirement-review",
   "ai-xiaogu-product-experience-2026-07-30": "product-planning",
