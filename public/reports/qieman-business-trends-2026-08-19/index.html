@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>且慢经营走势｜上线以来规模与用户</title>
+<style>
+  :root {
+    --page: #f5faff;
+    --surface: #ffffff;
+    --ink: #0a2e52;
+    --ink2: #3c5c7c;
+    --muted: #7d97ad;
+    --grid: #e4eff9;
+    --axis: #c2d9ec;
+    --border: rgba(10, 46, 82, .12);
+    --brand: #1b88ee;
+    --brand-ink: #0b5192;
+    --soft: #e5f2ff;
+    --s-navy: #0a2e52;
+    --s-deep: #1668b8;
+    --s-brand: #1b88ee;
+    --s-light: #4aa7ff;
+    --anchor: #8ca3b8;
+    --good: #0c7a3e;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--page);
+    color: var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    padding: 30px 20px 60px;
+    line-height: 1.55;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
+
+  header { border-left: 4px solid var(--brand); padding-left: 14px; }
+  header h1 { font-size: 25px; font-weight: 700; margin: 0; letter-spacing: .01em; }
+  header .sub { color: var(--ink2); font-size: 13.5px; margin: 3px 0 0; }
+  .stats { display: flex; gap: 22px; flex-wrap: wrap; margin-top: 10px; }
+  .stat .sl { font-size: 12px; color: var(--muted); }
+  .stat .sv { font-size: 19px; font-weight: 650; color: var(--brand-ink); }
+  .stat .sv small { font-size: 12px; font-weight: 500; color: var(--ink2); margin-left: 1px; }
+  .stat .sd { font-size: 11.5px; color: var(--good); font-weight: 600; }
+
+  .filters { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .filters .flabel { font-size: 12.5px; color: var(--muted); letter-spacing: .05em; }
+  .rangebtn {
+    font: inherit; font-size: 13px; color: var(--ink2);
+    background: var(--surface); border: 1px solid var(--border); border-radius: 999px;
+    padding: 4px 14px; cursor: pointer;
+  }
+  .rangebtn:hover { color: var(--brand-ink); border-color: var(--brand); }
+  .rangebtn[aria-pressed="true"] { color: var(--brand-ink); border-color: var(--brand); background: var(--soft); font-weight: 600; }
+  .rangebtn[aria-pressed="true"]::before { content: "✓ "; font-weight: 700; }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px 18px 14px; }
+  .card .chead { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .card h2 { font-size: 16.5px; font-weight: 700; margin: 0; }
+  .card .unit { font-size: 12.5px; color: var(--muted); }
+  .card .spacer { flex: 1; }
+  .tablebtn {
+    font: inherit; font-size: 12.5px; color: var(--ink2);
+    background: none; border: 1px solid var(--border); border-radius: 6px;
+    padding: 3px 10px; cursor: pointer;
+  }
+  .tablebtn:hover { color: var(--brand-ink); border-color: var(--brand); }
+  .tablebtn[aria-pressed="true"] { color: var(--brand-ink); border-color: var(--brand); background: var(--soft); }
+
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0 6px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 7px;
+    font: inherit; font-size: 13px; color: var(--ink2);
+    background: none; border: 1px solid var(--border); border-radius: 999px;
+    padding: 3.5px 12px; cursor: pointer;
+  }
+  .chip .key { width: 16px; height: 0; border-top: 3px solid; border-radius: 2px; }
+  .chip[aria-pressed="true"] { color: var(--ink); border-color: var(--axis); }
+  .chip[aria-pressed="false"] { opacity: .42; background: var(--page); }
+  .chip:focus-visible, .rangebtn:focus-visible, .tablebtn:focus-visible, .overlay:focus-visible {
+    outline: 2px solid var(--brand); outline-offset: 2px;
+  }
+
+  .plot { position: relative; }
+  .plot svg { display: block; width: 100%; }
+  .plot .overlay { position: absolute; inset: 0; cursor: crosshair; }
+  .gridline { stroke: var(--grid); stroke-width: 1; }
+  .axisline { stroke: var(--axis); stroke-width: 1; }
+  .tick { fill: var(--muted); font-size: 11.5px; font-variant-numeric: tabular-nums; }
+  .endlabel { fill: var(--ink2); font-size: 11.5px; font-weight: 600; }
+  .leader { stroke: var(--axis); stroke-width: 1; }
+
+  .tip {
+    position: absolute; pointer-events: none; z-index: 5; display: none;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(10, 46, 82, .16);
+    padding: 8px 11px; font-size: 12.5px; min-width: 160px;
+  }
+  .tip .tdate { color: var(--muted); font-size: 11.5px; margin-bottom: 4px; font-variant-numeric: tabular-nums; }
+  .tip .trow { display: flex; align-items: center; gap: 7px; margin: 2px 0; }
+  .tip .tkey { width: 12px; height: 0; border-top: 3px solid; border-radius: 2px; flex: none; }
+  .tip .tname { color: var(--ink2); flex: 1; padding-right: 10px; white-space: nowrap; }
+  .tip .tval { font-weight: 650; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .tip .textra { border-top: 1px solid var(--grid); margin-top: 4px; padding-top: 4px; color: var(--brand-ink); }
+
+  .fnote { color: var(--muted); font-size: 12px; margin-top: 8px; }
+
+  .tblwrap { display: none; margin-top: 10px; max-height: 300px; overflow: auto; border: 1px solid var(--border); border-radius: 8px; }
+  .tblwrap.show { display: block; }
+  .tblwrap table { border-collapse: collapse; width: 100%; font-size: 12.5px; }
+  .tblwrap th, .tblwrap td { padding: 5px 12px; text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .tblwrap th { position: sticky; top: 0; background: var(--surface); color: var(--ink2); font-weight: 600; border-bottom: 1px solid var(--axis); }
+  .tblwrap td:first-child, .tblwrap th:first-child { text-align: left; color: var(--ink2); }
+  .tblwrap tr:nth-child(even) td { background: var(--page); }
+
+  .meta { font-size: 13px; color: var(--ink2); }
+  .meta summary { cursor: pointer; font-weight: 650; color: var(--ink); font-size: 14px; }
+  .meta dl { margin: 10px 0 0; }
+  .meta dt { font-weight: 600; color: var(--ink); margin-top: 10px; }
+  .meta dd { margin: 2px 0 0; }
+  .meta code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; background: var(--soft); border-radius: 4px; padding: 0 4px; color: var(--brand-ink); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .chip, .rangebtn, .tablebtn { transition: opacity .15s, border-color .15s, color .15s, background .15s; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>且慢经营走势</h1>
+    <p class="sub">上线以来规模与用户全景 · 数据截至 2026-08-19 · 来源：生产数仓 TiDB（Redash ds41 / ds31，盈米本体查询）· 点击图例开关序列，悬停查看数值</p>
+    <div class="stats">
+      <div class="stat"><div class="sl">基金保有总规模 · 2026-08</div><div class="sv">363.71<small>亿元</small> <span class="sd">+2.6%</span></div></div>
+      <div class="stat"><div class="sl">基金投顾规模 · 2026-08</div><div class="sv">324.53<small>亿元</small> <span class="sd">+2.3%</span></div></div>
+      <div class="stat"><div class="sl">投顾签约人数 · 2026-06 末</div><div class="sv">53.9<small>万人</small> <span class="sd">+1.7%</span></div></div>
+      <div class="stat"><div class="sl">在管用户 · 2026-06 末</div><div class="sv">29.5<small>万人</small> <span class="sd">+1.4%</span></div></div>
+    </div>
+  </header>
+
+  <div class="filters" id="rangeRow" role="group" aria-label="时间范围">
+    <span class="flabel">时间范围</span>
+    <button class="rangebtn" data-years="0" aria-pressed="true">全部</button>
+    <button class="rangebtn" data-years="5" aria-pressed="false">近 5 年</button>
+    <button class="rangebtn" data-years="3" aria-pressed="false">近 3 年</button>
+    <button class="rangebtn" data-years="1" aria-pressed="false">近 1 年</button>
+  </div>
+
+  <section class="card" id="cardScale">
+    <div class="chead">
+      <h2>规模走势</h2><span class="unit">亿元 · 月末时点 · 悬停可见自助基金占比</span>
+      <span class="spacer"></span>
+      <button class="tablebtn" aria-pressed="false">表格</button>
+    </div>
+    <div class="chips"></div>
+    <div class="plot"></div>
+    <div class="tblwrap"></div>
+    <p class="fnote">色深表示口径嵌套：总规模 ⊃ 基金组合 ⊃ 基金投顾；自助基金为总规模中的非组合部分。月度序列为基金持仓市值口径（stat 表，不含盈米宝与在途，约为对外综合 AUM 的 88–92%）；「综合 AUM 口径」为对外管理规模半年度锚点，默认关闭可开启对照。asset4 数仓 2021-07 建立，无更早月度。</p>
+  </section>
+
+  <section class="card" id="cardUsers">
+    <div class="chead">
+      <h2>用户走势</h2><span class="unit">人 · 各序列频率不同</span>
+      <span class="spacer"></span>
+      <button class="tablebtn" aria-pressed="false">表格</button>
+    </div>
+    <div class="chips"></div>
+    <div class="plot"></div>
+    <div class="tblwrap"></div>
+    <p class="fnote">有交易用户为月度（2016-06 起全历史）；投顾签约人数为季度末时点；有资产 / 在管用户为半年度时点（数仓 2023 年前分区不可查）。注意：2026-08 为进行中月份（截至 8-19），当月有交易用户数偏低属正常；2023-09、2025-06 疑为数据补录窗口导致偏低；2020-12 签约人数突增为且慢投顾正式放量节点。</p>
+  </section>
+
+  <details class="meta card">
+    <summary>口径与来源说明</summary>
+    <dl>
+      <dt>基金保有总规模（2021-07 起，月度）</dt>
+      <dd>月度 = <code>stat_ca_asset_summary.amount_sum</code>（broker=0008，基金持仓市值，不含盈米宝/在途）。对外综合 AUM（含在途、盈米宝）半年度锚点：2023-06 = 284.35 → 2026-06 = 400.58 亿。</dd>
+      <dt>自助基金 vs 基金组合分布（2021-07 起，月度）</dt>
+      <dd>同表按 po_code 分类：自助基金 = FUND / QS_FUND；基金组合 = ZH* / SI* / LONG_WIN* / J7 / AP* 等。悬停气泡内附自助基金占比。</dd>
+      <dt>基金投顾业务规模（2021-07 起，月度）</dt>
+      <dd>stat 表 JOIN <code>portfolio_info</code>（portfolio_type='P'，投顾产品 930 个）月末保有；略低于组合口径，差额为非投顾自建组合。</dd>
+      <dt>投顾签约人数（2020-06 起，季度）</dt>
+      <dd>季度末时点有效签约（COUNT DISTINCT account3_id），老协议 <code>ic_protocol_record</code> ∪ 新协议 <code>sign_record</code> 两表 UNION 去重，broker=0008。</dd>
+      <dt>有交易用户数（2016-06 起，月度）</dt>
+      <dd><code>qm_meta.trade_detail</code> 按月 COUNT DISTINCT user_id，canceled=0 且 po_code≠'WALLET'（仅基金申赎，排盈米宝）。</dd>
+      <dt>有资产 / 在管用户数（2023-06 起，半年度）</dt>
+      <dd><code>dwd_app_service_account_profit_combine</code> ROOT 层去重，broker=0008，排 1002 通道户；有资产 = total_asset＞0，在管 = total_asset＞100（在管门槛）。2025-12 在管 290,782 与既有校验值差 0.03%。</dd>
+    </dl>
+  </details>
+</div>
+
+<script>
+(() => {
+"use strict";
+
+// ---------- 数据（盈米本体 2026-08-19 查询，生产数仓） ----------
+const gen = (y, m, stepM, vals) => vals.map((v, i) => {
+  const mm = m - 1 + i * stepM;
+  return { t: Date.UTC(y + Math.floor(mm / 12), mm % 12, 1), v };
+});
+
+const TOTAL = gen(2021, 7, 1, [196.51,201.76,205.12,210.07,216.01,220.45,217.07,221.86,222.89,216.39,227.31,247.93,247.40,247.45,238.93,233.19,248.33,248.47,264.19,256.70,254.73,255.02,256.16,260.06,268.94,263.16,258.33,258.17,258.68,255.49,246.52,258.06,258.56,265.81,262.28,256.30,251.80,251.34,276.52,278.40,272.85,274.86,271.31,283.60,281.40,276.58,284.95,289.72,306.50,315.71,331.57,333.14,326.91,333.40,348.88,346.87,341.71,354.26,358.80,354.58,354.43,363.71]);
+const SELF = gen(2021, 7, 1, [11.22,11.82,12.47,12.88,13.54,14.00,13.99,14.45,14.22,13.52,14.55,15.82,15.76,15.84,15.13,14.79,15.66,15.82,16.87,16.52,17.01,16.70,16.59,16.83,17.54,17.43,17.35,17.49,17.74,17.76,16.84,17.82,18.06,18.75,18.70,18.42,18.10,17.90,19.77,19.81,19.36,19.75,19.62,20.29,20.30,20.07,20.46,20.90,22.29,23.08,23.62,23.89,23.57,24.47,26.44,27.53,26.42,28.38,28.34,28.49,27.66,29.09]);
+const PORT = gen(2021, 7, 1, [185.28,189.94,192.66,197.19,202.47,206.44,203.08,207.41,208.68,202.87,212.76,232.11,231.64,231.61,223.80,218.40,232.67,232.65,247.32,240.17,237.72,238.32,239.57,243.23,251.40,245.73,240.98,240.68,240.94,237.73,229.68,240.24,240.51,247.06,243.58,237.87,233.70,233.44,256.75,258.59,253.49,255.11,251.69,263.31,261.11,256.51,264.49,268.82,284.20,292.63,307.95,309.25,303.35,308.93,322.43,319.34,315.29,325.88,330.46,326.09,326.77,334.62]);
+const ADV = gen(2021, 7, 1, [169.78,175.95,180.72,185.26,190.40,194.65,193.95,198.30,200.17,195.00,204.65,223.58,223.26,223.34,215.83,210.79,224.68,224.72,239.00,232.03,229.66,230.36,231.78,235.43,243.51,238.08,233.66,233.47,233.71,230.63,223.02,233.33,233.49,239.90,236.48,230.97,227.00,226.87,249.66,251.57,246.59,248.08,244.73,256.25,254.13,249.79,257.64,261.77,276.66,284.68,299.34,300.09,293.69,298.33,312.36,309.09,305.55,315.74,320.58,316.20,317.20,324.53]);
+const COMBINE = gen(2023, 6, 6, [284.35,276.76,283.18,308.82,330.83,380.49,400.58]);
+const SIGN = gen(2020, 6, 3, [71,72,72726,124381,149119,185669,230456,246688,262329,275940,287826,316313,337900,357477,370260,387595,404461,420115,448658,471747,484724,511701,509894,529652,538790]);
+const TRADE = gen(2016, 6, 1, [91,2520,2457,1274,1107,1055,965,1406,999,1123,1404,1439,2102,3181,5716,7978,11845,14527,15407,20790,21711,25255,26424,27459,29885,31947,34266,34215,36875,37256,35885,41328,38097,54655,59687,57577,59412,63222,61705,53044,43428,51068,72257,55687,79733,93212,77709,84187,90533,94036,91843,116523,122629,128335,125794,154865,148314,175423,170062,136738,164029,182399,181453,181999,152015,133681,164228,155772,148658,168529,149294,149547,167798,155399,142399,164117,127284,148194,157089,162180,174247,160388,186581,170269,175034,148451,180271,87533,163969,113795,150260,153456,127311,131562,158620,143802,153736,164731,131656,144600,195694,159641,159425,116655,157337,185998,189289,175272,108232,204746,169384,205873,152665,164116,213987,200646,161251,223022,205858,186950,205133,172050,126331]);
+const ASSET = gen(2023, 6, 6, [332830,339889,353333,371004,386851,412720,424089]);
+const MANAGED = gen(2023, 6, 6, [265281,259765,263472,268402,273958,290782,294711]);
+const SELF_BY_T = new Map(SELF.map(p => [p.t, p.v]));
+const PORT_BY_T = new Map(PORT.map(p => [p.t, p.v]));
+
+// ---------- 格式化 ----------
+const fmtYi = v => v.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const fmtRen = v => Math.round(v).toLocaleString("en-US");
+const axisWan = v => v === 0 ? "0" : (v % 10000 === 0 ? (v / 10000) + "万" : (v / 10000).toFixed(1) + "万");
+const axisNum = v => v.toLocaleString("en-US");
+const ymOf = t => { const d = new Date(t); return d.getUTCFullYear() + "-" + String(d.getUTCMonth() + 1).padStart(2, "0"); };
+
+// ---------- 图表引擎 ----------
+let globalYears = 0;
+const charts = [];
+
+function niceTicks(min, max, n) {
+  const span = max - min || 1;
+  const step0 = span / n, mag = Math.pow(10, Math.floor(Math.log10(step0)));
+  const step = [1, 2, 2.5, 5, 10].map(m => m * mag).find(s => span / s <= n) || 10 * mag;
+  const lo = Math.ceil(min / step) * step, out = [];
+  for (let v = lo; v <= max + 1e-9; v += step) out.push(+v.toFixed(6));
+  return out;
+}
+
+function makeChart(cardId, cfg) {
+  const card = document.getElementById(cardId);
+  const chipRow = card.querySelector(".chips");
+  const plot = card.querySelector(".plot");
+  const tblBtn = card.querySelector(".tablebtn");
+  const tblWrap = card.querySelector(".tblwrap");
+  const state = { visible: new Set(cfg.series.filter(s => !s.off).map(s => s.id)), tblOpen: false };
+
+  for (const s of cfg.series) {
+    const b = document.createElement("button");
+    b.className = "chip";
+    b.setAttribute("aria-pressed", String(state.visible.has(s.id)));
+    const key = document.createElement("span");
+    key.className = "key";
+    key.style.borderTopColor = `var(${s.color})`;
+    if (s.dashed) key.style.borderTopStyle = "dashed";
+    b.appendChild(key);
+    b.appendChild(document.createTextNode(s.name));
+    b.addEventListener("click", () => {
+      if (state.visible.has(s.id)) { if (state.visible.size === 1) return; state.visible.delete(s.id); }
+      else state.visible.add(s.id);
+      b.setAttribute("aria-pressed", String(state.visible.has(s.id)));
+      render();
+    });
+    chipRow.appendChild(b);
+  }
+
+  const tip = document.createElement("div");
+  tip.className = "tip";
+
+  function rangeData(s) {
+    if (!globalYears) return s.data;
+    const cut = Date.UTC(2026 - globalYears, 7, 1);
+    return s.data.filter(p => p.t >= cut);
+  }
+
+  function render() {
+    const W = Math.max(plot.clientWidth, 320), H = 300;
+    const mL = cfg.marginLeft || 46, mR = 112, mT = 14, mB = 26;
+    const iw = W - mL - mR, ih = H - mT - mB;
+    const vis = cfg.series.filter(s => state.visible.has(s.id));
+    const allPts = vis.flatMap(s => rangeData(s));
+    if (!allPts.length) { plot.innerHTML = ""; return; }
+
+    const tMin = Math.min(...allPts.map(p => p.t)), tMax = Math.max(...allPts.map(p => p.t));
+    let vMin = 0;
+    let vMax = Math.max(...allPts.map(p => p.v)) * 1.06;
+    const x = t => mL + (tMax === tMin ? iw / 2 : (t - tMin) / (tMax - tMin) * iw);
+    const y = v => mT + ih - (v - vMin) / (vMax - vMin || 1) * ih;
+
+    let svg = `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="${cfg.aria}">`;
+
+    for (const tv of niceTicks(vMin, vMax, 5)) {
+      svg += `<line class="gridline" x1="${mL}" x2="${W - mR}" y1="${y(tv)}" y2="${y(tv)}"/>`;
+      svg += `<text class="tick" x="${mL - 7}" y="${y(tv) + 4}" text-anchor="end">${cfg.yFmt(tv)}</text>`;
+    }
+    svg += `<line class="axisline" x1="${mL}" x2="${W - mR}" y1="${mT + ih}" y2="${mT + ih}"/>`;
+    const spanM = Math.round((tMax - tMin) / 2592000000);
+    const stepM = spanM > 48 ? 12 : spanM > 24 ? 6 : spanM > 10 ? 3 : 1;
+    const d0 = new Date(tMin);
+    let ty = d0.getUTCFullYear(), tm = d0.getUTCMonth();
+    tm = Math.ceil(tm / stepM) * stepM;
+    for (;;) {
+      const tt = Date.UTC(ty + Math.floor(tm / 12), tm % 12, 1);
+      if (tt > tMax) break;
+      if (tt >= tMin) {
+        const lbl = stepM >= 12 ? String(new Date(tt).getUTCFullYear()) : ymOf(tt);
+        svg += `<text class="tick" x="${x(tt)}" y="${H - 8}" text-anchor="middle">${lbl}</text>`;
+      }
+      tm += stepM;
+    }
+
+    const ends = [];
+    for (const s of vis) {
+      const pts = rangeData(s);
+      if (!pts.length) continue;
+      const d = pts.map((p, i) => (i ? "L" : "M") + x(p.t).toFixed(1) + " " + y(p.v).toFixed(1)).join("");
+      svg += `<path d="${d}" fill="none" stroke="var(${s.color})" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"${s.dashed ? ' stroke-dasharray="5 4"' : ""}/>`;
+      if (s.dots || pts.length < 30) {
+        for (const p of pts) svg += `<circle cx="${x(p.t).toFixed(1)}" cy="${y(p.v).toFixed(1)}" r="4" fill="var(${s.color})" stroke="var(--surface)" stroke-width="2"/>`;
+      }
+      const last = pts[pts.length - 1];
+      ends.push({ s, px: x(last.t), py: y(last.v), txt: (s.short ? s.short + " " : "") + cfg.endFmt(last.v) });
+    }
+    // 端点直标：碰撞时垂直让位并画引导线
+    ends.sort((a, b) => a.py - b.py);
+    let prevY = -99;
+    for (const e of ends) {
+      e.ly = Math.max(e.py, prevY + 14);
+      prevY = e.ly;
+    }
+    const over = ends.length ? ends[ends.length - 1].ly - (mT + ih + 6) : 0;
+    if (over > 0) for (const e of ends) e.ly -= Math.min(over, Math.max(0, e.ly - e.py));
+    for (const e of ends) {
+      svg += `<circle cx="${e.px.toFixed(1)}" cy="${e.py.toFixed(1)}" r="4" fill="var(${e.s.color})" stroke="var(--surface)" stroke-width="2"/>`;
+      if (Math.abs(e.ly - e.py) > 3) svg += `<line class="leader" x1="${e.px + 5}" y1="${e.py.toFixed(1)}" x2="${e.px + 16}" y2="${e.ly.toFixed(1)}"/>`;
+      svg += `<text class="endlabel" x="${e.px + 19}" y="${(e.ly + 4).toFixed(1)}">${e.txt}</text>`;
+    }
+
+    svg += `<line id="xhair" class="axisline" y1="${mT}" y2="${mT + ih}" x1="-9" x2="-9" style="display:none"/>`;
+    svg += `<g id="hdots"></g></svg>`;
+    plot.innerHTML = svg;
+
+    const overlay = document.createElement("div");
+    overlay.className = "overlay";
+    overlay.tabIndex = 0;
+    overlay.setAttribute("aria-label", "按左右方向键在数据点间移动");
+    plot.appendChild(overlay);
+    plot.appendChild(tip);
+
+    const dates = [...new Set(vis.flatMap(s => rangeData(s).map(p => p.t)))].sort((a, b) => a - b);
+    const byDate = new Map(dates.map(t => [t, vis.map(s => {
+      const p = rangeData(s).find(q => q.t === t);
+      return p ? { s, v: p.v } : null;
+    }).filter(Boolean)]));
+    let idx = -1;
+    const svgEl = plot.querySelector("svg"), xh = svgEl.querySelector("#xhair"), hd = svgEl.querySelector("#hdots");
+
+    function showAt(i, clientX) {
+      idx = i;
+      const t = dates[i], px = x(t);
+      xh.setAttribute("x1", px); xh.setAttribute("x2", px); xh.style.display = "";
+      const rows = byDate.get(t);
+      hd.innerHTML = rows.map(r => `<circle cx="${px}" cy="${y(r.v)}" r="4.5" fill="var(${r.s.color})" stroke="var(--surface)" stroke-width="2"/>`).join("");
+      tip.style.display = "block";
+      tip.textContent = "";
+      const dd = document.createElement("div"); dd.className = "tdate"; dd.textContent = ymOf(t); tip.appendChild(dd);
+      for (const r of rows) {
+        const row = document.createElement("div"); row.className = "trow";
+        const k = document.createElement("span"); k.className = "tkey"; k.style.borderTopColor = `var(${r.s.color})`;
+        if (r.s.dashed) k.style.borderTopStyle = "dashed";
+        const nm = document.createElement("span"); nm.className = "tname"; nm.textContent = r.s.name;
+        const vv = document.createElement("span"); vv.className = "tval"; vv.textContent = cfg.fmt(r.v);
+        row.append(k, nm, vv); tip.appendChild(row);
+      }
+      if (cfg.tipExtra) {
+        const ex = cfg.tipExtra(t);
+        if (ex) { const xd = document.createElement("div"); xd.className = "textra"; xd.textContent = ex; tip.appendChild(xd); }
+      }
+      const pr = plot.getBoundingClientRect();
+      const relX = clientX != null ? clientX - pr.left : px * pr.width / W;
+      const tw = tip.offsetWidth;
+      tip.style.left = Math.min(Math.max(relX + 16, 4), pr.width - tw - 4) + "px";
+      tip.style.top = "10px";
+    }
+    function hide() { idx = -1; xh.style.display = "none"; hd.innerHTML = ""; tip.style.display = "none"; }
+
+    overlay.addEventListener("pointermove", ev => {
+      const pr = plot.getBoundingClientRect();
+      const sx = (ev.clientX - pr.left) / pr.width * W;
+      const tt = tMin + Math.min(Math.max((sx - mL) / iw, 0), 1) * (tMax - tMin);
+      let best = 0, bd = Infinity;
+      for (let i = 0; i < dates.length; i++) { const d2 = Math.abs(dates[i] - tt); if (d2 < bd) { bd = d2; best = i; } }
+      showAt(best, ev.clientX);
+    });
+    overlay.addEventListener("pointerleave", hide);
+    overlay.addEventListener("keydown", ev => {
+      if (ev.key === "ArrowRight") { showAt(Math.min((idx < 0 ? dates.length - 1 : idx) + 1, dates.length - 1)); ev.preventDefault(); }
+      else if (ev.key === "ArrowLeft") { showAt(Math.max((idx < 0 ? dates.length - 1 : idx) - 1, 0)); ev.preventDefault(); }
+      else if (ev.key === "Escape") hide();
+    });
+    overlay.addEventListener("focus", () => { if (idx < 0) showAt(dates.length - 1); });
+    overlay.addEventListener("blur", hide);
+
+    renderTable();
+  }
+
+  function renderTable() {
+    if (!state.tblOpen) { tblWrap.classList.remove("show"); return; }
+    tblWrap.classList.add("show");
+    const dates = [...new Set(cfg.series.flatMap(s => rangeData(s).map(p => p.t)))].sort((a, b) => b - a);
+    const head = "<tr><th>时点</th>" + cfg.series.map(s => `<th>${s.name}</th>`).join("") + "</tr>";
+    const rows = dates.map(t => "<tr><td>" + ymOf(t) + "</td>" + cfg.series.map(s => {
+      const p = s.data.find(q => q.t === t);
+      return "<td>" + (p ? cfg.fmt(p.v) : "—") + "</td>";
+    }).join("") + "</tr>").join("");
+    tblWrap.innerHTML = `<table><thead>${head}</thead><tbody>${rows}</tbody></table>`;
+  }
+
+  tblBtn.addEventListener("click", () => {
+    state.tblOpen = !state.tblOpen;
+    tblBtn.setAttribute("aria-pressed", String(state.tblOpen));
+    renderTable();
+  });
+
+  charts.push({ render });
+  if (typeof ResizeObserver !== "undefined") {
+    let tmr; new ResizeObserver(() => { clearTimeout(tmr); tmr = setTimeout(render, 120); }).observe(plot);
+  }
+  render();
+}
+
+// ---------- 两张图（色深 = 且慢蓝家族有序阶） ----------
+makeChart("cardScale", {
+  aria: "且慢基金保有总规模、基金组合、基金投顾规模、自助基金月度走势，含综合AUM半年度锚点",
+  yFmt: axisNum, fmt: v => fmtYi(v) + " 亿", endFmt: v => v.toFixed(1),
+  tipExtra: t => {
+    const s = SELF_BY_T.get(t), p = PORT_BY_T.get(t);
+    return (s != null && p != null) ? "自助基金占比 " + (s / (s + p) * 100).toFixed(2) + "%" : null;
+  },
+  series: [
+    { id: "total", name: "基金保有总规模", short: "总规模", color: "--s-navy", data: TOTAL },
+    { id: "port", name: "基金组合", short: "组合", color: "--s-deep", data: PORT },
+    { id: "adv", name: "基金投顾规模", short: "投顾", color: "--s-brand", data: ADV },
+    { id: "self", name: "自助基金", short: "自助", color: "--s-light", data: SELF },
+    { id: "combine", name: "综合 AUM 口径（半年锚点）", short: "综合AUM", color: "--anchor", data: COMBINE, dots: true, dashed: true, off: true },
+  ],
+});
+
+makeChart("cardUsers", {
+  aria: "且慢投顾签约人数、有资产用户、在管用户、有交易用户走势",
+  yFmt: axisWan, fmt: v => fmtRen(v) + " 人", endFmt: v => (v / 10000).toFixed(1) + "万", marginLeft: 52,
+  series: [
+    { id: "sign", name: "投顾签约人数（季末）", short: "签约", color: "--s-navy", data: SIGN, dots: true },
+    { id: "asset", name: "有资产用户（半年末）", short: "有资产", color: "--s-deep", data: ASSET, dots: true },
+    { id: "managed", name: "在管用户（半年末）", short: "在管", color: "--s-brand", data: MANAGED, dots: true },
+    { id: "trade", name: "有交易用户（月）", short: "有交易", color: "--s-light", data: TRADE },
+  ],
+});
+
+document.getElementById("rangeRow").addEventListener("click", ev => {
+  const b = ev.target.closest(".rangebtn");
+  if (!b) return;
+  globalYears = +b.dataset.years;
+  for (const btn of document.querySelectorAll(".rangebtn")) btn.setAttribute("aria-pressed", String(btn === b));
+  charts.forEach(c => c.render());
+});
+})();
+</script>
+</body>
+</html>

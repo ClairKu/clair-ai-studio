@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="405" viewBox="0 0 720 405">
+  <rect width="720" height="405" fill="#f5faff"/>
+  <rect x="0" y="0" width="720" height="6" fill="#1b88ee"/>
+  <text x="48" y="86" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="38" font-weight="700" fill="#0a2e52">且慢经营走势</text>
+  <text x="48" y="120" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="17" fill="#3c5c7c">上线以来规模与用户全景 · 两图整合 · 图例可切换</text>
+  <text x="48" y="148" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#7d97ad">2016-06 → 2026-08 · 生产数仓 · 盈米本体</text>
+
+  <!-- 规模走势缩影 -->
+  <g transform="translate(48,180)">
+    <rect x="-16" y="-14" width="304" height="182" rx="10" fill="#ffffff" stroke="#d7e7f6"/>
+    <text x="0" y="8" font-family="PingFang SC, sans-serif" font-size="13" font-weight="600" fill="#0a2e52">规模走势（亿元）</text>
+    <polyline points="0,120 24,114 48,110 72,102 96,106 120,98 144,100 168,104 192,96 216,84 240,62 264,50" fill="none" stroke="#0a2e52" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <polyline points="0,128 24,122 48,118 72,112 96,116 120,108 144,110 168,113 192,106 216,94 240,72 264,60" fill="none" stroke="#1668b8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <polyline points="0,134 24,129 48,125 72,119 96,122 120,115 144,117 168,120 192,113 216,101 240,80 264,68" fill="none" stroke="#1b88ee" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <polyline points="0,152 24,151 48,150 72,148 96,149 120,147 144,147 168,146 192,144 216,142 240,139 264,137" fill="none" stroke="#4aa7ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="264" cy="50" r="5" fill="#0a2e52" stroke="#ffffff" stroke-width="2"/>
+    <text x="252" y="36" font-family="PingFang SC, sans-serif" font-size="12" font-weight="600" fill="#3c5c7c">363.7</text>
+  </g>
+
+  <!-- 用户走势缩影 -->
+  <g transform="translate(392,180)">
+    <rect x="-16" y="-14" width="304" height="182" rx="10" fill="#ffffff" stroke="#d7e7f6"/>
+    <text x="0" y="8" font-family="PingFang SC, sans-serif" font-size="13" font-weight="600" fill="#0a2e52">用户走势（人）</text>
+    <polyline points="0,150 22,148 44,120 66,96 88,82 110,72 132,64 154,56 176,50 198,44 220,40 242,36 264,34" fill="none" stroke="#0a2e52" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <g fill="#0a2e52" stroke="#ffffff" stroke-width="2">
+      <circle cx="66" cy="96" r="4.5"/><circle cx="132" cy="64" r="4.5"/><circle cx="198" cy="44" r="4.5"/><circle cx="264" cy="34" r="4.5"/>
+    </g>
+    <polyline points="110,88 154,84 198,78 242,68 264,62" fill="none" stroke="#1668b8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <g fill="#1668b8" stroke="#ffffff" stroke-width="2">
+      <circle cx="110" cy="88" r="4.5"/><circle cx="198" cy="78" r="4.5"/><circle cx="264" cy="62" r="4.5"/>
+    </g>
+    <polyline points="110,110 154,111 198,106 242,100 264,98" fill="none" stroke="#1b88ee" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <g fill="#1b88ee" stroke="#ffffff" stroke-width="2">
+      <circle cx="110" cy="110" r="4.5"/><circle cx="198" cy="106" r="4.5"/><circle cx="264" cy="98" r="4.5"/>
+    </g>
+    <polyline points="0,158 22,157 44,152 66,140 88,128 110,124 132,128 154,125 176,129 198,124 220,127 242,122 264,130" fill="none" stroke="#4aa7ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <text x="48" y="390" font-family="PingFang SC, sans-serif" font-size="13" fill="#7d97ad">数据截至 2026-08-19 · 官方且慢蓝 #1B88EE · CLAIR</text>
+</svg>
