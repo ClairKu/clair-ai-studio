@@ -6,3 +6,4 @@ __pycache__/
 
 # 本机取数明细，不发布
 automation/pain-off/state/
+node_modules
