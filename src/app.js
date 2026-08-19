@@ -133,6 +133,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "qieman-selfservice-vs-advisory-cohorts-2026-08-19",
+      groupId: "xiaogu",
+      title: "且慢用户分层｜纯自助 vs 投顾占比<50% vs 投顾占比≥50% 五维对比",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-selfservice-vs-advisory-cohorts-2026-08-19/",
+      preview: "qieman-selfservice-vs-advisory-cohorts-2026-08-19.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-19T15:40:00.000+08:00",
+      source: "且慢持仓用户按投顾策略持仓占比三分组（0 / <50% / ≥50%）对比五维指标｜覆盖 291,857 户全量（G3 占 94%）｜核心结论：投顾占比越高波动率越低（8.31% vs 19.07%）、回撤越小（11.60% vs 18.25%）、盈利面越广（83.56% vs 78.15%）｜均值收益 G1 最高但右偏长尾+小样本，中位数三组接近且 G2 最高｜统计时点 2026-08-14｜回撤/波动率近120日哈希抽样｜生产数仓 dw-tidb（redash ds41）｜盈米本体取数｜官方且慢蓝 #1B88EE 单色阶梯｜CLAIR 单页 HTML",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["且慢", "用户分层", "自助交易", "投顾策略", "投顾占比", "收益率", "最大回撤", "波动率", "持有时长", "盈利占比", "数据分析", "盈米本体", "且慢蓝", "CLAIR", "HTML", "生产"],
+    },
+    {
       id: "qieman-goal-account-longterm-value-2026-08-19",
       groupId: "xiaogu",
       title: "且慢目标投顾｜目标规划的长期价值：有无目标账户 24 个月对照",
@@ -1647,6 +1661,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "qieman-selfservice-vs-advisory-cohorts-2026-08-19": "data-analysis",
   "qieman-goal-account-longterm-value-2026-08-19": "data-analysis",
   "qieman-advisor-value-ca-compare-2026-08-19": "data-analysis",
   "qieman-dual-account-cohort-comparison-2026-08-19": "data-analysis",

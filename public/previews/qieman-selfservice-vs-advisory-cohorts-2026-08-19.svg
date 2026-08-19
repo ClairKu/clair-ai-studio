@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 405" width="720" height="405" role="img" aria-label="且慢自助 vs 投顾用户五维对比">
+  <rect width="720" height="405" fill="#f7faff"/>
+  <rect x="0" y="0" width="720" height="6" fill="#1b88ee"/>
+  <text x="48" y="64" font-family="system-ui,-apple-system,'PingFang SC',sans-serif" font-size="15" font-weight="700" fill="#1b88ee" letter-spacing="3">且慢用户分层对比</text>
+  <text x="48" y="104" font-family="system-ui,-apple-system,'PingFang SC',sans-serif" font-size="30" font-weight="700" fill="#10233c">自助交易 vs 投顾策略持仓用户</text>
+  <text x="48" y="136" font-family="system-ui,-apple-system,'PingFang SC',sans-serif" font-size="15" fill="#48607e">收益 · 最大回撤 · 波动率 · 持有时长 · 盈利占比 · 覆盖 29.2 万户</text>
+
+  <!-- mini bars: 年化波动率 -->
+  <text x="48" y="188" font-family="system-ui,-apple-system,'PingFang SC',sans-serif" font-size="13" font-weight="600" fill="#48607e">年化波动率（越低越优）</text>
+  <line x1="48" y1="198" x2="48" y2="292" stroke="#c4d4e8"/>
+  <rect x="48" y="202" width="420" height="22" rx="0" fill="#6cb2f0"/>
+  <rect x="464" y="202" width="4" height="22" rx="2" fill="#6cb2f0"/>
+  <text x="480" y="218" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#10233c">19.07%  G1 纯自助</text>
+  <rect x="48" y="234" width="334" height="22" fill="#1b88ee"/>
+  <rect x="378" y="234" width="4" height="22" rx="2" fill="#1b88ee"/>
+  <text x="394" y="250" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#10233c">15.17%  G2 投顾&lt;50%</text>
+  <rect x="48" y="266" width="183" height="22" fill="#0b5192"/>
+  <rect x="227" y="266" width="4" height="22" rx="2" fill="#0b5192"/>
+  <text x="243" y="282" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#0b5192">8.31%  G3 投顾≥50%（不到 G1 一半）</text>
+
+  <!-- profit share chips -->
+  <text x="48" y="330" font-family="system-ui,-apple-system,'PingFang SC',sans-serif" font-size="13" font-weight="600" fill="#48607e">盈利用户占比</text>
+  <g font-family="system-ui,sans-serif" font-size="14" font-weight="600">
+    <rect x="48" y="342" width="150" height="34" rx="17" fill="#ffffff" stroke="#e3ecf7"/>
+    <circle cx="70" cy="359" r="7" fill="#6cb2f0"/>
+    <text x="84" y="364" fill="#10233c">78.15%</text>
+    <rect x="210" y="342" width="150" height="34" rx="17" fill="#ffffff" stroke="#e3ecf7"/>
+    <circle cx="232" cy="359" r="7" fill="#1b88ee"/>
+    <text x="246" y="364" fill="#10233c">80.16%</text>
+    <rect x="372" y="342" width="170" height="34" rx="17" fill="#ffffff" stroke="#e3ecf7"/>
+    <circle cx="394" cy="359" r="7" fill="#0b5192"/>
+    <text x="408" y="364" fill="#0b5192">83.56% ↑</text>
+  </g>
+  <text x="672" y="376" text-anchor="end" font-family="system-ui,sans-serif" font-size="12" fill="#7d90a8">统计时点 2026-08-14 · 盈米本体 × CLAIR</text>
+</svg>
