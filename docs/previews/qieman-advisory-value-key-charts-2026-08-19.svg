@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 405" width="720" height="405" role="img" aria-label="先算得出来的两件事：同一批人换个口径，盈利占比差 43.3pp">
+  <rect width="720" height="405" fill="#EEF2F7"/>
+  <rect x="48" y="40" width="624" height="4" fill="#1B88EE"/>
+  <g font-family="PingFang SC, Hiragino Sans GB, Noto Sans SC, Microsoft YaHei, sans-serif">
+    <text x="48" y="74" font-size="13" letter-spacing="3.4" fill="#64718B">且慢 · 投顾价值度量</text>
+    <text x="48" y="132" font-size="46" font-weight="700" fill="#15283A">先算得出来的两件事</text>
+    <text x="48" y="166" font-size="16" fill="#414C70">口径决定结论 · 中断率是拿得住的第一个证据</text>
+
+    <text x="48" y="212" font-size="12" fill="#64718B">累计 · 在管</text>
+    <rect x="150" y="198" width="385" height="18" rx="3" fill="#1B88EE"/>
+    <text x="545" y="212" font-size="13" font-weight="700" fill="#15283A">80.3%</text>
+
+    <text x="48" y="248" font-size="12" fill="#64718B">累计 · 全量</text>
+    <rect x="150" y="234" width="350" height="18" rx="3" fill="#1B88EE"/>
+    <text x="510" y="248" font-size="13" font-weight="700" fill="#15283A">73.0%</text>
+
+    <text x="48" y="284" font-size="12" fill="#64718B">区间 · 年内</text>
+    <rect x="150" y="270" width="143" height="18" rx="3" fill="#E0672F"/>
+    <text x="303" y="284" font-size="13" font-weight="700" fill="#15283A">29.7%</text>
+
+    <line x1="293" y1="258" x2="500" y2="258" stroke="#8697AC" stroke-width="1" stroke-dasharray="3 3"/>
+    <text x="396" y="252" text-anchor="middle" font-size="11.5" font-weight="700" fill="#414C70">同一批人 · 相差 43.3pp</text>
+
+    <line x1="48" y1="322" x2="672" y2="322" stroke="#C3CCD8" stroke-width="1"/>
+    <text x="48" y="352" font-size="12" fill="#64718B">定投中断率</text>
+    <text x="48" y="380" font-size="26" font-weight="700" fill="#1B88EE">26.8%</text>
+    <text x="150" y="352" font-size="12" fill="#64718B">终止计划的中断原因</text>
+    <text x="150" y="380" font-size="26" font-weight="700" fill="#E0672F">0 条</text>
+    <text x="330" y="352" font-size="12" fill="#64718B">全平台口径，非投顾组口径</text>
+    <text x="330" y="380" font-size="13" fill="#414C70">实测截至 2026-08-19 · 且慢 broker 0008</text>
+  </g>
+</svg>

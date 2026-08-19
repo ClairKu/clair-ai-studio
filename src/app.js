@@ -133,6 +133,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "qieman-advisory-value-key-charts-2026-08-19",
+      groupId: "xiaogu",
+      title: "且慢投顾价值｜先算得出来的两件事（图表版）",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-advisory-value-key-charts-2026-08-19/",
+      preview: "qieman-advisory-value-key-charts-2026-08-19.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-19T11:30:00.000+08:00",
+      source: "且慢投顾价值证明的两张关键图｜实测截至 2026-08-19，全平台口径非投顾组｜图一：同一个盈利用户占比三种口径（累计在管 80.3%、累计全量 73.0%、2026 年内区间 29.7%，同一批 652,953 人相差 43.3pp）｜图二：定投计划状态分布（全量 1,001,102 个计划，中断率 26.8%，termination_cause 全部为 NULL 无法归因）｜含投顾组对照的切分口径（sign_record 542,371 人 / drive_mode DR 184,281）与尚未建成说明｜redash ds31/ds41 + MaxCompute｜CLAIR 可视化 HTML",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["且慢", "投顾价值", "投顾服务", "收益口径", "定投", "中断率", "持有体验", "拿得住", "数据可视化", "图表", "数据分析", "盈米本体", "CLAIR", "HTML", "生产"],
+    },
+    {
       id: "qieman-pension-user-growth-2026-08-19",
       groupId: "xiaogu",
       title: "且慢养老场景｜用户数据与规模增长分析",
@@ -1563,6 +1577,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "qieman-advisory-value-key-charts-2026-08-19": "data-analysis",
   "qieman-multi-account-performance-2026-08-19": "data-analysis",
   "qieman-selffund-vs-advisor-ca-2026-08-19": "data-analysis",
   "qieman-vip-fee-service-results-2026-08-19": "data-analysis",
