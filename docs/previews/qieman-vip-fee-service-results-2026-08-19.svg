@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="405" viewBox="0 0 720 405">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1a2a4f"/>
+      <stop offset="1" stop-color="#2d4a8a"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="405" fill="url(#bg)"/>
+  <text x="48" y="86" font-family="-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="34" font-weight="700" fill="#ffffff">高客 VIP 收费服务</text>
+  <text x="48" y="130" font-family="-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="24" font-weight="600" fill="#ffd479">上线至今成果分析</text>
+  <text x="48" y="168" font-family="-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="14" fill="#c9d4ea">2025-11-19 上线 · 截至 2026-08-19 · 数据源：生产数仓 dw-tidb（redash）</text>
+  <g font-family="-apple-system,'PingFang SC','Microsoft YaHei',sans-serif">
+    <rect x="48" y="208" width="180" height="110" rx="10" fill="#ffffff" opacity="0.10"/>
+    <text x="66" y="248" font-size="13" fill="#c9d4ea">签约客户</text>
+    <text x="66" y="290" font-size="30" font-weight="700" fill="#ffffff">16 户</text>
+    <rect x="246" y="208" width="180" height="110" rx="10" fill="#ffffff" opacity="0.10"/>
+    <text x="264" y="248" font-size="13" fill="#c9d4ea">累计收入</text>
+    <text x="264" y="290" font-size="30" font-weight="700" fill="#ffffff">9.33 万</text>
+    <rect x="444" y="208" width="180" height="110" rx="10" fill="#ffffff" opacity="0.10"/>
+    <text x="462" y="248" font-size="13" fill="#c9d4ea">户均 AUM</text>
+    <text x="462" y="290" font-size="30" font-weight="700" fill="#ffffff">1.77 亿</text>
+  </g>
+  <text x="48" y="366" font-family="-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="12" fill="#8fa1c7">7 个 ECharts 图表 · 订单/收入/AUM/续费/权益 · 用户已脱敏 U01~U16 · CLAIR × 盈米本体</text>
+</svg>

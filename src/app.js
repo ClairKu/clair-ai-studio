@@ -133,6 +133,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "qieman-vip-fee-service-results-2026-08-19",
+      groupId: "xiaogu",
+      title: "且慢高客｜VIP 收费服务上线至今成果分析",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-vip-fee-service-results-2026-08-19/",
+      preview: "qieman-vip-fee-service-results-2026-08-19.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-19T10:40:00.000+08:00",
+      source: "高客 VIP 收费服务成果分析｜2025-11-19 上线至 2026-08-19｜累计 16 户 / 36 笔有效订单 / 收入 9.33 万（v4 年费占 68.6%）｜10 户可关联 AUM 约 17.7 亿、户均 1.77 亿｜年费 17 单均在服务期（最早 2026-11 到期）、次费复购活跃｜服务履约数据缺口（member_service_records 空表）｜生产数仓 dw-tidb（redash ds41）｜用户脱敏 U01~U16｜盈米本体分析 × 7 个 ECharts 图表｜CLAIR 可视化 HTML",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["且慢", "高客", "VIP", "收费服务", "付费会员", "收入", "AUM", "续费", "复购", "数据分析", "盈米本体", "ECharts", "CLAIR", "HTML", "生产"],
+    },
+    {
       id: "qieman-goal-account-value-chart-2026-08-19",
       groupId: "xiaogu",
       title: "且慢目标投顾｜目标的复利（图表版）",
@@ -1507,6 +1521,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "qieman-vip-fee-service-results-2026-08-19": "data-analysis",
   "qieman-goal-account-value-chart-2026-08-19": "data-analysis",
   "qieman-goal-account-user-value-2026-08-18": "data-analysis",
   "auto-follow-requirement-review-2026-08-10": "requirement-review",

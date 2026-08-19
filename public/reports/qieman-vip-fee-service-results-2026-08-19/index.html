@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>高客 VIP 收费服务上线至今成果分析报告</title>
+<script src="https://registry.npmmirror.com/echarts/5.6.0/files/dist/echarts.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: #f5f6fa; color: #2c3e50; line-height: 1.6; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 28px 24px 60px; }
+  header { background: linear-gradient(135deg, #1a2a4f 0%, #2d4a8a 100%); color: #fff; padding: 32px 36px; border-radius: 14px; box-shadow: 0 6px 24px rgba(26,42,79,.18); }
+  header h1 { font-size: 26px; font-weight: 700; letter-spacing: .5px; }
+  header .sub { margin-top: 10px; font-size: 14px; opacity: .88; }
+  header .meta { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 12.5px; opacity: .82; }
+  header .meta b { color: #ffd479; font-weight: 600; }
+  .section { margin-top: 30px; background: #fff; border-radius: 12px; padding: 26px 28px; box-shadow: 0 2px 12px rgba(0,0,0,.05); }
+  .section h2 { font-size: 18px; color: #1a2a4f; border-left: 4px solid #2d4a8a; padding-left: 12px; margin-bottom: 6px; }
+  .section .desc { font-size: 13px; color: #7a8499; margin: 4px 0 18px 16px; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .kpi { background: linear-gradient(135deg, #f0f4ff 0%, #e6ecfb 100%); border-radius: 10px; padding: 18px 18px 16px; border-top: 3px solid #2d4a8a; }
+  .kpi .label { font-size: 12.5px; color: #6b7689; }
+  .kpi .value { font-size: 28px; font-weight: 700; color: #1a2a4f; margin-top: 4px; }
+  .kpi .unit { font-size: 13px; font-weight: 400; color: #6b7689; margin-left: 3px; }
+  .kpi .note { font-size: 11.5px; color: #8a93a8; margin-top: 5px; }
+  .kpi.warn { border-top-color: #e8a13c; background: linear-gradient(135deg, #fff6e9 0%, #fdeccb 100%); }
+  .chart { width: 100%; height: 360px; }
+  .chart.short { height: 300px; }
+  .chart.tall { height: 420px; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; }
+  th, td { padding: 9px 10px; text-align: left; border-bottom: 1px solid #eef1f6; }
+  th { background: #f3f6fc; color: #4a5568; font-weight: 600; font-size: 12.5px; }
+  tr:hover td { background: #fafcff; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .tag { display: inline-block; padding: 1px 8px; border-radius: 4px; font-size: 11.5px; font-weight: 500; }
+  .tag.y { background: #e6f7e9; color: #2e7d32; } .tag.n { background: #fdecea; color: #c62828; }
+  .tag.b { background: #e3f0ff; color: #1565c0; } .tag.g { background: #f0f0f0; color: #616161; }
+  .callout { background: #fff8e7; border: 1px solid #ffe2a3; border-radius: 8px; padding: 14px 16px; margin-top: 14px; font-size: 13px; color: #7a5a1e; }
+  .callout b { color: #a06a00; }
+  .gap { background: #fdecea; border: 1px solid #f5c6c0; border-radius: 8px; padding: 14px 16px; margin-top: 14px; font-size: 13px; color: #8a3b32; }
+  .conclusion { counter-reset: c; }
+  .conclusion .item { display: flex; gap: 12px; margin: 12px 0; padding: 12px 14px; background: #f7f9ff; border-radius: 8px; border-left: 3px solid #2d4a8a; }
+  .conclusion .item::before { counter-increment: c; content: counter(c); flex: 0 0 26px; height: 26px; background: #2d4a8a; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; }
+  .conclusion .item .txt { font-size: 13.5px; }
+  .conclusion .item .txt b { color: #1a2a4f; }
+  footer { margin-top: 30px; font-size: 12px; color: #8a93a8; border-top: 1px solid #e3e8f0; padding-top: 14px; }
+  @media (max-width: 860px){ .kpi-grid{grid-template-columns:repeat(2,1fr)} .row2{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>高客 VIP 收费服务 · 上线至今成果分析报告</h1>
+  <div class="sub">面向高净值（V4+）客群的「VIP 尊享」付费会员 / 单次咨询规划 / 升级补差价服务矩阵</div>
+  <div class="meta">
+    <span>数据口径：<b>有效付费订单</b>（排除测试商品 PD00000021、退款单、已删除）</span>
+    <span>上线时间：<b>2025-11-19</b></span>
+    <span>数据截至：<b>2026-08-19</b>（最新订单 2026-08-10）</span>
+    <span>渠道：<b>且慢 broker=0008</b></span>
+  </div>
+</header>
+
+<!-- 执行摘要 -->
+<div class="section">
+  <h2>执行摘要</h2>
+  <div class="desc">一句话结论：业务处于<b>早期灰度阶段</b>，规模虽小（16 户 / 9.33 万），但客群极为精准（户均 AUM 约 1.77 亿、含 2 名 6 亿+ V5 客户），产品以 v4 年费为主力，续费周期尚未到来，服务履约数据存在明显缺口。</div>
+  <div class="kpi-grid">
+    <div class="kpi"><div class="label">累计付费客户数</div><div class="value">16<span class="unit">户</span></div><div class="note">36 笔有效订单 · 9 个月</div></div>
+    <div class="kpi"><div class="label">累计收费收入</div><div class="value">9.33<span class="unit">万元</span></div><div class="note">0 退款 · 微信+支付宝</div></div>
+    <div class="kpi"><div class="label">付费客户 AUM 合计</div><div class="value">17.7<span class="unit">亿元</span></div><div class="note">10 户可关联资产 · 户均 1.77 亿</div></div>
+    <div class="kpi warn"><div class="label">年费会员到期续费</div><div class="value">0<span class="unit">/10</span></div><div class="note">最早 2026-11 到期 · 续费窗口未开</div></div>
+  </div>
+</div>
+
+<!-- 签约客户数 -->
+<div class="section">
+  <h2>一、签约客户数</h2>
+  <div class="desc">累计有效付费客户 <b>16 户</b>、有效订单 <b>36 笔</b>。2026-07 为单月峰值（6 户 / 4.7 万，占累计收入 50%），与推广动作集中投放吻合；2026-01 / 05 / 06 出现断档。</div>
+  <div id="c1" class="chart"></div>
+  <table>
+    <tr><th>月份</th><th class="num">新增付费客户</th><th class="num">订单数</th><th class="num">当月收入(万)</th></tr>
+    <tr><td>2025-11</td><td class="num">2</td><td class="num">3</td><td class="num">0.88</td></tr>
+    <tr><td>2025-12</td><td class="num">2</td><td class="num">2</td><td class="num">0.51</td></tr>
+    <tr><td>2026-02</td><td class="num">1</td><td class="num">5</td><td class="num">0.55</td></tr>
+    <tr><td>2026-03</td><td class="num">3</td><td class="num">4</td><td class="num">1.60</td></tr>
+    <tr><td>2026-04</td><td class="num">1</td><td class="num">1</td><td class="num">0.40</td></tr>
+    <tr><td>2026-07</td><td class="num">6</td><td class="num">19</td><td class="num">4.70</td></tr>
+    <tr><td>2026-08</td><td class="num">2</td><td class="num">2</td><td class="num">0.69</td></tr>
+  </table>
+</div>
+
+<!-- 收费收入 -->
+<div class="section">
+  <h2>二、收费收入</h2>
+  <div class="desc">累计收入 <b>9.33 万元</b>，0 退款。产品收入结构高度集中：v4 年费（PD00000015）贡献 <b>6.4 万（68.6%）</b>为绝对主力，v4 单次咨询（PD00000016）1.76 万次之。实际成交价普遍低于原价（年费原价 6999 -> 成交均价 3999；单次原价 2999 -> 成交均价 1099），存在促销/折扣。</div>
+  <div class="row2">
+    <div id="c2a" class="chart short"></div>
+    <div id="c2b" class="chart short"></div>
+  </div>
+  <table>
+    <tr><th>产品码</th><th>产品名</th><th>类型</th><th>客群</th><th class="num">订单</th><th class="num">用户</th><th class="num">收入(万)</th><th class="num">成交均价</th><th class="num">原价</th></tr>
+    <tr><td>PD00000015</td><td>VIP尊享年度会员服务</td><td><span class="tag b">年费</span></td><td>v4</td><td class="num">16</td><td class="num">9</td><td class="num">6.40</td><td class="num">3,999</td><td class="num">6,999</td></tr>
+    <tr><td>PD00000016</td><td>VIP尊享单次咨询规划</td><td><span class="tag g">次费</span></td><td>v4</td><td class="num">16</td><td class="num">6</td><td class="num">1.76</td><td class="num">1,099</td><td class="num">2,999</td></tr>
+    <tr><td>PD00000012</td><td>VIP尊享年度会员服务</td><td><span class="tag b">年费</span></td><td>v1~v3</td><td class="num">1</td><td class="num">1</td><td class="num">0.70</td><td class="num">6,999</td><td class="num">-</td></tr>
+    <tr><td>PD00000017</td><td>VIP尊享服务升级</td><td><span class="tag y">补差价</span></td><td>v4</td><td class="num">1</td><td class="num">1</td><td class="num">0.29</td><td class="num">2,900</td><td class="num">2,900</td></tr>
+    <tr><td>PD00000020</td><td>VIP尊享服务升级</td><td><span class="tag y">补差价</span></td><td>v5</td><td class="num">2</td><td class="num">1</td><td class="num">0.18</td><td class="num">900</td><td class="num">900</td></tr>
+  </table>
+  <div class="callout"><b>产品矩阵备注：</b>SKU 共 10 个（PD00000012~21），按客群分层定价--v1~v3 / v4 / v5 各有「年费 6999 / 单次咨询 2999 / 升级补差价」三档。v5 年费（PD18）、v5 单次（PD19）、v1~v3 单次（PD13）、v1~v3 补差（PD14）<b>暂无成交</b>；PD00000021 为 1 元测试商品已下架，已从统计中剔除。</div>
+</div>
+
+<!-- AUM/保有 -->
+<div class="section">
+  <h2>三、AUM / 保有规模</h2>
+  <div class="desc">16 户付费客户中 <b>10 户可关联同路人等级与上月日均资产</b>（6 户为 7-8 月新购、尚未进入同路人等级体系）。可关联 10 户合计 AUM 约 <b>17.7 亿元</b>，户均 1.77 亿--强力印证「高客」定位：含 2 名 V5 客户（6.52 亿 / 6.23 亿）、1 名 V4（1.69 亿）、3 名 V3（约 2.95 亿）。</div>
+  <div class="row2">
+    <div id="c3a" class="chart"></div>
+    <div id="c3b" class="chart"></div>
+  </div>
+  <table>
+    <tr><th>同路人等级</th><th class="num">付费客户数</th><th class="num">合计日均AUM(亿)</th><th class="num">户均AUM(亿)</th><th>客群画像</th></tr>
+    <tr><td><span class="tag b">V5</span></td><td class="num">2</td><td class="num">12.75</td><td class="num">6.37</td><td>超高净值</td></tr>
+    <tr><td><span class="tag b">V4</span></td><td class="num">1</td><td class="num">1.69</td><td class="num">1.69</td><td>高净值</td></tr>
+    <tr><td><span class="tag g">V3</span></td><td class="num">3</td><td class="num">2.95</td><td class="num">0.98</td><td>准高净值</td></tr>
+    <tr><td><span class="tag g">V2</span></td><td class="num">1</td><td class="num">0.23</td><td class="num">0.23</td><td>成长客群</td></tr>
+    <tr><td><span class="tag g">V1</span></td><td class="num">3</td><td class="num">0.006</td><td class="num">0.002</td><td>小额（含近 0 资产户）</td></tr>
+    <tr><td>未关联等级</td><td class="num">6</td><td class="num">-</td><td class="num">-</td><td>7-8 月新购，等级未生效</td></tr>
+  </table>
+  <div class="callout"><b>客群洞察：</b>付费用户虽有 V1/V2 小额户（多为单次咨询低价尝鲜），但<b>收入与 AUM 主要由 V3~V5 高净值客户贡献</b>。产品分层定价（v4 年费 6999）有效触达了高净值客群；但亦存在 V3 客户购买 v4 产品、V5 客户购买 v4 年费等「跨层购买」现象，建议复核产品准入门槛设置。</div>
+</div>
+
+<!-- 续费与流失 -->
+<div class="section">
+  <h2>四、续费与流失</h2>
+  <div class="desc">按服务类型分桶：年费会员 <b>10 户 17 单全部在服务期内（0 单到期）</b>，最早到期日 2026-11-19--<b>续费窗口尚未开启，续费率/流失率暂无法评估</b>；次费（单次咨询）6 户 16 单已全部到期（单次服务正常生命周期），其中存在明显复购。</div>
+  <div id="c4a" class="chart short"></div>
+  <div class="row2">
+    <div>
+      <table>
+        <tr><th>服务类型</th><th class="num">客户</th><th class="num">订单</th><th class="num">收入(万)</th><th class="num">已到期单</th><th class="num">有效单</th></tr>
+        <tr><td><span class="tag b">年费会员</span></td><td class="num">10</td><td class="num">17</td><td class="num">7.10</td><td class="num"><span class="tag y">0</span></td><td class="num">17</td></tr>
+        <tr><td><span class="tag g">单次咨询</span></td><td class="num">6</td><td class="num">16</td><td class="num">1.76</td><td class="num"><span class="tag n">16</span></td><td class="num">0</td></tr>
+        <tr><td><span class="tag y">升级补差</span></td><td class="num">2</td><td class="num">3</td><td class="num">0.47</td><td class="num">0</td><td class="num">3</td></tr>
+      </table>
+    </div>
+    <div>
+      <div style="font-size:13px;color:#4a5568;margin-bottom:6px;">复购排行（按累计订单数）</div>
+      <table>
+        <tr><th>客户</th><th class="num">订单数</th><th class="num">累计消费(万)</th><th>购买产品</th></tr>
+        <tr><td>U01</td><td class="num">8</td><td class="num">2.91</td><td>v4年费 + v4单次</td></tr>
+        <tr><td>U02</td><td class="num">7</td><td class="num">0.77</td><td>v4单次×7</td></tr>
+        <tr><td>U03</td><td class="num">5</td><td class="num">0.55</td><td>v4单次×5</td></tr>
+        <tr><td>U04</td><td class="num">2</td><td class="num">0.80</td><td>v4年费</td></tr>
+        <tr><td>U05</td><td class="num">2</td><td class="num">0.40</td><td>v4单次+补差</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="callout"><b>复购洞察：</b>次费服务复购活跃--3 名客户分别购买 8 / 7 / 5 次，说明单次咨询规划服务对高客有持续吸引力，是潜在的「体验->年费转化」漏斗入口；但亦有 2 户单次服务到期后未复购（1 月、8 月到期），需关注未复购原因。</div>
+</div>
+
+<!-- 服务使用 -->
+<div class="section">
+  <h2>五、服务使用情况</h2>
+  <div class="desc">本维度为本次分析的主要<b>数据缺口</b>。顾问交付记录表 <code>member_service_records</code> 全表 0 行（顾问服务未系统化落库）；同路人权益领取表 <code>companion_vip_privilege_claim_record</code> 有 9 条记录，但经核验<b>全部为「同路人等级支付抵扣券」</b>（V2/V3 权益，2~3 元面值，按月领取），属同路人等级体系，<b>非付费会员专属权益</b>。</div>
+  <div class="row2">
+    <div id="c5a" class="chart short"></div>
+    <div style="display:flex;flex-direction:column;justify-content:center;">
+      <div class="gap"><b>⚠ 服务履约数据缺口</b><br><br>
+        <b>1. 顾问交付未落库：</b><code>member_service_records</code> 全表 0 行，36 笔付费订单对应的顾问 1v1 服务交付未在数仓留痕（可能在 SCRM 侧或未系统化记录）。<br><br>
+        <b>2. 付费会员权益未镜像：</b>付费 VIP 会员（vip-member）的权益领取 / 服务消费真源在 <b>demeter 业务库</b>（启明 Demeter 后端），数仓未充分镜像；当前 prod-db-query 未对该用户灰度，无法直查 demeter 库。<br><br>
+        <b>3. 影响范围：</b>无法评估「付费客户实际享受了几次咨询、哪些专属权益、服务满意度」--即难以度量服务履约成效。
+      </div>
+    </div>
+  </div>
+  <div class="callout"><b>建议补数路径：</b>① 通过 demeter 实时接口 <code>doQueryMemberService</code> 查付费会员当前服务状态/权益消费；② 若需批量分析，申请 demeter 业务库只读权限或推动其核心表（会员服务消费/权益领取）镜像至数仓；③ 顾问 1v1 交付记录应落 <code>member_service_records</code>，建议补齐该写入链路。</div>
+</div>
+
+<!-- 关键结论 -->
+<div class="section">
+  <h2>六、关键结论与建议</h2>
+  <div class="conclusion">
+    <div class="item"><div class="txt"><b>业务处于早期灰度，规模待放量。</b>9 个月仅 16 户 / 9.33 万收入，量级极小，尚未进入规模化推广阶段。但 2026-07 单月贡献 50% 收入，说明具备「集中推广->快速转化」的能力，建议复盘 7 月推广动作并复制。</div></div>
+    <div class="item"><div class="txt"><b>「高客」定位精准成立。</b>付费客户户均 AUM 1.77 亿，含 2 名 6 亿+ V5 超高净值客户，AUM 合计 17.7 亿。服务确实触达了目标高净值客群，商业化方向正确。</div></div>
+    <div class="item"><div class="txt"><b>产品以 v4 年费为绝对主力。</b>v4 年费（PD15）贡献 68.6% 收入、9 户客户；v5 年费 / 单次及 v1~v3 单次等 SKU 暂无成交，产品矩阵存在「中间档热销、两端冷清」的结构，建议优化两端定价或下架长尾 SKU。</div></div>
+    <div class="item"><div class="txt"><b>续费周期未到，需提前布防。</b>年费会员最早 2026-11-19 到期，届时才有首批复量续费数据。建议立即建立「到期前 30/15/7 天」续费提醒与顾问触达 SOP，把握首次续费窗口。</div></div>
+    <div class="item"><div class="txt"><b>次费复购活跃，可作转化漏斗。</b>3 名客户复购 5~8 次单次咨询，验证服务粘性；建议将「单次咨询」定位为高客体验入口，设计「单次->年费」升级路径（已有补差价 SKU PD17/20 支撑）。</div></div>
+    <div class="item"><div class="txt"><b>服务履约数据缺口必须补齐。</b>顾问交付未落库、付费会员权益未镜像，导致无法度量服务成效与客户体验，是当前最大的数据盲区。建议优先推动 demeter 核心表入数仓 + <code>member_service_records</code> 写入链路补全。</div></div>
+    <div class="item"><div class="txt"><b>实际成交价低于原价，需审视定价。</b>年费成交均价 3999（原价 6999，约 5.7 折）、单次 1099（原价 2999，约 3.7 折），折扣力度较大。建议梳理折扣规则与促销成本，评估是否需收紧折扣以保护客单价。</div></div>
+  </div>
+</div>
+
+<footer>
+  <b>数据来源：</b>生产数仓 dw-tidb · 经 redash（数据源 ds41）查询 · 因 prod-db-query MCP 对当前用户暂未灰度（403），按本体规范静默走 redash 兜底。<br>
+  <b>核心表：</b>ying99_qieman.member_orders（会员订单）· member_products（会员产品）· companion_vip_current_level（同路人等级+上月日均资产）· companion_vip_privilege_claim_record（同路人权益领取）· member_service_records（顾问交付，空表）。<br>
+  <b>口径说明：</b>有效付费订单 = is_deleted=0 AND broker='0008' AND pay_method NOT LIKE '%REFUND%' AND member_product_code<>'PD00000021'（剔除测试商品）。AUM 取 companion_vip_current_level.last_month_daily_avg_asset（上月日均资产，单位分）=2026-07 月度结算值。<br>
+  <b>用户脱敏：</b>明细客户已以 U01~U16 序号呈现，真实 broker_user_id 不予展示。报告生成时间 2026-08-19。
+</footer>
+
+</div>
+
+<script>
+const C = ['#2d4a8a','#5b8def','#e8a13c','#34c759','#a06a00','#8a93a8','#1a2a4f','#c56b00'];
+
+// 一、月度签约趋势（双轴）
+echarts.init(document.getElementById('c1')).setOption({
+  color: C, tooltip: { trigger: 'axis' }, legend: { data:['新增付费客户(户)','当月收入(万元)'], top: 0 },
+  grid: { left: 50, right: 55, top: 40, bottom: 30 },
+  xAxis: { type: 'category', data: ['2025-11','2025-12','2026-02','2026-03','2026-04','2026-07','2026-08'],
+    axisLabel:{interval:0, rotate:0} },
+  yAxis: [
+    { type: 'value', name: '客户(户)', splitLine:{lineStyle:{color:'#eee'}} },
+    { type: 'value', name: '收入(万)', splitLine:{show:false} }
+  ],
+  series: [
+    { name:'新增付费客户(户)', type:'bar', barWidth:'38%', data:[2,2,1,3,1,6,2], itemStyle:{color:'#5b8def',borderRadius:[4,4,0,0]},
+      label:{show:true,position:'top'} },
+    { name:'当月收入(万元)', type:'line', yAxisIndex:1, data:[0.88,0.51,0.55,1.60,0.40,4.70,0.69], smooth:true,
+      itemStyle:{color:'#e8a13c'}, lineStyle:{width:3}, symbolSize:8,
+      label:{show:true,position:'top',formatter:'{c}'} }
+  ]
+});
+
+// 二-a 月度收入趋势
+echarts.init(document.getElementById('c2a')).setOption({
+  color:C, tooltip:{trigger:'axis'}, grid:{left:45,right:20,top:30,bottom:30},
+  xAxis:{type:'category',data:['25-11','25-12','26-02','26-03','26-04','26-07','26-08'],axisLabel:{interval:0}},
+  yAxis:{type:'value',name:'万元'},
+  series:[{type:'bar',data:[0.88,0.51,0.55,1.60,0.40,4.70,0.69],barWidth:'45%',
+    itemStyle:{color:'#2d4a8a',borderRadius:[4,4,0,0]},label:{show:true,position:'top'}}]
+});
+
+// 二-b 产品收入分布
+echarts.init(document.getElementById('c2b')).setOption({
+  color:C, tooltip:{trigger:'item',formatter:'{b}: {c}万 ({d}%)'},
+  legend:{type:'scroll',orient:'vertical',right:0,top:'middle',textStyle:{fontSize:11}},
+  series:[{ type:'pie', radius:['38%','68%'], center:['38%','50%'],
+    data:[
+      {name:'v4年费 PD15',value:6.40},{name:'v4单次 PD16',value:1.76},
+      {name:'v1~3年费 PD12',value:0.70},{name:'v4补差 PD17',value:0.29},{name:'v5补差 PD20',value:0.18}
+    ],
+    label:{formatter:'{d}%',fontSize:11}
+  }]
+});
+
+// 三-a 等级×人数
+echarts.init(document.getElementById('c3a')).setOption({
+  color:C, tooltip:{trigger:'axis'}, grid:{left:45,right:20,top:30,bottom:30},
+  xAxis:{type:'category',data:['V5','V4','V3','V2','V1'],axisLabel:{interval:0}},
+  yAxis:[{type:'value',name:'客户数'},{type:'value',name:'合计AUM(亿)'}],
+  series:[
+    {name:'付费客户数',type:'bar',barWidth:'40%',data:[2,1,3,1,3],itemStyle:{color:'#5b8def',borderRadius:[4,4,0,0]},label:{show:true,position:'top'}},
+    {name:'合计AUM(亿)',type:'line',yAxisIndex:1,data:[12.75,1.69,2.95,0.23,0.006],smooth:true,itemStyle:{color:'#e8a13c'},lineStyle:{width:3},symbolSize:8}
+  ]
+});
+
+// 三-b 资产量级分布（气泡）
+echarts.init(document.getElementById('c3b')).setOption({
+  color:C, tooltip:{trigger:'item',formatter:p=>`${p.name}<br/>客户数: ${p.value[1]}<br/>户均AUM: ${p.value[0]}亿`},
+  grid:{left:55,right:25,top:30,bottom:40},
+  xAxis:{type:'value',name:'户均AUM(亿)',nameLocation:'middle',nameGap:26},
+  yAxis:{type:'category',data:['V1','V2','V3','V4','V5'],inverse:true,name:'等级'},
+  series:[{type:'scatter',symbolSize:p=>Math.sqrt(p[1])*22+18,data:
+    [[0.002,0,0],[0.23,1,1],[0.98,2,3],[1.69,3,1],[6.37,4,2]].map((d,i)=>({value:d,name:['V1','V2','V3','V4','V5'][i]})),
+    itemStyle:{color:'#2d4a8a',opacity:.75}
+  }]
+});
+
+// 四-a 年费 vs 次费 到期状态
+echarts.init(document.getElementById('c4a')).setOption({
+  color:['#34c759','#e63329'], tooltip:{trigger:'axis'},
+  legend:{data:['有效订单','已到期订单'],top:0},
+  grid:{left:45,right:20,top:40,bottom:30},
+  xAxis:{type:'category',data:['年费会员','单次咨询','升级补差'],axisLabel:{interval:0}},
+  yAxis:{type:'value',name:'订单数'},
+  series:[
+    {name:'有效订单',type:'bar',barWidth:'28%',data:[17,0,3],itemStyle:{color:'#34c759',borderRadius:[4,4,0,0]},label:{show:true,position:'top'}},
+    {name:'已到期订单',type:'bar',barWidth:'28%',data:[0,16,0],itemStyle:{color:'#e63329',borderRadius:[4,4,0,0]},label:{show:true,position:'top'}}
+  ]
+});
+
+// 五-a 权益领取（同路人抵扣券，非付费会员权益）
+echarts.init(document.getElementById('c5a')).setOption({
+  color:C, tooltip:{trigger:'item'},
+  title:{text:'付费客户权益领取记录(9条)',left:'center',top:0,textStyle:{fontSize:13,color:'#666'}},
+  series:[{type:'pie',radius:['40%','65%'],
+    data:[
+      {name:'2473414·V2·月度抵扣券(8次)',value:8},
+      {name:'4468879·V3·月度抵扣券(1次)',value:1}
+    ],
+    label:{formatter:'{b}\n{c}次',fontSize:10}
+  }]
+});
+
+window.addEventListener('resize',()=>document.querySelectorAll('.chart').forEach(d=>{const c=echarts.getInstanceByDom(d);c&&c.resize();}));
+</script>
+</body>
+</html>
