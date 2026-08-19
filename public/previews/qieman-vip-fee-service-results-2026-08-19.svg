@@ -17,8 +17,8 @@
     <text x="264" y="248" font-size="13" fill="#c9d4ea">累计收入</text>
     <text x="264" y="290" font-size="30" font-weight="700" fill="#ffffff">9.33 万</text>
     <rect x="444" y="208" width="180" height="110" rx="10" fill="#ffffff" opacity="0.10"/>
-    <text x="462" y="248" font-size="13" fill="#c9d4ea">户均 AUM</text>
-    <text x="462" y="290" font-size="30" font-weight="700" fill="#ffffff">1.77 亿</text>
+    <text x="462" y="248" font-size="13" fill="#c9d4ea">户均 AUM（修正）</text>
+    <text x="462" y="290" font-size="30" font-weight="700" fill="#ffffff">202 万</text>
   </g>
-  <text x="48" y="366" font-family="-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="12" fill="#8fa1c7">7 个 ECharts 图表 · 订单/收入/AUM/续费/权益 · 用户已脱敏 U01~U16 · CLAIR × 盈米本体</text>
+  <text x="48" y="366" font-family="-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="12" fill="#8fa1c7">AUM 修正版 · 客户清单 · 订单/收入/续费/权益 · 用户已脱敏 U01~U16 · CLAIR × 盈米本体</text>
 </svg>
