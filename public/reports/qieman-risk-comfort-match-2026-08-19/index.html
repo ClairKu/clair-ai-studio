@@ -21,8 +21,6 @@
     --on-low: #0a2e52;
     --on-fit: #ffffff;
     --on-high: #ffffff;
-    --warn-bg: #fdf6e8;
-    --warn-edge: #eda100;
   }
   @media (prefers-color-scheme: dark) {
     :root:where(:not([data-theme="light"])) {
@@ -41,8 +39,6 @@
       --on-low: #0a2e52;
       --on-fit: #ffffff;
       --on-high: #ffffff;
-      --warn-bg: #26200f;
-      --warn-edge: #c98500;
     }
   }
   :root[data-theme="dark"] {
@@ -61,8 +57,6 @@
     --on-low: #0a2e52;
     --on-fit: #ffffff;
     --on-high: #ffffff;
-    --warn-bg: #26200f;
-    --warn-edge: #c98500;
   }
 
   body {
@@ -72,7 +66,7 @@
     line-height: 1.6;
     margin: 0;
   }
-  .wrap { max-width: 980px; margin: 0 auto; padding: 40px 24px 56px; display: flex; flex-direction: column; gap: 28px; }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 40px 24px 56px; display: flex; flex-direction: column; gap: 24px; }
 
   header .eyebrow {
     font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
@@ -85,27 +79,17 @@
   .legend .key { display: inline-flex; align-items: center; gap: 7px; }
   .swatch { width: 12px; height: 12px; border-radius: 3px; flex: none; }
 
-  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
-  .tile {
-    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
-    padding: 16px 18px 14px; display: flex; flex-direction: column; gap: 2px;
-  }
-  .tile .label { font-size: 13px; color: var(--ink-2); }
-  .tile .value { font-size: 30px; font-weight: 650; letter-spacing: -0.01em; line-height: 1.2; color: var(--accent); }
-  .tile .note { font-size: 12px; color: var(--muted); }
-  .tile .note b { color: var(--ink-2); font-weight: 600; }
-
   .card {
-    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
-    padding: 20px 22px 22px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 24px 26px 24px;
   }
-  .card h2 { font-size: 16px; font-weight: 650; margin: 0 0 2px; }
-  .card .desc { font-size: 12.5px; color: var(--muted); margin: 0 0 16px; }
+  .card h2 { font-size: 18px; font-weight: 700; margin: 0 0 4px; letter-spacing: -0.01em; }
+  .card h2 em { font-style: normal; color: var(--accent); }
+  .card .desc { font-size: 13px; color: var(--muted); margin: 0 0 20px; }
+  .card .note { font-size: 12px; color: var(--muted); margin: 18px 0 0; }
 
-  .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; }
-
-  /* 堆叠条:用户规模 */
-  .stack { display: flex; gap: 2px; height: 24px; border-radius: 4px; overflow: hidden; margin: 4px 0 12px; }
+  /* 图1a:用户规模堆叠条 */
+  .stack { display: flex; gap: 2px; height: 26px; border-radius: 4px; overflow: hidden; }
   .stack .seg { position: relative; }
   .stack .seg span {
     position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
@@ -114,46 +98,60 @@
   .stack .seg:nth-child(1) span { color: var(--on-low); }
   .stack .seg:nth-child(2) span { color: var(--on-fit); }
   .stack .seg:nth-child(3) span { color: var(--on-high); }
-  .stack-legend { display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 13px; color: var(--ink-2); }
+  .stack-legend { display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 13px; color: var(--ink-2); margin-top: 10px; }
   .stack-legend .num { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
 
-  /* 指标条形图:每图三行 */
-  .bars { display: flex; flex-direction: column; gap: 11px; }
+  /* 图1b:0–100 风险分刻度带 */
+  .scale { position: relative; height: 108px; margin-top: 30px; }
+  .scale .track { position: absolute; left: 0; right: 0; top: 64px; height: 1px; background: var(--hairline); }
+  .scale .tick { position: absolute; top: 64px; width: 1px; height: 7px; background: var(--hairline); transform: translateX(-0.5px); }
+  .scale .tick-label { position: absolute; top: 76px; transform: translateX(-50%); font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .scale .dot {
+    position: absolute; top: 64px; width: 14px; height: 14px; border-radius: 50%;
+    transform: translate(-50%, -50%); border: 2px solid var(--surface); box-sizing: border-box;
+  }
+  .scale .dot-label { position: absolute; top: 14px; transform: translateX(-50%); text-align: center; font-size: 12px; color: var(--ink-2); line-height: 1.35; white-space: nowrap; }
+  .scale .dot-label b { display: block; color: var(--ink); font-size: 14px; font-variant-numeric: tabular-nums; }
+  .scale .comfort { position: absolute; top: 48px; width: 1px; height: 32px; background: var(--muted); transform: translateX(-0.5px); }
+  .scale .comfort-label { position: absolute; top: 88px; transform: translateX(-50%); font-size: 11px; color: var(--muted); white-space: nowrap; }
+
+  /* 图2:三个指标簇 */
+  .metric { margin-top: 18px; }
+  .metric:first-of-type { margin-top: 0; }
+  .metric h3 { font-size: 13.5px; font-weight: 650; margin: 0 0 3px; }
+  .metric .mdesc { font-size: 12px; color: var(--muted); margin: 0 0 10px; }
+  .bars { display: flex; flex-direction: column; gap: 9px; }
   .row { display: grid; grid-template-columns: 58px 1fr; align-items: center; gap: 12px; }
-  .row .name { font-size: 13px; color: var(--ink-2); text-align: right; }
-  .row .track { display: flex; align-items: center; gap: 9px; min-width: 0; }
-  .bar { height: 20px; border-radius: 0 4px 4px 0; flex: none; transition: opacity 0.15s; }
+  .row .name { font-size: 12.5px; color: var(--ink-2); text-align: right; }
+  .row .track2 { display: flex; align-items: center; gap: 9px; min-width: 0; }
+  .bar { height: 18px; border-radius: 0 4px 4px 0; flex: none; transition: opacity 0.15s; }
   .row:hover .bar { opacity: 0.82; }
   .val { font-size: 13px; font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
   .val small { font-weight: 400; color: var(--muted); font-size: 11.5px; }
-  .chip {
-    font-size: 10.5px; font-weight: 600; letter-spacing: 0.06em; color: var(--ink-2);
-    border: 1px solid var(--hairline); border-radius: 999px; padding: 1px 8px; white-space: nowrap;
-  }
 
-  .insights { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
-  .insight { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
-  .insight .head { font-size: 14px; font-weight: 650; margin: 0 0 6px; }
-  .insight p { font-size: 13px; color: var(--ink-2); margin: 0; }
-
-  .caveat {
-    background: var(--warn-bg); border: 1px solid var(--border); border-left: 3px solid var(--warn-edge);
-    border-radius: 8px; padding: 14px 18px; font-size: 13px; color: var(--ink-2);
-  }
-  .caveat b { color: var(--ink); }
-
+  details { border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
+  summary { cursor: pointer; padding: 14px 20px; font-size: 13.5px; font-weight: 650; color: var(--ink-2); }
+  summary:hover { color: var(--ink); }
+  details[open] summary { border-bottom: 1px solid var(--hairline); }
+  .table-scroll { overflow-x: auto; padding: 6px 20px 16px; }
   table { width: 100%; border-collapse: collapse; font-size: 13px; }
   th, td { padding: 8px 10px; text-align: right; border-bottom: 1px solid var(--hairline); white-space: nowrap; }
   th:first-child, td:first-child { text-align: left; }
   th { color: var(--muted); font-weight: 600; font-size: 12px; }
   td { font-variant-numeric: tabular-nums; color: var(--ink); }
   td:first-child { color: var(--ink-2); }
-  .table-scroll { overflow-x: auto; }
+  tr:last-child td { border-bottom: 0; }
   .best { font-weight: 700; }
 
   .meta { font-size: 12px; color: var(--muted); }
   .meta p { margin: 0 0 6px; max-width: 90ch; }
+  .meta a { color: var(--accent); }
   footer { border-top: 1px solid var(--hairline); padding-top: 16px; }
+
+  @media (max-width: 560px) {
+    .scale .dot-label { font-size: 11px; }
+    .card { padding: 20px 16px; }
+  }
 </style>
 </head>
 <body>
@@ -162,7 +160,7 @@
   <header>
     <p class="eyebrow">且慢 · 晨星 KYP 账户诊断 · 2026-08-15 周频快照</p>
     <h1>持仓风险 × 风险舒适区:三组用户对比</h1>
-    <p class="sub">按「持仓整体晨星风险分是否落在用户自己的风险舒适区区间」将 297,401 名持有资产的且慢用户分为三组,对比其投资收益、盈利体验、持有时长与风险水平。</p>
+    <p class="sub">按「持仓整体晨星风险分是否落在自己的风险舒适区」将 297,401 名持有资产的且慢用户分为三组:配得对的只有约四分之一,但他们的投资结果最好。</p>
   </header>
 
   <div class="legend">
@@ -171,35 +169,13 @@
     <span class="key"><span class="swatch" style="background:var(--g-high)"></span>③ 风险过高(持仓分 &gt; 舒适区上限)</span>
   </div>
 
-  <div class="kpis">
-    <div class="tile">
-      <span class="label">覆盖持仓用户</span>
-      <span class="value">29.74 万</span>
-      <span class="note">诊断 SUCCESS 且持仓风险非空</span>
-    </div>
-    <div class="tile">
-      <span class="label">匹配组资金加权收益率</span>
-      <span class="value">9.50%</span>
-      <span class="note"><b>三组最高</b> · 领先过低组 1.24pp</span>
-    </div>
-    <div class="tile">
-      <span class="label">落在舒适区内的用户占比</span>
-      <span class="value">24.0%</span>
-      <span class="note">仅约 1/4 用户「配得对」</span>
-    </div>
-    <div class="tile">
-      <span class="label">风险过低组占比</span>
-      <span class="value">61.1%</span>
-      <span class="note">多数用户持仓远比自己能承受的保守</span>
-    </div>
-  </div>
-
   <div class="card">
-    <h2>用户规模:六成用户持仓风险低于自己的舒适区</h2>
-    <p class="desc">各组用户数占比(合计 297,401 人)</p>
+    <h2>图 1 · 六成用户把风险配得太保守,落在舒适区内的仅 <em>24.0%</em></h2>
+    <p class="desc">上:三组用户数占比(合计 297,401 人)。下:各组持仓整体晨星风险分在 0–100 刻度上的落点(风险分综合了持仓基金的波动率与回撤,为本报告的风险水平代理指标)。</p>
+
     <div class="stack">
-      <div class="seg" style="width:61.1%; background:var(--g-low)"><span>61.1%</span></div>
-      <div class="seg" style="width:24.0%; background:var(--g-fit)"><span>24.0%</span></div>
+      <div class="seg" style="width:61.1%; background:var(--g-low)"><span>风险过低 61.1%</span></div>
+      <div class="seg" style="width:24.0%; background:var(--g-fit)"><span>匹配 24.0%</span></div>
       <div class="seg" style="width:15.0%; background:var(--g-high)"><span>15.0%</span></div>
     </div>
     <div class="stack-legend">
@@ -207,69 +183,66 @@
       <span>② 匹配 <span class="num">71,300 人</span></span>
       <span>③ 风险过高 <span class="num">44,547 人</span></span>
     </div>
-  </div>
 
-  <div class="grid2">
-    <div class="card">
-      <h2>资金加权收益率</h2>
-      <p class="desc">组内 Σ累计收益 ÷ Σ累计投入</p>
-      <div class="bars">
-        <div class="row"><span class="name">① 过低</span><div class="track"><div class="bar" style="width:74%; background:var(--g-low)"></div><span class="val">8.26%</span></div></div>
-        <div class="row"><span class="name">② 匹配</span><div class="track"><div class="bar" style="width:85%; background:var(--g-fit)"></div><span class="val">9.50% <small>最高</small></span></div></div>
-        <div class="row"><span class="name">③ 过高</span><div class="track"><div class="bar" style="width:72%; background:var(--g-high)"></div><span class="val">8.04%</span></div></div>
-      </div>
+    <div class="scale" role="img" aria-label="三组晨星持仓风险分:过低 20.6,匹配 37.0,过高 67.0;过低组舒适区中枢约 54">
+      <div class="track"></div>
+      <div class="tick" style="left:0%"></div><div class="tick-label" style="left:0%">0</div>
+      <div class="tick" style="left:25%"></div><div class="tick-label" style="left:25%">25</div>
+      <div class="tick" style="left:50%"></div><div class="tick-label" style="left:50%">50</div>
+      <div class="tick" style="left:75%"></div><div class="tick-label" style="left:75%">75</div>
+      <div class="tick" style="left:100%"></div><div class="tick-label" style="left:100%">100</div>
+      <div class="comfort" style="left:54.3%"></div>
+      <div class="comfort-label" style="left:54.3%">过低组舒适区中枢 ≈54</div>
+      <div class="dot-label" style="left:20.6%"><b>20.6</b>① 过低 · LOW</div>
+      <div class="dot" style="left:20.6%; background:var(--g-low)"></div>
+      <div class="dot-label" style="left:37%"><b>37.0</b>② 匹配 · AVERAGE</div>
+      <div class="dot" style="left:37%; background:var(--g-fit)"></div>
+      <div class="dot-label" style="left:67%"><b>67.0</b>③ 过高 · HIGH</div>
+      <div class="dot" style="left:67%; background:var(--g-high)"></div>
     </div>
-    <div class="card">
-      <h2>盈利用户占比</h2>
-      <p class="desc">累计收益 &gt; 0 的用户比例</p>
-      <div class="bars">
-        <div class="row"><span class="name">① 过低</span><div class="track"><div class="bar" style="width:85%; background:var(--g-low)"></div><span class="val">87.10% <small>最高</small></span></div></div>
-        <div class="row"><span class="name">② 匹配</span><div class="track"><div class="bar" style="width:82.6%; background:var(--g-fit)"></div><span class="val">84.67%</span></div></div>
-        <div class="row"><span class="name">③ 过高</span><div class="track"><div class="bar" style="width:69.6%; background:var(--g-high)"></div><span class="val">71.33%</span></div></div>
-      </div>
-    </div>
-    <div class="card">
-      <h2>平均持有时长</h2>
-      <p class="desc">投入加权,天</p>
-      <div class="bars">
-        <div class="row"><span class="name">① 过低</span><div class="track"><div class="bar" style="width:85%; background:var(--g-low)"></div><span class="val">1,373.8 天</span></div></div>
-        <div class="row"><span class="name">② 匹配</span><div class="track"><div class="bar" style="width:84.5%; background:var(--g-fit)"></div><span class="val">1,366.0 天</span></div></div>
-        <div class="row"><span class="name">③ 过高</span><div class="track"><div class="bar" style="width:78.8%; background:var(--g-high)"></div><span class="val">1,274.1 天</span></div></div>
-      </div>
-    </div>
-    <div class="card">
-      <h2>持仓风险水平(波动率/回撤代理)</h2>
-      <p class="desc">晨星持仓风险分,0–100;精确波动率/最大回撤见下方口径限制</p>
-      <div class="bars">
-        <div class="row"><span class="name">① 过低</span><div class="track"><div class="bar" style="width:26.2%; background:var(--g-low)"></div><span class="val">20.6</span><span class="chip">LOW</span></div></div>
-        <div class="row"><span class="name">② 匹配</span><div class="track"><div class="bar" style="width:46.9%; background:var(--g-fit)"></div><span class="val">37.0</span><span class="chip">AVERAGE</span></div></div>
-        <div class="row"><span class="name">③ 过高</span><div class="track"><div class="bar" style="width:85%; background:var(--g-high)"></div><span class="val">67.0</span><span class="chip">HIGH</span></div></div>
-      </div>
-    </div>
-  </div>
 
-  <div class="insights">
-    <div class="insight">
-      <p class="head">「配得对」确实更赚钱</p>
-      <p>匹配组收益率 9.50% 为三组最高。风险过低组盘子最大(投入 538.5 亿)但收益率垫底之一——持仓分仅 20.6,远低于其舒适区中枢(约 54),大量承受力被闲置。</p>
-    </div>
-    <div class="insight">
-      <p class="head">风险过高组盈利体验最差</p>
-      <p>盈利占比 71.3%、收益率 8.04% 双垫底,持有时长也最短(1,274 天)。高波动组合在下行期更易触发赎回「拿不住」;该组中舒适区为 LOW 档的保守用户有 18,794 人,属典型错配。</p>
-    </div>
-    <div class="insight">
-      <p class="head">机会在 61% 的保守错配人群</p>
-      <p>匹配组仅占 24%,61% 用户落在风险过低组。把保守持仓向舒适区中枢再平衡(而非鼓励已过高的第③组加仓),有望在不越界的前提下提升整体收益体验。</p>
-    </div>
-  </div>
-
-  <div class="caveat">
-    <b>⚠ 口径限制:</b>用户级独立的「年化波动率」与「最大回撤率」在 dw-tidb 数仓无现成字段,精算需 MaxCompute 日度净值序列自算(本次 mc-query 缺 ODPS 凭证不可用,redash 三表 join 亦超时)。本报告以<b>晨星持仓风险分 holdingRiskScore</b>(晨星基于持仓基金波动率与回撤加权综合得出,与所求指标同源)作为风险水平代理——能清晰反映三组风险递增,但<b>不是</b>独立的波动率/最大回撤数值;需精确值待 mc-query 凭证恢复后基于日度序列补算。
+    <p class="note">① 组持仓分 20.6,离自己舒适区中枢(≈54)差 30 多分——大量风险承受力被闲置。用户级独立的年化波动率/最大回撤在数仓无现成字段(mc-query 缺 ODPS 凭证待补算),以晨星持仓风险分作代理。</p>
   </div>
 
   <div class="card">
-    <h2>完整数据表</h2>
-    <p class="desc">分组依据:account_diagnosis_risk_statistics(2026-08-15)的 holdingRiskScore vs comfortRange</p>
+    <h2>图 2 · 配得对的更赚钱:匹配组收益率 <em>9.50%</em> 三组最高</h2>
+    <p class="desc">三组的投资结果对比。风险过高组三项全面落后:收益率、盈利占比、持有时长都垫底——"拿不住"的代价。</p>
+
+    <div class="metric">
+      <h3>资金加权收益率</h3>
+      <p class="mdesc">组内 Σ累计收益 ÷ Σ累计投入</p>
+      <div class="bars">
+        <div class="row"><span class="name">① 过低</span><div class="track2"><div class="bar" style="width:74%; background:var(--g-low)"></div><span class="val">8.26%</span></div></div>
+        <div class="row"><span class="name">② 匹配</span><div class="track2"><div class="bar" style="width:85%; background:var(--g-fit)"></div><span class="val">9.50% <small>最高</small></span></div></div>
+        <div class="row"><span class="name">③ 过高</span><div class="track2"><div class="bar" style="width:72%; background:var(--g-high)"></div><span class="val">8.04%</span></div></div>
+      </div>
+    </div>
+
+    <div class="metric">
+      <h3>盈利用户占比</h3>
+      <p class="mdesc">累计收益 &gt; 0 的用户比例</p>
+      <div class="bars">
+        <div class="row"><span class="name">① 过低</span><div class="track2"><div class="bar" style="width:85%; background:var(--g-low)"></div><span class="val">87.10% <small>最高</small></span></div></div>
+        <div class="row"><span class="name">② 匹配</span><div class="track2"><div class="bar" style="width:82.6%; background:var(--g-fit)"></div><span class="val">84.67%</span></div></div>
+        <div class="row"><span class="name">③ 过高</span><div class="track2"><div class="bar" style="width:69.6%; background:var(--g-high)"></div><span class="val">71.33%</span></div></div>
+      </div>
+    </div>
+
+    <div class="metric">
+      <h3>平均持有时长</h3>
+      <p class="mdesc">投入加权,天</p>
+      <div class="bars">
+        <div class="row"><span class="name">① 过低</span><div class="track2"><div class="bar" style="width:85%; background:var(--g-low)"></div><span class="val">1,373.8 天</span></div></div>
+        <div class="row"><span class="name">② 匹配</span><div class="track2"><div class="bar" style="width:84.5%; background:var(--g-fit)"></div><span class="val">1,366.0 天</span></div></div>
+        <div class="row"><span class="name">③ 过高</span><div class="track2"><div class="bar" style="width:78.8%; background:var(--g-high)"></div><span class="val">1,274.1 天</span></div></div>
+      </div>
+    </div>
+
+    <p class="note">机会在 61% 的保守错配人群:把过于保守的持仓向舒适区中枢再平衡(而非鼓励已过高的③组加仓),有望在不越界的前提下提升整体收益体验。③组中舒适区为 LOW 档的保守用户有 18,794 人,属典型错配。</p>
+  </div>
+
+  <details>
+    <summary>完整数据表与口径</summary>
     <div class="table-scroll">
       <table>
         <thead>
@@ -281,17 +254,17 @@
           <tr><td>资金加权收益率</td><td>8.26%</td><td class="best">9.50%</td><td>8.04%</td></tr>
           <tr><td>盈利用户占比</td><td class="best">87.10%</td><td>84.67%</td><td>71.33%</td></tr>
           <tr><td>平均持有时长(投入加权)</td><td>1,373.8 天</td><td>1,366.0 天</td><td>1,274.1 天</td></tr>
-          <tr><td>晨星持仓风险分(代理)</td><td>20.64 · LOW</td><td>36.95 · AVERAGE</td><td>66.98 · HIGH</td></tr>
+          <tr><td>晨星持仓风险分(波动率/回撤代理)</td><td>20.64 · LOW</td><td>36.95 · AVERAGE</td><td>66.98 · HIGH</td></tr>
           <tr><td>累计总收益(亿元)</td><td>44.48</td><td>16.78</td><td>7.38</td></tr>
           <tr><td>累计总投入(亿元)</td><td>538.53</td><td>176.66</td><td>91.72</td></tr>
         </tbody>
       </table>
     </div>
-  </div>
+  </details>
 
   <footer class="meta">
-    <p><b>数据来源与口径</b>:晨星 KYP 账户诊断周频快照 ying99_dp.account_diagnosis_risk_statistics(statistic_date = 2026-08-15,statistic_status = SUCCESS,共 297,401 人,与且慢在管口径约 29.78 万吻合);收益/盈利/时长指标经 ying99_accounts.account(broker = 0008)关联 ying99_asset.dwd_app_service_account_profit_combine_latest(ROOT 口径)组级聚合。查询经 redash(prod-db-query 未灰度,属预期);由盈米本体下钻 73 轮完成。</p>
-    <p>生成于 2026-08-19 · 数据快照 2026-08-15 · 仅供内部分析使用 · <a href="../../" style="color:var(--accent)">Clair 工作台</a></p>
+    <p><b>数据来源与口径</b>:晨星 KYP 账户诊断周频快照 ying99_dp.account_diagnosis_risk_statistics(statistic_date = 2026-08-15,statistic_status = SUCCESS,共 297,401 人,与且慢在管口径约 29.78 万吻合);分组按 holdingRiskScore 对比 comfortRange 上下限;收益/盈利/时长指标经 ying99_accounts.account(broker = 0008)关联 ying99_asset.dwd_app_service_account_profit_combine_latest(ROOT 口径)组级聚合。查询经 redash;由盈米本体下钻 73 轮完成。</p>
+    <p>生成于 2026-08-19 · 数据快照 2026-08-15 · 仅供内部分析使用 · <a href="../../">Clair 工作台</a></p>
   </footer>
 </div>
 </body>
