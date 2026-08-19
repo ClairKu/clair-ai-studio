@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>且慢目标投顾｜目标规划的长期价值</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --qm-anchor: #1b88ee;   /* 官方且慢蓝（logo 采样） */
+    --qm-accent: #0f72cd;   /* 且慢蓝文字强调（加深保对比） */
+    --qm-ink:    #0b5192;   /* 且慢蓝深阶 */
+    --surface: #ffffff;
+    --plane: #f5f9fd;
+    --card: #eaf4fe;
+    --ink: #122b45;
+    --ink-2: #45607d;
+    --muted: #7d93a8;
+    --gray-series: #898781;
+    --grid: #e3edf7;
+    --hairline: rgba(11, 81, 146, 0.12);
+  }
+  body {
+    background: var(--plane);
+    color: var(--ink);
+    font-family: system-ui, -apple-system, "PingFang SC", "Segoe UI", "Microsoft YaHei", sans-serif;
+    line-height: 1.6;
+    padding: 40px 24px 56px;
+  }
+  .page {
+    max-width: 1160px;
+    margin: 0 auto;
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: 14px;
+    padding: 44px 48px 36px;
+  }
+  /* ---------- header ---------- */
+  .hd-title {
+    font-size: 27px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+  .hd-title .accent { color: var(--qm-accent); }
+  .hd-rule {
+    width: 56px; height: 3px; background: var(--qm-anchor);
+    border-radius: 2px; margin: 12px 0 10px;
+  }
+  .hd-sub { font-size: 14px; color: var(--ink-2); max-width: 62em; }
+  /* composition strip */
+  .comp { margin-top: 22px; }
+  .comp-legend {
+    display: flex; flex-wrap: wrap; gap: 8px 28px;
+    font-size: 13px; color: var(--ink-2); margin-bottom: 8px;
+  }
+  .comp-legend b { color: var(--ink); font-weight: 600; }
+  .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 7px; vertical-align: 0; }
+  .dot-blue { background: var(--qm-anchor); }
+  .dot-gray { background: var(--gray-series); }
+  .comp-bar { display: flex; height: 14px; border-radius: 7px; overflow: hidden; }
+  .comp-bar .seg-a { background: var(--qm-anchor); border-right: 2px solid var(--surface); }
+  .comp-bar .seg-b { background: var(--gray-series); }
+  /* ---------- KPI tiles ---------- */
+  .kpis {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    margin-top: 26px;
+  }
+  .kpi {
+    background: var(--card);
+    border-top: 3px solid var(--qm-anchor);
+    border-radius: 0 0 10px 10px;
+    padding: 16px 20px 14px;
+  }
+  .kpi .k-label { font-size: 13px; color: var(--ink-2); }
+  .kpi .k-value { font-size: 34px; font-weight: 700; color: var(--qm-accent); line-height: 1.25; }
+  .kpi .k-value small { font-size: 18px; font-weight: 700; }
+  .kpi .k-note { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  /* ---------- charts area ---------- */
+  .charts {
+    display: grid; grid-template-columns: 1.55fr 1fr; gap: 16px;
+    margin-top: 16px;
+  }
+  .card {
+    border: 1px solid var(--hairline);
+    border-radius: 10px;
+    padding: 18px 20px 14px;
+    background: var(--surface);
+    min-width: 0;
+  }
+  .c-title { font-size: 15px; font-weight: 700; color: var(--ink); }
+  .c-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .c-legend { display: flex; gap: 20px; font-size: 12px; color: var(--ink-2); margin-top: 10px; }
+  .chart-wrap { overflow-x: auto; }
+  svg { display: block; max-width: 100%; height: auto; }
+  .right-col { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  /* horizontal bar rows */
+  .bar-row { margin-top: 12px; }
+  .bar-row .b-label {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-size: 12.5px; color: var(--ink-2); margin-bottom: 4px;
+  }
+  .bar-row .b-value { font-weight: 700; color: var(--ink); font-size: 14px; font-variant-numeric: tabular-nums; }
+  .bar-track { height: 18px; border-radius: 0 4px 4px 0; }
+  .bar-fill-blue { background: var(--qm-anchor); }
+  .bar-fill-gray { background: var(--gray-series); }
+  .b-delta { font-size: 12px; color: var(--qm-accent); font-weight: 600; margin-top: 10px; }
+  /* ---------- insight & footer ---------- */
+  .insight {
+    margin-top: 18px;
+    background: var(--card);
+    border-left: 3px solid var(--qm-anchor);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    font-size: 14px; color: var(--ink);
+  }
+  .insight b { color: var(--qm-accent); }
+  .notes {
+    margin-top: 18px; padding-top: 14px;
+    border-top: 1px solid var(--grid);
+    font-size: 12px; color: var(--muted);
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px 28px;
+  }
+  .notes p { margin: 0; }
+  .notes b { color: var(--ink-2); font-weight: 600; }
+  /* tooltip */
+  #tip {
+    position: fixed; pointer-events: none; z-index: 10;
+    background: #0a2e52; color: #fff;
+    font-size: 12px; line-height: 1.5;
+    padding: 6px 10px; border-radius: 6px;
+    opacity: 0; transition: opacity .12s;
+    max-width: 260px; font-variant-numeric: tabular-nums;
+  }
+  .hit { cursor: default; }
+  @media (max-width: 860px) {
+    .page { padding: 28px 22px; }
+    .kpis, .charts, .notes { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) { #tip { transition: none; } }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <header>
+    <div class="hd-title">做了目标规划的用户，<span class="accent">留得更久、投得更多</span></div>
+    <div class="hd-rule"></div>
+    <div class="hd-sub">
+      以 2024-06-28 为基准日，对当天在平台且持有资产的 <b>263,485</b> 名活跃用户做两组对照——
+      两组用户在基准日都在平台、都有机会创建目标账户，此后跟踪 24 个月。
+    </div>
+    <div class="comp">
+      <div class="comp-legend">
+        <span><i class="dot dot-blue"></i><b>有目标账户</b>&nbsp;61,056 人（23.2%）——设定了财富目标场景或目标年化收益率</span>
+        <span><i class="dot dot-gray"></i><b>无目标账户</b>&nbsp;202,429 人（76.8%）</span>
+      </div>
+      <div class="comp-bar" role="img" aria-label="有目标账户占 23.2%，无目标账户占 76.8%">
+        <div class="seg-a hit" style="width:23.2%" data-tip="有目标账户：61,056 人（23.2%）"></div>
+        <div class="seg-b hit" style="width:76.8%" data-tip="无目标账户：202,429 人（76.8%）"></div>
+      </div>
+    </div>
+  </header>
+
+  <section class="kpis">
+    <div class="kpi">
+      <div class="k-label">留存率差距 · 24 个月后</div>
+      <div class="k-value">+15.6<small>pp</small></div>
+      <div class="k-note">86.12% vs 70.55%，且差距随时间扩大</div>
+    </div>
+    <div class="kpi">
+      <div class="k-label">复投率差距</div>
+      <div class="k-value">+9.0<small>pp</small></div>
+      <div class="k-note">98.57% vs 89.54%</div>
+    </div>
+    <div class="kpi">
+      <div class="k-label">平均在管天数差距</div>
+      <div class="k-value">+212<small> 天</small></div>
+      <div class="k-note">1914.9 天 vs 1702.6 天，约多陪伴 7 个月</div>
+    </div>
+  </section>
+
+  <section class="charts">
+    <div class="card">
+      <div class="c-title">留存率的分化：差距随时间持续扩大</div>
+      <div class="c-sub">基准日在管用户中，到 12 / 24 个月后仍持有资产（AUM&gt;100 元）的占比，分母固定为基准日人数</div>
+      <div class="c-legend">
+        <span><i class="dot dot-blue"></i>有目标账户</span>
+        <span><i class="dot dot-gray"></i>无目标账户</span>
+      </div>
+      <div class="chart-wrap">
+      <svg viewBox="0 0 640 330" width="640" height="330" aria-label="留存率折线图：有目标账户 12 个月 91.86%、24 个月 86.12%；无目标账户 12 个月 81.30%、24 个月 70.55%">
+        <!-- gridlines: y 60..100, y = 24 + (100-v)*6.6 -->
+        <g stroke="#e3edf7" stroke-width="1">
+          <line x1="64" y1="24"  x2="600" y2="24"/>
+          <line x1="64" y1="90"  x2="600" y2="90"/>
+          <line x1="64" y1="156" x2="600" y2="156"/>
+          <line x1="64" y1="222" x2="600" y2="222"/>
+        </g>
+        <line x1="64" y1="288" x2="600" y2="288" stroke="#c2d6e9" stroke-width="1"/>
+        <g font-size="11" fill="#7d93a8" text-anchor="end" style="font-variant-numeric:tabular-nums">
+          <text x="56" y="28">100%</text>
+          <text x="56" y="94">90%</text>
+          <text x="56" y="160">80%</text>
+          <text x="56" y="226">70%</text>
+          <text x="56" y="292">60%</text>
+        </g>
+        <g font-size="12" fill="#45607d" text-anchor="middle">
+          <text x="88"  y="312">基准日 2024-06-28</text>
+          <text x="332" y="312">12 个月后</text>
+          <text x="560" y="312">24 个月后</text>
+        </g>
+        <!-- gap connectors -->
+        <g stroke="#c2d6e9" stroke-width="1">
+          <line x1="332" y1="77.7" x2="332" y2="147.4"/>
+          <line x1="560" y1="115.6" x2="560" y2="218.4"/>
+        </g>
+        <g font-size="12.5" font-weight="700" fill="#0f72cd">
+          <text x="344" y="117">+10.6pp</text>
+          <text x="500" y="172">+15.6pp</text>
+        </g>
+        <!-- gray series: 100 → 81.30 → 70.55 -->
+        <polyline points="88,24 332,147.4 560,218.4" fill="none" stroke="#898781" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+        <!-- blue series: 100 → 91.86 → 86.12 -->
+        <polyline points="88,24 332,77.7 560,115.6" fill="none" stroke="#1b88ee" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+        <!-- markers (white ring 2px) -->
+        <g stroke="#ffffff" stroke-width="2">
+          <circle class="hit" cx="88"  cy="24"    r="4.5" fill="#898781" data-tip="基准日：两组均为 100%（同一起点）"/>
+          <circle class="hit" cx="332" cy="147.4" r="4.5" fill="#898781" data-tip="无目标账户 · 12 个月留存 81.30%"/>
+          <circle class="hit" cx="560" cy="218.4" r="4.5" fill="#898781" data-tip="无目标账户 · 24 个月留存 70.55%"/>
+          <circle class="hit" cx="88"  cy="24"    r="4.5" fill="#1b88ee" data-tip="基准日：两组均为 100%（同一起点）"/>
+          <circle class="hit" cx="332" cy="77.7"  r="4.5" fill="#1b88ee" data-tip="有目标账户 · 12 个月留存 91.86%"/>
+          <circle class="hit" cx="560" cy="115.6" r="4.5" fill="#1b88ee" data-tip="有目标账户 · 24 个月留存 86.12%"/>
+        </g>
+        <!-- direct labels -->
+        <g font-size="12.5" font-weight="700" fill="#122b45" style="font-variant-numeric:tabular-nums">
+          <text x="332" y="64" text-anchor="middle">91.86%</text>
+          <text x="560" y="102" text-anchor="middle">86.12%</text>
+        </g>
+        <g font-size="12.5" fill="#45607d" style="font-variant-numeric:tabular-nums">
+          <text x="332" y="170" text-anchor="middle">81.30%</text>
+          <text x="560" y="241" text-anchor="middle">70.55%</text>
+        </g>
+        <text x="88" y="14" font-size="12" fill="#7d93a8" text-anchor="middle" style="font-variant-numeric:tabular-nums">100%</text>
+      </svg>
+      </div>
+    </div>
+
+    <div class="right-col">
+      <div class="card">
+        <div class="c-title">复投率</div>
+        <div class="c-sub">首投后又发生第二笔申购的用户占比（首投不含盈米宝）</div>
+        <div class="bar-row">
+          <div class="b-label"><span><i class="dot dot-blue"></i>有目标账户</span><span class="b-value">98.57%</span></div>
+          <div class="bar-track bar-fill-blue hit" style="width:98.57%" data-tip="有目标账户复投率 98.57%"></div>
+        </div>
+        <div class="bar-row">
+          <div class="b-label"><span><i class="dot dot-gray"></i>无目标账户</span><span class="b-value">89.54%</span></div>
+          <div class="bar-track bar-fill-gray hit" style="width:89.54%" data-tip="无目标账户复投率 89.54%"></div>
+        </div>
+        <div class="b-delta">差距 +9.0pp：有目标的用户几乎人人再投</div>
+      </div>
+      <div class="card">
+        <div class="c-title">平均在管天数</div>
+        <div class="c-sub">用户累计在管天数的平均值</div>
+        <div class="bar-row">
+          <div class="b-label"><span><i class="dot dot-blue"></i>有目标账户</span><span class="b-value">1914.9 天</span></div>
+          <div class="bar-track bar-fill-blue hit" style="width:100%" data-tip="有目标账户平均在管 1914.9 天（约 5.2 年）"></div>
+        </div>
+        <div class="bar-row">
+          <div class="b-label"><span><i class="dot dot-gray"></i>无目标账户</span><span class="b-value">1702.6 天</span></div>
+          <div class="bar-track bar-fill-gray hit" style="width:88.9%" data-tip="无目标账户平均在管 1702.6 天（约 4.7 年）"></div>
+        </div>
+        <div class="b-delta">差距 +212 天：多陪伴约 7 个月</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="insight">
+    同一天、同一起点、同样的创建机会——<b>设定了投资目标的用户，此后在每个观察点都更愿意留下、更愿意再投、在管更久</b>；
+    且留存差距从 12 个月的 +10.6pp 扩大到 24 个月的 +15.6pp，目标规划的价值随时间持续放大。
+  </div>
+
+  <div class="notes">
+    <p><b>目标账户</b>：在管理账户上设置了明确投资目标，满足任一即算——①财富目标场景（养老、购房、教育、工资管理、生活、其他）；②设定目标年化收益率（如 6%、8%）。用户名下有一个此类账户即归为「有目标账户」组。</p>
+    <p><b>对比人群</b>：基准日 2024-06-28 当天仍在平台且持有资产的活跃用户，共 263,485 人；两组此时都有机会创建目标账户，再观察此后表现。</p>
+    <p><b>留存率（12/24 月）</b>：基准日在管用户中，到 12 / 24 个月后仍持有资产（AUM&gt;100 元）的人数占比，分母固定为基准日人数。<b>复投率</b>：完成首投后又发生第二笔申购的用户占比（首投不含盈米宝）。</p>
+    <p><b>平均持有时长</b>：用户累计在管天数的平均值。本页数据为描述性对照，两组用户画像可能存在自选择差异。</p>
+  </div>
+</div>
+
+<div id="tip" role="tooltip"></div>
+<script>
+  (function () {
+    var tip = document.getElementById('tip');
+    document.querySelectorAll('.hit').forEach(function (el) {
+      el.addEventListener('mousemove', function (e) {
+        tip.textContent = el.getAttribute('data-tip');
+        tip.style.opacity = '1';
+        var x = Math.min(e.clientX + 14, window.innerWidth - tip.offsetWidth - 8);
+        var y = Math.max(e.clientY - tip.offsetHeight - 12, 8);
+        tip.style.left = x + 'px';
+        tip.style.top = y + 'px';
+      });
+      el.addEventListener('mouseleave', function () { tip.style.opacity = '0'; });
+    });
+  })();
+</script>
+</body>
+</html>

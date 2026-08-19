@@ -133,6 +133,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "qieman-goal-account-longterm-value-2026-08-19",
+      groupId: "xiaogu",
+      title: "且慢目标投顾｜目标规划的长期价值：有无目标账户 24 个月对照",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-goal-account-longterm-value-2026-08-19/",
+      preview: "qieman-goal-account-longterm-value-2026-08-19.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-19T21:30:00.000+08:00",
+      source: "基准日 2024-06-28 在管活跃用户 263,485 人两组对照（有目标账户 61,056 / 无目标账户 202,429）｜留存率 12 月 91.86% vs 81.30%（+10.6pp）、24 月 86.12% vs 70.55%（+15.6pp，差距随时间扩大）｜复投率 98.57% vs 89.54%（+9.0pp，首投不含盈米宝）｜平均在管天数 1914.9 vs 1702.6（+212 天）｜目标账户=财富目标场景或目标年化收益率任一｜官方且慢蓝 #1B88EE｜CLAIR 单页图表 HTML",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["且慢", "目标投顾", "目标账户", "目标规划", "留存率", "复投率", "持有时长", "用户分组", "长期价值", "数据分析", "CLAIR", "HTML", "生产"],
+    },
+    {
       id: "qieman-advisor-value-ca-compare-2026-08-19",
       groupId: "xiaogu",
       title: "且慢投顾｜投顾价值透视：投顾策略 CA vs 自助基金交易 CA",
@@ -1633,6 +1647,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "qieman-goal-account-longterm-value-2026-08-19": "data-analysis",
   "qieman-advisor-value-ca-compare-2026-08-19": "data-analysis",
   "qieman-dual-account-cohort-comparison-2026-08-19": "data-analysis",
   "qieman-risk-comfort-match-2026-08-19": "data-analysis",
