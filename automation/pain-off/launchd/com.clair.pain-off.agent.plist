@@ -12,7 +12,7 @@
 
   <key>ProgramArguments</key>
   <array>
-    <string>/usr/local/bin/node</string>
+    <string>/opt/homebrew/bin/node</string>
     <string>/Users/guty/AI/clair-ai-studio/automation/pain-off/agent.mjs</string>
   </array>
 

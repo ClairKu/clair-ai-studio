@@ -87,6 +87,10 @@
 
 ## 搭起来要做的事
 
+> **省事路线**：`bash automation/pain-off/setup.sh` 一条命令交互式跑完下面全部步骤
+> （校验 token → 确认 roster → 试算 → 首发 → 装 launchd → 部署 Worker → 回填 worker_base）。
+> 每步幂等，可反复重跑。下面的手动步骤仅供理解与排障。
+
 ### 0. 前置：GitLab token
 
 在 GitLab → Preferences → Access Tokens 建一个 scope 为 `read_api` 的 token。
