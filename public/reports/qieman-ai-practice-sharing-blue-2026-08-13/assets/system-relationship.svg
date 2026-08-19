@@ -3,36 +3,36 @@
   <desc id="desc">金融数据、工具、MCP、Skills 与 Agent 构成能力资产层；Stargate 管理后台与 YINGMIWORK 盈米工作台构成治理与生产双平台；上层连接 AI 小顾、AI 顾问工作台、AI 官网与 AI 实验室。</desc>
   <defs>
     <linearGradient id="canvas" x1="0" y1="0" x2="1" y2="1">
-      <stop stop-color="#f8faff"/><stop offset="1" stop-color="#eaeef9"/>
+      <stop stop-color="#f8fbff"/><stop offset="1" stop-color="#e7eff8"/>
     </linearGradient>
     <linearGradient id="stargate" x1="0" y1="0" x2="1" y2="1">
-      <stop stop-color="#2c519f"/><stop offset=".58" stop-color="#2d6ae2"/><stop offset="1" stop-color="#538dff"/>
+      <stop stop-color="#1f578c"/><stop offset=".58" stop-color="#1072cd"/><stop offset="1" stop-color="#1e93ff"/>
     </linearGradient>
     <linearGradient id="yingmiwork" x1="0" y1="0" x2="1" y2="1">
       <stop stop-color="#111a33"/><stop offset=".55" stop-color="#192545"/><stop offset="1" stop-color="#273761"/>
     </linearGradient>
     <linearGradient id="asset" x1="0" y1="0" x2="1" y2="1">
-      <stop stop-color="#ffffff"/><stop offset="1" stop-color="#eef4ff"/>
+      <stop stop-color="#ffffff"/><stop offset="1" stop-color="#eaf5ff"/>
     </linearGradient>
     <filter id="shadow" x="-15%" y="-25%" width="130%" height="160%">
-      <feDropShadow dx="0" dy="12" stdDeviation="13" flood-color="#1d3052" flood-opacity=".13"/>
+      <feDropShadow dx="0" dy="12" stdDeviation="13" flood-color="#16324b" flood-opacity=".13"/>
     </filter>
     <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
-      <path d="M0 0L10 5L0 10Z" fill="#2d6ae2"/>
+      <path d="M0 0L10 5L0 10Z" fill="#1072cd"/>
     </marker>
     <style>
       text{font-family:"Songti SC","STSong","SimSun",serif;fill:#171c2d}
-      .layer{font:800 15px/1 "PingFang SC","Microsoft YaHei",sans-serif;letter-spacing:.13em;fill:#2d6ae2}
+      .layer{font:800 15px/1 "PingFang SC","Microsoft YaHei",sans-serif;letter-spacing:.13em;fill:#1072cd}
       .overline{font:800 14px/1 "PingFang SC","Microsoft YaHei",sans-serif;letter-spacing:.1em}
       .appTitle{font-size:28px;font-weight:700}.appBody{font:500 15px/1.45 "PingFang SC","Microsoft YaHei",sans-serif;fill:#697288}
       .coreTitle{font-size:32px;font-weight:700}.coreBody{font:500 15px/1.45 "PingFang SC","Microsoft YaHei",sans-serif}
       .assetTitle{font-size:23px;font-weight:700}.assetBody{font:500 14px/1.45 "PingFang SC","Microsoft YaHei",sans-serif;fill:#626d84}
-      .onDark{fill:#fff}.softOnDark{fill:#dce3f5}.purple{fill:#2d6ae2}.navy{fill:#23365f}
-      .appCard{fill:#fff;stroke:#d2dbed;stroke-width:1.5}.assetCard{fill:url(#asset);stroke:#c7d3ef;stroke-width:1.5}
-      .pillLight{fill:#e6efff;stroke:#cddcf9}.pillDark{fill:#fff;fill-opacity:.1;stroke:#fff;stroke-opacity:.42}
-      .pillText{font:700 13px/1 "PingFang SC","Microsoft YaHei",sans-serif;fill:#2e5298}.pillTextDark{font:700 13px/1 "PingFang SC","Microsoft YaHei",sans-serif;fill:#fff}
-      .assetPill{font:700 12px/1 "PingFang SC","Microsoft YaHei",sans-serif;fill:#3e598c}
-      .bus{fill:none;stroke:#81a5eb;stroke-width:2}.flow{fill:none;stroke:#2d6ae2;stroke-width:2.4;marker-end:url(#arrow)}
+      .onDark{fill:#fff}.softOnDark{fill:#dce3f5}.purple{fill:#1072cd}.navy{fill:#23365f}
+      .appCard{fill:#fff;stroke:#cddceb;stroke-width:1.5}.assetCard{fill:url(#asset);stroke:#c0d6ed;stroke-width:1.5}
+      .pillLight{fill:#e1f0ff;stroke:#c3def8}.pillDark{fill:#fff;fill-opacity:.1;stroke:#fff;stroke-opacity:.42}
+      .pillText{font:700 13px/1 "PingFang SC","Microsoft YaHei",sans-serif;fill:#225788}.pillTextDark{font:700 13px/1 "PingFang SC","Microsoft YaHei",sans-serif;fill:#fff}
+      .assetPill{font:700 12px/1 "PingFang SC","Microsoft YaHei",sans-serif;fill:#335c82}
+      .bus{fill:none;stroke:#67aae7;stroke-width:2}.flow{fill:none;stroke:#1072cd;stroke-width:2.4;marker-end:url(#arrow)}
     </style>
   </defs>
 
@@ -106,8 +106,8 @@
   </g>
 
   <g>
-    <circle cx="800" cy="348" r="27" fill="#fff" stroke="#b7ccf4" stroke-width="2"/>
-    <text x="800" y="357" text-anchor="middle" font-size="27" font-weight="700" fill="#2d6ae2">↔</text>
+    <circle cx="800" cy="348" r="27" fill="#fff" stroke="#abd0f2" stroke-width="2"/>
+    <text x="800" y="357" text-anchor="middle" font-size="27" font-weight="700" fill="#1072cd">↔</text>
   </g>
 
   <text x="80" y="530" class="layer">01 · 能力资产层</text>

@@ -4,30 +4,30 @@
   <defs>
     <linearGradient id="stageOne" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#ffffff"/>
-      <stop offset="1" stop-color="#f1f5ff"/>
+      <stop offset="1" stop-color="#eef7ff"/>
     </linearGradient>
     <linearGradient id="stageTwo" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#f6f8ff"/>
-      <stop offset="1" stop-color="#e4ecff"/>
+      <stop offset="0" stop-color="#f2f9ff"/>
+      <stop offset="1" stop-color="#dceeff"/>
     </linearGradient>
     <linearGradient id="stageThree" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#2859ba"/>
-      <stop offset="1" stop-color="#4a81ef"/>
+      <stop offset="0" stop-color="#1960a2"/>
+      <stop offset="1" stop-color="#0c84f5"/>
     </linearGradient>
     <linearGradient id="flow" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#aac7ff"/>
-      <stop offset="0.52" stop-color="#4f85f1"/>
-      <stop offset="1" stop-color="#275dca"/>
+      <stop offset="0" stop-color="#93cdff"/>
+      <stop offset="0.52" stop-color="#188af5"/>
+      <stop offset="1" stop-color="#1766ae"/>
     </linearGradient>
     <radialGradient id="halo" cx="50%" cy="50%" r="50%">
-      <stop offset="0" stop-color="#3d76e9" stop-opacity="0.2"/>
-      <stop offset="1" stop-color="#3d76e9" stop-opacity="0"/>
+      <stop offset="0" stop-color="#0d7be4" stop-opacity="0.2"/>
+      <stop offset="1" stop-color="#0d7be4" stop-opacity="0"/>
     </radialGradient>
     <filter id="softShadow" x="-30%" y="-30%" width="160%" height="170%">
-      <feDropShadow dx="0" dy="20" stdDeviation="24" flood-color="#1f3668" flood-opacity="0.12"/>
+      <feDropShadow dx="0" dy="20" stdDeviation="24" flood-color="#173a5d" flood-opacity="0.12"/>
     </filter>
     <filter id="deepShadow" x="-30%" y="-30%" width="160%" height="170%">
-      <feDropShadow dx="0" dy="24" stdDeviation="28" flood-color="#193061" flood-opacity="0.26"/>
+      <feDropShadow dx="0" dy="24" stdDeviation="28" flood-color="#113455" flood-opacity="0.26"/>
     </filter>
     <style>
       .serif{font-family:"Songti SC","STSong","Noto Serif CJK SC",serif}
@@ -35,11 +35,11 @@
       .number{font-size:76px;font-weight:800;letter-spacing:-3px}
       .stage{font-size:46px;font-weight:700;fill:#171927}
       .statement{font-size:26px;font-weight:500;fill:#616b80}
-      .chip{font-size:23px;font-weight:650;fill:#3258a3}
+      .chip{font-size:23px;font-weight:650;fill:#245d92}
       .stageLight{fill:#ffffff}
-      .statementLight{fill:#e4edff}
+      .statementLight{fill:#ddeeff}
       .chipLight{fill:#ffffff}
-      .micro{font-size:18px;font-weight:750;letter-spacing:2.8px;fill:#3a73e1}
+      .micro{font-size:18px;font-weight:750;letter-spacing:2.8px;fill:#1479d5}
     </style>
   </defs>
 
@@ -51,35 +51,35 @@
   <!-- Stage 01 -->
   <g transform="translate(54 144)" filter="url(#softShadow)">
     <rect width="454" height="492" rx="34" fill="url(#stageOne)"/>
-    <rect x="1" y="1" width="452" height="490" rx="33" fill="none" stroke="#d2dcf2" stroke-width="2"/>
+    <rect x="1" y="1" width="452" height="490" rx="33" fill="none" stroke="#cadef0" stroke-width="2"/>
     <text x="38" y="72" class="sans micro">01 · INSIDE QIEMAN</text>
-    <text x="38" y="160" class="sans number" fill="#316be1">01</text>
+    <text x="38" y="160" class="sans number" fill="#1173ce">01</text>
     <text x="38" y="225" class="serif stage">走出小顾</text>
     <text x="38" y="274" class="sans statement">化整为零，融入完整用户路径</text>
     <g transform="translate(38 326)">
-      <rect width="112" height="52" rx="26" fill="#e4ecff"/>
+      <rect width="112" height="52" rx="26" fill="#dceeff"/>
       <text x="56" y="34" text-anchor="middle" class="sans chip">首页</text>
-      <rect x="126" width="112" height="52" rx="26" fill="#e4ecff"/>
+      <rect x="126" width="112" height="52" rx="26" fill="#dceeff"/>
       <text x="182" y="34" text-anchor="middle" class="sans chip">持仓</text>
-      <rect y="68" width="112" height="52" rx="26" fill="#e4ecff"/>
+      <rect y="68" width="112" height="52" rx="26" fill="#dceeff"/>
       <text x="56" y="102" text-anchor="middle" class="sans chip">交易</text>
-      <rect x="126" y="68" width="174" height="52" rx="26" fill="#e4ecff"/>
+      <rect x="126" y="68" width="174" height="52" rx="26" fill="#dceeff"/>
       <text x="213" y="102" text-anchor="middle" class="sans chip">消息任务</text>
     </g>
   </g>
 
   <!-- Transition 01 → 02 -->
   <g transform="translate(520 336)">
-    <circle cx="42" cy="42" r="42" fill="#ffffff" stroke="#c4d6f9" stroke-width="2"/>
-    <path d="M24 42h29m-10-10 11 10-11 10" fill="none" stroke="#316be1" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="42" cy="42" r="42" fill="#ffffff" stroke="#b8d9f7" stroke-width="2"/>
+    <path d="M24 42h29m-10-10 11 10-11 10" fill="none" stroke="#1173ce" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
   </g>
 
   <!-- Stage 02 -->
   <g transform="translate(586 96)" filter="url(#softShadow)">
     <rect width="454" height="492" rx="34" fill="url(#stageTwo)"/>
-    <rect x="1" y="1" width="452" height="490" rx="33" fill="none" stroke="#c1d2f3" stroke-width="2"/>
+    <rect x="1" y="1" width="452" height="490" rx="33" fill="none" stroke="#b7d4f1" stroke-width="2"/>
     <text x="38" y="72" class="sans micro">02 · MULTI-CHANNEL</text>
-    <text x="38" y="160" class="sans number" fill="#2a64d8">02</text>
+    <text x="38" y="160" class="sans number" fill="#176cbb">02</text>
     <text x="38" y="225" class="serif stage">走出 APP</text>
     <text x="38" y="274" class="sans statement">进入用户所在的服务终端</text>
     <g transform="translate(38 326)">
@@ -96,8 +96,8 @@
 
   <!-- Transition 02 → 03 -->
   <g transform="translate(1052 288)">
-    <circle cx="42" cy="42" r="42" fill="#ffffff" stroke="#98b8f5" stroke-width="2"/>
-    <path d="M24 42h29m-10-10 11 10-11 10" fill="none" stroke="#275dca" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="42" cy="42" r="42" fill="#ffffff" stroke="#82bdf3" stroke-width="2"/>
+    <path d="M24 42h29m-10-10 11 10-11 10" fill="none" stroke="#1766ae" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
   </g>
 
   <!-- Stage 03 -->

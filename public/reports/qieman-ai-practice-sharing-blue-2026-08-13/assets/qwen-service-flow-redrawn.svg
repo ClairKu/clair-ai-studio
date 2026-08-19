@@ -3,43 +3,43 @@
   <desc id="desc">从发现专业服务、用户授权绑定账号、小顾完成账户分析，到且慢承接后续服务的四步链路。</desc>
   <defs>
     <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#f8faff"/>
-      <stop offset="1" stop-color="#e4edff"/>
+      <stop offset="0" stop-color="#f8fbff"/>
+      <stop offset="1" stop-color="#ddeeff"/>
     </linearGradient>
     <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#285cc2"/>
-      <stop offset="1" stop-color="#5488ef"/>
+      <stop offset="0" stop-color="#1862a7"/>
+      <stop offset="1" stop-color="#1a8df5"/>
     </linearGradient>
     <linearGradient id="darkCard" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#17213a"/>
       <stop offset="1" stop-color="#10182c"/>
     </linearGradient>
     <filter id="shadow" x="-20%" y="-30%" width="140%" height="170%">
-      <feDropShadow dx="0" dy="20" stdDeviation="24" flood-color="#2c4d90" flood-opacity=".12"/>
+      <feDropShadow dx="0" dy="20" stdDeviation="24" flood-color="#215280" flood-opacity=".12"/>
     </filter>
     <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
-      <path d="M1 1L11 6L1 11Z" fill="#2d6ae2"/>
+      <path d="M1 1L11 6L1 11Z" fill="#1072cd"/>
     </marker>
     <style>
       .serif{font-family:"Songti SC","STSong","SimSun",serif}
       .sans{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}
-      .eyebrow{font-size:18px;font-weight:800;letter-spacing:3.6px;fill:#2d6ae2}
+      .eyebrow{font-size:18px;font-weight:800;letter-spacing:3.6px;fill:#1072cd}
       .headline{font-size:54px;font-weight:650;letter-spacing:-1px;fill:#171a27}
       .subtitle{font-size:20px;fill:#687287}
-      .stage-en{font-size:16px;font-weight:800;letter-spacing:2.6px;fill:#2d6ae2}
-      .stage-no{font-size:60px;font-weight:650;fill:#d9e3fa}
+      .stage-en{font-size:16px;font-weight:800;letter-spacing:2.6px;fill:#1072cd}
+      .stage-no{font-size:60px;font-weight:650;fill:#d2e6f9}
       .card-title{font-size:29px;font-weight:650;fill:#171a27}
       .body{font-size:18px;fill:#687287}
-      .pill{font-size:15px;font-weight:700;fill:#2c4d90}
-      .arrow-label{font-size:14px;font-weight:800;letter-spacing:1.5px;fill:#2d6ae2}
-      .on-dark{fill:#fff}.on-dark-muted{fill:#b9c2d5}.on-dark-soft{fill:#b2cdff}
+      .pill{font-size:15px;font-weight:700;fill:#215280}
+      .arrow-label{font-size:14px;font-weight:800;letter-spacing:1.5px;fill:#1072cd}
+      .on-dark{fill:#fff}.on-dark-muted{fill:#b9c2d5}.on-dark-soft{fill:#9fd2ff}
     </style>
   </defs>
 
   <rect width="1600" height="900" rx="36" fill="url(#paper)"/>
   <circle cx="1490" cy="16" r="245" fill="#fff" opacity=".52"/>
-  <circle cx="1510" cy="40" r="152" fill="none" stroke="#2d6ae2" stroke-opacity=".09" stroke-width="2"/>
-  <circle cx="88" cy="846" r="150" fill="#2d6ae2" opacity=".035"/>
+  <circle cx="1510" cy="40" r="152" fill="none" stroke="#1072cd" stroke-opacity=".09" stroke-width="2"/>
+  <circle cx="88" cy="846" r="150" fill="#1072cd" opacity=".035"/>
 
   <text x="80" y="76" class="sans eyebrow">QWEN × QIEMAN · SERVICE LOOP</text>
   <text x="80" y="144" class="serif headline">从发现，到且慢承接的四步服务链路</text>
@@ -47,19 +47,19 @@
 
   <!-- Stage 01 -->
   <g transform="translate(80 256)" filter="url(#shadow)">
-    <rect width="326" height="430" rx="28" fill="#fff" stroke="#d5dced"/>
+    <rect width="326" height="430" rx="28" fill="#fff" stroke="#d0ddeb"/>
     <text x="28" y="62" class="sans stage-no">01</text>
     <text x="28" y="104" class="sans stage-en">DISCOVER</text>
     <g transform="translate(28 130)">
-      <circle cx="39" cy="39" r="39" fill="#ebf2ff"/>
-      <circle cx="35" cy="35" r="14" fill="none" stroke="#2d6ae2" stroke-width="4"/>
-      <path d="M45 45L58 58" fill="none" stroke="#2d6ae2" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="39" cy="39" r="39" fill="#e5f2ff"/>
+      <circle cx="35" cy="35" r="14" fill="none" stroke="#1072cd" stroke-width="4"/>
+      <path d="M45 45L58 58" fill="none" stroke="#1072cd" stroke-width="4" stroke-linecap="round"/>
       <path d="M58 17V27M53 22H63" fill="none" stroke="#45bfb1" stroke-width="3" stroke-linecap="round"/>
     </g>
     <text x="28" y="246" class="serif card-title">发现专业服务</text>
     <text x="28" y="286" class="sans body">用户在千问提出投资问题，</text>
     <text x="28" y="316" class="sans body">发现且慢的专业服务入口。</text>
-    <rect x="28" y="360" width="116" height="38" rx="19" fill="#ebf2ff"/>
+    <rect x="28" y="360" width="116" height="38" rx="19" fill="#e5f2ff"/>
     <text x="86" y="385" text-anchor="middle" class="sans pill">问题触发</text>
     <rect x="154" y="360" width="118" height="38" rx="19" fill="#e5f8f4"/>
     <text x="213" y="385" text-anchor="middle" class="sans pill" fill="#187f73" style="fill:#187f73">入口发现</text>
@@ -67,60 +67,60 @@
 
   <!-- Stage 02 -->
   <g transform="translate(450 256)" filter="url(#shadow)">
-    <rect width="326" height="430" rx="28" fill="#fff" stroke="#d5dced"/>
+    <rect width="326" height="430" rx="28" fill="#fff" stroke="#d0ddeb"/>
     <text x="28" y="62" class="sans stage-no">02</text>
     <text x="28" y="104" class="sans stage-en">BIND</text>
     <g transform="translate(28 130)">
-      <circle cx="39" cy="39" r="39" fill="#ebf2ff"/>
-      <path d="M26 40a12 12 0 0 1 12-12h8M52 40a12 12 0 0 1-12 12h-8" fill="none" stroke="#2d6ae2" stroke-width="4" stroke-linecap="round"/>
-      <path d="M36 40h18" fill="none" stroke="#2d6ae2" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="39" cy="39" r="39" fill="#e5f2ff"/>
+      <path d="M26 40a12 12 0 0 1 12-12h8M52 40a12 12 0 0 1-12 12h-8" fill="none" stroke="#1072cd" stroke-width="4" stroke-linecap="round"/>
+      <path d="M36 40h18" fill="none" stroke="#1072cd" stroke-width="4" stroke-linecap="round"/>
       <path d="M55 19l9 4v9c0 7-4 12-9 15-5-3-9-8-9-15v-9Z" fill="#45bfb1"/>
       <path d="M51 32l3 3 6-7" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
     </g>
     <text x="28" y="246" class="serif card-title">授权绑定账号</text>
     <text x="28" y="286" class="sans body">用户确认授权与账号绑定，</text>
     <text x="28" y="316" class="sans body">连接账户级服务所需信息。</text>
-    <rect x="28" y="360" width="116" height="38" rx="19" fill="#ebf2ff"/>
+    <rect x="28" y="360" width="116" height="38" rx="19" fill="#e5f2ff"/>
     <text x="86" y="385" text-anchor="middle" class="sans pill">用户确认</text>
-    <rect x="154" y="360" width="118" height="38" rx="19" fill="#ebf2ff"/>
+    <rect x="154" y="360" width="118" height="38" rx="19" fill="#e5f2ff"/>
     <text x="213" y="385" text-anchor="middle" class="sans pill">最小授权</text>
   </g>
 
   <!-- Stage 03 -->
   <g transform="translate(820 256)" filter="url(#shadow)">
-    <rect width="326" height="430" rx="28" fill="#fff" stroke="#d5dced"/>
+    <rect width="326" height="430" rx="28" fill="#fff" stroke="#d0ddeb"/>
     <text x="28" y="62" class="sans stage-no">03</text>
     <text x="28" y="104" class="sans stage-en">ADVISE</text>
     <g transform="translate(28 130)">
-      <circle cx="39" cy="39" r="39" fill="#ebf2ff"/>
-      <path d="M19 54h41M24 50V38M36 50V27M48 50V33M60 50V20" fill="none" stroke="#2d6ae2" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="39" cy="39" r="39" fill="#e5f2ff"/>
+      <path d="M19 54h41M24 50V38M36 50V27M48 50V33M60 50V20" fill="none" stroke="#1072cd" stroke-width="4" stroke-linecap="round"/>
       <path d="M20 27c10 2 17-8 25-5 7 2 10-4 17-9" fill="none" stroke="#45bfb1" stroke-width="3" stroke-linecap="round"/>
     </g>
     <text x="28" y="246" class="serif card-title">小顾完成分析</text>
     <text x="28" y="286" class="sans body">围绕账户完成诊断与解释，</text>
     <text x="28" y="316" class="sans body">并给出可继续追问的建议。</text>
-    <rect x="28" y="360" width="116" height="38" rx="19" fill="#ebf2ff"/>
+    <rect x="28" y="360" width="116" height="38" rx="19" fill="#e5f2ff"/>
     <text x="86" y="385" text-anchor="middle" class="sans pill">专业分析</text>
-    <rect x="154" y="360" width="118" height="38" rx="19" fill="#ebf2ff"/>
+    <rect x="154" y="360" width="118" height="38" rx="19" fill="#e5f2ff"/>
     <text x="213" y="385" text-anchor="middle" class="sans pill">可追问</text>
   </g>
 
   <!-- Stage 04 -->
   <g transform="translate(1190 256)" filter="url(#shadow)">
     <rect width="330" height="430" rx="28" fill="url(#darkCard)" stroke="#2a3553"/>
-    <text x="28" y="62" class="sans stage-no" style="fill:#587ec6;opacity:.52">04</text>
+    <text x="28" y="62" class="sans stage-no" style="fill:#3982c5;opacity:.52">04</text>
     <text x="28" y="104" class="sans stage-en on-dark-soft">ACT</text>
     <g transform="translate(28 130)">
       <circle cx="39" cy="39" r="39" fill="#fff" opacity=".09"/>
-      <rect x="20" y="18" width="39" height="48" rx="8" fill="none" stroke="#b2cdff" stroke-width="3"/>
-      <path d="M29 31h21M29 41h16M29 51h12" fill="none" stroke="#b2cdff" stroke-width="3" stroke-linecap="round"/>
+      <rect x="20" y="18" width="39" height="48" rx="8" fill="none" stroke="#9fd2ff" stroke-width="3"/>
+      <path d="M29 31h21M29 41h16M29 51h12" fill="none" stroke="#9fd2ff" stroke-width="3" stroke-linecap="round"/>
       <circle cx="59" cy="58" r="13" fill="#45bfb1"/>
       <path d="M53 58l4 4 8-10" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
     </g>
     <text x="28" y="246" class="serif card-title on-dark">且慢承接服务</text>
     <text x="28" y="286" class="sans body on-dark-muted">用户回到且慢完成风险确认、</text>
     <text x="28" y="316" class="sans body on-dark-muted">交易与后续持续服务。</text>
-    <rect x="28" y="360" width="132" height="38" rx="19" fill="#2d6ae2" opacity=".4"/>
+    <rect x="28" y="360" width="132" height="38" rx="19" fill="#1072cd" opacity=".4"/>
     <text x="94" y="385" text-anchor="middle" class="sans pill on-dark">服务闭环</text>
     <rect x="170" y="360" width="118" height="38" rx="19" fill="#fff" opacity=".1"/>
     <text x="229" y="385" text-anchor="middle" class="sans pill on-dark">用户确认</text>
@@ -128,21 +128,21 @@
 
   <!-- Handoffs -->
   <g class="sans">
-    <path d="M414 471H440" fill="none" stroke="#2d6ae2" stroke-width="3" marker-end="url(#arrow)"/>
+    <path d="M414 471H440" fill="none" stroke="#1072cd" stroke-width="3" marker-end="url(#arrow)"/>
     <text x="427" y="448" text-anchor="middle" class="arrow-label">授权</text>
-    <path d="M784 471H810" fill="none" stroke="#2d6ae2" stroke-width="3" marker-end="url(#arrow)"/>
+    <path d="M784 471H810" fill="none" stroke="#1072cd" stroke-width="3" marker-end="url(#arrow)"/>
     <text x="797" y="448" text-anchor="middle" class="arrow-label">分析</text>
-    <path d="M1154 471H1180" fill="none" stroke="#2d6ae2" stroke-width="3" marker-end="url(#arrow)"/>
+    <path d="M1154 471H1180" fill="none" stroke="#1072cd" stroke-width="3" marker-end="url(#arrow)"/>
     <text x="1167" y="448" text-anchor="middle" class="arrow-label">承接</text>
   </g>
 
   <g transform="translate(80 744)">
-    <rect width="1440" height="84" rx="24" fill="#fff" stroke="#cdd5e9"/>
-    <circle cx="42" cy="42" r="20" fill="#ebf2ff"/>
-    <path d="M34 42l6 6 11-14" fill="none" stroke="#2d6ae2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-    <text x="78" y="36" class="sans" font-size="17" font-weight="800" fill="#2c4d90">合作价值</text>
+    <rect width="1440" height="84" rx="24" fill="#fff" stroke="#c8d8e7"/>
+    <circle cx="42" cy="42" r="20" fill="#e5f2ff"/>
+    <path d="M34 42l6 6 11-14" fill="none" stroke="#1072cd" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="78" y="36" class="sans" font-size="17" font-weight="800" fill="#215280">合作价值</text>
     <text x="78" y="61" class="sans" font-size="16" fill="#687287">用户在千问发现且慢，在授权后获得账户分析，并在且慢完成后续服务。</text>
-    <rect x="1246" y="24" width="164" height="36" rx="18" fill="#ebf2ff"/>
-    <text x="1328" y="48" text-anchor="middle" class="sans" font-size="14" font-weight="800" fill="#2c4d90">发现 → 服务 → 转化</text>
+    <rect x="1246" y="24" width="164" height="36" rx="18" fill="#e5f2ff"/>
+    <text x="1328" y="48" text-anchor="middle" class="sans" font-size="14" font-weight="800" fill="#215280">发现 → 服务 → 转化</text>
   </g>
 </svg>
