@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="405" viewBox="0 0 720 405">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b3c6d"/>
+      <stop offset="0.62" stop-color="#0f72cd"/>
+      <stop offset="1" stop-color="#1b88ee"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="405" fill="url(#bg)"/>
+  <text x="48" y="86" font-family="-apple-system, PingFang SC, sans-serif" font-size="15" fill="#bfe0fb" letter-spacing="2">且慢 · 用户账户结构分析</text>
+  <text x="48" y="132" font-family="-apple-system, PingFang SC, sans-serif" font-size="32" font-weight="700" fill="#ffffff">稳钱+长钱「双持」用户</text>
+  <text x="48" y="174" font-family="-apple-system, PingFang SC, sans-serif" font-size="32" font-weight="700" fill="#ffffff">vs 单持一类账户</text>
+  <text x="48" y="212" font-family="-apple-system, PingFang SC, sans-serif" font-size="15" fill="#bfe0fb">收益率 · 最大回撤 · 波动率 · 持有时长 · 盈利占比</text>
+
+  <!-- mini bar motif: 盈利用户占比 -->
+  <g font-family="-apple-system, PingFang SC, sans-serif" font-size="13" fill="#e8f3fe">
+    <rect x="48" y="266" width="500" height="20" fill="#ffffff" fill-opacity="0.14"/>
+    <rect x="48" y="266" width="396" height="20" fill="#062f57"/>
+    <text x="454" y="281">双持 79.3% 盈利</text>
+
+    <rect x="48" y="296" width="500" height="20" fill="#ffffff" fill-opacity="0.14"/>
+    <rect x="48" y="296" width="337" height="20" fill="#5aa9ee"/>
+    <text x="395" y="311">仅长钱 67.4%</text>
+
+    <rect x="48" y="326" width="500" height="20" fill="#ffffff" fill-opacity="0.14"/>
+    <rect x="48" y="326" width="411" height="20" fill="#b3d9fa"/>
+    <text x="469" y="341">仅稳钱 82.2%</text>
+  </g>
+  <text x="48" y="380" font-family="-apple-system, PingFang SC, sans-serif" font-size="13" fill="#8ec6f7">盈米本体真实数据 · 截至 2026-07-31 · 329,188 位持仓用户</text>
+</svg>

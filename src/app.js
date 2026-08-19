@@ -133,6 +133,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "qieman-dual-account-cohort-comparison-2026-08-19",
+      groupId: "xiaogu",
+      title: "且慢用户｜稳钱+长钱双持 vs 单持：五维投资表现对比",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-dual-account-cohort-comparison-2026-08-19/",
+      preview: "qieman-dual-account-cohort-comparison-2026-08-19.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-19T16:30:00.000+08:00",
+      source: "且慢三组用户对比（稳钱+长钱双持 83,475 / 仅长钱 136,938 / 仅稳钱 108,775）｜累计收益率 acc_mwr 17.83% / 34.08% / 15.15%｜盈利用户占比 79.3% / 67.4% / 82.2%｜人均累计收益额 3.68万 / 1.59万 / 0.28万｜持有时长 1,105 / 1,016 / 767 天｜近3月年化波动率 9.88% / 13.09% / 4.43%（1/20 抽样）｜近3月最大回撤均值 6.45% / 8.85% / 2.30%（1/100 抽样）｜数据截至 2026-07-31｜盈米本体 × redash ds41｜官方且慢蓝 #1B88EE 单色阶梯｜CLAIR 单页图表 HTML",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["且慢", "四笔钱", "稳钱", "长钱", "账户结构", "用户分层", "投资收益", "最大回撤", "波动率", "持有时长", "盈利占比", "数据分析", "盈米本体", "CLAIR", "HTML", "生产"],
+    },
+    {
       id: "qieman-risk-comfort-match-2026-08-19",
       groupId: "xiaogu",
       title: "且慢投顾适当性｜持仓风险 × 风险舒适区三组用户对比",
@@ -1591,6 +1605,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "qieman-dual-account-cohort-comparison-2026-08-19": "data-analysis",
   "qieman-risk-comfort-match-2026-08-19": "data-analysis",
   "qieman-advisory-value-key-charts-2026-08-19": "data-analysis",
   "qieman-multi-account-performance-2026-08-19": "data-analysis",

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>且慢用户｜稳钱+长钱双持 vs 单持 投资表现对比</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --qm-anchor: #1b88ee;  /* 官方且慢蓝（logo 采样） */
+    --qm-accent: #0f72cd;  /* 且慢蓝文字强调（加深保对比） */
+    --c1: #0b5192;   /* ① 稳钱+长钱双持 · 且慢蓝深阶 */
+    --c2: #1b88ee;   /* ② 仅长钱 · 官方且慢蓝 */
+    --c3: #6cb2f0;   /* ③ 仅稳钱 · 且慢蓝浅阶 */
+    --surface: #ffffff;
+    --page: #f3f8fd;
+    --ink: #0a2e52;
+    --ink-2: #3f5871;
+    --muted: #7a8ea3;
+    --hairline: #e2ecf6;
+    --track: #ecf4fc;
+  }
+  body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--page); color: var(--ink-2); line-height: 1.65; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 28px 24px 64px; }
+
+  header.hero { background: linear-gradient(135deg, #0b3c6d 0%, #0f72cd 62%, #1b88ee 100%); color: #fff; padding: 34px 38px 30px; border-radius: 14px; box-shadow: 0 8px 28px rgba(11,81,146,.22); }
+  header.hero h1 { font-size: 26px; font-weight: 700; letter-spacing: .5px; }
+  header.hero .sub { margin-top: 10px; font-size: 14.5px; opacity: .92; max-width: 56em; }
+  header.hero .meta { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 12.5px; opacity: .85; }
+  header.hero .meta b { color: #bfe0fb; font-weight: 600; }
+
+  .section { margin-top: 28px; background: var(--surface); border-radius: 12px; padding: 26px 28px; box-shadow: 0 2px 12px rgba(14,27,51,.05); }
+  .section h2 { font-size: 18px; color: var(--ink); border-left: 4px solid var(--qm-accent); padding-left: 12px; margin-bottom: 4px; }
+  .section .desc { font-size: 13px; color: var(--muted); margin: 4px 0 20px 16px; }
+
+  /* cohort cards */
+  .cohorts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .cohort { border-radius: 10px; padding: 18px 20px 16px; background: var(--track); border-top: 4px solid; }
+  .cohort .swatch-line { display: flex; align-items: center; gap: 8px; }
+  .cohort .swatch { width: 12px; height: 12px; border-radius: 3px; flex: none; }
+  .cohort .name { font-size: 14.5px; font-weight: 700; color: var(--ink); }
+  .cohort .n { font-size: 26px; font-weight: 700; color: var(--ink); margin-top: 8px; }
+  .cohort .n small { font-size: 13px; font-weight: 400; color: var(--muted); margin-left: 3px; }
+  .cohort .note { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+  /* legend */
+  .legend { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 13px; color: var(--ink-2); margin-bottom: 18px; }
+  .legend .key { display: inline-flex; align-items: center; gap: 7px; }
+  .legend .swatch { width: 12px; height: 12px; border-radius: 3px; }
+
+  /* metric panels: small multiples of horizontal bars */
+  .panels { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .panel { border: 1px solid var(--hairline); border-radius: 10px; padding: 18px 20px 16px; }
+  .panel h3 { font-size: 14.5px; color: var(--ink); font-weight: 700; }
+  .panel .caliber { font-size: 11.5px; color: var(--muted); margin: 2px 0 14px; }
+  .brow { display: grid; grid-template-columns: 92px 1fr; align-items: center; gap: 10px; margin-top: 10px; }
+  .brow .blabel { font-size: 12.5px; color: var(--ink-2); text-align: right; line-height: 1.3; }
+  .btrackwrap { position: relative; height: 22px; }
+  .btrack { position: absolute; inset: 0; background: var(--track); border-radius: 0 4px 4px 0; }
+  .bar { position: absolute; left: 0; top: 1px; bottom: 1px; border-radius: 0 4px 4px 0; min-width: 2px; }
+  .bar.c1 { background: var(--c1); } .bar.c2 { background: var(--c2); } .bar.c3 { background: var(--c3); }
+  .bval { position: absolute; top: 50%; transform: translateY(-50%); font-size: 12.5px; font-weight: 600; color: var(--ink); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .panel .fnote { font-size: 11.5px; color: var(--muted); margin-top: 12px; border-top: 1px solid var(--hairline); padding-top: 8px; }
+  .panel.missing .missbox { background: var(--track); border: 1px dashed #c4d4f2; border-radius: 8px; padding: 16px; font-size: 13px; color: var(--ink-2); margin-top: 10px; }
+
+  .callout { background: #eaf4fe; border: 1px solid #bfdff9; border-radius: 10px; padding: 16px 18px; margin-top: 20px; font-size: 13.5px; color: #0d4c87; }
+  .callout b { color: #0b3c6d; }
+  .callout.warn { background: #fff8ec; border-color: #f3ddb0; color: #7a5a1e; }
+  .callout.warn b { color: #a06a00; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; }
+  th, td { padding: 9px 10px; text-align: left; border-bottom: 1px solid var(--hairline); }
+  th { background: #eff6fd; color: var(--ink-2); font-weight: 600; font-size: 12.5px; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.hl { font-weight: 700; color: var(--ink); }
+  tr:hover td { background: #f7fbff; }
+  .thswatch { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: baseline; }
+
+  ol.caliber-list { margin: 6px 0 0 18px; font-size: 13px; }
+  ol.caliber-list li { margin-top: 8px; }
+  ol.caliber-list code { background: var(--track); border-radius: 4px; padding: 1px 5px; font-size: 12px; color: #0d4c87; }
+
+  #tooltip { position: fixed; pointer-events: none; z-index: 10; background: var(--ink); color: #fff; font-size: 12px; line-height: 1.5; padding: 8px 10px; border-radius: 6px; box-shadow: 0 4px 14px rgba(10,46,82,.3); opacity: 0; transition: opacity .12s; max-width: 260px; }
+  #tooltip b { color: #bfe0fb; }
+
+  footer { margin-top: 30px; font-size: 12px; color: var(--muted); text-align: center; }
+  @media (max-width: 860px) {
+    .cohorts, .panels { grid-template-columns: 1fr; }
+    .tablewrap { overflow-x: auto; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <h1>且慢用户：稳钱+长钱「双持」 vs 单持一类账户</h1>
+  <div class="sub">同时持有短期稳钱与长期长钱两类账户的用户，与仅持有其中一类的用户，在收益率、最大回撤、波动率、持有时长、盈利占比五个维度上的真实数据对比。</div>
+  <div class="meta">
+    <span>数据截至 <b>2026-07-31</b></span>
+    <span>口径 <b>且慢（broker 0008）</b></span>
+    <span>覆盖 <b>329,188 位</b>持仓用户</span>
+    <span>来源 <b>盈米本体 · redash ds41（TiDB 数仓）</b></span>
+  </div>
+</header>
+
+<div class="section">
+  <h2>三组用户是谁</h2>
+  <div class="desc">按 2026-07 月度资产快照，用户在「四笔钱」的稳钱类 / 长钱类组合中持仓资产 &gt; 0 即计入该类；纯活钱、保险等 98,028 位用户不在本对比内。</div>
+  <div class="cohorts">
+    <div class="cohort" style="border-top-color: var(--c1);">
+      <div class="swatch-line"><span class="swatch" style="background: var(--c1);"></span><span class="name">① 稳钱 + 长钱双持</span></div>
+      <div class="n">83,475<small>人</small></div>
+      <div class="note">短期稳钱、长期长钱两类账户同时有持仓</div>
+    </div>
+    <div class="cohort" style="border-top-color: var(--c2);">
+      <div class="swatch-line"><span class="swatch" style="background: var(--c2);"></span><span class="name">② 仅长钱</span></div>
+      <div class="n">136,938<small>人</small></div>
+      <div class="note">只持有长钱类账户（含权益为主，高波动）</div>
+    </div>
+    <div class="cohort" style="border-top-color: var(--c3);">
+      <div class="swatch-line"><span class="swatch" style="background: var(--c3);"></span><span class="name">③ 仅稳钱</span></div>
+      <div class="n">108,775<small>人</small></div>
+      <div class="note">只持有稳钱类账户（偏债为主，低波动）</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>五个维度的对比</h2>
+  <div class="desc">收益率、盈利占比、收益额、持有时长为开户以来累计口径；波动率为近 3 个月（2026-05-01 ~ 07-31）年化、1/20 确定性抽样。</div>
+
+  <div class="legend">
+    <span class="key"><span class="swatch" style="background: var(--c1);"></span>① 稳钱+长钱双持</span>
+    <span class="key"><span class="swatch" style="background: var(--c2);"></span>② 仅长钱</span>
+    <span class="key"><span class="swatch" style="background: var(--c3);"></span>③ 仅稳钱</span>
+  </div>
+
+  <div class="panels">
+
+    <div class="panel">
+      <h3>累计收益率</h3>
+      <div class="caliber">acc_mwr · 资金加权，考虑申赎现金流，最贴近用户真实到手收益</div>
+      <div class="brow"><span class="blabel">① 双持</span>
+        <span class="btrackwrap" data-tip="<b>① 稳钱+长钱双持</b><br>累计资金加权收益率 17.83%<br>样本 82,545 人"><span class="btrack"></span><span class="bar c1" style="width: 52.3%;"></span><span class="bval" style="left: calc(52.3% + 8px);">17.83%</span></span></div>
+      <div class="brow"><span class="blabel">② 仅长钱</span>
+        <span class="btrackwrap" data-tip="<b>② 仅长钱</b><br>累计资金加权收益率 34.08%<br>样本 135,529 人"><span class="btrack"></span><span class="bar c2" style="width: 100%;"></span><span class="bval" style="right: 8px; color: #fff;">34.08%</span></span></div>
+      <div class="brow"><span class="blabel">③ 仅稳钱</span>
+        <span class="btrackwrap" data-tip="<b>③ 仅稳钱</b><br>累计资金加权收益率 15.15%<br>样本 108,583 人"><span class="btrack"></span><span class="bar c3" style="width: 44.5%;"></span><span class="bval" style="left: calc(44.5% + 8px);">15.15%</span></span></div>
+      <div class="fnote">交叉参考「费后收益 ÷ 历史最大本金」口径：① 8.85% ＞ ② 7.78% ＞ ③ 3.62%——按投入本金算，双持组反而最高。</div>
+    </div>
+
+    <div class="panel">
+      <h3>盈利用户占比</h3>
+      <div class="caliber">开户以来累计收益 &gt; 0 的用户比例</div>
+      <div class="brow"><span class="blabel">① 双持</span>
+        <span class="btrackwrap" data-tip="<b>① 稳钱+长钱双持</b><br>79.30% 的用户累计赚钱"><span class="btrack"></span><span class="bar c1" style="width: 79.3%;"></span><span class="bval" style="right: calc(20.7% + 8px); color: #fff;">79.30%</span></span></div>
+      <div class="brow"><span class="blabel">② 仅长钱</span>
+        <span class="btrackwrap" data-tip="<b>② 仅长钱</b><br>67.35% 的用户累计赚钱"><span class="btrack"></span><span class="bar c2" style="width: 67.35%;"></span><span class="bval" style="right: calc(32.65% + 8px); color: #fff;">67.35%</span></span></div>
+      <div class="brow"><span class="blabel">③ 仅稳钱</span>
+        <span class="btrackwrap" data-tip="<b>③ 仅稳钱</b><br>82.17% 的用户累计赚钱"><span class="btrack"></span><span class="bar c3" style="width: 82.17%;"></span><span class="bval" style="right: calc(17.83% + 8px);">82.17%</span></span></div>
+      <div class="fnote">横轴为 0–100%。双持组接近稳钱组的「八成人赚钱」，明显好于仅长钱组的三分之二。</div>
+    </div>
+
+    <div class="panel">
+      <h3>人均累计收益额</h3>
+      <div class="caliber">acc_profit 均值 · 开户以来累计，元</div>
+      <div class="brow"><span class="blabel">① 双持</span>
+        <span class="btrackwrap" data-tip="<b>① 稳钱+长钱双持</b><br>人均累计赚 36,826 元<br>≈ 仅长钱的 2.3 倍、仅稳钱的 12.9 倍"><span class="btrack"></span><span class="bar c1" style="width: 100%;"></span><span class="bval" style="right: 8px; color: #fff;">36,826 元</span></span></div>
+      <div class="brow"><span class="blabel">② 仅长钱</span>
+        <span class="btrackwrap" data-tip="<b>② 仅长钱</b><br>人均累计赚 15,862 元"><span class="btrack"></span><span class="bar c2" style="width: 43.1%;"></span><span class="bval" style="left: calc(43.1% + 8px);">15,862 元</span></span></div>
+      <div class="brow"><span class="blabel">③ 仅稳钱</span>
+        <span class="btrackwrap" data-tip="<b>③ 仅稳钱</b><br>人均累计赚 2,847 元"><span class="btrack"></span><span class="bar c3" style="width: 7.7%;"></span><span class="bval" style="left: calc(7.7% + 8px);">2,847 元</span></span></div>
+      <div class="fnote">绝对金额受在管资产规模影响：双持用户通常投入更多本金，此指标反映「实际赚到的钱」而非收益效率。</div>
+    </div>
+
+    <div class="panel">
+      <h3>持有时长</h3>
+      <div class="caliber">acc_day_cnt · 累计持有天数均值</div>
+      <div class="brow"><span class="blabel">① 双持</span>
+        <span class="btrackwrap" data-tip="<b>① 稳钱+长钱双持</b><br>平均持有 1,105 天 ≈ 3.0 年"><span class="btrack"></span><span class="bar c1" style="width: 100%;"></span><span class="bval" style="right: 8px; color: #fff;">1,105 天 ≈3.0年</span></span></div>
+      <div class="brow"><span class="blabel">② 仅长钱</span>
+        <span class="btrackwrap" data-tip="<b>② 仅长钱</b><br>平均持有 1,016 天 ≈ 2.8 年"><span class="btrack"></span><span class="bar c2" style="width: 91.9%;"></span><span class="bval" style="right: calc(8.1% + 8px); color: #fff;">1,016 天 ≈2.8年</span></span></div>
+      <div class="brow"><span class="blabel">③ 仅稳钱</span>
+        <span class="btrackwrap" data-tip="<b>③ 仅稳钱</b><br>平均持有 767 天 ≈ 2.1 年"><span class="btrack"></span><span class="bar c3" style="width: 69.4%;"></span><span class="bval" style="right: calc(30.6% + 8px);">767 天 ≈2.1年</span></span></div>
+      <div class="fnote">双持用户拿得最久，比仅稳钱用户多拿近一年。</div>
+    </div>
+
+    <div class="panel">
+      <h3>年化波动率</h3>
+      <div class="caliber">近 3 个月日收益率标准差 × √252 · 1/20 确定性抽样</div>
+      <div class="brow"><span class="blabel">① 双持</span>
+        <span class="btrackwrap" data-tip="<b>① 稳钱+长钱双持</b><br>年化波动率 9.88%<br>抽样 2,988 人"><span class="btrack"></span><span class="bar c1" style="width: 75.5%;"></span><span class="bval" style="left: calc(75.5% + 8px);">9.88%</span></span></div>
+      <div class="brow"><span class="blabel">② 仅长钱</span>
+        <span class="btrackwrap" data-tip="<b>② 仅长钱</b><br>年化波动率 13.09%<br>抽样 4,861 人"><span class="btrack"></span><span class="bar c2" style="width: 100%;"></span><span class="bval" style="right: 8px; color: #fff;">13.09%</span></span></div>
+      <div class="brow"><span class="blabel">③ 仅稳钱</span>
+        <span class="btrackwrap" data-tip="<b>③ 仅稳钱</b><br>年化波动率 4.43%<br>抽样 2,693 人"><span class="btrack"></span><span class="bar c3" style="width: 33.8%;"></span><span class="bval" style="left: calc(33.8% + 8px);">4.43%</span></span></div>
+      <div class="fnote">双持组波动比仅长钱低约 1/4——稳钱仓位对组合整体起到了「减震」作用。</div>
+    </div>
+
+    <div class="panel" id="drawdown-panel">
+      <h3>最大回撤</h3>
+      <div class="caliber">近 3 个月净值 peak-to-trough 均值 · fof_nav（时间加权，不受申赎扰动）· 1/100 确定性抽样</div>
+      <div class="brow"><span class="blabel">① 双持</span>
+        <span class="btrackwrap" data-tip="<b>① 稳钱+长钱双持</b><br>近 3 月最大回撤均值 6.45%<br>抽样 563 人"><span class="btrack"></span><span class="bar c1" style="width: 72.9%;"></span><span class="bval" style="left: calc(72.9% + 8px);">−6.45%</span></span></div>
+      <div class="brow"><span class="blabel">② 仅长钱</span>
+        <span class="btrackwrap" data-tip="<b>② 仅长钱</b><br>近 3 月最大回撤均值 8.85%<br>抽样 1,010 人"><span class="btrack"></span><span class="bar c2" style="width: 100%;"></span><span class="bval" style="right: 8px; color: #fff;">−8.85%</span></span></div>
+      <div class="brow"><span class="blabel">③ 仅稳钱</span>
+        <span class="btrackwrap" data-tip="<b>③ 仅稳钱</b><br>近 3 月最大回撤均值 2.30%<br>抽样 499 人"><span class="btrack"></span><span class="bar c3" style="width: 26%;"></span><span class="bval" style="left: calc(26% + 8px);">−2.30%</span></span></div>
+      <div class="fnote">条长表示回撤深度（越长跌得越深）。为近 3 个月窗口内回撤，非开户以来历史最大回撤；排序与波动率完全一致。</div>
+    </div>
+
+  </div>
+
+  <div class="callout">
+    <b>一句话结论：</b>双持用户不是收益率最高的（仅长钱 34.08% 最高），但综合体验最优——<b>拿得最久</b>（3 年+）、<b>人均赚得最多</b>（3.7 万元，为仅长钱的 2.3 倍）、<b>近八成人赚钱</b>（接近稳钱组），而波动与回撤都只有纯长钱的约 3/4。稳钱打底 + 长钱进攻的账户结构，用更平的持有体验换来了更长的持有期。
+  </div>
+  <div class="callout warn">
+    <b>注意：</b>这是观察性分组而非实验——双持用户往往本金更大、投资更成熟，指标差异是「相关」而非「配置双账户导致」。累计收益率还受入场时点、资产规模路径影响（资金加权），跨组比较需谨慎。
+  </div>
+</div>
+
+<div class="section">
+  <h2>完整数据表</h2>
+  <div class="desc">全部口径与样本量，供复核。</div>
+  <div class="tablewrap">
+  <table>
+    <thead>
+      <tr><th>指标</th><th class="num"><span class="thswatch" style="background: var(--c1);"></span>① 稳钱+长钱双持</th><th class="num"><span class="thswatch" style="background: var(--c2);"></span>② 仅长钱</th><th class="num"><span class="thswatch" style="background: var(--c3);"></span>③ 仅稳钱</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>样本量（全量分组）</td><td class="num">83,475</td><td class="num">136,938</td><td class="num">108,775</td></tr>
+      <tr><td>样本量（收益匹配子集）</td><td class="num">82,545</td><td class="num">135,529</td><td class="num">108,583</td></tr>
+      <tr><td>累计收益率（acc_mwr，资金加权）</td><td class="num hl">17.83%</td><td class="num hl">34.08%</td><td class="num hl">15.15%</td></tr>
+      <tr><td>累计收益率（费后 ÷ 最大本金）</td><td class="num">8.85%</td><td class="num">7.78%</td><td class="num">3.62%</td></tr>
+      <tr><td>盈利用户占比（累计 acc_profit &gt; 0）</td><td class="num hl">79.30%</td><td class="num hl">67.35%</td><td class="num hl">82.17%</td></tr>
+      <tr><td>人均累计收益额</td><td class="num hl">36,826 元</td><td class="num hl">15,862 元</td><td class="num hl">2,847 元</td></tr>
+      <tr><td>持有时长（累计持有天数）</td><td class="num hl">1,105 天</td><td class="num hl">1,016 天</td><td class="num hl">767 天</td></tr>
+      <tr><td>年化波动率（近 3 月，1/20 抽样）</td><td class="num hl">9.88%</td><td class="num hl">13.09%</td><td class="num hl">4.43%</td></tr>
+      <tr><td>波动率抽样样本量</td><td class="num">2,988</td><td class="num">4,861</td><td class="num">2,693</td></tr>
+      <tr id="drawdown-row"><td>最大回撤（近 3 月均值，1/100 抽样）</td><td class="num hl">−6.45%</td><td class="num hl">−8.85%</td><td class="num hl">−2.30%</td></tr>
+      <tr><td>回撤抽样样本量</td><td class="num">563</td><td class="num">1,010</td><td class="num">499</td></tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<div class="section">
+  <h2>口径说明</h2>
+  <div class="desc">来自盈米本体的下钻记录，关键假设逐条列示。</div>
+  <ol class="caliber-list">
+    <li><b>稳钱 / 长钱界定</b>：且慢「四笔钱」分类，<code>po_config_info.m4_type</code>（LONGTERM=长钱 / STEADY=稳钱 / SPARE=活钱），371 个组合全覆盖（长 257 / 稳 109 / 活 5）；用户在某类组合持仓资产 &gt; 0 即计为「持有该类账户」。</li>
+    <li><b>分组快照</b>：<code>asset_analysis_report_user_behavior</code> 2026-07 月度全量快照（42.7 万用户，全部 broker 0008），按 <code>steady_asset</code> / <code>longterm_asset</code> 是否 &gt; 0 切三组；「既无稳钱又无长钱」的 98,028 位用户已排除。</li>
+    <li><b>收益数据</b>：<code>dwd_app_service_account_profit_combine</code>（SA 树 ROOT 层，cal_date=2026-07-31），经 <code>portfolio_manager_info</code>（ACTIVE）做 ID 映射后关联；映射覆盖 326,657 / 329,188 ≈ 99.2%，缺口来自销户与数据未就绪。</li>
+    <li><b>时间窗口</b>：收益率 / 盈利占比 / 持有时长为<b>开户以来累计</b>（截至 2026-07-31）；波动率为<b>近 3 个月</b>（2026-05-01 ~ 07-31）。两类窗口不同，跨指标解读时注意。</li>
+    <li><b>波动率抽样</b>：全量近 3 月日收益明细约 2,640 万行，聚合查询连续超时，改为 <code>account3_id % 20 = 0</code> 的 1/20 确定性抽样后跑通；抽样与全量同分布，方向可信、数值含抽样误差。</li>
+    <li><b>最大回撤口径</b>：近 3 个月<b>窗口内</b>净值回撤（非开户以来历史最大回撤），用 <code>fof_nav</code>（累计 TWR+1，不受申赎资金进出扰动）按日取累积峰值算 peak-to-trough，1/100 确定性抽样（<code>account3_id % 100 = 0</code>），报组内均值；个别账户窗口内净值一路新高则回撤为 0%。</li>
+    <li><b>收益率口径取舍</b>：主口径 acc_mwr（资金加权，考虑申赎现金流）；acc_twr（时间加权）因异常账户极值拉高（双持组均值 169%）弃用；另附「费后收益 ÷ 历史最大本金」作交叉参考。</li>
+    <li><b>数据通道</b>：盈米本体经 redash ds41（TiDB 数仓）兜底查询；首选 MaxCompute 用户级宽表因 ODPS 凭据不可用未走通。</li>
+  </ol>
+</div>
+
+<footer>盈米本体 × Claude · 数据截至 2026-07-31 · 生成于 2026-08-19 · 仅供内部分析使用</footer>
+</div>
+
+<div id="tooltip"></div>
+<script>
+(function () {
+  var tip = document.getElementById('tooltip');
+  document.querySelectorAll('[data-tip]').forEach(function (el) {
+    el.addEventListener('mousemove', function (e) {
+      tip.innerHTML = el.getAttribute('data-tip');
+      tip.style.opacity = '1';
+      var x = Math.min(e.clientX + 14, window.innerWidth - tip.offsetWidth - 8);
+      var y = Math.min(e.clientY + 14, window.innerHeight - tip.offsetHeight - 8);
+      tip.style.left = x + 'px';
+      tip.style.top = y + 'px';
+    });
+    el.addEventListener('mouseleave', function () { tip.style.opacity = '0'; });
+  });
+})();
+</script>
+</body>
+</html>
