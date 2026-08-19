@@ -133,6 +133,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "qieman-pension-user-growth-2026-08-19",
+      groupId: "xiaogu",
+      title: "且慢养老场景｜用户数据与规模增长分析",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-pension-user-growth-2026-08-19/",
+      preview: "qieman-pension-user-growth-2026-08-19.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-19T18:30:00.000+08:00",
+      source: "且慢养老场景用户数据与规模增长分析｜三支柱口径（TD 个养 4,592 + QMP 3,004 去重 7,175 人 / 颐养天年 PCCA 761 户）｜总资产 14.43 亿（ROOT 口径）/ 累计净流入 11.26 亿 / 人均 38.71 万｜2022-11 个养制度落地为分水岭，2022-2024 年均新增 ~1,880，2026 月均 ~50，红利期已过转入存量经营｜已开通未注资 3,544 户为可激活存量｜30-49 岁 84% / 男 67% / 1-10 万档 37.8%｜三处数据缺口如实标注（隔离 AUM / TD 资金流 / 月度 AUM 趋势）｜生产数仓 dw-tidb（redash ds41/ds31）盈米本体下钻 91 轮｜官方且慢蓝 #1B88EE × 9 个 ECharts｜CLAIR 可视化 HTML",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["且慢", "养老", "个人养老金", "TD", "QMP", "颐养天年", "用户增长", "AUM", "用户画像", "数据分析", "盈米本体", "ECharts", "且慢蓝", "CLAIR", "HTML", "生产"],
+    },
+    {
       id: "qieman-multi-account-performance-2026-08-19",
       groupId: "reporting",
       title: "且慢多账户用户｜账户越多，在场更久、赚得更多，也扛着更大的波动",

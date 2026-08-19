@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>且慢养老场景用户数据与规模增长分析报告</title>
+<script src="https://registry.npmmirror.com/echarts/5.6.0/files/dist/echarts.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: #f5f7fc; color: #2c3e50; line-height: 1.6; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 28px 24px 60px; }
+  header { background: linear-gradient(135deg, #0a2e52 0%, #1b88ee 100%); color: #fff; padding: 32px 36px; border-radius: 14px; box-shadow: 0 6px 24px rgba(10,46,82,.18); }
+  header h1 { font-size: 26px; font-weight: 700; letter-spacing: .5px; }
+  header .sub { margin-top: 10px; font-size: 14px; opacity: .88; }
+  header .meta { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 12.5px; opacity: .85; }
+  header .meta b { color: #9dcbf7; font-weight: 600; }
+  .section { margin-top: 30px; background: #fff; border-radius: 12px; padding: 26px 28px; box-shadow: 0 2px 12px rgba(10,46,82,.05); }
+  .section h2 { font-size: 18px; color: #0a2e52; border-left: 4px solid #1b88ee; padding-left: 12px; margin-bottom: 6px; }
+  .section .desc { font-size: 13px; color: #7a8499; margin: 4px 0 18px 16px; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .kpi { background: linear-gradient(135deg, #e8f3fe 0%, #d6ebfd 100%); border-radius: 10px; padding: 18px 18px 16px; border-top: 3px solid #1b88ee; }
+  .kpi .label { font-size: 12.5px; color: #6b7689; }
+  .kpi .value { font-size: 28px; font-weight: 700; color: #0a2e52; margin-top: 4px; }
+  .kpi .unit { font-size: 13px; font-weight: 400; color: #6b7689; margin-left: 3px; }
+  .kpi .note { font-size: 11.5px; color: #8a93a8; margin-top: 5px; }
+  .kpi.warn { border-top-color: #d9822b; background: linear-gradient(135deg, #fdf3e7 0%, #fbe8d0 100%); }
+  .chart { width: 100%; height: 360px; }
+  .chart.short { height: 300px; }
+  .chart.tall { height: 420px; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; }
+  th, td { padding: 9px 10px; text-align: left; border-bottom: 1px solid #eef1f6; }
+  th { background: #eef6fe; color: #4a5568; font-weight: 600; font-size: 12.5px; }
+  tr:hover td { background: #fafcff; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .tag { display: inline-block; padding: 1px 8px; border-radius: 4px; font-size: 11.5px; font-weight: 500; }
+  .tag.b { background: #d6ebfd; color: #1668b8; } .tag.g { background: #e6f7ef; color: #0b7a5b; } .tag.o { background: #fdf0e0; color: #a35f14; }
+  .callout { background: #e8f3fe; border: 1px solid #bcdcfa; border-radius: 8px; padding: 14px 16px; margin-top: 14px; font-size: 13px; color: #155a9e; }
+  .callout b { color: #0a2e52; }
+  .gap { background: #fdecea; border: 1px solid #f5c6c0; border-radius: 8px; padding: 14px 16px; margin-top: 14px; font-size: 13px; color: #8a3b32; }
+  .gap b { color: #7a2c24; }
+  .conclusion .item { display: flex; gap: 12px; margin: 12px 0; padding: 12px 14px; background: #f0f7fe; border-radius: 8px; border-left: 3px solid #1b88ee; }
+  .conclusion { counter-reset: c; }
+  .conclusion .item::before { counter-increment: c; content: counter(c); flex: 0 0 26px; height: 26px; background: #1b88ee; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; }
+  .conclusion .item .txt { font-size: 13.5px; }
+  .conclusion .item .txt b { color: #0a2e52; }
+  footer { margin-top: 30px; font-size: 12px; color: #8a93a8; border-top: 1px solid #e3e8f0; padding-top: 14px; }
+  @media (max-width: 860px){ .kpi-grid{grid-template-columns:repeat(2,1fr)} .row2,.row3{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>且慢养老场景｜用户数据与规模增长分析报告</h1>
+  <div class="sub">三支柱产品口径：TD 个人养老金账户 · QMP 且慢养老金计划（PAIP）· 颐养天年养老计划（ZH150669）</div>
+  <div class="meta">
+    <span>数据截至 <b>2026-08-18/19</b></span>
+    <span>范围 <b>且慢主盘（broker 0008，不含小顾）</b></span>
+    <span>来源 <b>生产数仓 dw-tidb（redash ds41/ds31）实查</b></span>
+    <span>分析 <b>盈米本体下钻 91 轮</b></span>
+  </div>
+</header>
+
+<div class="section">
+  <h2>核心指标一览</h2>
+  <div class="desc">开通/资金/资产为存量快照；新增为近 12 个月（2025-09 ~ 2026-08-18）流量口径</div>
+  <div class="kpi-grid">
+    <div class="kpi"><div class="label">开通用户</div><div class="value">7,175<span class="unit">人</span></div><div class="note">TD 4,592 + QMP 3,004（去重）</div></div>
+    <div class="kpi"><div class="label">有资金账户用户</div><div class="value">3,631<span class="unit">户</span></div><div class="note">开通→注资转化 50.6%</div></div>
+    <div class="kpi"><div class="label">养老用户总资产</div><div class="value">14.43<span class="unit">亿</span></div><div class="note">latest ROOT 口径（全平台总资产）</div></div>
+    <div class="kpi"><div class="label">人均资产</div><div class="value">38.71<span class="unit">万</span></div><div class="note">显著高于且慢大盘户均</div></div>
+    <div class="kpi"><div class="label">累计净流入</div><div class="value">11.26<span class="unit">亿</span></div><div class="note">acc_input − acc_output 累计</div></div>
+    <div class="kpi"><div class="label">累计收益</div><div class="value">3.12<span class="unit">亿</span></div><div class="note">占总资产 21.6%</div></div>
+    <div class="kpi"><div class="label">近 12 月新增开通</div><div class="value">953<span class="unit">人</span></div><div class="note">2026 年月均已降至 ~50 人</div></div>
+    <div class="kpi warn"><div class="label">已开通未注资</div><div class="value">3,544<span class="unit">户</span></div><div class="note">可激活存量（开通但无资金账户）</div></div>
+  </div>
+  <div class="callout"><b>口径说明：</b>「总资产 14.43 亿」为养老场景用户在且慢<b>全平台</b>的总资产（latest ROOT 快照），非养老组合隔离 AUM——组合级隔离口径因底表超时未能取得，详见第七节缺口①。</div>
+</div>
+
+<div class="section">
+  <h2>一、场景口径与产品构成</h2>
+  <div class="desc">且慢养老专区三支柱产品；开通与资金账户为不同层级（UMA 开通 vs capital_account 注资）</div>
+  <table>
+    <thead><tr><th>产品</th><th>账户类型</th><th>交易口径</th><th class="num">开通用户</th><th class="num">资金账户</th><th>起始时间</th></tr></thead>
+    <tbody>
+      <tr><td><span class="tag b">TD</span> 个人养老金账户</td><td>UMA type=TD / tdCA</td><td>个税递延；持仓走 po_code=FUND 单基金</td><td class="num">4,592</td><td class="num">3,032</td><td>2019-04-24（试点）</td></tr>
+      <tr><td><span class="tag g">QMP</span> 且慢养老金计划</td><td>UMA type=QMP / PAIPCA</td><td>po_code=PAIP</td><td class="num">3,004</td><td class="num">112</td><td>2023-07-21</td></tr>
+      <tr><td><span class="tag o">颐养天年</span> 养老计划</td><td>PCCA（投顾组合，无独立 UMA）</td><td>ZH150669；交易 po_code=PC00010026</td><td class="num">—</td><td class="num">761</td><td>—</td></tr>
+    </tbody>
+  </table>
+  <div id="c_prod" class="chart short"></div>
+</div>
+
+<div class="section">
+  <h2>二、用户增长：政策周期定义的曲线</h2>
+  <div class="desc">首次开户去重口径（MIN(opened_at) per user）；2022-11 个人养老金制度落地是唯一分水岭</div>
+  <div id="c_year" class="chart"></div>
+  <div class="row2">
+    <div><div id="c_month" class="chart short"></div></div>
+    <div><div id="c_cum" class="chart short"></div></div>
+  </div>
+  <div class="callout"><b>节奏规律：</b>每年 11–12 月为确定性新增高峰（个养税优额度年底清零驱动缴存），2025-12 单月新增 220 人为近 12 月峰值；节后迅速回落，2026-08 截至 18 日仅 26 人。</div>
+</div>
+
+<div class="section">
+  <h2>三、转化漏斗与资金</h2>
+  <div class="desc">从开通到注资的转化与资金沉淀</div>
+  <div class="row2">
+    <div><div id="c_funnel" class="chart short"></div></div>
+    <div><div id="c_money" class="chart short"></div></div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>四、用户结构画像</h2>
+  <div class="desc">基于 3,631 户有资金账户用户（年龄/性别）与 3,468 户有资产快照用户（持仓分布）</div>
+  <div class="row2">
+    <div><div id="c_age" class="chart"></div></div>
+    <div><div id="c_gender" class="chart"></div></div>
+  </div>
+  <div id="c_hold" class="chart short"></div>
+  <div class="callout"><b>结构解读：</b>30–49 岁占 <b>84%</b>、男性 <b>67%</b>，是典型「中年主力缴存人群」；持仓 1–10 万档占比最高（37.8%），与个养年缴 1.2 万上限的多年累积节奏吻合；&gt;50 万高净值 707 户（20.4%）贡献主要资产规模。</div>
+</div>
+
+<div class="section">
+  <h2>五、颐养天年：近 12 月交易活跃度</h2>
+  <div class="desc">投顾组合 ZH150669（交易 po_code=PC00010026），2025-09-01 ~ 2026-08-18</div>
+  <div class="row2">
+    <div><div id="c_yyty" class="chart short"></div></div>
+    <div>
+      <table>
+        <tbody>
+          <tr><td>参与交易用户</td><td class="num"><b>426</b> 人</td></tr>
+          <tr><td>交易笔数</td><td class="num"><b>6,307</b> 笔</td></tr>
+          <tr><td>申购金额</td><td class="num"><b>402</b> 万</td></tr>
+          <tr><td>赎回金额</td><td class="num"><b>205</b> 万</td></tr>
+          <tr><td>净申购</td><td class="num"><b>+198</b> 万</td></tr>
+        </tbody>
+      </table>
+      <div class="callout" style="margin-top:16px"><b>体量判断：</b>颐养天年近 12 月净申购不足 200 万，相对 14.43 亿的场景总资产贡献有限；交易笔数多（6,307 笔）而单笔金额小，呈定投型小额长期行为特征。</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>六、关键结论</h2>
+  <div class="conclusion">
+    <div class="item"><div class="txt"><b>获客红利期已过，进入存量经营阶段。</b>2022-11 个养制度落地前场景近乎为零（2019 试点仅 2 人）；2022–2024 三年年均新增约 1,880 人、贡献存量近 79%；2025 年腰斩至 1,069 人，2026 年月均仅约 50 人。增长引擎已从「政策获客」切换为「存量深耕」。</div></div>
+    <div class="item"><div class="txt"><b>年底缴存季是每年最确定的运营窗口。</b>个养税优额度年底清零形成 11–12 月脉冲（2025-12 单月 220 人，为月均的 4 倍以上），获客与促注资资源应向 Q4 集中。</div></div>
+    <div class="item"><div class="txt"><b>养老用户是高价值长期客群。</b>人均资产 38.71 万显著高于大盘；&gt;50 万高净值 707 户（20.4%）；30–49 岁占 84%、男性 67%。留存与陪伴价值远大于其直接的养老 AUM 贡献。</div></div>
+    <div class="item"><div class="txt"><b>最大的可激活存量在「开通未注资」。</b>3,544 户开通了养老账户但从未注资（转化率 50.6%），其中 QMP 尤为突出（3,004 开通仅 112 个资金账户）；这是当前投入产出比最高的转化目标。</div></div>
+    <div class="item"><div class="txt"><b>持仓结构契合政策约束，向上空间靠非税优产品。</b>1–10 万档占 37.8% 与个养年缴 1.2 万上限吻合；颐养天年当前体量小（净申购 198 万/年），高净值户的养老外资产才是场景延伸的主战场。</div></div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>七、数据缺口与口径说明（如实标注）</h2>
+  <div class="desc">以下三处因生产环境查询限制未能取得，报告已采用替代口径并标注</div>
+  <div class="gap"><b>缺口① 养老组合隔离 AUM 未取得。</b>底表 ying99_asset.dwd_ast_aum_uma_prod_mv_1d_delta 为点查型 PK 大表，redash 多次查询超时（&gt;240s 服务端硬超时）。报告以 latest ROOT 14.43 亿（养老用户全平台总资产）近似，非养老组合隔离口径。建议由具 mc-query 权限同事经 MaxCompute（qieman_ads.product_holding_summary_1d_ss）补查 po_code 维组合级 AUM。</div>
+  <div class="gap"><b>缺口② TD 个养资金流明细未取得。</b>qm_meta.trade_detail 中 TD 交易的 po_code 为具体基金代码而非 'TD'，无法直接按养老维度聚合资金流；TD/QMP 资金流以 latest acc_input/acc_output 累计值近似。颐养天年（PC00010026）净申购可查。</div>
+  <div class="gap"><b>缺口③ 月度 AUM 历史趋势未取得。</b>同缺口①底表超时；profit_combine_latest 仅有最新快照。月度规模增长以累计开通用户曲线呈现，AUM 月度趋势待 mc-query 补充。</div>
+</div>
+
+<footer>
+  数据来源：redash（ds41 TiDB 数仓+业务库：ying99_qieman.user_manage_account / ying99_potrade.capital_account / ying99_asset.dwd_app_service_account_profit_combine_latest / ying99_accounts.x1_indiv_info；ds31 qm_meta.trade_detail）· 经盈米本体 pension-zone concept hub 下钻自写 SQL 实查（91 轮 / 33 次工具调用）· 截至 2026-08-18/19 · 且慢主盘 broker 0008<br>
+  生成：CLAIR · Claude（盈米本体数据）· 2026-08-19 · 且慢蓝 #1B88EE 视觉规范
+</footer>
+
+</div>
+
+<script>
+const B = '#1b88ee', B_LIGHT = '#6fb9f6', B_PALE = '#b9dcfb', B_DEEP = '#1668b8', NAVY = '#0a2e52';
+const GREEN = '#0fa47a', ORANGE = '#d9822b', PURPLE = '#8b5cf6';
+const INK = '#2c3e50', MUTED = '#7a8499', GRID = '#eef1f6';
+const baseAxis = { axisLine: { lineStyle: { color: '#d6dcea' } }, axisTick: { show: false }, axisLabel: { color: MUTED, fontSize: 12 } };
+const baseGrid = { left: 10, right: 16, top: 42, bottom: 6, containLabel: true };
+const tip = { trigger: 'axis', axisPointer: { type: 'shadow' }, textStyle: { fontSize: 12.5 } };
+function C(id, opt) { const el = document.getElementById(id); if (!el) return; const ch = echarts.init(el); ch.setOption(opt); window.addEventListener('resize', () => ch.resize()); }
+
+/* 产品构成：开通 vs 资金账户 */
+C('c_prod', {
+  title: { text: '各产品开通用户 vs 资金账户', left: 0, textStyle: { fontSize: 14, color: NAVY } },
+  tooltip: tip, legend: { top: 4, right: 0, textStyle: { color: MUTED } },
+  grid: baseGrid,
+  xAxis: { type: 'category', data: ['TD 个人养老金', 'QMP 养老金计划', '颐养天年'], ...baseAxis },
+  yAxis: { type: 'value', splitLine: { lineStyle: { color: GRID } }, axisLabel: { color: MUTED } },
+  series: [
+    { name: '开通用户', type: 'bar', data: [4592, 3004, null], itemStyle: { color: B, borderRadius: [4,4,0,0] }, barGap: '25%',
+      label: { show: true, position: 'top', color: INK, fontSize: 11.5 } },
+    { name: '资金账户', type: 'bar', data: [3032, 112, 761], itemStyle: { color: GREEN, borderRadius: [4,4,0,0] },
+      label: { show: true, position: 'top', color: INK, fontSize: 11.5 } }
+  ]
+});
+
+/* 年度新增：政策周期 */
+C('c_year', {
+  title: { text: '历年新增开通用户（首次开户去重）', left: 0, textStyle: { fontSize: 14, color: NAVY } },
+  tooltip: tip, grid: { ...baseGrid, top: 56 },
+  xAxis: { type: 'category', data: ['2019','2020','2021','2022','2023','2024','2025','2026*'], ...baseAxis },
+  yAxis: { type: 'value', splitLine: { lineStyle: { color: GRID } }, axisLabel: { color: MUTED } },
+  series: [{
+    name: '新增开通', type: 'bar', barWidth: '52%',
+    data: [
+      { value: 2 }, { value: 0 }, { value: 0 },
+      { value: 1511 }, { value: 2087 }, { value: 2052 }, { value: 1069 },
+      { value: 455, itemStyle: { color: B_LIGHT } }
+    ],
+    itemStyle: { color: B, borderRadius: [4,4,0,0] },
+    label: { show: true, position: 'top', color: INK, fontSize: 11.5 },
+    markArea: {
+      silent: true, itemStyle: { color: 'rgba(27,136,238,0.08)' },
+      label: { color: '#155a9e', fontSize: 11.5, position: 'insideTop' },
+      data: [[{ name: '政策红利期（2022-11 个养制度落地）', xAxis: '2022' }, { xAxis: '2024' }]]
+    }
+  }]
+});
+document.getElementById('c_year').insertAdjacentHTML('afterend', '<div style="font-size:11.5px;color:#8a93a8;margin:-6px 0 4px 4px">* 2026 年为 1–8 月（截至 08-18），未满年</div>');
+
+/* 月度新增 */
+C('c_month', {
+  title: { text: '近 12 月新增开通（月度）', left: 0, textStyle: { fontSize: 14, color: NAVY } },
+  tooltip: tip, grid: baseGrid,
+  xAxis: { type: 'category', data: ['25-09','25-10','25-11','25-12','26-01','26-02','26-03','26-04','26-05','26-06','26-07','26-08*'], ...baseAxis },
+  yAxis: { type: 'value', splitLine: { lineStyle: { color: GRID } }, axisLabel: { color: MUTED } },
+  series: [{
+    name: '新增开通', type: 'bar', barWidth: '58%',
+    data: [83,76,120,{ value: 220, itemStyle: { color: B_DEEP }, label: { show: true, position: 'top', color: NAVY, fontWeight: 700 } },110,68,55,47,62,50,36,{ value: 26, itemStyle: { color: B_PALE } }],
+    itemStyle: { color: B, borderRadius: [3,3,0,0] }
+  }]
+});
+
+/* 累计开通 */
+C('c_cum', {
+  title: { text: '累计开通用户（月末）', left: 0, textStyle: { fontSize: 14, color: NAVY } },
+  tooltip: { trigger: 'axis', textStyle: { fontSize: 12.5 } },
+  grid: baseGrid,
+  xAxis: { type: 'category', data: ['25-09','25-10','25-11','25-12','26-01','26-02','26-03','26-04','26-05','26-06','26-07','26-08'], boundaryGap: false, ...baseAxis },
+  yAxis: { type: 'value', min: 6200, splitLine: { lineStyle: { color: GRID } }, axisLabel: { color: MUTED } },
+  series: [{
+    name: '累计开通', type: 'line', smooth: false, symbol: 'circle', symbolSize: 6,
+    data: [6305,6381,6501,6721,6831,6899,6954,7001,7063,7113,7149,7175],
+    lineStyle: { color: B, width: 2 }, itemStyle: { color: B },
+    areaStyle: { color: { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: 'rgba(27,136,238,0.22)' }, { offset: 1, color: 'rgba(27,136,238,0.02)' }] } },
+    endLabel: { show: true, formatter: '7,175', color: NAVY, fontWeight: 700, fontSize: 12 }
+  }]
+});
+
+/* 转化漏斗 */
+C('c_funnel', {
+  title: { text: '开通 → 注资转化', left: 0, textStyle: { fontSize: 14, color: NAVY } },
+  tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, textStyle: { fontSize: 12.5 } },
+  grid: { ...baseGrid, left: 4 },
+  xAxis: { type: 'value', splitLine: { show: false }, axisLabel: { show: false } },
+  yAxis: { type: 'category', data: ['已开通未注资', '有资金账户', '开通用户'], ...baseAxis },
+  series: [{
+    type: 'bar', barWidth: '55%',
+    data: [
+      { value: 3544, itemStyle: { color: ORANGE } },
+      { value: 3631, itemStyle: { color: B } },
+      { value: 7175, itemStyle: { color: B_DEEP } }
+    ],
+    itemStyle: { borderRadius: [0,4,4,0] },
+    label: { show: true, position: 'right', color: INK, fontSize: 12, formatter: p => p.value.toLocaleString() }
+  }]
+});
+
+/* 资金沉淀 */
+C('c_money', {
+  title: { text: '资金沉淀（亿元）', left: 0, textStyle: { fontSize: 14, color: NAVY } },
+  tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, textStyle: { fontSize: 12.5 } },
+  grid: baseGrid,
+  xAxis: { type: 'category', data: ['累计净流入', '累计收益', '总资产'], ...baseAxis },
+  yAxis: { type: 'value', splitLine: { lineStyle: { color: GRID } }, axisLabel: { color: MUTED } },
+  series: [{
+    type: 'bar', barWidth: '46%',
+    data: [
+      { value: 11.26, itemStyle: { color: B } },
+      { value: 3.12, itemStyle: { color: GREEN } },
+      { value: 14.43, itemStyle: { color: B_DEEP } }
+    ],
+    itemStyle: { borderRadius: [4,4,0,0] },
+    label: { show: true, position: 'top', color: INK, fontSize: 12, fontWeight: 600 }
+  }]
+});
+
+/* 年龄分布 */
+C('c_age', {
+  title: { text: '年龄分布（3,631 户注资用户）', left: 0, textStyle: { fontSize: 14, color: NAVY } },
+  tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, textStyle: { fontSize: 12.5 } },
+  grid: { ...baseGrid, left: 4 },
+  xAxis: { type: 'value', splitLine: { show: false }, axisLabel: { show: false } },
+  yAxis: { type: 'category', data: ['60岁+','50-59岁','40-49岁','30-39岁','<30岁'], ...baseAxis },
+  series: [{
+    type: 'bar', barWidth: '55%',
+    data: [16, 314, 1173, 1874, 251],
+    itemStyle: { color: B, borderRadius: [0,4,4,0] },
+    label: { show: true, position: 'right', color: INK, fontSize: 12, formatter: p => { const pct = ['0.4','8.7','32.3','51.6','6.9'][p.dataIndex]; return `${p.value.toLocaleString()}（${pct}%）`; } }
+  }]
+});
+
+/* 性别 */
+C('c_gender', {
+  title: { text: '性别分布（3,631 户注资用户）', left: 0, textStyle: { fontSize: 14, color: NAVY } },
+  tooltip: { trigger: 'item', formatter: p => `${p.name}：${p.value.toLocaleString()} 户（${p.percent}%）`, textStyle: { fontSize: 12.5 } },
+  legend: { bottom: 0, textStyle: { color: MUTED } },
+  series: [{
+    type: 'pie', radius: ['42%','66%'], center: ['50%','48%'],
+    itemStyle: { borderColor: '#fff', borderWidth: 2 },
+    label: { color: INK, fontSize: 12.5, formatter: '{b}\n{d}%' },
+    data: [
+      { name: '男', value: 2419, itemStyle: { color: B } },
+      { name: '女', value: 1209, itemStyle: { color: GREEN } },
+      { name: '未知', value: 3, itemStyle: { color: B_PALE } }
+    ]
+  }]
+});
+
+/* 持仓分布 */
+C('c_hold', {
+  title: { text: '总资产分档（3,468 户有资产快照；ROOT 全平台口径）', left: 0, textStyle: { fontSize: 14, color: NAVY } },
+  tooltip: tip, grid: baseGrid,
+  xAxis: { type: 'category', data: ['<1万','1万-10万','10万-50万','50万-100万','>100万'], ...baseAxis },
+  yAxis: { type: 'value', splitLine: { lineStyle: { color: GRID } }, axisLabel: { color: MUTED } },
+  series: [{
+    name: '用户数', type: 'bar', barWidth: '46%',
+    data: [343, { value: 1310, itemStyle: { color: B_DEEP } }, 1108, 401, 306],
+    itemStyle: { color: B, borderRadius: [4,4,0,0] },
+    label: { show: true, position: 'top', color: INK, fontSize: 11.5, formatter: p => { const pct = ['9.9','37.8','32.0','11.6','8.8'][p.dataIndex]; return `${p.value.toLocaleString()}\n${pct}%`; } }
+  }]
+});
+
+/* 颐养天年 */
+C('c_yyty', {
+  title: { text: '颐养天年近 12 月资金流（万元）', left: 0, textStyle: { fontSize: 14, color: NAVY } },
+  tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, textStyle: { fontSize: 12.5 } },
+  grid: baseGrid,
+  xAxis: { type: 'category', data: ['申购','赎回','净申购'], ...baseAxis },
+  yAxis: { type: 'value', splitLine: { lineStyle: { color: GRID } }, axisLabel: { color: MUTED } },
+  series: [{
+    type: 'bar', barWidth: '42%',
+    data: [
+      { value: 402, itemStyle: { color: B } },
+      { value: 205, itemStyle: { color: ORANGE } },
+      { value: 198, itemStyle: { color: GREEN } }
+    ],
+    itemStyle: { borderRadius: [4,4,0,0] },
+    label: { show: true, position: 'top', color: INK, fontSize: 12, fontWeight: 600 }
+  }]
+});
+</script>
+</body>
+</html>
