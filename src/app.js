@@ -133,6 +133,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "qieman-goal-account-value-chart-2026-08-19",
+      groupId: "xiaogu",
+      title: "且慢目标投顾｜目标的复利（图表版）",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-goal-account-value-chart-2026-08-19/",
+      preview: "qieman-goal-account-value-chart-2026-08-19.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-19T10:40:00.000+08:00",
+      source: "且慢目标账户长期价值单页图表｜基准日 2024-06-28，活跃持仓用户 263,485 人｜有目标账户 61,056 人、无目标账户 202,429 人｜留存衰减曲线（12 月 +10.6pp、24 月 +15.6pp）、复投率哑铃图、平均在管天数哑铃图、人群构成条｜含全量数据表与口径说明｜观察性分组，仅证明相关关系｜CLAIR 可视化 HTML",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["且慢", "目标账户", "目标投顾", "用户价值", "留存", "复投", "在管时长", "数据可视化", "图表", "数据分析", "CLAIR", "HTML", "生产"],
+    },
+    {
       id: "qieman-goal-account-user-value-2026-08-18",
       groupId: "xiaogu",
       title: "且慢目标投顾｜有目标，更容易长期在场",
@@ -1493,6 +1507,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "qieman-goal-account-value-chart-2026-08-19": "data-analysis",
   "qieman-goal-account-user-value-2026-08-18": "data-analysis",
   "auto-follow-requirement-review-2026-08-10": "requirement-review",
   "clair-product-design-reviewer-2026-08-06": "requirement-review",

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 405" width="720" height="405" role="img" aria-label="目标的复利：24 个月留存率差距 +15.6pp">
+  <rect width="720" height="405" fill="#F1F3EE"/>
+  <rect x="48" y="40" width="624" height="4" fill="#101614"/>
+  <g font-family="PingFang SC, Hiragino Sans GB, Noto Sans SC, Microsoft YaHei, sans-serif">
+    <text x="48" y="74" font-size="13" letter-spacing="3.4" fill="#6E756C">且慢 · 目标账户用户价值</text>
+    <text x="48" y="132" font-size="46" font-weight="700" fill="#101614">目标的复利</text>
+    <text x="48" y="166" font-size="16" fill="#4E5651">有目标 vs 无目标：同一起点，24 个月后的留存差</text>
+
+    <polygon points="48,214 210,244 372,262 372,330 210,288" fill="#008068" fill-opacity="0.13"/>
+    <polyline points="48,214 210,288 372,330" fill="none" stroke="#C0762A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <polyline points="48,214 210,244 372,262" fill="none" stroke="#008068" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="48" cy="214" r="4.5" fill="#101614"/>
+    <circle cx="372" cy="262" r="4.5" fill="#008068" stroke="#F1F3EE" stroke-width="2"/>
+    <circle cx="372" cy="330" r="4.5" fill="#C0762A" stroke="#F1F3EE" stroke-width="2"/>
+    <text x="48" y="356" font-size="12" fill="#6E756C">基准日</text>
+    <text x="372" y="356" font-size="12" fill="#6E756C" text-anchor="middle">24 个月后</text>
+
+    <text x="672" y="236" font-size="14" fill="#6E756C" text-anchor="end">24 个月留存率差距</text>
+    <text x="672" y="304" font-size="70" font-weight="600" fill="#008068" text-anchor="end" letter-spacing="-2">+15.6<tspan font-size="30">pp</tspan></text>
+    <text x="672" y="332" font-size="14" fill="#4E5651" text-anchor="end">86.12% vs 70.55%</text>
+    <text x="48" y="384" font-size="12.5" fill="#6E756C">基准日 2024-06-28 · 活跃用户 263,485 人 · 观察窗口 24 个月</text>
+  </g>
+</svg>
