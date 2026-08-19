@@ -133,6 +133,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "qieman-risk-comfort-match-2026-08-19",
+      groupId: "xiaogu",
+      title: "且慢投顾适当性｜持仓风险 × 风险舒适区三组用户对比",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-risk-comfort-match-2026-08-19/",
+      preview: "qieman-risk-comfort-match-2026-08-19.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-19T11:00:00.000+08:00",
+      source: "且慢持仓用户 297,401 人按持仓晨星风险分 vs 风险舒适区分三组｜风险过低 61.1% / 匹配 24.0% / 过高 15.0%｜匹配组资金加权收益率 9.50% 三组最高｜过高组盈利占比 71.33% 与持有时长 1,274 天双垫底｜波动率/最大回撤以晨星持仓风险分代理（mc-query 缺 ODPS 凭证，口径限制见页内）｜晨星 KYP 周频快照 2026-08-15 × ying99_asset 收益表｜盈米本体下钻 73 轮｜且慢蓝单色阶梯可视化｜CLAIR 单页图表 HTML",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["且慢", "投顾适当性", "风险舒适区", "晨星风险", "KYP", "持仓风险", "投资收益", "盈利占比", "持有时长", "用户分组", "数据分析", "盈米本体", "CLAIR", "HTML", "生产"],
+    },
+    {
       id: "qieman-advisory-value-key-charts-2026-08-19",
       groupId: "xiaogu",
       title: "且慢投顾价值｜先算得出来的两件事（图表版）",
@@ -1577,6 +1591,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "qieman-risk-comfort-match-2026-08-19": "data-analysis",
   "qieman-advisory-value-key-charts-2026-08-19": "data-analysis",
   "qieman-multi-account-performance-2026-08-19": "data-analysis",
   "qieman-selffund-vs-advisor-ca-2026-08-19": "data-analysis",
