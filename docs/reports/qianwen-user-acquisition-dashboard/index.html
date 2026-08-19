@@ -20,10 +20,6 @@
       </a>
       <div class="topbar-actions">
         <span class="freshness" id="freshness"><i aria-hidden="true"></i><span>正在读取数据</span></span>
-        <button class="refresh-button" id="refresh-button" type="button" aria-busy="false">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"></path><path d="M20 5v6h-6"></path></svg>
-          <span>更新数据</span>
-        </button>
       </div>
     </div>
     <div class="refresh-status" id="refresh-status" role="status" aria-live="polite"></div>
@@ -245,8 +241,6 @@
       <output class="sr-only" id="audience-announcement" aria-live="polite"></output>
     </section>
   </main>
-
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="./data/fallback-data.js"></script>
   <script src="./app.js" type="module"></script>

@@ -1,7 +1,4 @@
 const DATA_URL = "./data/latest.json";
-const LOCAL_REFRESH_BASE = "http://127.0.0.1:41791";
-const LOCAL_DATA_KEY = "clair-qianwen-acquisition-latest-v6";
-const LOCAL_HEADER = { "X-Clair-Dashboard": "qianwen-user-acquisition-v1" };
 const SCHEMA_VERSION = "qianwen-user-acquisition-v6";
 const LAUNCH_AT = "2026-08-10T08:00:00+08:00";
 const WINDOW_START_AT = "2026-08-03T00:00:00+08:00";
@@ -158,7 +155,6 @@ const viewState = {
 
 let currentData = null;
 let currentRows = [];
-let toastTimer = null;
 let resizeTimer = null;
 
 function escapeHtml(value) {
@@ -411,45 +407,15 @@ function validateData(data) {
   return data;
 }
 
-async function fetchWithTimeout(url, options = {}, timeoutMs = 1800) {
-  const controller = new AbortController();
-  const timer = window.setTimeout(() => controller.abort(), timeoutMs);
+async function loadPublishedData() {
   try {
-    return await fetch(url, { ...options, signal: controller.signal });
-  } finally {
-    window.clearTimeout(timer);
-  }
-}
-
-async function loadPublishedData(fresh = false) {
-  try {
-    const response = await fetch(`${DATA_URL}${fresh ? `?v=${Date.now()}` : ""}`, { cache: "no-store" });
+    const response = await fetch(DATA_URL, { cache: "no-store" });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     return validateData(await response.json());
   } catch (error) {
     if (window.QIANWEN_ACQUISITION_DATA) return validateData(window.QIANWEN_ACQUISITION_DATA);
     throw error;
   }
-}
-
-function loadSavedLocalData() {
-  try {
-    return validateData(JSON.parse(localStorage.getItem(LOCAL_DATA_KEY) || "null"));
-  } catch {
-    return null;
-  }
-}
-
-function saveLocalData(data) {
-  try { localStorage.setItem(LOCAL_DATA_KEY, JSON.stringify(data)); } catch { /* optional cache */ }
-}
-
-function showToast(message) {
-  const toast = $("#toast");
-  toast.textContent = message;
-  toast.classList.add("show");
-  window.clearTimeout(toastTimer);
-  toastTimer = window.setTimeout(() => toast.classList.remove("show"), 3600);
 }
 
 function setFreshness(mode, text) {
@@ -459,23 +425,8 @@ function setFreshness(mode, text) {
   freshness.querySelector("span").textContent = text;
 }
 
-function setRefreshStatus(message, progressUrl = "") {
-  const status = $("#refresh-status");
-  status.textContent = message;
-  if (progressUrl) {
-    try {
-      const url = new URL(progressUrl);
-      if (url.protocol === "https:" && url.hostname === "ontology.yingmi-inc.com") {
-        status.append(" · ");
-        const link = document.createElement("a");
-        link.href = url.href;
-        link.target = "_blank";
-        link.rel = "noopener noreferrer";
-        link.textContent = "查看查询进度";
-        status.append(link);
-      }
-    } catch { /* ignore invalid progress URLs */ }
-  }
+function setNotice(message) {
+  $("#refresh-status").textContent = message;
 }
 
 function decorateRows(rows) {
@@ -1223,7 +1174,7 @@ function renderView({ announce = false } = {}) {
   applySelectedDate(viewState.selectedDate, { announce });
 }
 
-function render(data, mode = "published") {
+function render(data) {
   currentData = validateData(data);
   const firstDate = currentData.daily[0].date;
   const lastDate = currentData.daily.at(-1).date;
@@ -1238,88 +1189,11 @@ function render(data, mode = "published") {
   startInput.value = viewState.start;
   endInput.value = viewState.end;
   $("#range-error").textContent = "";
-  document.documentElement.dataset.dataMode = mode;
+  document.documentElement.dataset.dataMode = "published";
   renderView();
 }
 
-function delay(ms) {
-  return new Promise((resolve) => window.setTimeout(resolve, ms));
-}
-
-async function startLocalRefresh() {
-  const health = await fetchWithTimeout(`${LOCAL_REFRESH_BASE}/health`, { cache: "no-store", headers: LOCAL_HEADER }, 1800);
-  if (!health.ok) throw new Error("更新服务未就绪");
-  const healthData = await health.json();
-  if (healthData.schema_version !== SCHEMA_VERSION || healthData.window_start_at !== LAUNCH_AT) {
-    throw new Error("本机更新服务需要升级并重启");
-  }
-  const response = await fetchWithTimeout(`${LOCAL_REFRESH_BASE}/refresh`, {
-    method: "POST",
-    cache: "no-store",
-    headers: { ...LOCAL_HEADER, "Content-Type": "application/json" },
-    body: JSON.stringify({ action: "refresh" }),
-  }, 5000);
-  if (!response.ok) throw new Error(`更新服务返回 ${response.status}`);
-  const started = await response.json();
-  if (!started.job_id) throw new Error("更新服务没有返回任务编号");
-  setRefreshStatus(started.message || "正在查询最新数据。", started.progress_url || "");
-  for (let attempt = 0; attempt < 900; attempt += 1) {
-    await delay(2200);
-    const statusResponse = await fetchWithTimeout(`${LOCAL_REFRESH_BASE}/status?job=${encodeURIComponent(started.job_id)}&v=${Date.now()}`, {
-      cache: "no-store",
-      headers: LOCAL_HEADER,
-    }, 5000);
-    if (!statusResponse.ok) throw new Error(`查询状态返回 ${statusResponse.status}`);
-    const status = await statusResponse.json();
-    setRefreshStatus(status.message || "正在查询最新数据。", status.progress_url || "");
-    if (status.status === "completed") {
-      const refreshed = validateData(status.data);
-      saveLocalData(refreshed);
-      return refreshed;
-    }
-    if (status.status === "failed") throw new Error(status.message || "数据查询失败");
-  }
-  throw new Error("数据查询超过 30 分钟，请稍后重试");
-}
-
-async function refreshData() {
-  const button = $("#refresh-button");
-  if (button.disabled) return;
-  button.disabled = true;
-  button.classList.add("is-loading");
-  button.setAttribute("aria-busy", "true");
-  button.querySelector("span").textContent = "正在更新";
-  setFreshness("loading", "正在查询数据");
-  setRefreshStatus("正在连接盈米本体，查询最新数据…");
-  try {
-    const refreshed = await startLocalRefresh();
-    render(refreshed, "local-live");
-    setRefreshStatus(`更新完成，数据已刷新至 ${formatCutoff(refreshed.meta.data_cutoff)}。`);
-    showToast("最新用户数据已更新");
-    window.setTimeout(() => setRefreshStatus(""), 6000);
-  } catch (localError) {
-    try {
-      const published = await loadPublishedData(true);
-      const saved = loadSavedLocalData();
-      const newest = saved && parseTime(saved.meta.data_cutoff) > parseTime(published.meta.data_cutoff) ? saved : published;
-      render(newest, newest === saved ? "local-cache" : "published");
-      setRefreshStatus(`暂未连接本机更新服务，已保留最近数据（截至 ${formatCutoff(newest.meta.data_cutoff)}）。`);
-      showToast(localError.message || "已读取最近可用数据");
-    } catch {
-      setFreshness("error", "更新失败");
-      setRefreshStatus(`更新失败：${localError.message || "无法查询或读取数据"}`);
-      showToast("更新失败，请稍后再试");
-    }
-  } finally {
-    button.disabled = false;
-    button.classList.remove("is-loading");
-    button.setAttribute("aria-busy", "false");
-    button.querySelector("span").textContent = "更新数据";
-  }
-}
-
 function bindInteractions() {
-  $("#refresh-button").addEventListener("click", refreshData);
   document.querySelectorAll('input[name="series"]').forEach((input) => input.addEventListener("change", () => {
     if (input.checked) viewState.visibleSeries.add(input.value);
     else viewState.visibleSeries.delete(input.value);
@@ -1361,14 +1235,11 @@ async function init() {
   bindInteractions();
   setFreshness("loading", "正在读取数据");
   try {
-    const published = await loadPublishedData();
-    const saved = loadSavedLocalData();
-    const newest = saved && parseTime(saved.meta.data_cutoff) > parseTime(published.meta.data_cutoff) ? saved : published;
-    render(newest, newest === saved ? "local-cache" : "published");
-    setRefreshStatus("");
+    render(await loadPublishedData());
+    setNotice("");
   } catch {
     setFreshness("error", "数据读取失败");
-    setRefreshStatus("数据读取失败，请点击“更新数据”重试。");
+    setNotice("数据读取失败，请稍后重新打开页面。");
   }
 }
 

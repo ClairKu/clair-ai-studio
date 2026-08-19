@@ -351,7 +351,6 @@ function assertNoForbiddenKeys(value, path = "data") {
 assertNoForbiddenKeys(data);
 
 for (const signal of [
-  'id="refresh-button"',
   'id="bound-total"',
   'id="new-accounts"',
   'id="existing-accounts"',
@@ -397,6 +396,13 @@ for (const key of ["bound", "new", "existing", "daily"]) {
   if (!html.includes(`id="value-${key}"`)) fail(`读数条缺少 ${key} 的最新数值`);
 }
 for (const removed of [
+  "127.0.0.1",
+  "localStorage",
+  "LOCAL_REFRESH_BASE",
+  "startLocalRefresh",
+  "refresh-button",
+  "更新数据",
+  "id=\"toast\"",
   "阶段",
   "数据状态",
   "refresh-explainer",
@@ -419,12 +425,9 @@ for (const removed of [
   if (html.includes(removed) || app.includes(removed)) fail(`页面仍包含已移除内容：${removed}`);
 }
 for (const signal of [
-  "LOCAL_REFRESH_BASE",
   "qianwen-user-acquisition-v6",
-  "clair-qianwen-acquisition-latest-v6",
   "validateData",
   "validateAudienceData",
-  "startLocalRefresh",
   "filteredRows",
   "renderChart",
   "renderTable",

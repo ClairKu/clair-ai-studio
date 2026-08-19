@@ -133,41 +133,21 @@ input:focus-visible,
 
 .topbar-actions { display: flex; align-items: center; gap: 16px; }
 .freshness { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); font-size: 12px; white-space: nowrap; }
-.freshness > i { width: 7px; height: 7px; border-radius: 50%; background: var(--jade); box-shadow: 0 0 0 5px rgba(24, 184, 148, 0.1); }
+.freshness > i { width: 7px; height: 7px; border-radius: 50%; background: var(--jade); box-shadow: 0 0 0 5px rgba(15, 157, 120, 0.12); }
 .freshness.is-loading > i { background: var(--amber); animation: pulse 1s ease infinite alternate; }
 .freshness.is-error > i { background: var(--coral); }
-
-.refresh-button {
-  min-height: 44px;
-  padding: 0 17px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 9px;
-  border: 1px solid var(--ink);
-  border-radius: 999px;
-  color: var(--white);
-  background: var(--ink);
-  cursor: pointer;
-  transition: transform 0.18s ease, background 0.18s ease;
-}
-.refresh-button:hover { transform: translateY(-1px); background: var(--violet-dark); }
-.refresh-button:disabled { cursor: wait; opacity: 0.68; transform: none; }
-.refresh-button svg { width: 17px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-.refresh-button.is-loading svg { animation: spin 0.9s linear infinite; }
 
 .refresh-status {
   width: var(--shell);
   max-height: 0;
   margin-inline: auto;
   overflow: hidden;
-  color: var(--violet-dark);
+  color: var(--coral);
   font-size: 12px;
   line-height: 1.5;
   transition: max-height 0.2s ease, padding 0.2s ease;
 }
 .refresh-status:not(:empty) { max-height: 58px; padding: 0 0 10px; }
-.refresh-status a { color: inherit; font-weight: 700; }
 
 .hero { padding: 86px 0 78px; }
 .hero-heading { max-width: 880px; }
@@ -465,10 +445,6 @@ tbody tr:hover td:first-child, tbody tr.is-selected td:first-child { background:
 .audience-table-empty { padding: 28px !important; color: var(--muted); text-align: center !important; }
 .audience-footnote { margin: 0 -28px; padding: 17px 28px 20px; border-top: 1px solid var(--line); color: var(--muted); background: #fafafe; font-size: 11px; line-height: 1.7; }
 
-.toast { position: fixed; left: 50%; bottom: 26px; z-index: 60; max-width: min(520px, calc(100vw - 36px)); padding: 12px 17px; color: var(--white); background: var(--ink); box-shadow: 0 12px 34px rgba(17, 21, 34, 0.28); opacity: 0; transform: translate(-50%, 14px); pointer-events: none; transition: 0.2s ease; font-size: 12px; }
-.toast.show { opacity: 1; transform: translate(-50%, 0); }
-
-@keyframes spin { to { transform: rotate(360deg); } }
 @keyframes pulse { to { opacity: 0.35; } }
 
 @media (max-width: 900px) {
@@ -488,8 +464,7 @@ tbody tr:hover td:first-child, tbody tr.is-selected td:first-child { background:
   :root { --shell: calc(100vw - 28px); }
   .topbar-inner { min-height: 68px; }
   .brand-copy { display: none; }
-  .freshness { display: none; }
-  .refresh-button { min-height: 42px; padding: 0 14px; }
+  .freshness { font-size: 11px; }
   .refresh-status { font-size: 11px; }
   .hero { padding: 52px 0 60px; }
   .hero h1 { font-size: clamp(40px, 11.5vw, 52px); }
@@ -588,7 +563,7 @@ tbody tr:hover td:first-child, tbody tr.is-selected td:first-child { background:
 }
 
 @media print {
-  .topbar, .analysis-controls, .custom-range, .toast, .scroll-hint, .audience-segmented { display: none !important; }
+  .topbar, .analysis-controls, .custom-range, .scroll-hint, .audience-segmented { display: none !important; }
   .hero { padding-top: 30px; }
   .kpi-card { box-shadow: none; }
   .analysis-canvas { break-inside: avoid; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
