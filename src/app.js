@@ -133,6 +133,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "qieman-multi-account-performance-2026-08-19",
+      groupId: "reporting",
+      title: "且慢多账户用户｜账户越多，在场更久、赚得更多，也扛着更大的波动",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-multi-account-performance-2026-08-19/",
+      preview: "qieman-multi-account-performance-2026-08-19.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-19T12:30:00.000+08:00",
+      source: "且慢用户按投资账户（UMA）数量分组对比｜202608 快照在管用户 288,460 人：1 组 190,153 / 2 组 45,093 / 3+ 组 53,214｜投资收益率、最大回撤、年化波动率、持有时长、盈利用户占比五指标单调走高｜观察性分组，仅证明相关关系｜盈米本体 73 轮下钻，redash/TiDB asset4 月度表｜CLAIR 可视化 HTML",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["且慢", "多账户", "UMA", "投资收益", "最大回撤", "波动率", "持有时长", "盈利占比", "用户分层", "数据分析", "本体", "CLAIR", "HTML", "生产"],
+    },
+    {
       id: "qieman-selffund-vs-advisor-ca-2026-08-19",
       groupId: "xiaogu",
       title: "且慢用户｜自助基金交易 CA vs 投顾策略 CA 表现对比",
@@ -1535,6 +1549,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "qieman-multi-account-performance-2026-08-19": "data-analysis",
   "qieman-selffund-vs-advisor-ca-2026-08-19": "data-analysis",
   "qieman-vip-fee-service-results-2026-08-19": "data-analysis",
   "qieman-goal-account-value-chart-2026-08-19": "data-analysis",

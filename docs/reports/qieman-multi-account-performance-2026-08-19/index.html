@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#f4f4f1">
+<meta name="description" content="且慢用户按投资账户数量分组的投资表现对比：收益率、最大回撤、波动率、持有时长、盈利占比">
+<title>且慢多账户用户投资表现对比</title>
+<style>
+  :root{
+    --paper:#fcfcfb;          /* 图表卡面 */
+    --plane:#f4f4f1;          /* 页面底 */
+    --ink:#10151c;
+    --ink-2:#4c5563;
+    --muted:#8a8f98;
+    --grid:#e5e6e2;
+    --baseline:#c6c8c3;
+    --border:rgba(16,21,28,.10);
+    --s1:#2a78d6;             /* 1 个默认账户 */
+    --s2:#eb6834;             /* 2 个账户 */
+    --s3:#1baf7a;             /* 3 个及以上 */
+    --risk:#a8663d;           /* 风险指标标记（文字用） */
+    --sans:system-ui,-apple-system,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--plane);color:var(--ink);font:15px/1.7 var(--sans)}
+  a{color:inherit}
+  .wrap{width:min(1080px,calc(100% - 40px));margin:0 auto}
+
+  /* ── 头部 ── */
+  header{padding:56px 0 8px}
+  .eyebrow{font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--s1)}
+  h1{margin:14px 0 10px;font-size:clamp(28px,4.2vw,44px);line-height:1.18;letter-spacing:-.02em;text-wrap:balance;max-width:22em}
+  .thesis{margin:0;max-width:46em;color:var(--ink-2);font-size:16px}
+  .meta-line{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:18px;color:var(--muted);font-size:12px}
+  .meta-line b{color:var(--ink-2);font-weight:600}
+
+  /* ── 分组卡 ── */
+  .cohorts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:28px 0 8px}
+  .cohort{position:relative;padding:16px 18px 14px;border:1px solid var(--border);border-radius:12px;background:var(--paper)}
+  .cohort::before{content:"";position:absolute;left:18px;top:18px;width:10px;height:10px;border-radius:3px}
+  .cohort.c1::before{background:var(--s1)}
+  .cohort.c2::before{background:var(--s2)}
+  .cohort.c3::before{background:var(--s3)}
+  .cohort h2{margin:0 0 4px;padding-left:20px;font-size:14px;font-weight:700}
+  .cohort .n{font-size:24px;font-weight:700;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+  .cohort .share{margin-left:6px;color:var(--muted);font-size:12px}
+  .cohort p{margin:2px 0 0;color:var(--muted);font-size:12px}
+
+  /* ── 图表区 ── */
+  .charts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0}
+  .panel{padding:18px 18px 14px;border:1px solid var(--border);border-radius:12px;background:var(--paper)}
+  .panel-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:2px}
+  .panel h3{margin:0;font-size:15px;font-weight:700}
+  .tag{flex:none;padding:2px 8px;border-radius:999px;font-size:10px;font-weight:700;letter-spacing:.06em}
+  .tag.up{background:#e9f2fd;color:#1c5cab}
+  .tag.risk{background:#f7ede4;color:#8a5330}
+  .panel .sub{margin:0 0 14px;color:var(--muted);font-size:11.5px}
+  .row{display:grid;grid-template-columns:86px 1fr;align-items:center;gap:10px;margin:7px 0}
+  .row .lab{color:var(--ink-2);font-size:12px;white-space:nowrap;text-align:right}
+  .track{position:relative;height:22px;background:transparent}
+  .track::after{content:"";position:absolute;inset:0;border-left:2px solid var(--baseline)}
+  .bar{position:relative;z-index:1;height:100%;border-radius:0 4px 4px 0;display:flex;align-items:center}
+  .bar.b1{background:var(--s1)}
+  .bar.b2{background:var(--s2)}
+  .bar.b3{background:var(--s3)}
+  .val{position:absolute;left:calc(100% + 8px);color:var(--ink);font-size:12.5px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .axis{display:flex;justify-content:space-between;margin-top:8px;padding-left:96px;color:var(--muted);font-size:10.5px;font-variant-numeric:tabular-nums}
+  .delta{margin:12px 0 0;padding-top:10px;border-top:1px solid var(--grid);color:var(--ink-2);font-size:12px}
+  .delta b{font-variant-numeric:tabular-nums}
+  .delta .good{color:#006300}
+  .delta .warn{color:#8a5330}
+
+  /* ── 洞察带 ── */
+  .insight{margin:6px 0 26px;padding:20px 22px;border:1px solid var(--border);border-radius:12px;background:linear-gradient(135deg,#eef4fc,#fcfcfb 55%)}
+  .insight h3{margin:0 0 6px;font-size:15px}
+  .insight p{margin:0;max-width:62em;color:var(--ink-2);font-size:13.5px}
+
+  /* ── 数据表 ── */
+  section.block{margin:34px 0}
+  section.block>h2{margin:0 0 4px;font-size:19px;letter-spacing:-.01em}
+  section.block>.lede{margin:0 0 14px;color:var(--muted);font-size:13px}
+  .table-scroll{overflow-x:auto;border:1px solid var(--border);border-radius:12px;background:var(--paper)}
+  table{width:100%;min-width:720px;border-collapse:collapse;font-size:13px}
+  th,td{padding:10px 14px;text-align:right;font-variant-numeric:tabular-nums;border-bottom:1px solid var(--grid)}
+  th:first-child,td:first-child{text-align:left}
+  thead th{color:var(--muted);font-size:11.5px;font-weight:700;letter-spacing:.04em;border-bottom:1px solid var(--baseline)}
+  tbody tr:last-child td{border-bottom:0}
+  td .chip{display:inline-block;width:9px;height:9px;margin-right:8px;border-radius:3px;vertical-align:baseline}
+  tr.aux td{color:var(--muted);font-size:12px}
+
+  /* ── 口径 ── */
+  .notes{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .note{padding:16px 18px;border:1px solid var(--border);border-radius:12px;background:var(--paper)}
+  .note h4{margin:0 0 8px;font-size:13px}
+  .note ul{margin:0;padding-left:18px;color:var(--ink-2);font-size:12.5px}
+  .note li{margin:5px 0}
+  .note li b{color:var(--ink)}
+
+  footer{margin-top:40px;padding:22px 0 34px;border-top:1px solid var(--grid);color:var(--muted);font-size:11.5px}
+  footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 20px}
+
+  @media(max-width:900px){
+    .cohorts,.charts{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:640px){
+    header{padding-top:40px}
+    .cohorts,.charts,.notes{grid-template-columns:1fr}
+    .row{grid-template-columns:70px 1fr}
+    .axis{padding-left:80px}
+    .val{font-size:11.5px}
+  }
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <div class="eyebrow">且慢 · 用户数据分析 · 2026-08-19</div>
+  <h1>账户越多的用户，在场更久、赚得更多，也扛着更大的波动</h1>
+  <p class="thesis">把 28.8 万在管且慢用户按有效投资账户（UMA）数量分成三组：收益率、盈利用户占比、持有时长随账户数单调走高；最大回撤与波动率同样单调走高——多账户用户是更资深、更高风险偏好的高价值群体，风险与收益对称。</p>
+  <div class="meta-line">
+    <span>基底 <b>288,460</b> 名在管用户（202608 快照，月末总资产 &gt; 100 元）</span>
+    <span>数据窗口 <b>2022-07 ~ 2026-08</b>（48 个月）</span>
+    <span>来源 <b>盈米本体 · 73 轮下钻 · redash/TiDB 生产数仓</b></span>
+  </div>
+</header>
+
+<div class="wrap cohorts">
+  <div class="cohort c1">
+    <h2>1 个（仅默认账户）</h2>
+    <div><span class="n">190,153</span><span class="share">人 · 65.9%</span></div>
+    <p>注册即有的默认 UMA，未再开设</p>
+  </div>
+  <div class="cohort c2">
+    <h2>2 个投资账户</h2>
+    <div><span class="n">45,093</span><span class="share">人 · 15.6%</span></div>
+    <p>主动多开 1 个账户分管用途</p>
+  </div>
+  <div class="cohort c3">
+    <h2>3 个及以上</h2>
+    <div><span class="n">53,214</span><span class="share">人 · 18.4%</span></div>
+    <p>按用途/策略多账户管理</p>
+  </div>
+</div>
+
+<div class="wrap charts">
+
+  <div class="panel">
+    <div class="panel-head"><h3>平均投资收益率</h3><span class="tag up">收益</span></div>
+    <p class="sub">累计收益 ÷ 累计总申购（简化口径）</p>
+    <div class="row"><span class="lab">1 个账户</span><div class="track"><div class="bar b1" style="width:55.5%"><span class="val">6.66%</span></div></div></div>
+    <div class="row"><span class="lab">2 个</span><div class="track"><div class="bar b2" style="width:78.1%"><span class="val">9.37%</span></div></div></div>
+    <div class="row"><span class="lab">3 个及以上</span><div class="track"><div class="bar b3" style="width:84.4%"><span class="val">10.13%</span></div></div></div>
+    <div class="axis"><span>0</span><span>12%</span></div>
+    <p class="delta">3+ 组比单账户组高 <b class="good">+3.47 pct</b>，收益率随账户数单调走高</p>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><h3>盈利用户占比</h3><span class="tag up">收益</span></div>
+    <p class="sub">累计收益 &gt; 0 的用户比例（0–100% 满刻度）</p>
+    <div class="row"><span class="lab">1 个账户</span><div class="track"><div class="bar b1" style="width:82.4%"><span class="val">82.37%</span></div></div></div>
+    <div class="row"><span class="lab">2 个</span><div class="track"><div class="bar b2" style="width:88.7%"><span class="val">88.73%</span></div></div></div>
+    <div class="row"><span class="lab">3 个及以上</span><div class="track"><div class="bar b3" style="width:92.5%"><span class="val">92.45%</span></div></div></div>
+    <div class="axis"><span>0</span><span>100%</span></div>
+    <p class="delta">3+ 组盈利面 <b class="good">+10.08 pct</b>，超过九成用户赚钱</p>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><h3>平均持有时长</h3><span class="tag up">在场</span></div>
+    <p class="sub">首次持有日至 2026-08-18 的天数</p>
+    <div class="row"><span class="lab">1 个账户</span><div class="track"><div class="bar b1" style="width:52.7%"><span class="val">1,265 天</span></div></div></div>
+    <div class="row"><span class="lab">2 个</span><div class="track"><div class="bar b2" style="width:76.7%"><span class="val">1,840 天</span></div></div></div>
+    <div class="row"><span class="lab">3 个及以上</span><div class="track"><div class="bar b3" style="width:90.2%"><span class="val">2,165 天</span></div></div></div>
+    <div class="axis"><span>0</span><span>2,400 天</span></div>
+    <p class="delta">≈3.5 年 → ≈5.0 年 → ≈5.9 年，多账户用户在场时间接近翻倍</p>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><h3>平均最大回撤</h3><span class="tag risk">风险</span></div>
+    <p class="sub">月度净值序列峰谷最大跌幅（已剔除申赎现金流）</p>
+    <div class="row"><span class="lab">1 个账户</span><div class="track"><div class="bar b1" style="width:68.6%"><span class="val">13.71%</span></div></div></div>
+    <div class="row"><span class="lab">2 个</span><div class="track"><div class="bar b2" style="width:88.5%"><span class="val">17.70%</span></div></div></div>
+    <div class="row"><span class="lab">3 个及以上</span><div class="track"><div class="bar b3" style="width:93.7%"><span class="val">18.74%</span></div></div></div>
+    <div class="axis"><span>0</span><span>20%</span></div>
+    <p class="delta">3+ 组回撤比单账户组深 <b class="warn">+5.03 pct</b>，风险敞口更大</p>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><h3>平均年化波动率</h3><span class="tag risk">风险</span></div>
+    <p class="sub">月度收益率标准差 × √12 年化</p>
+    <div class="row"><span class="lab">1 个账户</span><div class="track"><div class="bar b1" style="width:61.9%"><span class="val">12.37%</span></div></div></div>
+    <div class="row"><span class="lab">2 个</span><div class="track"><div class="bar b2" style="width:68.9%"><span class="val">13.78%</span></div></div></div>
+    <div class="row"><span class="lab">3 个及以上</span><div class="track"><div class="bar b3" style="width:85.7%"><span class="val">17.13%</span></div></div></div>
+    <div class="axis"><span>0</span><span>20%</span></div>
+    <p class="delta">3+ 组波动率比单账户组高 <b class="warn">+4.76 pct</b>，组合更激进</p>
+  </div>
+
+  <div class="panel insight" style="margin:0">
+    <h3>怎么读这组数字</h3>
+    <p>五项指标全部随账户数<b>单调</b>变化：多账户用户不是"免费地"多赚——他们承担了更深的回撤和更高的波动，换来了更高的累计收益和更大的盈利面。这是一个<b>观察性分组</b>：账户数量是用户资深程度与风险偏好的代理变量，只证明相关关系，不代表"多开账户会导致多赚钱"。加"累计总申购 &gt; 1000 元"门槛剔除微账户后结论几乎不变（收益率 6.38% / 9.31% / 10.12%），结果稳健。</p>
+  </div>
+
+</div>
+
+<section class="block wrap">
+  <h2>完整数据表</h2>
+  <p class="lede">原始精度数值，及剔除微账户后的稳健性校验</p>
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr><th>分组</th><th>样本量</th><th>投资收益率</th><th>最大回撤</th><th>年化波动率</th><th>持有时长</th><th>盈利用户占比</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="chip" style="background:var(--s1)"></span>1 个（仅默认账户）</td><td>190,153</td><td>6.66%</td><td>13.71%</td><td>12.37%</td><td>1,264.5 天</td><td>82.37%</td></tr>
+        <tr><td><span class="chip" style="background:var(--s2)"></span>2 个投资账户</td><td>45,093</td><td>9.37%</td><td>17.70%</td><td>13.78%</td><td>1,839.6 天</td><td>88.73%</td></tr>
+        <tr><td><span class="chip" style="background:var(--s3)"></span>3 个及以上</td><td>53,214</td><td>10.13%</td><td>18.74%</td><td>17.13%</td><td>2,165.4 天</td><td>92.45%</td></tr>
+        <tr class="aux"><td>稳健性校验（累计申购 &gt; 1000 元）</td><td>—</td><td>6.38% / 9.31% / 10.12%</td><td colspan="3">—</td><td>82.13% / 88.73% / 92.47%</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="block wrap">
+  <h2>口径与局限</h2>
+  <p class="lede">来自盈米本体的口径详解，读数前先看这里</p>
+  <div class="notes">
+    <div class="note">
+      <h4>分组与基底</h4>
+      <ul>
+        <li><b>投资账户</b> = 且慢 UMA（user_manage_account），注册即有 1 个默认账户，可按用途主动多开；计数只含 status='N' 且未隐藏的有效账户。</li>
+        <li><b>基底</b>：202608 月度快照有持仓且月末总资产 &gt; 100 元的在管且慢用户（broker=0008），共 288,460 人，与「在管用户」口径对齐。</li>
+        <li><b>最大回撤有效样本</b> 287,292 人（剔除月度收益记录 &lt; 2 个的用户，与其余指标样本差 &lt; 0.5%）。</li>
+      </ul>
+    </div>
+    <div class="note">
+      <h4>指标口径</h4>
+      <ul>
+        <li><b>收益率</b>：累计收益（月末总资产 − 累计净流入）÷ 累计总申购；简化口径，非严格 MWR/XIRR。</li>
+        <li><b>最大回撤</b>：基于时间加权净值序列 Π(1+月收益率) 的峰谷跌幅，剔除申赎现金流影响；月度粒度，低估日内真实回撤。</li>
+        <li><b>波动率</b>：月度收益率标准差 × √12；月度粒度，低估日度真实波动。</li>
+        <li><b>持有时长</b>：月度表最早 2022-07，更早开户的老用户按下限计，略低估。</li>
+      </ul>
+    </div>
+    <div class="note">
+      <h4>数据来源</h4>
+      <ul>
+        <li>主源：ying99_asset.dwd_ast_aum_user_mv_monthly_full（asset4 用户月度收益资产表，202207–202608 共 48 月）。</li>
+        <li>映射：dwd_scrm_broker_user_profit_latest（broker_user_id ↔ account3_id）；分组：ying99_qieman.user_manage_account。</li>
+        <li>路由：经 redash 直连 TiDB 生产数仓（数据源 41）；qieman_ads 现成用户级概览表本次不可直查，改为月度表自行聚合。</li>
+      </ul>
+    </div>
+    <div class="note">
+      <h4>结论边界</h4>
+      <ul>
+        <li>观察性分组，只证明<b>相关关系</b>：账户数是资深程度与风险偏好的代理变量，不构成因果。</li>
+        <li>回撤/波动率为月度口径，系统性低估日度真实值；三组间的<b>相对排序</b>不受影响。</li>
+        <li>盈利占比与「在管用户累计盈利」口径同源（1 组 82.4% ≈ 在管口径 80.3%），方向一致、量级吻合。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>且慢多账户用户投资表现对比 · 数据截至 2026-08-18</span>
+    <span>盈米本体 73 轮下钻 · asset4 月度表 × UMA 分组 · CLAIR Studio</span>
+  </div>
+</footer>
+
+</body>
+</html>
