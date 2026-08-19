@@ -133,6 +133,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "qieman-advisor-value-ca-compare-2026-08-19",
+      groupId: "xiaogu",
+      title: "且慢投顾｜投顾价值透视：投顾策略 CA vs 自助基金交易 CA",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-advisor-value-ca-compare-2026-08-19/",
+      preview: "qieman-advisor-value-ca-compare-2026-08-19.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-19T12:10:00.000+08:00",
+      source: "且慢投顾价值专题（自助 vs 投顾五维对比报告的投顾价值视角版）｜四维证据：累计MWR 19.93% vs 12.47%（+7.46pp）、最大回撤 7.71% vs 8.60%（-0.89pp）、年化波动 9.28% vs 11.46%（-2.18pp）、盈利占比 81.93% vs 70.12%（+11.8pp）｜持有时长≈817天持平佐证差异来自配置与陪伴｜水下回撤曲线+日收益率241交易日全序列｜快照 2026-08-17｜生产数仓 dw-tidb（redash ds41）｜盈米本体取数｜官方且慢蓝 #1B88EE｜CLAIR 单页 HTML",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["且慢", "投顾价值", "投顾策略", "自助交易", "CA", "累计收益", "最大回撤", "波动率", "盈利占比", "水下曲线", "数据分析", "盈米本体", "ECharts", "且慢蓝", "CLAIR", "HTML", "生产"],
+    },
+    {
       id: "qieman-dual-account-cohort-comparison-2026-08-19",
       groupId: "xiaogu",
       title: "且慢用户｜稳钱+长钱双持 vs 单持：五维投资表现对比",
@@ -1605,6 +1619,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "qieman-advisor-value-ca-compare-2026-08-19": "data-analysis",
   "qieman-dual-account-cohort-comparison-2026-08-19": "data-analysis",
   "qieman-risk-comfort-match-2026-08-19": "data-analysis",
   "qieman-advisory-value-key-charts-2026-08-19": "data-analysis",

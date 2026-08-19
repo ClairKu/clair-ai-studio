@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="405" viewBox="0 0 720 405">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#10182c"/>
+      <stop offset="0.62" stop-color="#0b5192"/>
+      <stop offset="1" stop-color="#1072cd"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="405" fill="url(#bg)"/>
+  <text x="48" y="82" font-family="-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="32" font-weight="700" fill="#ffffff">且慢投顾价值透视</text>
+  <text x="48" y="126" font-family="-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="23" font-weight="600" fill="#9fd0ff">投顾策略 CA vs 自助基金交易 CA</text>
+  <text x="48" y="164" font-family="-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="14" fill="#c9e2f8">长期收益 · 抗回撤 · 低波动 · 盈利面 ｜ 快照 2026-08-17 · 持有时长≈持平</text>
+  <g font-family="-apple-system,'PingFang SC','Microsoft YaHei',sans-serif">
+    <rect x="48" y="204" width="180" height="110" rx="10" fill="#ffffff" opacity="0.10"/>
+    <text x="66" y="244" font-size="13" fill="#c9e2f8">累计收益 MWR</text>
+    <text x="66" y="286" font-size="26" font-weight="700" fill="#ffffff">+7.46<tspan font-size="14" fill="#9fd0ff">pp</tspan></text>
+    <rect x="246" y="204" width="180" height="110" rx="10" fill="#ffffff" opacity="0.10"/>
+    <text x="264" y="244" font-size="13" fill="#c9e2f8">最大回撤更浅</text>
+    <text x="264" y="286" font-size="26" font-weight="700" fill="#ffffff">-0.89<tspan font-size="14" fill="#9fd0ff">pp</tspan></text>
+    <rect x="444" y="204" width="180" height="110" rx="10" fill="#ffffff" opacity="0.10"/>
+    <text x="462" y="244" font-size="13" fill="#c9e2f8">盈利占比更高</text>
+    <text x="462" y="286" font-size="26" font-weight="700" fill="#ffffff">+11.8<tspan font-size="14" fill="#9fd0ff">pp</tspan></text>
+  </g>
+  <text x="48" y="364" font-family="-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="12" fill="#8fb4dd">6 个 ECharts 图表 · 水下回撤曲线 · 生产数仓 dw-tidb（redash）· CLAIR × 盈米本体 · 且慢蓝</text>
+</svg>
