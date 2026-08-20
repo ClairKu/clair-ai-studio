@@ -180,20 +180,20 @@
       "navLabel": "价值验证",
       "kicker": "P3 · VALUE PROOF / EXPORT",
       "title": "价值验证：从“找功能”到“交任务”",
-      "lead": "案例一｜导出交易记录。过去只能查看记录或逐月获取对账单；现在只需说清目的，AI 即可完成全量取数、文件生成与交付。",
+      "lead": "日常用户需求，能即时被满足，即使没有开发对应功能，只要 AI 有数据，都能直接按照用户的个性化要求，来完成任务，无需跳出小顾、无需等待功能开发。",
       "layout": "export-case",
       "tone": "dark",
       "beforeDemo": {
         "index": "01",
         "eyebrow": "BEFORE · 查看 / 按月获取",
-        "title": "先找入口，再逐月查看",
+        "title": "AI 帮你找功能",
         "image": "assets/transaction-export-before-proof-statement.png",
         "alt": "以前的小顾对话：可开立最新资产证明，并需按月份选择查看或下载月度对账单"
       },
       "newWay": {
         "index": "02",
         "eyebrow": "NOW · 00:12",
-        "title": "生成全量交易明细 Excel",
+        "title": "AI 帮你完成任务",
         "video": "assets/videos/transaction-export-full.mp4",
         "poster": "assets/posters/transaction-export-full.jpg"
       },
@@ -222,15 +222,15 @@
       "id": "task-recording",
       "navHidden": true,
       "kicker": "P4 · VALUE PROOF / BEHAVIOR",
-      "title": "从交易记录到行为分析",
-      "lead": "两支完整录屏展示：AI 如何从全量交易记录出发，识别行为偏差、给出逐笔证据，并形成可执行的矫正方案。",
+      "title": "价值验证：从“不可能”到“可能”",
+      "lead": "进阶复杂功能，在未经产品业务的专业设计与规范下，能提前给到客户真实具体的数据分析、判断与优化引导。可实现很多过去尚未有时间规划落地的能力。",
       "layout": "behavior-proof",
       "tone": "dark",
       "items": [
         {
           "index": "01",
           "eyebrow": "分析过程 · 01:04",
-          "title": "复杂任务如何被完成",
+          "title": "可追问更多细节",
           "body": "从需求理解、取数、分析成稿到连续追问，完整展示 AI 如何把复杂问题推进到结果。",
           "meta": "TASK FLOW · FULL PROCESS",
           "video": "assets/videos/behavior-analysis-full-process.mp4",
@@ -239,7 +239,7 @@
         {
           "index": "02",
           "eyebrow": "完整报告 · 00:59",
-          "title": "完整报告如何被交付",
+          "title": "可获取分析报告",
           "body": "从全景洞察、逐笔依据到矫正方案与进度追踪，结果可浏览、复看并继续追问。",
           "meta": "REPORT DELIVERY · FULL REPORT",
           "video": "assets/videos/behavior-analysis-full-report.mp4",
@@ -247,7 +247,7 @@
         }
       ],
       "capabilityEyebrow": "FROM TRANSACTIONS TO ACTION",
-      "capabilityTitle": "四项能力，把交易事实变成行动",
+      "capabilityTitle": "案例：交易行为分析洞察、数据印证、矫正建议",
       "capabilities": [
         {
           "index": "01",
