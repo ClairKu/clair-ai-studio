@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="720" viewBox="0 0 1600 720" role="img" aria-labelledby="title desc">
-  <title id="title">从走出小顾，到走出且慢</title>
-  <desc id="desc">且慢 AI 服务经过三次跨越：融入完整用户路径，进入多种服务终端，最终进入 AI 与机构生态。</desc>
+  <title id="title">能力外溢，走出小顾、走出 APP、走出且慢</title>
+  <desc id="desc">且慢 AI 服务经过三次跨越：融入完整用户路径，进入多种服务终端，最终进入 AI 流量入口与生态。</desc>
   <defs>
     <linearGradient id="stageOne" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#ffffff"/>
@@ -83,14 +83,18 @@
     <text x="38" y="225" class="serif stage">走出 APP</text>
     <text x="38" y="274" class="sans statement">进入用户所在的服务终端</text>
     <g transform="translate(38 326)">
-      <rect width="142" height="52" rx="26" fill="#ffffff"/>
-      <text x="71" y="34" text-anchor="middle" class="sans chip">小程序</text>
-      <rect x="156" width="92" height="52" rx="26" fill="#ffffff"/>
-      <text x="202" y="34" text-anchor="middle" class="sans chip">H5</text>
-      <rect y="68" width="112" height="52" rx="26" fill="#ffffff"/>
-      <text x="56" y="102" text-anchor="middle" class="sans chip">微信</text>
-      <rect x="126" y="68" width="174" height="52" rx="26" fill="#ffffff"/>
-      <text x="213" y="102" text-anchor="middle" class="sans chip">工作环境</text>
+      <rect width="120" height="52" rx="26" fill="#ffffff"/>
+      <text x="60" y="34" text-anchor="middle" class="sans chip">小程序</text>
+      <rect x="132" width="78" height="52" rx="26" fill="#ffffff"/>
+      <text x="171" y="34" text-anchor="middle" class="sans chip">H5</text>
+      <rect x="222" width="96" height="52" rx="26" fill="#ffffff"/>
+      <text x="270" y="34" text-anchor="middle" class="sans chip">微信</text>
+      <rect y="68" width="96" height="52" rx="26" fill="#ffffff"/>
+      <text x="48" y="102" text-anchor="middle" class="sans chip">企微</text>
+      <rect x="108" y="68" width="104" height="52" rx="26" fill="#ffffff"/>
+      <text x="160" y="102" text-anchor="middle" class="sans chip">SCRM</text>
+      <rect x="224" y="68" width="150" height="52" rx="26" fill="#ffffff"/>
+      <text x="299" y="102" text-anchor="middle" class="sans chip">工作系统</text>
     </g>
   </g>
 
@@ -107,16 +111,18 @@
     <text x="38" y="72" class="sans micro stageLight">03 · OPEN ECOSYSTEM</text>
     <text x="38" y="160" class="sans number" fill="#ffffff" opacity="0.72">03</text>
     <text x="38" y="225" class="serif stage stageLight">走出且慢</text>
-    <text x="38" y="274" class="sans statement statementLight">进入 AI 与机构生态</text>
+    <text x="38" y="274" class="sans statement statementLight">进入 AI 流量入口与生态</text>
     <g transform="translate(38 326)">
-      <rect width="112" height="52" rx="26" fill="#ffffff" opacity="0.94"/>
-      <text x="56" y="34" text-anchor="middle" class="sans chip">千问</text>
-      <rect x="126" width="134" height="52" rx="26" fill="#ffffff" opacity="0.94"/>
-      <text x="193" y="34" text-anchor="middle" class="sans chip">Cursor</text>
-      <rect y="68" width="174" height="52" rx="26" fill="#ffffff" opacity="0.94"/>
-      <text x="87" y="102" text-anchor="middle" class="sans chip">WorkBuddy</text>
-      <rect x="188" y="68" width="154" height="52" rx="26" fill="#ffffff" opacity="0.94"/>
-      <text x="265" y="102" text-anchor="middle" class="sans chip">机构 AI</text>
+      <rect width="88" height="52" rx="26" fill="#ffffff" opacity="0.94"/>
+      <text x="44" y="34" text-anchor="middle" class="sans chip">千问</text>
+      <rect x="98" width="88" height="52" rx="26" fill="#ffffff" opacity="0.94"/>
+      <text x="142" y="34" text-anchor="middle" class="sans chip">微信</text>
+      <rect x="196" width="156" height="52" rx="26" fill="#ffffff" opacity="0.94"/>
+      <text x="274" y="34" text-anchor="middle" class="sans chip">WorkBuddy</text>
+      <rect y="68" width="120" height="52" rx="26" fill="#ffffff" opacity="0.94"/>
+      <text x="60" y="102" text-anchor="middle" class="sans chip">Cursor</text>
+      <rect x="132" y="68" width="140" height="52" rx="26" fill="#ffffff" opacity="0.94"/>
+      <text x="202" y="102" text-anchor="middle" class="sans chip">机构 AI</text>
     </g>
   </g>
 </svg>

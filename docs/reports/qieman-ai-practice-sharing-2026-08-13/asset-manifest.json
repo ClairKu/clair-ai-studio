@@ -43,8 +43,8 @@
     },
     {
       "path": "assets/three-leaps.svg",
-      "bytes": 7103,
-      "sha256": "15ceb15578a9153c43add3e06a6a9b8f885027dbc45edacd6fe6fc9d9d2d241b"
+      "bytes": 7600,
+      "sha256": "27bd1b22db43c6cfdd99422594f3201fffd44830119ba0150b183cc509f57395"
     },
     {
       "path": "assets/wechat-xiaowei-dialogue-01.png",
@@ -143,8 +143,8 @@
     },
     {
       "path": "assets/oap-journey-metrics.html",
-      "bytes": 97830,
-      "sha256": "bd91e2bd2cc9541738ab9219aa1e07e674ad5e9abb09aea3b2de19ac73896275"
+      "bytes": 98765,
+      "sha256": "749749dab6a2f77f2851a81c5a4bb5148a8679c97b6ae223fa7211bb482a512e"
     }
   ]
 }
