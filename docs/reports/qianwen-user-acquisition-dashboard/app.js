@@ -407,13 +407,14 @@ function validateData(data) {
   return data;
 }
 
-async function loadPublishedData() {
+async function loadPublishedData({ allowFallback = true } = {}) {
   try {
-    const response = await fetch(DATA_URL, { cache: "no-store" });
+    const url = `${DATA_URL}?refresh=${Date.now()}`;
+    const response = await fetch(url, { cache: "no-store" });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     return validateData(await response.json());
   } catch (error) {
-    if (window.QIANWEN_ACQUISITION_DATA) return validateData(window.QIANWEN_ACQUISITION_DATA);
+    if (allowFallback && window.QIANWEN_ACQUISITION_DATA) return validateData(window.QIANWEN_ACQUISITION_DATA);
     throw error;
   }
 }
@@ -427,6 +428,32 @@ function setFreshness(mode, text) {
 
 function setNotice(message) {
   $("#refresh-status").textContent = message;
+}
+
+function setRefreshButtonLoading(loading) {
+  const button = $("#data-refresh-button");
+  button.disabled = loading;
+  button.setAttribute("aria-busy", String(loading));
+  button.querySelector("span").textContent = loading ? "更新中" : "更新数据";
+}
+
+async function refreshPublishedData() {
+  const previousCutoff = currentData?.meta?.data_cutoff;
+  setRefreshButtonLoading(true);
+  setFreshness("loading", "正在更新数据");
+  setNotice("正在获取最新发布数据…");
+  try {
+    const data = await loadPublishedData({ allowFallback: false });
+    render(data);
+    const changed = previousCutoff && previousCutoff !== data.meta.data_cutoff;
+    setNotice(changed ? `数据已更新至 ${formatCutoff(data.meta.data_cutoff)}` : `已是最新数据（截至 ${formatCutoff(data.meta.data_cutoff)}）`);
+  } catch {
+    if (currentData) setFreshness("ready", `数据截至 ${formatCutoff(currentData.meta.data_cutoff)}`);
+    else setFreshness("error", "数据读取失败");
+    setNotice("更新失败，当前数据已保留，请稍后重试。");
+  } finally {
+    setRefreshButtonLoading(false);
+  }
 }
 
 function decorateRows(rows) {
@@ -1194,6 +1221,7 @@ function render(data) {
 }
 
 function bindInteractions() {
+  $("#data-refresh-button").addEventListener("click", refreshPublishedData);
   document.querySelectorAll('input[name="series"]').forEach((input) => input.addEventListener("change", () => {
     if (input.checked) viewState.visibleSeries.add(input.value);
     else viewState.visibleSeries.delete(input.value);

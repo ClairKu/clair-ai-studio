@@ -371,6 +371,7 @@ for (const signal of [
   'id="audience-table"',
   'id="audience-table-body"',
   'id="audience-footnote"',
+  'id="data-refresh-button"',
   'data/fallback-data.js',
 ]) {
   if (!html.includes(signal)) fail(`页面缺少 ${signal}`);
@@ -400,8 +401,6 @@ for (const removed of [
   "localStorage",
   "LOCAL_REFRESH_BASE",
   "startLocalRefresh",
-  "refresh-button",
-  "更新数据",
   "id=\"toast\"",
   "阶段",
   "数据状态",
@@ -440,6 +439,8 @@ for (const signal of [
   "renderBusinessTiles",
   "renderAudienceTable",
   "renderReadout",
+  "loadPublishedData",
+  "refreshPublishedData",
   "window_cumulative_bound",
   "visibleSeries",
   "selectedDate",
