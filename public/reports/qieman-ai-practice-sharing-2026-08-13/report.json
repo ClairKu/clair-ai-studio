@@ -21,7 +21,7 @@
   },
   "closing": {
     "mark": "QIEMAN · AI PRODUCT PRACTICE",
-    "line1": "用户可以不知道盈米基金、且慢，",
+    "line1": "用户可能还不知道盈米基金、且慢，",
     "line2": "但每次有投资问题时，",
     "line3": "都有机会",
     "accent": "遇见且慢",
@@ -713,8 +713,8 @@
       "id": "wechat-cooperation",
       "navHidden": true,
       "kicker": "P12 · WECHAT COOPERATION",
-      "title": "微信识别需求，且慢承接服务",
-      "lead": "微信 Agent 发现用户的投资与购买意图，且慢 Skills 提供专业判断，小程序承接身份、账户、交易与持续服务，形成清晰的人机分工。",
+      "title": "微信分发用户：小微识别需求，且慢承接服务",
+      "lead": "微信 Agent 发现用户的投资与购买意图，且慢 Skills 提供专业判断，小程序承接身份、账户、交易与持续服务。",
       "layout": "evidence",
       "tone": "soft",
       "items": [
@@ -750,7 +750,7 @@
       "id": "qwen-cooperation",
       "navHidden": true,
       "kicker": "P13 · QWEN COOPERATION",
-      "title": "千问既能调用盈米能力，也能嵌入完整且慢小顾",
+      "title": "千问上架且慢：A2A 嵌入且慢小顾，走通注册到交易全链条",
       "displayTitle": "千问既能调用盈米能力，也能嵌入完整且慢小顾",
       "lead": "千问同时采用 MCP 与 A2A 两种模式：前者按需调用盈米标准能力，后者把且慢 AI 小顾作为完整金融 Agent 嵌入千问。",
       "layout": "qwen-scene",
