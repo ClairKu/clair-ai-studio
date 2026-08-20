@@ -133,6 +133,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "yingmiwork-product-brief-2026-08-20",
+      groupId: "ai-workbench",
+      title: "YingmiWork 产品简报｜盈米自己的 AI 工作台：定位、能力与使用指引",
+      url: "https://clairku.github.io/clair-ai-studio/reports/yingmiwork-product-brief-2026-08-20/",
+      preview: "yingmiwork-product-brief-2026-08-20.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-20T16:30:00.000+08:00",
+      source: "基于 v0.0.4 实机验证（CDP 驱动真实界面 + 本地数据核对）+ 官方下载页口径｜定位：投顾的数字员工，本地 Agent 引擎 FinClaw + 技能市场 317 个 + 7 国产模型池｜四大能力支柱逐条实测标注｜19 项功能表 + 六步使用指引 + 0.0.1→0.0.4 版本节奏｜路线图伏笔（定时任务/团队/远程 Agent/TAMP 六步法）标注推断口径｜内部工具，请勿外传",
+      access: "production",
+      workType: "reporting",
+      tags: ["YingmiWork", "AI 工作台", "产品简报", "Agent", "技能市场", "IM 渠道", "使用指引", "汇报材料", "HTML", "生产"],
+    },
+    {
       id: "qieman-selfservice-vs-advisory-cohorts-2026-08-19",
       groupId: "xiaogu",
       title: "且慢用户分层｜纯自助 vs 投顾占比<50% vs 投顾占比≥50% 五维对比",
@@ -1661,6 +1675,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "yingmiwork-product-brief-2026-08-20": "reporting",
   "qieman-selfservice-vs-advisory-cohorts-2026-08-19": "data-analysis",
   "qieman-goal-account-longterm-value-2026-08-19": "data-analysis",
   "qieman-advisor-value-ca-compare-2026-08-19": "data-analysis",
