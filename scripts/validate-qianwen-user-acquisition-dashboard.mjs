@@ -397,10 +397,7 @@ for (const key of ["bound", "new", "existing", "daily"]) {
   if (!html.includes(`id="value-${key}"`)) fail(`读数条缺少 ${key} 的最新数值`);
 }
 for (const removed of [
-  "127.0.0.1",
   "localStorage",
-  "LOCAL_REFRESH_BASE",
-  "startLocalRefresh",
   "id=\"toast\"",
   "阶段",
   "数据状态",
@@ -440,6 +437,11 @@ for (const signal of [
   "renderAudienceTable",
   "renderReadout",
   "loadPublishedData",
+  "LOCAL_REFRESH_BASE",
+  "127.0.0.1:43119",
+  "callRefreshService",
+  "waitForRefresh",
+  "waitForPublishedData",
   "refreshPublishedData",
   "window_cumulative_bound",
   "visibleSeries",

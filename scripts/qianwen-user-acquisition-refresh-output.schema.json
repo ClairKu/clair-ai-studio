@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["status", "summary", "data_cutoff", "metrics", "production_url"],
+  "properties": {
+    "status": { "type": "string", "enum": ["updated", "no_change", "blocked"] },
+    "summary": { "type": "string", "minLength": 1, "maxLength": 300 },
+    "data_cutoff": { "type": ["string", "null"], "maxLength": 40 },
+    "metrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["bound_accounts", "new_accounts", "existing_accounts"],
+      "properties": {
+        "bound_accounts": { "type": ["integer", "null"], "minimum": 0 },
+        "new_accounts": { "type": ["integer", "null"], "minimum": 0 },
+        "existing_accounts": { "type": ["integer", "null"], "minimum": 0 }
+      }
+    },
+    "production_url": { "type": ["string", "null"], "maxLength": 300 }
+  }
+}

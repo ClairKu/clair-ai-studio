@@ -1,4 +1,9 @@
 const DATA_URL = "./data/latest.json";
+const LOCAL_REFRESH_BASE = "http://127.0.0.1:43119";
+const REFRESH_POLL_MS = 3000;
+const REFRESH_TIMEOUT_MS = 45 * 60 * 1000;
+const PUBLISHED_POLL_MS = 5000;
+const PUBLISHED_TIMEOUT_MS = 5 * 60 * 1000;
 const SCHEMA_VERSION = "qianwen-user-acquisition-v6";
 const LAUNCH_AT = "2026-08-10T08:00:00+08:00";
 const WINDOW_START_AT = "2026-08-03T00:00:00+08:00";
@@ -437,20 +442,93 @@ function setRefreshButtonLoading(loading) {
   button.querySelector("span").textContent = loading ? "更新中" : "更新数据";
 }
 
+const pause = (milliseconds) => new Promise((resolve) => window.setTimeout(resolve, milliseconds));
+
+async function callRefreshService(path, init = {}) {
+  const response = await fetch(`${LOCAL_REFRESH_BASE}${path}`, {
+    cache: "no-store",
+    ...init,
+    headers: {
+      "Content-Type": "application/json",
+      ...(init.headers || {}),
+    },
+  });
+  const body = await response.json().catch(() => ({}));
+  if (!response.ok && !(response.status === 409 && body.run_id)) {
+    const error = new Error(body.summary || body.error || `更新服务返回 ${response.status}`);
+    error.status = response.status;
+    throw error;
+  }
+  return body;
+}
+
+async function waitForRefresh(runId) {
+  const deadline = Date.now() + REFRESH_TIMEOUT_MS;
+  while (Date.now() < deadline) {
+    await pause(REFRESH_POLL_MS);
+    const state = await callRefreshService(`/status?run_id=${encodeURIComponent(runId)}`);
+    if (state.status === "running") {
+      setNotice(state.summary || "正在从生产数据源重新取数…");
+      continue;
+    }
+    return state;
+  }
+  throw new Error("实时更新仍在后台执行，请稍后再点一次查看结果。");
+}
+
+async function waitForPublishedData(expectedCutoff, previousCutoff) {
+  const deadline = Date.now() + PUBLISHED_TIMEOUT_MS;
+  while (Date.now() < deadline) {
+    const data = await loadPublishedData({ allowFallback: false });
+    const cutoff = data.meta.data_cutoff;
+    if (
+      (expectedCutoff && parseTime(cutoff) >= parseTime(expectedCutoff))
+      || (!expectedCutoff && cutoff !== previousCutoff)
+    ) return data;
+    setNotice("新快照已生成，正在等待生产页面发布…");
+    await pause(PUBLISHED_POLL_MS);
+  }
+  throw new Error("新快照已生成，但生产页面尚未完成发布，请稍后再试。");
+}
+
 async function refreshPublishedData() {
   const previousCutoff = currentData?.meta?.data_cutoff;
   setRefreshButtonLoading(true);
   setFreshness("loading", "正在更新数据");
-  setNotice("正在获取最新发布数据…");
+  setNotice("正在启动生产数据刷新…");
   try {
-    const data = await loadPublishedData({ allowFallback: false });
+    let state = await callRefreshService("/refresh", {
+      method: "POST",
+      headers: { "X-Qianwen-Action": "refresh-v1" },
+      body: JSON.stringify({
+        schema: "qianwen-user-acquisition-refresh/v1",
+        published_cutoff: previousCutoff || null,
+      }),
+    });
+    if (state.status === "running") state = await waitForRefresh(state.run_id);
+    if (state.status === "blocked") throw new Error(state.summary || "生产数据刷新受阻。");
+    const data = state.status === "updated"
+      ? await waitForPublishedData(state.data_cutoff, previousCutoff)
+      : await loadPublishedData({ allowFallback: false });
     render(data);
     const changed = previousCutoff && previousCutoff !== data.meta.data_cutoff;
-    setNotice(changed ? `数据已更新至 ${formatCutoff(data.meta.data_cutoff)}` : `已是最新数据（截至 ${formatCutoff(data.meta.data_cutoff)}）`);
-  } catch {
+    const summary = state.summary ? `${state.summary} ` : "";
+    setNotice(changed
+      ? `${summary}数据已更新至 ${formatCutoff(data.meta.data_cutoff)}`
+      : `${summary}已是最新数据（截至 ${formatCutoff(data.meta.data_cutoff)}）`);
+  } catch (error) {
+    try {
+      const data = await loadPublishedData({ allowFallback: false });
+      if (!currentData || data.meta.data_cutoff !== currentData.meta.data_cutoff) render(data);
+    } catch {
+      // 保留已经通过校验的当前快照。
+    }
     if (currentData) setFreshness("ready", `数据截至 ${formatCutoff(currentData.meta.data_cutoff)}`);
     else setFreshness("error", "数据读取失败");
-    setNotice("更新失败，当前数据已保留，请稍后重试。");
+    const serviceUnavailable = error instanceof TypeError;
+    setNotice(serviceUnavailable
+      ? "实时更新服务未启动；当前展示最近发布数据。"
+      : `更新未完成：${error?.message || "当前数据已保留，请稍后重试。"}`);
   } finally {
     setRefreshButtonLoading(false);
   }
