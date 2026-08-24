@@ -3,9 +3,9 @@ window.DEMAND_PULSE_DATA = {
   "meta": {
     "contract_version": "gitlab-mr-v1",
     "source_of_truth": "GitLab merge requests",
-    "generated_at": "2026-08-24T06:19:30.020Z",
-    "cutoff": "2026-08-24T06:19:30.020Z",
-    "last_change_at": "2026-08-24T06:19:30.020Z",
+    "generated_at": "2026-08-24T06:24:12.022Z",
+    "cutoff": "2026-08-24T06:24:12.022Z",
+    "last_change_at": "2026-08-24T06:24:12.022Z",
     "stale_after_minutes": 180,
     "headline": "5 个已提交，3 个已上线，3 位 PM 完成端到端交付。",
     "window_start": "2026-07-01T00:00:00+08:00",
@@ -331,15 +331,15 @@ window.DEMAND_PULSE_DATA = {
       "person_id": "P01",
       "person_display": "嘉鸿",
       "submitted_at": "2026-08-11",
-      "released_at": null,
       "status": "merged",
       "category": "urgent_bug",
       "priority": "P1",
       "public_title": "加仓计划术语修正",
       "pain_category": "加仓规则弹窗残留错误术语",
-      "public_outcome": "生产规则弹窗中的错误术语已修正为“加仓计划”。",
-      "evidence_level": "已上线",
-      "in_scope": true
+      "public_outcome": "修正已合入测试环境，待发布生产。",
+      "evidence_level": "已合测试",
+      "in_scope": true,
+      "released_at": null
     },
     {
       "id": "R3",

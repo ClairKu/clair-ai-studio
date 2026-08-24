@@ -20,14 +20,13 @@
       "person_id": "P01",
       "person_display": "嘉鸿",
       "submitted_at": "2026-08-11",
-      "released_at": "2026-08-14",
-      "status": "released",
+      "status": "merged",
       "category": "urgent_bug",
       "priority": "P1",
       "public_title": "加仓计划术语修正",
       "pain_category": "加仓规则弹窗残留错误术语",
-      "public_outcome": "生产规则弹窗中的错误术语已修正为“加仓计划”。",
-      "evidence_level": "已上线",
+      "public_outcome": "修正已合入测试环境，待发布生产。",
+      "evidence_level": "已合测试",
       "demand_key": "feature/dip-purchase-jia-cang-copy-test"
     },
     {
