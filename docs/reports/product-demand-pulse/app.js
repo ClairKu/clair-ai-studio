@@ -275,27 +275,36 @@ function renderQuadrants() {
     })),
   ];
 
+  // 只有「口径内」的登记记录参与计数——四象限的数字必须和上面 GitLab 汇总严格对上。
+  // 口径外（历史改进）与本地想法只展示、不计数，各带标签说明。
+  const inScope = (item) => item.source === "curated" && item.in_scope !== false;
+
   $("#quadrant-grid").innerHTML = CATEGORY_ORDER.map((categoryKey) => {
     const meta = CATEGORY_META[categoryKey];
     const items = tagged.filter((item) => item.category === categoryKey);
-    const released = items.filter((item) => LANDED.has(item.status)).length;
+    const scoped = items.filter(inScope);
+    const released = scoped.filter((item) => LANDED.has(item.status)).length;
     return `
       <section class="quadrant quadrant-${categoryKey}">
-        <header><span class="quadrant-symbol">${meta.symbol}</span><div><h3>${escapeHtml(meta.title)}</h3></div><b>${items.length}</b></header>
+        <header><span class="quadrant-symbol">${meta.symbol}</span><div><h3>${escapeHtml(meta.title)}</h3></div><b>${scoped.length}</b></header>
         <div class="quadrant-items">${items.length ? items.map((item) => `
           <div class="map-ticket ${LANDED.has(item.status) ? "is-done" : "is-open"}">
-            <i aria-hidden="true"></i><span>${escapeHtml(item.public_title || item.pain_category || "")}</span><small>${escapeHtml(item.person_display || "")} · ${escapeHtml(STATUS_LABELS[item.status] || "待处理")}${item.source === "local" ? " · 本地" : ""}</small>
+            <i aria-hidden="true"></i><span>${escapeHtml(item.public_title || item.pain_category || "")}</span><small>${escapeHtml(item.person_display || "")} · ${escapeHtml(STATUS_LABELS[item.status] || "待处理")}${item.source === "local" ? " · 本地" : ""}${item.source === "curated" && item.in_scope === false ? " · 口径外" : ""}</small>
           </div>`).join("") : '<span class="quadrant-empty">等待一个值得做的想法</span>'}</div>
-        <footer><span>${released} 已解决</span><span>${items.length - released} 待解决</span></footer>
+        <footer><span>${released} 已解决</span><span>${scoped.length - released} 待解决</span></footer>
       </section>`;
   }).join("");
 
   const total = data.summary?.submitted ?? 0;
-  const curated = (data.records || []).length;
+  const scopedRecords = (data.records || []).filter((record) => record.in_scope !== false);
+  const outOfScope = (data.records || []).length - scopedRecords.length;
   $("#map-summary").textContent = `${data.summary?.released ?? 0} 个已上线 · ${data.summary?.in_flight ?? 0} 个在途`;
-  $("#map-note").textContent = total > curated
-    ? `需求类型来自人工登记：口径内共 ${total} 个需求，其中 ${curated} 个登记了类型并出现在上图；其余只计入总数。`
-    : "需求类型来自人工登记，未登记类型的需求只计入总数。";
+  $("#map-note").textContent = [
+    total > scopedRecords.length
+      ? `需求类型来自人工登记：口径内共 ${total} 个需求，其中 ${scopedRecords.length} 个登记了类型并出现在上图；其余只计入总数。`
+      : "需求类型与简述来自人工登记，口径内需求已全部登记，四象限合计与上方汇总一致。",
+    outOfScope ? `标注「口径外」的 ${outOfScope} 条是统计口径之外的历史改进，只展示不计数。` : "",
+  ].filter(Boolean).join(" ");
 }
 
 /* ---- 链路追溯：每个需求的 MR 与上线单 ---- */

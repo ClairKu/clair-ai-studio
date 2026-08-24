@@ -129,11 +129,14 @@ export async function buildSnapshot({
     // demand_key 含仓库与分支名，只在本机用来对状态，不进公开快照。
     records: curatedRecords.map(({ demand_key: demandKey, ...record }) => {
       const matched = demandKey ? allDemands.find((d) => d.key === demandKey) : null;
-      if (!matched) return record;
+      // in_scope=false 的记录（没挂上任何口径内需求）在需求组合图里只展示不计数，
+      // 这样四象限的合计才能和 GitLab 汇总数严格对上。
+      if (!matched) return { ...record, in_scope: false };
       // 状态以 GitLab 实况为准：没上线的记录不许留 released_at（校验器会拦，而且那本来就是错的）。
       const released = matched.status === "released";
       return {
         ...record,
+        in_scope: true,
         status: matched.status,
         released_at: released ? (matched.released_at || record.released_at || null)?.slice(0, 10) ?? null : null,
       };

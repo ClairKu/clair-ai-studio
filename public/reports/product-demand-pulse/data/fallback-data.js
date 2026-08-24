@@ -3,9 +3,9 @@ window.DEMAND_PULSE_DATA = {
   "meta": {
     "contract_version": "gitlab-mr-v1",
     "source_of_truth": "GitLab merge requests",
-    "generated_at": "2026-08-24T03:28:55.301Z",
-    "cutoff": "2026-08-24T03:28:55.301Z",
-    "last_change_at": "2026-08-24T03:28:55.301Z",
+    "generated_at": "2026-08-24T03:39:41.195Z",
+    "cutoff": "2026-08-24T03:39:41.195Z",
+    "last_change_at": "2026-08-24T03:39:41.195Z",
     "stale_after_minutes": 180,
     "headline": "10 个已提交，5 个已上线，3 位 PM 完成端到端交付。",
     "window_start": "2026-07-01T00:00:00+08:00",
@@ -382,6 +382,7 @@ window.DEMAND_PULSE_DATA = {
       "pain_category": "同一策略的人数信息不够清楚",
       "public_outcome": "生产版本已展示“开启计划/在投”双口径。",
       "evidence_level": "已上线",
+      "in_scope": true,
       "released_at": "2026-08-05"
     },
     {
@@ -396,7 +397,8 @@ window.DEMAND_PULSE_DATA = {
       "public_title": "加仓计划术语修正",
       "pain_category": "加仓规则弹窗残留错误术语",
       "public_outcome": "生产规则弹窗中的错误术语已修正为“加仓计划”。",
-      "evidence_level": "已上线"
+      "evidence_level": "已上线",
+      "in_scope": true
     },
     {
       "id": "R3",
@@ -410,6 +412,7 @@ window.DEMAND_PULSE_DATA = {
       "pain_category": "文章图片无法点开看大图和缩放",
       "public_outcome": "线上文章已支持图片预览与缩放。",
       "evidence_level": "已上线",
+      "in_scope": true,
       "released_at": "2026-08-13"
     },
     {
@@ -423,7 +426,113 @@ window.DEMAND_PULSE_DATA = {
       "public_title": "移动端表格阅读体验",
       "pain_category": "宽表格在手机上内容被截断",
       "public_outcome": "线上移动端表格已支持横向滑动。",
-      "evidence_level": "已上线"
+      "evidence_level": "已上线",
+      "in_scope": false
+    },
+    {
+      "id": "R5",
+      "person_id": "P01",
+      "person_display": "嘉鸿",
+      "submitted_at": "2026-08-05",
+      "status": "released",
+      "category": "important",
+      "priority": "P1",
+      "public_title": "群组人数展示口径（服务端）",
+      "pain_category": "同一策略的人数信息不够清楚",
+      "public_outcome": "服务端已提供「开启计划/在投」双口径数据。",
+      "evidence_level": "已上线",
+      "in_scope": true,
+      "released_at": "2026-08-05"
+    },
+    {
+      "id": "R6",
+      "person_id": "P02",
+      "person_display": "家亮",
+      "submitted_at": "2026-07-31",
+      "status": "merged",
+      "category": "urgent_bug",
+      "priority": "P2",
+      "public_title": "图片预览顶栏适配",
+      "pain_category": "App 内图片预览顶栏被系统状态栏遮挡",
+      "public_outcome": "修复已合入测试环境，待发布生产。",
+      "evidence_level": "已合测试",
+      "in_scope": true,
+      "released_at": null
+    },
+    {
+      "id": "R7",
+      "person_id": "P02",
+      "person_display": "家亮",
+      "submitted_at": "2026-07-31",
+      "status": "merged",
+      "category": "urgent_bug",
+      "priority": "P2",
+      "public_title": "图片预览防盗链兼容",
+      "pain_category": "部分外部图床的图片在预览里加载不出来",
+      "public_outcome": "兼容修复已合入测试环境，待发布生产。",
+      "evidence_level": "已合测试",
+      "in_scope": true,
+      "released_at": null
+    },
+    {
+      "id": "R8",
+      "person_id": "P02",
+      "person_display": "家亮",
+      "submitted_at": "2026-07-31",
+      "status": "merged",
+      "category": "urgent_bug",
+      "priority": "P2",
+      "public_title": "图片预览 App 端兼容",
+      "pain_category": "部分 App 版本里图片预览打不开",
+      "public_outcome": "已支持原生能力未就绪时回退网页预览，待发布生产。",
+      "evidence_level": "已合测试",
+      "in_scope": true,
+      "released_at": null
+    },
+    {
+      "id": "R9",
+      "person_id": "P04",
+      "person_display": "春燕",
+      "submitted_at": "2026-08-14",
+      "status": "released",
+      "category": "important",
+      "priority": "P1",
+      "public_title": "投顾页 PC 宽屏布局",
+      "pain_category": "PC 大屏上投顾页被限制在窄栏里",
+      "public_outcome": "生产版本已支持宽屏自由布局。",
+      "evidence_level": "已上线",
+      "in_scope": true,
+      "released_at": "2026-08-19"
+    },
+    {
+      "id": "R10",
+      "person_id": "P04",
+      "person_display": "春燕",
+      "submitted_at": "2026-08-20",
+      "status": "released",
+      "category": "urgent_bug",
+      "priority": "P1",
+      "public_title": "Safari 广告位修复",
+      "pain_category": "Safari 下投顾页广告位不展示",
+      "public_outcome": "修复已合入生产主干。",
+      "evidence_level": "已上线",
+      "in_scope": true,
+      "released_at": "2026-08-20"
+    },
+    {
+      "id": "R11",
+      "person_id": "P04",
+      "person_display": "春燕",
+      "submitted_at": "2026-08-20",
+      "status": "building",
+      "category": "important",
+      "priority": "P1",
+      "public_title": "VIP 财富报告 PC 预览",
+      "pain_category": "VIP 财富报告缺少 PC 端预览",
+      "public_outcome": "预览页开发中，待合并上线。",
+      "evidence_level": "开发中",
+      "in_scope": true,
+      "released_at": null
     }
   ],
   "criteria": {
