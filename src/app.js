@@ -25,7 +25,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 56;
+const DATA_VERSION = 57;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -132,6 +132,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "fund-data-mcp-capability-audit-2026-08-24",
+      groupId: "ai-platform",
+      title: "公募基金数据能力盘点｜哪些已有，哪些能封装成对外 MCP",
+      url: "https://clairku.github.io/clair-ai-studio/reports/fund-data-mcp-capability-audit-2026-08-24/",
+      preview: "fund-data-mcp-capability-audit-2026-08-24.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-24T16:30:00.000+08:00",
+      source: "内部本体、服务源码、生产数据新鲜度与工具注册交叉核验的公开脱敏版｜六类数据能力中 4 类已有可封装（公告事件、基金经理、持有人结构、历史报告期持仓），2 类部分已有（基金公司、ETF）｜建议首期五个 MCP 工具｜明确披露口径、授权、个人信息与质量门禁｜已移除内部库表、路由、负责人、调用量及采购实现细节",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["MCP", "AI 开放平台", "基金数据", "数据能力", "基金公告", "基金经理", "持有人", "基金持仓", "ETF", "数据治理", "本体", "调研", "数据分析", "CLAIR", "HTML", "生产"],
+    },
     {
       id: "yingmiwork-product-brief-2026-08-20",
       groupId: "ai-workbench",

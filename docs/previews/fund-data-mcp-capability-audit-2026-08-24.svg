@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">公募基金数据能力盘点预览</title>
+  <desc id="desc">六类基金数据能力中四类可封装、两类需补齐。</desc>
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f7f4ff"/><stop offset="1" stop-color="#ddd5ff"/></linearGradient><filter id="s"><feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#4c3b8a" flood-opacity=".18"/></filter></defs>
+  <rect width="1200" height="760" rx="42" fill="url(#g)"/>
+  <circle cx="1050" cy="120" r="260" fill="#7457e8" opacity=".12"/><circle cx="1110" cy="40" r="130" fill="#7457e8" opacity=".1"/>
+  <text x="70" y="92" fill="#7457e8" font-family="Arial, PingFang SC, sans-serif" font-size="20" font-weight="800" letter-spacing="4">FUND DATA · MCP READINESS</text>
+  <text x="70" y="168" fill="#171729" font-family="Songti SC, serif" font-size="57" font-weight="700">公募基金数据能力盘点</text>
+  <text x="70" y="218" fill="#596076" font-family="Arial, PingFang SC, sans-serif" font-size="25">哪些已有，哪些能封装成对外 MCP</text>
+  <g transform="translate(70 282)" filter="url(#s)" font-family="Arial, PingFang SC, sans-serif">
+    <rect width="1060" height="330" rx="30" fill="#11172b"/>
+    <text x="44" y="66" fill="#9d8af5" font-size="16" font-weight="800" letter-spacing="3">EXECUTIVE SNAPSHOT</text>
+    <text x="44" y="130" fill="#fff" font-size="58" font-weight="800">4</text><text x="102" y="128" fill="#fff" font-size="24" font-weight="700">类已有可封装</text>
+    <text x="378" y="130" fill="#f0bf5a" font-size="58" font-weight="800">2</text><text x="436" y="128" fill="#fff" font-size="24" font-weight="700">类部分已有</text>
+    <g transform="translate(44 184)" font-size="18" font-weight="700"><rect width="214" height="58" rx="16" fill="#245d56"/><text x="107" y="37" text-anchor="middle" fill="#d9fff7">公告与事件</text><rect x="232" width="214" height="58" rx="16" fill="#245d56"/><text x="339" y="37" text-anchor="middle" fill="#d9fff7">基金经理</text><rect x="464" width="214" height="58" rx="16" fill="#245d56"/><text x="571" y="37" text-anchor="middle" fill="#d9fff7">持有人结构</text><rect x="696" width="214" height="58" rx="16" fill="#245d56"/><text x="803" y="37" text-anchor="middle" fill="#d9fff7">历史持仓</text></g>
+    <text x="44" y="286" fill="#aeb7ca" font-size="17">基金公司：规模可用，治理字段待补</text><text x="526" y="286" fill="#aeb7ca" font-size="17">ETF：日频可用，实时行情不进入首期</text>
+  </g>
+  <text x="70" y="680" fill="#7457e8" font-family="Arial, PingFang SC, sans-serif" font-size="18" font-weight="800">5 个首期工具 · 4 道上线门禁 · 公开脱敏版</text>
+  <text x="1130" y="700" text-anchor="end" fill="#757b8d" font-family="Arial, PingFang SC, sans-serif" font-size="15">Clair AI Studio · 2026-08-24</text>
+</svg>

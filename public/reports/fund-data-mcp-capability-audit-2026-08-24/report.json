@@ -1,0 +1,185 @@
+{
+  "meta": {
+    "title": "公募基金数据能力盘点",
+    "subtitle": "哪些已有，哪些可做成 MCP",
+    "eyebrow": "FUND DATA · MCP CAPABILITY AUDIT / 2026.08",
+    "date": "2026-08-24",
+    "cutoff": "2026-08-24",
+    "owner": "Clair × AI 开放平台",
+    "confidentiality": "公开版 · 脱敏摘要",
+    "accent": "#7457E8",
+    "brand": "Clair AI Studio",
+    "brandMark": "C"
+  },
+  "hero": {
+    "conclusion": "六类基金数据诉求中，公告事件、基金经理、持有人与历史持仓已有底座，可进入 MCP 产品化；基金公司与 ETF 仅部分具备，不能把“有数据”误写成“可对外”。",
+    "thesis": "真正的上线门槛不在接口包装，而在口径、授权、数据新鲜度和个人信息边界。建议先做五个低争议工具，再补齐公司治理与 ETF 盘中能力。",
+    "badges": ["6 类能力", "4 类可封装", "2 类需补齐", "公开脱敏版"]
+  },
+  "closing": {
+    "mark": "FUND DATA · MCP READINESS",
+    "line1": "先把可用数据变成",
+    "line2": "有边界、可追溯、能运营的",
+    "accent": "数据产品",
+    "lead": "优先完成五个工具的口径卡、授权确认、字段裁剪与质量监控；实时行情和公司股东结构不进入首期承诺。",
+    "metaPrimary": "Clair × AI 开放平台 · 2026-08-24",
+    "metaSecondary": "公开版已移除内部库表、路由、人员与采购实现细节"
+  },
+  "agenda": {
+    "enabled": true,
+    "label": "AGENDA",
+    "title": "报告大纲",
+    "groups": [
+      {"index": "01", "eyebrow": "JUDGEMENT · 判断", "title": "先判定能不能做", "summary": "六类能力分级与产品化结论", "sections": ["总体判断", "能力矩阵"]},
+      {"index": "02", "eyebrow": "BOUNDARY · 边界", "title": "再说清数据口径", "summary": "四类成熟能力与两类缺口", "sections": ["可直接封装", "持仓与持有人", "部分能力"]},
+      {"index": "03", "eyebrow": "PRODUCT · 产品", "title": "把数据做成 MCP", "summary": "封装链路、工具组合与优先级", "sections": ["产品化链路", "首期工具"]},
+      {"index": "04", "eyebrow": "GOVERNANCE · 治理", "title": "授权先于放量", "summary": "风险红线与下一步", "sections": ["上线红线", "行动计划"]}
+    ]
+  },
+  "sections": [
+    {
+      "id": "snapshot",
+      "navLabel": "总体判断",
+      "kicker": "01 · EXECUTIVE SNAPSHOT",
+      "title": "底座基本齐，产品化仍要过四道门",
+      "lead": "能力存在、口径清楚、授权允许、质量可控，四项同时满足才是可对外 MCP。",
+      "layout": "metrics",
+      "tone": "light",
+      "items": [
+        {"metric": "6 类", "title": "本次盘点范围", "body": "覆盖公告、经理、公司、持有人、持仓与 ETF。", "status": "confirmed", "source": "内部数据能力核验 · 2026-08-24"},
+        {"metric": "4 类", "title": "已有可封装", "body": "公告事件、基金经理、持有人结构、历史报告期持仓。", "status": "confirmed", "source": "数据与服务链路交叉核验"},
+        {"metric": "2 类", "title": "部分已有", "body": "基金公司缺股东与公司级指标；ETF 缺可靠实时行情。", "status": "confirmed", "source": "缺口检索与新鲜度核验"},
+        {"metric": "5 个", "title": "建议首期工具", "body": "从高覆盖、低争议、易说明口径的能力先行。", "status": "target", "source": "产品化优先级建议"}
+      ],
+      "callout": {"label": "核心判断", "text": "首期不是做一个“全能基金数据 MCP”，而是做五个边界清楚、可独立运营的工具。", "status": "confirmed"}
+    },
+    {
+      "id": "matrix",
+      "navLabel": "能力矩阵",
+      "kicker": "02 · CAPABILITY MATRIX",
+      "title": "四类进入产品化，两类先补缺口",
+      "lead": "绿色代表已有底座且可进入封装；黄色代表只能承诺已有子项；红线项不进入首期。",
+      "layout": "evidence",
+      "tone": "soft",
+      "items": [
+        {"title": "六类能力成熟度矩阵", "body": "公告、经理、持有人和持仓进入首期候选；公司与 ETF 采用子能力拆分，不做整体承诺。", "source": "内部本体、服务与数据新鲜度核验 · 2026-08-24", "image": "assets/capability-matrix.svg", "alt": "六类公募基金数据能力成熟度矩阵", "imagePriority": "high", "status": "confirmed"},
+        {"title": "分级不是数据有无判断", "body": "“可封装”还要求口径能解释、授权能确认、字段能裁剪、更新能监控；否则只能保留为内部能力。", "source": "MCP 产品化门禁", "status": "confirmed"}
+      ],
+      "callout": {"label": "范围说明", "text": "本页是公开脱敏摘要，已移除内部库表、路由、负责人、调用量与供应商实现细节。", "status": "confirmed"}
+    },
+    {
+      "id": "direct",
+      "navLabel": "可直接封装",
+      "kicker": "03 · READY TO PACKAGE",
+      "title": "公告事件与基金经理，最适合先做",
+      "lead": "两类数据历史深、结构化程度高，用户问题也天然适合工具调用。",
+      "layout": "comparison",
+      "tone": "dark",
+      "items": [
+        {"index": "01", "eyebrow": "ANNOUNCEMENT", "title": "公告与生命周期事件", "body": "支持公告检索，并将发行、上市、清盘、转型等事件与结构化状态交叉呈现。", "bullets": ["保留原文链接与发布日期", "内置事件类型映射", "区分公告事件与产品状态"], "status": "confirmed"},
+        {"index": "02", "eyebrow": "MANAGER", "title": "经理档案与任职变更", "body": "可返回履历摘要、历史管理产品、任职区间、公司变动与任期表现。", "bullets": ["默认裁剪照片等个人字段", "自研评分单独标识", "任职区间支持历史回溯"], "status": "confirmed"},
+        {"index": "03", "eyebrow": "PRODUCT RULE", "title": "描述性数据优先", "body": "首期只做事实查询与口径解释，不把评分包装成推荐，也不生成销售结论。", "bullets": ["不构成投资建议", "来源和截止日必填", "异常与缺失明确返回"], "status": "target"}
+      ]
+    },
+    {
+      "id": "holdings",
+      "navLabel": "持仓与持有人",
+      "kicker": "04 · DISCLOSURE-BASED DATA",
+      "title": "披露口径不可省",
+      "lead": "这两类数据来自定期报告，不代表实时、全时点或盘中真实状态。",
+      "layout": "cards",
+      "tone": "light",
+      "items": [
+        {"index": "01", "eyebrow": "HOLDER", "title": "持有人结构", "body": "可查机构、个人、从业人员与联接基金等结构，也可提供披露的主要持有人信息。", "bullets": ["通常半年频", "单一持有人并非全量实时名单", "自购以公告事件呈现"], "status": "confirmed"},
+        {"index": "02", "eyebrow": "PORTFOLIO", "title": "历史报告期持仓", "body": "可覆盖股票、债券、资产配置与部分跨境持仓，并计算相邻报告期变动。", "bullets": ["季报通常只披露主要持仓", "半年报与年报覆盖更完整", "不含盘中调仓"], "status": "confirmed"},
+        {"index": "03", "eyebrow": "NAMING", "title": "命名即风控", "body": "建议使用“报告期持仓”和“披露持有人结构”，避免“全量持仓”“实时持有人”等误导。", "bullets": ["返回 report_date", "返回 publish_date", "返回 disclosure_scope"], "status": "target"}
+      ],
+      "callout": {"label": "口径红线", "text": "能计算持仓变化，不等于拥有基金每日真实持仓；能检索自购公告，不等于拥有结构化自购台账。", "status": "confirmed"}
+    },
+    {
+      "id": "partial",
+      "navLabel": "部分能力",
+      "kicker": "05 · PARTIAL COVERAGE",
+      "title": "公司与 ETF 要拆开看",
+      "lead": "这两类最容易因一个字段可用而被整体高估，必须按子项定级。",
+      "layout": "comparison",
+      "tone": "soft",
+      "items": [
+        {"index": "01", "eyebrow": "FUND COMPANY", "title": "公司规模可用，治理能力不足", "body": "公司规模与分类规模已有基础；团队稳定性可加工，但股东结构与公司级管理能力尚无可靠成品。", "bullets": ["先开放规模查询", "团队稳定性另建指标", "股东结构不承诺"], "status": "inferred"},
+        {"index": "02", "eyebrow": "ETF DAILY", "title": "日频画像可用", "body": "份额、规模、折溢价与估算资金流可做日频工具，但需要明确更新时间和估算方法。", "bullets": ["资金流不是申赎确认值", "历史深度按字段说明", "数据新鲜度必须监控"], "status": "confirmed"},
+        {"index": "03", "eyebrow": "ETF REALTIME", "title": "实时行情不进入首期", "body": "缺少完整、稳定、可对外授权的实时行情证据；申赎清单也需先恢复稳定更新。", "bullets": ["实时行情另做授权立项", "申赎清单先修数据链路", "分钟估值不等于交易所行情"], "status": "missing"}
+      ]
+    },
+    {
+      "id": "productization",
+      "navLabel": "产品化链路",
+      "kicker": "06 · MCP PRODUCTIZATION",
+      "title": "复用通道，治理先行",
+      "lead": "已有服务与动态工具通道可复用；真正需要新增的是口径契约、字段策略、质量哨兵与授权控制。",
+      "layout": "architecture",
+      "tone": "dark",
+      "items": [
+        {"index": "01", "eyebrow": "SOURCE", "title": "数据底座", "body": "公开披露、采购数据与内部加工指标分层管理。"},
+        {"index": "02", "eyebrow": "SEMANTICS", "title": "口径契约", "body": "统一时间、范围、频率、来源和估算说明。"},
+        {"index": "03", "eyebrow": "POLICY", "title": "权限与裁剪", "body": "按渠道控制字段、授权范围与个人信息。"},
+        {"index": "04", "eyebrow": "MCP", "title": "工具交付", "body": "按单一任务拆工具，保留调用与审计记录。"}
+      ],
+      "callout": {"label": "复用原则", "text": "不新建一套平行数据服务；沿用成熟通道，在工具描述与返回协议中补齐治理。", "status": "target"}
+    },
+    {
+      "id": "tools",
+      "navLabel": "首期工具",
+      "kicker": "07 · RECOMMENDED TOOLSET",
+      "title": "首期五个工具，按价值与风险排序",
+      "lead": "每个工具都对应一个稳定任务，不把多个口径揉成一个巨型查询入口。",
+      "layout": "process",
+      "tone": "light",
+      "items": [
+        {"index": "01", "eyebrow": "P0", "title": "fund-announcements", "body": "公告与发行、上市、清盘、转型事件导航。", "status": "target"},
+        {"index": "02", "eyebrow": "P0", "title": "fund-manager-profile", "body": "经理档案、历史产品与任职变更。", "status": "target"},
+        {"index": "03", "eyebrow": "P0", "title": "fund-holdings-history", "body": "报告期持仓与相邻期变化。", "status": "target"},
+        {"index": "04", "eyebrow": "P1", "title": "fund-holder-structure", "body": "披露持有人结构与主要持有人。", "status": "target"},
+        {"index": "05", "eyebrow": "P1", "title": "etf-daily-metrics", "body": "ETF 日频份额、折溢价与估算资金流。", "status": "target"}
+      ]
+    },
+    {
+      "id": "gates",
+      "navLabel": "上线红线",
+      "kicker": "08 · RELEASE GATES",
+      "title": "四道门必须全部通过",
+      "lead": "上线门禁要进入 PRD、接口协议和运营看板，而不是停留在评审备注。",
+      "layout": "cards",
+      "tone": "soft",
+      "items": [
+        {"index": "01", "eyebrow": "LICENSE", "title": "数据授权", "body": "确认采购数据能否向第三方输出；优先发布公开披露重整与明确授权的自研加工。", "status": "target"},
+        {"index": "02", "eyebrow": "PRIVACY", "title": "个人信息", "body": "经理履历摘要化，照片等字段默认关闭，支持按渠道裁剪。", "status": "target"},
+        {"index": "03", "eyebrow": "QUALITY", "title": "质量与新鲜度", "body": "为每个工具定义截止日、更新频率、延迟阈值、缺失回退和异常告警。", "status": "target"},
+        {"index": "04", "eyebrow": "SUITABILITY", "title": "业务表达", "body": "描述性查询与推荐评级分离，内部评分不得伪装成官方结论。", "status": "target"}
+      ]
+    },
+    {
+      "id": "actions",
+      "navLabel": "行动计划",
+      "kicker": "09 · NEXT ACTIONS",
+      "title": "先定口径和授权，再写接口",
+      "lead": "两周内可以形成首期立项包；数据修复和授权未完成前，不承诺 ETF 实时与完整公司治理。",
+      "layout": "actions",
+      "tone": "dark",
+      "items": [
+        {"index": "01", "eyebrow": "PRODUCT", "title": "完成五张工具口径卡", "body": "输入、输出、来源、截止日、频率、范围、缺失与免责声明一次写清。", "meta": "责任：产品 × 数据 · 首周", "status": "target"},
+        {"index": "02", "eyebrow": "LEGAL", "title": "确认对外授权边界", "body": "按字段和渠道确认采购授权、行情授权与个人信息处理方式。", "meta": "责任：法务 × 采购 × 业务 · 首周", "status": "target"},
+        {"index": "03", "eyebrow": "ENGINEERING", "title": "建立质量哨兵并试点", "body": "修复异常数据链路，完成字段裁剪、审计、限流与三家合作方灰度。", "meta": "责任：数据 × 平台 · 第二周起", "status": "target"}
+      ],
+      "callout": {"label": "成功标准", "text": "五个工具均能回答：数据从哪里来、截至何时、覆盖什么、不覆盖什么、谁能调用、异常如何发现。", "status": "target"}
+    }
+  ],
+  "sources": [
+    {"label": "内部公募基金数据能力盘点", "detail": "本体定位、服务源码、生产数据新鲜度与工具注册交叉核验 · 2026-08-24"},
+    {"label": "公开版脱敏规则", "detail": "不公开内部库表、路由、负责人、调用量、采购实现与系统拓扑细节"}
+  ],
+  "openQuestions": [
+    {"title": "采购数据对外授权", "detail": "需按供应商、字段、渠道与商业模式逐项确认。"},
+    {"title": "ETF 实时能力", "detail": "在行情授权和稳定数据源明确前，不进入首期范围。"},
+    {"title": "基金公司治理数据", "detail": "股东结构和公司级管理能力需要新增数据源或加工指标。"}
+  ]
+}

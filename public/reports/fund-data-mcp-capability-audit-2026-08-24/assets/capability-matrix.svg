@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+  <title id="title">公募基金六类数据能力成熟度矩阵</title>
+  <desc id="desc">公告事件、基金经理、持有人结构、历史持仓为可封装；基金公司与ETF为部分已有。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0d1328"/><stop offset="1" stop-color="#24204a"/></linearGradient>
+    <linearGradient id="ready" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#53c1ad"/><stop offset="1" stop-color="#2d8e7e"/></linearGradient>
+    <linearGradient id="partial" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f0bf5a"/><stop offset="1" stop-color="#c8872f"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#050817" flood-opacity=".32"/></filter>
+  </defs>
+  <rect width="1200" height="700" rx="36" fill="url(#bg)"/>
+  <circle cx="1080" cy="90" r="210" fill="#7457e8" opacity=".12"/>
+  <text x="64" y="68" fill="#b9a9ff" font-family="Arial, PingFang SC, sans-serif" font-size="17" font-weight="700" letter-spacing="3">CAPABILITY READINESS · 2026.08</text>
+  <text x="64" y="118" fill="#ffffff" font-family="Songti SC, serif" font-size="35" font-weight="700">六类能力，不做一刀切判断</text>
+  <text x="64" y="154" fill="#aeb8cf" font-family="Arial, PingFang SC, sans-serif" font-size="17">四类进入产品化；两类按子能力拆分，缺口不进入首期承诺</text>
+  <g filter="url(#shadow)" font-family="Arial, PingFang SC, sans-serif">
+    <g transform="translate(64 205)"><rect width="338" height="182" rx="24" fill="#151d36" stroke="#42506c"/><rect x="22" y="22" width="96" height="28" rx="14" fill="url(#ready)"/><text x="70" y="42" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">可封装</text><text x="22" y="91" fill="#fff" font-size="26" font-weight="700">公告与事件</text><text x="22" y="126" fill="#b9c3d5" font-size="16">公告检索 · 发行 · 上市</text><text x="22" y="151" fill="#b9c3d5" font-size="16">清盘 · 转型</text></g>
+    <g transform="translate(431 205)"><rect width="338" height="182" rx="24" fill="#151d36" stroke="#42506c"/><rect x="22" y="22" width="96" height="28" rx="14" fill="url(#ready)"/><text x="70" y="42" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">可封装</text><text x="22" y="91" fill="#fff" font-size="26" font-weight="700">基金经理</text><text x="22" y="126" fill="#b9c3d5" font-size="16">履历摘要 · 历史产品</text><text x="22" y="151" fill="#b9c3d5" font-size="16">任职与公司变更</text></g>
+    <g transform="translate(798 205)"><rect width="338" height="182" rx="24" fill="#151d36" stroke="#42506c"/><rect x="22" y="22" width="96" height="28" rx="14" fill="url(#partial)"/><text x="70" y="42" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">部分已有</text><text x="22" y="91" fill="#fff" font-size="26" font-weight="700">基金公司</text><text x="22" y="126" fill="#b9c3d5" font-size="16">规模可用</text><text x="22" y="151" fill="#f3c873" font-size="16">股东与公司级能力待补</text></g>
+    <g transform="translate(64 418)"><rect width="338" height="182" rx="24" fill="#151d36" stroke="#42506c"/><rect x="22" y="22" width="96" height="28" rx="14" fill="url(#ready)"/><text x="70" y="42" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">可封装</text><text x="22" y="91" fill="#fff" font-size="26" font-weight="700">持有人结构</text><text x="22" y="126" fill="#b9c3d5" font-size="16">机构 / 个人 / 主要持有人</text><text x="22" y="151" fill="#9ce0d3" font-size="16">必须标注披露频率</text></g>
+    <g transform="translate(431 418)"><rect width="338" height="182" rx="24" fill="#151d36" stroke="#42506c"/><rect x="22" y="22" width="96" height="28" rx="14" fill="url(#ready)"/><text x="70" y="42" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">可封装</text><text x="22" y="91" fill="#fff" font-size="26" font-weight="700">历史持仓</text><text x="22" y="126" fill="#b9c3d5" font-size="16">报告期持仓 · 相邻期变化</text><text x="22" y="151" fill="#9ce0d3" font-size="16">不代表盘中真实持仓</text></g>
+    <g transform="translate(798 418)"><rect width="338" height="182" rx="24" fill="#151d36" stroke="#42506c"/><rect x="22" y="22" width="96" height="28" rx="14" fill="url(#partial)"/><text x="70" y="42" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">部分已有</text><text x="22" y="91" fill="#fff" font-size="26" font-weight="700">ETF</text><text x="22" y="126" fill="#b9c3d5" font-size="16">日频份额 / 折溢价可用</text><text x="22" y="151" fill="#f3c873" font-size="16">实时行情与链路待补</text></g>
+  </g>
+  <g transform="translate(64 642)" font-family="Arial, PingFang SC, sans-serif" font-size="14"><circle cx="8" cy="-4" r="8" fill="#53c1ad"/><text x="26" y="1" fill="#c4ccdc">进入首期工具候选</text><circle cx="228" cy="-4" r="8" fill="#f0bf5a"/><text x="246" y="1" fill="#c4ccdc">仅开放已验证子能力</text><text x="1136" y="1" text-anchor="end" fill="#7f8aa2">公开脱敏摘要</text></g>
+</svg>
