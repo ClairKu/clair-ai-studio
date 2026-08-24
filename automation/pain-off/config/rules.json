@@ -38,7 +38,21 @@
     "aliases": {
       "$comment": "人工归并别名表：分支 → 它真正所属的需求（特性分支名）。用于修复分支命名没带特性主干名、自动归并认不出来的情况。核实标准：改动同一处代码/是该需求验证期发现的问题。",
       "bugfix/m4-safari-ad-height": "feature/m4-pc-wide-layout"
-    }
+    },
+    "manual_demands": [
+      {
+        "$comment": "人工补录通道：仅用于需求真实存在、但代码仓库对取数账号不可见的例外。必须写明 evidence（核验依据）。根治办法是给取数账号开对应仓库的 Reporter 权限，然后把该条移回自动口径。",
+        "key": "manual/article-table-scroll",
+        "person_id": "P02",
+        "status": "released",
+        "submitted_at": "2026-07-31T00:00:00+08:00",
+        "released_at": "2026-08-12T00:00:00+08:00",
+        "scopes": [
+          "人工补录"
+        ],
+        "evidence": "2026-08-12 全团队核验（research/product-demand-pulse-2026-08-12.md）：本人两篇实践文档+代码交付记录+生产页面横向滚动容器实测三方印证；改动在 content.qieman.com 内容服务仓库，该仓库对取数账号不可见。上线日按生产核验日计。"
+      }
+    ]
   },
   "submitted": {
     "$comment": "『累计提交』口径",

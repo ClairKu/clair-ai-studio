@@ -3,27 +3,27 @@ window.DEMAND_PULSE_DATA = {
   "meta": {
     "contract_version": "gitlab-mr-v1",
     "source_of_truth": "GitLab merge requests",
-    "generated_at": "2026-08-24T06:24:12.022Z",
-    "cutoff": "2026-08-24T06:24:12.022Z",
-    "last_change_at": "2026-08-24T06:24:12.022Z",
+    "generated_at": "2026-08-24T07:02:30.386Z",
+    "cutoff": "2026-08-24T07:02:30.386Z",
+    "last_change_at": "2026-08-24T07:02:30.386Z",
     "stale_after_minutes": 180,
-    "headline": "5 个已提交，3 个已上线，3 位 PM 完成端到端交付。",
+    "headline": "6 个已提交，4 个已上线，3 位 PM 完成端到端交付。",
     "window_start": "2026-07-01T00:00:00+08:00",
     "release_ticket_lookup": "ok",
     "link_exposure": "public",
     "links_note": "链接只发单号与地址，不发 MR 标题；打开需要内网与相应系统权限。"
   },
   "summary": {
-    "submitted": 5,
-    "released": 3,
+    "submitted": 6,
+    "released": 4,
     "in_flight": 2,
     "end_to_end_people": 3
   },
   "delta": {
-    "new_submitted": 0,
+    "new_submitted": 1,
     "pending_release": 2,
-    "new_released": 0,
-    "changed": false
+    "new_released": 1,
+    "changed": true
   },
   "people": [
     {
@@ -40,10 +40,10 @@ window.DEMAND_PULSE_DATA = {
       "id": "P02",
       "display_name": "家亮",
       "avatar": "🦦",
-      "submitted": 1,
-      "released": 1,
+      "submitted": 2,
+      "released": 2,
       "in_flight": 0,
-      "first_released_at": "2026-08-13T16:01:44.061+08:00",
+      "first_released_at": "2026-08-12T00:00:00+08:00",
       "end_to_end": true
     },
     {
@@ -308,6 +308,23 @@ window.DEMAND_PULSE_DATA = {
         "demand_tickets": [],
         "release_tickets": []
       }
+    },
+    {
+      "id": "ad582c958c",
+      "person_id": "P02",
+      "brief": "文章宽表格移动端横向滑动（内容服务·人工补录）",
+      "scopes": [
+        "人工补录"
+      ],
+      "submitted_at": "2026-07-31T00:00:00+08:00",
+      "released_at": "2026-08-12T00:00:00+08:00",
+      "status": "released",
+      "links": {
+        "merge_requests": [],
+        "release_mr_url": null,
+        "demand_tickets": [],
+        "release_tickets": []
+      }
     }
   ],
   "records": [
@@ -368,7 +385,8 @@ window.DEMAND_PULSE_DATA = {
       "pain_category": "宽表格在手机上内容被截断",
       "public_outcome": "线上移动端表格已支持横向滑动。",
       "evidence_level": "已上线",
-      "in_scope": false
+      "in_scope": true,
+      "released_at": "2026-08-12"
     },
     {
       "id": "R9",

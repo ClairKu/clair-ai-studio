@@ -55,7 +55,7 @@
       "pain_category": "宽表格在手机上内容被截断",
       "public_outcome": "线上移动端表格已支持横向滑动。",
       "evidence_level": "已上线",
-      "demand_key": null
+      "demand_key": "manual/article-table-scroll"
     },
     {
       "id": "R9",
@@ -92,6 +92,7 @@
     "feature/dip-purchase-jia-cang-copy-test": "加仓计划弹窗错误术语修正（「回购计划」→「加仓计划」）",
     "feat/article-image-preview": "文章图片支持点击查看大图与缩放（含 3 项验证期兼容修复）",
     "feature/m4-pc-wide-layout": "投顾页 PC 宽屏自由布局（解除限宽，含 Safari 广告位修复）",
-    "feat/vip-wealth-report-preview": "VIP 财富报告 PC 预览页"
+    "feat/vip-wealth-report-preview": "VIP 财富报告 PC 预览页",
+    "manual/article-table-scroll": "文章宽表格移动端横向滑动（内容服务·人工补录）"
   }
 }
