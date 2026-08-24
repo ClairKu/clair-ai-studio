@@ -3,9 +3,9 @@
   "meta": {
     "contract_version": "gitlab-mr-v1",
     "source_of_truth": "GitLab merge requests",
-    "generated_at": "2026-08-24T05:14:34.517Z",
-    "cutoff": "2026-08-24T05:14:34.517Z",
-    "last_change_at": "2026-08-24T05:14:34.517Z",
+    "generated_at": "2026-08-24T05:23:48.392Z",
+    "cutoff": "2026-08-24T05:23:48.392Z",
+    "last_change_at": "2026-08-24T05:23:48.392Z",
     "stale_after_minutes": 180,
     "headline": "6 个已提交，4 个已上线，3 位 PM 完成端到端交付。",
     "window_start": "2026-07-01T00:00:00+08:00",
@@ -20,10 +20,10 @@
     "end_to_end_people": 3
   },
   "delta": {
-    "new_submitted": 6,
+    "new_submitted": 0,
     "pending_release": 2,
-    "new_released": 4,
-    "changed": true
+    "new_released": 0,
+    "changed": false
   },
   "people": [
     {
@@ -310,7 +310,7 @@
       ],
       "submitted_at": "2026-08-20T16:39:28.572+08:00",
       "released_at": null,
-      "status": "building",
+      "status": "submitted",
       "links": {
         "merge_requests": [
           {
@@ -423,13 +423,13 @@
       "person_id": "P04",
       "person_display": "春燕",
       "submitted_at": "2026-08-20",
-      "status": "building",
+      "status": "submitted",
       "category": "important",
       "priority": "P1",
       "public_title": "VIP 财富报告 PC 预览",
       "pain_category": "VIP 财富报告缺少 PC 端预览",
-      "public_outcome": "预览页开发中，待合并上线。",
-      "evidence_level": "开发中",
+      "public_outcome": "预览页已提交合并申请，待合并上线。",
+      "evidence_level": "已提交",
       "in_scope": true,
       "released_at": null
     }
