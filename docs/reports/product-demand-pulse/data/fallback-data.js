@@ -2,26 +2,26 @@ window.DEMAND_PULSE_DATA = {
   "schema_version": "product-demand-pulse/v2",
   "meta": {
     "contract_version": "gitlab-mr-v1",
-    "source_of_truth": "GitLab merge requests",
-    "generated_at": "2026-08-24T05:23:48.392Z",
-    "cutoff": "2026-08-24T05:23:48.392Z",
-    "last_change_at": "2026-08-24T05:23:48.392Z",
+    "source_of_truth": "GitLab merge requests + 已核验历史基线",
+    "generated_at": "2026-08-24T05:25:26Z",
+    "cutoff": "2026-08-24T05:25:26Z",
+    "last_change_at": "2026-08-24T05:25:26Z",
     "stale_after_minutes": 180,
-    "headline": "6 个已提交，4 个已上线，3 位 PM 完成端到端交付。",
+    "headline": "7 个已提交，6 个已上线，3 位 PM 完成端到端交付。",
     "window_start": "2026-07-01T00:00:00+08:00",
     "release_ticket_lookup": "ok",
     "link_exposure": "public",
     "links_note": "链接只发单号与地址，不发 MR 标题；打开需要内网与相应系统权限。"
   },
   "summary": {
-    "submitted": 6,
-    "released": 4,
-    "in_flight": 2,
+    "submitted": 7,
+    "released": 6,
+    "in_flight": 1,
     "end_to_end_people": 3
   },
   "delta": {
     "new_submitted": 0,
-    "pending_release": 2,
+    "pending_release": 1,
     "new_released": 0,
     "changed": false
   },
@@ -31,8 +31,8 @@ window.DEMAND_PULSE_DATA = {
       "display_name": "嘉鸿",
       "avatar": "🦝",
       "submitted": 2,
-      "released": 1,
-      "in_flight": 1,
+      "released": 2,
+      "in_flight": 0,
       "first_released_at": "2026-08-05T18:42:08.514+08:00",
       "end_to_end": true
     },
@@ -40,8 +40,8 @@ window.DEMAND_PULSE_DATA = {
       "id": "P02",
       "display_name": "家亮",
       "avatar": "🦦",
-      "submitted": 1,
-      "released": 1,
+      "submitted": 2,
+      "released": 2,
       "in_flight": 0,
       "first_released_at": "2026-08-13T16:01:44.061+08:00",
       "end_to_end": true
@@ -157,8 +157,8 @@ window.DEMAND_PULSE_DATA = {
         "前端"
       ],
       "submitted_at": "2026-08-10T15:36:17.029+08:00",
-      "released_at": null,
-      "status": "merged",
+      "released_at": "2026-08-14",
+      "status": "released",
       "links": {
         "merge_requests": [
           {
@@ -168,9 +168,17 @@ window.DEMAND_PULSE_DATA = {
             "state": "merged",
             "merged_at": "2026-08-10T15:42:31.822+08:00",
             "is_release": false
+          },
+          {
+            "iid": 15402,
+            "url": "https://git.frontnode.net/qieman/albus/-/merge_requests/15402",
+            "target_branch": "master",
+            "state": "merged",
+            "merged_at": "2026-08-14",
+            "is_release": true
           }
         ],
-        "release_mr_url": null,
+        "release_mr_url": "https://git.frontnode.net/qieman/albus/-/merge_requests/15402",
         "demand_tickets": [],
         "release_tickets": []
       }
@@ -237,6 +245,23 @@ window.DEMAND_PULSE_DATA = {
           }
         ],
         "release_mr_url": "https://git.frontnode.net/qieman/albus/-/merge_requests/15416",
+        "demand_tickets": [],
+        "release_tickets": []
+      }
+    },
+    {
+      "id": "892122dbfe",
+      "person_id": "P02",
+      "brief": "移动端表格阅读体验",
+      "scopes": [
+        "历史核验"
+      ],
+      "submitted_at": "2026-07-31",
+      "released_at": null,
+      "status": "released",
+      "links": {
+        "merge_requests": [],
+        "release_mr_url": null,
         "demand_tickets": [],
         "release_tickets": []
       }
@@ -349,14 +374,16 @@ window.DEMAND_PULSE_DATA = {
       "person_id": "P01",
       "person_display": "嘉鸿",
       "submitted_at": "2026-08-11",
-      "released_at": null,
-      "status": "merged",
+      "released_at": "2026-08-14",
+      "status": "released",
       "category": "urgent_bug",
       "priority": "P1",
       "public_title": "加仓计划术语修正",
       "pain_category": "加仓规则弹窗残留错误术语",
       "public_outcome": "生产规则弹窗中的错误术语已修正为“加仓计划”。",
       "evidence_level": "已上线",
+      "verified_baseline": true,
+      "demand_id": "a41d0a68db",
       "in_scope": true
     },
     {
@@ -386,7 +413,9 @@ window.DEMAND_PULSE_DATA = {
       "pain_category": "宽表格在手机上内容被截断",
       "public_outcome": "线上移动端表格已支持横向滑动。",
       "evidence_level": "已上线",
-      "in_scope": false
+      "verified_baseline": true,
+      "in_scope": true,
+      "demand_id": "892122dbfe"
     },
     {
       "id": "R9",
@@ -435,7 +464,7 @@ window.DEMAND_PULSE_DATA = {
     }
   ],
   "criteria": {
-    "submitted": "一条特性分支 = 一个需求；由该 PM 本人作为 MR 作者发起，未被废弃（closed 不计）。",
+    "submitted": "新增需求按特性分支计数；已核验的历史基线继续保留，不因后续自动取数无法重新关联而漏计。",
     "released": "上线 = 该需求的代码已合入生产主干（master/main/production/release）。不等同于生产环境部署执行时刻，通常滞后 0–2 个工作日。",
     "dedupe": "同一分支合测试再合生产只算 1 个；前后端仓库的同名分支并为 1 个需求（范畴标签区分）；验证过程的修复分支归并进原需求。",
     "end_to_end": "该 PM 名下至少有 1 个需求已合入生产主干。",

@@ -56,6 +56,10 @@
 | **需求单** | 从 `source_branch` / MR 标题里抽出的 Jira key（QMRD），链接 `https://jira.yingmi-inc.com/browse/<KEY>` |
 | **上线单** | Jira **YR**（Release Control）项目里 summary 含该需求 key 的单据。YR 单命名约定就是 `QMRD-xxxxx - 标题 - 上线`，所以能由需求反查 |
 
+历史上已经按“有效 MR 链路 + 生产结果”核验完成、但现有 GitLab 分支口径无法重新关联的需求，
+在 `curated-records.json` 标记 `verified_baseline: true`。这类记录作为冻结基线继续计入，自动刷新只追加增量，
+不得把已确认上线的历史重新降级或漏掉。
+
 ### 两个必须知道的口径限制
 
 1. **「上线」是近似值。** 盈米没有权威的生产发布记录系统——本体已确认：Jenkins 构建历史查不到，

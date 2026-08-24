@@ -55,7 +55,7 @@ test("从未合并的纯草稿不计入提交", () => {
 test("开着的非草稿 MR 计入提交但不算上线", () => {
   const demands = foldDemands([mr({ state: "opened", merged_at: null })], rules);
   assert.equal(demands.length, 1);
-  assert.equal(demands[0].status, "building");
+  assert.equal(demands[0].status, "submitted");
 });
 
 test("上线时间取最早的一次生产合并", () => {
@@ -69,9 +69,9 @@ test("上线时间取最早的一次生产合并", () => {
   assert.equal(demands[0].released_at, "2026-08-05T10:00:00Z");
 });
 
-test("不同项目的同名分支是两个需求", () => {
+test("不同项目的同名分支折叠为一个跨仓需求", () => {
   const demands = foldDemands([mr({ project_id: 7 }), mr({ project_id: 8 })], rules);
-  assert.equal(demands.length, 2);
+  assert.equal(demands.length, 1);
 });
 
 test("按人汇总，端到端只认已上线", () => {

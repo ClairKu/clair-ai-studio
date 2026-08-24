@@ -1,5 +1,5 @@
 {
-  "$comment": "『已发生的改变』墙上的展示文案，人工撰写。这些条目不参与计数——计数一律来自 GitLab（见 rules.json）。填上 demand_key（project_id::source_branch）后，脚本会把它的状态自动对齐到最新。",
+  "$comment": "『已发生的改变』墙上的展示文案，人工撰写。新需求计数来自 GitLab；verified_baseline=true 的历史记录已经按 MR 链路与生产结果核验，后续刷新必须保留，不能因自动取数无法重新关联而降级或漏计。",
   "records": [
     {
       "id": "R1",
@@ -28,6 +28,13 @@
       "pain_category": "加仓规则弹窗残留错误术语",
       "public_outcome": "生产规则弹窗中的错误术语已修正为“加仓计划”。",
       "evidence_level": "已上线",
+      "verified_baseline": true,
+      "verified_release_mr": {
+        "iid": 15402,
+        "url": "https://git.frontnode.net/qieman/albus/-/merge_requests/15402",
+        "target_branch": "master",
+        "state": "merged"
+      },
       "demand_key": "feature/dip-purchase-jia-cang-copy-test"
     },
     {
@@ -56,6 +63,7 @@
       "pain_category": "宽表格在手机上内容被截断",
       "public_outcome": "线上移动端表格已支持横向滑动。",
       "evidence_level": "已上线",
+      "verified_baseline": true,
       "demand_key": null
     },
     {

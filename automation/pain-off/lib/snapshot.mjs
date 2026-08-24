@@ -13,6 +13,54 @@ function headline(summary) {
   return `${summary.submitted} 个已提交，${summary.released} 个已上线，${summary.end_to_end_people} 位 PM 完成端到端交付。`;
 }
 
+const LANDED = new Set(["released", "impact_confirmed"]);
+
+/**
+ * 自动取数只处理游标之后的增量，已经按 MR 链路与生产结果核验过的历史记录不能被降级。
+ * 有 demand_key 的基线覆盖自动状态；没有 demand_key 的基线作为一个冻结需求补进汇总。
+ */
+export function applyVerifiedBaselines({ allDemands, demandsByPerson, curatedRecords }) {
+  for (const record of curatedRecords.filter((item) => item.verified_baseline === true)) {
+    let demand = record.demand_key ? allDemands.find((item) => item.key === record.demand_key) : null;
+
+    if (!demand) {
+      demand = {
+        key: `verified-baseline:${record.id}`,
+        person_id: record.person_id,
+        brief: record.public_title,
+        scopes: ["历史核验"],
+        submitted_at: record.submitted_at,
+        released_at: record.released_at || null,
+        status: record.status,
+        mr_count: 0,
+        mrs: [],
+        release_mr_url: null,
+        jira_keys: [],
+        branch_pairs: [],
+        verified_baseline: true,
+        baseline_record_id: record.id,
+      };
+      allDemands.push(demand);
+      if (!demandsByPerson.has(record.person_id)) demandsByPerson.set(record.person_id, []);
+      demandsByPerson.get(record.person_id).push(demand);
+    } else {
+      demand.verified_baseline = true;
+      demand.baseline_record_id = record.id;
+      if (LANDED.has(record.status) && !LANDED.has(demand.status)) {
+        demand.status = "released";
+        demand.released_at = record.released_at || demand.released_at || null;
+      }
+    }
+
+    const releaseMr = record.verified_release_mr;
+    if (releaseMr && !(demand.mrs || []).some((mr) => mr.iid === releaseMr.iid)) {
+      demand.mrs.push({ ...releaseMr, merged_at: demand.released_at, is_release: true });
+      demand.release_mr_url = releaseMr.url;
+      demand.mr_count = demand.mrs.length;
+    }
+  }
+}
+
 /**
  * 跑一次完整取数：GitLab → 需求折叠 → 按人汇总 → 生成公网快照 + 本机明细。
  * 返回 { snapshot, detail, delta }。snapshot 可以直接发公网，detail 不可以。
@@ -67,6 +115,8 @@ export async function buildSnapshot({
     }
   }
 
+  applyVerifiedBaselines({ allDemands, demandsByPerson, curatedRecords });
+
   const summary = summarize(demandsByPerson, roster);
   const delta = diffSnapshots(previousSnapshot?._detail || previousSnapshot, { demands: allDemands });
 
@@ -78,7 +128,7 @@ export async function buildSnapshot({
   const publicDemands = allDemands.map((demand) => ({
     id: publicDemandId(demand.key),
     person_id: demand.person_id,
-    brief: briefs[demand.key] && String(briefs[demand.key]).trim() ? String(briefs[demand.key]).trim() : null,
+    brief: demand.brief || (briefs[demand.key] && String(briefs[demand.key]).trim() ? String(briefs[demand.key]).trim() : null),
     scopes: demand.scopes || [],
     submitted_at: demand.submitted_at,
     released_at: demand.released_at,
@@ -108,7 +158,7 @@ export async function buildSnapshot({
     schema_version: "product-demand-pulse/v2",
     meta: {
       contract_version: rules.contract_version,
-      source_of_truth: "GitLab merge requests",
+      source_of_truth: "GitLab merge requests + 已核验历史基线",
       generated_at: generatedAt,
       cutoff: generatedAt,
       last_change_at: lastChangeAt,
@@ -132,22 +182,26 @@ export async function buildSnapshot({
     demands: publicDemands,
     // 墙上的展示文案始终人工撰写；脚本不把 MR 标题推到公网，只负责给它对上最新状态。
     // demand_key 含仓库与分支名，只在本机用来对状态，不进公开快照。
-    records: curatedRecords.map(({ demand_key: demandKey, ...record }) => {
+    records: curatedRecords.map(({ demand_key: demandKey, verified_release_mr: _verifiedReleaseMr, ...record }) => {
       const matched = demandKey ? allDemands.find((d) => d.key === demandKey) : null;
-      // in_scope=false 的记录（没挂上任何口径内需求）在需求组合图里只展示不计数，
-      // 这样四象限的合计才能和 GitLab 汇总数严格对上。
-      if (!matched) return { ...record, in_scope: false };
+      const baseline = record.verified_baseline
+        ? allDemands.find((d) => d.baseline_record_id === record.id)
+        : null;
+      const counted = matched || baseline;
+      if (!counted) return { ...record, in_scope: false };
       // 状态以 GitLab 实况为准：没上线的记录不许留 released_at（校验器会拦，而且那本来就是错的）。
-      const released = matched.status === "released";
+      // 已核验历史基线由 applyVerifiedBaselines 保留，不因下一次自动取数降级。
+      const released = LANDED.has(counted.status);
       return {
         ...record,
         in_scope: true,
-        status: matched.status,
-        released_at: released ? (matched.released_at || record.released_at || null)?.slice(0, 10) ?? null : null,
+        demand_id: publicDemandId(counted.key),
+        status: counted.status,
+        released_at: released ? (counted.released_at || record.released_at || null)?.slice(0, 10) ?? null : null,
       };
     }),
     criteria: {
-      submitted: "一条特性分支 = 一个需求；由该 PM 本人作为 MR 作者发起，未被废弃（closed 不计）。",
+      submitted: "新增需求按特性分支计数；已核验的历史基线继续保留，不因后续自动取数无法重新关联而漏计。",
       released: rules.released.approximation_note,
       dedupe: "同一分支合测试再合生产只算 1 个；前后端仓库的同名分支并为 1 个需求（范畴标签区分）；验证过程的修复分支归并进原需求。",
       end_to_end: "该 PM 名下至少有 1 个需求已合入生产主干。",

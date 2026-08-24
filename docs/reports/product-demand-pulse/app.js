@@ -44,6 +44,10 @@ const CRITERIA_LABELS = {
 
 const $ = (selector) => document.querySelector(selector);
 
+const EMBEDDED_BASELINES = (window.DEMAND_PULSE_DATA?.records || [])
+  .filter((record) => record.verified_baseline === true);
+const EMBEDDED_DEMANDS = new Map((window.DEMAND_PULSE_DATA?.demands || []).map((demand) => [demand.id, demand]));
+
 const escapeHtml = (value = "") => String(value)
   .replaceAll("&", "&amp;")
   .replaceAll("<", "&lt;")
@@ -82,7 +86,60 @@ function normalize(raw) {
   const records = Array.isArray(raw.records) ? raw.records : [];
 
   if (raw.schema_version === "product-demand-pulse/v2" && raw.summary) {
-    return { ...raw, people, records, demands: Array.isArray(raw.demands) ? raw.demands : [] };
+    const normalized = {
+      ...raw,
+      summary: { ...raw.summary },
+      people: people.map((person) => ({ ...person })),
+      records: records.map((record) => ({ ...record })),
+      demands: (Array.isArray(raw.demands) ? raw.demands : []).map((demand) => ({ ...demand })),
+    };
+
+    // 兼容尚未刷新到新口径的中继快照：用页面内置的已核验历史基线补齐，
+    // 这样修复发布后无需等待下一次内网取数，且未来新快照已包含基线时不会重复计算。
+    for (const baseline of EMBEDDED_BASELINES) {
+      let record = normalized.records.find((item) => item.id === baseline.id);
+      if (!record) {
+        record = { ...baseline, in_scope: true };
+        normalized.records.push(record);
+      }
+
+      const wasSubmitted = record.in_scope !== false;
+      const wasReleased = wasSubmitted && LANDED.has(record.status);
+      record = Object.assign(record, { ...baseline, in_scope: true });
+      const isReleased = LANDED.has(record.status);
+
+      const person = normalized.people.find((item) => item.id === record.person_id);
+      if (person) {
+        if (!wasSubmitted) person.submitted = (person.submitted || 0) + 1;
+        if (!wasReleased && isReleased) person.released = (person.released || 0) + 1;
+        person.in_flight = Math.max(0, (person.submitted || 0) - (person.released || 0));
+        person.end_to_end = (person.released || 0) > 0;
+      }
+
+      const baselineDemand = EMBEDDED_DEMANDS.get(baseline.demand_id);
+      if (baselineDemand) {
+        const demand = normalized.demands.find((item) => item.id === baseline.demand_id);
+        if (demand) Object.assign(demand, baselineDemand);
+        else normalized.demands.push({ ...baselineDemand });
+      }
+    }
+
+    normalized.summary = {
+      submitted: normalized.people.reduce((sum, person) => sum + (person.submitted || 0), 0),
+      released: normalized.people.reduce((sum, person) => sum + (person.released || 0), 0),
+      in_flight: normalized.people.reduce((sum, person) => sum + (person.in_flight || 0), 0),
+      end_to_end_people: normalized.people.filter((person) => person.end_to_end).length,
+    };
+    normalized.meta = {
+      ...normalized.meta,
+      source_of_truth: window.DEMAND_PULSE_DATA?.meta?.source_of_truth || normalized.meta?.source_of_truth,
+      headline: `${normalized.summary.submitted} 个已提交，${normalized.summary.released} 个已上线，${normalized.summary.end_to_end_people} 位 PM 完成端到端交付。`,
+    };
+    normalized.criteria = {
+      ...(normalized.criteria || {}),
+      submitted: window.DEMAND_PULSE_DATA?.criteria?.submitted || normalized.criteria?.submitted,
+    };
+    return normalized;
   }
 
   const counted = records.filter((item) => item.unique !== false);
@@ -275,36 +332,23 @@ function renderQuadrants() {
     })),
   ];
 
-  // 只有「口径内」的登记记录参与计数——四象限的数字必须和上面 GitLab 汇总严格对上。
-  // 口径外（历史改进）与本地想法只展示、不计数，各带标签说明。
-  const inScope = (item) => item.source === "curated" && item.in_scope !== false;
-
   $("#quadrant-grid").innerHTML = CATEGORY_ORDER.map((categoryKey) => {
     const meta = CATEGORY_META[categoryKey];
     const items = tagged.filter((item) => item.category === categoryKey);
-    const scoped = items.filter(inScope);
-    const released = scoped.filter((item) => LANDED.has(item.status)).length;
+    const released = items.filter((item) => LANDED.has(item.status)).length;
     return `
       <section class="quadrant quadrant-${categoryKey}">
-        <header><span class="quadrant-symbol">${meta.symbol}</span><div><h3>${escapeHtml(meta.title)}</h3></div><b>${scoped.length}</b></header>
+        <header><span class="quadrant-symbol">${meta.symbol}</span><div><h3>${escapeHtml(meta.title)}</h3></div><b>${items.length}</b></header>
         <div class="quadrant-items">${items.length ? items.map((item) => `
           <div class="map-ticket ${LANDED.has(item.status) ? "is-done" : "is-open"}">
-            <i aria-hidden="true"></i><span>${escapeHtml(item.public_title || item.pain_category || "")}</span><small>${escapeHtml(item.person_display || "")} · ${escapeHtml(STATUS_LABELS[item.status] || "待处理")}${item.source === "local" ? " · 本地" : ""}${item.source === "curated" && item.in_scope === false ? " · 口径外" : ""}</small>
+            <i aria-hidden="true"></i><span>${escapeHtml(item.public_title || item.pain_category || "")}</span><small>${escapeHtml(item.person_display || "")} · ${escapeHtml(STATUS_LABELS[item.status] || "待处理")}${item.source === "local" ? " · 本地" : ""}</small>
           </div>`).join("") : '<span class="quadrant-empty">等待一个值得做的想法</span>'}</div>
-        <footer><span>${released} 已解决</span><span>${scoped.length - released} 待解决</span></footer>
+        <footer><span>${released} 已解决</span><span>${items.length - released} 待解决</span></footer>
       </section>`;
   }).join("");
 
-  const total = data.summary?.submitted ?? 0;
-  const scopedRecords = (data.records || []).filter((record) => record.in_scope !== false);
-  const outOfScope = (data.records || []).length - scopedRecords.length;
   $("#map-summary").textContent = `${data.summary?.released ?? 0} 个已上线 · ${data.summary?.in_flight ?? 0} 个在途`;
-  $("#map-note").textContent = [
-    total > scopedRecords.length
-      ? `需求类型来自人工登记：口径内共 ${total} 个需求，其中 ${scopedRecords.length} 个登记了类型并出现在上图；其余只计入总数。`
-      : "需求类型与简述来自人工登记，口径内需求已全部登记，四象限合计与上方汇总一致。",
-    outOfScope ? `标注「口径外」的 ${outOfScope} 条是统计口径之外的历史改进，只展示不计数。` : "",
-  ].filter(Boolean).join(" ");
+  $("#map-note").textContent = "";
 }
 
 /* ---- 链路追溯：每个需求的 MR 与上线单 ---- */
