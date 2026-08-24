@@ -3,13 +3,13 @@
   "meta": {
     "contract_version": "gitlab-mr-v1",
     "source_of_truth": "GitLab merge requests",
-    "generated_at": "2026-08-24T02:04:53.645Z",
-    "cutoff": "2026-08-24T02:04:53.645Z",
-    "last_change_at": "2026-08-24T02:04:53.645Z",
+    "generated_at": "2026-08-24T02:12:00.088Z",
+    "cutoff": "2026-08-24T02:12:00.088Z",
+    "last_change_at": "2026-08-24T02:12:00.088Z",
     "stale_after_minutes": 180,
     "headline": "10 个已提交，4 个已上线，2 位 PM 完成端到端交付。",
     "window_start": "2026-07-01T00:00:00+08:00",
-    "release_ticket_lookup": "skipped_no_token",
+    "release_ticket_lookup": "ok",
     "link_exposure": "public",
     "links_note": "链接只发单号与地址，不发 MR 标题；打开需要内网与相应系统权限。"
   },
@@ -20,10 +20,10 @@
     "end_to_end_people": 2
   },
   "delta": {
-    "new_submitted": 10,
+    "new_submitted": 0,
     "pending_release": 6,
-    "new_released": 4,
-    "changed": true
+    "new_released": 0,
+    "changed": false
   },
   "people": [
     {
