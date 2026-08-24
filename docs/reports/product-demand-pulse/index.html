@@ -59,7 +59,6 @@
           <p class="eyebrow">THE SCORE · 累计战绩</p>
           <h2 id="stats-title">用户已经得到什么</h2>
         </div>
-        <button class="button mini" type="button" data-refresh-update>↻ 更新数据</button>
       </div>
       <div class="score-grid" id="score-grid" aria-live="polite"></div>
 
@@ -80,17 +79,6 @@
       </section>
     </section>
 
-    <section class="criteria section-shell" id="criteria" aria-labelledby="criteria-title">
-      <div class="section-heading compact">
-        <div>
-          <p class="eyebrow">HOW WE COUNT · 查询口径</p>
-          <h2 id="criteria-title">这些数字是怎么算出来的</h2>
-        </div>
-        <span class="criteria-source" id="criteria-source">—</span>
-      </div>
-      <dl class="criteria-grid" id="criteria-grid"></dl>
-    </section>
-
     <section class="team section-shell" aria-labelledby="team-title">
       <div class="section-heading compact">
         <div>
@@ -102,12 +90,59 @@
       <div class="starter-dock" id="starter-dock"></div>
     </section>
 
+    <section class="map-section section-shell" aria-labelledby="map-title">
+      <div class="section-heading compact">
+        <div>
+          <p class="eyebrow">DEMAND MAP · 需求组合</p>
+          <h2 id="map-title">不只看多少，还要看为何而做</h2>
+        </div>
+        <strong class="map-summary" id="map-summary">正在整理需求分布。</strong>
+      </div>
+      <div class="quadrant-wrap">
+        <span class="axis-label axis-y-top">必须尽快 ↑</span>
+        <span class="axis-label axis-y-bottom">日常改善 ↓</span>
+        <div class="quadrant-grid" id="quadrant-grid"></div>
+        <div class="axis-x"><span>← 用户牵引</span><span>团队牵引 →</span></div>
+      </div>
+      <p class="section-note" id="map-note"></p>
+    </section>
+
+    <section class="trace section-shell" id="trace" aria-labelledby="trace-title">
+      <div class="section-heading compact">
+        <div>
+          <p class="eyebrow">TRACE · 链路追溯</p>
+          <h2 id="trace-title">每个需求，从 MR 到上线单</h2>
+        </div>
+        <div class="trace-controls">
+          <div class="chip-row" id="trace-filters" role="group" aria-label="按状态筛选">
+            <button class="chip is-on" type="button" data-trace-filter="all">全部</button>
+            <button class="chip" type="button" data-trace-filter="released">已上线</button>
+            <button class="chip" type="button" data-trace-filter="open">在途</button>
+          </div>
+          <label class="trace-person"><span>按人</span><select id="trace-person" aria-label="按人筛选"></select></label>
+        </div>
+      </div>
+      <div class="trace-list" id="trace-list" aria-live="polite"></div>
+      <p class="section-note" id="trace-note"></p>
+    </section>
+
     <section class="value section-shell" aria-labelledby="value-title">
       <div class="value-copy">
         <p class="eyebrow">TIME TO VALUE · 交付节奏</p>
         <h2 id="value-title">从提出到用户拿到，要多久</h2>
       </div>
       <div class="value-grid" id="value-grid"></div>
+    </section>
+
+    <section class="criteria section-shell" id="criteria" aria-labelledby="criteria-title">
+      <div class="section-heading compact">
+        <div>
+          <p class="eyebrow">HOW WE COUNT · 查询口径</p>
+          <h2 id="criteria-title">这些数字是怎么算出来的</h2>
+        </div>
+        <span class="criteria-source" id="criteria-source">—</span>
+      </div>
+      <dl class="criteria-grid" id="criteria-grid"></dl>
     </section>
 
     <section class="workbench section-shell" id="workbench" aria-labelledby="workbench-title">
@@ -149,42 +184,6 @@
       </form>
 
       <div class="pending-list" id="pending-list" aria-live="polite"></div>
-    </section>
-
-    <section class="map-section section-shell" aria-labelledby="map-title">
-      <div class="section-heading compact">
-        <div>
-          <p class="eyebrow">DEMAND MAP · 需求组合</p>
-          <h2 id="map-title">不只看多少，还要看为何而做</h2>
-        </div>
-        <strong class="map-summary" id="map-summary">正在整理需求分布。</strong>
-      </div>
-      <div class="quadrant-wrap">
-        <span class="axis-label axis-y-top">必须尽快 ↑</span>
-        <span class="axis-label axis-y-bottom">日常改善 ↓</span>
-        <div class="quadrant-grid" id="quadrant-grid"></div>
-        <div class="axis-x"><span>← 用户牵引</span><span>团队牵引 →</span></div>
-      </div>
-      <p class="section-note" id="map-note"></p>
-    </section>
-
-    <section class="trace section-shell" id="trace" aria-labelledby="trace-title">
-      <div class="section-heading compact">
-        <div>
-          <p class="eyebrow">TRACE · 链路追溯</p>
-          <h2 id="trace-title">每个需求，从 MR 到上线单</h2>
-        </div>
-        <div class="trace-controls">
-          <div class="chip-row" id="trace-filters" role="group" aria-label="按状态筛选">
-            <button class="chip is-on" type="button" data-trace-filter="all">全部</button>
-            <button class="chip" type="button" data-trace-filter="released">已上线</button>
-            <button class="chip" type="button" data-trace-filter="open">在途</button>
-          </div>
-          <label class="trace-person"><span>按人</span><select id="trace-person" aria-label="按人筛选"></select></label>
-        </div>
-      </div>
-      <div class="trace-list" id="trace-list" aria-live="polite"></div>
-      <p class="section-note" id="trace-note"></p>
     </section>
 
     <section class="wall section-shell" aria-labelledby="wall-title">

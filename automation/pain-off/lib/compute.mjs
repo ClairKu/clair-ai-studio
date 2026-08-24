@@ -127,7 +127,8 @@ export function foldDemands(mergeRequests, rules) {
       author_username: mrs[0].author?.username || null,
       submitted_at: earliest(mrs.map((mr) => mr.created_at)),
       released_at: released ? earliest(releaseMerges.map((mr) => mr.merged_at)) : null,
-      status: released ? "released" : mergedToTest ? "merged" : "building",
+      // 三档状态：已提交（MR 已发起）→ 已合并（合入测试）→ 已上线（合入生产主干）。
+      status: released ? "released" : mergedToTest ? "merged" : "submitted",
       mr_count: mrs.length,
       release_mr_url: released ? releaseMerges.sort((a, b) => String(a.merged_at).localeCompare(String(b.merged_at)))[0].web_url : null,
       jira_keys: [...new Set(mrs.flatMap((mr) => extractJiraKeys(`${mr.source_branch} ${mr.title}`)))],

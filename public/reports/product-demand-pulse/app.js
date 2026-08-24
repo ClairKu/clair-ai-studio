@@ -19,9 +19,9 @@ const DAY_MS = 86400000;
 
 const LANDED = new Set(["released", "impact_confirmed"]);
 const STATUS_LABELS = {
-  submitted: "待处理",
-  building: "开发中",
-  merged: "待上线",
+  submitted: "已提交",
+  building: "已提交", // 旧快照兼容：building 已并入「已提交」
+  merged: "已合并",
   released: "已上线",
   impact_confirmed: "效果确认",
   unknown: "待确认",

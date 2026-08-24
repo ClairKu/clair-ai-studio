@@ -91,13 +91,13 @@
       "person_id": "P04",
       "person_display": "春燕",
       "submitted_at": "2026-08-20",
-      "status": "building",
+      "status": "submitted",
       "category": "important",
       "priority": "P1",
       "public_title": "VIP 财富报告 PC 预览",
       "pain_category": "VIP 财富报告缺少 PC 端预览",
-      "public_outcome": "预览页开发中，待合并上线。",
-      "evidence_level": "开发中",
+      "public_outcome": "预览页已提交合并申请，待合并上线。",
+      "evidence_level": "已提交",
       "demand_key": "feat/vip-wealth-report-preview"
     }
   ],
