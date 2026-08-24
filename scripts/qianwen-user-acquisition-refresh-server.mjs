@@ -2,15 +2,17 @@
 
 import { spawn } from "node:child_process";
 import { createServer } from "node:http";
-import { access, mkdir, readFile, writeFile } from "node:fs/promises";
+import { access, cp, mkdir, mkdtemp, readFile, writeFile } from "node:fs/promises";
 import { homedir, tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const DEFAULT_PORT = 43120;
+const DEFAULT_PORT = 43121;
 const DEFAULT_ORIGINS = ["https://clairku.github.io"];
 const MAX_BODY_BYTES = 16 * 1024;
 const MAX_LOG_BYTES = 2 * 1024 * 1024;
+const PRODUCTION_URL = "https://clairku.github.io/clair-ai-studio/reports/qianwen-user-acquisition-dashboard/";
+const REPORT_PATH = "reports/qianwen-user-acquisition-dashboard";
 const scriptPath = fileURLToPath(import.meta.url);
 const scriptDir = dirname(scriptPath);
 const defaultRepo = resolve(scriptDir, "..");
@@ -45,6 +47,11 @@ function cleanSummary(value) {
 
 function safeCount(value) {
   return Number.isInteger(value) && value >= 0 ? value : null;
+}
+
+function parseTime(value) {
+  const timestamp = Date.parse(value || "");
+  return Number.isFinite(timestamp) ? timestamp : 0;
 }
 
 function safeCutoff(value) {
@@ -105,13 +112,13 @@ async function findOntologyBin(repo, env) {
   return null;
 }
 
-export function buildRefreshPrompt({ repo, publishedCutoff, ontologyBin }) {
-  return `立即执行一次“千问 X 且慢AI小顾用户数据看板”的真实生产数据刷新，并在成功后发布 GitHub Pages。
+export function buildRefreshPrompt({ workspace, publishedCutoff, ontologyBin }) {
+  return `立即执行一次“千问 X 且慢AI小顾用户数据看板”的真实生产数据刷新，并把结果写入隔离工作目录。
 
-仓库锚点：${repo}
+隔离工作目录：${workspace}
 当前页面截止时间：${publishedCutoff || "未知"}
 本体 CLI：${ontologyBin || "未找到（这种情况必须返回 blocked）"}
-生产页：https://clairku.github.io/clair-ai-studio/reports/qianwen-user-acquisition-dashboard/
+生产页：${PRODUCTION_URL}
 权威快照：public/reports/qianwen-user-acquisition-dashboard/data/latest.json
 
 必须完成的取数：
@@ -121,16 +128,164 @@ export function buildRefreshPrompt({ repo, publishedCutoff, ontologyBin }) {
 4. 画像、行为、经营数据对 all/new/existing 三个 cohort 分别计算。执行 k=20 的主抑制和互补抑制，禁止通过“全部减一类”反推出小样本；禁止输出用户 ID、手机号、单用户金额、原始对话、内部任务/查询标识或生产凭证。
 5. 查询时点必须写入 meta.generated_at 和 meta.data_cutoff（北京时间 +08:00）；当天 daily.partial=true，历史日期 false；所有总数、每日数、分组和观察窗口必须闭合。
 
-仓库与发布要求：
-- 先 fetch origin/main。用独立临时 worktree 基于最新 origin/main 工作，绝不切换、覆盖或提交仓库锚点中的其他任务改动。
+写入与校验要求：
+- 只在上面的隔离工作目录内工作；不要执行 git fetch、clone、commit 或 push。后台服务会在你完成后原子发布。
 - 以现有 latest.json 为严格模板，只替换真实查询得到的数据；不得删减模块、改变 schema_version 或放宽隐私规则。
-- 同步更新 public 与 docs 下的 latest.json 和 fallback-data.js。运行 node scripts/validate-qianwen-user-acquisition-dashboard.mjs --write-fallback，再同步 fallback 到 docs；运行 npm run build、npm test、git diff --check。
-- 若本次 cutoff 不晚于已发布 cutoff，且所有指标完全相同，返回 no_change，不提交。
-- 有新快照则只提交本报告的必要文件，提交信息用 feat(qianwen): refresh dashboard data，推送到 origin/main；遇到并发更新先 fetch/rebase 再安全重试，禁止 force push。
-- 推送后轮询生产 latest.json，确认线上 data_cutoff 已达到本次值且关键指标一致，再返回 updated。任何取数、校验、推送或 Pages 验证失败都返回 blocked，并保留上一版生产数据。
+- 写入 public 下的 latest.json，运行 node scripts/validate-qianwen-user-acquisition-dashboard.mjs --write-fallback；校验不通过必须修正，绝不能放宽校验器。
+- 若真实查询的 cutoff 不晚于已发布 cutoff，且所有指标完全相同，返回 no_change；否则写好快照后返回 updated。不要自行发布。
+- 任何取数或校验失败都返回 blocked，并保留隔离目录中的上一版数据。
 - 最终 summary 只写面向看板使用者的结论，控制在 100 个汉字内；不要写内部链接、命令或凭证。
 
 最终必须严格按给定 JSON Schema 返回，不要写额外文字。`;
+}
+
+async function runProcess(command, args, { cwd, env, input = "" } = {}) {
+  const stdout = [];
+  const stderr = [];
+  const child = spawn(command, args, { cwd, env, stdio: ["pipe", "pipe", "pipe"] });
+  child.stdout.on("data", (chunk) => appendCapped(stdout, chunk));
+  child.stderr.on("data", (chunk) => appendCapped(stderr, chunk));
+  child.stdin.end(input);
+  const exitCode = await new Promise((resolveExit, rejectExit) => {
+    child.once("error", rejectExit);
+    child.once("close", resolveExit);
+  });
+  const output = Buffer.concat(stdout).toString("utf8");
+  if (exitCode !== 0) {
+    const errorOutput = Buffer.concat(stderr).toString("utf8").trim().slice(0, 500);
+    throw new Error(errorOutput || `${command} 退出（${exitCode}）`);
+  }
+  return output;
+}
+
+async function prepareRefreshWorkspace(repo) {
+  const workspace = await mkdtemp(join(tmpdir(), "qianwen-refresh-work-"));
+  const copies = [
+    [join(repo, "public", REPORT_PATH), join(workspace, "public", REPORT_PATH)],
+    [join(repo, "docs", REPORT_PATH), join(workspace, "docs", REPORT_PATH)],
+    [join(repo, "scripts", "validate-qianwen-user-acquisition-dashboard.mjs"), join(workspace, "scripts", "validate-qianwen-user-acquisition-dashboard.mjs")],
+    [join(repo, "src", "app.js"), join(workspace, "src", "app.js")],
+    [join(repo, "public", "previews", "qianwen-user-acquisition-dashboard.svg"), join(workspace, "public", "previews", "qianwen-user-acquisition-dashboard.svg")],
+  ];
+  for (const [source, target] of copies) {
+    await mkdir(dirname(target), { recursive: true });
+    await cp(source, target, { recursive: true });
+  }
+  try {
+    const response = await fetch(`${PRODUCTION_URL}data/latest.json?prepare=${Date.now()}`, { signal: AbortSignal.timeout(20_000) });
+    if (response.ok) {
+      const snapshot = await response.json();
+      if (safeCutoff(snapshot?.meta?.data_cutoff)) {
+        const serialized = `${JSON.stringify(snapshot, null, 2)}\n`;
+        await Promise.all([
+          writeFile(join(workspace, "public", REPORT_PATH, "data", "latest.json"), serialized),
+          writeFile(join(workspace, "docs", REPORT_PATH, "data", "latest.json"), serialized),
+        ]);
+      }
+    }
+  } catch {
+    // The checked-in, already validated snapshot remains the safe fallback.
+  }
+  return workspace;
+}
+
+async function githubCredentials() {
+  const text = await runProcess("/usr/bin/git", ["credential", "fill"], {
+    input: "protocol=https\nhost=github.com\n\n",
+  });
+  const values = Object.fromEntries(text.trim().split("\n").map((line) => {
+    const split = line.indexOf("=");
+    return split > 0 ? [line.slice(0, split), line.slice(split + 1)] : [line, ""];
+  }));
+  if (!values.password) throw new Error("GitHub 发布凭证不可用");
+  return values.password;
+}
+
+async function githubApi(path, token, init = {}) {
+  const response = await fetch(`https://api.github.com/repos/ClairKu/clair-ai-studio${path}`, {
+    ...init,
+    headers: {
+      Accept: "application/vnd.github+json",
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+      "X-GitHub-Api-Version": "2022-11-28",
+      ...(init.headers || {}),
+    },
+    signal: AbortSignal.timeout(30_000),
+  });
+  const body = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(`GitHub ${response.status}: ${cleanText(body.message) || "发布请求失败"}`);
+  return body;
+}
+
+async function publishWorkspace(workspace, cutoff) {
+  const paths = [
+    "public/reports/qianwen-user-acquisition-dashboard/data/latest.json",
+    "public/reports/qianwen-user-acquisition-dashboard/data/fallback-data.js",
+    "docs/reports/qianwen-user-acquisition-dashboard/data/latest.json",
+    "docs/reports/qianwen-user-acquisition-dashboard/data/fallback-data.js",
+  ];
+  const token = await githubCredentials();
+  const blobs = await Promise.all(paths.map(async (path) => {
+    const contents = await readFile(join(workspace, path));
+    const blob = await githubApi("/git/blobs", token, {
+      method: "POST",
+      body: JSON.stringify({ content: contents.toString("base64"), encoding: "base64" }),
+    });
+    return { path, mode: "100644", type: "blob", sha: blob.sha };
+  }));
+
+  for (let attempt = 1; attempt <= 2; attempt += 1) {
+    const ref = await githubApi("/git/ref/heads/main", token);
+    const parent = ref.object.sha;
+    const parentCommit = await githubApi(`/git/commits/${parent}`, token);
+    const tree = await githubApi("/git/trees", token, {
+      method: "POST",
+      body: JSON.stringify({ base_tree: parentCommit.tree.sha, tree: blobs }),
+    });
+    const commit = await githubApi("/git/commits", token, {
+      method: "POST",
+      body: JSON.stringify({
+        message: `feat(qianwen): refresh dashboard data to ${cutoff.slice(0, 10)}`,
+        tree: tree.sha,
+        parents: [parent],
+        author: { name: "Clair", email: "9941648+ClairKu@users.noreply.github.com" },
+        committer: { name: "Clair", email: "9941648+ClairKu@users.noreply.github.com" },
+      }),
+    });
+    try {
+      await githubApi("/git/refs/heads/main", token, {
+        method: "PATCH",
+        body: JSON.stringify({ sha: commit.sha, force: false }),
+      });
+      return commit.sha;
+    } catch (error) {
+      if (attempt === 2) throw error;
+    }
+  }
+  throw new Error("生产分支并发更新，请重试");
+}
+
+async function verifyProductionSnapshot(expectedCutoff, expectedMetrics) {
+  const deadline = Date.now() + 5 * 60 * 1000;
+  while (Date.now() < deadline) {
+    try {
+      const response = await fetch(`${PRODUCTION_URL}data/latest.json?verify=${Date.now()}`, { signal: AbortSignal.timeout(20_000) });
+      if (response.ok) {
+        const snapshot = await response.json();
+        if (
+          parseTime(snapshot?.meta?.data_cutoff) >= parseTime(expectedCutoff)
+          && snapshot?.metrics?.bound_accounts === expectedMetrics.bound_accounts
+          && snapshot?.metrics?.new_accounts === expectedMetrics.new_accounts
+          && snapshot?.metrics?.existing_accounts === expectedMetrics.existing_accounts
+        ) return;
+      }
+    } catch {
+      // GitHub Pages may briefly return a cached or unavailable response during deployment.
+    }
+    await new Promise((resolveWait) => setTimeout(resolveWait, 5000));
+  }
+  throw new Error("新快照已提交，但生产页面尚未完成发布");
 }
 
 function appendCapped(chunks, chunk) {
@@ -189,8 +344,9 @@ export function createRefreshService(options = {}) {
     }
 
     await Promise.all([mkdir(logDir, { recursive: true }), mkdir(codexHome, { recursive: true })]);
+    const workspace = await prepareRefreshWorkspace(repo);
     const ontologyBin = await findOntologyBin(repo, env);
-    const prompt = buildRefreshPrompt({ repo, publishedCutoff: packet.published_cutoff, ontologyBin });
+    const prompt = buildRefreshPrompt({ workspace, publishedCutoff: packet.published_cutoff, ontologyBin });
     const outputPath = join(tmpdir(), `qianwen-refresh-${runId}.json`);
     const stdout = [];
     const stderr = [];
@@ -200,11 +356,11 @@ export function createRefreshService(options = {}) {
       "--color", "never",
       "--sandbox", "danger-full-access",
       "-c", 'approval_policy="never"',
-      "--cd", repo,
+      "--cd", workspace,
       "--output-schema", schemaPath,
       "--output-last-message", outputPath,
       "-",
-    ], { cwd: repo, env: { ...env, CODEX_HOME: codexHome, NO_COLOR: "1" }, stdio: ["pipe", "pipe", "pipe"] });
+    ], { cwd: workspace, env: { ...env, CODEX_HOME: codexHome, NO_COLOR: "1" }, stdio: ["pipe", "pipe", "pipe"] });
     child.stdout.on("data", (chunk) => appendCapped(stdout, chunk));
     child.stderr.on("data", (chunk) => appendCapped(stderr, chunk));
     child.stdin.end(prompt);
@@ -213,9 +369,9 @@ export function createRefreshService(options = {}) {
       child.once("error", rejectExit);
       child.once("close", resolveExit);
     });
-    const finishedAt = new Date().toISOString();
+    const agentFinishedAt = new Date().toISOString();
     await writeFile(join(logDir, `${runId}.log`), Buffer.concat([
-      Buffer.from(`started_at=${startedAt}\nfinished_at=${finishedAt}\nexit_code=${exitCode}\n\n`),
+      Buffer.from(`started_at=${startedAt}\nagent_finished_at=${agentFinishedAt}\nexit_code=${exitCode}\nworkspace=${workspace}\n\n`),
       ...stdout,
       Buffer.from("\n--- stderr ---\n"),
       ...stderr,
@@ -223,8 +379,29 @@ export function createRefreshService(options = {}) {
     if (exitCode !== 0) throw new Error(`后台刷新进程退出（${exitCode}）`);
 
     const rawResult = JSON.parse(await readFile(outputPath, "utf8"));
-    const result = sanitizeAgentResult(rawResult, packet.published_cutoff);
-    state = { ...result, run_id: runId, started_at: startedAt, finished_at: finishedAt };
+    let result = sanitizeAgentResult(rawResult, packet.published_cutoff);
+    if (result.status === "updated") {
+      await runProcess(process.execPath, [join(workspace, "scripts", "validate-qianwen-user-acquisition-dashboard.mjs"), "--write-fallback"], {
+        cwd: workspace,
+        env: { ...env, NO_COLOR: "1" },
+      });
+      await Promise.all([
+        cp(join(workspace, "public", REPORT_PATH, "data", "latest.json"), join(workspace, "docs", REPORT_PATH, "data", "latest.json")),
+        cp(join(workspace, "public", REPORT_PATH, "data", "fallback-data.js"), join(workspace, "docs", REPORT_PATH, "data", "fallback-data.js")),
+      ]);
+      const snapshot = JSON.parse(await readFile(join(workspace, "public", REPORT_PATH, "data", "latest.json"), "utf8"));
+      const dataCutoff = safeCutoff(snapshot?.meta?.data_cutoff);
+      const metrics = {
+        bound_accounts: safeCount(snapshot?.metrics?.bound_accounts),
+        new_accounts: safeCount(snapshot?.metrics?.new_accounts),
+        existing_accounts: safeCount(snapshot?.metrics?.existing_accounts),
+      };
+      if (!dataCutoff || Object.values(metrics).some((value) => value === null)) throw new Error("刷新结果缺少有效的截止时间或关键指标");
+      await publishWorkspace(workspace, dataCutoff);
+      await verifyProductionSnapshot(dataCutoff, metrics);
+      result = { ...result, data_cutoff: dataCutoff, metrics, production_url: PRODUCTION_URL };
+    }
+    state = { ...result, run_id: runId, started_at: startedAt, finished_at: new Date().toISOString() };
   }
 
   const server = createServer(async (request, response) => {

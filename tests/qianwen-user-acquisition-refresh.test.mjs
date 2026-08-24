@@ -16,7 +16,7 @@ const CUTOFF = "2026-08-20T16:40:29+08:00";
 
 test("production page triggers the private refresh service and polls publication", async () => {
   const app = await read(`${REPORT}/app.js`);
-  assert.match(app, /LOCAL_REFRESH_BASE = "http:\/\/127\.0\.0\.1:43120"/);
+  assert.match(app, /LOCAL_REFRESH_BASE = "http:\/\/127\.0\.0\.1:43121"/);
   assert.match(app, /X-Qianwen-Action/);
   assert.match(app, /qianwen-user-acquisition-refresh\/v1/);
   assert.match(app, /waitForRefresh/);
@@ -48,10 +48,18 @@ test("agent result is reduced to public progress fields", () => {
 });
 
 test("refresh prompt requires one real production query, privacy checks, and safe publishing", () => {
-  const prompt = buildRefreshPrompt({ repo: "/repo", publishedCutoff: CUTOFF, ontologyBin: "/ontology" });
-  for (const signal of ["只发起一次", "实时查询生产数据库", "k=20", "互补抑制", "临时 worktree", "禁止 force push", "轮询生产 latest.json"]) {
+  const prompt = buildRefreshPrompt({ workspace: "/work", publishedCutoff: CUTOFF, ontologyBin: "/ontology" });
+  for (const signal of ["只发起一次", "实时查询生产数据库", "k=20", "互补抑制", "隔离工作目录", "不要执行 git", "后台服务会在你完成后原子发布"]) {
     assert.match(prompt, new RegExp(signal));
   }
+});
+
+test("server publishes only validated aggregate snapshots without force updates", async () => {
+  const server = await read("scripts/qianwen-user-acquisition-refresh-server.mjs");
+  assert.match(server, /validate-qianwen-user-acquisition-dashboard\.mjs/);
+  assert.match(server, /base_tree: parentCommit\.tree\.sha/);
+  assert.match(server, /force: false/);
+  assert.match(server, /verifyProductionSnapshot/);
 });
 
 test("dry-run service exposes the full trigger and status protocol", async (context) => {
