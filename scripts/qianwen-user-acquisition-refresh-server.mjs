@@ -7,7 +7,7 @@ import { homedir, tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const DEFAULT_PORT = 43121;
+const DEFAULT_PORT = 43122;
 const DEFAULT_ORIGINS = ["https://clairku.github.io"];
 const MAX_BODY_BYTES = 16 * 1024;
 const MAX_LOG_BYTES = 2 * 1024 * 1024;
@@ -355,6 +355,7 @@ export function createRefreshService(options = {}) {
       "--json",
       "--color", "never",
       "--sandbox", "danger-full-access",
+      "--skip-git-repo-check",
       "-c", 'approval_policy="never"',
       "--cd", workspace,
       "--output-schema", schemaPath,

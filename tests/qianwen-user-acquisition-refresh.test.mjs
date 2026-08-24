@@ -16,7 +16,7 @@ const CUTOFF = "2026-08-20T16:40:29+08:00";
 
 test("production page triggers the private refresh service and polls publication", async () => {
   const app = await read(`${REPORT}/app.js`);
-  assert.match(app, /LOCAL_REFRESH_BASE = "http:\/\/127\.0\.0\.1:43121"/);
+  assert.match(app, /LOCAL_REFRESH_BASE = "http:\/\/127\.0\.0\.1:43122"/);
   assert.match(app, /X-Qianwen-Action/);
   assert.match(app, /qianwen-user-acquisition-refresh\/v1/);
   assert.match(app, /waitForRefresh/);
