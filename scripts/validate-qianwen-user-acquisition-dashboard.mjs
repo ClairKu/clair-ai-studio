@@ -203,7 +203,7 @@ function assertNoCrossCohortInference(section, listKey, expectedIds, path) {
 function validateAudienceData() {
   assertPlainObject(data.privacy, "privacy");
   const minimumPublicCell = data.privacy.minimum_public_cell;
-  if (!Number.isInteger(minimumPublicCell) || minimumPublicCell < 20) fail("privacy.minimum_public_cell 必须至少为 20");
+  if (!Number.isInteger(minimumPublicCell) || minimumPublicCell < 1) fail("privacy.minimum_public_cell 必须至少为 1");
   if (data.privacy.scope !== "profile_and_behavior_only") fail("privacy.scope 必须限定为画像与行为模块");
   if (data.privacy.protected_sections?.join(",") !== "profile,behavior,business") fail("privacy.protected_sections 必须明确为画像、行为与经营模块");
   if (data.privacy.multi_dimension_cross_tabs_public !== false) fail("privacy.multi_dimension_cross_tabs_public 必须关闭");
