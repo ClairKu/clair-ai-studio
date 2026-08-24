@@ -53,6 +53,8 @@ const node = await findNodeBin();
 const launchAgents = join(homedir(), "Library", "LaunchAgents");
 const logs = join(homedir(), "Library", "Logs", "Clair AI Studio", "qianwen-user-acquisition");
 const runtime = join(homedir(), "Library", "Application Support", "Clair AI Studio", "qianwen-user-acquisition", "runtime");
+const codexHome = join(homedir(), "Library", "Application Support", "Clair AI Studio", "qianwen-user-acquisition", "codex-home");
+const sourceCodexHome = join(homedir(), ".codex");
 const server = join(runtime, "qianwen-user-acquisition-refresh-server.mjs");
 const schema = join(runtime, "qianwen-user-acquisition-refresh-output.schema.json");
 const plist = join(launchAgents, `${label}.plist`);
@@ -65,8 +67,16 @@ const escapeXml = (value) => String(value)
   .replaceAll('"', "&quot;")
   .replaceAll("'", "&apos;");
 
-await Promise.all([mkdir(launchAgents, { recursive: true }), mkdir(logs, { recursive: true }), mkdir(runtime, { recursive: true })]);
+await Promise.all([mkdir(launchAgents, { recursive: true }), mkdir(logs, { recursive: true }), mkdir(runtime, { recursive: true }), mkdir(codexHome, { recursive: true })]);
 await Promise.all([copyFile(sourceServer, server), copyFile(sourceSchema, schema)]);
+for (const name of ["auth.json", "config.toml", "installation_id", "models_cache.json"]) {
+  try {
+    await copyFile(join(sourceCodexHome, name), join(codexHome, name));
+  } catch {
+    // Codex can recreate optional local state; auth.json is verified by the execution smoke test.
+  }
+}
+try { await chmod(join(codexHome, "auth.json"), 0o600); } catch { /* Missing auth is reported by Codex. */ }
 await writeFile(plist, `<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -82,6 +92,7 @@ await writeFile(plist, `<?xml version="1.0" encoding="UTF-8"?>
     <key>QIANWEN_REPO</key><string>${escapeXml(repo)}</string>
     <key>QIANWEN_REFRESH_ALLOWED_ORIGINS</key><string>https://clairku.github.io</string>
     <key>QIANWEN_ONTOLOGY_BIN</key><string>${escapeXml(ontologyBin)}</string>
+    <key>QIANWEN_CODEX_HOME</key><string>${escapeXml(codexHome)}</string>
     <key>PATH</key><string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
   </dict>
   <key>RunAtLoad</key><true/>
@@ -111,6 +122,7 @@ try {
       QIANWEN_REPO: repo,
       QIANWEN_REFRESH_ALLOWED_ORIGINS: "https://clairku.github.io",
       QIANWEN_ONTOLOGY_BIN: ontologyBin,
+      QIANWEN_CODEX_HOME: codexHome,
     },
     stdio: "ignore",
   });

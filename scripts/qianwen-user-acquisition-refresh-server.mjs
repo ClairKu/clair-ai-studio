@@ -7,7 +7,7 @@ import { homedir, tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const DEFAULT_PORT = 43119;
+const DEFAULT_PORT = 43120;
 const DEFAULT_ORIGINS = ["https://clairku.github.io"];
 const MAX_BODY_BYTES = 16 * 1024;
 const MAX_LOG_BYTES = 2 * 1024 * 1024;
@@ -167,6 +167,8 @@ export function createRefreshService(options = {}) {
   const repo = resolve(options.repo || env.QIANWEN_REPO || defaultRepo);
   const codexCli = options.codexCli || env.QIANWEN_CODEX_CLI || "/Applications/ChatGPT.app/Contents/Resources/codex";
   const schemaPath = options.schemaPath || join(scriptDir, "qianwen-user-acquisition-refresh-output.schema.json");
+  const supportDir = options.supportDir || join(homedir(), "Library", "Application Support", "Clair AI Studio", "qianwen-user-acquisition");
+  const codexHome = options.codexHome || env.QIANWEN_CODEX_HOME || join(supportDir, "codex-home");
   const logDir = options.logDir || join(homedir(), "Library", "Logs", "Clair AI Studio", "qianwen-user-acquisition");
   const origins = allowedOrigins(env);
   let state = { status: "idle", run_id: null, summary: "等待刷新" };
@@ -186,7 +188,7 @@ export function createRefreshService(options = {}) {
       return;
     }
 
-    await mkdir(logDir, { recursive: true });
+    await Promise.all([mkdir(logDir, { recursive: true }), mkdir(codexHome, { recursive: true })]);
     const ontologyBin = await findOntologyBin(repo, env);
     const prompt = buildRefreshPrompt({ repo, publishedCutoff: packet.published_cutoff, ontologyBin });
     const outputPath = join(tmpdir(), `qianwen-refresh-${runId}.json`);
@@ -202,7 +204,7 @@ export function createRefreshService(options = {}) {
       "--output-schema", schemaPath,
       "--output-last-message", outputPath,
       "-",
-    ], { cwd: repo, env: { ...env, NO_COLOR: "1" }, stdio: ["pipe", "pipe", "pipe"] });
+    ], { cwd: repo, env: { ...env, CODEX_HOME: codexHome, NO_COLOR: "1" }, stdio: ["pipe", "pipe", "pipe"] });
     child.stdout.on("data", (chunk) => appendCapped(stdout, chunk));
     child.stderr.on("data", (chunk) => appendCapped(stderr, chunk));
     child.stdin.end(prompt);
