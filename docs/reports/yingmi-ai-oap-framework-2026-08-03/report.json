@@ -232,7 +232,7 @@
       "hideHeading": true,
       "kicker": "05 · 用户增长",
       "title": "关键历程 × 四指标增长",
-      "lead": "基于 OAP 后台全量日序列交互查看累计调用、累计申请、每日调用凭据与每日新增用户；支持指标开关、悬浮读数与关键历程联动，输入访问口令可更新至实时数据。",
+      "lead": "基于 OAP 后台全量日序列交互查看累计调用、累计申请、每日调用凭据与每日新增用户；支持指标开关、悬浮读数与关键历程联动，打开即自动同步实时数据。",
       "layout": "evidence",
       "tone": "soft",
       "items": [
@@ -240,9 +240,9 @@
           "eyebrow": "2025.03 至今 · 全量日序列",
           "title": "四指标真实数据交互图",
           "body": "点击图例开关指标，切换 7 / 30 / 90 日或上线以来范围，悬浮查看单日数据，并通过时间滑块自定义区间。",
-          "meta": "OAP 生产数仓同口径 · 支持口令实时更新",
-          "source": "OAP 关键历程 × 四指标增长可视化 · v=f64641a",
-          "embed": "https://clairku.github.io/qieman-product-research-library/pages/oap/oap-journey-metrics-2026-08-02.html?v=f64641a",
+          "meta": "OAP 生产数仓同口径 · 自动同步实时更新",
+          "source": "OAP 关键历程 × 四指标增长可视化 · v=4ef8daa",
+          "embed": "https://clairku.github.io/qieman-product-research-library/pages/oap/oap-journey-metrics-2026-08-02.html?v=4ef8daa",
           "alt": "盈米 AI 开放平台关键历程与四指标增长交互图"
         }
       ]
@@ -1702,7 +1702,7 @@
     },
     {
       "label": "OAP 关键历程 × 四指标增长可视化",
-      "detail": "clairku.github.io/qieman-product-research-library/pages/oap/oap-journey-metrics-2026-08-02.html?v=f64641a · 19 个主节点 + 全量日序列 · 输入口令可更新至实时数据（Stargate 后台同口径）"
+      "detail": "clairku.github.io/qieman-product-research-library/pages/oap/oap-journey-metrics-2026-08-02.html?v=4ef8daa · 19 个主节点 + 全量日序列 · 自动同步实时数据（Stargate 后台同口径）"
     },
     {
       "label": "能力生产与服务生态补充模块",
@@ -1748,7 +1748,7 @@
   "uncertainties": [
     {
       "title": "数据截止口径",
-      "detail": "年度目标与用户增长采用同一次 OAP 生产数仓只读聚合：累计调用、批准申请用户、每日新增与每日调用凭据均截至 2026-08-16T23:59:59+08:00；每日调用沿用历史趋势图的去重访问凭据口径，近 30 日活跃则按自然人去重，两者不可相加。更新入口位于「关键历程 × 四指标增长」图表右下角：公网输入访问口令即可拉取实时数据，未解锁时显示最近一次定时同步的快照。机构统计分项日期不同。"
+      "detail": "年度目标与用户增长采用同一次 OAP 生产数仓只读聚合：累计调用、批准申请用户、每日新增与每日调用凭据均截至 2026-08-16T23:59:59+08:00；每日调用沿用历史趋势图的去重访问凭据口径，近 30 日活跃则按自然人去重，两者不可相加。「关键历程 × 四指标增长」页打开时自动拉取实时数据，「数据更新」读数旁的刷新图标可手动更新；拉取失败时显示最近一次定时同步的快照。机构统计分项日期不同。"
     },
     {
       "title": "计划状态",
