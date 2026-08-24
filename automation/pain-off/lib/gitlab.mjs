@@ -93,5 +93,17 @@ export function createClient({ baseUrl, token, timeoutMs = DEFAULT_TIMEOUT_MS })
         with_labels_details: false,
       });
     },
+
+    /**
+     * 某项目里、以某分支为源的全部已合并 MR——不限作者。
+     * 生产合并常由工程师代合（PM 只把特性分支合到 test），按作者取数会漏掉这些，
+     * 上线判定必须用这条接口按需求分支补捞。
+     */
+    async listMergedMergeRequestsBySourceBranch({ projectId, sourceBranch }) {
+      return paginate(`/projects/${projectId}/merge_requests`, {
+        state: "merged",
+        source_branch: sourceBranch,
+      });
+    },
   };
 }

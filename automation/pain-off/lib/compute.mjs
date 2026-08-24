@@ -8,8 +8,46 @@ export function demandKey(mr) {
   return `${mr.project_id}::${mr.source_branch}`;
 }
 
-function isReleaseMerge(mr, rules) {
+export function isReleaseMerge(mr, rules) {
   return mr.state === "merged" && rules.released.requires.target_branch_in.includes(mr.target_branch);
+}
+
+/**
+ * 把「任意作者」的生产合并 MR 补进需求并升级其状态。
+ * foldDemands 只见得到本人作为作者的 MR，而生产合并常由工程师代合——
+ * 没有这一步，PM 的需求明明上了线也会一直显示在途（2026-08-24 家亮的
+ * feat/article-image-preview 就是这样漏掉的）。
+ * 返回是否发生了升级。
+ */
+export function supplementReleaseMerges(demand, candidateMrs, rules) {
+  const releaseMerges = candidateMrs.filter((mr) => isReleaseMerge(mr, rules));
+  if (!releaseMerges.length) return false;
+
+  const known = new Set(demand.mrs.map((m) => m.iid));
+  for (const mr of releaseMerges) {
+    if (known.has(mr.iid)) continue;
+    demand.mrs.push({
+      iid: mr.iid,
+      url: mr.web_url,
+      title: mr.title,
+      state: mr.state,
+      target_branch: mr.target_branch,
+      created_at: mr.created_at,
+      merged_at: mr.merged_at || null,
+      is_release: true,
+    });
+  }
+  demand.mrs.sort((a, b) => String(a.created_at).localeCompare(String(b.created_at)));
+
+  const ordered = releaseMerges.sort((a, b) => String(a.merged_at).localeCompare(String(b.merged_at)));
+  demand.status = "released";
+  demand.released_at = earliest(ordered.map((mr) => mr.merged_at));
+  demand.release_mr_url = ordered[0].web_url;
+  // 代合的生产 MR 标题里常带需求单号（本人分支名里可能没有），一并抽取。
+  demand.jira_keys = [
+    ...new Set([...demand.jira_keys, ...releaseMerges.flatMap((mr) => extractJiraKeys(mr.title))]),
+  ];
+  return true;
 }
 
 function earliest(values) {

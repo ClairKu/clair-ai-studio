@@ -49,7 +49,7 @@
 | 统计区间 | 自 `window.program_start`（默认 2026-07-01）起累计 |
 | **一个需求** | 一条特性分支 = 一个需求，key = `project_id + source_branch` |
 | **累计提交** | 该成员作为 MR 作者发起、且未被废弃（`state != closed`）的需求数。从未合并过的纯草稿不计 |
-| **累计上线** | 该需求下存在 `state = merged` 且 `target_branch ∈ {master, main, production, release}` 的 MR；上线时间取最早的 `merged_at` |
+| **累计上线** | 该需求分支下存在 `state = merged` 且 `target_branch ∈ {master, main, production, release}` 的 MR——**不限作者**（生产合并常由工程师代合，按需求分支在项目内补捞）；上线时间取最早的 `merged_at` |
 | **在途** | 已提交但未合入生产主干（含只合到 test/dev 的） |
 | **端到端人数** | 名下 `released ≥ 1` 的成员数 |
 | **交付周期** | `released_at - submitted_at`，只对已上线需求计算 |

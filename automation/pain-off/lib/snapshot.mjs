@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import { createClient } from "./gitlab.mjs";
-import { foldDemands, summarize, diffSnapshots } from "./compute.mjs";
+import { foldDemands, summarize, diffSnapshots, supplementReleaseMerges } from "./compute.mjs";
 import { attachTickets } from "./jira.mjs";
 
 /** 需求在公网上的稳定 id：项目+分支的哈希，既能跨次比对，又不泄露仓库和分支名。 */
@@ -45,6 +45,17 @@ export async function buildSnapshot({
     const demands = foldDemands(mrs, rules).map((demand) => ({ ...demand, person_id: person.id }));
     demandsByPerson.set(person.id, demands);
     allDemands.push(...demands);
+  }
+
+  // 上线补捞：生产合并常由工程师代合，按作者取数看不见。对每个还没判上线的需求，
+  // 按「项目 + 需求分支」查任意作者的已合并 MR，命中生产主干就升级为已上线。
+  for (const demand of allDemands) {
+    if (demand.status === "released") continue;
+    const merges = await gitlab.listMergedMergeRequestsBySourceBranch({
+      projectId: demand.project_id,
+      sourceBranch: demand.source_branch,
+    });
+    supplementReleaseMerges(demand, merges, rules);
   }
 
   const summary = summarize(demandsByPerson, roster);
