@@ -2,8 +2,8 @@
   <rect width="720" height="405" fill="#f5faff"/>
   <rect x="0" y="0" width="720" height="6" fill="#1b88ee"/>
   <text x="48" y="86" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="38" font-weight="700" fill="#0a2e52">且慢经营走势</text>
-  <text x="48" y="120" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="17" fill="#3c5c7c">公司 / 且慢 / 启明 · 保有实线 · 投顾虚线 · 图例可切换</text>
-  <text x="48" y="148" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#7d97ad">2016-06 → 2026-08 · 公司保有 608 亿 · 生产数仓 · 盈米本体</text>
+  <text x="48" y="120" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="17" fill="#3c5c7c">公司 / 蜂鸟 / 且慢 / 启明 · 全口径 AUM · 图例可切换</text>
+  <text x="48" y="148" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#7d97ad">2016-06 → 2026-08 · 公司全口径 AUM 2757 亿 · 生产数仓 · 盈米本体</text>
 
   <!-- 规模走势缩影 -->
   <g transform="translate(48,180)">
@@ -14,7 +14,7 @@
     <polyline points="0,134 24,129 48,125 72,119 96,122 120,115 144,117 168,120 192,113 216,101 240,80 264,68" fill="none" stroke="#1b88ee" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
     <polyline points="0,152 24,151 48,150 72,148 96,149 120,147 144,147 168,146 192,144 216,142 240,139 264,137" fill="none" stroke="#4aa7ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
     <circle cx="264" cy="50" r="5" fill="#0a2e52" stroke="#ffffff" stroke-width="2"/>
-    <text x="252" y="36" font-family="PingFang SC, sans-serif" font-size="12" font-weight="600" fill="#3c5c7c">363.7</text>
+    <text x="252" y="36" font-family="PingFang SC, sans-serif" font-size="12" font-weight="600" fill="#3c5c7c">2757</text>
   </g>
 
   <!-- 用户走势缩影 -->
