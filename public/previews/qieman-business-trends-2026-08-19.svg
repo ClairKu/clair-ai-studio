@@ -2,8 +2,8 @@
   <rect width="720" height="405" fill="#f5faff"/>
   <rect x="0" y="0" width="720" height="6" fill="#1b88ee"/>
   <text x="48" y="86" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="38" font-weight="700" fill="#0a2e52">且慢经营走势</text>
-  <text x="48" y="120" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="17" fill="#3c5c7c">上线以来规模与用户全景 · 两图整合 · 图例可切换</text>
-  <text x="48" y="148" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#7d97ad">2016-06 → 2026-08 · 生产数仓 · 盈米本体</text>
+  <text x="48" y="120" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="17" fill="#3c5c7c">公司 / 且慢 / 启明 · 保有实线 · 投顾虚线 · 图例可切换</text>
+  <text x="48" y="148" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#7d97ad">2016-06 → 2026-08 · 公司保有 608 亿 · 生产数仓 · 盈米本体</text>
 
   <!-- 规模走势缩影 -->
   <g transform="translate(48,180)">
