@@ -3,9 +3,9 @@
   "meta": {
     "contract_version": "gitlab-mr-v1",
     "source_of_truth": "GitLab merge requests",
-    "generated_at": "2026-08-24T03:12:14.067Z",
-    "cutoff": "2026-08-24T03:12:14.067Z",
-    "last_change_at": "2026-08-24T03:12:14.067Z",
+    "generated_at": "2026-08-24T03:28:55.301Z",
+    "cutoff": "2026-08-24T03:28:55.301Z",
+    "last_change_at": "2026-08-24T03:28:55.301Z",
     "stale_after_minutes": 180,
     "headline": "10 个已提交，5 个已上线，3 位 PM 完成端到端交付。",
     "window_start": "2026-07-01T00:00:00+08:00",
@@ -22,8 +22,8 @@
   "delta": {
     "new_submitted": 0,
     "pending_release": 5,
-    "new_released": 1,
-    "changed": true
+    "new_released": 0,
+    "changed": false
   },
   "people": [
     {
@@ -101,6 +101,7 @@
     {
       "id": "5a0a6f443f",
       "person_id": "P01",
+      "brief": "小组人数口径对齐：开启计划/在投双口径（服务端）",
       "submitted_at": "2026-08-05T15:03:41.284+08:00",
       "released_at": "2026-08-05T18:42:08.514+08:00",
       "status": "released",
@@ -131,6 +132,7 @@
     {
       "id": "20cc55deb2",
       "person_id": "P01",
+      "brief": "小组人数口径对齐：开启计划/在投双口径（前端）",
       "submitted_at": "2026-08-05T15:03:44.483+08:00",
       "released_at": "2026-08-05T18:42:23.152+08:00",
       "status": "released",
@@ -161,6 +163,7 @@
     {
       "id": "9fd662e518",
       "person_id": "P01",
+      "brief": "加仓计划弹窗错误术语修正（「回购计划」→「加仓计划」）",
       "submitted_at": "2026-08-10T15:36:17.029+08:00",
       "released_at": null,
       "status": "merged",
@@ -183,6 +186,7 @@
     {
       "id": "1a19d69bcc",
       "person_id": "P02",
+      "brief": "文章图片支持点击查看大图与缩放",
       "submitted_at": "2026-07-31T12:15:26.946+08:00",
       "released_at": "2026-08-13T16:01:44.061+08:00",
       "status": "released",
@@ -221,6 +225,7 @@
     {
       "id": "41ddf93478",
       "person_id": "P02",
+      "brief": "图片预览 App 端兼容（原生未就绪时回退网页预览）",
       "submitted_at": "2026-07-31T14:33:38.822+08:00",
       "released_at": null,
       "status": "merged",
@@ -243,6 +248,7 @@
     {
       "id": "adb47ff5ed",
       "person_id": "P02",
+      "brief": "图片预览兼容外部图床防盗链",
       "submitted_at": "2026-07-31T15:57:00.732+08:00",
       "released_at": null,
       "status": "merged",
@@ -265,6 +271,7 @@
     {
       "id": "e69b975139",
       "person_id": "P02",
+      "brief": "图片预览顶栏避让系统状态栏",
       "submitted_at": "2026-07-31T17:22:40.568+08:00",
       "released_at": null,
       "status": "merged",
@@ -287,6 +294,7 @@
     {
       "id": "c8a1bb692f",
       "person_id": "P04",
+      "brief": "投顾页 PC 宽屏自由布局（解除限宽）",
       "submitted_at": "2026-08-14T18:22:29.520+08:00",
       "released_at": "2026-08-19T13:49:39.507+08:00",
       "status": "released",
@@ -317,6 +325,7 @@
     {
       "id": "c4da70e5fc",
       "person_id": "P04",
+      "brief": "修复 Safari 投顾页广告位不展示",
       "submitted_at": "2026-08-20T10:29:15.614+08:00",
       "released_at": "2026-08-20T11:03:34.942+08:00",
       "status": "released",
@@ -339,6 +348,7 @@
     {
       "id": "55f8864adc",
       "person_id": "P04",
+      "brief": "VIP 财富报告 PC 预览页",
       "submitted_at": "2026-08-20T16:39:28.572+08:00",
       "released_at": null,
       "status": "building",
@@ -371,15 +381,16 @@
       "public_title": "群组人数展示口径",
       "pain_category": "同一策略的人数信息不够清楚",
       "public_outcome": "生产版本已展示“开启计划/在投”双口径。",
-      "evidence_level": "已上线"
+      "evidence_level": "已上线",
+      "released_at": "2026-08-05"
     },
     {
       "id": "R2",
       "person_id": "P01",
       "person_display": "嘉鸿",
       "submitted_at": "2026-08-11",
-      "released_at": "2026-08-14",
-      "status": "released",
+      "released_at": null,
+      "status": "merged",
       "category": "urgent_bug",
       "priority": "P1",
       "public_title": "加仓计划术语修正",
@@ -398,7 +409,8 @@
       "public_title": "文章图片查看体验",
       "pain_category": "文章图片无法点开看大图和缩放",
       "public_outcome": "线上文章已支持图片预览与缩放。",
-      "evidence_level": "已上线"
+      "evidence_level": "已上线",
+      "released_at": "2026-08-13"
     },
     {
       "id": "R4",
