@@ -25,6 +25,6 @@ export function writeJson(path, value) {
 export function loadConfig() {
   const rules = readJson(resolve(ROOT, "config/rules.json"));
   const roster = readJson(resolve(ROOT, "config/roster.json"));
-  const curated = readJson(resolve(ROOT, "config/curated-records.json"), { records: [] });
-  return { rules, roster, curated: curated.records || [] };
+  const curated = readJson(resolve(ROOT, "config/curated-records.json"), { records: [], briefs: {} });
+  return { rules, roster, curated };
 }

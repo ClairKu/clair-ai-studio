@@ -358,7 +358,7 @@ function renderTrace() {
       const mergeRequests = (links.merge_requests || []).map((mr) =>
         externalLink(mr.url, `!${mr.iid} → ${mr.target_branch}${mr.is_release ? " ✔" : ""}`));
 
-      const heading = links.demand_tickets?.[0]?.key || `需求 ${demand.id.slice(0, 6)}`;
+      const heading = demand.brief || links.demand_tickets?.[0]?.key || `需求 ${demand.id.slice(0, 6)}`;
       const dates = [
         `提交 ${formatDate(demand.submitted_at)}`,
         demand.released_at ? `上线 ${formatDate(demand.released_at)}` : "尚未合入生产主干",

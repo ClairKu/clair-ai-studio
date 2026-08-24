@@ -13,7 +13,7 @@
       "pain_category": "同一策略的人数信息不够清楚",
       "public_outcome": "生产版本已展示“开启计划/在投”双口径。",
       "evidence_level": "已上线",
-      "demand_key": null
+      "demand_key": "262::feature/community-group-longwin-active-count"
     },
     {
       "id": "R2",
@@ -28,7 +28,7 @@
       "pain_category": "加仓规则弹窗残留错误术语",
       "public_outcome": "生产规则弹窗中的错误术语已修正为“加仓计划”。",
       "evidence_level": "已上线",
-      "demand_key": null
+      "demand_key": "262::feature/dip-purchase-jia-cang-copy-test"
     },
     {
       "id": "R3",
@@ -42,7 +42,7 @@
       "pain_category": "文章图片无法点开看大图和缩放",
       "public_outcome": "线上文章已支持图片预览与缩放。",
       "evidence_level": "已上线",
-      "demand_key": null
+      "demand_key": "262::feat/article-image-preview"
     },
     {
       "id": "R4",
@@ -58,5 +58,18 @@
       "evidence_level": "已上线",
       "demand_key": null
     }
-  ]
+  ],
+  "briefs": {
+    "$comment": "需求简述：demand_key → 一句话说明这条分支改了什么。人工撰写/核定后的产品语言，不是 MR 原始标题；会出现在公开页面的追溯模块里，禁止内部域名、系统名、单号以外的内部标识。",
+    "299::feature/community-group-longwin-active-count": "小组人数口径对齐：开启计划/在投双口径（服务端）",
+    "262::feature/community-group-longwin-active-count": "小组人数口径对齐：开启计划/在投双口径（前端）",
+    "262::feature/dip-purchase-jia-cang-copy-test": "加仓计划弹窗错误术语修正（「回购计划」→「加仓计划」）",
+    "262::feat/article-image-preview": "文章图片支持点击查看大图与缩放",
+    "262::bugfix/article-image-preview-app-compat": "图片预览 App 端兼容（原生未就绪时回退网页预览）",
+    "262::bugfix/article-image-preview-no-referrer": "图片预览兼容外部图床防盗链",
+    "262::bugfix/article-image-preview-banner-safe-area": "图片预览顶栏避让系统状态栏",
+    "262::feature/m4-pc-wide-layout": "投顾页 PC 宽屏自由布局（解除限宽）",
+    "262::bugfix/m4-safari-ad-height": "修复 Safari 投顾页广告位不展示",
+    "262::feat/vip-wealth-report-preview": "VIP 财富报告 PC 预览页"
+  }
 }

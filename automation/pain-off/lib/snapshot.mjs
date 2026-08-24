@@ -25,6 +25,11 @@ export async function buildSnapshot({
   previousSnapshot = null,
   now = new Date(),
 }) {
+  // 兼容两种形态：旧的纯 records 数组，或 { records, briefs } 整个 curated 配置。
+  const curatedRecords = Array.isArray(curated) ? curated : curated.records || [];
+  // briefs：demand_key → 人工核定的需求简述。这是公开页面上唯一的需求描述来源——
+  // MR 原始标题永远不出内网，想让某条需求在看板上"有名字"，就在 curated-records.json 里补一句。
+  const briefs = Array.isArray(curated) ? {} : curated.briefs || {};
   const missing = roster.people.filter((person) => !person.gitlab_username);
   if (missing.length) {
     throw new Error(
@@ -69,6 +74,7 @@ export async function buildSnapshot({
   const publicDemands = allDemands.map((demand) => ({
     id: publicDemandId(demand.key),
     person_id: demand.person_id,
+    brief: briefs[demand.key] && String(briefs[demand.key]).trim() ? String(briefs[demand.key]).trim() : null,
     submitted_at: demand.submitted_at,
     released_at: demand.released_at,
     status: demand.status,
@@ -121,11 +127,16 @@ export async function buildSnapshot({
     demands: publicDemands,
     // 墙上的展示文案始终人工撰写；脚本不把 MR 标题推到公网，只负责给它对上最新状态。
     // demand_key 含仓库与分支名，只在本机用来对状态，不进公开快照。
-    records: curated.map(({ demand_key: demandKey, ...record }) => {
+    records: curatedRecords.map(({ demand_key: demandKey, ...record }) => {
       const matched = demandKey ? allDemands.find((d) => d.key === demandKey) : null;
-      return matched
-        ? { ...record, status: matched.status, released_at: matched.released_at || record.released_at || null }
-        : record;
+      if (!matched) return record;
+      // 状态以 GitLab 实况为准：没上线的记录不许留 released_at（校验器会拦，而且那本来就是错的）。
+      const released = matched.status === "released";
+      return {
+        ...record,
+        status: matched.status,
+        released_at: released ? (matched.released_at || record.released_at || null)?.slice(0, 10) ?? null : null,
+      };
     }),
     criteria: {
       submitted: "一条特性分支 = 一个需求；由该 PM 本人作为 MR 作者发起，未被废弃（closed 不计）。",

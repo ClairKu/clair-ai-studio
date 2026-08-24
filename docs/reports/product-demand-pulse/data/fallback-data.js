@@ -1,15 +1,377 @@
 window.DEMAND_PULSE_DATA = {
+  "schema_version": "product-demand-pulse/v2",
   "meta": {
-    "cutoff": "2026-08-12T11:05:00+08:00",
-    "last_change_at": "2026-08-14T00:46:00+08:00",
-    "headline": "4 个已提交，4 个已上线，2 位 PM 完成端到端交付。",
-    "update_rule_version": "delta-first-v1"
+    "contract_version": "gitlab-mr-v1",
+    "source_of_truth": "GitLab merge requests",
+    "generated_at": "2026-08-24T03:28:55.301Z",
+    "cutoff": "2026-08-24T03:28:55.301Z",
+    "last_change_at": "2026-08-24T03:28:55.301Z",
+    "stale_after_minutes": 180,
+    "headline": "10 个已提交，5 个已上线，3 位 PM 完成端到端交付。",
+    "window_start": "2026-07-01T00:00:00+08:00",
+    "release_ticket_lookup": "ok",
+    "link_exposure": "public",
+    "links_note": "链接只发单号与地址，不发 MR 标题；打开需要内网与相应系统权限。"
   },
+  "summary": {
+    "submitted": 10,
+    "released": 5,
+    "in_flight": 5,
+    "end_to_end_people": 3
+  },
+  "delta": {
+    "new_submitted": 0,
+    "pending_release": 5,
+    "new_released": 0,
+    "changed": false
+  },
+  "people": [
+    {
+      "id": "P01",
+      "display_name": "嘉鸿",
+      "avatar": "🦝",
+      "submitted": 3,
+      "released": 2,
+      "in_flight": 1,
+      "first_released_at": "2026-08-05T18:42:08.514+08:00",
+      "end_to_end": true
+    },
+    {
+      "id": "P02",
+      "display_name": "家亮",
+      "avatar": "🦦",
+      "submitted": 4,
+      "released": 1,
+      "in_flight": 3,
+      "first_released_at": "2026-08-13T16:01:44.061+08:00",
+      "end_to_end": true
+    },
+    {
+      "id": "P04",
+      "display_name": "春燕",
+      "avatar": "🐧",
+      "submitted": 3,
+      "released": 2,
+      "in_flight": 1,
+      "first_released_at": "2026-08-19T13:49:39.507+08:00",
+      "end_to_end": true
+    },
+    {
+      "id": "P05",
+      "display_name": "刘晨",
+      "avatar": "🦊",
+      "submitted": 0,
+      "released": 0,
+      "in_flight": 0,
+      "first_released_at": null,
+      "end_to_end": false
+    },
+    {
+      "id": "P06",
+      "display_name": "金星",
+      "avatar": "🐰",
+      "submitted": 0,
+      "released": 0,
+      "in_flight": 0,
+      "first_released_at": null,
+      "end_to_end": false
+    },
+    {
+      "id": "P07",
+      "display_name": "刘佳",
+      "avatar": "🐨",
+      "submitted": 0,
+      "released": 0,
+      "in_flight": 0,
+      "first_released_at": null,
+      "end_to_end": false
+    },
+    {
+      "id": "P08",
+      "display_name": "嘉烨",
+      "avatar": "🐯",
+      "submitted": 0,
+      "released": 0,
+      "in_flight": 0,
+      "first_released_at": null,
+      "end_to_end": false
+    }
+  ],
+  "demands": [
+    {
+      "id": "5a0a6f443f",
+      "person_id": "P01",
+      "brief": "小组人数口径对齐：开启计划/在投双口径（服务端）",
+      "submitted_at": "2026-08-05T15:03:41.284+08:00",
+      "released_at": "2026-08-05T18:42:08.514+08:00",
+      "status": "released",
+      "links": {
+        "merge_requests": [
+          {
+            "iid": 8522,
+            "url": "https://git.frontnode.net/qieman/pmdj-service/-/merge_requests/8522",
+            "target_branch": "test",
+            "state": "merged",
+            "merged_at": "2026-08-05T15:45:57.155+08:00",
+            "is_release": false
+          },
+          {
+            "iid": 8524,
+            "url": "https://git.frontnode.net/qieman/pmdj-service/-/merge_requests/8524",
+            "target_branch": "master",
+            "state": "merged",
+            "merged_at": "2026-08-05T18:42:08.514+08:00",
+            "is_release": true
+          }
+        ],
+        "release_mr_url": "https://git.frontnode.net/qieman/pmdj-service/-/merge_requests/8524",
+        "demand_tickets": [],
+        "release_tickets": []
+      }
+    },
+    {
+      "id": "20cc55deb2",
+      "person_id": "P01",
+      "brief": "小组人数口径对齐：开启计划/在投双口径（前端）",
+      "submitted_at": "2026-08-05T15:03:44.483+08:00",
+      "released_at": "2026-08-05T18:42:23.152+08:00",
+      "status": "released",
+      "links": {
+        "merge_requests": [
+          {
+            "iid": 15376,
+            "url": "https://git.frontnode.net/qieman/albus/-/merge_requests/15376",
+            "target_branch": "test",
+            "state": "merged",
+            "merged_at": "2026-08-05T15:46:17.812+08:00",
+            "is_release": false
+          },
+          {
+            "iid": 15378,
+            "url": "https://git.frontnode.net/qieman/albus/-/merge_requests/15378",
+            "target_branch": "master",
+            "state": "merged",
+            "merged_at": "2026-08-05T18:42:23.152+08:00",
+            "is_release": true
+          }
+        ],
+        "release_mr_url": "https://git.frontnode.net/qieman/albus/-/merge_requests/15378",
+        "demand_tickets": [],
+        "release_tickets": []
+      }
+    },
+    {
+      "id": "9fd662e518",
+      "person_id": "P01",
+      "brief": "加仓计划弹窗错误术语修正（「回购计划」→「加仓计划」）",
+      "submitted_at": "2026-08-10T15:36:17.029+08:00",
+      "released_at": null,
+      "status": "merged",
+      "links": {
+        "merge_requests": [
+          {
+            "iid": 15401,
+            "url": "https://git.frontnode.net/qieman/albus/-/merge_requests/15401",
+            "target_branch": "test",
+            "state": "merged",
+            "merged_at": "2026-08-10T15:42:31.822+08:00",
+            "is_release": false
+          }
+        ],
+        "release_mr_url": null,
+        "demand_tickets": [],
+        "release_tickets": []
+      }
+    },
+    {
+      "id": "1a19d69bcc",
+      "person_id": "P02",
+      "brief": "文章图片支持点击查看大图与缩放",
+      "submitted_at": "2026-07-31T12:15:26.946+08:00",
+      "released_at": "2026-08-13T16:01:44.061+08:00",
+      "status": "released",
+      "links": {
+        "merge_requests": [
+          {
+            "iid": 15348,
+            "url": "https://git.frontnode.net/qieman/albus/-/merge_requests/15348",
+            "target_branch": "test",
+            "state": "merged",
+            "merged_at": "2026-07-31T12:58:17.346+08:00",
+            "is_release": false
+          },
+          {
+            "iid": 15353,
+            "url": "https://git.frontnode.net/qieman/albus/-/merge_requests/15353",
+            "target_branch": "test",
+            "state": "merged",
+            "merged_at": "2026-07-31T17:36:09.768+08:00",
+            "is_release": false
+          },
+          {
+            "iid": 15416,
+            "url": "https://git.frontnode.net/qieman/albus/-/merge_requests/15416",
+            "target_branch": "master",
+            "state": "merged",
+            "merged_at": "2026-08-13T16:01:44.061+08:00",
+            "is_release": true
+          }
+        ],
+        "release_mr_url": "https://git.frontnode.net/qieman/albus/-/merge_requests/15416",
+        "demand_tickets": [],
+        "release_tickets": []
+      }
+    },
+    {
+      "id": "41ddf93478",
+      "person_id": "P02",
+      "brief": "图片预览 App 端兼容（原生未就绪时回退网页预览）",
+      "submitted_at": "2026-07-31T14:33:38.822+08:00",
+      "released_at": null,
+      "status": "merged",
+      "links": {
+        "merge_requests": [
+          {
+            "iid": 15349,
+            "url": "https://git.frontnode.net/qieman/albus/-/merge_requests/15349",
+            "target_branch": "test",
+            "state": "merged",
+            "merged_at": "2026-07-31T15:03:50.981+08:00",
+            "is_release": false
+          }
+        ],
+        "release_mr_url": null,
+        "demand_tickets": [],
+        "release_tickets": []
+      }
+    },
+    {
+      "id": "adb47ff5ed",
+      "person_id": "P02",
+      "brief": "图片预览兼容外部图床防盗链",
+      "submitted_at": "2026-07-31T15:57:00.732+08:00",
+      "released_at": null,
+      "status": "merged",
+      "links": {
+        "merge_requests": [
+          {
+            "iid": 15352,
+            "url": "https://git.frontnode.net/qieman/albus/-/merge_requests/15352",
+            "target_branch": "test",
+            "state": "merged",
+            "merged_at": "2026-07-31T15:58:25.227+08:00",
+            "is_release": false
+          }
+        ],
+        "release_mr_url": null,
+        "demand_tickets": [],
+        "release_tickets": []
+      }
+    },
+    {
+      "id": "e69b975139",
+      "person_id": "P02",
+      "brief": "图片预览顶栏避让系统状态栏",
+      "submitted_at": "2026-07-31T17:22:40.568+08:00",
+      "released_at": null,
+      "status": "merged",
+      "links": {
+        "merge_requests": [
+          {
+            "iid": 15354,
+            "url": "https://git.frontnode.net/qieman/albus/-/merge_requests/15354",
+            "target_branch": "test",
+            "state": "merged",
+            "merged_at": "2026-07-31T17:36:09.493+08:00",
+            "is_release": false
+          }
+        ],
+        "release_mr_url": null,
+        "demand_tickets": [],
+        "release_tickets": []
+      }
+    },
+    {
+      "id": "c8a1bb692f",
+      "person_id": "P04",
+      "brief": "投顾页 PC 宽屏自由布局（解除限宽）",
+      "submitted_at": "2026-08-14T18:22:29.520+08:00",
+      "released_at": "2026-08-19T13:49:39.507+08:00",
+      "status": "released",
+      "links": {
+        "merge_requests": [
+          {
+            "iid": 15424,
+            "url": "https://git.frontnode.net/qieman/albus/-/merge_requests/15424",
+            "target_branch": "master",
+            "state": "merged",
+            "merged_at": "2026-08-19T13:49:39.507+08:00",
+            "is_release": true
+          },
+          {
+            "iid": 15425,
+            "url": "https://git.frontnode.net/qieman/albus/-/merge_requests/15425",
+            "target_branch": "test",
+            "state": "merged",
+            "merged_at": "2026-08-14T18:23:08.448+08:00",
+            "is_release": false
+          }
+        ],
+        "release_mr_url": "https://git.frontnode.net/qieman/albus/-/merge_requests/15424",
+        "demand_tickets": [],
+        "release_tickets": []
+      }
+    },
+    {
+      "id": "c4da70e5fc",
+      "person_id": "P04",
+      "brief": "修复 Safari 投顾页广告位不展示",
+      "submitted_at": "2026-08-20T10:29:15.614+08:00",
+      "released_at": "2026-08-20T11:03:34.942+08:00",
+      "status": "released",
+      "links": {
+        "merge_requests": [
+          {
+            "iid": 15440,
+            "url": "https://git.frontnode.net/qieman/albus/-/merge_requests/15440",
+            "target_branch": "master",
+            "state": "merged",
+            "merged_at": "2026-08-20T11:03:34.942+08:00",
+            "is_release": true
+          }
+        ],
+        "release_mr_url": "https://git.frontnode.net/qieman/albus/-/merge_requests/15440",
+        "demand_tickets": [],
+        "release_tickets": []
+      }
+    },
+    {
+      "id": "55f8864adc",
+      "person_id": "P04",
+      "brief": "VIP 财富报告 PC 预览页",
+      "submitted_at": "2026-08-20T16:39:28.572+08:00",
+      "released_at": null,
+      "status": "building",
+      "links": {
+        "merge_requests": [
+          {
+            "iid": 15445,
+            "url": "https://git.frontnode.net/qieman/albus/-/merge_requests/15445",
+            "target_branch": "master",
+            "state": "opened",
+            "merged_at": null,
+            "is_release": false
+          }
+        ],
+        "release_mr_url": null,
+        "demand_tickets": [],
+        "release_tickets": []
+      }
+    }
+  ],
   "records": [
     {
       "id": "R1",
-      "unique": true,
-      "kind": "user_pain",
       "person_id": "P01",
       "person_display": "嘉鸿",
       "submitted_at": "2026-08-05",
@@ -19,17 +381,16 @@ window.DEMAND_PULSE_DATA = {
       "public_title": "群组人数展示口径",
       "pain_category": "同一策略的人数信息不够清楚",
       "public_outcome": "生产版本已展示“开启计划/在投”双口径。",
-      "evidence_level": "已上线"
+      "evidence_level": "已上线",
+      "released_at": "2026-08-05"
     },
     {
       "id": "R2",
-      "unique": true,
-      "kind": "user_pain",
       "person_id": "P01",
       "person_display": "嘉鸿",
       "submitted_at": "2026-08-11",
-      "released_at": "2026-08-14",
-      "status": "released",
+      "released_at": null,
+      "status": "merged",
       "category": "urgent_bug",
       "priority": "P1",
       "public_title": "加仓计划术语修正",
@@ -39,8 +400,6 @@ window.DEMAND_PULSE_DATA = {
     },
     {
       "id": "R3",
-      "unique": true,
-      "kind": "user_pain",
       "person_id": "P02",
       "person_display": "家亮",
       "submitted_at": "2026-07-31",
@@ -50,12 +409,11 @@ window.DEMAND_PULSE_DATA = {
       "public_title": "文章图片查看体验",
       "pain_category": "文章图片无法点开看大图和缩放",
       "public_outcome": "线上文章已支持图片预览与缩放。",
-      "evidence_level": "已上线"
+      "evidence_level": "已上线",
+      "released_at": "2026-08-13"
     },
     {
       "id": "R4",
-      "unique": true,
-      "kind": "user_pain",
       "person_id": "P02",
       "person_display": "家亮",
       "submitted_at": "2026-07-31",
@@ -68,45 +426,12 @@ window.DEMAND_PULSE_DATA = {
       "evidence_level": "已上线"
     }
   ],
-  "people": [
-    {
-      "id": "P01",
-      "display_name": "嘉鸿",
-      "avatar": "🦝"
-    },
-    {
-      "id": "P02",
-      "display_name": "家亮",
-      "avatar": "🦦"
-    },
-    {
-      "id": "P04",
-      "display_name": "春燕",
-      "avatar": "🐧"
-    },
-    {
-      "id": "P05",
-      "display_name": "刘晨",
-      "avatar": "🦊"
-    },
-    {
-      "id": "P06",
-      "display_name": "金星",
-      "avatar": "🐰"
-    },
-    {
-      "id": "P07",
-      "display_name": "刘佳",
-      "avatar": "🐨"
-    },
-    {
-      "id": "P08",
-      "display_name": "嘉烨",
-      "avatar": "🐯"
-    }
-  ],
-  "value_definition": {
-    "early_delivery_days": "原计划上线日减实际上线日",
-    "backlog_unlocked_count": "原本无排期且最终上线的需求数"
+  "criteria": {
+    "submitted": "一条特性分支 = 一个需求；由该 PM 本人作为 MR 作者发起，未被废弃（closed 不计）。",
+    "released": "上线 = 该需求的代码已合入生产主干（master/main/production/release）。不等同于生产环境部署执行时刻，通常滞后 0–2 个工作日。",
+    "dedupe": "同一分支先合测试环境、再合生产主干只算 1 个需求。",
+    "end_to_end": "该 PM 名下至少有 1 个需求已合入生产主干。",
+    "window": "统计区间自 2026-07-01 起累计。",
+    "trace": "每个需求列出它的需求单（QMRD）、全部 MR、以及上线单（Jira YR 发布管控）。"
   }
 };
