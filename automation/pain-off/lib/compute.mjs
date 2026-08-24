@@ -83,6 +83,20 @@ export function foldDemands(mergeRequests, rules) {
     groups.get(key).push(mr);
   }
 
+  // 人工别名归并（优先级最高）：修复分支命名没带特性主干名时，自动归并认不出来，
+  // 由 rules.demand_key.aliases 显式指定它属于哪个需求（如 bugfix/m4-safari-ad-height）。
+  const aliases = rules.demand_key?.aliases || {};
+  for (const [from, to] of Object.entries(aliases)) {
+    if (from.startsWith("$") || !groups.has(from)) continue;
+    if (groups.has(to)) {
+      groups.get(to).push(...groups.get(from));
+    } else {
+      // 目标特性分支这次没取到（比如换人查询）也保持 key 稳定，别名分支归到目标名下。
+      groups.set(to, groups.get(from));
+    }
+    groups.delete(from);
+  }
+
   // 修复分支折叠：验证过程发现的 BUG（bugfix/xxx-yyy，主干名以某特性分支主干名开头）
   // 是该需求交付过程的一部分，归并进特性需求，不单独算一个需求。
   const fixPrefixes = new Set(rules.demand_key?.fix_prefixes || ["bugfix", "fix", "hotfix"]);

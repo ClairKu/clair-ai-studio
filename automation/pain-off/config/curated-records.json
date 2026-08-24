@@ -1,5 +1,5 @@
 {
-  "$comment": "『已发生的改变』墙上的展示文案，人工撰写。新需求计数来自 GitLab；verified_baseline=true 的历史记录已经按 MR 链路与生产结果核验，后续刷新必须保留，不能因自动取数无法重新关联而降级或漏计。",
+  "$comment": "『已发生的改变』墙上的展示文案，人工撰写。这些条目不参与计数——计数一律来自 GitLab（见 rules.json）。填上 demand_key（project_id::source_branch）后，脚本会把它的状态自动对齐到最新。",
   "records": [
     {
       "id": "R1",
@@ -28,13 +28,6 @@
       "pain_category": "加仓规则弹窗残留错误术语",
       "public_outcome": "生产规则弹窗中的错误术语已修正为“加仓计划”。",
       "evidence_level": "已上线",
-      "verified_baseline": true,
-      "verified_release_mr": {
-        "iid": 15402,
-        "url": "https://git.frontnode.net/qieman/albus/-/merge_requests/15402",
-        "target_branch": "master",
-        "state": "merged"
-      },
       "demand_key": "feature/dip-purchase-jia-cang-copy-test"
     },
     {
@@ -63,7 +56,6 @@
       "pain_category": "宽表格在手机上内容被截断",
       "public_outcome": "线上移动端表格已支持横向滑动。",
       "evidence_level": "已上线",
-      "verified_baseline": true,
       "demand_key": null
     },
     {
@@ -76,23 +68,9 @@
       "priority": "P1",
       "public_title": "投顾页 PC 宽屏布局",
       "pain_category": "PC 大屏上投顾页被限制在窄栏里",
-      "public_outcome": "生产版本已支持宽屏自由布局。",
+      "public_outcome": "生产版本已支持宽屏自由布局；验证期发现的 Safari 广告位不展示问题一并修复上线。",
       "evidence_level": "已上线",
       "demand_key": "feature/m4-pc-wide-layout"
-    },
-    {
-      "id": "R10",
-      "person_id": "P04",
-      "person_display": "春燕",
-      "submitted_at": "2026-08-20",
-      "status": "released",
-      "category": "urgent_bug",
-      "priority": "P1",
-      "public_title": "Safari 广告位修复",
-      "pain_category": "Safari 下投顾页广告位不展示",
-      "public_outcome": "修复已合入生产主干。",
-      "evidence_level": "已上线",
-      "demand_key": "bugfix/m4-safari-ad-height"
     },
     {
       "id": "R11",
@@ -114,8 +92,7 @@
     "feature/community-group-longwin-active-count": "小组人数口径对齐：开启计划/在投双口径",
     "feature/dip-purchase-jia-cang-copy-test": "加仓计划弹窗错误术语修正（「回购计划」→「加仓计划」）",
     "feat/article-image-preview": "文章图片支持点击查看大图与缩放（含 3 项验证期兼容修复）",
-    "feature/m4-pc-wide-layout": "投顾页 PC 宽屏自由布局（解除限宽）",
-    "bugfix/m4-safari-ad-height": "修复 Safari 投顾页广告位不展示",
+    "feature/m4-pc-wide-layout": "投顾页 PC 宽屏自由布局（解除限宽，含 Safari 广告位修复）",
     "feat/vip-wealth-report-preview": "VIP 财富报告 PC 预览页"
   }
 }

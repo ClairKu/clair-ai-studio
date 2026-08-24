@@ -2,26 +2,26 @@ window.DEMAND_PULSE_DATA = {
   "schema_version": "product-demand-pulse/v2",
   "meta": {
     "contract_version": "gitlab-mr-v1",
-    "source_of_truth": "GitLab merge requests + 已核验历史基线",
-    "generated_at": "2026-08-24T05:25:26Z",
-    "cutoff": "2026-08-24T05:25:26Z",
-    "last_change_at": "2026-08-24T05:25:26Z",
+    "source_of_truth": "GitLab merge requests",
+    "generated_at": "2026-08-24T06:19:30.020Z",
+    "cutoff": "2026-08-24T06:19:30.020Z",
+    "last_change_at": "2026-08-24T06:19:30.020Z",
     "stale_after_minutes": 180,
-    "headline": "7 个已提交，6 个已上线，3 位 PM 完成端到端交付。",
+    "headline": "5 个已提交，3 个已上线，3 位 PM 完成端到端交付。",
     "window_start": "2026-07-01T00:00:00+08:00",
     "release_ticket_lookup": "ok",
     "link_exposure": "public",
     "links_note": "链接只发单号与地址，不发 MR 标题；打开需要内网与相应系统权限。"
   },
   "summary": {
-    "submitted": 7,
-    "released": 6,
-    "in_flight": 1,
+    "submitted": 5,
+    "released": 3,
+    "in_flight": 2,
     "end_to_end_people": 3
   },
   "delta": {
     "new_submitted": 0,
-    "pending_release": 1,
+    "pending_release": 2,
     "new_released": 0,
     "changed": false
   },
@@ -31,8 +31,8 @@ window.DEMAND_PULSE_DATA = {
       "display_name": "嘉鸿",
       "avatar": "🦝",
       "submitted": 2,
-      "released": 2,
-      "in_flight": 0,
+      "released": 1,
+      "in_flight": 1,
       "first_released_at": "2026-08-05T18:42:08.514+08:00",
       "end_to_end": true
     },
@@ -40,8 +40,8 @@ window.DEMAND_PULSE_DATA = {
       "id": "P02",
       "display_name": "家亮",
       "avatar": "🦦",
-      "submitted": 2,
-      "released": 2,
+      "submitted": 1,
+      "released": 1,
       "in_flight": 0,
       "first_released_at": "2026-08-13T16:01:44.061+08:00",
       "end_to_end": true
@@ -50,8 +50,8 @@ window.DEMAND_PULSE_DATA = {
       "id": "P04",
       "display_name": "春燕",
       "avatar": "🐧",
-      "submitted": 3,
-      "released": 2,
+      "submitted": 2,
+      "released": 1,
       "in_flight": 1,
       "first_released_at": "2026-08-19T13:49:39.507+08:00",
       "end_to_end": true
@@ -157,8 +157,8 @@ window.DEMAND_PULSE_DATA = {
         "前端"
       ],
       "submitted_at": "2026-08-10T15:36:17.029+08:00",
-      "released_at": "2026-08-14",
-      "status": "released",
+      "released_at": null,
+      "status": "merged",
       "links": {
         "merge_requests": [
           {
@@ -168,17 +168,9 @@ window.DEMAND_PULSE_DATA = {
             "state": "merged",
             "merged_at": "2026-08-10T15:42:31.822+08:00",
             "is_release": false
-          },
-          {
-            "iid": 15402,
-            "url": "https://git.frontnode.net/qieman/albus/-/merge_requests/15402",
-            "target_branch": "master",
-            "state": "merged",
-            "merged_at": "2026-08-14",
-            "is_release": true
           }
         ],
-        "release_mr_url": "https://git.frontnode.net/qieman/albus/-/merge_requests/15402",
+        "release_mr_url": null,
         "demand_tickets": [],
         "release_tickets": []
       }
@@ -250,26 +242,9 @@ window.DEMAND_PULSE_DATA = {
       }
     },
     {
-      "id": "892122dbfe",
-      "person_id": "P02",
-      "brief": "移动端表格阅读体验",
-      "scopes": [
-        "历史核验"
-      ],
-      "submitted_at": "2026-07-31",
-      "released_at": null,
-      "status": "released",
-      "links": {
-        "merge_requests": [],
-        "release_mr_url": null,
-        "demand_tickets": [],
-        "release_tickets": []
-      }
-    },
-    {
       "id": "4f4c8401cb",
       "person_id": "P04",
-      "brief": "投顾页 PC 宽屏自由布局（解除限宽）",
+      "brief": "投顾页 PC 宽屏自由布局（解除限宽，含 Safari 广告位修复）",
       "scopes": [
         "前端"
       ],
@@ -293,25 +268,7 @@ window.DEMAND_PULSE_DATA = {
             "state": "merged",
             "merged_at": "2026-08-14T18:23:08.448+08:00",
             "is_release": false
-          }
-        ],
-        "release_mr_url": "https://git.frontnode.net/qieman/albus/-/merge_requests/15424",
-        "demand_tickets": [],
-        "release_tickets": []
-      }
-    },
-    {
-      "id": "1267b619b2",
-      "person_id": "P04",
-      "brief": "修复 Safari 投顾页广告位不展示",
-      "scopes": [
-        "前端"
-      ],
-      "submitted_at": "2026-08-20T10:29:15.614+08:00",
-      "released_at": "2026-08-20T11:03:34.942+08:00",
-      "status": "released",
-      "links": {
-        "merge_requests": [
+          },
           {
             "iid": 15440,
             "url": "https://git.frontnode.net/qieman/albus/-/merge_requests/15440",
@@ -321,7 +278,7 @@ window.DEMAND_PULSE_DATA = {
             "is_release": true
           }
         ],
-        "release_mr_url": "https://git.frontnode.net/qieman/albus/-/merge_requests/15440",
+        "release_mr_url": "https://git.frontnode.net/qieman/albus/-/merge_requests/15424",
         "demand_tickets": [],
         "release_tickets": []
       }
@@ -374,16 +331,14 @@ window.DEMAND_PULSE_DATA = {
       "person_id": "P01",
       "person_display": "嘉鸿",
       "submitted_at": "2026-08-11",
-      "released_at": "2026-08-14",
-      "status": "released",
+      "released_at": null,
+      "status": "merged",
       "category": "urgent_bug",
       "priority": "P1",
       "public_title": "加仓计划术语修正",
       "pain_category": "加仓规则弹窗残留错误术语",
       "public_outcome": "生产规则弹窗中的错误术语已修正为“加仓计划”。",
       "evidence_level": "已上线",
-      "verified_baseline": true,
-      "demand_id": "a41d0a68db",
       "in_scope": true
     },
     {
@@ -413,9 +368,7 @@ window.DEMAND_PULSE_DATA = {
       "pain_category": "宽表格在手机上内容被截断",
       "public_outcome": "线上移动端表格已支持横向滑动。",
       "evidence_level": "已上线",
-      "verified_baseline": true,
-      "in_scope": true,
-      "demand_id": "892122dbfe"
+      "in_scope": false
     },
     {
       "id": "R9",
@@ -427,25 +380,10 @@ window.DEMAND_PULSE_DATA = {
       "priority": "P1",
       "public_title": "投顾页 PC 宽屏布局",
       "pain_category": "PC 大屏上投顾页被限制在窄栏里",
-      "public_outcome": "生产版本已支持宽屏自由布局。",
+      "public_outcome": "生产版本已支持宽屏自由布局；验证期发现的 Safari 广告位不展示问题一并修复上线。",
       "evidence_level": "已上线",
       "in_scope": true,
       "released_at": "2026-08-19"
-    },
-    {
-      "id": "R10",
-      "person_id": "P04",
-      "person_display": "春燕",
-      "submitted_at": "2026-08-20",
-      "status": "released",
-      "category": "urgent_bug",
-      "priority": "P1",
-      "public_title": "Safari 广告位修复",
-      "pain_category": "Safari 下投顾页广告位不展示",
-      "public_outcome": "修复已合入生产主干。",
-      "evidence_level": "已上线",
-      "in_scope": true,
-      "released_at": "2026-08-20"
     },
     {
       "id": "R11",
@@ -464,7 +402,7 @@ window.DEMAND_PULSE_DATA = {
     }
   ],
   "criteria": {
-    "submitted": "新增需求按特性分支计数；已核验的历史基线继续保留，不因后续自动取数无法重新关联而漏计。",
+    "submitted": "一条特性分支 = 一个需求；由该 PM 本人作为 MR 作者发起，未被废弃（closed 不计）。",
     "released": "上线 = 该需求的代码已合入生产主干（master/main/production/release）。不等同于生产环境部署执行时刻，通常滞后 0–2 个工作日。",
     "dedupe": "同一分支合测试再合生产只算 1 个；前后端仓库的同名分支并为 1 个需求（范畴标签区分）；验证过程的修复分支归并进原需求。",
     "end_to_end": "该 PM 名下至少有 1 个需求已合入生产主干。",

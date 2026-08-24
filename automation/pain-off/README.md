@@ -47,7 +47,14 @@
 | 数据源 | GitLab `https://git.frontnode.net/api/v4`，只读（`read_api`） |
 | 统计范围 | `config/roster.json` 里 7 位产品团队成员，按 `author.username` 匹配 |
 | 统计区间 | 自 `window.program_start`（默认 2026-07-01）起累计 |
-| **一个需求** | 一条特性分支 = 一个需求，key = `source_branch`（按分支名跨仓库归并：前后端仓库的同名分支是同一需求的两个改动范畴，用 `scopes` 标签区分；`bugfix/fix/hotfix` 前缀、主干名以某特性分支主干名开头的验证期修复分支，归并进该特性需求，不单独计数） |
+| **一个需求** | 一条特性分支 = 一个需求，key = `source_branch`。三条归并规则按序生效：① 前后端仓库的**同名分支**是同一需求的两个改动范畴（`scopes` 标签区分）；② `rules.json → demand_key.aliases` **人工别名表**（修复分支命名没带特性主干名时显式指认归属，优先级最高）；③ `bugfix/fix/hotfix` 前缀、主干名以某特性分支主干名开头的验证期修复分支**自动归并**进该特性需求 |
+
+> **分支命名规范（让归并全自动、不需要人工别名）**：
+> 特性分支 `feat/<需求名>`（最好带单号：`feat/QMRD-12345-<需求名>`）；
+> 验证期修复 `bugfix/<需求名>-<修复点>`——主干名以特性需求名开头才能被自动认领；
+> 前后端仓库用**完全相同的分支名**。
+> 反例：`feature/m4-pc-wide-layout` 的验证修复起名 `bugfix/m4-safari-ad-height`（主干名对不上），
+> 就只能靠人工在 aliases 里补一条。
 | **累计提交** | 该成员作为 MR 作者发起、且未被废弃（`state != closed`）的需求数。从未合并过的纯草稿不计 |
 | **累计上线** | 该需求分支下存在 `state = merged` 且 `target_branch ∈ {master, main, production, release}` 的 MR——**不限作者**（生产合并常由工程师代合，按需求分支在项目内补捞）；上线时间取最早的 `merged_at` |
 | **在途** | 已提交但未合入生产主干（含只合到 test/dev 的） |
@@ -55,10 +62,6 @@
 | **交付周期** | `released_at - submitted_at`，只对已上线需求计算 |
 | **需求单** | 从 `source_branch` / MR 标题里抽出的 Jira key（QMRD），链接 `https://jira.yingmi-inc.com/browse/<KEY>` |
 | **上线单** | Jira **YR**（Release Control）项目里 summary 含该需求 key 的单据。YR 单命名约定就是 `QMRD-xxxxx - 标题 - 上线`，所以能由需求反查 |
-
-历史上已经按“有效 MR 链路 + 生产结果”核验完成、但现有 GitLab 分支口径无法重新关联的需求，
-在 `curated-records.json` 标记 `verified_baseline: true`。这类记录作为冻结基线继续计入，自动刷新只追加增量，
-不得把已确认上线的历史重新降级或漏掉。
 
 ### 两个必须知道的口径限制
 
