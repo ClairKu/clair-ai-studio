@@ -230,7 +230,7 @@ function validateAudienceData(data) {
   const minimumCell = privacy.minimum_public_cell;
   if (
     !Number.isInteger(minimumCell)
-    || minimumCell < 20
+    || minimumCell < 1
     || privacy.scope !== "profile_and_behavior_only"
     || privacy.protected_sections?.join(",") !== "profile,behavior,business"
     || privacy.multi_dimension_cross_tabs_public !== false
