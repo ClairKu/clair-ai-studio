@@ -379,6 +379,7 @@ function renderTrace() {
             <div class="tag-row">
               <span class="tag trace-status trace-${escapeHtml(demand.status)}">${escapeHtml(STATUS_LABELS[demand.status] || demand.status)}</span>
               <span class="tag">${escapeHtml(person?.avatar || "✦")} ${escapeHtml(person?.display_name || "未知")}</span>
+              ${(demand.scopes || []).map((scope) => `<span class="tag">${escapeHtml(scope)}</span>`).join("")}
             </div>
             <h3>${escapeHtml(heading)}</h3>
             <p>${escapeHtml(dates)} · ${(links.merge_requests || []).length} 条 MR</p>

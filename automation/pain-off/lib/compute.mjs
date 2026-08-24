@@ -3,9 +3,24 @@
  * 所有阈值和分支名都来自 config/rules.json，这里不写死任何业务常量。
  */
 
-/** 一个需求 = 一条特性分支。同一分支合 test 又合 master 会有多个 MR，必须归并。 */
+/**
+ * 一个需求 = 一条特性分支（按分支名，跨仓库归并）。
+ * 同名分支在前端/服务端两个仓库各有一条 MR 链，是同一个需求的两个改动范畴，不是两个需求。
+ */
 export function demandKey(mr) {
-  return `${mr.project_id}::${mr.source_branch}`;
+  return mr.source_branch;
+}
+
+/** 分支类型前缀（feat/bugfix/…），没有斜杠的分支返回空串。 */
+function branchType(branch) {
+  const i = String(branch).indexOf("/");
+  return i > 0 ? branch.slice(0, i).toLowerCase() : "";
+}
+
+/** 分支主干名：去掉类型前缀后的部分，用来判断修复分支属于哪个特性需求。 */
+function branchStem(branch) {
+  const i = String(branch).indexOf("/");
+  return (i > 0 ? branch.slice(i + 1) : String(branch)).toLowerCase();
 }
 
 export function isReleaseMerge(mr, rules) {
@@ -68,6 +83,23 @@ export function foldDemands(mergeRequests, rules) {
     groups.get(key).push(mr);
   }
 
+  // 修复分支折叠：验证过程发现的 BUG（bugfix/xxx-yyy，主干名以某特性分支主干名开头）
+  // 是该需求交付过程的一部分，归并进特性需求，不单独算一个需求。
+  const fixPrefixes = new Set(rules.demand_key?.fix_prefixes || ["bugfix", "fix", "hotfix"]);
+  const featureStems = [...groups.keys()]
+    .filter((branch) => !fixPrefixes.has(branchType(branch)))
+    .map((branch) => ({ branch, stem: branchStem(branch) }));
+  for (const branch of [...groups.keys()]) {
+    if (!fixPrefixes.has(branchType(branch))) continue;
+    const stem = branchStem(branch);
+    const host = featureStems
+      .filter((f) => f.branch !== branch && (stem === f.stem || stem.startsWith(`${f.stem}-`) || stem.startsWith(`${f.stem}_`)))
+      .sort((a, b) => b.stem.length - a.stem.length)[0];
+    if (!host) continue;
+    groups.get(host.branch).push(...groups.get(branch));
+    groups.delete(branch);
+  }
+
   const demands = [];
   for (const [key, mrs] of groups) {
     const releaseMerges = mrs.filter((mr) => isReleaseMerge(mr, rules));
@@ -81,10 +113,17 @@ export function foldDemands(mergeRequests, rules) {
       (mr) => mr.state === "merged" && rules.in_flight.test_branches.includes(mr.target_branch),
     );
 
+    // 一个需求可能横跨多个仓库（前后端）与多条分支（特性 + 验证修复）。
+    const branchPairs = [...new Map(mrs.map((mr) => [`${mr.project_id}::${mr.source_branch}`, { project_id: mr.project_id, source_branch: mr.source_branch }])).values()];
+    const scopeMap = rules.demand_key?.project_scopes || {};
+    const projectIds = [...new Set(branchPairs.map((pair) => pair.project_id))];
+    const scopes = [...new Set(projectIds.map((id) => scopeMap[String(id)] || (projectIds.length > 1 ? "多仓" : null)))].filter(Boolean);
+
     demands.push({
       key,
-      project_id: mrs[0].project_id,
-      source_branch: mrs[0].source_branch,
+      branch_pairs: branchPairs,
+      scopes,
+      source_branch: key,
       author_username: mrs[0].author?.username || null,
       submitted_at: earliest(mrs.map((mr) => mr.created_at)),
       released_at: released ? earliest(releaseMerges.map((mr) => mr.merged_at)) : null,

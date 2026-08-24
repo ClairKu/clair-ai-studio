@@ -13,7 +13,7 @@
       "pain_category": "同一策略的人数信息不够清楚",
       "public_outcome": "生产版本已展示“开启计划/在投”双口径。",
       "evidence_level": "已上线",
-      "demand_key": "262::feature/community-group-longwin-active-count"
+      "demand_key": "feature/community-group-longwin-active-count"
     },
     {
       "id": "R2",
@@ -28,7 +28,7 @@
       "pain_category": "加仓规则弹窗残留错误术语",
       "public_outcome": "生产规则弹窗中的错误术语已修正为“加仓计划”。",
       "evidence_level": "已上线",
-      "demand_key": "262::feature/dip-purchase-jia-cang-copy-test"
+      "demand_key": "feature/dip-purchase-jia-cang-copy-test"
     },
     {
       "id": "R3",
@@ -42,7 +42,7 @@
       "pain_category": "文章图片无法点开看大图和缩放",
       "public_outcome": "线上文章已支持图片预览与缩放。",
       "evidence_level": "已上线",
-      "demand_key": "262::feat/article-image-preview"
+      "demand_key": "feat/article-image-preview"
     },
     {
       "id": "R4",
@@ -59,62 +59,6 @@
       "demand_key": null
     },
     {
-      "id": "R5",
-      "person_id": "P01",
-      "person_display": "嘉鸿",
-      "submitted_at": "2026-08-05",
-      "status": "released",
-      "category": "important",
-      "priority": "P1",
-      "public_title": "群组人数展示口径（服务端）",
-      "pain_category": "同一策略的人数信息不够清楚",
-      "public_outcome": "服务端已提供「开启计划/在投」双口径数据。",
-      "evidence_level": "已上线",
-      "demand_key": "299::feature/community-group-longwin-active-count"
-    },
-    {
-      "id": "R6",
-      "person_id": "P02",
-      "person_display": "家亮",
-      "submitted_at": "2026-07-31",
-      "status": "merged",
-      "category": "urgent_bug",
-      "priority": "P2",
-      "public_title": "图片预览顶栏适配",
-      "pain_category": "App 内图片预览顶栏被系统状态栏遮挡",
-      "public_outcome": "修复已合入测试环境，待发布生产。",
-      "evidence_level": "已合测试",
-      "demand_key": "262::bugfix/article-image-preview-banner-safe-area"
-    },
-    {
-      "id": "R7",
-      "person_id": "P02",
-      "person_display": "家亮",
-      "submitted_at": "2026-07-31",
-      "status": "merged",
-      "category": "urgent_bug",
-      "priority": "P2",
-      "public_title": "图片预览防盗链兼容",
-      "pain_category": "部分外部图床的图片在预览里加载不出来",
-      "public_outcome": "兼容修复已合入测试环境，待发布生产。",
-      "evidence_level": "已合测试",
-      "demand_key": "262::bugfix/article-image-preview-no-referrer"
-    },
-    {
-      "id": "R8",
-      "person_id": "P02",
-      "person_display": "家亮",
-      "submitted_at": "2026-07-31",
-      "status": "merged",
-      "category": "urgent_bug",
-      "priority": "P2",
-      "public_title": "图片预览 App 端兼容",
-      "pain_category": "部分 App 版本里图片预览打不开",
-      "public_outcome": "已支持原生能力未就绪时回退网页预览，待发布生产。",
-      "evidence_level": "已合测试",
-      "demand_key": "262::bugfix/article-image-preview-app-compat"
-    },
-    {
       "id": "R9",
       "person_id": "P04",
       "person_display": "春燕",
@@ -126,7 +70,7 @@
       "pain_category": "PC 大屏上投顾页被限制在窄栏里",
       "public_outcome": "生产版本已支持宽屏自由布局。",
       "evidence_level": "已上线",
-      "demand_key": "262::feature/m4-pc-wide-layout"
+      "demand_key": "feature/m4-pc-wide-layout"
     },
     {
       "id": "R10",
@@ -140,7 +84,7 @@
       "pain_category": "Safari 下投顾页广告位不展示",
       "public_outcome": "修复已合入生产主干。",
       "evidence_level": "已上线",
-      "demand_key": "262::bugfix/m4-safari-ad-height"
+      "demand_key": "bugfix/m4-safari-ad-height"
     },
     {
       "id": "R11",
@@ -154,20 +98,16 @@
       "pain_category": "VIP 财富报告缺少 PC 端预览",
       "public_outcome": "预览页开发中，待合并上线。",
       "evidence_level": "开发中",
-      "demand_key": "262::feat/vip-wealth-report-preview"
+      "demand_key": "feat/vip-wealth-report-preview"
     }
   ],
   "briefs": {
-    "$comment": "需求简述：demand_key → 一句话说明这条分支改了什么。人工撰写/核定后的产品语言，不是 MR 原始标题；会出现在公开页面的追溯模块里，禁止内部域名、系统名、单号以外的内部标识。",
-    "299::feature/community-group-longwin-active-count": "小组人数口径对齐：开启计划/在投双口径（服务端）",
-    "262::feature/community-group-longwin-active-count": "小组人数口径对齐：开启计划/在投双口径（前端）",
-    "262::feature/dip-purchase-jia-cang-copy-test": "加仓计划弹窗错误术语修正（「回购计划」→「加仓计划」）",
-    "262::feat/article-image-preview": "文章图片支持点击查看大图与缩放",
-    "262::bugfix/article-image-preview-app-compat": "图片预览 App 端兼容（原生未就绪时回退网页预览）",
-    "262::bugfix/article-image-preview-no-referrer": "图片预览兼容外部图床防盗链",
-    "262::bugfix/article-image-preview-banner-safe-area": "图片预览顶栏避让系统状态栏",
-    "262::feature/m4-pc-wide-layout": "投顾页 PC 宽屏自由布局（解除限宽）",
-    "262::bugfix/m4-safari-ad-height": "修复 Safari 投顾页广告位不展示",
-    "262::feat/vip-wealth-report-preview": "VIP 财富报告 PC 预览页"
+    "$comment": "需求简述：demand_key（特性分支名）→ 一句话说明这条需求做了什么。人工撰写/核定的产品语言，不是 MR 原始标题；会出现在公开页面的追溯模块里，禁止内部域名、系统名等内部标识。验证期修复分支已折叠进特性需求，不需要单独写简述。",
+    "feature/community-group-longwin-active-count": "小组人数口径对齐：开启计划/在投双口径",
+    "feature/dip-purchase-jia-cang-copy-test": "加仓计划弹窗错误术语修正（「回购计划」→「加仓计划」）",
+    "feat/article-image-preview": "文章图片支持点击查看大图与缩放（含 3 项验证期兼容修复）",
+    "feature/m4-pc-wide-layout": "投顾页 PC 宽屏自由布局（解除限宽）",
+    "bugfix/m4-safari-ad-height": "修复 Safari 投顾页广告位不展示",
+    "feat/vip-wealth-report-preview": "VIP 财富报告 PC 预览页"
   }
 }

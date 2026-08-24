@@ -56,11 +56,15 @@ export async function buildSnapshot({
   // 按「项目 + 需求分支」查任意作者的已合并 MR，命中生产主干就升级为已上线。
   for (const demand of allDemands) {
     if (demand.status === "released") continue;
-    const merges = await gitlab.listMergedMergeRequestsBySourceBranch({
-      projectId: demand.project_id,
-      sourceBranch: demand.source_branch,
-    });
-    supplementReleaseMerges(demand, merges, rules);
+    // 需求可能横跨多个仓库与多条分支（特性 + 验证修复），每一对都要查。
+    for (const pair of demand.branch_pairs || [{ project_id: demand.project_id, source_branch: demand.source_branch }]) {
+      const merges = await gitlab.listMergedMergeRequestsBySourceBranch({
+        projectId: pair.project_id,
+        sourceBranch: pair.source_branch,
+      });
+      supplementReleaseMerges(demand, merges, rules);
+      if (demand.status === "released") break;
+    }
   }
 
   const summary = summarize(demandsByPerson, roster);
@@ -75,6 +79,7 @@ export async function buildSnapshot({
     id: publicDemandId(demand.key),
     person_id: demand.person_id,
     brief: briefs[demand.key] && String(briefs[demand.key]).trim() ? String(briefs[demand.key]).trim() : null,
+    scopes: demand.scopes || [],
     submitted_at: demand.submitted_at,
     released_at: demand.released_at,
     status: demand.status,
@@ -144,7 +149,7 @@ export async function buildSnapshot({
     criteria: {
       submitted: "一条特性分支 = 一个需求；由该 PM 本人作为 MR 作者发起，未被废弃（closed 不计）。",
       released: rules.released.approximation_note,
-      dedupe: "同一分支先合测试环境、再合生产主干只算 1 个需求。",
+      dedupe: "同一分支合测试再合生产只算 1 个；前后端仓库的同名分支并为 1 个需求（范畴标签区分）；验证过程的修复分支归并进原需求。",
       end_to_end: "该 PM 名下至少有 1 个需求已合入生产主干。",
       window: `统计区间自 ${rules.window.program_start.slice(0, 10)} 起累计。`,
       trace: `每个需求列出它的需求单（${rules.jira.demand_projects.join("/")}）、全部 MR、以及上线单（Jira ${rules.jira.release_project} 发布管控）。`,

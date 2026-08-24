@@ -12,7 +12,9 @@
     "browse_base": "https://jira.yingmi-inc.com/browse",
     "api_base": "https://jira.yingmi-inc.com/rest/api/2",
     "token_env": "JIRA_TOKEN",
-    "demand_projects": ["QMRD"],
+    "demand_projects": [
+      "QMRD"
+    ],
     "release_project": "YR"
   },
   "window": {
@@ -20,14 +22,31 @@
     "$comment": "产品团队开始端到端自研的起算日。早于此日的 MR 不计入累计。"
   },
   "demand_key": {
-    "strategy": "project_id+source_branch",
-    "$comment": "一个需求 = 一条特性分支。同一分支先合 test 再合 master 会产生多个 MR，必须归并为 1 个需求，否则数字翻倍。"
+    "strategy": "source_branch+fix_folding",
+    "$comment": "一个需求 = 一条特性分支（按分支名归并，不再区分仓库）。两条折叠规则：① 同名分支出现在多个仓库（前端/服务端各一个 MR 链）视为同一需求，改动范畴用 scopes 标签记录；② 验证过程发现的修复分支（bugfix/fix/hotfix 前缀、且分支主干名以某特性分支主干名开头）归并进该特性需求，不单独计数。",
+    "fold_across_projects": true,
+    "fix_prefixes": [
+      "bugfix",
+      "fix",
+      "hotfix"
+    ],
+    "project_scopes": {
+      "262": "前端",
+      "299": "服务端",
+      "$comment": "仓库 → 改动范畴标签。没列出的仓库在需求跨仓时标「多仓」。"
+    }
   },
   "submitted": {
     "$comment": "『累计提交』口径",
     "author_field": "author.username",
-    "include_states": ["opened", "locked", "merged"],
-    "exclude_states": ["closed"],
+    "include_states": [
+      "opened",
+      "locked",
+      "merged"
+    ],
+    "exclude_states": [
+      "closed"
+    ],
     "exclude_draft_never_merged": true,
     "timestamp": "min(created_at) of the demand group"
   },
@@ -35,14 +54,25 @@
     "$comment": "『累计上线』口径。盈米没有权威的生产发布记录系统（本体已确认：Jenkins 构建历史不可查、数仓无 deploy/release 记录表），因此用『合入生产主干』作为上线的近似证据，并在看板上明示。",
     "requires": {
       "state": "merged",
-      "target_branch_in": ["master", "main", "production", "release"]
+      "target_branch_in": [
+        "master",
+        "main",
+        "production",
+        "release"
+      ]
     },
     "timestamp": "min(merged_at) among qualifying MRs of the demand group",
     "approximation_note": "上线 = 该需求的代码已合入生产主干（master/main/production/release）。不等同于生产环境部署执行时刻，通常滞后 0–2 个工作日。"
   },
   "in_flight": {
     "$comment": "『在途』口径：已提交但未合入生产主干（含只合到 test 的）",
-    "test_branches": ["test", "dev", "develop", "staging", "uat"]
+    "test_branches": [
+      "test",
+      "dev",
+      "develop",
+      "staging",
+      "uat"
+    ]
   },
   "end_to_end_person": {
     "$comment": "『端到端能力升级』人数口径",
