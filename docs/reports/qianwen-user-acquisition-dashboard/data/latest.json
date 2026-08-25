@@ -317,11 +317,11 @@
               },
               {
                 "id": "no_assets",
-                "accounts": 33
+                "accounts": 66
               },
               {
                 "id": "unknown",
-                "accounts": 1751
+                "accounts": 1718
               }
             ]
           },
@@ -334,29 +334,29 @@
             "buckets": [
               {
                 "id": "no_assets",
-                "accounts": 33
+                "accounts": 66
               },
               {
                 "id": "lt_10k",
-                "accounts": 32
+                "accounts": 47
               },
               {
                 "id": "10k_100k",
-                "accounts": 34
+                "accounts": 53
               },
               {
                 "id": "100k_1m",
                 "label": "10—100 万元",
-                "accounts": 83
+                "accounts": 85
               },
               {
                 "id": "gte_1m",
                 "label": "100 万元以上",
-                "accounts": 52
+                "accounts": 16
               },
               {
                 "id": "unknown",
-                "accounts": 1751
+                "accounts": 1718
               }
             ]
           },
@@ -620,11 +620,11 @@
               },
               {
                 "id": "no_assets",
-                "accounts": 0
+                "accounts": 3
               },
               {
                 "id": "unknown",
-                "accounts": 1542
+                "accounts": 1539
               }
             ]
           },
@@ -637,7 +637,7 @@
             "buckets": [
               {
                 "id": "no_assets",
-                "accounts": 0
+                "accounts": 3
               },
               {
                 "id": "lt_10k",
@@ -659,7 +659,7 @@
               },
               {
                 "id": "unknown",
-                "accounts": 1542
+                "accounts": 1539
               }
             ]
           },
@@ -833,11 +833,11 @@
               },
               {
                 "id": "no_assets",
-                "accounts": 33
+                "accounts": 63
               },
               {
                 "id": "unknown",
-                "accounts": 209
+                "accounts": 179
               }
             ]
           },
@@ -850,29 +850,29 @@
             "buckets": [
               {
                 "id": "no_assets",
-                "accounts": 33
+                "accounts": 63
               },
               {
                 "id": "lt_10k",
-                "accounts": 31
+                "accounts": 46
               },
               {
                 "id": "10k_100k",
-                "accounts": 34
+                "accounts": 53
               },
               {
                 "id": "100k_1m",
                 "label": "10—100 万元",
-                "accounts": 83
+                "accounts": 85
               },
               {
                 "id": "gte_1m",
                 "label": "100 万元以上",
-                "accounts": 52
+                "accounts": 16
               },
               {
                 "id": "unknown",
-                "accounts": 209
+                "accounts": 179
               }
             ]
           },
@@ -1354,7 +1354,7 @@
             "data_as_of": "2026-08-24T11:12:47+08:00",
             "state": "confirmed",
             "accounts": 201,
-            "amount_wan": 21810.92
+            "amount_wan": 7284.07
           },
           {
             "id": "inflow_amount",
@@ -1389,7 +1389,7 @@
             "data_as_of": "2026-08-24T11:12:47+08:00",
             "state": "confirmed",
             "accounts": 1,
-            "amount_wan": 0.12
+            "amount_wan": 0.04
           },
           {
             "id": "inflow_amount",
@@ -1424,7 +1424,7 @@
             "data_as_of": "2026-08-24T11:12:47+08:00",
             "state": "confirmed",
             "accounts": 200,
-            "amount_wan": 21810.8
+            "amount_wan": 7284.03
           },
           {
             "id": "inflow_amount",
