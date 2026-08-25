@@ -102,20 +102,20 @@ const PROFILE_PANELS = {
 };
 const BEHAVIOR_METRICS = {
   funded_after_binding: {
-    label: "绑定后完成入金",
-    description: "绑定后发生银行卡入金/转入并到账",
+    label: "绑定后成功入金",
+    description: "绑定后买入类交易单确认成功，即计入入金",
   },
   first_investment_after_binding: {
     label: "绑定后首次投资",
     description: "首次投资里程碑发生在绑定后",
   },
   investment_activity_after_binding: {
-    label: "绑定后发起买入",
-    description: "绑定后发生受理且未取消的买入类交易",
+    label: "绑定后成功买入",
+    description: "绑定后确认成功的买入类交易",
   },
   redemption_after_binding: {
-    label: "绑定后发生赎回",
-    description: "绑定后发生受理且未取消的卖出类交易",
+    label: "绑定后成功赎回",
+    description: "绑定后确认成功的卖出类交易",
   },
   xiaogu_used_after_binding: {
     label: "绑定后有效使用AI小顾",
@@ -132,17 +132,17 @@ const BUSINESS_STATS = {
   },
   inflow_amount: {
     label: "绑定后入金",
-    description: "绑定后新增转入且慢的资金合计",
+    description: "绑定后确认成功的买入订单金额合计，按入金口径统计",
     tone: "flow",
   },
   buy_amount: {
     label: "绑定后买入",
-    description: "绑定后受理且未取消的买入金额合计",
+    description: "绑定后确认成功的买入金额合计",
     tone: "flow",
   },
   sell_amount: {
     label: "绑定后赎回",
-    description: "绑定后受理且未取消的卖出金额合计",
+    description: "绑定后确认成功的赎回金额合计",
     tone: "flow",
   },
 };
