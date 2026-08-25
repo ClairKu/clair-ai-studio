@@ -318,7 +318,7 @@
         "dimensions": [
           {
             "id": "asset_holding_status",
-            "definition_version": "2026-08-25-v3",
+            "definition_version": "2026-08-25-v4",
             "time_basis": "snapshot_as_of",
             "data_as_of": "2026-08-25",
             "state": "confirmed",
@@ -339,7 +339,7 @@
           },
           {
             "id": "asset_bucket",
-            "definition_version": "2026-08-25-v3",
+            "definition_version": "2026-08-25-v4",
             "time_basis": "snapshot_as_of",
             "data_as_of": "2026-08-25",
             "state": "confirmed",
@@ -350,21 +350,16 @@
               },
               {
                 "id": "lt_10k",
-                "accounts": 34
+                "accounts": 49
               },
               {
                 "id": "10k_100k",
-                "accounts": 37
+                "accounts": 57
               },
               {
-                "id": "100k_1m",
-                "label": "10-100 万元",
-                "accounts": 84
-              },
-              {
-                "id": "gte_1m",
-                "label": "100 万元以上",
-                "accounts": 52
+                "id": "gte_100k",
+                "label": "10 万元以上",
+                "accounts": 101
               },
               {
                 "id": "unknown",
@@ -515,7 +510,7 @@
         "dimensions": [
           {
             "id": "asset_holding_status",
-            "definition_version": "2026-08-25-v3",
+            "definition_version": "2026-08-25-v4",
             "time_basis": "snapshot_as_of",
             "data_as_of": "2026-08-25",
             "state": "confirmed",
@@ -536,7 +531,7 @@
           },
           {
             "id": "asset_bucket",
-            "definition_version": "2026-08-25-v3",
+            "definition_version": "2026-08-25-v4",
             "time_basis": "snapshot_as_of",
             "data_as_of": "2026-08-25",
             "state": "confirmed",
@@ -554,13 +549,8 @@
                 "accounts": 0
               },
               {
-                "id": "100k_1m",
-                "label": "10-100 万元",
-                "accounts": 0
-              },
-              {
-                "id": "gte_1m",
-                "label": "100 万元以上",
+                "id": "gte_100k",
+                "label": "10 万元以上",
                 "accounts": 0
               },
               {
@@ -665,7 +655,7 @@
         "dimensions": [
           {
             "id": "asset_holding_status",
-            "definition_version": "2026-08-25-v3",
+            "definition_version": "2026-08-25-v4",
             "time_basis": "snapshot_as_of",
             "data_as_of": "2026-08-25",
             "state": "confirmed",
@@ -686,7 +676,7 @@
           },
           {
             "id": "asset_bucket",
-            "definition_version": "2026-08-25-v3",
+            "definition_version": "2026-08-25-v4",
             "time_basis": "snapshot_as_of",
             "data_as_of": "2026-08-25",
             "state": "confirmed",
@@ -697,21 +687,16 @@
               },
               {
                 "id": "lt_10k",
-                "accounts": 34
+                "accounts": 49
               },
               {
                 "id": "10k_100k",
-                "accounts": 37
+                "accounts": 57
               },
               {
-                "id": "100k_1m",
-                "label": "10-100 万元",
-                "accounts": 84
-              },
-              {
-                "id": "gte_1m",
-                "label": "100 万元以上",
-                "accounts": 52
+                "id": "gte_100k",
+                "label": "10 万元以上",
+                "accounts": 101
               },
               {
                 "id": "unknown",
@@ -1013,12 +998,12 @@
         "stats": [
           {
             "id": "holding_amount",
-            "definition_version": "2026-08-25-v3",
+            "definition_version": "2026-08-25-v4",
             "time_basis": "snapshot_as_of",
             "data_as_of": "2026-08-25T15:38:24+08:00",
             "state": "confirmed",
             "accounts": 207,
-            "amount_wan": 21707.6742
+            "amount_wan": 7253.919
           },
           {
             "id": "inflow_amount",
@@ -1057,7 +1042,7 @@
         "stats": [
           {
             "id": "holding_amount",
-            "definition_version": "2026-08-25-v3",
+            "definition_version": "2026-08-25-v4",
             "time_basis": "snapshot_as_of",
             "data_as_of": "2026-08-25T15:38:24+08:00",
             "state": "confirmed",
@@ -1101,12 +1086,12 @@
         "stats": [
           {
             "id": "holding_amount",
-            "definition_version": "2026-08-25-v3",
+            "definition_version": "2026-08-25-v4",
             "time_basis": "snapshot_as_of",
             "data_as_of": "2026-08-25T15:38:24+08:00",
             "state": "confirmed",
             "accounts": 207,
-            "amount_wan": 21707.6742
+            "amount_wan": 7253.919
           },
           {
             "id": "inflow_amount",

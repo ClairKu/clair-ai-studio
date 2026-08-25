@@ -126,6 +126,7 @@ export function buildRefreshPrompt({ workspace, publishedCutoff, ontologyBin }) 
 2. 只发起一次新的本体问题，effort=medium（不要使用 high）。明确要求它实时查询生产数据库，统计从 2026-08-03 00:00:00（Asia/Shanghai）到本次查询时点的数据；回答必须是可落入现有 latest.json 的完整、匿名、聚合快照，不得返回用户明细。
 3. 本体问题必须作为非空的直接参数传给 CLI，或先写入隔离目录中的临时文件再完整读取；禁止依赖未显式导出的 shell 环境变量传递问题。调用前检查问题文本包含“千问 X 且慢AI小顾”和“2026-08-03”，否则返回 blocked，不得发起空问题。
 4. 绑定定义、千问来源识别、新/老用户分类、每日趋势、画像、行为和经营口径必须沿用现有 latest.json 与 scripts/validate-qianwen-user-acquisition-dashboard.mjs。新用户=首次绑定时尚未注册且慢；老用户=首次绑定时已有且慢账户。
+4a. 资产规模只能汇总资产快照中 relation_account_type=ROOT 的顶层账户；不得把 ROOT、CA、UMA、WALLET 等父子层级相加。绑定后入金按用户确认口径统计：买入类交易单确认成功即计入入金，人数、笔数和金额与成功买入保持一致；不得改回充值代理口径。
 5. 画像、行为、经营数据对 all/new/existing 三个 cohort 分别计算。执行 k=20 的主抑制和互补抑制，禁止通过“全部减一类”反推出小样本；禁止输出用户 ID、手机号、单用户金额、原始对话、内部任务/查询标识或生产凭证。
 6. 查询时点必须写入 meta.generated_at 和 meta.data_cutoff（北京时间 +08:00）；当天 daily.partial=true，历史日期 false；所有总数、每日数、分组和观察窗口必须闭合。
 

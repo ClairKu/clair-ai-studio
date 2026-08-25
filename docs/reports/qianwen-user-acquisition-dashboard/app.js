@@ -45,12 +45,12 @@ const COHORT_LABELS = {
 const PROFILE_DIMENSIONS = {
   asset_holding_status: {
     label: "当前资产状态",
-    description: "使用每个可识别投资账户的最近资产记录",
+    description: "只汇总顶层 ROOT 账户的最近资产记录，避免账户层级重复计算",
     panel: "asset",
   },
   asset_bucket: {
     label: "保有规模分布",
-    description: "按当前持有市值分档，使用各账户最近资产记录",
+    description: "按顶层 ROOT 账户当前持有市值分档",
     panel: "asset",
   },
   lifetime_investment_status: {
@@ -127,7 +127,7 @@ const REQUIRED_BEHAVIOR_METRICS = ["first_investment_after_binding", "investment
 const BUSINESS_STATS = {
   holding_amount: {
     label: "当前保有规模",
-    description: "所选用户在且慢的持有市值合计",
+    description: "所选用户顶层 ROOT 账户的持有市值合计，不重复累计子账户",
     tone: "scale",
   },
   inflow_amount: {
