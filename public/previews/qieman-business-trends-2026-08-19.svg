@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="720" height="405" viewBox="0 0 720 405">
   <rect width="720" height="405" fill="#f5faff"/>
   <rect x="0" y="0" width="720" height="6" fill="#1b88ee"/>
-  <text x="48" y="86" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="38" font-weight="700" fill="#0a2e52">且慢经营走势</text>
-  <text x="48" y="120" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="17" fill="#3c5c7c">公司 / 蜂鸟 / 且慢 / 启明 · 全口径 AUM · 图例可切换</text>
-  <text x="48" y="148" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#7d97ad">2016-06 → 2026-08 · 公司全口径 AUM 2757 亿 · 生产数仓 · 盈米本体</text>
+  <text x="48" y="86" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="38" font-weight="700" fill="#0a2e52">盈米经营走势</text>
+  <text x="48" y="120" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="17" fill="#3c5c7c">公司成立至今 · 公司 / 蜂鸟 / 且慢 / 启明 全口径 AUM</text>
+  <text x="48" y="148" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#7d97ad">2015-09 → 2026-08 · 公司 0.01 亿 → 2757 亿 · 生产数仓 dw-tidb</text>
 
   <!-- 规模走势缩影 -->
   <g transform="translate(48,180)">
