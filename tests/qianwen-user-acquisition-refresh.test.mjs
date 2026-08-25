@@ -16,7 +16,7 @@ const CUTOFF = "2026-08-20T16:40:29+08:00";
 
 test("production page triggers the private refresh service and polls publication", async () => {
   const app = await read(`${REPORT}/app.js`);
-  assert.match(app, /LOCAL_REFRESH_BASE = "http:\/\/127\.0\.0\.1:43122"/);
+  assert.match(app, /LOCAL_REFRESH_BASES = \["http:\/\/127\.0\.0\.1:43123", "http:\/\/127\.0\.0\.1:43122"\]/);
   assert.match(app, /X-Qianwen-Action/);
   assert.match(app, /qianwen-user-acquisition-refresh\/v1/);
   assert.match(app, /waitForRefresh/);
@@ -49,7 +49,7 @@ test("agent result is reduced to public progress fields", () => {
 
 test("refresh prompt requires one real production query, privacy checks, and safe publishing", () => {
   const prompt = buildRefreshPrompt({ workspace: "/work", publishedCutoff: CUTOFF, ontologyBin: "/ontology" });
-  for (const signal of ["只发起一次", "实时查询生产数据库", "k=20", "互补抑制", "隔离工作目录", "不要执行 git", "后台服务会在你完成后原子发布"]) {
+  for (const signal of ["只发起一次", "effort=medium", "实时查询生产数据库", "禁止依赖未显式导出的 shell 环境变量", "k=20", "互补抑制", "隔离工作目录", "不要执行 git", "后台服务会在你完成后原子发布"]) {
     assert.match(prompt, new RegExp(signal));
   }
 });

@@ -1,5 +1,5 @@
 const DATA_URL = "./data/latest.json";
-const LOCAL_REFRESH_BASE = "http://127.0.0.1:43122";
+const LOCAL_REFRESH_BASES = ["http://127.0.0.1:43123", "http://127.0.0.1:43122"];
 const REFRESH_POLL_MS = 3000;
 const REFRESH_TIMEOUT_MS = 45 * 60 * 1000;
 const PUBLISHED_POLL_MS = 5000;
@@ -230,7 +230,7 @@ function validateAudienceData(data) {
   const minimumCell = privacy.minimum_public_cell;
   if (
     !Number.isInteger(minimumCell)
-    || minimumCell < 1
+    || minimumCell < 20
     || privacy.scope !== "profile_and_behavior_only"
     || privacy.protected_sections?.join(",") !== "profile,behavior,business"
     || privacy.multi_dimension_cross_tabs_public !== false
@@ -445,14 +445,24 @@ function setRefreshButtonLoading(loading) {
 const pause = (milliseconds) => new Promise((resolve) => window.setTimeout(resolve, milliseconds));
 
 async function callRefreshService(path, init = {}) {
-  const response = await fetch(`${LOCAL_REFRESH_BASE}${path}`, {
-    cache: "no-store",
-    ...init,
-    headers: {
-      "Content-Type": "application/json",
-      ...(init.headers || {}),
-    },
-  });
+  let response;
+  let connectionError;
+  for (const base of LOCAL_REFRESH_BASES) {
+    try {
+      response = await fetch(`${base}${path}`, {
+        cache: "no-store",
+        ...init,
+        headers: {
+          "Content-Type": "application/json",
+          ...(init.headers || {}),
+        },
+      });
+      break;
+    } catch (error) {
+      connectionError = error;
+    }
+  }
+  if (!response) throw connectionError || new Error("无法连接本机更新服务");
   const body = await response.json().catch(() => ({}));
   if (!response.ok && !(response.status === 409 && body.run_id)) {
     const error = new Error(body.summary || body.error || `更新服务返回 ${response.status}`);
@@ -1255,7 +1265,7 @@ function renderAudience({ announce = false } = {}) {
   renderBehaviorBars(behavior);
   renderAudienceTable(profile, behavior, business, population);
   $("#audience-detail-context").textContent = population === null ? label : `${label} · ${number.format(population)} 人`;
-  $("#audience-footnote").textContent = `规模与画像取查询时点各账户最近记录；入金、交易与绑定后行为按各自绑定时间起算至 ${formatCutoff(currentData.meta.data_cutoff)}。各指标独立统计，不代表先后顺序；自 2026-08-24 起按业务方要求，小分组不再合并或隐藏，人数较少的分组数字请谨慎解读。`;
+  $("#audience-footnote").textContent = `规模与画像取查询时点各账户最近记录；入金、交易与绑定后行为按各自绑定时间起算至 ${formatCutoff(currentData.meta.data_cutoff)}。各指标独立统计，不代表先后顺序；人数少于 ${currentData.privacy.minimum_public_cell} 的分组已合并或隐藏；若某项只在「全部」口径下公开，是为了避免用全部减去其中一类反推出被隐藏的小分组。`;
   if (announce) $("#audience-announcement").textContent = `已切换至${label}，共 ${population === null ? "未知" : number.format(population)} 人。`;
 }
 
