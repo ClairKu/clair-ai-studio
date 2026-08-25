@@ -126,8 +126,8 @@ const REQUIRED_BEHAVIOR_METRICS = ["first_investment_after_binding", "investment
 // 金额型指标单独放在 business 段：人数类走 behavior，金额类走这里，避免两种量纲混在一张图上。
 const BUSINESS_STATS = {
   holding_amount: {
-    label: "当前保有规模",
-    description: "所选用户顶层 ROOT 账户的持有市值合计，不重复累计子账户",
+    label: "当前保有（含绑定前存量）",
+    description: "所选用户顶层 ROOT 账户的持有市值合计；包含老用户绑定前已有资产，不代表项目新增规模",
     tone: "scale",
   },
   inflow_amount: {
@@ -1255,7 +1255,7 @@ function renderAudience({ announce = false } = {}) {
   const activity = confirmed(behavior, "metrics", "investment_activity_after_binding");
   const assetCount = asset?.buckets?.find((bucket) => bucket.id === "has_assets")?.accounts;
   const insight = [];
-  if (holding) insight.push(`当前保有规模 ${formatAmount(holding.amount_wan)}`);
+  if (holding) insight.push(`当前保有（含绑定前存量）${formatAmount(holding.amount_wan)}`);
   if (inflow) insight.push(`绑定后入金 ${formatAmount(inflow.amount_wan)}（${number.format(inflow.accounts)} 人）`);
   if (isWholeCount(assetCount)) insight.push(`可识别有资产 ${number.format(assetCount)} 人（${formatShare(assetCount, population)}）`);
   if (isWholeCount(activity?.reached_accounts)) insight.push(`绑定后发起买入 ${number.format(activity.reached_accounts)} 人`);
