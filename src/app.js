@@ -17,6 +17,11 @@ import {
   reportArchiveMatchesQuery,
   reportSearchDetails,
 } from "./search.js";
+import {
+  archiveFilename,
+  formatBytes,
+  packReportArchive,
+} from "./single-file-archive.js";
 
 const STORAGE_KEY = "clair-service-report-workbench-v1";
 const VIEW_KEY = "clair-service-report-workbench-view";
@@ -3579,6 +3584,81 @@ function downloadLocalHtml(report) {
   return true;
 }
 
+function triggerDownload(blobUrl, filename) {
+  const anchor = document.createElement("a");
+  anchor.href = blobUrl;
+  anchor.download = filename;
+  document.body.append(anchor);
+  anchor.click();
+  anchor.remove();
+  window.setTimeout(() => URL.revokeObjectURL(blobUrl), 60000);
+}
+
+/*
+ * 打包一份线上报告要抓几十项资源、大报告能到几十兆，必须给出可见进度和一个
+ * 退出口，否则用户只会看到浏览器毫无反应。这个面板独立挂在 body 上，不进
+ * render() 的模板，免得中途被整页重绘冲掉。
+ */
+function showArchiveProgress(title) {
+  document.querySelector(".archive-progress")?.remove();
+  const controller = new AbortController();
+  const panel = document.createElement("div");
+  panel.className = "archive-progress";
+  panel.setAttribute("role", "status");
+  panel.innerHTML = `
+    <div class="archive-progress-body">
+      <strong>正在打包单文件档案</strong>
+      <span class="archive-progress-title"></span>
+      <span class="archive-progress-detail">读取报告…</span>
+    </div>
+    <button type="button" class="archive-progress-cancel">取消</button>`;
+  panel.querySelector(".archive-progress-title").textContent = title;
+  const detail = panel.querySelector(".archive-progress-detail");
+  panel.querySelector(".archive-progress-cancel").addEventListener("click", () => {
+    controller.abort();
+  });
+  document.body.append(panel);
+  return {
+    signal: controller.signal,
+    update({ resources = 0, bytes = 0, label = "" } = {}) {
+      detail.textContent = resources
+        ? `已打包 ${resources} 项 · ${formatBytes(bytes)}${label ? ` · ${label}` : ""}`
+        : label || "读取报告…";
+    },
+    close() {
+      panel.remove();
+    },
+  };
+}
+
+async function downloadReportArchive(report) {
+  const progress = showArchiveProgress(report.title);
+  try {
+    const { html, stats } = await packReportArchive(report.url, {
+      onProgress: progress.update,
+      signal: progress.signal,
+    });
+    const blob = new Blob([html], { type: "text/html;charset=utf-8" });
+    triggerDownload(URL.createObjectURL(blob), archiveFilename(report.title));
+    const missing = stats.skipped.length + stats.failed.length;
+    showToast(
+      `单文件档案已下载 · ${stats.resources} 项资源 · ${formatBytes(blob.size)}`
+        + (missing ? ` · ${missing} 项过大或抓取失败，仅保留原链接` : ""),
+      { duration: missing ? 5200 : 3600 },
+    );
+  } catch (error) {
+    if (error?.name === "AbortError") {
+      showToast("已取消打包");
+      return;
+    }
+    /* 打包失败时退回原来的行为：至少让人拿到那份 index.html。 */
+    showToast("打包失败，改为下载原始 HTML");
+    await downloadPublishedReport(report, showToast);
+  } finally {
+    progress.close();
+  }
+}
+
 function openReportInBrowser(report) {
   const target = report.url || localHtmlUrl(report);
   if (!target) return false;
@@ -3904,7 +3984,8 @@ function readerMarkup(report) {
             </button>` : ""}
           ${!restricted && (report.url || localHtml) ? `
             <button class="reader-icon-button" type="button" data-action="download-report"
-              data-id="${escapeHtml(report.id)}" aria-label="下载 HTML" title="下载 HTML">
+              data-id="${escapeHtml(report.id)}" aria-label="下载单文件 HTML 档案"
+              title="下载单文件 HTML 档案（含图片、样式、数据）">
               ${readerActionIcon("download")}
             </button>` : ""}
           ${report.url || localHtml ? `
@@ -4670,8 +4751,8 @@ function bindApp() {
         if (!report) return;
         if (localHtmlForReport(report)) {
           if (downloadLocalHtml(report)) showToast("HTML 已下载");
-        } else {
-          await downloadPublishedReport(report, showToast);
+        } else if (report.url) {
+          await downloadReportArchive(report);
         }
       } else if (action === "share-report" || action === "copy-production-url") {
         const report = state.reports.find((item) => item.id === itemId);

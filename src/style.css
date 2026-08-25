@@ -9028,3 +9028,55 @@ body.studio-modal-open {
     justify-content: flex-end;
   }
 }
+
+/*
+ * 单文件档案打包进度：和 toast 同一套视觉，但常驻到打包结束，
+ * 并带一个取消按钮（大报告可能要抓几十兆资源）。
+ */
+.archive-progress {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 130;
+  max-width: min(440px, calc(100vw - 32px));
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-radius: 12px;
+  background: var(--ink);
+  padding: 13px 17px;
+  color: #fff;
+  box-shadow: var(--shadow);
+  font-size: 13px;
+}
+
+.archive-progress-body {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.archive-progress-title,
+.archive-progress-detail {
+  overflow: hidden;
+  color: rgb(255 255 255 / 72%);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+}
+
+.archive-progress-cancel {
+  flex: none;
+  min-height: 32px;
+  border: 1px solid rgb(255 255 255 / 36%);
+  border-radius: 8px;
+  background: transparent;
+  padding: 0 11px;
+  color: #fff;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.archive-progress-cancel:hover {
+  background: rgb(255 255 255 / 12%);
+}
