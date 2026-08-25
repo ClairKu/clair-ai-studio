@@ -1,4 +1,4 @@
 {
   "$comment": "部署 pain-off-relay Worker 之后，把它的地址填进 worker_base（例如 https://pain-off-relay.<账号>.workers.dev）。留 null 时页面只读 GitHub Pages 上的定时快照，「更新数据」不会要口令、也不会触发内网重算。",
-  "worker_base": null
+  "worker_base": "https://pain-off-relay.pain-off-relay.workers.dev"
 }
