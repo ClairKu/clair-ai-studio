@@ -15,6 +15,6 @@
     <g transform="translate(44 184)" font-size="18" font-weight="700"><rect width="214" height="58" rx="16" fill="#245d56"/><text x="107" y="37" text-anchor="middle" fill="#d9fff7">公告与事件</text><rect x="232" width="214" height="58" rx="16" fill="#245d56"/><text x="339" y="37" text-anchor="middle" fill="#d9fff7">基金经理</text><rect x="464" width="214" height="58" rx="16" fill="#245d56"/><text x="571" y="37" text-anchor="middle" fill="#d9fff7">持有人结构</text><rect x="696" width="214" height="58" rx="16" fill="#245d56"/><text x="803" y="37" text-anchor="middle" fill="#d9fff7">历史持仓</text></g>
     <text x="44" y="286" fill="#aeb7ca" font-size="17">基金公司：规模可用，治理字段待补</text><text x="526" y="286" fill="#aeb7ca" font-size="17">ETF：日频可用，实时行情不进入首期</text>
   </g>
-  <text x="70" y="680" fill="#7457e8" font-family="Arial, PingFang SC, sans-serif" font-size="18" font-weight="800">5 个首期工具 · 4 道上线门禁 · 公开脱敏版</text>
+  <text x="70" y="680" fill="#7457e8" font-family="Arial, PingFang SC, sans-serif" font-size="18" font-weight="800">5 个首期工具 · 4 道上线门禁 · 原始完整报告</text>
   <text x="1130" y="700" text-anchor="end" fill="#757b8d" font-family="Arial, PingFang SC, sans-serif" font-size="15">Clair AI Studio · 2026-08-24</text>
 </svg>

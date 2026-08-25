@@ -1,204 +1,207 @@
-<!doctype html>
-<html lang="zh-CN">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="color-scheme" content="light">
-  <meta name="theme-color" content="#f6f5fb">
-  <meta name="description" content="Clair Executive Visual Report">
-  <title>Clair Executive Visual Report</title>
-  <style>
-    :root{
-      --accent:#8067e8;--accent-2:#a992ff;--accent-soft:#eeeaff;
-      --ink:#161927;--muted:#687287;--line:#e3e5ec;--paper:#fff;
-      --soft:#f5f4fa;--dark:#0b1224;--dark-2:#151e36;--teal:#51b9ad;
-      --serif:"Songti SC","Noto Serif SC",STSong,SimSun,serif;
-      --sans:"Songti SC","Noto Serif SC",STSong,SimSun,serif;
-      --mono:"Songti SC","Noto Serif SC",STSong,SimSun,serif;--nav-h:54px;
-    }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth;scroll-padding-top:var(--nav-h);scroll-snap-type:y mandatory;scrollbar-width:none}
-    html::-webkit-scrollbar,body::-webkit-scrollbar{display:none}
-    body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:15px;line-height:1.65;overflow-x:hidden}
-    a{color:inherit}button{font:inherit}.skip{position:fixed;left:16px;top:-60px;z-index:100;padding:10px 14px;border-radius:10px;background:var(--dark);color:#fff}.skip:focus{top:16px}
-    #reading-progress{position:fixed;left:0;top:0;z-index:90;width:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width .1s linear}
-    .wrap{width:min(1180px,calc(100% - 48px));margin:auto}.section{position:relative;height:calc(100svh - var(--nav-h));padding:clamp(22px,3.6vh,34px) 0;display:grid;align-items:start;scroll-snap-align:start;scroll-snap-stop:always;overflow:hidden}.section>.wrap{margin-top:0;margin-bottom:0;max-height:calc(100svh - var(--nav-h) - clamp(44px,7.2vh,68px));overflow:auto}.hero-grid,.section>.wrap,.chapter-nav,.demo-tabs{scrollbar-width:none}.hero-grid::-webkit-scrollbar,.section>.wrap::-webkit-scrollbar,.chapter-nav::-webkit-scrollbar,.demo-tabs::-webkit-scrollbar{display:none}.section.soft{background:var(--soft)}.section.dark{background:radial-gradient(circle at 84% 12%,rgba(128,103,232,.18),transparent 30%),var(--dark);color:#fff}.section.dark .lead,.section.dark .item-body,.section.dark .item-meta,.section.dark .item-source{color:#aeb8cd}.section.dark .kicker{color:#b8a7ff}
-    .hero{height:100svh;display:grid;align-items:center;position:relative;overflow:hidden;scroll-snap-align:start;scroll-snap-stop:always;background:radial-gradient(circle at 80% 15%,rgba(169,146,255,.28),transparent 29%),linear-gradient(140deg,#fcfbff 0,#f0edff 55%,#e7e0ff 100%)}
-    .hero:after{content:"";position:absolute;width:460px;height:460px;right:-120px;bottom:-210px;border:1px solid rgba(128,103,232,.22);border-radius:50%;box-shadow:0 0 0 70px rgba(128,103,232,.05),0 0 0 140px rgba(128,103,232,.035)}
-    .hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(290px,.75fr);gap:50px;align-items:end;max-height:100svh;padding:clamp(56px,9vh,90px) 0 clamp(42px,7vh,68px);overflow:auto}
-    .eyebrow,.kicker{font:800 11px/1.2 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
-    .hero h1{margin:16px 0 16px;max-width:780px;font:600 clamp(46px,6vw,76px)/1.02 var(--serif);letter-spacing:-.035em}.hero h1 em{font-style:normal;color:var(--accent)}
-    .subtitle{max-width:740px;margin:0;color:#586276;font-size:18px}.hero-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}.badge{padding:7px 11px;border:1px solid rgba(128,103,232,.22);border-radius:999px;background:rgba(255,255,255,.56);color:#5c49bd;font-size:11px;font-weight:800}.hero-actions{display:flex;gap:10px;margin-top:18px}.download-button{display:inline-flex;align-items:center;gap:8px;padding:11px 15px;border-radius:12px;background:var(--dark);color:#fff;text-decoration:none;font-size:12px;font-weight:800;box-shadow:0 12px 28px rgba(18,25,45,.14)}.download-button:after{content:"↓";color:var(--accent-2)}
-    .thesis-card{padding:28px;border:1px solid rgba(128,103,232,.2);border-radius:28px;background:rgba(255,255,255,.72);box-shadow:0 30px 80px rgba(73,54,145,.13);backdrop-filter:blur(14px)}.thesis-card small{font:800 10px var(--mono);color:var(--accent);letter-spacing:.12em}.thesis-card h2{margin:14px 0;font:600 30px/1.28 var(--serif)}.thesis-card p{margin:0;color:#626d80;font-size:13px}.hero-meta{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}.hero-meta div{padding-top:12px;border-top:1px solid rgba(128,103,232,.18)}.hero-meta b{display:block;font-size:11px}.hero-meta span{display:block;color:#778196;font-size:10px}
-    .nav-shell{position:sticky;top:0;z-index:70;height:var(--nav-h);border-bottom:1px solid rgba(226,228,235,.88);background:rgba(255,255,255,.9);backdrop-filter:blur(18px)}.nav-inner{height:var(--nav-h);display:flex;align-items:center;gap:12px}.brand{flex:0 0 auto;display:flex;align-items:center;color:inherit;text-decoration:none;font:800 11px var(--serif);letter-spacing:.06em;cursor:pointer;white-space:nowrap}.brand:hover{color:var(--accent)}.brand i{display:inline-grid;place-items:center;width:28px;height:28px;margin-right:8px;border-radius:8px;background:linear-gradient(145deg,var(--accent),var(--accent-2));color:#fff;font-style:normal}.chapter-nav{display:flex;gap:4px;min-width:0;overflow:auto;scroll-behavior:smooth;scrollbar-width:none}.chapter-nav:after{content:"";flex:0 0 calc(50% - 64px)}.chapter-nav::-webkit-scrollbar{display:none}.chapter-nav a{flex:0 0 auto;padding:6px 9px;border-radius:999px;color:#717b8e;text-decoration:none;font-size:12px;line-height:1.2;white-space:nowrap;transition:color .2s ease,background .2s ease}.chapter-nav a:hover,.chapter-nav a.active{background:var(--accent-soft);color:#5b47c7}.menu-button{display:none;margin-left:auto;width:36px;height:36px;border:1px solid var(--line);border-radius:10px;background:#fff}
-    .section-head{display:grid;grid-template-columns:minmax(0,760px);gap:10px;align-content:end;align-items:start;height:108px;margin-bottom:12px;overflow:hidden}.section-head>div{min-width:0;max-height:100%;overflow:hidden}.section-head h2{display:-webkit-box;margin:12px 0 0;overflow:hidden;font:600 clamp(30px,2.6vw,36px)/1.08 var(--serif);letter-spacing:-.025em;word-break:normal;overflow-wrap:anywhere;-webkit-box-orient:vertical;-webkit-line-clamp:2}.lead{display:-webkit-box;width:100%;margin:0;padding-left:0;overflow:hidden;color:var(--muted);font-size:13.5px;line-height:1.55;-webkit-box-orient:vertical;-webkit-line-clamp:2}
-    .items{display:grid;gap:12px}.cards,.comparison,.actions{grid-template-columns:repeat(3,minmax(0,1fr))}.metrics{grid-template-columns:repeat(4,minmax(0,1fr))}.item{position:relative;min-width:0;padding:20px;border:1px solid var(--line);border-radius:18px;background:#fff;overflow:hidden}.dark .item{border-color:rgba(255,255,255,.1);background:rgba(255,255,255,.06)}.item-index{display:block;margin-bottom:18px;font:800 11px var(--serif);color:var(--accent)}.item-eyebrow{font:800 9px var(--serif);letter-spacing:.1em;color:var(--accent)}.item h3{margin:7px 0 6px;font:600 20px/1.22 var(--serif)}.item-body{margin:0;color:var(--muted);font-size:12.5px}.item-meta{display:block;margin-top:7px;color:#80899a;font-size:10px}.item ul{margin:12px 0 0;padding:11px 0 0 18px;border-top:1px solid var(--line);color:#4f5b70;font-size:11.5px}.dark .item ul{border-color:rgba(255,255,255,.11);color:#d4daE6}.item-source{display:block;margin-top:12px;color:#8b93a2;font-size:9px}.status{display:inline-flex;align-items:center;gap:5px;margin-top:10px;padding:4px 7px;border-radius:999px;background:#eef0f4;color:#667084;font-size:9px;font-weight:800}.status:before{content:"";width:6px;height:6px;border-radius:50%;background:#8f98aa}.status.confirmed{background:#e6f6f2;color:#26786f}.status.confirmed:before{background:var(--teal)}.status.inferred{background:#fff4dc;color:#9a6817}.status.inferred:before{background:#e0a32f}.status.missing{background:#feecef;color:#ad4454}.status.missing:before{background:#d65869}.status.target{background:var(--accent-soft);color:#6650cf}.status.target:before{background:var(--accent)}
-    .metric{display:block;margin:4px 0 14px;font:600 clamp(36px,4vw,54px)/1 var(--serif);letter-spacing:-.035em;color:var(--accent)}.metrics .item{min-height:205px}.metrics .item h3{font-size:17px}
-    .architecture{grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}.architecture .item{display:block;min-height:300px;padding:18px}.architecture .item-index{margin:0 0 18px;width:44px;height:44px;display:grid;place-items:center;border-radius:13px;background:var(--accent-soft);font-size:12px}.architecture .item ul{margin-top:12px;padding-top:11px;border-top:1px solid var(--line)}.architecture .item:after{content:"→";position:absolute;right:-15px;top:28px;z-index:2;color:var(--accent);font-size:18px}.architecture .item:last-child:after{display:none}
-    .timeline{grid-template-columns:repeat(4,minmax(0,1fr));gap:0}.timeline .item{border-radius:0;border-right:0}.timeline .item:first-child{border-radius:24px 0 0 24px}.timeline .item:last-child{border-right:1px solid var(--line);border-radius:0 24px 24px 0}.timeline .item:before{content:"";position:absolute;left:0;top:0;width:100%;height:5px;background:var(--accent);opacity:calc(.45 + var(--n,0) * .15)}
-    .process{grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.process .item{padding:22px}.process .item:not(:last-child):after{content:"→";position:absolute;right:-11px;top:50%;z-index:2;width:22px;height:22px;display:grid;place-items:center;border-radius:50%;background:var(--dark);color:#fff;font-size:10px}.process .item h3{font-size:18px}
-    .evidence{grid-template-columns:repeat(2,minmax(0,1fr))}.evidence .item{padding:0}.evidence-copy{padding:22px}.evidence figure{margin:0;background:#edeaf7;aspect-ratio:16/9;overflow:hidden}.evidence img{display:block;width:100%;height:100%;object-fit:cover}.evidence-placeholder{height:100%;display:grid;place-items:center;color:#7865d5;font:800 11px var(--mono);letter-spacing:.12em}
-    .comparison .item:nth-child(2n){background:linear-gradient(145deg,#171f37,#0c1326);color:#fff;border-color:#222c47}.comparison .item:nth-child(2n) .item-body,.comparison .item:nth-child(2n) ul{color:#bdc6d7}.actions .item-index{position:absolute;right:18px;top:6px;margin:0;font:600 84px/1 var(--serif);color:#f0eef8}.actions .item>*:not(.item-index){position:relative}.actions .item h3{margin-top:60px}
-    .demo{display:block;padding:11px;border-radius:22px;background:linear-gradient(145deg,var(--dark),var(--dark-2))}.demo-tabs{display:flex;gap:6px;overflow:auto;padding:3px 3px 10px;scrollbar-width:none}.demo-tab{flex:1;min-width:145px;padding:9px 11px;border:0;border-radius:10px;background:rgba(255,255,255,.07);color:#b8c2d5;cursor:pointer;text-align:left}.demo-tab b{display:block;color:#fff;font-size:11px}.demo-tab span{font-size:9px}.demo-tab.active{background:linear-gradient(135deg,var(--accent),#6c54d8);color:#eee9ff}.demo-stage{min-height:400px;border-radius:16px;background:radial-gradient(circle at 20% 10%,rgba(128,103,232,.17),transparent 32%),#f4f2fb;overflow:hidden}.demo-panel{display:none;grid-template-columns:minmax(250px,.72fr) minmax(0,1.28fr);gap:28px;align-items:center;min-height:400px;padding:28px}.demo-panel.active{display:grid}.demo-visual{min-height:280px;padding:22px;border-radius:18px;background:#fff;box-shadow:0 20px 54px rgba(18,25,48,.11)}.demo-visual .item-index{margin-bottom:46px}.demo-panel h3{margin:9px 0;font:600 28px/1.15 var(--serif)}.demo-panel p{color:#657085}.demo-panel ul{padding-left:18px;color:#536076}
-    .callout{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;margin-top:14px;padding:13px 16px;border-radius:14px;background:var(--accent-soft);color:#4e3ca8}.dark .callout{background:rgba(169,146,255,.13);color:#eeeaff}.callout b{font:800 9px var(--serif);letter-spacing:.08em}.callout p{margin:0;font:600 14px/1.45 var(--serif)}
-    .closing{background:linear-gradient(140deg,#0b1224,#171f3b);color:#fff}.closing-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px}.closing h2{margin:14px 0;font:600 44px/1.08 var(--serif)}.source-list,.question-list{display:grid;gap:10px}.source,.question{padding:14px 16px;border:1px solid rgba(255,255,255,.11);border-radius:14px;background:rgba(255,255,255,.055)}.source b,.question b{display:block;font-size:11px}.source span,.question span{display:block;color:#9eabc2;font-size:10px;overflow-wrap:anywhere}.footer{padding:28px 0;background:#080e1d;color:#78859e;font-size:10px;scroll-snap-align:end}.footer-inner{display:flex;justify-content:space-between;gap:18px}
-    .page-rail{position:fixed;right:10px;top:50%;z-index:65;display:grid;gap:6px;transform:translateY(-50%);padding:9px 6px;border:1px solid rgba(227,229,236,.8);border-radius:999px;background:rgba(255,255,255,.72);box-shadow:0 16px 38px rgba(18,25,45,.08);backdrop-filter:blur(12px)}.page-dot{width:8px;height:8px;padding:0;border:0;outline:none;border-radius:999px;background:#c9cbd5;cursor:pointer;transition:height .22s ease,background .22s ease,transform .22s ease}.page-dot:hover,.page-dot.active{height:22px;background:var(--accent)}.page-dot:focus-visible:not(.active){background:var(--accent-2);transform:scale(1.2)}.page-counter{position:fixed;right:10px;bottom:10px;z-index:64;padding:7px 9px;border:1px solid rgba(227,229,236,.82);border-radius:9px;background:rgba(255,255,255,.78);color:#697286;box-shadow:0 12px 30px rgba(18,25,45,.07);backdrop-filter:blur(10px);font:800 10px var(--serif)}
-    .reveal{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}.reveal.visible{opacity:1;transform:none}
-    @media(max-width:980px){.hero-grid{grid-template-columns:1fr;gap:28px}.section-head{grid-template-columns:minmax(0,760px);gap:10px;align-items:start;height:120px}.section-head h2{font-size:34px}.lead{padding-left:0;-webkit-line-clamp:2}.cards,.comparison,.actions{grid-template-columns:repeat(2,1fr)}.metrics{grid-template-columns:repeat(2,1fr)}.architecture{grid-template-columns:repeat(2,1fr)}.architecture .item{min-height:0}.architecture .item:after{display:none}.timeline{grid-template-columns:repeat(2,1fr);gap:10px}.timeline .item,.timeline .item:first-child,.timeline .item:last-child{border:1px solid var(--line);border-radius:18px}.process{grid-template-columns:repeat(2,1fr)}.process .item:after{display:none}.closing-grid{grid-template-columns:1fr}}
-    @media(max-width:840px){.chapter-nav{display:none}.menu-button{display:block}.nav-shell.open .chapter-nav{position:absolute;left:18px;right:18px;top:calc(var(--nav-h) - 2px);display:grid;max-height:65vh;padding:10px;border:1px solid var(--line);border-radius:15px;background:#fff;box-shadow:0 24px 60px rgba(18,25,45,.16);overflow:auto}.nav-shell.open .chapter-nav a{padding:9px 11px}}
-    @media(max-width:720px){:root{--nav-h:50px}.wrap,.section>.wrap{width:min(100% - 28px,1180px)}.section{height:calc(100svh - var(--nav-h));padding:24px 0}.section>.wrap{max-height:calc(100svh - var(--nav-h) - 48px)}.hero-grid{padding:58px 0 38px}.hero h1{font-size:42px}.subtitle{font-size:14px}.thesis-card{padding:20px}.hero-meta{grid-template-columns:1fr}.brand span{display:none}.section-head{height:136px;margin-bottom:10px}.section-head h2{font-size:29px}.lead{padding-left:0;font-size:12.5px;line-height:1.55}.cards,.metrics,.comparison,.actions,.timeline,.process,.evidence,.architecture{grid-template-columns:1fr}.item{padding:18px}.architecture .item{min-height:0}.architecture .item-index{width:40px;height:40px;margin-bottom:14px}.architecture .item:after{display:none}.demo{margin-left:-7px;margin-right:-7px;padding:8px;border-radius:18px}.demo-tab{min-width:130px}.demo-stage{min-height:0}.demo-panel{grid-template-columns:1fr;min-height:0;padding:18px}.demo-visual{min-height:220px;padding:18px}.demo-visual .item-index{margin-bottom:28px}.demo-panel h3{font-size:24px}.callout{grid-template-columns:1fr}.callout .status{justify-self:start}.footer-inner{display:grid}.closing h2{font-size:32px}.page-rail{right:4px;gap:4px;padding:7px 4px}.page-dot{width:7px;height:7px}.page-dot:hover,.page-dot.active{height:18px}.page-counter{right:6px;bottom:6px}}
-    @media print{html{scroll-snap-type:none}#reading-progress,.nav-shell,.demo-tabs,.skip,.page-rail,.page-counter{display:none!important}.section,.hero{height:auto;min-height:auto;overflow:visible;scroll-snap-align:none}.section{padding:48px 0;break-inside:avoid}.section>.wrap,.hero-grid{max-height:none;overflow:visible}.reveal{opacity:1;transform:none}.demo-panel{display:grid!important;break-after:page}.hero-grid{padding:60px 0}}
-    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}#reading-progress{transition:none}}
-
-    /* Clair Editorial System 2.0 — final visual language */
-    :root{
-      --accent:#7457e8;--accent-2:#9d86f2;--accent-soft:#f2efff;--accent-ink:#5138b5;
-      --ink:#171a27;--muted:#687287;--line:#e3e5ec;--soft:#f7f7fa;--dark:#10182c;--dark-2:#17213a;--teal:#3fa89a;
-      --serif:"Songti SC","Noto Serif SC",STSong,SimSun,serif;
-      --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
-      --mono:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
-      --section-gap:28px;--board-gap:24px;
-    }
-    body{font-size:14px;line-height:1.65}
-    .eyebrow,.kicker,.item-eyebrow,.item-meta,.item-source,.status,.chapter-nav a,.badge,.hero-meta,.agenda-row-eyebrow,.agenda-row-tags{font-family:var(--sans)}
-    .hero{background:radial-gradient(circle at 78% 16%,rgba(157,134,242,.25),transparent 30%),linear-gradient(142deg,#fcfbff 0,#f1eeff 55%,#e7e0ff 100%)}
-    .hero-grid{grid-template-columns:1fr;align-content:center;align-items:start;padding:clamp(64px,10vh,100px) 0 clamp(48px,8vh,78px)}
-    .hero h1{max-width:none;margin:22px 0 14px;font-size:clamp(64px,8.2vw,112px);line-height:.96;letter-spacing:-.045em}
-    .subtitle{max-width:900px;color:#59637a;font-size:clamp(17px,1.6vw,22px);line-height:1.58}
-    .hero-badges{gap:10px;margin-top:36px}.badge{padding:8px 13px;background:rgba(255,255,255,.62);font-size:11px}
-    .thesis-card{width:min(760px,100%);margin-top:42px;padding:24px 28px;border:0;border-radius:20px;background:rgba(255,255,255,.56);box-shadow:none;backdrop-filter:blur(10px)}
-    .thesis-card h2{margin:11px 0 8px;font-size:clamp(24px,2.6vw,34px);line-height:1.3}.thesis-card p{font-size:12px}.hero-meta{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
-    .nav-shell{background:#fff;border-bottom-color:rgba(226,228,235,.68);box-shadow:0 8px 24px rgba(18,25,45,.035);backdrop-filter:none;color:var(--ink);transition:background .16s ease,color .16s ease,border-color .16s ease}
-    .nav-inner{gap:36px}.brand{font-size:13px;letter-spacing:.03em}.brand i{width:34px;height:34px;margin-right:10px;border-radius:10px;background:linear-gradient(145deg,var(--accent),var(--accent-2));font-size:16px}.chapter-nav a{font-size:12px}.chapter-nav a:hover,.chapter-nav a.active,.chapter-nav a:focus-visible{outline:none;background:var(--accent-soft);color:var(--accent-ink)}
-    .nav-shell[data-module-tone="dark"]{background:var(--dark);color:#fff;border-bottom-color:rgba(255,255,255,.08);box-shadow:0 8px 24px rgba(4,8,18,.16)}.nav-shell[data-module-tone="dark"] .chapter-nav a{color:#aeb7ca}.nav-shell[data-module-tone="dark"] .chapter-nav a:hover,.nav-shell[data-module-tone="dark"] .chapter-nav a.active,.nav-shell[data-module-tone="dark"] .chapter-nav a:focus-visible{background:rgba(116,87,232,.24);color:#fff}
-    .section{padding:clamp(24px,3.7vh,38px) 0}.section>.wrap{max-height:calc(100svh - var(--nav-h) - clamp(48px,7.4vh,76px));padding-bottom:32px}
-    .section-head{display:block;width:min(920px,100%);height:auto;margin:0 0 var(--section-gap);overflow:visible}.section-head>div{overflow:visible}.section-head h2{display:block;margin:8px 0 0;overflow:visible;font-size:clamp(32px,3.1vw,42px);line-height:1.16;letter-spacing:-.035em;-webkit-line-clamp:unset}.lead{display:block;margin:12px 0 0;overflow:visible;font-size:14px;line-height:1.6;-webkit-line-clamp:unset}
-    .items{gap:16px}.item{padding:24px;border-radius:18px}.item h3{font-size:clamp(20px,1.8vw,27px);line-height:1.22}.item-body{font-size:13px;line-height:1.65}.item ul{font-size:12px;line-height:1.65}.item-source{font-size:10px}.item-eyebrow{font-size:10px;line-height:1.25;letter-spacing:.13em}.item-index{font-family:"Times New Roman",Georgia,serif;font-variant-numeric:tabular-nums lining-nums;font-feature-settings:"tnum" 1,"lnum" 1}
-    .cards .item:has(.item-index),.comparison .item:has(.item-index),.timeline .item:has(.item-index),.actions .item:has(.item-index){padding-right:76px}.cards .item-index,.comparison .item-index,.timeline .item-index,.actions .item-index{position:absolute;right:20px;top:16px;margin:0;color:rgba(116,87,232,.16);font-size:52px;font-weight:500;line-height:1;letter-spacing:-.05em}.cards .item h3,.comparison .item h3,.timeline .item h3{position:relative}.actions .item h3{margin-top:54px}
-    .metrics .item{min-height:220px}.metric{color:var(--accent);font-size:clamp(42px,4.4vw,62px)}
-    .architecture .item{min-height:290px}.architecture .item-index{position:static;width:52px;height:52px;margin-bottom:28px;border-radius:15px;background:var(--accent-soft);color:var(--accent);font-size:13px}
-    .timeline .item{padding-top:30px}.timeline .item:before{height:4px}.timeline .item-eyebrow{padding-right:52px}
-    .evidence figure{position:relative;background:#f0eef7}.evidence img{background:#fff}.evidence figure.image-failed img{display:none}.evidence figure.image-failed:after{content:"IMAGE UNAVAILABLE";position:absolute;inset:0;display:grid;place-items:center;color:#8576c5;font:800 10px/1 var(--sans);letter-spacing:.14em}.evidence-copy{padding:24px}
-    .callout{margin-top:var(--board-gap);padding:15px 18px;border-radius:16px}.callout p{font-size:15px}
-    .page-rail{right:12px;gap:7px;padding:12px 7px;border:0;background:rgba(255,255,255,.12);box-shadow:0 12px 32px rgba(18,25,45,.025);backdrop-filter:blur(8px)}.page-dot{width:7px;height:7px;background:rgba(120,126,143,.15)}.page-dot:hover{height:12px;background:var(--accent-2)}.page-dot.active{height:28px;background:var(--accent);box-shadow:0 5px 16px rgba(116,87,232,.36)}.page-dot:focus-visible:not(.active){height:12px;background:var(--accent-2);transform:scale(1.12);box-shadow:0 0 0 3px rgba(116,87,232,.14)}.page-counter{border:0;background:rgba(255,255,255,.82)}
-    body.cover-active .page-rail,body.cover-active .page-counter,body.agenda-active .page-rail,body.agenda-active .page-counter{display:none}
-    #agenda{height:100svh;padding:clamp(28px,5vh,56px) 0;display:grid;align-items:center;scroll-snap-align:start;scroll-snap-stop:always;background:linear-gradient(180deg,#fbfbfe 0,#f6f5fa 100%);overflow:hidden}
-    #agenda[hidden]{display:none}#agenda>.wrap{max-height:100svh;overflow:auto}.agenda-sheet-head{margin-bottom:clamp(24px,3.8vh,38px)}.agenda-title{display:inline-grid;grid-template-columns:auto auto;grid-template-areas:"label label" "main accent";align-items:baseline;column-gap:.15em}.agenda-title>span{grid-area:label;margin-left:4px;color:var(--accent);font:800 11px/1 var(--sans);letter-spacing:.2em}.agenda-title h2{grid-area:main;margin:8px 0 0;color:var(--ink);font:600 clamp(38px,4.4vw,54px)/.96 var(--serif);letter-spacing:-.06em}.agenda-title h2 em{color:var(--accent-ink);font:500 inherit;font-style:normal}.agenda-rows{display:grid}.agenda-row{position:relative;display:grid;grid-template-columns:94px minmax(260px,.82fr) minmax(0,1.5fr);gap:32px;align-items:center;min-height:118px;padding:22px 0}.agenda-row:not(:last-child):after{content:"";position:absolute;right:0;bottom:0;left:126px;height:1px;background:#e5e3eb}.agenda-row-number{align-self:center;width:2.15ch;color:rgba(116,87,232,.14);font:500 58px/.9 "Times New Roman",Georgia,serif;font-variant-numeric:tabular-nums lining-nums;font-feature-settings:"tnum" 1,"lnum" 1;letter-spacing:-.035em;text-align:right}.agenda-row-copy{min-width:0}.agenda-row-eyebrow{display:block;margin-bottom:9px;color:var(--accent);font-size:11px;font-weight:800;line-height:1.25;letter-spacing:.14em}.agenda-row-copy h3{margin:0;color:#20232f;font:650 clamp(22px,2vw,28px)/1.16 var(--serif);letter-spacing:-.025em}.agenda-row-copy p{margin:7px 0 0;color:#858997;font-size:12px;line-height:1.5}.agenda-row-tags{display:flex;flex-wrap:wrap;gap:8px;align-content:center}.agenda-row-tags span{display:inline-flex;align-items:center;min-height:32px;padding:7px 12px;border:1px solid rgba(116,87,232,.2);border-radius:999px;background:var(--accent-soft);color:var(--accent-ink);font-size:10px;font-weight:650;line-height:1.25;white-space:nowrap}
-    @media(max-width:980px){.hero-meta{grid-template-columns:repeat(2,1fr)}.agenda-row{grid-template-columns:72px minmax(220px,.8fr) minmax(0,1.35fr);gap:22px}.agenda-row:not(:last-child):after{left:94px}.cards,.comparison,.actions{grid-template-columns:repeat(2,1fr)}}
-    @media(max-width:720px){.hero-grid{padding:62px 0 42px}.hero h1{font-size:clamp(48px,15vw,68px)}.subtitle{font-size:15px}.hero-badges{margin-top:28px}.thesis-card{margin-top:28px;padding:20px}.hero-meta{grid-template-columns:1fr 1fr}.brand i{width:34px;height:34px;margin-right:0}.brand span{display:none}.section{padding:24px 0}.section>.wrap{padding-bottom:28px}.section-head{margin-bottom:24px}.section-head h2{font-size:30px;line-height:1.18}.lead{margin-top:10px;font-size:12.5px}.cards,.metrics,.comparison,.actions,.timeline,.process,.evidence,.architecture{grid-template-columns:1fr}.item{padding:20px}.cards .item:has(.item-index),.comparison .item:has(.item-index),.timeline .item:has(.item-index),.actions .item:has(.item-index){padding-right:58px}.cards .item-index,.comparison .item-index,.timeline .item-index,.actions .item-index{right:14px;top:14px;font-size:40px}.page-rail{right:5px;gap:5px;padding:9px 5px}.page-dot{width:6px;height:6px}.page-dot.active{height:22px}#agenda{padding:22px 0;align-items:center}#agenda>.wrap{width:min(100% - 32px,1180px)}.agenda-sheet-head{margin-bottom:12px}.agenda-title>span{font-size:9px}.agenda-title h2{margin-top:7px;font-size:34px}.agenda-row{grid-template-columns:52px minmax(0,1fr);gap:14px;min-height:0;padding:14px 0}.agenda-row:not(:last-child):after{left:66px}.agenda-row-number{font-size:38px}.agenda-row-eyebrow{margin-bottom:6px;font-size:9px}.agenda-row-copy h3{font-size:17px}.agenda-row-copy p{font-size:10px}.agenda-row-tags{grid-column:2;gap:6px;margin-top:-2px}.agenda-row-tags span{min-height:25px;padding:5px 9px;font-size:8px}}
-
-    /* 2.1 — match the accepted OAP cover, ending and heading rhythm */
-    .wrap{width:min(1180px,calc(100% - 64px))}
-    .hero{background:radial-gradient(circle at 80% 15%,rgba(157,134,242,.28),transparent 29%),linear-gradient(140deg,#fcfbff 0,#f0edff 55%,#e7e0ff 100%)}
-    .hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr);align-items:center;max-height:100svh;padding:clamp(64px,10vh,104px) 0 clamp(52px,8vh,82px);overflow:auto}
-    .hero-copy{width:min(1080px,100%)}
-    .hero h1{margin:22px 0 12px;max-width:none;font:600 clamp(64px,8.2vw,112px)/.96 var(--serif);letter-spacing:-.045em}
-    .subtitle{max-width:1040px;margin:0;color:var(--accent);font:600 clamp(44px,6vw,80px)/1.06 var(--serif);letter-spacing:-.035em;white-space:pre-line}
-    .hero-badges{display:flex;flex-wrap:wrap;gap:12px;margin-top:42px}
-    .hero-badges .badge{display:inline-flex;align-items:center;gap:9px;padding:11px 16px;border:1px solid rgba(116,87,232,.26);border-radius:14px;background:linear-gradient(135deg,rgba(255,255,255,.84),rgba(244,240,255,.78));box-shadow:0 10px 24px rgba(89,65,188,.08);color:#5c49bd;font:800 13px/1.2 var(--sans);letter-spacing:.02em;backdrop-filter:blur(8px)}
-    .hero-badges .badge:before{content:"";width:8px;height:8px;flex:0 0 auto;border-radius:50%;background:#4fc2b6;box-shadow:0 0 0 4px rgba(79,194,182,.12)}
-    .hero-badges .badge:nth-child(2n):before{background:var(--accent);box-shadow:0 0 0 4px rgba(116,87,232,.12)}
-    .nav-inner{gap:40px}.brand{font-size:11px;letter-spacing:.06em}.brand i{width:28px;height:28px;margin-right:8px;border-radius:8px;font-size:14px}
-    .section{padding:clamp(24px,3.2vh,30px) 0}
-    .section>.wrap{max-height:calc(100svh - var(--nav-h) - (clamp(24px,3.2vh,30px) * 2));padding-bottom:0}
-    .section-head{display:block;width:100%;height:auto;min-height:0;margin:0 0 28px;overflow:visible}
-    .section-head>div{width:min(860px,100%);max-height:none;overflow:visible}
-    .section-head .kicker{display:block;margin:0;font-size:11px;line-height:1.2;letter-spacing:.14em}
-    .section-head h2{display:block;margin:8px 0 0 -2px;overflow:visible;font:600 clamp(30px,2.5vw,35px)/1.18 var(--serif);letter-spacing:-.025em;overflow-wrap:normal;-webkit-line-clamp:unset}
-    .section-head .lead{display:block;width:min(860px,100%);margin:8px 0 0;padding:0;overflow:hidden;color:var(--muted);font-size:13.5px;line-height:1.55;white-space:nowrap;text-overflow:ellipsis;-webkit-line-clamp:unset}
-    #sources{background:radial-gradient(circle at 78% 22%,rgba(116,87,232,.13),transparent 32%),#10182c}
-    #sources>.wrap{padding-bottom:22px}
-    .report-ending-inner{display:grid;height:100%;align-content:center;justify-items:center;text-align:center}
-    .ending-mark{display:inline-flex;align-items:center;gap:8px;margin-bottom:22px;color:#c9beff;font:800 10px/1 var(--sans);letter-spacing:.16em}
-    .ending-mark:before,.ending-mark:after{content:"";width:22px;height:1px;background:var(--accent-2)}
-    #sources h2{max-width:1100px;margin:0;color:#fff;font:500 clamp(46px,4.8vw,68px)/1.16 var(--serif);letter-spacing:-.035em}
-    #sources h2 em{color:var(--accent-2);font-style:normal}
-    .ending-lead{max-width:820px;margin:28px auto 0;color:#aeb8cd;font-size:15px;line-height:1.85}
-    .ending-meta{display:grid;gap:4px;margin-top:48px;color:#77859f;font:10px/1.6 var(--sans)}
-    .ending-boundary{width:100%;margin-top:34px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08);text-align:left}
-    .ending-boundary-label{display:block;margin-bottom:8px;color:#8f9bb0;font:800 8px/1 var(--sans);letter-spacing:.14em}
-    #sources .question-list{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
-    #sources .question{padding:8px 10px;border:0;border-left:2px solid rgba(157,134,242,.22);border-radius:0;background:transparent}
-    #sources .question b{display:block;color:#c5ccda;font:700 9px/1.3 var(--sans)}
-    #sources .question span{display:block;margin-top:2px;color:#74829b;font:8px/1.45 var(--sans)}
-    @media(max-width:980px){#sources .question-list{grid-template-columns:repeat(3,minmax(0,1fr))}}
-    @media(max-width:720px){.wrap,.section>.wrap{width:min(100% - 28px,1180px)}.hero-grid{grid-template-columns:minmax(0,1fr);min-width:0;overflow-x:hidden;padding:62px 0 42px}.hero h1{font-size:52px;line-height:1}.subtitle{font-size:39px;line-height:1.08}.hero-badges{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:34px}.hero-badges .badge{min-width:0;justify-content:center;padding:10px 8px;font-size:11px;white-space:nowrap}.brand i{width:28px;height:28px;margin-right:0}.section>.wrap{padding-bottom:28px}.section-head{margin-bottom:22px}.section-head h2{margin-left:-1px;font-size:28px;line-height:1.18}.section-head .lead{margin-top:9px;font-size:12.5px;line-height:1.55;white-space:normal}.report-ending-inner{padding-bottom:18px}#sources h2{font-size:30px}.ending-line{white-space:nowrap}.ending-mark{margin-bottom:16px}.ending-lead{margin-top:20px;font-size:12px}.ending-meta{margin-top:28px}.ending-boundary{margin-top:24px}#sources .question-list{grid-template-columns:1fr}#sources .question span{display:none}}
-  </style>
+<html lang="zh-CN"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>盈米公募基金数据能力盘点（2026-08-24）</title>
+<script src="https://registry.npmmirror.com/echarts/5.6.0/files/dist/echarts.min.js"></script>
+<style>
+  body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; margin: 0; background: #f5f7fa; color: #2c3e50; }
+  .container { max-width: 1180px; margin: 0 auto; padding: 24px 20px 60px; }
+  h1 { font-size: 26px; border-bottom: 3px solid #34695c; padding-bottom: 10px; }
+  h2 { font-size: 20px; margin-top: 36px; background: #eef4f2; border-left: 5px solid #34695c; padding: 8px 12px; }
+  h3 { font-size: 16px; margin-top: 22px; color: #1a5c4a; }
+  table { width: 100%; border-collapse: collapse; background: #fff; font-size: 13px; margin: 10px 0 18px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+  th { background: #34695c; color: #fff; padding: 8px 10px; text-align: left; white-space: nowrap; }
+  td { padding: 7px 10px; border-bottom: 1px solid #e8ecec; vertical-align: top; }
+  tr:nth-child(even) td { background: #fafcfc; }
+  code { background: #eef1f4; padding: 1px 5px; border-radius: 3px; font-size: 12px; color: #c0392b; font-family: "SF Mono", Consolas, monospace; }
+  .tag { display: inline-block; padding: 1px 8px; border-radius: 10px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+  .t-green { background: #e1f3ea; color: #1e7e4e; }
+  .t-yellow { background: #fdf3d7; color: #a07400; }
+  .t-red { background: #fde3e1; color: #b03a2e; }
+  .t-gray { background: #e8e8e8; color: #666; }
+  .note { background: #fff8e6; border-left: 4px solid #e6b800; padding: 10px 14px; font-size: 13px; margin: 12px 0; }
+  .ok { background: #e9f7ef; border-left: 4px solid #27ae60; padding: 10px 14px; font-size: 13px; margin: 12px 0; }
+  .meta { color: #7f8c8d; font-size: 12px; }
+  .flex-chart { display: flex; flex-wrap: wrap; gap: 16px; margin: 14px 0; }
+  .chart { flex: 1 1 420px; height: 320px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.08); padding: 8px; }
+  ul { line-height: 1.8; font-size: 14px; }
+  .small { font-size: 12.5px; }
+</style>
 </head>
 <body>
-  <a class="skip" href="#main">跳到正文</a>
-  <div id="reading-progress" aria-hidden="true"></div>
-  <aside class="page-rail" id="page-rail" aria-label="分屏导航"></aside>
-  <div class="page-counter" id="page-counter" aria-live="polite"></div>
-  <header class="hero" id="top"><div class="wrap hero-grid"><div class="hero-copy"><div class="eyebrow" id="hero-eyebrow"></div><h1 id="hero-title"></h1><p class="subtitle" id="hero-subtitle"></p><div class="hero-badges" id="hero-badges"></div><div class="hero-actions" id="hero-actions"></div></div></div></header>
-  <section id="agenda" hidden><div class="wrap"><div class="agenda-sheet-head"><div class="agenda-title"><span id="agenda-label">AGENDA</span><h2 id="agenda-title">报告<em>大纲</em></h2></div></div><div class="agenda-rows" id="agenda-rows"></div></div></section>
-  <nav class="nav-shell" id="nav-shell" aria-label="章节导航"><div class="wrap nav-inner"><a class="brand" id="back-to-top" href="#top" aria-label="返回报告顶部"><i id="brand-mark">C</i><span id="brand-name">CLAIR EXECUTIVE REPORT</span></a><div class="chapter-nav" id="chapter-nav"></div><button class="menu-button" id="menu-button" type="button" aria-expanded="false" aria-label="打开章节导航">☰</button></div></nav>
-  <main id="main"></main>
-  <section class="section closing" id="sources"><div class="wrap report-ending-inner"><div class="ending-mark" id="ending-mark"></div><h2><span class="ending-line"><span id="ending-line1"></span></span><br><span class="ending-line"><span id="ending-line2"></span> <em id="ending-accent"></em></span></h2><p class="ending-lead" id="ending-lead"></p><div class="ending-meta"><span id="ending-meta-primary"></span><span id="ending-meta-secondary"></span></div><div class="ending-boundary"><span class="ending-boundary-label">DEFINITION &amp; BOUNDARY · 口径与边界</span><div class="question-list" id="question-list"></div></div></div></section>
-  <script type="application/json" id="report-data">{"meta":{"title":"公募基金数据能力盘点","subtitle":"哪些已有，哪些可做成 MCP","eyebrow":"FUND DATA · MCP CAPABILITY AUDIT / 2026.08","date":"2026-08-24","cutoff":"2026-08-24","owner":"Clair × AI 开放平台","confidentiality":"公开版 · 脱敏摘要","accent":"#7457E8","brand":"Clair AI Studio","brandMark":"C"},"hero":{"conclusion":"六类基金数据诉求中，公告事件、基金经理、持有人与历史持仓已有底座，可进入 MCP 产品化；基金公司与 ETF 仅部分具备，不能把“有数据”误写成“可对外”。","thesis":"真正的上线门槛不在接口包装，而在口径、授权、数据新鲜度和个人信息边界。建议先做五个低争议工具，再补齐公司治理与 ETF 盘中能力。","badges":["6 类能力","4 类可封装","2 类需补齐","公开脱敏版"]},"closing":{"mark":"FUND DATA · MCP READINESS","line1":"先把可用数据变成","line2":"有边界、可追溯、能运营的","accent":"数据产品","lead":"优先完成五个工具的口径卡、授权确认、字段裁剪与质量监控；实时行情和公司股东结构不进入首期承诺。","metaPrimary":"Clair × AI 开放平台 · 2026-08-24","metaSecondary":"公开版已移除内部库表、路由、人员与采购实现细节"},"agenda":{"enabled":true,"label":"AGENDA","title":"报告大纲","groups":[{"index":"01","eyebrow":"JUDGEMENT · 判断","title":"先判定能不能做","summary":"六类能力分级与产品化结论","sections":["总体判断","能力矩阵"]},{"index":"02","eyebrow":"BOUNDARY · 边界","title":"再说清数据口径","summary":"四类成熟能力与两类缺口","sections":["可直接封装","持仓与持有人","部分能力"]},{"index":"03","eyebrow":"PRODUCT · 产品","title":"把数据做成 MCP","summary":"封装链路、工具组合与优先级","sections":["产品化链路","首期工具"]},{"index":"04","eyebrow":"GOVERNANCE · 治理","title":"授权先于放量","summary":"风险红线与下一步","sections":["上线红线","行动计划"]}]},"sections":[{"id":"snapshot","navLabel":"总体判断","kicker":"01 · EXECUTIVE SNAPSHOT","title":"底座基本齐，产品化仍要过四道门","lead":"能力存在、口径清楚、授权允许、质量可控，四项同时满足才是可对外 MCP。","layout":"metrics","tone":"light","items":[{"metric":"6 类","title":"本次盘点范围","body":"覆盖公告、经理、公司、持有人、持仓与 ETF。","status":"confirmed","source":"内部数据能力核验 · 2026-08-24"},{"metric":"4 类","title":"已有可封装","body":"公告事件、基金经理、持有人结构、历史报告期持仓。","status":"confirmed","source":"数据与服务链路交叉核验"},{"metric":"2 类","title":"部分已有","body":"基金公司缺股东与公司级指标；ETF 缺可靠实时行情。","status":"confirmed","source":"缺口检索与新鲜度核验"},{"metric":"5 个","title":"建议首期工具","body":"从高覆盖、低争议、易说明口径的能力先行。","status":"target","source":"产品化优先级建议"}],"callout":{"label":"核心判断","text":"首期不是做一个“全能基金数据 MCP”，而是做五个边界清楚、可独立运营的工具。","status":"confirmed"}},{"id":"matrix","navLabel":"能力矩阵","kicker":"02 · CAPABILITY MATRIX","title":"四类进入产品化，两类先补缺口","lead":"绿色代表已有底座且可进入封装；黄色代表只能承诺已有子项；红线项不进入首期。","layout":"evidence","tone":"soft","items":[{"title":"六类能力成熟度矩阵","body":"公告、经理、持有人和持仓进入首期候选；公司与 ETF 采用子能力拆分，不做整体承诺。","source":"内部本体、服务与数据新鲜度核验 · 2026-08-24","image":"assets/capability-matrix.svg","alt":"六类公募基金数据能力成熟度矩阵","imagePriority":"high","status":"confirmed"},{"title":"分级不是数据有无判断","body":"“可封装”还要求口径能解释、授权能确认、字段能裁剪、更新能监控；否则只能保留为内部能力。","source":"MCP 产品化门禁","status":"confirmed"}],"callout":{"label":"范围说明","text":"本页是公开脱敏摘要，已移除内部库表、路由、负责人、调用量与供应商实现细节。","status":"confirmed"}},{"id":"direct","navLabel":"可直接封装","kicker":"03 · READY TO PACKAGE","title":"公告事件与基金经理，最适合先做","lead":"两类数据历史深、结构化程度高，用户问题也天然适合工具调用。","layout":"comparison","tone":"dark","items":[{"index":"01","eyebrow":"ANNOUNCEMENT","title":"公告与生命周期事件","body":"支持公告检索，并将发行、上市、清盘、转型等事件与结构化状态交叉呈现。","bullets":["保留原文链接与发布日期","内置事件类型映射","区分公告事件与产品状态"],"status":"confirmed"},{"index":"02","eyebrow":"MANAGER","title":"经理档案与任职变更","body":"可返回履历摘要、历史管理产品、任职区间、公司变动与任期表现。","bullets":["默认裁剪照片等个人字段","自研评分单独标识","任职区间支持历史回溯"],"status":"confirmed"},{"index":"03","eyebrow":"PRODUCT RULE","title":"描述性数据优先","body":"首期只做事实查询与口径解释，不把评分包装成推荐，也不生成销售结论。","bullets":["不构成投资建议","来源和截止日必填","异常与缺失明确返回"],"status":"target"}]},{"id":"holdings","navLabel":"持仓与持有人","kicker":"04 · DISCLOSURE-BASED DATA","title":"披露口径不可省","lead":"这两类数据来自定期报告，不代表实时、全时点或盘中真实状态。","layout":"cards","tone":"light","items":[{"index":"01","eyebrow":"HOLDER","title":"持有人结构","body":"可查机构、个人、从业人员与联接基金等结构，也可提供披露的主要持有人信息。","bullets":["通常半年频","单一持有人并非全量实时名单","自购以公告事件呈现"],"status":"confirmed"},{"index":"02","eyebrow":"PORTFOLIO","title":"历史报告期持仓","body":"可覆盖股票、债券、资产配置与部分跨境持仓，并计算相邻报告期变动。","bullets":["季报通常只披露主要持仓","半年报与年报覆盖更完整","不含盘中调仓"],"status":"confirmed"},{"index":"03","eyebrow":"NAMING","title":"命名即风控","body":"建议使用“报告期持仓”和“披露持有人结构”，避免“全量持仓”“实时持有人”等误导。","bullets":["返回 report_date","返回 publish_date","返回 disclosure_scope"],"status":"target"}],"callout":{"label":"口径红线","text":"能计算持仓变化，不等于拥有基金每日真实持仓；能检索自购公告，不等于拥有结构化自购台账。","status":"confirmed"}},{"id":"partial","navLabel":"部分能力","kicker":"05 · PARTIAL COVERAGE","title":"公司与 ETF 要拆开看","lead":"这两类最容易因一个字段可用而被整体高估，必须按子项定级。","layout":"comparison","tone":"soft","items":[{"index":"01","eyebrow":"FUND COMPANY","title":"公司规模可用，治理能力不足","body":"公司规模与分类规模已有基础；团队稳定性可加工，但股东结构与公司级管理能力尚无可靠成品。","bullets":["先开放规模查询","团队稳定性另建指标","股东结构不承诺"],"status":"inferred"},{"index":"02","eyebrow":"ETF DAILY","title":"日频画像可用","body":"份额、规模、折溢价与估算资金流可做日频工具，但需要明确更新时间和估算方法。","bullets":["资金流不是申赎确认值","历史深度按字段说明","数据新鲜度必须监控"],"status":"confirmed"},{"index":"03","eyebrow":"ETF REALTIME","title":"实时行情不进入首期","body":"缺少完整、稳定、可对外授权的实时行情证据；申赎清单也需先恢复稳定更新。","bullets":["实时行情另做授权立项","申赎清单先修数据链路","分钟估值不等于交易所行情"],"status":"missing"}]},{"id":"productization","navLabel":"产品化链路","kicker":"06 · MCP PRODUCTIZATION","title":"复用通道，治理先行","lead":"已有服务与动态工具通道可复用；真正需要新增的是口径契约、字段策略、质量哨兵与授权控制。","layout":"architecture","tone":"dark","items":[{"index":"01","eyebrow":"SOURCE","title":"数据底座","body":"公开披露、采购数据与内部加工指标分层管理。"},{"index":"02","eyebrow":"SEMANTICS","title":"口径契约","body":"统一时间、范围、频率、来源和估算说明。"},{"index":"03","eyebrow":"POLICY","title":"权限与裁剪","body":"按渠道控制字段、授权范围与个人信息。"},{"index":"04","eyebrow":"MCP","title":"工具交付","body":"按单一任务拆工具，保留调用与审计记录。"}],"callout":{"label":"复用原则","text":"不新建一套平行数据服务；沿用成熟通道，在工具描述与返回协议中补齐治理。","status":"target"}},{"id":"tools","navLabel":"首期工具","kicker":"07 · RECOMMENDED TOOLSET","title":"首期五个工具，按价值与风险排序","lead":"每个工具都对应一个稳定任务，不把多个口径揉成一个巨型查询入口。","layout":"process","tone":"light","items":[{"index":"01","eyebrow":"P0","title":"fund-announcements","body":"公告与发行、上市、清盘、转型事件导航。","status":"target"},{"index":"02","eyebrow":"P0","title":"fund-manager-profile","body":"经理档案、历史产品与任职变更。","status":"target"},{"index":"03","eyebrow":"P0","title":"fund-holdings-history","body":"报告期持仓与相邻期变化。","status":"target"},{"index":"04","eyebrow":"P1","title":"fund-holder-structure","body":"披露持有人结构与主要持有人。","status":"target"},{"index":"05","eyebrow":"P1","title":"etf-daily-metrics","body":"ETF 日频份额、折溢价与估算资金流。","status":"target"}]},{"id":"gates","navLabel":"上线红线","kicker":"08 · RELEASE GATES","title":"四道门必须全部通过","lead":"上线门禁要进入 PRD、接口协议和运营看板，而不是停留在评审备注。","layout":"cards","tone":"soft","items":[{"index":"01","eyebrow":"LICENSE","title":"数据授权","body":"确认采购数据能否向第三方输出；优先发布公开披露重整与明确授权的自研加工。","status":"target"},{"index":"02","eyebrow":"PRIVACY","title":"个人信息","body":"经理履历摘要化，照片等字段默认关闭，支持按渠道裁剪。","status":"target"},{"index":"03","eyebrow":"QUALITY","title":"质量与新鲜度","body":"为每个工具定义截止日、更新频率、延迟阈值、缺失回退和异常告警。","status":"target"},{"index":"04","eyebrow":"SUITABILITY","title":"业务表达","body":"描述性查询与推荐评级分离，内部评分不得伪装成官方结论。","status":"target"}]},{"id":"actions","navLabel":"行动计划","kicker":"09 · NEXT ACTIONS","title":"先定口径和授权，再写接口","lead":"两周内可以形成首期立项包；数据修复和授权未完成前，不承诺 ETF 实时与完整公司治理。","layout":"actions","tone":"dark","items":[{"index":"01","eyebrow":"PRODUCT","title":"完成五张工具口径卡","body":"输入、输出、来源、截止日、频率、范围、缺失与免责声明一次写清。","meta":"责任：产品 × 数据 · 首周","status":"target"},{"index":"02","eyebrow":"LEGAL","title":"确认对外授权边界","body":"按字段和渠道确认采购授权、行情授权与个人信息处理方式。","meta":"责任：法务 × 采购 × 业务 · 首周","status":"target"},{"index":"03","eyebrow":"ENGINEERING","title":"建立质量哨兵并试点","body":"修复异常数据链路，完成字段裁剪、审计、限流与三家合作方灰度。","meta":"责任：数据 × 平台 · 第二周起","status":"target"}],"callout":{"label":"成功标准","text":"五个工具均能回答：数据从哪里来、截至何时、覆盖什么、不覆盖什么、谁能调用、异常如何发现。","status":"target"}}],"sources":[{"label":"内部公募基金数据能力盘点","detail":"本体定位、服务源码、生产数据新鲜度与工具注册交叉核验 · 2026-08-24"},{"label":"公开版脱敏规则","detail":"不公开内部库表、路由、负责人、调用量、采购实现与系统拓扑细节"}],"openQuestions":[{"title":"采购数据对外授权","detail":"需按供应商、字段、渠道与商业模式逐项确认。"},{"title":"ETF 实时能力","detail":"在行情授权和稳定数据源明确前，不进入首期范围。"},{"title":"基金公司治理数据","detail":"股东结构和公司级管理能力需要新增数据源或加工指标。"}]}</script>
-  <script>
-    const report=JSON.parse(document.getElementById("report-data").textContent);
-    const $=(selector,scope=document)=>scope.querySelector(selector);
-    const esc=value=>String(value??"").replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
-    const statusLabel={confirmed:"已确认",inferred:"判断",missing:"待补",target:"目标态"};
-    const status=value=>value?`<span class="status ${esc(value)}">${esc(statusLabel[value]||value)}</span>`:"";
-    const bullets=items=>Array.isArray(items)&&items.length?`<ul>${items.map(item=>`<li>${esc(item)}</li>`).join("")}</ul>`:"";
-    const common=item=>`${item.index?`<span class="item-index">${esc(item.index)}</span>`:""}${item.eyebrow?`<span class="item-eyebrow">${esc(item.eyebrow)}</span>`:""}${item.metric?`<strong class="metric">${esc(item.metric)}</strong>`:""}<h3>${esc(item.title)}</h3>${item.body?`<p class="item-body">${esc(item.body)}</p>`:""}${item.meta?`<span class="item-meta">${esc(item.meta)}</span>`:""}${bullets(item.bullets)}${item.source?`<span class="item-source">来源：${esc(item.source)}</span>`:""}${status(item.status)}`;
-    const card=(item,index)=>`<article class="item reveal" style="--n:${index}">${common(item)}</article>`;
-    function evidence(item){const priority=item.imagePriority==="high";return `<article class="item reveal"><figure>${item.image?`<img src="${esc(item.image)}" data-original-src="${esc(item.image)}" alt="${esc(item.alt||item.title)}" loading="${priority?"eager":"lazy"}"${priority?' fetchpriority="high"':""}>`:`<div class="evidence-placeholder">SOURCE / EVIDENCE</div>`}</figure><div class="evidence-copy">${common(item)}</div></article>`}
-    function demo(section){const tabs=section.items.map((item,index)=>`<button class="demo-tab ${index===0?"active":""}" type="button" data-demo-tab="${index}"><b>${esc(item.title)}</b><span>${esc(item.eyebrow||item.meta||"")}</span></button>`).join("");const panels=section.items.map((item,index)=>`<article class="demo-panel ${index===0?"active":""}" data-demo-panel="${index}"><div class="demo-visual"><span class="item-index">${esc(item.index||String(index+1).padStart(2,"0"))}</span><span class="item-eyebrow">${esc(item.eyebrow||"SCENE")}</span><h3>${esc(item.title)}</h3>${status(item.status)}</div><div><span class="item-eyebrow">${esc(item.meta||"EXPERIENCE WALKTHROUGH")}</span><h3>${esc(item.title)}</h3><p>${esc(item.body||"")}</p>${bullets(item.bullets)}${item.source?`<span class="item-source">来源：${esc(item.source)}</span>`:""}</div></article>`).join("");return `<div class="items demo reveal"><div class="demo-tabs">${tabs}</div><div class="demo-stage">${panels}</div></div>`}
-    function sectionMarkup(section,index){const tone=section.tone||"light";const content=section.layout==="demo"?demo(section):`<div class="items ${esc(section.layout)}">${section.items.map((item,itemIndex)=>section.layout==="evidence"?evidence(item):card(item,itemIndex)).join("")}</div>`;const callout=section.callout?`<div class="callout reveal"><b>${esc(section.callout.label||"KEY TAKEAWAY")}</b><p>${esc(section.callout.text)}</p>${status(section.callout.status)}</div>`:"";return `<section class="section ${esc(tone)}" id="${esc(section.id)}"><div class="wrap"><header class="section-head reveal"><div><div class="kicker">${esc(section.kicker||String(index+1).padStart(2,"0"))}</div><h2>${esc(section.title)}</h2></div><p class="lead">${esc(section.lead||"")}</p></header>${content}${callout}</div></section>`}
-    const agendaGroups=report.agenda?.enabled===false?[]:(report.agenda?.groups||[]);
-    const agendaMarkup=group=>`<article class="agenda-row"><div class="agenda-row-number">${esc(group.index)}</div><div class="agenda-row-copy"><span class="agenda-row-eyebrow">${esc(group.eyebrow||"")}</span><h3>${esc(group.title)}</h3><p>${esc(group.summary||"")}</p></div><div class="agenda-row-tags">${(group.sections||[]).map(label=>`<span>${esc(label)}</span>`).join("")}</div></article>`;
-    document.documentElement.style.setProperty("--accent",report.meta?.accent||"#7457e8");
-    document.title=report.meta?.title||"Clair Executive Visual Report";
-    $("meta[name=description]").content=report.hero?.conclusion||report.meta?.subtitle||"Clair Executive Visual Report";
-    $("#hero-eyebrow").textContent=report.meta?.eyebrow||"CLAIR · EXECUTIVE REPORT";
-    $("#hero-title").innerHTML=esc(report.meta?.title||"").replace(/\s*[｜|]\s*/,"<br><em>")+((report.meta?.title||"").match(/[｜|]/)?"</em>":"");
-    $("#hero-subtitle").textContent=report.meta?.subtitle||"";
-    $("#hero-badges").innerHTML=(report.hero?.badges||[]).map(value=>`<span class="badge">${esc(value)}</span>`).join("");
-    $("#hero-actions").innerHTML=report.meta?.downloadUrl?`<a class="download-button" href="${esc(report.meta.downloadUrl)}" download>${esc(report.meta.downloadLabel||"下载交付物")}</a>`:"";
-    $("#brand-mark").textContent=(report.meta?.brandMark||"C").slice(0,2);
-    $("#brand-name").textContent=report.meta?.brand||"CLAIR EXECUTIVE REPORT";
-    if(agendaGroups.length){$("#agenda").hidden=false;$("#agenda-label").textContent=report.agenda?.label||"AGENDA";const agendaTitle=report.agenda?.title||"报告大纲";$("#agenda-title").innerHTML=agendaTitle.length>2?`${esc(agendaTitle.slice(0,-2))}<em>${esc(agendaTitle.slice(-2))}</em>`:esc(agendaTitle);$("#agenda-rows").innerHTML=agendaGroups.map(agendaMarkup).join("")}
-    $("#main").innerHTML=(report.sections||[]).map(sectionMarkup).join("");
-    const navSections=(report.sections||[]).filter(section=>!section.navHidden);
-    $("#chapter-nav").innerHTML=navSections.map((section,index)=>`<a href="#${esc(section.id)}"><span>${String(index+1).padStart(2,"0")}</span> ${esc(section.navLabel||section.title)}</a>`).join("");
-    const closing=report.closing||{};
-    $("#ending-mark").textContent=closing.mark||`${report.meta?.brand||"CLAIR"} · EXECUTIVE REPORT`;
-    $("#ending-line1").textContent=closing.line1||"让复杂判断变得清晰，";
-    $("#ending-line2").textContent=closing.line2||"让每一次报告都通向";
-    $("#ending-accent").textContent=closing.accent||"行动";
-    $("#ending-lead").textContent=closing.lead||report.hero?.thesis||report.hero?.conclusion||"";
-    $("#ending-meta-primary").textContent=closing.metaPrimary||`${report.meta?.brand||"CLAIR"} · ${report.meta?.date||"日期待确认"}`;
-    $("#ending-meta-secondary").textContent=closing.metaSecondary||`材料截止 ${report.meta?.cutoff||"待确认"} · 证据状态与口径边界见下方说明`;
-    $("#question-list").innerHTML=(report.openQuestions||[]).length?(report.openQuestions||[]).map((question,index)=>`<div class="question"><b>${String(index+1).padStart(2,"0")} · ${esc(question.title||"待确认")}</b><span>${esc(question.detail||question.body||"")}</span></div>`).join(""):`<div class="question"><b>当前无公开待确认项</b><span>仍需在发布前复核材料权限、敏感性与最新版本。</span></div>`;
-    const panels=[$("#top"),...(agendaGroups.length?[$("#agenda")]:[]),...document.querySelectorAll("main>section"),$("#sources")];
-    const panelLabels=["报告封面",...(agendaGroups.length?[report.agenda?.title||"报告大纲"]:[]),...(report.sections||[]).map(section=>section.title),"口径与边界"];
-    const chapterNav=$("#chapter-nav");
-    const navLinks=[...document.querySelectorAll(".chapter-nav a")];
-    const reducedMotion=matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let activePanelIndex=0;
-    let scrollFrame=0;
-    let navigating=false;
-    let restoreScrollStyles=null;
-    const syncChapterNav=()=>{const panel=panels[activePanelIndex];const href=panel?.id==="top"?null:`#${panel?.id}`;let activeLink=null;navLinks.forEach(link=>{const active=link.getAttribute("href")===href;link.classList.toggle("active",active);if(active)activeLink=link});let left=0;if(activeLink){const navRect=chapterNav.getBoundingClientRect();const linkRect=activeLink.getBoundingClientRect();const linkCenter=linkRect.left-navRect.left+chapterNav.scrollLeft+linkRect.width/2;left=linkCenter-chapterNav.clientWidth/2}chapterNav.scrollTo({left:Math.max(0,left),behavior:reducedMotion?"auto":"smooth"})};
-    const setActivePanel=index=>{activePanelIndex=Math.max(0,Math.min(panels.length-1,index));const active=panels[activePanelIndex];document.body.classList.toggle("cover-active",active?.id==="top");document.body.classList.toggle("agenda-active",active?.id==="agenda");const activeTone=active?.classList.contains("dark")||active?.classList.contains("closing")?"dark":"light";$("#nav-shell").dataset.moduleTone=activeTone;document.querySelectorAll("[data-page-index]").forEach(node=>node.classList.toggle("active",Number(node.dataset.pageIndex)===activePanelIndex));$("#page-counter").textContent=`${String(activePanelIndex+1).padStart(2,"0")} / ${String(panels.length).padStart(2,"0")}`;syncChapterNav()};
-    const cancelPanelNavigation=()=>{if(scrollFrame)cancelAnimationFrame(scrollFrame);scrollFrame=0;navigating=false;if(restoreScrollStyles){restoreScrollStyles();restoreScrollStyles=null}};
-    const goToPanel=index=>{cancelPanelNavigation();const target=Math.max(0,Math.min(panels.length-1,index));const panel=panels[target];const navOffset=panel.id==="top"||panel.id==="agenda"?0:$("#nav-shell").offsetHeight;const targetY=Math.max(0,panel.offsetTop-navOffset);const startY=scrollY;const distance=targetY-startY;setActivePanel(target);if(reducedMotion||Math.abs(distance)<2){scrollTo(0,targetY);return}const root=document.documentElement;const previousBehavior=root.style.scrollBehavior;const previousSnap=root.style.scrollSnapType;root.style.scrollBehavior="auto";root.style.scrollSnapType="none";restoreScrollStyles=()=>{root.style.scrollBehavior=previousBehavior;root.style.scrollSnapType=previousSnap};navigating=true;const started=performance.now();const duration=Math.min(520,320+Math.abs(distance)*.018);const tick=now=>{const progress=Math.min(1,(now-started)/duration);const eased=1-Math.pow(1-progress,4);scrollTo(0,startY+distance*eased);if(progress<1){scrollFrame=requestAnimationFrame(tick);return}scrollTo(0,targetY);scrollFrame=0;navigating=false;restoreScrollStyles();restoreScrollStyles=null};scrollFrame=requestAnimationFrame(tick)};
-    $("#page-rail").innerHTML=panels.map((panel,index)=>`<button class="page-dot${index===0?" active":""}" type="button" data-page-index="${index}" aria-label="跳转到第 ${index+1} 屏：${esc(panelLabels[index]||panel.id)}"></button>`).join("");
-    setActivePanel(0);
-    document.addEventListener("click",event=>{const tab=event.target.closest("[data-demo-tab]");if(!tab)return;const demoRoot=tab.closest(".demo");demoRoot.querySelectorAll("[data-demo-tab]").forEach(node=>node.classList.toggle("active",node===tab));demoRoot.querySelectorAll("[data-demo-panel]").forEach(node=>node.classList.toggle("active",node.dataset.demoPanel===tab.dataset.demoTab))});
-    $("#page-rail").addEventListener("click",event=>{const dot=event.target.closest("[data-page-index]");if(dot)goToPanel(Number(dot.dataset.pageIndex))});
-    $("#back-to-top").addEventListener("click",event=>{event.preventDefault();goToPanel(0)});
-    addEventListener("keydown",event=>{if(event.defaultPrevented||event.metaKey||event.ctrlKey||event.altKey||event.shiftKey||event.target.closest("input,textarea,select,button,a,[contenteditable=true]"))return;const next=["ArrowDown","ArrowRight","PageDown"].includes(event.key);const previous=["ArrowUp","ArrowLeft","PageUp"].includes(event.key);if(next||previous||event.key==="Home"||event.key==="End"){event.preventDefault();goToPanel(event.key==="Home"?0:event.key==="End"?panels.length-1:activePanelIndex+(next?1:-1))}});
-    $("#menu-button").addEventListener("click",()=>{const shell=$("#nav-shell");const open=shell.classList.toggle("open");$("#menu-button").setAttribute("aria-expanded",String(open))});
-    chapterNav.addEventListener("click",event=>{const link=event.target.closest("a");if(link){const target=panels.findIndex(panel=>`#${panel.id}`===link.getAttribute("href"));if(target>=0){event.preventDefault();goToPanel(target)}}$("#nav-shell").classList.remove("open");$("#menu-button").setAttribute("aria-expanded","false")});
-    const reveals=[...document.querySelectorAll(".reveal")];const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("visible");observer.unobserve(entry.target)}}),{threshold:.12});reveals.forEach(node=>observer.observe(node));
-    const sectionObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting&&!navigating)setActivePanel(panels.indexOf(entry.target))}),{rootMargin:"-34% 0px -50%",threshold:0});panels.forEach(section=>sectionObserver.observe(section));
-    addEventListener("wheel",cancelPanelNavigation,{passive:true});addEventListener("touchstart",cancelPanelNavigation,{passive:true});
-    const wireImageRecovery=()=>document.querySelectorAll("img[data-original-src]").forEach(image=>{let retried=false;image.addEventListener("load",()=>image.closest("figure")?.classList.remove("image-failed"));image.addEventListener("error",()=>{if(!retried){retried=true;const src=image.dataset.originalSrc;image.src=`${src}${src.includes("?")?"&":"?"}retry=1`;return}image.closest("figure")?.classList.add("image-failed")})});wireImageRecovery();
-    const updateProgress=()=>{const max=document.documentElement.scrollHeight-innerHeight;$("#reading-progress").style.width=`${max>0?Math.min(100,scrollY/max*100):0}%`};addEventListener("scroll",updateProgress,{passive:true});updateProgress();
-  </script>
-</body>
-</html>
+<div class="container">
+<h1>盈米内部公募基金数据能力盘点<br><span style="font-size:15px;color:#7f8c8d;">面向「封装对外 MCP」的可行性评估 · 截至 2026-08-24</span></h1>
+<p class="meta">调研方法：图谱定位（finance-api / ias / bmdj / fdp）→ 本地源码下钻（FDP 81 个 mapper、bmdj fund-data MCP controller）→ 生产 dw-tidb 实测（表存在性 / 行数 / 历史深度 / 更新新鲜度）→ Stargate 注册表核实（ying99_oap 公开库 + ying99_oap_internal 内部库）。全部结论有真实库表或代码证据，非名称推断。数据查询走 redash 兜底（prod-db-query 未灰度）。</p>
+
+<h2>〇、执行摘要</h2>
+<div class="ok">
+<b>总体判断：盈米内部已具备一条覆盖「公告事件 / 基金经理 / 持有人 / 历史持仓 / ETF 日频」的完整公募基金数据底座，主体是 FDP 数据平台（dw-tidb <code>ying99_fdp</code> 库，81 张 ads/dwd/dim 表，上游为<b>恒生聚源采购数据</b>），经 finance-api（REST+GraphQL，数智团队）与 ias/coral/juniper（蜂鸟 ITS 投研）双通道对外供数。其中 15 个基金数据工具已经通过 Stargate（qieman.com/mcp）对 外暴露且日均真实调用。六大类中 4 类「已有可直接封装」，2 类「部分已有需补齐」；ETF 实时行情与基金公司股东信息「未找到可靠证据 / 不宜对外」。</b>
+</div>
+<div class="note"><b>三个必须写进需求文档的口径事实：</b>① 持有人结构/单一持有人是<b>定期报告披露口径</b>（年报/中报，半年一更），不是实时数据；② 历史持仓是<b>定期报告持仓</b>（季报前十大+半年报全量），非全时点真实持仓；③ ETF 资金流是<b>交易所成交按单笔规模拆估的估算口径</b>，且仅覆盖 2022-04 之后。</div>
+
+<div class="flex-chart">
+  <div id="chart1" class="chart" _echarts_instance_="ec_1787567560613" style="user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); position: relative;"><div style="position: relative; width: 566px; height: 320px; padding: 0px; margin: 0px; border-width: 0px;"><canvas data-zr-dom-id="zr_0" width="1132" height="640" style="position: absolute; left: 0px; top: 0px; width: 566px; height: 320px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div class=""></div></div>
+  <div id="chart2" class="chart" _echarts_instance_="ec_1787567560614" style="user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); position: relative;"><div style="position: relative; width: 566px; height: 320px; padding: 0px; margin: 0px; border-width: 0px;"><canvas data-zr-dom-id="zr_0" width="1132" height="640" style="position: absolute; left: 0px; top: 0px; width: 566px; height: 320px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div class=""></div></div>
+</div>
+
+<h2>一、数据底座全景（能力所在的真实位置）</h2>
+<table>
+<tbody><tr><th>底座</th><th>物理位置</th><th>服务入口</th><th>归属团队</th><th>说明</th></tr>
+<tr><td><b>FDP 数据平台</b></td><td>dw-tidb 生产数仓 <code>ying99_fdp</code>（+ <code>ying99_fdp_ex</code> 海外表）</td><td><code>finance-api</code>（REST + GraphQL，内网 ingress，20+ ns 部署）；<code>fdp-data-api</code></td><td>数据智能（owner: 徐俊/梁春霞）</td><td>81 张 mapper 表实测存在；上游=<b>恒生聚源</b>（tws-api 节点 evidence：FDP=聚源）</td></tr>
+<tr><td><b>ITS 投研平台</b></td><td><code>ying99_ias_coral</code>（coral 生产 MySQL）、<code>ying99_juniper</code>/<code>ying99_juniper2</code>、<code>ying99_finance_coral</code>（数仓同步库）</td><td><code>ias</code>/<code>ias-coral</code>/<code>coral-reef</code>/<code>vesta-reef</code>（集群内）</td><td>蜂鸟 ITS</td><td>juniper=基金/经理研究内部加工（j_manager_with_fund 73.6万行、j_its_fund_metrics 5875万行）</td></tr>
+<tr><td><b>bmdj（AI 友好基金接口）</b></td><td>Node.js 服务，聚合 finance-api/coral/smartdq/trade</td><td><code>POST /bmdj/v1/internal/fund-data/*</code>（16 个端点）</td><td>且慢</td><td><b>已有 15 个端点注册为 Stargate 公开 MCP 工具</b>，动态转 MCP（stargate wrapper）</td></tr>
+<tr><td><b>Stargate（OAP 开放平台）</b></td><td>注册表可直查：dw-tidb <code>ying99_oap</code>（公开）/ <code>ying99_oap_internal</code>（内部）</td><td>qieman.com/mcp</td><td>AI 平台</td><td>公开库 fund-data 15 路由全部 enabled；内部库 finance/fund 相关路由 1157 条</td></tr>
+</tbody></table>
+
+<h2>二、六大类逐项盘点</h2>
+
+<h3>① 基金公告、发行上市、清盘与转型事件 <span class="tag t-green">已有可直接封装</span></h3>
+<table>
+<tbody><tr><th>数据源/表</th><th>关键字段</th><th>覆盖与深度（实测）</th><th>更新频率（实测）</th><th>对外现状</th></tr>
+<tr><td><code>ying99_fdp.ads_fund_annce_info</code><br>（finance-api <code>AdsFundAnnceInfoController</code> GraphQL/REST）</td><td>annce_id / annce_date / title / annce_type_level1（1-4 大类）/ annce_type_level2（3位码）/ lan_type / file_type / file_name / link（原文URL）/ source</td><td><b>2855 万条</b>；report_date 跨度 1900-01-01 ~ 2026-09-29（含预披露）；清盘清算类（4,417）37,584 条、基金份额发售类（2,216）78,831 条、固有资金（自购相关）103,024 条</td><td><b>T+0 盘中更新</b>（src_update_time 最近 2026-08-24 12:32）</td><td>无对外路由；内部 Stargate 有 <code>/ias/fund/announce/getList</code>、<code>/ias/fund/announce/files</code> 等内部 MCP 路由</td></tr>
+<tr><td><code>ying99_fdp.ads_fund_info</code>（10.1万行）</td><td><b>issue_start_date / issue_end_date / issue_result / fund_status</b> / can_allot / can_subscribe / can_redeem / ta_code / 各类费率 / risk_level</td><td>全市场公募在销/退市基金档案</td><td>每日（src_update 最近 2026-08-24 00:24）</td><td>bmdj 已有 <code>/fund/batch-info/detail</code> 供内部 AI 使用，未对外</td></tr>
+<tr><td><code>ying99_fdp.dwd_fund_basic_info</code>（11.6万行）</td><td><b>setup_date（成立）/ list_date（上市）/ last_operate_date / clean_start_date / clean_end_date（清盘区间）/ is_change + old_fund_code + setup_date_before_change + carry_over_desc（转型承接）/ operate_type（运作方式）/ closed_operation_period（封转开）</b> / management_comp_id / trustee</td><td>1974-05-28 ~ 2026-09-29（含提前登记）</td><td>每日</td><td>无</td></tr>
+</tbody></table>
+<div class="note">口径说明：公告类型为<b>两级编码</b>（如 2/216=份额发售、4/417=清算报告、4/402=终止销售、2/203=招募说明书更新、4/418=产品资料概要），编码字典在聚源侧，封装 MCP 时需内置映射表。「发行/清盘/转型」事件既可从公告类型取（事件流），也可从 basic_info 的生命周期日期字段取（结构化状态），建议双口径都封装并标注来源字段。</div>
+
+<h3>② 基金经理完整履历、历史管理产品、任职变更 <span class="tag t-green">已有可直接封装</span></h3>
+<table>
+<tbody><tr><th>数据源/表</th><th>关键字段</th><th>覆盖与深度（实测）</th><th>更新频率（实测）</th><th>对外现状</th></tr>
+<tr><td><code>ying99_fdp.ads_fund_manager_experience</code>（8.1万条）</td><td>fund_code × manager_code × <b>start_date / leave_date / is_current / post_name（职务）/ manager_day</b> + 任期收益 period_return / 超额 / 同类排名 / 年化 / 最大回撤 / 波动率 / 夏普</td><td>1998-03-27 起 28 年全量任职区间（含未来生效任命 2026-08-26）</td><td>T-1 日更（最近 2026-08-23 23:56）</td><td>无</td></tr>
+<tr><td><code>ying99_fdp.ads_fund_manager_info</code>（7,621 位）</td><td><b>manager_resume（履历全文）/ manager_education / manager_gender / head_img</b> / manager_year_total（从业年限）/ mgnt_cnt_current + mgnt_aum_current（现任产品数与规模）/ mgnt_cnt_total</td><td>全市场基金经理档案</td><td>T-1</td><td>无</td></tr>
+<tr><td><code>ying99_fdp.ads_fund_manager_metrics</code>（7,620）</td><td><b>manage_comp_name（所属公司）</b>/ yearly_return / index_yearly_return / working_days / performance_score + <b>12+ 维评分</b>（sharpe/稳定性/经验/风控/价值/平衡/成长/牛熊振动/大中小盘 i01-i13）/ working_total_share·money·fund_count</td><td>全市场</td><td>T-1</td><td>无</td></tr>
+<tr><td><code>ying99_fdp.ads_fund_manager_company_history</code>（8,810）</td><td>manager_code × <b>start_date / end_date / company_code / company_name / mgnt_cnt / is_current</b>（经理职业生涯公司变动轨迹）</td><td>1998-03-27 起</td><td>T-1（2026-08-23）</td><td>无</td></tr>
+<tr><td><code>ying99_fdp.dwd_fund_manager_map</code>（28,021）</td><td>manager_code / manager_name / src_manager_id（供应商侧ID）</td><td>全市场</td><td>随主数据</td><td>无</td></tr>
+<tr><td><code>ying99_juniper.j_manager_with_fund</code>（73.6万行）</td><td>经理×基金关系（内部投研加工）</td><td>内部积累</td><td>内部维护</td><td>属蜂鸟 ITS 投研内部数据</td></tr>
+</tbody></table>
+<div class="note">限制提示：manager_resume / head_img 为自然人个人信息（虽源自公开披露），对外封装建议做字段级裁剪与授权评估；评分维度（i01-i13 等）为<b>内部加工指标</b>（juniper/投研口径），对外需标注为盈米自研口径而非官方披露。</div>
+
+<h3>③ 基金公司规模、团队稳定性、股东和管理能力 <span class="tag t-yellow">部分已有需补齐</span></h3>
+<table>
+<tbody><tr><th>子项</th><th>现状（实测证据）</th><th>分级</th></tr>
+<tr><td><b>公司管理规模（分资产类型）</b></td><td><b>已有且已对外</b>：bmdj <code>POST /fund-data/fund-company</code>（Stargate 公开库已注册 enabled），按报告期返回公司总规模/股票型/债券型/混合型/货币型/非货规模；下游 = ias-coral，库 <code>ying99_ias_coral</code></td><td><span class="tag t-green">可直接封装（已有）</span></td></tr>
+<tr><td>公司工商信息</td><td><code>ying99_juniper.j_fund_company</code>：注册地/注册资本/净资产/法定代表人/统一社会信用码（<b>无股东字段</b>）</td><td><span class="tag t-yellow">部分</span></td></tr>
+<tr><td>团队稳定性</td><td>无现成指标表；原料齐备 = <code>ads_fund_manager_company_history</code>（经理公司变动轨迹）+ <code>ads_fund_manager_experience</code>（离任时点），可加工「基金经理离职率/平均任职年限/在管经理数时序」</td><td><span class="tag t-yellow">需自加工</span></td></tr>
+<tr><td>股东结构</td><td><b>未找到任何可靠表</b>（ying99_fdp / juniper / finance_coral 全库检索 shareholder/gudong 无命中）；仅能从公司公告文本（股东变更公告）间接提取</td><td><span class="tag t-gray">未找到可靠证据</span></td></tr>
+<tr><td>管理能力</td><td>无公司级聚合；经理级有 ads_fund_manager_metrics 评分（自研口径），公司级需聚合加工</td><td><span class="tag t-yellow">需自加工</span></td></tr>
+</tbody></table>
+<div class="note">风险提示：fund-company 工具虽已注册对外，但<b>真实调用量极低（28 次，2026-02-03 后无调用）</b>，属「注册未运营」状态，重新推广前建议先核对 coral 侧数据新鲜度与口径文档。</div>
+
+<h3>④ 持有人结构、单一持有人、机构持有、自购 <span class="tag t-green">结构可封装 / 单一持有人与自购需标注口径</span></h3>
+<table>
+<tbody><tr><th>数据源/表</th><th>关键字段</th><th>覆盖与深度（实测）</th><th>更新频率</th><th>对外现状</th></tr>
+<tr><td><code>ying99_fdp.dwd_fund_holder_structure</code>（37.1万条）</td><td>report_date / publish_date / <b>report_source（年度报告|中期报告|基金合同生效公告|上市公告书）</b>/ scope / <b>holder_count（户数）/ avg_holding（户均）/ inst_holding_ratio（机构）/ personal_holding_ratio（个人）/ professional_holding_ratio（从业人员）/ etf_feeder_holding_ratio（ETF联接）</b></td><td>1998-04-07 ~ 2026-08-20，28 年</td><td>随定期报告披露（半年频），入库 T+1（最近 2026-08-23 22:20）</td><td>finance-api FDP 模块有接口（内部）；无对外路由</td></tr>
+<tr><td><code>ying99_fdp.dwd_fund_holder_single_share</code>（39.2万条）</td><td>report_date / <b>holder_order（前N大排名）/ holder_type_desc / initial_share / allot_share / redeem_share / holder_share / holder_share_ratio</b></td><td><b>仅 2017-03-31 起</b>（最新 2026-06-30 中报）</td><td>半年频（随年报/中报）</td><td>无</td></tr>
+<tr><td><code>ying99_fdp.dwd_fund_holder_info</code>（48.5万条）</td><td>持有人明细信息变体表</td><td>—</td><td>—</td><td>无</td></tr>
+<tr><td>基金公司自购</td><td><b>无结构化表</b>；只能公告标题匹配：<code>ads_fund_annce_info</code> 中 title LIKE '固有资金' 103,024 条（最新 2026-07-21）、'自购' 8,373 条</td><td>公告全历史</td><td>随公告 T+0</td><td>无</td></tr>
+</tbody></table>
+<div class="note"><b>口径红线</b>：持有人结构 = 定期报告披露口径（半年一更），<b>不是实时</b>；「单一持有人」实为定期报告披露的<b>前十大持有人</b>（2017 年起），对未上市基金多数报告期无此披露；自购无结构化数据，封装只能给「公告检索+要点抽取」的估算口径，不得写成结构化全量能力。</div>
+
+<h3>⑤ 全量历史持仓及持仓变动 <span class="tag t-green">已有可直接封装</span></h3>
+<table>
+<tbody><tr><th>数据源/表</th><th>关键字段</th><th>覆盖与深度（实测）</th><th>更新频率</th><th>对外现状</th></tr>
+<tr><td><code>ying99_fdp.dwd_fund_report_stock_portfolio</code>（<b>2128 万行</b>）</td><td>fund_code / report_date / publish_date / report_source / stock_code / stock_name / <b>stock_value（市值）/ stock_share（股数）/ stock_value_ratio（占净值比）</b></td><td><b>1998-06-30 ~ 2026-06-30 全历史</b>（112 个报告期）</td><td>随定期报告披露（季报后约 15-22 天入库，最近 src_update 2026-07-21）</td><td>finance-api <code>AdsFundReportStockPortfolio( Lastest | Qdii )Controller</code> GraphQL 内部可用；无对外路由</td></tr>
+<tr><td><code>dwd_fund_report_bond_portfolio</code>（382万）/ <code>_asset_portfolio</code>（62.5万）/ <code>_asset_portfolio_qdii</code> / <code>_asset_portfolio_cifm</code></td><td>债券持仓 / 资产配置（股债现金比例）/ QDII、中债估值变体</td><td>债券 2000-12-31 起；资产配置 1998 ~ 2026-08-19</td><td>同上（资产配置 src_update 2026-08-21）</td><td>同上</td></tr>
+<tr><td>ads 加工层：ads_fund_report_stock_portfolio（2207万）/ _lastest（26.4万 最新快照）/ 行业持仓 ads_fund_report_industry_portfolio(_drilldown/_lastest) / 重仓篮子 getFundHoldStockBin（vesta-reef 内部）</td><td>穿透/汇总/最新快照</td><td>同源</td><td>同源</td><td>行业配置类已通过 bmdj 4 个行业工具对外</td></tr>
+<tr><td>海外 ETF 持仓（ying99_fdp_ex）</td><td><code>overseas_etf_nport_bulk_holdings</code>（SEC NPORT 持仓）/ asset_summary / sector_summary / ym_external_overseas_etf_valuation</td><td>美股 ETF 官方持仓文件</td><td>随 NPORT 季度文件</td><td>无</td></tr>
+</tbody></table>
+<div class="note"><b>口径红线</b>：这是<b>定期报告持仓</b>——季报仅披露前十大重仓股+资产配置，半年报/年报才披露全量持仓；「持仓变动」需自行 diff 相邻报告期。<b>不是全时点真实持仓、不含盘中调仓</b>。封装时工具描述必须写明「报告期口径」。</div>
+
+<h3>⑥ ETF 份额、资金流、折溢价、实时行情、申赎清单 <span class="tag t-yellow">部分已有需补齐（实时行情不宜）</span></h3>
+<table>
+<tbody><tr><th>子项</th><th>数据源/表（实测）</th><th>覆盖与深度</th><th>更新频率</th><th>分级</th></tr>
+<tr><td>份额 / 折溢价 / 规模</td><td><code>ying99_fdp.dim_fund_etf_trade_metrics</code>（158.5万行）：<b>iopv_discount_ratio（折溢价率）/ total_share（总份额）/ total_asset（规模）/ estimated_net_allot_amount（净申购估算）/ turnover_amount</b></td><td>2005-02-23 ~ 2026-08-21（21 年日频）</td><td><b>T+1</b>（当日 09:31 已更新至前一交易日）</td><td><span class="tag t-green">可直接封装</span></td></tr>
+<tr><td>资金流</td><td><code>ying99_fdp.dwd_fund_etf_capital_flow</code>（106.9万行）：net_flow_amount + 小/中/大/超大单买卖金额、笔数、成交量</td><td><b>仅 2022-04-25 起</b></td><td>T+1（收盘后 15:35 前后）</td><td><span class="tag t-yellow">深度受限+估算口径</span></td></tr>
+<tr><td>申赎清单（PCF）</td><td><code>ying99_fdp.dwd_fund_etf_pr_list</code>（153.9万行）：nav_per_share / cash_forecasted（现金差额）/ cash_substitute_proportion（现金替代比例）/ least_redeem_unit / <b>iopv</b> / purchase_ul·redeem_ul（申赎上限）/ if_puschasable·if_redeemable</td><td>2008-04-21 起</td><td><b>⚠️ 管道疑似停更：最后数据 2026-07-20，已断流约 1 个月</b>（7 月仅 22,254 行 vs 6 月 32,727 行）</td><td><span class="tag t-red">需先修复管道</span></td></tr>
+<tr><td>ETF 类型/跟踪指数</td><td><code>ads_fund_etf_type_metrics</code>（1.5万）/ <code>dwd_fund_tracking_index_info</code>（7,584）</td><td>全市场 ETF</td><td>随基础数据</td><td><span class="tag t-green">可直接封装</span></td></tr>
+<tr><td>分钟级估值（IOPV 类）</td><td><code>ying99_finance_coral.etf_fund_value_by_minute</code> / <code>etf_index_value_by_minute</code>：<b>生产 coral 库存在，数仓同步表为 0 行（空）</b>；另内部 Stargate 有 <code>/vesta-reef/fund/estimateNav/{fundCode}</code>、juniper j_equity_fund_estimate_nav（529万行历史估算净值）</td><td>分钟级（生产库）</td><td>盘中</td><td><span class="tag t-yellow">内部可用，数仓侧未同步</span></td></tr>
+<tr><td>实时行情（Level-1/2 逐笔）</td><td><b>未找到任何可靠的内部实时行情落表</b>；行情类外部依赖为 Wind/聚源/通联（index-valuation 节点登记），实时行情转发受交易所授权约束</td><td>—</td><td>—</td><td><span class="tag t-gray">未找到可靠证据 / 不宜对外</span></td></tr>
+</tbody></table>
+
+<h2>三、Stargate / MCP 对外现状（注册表实测）</h2>
+<table>
+<tbody><tr><th>平台</th><th>基金数据相关路由</th><th>状态与真实调用</th></tr>
+<tr><td><b>公开 Stargate</b>（ying99_oap，qieman.com/mcp）</td><td>bmdj fund-data <b>15 条全部 enabled</b>：fund-industry-allocation / returns / concentration / preference、fund-stock-allocation、fund-area-allocation、fund-turnover-rate、fund-dive-count、fund-bond-credit、fund-bond-type、fund-company、bond-alert-query、filter-bond-credit、filter-bond-type、filter-fund-stock-turnover（16 个端点中仅 <code>filter-fund-invest-prefer</code> 未注册）</td><td>14 个工具活跃（最近调用 2026-08-24 12:19-12:30，累计 1552~36821 次/工具）；<b>fund-company 仅 28 次且 2026-02-03 后无调用</b></td></tr>
+<tr><td><b>内部 Stargate</b>（ying99_oap_internal）</td><td>finance/fund 相关 <b>1157 条</b>：bmdj 323、vesta-reef（投研）200+、ias 72（含 announce/getList、getHistoryNavList）、coral、fund_assistant、agent/fund 等</td><td>内部 MCP 消费已成规模，但 finance-api 的 FDP 全量数据（公告/持有人/持仓/ETF）<b>无一条对外路由</b></td></tr>
+</tbody></table>
+<p class="small">结论：<b>封装通道现成</b>——bmdj「internal/fund-data」+ Stargate 动态转 MCP 的模式已验证（零 wrapper_function，注册即工具），新工具走同链路边际成本低。</p>
+
+<h2>四、权限 / 采购 / 牌照 / 个人信息 / 行情授权限制</h2>
+<table>
+<tbody><tr><th>限制类型</th><th>事实与影响</th></tr>
+<tr><td><b>数据采购授权（最核心）</b></td><td>FDP 库上游 = <b>恒生聚源</b>（tws-api 节点 evidence 明证「FDP=聚源」；公司另采购 Wind、通联）。聚源数据授权通常按「内部使用」计费，<b>封装为对外 MCP（尤其商业输出给第三方）需与供应商重新谈判授权范围</b>，否则构成转售违约风险。建议对外工具优先：① 监管公开披露数据的重整（公告标题/类型/日期导航）；② 盈米自研加工指标（明确标注口径）。</td></tr>
+<tr><td><b>行情授权</b></td><td>ETF 实时行情（交易所 Level-1/2）受交易所信息服务授权约束，内部未发现有授权落表证据 → <b>不建议、也不具备条件封装实时行情 MCP</b>；IOPV/估算净值类（自算）可内部用，对外需法务评估。</td></tr>
+<tr><td><b>个人信息</b></td><td>基金经理 resume/学历/照片为自然人信息（公开披露来源）；对外封装建议字段级开关，默认不带 head_img，resume 摘要化。</td></tr>
+<tr><td><b>基金销售牌照边界</b></td><td>盈米持有基金销售牌照；对外数据工具若叠加「推荐/评级」表述（如经理评分、公司能力分）可能触及投顾/销售适当性边界，建议对外仅提供<b>描述性数据</b>，评分类标注「盈米内部研究口径、不构成投资建议」。</td></tr>
+<tr><td><b>现有授权机制可复用</b></td><td>Stargate 已具备 api_key + OpenChannel（OAuth 对外渠道）+ 调用留痕（api_key_usage_details）+ 后台审计（api_operation_audit）+ 用户增长看板（dw-tidb ying99_oap 库），新 MCP 无需重建鉴权体系。</td></tr>
+</tbody></table>
+
+<h2>五、优先封装建议（Top 5）</h2>
+<table>
+<tbody><tr><th>#</th><th>建议工具</th><th>数据底座</th><th>理由</th></tr>
+<tr><td>1</td><td><b>fund-announcements（公告与事件导航）</b></td><td>ads_fund_annce_info + ads_fund_info + dwd_fund_basic_info</td><td>2855 万条全历史、<b>T+0 盘中更新</b>、类型两级编码可过滤发行/发售/清盘/转型/自购事件；发行上市/清盘/转型另有结构化日期字段兜底。唯一要先做的是类型编码字典内置。</td></tr>
+<tr><td>2</td><td><b>fund-manager-profile（基金经理档案与任职变更）</b></td><td>ads_fund_manager_experience + info + metrics + company_history</td><td>28 年任职区间+任期指标齐备、T-1 更新；「历史管理产品/任职变更」一次查全；需做个人信息字段裁剪。</td></tr>
+<tr><td>3</td><td><b>fund-holdings-history（全历史报告期持仓穿透）</b></td><td>dwd_fund_report_stock/bond/asset_portfolio（+QDII 变体、海外 NPORT）</td><td>1998 年起 2100 万行股票持仓，债券/资产配置/QDII 全族；描述里强制标「定期报告口径」。</td></tr>
+<tr><td>4</td><td><b>fund-holder-structure（持有人结构+前十大持有人）</b></td><td>dwd_fund_holder_structure + dwd_fund_holder_single_share</td><td>机构/个人/联接基金持有比例 28 年；前十大持有人 2017 起；强制标「定期报告披露口径、半年频」。</td></tr>
+<tr><td>5</td><td><b>etf-daily-metrics（ETF 日频画像：份额/折溢价/资金流）</b></td><td>dim_fund_etf_trade_metrics + dwd_fund_etf_capital_flow（+修复后的 pr_list）</td><td>21 年日频份额+折溢价 T+1；资金流标注估算口径与 2022 起始；<b>前置动作=先修复申赎清单管道停更</b>。</td></tr>
+</tbody></table>
+
+<h2>六、缺口清单（按处置优先级）</h2>
+<table>
+<tbody><tr><th>缺口</th><th>现状</th><th>建议处置</th></tr>
+<tr><td><b>ETF 申赎清单管道停更</b></td><td>dwd_fund_etf_pr_list 最后数据 2026-08 无、7 月缺 1/3（最后 2026-07-20）</td><td><b>立即</b>排查 FDP ETL 作业（airflow/数据智能团队），对外封装前置条件</td></tr>
+<tr><td>基金公司股东结构</td><td>全库无表，仅公告文本</td><td>如需，走公告 NLP 抽取或评估聚源公司股东专题库采购</td></tr>
+<tr><td>公司维度聚合（团队稳定性/管理能力分）</td><td>原料齐（manager_company_history 等），无成品</td><td>数智侧加工 2 张公司级聚合表后再封装</td></tr>
+<tr><td>资金流深度不足</td><td>仅 2022-04 起、估算口径</td><td>对外明确标注；如需更早历史评估聚源历史回补</td></tr>
+<tr><td>前十大持有人 2017 前缺失</td><td>dwd_fund_holder_single_share 起于 2017-03-31</td><td>工具描述写明起始日期，勿承诺全历史</td></tr>
+<tr><td>自购无结构化数据</td><td>仅公告标题匹配（固有资金 10.3 万条）</td><td>封装为「公告事件检索」而非结构化自购台账；如需台账需自建抽取</td></tr>
+<tr><td>实时行情</td><td>无授权落表证据</td><td>不封装；如需求强烈走行情商商务授权另立项</td></tr>
+<tr><td>聚源授权范围</td><td>按内部使用采购</td><td>法务/采购确认对外 MCP 输出的授权边界后再放量</td></tr>
+<tr><td>fund-company 工具运营</td><td>已注册但 28 次调用后闲置</td><td>核对 coral 数据新鲜度与口径文档后再推广</td></tr>
+</tbody></table>
+
+<h2>七、证据与口径附录</h2>
+<ul class="small">
+<li>图谱节点：finance-api（数智，FDP 模块 81 mapper）、ias（蜂鸟，AnnounceController/ManagerController）、bmdj（且慢，src/controller/internal/fund-data-mcp.ts 16 端点）、stargate（AI 平台）、tws-api（FDP=聚源 evidence）。</li>
+<li>生产实测（dw-tidb，经 redash 兜底，2026-08-24 13:10-13:16）：ying99_fdp 17 表行数与 MIN/MAX 日期、公告类型分布（GROUP BY annce_type_level1/2）、Stargate ying99_oap.api_route 15 条 enabled + usage JOIN、ying99_oap_internal 1157 条分布、ying99_juniper 表清单、j_fund_company 无股东字段、ying99_finance_coral.etf_fund_value_by_minute 同步 0 行。</li>
+<li>注意：mapper 目录中的 dwd_fund_announcement_fdp 在生产 ying99_fdp 无同名表（生产口径以 ads_fund_annce_info 为准）；dwd_fund_announcement_date_list 存在但 0 行。</li>
+</ul>
+
+</div>
+<script>
+const c1 = echarts.init(document.getElementById('chart1'));
+c1.setOption({
+  title:{text:'六大类能力成熟度评分', left:'center', textStyle:{fontSize:14}},
+  tooltip:{},
+  radar:{
+    indicator:[
+      {name:'①公告/发行/清盘/转型',max:5},{name:'②基金经理',max:5},
+      {name:'③基金公司',max:5},{name:'④持有人',max:5},
+      {name:'⑤历史持仓',max:5},{name:'⑥ETF日频/实时',max:5}],
+    radius:'62%'
+  },
+  series:[{type:'radar',data:[{
+    value:[5,5,2.5,4,5,3],
+    name:'能力成熟度',
+    areaStyle:{color:'rgba(52,105,92,0.35)'},
+    lineStyle:{color:'#34695c'}
+  }]}]
+});
+const c2 = echarts.init(document.getElementById('chart2'));
+c2.setOption({
+  title:{text:'关键表历史深度（起始年份）与数据量（万行）', left:'center', textStyle:{fontSize:14}},
+  tooltip:{trigger:'axis',axisPointer:{type:'shadow'}},
+  legend:{top:28},
+  grid:{top:70,left:60,right:40,bottom:90},
+  xAxis:{type:'category',data:['股票持仓\n2128万','债券持仓\n382万','公告\n2855万','持有人结构\n37万','净值\n7917万','经理履历\n8.1万','ETF份额/折溢价\n158万','ETF资金流\n107万','ETF申赎清单\n154万','前十大持有人\n39万'],axisLabel:{fontSize:10,interval:0,rotate:38}},
+  yAxis:[{type:'value',name:'起始年份',min:1970,max:2030},{type:'value',name:'行数(万)',position:'right'}],
+  series:[
+    {name:'起始年份',type:'bar',data:[1998,2000,1900,1998,1990,1998,2005,2022,2008,2017],itemStyle:{color:'#34695c'}},
+    {name:'行数(万)',type:'line',yAxisIndex:1,data:[2128,382,2855,37,7917,8,158,107,154,39],itemStyle:{color:'#c0392b'},lineStyle:{width:2}}
+  ]
+});
+window.addEventListener('resize',()=>{c1.resize();c2.resize();});
+</script>
+
+
+</body><div id="codex-agent-overlay-root" data-codex-agent-overlay-root="true"></div></html>
