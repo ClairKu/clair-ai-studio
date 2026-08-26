@@ -1,0 +1,171 @@
+{
+  "meta": {
+    "title": "盈米基金与且慢 GEO 效果审计",
+    "subtitle": "从发布、引用、搜索占位、官网技术底座到业务归因的完整盘点",
+    "eyebrow": "CLAIR AI STUDIO · GEO EFFECT AUDIT",
+    "date": "2026-08-26",
+    "cutoff": "内部台账 2026-07-31｜公开检查 2026-08-26",
+    "owner": "Clair AI Studio",
+    "confidentiality": "内部经营研究 · 聚合披露",
+    "accent": "#5d5bd4"
+  },
+  "hero": {
+    "conclusion": "GEO 已证明“能被看见”，尚未证明“稳定命中、官方主导、业务可归因”。",
+    "thesis": "品牌词与“四笔钱”已经形成搜索占位，115 个发布链接中有 20 条被台账标记为 AI 引用；但 80% 内容、100% 已记录引用集中在头条与搜狐体系，官网抓取底座和非品牌问题覆盖仍弱。当前应定义为 L2 引用验证期，而不是规模化 ROI 阶段。",
+    "badges": ["115 个发布链接", "20 条已记录引用", "80% 双渠道集中", "业务归因待补"]
+  },
+  "agenda": {
+    "enabled": true,
+    "groups": [
+      {"index":"01","eyebrow":"RESULT","title":"效果到底怎么样","sections":["results","queries"]},
+      {"index":"02","eyebrow":"DIAGNOSIS","title":"为什么还不可控","sections":["distribution","crawl","risks"]},
+      {"index":"03","eyebrow":"MEASURE","title":"应该如何衡量","sections":["maturity","metrics"]},
+      {"index":"04","eyebrow":"ACTION","title":"90 天怎么推进","sections":["actions","evidence"]}
+    ]
+  },
+  "sections": [
+    {
+      "id": "results",
+      "kicker": "01 · VERIFIED OUTCOME",
+      "title": "有效，但不是命中率",
+      "lead": "最新发布台账证明分发内容确实能进入答案引擎信源，但样本没有统一测试条件，不能把台账标记率包装成全量 GEO 命中率。",
+      "layout": "metrics",
+      "tone": "light",
+      "items": [
+        {"metric":"115","title":"公开发布链接","body":"覆盖 7 类公开内容渠道；按在线台账中可解析的外部链接计数。","meta":"内部在线发布台账 · 更新至 2026-07-31","status":"confirmed"},
+        {"metric":"20","title":"已记录 AI 引用","body":"其中豆包 18 条、DeepSeek 2 条；只代表台账已有记录。","meta":"内部在线发布台账 · 更新至 2026-07-31","status":"confirmed"},
+        {"metric":"17.4%","title":"记录引用下限","body":"20÷115；未证明全部链接按同一问题、模型、时间完整测试。","meta":"计算口径：台账有引用标记链接 / 全部发布链接","status":"confirmed"},
+        {"metric":"0","title":"可确认业务转化","body":"不是没有转化，而是当前材料缺少 AI 引流、注册、签约等统一归因数据。","meta":"研究材料与站点埋点证据审计 · 2026-08-26","status":"missing"}
+      ],
+      "callout":{"label":"管理结论","text":"把 17.4% 叫“已记录引用下限”；在统一问题库与测试协议建立前，不汇报“命中率提升”或收入 ROI。","status":"confirmed"}
+    },
+    {
+      "id": "queries",
+      "kicker": "02 · QUERY LANDSCAPE",
+      "title": "品牌强，问题词弱",
+      "lead": "公开搜索样本显示，越靠近品牌和既有方法心智，盈米/且慢越容易出现；越靠近用户原始痛点，品牌答案越容易缺席。",
+      "layout": "comparison",
+      "tone": "soft",
+      "items": [
+        {"index":"A","eyebrow":"STRONG","title":"品牌与方法词","body":"“盈米基金是做什么的”“且慢靠谱吗”“四笔钱资产配置”已有官方页或品牌内容占位。","bullets":["实体解释强","四笔钱方法心智强","信任词可见"],"meta":"公开搜索抽样 · 2026-08-26","status":"confirmed"},
+        {"index":"B","eyebrow":"MEDIUM","title":"类目与比较词","body":"“基金投顾平台哪个好”“AI 基金投顾助手推荐”等已有可见内容，但主要由搜狐等分发稿承接，官方域名主导不足。","bullets":["可见不等于可信","平台分发主导","比较证据偏弱"],"meta":"公开搜索抽样 · 2026-08-26","status":"confirmed"},
+        {"index":"C","eyebrow":"WEAK","title":"非品牌痛点词","body":"“投资总是追涨杀跌怎么办”等问题未观察到盈米/且慢进入前列，用户需求与品牌答案之间仍有断层。","bullets":["问题心智缺位","缺少官方 Answer Hub","转化入口不连续"],"meta":"公开搜索小样本 · 2026-08-26","status":"confirmed"}
+      ],
+      "callout":{"label":"增长机会","text":"下一阶段不应继续堆品牌稿，而应优先占领“安全、费用、适合谁、怎么选、亏了怎么办”等高意图问题。","status":"inferred"}
+    },
+    {
+      "id": "distribution",
+      "kicker": "03 · SOURCE CONCENTRATION",
+      "title": "效果依赖双渠道",
+      "lead": "发布规模已经建立，但信源结构极度集中。头条与搜狐既贡献 80% 发布链接，也贡献 100% 已记录引用。",
+      "layout": "architecture",
+      "tone": "dark",
+      "items": [
+        {"index":"04","eyebrow":"BUSINESS","title":"转化与收入","body":"尚无 AI 来源会话、合格访问、注册或签约的统一证据。","bullets":["UTM / referrer 待补","关键事件待补","ROI 不可算"],"status":"missing"},
+        {"index":"03","eyebrow":"ANSWER","title":"20 条已记录引用","body":"所有引用标记均来自头条或搜狐体系，平台外复现性未知。","bullets":["豆包 18","DeepSeek 2","其他模型待统一复测"],"meta":"内部在线发布台账 · 2026-07-31","status":"confirmed"},
+        {"index":"02","eyebrow":"DISTRIBUTION","title":"92 条双渠道内容","body":"头条体系 60 条、搜狐体系 32 条，合计占 115 条的 80.0%。","bullets":["效率已验证","集中度偏高","来源独立性不足"],"meta":"内部在线发布台账 · 2026-07-31","status":"confirmed"},
+        {"index":"01","eyebrow":"CONTENT","title":"品牌与类目稿件","body":"品牌信任、平台对比、AI 小顾与投资科普是当前主要内容形态。","bullets":["品牌解释","排行榜/对比","零点击科普"],"status":"confirmed"}
+      ],
+      "callout":{"label":"不要误读","text":"当前证明的是“某些平台能吸收这些稿件”，不是“所有答案引擎都会稳定选择盈米/且慢”。","status":"confirmed"}
+    },
+    {
+      "id": "crawl",
+      "kicker": "04 · OWNED-SITE FOUNDATION",
+      "title": "官网没有接住效果",
+      "lead": "生成式搜索仍以可抓取、可理解、可验证的网页为底座。当前分发侧跑在前面，官方信源建设明显滞后。",
+      "layout": "evidence",
+      "tone": "light",
+      "items": [
+        {"index":"01","eyebrow":"YINGMI.CN","title":"盈米 sitemap 仅 3 个 URL","body":"robots.txt 可抓取，但 sitemap 只列首页、about、fengniao，lastmod 停留在 2025-01-27；首页/关于页缺少 H1、canonical、OpenGraph。","source":"盈米官网 robots.txt、sitemap.xml 与 HTML 响应检查 · 2026-08-26","status":"confirmed"},
+        {"index":"02","eyebrow":"QIEMAN.COM","title":"且慢机器入口返回 SPA","body":"robots.txt 与 sitemap.xml 均返回约 61KB 的首页 HTML；服务端首屏正文极少，H1、canonical、OpenGraph 缺失。","source":"且慢官网 robots.txt、sitemap.xml 与 HTML 响应检查 · 2026-08-26","status":"confirmed"},
+        {"index":"03","eyebrow":"GEO PRINCIPLE","title":"SEO 仍是 GEO 底座","body":"Google 明确指出 AI 功能仍依赖核心搜索索引和检索系统；独特、准确、可访问的内容比批量同质文本更重要。","source":"Google Search AI features and your website / Generative AI content guidance · 2026","status":"confirmed"}
+      ],
+      "callout":{"label":"结构性损失","text":"当官方页面不可发现或不可理解时，模型只能依赖分发平台与第三方材料，品牌无法稳定控制事实、截止日和下一步入口。","status":"inferred"}
+    },
+    {
+      "id": "risks",
+      "kicker": "05 · TRUST & GOVERNANCE",
+      "title": "旧口径正在污染答案",
+      "lead": "真正危险的不是没有曝光，而是模型吸收了缺少截止日、来源角色不清或已经过期的品牌说法。",
+      "layout": "cards",
+      "tone": "soft",
+      "items": [
+        {"index":"01","eyebrow":"CLAIM DRIFT","title":"96% 与 >80% 并存","body":"5 月分发稿仍使用“96% 客户盈利”，官网 2026-06-30 当前口径为“超过 80%”。可能是统计窗口变化，但缺少截止日会被模型当成同一事实。","bullets":["先对齐定义","标注统计截止","设置失效日"],"source":"内部发布台账 + 盈米官网 2026-06-30 口径","status":"confirmed"},
+        {"index":"02","eyebrow":"SOURCE ROLE","title":"品牌稿伪装成测评","body":"“排行榜”“真实测评”类标题由品牌主体分发，却使用第三方评测语气，短期利于点击，长期削弱独立可信度。","bullets":["明确内容主体","引用可核验证据","避免无依据排序"],"source":"内部发布台账标题样本 · 截止 2026-07-31","status":"confirmed"},
+        {"index":"03","eyebrow":"MODEL BIAS","title":"不同模型不能外推","body":"豆包与 DeepSeek 的记录不能推导千问、Kimi、文心等模型同样命中；模型、生态、语言和检索源都会改变结果。","bullets":["模型分层","提示词版本化","固定时间复测"],"source":"内部模型信源摸查 + 公开生成式搜索研究","status":"confirmed"}
+      ],
+      "callout":{"label":"治理原则","text":"所有可传播数字进入“品牌事实注册表”：定义、分母、时间窗、来源、负责人、失效日缺一不可。","status":"target"}
+    },
+    {
+      "id": "maturity",
+      "kicker": "06 · MATURITY DIAGNOSIS",
+      "title": "当前处于 L2",
+      "lead": "当前已经跨过“只发内容”的阶段，但还没有形成官方信源、问题覆盖、稳定复测与转化归因的闭环。",
+      "layout": "timeline",
+      "tone": "dark",
+      "items": [
+        {"index":"L1","eyebrow":"PUBLISH","title":"内容发布","body":"多渠道规模化发布并形成公开链接台账。","meta":"已完成","status":"confirmed"},
+        {"index":"L2","eyebrow":"CITATION","title":"引用验证","body":"部分内容被豆包与 DeepSeek 记录引用；当前所处阶段。","meta":"当前 · 有结果但样本不统一","status":"confirmed"},
+        {"index":"L3","eyebrow":"CONTROL","title":"可控覆盖","body":"问题库、官方 Answer Hub、权威第三方信源和多模型复测形成稳定机制。","meta":"下一目标","status":"target"},
+        {"index":"L4","eyebrow":"ATTRIBUTION","title":"业务归因","body":"AI 答案带来的访问、咨询、注册、签约可识别并可做增量实验。","meta":"最终目标","status":"target"}
+      ],
+      "callout":{"label":"投资判断","text":"供应商或内容预算应以 L3 的可控覆盖和 L4 的可归因为验收条件；单看发稿量与截图不构成 ROI。","status":"inferred"}
+    },
+    {
+      "id": "metrics",
+      "kicker": "07 · MEASUREMENT SYSTEM",
+      "title": "重建 GEO 仪表盘",
+      "lead": "把“发稿台账”升级为“问题—答案—引用—访问—转化”证据链，每层保留分母、模型、时间与版本。",
+      "layout": "process",
+      "tone": "light",
+      "items": [
+        {"index":"01","title":"问题覆盖","body":"六类意图 × 固定问题库；看 Answer Inclusion。","status":"target"},
+        {"index":"02","title":"信源选择","body":"官方、权威媒体、行业研究、分发平台分别计算引用占比。","status":"target"},
+        {"index":"03","title":"事实质量","body":"正确率、新鲜度、旧口径率、负面错误率。","status":"target"},
+        {"index":"04","title":"行为承接","body":"AI referral、合格访问、关键解释页与 App 事件。","status":"target"},
+        {"index":"05","title":"业务增量","body":"用对照组评估注册、签约或留资增量，不做最后点击归因。","status":"target"}
+      ],
+      "callout":{"label":"最小周报","text":"每周固定模型、固定问题、固定提示词版本；同时报告分子、分母、截止日和异常样本。","status":"target"}
+    },
+    {
+      "id": "actions",
+      "kicker": "08 · 90-DAY PLAN",
+      "title": "先修底座，再扩分发",
+      "lead": "最优路径不是继续堆稿，而是先修官方信源与事实治理，再补高意图问题，最后接上业务归因。",
+      "layout": "actions",
+      "tone": "soft",
+      "items": [
+        {"index":"P0","eyebrow":"0—14 DAYS","title":"止血与定标","body":"修复 robots/sitemap、H1、canonical、OG 与结构化数据；建立品牌事实注册表，优先治理 96% / >80% 口径。","meta":"产品 + 品牌 + 技术 + 合规","status":"target"},
+        {"index":"P1","eyebrow":"15—45 DAYS","title":"官方答案中枢","body":"上线可索引 Answer Hub，优先覆盖安全、费用、适合谁、怎么选、投顾与自主买基差异、追涨杀跌等问题。","meta":"品牌内容 + SEO/GEO + 投顾专家","status":"target"},
+        {"index":"P2","eyebrow":"46—90 DAYS","title":"多源与归因闭环","body":"扩展权威媒体与行业研究信源；增加 AI 来源标记与关键事件；用连续四周对照实验评估增量。","meta":"增长 + 数据 + 渠道","status":"target"}
+      ],
+      "callout":{"label":"本周最小动作","text":"先完成官网机器入口修复、六类问题基线和品牌事实注册表三件事；它们决定后续每一篇内容是否可沉淀。","status":"target"}
+    },
+    {
+      "id": "evidence",
+      "kicker": "09 · EVIDENCE BOUNDARY",
+      "title": "边界比数字更重要",
+      "lead": "本报告把已确认、判断、缺失与目标态分开；公开搜索是诊断样本，不替代完整模型监测。",
+      "layout": "evidence",
+      "tone": "light",
+      "items": [
+        {"index":"01","eyebrow":"INTERNAL LEDGER","title":"发布与引用台账","body":"用于确认链接总量、渠道分布与已记录引用；没有统一测试分母，因此不计算真实命中率。","source":"《GEO 内容发布 / AI 吸收和引用情况》在线版本 · 更新至 2026-07-31","status":"confirmed"},
+        {"index":"02","eyebrow":"PUBLIC SAMPLE","title":"搜索与站点检查","body":"用于判断六类问题的相对占位、官网抓取入口和页面基础；排名会随时间、地区与模型变化。","source":"公开搜索样本 + yingmi.cn / qieman.com 技术响应 · 2026-08-26","status":"confirmed"},
+        {"index":"03","eyebrow":"MISSING DATA","title":"转化与逐题明细","body":"未取得完整逐题、逐模型、逐时点监测明细，也没有 AI 引流后链路数据；不得外推注册、签约、规模或收入。","source":"研究证据覆盖审计 · 2026-08-26","status":"missing"}
+      ],
+      "callout":{"label":"中心判断","text":"当前最值得管理层关注的不是 20 条引用，而是能否把一次性平台吸收，升级为官方可控、事实可信、业务可归因的增长系统。","status":"inferred"}
+    }
+  ],
+  "sources": [
+    {"label":"内部 GEO 发布/引用台账","detail":"在线版本更新至 2026-07-31；报告仅使用聚合统计"},
+    {"label":"盈米基金、且慢官方站点","detail":"yingmi.cn、qieman.com；公开页面与技术响应检查 2026-08-26"},
+    {"label":"公开搜索问题样本","detail":"品牌、方法、类目、比较、AI 服务、痛点六类意图；2026-08-26"},
+    {"label":"Google Search 官方指南","detail":"AI features and your website / Generative AI content guidance"},
+    {"label":"GEO 研究论文","detail":"arXiv:2311.09735；arXiv:2509.08919"}
+  ],
+  "openQuestions": [
+    {"title":"统一测试分母","detail":"115 个链接中，哪些在何时、以什么问题、被哪些模型测试过？"},
+    {"title":"业务归因边界","detail":"AI referral、站内关键行为、App 下载/激活、注册与签约目前如何识别？"},
+    {"title":"指标口径治理","detail":"96% 与 >80% 分别对应什么统计窗口、分母与截止日，哪些旧稿需要更新？"}
+  ]
+}

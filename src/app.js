@@ -30,7 +30,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 57;
+const DATA_VERSION = 58;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -137,6 +137,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "yingmi-qieman-geo-effect-audit-2026-08-26",
+      groupId: "reporting",
+      title: "盈米基金与且慢 GEO 效果审计｜有引用，但尚未形成可控增长闭环",
+      url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-qieman-geo-effect-audit-2026-08-26/",
+      preview: "yingmi-qieman-geo-effect-audit-2026-08-26.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-26T10:50:00.000+08:00",
+      source: "内部 GEO 发布/引用台账（更新至 2026-07-31）+ 公开搜索与官网技术审计（2026-08-26）｜115 个发布链接，20 条已记录 AI 引用；17.4% 仅为台账记录下限，不等同真实命中率｜头条/搜狐体系占 80%，并贡献全部已记录引用｜品牌词与四笔钱较强，非品牌痛点词和官方信源主导偏弱｜建议进入官网技术修复、事实注册表、Answer Hub 与业务归因闭环｜内部经营研究，聚合披露",
+      access: "production",
+      workType: "competitive-research",
+      tags: ["盈米基金", "且慢", "GEO", "AI 搜索", "品牌", "内容分发", "搜索可见度", "数据效果", "官网技术", "经营汇报", "调研", "CLAIR", "HTML", "生产"],
+    },
     {
       id: "fund-data-mcp-capability-audit-2026-08-24",
       groupId: "ai-platform",

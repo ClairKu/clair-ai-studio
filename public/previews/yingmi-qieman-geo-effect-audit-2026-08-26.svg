@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">盈米基金与且慢 GEO 效果审计</title>
+  <desc id="desc">115 个发布链接、20 条已记录引用、80% 双渠道集中，当前处于引用验证期。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#171530"/>
+      <stop offset="0.58" stop-color="#403b91"/>
+      <stop offset="1" stop-color="#716de5"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".18"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity=".06"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" rx="28" fill="url(#bg)"/>
+  <circle cx="1050" cy="88" r="245" fill="#958fff" opacity=".12"/>
+  <circle cx="110" cy="610" r="200" fill="#31d4c6" opacity=".09"/>
+  <text x="74" y="78" fill="#c9c5ff" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="20" letter-spacing="5">CLAIR AI STUDIO · GEO EFFECT AUDIT</text>
+  <text x="74" y="166" fill="#fff" font-family="'Songti SC','STSong',serif" font-size="58" font-weight="700">盈米基金与且慢</text>
+  <text x="74" y="236" fill="#fff" font-family="'Songti SC','STSong',serif" font-size="58" font-weight="700">GEO 效果审计</text>
+  <text x="76" y="287" fill="#dcd9ff" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="25">能被看见，但尚未稳定命中、官方主导、业务可归因</text>
+  <g transform="translate(74 354)">
+    <rect width="244" height="174" rx="22" fill="url(#card)" stroke="#ffffff" stroke-opacity=".18"/>
+    <text x="26" y="66" fill="#fff" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="54" font-weight="700">115</text>
+    <text x="26" y="112" fill="#e8e6ff" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="23">公开发布链接</text>
+    <text x="26" y="145" fill="#bdb9e9" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="17">台账截止 2026-07-31</text>
+  </g>
+  <g transform="translate(338 354)">
+    <rect width="244" height="174" rx="22" fill="url(#card)" stroke="#ffffff" stroke-opacity=".18"/>
+    <text x="26" y="66" fill="#fff" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="54" font-weight="700">20</text>
+    <text x="26" y="112" fill="#e8e6ff" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="23">已记录 AI 引用</text>
+    <text x="26" y="145" fill="#bdb9e9" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="17">下限，不是命中率</text>
+  </g>
+  <g transform="translate(602 354)">
+    <rect width="244" height="174" rx="22" fill="url(#card)" stroke="#ffffff" stroke-opacity=".18"/>
+    <text x="26" y="66" fill="#fff" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="54" font-weight="700">80%</text>
+    <text x="26" y="112" fill="#e8e6ff" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="23">头条 / 搜狐集中</text>
+    <text x="26" y="145" fill="#bdb9e9" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="17">100% 已记录引用来自两者</text>
+  </g>
+  <g transform="translate(866 354)">
+    <rect width="260" height="174" rx="22" fill="#fff" fill-opacity=".92"/>
+    <text x="26" y="59" fill="#5d5bd4" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="42" font-weight="800">L2</text>
+    <text x="26" y="105" fill="#26233f" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="25" font-weight="700">引用验证期</text>
+    <text x="26" y="140" fill="#6d6981" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="17">下一站：可控覆盖</text>
+  </g>
+  <text x="76" y="613" fill="#d4d1f5" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="18">公开搜索 · 站点技术审计 · 内部发布/引用台账 · 2026-08-26</text>
+</svg>

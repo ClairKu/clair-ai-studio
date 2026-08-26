@@ -37,8 +37,8 @@ const reports = reportChunks.map((chunk) => ({
   access: chunk.match(/\baccess:\s*"([^"]+)"/)?.[1] || "",
 }));
 
-if (reports.length !== 122) { // +1 fund-data-mcp-capability-audit-2026-08-24
-  fail(`初始成果数量异常：预期 122，实际 ${reports.length}`);
+if (reports.length !== 123) { // +1 yingmi-qieman-geo-effect-audit-2026-08-26
+  fail(`初始成果数量异常：预期 123，实际 ${reports.length}`);
 }
 
 for (const field of ["id", "url"]) {
