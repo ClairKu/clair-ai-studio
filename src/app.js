@@ -138,6 +138,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "qieman-risk-scope-2026-08-27",
+      groupId: "product-planning",
+      title: "持仓风险诊断 risk-scope｜全实时真值·后端强版本（说明卡片）",
+      url: "https://clairku.github.io/clair-ai-studio/apps/risk-scope-about/",
+      preview: "qieman-risk-scope.svg",
+      pinned: true,
+      position: 1,
+      createdAt: "2026-08-27T15:12:00.000+08:00",
+      source: "同系互补工具（后端强版本）：Node 后端 server.mjs，所有风险数值来自盈米内部真实接口、无 mock｜四画像来源+三持仓来源｜晨星真值组合分（uaap portfolio-risk，权重归一到精确 1.0）｜舒适区五段（过低/临界偏低/匹配/临界偏高/过高）｜策略成分拆解（长赢走 plan、普通组合走 pomodel、现金用 000509 代表）｜再平衡真值二分求解+晨星确认制（杜绝私募/策略码误算）｜三轴不可混用（适当性 0-100 / 晨星分 0-100+ 上界非100 / 协会 R1-R5）｜依赖内网 uaap-gateway+pomodel，无法纯静态公网托管，故以说明卡片呈现，本地 node server.mjs 运行（:5179）｜与在线可玩的「风险透镜」互补（前端离线强 vs 后端实时强）",
+      access: "production",
+      workType: "product-demo",
+      tags: ["且慢", "持仓诊断", "风险测算", "晨星风险分", "舒适区间", "策略成分", "再平衡", "适当性匹配", "后端服务", "说明卡片", "原型 Demo", "盈米本体", "且慢蓝", "生产"],
+    },
+    {
       id: "qieman-risk-lens-2026-08-27",
       groupId: "product-planning",
       title: "风险透镜｜且慢持仓风险测算：个人风险分 × 舒适区间 × 持仓落点（交互工具）",

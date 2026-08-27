@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>持仓风险诊断 (risk-scope) · 说明</title>
+<style>
+  :root{--brand:#1B88EE;--deep:#0f72cd;--ink:#0b2540;--soft:#5a6b82;--line:#e4ebf3;--bg:#f5f8fc;--card:#fff;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:920px;margin:0 auto;padding:40px 22px 80px}
+  .hero{background:linear-gradient(135deg,#0f3f75,#1B88EE);border-radius:20px;padding:34px 32px;color:#fff}
+  .hero h1{margin:0 0 8px;font-size:28px;font-weight:750}
+  .hero p{margin:0;color:#d6ebff;font-size:15px}
+  .pill{display:inline-block;margin-top:16px;padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.16);font-size:13px;font-weight:600}
+  .note{margin:22px 0;padding:16px 18px;border-radius:14px;background:#fff6ec;border:1px solid #f5dcbf;color:#8a5a1b;font-size:14px}
+  .card{background:var(--card);border-radius:16px;box-shadow:0 1px 3px rgba(20,30,50,.06),0 8px 24px rgba(20,30,50,.05);padding:24px 26px;margin:18px 0}
+  .card h2{font-size:17px;margin:0 0 14px;font-weight:700}
+  ul{margin:0;padding-left:20px}
+  li{margin:7px 0;font-size:14.5px;color:#243a52}
+  code{background:#eef3f9;padding:2px 7px;border-radius:6px;font-size:13px;color:var(--deep)}
+  pre{background:#0b2540;color:#dbeafe;padding:14px 16px;border-radius:12px;overflow:auto;font-size:13px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:640px){.grid{grid-template-columns:1fr}}
+  .feat{border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .feat b{color:var(--deep)}
+  .axis{font-size:13.5px;color:var(--soft)}
+  .foot{margin-top:26px;font-size:12.5px;color:#98a7ba}
+  svg{max-width:100%;height:auto;display:block}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <h1>持仓风险诊断 · risk-scope</h1>
+    <p>把「你的风险舒适区」和「持仓的晨星风险分」放在同一条 0–100 刻度上，看清落点过低 / 匹配 / 过高，并给出可验证的再平衡建议。</p>
+    <span class="pill">后端强版本 · 全实时真值 · 需本地 / 内网后端运行</span>
+  </div>
+
+  <div class="note">
+    <b>为什么这是说明页而不是在线应用：</b>本工具是 Node 后端服务（<code>server.mjs</code>），所有风险数值都来自盈米内部真实接口（组合晨星分、舒适区五段、策略成分拆解），
+    <b>没有 mock、没有假数据</b>。它依赖内网可达的 uaap-gateway / pomodel，无法部署为纯静态公网页面，因此在工作台以说明卡片呈现。
+    需要完整交互的离线版请用同系工具「<b>风险透镜</b>」（工作台另一张卡片，浏览器直接可玩）。
+  </div>
+
+  <!-- UI mockup -->
+  <div class="card">
+    <h2>界面一览</h2>
+    <svg viewBox="0 0 860 300" font-family="-apple-system,'PingFang SC',sans-serif">
+      <rect width="860" height="300" rx="12" fill="#f7fafe" stroke="#e4ebf3"/>
+      <text x="28" y="40" font-size="18" font-weight="700" fill="#0b2540">持仓风险诊断</text>
+      <text x="28" y="60" font-size="12" fill="#8194ab">你的风险舒适区 × 持仓的晨星风险分</text>
+      <rect x="700" y="24" width="60" height="24" rx="12" fill="#e7f7ee"/><text x="712" y="40" font-size="12" fill="#1c7a45" font-weight="700">TEST</text>
+      <!-- profile row -->
+      <text x="28" y="96" font-size="13" font-weight="700" fill="#243a52">① 你的风险画像</text>
+      <g font-size="11" font-weight="600">
+        <rect x="28" y="108" width="150" height="46" rx="8" fill="#fff" stroke="#e4ebf3"/><text x="42" y="128" fill="#0b2540">C1 保守型</text><text x="42" y="144" fill="#9aa8bb">总分 0–24</text>
+        <rect x="186" y="108" width="150" height="46" rx="8" fill="#fff" stroke="#e4ebf3"/><text x="200" y="128" fill="#0b2540">C2 稳健偏保守</text><text x="200" y="144" fill="#9aa8bb">25–44</text>
+        <rect x="344" y="108" width="150" height="46" rx="8" fill="#eaf4fe" stroke="#1B88EE"/><text x="358" y="128" fill="#0f72cd">C3 稳健型</text><text x="358" y="144" fill="#5a9bd8">45–54 · 已选</text>
+        <rect x="502" y="108" width="150" height="46" rx="8" fill="#fff" stroke="#e4ebf3"/><text x="516" y="128" fill="#0b2540">C4 稳健偏激进</text><text x="516" y="144" fill="#9aa8bb">55–64</text>
+        <rect x="660" y="108" width="150" height="46" rx="8" fill="#fff" stroke="#e4ebf3"/><text x="674" y="128" fill="#0b2540">C5 激进型</text><text x="674" y="144" fill="#9aa8bb">65–100</text>
+      </g>
+      <!-- scale -->
+      <text x="28" y="196" font-size="13" font-weight="700" fill="#243a52">② 风险落点</text>
+      <rect x="180" y="200" width="200" height="40" rx="8" fill="#1B88EE" opacity="0.12"/>
+      <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#3B9C5A"/><stop offset="0.5" stop-color="#E8B94A"/><stop offset="1" stop-color="#D95151"/></linearGradient></defs>
+      <rect x="28" y="210" width="784" height="22" rx="8" fill="url(#g)"/>
+      <path d="M360 206 l-7 -10 l14 0 z" fill="#0b2540"/><text x="360" y="192" font-size="12" font-weight="700" fill="#0b2540" text-anchor="middle">我 51</text>
+      <circle cx="470" cy="248" r="6" fill="#0b2540"/><text x="470" y="272" font-size="12" font-weight="700" fill="#0b2540" text-anchor="middle">持仓 61.9</text>
+      <text x="250" y="266" font-size="11" fill="#1B88EE" text-anchor="middle">舒适区 40–59（五段临界）</text>
+    </svg>
+  </div>
+
+  <div class="card">
+    <h2>核心能力</h2>
+    <div class="grid">
+      <div class="feat"><b>四条画像来源</b><br>带入且慢账户 / 手选五档 / 直接填分 / 现场重做风测</div>
+      <div class="feat"><b>三条持仓来源</b><br>上传 Excel·CSV / 搜基金与策略 / 导入且慢真实持仓</div>
+      <div class="feat"><b>晨星真值组合分</b><br>uaap portfolio-risk 任意持仓打分，权重归一到精确 1.0</div>
+      <div class="feat"><b>舒适区五段</b><br>过低 / 临界偏低 / 匹配 / 临界偏高 / 过高，晨星接口实时返回</div>
+      <div class="feat"><b>策略成分拆解</b><br>长赢走 plan、普通组合走 pomodel，现金项用 000509 代表</div>
+      <div class="feat"><b>再平衡求解</b><br>真值二分求解目标分，晨星确认制杜绝私募/策略码误算</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>三条轴 · 不可混用</h2>
+    <ul class="axis">
+      <li><b>适当性总分 0–100</b>（抗风险值）—— 风测结果，分档 C0–C5。</li>
+      <li><b>晨星风险分 0–100+</b> —— 标的与持仓风险；<b>上界非 100</b>（招商中证白酒实测 127.3）。</li>
+      <li><b>协会风险等级 R1–R5</b> —— 合规等级，只用于适当性匹配，<b>与晨星分不可换算</b>。</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>本地运行</h2>
+    <pre>node server.mjs
+# 打开 http://127.0.0.1:5179</pre>
+    <ul>
+      <li>Node 18+，零依赖，无需 <code>npm install</code>（用内置 fetch / AbortSignal.timeout）。</li>
+      <li>公网可达 <code>test.qieman.com</code>：基金/策略检索、协会 R 档、波动率/回撤。</li>
+      <li>内网可达（VPN / 办公网）<code>nginx.qm-test.dq.yingmi-inc.com</code>：组合分、舒适区五段、策略成分——不满足时退本地经验表并显式标注。</li>
+    </ul>
+  </div>
+
+  <div class="foot">
+    源码：<code>/Users/guty/AI/qieman-risk-scope</code> · 与在线可玩的「风险透镜」为同系互补工具（前端离线强 vs 后端实时强）· 官方且慢蓝 #1B88EE
+  </div>
+</div>
+</body>
+</html>

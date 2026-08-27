@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 405" width="720" height="405" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b2f57"/>
+      <stop offset="1" stop-color="#0f72cd"/>
+    </linearGradient>
+    <linearGradient id="scale" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#3B9C5A"/>
+      <stop offset="0.35" stop-color="#5BB98B"/>
+      <stop offset="0.5" stop-color="#E8B94A"/>
+      <stop offset="0.72" stop-color="#E08A3C"/>
+      <stop offset="1" stop-color="#D95151"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="405" fill="url(#bg)"/>
+  <text x="56" y="88" fill="#fff" font-size="40" font-weight="700">持仓风险诊断</text>
+  <text x="56" y="122" fill="#cfe6ff" font-size="18" font-weight="500">risk-scope · 全实时真值 · 后端强版本</text>
+  <rect x="56" y="140" width="212" height="30" rx="15" fill="#ffffff" opacity="0.16"/>
+  <text x="72" y="160" fill="#eaf4ff" font-size="14" font-weight="600">需本地 / 内网后端运行</text>
+
+  <!-- five-segment comfort scale -->
+  <g transform="translate(56,232)">
+    <text x="0" y="-16" fill="#9fc6f0" font-size="13">过低</text>
+    <text x="150" y="-16" fill="#9fc6f0" font-size="13">临界偏低</text>
+    <text x="286" y="-16" fill="#9fc6f0" font-size="13">匹配</text>
+    <text x="430" y="-16" fill="#9fc6f0" font-size="13">临界偏高</text>
+    <text x="556" y="-16" fill="#9fc6f0" font-size="13">过高</text>
+    <rect x="150" y="4" width="196" height="52" rx="8" fill="#ffffff" opacity="0.18"/>
+    <rect x="0" y="14" width="608" height="30" rx="8" fill="url(#scale)"/>
+    <line x1="130" y1="14" x2="130" y2="44" stroke="#fff" stroke-width="1.5" opacity="0.5" stroke-dasharray="2 2"/>
+    <line x1="360" y1="14" x2="360" y2="44" stroke="#fff" stroke-width="1.5" opacity="0.5" stroke-dasharray="2 2"/>
+    <path d="M300 6 l-8 -12 l16 0 z" fill="#fff"/>
+    <text x="300" y="-4" fill="#fff" font-size="15" font-weight="700" text-anchor="middle">我 51</text>
+    <circle cx="392" cy="76" r="8" fill="#fff"/>
+    <line x1="392" y1="44" x2="392" y2="68" stroke="#fff" stroke-width="2" stroke-dasharray="3 3" opacity="0.7"/>
+    <text x="392" y="100" fill="#fff" font-size="15" font-weight="700" text-anchor="middle">持仓 61.9</text>
+  </g>
+
+  <g transform="translate(56,354)" fill="#eaf4ff" font-size="14">
+    <rect x="0" y="-19" width="182" height="28" rx="14" fill="#ffffff" opacity="0.14"/>
+    <text x="15" y="0" font-weight="600">晨星真值组合分</text>
+    <rect x="198" y="-19" width="150" height="28" rx="14" fill="#ffffff" opacity="0.14"/>
+    <text x="213" y="0" font-weight="600">策略成分拆解</text>
+    <rect x="364" y="-19" width="164" height="28" rx="14" fill="#ffffff" opacity="0.14"/>
+    <text x="379" y="0" font-weight="600">再平衡真值求解</text>
+  </g>
+  <text x="56" y="390" fill="#8fb8e6" font-size="12.5">Node 后端 · 无 mock · 舒适区五段 + 三轴不可混用 · 官方且慢蓝 #1B88EE</text>
+</svg>
