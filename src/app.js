@@ -1476,12 +1476,13 @@ const initialState = {
     {
       id: "oap-traffic-analysis",
       groupId: "ai-platform",
-      title: "盈米 AI 开放平台｜全站访问与点击分析",
-      url: "https://clairku.github.io/qieman-product-research-library/pages/oap/oap-service-site-traffic-analysis-2026-07-28.html",
+      title: "盈米 AI 开放平台｜官网统计范围与访问走势",
+      url: "https://clairku.github.io/qieman-product-research-library/pages/oap/oap-site-traffic-scope-and-trend-2026-08-27/",
+      preview: "oap-site-traffic-scope-and-trend-2026-08-27.png",
       pinned: true,
       position: 8,
-      createdAt: "2026-07-28T12:10:00.000Z",
-      source: "近月新增",
+      createdAt: "2026-08-27T10:57:00.000Z",
+      source: "生产神策 · 全站口径与趋势",
       access: "production",
     },
     {
