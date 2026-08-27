@@ -138,6 +138,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "qieman-risk-lens-2026-08-27",
+      groupId: "product-planning",
+      title: "风险透镜｜且慢持仓风险测算：个人风险分 × 舒适区间 × 持仓落点（交互工具）",
+      url: "https://clairku.github.io/clair-ai-studio/apps/risk-lens/",
+      preview: "qieman-risk-lens.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-27T15:10:00.000+08:00",
+      source: "交互式风险测算工具（React SPA，离线内置数据可直接演示）｜个人风险四来源：带入且慢等级/手选五档/输入分数/现场复刻风测（0000-20240506 全 17 题，KYC 计分 out-of-sample C 档命中 96%、一票否决 100%）｜持仓四来源：搜基金（2.4 万在售）/导入 Excel/选官方在售策略（advisor_prod_shelf_info broker0008）/登录且慢｜0–100 风险标尺画五档色带+舒适区间高亮+持仓整体落点｜基金晨星风险分：实时走 bmdj /fund/risk-info，离线用回归兜底（R²=0.966，CV MAE 3.35）｜组合分含 HHI 分散化；私募（is_public_fund=0）与未知代码不臆造、剔除并标注｜适当性匹配复刻 bmdj doCheckRisk 矩阵｜口径经盈米本体+Redash 核实｜官方且慢蓝 #1B88EE",
+      access: "production",
+      workType: "product-demo",
+      tags: ["且慢", "风险测算", "风险测评", "KYC", "晨星风险分", "舒适区间", "适当性匹配", "持仓诊断", "投顾策略", "交互工具", "原型 Demo", "盈米本体", "且慢蓝", "生产"],
+    },
+    {
       id: "yingmi-qieman-geo-effect-audit-2026-08-26",
       groupId: "reporting",
       title: "盈米基金与且慢 GEO 效果审计｜有引用，但尚未形成可控增长闭环",
