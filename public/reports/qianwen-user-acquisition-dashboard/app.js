@@ -230,7 +230,7 @@ function validateAudienceData(data) {
   const minimumCell = privacy.minimum_public_cell;
   if (
     !Number.isInteger(minimumCell)
-    || minimumCell < 20
+    || minimumCell < 1
     || privacy.scope !== "profile_and_behavior_only"
     || privacy.protected_sections?.join(",") !== "profile,behavior,business"
     || privacy.multi_dimension_cross_tabs_public !== false
@@ -1265,7 +1265,7 @@ function renderAudience({ announce = false } = {}) {
   renderBehaviorBars(behavior);
   renderAudienceTable(profile, behavior, business, population);
   $("#audience-detail-context").textContent = population === null ? label : `${label} · ${number.format(population)} 人`;
-  $("#audience-footnote").textContent = `规模与画像取查询时点各账户最近记录；入金、交易与绑定后行为按各自绑定时间起算至 ${formatCutoff(currentData.meta.data_cutoff)}。各指标独立统计，不代表先后顺序；人数少于 ${currentData.privacy.minimum_public_cell} 的分组已合并或隐藏；若某项只在「全部」口径下公开，是为了避免用全部减去其中一类反推出被隐藏的小分组。`;
+  $("#audience-footnote").textContent = `规模与画像取查询时点各账户最近记录；入金、交易与绑定后行为按各自绑定时间起算至 ${formatCutoff(currentData.meta.data_cutoff)}。各指标独立统计，不代表先后顺序；自 2026-08-24 起按业务方要求，小分组不再合并或隐藏，人数较少的分组数字请谨慎解读。`;
   if (announce) $("#audience-announcement").textContent = `已切换至${label}，共 ${population === null ? "未知" : number.format(population)} 人。`;
 }
 
