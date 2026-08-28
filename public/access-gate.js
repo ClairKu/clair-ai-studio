@@ -1,11 +1,41 @@
 (() => {
   "use strict";
 
-  const SESSION_KEY = "clair-ai-studio-access-v1";
-  const SESSION_VALUE = "verified-2026-08-28";
+  const requestedScope = document.currentScript?.dataset.clairAccessScope === "report"
+    ? "report"
+    : "workspace";
+  const profiles = {
+    workspace: {
+      sessionKey: "clair-ai-studio-access-v1",
+      sessionValue: "verified-2026-08-28",
+      salt: "pSPWbcuWBb/A+MHgQ+J+Cg==",
+      expectedHash: "RvAEQHpDP8wpmqGyQH1aO9zAJnQAjzfRUJ3mK+CsoCA=",
+      brandLabel: "PRIVATE WORKSPACE",
+      title: "Clair's Studio",
+      intro: "这是一个私人工作台，请输入访问密码。",
+      fieldLabel: "访问密码",
+      foot: "Protected access · This tab only",
+      ariaLabel: "Clair's Studio 访问验证",
+    },
+    report: {
+      sessionKey: "clair-ai-studio-report-access-v1",
+      sessionValue: "verified-report-2026-08-28",
+      salt: "bl87Yx//mn6Eic8JnQQCig==",
+      expectedHash: "/s6AtNLOOg/tbXREQlM0Q+wtXiJeXCj7n+aijwbTTAQ=",
+      brandLabel: "PRIVATE REPORT",
+      title: "Clair's Report",
+      intro: "这是 Clair's Studio 私密报告，请输入报告密码。",
+      fieldLabel: "报告密码",
+      foot: "Protected report · This tab only",
+      ariaLabel: "Clair's Studio 报告访问验证",
+    },
+  };
+  const profile = profiles[requestedScope];
+  const SESSION_KEY = profile.sessionKey;
+  const SESSION_VALUE = profile.sessionValue;
   const ITERATIONS = 310000;
-  const SALT = "pSPWbcuWBb/A+MHgQ+J+Cg==";
-  const EXPECTED_HASH = "RvAEQHpDP8wpmqGyQH1aO9zAJnQAjzfRUJ3mK+CsoCA=";
+  const SALT = profile.salt;
+  const EXPECTED_HASH = profile.expectedHash;
   const ROOT_CLASS = "clair-site-access-locked";
   const HOST_ID = "clair-site-access-gate";
 
@@ -83,7 +113,7 @@
     host.id = HOST_ID;
     host.setAttribute("role", "dialog");
     host.setAttribute("aria-modal", "true");
-    host.setAttribute("aria-label", "Clair's Studio 访问验证");
+    host.setAttribute("aria-label", profile.ariaLabel);
     const shadow = host.attachShadow({ mode: "open" });
     shadow.innerHTML = `
       <style>
@@ -136,18 +166,18 @@
         @media (prefers-reduced-motion: reduce) { button { transition: none; } }
       </style>
       <main class="card">
-        <div class="brand"><span class="mark">C</span><span>PRIVATE WORKSPACE</span></div>
-        <h1>Clair's Studio</h1>
-        <p class="intro">这是一个私人工作台，请输入访问密码。</p>
+        <div class="brand"><span class="mark">C</span><span>${profile.brandLabel}</span></div>
+        <h1>${profile.title}</h1>
+        <p class="intro">${profile.intro}</p>
         <form novalidate>
-          <label for="clair-access-password">访问密码</label>
+          <label for="clair-access-password">${profile.fieldLabel}</label>
           <div class="password-row">
-            <input id="clair-access-password" name="password" type="password" inputmode="numeric" autocomplete="current-password" placeholder="访问密码" autofocus />
+            <input id="clair-access-password" name="password" type="password" inputmode="numeric" autocomplete="current-password" placeholder="${profile.fieldLabel}" autofocus />
             <button type="submit" aria-label="验证并进入">→</button>
           </div>
           <p class="error" role="alert" aria-live="polite"></p>
         </form>
-        <div class="foot">Protected access · This tab only</div>
+        <div class="foot">${profile.foot}</div>
       </main>
     `;
 

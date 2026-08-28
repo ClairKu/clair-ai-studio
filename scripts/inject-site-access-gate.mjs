@@ -41,7 +41,8 @@ for (const htmlPath of walkHtml(outputRoot)) {
 
   const relativeAsset = relative(dirname(htmlPath), gateAsset).replaceAll("\\", "/");
   const assetPath = relativeAsset.startsWith(".") ? relativeAsset : `./${relativeAsset}`;
-  const gateScript = `<script ${marker} src="${assetPath}"></script>`;
+  const accessScope = outputPath.startsWith("reports/") ? "report" : "workspace";
+  const gateScript = `<script ${marker} data-clair-access-scope="${accessScope}" src="${assetPath}"></script>`;
 
   html = html.replace(/<meta\b[^>]*name=["']robots["'][^>]*>\s*/gi, "");
   const headInsert = `${robotsMeta}\n    ${gateScript}`;

@@ -23,6 +23,8 @@ test("uses a derived password verifier without a plaintext credential", () => {
   assert.match(source, /PBKDF2/);
   assert.match(source, /SHA-256/);
   assert.match(source, /sessionStorage/);
+  assert.match(source, /clair-ai-studio-access-v1/);
+  assert.match(source, /clair-ai-studio-report-access-v1/);
   assert.doesNotMatch(source, /password\s*[!=]==?\s*["'][^"']+["']/i);
 });
 
@@ -41,6 +43,8 @@ test("gates published HTML entries except the independently encrypted Qianwen da
       continue;
     }
     assert.match(html, /data-clair-access-gate/, htmlPath);
+    const expectedScope = htmlPath.startsWith(join(docsRoot, "reports")) ? "report" : "workspace";
+    assert.match(html, new RegExp(`data-clair-access-scope=["']${expectedScope}["']`), htmlPath);
     assert.match(html, /noindex,nofollow,noarchive/, htmlPath);
     assert.doesNotMatch(html, /content=["']index,follow["']/i, htmlPath);
     const source = html.match(/<script\b[^>]*data-clair-access-gate[^>]*src=["']([^"']+)["']/i)?.[1];
