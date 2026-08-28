@@ -37,8 +37,8 @@ const reports = reportChunks.map((chunk) => ({
   access: chunk.match(/\baccess:\s*"([^"]+)"/)?.[1] || "",
 }));
 
-if (reports.length !== 125) { // +2 qieman-risk-lens + risk-scope 2026-08-27
-  fail(`初始成果数量异常：预期 125，实际 ${reports.length}`);
+if (reports.length !== 126) { // +1 qieman cashflow strategies audit 2026-08-28
+  fail(`初始成果数量异常：预期 126，实际 ${reports.length}`);
 }
 
 for (const field of ["id", "url"]) {

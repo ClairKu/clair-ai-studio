@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">月月分红与生生不息现金流机制</title>
+  <desc id="desc">左侧展示底层基金自然分红，右侧展示指定货基定期赎回。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0f1730"/><stop offset="1" stop-color="#27315a"/></linearGradient>
+    <linearGradient id="purple" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7457e8"/><stop offset="1" stop-color="#a891ff"/></linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="12" stdDeviation="20" flood-color="#050918" flood-opacity=".35"/></filter>
+  </defs>
+  <rect width="1200" height="675" rx="28" fill="url(#bg)"/>
+  <circle cx="1040" cy="80" r="250" fill="#7457e8" opacity=".13"/>
+  <text x="64" y="70" fill="#bcb4ef" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="18" letter-spacing="4">CASHFLOW ENGINE · 资金从哪里来</text>
+  <g transform="translate(64 112)" filter="url(#shadow)">
+    <rect width="520" height="495" rx="24" fill="#fff" fill-opacity=".96"/>
+    <text x="34" y="58" fill="#201c3c" font-family="'Songti SC','STSong',serif" font-size="34" font-weight="700">月月分红</text>
+    <text x="34" y="90" fill="#735ec7" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="16">真实分红 · 可能当月为空</text>
+    <g transform="translate(34 132)" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif">
+      <rect width="452" height="64" rx="16" fill="#f1eeff"/><circle cx="32" cy="32" r="15" fill="#7457e8"/><text x="32" y="38" text-anchor="middle" fill="#fff" font-size="14">1</text><text x="62" y="39" fill="#29233f" font-size="18">99% 股票权益组合持有基金</text>
+      <path d="M226 202v30" stroke="#9884ec" stroke-width="3" stroke-linecap="round"/><path d="m218 224 8 10 8-10" fill="none" stroke="#9884ec" stroke-width="3"/>
+      <rect y="236" width="452" height="64" rx="16" fill="#f7f7fa"/><circle cx="32" cy="32" r="15" fill="#8d7ae8"/><text x="32" y="274" text-anchor="middle" fill="#fff" font-size="14">2</text><text x="62" y="275" fill="#29233f" font-size="18">基金公告、权益登记与确认</text>
+      <path d="M226 306v30" stroke="#9884ec" stroke-width="3" stroke-linecap="round"/><path d="m218 328 8 10 8-10" fill="none" stroke="#9884ec" stroke-width="3"/>
+      <rect y="340" width="452" height="88" rx="16" fill="#e9f6f3"/><circle cx="32" cy="44" r="15" fill="#3fa89a"/><text x="32" y="390" text-anchor="middle" fill="#fff" font-size="14">3</text><text x="62" y="378" fill="#1d413d" font-size="18">现金到账或红利再投</text><text x="62" y="405" fill="#52736f" font-size="14">没有基金分红，就没有策略现金流</text>
+    </g>
+  </g>
+  <g transform="translate(616 112)" filter="url(#shadow)">
+    <rect width="520" height="495" rx="24" fill="#171f38" stroke="#6355b8"/>
+    <text x="34" y="58" fill="#fff" font-family="'Songti SC','STSong',serif" font-size="34" font-weight="700">生生不息</text>
+    <text x="34" y="90" fill="#bdb2ff" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="16">计划定取 · 可能取到本金</text>
+    <g transform="translate(34 132)" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif">
+      <rect width="452" height="64" rx="16" fill="#232d4d"/><circle cx="32" cy="32" r="15" fill="#8b73f0"/><text x="32" y="38" text-anchor="middle" fill="#fff" font-size="14">1</text><text x="62" y="39" fill="#f3f1ff" font-size="18">强绑定计划，首笔持有满 90 天</text>
+      <path d="M226 70v22" stroke="#9d86f2" stroke-width="3"/><path d="m218 84 8 10 8-10" fill="none" stroke="#9d86f2" stroke-width="3"/>
+      <rect y="98" width="452" height="64" rx="16" fill="#232d4d"/><circle cx="32" cy="32" r="15" fill="#8b73f0"/><text x="32" y="136" text-anchor="middle" fill="#fff" font-size="14">2</text><text x="62" y="137" fill="#f3f1ff" font-size="18">可领取基数 × 目标 0.25%</text>
+      <path d="M226 168v22" stroke="#9d86f2" stroke-width="3"/><path d="m218 182 8 10 8-10" fill="none" stroke="#9d86f2" stroke-width="3"/>
+      <rect y="196" width="452" height="64" rx="16" fill="#232d4d"/><circle cx="32" cy="32" r="15" fill="#8b73f0"/><text x="32" y="234" text-anchor="middle" fill="#fff" font-size="14">3</text><text x="62" y="235" fill="#f3f1ff" font-size="18">从指定货基顶额赎回</text>
+      <path d="M226 266v22" stroke="#9d86f2" stroke-width="3"/><path d="m218 280 8 10 8-10" fill="none" stroke="#9d86f2" stroke-width="3"/>
+      <rect y="294" width="452" height="134" rx="16" fill="url(#purple)"/><circle cx="32" cy="42" r="15" fill="#fff" fill-opacity=".25"/><text x="32" y="342" text-anchor="middle" fill="#fff" font-size="14">4</text><text x="62" y="333" fill="#fff" font-size="18">下单 → 确认 → 到账</text><text x="62" y="361" fill="#ede9ff" font-size="14">金额、日期、成功率均受交易规则影响</text><text x="62" y="389" fill="#ede9ff" font-size="14">每层需要独立通知与异常处理</text>
+    </g>
+  </g>
+</svg>

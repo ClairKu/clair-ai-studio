@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "assets": [
+    {
+      "path": "assets/cashflow-mechanisms.svg",
+      "bytes": 5230,
+      "sha256": "29a03085b10e366cfbbb0e7877b72dfa4d70cbbaa4fc2ac8f9d9c27b8e1ee9a9"
+    },
+    {
+      "path": "assets/performance-trajectory.svg",
+      "bytes": 3837,
+      "sha256": "e4e756915e96ae59228e9558614dd7673e3057b28d7179a33413ed2e7a738db7"
+    }
+  ]
+}

@@ -1,0 +1,270 @@
+{
+  "meta": {
+    "title": "现金流双策略｜深度剖析",
+    "subtitle": "月月分红与生生不息\n不是高低配，而是两种不同的现金流工程",
+    "eyebrow": "CLAIR · STRATEGY DESIGN & EFFECT AUDIT / 2026.08.28",
+    "date": "2026-08-28",
+    "cutoff": "2026-08-28",
+    "owner": "Clair · 产品与策略研究",
+    "confidentiality": "内部经营研究 · 聚合披露",
+    "accent": "#7457E8",
+    "brand": "Clair AI Studio",
+    "brandMark": "C"
+  },
+  "hero": {
+    "conclusion": "月月分红把底层基金的真实分红组织成组合体验；生生不息把指定货基的定期赎回组织成计划现金流。前者成效已出现单周需求验证、但投资体验偏弱；后者机制更可控、风险更低，但完整生产链仅运行约一个月，业务成效仍待补数。",
+    "thesis": "报告把投资策略、产品机制、交易语义和业务成效分开评估，避免把名称、目标定取率、指定实盘或继承净值误当成真实结果。",
+    "badges": ["盈米本体 / SOUL", "真实策略接口", "设计 × 成效", "截至 2026-08-28"]
+  },
+  "closing": {
+    "mark": "CLAIR · STRATEGY DECISION REPORT",
+    "line1": "把“分红”还原成真实现金流，",
+    "line2": "把两个策略运营成清晰的",
+    "accent": "双产品线",
+    "lead": "月月分红负责红利权益与真实分红体验，生生不息负责稳健资产与计划领取体验；下一阶段的关键不是继续讲同一个“分红故事”，而是补齐分层入口、真实使用漏斗和定取履约看板。",
+    "metaPrimary": "Clair · 且慢策略深度研究 · 2026-08-28",
+    "metaSecondary": "策略行情截至 2026-08-27/28 · 经营全量数据因本体服务 503 未取得"
+  },
+  "agenda": {
+    "enabled": true,
+    "label": "AGENDA",
+    "title": "报告大纲",
+    "groups": [
+      {"index": "01", "eyebrow": "JUDGEMENT · 判断", "title": "先把两个产品分开", "summary": "同叫分红，机制、风险和用户承诺完全不同", "sections": ["中心判断", "设计对照", "现金流机制"]},
+      {"index": "02", "eyebrow": "PRODUCT · 产品", "title": "拆开交易与体验", "summary": "从用户旅程、规则和上线演进审视设计质量", "sections": ["月月旅程", "生生旅程", "上线演进"]},
+      {"index": "03", "eyebrow": "EFFECT · 成效", "title": "用可比口径看结果", "summary": "资产、收益、回撤与业务证据分层呈现", "sections": ["资产结构", "月月表现", "生生表现", "业务验证"]},
+      {"index": "04", "eyebrow": "ACTION · 行动", "title": "把缺口变成经营动作", "summary": "从用户误解、履约风险到实验与指标闭环", "sections": ["关键风险", "场景走查", "下一步"]}
+    ]
+  },
+  "sections": [
+    {
+      "id": "verdict",
+      "navLabel": "中心判断",
+      "kicker": "01 · EXECUTIVE VERDICT",
+      "title": "同名分红，实为两种产品",
+      "lead": "月月分红卖的是红利权益暴露与真实分红体验；生生不息卖的是低波资产与计划现金流。",
+      "layout": "cards",
+      "tone": "light",
+      "items": [
+        {"index": "01", "eyebrow": "MONTHLY DIVIDEND", "title": "真实分红，不保证每月", "body": "99% 股票权益组合，底层基金有分红才产生现金流；当月无分红时系统不定取兜底。", "bullets": ["默认现金分红，可一键改红利再投", "中风险，建议持有 3 年以上"], "source": "月月分红 PRD；盈米策略接口 · 2026-08-27", "status": "confirmed"},
+        {"index": "02", "eyebrow": "EVERFLOW", "title": "计划定取，不等于收益", "body": "81.86% 债券固收为底仓，通过指定货基定期赎回构造月度现金流；到账可能包含本金与收益。", "bullets": ["目标 0.25%/月，非承诺", "中低风险，建议持有 1 年以上"], "source": "生生不息 PRD；盈米策略接口 · 2026-08-28", "status": "confirmed"},
+        {"index": "03", "eyebrow": "PORTFOLIO ROLE", "title": "应该互补，不应互相替代", "body": "前者承担红利权益配置，后者承担稳钱与支取规划。若入口只用“分红”分类，会掩盖 99% 权益与 13.18% 权益的风险鸿沟。", "bullets": ["先问风险承受与持有期", "再问现金流是否必须可计划"], "source": "本报告基于设计规则与当前资产穿透的综合判断", "status": "inferred"}
+      ],
+      "callout": {"label": "管理结论", "text": "不要把两个产品放进同一收益话术；应建立“真实分红型权益”与“计划领取型稳钱”双入口。", "status": "inferred"}
+    },
+    {
+      "id": "design-compare",
+      "navLabel": "设计对照",
+      "kicker": "02 · DESIGN COMPARISON",
+      "title": "七个维度看本质差异",
+      "lead": "同样产生现金到账，但资金来源、可控性、风险、调仓与用户权利都不同。",
+      "layout": "comparison",
+      "tone": "soft",
+      "items": [
+        {"index": "01", "eyebrow": "月月分红 · ZH174686", "title": "经典组合 + 现金分红", "body": "现金流来自成分基金收益分配；不卖出份额制造分红。", "bullets": ["99% 股票权益", "分红频率不确定", "默认现金，可切红利再投", "偏离阈值 6%，成分阈值 2%", "最短调仓间隔 90 天", "用户不持有时仍可看指定 10 万实盘展示"], "source": "月月分红产品方案 · 2026-02/03", "status": "confirmed"},
+        {"index": "02", "eyebrow": "生生不息 · ZH175045", "title": "全托管组合 + 指定货基定取", "body": "现金流来自系统赎回；目标月定比不是收益分配。", "bullets": ["81.86% 债券、13.18% 权益", "目标 0.25%/月，非承诺", "底层统一红利再投", "自动调仓不可关闭", "首笔持有满 90 天", "到账日 1–28 号可选，按交收倒推"], "source": "生生不息 PRD · 2026-04 至 07", "status": "confirmed"}
+      ],
+      "callout": {"label": "不可混用", "text": "基金自然分红、红利再投、策略定期赎回是三种不同交易事实；对客表达必须逐层说清。", "status": "confirmed"}
+    },
+    {
+      "id": "cashflow",
+      "navLabel": "现金流机制",
+      "kicker": "03 · CASHFLOW ENGINE",
+      "title": "一边等待分红，一边主动赎回",
+      "lead": "机制差异决定可预测性，也决定了最容易产生的用户误解。",
+      "layout": "evidence",
+      "tone": "dark",
+      "items": [
+        {"title": "两条现金流链路", "body": "月月分红依赖基金公告与权益登记；生生不息依赖计划建档、90 天门槛、基数试算和指定货基赎回。", "source": "产品 PRD、交易方案与上线文档", "image": "assets/cashflow-mechanisms.svg", "alt": "月月分红与生生不息现金流机制对比图", "imagePriority": "high", "status": "confirmed"},
+        {"title": "可预测性来自交易，不来自收益", "body": "生生不息能把领取日期做得更可计划，但金额仍受可领取基数、净值、份额与交易限制影响；月月分红金额与时间均由底层基金决定。", "source": "生生不息 PRD §1.5、§3.3、§4.1", "status": "confirmed"}
+      ],
+      "callout": {"label": "合规底线", "text": "“每月”描述频率或目标，不代表每月必有分红、固定收益或本金安全。", "status": "confirmed"}
+    },
+    {
+      "id": "monthly-journey",
+      "navLabel": "月月旅程",
+      "kicker": "04 · MONTHLY DIVIDEND JOURNEY",
+      "title": "把分散基金体验收拢成组合",
+      "lead": "核心创新不在投资算法，而在策略级分红偏好、记录汇总和调仓后的偏好继承。",
+      "layout": "process",
+      "tone": "light",
+      "items": [
+        {"index": "01", "eyebrow": "ENTER", "title": "买入组合", "body": "组合默认现金分红；不可修改的基金保留合同约束。", "status": "confirmed"},
+        {"index": "02", "eyebrow": "PREFERENCE", "title": "一键设偏好", "body": "用户可在现金分红与红利再投间切换，T+1 生效。", "source": "《月月分红组合功能宣讲》· 2026-03", "status": "confirmed"},
+        {"index": "03", "eyebrow": "INHERIT", "title": "未来持仓继承", "body": "未确认申购和未来调入基金沿用 CA 最后一次设置。", "status": "confirmed"},
+        {"index": "04", "eyebrow": "DISTRIBUTE", "title": "基金真实分红", "body": "以基金公告、权益登记和确认状态为准；系统不补足。", "status": "confirmed"},
+        {"index": "05", "eyebrow": "RECORD", "title": "组合汇总记录", "body": "策略页展示指定实盘，持仓页展示当前用户真实分红流水。", "status": "confirmed"}
+      ],
+      "callout": {"label": "设计优点", "text": "它把“逐只基金改分红方式”的高摩擦操作变成一个可复用的策略级能力。", "status": "inferred"}
+    },
+    {
+      "id": "everflow-journey",
+      "navLabel": "生生旅程",
+      "kicker": "05 · EVERFLOW JOURNEY",
+      "title": "强绑定建档换取计划可执行",
+      "lead": "产品通过强约束保证策略可管理，但也把更多交易、通知与异常处理责任带入系统。",
+      "layout": "process",
+      "tone": "soft",
+      "items": [
+        {"index": "01", "eyebrow": "BIND", "title": "先建计划", "body": "首次转入或创建定投必须先建定取计划，未确认不得下单。", "status": "confirmed"},
+        {"index": "02", "eyebrow": "LOCK", "title": "等待 90 天", "body": "首笔确认日起满 90 个自然日；每期还排除近 90 天新入金及对应收益。", "source": "《生生不息》PRD §3.3 · 2026-07", "status": "confirmed"},
+        {"index": "03", "eyebrow": "SIMULATE", "title": "试算基数", "body": "目标金额=可领取基数×0.25%，再受最大可赎份额约束。", "source": "《生生不息》PRD §3.6 · 2026-07", "status": "confirmed"},
+        {"index": "04", "eyebrow": "REDEEM", "title": "赎回货基", "body": "从指定货基发起标准赎回，对客订单包装为“定取”。", "status": "confirmed"},
+        {"index": "05", "eyebrow": "SERVICE", "title": "通知与兜底", "body": "下单、确认、到账分层通知；一期确认失败不自动重试，引导手动赎回。", "status": "confirmed"}
+      ],
+      "callout": {"label": "设计代价", "text": "可计划现金流不是一个展示功能，而是一条需要持续运营的交易履约链。", "status": "inferred"}
+    },
+    {
+      "id": "timeline",
+      "navLabel": "上线演进",
+      "kicker": "06 · RELEASE TIMELINE",
+      "title": "两个策略的成熟度并不同步",
+      "lead": "成立时间、功能上线与完整交易链上线必须分开记录。",
+      "layout": "timeline",
+      "tone": "dark",
+      "items": [
+        {"index": "01", "eyebrow": "2026-02-12", "title": "月月分红上架", "body": "ZH174686 建立真实组合净值，但分红体验功能尚未完整。", "meta": "策略成立", "source": "盈米策略接口；产品方案", "status": "confirmed"},
+        {"index": "02", "eyebrow": "2026-03-13", "title": "分红能力生产上线", "body": "策略级分红方式、A29 订单与 CA 分红统计进入生产验证。", "meta": "交易系统上线", "source": "策略交易系统常规上线记录", "status": "confirmed"},
+        {"index": "03", "eyebrow": "2026-07-21", "title": "生生不息完整链发布", "body": "pmdj、消息、seeker、alfa 等生产发布；完整定取能力晚于组合净值历史。", "meta": "生产发版 YR-43721", "source": "QMRD-44312 上线文档", "status": "confirmed"},
+        {"index": "04", "eyebrow": "2026-08-28", "title": "首轮审计窗口", "body": "月月约 6.5 个月；生生完整链约 5 周，尚不适合下长期业务结论。", "meta": "本报告截止", "status": "inferred"}
+      ],
+      "callout": {"label": "口径校正", "text": "生生不息的“成立以来 28.85%”来自 2020 年起的底层组合历史，不能记为 2026 年定取功能成果。", "status": "confirmed"}
+    },
+    {
+      "id": "allocation",
+      "navLabel": "资产结构",
+      "kicker": "07 · CURRENT ALLOCATION",
+      "title": "风险差异大于名称相似度",
+      "lead": "当前穿透结构表明，两者服务的是完全不同的风险预算。",
+      "layout": "metrics",
+      "tone": "light",
+      "items": [
+        {"metric": "99.00%", "title": "月月 · 股票权益", "body": "其中港股 18.75%；另有 1% 货币现金。", "meta": "穿透比例 · 2026-08-27", "source": "GetStrategyAssetClassAnalysis", "status": "confirmed"},
+        {"metric": "81.86%", "title": "生生 · 债券固收", "body": "纯债 25.92%、混债 47.46%、海外债 8.48%。", "meta": "穿透比例 · 2026-08-28", "source": "GetStrategyAssetClassAnalysis", "status": "confirmed"},
+        {"metric": "13.18%", "title": "生生 · 股票权益", "body": "中国股票 11.12%、海外股票 2.06%。", "meta": "穿透比例 · 2026-08-28", "source": "GetStrategyAssetClassAnalysis", "status": "confirmed"},
+        {"metric": "2.96%", "title": "生生 · 另类资产", "body": "当前为黄金白银暴露；另有 2% 货币现金。", "meta": "穿透比例 · 2026-08-28", "source": "GetStrategyAssetClassAnalysis", "status": "confirmed"}
+      ],
+      "callout": {"label": "适配原则", "text": "现金流偏好不能覆盖风险适当性：想“每月有钱进账”的用户，不一定能承受 99% 权益组合。", "status": "inferred"}
+    },
+    {
+      "id": "monthly-performance",
+      "navLabel": "月月表现",
+      "kicker": "08 · MONTHLY DIVIDEND EFFECT",
+      "title": "有需求验证，投资体验承压",
+      "lead": "红利主题并未在短窗口内兑现“稳定”感受；需要把现金分红体验与净值回撤同时披露。",
+      "layout": "metrics",
+      "tone": "soft",
+      "items": [
+        {"metric": "-5.50%", "title": "成立以来收益", "body": "从 2026-02-12 成立至最新净值日。", "meta": "最新净值 0.9450 · 2026-08-27", "source": "GetStrategyDetails", "status": "confirmed"},
+        {"metric": "15.41%", "title": "最大回撤", "body": "与“稳定现金流”叙事存在显著体验张力。", "meta": "策略历史区间", "source": "GetStrategyDetails", "status": "confirmed"},
+        {"metric": "12.25%", "title": "年化波动率", "body": "风险分 50，中风险，建议持有 3 年以上。", "meta": "风险评分生效 2026-07-31", "source": "GetStrategyDetails / RiskInfo", "status": "confirmed"},
+        {"metric": "+2.72%", "title": "近一月收益", "body": "短期有所修复，但近半年仍为 -5.73%。", "meta": "截至 2026-08-27", "source": "GetStrategyDetails", "status": "confirmed"}
+      ],
+      "callout": {"label": "经营判断", "text": "它验证了红利现金流需求，但还没有验证“更稳”或“更容易拿住”；陪伴必须正面处理权益回撤。", "status": "inferred"}
+    },
+    {
+      "id": "everflow-performance",
+      "navLabel": "生生表现",
+      "kicker": "09 · EVERFLOW EFFECT",
+      "title": "底层稳健，功能尚待验证",
+      "lead": "策略历史表现较稳，但新定取功能上线时间太短，不能借用 2020 年以来净值证明产品改造成功。",
+      "layout": "metrics",
+      "tone": "light",
+      "items": [
+        {"metric": "+28.85%", "title": "底层成立以来收益", "body": "净值历史自 2020-06-12 起，继承启明低波增强。", "meta": "最新净值 1.2885 · 2026-08-28", "source": "GetStrategyDetails；产品规则差异文档", "status": "confirmed"},
+        {"metric": "5.17%", "title": "底层最大回撤", "body": "显著低于月月分红，但不是定取功能带来的新增结果。", "meta": "策略历史区间", "source": "GetStrategyDetails", "status": "confirmed"},
+        {"metric": "3.66%", "title": "底层年化波动率", "body": "风险分 21，中低风险，建议持有 1 年以上。", "meta": "风险评分生效 2026-07-31", "source": "GetStrategyDetails / RiskInfo", "status": "confirmed"},
+        {"metric": "+0.91%", "title": "完整链上线后净值", "body": "2026-07-21 至 08-28，仅为净值变化，不代表定取履约与业务转化。", "meta": "本报告按净值序列计算", "source": "GetPortfolioNavHistory", "status": "confirmed"}
+      ],
+      "callout": {"label": "证据边界", "text": "当前能确认“稳健底层 + 生产可用”，尚不能确认定取成功率、用户留存或规模增量。", "status": "confirmed"}
+    },
+    {
+      "id": "trajectory",
+      "navLabel": "同窗对比",
+      "kicker": "10 · COMPARABLE WINDOW",
+      "title": "同一窗口下，低波优势清晰",
+      "lead": "为避免成立时间错配，将两条净值统一归一到 2026-02-12=100。",
+      "layout": "evidence",
+      "tone": "dark",
+      "items": [
+        {"title": "2026-02-12 至 08-28 归一净值", "body": "月月分红期末 94.50，区间回撤 15.41%；生生不息期末 98.34，同窗回撤 4.58%。", "source": "GetPortfolioNavHistory；本报告计算", "image": "assets/performance-trajectory.svg", "alt": "月月分红与生生不息归一净值走势对比", "imagePriority": "high", "status": "confirmed"},
+        {"title": "低波不等于高现金流收益", "body": "生生不息的低波来自资产结构；0.25% 月定取是资金支取规则，不应加到净值收益上，也不应从历史收益推导。", "source": "策略净值与生生不息定取规则", "status": "confirmed"}
+      ],
+      "callout": {"label": "比较原则", "text": "净值评价投资管理，定取成功率评价交易履约，增购/AUM 评价商业效果；三套指标不可互相替代。", "status": "confirmed"}
+    },
+    {
+      "id": "business-evidence",
+      "navLabel": "业务验证",
+      "kicker": "11 · BUSINESS EVIDENCE",
+      "title": "月月有样本，生生缺全量",
+      "lead": "本体服务本次返回 503；以下只呈现已定位证据，不把单周运营样本升级为累计成果。",
+      "layout": "cards",
+      "tone": "soft",
+      "items": [
+        {"index": "01", "eyebrow": "月月 · 已确认样本", "title": "单周 100+ 用户增购", "body": "2026-05-18 至 05-22，落地页与站内顾问推广后，周报记录新增 100+ 用户增购、人均入金 1 万+。", "bullets": ["证明存在配置需求", "不是全量累计口径", "无法单独证明因果增量"], "source": "且慢市场工作周报 · 2026-05-18 至 05-22", "status": "confirmed"},
+        {"index": "02", "eyebrow": "月月 · 待补", "title": "完整漏斗尚未取得", "body": "当前持有人、CA、AUM、累计净流入、分红方式切换、分红记录访问与实际分红金额未取得生产汇总。", "bullets": ["需按用户与 CA 双口径", "需区分现金分红 / 红利再投", "需区分推广前后与自然流量"], "source": "本体服务 503；PRD 仅提出埋点建议", "status": "missing"},
+        {"index": "03", "eyebrow": "生生 · 待补", "title": "履约数据是第一优先", "body": "生产全链自 2026-07-21 起；计划创建、运行/暂停、试算轮空、下单/确认/到账成功率与金额均未取得。", "bullets": ["先评价履约，再评价增长", "失败需按阶段和原因码拆分", "目标 0.25% 不能充当实际到账"], "source": "QMRD-44312 上线文档；本体服务 503", "status": "missing"}
+      ],
+      "callout": {"label": "当前可说", "text": "月月分红已验证需求存在；生生不息已完成生产落地。两者都还缺少可审计的全量经营成效闭环。", "status": "confirmed"}
+    },
+    {
+      "id": "risks",
+      "navLabel": "关键风险",
+      "kicker": "12 · PRODUCT RISKS",
+      "title": "最危险的是认知错配",
+      "lead": "不是交易出错才叫风险；名称、展示和销售话术偏离真实交易同样会放大投诉与赎回。",
+      "layout": "cards",
+      "tone": "light",
+      "items": [
+        {"index": "01", "eyebrow": "NAME", "title": "“月月”可能形成频率承诺", "body": "产品明确允许当月无分红，却使用强频率名称。策略页应固定展示近 12 月实际分红月份数，而非只展示累计金额。", "status": "inferred"},
+        {"index": "02", "eyebrow": "PRINCIPAL", "title": "定取可能被误解为收益", "body": "生生不息到账可含本金；必须把“本次支取 / 其中收益 / 支取后资产变化”放在同一确认与记录页面。", "status": "inferred"},
+        {"index": "03", "eyebrow": "MODEL", "title": "指定实盘与个人体验错配", "body": "月月策略页使用指定 10 万机构实盘；机构与个人可买基金、额度和确认时间可能不同，不能替代用户自己的分红结果。", "status": "confirmed", "source": "月月分红功能宣讲"},
+        {"index": "04", "eyebrow": "LIQUIDITY", "title": "货基缓冲是履约单点", "body": "生生不息指定货基不足、暂停赎回或份额竞争会影响本期定取；需要独立监控缓冲仓位、偏离和失败率。", "status": "confirmed", "source": "生生不息 PRD 风险与应对"}
+      ]
+    },
+    {
+      "id": "scenarios",
+      "navLabel": "场景走查",
+      "kicker": "13 · EXPERIENCE DEMO",
+      "title": "先回答“钱从哪里来”",
+      "lead": "三个典型场景检验产品是否把风险、现金流与交易后果说清。",
+      "layout": "demo",
+      "tone": "dark",
+      "items": [
+        {"index": "01", "eyebrow": "有现金流偏好 + 能承受权益波动", "title": "选择月月分红", "body": "用户接受 3 年以上持有与中风险，理解某月可能没有分红。默认现金分红；如果更看重复利，可一键改红利再投。", "meta": "适合：红利权益配置", "status": "inferred", "bullets": ["先展示最大回撤 15.41%", "再展示真实分红月份与金额", "不使用“稳定收息”表述"]},
+        {"index": "02", "eyebrow": "想要计划支取 + 偏低风险", "title": "选择生生不息", "body": "用户接受首次 90 天、每月目标定比与可能取到本金；先建计划，再买入，之后可在持仓页暂停或修改。", "meta": "适合：稳钱与支取规划", "status": "inferred", "bullets": ["展示本次预计支取与剩余资产", "提示目标非承诺", "异常时给明确补操作"]},
+        {"index": "03", "eyebrow": "只想每月领固定收益", "title": "两个都不直接匹配", "body": "若用户不能接受净值波动、本金支取或金额不确定，就不应以“分红”名称强行匹配；需要转向现金管理、存款或其他适配产品。", "meta": "适当性优先", "status": "inferred", "bullets": ["先排除错误预期", "禁止收益承诺", "保留人工顾问升级"]}
+      ]
+    },
+    {
+      "id": "actions",
+      "navLabel": "下一步",
+      "kicker": "14 · MANAGEMENT ACTIONS",
+      "title": "用三张表跑出真实成效",
+      "lead": "把投资结果、交易履约和经营增长拆成三条数据链，再做双产品入口与连续实验。",
+      "layout": "actions",
+      "tone": "soft",
+      "items": [
+        {"index": "01", "eyebrow": "0–2 周 · 数据", "title": "补齐双策略经营底表", "body": "按日输出持有人、CA、AUM、净流入、申赎、渠道与分红/定取事实；分子分母、去重、窗口固定。", "meta": "责任：数据智能 + 产品 · 成功标准：可日更追溯", "status": "target"},
+        {"index": "02", "eyebrow": "0–4 周 · 履约", "title": "建立定取履约看板", "body": "拆分计划创建、运行/暂停、轮空、下单、确认、到账和失败原因；同时监控指定货基缓冲。", "meta": "责任：交易中台 + 且慢 · 成功标准：每层成功率可解释", "status": "target"},
+        {"index": "03", "eyebrow": "2–6 周 · 产品", "title": "重做双入口与真相页", "body": "用“真实分红型权益 / 计划领取型稳钱”分流；每屏同时显示风险、资金来源和非承诺边界。", "meta": "责任：产品 + 投研 + 合规 · 成功标准：误解率下降", "status": "target"},
+        {"index": "04", "eyebrow": "4–12 周 · 经营", "title": "做可归因的对照实验", "body": "人群、话术、入口和顾问触达版本化，比较增购、持有、投诉与赎回；不以落地页点击替代资产增量。", "meta": "责任：市场 + 顾问 + 数据 · 成功标准：形成增量结论", "status": "target"}
+      ],
+      "callout": {"label": "最终目标", "text": "让客户知道自己买的是哪一种风险、哪一种现金流，以及每一笔到账究竟来自哪里。", "status": "target"}
+    }
+  ],
+  "sources": [
+    {"label": "盈米策略实时接口", "detail": "StrategySearchByKeyword、GetStrategyDetails、RiskInfo、Composition、AssetClass、Benchmark、PortfolioNavHistory · 2026-08-28"},
+    {"label": "月月分红产品与交易材料", "detail": "产品方案、功能宣讲、策略交易系统 2026-03-13 上线记录、QE 验证用例"},
+    {"label": "生生不息产品与交易材料", "detail": "PRD、功能宣讲、规则差异文档、QMRD-44312 生产上线文档"},
+    {"label": "经营证据", "detail": "且慢市场工作周报 2026-05-18 至 05-22；内容与研发周报"},
+    {"label": "本体查询状态", "detail": "ontology auth 正常；2026-08-28 MCP 隧道 503，因此未取得生产经营全量指标"}
+  ],
+  "openQuestions": [
+    {"title": "经营全量", "detail": "持有人、CA、AUM、净流入与申赎全量尚未取得。"},
+    {"title": "月月使用", "detail": "分红方式切换、记录访问、实际分红金额需回填。"},
+    {"title": "生生履约", "detail": "计划、轮空、下单、确认、到账与失败原因需回填。"},
+    {"title": "净值边界", "detail": "生生历史继承底层组合，不能算作 2026 新功能成效。"},
+    {"title": "对客口径", "detail": "分红、定取、收益与本金必须保持四层语义隔离。"}
+  ]
+}

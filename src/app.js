@@ -30,7 +30,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 59;
+const DATA_VERSION = 60;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -137,6 +137,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "qieman-cashflow-strategies-audit-2026-08-28",
+      groupId: "research",
+      title: "且慢两类现金流策略深度剖析｜月月分红 vs 生生不息",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-cashflow-strategies-audit-2026-08-28/",
+      preview: "qieman-cashflow-strategies-audit-2026-08-28.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-28T20:30:00.000+08:00",
+      source: "盈米本体镜像 / SOUL 权威材料 + 策略实时接口（截至 2026-08-28）｜月月分红：99% 权益、成立以来 -5.50%、最大回撤 15.41%，单周 100+ 增购为需求样本而非累计成效｜生生不息：81.86% 固收、完整链路 2026-07-21 上线，历史净值继承自启明低波增强，不能归因于新功能｜生产经营全量因本体服务 503 标注待补｜内部经营研究，聚合披露",
+      access: "production",
+      workType: "investment-research",
+      tags: ["且慢", "月月分红", "生生不息", "现金流", "分红", "定取", "策略研究", "投资研究", "产品设计", "数据分析", "本体", "SOUL", "CLAIR", "HTML", "生产"],
+    },
     {
       id: "qieman-risk-scope-2026-08-27",
       groupId: "product-planning",
@@ -1737,6 +1751,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "qieman-cashflow-strategies-audit-2026-08-28": "investment-research",
   "yingmiwork-product-brief-2026-08-20": "reporting",
   "qieman-selfservice-vs-advisory-cohorts-2026-08-19": "data-analysis",
   "qieman-goal-account-longterm-value-2026-08-19": "data-analysis",
