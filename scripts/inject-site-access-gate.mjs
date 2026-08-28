@@ -6,6 +6,9 @@ const projectRoot = fileURLToPath(new URL("../", import.meta.url));
 const outputRoot = resolve(projectRoot, process.argv[2] || "docs");
 const gateAsset = join(outputRoot, "access-gate.js");
 const marker = "data-clair-access-gate";
+const selfProtectedEntries = new Set([
+  "reports/qianwen-user-acquisition-dashboard/index.html",
+]);
 
 if (!existsSync(gateAsset)) throw new Error(`Missing access gate asset: ${gateAsset}`);
 
@@ -20,9 +23,22 @@ const walkHtml = (directory, results = []) => {
 
 const robotsMeta = '<meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />';
 let injected = 0;
+let selfProtected = 0;
 
 for (const htmlPath of walkHtml(outputRoot)) {
   let html = readFileSync(htmlPath, "utf8");
+  const outputPath = relative(outputRoot, htmlPath).replaceAll("\\", "/");
+
+  // This dashboard ships as its own AES-GCM encrypted shell. Adding the
+  // workspace gate here would force visitors through two unrelated passwords.
+  if (selfProtectedEntries.has(outputPath)) {
+    if (!/const\s+payload\s*=/.test(html) || !/AES-GCM/.test(html)) {
+      throw new Error(`Expected an encrypted self-protected entry: ${outputPath}`);
+    }
+    selfProtected += 1;
+    continue;
+  }
+
   const relativeAsset = relative(dirname(htmlPath), gateAsset).replaceAll("\\", "/");
   const assetPath = relativeAsset.startsWith(".") ? relativeAsset : `./${relativeAsset}`;
   const gateScript = `<script ${marker} src="${assetPath}"></script>`;
@@ -44,4 +60,4 @@ for (const htmlPath of walkHtml(outputRoot)) {
   injected += 1;
 }
 
-console.log(`Injected the site access gate into ${injected} HTML files.`);
+console.log(`Injected the site access gate into ${injected} HTML files; kept ${selfProtected} self-protected entry.`);

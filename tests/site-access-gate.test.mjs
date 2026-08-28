@@ -7,6 +7,7 @@ import { fileURLToPath } from "node:url";
 const root = fileURLToPath(new URL("../", import.meta.url));
 const docsRoot = join(root, "docs");
 const gatePath = join(docsRoot, "access-gate.js");
+const selfProtectedPath = join(docsRoot, "reports", "qianwen-user-acquisition-dashboard", "index.html");
 
 const walkHtml = (directory, results = []) => {
   for (const entry of readdirSync(directory, { withFileTypes: true })) {
@@ -25,11 +26,20 @@ test("uses a derived password verifier without a plaintext credential", () => {
   assert.doesNotMatch(source, /password\s*[!=]==?\s*["'][^"']+["']/i);
 });
 
-test("gates every published HTML entry and resolves the shared gate asset", () => {
+test("gates published HTML entries except the independently encrypted Qianwen dashboard", () => {
   const htmlPaths = walkHtml(docsRoot);
   assert.ok(htmlPaths.length > 1);
   for (const htmlPath of htmlPaths) {
     const html = readFileSync(htmlPath, "utf8");
+    if (htmlPath === selfProtectedPath) {
+      assert.doesNotMatch(html, /data-clair-access-gate/);
+      assert.match(html, /const payload=/);
+      assert.match(html, /PBKDF2/);
+      assert.match(html, /AES-GCM/);
+      assert.match(html, /id="password" type="password"/);
+      assert.match(html, /noindex,nofollow/);
+      continue;
+    }
     assert.match(html, /data-clair-access-gate/, htmlPath);
     assert.match(html, /noindex,nofollow,noarchive/, htmlPath);
     assert.doesNotMatch(html, /content=["']index,follow["']/i, htmlPath);
