@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />
+<script data-clair-access-gate data-clair-access-scope="report" src="../../access-gate.js"></script>
+<meta charset="UTF-8">
+<title>GetLatestQuotations（市场温度计与行情）实现口径深查报告</title>
+<script src="https://registry.npmmirror.com/echarts/5.6.0/files/dist/echarts.min.js"></script>
+<style>
+  body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; max-width: 1080px; margin: 0 auto; padding: 24px; color: #1f2328; line-height: 1.7; background:#fafafa; }
+  h1 { border-bottom: 3px solid #c9a063; padding-bottom: 10px; font-size: 26px; }
+  h2 { border-left: 5px solid #c9a063; padding-left: 10px; margin-top: 40px; background:#fff; }
+  h3 { margin-top: 24px; }
+  code { background: #f0f0f0; padding: 1px 5px; border-radius: 3px; font-size: 90%; }
+  pre { background: #0d1117; color: #e6edf3; padding: 14px; border-radius: 8px; overflow-x: auto; font-size: 13px; line-height: 1.5; }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; background:#fff; font-size: 14px; }
+  th, td { border: 1px solid #d0d7de; padding: 8px 10px; text-align: left; vertical-align: top; }
+  th { background: #f6f0e4; }
+  .tag { display:inline-block; padding: 1px 8px; border-radius: 10px; font-size: 12px; margin-right: 6px; color:#fff; }
+  .confirmed { background: #2da44e; }
+  .inferred { background: #bf8700; }
+  .upstream { background: #6e7781; }
+  .box { background:#fff; border:1px solid #d0d7de; border-radius:8px; padding:14px 18px; margin:14px 0; }
+  .warn { background:#fff8c5; border-color:#d4a72c; }
+  .chain { background:#ddf4ff; border-color:#54aeff; }
+  #tempGauge, #flow { width: 100%; height: 360px; background:#fff; border:1px solid #d0d7de; border-radius:8px; }
+  .meta { color:#656d76; font-size: 13px; }
+  blockquote { border-left:4px solid #c9a063; margin:10px 0; padding:4px 14px; background:#fff; color:#57606a; }
+</style>
+</head>
+<body>
+
+<h1>盈米 MCP 工具 GetLatestQuotations（市场温度计与行情）实现口径深查报告</h1>
+
+<p class="meta">
+调研日期：2026-08-30 · 调研人：辜腾玉（guty，且慢/产品）via 本体问答服务 ·
+方法：图谱路由（[[index-valuation]]）→ 源码五段链路下钻（pmdj → smartdq → commons-processor → finance-api/FDP → 聚源/Wind）→ 生产库表结构核验（ym-infra）
+</p>
+
+<h2>〇、结论速览与证据分级</h2>
+
+<div class="box">
+<p><b>工具定位</b>：<code>GetLatestQuotations</code> = pmdj 内部 API <code>GET /v2/internal/market/quotations/latest</code> 的 MCP 包装（市场资讯助手 MarketAnalysisAssistant 的工具之一，AI 小顾 v3 场景经 qm_pilot_market_analysis MCP endpoint 暴露）。一次调用返回两部分：<b>①三大指数市场温度</b>（中证全A/沪深300/中证500，五档等级）+ <b>②五个指数的行情解读</b>（沪深300/创业板指/道琼斯/纳斯达克/伦敦金）。</p>
+<p>
+<span class="tag confirmed">已确认</span> 源码级证据（读到实现代码 / 建表 SQL）
+<span class="tag inferred">推断</span> 从代码行为推导、未经线上数据实测
+<span class="tag upstream">上游直返</span> 盈米侧无公式、仅透传上游字段
+</p>
+</div>
+
+<h2>一、调用链全景</h2>
+
+<pre>
+MCP Agent（qm_pilot_market_analysis / stargate 百炼 T2 工具）
+  └─ GET /v2/internal/market/quotations/latest?calDate=YYYY-MM-DD   [pmdj, x-sign 鉴权]
+       │  pmdj-service/server/handlers/internal-v2/market/
+       │    market.controller.ts → market-quotations.service.ts
+       │
+       ├─① 温度部分（对每个指数 000985/000300/000905 并行）
+       │    models/smartdq/market-temperature.ts
+       │      → GET smartdq /market-temperature（默认最新）或 /market-temperature-by-date（传 calDate）
+       │         qs: index_code, temperature_category=FIVE_LEVEL, time_range='10y'（恒定）
+       │         smartdq handler/market-temperature.js（Redis 缓存 600s）
+       │           → SELECT ... FROM ying99_dp.market_temperature WHERE index_code=? AND cal_date=? AND time_range='10y'
+       │             （温度/rating 均为离线算好落库的值；rating 在 smartdq 查出后按 FIVE_LEVEL 现算）
+       │
+       └─② 行情部分（一次性批量）
+            models/finance/index.ts doBatchGetIndexPriceDailyFromFinance(indexCodes, tradingDate)
+              → POST finance-api /graphql → dwdIndexPriceDailyFdp(recordDate=tradingDate)
+                 → 表 ying99_fdp.dwd_index_price_daily（FDP 数仓）
+                    （returnDay/priceClose/priceCloseLastDay 均为上游直返，盈米侧不计算）
+</pre>
+
+<div class="box warn">
+<b>关键架构事实</b>：温度计的数学计算 100% 发生在<b>离线批处理</b>（commons-processor，Python），pmdj/smartdq 只是读取算好的结果；行情字段则是 <b>FDP 数仓直返</b>，盈米 API 层零计算（只有 toFixed 格式化与阈值文案判断）。
+</div>
+
+<h2>二、市场温度计的精确数学公式</h2>
+
+<h3>2.1 温度公式 <span class="tag confirmed">已确认</span></h3>
+
+<p>证据：<code>commons-processor/pybin3/ProcessMarketTemperature.py</code> L114-121、L130-153（作者 lilongbo，2022-05-30）</p>
+
+<pre>
+# 每个交易日、每个指数：
+pe_rank    = pe_median  在历史窗口内的百分位排名   (pandas rank method='min', pct=True)
+pb_rank    = pb_median  在历史窗口内的百分位排名   (同上)
+risk_rank  = risk_premium_rate 在历史窗口内的百分位排名 (同上)
+
+temperature = (pe_rank + pb_rank + risk_rank) × 100 / 3
+最终落库 = round(temperature, 2)          # 保留 2 位小数，范围 0~100
+</pre>
+
+<ul>
+<li><b>权重：PE 分位、PB 分位、风险溢价分位 等权 1/3</b>，无任何其他加权。</li>
+<li><b>百分位定义</b>（pandas 语义，<span class="tag inferred">推断</span>自 pandas 官方 rank 语义，未环境实测）：<code>min_rank / 有效样本数</code>。并列值取相同最小名次；NaN 被排除在分母外。</li>
+<li><b>方向语义</b>：PE 越高温度越高（越热）；PB 同理；<b>风险溢价率越高温度越低</b>——注意风险溢价 <code>risk_premium_rate = 十年国债收益率/100 − 1/PE</code> 本身是“债券收益 − 股票盈利收益率”，<b>值越大代表股票越不划算 → 应该越冷</b>。但代码直接对它 rank 后<b>正向</b>计入温度——<b>即风险溢价率越高 → risk_rank 越大 → 温度越高</b>。这是一个方向值得注意的实现细节（见 §2.5）。</li>
+</ul>
+
+<h3>2.2 每个输入指标的计算公式 <span class="tag confirmed">已确认</span></h3>
+
+<p>证据：<code>ProcessMarketTemperatureBase.py</code>（作者 lilongbo，2022-07-28），落库表 <code>ying99_dp.market_temperature_base</code>（主键 cal_date+index_wind_code，pe_median/pb_median/risk_premium_rate 均 decimal(20,4)，已核生产建表 SQL）。</p>
+
+<table>
+<tr><th>base 表字段</th><th>公式</th><th>数据源（表）</th></tr>
+<tr>
+  <td><code>pe_median</code><br>市盈率(PE,TTM)中位数</td>
+  <td>当日该指数<b>全部成分股</b> PE(TTM) 的<b>中位数</b><br><code>groupby(dt, jy_index_code).agg(pe='median')</code></td>
+  <td>聚源 <code>ying99_juyuan.LC_DIndicesForValuation</code><br>（个股 PE/PB 日频估值表）</td>
+</tr>
+<tr>
+  <td><code>pb_median</code><br>市净率(PB,LF)中位数</td>
+  <td>同上，成分股 PB(LF) 的中位数</td>
+  <td>同上</td>
+</tr>
+<tr>
+  <td><code>risk_premium_rate</code><br>风险溢价率（%</td>
+  <td><code>(国债10Y到期收益率/100 − 1/pe_median) × 100</code><br>即：<b>10Y国债收益率(%) − 盈利收益率(1/PE, %)</b></td>
+  <td>聚源 <code>ying99_juyuan.bond_cbyieldcurve</code><br>CurveCode=10（国债）YieldTypeCode=1（到期）YearsToMaturity=10</td>
+</tr>
+</table>
+
+<blockquote>代码注释里留了一个未启用的“修正版”公式 <code>risk_premium_rate_new = (return − 1/pe)*100</code>（L257-258，注释“修正后的数据，暂时不替换，等信号”）——即生产仍是 <code>return/100</code> 版本。两者数值相同（return 本身是百分数），仅语义写法不同。<b>当前生效的是 return/100 版本。</b></blockquote>
+
+<h4>成分股与交易日细节</h4>
+<ul>
+<li><b>成分股归属</b>：聚源 <code>LC_IndexComponentsWeight</code>，<b>每月用上月底披露的成分股快照</b>（<code>EndDate+1month</code> 对齐到 ym 月份再 join）。</li>
+<li><b>特殊处理（中证全指）</b>：中证全指（聚源 IndexCode=14110）2011-09 才成立，成立前的成分股一律<b>取 2011-08-31 这份最早快照</b>（L113-130 特判，仅 start_date &lt; 20110901 时触发）。</li>
+<li><b>交易日过滤</b>：以 FDP <code>ying99_fdp.dwd_index_price_daily</code> 中 000300（沪深300）<code>is_real=1</code> 的 record_date 列表为交易日基准（L59-78；旧版用 wind <code>aindexeodprices</code>，已切换 FDP）。</li>
+<li><b>个股 PE/PB 取数口径</b>：<code>where PE is not null or PB is not null</code>——即 PE、PB 各自独立取中位数，一个字段缺失不影响另一个（L94-95）。</li>
+</ul>
+
+<h3>2.3 指数、历史起点与滚动窗口 <span class="tag confirmed">已确认</span></h3>
+
+<table>
+<tr><th>项</th><th>口径</th><th>证据</th></tr>
+<tr><td>温度计覆盖指数</td><td><b>中证全A(000985)、沪深300(000300)、中证500(000905)</b> 三个（pmdj 侧硬编码 SUPPORTED_TEMPERATURE_INDEX_CODES）</td><td>market-quotations.service.ts L23</td></tr>
+<tr><td>历史起点</td><td>base 表全量历史（代码不设下限，<code>cal_date &lt; end_date</code> 全取）。<b>实际上限受聚源 LC_DIndicesForValuation 数据起点限制</b>——中证全指 2011-09 前靠 2011-08-31 快照回补，更早指数（沪深300/中证500）成分股数据从聚源自身覆盖起点开始。<span class="tag inferred">推断</span>实际最早约 2005 年前后（聚源个股估值数据起点），未经线上数据实测。</td><td>ProcessMarketTemperature.py L69-74</td></tr>
+<tr><td>滚动窗口（MCP 实际使用）</td><td><b>近 10 年</b>：pmdj 调 smartdq 时恒定传 <code>time_range='10y'</code>（“恒定查近十年的数据”）。窗口为开区间 <code>(cal_day − 10年, cal_day]</code>，<b>含当日</b>。</td><td>models/smartdq/market-temperature.ts L25 / ProcessMarketTemperature.py L142-146</td></tr>
+<tr><td>另一档窗口（本工具不用）</td><td><code>time_range='std'</code> 历史以来：<code>cal_date ≤ cal_day</code> 的全部样本。两个窗口每天双轨写入 market_temperature 表（主键 index_code+cal_date+time_range）。</td><td>ProcessMarketTemperature.py L130-137</td></tr>
+<tr><td>窗口样本粒度</td><td><b>交易日逐日</b>（每个交易日一行温度，非月频）。</td><td>同上</td></tr>
+</table>
+
+<h3>2.4 去极值 / 缺失值 / 负 PE 边界处理</h3>
+
+<table>
+<tr><th>边界场景</th><th>处理方式</th><th>证据等级</th></tr>
+<tr><td>去极值（winsorize）</td><td><b>没有任何去极值处理。</b>直接用原始 pe_median/pb_median/risk_premium_rate 做百分位排名。由于温度本质是<b>序数统计（rank）</b>而非均值，极值天然只占一个名次、不放大影响——这是设计上“天然抗极值”的选择。</td><td><span class="tag confirmed">已确认</span>（全代码无 clip/quantile 截断）</td></tr>
+<tr><td>负 PE / 负 PB</td><td><b>照常参与排名。</b>个股层面取数时 PE/PB 只要非 null 即纳入中位数聚合；指数层 pe_median 若为负（熊市亏损股多时可能），rank 按数值大小正常排序（负值 = 最低名次 = 最低温度）。<b>没有“剔除负 PE”逻辑。</b></td><td><span class="tag confirmed">已确认</span>（L94-95 取数 + rank 逻辑）</td></tr>
+<tr><td>缺失值（某日无数据）</td><td>①个股层：PE/PB 各自 <code>is not null</code> 独立过滤；②指数层：当日若因内 merge 缺失则该日<b>直接不产出</b> base 行（内连接 txn_day × pbpe × 国债收益率三者都齐才写库）→ 温度计算跳过该日；③API 层：查不到温度时 pmdj 返回 <code>temperature=0, rating='UNKNOWN', ratingText='暂无数据'</code> 的降级项（不抛错）。</td><td><span class="tag confirmed">已确认</span></td></tr>
+<tr><td>并列值（如 PE 相同）</td><td>rank(method='min')：并列取<b>最小</b>名次，pct 分母为非 NaN 样本总数。</td><td><span class="tag inferred">推断</span>（pandas 语义）</td></tr>
+<tr><td>风险溢价为 NaN（pe_median=0？）</td><td>1/pe 若 pe=0 会产生 inf，代码未防护——但聚源 PE 为 0 的指数日基本不存在（中位数层面），实际风险极低。</td><td><span class="tag inferred">推断</span>（潜在边界，未见实际触发证据）</td></tr>
+</table>
+
+<h3>2.5 需要产品侧留意的一个口径细节 <span class="tag inferred">推断（方向语义值得复核）</span></h3>
+
+<div class="box warn">
+<p>常规“股权风险溢价 ERP”口径：<b>ERP = 股票盈利收益率(1/PE) − 无风险利率(10Y国债)</b>，ERP 越高股票越便宜（越冷）。</p>
+<p>而本实现的 <code>risk_premium_rate = 10Y国债收益率 − 1/PE</code>，是上者的<b>相反数</b>（即“债券相对股票的溢价”）。按通常理解，该值越大 → 债券越有吸引力 → 市场应越冷；但代码把它<b>正向</b> rank 进温度（值越大温度越高）。</p>
+<p>两种可能：①产品设计有意如此（把“债券溢价高”视为“之前股票涨太多/利率升”的热度信号）；②方向笔误但已按此口径跑了 4 年，历史分位机制会自我消化（分位对称，只影响“温度读数方向”这一维度的含义）。<b>建议与数据组 lilongbo/产品确认原意</b>——若确认为笔误，对“温度计”三因子中 1/3 权重的方向有实质影响。</p>
+</div>
+
+<div id="tempGauge"></div>
+
+<h2>三、行情部分：每个返回字段的计算口径</h2>
+
+<h3>3.1 返回字段全表</h3>
+
+<p>MCP 工具返回的行情部分 = <code>marketInterpretationsByCategory[]</code>（3 个板块：国内权益/海外权益/黄金），每个板块含若干指数的 <code>interpretations[]</code>。字段逐个说明（证据：<code>market-quotations.service.ts</code> L192-255 + <code>finance/api-entity.ts</code> L98-104）：</p>
+
+<table>
+<tr><th>返回字段</th><th>口径</th><th>盈米侧计算 or 上游直返</th></tr>
+<tr><td><code>indexCode / indexName / marketCategory</code></td><td>pmdj 硬编码配置表（5 指数 × 板块归属）</td><td><span class="tag confirmed">已确认</span> 盈米侧常量（L40-46）</td></tr>
+<tr><td><code>closePrice</code> 收盘价</td><td><code>Number(priceClose.toFixed(2))</code>，仅四舍五入到 2 位小数</td><td><span class="tag upstream">上游直返</span> FDP dwd_index_price_daily.price_close（decimal(20,6），“今收盘价”）</td></tr>
+<tr><td><code>dailyChange</code> 日涨跌幅（小数）</td><td>原样透传 <code>returnDay</code>（如 0.0235 = 2.35%）</td><td><span class="tag upstream">上游直返</span> return_day 字段，注释“日涨跌幅”。盈米侧零计算</td></tr>
+<tr><td><code>dailyChangePercent</code> 日涨跌幅（字符串）</td><td><code>"${(returnDay*100).toFixed(2)}%"</code>——<b>唯一一处算术</b>：小数→百分数 + 2 位小数格式化</td><td><span class="tag confirmed">已确认</span> 盈米侧格式化（L204、L246）</td></tr>
+<tr><td><code>fluctuationDescription</code> 波动描述</td><td>达到阈值 → <code>单日上涨超X%</code>/<code>单日下跌超X%</code>；未达 → <code>单日上涨X%</code>（写实际值）</td><td><span class="tag confirmed">已确认</span> 盈米侧阈值判断（见 3.2）</td></tr>
+<tr><td><code>marketLevel</code> 市场点位</td><td>按收盘价落档的三段区间（每指数独立阈值，见 3.3）</td><td><span class="tag confirmed">已确认</span> 盈米侧 if-else（L290-320）</td></tr>
+<tr><td><code>interpretation</code> 解读文案</td><td>“波动×点位”二维文案矩阵（10 条规则 × 3 档点位），未达波动阈值时固定 <code>'暂无更多的解读'</code></td><td><span class="tag confirmed">已确认</span> 盈米侧静态文案表（L325-423）</td></tr>
+<tr><td><code>rating / ratingText</code></td><td>仅部分文案档位带 rating（L/M/H + 文字映射），多数档位为 undefined</td><td><span class="tag confirmed">已确认</span> 盈米侧静态</td></tr>
+</table>
+
+<div class="box chain">
+<b>注意：本工具不返回成交量/成交额。</b>GraphQL 的 dwdIndexPriceDailyFdp 虽有 <code>turnover</code>（成交量）/<code>turnoverAmount</code>（成交金额）字段（表里也有，decimal(26,6)），但 pmdj 的 query 只 select 了 <code>returnDay / priceCloseLastDay / priceClose</code> 三个行情字段（models/finance/index.ts L988-994）——用户若问“成交量额”，本工具不提供，需走 finance-api GraphQL 直查。涨跌额（绝对值）同样不返回，只有涨跌幅。
+</div>
+
+<h3>3.2 波动阈值（判断“是否有解读”的门槛）<span class="tag confirmed">已确认</span></h3>
+
+<table>
+<tr><th>指数</th><th>单日涨超</th><th>单日跌超</th></tr>
+<tr><td>沪深300（国内权益）</td><td>2%</td><td>2%</td></tr>
+<tr><td>创业板指（国内权益）</td><td>3%</td><td>3%</td></tr>
+<tr><td>道琼斯 DJIAF（海外权益）</td><td>2%</td><td>2%</td></tr>
+<tr><td>纳斯达克 IXIC（海外权益）</td><td>3%</td><td>3%</td></tr>
+<tr><td>伦敦金 LBMAGOLDP（黄金）</td><td>1.5%</td><td>1.5%</td></tr>
+</table>
+
+<p>判断逻辑：<code>|dailyChange%| ≥ threshold</code> 才生成“超X%”描述 + 解读文案；否则只返回基础行情 + 市场点位，interpretation 固定为“暂无更多的解读”。</p>
+
+<h3>3.3 市场点位三段档（解读文案的第二个维度）<span class="tag confirmed">已确认</span></h3>
+
+<table>
+<tr><th>指数</th><th>低档</th><th>中档</th><th>高档</th></tr>
+<tr><td>沪深300</td><td>&lt;3600</td><td>3600~4800（含）</td><td>&gt;4800</td></tr>
+<tr><td>创业板指</td><td>&lt;2100</td><td>2100~3500（含）</td><td>&gt;3500</td></tr>
+<tr><td>道琼斯</td><td>&lt;35000</td><td>35000~42000（含）</td><td>&gt;42000</td></tr>
+<tr><td>纳斯达克</td><td>&lt;15000</td><td>15000~20000（含）</td><td>&gt;20000</td></tr>
+<tr><td>伦敦金</td><td>&lt;3000</td><td>3000~3400（含）</td><td>&gt;3400</td></tr>
+</table>
+
+<div id="flow"></div>
+
+<h3>3.4 数据源、交易日与更新时间</h3>
+
+<table>
+<tr><th>项</th><th>口径</th><th>证据</th></tr>
+<tr><td>行情数据源</td><td>FDP 数仓 <code>ying99_fdp.dwd_index_price_daily</code>（数智 fdp-data-api 的 GraphQL <code>dwdIndexPriceDailyFdp</code>），源头为行情商数据（表有 src_update_time 源更新时间字段）。<b>returnDay 的上游加工公式（除权处理等）在 FDP 数仓侧，不在盈米 API 层，本仓源码不可见。</b></td><td><span class="tag confirmed">已确认</span>调用链 / <span class="tag upstream">上游公式不可见</span></td></tr>
+<tr><td>交易日选取（默认）</td><td>不传 calDate 时：<b>取“第一个有温度数据的指数”的 cal_date</b>（000985→000300→000905 顺序 find），行情按该交易日查。</td><td><span class="tag confirmed">已确认</span> L62-63</td></tr>
+<tr><td>calDate 传入校验</td><td>格式 YYYY-MM-DD + 必须是交易日（经 trade 服务 /txnDay/getTxnDayForCount，基准基金 000509 货币基金交易日历），非交易日报 400。</td><td><span class="tag confirmed">已确认</span> L150-162</td></tr>
+<tr><td><code>calDate</code>（返回）</td><td>= 上述交易日</td><td>已确认</td></tr>
+<tr><td><code>updatedOn</code>（返回）</td><td>= 温度记录的 <code>updated_on</code>（market_temperature 表 timestamp 字段，行更新时自动刷新），格式化为 <code>YYYY年MM月DD日 HH:mm</code>。<b>反映的是温度数据落库/回刷时间，不是行情时间。</b></td><td><span class="tag confirmed">已确认</span></td></tr>
+<tr><td>缓存</td><td>smartdq 查询带 Redis 缓存 600s（10 分钟）；缓存键含 indexCode/calDate/timeRange/temperatureCategory。</td><td><span class="tag confirmed">已确认</span> market-temperature.js L16-46</td></tr>
+<tr><td>每日生产时点</td><td>Jenkins 任务（pipeline/jenkins-process-market-temperature*.groovy）跑 ProcessMarketTemperatureBase（算当日 base）→ ProcessMarketTemperature（算温度落库）。<b>具体 cron 时刻在 Jenkins 侧配置，仓内不可见</b>；由“估值订阅推送 job 轮询等落库”的旁证推断为盘后批处理。</td><td><span class="tag confirmed">已确认</span>流水线存在 / <span class="tag inferred">推断</span>时刻</td></tr>
+</table>
+
+<h2>四、温度区间分档阈值 <span class="tag confirmed">已确认</span></h2>
+
+<table>
+<tr><th>温度区间</th><th>五档 rating（FIVE_LEVEL）</th><th>ratingText</th><th>三档（THREE_LEVEL，本工具不用）</th></tr>
+<tr><td>≤20</td><td>L</td><td>低估</td><td>L</td></tr>
+<tr><td>20&lt;t≤40</td><td>ML</td><td>较低估</td><td>→ 归 L</td></tr>
+<tr><td>40&lt;t≤60</td><td>M</td><td>合理</td><td>M</td></tr>
+<tr><td>60&lt;t≤80</td><td>MH</td><td>较高估</td><td>→ 归 H</td></tr>
+<tr><td>&gt;80</td><td>H</td><td>高估</td><td>H</td></tr>
+</table>
+
+<ul>
+<li>本 MCP 工具恒定请求 <code>FIVE_LEVEL</code>（五档）。</li>
+<li>分档有两处实现且一致：离线落库 rating（ProcessMarketTemperature.py get_rating）与 smartdq 查询后现算 rating（common.js mapTemperatureToRating，Jira QMRD-36074：计算规则统一，展示层 5 档可折 3 档）。</li>
+<li>表里存的 rating 是离线版；smartdq 返回时会用现算版覆盖（两版阈值一致，无差异）。</li>
+<li>无数据时 rating='UNKNOWN'、ratingText='暂无数据'、temperature=0。</li>
+</ul>
+
+<h2>五、“上游直接返回、盈米侧无公式”清单</h2>
+
+<table>
+<tr><th>字段</th><th>上游字段映射</th><th>说明</th></tr>
+<tr><td><code>temperature</code>（温度值）</td><td><code>ying99_dp.market_temperature.temperature</code></td><td>离线算好（公式见 §2.1），smartdq/pmdj 零计算直传，仅 toFixed(2) 格式化</td></tr>
+<tr><td><code>rating</code></td><td>smartdq 查出 temperature 后现算（mapTemperatureToRating）</td><td>阈值同 §4</td></tr>
+<tr><td><code>closePrice</code></td><td>FDP <code>dwd_index_price_daily.price_close</code> → GraphQL <code>dwdIndexPriceDailyFdp.priceClose</code> → pmdj <code>priceClose</code></td><td>toFiexd(2) 四舍五入</td></tr>
+<tr><td><code>dailyChange</code></td><td>FDP <code>return_day</code> → <code>returnDay</code></td><td><b>原样透传，包括符号</b>（正涨负跌）</td></tr>
+<tr><td>（涨跌额、成交量、成交额）</td><td>上游表有 <code>price_close_last_day</code>/<code>turnover</code>/<code>turnover_amount</code>，GraphQL 也暴露</td><td><b>但本工具未取未返回</b>——pmdj 的 GraphQL query 只 select returnDay/priceCloseLastDay/priceClose（其中 priceCloseLastDay 取了但未用于返回字段）</td></tr>
+</table>
+
+<h2>六、证据清单（文件 / 类 / 方法）</h2>
+
+<table>
+<tr><th>#</th><th>证据</th><th>证明内容</th></tr>
+<tr><td>1</td><td><code>pmdj-service/api-docs/swagger-doc.json</code> → operationId GetLatestQuotations（/v2/internal/market/quotations/latest）</td><td>工具即该 API 的 MCP 包装（<span class="tag confirmed">已确认</span>）</td></tr>
+<tr><td>2</td><td><code>qm-ai/qm-pilot/docs/mcp_agents_info.md</code> L468（MarketAnalysisAssistant / qm_pilot_market_analysis）</td><td>MCP 暴露位置与工具 Schema（摘要“市场温度计”，参数仅 calDate）（<span class="tag confirmed">已确认</span>）</td></tr>
+<tr><td>3</td><td><code>pmdj-service/server/handlers/internal-v2/market/market.controller.ts</code> + <code>service/market-quotations.service.ts</code> + <code>entity/market.entity.ts</code></td><td>BFF 全部编排逻辑：三指数温度、五指数行情、解读文案矩阵、点位分档、交易日校验（<span class="tag confirmed">已确认</span>）</td></tr>
+<tr><td>4</td><td><code>pmdj-service/server/models/smartdq/market-temperature.ts</code></td><td>time_range 恒 '10y'、FIVE_LEVEL、temperature_category 参数（<span class="tag confirmed">已确认</span>）</td></tr>
+<tr><td>5</td><td><code>smartdq/server/handler/market-temperature.js</code> + <code>commons/market-temperature/common.js</code></td><td>SQL 查 market_temperature 表、600s 缓存、分档映射函数（含 QMRD-36074 注释）（<span class="tag confirmed">已确认</span>）</td></tr>
+<tr><td>6</td><td><code>commons-processor/pybin3/ProcessMarketTemperature.py</code>（calculate_temperature / get_rating / run）</td><td><b>温度核心公式</b>：三因子等权百分位均值 ×100、std/10y 双轨、round 2 位（<span class="tag confirmed">已确认</span>）</td></tr>
+<tr><td>7</td><td><code>commons-processor/pybin3/ProcessMarketTemperatureBase.py</code>（get_index_pbpe / get_nb_return / run）</td><td>base 三指标公式：成分股中位数 PE/PB（聚源）、风险溢价=国债10Y−1/PE、中证全指 2011 特判、FDP 交易日（<span class="tag confirmed">已确认</span>）</td></tr>
+<tr><td>8</td><td><code>commons-processor/pipeline/jenkins-process-market-temperature{,-base}.groovy</code></td><td>生产调度方式（Jenkins，ENV=PROD，config-common.json）（<span class="tag confirmed">已确认</span>存在，时刻不可见）</td></tr>
+<tr><td>9</td><td><code>pmdj-service/server/models/finance/index.ts</code> doBatchGetIndexPriceDailyFromFinance（L968-1004）+ <code>api-entity.ts</code> FinanceIndexPriceDaily（L98-104）</td><td>行情字段来自 finance-api GraphQL dwdIndexPriceDailyFdp，仅取 returnDay/priceCloseLastDay/priceClose（<span class="tag confirmed">已确认</span>）</td></tr>
+<tr><td>10</td><td><code>its/finance-api/.../dwd_index_price_daily.graphqls</code> + 实体 <code>DwdIndexPriceDailyFdp.java</code> + Mapper XML</td><td>finance-api 对 FDP 表的纯映射（无计算）（<span class="tag confirmed">已确认</span>）</td></tr>
+<tr><td>11</td><td>生产建表 SQL（ym-infra GetDatabaseTableSchema 实查：DwTiDB/CoreDB/CombinedDB 三实例）</td><td>market_temperature（默认 index_code='881001.WI'，PK 含 time_range）、market_temperature_base（decimal(20,4)，字段注释 PE,TTM/PB,LF/风险溢价率）、dwd_index_price_daily（decimal(20,6)，return_day 注释“日涨跌幅”）（<span class="tag confirmed">已确认</span>）</td></tr>
+<tr><td>12</td><td><code>ai-iris/docs/skills-summary.md</code> L25 + <code>skills/market-info/SKILL.md</code></td><td>AI 小顾侧该能力已更名 QueryMarketTemperature（旧名 GetLatestQuotations；卡片态 CardMarketThermometer）（<span class="tag confirmed">已确认</span>）</td></tr>
+<tr><td>13</td><td><code>ai/stargate/src/modules/externalMarket/bailianToolTiers.ts</code> L47</td><td>百炼云市场计费分层：GetLatestQuotations=T2（5 积分）（<span class="tag confirmed">已确认</span>）</td></tr>
+</table>
+
+<h3>主要推断项（未 100% 实证，均标注）</h3>
+<ul>
+<li>pandas rank(method='min', pct=True) 的精确语义（并行名次/分母）——按库官方语义推断，本机无 pandas 环境实测。</li>
+<li>base 表实际最早数据日期——代码无下限，受聚源数据起点约束；线上 min(cal_date) 查询因当前用户 prod-db-query/redash 均未授权无法实测。<b>（建议回填配方：select index_wind_code, min(cal_date), max(cal_date), count(*) from ying99_dp.market_temperature_base group by 1）</b></li>
+<li>每日生产 cron 时刻——Jenkins 侧配置，仓内不可见。</li>
+<li>FDP return_day 的上游加工公式（是否 (close−prevClose)/prevClose、复权口径）——数智 FDP 仓未 clone，不可见；但从字段存在性看与 price_close_last_day 配套，推断为收盘价环比。</li>
+</ul>
+
+<h2>七、可复现口径总结（一段话版）</h2>
+
+<div class="box">
+<p><b>市场温度（0-100，近10年窗口，五档）</b>：取该指数（中证全A/沪深300/中证500）当日成分股（聚源月度快照，中证全指 2011-08 前用最早快照）的 PE(TTM) 中位数与 PB(LF) 中位数，以及风险溢价率 = 10Y 国债到期收益率(%) − 100/PE(%)（即 1/PE 换算为百分数的盈利收益率）；三者各自在“过去 10 年交易日（含当日）”内做百分位排名（pandas rank min/pct），温度 = 三分位平均 × 100，保留 2 位。≤20 低估 / ≤40 较低估 / ≤60 合理 / ≤80 较高估 / >80 高估。</p>
+<p><b>行情解读</b>：五指数（沪深300/创业板/道指/纳指/伦敦金）当日收盘价与日涨跌幅直接取自 FDP 数仓 dwd_index_price_daily（盈米零计算）；涨跌幅超各自阈值（2/3/2/3/1.5%）且按收盘价落入三档点位区间的，命中静态文案矩阵生成解读，否则只给行情数字。</p>
+</div>
+
+<hr>
+<p class="meta">
+数据来源：<br>
+图谱路由：graph/bus/qieman/concepts/index-valuation.md（hub，含 [[pmdj]]/[[smartdq]]/[[commons-processor]] 链路登记）<br>
+源码（本机 ~/Code）：pmdj-service（market-quotations.service.ts / market.controller.ts / market.entity.ts / models/smartdq/market-temperature.ts / models/finance/index.ts / handlers/commons/txn-day.js）、smartdq（handler/market-temperature.js / commons/market-temperature/common.js）、commons-processor（pybin3/ProcessMarketTemperature.py / ProcessMarketTemperatureBase.py / ProcessMarketTemperaturePerformance.py / pipeline/*.groovy）、its/finance-api（graphql/dwd/index/dwd_index_price_daily.graphqls / DwdIndexPriceDailyFdp.java）、ai-iris（skills/market-info/SKILL.md / docs/skills-summary.md）、qm-ai/qm-pilot（docs/mcp_agents_info.md）、ai/stargate（bailianToolTiers.ts）<br>
+生产库表结构：ym-infra skill（GetDatabaseTableSchema：ying99_dp.market_temperature / market_temperature_base、ying99_fdp.dwd_index_price_daily，DwTiDB 等实例实查建表 SQL）<br>
+线上数据实测：prod-db-query（HTTP 403 未灰度）与 redash（会话未授权）均不可用，数据分布未实测——所有“已确认”均为源码/建表 SQL 级证据。
+</p>
+
+<script>
+// 温度计分档示意图
+const gauge = echarts.init(document.getElementById('tempGauge'));
+gauge.setOption({
+  title: { text: '市场温度分档（FIVE_LEVEL，MCP 工具恒用五档）', left: 'center' },
+  tooltip: { formatter: '{b}: {c}°' },
+  series: [{
+    type: 'gauge', min: 0, max: 100, splitNumber: 5,
+    axisLine: { lineStyle: { width: 20, color: [[0.2,'#2da44e'],[0.4,'#7cb342'],[0.6,'#c9a063'],[0.8,'#e07b39'],[1,'#cf222e']] } },
+    pointer: { itemStyle: { color: 'auto' } },
+    axisLabel: { distance: -60, fontSize: 12 },
+    detail: { formatter: '{value}°', offsetCenter: [0, '55%'], fontSize: 18 },
+    data: [{ value: 47.33, name: '示例:沪深300' }]
+  }]
+});
+
+// 行情解读判定流程
+const flow = echarts.init(document.getElementById('flow'));
+flow.setOption({
+  title: { text: '行情解读生成判定（每个指数独立执行）', left: 'center', textStyle:{fontSize:14} },
+  tooltip: { trigger: 'item' },
+  series: [{
+    type: 'sankey', left: 30, right: 120, top: 50, bottom: 20,
+    data: [
+      {name:'FDP行情表\nreturn_day/price_close'},
+      {name:'|涨跌幅| ≥ 阈值?\n(2/3/2/3/1.5%)'},
+      {name:'是: 单日上涨/下跌超X%'},
+      {name:'否: 基础行情 only'},
+      {name:'收盘价落档\n(三段点位)'},
+      {name:'解读="暂无更多的解读"'},
+      {name:'文案矩阵命中\n(波动×点位 → 静态解读+rating)'}
+    ],
+    links: [
+      {source:'FDP行情表\nreturn_day/price_close', target:'|涨跌幅| ≥ 阈值?\n(2/3/2/3/1.5%)', value: 10},
+      {source:'|涨跌幅| ≥ 阈值?\n(2/3/2/3/1.5%)', target:'是: 单日上涨/下跌超X%', value: 6},
+      {source:'|涨跌幅| ≥ 阈值?\n(2/3/2/3/1.5%)', target:'否: 基础行情 only', value: 4},
+      {source:'是: 单日上涨/下跌超X%', target:'收盘价落档\n(三段点位)', value: 6},
+      {source:'收盘价落档\n(三段点位)', target:'文案矩阵命中\n(波动×点位 → 静态解读+rating)', value: 6},
+      {source:'否: 基础行情 only', target:'解读="暂无更多的解读"', value: 4}
+    ],
+    label: { fontSize: 11 },
+    lineStyle: { color: 'gradient', curveness: 0.5 }
+  }]
+});
+</script>
+</body>
+</html>

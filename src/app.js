@@ -30,7 +30,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 60;
+const DATA_VERSION = 61;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -137,6 +137,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "getlatestquotations-market-temperature-2026-08-30",
+      groupId: "research",
+      title: "GetLatestQuotations｜市场温度计与行情公式深查",
+      url: "https://clairku.github.io/clair-ai-studio/reports/getlatestquotations-market-temperature-2026-08-30/",
+      preview: "getlatestquotations-market-temperature-2026-08-30.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-08-30T23:22:00.000+08:00",
+      source: "盈米本体源码下钻｜pmdj → smartdq → commons-processor → finance-api/FDP → 聚源/Wind｜市场温度：PE、PB、风险溢价近十年分位等权｜行情：FDP 直返与静态解读矩阵｜源码与生产表结构级证据，线上数据分布未实测｜内部技术口径报告",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["盈米 MCP", "GetLatestQuotations", "市场温度计", "行情", "估值", "PE", "PB", "风险溢价", "FDP", "源码审计", "本体", "HTML", "生产"],
+    },
     {
       id: "qieman-cashflow-strategies-audit-2026-08-28",
       groupId: "research",
