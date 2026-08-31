@@ -3,9 +3,9 @@
   "meta": {
     "contract_version": "gitlab-mr-v1",
     "source_of_truth": "GitLab merge requests",
-    "generated_at": "2026-08-31T05:10:05.850Z",
-    "cutoff": "2026-08-31T05:10:05.850Z",
-    "last_change_at": "2026-08-31T05:10:05.850Z",
+    "generated_at": "2026-08-31T10:10:05.858Z",
+    "cutoff": "2026-08-31T10:10:05.858Z",
+    "last_change_at": "2026-08-31T10:10:05.858Z",
     "stale_after_minutes": 180,
     "headline": "7 个已提交，4 个已上线，3 位 PM 完成端到端交付。",
     "window_start": "2026-07-01T00:00:00+08:00",
@@ -20,10 +20,10 @@
     "end_to_end_people": 3
   },
   "delta": {
-    "new_submitted": 1,
+    "new_submitted": 0,
     "pending_release": 3,
     "new_released": 0,
-    "changed": true
+    "changed": false
   },
   "people": [
     {
@@ -336,6 +336,14 @@
             "target_branch": "test",
             "state": "merged",
             "merged_at": "2026-08-31T11:11:32.244+08:00",
+            "is_release": false
+          },
+          {
+            "iid": 15500,
+            "url": "https://git.frontnode.net/qieman/albus/-/merge_requests/15500",
+            "target_branch": "test",
+            "state": "merged",
+            "merged_at": "2026-08-31T16:50:21.236+08:00",
             "is_release": false
           }
         ],
