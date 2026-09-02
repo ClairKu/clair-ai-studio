@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Agent Harness 老板版</title>
+  <desc id="desc">一图看懂全球路线、平台选型与企业打法</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#071321"/><stop offset=".56" stop-color="#0c1b2c"/><stop offset="1" stop-color="#151637"/></linearGradient>
+    <linearGradient id="headline" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#f6fbff"/><stop offset=".48" stop-color="#59ddff"/><stop offset="1" stop-color="#ad8eff"/></linearGradient>
+    <radialGradient id="g1"><stop stop-color="#51dcff" stop-opacity=".37"/><stop offset="1" stop-color="#51dcff" stop-opacity="0"/></radialGradient>
+    <radialGradient id="g2"><stop stop-color="#a88bff" stop-opacity=".33"/><stop offset="1" stop-color="#a88bff" stop-opacity="0"/></radialGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="1200" height="675" rx="30" fill="url(#bg)"/>
+  <circle cx="88" cy="78" r="290" fill="url(#g1)"/><circle cx="1110" cy="598" r="360" fill="url(#g2)"/>
+  <g opacity=".12" stroke="#a8c2d8"><path d="M0 112H1200M0 224H1200M0 336H1200M0 448H1200M0 560H1200"/><path d="M150 0V675M300 0V675M450 0V675M600 0V675M750 0V675M900 0V675M1050 0V675"/></g>
+  <g transform="translate(68 54)" font-family="Arial, 'PingFang SC', sans-serif">
+    <rect width="235" height="34" rx="17" fill="#12283b" stroke="#2c526c"/><circle cx="19" cy="17" r="5" fill="#56e5ae"/><text x="34" y="22" fill="#b8d2e5" font-size="13" letter-spacing="2">EXECUTIVE EDITION</text>
+    <text y="122" fill="url(#headline)" font-size="70" font-weight="750">AI 的下一场战争</text>
+    <text y="187" fill="#f3f8fd" font-size="48" font-weight="700">不只比大脑，更比组织能力</text>
+    <text y="235" fill="#93aabd" font-size="20">Agent Harness 全球路线 · 平台选型 · 企业打法</text>
+  </g>
+  <g transform="translate(68 345)" font-family="Arial, 'PingFang SC', sans-serif">
+    <g transform="translate(0)"><rect width="205" height="126" rx="20" fill="#0d2436" stroke="#2e637b"/><text x="20" y="34" fill="#51dcff" font-size="13">MODEL</text><text x="20" y="70" fill="#eef8ff" font-size="23" font-weight="700">聪明员工</text><text x="20" y="96" fill="#839aac" font-size="13">理解与判断</text></g>
+    <path d="M220 63H267" stroke="#51dcff" stroke-width="2"/>
+    <g transform="translate(270)"><rect width="250" height="126" rx="20" fill="#14213b" stroke="#594f8f"/><text x="20" y="34" fill="#a88bff" font-size="13">HARNESS</text><text x="20" y="70" fill="#eef8ff" font-size="23" font-weight="700">项目经理 + 公司制度</text><text x="20" y="96" fill="#8f97ae" font-size="13">组织、工具、权限、验收</text></g>
+    <path d="M535 63H582" stroke="#a88bff" stroke-width="2"/>
+    <g transform="translate(585)"><rect width="205" height="126" rx="20" fill="#112a2e" stroke="#34775f"/><text x="20" y="34" fill="#56e5ae" font-size="13">DELIVERY</text><text x="20" y="70" fill="#eef8ff" font-size="23" font-weight="700">真实交付</text><text x="20" y="96" fill="#839f96" font-size="13">完成、证据、责任</text></g>
+    <g transform="translate(830)"><rect width="300" height="126" rx="20" fill="#171c35" stroke="#52466f"/><text x="22" y="32" fill="#ffd06c" font-size="12">双阅读模式</text><text x="22" y="65" fill="#f4f7ff" font-size="20" font-weight="700">老板速览 ↔ 白话科普</text><text x="22" y="95" fill="#948fa9" font-size="13">六大流派 · 架构图 · 70/20/10</text></g>
+  </g>
+  <g transform="translate(68 584)" font-family="Arial, 'PingFang SC', sans-serif"><text fill="#758da1" font-size="15">国内外趋势 · 11 平台 · 决策树 · 三类业务案例</text><text x="1064" fill="#d7e7f3" font-size="15" text-anchor="end">CLAIR'S STUDIO</text></g>
+  <rect x="1" y="1" width="1198" height="673" rx="29" fill="none" stroke="#314960"/>
+</svg>

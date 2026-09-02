@@ -30,7 +30,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 63;
+const DATA_VERSION = 64;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -137,6 +137,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "agent-harness-executive-2026-09-02",
+      groupId: "ai-platform",
+      title: "Agent Harness 老板版｜一图看懂全球路线、选型与企业打法",
+      url: "https://clairku.github.io/clair-ai-studio/reports/agent-harness-executive-2026-09-02/",
+      preview: "agent-harness-executive-2026-09-02.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-02T16:10:00.000+08:00",
+      source: "高层老板/非技术背景双模式切换｜以聪明员工、项目经理、门禁、车间和质检类比解释 Harness｜国内外趋势、六大架构流派、11 个代表平台定位图、老板选型矩阵、三类关键架构图、三项业务案例、决策树、70/20/10 资源组合、路线图与董事会治理指标｜16 项官方一手资料｜结论：短期购买成熟生产力，中期自建身份/策略/审计/验收控制面，长期保持模型与 Harness 可替换",
+      access: "production",
+      workType: "competitive-research",
+      tags: ["Agent Harness", "老板版", "高层决策", "非技术", "DeepSeek Harness", "Codex", "Claude Code", "Gemini CLI", "Qwen Code", "DeerFlow", "Cursor", "GitHub Copilot", "架构图", "趋势", "竞品调研", "HTML", "生产"],
+    },
     {
       id: "raft-human-ai-group-chat-research-2026-09-02",
       groupId: "ai-workbench",

@@ -37,8 +37,8 @@ const reports = reportChunks.map((chunk) => ({
   access: chunk.match(/\baccess:\s*"([^"]+)"/)?.[1] || "",
 }));
 
-if (reports.length !== 130) { // +1 raft-human-ai-group-chat-research 2026-09-02 // +1 Agent Harness architecture report 2026-09-02 // +1 baidu-dumate-review 2026-09-01 // +1 GetLatestQuotations market temperature audit 2026-08-30
-  fail(`初始成果数量异常：预期 130，实际 ${reports.length}`);
+if (reports.length !== 131) { // +1 Agent Harness executive report 2026-09-02 // +1 raft-human-ai-group-chat-research 2026-09-02 // +1 Agent Harness architecture report 2026-09-02 // +1 baidu-dumate-review 2026-09-01 // +1 GetLatestQuotations market temperature audit 2026-08-30
+  fail(`初始成果数量异常：预期 131，实际 ${reports.length}`);
 }
 
 for (const field of ["id", "url"]) {
