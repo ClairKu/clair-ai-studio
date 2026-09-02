@@ -30,7 +30,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 61;
+const DATA_VERSION = 62;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -137,6 +137,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "agent-harness-architecture-2026-09-02",
+      groupId: "ai-platform",
+      title: "Agent Harness 深度解剖｜DeepSeek、Codex 与主流平台",
+      url: "https://clairku.github.io/clair-ai-studio/reports/agent-harness-architecture-2026-09-02/",
+      preview: "agent-harness-architecture-2026-09-02.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-02T15:00:00.000+08:00",
+      source: "一手资料与源码结构交叉核验｜DeepSeek Harness、Codex、Claude Code、Gemini CLI、OpenCode、Cursor、GitHub Copilot 七平台对照｜九层 Harness 模型、控制循环与事件流、能力/安全/扩展矩阵、16 个建设模块、90 天路线图与可复现实验设计｜结论：DeepSeek 适合组合性研发，Codex 适合成熟控制面，企业落地优先采用可替换模型网关与双层执行架构｜未进行统一任务集的跨平台实跑，评分为架构证据驱动的工程判断",
+      access: "production",
+      workType: "competitive-research",
+      tags: ["Agent Harness", "DeepSeek Harness", "Codex", "Claude Code", "Gemini CLI", "OpenCode", "Cursor", "GitHub Copilot", "Agent", "MCP", "Skills", "沙箱", "架构", "竞品调研", "HTML", "生产"],
+    },
     {
       id: "baidu-dumate-review-2026-09-01",
       groupId: "ai-workbench",

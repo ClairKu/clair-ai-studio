@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#08111f" />
+  <meta name="description" content="DeepSeek Harness、Codex Harness 与主流智能体平台的架构、机制、模块、安全、扩展与构建方法深度分析。" />
+  <title>Agent Harness 深度解剖｜DeepSeek、Codex 与主流平台</title>
+  <style>
+    :root{--bg:#07101d;--panel:#0d1928;--panel2:#101f31;--ink:#edf5ff;--muted:#96a9be;--line:rgba(158,187,218,.17);--cyan:#52d6ff;--mint:#49e7b0;--violet:#a889ff;--amber:#ffca68;--red:#ff7e88;--blue:#68a5ff;--shadow:0 28px 80px rgba(0,0,0,.28);--radius:24px}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 12% 0%,rgba(82,214,255,.12),transparent 30%),radial-gradient(circle at 93% 13%,rgba(168,137,255,.11),transparent 29%),var(--bg);color:var(--ink);font-family:Inter,"SF Pro Display","PingFang SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.72}a{color:inherit;text-decoration:none}button{font:inherit}::selection{background:rgba(82,214,255,.3)}
+    .wrap{width:min(1220px,calc(100% - 38px));margin:auto}.hero{min-height:92vh;display:flex;align-items:center;padding:98px 0 68px;position:relative;overflow:hidden}.grid-bg{position:absolute;inset:0;opacity:.16;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(to bottom,black,transparent 86%);pointer-events:none}.orb{position:absolute;width:460px;height:460px;border:1px solid rgba(82,214,255,.17);border-radius:50%;right:-130px;top:40px;box-shadow:inset 0 0 80px rgba(82,214,255,.04)}.orb:before,.orb:after{content:"";position:absolute;border-radius:50%;border:1px dashed rgba(168,137,255,.24);inset:54px}.orb:after{inset:118px;border-color:rgba(73,231,176,.2)}
+    .eyebrow{display:inline-flex;gap:10px;align-items:center;padding:7px 12px;border:1px solid rgba(82,214,255,.28);border-radius:999px;color:var(--cyan);font-size:12px;font-weight:760;letter-spacing:.13em;text-transform:uppercase;background:rgba(82,214,255,.06)}.dot{width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 16px var(--mint)}h1{font-size:clamp(44px,7.4vw,96px);line-height:.98;letter-spacing:-.065em;margin:25px 0 25px;max-width:1020px}.grad{background:linear-gradient(98deg,#fff 4%,var(--cyan) 44%,var(--violet) 92%);-webkit-background-clip:text;color:transparent}.lead{font-size:clamp(18px,2vw,25px);max-width:880px;color:#b9c9da;margin:0}.hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:32px}.chip{border:1px solid var(--line);border-radius:11px;padding:8px 11px;color:var(--muted);font-size:12px;background:rgba(255,255,255,.025)}.hero-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:56px;max-width:960px}.kpi{padding:20px;border:1px solid var(--line);background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.015));border-radius:18px;backdrop-filter:blur(10px)}.kpi b{font-size:28px;display:block;color:#fff}.kpi span{font-size:12px;color:var(--muted)}
+    .nav{position:sticky;top:0;z-index:20;border-block:1px solid var(--line);background:rgba(7,16,29,.88);backdrop-filter:blur(16px);overflow:auto}.nav .wrap{display:flex;gap:7px;padding:10px 0;min-width:max-content}.nav a{padding:7px 10px;border-radius:8px;color:var(--muted);font-size:12px}.nav a:hover{color:var(--ink);background:rgba(255,255,255,.06)}
+    section{padding:84px 0;scroll-margin-top:52px}.section-head{display:grid;grid-template-columns:150px 1fr;gap:24px;margin-bottom:34px}.index{font:700 12px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--cyan);letter-spacing:.12em;padding-top:9px}.section-head h2{font-size:clamp(31px,4.2vw,55px);line-height:1.08;letter-spacing:-.045em;margin:0}.section-head p{color:var(--muted);max-width:760px;margin:15px 0 0}.panel{border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(150deg,rgba(255,255,255,.055),rgba(255,255,255,.018));box-shadow:var(--shadow)}.callout{padding:28px 30px;border-left:3px solid var(--mint)}.callout strong{font-size:20px}.callout p{margin:6px 0 0;color:#b8c8d8}
+    .truth-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.truth{padding:24px;min-height:195px}.truth .n{font:700 11px ui-monospace,monospace;color:var(--cyan)}.truth h3{font-size:19px;margin:16px 0 8px}.truth p{font-size:14px;color:var(--muted);margin:0}.truth:nth-child(2) .n,.truth:nth-child(5) .n{color:var(--violet)}.truth:nth-child(3) .n,.truth:nth-child(6) .n{color:var(--mint)}
+    .stack{padding:24px;display:grid;gap:8px}.layer{display:grid;grid-template-columns:55px 220px 1fr;gap:18px;align-items:center;padding:13px 16px;background:rgba(7,16,29,.58);border:1px solid var(--line);border-radius:13px}.layer .ln{font:700 11px ui-monospace,monospace;color:var(--cyan)}.layer strong{font-size:14px}.layer span{font-size:13px;color:var(--muted)}
+    .duel{display:grid;grid-template-columns:1fr 1fr;gap:15px}.side{padding:29px;position:relative;overflow:hidden}.side:before{content:"";position:absolute;width:190px;height:190px;border-radius:50%;filter:blur(65px);opacity:.15;right:-30px;top:-30px;background:var(--cyan)}.side.codex:before{background:var(--violet)}.brand{display:flex;align-items:center;justify-content:space-between}.brand h3{font-size:28px;letter-spacing:-.035em;margin:0}.tag{padding:5px 9px;border-radius:999px;font-size:10px;font-weight:800;letter-spacing:.08em;background:rgba(82,214,255,.11);color:var(--cyan)}.codex .tag{background:rgba(168,137,255,.12);color:#c5b2ff}.thesis{font-size:19px;line-height:1.5;margin:24px 0;color:#d7e7f8}.points{display:grid;gap:10px}.point{display:grid;grid-template-columns:28px 1fr;gap:11px;padding:11px 0;border-top:1px solid var(--line)}.point i{font-style:normal;color:var(--mint)}.point b{display:block;font-size:14px}.point span{display:block;color:var(--muted);font-size:12px;margin-top:2px}.warning{margin-top:20px;border:1px solid rgba(255,126,136,.22);background:rgba(255,126,136,.055);padding:13px 14px;border-radius:12px;font-size:12px;color:#ffc0c5}
+    .flow{padding:26px;overflow:auto}.flow-row{display:flex;align-items:stretch;min-width:960px}.node{flex:1;min-height:128px;padding:16px;border:1px solid var(--line);border-radius:15px;background:#0a1625}.node small{color:var(--cyan);font:700 10px ui-monospace,monospace}.node b{display:block;margin:8px 0 5px;font-size:14px}.node span{font-size:11px;color:var(--muted)}.arrow{display:flex;align-items:center;justify-content:center;width:38px;color:#53718d}.flow-caption{font-size:12px;color:var(--muted);margin-top:15px}.event-strip{display:grid;grid-template-columns:repeat(7,1fr);gap:7px;margin-top:15px}.event-strip span{font:700 10px ui-monospace,monospace;text-align:center;padding:9px 5px;border-radius:9px;border:1px solid var(--line);color:#b8cce0}.event-strip span:nth-child(4){color:var(--amber);border-color:rgba(255,202,104,.3)}
+    .compare-wrap{overflow:auto;border:1px solid var(--line);border-radius:22px}.compare{border-collapse:collapse;width:100%;min-width:1080px;background:rgba(10,22,37,.7)}.compare th,.compare td{padding:15px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top;font-size:12px}.compare thead th{position:sticky;top:0;background:#101e2e;z-index:2;color:#fff;font-size:12px}.compare th:first-child,.compare td:first-child{position:sticky;left:0;background:#0d1a29;z-index:1;min-width:142px}.compare thead th:first-child{z-index:3}.compare td{color:#a9bbcc}.compare td strong{color:#eef6ff}.hi{color:var(--mint)!important}.med{color:var(--amber)!important}.low{color:#ff9da5!important}.legend{display:flex;gap:18px;color:var(--muted);font-size:11px;margin:12px 4px 0}.legend i{font-style:normal}.legend .a{color:var(--mint)}.legend .b{color:var(--amber)}.legend .c{color:var(--red)}
+    .score-toolbar{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}.score-toolbar button{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;padding:8px 12px;cursor:pointer}.score-toolbar button.active{background:var(--cyan);border-color:var(--cyan);color:#04111d;font-weight:800}.score-list{display:grid;gap:9px}.score-row{display:grid;grid-template-columns:150px repeat(7,1fr);gap:9px;align-items:center}.score-row>span{font-size:12px;color:#b4c5d6}.bar{height:36px;border-radius:9px;background:#0a1624;position:relative;border:1px solid var(--line);overflow:hidden}.bar:before{content:"";position:absolute;inset:0 auto 0 0;width:calc(var(--v)*20%);background:linear-gradient(90deg,rgba(82,214,255,.32),rgba(168,137,255,.52))}.bar b{position:relative;z-index:1;padding-left:11px;line-height:34px;font:700 11px ui-monospace,monospace}.score-head{display:grid;grid-template-columns:150px repeat(7,1fr);gap:9px;margin-bottom:8px}.score-head b{font-size:10px;text-align:center;color:var(--muted)}
+    .details-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.detail{padding:25px}.detail .dhead{display:flex;gap:12px;align-items:center}.ico{width:39px;height:39px;border-radius:12px;background:rgba(82,214,255,.11);display:grid;place-items:center;color:var(--cyan);font:800 12px ui-monospace,monospace}.detail h3{font-size:19px;margin:0}.detail p{color:var(--muted);font-size:13px}.detail ul{padding-left:18px;margin:0}.detail li{font-size:13px;color:#c3d1df;margin:7px 0}.detail em{color:var(--amber);font-style:normal}
+    .winner-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.winner{padding:20px}.winner small{font:700 10px ui-monospace,monospace;color:var(--cyan)}.winner h3{font-size:17px;margin:11px 0 5px}.winner b{color:var(--mint)}.winner p{color:var(--muted);font-size:12px;margin:8px 0 0}
+    .blueprint{padding:30px}.arch{display:grid;grid-template-columns:1fr 42px 1.35fr 42px 1fr;gap:7px;align-items:stretch}.arch-col{display:grid;gap:8px}.arch-box{padding:14px;border:1px solid var(--line);border-radius:12px;background:#091522}.arch-box b{font-size:13px}.arch-box span{display:block;color:var(--muted);font-size:11px;margin-top:3px}.arch-arrow{display:grid;place-items:center;color:#52718d;font-size:19px}.arch-core{padding:18px;border:1px solid rgba(82,214,255,.3);border-radius:18px;background:linear-gradient(150deg,rgba(82,214,255,.09),rgba(168,137,255,.07))}.arch-core h3{margin:0 0 14px;font-size:20px}.core-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}.core-grid div{padding:10px;background:rgba(4,13,23,.48);border-radius:9px;font-size:11px;color:#c4d5e6}
+    .modules{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}.module{padding:16px;border:1px solid var(--line);border-radius:14px;background:rgba(8,20,34,.68)}.module small{font:700 10px ui-monospace,monospace;color:var(--cyan)}.module b{font-size:13px;display:block;margin:7px 0 4px}.module span{font-size:11px;color:var(--muted)}.p0 small{color:var(--mint)}.p2 small{color:var(--amber)}
+    .code-tabs{display:flex;gap:7px;margin-top:22px}.code-tabs button{border:1px solid var(--line);color:var(--muted);background:transparent;border-radius:9px 9px 0 0;padding:8px 12px;cursor:pointer}.code-tabs button.active{color:var(--ink);background:#0b1725;border-bottom-color:#0b1725}.code-pane{display:none;margin:0;background:#0b1725;border:1px solid var(--line);border-radius:0 14px 14px 14px;padding:20px;overflow:auto;color:#bfe7d5;font:12px/1.72 ui-monospace,SFMono-Regular,Menlo,monospace}.code-pane.active{display:block}
+    .roadmap{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}.phase{padding:22px;position:relative}.phase:before{content:"";display:block;width:42px;height:4px;border-radius:4px;background:var(--cyan);margin-bottom:18px}.phase:nth-child(2):before{background:var(--mint)}.phase:nth-child(3):before{background:var(--violet)}.phase:nth-child(4):before{background:var(--amber)}.phase small{font:700 10px ui-monospace,monospace;color:var(--muted)}.phase h3{font-size:18px;margin:8px 0}.phase ul{padding-left:16px}.phase li{font-size:12px;color:#b7c7d7;margin:7px 0}
+    .eval-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}.eval-card{padding:26px}.eval-card h3{margin:0 0 13px;font-size:20px}.metric{display:grid;grid-template-columns:1.2fr .8fr;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:12px}.metric span:last-child{color:var(--mint);text-align:right}.tests{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.test{padding:10px;border:1px solid var(--line);border-radius:9px;font-size:11px;color:#b6c7d7}.test b{color:#eef6ff;display:block}
+    .verdict{padding:35px;border-color:rgba(73,231,176,.26);background:linear-gradient(135deg,rgba(73,231,176,.09),rgba(82,214,255,.06),rgba(168,137,255,.06))}.verdict h3{font-size:31px;letter-spacing:-.035em;margin:0 0 12px}.verdict p{font-size:16px;color:#c7d7e6;max-width:920px}.decision{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px}.decision div{padding:16px;background:rgba(5,15,25,.56);border-radius:13px}.decision b{display:block;font-size:13px}.decision span{font-size:11px;color:var(--muted)}
+    .sources{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.source{padding:13px 15px;border:1px solid var(--line);border-radius:11px;color:#b8c8d9;font-size:12px}.source:hover{border-color:rgba(82,214,255,.4);color:#fff}.source b{color:var(--cyan);margin-right:8px}.method{margin-top:18px;padding:18px;border-radius:14px;background:rgba(255,255,255,.025);color:var(--muted);font-size:12px}.stamp{display:flex;justify-content:space-between;gap:20px;border-top:1px solid var(--line);padding:30px 0 50px;color:#71869c;font-size:11px}.stamp b{color:#a5b9cb}
+    .fade{opacity:0;transform:translateY(16px);transition:.65s ease}.fade.show{opacity:1;transform:none}
+    @media(max-width:950px){.truth-grid,.winner-grid,.modules{grid-template-columns:repeat(2,1fr)}.hero-kpis,.roadmap{grid-template-columns:repeat(2,1fr)}.section-head{grid-template-columns:1fr;gap:4px}.duel,.details-grid,.eval-grid{grid-template-columns:1fr}.arch{grid-template-columns:1fr}.arch-arrow{transform:rotate(90deg);height:28px}.score-row,.score-head{grid-template-columns:120px repeat(7,84px);min-width:740px}.score-list,.score-head{overflow:auto}}@media(max-width:620px){.wrap{width:min(100% - 24px,1220px)}.hero{padding-top:75px;min-height:auto}.hero-kpis,.truth-grid,.winner-grid,.modules,.roadmap,.decision,.sources{grid-template-columns:1fr}.layer{grid-template-columns:44px 1fr}.layer span{grid-column:2}.event-strip{grid-template-columns:repeat(2,1fr)}section{padding:64px 0}.panel{border-radius:18px}.side,.blueprint{padding:21px}.stamp{display:block}.orb{opacity:.45}}
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="grid-bg"></div><div class="orb"></div>
+    <div class="wrap">
+      <div class="eyebrow"><span class="dot"></span> Agent Infrastructure · 2026</div>
+      <h1><span class="grad">HARNESS</span><br/>不是模型外壳，<br/>而是智能体的操作系统</h1>
+      <p class="lead">DeepSeek Harness、Codex Harness 与 Claude Code、Gemini CLI、OpenCode、Cursor、GitHub Copilot 的架构、代理循环、上下文、安全、扩展与工程化深度解剖。</p>
+      <div class="hero-meta"><span class="chip">一手源码 / 官方文档</span><span class="chip">统一九层模型</span><span class="chip">7 平台主矩阵</span><span class="chip">16 个构建模块</span><span class="chip">90 天落地路线</span><span class="chip">金融企业治理视角</span></div>
+      <div class="hero-kpis">
+        <div class="kpi"><b>9</b><span>统一架构层</span></div><div class="kpi"><b>7</b><span>核心平台横评</span></div><div class="kpi"><b>16</b><span>建议自建模块</span></div><div class="kpi"><b>22</b><span>一手证据入口</span></div>
+      </div>
+    </div>
+  </header>
+  <nav class="nav"><div class="wrap"><a href="#answer">结论</a><a href="#definition">九层模型</a><a href="#duel">DeepSeek vs Codex</a><a href="#flow">循环与事件</a><a href="#matrix">平台矩阵</a><a href="#depth">机制下钻</a><a href="#winners">场景选型</a><a href="#build">构建蓝图</a><a href="#roadmap">路线图</a><a href="#eval">评测</a><a href="#sources">证据</a></div></nav>
+
+  <main>
+    <section id="answer"><div class="wrap">
+      <div class="section-head fade"><div class="index">00 / EXECUTIVE</div><div><h2>先给结论：两者不是同一种“好”</h2><p>DeepSeek Harness 试图把 Harness 变成可重组的元框架；Codex Harness 试图把 Harness 变成可靠、多端一致、可治理的产品控制面。前者更像“智能体 Linux 内核实验场”，后者更像“企业级 Agent Runtime + App Server”。</p></div></div>
+      <div class="truth-grid">
+        <article class="truth panel fade"><div class="n">01</div><h3>DeepSeek 的真正创新在 Cordis</h3><p>插件不是外围扩展，而是模型、工具、会话、循环、沙箱、存储、UI 的共同组织方式；服务依赖、事件与可逆副作用由同一上下文内核管理。<sup><a href="#s1">[S1]</a></sup></p></article>
+        <article class="truth panel fade"><div class="n">02</div><h3>Codex 的护城河在控制面</h3><p>Codex Core 管代理循环；App Server 用双向 JSON-RPC 暴露 Thread / Turn / Item，把 CLI、IDE、桌面和云端统一到同一事件协议。<sup><a href="#s7">[S7]</a></sup></p></article>
+        <article class="truth panel fade"><div class="n">03</div><h3>Harness 决定模型能否长期工作</h3><p>同一模型放进不同 Harness，会因工具定义、上下文压缩、权限、错误恢复和验证闭环而产生完全不同的完成率、成本与风险。</p></article>
+        <article class="truth panel fade"><div class="n">04</div><h3>DeepSeek 现在不该直接生产化</h3><p>项目仍是 developer preview，并明确声明未完成安全审计、不能视为生产就绪；接口破坏性变化也在预期内。<sup><a href="#s5">[S5]</a></sup></p></article>
+        <article class="truth panel fade"><div class="n">05</div><h3>Codex 也不是“万能中立内核”</h3><p>它开放源码，但最优路径深度耦合 Responses API、模型指令、服务端压缩与 OpenAI 推理内容；跨模型自由度低于 OpenCode/DSH。</p></article>
+        <article class="truth panel fade"><div class="n">06</div><h3>最佳企业解是“组合借鉴”</h3><p>拿 DSH 的 capability seam，拿 Codex 的 Thread/Turn/Item 与 App Server，拿 Claude/Gemini 的 hooks 与分层策略，执行面用容器或 microVM。</p></article>
+      </div>
+      <div class="callout panel fade" style="margin-top:16px"><strong>一句话建议</strong><p>要快速把 OpenAI 代理能力嵌入产品：优先 Codex App Server；要研发自有、多模型、可热插拔 Harness：借鉴 DeepSeek Cordis，但重写安全与稳定性边界；要在金融企业真正上线：必须自持策略、审计、身份、密钥和执行隔离控制面。</p></div>
+    </div></section>
+
+    <section id="definition"><div class="wrap">
+      <div class="section-head fade"><div class="index">01 / MODEL</div><div><h2>统一九层：别把 Harness 缩成一个 while-loop</h2><p>代理循环只是心跳。真正决定生产能力的是九层协同，且每层都要有清晰的状态、边界、错误语义和审计证据。</p></div></div>
+      <div class="stack panel fade">
+        <div class="layer"><div class="ln">L9</div><strong>体验与交付面</strong><span>CLI / IDE / Desktop / Web / Mobile / PR；流式状态、diff、artifact、远程接管</span></div>
+        <div class="layer"><div class="ln">L8</div><strong>协议与控制面</strong><span>Thread / Turn / Item、JSON-RPC / HTTP / ACP、暂停/恢复/分叉/归档/排队</span></div>
+        <div class="layer"><div class="ln">L7</div><strong>编排与多代理</strong><span>委派、fork、共享任务 DAG、mailbox、worktree 隔离、预算与取消</span></div>
+        <div class="layer"><div class="ln">L6</div><strong>可观测与评测</strong><span>append-only trajectory、token/cost、tool trace、OTel、replay、acceptance gate</span></div>
+        <div class="layer"><div class="ln">L5</div><strong>安全与治理</strong><span>身份、最小权限、allow/ask/deny、审批、network egress、secret broker、审计</span></div>
+        <div class="layer"><div class="ln">L4</div><strong>执行与工具</strong><span>文件、shell、PTY、LSP、浏览器、MCP、后台任务；工具 schema、超时、幂等</span></div>
+        <div class="layer"><div class="ln">L3</div><strong>上下文与记忆</strong><span>系统指令、项目规则、技能、检索、工具懒加载、剪枝、压缩、长期记忆</span></div>
+        <div class="layer"><div class="ln">L2</div><strong>代理循环与状态机</strong><span>输入 → 推理 → 工具调用 → 结果 → 继续 / 结束；重试、恢复、取消、并发</span></div>
+        <div class="layer"><div class="ln">L1</div><strong>模型与路由</strong><span>模型适配器、协议转换、fallback、prompt cache、reasoning effort、配额与成本</span></div>
+      </div>
+    </div></section>
+
+    <section id="duel"><div class="wrap">
+      <div class="section-head fade"><div class="index">02 / CORE DUEL</div><div><h2>DeepSeek Harness vs Codex Harness</h2><p>一边把“变化”当首要问题，一边把“可靠运行与多端协议”当首要问题。两者都事件化，但事件的职责不同。</p></div></div>
+      <div class="duel">
+        <article class="side panel fade"><div class="brand"><h3>DeepSeek Harness</h3><span class="tag">COMPOSABLE META-RUNTIME</span></div><div class="thesis">Everything is a plugin.<br/>没有特权核心，运行体是一棵可配置插件树。</div><div class="points">
+          <div class="point"><i>01</i><div><b>Cordis Context</b><span>服务仓库 + 依赖注入 + typed events + 可逆 effects；组件卸载时副作用可回收。</span></div></div>
+          <div class="point"><i>02</i><div><b>Profile / Bundle / Patch</b><span>web、headless、sdk、minimal、ACP 均是有序组合；可用 overlay 替换任意行。</span></div></div>
+          <div class="point"><i>03</i><div><b>Append-only SessionEvent</b><span>模型可见内容必须可由日志重建；resume、fork、search、replay 共用事件流。</span></div></div>
+          <div class="point"><i>04</i><div><b>Capability Seam</b><span>Definition / Provider / Consumer 三角色；filesystem、subprocess、sandbox、LLM 均可换后端。</span></div></div>
+          <div class="point"><i>05</i><div><b>PTC Code Mode</b><span>模型生成 TypeScript 程序，通过受控异步 bindings 编排多轮工具调用，降低往返。</span></div></div>
+          <div class="point"><i>06</i><div><b>多代理可跨 Harness</b><span>同一 subagent seam 可接 in-process、ACP、Codex、Claude Code 或 DSH SDK。</span></div></div>
+        </div><div class="warning">最大风险：插件化把因果链分散到服务、事件、配置层；错误可来自“组合”而非单模块。官方声明目前未经安全审计、非生产就绪。</div></article>
+        <article class="side codex panel fade"><div class="brand"><h3>Codex Harness</h3><span class="tag">PRODUCT CONTROL PLANE</span></div><div class="thesis">One core, many surfaces.<br/>核心循环集中，外部通过稳定事件协议驱动。</div><div class="points">
+          <div class="point"><i>01</i><div><b>Codex Core</b><span>Rust 核心承载 prompt 构建、模型调用、工具执行、会话持久化、压缩与策略。</span></div></div>
+          <div class="point"><i>02</i><div><b>App Server</b><span>双向 JSON-RPC；stdio / WebSocket / Unix socket；客户端发请求，服务端持续推 items。</span></div></div>
+          <div class="point"><i>03</i><div><b>Thread / Turn / Item</b><span>线程持久化、turn 是一次工作、item 有 started / delta / completed 生命周期。</span></div></div>
+          <div class="point"><i>04</i><div><b>Stateless Responses Loop</b><span>完整前缀随请求重放以支持 ZDR，并依赖精确前缀缓存优化成本。</span></div></div>
+          <div class="point"><i>05</i><div><b>Sandbox + Approval + Rules</b><span>技术隔离、授权策略、规则与 managed config 分层，工具事件进入 agent-native telemetry。</span></div></div>
+          <div class="point"><i>06</i><div><b>产品面一致</b><span>CLI、IDE、桌面、Web/Cloud 共用核心逻辑；App Server 将内部事件投影为 UI-ready 通知。</span></div></div>
+        </div><div class="warning">最大约束：最佳能力与 Responses API / OpenAI 模型协同紧密；codex-core 体量持续膨胀，官方仓库指引也明确提醒避免继续把新能力塞进 core。</div></article>
+      </div>
+    </div></section>
+
+    <section id="flow"><div class="wrap">
+      <div class="section-head fade"><div class="index">03 / RUNTIME</div><div><h2>一轮任务，实际上穿过 7 个控制点</h2><p>真正可靠的循环不是“调用模型直到不再调用工具”，而是在每一轮都保持可恢复、可取消、可审计和权限单调。</p></div></div>
+      <div class="flow panel fade"><div class="flow-row">
+        <div class="node"><small>01 · CLAIM</small><b>接收与归并输入</b><span>用户消息、排队消息、subagent mailbox、延迟注入；确定 turn 边界。</span></div><div class="arrow">→</div>
+        <div class="node"><small>02 · ASSEMBLE</small><b>构造上下文</b><span>系统指令、项目规则、工具 schema、技能目录、权限与环境快照。</span></div><div class="arrow">→</div>
+        <div class="node"><small>03 · INFER</small><b>模型流式推理</b><span>token 流、reasoning、tool call、最终消息；设置预算、重试和取消。</span></div><div class="arrow">→</div>
+        <div class="node"><small>04 · POLICY</small><b>工具策略判定</b><span>schema 校验 → allow/ask/deny → 审批 → 参数重写或拒绝。</span></div><div class="arrow">→</div>
+        <div class="node"><small>05 · EXECUTE</small><b>隔离执行</b><span>工作区、网络、secret、进程树、超时、后台任务；捕获结构化结果。</span></div><div class="arrow">→</div>
+        <div class="node"><small>06 · COMMIT</small><b>记录事实</b><span>call/result、文件 diff、审批决定、usage、错误与 artifact 进入事件流。</span></div><div class="arrow">→</div>
+        <div class="node"><small>07 · DECIDE</small><b>继续或停止</b><span>工具是否仍欠下一次请求？是否满足验收？否则进入下一 step 或结束 turn。</span></div>
+      </div><div class="event-strip"><span>turn/start</span><span>step/start</span><span>assistant/chunk*</span><span>tool/call*</span><span>tool/result*</span><span>step/end</span><span>turn/end</span></div><p class="flow-caption">DeepSeek 将这些点作为 durable session events 与 live waterfalls 分开；Codex 将内部低层事件通过 App Server 投影成稳定的 Item 生命周期。两种做法都正确：前者利于内核扩展，后者利于客户端兼容。</p></div>
+    </div></section>
+
+    <section id="matrix"><div class="wrap">
+      <div class="section-head fade"><div class="index">04 / MARKET MAP</div><div><h2>七大平台：同名能力，工程含义完全不同</h2><p>“有 MCP”“有 subagent”“有 sandbox”不等于边界相同。重点看它作用于哪类工具、是否 OS 强制、能否追踪、是否可嵌入。</p></div></div>
+      <div class="compare-wrap fade"><table class="compare"><thead><tr><th>维度</th><th>DeepSeek Harness</th><th>Codex</th><th>Claude Code</th><th>Gemini CLI</th><th>OpenCode</th><th>Cursor</th><th>GitHub Copilot</th></tr></thead><tbody>
+        <tr><td><strong>核心定位</strong></td><td>可组合 Harness 元框架</td><td>统一代理运行时与控制面</td><td>强模型协同的开发代理</td><td>Google 开源 CLI / Agent runtime</td><td>跨模型开源开发代理</td><td>IDE + 云代理交付产品</td><td>GitHub 原生代理与治理平台</td></tr>
+        <tr><td><strong>主要实现</strong></td><td>TypeScript + Cordis</td><td>Rust Core + JSON-RPC</td><td>闭源 Harness + SDK</td><td>TypeScript，CLI / Core 分离</td><td>TypeScript / Bun + HTTP API</td><td>闭源 IDE / Cloud VM</td><td>闭源服务 + CLI / SDK</td></tr>
+        <tr><td><strong>模型中立性</strong></td><td class="hi">高：适配器即插件</td><td class="med">中低：Responses API 优先</td><td class="low">低：Claude 原生</td><td class="med">中：Gemini 优先，支持路由</td><td class="hi">极高：75+ provider</td><td class="med">中：策展模型池</td><td class="med">中：多模型但平台托管</td></tr>
+        <tr><td><strong>扩展原语</strong></td><td class="hi">一切均插件；service/event/effect</td><td>Skills / Plugins / MCP / Hooks</td><td class="hi">CLAUDE.md / Skills / Agents / Hooks / MCP / Plugins</td><td class="hi">GEMINI.md / Skills / Hooks / Extensions / MCP</td><td>Plugins / Tools / MCP / Agents</td><td>Rules / MCP / Hooks / Plugins</td><td>Agents / Skills / Hooks / MCP / Plugins / LSP</td></tr>
+        <tr><td><strong>会话模型</strong></td><td class="hi">append-only event source</td><td class="hi">Thread / Turn / Item</td><td>本地 JSONL + snapshot</td><td>session + checkpoint / rewind</td><td>session/message parts + SSE</td><td>云端 transcript + artifacts</td><td>session / job / PR</td></tr>
+        <tr><td><strong>上下文压缩</strong></td><td class="hi">可替换 seam；prune + summary + replay</td><td class="hi">Responses compact + 自动阈值</td><td class="hi">先清工具输出，再总结；可用 hook</td><td>自动 history compression</td><td>独立 compaction agent</td><td>内部实现不公开</td><td>内部实现不公开</td></tr>
+        <tr><td><strong>本地执行隔离</strong></td><td>Seatbelt / bwrap / Landlock / Windows 后端；fail closed 设计</td><td class="hi">OS sandbox + approval + network policy</td><td>Seatbelt / bubblewrap；默认失败可回退非沙箱，可设 fail-closed</td><td>Seatbelt / Docker / Podman 等；可做 tool-level sandbox</td><td class="low">官方主文档以 permission 为主；未见等价硬隔离承诺</td><td>本地 Run Modes；云端独立 microVM</td><td>本地 / 云沙箱为 public preview</td></tr>
+        <tr><td><strong>策略精度</strong></td><td>pre/execute/post pipeline + approval seam</td><td class="hi">sandbox / approvals / rules / requirements / managed policy</td><td class="hi">所有工具 permissions + 丰富 hooks</td><td class="hi">分层 TOML policy + 优先级 + hooks</td><td>工具级 allow / ask / deny + glob</td><td>团队 run mode、网络和保护项</td><td>组织策略 + hooks + 云防火墙</td></tr>
+        <tr><td><strong>多代理</strong></td><td class="hi">多 provider、continuation、团队 DAG/mailbox（实验）</td><td class="hi">线程树、并行本地/云代理、worktree</td><td class="hi">subagent、fork、background、agent teams、worktree</td><td>独立上下文 subagents + tool isolation</td><td>child sessions；前后台 subagent</td><td class="hi">大量并行 Cloud Agents</td><td class="hi">subagents / fleet / cloud agent</td></tr>
+        <tr><td><strong>嵌入能力</strong></td><td>TS / Python SDK、JSON-RPC、ACP</td><td class="hi">App Server、Exec、SDK、MCP server</td><td class="hi">Agent SDK</td><td>headless / ACP / extensions</td><td class="hi">HTTP OpenAPI + SDK + embedded host</td><td class="low">以产品与 API 调度为主</td><td>Copilot SDK + CLI / Cloud</td></tr>
+        <tr><td><strong>最大优势</strong></td><td class="hi">内核级可组合与可追溯</td><td class="hi">安全、协议、产品化整体性</td><td class="hi">上下文与开发者工作流深度</td><td class="hi">策略引擎、Google 生态、浏览器代理</td><td class="hi">模型自由、易改、跨终端</td><td class="hi">IDE/云端 UX 与成果演示</td><td class="hi">PR / Issue / 企业治理闭环</td></tr>
+        <tr><td><strong>最大短板</strong></td><td class="low">预览期、组合复杂度、安全未审计</td><td class="med">模型/协议耦合，core 继续变大</td><td class="med">内核不透明、Claude 锁定</td><td class="med">能力面广导致配置与策略复杂</td><td class="low">安全隔离与快速演进风险</td><td class="med">闭源、云成本和平台锁定</td><td class="med">GitHub 中心化、内核不透明</td></tr>
+        <tr><td><strong>成熟度判断</strong></td><td class="low">研究 / 原型</td><td class="hi">生产 / 企业</td><td class="hi">生产 / 企业</td><td class="med">生产可用、部分新机制快速演进</td><td class="med">开发者生产力，需自补治理</td><td class="hi">成熟产品</td><td class="hi">成熟平台；部分沙箱预览</td></tr>
+      </tbody></table></div><div class="legend"><i class="a">● 该维度领先</i><i class="b">● 明显取舍</i><i class="c">● 风险或缺口</i></div>
+      <div class="panel fade" style="padding:24px;margin-top:22px;overflow:auto"><div class="score-toolbar" id="scoreToolbar"><button class="active" data-mode="all">综合</button><button data-mode="build">自建平台</button><button data-mode="enterprise">企业治理</button><button data-mode="delivery">交付效率</button></div><div class="score-head"><b>工程判断 / 5</b><b>DSH</b><b>Codex</b><b>Claude</b><b>Gemini</b><b>OpenCode</b><b>Cursor</b><b>Copilot</b></div><div class="score-list" id="scores"></div><p class="flow-caption">评分是基于截至 2026-09-02 的官方文档与源码结构审计，不是同模型、同任务实测 benchmark；用于暴露取舍，不用于宣称绝对排名。</p></div>
+    </div></section>
+
+    <section id="depth"><div class="wrap">
+      <div class="section-head fade"><div class="index">05 / MECHANICS</div><div><h2>机制下钻：真正拉开差距的 8 个细节</h2><p>平台宣传页常把工具数量当能力；工程上更重要的是边界、恢复和上下文成本。</p></div></div>
+      <div class="details-grid">
+        <article class="detail panel fade"><div class="dhead"><div class="ico">CTX</div><h3>上下文构建：稳定前缀是一等资产</h3></div><p>Codex 把 permissions、AGENTS.md、skills metadata、environment context 作为有顺序的输入；中途变化通过追加新消息表达，避免改写前缀破坏缓存。<sup><a href="#s6">[S6]</a></sup></p><ul><li>规则文档应做“地图”，不是 1,000 页总手册。</li><li>工具 schema 要稳定排序；MCP 动态变化会制造 cache miss。</li><li>工具目录应懒加载，完整 schema 按需注入。</li></ul></article>
+        <article class="detail panel fade"><div class="dhead"><div class="ico">LOG</div><h3>事件溯源：事实与模型视图必须分离</h3></div><p>DSH 的 session log 是事实源，但并非所有事件都进入模型表面；审批 audit 是 log-only，压缩通过 surface replacement 投影。这个分离非常适合合规审计。</p><ul><li>事实日志不可变，模型上下文是可重建投影。</li><li>UI、检索、fork、telemetry 都从同一流派生。</li><li><em>不要</em>只保存最终 prompt；它不足以解释上下文来自哪里。</li></ul></article>
+        <article class="detail panel fade"><div class="dhead"><div class="ico">POL</div><h3>工具策略：审批不是安全边界</h3></div><p>审批回答“这一次是否允许”；沙箱回答“即使模型犯错，最多能做什么”。两者必须独立。MCP 工具通常不自动继承 shell 沙箱，应自行治理。<sup><a href="#s6">[S6]</a></sup></p><ul><li>校验 → 静态规则 → 风险分类 → 人/机器审批 → 沙箱执行。</li><li>权限只能单调放宽一次，不应悄悄修改全局策略。</li><li>无审批回答器、沙箱不可用时，高风险动作必须 fail closed。</li></ul></article>
+        <article class="detail panel fade"><div class="dhead"><div class="ico">CMP</div><h3>压缩：摘要不是日志，日志也不是上下文</h3></div><p>Codex 用 Responses compact 产出可继续的紧凑项；DSH 把压缩做成可替换 seam，并保留压缩范围、shadowed seq、token 计量和调用包络。</p><ul><li>先 prune 超大工具结果，再总结旧区间。</li><li>不得切断 tool-call / tool-result 配对。</li><li>持久规则必须每轮重注入，不能寄望摘要永不丢失。</li></ul></article>
+        <article class="detail panel fade"><div class="dhead"><div class="ico">SUB</div><h3>多代理：关键不是“能 spawn”</h3></div><p>成熟设计至少要回答：子代理是 fresh 还是 fork？工具/权限如何继承？写路径会不会冲突？谁能取消？结果如何回主线程？</p><ul><li>只读研究：fresh context + 最小工具。</li><li>并行改码：独立 worktree 或声明写域。</li><li>长期协作：task DAG + mailbox + revision/CAS + 预算。</li></ul></article>
+        <article class="detail panel fade"><div class="dhead"><div class="ico">PTC</div><h3>Code Mode：把多轮工具编排压进一个程序</h3></div><p>DSH PTC 让模型写 TypeScript 调用 host-provided async bindings；优势是批量、循环和并发，风险是把更多控制流交给模型生成代码。</p><ul><li>runtime isolation 标签不等于安全证明。</li><li>bindings 需要 lossless JSON、预算、取消、输出上限。</li><li>程序失败应是结构化结果，不应吞掉调用轨迹。</li></ul></article>
+        <article class="detail panel fade"><div class="dhead"><div class="ico">OBS</div><h3>验收：200、构建成功、页面正确是三件事</h3></div><p>DSH 官方复盘记录过 agent 验证了替代服务器而非用户正在使用的 GUI；这类错误本质是“验收目标身份不可见”。<sup><a href="#s4">[S4]</a></sup></p><ul><li>让 agent 看见当前 URL、进程、版本、环境和 artifact id。</li><li>验证真实目标，而非自己另起一个替代环境。</li><li>证据需覆盖外部状态，不是只看命令 exit code。</li></ul></article>
+        <article class="detail panel fade"><div class="dhead"><div class="ico">EXT</div><h3>扩展：表面统一与内核统一有本质差别</h3></div><p>Claude/Copilot 的 Plugin 是技能、agent、hook、MCP 等资产包；DSH 的 Plugin 还能替换会话、循环与存储。前者偏分发，后者偏运行时组合。</p><ul><li>企业资产包：用 plugin。</li><li>跨系统实时能力：用 MCP。</li><li>可复用流程知识：用 skill。</li><li>机械强制与审计：用 hook / policy。</li></ul></article>
+      </div>
+    </div></section>
+
+    <section id="winners"><div class="wrap">
+      <div class="section-head fade"><div class="index">06 / SELECTION</div><div><h2>按场景选，不按榜单选</h2><p>不存在一套 Harness 同时在模型自由、内核可改、企业安全、IDE 体验和 GitHub 流程上全部最优。</p></div></div>
+      <div class="winner-grid">
+        <article class="winner panel fade"><small>自研 HARNESS / 实验</small><h3><b>DeepSeek Harness</b></h3><p>适合研究 capability seam、事件投影、运行体热组合，以及构建特定行业代理预设。</p></article>
+        <article class="winner panel fade"><small>嵌入 OPENAI 代理</small><h3><b>Codex App Server</b></h3><p>需要完整线程、diff、审批和多端交互时优于把 Codex 包成一个普通 MCP tool。</p></article>
+        <article class="winner panel fade"><small>单人深度编码</small><h3><b>Claude Code</b></h3><p>强在 Claude 协同、上下文、skills/hooks/subagents 与工程工作流的完成度。</p></article>
+        <article class="winner panel fade"><small>多模型 / 私有网关</small><h3><b>OpenCode</b></h3><p>模型/provider 最自由，适合成本路由与开源模型实验；生产前补硬隔离与集中治理。</p></article>
+        <article class="winner panel fade"><small>策略引擎 / GOOGLE</small><h3><b>Gemini CLI</b></h3><p>分层 policy、hooks、浏览器 subagent 与 Google 生态值得借鉴。</p></article>
+        <article class="winner panel fade"><small>IDE + 云端自主交付</small><h3><b>Cursor</b></h3><p>并行 microVM、artifact、远程桌面和多仓库体验最接近完整“云工程师”。</p></article>
+        <article class="winner panel fade"><small>PR / ISSUE / 企业治理</small><h3><b>GitHub Copilot</b></h3><p>组织与企业级 agent 配置、hook、PR workflow、GitHub 权限继承优势明显。</p></article>
+        <article class="winner panel fade"><small>金融企业落地</small><h3><b>自持控制面 + 多 Harness 后端</b></h3><p>敏感数据、审批、身份、审计、数据驻留与执行隔离不能完全外包给任一编码产品。</p></article>
+      </div>
+    </div></section>
+
+    <section id="build"><div class="wrap">
+      <div class="section-head fade"><div class="index">07 / BUILD</div><div><h2>推荐构建法：控制面自持，执行后端可替换</h2><p>面向盈米/金融企业的最优架构，不是 fork 某个 CLI，而是定义自己的安全控制面，把 Codex、DSH、Claude、Gemini 当作可替换执行引擎。</p></div></div>
+      <div class="blueprint panel fade">
+        <div class="arch">
+          <div class="arch-col"><div class="arch-box"><b>业务入口</b><span>OAP / SCRM / 工作台 / 企业微信 / IDE</span></div><div class="arch-box"><b>身份与授权</b><span>用户、顾问、租户、数据域、用途绑定</span></div><div class="arch-box"><b>领域资产</b><span>金融 Skills、MCP、口径、SOP、验收模板</span></div></div>
+          <div class="arch-arrow">→</div>
+          <div class="arch-core"><h3>Yingmi Agent Control Plane</h3><div class="core-grid"><div>Session Event Store</div><div>Context Assembler</div><div>Policy Decision Point</div><div>Approval Broker</div><div>Model / Harness Router</div><div>Task DAG + Scheduler</div><div>Audit / OTel / Replay</div><div>Eval & Release Gate</div></div></div>
+          <div class="arch-arrow">→</div>
+          <div class="arch-col"><div class="arch-box"><b>Harness Adapters</b><span>Codex App Server / DSH SDK / Claude SDK / Gemini / OpenCode</span></div><div class="arch-box"><b>隔离执行面</b><span>短任务 container；高风险 microVM；网络白名单</span></div><div class="arch-box"><b>受控能力面</b><span>MCP Gateway、数据脱敏、凭证代理、写操作二次校验</span></div></div>
+        </div>
+        <div class="modules">
+          <div class="module p0"><small>P0 · 01</small><b>Session / Event Store</b><span>不可变事实流、幂等 seq、fork boundary、projection</span></div>
+          <div class="module p0"><small>P0 · 02</small><b>Agent Loop</b><span>turn / step 状态机、取消、重试、恢复、停止条件</span></div>
+          <div class="module p0"><small>P0 · 03</small><b>Context Assembler</b><span>规则层级、技能懒加载、tool catalog、token budget</span></div>
+          <div class="module p0"><small>P0 · 04</small><b>Model Gateway</b><span>协议适配、路由、fallback、cache、配额和账单</span></div>
+          <div class="module p0"><small>P0 · 05</small><b>Tool Registry</b><span>schema、namespacing、版本、超时、幂等与结果上限</span></div>
+          <div class="module p0"><small>P0 · 06</small><b>Policy Engine</b><span>allow / ask / deny、风险级别、参数约束、强制策略</span></div>
+          <div class="module p0"><small>P0 · 07</small><b>Sandbox Runner</b><span>文件/进程/网络隔离、容器/microVM、fail closed</span></div>
+          <div class="module p0"><small>P0 · 08</small><b>Identity / Secret Broker</b><span>短期凭证、用途绑定、模型不可见、全链路归因</span></div>
+          <div class="module"><small>P1 · 09</small><b>MCP Gateway</b><span>目录、OAuth、工具搜索、审批模板、速率限制</span></div>
+          <div class="module"><small>P1 · 10</small><b>Skill Registry</b><span>签名、版本、依赖、渐进披露、质量与安全扫描</span></div>
+          <div class="module"><small>P1 · 11</small><b>Harness Adapter</b><span>统一 turn/item 映射，屏蔽各引擎协议差异</span></div>
+          <div class="module"><small>P1 · 12</small><b>Observability</b><span>trace、token、tool、approval、network、artifact</span></div>
+          <div class="module"><small>P1 · 13</small><b>Artifact / Acceptance</b><span>截图、视频、diff、报告、线上探测、证据包</span></div>
+          <div class="module"><small>P1 · 14</small><b>App Protocol</b><span>稳定 Thread / Turn / Item JSON-RPC / SSE</span></div>
+          <div class="module p2"><small>P2 · 15</small><b>Subagent Scheduler</b><span>fresh/fork、worktree、预算、DAG、mailbox</span></div>
+          <div class="module p2"><small>P2 · 16</small><b>Eval / Release Gate</b><span>回放集、攻击集、任务集、版本对照、灰度门槛</span></div>
+        </div>
+        <div class="code-tabs"><button class="active" data-tab="events">事件模型</button><button data-tab="loop">循环伪码</button><button data-tab="policy">策略示例</button><button data-tab="tree">目录结构</button></div>
+        <pre class="code-pane active" id="events"><code>type AgentEvent =
+  | { type: "turn.started"; threadId; turnId; inputRef }
+  | { type: "context.assembled"; sourceRefs[]; toolCatalogHash; policyHash }
+  | { type: "model.requested"; provider; model; cacheKey; tokenEstimate }
+  | { type: "tool.proposed"; callId; tool; argsHash; risk }
+  | { type: "approval.decided"; callId; actor; decision; scope }
+  | { type: "tool.completed"; callId; resultRef; sideEffects[] }
+  | { type: "artifact.verified"; target; evidenceRefs[]; verdict }
+  | { type: "turn.completed"; outcome; usage; finalMessageRef }
+
+// 原则：事实 append-only；大内容存 blob，事件只存 hash/ref；模型视图由 projector 重建。</code></pre>
+        <pre class="code-pane" id="loop"><code>while (turn.hasDebt()) {
+  input = inbox.claimOneWakeupAndQueuedMessages()
+  view  = context.project(sessionLog, policySnapshot, skillCatalog)
+  step  = model.stream(view, tools.schemas(), budget.signal)
+
+  for (call of step.toolCalls) {
+    validated = tools.validate(call)
+    decision  = policy.evaluate(validated, identity, environment)
+    grant     = decision.ask ? approvals.resolve(decision) : decision
+    result    = grant.allowed
+      ? sandbox.execute(validated, grant.scope)
+      : ToolResult.denied(grant.reason)
+    sessionLog.append(call, grant.audit, result)
+  }
+
+  acceptance.observe(step, artifacts, externalState)
+}
+return turn.complete()</code></pre>
+        <pre class="code-pane" id="policy"><code>[[rule]]
+tool = "mcp__scrm__query_*"
+decision = "allow"
+when = "identity.role in ['advisor'] && purpose == 'customer_service'"
+data = { fields = "masked", export = false }
+
+[[rule]]
+tool = "mcp__trade__submit_order"
+decision = "ask"
+approval = { type = "human", bind = ["user", "account", "instrument", "amount"] }
+max_amount = 10000
+
+[[rule]]
+tool = "shell"
+args_pattern = "(curl|wget).*(customer|token|credential)"
+decision = "deny"
+priority = 1000</code></pre>
+        <pre class="code-pane" id="tree"><code>agent-platform/
+├── control-plane/        # thread, turn, event, projection, policy
+├── harness-adapters/     # codex, dsh, claude, gemini, opencode
+├── execution/            # container, microvm, network, artifact
+├── gateways/             # model, mcp, identity, secret, storage
+├── domains/finance/      # skills, tools, schemas, acceptance, evals
+├── protocols/            # JSON-RPC / SSE / webhook / ACP mapping
+├── observability/        # OTel, audit, replay, cost, dashboards
+├── evals/                # task suites, injection suites, golden traces
+└── clients/              # web, desktop, IDE, WeCom / Feishu surfaces</code></pre>
+      </div>
+    </div></section>
+
+    <section id="roadmap"><div class="wrap">
+      <div class="section-head fade"><div class="index">08 / DELIVERY</div><div><h2>90 天路线：先把边界做硬，再做“聪明”</h2><p>多代理和自进化很诱人，但在审计、授权、恢复和验收之前上线，只会放大不确定性。</p></div></div>
+      <div class="roadmap">
+        <article class="phase panel fade"><small>DAY 0–15 · SPEC</small><h3>统一语义与威胁模型</h3><ul><li>冻结 Thread / Turn / Item / Event v0</li><li>盘点工具与数据等级</li><li>建立 identity / purpose / scope 三元授权</li><li>定义完成、失败、取消、部分成功</li></ul></article>
+        <article class="phase panel fade"><small>DAY 16–35 · P0</small><h3>跑通单代理安全闭环</h3><ul><li>事件存储 + 上下文 projector</li><li>一个模型网关、一个 Harness adapter</li><li>policy + approval + sandbox</li><li>端到端 replay 与基础 artifact</li></ul></article>
+        <article class="phase panel fade"><small>DAY 36–60 · DOMAIN</small><h3>金融能力治理</h3><ul><li>MCP gateway 与短期凭证</li><li>Skill 签名/版本/依赖</li><li>字段级脱敏与导出限制</li><li>查询/写入/交易分级验收</li></ul></article>
+        <article class="phase panel fade"><small>DAY 61–90 · SCALE</small><h3>多 Harness 与多代理</h3><ul><li>接入 Codex + DSH/OpenCode</li><li>subagent fresh/fork + worktree</li><li>任务 DAG、预算、取消和冲突检测</li><li>灰度发布、对照评测、SLO 看板</li></ul></article>
+      </div>
+    </div></section>
+
+    <section id="eval"><div class="wrap">
+      <div class="section-head fade"><div class="index">09 / BENCHMARK</div><div><h2>评测方法：同模型只是起点，真实完成闭环才是终点</h2><p>不能拿不同平台的官方 benchmark 横拼。正确方法是固定模型、仓库快照、权限、任务与验收器，分别测 Harness 增益与总产品效果。</p></div></div>
+      <div class="eval-grid">
+        <article class="eval-card panel fade"><h3>两层对照实验</h3><div class="metric"><span>Harness-only</span><span>同模型 / 同 task / 同工具</span></div><div class="metric"><span>Product-total</span><span>各平台最佳模型与默认配置</span></div><div class="metric"><span>主指标</span><span>可复现任务成功率</span></div><div class="metric"><span>次指标</span><span>人工中断、时间、token、成本</span></div><div class="metric"><span>安全指标</span><span>越权/泄露/误写/审批绕过</span></div><div class="metric"><span>恢复指标</span><span>断线、压缩、重启、fork 后一致性</span></div><div class="metric"><span>证据指标</span><span>外部验收覆盖率与 replay 完整度</span></div></article>
+        <article class="eval-card panel fade"><h3>建议 12 类任务集</h3><div class="tests"><div class="test"><b>Repo map</b>跨模块理解</div><div class="test"><b>Bug fix</b>带回归测试修复</div><div class="test"><b>Refactor</b>多文件语义保持</div><div class="test"><b>UI</b>真实页面与截图验收</div><div class="test"><b>MCP</b>私域读操作</div><div class="test"><b>Write</b>高风险写操作审批</div><div class="test"><b>Injection</b>不可信网页/仓库指令</div><div class="test"><b>Long run</b>2h+ 上下文压缩</div><div class="test"><b>Resume</b>崩溃后恢复</div><div class="test"><b>Fork</b>分叉边界一致性</div><div class="test"><b>Parallel</b>多代理写冲突</div><div class="test"><b>Cost</b>缓存与工具 schema 成本</div></div></article>
+      </div>
+      <div class="verdict panel fade" style="margin-top:16px"><h3>最终架构判断</h3><p><strong>DeepSeek Harness 提供了 2026 年最有野心的“可组合 Harness 内核”范式；Codex Harness 提供了更成熟的“Agent 产品控制面”范式。</strong>前者告诉你系统如何被替换，后者告诉你系统如何被使用、治理和跨端承载。金融企业应把两者结合，但安全执行、身份授权和审计证据必须自己掌握。</p><div class="decision"><div><b>今天可用</b><span>Codex / Claude / Cursor / Copilot 承载日常研发与交付</span></div><div><b>现在该试</b><span>用 DSH 搭一个隔离实验场，验证 plugin seam 与 replay</span></div><div><b>必须自建</b><span>金融 MCP gateway、purpose-bound auth、审计与验收控制面</span></div></div></div>
+    </div></section>
+
+    <section id="sources"><div class="wrap">
+      <div class="section-head fade"><div class="index">10 / EVIDENCE</div><div><h2>证据与边界</h2><p>研究日期 2026-09-02。优先使用官方仓库、官方架构文档和一手研究论文；封闭平台只评价其公开可验证表面，不推断私有内核。</p></div></div>
+      <div class="sources">
+        <a class="source" id="s1" href="https://deepseek-harness.github.io/deepseek-harness/en/reference/" target="_blank" rel="noreferrer"><b>S1</b>DeepSeek Harness Architecture</a>
+        <a class="source" id="s2" href="https://www.deepseek.com/harness/en/" target="_blank" rel="noreferrer"><b>S2</b>DeepSeek Harness 官方发布页</a>
+        <a class="source" id="s3" href="https://github.com/deepseek-ai/deepseek-harness" target="_blank" rel="noreferrer"><b>S3</b>deepseek-ai/deepseek-harness 源码</a>
+        <a class="source" id="s4" href="https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/postmortem/0003-web-agent-gui-feedback-loop.md" target="_blank" rel="noreferrer"><b>S4</b>DSH GUI 验收错误复盘</a>
+        <a class="source" id="s5" href="https://github.com/deepseek-ai/deepseek-harness/blob/master/SAFETY.md" target="_blank" rel="noreferrer"><b>S5</b>DSH Safety / 预览期声明</a>
+        <a class="source" id="s6" href="https://openai.com/index/unrolling-the-codex-agent-loop/" target="_blank" rel="noreferrer"><b>S6</b>OpenAI：Unrolling the Codex agent loop</a>
+        <a class="source" id="s7" href="https://openai.com/index/unlocking-the-codex-harness/" target="_blank" rel="noreferrer"><b>S7</b>OpenAI：Codex App Server 架构</a>
+        <a class="source" id="s8" href="https://github.com/openai/codex/tree/main/codex-rs/app-server" target="_blank" rel="noreferrer"><b>S8</b>Codex App Server 源码与协议</a>
+        <a class="source" id="s9" href="https://openai.com/index/running-codex-safely/" target="_blank" rel="noreferrer"><b>S9</b>OpenAI：Codex 安全治理</a>
+        <a class="source" id="s10" href="https://openai.com/index/harness-engineering/" target="_blank" rel="noreferrer"><b>S10</b>OpenAI：Harness engineering</a>
+        <a class="source" id="s11" href="https://code.claude.com/docs/en/agent-sdk/agent-loop" target="_blank" rel="noreferrer"><b>S11</b>Claude Agent SDK loop</a>
+        <a class="source" id="s12" href="https://code.claude.com/docs/en/sandboxing" target="_blank" rel="noreferrer"><b>S12</b>Claude Code Sandboxing</a>
+        <a class="source" id="s13" href="https://code.claude.com/docs/en/subagents" target="_blank" rel="noreferrer"><b>S13</b>Claude Code Subagents</a>
+        <a class="source" id="s14" href="https://github.com/google-gemini/gemini-cli/blob/main/docs/core/index.md" target="_blank" rel="noreferrer"><b>S14</b>Gemini CLI Core</a>
+        <a class="source" id="s15" href="https://github.com/google-gemini/gemini-cli/blob/main/docs/reference/policy-engine.md" target="_blank" rel="noreferrer"><b>S15</b>Gemini CLI Policy Engine</a>
+        <a class="source" id="s16" href="https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/sandbox.md" target="_blank" rel="noreferrer"><b>S16</b>Gemini CLI Sandboxing</a>
+        <a class="source" id="s17" href="https://opencode.ai/docs/providers" target="_blank" rel="noreferrer"><b>S17</b>OpenCode Providers</a>
+        <a class="source" id="s18" href="https://opencode.ai/docs/agents" target="_blank" rel="noreferrer"><b>S18</b>OpenCode Agents</a>
+        <a class="source" id="s19" href="https://opencode.ai/docs/server" target="_blank" rel="noreferrer"><b>S19</b>OpenCode Server / OpenAPI</a>
+        <a class="source" id="s20" href="https://cursor.com/docs/cloud-agent" target="_blank" rel="noreferrer"><b>S20</b>Cursor Cloud Agents</a>
+        <a class="source" id="s21" href="https://docs.github.com/en/copilot/concepts/about-cloud-and-local-sandboxes" target="_blank" rel="noreferrer"><b>S21</b>GitHub Copilot Sandboxes</a>
+        <a class="source" id="s22" href="https://arxiv.org/abs/2608.25512" target="_blank" rel="noreferrer"><b>S22</b>Cordis：Spatiotemporal Composability 论文</a>
+      </div>
+      <div class="method">方法说明：平台能力随版本快速变化；本报告不把 GitHub stars、厂商 benchmark 或模型榜单当作 Harness 质量。评分来自公开实现证据与工程判断。DeepSeek Harness 的安全与成熟度结论遵循其官方 SAFETY；Cursor、Claude Code、GitHub Copilot 等闭源内核仅依据公开文档。未进行七个平台的同任务实机跑分，因此没有伪造“胜率”。</div>
+    </div></section>
+  </main>
+  <footer><div class="wrap stamp"><span>CLAIR · Agent Infrastructure Intelligence</span><span><b>深度研究报告</b> · 2026-09-02 · v1.0</span></div></footer>
+  <script>
+    const scoreSets={
+      all:[['内核可组合',[5,3,3,4,4,2,3]],['控制面完整',[3,5,4,4,4,5,5]],['模型自由度',[4,2,2,3,5,3,3]],['上下文工程',[5,5,5,4,4,4,4]],['安全治理',[2,5,4,4,2,5,5]],['多代理',[5,5,5,4,4,5,5]],['可追溯/回放',[5,5,4,4,3,5,5]],['嵌入/协议',[4,5,5,4,5,2,4]],['终端体验',[3,4,4,3,4,5,5]],['生产成熟度',[2,5,5,4,3,5,5]]],
+      build:[['内核可改造',[5,3,2,4,4,1,2]],['Provider 适配',[5,3,2,3,5,2,3]],['事件扩展',[5,4,4,4,4,2,3]],['SDK/协议',[4,5,5,4,5,2,4]],['本地可部署',[5,5,4,5,5,2,3]]],
+      enterprise:[['OS 隔离',[2,5,4,4,2,5,5]],['策略与审批',[4,5,5,5,3,5,5]],['审计回放',[5,5,4,4,3,5,5]],['身份/密钥',[3,5,5,4,3,5,5]],['组织治理',[2,5,5,5,2,5,5]]],
+      delivery:[['IDE/多端',[3,5,4,4,4,5,5]],['云并行',[2,5,4,3,2,5,5]],['成果证据',[4,5,4,4,3,5,5]],['Git/PR 闭环',[4,5,4,4,4,5,5]],['开箱即用',[3,5,5,4,5,5,5]]]
+    };
+    const names=['DSH','Codex','Claude','Gemini','OpenCode','Cursor','Copilot'];
+    function renderScores(mode){const root=document.querySelector('#scores');root.innerHTML='';scoreSets[mode].forEach(([label,vals])=>{const row=document.createElement('div');row.className='score-row';row.innerHTML=`<span>${label}</span>`+vals.map((v,i)=>`<div class="bar" style="--v:${v}" title="${names[i]} · ${v}/5"><b>${v}</b></div>`).join('');root.appendChild(row)})}
+    document.querySelectorAll('#scoreToolbar button').forEach(btn=>btn.onclick=()=>{document.querySelectorAll('#scoreToolbar button').forEach(x=>x.classList.remove('active'));btn.classList.add('active');renderScores(btn.dataset.mode)});renderScores('all');
+    document.querySelectorAll('.code-tabs button').forEach(btn=>btn.onclick=()=>{document.querySelectorAll('.code-tabs button,.code-pane').forEach(x=>x.classList.remove('active'));btn.classList.add('active');document.querySelector('#'+btn.dataset.tab).classList.add('active')});
+    const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show')}),{threshold:.08});document.querySelectorAll('.fade').forEach(x=>io.observe(x));
+  </script>
+</body>
+</html>
