@@ -4,20 +4,21 @@
     "subtitle": "把能力做成入口\n把入口做成增长",
     "eyebrow": "YINGMI AI · OAP PROJECT REPORT / 2026.08.03",
     "date": "2026-08-03",
-    "cutoff": "2026-08-16（年度目标与用户增长采用同一完整自然日快照；千问传播材料截至 8 月 13 日）",
+    "cutoff": "2026-09-01 19:38（当日部分数据）；年度目标与用户增长采用同一实时聚合快照；千问传播材料截至 8 月 13 日",
     "owner": "盈米 AI 开放平台",
     "confidentiality": "内部管理汇报 · 老板直读版",
     "accent": "#8067e8",
-    "annualGoalSnapshot": {
-      "schemaVersion": "oap-qieman-user-dashboard-v1",
-      "generatedAt": "2026-08-17T14:06:09.543+08:00",
-      "dataCutoff": "2026-08-16T23:59:59+08:00",
-      "source": "盈米本体 · 生产数仓只读聚合",
-      "privacy": "公开脱敏聚合，不含用户明细、稳定主键与数据库凭证"
+    "liveMetricSnapshot": {
+      "schema": 1,
+      "generatedAt": "2026-09-01T19:38:57+08:00",
+      "asOf": "2026-09-01",
+      "source": "OAP Stargate Dashboard 同口径生产库实时聚合",
+      "definition": "累计申请与累计调用排除内部测试 apiKey；活跃为滚动近 30 天有调用记录的去重 apiKey 数",
+      "partialDay": true
     }
   },
   "hero": {
-    "conclusion": "申请用户距离年度目标仅差 145 人，近 30 日活跃用户超目标 13.3%，累计调用完成 72.8%；下一阶段要把微信、千问等新入口转成可追溯、可经营的服务闭环。",
+    "conclusion": "累计申请已超年度目标 21.0%，近 30 日活跃超目标 45.0%，累计调用完成 77.4%；下一阶段要把用户与调用规模转成可追溯、可经营的服务闭环。",
     "thesis": "先看目标进度与市场验证，再沿需求机会、流量入口、能力供给、应用生产和商化闭环，判断下一阶段增长从哪里来。",
     "badges": [
       "且慢产研团队",
@@ -28,43 +29,44 @@
     {
       "id": "okr",
       "kicker": "01 · 年度目标",
-      "title": "申请用户逼近目标，近 30 日活跃持续超额",
-      "lead": "申请用户已完成 98.6%，距离年度目标仅差 145 人；近 30 日活跃用户超目标 13.3%，累计调用完成 72.8%，AI 实验室仍待启动并建立经营闭环。",
+      "title": "累计申请与活跃均已超目标",
+      "lead": "累计申请已完成 121%，超年度目标 2,097；近 30 日活跃完成 145%，累计调用完成 77.4%，AI 实验室最新进度待确认。",
       "layout": "metrics",
       "tone": "soft",
       "items": [
         {
           "title": "累计调用",
-          "metric": "9,458,599",
-          "progress": 72.8,
-          "body": "年度目标 13,000,000，尚差 3,541,401 次。",
-          "source": "OAP 生产数仓只读聚合 · 截至 2026-08-16 完整自然日"
+          "metric": "10,058,883",
+          "progress": 77.4,
+          "body": "年度目标 13,000,000，尚差 2,941,117 次。",
+          "source": "OAP 生产库实时聚合 · 截至 2026-09-01 19:38（当日部分数据）"
         },
         {
-          "title": "申请用户",
-          "metric": "9,855",
-          "progress": 98.6,
-          "body": "年度目标 10,000，尚差 145 人。",
-          "source": "OAP 批准申请用户去重口径 · 截至 2026-08-16 完整自然日"
+          "title": "累计申请",
+          "metric": "12,097",
+          "progress": 121,
+          "body": "年度目标 10,000，已超目标 2,097。",
+          "source": "OAP 申请记录累计（排除内部测试 apiKey）· 截至 2026-09-01 19:38（当日部分数据）"
         },
         {
           "title": "近 30 日活跃",
-          "metric": "2,266",
-          "progress": 113.3,
-          "body": "年度目标 2,000，已超目标 266 人。",
-          "source": "OAP 最近 30 个完整自然日活跃口径 · 截至 2026-08-16"
+          "metric": "2,899",
+          "progress": 145,
+          "body": "年度目标 2,000，已超目标 899。",
+          "source": "OAP 滚动近 30 天有调用记录的去重 apiKey · 截至 2026-09-01 19:38（当日部分数据）"
         },
         {
           "title": "AI 实验室",
-          "metric": "规划中",
-          "body": "年度目标用户 5,000、应用 1,000。",
-          "meta": "H2 启动建设",
-          "source": "飞书源稿 P1 · revision 1978"
+          "metric": "目标态",
+          "body": "年度目标：用户 5,000、应用 1,000；本次主源未提供当前完成度。",
+          "meta": "最新执行进度待确认",
+          "source": "飞书源稿 P1 · revision 1981",
+          "progress": 0
         }
       ],
       "callout": {
         "label": "增长进展",
-        "text": "申请用户距离 1 万仅差 145 人，近 30 日活跃已超年度目标 266 人；累计调用距离 1,300 万仍差 3,541,401 次，下一阶段要同时补足调用规模与实验室经营闭环。"
+        "text": "累计申请已超年度目标 2,097，近 30 日活跃超目标 899；累计调用距离 1,300 万仍差 2,941,117 次。增长重点应从“达标”转向有效使用、服务结果与商业闭环。"
       }
     },
     {
@@ -85,7 +87,7 @@
             "Skills 专业流程",
             "Agent 完整任务"
           ],
-          "source": "飞书源稿 P2 · revision 1978"
+          "source": "飞书源稿 P2 · revision 1981"
         },
         {
           "index": "02",
@@ -136,7 +138,7 @@
             "Skills｜专业流程",
             "Agent｜完整任务"
           ],
-          "source": "飞书源稿 P2 · revision 1978"
+          "source": "飞书源稿 P2 · revision 1981"
         },
         {
           "title": "持续抢先",
@@ -176,7 +178,7 @@
             "MCP 相关报道 3,329 篇",
             "盈米 AI 相关报道 8,965 篇。"
           ],
-          "source": "飞书源稿 P2 · revision 1978"
+          "source": "飞书源稿 P2 · revision 1981"
         }
       ],
       "callout": {
@@ -198,28 +200,28 @@
           "eyebrow": "2025.09 · 年度 AI 应用 TOP 榜",
           "title": "钛媒体",
           "body": "盈米且慢 MCP 入选年度创新场景榜单。",
-          "source": "飞书源稿 P2 · revision 1978"
+          "source": "飞书源稿 P2 · revision 1981"
         },
         {
           "index": "02",
           "eyebrow": "2025.11 · 行业报告收录",
           "title": "新华财经",
           "body": "盈米 MCP 被《中国基金投顾业务洞察报告（2025）》收录。",
-          "source": "飞书源稿 P2 · revision 1978"
+          "source": "飞书源稿 P2 · revision 1981"
         },
         {
           "index": "03",
           "eyebrow": "2026.01 · 金融科技企业双 50",
           "title": "毕马威",
           "body": "上榜2025毕马威金融科技50强（AI赛道）。",
-          "source": "飞书源稿 P2 · revision 1978"
+          "source": "飞书源稿 P2 · revision 1981"
         },
         {
           "index": "04",
           "eyebrow": "2026.04 · 财富管理唯一入选",
           "title": "工信部“AI创新案例”",
           "body": "财富管理领域唯一入选工信部“AI创新案例”。",
-          "source": "飞书源稿 P2 · revision 1978"
+          "source": "飞书源稿 P2 · revision 1981"
         }
       ],
       "callout": {
@@ -232,17 +234,17 @@
       "hideHeading": true,
       "kicker": "05 · 用户增长",
       "title": "关键历程 × 四指标增长",
-      "lead": "基于 OAP 后台全量日序列交互查看累计调用、累计申请、每日调用凭据与每日新增用户；支持指标开关、悬浮读数与关键历程联动，打开即自动同步实时数据。",
+      "lead": "基于 524 日真实记录交互查看累计调用、累计申请、每日调用凭据与每日新增；年度目标卡与图表读取同一份实时数据。",
       "layout": "evidence",
       "tone": "soft",
       "items": [
         {
-          "eyebrow": "2025.03 至今 · 全量日序列",
+          "eyebrow": "2025.03—2026.09 · 524 日真实记录",
           "title": "四指标真实数据交互图",
           "body": "点击图例开关指标，切换 7 / 30 / 90 日或上线以来范围，悬浮查看单日数据，并通过时间滑块自定义区间。",
-          "meta": "OAP 生产数仓同口径 · 自动同步实时更新",
-          "source": "OAP 关键历程 × 四指标增长可视化 · v=4ef8daa",
-          "embed": "https://clairku.github.io/qieman-product-research-library/pages/oap/oap-journey-metrics-2026-08-02.html?v=4ef8daa",
+          "meta": "OAP 生产库实时聚合 · 截至 2026-09-01 19:38（当日部分数据）",
+          "source": "OAP 关键历程 × 四指标增长可视化 · 实时 JSON 更新于 2026-09-01 19:38",
+          "embed": "https://clairku.github.io/qieman-product-research-library/pages/oap/oap-journey-metrics-2026-08-02.html?v=live",
           "alt": "盈米 AI 开放平台关键历程与四指标增长交互图"
         }
       ]
@@ -271,7 +273,7 @@
               "body": "涉及个人数据和受监管动作时，回到且慢完成确认。"
             }
           ],
-          "source": "飞书源稿 P5 · revision 1978"
+          "source": "飞书源稿 P5 · revision 1981"
         },
         {
           "eyebrow": "QWEN · MCP + A2A",
@@ -288,7 +290,7 @@
               "body": "把成熟投顾 Agent 作为整体服务能力交给千问调用。"
             }
           ],
-          "source": "飞书源稿 P6 · revision 1978"
+          "source": "飞书源稿 P6 · revision 1981"
         },
         {
           "eyebrow": "BAIDU · MCP",
@@ -305,7 +307,7 @@
               "body": "由单次 MCP 调用升级为可治理能力与 Agent 解决方案输出。"
             }
           ],
-          "source": "飞书源稿 P3 · revision 1978"
+          "source": "飞书源稿 P3 · revision 1981"
         }
       ],
       "callout": {
@@ -376,7 +378,7 @@
             "自主编排盈米 Skills / MCP / Agent",
             "连接广场形成稳定能力入口"
           ],
-          "source": "飞书源稿 P6 · revision 1978"
+          "source": "飞书源稿 P6 · revision 1981"
         },
         {
           "index": "02",
@@ -388,7 +390,7 @@
             "承接数据、记忆与持续服务",
             "从能力调用升级为品牌服务"
           ],
-          "source": "飞书源稿 P6 · revision 1978"
+          "source": "飞书源稿 P6 · revision 1981"
         },
         {
           "index": "03",
@@ -401,7 +403,7 @@
             "03 配置诊断｜识别风险定位与配置偏离",
             "04 推荐转化｜匹配产品并承接后续动作"
           ],
-          "source": "飞书源稿 P6 · revision 1978"
+          "source": "飞书源稿 P6 · revision 1981"
         }
       ],
       "callout": {
@@ -566,7 +568,7 @@
           "title": "支付宝 AI 开放平台",
           "body": "邀测接入，作为金融类首家 MCP 推进入驻。",
           "meta": "计划上架",
-          "source": "飞书源稿 P6 · revision 1978"
+          "source": "飞书源稿 P6 · revision 1981"
         },
         {
           "index": "02",
@@ -574,7 +576,7 @@
           "title": "阿里云市场 / 百炼",
           "body": "开发与上架申请已完成，进入平台上架流程；百炼同步引入 one key MCP 新模式。",
           "meta": "计划上架",
-          "source": "飞书源稿 P6 · revision 1978"
+          "source": "飞书源稿 P6 · revision 1981"
         },
         {
           "index": "03",
@@ -582,7 +584,7 @@
           "title": "SkillHub 企业版",
           "body": "企业版入驻与账号开通已完成，推进 Skills 上架并接入 SkillPay。",
           "meta": "计划上架",
-          "source": "飞书源稿 P6 · revision 1978"
+          "source": "飞书源稿 P6 · revision 1981"
         }
       ],
       "callout": {
@@ -1655,8 +1657,8 @@
     {
       "id": "next",
       "kicker": "26 · 下一步",
-      "title": "四项行动进入落地",
-      "lead": "下半年围绕新入口经营、OAuth / SSO、AI 实验室和商化配套四项行动集中落地。",
+      "title": "四项行动需按当前状态重新收口",
+      "lead": "原 H2 计划仍可作为行动框架，但 8 月节点已过；应先确认真实完成状态，再确定 9 月经营优先级。",
       "layout": "actions",
       "tone": "soft",
       "items": [
@@ -1670,13 +1672,13 @@
           "index": "02",
           "eyebrow": "FOUNDATION",
           "title": "推进 OAuth / SSO 与治理",
-          "body": "8 月推进 SSO 与 10 个持仓类 MCP 登录授权，同步建设 Stargate 授权、撤销、审计和统计。"
+          "body": "原计划 8 月推进 SSO 与 10 个持仓类 MCP 登录授权；截至 revision 1981 未提供完成证据，需同步复核 Stargate 授权、撤销、审计和统计状态。"
         },
         {
           "index": "03",
           "eyebrow": "AI LAB",
           "title": "启动实验室经营指标",
-          "body": "明确首版范围与上线节点，围绕 5,000 用户、1,000 应用形成季度经营动作。"
+          "body": "先确认首版范围、负责人和上线节点，再围绕 5,000 用户、1,000 应用拆解可验收的季度经营动作。"
         },
         {
           "index": "04",
@@ -1686,23 +1688,23 @@
         }
       ],
       "callout": {
-        "label": "下半年主线",
-        "text": "用治理底座支撑入口放大，用明确指标推动实验室与商化形成可量化结果。"
+        "label": "9 月收口",
+        "text": "先完成计划状态核验，再把已上线能力、待解决缺口与下一周期承诺拆开管理。"
       }
     }
   ],
   "sources": [
     {
       "label": "飞书文档《8/3 盈米 AI 开放平台项目汇报》",
-      "detail": "yingmi.feishu.cn/wiki/ELoLwjzXmidhs6kscvbczByYnod · revision 1978 · 报告十项框架与关键举措事实基础"
+      "detail": "yingmi.feishu.cn/wiki/ELoLwjzXmidhs6kscvbczByYnod · revision 1981 · 本次重新核对报告十项框架与静态事实"
     },
     {
-      "label": "OAP 生产数仓只读聚合快照",
-      "detail": "盈米本体 · 生产数仓只读聚合 · 2026-08-16T23:59:59+08:00 · 总调用 9,458,599、批准申请用户 9,855、近 30 个完整自然日活跃用户 2,266 · 公开脱敏聚合，不含用户明细、稳定主键与数据库凭证"
+      "label": "OAP Stargate Dashboard 同口径实时聚合",
+      "detail": "生产库 dw-tidb/ying99_oap · 2026-09-01 19:38（当日部分数据） · 累计调用 10,058,883、累计申请 12,097、滚动近 30 日活跃 2,899 · 排除内部测试 apiKey"
     },
     {
       "label": "OAP 关键历程 × 四指标增长可视化",
-      "detail": "clairku.github.io/qieman-product-research-library/pages/oap/oap-journey-metrics-2026-08-02.html?v=4ef8daa · 19 个主节点 + 全量日序列 · 自动同步实时数据（Stargate 后台同口径）"
+      "detail": "clairku.github.io/qieman-product-research-library/pages/oap/oap-journey-metrics-2026-08-02.html · 524 日序列 · 页面与年度目标卡均读取同一实时 JSON"
     },
     {
       "label": "能力生产与服务生态补充模块",
@@ -1748,11 +1750,11 @@
   "uncertainties": [
     {
       "title": "数据截止口径",
-      "detail": "年度目标与用户增长采用同一次 OAP 生产数仓只读聚合：累计调用、批准申请用户、每日新增与每日调用凭据均截至 2026-08-16T23:59:59+08:00；每日调用沿用历史趋势图的去重访问凭据口径，近 30 日活跃则按自然人去重，两者不可相加。「关键历程 × 四指标增长」页打开时自动拉取实时数据，「数据更新」读数旁的刷新图标可手动更新；拉取失败时显示最近一次定时同步的快照。机构统计分项日期不同。"
+      "detail": "年度目标与用户增长读取同一份 OAP 生产库实时聚合，最新快照生成于 2026-09-01 19:38（当日部分数据）。累计申请按申请记录累计并排除内部测试 apiKey；近 30 日活跃按有调用记录的 apiKey 去重，不等同于自然人去重。最新日可能为部分日，报告按源状态显式标注。机构统计、MCP TOP20、传播与商化数据保留各自历史截点，不与实时经营指标混算。"
     },
     {
       "title": "计划状态",
-      "detail": "SSO、OAuth、部分平台上架、AI 实验室与商化内容属于推进中或目标，不代表全部生产可用。"
+      "detail": "SSO、OAuth、部分平台上架、AI 实验室与商化内容来自原计划；截至 revision 1981，主源未提供这些事项的最新完成证据，不写成已上线。"
     },
     {
       "title": "机构统计边界",
