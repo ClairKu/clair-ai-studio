@@ -138,6 +138,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "baidu-dumate-review-2026-09-01",
+      groupId: "ai-workbench",
+      title: "百度搭子 DuMate 实测｜桌面级通用智能体：13 分钟跑完复合任务",
+      url: "https://clairku.github.io/clair-ai-studio/reports/baidu-dumate-review-2026-09-01/",
+      preview: "baidu-dumate-review-2026-09-01.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-01T11:00:00.000+08:00",
+      source: "官方渠道下载实测（macOS 1.0.75 arm64，Apple M5 Pro）｜金价周报复合任务全程观察：需求拆解→12 次分维度搜索→HTML 报告（8 图表）→deliverable-verify 自检→每周定时任务注册，约 13 分钟无人干预、事实抽查与公开报道一致｜架构拆解：opencode 定制引擎（OpenClaw 风格 SOUL.md/SKILL.md）+ GLM-5 主力模型（千帆路由，非文心）+ 1.7GB Linux VM 沙箱 + 技能哈希安全扫描｜本地服务仅监听 127.0.0.1｜免费版 1000 积分/日≈一个复杂任务即触发 ¥9.9 Pro 升级引导｜应用+数据 3.4GB、内存 1.5GB｜综合 8.0/10",
+      access: "production",
+      workType: "competitive-research",
+      tags: ["百度搭子", "DuMate", "AI 工作台", "通用智能体", "竞品调研", "opencode", "GLM-5", "沙箱", "定时任务", "产品测评", "CLAIR", "HTML", "生产"],
+    },
+    {
       id: "getlatestquotations-market-temperature-2026-08-30",
       groupId: "research",
       title: "GetLatestQuotations｜市场温度计与行情公式深查",
@@ -1765,6 +1779,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "baidu-dumate-review-2026-09-01": "competitive-research",
   "qieman-cashflow-strategies-audit-2026-08-28": "investment-research",
   "yingmiwork-product-brief-2026-08-20": "reporting",
   "qieman-selfservice-vs-advisory-cohorts-2026-08-19": "data-analysis",

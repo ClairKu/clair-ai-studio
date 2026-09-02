@@ -37,8 +37,8 @@ const reports = reportChunks.map((chunk) => ({
   access: chunk.match(/\baccess:\s*"([^"]+)"/)?.[1] || "",
 }));
 
-if (reports.length !== 127) { // +1 GetLatestQuotations market temperature audit 2026-08-30
-  fail(`初始成果数量异常：预期 127，实际 ${reports.length}`);
+if (reports.length !== 128) { // +1 baidu-dumate-review 2026-09-01 // +1 GetLatestQuotations market temperature audit 2026-08-30
+  fail(`初始成果数量异常：预期 128，实际 ${reports.length}`);
 }
 
 for (const field of ["id", "url"]) {
