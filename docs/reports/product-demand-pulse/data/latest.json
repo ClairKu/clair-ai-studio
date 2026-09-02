@@ -3,11 +3,11 @@
   "meta": {
     "contract_version": "gitlab-mr-v1",
     "source_of_truth": "GitLab merge requests",
-    "generated_at": "2026-09-02T05:10:05.774Z",
-    "cutoff": "2026-09-02T05:10:05.774Z",
-    "last_change_at": "2026-09-02T05:10:05.774Z",
+    "generated_at": "2026-09-02T10:10:01.216Z",
+    "cutoff": "2026-09-02T10:10:01.216Z",
+    "last_change_at": "2026-09-02T10:10:01.216Z",
     "stale_after_minutes": 180,
-    "headline": "7 个已提交，4 个已上线，3 位 PM 完成端到端交付。",
+    "headline": "7 个已提交，5 个已上线，4 位 PM 完成端到端交付。",
     "window_start": "2026-07-01T00:00:00+08:00",
     "release_ticket_lookup": "ok",
     "link_exposure": "public",
@@ -15,15 +15,15 @@
   },
   "summary": {
     "submitted": 7,
-    "released": 4,
-    "in_flight": 3,
-    "end_to_end_people": 3
+    "released": 5,
+    "in_flight": 2,
+    "end_to_end_people": 4
   },
   "delta": {
     "new_submitted": 0,
-    "pending_release": 3,
-    "new_released": 0,
-    "changed": false
+    "pending_release": 2,
+    "new_released": 1,
+    "changed": true
   },
   "people": [
     {
@@ -71,10 +71,10 @@
       "display_name": "金星",
       "avatar": "🐰",
       "submitted": 1,
-      "released": 0,
-      "in_flight": 1,
-      "first_released_at": null,
-      "end_to_end": false
+      "released": 1,
+      "in_flight": 0,
+      "first_released_at": "2026-09-02T17:43:42.505+08:00",
+      "end_to_end": true
     },
     {
       "id": "P07",
@@ -318,8 +318,8 @@
         "服务端"
       ],
       "submitted_at": "2026-08-31T10:40:11.958+08:00",
-      "released_at": null,
-      "status": "merged",
+      "released_at": "2026-09-02T17:43:42.505+08:00",
+      "status": "released",
       "links": {
         "merge_requests": [
           {
@@ -345,9 +345,17 @@
             "state": "merged",
             "merged_at": "2026-08-31T16:50:21.236+08:00",
             "is_release": false
+          },
+          {
+            "iid": 15512,
+            "url": "https://git.frontnode.net/qieman/albus/-/merge_requests/15512",
+            "target_branch": "master",
+            "state": "merged",
+            "merged_at": "2026-09-02T17:43:42.505+08:00",
+            "is_release": true
           }
         ],
-        "release_mr_url": null,
+        "release_mr_url": "https://git.frontnode.net/qieman/albus/-/merge_requests/15512",
         "demand_tickets": [],
         "release_tickets": []
       }
