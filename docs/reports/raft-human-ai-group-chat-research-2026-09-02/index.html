@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />
+    <script data-clair-access-gate data-clair-access-scope="report" src="../../access-gate.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <title>人机群聊 RAFT 深度调研｜2026-09-02</title>
+  <meta name="description" content="RAFT 人机群聊与多 Agent 协作平台深度调研：产品、架构、成本、合规风险与盈米/且慢行动建议。" />
+  <style>
+    :root{
+      --ink:#142116;--muted:#5b675d;--paper:#f4f1e9;--panel:#fffdf7;--line:#d7d2c5;
+      --green:#196846;--lime:#cbff5f;--yellow:#ffd34f;--red:#c94438;--blue:#4f72c9;
+      --shadow:0 18px 60px rgba(29,40,31,.10);--radius:22px;
+    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,"PingFang SC","Noto Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.7}
+    a{color:var(--green);text-decoration-thickness:1px;text-underline-offset:3px} a:hover{color:#0f4c31}
+    .shell{max-width:1180px;margin:auto;padding:22px 28px 80px}.topbar{display:flex;justify-content:space-between;align-items:center;padding:12px 0 20px;font-size:13px;color:var(--muted)}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--ink)}.mark{width:26px;height:26px;border:2px solid var(--ink);border-radius:50%;display:grid;place-items:center;background:var(--lime);box-shadow:3px 3px 0 var(--ink)}
+    .hero{position:relative;overflow:hidden;min-height:570px;border:2px solid var(--ink);border-radius:30px;background:#16251a;color:#f5f5ed;padding:70px 64px 54px;box-shadow:10px 10px 0 #263e2d}
+    .hero:before{content:"";position:absolute;width:460px;height:460px;border:1px solid rgba(203,255,95,.25);border-radius:50%;right:-80px;top:-120px;box-shadow:0 0 0 68px rgba(203,255,95,.05),0 0 0 136px rgba(203,255,95,.03)}
+    .eyebrow{position:relative;display:inline-flex;gap:8px;align-items:center;padding:6px 10px;border:1px solid rgba(255,255,255,.35);border-radius:999px;font-size:12px;letter-spacing:.08em;text-transform:uppercase}.dot{width:8px;height:8px;background:var(--lime);border-radius:50%;box-shadow:0 0 0 4px rgba(203,255,95,.12)}
+    h1{position:relative;margin:28px 0 16px;font-size:clamp(46px,8vw,90px);line-height:.98;letter-spacing:-.055em;max-width:880px}h1 em{font-style:normal;color:var(--lime)}
+    .lead{position:relative;max-width:720px;color:#d4ddd3;font-size:19px}.hero-grid{position:relative;display:grid;grid-template-columns:1.2fr .8fr;gap:22px;margin-top:48px}
+    .verdict{background:var(--lime);color:var(--ink);border:2px solid #0f180f;border-radius:18px;padding:22px 24px;box-shadow:6px 6px 0 rgba(0,0,0,.45)}.verdict strong{font-size:24px;display:block;line-height:1.3}.verdict span{font-size:14px}
+    .meta{border:1px solid rgba(255,255,255,.25);border-radius:18px;padding:20px 22px;background:rgba(255,255,255,.05);font-size:13px}.meta b{color:var(--lime)}
+    .nav{display:flex;gap:8px;flex-wrap:wrap;margin:28px 0 44px;position:sticky;top:10px;z-index:10;background:rgba(244,241,233,.9);backdrop-filter:blur(12px);padding:10px;border:1px solid rgba(20,33,22,.12);border-radius:16px}.nav a{text-decoration:none;padding:7px 11px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:12px;color:var(--ink)}
+    section{scroll-margin-top:90px;margin:64px 0}.section-head{display:grid;grid-template-columns:170px 1fr;gap:22px;align-items:end;border-bottom:2px solid var(--ink);padding-bottom:15px;margin-bottom:26px}.kicker{font:800 12px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--green);letter-spacing:.08em}.section-head h2{font-size:34px;line-height:1.2;margin:0;letter-spacing:-.03em}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}.card h3{margin:0 0 8px;font-size:19px}.card p{margin:0;color:var(--muted);font-size:14px}.num{font:900 44px/1 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--green);margin-bottom:14px}
+    .big-claim{display:grid;grid-template-columns:.9fr 1.1fr;gap:18px}.quote{background:var(--green);color:white;border-radius:var(--radius);padding:34px}.quote p{font-size:26px;line-height:1.35;margin:0 0 20px;letter-spacing:-.02em}.quote small{color:#d3eadc}.explain{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px}.explain p{margin:0 0 14px}.explain p:last-child{margin-bottom:0}
+    .diagram{background:#fff;border:1px solid var(--line);border-radius:26px;padding:26px;box-shadow:var(--shadow);overflow:auto}.diagram svg{display:block;min-width:820px;width:100%;height:auto}.caption{font-size:12px;color:var(--muted);margin-top:10px}
+    .flow{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:20px}.step{position:relative;background:#fff;border:1px solid var(--line);padding:22px 18px;min-height:170px}.step:first-child{border-radius:18px 0 0 18px}.step:last-child{border-radius:0 18px 18px 0}.step:not(:last-child):after{content:"→";position:absolute;right:-11px;top:50%;z-index:2;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--lime);border:1px solid var(--ink);font-weight:900}.step b{display:block;margin:10px 0 6px}.step span{font-size:12px;color:var(--muted)}.step .index{font:800 12px ui-monospace,monospace;color:var(--green)}
+    .score-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}.scorecard,.riskbox{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px}.score{display:grid;grid-template-columns:128px 1fr 38px;gap:12px;align-items:center;margin:16px 0;font-size:13px}.bar{height:10px;background:#e6e4dc;border-radius:20px;overflow:hidden}.bar i{display:block;height:100%;border-radius:20px;background:var(--green)}.bar.warn i{background:var(--yellow)}.bar.bad i{background:var(--red)}.riskbox{background:#241b19;color:#f8eeea;border-color:#241b19}.riskbox h3{color:#ffb6a8}.riskbox ul{padding-left:20px}.riskbox li{margin:12px 0;color:#ead8d2}
+    table{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;font-size:13px}th,td{padding:15px 16px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}th{background:#ece9df;font-size:12px}tr:last-child td{border-bottom:0}.good{color:var(--green);font-weight:700}.caution{color:#9b6d00;font-weight:700}.stop{color:var(--red);font-weight:700}.tag{display:inline-block;padding:3px 8px;border-radius:999px;border:1px solid currentColor;font-size:11px;margin:2px 4px 2px 0}
+    .callout{display:grid;grid-template-columns:52px 1fr;gap:18px;align-items:start;border:2px solid var(--ink);background:var(--lime);border-radius:20px;padding:24px 26px;box-shadow:6px 6px 0 var(--ink)}.callout .icon{font-size:34px}.callout h3{margin:0 0 5px}.callout p{margin:0}
+    .pilot{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.phase{background:#fff;border-top:6px solid var(--green);border-radius:14px;padding:20px;border-left:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}.phase h3{font-size:16px;margin:0 0 10px}.phase ul{padding-left:18px;margin:0;font-size:13px;color:var(--muted)}
+    .gates{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.gate{display:flex;gap:12px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px}.gate .box{flex:none;width:20px;height:20px;border:2px solid var(--ink);border-radius:4px}.gate b{display:block;font-size:14px}.gate span{font-size:12px;color:var(--muted)}
+    .sources{counter-reset:src}.sources li{counter-increment:src;margin:14px 0;padding-left:8px}.sources li::marker{content:counter(src,decimal-leading-zero) "  ";font:700 12px ui-monospace,monospace;color:var(--green)}.sources small{display:block;color:var(--muted)}
+    .footer{margin-top:70px;padding:26px 0;border-top:2px solid var(--ink);display:flex;justify-content:space-between;gap:30px;color:var(--muted);font-size:12px}.stamp{font:900 12px ui-monospace,monospace;color:var(--ink)}
+    @media(max-width:860px){.shell{padding:12px 14px 50px}.hero{padding:48px 28px;min-height:auto}.hero-grid,.cards,.big-claim,.score-grid{grid-template-columns:1fr}.section-head{grid-template-columns:1fr}.flow{grid-template-columns:1fr;gap:8px}.step,.step:first-child,.step:last-child{border-radius:14px}.step:not(:last-child):after{content:"↓";right:auto;left:50%;top:auto;bottom:-15px}.pilot,.gates{grid-template-columns:1fr 1fr}.nav{position:relative;top:0}.footer{flex-direction:column}}
+    @media(max-width:560px){h1{font-size:49px}.pilot,.gates{grid-template-columns:1fr}.hero{border-radius:22px}.lead{font-size:16px}.section-head h2{font-size:29px}}
+    @media print{body{background:white}.shell{max-width:none;padding:0}.hero,.card,.diagram,.scorecard,.riskbox{box-shadow:none}.nav{display:none}section{break-inside:avoid}.hero{min-height:0}.footer{break-before:avoid}}
+  </style>
+</head>
+<body>
+<main class="shell">
+  <div class="topbar"><div class="brand"><span class="mark">R</span> CLAIR / PRODUCT INTELLIGENCE</div><div>研究时点：2026-09-02 · 公开资料桌面研究</div></div>
+
+  <header class="hero">
+    <div class="eyebrow"><span class="dot"></span> HUMAN × AGENT COLLABORATION</div>
+    <h1>人机群聊 <em>RAFT</em><br>不是群聊，是团队操作系统</h1>
+    <p class="lead">Raft 把 Claude、Codex、Cursor 等运行时包进同一个“人类 + Agent”工作空间：Agent 有身份、有记忆、会认领任务、会互相交接，执行仍发生在你的电脑上。</p>
+    <div class="hero-grid">
+      <div class="verdict"><strong>建议：立刻做隔离试点；暂不进入生产采购。</strong><span>产品范式领先，企业治理与金融合规准备明显落后。Raft 目前适合验证“团队如何与 Agent 一起工作”，不适合承载客户、持仓、交易、合同或内部源码。</span></div>
+      <div class="meta"><b>研究对象</b> raft.build / Botiverse, Inc.<br><b>证据范围</b> 官网、产品文档、隐私政策、服务条款、公开 GitHub / npm<br><b>未做</b> 未注册账号、未安装 daemon、未提交任何内部数据<br><b>证据等级</b> 产品事实以官方材料为主；体验、性能与采用规模尚待实测</div>
+    </div>
+  </header>
+
+  <nav class="nav" aria-label="章节导航">
+    <a href="#one">一句话结论</a><a href="#how">怎么运转</a><a href="#ability">能力拆解</a><a href="#risk">风险与成熟度</a><a href="#compare">竞品坐标</a><a href="#yingmi">对盈米的启示</a><a href="#pilot">7 日试点</a><a href="#source">证据来源</a>
+  </nav>
+
+  <section id="one">
+    <div class="section-head"><div class="kicker">01 / EXECUTIVE TAKE</div><h2>它填补的不是“聊天机器人”空白，而是 Agent 之间的组织空白</h2></div>
+    <div class="big-claim">
+      <div class="quote"><p>模型解决“一个 Agent 能做什么”；Raft 解决“很多人和很多 Agent 怎么成为一支队伍”。</p><small>研究判断：它是协作层，不是模型层、MCP 层或确定性工作流引擎。</small></div>
+      <div class="explain">
+        <p><strong>核心创新：</strong>Agent 是一等成员，不是被人类临时调用的工具。它拥有持久身份、独立工作空间、频道成员关系和个人记忆。</p>
+        <p><strong>协调机制：</strong>消息可以变成任务；任务只有一个 owner；Agent 先 claim 再开工，完成后进入 review，减少重复劳动和不可见执行。</p>
+        <p><strong>真正壁垒：</strong>不是 UI，而是“身份 × 消息 × 任务状态 × 本地执行 × 长期记忆”组成的协议，以及把不同 runtime 接入同一协作语义。</p>
+      </div>
+    </div>
+    <div class="cards" style="margin-top:18px">
+      <article class="card"><div class="num">1→N</div><h3>从个人助手到团队</h3><p>支持多个 Agent、多个模型、多个电脑同时工作，并在共享线程中交接与评审。</p></article>
+      <article class="card"><div class="num">2</div><h3>双平面架构</h3><p>Raft 云端保存协作消息与控制状态；Agent 在本地 Computer 上读文件、运行命令、调用模型。</p></article>
+      <article class="card"><div class="num">0.1</div><h3>Agent 计费系数</h3><p>Pro 年付口径：每个人 1 seat，每个 Agent 0.1 seat；模型订阅与 API 成本另算。</p></article>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="section-head"><div class="kicker">02 / ARCHITECTURE</div><h2>云端管“谁和谁协作”，本地管“Agent 真正做事”</h2></div>
+    <div class="diagram">
+      <svg viewBox="0 0 1080 520" role="img" aria-label="Raft 双平面架构图">
+        <defs><filter id="sh"><feDropShadow dx="5" dy="6" stdDeviation="0" flood-color="#142116" flood-opacity="1"/></filter><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#196846"/></marker></defs>
+        <rect x="25" y="25" width="1030" height="190" rx="24" fill="#edf7e9" stroke="#142116" stroke-width="2"/>
+        <text x="55" y="62" font-size="16" font-weight="800" fill="#196846">RAFT CLOUD · 协作与控制平面（美国服务器）</text>
+        <g font-family="sans-serif" font-size="14" fill="#142116" text-anchor="middle">
+          <rect x="60" y="90" width="160" height="80" rx="15" fill="#cbff5f" stroke="#142116"/><text x="140" y="122" font-weight="800">Channels / DMs</text><text x="140" y="145">消息、线程、附件</text>
+          <rect x="255" y="90" width="160" height="80" rx="15" fill="#fff" stroke="#142116"/><text x="335" y="122" font-weight="800">Tasks</text><text x="335" y="145">claim / review / done</text>
+          <rect x="450" y="90" width="160" height="80" rx="15" fill="#fff" stroke="#142116"/><text x="530" y="122" font-weight="800">Identity & Roles</text><text x="530" y="145">人、Agent、权限</text>
+          <rect x="645" y="90" width="160" height="80" rx="15" fill="#fff" stroke="#142116"/><text x="725" y="122" font-weight="800">Reminders</text><text x="725" y="145">定时唤醒与跟进</text>
+          <rect x="840" y="90" width="160" height="80" rx="15" fill="#fff" stroke="#142116"/><text x="920" y="122" font-weight="800">Joint Channels</text><text x="920" y="145">跨服务器协作</text>
+        </g>
+        <path d="M225 215 C225 260 250 260 250 300" fill="none" stroke="#196846" stroke-width="3" marker-end="url(#arr)"/><path d="M855 215 C855 260 830 260 830 300" fill="none" stroke="#196846" stroke-width="3" marker-end="url(#arr)"/>
+        <rect x="25" y="300" width="1030" height="195" rx="24" fill="#fffdf7" stroke="#142116" stroke-width="2"/>
+        <text x="55" y="338" font-size="16" font-weight="800" fill="#196846">YOUR COMPUTERS · 本地执行平面</text>
+        <g font-family="sans-serif" font-size="14" fill="#142116" text-anchor="middle">
+          <rect x="65" y="365" width="270" height="88" rx="15" fill="#16251a" stroke="#142116"/><text x="200" y="397" fill="#cbff5f" font-weight="800">Mac / Linux / Cloud VM</text><text x="200" y="423" fill="#fff">Raft Computer 本地服务</text>
+          <rect x="405" y="365" width="270" height="88" rx="15" fill="#edf7e9" stroke="#142116"/><text x="540" y="397" font-weight="800">Agent Workspaces</text><text x="540" y="423">文件、notes、memory、repo</text>
+          <rect x="745" y="365" width="270" height="88" rx="15" fill="#edf7e9" stroke="#142116"/><text x="880" y="397" font-weight="800">AI Runtimes</text><text x="880" y="423">Claude / Codex / Cursor / …</text>
+        </g>
+        <path d="M335 409L400 409" stroke="#196846" stroke-width="3" marker-end="url(#arr)"/><path d="M675 409L740 409" stroke="#196846" stroke-width="3" marker-end="url(#arr)"/>
+      </svg>
+      <div class="caption">重要边界：官网“本地执行”不等于全部数据不出境。频道消息、附件、身份与协作状态仍由 Raft 云端承载；runtime 还会直接连接各自模型供应商。</div>
+    </div>
+    <div class="flow">
+      <div class="step"><span class="index">STEP 01</span><b>人类给目标</b><span>在频道发消息或直接创建任务，说明验收标准。</span></div>
+      <div class="step"><span class="index">STEP 02</span><b>Agent 认领</b><span>一个任务同时只有一个 owner，避免重复开工。</span></div>
+      <div class="step"><span class="index">STEP 03</span><b>本地执行</b><span>读取 workspace、运行命令、调用自带模型订阅。</span></div>
+      <div class="step"><span class="index">STEP 04</span><b>并行与交接</b><span>Agent @mention 另一 Agent、拆子任务、在 thread 留痕。</span></div>
+      <div class="step"><span class="index">STEP 05</span><b>人类评审</b><span>状态进入 in review，人类拍板后 done。</span></div>
+    </div>
+  </section>
+
+  <section id="ability">
+    <div class="section-head"><div class="kicker">03 / PRODUCT</div><h2>能力地图：真正独特的是协作原语，而不是模型数量</h2></div>
+    <div class="cards">
+      <article class="card"><h3>持久 Agent 身份</h3><p>名称、描述、频道成员、工作空间与记忆跨 session 保留；runtime 可切换但身份不丢。</p></article>
+      <article class="card"><h3>任务抢占与状态机</h3><p>Todo → In progress → In review → Done/Closed，Agent 自动 claim，执行过程沉淀在线程。</p></article>
+      <article class="card"><h3>异构 Runtime</h3><p>官方列出 Claude Code、Codex CLI、Cursor CLI、Gemini CLI、Copilot CLI、Kimi CLI、OpenCode、Pi 等。</p></article>
+      <article class="card"><h3>长期工作空间</h3><p>每个 Agent 一套独立目录，可放记忆、脚本、草稿和仓库；目前绑定单台电脑，不支持跨电脑迁移。</p></article>
+      <article class="card"><h3>Reminders</h3><p>Agent 可自己设置一次性或循环唤醒；触发记录在对应频道/线程，适合可观察的周期任务。</p></article>
+      <article class="card"><h3>Joint Channels</h3><p>最多连接 3 个 Raft server；只共享指定私有频道，跨组织 Agent 也能协作，但目前没有联合任务板。</p></article>
+      <article class="card"><h3>Connected Apps</h3><p>通过 Login with Raft 让人和 Agent 以各自身份访问应用。安装是人类授权边界，token 按 Agent × App × Server 隔离。</p></article>
+      <article class="card"><h3>外部 Agent</h3><p>Hermes、Claude Code 或任何能运行 CLI 的框架都可接入；外部 Agent 功能标注为 Experimental。</p></article>
+      <article class="card"><h3>免费试用门槛低</h3><p>Free 含任务、Agent reminders、基础 observability、30 天消息与每月 100MB 上传；Enterprise 仍 Coming soon。</p></article>
+    </div>
+    <div class="callout" style="margin-top:20px"><div class="icon">￥</div><div><h3>一个 5 人 + 20 Agent 团队的 Raft 软件费约为 US$61.60/月（年付标价）</h3><p>5×1 seat + 20×0.1 seat = 7 seats；7×US$8.80。模型订阅/API、云 VM、联网工具、MCP 服务与人工审核成本均另算。Agent 多起来后，真正的大头很可能是 token 与治理，而不是 Raft 席位费。</p></div></div>
+  </section>
+
+  <section id="risk">
+    <div class="section-head"><div class="kicker">04 / RISK & MATURITY</div><h2>产品能用，企业还没准备好；金融场景必须把兴奋降温</h2></div>
+    <div class="score-grid">
+      <div class="scorecard">
+        <h3 style="margin-top:0">研究评分（10 分制）</h3>
+        <div class="score"><span>范式创新</span><div class="bar"><i style="width:92%"></i></div><b>9.2</b></div>
+        <div class="score"><span>协作闭环</span><div class="bar"><i style="width:84%"></i></div><b>8.4</b></div>
+        <div class="score"><span>Runtime 开放性</span><div class="bar"><i style="width:82%"></i></div><b>8.2</b></div>
+        <div class="score"><span>生态成熟度</span><div class="bar warn"><i style="width:55%"></i></div><b>5.5</b></div>
+        <div class="score"><span>企业治理</span><div class="bar bad"><i style="width:35%"></i></div><b>3.5</b></div>
+        <div class="score"><span>中国金融适配</span><div class="bar bad"><i style="width:20%"></i></div><b>2.0</b></div>
+        <p class="caption">评分为基于公开证据的研究判断，不是实测 benchmark。Enterprise、私有部署、SSO、审计能力变化后需重评。</p>
+      </div>
+      <div class="riskbox">
+        <h3>五个不能忽略的红线</h3>
+        <ul>
+          <li><strong>条款：</strong>用户 Contributions 可被视为非保密，并授予平台极其广泛、永久、可转授权的使用许可。</li>
+          <li><strong>出境：</strong>隐私政策明确服务器位于美国，数据可能由托管、数据库、对象存储和 AI 推理供应商处理。</li>
+          <li><strong>治理：</strong>私有部署、SSO、高级访问控制仍在 Enterprise “Coming soon”。</li>
+          <li><strong>执行面：</strong>本地服务可启动 Agent、读写文件、运行命令；权限设大后，风险半径就是整台机器。</li>
+          <li><strong>保障：</strong>条款是 as-is / as-available，平台可变更、暂停或终止，未看到 SLA、SOC 2/ISO 证据或企业 DPA。</li>
+        </ul>
+      </div>
+    </div>
+    <table style="margin-top:18px">
+      <thead><tr><th>数据/动作</th><th>可否进入当前 Raft 公有版本</th><th>理由</th></tr></thead>
+      <tbody>
+        <tr><td>公开网页、公开公司资料、公开代码仓</td><td><span class="good">可用于隔离试点</span></td><td>不涉及客户权益或内部秘密，仍需避免账号/token 粘贴。</td></tr>
+        <tr><td>内部产品讨论、未公开路线图、合同</td><td><span class="stop">暂不进入</span></td><td>云端消息 + 美国服务器 + 非保密条款风险。</td></tr>
+        <tr><td>客户身份、持仓、交易、KYC、顾问记录</td><td><span class="stop">禁止</span></td><td>个人信息、金融数据与跨境合规要求不满足。</td></tr>
+        <tr><td>内部源码、生产凭据、MCP token</td><td><span class="stop">禁止</span></td><td>本地执行权限与 Agent prompt/tool 链扩大泄露和误操作半径。</td></tr>
+        <tr><td>只读公开 MCP / mock 数据</td><td><span class="caution">受限可用</span></td><td>使用专门账号、最小权限、无生产凭据、保留调用审计。</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="compare">
+    <div class="section-head"><div class="kicker">05 / MARKET MAP</div><h2>Raft 不是 Slack 替代品，也不是 Codex 替代品：它位于两者之间</h2></div>
+    <table>
+      <thead><tr><th>路线</th><th>核心对象</th><th>强项</th><th>弱项</th><th>与 Raft 的关系</th></tr></thead>
+      <tbody>
+        <tr><td><strong>飞书 / Slack / Teams + Bot</strong></td><td>人类组织与聊天</td><td>企业治理、组织目录、审批、合规生态</td><td>Agent 通常是插件；身份、长期记忆、任务抢占不是原生语义</td><td>Raft 是“Agent-first IM”；现阶段企业能力反而弱很多</td></tr>
+        <tr><td><strong>Codex / Claude Code / Cursor</strong></td><td>单个执行 Agent</td><td>代码、文件、终端、工具执行深</td><td>多人/多 Agent 的共享任务与交接不是核心</td><td>是 Raft 的 runtime，而非替代关系</td></tr>
+        <tr><td><strong>CrewAI / AutoGen / LangGraph</strong></td><td>开发者定义的多 Agent 工作流</td><td>图编排、确定性控制、测试与部署</td><td>对普通团队不够自然；人类对话与组织记忆偏弱</td><td>Raft 偏“社会协调”，框架偏“程序编排”</td></tr>
+        <tr><td><strong>YingmiWork / WorkBuddy / OpenClaw</strong></td><td>个人数字员工与技能运行</td><td>本地能力、企业技能、MCP、个人任务闭环</td><td>跨人、跨 Agent 的团队协同尚非主轴</td><td>可被 Raft 式协作层包裹；也可在现有 IM 内吸收其原语</td></tr>
+        <tr><td><strong>Raft</strong></td><td>人 + Agent 的混合团队</td><td>身份、频道、任务、claim、review、记忆、本地执行统一</td><td>治理、合规、SLA、私有化、生态仍早期</td><td>新类别：Agent-native collaboration layer</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="yingmi">
+    <div class="section-head"><div class="kicker">06 / PRODUCT IMPLICATION</div><h2>对盈米/且慢最有价值的不是“部署 Raft”，而是抄走它的协作协议</h2></div>
+    <div class="cards">
+      <article class="card"><div class="num">01</div><h3>Agent 必须有可治理身份</h3><p>名称只是 UI。真正需要的是 owner、角色、授权范围、运行时、预算、数据域、审计记录和生命周期。</p></article>
+      <article class="card"><div class="num">02</div><h3>对话必须能变成承诺</h3><p>消息 → 任务 → 唯一 owner → 评审 → 完成。没有状态机的人机群聊，只会产生更热闹的聊天。</p></article>
+      <article class="card"><div class="num">03</div><h3>记忆必须有边界</h3><p>不要建“全公司一个大脑”。每个 Agent 保留自己的专业记忆，通过消息传递；共享空间保留可审计决策。</p></article>
+      <article class="card"><div class="num">04</div><h3>人与 Agent 使用同一权限模型</h3><p>每个 Agent 以自身身份访问 MCP/应用，禁止借用人类 token；安装/授权由人类管理员完成并可撤销。</p></article>
+      <article class="card"><div class="num">05</div><h3>审查者应与执行者分离</h3><p>投研、内容合规、合同检查要把“写的人”和“验的人”分开，避免同一模型既生成又自证正确。</p></article>
+      <article class="card"><div class="num">06</div><h3>先嵌入现有 IM，再谈替换</h3><p>盈米更优路线是让企业微信/飞书获得 Agent 成员、任务 claim、review gate 与 MCP 身份，而不是另起一套无治理 IM。</p></article>
+    </div>
+    <div class="callout" style="margin-top:20px"><div class="icon">◎</div><div><h3>北极星指标不应是“人机消息数”</h3><p>建议看：跨 Agent 任务完成率、从请求到 in-review 的时长、重复开工率、人类介入次数、证据缺失率、评审驳回率、越权/敏感数据事件、单位完成任务总成本。消息越多，可能只是协调越差。</p></div></div>
+  </section>
+
+  <section id="pilot">
+    <div class="section-head"><div class="kicker">07 / ACTION PLAN</div><h2>7 日隔离试点：验证协作增益，不验证“能不能聊”</h2></div>
+    <div class="pilot">
+      <div class="phase"><h3>Day 0｜隔离</h3><ul><li>单独 macOS 用户或云 VM</li><li>不挂载内部目录</li><li>不配置生产 MCP/token</li><li>只允许公开互联网资料</li></ul></div>
+      <div class="phase"><h3>Day 1–2｜组队</h3><ul><li>Research：搜集一手证据</li><li>Analyst：归纳与对比</li><li>Reviewer：查错与反证</li><li>Publisher：生成交付物</li></ul></div>
+      <div class="phase"><h3>Day 3–5｜跑任务</h3><ul><li>3 个公开竞品调研</li><li>1 个跨 Agent 交接任务</li><li>1 个 reminder 周期任务</li><li>记录 token、时长、返工</li></ul></div>
+      <div class="phase"><h3>Day 6–7｜复盘</h3><ul><li>是否减少手工转述</li><li>是否减少重复工作</li><li>评审是否真能发现错误</li><li>本地权限是否可控</li></ul></div>
+    </div>
+    <h3 style="margin-top:32px">进入企业评估前必须书面确认的 10 个 Gate</h3>
+    <div class="gates">
+      <div class="gate"><span class="box"></span><div><b>数据处理协议 DPA</b><span>明确处理者、子处理者、数据用途、责任与通知机制。</span></div></div>
+      <div class="gate"><span class="box"></span><div><b>数据驻留与跨境</b><span>是否支持中国区/指定区域，消息、附件、日志分别在哪。</span></div></div>
+      <div class="gate"><span class="box"></span><div><b>训练与二次使用承诺</b><span>客户内容不用于训练、广告、产品改进或人工审阅的合同保证。</span></div></div>
+      <div class="gate"><span class="box"></span><div><b>内容权利条款修订</b><span>企业私有内容保持保密与归属，不接受现有广泛永久许可。</span></div></div>
+      <div class="gate"><span class="box"></span><div><b>SSO / SCIM / RBAC</b><span>组织目录、离职回收、细粒度角色与最小权限。</span></div></div>
+      <div class="gate"><span class="box"></span><div><b>审计与导出</b><span>消息、任务、Agent、工具调用、文件访问、审批可查可导。</span></div></div>
+      <div class="gate"><span class="box"></span><div><b>安全认证与渗透测试</b><span>SOC 2 Type II / ISO 27001、漏洞管理与应急响应证据。</span></div></div>
+      <div class="gate"><span class="box"></span><div><b>私有部署与网络边界</b><span>控制平面、对象存储、日志与模型出口都可放入企业边界。</span></div></div>
+      <div class="gate"><span class="box"></span><div><b>保留、删除与备份</b><span>消息、附件、workspace、凭据、备份的可验证删除时限。</span></div></div>
+      <div class="gate"><span class="box"></span><div><b>SLA 与退出预案</b><span>可用性、恢复、数据导出、停服与供应商退出保障。</span></div></div>
+    </div>
+    <div class="callout" style="margin-top:22px"><div class="icon">✓</div><div><h3>Go / No-Go 标准</h3><p><strong>继续：</strong>相对单 Agent 流程，任务周期缩短 ≥25%，重复开工率 &lt;5%，Reviewer 至少发现 2 个实质问题，且无敏感数据/权限事件。<strong>停止：</strong>Agent 互相“水群”导致 token 显著上升、同模型共识制造虚假确定性、上下文泄漏、权限边界不可验证，或最终仍需人类手工搬运所有信息。</p></div></div>
+  </section>
+
+  <section id="source">
+    <div class="section-head"><div class="kicker">08 / EVIDENCE</div><h2>来源、证据等级与未决问题</h2></div>
+    <ol class="sources">
+      <li><a href="https://raft.build/" target="_blank" rel="noreferrer">Raft 官网、定价与 FAQ</a><small>产品定位、支持 runtime、免费/Pro/Enterprise 计划、团队与官方主张。官方一手资料。</small></li>
+      <li><a href="https://docs.raft.build/zh-cn/features/agents/" target="_blank" rel="noreferrer">Agent 基础</a><small>Agent 持久身份、角色、频道、任务、生命周期。官方文档。</small></li>
+      <li><a href="https://docs.raft.build/zh-cn/features/server/computers/" target="_blank" rel="noreferrer">Raft Computers</a><small>本地服务、进程管理、多电脑、工作空间与当前不可迁移限制。官方文档。</small></li>
+      <li><a href="https://docs.raft.build/features/collaboration/tasks/" target="_blank" rel="noreferrer">Tasks</a><small>任务状态、claim、review、thread 与 Agent 自动抢占机制。官方文档。</small></li>
+      <li><a href="https://docs.raft.build/features/messaging/joint-channels/" target="_blank" rel="noreferrer">Joint Channels</a><small>最多三服务器、私有频道、权限投影、无跨服 DM/任务板。标注 Experimental。</small></li>
+      <li><a href="https://docs.raft.build/features/apps/" target="_blank" rel="noreferrer">Connected Apps / Login with Raft</a><small>人和 Agent 独立身份、安装授权边界、grant 隔离。标注 Experimental。</small></li>
+      <li><a href="https://docs.raft.build/features/agents/external/" target="_blank" rel="noreferrer">External Agents</a><small>外部 Agent CLI、设备授权、Hermes/Claude Code 接入与状态限制。标注 Experimental。</small></li>
+      <li><a href="https://raft.build/privacy/" target="_blank" rel="noreferrer">Privacy Policy</a><small>美国服务器、跨境处理、供应商类别、保存与安全表述。官方法律文本。</small></li>
+      <li><a href="https://raft.build/terms/" target="_blank" rel="noreferrer">Terms of Service</a><small>用户内容许可、非保密表述、as-is、停服与争议条款。官方法律文本；不是法律意见。</small></li>
+      <li><a href="https://github.com/botiverse" target="_blank" rel="noreferrer">Botiverse GitHub</a> / <a href="https://www.npmjs.com/package/@botiverse/raft-sdk" target="_blank" rel="noreferrer">raft-sdk npm</a><small>公开文档、外部 Agent 适配器、SDK 与近期发布活动。不能据此推断私有核心代码质量。</small></li>
+    </ol>
+    <table style="margin-top:24px">
+      <thead><tr><th>未决问题</th><th>为什么重要</th><th>下一步</th></tr></thead>
+      <tbody>
+        <tr><td>消息/附件/检索索引的精确数据流</td><td>官网“本地隐私”容易被误解为所有内容不出本机</td><td>向厂商索要架构图与 subprocessors 清单</td></tr>
+        <tr><td>Agent 实际权限隔离</td><td>workspace 隔离不等于 OS 沙箱、网络隔离或命令审批</td><td>用独立 VM 做文件/网络/进程越权测试</td></tr>
+        <tr><td>并发、稳定性、token 放大</td><td>多 Agent 可能把吞吐增益变成成本与噪音</td><td>统一任务集跑单 Agent vs 4 Agent A/B</td></tr>
+        <tr><td>Enterprise 交付日期与能力</td><td>私有部署、SSO、高级权限目前只是路线图</td><td>要求书面 roadmap、SLA 与 PoC 条款</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <footer class="footer"><div><span class="stamp">CLAIR RESEARCH / NON-FINAL</span><br>本报告为截至 2026-09-02 的公开资料研究，不构成法律、合规、投资或采购意见。产品快速迭代，试点前应重新核验。</div><div style="text-align:right">核心结论：<strong>学它的协议，试它的范式，别把生产数据先交出去。</strong></div></footer>
+</main>
+</body>
+</html>

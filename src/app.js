@@ -30,7 +30,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 62;
+const DATA_VERSION = 63;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -137,6 +137,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "raft-human-ai-group-chat-research-2026-09-02",
+      groupId: "ai-workbench",
+      title: "人机群聊 RAFT 深度调研｜不是群聊，是团队操作系统",
+      url: "https://clairku.github.io/clair-ai-studio/reports/raft-human-ai-group-chat-research-2026-09-02/",
+      preview: "raft-human-ai-group-chat-research-2026-09-02.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-02T15:30:00.000+08:00",
+      source: "截至 2026-09-02 的公开资料深度调研｜官方产品文档 + Privacy Policy + Terms + Botiverse GitHub/npm 交叉核验｜RAFT 定位为 Agent-native collaboration layer：人和 Agent 共用频道、任务、claim、review、reminders 与持久工作空间，Claude/Codex/Cursor 等在本地 Computer 执行｜核心判断：产品范式领先，但美国数据驻留、用户内容广泛许可、Enterprise 私有部署/SSO 尚未上线，适合隔离公开资料试点，不适合客户、持仓、交易、合同与内部源码生产场景｜附 7 日试点与 10 项采购 Gate｜桌面研究，未注册/未安装/未提交内部数据",
+      access: "production",
+      workType: "competitive-research",
+      tags: ["RAFT", "人机群聊", "多 Agent", "Agent 协作", "AI 工作台", "竞品调研", "Codex", "Claude Code", "本地执行", "企业治理", "数据合规", "产品研究", "CLAIR", "HTML", "生产"],
+    },
     {
       id: "agent-harness-architecture-2026-09-02",
       groupId: "ai-platform",
