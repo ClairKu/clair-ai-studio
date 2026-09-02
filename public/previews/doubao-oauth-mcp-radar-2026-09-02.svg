@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">字节系 OAuth × MCP 月度情报雷达</title>
+  <desc id="desc">一个前门，三种成熟度；覆盖豆包、TRAE、扣子、飞书与火山引擎。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fffdfa"/><stop offset="1" stop-color="#eee8dc"/></linearGradient>
+    <radialGradient id="glow" cx="84%" cy="10%" r="54%"><stop stop-color="#ff9d8d" stop-opacity=".52"/><stop offset="1" stop-color="#ff9d8d" stop-opacity="0"/></radialGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#1b2438" flood-opacity=".16"/></filter>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/><rect width="1200" height="675" fill="url(#glow)"/>
+  <g transform="translate(72 64)">
+    <text x="0" y="0" dominant-baseline="hanging" fill="#e24a3b" font-family="Arial, PingFang SC, sans-serif" font-size="18" font-weight="800" letter-spacing="3">COMPETITIVE INTELLIGENCE · 2026/08/03—09/02</text>
+    <text x="0" y="84" fill="#172033" font-family="Arial, PingFang SC, sans-serif" font-size="98" font-weight="800">字节系</text>
+    <text x="0" y="184" fill="#e24a3b" font-family="Arial, PingFang SC, sans-serif" font-size="92" font-weight="800">OAuth × MCP</text>
+    <text x="0" y="280" fill="#172033" font-family="Arial, PingFang SC, sans-serif" font-size="88" font-weight="800">月度雷达</text>
+    <text x="3" y="338" fill="#657086" font-family="Arial, PingFang SC, sans-serif" font-size="24">入口正在统一，协议与授权仍然分裂。</text>
+    <g transform="translate(3 382)" font-family="Arial, PingFang SC, sans-serif" font-size="17" font-weight="700" fill="#3f4a60">
+      <rect width="86" height="42" rx="21" fill="#fff" stroke="#d9d4ca"/><text x="43" y="27" text-anchor="middle">豆包</text>
+      <rect x="98" width="122" height="42" rx="21" fill="#fff" stroke="#d9d4ca"/><text x="159" y="27" text-anchor="middle">TRAE</text>
+      <rect x="232" width="98" height="42" rx="21" fill="#fff" stroke="#d9d4ca"/><text x="281" y="27" text-anchor="middle">扣子</text>
+      <rect x="342" width="98" height="42" rx="21" fill="#fff" stroke="#d9d4ca"/><text x="391" y="27" text-anchor="middle">飞书</text>
+      <rect x="452" width="132" height="42" rx="21" fill="#fff" stroke="#d9d4ca"/><text x="518" y="27" text-anchor="middle">火山引擎</text>
+    </g>
+  </g>
+  <g transform="translate(780 156)" filter="url(#shadow)">
+    <rect width="342" height="342" rx="34" fill="#172033"/>
+    <text x="38" y="52" fill="#aeb6c6" font-family="Arial, PingFang SC, sans-serif" font-size="15" font-weight="700" letter-spacing="2">本月最强信号</text>
+    <text x="38" y="148" fill="#ff6c5d" font-family="Georgia, serif" font-size="92" font-weight="800">1→N</text>
+    <line x1="38" x2="304" y1="178" y2="178" stroke="#394358"/>
+    <text x="38" y="220" fill="#fff" font-family="Arial, PingFang SC, sans-serif" font-size="25" font-weight="700">一个统一前门</text>
+    <text x="38" y="260" fill="#cbd1dc" font-family="Arial, PingFang SC, sans-serif" font-size="18">三套成熟度</text>
+    <text x="38" y="294" fill="#cbd1dc" font-family="Arial, PingFang SC, sans-serif" font-size="18">多种认证现实</text>
+  </g>
+  <g transform="translate(75 572)" font-family="Arial, PingFang SC, sans-serif"><circle cx="9" cy="-5" r="8" fill="#18856f"/><text x="29" y="2" fill="#5d687d" font-size="17" font-weight="700">31 天 · 9 个有效事件 · 8 类产品/能力面</text><text x="1047" y="2" text-anchor="end" fill="#8a93a3" font-size="15">CLAIR · 2026-09-02</text></g>
+</svg>

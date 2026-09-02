@@ -30,7 +30,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 64;
+const DATA_VERSION = 65;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -137,6 +137,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "doubao-oauth-mcp-radar-2026-09-02",
+      groupId: "ai-platform",
+      title: "字节系 OAuth × MCP 月度情报雷达｜一个前门，三种成熟度",
+      url: "https://clairku.github.io/qieman-product-research-library/pages/competitive-intelligence/doubao-oauth-mcp-radar-2026-09-02.html",
+      preview: "doubao-oauth-mcp-radar-2026-09-02.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-02T18:30:00.000+08:00",
+      source: "2026-08-03 至 2026-09-02 公开资料全产品线扫描｜覆盖豆包工作台、豆包手机助手、TRAE CLI、TraeCode CN、TraeWork、扣子/Coze Space、飞书/Aily、豆包搜索与火山引擎 AgentKit｜官方文档、官方社区、协议路线图、合作厂商帮助中心与主流媒体交叉核验｜核心结论：豆包工作台成为统一前门，但 OAuth/MCP 能力仍按产品表面碎片化；TRAE CLI 支持浏览器 OAuth，而 TraeCode CN 截至 8/10 仍只支持静态 Headers，豆包工作台通用 OAuth 2.1 尚未被公开证实｜含能力矩阵、9 节点时间线、证据分级、盈米 30/60/90 天双通道认证方案｜CLAIR 单页 HTML｜生产",
+      access: "production",
+      workType: "competitive-research",
+      tags: ["豆包", "豆包工作台", "OAuth", "MCP", "TRAE", "TraeWork", "扣子", "Coze", "飞书", "Aily", "火山引擎", "AgentKit", "竞品情报", "协议治理", "产品研究", "CLAIR", "HTML", "生产"],
+    },
     {
       id: "agent-harness-executive-2026-09-02",
       groupId: "ai-platform",
