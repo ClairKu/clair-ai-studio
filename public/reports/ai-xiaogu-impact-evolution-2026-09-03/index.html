@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="AI小顾月活使用占比、累计解决问题量级、四阶段产品演进、能力沉淀与运营成效的一页可视化。">
+  <title>AI小顾｜从使用渗透到问题闭环</title>
+  <style>
+    :root{--ink:#091524;--muted:#64748b;--line:#dbe5ef;--paper:#f5f8fb;--card:#fff;--blue:#2589f4;--cyan:#26c6c2;--amber:#f2a93b;--violet:#7667e8;--red:#e86f68;--navy:#0c1b2e}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 90% 0,#e5f7f5 0,transparent 24%),linear-gradient(180deg,#eef4f8 0,#f8fafc 42%,#eef3f7 100%);color:var(--ink);font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif}
+    button{font:inherit}.page{width:min(1540px,calc(100% - 48px));margin:0 auto;padding:42px 0 54px}.hero{display:grid;grid-template-columns:1fr auto;gap:28px;align-items:end;margin-bottom:26px}.eyebrow{font:800 12px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.16em;color:#168a8c;text-transform:uppercase}.hero h1{margin:12px 0 10px;font-size:clamp(34px,4.1vw,64px);line-height:1.05;letter-spacing:-.045em}.hero p{margin:0;color:#52677d;font-size:clamp(16px,1.35vw,21px);line-height:1.75}.actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}.btn{border:1px solid #cbd8e5;background:rgba(255,255,255,.82);color:#20374f;border-radius:12px;padding:10px 14px;cursor:pointer;box-shadow:0 6px 18px rgba(24,51,79,.06)}.btn:hover{border-color:#70aee8}.btn.primary{background:var(--navy);color:white;border-color:var(--navy)}
+    .chart-card{background:linear-gradient(145deg,#081524,#0e2137 64%,#0c2d38);color:white;border-radius:28px;padding:25px 28px 18px;box-shadow:0 26px 70px rgba(15,41,65,.18);overflow:hidden;position:relative}.chart-card:before{content:"";position:absolute;width:480px;height:480px;border-radius:50%;right:-190px;top:-300px;background:rgba(38,198,194,.08);box-shadow:0 0 0 70px rgba(37,137,244,.03),0 0 0 140px rgba(37,137,244,.02)}.chart-head{display:flex;justify-content:space-between;gap:18px;align-items:start;position:relative;z-index:1}.chart-head h2{font-size:25px;margin:0 0 5px}.chart-head p{margin:0;color:#9cb0c5;font-size:14px}.legend{display:flex;gap:15px;flex-wrap:wrap;justify-content:flex-end;color:#c6d3df;font-size:13px}.key{display:inline-flex;align-items:center;gap:7px}.mark{width:24px;height:4px;border-radius:4px}.mark.actual{background:var(--blue)}.mark.target{background:repeating-linear-gradient(90deg,var(--cyan) 0 6px,transparent 6px 10px)}.mark.problem{background:repeating-linear-gradient(90deg,var(--amber) 0 3px,transparent 3px 7px)}
+    .chart-scroll{overflow-x:auto;scrollbar-width:thin}.chart{display:block;width:100%;min-width:1060px;height:auto;margin-top:6px}.gridline{stroke:#395066;stroke-width:1;opacity:.52}.axis-text{fill:#8fa5ba;font-size:13px}.axis-title{fill:#cad7e3;font-size:14px;font-weight:650}.phase-no{fill:#d9e5ef;font-size:12px;font-weight:800;letter-spacing:1.5px}.phase-name{fill:#f8fafc;font-size:18px;font-weight:700}.phase-state{fill:#8fa5ba;font-size:12px}.actual-line{stroke:var(--blue);stroke-width:6;fill:none;stroke-linecap:round}.target-line{stroke:var(--cyan);stroke-width:5;fill:none;stroke-linecap:round;stroke-dasharray:10 10}.problem-line{stroke:var(--amber);stroke-width:4;fill:none;stroke-linecap:round;stroke-dasharray:3 9}.point{cursor:pointer;transition:.2s transform;transform-box:fill-box;transform-origin:center}.point:hover,.point:focus{transform:scale(1.18);outline:none}.point-label{font-weight:800;font-size:16px}.point-note{fill:#9fb0c1;font-size:12px}.target-only{transition:.25s opacity}.targets-hidden .target-only{opacity:0;pointer-events:none}.tooltip{position:fixed;z-index:20;max-width:300px;background:white;color:var(--ink);padding:12px 14px;border-radius:12px;font-size:13px;line-height:1.55;box-shadow:0 16px 50px rgba(0,0,0,.25);pointer-events:none;opacity:0;transform:translateY(6px);transition:.15s;white-space:normal}.tooltip.on{opacity:1;transform:none}
+    .metric-bridge{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;margin:10px 8px 2px;color:#b9cad8;font-size:13px}.bridge-line{height:1px;background:linear-gradient(90deg,#38546d,var(--cyan),#38546d)}.evidence-alert{margin:12px 0 0;border-top:1px solid rgba(154,180,202,.2);padding:13px 8px 0;display:flex;gap:10px;color:#aebfce;font-size:13px;line-height:1.55}.evidence-alert b{color:#ffd28a;white-space:nowrap}
+    .stages{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:18px}.stage{--accent:var(--blue);background:rgba(255,255,255,.94);border:1px solid #dce6ef;border-top:5px solid var(--accent);border-radius:20px;padding:20px 19px 18px;box-shadow:0 14px 34px rgba(25,55,84,.08);display:flex;flex-direction:column;min-height:390px}.stage:nth-child(2){--accent:var(--violet)}.stage:nth-child(3){--accent:var(--cyan)}.stage:nth-child(4){--accent:var(--amber)}.stage-top{display:flex;align-items:start;justify-content:space-between;gap:10px}.version{font:800 12px/1 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--accent);letter-spacing:.13em}.status{font-size:11px;padding:5px 8px;border-radius:999px;background:#eff4f8;color:#607489;white-space:nowrap}.status.now{background:#e7f3ff;color:#176ec4}.status.target{background:#e5f8f4;color:#087d78}.stage h3{font-size:23px;line-height:1.25;margin:11px 0 13px}.block{padding:12px 0;border-top:1px solid #e5edf4}.block:first-of-type{border-top:0}.label{font-size:11px;letter-spacing:.1em;color:#8495a6;font-weight:800;margin-bottom:6px}.block p{margin:0;font-size:14px;line-height:1.65;color:#40576c}.chips{display:flex;gap:6px;flex-wrap:wrap}.chip{font-size:12px;background:#f0f5f8;border:1px solid #e0e8ef;color:#40576b;border-radius:999px;padding:5px 8px}.metric-box{margin-top:auto;border-radius:14px;background:linear-gradient(135deg,#f6f9fb,#edf4f7);padding:12px}.metric-box strong{display:block;color:var(--accent);font-size:20px;margin-bottom:3px}.metric-box span{font-size:12px;line-height:1.5;color:#64788b}.metric-box.warn{background:#fff8ec}.metric-box.warn strong{color:#b86b08}
+    .north-star{margin-top:18px;background:white;border-radius:22px;border:1px solid #dce6ef;padding:19px 22px;display:grid;grid-template-columns:220px 1fr;gap:22px;align-items:center;box-shadow:0 12px 30px rgba(25,55,84,.06)}.north-star h3{margin:0 0 5px;font-size:20px}.north-star p{margin:0;color:#708397;font-size:13px}.flow{display:grid;grid-template-columns:repeat(4,1fr);align-items:center}.flow-item{position:relative;text-align:center;padding:12px 18px;border-radius:13px;background:#f2f6f9;color:#52687e;font-size:14px;font-weight:650}.flow-item:not(:last-child):after{content:"→";position:absolute;right:-14px;color:#91a4b5;font-size:20px;z-index:2}.flow-item.final{background:linear-gradient(135deg,#0fa9a3,#2589f4);color:white}.boundary{margin-top:18px;display:grid;grid-template-columns:1.2fr 1fr;gap:16px}.note-card{background:#fff;border:1px solid #dce6ef;border-radius:18px;padding:18px 20px}.note-card h3{font-size:16px;margin:0 0 10px}.note-card ul{margin:0;padding-left:18px;color:#53697d;font-size:13px;line-height:1.75}.note-card.conclusion{background:var(--navy);color:white;border-color:var(--navy)}.note-card.conclusion p{margin:0;color:#c7d4df;font-size:15px;line-height:1.75}.note-card.conclusion b{color:#6ee7df}.footer{display:flex;justify-content:space-between;gap:18px;margin-top:15px;color:#718397;font-size:11px;line-height:1.6}
+    @media(max-width:1050px){.hero{grid-template-columns:1fr}.actions{justify-content:flex-start}.stages{grid-template-columns:repeat(2,1fr)}.north-star{grid-template-columns:1fr}.boundary{grid-template-columns:1fr}}
+    @media(max-width:640px){.page{width:min(100% - 24px,1540px);padding-top:24px}.chart-card{padding:20px 14px}.chart-head{display:block}.legend{justify-content:flex-start;margin-top:12px}.stages{grid-template-columns:1fr}.stage{min-height:auto}.flow{grid-template-columns:1fr;gap:8px}.flow-item:not(:last-child):after{content:"↓";right:50%;bottom:-16px;top:auto}.footer{display:block}}
+    @media print{body{background:white}.page{width:100%;padding:0}.actions{display:none}.chart-card,.stage,.north-star,.note-card{break-inside:avoid;box-shadow:none}}
+  </style>
+</head>
+<body>
+  <div class="tooltip" id="tooltip" role="status"></div>
+  <main class="page" id="report">
+    <header class="hero">
+      <div>
+        <div class="eyebrow">AI XIAOGU · IMPACT EVOLUTION / 2026.09.03</div>
+        <h1>从“有人使用”到“问题闭环”</h1>
+        <p>一张图同时看清：小顾月活用户使用占比、累计解决问题量级、四个产品阶段，以及每一阶段沉淀了什么、解决了什么、运营指标应如何升级。</p>
+      </div>
+      <div class="actions">
+        <button class="btn primary" id="toggle-targets" type="button" aria-pressed="true">隐藏建议目标</button>
+        <button class="btn" id="print" type="button">打印 / 导出 PDF</button>
+      </div>
+    </header>
+
+    <section class="chart-card" aria-labelledby="chart-title">
+      <div class="chart-head">
+        <div><h2 id="chart-title">使用渗透 × 问题量级 × 产品阶段</h2><p>蓝色为材料快照；绿色虚线为管理目标建议；橙色为不同材料中的累计问题量级，不当作同口径连续增长线。</p></div>
+        <div class="legend" aria-label="图例"><span class="key"><i class="mark actual"></i>材料快照</span><span class="key"><i class="mark target"></i>建议目标</span><span class="key"><i class="mark problem"></i>问题量级</span></div>
+      </div>
+      <div class="chart-scroll">
+        <svg class="chart" viewBox="0 0 1440 520" role="img" aria-labelledby="svg-title svg-desc">
+          <title id="svg-title">AI小顾四阶段使用渗透与累计问题量级</title>
+          <desc id="svg-desc">第二阶段有34%活跃用户使用快照，第三、四阶段分别给出50%和65%的建议目标；累计问题存在180万加和300万两套材料口径。</desc>
+          <g>
+            <rect x="94" y="58" width="323" height="374" rx="18" fill="#10243a" opacity=".72"/><rect x="421" y="58" width="323" height="374" rx="18" fill="#162746" opacity=".72"/><rect x="748" y="58" width="323" height="374" rx="18" fill="#0d333d" opacity=".72"/><rect x="1075" y="58" width="270" height="374" rx="18" fill="#253145" opacity=".78"/>
+            <line x1="94" y1="100" x2="1345" y2="100" class="gridline"/><line x1="94" y1="182" x2="1345" y2="182" class="gridline"/><line x1="94" y1="264" x2="1345" y2="264" class="gridline"/><line x1="94" y1="346" x2="1345" y2="346" class="gridline"/><line x1="94" y1="428" x2="1345" y2="428" class="gridline"/>
+            <text x="80" y="104" text-anchor="end" class="axis-text">70%</text><text x="80" y="186" text-anchor="end" class="axis-text">50%</text><text x="80" y="268" text-anchor="end" class="axis-text">30%</text><text x="80" y="350" text-anchor="end" class="axis-text">10%</text><text x="80" y="432" text-anchor="end" class="axis-text">0</text><text x="28" y="257" text-anchor="middle" class="axis-title" transform="rotate(-90 28 257)">小顾使用用户 / 且慢月活用户</text>
+            <text x="1360" y="104" class="axis-text">350万</text><text x="1360" y="186" class="axis-text">250万</text><text x="1360" y="268" class="axis-text">150万</text><text x="1360" y="350" class="axis-text">50万</text><text x="1410" y="257" text-anchor="middle" class="axis-title" transform="rotate(90 1410 257)">累计问题材料量级</text>
+
+            <!-- problem snapshots -->
+            <path d="M255 280 L582 174" class="problem-line"/>
+            <g class="point" tabindex="0" data-tip="历史材料快照：累计服务用户15万+、累计问题180万+。缺统一截止日与问题去重定义。"><circle cx="255" cy="280" r="10" fill="#f2a93b"/><circle cx="255" cy="280" r="17" fill="none" stroke="#f2a93b" opacity=".28"/><text x="255" y="254" text-anchor="middle" class="point-label" fill="#ffd18a">180万+</text><text x="255" y="303" text-anchor="middle" class="point-note">历史材料快照</text></g>
+            <g class="point" tabindex="0" data-tip="较新材料声称累计解决300万投资问题、累计服务20万用户；另一材料写作300万调用，问题/调用定义仍待统一。"><circle cx="582" cy="174" r="11" fill="#f2a93b"/><circle cx="582" cy="174" r="19" fill="none" stroke="#f2a93b" opacity=".28"/><text x="582" y="148" text-anchor="middle" class="point-label" fill="#ffd18a">300万*</text><text x="582" y="197" text-anchor="middle" class="point-note">问题 / 调用待统一</text></g>
+
+            <!-- usage actual + recommended targets -->
+            <path d="M582 248 L909 182 L1218 121" class="target-line target-only"/>
+            <g class="point" tabindex="0" data-tip="材料快照：34%的且慢活跃用户使用小顾。统计周期、活跃定义与去重方式尚待补齐。"><circle cx="582" cy="248" r="12" fill="#2589f4"/><circle cx="582" cy="248" r="21" fill="none" stroke="#2589f4" opacity=".3"/><text x="582" y="226" text-anchor="middle" class="point-label" fill="#8dc8ff">34%</text><text x="582" y="274" text-anchor="middle" class="point-note">唯一可引用使用快照</text></g>
+            <g class="point target-only" tabindex="0" data-tip="管理目标建议：进入长期记忆与主动任务阶段后，小顾月活使用占比达到50%以上。该数字不是已实现结果。"><circle cx="909" cy="182" r="12" fill="#26c6c2"/><circle cx="909" cy="182" r="21" fill="none" stroke="#26c6c2" opacity=".3"/><text x="909" y="158" text-anchor="middle" class="point-label" fill="#73eee8">≥50%</text><text x="909" y="207" text-anchor="middle" class="point-note">建议目标 · 待确认</text></g>
+            <g class="point target-only" tabindex="0" data-tip="管理目标建议：形成授权执行与结果验证闭环后，小顾月活使用占比达到65%以上。该数字不是已实现结果。"><circle cx="1218" cy="121" r="12" fill="#26c6c2"/><circle cx="1218" cy="121" r="21" fill="none" stroke="#26c6c2" opacity=".3"/><text x="1218" y="97" text-anchor="middle" class="point-label" fill="#73eee8">≥65%</text><text x="1218" y="146" text-anchor="middle" class="point-note">建议目标 · 待确认</text></g>
+
+            <g class="point" tabindex="0" data-tip="第一阶段缺可比较的月活使用占比，不用零值代替缺失值。"><rect x="207" y="358" width="96" height="35" rx="17" fill="#1b3046" stroke="#587085" stroke-dasharray="4 4"/><text x="255" y="381" text-anchor="middle" class="point-note">占比待补</text></g>
+            <g class="target-only"><path d="M780 320 C870 287 995 288 1080 318" fill="none" stroke="#73869a" stroke-width="1.5" stroke-dasharray="5 6"/><text x="930" y="306" text-anchor="middle" class="point-note">3.0 起：不再追求“问题数”增长，改为统计成功服务任务</text></g>
+
+            <g><text x="255" y="463" text-anchor="middle" class="phase-no">PHASE 01 · 已形成</text><text x="255" y="488" text-anchor="middle" class="phase-name">账户问答</text><text x="255" y="509" text-anchor="middle" class="phase-state">答得对</text></g>
+            <g><text x="582" y="463" text-anchor="middle" class="phase-no">PHASE 02 · 当前能力</text><text x="582" y="488" text-anchor="middle" class="phase-name">专家编排</text><text x="582" y="509" text-anchor="middle" class="phase-state">覆盖广</text></g>
+            <g><text x="909" y="463" text-anchor="middle" class="phase-no">PHASE 03 · 建议建设</text><text x="909" y="488" text-anchor="middle" class="phase-name">持续服务</text><text x="909" y="509" text-anchor="middle" class="phase-state">关系深</text></g>
+            <g><text x="1218" y="463" text-anchor="middle" class="phase-no">PHASE 04 · 目标形态</text><text x="1218" y="488" text-anchor="middle" class="phase-name">结果闭环</text><text x="1218" y="509" text-anchor="middle" class="phase-state">能完成</text></g>
+          </g>
+        </svg>
+      </div>
+      <div class="metric-bridge"><span>规模指标：用户 / 提问</span><i class="bridge-line"></i><span>结果指标：任务 / 行动 / 验证</span></div>
+      <div class="evidence-alert"><b>口径提醒</b><span>“34%活跃使用”与“六成活跃使用”来自不同材料，分母和周期未统一；“300万”也同时出现过问题量与调用量表述。因此本图只把34%作为可引用单点，不把六成画成历史事实。</span></div>
+    </section>
+
+    <section class="stages" aria-label="四个产品阶段">
+      <article class="stage">
+        <div class="stage-top"><span class="version">XIAOGU 1.0</span><span class="status now">已形成</span></div><h3>围绕账户<br>解决真实问题</h3>
+        <div class="block"><div class="label">解决的问题</div><p>从“找入口、查产品”推进到看懂账户、持仓、收益与市场变化。</p></div>
+        <div class="block"><div class="label">能力沉淀</div><div class="chips"><span class="chip">账户数据</span><span class="chip">基础工具</span><span class="chip">意图语料</span><span class="chip">服务卡片</span></div></div>
+        <div class="block"><div class="label">产品判断</div><p>证明AI能够进入真实投资服务，但主要仍是一次性回答。</p></div>
+        <div class="metric-box warn"><strong>15万+ / 180万+</strong><span>服务用户 / 投资问题历史材料快照；截止日与去重口径待补。</span></div>
+      </article>
+      <article class="stage">
+        <div class="stage-top"><span class="version">XIAOGU 2.0</span><span class="status now">当前能力</span></div><h3>总指挥调度<br>多专家服务</h3>
+        <div class="block"><div class="label">解决的问题</div><p>把市场、基金、组合、规划、账户等跨域问题组织成多步分析。</p></div>
+        <div class="block"><div class="label">能力沉淀</div><div class="chips"><span class="chip">总指挥</span><span class="chip">30+ Agent</span><span class="chip">35种卡片</span><span class="chip">人工接力</span></div></div>
+        <div class="block"><div class="label">运营成效快照</div><p>34%活跃使用、50%+复用用户周重复使用、14%用户交易转化；均待补周期与分母。</p></div>
+        <div class="metric-box warn"><strong>20万 / 300万*</strong><span>较新材料声称的服务用户 / 问题量；“300万问题”与“300万调用”冲突。</span></div>
+      </article>
+      <article class="stage">
+        <div class="stage-top"><span class="version">XIAOGU 3.0</span><span class="status target">建议建设</span></div><h3>记住用户<br>主动持续服务</h3>
+        <div class="block"><div class="label">解决的问题</div><p>解决一次性、反复问、缺上下文的问题，让建议随目标和行为持续变化。</p></div>
+        <div class="block"><div class="label">能力沉淀</div><div class="chips"><span class="chip">长期记忆</span><span class="chip">持续任务</span><span class="chip">事件触发</span><span class="chip">用户 / 系统 Skill</span></div></div>
+        <div class="block"><div class="label">指标升级</div><p>开始考核主动任务采纳、任务完成、7/30日复用，而不是只数对话。</p></div>
+        <div class="metric-box"><strong>≥50% 月活使用</strong><span>管理目标建议；同时建议任务完成率≥70%、30日复用≥55%。</span></div>
+      </article>
+      <article class="stage">
+        <div class="stage-top"><span class="version">XIAOGU 4.0</span><span class="status target">目标形态</span></div><h3>授权执行<br>验证最终结果</h3>
+        <div class="block"><div class="label">解决的问题</div><p>从“给出建议”走到行动发生、结果验证、异常纠偏与人工升级。</p></div>
+        <div class="block"><div class="label">能力沉淀</div><div class="chips"><span class="chip">OAuth / Scope</span><span class="chip">执行回执</span><span class="chip">审计归因</span><span class="chip">HITL</span></div></div>
+        <div class="block"><div class="label">指标升级</div><p>以成功服务任务、行动完成、结果验证、长期改善和重大风险为核心。</p></div>
+        <div class="metric-box"><strong>≥65% 月活使用</strong><span>管理目标建议；行动完成≥60%、结果验证≥80%、高风险动作审计100%。</span></div>
+      </article>
+    </section>
+
+    <section class="north-star" aria-label="北极星指标迁移">
+      <div><h3>北极星指标迁移</h3><p>产品越深入，衡量标准越接近真实结果。</p></div>
+      <div class="flow"><div class="flow-item">累计提问量</div><div class="flow-item">成功服务任务</div><div class="flow-item">用户行动完成</div><div class="flow-item final">结果被验证并改善</div></div>
+    </section>
+
+    <section class="boundary" id="boundary">
+      <article class="note-card conclusion"><h3>这张图真正要表达的结论</h3><p>小顾的增长不应只是从180万问题走向300万问题，而应从“<b>更多人来问</b>”走向“<b>更多问题被真正解决</b>”。3.0之后，最重要的沉淀不是更多回答，而是记忆、任务、授权、回执和结果数据。</p></article>
+      <article class="note-card"><h3>数据与目标边界</h3><ul><li>实测/材料快照：15万+、180万+、20万、300万、34%、50%+、14%。</li><li>待统一主张：六成活跃使用、80%场景覆盖、95%解决率、转化翻倍。</li><li>建议目标：50%与65%月活使用，以及任务、行动、验证类目标；均需业务确认。</li><li>缺口：需要同一底表记录用户、会话、任务、动作、结果、来源与截止时间。</li></ul></article>
+    </section>
+    <footer class="footer"><span>资料范围：且慢 AI 小顾产品实践与阶段材料；技术审计与生产实测摘要；未包含用户明细、原始对话或个人财务数据。</span><span>Clair’s Studio · 2026-09-03</span></footer>
+  </main>
+  <script>
+    const report=document.getElementById('report');
+    const targetButton=document.getElementById('toggle-targets');
+    targetButton.addEventListener('click',()=>{const hidden=report.classList.toggle('targets-hidden');targetButton.textContent=hidden?'显示建议目标':'隐藏建议目标';targetButton.setAttribute('aria-pressed',String(!hidden));});
+    document.getElementById('print').addEventListener('click',()=>window.print());
+    const tooltip=document.getElementById('tooltip');
+    const show=(event,node)=>{tooltip.textContent=node.dataset.tip;tooltip.classList.add('on');const x=Math.min(innerWidth-320,event.clientX+16);const y=Math.min(innerHeight-120,event.clientY+16);tooltip.style.left=`${Math.max(12,x)}px`;tooltip.style.top=`${Math.max(12,y)}px`;};
+    document.querySelectorAll('[data-tip]').forEach(node=>{node.addEventListener('mousemove',event=>show(event,node));node.addEventListener('mouseenter',event=>show(event,node));node.addEventListener('focus',()=>{const r=node.getBoundingClientRect();show({clientX:r.left+r.width/2,clientY:r.top+r.height/2},node)});node.addEventListener('mouseleave',()=>tooltip.classList.remove('on'));node.addEventListener('blur',()=>tooltip.classList.remove('on'));});
+  </script>
+</body>
+</html>

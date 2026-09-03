@@ -30,7 +30,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 66;
+const DATA_VERSION = 67;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -137,6 +137,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "ai-xiaogu-impact-evolution-2026-09-03",
+      groupId: "xiaogu",
+      title: "AI小顾｜从有人使用到问题闭环：四阶段经营演进图",
+      url: "https://clairku.github.io/clair-ai-studio/reports/ai-xiaogu-impact-evolution-2026-09-03/",
+      preview: "ai-xiaogu-impact-evolution-2026-09-03.png",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-03T17:45:00.000+08:00",
+      source: "小顾产品实践与成效材料交叉审计｜同时呈现月活使用占比、累计问题量级、1.0—4.0 四阶段、能力沉淀、问题深度与运营指标迁移｜34%为材料单点快照，50%/65%为管理目标建议｜180万+与300万问题/调用口径冲突单独标注，不拼接为已验证增长曲线｜从累计提问量升级到成功服务任务、行动完成与结果验证｜CLAIR 单页交互 HTML｜生产",
+      access: "production",
+      workType: "reporting",
+      tags: ["AI 小顾", "且慢", "产品演进", "月活", "问题解决", "服务闭环", "长期记忆", "主动服务", "Agent", "运营指标", "经营汇报", "数据分析", "CLAIR", "HTML", "生产"],
+    },
     {
       id: "xiaogu-technical-evolution-2026-09-03",
       groupId: "xiaogu",
