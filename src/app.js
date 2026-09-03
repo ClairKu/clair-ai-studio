@@ -138,6 +138,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "xiaogu-3-investment-review-2026-09-04",
+      groupId: "xiaogu",
+      title: "小顾 3.0｜从一次回答到持续陪伴",
+      url: "https://clairku.github.io/clair-ai-studio/reports/xiaogu-3-investment-review-2026-09-04/",
+      preview: "xiaogu-3-investment-review-2026-09-04.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-04T01:30:00.000+08:00",
+      source: "小顾 3.0 投资复盘服务理念视觉重构｜从用户真实诉求、传统问答断点、Agentic 工作方式、四项能力升级到连续财富管理服务定位｜支持滚动叙事、键盘翻页、章节导航与移动端适配｜CLAIR 单页交互 HTML｜生产",
+      access: "production",
+      workType: "reporting",
+      tags: ["AI 小顾", "且慢", "投顾服务", "投资复盘", "持续陪伴", "Agent", "产品定位", "能力升级", "视觉重构", "经营汇报", "CLAIR", "HTML", "生产"],
+    },
+    {
       id: "xiaogu-buyer-advisor-evidence-2026-09-03",
       groupId: "xiaogu",
       title: "AI 小顾如何 AI 赋能买方投顾｜生产证据与经营验证",
