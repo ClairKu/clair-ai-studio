@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />
+    <script data-clair-access-gate data-clair-access-scope="report" src="../../access-gate.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#07152d">
+  <meta name="description" content="且慢 AI 小顾 0→1 技术考古：框架、历程、坑点、关键变化与价值">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <title>且慢 AI 小顾 0→1 技术考古｜Clair’s Studio</title>
+  <style>
+    :root{
+      --navy:#07152d;--navy2:#0d2850;--blue:#1686ff;--cyan:#2fc9ef;--mint:#42d7b6;
+      --orange:#ff9d42;--red:#eb5a67;--ink:#172034;--muted:#667085;--line:#dbe4ef;
+      --paper:#fff;--soft:#f3f7fb;--soft2:#eaf3ff;--shadow:0 20px 54px rgba(7,21,45,.11);
+      --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+      --serif:"Songti SC","Noto Serif CJK SC",STSong,serif;
+    }
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:74px}body{margin:0;color:var(--ink);background:var(--paper);font-family:var(--sans);line-height:1.7}a{color:inherit}.progress{position:fixed;z-index:80;left:0;top:0;height:3px;width:0;background:linear-gradient(90deg,var(--cyan),var(--blue),#8f63ff)}
+    .nav{position:sticky;z-index:60;top:0;border-bottom:1px solid rgba(219,228,239,.85);background:rgba(255,255,255,.88);backdrop-filter:blur(16px)}.navin{width:min(1180px,calc(100% - 36px));height:62px;margin:auto;display:flex;align-items:center;gap:16px}.brand{text-decoration:none;font-weight:900;white-space:nowrap}.brand i{display:inline-grid;width:30px;height:30px;margin-right:8px;place-items:center;border-radius:10px;background:var(--blue);color:white;font-style:normal}.links{display:flex;gap:4px;overflow:auto;scrollbar-width:none}.links::-webkit-scrollbar{display:none}.links a{padding:7px 10px;border-radius:999px;color:#617087;text-decoration:none;font-size:12px;white-space:nowrap}.links a:hover,.links a.on{color:#065fbd;background:#e8f3ff}.lens{margin-left:auto;display:flex;padding:3px;border:1px solid var(--line);border-radius:12px;background:#fff}.lens button{border:0;border-radius:9px;background:transparent;padding:7px 10px;color:#607086;font:700 11px var(--sans);cursor:pointer}.lens button.on{background:var(--navy);color:#fff}
+    .wrap{width:min(1180px,calc(100% - 40px));margin:auto}.hero{position:relative;min-height:calc(100svh - 62px);display:grid;align-items:center;overflow:hidden;color:#fff;background:radial-gradient(circle at 80% 18%,rgba(47,201,239,.22),transparent 28%),radial-gradient(circle at 17% 80%,rgba(22,134,255,.21),transparent 32%),linear-gradient(145deg,#061329,#0a2144 58%,#0b3160)}.hero:after{content:"";position:absolute;right:-160px;bottom:-220px;width:520px;height:520px;border:1px solid rgba(255,255,255,.12);border-radius:50%;box-shadow:0 0 0 82px rgba(255,255,255,.025),0 0 0 164px rgba(255,255,255,.018)}.heroGrid{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1.28fr) minmax(300px,.72fr);gap:62px;align-items:end;padding:76px 0}.eyebrow,.kicker{color:var(--cyan);font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}.hero h1{margin:18px 0 18px;font:600 clamp(46px,6vw,78px)/1.04 var(--serif);letter-spacing:-.045em}.hero h1 em{font-style:normal;color:#76dcff}.hero .lead{max-width:780px;margin:0;color:#b8c8dc;font-size:18px}.badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}.badge{padding:7px 11px;border:1px solid rgba(255,255,255,.16);border-radius:999px;background:rgba(255,255,255,.06);color:#d7e5f5;font-size:11px;font-weight:800}.heroCard{padding:28px;border:1px solid rgba(255,255,255,.14);border-radius:28px;background:rgba(255,255,255,.075);box-shadow:0 28px 70px rgba(0,0,0,.18);backdrop-filter:blur(12px)}.heroCard small{color:#78dfff;font-weight:900}.heroCard h2{margin:12px 0;font:600 28px/1.28 var(--serif)}.heroCard p{margin:0;color:#b9c9db;font-size:13px}.heroMeta{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}.heroMeta div{padding-top:10px;border-top:1px solid rgba(255,255,255,.12)}.heroMeta b{display:block;font-size:11px}.heroMeta span{color:#8fa3bd;font-size:10px}
+    section{padding:90px 0}.soft{background:var(--soft)}.dark{color:#fff;background:radial-gradient(circle at 84% 14%,rgba(47,201,239,.14),transparent 31%),var(--navy)}.sectionHead{display:grid;grid-template-columns:minmax(0,760px) minmax(220px,1fr);gap:48px;align-items:end;margin-bottom:36px}.sectionHead h2{margin:9px 0 0;font:600 clamp(34px,4vw,48px)/1.12 var(--serif);letter-spacing:-.035em}.sectionHead p{margin:0;color:var(--muted);font-size:14px}.dark .sectionHead p{color:#aebfd2}.grid{display:grid;gap:16px}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}.card{position:relative;padding:24px;border:1px solid var(--line);border-radius:22px;background:#fff;box-shadow:0 10px 28px rgba(7,21,45,.045)}.dark .card{border-color:rgba(255,255,255,.1);background:rgba(255,255,255,.055);box-shadow:none}.card .num{display:block;margin-bottom:26px;color:var(--blue);font-weight:900}.dark .card .num{color:#78dfff}.card h3{margin:0 0 10px;font:600 22px/1.24 var(--serif)}.card p{margin:0;color:var(--muted);font-size:13px}.dark .card p{color:#b1c1d5}.card ul{margin:14px 0 0;padding:14px 0 0 19px;border-top:1px solid var(--line);color:#4f5e74;font-size:12px}.dark .card ul{border-color:rgba(255,255,255,.1);color:#c6d2df}.tag{display:inline-flex;margin-top:14px;padding:4px 8px;border-radius:999px;background:#e8f4ff;color:#0867c7;font-size:9px;font-weight:900}.tag.plan{background:#fff1dc;color:#a35e09}.tag.warn{background:#ffe9ec;color:#ab3341}.tag.proof{background:#e4f8f2;color:#187968}
+    .thesis{grid-template-columns:1.25fr .75fr}.thesis .card:first-child{grid-row:span 2;padding:34px;color:#fff;border:0;background:linear-gradient(145deg,#0b2850,#135fa8);box-shadow:var(--shadow)}.thesis .card:first-child h3{font-size:32px}.thesis .card:first-child p{color:#d5e8fb;font-size:15px}.quote{margin-top:28px;padding-top:20px;border-top:1px solid rgba(255,255,255,.18);font:600 20px/1.55 var(--serif);color:#fff}
+    .timeline{position:relative;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}.timeline:before{content:"";position:absolute;left:6%;right:6%;top:27px;height:2px;background:linear-gradient(90deg,#70cff8,var(--blue),#805ee8)}.phase{position:relative;padding:54px 16px 20px;border:1px solid var(--line);border-radius:18px;background:#fff}.phase:before{content:"";position:absolute;z-index:2;left:19px;top:19px;width:17px;height:17px;border:5px solid #d8ecff;border-radius:50%;background:var(--blue)}.phase b{display:block;color:var(--blue);font-size:12px}.phase h3{margin:7px 0;font:600 18px/1.25 var(--serif)}.phase p{margin:0;color:var(--muted);font-size:11px}.phase .state{display:block;margin-top:12px;color:#8090a5;font-size:9px;font-weight:900}
+    .evidence{overflow:hidden;padding:0}.evidence figure{margin:0;background:#edf2f8}.evidence img{display:block;width:100%;height:100%;object-fit:contain}.evidence figcaption{padding:15px 19px;border-top:1px solid var(--line);color:#66758b;font-size:11px}.aspect169{aspect-ratio:16/9}.aspectTall{max-height:620px;overflow:auto}.aspectTall img{height:auto}
+    .stack{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.layer{position:relative;min-height:230px;padding:22px 18px;border-radius:20px;background:#fff;color:var(--ink);box-shadow:0 14px 38px rgba(0,0,0,.12)}.layer:not(:last-child):after{content:"→";position:absolute;z-index:2;right:-15px;top:43%;display:grid;width:28px;height:28px;place-items:center;border-radius:50%;background:var(--cyan);color:var(--navy);font-weight:900}.layer small{color:var(--blue);font-weight:900}.layer h3{margin:24px 0 8px;font:600 21px/1.2 var(--serif)}.layer p{margin:0;color:#69778a;font-size:11px}.layer strong{display:block;margin-top:15px;padding-top:12px;border-top:1px solid var(--line);font-size:11px}.stackNote{margin-top:18px;color:#aebfd2;font-size:12px}
+    .matrix{width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;border:1px solid var(--line);border-radius:20px;background:#fff}.matrix th,.matrix td{padding:14px 16px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left;font-size:12px}.matrix th{background:#eaf4ff;color:#0b559e;font-size:10px;letter-spacing:.05em}.matrix tr:last-child td{border-bottom:0}.matrix td:first-child{font-weight:900;color:#0f63b6;white-space:nowrap}.matrix .yes{color:#177b64;font-weight:900}.matrix .mix{color:#9b650e;font-weight:900}.matrix .no{color:#a53a48;font-weight:900}
+    .compare{display:grid;grid-template-columns:1fr 90px 1fr;gap:14px;align-items:stretch}.compare .arrow{display:grid;place-items:center;color:var(--blue);font-size:34px;font-weight:900}.before{border-left:5px solid #aab5c3}.after{border-left:5px solid var(--blue)}
+    .metricGrid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}.metric{padding:20px 15px;border:1px solid var(--line);border-radius:18px;background:#fff}.metric strong{display:block;color:#0b69c5;font:700 32px/1 var(--serif)}.metric span{display:block;margin-top:9px;font-size:11px;font-weight:900}.metric small{display:block;margin-top:5px;color:#8190a5;font-size:9px}.note{margin-top:14px;padding:14px 16px;border-left:4px solid var(--orange);border-radius:0 12px 12px 0;background:#fff6e9;color:#6f552d;font-size:11px}.note.red{border-left-color:var(--red);background:#fff0f2;color:#7b3a43}
+    .pit{counter-increment:pit}.pits{counter-reset:pit}.pit:before{content:counter(pit,decimal-leading-zero);position:absolute;right:18px;top:7px;color:#edf2f7;font:700 56px/1 var(--serif)}.pit h3,.pit p,.pit ul,.pit .tag{position:relative}.pit h3{padding-right:42px}.pit .root{display:block;margin-top:12px;color:#a53a48;font-size:11px;font-weight:900}.pit .fix{display:block;margin-top:4px;color:#177b64;font-size:11px;font-weight:900}
+    .decision{display:grid;grid-template-columns:72px minmax(0,1fr);gap:16px;align-items:start}.decision .rank{display:grid;width:58px;height:58px;place-items:center;border-radius:18px;background:var(--navy);color:#fff;font:700 24px var(--serif)}.decision h3{margin:2px 0 5px}.decision p{margin:0}.decision + .decision{margin-top:14px}
+    .ledger{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.ledger .card{min-height:190px}.grade{display:inline-flex;padding:4px 8px;border-radius:999px;font-size:9px;font-weight:900}.grade.a{background:#e3f8f1;color:#17765f}.grade.b{background:#e7f2ff;color:#0c63b7}.grade.c{background:#fff2dc;color:#9b650e}.grade.d{background:#ffe9ed;color:#a43a49}
+    .footer{padding:74px 0;color:#b9c8da;background:#061226}.footer h2{max-width:920px;margin:0;color:#fff;font:600 clamp(34px,4vw,52px)/1.2 var(--serif)}.footer h2 em{font-style:normal;color:#78dcff}.footer p{max-width:860px;margin:22px 0 0}.sourceList{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:34px}.source{padding:14px 16px;border-left:2px solid rgba(120,220,255,.35);background:rgba(255,255,255,.035);font-size:10px}.source b{display:block;color:#dbe8f6}.source span{color:#879bb4}
+    [data-lens="tech"]{display:block}body.management [data-lens="tech"]{display:none}body.technical [data-lens="management"]{display:none}
+    @media(max-width:1000px){.heroGrid,.sectionHead{grid-template-columns:1fr}.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(2,minmax(0,1fr))}.timeline{grid-template-columns:repeat(3,minmax(0,1fr))}.timeline:before{display:none}.stack{grid-template-columns:repeat(2,minmax(0,1fr))}.layer:not(:last-child):after{display:none}.metricGrid{grid-template-columns:repeat(3,minmax(0,1fr))}.ledger{grid-template-columns:repeat(2,minmax(0,1fr))}.links{display:none}}
+    @media(max-width:700px){.wrap{width:min(100% - 28px,1180px)}.navin{width:min(100% - 22px,1180px)}.brand{font-size:12px}.lens{margin-left:auto}.lens button{padding:7px 8px}.heroGrid{padding:54px 0;gap:34px}.hero h1{font-size:48px}.hero .lead{font-size:16px}.heroCard{padding:22px}.sectionHead{gap:10px;margin-bottom:24px}section{padding:64px 0}.g2,.g3,.g4,.thesis,.timeline,.stack,.ledger,.sourceList{grid-template-columns:1fr}.metricGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.compare{grid-template-columns:1fr}.compare .arrow{transform:rotate(90deg)}.matrix{display:block;overflow:auto}.matrix th,.matrix td{min-width:130px}.aspectTall{max-height:440px}.pit:before{font-size:45px}}
+    @media print{.nav,.progress,.lens{display:none!important}.hero{min-height:auto}.heroGrid{padding:60px 0}section{break-inside:avoid;padding:44px 0}.card{box-shadow:none}}
+  </style>
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+  <nav class="nav"><div class="navin">
+    <a class="brand" href="#top"><i>顾</i>技术考古</a>
+    <div class="links" id="links">
+      <a href="#verdict">结论</a><a href="#timeline">历程</a><a href="#architecture">架构</a><a href="#frameworks">框架</a><a href="#changes">变化</a><a href="#value">价值</a><a href="#pits">坑点</a><a href="#next">下一步</a><a href="#evidence">证据</a>
+    </div>
+    <div class="lens" aria-label="阅读视角"><button class="on" data-mode="all">全景</button><button data-mode="management">老板</button><button data-mode="technical">技术</button></div>
+  </div></nav>
+
+  <header class="hero" id="top"><div class="wrap heroGrid">
+    <div>
+      <div class="eyebrow">Qieman AI Xiaogu · 2021—2026 · Evidence-led</div>
+      <h1>且慢 AI 小顾<br><em>0→1 技术考古</em></h1>
+      <p class="lead">从“投顾服务地图”到“金融服务操作系统”：拆解采用过的技术框架、五年代际、真实坑点、关键变化与价值，并区分已落地、阶段证据、规划与推断。</p>
+      <div class="badges"><span class="badge">产品史</span><span class="badge">架构史</span><span class="badge">模型与 Agent</span><span class="badge">RAG / MCP / Skills</span><span class="badge">治理与商业价值</span></div>
+    </div>
+    <aside class="heroCard">
+      <small>一句话结论</small>
+      <h2>模型不是主线，<br>服务产品化才是主线。</h2>
+      <p>小顾的真正资产，是把“四笔钱、投前规划、投后诊断、持续陪伴”拆成可调用、可解释、可治理、可跨端交付的服务。</p>
+      <div class="heroMeta"><div><b>证据跨度</b><span>2021.11—2026.09</span></div><div><b>口径</b><span>截至 2026-09-03</span></div><div><b>材料类型</b><span>产品原型 / 日志 / PPT / 代码审计</span></div><div><b>结论边界</b><span>上线 ≠ 全量可用 ≠ 经营结果</span></div></div>
+    </aside>
+  </div></header>
+
+  <main>
+    <section id="verdict"><div class="wrap">
+      <div class="sectionHead"><div><div class="kicker">01 · Executive verdict</div><h2>先看结论：小顾经历了三次本质跃迁</h2></div><p>这不是“换了几个模型”的故事，而是服务组织方式、能力供给方式和价值验收方式连续换轨。</p></div>
+      <div class="grid thesis">
+        <article class="card"><span class="num">A</span><h3>从功能入口，变成服务入口</h3><p>2021 年已经定义了完整的投前、投后、财富旅程和账户管理，但用户仍要理解页面和模块。小顾把服务藏在对话与主动触发之后，用户只需表达目标。</p><div class="quote">“先有投顾服务系统，后有大模型；AI 的作用不是发明服务，而是让服务更容易被发现、组合和持续交付。”</div></article>
+        <article class="card"><span class="num">B</span><h3>从剧本路由，变成动态编排</h3><p>早期是“意图 → 剧本 / 场景 Bot”；随后变成“总指挥 → 专家 Agent → 工具 / 数据”，复杂问题不再要求事先穷举。</p><span class="tag proof">核心技术跃迁</span></article>
+        <article class="card"><span class="num">C</span><h3>从一个产品，变成能力平台</h3><p>MCP、Skills、Agent、OAuth、审计与多端分发，让同一项基金、账户或规划能力可以在小顾、顾问工作台和外部 AI 入口复用。</p><span class="tag proof">组织与商业跃迁</span></article>
+      </div>
+      <div class="grid g4" style="margin-top:16px" data-lens="management">
+        <article class="card"><span class="num">护城河 01</span><h3>真实账户上下文</h3><p>持仓、收益、资金流、风险偏好与交易状态，让回答从“金融百科”变成“与我有关”。</p></article>
+        <article class="card"><span class="num">护城河 02</span><h3>投顾方法论</h3><p>四笔钱、规划、诊断、陪伴与合规边界，构成可被模型调用的专业 SOP。</p></article>
+        <article class="card"><span class="num">护城河 03</span><h3>工具与口径</h3><p>模型负责理解与解释，计算、查询和业务动作交给确定性服务。</p></article>
+        <article class="card"><span class="num">护城河 04</span><h3>服务闭环</h3><p>结果、采纳、失败和反馈回流，才让一次问答变成可复用服务资产。</p></article>
+      </div>
+    </div></section>
+
+    <section class="soft" id="timeline"><div class="wrap">
+      <div class="sectionHead"><div><div class="kicker">02 · Timeline</div><h2>六个阶段：产品骨架先于 AI，平台化晚于价值验证</h2></div><p>“采用过”按证据分级：产品原型、生产日志、正式汇报、代码/生产注册表、规划讨论。日期是材料或里程碑日期，不强行等同公开版本号。</p></div>
+      <div class="timeline">
+        <article class="phase"><b>2021—2022</b><h3>服务蓝图期</h3><p>小顾模式、财富旅程、投前规划、投后诊断、通知陪伴、SCRM。</p><span class="state">产品原型 · 非 LLM</span></article>
+        <article class="phase"><b>2023.02—11</b><h3>AI 基建与 MVP</h3><p>私有化 LLM、知识库、AI 团队；“在线投资顾问 / 超级入口”成形。</p><span class="state">基础设施 + 产品方案</span></article>
+        <article class="phase"><b>2023.12—2024.06</b><h3>场景 Bot 上线</h3><p>意图识别、剧本路由、31 个 Bot、RAG、真实账户与基金数据。</p><span class="state">生产日志可证</span></article>
+        <article class="phase"><b>2024.08—2025.02</b><h3>多模型 Agent 化</h3><p>Dify、Cursor；Qwen / DeepSeek-V3 / R1，多模型选择，深度思考。</p><span class="state">产品与平台换轨</span></article>
+        <article class="phase"><b>2025.04—2026.05</b><h3>MCP / OAP 平台化</h3><p>Stargate、开放工具、RAG 引用、ECharts / PDF、渠道注册与治理。</p><span class="state">生产渠道可证</span></article>
+        <article class="phase"><b>2026.06—未来</b><h3>持续服务与生态</h3><p>Skills、A2A、记忆、事件触发、OAuth、Agent runtime、VPC。</p><span class="state">部分上线 + 当前建设</span></article>
+      </div>
+      <div class="note">版本提醒：现有“1.0—4.0”更多是能力演进模型，不等同于逐次公开发布时间。报告把“产品代际”和“生产上线证据”分开呈现。</div>
+    </div></section>
+
+    <section id="origin"><div class="wrap">
+      <div class="sectionHead"><div><div class="kicker">03 · The prehistory</div><h2>0 阶段不是聊天机器人，而是投顾服务操作系统</h2></div><p>2021 年的原型已经包含投前、投后、财富旅程和账户管理。这个骨架后来被 AI 重新编排，却没有被替代。</p></div>
+      <div class="grid g2">
+        <article class="card evidence aspectTall"><figure><img src="assets/2021-service-map.png" alt="2021 年且慢 5.0 小顾投顾服务地图" loading="lazy"><figcaption>2021.12 产品服务地图：投资规划、资产报告、财富诊断、通知提醒、学习陪伴、账户管理。</figcaption></figure></article>
+        <div class="grid">
+          <article class="card"><span class="num">产品框架</span><h3>“小顾模式 + 财富旅程”双轨</h3><p>互动服务负责当下问题，静态旅程负责开户、签约、里程碑与月度报告。它本质上已经是一个事件驱动的投顾服务蓝图。</p></article>
+          <article class="card"><span class="num">关键遗产</span><h3>四笔钱不是 UI 分类，而是推理坐标系</h3><p>活钱、稳钱、长钱、保障把用户目标、风险、流动性和产品匹配连接起来，后来成为模型解释、工具调用和卡片输出的共同语义。</p></article>
+          <article class="card"><span class="num">早期局限</span><h3>服务多，但入口仍靠人找</h3><p>模块越多，导航和运营配置越重；用户不知道去哪、怎么问、下一步是什么。AI 小顾最初要解决的正是“发现服务”的成本。</p><span class="tag warn">信息架构债</span></article>
+        </div>
+      </div>
+    </div></section>
+
+    <section class="dark" id="architecture"><div class="wrap">
+      <div class="sectionHead"><div><div class="kicker">04 · Architecture</div><h2>今天的小顾，可以拆成十层</h2></div><p>下面把产品、模型、数据、工具、治理和分发放到同一张图里。越靠左越稳定，越靠右越接近用户与经营结果。</p></div>
+      <div class="stack">
+        <article class="layer"><small>L0</small><h3>投顾方法</h3><p>四笔钱、规划、诊断、陪伴、合规话术、人工接力。</p><strong>最早形成，最不该被模型绑架</strong></article>
+        <article class="layer"><small>L1—L2</small><h3>数据与知识</h3><p>账户持仓、交易、基金与行情、投研内容、RAG、引用溯源。</p><strong>决定“与我有关、言之有据”</strong></article>
+        <article class="layer"><small>L3—L4</small><h3>Tool / MCP / Skill</h3><p>查询、计算、图表、报告、业务 SOP 与质量门。</p><strong>把模型判断落到确定性能力</strong></article>
+        <article class="layer"><small>L5—L6</small><h3>Agent 编排</h3><p>意图识别、问题拆分、总指挥、专家 Agent、工作流与人工确认。</p><strong>从“匹配答案”升级为“完成任务”</strong></article>
+        <article class="layer"><small>L7—L9</small><h3>交付与经营</h3><p>卡片 / 报告 / 动作 / 持续任务；App、微信、千问、顾问工作台；审计与计量。</p><strong>最终价值发生在这里</strong></article>
+      </div>
+      <p class="stackNote">横向控制面：身份与授权、Scope、敏感字段、内容审查、版本、监控、成本、审计、SLA。没有这层，金融 Agent 只是一个好看的 Demo。</p>
+    </div></section>
+
+    <section id="frameworks"><div class="wrap">
+      <div class="sectionHead"><div><div class="kicker">05 · Technology ledger</div><h2>采用过的框架与技术：按“作用”而不是按名词堆砌</h2></div><p>“共享平台采用”不自动等于“小顾每条链路都在用”。表中明确区分直接证据、平台共用、目标态与未证实。</p></div>
+      <div style="overflow:auto"><table class="matrix">
+        <thead><tr><th>层</th><th>框架 / 技术</th><th>解决什么</th><th>小顾中的形态</th><th>证据状态</th><th>主要代价 / 坑</th></tr></thead>
+        <tbody>
+          <tr><td>产品编排</td><td>剧本、场景 Bot、Intent Router</td><td>把自然语言映射到既有服务</td><td>QM-* Bot；TRANSFER_TO_BOT；快捷入口 / 自动引导</td><td class="yes">生产日志</td><td>场景爆炸、误分类、维护重</td></tr>
+          <tr><td>应用后端</td><td>Node.js</td><td>承载会话、编排、网关和工具服务</td><td>小顾后端与 Stargate 均有 Node.js 证据</td><td class="yes">正式材料 / 代码审计</td><td>异步链路长，错误归因难</td></tr>
+          <tr><td>编排框架</td><td>LangChain</td><td>意图 → 拆解 → 工具调用</td><td>30+ Agent 的早期编排核心</td><td class="yes">2025 技术方案</td><td>黑盒链路、版本与观测成本</td></tr>
+          <tr><td>实时交互</td><td>SSE / Streamable HTTP</td><td>逐步返回思考、工具进度与答案</td><td>小顾实时推送；MCP 客户端到 Stargate</td><td class="yes">技术方案 / 代码审计</td><td>断线重连、中断、重复事件</td></tr>
+          <tr><td>模型层</td><td>私有化 LLM + 云端多模型 API</td><td>在质量、速度、成本、隐私间路由</td><td>Qwen、DeepSeek-V3、DeepSeek-R1；平台材料含 Claude / 阿里云等</td><td class="mix">小顾明确 3 类；平台更广</td><td>能力差异、供应商依赖、回答漂移</td></tr>
+          <tr><td>知识层</td><td>RAG、Embedding、Rerank、知识库</td><td>让答案基于可信内容并可溯源</td><td>文章 / FAQ / 业务知识库 / 研报 / 外部内容；按句引用</td><td class="yes">产品与平台材料</td><td>切片、召回、过期内容与引用错配</td></tr>
+          <tr><td>低代码</td><td>Dify</td><td>让业务参与 Agent / Workflow 搭建</td><td>平台共用；20+ Agent、120+ 节点案例主要来自 AI 图书馆</td><td class="mix">共用平台，非小顾全链实证</td><td>工作流膨胀、测试与迁移困难</td></tr>
+          <tr><td>工具协议</td><td>MCP / OpenAPI / Stargate</td><td>标准化暴露数据、算法、工具与业务动作</td><td>xg3-common 89 工具；xg3-card 15 工具（2026-08-31 快照）</td><td class="yes">生产注册表审计</td><td>Schema / Wiki / 实现漂移，渠道数口径混乱</td></tr>
+          <tr><td>可复用服务</td><td>Skills</td><td>封装 SOP、脚本、模板、质量检查</td><td>从工具调用走向稳定任务交付</td><td class="mix">已进入 OAP 建设；小顾深化中</td><td>系统 Skill 与用户 Skill 边界</td></tr>
+          <tr><td>智能体互联</td><td>A2A / Agent runtime</td><td>把完整小顾能力带到外部 Agent</td><td>千问 A2A、微信 Agent；自有 runtime 规划</td><td class="mix">合作联调 / 部分目标态</td><td>跨平台身份、状态、记忆和失败回收</td></tr>
+          <tr><td>输出层</td><td>ECharts / HTML→PDF / 标准卡片</td><td>把事实、图表、结论与动作一起交付</td><td>RenderEchart、RenderHtmlToPdf、报告 Skill</td><td class="yes">生产工具 / 场景材料</td><td>漂亮输出不等于数据正确</td></tr>
+          <tr><td>治理层</td><td>API Key → OAuth / SSO / Scope / Audit</td><td>识别平台、客户端、用户与授权范围</td><td>Stargate OAuth AS、双轨过渡、调用审计</td><td class="mix">生产设施 + 持续治理</td><td>授权成功不等于工具可用；隐私与追踪冲突</td></tr>
+          <tr><td>智能能力</td><td>OCR / ASR / TTS / 多模态</td><td>读文件、语音交互与多模态输入</td><td>平台能力栈；小顾需求含附件与语音</td><td class="no">平台采用；小顾全量落地未证实</td><td>数据合规、解析误差、成本</td></tr>
+          <tr><td>训练评估</td><td>标注、SFT、GRPO、评测集</td><td>增强金融知识与 Agent 规划能力</td><td>盈米全栈 AI 规划；小顾效果通过反馈与小样本脚本迭代</td><td class="no">平台路线 / 局部实践</td><td>离线分数与真实任务价值脱节</td></tr>
+        </tbody>
+      </table></div>
+    </div></section>
+
+    <section class="soft" id="scene-bots"><div class="wrap">
+      <div class="sectionHead"><div><div class="kicker">06 · Generation 1</div><h2>第一代：剧本 + 31 个场景 Bot，先把“能用”做出来</h2></div><p>2023 年方案把小顾定义为且慢超级入口：主动引导、意图识别、智能服务、智能回复与搜索。2023.12—2024.06 日志证明这套架构真实运行。</p></div>
+      <div class="grid g2">
+        <article class="card evidence"><figure class="aspect169"><img src="assets/2023-super-entry-map.png" alt="2023 年 AI 小顾超级入口方案图" loading="lazy"><figcaption>2023.11：问候、资产摘要、市场行情、投资规划、账户诊断、收益分析、搜索与人工客服被组织成一个入口。</figcaption></figure></article>
+        <div>
+          <div class="metricGrid" style="grid-template-columns:repeat(2,minmax(0,1fr))">
+            <div class="metric"><strong>49,495</strong><span>日志事件</span><small>2023-12-20—2024-06-13</small></div>
+            <div class="metric"><strong>10,461</strong><span>用户消息记录</span><small>同一导出文件</small></div>
+            <div class="metric"><strong>31</strong><span>独立 Bot 标识</span><small>收益、资产、基金、市场等</small></div>
+            <div class="metric"><strong>2,362</strong><span>明确路由事件</span><small>TRANSFER_TO_BOT</small></div>
+          </div>
+          <article class="card" style="margin-top:14px"><h3>典型链路</h3><p>用户输入 / 快捷菜单 / 自动引导 → 意图识别 → 场景路由 → 专用 Bot → 真实数据接口 → 结构化回答或人工接力。</p><ul><li>高频 Bot：搜索、收益分析、组合策略、账户报告、资产分析、资金流。</li><li>查询模式已包含 SELF_INPUT、QUICK_MENU、AUTO_LEAD、OPTION。</li><li>价值：先用确定场景获得稳定性，再逐步放开模型自由度。</li></ul></article>
+        </div>
+      </div>
+    </div></section>
+
+    <section id="agent-era"><div class="wrap">
+      <div class="sectionHead"><div><div class="kicker">07 · Generation 2</div><h2>第二代：LangChain + 多模型 + 专家 Agent，扩展问题广度</h2></div><p>单个 Bot 擅长一个问题，但复杂任务会跨越市场、产品、账户、风险和规划。Agent 化的核心是允许系统动态拆解并调度专家。</p></div>
+      <div class="compare">
+        <article class="card before"><span class="num">Before</span><h3>静态分流</h3><p>提前列出意图和剧本，命中后转专用 Bot。稳定、可控，但新问题需要继续加分支。</p><ul><li>优点：边界清晰、容易兜底</li><li>缺点：长尾问题进入“其他”</li><li>维护：场景越多，路由和回归越重</li></ul></article>
+        <div class="arrow">→</div>
+        <article class="card after"><span class="num">After</span><h3>总指挥 + 专家</h3><p>模型理解目标、拆步骤、选择工具与专家，必要时并行处理，再综合成答案或任务结果。</p><ul><li>优点：复杂问题可组合、能力可复用</li><li>缺点：链路更长、成本和错误面增加</li><li>治理：必须记录计划、调用和证据</li></ul></article>
+      </div>
+      <div class="grid g2" style="margin-top:18px">
+        <article class="card evidence"><figure class="aspect169"><img src="assets/2025-agent-architecture.png" alt="2025 年 AI Agent 技术架构" loading="lazy"><figcaption>2025 技术方案：用户 → 意图识别与拆解 → Agent 路由 / 专家 → Tools / Component / Retrieval → LLM。</figcaption></figure></article>
+        <article class="card" data-lens="tech"><span class="num">为什么要多模型</span><h3>速度、专业度、推理深度三角</h3><p>通用 Qwen 负责常用投资咨询，DeepSeek-V3 作为同类通用模型，R1 面向复杂深度问题。模型切换不是“谁更聪明”，而是质量、时延、成本与可用性的路由。</p><div class="note red">当时产品说明明确提示：深度模型虽然思考更长，但可能无法稳定获取投资信息。深度推理不能替代工具可用性。</div></article>
+      </div>
+    </div></section>
+
+    <section class="dark" id="rag-tools"><div class="wrap">
+      <div class="sectionHead"><div><div class="kicker">08 · Knowledge + tools</div><h2>RAG 解决“凭什么这么说”，工具解决“数字到底是多少”</h2></div><p>这是金融 AI 最重要的分工：语言模型负责理解与表达，知识库提供可追溯上下文，确定性工具负责查询、计算和动作。</p></div>
+      <div class="grid g4">
+        <article class="card"><span class="num">01</span><h3>内容 RAG</h3><p>原始内容切片 → 语义检索 → 相关段落 → 大模型总结 → 逐句引用与原文跳转。</p><span class="tag proof">降低幻觉</span></article>
+        <article class="card"><span class="num">02</span><h3>账户工具</h3><p>收益、回撤、四笔钱、风险测评、资金流、订单与持仓。</p><span class="tag proof">提供个性化事实</span></article>
+        <article class="card"><span class="num">03</span><h3>研究工具</h3><p>基金详情、诊断、相关性、回测、蒙特卡洛、市场温度与指数估值。</p><span class="tag proof">把判断落到数据</span></article>
+        <article class="card"><span class="num">04</span><h3>结果工具</h3><p>图表、HTML、PDF、报告模板与行动卡片。</p><span class="tag proof">把答案变成交付物</span></article>
+      </div>
+      <div class="note" style="background:rgba(255,255,255,.07);border-left-color:#72ddff;color:#bfd0e3">关键边界：RAG 只能提高“有出处”的概率，不能证明出处本身是最新、适用或数值一致；工具只能提高确定性，不能自动解决字段口径、上游错误和权限缺失。</div>
+    </div></section>
+
+    <section id="mcp"><div class="wrap">
+      <div class="sectionHead"><div><div class="kicker">09 · Generation 3</div><h2>第三代：MCP / Stargate，把小顾能力从“内部接线”变成“可治理资产”</h2></div><p>2025.04 起，能力不再只服务小顾。数据、算法、工具和内容通过开放平台注册、分组、授权、审计和分发。</p></div>
+      <div class="grid g3">
+        <article class="card"><span class="num">协议层</span><h3>MCP + OpenAPI</h3><p>客户端通过 SSE / Streamable HTTP 获取工具 Schema 并调用；Stargate 动态生成工具清单、转发上游并记录成功调用。</p></article>
+        <article class="card"><span class="num">网关层</span><h3>代理 + 局部改写</h3><p>大部分出参由上游决定，少数路由用 wrapper 脚本裁剪、转换或注入文案；还包含限流、额度、编码和错误处理。</p></article>
+        <article class="card"><span class="num">渠道层</span><h3>同能力，不同可见集</h3><p>2026-08-31 快照：小顾 3.0 通用渠道 89 工具、卡片渠道 15 工具。69 是阿里百炼渠道资产数，不是全平台总数。</p></article>
+      </div>
+      <div class="grid g2" style="margin-top:18px">
+        <article class="card evidence"><figure class="aspect169"><img src="assets/2025-ai-stack.png" alt="盈米 AI 基础能力全栈" loading="lazy"><figcaption>模型、Prompt Engine、智能体平台、MCP、Agentic Workflow、RAG 与多个应用构成共享能力栈。</figcaption></figure></article>
+        <article class="card evidence"><figure class="aspect169"><img src="assets/2025-agent-platform.png" alt="AI 智能体应用平台架构" loading="lazy"><figcaption>多模型、工具、工作流、发布、测试、审查、SSO、多租户、监控、定时与事件驱动被放进统一平台。</figcaption></figure></article>
+      </div>
+      <div class="grid g2" style="margin-top:18px" data-lens="tech">
+        <article class="card evidence"><figure class="aspect169"><img src="assets/2025-oap-milestones.png" alt="OAP 从上线到开放生态的阶段里程碑" loading="lazy"><figcaption>2025 年平台化加速：从内部上线、工具扩容到面向更多 Agent 入口分发；每个数字只代表对应材料时点。</figcaption></figure></article>
+        <article class="card evidence"><figure class="aspect169"><img src="assets/2025-mcp-tool-map.png" alt="MCP 工具能力地图" loading="lazy"><figcaption>工具地图把基金、组合、账户、市场、投顾服务等能力变成可发现资产；实际可见集仍受渠道、权限和版本限制。</figcaption></figure></article>
+      </div>
+    </div></section>
+
+    <section class="soft" id="changes"><div class="wrap">
+      <div class="sectionHead"><div><div class="kicker">10 · Key changes</div><h2>十个关键变化：每一次升级都改变了“谁承担复杂度”</h2></div><p>好的 AI 产品不是不断把复杂度推给模型，而是把复杂度搬到最适合承担它的层。</p></div>
+      <div class="grid g2">
+        <article class="card"><span class="num">01</span><h3>页面找功能 → 对话表达目标</h3><p>复杂度从用户导航迁到意图理解与服务编排。</p></article>
+        <article class="card"><span class="num">02</span><h3>被动问答 → 主动引导</h3><p>开场、资产摘要、待办、市场温度和在途资金成为服务触发点。</p></article>
+        <article class="card"><span class="num">03</span><h3>单轮 FAQ → 多轮任务</h3><p>从解释概念，走向读取数据、拆解问题、调用工具、生成报告和追问修正。</p></article>
+        <article class="card"><span class="num">04</span><h3>场景 Bot → 总指挥 + 专家</h3><p>从穷举意图变为动态规划，新增场景的成本从“重做链路”降为“复用能力”。</p></article>
+        <article class="card"><span class="num">05</span><h3>单模型 → 多模型路由</h3><p>速度、成本、深度和可用性按任务权衡，而不是用一个模型包打天下。</p></article>
+        <article class="card"><span class="num">06</span><h3>模型记忆 → 业务可控记忆</h3><p>记什么、保留多久、何时更新、能否撤回，必须成为产品与合规规则。</p></article>
+        <article class="card"><span class="num">07</span><h3>内部 API → MCP / Skills</h3><p>数据与 SOP 被标准化为可鉴权、可测试、可复用、可计量的服务资产。</p></article>
+        <article class="card"><span class="num">08</span><h3>API Key → OAuth / Scope</h3><p>从“谁拿到 Key 都一样”转向识别平台、客户端、用户和授权范围。</p></article>
+        <article class="card"><span class="num">09</span><h3>定时任务 → 事件 / 指标触发</h3><p>市场、持仓、任务状态变化触发服务，更精准，也减少无效轮询与 Token 消耗。</p></article>
+        <article class="card"><span class="num">10</span><h3>对话量 → 成功服务任务</h3><p>调用、曝光和消息数只是过程；结果采纳、任务完成、复用与合规才是价值。</p></article>
+      </div>
+    </div></section>
+
+    <section id="value"><div class="wrap">
+      <div class="sectionHead"><div><div class="kicker">11 · Value</div><h2>价值不只在“回答得更快”，而在五个层级</h2></div><p>历史材料里存在不同时间与口径的数字。这里保留证据边界，不把不同快照拼成虚假的连续增长。</p></div>
+      <div class="metricGrid">
+        <div class="metric"><strong>70%+</strong><span>投顾场景覆盖</span><small>2025 案例材料；周期未完整披露</small></div>
+        <div class="metric"><strong>90%+</strong><span>问题解决率</span><small>正式汇报口径；定义需复核</small></div>
+        <div class="metric"><strong>60%</strong><span>人工干预下降</span><small>正式汇报口径；基期未披露</small></div>
+        <div class="metric"><strong>14%+</strong><span>入金转化</span><small>使用服务后的用户口径</small></div>
+        <div class="metric"><strong>10万+</strong><span>使用用户</span><small>2025.05 版本材料</small></div>
+        <div class="metric"><strong>100万+</strong><span>投资问题</span><small>2025.05 版本材料</small></div>
+      </div>
+      <div class="grid g3" style="margin-top:18px">
+        <article class="card"><span class="num">用户价值</span><h3>降低获得专业服务的门槛</h3><p>把功能、内容、数据和顾问方法组织成“下一步”，减少不知道问什么、去哪找、怎么判断的成本。</p></article>
+        <article class="card"><span class="num">业务价值</span><h3>连接服务与转化</h3><p>从账户问题、产品判断和市场解释自然进入规划、投顾服务与行动，但必须以归因链而非相关性证明。</p></article>
+        <article class="card"><span class="num">组织价值</span><h3>让专家方法可复制</h3><p>Prompt、规则、脚本、模板、质量门和数据接口可以沉淀成 Skill，而不只存在于个别同事脑中。</p></article>
+        <article class="card"><span class="num">技术价值</span><h3>一次建设，多端复用</h3><p>同一能力可以服务小顾、顾问工作台、微信、千问与机构 Agent，减少重复开发和重复口径。</p></article>
+        <article class="card"><span class="num">治理价值</span><h3>可授权、可追溯、可复核</h3><p>金融建议不仅要“像对的”，还要知道读取了什么、调用了什么、哪一版、谁确认过。</p></article>
+        <article class="card"><span class="num">战略价值</span><h3>从 C 端产品走向金融 AI 底座</h3><p>小顾验证服务价值，OAP 把能力资产化，外部入口与机构场景再放大分发和商业机会。</p></article>
+      </div>
+      <div class="note red">数字边界：材料中同时出现 8万+ / 10万+ / 15万+ / 20万用户、80万+ / 100万+ / 180万+ / 300万问题或调用等表述。未统一分母、周期、去重规则前，不应做连续增长结论。</div>
+    </div></section>
+
+    <section class="soft pits" id="pits"><div class="wrap">
+      <div class="sectionHead"><div><div class="kicker">12 · Failure modes</div><h2>十二个坑：真正难的不是模型，而是系统边界</h2></div><p>每个坑都给出根因与更优解。这里既包含历史实证，也包含从生产架构直接推导出的高风险点。</p></div>
+      <div class="grid g3">
+        <article class="card pit"><h3>把“小顾”等同聊天框</h3><p>对话只是入口，真正价值在服务、工具、数据与动作。</p><span class="root">根因：以 UI 定义产品</span><span class="fix">解法：以成功服务任务定义产品</span></article>
+        <article class="card pit"><h3>场景 Bot 越加越多</h3><p>31 个 Bot 能覆盖高频需求，也会带来路由、提示词、回归和版本爆炸。</p><span class="root">根因：用分支对抗长尾</span><span class="fix">解法：黄金场景固定，长尾交给动态编排</span></article>
+        <article class="card pit"><h3>“其他”掩盖分类失真</h3><p>点赞分析把 45% 归为“其他”；其进一步拆分比例并无原始标注证据。</p><span class="root">根因：分类体系与真实问题脱节</span><span class="fix">解法：人工抽样重标 + 在线混淆矩阵</span></article>
+        <article class="card pit"><h3>深度模型不等于可靠数据</h3><p>R1 能思考更久，却可能拿不到稳定投资信息；没有工具链，推理越长越像幻觉。</p><span class="root">根因：把知识与计算都压给模型</span><span class="fix">解法：模型规划，工具取数，规则校验</span></article>
+        <article class="card pit"><h3>RAG 有引用仍可能错</h3><p>召回旧内容、切片断义或引用错配，仍会产生“有出处的错误”。</p><span class="root">根因：把引用当真实性证明</span><span class="fix">解法：时效、适用性、数字三道校验</span></article>
+        <article class="card pit"><h3>Schema、Wiki、代码三套口径</h3><p>收益、回撤、市场温度、热门基金等关键逻辑大量只在代码或网关脚本。</p><span class="root">根因：文档不在发布链路</span><span class="fix">解法：从生产快照自动生成口径手册</span></article>
+        <article class="card pit"><h3>工具数量越报越大</h3><p>29、41+、50+、69、89、15、数千注册路由对应不同渠道与定义。</p><span class="root">根因：资产、工具、渠道、版本混算</span><span class="fix">解法：统一 Tool ID + 渠道可见集 + 版本</span></article>
+        <article class="card pit"><h3>网关 wrapper 成为口径黑洞</h3><p>字段裁剪、日期转换、15 点过滤和文案注入藏在生产脚本里。</p><span class="root">根因：适配逻辑脱离契约</span><span class="fix">解法：声明式转换 + 版本化测试样例</span></article>
+        <article class="card pit"><h3>授权成功 ≠ 服务可用</h3><p>OAuth 回调、工具列表、后端批准、Scope、真实调用是五个不同状态。</p><span class="root">根因：把连接过程当结果</span><span class="fix">解法：最小只读任务端到端验收</span></article>
+        <article class="card pit"><h3>多 Agent 带来成本与延迟</h3><p>计划、并发、重试和综合会放大 Token、时延与失败面。</p><span class="root">根因：每个问题都走重编排</span><span class="fix">解法：路由分级 + 缓存 + 确定性短路</span></article>
+        <article class="card pit"><h3>记忆会放大个性化，也会放大风险</h3><p>错误、过期、敏感或越权记忆会长期影响建议。</p><span class="root">根因：把上下文存储等同用户记忆</span><span class="fix">解法：分层、可见、可改、可撤、可过期</span></article>
+        <article class="card pit"><h3>漂亮报告不等于任务完成</h3><p>图表和 PDF 可能正确渲染，却仍有数据口径、适用性与合规问题。</p><span class="root">根因：把输出完成当业务完成</span><span class="fix">解法：证据、复核、采纳和后续动作闭环</span></article>
+      </div>
+    </div></section>
+
+    <section id="xg3"><div class="wrap">
+      <div class="sectionHead"><div><div class="kicker">13 · Generation 3 → 4</div><h2>3.0 / 4.0 的关键，不是再加 Agent，而是让服务持续运行</h2></div><p>从一次对话跨到长期关系，需要状态、记忆、触发、动作、授权和回写六件事同时成立。</p></div>
+      <div class="grid g4">
+        <article class="card"><span class="num">读</span><h3>读取状态</h3><p>持仓、目标、风险、计划、任务、历史结果与用户授权。</p></article>
+        <article class="card"><span class="num">判</span><h3>发现问题</h3><p>不是每天轮询，而是条件、指标或事件达到阈值时触发。</p></article>
+        <article class="card"><span class="num">做</span><h3>编排服务</h3><p>调用 Skill / MCP / Agent，生成解释、卡片、报告或待确认动作。</p></article>
+        <article class="card"><span class="num">记</span><h3>结果回写</h3><p>记录用户采纳、修改、失败原因与偏好，形成下一次服务上下文。</p></article>
+      </div>
+      <div class="grid g2" style="margin-top:18px">
+        <article class="card"><span class="num">3.0 当前建设</span><h3>记得住、跟得上</h3><ul><li>业务可控的记忆生成规则</li><li>用户 Skill 与系统 Skill 的职责边界</li><li>定时任务升级为 API / 指标监控</li><li>成本、上下文与触发精度一起优化</li></ul><span class="tag plan">当前建设 / 需求态</span></article>
+        <article class="card"><span class="num">4.0 目标形态</span><h3>从建议到任务完成</h3><ul><li>发现需求、生成或匹配服务</li><li>关键动作由用户 / 顾问确认</li><li>执行结果可追踪、可审计</li><li>成熟服务可发布、复用与持续运营</li></ul><span class="tag plan">终局规划</span></article>
+      </div>
+    </div></section>
+
+    <section class="dark" id="next"><div class="wrap">
+      <div class="sectionHead"><div><div class="kicker">14 · Better architecture</div><h2>更优解：把小顾建设成“任务操作系统”，不是 Agent 大卖场</h2></div><p>未来 90 天最值得做的不是扩模型或扩工具，而是把契约、状态与验收打牢。</p></div>
+      <div class="decision"><div class="rank">1</div><article class="card"><h3>建立统一 Financial Service Contract</h3><p>每个服务明确：输入、授权字段、数据截止、工具版本、计算口径、输出组件、允许动作、失败兜底、人工确认、反馈回写。卡片、报告、Skill、Agent 都引用同一契约。</p></article></div>
+      <div class="decision"><div class="rank">2</div><article class="card"><h3>把任务状态机做成一等公民</h3><p>统一 pending / running / waiting-user / waiting-human / failed / completed；支持幂等、重试、超时、补偿和断线续跑。SSE 只是展示层，不应承担状态真相。</p></article></div>
+      <div class="decision"><div class="rank">3</div><article class="card"><h3>从生产 Schema 自动生成口径与测试</h3><p>发布时自动导出人可读接口手册、Golden Case 与变更日志；wrapper 改写必须声明并进入回归测试，彻底收口 Wiki / Schema / 代码漂移。</p></article></div>
+      <div class="decision"><div class="rank">4</div><article class="card"><h3>记忆与授权统一进 Policy Plane</h3><p>把“可读取、可写入、可保留、可触发、可外发”变成可配置策略；用户能看、改、删，敏感信息默认短期，跨端共享必须重新确认。</p></article></div>
+      <div class="decision"><div class="rank">5</div><article class="card"><h3>建立黄金任务集与经营归因</h3><p>优先验收持仓诊断、收益解释、资金计划、市场影响、家庭财务规划等任务；同时串起入口 → 授权 → 成功任务 → 采纳 → 动作 → 交易 / AUM / 留存。</p></article></div>
+      <div class="decision"><div class="rank">6</div><article class="card"><h3>VPC 采用控制面 / 数据面分离</h3><p>共享规则、Skill、评测和版本治理留在控制面；客户数据、模型与执行留在私有数据面。通过能力清单和兼容矩阵降低每个 VPC 成为独立分叉的成本。</p></article></div>
+    </div></section>
+
+    <section id="evidence"><div class="wrap">
+      <div class="sectionHead"><div><div class="kicker">15 · Evidence boundary</div><h2>证据分级：什么能说“已采用”，什么只能说“在规划”</h2></div><p>本报告最重要的不是内容多，而是拒绝把原型、宣传、连接成功和生产完成混成同一个结论。</p></div>
+      <div class="ledger">
+        <article class="card"><span class="grade a">A · 强证据</span><h3>生产日志 / 注册表 / 代码</h3><p>31 Bot、49,495 事件、小顾 3.0 两个渠道、Stargate 链路与字段口径。</p></article>
+        <article class="card"><span class="grade b">B · 直接材料</span><h3>正式产品与技术方案</h3><p>LangChain、Node.js、SSE、多模型、30+ Agent、RAG 引用与知识库。</p></article>
+        <article class="card"><span class="grade c">C · 阶段材料</span><h3>汇报、演示与用户反馈</h3><p>使用量、解决率、转化、案例效果；需要补周期、分母、基期与去重口径。</p></article>
+        <article class="card"><span class="grade d">D · 规划 / 推断</span><h3>记忆、事件触发、4.0、VPC</h3><p>代表方向与设计约束，不代表全部已上线或已规模验证。</p></article>
+      </div>
+      <div class="grid g2" style="margin-top:18px">
+        <article class="card evidence"><figure class="aspect169"><img src="assets/2025-xiaogu-value.png" alt="且慢 AI 小顾技能图谱与价值数据" loading="lazy"><figcaption>阶段汇报中的能力与价值快照；数字作为当时材料口径，不与其他版本强行串联。</figcaption></figure></article>
+        <article class="card evidence"><figure class="aspect169"><img src="assets/2025-xiaogu-usage.png" alt="且慢 AI 小顾使用情况" loading="lazy"><figcaption>使用主题呈明显长尾；Agent 调用集中在组合策略、收益、资产、规划和资金流。</figcaption></figure></article>
+      </div>
+      <div class="note">未公开内容：原始日志中的用户标识、对话内容、家庭财务样例、申请名单、OAuth 参数、内部地址与个人信息均未进入本报告。</div>
+    </div></section>
+  </main>
+
+  <footer class="footer"><div class="wrap">
+    <div class="kicker">Final takeaway</div>
+    <h2>小顾的下一程，不是“更像人”，<br>而是<em>更像一个可信的金融服务系统</em>。</h2>
+    <p>模型可以替换，入口会迁移，热点框架会迭代；真正长期积累的是投顾方法、数据口径、服务契约、任务状态、用户信任与跨端复用能力。</p>
+    <div class="sourceList">
+      <div class="source"><b>2021 产品原型</b><span>《且慢5.0 小顾投顾系列》XMind / PNG；小顾投顾与 SCRM 原型。</span></div>
+      <div class="source"><b>2023 产品方案</b><span>《且慢AI小顾202311》：在线投资顾问、超级入口、剧本与团队结构。</span></div>
+      <div class="source"><b>2023.12—2024.06 生产导出</b><span>《小顾高频用户问答》：49,495 事件、31 个 Bot、查询模式与路由事件。</span></div>
+      <div class="source"><b>2024 能力地图 / 操作指南</b><span>《AI小顾能力》XMind / PDF；《盈米且慢AI小顾操作指南》。</span></div>
+      <div class="source"><b>2025 技术与业务材料</b><span>《基于大模型技术在智能投顾领域的应用》；《盈米AI整体介绍_20250725》。</span></div>
+      <div class="source"><b>2025 产品迭代素材</b><span>DeepSeek 接入、多模型说明、历史对话 / 附件等优化需求；仅采用无个人信息部分。</span></div>
+      <div class="source"><b>2026 OAP / 产品实践研究</b><span>且慢 AI 产品实践、OAP 框架、MCP TOP20、增长与证据边界材料。</span></div>
+      <div class="source"><b>2026-08-31 生产代码审计</b><span>Stargate、生产注册表与上游源码三轨核对；小顾 3.0 渠道及接口口径。</span></div>
+    </div>
+  </div></footer>
+  <script>
+    const progress=document.getElementById('progress');
+    const links=[...document.querySelectorAll('#links a')];
+    const sections=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    function update(){const h=document.documentElement;const max=h.scrollHeight-innerHeight;progress.style.width=`${max?scrollY/max*100:0}%`;let active=sections[0];for(const s of sections){if(s.getBoundingClientRect().top<150)active=s}links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')===`#${active.id}`))}
+    addEventListener('scroll',update,{passive:true});update();
+    document.querySelectorAll('.lens button').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('.lens button').forEach(x=>x.classList.remove('on'));button.classList.add('on');document.body.classList.remove('management','technical');if(button.dataset.mode!=='all')document.body.classList.add(button.dataset.mode)}));
+  </script>
+</body>
+</html>

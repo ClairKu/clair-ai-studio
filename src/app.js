@@ -30,7 +30,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 65;
+const DATA_VERSION = 66;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -137,6 +137,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "xiaogu-technical-evolution-2026-09-03",
+      groupId: "xiaogu",
+      title: "且慢 AI 小顾 0→1 技术考古｜框架、历程、坑点与价值",
+      url: "https://clairku.github.io/clair-ai-studio/reports/xiaogu-technical-evolution-2026-09-03/",
+      preview: "xiaogu-technical-evolution-2026-09-03.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-03T16:30:00.000+08:00",
+      source: "2021—2026 产品材料、技术方案、运营日志与生产代码审计交叉还原｜六阶段时间线、十层技术架构、18 类框架账本、12 个典型坑点、10 次关键跃迁与五层业务价值｜从四笔钱与财富旅程的服务骨架，到 2023 大模型超级入口、LangChain 多 Agent、RAG、DeepSeek/Qwen 多模型，再到 MCP/Stargate、Skills 与可触发任务｜明确区分产品愿景、平台能力、上线事实和待验证边界｜不含客户标识与敏感明细｜CLAIR 单页 HTML｜生产",
+      access: "production",
+      workType: "reporting",
+      tags: ["AI 小顾", "且慢", "技术架构", "产品历程", "LangChain", "多 Agent", "RAG", "DeepSeek", "MCP", "Stargate", "Skills", "OAP", "投顾服务", "复盘", "经营汇报", "CLAIR", "HTML", "生产"],
+    },
     {
       id: "doubao-oauth-mcp-radar-2026-09-02",
       groupId: "ai-platform",
