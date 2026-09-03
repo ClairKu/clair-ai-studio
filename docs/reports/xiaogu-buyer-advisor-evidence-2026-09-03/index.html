@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />
+    <script data-clair-access-gate data-clair-access-scope="report" src="../../access-gate.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="AI 小顾如何 AI 赋能买方投顾：生产证据、经营结果、证据边界与 90 天补数方案。">
+  <title>AI 小顾如何 AI 赋能买方投顾｜证据账本</title>
+  <style>
+    :root{--ink:#0b1f33;--muted:#60758a;--line:#dce7f0;--paper:#f5f9fc;--blue:#1488ee;--blue2:#0b5ca8;--cyan:#7ed7ff;--green:#14856a;--amber:#b56b00;--red:#b84040;--white:#fff;--shadow:0 22px 70px rgba(10,50,85,.11)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.65}a{color:inherit}.wrap{width:min(1180px,calc(100% - 36px));margin:auto}.hero{min-height:92vh;display:grid;align-items:center;position:relative;overflow:hidden;background:linear-gradient(135deg,#061b2e 0%,#0c3961 55%,#087ac7 100%);color:white}.hero:before,.hero:after{content:"";position:absolute;border-radius:50%;filter:blur(2px)}.hero:before{width:620px;height:620px;right:-180px;top:-210px;background:radial-gradient(circle,rgba(126,215,255,.34),transparent 65%)}.hero:after{width:420px;height:420px;left:-170px;bottom:-210px;border:1px solid rgba(255,255,255,.18);box-shadow:0 0 0 70px rgba(255,255,255,.03),0 0 0 140px rgba(255,255,255,.025)}.hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.15fr .85fr;gap:70px;align-items:center;padding:92px 0}.eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:800;color:var(--cyan)}h1{font-size:clamp(42px,6vw,82px);line-height:1.03;margin:18px 0 24px;letter-spacing:-.05em}.hero h1 span{display:block;color:#8bdbff}.lead{font-size:clamp(18px,2vw,24px);max-width:780px;color:#d7edfb}.hero-note{margin-top:28px;padding-left:16px;border-left:3px solid var(--cyan);color:#bcd8ea}.verdict{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:28px;padding:30px;backdrop-filter:blur(14px);box-shadow:var(--shadow)}.verdict strong{display:block;font-size:28px;line-height:1.2;margin:8px 0 12px}.score{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:22px}.score div{background:rgba(255,255,255,.09);border-radius:16px;padding:14px}.score b{font-size:22px;display:block}.score span{font-size:12px;color:#c7dfef}.nav{position:sticky;top:0;z-index:20;background:rgba(245,249,252,.93);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}.nav .wrap{display:flex;gap:8px;overflow:auto;padding:10px 0}.nav a,.filter button{white-space:nowrap;text-decoration:none;border:0;border-radius:999px;padding:9px 14px;background:white;color:#42596d;font-weight:700;cursor:pointer}.nav a:hover,.filter button.active{background:var(--blue);color:white}.section{padding:88px 0}.section.alt{background:white}.section-head{display:grid;grid-template-columns:.7fr 1.3fr;gap:46px;align-items:end;margin-bottom:38px}.kicker{font-weight:800;color:var(--blue);letter-spacing:.12em;font-size:12px;text-transform:uppercase}.section h2{font-size:clamp(30px,4vw,52px);line-height:1.08;letter-spacing:-.035em;margin:10px 0}.section-intro{font-size:19px;color:var(--muted);margin:0}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:white;border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:0 8px 28px rgba(16,55,85,.06)}.alt .card{background:var(--paper)}.card .num{font-size:38px;line-height:1;font-weight:850;color:var(--blue2);letter-spacing:-.04em}.card h3{font-size:19px;margin:13px 0 8px}.card p{color:var(--muted);margin:0}.meta{font-size:12px;color:#7790a5;margin-top:16px!important}.pill{display:inline-flex;align-items:center;gap:7px;border-radius:999px;padding:5px 10px;font-size:11px;font-weight:800;letter-spacing:.04em}.confirmed{background:#dff7ef;color:#0e725a}.inferred{background:#fff0cf;color:#8a5800}.missing{background:#ffe4e4;color:#a33333}.target{background:#e2efff;color:#235d9c}.map{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;align-items:stretch}.map-step{position:relative;background:#082b49;color:white;border-radius:20px;padding:20px 15px;min-height:170px}.map-step:nth-child(2n){background:#0b4e81}.map-step b{display:block;color:var(--cyan);font-size:26px}.map-step span{display:block;font-weight:800;margin:8px 0}.map-step small{color:#c5dcec}.map-step:not(:last-child):after{content:"→";position:absolute;right:-13px;top:65px;z-index:2;color:var(--blue);font-size:20px;font-weight:900}.bars{display:grid;gap:16px}.bar-row{display:grid;grid-template-columns:180px 1fr 160px;gap:16px;align-items:center}.bar-track{height:16px;background:#e9f1f6;border-radius:99px;overflow:hidden}.bar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--blue2),var(--cyan))}.bar-row b{text-align:right}.callout{margin-top:24px;border-radius:22px;background:#071e34;color:white;padding:26px 28px;display:grid;grid-template-columns:180px 1fr;gap:22px}.callout strong{color:var(--cyan);font-size:13px;letter-spacing:.08em}.evidence-toolbar{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:18px}.filter{display:flex;gap:8px;flex-wrap:wrap}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:20px;background:white}.evidence{width:100%;border-collapse:collapse;min-width:960px}.evidence th,.evidence td{padding:16px 18px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}.evidence th{font-size:12px;color:#60758a;letter-spacing:.06em;background:#f8fbfd}.evidence tr:last-child td{border-bottom:0}.evidence td:first-child{font-weight:800;min-width:170px}.evidence td:nth-child(2){font-weight:800;color:var(--blue2);min-width:160px}.evidence td:nth-child(3){min-width:280px}.matrix{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.lens{border-radius:24px;padding:26px;background:linear-gradient(145deg,#fff,#eef6fb);border:1px solid var(--line)}.lens .index{font-weight:900;color:var(--blue);font-size:13px}.lens h3{font-size:24px;margin:6px 0 10px}.lens ul{padding-left:20px;color:var(--muted);margin:0}.compare{display:grid;grid-template-columns:1fr 80px 1fr;gap:18px;align-items:center}.compare .side{border-radius:25px;padding:28px;background:white;border:1px solid var(--line)}.compare .side.primary{background:#082b49;color:white}.compare .vs{text-align:center;font-weight:900;color:var(--blue)}.metric-pair{display:flex;justify-content:space-between;gap:20px;padding:14px 0;border-bottom:1px solid rgba(120,150,175,.25)}.metric-pair:last-child{border-bottom:0}.metric-pair b{font-size:23px}.tree{display:grid;grid-template-columns:1fr;gap:14px}.tree-root{background:linear-gradient(90deg,#087dd0,#0c4b7c);color:white;border-radius:22px;padding:24px;text-align:center;font-size:23px;font-weight:850}.tree-branches{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.branch{background:white;border:1px solid var(--line);border-radius:20px;padding:20px}.branch b{display:block;color:var(--blue2);margin-bottom:8px}.branch small{color:var(--muted)}.roadmap{counter-reset:item;display:grid;gap:14px}.road{display:grid;grid-template-columns:72px 230px 1fr 190px;gap:18px;align-items:center;padding:20px;background:white;border:1px solid var(--line);border-radius:20px}.road .when{font-weight:900;color:var(--blue);font-size:20px}.road .title{font-weight:850}.road .detail{color:var(--muted)}.road .accept{font-size:13px;color:var(--green);font-weight:800}.foot{background:#061b2e;color:#c7dceb;padding:70px 0}.foot h2{color:white}.foot-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:46px}.foot li{margin-bottom:10px}.stamp{border:1px solid #31526a;border-radius:22px;padding:24px}.stamp b{color:white;display:block;font-size:22px}.stamp span{font-size:13px}.hidden{display:none!important}@media(max-width:900px){.hero-grid,.section-head,.foot-grid{grid-template-columns:1fr}.cards{grid-template-columns:1fr 1fr}.map{grid-template-columns:1fr 1fr}.map-step:not(:last-child):after{display:none}.tree-branches{grid-template-columns:1fr 1fr}.road{grid-template-columns:70px 1fr}.road .detail,.road .accept{grid-column:2}.compare{grid-template-columns:1fr}.compare .vs{transform:rotate(90deg)}.callout{grid-template-columns:1fr}}@media(max-width:620px){.wrap{width:min(100% - 24px,1180px)}.hero-grid{padding:70px 0}.cards,.matrix,.map,.tree-branches{grid-template-columns:1fr}.bar-row{grid-template-columns:1fr}.bar-row b{text-align:left}.section{padding:62px 0}.score{grid-template-columns:1fr}.road{grid-template-columns:54px 1fr}}
+  </style>
+</head>
+<body>
+  <header class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">CLAIR · BUY-SIDE ADVISORY EVIDENCE / 2026.09.03</div>
+        <h1>AI 小顾如何<span>AI 赋能买方投顾</span></h1>
+        <p class="lead">把“会回答”拆成六段可验证链路：发现真实痛点、理解个人账户、组织专业服务、陪伴用户行动、跨入口交付、回到经营结果。</p>
+        <p class="hero-note">结论先行：服务生产与交付已经被验证；买方投顾本身的长期价值有数据支持；AI 对留存、交易、AUM 与顾问转化的净增量，仍需补齐统一归因链。</p>
+      </div>
+      <aside class="verdict">
+        <span class="pill confirmed">证据审计结论</span>
+        <strong>能力成立，经营因果尚未闭环</strong>
+        <p>卡片、路由、账户服务、外部绑定均有生产证据；“34% 使用、14% 交易转化、转化翻番”等历史说法缺分母、样本或对照，不进入成果大屏。</p>
+        <div class="score"><div><b>8</b><span>组强证据</span></div><div><b>5</b><span>个关键缺口</span></div><div><b>90天</b><span>补齐闭环</span></div></div>
+      </aside>
+    </div>
+  </header>
+
+  <nav class="nav" aria-label="报告导航"><div class="wrap"><a href="#judgment">老板速览</a><a href="#chain">价值链</a><a href="#proof">关键证据</a><a href="#lenses">六类赋能</a><a href="#advisor">买方投顾价值</a><a href="#ledger">证据账本</a><a href="#metric">指标树</a><a href="#plan">90 天行动</a></div></nav>
+
+  <main>
+    <section class="section" id="judgment"><div class="wrap">
+      <div class="section-head"><div><div class="kicker">01 · EXECUTIVE READOUT</div><h2>先回答：证明到哪一步？</h2></div><p class="section-intro">AI 小顾不是一个聊天框，而是买方投顾服务的“低成本前台 + 个性化编排器 + 持续任务入口”。现在最强的是服务供给，最弱的是结果归因。</p></div>
+      <div class="cards">
+        <article class="card"><span class="pill confirmed">CONFIRMED</span><div class="num">39,040</div><h3>近 30 日全端启动 UV</h3><p>启动事件与 H5 会话页浏览并集；相对 241,246 App 活跃 UV 的近似渗透为 16.2%。</p><p class="meta">2026-08-05—09-03 · 分子分母端范围不同</p></article>
+        <article class="card"><span class="pill confirmed">CONFIRMED</span><div class="num">5,944</div><h3>有效提问 UV</h3><p>共发送 26,420 条消息，人均 4.4 条；启动到提问率为 15.2%。</p><p class="meta">超级入口页 input 发送事件 · 生产聚合</p></article>
+        <article class="card"><span class="pill confirmed">CONFIRMED</span><div class="num">26.4%</div><h3>30 日内至少 2 天启动</h3><p>10,308 / 39,040；≥3 天 11.0%，≥7 天 1.4%，陪伴深度仍有较大提升空间。</p><p class="meta">人均启动 1.55 天 · 不等同周重复</p></article>
+      </div>
+      <div class="callout"><strong>管理层一句话</strong><span>AI 小顾已经把稀缺投顾能力变成可规模化交付的服务；下一阶段不应继续用对话量证明价值，而要用“成功服务任务 → 用户动作 → 结果变化 → 长期关系”证明经营结果。</span></div>
+    </div></section>
+
+    <section class="section alt" id="chain"><div class="wrap">
+      <div class="section-head"><div><div class="kicker">02 · VALUE CHAIN</div><h2>AI 赋能不是一个数字</h2></div><p class="section-intro">六段链路缺一不可。调用量证明产能，卡片证明交付，绑定证明关系，只有结果回流才能证明买方投顾业务升级。</p></div>
+      <div class="map">
+        <div class="map-step"><b>01</b><span>痛点出现</span><small>账户看不懂、市场焦虑、方案难选择、服务难获得</small></div>
+        <div class="map-step"><b>02</b><span>上下文理解</span><small>持仓、风险、目标、计划、历史偏好与渠道身份</small></div>
+        <div class="map-step"><b>03</b><span>专业服务</span><small>工具、Skill、Agent 与标准卡片组织成完整任务</small></div>
+        <div class="map-step"><b>04</b><span>用户行动</span><small>诊断、订阅、规划、继续定投、人工咨询或交易确认</small></div>
+        <div class="map-step"><b>05</b><span>结果验证</span><small>赎回、持有、复投、净入金、问题解决与满意</small></div>
+        <div class="map-step"><b>06</b><span>长期关系</span><small>D7/D30 复用、持续任务、顾问接力与服务记忆</small></div>
+      </div>
+    </div></section>
+
+    <section class="section" id="proof"><div class="wrap">
+      <div class="section-head"><div><div class="kicker">03 · EIGHT STRONG SIGNALS</div><h2>目前最能站得住的八组数据</h2></div><p class="section-intro">本轮补齐了 30 日启动、提问、复用、D7、入口与服务点击聚合。每组数字只回答它能回答的问题，不把使用、服务、交易和长期结果混为一谈。</p></div>
+      <div class="bars">
+        <div class="bar-row"><span>近似启动渗透</span><div class="bar-track"><div class="bar-fill" style="width:16.2%"></div></div><b>16.2%</b></div>
+        <div class="bar-row"><span>启动 → 有效提问</span><div class="bar-track"><div class="bar-fill" style="width:15.2%"></div></div><b>15.2%</b></div>
+        <div class="bar-row"><span>30 日 ≥2 天启动</span><div class="bar-track"><div class="bar-fill" style="width:26.4%"></div></div><b>26.4%</b></div>
+        <div class="bar-row"><span>窗口内首启 D7 回访</span><div class="bar-track"><div class="bar-fill" style="width:18%"></div></div><b>18.0%</b></div>
+        <div class="bar-row"><span>千问绑定 → 小顾使用</span><div class="bar-track"><div class="bar-fill" style="width:74%"></div></div><b>1,891 / 2,556</b></div>
+        <div class="bar-row"><span>生产专卡交付</span><div class="bar-track"><div class="bar-fill" style="width:65.7%"></div></div><b>23 / 35</b></div>
+        <div class="bar-row"><span>投顾盈利用户占比</span><div class="bar-track"><div class="bar-fill" style="width:81.93%"></div></div><b>81.93%</b></div>
+        <div class="bar-row"><span>OAP 滚动 30 日 MAU</span><div class="bar-track"><div class="bar-fill" style="width:61%"></div></div><b>3,071</b></div>
+      </div>
+      <div class="cards" style="margin-top:30px">
+        <article class="card"><span class="pill confirmed">账户服务</span><div class="num">813</div><h3>诊断引导点击 UV</h3><p>账户诊断、一键诊断、选择账户与产品诊断的聚合代理。</p><p class="meta">近 30 日 · v2+v3 页面点击</p></article>
+        <article class="card"><span class="pill confirmed">人机协同</span><div class="num">433</div><h3>人工服务点击 UV</h3><p>说明 AI 前台与真人接力并非互斥；是否完成转人工仍需后续事件。</p><p class="meta">近 30 日 · 838 次点击</p></article>
+        <article class="card"><span class="pill confirmed">陪伴服务</span><div class="num">119</div><h3>月报 / 对账单 UV</h3><p>持续投后服务已具备入口，但 D30 复用和报告采纳仍缺口径。</p><p class="meta">近 30 日 · 页面点击代理</p></article>
+        <article class="card"><span class="pill confirmed">服务激活</span><div class="num">74.0%</div><h3>千问绑定后使用小顾</h3><p>1,891 / 2,556；新用户 71.3%，老用户 84.0%。只代表千问绑定人群。</p><p class="meta">截至 2026-09-03 14:50</p></article>
+        <article class="card"><span class="pill confirmed">能力底座</span><div class="num">1,081万</div><h3>OAP 累计调用</h3><p>证明金融 AI 能力具备规模供给基础；不等于小顾成功任务。</p><p class="meta">截至 2026-09-03 · 部分日</p></article>
+        <article class="card"><span class="pill missing">结果归因</span><div class="num">D30</div><h3>仍不可计算</h3><p>当前 30 日窗口不足；需至少 60 日窗口，并把老用户窗口内首启与新用户 cohort 分开。</p><p class="meta">缺失不是 0</p></article>
+      </div>
+    </div></section>
+
+    <section class="section alt" id="lenses"><div class="wrap">
+      <div class="section-head"><div><div class="kicker">04 · SIX LENSES</div><h2>小顾怎样升级投顾服务</h2></div><p class="section-intro">价值不在“替代顾问”，而在把过去昂贵、稀缺、断裂的专业服务，变成随时可获得、可复用、可人工接力的连续体验。</p></div>
+      <div class="matrix">
+        <article class="lens"><span class="index">01 · 用户痛点</span><h3>把“我该怎么办”翻译成任务</h3><ul><li>自然语言承接账户、市场、产品、规划与交易问题</li><li>先澄清范围，再调用事实与专业能力</li><li>真实消息与 31 个 Bot 证明需求和路由曾运行</li></ul></article>
+        <article class="lens"><span class="index">02 · 千人千面</span><h3>从统一内容到本人账户</h3><ul><li>资产、收益、资金流、子账户、产品收益、诊断与定制方案</li><li>能力存在已确认；上下文字段实际使用覆盖率待补</li><li>必须记录“本次结论用了哪些授权数据”</li></ul></article>
+        <article class="lens"><span class="index">03 · 长期陪伴</span><h3>从一次回答到持续任务</h3><ul><li>月度账单、月度分析、订阅、消息、待办已具备服务形态</li><li>D7/D30 复用、连续活跃周、主动提醒采纳仍缺统一口径</li><li>记忆、触发和结果写回是下一阶段核心</li></ul></article>
+        <article class="lens"><span class="index">04 · 服务无处不在</span><h3>在问题现场交付专业能力</h3><ul><li>且慢内完成账户级服务，千问完成外部发现与绑定</li><li>微信/企微、MCP/A2A 的联调不能替代生产归因</li><li>交易和高风险动作回到持牌自营载体确认</li></ul></article>
+        <article class="lens"><span class="index">05 · 投后“分析 + 按摩”</span><h3>事实解释与情绪安抚一起做</h3><ul><li>收益、回撤、资产结构、诊断、市场温度先降低不确定性</li><li>给“无需动作 / 继续观察 / 需要处理”的可执行结论</li><li>是否降低恐慌赎回与定投中断尚待准实验</li></ul></article>
+        <article class="lens"><span class="index">06 · 顾问运营</span><h3>AI 做标准化，人做判断与关系</h3><ul><li>事实整理、计算、报告草稿、质量检查可由 Skill 完成</li><li>顾问复核、适当性、关键建议和对客责任不能外包给模型</li><li>效率与转化必须由后台时长和统一漏斗自动取证</li></ul></article>
+      </div>
+    </div></section>
+
+    <section class="section" id="advisor"><div class="wrap">
+      <div class="section-head"><div><div class="kicker">05 · BUY-SIDE VALUE</div><h2>先证明投顾价值，再证明 AI 增量</h2></div><p class="section-intro">生产分组已经给出“投顾策略账户优于自助基金交易账户”的强相关证据。这说明 AI 值得用来扩大买方投顾覆盖，但不能把投顾结果直接记在小顾名下。</p></div>
+      <div class="compare">
+        <div class="side"><span class="pill inferred">自助基金交易 CA</span><div class="metric-pair"><span>累计 MWR</span><b>12.47%</b></div><div class="metric-pair"><span>盈利用户占比</span><b>70.12%</b></div><div class="metric-pair"><span>年化波动</span><b>11.46%</b></div><div class="metric-pair"><span>最大回撤</span><b>8.60%</b></div><div class="metric-pair"><span>持有时长</span><b>≈817 天</b></div></div>
+        <div class="vs">VS</div>
+        <div class="side primary"><span class="pill confirmed">投顾策略 CA</span><div class="metric-pair"><span>累计 MWR</span><b>19.93%</b></div><div class="metric-pair"><span>盈利用户占比</span><b>81.93%</b></div><div class="metric-pair"><span>年化波动</span><b>9.28%</b></div><div class="metric-pair"><span>最大回撤</span><b>7.71%</b></div><div class="metric-pair"><span>持有时长</span><b>≈817 天</b></div></div>
+      </div>
+      <div class="callout"><strong>正确归因</strong><span>这组数据证明“投顾策略与更好的风险收益体验相关”，不证明 AI 小顾造成差异。AI 的价值命题应改写为：能否以更低边际成本，让更多用户获得同类专业服务，并在服务后产生可观测的长期行为改善。</span></div>
+    </div></section>
+
+    <section class="section alt" id="ledger"><div class="wrap">
+      <div class="section-head"><div><div class="kicker">06 · EVIDENCE LEDGER</div><h2>哪些话能说，哪些不能说</h2></div><p class="section-intro">使用筛选按钮查看不同证据等级。confirmed 是可追溯生产事实；inferred 是合理解释；missing 是缺数据；target 是未来验收标准。</p></div>
+      <div class="evidence-toolbar"><div class="filter" role="group" aria-label="证据筛选"><button class="active" data-filter="all">全部</button><button data-filter="confirmed">已证实</button><button data-filter="inferred">可推断</button><button data-filter="missing">缺证据</button><button data-filter="target">目标态</button></div><small>公开聚合 · 不含用户明细</small></div>
+      <div class="table-wrap"><table class="evidence"><thead><tr><th>命题</th><th>证据 / 状态</th><th>口径与结论</th><th>能否支持经营判断</th></tr></thead><tbody>
+        <tr data-state="confirmed"><td>近 30 日真实使用</td><td>39,040 启动 UV</td><td>2026-08-05—09-03；启动事件与小顾 H5 会话页浏览并集。相对 App 活跃 UV 的近似渗透 16.2%。</td><td>支持真实使用；端范围不同，不能当严格全平台渗透。</td></tr>
+        <tr data-state="confirmed"><td>启动进入有效提问</td><td>5,944 / 39,040 = 15.2%</td><td>input 发送事件；26,420 条消息，人均 4.4 条。</td><td>支持提问转化；不支持问题解决。</td></tr>
+        <tr data-state="confirmed"><td>复用与 D7</td><td>≥2 天 26.4%；D7 18.0%</td><td>≥2 天为 30 日启动直方图；D7 为 iOS 为主的窗口内首启 cohort 1,473 / 8,166。</td><td>支持初步复用；不等同新用户留存或周重复。</td></tr>
+        <tr data-state="confirmed"><td>历史真实痛点与路由</td><td>10,461 条用户消息</td><td>2023-12-20—2024-06-13 生产导出；另有 49,495 事件与 2,362 次路由。</td><td>支持真实需求与多专业路由；不支持解决率。</td></tr>
+        <tr data-state="confirmed"><td>账户服务可交付</td><td>23 / 35 独立落卡</td><td>2026-08-13 两轮生产交叉测试；5 种降级、7 种未独立落卡。</td><td>支持服务能力存在；不支持采纳和结果。</td></tr>
+        <tr data-state="missing"><td>34% 使用 / 50% 周重复 / 14% 交易转化</td><td>本轮未复现原口径</td><td>新口径得到近似启动渗透 16.2%、30 日 ≥2 天 26.4%、窗口内首启 D7 18.0%；均与原材料定义不同。</td><td>原说法仍不能作为当前成果。</td></tr>
+        <tr data-state="confirmed"><td>外部入口带来服务激活</td><td>1,891 / 2,556 = 74.0%</td><td>截至 2026-09-03 14:50；绑定时新注册 2,024、已有账号 532。新用户激活 71.3%，老用户 84.0%。</td><td>支持千问绑定→小顾使用；不可外推全平台，更不等于投资转化。</td></tr>
+        <tr data-state="confirmed"><td>买方投顾体验更优</td><td>盈利面 +11.81pp</td><td>投顾 81.93% vs 自助 70.12%；同时回撤、波动更低。</td><td>支持投顾价值相关性；不支持 AI 因果。</td></tr>
+        <tr data-state="missing"><td>顾问报告 1→5 / 转化 15%→30%</td><td>缺样本与同期对照</td><td>案例说法未提供基线一致性、客户结构和后台日志。</td><td>只能当待复核线索。</td></tr>
+        <tr data-state="missing"><td>长期陪伴减少恐慌赎回</td><td>服务—动作—结果未串联</td><td>需定义波动事件、合格用户、服务暴露、采纳、7/30 日交易结果。</td><td>当前不能成立。</td></tr>
+        <tr data-state="target"><td>月度可归因成功服务任务</td><td>建议北极星</td><td>合格任务完成且有可验证结果，关联渠道、授权、人工与后续动作。</td><td>可统一产品与经营激励。</td></tr>
+      </tbody></table></div>
+    </div></section>
+
+    <section class="section" id="metric"><div class="wrap">
+      <div class="section-head"><div><div class="kicker">07 · METRIC TREE</div><h2>把北极星从对话量换掉</h2></div><p class="section-intro">一个统一任务主键贯穿入口、服务、动作、结果和责任。只有这样，用户转化率、服务转化率与顾问运营提升才可复算。</p></div>
+      <div class="tree"><div class="tree-root">北极星：月度可归因成功服务任务数</div><div class="tree-branches">
+        <div class="branch"><b>触达 × 服务</b><small>启动 UV、有效提问、合格任务、完成率、降级率、人工升级率</small></div>
+        <div class="branch"><b>个性化 × 陪伴</b><small>上下文使用率、结论差异率、D7/D30 复用、主动提醒采纳</small></div>
+        <div class="branch"><b>行动 × 结果</b><small>诊断/规划/订阅完成、赎回、定投中断、净入金、AUM 与满意</small></div>
+        <div class="branch"><b>顾问 × 信任</b><small>交付时长、一次通过、覆盖、后续动作、适当性、投诉与合规</small></div>
+      </div></div>
+      <div class="callout"><strong>分母纪律</strong><span>用户转化率 = 完成目标经营动作的合格用户 / 到达对应阶段的合格用户；服务转化率 = 完成成功服务任务的用户 / 发起合格服务任务的用户。两者不能用启动 UV、调用量或页面曝光代替。</span></div>
+    </div></section>
+
+    <section class="section alt" id="plan"><div class="wrap">
+      <div class="section-head"><div><div class="kicker">08 · 90-DAY PLAN</div><h2>90 天让价值真正可证</h2></div><p class="section-intro">先把三条高价值任务做深、测透，再扩功能。每项都有可验收产物，不以“上线”作为完成。</p></div>
+      <div class="roadmap">
+        <div class="road"><div class="when">D0–15</div><div class="title">统一任务事件链</div><div class="detail">建立 service_task_id，连接入口、会话、工具、卡片、动作、结果、渠道与人工责任。</div><div class="accept">验收：任一任务可回放</div></div>
+        <div class="road"><div class="when">D0–30</div><div class="title">三条黄金任务</div><div class="detail">月度账户复盘、组合诊断与行动建议、市场波动安抚与定投决策。</div><div class="accept">验收：分母与完成事件固定</div></div>
+        <div class="road"><div class="when">D15–45</div><div class="title">个性化审计</div><div class="detail">记录每次结论使用的账户、持仓、风险、目标和记忆字段，以及对结果的实际影响。</div><div class="accept">验收：上下文覆盖可算</div></div>
+        <div class="road"><div class="when">D30–75</div><div class="title">分层灰度 / 准实验</div><div class="detail">同类用户比较是否获得服务后的赎回、定投中断、复用与净入金，控制历史差异。</div><div class="accept">验收：效果量 + 置信区间</div></div>
+        <div class="road"><div class="when">D30–75</div><div class="title">顾问运营自动取证</div><div class="detail">后台记录制作时长、修订、一次通过、发送、回访、开户/入金和后续动作。</div><div class="accept">验收：同顾问同客群对照</div></div>
+        <div class="road"><div class="when">D76–90</div><div class="title">经营看板与复盘</div><div class="detail">按触达—服务—行动—结果—信任发布统一看板，口径版本与刷新时间可追溯。</div><div class="accept">验收：指标可复算、可归因</div></div>
+      </div>
+    </div></section>
+  </main>
+
+  <footer class="foot"><div class="wrap foot-grid"><div><div class="eyebrow">CLAIR · EVIDENCE BEFORE CLAIM</div><h2>最终要证明的不是“AI 做了很多”，而是“更多用户因此获得了更好的长期投资结果”。</h2><p>公开版只保留聚合与方法，不含用户标识、原始对话、个人账户金额、内部地址或凭证。不同截止日、主体和分母的数字不拼成伪增长曲线。</p></div><aside class="stamp"><b>数据版本 · 2026-09-03</b><span>来源：盈米本体生产查询、且慢小顾生产交叉测试、千问用户数据看板、投顾价值生产分组、OAP 同口径聚合。页面中的目标与推断均已单独标注。</span></aside></div></footer>
+
+  <script>
+    const buttons=[...document.querySelectorAll('[data-filter]')];
+    const rows=[...document.querySelectorAll('tbody tr[data-state]')];
+    buttons.forEach(button=>button.addEventListener('click',()=>{
+      buttons.forEach(item=>item.classList.toggle('active',item===button));
+      const filter=button.dataset.filter;
+      rows.forEach(row=>row.classList.toggle('hidden',filter!=='all'&&row.dataset.state!==filter));
+    }));
+  </script>
+</body>
+</html>

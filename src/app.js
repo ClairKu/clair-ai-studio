@@ -138,6 +138,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "xiaogu-buyer-advisor-evidence-2026-09-03",
+      groupId: "xiaogu",
+      title: "AI 小顾如何 AI 赋能买方投顾｜生产证据与经营验证",
+      url: "https://clairku.github.io/clair-ai-studio/reports/xiaogu-buyer-advisor-evidence-2026-09-03/",
+      preview: "xiaogu-buyer-advisor-evidence-2026-09-03.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-03T21:30:00.000+08:00",
+      source: "盈米本体生产查询 × 且慢小顾历史生产事件 × 2026-08-13 卡片交叉测试 × 千问渠道绑定与经营快照 × 自助基金交易 CA / 投顾策略 CA 五维对比 × OAP 最新同口径聚合｜核心判断：服务生产与交付能力已被验证，买方投顾价值有生产数据支持，但 AI 对留存、交易、AUM 与顾问转化的净增量仍缺统一任务—动作—结果归因链｜逐项审计 34% 使用、50% 周重复、14% 交易转化、1→5 份报告、15%→30% 转化等材料口径｜含六类赋能、证据账本、指标树与 90 天补数方案｜公开脱敏单页 HTML｜生产",
+      access: "production",
+      workType: "reporting",
+      tags: ["AI 小顾", "买方投顾", "投顾服务", "用户痛点", "千人千面", "长期陪伴", "账户分析", "投后服务", "顾问运营", "用户转化", "服务转化", "本体", "数据分析", "证据治理", "CLAIR", "HTML", "生产"],
+    },
+    {
       id: "ai-xiaogu-impact-evolution-2026-09-03",
       groupId: "xiaogu",
       title: "AI小顾｜从有人使用到问题闭环：四阶段经营演进图",
