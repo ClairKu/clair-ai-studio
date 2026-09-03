@@ -84,6 +84,20 @@
       "public_outcome": "预览页已提交合并申请，待合并上线。",
       "evidence_level": "已提交",
       "demand_key": "feat/vip-wealth-report-preview"
+    },
+    {
+      "id": "R12",
+      "person_id": "P06",
+      "person_display": "金星",
+      "submitted_at": "2026-08-31",
+      "status": "released",
+      "category": "important",
+      "priority": "P1",
+      "public_title": "保险新品落地页",
+      "pain_category": "两款保险新品缺少落地页，购买路径不完整",
+      "public_outcome": "众民保/长相安5号落地页已上线，体验对齐护多多。",
+      "evidence_level": "已上线",
+      "demand_key": "f/insurance/prod-landing"
     }
   ],
   "briefs": {
@@ -93,6 +107,7 @@
     "feat/article-image-preview": "文章图片支持点击查看大图与缩放（含 3 项验证期兼容修复）",
     "feature/m4-pc-wide-layout": "投顾页 PC 宽屏自由布局（解除限宽，含 Safari 广告位修复）",
     "feat/vip-wealth-report-preview": "VIP 财富报告 PC 预览页",
-    "manual/article-table-scroll": "文章宽表格移动端横向滑动（内容服务·人工补录）"
+    "manual/article-table-scroll": "文章宽表格移动端横向滑动（内容服务·人工补录）",
+    "f/insurance/prod-landing": "保险新品落地页：众民保/长相安5号（体验对齐护多多）"
   }
 }

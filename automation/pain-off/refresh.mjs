@@ -46,6 +46,16 @@ async function main() {
     console.log(`  ${person.display_name.padEnd(4, "　")} 提交 ${person.submitted} · 上线 ${person.released}`);
   }
 
+  // 新需求会以哈希占位出现在公开页面上——缺简述就在这里点名，提醒去 curated-records.json 补一句。
+  const noBrief = (snapshot.demands || []).filter((d) => !d.brief);
+  if (noBrief.length) {
+    console.warn(
+      `\n⚠️ ${noBrief.length} 个需求缺「需求简述」，页面上会显示成哈希占位：` +
+        noBrief.map((d) => `\n   - ${d.id}（${snapshot.people.find((p) => p.id === d.person_id)?.display_name || d.person_id}）` +
+          `→ 到 automation/pain-off/config/curated-records.json 的 briefs 里补一句（key 见本机 state/detail.json）`).join(""),
+    );
+  }
+
   if (dryRun) {
     console.log("\n--dry-run：未写盘。");
     return;

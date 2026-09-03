@@ -3,9 +3,9 @@ window.DEMAND_PULSE_DATA = {
   "meta": {
     "contract_version": "gitlab-mr-v1",
     "source_of_truth": "GitLab merge requests",
-    "generated_at": "2026-09-03T06:53:18.972Z",
-    "cutoff": "2026-09-03T06:53:18.972Z",
-    "last_change_at": "2026-09-03T06:53:18.972Z",
+    "generated_at": "2026-09-03T07:16:45.441Z",
+    "cutoff": "2026-09-03T07:16:45.441Z",
+    "last_change_at": "2026-09-03T07:16:45.441Z",
     "stale_after_minutes": 180,
     "headline": "7 个已提交，5 个已上线，4 位 PM 完成端到端交付。",
     "window_start": "2026-07-01T00:00:00+08:00",
@@ -312,7 +312,7 @@ window.DEMAND_PULSE_DATA = {
     {
       "id": "0ee3d76f35",
       "person_id": "P06",
-      "brief": null,
+      "brief": "保险新品落地页：众民保/长相安5号（体验对齐护多多）",
       "scopes": [
         "前端",
         "服务端"
@@ -468,6 +468,21 @@ window.DEMAND_PULSE_DATA = {
       "evidence_level": "已提交",
       "in_scope": true,
       "released_at": null
+    },
+    {
+      "id": "R12",
+      "person_id": "P06",
+      "person_display": "金星",
+      "submitted_at": "2026-08-31",
+      "status": "released",
+      "category": "important",
+      "priority": "P1",
+      "public_title": "保险新品落地页",
+      "pain_category": "两款保险新品缺少落地页，购买路径不完整",
+      "public_outcome": "众民保/长相安5号落地页已上线，体验对齐护多多。",
+      "evidence_level": "已上线",
+      "in_scope": true,
+      "released_at": "2026-09-02"
     }
   ],
   "criteria": {
