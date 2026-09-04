@@ -22,6 +22,13 @@ import {
   formatBytes,
   packReportArchive,
 } from "./single-file-archive.js";
+import {
+  clearReportDisposition,
+  normalizedReportUrl as normalizedUrl,
+  reportDisposition,
+  seedLegacyArchiveDispositions,
+  setReportDisposition,
+} from "./report-dispositions.js";
 
 const STORAGE_KEY = "clair-service-report-workbench-v1";
 const VIEW_KEY = "clair-service-report-workbench-view";
@@ -30,7 +37,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 67;
+const DATA_VERSION = 68;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -85,6 +92,7 @@ const UI_ICONS = {
 
 const initialState = {
   version: DATA_VERSION,
+  reportDispositions: [],
   groups: [
     {
       id: "xiaogu",
@@ -2166,20 +2174,6 @@ function saveReportOrder() {
   localStorage.setItem(REPORT_ORDER_KEY, JSON.stringify(reportOrder));
 }
 
-function normalizedUrl(value = "") {
-  try {
-    const parsed = new URL(value);
-    parsed.hash = "";
-    parsed.search = "";
-    const pathname = decodeURI(parsed.pathname)
-      .replace(/\/index\.html$/, "/")
-      .replace(/\/+$/, "/");
-    return `${parsed.origin}${pathname}`;
-  } catch {
-    return String(value).trim().replace(/\/+$/, "/");
-  }
-}
-
 function loadState() {
   try {
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
@@ -2194,6 +2188,10 @@ function loadState() {
 
 function migrateState(saved) {
   const catalog = clone(initialState);
+  const reportDispositions = seedLegacyArchiveDispositions(
+    saved.reportDispositions,
+    saved.reports,
+  );
   const catalogGroupIds = new Set(catalog.groups.map((group) => group.id));
   const oldDefaultIds = new Set(["inbox", "today", "product", "research"]);
   const savedGroupsById = new Map(saved.groups.map((group) => [group.id, group]));
@@ -2262,8 +2260,14 @@ function migrateState(saved) {
     const refreshCatalogMetadata = report.id === "qieman-xiaogu-service-card-landscape-2026-08-13";
     catalogUrls.add(reportUrl);
     catalogReportIds.add(report.id);
+    const disposition = reportDisposition(reportDispositions, report);
+    if (disposition?.status === "deleted") return null;
     const savedReport = savedById.get(report.id) || savedByUrl.get(reportUrl);
-    if (!savedReport) return report;
+    if (!savedReport) {
+      return disposition?.status === "archived"
+        ? { ...report, archived: true, archivedAt: disposition.changedAt || "" }
+        : report;
+    }
     return {
       ...report,
       title: refreshCatalogMetadata
@@ -2290,12 +2294,15 @@ function migrateState(saved) {
       position: Number.isFinite(savedReport.position)
         ? savedReport.position
         : report.position,
-      archived: Boolean(savedReport.archived),
-      archivedAt: savedReport.archivedAt || "",
+      archived: disposition?.status === "archived" || Boolean(savedReport.archived),
+      archivedAt: disposition?.status === "archived"
+        ? disposition.changedAt || savedReport.archivedAt || ""
+        : savedReport.archivedAt || "",
     };
-  });
+  }).filter(Boolean);
   normalizedSavedReports.forEach((report) => {
     const reportUrl = normalizedUrl(report.url);
+    if (reportDisposition(reportDispositions, report)?.status === "deleted") return;
     if (catalogReportIds.has(report.id) || (reportUrl && catalogUrls.has(reportUrl))) {
       return;
     }
@@ -2305,6 +2312,7 @@ function migrateState(saved) {
   });
   const migrated = {
     version: DATA_VERSION,
+    reportDispositions,
     groups: uniqueGroups,
     reports,
   };
@@ -2584,11 +2592,14 @@ async function saveIntakeToLibrary({ material, files }, onProgress = () => {}) {
   report.position = state.reports.filter((item) =>
     !item.archived && item.groupId === report.groupId).length;
 
+  const beforeDispositions = clone(state.reportDispositions || []);
+  state.reportDispositions = clearReportDisposition(state.reportDispositions, report);
   state.reports.push(report);
   try {
     saveState();
   } catch {
     state.reports.pop();
+    state.reportDispositions = beforeDispositions;
     await deleteStoredFilesForReport(report.id);
     return {
       rejected: true,
@@ -5106,9 +5117,16 @@ function bindApp() {
         const report = state.reports.find((item) => item.id === itemId);
         if (!report) return;
         const beforeReport = clone(report);
+        const beforeDispositions = clone(state.reportDispositions || []);
         const snapshot = adjacentReportSnapshot(itemId, actionCard);
         report.archived = true;
         report.archivedAt = new Date().toISOString();
+        state.reportDispositions = setReportDisposition(
+          state.reportDispositions,
+          report,
+          "archived",
+          report.archivedAt,
+        );
         saveState();
         if (normalizeSearchText(query)) renderWorkbenchWithViewportSnapshot(snapshot);
         else renderWithViewportSnapshot(snapshot);
@@ -5118,6 +5136,7 @@ function bindApp() {
           Object.assign(current, beforeReport);
           current.archived = Boolean(beforeReport.archived);
           current.archivedAt = beforeReport.archivedAt || "";
+          state.reportDispositions = beforeDispositions;
           saveState();
           if (normalizeSearchText(query)) {
             renderSearchAtCurrentScroll(() => reportElement(itemId));
@@ -5129,15 +5148,18 @@ function bindApp() {
         const report = state.reports.find((item) => item.id === itemId);
         if (!report) return;
         const beforeReport = clone(report);
+        const beforeDispositions = clone(state.reportDispositions || []);
         const snapshot = adjacentReportSnapshot(itemId);
         report.archived = false;
         report.archivedAt = "";
+        state.reportDispositions = clearReportDisposition(state.reportDispositions, report);
         saveState();
         renderWithViewportSnapshot(snapshot);
         showUndoToast("报告已恢复到原主题", () => {
           const current = state.reports.find((item) => item.id === itemId);
           if (!current) return;
           Object.assign(current, beforeReport);
+          state.reportDispositions = beforeDispositions;
           saveState();
           renderAtCurrentScroll(() => reportElement(itemId));
         });
@@ -5152,6 +5174,12 @@ function bindApp() {
       } else if (action === "confirm-delete") {
         const report = state.reports.find((item) => item.id === itemId);
         if (!report?.archived || modal?.type !== "delete-report") return;
+        state.reportDispositions = setReportDisposition(
+          state.reportDispositions,
+          report,
+          "deleted",
+          new Date().toISOString(),
+        );
         state.reports = state.reports.filter((item) => item.id !== itemId);
         if (readerId === itemId) readerId = "";
         saveState();
@@ -5611,6 +5639,7 @@ function bindApp() {
     if (modal.mode === "edit") {
       const report = state.reports.find((item) => item.id === modal.reportId);
       Object.assign(report, saveMetadata, { tags });
+      state.reportDispositions = clearReportDisposition(state.reportDispositions, report);
       touchReport(report);
     } else {
       const now = new Date().toISOString();
@@ -5626,6 +5655,7 @@ function bindApp() {
         archivedAt: "",
         tags,
       };
+      state.reportDispositions = clearReportDisposition(state.reportDispositions, newReport);
       state.reports.push(newReport);
     }
     saveState();

@@ -8,6 +8,7 @@ const fail = (message) => {
 };
 
 const appSource = read("src/app.js");
+const dispositionSource = read("src/report-dispositions.js");
 const editorSource = read("src/report-editor.js");
 const fileRendererSource = read("src/file-renderers.js");
 const fileTypesSource = read("src/file-types.js");
@@ -72,6 +73,11 @@ if (Object.keys(searchIndex).length < 40) {
 
 const requiredSignals = [
   [appSource, 'aria-label="搜索归档"', "归档搜索入口缺失"],
+  [appSource, "seedLegacyArchiveDispositions(", "旧版归档状态没有迁入独立账本"],
+  [appSource, 'disposition?.status === "deleted"', "永久删除后仍会被系统目录重新补回"],
+  [appSource, 'setReportDisposition(\n          state.reportDispositions,\n          report,\n          "archived"', "归档操作没有写入独立账本"],
+  [appSource, 'setReportDisposition(\n          state.reportDispositions,\n          report,\n          "deleted"', "永久删除操作没有写入墓碑标记"],
+  [dispositionSource, 'new Set(["archived", "deleted"])', "归档账本缺少状态约束"],
   [appSource, 'data-id="type">Type</button>', "分类按钮未使用英文"],
   [taskSource, 'placeholder="Set an idea in motion"', "统一输入缺少英文提示"],
   [taskSource, 'name: "Decide"', "统一输入操作未使用英文"],
