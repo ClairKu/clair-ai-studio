@@ -1,7 +1,4 @@
 const DATA_URL = "./data/latest.json";
-const LOCAL_REFRESH_BASE = "http://127.0.0.1:41792";
-const LOCAL_DATA_KEY = "clair-oap-qieman-dashboard-latest-v1";
-const LOCAL_HEADER = { "X-Clair-Dashboard": "oap-qieman-user-dashboard-v1" };
 const CONTRACT_REVISION = "segments-new-existing-2026-08-18";
 
 const number = new Intl.NumberFormat("zh-CN");
@@ -54,15 +51,6 @@ function escapeHtml(value) {
 function parseTime(value) {
   const timestamp = Date.parse(value || "");
   return Number.isFinite(timestamp) ? timestamp : 0;
-}
-
-function isNewerSnapshot(candidate, baseline) {
-  if (!candidate) return false;
-  if (!baseline) return true;
-  const candidateCutoff = parseTime(candidate.meta?.data_cutoff);
-  const baselineCutoff = parseTime(baseline.meta?.data_cutoff);
-  if (candidateCutoff !== baselineCutoff) return candidateCutoff > baselineCutoff;
-  return parseTime(candidate.meta?.generated_at) > parseTime(baseline.meta?.generated_at);
 }
 
 function approximately(left, right, tolerance = 0.0015) {
@@ -418,16 +406,6 @@ function validateData(data) {
   return data;
 }
 
-async function fetchWithTimeout(url, options = {}, timeoutMs = 2000) {
-  const controller = new AbortController();
-  const timer = window.setTimeout(() => controller.abort(), timeoutMs);
-  try {
-    return await fetch(url, { ...options, signal: controller.signal });
-  } finally {
-    window.clearTimeout(timer);
-  }
-}
-
 async function loadPublishedData(fresh = false) {
   try {
     const response = await fetch(`${DATA_URL}${fresh ? `?v=${Date.now()}` : ""}`, { cache: "no-store" });
@@ -437,14 +415,6 @@ async function loadPublishedData(fresh = false) {
     if (window.OAP_QIEMAN_DASHBOARD_DATA) return validateData(window.OAP_QIEMAN_DASHBOARD_DATA);
     throw error;
   }
-}
-
-function loadSavedLocalData() {
-  try { return validateData(JSON.parse(localStorage.getItem(LOCAL_DATA_KEY) || "null")); } catch { return null; }
-}
-
-function saveLocalData(data) {
-  try { localStorage.setItem(LOCAL_DATA_KEY, JSON.stringify(data)); } catch { /* optional cache */ }
 }
 
 function cohortById(id = selectedCohortId) {
@@ -1575,77 +1545,6 @@ function selectGrowthMode(mode) {
   renderDocument();
 }
 
-function delay(ms) { return new Promise((resolve) => window.setTimeout(resolve, ms)); }
-
-async function startLocalRefresh() {
-  const health = await fetchWithTimeout(`${LOCAL_REFRESH_BASE}/health`, { cache: "no-store", headers: LOCAL_HEADER }, 2000);
-  if (!health.ok) throw new Error("本机更新器未就绪");
-  const healthData = await health.json();
-  if (healthData.schema_version !== "oap-qieman-user-dashboard-v1" || healthData.contract_revision !== CONTRACT_REVISION) throw new Error("本机更新器版本不兼容");
-
-  const response = await fetchWithTimeout(`${LOCAL_REFRESH_BASE}/refresh`, {
-    method: "POST",
-    cache: "no-store",
-    headers: { ...LOCAL_HEADER, "Content-Type": "application/json" },
-    body: JSON.stringify({ action: "refresh" }),
-  }, 5000);
-  if (!response.ok) throw new Error(`本机更新器返回 ${response.status}`);
-  const started = await response.json();
-  if (!started.job_id) throw new Error("本机更新器没有返回任务编号");
-  setRefreshStatus(started.message || "本体查询已开始。", started.progress_url || "");
-
-  for (let attempt = 0; attempt < 1200; attempt += 1) {
-    await delay(2500);
-    const statusResponse = await fetchWithTimeout(`${LOCAL_REFRESH_BASE}/status?job=${encodeURIComponent(started.job_id)}&v=${Date.now()}`, {
-      cache: "no-store",
-      headers: LOCAL_HEADER,
-    }, 6000);
-    if (!statusResponse.ok) throw new Error(`查询状态返回 ${statusResponse.status}`);
-    const status = await statusResponse.json();
-    setRefreshStatus(status.message || "本体正在查询。", status.progress_url || "");
-    if (status.status === "completed") {
-      const refreshed = validateData(status.data);
-      saveLocalData(refreshed);
-      return refreshed;
-    }
-    if (status.status === "failed") throw new Error(status.message || "本体查询失败");
-  }
-  throw new Error("本体查询超过 15 分钟，请稍后重试");
-}
-
-async function refreshData() {
-  const button = $("#refresh-button");
-  if (button.disabled) return;
-  button.disabled = true;
-  button.classList.add("is-loading");
-  button.querySelector("span").textContent = "正在更新";
-  setFreshness("loading", "正在连接本体");
-  setRefreshStatus("正在连接 Clair Mac 上的本体更新器…");
-  try {
-    const refreshed = await startLocalRefresh();
-    render(refreshed, "local-live");
-    setRefreshStatus(`本体查询与校验完成，数据已更新至 ${formatDateTime(refreshed.meta.data_cutoff)}。`);
-    showToast("已换成最新脱敏生产聚合数据");
-  } catch (localError) {
-    try {
-      const published = await loadPublishedData(true);
-      const saved = loadSavedLocalData();
-      const newest = isNewerSnapshot(saved, published) ? saved : published;
-      render(newest, newest === saved ? "local-cache" : "published");
-      setRefreshStatus(`本机更新器未连接，已保留最近可用快照（截至 ${formatDateTime(newest.meta.data_cutoff)}）。`);
-      showToast("未连接本机更新器，已保留最近快照");
-    } catch {
-      setFreshness("error", "更新失败");
-      setRefreshStatus(`更新失败：${localError.message || "无法连接本体或读取快照"}`);
-      showToast("更新失败，请稍后再试");
-    }
-  } finally {
-    button.disabled = false;
-    button.classList.remove("is-loading");
-    button.querySelector("span").textContent = "更新数据";
-  }
-}
-
 function setDocumentOpen(open) {
   const panel = $("#doc-panel");
   const overlay = $("#doc-overlay");
@@ -1659,7 +1558,6 @@ function setDocumentOpen(open) {
 }
 
 function bindInteractions() {
-  $("#refresh-button").addEventListener("click", refreshData);
   document.querySelectorAll("[data-behavior-mode]").forEach((button) => button.addEventListener("click", () => selectBehaviorMode(button.dataset.behaviorMode)));
   document.querySelectorAll("[data-growth-mode]").forEach((button) => button.addEventListener("click", () => selectGrowthMode(button.dataset.growthMode)));
   $("#doc-fab").addEventListener("click", () => setDocumentOpen(true));
@@ -1684,15 +1582,11 @@ async function init() {
   setFreshness("loading", "正在读取数据");
   try {
     const published = await loadPublishedData();
-    const saved = loadSavedLocalData();
-    const newest = isNewerSnapshot(saved, published) ? saved : published;
-    render(newest, newest === saved ? "local-cache" : "published");
-    setRefreshStatus(newest === saved
-      ? `当前展示这台 Mac 上次本体查询结果，数据截至 ${formatDateTime(newest.meta.data_cutoff)}。`
-      : `当前展示最近发布快照，数据截至 ${formatDateTime(newest.meta.data_cutoff)}。`);
+    render(published, "published");
+    setRefreshStatus(`当前展示最近发布快照，数据截至 ${formatDateTime(published.meta.data_cutoff)}。`);
   } catch (error) {
     setFreshness("error", "数据读取失败");
-    setRefreshStatus(`数据读取失败：${error.message || "请点击更新数据重试"}`);
+    setRefreshStatus(`数据读取失败：${error.message || "请刷新页面重试"}`);
   }
 }
 

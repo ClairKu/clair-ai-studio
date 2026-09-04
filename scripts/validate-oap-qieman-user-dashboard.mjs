@@ -400,7 +400,7 @@ if (forbidden.test(publicText)) fail("公开快照包含内部标识、PII 或�
 if (publicText.length > 150000) fail("公开快照异常过大");
 
 for (const signal of [
-  'id="refresh-button"',
+  'id="refresh-status"',
   'id="cohort-ladder"',
   'id="growth-summary"',
   'id="growth-trend"',
@@ -421,8 +421,12 @@ for (const signal of [
 for (const term of ["批准用户", "历史调用用户", "近30日活跃用户", "新注册用户", "首次入金用户", "资金流入", "净入金", "且慢持仓", "参与率", "画像覆盖率", "平台服务", "confirmed", "partial", "missing", "suppressed"]) {
   if (!html.includes(term)) fail(`搜索索引稳定文本缺少 ${term}`);
 }
-for (const signal of ["LOCAL_REFRESH_BASE", "127.0.0.1:41792", "validateData", "validateGrowth", "isNewerSnapshot", "startLocalRefresh", "selectCohort", "selectSegment", "selectGrowthMode", "renderGrowth", "renderCompare", "renderServices", "renderTitles", "selectBehaviorMode", "buildDocument"]) {
+for (const signal of ["validateData", "validateGrowth", "selectCohort", "selectSegment", "selectGrowthMode", "renderGrowth", "renderCompare", "renderServices", "renderTitles", "selectBehaviorMode", "buildDocument"]) {
   if (!app.includes(signal)) fail(`交互缺少 ${signal}`);
+}
+// 2026-09-04 起本机一键更新链路已移除（127.0.0.1:41792 服务从未存在），页面只读已发布快照
+for (const gone of ["LOCAL_REFRESH_BASE", "127.0.0.1", "localStorage", "startLocalRefresh"]) {
+  if (app.includes(gone)) fail(`死链路残留 ${gone}`);
 }
 for (const signal of ["@media (max-width: 680px)", "prefers-reduced-motion", "@media print", ".doc-panel", ".signal-bridge", ".growth-bridge", ".growth-trend", ".growth-funnel", ".segment-switch", ".compare-table", ".service-row"]) {
   if (!css.includes(signal)) fail(`样式缺少 ${signal}`);

@@ -5,7 +5,7 @@
     <script data-clair-access-gate data-clair-access-scope="report" src="../../access-gate.js"></script>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="OAP 用户的新老结构（且慢注册早于/晚于 OAP 批准），以及新老用户分别的且慢资产、入金、投资行为与平台服务使用，脱敏聚合，支持本机一键更新。" />
+  <meta name="description" content="OAP 用户的新老结构（且慢注册早于/晚于 OAP 批准），以及新老用户分别的且慢资产、入金、投资行为与平台服务使用，脱敏聚合，内网校验后随构建发布。" />
   <meta name="theme-color" content="#071922" />
   <title>OAP 用户新老结构 × 且慢资产、入金、行为与服务使用</title>
   <link rel="stylesheet" href="./styles.css" />
@@ -21,10 +21,6 @@
     </a>
     <div class="topbar-actions">
       <span class="freshness" id="freshness"><i aria-hidden="true"></i><span>正在读取数据</span></span>
-      <button class="refresh-button" id="refresh-button" type="button">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"></path><path d="M20 5v6h-6"></path></svg>
-        <span>更新数据</span>
-      </button>
     </div>
   </header>
 
@@ -326,11 +322,11 @@
 
     <section class="refresh-explainer shell" aria-labelledby="refresh-title">
       <div>
-        <p class="eyebrow">一键更新 · 5 步只读链路</p>
-        <h2 id="refresh-title">更新机制：按钮查本体，网页只接收脱敏聚合</h2>
+        <p class="eyebrow">数据发布机制</p>
+        <h2 id="refresh-title">更新机制：内网取数校验后发布，网页只接收脱敏聚合</h2>
       </div>
-      <div class="refresh-flow" aria-label="更新数据链路"><span>更新数据</span><i>→</i><span>本机只读更新器</span><i>→</i><span>盈米本体</span><i>→</i><span>结构与隐私校验</span><i>→</i><span>看板换数</span></div>
-      <p>在 Clair 的 Mac 上，按钮调用仅监听本机的固定查询；浏览器不能提交 SQL。任一关键闭合失败会保留上一版快照。其他设备只读取最近发布的脱敏汇总，数据库凭证和用户明细不会进入网页。</p>
+      <div class="refresh-flow" aria-label="数据发布链路"><span>内网取数</span><i>→</i><span>结构与隐私校验</span><i>→</i><span>发布快照</span><i>→</i><span>看板展示</span></div>
+      <p>数据在内网取数并通过结构与隐私校验后随构建发布；浏览器只读取最近发布的脱敏汇总，数据库凭证和用户明细不会进入网页。</p>
       <div class="refresh-status" id="refresh-status" role="status" aria-live="polite">当前展示最近发布快照。</div>
     </section>
   </main>
