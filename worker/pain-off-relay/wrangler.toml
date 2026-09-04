@@ -1,12 +1,7 @@
 name = "pain-off-relay"
 main = "src/index.ts"
-compatibility_date = "2026-08-25"
-compatibility_flags = ["nodejs_compat"]
+compatibility_date = "2026-08-01"
 workers_dev = true
-
-[observability]
-enabled = true
-head_sampling_rate = 1
 
 # 建 KV：wrangler kv namespace create PAIN_OFF —— 把返回的 id 填到下面
 [[kv_namespaces]]
