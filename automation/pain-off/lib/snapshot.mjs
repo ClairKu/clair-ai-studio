@@ -14,6 +14,35 @@ function headline(summary) {
 }
 
 /**
+ * 人工补录：需求真实存在、但代码仓库对取数账号不可见时的例外通道（rules.demand_key.manual_demands）。
+ * 每条必须带 evidence 核验依据；根治是给取数账号开仓库权限后移回自动口径。
+ */
+export function applyManualDemands({ rules, demandsByPerson, allDemands }) {
+  for (const manual of rules.demand_key?.manual_demands || []) {
+    if (!manual.key || !manual.person_id) continue;
+    const demand = {
+      key: manual.key,
+      branch_pairs: [],
+      scopes: manual.scopes || ["人工补录"],
+      source_branch: manual.key,
+      author_username: null,
+      person_id: manual.person_id,
+      submitted_at: manual.submitted_at || null,
+      released_at: manual.released_at || null,
+      status: manual.status || "submitted",
+      mr_count: 0,
+      release_mr_url: null,
+      jira_keys: manual.jira_keys || [],
+      mrs: [],
+    };
+    const list = demandsByPerson.get(manual.person_id) || [];
+    list.push(demand);
+    demandsByPerson.set(manual.person_id, list);
+    allDemands.push(demand);
+  }
+}
+
+/**
  * 跑一次完整取数：GitLab → 需求折叠 → 按人汇总 → 生成公网快照 + 本机明细。
  * 返回 { snapshot, detail, delta }。snapshot 可以直接发公网，detail 不可以。
  */
@@ -52,30 +81,7 @@ export async function buildSnapshot({
     allDemands.push(...demands);
   }
 
-  // 人工补录：需求真实存在、但代码仓库对取数账号不可见时的例外通道（rules.demand_key.manual_demands）。
-  // 每条必须带 evidence 核验依据；根治是给取数账号开仓库权限后移回自动口径。
-  for (const manual of rules.demand_key?.manual_demands || []) {
-    if (!manual.key || !manual.person_id) continue;
-    const demand = {
-      key: manual.key,
-      branch_pairs: [],
-      scopes: manual.scopes || ["人工补录"],
-      source_branch: manual.key,
-      author_username: null,
-      person_id: manual.person_id,
-      submitted_at: manual.submitted_at || null,
-      released_at: manual.released_at || null,
-      status: manual.status || "submitted",
-      mr_count: 0,
-      release_mr_url: null,
-      jira_keys: manual.jira_keys || [],
-      mrs: [],
-    };
-    const list = demandsByPerson.get(manual.person_id) || [];
-    list.push(demand);
-    demandsByPerson.set(manual.person_id, list);
-    allDemands.push(demand);
-  }
+  applyManualDemands({ rules, demandsByPerson, allDemands });
 
   // 上线补捞：生产合并常由工程师代合，按作者取数看不见。对每个还没判上线的需求，
   // 按「项目 + 需求分支」查任意作者的已合并 MR，命中生产主干就升级为已上线。

@@ -60,17 +60,29 @@ test("已核验历史基线可补齐尚未刷新到新口径的中继快照", as
 });
 
 test("嘉鸿与家亮已确认上线的历史需求保留在正式统计中", async () => {
+  // 人工核验口径：R1/R3/R4 已上线（8·12 核验，research/product-demand-pulse-2026-08-12.md）；
+  // R2 经 refs 核验未进 master（e527b48），如实计 merged——它上线与否交给每日自动刷新判定，
+  // 这里只守「已核验上线的历史需求不丢、不降级」，不把未上线的硬写成上线。
   const data = JSON.parse(await read(`${REPORT}/data/latest.json`));
   const jiahong = data.people.find((person) => person.display_name === "嘉鸿");
   const jialiang = data.people.find((person) => person.display_name === "家亮");
+  const r1 = data.records.find((record) => record.id === "R1");
   const r2 = data.records.find((record) => record.id === "R2");
+  const r3 = data.records.find((record) => record.id === "R3");
   const r4 = data.records.find((record) => record.id === "R4");
 
-  assert.deepEqual([jiahong.submitted, jiahong.released], [2, 2]);
-  assert.deepEqual([jialiang.submitted, jialiang.released], [2, 2]);
-  assert.equal(r2.status, "released");
-  assert.equal(r4.in_scope, true);
+  assert.equal(r1.status, "released");
+  assert.ok(jiahong.released >= 1);
+  assert.equal(jiahong.end_to_end, true);
+
+  assert.ok(jialiang.released >= 2, "家亮两条已核验上线需求（R3 自动取数 + R4 人工补录）都要计入");
+  assert.equal(r3.status, "released");
+  assert.equal(r4.in_scope, true, "R4 人工补录需求必须挂上口径内需求，不许因刷新掉出统计");
   assert.equal(r4.status, "released");
+
+  // R2 仍在正式统计里（in_scope），且没上线就不许留 released_at。
+  assert.equal(r2.in_scope, true);
+  if (r2.status !== "released") assert.equal(r2.released_at, null);
 });
 
 test("取数口径与链接暴露策略都写在配置里，不散落在脚本中", async () => {
