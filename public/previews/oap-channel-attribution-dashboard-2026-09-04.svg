@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <rect width="1200" height="675" fill="#f3f0e8"/>
+  <circle cx="115" cy="90" r="220" fill="#d9ed86" opacity=".72"/>
+  <circle cx="1110" cy="620" r="230" fill="#bfe4cf" opacity=".8"/>
+  <rect x="70" y="58" width="44" height="44" rx="14" fill="#101a17"/>
+  <text x="92" y="88" fill="#d9ed86" text-anchor="middle" font-family="Georgia" font-size="20" font-weight="700">O</text>
+  <text x="132" y="86" fill="#101a17" font-family="Arial, PingFang SC" font-size="19" font-weight="700">OAP 渠道雷达</text>
+  <text x="70" y="181" fill="#1d7a55" font-family="Arial" font-size="15" font-weight="700" letter-spacing="3">CHANNEL ATTRIBUTION</text>
+  <text x="70" y="263" fill="#101a17" font-family="Georgia, Songti SC" font-size="68" font-weight="700">用户从哪里来，</text>
+  <text x="70" y="337" fill="#1d7a55" font-family="Georgia, Songti SC" font-size="68" font-weight="700">不能只看调用量。</text>
+  <rect x="70" y="401" width="1060" height="188" rx="30" fill="#101a17"/>
+  <text x="105" y="449" fill="#b7c4bd" font-family="Arial, PingFang SC" font-size="16">近 30 日平台调用结构</text>
+  <text x="105" y="523" fill="#d9ed86" font-family="Georgia" font-size="58" font-weight="700">74.5%</text>
+  <text x="290" y="502" fill="#ffffff" font-family="Arial, PingFang SC" font-size="22" font-weight="700">千问是调用主力</text>
+  <text x="290" y="535" fill="#9eaaa4" font-family="Arial, PingFang SC" font-size="15">豆包用户可数 · WorkBuddy 暂不可识别 · 全平台长尾已纳入</text>
+  <rect x="775" y="463" width="300" height="16" rx="8" fill="#2b3833"/>
+  <rect x="775" y="463" width="224" height="16" rx="8" fill="#d9ed86"/>
+  <rect x="775" y="502" width="300" height="16" rx="8" fill="#2b3833"/>
+  <rect x="775" y="502" width="75" height="16" rx="8" fill="#87928c"/>
+  <text x="70" y="638" fill="#5d6b65" font-family="Arial, PingFang SC" font-size="14">OAuth 用户 × API Key × 成功调用｜生产聚合｜证据分层</text>
+</svg>

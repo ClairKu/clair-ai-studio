@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="OAP 全平台渠道归因看板：区分用户授权、API Key 与调用量，识别千问、豆包、WorkBuddy 及其他平台。" />
+  <meta name="theme-color" content="#101a17" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>OAP 全平台渠道归因看板</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <a class="skip" href="#main">跳到主要内容</a>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="返回顶部"><span>O</span><b>OAP 渠道雷达</b></a>
+    <nav aria-label="页面导航">
+      <a href="#answer">答案</a><a href="#platforms">平台</a><a href="#trend">趋势</a><a href="#identity">口径</a><a href="#actions">补数</a>
+    </nav>
+    <p id="freshness">读取生产聚合…</p>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="hero-copy">
+        <p class="eyebrow">OAP · CHANNEL ATTRIBUTION · LIVE AGGREGATE</p>
+        <h1>用户从哪里来，<br /><em>不能只看调用量。</em></h1>
+        <p class="lead">把 OAuth 授权用户、API Key 和成功调用拆开，盘清千问、豆包、WorkBuddy 及其他平台；看得见的给数，看不见的明确标成数据缺口。</p>
+        <div class="hero-meta"><span>生产库只读聚合</span><span>滚动近 30 日</span><span id="cutoff">—</span></div>
+      </div>
+      <aside class="hero-verdict" id="answer" aria-labelledby="verdict-title">
+        <span class="verdict-label">先说答案</span>
+        <h2 id="verdict-title">千问是调用主力，<br />豆包是可数用户入口，<br />WorkBuddy 目前不可识别。</h2>
+        <p id="verdict-copy">正在计算渠道贡献与归因覆盖。</p>
+        <div class="signal-row"><span><i class="signal qianwen"></i>千问</span><span><i class="signal doubao"></i>豆包</span><span><i class="signal missing"></i>归因缺口</span></div>
+      </aside>
+    </section>
+
+    <section class="shell kpis" aria-label="关键指标">
+      <article><span>近 30 日成功调用</span><strong id="kpi-calls">—</strong><small>计费成功口径</small></article>
+      <article><span>近 30 日活跃 Key</span><strong id="kpi-active-keys">—</strong><small>Key 不是自然人</small></article>
+      <article class="accent"><span>调用量可归因</span><strong id="kpi-call-coverage">—</strong><small>按 Key 名称 / 描述识别</small></article>
+      <article class="warning"><span>活跃 Key 可归因</span><strong id="kpi-key-coverage">—</strong><small>真实的归因短板</small></article>
+    </section>
+
+    <section class="shell diagnosis" aria-labelledby="diagnosis-title">
+      <div class="section-head">
+        <div><p class="eyebrow">THE REAL ANSWER</p><h2 id="diagnosis-title">三个指标，回答三个不同问题</h2></div>
+        <p>共享 Key 会放大调用量，OAuth 才能数授权用户；两者没有稳定映射时，不能硬凑一张“平台用户排行榜”。</p>
+      </div>
+      <div class="diagnosis-grid">
+        <article><b>01</b><h3>谁授权了？</h3><p>看 OAuth consent 的去重用户。适合回答豆包、SCRM 等已注册客户端带来多少可识别身份。</p><span>用户口径</span></article>
+        <article><b>02</b><h3>谁在调用？</h3><p>看近 30 日活跃 API Key。它可能属于个人，也可能是一家平台共享的机构 Key。</p><span>主体口径</span></article>
+        <article><b>03</b><h3>谁贡献流量？</h3><p>看成功调用量。适合衡量系统负载与平台使用强度，不等于用户规模。</p><span>流量口径</span></article>
+      </div>
+    </section>
+
+    <section class="shell focus-platforms" aria-labelledby="focus-title">
+      <div class="section-head">
+        <div><p class="eyebrow">FOCUS PLATFORMS</p><h2 id="focus-title">你关心的三个入口</h2></div>
+        <p>同一张卡只并列能证明的数字，不用调用量反推用户数。</p>
+      </div>
+      <div class="focus-grid" id="focus-grid"></div>
+    </section>
+
+    <section class="shell platform-section" id="platforms" aria-labelledby="platform-title">
+      <div class="section-head chart-head">
+        <div><p class="eyebrow">ALL DETECTABLE PLATFORMS</p><h2 id="platform-title">全平台贡献榜</h2></div>
+        <div class="metric-tabs" role="group" aria-label="切换平台指标">
+          <button class="active" data-metric="calls30d">30 日调用</button>
+          <button data-metric="activeKeys30d">活跃 Key</button>
+          <button data-metric="oauthUsers">OAuth 用户</button>
+        </div>
+      </div>
+      <p class="chart-context" id="platform-context">—</p>
+      <div class="bar-chart" id="platform-chart" aria-live="polite"></div>
+    </section>
+
+    <section class="shell trend-section" id="trend" aria-labelledby="trend-title">
+      <div class="section-head chart-head">
+        <div><p class="eyebrow">30-DAY SIGNAL</p><h2 id="trend-title">平台调用趋势</h2></div>
+        <div class="metric-tabs scale-tabs" role="group" aria-label="切换趋势图刻度">
+          <button class="active" data-scale="log">对数刻度</button><button data-scale="linear">线性刻度</button>
+        </div>
+      </div>
+      <div class="trend-legend"><span><i class="signal qianwen"></i>千问</span><span><i class="signal other"></i>其他已识别平台</span><span><i class="signal missing"></i>未归因</span></div>
+      <div class="trend-readout" id="trend-readout"><span>移动到图上查看单日读数</span></div>
+      <div class="trend-wrap"><svg id="trend-chart" viewBox="0 0 1080 430" role="img" aria-labelledby="trend-title trend-desc"><desc id="trend-desc">近三十日千问、其他已识别平台与未归因调用趋势。</desc></svg></div>
+      <p class="chart-note">对数刻度用于同时看清千问爆发与长尾平台；切到线性刻度可查看真实流量差距。最后一天为部分日。</p>
+    </section>
+
+    <section class="shell identity-section" id="identity" aria-labelledby="identity-title">
+      <div class="section-head">
+        <div><p class="eyebrow">IDENTITY ≠ PLATFORM</p><h2 id="identity-title">身份渠道和客户端平台，必须分层</h2></div>
+        <p>OAP 现在更擅长记录“从哪条身份通道授权”，不擅长记录“用户在哪个 AI 客户端发起”。</p>
+      </div>
+      <div class="identity-grid">
+        <article class="identity-panel">
+          <div class="panel-title"><span>A</span><div><h3>已注册 OAuth 客户端</h3><p id="oauth-summary">能直接证明客户端来源</p></div></div>
+          <div id="oauth-clients" class="data-list"></div>
+        </article>
+        <article class="identity-panel">
+          <div class="panel-title"><span>B</span><div><h3>OpenChannel 身份通道</h3><p id="open-channel-summary">能证明产品/身份路由，不等于平台</p></div></div>
+          <div id="open-channels" class="data-list"></div>
+        </article>
+      </div>
+      <div class="false-friend"><b>不要误用：</b><code>platform_type = 0008</code> 是且慢 broker 代码，不是千问、豆包或 WorkBuddy 的平台来源。把它当渠道字段，会让几乎所有申请都被误归到同一“平台”。</div>
+    </section>
+
+    <section class="shell actions" id="actions" aria-labelledby="actions-title">
+      <div class="section-head">
+        <div><p class="eyebrow">FIX THE MEASUREMENT</p><h2 id="actions-title">补一层归因，下一版才能真正数用户</h2></div>
+        <p>不需要重做全链路。把平台身份从“Key 名字里的文字”升级为服务端的标准字段即可。</p>
+      </div>
+      <div class="roadmap">
+        <article><span>P0 · 立即</span><h3>建客户端登记表</h3><p>每个 OAuth client / API Key 必须绑定 <code>client_surface</code>、<code>client_family</code>、<code>auth_mode</code>，历史 Key 批量回填。</p></article>
+        <article><span>P0 · 本周</span><h3>在调用明细落来源</h3><p>把不可变的 <code>client_surface_id</code> 写入 usage details；不要只信 User-Agent 或自由文本 Header。</p></article>
+        <article><span>P1 · 两周</span><h3>打通用户与调用</h3><p>OAuth 场景记录匿名 subject；共享 Key 场景至少记录平台侧匿名用户或会话，形成“平台→用户→调用”链。</p></article>
+      </div>
+      <div class="target-model" aria-label="目标归因链">
+        <span>客户端平台</span><i>→</i><span>授权主体</span><i>→</i><span>服务端 Client ID</span><i>→</i><span>API Key / Token</span><i>→</i><span>成功调用</span>
+      </div>
+    </section>
+
+    <section class="shell methodology" aria-labelledby="method-title">
+      <div><p class="eyebrow">EVIDENCE BOUNDARY</p><h2 id="method-title">证据与边界</h2></div>
+      <div class="method-grid" id="method-grid"></div>
+    </section>
+  </main>
+
+  <footer><span>OAP Channel Attribution Dashboard</span><span id="footer-time">—</span><span>公开脱敏聚合 · 不含用户明细、Key、Client ID 或凭证</span></footer>
+  <script src="./app.js" type="module"></script>
+</body>
+</html>

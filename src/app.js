@@ -37,7 +37,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 68;
+const DATA_VERSION = 69;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -578,6 +578,20 @@ const initialState = {
       access: "production",
       workType: "data-analysis",
       tags: ["OAP", "且慢", "新注册用户", "资产入账代理", "增长分析", "用户画像", "用户行为", "用户持仓", "AUM", "活跃用户", "交易行为", "数据分析", "数据看板", "本体", "一键更新", "证据边界", "公开脱敏", "HTML", "生产"],
+    },
+    {
+      id: "oap-channel-attribution-dashboard-2026-09-04",
+      groupId: "ai-platform",
+      title: "OAP 全平台渠道归因看板",
+      url: "https://clairku.github.io/clair-ai-studio/reports/oap-channel-attribution-dashboard-2026-09-04/",
+      preview: "oap-channel-attribution-dashboard-2026-09-04.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-04T16:00:00.000+08:00",
+      source: "OAP 生产库 Redash 只读聚合｜OAuth 授权用户 × API Key × 近 30 日成功调用三层拆分｜识别千问、豆包、Dify、Coze、Vesta、微信与已登记客户端，并明确 WorkBuddy / 未标注平台的观测缺口｜platform_type=0008 为且慢 broker 代码，不作为平台来源｜低于 5 人单元格脱敏，不含用户明细、Key、Client ID、请求 ID 或凭证",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["OAP", "渠道归因", "千问", "豆包", "WorkBuddy", "Dify", "Coze", "Vesta", "微信", "SCRM", "Cursor", "OAuth", "API Key", "调用量", "用户来源", "数据看板", "数据治理", "证据边界", "公开脱敏", "HTML", "生产"],
     },
     {
       id: "qianwen-user-acquisition-dashboard",
