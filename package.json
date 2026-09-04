@@ -9,6 +9,7 @@
     "package:reports": "node scripts/package-recent-reports.mjs",
     "install:pain-off-refresh": "node scripts/install-product-demand-pulse-refresh.mjs",
     "install:qianwen-refresh": "node scripts/install-qianwen-user-acquisition-refresh.mjs",
+    "dashboards:status": "node scripts/dashboards-status.mjs",
     "preview": "vite preview"
   },
   "devDependencies": {
