@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
-  <title id="title">豆包 × 且慢绑定用户数据看板预览</title>
-  <desc id="desc">深色首屏、五项核心指标、绑定增长曲线与价值漏斗。</desc>
+  <title id="title">豆包 × 且慢使用后转化看板预览</title>
+  <desc id="desc">深色首屏、授权与可使用人数、使用后开户绑卡风测首投和入金规模。</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#11131b"/><stop offset="1" stop-color="#1b1d2b"/></linearGradient>
     <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#ff3b73"/><stop offset=".55" stop-color="#7157ff"/><stop offset="1" stop-color="#20c7d9"/></linearGradient>
@@ -10,17 +10,17 @@
   <circle cx="1450" cy="50" r="330" fill="#7157ff" opacity=".18"/><circle cx="90" cy="830" r="260" fill="#20c7d9" opacity=".12"/>
   <g font-family="Inter,PingFang SC,sans-serif">
     <rect x="86" y="70" width="56" height="56" rx="18" fill="url(#accent)"/><text x="114" y="105" fill="white" font-size="18" font-weight="900" text-anchor="middle">D×且</text>
-    <text x="160" y="93" fill="#fff" font-size="22" font-weight="800">豆包 × 且慢</text><text x="160" y="117" fill="#9ca2b8" font-size="12" letter-spacing="3">ACCOUNT BINDING INTELLIGENCE</text>
-    <text x="86" y="202" fill="#84e6ef" font-size="14" font-weight="800" letter-spacing="4">DOUBAO OAUTH × QIEMAN USER VALUE</text>
-    <text x="86" y="278" fill="#fff" font-size="66" font-weight="900" letter-spacing="-4">绑定不是终点，</text><text x="86" y="350" fill="url(#accent)" font-size="66" font-weight="900" letter-spacing="-4">看用户有没有走向价值。</text>
-    <text x="90" y="397" fill="#b7bbcb" font-size="18">生产 OAuth 授权 × 且慢账号、资产与行为 · 聚合数据</text>
+    <text x="160" y="93" fill="#fff" font-size="22" font-weight="800">豆包 × 且慢</text><text x="160" y="117" fill="#9ca2b8" font-size="12" letter-spacing="3">POST-USE CONVERSION</text>
+    <text x="86" y="202" fill="#84e6ef" font-size="14" font-weight="800" letter-spacing="4">DOUBAO × QIEMAN POST-USE JOURNEY</text>
+    <text x="86" y="278" fill="#fff" font-size="66" font-weight="900" letter-spacing="-4">真正要看的，</text><text x="86" y="350" fill="url(#accent)" font-size="66" font-weight="900" letter-spacing="-4">是使用之后有没有转化。</text>
+    <text x="90" y="397" fill="#b7bbcb" font-size="18">授权 → 可使用 → 开户 / 绑卡 / 风测 / 首投 / 入金 · 聚合数据</text>
     <g filter="url(#shadow)">
-      <g transform="translate(86 455)"><rect width="250" height="150" rx="24" fill="#2a2030" stroke="#70405b"/><text x="24" y="34" fill="#b8bdcc" font-size="15">累计绑定用户</text><text x="24" y="94" fill="#fff" font-size="48" font-weight="900">341</text><text x="24" y="125" fill="#ff85aa" font-size="13">当前有效 341</text></g>
-      <g transform="translate(354 455)"><rect width="250" height="150" rx="24" fill="#20222e" stroke="#353846"/><text x="24" y="34" fill="#b8bdcc" font-size="15">绑定时新注册</text><text x="24" y="94" fill="#fff" font-size="48" font-weight="900">194</text><text x="24" y="125" fill="#9da3b8" font-size="13">56.9%</text></g>
-      <g transform="translate(622 455)"><rect width="250" height="150" rx="24" fill="#20222e" stroke="#353846"/><text x="24" y="34" fill="#b8bdcc" font-size="15">绑定时已有账号</text><text x="24" y="94" fill="#fff" font-size="48" font-weight="900">147</text><text x="24" y="125" fill="#9da3b8" font-size="13">43.1%</text></g>
+      <g transform="translate(86 455)"><rect width="250" height="150" rx="24" fill="#2a2030" stroke="#70405b"/><text x="24" y="34" fill="#b8bdcc" font-size="15">豆包授权用户</text><text x="24" y="94" fill="#fff" font-size="48" font-weight="900">341</text><text x="24" y="125" fill="#ff85aa" font-size="13">授权真实发生</text></g>
+      <g transform="translate(354 455)"><rect width="250" height="150" rx="24" fill="#20222e" stroke="#353846"/><text x="24" y="34" fill="#b8bdcc" font-size="15">使用代理用户</text><text x="24" y="94" fill="#fff" font-size="48" font-weight="900">334</text><text x="24" y="125" fill="#9da3b8" font-size="13">覆盖率 97.9%</text></g>
+      <g transform="translate(622 455)"><rect width="250" height="150" rx="24" fill="#20222e" stroke="#353846"/><text x="24" y="34" fill="#b8bdcc" font-size="15">使用后入金</text><text x="24" y="94" fill="#fff" font-size="48" font-weight="900">0.94万</text><text x="24" y="125" fill="#9da3b8" font-size="13">7 人</text></g>
     </g>
     <g transform="translate(930 432)"><rect width="570" height="310" rx="28" fill="#fff"/><text x="30" y="44" fill="#171923" font-size="19" font-weight="800">绑定增长走势</text><g stroke="#ececf2"><line x1="45" x2="535" y1="245" y2="245"/><line x1="45" x2="535" y1="180" y2="180"/><line x1="45" x2="535" y1="115" y2="115"/></g><g fill="#b8b0ff"><rect x="62" y="235" width="30" height="10" rx="4"/><rect x="118" y="198" width="30" height="47" rx="4"/><rect x="174" y="197" width="30" height="48" rx="4"/><rect x="230" y="154" width="30" height="91" rx="4"/><rect x="286" y="156" width="30" height="89" rx="4"/><rect x="342" y="178" width="30" height="67" rx="4"/><rect x="398" y="189" width="30" height="56" rx="4"/><rect x="454" y="141" width="30" height="104" rx="4"/><rect x="510" y="189" width="30" height="56" rx="4"/></g><polyline points="77,240 133,225 189,211 245,181 301,153 357,132 413,114 469,82 525,65" fill="none" stroke="#171923" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><g fill="#171923"><circle cx="77" cy="240" r="6"/><circle cx="133" cy="225" r="6"/><circle cx="189" cy="211" r="6"/><circle cx="245" cy="181" r="6"/><circle cx="301" cy="153" r="6"/><circle cx="357" cy="132" r="6"/><circle cx="413" cy="114" r="6"/><circle cx="469" cy="82" r="6"/><circle cx="525" cy="65" r="6"/></g><text x="43" y="282" fill="#8c909e" font-size="12">8.28</text><text x="500" y="282" fill="#8c909e" font-size="12">9.05</text></g>
-    <rect x="86" y="660" width="786" height="82" rx="22" fill="#fff" opacity=".96"/><text x="112" y="694" fill="#7157ff" font-size="12" font-weight="800" letter-spacing="2">CORE JUDGEMENT</text><text x="112" y="723" fill="#171923" font-size="19" font-weight="800">新客已绑定，价值转化仍停在资金账户之前。</text>
+    <rect x="86" y="660" width="786" height="82" rx="22" fill="#fff" opacity=".96"/><text x="112" y="694" fill="#7157ff" font-size="12" font-weight="800" letter-spacing="2">CORE JUDGEMENT</text><text x="112" y="723" fill="#171923" font-size="19" font-weight="800">使用代理覆盖率 97.9%，但开户、绑卡、风测与首投仍为 0。</text>
     <text x="86" y="824" fill="#858b9f" font-size="13">数据截止 2026-09-05 · OAP OAuth 授权 × 且慢生产数仓只读聚合</text>
   </g>
 </svg>

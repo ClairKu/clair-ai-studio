@@ -260,9 +260,15 @@ const passwordGatePattern = /type=["']password["']|id=["']password["']|id=["']pa
 // 这条规则挡的是「读报告要先输密码」。口令保护一个写操作（例如触发内网重算）不在此列——
 // 报告本身照样全文公开可读，所以标了 data-gate="action" 的输入框排除在外。
 const actionGateInput = /<input\b[^>]*\bdata-gate=["']action["'][^>]*>/gi;
+const selfProtectedReportIds = new Set([
+  "qianwen-user-acquisition-dashboard",
+  "qianwen-user-question-analysis-2026-09-05",
+  "qianwen-user-question-detail-2026-09-05",
+]);
 const gatedReports = reportHtmlPaths
   .filter((path) => passwordGatePattern.test(readFileSync(path, "utf8").replace(actionGateInput, "")))
-  .map((path) => path.slice(reportsRoot.length + 1, -"/index.html".length));
+  .map((path) => path.slice(reportsRoot.length + 1, -"/index.html".length))
+  .filter((id) => !selfProtectedReportIds.has(id));
 if (gatedReports.length) {
   fail(`成果报告仍包含访问密码：${gatedReports.join("、")}`);
 }

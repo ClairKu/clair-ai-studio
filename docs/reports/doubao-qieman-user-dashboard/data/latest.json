@@ -1,9 +1,9 @@
 {
-  "schema_version": "doubao-qieman-user-dashboard-v1",
+  "schema_version": "doubao-qieman-user-dashboard-v2",
   "meta": {
-    "title": "豆包 × 且慢｜绑定用户数据看板",
-    "generated_at": "2026-09-05T22:05:29+08:00",
-    "data_cutoff": "2026-09-05T22:05:29+08:00",
+    "title": "豆包 × 且慢｜使用后转化看板",
+    "generated_at": "2026-09-05T22:33:51+08:00",
+    "data_cutoff": "2026-09-05T22:33:51+08:00",
     "window_start_at": "2026-08-28T00:00:00+08:00",
     "first_observed_grant_at": "2026-08-28T19:17:00+08:00",
     "timezone": "Asia/Shanghai",
@@ -17,6 +17,9 @@
     "inactiveAccounts": 0,
     "reauthorizedAccounts": 91,
     "consentRecords": 474,
+    "readyAccounts": 334,
+    "activeReadyAccounts": 318,
+    "usageProxySessions": 2330,
     "newAccounts": 194,
     "existingAccounts": 147,
     "unclassifiedAccounts": 0
@@ -122,6 +125,21 @@
       "cumulativeTotal": 341
     }
   ],
+  "journey": {
+    "anchor": "first_oauth_refresh_token_created_at",
+    "anchorLabel": "首次会话令牌签发（豆包使用代理）",
+    "readyAccounts": 334,
+    "actualToolUsers": null,
+    "actualToolUsersState": "unavailable_no_client_to_user_call_link",
+    "openedAfterReady": 0,
+    "cardBoundAfterReady": 0,
+    "riskAssessedAfterReady": 0,
+    "firstInvestmentAfterReady": 0,
+    "inflowUsersAfterReady": 7,
+    "inflowWanAfterReady": 0.9358,
+    "firstReadyAt": "2026-08-28T19:17:01+08:00",
+    "lastReadyAt": "2026-09-05T22:31:32+08:00"
+  },
   "cohorts": {
     "all": {
       "population": 341,
@@ -337,7 +355,9 @@
     "current": "revoked_at 与 superseded_at 均为空的当前有效授权；重新授权按同一用户多条 consent record 识别",
     "cohort": "新用户=注册时间与首次豆包授权时间相差不超过 60 分钟；老用户=授权前已有且慢账户",
     "assets": "ying99_asset.dwd_app_service_account_profit_combine；2026-09-04 快照；只取 broker=0008 且 relation_account_type=ROOT，避免跨券商与树形账户重复求和",
-    "behavior": "交易行为只计绑定后、未取消且 po_code 不为 WALLET 的记录；金额口径未接入权威现金流表，因此本页不发布绑定后入金/买卖金额",
-    "usageGap": "当前 OAuth 调用日志缺少可稳定回连授权 user_id 的逐次使用链路；绑定人数不能替代 AI 小顾使用人数"
+    "ready": "api_oauth_refresh_token.created_at；会话令牌签发作为豆包使用代理，能证明客户端建立会话，但不是工具级实调用",
+    "journey": "开账户、绑卡、风测、首投均以首次会话令牌时间为锚点；入金采用 broker=0008、ROOT 层 input_amount，统计至 2026-09-04",
+    "behavior": "首投只计首次成功且未取消的非 WALLET 买入；入金金额为数仓 ROOT 层 input_amount 代理口径",
+    "usageGap": "逐次 API 调用缺少可稳定回连豆包 client_id 与授权 user_id 的链路；可使用人数不能替代实际工具调用人数"
   }
 }
