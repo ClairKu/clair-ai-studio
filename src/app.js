@@ -146,6 +146,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "qieman-three-user-lifecycle-audit-2026-09-05",
+      groupId: "xiaogu",
+      title: "且慢三类新投用户｜全生命周期行为与投资路径审计",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-three-user-lifecycle-audit-2026-09-05/",
+      preview: "qieman-three-user-lifecycle-audit-2026-09-05.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-05T21:45:00.000+08:00",
+      source: "盈米生产 SCRM MCP 只读查询｜3 位新投用户从注册至 2026-09-05 的客户信息、持仓、盈亏、交易、神策、保险、账户诊断与当前顾问沟通数据交叉核验｜最早样本自 2017-08-20 起按 180 天分段回溯，沟通按 31 天上限分段｜1,305 条分组行为记录｜交易事实优先于埋点推断｜公开版已去除姓名、完整客户号、订单号、银行卡信息与逐条原始路径｜CLAIR 单页交互 HTML｜生产",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["且慢", "用户生命周期", "用户行为", "投资路径", "持仓", "资产配置", "神策", "SCRM", "本体", "数据分析", "证据治理", "投顾服务", "AI 小顾", "CLAIR", "HTML", "生产"],
+    },
+    {
       id: "xiaogu-3-investment-review-2026-09-04",
       groupId: "xiaogu",
       title: "小顾 3.0｜从一次回答到持续陪伴",

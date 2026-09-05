@@ -38,7 +38,7 @@ const reports = reportChunks.map((chunk) => ({
   access: chunk.match(/\baccess:\s*"([^"]+)"/)?.[1] || "",
 }));
 
-if (reports.length !== 137) { // +1 OAP channel attribution dashboard 2026-09-04 // +1 xiaogu-3-investment-review 2026-09-04 // +1 xiaogu-buyer-advisor-evidence 2026-09-03 // +1 ai-xiaogu-impact-evolution 2026-09-03 // +1 xiaogu-technical-evolution 2026-09-03 // +1 doubao-oauth-mcp-radar 2026-09-02 // +1 Agent Harness executive report 2026-09-02 // +1 raft-human-ai-group-chat-research 2026-09-02 // +1 Agent Harness architecture report 2026-09-02 // +1 baidu-dumate-review 2026-09-01 // +1 GetLatestQuotations market temperature audit 2026-08-30
+if (reports.length !== 138) { // +1 qieman three-user lifecycle audit 2026-09-05 // +1 OAP channel attribution dashboard 2026-09-04 // +1 xiaogu-3-investment-review 2026-09-04 // +1 xiaogu-buyer-advisor-evidence 2026-09-03 // +1 ai-xiaogu-impact-evolution 2026-09-03 // +1 xiaogu-technical-evolution 2026-09-03 // +1 doubao-oauth-mcp-radar 2026-09-02 // +1 Agent Harness executive report 2026-09-02 // +1 raft-human-ai-group-chat-research 2026-09-02 // +1 Agent Harness architecture report 2026-09-02 // +1 baidu-dumate-review 2026-09-01 // +1 GetLatestQuotations market temperature audit 2026-08-30
   fail(`初始成果数量异常：预期 137，实际 ${reports.length}`);
 }
 
