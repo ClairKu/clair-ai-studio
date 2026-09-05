@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="t d">
+  <title id="t">千问用户提问行为分析预览</title>
+  <desc id="d">对 1961 位千问绑定用户 15071 条提问的分析。转化漏斗自上而下收窄：绑定 2638 人、与小顾对话 1953 人、开立资金账户 334 人、绑定后买入 150 人、完成人生首投 3 人。右侧列出用户原话中的摩擦信号。</desc>
+  <rect width="1280" height="720" fill="#f6f8fb"/>
+  <rect x="0" y="0" width="1280" height="6" fill="#1b88ee"/>
+  <text x="72" y="96" font-family="Songti SC, serif" font-size="20" fill="#0b5192" letter-spacing="4">内部分析 · 千问 × 且慢AI小顾</text>
+  <text x="72" y="164" font-family="Songti SC, serif" font-size="54" font-weight="700" fill="#0e1c2b">用户在小顾里问了什么，</text>
+  <text x="72" y="228" font-family="Songti SC, serif" font-size="54" font-weight="700" fill="#0e1c2b">又为什么没有开户</text>
+
+  <g font-family="PingFang SC, sans-serif">
+    <rect x="72" y="288" width="620" height="46" rx="6" fill="#1b88ee"/>
+    <text x="90" y="318" font-size="19" fill="#ffffff">绑定且慢账号</text>
+    <text x="674" y="318" font-size="21" font-weight="700" fill="#ffffff" text-anchor="end">2,638</text>
+
+    <rect x="72" y="344" width="459" height="46" rx="6" fill="#4aa7ff"/>
+    <text x="90" y="374" font-size="19" fill="#ffffff">与小顾发生对话</text>
+    <text x="513" y="374" font-size="21" font-weight="700" fill="#ffffff" text-anchor="end">1,953</text>
+
+    <rect x="72" y="400" width="150" height="46" rx="6" fill="#b8460e"/>
+    <text x="90" y="430" font-size="19" fill="#ffffff">开户</text>
+    <text x="204" y="430" font-size="21" font-weight="700" fill="#ffffff" text-anchor="end">334</text>
+    <text x="238" y="430" font-size="17" fill="#b8460e">← 最大断点：1,619 人聊过天却没开户</text>
+
+    <rect x="72" y="456" width="72" height="46" rx="6" fill="#9db3c8"/>
+    <text x="90" y="486" font-size="18" fill="#ffffff">买入</text>
+    <text x="160" y="486" font-size="19" font-weight="700" fill="#3d4f63">150</text>
+
+    <rect x="72" y="512" width="26" height="46" rx="6" fill="#0d6e63"/>
+    <text x="112" y="542" font-size="19" font-weight="700" fill="#0d6e63">3</text>
+    <text x="140" y="542" font-size="18" fill="#3d4f63">完成人生首投</text>
+
+    <line x1="760" y1="288" x2="760" y2="612" stroke="#dbe3ec" stroke-width="1"/>
+    <text x="800" y="300" font-size="16" fill="#6b7d92" letter-spacing="3">用户原话中的摩擦</text>
+    <text x="800" y="344" font-size="19" fill="#0e1c2b">「能不能给我个卡片，</text>
+    <text x="800" y="372" font-size="19" fill="#0e1c2b">　我直接点过去就完成操作？」</text>
+    <text x="800" y="418" font-size="19" fill="#0e1c2b">「可以在你这儿下单购买吗？」</text>
+    <text x="800" y="446" font-size="15" fill="#6b7d92">44 条 · 35 人</text>
+    <text x="800" y="492" font-size="19" fill="#0e1c2b">「算了算了，先不买了吧」</text>
+    <text x="800" y="520" font-size="15" fill="#6b7d92">74 条 · 23 人</text>
+    <text x="800" y="566" font-size="19" fill="#0e1c2b">「主理人都没发车，我能卖吗？」</text>
+    <text x="800" y="594" font-size="15" fill="#6b7d92">123 条 · 33 人</text>
+
+    <text x="72" y="640" font-size="16" fill="#6b7d92">1,961 人 · 15,071 条提问 · 数据截至 2026-09-05 21:00</text>
+    <text x="1208" y="640" font-size="16" fill="#6b7d92" text-anchor="end">含三位首投用户 481 事件完整时间线</text>
+  </g>
+</svg>
