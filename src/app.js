@@ -608,6 +608,18 @@ const initialState = {
       tags: ["OAP", "渠道归因", "千问", "豆包", "WorkBuddy", "Dify", "Coze", "Vesta", "微信", "SCRM", "Cursor", "OAuth", "API Key", "调用量", "用户来源", "数据看板", "数据治理", "证据边界", "公开脱敏", "HTML", "生产"],
     },
     {
+      id: "qianwen-user-question-analysis-2026-09-05",
+      groupId: "xiaogu",
+      title: "千问用户提问行为分析｜为什么绑定了却不开户",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qianwen-user-question-analysis-2026-09-05/",
+      preview: "qianwen-user-question-analysis-2026-09-05.svg",
+      createdAt: "2026-09-05T21:40:00.000+08:00",
+      source: "生产数据库直查｜数据截至 2026-09-05 21:00（北京时间）｜语料为 1,961 位千问绑定用户的 15,071 条提问原文｜转化漏斗：绑定 2,638 → 与小顾对话 1,953（74.0%）→ 开立资金账户 334（12.7%）→ 绑定后买入 150 → 完成人生首投 3｜资金侧：绑定后入金 442.4 万元（173 人）、买入 196.0 万元（150 人）、赎回 315.8 万元（58 人），净流入 126.6 万元｜提问结构：预设入口 2,675 条、自由提问 11,729 条，42 位重度用户贡献 49% 提问量，85% 的人只在一天里用过｜摩擦信号按用户原话归类：回答不可执行 215 条、与主理人纪律冲突 123 条、术语门槛 90 条、当场放弃 74 条、想就地下单 44 条｜含三位首投用户的提问与交易合并时间线共 481 个事件｜姓名仅保留姓氏",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["千问", "且慢", "AI 小顾", "用户提问", "提问分析", "对话分析", "语料分析", "转化漏斗", "开户转化", "首次投资", "入金", "赎回", "净流入", "用户行为", "行为路径", "决策路径", "摩擦点", "流失分析", "新用户", "老用户", "重度用户", "预设提示词", "主理人", "生产数据", "HTML", "生产"],
+    },
+    {
       id: "qianwen-user-acquisition-dashboard",
       groupId: "xiaogu",
       title: "千问 X 且慢AI小顾｜用户数据看板",
@@ -1927,6 +1939,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "qianwen-user-question-analysis-2026-09-05": "data-analysis",
   "baidu-dumate-review-2026-09-01": "competitive-research",
   "qieman-cashflow-strategies-audit-2026-08-28": "investment-research",
   "yingmiwork-product-brief-2026-08-20": "reporting",
