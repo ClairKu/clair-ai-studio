@@ -591,6 +591,27 @@ function rangeTotals(rows) {
   } : { bound: 0, new: 0, existing: 0, unclassified: 0 };
 }
 
+function renderConversionKpis(data) {
+  // 全窗口口径（锚在每个用户自己的绑定时刻），不随上方时间范围联动
+  const bound = data.metrics.bound_accounts;
+  const firstInvest = data.behavior?.cohorts?.all?.metrics?.find((item) => item.id === "first_investment_after_binding");
+  const inflow = data.business?.cohorts?.all?.stats?.find((item) => item.id === "inflow_amount");
+  if (firstInvest?.state === "confirmed") {
+    $("#first-investors").textContent = number.format(firstInvest.reached_accounts);
+    $("#first-investors-share").textContent = formatShare(firstInvest.reached_accounts, bound);
+  } else {
+    $("#first-investors").textContent = "—";
+    $("#first-investors-share").textContent = publicStateCopy(firstInvest);
+  }
+  if (inflow?.state === "confirmed") {
+    $("#inflow-total").textContent = formatAmount(inflow.amount_wan);
+    $("#inflow-total-people").textContent = `${number.format(inflow.accounts)} 人`;
+  } else {
+    $("#inflow-total").textContent = "—";
+    $("#inflow-total-people").textContent = publicStateCopy(inflow);
+  }
+}
+
 function renderKpis(rows) {
   const totals = rangeTotals(rows);
   const scope = scopeLabel(rows);
@@ -1283,6 +1304,7 @@ function renderView({ announce = false } = {}) {
   if (!rows.some((row) => row.date === viewState.selectedDate)) viewState.selectedDate = rows.at(-1).date;
   syncControls();
   renderKpis(rows);
+  renderConversionKpis(currentData);
   renderChart(rows);
   renderTable(rows);
   renderAudience();

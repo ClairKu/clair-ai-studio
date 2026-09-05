@@ -352,6 +352,8 @@ assertNoForbiddenKeys(data);
 
 for (const signal of [
   'id="bound-total"',
+  'id="first-investors"',
+  'id="inflow-total"',
   'id="new-accounts"',
   'id="existing-accounts"',
   'id="trend-chart"',
@@ -391,7 +393,7 @@ for (const signal of [
 ]) {
   if (!html.includes(signal)) fail(`交互控件缺少 ${signal}`);
 }
-if ((html.match(/<article class="kpi-card/g) || []).length !== 3) fail("关键数据卡必须为三个静态展示卡");
+if ((html.match(/<article class="kpi-card/g) || []).length !== 5) fail("关键数据卡必须为三张规模卡 + 两张转化卡");
 if ((html.match(/name="series"/g) || []).length !== 4) fail("走势图必须有四个独立数据开关");
 for (const key of ["bound", "new", "existing", "daily"]) {
   if (!html.includes(`id="value-${key}"`)) fail(`读数条缺少 ${key} 的最新数值`);
@@ -436,6 +438,7 @@ for (const signal of [
   "renderBusinessTiles",
   "renderAudienceTable",
   "renderReadout",
+  "renderConversionKpis",
   "loadPublishedData",
   "LOCAL_REFRESH_BASES",
   "127.0.0.1:43123",
