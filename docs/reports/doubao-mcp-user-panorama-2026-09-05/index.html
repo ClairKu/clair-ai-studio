@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />
+    <script data-clair-access-gate data-clair-access-scope="report" src="../../access-gate.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="豆包上架盈米MCP首9日：OAuth与传统Key口径、绑定走势、开户绑卡入金转化与用户行为分析。">
+  <meta name="theme-color" content="#1b88ee">
+  <title>豆包 × 盈米MCP 用户观察</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#f4f7fa; --surface:#ffffff; --surface2:#eef3f8;
+  --ink:#15222e; --ink2:#4d6172; --ink3:#7d92a3;
+  --line:#d9e3ec; --line2:#e8eef4;
+  --accent:#1b88ee; --accent-deep:#0b5192; --accent-text:#0f72cd;
+  --s1:#1b88ee; --s2:#e08a2e;
+  --good:#1e8a5a; --warn:#b3690f; --bad:#c23a3a;
+  --chip-bg:#e3f0fc; --tip-bg:#15222e; --tip-ink:#f2f7fb;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0d151d; --surface:#151f2a; --surface2:#1b2733;
+    --ink:#e4edf5; --ink2:#9db0c0; --ink3:#6e8496;
+    --line:#2a3844; --line2:#212e3a;
+    --accent:#4da3f5; --accent-deep:#8ec4f8; --accent-text:#6ab2f7;
+    --s1:#1b88ee; --s2:#cf7a18;
+    --good:#4cc08a; --warn:#e0a04a; --bad:#e07070;
+    --chip-bg:#1c304a; --tip-bg:#e4edf5; --tip-ink:#15222e;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0d151d; --surface:#151f2a; --surface2:#1b2733;
+  --ink:#e4edf5; --ink2:#9db0c0; --ink3:#6e8496;
+  --line:#2a3844; --line2:#212e3a;
+  --accent:#4da3f5; --accent-deep:#8ec4f8; --accent-text:#6ab2f7;
+  --s1:#1b88ee; --s2:#cf7a18;
+  --good:#4cc08a; --warn:#e0a04a; --bad:#e07070;
+  --chip-bg:#1c304a; --tip-bg:#e4edf5; --tip-ink:#15222e;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:15px/1.75 -apple-system,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;}
+.wrap{max-width:1040px;margin:0 auto;padding:40px 22px 72px}
+.latin,h1,h2,.kpi b{font-family:"Archivo",-apple-system,"PingFang SC",sans-serif}
+.mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+header{border-bottom:2px solid var(--ink);padding-bottom:22px;margin-bottom:30px}
+.eyebrow{font-size:12px;letter-spacing:.14em;color:var(--accent-text);font-weight:600;text-transform:uppercase}
+h1{font-size:32px;line-height:1.25;margin:8px 0 10px;text-wrap:balance;font-weight:700}
+.meta{color:var(--ink2);font-size:13px;display:flex;gap:18px;flex-wrap:wrap}
+.meta .mono{color:var(--ink2)}
+h2{font-size:20px;margin:0 0 4px;font-weight:700}
+section{margin-top:46px}
+.sec-head{display:flex;align-items:baseline;gap:12px;border-left:4px solid var(--accent);padding-left:14px;margin-bottom:16px}
+.sec-head .no{font-family:"IBM Plex Mono",monospace;color:var(--ink3);font-size:13px}
+.sec-note{color:var(--ink2);font-size:13.5px;margin:0 0 14px;padding-left:18px;max-width:72ch}
+p{max-width:76ch}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:22px 0 0}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 16px 12px}
+.kpi small{display:block;color:var(--ink2);font-size:12px;letter-spacing:.02em}
+.kpi b{display:block;font-size:26px;font-weight:700;margin-top:2px;font-variant-numeric:tabular-nums}
+.kpi span{font-size:12px;color:var(--ink3)}
+.kpi.hot b{color:var(--accent-text)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px 18px 12px}
+.panel h3{margin:0 0 2px;font-size:14.5px;font-weight:600}
+.panel .sub{color:var(--ink3);font-size:12px;margin:0 0 10px}
+.legend{display:flex;gap:16px;font-size:12px;color:var(--ink2);margin:2px 0 6px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+svg{display:block;width:100%;height:auto}
+svg text{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;fill:var(--ink3)}
+svg text.dl{fill:var(--ink2);font-weight:600;font-size:11px}
+.gridline{stroke:var(--line2);stroke-width:1}
+.axisline{stroke:var(--line);stroke-width:1}
+#tip{position:fixed;pointer-events:none;background:var(--tip-bg);color:var(--tip-ink);border-radius:6px;
+  padding:7px 10px;font-size:12px;line-height:1.5;opacity:0;transition:opacity .12s;z-index:9;max-width:240px;
+  font-family:"IBM Plex Mono",monospace}
+table{border-collapse:collapse;width:100%;font-size:13.5px;background:var(--surface)}
+.tblwrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
+th{Text-align:left;font-weight:600;color:var(--ink2);font-size:12px;letter-spacing:.04em;border-bottom:1px solid var(--line);padding:10px 14px;white-space:nowrap;text-align:left;background:var(--surface2)}
+td{padding:9px 14px;border-bottom:1px solid var(--line2);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td.num{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+th.num{text-align:right}
+.chip{display:inline-block;background:var(--chip-bg);color:var(--accent-text);border-radius:99px;padding:1px 10px;font-size:12px;font-weight:600;white-space:nowrap}
+.tag{display:inline-block;border:1px solid var(--line);color:var(--ink2);border-radius:5px;padding:0 7px;font-size:12px;white-space:nowrap}
+.funnel{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.fstep{display:grid;grid-template-columns:150px 1fr 210px;gap:14px;align-items:center}
+.fstep .fl{font-size:13.5px;color:var(--ink2);text-align:right}
+.fbar{height:30px;border-radius:5px;background:var(--s1);min-width:2px;position:relative}
+.fbar b{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#fff;font-size:13px;font-family:"IBM Plex Mono",monospace}
+.fstep .fr{font-size:12.5px;color:var(--ink3)}
+.callout{border:1px solid var(--line);border-left:4px solid var(--warn);background:var(--surface);border-radius:8px;padding:14px 18px;margin:14px 0;max-width:none}
+.callout.blue{border-left-color:var(--accent)}
+.callout.red{border-left-color:var(--bad)}
+.callout b.t{display:block;font-size:14px;margin-bottom:4px}
+.callout p{font-size:13.5px;color:var(--ink2);margin:4px 0}
+details{margin-top:10px}
+summary{cursor:pointer;font-size:12.5px;color:var(--ink3)}
+ul{padding-left:20px;max-width:76ch}
+li{margin:5px 0}
+.small{font-size:13px;color:var(--ink2)}
+footer{margin-top:56px;border-top:1px solid var(--line);padding-top:16px;color:var(--ink3);font-size:12.5px}
+a{color:var(--accent-text)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion: reduce){#tip{transition:none}}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">盈米 MCP 开放平台 · 渠道运营分析</div>
+  <h1>豆包上架盈米 MCP：首 9 日用户全景</h1>
+  <div class="meta">
+    <span>上架时间 <span class="mono">2026-08-28 19:17</span>（豆包 OAuth 客户端首次授权）</span>
+    <span>取数截至 <span class="mono">2026-09-05 ≈21:00</span>（北京时间）</span>
+    <span>数据源 <span class="mono">ying99_oap / ying99_accounts / ying99_asset</span></span>
+  </div>
+  <div class="kpis">
+    <div class="kpi hot"><small>OAuth 绑定用户</small><b>336</b><span>累计授权 469 次 · 零撤销</span></div>
+    <div class="kpi"><small>激活率（用过 ≥1 次）</small><b>97.9%</b><span>329 / 336 人产生会话</span></div>
+    <div class="kpi"><small>单日活跃峰值</small><b>167</b><span>9-04 · 会话令牌口径</span></div>
+    <div class="kpi"><small>次周留存</small><b>41.7%</b><span>首周绑定 115 人中 48 人</span></div>
+    <div class="kpi"><small>有且慢基金账户</small><b>49</b><span>占 14.6% · 全部为存量老客</span></div>
+    <div class="kpi"><small>绑定后新增入金</small><b>+35.7万</b><span>18 人 · 9 户零资产激活</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="sec-head"><span class="no">01</span><h2>接入方式：传统 Key 与 OAuth 的口径边界</h2></div>
+  <p class="sec-note">豆包接入盈米 MCP 有两条通路，但两条通路在数据上可见度完全不同——这决定了本报告每一节能回答什么、不能回答什么。</p>
+  <div class="tblwrap"><table>
+    <tr><th style="width:130px">通路</th><th>机制</th><th>可归因性</th><th class="num">规模（8-28 以来）</th></tr>
+    <tr>
+      <td><span class="chip">OAuth 授权</span></td>
+      <td>豆包个人版 MCP 广场一键授权。预注册客户端 <span class="mono">doubao</span>（2026-08-28 建），回调地址为豆包 <span class="mono">personal</span> 通道，挂在「官方渠道」OpenChannel 下，经且慢账号（IdP）登录授权。</td>
+      <td><b style="color:var(--good)">完全可归因</b>：授权记录、绑定账号、令牌活跃全部落库。</td>
+      <td class="num">336 人 / 469 次授权</td>
+    </tr>
+    <tr>
+      <td><span class="tag">传统 API Key</span></td>
+      <td>用户在开放平台自助申请 Key，手工粘贴进豆包办公 / 其他任意客户端。</td>
+      <td><b style="color:var(--bad)">不可归因</b>：申请表无平台字段（platform_type 恒为 0008=且慢），调用明细不落 User-Agent，一把 Key 可在任何客户端使用。</td>
+      <td class="num">全平台新增 1,087 把<br>豆包份额未知</td>
+    </tr>
+  </table></div>
+  <div class="callout">
+    <b class="t">「豆包办公」没有独立标识</b>
+    <p>OAuth 侧只有一个 <span class="mono">doubao</span> 客户端且回调为个人版通道；豆包办公用户若经传统 Key 接入则混入全平台申请中无法拆分。同期全平台日新增 Key（58–200 把/日）相比 8 月中旬无豆包上架相关的显著跳升，说明传统 Key 侧未见可观测的豆包增量。本报告的用户级分析均基于 <b>OAuth 绑定的 336 人</b>。</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="no">02</span><h2>用户绑定走势</h2></div>
+  <p class="sec-note">绑定 = 用户在豆包内完成且慢账号 OAuth 授权。日均新增约 37 人、无衰减迹象；9-04 出现峰值（63 人）。336 人零主动撤销。</p>
+  <div class="grid2">
+    <div class="panel"><h3>每日新增绑定用户</h3><p class="sub">按用户首次授权日去重（人）</p><div id="c-newbind"></div></div>
+    <div class="panel"><h3>累计绑定用户</h3><p class="sub">截至当日 24:00（9-05 为取数时点）</p><div id="c-cum"></div></div>
+  </div>
+  <details><summary>数据表</summary><div class="tblwrap" style="margin-top:8px"><table id="t-bind"></table></div></details>
+  <div class="callout">
+    <b class="t">授权链路疑似「双重授权」：59% 的重复授权发生在 60 秒内</b>
+    <p>469 次授权中 133 次被后续授权替代（superseded），其中 <b class="mono">78 次（59%）间隔 ≤60 秒</b>、117 次 ≤1 小时；1 名用户累计授权 12 次。60 秒内的连续二次授权更像豆包侧回调重试 / 双击触发，而非用户主动重绑，建议排查 OAuth 流程幂等性。</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="no">03</span><h2>用户构成与画像</h2></div>
+  <div class="kpis" style="margin-top:0">
+    <div class="kpi"><small>已持传统 Key</small><b>96 人</b><span>占 28.6% · 存量开放平台用户</span></div>
+    <div class="kpi"><small>绑定后新申请 Key</small><b>7 把</b><span>OAuth 与 Key 用户基本不互转</span></div>
+    <div class="kpi"><small>有且慢基金账户</small><b>49 人</b><span>其余 287 人仅有且慢注册账号</span></div>
+    <div class="kpi"><small>做过风险测评</small><b>48 人</b><span>C3 有 18 人 · C5 有 17 人</span></div>
+  </div>
+  <p style="margin-top:16px">三成绑定者本来就是盈米开放平台的 Key 持有者（最早 2025-04 申请），说明首批流量里<b>技术尝鲜用户占比高</b>；49 名有基金账户的用户中，2025 年后开户的占 20 人（41%），但也有 2017—2019 年的长账龄老客。风险偏好呈两端分布：稳健的 C3（18 人）与进取的 C5（17 人）合计占七成。</p>
+</section>
+
+<section>
+  <div class="sec-head"><span class="no">04</span><h2>开户 · 绑卡 · 入金</h2></div>
+  <p class="sec-note">转化漏斗按用户首次授权时点切分「绑定前存量」与「绑定后增量」。资产口径：且慢（broker 0008）ROOT 层最新快照，对比 8-27 基线。</p>
+  <div class="panel">
+    <div class="funnel" id="funnel"></div>
+  </div>
+  <div class="grid2" style="margin-top:16px">
+    <div class="callout red" style="margin:0">
+      <b class="t">绑定后：0 新开户、0 新绑卡</b>
+      <p>49 个基金账户与 68 张银行卡（64 张有效）全部在绑定豆包<b>之前</b>就已存在。9 天内没有任何用户因豆包而完成开户或绑卡——豆包目前是<b>存量客户的查询入口</b>，尚未成为获客渠道。</p>
+    </div>
+    <div class="callout blue" style="margin:0">
+      <b class="t">但出现了「沉睡账户激活」信号</b>
+      <p>绑定后 18 人净入金合计 <b class="mono">+356,802 元</b>，其中 <b>9 户从零资产状态重新入金</b>（8-27 基线无资产记录，属清仓/沉睡账户激活；经交易流水口径核实，绑定后「人生首投」为 0）。绑定用户当前在且慢的存量资产 <b class="mono">434.5 万元</b>（30 人持仓，11 人在 10–100 万档，1 人超 100 万）。</p>
+    </div>
+  </div>
+  <details><summary>资产分布明细</summary><div class="tblwrap" style="margin-top:8px"><table>
+    <tr><th>当前资产档位</th><th class="num">人数</th><th class="num">合计资产（元）</th></tr>
+    <tr><td>&gt;100 万</td><td class="num">1</td><td class="num">1,007,236</td></tr>
+    <tr><td>10–100 万</td><td class="num">11</td><td class="num">2,831,434</td></tr>
+    <tr><td>1–10 万</td><td class="num">13</td><td class="num">503,935</td></tr>
+    <tr><td>1 万以下</td><td class="num">5</td><td class="num">2,249</td></tr>
+    <tr><td>已清仓（曾入金）</td><td class="num">10</td><td class="num">0</td></tr>
+  </table></div></details>
+</section>
+
+<section>
+  <div class="sec-head"><span class="no">05</span><h2>用户行为分析</h2></div>
+  <p class="sec-note">豆包 OAuth 调用不落工具级明细（见 §07），行为分析采用会话令牌（refresh token 签发）作为活跃代理：一次签发 ≈ 一次使用会话。共 2,307 次会话，98% 绑定用户至少用过一次。</p>
+  <div class="grid2">
+    <div class="panel"><h3>每日活跃用户</h3><p class="sub">当日产生 ≥1 次会话的去重用户（人）</p><div id="c-dau"></div></div>
+    <div class="panel"><h3>活跃时段分布</h3><p class="sub">会话次数 × 24 小时（北京时间，累计 9 日）</p><div id="c-hour"></div></div>
+  </div>
+  <div class="grid2" style="margin-top:16px">
+    <div class="panel"><h3>使用黏性：活跃天数分布</h3><p class="sub">9 天窗口内，每用户有会话的天数（人）</p><div id="c-days"></div></div>
+    <div class="panel" style="display:flex;flex-direction:column;justify-content:center">
+      <h3>怎么读这些曲线</h3>
+      <ul class="small" style="margin:8px 0 0">
+        <li><b>日活持续爬坡</b>：从上架次日 29 人升至 9-04 的 167 人，增速快于绑定增速——老用户在回访，不只是新用户在试。</li>
+        <li><b>办公时段主导</b>：9:00–17:00 占 62%（午休 12 点有明显凹口），晚间 20–21 点有第二峰。豆包里的理财对话更像「上班摸鱼查基金」而非睡前理财。</li>
+        <li><b>近半用户只来一天</b>（160 人，48.6%），但 <b>98 人（29.8%）活跃 ≥3 天</b>、42 人 ≥5 天；首周绑定用户的次周回访率 41.7%，对一个纯查询入口来说不低。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="no">06</span><h2>工具使用偏好（代理口径）</h2></div>
+  <p class="sec-note">OAuth 调用无工具级留痕，此处退而求其次：96 名「同时持传统 Key 的豆包绑定用户」在绑定之后经自己 Key 发起的调用（≈2,900 次）。注意这些调用不一定发自豆包，仅代表这批用户的工具偏好。</p>
+  <div class="tblwrap"><table>
+    <tr><th>工具</th><th>说明</th><th class="num">调用次数</th><th class="num">使用人数</th></tr>
+    <tr><td class="mono">SearchFunds</td><td>搜索基金</td><td class="num">379</td><td class="num">16</td></tr>
+    <tr><td class="mono">BatchGetFundsDetail</td><td>批量获取基金详情</td><td class="num">265</td><td class="num">16</td></tr>
+    <tr><td class="mono">GetBatchFundPerformance</td><td>批量基金业绩表现</td><td class="num">190</td><td class="num">18</td></tr>
+    <tr><td class="mono">filterBondFundByCreditRating</td><td>按信用评级筛债基</td><td class="num">185</td><td class="num">1</td></tr>
+    <tr><td class="mono">SearchFinancialNews</td><td>财经资讯</td><td class="num">154</td><td class="num">6</td></tr>
+    <tr><td class="mono">GetFundsBackTest</td><td>回测分析</td><td class="num">142</td><td class="num">5</td></tr>
+    <tr><td class="mono">GetFundDiagnosis</td><td>基金诊断</td><td class="num">125</td><td class="num">12</td></tr>
+    <tr><td class="mono">BatchGetFundNavHistory</td><td>基金净值历史</td><td class="num">123</td><td class="num">18</td></tr>
+    <tr><td class="mono">BatchGetFundTradeLimit</td><td>基金交易限制信息</td><td class="num">109</td><td class="num">8</td></tr>
+    <tr><td class="mono">GetLatestQuotations</td><td>市场温度计</td><td class="num">48</td><td class="num">10</td></tr>
+  </table></div>
+  <p class="small" style="margin-top:10px">偏好画像：<b>查（搜索/详情/净值/业绩）远大于断（诊断/风险）</b>，交易前置类工具（交易限制、交易规则）已被 8 人触达，说明有真实的申购意图在链路里。</p>
+</section>
+
+<section>
+  <div class="sec-head"><span class="no">07</span><h2>提问清单：为什么给不出，缺口在哪</h2></div>
+  <div class="callout red">
+    <b class="t">用户在豆包里的原始提问，任何一层都拿不到</b>
+    <p><b>① 协议层：</b>MCP 协议只把「工具调用 + 参数」传给盈米，用户输入的自然语言提问永远留在豆包侧，不出字节的服务器。</p>
+    <p><b>② 计量层：</b>豆包 OAuth 通道的调用<b>连工具级明细都不落库</b>——<span class="mono">api_key_usage_details</span> 里没有任何豆包聚合 Key 或按授权记账的行（对照：千问渠道有「阿里云千问-通用问答」聚合 Key，9 日 198 万次调用可查）。</p>
+    <p><b>③ 参数层：</b>即使是传统 Key 的调用，明细表也只存 <span class="mono">route_id + request_id + 时间</span>，不存入参。搜索关键词等「准提问」只存在于 stargate 网关的运行日志（SLS），需工程侧在保留期内提取。</p>
+  </div>
+  <b style="font-size:14.5px">三条建议</b>
+  <ul>
+    <li><b>补 OAuth 计量（最优先）</b>：为 OpenChannel 流量按 <span class="mono">consent_record</span> 记账写入用量明细，与千问聚合 Key 拉齐。否则豆包、以及同通道的小顾 3.0，工具调用量、热门工具、人均调用全部是盲区。</li>
+    <li><b>SLS 侧做「准提问」抽取</b>：对 <span class="mono">SearchFunds / SearchFinancialNews / StrategySearchByKeyword</span> 等带 query 入参的路由，把关键词脱敏后回流数仓，可还原 70% 的用户意图。</li>
+    <li><b>排查授权双发</b>：59% 的重复授权发生在 60 秒内（§02），修复后授权数据才能当真实「绑定意愿」看。</li>
+  </ul>
+</section>
+
+<section>
+  <div class="sec-head"><span class="no">08</span><h2>口径与已知局限</h2></div>
+  <ul class="small">
+    <li>豆包 OAuth 客户端 <span class="mono">client_id=doubao</span> 建于 2026-08-28 17:32，首次用户授权 19:17，本报告以此为「上架」时点；9-05 数据为截至约 21:00 的不完整日。取数期间用户仍在实时绑定（约 21:10 已达 338 人），各表之间可能有 ±2 的时点差。</li>
+    <li>「绑定用户」= <span class="mono">ying99_oap.api_user_consent_record</span> 去重 user_id；user_id 即且慢用户 ID（经 <span class="mono">account.broker_user_id, broker='0008'</span> 与账户体系打通）。</li>
+    <li>「活跃」为 refresh token 签发代理口径，豆包客户端令牌轮换节奏未知，人均会话次数不可与其他产品横比；日活跃用户数口径可靠。</li>
+    <li>「绑定后新增入金」= ROOT 层累计投入（<span class="mono">acc_input_amount</span>）最新快照 − 8-27 基线，含既有定投扣款，不能全部归因豆包；「零资产激活 9 户」为 8-27 基线无资产记录且现累计投入 &gt;0，含清仓后再入金，不等于人生首投（首投口径见姊妹看板，绑定后为 0）。</li>
+    <li>287 名无基金账户的绑定者是否为「因豆包新注册的且慢账号」在本数据源（Redash 41）不可判定——passport 注册库不在其中；工作台姊妹看板《豆包 × 且慢｜绑定用户数据看板》经另一数据通道给出拆分：绑定时新注册 194 人、绑定前已有且慢账号 147 人（21:43 时点，341 人口径）。</li>
+    <li>豆包办公与豆包个人版共用或不用 OAuth 无从区分；传统 Key 无客户端归因（详见 §01）。</li>
+    <li>盈米本体（ontology）登录已过期，SLS 日志留存时长等需登录后追问确认。</li>
+  </ul>
+</section>
+
+<footer>豆包 × 盈米MCP 用户观察 · 窗口 2026-08-28 → 2026-09-05 · Redash 数据源 41 直查生产库 · 排除内部测试 Key</footer>
+</div>
+<div id="tip" role="tooltip"></div>
+
+<script>
+const DAYS=["8-28","8-29","8-30","8-31","9-01","9-02","9-03","9-04","9-05"];
+const NEWBIND=[2,29,29,55,54,41,34,63,30];
+const CUM=NEWBIND.reduce((a,v)=>{a.push((a.length?a[a.length-1]:0)+v);return a},[]);
+const DAU=[2,29,40,66,92,102,120,167,104];
+const TOKENS=[9,71,83,186,266,382,425,573,312];
+const HOURS=[46,26,23,14,6,8,18,45,111,161,169,163,88,169,189,184,191,140,97,96,122,94,82,67];
+const ADAYS=[["1 天",160],["2 天",71],["3 天",32],["4 天",24],["5 天",27],["6 天",12],["7 天",3]];
+
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const tip=document.getElementById("tip");
+function showTip(e,html){tip.innerHTML=html;tip.style.opacity=1;
+  const w=tip.offsetWidth,x=Math.min(e.clientX+14,innerWidth-w-10);
+  tip.style.left=x+"px";tip.style.top=(e.clientY-14)+"px";}
+function hideTip(){tip.style.opacity=0;}
+
+function niceMax(m){const p=Math.pow(10,Math.floor(Math.log10(m)));const n=m/p;
+  const s=n<=1?1:n<=2?2:n<=2.5?2.5:n<=4?4:n<=5?5:n<=8?8:10;return s*p;}
+
+// generic bar chart
+function barChart(el,labels,vals,opt){
+  opt=Object.assign({h:210,color:"var(--s1)",labelEvery:1,peaks:1,fmt:v=>v.toLocaleString(),unit:""},opt);
+  const W=460,H=opt.h,padL=40,padR=8,padT=16,padB=24;
+  const max=niceMax(Math.max(...vals));
+  const iw=(W-padL-padR)/vals.length, bw=Math.min(iw*0.62,34);
+  const y=v=>padT+(H-padT-padB)*(1-v/max);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img">`;
+  for(let g=0;g<=4;g++){const gy=padT+(H-padT-padB)*g/4;
+    s+=`<line class="gridline" x1="${padL}" x2="${W-padR}" y1="${gy}" y2="${gy}"/>`;
+    s+=`<text x="${padL-6}" y="${gy+3.5}" text-anchor="end">${opt.fmt(max*(1-g/4))}</text>`;}
+  const top=[...vals].sort((a,b)=>b-a).slice(0,opt.peaks);
+  vals.forEach((v,i)=>{
+    const x=padL+iw*i+(iw-bw)/2, yy=y(v), hh=H-padB-yy;
+    s+=`<rect data-i="${i}" x="${x}" y="${yy}" width="${bw}" height="${Math.max(hh,1)}" rx="4"
+        fill="${opt.color}" style="cursor:default"/>`;
+    if(top.includes(v)&&v>0&&hh>14) s+=`<text class="dl" x="${x+bw/2}" y="${yy-5}" text-anchor="middle">${opt.fmt(v)}</text>`;
+    if(i%opt.labelEvery===0) s+=`<text x="${x+bw/2}" y="${H-7}" text-anchor="middle">${labels[i]}</text>`;
+  });
+  s+=`<line class="axisline" x1="${padL}" x2="${W-padR}" y1="${H-padB}" y2="${H-padB}"/></svg>`;
+  el.innerHTML=s;
+  el.querySelectorAll("rect").forEach(r=>{
+    const i=+r.dataset.i;
+    r.addEventListener("mousemove",e=>showTip(e,`<b>${labels[i]}</b><br>${opt.tipLabel||""}${opt.fmt(vals[i])}${opt.unit}`));
+    r.addEventListener("mouseleave",hideTip);
+  });
+}
+
+// cumulative line chart
+function lineChart(el,labels,vals){
+  const W=460,H=210,padL=40,padR=34,padT=16,padB=24;
+  const max=niceMax(Math.max(...vals));
+  const x=i=>padL+(W-padL-padR)*i/(vals.length-1);
+  const y=v=>padT+(H-padT-padB)*(1-v/max);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img">`;
+  for(let g=0;g<=4;g++){const gy=padT+(H-padT-padB)*g/4;
+    s+=`<line class="gridline" x1="${padL}" x2="${W-padR}" y1="${gy}" y2="${gy}"/>`;
+    s+=`<text x="${padL-6}" y="${gy+3.5}" text-anchor="end">${Math.round(max*(1-g/4))}</text>`;}
+  const pts=vals.map((v,i)=>`${x(i)},${y(v)}`).join(" ");
+  s+=`<polygon points="${padL},${H-padB} ${pts} ${x(vals.length-1)},${H-padB}" fill="var(--s1)" opacity="0.12"/>`;
+  s+=`<polyline points="${pts}" fill="none" stroke="var(--s1)" stroke-width="2" stroke-linejoin="round"/>`;
+  vals.forEach((v,i)=>{
+    s+=`<circle data-i="${i}" cx="${x(i)}" cy="${y(v)}" r="${i===vals.length-1?5:4}" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"/>`;
+    if(i%2===0||i===vals.length-1) s+=`<text x="${x(i)}" y="${H-7}" text-anchor="middle">${labels[i]}</text>`;
+  });
+  const li=vals.length-1;
+  s+=`<text class="dl" x="${x(li)+8}" y="${y(vals[li])+4}" text-anchor="start">${vals[li]}</text>`;
+  s+=`<line class="axisline" x1="${padL}" x2="${W-padR}" y1="${H-padB}" y2="${H-padB}"/></svg>`;
+  el.innerHTML=s;
+  el.querySelectorAll("circle").forEach(c=>{
+    const i=+c.dataset.i;
+    c.addEventListener("mousemove",e=>showTip(e,`<b>${labels[i]}</b><br>累计 ${vals[i]} 人（当日 +${NEWBIND[i]}）`));
+    c.addEventListener("mouseleave",hideTip);
+  });
+}
+
+barChart(document.getElementById("c-newbind"),DAYS,NEWBIND,{tipLabel:"新增绑定 ",unit:" 人",peaks:1});
+lineChart(document.getElementById("c-cum"),DAYS,CUM);
+barChart(document.getElementById("c-dau"),DAYS,DAU,{tipLabel:"活跃 ",unit:" 人",peaks:1});
+barChart(document.getElementById("c-hour"),[...Array(24).keys()].map(h=>String(h).padStart(2,"0")),HOURS,
+  {color:"var(--s2)",labelEvery:3,peaks:1,tipLabel:"会话 ",unit:" 次",h:210});
+barChart(document.getElementById("c-days"),ADAYS.map(d=>d[0]),ADAYS.map(d=>d[1]),
+  {tipLabel:"",unit:" 人",peaks:2});
+
+// binding data table
+document.getElementById("t-bind").innerHTML=
+  `<tr><th>日期</th><th class="num">授权次数</th><th class="num">新增用户</th><th class="num">累计用户</th><th class="num">活跃用户</th><th class="num">会话次数</th></tr>`+
+  DAYS.map((d,i)=>`<tr><td class="mono">2026-${d.replace("-","-")}</td>
+    <td class="num">${[3,42,54,76,68,59,44,90,33][i]}</td>
+    <td class="num">${NEWBIND[i]}</td><td class="num">${CUM[i]}</td>
+    <td class="num">${DAU[i]}</td><td class="num">${TOKENS[i]}</td></tr>`).join("");
+
+// funnel
+const FUN=[
+ ["OAuth 绑定",336,"零撤销 · 133 次重复授权","var(--s1)"],
+ ["有且慢基金账户",49,"14.6% · 全部为绑定前存量","var(--s1)"],
+ ["历史曾入金",39,"累计投入 973 万元","var(--s1)"],
+ ["当前有持仓",30,"存量资产 434.5 万元","var(--s1)"],
+ ["绑定后有新入金",18,"+35.7 万元 · 含定投","var(--s2)"],
+ ["其中零资产激活",9,"清仓/沉睡账户重新入金","var(--s2)"],
+];
+document.getElementById("funnel").innerHTML=FUN.map(f=>{
+  const w=Math.max(f[1]/336*100,4);
+  return `<div class="fstep"><div class="fl">${f[0]}</div>
+    <div><div class="fbar" style="width:${w}%;background:${f[3]}"><b>${f[1]}</b></div></div>
+    <div class="fr">${f[2]}</div></div>`;}).join("");
+</script>
+
+</body>
+</html>

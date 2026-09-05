@@ -634,6 +634,18 @@ const initialState = {
       tags: ["豆包", "且慢", "OAuth", "账号绑定", "AI 小顾", "用户增长", "新用户", "老用户", "重新授权", "用户画像", "账户准备度", "保有规模", "投资行为", "首次投资", "归因缺口", "生产数据", "交互看板", "HTML", "生产"],
     },
     {
+      id: "doubao-mcp-user-panorama-2026-09-05",
+      groupId: "xiaogu",
+      title: "豆包上架盈米 MCP｜首 9 日用户全景",
+      url: "https://clairku.github.io/clair-ai-studio/reports/doubao-mcp-user-panorama-2026-09-05/",
+      preview: "doubao-mcp-user-panorama-2026-09-05.svg",
+      createdAt: "2026-09-05T22:04:00.000+08:00",
+      source: "生产数据库直查（ying99_oap × ying99_accounts × ying99_asset）｜数据截至 2026-09-05 21:00（北京时间）｜通路口径：OAuth（豆包个人版，client_id=doubao，8-28 19:17 首绑）完全可归因；传统 API Key 无客户端归因，豆包办公无独立标识｜OAuth 绑定 336 人 / 469 次授权 / 零撤销，96 人（28.6%）为存量 Key 持有者｜行为（会话令牌代理）：激活率 97.9%，日活峰值 167，办公时段占 62%，29.8% 活跃 ≥3 天，首周用户次周留存 41.7%｜转化：49 人有且慢基金账户（全部存量），绑定后 0 新开户 0 新绑卡；30 人持仓 434.5 万元，绑定后 18 人净入金 +35.68 万元、9 户零资产激活（绑定后人生首投为 0）｜工程信号：133 次重复授权中 78 次 ≤60 秒，疑似授权双发｜结构性缺口：豆包 OAuth 调用不落工具级明细（对照千问聚合 Key 可查），提问文本协议层即不可得，附三条补救建议｜仅聚合统计，无用户身份明细",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["豆包", "盈米MCP", "OAP", "OAuth", "传统Key", "账号绑定", "绑定走势", "用户行为", "活跃留存", "时段分布", "开户", "绑卡", "入金", "转化漏斗", "沉睡激活", "工具偏好", "提问清单", "数据缺口", "授权双发", "口径", "生产数据", "HTML", "生产"],
+    },
+    {
       id: "qianwen-user-acquisition-dashboard",
       groupId: "xiaogu",
       title: "千问 X 且慢AI小顾｜用户数据看板",
@@ -1953,6 +1965,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "doubao-mcp-user-panorama-2026-09-05": "data-analysis",
   "qianwen-user-question-analysis-2026-09-05": "data-analysis",
   "baidu-dumate-review-2026-09-01": "competitive-research",
   "qieman-cashflow-strategies-audit-2026-08-28": "investment-research",
