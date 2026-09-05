@@ -146,6 +146,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "oap-command-deck-2026-09-05",
+      groupId: "ai-platform",
+      title: "OAP 指挥舱",
+      url: "https://clairku.github.io/clair-ai-studio/reports/oap-command-deck-2026-09-05/",
+      preview: "oap-command-deck-2026-09-05.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-05T22:30:00.000+08:00",
+      source: "OAP 上线以来全景仪表｜总量 KPI 与年度目标进度（生产库 ying99_oap 实时聚合口径）× 528 天增长双曲线与里程碑 × 千问/豆包渠道增长与入金 × 30 日调用归因 × 平台合作进展 × 金融机构名录 × 18 个月大事记 × 能力建设账本｜静态快照版（在线可编辑版为 Claude Artifact，含共享数据库）｜数据截至 2026-09-05，各板块分别标注｜公开脱敏，不含用户明细与凭证",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["OAP", "指挥舱", "数据看板", "年度目标", "用户增长", "入金", "千问", "豆包", "渠道归因", "合作进展", "金融机构", "大事记", "能力建设", "经营汇报", "CLAIR", "HTML", "生产"],
+    },
+    {
       id: "qieman-three-user-lifecycle-audit-2026-09-05",
       groupId: "xiaogu",
       title: "且慢三类新投用户｜全生命周期行为与投资路径审计",
@@ -1965,6 +1979,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "oap-command-deck-2026-09-05": "data-analysis",
   "doubao-mcp-user-panorama-2026-09-05": "data-analysis",
   "qianwen-user-question-analysis-2026-09-05": "data-analysis",
   "baidu-dumate-review-2026-09-01": "competitive-research",

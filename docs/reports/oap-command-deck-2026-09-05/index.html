@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />
+    <script data-clair-access-gate data-clair-access-scope="report" src="../../access-gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OAP 指挥舱</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@400;500;700&display=swap">
+<style>
+:root{
+  /* dark-first cockpit palette */
+  --bg:#131120; --surface:#1B1930; --raised:#232045; --line:rgba(155,145,205,.16);
+  --text:#EFEDF8; --muted:#A29DBE; --faint:#736D92;
+  --accent:#9D8BF5; --accent-deep:#7B66E0; --accent-ink:#CBC0FF; --accent-wash:rgba(157,139,245,.12);
+  --qw:#E8A33D; --db:#53B9E8; --traced:#58C79C; --unattr:#5A5574;
+  --good:#4CC492; --warn:#E5B54D; --risk:#E87070;
+  --chip-good:rgba(76,196,146,.16); --chip-warn:rgba(229,181,77,.15); --chip-risk:rgba(232,112,112,.15);
+  --shadow:0 12px 32px rgba(8,6,20,.45);
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --bg:#F5F4FA; --surface:#FFFFFF; --raised:#F0EEF9; --line:rgba(90,80,150,.14);
+    --text:#232038; --muted:#655F84; --faint:#8F8AAB;
+    --accent:#6D57D9; --accent-deep:#5843C2; --accent-ink:#4A38A8; --accent-wash:rgba(109,87,217,.09);
+    --qw:#C07E14; --db:#1E87BC; --traced:#1F9A6B; --unattr:#8B86A6;
+    --good:#1F9A6B; --warn:#B0821F; --risk:#C74A4A;
+    --chip-good:rgba(31,154,107,.11); --chip-warn:rgba(176,130,31,.12); --chip-risk:rgba(199,74,74,.1);
+    --shadow:0 10px 28px rgba(60,50,110,.12);
+  }
+}
+:root[data-theme="light"]{
+  --bg:#F5F4FA; --surface:#FFFFFF; --raised:#F0EEF9; --line:rgba(90,80,150,.14);
+  --text:#232038; --muted:#655F84; --faint:#8F8AAB;
+  --accent:#6D57D9; --accent-deep:#5843C2; --accent-ink:#4A38A8; --accent-wash:rgba(109,87,217,.09);
+  --qw:#C07E14; --db:#1E87BC; --traced:#1F9A6B; --unattr:#8B86A6;
+  --good:#1F9A6B; --warn:#B0821F; --risk:#C74A4A;
+  --chip-good:rgba(31,154,107,.11); --chip-warn:rgba(176,130,31,.12); --chip-risk:rgba(199,74,74,.1);
+  --shadow:0 10px 28px rgba(60,50,110,.12);
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font:15px/1.75 "Noto Sans SC",-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;margin:0;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:"Noto Serif SC","Songti SC",serif;text-wrap:balance;margin:0}
+a{color:var(--accent-ink)}
+.num{font-variant-numeric:tabular-nums}
+
+/* topbar */
+.topbar{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:18px;padding:10px 28px;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .brand{font-family:"Noto Serif SC",serif;font-weight:900;font-size:17px;letter-spacing:.04em;white-space:nowrap}
+.topbar .brand em{color:var(--accent);font-style:normal}
+.topbar nav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+.topbar nav a{color:var(--muted);text-decoration:none;font-size:13px;padding:4px 10px;border-radius:99px;white-space:nowrap}
+.topbar nav a:hover{color:var(--text);background:var(--accent-wash)}
+.topbar .spacer{flex:1}
+.asof{font-size:12px;color:var(--faint);white-space:nowrap}
+.pill{font-size:11.5px;padding:2px 10px;border-radius:99px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.pill.live{border-color:transparent;background:var(--chip-good);color:var(--good)}
+
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px 80px}
+section{margin-top:64px;scroll-margin-top:72px}
+.kicker{font-size:12px;letter-spacing:.22em;color:var(--accent);font-weight:700;text-transform:uppercase}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:6px}
+.sec-head h2{font-size:26px;font-weight:700;margin-top:4px}
+.sec-lead{color:var(--muted);max-width:68ch;margin:2px 0 22px}
+
+/* hero */
+.hero{padding-top:52px}
+.hero h1{font-size:clamp(30px,4.6vw,44px);font-weight:900;line-height:1.25;margin:10px 0 12px}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero p.sub{color:var(--muted);max-width:66ch;margin:0}
+.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px 22px 18px;box-shadow:var(--shadow)}
+.kpi .lab{font-size:13px;color:var(--muted)}
+.kpi .val{font-family:"Noto Serif SC",serif;font-weight:900;font-size:clamp(28px,3.2vw,38px);line-height:1.15;margin-top:4px;font-variant-numeric:tabular-nums}
+.kpi .val small{font-size:.48em;font-weight:700;color:var(--muted);margin-left:2px}
+.kpi .tgt{display:flex;align-items:center;gap:10px;margin-top:12px;font-size:12.5px;color:var(--muted)}
+.bar{flex:1;height:6px;border-radius:99px;background:var(--raised);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:99px;background:var(--accent)}
+.bar i.over{background:var(--good)}
+.tgt b{font-weight:700;color:var(--text)}
+.kpi-sub{display:flex;gap:26px;flex-wrap:wrap;margin-top:18px;padding:14px 20px;background:var(--surface);border:1px solid var(--line);border-radius:12px;font-size:13.5px;color:var(--muted)}
+.kpi-sub b{color:var(--text);font-weight:700;font-variant-numeric:tabular-nums}
+
+/* charts */
+.chart-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px 8px;box-shadow:var(--shadow)}
+.chart-card + .chart-card{margin-top:16px}
+.chart-card .ch-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.chart-card h3{font-size:16px;font-weight:700}
+.chart-card .ch-note{font-size:12px;color:var(--faint)}
+.chart-card svg{display:block;width:100%;height:auto}
+svg text{font-family:"Noto Sans SC",sans-serif}
+
+/* channels */
+.chan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.chan{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:var(--shadow);display:flex;flex-direction:column;border-top:3px solid var(--accent)}
+.chan.qw{border-top-color:var(--qw)} .chan.db{border-top-color:var(--db)} .chan.tr{border-top-color:var(--traced)}
+.chan .ch-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.chan h3{font-size:17px;font-weight:700}
+.chan .since{font-size:11.5px;color:var(--faint)}
+.chan .big{font-family:"Noto Serif SC",serif;font-weight:900;font-size:32px;margin:8px 0 0;font-variant-numeric:tabular-nums}
+.chan .big small{font-size:.44em;color:var(--muted);font-weight:700;margin-left:2px}
+.chan .cap{font-size:12.5px;color:var(--muted);margin-bottom:10px}
+.facts{list-style:none;margin:10px 0 0;padding:10px 0 0;border-top:1px dashed var(--line);font-size:13px;color:var(--muted);display:grid;gap:6px}
+.facts b{color:var(--text);font-weight:700;font-variant-numeric:tabular-nums}
+.spark{margin-top:auto;padding-top:12px}
+.attr-row{display:grid;grid-template-columns:96px 1fr 118px;align-items:center;gap:10px;font-size:12.5px;margin-top:8px}
+.attr-row .nm{color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.attr-row .vl{color:var(--text);font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+.attr-bar{height:8px;border-radius:99px;background:var(--raised);overflow:hidden}
+.attr-bar i{display:block;height:100%;border-radius:99px}
+.gap-strip{margin-top:16px;background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--warn);border-radius:12px;padding:14px 20px;font-size:13.5px;color:var(--muted)}
+.gap-strip b{color:var(--text)}
+.gap-strip ul{margin:6px 0 0;padding-left:18px;display:grid;gap:4px}
+
+/* partners */
+.partner-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.pcard{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow)}
+.pcard .p-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.pcard h3{font-size:16px;font-weight:700;margin-right:auto}
+.chip{font-size:11.5px;padding:2px 10px;border-radius:99px;font-weight:500;white-space:nowrap}
+.chip.kind{background:var(--accent-wash);color:var(--accent-ink)}
+.chip.stage{background:var(--chip-good);color:var(--good)}
+.chip.stage.mid{background:var(--chip-warn);color:var(--warn)}
+.chip.stage.off{background:var(--raised);color:var(--muted)}
+.pcard .hl{font-size:13.5px;color:var(--muted);margin:8px 0 0}
+.pcard .stat{font-size:13px;color:var(--text);margin-top:8px;font-variant-numeric:tabular-nums}
+.pcard .next{font-size:12.5px;color:var(--muted);margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)}
+.pcard .next b{color:var(--warn);font-weight:500}
+.pcard .p-meta{font-size:11.5px;color:var(--faint);margin-top:6px}
+
+/* buttons */
+.btn{font:inherit;font-size:13px;padding:6px 14px;border-radius:9px;border:1px solid var(--line);background:var(--raised);color:var(--text);cursor:pointer}
+.btn:hover{border-color:var(--accent);color:var(--accent-ink)}
+.btn.primary{background:var(--accent-deep);border-color:transparent;color:#fff}
+.btn.primary:hover{background:var(--accent);color:#fff}
+.btn.mini{font-size:12px;padding:2px 10px;border-radius:7px}
+.btn:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.edit-only{display:none}
+.can-edit .edit-only{display:inline-flex;align-items:center}
+
+/* institutions */
+.inst-tools{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+.inst-tools select,.inst-tools input{font:inherit;font-size:13px;background:var(--surface);color:var(--text);border:1px solid var(--line);border-radius:9px;padding:6px 10px}
+.table-wrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
+table{border-collapse:collapse;width:100%;min-width:860px;font-size:13.5px}
+th{font-size:12px;color:var(--faint);text-align:left;font-weight:500;letter-spacing:.06em;padding:12px 16px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:11px 16px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+td.nm{color:var(--text);font-weight:500;white-space:nowrap}
+td .ex{font-size:11px;color:var(--faint);border:1px dashed var(--line);border-radius:6px;padding:0 6px;margin-left:6px}
+.st{font-size:12px;padding:2px 10px;border-radius:99px;white-space:nowrap}
+.st.s1{background:var(--raised);color:var(--muted)}
+.st.s2{background:var(--chip-warn);color:var(--warn)}
+.st.s3{background:var(--accent-wash);color:var(--accent-ink)}
+.st.s4{background:var(--chip-good);color:var(--good)}
+.st.s5{background:var(--chip-risk);color:var(--risk)}
+.empty-hint{padding:26px;text-align:center;color:var(--faint);font-size:13.5px}
+
+/* timeline */
+.tl{position:relative;margin:8px 0 0;padding:0 0 0 26px;list-style:none}
+.tl::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.tl li{position:relative;padding:0 0 22px 14px}
+.tl li::before{content:"";position:absolute;left:-26px;top:7px;width:12px;height:12px;border-radius:50%;background:var(--surface);border:3px solid var(--cat,var(--accent))}
+.tl .tl-date{font-size:12px;color:var(--faint);font-variant-numeric:tabular-nums}
+.tl .tl-cat{font-size:11px;padding:1px 8px;border-radius:99px;margin-left:8px;background:var(--accent-wash);color:var(--cat-ink,var(--accent-ink))}
+.tl h3{font-size:15.5px;font-weight:700;margin:3px 0 2px}
+.tl p{margin:0;font-size:13.5px;color:var(--muted);max-width:74ch}
+.tl-year{font-family:"Noto Serif SC",serif;font-weight:900;font-size:20px;color:var(--faint);margin:6px 0 14px;padding-left:14px}
+
+/* capabilities */
+.cap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.capb{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.capb .cv{font-family:"Noto Serif SC",serif;font-weight:900;font-size:24px;font-variant-numeric:tabular-nums}
+.capb .cl{font-size:13.5px;color:var(--text);font-weight:500;margin-top:2px}
+.capb .cd{font-size:12.5px;color:var(--muted);margin-top:4px}
+
+/* footer */
+.foot{margin-top:70px;padding-top:22px;border-top:1px solid var(--line);font-size:12.5px;color:var(--faint);line-height:1.9}
+.foot b{color:var(--muted)}
+
+/* dialog */
+dialog{background:var(--surface);color:var(--text);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:0;width:min(560px,92vw)}
+dialog::backdrop{background:rgba(10,8,22,.6);backdrop-filter:blur(3px)}
+dialog form{padding:24px 26px}
+dialog h3{font-size:18px;margin-bottom:14px}
+.f-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.f-grid .full{grid-column:1/-1}
+.field label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}
+.field input,.field select,.field textarea{width:100%;font:inherit;font-size:13.5px;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:9px;padding:7px 10px}
+.field textarea{resize:vertical;min-height:64px}
+.d-actions{display:flex;justify-content:space-between;align-items:center;margin-top:18px}
+.d-actions .grp{display:flex;gap:10px}
+.btn.danger{color:var(--risk);border-color:var(--chip-risk)}
+.btn.danger:hover{border-color:var(--risk)}
+
+#toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);background:var(--raised);color:var(--text);border:1px solid var(--line);border-radius:12px;padding:10px 20px;font-size:13.5px;opacity:0;pointer-events:none;transition:.25s;z-index:60;box-shadow:var(--shadow)}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media (max-width:920px){
+  .kpi-grid,.chan-grid,.cap-grid{grid-template-columns:1fr 1fr}
+  .partner-grid{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  .wrap{padding:0 16px 60px}
+  .topbar{padding:10px 16px}
+  .kpi-grid,.chan-grid,.cap-grid{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion: reduce){ *{transition:none!important;animation:none!important} }
+</style>
+</head>
+<body>
+
+
+<header class="topbar">
+  <div class="brand">OAP <em>指挥舱</em></div>
+  <nav>
+    <a href="#overview">总览</a><a href="#growth">增长</a><a href="#channels">渠道</a><a href="#partners">合作</a><a href="#institutions">机构</a><a href="#timeline">大事记</a><a href="#capability">能力</a>
+  </nav>
+  <span class="spacer"></span>
+  <span class="pill" id="sync-pill">静态快照</span>
+  <span class="asof num" id="asof-label"></span>
+</header>
+
+<div class="wrap">
+
+<!-- ============ 总览 ============ -->
+<section class="hero" id="overview">
+  <div class="kicker">YINGMI AI OPEN PLATFORM · INTERNAL</div>
+  <h1>上线 <em class="num" id="days-since">—</em> 天：<br>从能力开放到超级入口的全景仪表</h1>
+  <p class="sub">盈米 AI 开放平台（OAP）自 2025-03 启动以来的用户规模、渠道增长、入金转化、生态合作与能力建设，一页看全。数字口径与生产库 Stargate 后台一致，各板块分别标注数据截至日。</p>
+
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="lab">累计接入用户（apiKey 申请）</div>
+      <div class="val num" id="k-users">—</div>
+      <div class="tgt"><span>年度目标 1 万</span><span class="bar"><i id="b-users"></i></span><b class="num" id="p-users">—</b></div>
+    </div>
+    <div class="kpi">
+      <div class="lab">累计调用</div>
+      <div class="val num" id="k-calls">—</div>
+      <div class="tgt"><span>年度目标 1,300 万</span><span class="bar"><i id="b-calls"></i></span><b class="num" id="p-calls">—</b></div>
+    </div>
+    <div class="kpi">
+      <div class="lab">月活跃用户（滚动 30 天）</div>
+      <div class="val num" id="k-mau">—</div>
+      <div class="tgt"><span>年度目标 2,000</span><span class="bar"><i id="b-mau"></i></span><b class="num" id="p-mau">—</b></div>
+    </div>
+  </div>
+  <div class="kpi-sub num" id="kpi-sub"></div>
+</section>
+
+<!-- ============ 增长 ============ -->
+<section id="growth">
+  <div class="sec-head">
+    <div><div class="kicker">02 · GROWTH</div><h2>增长全景</h2></div>
+  </div>
+  <p class="sec-lead">全量日序列自首个用户记录（2025-03-27）起。曲线上的圆点为关键里程碑——增长从来不是自然发生的，每一段斜率背后都有一次动作。</p>
+  <div class="chart-card">
+    <div class="ch-head"><h3>累计接入用户</h3><span class="ch-note" id="note-users"></span></div>
+    <div id="chart-users"></div>
+  </div>
+  <div class="chart-card">
+    <div class="ch-head"><h3>累计调用量</h3><span class="ch-note" id="note-calls"></span></div>
+    <div id="chart-calls"></div>
+  </div>
+</section>
+
+<!-- ============ 渠道 ============ -->
+<section id="channels">
+  <div class="sec-head">
+    <div><div class="kicker">03 · CHANNELS</div><h2>渠道：用户增长与入金</h2></div>
+  </div>
+  <p class="sec-lead">两个超级入口（千问、豆包）可全链路溯源到且慢账户与资产；第三块是全平台 30 日调用的归因视图。</p>
+  <div class="chan-grid">
+    <div class="chan qw">
+      <div class="ch-top"><h3>千问 × 小顾</h3><span class="since">A2A · 2026-08-10 上线</span></div>
+      <div class="big num" id="qw-bound">—</div>
+      <div class="cap">累计绑定账户 <span id="qw-asof"></span></div>
+      <ul class="facts">
+        <li>当场新注册 <b class="num" id="qw-new">—</b>（占 <b class="num" id="qw-newp">—</b>）· 存量账户 <b class="num" id="qw-old">—</b></li>
+        <li>有持仓 <b class="num">241 户</b> · 持仓金额 <b class="num">7,948.53 万</b></li>
+        <li>30 日调用 <b class="num">150.97 万</b>（全平台溯源第一）</li>
+        <li>入金 / 买卖金额：<b>权威口径待接入</b>（MaxCompute 现金流表）</li>
+      </ul>
+      <div class="spark" id="qw-spark"></div>
+    </div>
+    <div class="chan db">
+      <div class="ch-top"><h3>豆包（个人版）</h3><span class="since">OAuth · 2026-08-28 上架</span></div>
+      <div class="big num">336</div>
+      <div class="cap">首 9 日绑定用户（8-28 → 9-5 21:00）</div>
+      <ul class="facts">
+        <li>授权 <b class="num">469 次</b> · <b>零撤销</b> · 激活 <b class="num">329</b></li>
+        <li>DAU 峰值 <b class="num">167</b> · 次周留存 <b class="num">41.7%</b>（48/115）</li>
+        <li>有基金账户 <b class="num">49 人</b>（全为存量）· 持仓 <b class="num">30 人 / 434.5 万</b></li>
+        <li>绑定后新增入金 <b class="num">+35.68 万</b>（18 人，其中 9 人首次入金）</li>
+      </ul>
+    </div>
+    <div class="chan tr">
+      <div class="ch-top"><h3>调用归因（30 日）</h3><span class="since num" id="attr-asof"></span></div>
+      <div class="big num" id="attr-total">—</div>
+      <div class="cap">30 日总调用 · 可归因 <b class="num" id="attr-rate">—</b></div>
+      <div id="attr-bars"></div>
+    </div>
+  </div>
+  <div class="gap-strip">
+    <b>老板须知的三个数据缺口</b>——以下数字不是没有，而是当前拿不到：
+    <ul>
+      <li><b>豆包调用行为全盲</b>：OAuth 通道调用不落用量表（千问有聚合 Key 记账，豆包没有），豆包的调用量、工具偏好目前只存在于网关日志里。</li>
+      <li><b>千问入金 / 买卖金额未发布</b>：权威源在 MaxCompute 现金流表，尚未接入；页面只发布可复现的持仓口径。</li>
+      <li><b>长尾归因待治理</b>：30 日活跃 Key 中 99.4% 未标注平台来源，调用可归因率 75% 主要靠千问聚合 Key 撑起。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 合作 ============ -->
+<section id="partners">
+  <div class="sec-head">
+    <div><div class="kicker">04 · PARTNERSHIPS</div><h2>平台合作进展</h2></div>
+    <button class="btn edit-only" id="add-partner">＋ 新增合作</button>
+  </div>
+  <p class="sec-lead">超级入口、云厂商、模型生态与行业联盟的实时进展。卡片可编辑，改动全员实时可见。</p>
+  <div class="partner-grid" id="partner-grid"></div>
+</section>
+
+<!-- ============ 机构 ============ -->
+<section id="institutions">
+  <div class="sec-head">
+    <div><div class="kicker">05 · INSTITUTIONS</div><h2>金融机构名录</h2></div>
+    <button class="btn primary edit-only" id="add-inst">＋ 新增机构</button>
+  </div>
+  <p class="sec-lead">所有对接过的金融机构：状态、责任人、来源渠道与卡点，在这里持续维护。</p>
+  <div class="inst-tools">
+    <input type="search" id="inst-q" placeholder="搜索机构 / 备注…" aria-label="搜索机构">
+    <select id="inst-f-status" aria-label="按状态筛选"><option value="">全部状态</option><option>接触中</option><option>方案沟通</option><option>试点对接</option><option>投标中</option><option>已上线</option><option>暂停</option></select>
+    <select id="inst-f-type" aria-label="按类型筛选"><option value="">全部类型</option><option>券商</option><option>基金公司</option><option>银行</option><option>保险</option><option>三方平台</option><option>其他</option><option>待补充</option></select>
+    <span class="asof" id="inst-count"></span>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>机构</th><th>类型</th><th>状态</th><th>责任人</th><th>来源渠道</th><th>首次接触</th><th>最近更新</th><th>备注 / 卡点</th><th></th></tr></thead>
+      <tbody id="inst-body"></tbody>
+    </table>
+    <div class="empty-hint" id="inst-empty" hidden>没有匹配的机构。</div>
+  </div>
+</section>
+
+<!-- ============ 大事记 ============ -->
+<section id="timeline">
+  <div class="sec-head">
+    <div><div class="kicker">06 · JOURNEY</div><h2>上线以来的所有动作</h2></div>
+    <button class="btn edit-only" id="add-event">＋ 记一笔</button>
+  </div>
+  <p class="sec-lead">重要发布、生态建设、品牌运营、里程碑与渠道上线——18 个月的完整履历，按月倒序。</p>
+  <div id="tl-root"></div>
+</section>
+
+<!-- ============ 能力 ============ -->
+<section id="capability">
+  <div class="sec-head">
+    <div><div class="kicker">07 · CAPABILITY</div><h2>能力建设账本</h2></div>
+  </div>
+  <p class="sec-lead">增长的底座：开放能力从 MCP 工具，走到 Skills、模型与 Agent 形态。</p>
+  <div class="cap-grid">
+    <div class="capb"><div class="cv num">7,779 <span style="font-size:.55em;color:var(--muted)">路由</span></div><div class="cl">盈米 MCP（Stargate）</div><div class="cd">4,386 个真实工具，7 大投研 / 交易域；20 个路由带网关级业务改写。</div></div>
+    <div class="capb"><div class="cv num">11 <span style="font-size:.55em;color:var(--muted)">个</span></div><div class="cl">官方投顾 Skills</div><div class="cd">基金分析、财富规划、市场资讯、内容生成四类，累计调用 4,301 次（8 月底）。</div></div>
+    <div class="capb"><div class="cv num">1 <span style="font-size:.55em;color:var(--muted)">套</span></div><div class="cl">投顾智能体模型 + 评测集</div><div class="cd">2025-09 发布行业首个投顾评测集，能力建设进入模型与标准阶段。</div></div>
+    <div class="capb"><div class="cv">OpenClaw</div><div class="cl">投顾龙虾 Agent</div><div class="cd">2026-03 发布，投顾能力从工具开放进入 Agent 形态；实践入选金融 AI 联盟分享。</div></div>
+    <div class="capb"><div class="cv">小顾 3.0</div><div class="cl">自有 C 端智能体</div><div class="cd">2026-06 发布；经 A2A 入驻千问，是 OAP 能力的第一消费方与展示窗。</div></div>
+    <div class="capb"><div class="cv">OAuth</div><div class="cl">渠道账户体系</div><div class="cd">千问 / 豆包 / SCRM 桌面端经 OAuth 绑定且慢账户，打通渠道 → 账户 → 资产归因链路。</div></div>
+  </div>
+</section>
+
+<footer class="foot">
+  <b>数据口径</b> · 总量与走势：生产库 ying99_oap 实时聚合，与 Stargate 后台 dashboard 同口径（排除内部测试 Key）；月活 = 滚动 30 天有调用的去重 apiKey。年度目标（调用 1,300 万 / 用户 1 万 / 月活 2,000）按 8·10 汇报完成度反推。千问 = qwen_user_map × 生产库，新客判定 |注册−绑定| ≤ 60 分钟；资产一律取 ROOT 层快照。豆包 = OAuth client "doubao"，consent → 且慢账户 → 资产表 join。归因 = api_key 名称关键词分类，30 日窗口。<br>
+  <b>更新方式</b> · 总量走势由本机定时任务同步至公网（工作时段每 2 小时）；本页数字为发布时烘焙 + 数据库覆盖：让 Claude「更新指挥舱数据」即可刷新头部指标，无需重发页面。合作、机构、大事记为共享数据库，编辑实时同步给所有打开页面的人。
+</footer>
+</div>
+
+<dialog id="dlg"><form method="dialog" id="dlg-form">
+  <h3 id="dlg-title">编辑</h3>
+  <div class="f-grid" id="dlg-fields"></div>
+  <div class="d-actions">
+    <button type="button" class="btn danger" id="dlg-del" hidden>删除</button>
+    <div class="grp">
+      <button type="button" class="btn" id="dlg-cancel">取消</button>
+      <button type="submit" class="btn primary" id="dlg-save">保存</button>
+    </div>
+  </div>
+</form></dialog>
+
+<div id="toast" role="status"></div>
+
+<script id="baked" type="application/json">{"oap":{"start":"2025-03-27","asOf":"2026-09-05","generatedAt":"2026-09-05T21:10:36+08:00","cu":[1,2,2,3,3,6,6,6,6,6,6,6,6,8,8,8,9,9,9,10,10,10,11,11,12,13,16,28,99,160,174,214,254,292,326,341,351,363,372,383,405,438,466,481,488,491,506,523,550,576,641,667,687,715,744,777,790,811,814,819,836,851,867,885,896,901,904,904,919,945,967,983,989,999,1013,1035,1050,1064,1078,1082,1086,1103,1116,1126,1138,1149,1153,1156,1160,1173,1183,1200,1210,1214,1216,1230,1237,1242,1259,1267,1272,1282,1288,1304,1316,1335,1341,1344,1348,1358,1366,1373,1382,1394,1402,1407,1420,1430,1446,1471,1487,1488,1491,1503,1511,1521,1537,1550,1558,1561,1575,1585,1595,1607,1618,1624,1627,1634,1645,1656,1666,1678,1683,1688,1695,1702,1713,1722,1731,1738,1741,1756,1765,1777,1788,1797,1801,1807,1818,1828,1837,1851,1853,1859,1863,1869,1878,1884,1899,1910,1916,1921,1934,1943,1954,1966,1978,1981,1984,1992,1998,2006,2016,2027,2032,2039,2049,2054,2057,2057,2059,2061,2062,2062,2063,2065,2071,2081,2086,2092,2111,2132,2144,2158,2166,2170,2174,2183,2190,2200,2209,2218,2220,2225,2232,2235,2238,2247,2256,2261,2264,2274,2280,2290,2300,2313,2318,2320,2326,2338,2351,2356,2362,2365,2369,2375,2378,2387,2393,2406,2409,2412,2418,2423,2435,2441,2448,2452,2454,2467,2480,2489,2495,2505,2509,2514,2522,2528,2545,2553,2557,2723,2729,2737,2749,2760,2767,2776,2778,2799,2803,2817,2821,2830,2846,2851,2861,2869,2873,2876,2879,2882,2884,2893,2901,2907,2915,2926,2937,2941,2946,2960,2968,2976,2988,3001,3009,3015,3028,3039,3050,3060,3067,3076,3080,3093,3119,3142,3177,3192,3200,3205,3223,3239,3255,3265,3274,3281,3287,3299,3313,3320,3326,3334,3338,3341,3343,3348,3353,3359,3363,3369,3375,3384,3405,3438,3463,3496,3512,3532,3562,3587,3619,3659,3700,3724,3753,3861,4009,4094,4146,4191,4235,4273,4315,4391,4444,4490,4532,4552,4571,4608,4641,4674,4702,4721,4736,4745,4763,4784,4816,4839,4869,4880,4889,4898,4910,4930,4955,4976,4990,5002,5023,5047,5065,5082,5100,5113,5131,5148,5171,5187,5202,5228,5236,5243,5261,5277,5297,5308,5320,5326,5334,5338,5345,5358,5382,5405,5424,5440,5458,5484,5507,5527,5547,5569,5587,5608,5632,5663,5690,5725,5750,5775,5808,5840,5858,5884,5913,5933,5944,5963,5993,6022,6062,6096,6115,6139,6186,6219,6249,6280,6313,6330,6342,6366,6386,6405,6440,6456,6462,6482,6505,6540,6572,6612,6644,6659,6672,6701,6728,6758,6787,6811,6826,6846,6872,6898,6929,6960,7002,7025,7047,7083,7113,7146,7178,7209,7235,7258,7329,7491,7628,7770,7910,8008,8089,8199,8307,8412,8503,8583,8654,8716,8807,8893,8997,9156,9274,9351,9422,9535,9655,9747,9851,9942,10010,10088,10243,10367,10502,10684,10832,10917,10986,11091,11221,11389,11543,11689,11747,11811,11925,12125,12276,12437,12572,12632],"cc":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,24,854,1602,1847,2065,3483,4624,5718,6568,7237,7359,7656,8415,9339,10461,11241,11766,11964,12269,12893,14983,20789,26568,32793,37630,43143,49881,57432,64986,72737,80509,85605,90349,97085,103559,109767,115750,121108,129569,137277,146001,154754,163634,172256,181898,190263,200678,217773,293969,381738,464451,555334,646417,736871,838502,939791,1086218,1221122,1278693,1285407,1292480,1306133,1323139,1345957,1369653,1391596,1408778,1423561,1460444,1491045,1533639,1574291,1609950,1625054,1639023,1675849,1721761,1783537,1823058,1856946,1860809,1869846,1874540,1880631,1891327,1902980,1919081,1928510,1933861,1943100,1957768,1972245,1989232,2013097,2028929,2045851,2070419,2099573,2137896,2180812,2229837,2270270,2316787,2384870,2460203,2524498,2632590,2735046,2797045,2853081,2960750,3054887,3141499,3224251,3293250,3349346,3390145,3463431,3548824,3621213,3707168,3786110,3831969,3878002,3964200,4053363,4125515,4200485,4273577,4319157,4357003,4417322,4485544,4566079,4647511,4701685,4729666,4757328,4800165,4824574,4851619,4879854,4901802,4917300,4935037,4958851,4980479,4992819,5004032,5013645,5023164,5032884,5042795,5056863,5076797,5108767,5135400,5154751,5169732,5197472,5226353,5254835,5288468,5322614,5341506,5360387,5390740,5426411,5458618,5484935,5508005,5520618,5532157,5557165,5590493,5624286,5660162,5698038,5713401,5728521,5759444,5790690,5821475,5852920,5879031,5893270,5905839,5931867,5959048,5989879,6023890,6054241,6070961,6087577,6116108,6145256,6175055,6206853,6234436,6243560,6251559,6264707,6280216,6290020,6292457,6295221,6296769,6298771,6303027,6307419,6313221,6319517,6324401,6327821,6330207,6334719,6340267,6347809,6352891,6356019,6358294,6360109,6363047,6367766,6372670,6379217,6383145,6384894,6387938,6393557,6398355,6402875,6407145,6410666,6412324,6414254,6417956,6421314,6431252,6442685,6453478,6464838,6487207,6509088,6542368,6569183,6596023,6621497,6639441,6657327,6687547,6717133,6746534,6774242,6798073,6813943,6830324,6855358,6879303,6903637,6929482,6952167,6967626,6984002,7011651,7038817,7063321,7089482,7110329,7122338,7133385,7146090,7162780,7178480,7193558,7206892,7215440,7222779,7234423,7246447,7257597,7269900,7279294,7285549,7290554,7294457,7298513,7303016,7309195,7314247,7319393,7326040,7334879,7347515,7363682,7380721,7397133,7411199,7421807,7438207,7453405,7468628,7486441,7501957,7512687,7534680,7555318,7575001,7585727,7597655,7608564,7616263,7621287,7630515,7639672,7645082,7653022,7659140,7663113,7665307,7674545,7682979,7694757,7706710,7714634,7717508,7725348,7732954,7739756,7748036,7756519,7768121,7772733,7778780,7784280,7793303,7803926,7811046,7821779,7829833,7834409,7849185,7858734,7866860,7873605,7881835,7887670,7890122,7901027,7908272,7918878,7928469,7938641,7942396,7944824,7954916,7963850,7976168,7992984,7998761,8001802,8004720,8008129,8012882,8046331,8091105,8109764,8119061,8125825,8138979,8160637,8182769,8194603,8206782,8213064,8216530,8228367,8240158,8253663,8267610,8279658,8283052,8290748,8303649,8317001,8330446,8347514,8365234,8369287,8374763,8386638,8398144,8414499,8431291,8444112,8447988,8453057,8466037,8478348,8490723,8516777,8534190,8539056,8544958,8557406,8568834,8582848,8591888,8600315,8605065,8609857,8627512,8647420,8663497,8678973,8693892,8698919,8705149,8722337,8759148,8774459,8788219,8800177,8805680,8810536,8823535,8837780,8848781,8858736,8892699,8909065,8914792,8925959,8938738,8954629,8974844,8986860,8994075,9002004,9016799,9033471,9055256,9082332,9106897,9113895,9119411,9135493,9147273,9165206,9177836,9199482,9205848,9212421,9234985,9262143,9281216,9299175,9316532,9327454,9337501,9357211,9377086,9397111,9416401,9436200,9447912,9458599,9479992,9503316,9524597,9546589,9569088,9578878,9588248,9609221,9631332,9668696,9712719,9754437,9775159,9790359,9828853,10151923,10659374,10907126,11464647,11959836],"dn":[1,1,0,1,0,3,0,0,0,0,0,0,0,2,0,0,1,0,0,1,0,0,1,0,1,1,3,12,71,61,14,40,40,38,34,15,10,12,9,11,22,33,28,15,7,3,15,17,27,26,65,26,20,28,29,33,13,21,3,5,17,15,16,18,11,5,3,0,15,26,22,16,6,10,14,22,15,14,14,4,4,17,13,10,12,11,4,3,4,13,10,17,10,4,2,14,7,5,17,8,5,10,6,16,12,19,6,3,4,10,8,7,9,12,8,5,13,10,16,25,16,1,3,12,8,10,16,13,8,3,14,10,10,12,11,6,3,7,11,11,10,12,5,5,7,7,11,9,9,7,3,15,9,12,11,9,4,6,11,10,9,14,2,6,4,6,9,6,15,11,6,5,13,9,11,12,12,3,3,8,6,8,10,11,5,7,10,5,3,0,2,2,1,0,1,2,6,10,5,6,19,21,12,14,8,4,4,9,7,10,9,9,2,5,7,3,3,9,9,5,3,10,6,10,10,13,5,2,6,12,13,5,6,3,4,6,3,9,6,13,3,3,6,5,12,6,7,4,2,13,13,9,6,10,4,5,8,6,17,8,4,166,6,8,12,11,7,9,2,21,4,14,4,9,16,5,10,8,4,3,3,3,2,9,8,6,8,11,11,4,5,14,8,8,12,13,8,6,13,11,11,10,7,9,4,13,26,23,35,15,8,5,18,16,16,10,9,7,6,12,14,7,6,8,4,3,2,5,5,6,4,6,6,9,21,33,25,33,16,20,30,25,32,40,41,24,29,108,148,85,52,45,44,38,42,76,53,46,42,20,19,37,33,33,28,19,15,9,18,21,32,23,30,11,9,9,12,20,25,21,14,12,21,24,18,17,18,13,18,17,23,16,15,26,8,7,18,16,20,11,12,6,8,4,7,13,24,23,19,16,18,26,23,20,20,22,18,21,24,31,27,35,25,25,33,32,18,26,29,20,11,19,30,29,40,34,19,24,47,33,30,31,33,17,12,24,20,19,35,16,6,20,23,35,32,40,32,15,13,29,27,30,29,24,15,20,26,26,31,31,42,23,22,36,30,33,32,31,26,23,71,162,137,142,140,98,81,110,108,105,91,80,71,62,91,86,104,159,118,77,71,113,120,92,104,91,68,78,155,124,135,182,148,85,69,105,130,168,154,146,58,64,114,200,151,161,135,60],"readings":{"cumulativeUsers":12632,"cumulativeCalls":11959836,"mau":3128},"mauAsOf":"2026-09-05"},"qw":{"start":"2026-08-03","asOf":"2026-09-04","cb":[9,37,116,168,214,291,383,758,968,1106,1212,1288,1378,1438,1523,1622,1683,1749,1815,1883,1959,2032,2109,2176,2239,2294,2345,2398,2444,2500,2542,2581,2590],"nb":[9,28,79,52,46,77,92,375,210,138,106,76,90,60,85,99,61,66,66,68,76,73,77,67,63,55,51,53,46,56,42,39,9],"metrics":{"bound_accounts":2590,"existing_accounts":535,"new_accounts":2055,"missing_registration_time":0,"duplicate_bindings":0,"unmatched_accounts":0},"holding":{"accounts":241,"amount_wan":7948.53}},"attr":{"asOf":"2026-09-04","totals":{"apiKeys":12532,"activeKeys30d":3126,"calls30d":2024125},"coverage":{"callAttributionRate":75,"identifiedCalls":1517680,"activeKeyAttributionRate":0.6},"platforms":[{"p":"千问","keys":5,"ak":4,"calls":1509697},{"p":"未标注平台","keys":12484,"ak":3108,"calls":506445},{"p":"Dify","keys":1,"ak":1,"calls":6037},{"p":"Coze / 扣子","keys":3,"ak":1,"calls":1726},{"p":"Vesta","keys":13,"ak":10,"calls":188},{"p":"豆包 / 字节","keys":24,"ak":1,"calls":28},{"p":"微信","keys":2,"ak":1,"calls":4}]},"events":[{"date":"2025-03-15","category":"重要发布","title":"OAP 项目启动","body":"OAP 项目正式启动。"},{"date":"2025-04-12","category":"重要发布","title":"官网与首批 MCP 正式发布","body":"官网、AI 开放能力与首批 MCP 服务正式对外发布。"},{"date":"2025-04-24","category":"生态建设","title":"首批模型生态完成上架","body":"盈米 MCP 连续进入阿里云百炼、魔塔社区与百度 MCP 广场。"},{"date":"2025-05-18","category":"生态建设","title":"进入火山引擎与扣子生态","body":"成为火山引擎 AI 合作伙伴，并完成双平台上架。"},{"date":"2025-06-18","category":"里程碑","title":"完成 C 端接入与商业化零到一","body":"首个 C 端产品接入、首笔收入与品牌运营在同月落地。"},{"date":"2025-07-18","category":"品牌运营","title":"深化阿里云合作并亮相百度 AI Day","body":"全栈战略合作与头部平台品牌曝光同步推进。"},{"date":"2025-08-15","category":"品牌运营","title":"实践进入亚马逊云科技峰会","body":"盈米 AI 实践在亚马逊云科技中国峰会完成行业分享。"},{"date":"2025-09-18","category":"重要发布","title":"发布投顾智能体模型与行业首个评测集","body":"能力建设从开放工具进入模型与评价标准阶段。"},{"date":"2025-11-15","category":"品牌运营","title":"亮相广州投顾年会 AI 分论坛","body":"持续扩大盈米 AI 在投顾行业的专业影响力。"},{"date":"2026-02-15","category":"重要发布","title":"能力接入 AI 小顾 2.0","body":"开放能力进入盈米自有终端产品。"},{"date":"2026-03-15","category":"重要发布","title":"发布盈米投顾龙虾 OpenClaw","body":"投顾能力从工具开放继续进入 Agent 形态。"},{"date":"2026-04-18","category":"品牌运营","title":"龙虾实践分享并加入金融 AI 联盟","body":"产品实践输出与生态联盟建设同步推进。"},{"date":"2026-05-18","category":"重要发布","title":"首批 Skills 发布，开放平台官网升级","body":"能力形态从 MCP 延伸至 Skills，开放平台同步升级。"},{"date":"2026-06-18","category":"里程碑","title":"小顾 3.0 发布，千问接入盈米 Skills","body":"产品升级、行业参展与超级流量平台接入在同月完成。"},{"date":"2026-07-12","category":"里程碑","title":"腾讯生态接入并进入机构投标","body":"MCP 能力进入腾讯场景，并形成首个机构项目投标。"},{"date":"2026-08-10","category":"里程碑","title":"千问 A2A 与微信小微接入且慢 AI 能力","body":"千问合作从 Skills 分发升级为 A2A，且慢 AI 能力继续进入微信生态入口。"},{"date":"2026-08-28","category":"渠道上线","title":"豆包上架盈米 MCP（个人版 OAuth）","body":"豆包个人版通过 OAuth 接入盈米 MCP，上架当日即产生首批绑定；首 9 日绑定 336 人、授权 469 次、零撤销。"},{"date":"2026-09-02","category":"生态建设","title":"阿里云点金团队来访交流","body":"点金团队（鹏飞带队）来盈米线下交流：金融 cloud harness、autolab 自进化平台、以及小顾与盈米后续规划。"}]}</script>
+<script id="seed" type="application/json">{"partners": [{"id": "qianwen", "name": "通义千问 · 阿里", "kind": "超级入口", "stage": "深度合作", "since": "2026-06", "headline": "从 Skills 分发升级为 A2A：小顾以智能体身份入驻千问 App，成为最大溯源渠道。", "stat": "绑定 2,590 户 · 持仓 241 户 / 7,948.53 万 · 30 日调用 150.97 万", "next": "入金/买卖金额权威口径接入；绑定后转化运营", "order": 1}, {"id": "doubao", "name": "豆包 · 字节", "kind": "超级入口", "stage": "已上线", "since": "2026-08-28", "headline": "个人版经 OAuth 上架盈米 MCP，上架当日即产生绑定；豆包办公版尚无独立通路。", "stat": "首 9 日绑定 336 · 授权 469 · 零撤销 · DAU 峰值 167", "next": "推动 OAuth 用量落账（当前调用行为不可见）；争取办公版接入", "order": 2}, {"id": "wechat", "name": "微信 · 小微", "kind": "超级入口", "stage": "已上线", "since": "2026-08-10", "headline": "且慢 AI 能力接入微信生态入口，与千问 A2A 同月落地。", "stat": "", "next": "场景放量与入口曝光", "order": 3}, {"id": "tencent", "name": "腾讯生态", "kind": "机构场景", "stage": "推进中", "since": "2026-07", "headline": "MCP 能力进入腾讯场景，并形成首个机构项目投标。", "stat": "", "next": "投标推进与机构落地", "order": 4}, {"id": "aliyun", "name": "阿里云 · 百炼 / 点金", "kind": "云厂商", "stage": "深度合作", "since": "2025-04", "headline": "2025-04 百炼首批上架 → 2025-07 全栈战略合作 → 2026-09-02 点金团队来访交流（金融 cloud harness、autolab、小顾规划）。", "stat": "", "next": "evaluation 方法交流落地；联合场景共建", "order": 5}, {"id": "volcano", "name": "火山引擎 / 扣子", "kind": "云厂商", "stage": "已上架", "since": "2025-05", "headline": "火山引擎 AI 合作伙伴，扣子双平台上架——豆包渠道的生态底座。", "stat": "扣子 30 日调用 1,726", "next": "", "order": 6}, {"id": "baidu", "name": "百度", "kind": "模型生态", "stage": "已上架", "since": "2025-04", "headline": "百度 MCP 广场上架；2025-07 亮相百度 AI Day。", "stat": "", "next": "", "order": 7}, {"id": "modelscope", "name": "魔塔 ModelScope", "kind": "模型生态", "stage": "已上架", "since": "2025-04", "headline": "首批模型生态上架之一。", "stat": "", "next": "", "order": 8}, {"id": "aws", "name": "亚马逊云科技", "kind": "品牌合作", "stage": "品牌合作", "since": "2025-08", "headline": "盈米 AI 实践在亚马逊云科技中国峰会完成行业分享。", "stat": "", "next": "", "order": 9}, {"id": "fin-ai-alliance", "name": "金融 AI 联盟", "kind": "行业联盟", "stage": "成员", "since": "2026-04", "headline": "加入金融 AI 联盟，投顾实践对外输出。", "stat": "", "next": "", "order": 10}], "institutions": [{"id": "tencent-bid", "name": "机构投标项目（经腾讯生态）", "type": "待补充", "status": "投标中", "owner": "待补充", "channel": "腾讯生态", "firstContact": "2026-07", "lastUpdate": "2026-07", "notes": "2026-07 形成首个机构项目投标；机构名称与进展请在此补充。", "example": false}, {"id": "demo-broker", "name": "示例 · 某券商财富管理部", "type": "券商", "status": "接触中", "owner": "示例", "channel": "直接对接", "firstContact": "2026-01", "lastUpdate": "2026-01", "notes": "示例数据——点击行内「编辑」替换为真实机构，或用「新增机构」添加。", "example": true}, {"id": "demo-fund", "name": "示例 · 某公募基金电商部", "type": "基金公司", "status": "方案沟通", "owner": "示例", "channel": "行业会议", "firstContact": "2026-03", "lastUpdate": "2026-04", "notes": "示例数据——可记录对接人、口径、卡点与下一步。", "example": true}]}</script>
+<script>
+"use strict";
+const BAKED = JSON.parse(document.getElementById('baked').textContent);
+const SEED  = JSON.parse(document.getElementById('seed').textContent);
+const $ = s => document.querySelector(s);
+const esc = s => String(s??'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt = n => n==null ? '—' : Number(n).toLocaleString('en-US');
+const fmtWan = n => n>=1e8 ? (n/1e8).toFixed(2)+' 亿' : n>=1e4 ? (n/1e4).toFixed(1)+' 万' : fmt(n);
+const toast = (msg) => { const t=$('#toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(toast._h); toast._h=setTimeout(()=>t.classList.remove('show'),2600); };
+
+/* ---------- state: baked fallback, overridden by db ---------- */
+let metrics = { asOf: BAKED.oap.asOf, users: BAKED.oap.readings.cumulativeUsers, calls: BAKED.oap.readings.cumulativeCalls, mau: BAKED.oap.readings.mau };
+let partners = SEED.partners.slice();
+let institutions = SEED.institutions.slice();
+let events = BAKED.events.slice().map((e,i)=>({id:'baked-'+i, ...e}));
+let db = null, canWrite = false;
+
+/* ---------- overview ---------- */
+function renderKPIs(){
+  $('#asof-label').textContent = '数据截至 ' + metrics.asOf;
+  const launch = new Date('2025-03-15'); // 项目启动
+  $('#days-since').textContent = Math.floor((new Date(metrics.asOf) - launch)/864e5);
+  $('#k-users').innerHTML = fmt(metrics.users);
+  $('#k-calls').innerHTML = (metrics.calls/1e4).toFixed(1).replace(/\B(?=(\d{3})+(?!\d))/g,',') + '<small>万</small>';
+  $('#k-mau').innerHTML = fmt(metrics.mau);
+  const tg = [ ['users',metrics.users,10000], ['calls',metrics.calls,13000000], ['mau',metrics.mau,2000] ];
+  for(const [k,v,t] of tg){
+    const p = v/t*100;
+    const bar = $('#b-'+k); bar.style.width = Math.min(p,100)+'%'; bar.classList.toggle('over', p>=100);
+    $('#p-'+k).textContent = p.toFixed(1)+'%';
+  }
+  const dn = BAKED.oap.dn, last7 = dn.slice(-7).reduce((a,b)=>a+(b||0),0);
+  $('#kpi-sub').innerHTML =
+    `<span>近 7 日新增用户 <b>${fmt(last7)}</b></span>`+
+    `<span>渠道绑定账户 千问 <b>${fmt(BAKED.qw.metrics.bound_accounts)}</b> · 豆包 <b>336</b></span>`+
+    `<span>渠道内可见持仓 <b>8,383 万</b>（千问 7,948.53 万 + 豆包 434.5 万）</span>`+
+    `<span>豆包绑定后新增入金 <b>+35.68 万</b></span>`;
+}
+
+/* ---------- charts ---------- */
+function niceMax(v){ const p = Math.pow(10, Math.floor(Math.log10(v))); const m = v/p; const n = m<=1?1:m<=2?2:m<=2.5?2.5:m<=5?5:10; return n*p; }
+const MILES = [
+  ['2025-04-12','官网 + 首批 MCP 发布'], ['2025-06-18','C 端接入 · 商业化 0→1'],
+  ['2025-09-18','投顾模型 + 评测集'], ['2026-05-18','首批 Skills 发布'],
+  ['2026-06-18','千问接入 Skills'], ['2026-08-10','千问 A2A + 微信小微'], ['2026-08-28','豆包上架']
+];
+function drawSeries(mount, ys, color, opts={}){
+  const W=1080, H=280, L=64, R=20, T=18, B=34;
+  const n = ys.length; let firstIdx = ys.findIndex(v=>v!=null); if(firstIdx<0) firstIdx=0;
+  const maxV = niceMax(Math.max(...ys.filter(v=>v!=null)));
+  const x = i => L + (W-L-R) * i/(n-1);
+  const y = v => T + (H-T-B) * (1 - v/maxV);
+  const start = new Date(BAKED.oap.start+'T00:00:00');
+  const dateAt = i => new Date(start.getTime()+i*864e5);
+  const iso = d => d.toISOString().slice(0,10);
+  let path='', area='';
+  for(let i=firstIdx;i<n;i++){ const v=ys[i]; if(v==null) continue; const cmd = path?'L':'M'; path += `${cmd}${x(i).toFixed(1)},${y(v).toFixed(1)}`; }
+  area = path + `L${x(n-1).toFixed(1)},${y(0)}L${x(firstIdx).toFixed(1)},${y(0)}Z`;
+  // gridlines + y labels
+  let grid='', ylab='';
+  for(let g=0;g<=4;g++){ const v=maxV*g/4, yy=y(v);
+    grid += `<line x1="${L}" x2="${W-R}" y1="${yy}" y2="${yy}" stroke="var(--line)" stroke-width="1"/>`;
+    ylab += `<text x="${L-8}" y="${yy+4}" text-anchor="end" font-size="11" fill="var(--faint)">${opts.fmtY(v)}</text>`;
+  }
+  // x ticks: quarter starts
+  let xlab='';
+  for(let i=0;i<n;i++){ const d=dateAt(i); if(d.getDate()===1 && d.getMonth()%3===0){ xlab += `<text x="${x(i)}" y="${H-10}" text-anchor="middle" font-size="11" fill="var(--faint)">${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}</text>`; } }
+  // milestones
+  let mdots='';
+  if(opts.milestones){ for(const [md,label] of MILES){ const i = Math.round((new Date(md+'T00:00:00')-start)/864e5); if(i<0||i>=n) continue; let v=ys[i]; if(v==null){ for(let j=i;j>=0;j--){ if(ys[j]!=null){v=ys[j];break;} } } if(v==null) continue;
+    mdots += `<circle cx="${x(i).toFixed(1)}" cy="${y(v).toFixed(1)}" r="4.5" fill="var(--bg)" stroke="${color}" stroke-width="2.5"><title>${esc(md+' '+label)}</title></circle>`; } }
+  // endpoint
+  const lastV = ys[n-1], ex=x(n-1), ey=y(lastV);
+  const gid = 'g'+Math.random().toString(36).slice(2,7);
+  mount.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(opts.label||'')}">
+    <defs><linearGradient id="${gid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${color}" stop-opacity=".28"/><stop offset="1" stop-color="${color}" stop-opacity="0"/></linearGradient></defs>
+    ${grid}${ylab}${xlab}
+    <path d="${area}" fill="url(#${gid})"/>
+    <path d="${path}" fill="none" stroke="${color}" stroke-width="2.2" stroke-linejoin="round"/>
+    ${mdots}
+    <circle cx="${ex}" cy="${ey}" r="4" fill="${color}"/>
+    <text x="${ex-8}" y="${Math.max(ey-10,14)}" text-anchor="end" font-size="12.5" font-weight="700" fill="var(--text)">${opts.fmtY(lastV, true)}</text>
+  </svg>`;
+}
+function renderCharts(){
+  drawSeries($('#chart-users'), BAKED.oap.cu, 'var(--accent)', { label:'累计接入用户走势', milestones:true, fmtY:(v,end)=> end? fmt(v) : (v>=1e4? (v/1e4)+'万' : fmt(v)) });
+  drawSeries($('#chart-calls'), BAKED.oap.cc, 'var(--traced)', { label:'累计调用量走势', fmtY:(v,end)=> end? (v/1e4).toFixed(0)+'万' : (v>=1e4? (v/1e4).toFixed(0)+'万' : fmt(v)) });
+  $('#note-users').textContent = `${BAKED.oap.start} → ${BAKED.oap.asOf} · 圆点 = 里程碑（悬停查看）`;
+  $('#note-calls').textContent = `调用留痕自 2025-05-07 起 · ${BAKED.oap.asOf} 为部分日数据`;
+}
+
+/* ---------- channels ---------- */
+function renderChannels(){
+  const m = BAKED.qw.metrics;
+  $('#qw-bound').textContent = fmt(m.bound_accounts);
+  $('#qw-asof').textContent = '· 截至 '+BAKED.qw.asOf;
+  $('#qw-new').textContent = fmt(m.new_accounts);
+  $('#qw-newp').textContent = (m.new_accounts/m.bound_accounts*100).toFixed(0)+'%';
+  $('#qw-old').textContent = fmt(m.existing_accounts);
+  // qw sparkline
+  const cb = BAKED.qw.cb, W=420,H=64,n=cb.length,mx=niceMax(cb[n-1]);
+  let p=''; for(let i=0;i<n;i++){ p += (i?'L':'M') + (8+(W-16)*i/(n-1)).toFixed(1)+','+ (6+(H-14)*(1-cb[i]/mx)).toFixed(1); }
+  $('#qw-spark').innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="千问逐日累计绑定">
+    <path d="${p}" fill="none" stroke="var(--qw)" stroke-width="2"/>
+    <circle cx="${8+(W-16)}" cy="${6+(H-14)*(1-cb[n-1]/mx)}" r="3.5" fill="var(--qw)"/>
+    <text x="${W-16}" y="${H-4}" text-anchor="end" font-size="10.5" fill="var(--faint)">${BAKED.qw.start} → ${BAKED.qw.asOf} 逐日累计绑定</text>
+  </svg>`;
+  // attribution
+  const a = BAKED.attr;
+  $('#attr-total').innerHTML = (a.totals.calls30d/1e4).toFixed(1)+'<small>万</small>';
+  $('#attr-rate').textContent = a.coverage.callAttributionRate+'%';
+  $('#attr-asof').textContent = '截至 '+a.asOf;
+  const colors = {'千问':'var(--qw)','豆包 / 字节':'var(--db)','未标注平台':'var(--unattr)'};
+  const rows = a.platforms.slice().sort((x,y)=>y.calls-x.calls);
+  const mx2 = Math.max(...rows.map(r=>r.calls));
+  $('#attr-bars').innerHTML = rows.map(r=>{
+    const c = colors[r.p] || 'var(--traced)';
+    const w = Math.max(r.calls/mx2*100, .8);
+    return `<div class="attr-row"><span class="nm" title="${esc(r.p)}">${esc(r.p)}</span><span class="attr-bar"><i style="width:${w}%;background:${c}"></i></span><span class="vl">${fmt(r.calls)} <span style="color:var(--faint)">· ${r.ak} key</span></span></div>`;
+  }).join('');
+}
+
+/* ---------- partners ---------- */
+const STAGE_CLASS = s => /上线|深度|成员|上架/.test(s) ? '' : /推进|接入|洽谈|投标|品牌/.test(s) ? 'mid' : 'off';
+function renderPartners(){
+  const list = partners.slice().sort((a,b)=>(a.order??99)-(b.order??99) || String(a.since).localeCompare(String(b.since)));
+  $('#partner-grid').innerHTML = list.map(p=>`
+    <article class="pcard" data-id="${esc(p.id)}">
+      <div class="p-top"><h3>${esc(p.name)}</h3>
+        <span class="chip kind">${esc(p.kind||'')}</span>
+        <span class="chip stage ${STAGE_CLASS(p.stage||'')}">${esc(p.stage||'')}</span>
+        <button class="btn mini edit-only" data-edit-partner="${esc(p.id)}">编辑</button>
+      </div>
+      <p class="hl">${esc(p.headline||'')}</p>
+      ${p.stat?`<div class="stat num">${esc(p.stat)}</div>`:''}
+      ${p.next?`<div class="next"><b>下一步</b> · ${esc(p.next)}</div>`:''}
+      <div class="p-meta num">起始 ${esc(p.since||'—')}${p.updatedAt?` · 更新 ${esc(String(p.updatedAt).slice(0,10))}`:''}</div>
+    </article>`).join('');
+}
+
+/* ---------- institutions ---------- */
+const ST_CLASS = {'接触中':'s1','方案沟通':'s2','试点对接':'s3','投标中':'s3','已上线':'s4','暂停':'s5'};
+function renderInstitutions(){
+  const q = ($('#inst-q').value||'').trim().toLowerCase();
+  const fs = $('#inst-f-status').value, ft = $('#inst-f-type').value;
+  const list = institutions.filter(i =>
+    (!q || (i.name+' '+(i.notes||'')+' '+(i.owner||'')).toLowerCase().includes(q)) &&
+    (!fs || i.status===fs) && (!ft || i.type===ft)
+  ).sort((a,b)=>String(b.lastUpdate||'').localeCompare(String(a.lastUpdate||'')));
+  $('#inst-count').textContent = `${list.length} / ${institutions.length} 家`;
+  $('#inst-empty').hidden = list.length>0;
+  $('#inst-body').innerHTML = list.map(i=>`
+    <tr>
+      <td class="nm">${esc(i.name)}${i.example?'<span class="ex">示例</span>':''}</td>
+      <td>${esc(i.type||'—')}</td>
+      <td><span class="st ${ST_CLASS[i.status]||'s1'}">${esc(i.status||'—')}</span></td>
+      <td>${esc(i.owner||'—')}</td>
+      <td>${esc(i.channel||'—')}</td>
+      <td class="num">${esc(i.firstContact||'—')}</td>
+      <td class="num">${esc(i.lastUpdate||'—')}</td>
+      <td style="max-width:320px">${esc(i.notes||'')}</td>
+      <td><button class="btn mini edit-only" data-edit-inst="${esc(i.id)}">编辑</button></td>
+    </tr>`).join('');
+}
+
+/* ---------- timeline ---------- */
+const CAT_COLOR = {'重要发布':'var(--accent)','生态建设':'var(--traced)','品牌运营':'var(--qw)','里程碑':'var(--risk)','渠道上线':'var(--db)'};
+function renderTimeline(){
+  const list = events.slice().sort((a,b)=>b.date.localeCompare(a.date));
+  let html='', curYear='';
+  let ul = [];
+  const flush = () => { if(ul.length){ html += `<ul class="tl">${ul.join('')}</ul>`; ul=[]; } };
+  for(const e of list){
+    const yr = e.date.slice(0,4);
+    if(yr!==curYear){ flush(); html += `<div class="tl-year num">${yr}</div>`; curYear=yr; }
+    const c = CAT_COLOR[e.category]||'var(--accent)';
+    ul.push(`<li style="--cat:${c}">
+      <span class="tl-date num">${esc(e.date.slice(0,7).replace('-','.'))}</span><span class="tl-cat">${esc(e.category||'')}</span>
+      ${!String(e.id).startsWith('baked-')?`<button class="btn mini edit-only" data-edit-event="${esc(e.id)}" style="margin-left:8px">编辑</button>`:''}
+      <h3>${esc(e.title)}</h3><p>${esc(e.body||'')}</p>
+    </li>`);
+  }
+  flush();
+  $('#tl-root').innerHTML = html;
+}
+
+/* ---------- dialog / editing ---------- */
+const FIELDS = {
+  partner: [ ['name','名称','text',1],['kind','类别','select',0,['超级入口','云厂商','模型生态','机构场景','行业联盟','品牌合作','其他']],['stage','阶段','select',0,['洽谈中','推进中','接入中','已上架','已上线','深度合作','品牌合作','成员','暂停']],['since','起始（YYYY-MM）','text',0],['headline','最新进展','textarea',1],['stat','关键数字（可空）','text',0],['next','下一步（可空）','text',0],['order','排序（数字小在前）','text',0] ],
+  inst: [ ['name','机构名称','text',1],['type','类型','select',0,['券商','基金公司','银行','保险','三方平台','其他','待补充']],['status','状态','select',0,['接触中','方案沟通','试点对接','投标中','已上线','暂停']],['owner','责任人','text',0],['channel','来源渠道','text',0],['firstContact','首次接触（YYYY-MM）','text',0],['lastUpdate','最近更新（YYYY-MM）','text',0],['notes','备注 / 卡点','textarea',1] ],
+  event: [ ['date','日期（YYYY-MM-DD）','text',1],['category','类别','select',0,['重要发布','生态建设','品牌运营','里程碑','渠道上线']],['title','标题','text',1],['body','说明','textarea',1] ],
+};
+let dlgCtx = null;
+function openDialog(kind, item){
+  dlgCtx = { kind, item };
+  $('#dlg-title').textContent = (item?'编辑':'新增') + {partner:'合作',inst:'机构',event:'大事记'}[kind];
+  $('#dlg-del').hidden = !item;
+  $('#dlg-fields').innerHTML = FIELDS[kind].map(([k,lab,tp,full,opts])=>{
+    const v = item ? (item[k]??'') : '';
+    let ctl;
+    if(tp==='select') ctl = `<select name="${k}">${opts.map(o=>`<option${o===v?' selected':''}>${o}</option>`).join('')}</select>`;
+    else if(tp==='textarea') ctl = `<textarea name="${k}">${esc(v)}</textarea>`;
+    else ctl = `<input name="${k}" value="${esc(v)}">`;
+    return `<div class="field ${full?'full':''}"><label>${lab}</label>${ctl}</div>`;
+  }).join('');
+  $('#dlg').showModal();
+}
+function slug(s){ const a=(s||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,40); return a || ('id-'+Date.now().toString(36)); }
+async function dbWrite(coll, id, data, isDelete){
+  if(!db){ toast('数据库不可用，改动未保存'); return false; }
+  try{
+    const ref = db.collection(coll).doc(id);
+    if(isDelete) await ref.delete(); else await ref.set({...data, updatedAt:new Date().toISOString()});
+    return true;
+  }catch(e){
+    toast(e && e.code==='invalid_argument' ? '您是只读访问，无法编辑（需报告所有者授予编辑权限）' : '保存失败：'+(e&&e.message||e));
+    return false;
+  }
+}
+$('#dlg-form').addEventListener('submit', async ev=>{
+  ev.preventDefault();
+  const fd = new FormData(ev.target); const data = {}; for(const [k,v] of fd.entries()) data[k]=String(v).trim();
+  const {kind,item} = dlgCtx;
+  const coll = kind==='partner'?'partners':kind==='inst'?'institutions':'events';
+  if(kind==='partner') data.order = Number(data.order)||99;
+  if(kind==='inst') data.example = false;
+  const id = item ? item.id : (kind==='event' ? 'e-'+Date.now() : slug(data.name));
+  if(await dbWrite(coll, id, {...(item||{}), ...data, id})){ $('#dlg').close(); toast('已保存，所有人实时可见'); }
+});
+$('#dlg-del').addEventListener('click', async ()=>{
+  const {kind,item} = dlgCtx; if(!item) return;
+  if(!confirm('确认删除「'+(item.name||item.title)+'」？')) return;
+  const coll = kind==='partner'?'partners':kind==='inst'?'institutions':'events';
+  if(await dbWrite(coll, item.id, null, true)){ $('#dlg').close(); toast('已删除'); }
+});
+$('#dlg-cancel').addEventListener('click', ()=>$('#dlg').close());
+$('#add-partner').addEventListener('click', ()=>openDialog('partner', null));
+$('#add-inst').addEventListener('click', ()=>openDialog('inst', null));
+$('#add-event').addEventListener('click', ()=>openDialog('event', null));
+document.addEventListener('click', ev=>{
+  const b = ev.target.closest('[data-edit-partner],[data-edit-inst],[data-edit-event]'); if(!b) return;
+  if(b.dataset.editPartner) openDialog('partner', partners.find(p=>p.id===b.dataset.editPartner));
+  else if(b.dataset.editInst) openDialog('inst', institutions.find(i=>i.id===b.dataset.editInst));
+  else if(b.dataset.editEvent) openDialog('event', events.find(e=>e.id===b.dataset.editEvent));
+});
+for(const el of ['#inst-q','#inst-f-status','#inst-f-type']) $(el).addEventListener('input', renderInstitutions);
+
+/* ---------- initial render (baked) ---------- */
+renderKPIs(); renderCharts(); renderChannels(); renderPartners(); renderInstitutions(); renderTimeline();
+
+/* ---------- db live sync ---------- */
+(async ()=>{
+  if(!(window.claude && window.claude.use)) return;
+  db = await claude.use('db');
+  if(!db) return;
+  document.body.classList.add('can-edit');
+  const pill = $('#sync-pill'); pill.textContent='实时同步'; pill.classList.add('live');
+  db.doc('meta/latest').onSnapshot(snap=>{
+    if(!snap.exists) return;
+    const d = snap.data();
+    if(d.users) metrics.users=d.users; if(d.calls) metrics.calls=d.calls; if(d.mau) metrics.mau=d.mau; if(d.asOf) metrics.asOf=d.asOf;
+    renderKPIs();
+  }, ()=>{});
+  db.collection('partners').onSnapshot(snap=>{ if(!snap.empty){ partners = snap.docs.map(d=>({id:d.id, ...d.data()})); renderPartners(); } }, ()=>{});
+  db.collection('institutions').onSnapshot(snap=>{ if(!snap.empty){ institutions = snap.docs.map(d=>({id:d.id, ...d.data()})); renderInstitutions(); } }, ()=>{});
+  db.collection('events').onSnapshot(snap=>{ if(!snap.empty){ events = snap.docs.map(d=>({id:d.id, ...d.data()})); renderTimeline(); } }, ()=>{});
+})();
+</script>
+
+</body>
+</html>

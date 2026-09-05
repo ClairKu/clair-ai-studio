@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 405" width="720" height="405">
+<rect width="720" height="405" fill="#131120"/>
+<text x="48" y="72" font-family="Songti SC, serif" font-size="15" fill="#9D8BF5" letter-spacing="4">YINGMI AI OPEN PLATFORM · INTERNAL</text>
+<text x="48" y="130" font-family="Songti SC, serif" font-size="44" font-weight="900" fill="#EFEDF8">OAP 指挥舱</text>
+<text x="48" y="168" font-family="PingFang SC, sans-serif" font-size="17" fill="#A29DBE">总量目标 · 渠道增长与入金 · 合作进展 · 机构名录 · 18 个月大事记</text>
+<polyline points="48,330 120,326 200,318 280,308 340,296 400,286 460,262 520,236 580,204 640,168 672,150" fill="none" stroke="#9D8BF5" stroke-width="3"/>
+<circle cx="672" cy="150" r="6" fill="#9D8BF5"/>
+<circle cx="460" cy="262" r="5" fill="#131120" stroke="#E8A33D" stroke-width="3"/>
+<circle cx="580" cy="204" r="5" fill="#131120" stroke="#53B9E8" stroke-width="3"/>
+<text x="48" y="376" font-family="PingFang SC, sans-serif" font-size="14" fill="#736D92">累计用户 12,632 · 累计调用 1,196 万 · 月活 3,128 · 截至 2026-09-05</text>
+</svg>
