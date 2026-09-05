@@ -40,8 +40,8 @@ const reports = reportChunks.map((chunk) => ({
 
 // +1 qianwen user question analysis 2026-09-05
 // +1 Doubao Qieman user dashboard 2026-09-05
-if (reports.length !== 145) { // +3 backfill: yuyue-internship-portfolio 2026-09-03 / vesta-mcp-caliber-audit 2026-09-02 / yingmi-mcp-metrics-caliber 2026-08-31 // +1 doubao-mcp-user-panorama 2026-09-05 // +1 qieman three-user lifecycle audit 2026-09-05 // +1 OAP channel attribution dashboard 2026-09-04 // +1 xiaogu-3-investment-review 2026-09-04 // +1 xiaogu-buyer-advisor-evidence 2026-09-03 // +1 ai-xiaogu-impact-evolution 2026-09-03 // +1 xiaogu-technical-evolution 2026-09-03 // +1 doubao-oauth-mcp-radar 2026-09-02 // +1 Agent Harness executive report 2026-09-02 // +1 raft-human-ai-group-chat-research 2026-09-02 // +1 Agent Harness architecture report 2026-09-02 // +1 baidu-dumate-review 2026-09-01 // +1 GetLatestQuotations market temperature audit 2026-08-30
-  fail(`初始成果数量异常：预期 145，实际 ${reports.length}`);
+if (reports.length !== 146) { // +1 doubao bound-user deep analysis 2026-09-05 // +3 backfill: yuyue-internship-portfolio 2026-09-03 / vesta-mcp-caliber-audit 2026-09-02 / yingmi-mcp-metrics-caliber 2026-08-31 // +1 doubao-mcp-user-panorama 2026-09-05 // +1 qieman three-user lifecycle audit 2026-09-05 // +1 OAP channel attribution dashboard 2026-09-04 // +1 xiaogu-3-investment-review 2026-09-04 // +1 xiaogu-buyer-advisor-evidence 2026-09-03 // +1 ai-xiaogu-impact-evolution 2026-09-03 // +1 xiaogu-technical-evolution 2026-09-03 // +1 doubao-oauth-mcp-radar 2026-09-02 // +1 Agent Harness executive report 2026-09-02 // +1 raft-human-ai-group-chat-research 2026-09-02 // +1 Agent Harness architecture report 2026-09-02 // +1 baidu-dumate-review 2026-09-01 // +1 GetLatestQuotations market temperature audit 2026-08-30
+  fail(`初始成果数量异常：预期 146，实际 ${reports.length}`);
 }
 
 for (const field of ["id", "url"]) {

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">豆包绑定且慢用户深度分析</title><desc id="desc">身份增长之后，价值闭环尚未开始</desc>
+  <rect width="1600" height="900" fill="#f6f3ed"/>
+  <circle cx="1340" cy="160" r="310" fill="#ff6b35" opacity=".10"/>
+  <circle cx="1320" cy="440" r="250" fill="none" stroke="#27364d" stroke-opacity=".18" stroke-width="2"/>
+  <circle cx="1320" cy="440" r="165" fill="none" stroke="#27364d" stroke-opacity=".18" stroke-width="2"/>
+  <circle cx="1320" cy="440" r="105" fill="#17202a"/>
+  <text x="1320" y="430" text-anchor="middle" fill="#fff" font-family="Georgia" font-size="58">341</text>
+  <text x="1320" y="468" text-anchor="middle" fill="#cdd4dc" font-family="PingFang SC,Arial" font-size="18">有效授权</text>
+  <circle cx="1120" cy="300" r="68" fill="#ff6b35"/>
+  <text x="1120" y="292" text-anchor="middle" fill="#fff" font-family="Georgia" font-size="32">194</text>
+  <text x="1120" y="322" text-anchor="middle" fill="#fff" font-family="PingFang SC,Arial" font-size="14">新身份</text>
+  <circle cx="1458" cy="278" r="72" fill="#fff" stroke="#d9d5cd"/>
+  <text x="1458" y="272" text-anchor="middle" fill="#d94841" font-family="Georgia" font-size="38">0</text>
+  <text x="1458" y="304" text-anchor="middle" fill="#6d7480" font-family="PingFang SC,Arial" font-size="13">新客账户</text>
+  <text x="90" y="110" fill="#ff6b35" font-family="Arial" font-size="18" font-weight="700" letter-spacing="4">PRODUCTION COHORT AUDIT</text>
+  <text x="90" y="235" fill="#17202a" font-family="Songti SC,Georgia" font-size="72" font-weight="700">豆包已经带来身份，</text>
+  <text x="90" y="330" fill="#ff6b35" font-family="Songti SC,Georgia" font-size="72" font-weight="700">还没有带来财富账户。</text>
+  <text x="90" y="415" fill="#68717b" font-family="PingFang SC,Arial" font-size="25">341 名有效授权 · 194 名授权即新建身份 · 新客开户 / 绑卡 / 买入均为 0</text>
+  <rect x="90" y="520" width="268" height="168" fill="#fff" stroke="#d9d5cd"/>
+  <rect x="90" y="520" width="268" height="8" fill="#16a394"/>
+  <text x="120" y="582" fill="#17202a" font-family="Georgia" font-size="48">56.9%</text><text x="120" y="625" fill="#6d7480" font-family="PingFang SC,Arial" font-size="18">授权即新建身份</text>
+  <rect x="378" y="520" width="268" height="168" fill="#fff" stroke="#d9d5cd"/>
+  <rect x="378" y="520" width="268" height="8" fill="#d94841"/>
+  <text x="408" y="582" fill="#d94841" font-family="Georgia" font-size="48">0</text><text x="408" y="625" fill="#6d7480" font-family="PingFang SC,Arial" font-size="18">新客资金账户</text>
+  <rect x="666" y="520" width="268" height="168" fill="#17202a"/>
+  <rect x="666" y="520" width="268" height="8" fill="#ff6b35"/>
+  <text x="696" y="582" fill="#ff6b35" font-family="Georgia" font-size="48">434.48万</text><text x="696" y="625" fill="#cbd1d9" font-family="PingFang SC,Arial" font-size="18">存量组当前资产</text>
+  <line x1="90" y1="790" x2="1510" y2="790" stroke="#d9d5cd"/>
+  <text x="90" y="835" fill="#17202a" font-family="Arial" font-size="18" font-weight="700">CLAIR · DOUBAO × QIEMAN</text>
+  <text x="1510" y="835" text-anchor="end" fill="#6d7480" font-family="PingFang SC,Arial" font-size="16">生产只读聚合 · 公开脱敏 · 2026-09-05</text>
+</svg>

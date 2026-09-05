@@ -45,7 +45,7 @@ const cutoffDate = cutoff.slice(0, 10);
 const [snapshot] = await query(`
   SELECT MAX(cal_date) asset_date
   FROM ying99_asset.dwd_app_service_account_profit_combine
-  WHERE relation_account_type='ROOT' AND cal_date<DATE('${cutoff}')
+  WHERE relation_account_type='ROOT' AND broker='0008' AND cal_date<DATE('${cutoff}')
 `);
 const assetDate = String(snapshot.asset_date).slice(0, 10);
 
@@ -98,7 +98,7 @@ const [profileRows, assetRows, behaviorRows, provinceRows, authRows] = await Pro
     LEFT JOIN (
       SELECT account3_id,SUM(total_asset) total_asset
       FROM ying99_asset.dwd_app_service_account_profit_combine USE INDEX(idx_cal_date_saId)
-      WHERE cal_date='${assetDate}' AND relation_account_type='ROOT' GROUP BY account3_id
+      WHERE cal_date='${assetDate}' AND broker='0008' AND relation_account_type='ROOT' GROUP BY account3_id
     ) a ON a.account3_id=u.account3_id
     WHERE u.account3_id IS NOT NULL AND u.account3_id<>1002
     GROUP BY u.cohort ORDER BY u.cohort
@@ -106,7 +106,8 @@ const [profileRows, assetRows, behaviorRows, provinceRows, authRows] = await Pro
   query(`
     SELECT u.cohort,SUM(u.eligible) eligible,
       SUM(u.eligible AND EXISTS(SELECT 1 FROM qm_meta.trade_detail t WHERE t.user_id=u.pmid
-        AND t.canceled=0 AND t.buy_amount>0 AND t.accept_time>=u.fb AND t.accept_time<'${cutoff}')) buy_after,
+        AND t.canceled=0 AND t.buy_amount>0 AND t.po_code<>'WALLET'
+        AND t.accept_time>=u.fb AND t.accept_time<'${cutoff}')) buy_after,
       SUM(u.eligible AND (SELECT MIN(t.accept_time) FROM qm_meta.trade_detail t WHERE t.user_id=u.pmid
         AND t.canceled=0 AND t.buy_amount>0 AND t.po_code<>'WALLET')>u.fb) first_investment_after,
       SUM(u.eligible AND EXISTS(SELECT 1 FROM qm_meta.trade_detail t WHERE t.user_id=u.pmid
@@ -268,8 +269,8 @@ const payload = {
     binding: "ying99_oap.api_user_consent_record × api_oauth_client；client_name=豆包；按 user_id 首次 granted_at 去重",
     current: "revoked_at 与 superseded_at 均为空的当前有效授权；重新授权按同一用户多条 consent record 识别",
     cohort: "新用户=注册时间与首次豆包授权时间相差不超过 60 分钟；老用户=授权前已有且慢账户",
-    assets: `ying99_asset.dwd_app_service_account_profit_combine；${assetDate} 快照；只取 relation_account_type=ROOT，避免树形账户重复求和`,
-    behavior: "交易行为只计绑定后且未取消记录；金额口径未接入权威现金流表，因此本页不发布绑定后入金/买卖金额",
+    assets: `ying99_asset.dwd_app_service_account_profit_combine；${assetDate} 快照；只取 broker=0008 且 relation_account_type=ROOT，避免跨券商与树形账户重复求和`,
+    behavior: "交易行为只计绑定后、未取消且 po_code 不为 WALLET 的记录；金额口径未接入权威现金流表，因此本页不发布绑定后入金/买卖金额",
     usageGap: "当前 OAuth 调用日志缺少可稳定回连授权 user_id 的逐次使用链路；绑定人数不能替代 AI 小顾使用人数",
   },
 };

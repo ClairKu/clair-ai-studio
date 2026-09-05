@@ -1,0 +1,150 @@
+{
+  "schema": "doubao-bound-qieman-users/public-v1",
+  "generatedAt": "2026-09-05T21:41:42+08:00",
+  "assetAsOf": "2026-09-04",
+  "timezone": "Asia/Shanghai",
+  "partialDay": true,
+  "privacy": {
+    "mode": "aggregate-only",
+    "minimumCell": 5,
+    "note": "不含姓名、用户ID、手机号、Client ID、API Key、请求ID、原始对话或单用户金额；低于5人的细分不公开精确值。"
+  },
+  "headline": {
+    "activeAuthorizedUsers": 341,
+    "newIdentityUsers": 194,
+    "existingIdentityUsers": 147,
+    "newIdentityShare": 56.9,
+    "mappedRateDisplay": "100%",
+    "newFundAccounts": 0,
+    "newBankCards": 0,
+    "newPostBindBuyers": 0,
+    "postBindBuyers": 11,
+    "currentHolders": 30,
+    "currentAssets": 4344854.28,
+    "sameSubjectCallingUsers": 35,
+    "sameSubjectCalls": 3408
+  },
+  "dailyBindings": [
+    {"date":"2026-08-29","new":10,"existing":19,"note":"另有8月28日灰度授权少于5人，计入总量但不单列"},
+    {"date":"2026-08-30","new":16,"existing":13},
+    {"date":"2026-08-31","new":26,"existing":29},
+    {"date":"2026-09-01","new":27,"existing":27},
+    {"date":"2026-09-02","new":26,"existing":15},
+    {"date":"2026-09-03","new":21,"existing":12,"otherDisplay":"<5"},
+    {"date":"2026-09-04","new":45,"existing":18},
+    {"date":"2026-09-05","new":23,"existing":11,"partial":true}
+  ],
+  "authorizationHours": [
+    {"bucket":"00–05","users":27},
+    {"bucket":"06–08","users":20},
+    {"bucket":"09–11","users":75},
+    {"bucket":"12–13","users":40},
+    {"bucket":"14–17","users":92},
+    {"bucket":"18–21","users":64},
+    {"bucket":"22–23","users":23}
+  ],
+  "existingTenure": [
+    {"bucket":"1–30天","users":44},
+    {"bucket":"31–365天","users":30},
+    {"bucket":"1–3年","users":16},
+    {"bucket":"3年以上","users":56}
+  ],
+  "funnel": {
+    "new": {
+      "authorized":194,
+      "mapped":194,
+      "fundAccounts":0,
+      "bankCards":0,
+      "riskAssessed":0,
+      "postBindBuyers":0,
+      "sameSubjectCallingUsersDisplay":"<5"
+    },
+    "existing": {
+      "authorized":146,
+      "fundAccounts":49,
+      "bankCards":49,
+      "riskAssessed":48,
+      "currentRiskGrade":8,
+      "everInvested":37,
+      "postBindBuyers":11,
+      "currentHolders":30,
+      "sameSubjectCallingUsers":34
+    }
+  },
+  "assets": {
+    "asOf":"2026-09-04",
+    "holders":30,
+    "total":4344854.28,
+    "averagePerHolder":144828.48,
+    "managedHolders":25,
+    "profitableHolders":22,
+    "under100k":18,
+    "gte100k":12,
+    "highValueUnassigned":10
+  },
+  "usage": {
+    "lineage":"same-subject",
+    "callingUsers":35,
+    "calls":3408,
+    "newCallingUsersDisplay":"<5",
+    "note":"按 OAuth subject 与 OAP Key 的 user_id 同主体关联，且只统计首次授权后调用；Key 未稳定绑定 OAuth Client/豆包会话，不能解释为豆包内直接调用。",
+    "daily": [
+      {"date":"2026-08-28","usersDisplay":"<5","calls":116},
+      {"date":"2026-08-29","usersDisplay":"<5","calls":1222},
+      {"date":"2026-08-30","usersDisplay":"<5","calls":526},
+      {"date":"2026-08-31","users":9,"calls":272},
+      {"date":"2026-09-01","users":11,"calls":489},
+      {"date":"2026-09-02","users":13,"calls":269},
+      {"date":"2026-09-03","users":14,"calls":138},
+      {"date":"2026-09-04","users":15,"calls":237},
+      {"date":"2026-09-05","users":5,"calls":139,"partial":true}
+    ],
+    "topRoutes": [
+      {"operation":"SearchFunds","label":"基金搜索","users":16,"calls":379},
+      {"operation":"BatchGetFundsDetail","label":"基金详情","users":16,"calls":265},
+      {"operation":"GetBatchFundPerformance","label":"批量业绩","users":18,"calls":190},
+      {"operation":"SearchFinancialNews","label":"金融资讯","users":6,"calls":154},
+      {"operation":"GetFundsBackTest","label":"基金回测","users":5,"calls":142},
+      {"operation":"GetFundDiagnosis","label":"基金诊断","users":12,"calls":125},
+      {"operation":"BatchGetFundNavHistory","label":"历史净值","users":18,"calls":123},
+      {"operation":"BatchGetFundTradeLimit","label":"交易限制","users":8,"calls":109}
+    ]
+  },
+  "service": {
+    "inCustomerList":13,
+    "assignedAdvisor":6,
+    "postBindFollowRecords":0,
+    "postBindAnsweredCalls":0,
+    "postBindMeetings":0,
+    "holdersNotCalling":20,
+    "servicePriorityUnassigned":14,
+    "staleNoProgress":159
+  },
+  "consent": {
+    "everUsers":341,
+    "currentUsers":341,
+    "consentRecords":474,
+    "supersededRecords":133,
+    "revokedRecords":0,
+    "emptyScopeUsers":341,
+    "nullDataPermissionUsers":341,
+    "firstGrant":"2026-08-28T19:17:00+08:00",
+    "lastGrant":"2026-09-05T21:33:31+08:00"
+  },
+  "definitions": {
+    "activeAuthorizedUser":"豆包 OAuth Client 下，revoked_at 与 superseded_at 均为空的去重 user_id。",
+    "newIdentity":"且慢注册时间与首次豆包授权时间相差不超过60分钟；说明授权链路创建/绑定了且慢身份，不等于完成资金账户开户。",
+    "postBindBuyer":"首次豆包授权后出现非钱包、未撤销、买入金额大于0的交易记录；只是时间先后关系，不证明豆包造成交易。",
+    "currentHolder":"2026-09-04 且慢 broker=0008、ROOT层 total_asset>0 的资金账户。",
+    "managedHolder":"同一资产快照中 UMA−UMA_WALLET>0。",
+    "profitableHolder":"当前持仓用户中，ROOT层累计收益 acc_profit>0。"
+  },
+  "sources": [
+    "ying99_oap.api_user_consent_record × api_oauth_client",
+    "ying99_pomodel.portfolio_manager_info",
+    "qm_meta.trade_detail × user_survey_record_latest",
+    "ying99_asset.dwd_app_service_account_profit_combine（broker=0008，ROOT层）",
+    "ying99_oap.api_key × api_key_usage_details × api_route",
+    "ying99_scrm.customer_list_detail × follow_record × call_center_record × meeting_record"
+  ]
+}

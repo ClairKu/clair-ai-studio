@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="豆包绑定且慢用户深度分析：授权增长、新老结构、开户投资漏斗、资产价值、能力使用、顾问承接与证据边界。" />
+  <title>豆包绑定且慢用户深度分析｜身份增长之后，价值闭环尚未开始</title>
+  <link rel="stylesheet" href="./style.css" />
+  <style>@media(min-width:921px){.hero{grid-template-columns:1.2fr .8fr;gap:40px}.hero h1{font-size:clamp(48px,4.7vw,70px)}}</style>
+</head>
+<body>
+  <div class="progress" aria-hidden="true"><span id="progress-bar"></span></div>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="返回报告顶部"><span class="brand-mark">D</span><span>DOUBAO × QIEMAN</span></a>
+    <nav aria-label="报告目录">
+      <a href="#verdict">结论</a><a href="#growth">增长</a><a href="#funnel">漏斗</a><a href="#value">价值</a><a href="#usage">使用</a><a href="#action">行动</a>
+    </nav>
+    <span class="status"><i></i>生产聚合</span>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">PRODUCTION COHORT AUDIT · 2026-09-05</p>
+        <h1 id="hero-title">豆包已经带来身份，<br><em>还没有带来财富账户。</em></h1>
+        <p class="hero-lead">341 名有效授权中，194 名在授权前后 1 小时内新建且慢身份；但这批新身份目前没有资金账户、绑卡、风测或买入。渠道完成了“认识你”，还没完成“为你服务”。</p>
+        <div class="hero-actions">
+          <a class="primary" href="#verdict">看核心判断</a>
+          <a class="secondary" href="#method">看证据口径</a>
+        </div>
+      </div>
+      <div class="hero-orbit" aria-label="授权到价值闭环示意图">
+        <div class="orbit orbit-1"></div><div class="orbit orbit-2"></div><div class="orbit orbit-3"></div>
+        <div class="planet core"><strong id="hero-total">341</strong><span>有效授权</span></div>
+        <div class="planet p1"><strong>194</strong><span>新身份</span></div>
+        <div class="planet p2 danger"><strong>0</strong><span>新客资金账户</span></div>
+        <div class="planet p3"><strong>11</strong><span>老客绑定后买入</span></div>
+      </div>
+      <div class="hero-meta"><span id="data-time">数据生成 —</span><span>资产快照 2026-09-04</span><span>北京时间 · 当日未结束</span></div>
+    </section>
+
+    <section id="verdict" class="section verdict-section">
+      <div class="section-head">
+        <p class="eyebrow">01 · EXECUTIVE VERDICT</p>
+        <h2>这不是“341 个新客户”，而是三段完全不同的业务事实</h2>
+        <p>把 OAuth 授权、且慢身份、资金账户与交易结果拆开，结论会从“渠道增长很好”变成“上游增长快，下游激活断裂”。</p>
+      </div>
+      <div class="verdict-grid">
+        <article class="verdict-card signal">
+          <span class="card-index">01</span><p class="card-kicker">ACQUISITION</p>
+          <h3>身份获客成立</h3><strong>194 <small>人</small></strong>
+          <p>56.9% 的有效授权用户在授权当刻新建且慢身份。豆包不只是唤醒老用户，确实带来了新增身份。</p>
+        </article>
+        <article class="verdict-card danger">
+          <span class="card-index">02</span><p class="card-kicker">ACTIVATION</p>
+          <h3>金融激活尚未发生</h3><strong>0 <small>账户</small></strong>
+          <p>194 名新身份中，资金账户、绑卡、风测、绑定后买入全部为 0。当前链路停在登录/授权层。</p>
+        </article>
+        <article class="verdict-card warm">
+          <span class="card-index">03</span><p class="card-kicker">REACTIVATION</p>
+          <h3>老客有价值，但非增量证据</h3><strong>434.48 <small>万元</small></strong>
+          <p>30 名存量用户仍有持仓，11 人绑定后买入；他们此前都已投资，不能把交易直接归因给豆包。</p>
+        </article>
+        <article class="verdict-card dark">
+          <span class="card-index">04</span><p class="card-kicker">DECISION</p>
+          <h3>先修漏斗，再扩流量</h3><strong>7 <small>天</small></strong>
+          <p>先让“授权→首个有效任务→开户/风测/方案”的链路可测、可追踪，再讨论规模投放与商业回报。</p>
+        </article>
+      </div>
+      <aside class="decision-strip"><b>管理层一句话：</b>豆包已验证“可获客”，尚未验证“可激活、可转化、可留存”；继续只追授权数，会把增长错觉放大。</aside>
+    </section>
+
+    <section id="growth" class="section soft-section">
+      <div class="section-head row-head">
+        <div><p class="eyebrow">02 · BINDING GROWTH</p><h2>8 天从灰度走到 341，新增身份占比正在抬升</h2></div>
+        <div class="metric-chip"><strong>63</strong><span>9月4日单日峰值</span></div>
+      </div>
+      <div class="chart-panel">
+        <div class="chart-title"><div><h3>每日首次授权结构</h3><p>柱高＝当日首次授权；橙色＝授权即新建身份，深色＝已有且慢身份。</p></div><div class="legend"><span><i class="new"></i>新身份</span><span><i class="existing"></i>存量身份</span></div></div>
+        <div id="daily-chart" class="stack-chart" role="img" aria-label="豆包每日首次授权新老结构柱状图"></div>
+      </div>
+      <div class="two-col">
+        <article class="mini-panel"><h3>授权高峰在工作与晚间时段</h3><p>14–17 时最多，18–21 时次之；适合把激活提醒与内容承接安排在授权后即时与晚间复访。</p><div id="hours-chart" class="bar-list"></div></article>
+        <article class="mini-panel"><h3>老用户并不“老得一致”</h3><p>存量组中，3 年以上老身份最多；同时有一批注册不足 30 天的近新客，不能用同一套召回话术。</p><div id="tenure-chart" class="bar-list"></div></article>
+      </div>
+    </section>
+
+    <section id="funnel" class="section">
+      <div class="section-head">
+        <p class="eyebrow">03 · TWO COHORTS, TWO JOBS</p>
+        <h2>新客要解决“从身份到账户”，老客要解决“从授权到新任务”</h2>
+        <p>同一个授权按钮，背后是两套不同的服务任务。把它们混成总转化率，会掩盖真正的断点。</p>
+      </div>
+      <div class="cohort-grid">
+        <article class="cohort-card new-cohort">
+          <div class="cohort-top"><span>NEW IDENTITY</span><strong>194</strong><p>授权即新建且慢身份</p></div>
+          <div id="new-funnel" class="funnel-list"></div>
+          <div class="cohort-callout danger-callout"><b>核心断点</b><span>账号创建以后，没有任何人进入资金账户开户。</span></div>
+        </article>
+        <article class="cohort-card existing-cohort">
+          <div class="cohort-top"><span>EXISTING IDENTITY</span><strong>147</strong><p>授权前已有且慢身份</p></div>
+          <div id="existing-funnel" class="funnel-list"></div>
+          <div class="cohort-callout"><b>可经营资产</b><span>49 人有资金账户，30 人仍持仓；这是服务召回池，不是新客转化池。</span></div>
+        </article>
+      </div>
+      <div class="logic-flow" aria-label="正确的豆包且慢增长闭环">
+        <div><span>01</span><b>授权</b><small>身份同意</small></div><i>→</i>
+        <div><span>02</span><b>首个有效任务</b><small>问题被解决</small></div><i>→</i>
+        <div><span>03</span><b>KYC / 开户</b><small>服务资格</small></div><i>→</i>
+        <div><span>04</span><b>方案与执行</b><small>可解释行动</small></div><i>→</i>
+        <div><span>05</span><b>持续陪伴</b><small>复访与纠偏</small></div>
+      </div>
+    </section>
+
+    <section id="value" class="section value-section">
+      <div class="section-head row-head">
+        <div><p class="eyebrow">04 · ASSET VALUE</p><h2>价值集中在存量持仓用户，且顾问承接明显不足</h2></div>
+        <div class="metric-chip light"><strong>12</strong><span>当前资产 ≥10 万用户</span></div>
+      </div>
+      <div class="value-grid">
+        <article class="asset-hero">
+          <div class="asset-orb"><strong>434.48</strong><span>万元当前资产</span></div>
+          <div class="asset-stats"><div><b>30</b><span>当前持仓</span></div><div><b>14.48万</b><span>户均持仓</span></div><div><b>25</b><span>在管持仓</span></div><div><b>22</b><span>累计收益为正</span></div></div>
+          <p>资产只取 2026-09-04 且慢 broker=0008、ROOT 层完整快照，避免跨层重复累加。</p>
+        </article>
+        <article class="asset-split">
+          <h3>持仓结构</h3>
+          <div class="donut-row"><div class="donut" style="--share:40"><span><b>40%</b><small>≥10万</small></span></div><div><p><b>18 人</b>低于 10 万</p><p><b>12 人</b>达到 10 万及以上</p><p><b>10 人</b>高价值但未见顾问分配</p></div></div>
+          <aside>高价值用户并不等于应立即营销；建议先由服务侧判断需求复杂度与适当性，再触发人工承接。</aside>
+        </article>
+      </div>
+      <div class="opportunity-grid">
+        <article><strong>159</strong><h3>授权满 3 天仍无进展</h3><p>未绑卡、未买入、未见同主体调用；这是最需要定位产品断点的一组。</p><span>P0 · 漏斗诊断</span></article>
+        <article><strong>20</strong><h3>有持仓但未见调用</h3><p>可用资产诊断、账户复盘等明确任务唤醒，而不是泛泛推荐基金。</p><span>P1 · 价值唤醒</span></article>
+        <article><strong>14</strong><h3>服务优先且未分配</h3><p>绑定后买入或资产较高，却未见顾问分配；需进入人工复核池。</p><span>P1 · 顾问承接</span></article>
+      </div>
+    </section>
+
+    <section id="usage" class="section soft-section">
+      <div class="section-head">
+        <p class="eyebrow">05 · CAPABILITY USAGE</p>
+        <h2>用户想要的是“查、比、诊断”，但调用血缘还不能归到豆包</h2>
+        <p>35 名授权主体在授权后出现 3,408 次 OAP 调用。它说明这些身份确实使用过盈米能力；由于 Key 未稳定绑定豆包 Client/会话，它不是“豆包内调用量”。</p>
+      </div>
+      <div class="usage-top">
+        <div class="usage-number"><strong>35</strong><span>授权后同主体调用用户</span><small>占全部授权 10.3%</small></div>
+        <div class="usage-number"><strong>3,408</strong><span>授权后同主体调用</span><small>不等于豆包直接贡献</small></div>
+        <div class="usage-number alert"><strong>&lt;5</strong><span>新身份调用用户</span><small>新客首个任务承接极弱</small></div>
+      </div>
+      <div class="usage-layout">
+        <article class="route-panel"><h3>覆盖至少 5 名用户的高频能力</h3><p>过滤低于 5 人的能力，避免把个别重度用户误当普遍需求。</p><div id="route-chart" class="route-chart"></div></article>
+        <article class="insight-panel">
+          <p class="eyebrow">NEED PATTERN</p><h3>先“研究工具”，后“个人投顾”</h3>
+          <ol><li><b>发现</b><span>基金搜索、详情、资讯是入口。</span></li><li><b>比较</b><span>业绩、净值、回测、交易限制承接决策。</span></li><li><b>诊断</b><span>基金诊断已有需求，但个性化账户能力尚未成为主流。</span></li></ol>
+          <aside><b>产品判断：</b>首屏应先交付一个无需开户也有价值的“基金研究结果”，再自然引导授权后的个性化任务；现在可能把用户过早推向空白账户流程。</aside>
+        </article>
+      </div>
+    </section>
+
+    <section id="handoff" class="section">
+      <div class="section-head"><p class="eyebrow">06 · SERVICE HANDOFF</p><h2>授权进来了，服务组织还没有接住</h2><p>SCRM 中只有 13 名豆包授权用户进入客户名单、6 名可见顾问分配；首次授权后没有查到跟进、接通电话或会议记录。</p></div>
+      <div class="handoff-grid">
+        <article><span>进入客户名单</span><strong>13</strong><small>仅占存量身份组 8.9%</small></article>
+        <article><span>可见顾问分配</span><strong>6</strong><small>高价值未分配 10 人</small></article>
+        <article class="zero"><span>授权后跟进记录</span><strong>0</strong><small>含系统/人工记录口径</small></article>
+        <article class="zero"><span>授权后接通 / 会议</span><strong>0</strong><small>不是服务质量结论，只是记录缺失</small></article>
+      </div>
+      <div class="handoff-note"><b>不要直接把 341 人全丢给顾问。</b><span>自动分层后只把“复杂需求、资产较高、绑定后交易、连续高意图任务”送人工；新身份优先由产品完成无摩擦激活。</span></div>
+    </section>
+
+    <section id="governance" class="section governance-section">
+      <div class="section-head"><p class="eyebrow">07 · GOVERNANCE GAP</p><h2>授权记录能数人，但暂时不能审计“授权了什么”</h2></div>
+      <div class="governance-grid">
+        <article><strong>341 / 341</strong><h3>granted_scopes 为空数组</h3><p>不能据此判断用户没有权限；只能说明授权记录层未留下可审计的细粒度 Scope。</p></article>
+        <article><strong>341 / 341</strong><h3>data_permissions 为空</h3><p>无法从 consent 表复核个性化数据边界，需要核对默认权限与实际注入规则。</p></article>
+        <article><strong>133</strong><h3>历史记录被 superseded</h3><p>474 条 consent 记录对应 341 名用户；替换记录不等于撤销或流失。</p></article>
+        <article><strong>0</strong><h3>显式 revoked 记录</h3><p>样本窗口短，且撤销入口/同步机制需验证；不能解释为 100% 留存。</p></article>
+      </div>
+    </section>
+
+    <section id="action" class="section action-section">
+      <div class="section-head"><p class="eyebrow">08 · 7 / 30 / 90 DAYS</p><h2>最优解不是“继续拉授权”，而是把授权变成可验证的服务任务</h2><p>目标函数从“累计授权数”切到“绑定后 7 日完成有效财富任务的人数”，同时保留合规、隐私与适当性闸门。</p></div>
+      <div class="plan-grid">
+        <article><span class="day">7 DAYS</span><h3>补血缘、修首跳</h3><ul><li>每次调用记录 OAuth Client、匿名 subject、会话与入口位</li><li>授权成功页直接进入一个可完成的任务，不落空白首页</li><li>新客与老客分流：新客做目标/需求识别，老客做资产复盘</li><li>建立授权→首任务→开户/风测的逐日漏斗</li></ul><b>验收：豆包直接调用可归因率 ≥95%</b></article>
+        <article><span class="day">30 DAYS</span><h3>跑激活实验</h3><ul><li>A/B 测试“基金研究结果先交付”与“先开户”两条路径</li><li>新客以首个有效任务完成率为主指标，不以授权为成功</li><li>14 名服务优先未分配用户进入人工复核，不自动营销</li><li>对 159 名停滞用户按断点重定向，禁止一条话术群发</li></ul><b>验收：新客账户/风测不再为 0，且有对照组</b></article>
+        <article><span class="day">90 DAYS</span><h3>证明增量价值</h3><ul><li>观察 D7 / D30 有效任务留存与复访</li><li>用随机或分阶段实验评估开户、方案执行、资产留存增量</li><li>将高价值与复杂需求自动路由顾问，回写服务结果</li><li>上线 Scope / 数据权限可审计与用户撤销闭环</li></ul><b>验收：能回答“豆包多带来了什么”，而非只报相关性</b></article>
+      </div>
+      <div class="north-star"><span>NORTH STAR</span><strong>绑定后 7 日完成有效财富任务的去重用户数</strong><p>有效任务至少包含可核验结果：完成基金比较/诊断、目标与风险识别、生成方案、进入合规开户或完成一次账户复盘；单纯授权、打开页面、模型回答字数不计。</p></div>
+    </section>
+
+    <section id="method" class="section method-section">
+      <div class="section-head"><p class="eyebrow">09 · EVIDENCE BOUNDARY</p><h2>数字可信的前提，是知道它不能证明什么</h2></div>
+      <div class="method-grid">
+        <article><span class="badge confirmed">CONFIRMED</span><h3>可以确认</h3><p>有效授权、新老身份结构、资金账户/绑卡状态、绑定后交易时间关系、当前资产、同主体调用与 SCRM 记录。</p></article>
+        <article><span class="badge inferred">INFERRED</span><h3>判断与建议</h3><p>身份到价值漏斗断裂、首任务设计应前置、应先修激活再扩量；均基于当前生产数据的产品判断。</p></article>
+        <article><span class="badge missing">MISSING</span><h3>仍缺证据</h3><p>豆包会话级调用血缘、30 日留存、授权增量因果、撤销机制有效性、真实用户满意度与长期资产贡献。</p></article>
+      </div>
+      <details><summary>查看口径、数据表与隐私边界</summary><div id="definitions" class="definitions"></div></details>
+    </section>
+  </main>
+
+  <footer><div><b>CLAIR / 豆包 × 且慢用户深度分析</b><span>生产只读聚合 · 公开脱敏版</span></div><div><span>生成 2026-09-05</span><span>非投资建议 · 不含用户明细</span></div></footer>
+  <script src="./app.js"></script>
+</body>
+</html>
