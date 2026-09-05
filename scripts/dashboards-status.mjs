@@ -31,7 +31,7 @@ const DASHBOARDS = [
     name: "OAP × 且慢用户看板",
     data: path.join(root, "public/reports/oap-qieman-user-dashboard/data/latest.json"),
     time: (d) => d.meta?.generated_at,
-    mechanism: "手动：内网取数后随构建发布（页面 2026-09-04 起改为只读快照）",
+    mechanism: "半自动：scripts/oap-qieman-refresh/（runbook 见其 README），内网取数校验后随构建发布",
     launchd: [],
     staleHours: 24 * 21,
   },
