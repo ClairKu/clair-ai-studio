@@ -1911,17 +1911,6 @@ const initialState = {
       access: "production",
     },
     {
-      id: "qieman-ai-advisor-ecosystem",
-      groupId: "xiaogu",
-      title: "且慢小顾 × AI 实验室 × 开放平台｜生态闭环 Demo",
-      url: "https://qieman-ai-advisor-ecosystem.clairku.chatgpt.site",
-      pinned: true,
-      position: 9,
-      createdAt: "2026-07-26T15:05:00.000Z",
-      source: "近月新增",
-      access: "account",
-    },
-    {
       id: "oap-h2-plan",
       groupId: "reporting",
       title: "2026 下半年 AI 开放平台目标计划与里程碑",
@@ -2095,7 +2084,6 @@ const WORK_TYPE_BY_REPORT = {
   "jinzhenzi-review": "governance-review",
   "jinzhenzi-history": "competitive-research",
   "xiaogu-user-needs": "product-planning",
-  "qieman-ai-advisor-ecosystem": "product-demo",
   "oap-h2-plan": "reporting",
   "ai-productization-roadshow-2026-07-30": "reporting",
   "advisor-report-skill-ai-practice": "reporting",
@@ -2123,7 +2111,6 @@ const TOPIC_BY_REPORT = {
   "investment-behavior-report": "xiaogu",
   "product-review-workbench": "ai-workbench",
   "community-ai-review": "ai-workbench",
-  "qieman-ai-advisor-ecosystem": "ai-platform",
   "oap-h2-plan": "ai-platform",
   "oap-h2-okr-iteration-review": "ai-platform",
 };
