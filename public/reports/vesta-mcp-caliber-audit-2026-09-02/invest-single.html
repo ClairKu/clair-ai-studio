@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>vesta 投研 MCP 口径盘点｜invest-single</title>
+<meta name="description" content="vesta 投研 MCP 口径盘点分组明细：invest-single">
+</head>
+<body>
+<style>
+:root{
+  --paper:#fbfbfd; --ink:#20242f; --muted:#666d80; --line:#e4e6ee;
+  --accent:#1b88ee; --accent-soft:#e5f2ff; --accent-ink:#0b5192;
+  --good:#1f8a5a; --warn:#a06a12; --risk:#bd4038;
+  --card:#ffffff; --code-bg:#f0f5fb;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#131720; --ink:#e8e9f0; --muted:#9aa0b4; --line:#2a3040;
+    --accent:#4aa7ff; --accent-soft:#16283e; --accent-ink:#9dcbf7;
+    --good:#4cc38a; --warn:#d9a441; --risk:#e5716a;
+    --card:#1a1f2c; --code-bg:#1f2636;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#131720; --ink:#e8e9f0; --muted:#9aa0b4; --line:#2a3040;
+  --accent:#4aa7ff; --accent-soft:#16283e; --accent-ink:#9dcbf7;
+  --good:#4cc38a; --warn:#d9a441; --risk:#e5716a;
+  --card:#1a1f2c; --code-bg:#1f2636;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:400 16px/1.85 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;}
+.wrap{max-width:880px;margin:0 auto;padding:56px 24px 96px}
+h1,h2,h3{font-family:"Songti SC","Source Han Serif SC",serif;text-wrap:balance;line-height:1.3}
+h1{font-size:2.1rem;font-weight:900;margin:.3em 0 .2em}
+h2{font-size:1.45rem;font-weight:700;margin:2.4em 0 .7em;padding-top:1.2em;border-top:1px solid var(--line)}
+h3{font-size:1.08rem;font-weight:700;margin:1.8em 0 .5em}
+h4{font-size:1rem;font-weight:700;margin:1.5em 0 .4em}
+p{margin:.7em 0}
+a{color:var(--accent-ink)}
+.kicker{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-ink);font-weight:700}
+code{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.85em;background:var(--code-bg);border-radius:4px;padding:.1em .4em;word-break:break-all}
+pre{background:var(--code-bg);border:1px solid var(--line);border-radius:8px;padding:14px 16px;overflow-x:auto;font-size:.85rem;line-height:1.6}
+pre code{background:none;padding:0;word-break:normal}
+blockquote{border-left:3px solid var(--accent);background:var(--accent-soft);padding:10px 18px;border-radius:0 8px 8px 0;margin:1.4em 0;font-size:.94rem}
+blockquote p{margin:.4em 0}
+table{border-collapse:collapse;width:100%;font-size:.88rem;margin:1em 0}
+.tablewrap{overflow-x:auto;margin:1em 0}
+.tablewrap table{margin:0}
+th{text-align:left;font-weight:700;border-bottom:2px solid var(--line);padding:.5em .8em .4em .1em;white-space:nowrap;background:var(--paper);position:sticky;top:0}
+td{border-bottom:1px solid var(--line);padding:.5em .8em .5em .1em;vertical-align:top}
+ul,ol{padding-left:1.4em}
+li{margin:.3em 0}
+hr{border:none;border-top:1px solid var(--line);margin:2.5em 0}
+strong{font-weight:700}
+.foot{margin-top:4em;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line);padding-top:1.4em}
+</style>
+<div class="wrap">
+<div class="kicker">口径盘点分组明细 · 2026-09-02</div>
+<h1>invest-single（投资信号，18 工具）指标数据公式口径盘点</h1>
+<p>盘点日期：2026-09-02。实测 14 次调用（含 2 次失败重试），覆盖 11 个工具；日本/越南 6 个工具及 china_style_backtest 为仅 schema 盘点。数据观察窗口：2026-08-20 ~ 2026-09-02。</p>
+<h2>一、工具分组结构</h2>
+<p>18 个工具按信号线分 7 组，每组基本是「factor（原始指标）→ score（因子得分/仓位）→ backtest（回测净值）」三件套：</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>信号线</th>
+<th>factor</th>
+<th>score</th>
+<th>backtest</th>
+<th>其他</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A股权益信号</td>
+<td>get_cn_investment_signal_factor</td>
+<td>get_cn_investment_signal_score</td>
+<td>get_cn_investment_signal_backtest</td>
+<td></td>
+</tr>
+<tr>
+<td>A股风格轮动</td>
+<td>get_cn_investment_signal_china_style_factor</td>
+<td>get_cn_investment_signal_china_style_score</td>
+<td>get_cn_investment_signal_china_style_backtest</td>
+<td></td>
+</tr>
+<tr>
+<td>日本权益</td>
+<td>get_japan_macro_signal_japan_factor</td>
+<td>..._score</td>
+<td>..._backtest</td>
+<td></td>
+</tr>
+<tr>
+<td>越南权益</td>
+<td>get_vietnam_macro_signal_vietnam_factor</td>
+<td>..._score</td>
+<td>..._backtest</td>
+<td></td>
+</tr>
+<tr>
+<td>黄金</td>
+<td>get_gold_signal_factor</td>
+<td>（无 score/backtest）</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>全球风险</td>
+<td></td>
+<td></td>
+<td></td>
+<td>get_grri_signal</td>
+</tr>
+<tr>
+<td>行业（中观）</td>
+<td></td>
+<td></td>
+<td></td>
+<td>get_sectoral_signals（横截面最新）、get_sectoral_signal_final_detail（单行业历史+回测）</td>
+</tr>
+<tr>
+<td>宏观因子库</td>
+<td></td>
+<td></td>
+<td></td>
+<td>queryChinaMacroFactors、queryUsMacroFactors</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2>二、逐工具口径（实测）</h2>
+<h3>1. get_cn_investment_signal_score（A股权益信号总闸）✅实测</h3>
+<ul>
+<li><strong>返回结构</strong>：<code>score_data[]</code> + <code>wind_a_index_data[]</code>（万得全A 881003.WI 收盘价）+ <code>query_start/end_date</code> + <code>total_records</code>。</li>
+<li><strong>信号字段（全部 0/1 二值）</strong>：<ul>
+<li><code>position</code>：最终信号，1=乐观、0=谨慎（与 VESTA 前端&quot;中国A股信号&quot;栏一致）。</li>
+<li><code>position_long</code>：长周期仓位（工具描述明确强调&quot;不是多头&quot;含义上的 long/short，是长/短周期）。</li>
+<li><code>position_short</code>：短周期仓位，1=过滤通过（不是看空）。</li>
+<li>子项因子得分（只解释当日因子，禁止用来自行合成 position）：<code>position_1</code> 估值、<code>position_2</code> 市场情绪、<code>position_3</code> 经济景气、<code>position_4</code> 货币流动性，各 0/1。</li>
+</ul>
+</li>
+<li><strong>合成线索（实测验证）</strong>：8-26→8-27 翻多当日，恰是 position_4（货币流动性）从 0→1，使 4 个子项达到 3/4，同日 position_long 0→1，position = position_short × position_long（backtest 工具文档明示该乘法）。推断 position_long 由 4 子项按某阈值（疑似 ≥3/4）触发，但<strong>阈值规则未在文档中给出，工具描述反而禁止自行合成</strong>——即官方口径为&quot;黑盒，原样使用&quot;。</li>
+<li><strong>频率</strong>：日频（交易日），窗口 2026-08-20~09-02 返回 9 条，最新到 09-01（T-1）。</li>
+<li><strong>时间戳</strong>：<code>record_date</code>（YYYY-MM-DD）。</li>
+</ul>
+<h3>2. get_cn_investment_signal_factor（A股 8 个核心指标）✅实测</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>factor_code</th>
+<th>名称</th>
+<th>单位</th>
+<th>实测值样例(09-01)</th>
+<th>频率表现</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>price</td>
+<td>万得全A指数</td>
+<td>点</td>
+<td>8515.68</td>
+<td>日频</td>
+</tr>
+<tr>
+<td>pe_ttm</td>
+<td>PE(TTM)</td>
+<td>倍</td>
+<td>38.81</td>
+<td>日频</td>
+</tr>
+<tr>
+<td>dividend_yield</td>
+<td>股息率</td>
+<td>%（原值×100）</td>
+<td>1.33</td>
+<td>日频</td>
+</tr>
+<tr>
+<td>erp_pct_mean</td>
+<td>估值比价指数</td>
+<td>%，0-100，越高越便宜（ERP 综合百分位×100）</td>
+<td>44.66</td>
+<td>日频</td>
+</tr>
+<tr>
+<td>sentiment_index</td>
+<td>市场情绪指数</td>
+<td>%，0-100（MA20 突破比例+换手率综合，×100）</td>
+<td>34.29</td>
+<td>日频</td>
+</tr>
+<tr>
+<td>business_cycle_factor</td>
+<td>经济景气指数</td>
+<td>指数（z-score 型，可为负）</td>
+<td>-1.66</td>
+<td>月频铺日（8-25~28 同值，8-31 才跳变）</td>
+</tr>
+<tr>
+<td>monetary_policy_intensity_factor</td>
+<td>货币政策指数</td>
+<td>指数，正=宽松、负=收紧</td>
+<td>3.27</td>
+<td>月频铺日</td>
+</tr>
+<tr>
+<td>excess_liquidity_factor</td>
+<td>剩余流动性指数</td>
+<td>指数</td>
+<td>0.88</td>
+<td>月频铺日</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li>宏观三因子在日频序列里<strong>前向填充</strong>（月内每日同值），与 queryChinaMacroFactors 月末值一致（business_cycle_factor 8月=-1.6566、货币政策=3.2733 完全对上）→ A股信号的宏观腿数据源就是中国宏观因子库。</li>
+</ul>
+<h3>3. get_cn_investment_signal_backtest ✅实测</h3>
+<ul>
+<li>字段：<code>benchmark_netvalue</code>（买入持有万得全A，初始 1）、<code>strategy_netvalue_long</code>（只跟 position_long 调仓）、<code>strategy_netvalue_short</code>（只跟 position_short）、<code>strategy_netvalue</code>（综合，position = position_short × position_long）+ 三个仓位字段（0/1，空仓/满仓，无中间仓位）。</li>
+<li>实测样例(09-01)：benchmark 1.555 vs 综合策略 3.548 —— 净值起点日期未在返回中给出（<strong>疑点</strong>：无法据此换算年化超额）。</li>
+<li><strong>无胜率/回撤/夏普等统计字段</strong>——回测&quot;统计口径&quot;只给净值曲线，胜率需调用方自算。</li>
+<li>有 <code>update_time</code>（实测 &quot;2026-09-02 12:51:31&quot;，日内更新）。</li>
+</ul>
+<h3>4. get_cn_investment_signal_china_style_score（风格轮动）✅实测</h3>
+<ul>
+<li><code>position_data[]</code>：5 个 0/1 子得分：position_1 流动性偏好、position_2 资金偏好、position_3 景气扩散、position_4 估值、position_5 拥挤度；两个复合分：<code>position_score_1</code> 绝对收益得分(0-2)、<code>position_score_2</code> 相对收益得分(0-3)；三个仓位：<code>position_dvd</code> 红利低波、<code>position_growth</code> 成长、<code>position_cash</code> 现金（三者和=1）。</li>
+<li>实测(8-25~9-01 恒定)：子项 1,1,0,1,1 → score_1=2、score_2=2 → 红利 0.75 / 成长 0.25 / 现金 0。</li>
+<li><strong>合成线索</strong>：score_1(0-2) + score_2(0-3) 两条打分线怎么由 5 个 position 映射、又怎么映射到 75/25 仓位，<strong>文档未给规则</strong>（疑点）。仓位是 0.25 步进的离散档位。</li>
+<li>附 <code>dividend_index_data</code>（红利低波指数）、<code>growth_index_data</code>（国证成长指数）价格序列。</li>
+<li>backtest 姊妹工具（仅 schema）：strategy vs benchmark（红利50%+成长50%）vs 纯红利 vs 纯成长四条净值。</li>
+</ul>
+<h3>5. get_cn_investment_signal_china_style_factor ✅实测</h3>
+<ul>
+<li>10 个指标：dividend_yield 股息率(%)、index_crowding 拥挤度因子(%，0-100)、m1/m2/m1_m2（月频，M1-M2 剪刀差=流动性偏好因子，宏观指标代码 1157/1158）、fund_raising_daily=fund_raising_daily1（基金日新增规模，亿元，同源双名，请求任一自动返回两个）、booming_industry_pct 景气扩散因子(%，0-100)、loan_rate、deposit_rate。</li>
+<li>实测确认：此处 dividend_yield≈4.32%（<strong>红利低波指数的股息率</strong>，与 signal_factor 里万得全A 的 1.33% 不同标的，同名不同口径，需注意）；index_crowding 55~66%；booming_industry_pct 仅 8-31 有值 31.03（月频，未铺日，返回 null）；m1_m2 近窗口全 null（月度数据未对齐交易日时直接 null，与文档&quot;只返回宏观库有值日期&quot;的说法<strong>不一致</strong>——实测是铺了日期但值为 null）。</li>
+</ul>
+<h3>6. get_grri_signal（GRRI 全球风险共振指数）✅实测</h3>
+<ul>
+<li>GRRI = Global Risk Resonance Index（工具文档给出全称），衡量全球多资产波动率+相关性的风险共振。</li>
+<li>字段：<code>grri_value</code>（字符串型数值！）、<code>correlation_value</code>（跨资产相关性）。日频，自然日连续（含周末 8-22/23/29/30 有值），最新到 09-02（T+0）。</li>
+<li>文档阈值：&gt;3 极高风险、&gt;2 高风险、&gt;1 中等风险。实测值 -0.27~+0.17，correlation 0.205~0.214。</li>
+<li><strong>疑点</strong>：grri_value 可为负 → 应是标准化(z-score)指标，阈值 1/2/3 即 1/2/3 个标准差；但&quot;由哪些资产、多少个、什么窗口的波动率/相关性&quot;构成完全未披露；数值以字符串返回（8 位小数）。</li>
+</ul>
+<h3>7. get_gold_signal_factor（黄金信号）✅实测</h3>
+<ul>
+<li>只有 factor 工具，<strong>没有 score/backtest</strong> —— 黄金线只提供原料指标，无合成信号（疑点：VESTA 前端若展示&quot;黄金信号&quot;结论，其合成逻辑不在本 MCP 内）。</li>
+<li>14 个指标混用两种编码体系：数字宏观代码（2006 COMEX金、2189 美10Y实际利率、2190 央行净买入、2007 黄金ETF持仓、2191 美未偿公共债务、2086 美财政赤字、2193 美元外储占比、2192 地缘政治风险指数、2077 VIX、2056 金融压力指数）+ 字符串计算指标（net_long 非商业净多头、cpi_volatility 美CPI波动率）+ 行情代码（LBMAGOLDP.GI、AU9999.SGE）。</li>
+<li>返回结构与其他 factor 不同：<code>{status, message, data:[{factorCode, dataList:[{recordDate, value}]}]}</code>，value 为字符串，<strong>无 factor_name/unit 元数据</strong>（调用方需自备代码→名称映射）。</li>
+<li>实测频率：2006/2189 日频（交易日）；2192 地缘风险自然日连续；net_long 周频（窗口内仅 8-25 一条，对应 CFTC 周度持仓报告节奏）。请求的 cpi_volatility、2190 在近窗口无数据行（月频/低频，短窗口直接不返回该 factor 块）。</li>
+</ul>
+<h3>8. get_sectoral_signals（中观行业·横截面）✅实测</h3>
+<ul>
+<li>无入参；返回 <code>update_time</code>（实测 2026-09-02 08:44:14，每日早晨批跑）+ 29 个中信一级行业（CI005001~CI005028 + CI005030 综合金融；<strong>无 CI005029</strong>，银行/非银单列，体系为中信 CITIC 一级行业指数，注意缺29号位）。</li>
+<li>每行业 10 个信号字段，<strong>取值不是统一 0/1</strong>：<ul>
+<li><code>sign_ecop</code> 经济周期：实测 -1/0/1/2（电子、通信=2）→ 至少 -1<del>2 四档，可能 -2</del>2。</li>
+<li><code>sign_curp</code> 货币周期：实测 -2~2 五档全出现。</li>
+<li><code>sign_tech</code> 技术周期、<code>sign_policy</code> 政策周期：实测 -1/0/1。</li>
+<li><code>sign_trd</code> 景气水平、<code>sign_lvl</code> 景气趋势：实测 ±1 二值（两者实测 29 行业全部同号，<strong>疑似强相关或同源</strong>，且 digest 里 trd 标&quot;景气水平&quot;/lvl 标&quot;景气趋势&quot;与字段名直觉相反——trd(trend?)=水平、lvl(level?)=趋势，命名互换嫌疑）。</li>
+<li><code>sign_value</code> 估值：±1（1=便宜/看多方向）。</li>
+<li><code>sign_amtsell</code> 交易拥挤度：实测 0 或 -1（只见非正值，拥挤时 -1 减分）。</li>
+<li><code>sign_syn</code> 综合信号（仅 detail 接口出现）、<code>sign_final</code> 最终信号：±1，1=看多、-1=看空。</li>
+<li><code>last_sign_final</code>、<code>last_sign_date</code>：上一次相反信号及其日期（实测全部与当前 sign_final 反号 → 记录的是最近一次<strong>信号翻转</strong>时点）。</li>
+</ul>
+</li>
+<li><strong>方向约定</strong>：正=有利/看多，负=不利/看空，0=中性；但各分项档位范围与权重未披露。</li>
+</ul>
+<h3>9. get_sectoral_signal_final_detail ✅实测（CI005018.CI 医药）</h3>
+<ul>
+<li>返回最新 30 条（只含 sign_final 非空记录），日频（交易日），最新到 09-02（T+0）。</li>
+<li>相比横截面多了：<code>sign_syn</code> 综合信号、<code>sign_tech_desc</code>/<code>sign_policy_desc</code>（实测均 null）、<code>nav_bench</code> 基准净值、<code>nav_strategy</code> 策略净值（字符串型）。</li>
+<li>实测医药：nav_strategy 2.757 vs nav_bench 1.038 —— 净值基期未披露；sign_syn 与 sign_final 实测恒相等（<strong>疑点</strong>：syn→final 是否还有额外过滤，如翻转确认期，无法从数据判断）。</li>
+<li><strong>合成线索</strong>：8 个分项 → sign_syn → sign_final 的公式/权重完全未披露；从横截面看 sign_final 与 sign_trd/sign_lvl 同号率极高（29/29 中仅交通运输一例 trd=1、final=-1），景气腿疑似主导。</li>
+</ul>
+<h3>10. queryChinaMacroFactors（中国宏观因子库）✅实测</h3>
+<ul>
+<li><strong>月频</strong>，record_date 为月末（06-30/07-31/08-31），字段 camelCase。返回还带 <code>id/createdAt/updatedAt</code>（可见每日 08:39 批跑刷新，历史行也会被 update）。</li>
+<li>16 字段：8 个因子（businessCycleFactor、inflationFactor、inventoryFactor、socialFinancingFactor、excessLiquidityFactor、monetaryVelocityFactor 货币活化、housingMarketExpectationFactor、corporateInvestmentExpansionFactor）+ coreCpi/ppi + monetaryPolicyIntensityFactor + govt10yBondYield + windAllAIndex + 三个周期枚举。</li>
+<li><strong>⚠️ 全部数值字段都是标准化后的因子值，不是原始宏观值</strong>：实测 govt10yBondYield=-2.19（不可能是收益率原值）、windAllAIndex=5.81（不是 8500 点）、coreCpi=-0.30、ppi=0.60 —— 即使字段名看着像原始指标，也是 z-score 型。<strong>用作&quot;查10年国债收益率/万得全A点位&quot;会拿到错误数据</strong>，这是本工具最大口径坑。</li>
+<li>周期枚举（实测值）：economicCycle=LATE_RECESSION、monetaryCycle=TIGHT_CREDIT_LOOSE_MONEY、inventoryCycle=ACTIVE_DESTOCKING；schema 示例另有 RECOVERY、TIGHT_CREDIT_TIGHT_MONEY、ACTIVE_RESTOCKING，完整枚举表未披露。</li>
+<li>当月数据渐进落库：8-31 行的 inflationFactor/coreCpi/ppi/excessLiquidityFactor 等仍为 null（发布滞后），businessCycleFactor 已有值 → 各因子更新节奏不同步。</li>
+<li><strong>🐛 实测缺陷</strong>：传 <code>columns</code> 参数（严格按 schema 示例 camelCase）稳定报 <code>code 0500 系统异常</code>（两次不同列组合均复现）；不传 columns 才正常。列裁剪功能实际不可用。</li>
+</ul>
+<h3>11. queryUsMacroFactors（美国宏观因子/择时）✅实测</h3>
+<ul>
+<li>日频（自然日，周末也有行），返回 <code>records[]</code> + <code>dateRange</code>（整库范围 2004-02-29 起）+ <code>totalCount</code>；同样带 id/createdAt/updatedAt（每日 08:39 批跑，最新到 08-31，T-2）。</li>
+<li>原始指标：michiganConsumerConfidenceIndex(51.7)、usPmi(54.6)、usServicesPmi、newHomeSalesAnnualized、housingMarketIndex(35)、usGdpYoy、financialStressIndex(-2.68)、usHighYieldCorporateBondSpread(10.35，<strong>疑点</strong>：美高收益 OAS 常态 3-5%，10.35 若为 % 意味着极端信用压力，与 financialStressIndex -2.7（宽松）矛盾 → 单位或口径存疑，可能非 OAS 百分比原值)、inflationExpectation(2.34)、usEconomicPolicyUncertaintyIndex(110~347，日度 EPU 指数特征)。</li>
+<li>合成层：ecoClimateFactor 经济景气因子(-1.33，z-score)、riskFactor 高频风险指标(0.28~0.47)、ecoPosition 景气仓位、riskPosition 风险仓位、position 总仓位（0/1，实测窗口内恒 0=谨慎）。</li>
+<li>回测净值：ixicNsdkNetvalue 纳指净值(12.84) / ixicNsdkStrategeNetvalue 纳指择时净值(11.63) / spxDqsNetvalue 标普净值(6.67) / spxDqsStrategeNetvalue 标普择时净值(7.17)——起点 2004-02-29=1 推断（dateRange 起点），择时不动时净值不变（11.63/7.17 恒定=空仓中）。</li>
+<li>稀疏矩阵：低频指标（PMI、密歇根、房产）只在发布日/月末行有值，其余日 null；ecoPosition/riskPosition 近窗口几乎全 null 仅月末行有 ecoPosition=0（<strong>疑点</strong>：文档说默认 columns=[&#39;position&#39;,&#39;coPosition&#39;,&#39;riskPosition&#39;]，实测不传 columns 返回全部字段，且返回中根本没有 <code>coPosition</code> 字段——文档与实现不符）。</li>
+<li>择时逻辑线索：position 疑似 = f(ecoPosition, riskPosition)，两条腿分别对应 ecoClimateFactor 与 riskFactor，但阈值未披露。</li>
+</ul>
+<h3>12~17. 日本/越南/风格回测（仅 schema 盘点，未实测）</h3>
+<ul>
+<li><strong>日本</strong>：factor 14 指标（2150 制造业PMI、2151 服务业PMI、2005 景气动向先行、2148 PPI、2002 CPI、2149 日元汇率、2153 日10Y、2051 美10Y、2152 劳动力、2155 贸易差额、2156 雇员报酬、2157 出口指数、2158 储蓄率、N225）；score 返回景气/出口/流动性/就业/内需/通胀 6 维得分 + 日本总评分 + <strong>月度信号</strong>（monthly_signal）+ N225；backtest 返回 total_score/benchmark_netvalue/strategy_netvalue/monthly_signal。各维得分取值范围未在 schema 中给出。</li>
+<li><strong>越南</strong>：factor 10 指标（2095 越南PMI、2094 出口金额、2140 VN指数、2139 VN30、2144 外资净买入、2143 外资净买入月加总、2075 联邦基金利率、2051 美10Y、erp/erp_10 仅标注&quot;算法因子&quot;——<strong>含义未披露</strong>，推测为越南股市 ERP 及其 10 期口径）；score 返回 prosperity/export/liquidity/capital_preference/valuation 5 维得分 + vn_score 总评分 + vn_p 月信号。取值范围未披露。</li>
+<li>日越两线均为<strong>月度信号</strong>（monthly_signal/vn_p）驱动、日频净值回测，与 A股的日频信号不同节奏。</li>
+<li>共同点：日/越/A股/黄金的 factor 数字代码共享同一套宏观指标库编码（2051 美10Y 同时出现在日、越、金三线）。</li>
+</ul>
+<hr>
+<h2>三、信号体系总览表</h2>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>信号线</th>
+<th>最终信号字段</th>
+<th>取值/含义</th>
+<th>子因子(得分制)</th>
+<th>信号频率</th>
+<th>数据最新性(实测)</th>
+<th>回测输出</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A股权益</td>
+<td>position</td>
+<td>0/1（1=乐观）</td>
+<td>4 子项各 0/1：估值/情绪/景气/货币流动性；position=long×short</td>
+<td>日频</td>
+<td>T-1 (09-01)</td>
+<td>4 条净值曲线，无统计指标</td>
+</tr>
+<tr>
+<td>A股风格轮动</td>
+<td>position_dvd/growth/cash</td>
+<td>各 0-1，0.25 步进，和=1</td>
+<td>5 子项 0/1 → 绝对分 0-2 + 相对分 0-3</td>
+<td>日频</td>
+<td>T-1</td>
+<td>4 条净值（策略/50-50基准/纯红利/纯成长）</td>
+</tr>
+<tr>
+<td>日本</td>
+<td>monthly_signal</td>
+<td>未实测</td>
+<td>6 维得分+总分</td>
+<td>月度信号</td>
+<td>未实测</td>
+<td>total_score+两条净值</td>
+</tr>
+<tr>
+<td>越南</td>
+<td>vn_p</td>
+<td>未实测</td>
+<td>5 维得分+vn_score</td>
+<td>月度信号</td>
+<td>未实测</td>
+<td>total_score+两条净值</td>
+</tr>
+<tr>
+<td>美国</td>
+<td>position</td>
+<td>0/1（实测恒0）</td>
+<td>ecoPosition+riskPosition 两腿；ecoClimateFactor/riskFactor</td>
+<td>日频（宏观腿低频）</td>
+<td>T-2 (08-31)</td>
+<td>纳指/标普 各指数+择时净值</td>
+</tr>
+<tr>
+<td>黄金</td>
+<td>无合成信号</td>
+<td>—</td>
+<td>14 原料指标</td>
+<td>日/周/月混合</td>
+<td>T-2</td>
+<td>无</td>
+</tr>
+<tr>
+<td>GRRI</td>
+<td>grri_value</td>
+<td>连续值，&gt;1/2/3 中/高/极高风险</td>
+<td>correlation_value</td>
+<td>日频（自然日）</td>
+<td>T+0 (09-02)</td>
+<td>无</td>
+</tr>
+<tr>
+<td>行业中观</td>
+<td>sign_final</td>
+<td>±1（1=看多）</td>
+<td>8 分项：ecop/curp(-2<del>2)、tech/policy(-1</del>1)、trd/lvl/value(±1)、amtsell(-1/0) → syn → final</td>
+<td>日频，早 8:44 批跑</td>
+<td>T+0 (09-02)</td>
+<td>nav_bench/nav_strategy 单行业净值</td>
+</tr>
+<tr>
+<td>中国宏观库</td>
+<td>三周期枚举</td>
+<td>economicCycle/monetaryCycle/inventoryCycle</td>
+<td>8 因子+核心CPI/PPI 等（全为标准化值）</td>
+<td>月频（月末）</td>
+<td>8-31（部分字段 null）</td>
+<td>无</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2>四、疑点汇总</h2>
+<p><strong>数值口径类（高危）</strong></p>
+<ol>
+<li><strong>queryChinaMacroFactors 所有数值均为标准化因子值</strong>：govt10yBondYield=-2.19、windAllAIndex=5.81、coreCpi=-0.30，字段名与内容严重误导，绝不能当原始宏观值用。标准化方法（窗口、均值方差口径）未披露。</li>
+<li><strong>usHighYieldCorporateBondSpread=10.35</strong> 与常态 OAS 水平不符、且与金融压力指数(-2.7)方向矛盾，单位/口径存疑。</li>
+<li><strong>两处 dividend_yield 同名不同标的</strong>：A股信号 factor（万得全A，1.33%）vs 风格 factor（红利低波指数，4.32%）。</li>
+<li>GRRI 可为负 → z-score 型，阈值 1/2/3 应理解为标准差；构成资产、波动率/相关性窗口完全未披露；数值为字符串型。</li>
+</ol>
+<p><strong>合成公式黑盒类</strong>
+5. A股 position_long 如何由 4 子项触发（实测疑似 ≥3/4，官方明令&quot;禁止自行合成&quot;）；position_short 的&quot;短周期过滤&quot;规则未披露。
+6. 风格轮动 5 子项 → score_1/score_2 → 75/25 仓位的映射表未披露（仓位 0.25 步进）。
+7. 行业 8 分项 → sign_syn → sign_final 权重未披露；sign_syn 与 sign_final 实测恒相等，final 是否含额外确认逻辑不明；sign_trd(景气水平)/sign_lvl(景气趋势) 中文标注与英文缩写疑似互换；两者实测 29 行业全同号。
+8. 美国 position 与 ecoPosition/riskPosition 的关系及阈值未披露；文档宣称默认列含 <code>coPosition</code>，实测该字段不存在。
+9. 黄金线只有原料指标、无合成信号工具——前端&quot;黄金信号&quot;结论的公式不在本 MCP。
+10. 越南 erp/erp_10 仅标注&quot;算法因子&quot;，定义未披露。</p>
+<p><strong>回测统计口径类</strong>
+11. 所有 backtest 均只给净值曲线，<strong>无胜率/超额/回撤/夏普字段</strong>，净值基期日期不随返回给出（美国线可由 dateRange 推断 2004-02-29，A股/行业线基期未知）→ &quot;胜率/超额怎么定义&quot;在本 MCP 层面无答案，需调用方自算。</p>
+<p><strong>接口缺陷/文档不符类</strong>
+12. <strong>🐛 queryChinaMacroFactors 传 columns 稳定 500</strong>（camelCase 按 schema 示例传也不行），列裁剪不可用。
+13. queryUsMacroFactors &quot;columns 为空默认 3 列&quot;与实测&quot;返回全部列&quot;不符。
+14. 风格 factor 月度指标（m1_m2 等）实测铺交易日但值 null，与文档&quot;只返回有值日期&quot;不符；booming_industry_pct 仅月末有值。
+15. 行业分类为中信一级 29 个，跳号缺 CI005029；sign_tech_desc/sign_policy_desc 恒 null（预留字段）。
+16. 中国宏观月度数据渐进落库：当月 businessCycleFactor 先出、inflation/excessLiquidity 等滞后为 null，各因子更新不同步。
+17. gold factor 返回结构（status/data/factorCode 字符串值）与其他 factor 工具（factors/factor_name/unit）不统一，且无名称/单位元数据。</p>
+<p><strong>更新时间字段一览</strong>：A股 backtest <code>update_time</code>（日内 12:51）；sectoral <code>update_time</code>（早 8:44）；中美宏观库 <code>createdAt/updatedAt</code>（每日 08:39 批跑，历史行也会被刷新 updatedAt）；其余工具仅 <code>record_date</code> 无更新时间戳。</p>
+
+<div class="foot">CLAIR · 内部技术口径文档，请勿外传。</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,1005 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />
+    <script data-clair-access-gate data-clair-access-scope="report" src="../../access-gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>盈米MCP接口出参指标公式与口径文档 v1.0</title>
+<meta name="description" content="盈米MCP（stargate）接口出参指标公式与口径全量盘点：WIKI 零口径、SSOT=生产库 api_route 冻结快照+上游源码、计费 T0 换轨未同步文档。">
+</head>
+<body>
+<style>
+:root{
+  --paper:#fbfbfd; --ink:#20242f; --muted:#666d80; --line:#e4e6ee;
+  --accent:#1b88ee; --accent-soft:#e5f2ff; --accent-ink:#0b5192;
+  --good:#1f8a5a; --warn:#a06a12; --risk:#bd4038;
+  --card:#ffffff; --code-bg:#f0f5fb;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#131720; --ink:#e8e9f0; --muted:#9aa0b4; --line:#2a3040;
+    --accent:#4aa7ff; --accent-soft:#16283e; --accent-ink:#9dcbf7;
+    --good:#4cc38a; --warn:#d9a441; --risk:#e5716a;
+    --card:#1a1f2c; --code-bg:#1f2636;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#131720; --ink:#e8e9f0; --muted:#9aa0b4; --line:#2a3040;
+  --accent:#4aa7ff; --accent-soft:#16283e; --accent-ink:#9dcbf7;
+  --good:#4cc38a; --warn:#d9a441; --risk:#e5716a;
+  --card:#1a1f2c; --code-bg:#1f2636;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:400 16px/1.85 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;}
+.wrap{max-width:880px;margin:0 auto;padding:56px 24px 96px}
+h1,h2,h3{font-family:"Songti SC","Source Han Serif SC",serif;text-wrap:balance;line-height:1.3}
+h1{font-size:2.1rem;font-weight:900;margin:.3em 0 .2em}
+h2{font-size:1.45rem;font-weight:700;margin:2.4em 0 .7em;padding-top:1.2em;border-top:1px solid var(--line)}
+h3{font-size:1.08rem;font-weight:700;margin:1.8em 0 .5em}
+h4{font-size:1rem;font-weight:700;margin:1.5em 0 .4em}
+p{margin:.7em 0}
+a{color:var(--accent-ink)}
+.kicker{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-ink);font-weight:700}
+code{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.85em;background:var(--code-bg);border-radius:4px;padding:.1em .4em;word-break:break-all}
+pre{background:var(--code-bg);border:1px solid var(--line);border-radius:8px;padding:14px 16px;overflow-x:auto;font-size:.85rem;line-height:1.6}
+pre code{background:none;padding:0;word-break:normal}
+blockquote{border-left:3px solid var(--accent);background:var(--accent-soft);padding:10px 18px;border-radius:0 8px 8px 0;margin:1.4em 0;font-size:.94rem}
+blockquote p{margin:.4em 0}
+table{border-collapse:collapse;width:100%;font-size:.88rem;margin:1em 0}
+.tablewrap{overflow-x:auto;margin:1em 0}
+.tablewrap table{margin:0}
+th{text-align:left;font-weight:700;border-bottom:2px solid var(--line);padding:.5em .8em .4em .1em;white-space:nowrap;background:var(--paper);position:sticky;top:0}
+td{border-bottom:1px solid var(--line);padding:.5em .8em .5em .1em;vertical-align:top}
+ul,ol{padding-left:1.4em}
+li{margin:.3em 0}
+hr{border:none;border-top:1px solid var(--line);margin:2.5em 0}
+strong{font-weight:700}
+.foot{margin-top:4em;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line);padding-top:1.4em}
+</style>
+<div class="wrap">
+<div class="kicker">口径文档 · 2026-08-31</div>
+<h1>盈米MCP接口出参指标公式与口径文档</h1>
+<blockquote>
+<p><strong>版本</strong>：v1.0 · 2026-08-31 · 调研人：辜腾玉（guty）+ 本体问答服务
+<strong>对象</strong>：盈米MCP（生产实现 = AI 平台 <code>stargate</code>，本地代码 <code>~/Code/ai/stargate</code>，master 分支最新提交 78a70eb，2026-08-28）
+<strong>数据来源三轨</strong>：① 公司 WIKI（Confluence，wiki.frontnode.net）；② 生产注册表 dw-tidb <code>ying99_oap</code>（经 prod-db-query skill 实查，含 api_route / api_source / api_service_group / api_key_usage_details / api_external_market_tool_pricing / api_open_channel）；③ 上游微服务源码（pmdj-service / bmdj / pomodel / yingchat-api 等，均本地最新 master）。
+<strong>先说结论（最重要的三条）</strong>：</p>
+<ol>
+<li><strong>WIKI 没有任何一篇文档系统记载盈米MCP各接口的出参指标口径</strong>。WIKI 上只有 PRD/方案/使用教程类文档（共 12 篇相关），真正的“出参指标 SSOT”是<strong>stargate 生产库 <code>api_route.openapi_operation_content</code>（冻结快照）+ 各上游服务源码</strong>。</li>
+<li>盈米MCP 的出参链路是<strong>纯代理 + 局部改写</strong>：出参 95% 由上游服务直接决定；stargate 侧只有三处会改写出参——包装函数 wrapper_function（20 个路由配置了）、toon 编码（按 operationId 白名单，env 配置）、错误信息拼接。对口径问题要分清“网关改写”还是“上游变更”。</li>
+<li><strong>计费口径已在 2026-07-31 变更但文档未更新</strong>：文档《MCP积分资源包配置说明》写免费1/T1=3分(20个)/T2=5分(34个)/T3=9分(14个)，生产定价表已全部改为 <strong>T0=1分×64个</strong>（另 5 个工具未配价），分级体系实际已换轨。</li>
+</ol>
+</blockquote>
+<hr>
+<h2>一、接口清单总览</h2>
+<h3>1.1 盈米MCP 是什么（身份口径）</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>项</th>
+<th>口径</th>
+<th>出处</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>名称演进</td>
+<td>2025-04-08 以「盈米且慢MCP」首发 → 公司升级为「盈米AI开放平台（OAP）」，官网域名仍为 qieman.com/mcp，内容已是盈米全量</td>
+<td>图谱 concept <code>platform/ai-platform/concepts/oap.md</code></td>
+</tr>
+<tr>
+<td>生产实现</td>
+<td>stargate（Node.js，三进程：HTTP 网关 :8080 / MCP :3000 / OAuth AS :9000）</td>
+<td><code>~/Code/ai/stargate/AGENTS.md</code></td>
+</tr>
+<tr>
+<td>生产规模</td>
+<td>api_route 表 7,779 条路由（enabled 7,736），带 operationId 的真实 MCP 工具 4,386 个（去重）；注册表分两库：ying99_oap（公开）+ ying99_oap_internal（内部）</td>
+<td>生产库实查 2026-08-31</td>
+</tr>
+<tr>
+<td>对外渠道（OpenChannel）</td>
+<td>公开库 7 个：官方渠道(qieman)、SCRM营销云(yingchat)、且慢小顾3.0通用(qieman-xg3-common, 89工具)、且慢小顾3.0卡片(qieman-xg3-card, 15工具)、且慢staging、微信Agent对接、图书馆</td>
+<td>生产库 api_open_channel 实查</td>
+</tr>
+<tr>
+<td>“69项资产”口径</td>
+<td>阿里百炼渠道（ali-bailian 分组）= 69 个工具，与《Stargate MCP OAuth 接入治理 PRD》“69项MCP资产”一致</td>
+<td>WIKI 326141500 + 生产库实查（数量吻合=69）</td>
+</tr>
+</tbody></table></div>
+<h3>1.2 接口（工具）按业务域分组的总览</h3>
+<p>按调用量与业务归属整理（近一周调用量来自 api_key_usage_details，2026-08-24 之后）：</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>业务域/分组</th>
+<th>工具数</th>
+<th>代表工具（近7日调用量）</th>
+<th>上游服务</th>
+<th>WIKI有无出参口径文档</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基金数据-批量（fund/data）</td>
+<td>~25</td>
+<td>BatchGetFundsDetail(25,088)、SearchFunds(22,777)、GetBatchFundPerformance(17,383)、GuessFundCode(15,431)、BatchGetFundNavHistory(15,339)</td>
+<td>bmdj + qm-agent</td>
+<td>❌ 无（仅《20250620-基金MCP 能力补充》PRD 提“需要什么指标”，无公式）</td>
+</tr>
+<tr>
+<td>基金数据-单只/AI版</td>
+<td>~20</td>
+<td>GetFundDiagnosis(13,206)、getFundIndustryAllocation(8,314)、getFundCampisiIndicator(6,788)、getFundBenchmarkInfo(6,111)、getMarketTimingIndicator</td>
+<td>bmdj（下游 ias-coral/smartdq/finance-api）</td>
+<td>❌ 无</td>
+</tr>
+<tr>
+<td>投研分析（research/data）</td>
+<td>7</td>
+<td>GetLatestQuotations(4,204)、AnalyzeFundRisk(3,429)、MonteCarloSimulate、GetFundsBackTest、GetFundsCorrelation</td>
+<td>pmdj（下游 smartdq/uaap）</td>
+<td>❌ 无（温度计公式只在离线代码注释里）</td>
+</tr>
+<tr>
+<td>用户个人数据（qieman-user / xg3-common 用户部分）</td>
+<td>~47</td>
+<td>GetAccountHierarchyProfit、GetAccountHierarchyDrawdown、GetBasicInfo、GetRiskSurveyResult、GetM4ProdGroup、QueryOrderListForAI</td>
+<td>pmdj（下游 asset3/poaccount/qmuser）</td>
+<td>❌ 无（WIKI《QMRD-44851 客户维度的个人数据MCP》只有提交记录无文档页）</td>
+</tr>
+<tr>
+<td>财务规划（financial_planning）</td>
+<td>13</td>
+<td>AnalyzeCashFlow、AnalyzeFamilyMembers、MonteCarloSimulate</td>
+<td>pmdj（下游 uaap 投资规划）</td>
+<td>⚠️ 部分：《家庭财务规划 MCP》(259037111)、《财务规划报告 MCP 使用指南》(252000957) 仅讲使用流程与 prompt，无出参公式</td>
+</tr>
+<tr>
+<td>策略/组合（strategy、advisor、组合分析）</td>
+<td>~40</td>
+<td>GetPortfolioNavHistory(2,838)、GetStrategyDetails(2,042)、StrategySearchByKeyword(1,996)、BatchGetStrategiesComposition(1,710)</td>
+<td>pmdj/pomodel/oap-api/rbc-riskmanager</td>
+<td>❌ 无</td>
+</tr>
+<tr>
+<td>长赢专属（qm_po_query 内）</td>
+<td>3</td>
+<td>longWinAdjustmentHistory、longWinAdjustmentLatest、queryPlanAsset</td>
+<td>potrade</td>
+<td>❌ 无</td>
+</tr>
+<tr>
+<td>内容资讯（content）</td>
+<td>5</td>
+<td>SearchFinancialNews(9,446)、searchRealtimeAiAnalysis(1,807)、SearchHotTopic、searchInvestAdvisorContent、SearchManagerViewpoint</td>
+<td>cms_backend</td>
+<td>⚠️ 《20250715-内容MCP 能力补充》(263061517) 有字段级需求表（快讯时间/内容速览/分析解读/且慢陪伴点评），是最接近出参口径的一篇，但仍无计算公式</td>
+</tr>
+<tr>
+<td>SCRM 顾问侧（SCRM-AI-Insight）</td>
+<td>101</td>
+<td>queryHoldingInfo、queryProfitLossInfo、queryTradeRecord 等 10 个“标准数据”接口 + 91 个平台管理接口</td>
+<td>yingchat-api</td>
+<td>❌ 无</td>
+</tr>
+<tr>
+<td>顾问持仓报告（ai_report_skill）</td>
+<td>21</td>
+<td>hrQueryPeriodProfit、hrQueryPeriodDrawdown、hrRunAccountDiagnosis 等</td>
+<td>yingchat-api（新代码未 clone 到本地）</td>
+<td>❌ 无</td>
+</tr>
+<tr>
+<td>公共工具（common）</td>
+<td>4</td>
+<td>GetCurrentTime(3,546)、GetTxnDayRange、RenderEchart、RenderHtmlToPdf</td>
+<td>cms_backend / tp-all / ai_tools</td>
+<td>❌ 无</td>
+</tr>
+<tr>
+<td>行情信号（投资信号/AI简报/宏观早报，相互重叠）</td>
+<td>18/17/14</td>
+<td>get_grri_signal、get_cn_investment_signal_score、getRealTimeInfo、getOverseasIndex(2,060)</td>
+<td>rbc-riskmanager / vesta-reef</td>
+<td>❌ 无</td>
+</tr>
+<tr>
+<td>财报严选（fin_mcp）</td>
+<td>63</td>
+<td>搜索公司、B分数V2、杜邦分析、摸鱼得分等</td>
+<td>财务严选（外部数据源）</td>
+<td>⚠️ 《财报助手MCP接口工具使用指南》(263070259) 记载了 10 个 operationId 与返回数据说明，<strong>但那是摸鱼集团 faapi.moyugroup.com 的第三方 MCP，不是盈米自有 fin_mcp</strong>——易混淆</td>
+</tr>
+</tbody></table></div>
+<h3>1.3 出参链路架构（口径归因的基础）</h3>
+<pre><code>MCP 客户端 → stargate /mcp/* (SSE/StreamableHTTP)
+  → apiKey 鉴权 → 限流(1000/min+1000/天) → 日额度检查
+  → tools/list: 从 api_route.openapi_operation_content(冻结快照) 动态生成工具 schema
+  → tools/call: ①有 wrapper_function(20个路由) → VM沙箱执行JS改写 → axios 调上游
+               ②无 wrapper → 直接 axios 调上游(base_url+remote_path, 经 api_search/replace 改写)
+  → 响应: toon白名单(env MCP_TOON_ENCRYPT_OPERATION_IDS) ? toon编码 : JSON.stringify
+  → 计费: shouldRecordMcpUsage() 仅成功才记账 → Redis list → 定时落 api_key_usage_details/stats
+</code></pre>
+<p>出处：<code>~/Code/ai/stargate/src/mcp/initMcpPlugins.ts</code>（mcpToolHandler）、<code>src/mcp/getOpenApiRoutes.ts</code>、<code>src/modules/openai/OpenAIDao.ts</code>（路由 SQL）、<code>src/services/wrapperFunctionService.ts</code>（VM 沙箱）。</p>
+<hr>
+<h2>二、逐接口逐指标口径明细</h2>
+<blockquote>
+<p>说明：完整覆盖 4,386 个工具不现实也无价值（大量是 vesta-reef/tws-api 等内部系统批量导入的管理接口）。本节按<strong>业务价值与调用量</strong>优先，对上述 12 个业务域的核心工具逐指标展开；每组末尾给出该组其余工具的口径要点与出处。每条指标的字段：<strong>指标名/出参字段 → 数据源 → 计算公式 → 口径说明 → 迭代历程 → WIKI与代码差异结论</strong>。</p>
+</blockquote>
+<h3>2.1 GetAccountHierarchyProfit（用户账户分层收益）— 调用最频的用户数据工具</h3>
+<p>上游：pmdj <code>GET /v2/internal/user/account-hierarchy-profit</code>（stargate 注册：source=pmdj，base_url=<a href="http://nginx.qieman/pmdj%EF%BC%8C%E8%BF%9C%E7%AB%AF%E8%B7%AF%E5%BE%84%E5%90%8C%E6%9C%AC%E5%9C%B0%EF%BC%89%E3%80%82%E5%AE%9E%E7%8E%B0%EF%BC%9A%60~/Code/qieman/pmdj-service/server/handlers/internal-v2/user/service/account-hierarchy-profit.service.ts%60%E3%80%82">http://nginx.qieman/pmdj，远端路径同本地）。实现：`~/Code/qieman/pmdj-service/server/handlers/internal-v2/user/service/account-hierarchy-profit.service.ts`。</a></p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>profit / 累计收益（元）</strong></td>
+<td>数据源：asset3 服务 <code>GET /serviceAccount/query/intervalAsset/account/profitDetail</code>（pmdj <code>server/models/asset/index.ts:729</code> doGetUserAccountProfit）。公式：asset3 返回原值透传（asset3 只读不算，计算引擎是 asset4 离线批，读 <code>ying99_asset.dwd_*</code> 数仓表）。口径：ROOT→UMA→CA/Wallet 三层，每层单独调 profitDetail 汇聚。迭代：2026-05-16 首次注册进 MCP（api_route.created_at），2026-05-29 复制到 pmdj-xg3（小顾3.0渠道）。差异结论：<strong>WIKI 零记载</strong>；schema 的 description 里写了“收益数据来源：doGetUserAccountProfit（asset3 服务的 profitDetail 接口）”——这是<strong>唯一</strong>的口径出处，且藏在 schema 注释里。</td>
+</tr>
+<tr>
+<td><strong>profitRate / 累计收益率（MWR）</strong></td>
+<td>数据源：同上 asset3 profitDetail。公式：Modified Dietz 修正迪茨法（同文件 drawdown service 注释：MWR=(期末资产-期初资产-净现金流)/(期初资产+加权现金流)，加权现金流=Σcost−Σ(cost×dayIndex)/(currentDay+1)）。口径：schema description 明确标注&quot;累计收益率（MWR）&quot;。差异结论：<strong>MWR 这一算法定义只存在于代码注释与 schema description，WIKI 完全没有</strong>——外部客户问“你们的收益率怎么算”时无文档可依。</td>
+</tr>
+<tr>
+<td><strong>xirrAnnualizedRate / XIRR 年化</strong></td>
+<td>数据源：asset3 profitDetail。公式：asset3 返回值透传。口径：<strong>仅 dateType=all 时返回</strong>，custom 区间强制 null（service 319 行：<code>dateType === &#39;all&#39; ? data.xirrAnnualizedRate : null</code>）。差异结论：<strong>“仅投资以来才有 XIRR”是重要业务口径，只写在代码里</strong>；schema 有注明（&quot;仅 dateType=all 时返回&quot;），WIKI 无。</td>
+</tr>
+<tr>
+<td><strong>holdingDays / 持有天数</strong></td>
+<td>asset3 透传。差异结论：同上，WIKI 缺失。</td>
+</tr>
+<tr>
+<td><strong>wallet（UMA内盈米宝收益）</strong></td>
+<td>公式：合并后<strong>无法提供 profitRate/xirr，仅返回 profit</strong>（service 346-350 行硬编码 null）。差异结论：<strong>口径限制未在 WIKI 记载</strong>。</td>
+</tr>
+<tr>
+<td><strong>benchmark.returnRate / 基准涨跌幅</strong></td>
+<td>数据源：pmdj <code>doGetIndexReturnHistory</code>（<code>server/handlers/utils/index.history.js</code>）。公式：区间首尾净值变化率；indexCode 别名映射表硬编码在 service（hs300/csi500=000905.SH/csi800=000906.SH/spxgi=SPX.GI/hsihi=HSI.HI 等）。口径：0.05 表示 +5%。差异结论：<strong>别名映射表是代码级配置，WIKI 无</strong>。</td>
+</tr>
+</tbody></table></div>
+<h3>2.2 GetAccountHierarchyDrawdown（用户持仓最大回撤）</h3>
+<p>上游：pmdj <code>GET /v2/internal/user/account-hierarchy-drawdown</code>。实现：<code>account-hierarchy-drawdown.service.ts</code>。</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>maxDrawdown / 最大回撤</strong></td>
+<td>数据源：asset3 <code>GET /serviceAccount/query/...profitRateCurve</code>（doGetAssetProfitRateCurveBasicData）。公式（代码 87-97 行，<strong>全文档最明确的公式之一</strong>）：先逐日算 Modified Dietz 累计收益率序列 <code>mwr = (totalAsset − Σcost − initAsset)/(initAsset + wt)</code>（wt=sumCost−sumCostMultiDays/(currentDay+1)，保留4位）；再 <code>drawdown=(HWM−rate)/(1+HWM)</code>，HWM=历史最高累计收益率；maxDrawdown=−max(drawdown)，<strong>返回负值</strong>。口径：清仓日沿用前一日收益率；参考 romeo 前端 getMaxDrawdownRanges。迭代：2026-05-16 注册。差异结论：<strong>公式完整存在于源码+注释，WIKI 零记载</strong>；schema description 只说“负值，如 -0.15 表示回撤 15%”。</td>
+</tr>
+</tbody></table></div>
+<h3>2.3 GetRiskSurveyResult（风险测评结果）</h3>
+<p>上游：pmdj <code>GET /v2/internal/user/risk-survey-result</code>。实现：<code>user-risk-survey.service.ts</code>。</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>risk5LevelName/risk5LevelDesc</strong></td>
+<td>数据源：qmuser 统一测评（doGetUnifiedRiskSurveyResult）。公式：<code>getAccountRisk5LevelName(risk5Level, isMinRisk5Level)</code> 拼接。差异结论：与 WIKI《且慢KYP晨星风险评价体系》（记忆沉淀）关联——R1-R5 来自<strong>中证协 amacRisk5Level</strong> 而非晨星，这一关键归属<strong>只在图谱/记忆里有，WIKI 无专文</strong>。</td>
+</tr>
+<tr>
+<td><strong>comfortRange（low/high）</strong></td>
+<td>公式：<code>okRisk[0]/okRisk[1]</code> 透传。<strong>口径门槛：仅&quot;新版问卷(riskSurveyId=当前版本)或用户维度测评&quot;才有</strong>，否则全 null（service 67 行）——重要业务限制，仅代码可见。</td>
+</tr>
+<tr>
+<td><strong>userRiskScore/Level/ExplainText</strong></td>
+<td>公式：<code>determinalRiskScoreLevelAndExplainText(score)</code>（account-diagnosis.common），文案映射表在代码。差异结论：WIKI 缺。</td>
+</tr>
+</tbody></table></div>
+<h3>2.4 GetBasicInfo（用户画像摘要）</h3>
+<p>上游：pmdj <code>GET /v2/internal/user/basic-info</code>。实现：<code>user-basic-info.service.ts</code>。</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>age/gender/birthday</strong></td>
+<td>数据源：<strong>身份证号推算</strong>（doGetAge/doGetGender/doGetBirthday，入参 identityNo/identityType）。schema description 直言“身份证推算（年龄/性别）”。差异结论：数据口径（身份证→年龄）<strong>只在 schema description 与代码</strong>，WIKI 无。</td>
+</tr>
+<tr>
+<td><strong>incomeLevel/incomeRange（年收入）</strong></td>
+<td>公式（代码 51-76 行，双兜底）：①优先反洗钱适当性 annualIncome → <code>income2level()</code> 转档；②兜底投资规划问卷 annualSalaryLevel 数字索引 → SALARY_INDEX_TO_INCOME_LEVEL 映射 → INCOME_LEVEL_RANGE_MAP 区间文案。差异结论：<strong>双源兜底顺序是关键口径，仅代码可见</strong>。</td>
+</tr>
+<tr>
+<td><strong>marriageStatus/hasChildren/hasDependents</strong></td>
+<td>数据源：投资规划问卷 questions（doGetInvestmentProposal）；CHILDREN_TAGS=[&#39;ps2&#39;,&#39;ps3&#39;]、DEPENDENTS_TAGS=[&#39;ps7&#39;] <strong>硬编码标签表</strong>。差异结论：<strong>ps2/ps3/ps7 的语义映射表只存在于代码常量</strong>，问卷字段若改名将静默失效——WIKI 完全无记载。</td>
+</tr>
+<tr>
+<td><strong>province/city</strong></td>
+<td>双源：优先 extraPersonalInfo.provinceName，兜底 adequacyInfo.address 经 getProvinceAndCity 解析。差异结论：WIKI 缺。</td>
+</tr>
+</tbody></table></div>
+<h3>2.5 GetM4ProdGroup / GetM4UmaGroup / GetM4FundDetail（四笔钱资产）</h3>
+<p>上游：pmdj <code>/v2/internal/user/asset-view/m4-detail/*</code>（实现 <code>server/handlers/asset/asset-view/asset-view.m4.ts</code>）。</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>m4Type 枚举</strong></td>
+<td>M4_SPARE/M4_STEADY/M4_LONGTERM/M4_INSURANCE = 活钱/稳钱/长钱/保障（schema x-enum-varnames）。<strong>注意：保险是第四笔</strong>，而 holdingFundAsset 只有三个基金类枚举（FUND_M4_SPARE/STEADY/LONGTERM）。差异结论：枚举语义只在 schema；WIKI《给四笔钱加第五笔》类讨论无对应 MCP 口径文档。</td>
+</tr>
+<tr>
+<td><strong>holdingStrategyAssetList（含解约）</strong></td>
+<td>口径：<strong>“持仓投顾策略资产（包含解约）”</strong>——包含已解约策略资产，这是出参口径要点，仅 schema description 记载。差异结论：WIKI 缺。</td>
+</tr>
+<tr>
+<td><strong>m3InsuranceAsset / m3SpecialAssetList</strong></td>
+<td>口径：保险资产标“<strong>包含在3笔前的保险资产（例如：储蓄险算在长钱）</strong>”、特殊资产（私募资管/攒多多）。差异结论：<strong>“M3 命名但语义是四笔钱”的历史包袱口径只在 schema</strong>。</td>
+</tr>
+<tr>
+<td><strong>fundAssetInvestType 枚举</strong></td>
+<td>STOCK/BOND/MONETARY/MUTUAL/ALTERNATIVE/FOF/REITs/QDII/OTHER 九类。差异结论：WIKI 缺。</td>
+</tr>
+<tr>
+<td><strong>latestDailyProfit/accumulatedProfit/holdingProfit</strong></td>
+<td>数据源：asset3 体系。口径（关联已沉淀记忆）：<strong>SA 层含已清仓已实现收益，单基金口径仅当前持仓浮盈</strong>——该口径差异是客诉高发点，WIKI 无文档。</td>
+</tr>
+</tbody></table></div>
+<h3>2.6 QueryOrderListForAI / QueryOrderListForAIV2（订单列表）</h3>
+<p>上游：pmdj <code>/v2/internal/user/poorder/list-for-ai</code>（V2 为 <code>/list</code>）。</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>data（格式化订单文本）</strong></td>
+<td><strong>出参不是 JSON 而是 CSV 字符串</strong>（Tab 分隔，中文表头），或 format=keyvalue 的 <code>=====</code> 分段文本——MCP 出参形态特殊设计。公式：pmdj 把订单对象渲染为文本。差异结论：<strong>“出参是文本不是结构化”这一关键设计只在 schema description</strong>；WIKI《交易记录MCP》（263074371，草稿）记载了<strong>期望字段</strong>（订单编号/申请时间/所属账户/银行卡末四位/申请金额/订单类型/订单状态/订单提示），可视为 PRD 级出参需求，但无实现对照。</td>
+</tr>
+<tr>
+<td><strong>orderClassList 枚举</strong></td>
+<td>BUY/AIP_BUY/REDEEM/ADJUST/ADVISOR_FEE/OTHER/MOVE_AND_COMBINE，<code>[&quot;BUY&quot;,&quot;AIP_BUY&quot;]</code>=含定投全部买入。差异结论：枚举语义仅 schema。</td>
+</tr>
+<tr>
+<td><strong>迭代</strong></td>
+<td>2026-08-14 新增 GetUserOrderDetail（QMRD-47036：补齐投顾费、延迟计划、分红转换字段，CONVERT 资金方向文案“转换/调仓/跟车”；提交 68438bc2b/fa8140247）。差异结论：<strong>口径变更（资金方向文案）只反映在 pmdj git log，WIKI 无更新记录</strong>。</td>
+</tr>
+</tbody></table></div>
+<h3>2.7 GetLatestQuotations（市场温度计）— 出参公式最完整的工具</h3>
+<p>上游：pmdj <code>GET /v2/internal/market/quotations/latest</code>。实现：<code>market-quotations.service.ts</code> + <code>models/smartdq/market-temperature.ts</code>。</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>temperature / 市场温度（0-100，2位小数）</strong></td>
+<td>数据源：smartdq <code>GET /market-temperature-by-date</code>（pmdj 恒传 time_range=&#39;10y&#39; + FIVE_LEVEL）→ 底层 <code>ying99_dp.market_temperature</code> 表（离线批 commons-processor <code>pybin3/ProcessMarketTemperature.py</code> L114-121 生产）。公式：<strong>temperature = (pe_rank + pb_rank + risk_rank) × 100/3</strong>，各因子=近10年窗口内 pandas rank(method=&#39;min&#39;, pct=True) 百分位。base 指标：pe_median/pb_median=当日成分股（聚源 LC_IndexComponentsWeight 月度快照）PE(TTM)/PB(LF) 中位数；risk_premium_rate=10Y国债收益率−1/PE×100。⚠️ <strong>风险溢价是正向入温度（值大→温度高），与常规 ERP 方向相反</strong>——疑似原设计笔误，未与 owner 确认。差异结论：<strong>WIKI 完全没有温度公式</strong>；公式只存在于离线 Python 代码注释，是本次梳理中“公式最复杂但文档最空白”的典型。</td>
+</tr>
+<tr>
+<td><strong>rating / 温度等级</strong></td>
+<td>五档：≤20=L低估 / ≤40=ML较低估 / ≤60=M合理 / ≤80=MH较高估 / &gt;80=H高估（pmdj FIVE_LEVEL_RATING_TEXT + smartdq 双处实现一致，QMRD-36074）。差异结论：仅代码与 schema。</td>
+</tr>
+<tr>
+<td><strong>temperatureList 范围</strong></td>
+<td>硬编码仅三大指数：000985中证全A / 000300沪深300 / 000905中证500（SUPPORTED_TEMPERATURE_INDEX_CODES）。差异结论：WIKI 缺。</td>
+</tr>
+<tr>
+<td><strong>marketInterpretationsByCategory / 行情解读</strong></td>
+<td>数据源：finance-api <code>doBatchGetIndexPriceDailyFromFinance</code> → FDP 数仓 <code>ying99_fdp.dwd_index_price_daily</code> <strong>直返零计算</strong>。五指数：000300/399006创业板指/DJIAF道琼斯/IXIC纳斯达克/LBMAGOLDP伦敦金。公式：dailyChangePercent=toFixed 文案；fluctuationDescription=按波动阈值（2/3/2/3/1.5%×点位三段档）套<strong>静态文案矩阵</strong>。<strong>不返回成交量/额</strong>。差异结论：WIKI 缺；“行情是 FDP 直返、解读是静态文案矩阵”这两点对理解“为什么解读 sometimes 千篇一律”很关键，无文档。</td>
+</tr>
+</tbody></table></div>
+<h3>2.8 GetIndexEvaluationInfo / 指数估值</h3>
+<p>上游：pmdj <code>/v1/internal/get-idx-eval-info</code> 与 <code>/v2/internal/get-all-idx-eval-list</code>（idx-eval.controller）。</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>pe/pePercentile/peHigh/peLow、pb系列、roe、score</strong></td>
+<td>数据源（<code>idx-eval.latest.js</code> 50-53 行 SQL，<strong>口径最清晰的表级出处</strong>）：<code>ying99_information.index_valuation iv JOIN ying99_information.variety_fund vf ON iv.index_code=vf.variety JOIN (每指数取max(date)最新行)</code>，WHERE <strong>vf.can_show=1 AND vf.type=&#39;IDX_EVAL&#39;</strong>。公式：pe=round(pe)、pePercentile=round(,4)；排序=score desc, pe asc；Redis 缓存 <code>qieman:idx-eval:latest:v3</code> TTL 600s。<strong>score=null → group=&#39;NA&#39;；score≥70→LOW；≥50→MID；≥0→HIGH</strong>（injectGroup 函数——注意 LOW/HIGH 方向：分高=低估）。差异结论：<strong>can_show 白名单与三分位分组逻辑只在 SQL/代码</strong>；关联已沉淀记忆“NDX.GI 纳指100在清单 can_show=1、NDX.GI≠IXIC”——此类口径坑无 WIKI 文档。</td>
+</tr>
+<tr>
+<td><strong>迭代</strong></td>
+<td>v2 卡片接口（2026-07-10 注册）替代 v1，注释明确“替代 v1 /get-all-idx-eval-list”，新增 indexName 模糊匹配（string-similarity，阈值0.35，对齐 qm-agent doGuessIndexCode）。差异结论：<strong>v1→v2 替代关系只写在 controller 注释</strong>。</td>
+</tr>
+</tbody></table></div>
+<h3>2.9 GetFundTradeRule / BatchGetFundTradeRules（基金交易规则）</h3>
+<p>上游：bmdj <code>GET /fund/{fundCode}/trade-rules</code>（stargate 远端映射 <code>/bmdj/v1/fund/{fundCode}/trade-rules</code>）。实现：<code>~/Code/qieman/bmdj/src/service/fund/fund.trade-rules.ts</code>。</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>minBuyAmount/maxBuyAmount</strong></td>
+<td>公式（服务层 87-105 行）：minBuyAmount=round(fundLimit.personalLowestAllotAmountFirstTime</td>
+</tr>
+<tr>
+<td><strong>feeRateRules（allot/subscribe/redeemFeeRateRules + runFeeRateRule）</strong></td>
+<td>数据源：<code>doGetFundFeeRule(fundCode)</code>。口径：op=allot→申购费率+运作费；subscribe→认购+运作；redeem→仅赎回费率。feeRate 与 fixedFee 互斥（“当存在固定费用时，feeRate肯定为null”）。差异结论：WIKI《20250620-基金MCP能力补充》<strong>明确要求了“申购费率/赎回费率/管理费/托管费/销售服务费”的显性成本口径</strong>（PRD 已登记），代码已实现，但 PRD 里的**“隐性成本（交易成本/其他费用/总隐性费率/同类隐性费率）”至今未实现**——文档需求与代码交付存在明确缺口。</td>
+</tr>
+<tr>
+<td><strong>tradeTimeFlows（交易时间流）</strong></td>
+<td>公式：doGetTradeTimeFlows 基于交易日表（doGetTxnDayRange(0,9)）+ 代销基金 delayDays。<strong>AI 版会自动追加 generateFlowTips 生成的中文提示文案</strong>（“如您在T日买入，预计…”）——这是 bmdj 专门为 MCP 加的改写层。差异结论：<strong>tips 文案拼接逻辑只在代码</strong>。</td>
+</tr>
+<tr>
+<td><strong>迭代</strong></td>
+<td>2026-03-09 schema 更新（api_route.updated_at）；AI 转换函数 <code>doGetAIFundTradeRulesByFundCodeAndOP</code>（batch-info 路由用）做了字段裁剪（删 redeemSpecialRules 之外的内部字段、日期转中文）。差异结论：<strong>“同一能力两个版本（单只原始版/批量AI版）”的字段差异无文档</strong>。</td>
+</tr>
+</tbody></table></div>
+<h3>2.10 BatchGetFundsDetail（批量基金详情）— 调用量第一（近7日 25,088）</h3>
+<p>上游：bmdj <code>POST /fund/batch-info/detail</code>。实现：<code>fund.batch-info.ts</code> + <code>fund.detail-info.ts</code>（doGetFundSimpleInfo）。</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>summary.oneYearReturn/setupDayReturn</strong></td>
+<td>公式：从 fundPeriodRanks 中取 rankType=FundRankType[0] 且 period=FundRankPeriod[4]（近一年）/ [8]（成立以来）的 value；<strong>oneYearReturn 为 null 时前端显示 setupDayReturn</strong>（schema 明示）。数据源：smartdq <code>/funds/info/summary</code> + period ranks（ying99_fundtxn 库系）。差异结论：<strong>“近一年为空回退成立以来”的展示口径只在 schema description</strong>。</td>
+</tr>
+<tr>
+<td><strong>summary.nav/yearlyRoe/unitYield</strong></td>
+<td><strong>迭代亮点（2026-08-10，提交 36e20d0 [QMRD-46994]）</strong>：修复了 FundNav/AIFundNav 中 <strong>unitYield（万份收益）与 yearlyRoe（七日年化）两个字段 schema 描述互相写反</strong>的 bug，并同步修复 BatchGetFundsDetail.summary.unitYield 的格式化逻辑。<strong>这是“口径错误曾被生产代码固化、靠 MCP 标红专项修复”的实证案例</strong>。差异结论：该修复只有 git commit message，<strong>WIKI 无任何记载</strong>——若外部客户曾基于错误描述做了对接，无渠道得知口径已修正。</td>
+</tr>
+<tr>
+<td><strong>summary.valDisBy</strong></td>
+<td>口径：“nav=按净值（普通基金）/roe=按七日年化（货币基金）”，参考 albus。差异结论：跨服务一致性口径（bmdj↔albus）仅 schema 一句。</td>
+</tr>
+<tr>
+<td><strong>managers.periodReturn/periodAnnualCompoundedReturn</strong></td>
+<td>基金经理任期回报/任期年化，格式&quot;xx%&quot;。差异结论：WIKI 缺。</td>
+</tr>
+<tr>
+<td><strong>wrapper 改写（stargate 侧）</strong></td>
+<td>生产配置了 wrapper_function（1281字符）：按 tradeLimit.canAllot/canSubscribe <strong>删字段+注入中文原因</strong>——canAllot=true 时删除 cannotSubscribeReason 等4字段并强写 <code>cannotAllotReason=&quot;申购期&quot;</code>；canSubscribe=true 时对称处理写“认购期”。差异结论：<strong>“申购期/认购期文案是网关注入的假状态字段”这一极易误解的口径，只存在于生产库 wrapper_function 脚本里，任何文档都没有</strong>。</td>
+</tr>
+</tbody></table></div>
+<h3>2.11 GetFundHolding / BatchGetFundsHolding（基金持仓）</h3>
+<p>上游：bmdj <code>/fund/{fundCode}/holding</code> 与 <code>/fund/batch-info/holding</code>。</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>fundReportDate 入参转换（stargate wrapper）</strong></td>
+<td>生产 wrapper_function（775字符）：把 body.fundReportDate 从 yyyyMMdd 数字（20250630）<strong>转成毫秒时间戳</strong>再调上游——网关层做参数适配。差异结论：<strong>入参格式的网关适配逻辑只在生产库脚本</strong>，上游 bmdj 的 swagger 声明与 MCP 实际接受格式不一致，排查“传日期查不到数据”时必看。</td>
+</tr>
+<tr>
+<td><strong>出参（持股明细）</strong></td>
+<td>bmdj 透传基金定期报告持仓（前十大重仓等）。差异结论：WIKI《20250620-基金MCP能力补充》提了“基金持股周转率”需求（晨星数据，“请和春霞、陈彪对接”），对应已上线工具 getFundTurnoverRate——<strong>数据源=晨星</strong>这一口径只在 PRD 一句话，代码侧无出处标注。</td>
+</tr>
+</tbody></table></div>
+<h3>2.12 GetPopularFund（近期热门基金）</h3>
+<p>上游：bmdj <code>GET /user-fund-picks/popular</code>（stargate 本地路径 /fund/popular）。实现：<code>user-fund-pick.ts</code>。</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>热门榜单构成</strong></td>
+<td>公式（doGetPopularFundPicks）：<strong>不是实时访问量统计</strong>，而是 ①运营配置的 popularPickFundCodes（specialConfig）∩ ②YmCache 缓存的 FundRecentSummary（<strong>TTL 2小时</strong>，key=bmdj:pickPopularFund）→ ③<code>_.sampleSize(list, size)</code> <strong>随机抽样</strong>返回。schema 里“按访问量取Top N”的描述与实现不完全一致——访问量排序发生在缓存构建侧，出参是抽样。差异结论：<strong>“热门=配置白名单+2小时缓存+随机抽样”三段口径只在代码；schema 描述（Top N）与实现（sampleSize 随机）存在偏差</strong>，是本次梳理发现的“文档(=schema)与代码不一致”实例。</td>
+</tr>
+<tr>
+<td><strong>oneWeekReturn/oneYearReturn/curYearReturn/fiveYearReturn</strong></td>
+<td>缓存内 FundRecentSummary 透传（注意：服务层 map 只取了 oneWeek/curYear/oneYear 三个 + isUserPicked，<strong>fiveYearReturn 字段在 schema 声明了但服务实现未赋值</strong>——又一 schema 与实现不一致点）。差异结论：schema 声明 fiveYearReturn，实现不产出，WIKI 无记载。</td>
+</tr>
+</tbody></table></div>
+<h3>2.13 GetFundDiagnosis（基金诊断）— 近7日 13,206 次</h3>
+<p>上游：bmdj <code>/fund/info/{fundCode}/ai-summary</code>（2026-08-25 注册，QMRD-47162 重构新增聚合接口，提交 4111748）。</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>diagnoseSummary（riskLevelInfo/riskOpp/winProb/thermometer）</strong></td>
+<td>出参结构：riskLevelInfo（基金风险等级+适合人群）、riskOpp.valuation（持仓估值+历史百分位）、trend（未来趋势判断）、compare（同类对比）、performance（历史胜率/是否跑赢大盘）、winProb.winRate（<strong>持有半年盈利概率</strong>）、thermometer.currentTemperature（当前市场温度+评价）。每块均含 text 自然语言摘要。差异结论：<strong>“winRate=持有半年盈利概率”的定义只在 schema description</strong>；旧版 GetFundDiagnosis（/agent/fund/summary，qm-agent）与新版（bmdj ai-summary）<strong>双版本并存</strong>（生产库两跳注册），迭代关系（qm-agent→bmdj 迁移）只体现在 api_route.created_at 与 git log，无文档。</td>
+</tr>
+</tbody></table></div>
+<h3>2.14 getMarketTimingIndicator（权益仓位择时）等 bmdj fund-data 系列</h3>
+<p>上游：bmdj <code>/fund/market-timing/indicator</code> 等。实现：<code>fund.market-timing-indicator.ts</code> → <code>model/api/coral.ts</code>。</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>timingWinRate / avgPositionSelectionContribution</strong></td>
+<td>数据源：<strong>ias-coral</strong>（蜂鸟数据服务）<code>POST /indicator/fund/market-timing</code>，header X-APP-ID=QIEMAN，成功码 &#39;0000&#39;。bmdj 只取 dataItems[0] 两个指标透传。<strong>归因要点（关联记忆）</strong>：行业收益/配置类 MCP 工具下游是蜂鸟 ias-coral 而非 finance-api，库=ying99_ias_coral。差异结论：<strong>“且慢域的 MCP 数据实际出自蜂鸟的库”这一跨BU数据链路只在代码与记忆沉淀，WIKI 无</strong>。</td>
+</tr>
+<tr>
+<td><strong>迭代（2026-08-10 QMRD-46994）</strong></td>
+<td>查无数据时补英文错误码 FAIL_NOT_FIND_MARKET_TIMING_INDICATOR + fundCode/indexCode 明细，便于 stargate 侧识别转换——<strong>bmdj 错误码协议是配合 stargate 转正常返回设计的</strong>，该协作口径只在 commit message。</td>
+</tr>
+<tr>
+<td>同系列其余</td>
+<td>fund-equity-position（权益仓位小数+等级文案）、fund-sector-preference、fund-recovery-ability 三个的 <strong>swagger 参数 require 拼写错误（应为 required）同批修复</strong>——曾导致 Schema 缺失必填校验。差异结论：仅 git log。</td>
+</tr>
+</tbody></table></div>
+<h3>2.15 MonteCarloSimulate（组合预期收益测算）</h3>
+<p>上游：pmdj <code>/v1/internal/monte-carlo/simulate</code>（stargate /research/monte-carlo-simulate）。实现：<code>internal/ai/monte-carlo.service.ts</code> → <code>models/uaap/uaap.ts</code>。</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>data[].return10th/25th/50th/75th/90thPercentile、positiveReturnRatio、returnAnnualized</strong></td>
+<td>数据源：<strong>uaap 网关</strong> <code>POST /insight/portfolio-backtest/asset-alloc/monte-carlo-simulate</code>（六大类资产权重：cash/fixedIncome/equity/commodity/overseasEquity/overseasFixedIncome）。公式：uaap 计算分位数，pmdj <strong>额外生成 simulateDescriptions 中文语义化描述数组 + echartUrl（经 ai_tools doRenderEChart 渲染图表）</strong>——MCP 层的增值改写。差异结论：<strong>“MCP 出参含图表URL”这一设计只在 schema；蒙特卡洛本体算法在 uaap（图谱未收录该服务的公式文档），WIKI 缺</strong>。</td>
+</tr>
+<tr>
+<td><strong>关联</strong></td>
+<td>WIKI《家庭财务规划 MCP》(259037111) 与《财务规划报告 MCP 使用指南》(252000957) 是<strong>最接近业务文档的两篇</strong>：记载了 6 个模块工具（与生产 financial_planning 分组 13 项中的 Analyze 系列吻合）+ prompt 约束方法 + “API-KEY 由研发统一申请”，但<strong>没有任何一个指标的公式</strong>。差异结论：有“怎么用”无“怎么算”。</td>
+</tr>
+</tbody></table></div>
+<h3>2.16 长赢三工具（longWinAdjustmentHistory / longWinAdjustmentLatest / queryPlanAsset）</h3>
+<p>上游：potrade <code>/longWin/planAdjustmentHistory</code> 等。</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>orders/splanOrders（长赢计划指令）</strong></td>
+<td>出参字段：fundCode/fundOrderCode/tradeUnit/nav/navDate/variety/largeClass/buyNav/buyAdjNav/redeemNav 等；<strong>fundOrderCode 枚举 A24=赎回、A22=买入</strong>。差异结论：A22/A24 语义映射只在 wrapper 脚本与上游注释。</td>
+</tr>
+<tr>
+<td><strong>stargate wrapper 改写（3686 字符，最长的网关脚本）</strong></td>
+<td>生产 wrapper_function 做<strong>三段口径改写</strong>：①<strong>当天 15:00 前过滤掉今日最新发车记录</strong>（数据已生成但未到展示时间——长赢发车 15 点口径）；② startDate/endDate 区间过滤（上游不支持时间参数，网关拉全量后过滤）；③字段裁剪+格式化（日期 YYYY-MM-DD、tradeUnit 拼“份”、fundOrderCode 翻译中文）。差异结论：<strong>“15 点前看不到当天发车”是长赢核心业务口径，只存在于 stargate 生产库的 wrapper 脚本</strong>——WIKI《长赢发车性能监控报告》系列（4篇）只讲性能，无此口径。</td>
+</tr>
+<tr>
+<td><strong>longWinAdjustmentLatest 语义</strong></td>
+<td>“最新发车当天多次发车则返回多条”（schema description）——长赢同日多发车口径，仅 schema。</td>
+</tr>
+</tbody></table></div>
+<h3>2.17 GetStrategyBenchmark / GetStrategyDetails / GetPortfolioNavHistory（策略组）</h3>
+<p>上游：pmdj <code>/v2/internal/strategy/benchmark</code>（→ pomodel <code>POST /pms/getPortfolioDetail</code>）、oap-api <code>/strategy/details</code>、pomodel <code>/model/{poCode}/navHistory</code>。</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>indexDetail[].percent</strong></td>
+<td>公式（strategy-analysis.service.ts）：取 portfolioDetail.complexIndexDetail；<strong>含 FIXED.ANNUALIZED.RETURN（固定值基准）时整体判“没有配置合理的业绩基准”返回空</strong>——策略基准合法性判定口径只在代码。数据源：pomodel（组合注册信息）+ doGetBaseIndex（基础指数字典）。差异结论：WIKI 缺。</td>
+</tr>
+<tr>
+<td><strong>GetPortfolioNavHistory 的 wrapper（559字符）</strong></td>
+<td>生产配置：净值序列改写。差异结论：仅生产库脚本。</td>
+</tr>
+<tr>
+<td><strong>净值口径（关联已沉淀记忆）</strong></td>
+<td>pomodel 存表 / DWD算 / <strong>QDII 取前一日净值 / 调仓日用前成分</strong>——组合净值计算的四个关键口径点在记忆与源码，WIKI 无。</td>
+</tr>
+</tbody></table></div>
+<h3>2.18 SCRM 侧“标准数据”十接口（query* 系列）</h3>
+<p>上游：yingchat-api <code>/internal/v1/ai-insight/data/*</code>（Java/Quarkus，<code>~/Code/ying-chat/yingchat-api</code>，注意本地 clone 的 base 分支<strong>不含</strong> holding-report 新模块）。</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>hasData / content / message / querySummary（统一出参协议）</strong></td>
+<td><strong>所有 data 接口共用同一协议</strong>：hasData=false 表示无数据/未就绪/降级（“AI 应忽略该数据源”），content 为可直接投喂 AI 的纯文本（表格/段落），querySummary 记录实际生效查询参数供排障。这是<strong>设计良好的出参契约</strong>，schema description 完整。差异结论：协议本身在 schema 表达充分，但<strong>十接口各自的 content 内部指标口径（如 queryProfitLossInfo 的盈亏算法）在 yingchat-api 源码</strong>（PmdjRestClientApi.java 显示其数据同样来自 pmdj /v2/internal/poorder/list-for-ai、/v2/internal/asset/daily-hierarchy、asset3 Asset3RestClient 等转发）——<strong>即 SCRM 标准数据 = pmdj/asset3 同源二次封装</strong>，该链路只在代码。</td>
+</tr>
+<tr>
+<td><strong>鉴权头（X-YC-BU-CODE/CONDITION/CORP-ID/USER-ID）</strong></td>
+<td>由 yingchat-gateway 注入的员工权限边界（own=u 只看自己客户）。差异结论：权限口径在 schema 参数声明，WIKI 无专文。</td>
+</tr>
+</tbody></table></div>
+<h3>2.19 hr 系列（ai_report_skill，21 个顾问持仓报告工具）</h3>
+<p>上游：yingchat-api <code>/internal/v1/holding-report/*</code>（2026-08-13 批量注册）。本地未 clone 到该模块代码（base 分支滞后），schema 为唯一生产口径来源。</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>hrQueryPeriodProfit/hrQueryPeriodDrawdown</strong></td>
+<td>schema summary 明示“与且慢 App 收益分析同源”“总账户+各子账户分层”——<strong>同源声明</strong>是口径关键（等价于 2.1/2.2 的 pmdj 算法）。差异结论：<strong>“同源”承诺只在工具 summary 一句话</strong>，未展开公式；无 WIKI。</td>
+</tr>
+<tr>
+<td><strong>hrRunAccountDiagnosis</strong></td>
+<td>标注“完整报告体，重接口”。<strong>hrRunMonteCarlo/hrCalcFundAssetClass 标注“不绑定客户”</strong>——可脱离客户上下文调用的口径区分，仅 schema。</td>
+</tr>
+</tbody></table></div>
+<h3>2.20 公共工具（GetCurrentTime / GetTxnDayRange / RenderEchart / RenderHtmlToPdf）</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>GetCurrentTime</strong></td>
+<td>cms_backend <code>/common/current-time</code>：datetime（YYYY-MM-DD HH:MM:SS）+ weekday（中文枚举周一~周日）。<strong>唯一免费/0 点工具</strong>（百炼定价）。差异结论：WIKI 缺。</td>
+</tr>
+<tr>
+<td><strong>GetTxnDayRange</strong></td>
+<td>tp-all <code>/common/getTxnDayRange</code>：交易日递推（beforeDays/afterDays 偏移，可选 fundCode 覆盖 QDII 日历）。<strong>注意 stargate 侧 qm_po_query 分组的版本无 200 响应 schema 定义</strong>（&quot;responses&quot;:{&quot;200&quot;:{&quot;description&quot;:&quot;成功响应&quot;}} 空 schema）——出参未文档化的注册疏漏。</td>
+</tr>
+<tr>
+<td><strong>RenderEchart/RenderHtmlToPdf</strong></td>
+<td>ai_tools 渲染服务（ECharts 图表出图 URL / HTML 转 PDF）。差异结论：WIKI 缺。</td>
+</tr>
+</tbody></table></div>
+<h3>2.21 stargate 自身出接口（管理后台/官网/统计类）</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>接口/指标</th>
+<th>口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Dashboard.totalUserCount</strong></td>
+<td>公式：<code>COUNT(*) FROM api_key WHERE id &lt;&gt; SKIP_API_KEY_ID</code>（固定排除测试账号 479c9d2e-...，<code>DashboardService.ts:7</code>）。差异结论：<strong>统计口径&quot;过滤特殊账号&quot;写在 AGENTS.md 编码规范里（算仓库内文档），WIKI 无</strong>。</td>
+</tr>
+<tr>
+<td><strong>Dashboard.totalCalls</strong></td>
+<td><code>api_key_usage_details 总条数</code>（同样排除 SKIP key）。<strong>计费口径迭代（2026-07-22，feature/usage-metering）</strong>：计量埋点后移至成功路径——<code>shouldRecordMcpUsage()</code> 仅对下游 2xx 且非 isError 的 tools/call 记账，参数校验失败/下游报错/后处理异常不计费。差异结论：<strong>“只对成功调用计费”是最重要的计费口径，git 有 6 条提交+设计文档（docs/usage-metering），WIKI 无</strong>。</td>
+</tr>
+<tr>
+<td><strong>官网 OverviewStats（qieman.com/mcp 首页数字）</strong></td>
+<td>totalUserCount/totalCallCount（复用 Dashboard）+ mcpToolCount=<strong>fallbackApiKey 可见路由数</strong>（配置的演示 key）+ institutionUserCount + servedInstitutionCount（WxPullService.queryFinancialOrganizations）。缓存 1 小时。差异结论：<strong>官网“接入机构数”的口径来自企微拉取的金融机构列表</strong>，实现细节仅代码；WIKI《盈米AI开放平台 v0.1 PRD》(298775545) 只写了页面应该展示什么，无统计口径。</td>
+</tr>
+<tr>
+<td><strong>wxpull 日报 top5 分组</strong></td>
+<td><strong>迭代（2026-08-06 QMRD-46941 hotfix）</strong>：原 SQL 按 route→分组统计导致跨 key 计数失真，修复为 <strong>apiKey→分组→路由</strong> 关联（api_key_group JOIN）。差异结论：<strong>统计口径修复只有 commit message</strong>，是“口径已变更但文档未更新”的典型（若有人按旧口径复算会对不上）。</td>
+</tr>
+<tr>
+<td><strong>百炼计费 tier/credits</strong></td>
+<td>详见下节差异汇总。</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2>三、WIKI 与生产代码差异总表（按差异类型）</h2>
+<h3>3.1 文档缺失（WIKI 完全无记载，口径只存在于代码/生产库）</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>口径内容</th>
+<th>真实出处</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>市场温度计公式 <code>(pe_rank+pb_rank+risk_rank)×100/3</code> 及风险溢价方向疑点</td>
+<td>commons-processor ProcessMarketTemperature.py L114-121（经 2026-08-30 源码深查沉淀）</td>
+</tr>
+<tr>
+<td>2</td>
+<td>MWR/XIRR/最大回撤公式（Modified Dietz 全套）</td>
+<td>pmdj account-hierarchy-{profit,drawdown}.service.ts 注释</td>
+</tr>
+<tr>
+<td>3</td>
+<td>20 个路由的 wrapper_function 网关改写口径（长赢15点过滤、热门基金随机抽样、fund/detail 申购期文案注入、fundReportDate 日期转换）</td>
+<td>生产库 ying99_oap.api_route.wrapper_function</td>
+</tr>
+<tr>
+<td>4</td>
+<td>“仅成功调用计费”计费口径</td>
+<td>stargate shouldRecordMcpUsage.ts + git feature/usage-metering（2026-07-22）</td>
+</tr>
+<tr>
+<td>5</td>
+<td>unitYield/yearlyRoe 描述写反的修复</td>
+<td>bmdj git 36e20d0 [QMRD-46994]（2026-08-10）</td>
+</tr>
+<tr>
+<td>6</td>
+<td>资产数据链路：MCP→pmdj→asset3(只读)→asset4(离线算)→ying99_asset.dwd_*</td>
+<td>图谱 asset3.md + 源码</td>
+</tr>
+<tr>
+<td>7</td>
+<td>择时/行业类指标下游=蜂鸟 ias-coral（库 ying99_ias_coral）</td>
+<td>bmdj model/api/coral.ts</td>
+</tr>
+<tr>
+<td>8</td>
+<td>X-User-Id/x-user-id 网关注入与 require_user_auth 语义</td>
+<td>stargate userAuthHeaderInjection.ts / api_source.require_user_auth</td>
+</tr>
+<tr>
+<td>9</td>
+<td>toon 编码白名单机制（MCP_TOON_ENCRYPT_OPERATION_IDS env）</td>
+<td>stargate config/index.ts:239</td>
+</tr>
+<tr>
+<td>10</td>
+<td>冻结快照发布机制（published_route_snapshot + override_* + kill-switch PUBLISH_FREEZE_READ_LIVE）</td>
+<td>stargate resolvePublishedRouteContent.ts（M3，快照为运行时口径 SSOT）</td>
+</tr>
+</tbody></table></div>
+<h3>3.2 文档（含 schema 描述）与代码实现不一致</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>项</th>
+<th>文档/schema 说</th>
+<th>代码实际</th>
+<th>影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>GetPopularFund 榜单机制</td>
+<td>“按访问量取 Top N”</td>
+<td>运营白名单 ∩ 2h缓存 → <strong>sampleSize 随机抽样</strong></td>
+<td>外部对“热门”理解偏差</td>
+</tr>
+<tr>
+<td>2</td>
+<td>GetPopularFund.fiveYearReturn</td>
+<td>schema 声明该字段</td>
+<td>服务实现未赋值（只填 oneWeek/curYear/oneYear/isUserPicked）</td>
+<td>字段永远缺失</td>
+</tr>
+<tr>
+<td>3</td>
+<td>BatchGetFundsDetail unitYield/yearlyRoe</td>
+<td>（历史上）schema 描述互换</td>
+<td>2026-08-10 已修复</td>
+<td>已修复但无公告</td>
+</tr>
+<tr>
+<td>4</td>
+<td>积分分级</td>
+<td>《MCP积分资源包配置说明》§2.1：免费1/T1=3×20/T2=5×34/T3=9×14</td>
+<td>生产 api_external_market_tool_pricing：<strong>T0=1分 × 64 个工具</strong>（另有 5 个未配价，含 GetCurrentTime 应为免费）</td>
+<td><strong>定价口径已整体换轨未更新文档</strong>（T0 tier 代码提交 2026-07-31 &quot;add T0 tier with 1 credit&quot;，与文档日期同日，文档晚于/未同步该变更）</td>
+</tr>
+<tr>
+<td>5</td>
+<td>GetTxnDayRange（qm_po_query 版）</td>
+<td>无 200 响应 schema</td>
+<td>tp-all 返回数据结构未登记</td>
+<td>出参未文档化</td>
+</tr>
+<tr>
+<td>6</td>
+<td>api_route 表 7,779 条路由 vs “69项资产”口径</td>
+<td>PRD/WIKI 统一按 69 项宣传</td>
+<td>69 项只是<strong>百炼渠道</strong>的资产口径；真实注册工具 4,386 个</td>
+<td>对外沟通需分清“渠道资产数”与“注册工具数”</td>
+</tr>
+</tbody></table></div>
+<h3>3.3 口径已变更但文档未更新（迭代断档）</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>变更</th>
+<th>时间</th>
+<th>证据</th>
+<th>文档状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>计费从“调用即计”→“仅成功计”</td>
+<td>2026-07-22</td>
+<td>stargate git 6 条 usage-metering 提交</td>
+<td>《MCP积分资源包配置说明》§6 第2条写了“仅对实际执行成功的 tools/call 计费”——<strong>这条文档与代码一致</strong>（注：该文档在 stargate 仓库 docs/ 内，非 WIKI；WIKI 无对应）</td>
+</tr>
+<tr>
+<td>2</td>
+<td>百炼定价 T1/T2/T3 → T0</td>
+<td>2026-07-31</td>
+<td>git 75f164f + 生产定价表 64×T0</td>
+<td>同文档 §2.1/§5 仍是旧分级 ❌</td>
+</tr>
+<tr>
+<td>3</td>
+<td>GetFundDiagnosis 从 qm-agent(/agent/fund/summary) 迁 bmdj(ai-summary)</td>
+<td>2026-08-25</td>
+<td>api_route.created_at + bmdj git 4111748</td>
+<td>无迁移说明 ❌</td>
+</tr>
+<tr>
+<td>4</td>
+<td>用户订单详情补投顾费/延迟计划/分红转换 + CONVERT 文案改“转换/调仓/跟车”</td>
+<td>2026-08（QMRD-47036）</td>
+<td>pmdj git 68438bc2b/f7816f932</td>
+<td>无 ❌</td>
+</tr>
+<tr>
+<td>5</td>
+<td>top5 分组统计口径修复（route 归组→apiKey 归组）</td>
+<td>2026-08-06</td>
+<td>stargate git c1d4983 [QMRD-46941]</td>
+<td>无 ❌</td>
+</tr>
+<tr>
+<td>6</td>
+<td>保险类 5 工具上线（GetUserInsuranceSummary 等）</td>
+<td>2026-07-28</td>
+<td>api_route.created_at</td>
+<td>无 ❌</td>
+</tr>
+<tr>
+<td>7</td>
+<td>SCRM 顾问持仓报告 21 工具上线</td>
+<td>2026-08-13</td>
+<td>api_route.created_at</td>
+<td>无 ❌</td>
+</tr>
+<tr>
+<td>8</td>
+<td>图书馆知识库 2 工具（ragflowSearch 带权限过滤）</td>
+<td>2026-08-27</td>
+<td>api_route.created_at</td>
+<td>无 ❌</td>
+</tr>
+</tbody></table></div>
+<h3>3.4 WIKI 现有相关文档清单（供后续补口径时定位）</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>WIKI 页面</th>
+<th>id</th>
+<th>性质</th>
+<th>与出参口径的关系</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Stargate使用文档</td>
+<td>248182358</td>
+<td>使用教程</td>
+<td>环境地址/权限/MCP调试，无出参</td>
+</tr>
+<tr>
+<td>Stargate MCP OAuth 接入治理 PRD</td>
+<td>326141500</td>
+<td>PRD</td>
+<td><strong>定义了 69 项资产/5组 Scope/调用审计字段（含&quot;不得记录Token/完整参数值/响应正文&quot;的脱敏口径）</strong>——最接近治理口径的一篇</td>
+</tr>
+<tr>
+<td>Stargate MCP 发布审核 PRD</td>
+<td>313405627</td>
+<td>PRD</td>
+<td>发布状态机/审核角色，无出参</td>
+</tr>
+<tr>
+<td>stargate 升级版PRD（一期）</td>
+<td>306316525</td>
+<td>PRD</td>
+<td>OpenChannel/Scope/Consent 对象定义（字段级）</td>
+</tr>
+<tr>
+<td>Stargate 支持 OAuth 认证方案</td>
+<td>298776539</td>
+<td>技术方案</td>
+<td><strong>明示“以下内容非最新版本，最新版见 stargate repo docs/oauth-open-channel/”</strong>——WIKI 已自认过期</td>
+</tr>
+<tr>
+<td>StarGate 用户身份注入设计方案</td>
+<td>306324914</td>
+<td>技术方案</td>
+<td>同样标注“非最新版本”，转 git 仓库</td>
+</tr>
+<tr>
+<td>StarGate 私有化部署改造设计</td>
+<td>313418390</td>
+<td>技术方案</td>
+<td>含 AI 增强功能清单/require_user_auth 语义</td>
+</tr>
+<tr>
+<td>盈米AI 开放平台 v0.1 PRD</td>
+<td>298775545</td>
+<td>PRD</td>
+<td>官网信息架构（模块级），无指标</td>
+</tr>
+<tr>
+<td>20250620-基金MCP 能力补充</td>
+<td>256596635</td>
+<td>需求PRD</td>
+<td><strong>唯一有指标需求表的一篇</strong>（年化收益率/业绩基准/显性隐性费率/持股周转率/公司跟投），其中隐性成本未实现</td>
+</tr>
+<tr>
+<td>20250715-内容MCP 能力补充</td>
+<td>263061517</td>
+<td>需求PRD</td>
+<td>内容工具字段需求（快讯/热点/投顾内容）</td>
+</tr>
+<tr>
+<td>【草稿】交易记录MCP</td>
+<td>263074371</td>
+<td>需求草稿</td>
+<td>订单出参期望字段</td>
+</tr>
+<tr>
+<td>财务规划报告 MCP 使用指南 / 家庭财务规划 MCP</td>
+<td>252000957 / 259037111</td>
+<td>使用指南</td>
+<td>6 模块工具+prompt 用法，无公式</td>
+</tr>
+<tr>
+<td>财报助手MCP接口工具使用指南</td>
+<td>263070259</td>
+<td>指南</td>
+<td>⚠️ <strong>是摸鱼集团第三方 MCP，非盈米 fin_mcp</strong>，勿混</td>
+</tr>
+<tr>
+<td>Dify+且慢mcp工具的应用场景</td>
+<td>293855925</td>
+<td>用例</td>
+<td>限额通知工作流示例</td>
+</tr>
+<tr>
+<td>MCP Gateway 使用教程 / mcp-log技能使用说明</td>
+<td>320175038 / 326146715</td>
+<td>教程</td>
+<td>基础设施侧，非盈米MCP本体</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2>四、口径维护机制的核心结论（给产品的建议）</h2>
+<ol>
+<li><strong>出参口径的真正 SSOT 是“生产库 schema + 源码”，WIKI 天然滞后</strong>。stargate 的发布冻结机制（M3，published_route_snapshot）意味着<strong>每次 MCP 发布都会把 openapi_operation_content 冻结进快照</strong>——这份 schema（含每个字段的 description）事实上就是对外口径文档，但目前<strong>没有任何机制把它导出为人可读的文档</strong>。建议：把“快照 schema 定期导出生成《接口口径手册》”作为发布流水线的一环。</li>
+<li><strong>wrapper_function 是口径黑洞</strong>：20 个路由的出参改写逻辑只存在于生产库一段 JS 脚本里（长赢15点过滤、热门基金抽样、申购期文案注入都是业务口径），建议至少在 api_route.description 或独立文档登记“本工具经网关改写”及其规则。</li>
+<li><strong>计费口径需要一次文档对齐</strong>：T0 换轨（64 工具×1分）与《MCP积分资源包配置说明》（stargate 仓库 docs/，注意它不在 WIKI）已经脱节，涉及对外售卖价格，优先级最高。</li>
+<li><strong>值得回填为图谱 playbook 的</strong>：本调研已验证的查询配方——<code>api_route → api_group_route → api_service_group → api_key_usage_details</code> 调用量统计链，以及 <code>api_external_market_tool_pricing</code> 定价表，可作为“查任意 MCP 工具的注册/调用量/定价”的标准配方沉淀（建议登记到 [[qieman-oap]] / [[oap]] hub 的 playbooks 字段，由人工执行，本次不修改仓库）。</li>
+</ol>
+<hr>
+<p><strong>数据来源：</strong></p>
+<ul>
+<li>WIKI（Confluence，wiki skill 检索 20+ 轮）：上表 3.4 所列 15 篇 + 《盈米AI开放平台》(237240715)、《需求调研纪要（叩富）》(320174776)、《需求调研汇总》(320174852)、《且慢实验室技术方案 v2.0》(326147170)、《20260731 PO Agent本体建设》(326141434)、《Stargate API Trigger》(242718051)</li>
+<li>生产注册表（prod-db-query skill，dw-tidb 只读，2026-08-31 实查）：<code>ying99_oap.api_route / api_source / api_service_group / api_group_route / api_key_usage_details / api_open_channel(+service_group) / api_external_market_tool_pricing</code>；<code>ying99_oap_internal</code>（内部库 OpenChannel）</li>
+<li>生产代码（本地 master）：<code>~/Code/ai/stargate</code>（78a70eb）、<code>~/Code/qieman/pmdj-service</code>（e75b78303）、<code>~/Code/qieman/bmdj</code>、<code>~/Code/ying-chat/yingchat-api</code>（base 分支，holding-report 模块未含）；stargate 仓库内文档 <code>docs/external-market-metering/MCP积分资源包配置说明.md</code></li>
+<li>已沉淀记忆复用：市场温度计配方（getlatestquotations-market-temperature-recipe）、stargate 注册表可直查（stargate-registry-queryable-in-dwtidb）、组合净值口径（portfolio-nav-computation-arch）、ias-coral 路由（bmdj-fund-data-mcp-ias-coral-routing）、KYP 风险体系（qieman-kyp-morningstar-risk-system）、bmdj 行业收益下游（bmdj-fund-data-mcp-ias-coral-routing）</li>
+</ul>
+<hr>
+
+<div class="foot">CLAIR · 内部技术口径文档，请勿外传。</div>
+</div>
+</body>
+</html>

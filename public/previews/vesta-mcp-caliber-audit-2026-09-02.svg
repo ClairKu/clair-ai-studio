@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 405" font-family="-apple-system,'PingFang SC',sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a2e52"/>
+      <stop offset="1" stop-color="#0b5192"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="405" fill="url(#bg)"/>
+  <circle cx="640" cy="60" r="140" fill="#1b88ee" opacity="0.14"/>
+  <circle cx="80" cy="360" r="110" fill="#4aa7ff" opacity="0.10"/>
+  <text x="48" y="72" font-size="16" letter-spacing="4" fill="#9dcbf7" font-weight="700">口径盘点 · 2026-09-02</text>
+  <text x="48" y="140" font-size="44" fill="#ffffff" font-weight="900">vesta 投研 MCP</text>
+  <text x="48" y="196" font-size="44" fill="#ffffff" font-weight="900">指标·公式口径盘点</text>
+  <text x="48" y="248" font-size="22" fill="#c9e2fb">9 server / 96 工具 · 56 次实测 · 与盈米MCP对比</text>
+  <g font-size="16" fill="#9dcbf7">
+    <text x="48" y="308">产品视角 TWR ↔ 用户视角 MWR：同问收益，两边答案天然不同</text>
+    <text x="48" y="338">投资信号 · 指数估值 · 基金筛选 463 条指标配置全表</text>
+  </g>
+  <rect x="48" y="360" width="64" height="6" fill="#1b88ee"/>
+</svg>

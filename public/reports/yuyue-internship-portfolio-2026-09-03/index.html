@@ -1,0 +1,823 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>余悦实习成果集</title>
+</head>
+<body>
+<style>
+  /* ============================================================
+     主题令牌 —— 亮色为基准；暗色仅重定义令牌（两处）
+     ============================================================ */
+  :root {
+    --ground: #f6f7f5;
+    --surface: #ffffff;
+    --surface-2: #eef1ee;
+    --ink: #17242b;
+    --ink-2: #4a5a63;
+    --ink-3: #7d8b92;
+    --line: #dde3e0;
+    --accent: #155ea8;
+    --accent-ink: #0c3f74;
+    --accent-wash: #e7eff8;
+    --bar: #3b7fc4;
+    --good-bg: #e4f2ea;  --good-fg: #1d5c3d;
+    --warn-bg: #f7ede2;  --warn-fg: #7a4a1c;
+    --lock-bg: #efeaf6;  --lock-fg: #4b3577;
+    --shadow: 0 1px 3px rgba(23, 36, 43, 0.07);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #10191f;
+      --surface: #182630;
+      --surface-2: #1e2f3a;
+      --ink: #e6ede9;
+      --ink-2: #a7b8bf;
+      --ink-3: #74868e;
+      --line: #2a3d49;
+      --accent: #6fb1e8;
+      --accent-ink: #a5cdf0;
+      --accent-wash: #1b3049;
+      --bar: #5a9bd6;
+      --good-bg: #17352a; --good-fg: #93d1b0;
+      --warn-bg: #3a2b1a; --warn-fg: #eabf8e;
+      --lock-bg: #2b2340; --lock-fg: #c3aef0;
+      --shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #10191f;
+    --surface: #182630;
+    --surface-2: #1e2f3a;
+    --ink: #e6ede9;
+    --ink-2: #a7b8bf;
+    --ink-3: #74868e;
+    --line: #2a3d49;
+    --accent: #6fb1e8;
+    --accent-ink: #a5cdf0;
+    --accent-wash: #1b3049;
+    --bar: #5a9bd6;
+    --good-bg: #17352a; --good-fg: #93d1b0;
+    --warn-bg: #3a2b1a; --warn-fg: #eabf8e;
+    --lock-bg: #2b2340; --lock-fg: #c3aef0;
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+  .mono { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+  .layout { display: flex; max-width: 1180px; margin: 0 auto; padding: 0 24px; gap: 44px; }
+  main { flex: 1 1 auto; min-width: 0; max-width: 860px; padding-bottom: 80px; }
+
+  /* ---------- 侧边目录 ---------- */
+  aside.toc {
+    flex: 0 0 188px; position: sticky; top: 0; align-self: flex-start;
+    max-height: 100vh; overflow-y: auto; padding: 56px 0 24px;
+    font-size: 13px;
+  }
+  .toc .toc-title { font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .16em; color: var(--ink-3); margin-bottom: 10px; }
+  .toc a { display: block; color: var(--ink-2); text-decoration: none; padding: 4px 0 4px 12px; border-left: 2px solid var(--line); line-height: 1.5; }
+  .toc a:hover { color: var(--accent-ink); }
+  .toc a.on { color: var(--accent-ink); border-left-color: var(--accent); font-weight: 500; }
+  .toc a .n { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; color: var(--ink-3); margin-right: 5px; }
+  @media (max-width: 980px) { aside.toc { display: none; } }
+
+  /* ---------- 报告头 ---------- */
+  header.masthead { padding: 56px 0 0; }
+  .eyebrow {
+    font-family: "IBM Plex Mono", monospace; font-size: 12px;
+    letter-spacing: .18em; color: var(--accent); text-transform: uppercase;
+  }
+  h1 {
+    font-family: "Noto Serif SC", "Songti SC", serif;
+    font-size: clamp(30px, 5vw, 42px); font-weight: 700;
+    margin: 10px 0 8px; line-height: 1.3; text-wrap: balance;
+  }
+  .lede { color: var(--ink-2); max-width: 42em; margin: 0; }
+
+  /* ---------- 通用排版 ---------- */
+  section.chapter { margin-top: 72px; scroll-margin-top: 24px; }
+  .ch-eyebrow { font-family: "IBM Plex Mono", monospace; font-size: 12px; letter-spacing: .16em; color: var(--accent); }
+  h2 {
+    font-family: "Noto Serif SC", serif; font-size: 26px; font-weight: 700;
+    margin: 6px 0 4px; line-height: 1.35; text-wrap: balance;
+  }
+  .ch-sub { color: var(--ink-3); font-size: 13.5px; margin: 0 0 18px; }
+  h3 {
+    font-family: "Noto Serif SC", serif; font-size: 18px; font-weight: 700;
+    margin: 34px 0 10px;
+  }
+  h3:first-of-type { margin-top: 22px; }
+  p { margin: 0 0 12px; max-width: 46em; }
+  .muted { color: var(--ink-2); }
+  .small { font-size: 13px; color: var(--ink-3); }
+
+  /* 徽标 */
+  .badge { font-size: 11.5px; padding: 2px 9px; border-radius: 99px; letter-spacing: .04em; white-space: nowrap; vertical-align: 2px; }
+  .badge.live { background: var(--good-bg); color: var(--good-fg); }
+  .badge.lock { background: var(--lock-bg); color: var(--lock-fg); }
+  .badge.warn { background: var(--warn-bg); color: var(--warn-fg); }
+
+  /* 表格 */
+  .tbl-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow); }
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+  th { text-align: left; font-weight: 600; font-size: 12px; color: var(--ink-3); letter-spacing: .05em; padding: 10px 14px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  td { padding: 9px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tbody tr:hover { background: var(--surface-2); }
+
+  /* 卡片网格 */
+  .grid { display: grid; gap: 12px; margin: 14px 0; }
+  .grid.c2 { grid-template-columns: repeat(2, 1fr); }
+  .grid.c3 { grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 720px) { .grid.c2, .grid.c3 { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+    padding: 14px 16px; box-shadow: var(--shadow);
+  }
+  .card b.t { display: block; font-size: 14px; margin-bottom: 4px; }
+  .card p { font-size: 13px; color: var(--ink-2); margin: 0; }
+  .card .k { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; color: var(--ink-3); }
+
+  /* KPI tiles */
+  .kpis { display: flex; flex-wrap: wrap; gap: 12px; margin: 14px 0; }
+  .kpi {
+    flex: 1 1 140px; min-width: 130px; background: var(--surface);
+    border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; box-shadow: var(--shadow);
+  }
+  .kpi b { display: block; font-family: "Noto Serif SC", serif; font-size: 24px; font-weight: 700; line-height: 1.25; font-variant-numeric: tabular-nums; }
+  .kpi span { font-size: 12px; color: var(--ink-3); }
+
+  /* CSS 条形图（单色量级） */
+  .bars { display: grid; gap: 7px; margin: 14px 0; max-width: 560px; }
+  .bar-row { display: grid; grid-template-columns: 9.5em 1fr 4.5em; align-items: center; gap: 10px; font-size: 13px; }
+  .bar-row .lbl { color: var(--ink-2); text-align: right; }
+  .bar-row .trk { background: var(--surface-2); border-radius: 4px; height: 16px; }
+  .bar-row .fil { background: var(--bar); border-radius: 4px 3px 3px 4px; height: 16px; min-width: 2px; }
+  .bar-row .val { font-variant-numeric: tabular-nums; color: var(--ink-2); }
+  figure.chart { margin: 16px 0; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px 12px; box-shadow: var(--shadow); }
+  figure.chart figcaption { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+  figure.chart .cap-sub { font-size: 12px; color: var(--ink-3); margin-bottom: 12px; }
+
+  /* 执行链 stepper */
+  .trace { border-left: 2px solid var(--line); margin: 14px 0 14px 6px; padding-left: 18px; display: grid; gap: 8px; max-width: 46em; }
+  .ev { position: relative; font-size: 13.5px; }
+  .ev::before { content: ""; position: absolute; left: -23.5px; top: 8px; width: 9px; height: 9px; border-radius: 50%; background: var(--line); }
+  .ev.decision { font-weight: 600; }
+  .ev.decision::before { background: var(--accent); }
+  .ev.tool { color: var(--ink-2); font-family: "IBM Plex Mono", monospace; font-size: 12.5px; }
+  .ev.result { background: var(--accent-wash); color: var(--accent-ink); border-radius: 8px; padding: 8px 12px; }
+  .ev.result::before { background: var(--accent); top: 14px; }
+  .stage-head { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14px; margin-top: 18px; }
+  .stage-head .tick { color: var(--good-fg); background: var(--good-bg); border-radius: 50%; width: 18px; height: 18px; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; }
+
+  /* 引用样式的原文案 */
+  blockquote {
+    margin: 12px 0; padding: 10px 16px; border-left: 3px solid var(--accent);
+    background: var(--surface); border-radius: 0 8px 8px 0; color: var(--ink-2);
+    font-size: 13.5px; max-width: 44em;
+  }
+
+  /* 时间线 */
+  .timeline { border-left: 2px solid var(--line); margin: 14px 0 0 6px; padding-left: 18px; display: grid; gap: 12px; }
+  .ms { position: relative; font-size: 13.5px; max-width: 44em; }
+  .ms::before { content: ""; position: absolute; left: -23.5px; top: 7px; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); }
+  .ms b.d { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--accent-ink); display: block; }
+
+  /* FAQ */
+  details { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; margin-bottom: 8px; box-shadow: var(--shadow); }
+  summary { cursor: pointer; padding: 11px 16px; font-size: 14px; font-weight: 500; }
+  summary::marker { color: var(--accent); }
+  details > div { padding: 0 16px 12px; font-size: 13.5px; color: var(--ink-2); }
+  details:focus-within { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+  /* MCP 目录筛选 */
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 12px; align-items: center; }
+  .filters button {
+    font: inherit; font-size: 12.5px; cursor: pointer; padding: 4px 12px; border-radius: 99px;
+    border: 1px solid var(--line); background: var(--surface); color: var(--ink-2);
+  }
+  .filters button:hover { border-color: var(--accent); color: var(--accent-ink); }
+  .filters button:focus-visible, .filters input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .filters button.on { background: var(--accent); border-color: var(--accent); color: var(--ground); font-weight: 500; }
+  .filters input {
+    font: inherit; font-size: 13px; padding: 4px 12px; border-radius: 99px;
+    border: 1px solid var(--line); background: var(--surface); color: var(--ink); width: 12em;
+  }
+
+  /* 链接台账 */
+  .link-item { display: flex; align-items: center; gap: 12px; padding: 10px 16px; text-decoration: none; color: inherit; border-top: 1px solid var(--line); font-size: 13.5px; }
+  .link-item:first-child { border-top: none; }
+  .link-item:hover { background: var(--surface-2); }
+  .link-item .host { margin-left: auto; font-family: "IBM Plex Mono", monospace; font-size: 11.5px; color: var(--ink-3); white-space: nowrap; }
+  .link-box { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; box-shadow: var(--shadow); margin: 12px 0; }
+
+  /* 注意条 */
+  .note { border-left: 2px solid var(--line); padding-left: 12px; font-size: 13px; color: var(--ink-3); margin: 12px 0; max-width: 46em; }
+
+  footer { margin-top: 80px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 13px; color: var(--ink-3); }
+  footer code { font-family: "IBM Plex Mono", monospace; font-size: 12px; background: var(--surface-2); padding: 1px 6px; border-radius: 4px; }
+
+  a.ext { color: var(--accent-ink); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--line); }
+  a.ext:hover { text-decoration-color: var(--accent); }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+  html { scroll-behavior: smooth; }
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700&family=Noto+Sans+SC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<div class="layout">
+<aside class="toc" id="toc">
+  <div class="toc-title">CONTENTS</div>
+  <a href="#overview"><span class="n">00</span>成果全景</a>
+  <a href="#ch1"><span class="n">01</span>小顾 3.0 数据看板</a>
+  <a href="#ch2"><span class="n">02</span>小顾执行链原型</a>
+  <a href="#ch3"><span class="n">03</span>盈米实验室</a>
+  <a href="#ch4"><span class="n">04</span>盈米 AI 开放平台</a>
+  <a href="#ch5"><span class="n">05</span>大模型接入合规</a>
+  <a href="#ch6"><span class="n">06</span>移动端聊天与成果</a>
+  <a href="#appendix"><span class="n">A</span>交付物台账</a>
+</aside>
+
+<main>
+  <header class="masthead">
+    <div class="eyebrow">Yingmi Fund · Internship Report</div>
+    <h1>余悦 · 实习成果报告</h1>
+    <p class="lede">盈米基金实习期间六个专题的完整成果重组：不止是链接索引，而是把每个 Demo、每套代码、每份口径的实际内容重新组织与呈现。四个专题的内容已从线上站点与源码中完整解析重现；两个调研专题的文档沉淀在飞书，此处如实标注权限状态。</p>
+  </header>
+
+  <!-- ════════════════════════ 00 成果全景 ════════════════════════ -->
+  <section class="chapter" id="overview">
+    <div class="ch-eyebrow">00 · OVERVIEW</div>
+    <h2>成果全景</h2>
+    <p class="ch-sub">六个专题、19 项交付物，围绕两条主线展开</p>
+
+    <p>实习工作围绕<strong>两条产品主线</strong>：一条是<strong>且慢「小顾」产品线</strong>——为小顾 3.0 建立运营数据看板、用可交互原型探索执行链交互范式、研究移动端「聊天可删、成果可留」的方案；另一条是<strong>盈米 AI 开放平台（OAP）线</strong>——完成开放平台官网全部页面、构建「盈米实验室」AI 应用构建器原型，并以大模型接入合规与服务商收费调研做决策支撑。</p>
+
+    <div class="kpis">
+      <div class="kpi"><b>6</b><span>个专题</span></div>
+      <div class="kpi"><b>4</b><span>个上线 Demo 站点</span></div>
+      <div class="kpi"><b>69</b><span>个 MCP 工具目录</span></div>
+      <div class="kpi"><b>11</b><span>个 Skills 清单</span></div>
+      <div class="kpi"><b>6</b><span>个看板分析页</span></div>
+      <div class="kpi"><b>22</b><span>条 AI 里程碑</span></div>
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>专题</th><th>形态</th><th>本报告的内容来源</th><th>状态</th></tr></thead>
+        <tbody>
+          <tr><td>小顾 3.0 数据看板</td><td>React 看板 + 指标口径</td><td>GitHub 源码全量解析</td><td><span class="badge live">已上线</span></td></tr>
+          <tr><td>小顾执行链</td><td>调研 + 交互原型</td><td>Demo 站点与脚本全量解析</td><td><span class="badge live">已上线</span></td></tr>
+          <tr><td>盈米实验室</td><td>调研 + PRD + 构建器原型</td><td>Demo 站点逐页浏览解析</td><td><span class="badge live">已上线</span></td></tr>
+          <tr><td>盈米 AI 开放平台官网</td><td>官网（全部页面完成）</td><td>线上站点六个页面全量解析</td><td><span class="badge live">已上线</span></td></tr>
+          <tr><td>大模型接入合规</td><td>三份调研文档</td><td>文档在飞书，未解析</td><td><span class="badge lock">需飞书权限</span></td></tr>
+          <tr><td>移动端聊天删除与成果保留</td><td>调研 + 流程图 + 原型图</td><td>文档与图在飞书 / ProcessOn / Figma</td><td><span class="badge lock">需相应权限</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ════════════════════════ 01 小顾数据看板 ════════════════════════ -->
+  <section class="chapter" id="ch1">
+    <div class="ch-eyebrow">01 · XIAOGU 3.0 DASHBOARD</div>
+    <h2>小顾 3.0 数据看板</h2>
+    <p class="ch-sub">React 19 + TypeScript + Tailwind 4 + Recharts 3 · 部署于 Vercel · 源码 GitHub</p>
+
+    <p>面向且慢 App「小顾 3.0」的功能运营数据看板，用于观察用户规模、增长、留存、功能采纳、报告使用、成本和 AI 能力调用情况。这个项目最有价值的不是页面本身，而是两件事：<strong>一套「业务问题驱动」的信息架构</strong>，和<strong>一套写进代码注释的指标口径</strong>。</p>
+
+    <h3>六个页面 = 六个业务问题</h3>
+    <p>导航不是按数据类型排的，而是按运营者会问的问题排的——每个一级页面回答一个问题：</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>页面</th><th>回答的问题</th><th>页内副标题（原文）</th></tr></thead>
+        <tbody>
+          <tr><td><b>总览</b> <span class="mono small">overview</span></td><td>Q0</td><td>现在整体情况怎么样？有什么需要关注？</td></tr>
+          <tr><td><b>增长与规模</b> <span class="mono small">growth</span></td><td>Q1 有没有人在用？</td><td>观察小顾的用户规模与增长趋势</td></tr>
+          <tr><td><b>使用深度</b> <span class="mono small">engagement</span></td><td>Q2 是尝鲜还是深度使用？</td><td>用户只是尝试一下，还是在持续、深入使用？</td></tr>
+          <tr><td><b>功能采纳</b> <span class="mono small">adoption</span></td><td>Q3 核心功能被采用了吗？</td><td>小顾的核心功能被采用了吗？</td></tr>
+          <tr><td><b>AI 能力</b> <span class="mono small">ai</span></td><td>Q4 系统内部主要在干什么？</td><td>系统内部主要在干什么？</td></tr>
+          <tr><td><b>成本</b> <span class="mono small">cost</span></td><td>Q5 增长的代价是什么？</td><td>增长的代价是什么？</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>指标口径：每个数字怎么来的（页脚原文重现）</h3>
+    <p>看板每一页底部都固定挂一份口径说明，共 11 条。这份口径是整个项目的「合同」，全文如下：</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:9em">条目</th><th>口径定义（原文）</th></tr></thead>
+        <tbody>
+          <tr><td>① DAU / MAU</td><td>与小顾发过消息的去重用户数，口径「发过消息」（非仅打开）；MAU 为截至 endDate 滚动 30 天</td></tr>
+          <tr><td>② 新增使用人数</td><td>当天第一次发消息且历史从未使用过小顾的用户（小顾无独立注册入口，以首次对话为激活事件）</td></tr>
+          <tr><td>③ 留存率</td><td>次日/7日/30日是业务固定周期，全局时间筛选器不改变这些定义</td></tr>
+          <tr><td>④ 记忆/画像开启率</td><td>截至 endDate 的累计状态，分母 = 截至该日累计小顾用户（非 DAU / MAU / 总注册用户）</td></tr>
+          <tr><td>⑤ 对话强度</td><td>平均对话轮数 = 总轮数/会话总数；QPU = 当日提问总数 / 当日 DAU（daily ratio，KPI 取 endDate 当天值，趋势按区间聚合重算）</td></tr>
+          <tr><td>⑥ 创建任务数</td><td>区间内被创建的任务总数量（与「创建任务人数」是不同口径，不要混淆）</td></tr>
+          <tr><td>⑦ 活跃天数分布</td><td>跟随全局时间区间，根据区间长度自动生成合理 bucket（短区间 1~7 天，长区间合并分段）</td></tr>
+          <tr><td>⑧ 报告日均类 KPI</td><td>环比严格 T vs T-1，不受全局区间影响</td></tr>
+          <tr><td>⑨ AI 能力 Top3</td><td>所选区间内后台调用次数汇总重排</td></tr>
+          <tr><td>⑩ 成本模块</td><td>原始粒度=月，按全局区间筛选落入区间的月份</td></tr>
+          <tr><td>⑪ 时间交互</td><td>顶部全局筛选器决定「分析哪个时间段」；趋势图粒度切换决定「怎么聚合显示」，二者独立</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>看板呈现的核心数字（示例数据）</h3>
+    <p class="small">⚠️ 以下均为看板内置的 DEMO 示例数值，用于展示页面结构与交互，不代表真实运营数据（源码中有同样声明）。</p>
+    <div class="kpis">
+      <div class="kpi"><b>6,150</b><span>DAU（最新日）</span></div>
+      <div class="kpi"><b>85,030</b><span>MAU（滚动30天）</span></div>
+      <div class="kpi"><b>200 万</b><span>App 总注册用户基数</span></div>
+      <div class="kpi"><b>18.1</b><span>QPU（提问数/DAU）</span></div>
+      <div class="kpi"><b>5.4</b><span>平均对话轮数</span></div>
+    </div>
+
+    <figure class="chart">
+      <figcaption>留存率</figcaption>
+      <div class="cap-sub">业务固定周期 · 快照值（%）</div>
+      <div class="bars">
+        <div class="bar-row"><span class="lbl">次日留存</span><span class="trk"><span class="fil" style="width:90.4%"></span></span><span class="val">45.2%</span></div>
+        <div class="bar-row"><span class="lbl">7 日留存</span><span class="trk"><span class="fil" style="width:50.2%"></span></span><span class="val">25.1%</span></div>
+        <div class="bar-row"><span class="lbl">30 日留存</span><span class="trk"><span class="fil" style="width:30.6%"></span></span><span class="val">15.3%</span></div>
+      </div>
+    </figure>
+
+    <figure class="chart">
+      <figcaption>周活跃天数分布</figcaption>
+      <div class="cap-sub">活跃用户 7 天里来几天 · 加权平均约 2.8 天（%）</div>
+      <div class="bars">
+        <div class="bar-row"><span class="lbl">1 天</span><span class="trk"><span class="fil" style="width:100%"></span></span><span class="val">30.0%</span></div>
+        <div class="bar-row"><span class="lbl">2 天</span><span class="trk"><span class="fil" style="width:73.3%"></span></span><span class="val">22.0%</span></div>
+        <div class="bar-row"><span class="lbl">3 天</span><span class="trk"><span class="fil" style="width:60%"></span></span><span class="val">18.0%</span></div>
+        <div class="bar-row"><span class="lbl">4 天</span><span class="trk"><span class="fil" style="width:43.3%"></span></span><span class="val">13.0%</span></div>
+        <div class="bar-row"><span class="lbl">5 天</span><span class="trk"><span class="fil" style="width:30%"></span></span><span class="val">9.0%</span></div>
+        <div class="bar-row"><span class="lbl">6 天</span><span class="trk"><span class="fil" style="width:16.7%"></span></span><span class="val">5.0%</span></div>
+        <div class="bar-row"><span class="lbl">7 天</span><span class="trk"><span class="fil" style="width:10%"></span></span><span class="val">3.0%</span></div>
+      </div>
+    </figure>
+
+    <div class="grid c2">
+      <div class="card"><b class="t">功能采纳（截至最新日）</b><p>对话记忆开启率 <b>40.2%</b>（一年前 18%）；且慢画像开启率 <b>35.8%</b>（一年前 12%）。分母是累计小顾用户。人均创建任务 <b>2.4</b> 个，其中自然语言创建占 <b>60.3%</b>、手动创建 <b>39.7%</b>。</p></div>
+      <div class="card"><b class="t">报告与成果区</b><p>日报告生成数趋势 860 → 1,135；成果区日使用次数 1,000 → 1,352。人均分享创建 <b>1.6</b>、分享被使用 <b>3.2</b>。「成果区」已作为独立指标维度纳入看板。</p></div>
+      <div class="card"><b class="t">AI 能力调用 Top（按日基准量级）</b><p class="mono small">任务调度 Skill 1200 · 图表生成 Skill 980 · 行情查询 MCP 760 · 持仓分析 MCP 620 · 资产配置 Skill 540 · 报告生成 Skill 480 · 记忆检索 MCP 350（次/天）</p></div>
+      <div class="card"><b class="t">对话轮数分层</b><p class="mono small">1 轮 30.2% · 2 轮 22.4% · 3 轮 18.1% · 4 轮 11.3% · 5 轮+ 18.0%</p></div>
+    </div>
+
+    <figure class="chart">
+      <figcaption>月度 Token 消耗</figcaption>
+      <div class="cap-sub">2025-09 → 2026-08 · 单位：万 tokens · 单用户日成本 0.16 → 0.37 元</div>
+      <div class="bars">
+        <div class="bar-row"><span class="lbl">2025-09</span><span class="trk"><span class="fil" style="width:33.8%"></span></span><span class="val">4,800</span></div>
+        <div class="bar-row"><span class="lbl">2025-12</span><span class="trk"><span class="fil" style="width:40.1%"></span></span><span class="val">5,700</span></div>
+        <div class="bar-row"><span class="lbl">2026-03</span><span class="trk"><span class="fil" style="width:43.7%"></span></span><span class="val">6,200</span></div>
+        <div class="bar-row"><span class="lbl">2026-05</span><span class="trk"><span class="fil" style="width:64.8%"></span></span><span class="val">9,200</span></div>
+        <div class="bar-row"><span class="lbl">2026-07</span><span class="trk"><span class="fil" style="width:87.3%"></span></span><span class="val">12,400</span></div>
+        <div class="bar-row"><span class="lbl">2026-08</span><span class="trk"><span class="fil" style="width:100%"></span></span><span class="val">14,200</span></div>
+      </div>
+      <p class="small" style="margin:6px 0 0">2026 年 4 月起 token 消耗明显加速（7,800 → 14,200），对应小顾 3.0 能力升级期。</p>
+    </figure>
+
+    <h3>数据引擎设计（Phase 1.1 / 2A）</h3>
+    <p>看板不是「写死几组数字」的静态页面，而是实现了一条真实的 <span class="mono">raw data → filter → aggregate</span> 管道：</p>
+    <div class="grid c2">
+      <div class="card"><b class="t">365 天日粒度原始数据</b><p>DAU 从 3,800 自然增长到 6,150（年 +62%），叠加周末 +5%、月初/月末、±3% 噪声；MAU 按滚动 30 天由 DAU 推算。</p></div>
+      <div class="card"><b class="t">分子分母分开存储</b><p>QPU、平均轮数不存比值，存原始「提问总数/会话总数/总轮数」，切换时间区间时聚合重算，比值才正确。</p></div>
+      <div class="card"><b class="t">确定性伪随机</b><p>所有噪声用种子伪随机生成，React 重渲染结果稳定，刷新不跳数。</p></div>
+      <div class="card"><b class="t">2,000 个模拟用户位图</b><p>用户活跃明细用 <span class="mono">Uint32Array</span> 位掩码存储（1 bit/天），分低频 40% / 中频 35% / 高频 20% / 新用户 5% 四种行为模式。</p></div>
+      <div class="card"><b class="t">会话按需生成</b><p>对话会话不预生成 50 万条全局数组，而是按所选日期区间 procedural 生成，控制浏览器内存。</p></div>
+      <div class="card"><b class="t">性能与状态设计</b><p>只有 active 页面真正 mount（非活跃页的 Recharts 不进 DOM）；<span class="mono">GlobalTimeProvider</span> 在 Shell 之上，切页不重置时间区间。</p></div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════ 02 执行链 ════════════════════════ -->
+  <section class="chapter" id="ch2">
+    <div class="ch-eyebrow">02 · EXECUTION CHAIN PROTOTYPE</div>
+    <h2>小顾执行链 · Debug 交互原型</h2>
+    <p class="ch-sub">纯前端可交互原型 · 部署于 Netlify · 支持重播与中断</p>
+
+    <p>这个原型回答一个交互设计问题：<strong>当用户一句话里塞进多个任务，AI 助理的执行过程该怎么展示？</strong>原型模拟了一个复合请求的完整执行链，把「先答核心问题、再做后续处理」拆成两段可折叠的执行轨迹，并设计了中断机制。</p>
+
+    <h3>模拟场景</h3>
+    <blockquote>帮我看看持有策略的定投和发车情况，<b>记住这次结果</b>，<b>每周一提醒我</b>检查，并<b>生成报告和图表</b>。</blockquote>
+    <p class="muted">一句话包含四个任务：分析、写记忆、建定时任务、产出报告。</p>
+
+    <h3>执行链全流程重现</h3>
+    <div class="stage-head"><span class="tick">✓</span>阶段一 · 前序分析（12 秒，完成后自动折叠）</div>
+    <div class="trace">
+      <div class="ev decision">决策 1：先读取持有策略和最近的发车记录，确认哪些信号已经提醒过。</div>
+      <div class="ev tool">◇ 查询持有策略 · 2 项</div>
+      <div class="ev tool">◇ 浏览策略详情与最新估值 · 3 次</div>
+      <div class="ev tool">◇ 运行发车信号去重检查</div>
+      <div class="ev result">已确认：两个策略最近一次发车信号均已提醒，当前没有需要重复操作的新信号。</div>
+      <div class="ev decision">决策 2：继续核验估值位置和定投状态，形成可直接执行的建议。</div>
+      <div class="ev tool">◇ 获取最新估值区间 · 2 次</div>
+      <div class="ev tool">◇ 计算发车阈值与当前位置</div>
+      <div class="ev tool">◇ 汇总定投与历史提醒数据</div>
+      <div class="ev result">判断完成：维持原有定投节奏即可，等待新的发车信号再考虑加仓。</div>
+    </div>
+
+    <div class="stage-head" style="color:var(--accent-ink)">▸ 阶段回答（核心问题先答，不等后续处理）</div>
+    <blockquote><b>当前没有需要立即操作的新信号。</b>你持有的两个策略最近一次发车都已经提醒过，建议保持原有定投节奏，暂不重复加仓。<br><span class="small">稳健型组合 —— 估值处于合理区间，继续定投 ｜ 普通组合 —— 7 月 14 日的信号已经提醒，等待机会</span></blockquote>
+
+    <div class="stage-head"><span class="tick">✓</span>阶段二 · 记忆与定时任务处理（5 秒）</div>
+    <div class="trace">
+      <div class="ev decision">先把本次判断写入记忆，并记录「已提醒信号不重复通知」的偏好。</div>
+      <div class="ev tool">◇ 读取现有用户记忆</div>
+      <div class="ev tool">◇ 更新投资偏好与本次执行记录</div>
+      <div class="ev result">记忆已更新：以后遇到相同发车记录时，将避免重复提醒。</div>
+      <div class="ev decision">根据用户要求创建每周一检查任务，并确认执行时间与提醒内容。</div>
+      <div class="ev tool">◇ 创建定时任务 · 每周一 09:00</div>
+      <div class="ev tool">◇ 校验下次执行时间与通知渠道</div>
+      <div class="ev result">定时任务已创建：每周一 09:00 检查持有策略和新发车信号。</div>
+    </div>
+
+    <div class="stage-head"><span class="tick">✓</span>最终产出</div>
+    <p>本轮结论卡片（记忆「已更新」、定时任务「每周一 09:00」、策略估值与发车阈值表）+ 两个可下载文件：<span class="mono">持有策略定投与发车情况报告.pdf</span> 与 <span class="mono">invest_strategy_report.html</span>。<strong>产出文件独立于对话保留</strong>——这正是第 06 章「聊天可删、成果可留」方案在交互上的落点。</p>
+
+    <h3>关键交互设计</h3>
+    <div class="grid c2">
+      <div class="card"><b class="t">分段执行 + 阶段回答</b><p>核心分析完成即先给答案，记忆/定时任务在其后异步处理——用户不用等全链路跑完才看到结论。</p></div>
+      <div class="card"><b class="t">四类事件的视觉语言</b><p>Thinking（思考中）、决策（本步要做什么）、工具调用（带图标与次数）、结果（高亮结论），完成的阶段自动折叠只留「✓ 标题 · 耗时」。</p></div>
+      <div class="card"><b class="t">可中断</b><p>执行中可随时中断：当前步骤打上「已中断」标签，并明确提示「任务停留在当前步骤，后续操作与报告没有继续生成」。</p></div>
+      <div class="card"><b class="t">可重播</b><p>原型自带「重新播放」，方便评审时反复演示时序细节。</p></div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════ 03 盈米实验室 ════════════════════════ -->
+  <section class="chapter" id="ch3">
+    <div class="ch-eyebrow">03 · YINGMI AI LAB</div>
+    <h2>盈米实验室</h2>
+    <p class="ch-sub">「用盈米 MCP 与 Skills 创建金融应用」· 调研 → PRD → 可交互 Demo → 评审的完整闭环</p>
+
+    <p>盈米实验室是一个 <strong>AI 金融应用构建器</strong>的产品原型——用户用一句自然语言描述需求，AI 展示思考与计划流程，调用盈米 MCP / Skills 自动构建出可发布的金融应用。定位类似「金融场景的 v0 / Lovable」，但底层能力全部来自盈米开放平台。这是六个专题里链路最完整的一个：调研表格、PRD、可交互 Demo、评审会后总结齐备（文档在飞书）。</p>
+
+    <h3>五个核心界面</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>界面</th><th>内容与交互</th></tr></thead>
+        <tbody>
+          <tr><td><b>开始创建</b></td><td>Hero「用盈米能力，创建你的金融应用」+ 需求输入框（带「优化」按钮润色 prompt）+ 四个示例需求：基金对比研究 Dashboard / 基金组合健康诊断工具 / 市场早报网页 / 家庭财富规划应用；下方是最近聊天与最近项目。</td></tr>
+          <tr><td><b>应用广场</b></td><td>官方与社区用户发布的金融应用，标记为模板的可以继续创建；官方模板卡片内嵌<em>可操作的迷你应用</em>（应用首页/分析结果/能力明细三个标签）。</td></tr>
+          <tr><td><b>工作空间</b></td><td>集中管理聊天与项目：全部 / 已加星标 / 最近查看 / 共享给你；区分「聊天」（还在聊需求）与「项目」（已构建），含他人共享（来自 Sarah K. 的家庭财富规划报告、Mike R. 的基金筛选工具）。</td></tr>
+          <tr><td><b>能力中心</b></td><td>四个标签：MCP / Skills / Agent / 组件（详见下）。</td></tr>
+          <tr><td><b>项目工作台</b></td><td>左侧构建对话，右侧 预览 / 代码 / 能力 三视图 + 「已完成」状态 + 发布按钮。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>构建流程（以「基金对比研究 Dashboard」为例，实测重现）</h3>
+    <div class="trace">
+      <div class="ev decision">用户需求：对比多只基金的收益、回撤、波动率与持仓</div>
+      <div class="ev result">✓ 已完成需求理解与计划 · 4 步 —— 「计划已经生成。我会按计划调用盈米 MCP 与 Skills，现在开始构建『基金对比研究 Dashboard』。」</div>
+      <div class="ev result">✓ 已完成思考与执行计划 · 6 步 —— 「Dashboard 已生成。右侧预览展示了基金收益走势、风险指标和 fund-analyst 研究摘要。」</div>
+      <div class="ev decision">迭代继续：「再加一列基金经理任职年限，并高亮回撤超过 15% 的基金」</div>
+    </div>
+
+    <p>生成的 Dashboard（Demo 模拟数据）：3 只对比基金、近期最高收益 +12.8%、最低回撤 -3.9%、数据覆盖 100%（4 个 MCP 工具），含累计收益走势图（期初净值归一为 100）与 fund-analyst 摘要。</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>基金</th><th>代码</th><th class="num">收益</th><th class="num">最大回撤</th><th class="num">波动率</th><th>风险</th></tr></thead>
+        <tbody>
+          <tr><td>稳健成长A</td><td class="mono">000001</td><td class="num">+12.8%</td><td class="num">-8.4%</td><td class="num">14.2%</td><td>中等</td></tr>
+          <tr><td>均衡价值A</td><td class="mono">000002</td><td class="num">+9.4%</td><td class="num">-6.1%</td><td class="num">11.8%</td><td>中等</td></tr>
+          <tr><td>红利低波A</td><td class="mono">000003</td><td class="num">+7.6%</td><td class="num">-3.9%</td><td class="num">8.6%</td><td>中低</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>能力账单：一次构建用了什么</h3>
+    <p>每个项目的「能力」页把本次构建消耗的平台能力记成一张账单——这是把「AI 用了哪些能力」产品化成可审计视图的设计。本例合计调用 <b>8</b> 次：</p>
+    <div class="grid c2">
+      <div class="card"><b class="t">MCP × 4</b><p class="mono small">基金代码模糊匹配 · 批量获取基金详情 · 批量获取基金业绩表现 · 基金净值历史（各 1 次）</p></div>
+      <div class="card"><b class="t">Skills × 2</b><p class="mono small">fund-analyst（生成多基对比与研究摘要）· design-data-visualization（组装可交互 Dashboard）</p></div>
+      <div class="card"><b class="t">Agent × 1</b><p class="mono small">fund-compare-agent —— 编排本项目相关的 MCP 与 Skills</p></div>
+      <div class="card"><b class="t">组件 × 1</b><p class="mono small">ResultDashboard —— 结果预览与数据展示主界面组件</p></div>
+    </div>
+
+    <h3>能力中心的四层能力模型</h3>
+    <div class="grid c2">
+      <div class="card"><b class="t">MCP</b><p>平台内置「盈米 MCP」（69 个工具清单，自动调用）；用户可添加自定义 MCP 并单独启停调用权限（示例：hexin-market-mcp 4/4 工具已启用、enterprise-research-mcp、internal-knowledge-mcp 未启用）——「在这里直接开启或暂停智能体的调用权限；连接不会被删除」。</p></div>
+      <div class="card"><b class="t">Skills</b><p>平台内置「盈米 Skills」清单 11 个（覆盖基金研究、市场解读、财富规划与数据可视化工作流）；支持安装团队/个人 Skill 并控制智能体是否可调用。</p></div>
+      <div class="card"><b class="t">Agent</b><p>官方能力示例：基金研究助手（自动规划研究步骤，按需调用 MCP 与 Skills）、组合诊断助手（持仓结构、风险暴露、相关性与优化方向）。</p></div>
+      <div class="card"><b class="t">组件（且慢 Design Skill）</b><p>9 个金融设计组件，每个带使用规范：数据结论卡片、三态重点提示（风险信息始终可见）、金融数据表格（文本左对齐数字右对齐）、收益曲线（只标期末/峰值/谷值）、回撤曲线（负值面积、突出零线）、资产配置环形图（不超过六类，其余归「其他」）、指标对比条形图（≤8 类目）、结构占比堆叠图、用户画像雷达图（5~7 个同口径维度）。</p></div>
+    </div>
+
+    <h3>应用广场：模板即微应用</h3>
+    <div class="grid c3">
+      <div class="card"><b class="t">基金对比研究 Dashboard</b><p class="k">盈米研究团队 · 热度 420</p><p>输入基金名称即可完成业绩、回撤、风险收益和持仓结构的多维比较。参数：研究对象 / 风险偏好（稳健·均衡·进取）/ 对比数量。示例产出：候选基金 21 只、近一年收益 +8.3%、最大回撤 -6.3%、综合评分 84。</p></div>
+      <div class="card"><b class="t">市场早报生成器</b><p class="k">盈米内容实验室 · 热度 358</p><p>聚合指数表现、市场事件和板块涨跌，生成每天可快速阅读的市场早报。示例产出：市场温度 65、重要事件 5 条、上涨行业 4 个、风险关注 2 项。</p></div>
+      <div class="card"><b class="t">家庭财富规划报告</b><p class="k">周予安 · 热度 198</p><p>整理家庭资产、现金流和长期目标，形成财富健康度、目标进度与配置建议。示例产出：目标达成率 77%、资金缺口 71 万、建议月投入 4,860 元、风险等级均衡。</p></div>
+    </div>
+    <p class="small">社区侧还有用户发布的「额度管家」「纳指管家」（by 王钊灏）等基金研究应用。</p>
+  </section>
+
+  <!-- ════════════════════════ 04 OAP 官网 ════════════════════════ -->
+  <section class="chapter" id="ch4">
+    <div class="ch-eyebrow">04 · YINGMI AI OPEN PLATFORM</div>
+    <h2>盈米 AI 开放平台官网</h2>
+    <p class="ch-sub">所有页面已完成 · 六个页面：首页 / MCP 产品介绍 / MCP 清单 / Skills 清单 / 常见问题 / 客户案例</p>
+
+    <p>开放平台官网承载盈米对外输出 AI 能力的门面：「<strong>构建 AI 连接金融世界的基础设施</strong>——沉淀十余年买方投顾智慧与万只基金数据资产，通过标准化 MCP 数据协议、专家 Skills 引擎与智能体矩阵，赋能开发者与金融机构高效落地高可信 AI 财富管理应用。」</p>
+
+    <div class="kpis">
+      <div class="kpi"><b>1.1w+</b><span>服务注册用户</span></div>
+      <div class="kpi"><b>565</b><span>赋能金融机构</span></div>
+      <div class="kpi"><b>80+</b><span>开放金融能力</span></div>
+      <div class="kpi"><b>9.5M+</b><span>累计服务调用</span></div>
+    </div>
+    <p class="small">以上为官网首页展示值；MCP 产品页另有口径：服务总人数 8,759、总调用 9.2M+、API 接口 69。生态合作伙伴：阿里云百炼、火山引擎、百度搜索、百度智能云、腾讯云。</p>
+
+    <h3>产品叙事：MCP 是通道，Skills 是能力</h3>
+    <div class="grid c3">
+      <div class="card"><b class="t">盈米 MCP</b><p>面向金融场景的标准化能力接入协议，统一接入口，五大类能力开箱即用，数据实时更新。两种使用模式：①自建应用（获取 Key 搭建专属金融 AI，适用 AI 开发者）；②平台配置（在 Cursor / Coze 等配置，提问即调用，适用投顾、量化、个人投资者）。</p></div>
+      <div class="card"><b class="t">盈米 Skills</b><p>覆盖基金研究、市场解读、财富规划与数据可视化的专家工作流引擎，按专家约束沉淀能力，支持下载包自建或平台配置两种模式。</p></div>
+      <div class="card"><b class="t">盈米智能体</b><p>智能体矩阵——官网 FAQ 的一句话定位最清楚：「MCP 解决的是怎么接入，Skills 解决的是接入后能做什么。前者是通道，后者是能力。」智能体则是二者的编排成品。</p></div>
+    </div>
+
+    <h3>MCP 工具全目录（69 个，可筛选）</h3>
+    <p>官网 MCP 清单页的完整内容——69 个标准化金融工具，五大能力域（金融数据 35 / 投研服务 13 / 投顾服务 11 / 通用服务 5 / 投顾内容 5），下表按工具子类目呈现，调用次数为官网展示值：</p>
+    <div class="filters" id="mcpFilters"></div>
+    <div class="tbl-wrap" style="max-height:520px;overflow-y:auto">
+      <table id="mcpTable">
+        <thead><tr><th>子类目</th><th>工具</th><th>代码</th><th>说明</th><th class="num">被调用</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="small" id="mcpCount"></p>
+
+    <h3>Skills 清单（11 个，按积分计费）</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>类别</th><th>Skill</th><th>说明</th><th class="num">被调用</th></tr></thead>
+        <tbody>
+          <tr><td rowspan="5">财富规划</td><td class="mono">wealth-report</td><td>整合诊断、资产负债、收支、目标、现金流、配置与保障建议，生成结构清晰的家庭财富规划 HTML 报告</td><td class="num">156</td></tr>
+          <tr><td class="mono">wealth-healthcheck</td><td>快速完成家庭财务健康体检，计算 9 项核心指标并给出评级、风险提示与结构化改善建议</td><td class="num">163</td></tr>
+          <tr><td class="mono">wealth-goalmatch</td><td>根据家庭与财务数据推荐财富目标优先级，评估目标合理性，形成目标诊断、排序与行动建议</td><td class="num">137</td></tr>
+          <tr><td class="mono">wealth-goalcalc</td><td>测算目标终值、达成率和月投缺口，回答「每月投多少、几年后有多少」</td><td class="num">145</td></tr>
+          <tr><td class="mono">wealth-family-advisor</td><td>综合家庭阶段、资产负债、现金流与风险偏好，形成可执行的家庭财富配置与持续跟踪方案</td><td class="num">128</td></tr>
+          <tr><td rowspan="3">基金分析</td><td class="mono">fund-analyst</td><td>围绕单只基金的收益、风险、持仓、基金经理和同类表现进行结构化分析</td><td class="num">121</td></tr>
+          <tr><td class="mono">portfolio-doctor</td><td>诊断基金组合的集中度、风格暴露、风险收益结构与配置缺口</td><td class="num">116</td></tr>
+          <tr><td class="mono">fund-screener</td><td>按风险、收益、规模、风格与产品特征筛选基金，支持多条件比较</td><td class="num">109</td></tr>
+          <tr><td rowspan="2">市场资讯</td><td class="mono">market-morning-brief</td><td>聚合市场、行业与重点事件信息，生成带来源、便于快速阅读的市场早报</td><td class="num">102</td></tr>
+          <tr><td class="mono">advisor-content-studio</td><td>将行情与研究信息转化为投顾可用的市场解读、客户沟通材料与内容草稿</td><td class="num">98</td></tr>
+          <tr><td>内容生成</td><td class="mono">design-data-visualization</td><td>把结构化数据转化为清晰统一的图表与 HTML 可视化表达</td><td class="num">94</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>盈米 AI 关键里程碑（官网时间线全量）</h3>
+    <div class="timeline">
+      <div class="ms"><b class="d">2023 年初</b>ChatGPT 兴起，盈米开始组建 AI 基础能力与数据标注团队，探索 AI 应用</div>
+      <div class="ms"><b class="d">2024-05</b>推出证券基金行业最早面向大众客户的 AI 应用——且慢 AI 小顾</div>
+      <div class="ms"><b class="d">2024-09</b>在内容平台（盈米图书馆）系统引入 AI 内容生成能力</div>
+      <div class="ms"><b class="d">2024 Q3</b>着手搭建企业 AI 应用平台，产研全员使用 Copilot、Cursor、TRAE、Amazon Q 等 AI 编程工具</div>
+      <div class="ms"><b class="d">2025-02</b>且慢「AI 小顾」深度融合 DeepSeek-R1 深度推理模型</div>
+      <div class="ms"><b class="d">2025-03</b>全员拥抱 AI，AI 能力纳入员工考核；启动「盈米 AI 开放平台」项目</div>
+      <div class="ms"><b class="d">2025-04</b>推出财富管理行业首个 MCP Server——盈米且慢 MCP，上架阿里云百炼、扣子、火山引擎</div>
+      <div class="ms"><b class="d">2025-06</b>举办盈米且慢 MCP 大师赛</div>
+      <div class="ms"><b class="d">2025-07</b>与阿里云达成 AI 全栈战略合作</div>
+      <div class="ms"><b class="d">2025-09</b>与阿里云联合发布行业首个理财智能体评测集和投顾智能体模型；且慢 MCP 登钛媒体年度 AI 应用 TOP 榜</div>
+      <div class="ms"><b class="d">2025-11</b>获「AI 生态共建卓越贡献伙伴」「AI 实践先锋」；且慢 MCP 被新华财经《中国基金投顾业务洞察报告（2025）》收录</div>
+      <div class="ms"><b class="d">2026-02</b>且慢 AI 小顾升级 2.0：多元模型矩阵，接入且慢 MCP 与智能体生态</div>
+      <div class="ms"><b class="d">2026-03</b>行业首个投顾内容合规审查 Skill 上线</div>
+      <div class="ms"><b class="d">2026-04</b>盈米 MCP 入选工信部「AI 产业创新场景应用案例」（财富管理领域唯一）；成为阿里云金融 AI 联盟合作伙伴；盈米 AI 公告实验室上线</div>
+      <div class="ms"><b class="d">2026-05</b>联合阿里云发布「机构 AI 智能体解决方案」；且慢 AI 小顾 3.0 升级，迈入主动式服务、千人千面阶段</div>
+      <div class="ms"><b class="d">2026-06</b>登陆 2026 中国国际金融展，展示机构 AI 智能体解决方案与小顾 3.0</div>
+      <div class="ms"><b class="d">2026-07</b>盈米 MCP、Skill、Agent 陆续上线腾讯 WorkBuddy</div>
+      <div class="ms"><b class="d">2026-08</b>行业首家：且慢小顾智能体接入千问开放平台</div>
+    </div>
+
+    <h3>常见问题（11 条全量）</h3>
+    <details><summary>使用盈米 MCP 服务是否需要付费？</summary><div>目前使用无须付费。如有大量使用、定制服务或商用目的需求，可联系盈米咨询专属服务。</div></details>
+    <details><summary>谁适合用盈米 MCP？</summary><div>资深投资人（高效解决个性化投资问题）；投资顾问（搭建智能体，自用或服务客户）；更多金融从业人员，包括开发者与业务人员（快速组装高质量金融服务）。</div></details>
+    <details><summary>哪里可以用到盈米 MCP 工具？</summary><div>所有支持 MCP 协议的 AI 应用与 Agent 平台都可接入使用，例如 Cursor、Cline、CherryStudio、Windsurf 等。</div></details>
+    <details><summary>为什么要申请 API Key？</summary><div>只需申请一次专属 API Key，即可长期在多个平台稳定使用。它保障工具使用权益与服务体验，便于跟踪异常、获得技术支持及后续自定义参数或升级。</div></details>
+    <details><summary>MCP 是什么？MCP 和 Skills 有什么区别？</summary><div>MCP 是连接模型与外部数据、服务能力的标准化接入协议。「MCP 解决的是怎么接入，Skills 解决的是接入后能做什么。前者是通道，后者是能力。」</div></details>
+    <details><summary>为什么当前只有一个 MCP？</summary><div>盈米 MCP 作为统一接入口，对外提供标准化的数据与服务访问方式，便于统一管理与持续扩展。</div></details>
+    <details><summary>开通后在哪里查看接入方式？其他排查问题</summary><div>开通后可在个人中心查看服务地址、认证方式与接入配置。Cursor 找不到配置：更新 Cursor 后重试；添加 MCP Server 后无法使用：在设置中确认 Server 状态为绿色可用、处于 Enable 状态后点刷新。</div></details>
+
+    <h3>客户案例（9 个，环形展开画廊）</h3>
+    <p>案例页做了「环形展开 ↔ 横向书廊」两种浏览形态，并保留了多彩版 / 深色版 / 反转版 / 第 4 版四个风格变体供评审选择。九个案例（标注「草稿」的为待审稿）：</p>
+    <div class="grid c3">
+      <div class="card"><b class="t">且慢 AI 小顾 7×24 智能投顾</b><p class="k">盈米智能体场景 · 智能投顾 · 草稿</p></div>
+      <div class="card"><b class="t">小顾账户诊断：一次对话生成整合诊断报告</b><p class="k">盈米智能体场景 · 智能投顾</p></div>
+      <div class="card"><b class="t">某金融机构：AI 打通投教内容全链路</b><p class="k">Skills 应用 · 内容生产</p></div>
+      <div class="card"><b class="t">某头部投顾平台：AI 重塑投顾报告生产</b><p class="k">MCP 接入 · 智能投顾</p></div>
+      <div class="card"><b class="t">某头部搜索平台：金融问答补上实时数据</b><p class="k">MCP 接入 · 内容生产 · 草稿</p></div>
+      <div class="card"><b class="t">某大模型平台：打磨金融垂类能力</b><p class="k">MCP 接入 · 大模型合作 · 草稿</p></div>
+      <div class="card"><b class="t">某财富管理平台：家庭财务健康诊断</b><p class="k">MCP 接入 · 财富管理 · 草稿</p></div>
+      <div class="card"><b class="t">某运营团队：热点快速变营销内容</b><p class="k">Skills 应用 · 内容生产 · 草稿</p></div>
+      <div class="card"><b class="t">某头部银行：重塑理财经理报告工作流</b><p class="k">MCP 接入 · 智能投顾</p></div>
+    </div>
+
+    <div class="note">工程实现备注：整站是一个 index.html——子页面以 base64 编码内嵌、经 iframe srcdoc 多层加载，全站体积约 30MB。这保证了「单文件即整站」的交付简洁性，也是维护时只需关注 index.html 的原因。</div>
+  </section>
+
+  <!-- ════════════════════════ 05 合规调研 ════════════════════════ -->
+  <section class="chapter" id="ch5">
+    <div class="ch-eyebrow">05 · LLM COMPLIANCE RESEARCH</div>
+    <h2>大模型接入合规 <span class="badge lock">内容在飞书</span></h2>
+    <p class="ch-sub">三份调研文档 · 支撑开放平台的合规与商业化决策</p>
+    <p>这个专题是纯调研输出，三份文档均沉淀在飞书知识库（需内网权限，本报告未解析正文，以下为文档主题）：</p>
+    <div class="grid c3">
+      <div class="card"><b class="t">天天基金的调研</b><p>对标头部基金销售平台在大模型接入上的合规实践。</p></div>
+      <div class="card"><b class="t">轻量化处理方案</b><p>大模型接入合规的轻量化处理方案设计。</p></div>
+      <div class="card"><b class="t">金融数据服务商 MCP · Skills · Agent 收费调研</b><p>行业服务商三类 AI 能力产品的收费模式盘点（含数据表格）。</p></div>
+    </div>
+    <p class="small">与第 04 章的关联：官网 FAQ 中「目前使用无须付费 / 商用需求联系咨询」与 Skills「按积分计费」的口径，正是这类调研服务的决策场景。</p>
+  </section>
+
+  <!-- ════════════════════════ 06 移动端 ════════════════════════ -->
+  <section class="chapter" id="ch6">
+    <div class="ch-eyebrow">06 · MOBILE CHAT &amp; ARTIFACTS</div>
+    <h2>移动端 AI 产品：聊天删除与成果保留</h2>
+    <p class="ch-sub">调研 + 两张流程图 + SSO 登录原型</p>
+    <p>研究移动端 AI 产品中「<strong>聊天可删、成果可留</strong>」的方案：对话是过程性内容，用户应能删除；而报告、图表等成果是资产，应独立于对话生命周期保留。交付物包括调研表格（飞书）、两张方案流程图（ProcessOn，分享链接需登录查看）与一份 SSO 登录原型图（Figma）。</p>
+    <p>这个方案在其他专题里能看到落点：第 02 章执行链原型的「最终产出」把 PDF / HTML 报告文件独立呈现在对话之外；第 01 章看板则专门设有「<strong>成果区使用次数</strong>」指标（日均 1,000 → 1,352）来度量成果区的使用——方案、交互、度量三者是配套的。</p>
+    <div class="grid c2">
+      <div class="card"><b class="t">流程图 × 2</b><p class="k">ProcessOn · 需登录查看</p><p>聊天删除与成果保留的完整业务流程。</p></div>
+      <div class="card"><b class="t">SSO 登录原型</b><p class="k">Figma</p><p>移动端 SSO 登录流程的界面原型。</p></div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════ 附录 ════════════════════════ -->
+  <section class="chapter" id="appendix">
+    <div class="ch-eyebrow">APPENDIX</div>
+    <h2>交付物台账</h2>
+    <p class="ch-sub">全部 19 项原始交付物直达链接 · 访问状态如实标注</p>
+    <div id="linkList"></div>
+  </section>
+
+  <footer>
+    <p><b>维护说明</b>：本报告按章组织，每章在源码中有 <code>&lt;!-- ════ 0N ════ --&gt;</code> 注释锚点；MCP 工具目录与交付物台账由文件底部 <code>MCP_TOOLS</code> / <code>LINKS</code> 两个数据数组驱动，新增内容改数组即可。也可以直接把更新内容发给 Claude，让它修改后重新发布到同一地址。</p>
+    <p>内容来源：四个上线站点与 GitHub 源码的全量解析（2026-09-03 抓取）；示例数值均标注「Demo / 示例数据」；飞书与 ProcessOn 权限墙内的文档如实标注未解析。源文档：《盈米基金-余悦实习-文档整理.docx》</p>
+  </footer>
+</main>
+</div>
+
+<script>
+/* ============================================================
+   数据区 —— 维护时只改这里
+   ============================================================ */
+// MCP 工具目录：[子类目, 名称, 代码, 说明, 被调用]
+const MCP_TOOLS = [
+["基金数据","搜索基金","SearchFunds","按多维条件搜索筛选目标基金产品清单","124.2万"],
+["基金数据","基金净值历史","BatchGetFundNavHistory","批量获取基金历史净值走势及区间表现数据","45.1万"],
+["基金数据","批量获取基金详情","BatchGetFundsDetail","批量获取基金基础详情及产品属性信息","30.5万"],
+["基金数据","批量获取基金业绩表现","GetBatchFundPerformance","批量对比基金业绩表现及收益风险指标情况","12.5万"],
+["基金数据","基金风险分析","AnalyzeFundRisk","评估单只或多只基金的风险收益特征与暴露","9.6万"],
+["基金数据","基金交易限制信息","BatchGetFundTradeLimit","批量查询基金交易状态限额及申赎限制信息","4.6万"],
+["基金数据","权益仓位偏好","fund-equity-position","测算基金长期权益仓位及攻守属性","3.4万"],
+["基金数据","基金分红记录","BatchGetFundsDividendRecord","批量获取基金历史分红记录及分红明细信息","3.4万"],
+["基金数据","行业配置比例","getFundIndustryAllocation","解析基金当前或历史季度的行业配置比例分布","3.1万"],
+["基金数据","基金交易规则","BatchGetFundTradeRules","查询基金申购赎回确认时间及费率交易规则","2.9万"],
+["基金数据","基金换手率（调仓频率）","getFundTurnoverRate","计算基金在指定区间内的实际持仓换手率","1.6万"],
+["基金数据","业绩基准（合同基准）","getFundBenchmarkInfo","查询基金法定业绩比较基准及指数构成权重","1.4万"],
+["基金数据","Brinson 归因","getFundBrinsonIndicator","基于 Brinson 模型拆解基金超额收益来源","1.2万"],
+["基金数据","资产大类分布","GetFundAssetClassAnalysis","穿透基金组合表层并分析底层大类资产结构","1.1万"],
+["基金数据","估值盈利指标","getStockAllocationAndMetricsByFundCode","穿透基金持仓并输出九大股票指标（市盈率/市净率/ROE 等）","1.1万"],
+["基金数据","基金行业持仓集中度","getFundIndustryConcentration","计算基金前 N 大行业合计占比与集中度水平","8560"],
+["基金数据","回撤修复能力","fund-recovery-ability","评估基金回撤后的净值修复能力","7427"],
+["基金数据","债基风险查询","getBondIndicator","提取债基久期、杠杆率、集中度等核心风险指标","6169"],
+["基金数据","行业收益","getFundIndustryReturns","拆解基金收益在不同行业层面的具体贡献来源","5145"],
+["基金数据","基金行业偏好","getFundIndustryPreference","提取基金经理长期稳定偏好的重点行业方向","4014"],
+["基金数据","Campisi 归因","getFundCampisiIndicator","基于 Campisi 模型拆解债基收益结构来源","3994"],
+["基金数据","券种配置情况","getBondAllocationByFundCode","解析债基底层券种配置比例及主要收益来源","3923"],
+["基金数据","基金板块偏好","fund-sector-preference","解析基金特定周期的板块配置偏好","3814"],
+["基金数据","权益仓位择时","getMarketTimingIndicator","评估基金经理的市场择时胜率与收益贡献表现","2144"],
+["基金数据","QDII 地区配置","getQdFundAreaAllocation","解析 QDII 基金的全球地区配置分布","1818"],
+["基金数据","基金拆分记录","BatchGetFundsSplitHistory","获取基金历史拆分折算记录及相关时间节点","1676"],
+["基金数据","债基异动","getFundDiveCount","统计基金在指定周期内的净值异常跳水次数","1215"],
+["基金数据","债基评级查询","getBondFundCreditRatingLevel","拆解债券基金底层持仓的信用评级结构分布","1143"],
+["策略数据","策略详情查询","GetStrategyDetails","一站式查询投顾策略的全量详情与核心信息","3.3万"],
+["策略数据","策略大类资产分布","GetStrategyAssetClassAnalysis","穿透投顾策略组合并分析底层大类资产结构","2.7万"],
+["策略数据","策略风险","GetStrategyRiskInfo","获取单个投顾策略的风险等级画像与持有建议","2.2万"],
+["策略数据","批量查询策略持仓","BatchGetStrategiesComposition","批量获取多个投顾策略的底层持仓组成明细","2.2万"],
+["策略数据","查询策略业绩基准","GetStrategyBenchmark","查询投顾策略官方业绩基准及其指数权重构成","1.3万"],
+["策略数据","组合历史净值","GetPortfolioNavHistory","获取投顾策略历史净值走势及收益变化轨迹","1.3万"],
+["策略数据","策略交易成分","BatchGetPoTradeComposition","获取策略实际交易成分及对应配置比例信息","2381"],
+["投前分析","基金诊断","GetFundDiagnosis","对单只基金进行多维度的全景量化诊断分析","25.0万"],
+["投前分析","获取近期热门基金","GetPopularFund","获取当前市场热度较高的热门基金产品列表","12.3万"],
+["投前分析","市场温度计","GetLatestQuotations","输出市场温度指标及核心宽基指数行情快照","6.5万"],
+["投前分析","按重仓基金筛选投顾策略","GetFundRelatedStrategies","反向检索重仓持有某只基金的投顾策略列表","2714"],
+["投前分析","查询发生净值异动的债基","getBondFundWithAlertRecord","检索近期触发净值跳水或异动告警的债基产品","635"],
+["投前分析","券种风格筛选基金","filterBondFundByBondType","按券种占比条件筛选债券基金","504"],
+["投前分析","根据信用评级筛选基金","filterBondFundByCreditRating","按信用评级占比条件筛选符合要求的债券基金","475"],
+["投前分析","股票换手率筛选基金","filterStockFundByStockTurnover","按股票换手率筛选权益基金","388"],
+["测算能力","回测分析","GetFundsBackTest","回测基金或基金组合的历史表现与风险特征","2.6万"],
+["测算能力","组合预期收益测算（蒙特卡洛）","MonteCarloSimulate","模拟组合未来收益路径及概率分布区间表现","1.2万"],
+["投后诊断","投后风险分析","AnalyzePortfolioRisk","评估基金组合整体风险水平及波动回撤特征","2.0万"],
+["投后诊断","资产配置分析","GetAssetAllocation","穿透基金组合底层并分析大类资产配置比例","1.5万"],
+["投后诊断","基金相关性分析","GetFundsCorrelation","计算多只基金之间的收益相关性与联动关系","1.4万"],
+["投资顾问","获取资产配置方案","GetAssetAllocationPlan","基于目标需求生成匹配的资产配置规划方案","21.6万"],
+["投资顾问","策略关键词搜索","StrategySearchByKeyword","按关键词快速搜索匹配相关投顾策略产品","5.7万"],
+["投资顾问","财务状况分析","AnalyzeFinancialIndicators","计算家庭核心财务健康指标并形成诊断结果","2.3万"],
+["投资顾问","账户诊断","DiagnoseFundPortfolio","对基金组合进行穿透式综合诊断与风险评估","1.6万"],
+["投资顾问","获取基金投资方案","GetCompositeModel","按配置目标生成对应的底层基金组合方案","1.2万"],
+["投资顾问","策略风险匹配","BatchGetStrategyRiskInfo","批量获取多个投顾策略的风险画像与持有建议","7336"],
+["投资顾问","投资方案表现分析","AnalyzeInvestmentPerformance","测算投资方案对目标收益或目标达成的可行性","1702"],
+["投资顾问","家庭结构分析","AnalyzeFamilyMembers","识别家庭成员结构及所处生命周期阶段特征","1365"],
+["投资顾问","现金流分析与财务规划","AnalyzeCashFlow","预测家庭未来跨周期现金流变化与资金缺口","1290"],
+["投资顾问","资产负债分析","AnalyzeAssetLiability","分析家庭资产负债结构及整体偿债压力水平","1047"],
+["投资顾问","收入支出分析","AnalyzeIncomeExpense","分析家庭收入支出结构及结余变化情况","720"],
+["金融工具","基金代码模糊匹配","GuessFundCode","将模糊基金名称智能匹配为准确基金代码","38.4万"],
+["常用工具","获取当前时间","GetCurrentTime","获取系统当前时间及相关基准时间信息","4.9万"],
+["常用工具","ECharts 图表渲染","RenderEchart","将 ECharts 图表配置渲染为可展示图像","1.8万"],
+["常用工具","HTML 转 PDF","RenderHtmlToPdf","将 HTML 内容高质量渲染并导出为 PDF 文档","1.6万"],
+["常用工具","交易日查询","GetTxnDayRange","计算指定区间内的有效交易日","1.1万"],
+["公开内容","财经资讯","SearchFinancialNews","检索财经资讯内容并提取核心事件摘要信息","364.4万"],
+["公开内容","热点财经话题榜单","SearchHotTopic","聚合当前市场热点话题并提炼背后驱动逻辑","3.3万"],
+["盈米生产","基金经理观点","SearchManagerViewpoint","检索基金经理公开观点表态及市场看法内容","83.8万"],
+["盈米生产","搜索投顾内容","searchInvestAdvisorContent","检索投顾观点研报内容及相关策略解读信息","3.4万"],
+["盈米生产","实时资讯 AI 解读","searchRealtimeAiAnalysis","提炼实时财经资讯并生成结构化 AI 解读摘要","2.0万"],
+];
+
+// 交付物台账：[专题, 名称, url, 来源, 访问状态: open|lock]
+const LINKS = [
+["小顾数据看板","指标整理","https://l0z2jef66pz.feishu.cn/wiki/Tg8ywurTaiW1gpk37PXclH4InLe?from=from_copylink","飞书 Wiki","lock"],
+["小顾数据看板","看板网址","https://xiaogu3-0-dashboard.vercel.app/","vercel.app","open"],
+["小顾数据看板","源码仓库","https://github.com/YueYu-Rose/xiaogu3.0-dashboard","github.com","open"],
+["小顾执行链","调研表格","https://l0z2jef66pz.feishu.cn/wiki/LtRGwhyeeih2uwkCZ2mci3tdnad?from=from_copylink","飞书 Wiki","lock"],
+["小顾执行链","交互原型 Demo","https://xiaogu.netlify.app/","netlify.app","open"],
+["盈米实验室","调研表格","https://l0z2jef66pz.feishu.cn/wiki/KpSkw5v6cixhflk4KYBc5bAVnzh?from=from_copylink","飞书 Wiki","lock"],
+["盈米实验室","PRD 文档","https://l0z2jef66pz.feishu.cn/wiki/PlWiws1muigB3HkgZYQcShTrnmd?from=from_copylink","飞书 Wiki","lock"],
+["盈米实验室","Demo","https://yingmi-ai-lab.netlify.app/","netlify.app","open"],
+["盈米实验室","源码仓库","https://github.com/YueYu-Rose/yingmi-AI-lab","github.com","open"],
+["盈米实验室","评审会后总结","https://l0z2jef66pz.feishu.cn/wiki/V0ohwuFKIiUIIck9bPzcdydun3e?from=from_copylink","飞书 Wiki","lock"],
+["大模型接入合规","天天基金的调研","https://l0z2jef66pz.feishu.cn/wiki/OiSYwwYXviWuzhkD3WxcriicnYg?from=from_copylink","飞书 Wiki","lock"],
+["大模型接入合规","轻量化处理方案","https://l0z2jef66pz.feishu.cn/wiki/LLsewoWBTioC4xkhdfMcckz6ncI?from=from_copylink","飞书 Wiki","lock"],
+["大模型接入合规","服务商收费调研","https://l0z2jef66pz.feishu.cn/wiki/ZCbewSKThiIo1Dkc6MqcJtg9nhg?from=from_copylink&sheet=7525a5","飞书 Wiki","lock"],
+["移动端聊天与成果","调研表格","https://l0z2jef66pz.feishu.cn/wiki/QhCawc0mriORpZkOnGPcvpKBnfH?from=from_copylink","飞书 Wiki","lock"],
+["移动端聊天与成果","流程图 1","https://www.processon.com/v/6a4e2ccd37d23f02cdad7f14","processon.com","lock"],
+["移动端聊天与成果","流程图 2","https://www.processon.com/v/6a4e2fc1a2af1222179c96d9","processon.com","lock"],
+["移动端聊天与成果","SSO 登录原型图","https://www.figma.com/design/MuxBIyrzIILcUJyXxbeSjk/SSO%E7%99%BB%E5%BD%95?node-id=0-1&t=dbazJB3KtGiWu24A-1","figma.com","lock"],
+["盈米AI开放平台","官网","https://yingmi-ai-public-website.netlify.app/","netlify.app","open"],
+["盈米AI开放平台","源码仓库（只看 index.html）","https://github.com/YueYu-Rose/yingmi-AI-public-website","github.com","open"],
+];
+
+/* ============================================================
+   渲染逻辑（一般不需要动）
+   ============================================================ */
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");
+
+// —— MCP 目录：筛选 + 搜索 ——
+const cats = [...new Set(MCP_TOOLS.map(t=>t[0]))];
+const fEl = document.getElementById("mcpFilters");
+fEl.innerHTML = `<button data-c="all" class="on" aria-pressed="true">全部 ${MCP_TOOLS.length}</button>` +
+  cats.map(c=>`<button data-c="${esc(c)}" aria-pressed="false">${esc(c)} ${MCP_TOOLS.filter(t=>t[0]===c).length}</button>`).join("") +
+  `<input type="search" id="mcpSearch" placeholder="搜索工具…" aria-label="搜索 MCP 工具">`;
+const tbody = document.querySelector("#mcpTable tbody");
+const countEl = document.getElementById("mcpCount");
+let curCat = "all";
+function renderMcp() {
+  const q = (document.getElementById("mcpSearch").value||"").trim().toLowerCase();
+  const rows = MCP_TOOLS.filter(t =>
+    (curCat==="all"||t[0]===curCat) &&
+    (!q || t.some(x=>String(x).toLowerCase().includes(q))));
+  tbody.innerHTML = rows.map(t=>`<tr><td>${esc(t[0])}</td><td><b>${esc(t[1])}</b></td><td class="mono" style="font-size:12px">${esc(t[2])}</td><td class="muted">${esc(t[3])}</td><td class="num">${esc(t[4])}</td></tr>`).join("")
+    || `<tr><td colspan="5" class="muted">没有匹配的工具</td></tr>`;
+  countEl.textContent = `显示 ${rows.length} / ${MCP_TOOLS.length} 个工具 · 调用次数为官网展示值`;
+}
+fEl.addEventListener("click", e=>{
+  const b=e.target.closest("button[data-c]"); if(!b) return;
+  curCat=b.dataset.c;
+  fEl.querySelectorAll("button").forEach(x=>{x.classList.toggle("on",x===b);x.setAttribute("aria-pressed",x===b);});
+  renderMcp();
+});
+fEl.addEventListener("input", e=>{ if(e.target.id==="mcpSearch") renderMcp(); });
+renderMcp();
+
+// —— 交付物台账 ——
+const groups = [...new Set(LINKS.map(l=>l[0]))];
+document.getElementById("linkList").innerHTML = groups.map(g=>`
+  <h3>${esc(g)}</h3>
+  <div class="link-box">
+    ${LINKS.filter(l=>l[0]===g).map(l=>`
+      <a class="link-item" href="${esc(l[2])}" target="_blank" rel="noopener">
+        <span class="badge ${l[4]==="open"?"live":"lock"}">${l[4]==="open"?"公开":"需权限"}</span>
+        <span>${esc(l[1])}</span>
+        <span class="host">${esc(l[3])} ↗</span>
+      </a>`).join("")}
+  </div>`).join("");
+
+// —— 目录 scrollspy ——
+const tocLinks = [...document.querySelectorAll("#toc a")];
+const secs = tocLinks.map(a=>document.querySelector(a.getAttribute("href")));
+const spy = new IntersectionObserver(es=>{
+  es.forEach(e=>{ if(e.isIntersecting){
+    tocLinks.forEach(a=>a.classList.toggle("on", a.getAttribute("href")==="#"+e.target.id));
+  }});
+},{rootMargin:"-10% 0px -70% 0px"});
+secs.forEach(s=>s&&spy.observe(s));
+</script>
+</body>
+</html>

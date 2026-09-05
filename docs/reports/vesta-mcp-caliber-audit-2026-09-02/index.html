@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />
+    <script data-clair-access-gate data-clair-access-scope="report" src="../../access-gate.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>vesta 投研 MCP 指标·数据·公式口径盘点（与盈米MCP对比）</title>
+<meta name="description" content="vesta-mcp-gateway 9 server / 96 工具全量 schema 盘点 + 56 次实测 + 本体源码下钻；与盈米MCP主站 MWR/TWR 等口径差异对照。">
+</head>
+<body>
+<style>
+:root{
+  --paper:#fbfbfd; --ink:#20242f; --muted:#666d80; --line:#e4e6ee;
+  --accent:#1b88ee; --accent-soft:#e5f2ff; --accent-ink:#0b5192;
+  --good:#1f8a5a; --warn:#a06a12; --risk:#bd4038;
+  --card:#ffffff; --code-bg:#f0f5fb;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#131720; --ink:#e8e9f0; --muted:#9aa0b4; --line:#2a3040;
+    --accent:#4aa7ff; --accent-soft:#16283e; --accent-ink:#9dcbf7;
+    --good:#4cc38a; --warn:#d9a441; --risk:#e5716a;
+    --card:#1a1f2c; --code-bg:#1f2636;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#131720; --ink:#e8e9f0; --muted:#9aa0b4; --line:#2a3040;
+  --accent:#4aa7ff; --accent-soft:#16283e; --accent-ink:#9dcbf7;
+  --good:#4cc38a; --warn:#d9a441; --risk:#e5716a;
+  --card:#1a1f2c; --code-bg:#1f2636;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:400 16px/1.85 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;}
+.wrap{max-width:880px;margin:0 auto;padding:56px 24px 96px}
+h1,h2,h3{font-family:"Songti SC","Source Han Serif SC",serif;text-wrap:balance;line-height:1.3}
+h1{font-size:2.1rem;font-weight:900;margin:.3em 0 .2em}
+h2{font-size:1.45rem;font-weight:700;margin:2.4em 0 .7em;padding-top:1.2em;border-top:1px solid var(--line)}
+h3{font-size:1.08rem;font-weight:700;margin:1.8em 0 .5em}
+h4{font-size:1rem;font-weight:700;margin:1.5em 0 .4em}
+p{margin:.7em 0}
+a{color:var(--accent-ink)}
+.kicker{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-ink);font-weight:700}
+code{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.85em;background:var(--code-bg);border-radius:4px;padding:.1em .4em;word-break:break-all}
+pre{background:var(--code-bg);border:1px solid var(--line);border-radius:8px;padding:14px 16px;overflow-x:auto;font-size:.85rem;line-height:1.6}
+pre code{background:none;padding:0;word-break:normal}
+blockquote{border-left:3px solid var(--accent);background:var(--accent-soft);padding:10px 18px;border-radius:0 8px 8px 0;margin:1.4em 0;font-size:.94rem}
+blockquote p{margin:.4em 0}
+table{border-collapse:collapse;width:100%;font-size:.88rem;margin:1em 0}
+.tablewrap{overflow-x:auto;margin:1em 0}
+.tablewrap table{margin:0}
+th{text-align:left;font-weight:700;border-bottom:2px solid var(--line);padding:.5em .8em .4em .1em;white-space:nowrap;background:var(--paper);position:sticky;top:0}
+td{border-bottom:1px solid var(--line);padding:.5em .8em .5em .1em;vertical-align:top}
+ul,ol{padding-left:1.4em}
+li{margin:.3em 0}
+hr{border:none;border-top:1px solid var(--line);margin:2.5em 0}
+strong{font-weight:700}
+.foot{margin-top:4em;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line);padding-top:1.4em}
+</style>
+<div class="wrap">
+<div class="kicker">口径盘点 · 2026-09-02</div>
+<h1>vesta 投研 MCP 指标·数据·公式口径盘点（与盈米MCP对比）</h1>
+<blockquote>
+<p><strong>版本</strong>：v1.0（2026-09-02）
+<strong>对象</strong>：vesta-mcp-gateway（<code>https://vesta.yingmi.com/mcp/gateway/v1</code>，启明投研平台二级 MCP 聚合网关），已批 9 个 server / 96 个工具（private-fund 私募 5 工具未下发）。
+<strong>方法</strong>：全量 tools/list schema 盘点 + 56 次真实调用实测出参 + 本体（ontology）源码级下钻上游公式。样本：基金 005827/110007、组合 ZH109248（慢牛长赢1号）、指数 000300、经理张坤。
+<strong>对照物</strong>：《盈米MCP接口出参指标公式与口径文档》v1.0（2026-08-31，stargate 直连工具口径）。
+<strong>分组明细</strong>（本目录）：<a href="portfolio-analysis.html">portfolio-analysis.md</a>、<a href="fund-analysis.html">fund-analysis.md</a>、<a href="invest-single.html">invest-single.md</a>、<a href="misc-groups.html">misc-groups.md</a>、<a href="fund_select_STOCK_indicators_full.html">fund_select 指标全表</a>（463 条配置原文 <a href="fund_select_config_STOCK.json">JSON</a>）</p>
+</blockquote>
+<hr>
+<h2>一、总定位：vesta 工具与盈米MCP 是&quot;同门不同口径&quot;</h2>
+<p>vesta 网关的 96 个工具全部经 stargate（盈米MCP/OAP）代理（13 个 <code>VESTA_*</code> 专用 api_key），但<strong>内容与盈米MCP主站工具几乎不重叠</strong>：</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th></th>
+<th>盈米MCP（stargate 直连主力工具）</th>
+<th>vesta 投研 MCP（本次盘点）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>视角</td>
+<td><strong>用户/账户视角</strong>：账户收益、四笔钱、订单、风测、基金交易规则</td>
+<td><strong>产品/研究视角</strong>：基金分析、组合分析、投资信号、指数估值、筛选器</td>
+</tr>
+<tr>
+<td>收益口径</td>
+<td><strong>MWR（Modified Dietz 修正迪茨）</strong>，资金加权，asset3/asset4 引擎</td>
+<td><strong>TWR 系</strong>：复权净值区间涨跌幅/归一曲线，时间加权</td>
+</tr>
+<tr>
+<td>回撤</td>
+<td>基于 MWR 累计收益率序列：drawdown=(HWM−rate)/(1+HWM)，返回负值</td>
+<td>基于净值序列的经典回撤，返回负值；另给形成/修复天数、第二大回撤</td>
+</tr>
+<tr>
+<td>指数估值</td>
+<td>GetIndexEvaluationInfo：<code>ying99_information.index_valuation</code> 表 + score 三档（≥70 LOW 低估）</td>
+<td>index valuation：<strong>入参区间内</strong>的 PE/PB 原值分位 + ERP μ±σ 通道，无固定窗口、无打分</td>
+</tr>
+<tr>
+<td>市场判断</td>
+<td>市场温度计：(pe_rank+pb_rank+risk_rank)×100/3，10 年窗口五档</td>
+<td>投资信号体系：0/1 仓位信号 + 因子分项 + 回测净值（7 条信号线）</td>
+</tr>
+<tr>
+<td>工具规模</td>
+<td>7,779 路由 / 4,386 工具</td>
+<td>9 server / 96 工具（+私募 5 未下发）</td>
+</tr>
+</tbody></table></div>
+<p><strong>关键结论：同问&quot;收益率/回撤/估值&quot;，两边答案天然不同</strong>——盈米MCP答的是&quot;这个用户赚了多少&quot;（MWR），vesta 答的是&quot;这个产品涨了多少&quot;（TWR）。两套并用时必须声明口径，否则数字对不上是必然。</p>
+<hr>
+<h2>二、全网关通用口径（实测确认）</h2>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>口径</th>
+<th>例外/坑</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>工具寻址</td>
+<td><code>server_id__tool_name</code>（双下划线）</td>
+<td>未启用 server 报&quot;未知或未启用&quot;</td>
+</tr>
+<tr>
+<td>量纲主流</td>
+<td><strong>收益/回撤/波动/权重 = 小数</strong>（0.48=48%），回撤为负</td>
+<td>⚠️ <code>get_fund_return_metrics</code> 返回<strong>百分数</strong>（-25.0 即 -25%），与同组小数工具严格 ×100 同源；macro 指标随 unit 字段（%=百分数值）；世经日历全是含单位字符串</td>
+</tr>
+<tr>
+<td>日期入参</td>
+<td>portfolio 组 <code>yyyy-MM-dd</code> 为主；<strong>fund-analysis 组几乎全是 <code>yyyy.MM.dd</code></strong>（横杠直接 400）</td>
+<td>realtime 资产配置强制点分；报告期类（规模/持有人/return_metrics）又是横杠——同组混用</td>
+</tr>
+<tr>
+<td>数值类型</td>
+<td>大量指标以<strong>字符串</strong>返回（&quot;0.480601&quot;）</td>
+<td>归因/调仓统计原生 float</td>
+</tr>
+<tr>
+<td>指数代码</td>
+<td>计算类入参需<strong>带后缀</strong>（<code>000300.CSI</code>，从 searchIndex 的 assetCodeYm 取）；index 组行情类用裸码</td>
+<td>裸码传进计算类：<strong>静默返回 null 或 0413</strong>，不报参数错</td>
+</tr>
+<tr>
+<td>benchmark 元素</td>
+<td><code>{code, type}</code>，type 必须<strong>小写</strong>（fund/portfolio/index/manager/est）</td>
+<td>大写不报错、静默空数组</td>
+</tr>
+<tr>
+<td>失败模式</td>
+<td><strong>静默失败普遍</strong>：错 freq、错 type、解析不到的指数 → 空数组/null，与&quot;无数据&quot;不可区分</td>
+<td>全网关最危险的共性坑</td>
+</tr>
+<tr>
+<td>限流</td>
+<td>200 次/窗口（X-RateLimit 头）</td>
+<td></td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2>三、分组指标口径盘点（浓缩版，全文见各明细文件）</h2>
+<h3>3.1 portfolio-analysis（组合分析，31 工具）——指标最重</h3>
+<p><strong>核心指标（<code>performance_by_code</code> 实测 27 字段）</strong>：区间/年化收益、年化波动、最大/第二大回撤（含起止/修复日与天数）、下行波动、VaR、夏普/索提诺/卡玛、M2/跟踪误差/信息比率、beta/alpha/treynor。</p>
+<p>已核实的公式口径（★=本体生产日志/数值反推验证，误差&lt;0.01pp）：</p>
+<ul>
+<li>★<strong>年化收益 = (1+R)^(252/N)−1，N=区间交易日数</strong>；<strong>年化波动率 = 日收益标准差×√252</strong>；<strong>夏普/索提诺 rf = 固定 1.5%</strong>（非国债联动，两组样本反推均得 0.0150）；<strong>卡玛 = 年化收益/|最大回撤|</strong>（组合侧为教科书定义，不含 rf）；<strong>VaR = 历史分位数法</strong>（非参数正态）。</li>
+<li>★<strong>归因输出是 Brinson 三效应外壳，底层实为因子回归归因</strong>：把组合收益回归到 23 个细类因子，按大类聚合成配置/选择/交互三效应——实测三效应之和 = 超额收益（0.0958936 严格闭合）；<strong>区间交易日数必须 ≥23</strong>（回归自由度），否则报&quot;因子数据不足&quot;；按调仓区间分段。另有五大类收益分解，加总=总收益。</li>
+<li>★<strong>组合净值来源</strong>：portfolios/sync → fund_daily_liquidation（成分基金逐日清算）→ nav_fitting 三段管线拟合，调仓日切段。</li>
+<li><strong>胜率</strong>：&quot;≥0 算赢&quot;实锤（positive_ratio 与 day_win_rate 相等）；周/月胜率是 <strong>5/21 交易日滚动窗口</strong>，非日历周月。</li>
+<li><strong>收益分布</strong>：滚动收益假设正态，21 点 avg±k·std；⚠️ <code>probability</code> 字段实为<strong>正态密度值</strong>（φ(0)=0.3989），不是概率。</li>
+<li><strong>贡献</strong>：贡献率=权重×日收益率；分类收益率=Σ贡献/Σ权重（描述明示）。</li>
+<li><strong>基准</strong>：组合自带业绩基准自动参与（comparison 自动追加 <code>BM&lt;po_code&gt;</code> 线；未传基准也算出 M2/TE/IR）。</li>
+<li>组合类型：<code>VES</code> 前缀=VESTA 自建（<strong>费后净值</strong>，ying99_vesta 表）；PO_ZH/PO_SI/PO_MOM/PO_AM=PMS 组合（ying99_pomodel，含费与否未说明）。</li>
+<li>风险评分：uaap-gateway 回归模型（risk_score 84.83 + R²/残差方差/标准误），effectiveDate 月频快照疑似。</li>
+</ul>
+<p><strong>最大坑</strong>：①<code>benchmark_performance</code> 传 000300.CSI <strong>全 null 不报错</strong>；②realtime 系列（by_adjustment 性能/分布）描述明示<strong>净值拟合当前为 Mock 数据</strong>——结果不可用于正式结论；③调仓统计实测 cumret_net_excess(0.2990) &gt; cumret_excess(0.2962)，净超额&gt;毛超额，净/毛定义疑似反直觉待确认。</p>
+<h3>3.2 fund-analysis（基金分析，20 工具）</h3>
+<ul>
+<li><strong>收益</strong>：复权净值区间涨跌幅（分红再投）；<code>get_fund_return_metrics</code>（百分数）与 <code>getIntervalReturnComparison</code>（小数）同源 ×100 对应。</li>
+<li>★<strong>成立以来年化 = (1+R)^(365.25/N)−1，N=自然日</strong>（本体两只基金样本反推核实）——⚠️ 与组合侧的 252 交易日基数<strong>是两套年化口径</strong>，同网关并存。</li>
+<li><strong>无风险利率 = 1.5%/年</strong>：子代理由 sharpe×vol = calmar×|mdd| = geomReturn−rf 三式联立反推 ≈1.5%，本体在组合侧独立反推得 0.015000——<strong>双路互证，固定 1.5% 实锤</strong>（但无任何文档）；PerformanceComparison 的 <strong>calmar 是含 rf 的变体</strong>（分子=年化几何收益−rf），与组合侧教科书 calmar 不同。</li>
+<li><code>queryFundPerformance</code>：17 项指标（含 Alpha/Beta/Treynor/M2/TE/IR + 同类排名），<strong>基准=入参指数</strong>（需 <code>.CSI</code> 后缀，裸码报 0413&quot;计算任务异常&quot;）。</li>
+<li><strong>债类指标</strong>：杠杆=总资产/净资产；集中度=重仓债市值/债券总市值；<strong>久期仅年报/半年报有值</strong>（利率敏感性分析法）；<strong>同类=招银基金分类</strong>（描述明示）；avg 行用哨兵日期 9999.12.31。</li>
+<li><strong>久期双轨</strong>：报告期披露（110007 = 6.07 年）vs 日频测算 <code>duration_estimation</code>（~1.78 年）严重背离，用前必须对齐来源。</li>
+<li>占比普遍<strong>三分母并存</strong>：占总资产/占净资产/占债券市值——跨口径不可直接比。</li>
+<li>估算净值缺口 <code>getFundEstNvGap</code>：持仓结构 <code>semiannual</code>(全持仓)/<code>quarter</code>(重仓)，估算净值 vs 实际净值归一作差，测隐性调仓/风格漂移。</li>
+</ul>
+<h3>3.3 invest-single（投资信号，18 工具，7 条信号线）</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>信号线</th>
+<th>最终信号</th>
+<th>合成结构</th>
+<th>频率/最新性</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A股权益</td>
+<td>position 0/1（1=乐观）</td>
+<td>= position_short × position_long；4 子项（估值/情绪/景气/货币）各 0/1；★合成规则本体全表穷举验证（2345 交易日）：<strong>≥3/4 看多 → 满仓，否则空仓</strong>；数据离线落库 <code>ying99_vesta.alg_cn_investment_signal</code>，服务端只读</td>
+<td>日频 T-1</td>
+</tr>
+<tr>
+<td>A股风格轮动</td>
+<td>红利/成长/现金仓位（0.25 步进）</td>
+<td>5 子项 0/1 → 绝对分 0-2 + 相对分 0-3 → 仓位映射表未披露</td>
+<td>日频 T-1</td>
+</tr>
+<tr>
+<td>行业中观</td>
+<td>sign_final ±1（29 个中信一级）</td>
+<td>8 分项（ecop/curp -2~2、tech/policy ±1、trd/lvl/value ±1、amtsell 0/-1）→ syn → final，权重黑盒；景气腿疑似主导</td>
+<td>日频 T+0（早 8:44 批）</td>
+</tr>
+<tr>
+<td>GRRI 全球风险</td>
+<td>grri_value（z-score 型，可为负）</td>
+<td>全球多资产波动率+相关性共振；&gt;1/2/3 = 中/高/极高风险</td>
+<td>日频自然日 T+0</td>
+</tr>
+<tr>
+<td>美国</td>
+<td>position 0/1</td>
+<td>ecoClimate + risk 两腿；纳指/标普择时净值（基期 2004-02-29）</td>
+<td>T-2（每日 08:39 批）</td>
+</tr>
+<tr>
+<td>日本/越南</td>
+<td>月度信号</td>
+<td>6 维/5 维得分 + 总分</td>
+<td>月频</td>
+</tr>
+<tr>
+<td>黄金</td>
+<td><strong>无合成信号</strong></td>
+<td>仅 14 个原料指标（前端&quot;黄金信号&quot;公式不在本 MCP）</td>
+<td>混频</td>
+</tr>
+</tbody></table></div>
+<p><strong>最大坑</strong>：<code>queryChinaMacroFactors</code> <strong>所有数值都是标准化 z-score</strong>——govt10yBondYield=-2.19、windAllAIndex=5.81，字段名像原始值实为因子值，当原始宏观数据用必错；🐛 传 columns 参数稳定报 500。A股信号的宏观腿与该因子库同源（月频前向填充铺日）。所有 backtest 只给净值曲线、无胜率/超额统计字段、多数基期未披露。</p>
+<h3>3.4 index / macro-indicator（指数与宏观）</h3>
+<ul>
+<li><strong>估值分位口径（重要）</strong>：PE/PB 返回<strong>入参区间内估值原值的 0/25/50/75/100 分位</strong>（即 min/Q1/中位/Q3/max），不是&quot;当前处于第几分位&quot;的排名；<strong>无固定回看窗口</strong>，完全由调用方区间决定——对外引用必须带区间。</li>
+<li><strong>ERP = 1/PE − 10Y 国债收益率</strong>（工具描述明示 + 反算核实：隐含 10Y≈1.69% 与中债一致），返回 μ、μ±1σ、μ±2σ 通道，小数量纲；bond_reference_type 可选本国/美国国债。</li>
+<li>⚠️ <strong>样本基不一致</strong>：同区间 PE/PB 样本点数=自然日数（2435，forward-fill 填充），ERP=交易日数（1662）——PE/PB 分位与常规&quot;交易日分位&quot;有偏差。</li>
+<li>行业权重：默认中信一级、最新报告期，totalWeight 0-1 小数合计≈1；<strong>出参不回显 recordDate/体系/层级</strong>，无法自证口径。</li>
+<li>宏观指标库：indicatorCode 纯数字，月频 record_date=自然月末，unit 内嵌（%）；存在同名同区间重复 code（2002/2147 均&quot;日本CPI同比&quot;）。</li>
+</ul>
+<h3>3.5 fund-select（基金优选筛选器）——指标定义的金矿</h3>
+<p><code>public_fund_indicator_config_query</code> 一次返回 <strong>463 条指标配置</strong>（STOCK 面板：BASE 109/TRADE 95/TAG 44/INCOME 117/SCORE 60/RISK 38），remark 即公式口径原文。关键公式：</p>
+<ul>
+<li><strong>进攻/防守能力</strong> = 指数上涨/下跌阶段基金相对<strong>市场适应性指数</strong>的<strong>周频</strong>年化超额收益。</li>
+<li><strong>个股选择能力</strong> = 持有股票相对行业指数超额收益的加权平均的几何年化值。</li>
+<li><strong>总评分 = 10 个子评分的均值</strong>（标准化年化收益/波动/回撤/绝对收益 + 进攻/防守/领域超额/风格超额/个股选择/信息比率）。</li>
+<li>子评分 = &quot;指标相对同类最差值的超额 ÷ 基准值相对同类最差值的超额&quot;（<strong>&quot;基准值&quot;定义缺失</strong>）。</li>
+<li><strong>能力标签 = 排名前 5%</strong>（行业主题/行业集中型放宽前 10%）。</li>
+<li>同类规则：行业主题/集中型→同行业对比指数为同类；其余→同风格对比指数。</li>
+<li>三套挂靠指数并存：行业对比指数 / 风格对比指数 / 市场适应性指数。</li>
+<li>A股仓位 = 股票仓位 − 港股仓位（区间报告期均值）。</li>
+<li>筛选实测：<strong>收益/回撤全是 0-1 小数</strong>（ann_return_1y=1.89 即 189%），阈值也按小数填；但配置表 unit 字段 447/463 为空——<strong>量纲全靠约定，不在配置里</strong>。</li>
+</ul>
+<h3>3.6 fund-manager / world-news / research-report</h3>
+<ul>
+<li>经理：<code>managerYearTotal</code>（管理年限 13.94）≠ <code>securityExperiencePeriod</code>（从业 18.16），描述明令勿混；对标是 <strong>Wind 基金指数</strong>（885013.WI 等，按二级分类挂靠），不是招募书业绩基准；规模单位元；netAsset 恒等于 totalNetAsset 疑回填错误；<strong>经理维度无年化回报字段</strong>（需借 fund-select 的 since_appointment 周期）。</li>
+<li>资讯：财经日历数值全是含单位展示字符串、事件有重复且 importance 不一致；华尔街见闻每日 05:00/06:00 Airflow 批抓（非实时）。</li>
+<li>研报：<strong>入参必须包 <code>req</code> 对象</strong>（schema 写的顶层传参是错的）；2769 篇库存；研究院早报直接引用本网关同源的 ERP/信号口径（形成口径闭环）。</li>
+</ul>
+<hr>
+<h2>四、与盈米MCP的口径差异明细（同名概念对照）</h2>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>概念</th>
+<th>盈米MCP（stargate 直连）</th>
+<th>vesta 投研 MCP</th>
+<th>使用注意</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>收益率</strong></td>
+<td>MWR（Modified Dietz）：(期末−期初−净现金流)/(期初+加权现金流)；XIRR 仅&quot;成立以来&quot;</td>
+<td>TWR：复权净值区间涨跌幅；年化=几何年化</td>
+<td>用户问&quot;我的收益&quot;用前者；&quot;产品涨幅&quot;用后者，两者数值可差数倍</td>
+</tr>
+<tr>
+<td><strong>最大回撤</strong></td>
+<td>对 MWR 累计收益率序列：(HWM−rate)/(1+HWM)，负值；清仓日沿用前日</td>
+<td>对净值序列经典回撤，负值；给起止/修复日、形成/修复天数、第二大回撤</td>
+<td>都是负值口径一致，但序列基不同</td>
+</tr>
+<tr>
+<td><strong>指数估值</strong></td>
+<td><code>index_valuation</code> 表 + can_show 白名单；score≥70=LOW 低估三档（分高=低估）</td>
+<td>区间内原值分位（无固定窗口）+ ERP 通道</td>
+<td>stargate 有官方打分；vesta 把窗口选择权丢给调用方</td>
+</tr>
+<tr>
+<td><strong>市场温度/信号</strong></td>
+<td>温度=(pe_rank+pb_rank+risk_rank)×100/3，10y 窗口，五档；⚠️ 风险溢价方向疑似笔误</td>
+<td>A股 position 0/1 + 4 子项；ERP 百分位入 erp_pct_mean 因子</td>
+<td>温度计是连续 0-100，vesta 是二值信号——不可互换</td>
+</tr>
+<tr>
+<td><strong>无风险利率</strong></td>
+<td>未涉及（用户收益无 rf）</td>
+<td><strong>固定 1.5%/年</strong>（双路反推互证），无文档</td>
+<td>组合侧卡玛不含 rf；基金 PerformanceComparison 的卡玛含 rf——同名不同式</td>
+</tr>
+<tr>
+<td><strong>同类分类</strong></td>
+<td>招募书/晨星/中证协多体系（风测 R1-R5=中证协 amacRisk5Level）</td>
+<td>债类=招银分类；筛选器=行业/风格对比指数定义同类；排名分类体系多头</td>
+<td>&quot;同类排名&quot;跨系统不可比</td>
+</tr>
+<tr>
+<td><strong>基准</strong></td>
+<td>benchmark 别名映射硬编码（hs300/csi500…）</td>
+<td>组合自带 BM 自动参与 + 入参指定（需 .CSI 后缀）</td>
+<td>两边指数代码体系都有各自的坑</td>
+</tr>
+<tr>
+<td><strong>出参形态</strong></td>
+<td>部分工具出 CSV/文本（订单列表）；wrapper 注入文案</td>
+<td>全 JSON，但大量数值是字符串</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>文档现状</strong></td>
+<td>WIKI 零口径，SSOT=生产库 schema+源码</td>
+<td><strong>schema 描述比 stargate 侧丰富得多</strong>（ERP 公式、胜率定义、贡献公式都写在描述里），但年化因子/rf/合成权重仍是黑盒</td>
+<td>vesta 的 tools/list 描述本身就是最好的口径文档，盘点价值高</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2>五、疑点与缺陷总清单（按危险度）</h2>
+<p><strong>🔴 高危（会算错数）</strong></p>
+<ol>
+<li><code>queryChinaMacroFactors</code> 全字段是 z-score 标准化值，字段名（govt10yBondYield/windAllAIndex）严重误导。</li>
+<li>量纲不统一：<code>get_fund_return_metrics</code> 百分数 vs 全网关小数主流——100 倍错风险。</li>
+<li>无效指数代码<strong>静默返回 null/空</strong>（benchmark_performance、comparison、beta 计算、RankTrend 错 freq、benchmark 错 type），与&quot;无数据&quot;不可区分。</li>
+<li>realtime 系列净值拟合<strong>明示 Mock 数据</strong>，结果不可用于正式结论。</li>
+<li>收益分布 <code>probability</code> 是正态密度不是概率；重叠滚动窗口做 Z 检验统计上偏乐观。</li>
+<li>PE/PB 分位在自然日填充序列上计算（ERP 却是交易日）、且无固定窗口——引用必须带区间说明。</li>
+</ol>
+<p><strong>🟡 中危（口径黑盒或仅靠反推，引用需标注）</strong>
+7. 年化基数<strong>两套并存</strong>：组合侧 252 交易日复利、基金&quot;成立以来&quot;365.25 自然日复利——已由本体反推核实但<strong>均无文档</strong>；rf=固定 1.5% 同样无文档；VaR 已确认历史分位数法但置信水平仍未披露。
+8. 信号合成：A股 ≥3/4 规则已穷举破解，但风格仓位映射表、行业 8 分项权重、GRRI 构成资产仍黑盒；情绪指数/ERP 百分位窗口等因子计算在投研算法离线侧，不在服务代码里。
+9. calmar 含 rf 变体、久期双轨背离、cumret_net_excess&gt;cumret_excess 净毛反直觉、&quot;同类&quot;体系多头。
+10. fund-select 评分公式中&quot;基准值&quot;定义缺失；*_wavg 标准化加权方式未说明。</p>
+<p><strong>🟠 接口缺陷（可报给 vesta 团队）</strong>
+11. 🐛 <code>queryChinaMacroFactors</code> 传 columns 稳定 500；<code>queryUsMacroFactors</code> 文档默认列 coPosition 字段不存在。
+12. 🐛 research-report 的 schema 与实际入参不符（必须包 req）；searchFundCodeAndName schema 分页字段名与实返不一致。
+13. getManagerFund 的 netAsset 恒等于 totalNetAsset（份额口径疑回填错误）；getFinCalendar 事件重复且 importance 不一致；get_finance_news_live 的 limit 上限三处描述矛盾。
+14. 行业权重出参不回显口径参数；backtest 不给净值基期；日期格式三种并存（yyyy-MM-dd / yyyy.MM.dd / 点分强制）。</p>
+<hr>
+<h2>六、上游服务与公式 SSOT（本体下钻，110 轮/88 次工具调用）</h2>
+<h3>6.1 上游只有两个真实服务（不是 pomodel）</h3>
+<p>stargate <code>ying99_oap.api_source</code> 路由证实，96 个工具经 <code>k8s-proxy-yingmi</code> 全部落到两个 svc：</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>上游 svc</th>
+<th>技术栈</th>
+<th>承载 server</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>vesta-reef</strong>（前身 coral-reef，Java）</td>
+<td>k8s-prod11/12 yingmi ns ×4</td>
+<td>fund-analysis、fund-manager、world-news、research-report、macro-indicator(部分)、index(部分)</td>
+</tr>
+<tr>
+<td><strong>rbc-riskmanager</strong>（Python/FastAPI）</td>
+<td>同 ns</td>
+<td>portfolio-analysis、invest-single(16)、index(估值等)、fund-select(3)、macro-indicator(3)、private-fund(5)</td>
+</tr>
+</tbody></table></div>
+<p>代表路由：<code>get_fund_return_metrics → /vesta-reef/fund/return/queryList</code>；<code>performance_by_code → /rbc-riskmanager/portfolios/performance-by-code</code>；<code>cn_investment_signal_score → /rbc-riskmanager/investment-signal/china/score</code>。</p>
+<blockquote>
+<p>证据等级说明：pmdj 侧为本地可读源码；vesta 侧两仓库（vesta-reef/rbc-riskmanager）本地未 clone、GitLab 私有，公式为<strong>生产日志请求响应 Body 数值反推</strong>（误差&lt;0.01pp 已标注★）+ 日志 logger 模块路径（如 <code>services/portfolios/portfolio_attribution_service.py:183/230/987</code>、<code>cn_investment_signal_service.py:290-330</code>）。拿到仓库权限后可逐行终审。</p>
+</blockquote>
+<h3>6.2 已验证公式清单（★）</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>公式</th>
+<th>验证方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>组合年化收益</td>
+<td>(1+R)^(<strong>252</strong>/N)−1，N=交易日</td>
+<td>两样本解出 N=244.9/132.0 与交易日历吻合</td>
+</tr>
+<tr>
+<td>组合年化波动</td>
+<td>日收益 std × √252</td>
+<td>与 252 基数配套</td>
+</tr>
+<tr>
+<td>最大回撤</td>
+<td>净值峰谷法 max(1−P_t/HWM)，附构筑/修复天数</td>
+<td>响应字段</td>
+</tr>
+<tr>
+<td>夏普/索提诺</td>
+<td>(年化收益−<strong>1.5%</strong>)/年化(下行)波动</td>
+<td>两样本 rf 反推 0.015000/0.015001</td>
+</tr>
+<tr>
+<td>卡玛（组合侧）</td>
+<td>年化收益/|MDD|（不含 rf）</td>
+<td>两样本精确命中</td>
+</tr>
+<tr>
+<td>VaR</td>
+<td><strong>历史分位数法</strong></td>
+<td>VaR/vol 倍数 1.02 vs 2.05 排除参数法</td>
+</tr>
+<tr>
+<td>beta/alpha/IR</td>
+<td>对<strong>多指数加权基准</strong>回归（基准=请求方自定义指数组合）</td>
+<td>生产请求体</td>
+</tr>
+<tr>
+<td>归因</td>
+<td><strong>23 细类因子回归</strong>→大类聚合为 Brinson 式三效应；交易日须≥23</td>
+<td>日志&quot;因子映射 23 个细类/因子数据不足&quot;</td>
+</tr>
+<tr>
+<td>基金成立以来年化</td>
+<td>(1+R)^(<strong>365.25</strong>/N)−1，N=自然日</td>
+<td>两基金样本反推</td>
+</tr>
+<tr>
+<td>A股信号合成</td>
+<td>4 子项 <strong>≥3 看多 → position=1</strong></td>
+<td><code>alg_cn_investment_signal</code> 全表 2345 天穷举</td>
+</tr>
+<tr>
+<td>估值分位</td>
+<td>请求窗口内日频样本分位，无滚动窗口</td>
+<td>生产样本点数核对（注：样本按自然日填充，见 §3.4 疑点）</td>
+</tr>
+<tr>
+<td>ERP 双口径</td>
+<td>index 组=原始 ERP（1/PE−10Y）；信号因子 erp_pct_mean=ERP 的<strong>历史百分位</strong>（0-1）</td>
+<td>库表+响应</td>
+</tr>
+</tbody></table></div>
+<h3>6.3 与 pmdj 用户收益（盈米MCP主站）的根本差异</h3>
+<p>pmdj 侧源码直读（<code>curve-calculations.ts:8</code> calculateModifiedDietz）：</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>vesta（rbc-riskmanager）</th>
+<th>pmdj（盈米MCP 用户收益）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>收益率性质</td>
+<td>TWR 系（拟合净值，申赎不进公式）——看策略</td>
+<td>MWR（Modified Dietz 资金加权）——看用户到手</td>
+</tr>
+<tr>
+<td>数据起点</td>
+<td>组合首个净值日</td>
+<td>用户建仓日（每人不同）</td>
+</tr>
+<tr>
+<td>年化</td>
+<td>252 交易日复利</td>
+<td>用户曲线不做年化（XIRR 仅&quot;成立以来&quot;）</td>
+</tr>
+<tr>
+<td>典型偏差</td>
+<td>用户申赎时点效应不体现</td>
+<td>组合调仓 alpha 不完全体现</td>
+</tr>
+</tbody></table></div>
+<hr>
+<p><em>盘点方法：56 次实测调用（portfolio 14 + fund-analysis 14 + invest-single 14 + misc 14）+ 96 工具全量 schema + 本体源码下钻。调用留痕在 <code>ying99_vesta.mcp_gw_call_log</code>。</em></p>
+
+<div class="foot">CLAIR · 内部技术口径文档，请勿外传。</div>
+</div>
+</body>
+</html>

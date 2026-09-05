@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 405" font-family="-apple-system,'PingFang SC',sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#17242b"/>
+      <stop offset="1" stop-color="#0c3f74"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="405" fill="url(#bg)"/>
+  <circle cx="620" cy="80" r="130" fill="#3b7fc4" opacity="0.18"/>
+  <circle cx="100" cy="360" r="100" fill="#6fb1e8" opacity="0.10"/>
+  <text x="48" y="72" font-size="16" letter-spacing="4" fill="#a5cdf0" font-weight="700">实习成果 · 2026-09</text>
+  <text x="48" y="150" font-size="52" fill="#ffffff" font-weight="900">余悦 · 实习成果报告</text>
+  <text x="48" y="204" font-size="22" fill="#c9e2fb">六项交付 · 成果全景 · 交付物台账</text>
+  <g font-size="16" fill="#a5cdf0">
+    <text x="48" y="266">小顾 3.0 数据看板 · 执行链 Debug 交互原型</text>
+    <text x="48" y="296">盈米实验室 · OAP 官网 · 移动端聊天删除与成果保留</text>
+  </g>
+  <rect x="48" y="330" width="64" height="6" fill="#6fb1e8"/>
+</svg>

@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>vesta 投研 MCP 口径盘点｜misc-groups</title>
+<meta name="description" content="vesta 投研 MCP 口径盘点分组明细：misc-groups">
+</head>
+<body>
+<style>
+:root{
+  --paper:#fbfbfd; --ink:#20242f; --muted:#666d80; --line:#e4e6ee;
+  --accent:#1b88ee; --accent-soft:#e5f2ff; --accent-ink:#0b5192;
+  --good:#1f8a5a; --warn:#a06a12; --risk:#bd4038;
+  --card:#ffffff; --code-bg:#f0f5fb;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#131720; --ink:#e8e9f0; --muted:#9aa0b4; --line:#2a3040;
+    --accent:#4aa7ff; --accent-soft:#16283e; --accent-ink:#9dcbf7;
+    --good:#4cc38a; --warn:#d9a441; --risk:#e5716a;
+    --card:#1a1f2c; --code-bg:#1f2636;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#131720; --ink:#e8e9f0; --muted:#9aa0b4; --line:#2a3040;
+  --accent:#4aa7ff; --accent-soft:#16283e; --accent-ink:#9dcbf7;
+  --good:#4cc38a; --warn:#d9a441; --risk:#e5716a;
+  --card:#1a1f2c; --code-bg:#1f2636;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:400 16px/1.85 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;}
+.wrap{max-width:880px;margin:0 auto;padding:56px 24px 96px}
+h1,h2,h3{font-family:"Songti SC","Source Han Serif SC",serif;text-wrap:balance;line-height:1.3}
+h1{font-size:2.1rem;font-weight:900;margin:.3em 0 .2em}
+h2{font-size:1.45rem;font-weight:700;margin:2.4em 0 .7em;padding-top:1.2em;border-top:1px solid var(--line)}
+h3{font-size:1.08rem;font-weight:700;margin:1.8em 0 .5em}
+h4{font-size:1rem;font-weight:700;margin:1.5em 0 .4em}
+p{margin:.7em 0}
+a{color:var(--accent-ink)}
+.kicker{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-ink);font-weight:700}
+code{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.85em;background:var(--code-bg);border-radius:4px;padding:.1em .4em;word-break:break-all}
+pre{background:var(--code-bg);border:1px solid var(--line);border-radius:8px;padding:14px 16px;overflow-x:auto;font-size:.85rem;line-height:1.6}
+pre code{background:none;padding:0;word-break:normal}
+blockquote{border-left:3px solid var(--accent);background:var(--accent-soft);padding:10px 18px;border-radius:0 8px 8px 0;margin:1.4em 0;font-size:.94rem}
+blockquote p{margin:.4em 0}
+table{border-collapse:collapse;width:100%;font-size:.88rem;margin:1em 0}
+.tablewrap{overflow-x:auto;margin:1em 0}
+.tablewrap table{margin:0}
+th{text-align:left;font-weight:700;border-bottom:2px solid var(--line);padding:.5em .8em .4em .1em;white-space:nowrap;background:var(--paper);position:sticky;top:0}
+td{border-bottom:1px solid var(--line);padding:.5em .8em .5em .1em;vertical-align:top}
+ul,ol{padding-left:1.4em}
+li{margin:.3em 0}
+hr{border:none;border-top:1px solid var(--line);margin:2.5em 0}
+strong{font-weight:700}
+.foot{margin-top:4em;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line);padding-top:1.4em}
+</style>
+<div class="wrap">
+<div class="kicker">口径盘点分组明细 · 2026-09-02</div>
+<h1>五小分组指标数据公式口径盘点（index / macro-indicator / fund-select / fund-manager / world-news / research-report）</h1>
+<p>实测日期：2026-09-02。实测调用共 14 次，全部成功（0 次报错重试）。
+附件：<code>agents_out/fund_select_config_STOCK.json</code>（STOCK 指标配置全量原文 463 条）、<code>agents_out/fund_select_STOCK_indicators_full.md</code>（全量表格）、<code>agents_out/fund_select_STOCK_base_indicators.md</code>（按周期归并后 191 个基础指标清单）。</p>
+<hr>
+<h2>1. index（6 个工具）</h2>
+<h3>1.1 get_databoard_index_performance_index_valuation ⭐（实测 PE/PB/ERP 各 1 次，000300，2020-01-01~2026-08-31）</h3>
+<p><strong>PE / PB 出参</strong>（<code>data[].statistics</code>，值为字符串，6 位小数）：</p>
+<ul>
+<li><code>percentile_0 / 25 / 50 / 75 / 100</code>：区间内 PE(PB) 的 0/25/50/75/100 分位对应的<strong>估值原值</strong>（即 min/Q1/中位/Q3/max），不是&quot;当前值处于第几分位&quot;的分位点排名。</li>
+<li><code>current_value</code>：最新 PE(PB) 原值。000300 PE 实测：min 10.29 / 中位 12.60 / max 17.46 / 当前 13.77；PB：min 1.15 / 中位 1.42 / max 1.92 / 当前 1.45。</li>
+<li><code>data_points_count</code>：参与统计的样本点数。</li>
+<li><strong>分位窗口 = 调用方传入的 start_date~end_date，没有固定 5 年/10 年默认窗口</strong>——口径由使用者决定，报告引用时必须注明区间。</li>
+</ul>
+<p><strong>ERP 出参</strong>：<code>mean_plus_2std / mean_plus_1std / mean / mean_minus_1std / mean_minus_2std / current_value</code>，即 μ、μ±1σ、μ±2σ（工具说明：样本标准差）。</p>
+<ul>
+<li><strong>公式</strong>（工具描述明示）：ERP = 1/PE − 10 年期国债收益率；<code>bond_reference_type</code>=domestic（本国国债）/us（美国国债），仅 ERP 必填。</li>
+<li><strong>单位：小数</strong>（0.055761 = 5.58%）。反算验证：1/13.7657 − 0.055761 ≈ 0.0169，即隐含 10Y 国债收益率 ≈1.69%，与当前中债 10Y 一致，公式核实成立。</li>
+<li>特殊指数自动做 ETF 映射（如 SPX→SPY）。</li>
+</ul>
+<p><strong>⚠️ 频率疑点（重要）</strong>：同一区间 2020-01-01~2026-08-31，PE/PB 的 <code>data_points_count</code>=2435 = <strong>该区间的自然日总数</strong>（精确相等），而 ERP=1662 ≈ 交易日数。即 PE/PB 分位数是在<strong>按自然日填充（含周末节假日 forward-fill）的序列</strong>上算的，ERP 的 μ/σ 是在交易日序列上算的。自然日填充不会改变 min/max，但会让分位数向&quot;持续时间长的估值水平&quot;加权，与常见&quot;交易日分位&quot;口径有细微差异。</p>
+<h3>1.2 getLatestIndustryWeightSummary（实测 000300，默认参数）</h3>
+<ul>
+<li>出参：<code>data[]</code> 每项 <code>industryName / stockCount / totalWeight</code>。</li>
+<li><strong>totalWeight 为 0-1 小数</strong>（电子 0.1807=18.07%），全行业合计 ≈1.0。</li>
+<li>默认行业体系为<strong>中信（21 传参代码，实测返回 26 个中信一级行业）</strong>、默认一级层级、默认最新报告期。</li>
+<li>⚠️ 响应<strong>不回显所用 recordDate / industryClassCode / industryLevel</strong>，引用时无法从出参自证口径，需在入参侧固化。</li>
+</ul>
+<h3>1.3 其余 4 个（未实测，凭 digest）</h3>
+<ul>
+<li><code>getLatestIndustryWeightDetail</code>：成分股级明细，分页；返回股票代码/名称/权重 + 一二三级行业名；申万 industryClassCode=19、中信=21。</li>
+<li><code>get_databoard_index_performance_index_trend</code>：收盘价走势；<code>is_normalized=true</code> 时首点=1、后续为相对倍数（累计净值倍数口径，非涨跌幅%）。</li>
+<li><code>searchIndex</code>：分页模糊搜索；searchKey 含逗号自动转多代码精确 IN；返回 assetCode/assetName/assetFullName/assetCodeYm（盈米带后缀代码，如 000300.CSI）/beginDate/endDate/三级分类/发布机构。已验证可用。</li>
+<li><code>searchIndexByCodes</code>：按不带后缀 index_code 批量查详情。</li>
+<li>代码口径：本组工具入参用<strong>不带后缀代码</strong>（000300），<code>use_index_code_ym=true</code> 才切换到带后缀 index_code_ym。</li>
+</ul>
+<hr>
+<h2>2. macro-indicator（4 个工具）</h2>
+<h3>2.1 indicatorSearch（实测 keyword=CPI, type=MACRO）</h3>
+<ul>
+<li>出参每条：<code>indicatorCode</code>（纯数字字符串，如 2012）/ <code>indicatorName</code>（Wind 风格中文名&quot;美国:CPI:季调:同比&quot;）/ <code>frequency</code>（&quot;月&quot;/&quot;季&quot;等；INDEX 类固定&quot;日&quot;）/ <code>unit</code>（&quot;%&quot;等；INDEX 类固定&quot;点位&quot;）/ <code>startDate</code> / <code>endDate</code>。</li>
+<li>CPI 命中 20 条，含美日各国、核心/分项、同比/环比、季调/未季调多口径并存；<strong>存在重复指标</strong>（2002 与 2147 都是&quot;日本:CPI:同比&quot;，起止日完全相同）——同名不同源，选用时需固定 code。</li>
+</ul>
+<h3>2.2 getIndicatorSeries（实测 code=2012 MACRO，2026-01-01~08-31）</h3>
+<ul>
+<li>出参：<code>indicator_code/name/type/frequency/unit/start_date/end_date</code> + <code>series_data[]</code>（<code>record_date</code>, <code>value</code> 字符串 6 位小数）。</li>
+<li><strong>月频 record_date = 自然月末日</strong>（2026-02-28、2026-06-30）；value 单位随 unit（此处 %，2.4 即 2.4%，注意与小数口径的组不同）。</li>
+<li>支持 INDEX/MACRO 混批，最多 50 个。</li>
+</ul>
+<h3>2.3 汇率两件套（未实测，凭 digest）</h3>
+<ul>
+<li><code>getForeignRatesCurrencyPairs</code>：可用货币对 + 历史记录条数。</li>
+<li><code>getForeignRatesTimeseries</code>：日线收盘汇率 <code>exchange_price</code>（可为 null=当日无数据）；D 货币（ori）/F 货币（ex）方向要留意，digest 未说明是&quot;1 单位 ori 兑多少 ex&quot;还是反向——<strong>方向口径待验证</strong>。</li>
+</ul>
+<hr>
+<h2>3. fund-select（5 个工具）⭐核心</h2>
+<h3>3.1 public_fund_indicator_config_query（实测 assetType=STOCK, configId=-1）</h3>
+<p><strong>返回 463 条指标（compositeIndicators 空）</strong>。字段：<code>id/indicatorId/classify/name/code/dataType/upgradeInterval/allowEditShow/allowEditFilter/defaultScoreDirection/remark/unit/sort/...</code>。</p>
+<ul>
+<li>classify 分布：BASE 109 / TRADE 95 / TAG 44 / INCOME 117 / SCORE 60 / RISK 38。</li>
+<li>dataType：NUMBER 240 / STRING 205 / DATE 18。</li>
+<li>unit 字段：447 条为空、10 条&quot;是否&quot;、6 条&quot;直接加%&quot;（仅盈米各项费率）。<strong>⚠️ 收益/回撤/波动类 NUMBER 指标 unit 为空，但实测值为小数（0.2=20%）</strong>——量纲不在配置里，靠约定。</li>
+<li>周期化命名：多数指标带 <code>_1y/_2y/_3y/_5y</code>，收益风险类另有 <code>_since_appointment</code>（现任经理任职以来）；筛选/展示时周期经 <code>screenerIndicatorDetail</code> 的 <code>code=label</code> 维度传（1y/2y/3y/5y/ytd/since_appointment）。</li>
+</ul>
+<p><strong>归并后 191 个基础指标要点摘录</strong>（全文见 fund_select_STOCK_base_indicators.md）：</p>
+<p>BASE（基础/持仓特征）：</p>
+<ul>
+<li>基金代码/名称/成立日/成立年限/是否定开/现任经理/任职开始日（口径：任职最长的现任经理）/是否主基金。</li>
+<li><code>manager_summary</code> 经理综述：启明投研 AI 生成，&quot;蓝色=盈米内部研究、红色=全市场研究&quot;。</li>
+<li>仓位：<code>a_stock_ratio_avg</code>（<strong>A股仓位=股票仓位−港股仓位</strong>，区间报告期均值）、<code>hk_stock_ratio_avg</code>。</li>
+<li>行业特征：<code>rotation_ratio_avg</code> 行业轮动程度（区间内板块间调仓幅度均值，少于 2 个报告期不计算）、第一/前二重仓行业及占比、<code>stability_1st/top2</code> 重仓行业稳定度（=该行业为区间重仓的期数占比）。</li>
+<li>风格特征：<code>growth_score/value_score</code>（按成长/价值类股票平均持有比例计算的得分）、价值/深度价值/成长/新兴成长四档风格占比。</li>
+<li>三套对比指数：行业对比指数（index_code）、风格对比指数（style_index_code）、市场适应性指数（adapt_index_code）——能力类指标分别挂靠。</li>
+<li>评估窗口自述字段：<code>start_date/end_date</code>（报告期窗口）、<code>eval_start_date/eval_end_date</code>（能力指标计算窗口，&quot;首个报告期~最近一个交易日&quot;）。</li>
+</ul>
+<p>TAG（标签，44 条）：</p>
+<ul>
+<li><code>fund_type</code>：行业主题/行业集中/行业轮动/行业均衡/无行业特征 五档。</li>
+<li><code>style</code>：由成长评分与价值评分相对关系判定（新兴成长/成长/均衡/价值/深度价值——option_query 实测枚举为：价值、均衡、成长、新兴成长、深度价值）。</li>
+<li>能力标签统一规则：<strong>排名前 5%（行业主题/行业集中型基金放宽为前 10%）打标</strong>——领域超额/风格超额/个股超额/进攻/防守/控回撤/低波动/绝对收益 8 个标签。</li>
+</ul>
+<p>INCOME（收益能力）：</p>
+<ul>
+<li><code>interval_return/ann_return</code>（区间收益/年化收益）、<code>sharpe</code> 年化夏普、<code>calmar</code> 年化卡玛、<code>prob_positive_return</code> 持有3月正收益概率。</li>
+<li><code>information_ratio</code>：<strong>基于行业对比指数</strong>计算。</li>
+<li><code>upward/downward</code> 进攻/防守能力：<strong>指数上涨/下跌阶段基金相对指数的年化超额收益，对比指数=市场适应性指数，收益率按周频计算</strong>。</li>
+<li><code>ann_alpha_sector/ann_alpha_style</code>：相对行业/风格对比指数的年化超额。</li>
+<li><code>ann_stock_selection_return</code> 个股选择能力：<strong>持有股票相对行业指数超额收益的加权平均的几何年化值</strong>。</li>
+<li>同类排名 <code>rank_*_class</code>：&quot;行业主题/行业集中基金→同行业对比指数为同类；其余→同风格对比指数为同类&quot;。</li>
+<li><code>*_wavg</code> 标准化系列（标准化年化收益/波动/回撤/绝对收益）：remark 均写&quot;近1年…&quot;，疑为跨周期加权到 1 年口径（见疑点）。</li>
+</ul>
+<p>SCORE（评分）：</p>
+<ul>
+<li><code>score_total</code> 总评分 = <strong>10 个评分的均值</strong>：标准化年化收益、标准化年化波动、标准化最大回撤、标准化绝对收益、进攻、防守、领域超额、风格超额、个股选择、信息比率评分。</li>
+<li>基础评分公式（remark 原文）：&quot;标准化年化收益率相对同类最差值的超额 ÷ 基准值相对同类最差值的超额&quot;（波动/回撤/绝对收益同构）。</li>
+<li><code>score_*_rank</code> 系列 = 对应评分的<strong>百分位排名</strong>。</li>
+</ul>
+<p>RISK：年化波动率、最大回撤（负小数）、最大回撤区间（STRING）、修复时长、次大回撤及区间；均有 since_appointment 周期。</p>
+<p>TRADE（95 条）：盈米/中航/粤开/腾安/中银/万联/国元/腾安(偏债) 8 家代销渠道的费率与申赎限额；仅盈米费率是 NUMBER（unit=直接加%），其余渠道全为 STRING 展示字段（filter=0）。</p>
+<h3>3.2 public_fund_indicator_option_query（实测 STOCK + style_1y）</h3>
+<p>返回 <code>optionList[].optionName</code>：价值 / 均衡 / 成长 / 新兴成长 / 深度价值。仅 STRING 指标可查。</p>
+<h3>3.3 public_fund_screener_query（实测 STOCK，ann_return_1y≥0.2 降序）</h3>
+<ul>
+<li>出参：<code>total</code>（一筛后 1995）/ <code>allCount</code>（面板全量 7058）/ <code>totalRow</code>（二筛后，无二筛时=total）/ <code>list[]</code> 字段名=dataIndex。</li>
+<li><strong>量纲实证：收益/回撤均为小数</strong>——ann_return_1y=1.8924（即 +189.24%）、max_drawdown_1y=-0.1625（-16.25%）；筛选阈值 numberFilter 也按小数填（0.2=20%）。</li>
+<li>周期传参已验证：showIndicator/indicatorParam 里 <code>screenerIndicatorDetail: [{code:&quot;label&quot;, …stringFilter:[&quot;1y&quot;]}]</code> 生效；排序 key 用 dataIndex。</li>
+</ul>
+<h3>3.4 stock_search / fund_stock_selection_query（未实测，凭 digest）</h3>
+<ul>
+<li>stock_search：A股+港股（无美股），LIKE 模糊，最多 5 条；港股消歧规则（排除 -R/-WR 人民币柜台）。</li>
+<li>fund_stock_selection_query：占净值比 minRatio/maxRatio 为 0-1 小数；holdingType=semiannual（半年报&amp;年报全部持仓，默认）/quarter（季报重仓股）——<strong>两口径覆盖面不同</strong>；默认取对应 report_source 的最大 report_date；全 6 位数字才只查普通持股，否则并查 QDII。</li>
+</ul>
+<hr>
+<h2>4. fund-manager（3 个工具）</h2>
+<h3>4.1 fund_manager_info_search（实测&quot;张坤&quot;）</h3>
+<p>出参：<code>managerCode</code>（盈米自有代码 C2BIVBwaf，非 Wind 代码）/ managerName / companyCode（jy 前缀，聚源系）/ companyName / <code>mgntCntCurrent</code> 当前在管基金数。</p>
+<h3>4.2 getManagerFund（实测张坤，isCurrent=true）</h3>
+<ul>
+<li>每只基金：fundCode/fundName/startDate（管理起始，格式 <code>yyyy.MM.dd</code> 点分隔）/isCurrent/一二级分类/对标指数/规模/近期收益回撤/mainFundFlag。</li>
+<li><strong>对标指数为 Wind 基金指数</strong>：885054.WI QDII基金指数、885013.WI 混合型基金总指数（按二级分类挂靠，非业绩比较基准）。</li>
+<li><strong>规模单位：元</strong>（易方达蓝筹 20,415,804,144.76 = 204.16 亿）。</li>
+<li>⚠️ <code>netAsset</code> 注释为&quot;份额规模&quot;，但实测 4 只基金 netAsset 全部 == totalNetAsset，疑同值回填，份额口径不可信。</li>
+<li>收益指标仅 <code>lmIntervalReturn/l3mIntervalReturn</code>（近1月/3月涨跌幅，小数）与 <code>lmMdd/l3mMdd</code>（近1月/3月最大回撤，负小数）。<strong>没有年化回报字段</strong>——经理维度年化收益需回到 fund-select 的 <code>ann_return_since_appointment</code> 或 fund-analysis 组取。</li>
+</ul>
+<h3>4.3 get_manager_resume（实测张坤）</h3>
+<ul>
+<li><code>managerYearTotal</code>=13.94（<strong>投资经理经验/管理年限</strong>，年，2位小数；张坤 2012-09-28 首任至今）与 <code>securityExperiencePeriod</code>=18.16（<strong>证券从业年限</strong>）是两个口径，工具描述明令勿混用；简历文本自述&quot;18年证券从业&quot;与后者吻合。</li>
+<li>companyInfos：历任公司 + mgntCnt（该公司管理过的基金数 5，&gt; 当前在管 4，含已卸任）。</li>
+</ul>
+<hr>
+<h2>5. world-news（7 个工具，仅记录结构）</h2>
+<h3>5.1 getFinCalendar（实测 date=2026-09-02）</h3>
+<ul>
+<li><code>data.events[]</code>：eventId / eventTime（yyyy-MM-dd HH:mm:ss 北京时间）/ region / eventName / <code>importance</code>（高/中/低三档中文）/ currentValue / forecastValue / previousValue。</li>
+<li><strong>数值字段为展示字符串</strong>，单位内嵌（&quot;-3.6%&quot;、&quot;4.8万人&quot;、&quot;9.5万桶&quot;、&quot;--&quot;=无），不可直接数值计算。</li>
+<li>事件混装：宏观数据 + 央行讲话/决议 + A股市场事件（IPO、期权上市、展会）。同一事件常有重复条目（新西兰利率决议 3 条、加拿大 2 条，importance 还不一致）。</li>
+<li>外层 <code>startDate=2025-08-01, endDate=2026-09-12</code>：为日历数据整体可用范围，非本次查询范围。</li>
+</ul>
+<h3>5.2 其余 6 个（凭 digest）</h3>
+<ul>
+<li>getDeepIns（深度观察，from/size 分页）、getHotEvents（热门事件，size）、getRealTimeInfo（实时资讯，from/size）、getOverseasIndex（境外指数<strong>分钟级</strong>价格，按 category）。</li>
+<li>getWscnNews：源=ying99_vesta.vesta_wscn_news，华尔街见闻爬虫，<strong>每日 05:00/06:00 Airflow 抓取落库（非实时）</strong>；4 频道 shares/bonds/commodities/forex；hours 默认 24、limit 默认 50 最大 200。</li>
+<li>get_finance_news_live：同花顺等多源 7x24 快讯，limit 默认 20（schema 内 max=50，外层描述又写最大 1000/10000，<strong>三处上限自相矛盾</strong>）；includeTags 默认值 false/true 两处描述也互斥。</li>
+</ul>
+<hr>
+<h2>6. research-report（2 个工具，仅记录结构）</h2>
+<h3>6.1 published_files_query（实测 pageSize=2, latest）</h3>
+<ul>
+<li>⚠️ <strong>入参须包一层 <code>req</code></strong>：<code>{&quot;req&quot;:{&quot;pageNum&quot;:1,&quot;pageSize&quot;:2,&quot;sortBy&quot;:&quot;latest&quot;}}</code>（digest 内嵌 schema 把 pageNum 等写在顶层，实际参数名是 req——按 digest 顶层直传会错）。</li>
+<li>库存 2769 篇。list[] 字段：id（=下载工具的 nodeId）/ nodeName（文件名）/ fileSize（字节）/ mimeType / creatorName / createTime（yyyy.MM.dd HH:mm:ss）/ viewCount / downloadCount / isHot / author / <strong>reportAbstract（长文摘要，信息量大）</strong> / reportDate / categoryId+categoryName（多分类 categories[]）。ossKey 公开接口置 null。</li>
+<li>sortBy：latest=create_time 降序；hot=浏览+下载合计降序。</li>
+<li>顺带发现：最新《宏观策略早报_20260902》摘要中出现&quot;VESTA 信号 8月27日转乐观&quot;&quot;沪深300与万得全A的 ERP 处于偏便宜区间&quot;&quot;红利低波75%/成长25%&quot;——研究院日报直接引用本网关同源的 ERP/信号口径。</li>
+</ul>
+<h3>6.2 published_file_download_url（未实测）</h3>
+<p>nodeId 必须来自上面 list[].id；preview=true 15 分钟 inline 不计下载、false 60 分钟 attachment 计下载；includeInternalUrl=true 加内网 URL。</p>
+<hr>
+<h2>7. 总览表</h2>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>分组/工具</th>
+<th>关键出参</th>
+<th>量纲</th>
+<th>公式/口径要点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>index valuation PE/PB</td>
+<td>percentile_0~100, current_value</td>
+<td>估值原值（倍）</td>
+<td>分位=用户区间内估值原值的 0/25/50/75/100 分位；<strong>无固定窗口</strong>；序列按自然日填充</td>
+</tr>
+<tr>
+<td>index valuation ERP</td>
+<td>μ, μ±1σ, μ±2σ, current</td>
+<td><strong>小数</strong>（0.056=5.6%）</td>
+<td>ERP=1/PE−10Y国债；domestic/us 两种参考；样本 σ；交易日序列</td>
+</tr>
+<tr>
+<td>index 行业权重</td>
+<td>industryName/stockCount/totalWeight</td>
+<td>0-1 小数，合计≈1</td>
+<td>默认中信一级、最新报告期；出参不回显口径</td>
+</tr>
+<tr>
+<td>index trend</td>
+<td>price_close/normalized_value</td>
+<td>点位 / 首日=1 倍数</td>
+<td>归一化为累计倍数非涨跌幅</td>
+</tr>
+<tr>
+<td>macro indicatorSearch</td>
+<td>code/name/frequency/unit/起止日</td>
+<td>unit 字段自带（%等）</td>
+<td>INDEX 固定 日/点位；MACRO 月末/季末记账</td>
+</tr>
+<tr>
+<td>macro getIndicatorSeries</td>
+<td>series_data[].value（字符串）</td>
+<td>随 unit（%=百分数值）</td>
+<td>record_date=自然期末日</td>
+</tr>
+<tr>
+<td>fund-select config</td>
+<td>463 条：code/name/dataType/unit/remark</td>
+<td>unit 多为空；收益类实为小数</td>
+<td>remark 即公式口径原文（见 §3.1）</td>
+</tr>
+<tr>
+<td>fund-select screener</td>
+<td>total/allCount/totalRow/list</td>
+<td><strong>收益回撤=小数</strong></td>
+<td>周期走 label 维度；排序用 dataIndex</td>
+</tr>
+<tr>
+<td>fund-manager 列表</td>
+<td>totalNetAsset/lmIntervalReturn 等</td>
+<td>规模=元；收益=小数</td>
+<td>对标为 Wind 基金指数；无年化回报字段</td>
+</tr>
+<tr>
+<td>fund-manager 简历</td>
+<td>managerYearTotal / securityExperiencePeriod</td>
+<td>年（2位小数）</td>
+<td>管理年限 ≠ 从业年限，两口径并列</td>
+</tr>
+<tr>
+<td>world-news 日历</td>
+<td>current/forecast/previousValue</td>
+<td><strong>展示字符串含单位</strong></td>
+<td>importance 高/中/低；事件有重复</td>
+</tr>
+<tr>
+<td>research-report 列表</td>
+<td>id/reportAbstract/reportDate/分类</td>
+<td>字节/次数</td>
+<td>入参包 req；hot=浏览+下载合计</td>
+</tr>
+</tbody></table></div>
+<h2>8. 疑点汇总</h2>
+<ol>
+<li><strong>PE/PB 分位在自然日填充序列上计算</strong>（区间点数=自然日数 2435），ERP 在交易日序列（1662）——两者样本基不一致，PE/PB 分位与&quot;交易日分位&quot;惯例有偏差。</li>
+<li><strong>估值分位无固定回看窗口</strong>，完全由入参区间决定；不同调用方取 3y/5y/10y 会得出不同&quot;分位&quot;，对外引用必须带区间。</li>
+<li>行业权重接口<strong>不回显 recordDate/行业体系/层级</strong>，出参无法自证口径。</li>
+<li>fund-select 配置 unit 字段基本为空（447/463），收益/回撤/波动实际是 0-1 小数，量纲全靠约定；<code>直接加%</code> 仅用于盈米费率 6 条。</li>
+<li><code>*_wavg</code>&quot;标准化&quot;系列 remark 一律写&quot;近1年…&quot;（含 2y/3y/5y 版本也这么写），标准化的确切加权方式（是否多周期加权折算）文档未说明。</li>
+<li>评分公式&quot;相对同类最差值的超额 ÷ 基准值相对同类最差值的超额&quot;中的**&quot;基准值&quot;定义未给出**（疑为对比指数同指标值）。</li>
+<li>STOCK 的 compositeIndicators 为空——合成指标 ci_{id} 能力存在但默认字典无内容，BOND/FIXED_INCOME_PLUS 是否有未测。</li>
+<li>getManagerFund 的 netAsset（份额规模）实测恒等于 totalNetAsset，份额口径疑似回填错误；且<strong>经理维度无年化回报</strong>，需借 fund-select 的 since_appointment 周期或 fund-analysis 组。</li>
+<li>经理对标指数是 Wind 基金指数（885013.WI 等，按二级分类挂靠），不是招募书业绩比较基准，做超额时勿混用。</li>
+<li>macro 指标存在同名同区间重复 code（2002/2147 日本CPI同比），需固定 code 引用；<code>getForeignRatesTimeseries</code> 汇率方向（1 ori 兑多少 ex？）未验证。</li>
+<li>world-news：get_finance_news_live 的 limit 上限三处描述矛盾（50/1000/10000）、includeTags 默认值两处矛盾；getFinCalendar 同一事件重复且 importance 不一致；数值全是含单位字符串。</li>
+<li>research-report digest 的 inputSchema 与真实入参不一致：<strong>实际必须包 <code>req</code> 对象</strong>，按 digest 顶层传参会失败。</li>
+</ol>
+
+<div class="foot">CLAIR · 内部技术口径文档，请勿外传。</div>
+</div>
+</body>
+</html>

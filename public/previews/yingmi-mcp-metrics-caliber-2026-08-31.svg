@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 405" font-family="-apple-system,'PingFang SC',sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f72cd"/>
+      <stop offset="1" stop-color="#0b5192"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="405" fill="url(#bg)"/>
+  <circle cx="620" cy="340" r="150" fill="#1b88ee" opacity="0.22"/>
+  <circle cx="120" cy="40" r="100" fill="#e5f2ff" opacity="0.08"/>
+  <text x="48" y="72" font-size="16" letter-spacing="4" fill="#dceeff" font-weight="700">口径文档 · v1.0 · 2026-08-31</text>
+  <text x="48" y="140" font-size="44" fill="#ffffff" font-weight="900">盈米MCP接口出参</text>
+  <text x="48" y="196" font-size="44" fill="#ffffff" font-weight="900">指标公式与口径文档</text>
+  <text x="48" y="248" font-size="22" fill="#dceeff">WIKI 零口径 · SSOT = 生产库冻结快照 + 上游源码</text>
+  <g font-size="16" fill="#c9e2fb">
+    <text x="48" y="308">纯代理 + 局部改写：出参 95% 由上游服务决定</text>
+    <text x="48" y="338">计费 2026-07-31 换轨 T0=1分×64 工具，文档未同步</text>
+  </g>
+  <rect x="48" y="360" width="64" height="6" fill="#ffffff" opacity="0.9"/>
+</svg>

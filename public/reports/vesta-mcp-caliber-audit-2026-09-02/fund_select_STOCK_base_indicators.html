@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>vesta 投研 MCP 口径盘点｜fund_select_STOCK_base_indicators</title>
+<meta name="description" content="vesta 投研 MCP 口径盘点分组明细：fund_select_STOCK_base_indicators">
+</head>
+<body>
+<style>
+:root{
+  --paper:#fbfbfd; --ink:#20242f; --muted:#666d80; --line:#e4e6ee;
+  --accent:#1b88ee; --accent-soft:#e5f2ff; --accent-ink:#0b5192;
+  --good:#1f8a5a; --warn:#a06a12; --risk:#bd4038;
+  --card:#ffffff; --code-bg:#f0f5fb;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#131720; --ink:#e8e9f0; --muted:#9aa0b4; --line:#2a3040;
+    --accent:#4aa7ff; --accent-soft:#16283e; --accent-ink:#9dcbf7;
+    --good:#4cc38a; --warn:#d9a441; --risk:#e5716a;
+    --card:#1a1f2c; --code-bg:#1f2636;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#131720; --ink:#e8e9f0; --muted:#9aa0b4; --line:#2a3040;
+  --accent:#4aa7ff; --accent-soft:#16283e; --accent-ink:#9dcbf7;
+  --good:#4cc38a; --warn:#d9a441; --risk:#e5716a;
+  --card:#1a1f2c; --code-bg:#1f2636;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:400 16px/1.85 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;}
+.wrap{max-width:880px;margin:0 auto;padding:56px 24px 96px}
+h1,h2,h3{font-family:"Songti SC","Source Han Serif SC",serif;text-wrap:balance;line-height:1.3}
+h1{font-size:2.1rem;font-weight:900;margin:.3em 0 .2em}
+h2{font-size:1.45rem;font-weight:700;margin:2.4em 0 .7em;padding-top:1.2em;border-top:1px solid var(--line)}
+h3{font-size:1.08rem;font-weight:700;margin:1.8em 0 .5em}
+h4{font-size:1rem;font-weight:700;margin:1.5em 0 .4em}
+p{margin:.7em 0}
+a{color:var(--accent-ink)}
+.kicker{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-ink);font-weight:700}
+code{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.85em;background:var(--code-bg);border-radius:4px;padding:.1em .4em;word-break:break-all}
+pre{background:var(--code-bg);border:1px solid var(--line);border-radius:8px;padding:14px 16px;overflow-x:auto;font-size:.85rem;line-height:1.6}
+pre code{background:none;padding:0;word-break:normal}
+blockquote{border-left:3px solid var(--accent);background:var(--accent-soft);padding:10px 18px;border-radius:0 8px 8px 0;margin:1.4em 0;font-size:.94rem}
+blockquote p{margin:.4em 0}
+table{border-collapse:collapse;width:100%;font-size:.88rem;margin:1em 0}
+.tablewrap{overflow-x:auto;margin:1em 0}
+.tablewrap table{margin:0}
+th{text-align:left;font-weight:700;border-bottom:2px solid var(--line);padding:.5em .8em .4em .1em;white-space:nowrap;background:var(--paper);position:sticky;top:0}
+td{border-bottom:1px solid var(--line);padding:.5em .8em .5em .1em;vertical-align:top}
+ul,ol{padding-left:1.4em}
+li{margin:.3em 0}
+hr{border:none;border-top:1px solid var(--line);margin:2.5em 0}
+strong{font-weight:700}
+.foot{margin-top:4em;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line);padding-top:1.4em}
+</style>
+<div class="wrap">
+<div class="kicker">口径盘点分组明细 · 2026-09-02</div>
+<h2>BASE</h2>
+<ul>
+<li><code>fund_code</code> 基金代码 [STRING] 周期:- show=0 filter=1 — 基金代码</li>
+<li><code>fund_name</code> 基金名称 [STRING] 周期:- show=0 filter=1 — 基金名称</li>
+<li><code>manager_summary</code> 经理综述 [STRING] 周期:- show=0 filter=0 — 基于启明投研团队的基金经理分析框架，运用AI能力对基金经理的个人简介、投资理念、投资方法、收益能力、风控能力、行业/券种偏好、投资风格、投资展望和风险收益特征进行概括。 蓝色字体表示研究分析基于盈米内部研究，红色字体表示基于全市场研究。</li>
+<li><code>setup_date</code> 基金成立日 [DATE] 周期:- show=1 filter=1 — 基金成立日</li>
+<li><code>setup_years</code> 基金成立年限 [NUMBER] 周期:- show=1 filter=1 — 基金成立年限</li>
+<li><code>is_regular_open</code> 是否定开基金 [STRING/是否] 周期:- show=1 filter=1 — 是否定开基金</li>
+<li><code>manager_name</code> 现任基金经理 [STRING] 周期:- show=1 filter=1 — 现任基金经理</li>
+<li><code>mgr_start_date</code> 任职开始日 [DATE] 周期:- show=1 filter=1 — 任职时间最长的现任基金经理任职日期</li>
+<li><code>a_stock_ratio_avg</code> 平均A股仓位 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 区间内基金持有A股市值占基金净资产比例的均值，A股仓位=股票仓位-港股仓位</li>
+<li><code>hk_stock_ratio_avg</code> 平均港股仓位 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 区间内基金持有港股市值占基金净资产比例的均值</li>
+<li><code>start_date</code> 评估开始报告期 [DATE] 周期:1y,2y,3y,5y show=1 filter=1 — 评估领域特征、风格特征使用到的第一个报告期</li>
+<li><code>end_date</code> 评估结束报告期 [DATE] 周期:1y,2y,3y,5y show=1 filter=1 — 评估领域特征、风格特征使用到的最后一个报告期</li>
+<li><code>rotation_ratio_avg</code> 行业轮动程度 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 评估区间内板块间调仓幅度的均值，若区间内少于两个报告期，则不计算</li>
+<li><code>sector_1st_avg</code> 区间第一重仓行业 [STRING] 周期:1y,2y,3y,5y show=1 filter=1 — 评估区间内平均配置比例排名第一的行业</li>
+<li><code>sector_top2_avg</code> 区间前二重仓行业 [STRING] 周期:1y,2y,3y,5y show=1 filter=1 — 评估区间内平均配置比例排名前二的行业</li>
+<li><code>ratio_1st_avg</code> 区间第一重仓行业占比 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 评估区间内第一重仓行业的平均配置比例</li>
+<li><code>ratio_2nd_avg</code> 区间第二重仓行业占比 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 评估区间内第二重仓行业的平均配置比例</li>
+<li><code>stability_1st</code> 第一重仓行业稳定度 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 在评估区间内，每个报告期内配置比例第一的行业为区间第一重仓行业的期数占评估报告期数的比例</li>
+<li><code>stability_top2</code> 前二重仓行业稳定度 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 在评估区间内，每个报告期内配置比例前二的行业为前二重仓行业的期数占评估报告期数的比例</li>
+<li><code>index_code</code> 对比指数代码(行业) [STRING] 周期:1y,2y,3y,5y show=1 filter=1 — 对比指数代码-基于行业特征</li>
+<li><code>index_name</code> 对比指数名称(行业) [STRING] 周期:1y,2y,3y,5y show=1 filter=1 — 对比指数名称-基于行业特征</li>
+<li><code>growth_score</code> 成长风格暴露评分 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 评估区间内，根据成长类股票平均持有比例计算的得分</li>
+<li><code>value_score</code> 价值风格暴露评分 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 评估区间内，根据价值类股票平均持有比例计算的得分</li>
+<li><code>value</code> 价值风格占比 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 评估区间内价值风格股票的平均配置比例</li>
+<li><code>deep_value</code> 深度价值风格占比 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 评估区间内深度价值风格股票的平均配置比例</li>
+<li><code>growth</code> 成长风格占比 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 评估区间内成长风格股票的平均配置比例</li>
+<li><code>emerging_growth</code> 新兴成长风格占比 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 评估区间内新兴成长风格股票的平均配置比例</li>
+<li><code>style_index_code</code> 对比指数代码(风格) [STRING] 周期:1y,2y,3y,5y show=1 filter=1 — 对比指数代码-基于风格特征</li>
+<li><code>style_index_name</code> 对比指数名称(风格) [STRING] 周期:1y,2y,3y,5y show=1 filter=1 — 对比指数名称-基于风格特征</li>
+<li><code>adapt_index_code</code> 市场适应性对比指数代码 [STRING] 周期:1y,2y,3y,5y show=1 filter=1 — 市场适应性对比指数代码</li>
+<li><code>adapt_index_name</code> 市场适应性对比指数名称 [STRING] 周期:1y,2y,3y,5y show=1 filter=1 — 市场适应性对比指数名称</li>
+<li><code>eval_start_date</code> 评估开始日 [DATE] 周期:1y,2y,3y,5y show=1 filter=1 — 计算能力类指标的开始日期，一般为首个报告期</li>
+<li><code>eval_end_date</code> 评估结束日 [DATE] 周期:1y,2y,3y,5y show=1 filter=1 — 计算能力类指标的结束日期，一般为最近一个交易日</li>
+</ul>
+<h2>TRADE</h2>
+<ul>
+<li><code>is_ym_sale</code> 盈米是否代销 [STRING/是否] 周期:- show=1 filter=1 — 盈米是否代销</li>
+<li><code>ym_sale_status_name</code> 盈米申赎状态 [STRING] 周期:- show=1 filter=1 — 包括申购和赎回的状态</li>
+<li><code>ym_management_fee</code> 盈米管理费率(%) [NUMBER/直接加%] 周期:- show=1 filter=1 — 管理费</li>
+<li><code>ym_sale_fee</code> 盈米销售服务费(%) [NUMBER/直接加%] 周期:- show=1 filter=1 — 销售服务费</li>
+<li><code>ym_custodian_fee</code> 盈米托管费(%) [NUMBER/直接加%] 周期:- show=1 filter=1 — 销售服务费</li>
+<li><code>ym_subscribe_fee</code> 盈米认购费率(%) [NUMBER/直接加%] 周期:- show=1 filter=1 — 盈米认购费率（最大）</li>
+<li><code>ym_allot_fee</code> 盈米申购费率(%) [NUMBER/直接加%] 周期:- show=1 filter=1 — 盈米申购费率（最大）</li>
+<li><code>ym_redeem_fee</code> 盈米赎回费率(%) [NUMBER/直接加%] 周期:- show=1 filter=1 — 盈米赎回费率（最大）</li>
+<li><code>ym_inst_purchase_first_amount_lowest</code> 盈米起购金额（元） [STRING] 周期:- show=1 filter=0 — 盈米起购金额（元）</li>
+<li><code>ym_amount_highest_single_day</code> 盈米单日限额 [STRING] 周期:- show=1 filter=0 — 盈米单日限额</li>
+<li><code>ym_amount_highest_single_account</code> 盈米累计限额 [STRING] 周期:- show=1 filter=0 — 盈米累计限额</li>
+<li><code>is_zh_sale</code> 中航是否代销 [STRING/是否] 周期:- show=1 filter=1 — 中航是否代销</li>
+<li><code>zh_min_bids_amount_by_indi</code> 中航最低申购金额 [STRING] 周期:- show=1 filter=0 — 中航最低申购金额</li>
+<li><code>zh_min_app_bids_amount_by_indi</code> 中航最低追加金额 [STRING] 周期:- show=1 filter=0 — 中航最低追加金额</li>
+<li><code>zh_indi_max_purchase</code> 中航单笔最高购买金额 [STRING] 周期:- show=1 filter=0 — 中航单笔最高购买金额</li>
+<li><code>zh_indi_day_max_sum_buy</code> 中航单日最高购买金额 [STRING] 周期:- show=1 filter=0 — 中航单日最高购买金额</li>
+<li><code>zh_min_redemption_vol</code> 中航最低赎回份额 [STRING] 周期:- show=1 filter=0 — 中航最低赎回份额</li>
+<li><code>zh_indi_max_redeem</code> 中航单笔最高赎回份额 [STRING] 周期:- show=1 filter=0 — 中航单笔最高赎回份额</li>
+<li><code>zh_indi_day_max_sum_redeem</code> 中航单日最高赎回份额 [STRING] 周期:- show=1 filter=0 — 中航单日最高赎回份额</li>
+<li><code>zh_buy_fee</code> 中航购买费率 [STRING] 周期:- show=1 filter=0 — 中航购买费率</li>
+<li><code>zh_buy_fee_discount</code> 中航申购费折扣 [STRING] 周期:- show=1 filter=0 — 中航申购费折扣</li>
+<li><code>zh_redeem_fee</code> 中航赎回费率 [STRING] 周期:- show=1 filter=0 — 中航赎回费率</li>
+<li><code>zh_redeem_fee_discount</code> 中航赎回费折扣 [STRING] 周期:- show=1 filter=0 — 中行赎回费折扣</li>
+<li><code>is_yk_sale</code> 粤开是否代销 [STRING/是否] 周期:- show=1 filter=1 — 粤开是否代销</li>
+<li><code>yk_min_bids_amount_by_indi</code> 粤开最低申购金额 [STRING] 周期:- show=1 filter=0 — 粤开最低申购金额</li>
+<li><code>yk_min_app_bids_amount_by_indi</code> 粤开最低追加金额 [STRING] 周期:- show=1 filter=0 — 粤开最低追加金额</li>
+<li><code>yk_indi_max_purchase</code> 粤开单笔最高购买金额 [STRING] 周期:- show=1 filter=0 — 粤开单笔最高购买金额</li>
+<li><code>yk_indi_day_max_sum_buy</code> 粤开单日最高购买金额 [STRING] 周期:- show=1 filter=0 — 粤开单日最高购买金额</li>
+<li><code>yk_min_redemption_vol</code> 粤开最低赎回份额 [STRING] 周期:- show=1 filter=0 — 粤开最低赎回份额</li>
+<li><code>yk_indi_max_redeem</code> 粤开单笔最高赎回份额 [STRING] 周期:- show=1 filter=0 — 粤开单笔最高赎回份额</li>
+<li><code>yk_indi_day_max_sum_redeem</code> 粤开单日最高赎回份额 [STRING] 周期:- show=1 filter=0 — 粤开单日最高赎回份额</li>
+<li><code>yk_buy_fee</code> 粤开购买费率 [STRING] 周期:- show=1 filter=0 — 粤开购买费率</li>
+<li><code>yk_buy_fee_discount</code> 粤开申购费折扣 [STRING] 周期:- show=1 filter=0 — 粤开申购费折扣</li>
+<li><code>yk_redeem_fee</code> 粤开赎回费率 [STRING] 周期:- show=1 filter=0 — 粤开赎回费率</li>
+<li><code>yk_redeem_fee_discount</code> 粤开赎回费折扣 [STRING] 周期:- show=1 filter=0 — 粤开赎回费折扣</li>
+</ul>
+<h2>TAG</h2>
+<ul>
+<li><code>fund_type</code> 所属板块/行业类型 [STRING] 周期:1y,2y,3y,5y show=1 filter=1 — 包括 ”行业主题“，”行业集中“、”行业轮动“、”行业均衡“、“无行业特征”五个标签</li>
+<li><code>sector</code> 重仓行业 [STRING] 周期:1y,2y,3y,5y show=1 filter=1 — 仅对“行业主题”、“行业集中”基金生效，评估区间内该类型基金重仓的行业</li>
+<li><code>style</code> 基金风格 [STRING] 周期:1y,2y,3y,5y show=1 filter=1 — 根据成长评分与价值评分的相对数值关系判断得到的基金风格标签</li>
+<li><code>label_alpha_sector</code> 领域超额能力标签 [STRING] 周期:1y,2y,3y,5y show=1 filter=1 — 领域超额能力排名前5%（行业主题、行业集中型基金为前10%）的基金打上“领域超额”标签</li>
+<li><code>label_alpha_style</code> 风格超额能力标签 [STRING] 周期:1y,2y,3y,5y show=1 filter=1 — 风格超额能力排名前5%（行业主题、行业集中型基金为前10%）的基金打上“风格超额”标签</li>
+<li><code>label_stock_selection</code> 个股选择能力标签 [STRING] 周期:1y,2y,3y,5y show=1 filter=1 — 个股选择能力排名前5%（行业主题、行业集中型基金为前10%）的基金打上“个股超额”标签</li>
+<li><code>label_upward</code> 进攻能力标签 [STRING] 周期:1y,2y,3y,5y show=1 filter=1 — 进攻能力排名前5%（行业主题、行业集中型基金为前10%）的基金打上“进攻”标签</li>
+<li><code>label_downward</code> 防守能力标签 [STRING] 周期:1y,2y,3y,5y show=1 filter=1 — 防守能力排名前5%（行业主题、行业集中型基金为前10%）的基金打上“防守”标签</li>
+<li><code>label_max_drawdown</code> 回撤标签 [STRING] 周期:1y,2y,3y,5y show=1 filter=1 — 最大回撤评分排名前5%（行业主题、行业集中型基金为前10%）的基金打上“控回撤”标签</li>
+<li><code>label_volatility</code> 波动标签 [STRING] 周期:1y,2y,3y,5y show=1 filter=1 — 年化波动评分排名前5%（行业主题、行业集中型基金为前10%）的基金打上“低波动”标签</li>
+<li><code>label_positive_return</code> 绝对收益标签 [STRING] 周期:1y,2y,3y,5y show=1 filter=1 — 绝对收益评分排名前5%（行业主题、行业集中型基金为前10%）的基金打上“绝对收益”标签</li>
+</ul>
+<h2>INCOME</h2>
+<ul>
+<li><code>interval_return</code> 区间收益率 [NUMBER] 周期:1y,2y,3y,5y,since_appointment show=1 filter=1 — 区间收益率</li>
+<li><code>ann_return</code> 区间年化收益率 [NUMBER] 周期:1y,2y,3y,5y,since_appointment show=1 filter=1 — 区间年化收益率</li>
+<li><code>ann_return_wavg</code> 标准化年化收益 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 近1年年化收益率 </li>
+<li><code>prob_positive_return</code> 持有3月正收益概率 [NUMBER] 周期:1y,2y,3y,5y,since_appointment show=1 filter=1 — 持有3月正收益概率</li>
+<li><code>prob_positive_return_wavg</code> 标准化绝对收益 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 近1年持有3个月正收益概率</li>
+<li><code>sharpe</code> 年化夏普比率 [NUMBER] 周期:1y,2y,3y,5y,since_appointment show=1 filter=1 — 年化夏普比率</li>
+<li><code>calmar</code> 年化卡玛比率 [NUMBER] 周期:1y,2y,3y,5y,since_appointment show=1 filter=1 — 年化卡玛比率</li>
+<li><code>information_ratio</code> 信息比率 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 基于行业对比指数计算的信息比率</li>
+<li><code>rank_inforatio</code> 信息比率排名 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 信息比率排名</li>
+<li><code>rank_inforatio_class</code> 信息比率排名/同类 [STRING] 周期:1y,2y,3y,5y show=1 filter=0 — 信息比率排名/同类基金数量。同类定义：（1）对于“行业主题”、“行业集中”基金，指定相同行业对比指数的基金为同类；（2）除上述类型基金外，指定相同风格对比指数的基金为同类。</li>
+<li><code>upward</code> 进攻能力 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 指数在上涨阶段时，基金相对指数的年化超额收益，对比指数采用适应性指数，收益率以周为频率计算</li>
+<li><code>rank_upward</code> 进攻能力排名 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 进攻能力排名</li>
+<li><code>rank_upward_class</code> 进攻能力排名/同类 [STRING] 周期:1y,2y,3y,5y show=1 filter=0 — 进攻能力排名/同类基金数量。同类定义：（1）对于“行业主题”、“行业集中”基金，指定相同行业对比指数的基金为同类；（2）除上述类型基金外，指定相同风格对比指数的基金为同类。</li>
+<li><code>downward</code> 防守能力 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 指数在下跌阶段时，基金相对指数的年化超额收益，对比指数采用适应性指数，收益率以周为频率计算</li>
+<li><code>rank_downward</code> 防守能力排名 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 防守能力排名</li>
+<li><code>rank_downward_class</code> 防守能力排名/同类 [STRING] 周期:1y,2y,3y,5y show=1 filter=0 — 防守能力排名/同类基金数量。同类定义：（1）对于“行业主题”、“行业集中”基金，指定相同行业对比指数的基金为同类；（2）除上述类型基金外，指定相同风格对比指数的基金为同类。</li>
+<li><code>ann_alpha_sector</code> 年化领域超额收益率 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 评估区间内基金相对指数（基于行业特征）的年化超额收益率</li>
+<li><code>rank_sector</code> 领域超额能力排名 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 领域超额能力排名</li>
+<li><code>rank_sector_class</code> 领域超额能力排名/同类 [STRING] 周期:1y,2y,3y,5y show=1 filter=0 — 领域超额能力排名/同类基金数量</li>
+<li><code>ann_alpha_style</code> 年化风格超额收益率 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 评估区间内基金相对指数（基于风格特征）的年化超额收益率</li>
+<li><code>rank_style</code> 风格超额能力排名 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 风格超额能力排名</li>
+<li><code>rank_style_class</code> 风格超额能力排名/同类 [STRING] 周期:1y,2y,3y,5y show=1 filter=0 — 风格超额能力排名/同类基金数量。同类定义：（1）对于“行业主题”、“行业集中”基金，指定相同行业对比指数的基金为同类；（2）除上述类型基金外，指定相同风格对比指数的基金为同类。</li>
+<li><code>ann_stock_selection_return</code> 年化个股选择能力 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 评估区间内持有股票相对行业指数超额收益的加权平均的几何年化值</li>
+<li><code>rank_stock_selection</code> 个股选择能力排名 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 个股选择能力排名</li>
+<li><code>rank_stock_selection_class</code> 个股选择能力排名/同类 [STRING] 周期:1y,2y,3y,5y show=1 filter=0 — 个股选择能力排名/同类基金数量</li>
+<li><code>fund_return</code> 基金评估区间收益率 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 基金评估区间收益率</li>
+<li><code>index_return</code> 行业指数评估区间收益率 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 行业指数评估区间收益率</li>
+<li><code>style_index_return</code> 风格指数评估区间收益率 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 风格指数评估区间收益率</li>
+</ul>
+<h2>SCORE</h2>
+<ul>
+<li><code>score_total</code> 总评分 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 以下10个平均指标的均值：标准化年化收益评分、标准化年化波动评分、标准化最大回撤评分、标准化绝对收益评分、进攻能力评分、防守能力评分、领域超额能力评分、风格超额能力评分、个股选择能力评分、信息比率评分</li>
+<li><code>score_ann_return</code> 年化收益评分 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 标准化年化收益率相对同类最差值的超额与基准值相对同类最差值的超额之间的比值</li>
+<li><code>score_volatility</code> 年化波动评分 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 标准化年化波动率相对同类最差值的超额与基准值相对同类最差值的超额之间的比值</li>
+<li><code>score_max_drawdown</code> 最大回撤评分 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 标准化最大回撤相对同类最差值的超额与基准值相对同类最差值的超额之间的比值</li>
+<li><code>score_prob_positive_return</code> 绝对收益评分 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 标准化绝对收益相对同类最差值的超额与基准值相对同类最差值的超额之间的比值</li>
+<li><code>score_ann_return_rank</code> 标准化年化收益评分 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 年化收益评分的百分位排名</li>
+<li><code>score_volatility_rank</code> 标准化年化波动评分 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 年化波动评分的百分位排名</li>
+<li><code>score_max_drawdown_rank</code> 标准化最大回撤评分 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 最大回撤评分的百分位排名</li>
+<li><code>score_prob_positive_return_rank</code> 标准化绝对收益评分 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 绝对收益评分的百分位排名</li>
+<li><code>score_inforatio</code> 信息比率评分 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 信息比率评分</li>
+<li><code>score_upward</code> 进攻能力评分 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 进攻能力评分</li>
+<li><code>score_downward</code> 防守能力评分 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 防守能力评分</li>
+<li><code>score_alpha_sector</code> 领域超额能力评分 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 领域超额能力评分</li>
+<li><code>score_alpha_style</code> 风格超额能力评分 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 风格超额能力评分</li>
+<li><code>score_stock_selection</code> 个股选择能力评分 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 个股选择能力评分</li>
+</ul>
+<h2>RISK</h2>
+<ul>
+<li><code>volatility</code> 年化波动率 [NUMBER] 周期:1y,2y,3y,5y,since_appointment show=1 filter=1 — 年化波动率</li>
+<li><code>volatility_wavg</code> 标准化年化波动 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 近1年年化波动率</li>
+<li><code>max_drawdown</code> 最大回撤 [NUMBER] 周期:1y,2y,3y,5y,since_appointment show=1 filter=1 — 最大回撤</li>
+<li><code>max_drawdown_wavg</code> 标准化最大回撤 [NUMBER] 周期:1y,2y,3y,5y show=1 filter=1 — 近1年最大回撤</li>
+<li><code>max_drawdown_interval</code> 最大回撤区间 [STRING] 周期:1y,2y,3y,5y,since_appointment show=1 filter=0 — 最大回撤区间</li>
+<li><code>recover_duration</code> 最大回撤修复时长 [NUMBER] 周期:1y,2y,3y,5y,since_appointment show=1 filter=1 — 最大回撤修复时长</li>
+<li><code>second_drawdown</code> 次大回撤 [NUMBER] 周期:1y,2y,3y,5y,since_appointment show=1 filter=1 — 次大回撤</li>
+<li><code>second_drawdown_interval</code> 次大回撤区间 [STRING] 周期:1y,2y,3y,5y,since_appointment show=1 filter=0 — 次大回撤区间</li>
+</ul>
+<h2>TRADE</h2>
+<ul>
+<li><code>is_ta_sale</code> 腾安是否代销 [STRING/是否] 周期:- show=1 filter=1 — 腾安是否代销</li>
+<li><code>ta_min_bids_amount_by_indi</code> 腾安最低申购金额 [STRING] 周期:- show=1 filter=0 — 腾安最低申购金额</li>
+<li><code>ta_min_app_bids_amount_by_indi</code> 腾安最低追加金额 [STRING] 周期:- show=1 filter=0 — 腾安最低追加金额</li>
+<li><code>ta_indi_max_purchase</code> 腾安单笔最高购买金额 [STRING] 周期:- show=1 filter=0 — 腾安单笔最高购买金额</li>
+<li><code>ta_indi_day_max_sum_buy</code> 腾安单日最高购买金额 [STRING] 周期:- show=1 filter=0 — 腾安单日最高购买金额</li>
+<li><code>ta_min_redemption_vol</code> 腾安最低赎回份额 [STRING] 周期:- show=1 filter=0 — 腾安最低赎回份额</li>
+<li><code>ta_indi_max_redeem</code> 腾安单笔最高赎回份额 [STRING] 周期:- show=1 filter=0 — 腾安单笔最高赎回份额</li>
+<li><code>ta_indi_day_max_sum_redeem</code> 腾安单日最高赎回份额 [STRING] 周期:- show=1 filter=0 — 腾安单日最高赎回份额</li>
+<li><code>ta_buy_fee</code> 腾安购买费率 [STRING] 周期:- show=1 filter=0 — 腾安购买费率</li>
+<li><code>ta_buy_fee_discount</code> 腾安申购费折扣 [STRING] 周期:- show=1 filter=0 — 腾安申购费折扣</li>
+<li><code>ta_redeem_fee</code> 腾安赎回费率 [STRING] 周期:- show=1 filter=0 — 腾安赎回费率</li>
+<li><code>ta_redeem_fee_discount</code> 腾安赎回费折扣 [STRING] 周期:- show=1 filter=0 — 腾安赎回费折扣</li>
+<li><code>is_zy_sale</code> 中银是否代销 [STRING/是否] 周期:- show=1 filter=1 — 中银是否代销</li>
+<li><code>zy_min_bids_amount_by_indi</code> 中银最低申购金额 [STRING] 周期:- show=1 filter=0 — 中银最低申购金额</li>
+<li><code>zy_min_app_bids_amount_by_indi</code> 中银最低追加金额 [STRING] 周期:- show=1 filter=0 — 中银最低追加金额</li>
+<li><code>zy_indi_max_purchase</code> 中银单笔最高购买金额 [STRING] 周期:- show=1 filter=0 — 中银单笔最高购买金额</li>
+<li><code>zy_indi_day_max_sum_buy</code> 中银单日最高购买金额 [STRING] 周期:- show=1 filter=0 — 中银单日最高购买金额</li>
+<li><code>zy_min_redemption_vol</code> 中银最低赎回份额 [STRING] 周期:- show=1 filter=0 — 中银最低赎回份额</li>
+<li><code>zy_indi_max_redeem</code> 中银单笔最高赎回份额 [STRING] 周期:- show=1 filter=0 — 中银单笔最高赎回份额</li>
+<li><code>zy_indi_day_max_sum_redeem</code> 中银单日最高赎回份额 [STRING] 周期:- show=1 filter=0 — 中银单日最高赎回份额</li>
+<li><code>zy_buy_fee</code> 中银购买费率 [STRING] 周期:- show=1 filter=0 — 中银购买费率</li>
+<li><code>zy_buy_fee_discount</code> 中银申购费折扣 [STRING] 周期:- show=1 filter=0 — 中银申购费折扣</li>
+<li><code>zy_redeem_fee</code> 中银赎回费率 [STRING] 周期:- show=1 filter=0 — 中银赎回费率</li>
+<li><code>zy_redeem_fee_discount</code> 中银赎回费折扣 [STRING] 周期:- show=1 filter=0 — 中银赎回费折扣</li>
+<li><code>is_wl_sale</code> 万联是否代销 [STRING/是否] 周期:- show=1 filter=1 — 万联是否代销</li>
+<li><code>wl_min_bids_amount_by_indi</code> 万联最低申购金额 [STRING] 周期:- show=1 filter=0 — 万联最低申购金额</li>
+<li><code>wl_min_app_bids_amount_by_indi</code> 万联最低追加金额 [STRING] 周期:- show=1 filter=0 — 万联最低追加金额</li>
+<li><code>wl_indi_max_purchase</code> 万联单笔最高购买金额 [STRING] 周期:- show=1 filter=0 — 万联单笔最高购买金额</li>
+<li><code>wl_indi_day_max_sum_buy</code> 万联单日最高购买金额 [STRING] 周期:- show=1 filter=0 — 万联单日最高购买金额</li>
+<li><code>wl_min_redemption_vol</code> 万联最低赎回份额 [STRING] 周期:- show=1 filter=0 — 万联最低赎回份额</li>
+<li><code>wl_indi_max_redeem</code> 万联单笔最高赎回份额 [STRING] 周期:- show=1 filter=0 — 万联单笔最高赎回份额</li>
+<li><code>wl_indi_day_max_sum_redeem</code> 万联单日最高赎回份额 [STRING] 周期:- show=1 filter=0 — 万联单日最高赎回份额</li>
+<li><code>wl_buy_fee</code> 万联购买费率 [STRING] 周期:- show=1 filter=0 — 万联购买费率</li>
+<li><code>wl_buy_fee_discount</code> 万联申购费折扣 [STRING] 周期:- show=1 filter=0 — 万联申购费折扣</li>
+<li><code>wl_redeem_fee</code> 万联赎回费率 [STRING] 周期:- show=1 filter=0 — 万联赎回费率</li>
+<li><code>wl_redeem_fee_discount</code> 万联赎回费折扣 [STRING] 周期:- show=1 filter=0 — 万联赎回费折扣</li>
+<li><code>is_gy_sale</code> 国元是否代销 [STRING/是否] 周期:- show=1 filter=1 — 国元是否代销</li>
+<li><code>gy_min_bids_amount_by_indi</code> 国元最低申购金额 [STRING] 周期:- show=1 filter=0 — 国元最低申购金额</li>
+<li><code>gy_min_app_bids_amount_by_indi</code> 国元最低追加金额 [STRING] 周期:- show=1 filter=0 — 国元最低追加金额</li>
+<li><code>gy_indi_max_purchase</code> 国元单笔最高购买金额 [STRING] 周期:- show=1 filter=0 — 国元单笔最高购买金额</li>
+<li><code>gy_indi_day_max_sum_buy</code> 国元单日最高购买金额 [STRING] 周期:- show=1 filter=0 — 国元单日最高购买金额</li>
+<li><code>gy_min_redemption_vol</code> 国元最低赎回份额 [STRING] 周期:- show=1 filter=0 — 国元最低赎回份额</li>
+<li><code>gy_indi_max_redeem</code> 国元单笔最高赎回份额 [STRING] 周期:- show=1 filter=0 — 国元单笔最高赎回份额</li>
+<li><code>gy_indi_day_max_sum_redeem</code> 国元单日最高赎回份额 [STRING] 周期:- show=1 filter=0 — 国元单日最高赎回份额</li>
+<li><code>gy_buy_fee</code> 国元购买费率 [STRING] 周期:- show=1 filter=0 — 国元购买费率</li>
+<li><code>gy_buy_fee_discount</code> 国元申购费折扣 [STRING] 周期:- show=1 filter=0 — 国元申购费折扣</li>
+<li><code>gy_redeem_fee</code> 国元赎回费率 [STRING] 周期:- show=1 filter=0 — 国元赎回费率</li>
+<li><code>gy_redeem_fee_discount</code> 国元赎回费折扣 [STRING] 周期:- show=1 filter=0 — 国元赎回费折扣</li>
+<li><code>is_tab_sale</code> 腾安(偏债)是否代销 [STRING/是否] 周期:- show=1 filter=1 — 腾安(偏债)是否代销</li>
+<li><code>tab_min_bids_amount_by_indi</code> 腾安(偏债)最低申购金额 [STRING] 周期:- show=1 filter=0 — 腾安(偏债)最低申购金额</li>
+<li><code>tab_min_app_bids_amount_by_indi</code> 腾安(偏债)最低追加金额 [STRING] 周期:- show=1 filter=0 — 腾安(偏债)最低追加金额</li>
+<li><code>tab_indi_max_purchase</code> 腾安(偏债)单笔最高购买金额 [STRING] 周期:- show=1 filter=0 — 腾安(偏债)单笔最高购买金额</li>
+<li><code>tab_indi_day_max_sum_buy</code> 腾安(偏债)单日最高购买金额 [STRING] 周期:- show=1 filter=0 — 腾安(偏债)单日最高购买金额</li>
+<li><code>tab_min_redemption_vol</code> 腾安(偏债)最低赎回份额 [STRING] 周期:- show=1 filter=0 — 腾安(偏债)最低赎回份额</li>
+<li><code>tab_indi_max_redeem</code> 腾安(偏债)单笔最高赎回份额 [STRING] 周期:- show=1 filter=0 — 腾安(偏债)单笔最高赎回份额</li>
+<li><code>tab_indi_day_max_sum_redeem</code> 腾安(偏债)单日最高赎回份额 [STRING] 周期:- show=1 filter=0 — 腾安(偏债)单日最高赎回份额</li>
+<li><code>tab_buy_fee</code> 腾安(偏债)购买费率 [STRING] 周期:- show=1 filter=0 — 腾安(偏债)购买费率</li>
+<li><code>tab_buy_fee_discount</code> 腾安(偏债)申购费折扣 [STRING] 周期:- show=1 filter=0 — 腾安(偏债)申购费折扣</li>
+<li><code>tab_redeem_fee</code> 腾安(偏债)赎回费率 [STRING] 周期:- show=1 filter=0 — 腾安(偏债)赎回费率</li>
+<li><code>tab_redeem_fee_discount</code> 腾安(偏债)赎回费折扣 [STRING] 周期:- show=1 filter=0 — 腾安(偏债)赎回费折扣</li>
+</ul>
+<h2>BASE</h2>
+<ul>
+<li><code>is_main_fund</code> 是否主基金 [STRING/是否] 周期:- show=1 filter=1 — 是否主基金</li>
+</ul>
+
+<div class="foot">CLAIR · 内部技术口径文档，请勿外传。</div>
+</div>
+</body>
+</html>

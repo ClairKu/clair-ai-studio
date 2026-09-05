@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>vesta 投研 MCP 口径盘点｜portfolio-analysis</title>
+<meta name="description" content="vesta 投研 MCP 口径盘点分组明细：portfolio-analysis">
+</head>
+<body>
+<style>
+:root{
+  --paper:#fbfbfd; --ink:#20242f; --muted:#666d80; --line:#e4e6ee;
+  --accent:#1b88ee; --accent-soft:#e5f2ff; --accent-ink:#0b5192;
+  --good:#1f8a5a; --warn:#a06a12; --risk:#bd4038;
+  --card:#ffffff; --code-bg:#f0f5fb;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#131720; --ink:#e8e9f0; --muted:#9aa0b4; --line:#2a3040;
+    --accent:#4aa7ff; --accent-soft:#16283e; --accent-ink:#9dcbf7;
+    --good:#4cc38a; --warn:#d9a441; --risk:#e5716a;
+    --card:#1a1f2c; --code-bg:#1f2636;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#131720; --ink:#e8e9f0; --muted:#9aa0b4; --line:#2a3040;
+  --accent:#4aa7ff; --accent-soft:#16283e; --accent-ink:#9dcbf7;
+  --good:#4cc38a; --warn:#d9a441; --risk:#e5716a;
+  --card:#1a1f2c; --code-bg:#1f2636;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:400 16px/1.85 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;}
+.wrap{max-width:880px;margin:0 auto;padding:56px 24px 96px}
+h1,h2,h3{font-family:"Songti SC","Source Han Serif SC",serif;text-wrap:balance;line-height:1.3}
+h1{font-size:2.1rem;font-weight:900;margin:.3em 0 .2em}
+h2{font-size:1.45rem;font-weight:700;margin:2.4em 0 .7em;padding-top:1.2em;border-top:1px solid var(--line)}
+h3{font-size:1.08rem;font-weight:700;margin:1.8em 0 .5em}
+h4{font-size:1rem;font-weight:700;margin:1.5em 0 .4em}
+p{margin:.7em 0}
+a{color:var(--accent-ink)}
+.kicker{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-ink);font-weight:700}
+code{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.85em;background:var(--code-bg);border-radius:4px;padding:.1em .4em;word-break:break-all}
+pre{background:var(--code-bg);border:1px solid var(--line);border-radius:8px;padding:14px 16px;overflow-x:auto;font-size:.85rem;line-height:1.6}
+pre code{background:none;padding:0;word-break:normal}
+blockquote{border-left:3px solid var(--accent);background:var(--accent-soft);padding:10px 18px;border-radius:0 8px 8px 0;margin:1.4em 0;font-size:.94rem}
+blockquote p{margin:.4em 0}
+table{border-collapse:collapse;width:100%;font-size:.88rem;margin:1em 0}
+.tablewrap{overflow-x:auto;margin:1em 0}
+.tablewrap table{margin:0}
+th{text-align:left;font-weight:700;border-bottom:2px solid var(--line);padding:.5em .8em .4em .1em;white-space:nowrap;background:var(--paper);position:sticky;top:0}
+td{border-bottom:1px solid var(--line);padding:.5em .8em .5em .1em;vertical-align:top}
+ul,ol{padding-left:1.4em}
+li{margin:.3em 0}
+hr{border:none;border-top:1px solid var(--line);margin:2.5em 0}
+strong{font-weight:700}
+.foot{margin-top:4em;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line);padding-top:1.4em}
+</style>
+<div class="wrap">
+<div class="kicker">口径盘点分组明细 · 2026-09-02</div>
+<h1>portfolio-analysis（组合分析，31 工具）指标数据公式口径盘点</h1>
+<p>盘点日期：2026-09-02。实测组合：ZH109248（慢牛长赢1号，PO_ZH 经典组合），区间 2025-01-01 ~ 2026-08-31。
+实测调用共 14 次（含入参纠错重试）。实测覆盖 8 个工具，其余标注「仅 schema 盘点」。</p>
+<p>通用口径（实测确认）：</p>
+<ul>
+<li><strong>所有收益率/波动率/回撤/占比均为小数形式</strong>（0.48 = 48%），非百分数。</li>
+<li>日期格式 <code>yyyy-MM-dd</code>（部分工具兼容 <code>yyyy.MM.dd</code>）。</li>
+<li>数值字段多以<strong>字符串</strong>返回（如 <code>&quot;0.480601&quot;</code>），归因工具例外（原生 float）。</li>
+<li>组合类型识别：po_code 以 <code>VES</code> 开头 = VESTA 组合（费后净值，ying99_vesta.portfolio_composition_daily）；其他 = PMS 组合（净值，ying99_pomodel.portfolio_composition）。</li>
+<li>组合代码前缀枚举：PO_ZH 经典组合 / PO_SI 信号组合 / PO_MOM 资产包 / PO_AM 复合模型 / VES 自建。</li>
+</ul>
+<hr>
+<h2>1. searchPortfoliosByName ✅实测</h2>
+<ul>
+<li>出参：<code>prodCode</code>（组合代码）、<code>prodName</code>、<code>prodType</code>（PO_ZH/PO_SI/PO_MOM/PO_AM/VES）、<code>startDate</code>/<code>endDate</code>（实测均为 null）、分页字段 pageNumber/pageSize/totalPage/totalRow。</li>
+<li>外层信封：<code>code:&quot;0000&quot;</code> + <code>msg:&quot;操作成功&quot;</code>（该组少数带业务信封的工具，多数工具直接裸返回载荷）。</li>
+<li>疑点：startDate/endDate 恒为 null，成立日期需另查 queryPortfolioBasicInfo。</li>
+</ul>
+<h2>2. get_portfolios_calculate_portfolio_performance_by_code ✅实测（核心指标工具）</h2>
+<p>实测出参（ZH109248, 2025-01-01~2026-08-31, market_index_code=000300.CSI）：</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>含义</th>
+<th>实测值</th>
+<th>口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>period_return</td>
+<td>区间收益率</td>
+<td>0.480601</td>
+<td>小数，非年化</td>
+</tr>
+<tr>
+<td>annualized_return</td>
+<td>年化收益率</td>
+<td>0.275648</td>
+<td>小数</td>
+</tr>
+<tr>
+<td>volatility</td>
+<td>年化波动率</td>
+<td>0.165485</td>
+<td>小数</td>
+</tr>
+<tr>
+<td>max_drawdown</td>
+<td>最大回撤</td>
+<td>-0.127682</td>
+<td><strong>负数</strong>表示回撤</td>
+</tr>
+<tr>
+<td>max_drawdown_start_date / end_date / recovery_date</td>
+<td>回撤起点/谷底/修复日</td>
+<td>2025-03-18 / 04-07 / 07-08</td>
+<td>yyyy-MM-dd</td>
+</tr>
+<tr>
+<td>max_drawdown_construction_days / recovery_days</td>
+<td>回撤形成天数 / 修复天数</td>
+<td>20 / 92</td>
+<td>整数天（形成20天≈自然日与交易日待辨，见疑点）</td>
+</tr>
+<tr>
+<td>second_max_drawdown 及其 5 个日期/天数字段</td>
+<td>第二大回撤</td>
+<td>-0.105288</td>
+<td>定义=排除最大回撤区间后剩余数据中的最大回撤</td>
+</tr>
+<tr>
+<td>downside_volatility</td>
+<td>下行波动率</td>
+<td>0.138086</td>
+<td>只计负收益</td>
+</tr>
+<tr>
+<td>value_at_risk</td>
+<td>VaR 风险价值</td>
+<td>-0.142597</td>
+<td>负数；<strong>置信水平未披露</strong></td>
+</tr>
+<tr>
+<td>sharpe_ratio</td>
+<td>夏普比率</td>
+<td>1.575054</td>
+<td>单位总风险超额收益</td>
+</tr>
+<tr>
+<td>sortino_ratio</td>
+<td>索提诺比率</td>
+<td>1.887582</td>
+<td>单位下行风险超额收益</td>
+</tr>
+<tr>
+<td>calmar_ratio</td>
+<td>卡玛比率</td>
+<td>2.158871</td>
+<td>年化收益 /</td>
+</tr>
+<tr>
+<td>beta / alpha / treynor_ratio</td>
+<td>相对市场三指标</td>
+<td><strong>均 null</strong></td>
+<td>传入 000300.CSI 未生效（见疑点）</td>
+</tr>
+<tr>
+<td>m2</td>
+<td>M2 风险调整收益</td>
+<td>0.232384</td>
+<td>相对基准</td>
+</tr>
+<tr>
+<td>tracking_error</td>
+<td>跟踪误差</td>
+<td>0.072398</td>
+<td>年化与否未披露</td>
+</tr>
+<tr>
+<td>information_ratio</td>
+<td>信息比率</td>
+<td>2.355713</td>
+<td>超额收益/跟踪误差</td>
+</tr>
+<tr>
+<td>nav_list</td>
+<td>净值序列</td>
+<td>null</td>
+<td>该工具不回净值</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li>相对基准指标（m2/TE/IR）<strong>未传 benchmark 也返回了值</strong>→ 使用组合自带业绩基准（comparison 实测证实存在 <code>BMZH109248</code> 基准线）。</li>
+<li>疑点：①market_index_code=000300.CSI 时 beta/alpha/treynor 仍 null——该代码在本系统解析不到（comparison 实测中 index_000300.CSI 各区间收益也全 null），有效指数代码命名空间未文档化，index__searchIndex 又报 500，无法核实；②夏普/索提诺的无风险利率取值未披露；③年化因子（252 交易日 or 365 自然日）未披露；④VaR 置信水平（95%/99%）与方法（历史/参数）未披露；⑤PMS 组合净值是否含费（VESTA 明确费后，PMS 只说&quot;净值&quot;）。</li>
+</ul>
+<h2>3. get_portfolios_calculate_portfolio_risk_by_code ✅实测</h2>
+<p>实测出参：<code>identifier</code>(ZH109248)、<code>risk_score</code>(&quot;84.83085723&quot;)、<code>r_squared</code>(0.8256, 模型拟合度)、<code>residual_variance</code>(残差方差 5.99e-4)、<code>standard_error</code>(标准误 0.02499)、<code>effectiveDate</code>(&quot;2026-07-31&quot;)、<code>status</code>(&quot;success&quot;)、<code>message</code>。</p>
+<ul>
+<li>方法线索：持仓展平到基金级别→归一化→调外部 <strong>uaap-gateway</strong> 服务；从 r_squared/残差方差看是<strong>回归拟合类风险模型</strong>（疑似风格/因子回归打分）。</li>
+<li>疑点：①risk_score 量纲（0-100 分？与且慢晨星风险分是否同源同刻度）未披露；②effectiveDate=2026-07-31 落后当前一个月，风险分更新频率（月频？）未说明；③回归的因子集/基准未披露。</li>
+</ul>
+<h2>4. get_portfolios_calculate_portfolio_win_rate ✅实测</h2>
+<p>实测出参：</p>
+<ul>
+<li><code>win_rate</code>: <code>day_win_rate</code> 0.567164 / <code>week_win_rate</code> 0.660804 / <code>month_win_rate</code> 0.716883。<ul>
+<li>定义（描述明示）：日胜率=日收益率≥0 占比；周胜率=<strong>5 交易日滚动</strong>收益≥0 占比；月胜率=<strong>21 交易日滚动</strong>收益≥0 占比。注意是滚动窗口而非日历周/月。</li>
+</ul>
+</li>
+<li>直方图 5 组，每组 6 个桶 <code>{left, right, count_return}</code>（区间边界小数、count 为天数）：<ul>
+<li><code>five_ten_thousandths_interval</code>（±0.05% 步长）、<code>one_thousandth_interval</code>（±0.1%）、<code>one_percent_interval</code>（±1%）、<code>two_percent_interval</code>（±2%）：固定边界，首尾桶用 ±9999 表示开区间。</li>
+<li><code>auto_interval</code>：按数据 min/max 等宽 6 桶（实测 -0.082665~0.038608）。</li>
+</ul>
+</li>
+<li><code>day_return_ratio</code>: <code>positive_ratio</code>/<code>negative_ratio</code>（正负收益天数占比，positive 与 day_win_rate 相等 → <strong>胜率把 0 归为正</strong>，&quot;≥0&quot;实锤）。</li>
+<li>疑点：固定区间直方图的中间桶均只覆盖 ±2 步长内，尾桶吞掉大部分样本（如万五区间 155/212 落尾桶），做分布图需注意。</li>
+</ul>
+<h2>5. get_portfolios_compute_attribution_by_code ✅实测（Brinson 归因）</h2>
+<p>实测出参（float 原生数值，按调仓节点分段，每段一个对象）：</p>
+<ul>
+<li><code>return_decomposition[]</code>：start_date/end_date、<code>equity</code>/<code>bond</code>/<code>commodity</code>/<code>alternative</code>/<code>cash</code>（五大类收益贡献，小数）、<code>total</code>（区间总收益，实测 0.21838 与段内组合收益一致）。</li>
+<li><code>attribution[]</code>：start_date/end_date、<code>benchmark_return</code>、<code>portfolio_return</code>、<code>excess_return</code>（=portfolio−benchmark，实测 0.09589 严格相等）、三效应各含 equity/bond/commodity/alternative/cash/total：<ul>
+<li><code>allocation_effect</code> 配置效应、<code>selection_effect</code> 选择效应、<code>interaction_effect</code> 交互效应。</li>
+<li>实测三效应 total 之和 0.0031866+0.0926338+0.0000733 ≈ 0.0958936 = excess_return，<strong>Brinson 三分法（BHB 模型，含交互项）闭合</strong>。</li>
+</ul>
+</li>
+<li>方法：自动查调仓记录和组合自带业绩基准，按调仓节点分段。</li>
+<li>疑点：①分段结果是否几何/算术链接成整段未披露（实测单段无法验证）；②基准的大类拆分方式（各指数映射到哪个大类）未披露；③&quot;另类&quot;恒为 0 的分类规则未说明。</li>
+</ul>
+<h2>6. get_portfolios_calculate_return_distribution_by_code ✅实测（部分）</h2>
+<ul>
+<li><code>rolling_returns[]</code>：<code>{record_date, period_return}</code> 日频滚动收益序列（字符串小数）。实测 3M 窗口从 2025-04-02 起出值 → 窗口按<strong>日历月回看</strong>（1月1日起投，首个 3M 点在 4 月初），非固定交易日数。</li>
+<li><code>return_distribution[]</code>（schema/描述口径，实测被 12000 字符截断未见）：21 个点位 <code>{std_multiplier, return_value, probability}</code>，= avg±[0,0.2,…,2.0]×std，<strong>假设滚动收益正态分布</strong>；probability 为正态密度值（示例 0.3989=φ(0)，即密度非累计概率）。</li>
+<li><code>target_return_probability</code>：Z 检验法计算滚动收益 ≥ target_return 的概率（target_return 小数形式，如 0.05=5%）。</li>
+<li>疑点：①probability 字段是密度值不是概率质量，直接当&quot;概率&quot;用会错；②滚动收益序列自相关严重（重叠窗口），基于它做正态检验/Z 检验统计上偏乐观，文档未提示；③rolling_returns 与 return_distribution 同返回易超长，MCP 侧无分页。</li>
+</ul>
+<h2>7. get_portfolios_comparison ✅实测</h2>
+<ul>
+<li>入参口径（实测纠错）：<code>benchmarks</code> 数组元素为 <code>{code, type}</code>，type 枚举 <strong>小写</strong> <code>&#39;fund&#39;|&#39;portfolio&#39;|&#39;index&#39;|&#39;manager&#39;</code>（digest 未写清，422 报错披露）。</li>
+<li>出参：<ul>
+<li><code>po_comparison_resp_list[]</code>：每个标的一行，<code>code</code>（组合本身 / <code>index_xxx</code> / <strong><code>BM&lt;po_code&gt;</code> 自动追加的组合业绩基准</strong>）+ 固定区间收益：last_week / last_2_week / last_month / last_3_month / last_6_month / last_9_month / last_year / last_2_year / last_3_year / last_5_year / from_setup_date（小数，非年化）。</li>
+<li><code>po_comparison_price_group_resp_list[]</code>：按日分组的归一化价格序列 <code>{record_date, comparison_price_resp_list:[{code, record_date, price}]}</code>，首日归一为 1.0（未显式传 zero_flag 也自动以 start_date 归一）。</li>
+</ul>
+</li>
+<li>疑点：①区间收益字段是&quot;截至查询 end_date 往回推&quot;还是&quot;截至最新交易日&quot;未披露（实测 last_2_year 0.73 &gt; last_3_year 0.50，为区间起点行情差异所致，非错误，但易误读）；②index_000300.CSI 全 null——指数代码校验不报错、静默返回 null。</li>
+</ul>
+<h2>8. get_portfolios_adjust_return_analysis_statistic ✅实测（调仓统计）</h2>
+<p>实测出参（float）：</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>含义</th>
+<th>实测值</th>
+<th>口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>adj_time</td>
+<td>区间内调仓次数</td>
+<td>1</td>
+<td>整数</td>
+</tr>
+<tr>
+<td>avg_adj_cost / total_adj_cost</td>
+<td>平均/累计调仓成本</td>
+<td>0.00198413</td>
+<td>小数（占净值比例）</td>
+</tr>
+<tr>
+<td>avg_hold_duration</td>
+<td>平均持仓时长</td>
+<td>523</td>
+<td>天（自然日口径疑似）</td>
+</tr>
+<tr>
+<td>avg_adj_ratio</td>
+<td>平均调仓幅度</td>
+<td>0.3269</td>
+<td>小数（单边/双边未披露）</td>
+</tr>
+<tr>
+<td>annual_adj_time</td>
+<td>年化调仓次数</td>
+<td>0.60131796</td>
+<td>次/年</td>
+</tr>
+<tr>
+<td>cumret_excess</td>
+<td>累计超额收益</td>
+<td>0.29618111</td>
+<td>小数</td>
+</tr>
+<tr>
+<td>cumret_net_excess</td>
+<td>费后累计超额</td>
+<td>0.29901102</td>
+<td>小数</td>
+</tr>
+<tr>
+<td>vol_before_adj / vol_after_adj</td>
+<td>调仓前/后波动率</td>
+<td>0.15677 / 0.16549</td>
+<td>年化小数</td>
+</tr>
+<tr>
+<td>mdd_before_adj / mdd_after_adj</td>
+<td>调仓前/后最大回撤</td>
+<td>-0.14608 / -0.12768</td>
+<td>负小数</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li>疑点：①&quot;超额&quot;相对什么基准（组合自带 BM？沪深300？）未披露；②cumret_net_excess(0.2990) &gt; cumret_excess(0.2962)——&quot;净超额&quot;竟大于毛超额，两字段的净/毛定义可能与直觉相反或口径不同，需与算法方确认；③avg_adj_ratio 单边/双边换手口径未披露；④调仓前/后统计窗口长度未披露。</li>
+</ul>
+<hr>
+<h2>以下为仅 schema 盘点（未实测）</h2>
+<h2>9. getPortfolioAdjustmentList</h2>
+<ul>
+<li>入参 poCode（驼峰！与其他 po_code 不同）+ includeDetails。全量调仓记录。出参明细结构未见实数据。</li>
+</ul>
+<h2>10. get_portfolios_adjust_return_analysis_market_situation</h2>
+<ul>
+<li>对比组合、沪深300、中债综合全价指数在调仓前后涨跌幅。窗口：last_adj_date/before_adj_duration（前）、trade_date/after_adj_duration（后，如&quot;3M&quot;），duration 与显式日期二选一（显式优先）。</li>
+<li>疑点：基准硬编码为沪深300+中债综合全价，不可配置。</li>
+</ul>
+<h2>11. get_portfolios_adjust_return_analysis_records</h2>
+<ul>
+<li>区间内调仓记录，含调仓幅度、持仓时长、单期超额收益率。interval_type 仅前端控件用、不传算法层。</li>
+<li>疑点：单期超额的基准同 §8 疑点①。</li>
+</ul>
+<h2>12. get_portfolios_adjust_return_analysis_review</h2>
+<ul>
+<li>单次调仓复盘：基金级调前/调后权重、收益率、费率 + 分类汇总；penetrate 穿透仅 VESTA 组合生效；需要 adjustment_id（从 §9 取）。</li>
+</ul>
+<h2>13. get_portfolios_adjust_return_analysis_trend</h2>
+<ul>
+<li>累计收益走势 + 单期超额序列（图表渲染用）。</li>
+</ul>
+<h2>14. get_portfolios_asset_allocation_by_code</h2>
+<ul>
+<li>大类资产配置。asset_type：PMS（权益/固收/基金/现金及其他）或 VESTA（8 权益地域+6 固收细分）；ratio_type：TOTAL_ASSET（PMS 默认）/NET_ASSET（VESTA 默认）——<strong>两种分类默认分母不同</strong>，跨口径对比要显式统一；prefer_major_only 默认 true=仅用中报/年报穿透。</li>
+<li>疑点：默认 ratio_type 随 asset_type 变化，易踩坑。</li>
+</ul>
+<h2>15. get_portfolios_calculate_benchmark_performance ⚠️实测未通</h2>
+<ul>
+<li>出参字段与 §2 完全同构（period_return…information_ratio + nav_list）。</li>
+<li>实测传 000300.CSI（单指数 1.0 权重）<strong>返回全 null 且不报错</strong>——指数代码解析失败静默吞掉。有效指数代码格式未能核实（index__searchIndex 500）。</li>
+<li>疑点：①无效指数不报错只回 null；②benchmark_indexes 为空时&quot;不计算&quot;，但权重是否强制 sum=1 未验证。</li>
+</ul>
+<h2>16. get_portfolios_calculate_portfolio_correlations</h2>
+<ul>
+<li>皮尔逊相关系数，基于区间日收益率序列（(当日净值−前日净值)/前日净值）；持仓恒用最新；interval_type 枚举 LAST_3_MONTH~LAST_3_YEAR（日历口径）；positive/negative 阈值过滤；penetrate 一层穿透，穿透权重=父权重×子权重、同基金权重累加；结果不含自相关。范围 [-1,1]。</li>
+</ul>
+<h2>17. get_portfolios_composition_analyze</h2>
+<ul>
+<li>最新持仓权重 + 标的自身区间收益率（非贡献）；成立不足自动从成立日起算；穿透收益直接用标的实际收益、不加权。</li>
+</ul>
+<h2>18. get_portfolios_composition_holding_performance</h2>
+<ul>
+<li>持仓 + 基金经理（managers: code/name）+ 8 个固定区间收益：last_tradeday/week/month/3month/6month/year/3year/ytd_return，小数。</li>
+</ul>
+<h2>19. get_portfolios_industry_allocation_by_code</h2>
+<ul>
+<li>行业分布。industry_type：ZX 中信一级 / YM 盈米板块；perspective：FUND_ASSET 基金总资产 / EQUITY_ASSET 权益资产 / A_H_ASSET A+H 视角——<strong>分母三选一，数值不可跨视角比较</strong>；ratio_type 默认 TOTAL_ASSET；prefer_major_only 默认 true。</li>
+</ul>
+<h2>20. get_portfolios_interval_component</h2>
+<ul>
+<li>区间控件数据：fixed_interval（近一周~近五年，只回存续内有效的）、calendar_interval（自然年/EST 成立当年/YTD）、setup_interval、market_style_interval（PF000001 牛熊/趋势/震荡区间）、saved_theme_interval（需 userId header）、调仓日期降序、last_business_day=当前日期。</li>
+</ul>
+<h2>21. get_portfolios_regular_invest_comparison</h2>
+<ul>
+<li>定投 vs 一次性：freq=day/week/month/quarter（week 1-5 周几、day 1-28 号、month 1-3 季内月）；amount=constant（归一化 1 元）/multiple（区间倍率表）；非交易日顺延、同日多笔只算一笔。指标：累计收益率、最大回撤、平均回撤（回撤期平均）。</li>
+<li>疑点：定投收益率口径（简单收益 or 内部收益率 IRR/MWR）未披露——定投对比不说资金加权口径就没法解读。</li>
+</ul>
+<h2>22. get_portfolios_return_contribution</h2>
+<ul>
+<li>日收益贡献。公式（描述明示）：日收益率=(最新净值−前日净值)/前日净值；收益贡献率=权重×日收益率；分类贡献=成员贡献加总；分类收益率=贡献/权重。view_type：HOLDING（一级持仓+二级穿透，加权权重=一级×二级）/CATEGORY（展平单基按 PMS 分类归集，无分类归&quot;其他基金&quot;）。二级穿透只一层。</li>
+</ul>
+<h2>23. get_realtime_benchmark_nav_calculator</h2>
+<ul>
+<li>一篮子指数加权基准净值：各指数归一到 1.0 后按权重加权求和（<strong>权重和必须=1.0</strong>）；include_drawdown → drawdown=(当前净值−历史最高)/历史最高（≤0）；include_interval_return → last_week/last_month/last_3_month/last_6_month/last_year/ytd/from_setup_date。</li>
+<li>疑点：加权是&quot;归一后价格加权&quot;= 每日不再平衡的固定份额法还是每日再平衡，描述写&quot;归一化后按权重加权求和&quot;更像<strong>买入持有不再平衡</strong>，未明示。</li>
+</ul>
+<h2>24. get_realtime_calculate_portfolio_performance_by_adjustment</h2>
+<ul>
+<li>按调仓记录拟合净值再算 §2 同款指标。adjustment_records 第一条为初始持仓、权重和=1.0；prod_type 枚举 FUND/VES/PO_ZH/PO_SI/PO_AP/PO_AM；fee_list 计调仓成本；rebalance_param 可按周期生成再平衡记录；common_start_date（拟合起点）与 start_date（统计起点）分离。</li>
+<li>⚠️描述明示：<strong>&quot;组合净值拟合当前使用 Mock 数据，后续对接真实净值拟合方法&quot;</strong>——该工具（及 §25）结果可信度存疑，重大口径疑点。</li>
+</ul>
+<h2>25. get_realtime_calculate_portfolio_return_distribution</h2>
+<ul>
+<li>§6 的 realtime 版（按调仓记录拟合净值）。同样带 Mock 数据警告。positions 元素为 {code, weight}（与 §24 的 products/prod_type 结构不同，同组内 schema 不统一）。</li>
+</ul>
+<h2>26. get_realtime_calculate_portfolio_risk</h2>
+<ul>
+<li>§3 的 realtime 版：任意一篮子标的（{code,weight}+adjustment_date）→ uaap-gateway 风险评分。出参同 §3（risk_score/r_squared/residual_variance/standard_error/effectiveDate/status），identifier 为 VIRTUAL_xxx。ETF 联接/FOF 二次穿透、尾差归一化。</li>
+</ul>
+<h2>27. get_realtime_get_product_details</h2>
+<ul>
+<li>批量产品详情：净值区间、清盘日期、可选持仓明细（展平单基）。入参驼峰（adjustmentDate/needComposition）。</li>
+</ul>
+<h2>28. get_realtime_portfolio_nav_calculator</h2>
+<ul>
+<li>按调仓记录拟合净值序列 nav_list[{record_date, nav, drawdown?}] + interval_returns（7 区间）。调仓记录升序、fee_list 计成本、建议 ≤5 年。</li>
+<li>疑点：是否同为 Mock 拟合未在此工具描述标注（§24/25 标了），实际是否共用拟合引擎待确认。</li>
+</ul>
+<h2>29. get_realtime_portfolios_asset_allocation_calculator</h2>
+<ul>
+<li>§14 的 realtime 版。⚠️ adjustment_date 格式为 <strong>yyyy.MM.dd</strong>（点分隔，与其他工具不同）。返回 assets_allocation 树（asset_code/asset_name/weight/sub_assets 嵌套）。</li>
+</ul>
+<h2>30. get_realtime_portfolios_compute_attribution</h2>
+<ul>
+<li>§5 的 realtime 版：自传调仓记录+基准指数（权重和=1）。出参结构与 §5 实测一致（return_decomposition + attribution 三效应）。end_date 默认昨日。</li>
+</ul>
+<h2>31. queryPortfolioBasicInfo</h2>
+<ul>
+<li>组合基础信息、最新净值、业绩数据、业绩基准。入参 poCode（驼峰）。组合自带基准（BM 线）的构成应从此处取。</li>
+</ul>
+<hr>
+<h1>本组指标口径总览表</h1>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>口径</th>
+<th>依据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>收益率/波动率/回撤/权重</td>
+<td>一律小数（0.48=48%），回撤为负数</td>
+<td>实测 §2/4/5/7/8</td>
+</tr>
+<tr>
+<td>数值类型</td>
+<td>多数工具字符串数值；归因/调仓统计为 float</td>
+<td>实测</td>
+</tr>
+<tr>
+<td>日期</td>
+<td>yyyy-MM-dd 为主；win_rate/comparison/定投兼容 yyyy.MM.dd；realtime 资产配置强制 yyyy.MM.dd</td>
+<td>digest+实测</td>
+</tr>
+<tr>
+<td>年化</td>
+<td>annualized_return / volatility / annual_adj_time 显式年化；年化因子未披露</td>
+<td>实测</td>
+</tr>
+<tr>
+<td>胜率</td>
+<td>日=日收益≥0 占比；周=5 交易日滚动；月=21 交易日滚动（非日历）</td>
+<td>描述+实测验证(positive_ratio=day_win_rate)</td>
+</tr>
+<tr>
+<td>归因</td>
+<td>Brinson 三分法（配置/选择/交互），实测三效应和=超额收益，闭合</td>
+<td>实测 §5</td>
+</tr>
+<tr>
+<td>收益分解</td>
+<td>权益/固收/商品/另类/现金五大类贡献，加总=总收益</td>
+<td>实测 §5</td>
+</tr>
+<tr>
+<td>收益分布</td>
+<td>滚动收益假设正态，21 点 avg±k·std（k=0~2 步长0.2）；目标概率用 Z 检验</td>
+<td>描述（分布体未实测到）</td>
+</tr>
+<tr>
+<td>贡献率</td>
+<td>贡献=权重×日收益率；分类收益率=Σ贡献/Σ权重</td>
+<td>描述明示 §22</td>
+</tr>
+<tr>
+<td>相关性</td>
+<td>皮尔逊，日收益率序列，日历区间</td>
+<td>描述 §16</td>
+</tr>
+<tr>
+<td>基准</td>
+<td>组合自带业绩基准自动参与（comparison 自动加 BM<po_code> 线；performance 未传基准也算出 m2/TE/IR）</td>
+<td>实测 §2/7</td>
+</tr>
+<tr>
+<td>净值含费</td>
+<td>VESTA=费后净值；PMS=“净值”（含费与否未说明）</td>
+<td>描述</td>
+</tr>
+<tr>
+<td>组合数据源</td>
+<td>VES→ying99_vesta.portfolio_composition_daily；其他→ying99_pomodel.portfolio_composition</td>
+<td>描述</td>
+</tr>
+<tr>
+<td>风险评分</td>
+<td>uaap-gateway 回归模型（risk_score+r_squared+残差方差+标准误），月频快照疑似</td>
+<td>实测 §3</td>
+</tr>
+<tr>
+<td>穿透</td>
+<td>默认仅中报/年报（prefer_major_only=true）；组合穿透一层；权重=父×子、同基金累加</td>
+<td>描述</td>
+</tr>
+</tbody></table></div>
+<h1>疑点汇总（跨工具）</h1>
+<ol>
+<li><strong>年化因子未披露</strong>：annualized_return/volatility 用 252 还是 365，全组无说明。</li>
+<li><strong>无风险利率未披露</strong>：夏普/索提诺/Alpha/Treynor/M2 全依赖 r_f，取值与更新方式无文档。</li>
+<li><strong>VaR 口径未披露</strong>：置信水平（95/99）、方法（历史模拟/参数法）、期限（日/区间）均无说明。</li>
+<li><strong>指数代码命名空间是黑盒</strong>：000300.CSI 在 comparison/benchmark_performance/beta 计算中均静默失效（返回 null 不报错）；index__searchIndex 又 500，无法核实有效格式。<strong>无效指数不报错</strong>是最危险的坑——用户会把 null 当&quot;无数据&quot;。</li>
+<li><strong>PMS 组合净值含费与否未说明</strong>（VESTA 明确费后）；跟踪误差是否年化未说明。</li>
+<li><strong>realtime 系列（§24/25）净值拟合明示为 Mock 数据</strong>，结果不可用于正式结论；§28 nav_calculator 是否同一 Mock 引擎待确认。</li>
+<li><strong>调仓统计的&quot;超额&quot;基准不明</strong>（§8/11），且实测 cumret_net_excess &gt; cumret_excess，净/毛定义疑似反直觉，需与算法方核对。</li>
+<li><strong>收益分布的 probability 是正态密度值</strong>（φ(0)=0.3989），不是概率质量；且重叠滚动窗口做 Z 检验有统计学缺陷，文档无提示。</li>
+<li><strong>多段归因的链接方式未披露</strong>（几何/算术）；基准指数→五大类的映射规则未披露。</li>
+<li><strong>schema 不统一</strong>：po_code vs poCode；products{prod_code,prod_type,weight} vs positions{code,weight}；日期 yyyy-MM-dd vs yyyy.MM.dd（§29 强制点分）；comparison 的 benchmarks type 枚举必须小写（digest 未写，422 才暴露）。</li>
+<li><strong>资产/行业占比默认分母随参数漂移</strong>：PMS 默认总资产、VESTA 默认净资产；行业三种 perspective 分母不同，跨口径数字不可直接比。</li>
+<li><strong>定投对比收益率口径未披露</strong>（简单收益 vs IRR/资金加权），影响解读。</li>
+<li>searchPortfoliosByName 的 startDate/endDate 恒 null；风险分 effectiveDate 滞后（2026-07-31），更新频率未说明。</li>
+</ol>
+
+<div class="foot">CLAIR · 内部技术口径文档，请勿外传。</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>vesta 投研 MCP 口径盘点｜fund-analysis</title>
+<meta name="description" content="vesta 投研 MCP 口径盘点分组明细：fund-analysis">
+</head>
+<body>
+<style>
+:root{
+  --paper:#fbfbfd; --ink:#20242f; --muted:#666d80; --line:#e4e6ee;
+  --accent:#1b88ee; --accent-soft:#e5f2ff; --accent-ink:#0b5192;
+  --good:#1f8a5a; --warn:#a06a12; --risk:#bd4038;
+  --card:#ffffff; --code-bg:#f0f5fb;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#131720; --ink:#e8e9f0; --muted:#9aa0b4; --line:#2a3040;
+    --accent:#4aa7ff; --accent-soft:#16283e; --accent-ink:#9dcbf7;
+    --good:#4cc38a; --warn:#d9a441; --risk:#e5716a;
+    --card:#1a1f2c; --code-bg:#1f2636;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#131720; --ink:#e8e9f0; --muted:#9aa0b4; --line:#2a3040;
+  --accent:#4aa7ff; --accent-soft:#16283e; --accent-ink:#9dcbf7;
+  --good:#4cc38a; --warn:#d9a441; --risk:#e5716a;
+  --card:#1a1f2c; --code-bg:#1f2636;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:400 16px/1.85 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;}
+.wrap{max-width:880px;margin:0 auto;padding:56px 24px 96px}
+h1,h2,h3{font-family:"Songti SC","Source Han Serif SC",serif;text-wrap:balance;line-height:1.3}
+h1{font-size:2.1rem;font-weight:900;margin:.3em 0 .2em}
+h2{font-size:1.45rem;font-weight:700;margin:2.4em 0 .7em;padding-top:1.2em;border-top:1px solid var(--line)}
+h3{font-size:1.08rem;font-weight:700;margin:1.8em 0 .5em}
+h4{font-size:1rem;font-weight:700;margin:1.5em 0 .4em}
+p{margin:.7em 0}
+a{color:var(--accent-ink)}
+.kicker{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-ink);font-weight:700}
+code{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.85em;background:var(--code-bg);border-radius:4px;padding:.1em .4em;word-break:break-all}
+pre{background:var(--code-bg);border:1px solid var(--line);border-radius:8px;padding:14px 16px;overflow-x:auto;font-size:.85rem;line-height:1.6}
+pre code{background:none;padding:0;word-break:normal}
+blockquote{border-left:3px solid var(--accent);background:var(--accent-soft);padding:10px 18px;border-radius:0 8px 8px 0;margin:1.4em 0;font-size:.94rem}
+blockquote p{margin:.4em 0}
+table{border-collapse:collapse;width:100%;font-size:.88rem;margin:1em 0}
+.tablewrap{overflow-x:auto;margin:1em 0}
+.tablewrap table{margin:0}
+th{text-align:left;font-weight:700;border-bottom:2px solid var(--line);padding:.5em .8em .4em .1em;white-space:nowrap;background:var(--paper);position:sticky;top:0}
+td{border-bottom:1px solid var(--line);padding:.5em .8em .5em .1em;vertical-align:top}
+ul,ol{padding-left:1.4em}
+li{margin:.3em 0}
+hr{border:none;border-top:1px solid var(--line);margin:2.5em 0}
+strong{font-weight:700}
+.foot{margin-top:4em;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line);padding-top:1.4em}
+</style>
+<div class="wrap">
+<div class="kicker">口径盘点分组明细 · 2026-09-02</div>
+<h1>fund-analysis（基金分析，20 工具）指标数据公式口径盘点</h1>
+<p>盘点日期：2026-09-02。实测 14 次调用（含报错重试），样本基金：005827 易方达蓝筹精选混合、110007 易方达稳健收益债。
+资料来源：digest/fund-analysis.md（截断版）+ vesta_tools_full.jsonl（<strong>完整工具描述，含出参 schema 与枚举</strong>，比 digest 多大量口径信息）+ 实测 JSON。</p>
+<h2>通用口径（先记住这几条）</h2>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>项</th>
+<th>口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>日期入参格式</td>
+<td><strong>绝大多数工具为 <code>yyyy.MM.dd</code></strong>（传 <code>yyyy-MM-dd</code> 直接 LocalDate 反序列化 400）。例外：getFundHolderList / getFundNetAsset / get_fund_return_metrics 的 report/recordDate 为 <code>yyyy-MM-dd</code></td>
+</tr>
+<tr>
+<td>日期出参格式</td>
+<td><code>yyyy.MM.dd</code>（公告工具 reportDate 为 <code>yyyy-MM-dd</code>）</td>
+</tr>
+<tr>
+<td>intervalType 枚举</td>
+<td>LAST_WEEK / LAST_MONTH / LAST_3_MONTH / LAST_6_MONTH / (LAST_9_MONTH) / LAST_YEAR / (LAST_2_YEAR) / LAST_3_YEAR / (LAST_5_YEAR) / THIS_YEAR / FROM_SETUP_DATE / (FROM_TAKE_OFFICE) / CUSTOMER；自定义区间传 CUSTOMER + startDate/endDate</td>
+</tr>
+<tr>
+<td>positionStructure / position</td>
+<td><code>semiannual</code>=全部持仓（年报/半年报口径）、<code>quarter</code>=重仓股（季报口径）。传其他值报 0403「持仓结构类型不正确」</td>
+</tr>
+<tr>
+<td>benchmarks 数组元素</td>
+<td>对象 <code>{code, type[, managerType]}</code>；type 枚举<strong>小写</strong>：<code>manager</code>(基金经理)/<code>fund</code>(基金)/<code>index</code>(指数)/<code>est</code>(虚拟组合)。est 的 code：semiannual_noAdj(全持仓-不调仓)/semiannual_adj(全持仓)/quarter_noAdj(重仓股-不调仓)/quarter_adj(重仓股)。type=manager 时 managerType 必填：ALL/STOCK/BOND</td>
+</tr>
+<tr>
+<td>指数代码</td>
+<td>queryFundPerformance 的 indexCode 示例为 <strong><code>000300.CSI</code></strong>（带交易所/指数源后缀）。裸传 <code>000300</code> 后端报 0413「计算任务异常」——实测 3 次均失败即此因</td>
+</tr>
+<tr>
+<td>收益率量纲</td>
+<td><strong>不统一</strong>：get_fund_return_metrics 返回百分数数值（-25.0037 即 -25%）；getIntervalReturnComparison / getFundPerformanceComparison 返回小数（-0.250037）。两者同源（实测严格 ×100 对应）</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2>逐工具盘点</h2>
+<h3>1. get_fund_return_metrics ✅ 实测（005827）</h3>
+<ul>
+<li>入参：fundCode*；recordDate 可选（yyyy-MM-dd，默认最新净值日）。</li>
+<li>出参（实测）：returnOneWeek / returnOneMonth / returnThreeMonth / returnHalfYear / returnOneYear / returnTwoYear / returnThreeYear / returnThisYear（今年以来）/ returnFromSetupDate（成立以来）/ returnAnnualizedFromSetupDate（成立以来年化）。</li>
+<li>单位：<strong>百分数数值</strong>（-0.317209 = -0.32%）。returnFromSetupDate 仅保留 2 位（50.84），其余 6 位小数——精度不一致。</li>
+<li>公式线索：区间收益 = 复权净值区间涨跌幅（与 getIntervalReturnComparison 小数值 ×100 完全一致，后者基于复权净值曲线）；年化 = 几何年化（成立以来）。</li>
+<li>疑点：年化天数因子（365 自然日 vs 252 交易日）未标注；多期收益（近两年/三年）为累计非年化。</li>
+</ul>
+<h3>2. getIntervalReturnComparison ✅ 实测（005827 + 000300）</h3>
+<ul>
+<li>入参：fundCode*、startDate*、endDate*（yyyy.MM.dd）、benchmarks（对象数组，可传 []）、intervalType。</li>
+<li>出参：data[] 每个 code 一组 labels：<code>{label, ret}</code>。label 实测枚举：LAST_WEEK/LAST_MONTH/LAST_3_MONTH/LAST_6_MONTH/LAST_YEAR/LAST_2_YEAR/LAST_3_YEAR/YTD（注意 YTD 与入参枚举 THIS_YEAR 不同名）。</li>
+<li>单位：<strong>小数收益率</strong>（-0.250037 = -25.0%）。</li>
+<li>注意：传入的 startDate/endDate 不影响 labels 的区间锚点——返回的仍是&quot;截至最新净值日&quot;的固定阶段区间（与 get_fund_return_metrics 数值一致），CUSTOMER 区间本身不出现在 labels 里。</li>
+<li>实测坑：benchmark <code>{&quot;code&quot;:&quot;000300&quot;,&quot;type&quot;:&quot;INDEX&quot;}</code>（大写）不报错但 labels 返回空数组——<strong>type 必须小写 <code>index</code></strong>，且 code 疑需 <code>.CSI</code> 后缀（同 queryFundPerformance）。指数腿未复测成功（配额）。</li>
+</ul>
+<h3>3. getFundPerformanceComparison ✅ 实测（005827，2026.06.01~08.31）</h3>
+<ul>
+<li>入参：fundCode*、startDate*、endDate*、benchmarks、excessBenchmarks（结构同 benchmarks，做超额曲线）、intervalType。</li>
+<li>出参两块：<ul>
+<li>benchmarks[].trends[]：<code>{recordDate, value, valueDiv}</code>。value 为<strong>复权净值归一化曲线，起点=1</strong>（描述明确&quot;复权业绩走势&quot;）；valueDiv 实测 null，推断为对超额基准的比值/超额曲线（配合 excessBenchmarks 用）。仅交易日出点。</li>
+<li>indicators[]（每条曲线一行）：intervalReturn（区间收益，小数）、mdd（最大回撤，负小数）、geomReturn（<strong>年化几何收益</strong>，实测 3 个月区间收益 -5.07% 对应 geomReturn -19.04%，与 (1+r)^(365/91)-1 量级吻合）、vol（<strong>年化波动率</strong>，小数 0.160185）、sharpe、sortino、calmar。</li>
+</ul>
+</li>
+<li>公式反推（实测数值）：sharpe×vol = -0.20538 = calmar×|mdd|，且 geomReturn - (-0.20538) ≈ 0.0150 → <strong>夏普/卡尔玛共用同一超额收益分子（年化几何收益 − 无风险利率），无风险利率 ≈ 1.5%/年</strong>。calmar = (年化收益−rf)/|mdd|（含 rf 的变体，非教科书 calmar）。sortino 分母为下行波动。</li>
+<li>疑点：vol 年化因子（√252 或 √250）未披露；rf≈1.5% 为反推值，具体基准（一年定存/国债）未标注。</li>
+</ul>
+<h3>4. getFundRankTrend ⚠️ 实测打通但数据为空</h3>
+<ul>
+<li>入参：fundCode*、freq*（<strong>枚举 <code>Q</code>=季度 / <code>M</code>=月份</strong>，完整 schema 才有；实测误传 MONTH/WEEK 时<strong>不报错、静默返回 data:[]</strong>）、categoryLevel（1=一级分类, 2=二级分类）、startDate*/endDate*、intervalType。</li>
+<li>出参 schema：<code>[{startDate(区间起点), fRet(收益率), rank(排名), num(同类个数), max(同类最大值), min(同类最小值)}]</code>。</li>
+<li>排名口径：按 categoryLevel 一/二级分类排名；分类体系工具描述未写明（同组债类指标注明&quot;招银基金分类&quot;，此处疑同源，未证实）。</li>
+<li>疑点：fRet/max/min 是小数还是百分数未实测确认；错误 freq 静默空数组是易错点。</li>
+</ul>
+<h3>5. queryFundPerformance ❌ 3 次实测未打通（0413 计算任务异常）</h3>
+<ul>
+<li>失败原因定位：indexCode 传裸 <code>000300</code>；完整 schema 调用示例为 <strong><code>000300.CSI</code></strong>。日期用 yyyy-MM-dd 时报 0403（LocalDate 解析失败）→ 确认 yyyy.MM.dd。isCustomized 与 intervalType=CUSTOMER 配套。n=区间个数（默认 8，疑似分段计算用）。</li>
+<li>出参 schema（仅 schema 盘点）：intervalReturn（区间收益率）、intervalReturnRank（<strong>区间收益同类排名</strong>）、yearReturn（区间年化收益率）、maxDrawdown、maxDrawdownRank、yearVolatility（年化波动率）、downsideRisk（下行波动率）、calmarRatio、sharpeRatio、sortinoRatio、alphaRatio、betaRatio、treynorRatio、m2Ratio（M2 测度）、trackingError（跟踪误差）、informationRatio、count（同类基金个数）。</li>
+<li>口径线索：Alpha/Beta/Treynor/M2/TE/IR 均相对入参 indexCode 的市场指数计算——<strong>&quot;基准&quot;由调用方指定，非固化业绩比较基准</strong>；排名分母为 count（同类基金个数），分类体系未写明。</li>
+<li>疑点：全部比率的 rf、年化因子未披露；量纲（小数/百分数）未实测。</li>
+</ul>
+<h3>6. getFundEstNvGap ❌ 2 次实测 0403（持仓结构类型不正确），正确枚举已从完整 schema 确认</h3>
+<ul>
+<li>正确入参：positionStructure = <strong><code>semiannual</code>(全部持仓) / <code>quarter</code>(重仓股)</strong>（实测误传 ALL/FULL 被拒）；fundCode*、startDate*/endDate*（yyyy.MM.dd）、intervalType。</li>
+<li>出参 schema + 官方示例：<code>[{recordDate, gapFromEachPeriod(每期归一差值), gapFromStart(期初归一差值)}]</code>，示例值 0.0123 级别 → 小数。</li>
+<li>公式口径（由描述+字段推断）：用最近披露持仓（全持仓或重仓股）构建估算净值曲线，与实际净值同起点归一后作差；gapFromEachPeriod = 当期差值（每期重新归一），gapFromStart = 相对区间期初的累计差值。差值大 → 披露持仓与实际持仓偏离大（隐性调仓/风格漂移信号）。</li>
+<li>疑点：估算持仓是否含股价外资产（债券/现金）未说明；&quot;每期&quot;的期界（月末示例）未明确定义。</li>
+</ul>
+<h3>7. get_fund_duration_estimation ✅ 实测（110007，2025.09.01~2026.08.31）</h3>
+<ul>
+<li>入参：fundCode*（仅单只）、startDate*/endDate*（yyyy.MM.dd）。</li>
+<li>出参（实测）：<ul>
+<li>vol：区间波动率，实测 1.00256842 —— 量纲疑为<strong>百分数</strong>（债基年化波动 ~1% 合理）；</li>
+<li>avgDurError：平均测算误差，单位<strong>年</strong>（0.4268）；</li>
+<li>trendList[]：recordDate、durEst（测算久期，<strong>年</strong>，日频）、durEstMa（<strong>MA10</strong> 移动平均）、percentValue（<strong>区间分位数</strong>，0~1 小数，如 0.2231=22.3% 分位）；</li>
+<li>dotsList[]：recordDate、durSensitive（敏感性久期=报告期披露的利率敏感性分析测算值，散点）、durError（该点测算误差）。</li>
+</ul>
+</li>
+<li>公式口径：durEst 为回归/敏感性法日频测算久期；durSensitive 为定期报告披露锚点，durError = 测算 vs 披露 的偏差；percentValue = 当日 durEst 在查询区间内的分位。</li>
+<li>疑点：vol 是净值波动还是久期序列波动未说明；测算模型（对哪条利率曲线回归）未披露。</li>
+</ul>
+<h3>8. get_fund_bond_allocation_indicator ✅ 实测（110007，2024.01.01~2026.08.31）</h3>
+<ul>
+<li>出参（实测）：avg（区间<strong>算术平均</strong>，reportDate 用哨兵值 <code>9999.12.31</code>）+ singles[]（各报告期）：<ul>
+<li>fundDuration：组合久期（年），<strong>仅年报/半年报有值</strong>（实测 2026.03.31、2025.09.30、2024.09.30 等季报期均 null）——基于利率敏感性分析测算；</li>
+<li>fundLeverageLevel：杠杆水平 = <strong>总资产/净资产</strong>（倍数，1.26）；每个报告期都有；</li>
+<li>bondHoldingConcentration：债券持仓集中度 = <strong>重仓债市值/债券总市值</strong>（小数 0.3336）；</li>
+<li>top5BondDuration：前五大重仓标的久期（年，11.37）；</li>
+<li>排名：rankXXX（整数名次）+ totalCategoryFundDuration / totalCategoryOther（同类总数，久期与其他三项分母不同）。<strong>同类按招银基金分类</strong>（描述明示）。</li>
+</ul>
+</li>
+<li>疑点：avg 为报告期算术平均（非时间加权）；排名方向（久期大=名次靠后？实测 rankFundDuration 633/668 且久期 6.07 偏长，疑升序但未证实）。</li>
+</ul>
+<h3>9. getAssetAllocation 〔仅 schema 盘点，未实测（配额）〕</h3>
+<ul>
+<li>入参：startDate*/endDate*（yyyy.MM.dd）、fundCode、intervalType。</li>
+<li>出参：interval（区间汇总）+ quarters[]（各报告期）：五大类 equity/fixedIncome/fund/money/other 各出三个字段——<code>xxxAsset</code>（金额）、<code>xxxAssetRatio</code>（<strong>占总资产比</strong>）、<code>xxxNetAssetRatio</code>（<strong>占净资产比</strong>，仅 interval 层有）。</li>
+<li>口径：双分母（总值比 vs 净值比）并存，杠杆基金两者差异大；金额单位未标注（同组债券明细&quot;已除以 1 亿&quot;，此处疑为元或亿元，需实测确认）。</li>
+</ul>
+<h3>10. getBondAllocationType 〔仅 schema 盘点〕</h3>
+<ul>
+<li>券种：bondNational(国债)/bondFinancial(金融债)/bondConvertible(可转债)/bondCorporate(企业债)/bondCentralBank(央票)/bondShortTerm(短融)/bondMediumTerm(中票)/bondAcd(同业存单)/bondLocalGovernment(地方政府债)/bondOther。</li>
+<li><strong>三分母口径</strong>：totalAssetRatio（占总资产）/totalNetAssetRatio（占净资产）/bondAssetRatio（占债券市值），各有 Avg（区间均值）与 Single（每期）两组。</li>
+</ul>
+<h3>11. getBondAllocationStyle 〔仅 schema 盘点〕</h3>
+<ul>
+<li>风格三分法：interestRateAsset（利率资产）/creditAsset（信用资产）/bondConvertible（可转债）；同样三分母 × Avg/Single 结构。</li>
+<li>疑点：利率/信用的划分规则（金融债归哪类）未披露。</li>
+</ul>
+<h3>12. getBondAllocationCreditRate 〔仅 schema 盘点〕</h3>
+<ul>
+<li>按 longTerm/shortTerm 两评级体系分块 + single[]（各报告期 reports[]：longShortTerm、creditRating(AAA/AA+/A…)、bondType、三分母占比）。</li>
+<li>口径：评级来自重仓债披露（对应 detail 工具的 bondCreditRatingType），非全持仓——覆盖率受&quot;重仓债&quot;限制。</li>
+</ul>
+<h3>13. get_fund_bond_allocation_detail 〔仅 schema 盘点，描述极全〕</h3>
+<ul>
+<li>每条：reportDate、bondCode、bondName、bondType（一级分类）、bondValue（市值，<strong>已除以 1 亿保留 2 位 = 亿元</strong>）、bondAssetRatio（占债券市值比，<strong>4 位小数</strong>如 0.1562=15.62%）、bondValueRatio（占基金净值比）、bondCreditRatingType（短期/长期/null）、bondCreditRating、bondCompanyCreditRating（主体评级）。</li>
+<li>返回全部历史报告期，需自行按 reportDate 分组。</li>
+</ul>
+<h3>14. getFundIndustryAllocation 〔仅 schema 盘点〕</h3>
+<ul>
+<li>industryType 枚举：ZHONGXIN1/2/3（中信一二三级）、SHENWAN1/2/3（申万）、YM（盈米分类）——<strong>行业分类体系可选，跨工具比较需锁定同一体系</strong>。containsHKStock 默认 false。positionStructure 必填（默认建议 semiannual）。</li>
+<li>出参：intervals[]（区间 avgValueRatio 平均占比）+ quarters[]（各期 valueRatio）。占比分母（净值/股票市值）未写明——疑点。</li>
+</ul>
+<h3>15. getHistoricalStockHolding 〔仅 schema 盘点〕</h3>
+<ul>
+<li>position：semiannual 全持仓 / quarter 重仓（默认 quarter）；industryClassCode 默认中信传 &quot;21&quot;（数字编码，与 industryType 枚举不同一套——口径疑点）。</li>
+<li>出参：三分母占比 netAssetRatio（占净值）/equityAssetRatio（占股票市值）/heavyPosAssetRatio（占重仓市值）+ 中信一二三级行业名 + industryChain（产业链标签）。</li>
+</ul>
+<h3>16. getFundNetAsset 〔仅 schema 盘点〕</h3>
+<ul>
+<li>report 日期为 <strong>yyyy-MM-dd</strong>（与净值类工具不同）。出参：times（规模变化倍数）、years（年数）、setupAsset/totalSetupAsset（成立时规模/总规模）、totalTimes、setupDate、netAssets[]（reportDate、totalNetAsset(合并规模)、netAsset(本份额规模)、totalShare、fundShare）。</li>
+<li>疑点：规模单位（元/亿元）未标注；total vs 非 total = 合并各份额 vs 单份额。</li>
+</ul>
+<h3>17. getFundHolderList 〔仅 schema 盘点〕</h3>
+<ul>
+<li>report 日期 yyyy-MM-dd。出参：instHoldingRatio（机构占比）/personalHoldingRatio（个人）/etfFeederHoldingRatio（联接基金）/professionalHoldingRatio（内部持有人）+ 对应 Holding 份额。占比量纲（小数/百分数）未实测。</li>
+</ul>
+<h3>18. get_fund_fee_detail_list 〔仅 schema 盘点〕</h3>
+<ul>
+<li>出参：maxSubscribeFeeRatio（最大认购费率）/maxAllotFeeRatio（最大申购费率）/maxRedeemFeeRatio + detailList[]（feeType、feeValue、feeUnit——<strong>费率带单位字段</strong>，rangeFrom/rangeTo 金额或持有期分段 + contain 边界开闭标志）+ subscribeConfirmDays/redemConfirmDays/redemSettleDays（确认/到账天数）。</li>
+<li>口径：分段费率有显式开闭区间标志，feeUnit 决定 feeValue 是 % 还是元/笔。</li>
+</ul>
+<h3>19. get_fund_announcement_page 〔仅 schema 盘点〕</h3>
+<ul>
+<li>param 包装分页（pageNumber/pageSize/orders + param 业务体）。reportType 枚举 5 类；仅返回 PDF（服务端过滤 .PDF 结尾）；默认公告日期降序；无效 reportType 返回空。</li>
+</ul>
+<h3>20. searchFundCodeAndName ✅ 实测</h3>
+<ul>
+<li>扁平入参：param*、pageNumber*、pageSize*。返回 list[]：fundMainCode/fundMainName（主代码，A/C 份额归主）+ fundCode/fundName。分页字段实测为 totalPage/totalRow（与 schema 写的 totalPages/totalRecords 不一致——文档滞后）。</li>
+</ul>
+<hr>
+<h2>本组指标口径总览表</h2>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>工具</th>
+<th>实测</th>
+<th>核心指标</th>
+<th>量纲</th>
+<th>关键口径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>get_fund_return_metrics</td>
+<td>✅</td>
+<td>9 区间收益+成立年化</td>
+<td><strong>百分数</strong></td>
+<td>复权净值涨跌幅；recordDate 默认最新</td>
+</tr>
+<tr>
+<td>getIntervalReturnComparison</td>
+<td>✅</td>
+<td>阶段收益 vs 多基准</td>
+<td><strong>小数</strong></td>
+<td>与上工具同源(×100)；label 用 YTD 非 THIS_YEAR；benchmark type 小写</td>
+</tr>
+<tr>
+<td>getFundPerformanceComparison</td>
+<td>✅</td>
+<td>归一净值曲线+7 指标</td>
+<td>小数</td>
+<td>复权、起点=1；geomReturn/vol 年化；<strong>rf≈1.5% 反推</strong>；calmar 含 rf</td>
+</tr>
+<tr>
+<td>queryFundPerformance</td>
+<td>❌(indexCode 需 .CSI)</td>
+<td>17 项含 Alpha/Beta/TE/IR/M2+排名</td>
+<td>未验</td>
+<td>基准=入参指数；排名分母 count</td>
+</tr>
+<tr>
+<td>getFundRankTrend</td>
+<td>⚠️空</td>
+<td>fRet/rank/num/max/min</td>
+<td>未验</td>
+<td>freq 仅 Q/M，错传静默空；categoryLevel 1/2</td>
+</tr>
+<tr>
+<td>getFundEstNvGap</td>
+<td>❌(枚举已确认)</td>
+<td>每期/期初归一差值</td>
+<td>小数</td>
+<td>positionStructure=semiannual/quarter</td>
+</tr>
+<tr>
+<td>get_fund_duration_estimation</td>
+<td>✅</td>
+<td>durEst/MA10/分位+敏感性锚点</td>
+<td>年；分位 0~1</td>
+<td>日频测算 vs 报告期披露对标；avgDurError 年</td>
+</tr>
+<tr>
+<td>get_fund_bond_allocation_indicator</td>
+<td>✅</td>
+<td>久期/杠杆/集中度/前五久期+同类排名</td>
+<td>年、倍数、小数</td>
+<td>杠杆=总资产/净资产；集中度=重仓债/债券总市值；<strong>同类=招银分类</strong>；久期仅年报/半年报；avg 哨兵日期 9999.12.31</td>
+</tr>
+<tr>
+<td>getAssetAllocation</td>
+<td>schema</td>
+<td>五大类资产金额+占比</td>
+<td>双分母</td>
+<td>总资产比 vs 净资产比并存</td>
+</tr>
+<tr>
+<td>getBondAllocationType/Style/CreditRate</td>
+<td>schema</td>
+<td>券种/风格/评级占比</td>
+<td>三分母</td>
+<td>总资产/净资产/债券市值三套占比</td>
+</tr>
+<tr>
+<td>get_fund_bond_allocation_detail</td>
+<td>schema</td>
+<td>重仓债明细</td>
+<td>市值亿元；占比 4 位小数</td>
+<td>仅重仓债；全报告期一次返回</td>
+</tr>
+<tr>
+<td>getFundIndustryAllocation</td>
+<td>schema</td>
+<td>行业区间均值+各期占比</td>
+<td>未验</td>
+<td>中信/申万/盈米多体系；positionStructure 必填</td>
+</tr>
+<tr>
+<td>getHistoricalStockHolding</td>
+<td>schema</td>
+<td>持股三分母占比+行业链</td>
+<td>未验</td>
+<td>industryClassCode 中信=&quot;21&quot; 数字码</td>
+</tr>
+<tr>
+<td>getFundNetAsset / getFundHolderList</td>
+<td>schema</td>
+<td>规模/持有人结构</td>
+<td>未验</td>
+<td>日期 yyyy-MM-dd；合并 vs 单份额</td>
+</tr>
+<tr>
+<td>get_fund_fee_detail_list</td>
+<td>schema</td>
+<td>三费率+分段明细</td>
+<td>feeUnit 定</td>
+<td>分段含开闭区间标志</td>
+</tr>
+<tr>
+<td>get_fund_announcement_page / searchFundCodeAndName</td>
+<td>✅(搜索)</td>
+<td>公告/搜索</td>
+<td>—</td>
+<td>仅 PDF 公告；主代码归并</td>
+</tr>
+</tbody></table></div>
+<h2>疑点汇总</h2>
+<ol>
+<li><strong>收益率量纲组内不统一</strong>：return_metrics 百分数 vs 其余小数——消费侧极易 100 倍错。</li>
+<li><strong>无风险利率无文档</strong>：由 sharpe/calmar/geomReturn 联立反推 ≈1.5%/年，基准（定存/国债）未披露；queryFundPerformance 的 rf 是否同一套未知。</li>
+<li><strong>年化因子未披露</strong>：vol/geomReturn 的 252 vs 365、√252 vs √250 无说明。</li>
+<li><strong>&quot;同类&quot;分类体系多头</strong>：债类指标明示招银分类；getFundRankTrend 的 categoryLevel、queryFundPerformance 的 count 未写明体系是否同源。</li>
+<li><strong>净值复权口径</strong>：PerformanceComparison 明示&quot;复权&quot;；return_metrics/RankTrend 未明示（数值同源推断也是复权），分红再投假设未披露。</li>
+<li><strong>indexCode 代码体系</strong>：需带后缀（示例 000300.CSI），合法后缀清单无文档；benchmarks.code 的指数是否同规则未证实（大写 type/裸代码时静默返回空而非报错）。</li>
+<li><strong>静默失败模式</strong>：getFundRankTrend 错误 freq、benchmark 错误 type/code 均返回空数组不报错——数据缺失与入参错误不可区分。</li>
+<li><strong>calmar 非教科书定义</strong>：分子含 rf（=夏普分子），复用时勿与常规 Calmar（纯年化收益/最大回撤）混比。</li>
+<li><strong>金额单位</strong>：债券明细明示亿元；AssetAllocation/NetAsset 的金额单位未标注。</li>
+<li><strong>久期口径双轨</strong>：bond_allocation_indicator（报告期披露的敏感性分析，半年频）与 duration_estimation（日频测算）数值可能明显不一致（实测 110007：报告期 6.07 年 vs 日频测算 ~1.78 年区间——<strong>注意 110007 有多份额/口径差异或测算模型偏保守，用前必须对齐来源</strong>）。</li>
+<li><strong>queryFundPerformance 0413</strong>：裸指数码触发&quot;计算任务异常&quot;而非参数错误提示，排障成本高。</li>
+<li><strong>文档滞后</strong>：searchFundCodeAndName schema 写 totalPages/totalRecords，实返 totalPage/totalRow。</li>
+</ol>
+
+<div class="foot">CLAIR · 内部技术口径文档，请勿外传。</div>
+</div>
+</body>
+</html>
