@@ -137,6 +137,11 @@
     "firstInvestmentAfterReady": 0,
     "inflowUsersAfterReady": 7,
     "inflowWanAfterReady": 0.9358,
+    "strictInflowUsersAfterReady": 6,
+    "strictInflowWanAfterReady": 0.8258,
+    "sameDayInflowUsers": 2,
+    "sameDayOnlyUsers": 1,
+    "sameDayInflowWan": 0.11,
     "firstReadyAt": "2026-08-28T19:17:01+08:00",
     "lastReadyAt": "2026-09-05T22:31:32+08:00"
   },
@@ -356,8 +361,8 @@
     "cohort": "新用户=注册时间与首次豆包授权时间相差不超过 60 分钟；老用户=授权前已有且慢账户",
     "assets": "ying99_asset.dwd_app_service_account_profit_combine；2026-09-04 快照；只取 broker=0008 且 relation_account_type=ROOT，避免跨券商与树形账户重复求和",
     "ready": "api_oauth_refresh_token.created_at；会话令牌签发作为豆包使用代理，能证明客户端建立会话，但不是工具级实调用",
-    "journey": "开账户、绑卡、风测、首投均以首次会话令牌时间为锚点；入金采用 broker=0008、ROOT 层 input_amount，统计至 2026-09-04",
-    "behavior": "首投只计首次成功且未取消的非 WALLET 买入；入金金额为数仓 ROOT 层 input_amount 代理口径",
+    "journey": "开账户、绑卡、风测、首投均以首次会话令牌时间为锚点；入金采用 broker=0008、ROOT 层 input_amount，统计至 2026-09-04；同日记录因缺少时分秒单独列为不确定",
+    "behavior": "首投只计首次成功且未取消的非 WALLET 买入；严格使用后入金只计资金日期晚于首次会话日期，input_amount 不等同独立现金充值",
     "usageGap": "逐次 API 调用缺少可稳定回连豆包 client_id 与授权 user_id 的链路；可使用人数不能替代实际工具调用人数"
   }
 }
