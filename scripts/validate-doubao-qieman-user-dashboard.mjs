@@ -9,6 +9,9 @@ const html = readFileSync(join(report, "index.html"), "utf8");
 const data = JSON.parse(readFileSync(join(report, "data", "latest.json"), "utf8"));
 const preview = readFileSync(join(root, "public", "previews", "doubao-qieman-user-dashboard.svg"), "utf8");
 const workbench = readFileSync(join(root, "src", "app.js"), "utf8");
+const numberFormat = new Intl.NumberFormat("zh-CN");
+const coverage = `${(data.metrics.readyAccounts / data.metrics.boundAccounts * 100).toFixed(1)}%`;
+const cutoff = data.meta.data_cutoff.slice(0, 16).replace("T", " ");
 
 assert.equal(data.schema_version, "doubao-qieman-user-dashboard-v2");
 assert.ok(data.metrics.boundAccounts >= 300, "豆包绑定用户数异常偏低");
@@ -45,11 +48,19 @@ for (const key of ["all", "new", "existing"]) {
 for (const marker of ["使用之后有没有转化", "POST-USE CONVERSION", "EVIDENCE BOUNDARY", "实际工具调用", "growth-chart"]) {
   assert.match(html, new RegExp(marker), `页面缺少关键标记：${marker}`);
 }
+assert.match(html, /id="growth-title"/, "增长标题必须从最新快照动态生成，避免静态人数过期");
 for (const prohibited of ["REDASH_API_KEY", "client_secret", "token_hash", '"user_id"', '"phone"', "po_manager_id"]) {
   assert.ok(!readFileSync(join(report, "data", "latest.json"), "utf8").includes(prohibited), `公开数据包含敏感字段：${prohibited}`);
 }
 assert.match(preview, /豆包 × 且慢/);
+assert.match(preview, new RegExp(`>${data.metrics.boundAccounts}<`), "工作台预览中的授权人数未同步");
+assert.match(preview, new RegExp(`>${data.metrics.readyAccounts}<`), "工作台预览中的使用代理人数未同步");
+assert.match(preview, new RegExp(coverage.replace(".", "\\.")), "工作台预览中的使用代理覆盖率未同步");
 assert.match(workbench, /id: "doubao-qieman-user-dashboard"/);
 assert.match(workbench, /reports\/doubao-qieman-user-dashboard\//);
+assert.match(workbench, new RegExp(`数据截至 ${cutoff.replace(".", "\\.")}`), "工作台摘要中的数据截止时间未同步");
+assert.match(workbench, new RegExp(`${data.metrics.boundAccounts} 人完成豆包授权`), "工作台摘要中的授权人数未同步");
+assert.match(workbench, new RegExp(`${data.metrics.readyAccounts} 人产生至少一次 OAuth 会话令牌`), "工作台摘要中的使用代理人数未同步");
+assert.match(workbench, new RegExp(`共 ${numberFormat.format(data.metrics.usageProxySessions)} 次`), "工作台摘要中的会话令牌次数未同步");
 
 console.log(`豆包且慢使用后转化看板校验通过：授权 ${data.metrics.boundAccounts} 人，使用代理 ${data.journey.readyAccounts} 人，严格后续日入金 ${data.journey.strictInflowWanAfterReady} 万。`);
