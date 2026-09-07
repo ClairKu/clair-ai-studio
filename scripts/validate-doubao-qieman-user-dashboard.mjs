@@ -26,6 +26,11 @@ for (const key of ["openedAfterReady", "cardBoundAfterReady", "riskAssessedAfter
 }
 assert.ok(data.journey.inflowUsersAfterReady >= 0);
 assert.ok(data.journey.inflowWanAfterReady >= 0);
+assert.ok(data.journey.strictInflowUsersAfterReady <= data.journey.inflowUsersAfterReady);
+assert.ok(data.journey.strictInflowWanAfterReady <= data.journey.inflowWanAfterReady);
+assert.equal(data.journey.strictInflowUsersAfterReady, 6, "严格后续日入金用户口径发生变化，请人工复核");
+assert.equal(data.journey.strictInflowWanAfterReady, 0.8258, "严格后续日入金金额发生变化，请人工复核");
+assert.equal(data.journey.sameDayInflowWan, 0.11, "同日不确定入金金额发生变化，请人工复核");
 assert.equal(data.cohorts.new.assets.holdingWan, 0, "新用户不应凭空出现历史资产");
 assert.equal(data.cohorts.new.behavior.firstInvestmentAfter, 0, "新用户首投口径发生变化，请人工复核");
 assert.equal(data.cohorts.all.behavior.xiaoguUsage, null, "缺少用户级使用归因时不得填入小顾使用人数");
@@ -47,4 +52,4 @@ assert.match(preview, /豆包 × 且慢/);
 assert.match(workbench, /id: "doubao-qieman-user-dashboard"/);
 assert.match(workbench, /reports\/doubao-qieman-user-dashboard\//);
 
-console.log(`豆包且慢使用后转化看板校验通过：授权 ${data.metrics.boundAccounts} 人，使用代理 ${data.journey.readyAccounts} 人，入金 ${data.journey.inflowWanAfterReady} 万。`);
+console.log(`豆包且慢使用后转化看板校验通过：授权 ${data.metrics.boundAccounts} 人，使用代理 ${data.journey.readyAccounts} 人，严格后续日入金 ${data.journey.strictInflowWanAfterReady} 万。`);

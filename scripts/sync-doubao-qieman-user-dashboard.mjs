@@ -191,7 +191,9 @@ const cardRows = await query(`
   `);
 const inflowRows = await query(`
     WITH u AS (${readyBase}), f AS (
-      SELECT u.pmid,SUM(d.input_amount) inflow
+      SELECT u.pmid,SUM(d.input_amount) inflow,
+        SUM(CASE WHEN d.cal_date>DATE(u.first_ready_at) THEN d.input_amount ELSE 0 END) strict_inflow,
+        SUM(CASE WHEN d.cal_date=DATE(u.first_ready_at) THEN d.input_amount ELSE 0 END) same_day_inflow
       FROM ying99_asset.dwd_app_service_account_profit_combine d USE INDEX(idx_cal_date_saId)
       JOIN u ON u.account3_id=d.account3_id
       WHERE d.broker='0008' AND d.relation_account_type='ROOT' AND d.cal_date>='2026-08-28'
@@ -199,7 +201,10 @@ const inflowRows = await query(`
         AND d.cal_date<='${assetDate}'
       GROUP BY u.pmid
     )
-    SELECT COUNT(*) inflow_users,ROUND(SUM(inflow)/10000,4) inflow_wan
+    SELECT COUNT(*) inflow_users,ROUND(SUM(inflow)/10000,4) inflow_wan,
+      SUM(strict_inflow>0) strict_inflow_users,ROUND(SUM(strict_inflow)/10000,4) strict_inflow_wan,
+      SUM(same_day_inflow>0) same_day_inflow_users,ROUND(SUM(same_day_inflow)/10000,4) same_day_inflow_wan,
+      SUM(strict_inflow<=0 AND same_day_inflow>0) same_day_only_users
     FROM f WHERE inflow>0
   `);
 
@@ -345,6 +350,11 @@ const payload = {
     firstInvestmentAfterReady: number(journey, "first_invest_after_ready"),
     inflowUsersAfterReady: number(inflow, "inflow_users"),
     inflowWanAfterReady: Number(number(inflow, "inflow_wan").toFixed(4)),
+    strictInflowUsersAfterReady: number(inflow, "strict_inflow_users"),
+    strictInflowWanAfterReady: Number(number(inflow, "strict_inflow_wan").toFixed(4)),
+    sameDayInflowUsers: number(inflow, "same_day_inflow_users"),
+    sameDayOnlyUsers: number(inflow, "same_day_only_users"),
+    sameDayInflowWan: Number(number(inflow, "same_day_inflow_wan").toFixed(4)),
     firstReadyAt: `${String(ready.first_ready_at).replace(" ", "T")}+08:00`,
     lastReadyAt: `${String(ready.last_ready_at).replace(" ", "T")}+08:00`,
   },
@@ -359,8 +369,8 @@ const payload = {
     cohort: "新用户=注册时间与首次豆包授权时间相差不超过 60 分钟；老用户=授权前已有且慢账户",
     assets: `ying99_asset.dwd_app_service_account_profit_combine；${assetDate} 快照；只取 broker=0008 且 relation_account_type=ROOT，避免跨券商与树形账户重复求和`,
     ready: "api_oauth_refresh_token.created_at；会话令牌签发作为豆包使用代理，能证明客户端建立会话，但不是工具级实调用",
-    journey: `开账户、绑卡、风测、首投均以首次会话令牌时间为锚点；入金采用 broker=0008、ROOT 层 input_amount，统计至 ${assetDate}`,
-    behavior: "首投只计首次成功且未取消的非 WALLET 买入；入金金额为数仓 ROOT 层 input_amount 代理口径",
+    journey: `开账户、绑卡、风测、首投均以首次会话令牌时间为锚点；入金采用 broker=0008、ROOT 层 input_amount，统计至 ${assetDate}；同日记录因缺少时分秒单独列为不确定`,
+    behavior: "首投只计首次成功且未取消的非 WALLET 买入；严格使用后入金只计资金日期晚于首次会话日期，input_amount 不等同独立现金充值",
     usageGap: "逐次 API 调用缺少可稳定回连豆包 client_id 与授权 user_id 的链路；可使用人数不能替代实际工具调用人数",
   },
 };
