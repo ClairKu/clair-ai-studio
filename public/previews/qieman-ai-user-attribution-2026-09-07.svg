@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750" role="img" aria-labelledby="t d">
+  <title id="t">且慢全量用户来源归因与 AI 认知需求分析</title>
+  <desc id="d">用户来源、生命周期漏斗和 AI 服务关系的管理报告封面</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0c1b19"/><stop offset="1" stop-color="#173e35"/></linearGradient>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#91d3bd"/><stop offset="1" stop-color="#d9e68f"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#07100e" flood-opacity=".35"/></filter>
+  </defs>
+  <rect width="1200" height="750" rx="44" fill="url(#bg)"/>
+  <path d="M-40 500C175 328 330 665 536 426S880 165 1260 338" fill="none" stroke="#326659" stroke-width="2" opacity=".7"/>
+  <path d="M190-30C252 212 448 112 545 324s308 139 479 444" fill="none" stroke="#305b52" stroke-width="2" opacity=".55"/>
+  <g filter="url(#shadow)">
+    <circle cx="845" cy="314" r="156" fill="#183f36" stroke="#91d3bd" stroke-width="3"/>
+    <circle cx="676" cy="244" r="92" fill="#18362f" stroke="#5878b7" stroke-width="3"/>
+    <circle cx="994" cy="193" r="69" fill="#1c4137" stroke="#d9e68f" stroke-width="3"/>
+    <circle cx="1011" cy="442" r="51" fill="#493729" stroke="#ea8a52" stroke-width="3"/>
+  </g>
+  <g fill="#fff" text-anchor="middle" font-family="PingFang SC,Microsoft YaHei,sans-serif"><text x="845" y="304" font-size="52" font-weight="800">24,518</text><text x="845" y="340" font-size="18" fill="#bcd6ce">AI 身份 / 授权去重</text><text x="676" y="239" font-size="30" font-weight="800">11,573</text><text x="676" y="268" font-size="14" fill="#bcd6ce">小顾对话</text><text x="994" y="190" font-size="24" font-weight="800">2,722</text><text x="994" y="216" font-size="13" fill="#d9e68f">千问绑定</text><text x="1011" y="440" font-size="20" font-weight="800">391</text><text x="1011" y="463" font-size="12" fill="#ffd2b8">豆包授权</text></g>
+  <g font-family="PingFang SC,Microsoft YaHei,sans-serif"><text x="72" y="86" fill="#91d3bd" font-size="18" font-weight="700" letter-spacing="3">CLAIR / QIEMAN AI</text><text x="72" y="180" fill="#fff" font-family="Songti SC,STSong,serif" font-size="58" font-weight="700">且慢用户从哪里来，</text><text x="72" y="250" fill="#fff" font-family="Songti SC,STSong,serif" font-size="58" font-weight="700">离 AI 还有多远？</text><text x="72" y="311" fill="#a9c6bd" font-size="22">全量用户来源归因 × AI 认知 × 使用 × 需求</text></g>
+  <g transform="translate(72 454)" font-family="PingFang SC,Microsoft YaHei,sans-serif"><rect width="390" height="176" rx="26" fill="#fffdf8"/><text x="28" y="46" fill="#60716c" font-size="15">近两年新增</text><text x="28" y="91" fill="#10201d" font-size="40" font-weight="800">603,019</text><rect x="225" y="25" width="137" height="126" rx="20" fill="#fff0e5"/><text x="244" y="62" fill="#a7552d" font-size="14">可归因率</text><text x="244" y="106" fill="#c8584f" font-size="38" font-weight="800">27.5%</text><text x="28" y="140" fill="#60716c" font-size="14">72.5% 暂无法定位具体营销活动</text></g>
+  <text x="72" y="692" fill="#79988f" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="14">生产数据只读聚合 · 公开脱敏 · 2026-09-07</text>
+</svg>

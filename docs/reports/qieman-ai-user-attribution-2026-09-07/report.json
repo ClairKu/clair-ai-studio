@@ -1,0 +1,109 @@
+{
+  "schema": "qieman-ai-user-attribution/v1",
+  "generatedAt": "2026-09-07T10:48:38+08:00",
+  "timezone": "Asia/Shanghai",
+  "userWindow": {
+    "start": "2024-09-07T00:00:00+08:00",
+    "end": "2026-09-07T10:45:00+08:00",
+    "label": "近两年新用户（截至当日 10:45 的部分日）"
+  },
+  "definitions": {
+    "identitySource": "portfolio_manager_info.src；身份创建/登录入口，不等同完整营销归因",
+    "marketingSource": "user_msrc.msrc，并以 vip_activity 映射活动名",
+    "openedAccount": "account3_id 非空",
+    "bankBound": "bank_no 非空",
+    "currentHolder": "最新资产表中 ROOT total_asset > 0",
+    "managedUser": "最新资产表中 ROOT total_asset > 100 元；用于跨人群统一复现，不等同全部业务口径",
+    "aiIdentityOrAuthorization": "小顾实际对话、千问有效绑定、豆包当前授权、OAP 有效 Key 主体、AI 实验室应用用户的去重并集",
+    "confirmedAiUse": "小顾实际对话、千问实际提问、OAP 近 30 日有调用的 Key 主体去重并集"
+  },
+  "universe": {
+    "allUsers": 3795728,
+    "newUsers2y": 603019,
+    "all": {"openedAccount": 1004416, "bankBound": 1004250, "currentHolder": 422532, "managedUser": 291097, "rootAssetYi": 404.02},
+    "new2y": {"openedAccount": 195499, "bankBound": 195443, "currentHolder": 87425, "managedUser": 69182, "rootAssetYi": 61.87}
+  },
+  "identitySources2y": [
+    {"source": "QIEMAN", "users": 304320, "openedAccount": 142321, "currentHolder": 62758, "managedUser": 49219},
+    {"source": "WECHAT", "users": 288075, "openedAccount": 52029, "currentHolder": 24197, "managedUser": 19599},
+    {"source": "QMTG", "users": 3699, "openedAccount": 394, "currentHolder": 171, "managedUser": 162},
+    {"source": "HUAWEI", "users": 2716, "openedAccount": 283, "currentHolder": 103, "managedUser": 87},
+    {"source": "QWEN", "users": 2160, "openedAccount": 3, "currentHolder": 0, "managedUser": 0},
+    {"source": "APPLE", "users": 2049, "openedAccount": 469, "currentHolder": 196, "managedUser": 115}
+  ],
+  "marketingAttribution": {
+    "all": {"traceable": 1685440, "explicitNoMsrc": 1714261, "missingRow": 396027},
+    "new2y": {"traceable": 165751, "explicitNoMsrc": 285171, "missingRow": 152097},
+    "topCampaigns2y": [
+      {"code": "ACT1600", "name": "且慢管家底栏挑选产品", "users": 28602, "openedAccount": 5046},
+      {"code": "ACT5770", "name": "招财猫集合页菜单栏", "users": 27064, "openedAccount": 249},
+      {"code": "ACT7869", "name": "智晖稳健", "users": 8938, "openedAccount": 1876},
+      {"code": "ACT7868", "name": "智晖进取", "users": 8754, "openedAccount": 1620},
+      {"code": "ACT2853", "name": "快财学堂推盈米宝", "users": 8519, "openedAccount": 79},
+      {"code": "ACT5748", "name": "招财猫集合页", "users": 5733, "openedAccount": 45},
+      {"code": "ACT3651", "name": "搬砖—慧智策略 基金助手首页", "users": 5313, "openedAccount": 739},
+      {"code": "ACT6379", "name": "每日估值新", "users": 4509, "openedAccount": 69},
+      {"code": "ACT3541", "name": "远望指基优选组合", "users": 4293, "openedAccount": 186},
+      {"code": "ACT8590", "name": "全天候-永久投资策略", "users": 3864, "openedAccount": 952},
+      {"code": "ACT9722", "name": "麻利二铺-定投计划集合页面", "users": 3638, "openedAccount": 1800},
+      {"code": "ACT2838", "name": "快财学堂查看资产页", "users": 2954, "openedAccount": 177}
+    ]
+  },
+  "aiCohorts": [
+    {"cohort": "任一 AI 身份或授权", "evidence": "身份/授权", "users": 24518, "openedAccount": 11992, "bankBound": 11991, "currentHolder": 10671, "managedUser": 10443, "rootAssetWan": 323658.96},
+    {"cohort": "已证实 AI 使用", "evidence": "实际使用", "users": 14457, "openedAccount": 10355, "bankBound": 10355, "currentHolder": 9767, "managedUser": 9638, "rootAssetWan": 300912.20},
+    {"cohort": "小顾历史实际对话", "evidence": "实际使用", "users": 11573, "openedAccount": 9784, "bankBound": 9784, "currentHolder": 9449, "managedUser": 9355, "rootAssetWan": 292628.14},
+    {"cohort": "小顾近 30 日实际对话", "evidence": "近期使用", "users": 9810, "openedAccount": 8179, "bankBound": 8179, "currentHolder": 7894, "managedUser": 7817, "rootAssetWan": 254185.69},
+    {"cohort": "千问有效绑定", "evidence": "身份绑定", "users": 2722, "openedAccount": 344, "bankBound": 344, "currentHolder": 242, "managedUser": 228, "rootAssetWan": 7750.12},
+    {"cohort": "千问实际提问", "evidence": "实际使用", "users": 2010, "openedAccount": 300, "bankBound": 300, "currentHolder": 215, "managedUser": 207, "rootAssetWan": 7285.27},
+    {"cohort": "豆包当前授权", "evidence": "OAuth 授权", "users": 391, "openedAccount": 56, "bankBound": 56, "currentHolder": 35, "managedUser": 34, "rootAssetWan": 500.26},
+    {"cohort": "OAP 有效 Key 主体", "evidence": "Key 所有人", "users": 12446, "openedAccount": 2540, "bankBound": 2539, "currentHolder": 1545, "managedUser": 1414, "rootAssetWan": 45624.76},
+    {"cohort": "OAP 近 30 日调用 Key 主体", "evidence": "近期调用主体", "users": 3081, "openedAccount": 743, "bankBound": 743, "currentHolder": 473, "managedUser": 437, "rootAssetWan": 15177.60},
+    {"cohort": "AI 实验室应用用户", "evidence": "试点", "users": 6, "openedAccount": 6, "bankBound": 6, "currentHolder": 6, "managedUser": 6, "rootAssetWan": 134.55}
+  ],
+  "usageDepth": {
+    "qwen": {"boundNoQuestion": 712, "oneMessage": 690, "messages2to4": 880, "messages5to19": 327, "messages20plus": 115, "oneObservedDay": 1919, "multipleObservedDays": 93},
+    "nativeXiaogu": {"oneSession": 7922, "sessions2to4": 2904, "sessions5plus": 749, "active30d": 9811}
+  },
+  "oap": {
+    "generatedAt": "2026-09-07T10:48:38+08:00",
+    "apiKeys": 12753,
+    "activeKeys30d": 3151,
+    "calls30d": 2978618,
+    "callAttributionRate": 83.5,
+    "activeKeyAttributionRate": 0.6,
+    "platformCalls30d": {"qwen": 2479118, "unlabeled": 491996, "dify": 5739, "coze": 1507, "vesta": 226, "doubaoByte": 28, "wechat": 4}
+  },
+  "demandSignals30d": [
+    {"tool": "基金代码模糊匹配", "calls": 732742, "keyOwners": 534},
+    {"tool": "批量获取基金详情", "calls": 250198, "keyOwners": 1358},
+    {"tool": "批量获取基金业绩表现", "calls": 228378, "keyOwners": 1733},
+    {"tool": "基金诊断", "calls": 213005, "keyOwners": 905},
+    {"tool": "基金业绩基准", "calls": 192424, "keyOwners": 271},
+    {"tool": "债基风险", "calls": 148708, "keyOwners": 163},
+    {"tool": "基金风险分析", "calls": 147635, "keyOwners": 544},
+    {"tool": "债基评级查询", "calls": 139832, "keyOwners": 115},
+    {"tool": "搜索基金", "calls": 67002, "keyOwners": 1041},
+    {"tool": "基金净值历史", "calls": 59095, "keyOwners": 1534},
+    {"tool": "资产配置分析", "calls": 51183, "keyOwners": 658},
+    {"tool": "回测分析", "calls": 39143, "keyOwners": 826},
+    {"tool": "基金相关性分析", "calls": 39095, "keyOwners": 967},
+    {"tool": "投后风险分析", "calls": 36949, "keyOwners": 773},
+    {"tool": "财经资讯", "calls": 30787, "keyOwners": 705}
+  ],
+  "qwenFrictionSnapshot": {
+    "asOf": "2026-09-05T21:00:00+08:00",
+    "presetQuestions": 2675,
+    "freeQuestions": 11729,
+    "heavyUsers": 42,
+    "heavyUserQuestionSharePct": 49,
+    "signals": [
+      {"name": "回答不可执行", "count": 215},
+      {"name": "与主理人纪律冲突", "count": 123},
+      {"name": "术语门槛", "count": 90},
+      {"name": "当场放弃", "count": 74},
+      {"name": "想就地下单", "count": 44}
+    ]
+  },
+  "privacy": "公开版仅含聚合结果；不含用户 ID、昵称、手机号、身份键、Key、Client ID、Request ID、原始对话或交易明细。"
+}

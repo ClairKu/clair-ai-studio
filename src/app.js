@@ -650,6 +650,20 @@ const initialState = {
       tags: ["OAP", "且慢", "新注册用户", "资产入账代理", "增长分析", "用户画像", "用户行为", "用户持仓", "AUM", "活跃用户", "交易行为", "数据分析", "数据看板", "本体", "一键更新", "证据边界", "公开脱敏", "HTML", "生产"],
     },
     {
+      id: "qieman-ai-user-attribution-2026-09-07",
+      groupId: "xiaogu",
+      title: "且慢全量用户来源归因 × AI 认知与需求分析",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-ai-user-attribution-2026-09-07/",
+      preview: "qieman-ai-user-attribution-2026-09-07.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-07T10:48:38.000+08:00",
+      source: "且慢生产库 Redash 只读聚合｜全量用户 3,795,728、固定近两年新增 603,019｜身份入口 src 与营销来源 msrc 分层：近两年仅 27.5% 可追到具体活动，72.5% 为 NO_MSRC 或缺失｜开户、绑卡、ROOT 持有、ROOT >100 元在管统一漏斗｜小顾、千问、豆包、OAP、AI 实验室去重：任一 AI 身份/授权 24,518，已证实使用 14,457｜OAP 近 30 日 2,978,618 次调用与工具需求｜千问摩擦沿用 2026-09-05 分类快照｜公开版仅含聚合，不含用户身份、凭证、原始问题或交易明细；资产共存不作 AI 因果归因",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["且慢", "用户来源", "来源归因", "近两年新用户", "开户", "绑卡", "持有", "在管", "AI 认知", "AI 小顾", "千问", "豆包", "OAP", "MCP", "用户画像", "使用分析", "需求分析", "营销归因", "数据治理", "证据边界", "公开脱敏", "HTML", "生产"],
+    },
+    {
       id: "oap-channel-attribution-dashboard-2026-09-04",
       groupId: "ai-platform",
       title: "OAP 全平台渠道归因看板",
@@ -2038,6 +2052,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "qieman-ai-user-attribution-2026-09-07": "data-analysis",
   "oap-command-deck-2026-09-05": "data-analysis",
   "doubao-mcp-user-panorama-2026-09-05": "data-analysis",
   "qianwen-user-question-analysis-2026-09-05": "data-analysis",

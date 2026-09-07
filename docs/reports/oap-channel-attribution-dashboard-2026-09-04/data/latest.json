@@ -1,65 +1,65 @@
 {
   "schema": "oap-channel-attribution/v1",
-  "generatedAt": "2026-09-04T16:10:00+08:00",
-  "asOf": "2026-09-04",
+  "generatedAt": "2026-09-07T10:48:38+08:00",
+  "asOf": "2026-09-07",
   "timezone": "Asia/Shanghai",
   "partialDay": true,
   "window": {
-    "start": 1785917400000,
-    "end": "2026-09-04T16:10:00+08:00",
+    "start": 1786157318000,
+    "end": "2026-09-07T10:48:38+08:00",
     "label": "滚动近 30 日"
   },
   "totals": {
-    "apiKeys": 12532,
-    "activeKeys30d": 3126,
-    "calls30d": 2024125
+    "apiKeys": 12753,
+    "activeKeys30d": 3151,
+    "calls30d": 2978618
   },
   "coverage": {
-    "identifiedCalls": 1517680,
+    "identifiedCalls": 2486622,
     "identifiedActiveKeys": 18,
-    "callAttributionRate": 75,
+    "callAttributionRate": 83.5,
     "activeKeyAttributionRate": 0.6,
-    "keysWithUser": 12240,
-    "keysWithApplication": 12281,
-    "keysJoiningConsentUser": 532,
-    "broker0008Keys": 12280
+    "keysWithUser": 12458,
+    "keysWithApplication": 12499,
+    "keysJoiningConsentUser": 555,
+    "broker0008Keys": 12498
   },
-  "registeredClientUsers": 337,
+  "registeredClientUsers": 441,
   "platforms": [
     {
       "platform": "千问",
       "apiKeys": 5,
       "activeKeys30d": 4,
-      "calls30d": 1509697,
-      "lastCallDate": "2026-09-04"
+      "calls30d": 2479118,
+      "lastCallDate": "2026-09-07"
     },
     {
       "platform": "未标注平台",
-      "apiKeys": 12484,
-      "activeKeys30d": 3108,
-      "calls30d": 506445,
-      "lastCallDate": "2026-09-04"
+      "apiKeys": 12705,
+      "activeKeys30d": 3133,
+      "calls30d": 491996,
+      "lastCallDate": "2026-09-07"
     },
     {
       "platform": "Dify",
       "apiKeys": 1,
       "activeKeys30d": 1,
-      "calls30d": 6037,
-      "lastCallDate": "2026-09-04"
+      "calls30d": 5739,
+      "lastCallDate": "2026-09-05"
     },
     {
       "platform": "Coze / 扣子",
       "apiKeys": 3,
       "activeKeys30d": 1,
-      "calls30d": 1726,
-      "lastCallDate": "2026-09-04"
+      "calls30d": 1507,
+      "lastCallDate": "2026-09-07"
     },
     {
       "platform": "Vesta",
       "apiKeys": 13,
       "activeKeys30d": 10,
-      "calls30d": 188,
-      "lastCallDate": "2026-09-04"
+      "calls30d": 226,
+      "lastCallDate": "2026-09-07"
     },
     {
       "platform": "豆包 / 字节",
@@ -80,10 +80,10 @@
     {
       "client": "豆包",
       "status": "active",
-      "currentUsers": 287,
-      "currentUsersDisplay": "287",
+      "currentUsers": 391,
+      "currentUsersDisplay": "391",
       "firstAuthorizedDate": "2026-08-29",
-      "lastAuthorizedDate": "2026-09-04"
+      "lastAuthorizedDate": "2026-09-07"
     },
     {
       "client": "Desktop MCP - SCRM",
@@ -91,7 +91,7 @@
       "currentUsers": 46,
       "currentUsersDisplay": "46",
       "firstAuthorizedDate": "2026-06-11",
-      "lastAuthorizedDate": "2026-09-04"
+      "lastAuthorizedDate": "2026-09-07"
     },
     {
       "client": "Cursor MCP - SCRM yingchat",
@@ -123,22 +123,22 @@
       "channel": "且慢小顾3.0卡片专用",
       "slug": "qieman-xg3-card",
       "clients": 1,
-      "currentUsers": 11304,
-      "currentUsersDisplay": "11304"
+      "currentUsers": 11607,
+      "currentUsersDisplay": "11607"
     },
     {
       "channel": "且慢小顾3.0通用工具专用",
       "slug": "qieman-xg3-common",
       "clients": 1,
-      "currentUsers": 11304,
-      "currentUsersDisplay": "11304"
+      "currentUsers": 11607,
+      "currentUsersDisplay": "11607"
     },
     {
       "channel": "官方渠道",
       "slug": "qieman",
       "clients": 4,
-      "currentUsers": 298,
-      "currentUsersDisplay": "298"
+      "currentUsers": 402,
+      "currentUsersDisplay": "402"
     },
     {
       "channel": "SCRM 营销云",
@@ -146,6 +146,13 @@
       "clients": 2,
       "currentUsers": 47,
       "currentUsersDisplay": "47"
+    },
+    {
+      "channel": "qieman-lab",
+      "slug": "qieman-lab",
+      "clients": 1,
+      "currentUsers": null,
+      "currentUsersDisplay": "<5"
     },
     {
       "channel": "且慢微信Agent对接",
@@ -162,13 +169,6 @@
       "currentUsersDisplay": "<5"
     },
     {
-      "channel": "qieman-lab",
-      "slug": "qieman-lab",
-      "clients": 1,
-      "currentUsers": null,
-      "currentUsersDisplay": "<5"
-    },
-    {
       "channel": "且慢 staging",
       "slug": "qieman-staging",
       "clients": 3,
@@ -178,28 +178,10 @@
   ],
   "trend": [
     {
-      "date": "2026-08-05",
-      "qianwen": 43,
-      "otherIdentified": 82,
-      "unattributed": 5920
-    },
-    {
-      "date": "2026-08-06",
-      "qianwen": 0,
-      "otherIdentified": 365,
-      "unattributed": 17594
-    },
-    {
-      "date": "2026-08-07",
-      "qianwen": 6,
-      "otherIdentified": 262,
-      "unattributed": 17089
-    },
-    {
       "date": "2026-08-08",
       "qianwen": 0,
-      "otherIdentified": 48,
-      "unattributed": 10874
+      "otherIdentified": 32,
+      "unattributed": 7059
     },
     {
       "date": "2026-08-09",
@@ -359,9 +341,27 @@
     },
     {
       "date": "2026-09-04",
-      "qianwen": 378406,
-      "otherIdentified": 390,
-      "unattributed": 13374
+      "qianwen": 538334,
+      "otherIdentified": 572,
+      "unattributed": 18615
+    },
+    {
+      "date": "2026-09-05",
+      "qianwen": 545883,
+      "otherIdentified": 21,
+      "unattributed": 10329
+    },
+    {
+      "date": "2026-09-06",
+      "qianwen": 240284,
+      "otherIdentified": 31,
+      "unattributed": 8042
+    },
+    {
+      "date": "2026-09-07",
+      "qianwen": 23375,
+      "otherIdentified": 12,
+      "unattributed": 6357
     }
   ],
   "evidence": {
