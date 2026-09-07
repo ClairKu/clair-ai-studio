@@ -146,6 +146,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "designer-ontology-insurance-delivery-2026-09-07",
+      groupId: "ai-workbench",
+      title: "设计师 × 本体｜两款保险新品交付效能复盘",
+      url: "https://clairku.github.io/clair-ai-studio/reports/designer-ontology-insurance-delivery-2026-09-07/",
+      preview: "designer-ontology-insurance-delivery-2026-09-07.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-07T18:30:00.000+08:00",
+      source: "设计师保险新品实践复盘 × 内部周报状态快照 × 公开合并记录聚合 × 历史产品公开上线资料｜两款同构保险新品设计到 MR 合并约 4 个工作日，首次代码与两仓 MR 约 10 分钟，3–4 轮设计走查、外部 QA 0 bug；同一需求从已知开发中状态到生产主干合并仍至少 30 个自然日｜区分组织端到端、主动执行与 MR 后发布三只时钟｜不虚构护多多历史倍率｜公开脱敏，不含内部仓库地址、MR/需求编号、产品代码或员工全名",
+      access: "production",
+      workType: "reporting",
+      tags: ["本体", "设计师", "保险新品", "交付效能", "流程复盘", "需求周期", "研发协同", "Code Review", "质量门禁", "证据边界", "AI 工作台", "经营汇报", "HTML", "生产"],
+    },
+    {
       id: "yuyue-internship-portfolio-2026-09-03",
       groupId: "reporting",
       title: "余悦 · 实习成果报告",
