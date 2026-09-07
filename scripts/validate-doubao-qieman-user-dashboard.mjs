@@ -49,6 +49,8 @@ for (const marker of ["使用之后有没有转化", "POST-USE CONVERSION", "EVI
   assert.match(html, new RegExp(marker), `页面缺少关键标记：${marker}`);
 }
 assert.match(html, /id="growth-title"/, "增长标题必须从最新快照动态生成，避免静态人数过期");
+assert.match(html, /placeBelow=pointTop-tipHeight-10<tooltipPadding/, "图表提示卡必须自动避让顶部，避免信息被裁切");
+assert.match(html, /safeLeft=Math\.max\(/, "图表提示卡必须限制在图表左右边界内");
 for (const prohibited of ["REDASH_API_KEY", "client_secret", "token_hash", '"user_id"', '"phone"', "po_manager_id"]) {
   assert.ok(!readFileSync(join(report, "data", "latest.json"), "utf8").includes(prohibited), `公开数据包含敏感字段：${prohibited}`);
 }
