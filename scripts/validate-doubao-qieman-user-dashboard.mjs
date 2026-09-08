@@ -50,10 +50,14 @@ for (const marker of ["使用之后有没有转化", "POST-USE CONVERSION", "EVI
 }
 assert.match(html, /id="growth-title"/, "增长标题必须从最新快照动态生成，避免静态人数过期");
 assert.match(html, /class="chart-readout" id="chart-readout"/, "图表每日数据必须使用绘图区外的固定读数栏，避免遮挡图形");
+assert.match(html, /CUMULATIVE · 累计绑定/, "增长模块必须把累计用户作为第一层关键数据");
+assert.match(html, /AUDIENCE MIX · 用户构成/, "增长模块必须把新老用户分布作为第二层关键数据");
+assert.match(html, /DAILY · 日维度/, "增长模块必须把日维度数据作为第三层明细");
+assert.match(html, /id="growth-new-bar"/, "新老用户构成必须提供可视化比例条");
 assert.match(html, /showReadout\(rows\.length-1\)/, "图表读数栏必须默认展示最新一天，触屏设备无需悬停也能读取");
 assert.match(html, /hit\.addEventListener\("click",show\)/, "图表读数栏必须支持触屏点击切换日期");
 assert.doesNotMatch(html, /class="tooltip"|id="tooltip"/, "图表不得恢复会遮挡绘图区的浮动提示卡");
-assert.match(html, /aspect-ratio:760\/390/, "图表必须保持 viewBox 比例，避免响应式下出现大块无效留白");
+assert.match(html, /aspect-ratio:760\/330/, "图表必须保持 viewBox 比例，避免响应式下出现大块无效留白");
 for (const prohibited of ["REDASH_API_KEY", "client_secret", "token_hash", '"user_id"', '"phone"', "po_manager_id"]) {
   assert.ok(!readFileSync(join(report, "data", "latest.json"), "utf8").includes(prohibited), `公开数据包含敏感字段：${prohibited}`);
 }
