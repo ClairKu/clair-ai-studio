@@ -37,7 +37,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 69;
+const DATA_VERSION = 70;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -145,6 +145,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "qieman-skill-library-install-audit-2026-09-09",
+      groupId: "ai-platform",
+      title: "且慢私域 Skill 库｜安装、质量与可运行性审计",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-skill-library-install-audit-2026-09-09/",
+      preview: "qieman-skill-library-install-audit-2026-09-09.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-09T15:44:00+08:00",
+      source: "且慢私域 Skill 共享库普通成员可见全量 22 条｜21 个独立内容、21/21 Codex 官方结构校验通过、安装副本 0 差异｜3 个基金计算 Skill 共 7 个业务数值断言复算通过，修复 1 处费率方向文字错误｜14 个立即可用、2 个条件可用、5 个受数据工具或缺失附件阻塞｜识别前端认证与授权架构风险；未做破坏性写权限测试｜公开脱敏，不含账号、口令、接口密钥、原始 Skill 正文或个人路径全文",
+      access: "production",
+      workType: "governance-review",
+      tags: ["Skills", "且慢", "安装审计", "质量治理", "依赖审计", "公式复算", "安全审查", "AI 开放平台", "HTML", "生产"],
+    },
     {
       id: "next-gen-vip-advisor-workbench-demo-2026-09-09",
       groupId: "ai-workbench",

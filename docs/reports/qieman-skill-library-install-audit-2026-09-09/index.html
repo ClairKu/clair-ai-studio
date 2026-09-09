@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />
+    <script data-clair-access-gate data-clair-access-scope="report" src="../../access-gate.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <title>且慢私域 Skill 库｜安装、质量与可运行性审计</title>
+  <style>
+    :root {
+      --ink: #f6f7fb;
+      --muted: #a8aec0;
+      --bg: #080a0f;
+      --panel: #11141c;
+      --panel-2: #171b25;
+      --line: rgba(255,255,255,.11);
+      --green: #74f0ad;
+      --cyan: #75dbff;
+      --amber: #ffc763;
+      --red: #ff8076;
+      --violet: #b49bff;
+      --shadow: 0 24px 80px rgba(0,0,0,.34);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% -5%, rgba(116,240,173,.15), transparent 28rem),
+        radial-gradient(circle at 92% 8%, rgba(117,219,255,.12), transparent 30rem),
+        var(--bg);
+      font: 15px/1.65 Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+    a { color: var(--cyan); }
+    .wrap { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
+    header { padding: 72px 0 34px; }
+    .eyebrow { color: var(--green); letter-spacing: .16em; text-transform: uppercase; font-size: 12px; font-weight: 800; }
+    h1 { max-width: 920px; margin: 16px 0 18px; font-size: clamp(38px, 7vw, 74px); line-height: .98; letter-spacing: -.055em; }
+    .lead { max-width: 840px; margin: 0; color: #d4d8e2; font-size: clamp(17px, 2.2vw, 23px); line-height: 1.5; }
+    .meta { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 10px; color: var(--muted); font-size: 13px; }
+    .pill { border: 1px solid var(--line); border-radius: 999px; padding: 7px 11px; background: rgba(255,255,255,.025); }
+    .verdict { margin: 34px 0; padding: 26px; border: 1px solid rgba(116,240,173,.28); border-radius: 24px; background: linear-gradient(135deg, rgba(116,240,173,.10), rgba(117,219,255,.06)); box-shadow: var(--shadow); }
+    .verdict strong { display: block; font-size: 24px; line-height: 1.25; margin-bottom: 8px; }
+    .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 26px 0 72px; }
+    .kpi { min-height: 154px; padding: 22px; border: 1px solid var(--line); border-radius: 20px; background: rgba(17,20,28,.86); }
+    .kpi b { display: block; font-size: 45px; line-height: 1; letter-spacing: -.05em; }
+    .kpi span { color: var(--muted); }
+    .kpi small { display: block; margin-top: 14px; color: #d5d8e2; }
+    section { margin: 0 0 78px; scroll-margin-top: 20px; }
+    h2 { font-size: clamp(28px, 4vw, 44px); line-height: 1.08; letter-spacing: -.04em; margin: 0 0 12px; }
+    h3 { margin: 0 0 8px; font-size: 20px; }
+    .section-intro { max-width: 820px; color: var(--muted); margin: 0 0 28px; }
+    .flow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+    .step { position: relative; min-height: 142px; padding: 18px; border-radius: 18px; border: 1px solid var(--line); background: var(--panel); }
+    .step:not(:last-child)::after { content: "→"; position: absolute; right: -16px; top: 51px; z-index: 2; color: var(--green); font-size: 20px; }
+    .step em { font-style: normal; color: var(--green); font-size: 12px; font-weight: 800; letter-spacing: .08em; }
+    .step b { display: block; margin: 8px 0; font-size: 25px; }
+    .step p { margin: 0; color: var(--muted); font-size: 13px; }
+    .split { display: grid; grid-template-columns: 1.05fr .95fr; gap: 18px; }
+    .panel { padding: 24px; border-radius: 22px; border: 1px solid var(--line); background: var(--panel); }
+    .readiness { display: grid; gap: 15px; margin-top: 22px; }
+    .bar-row { display: grid; grid-template-columns: 94px 1fr 34px; gap: 12px; align-items: center; }
+    .bar { height: 12px; border-radius: 99px; background: rgba(255,255,255,.07); overflow: hidden; }
+    .bar i { display: block; height: 100%; border-radius: inherit; }
+    .ready i { width: 66.67%; background: var(--green); }
+    .conditional i { width: 9.52%; background: var(--amber); }
+    .blocked i { width: 23.81%; background: var(--red); }
+    .ring-wrap { display: grid; grid-template-columns: 190px 1fr; align-items: center; gap: 22px; }
+    .ring { width: 176px; aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; background: conic-gradient(var(--green) 0 66.67%, var(--amber) 66.67% 76.19%, var(--red) 76.19% 100%); }
+    .ring::after { content: "75.1\A综合分"; white-space: pre; display: grid; place-items: center; width: 122px; aspect-ratio: 1; border-radius: 50%; background: var(--panel); font-size: 28px; font-weight: 800; line-height: 1.05; text-align: center; }
+    .legend { display: grid; gap: 10px; }
+    .legend div { display: grid; grid-template-columns: 10px 1fr auto; gap: 9px; align-items: center; }
+    .dot { width: 9px; height: 9px; border-radius: 50%; }
+    .callouts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .callout { padding: 22px; border-radius: 20px; background: var(--panel); border: 1px solid var(--line); }
+    .callout .no { color: var(--muted); font-size: 12px; font-weight: 800; letter-spacing: .12em; }
+    .callout p { margin: 10px 0 0; color: #d5d9e4; }
+    .risk { border-color: rgba(255,128,118,.36); background: linear-gradient(160deg, rgba(255,128,118,.09), var(--panel) 44%); }
+    .warn { border-color: rgba(255,199,99,.30); }
+    .good { border-color: rgba(116,240,173,.27); }
+    .table-tools { display: flex; flex-wrap: wrap; gap: 9px; margin: 0 0 16px; }
+    button.filter { appearance: none; border: 1px solid var(--line); background: var(--panel); color: var(--muted); border-radius: 999px; padding: 8px 13px; cursor: pointer; }
+    button.filter[aria-pressed="true"] { color: #07100b; background: var(--green); border-color: var(--green); font-weight: 800; }
+    .table-shell { overflow-x: auto; border: 1px solid var(--line); border-radius: 20px; background: var(--panel); }
+    table { width: 100%; border-collapse: collapse; min-width: 820px; }
+    th, td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { position: sticky; top: 0; color: var(--muted); background: #131722; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+    tr:last-child td { border-bottom: 0; }
+    .status { display: inline-block; border-radius: 999px; padding: 3px 8px; font-size: 12px; font-weight: 800; }
+    .s-ready { color: var(--green); background: rgba(116,240,173,.10); }
+    .s-conditional { color: var(--amber); background: rgba(255,199,99,.10); }
+    .s-blocked { color: var(--red); background: rgba(255,128,118,.10); }
+    .score { font-variant-numeric: tabular-nums; font-weight: 800; }
+    .score::after { content: "/100"; color: var(--muted); font-size: 11px; margin-left: 2px; }
+    .tests { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .test { display: grid; grid-template-columns: 42px 1fr; gap: 14px; padding: 18px; border: 1px solid var(--line); border-radius: 18px; background: var(--panel); }
+    .test-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 13px; background: rgba(116,240,173,.11); color: var(--green); font-weight: 900; }
+    .test p { color: var(--muted); margin: 4px 0 0; }
+    .priority { counter-reset: p; display: grid; gap: 12px; }
+    .priority article { counter-increment: p; display: grid; grid-template-columns: 48px 1fr auto; gap: 16px; align-items: start; padding: 20px; border-radius: 18px; border: 1px solid var(--line); background: var(--panel); }
+    .priority article::before { content: "P" counter(p); width: 42px; height: 42px; border-radius: 13px; display: grid; place-items: center; color: #080a0f; background: var(--amber); font-weight: 900; }
+    .priority p { margin: 4px 0 0; color: var(--muted); }
+    .priority time { color: var(--cyan); font-size: 13px; white-space: nowrap; }
+    .boundary { padding: 22px; border: 1px dashed rgba(180,155,255,.45); border-radius: 18px; background: rgba(180,155,255,.06); color: #d8d1ff; }
+    footer { padding: 20px 0 60px; color: var(--muted); border-top: 1px solid var(--line); }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    @media (max-width: 860px) {
+      header { padding-top: 46px; }
+      .grid4, .callouts { grid-template-columns: repeat(2, 1fr); }
+      .flow { grid-template-columns: 1fr; }
+      .step:not(:last-child)::after { content: "↓"; left: 25px; right: auto; top: auto; bottom: -20px; }
+      .split { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .wrap { width: min(100% - 22px, 1180px); }
+      .grid4, .callouts, .tests { grid-template-columns: 1fr; }
+      .kpi { min-height: 132px; }
+      .ring-wrap { grid-template-columns: 1fr; justify-items: center; }
+      .legend { width: 100%; }
+      .priority article { grid-template-columns: 42px 1fr; }
+      .priority time { grid-column: 2; }
+    }
+  </style>
+</head>
+<body>
+  <header class="wrap">
+    <div class="eyebrow">Skill governance · installation audit</div>
+    <h1>装上了，<br>但不能把“安装”当成“可用”。</h1>
+    <p class="lead">对且慢私域共享库的全量 Skill 做了下载留痕、原文归档、去重、Codex 兼容修复、正式安装、公式复算与运行依赖审计。结论是：<b>21 个独立 Skill 已安装且格式合格；其中 14 个可直接使用，5 个仍被数据工具或缺失附件卡住。</b></p>
+    <div class="meta">
+      <span class="pill">审计截止：2026-09-09 15:44 CST</span>
+      <span class="pill">范围：普通成员可见全部 22 条</span>
+      <span class="pill">公开版：不含账号、口令、原始 Skill 正文与接口密钥</span>
+    </div>
+    <div class="verdict">
+      <strong>结论：安装交付完成；全量推广尚未完成。</strong>
+      结构层已闭环，运行层还差且慢/PMS 数据能力、1 个缺附件的 Skill，以及源站认证加固。当前适合“个人试用 + 修复 P0”，不适合直接对全员宣称 22 个都能稳定生产使用。
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="grid4" aria-label="核心指标">
+      <div class="kpi"><b style="color:var(--cyan)">22</b><span>源库记录</span><small>全部完成下载留痕</small></div>
+      <div class="kpi"><b style="color:var(--violet)">21</b><span>独立 Skill</span><small>1 条为内容完全重复</small></div>
+      <div class="kpi"><b style="color:var(--green)">21/21</b><span>官方结构校验</span><small>安装后 0 失败、0 差异</small></div>
+      <div class="kpi"><b style="color:var(--amber)">14</b><span>立即可用</span><small>另有 2 条条件可用、5 条阻塞</small></div>
+    </div>
+
+    <section id="flow">
+      <div class="eyebrow">Evidence chain</div>
+      <h2>不是“复制 22 个文件”，而是五段可审计链路</h2>
+      <p class="section-intro">每一步都有独立证据：源记录、内容哈希、兼容改动、官方校验、安装目录与源站日志。原始文档与安装版分开保存，避免修复覆盖源证据。</p>
+      <div class="flow">
+        <div class="step"><em>01 · INVENTORY</em><b>22 条</b><p>登录后全量盘点，六个业务分类。</p></div>
+        <div class="step"><em>02 · DEDUPE</em><b>21 份</b><p>按正文 SHA-256 去重，日报为完全重复。</p></div>
+        <div class="step"><em>03 · NORMALIZE</em><b>10 份</b><p>仅修正命名、必填元数据与旧字段。</p></div>
+        <div class="step"><em>04 · VALIDATE</em><b>21/21</b><p>Codex 官方校验器逐个通过。</p></div>
+        <div class="step"><em>05 · INSTALL</em><b>0 差异</b><p>安装目录与暂存副本逐文件比对一致。</p></div>
+      </div>
+    </section>
+
+    <section id="readiness">
+      <div class="eyebrow">Runtime readiness</div>
+      <h2>真正的短板在运行依赖，不在文件格式</h2>
+      <div class="split">
+        <div class="panel">
+          <h3>21 个独立 Skill 的运行状态</h3>
+          <div class="readiness">
+            <div class="bar-row"><span>立即可用</span><div class="bar ready"><i></i></div><b>14</b></div>
+            <div class="bar-row"><span>条件可用</span><div class="bar conditional"><i></i></div><b>2</b></div>
+            <div class="bar-row"><span>阻塞</span><div class="bar blocked"><i></i></div><b>5</b></div>
+          </div>
+          <p class="section-intro" style="margin:20px 0 0">“阻塞”不是内容差，而是当前 Codex 环境没有它写死的且慢/PMS MCP、CLI 或配套资源。把文件装进去不会自动补齐这些能力。</p>
+        </div>
+        <div class="panel ring-wrap">
+          <div class="ring" aria-label="综合质量分 75.1"></div>
+          <div class="legend">
+            <div><i class="dot" style="background:var(--green)"></i><span>强项：基金计算</span><b>86.7</b></div>
+            <div><i class="dot" style="background:var(--cyan)"></i><span>策略运营</span><b>78.8</b></div>
+            <div><i class="dot" style="background:var(--amber)"></i><span>平台运营</span><b>68.2</b></div>
+            <div><i class="dot" style="background:var(--red)"></i><span>私域运营</span><b>65.0</b></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="findings">
+      <div class="eyebrow">Sharp findings</div>
+      <h2>六个不能被“校验通过”掩盖的问题</h2>
+      <div class="callouts">
+        <article class="callout risk"><div class="no">01 · P0 SECURITY</div><h3>登录凭证在前端</h3><p>页面脚本包含完整账号清单与口令，登录态仅存浏览器本地。任何能访问页面的人都能读取，包括高权限账号。</p></article>
+        <article class="callout risk"><div class="no">02 · P0 AUTHZ</div><h3>权限主要靠界面判断</h3><p>技能与日志请求共用匿名密钥，普通成员能否绕过界面直接改删应由后端 RLS 证明。为避免破坏生产，本次未做破坏性写权限测试。</p></article>
+        <article class="callout warn"><div class="no">03 · DEPENDENCY</div><h3>5 个 Skill 只“装好”</h3><p>且慢/PMS MCP、qieman-mcp-cli 与配套设计 Skill 在当前环境不可用，实时数据链路无法验收。</p></article>
+        <article class="callout warn"><div class="no">04 · BUNDLE</div><h3>1 个 Skill 缺 4 个文件</h3><p>“策略解读生成”引用 3 份 references 与 1 个计算脚本，但源库只存了 SKILL.md，属于不完整交付包。</p></article>
+        <article class="callout warn"><div class="no">05 · PORTABILITY</div><h3>4 个 Skill 写死个人路径</h3><p>路径分别指向其他员工的 Cursor、WorkBuddy 或 Downloads/Desktop；换一台机器就失效。</p></article>
+        <article class="callout good"><div class="no">06 · DEFECT FIXED</div><h3>算式正确，解释写反</h3><p>无分红持有单价案例结果能复现，但“调和均值 ÷ 费率因子”应为“×”。安装版已修正并复算通过。</p></article>
+      </div>
+    </section>
+
+    <section id="tests">
+      <div class="eyebrow">Validation</div>
+      <h2>已做的测试，以及没有伪装做过的测试</h2>
+      <div class="tests">
+        <article class="test"><div class="test-icon">✓</div><div><h3>21/21 官方结构校验</h3><p>frontmatter、必填字段、命名规则逐个验证；原始版本 10 份需要兼容处理。</p></div></article>
+        <article class="test"><div class="test-icon">✓</div><div><h3>21/21 安装一致性</h3><p>安装目录存在；与暂存副本逐文件比对，0 个差异。</p></div></article>
+        <article class="test"><div class="test-icon">✓</div><div><h3>7 个业务数值断言复算</h3><p>客户持有单价 2 例、无分红持有单价 3 例、累计收益与累计收益率 2 例全部命中。</p></div></article>
+        <article class="test"><div class="test-icon">✓</div><div><h3>1 个缺陷定向回归</h3><p>错误关系式会得到 0.6649，修正为乘法后得到 0.66654，与文档 0.6665 一致。</p></div></article>
+        <article class="test"><div class="test-icon" style="color:var(--amber);background:rgba(255,199,99,.11)">!</div><div><h3>实时数据调用未通过</h3><p>当前没有且慢/PMS MCP 与 qieman-mcp-cli。此处记为“缺依赖”，没有用静态示例冒充生产调用。</p></div></article>
+        <article class="test"><div class="test-icon" style="color:var(--amber);background:rgba(255,199,99,.11)">!</div><div><h3>新会话触发待观察</h3><p>Codex 在下一轮对话加载新 Skill；本轮已完成文件与规范验证，尚不能把下一轮触发率写成 100%。</p></div></article>
+      </div>
+    </section>
+
+    <section id="catalog">
+      <div class="eyebrow">Catalog</div>
+      <h2>21 个独立 Skill 逐项结论</h2>
+      <p class="section-intro">分数衡量“规范完整性、依赖闭合、可移植性、证据约束与可测试性”，不是业务价值。点击状态筛选。</p>
+      <div class="table-tools" role="group" aria-label="状态筛选">
+        <button class="filter" data-filter="all" aria-pressed="true">全部 21</button>
+        <button class="filter" data-filter="ready" aria-pressed="false">立即可用 14</button>
+        <button class="filter" data-filter="conditional" aria-pressed="false">条件可用 2</button>
+        <button class="filter" data-filter="blocked" aria-pressed="false">阻塞 5</button>
+      </div>
+      <div class="table-shell">
+        <table>
+          <thead><tr><th>Skill</th><th>分类</th><th>状态</th><th>评分</th><th>关键判断</th></tr></thead>
+          <tbody id="skillRows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="priorities">
+      <div class="eyebrow">Next moves</div>
+      <h2>下一步不该继续堆 Skill，而该补“运行底座”</h2>
+      <div class="priority">
+        <article><div><h3>重做源站认证与授权</h3><p>删除前端明文账号；改为服务端身份认证、短期令牌与 RLS。先在隔离环境验证普通成员不能新增、修改、删除他人 Skill。</p></div><time>48 小时内</time></article>
+        <article><div><h3>补齐且慢 / PMS 数据连接</h3><p>统一提供经过认证的工具发现与调用适配层，替换旧 ToolSearch、DeferExecuteTool、mcp_web_fetch 和机器专属 CLI。</p></div><time>本周</time></article>
+        <article><div><h3>把 Skill 变成完整包</h3><p>为“策略解读生成”补齐 references 与计算脚本；把个人绝对路径改为相对路径；建立上传前自动校验与去重。</p></div><time>本周</time></article>
+        <article><div><h3>建立 12 条黄金用例</h3><p>覆盖策略搜索歧义、数据缺失、回撤安抚、资产配置、日报转换、合规文案与三类持仓算法，要求每次更新自动回归。</p></div><time>下周</time></article>
+      </div>
+    </section>
+
+    <section id="governance">
+      <div class="eyebrow">Governance boundary</div>
+      <h2>合规事实与发布边界</h2>
+      <p class="section-intro">库中的合规 Skill 引用《金融产品网络营销管理办法》。公告号与 <b>2026-09-30</b> 生效日已由官方来源确认；在本报告截止日 2026-09-09，该办法尚未生效，因此更准确的表述是“按即将生效规则提前执行”，而非“当前已经依法强制执行”。参见<a href="https://www.cac.gov.cn/2026-04/24/c_1778769008779432.htm">中央网信办全文</a>与<a href="https://www.samr.gov.cn/ggjgs/tzgg/art/2026/art_45df2e4c27674b2c82b9a5b4489b64ad.html">市场监管总局公告</a>。</p>
+      <div class="boundary"><b>公开报告只发布结论，不发布内部原文。</b> 本页没有账号、密码、接口密钥、原始 Skill 正文、内部产品明细或个人路径全文。源记录、原文归档、哈希、安装清单和测试日志保存在本地审计包中。</div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">Clair’s Studio · 且慢私域 Skill 库安装与治理审计 · 2026-09-09</div>
+  </footer>
+
+  <script>
+    const skills = [
+      ["策略亏损怎么办","策略运营","blocked",70,"依赖未连接的且慢/PMS MCP；含旧调度名"],
+      ["策略介绍撰写规范","策略运营","ready",88,"结构完整；生产使用仍需实时数据和合规复核"],
+      ["新增资金配置","私域运营","blocked",68,"585 行过长；依赖且慢 MCP；含静态配置比例"],
+      ["且慢策略分析师","策略运营","blocked",72,"依赖未安装的 qieman-mcp-cli"],
+      ["卖出挽回弹窗 v3","平台运营","blocked",58,"设计依赖指向他人电脑，并依赖且慢 MCP"],
+      ["且慢每日市场日报","内容创作 / 私域","ready",82,"源库重复；默认输出路径不可移植"],
+      ["市场热点吸睛选题","平台运营","conditional",65,"引用旧工具名；需实时外部信源"],
+      ["图片宣传框生成器","内容创作","ready",85,"核心流程完整；可进一步资产化模板"],
+      ["投资配置方案生成器","私域运营","ready",64,"源文件缺必填元数据，安装版已修复"],
+      ["基金投顾文章整理","平台运营","ready",77,"应把来源、截止日和合规门禁前置"],
+      ["教育金储蓄计算器","策略运营","ready",84,"公式较完整；缺确定性脚本与边界用例"],
+      ["用户调研报告","策略运营","ready",80,"需持续约束样本量、分母和推断边界"],
+      ["推送文案生成","平台运营","ready",72,"转化导向强；合规审查尚未形成必经闭环"],
+      ["数据分析","数据分析","ready",78,"通用性强，触发范围偏宽"],
+      ["竞品调研","平台运营","conditional",69,"引用缺失的 Cursor HTML 模板"],
+      ["金融产品网络营销合规审查","私域运营","ready",76,"官方法规已核验；当前处于生效前准备期"],
+      ["去 AI 味","内容创作","ready",78,"需防止润色改写事实或弱化风险提示"],
+      ["策略解读生成","私域运营","blocked",52,"缺 3 个参考文件、1 个脚本和盈米 MCP"],
+      ["客户持有单价","基金计算","ready",90,"2 例复算通过；需统一精度与输入校验"],
+      ["主理人累计收益率","基金计算","ready",82,"复算通过；业务分母不等同标准收益率"],
+      ["主理人无分红持有单价","基金计算","ready",88,"3 例通过；费率方向文字错误已修复"]
+    ];
+    const labels = { ready: "立即可用", conditional: "条件可用", blocked: "阻塞" };
+    const tbody = document.querySelector("#skillRows");
+    function render(filter = "all") {
+      tbody.innerHTML = skills.filter(s => filter === "all" || s[2] === filter).map(s => `
+        <tr>
+          <td><b>${s[0]}</b></td><td>${s[1]}</td>
+          <td><span class="status s-${s[2]}">${labels[s[2]]}</span></td>
+          <td><span class="score">${s[3]}</span></td><td>${s[4]}</td>
+        </tr>`).join("");
+    }
+    document.querySelectorAll(".filter").forEach(button => button.addEventListener("click", () => {
+      document.querySelectorAll(".filter").forEach(item => item.setAttribute("aria-pressed", "false"));
+      button.setAttribute("aria-pressed", "true");
+      render(button.dataset.filter);
+    }));
+    render();
+  </script>
+</body>
+</html>

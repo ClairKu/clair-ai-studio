@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">且慢私域 Skill 库安装与治理审计</title>
+  <desc id="desc">22 条源记录，21 个独立 Skill，21 个通过校验，14 个立即可用。</desc>
+  <defs>
+    <radialGradient id="g1" cx="0" cy="0" r="1" gradientTransform="translate(120 10) rotate(35) scale(650 520)"><stop stop-color="#17402f"/><stop offset="1" stop-color="#080a0f"/></radialGradient>
+    <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#74f0ad"/><stop offset="1" stop-color="#75dbff"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#000" flood-opacity=".34"/></filter>
+  </defs>
+  <rect width="1200" height="675" fill="#080a0f"/>
+  <rect width="1200" height="675" fill="url(#g1)"/>
+  <circle cx="1080" cy="80" r="260" fill="#172f3a" opacity=".48"/>
+  <g transform="translate(76 66)">
+    <text x="0" y="0" dominant-baseline="hanging" fill="#74f0ad" font-family="Arial, PingFang SC, sans-serif" font-size="20" font-weight="700" letter-spacing="4">SKILL GOVERNANCE · 2026.09.09</text>
+    <text x="0" y="66" dominant-baseline="hanging" fill="#f6f7fb" font-family="Arial, PingFang SC, sans-serif" font-size="60" font-weight="800">装上了，但不能把</text>
+    <text x="0" y="138" dominant-baseline="hanging" fill="#f6f7fb" font-family="Arial, PingFang SC, sans-serif" font-size="60" font-weight="800">“安装”当成“可用”</text>
+    <text x="0" y="230" dominant-baseline="hanging" fill="#a8aec0" font-family="Arial, PingFang SC, sans-serif" font-size="24">且慢私域 Skill 库｜全量安装、质量与运行依赖审计</text>
+  </g>
+  <g transform="translate(76 380)" filter="url(#shadow)">
+    <g><rect width="238" height="174" rx="24" fill="#11141c" stroke="#ffffff" stroke-opacity=".12"/><text x="24" y="28" dominant-baseline="hanging" fill="#75dbff" font-family="Arial" font-size="54" font-weight="800">22</text><text x="24" y="95" dominant-baseline="hanging" fill="#a8aec0" font-family="Arial, PingFang SC" font-size="20">源库记录</text><text x="24" y="130" dominant-baseline="hanging" fill="#f6f7fb" font-family="Arial, PingFang SC" font-size="16">全部下载留痕</text></g>
+    <g transform="translate(256)"><rect width="238" height="174" rx="24" fill="#11141c" stroke="#ffffff" stroke-opacity=".12"/><text x="24" y="28" dominant-baseline="hanging" fill="#b49bff" font-family="Arial" font-size="54" font-weight="800">21</text><text x="24" y="95" dominant-baseline="hanging" fill="#a8aec0" font-family="Arial, PingFang SC" font-size="20">独立 Skill</text><text x="24" y="130" dominant-baseline="hanging" fill="#f6f7fb" font-family="Arial, PingFang SC" font-size="16">1 条完全重复</text></g>
+    <g transform="translate(512)"><rect width="238" height="174" rx="24" fill="#11141c" stroke="#74f0ad" stroke-opacity=".32"/><text x="24" y="28" dominant-baseline="hanging" fill="#74f0ad" font-family="Arial" font-size="54" font-weight="800">21/21</text><text x="24" y="95" dominant-baseline="hanging" fill="#a8aec0" font-family="Arial, PingFang SC" font-size="20">结构校验</text><text x="24" y="130" dominant-baseline="hanging" fill="#f6f7fb" font-family="Arial, PingFang SC" font-size="16">0 失败 · 0 差异</text></g>
+    <g transform="translate(768)"><rect width="238" height="174" rx="24" fill="#11141c" stroke="#ffc763" stroke-opacity=".32"/><text x="24" y="28" dominant-baseline="hanging" fill="#ffc763" font-family="Arial" font-size="54" font-weight="800">14</text><text x="24" y="95" dominant-baseline="hanging" fill="#a8aec0" font-family="Arial, PingFang SC" font-size="20">立即可用</text><text x="24" y="130" dominant-baseline="hanging" fill="#f6f7fb" font-family="Arial, PingFang SC" font-size="16">5 条仍被依赖阻塞</text></g>
+  </g>
+  <rect x="76" y="601" width="1006" height="8" rx="4" fill="#232735"/>
+  <rect x="76" y="601" width="671" height="8" rx="4" fill="url(#g2)"/>
+  <text x="76" y="628" dominant-baseline="hanging" fill="#a8aec0" font-family="Arial, PingFang SC" font-size="16">结论：安装完成；运行底座与认证治理仍需补齐。</text>
+</svg>
