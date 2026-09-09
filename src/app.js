@@ -146,6 +146,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "next-gen-vip-advisor-workbench-demo-2026-09-09",
+      groupId: "ai-workbench",
+      title: "新一代 VIP 顾问工作台｜交互 Demo",
+      url: "https://clairku.github.io/clair-ai-studio/reports/next-gen-vip-advisor-workbench-demo-2026-09-09/",
+      preview: "next-gen-vip-advisor-workbench-demo-2026-09-09.png",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-09T12:00:00+08:00",
+      source: "原SCRM/投顾工作台 + 原始需求材料 + YINGMIWORK 启发｜全部为合成脱敏演示，未接生产接口",
+      access: "production",
+      workType: "product-demo",
+      tags: ["VIP 顾问", "顾问工作台", "客户360", "SOP", "AI 副驾", "YINGMIWORK", "交互 Demo", "产品规划", "AI 工作台", "HTML", "生产"],
+    },
+    {
       id: "designer-ontology-insurance-delivery-2026-09-07",
       groupId: "ai-workbench",
       title: "设计师 × 本体｜两款保险新品交付效能复盘",
