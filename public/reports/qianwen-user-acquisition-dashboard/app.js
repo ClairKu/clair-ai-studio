@@ -121,6 +121,18 @@ const BEHAVIOR_METRICS = {
     label: "绑定后有效使用AI小顾",
     description: "绑定后至少一次有效提问",
   },
+  account_opened_after_binding: {
+    label: "绑定后开立资金账户",
+    description: "首次风险测评发生在绑定后；开户须先测评，故以此作为开户时间的代理口径",
+  },
+  risk_assessed_after_binding: {
+    label: "绑定后完成风险测评",
+    description: "绑定后新产生过风险测评记录",
+  },
+  first_funding_after_binding: {
+    label: "绑定后首次入金",
+    description: "此前从未入金，绑定后完成第一笔；已有入金记录的不计入可统计范围",
+  },
 };
 const REQUIRED_BEHAVIOR_METRICS = ["first_investment_after_binding", "investment_activity_after_binding"];
 // 金额型指标单独放在 business 段：人数类走 behavior，金额类走这里，避免两种量纲混在一张图上。
@@ -138,6 +150,11 @@ const BUSINESS_STATS = {
   buy_amount: {
     label: "绑定后买入",
     description: "绑定后确认成功的买入金额合计",
+    tone: "flow",
+  },
+  zero_asset_inflow_amount: {
+    label: "零资产用户绑定后入金",
+    description: "绑定当刻无任何资产（含未开户）的用户，绑定后转入的资金合计，是渠道真实新增",
     tone: "flow",
   },
   sell_amount: {

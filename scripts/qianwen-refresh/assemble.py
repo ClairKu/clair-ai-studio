@@ -124,7 +124,8 @@ for co in COHORTS:
 
 BEHAVIOR_IDS = ["funded_after_binding", "first_investment_after_binding",
                 "investment_activity_after_binding", "redemption_after_binding",
-                "xiaogu_used_after_binding"]
+                "xiaogu_used_after_binding", "account_opened_after_binding",
+                "risk_assessed_after_binding", "first_funding_after_binding"]
 behavior_cohorts = {}
 for co in COHORTS:
     items = []
@@ -152,8 +153,8 @@ UNAVAILABLE_MONEY = {"inflow_amount", "buy_amount", "sell_amount"}
 business_cohorts = {}
 for co in COHORTS:
     stats = []
-    for sid in ["holding_amount", "inflow_amount", "buy_amount", "sell_amount"]:
-        if sid in UNAVAILABLE_MONEY:
+    for sid in ["holding_amount", "inflow_amount", "buy_amount", "zero_asset_inflow_amount", "sell_amount"]:
+        if sid in UNAVAILABLE_MONEY and sid not in q3["business"][co]:
             stats.append({"id": sid, "definition_version": DEF_VERSION,
                           "time_basis": "post_binding_window", "state": "unavailable",
                           "reason_code": "authoritative_source_unavailable"})
@@ -163,7 +164,9 @@ for co in COHORTS:
         stats.append({"id": sid, "definition_version": DEF_VERSION,
                       "time_basis": "snapshot_as_of", "data_as_of": cutoff,
                       "state": "confirmed", "accounts": accounts,
-                      "amount_wan": 0 if accounts == 0 else round(float(r["amount_wan"]), 4)})
+                      "amount_wan": 0 if accounts == 0 else round(float(r["amount_wan"]), 4),
+                      **{k: round(float(r[k]), 4) for k in ("per_capita_wan", "median_wan")
+                         if k in r and accounts > 0}})
     business_cohorts[co] = {"population_accounts": POP[co], "stats": stats}
 
 out = dict(template)

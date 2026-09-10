@@ -1396,6 +1396,45 @@ window.QIANWEN_ACQUISITION_DATA = {
             "reached_accounts": 2155,
             "not_reached_accounts": 713,
             "unknown_accounts": 0
+          },
+          {
+            "id": "account_opened_after_binding",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "post_binding_window",
+            "data_as_of": "2026-09-09T11:30:00+08:00",
+            "state": "confirmed",
+            "population_accounts": 2868,
+            "eligible_accounts": 2868,
+            "excluded_accounts": 0,
+            "reached_accounts": 8,
+            "not_reached_accounts": 2860,
+            "unknown_accounts": 0
+          },
+          {
+            "id": "risk_assessed_after_binding",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "post_binding_window",
+            "data_as_of": "2026-09-09T11:30:00+08:00",
+            "state": "confirmed",
+            "population_accounts": 2868,
+            "eligible_accounts": 2868,
+            "excluded_accounts": 0,
+            "reached_accounts": 33,
+            "not_reached_accounts": 2835,
+            "unknown_accounts": 0
+          },
+          {
+            "id": "first_funding_after_binding",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "post_binding_window",
+            "data_as_of": "2026-09-09T11:30:00+08:00",
+            "state": "confirmed",
+            "population_accounts": 2868,
+            "eligible_accounts": 2596,
+            "excluded_accounts": 272,
+            "reached_accounts": 3,
+            "not_reached_accounts": 2593,
+            "unknown_accounts": 0
           }
         ]
       },
@@ -1465,6 +1504,45 @@ window.QIANWEN_ACQUISITION_DATA = {
             "excluded_accounts": 0,
             "reached_accounts": 1673,
             "not_reached_accounts": 621,
+            "unknown_accounts": 0
+          },
+          {
+            "id": "account_opened_after_binding",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "post_binding_window",
+            "data_as_of": "2026-09-09T11:30:00+08:00",
+            "state": "confirmed",
+            "population_accounts": 2294,
+            "eligible_accounts": 2294,
+            "excluded_accounts": 0,
+            "reached_accounts": 5,
+            "not_reached_accounts": 2289,
+            "unknown_accounts": 0
+          },
+          {
+            "id": "risk_assessed_after_binding",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "post_binding_window",
+            "data_as_of": "2026-09-09T11:30:00+08:00",
+            "state": "confirmed",
+            "population_accounts": 2294,
+            "eligible_accounts": 2294,
+            "excluded_accounts": 0,
+            "reached_accounts": 5,
+            "not_reached_accounts": 2289,
+            "unknown_accounts": 0
+          },
+          {
+            "id": "first_funding_after_binding",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "post_binding_window",
+            "data_as_of": "2026-09-09T11:30:00+08:00",
+            "state": "confirmed",
+            "population_accounts": 2294,
+            "eligible_accounts": 2294,
+            "excluded_accounts": 0,
+            "reached_accounts": 1,
+            "not_reached_accounts": 2293,
             "unknown_accounts": 0
           }
         ]
@@ -1536,6 +1614,45 @@ window.QIANWEN_ACQUISITION_DATA = {
             "reached_accounts": 482,
             "not_reached_accounts": 92,
             "unknown_accounts": 0
+          },
+          {
+            "id": "account_opened_after_binding",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "post_binding_window",
+            "data_as_of": "2026-09-09T11:30:00+08:00",
+            "state": "confirmed",
+            "population_accounts": 574,
+            "eligible_accounts": 574,
+            "excluded_accounts": 0,
+            "reached_accounts": 3,
+            "not_reached_accounts": 571,
+            "unknown_accounts": 0
+          },
+          {
+            "id": "risk_assessed_after_binding",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "post_binding_window",
+            "data_as_of": "2026-09-09T11:30:00+08:00",
+            "state": "confirmed",
+            "population_accounts": 574,
+            "eligible_accounts": 574,
+            "excluded_accounts": 0,
+            "reached_accounts": 28,
+            "not_reached_accounts": 546,
+            "unknown_accounts": 0
+          },
+          {
+            "id": "first_funding_after_binding",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "post_binding_window",
+            "data_as_of": "2026-09-09T11:30:00+08:00",
+            "state": "confirmed",
+            "population_accounts": 574,
+            "eligible_accounts": 302,
+            "excluded_accounts": 272,
+            "reached_accounts": 2,
+            "not_reached_accounts": 300,
+            "unknown_accounts": 0
           }
         ]
       }
@@ -1556,7 +1673,8 @@ window.QIANWEN_ACQUISITION_DATA = {
             "data_as_of": "2026-09-09T11:30:00+08:00",
             "state": "confirmed",
             "accounts": 254,
-            "amount_wan": 8163.71
+            "amount_wan": 8163.71,
+            "per_capita_wan": 32.1406
           },
           {
             "id": "inflow_amount",
@@ -1575,6 +1693,15 @@ window.QIANWEN_ACQUISITION_DATA = {
             "state": "confirmed",
             "accounts": 153,
             "amount_wan": 212.2685
+          },
+          {
+            "id": "zero_asset_inflow_amount",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-09-09T11:30:00+08:00",
+            "state": "confirmed",
+            "accounts": 4,
+            "amount_wan": 7.22
           },
           {
             "id": "sell_amount",
@@ -1597,7 +1724,8 @@ window.QIANWEN_ACQUISITION_DATA = {
             "data_as_of": "2026-09-09T11:30:00+08:00",
             "state": "confirmed",
             "accounts": 1,
-            "amount_wan": 0.12
+            "amount_wan": 0.12,
+            "per_capita_wan": 0.12
           },
           {
             "id": "inflow_amount",
@@ -1610,6 +1738,15 @@ window.QIANWEN_ACQUISITION_DATA = {
           },
           {
             "id": "buy_amount",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-09-09T11:30:00+08:00",
+            "state": "confirmed",
+            "accounts": 1,
+            "amount_wan": 0.12
+          },
+          {
+            "id": "zero_asset_inflow_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
             "data_as_of": "2026-09-09T11:30:00+08:00",
@@ -1638,7 +1775,8 @@ window.QIANWEN_ACQUISITION_DATA = {
             "data_as_of": "2026-09-09T11:30:00+08:00",
             "state": "confirmed",
             "accounts": 253,
-            "amount_wan": 8163.59
+            "amount_wan": 8163.59,
+            "per_capita_wan": 32.2672
           },
           {
             "id": "inflow_amount",
@@ -1657,6 +1795,15 @@ window.QIANWEN_ACQUISITION_DATA = {
             "state": "confirmed",
             "accounts": 152,
             "amount_wan": 212.1485
+          },
+          {
+            "id": "zero_asset_inflow_amount",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-09-09T11:30:00+08:00",
+            "state": "confirmed",
+            "accounts": 3,
+            "amount_wan": 7.1
           },
           {
             "id": "sell_amount",

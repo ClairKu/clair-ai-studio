@@ -36,11 +36,15 @@ const behaviorMetricIds = [
   "investment_activity_after_binding",
   "redemption_after_binding",
   "xiaogu_used_after_binding",
+  "account_opened_after_binding",
+  "risk_assessed_after_binding",
+  "first_funding_after_binding",
 ];
 const businessStatIds = [
   "holding_amount",
   "inflow_amount",
   "buy_amount",
+  "zero_asset_inflow_amount",
   "sell_amount",
 ];
 const publicStates = new Set(["confirmed", "suppressed", "unavailable"]);
