@@ -37,7 +37,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 70;
+const DATA_VERSION = 71;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -145,6 +145,34 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "yingmi-advisor-workbench-2026-09-10",
+      groupId: "ai-workbench",
+      title: "新一代顾问工作台｜对话优先 + 盈米本体",
+      url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-advisor-workbench-2026-09-10/",
+      preview: "yingmi-advisor-workbench-2026-09-10.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-10T13:08:00+08:00",
+      source: "YINGMIWORK 顾问工作台完整单文件 HTML｜左侧导航已接入盈米本体浏览器（526 节点 / 1632 边）｜含客户360、任务、事件、规划报告、投研、话术、数据看板与本体图谱｜合成脱敏演示，未接生产接口｜同目录完整附带 ontology-explorer.html / ontology-graph.json / wechat-ai-dashboard.html",
+      access: "production",
+      workType: "product-demo",
+      tags: ["VIP 顾问", "顾问工作台", "客户360", "SOP", "AI 副驾", "YINGMIWORK", "盈米本体", "交互 Demo", "产品规划", "AI 工作台", "HTML", "生产"],
+    },
+    {
+      id: "yingmi-ontology-explorer-2026-09-10",
+      groupId: "knowledge",
+      title: "盈米本体浏览器｜节点、类型、实体与关联",
+      url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-ontology-explorer-2026-09-10/",
+      preview: "yingmi-ontology-explorer-2026-09-10.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-10T13:08:00+08:00",
+      source: "官方 graph.json 可视化层完整单文件｜526 节点 / 1632 边 / 10 种类型 / 4 种关系｜可搜索、按类型·业务侧·归属·领域·概念子类筛选、点实体看出入关联｜数据构建于 2026-09-07｜公开结构浏览，不含内部地址与凭据",
+      access: "production",
+      workType: "product-demo",
+      tags: ["本体", "知识图谱", "微服务", "概念", "BU", "关联浏览", "HTML", "生产"],
+    },
     {
       id: "wechat-ai-agent-usage-dashboard-2026-09-10",
       groupId: "ai-platform",

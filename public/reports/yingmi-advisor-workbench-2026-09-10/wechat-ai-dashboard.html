@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>微信 AI 能力调用看板 · 2026-09-07 ~ 09-10</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+:root{
+  --bg:#F4F5F8; --panel:#FFFFFF; --ink:#16213A; --ink-2:#3D4A68; --ink-3:#7A86A3;
+  --line:#E4E8F2;
+  --brand:#0E3A5D; --brand-2:#12558C; --brand-soft:#E8F0F9;
+  --gold:#B98A2F; --gold-soft:#F8F1E2;
+  --up:#0E9F6E; --up-soft:#E5F6EF; --down:#E5484D;
+  --warn:#D97706; --warn-soft:#FCF3E3; --violet:#6D5BD0; --violet-soft:#EFECFB;
+  --cyan:#0E8FA8; --cyan-soft:#E4F5F8;
+  --r-lg:14px; --r-md:10px;
+  --shadow-1:0 1px 2px rgba(22,33,58,.05),0 1px 8px rgba(22,33,58,.04);
+  --font:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  --mono:"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font);font-size:13px;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;padding-bottom:40px}
+.num{font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+
+/* 顶栏 */
+#topbar{height:54px;display:flex;align-items:center;gap:12px;padding:0 22px;background:var(--brand);color:#fff;position:sticky;top:0;z-index:50}
+#topbar .mark{width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,#2E7FC4,#0E3A5D);border:1px solid rgba(255,255,255,.28);display:grid;place-items:center;font-size:12px;font-weight:800;color:#FFE9B8}
+#topbar h1{font-size:15px;font-weight:700;letter-spacing:.02em}
+#topbar .range{font-size:12px;opacity:.8;margin-left:4px}
+#topbar .sp{flex:1}
+#topbar .src{font-size:11px;opacity:.65}
+
+.wrap{max-width:1240px;margin:0 auto;padding:18px 22px}
+
+/* 提示条 */
+.notice{display:flex;gap:10px;align-items:flex-start;background:var(--warn-soft);border:1px solid #F0DBB4;border-radius:var(--r-md);padding:10px 14px;margin-bottom:16px;color:#7A5210;font-size:12px;line-height:1.7}
+.notice b{color:#6B4408}
+
+/* KPI 卡片 */
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:16px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);padding:14px 16px;box-shadow:var(--shadow-1)}
+.kpi .label{font-size:12px;color:var(--ink-3);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.kpi .label .ic{width:18px;height:18px;border-radius:5px;display:grid;place-items:center;font-size:10px}
+.kpi .val{font-size:26px;font-weight:800;letter-spacing:-.02em}
+.kpi .sub{font-size:11px;color:var(--ink-3);margin-top:4px}
+
+/* 面板 */
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:7fr 5fr}
+.g2b{grid-template-columns:1fr 1fr}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-1);padding:16px 18px;margin-bottom:14px}
+.panel h2{font-size:14px;font-weight:700;margin-bottom:2px}
+.panel .desc{font-size:11px;color:var(--ink-3);margin-bottom:10px}
+.chart{width:100%}
+
+/* 表格 */
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{text-align:left;color:var(--ink-3);font-weight:600;padding:7px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:7px 8px;border-bottom:1px solid #EEF1F8;color:var(--ink-2)}
+td.r,th.r{text-align:right}
+tr:hover td{background:var(--brand-soft)}
+.url{font-family:var(--mono);font-size:11px;word-break:break-all;color:var(--brand-2)}
+.bar-bg{background:#EEF1F8;border-radius:4px;height:8px;min-width:60px;position:relative;overflow:hidden}
+.bar-fill{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#2E7FC4,#12558C);border-radius:4px}
+
+.foot{font-size:11px;color:var(--ink-3);text-align:center;margin-top:18px;line-height:1.8}
+@media (max-width:900px){.kpis{grid-template-columns:repeat(2,1fr)}.g2,.g2b{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div id="topbar">
+  <div class="mark">AI</div>
+  <h1>微信 AI 能力调用看板</h1>
+  <span class="range">2026-09-07 00:00 ~ 2026-09-10 23:59</span>
+  <div class="sp"></div>
+  <span class="src">数据源：神策 qiemanproduction · rawdata.events（查询时刻 2026-09-10）</span>
+</div>
+
+<div class="wrap">
+
+  <div class="notice">
+    <span>⚠️</span>
+    <div>
+      <b>口径提示：</b>
+      ① <b>原子接口调用事件的 distinct_id 是 traceId（调用链 ID），不是用户 ID</b>，其"去重数"表示调用链数量，不能当用户数使用；落地事件的 distinct_id 才是小程序端用户 ID，两端仅可通过 trace_id 关联，不构成标准用户漏斗。
+      ② 流量高度集中在 09-08 与 09-09 上午 10~11 点两个尖峰，且 <b>09-08 全天 114 次落地均来自同 1 个用户</b>，呈定向测试/内部验收特征。
+      ③ 09-10 为查询当天，数据不完整（仅截至查询时刻）。
+    </div>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi">
+      <div class="label"><span class="ic" style="background:var(--brand-soft);color:var(--brand-2)">落</span>Agent 落地总次数</div>
+      <div class="val num" style="color:var(--brand-2)">222</div>
+      <div class="sub">wechat_agent_landing（nova 小程序端上报）</div>
+    </div>
+    <div class="kpi">
+      <div class="label"><span class="ic" style="background:var(--violet-soft);color:var(--violet)">原</span>原子接口调用总次数</div>
+      <div class="val num" style="color:var(--violet)">317</div>
+      <div class="sub">wechat_agent_atomic_api_call（meow 服务端上报）</div>
+    </div>
+    <div class="kpi">
+      <div class="label"><span class="ic" style="background:var(--up-soft);color:var(--up)">✓</span>调用成功率</div>
+      <div class="val num" style="color:var(--up)">99.1%</div>
+      <div class="sub">仅 3 次失败，均为 UPSTREAM_ERROR</div>
+    </div>
+    <div class="kpi">
+      <div class="label"><span class="ic" style="background:var(--cyan-soft);color:var(--cyan)">接</span>被调用的原子接口数</div>
+      <div class="val num" style="color:var(--cyan)">18</div>
+      <div class="sub">期间有调用记录的接口全集</div>
+    </div>
+    <div class="kpi">
+      <div class="label"><span class="ic" style="background:var(--up-soft);color:var(--up)">S</span>覆盖 Skill 数</div>
+      <div class="val num" style="color:var(--up)">7</div>
+      <div class="sub">fund-explorer 占 50.5%</div>
+    </div>
+    <div class="kpi">
+      <div class="label"><span class="ic" style="background:var(--gold-soft);color:var(--gold)">链</span>调用/落地比</div>
+      <div class="val num" style="color:var(--gold)">1.43</div>
+      <div class="sub">317 次调用 ÷ 222 次落地</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>分小时调用趋势</h2>
+    <div class="desc">两事件按小时次数；无数据小时计 0。可见 09-08 11 点与 09-09 10 点两个集中尖峰。分小时序列为稍早快照（原子调用合计 315），09-10 当天数据实时流入，按天与质量数据合计 317。</div>
+    <div id="chart-hourly" class="chart" style="height:320px"></div>
+  </div>
+
+  <div class="panel">
+    <h2>每日及累计走势</h2>
+    <div class="desc">柱：每日次数；折线：期间累计。截至 09-10（部分数据）累计落地 222 次、原子接口调用 317 次。</div>
+    <div id="chart-cumulative" class="chart" style="height:320px"></div>
+  </div>
+
+  <div class="grid g2">
+    <div class="panel">
+      <h2>按天总量与去重</h2>
+      <div class="desc">柱：事件次数；折线：落地去重用户数（小程序端用户口径）。原子接口侧去重为调用链数，未在此展示。</div>
+      <div id="chart-daily" class="chart" style="height:300px"></div>
+    </div>
+    <div class="panel">
+      <h2>Skill 调用分布</h2>
+      <div class="desc">原子接口调用按所属 Skill 归类（稍早快照，合计 315 次）。</div>
+      <div id="chart-skill" class="chart" style="height:300px"></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>原子接口调用排行（按天堆叠）</h2>
+    <div class="desc">期间共 18 个接口有调用记录，全部列出；颜色区分日期。</div>
+    <div id="chart-api" class="chart" style="height:520px"></div>
+  </div>
+
+  <div class="panel">
+    <h2>接口调用质量与调用问题</h2>
+    <div class="desc">全期 317 次调用仅 <b>3 次失败（总体失败率 0.95%）</b>，全部集中在 09-08 12 点同一小时、同一接口 <b>getFundHolding</b>、同一错误码 <b>UPSTREAM_ERROR</b>——孤立的上游瞬时故障，非系统性问题。耗时分层明显：个人账户类接口需走 OAuth 通道查个人数据、链路长（getMyProfit P95 3.5s、getMyHoldings P95 3.7s）；公开检索类快（searchFund P95 449ms、getManagerFunds P95 124ms）。</div>
+    <div class="grid g2" style="margin-bottom:0">
+      <div>
+        <div style="max-height:430px;overflow:auto">
+          <table id="tbl-quality">
+            <thead><tr><th>接口</th><th class="r">调用</th><th class="r">失败</th><th class="r">失败率</th><th class="r">平均耗时</th><th class="r">P95 耗时</th><th style="width:110px">P95 分布</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div id="chart-duration" class="chart" style="height:430px"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid g2b">
+    <div class="panel">
+      <h2>落地来源页分布</h2>
+      <div class="desc">wechat_agent_landing 按 page_name 分组（referrer 恒为 wechatAgent，无区分度）。"空/未上报"为主，多为 WebView 承载页直落。</div>
+      <div id="chart-page" class="chart" style="height:300px"></div>
+    </div>
+    <div class="panel">
+      <h2>落地目标页 Top 20</h2>
+      <div class="desc">按 target_url 分组，共 68 个去重目标地址。</div>
+      <div style="max-height:300px;overflow:auto">
+        <table id="tbl-target">
+          <thead><tr><th>#</th><th>目标地址</th><th class="r">次数</th><th style="width:90px"></th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>事件口径说明</h2>
+    <table>
+      <thead><tr><th>事件</th><th>上报端</th><th>关键属性</th><th>distinct_id 含义</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><b>wechat_agent_landing</b><br>微信 Agent 落地</td>
+          <td>nova 小程序端（WebView 承载页/原生落地页，仅当落地 URL 带 referrer=wechatAgent 时上报，每次进入承载页去重最多一次）</td>
+          <td>trace_id（调用链 ID）、referrer（恒为 wechatAgent）、target_url（落地目标页）</td>
+          <td>小程序端用户 ID（登录或匿名）</td>
+        </tr>
+        <tr>
+          <td><b>wechat_agent_atomic_api_call</b><br>原子接口调用</td>
+          <td>meow BFF 服务端（每次原子接口调用必报，成功失败均上报，fire-and-forget）</td>
+          <td>atomic_api（接口名）、skill、trace_id、success、duration_ms、error_code、downstream_call_count</td>
+          <td>⚠️ traceId 技术字段，非用户 ID</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="foot">
+    数据经小时 / 按天 / 按接口三向交叉校验一致（原子接口调用 317 · 落地 222；09-10 当天数据实时流入）· 属性口径经 meow、nova 源码核实<br>
+    生成时间 2026-09-10 · 神策项目 qiemanproduction · 数据库 rawdata
+  </div>
+</div>
+
+<script>
+/* ============ 数据（来自神策查询，2026-09-07 ~ 09-10） ============ */
+const HOURLY_SPARSE = {
+  "2026-09-07 17": [6, 13],
+  "2026-09-08 10": [0, 14],
+  "2026-09-08 11": [80, 110],
+  "2026-09-08 12": [34, 37],
+  "2026-09-09 09": [1, 1],
+  "2026-09-09 10": [85, 108],
+  "2026-09-09 11": [4, 9],
+  "2026-09-09 15": [4, 5],
+  "2026-09-09 20": [1, 3],
+  "2026-09-10 00": [6, 7],
+  "2026-09-10 01": [1, 8]
+};
+const DAILY = [
+  {date:"09-07", landing:6,   atomic:13,  landingUsers:2},
+  {date:"09-08", landing:114, atomic:161, landingUsers:1},
+  {date:"09-09", landing:95,  atomic:126, landingUsers:5},
+  {date:"09-10", landing:7,   atomic:17,  landingUsers:1}
+];
+/* 调用质量（success 为数值 1/0；P95 由 317 行明细本地线性插值精确计算） */
+const QUALITY = [
+  {api:"getFundDetail",       total:72, fail:0, avg:352.1,  p95:550.2},
+  {api:"getAdvisorContent",   total:48, fail:0, avg:482.8,  p95:1229.1},
+  {api:"searchFund",          total:46, fail:0, avg:340.4,  p95:449.2},
+  {api:"searchStrategy",      total:38, fail:0, avg:369.6,  p95:622.4},
+  {api:"getStrategyOverview", total:28, fail:0, avg:941.7,  p95:1805.4},
+  {api:"guessFundCode",       total:23, fail:0, avg:331.0,  p95:424.4},
+  {api:"getManagerFunds",     total:11, fail:0, avg:101.0,  p95:123.5},
+  {api:"getMyProfit",         total:9,  fail:0, avg:2075.3, p95:3496.0},
+  {api:"getMyHoldings",       total:9,  fail:0, avg:1884.1, p95:3686.8},
+  {api:"getFundHolding",      total:9,  fail:3, avg:300.8,  p95:487.6},
+  {api:"getMyWatchlist",      total:6,  fail:0, avg:340.3,  p95:481.2},
+  {api:"getIndexValuation",   total:4,  fail:0, avg:180.8,  p95:237.0},
+  {api:"getFundTradeInfo",    total:3,  fail:0, avg:350.7,  p95:414.5},
+  {api:"getStrategyNav",      total:3,  fail:0, avg:190.3,  p95:229.9},
+  {api:"getMarketSummary",    total:2,  fail:0, avg:273.5,  p95:281.1},
+  {api:"getDividendRecord",   total:2,  fail:0, avg:159.5,  p95:164.4},
+  {api:"diagnoseFund",        total:2,  fail:0, avg:2904.5, p95:2954.4},
+  {api:"getStrategyHoldings", total:2,  fail:0, avg:836.0,  p95:902.6}
+];
+const APIS = [
+  {api:"getFundDetail",       d:[0,41,30,1]},
+  {api:"getAdvisorContent",   d:[0,22,17,9]},
+  {api:"searchFund",          d:[13,22,10,1]},
+  {api:"searchStrategy",      d:[0,18,18,2]},
+  {api:"getStrategyOverview", d:[0,16,12,0]},
+  {api:"guessFundCode",       d:[0,13,10,0]},
+  {api:"getManagerFunds",     d:[0,7,4,0]},
+  {api:"getFundHolding",      d:[0,6,3,0]},
+  {api:"getMyHoldings",       d:[0,5,3,1]},
+  {api:"getMyProfit",         d:[0,3,3,3]},
+  {api:"getMyWatchlist",      d:[0,3,3,0]},
+  {api:"getIndexValuation",   d:[0,2,2,0]},
+  {api:"getFundTradeInfo",    d:[0,1,2,0]},
+  {api:"getStrategyNav",      d:[0,0,3,0]},
+  {api:"diagnoseFund",        d:[0,0,2,0]},
+  {api:"getDividendRecord",   d:[0,1,1,0]},
+  {api:"getMarketSummary",    d:[0,1,1,0]},
+  {api:"getStrategyHoldings", d:[0,0,2,0]}
+];
+const SKILLS = [
+  {name:"fund-explorer",     value:159},
+  {name:"strategy-explorer", value:71},
+  {name:"market-content",    value:48},
+  {name:"account-center",    value:24},
+  {name:"market-insight",    value:6},
+  {name:"fund-trading",      value:5},
+  {name:"fund-research",     value:2}
+];
+const PAGES = [
+  {name:"(空/未上报)", value:190},
+  {name:"资产页",      value:19},
+  {name:"首页-老客",   value:8},
+  {name:"关注的产品",  value:2},
+  {name:"消息中心",    value:2},
+  {name:"管理的策略",  value:1}
+];
+const TARGETS = [
+  ["/pages/umas/index",18],
+  ["https://qieman.com/search/消费",15],
+  ["https://qieman.com/alfa/portfolio/SI000035/detail",9],
+  ["https://qieman.com/alfa/fund/005827/detail",8],
+  ["https://qieman.com/alfa/portfolio/SI000153/detail",7],
+  ["https://qieman.com/longwin/index/LONG_WIN",7],
+  ["https://qieman.com/alfa/fund/000176/detail",6],
+  ["https://qieman.com/alfa/portfolio/ZH040237/detail",5],
+  ["https://qieman.com/alfa/fund/519185/detail",5],
+  ["https://qieman.com/alfa/portfolio/ZH000082/detail",5],
+  ["https://qieman.com/alfa/portfolio/SI000023/detail",5],
+  ["https://qieman.com/alfa/fund/008887/detail",5],
+  ["https://microapp.qieman.com/profit-calendar/index.html?microapp=yingmi.profit-calendar#/?…",5],
+  ["https://qieman.com/content/items/10165",4],
+  ["https://qieman.com/content/items/24481",4],
+  ["https://qieman.com/content/items/25273",3],
+  ["https://qieman.com/alfa/fund/002190/detail",3],
+  ["https://qieman.com/content/content-detail?postId=82453",3],
+  ["https://qieman.com/content/content-detail?postId=81943",3],
+  ["https://qieman.com/content/content-detail?postId=80881",3]
+];
+
+/* ============ 通用配色与工具 ============ */
+const C = {brand:"#12558C", violet:"#6D5BD0", cyan:"#0E8FA8", gold:"#B98A2F", up:"#0E9F6E", ink3:"#7A86A3"};
+const DAY_COLORS = ["#9FB6CE","#12558C","#2E7FC4","#B98A2F"]; // 07/08/09/10
+const DAY_LABELS = ["09-07","09-08","09-09","09-10"];
+const txt = {color:"#3D4A68", fontFamily:"-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif"};
+const axisCommon = {axisLine:{lineStyle:{color:"#E4E8F2"}}, axisLabel:{color:"#7A86A3", fontSize:11}, splitLine:{lineStyle:{color:"#EEF1F8"}}};
+
+function fullHours(){
+  const hours = [];
+  for (let d = 7; d <= 10; d++) {
+    for (let h = 0; h < 24; h++) {
+      hours.push(`2026-09-${String(d).padStart(2,"0")} ${String(h).padStart(2,"0")}`);
+    }
+  }
+  return hours;
+}
+
+/* ============ 分小时趋势 ============ */
+(function(){
+  const hours = fullHours();
+  const landing = hours.map(h => (HOURLY_SPARSE[h]||[0,0])[0]);
+  const atomic  = hours.map(h => (HOURLY_SPARSE[h]||[0,0])[1]);
+  const chart = echarts.init(document.getElementById("chart-hourly"));
+  chart.setOption({
+    textStyle: txt,
+    tooltip: {trigger:"axis", axisPointer:{type:"shadow"}},
+    legend: {top: 0, textStyle:{color:"#3D4A68", fontSize:12}},
+    grid: {left:44, right:16, top:34, bottom:52},
+    dataZoom: [{type:"slider", height:16, bottom:8, borderColor:"#E4E8F2", backgroundColor:"#FAFBFD", fillerColor:"rgba(18,85,140,.12)"}],
+    xAxis: {type:"category", data:hours.map(h=>h.slice(5)+":00"), ...axisCommon, axisLabel:{...axisCommon.axisLabel, interval:5}},
+    yAxis: {type:"value", ...axisCommon},
+    series: [
+      {name:"Agent 落地", type:"bar", data:landing, itemStyle:{color:C.brand, borderRadius:[3,3,0,0]}, barMaxWidth:14},
+      {name:"原子接口调用", type:"line", data:atomic, smooth:.3, symbol:"circle", symbolSize:5,
+       lineStyle:{color:C.violet, width:2}, itemStyle:{color:C.violet},
+       areaStyle:{color:{type:"linear",x:0,y:0,x2:0,y2:1,colorStops:[{offset:0,color:"rgba(109,91,208,.18)"},{offset:1,color:"rgba(109,91,208,0)"}]}}}
+    ]
+  });
+  window.addEventListener("resize", ()=>chart.resize());
+})();
+
+/* ============ 每日及累计走势 ============ */
+(function(){
+  let accL = 0, accA = 0;
+  const cumL = DAILY.map(d => accL += d.landing);
+  const cumA = DAILY.map(d => accA += d.atomic);
+  const chart = echarts.init(document.getElementById("chart-cumulative"));
+  chart.setOption({
+    textStyle: txt,
+    tooltip: {trigger:"axis", axisPointer:{type:"shadow"}},
+    legend: {top:0, textStyle:{color:"#3D4A68", fontSize:12}},
+    grid: {left:44, right:44, top:34, bottom:28},
+    xAxis: {type:"category", data:DAILY.map(d=>d.date), ...axisCommon},
+    yAxis: [
+      {type:"value", name:"每日次数", ...axisCommon},
+      {type:"value", name:"累计次数", ...axisCommon, splitLine:{show:false}}
+    ],
+    series: [
+      {name:"每日落地", type:"bar", data:DAILY.map(d=>d.landing), itemStyle:{color:"#9FC3E2", borderRadius:[4,4,0,0]}, barMaxWidth:22},
+      {name:"每日原子调用", type:"bar", data:DAILY.map(d=>d.atomic), itemStyle:{color:"#C4BBEB", borderRadius:[4,4,0,0]}, barMaxWidth:22},
+      {name:"累计落地", type:"line", yAxisIndex:1, data:cumL, symbol:"circle", symbolSize:6,
+       lineStyle:{color:C.brand, width:2.5}, itemStyle:{color:C.brand},
+       label:{show:true, color:C.brand, fontSize:11, fontWeight:700}},
+      {name:"累计原子调用", type:"line", yAxisIndex:1, data:cumA, symbol:"circle", symbolSize:6,
+       lineStyle:{color:C.violet, width:2.5}, itemStyle:{color:C.violet},
+       label:{show:true, color:C.violet, fontSize:11, fontWeight:700, position:"bottom"}}
+    ]
+  });
+  window.addEventListener("resize", ()=>chart.resize());
+})();
+
+/* ============ 接口调用质量 ============ */
+(function(){
+  // 左侧表格：按调用量排序
+  const maxP95 = Math.max(...QUALITY.map(q=>q.p95));
+  const fmt = ms => ms >= 1000 ? (ms/1000).toFixed(2)+" s" : Math.round(ms)+" ms";
+  document.querySelector("#tbl-quality tbody").innerHTML = QUALITY.map(q => {
+    const rate = q.fail ? (q.fail/q.total*100).toFixed(1)+"%" : "—";
+    const slow = q.p95 >= 2000;
+    return `<tr>
+      <td class="url">${q.api}${q.fail?` <span style="color:var(--down);font-weight:700">⚠</span>`:""}</td>
+      <td class="r num">${q.total}</td>
+      <td class="r num" style="${q.fail?'color:var(--down);font-weight:700':'color:var(--ink-3)'}">${q.fail||"—"}</td>
+      <td class="r num" style="${q.fail?'color:var(--down);font-weight:700':'color:var(--ink-3)'}">${rate}</td>
+      <td class="r num">${fmt(q.avg)}</td>
+      <td class="r num" style="${slow?'color:var(--warn);font-weight:700':''}">${fmt(q.p95)}</td>
+      <td><div class="bar-bg"><div class="bar-fill" style="width:${Math.max(2,Math.round(q.p95/maxP95*100))}%;${slow?'background:linear-gradient(90deg,#E8A33D,#D97706)':''}"></div></div></td>
+    </tr>`;
+  }).join("");
+
+  // 右侧图：平均 vs P95 耗时（按 P95 排序）
+  const sorted = [...QUALITY].sort((a,b)=>a.p95-b.p95);
+  const chart = echarts.init(document.getElementById("chart-duration"));
+  chart.setOption({
+    textStyle: txt,
+    tooltip: {trigger:"axis", axisPointer:{type:"shadow"},
+      formatter: params => `<b>${params[0].name}</b><br/>` +
+        params.map(p=>`${p.marker}${p.seriesName}：${p.value>=1000?(p.value/1000).toFixed(2)+" s":Math.round(p.value)+" ms"}`).join("<br/>")},
+    legend: {top:0, textStyle:{color:"#3D4A68", fontSize:12}},
+    grid: {left:150, right:56, top:30, bottom:20},
+    xAxis: {type:"value", ...axisCommon, axisLabel:{...axisCommon.axisLabel, formatter:v=>v>=1000?(v/1000)+"s":v}},
+    yAxis: {type:"category", data:sorted.map(q=>q.api), ...axisCommon,
+      axisLabel:{color:"#3D4A68", fontSize:11.5, fontFamily:"SF Mono,Menlo,Consolas,monospace"}},
+    series: [
+      {name:"平均耗时", type:"bar", data:sorted.map(q=>Math.round(q.avg)), itemStyle:{color:"#9FC3E2"}, barMaxWidth:9},
+      {name:"P95 耗时", type:"bar", data:sorted.map(q=>Math.round(q.p95)),
+       itemStyle:{color: p => sorted[p.dataIndex].p95>=2000 ? "#D97706" : C.violet}, barMaxWidth:9,
+       label:{show:true, position:"right", color:"#7A86A3", fontSize:10,
+        formatter: p => p.value>=1000?(p.value/1000).toFixed(1)+"s":p.value}}
+    ]
+  });
+  window.addEventListener("resize", ()=>chart.resize());
+})();
+
+/* ============ 按天总量 ============ */
+(function(){
+  const chart = echarts.init(document.getElementById("chart-daily"));
+  chart.setOption({
+    textStyle: txt,
+    tooltip: {trigger:"axis", axisPointer:{type:"shadow"}},
+    legend: {top:0, textStyle:{color:"#3D4A68", fontSize:12}},
+    grid: {left:44, right:44, top:34, bottom:28},
+    xAxis: {type:"category", data:DAILY.map(d=>d.date), ...axisCommon},
+    yAxis: [
+      {type:"value", name:"次数", ...axisCommon},
+      {type:"value", name:"用户数", minInterval:1, ...axisCommon, splitLine:{show:false}}
+    ],
+    series: [
+      {name:"Agent 落地", type:"bar", data:DAILY.map(d=>d.landing), itemStyle:{color:C.brand, borderRadius:[4,4,0,0]}, barMaxWidth:26},
+      {name:"原子接口调用", type:"bar", data:DAILY.map(d=>d.atomic), itemStyle:{color:C.violet, borderRadius:[4,4,0,0]}, barMaxWidth:26},
+      {name:"落地去重用户", type:"line", yAxisIndex:1, data:DAILY.map(d=>d.landingUsers),
+       symbol:"circle", symbolSize:7, lineStyle:{color:C.gold, width:2}, itemStyle:{color:C.gold},
+       label:{show:true, color:C.gold, fontSize:11, fontWeight:700}}
+    ]
+  });
+  window.addEventListener("resize", ()=>chart.resize());
+})();
+
+/* ============ Skill 分布 ============ */
+(function(){
+  const chart = echarts.init(document.getElementById("chart-skill"));
+  chart.setOption({
+    textStyle: txt,
+    tooltip: {trigger:"item", formatter: p => `${p.name}<br/><b>${p.value}</b> 次（${p.percent}%）`},
+    legend: {orient:"vertical", right:0, top:"middle", textStyle:{color:"#3D4A68", fontSize:12},
+      formatter: name => { const s = SKILLS.find(x=>x.name===name); return `${name}  ${s.value}`; }},
+    series: [{
+      type:"pie", radius:["48%","74%"], center:["36%","50%"],
+      avoidLabelOverlap:true,
+      itemStyle:{borderColor:"#fff", borderWidth:2},
+      label:{show:false},
+      emphasis:{label:{show:true, fontSize:13, fontWeight:700, formatter:"{b}\n{d}%"}},
+      color:["#12558C","#6D5BD0","#0E8FA8","#B98A2F","#0E9F6E","#D97706","#E5484D"],
+      data: SKILLS
+    }]
+  });
+  window.addEventListener("resize", ()=>chart.resize());
+})();
+
+/* ============ 原子接口排行（按天堆叠横向条） ============ */
+(function(){
+  const sorted = [...APIS].sort((a,b)=> (a.d.reduce((s,v)=>s+v,0)) - (b.d.reduce((s,v)=>s+v,0)));
+  const chart = echarts.init(document.getElementById("chart-api"));
+  chart.setOption({
+    textStyle: txt,
+    tooltip: {trigger:"axis", axisPointer:{type:"shadow"},
+      formatter: params => {
+        const total = params.reduce((s,p)=>s+p.value,0);
+        return `<b>${params[0].name}</b>　合计 ${total} 次<br/>` +
+          params.filter(p=>p.value>0).map(p=>`${p.marker}${p.seriesName}：${p.value}`).join("<br/>");
+      }},
+    legend: {top:0, textStyle:{color:"#3D4A68", fontSize:12}},
+    grid: {left:150, right:50, top:30, bottom:20},
+    xAxis: {type:"value", ...axisCommon},
+    yAxis: {type:"category", data:sorted.map(a=>a.api), ...axisCommon,
+      axisLabel:{color:"#3D4A68", fontSize:12, fontFamily:"SF Mono,Menlo,Consolas,monospace"}},
+    series: DAY_LABELS.map((day, i) => ({
+      name: day, type:"bar", stack:"total",
+      data: sorted.map(a=>a.d[i]),
+      itemStyle:{color:DAY_COLORS[i]},
+      barMaxWidth:16,
+      ...(i===DAY_LABELS.length-1 ? {label:{show:true, position:"right", color:"#3D4A68", fontSize:11, fontWeight:700,
+        formatter: p => sorted[p.dataIndex].d.reduce((s,v)=>s+v,0)}} : {})
+    }))
+  });
+  window.addEventListener("resize", ()=>chart.resize());
+})();
+
+/* ============ 落地来源页分布 ============ */
+(function(){
+  const sorted = [...PAGES].sort((a,b)=>a.value-b.value);
+  const chart = echarts.init(document.getElementById("chart-page"));
+  chart.setOption({
+    textStyle: txt,
+    tooltip: {trigger:"axis", axisPointer:{type:"shadow"}},
+    grid: {left:90, right:44, top:10, bottom:20},
+    xAxis: {type:"log", logBase:10, min:1, ...axisCommon, axisLabel:{...axisCommon.axisLabel, formatter:v=>v}},
+    yAxis: {type:"category", data:sorted.map(p=>p.name), ...axisCommon, axisLabel:{color:"#3D4A68", fontSize:12}},
+    series: [{
+      type:"bar", data:sorted.map(p=>p.value),
+      itemStyle:{color:{type:"linear",x:0,y:0,x2:1,y2:0,colorStops:[{offset:0,color:"#2E7FC4"},{offset:1,color:"#12558C"}]}, borderRadius:[0,4,4,0]},
+      barMaxWidth:18,
+      label:{show:true, position:"right", color:"#3D4A68", fontSize:11, fontWeight:700}
+    }]
+  });
+  window.addEventListener("resize", ()=>chart.resize());
+})();
+
+/* ============ 落地目标页表格 ============ */
+(function(){
+  const max = TARGETS[0][1];
+  const tbody = document.querySelector("#tbl-target tbody");
+  tbody.innerHTML = TARGETS.map((t,i)=>`
+    <tr>
+      <td class="num" style="color:var(--ink-3)">${i+1}</td>
+      <td class="url">${t[0]}</td>
+      <td class="r num" style="font-weight:700">${t[1]}</td>
+      <td><div class="bar-bg"><div class="bar-fill" style="width:${Math.round(t[1]/max*100)}%"></div></div></td>
+    </tr>`).join("");
+})();
+</script>
+</body>
+</html>

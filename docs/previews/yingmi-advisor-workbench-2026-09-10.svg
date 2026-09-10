@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img">
+  <title>新一代顾问工作台</title>
+  <rect width="1200" height="675" rx="28" fill="#0E3A5D"/>
+  <rect x="48" y="48" width="56" height="579" rx="12" fill="#0B2C49" stroke="#1E4A6E"/>
+  <rect x="120" y="48" width="320" height="579" rx="12" fill="#FFFFFF"/>
+  <rect x="456" y="48" width="696" height="579" rx="12" fill="#F4F5F8"/>
+  <text x="188" y="92" fill="#0E3A5D" font-size="22" font-weight="800" font-family="PingFang SC, sans-serif">盈米副驾</text>
+  <text x="188" y="122" fill="#7A86A3" font-size="14" font-family="PingFang SC, sans-serif">晨间巡检与今日安排</text>
+  <rect x="140" y="148" width="280" height="72" rx="10" fill="#E8F0F9"/>
+  <rect x="476" y="68" width="160" height="28" rx="8" fill="#FFFFFF"/>
+  <rect x="644" y="68" width="120" height="28" rx="8" fill="#12558C"/>
+  <text x="656" y="88" fill="#FFFFFF" font-size="13" font-weight="700" font-family="PingFang SC, sans-serif">盈米本体</text>
+  <text x="488" y="160" fill="#16213A" font-size="36" font-weight="800" font-family="PingFang SC, sans-serif">新一代顾问工作台</text>
+  <text x="488" y="200" fill="#3D4A68" font-size="18" font-family="PingFang SC, sans-serif">客户 360 · AI 副驾 · 规划报告 · 本体图谱</text>
+  <rect x="488" y="248" width="200" height="90" rx="12" fill="#FFFFFF"/>
+  <rect x="704" y="248" width="200" height="90" rx="12" fill="#FFFFFF"/>
+  <rect x="920" y="248" width="200" height="90" rx="12" fill="#FFFFFF"/>
+  <text x="508" y="286" fill="#7A86A3" font-size="13" font-family="PingFang SC, sans-serif">客户</text>
+  <text x="508" y="318" fill="#16213A" font-size="28" font-weight="800" font-family="PingFang SC, sans-serif">6</text>
+  <text x="724" y="286" fill="#7A86A3" font-size="13" font-family="PingFang SC, sans-serif">本体节点</text>
+  <text x="724" y="318" fill="#16213A" font-size="28" font-weight="800" font-family="PingFang SC, sans-serif">526</text>
+  <text x="940" y="286" fill="#7A86A3" font-size="13" font-family="PingFang SC, sans-serif">关系</text>
+  <text x="940" y="318" fill="#16213A" font-size="28" font-weight="800" font-family="PingFang SC, sans-serif">1632</text>
+</svg>
