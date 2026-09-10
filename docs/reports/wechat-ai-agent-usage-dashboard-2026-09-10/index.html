@@ -174,6 +174,30 @@ tr:hover td{background:var(--brand-soft)}
     </div>
   </div>
 
+  <div class="panel">
+    <h2>会话链路重建（问 → 调 → 答 → 落地）</h2>
+    <div class="desc">
+      trace_id 粒度是<b>单次接口调用</b>而非一次提问，此处按「相邻调用间隔 ≤ 90 秒」时间聚类近似会话：共 40 个会话（38 个生产 + 2 个研发手工测试，测试已置灰）。
+      <b>用户问题与 Agent 回答原文不可取</b>：对话在微信平台侧 LLM 完成、不回传原文；meow BFF 无状态不落库，接口请求参数（搜索词/基金代码等用户意图代理）也不在埋点里——补齐落点是 meow 在 invokeAtomicApi 埋点中加入 apiName + args 摘要。
+    </div>
+    <div class="kpis" style="grid-template-columns:repeat(4,1fr);margin-bottom:12px">
+      <div class="kpi"><div class="label">生产会话数</div><div class="val num" style="color:var(--brand-2);font-size:22px">38</div><div class="sub">另有 2 个手工测试会话（codex-* trace）</div></div>
+      <div class="kpi"><div class="label">会话落地率</div><div class="val num" style="color:var(--up);font-size:22px">78.9%</div><div class="sub">30/38 会话带落地；trace 级落地率 64.7%</div></div>
+      <div class="kpi"><div class="label">单接口会话占比</div><div class="val num" style="color:var(--cyan);font-size:22px">50%</div><div class="sub">19/38，符合"一次意图→一两个接口→一张卡"设计</div></div>
+      <div class="kpi"><div class="label">埋点上报丢失</div><div class="val num" style="color:var(--warn);font-size:22px">~6%</div><div class="sub">13 条落地无对应调用埋点（fire-and-forget 丢失）</div></div>
+    </div>
+    <div class="notice" style="margin-bottom:12px">
+      <span>⚠️</span>
+      <div>用户 <b>1947092</b> 一人贡献 91% 的落地（205/225），三个超大会话（44/82/89 次调用）均来自该用户——流量为定向内测收敛，解读指标时建议剔除或单独看。</div>
+    </div>
+    <div style="max-height:480px;overflow:auto">
+      <table id="tbl-sessions">
+        <thead><tr><th>开始时间</th><th class="r">调用数</th><th>接口序列</th><th>Skill</th><th>落地页</th><th>标记</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
   <div class="grid g2b">
     <div class="panel">
       <h2>落地来源页分布</h2>
@@ -527,6 +551,66 @@ function fullHours(){
     }]
   });
   window.addEventListener("resize", ()=>chart.resize());
+})();
+
+/* ============ 会话链路表格 ============ */
+const SESSIONS = [
+  {t:"09-07 17:05", n:1,  seq:"searchFund", sk:"fund-explorer", land:"search/消费"},
+  {t:"09-07 17:07", n:1,  seq:"searchFund", sk:"fund-explorer", land:"search/消费"},
+  {t:"09-07 17:09", n:2,  seq:"searchFund ×2", sk:"fund-explorer", land:""},
+  {t:"09-07 17:18", n:5,  seq:"searchFund ×5", sk:"fund-explorer", land:"search/消费 ×2"},
+  {t:"09-07 17:24", n:3,  seq:"searchFund ×3", sk:"fund-explorer", land:"search/消费"},
+  {t:"09-07 17:33", n:1,  seq:"searchFund", sk:"fund-explorer", land:"search/消费"},
+  {t:"09-08 10:35", n:2,  seq:"searchFund ×2", sk:"fund-explorer", land:""},
+  {t:"09-08 10:41", n:5,  seq:"searchFund ×5", sk:"fund-explorer", land:""},
+  {t:"09-08 10:45", n:2,  seq:"searchFund ×2", sk:"fund-explorer", land:""},
+  {t:"09-08 10:48", n:1,  seq:"searchFund", sk:"fund-explorer", land:""},
+  {t:"09-08 10:49", n:4,  seq:"searchFund ×4", sk:"fund-explorer", land:""},
+  {t:"09-08 11:16", n:1,  seq:"searchFund", sk:"fund-explorer", land:"search/消费"},
+  {t:"09-08 11:19", n:44, seq:"searchFund → searchStrategy → getFundDetail×11 → guessFundCode → getManagerFunds×3 → … → getAdvisorContent×9 → getStrategyOverview×2", sk:"fund-explorer + market-content + strategy-explorer", land:"33 次落地", heavy:true},
+  {t:"09-08 11:36", n:82, seq:"searchFund×3 → getFundDetail×10 → guessFundCode×2 → getManagerFunds×3 → getAdvisorContent×11 → searchStrategy/getStrategyOverview×20+ → getFundHolding×4", sk:"fund-explorer + market-content + strategy-explorer", land:"57 次落地", heavy:true, fail:true},
+  {t:"09-08 12:08", n:1,  seq:"getIndexValuation", sk:"market-insight", land:"idx-eval?keyword=000905"},
+  {t:"09-08 12:10", n:17, seq:"getFundTradeInfo → getDividendRecord → getMyHoldings×2 → getMarketSummary → getIndexValuation → getFundDetail → getAdvisorContent → getMyHoldings×3 → getMyWatchlist×3 → getMyProfit×3", sk:"account-center + fund-explorer + fund-trading + …", land:"14 次落地", heavy:true},
+  {t:"09-08 12:32", n:2,  seq:"getFundHolding ×2", sk:"fund-explorer", land:"2 次落地", fail:true},
+  {t:"09-09 09:58", n:1,  seq:"searchFund", sk:"fund-explorer", land:"search/消费"},
+  {t:"09-09 10:00", n:89, seq:"searchFund×3 → getFundDetail×14 → guessFundCode×5 → getManagerFunds×3 → getAdvisorContent×12 → searchStrategy×13 → getStrategyOverview×10 → getStrategyNav×3 → getFundHolding×3 …", sk:"fund-explorer + market-content + strategy-explorer", land:"59 次落地", heavy:true},
+  {t:"09-09 10:33", n:1,  seq:"getIndexValuation", sk:"market-insight", land:"idx-eval?keyword=000905"},
+  {t:"09-09 10:34", n:18, seq:"getFundDetail → getFundTradeInfo×2 → getDividendRecord → getStrategyHoldings → getMarketSummary → getIndexValuation → getFundDetail → getAdvisorContent → getMyHoldings×3 → getMyWatchlist×3 → getMyProfit×3", sk:"6 个 Skill", land:"18 次落地", heavy:true},
+  {t:"09-09 11:17", n:1,  seq:"searchFund", sk:"fund-explorer", land:"search/消费"},
+  {t:"09-09 11:20", n:5,  seq:"diagnoseFund + getAdvisorContent×4", sk:"fund-research + market-content", land:"", test:true},
+  {t:"09-09 11:30", n:1,  seq:"diagnoseFund", sk:"fund-research", land:"", test:true},
+  {t:"09-09 11:43", n:1,  seq:"getFundDetail", sk:"fund-explorer", land:"alfa/fund/000176/detail"},
+  {t:"09-09 11:45", n:1,  seq:"getFundDetail", sk:"fund-explorer", land:"alfa/fund/000176/detail"},
+  {t:"09-09 15:05", n:2,  seq:"searchFund ×2", sk:"fund-explorer", land:"search/消费 ×2"},
+  {t:"09-09 15:08", n:1,  seq:"searchFund", sk:"fund-explorer", land:"search/消费"},
+  {t:"09-09 15:17", n:2,  seq:"guessFundCode → getFundDetail", sk:"fund-explorer", land:"alfa/fund/519185/detail"},
+  {t:"09-09 20:37", n:2,  seq:"searchStrategy → getStrategyOverview", sk:"strategy-explorer", land:"alfa/portfolio/SI000035/detail"},
+  {t:"09-09 20:44", n:1,  seq:"searchStrategy", sk:"strategy-explorer", land:""},
+  {t:"09-10 00:35", n:2,  seq:"searchStrategy ×2", sk:"strategy-explorer", land:"alfa/portfolio/ZH046816/detail"},
+  {t:"09-10 00:40", n:1,  seq:"getMyHoldings", sk:"account-center", land:"/pages/umas/index（资产页）"},
+  {t:"09-10 00:42", n:2,  seq:"getMyProfit ×2", sk:"account-center", land:"收益日历"},
+  {t:"09-10 00:48", n:1,  seq:"getMyProfit", sk:"account-center", land:"收益日历"},
+  {t:"09-10 00:57", n:1,  seq:"getAdvisorContent", sk:"market-content", land:""},
+  {t:"09-10 01:12", n:8,  seq:"getAdvisorContent ×8", sk:"market-content", land:"content/items/25297"},
+  {t:"09-10 11:23", n:1,  seq:"searchFund", sk:"fund-explorer", land:"search/半导体"},
+  {t:"09-10 11:26", n:1,  seq:"getFundDetail", sk:"fund-explorer", land:"alfa/fund/000176/detail"},
+  {t:"09-10 11:30", n:1,  seq:"getFundDetail", sk:"fund-explorer", land:"alfa/fund/000176/detail"}
+];
+(function(){
+  document.querySelector("#tbl-sessions tbody").innerHTML = SESSIONS.map(s => {
+    const marks = [];
+    if (s.test)  marks.push('<span style="background:#EEF1F8;color:var(--ink-3);border-radius:6px;padding:1px 7px;font-size:11px">手工测试</span>');
+    if (s.heavy) marks.push('<span style="background:var(--warn-soft);color:var(--warn);border-radius:6px;padding:1px 7px;font-size:11px">重度用户</span>');
+    if (s.fail)  marks.push('<span style="background:var(--down-soft);color:var(--down);border-radius:6px;padding:1px 7px;font-size:11px">含失败</span>');
+    return `<tr${s.test?' style="opacity:.5"':''}>
+      <td class="num" style="white-space:nowrap">${s.t}</td>
+      <td class="r num" style="font-weight:700">${s.n}</td>
+      <td class="url" style="max-width:420px">${s.seq}</td>
+      <td style="font-size:11px;color:var(--ink-3);white-space:nowrap">${s.sk}</td>
+      <td class="url">${s.land || '<span style="color:var(--ink-3)">无落地</span>'}</td>
+      <td style="white-space:nowrap">${marks.join(" ")}</td>
+    </tr>`;
+  }).join("");
 })();
 
 /* ============ 落地目标页表格 ============ */
