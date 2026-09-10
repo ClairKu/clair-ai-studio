@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>微信小微 × 且慢 AI Agent 用户行为与转化分析 · 2026-07-17 ~ 09-10</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+:root{
+  --bg:#F4F5F8; --panel:#FFFFFF; --ink:#16213A; --ink-2:#3D4A68; --ink-3:#7A86A3;
+  --line:#E4E8F2;
+  --brand:#0E3A5D; --brand-2:#12558C; --brand-soft:#E8F0F9;
+  --gold:#B98A2F; --gold-soft:#F8F1E2;
+  --up:#0E9F6E; --up-soft:#E5F6EF; --down:#E5484D; --down-soft:#FCE9EA;
+  --warn:#D97706; --warn-soft:#FCF3E3; --violet:#6D5BD0; --violet-soft:#EFECFB;
+  --cyan:#0E8FA8; --cyan-soft:#E4F5F8;
+  --r-lg:14px; --r-md:10px;
+  --shadow-1:0 1px 2px rgba(22,33,58,.05),0 1px 8px rgba(22,33,58,.04);
+  --font:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  --mono:"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font);font-size:13px;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;padding-bottom:40px}
+.num{font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+
+#topbar{height:54px;display:flex;align-items:center;gap:12px;padding:0 22px;background:var(--brand);color:#fff;position:sticky;top:0;z-index:50}
+#topbar .mark{width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,#2E7FC4,#0E3A5D);border:1px solid rgba(255,255,255,.28);display:grid;place-items:center;font-size:12px;font-weight:800;color:#FFE9B8}
+#topbar h1{font-size:15px;font-weight:700;letter-spacing:.02em}
+#topbar .range{font-size:12px;opacity:.8;margin-left:4px}
+#topbar .sp{flex:1}
+#topbar .src{font-size:11px;opacity:.65}
+
+.wrap{max-width:1240px;margin:0 auto;padding:18px 22px}
+
+.notice{display:flex;gap:10px;align-items:flex-start;background:var(--warn-soft);border:1px solid #F0DBB4;border-radius:var(--r-md);padding:10px 14px;margin-bottom:16px;color:#7A5210;font-size:12px;line-height:1.7}
+.notice b{color:#6B4408}
+
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:16px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);padding:14px 16px;box-shadow:var(--shadow-1)}
+.kpi .label{font-size:12px;color:var(--ink-3);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.kpi .label .ic{width:18px;height:18px;border-radius:5px;display:grid;place-items:center;font-size:10px}
+.kpi .val{font-size:26px;font-weight:800;letter-spacing:-.02em}
+.kpi .sub{font-size:11px;color:var(--ink-3);margin-top:4px}
+
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:7fr 5fr}
+.g2b{grid-template-columns:1fr 1fr}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-1);padding:16px 18px;margin-bottom:14px}
+.panel h2{font-size:14px;font-weight:700;margin-bottom:2px}
+.panel .desc{font-size:11px;color:var(--ink-3);margin-bottom:10px}
+.chart{width:100%}
+
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{text-align:left;color:var(--ink-3);font-weight:600;padding:7px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:7px 8px;border-bottom:1px solid #EEF1F8;color:var(--ink-2)}
+td.r,th.r{text-align:right}
+tr:hover td{background:var(--brand-soft)}
+.mono{font-family:var(--mono);font-size:11px;color:var(--brand-2)}
+.tag{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600}
+.tag.official{background:var(--warn-soft);color:var(--warn)}
+.tag.internal{background:var(--violet-soft);color:var(--violet)}
+.tag.natural{background:var(--up-soft);color:var(--up)}
+.tag.beta{background:var(--cyan-soft);color:var(--cyan)}
+
+.timeline{position:relative;padding-left:22px;margin-top:8px}
+.timeline::before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:2px;background:var(--line);border-radius:2px}
+.tl-item{position:relative;padding:0 0 14px 8px}
+.tl-item::before{content:"";position:absolute;left:-20px;top:5px;width:10px;height:10px;border-radius:50%;background:var(--brand-2);border:2px solid #fff;box-shadow:0 0 0 2px var(--brand-soft)}
+.tl-item.conv::before{background:var(--up)}
+.tl-item .t{font-weight:700;font-size:12px;color:var(--ink)}
+.tl-item .d{font-size:12px;color:var(--ink-2);line-height:1.7;margin-top:2px}
+
+.foot{font-size:11px;color:var(--ink-3);text-align:center;margin-top:18px;line-height:1.8}
+@media (max-width:900px){.kpis{grid-template-columns:repeat(2,1fr)}.g2,.g2b{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div id="topbar">
+  <div class="mark">AI</div>
+  <h1>微信小微 × 且慢 AI Agent 用户行为与转化分析</h1>
+  <span class="range">2026-07-17（内测起点）~ 2026-09-10 15:36</span>
+  <div class="sp"></div>
+  <span class="src">数据源：神策 qiemanproduction + 生产 TiDB 身份核验（查询时刻 2026-09-10）</span>
+</div>
+
+<div class="wrap">
+
+  <div class="notice">
+    <span>⚠️</span>
+    <div>
+      <b>解读前提：本项目仍处内测/灰度阶段，非自然流量。</b>
+      头部两个账号贡献 61% 调用量；37 人中 31 人是仅访问一次即离开的匿名访客。正式渠道 <b>qm-wechat-agent-20260817</b> 于 08-17 建立，此前（07-17~08-16）为内测期数据。所有转化分析必须在这个前提下解读。
+    </div>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi">
+      <div class="label"><span class="ic" style="background:var(--brand-soft);color:var(--brand-2)">人</span>去重用户数</div>
+      <div class="val num" style="color:var(--brand-2)">37</div>
+      <div class="sub">6 实名登录 + 31 匿名设备访客</div>
+    </div>
+    <div class="kpi">
+      <div class="label"><span class="ic" style="background:var(--warn-soft);color:var(--warn)">内</span>内部/官方账号</div>
+      <div class="val num" style="color:var(--warn)">3</div>
+      <div class="sub">官方运营号 + 产品经理 + 社区助理</div>
+    </div>
+    <div class="kpi">
+      <div class="label"><span class="ic" style="background:var(--brand-soft);color:var(--brand-2)">落</span>Agent 落地次数</div>
+      <div class="val num" style="color:var(--brand-2)">2,882</div>
+      <div class="sub">wechat_agent_landing · 人均 77.9 次</div>
+    </div>
+    <div class="kpi">
+      <div class="label"><span class="ic" style="background:var(--violet-soft);color:var(--violet)">原</span>原子接口调用</div>
+      <div class="val num" style="color:var(--violet)">3,783</div>
+      <div class="sub">已剔除 11 条手工测试 · 人均 102.2 次</div>
+    </div>
+    <div class="kpi">
+      <div class="label"><span class="ic" style="background:var(--down-soft);color:var(--down)">败</span>接口调用失败率</div>
+      <div class="val num" style="color:var(--down)">3.9%</div>
+      <div class="sub">147 / 3,783</div>
+    </div>
+    <div class="kpi">
+      <div class="label"><span class="ic" style="background:var(--up-soft);color:var(--up)">转</span>自然用户交易转化</div>
+      <div class="val num" style="color:var(--up)">1 / 3</div>
+      <div class="sub">黄** 首用次日发起交易（存量重组）</div>
+    </div>
+  </div>
+
+  <div class="grid g2">
+    <div class="panel" style="margin-bottom:0">
+      <h2>实名登录用户清单（6 人）</h2>
+      <div class="desc">身份经生产库 portfolio_manager_info（broker_code=0008）+ 社区认证表核验；3 人为内部/官方账号</div>
+      <table>
+        <thead><tr><th>userId</th><th>姓氏</th><th>社区认证身份</th><th class="r">landing</th><th class="r">调用</th><th>活跃区间</th><th>性质</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">1947092</td><td>孙**</td><td>「小助理」官方 level 2</td><td class="r num">1,014</td><td class="r num">913</td><td>08-25 ~ 09-10</td><td><span class="tag official">官方运营账号</span></td></tr>
+          <tr><td class="mono">8775775</td><td>冯**</td><td>无</td><td class="r num">743</td><td class="r num">683</td><td>08-06 ~ 09-04</td><td><span class="tag natural">自然用户</span></td></tr>
+          <tr><td class="mono">1820872</td><td>何**</td><td>无</td><td class="r num">179</td><td class="r num">163</td><td>09-02 ~ 09-07</td><td><span class="tag natural">自然用户</span></td></tr>
+          <tr><td class="mono">1353908</td><td>黄**</td><td>level 0</td><td class="r num">79</td><td class="r num">69</td><td>09-01 单日</td><td><span class="tag natural">自然用户</span></td></tr>
+          <tr><td class="mono">881285</td><td>李**</td><td>「且慢产品经理」level 2</td><td class="r num">8</td><td class="r num">7</td><td>09-09 ~ 09-10</td><td><span class="tag internal">内部账号</span></td></tr>
+          <tr><td class="mono">1248587</td><td>吴**</td><td>「社区助理」level 2</td><td class="r num">2</td><td class="r num">2</td><td>09-04 / 09-07</td><td><span class="tag internal">内部账号</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="panel" style="margin-bottom:0">
+      <h2>用户构成与集中度</h2>
+      <div class="desc">userId 1947092 一人占调用量 24%，TOP2 占 61%，TOP4 占 87%</div>
+      <div id="chart-users" class="chart" style="height:280px"></div>
+    </div>
+  </div>
+  <div style="height:14px"></div>
+
+  <div class="panel">
+    <h2>匿名设备访客（31 人）</h2>
+    <div class="desc">未登录、以复合设备 ID 识别；内测期（07-17~08-16）15 人，正式期 23 人，跨期 1 人（8775775）</div>
+    <table>
+      <thead><tr><th>匿名设备 ID（截断）</th><th class="r">landing 次数</th><th>活跃区间</th><th>期别</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">…6816700-06cc536fe1a8c54-18687880</td><td class="r num">628</td><td>07-18 ~ 07-27</td><td><span class="tag beta">内测期</span></td></tr>
+        <tr><td class="mono">…8940672-0ee34acc60ebfb8-22196980</td><td class="r num">87</td><td>07-22 ~ 07-23</td><td><span class="tag beta">内测期</span></td></tr>
+        <tr><td class="mono">…4873971-07def00e9bc6f8c-19841509</td><td class="r num">50</td><td>07-17</td><td><span class="tag beta">内测期</span></td></tr>
+        <tr><td class="mono">…8206961-0819cb0b4ebb3e-87835983</td><td class="r num">37</td><td>07-17</td><td><span class="tag beta">内测期</span></td></tr>
+        <tr><td class="mono">…4346707-015924bb61d5b84-29572492</td><td class="r num">6</td><td>08-24 ~ 09-09</td><td><span class="tag natural">正式期</span></td></tr>
+        <tr><td class="mono">…7804698-05c732eb47fd30c-32841063</td><td class="r num">4</td><td>07-22 ~ 07-24</td><td><span class="tag beta">内测期</span></td></tr>
+        <tr><td>其余 25 个设备</td><td class="r num">各 1~4 次</td><td>零星访问</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid g2b">
+    <div class="panel" style="margin-bottom:0">
+      <h2>原子接口调用分布 TOP</h2>
+      <div class="desc">wechat_agent_atomic_api_call · 其余接口（持仓/自选/分红/行情等）合计约 600 次</div>
+      <div id="chart-api" class="chart" style="height:300px"></div>
+    </div>
+    <div class="panel" style="margin-bottom:0">
+      <h2>Skill 维度调用分布</h2>
+      <div class="desc">fund-explorer 与 strategy-explorer 合计占 77.6%</div>
+      <div id="chart-skill" class="chart" style="height:300px"></div>
+    </div>
+  </div>
+  <div style="height:14px"></div>
+
+  <div class="panel">
+    <h2>行为路径分析｜调用前 → 调用中 → 调用后</h2>
+    <div class="desc">自然用户首用 Agent 前的主行为画像（神策全事件），与 Agent 回答后的落地目标页分布</div>
+    <div class="grid g2">
+      <div>
+        <table>
+          <thead><tr><th>用户</th><th>Agent 前行为画像</th></tr></thead>
+          <tbody>
+            <tr><td class="mono" style="white-space:nowrap">8775775 冯**</td><td>投顾页、保险首页、四笔钱（m4）、基金详情浏览——<b>内容浏览型</b>；注册(06-16) → 风测+开户(08-04) → 首用 Agent(08-06) 时间紧邻，或与内测邀约相关</td></tr>
+            <tr><td class="mono" style="white-space:nowrap">1820872 何**</td><td>基金详情、搜索页、设置页——<b>基金研究型</b></td></tr>
+            <tr><td class="mono" style="white-space:nowrap">1353908 黄**</td><td>超级入口(AI小顾)、纳指管家、估值指数买入、QDII 额度管家——<b>工具/行情重度用户</b>，日访问量极大</td></tr>
+          </tbody>
+        </table>
+        <div style="font-size:12px;color:var(--ink-2);line-height:1.8;margin-top:10px">
+          <b>典型路径：</b>对话查基金/策略 → 点击卡片 → 落地详情页继续浏览。<br>
+          <b>高频落地标的：</b>长赢 LONG_WIN、SI000153、005827（债基优等生）、ZH000082。<br>
+          <b>调用后：</b>1353908 首用次日发起密集资产重组（见下方时间线）；8775775、1820872 用后未见新交易行为；1947092（官方号）持续高强度使用，用于运营测试。
+        </div>
+      </div>
+      <div>
+        <div id="chart-landing" class="chart" style="height:280px"></div>
+        <div style="font-size:11px;color:var(--ink-3);margin-top:4px">落地目标页分布（约值）· 来源：wechat_agent_landing 落地目标页字段</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid g2">
+    <div class="panel" style="margin-bottom:0">
+      <h2>转化分析</h2>
+      <div class="desc">注册 / 开户 / 绑卡 / 交易四类转化事件核查（神策全事件 + 交易流水）</div>
+      <table>
+        <thead><tr><th>转化类型</th><th>结果</th><th class="r">转化率</th></tr></thead>
+        <tbody>
+          <tr><td>注册</td><td>0 —— 6 个实名用户全部先注册后用 Agent；31 个匿名设备均未注册</td><td class="r num">0 / 37</td></tr>
+          <tr><td>开户</td><td>0 —— 6 人开户时间均早于 Agent 首用</td><td class="r num">0 / 37</td></tr>
+          <tr><td>绑卡</td><td>0 —— 无 add_card_success 事件</td><td class="r num">0 / 37</td></tr>
+          <tr style="background:var(--up-soft)"><td><b>交易/申购（Agent 后发起）</b></td><td><b>1 人（1353908 黄**，自然用户）</b></td><td class="r num"><b>自然 1/3 · 全量 2.7%</b></td></tr>
+        </tbody>
+      </table>
+      <div style="font-size:12px;color:var(--ink-2);line-height:1.8;margin-top:10px;background:var(--gold-soft);border:1px solid #EBD9AE;border-radius:var(--r-md);padding:10px 12px">
+        <b>客观定性：</b>该用户为 2020 年注册的存量活跃老客，交易属<b>存量资产重组</b>（卖旧买新 + 跟车），不能算 Agent 拉新转化的标准案例。另 8775775 的开户（08-04）仅早于首用 Agent（08-06）2 天，或与内测邀约相关，埋点无法建立因果。
+      </div>
+    </div>
+    <div class="panel" style="margin-bottom:0">
+      <h2>重点转化案例时间线｜userId 1353908 黄**</h2>
+      <div class="desc">首用 Agent 47 分钟密集浏览 → 次日资产大重组 → 持续定投</div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="t">09-01 17:52 ~ 18:39 · 首用 Agent</div>
+          <div class="d">47 分钟内 79 次落地，密集浏览基金详情页（005827 债基优等生、008887、003095、519185 等）+ 估值指数买入页</div>
+        </div>
+        <div class="tl-item conv">
+          <div class="t">09-02 13:33 ~ 13:41 · 次日午后发起资产大重组</div>
+          <div class="d">多笔基金卖出（兴全安泰平衡养老等）→ <b>长赢 150 份跟车 400 元</b> → 花好月圆 / 南方梦想佳 / 马拉松固收 / 我要稳稳的幸福 / 货币三佳 / 幸福小约定 / 超级理财加等 7 个策略集中转出</div>
+        </div>
+        <div class="tl-item conv">
+          <div class="t">09-03 · 创建组合定投</div>
+          <div class="d">重组完成后设置定投计划</div>
+        </div>
+        <div class="tl-item conv">
+          <div class="t">09-10 · 纳指定投组合申购 100 元</div>
+          <div class="d">定投计划持续执行中</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="height:14px"></div>
+
+  <div class="panel">
+    <h2>数据口径与来源</h2>
+    <div class="desc">两个埋点事件口径均经 meow / nova 源码核实</div>
+    <table>
+      <thead><tr><th>口径项</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td style="white-space:nowrap"><b>用户数口径</b></td><td><span class="mono">wechat_agent_landing</span>（nova 小程序端上报）：distinct_id 为神策用户 ID；仅 handoff URL 带 <span class="mono">referrer=wechatAgent</span> 时上报</td></tr>
+        <tr><td style="white-space:nowrap"><b>调用量口径</b></td><td><span class="mono">wechat_agent_atomic_api_call</span>（meow 服务端上报）：distinct_id 为 traceId（技术链路 ID，非用户）；两事件按 trace_id 关联，匹配率 69.3%</td></tr>
+        <tr><td style="white-space:nowrap"><b>身份核验</b></td><td>生产库 <span class="mono">ying99_pomodel.portfolio_manager_info</span>（broker_code=0008）+ <span class="mono">ying99_community.community_user_level</span></td></tr>
+        <tr><td style="white-space:nowrap"><b>剔除项</b></td><td><span class="mono">codex-*</span> 手工测试 traceId 共 11 条</td></tr>
+        <tr><td style="white-space:nowrap"><b>已知局限</b></td><td>① 对话原文不在我方系统（在微信侧 LLM 完成），无法分析提问内容；② meow 埋点 fire-and-forget，约 6% 丢失；③ 07-17 ~ 08-16 为内测期数据（正式渠道 08-17 建立）</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="foot">
+    数据来源：神策 qiemanproduction · rawdata.events（wechat_agent_landing / wechat_agent_atomic_api_call 全量明细 2026-07-17 ~ 09-10）+ 生产 TiDB 身份核验<br>
+    盈米本体下钻 68 轮 / 46 次工具调用 · 口径经源码核实 · Clair's Studio
+  </div>
+
+</div>
+
+<script>
+const C = {
+  brand:"#12558C", brandL:"#2E7FC4", violet:"#6D5BD0", up:"#0E9F6E",
+  gold:"#B98A2F", cyan:"#0E8FA8", down:"#E5484D", ink3:"#7A86A3", line:"#E4E8F2"
+};
+const baseTxt = {color:"#3D4A68", fontSize:11};
+
+/* 用户构成：调用量集中度 */
+(function(){
+  const el = document.getElementById("chart-users");
+  const ch = echarts.init(el);
+  ch.setOption({
+    tooltip:{trigger:"item",formatter:"{b}<br/>调用 {c} 次（{d}%）"},
+    legend:{bottom:0,textStyle:baseTxt,itemWidth:12,itemHeight:8},
+    series:[{
+      type:"pie", radius:["42%","68%"], center:["50%","44%"],
+      label:{show:true,formatter:"{b}\n{d}%",fontSize:10,color:"#3D4A68"},
+      data:[
+        {name:"1947092 官方运营号",value:913,itemStyle:{color:C.gold}},
+        {name:"8775775 冯**",value:683,itemStyle:{color:C.brand}},
+        {name:"1820872 何**",value:163,itemStyle:{color:C.brandL}},
+        {name:"1353908 黄**",value:69,itemStyle:{color:C.up}},
+        {name:"内部账号×2",value:9,itemStyle:{color:C.violet}},
+        {name:"匿名设备×31",value:1946,itemStyle:{color:"#B9C4D8"}}
+      ]
+    }]
+  });
+  window.addEventListener("resize",()=>ch.resize());
+})();
+
+/* 接口调用分布 */
+(function(){
+  const el = document.getElementById("chart-api");
+  const ch = echarts.init(el);
+  const data = [
+    ["getFundDetail",881],["getStrategyOverview",617],["searchStrategy",491],
+    ["getAdvisorContent",405],["searchFund",312],["guessFundCode",287],
+    ["getMyProfit",151],["其余接口合计",639]
+  ].reverse();
+  ch.setOption({
+    grid:{left:8,right:44,top:8,bottom:8,containLabel:true},
+    xAxis:{type:"value",axisLabel:baseTxt,splitLine:{lineStyle:{color:C.line}}},
+    yAxis:{type:"category",data:data.map(d=>d[0]),axisLabel:{...baseTxt,fontFamily:"Menlo,monospace"}},
+    tooltip:{trigger:"axis",axisPointer:{type:"shadow"}},
+    series:[{type:"bar",data:data.map((d,i)=>({value:d[1],itemStyle:{color:d[0]==="其余接口合计"?"#B9C4D8":C.brandL,borderRadius:[0,4,4,0]}})),barWidth:14,label:{show:true,position:"right",fontSize:11,color:"#3D4A68"}}]
+  });
+  window.addEventListener("resize",()=>ch.resize());
+})();
+
+/* Skill 分布 */
+(function(){
+  const el = document.getElementById("chart-skill");
+  const ch = echarts.init(el);
+  ch.setOption({
+    tooltip:{trigger:"item",formatter:"{b}<br/>{c} 次（{d}%）"},
+    legend:{bottom:0,textStyle:baseTxt,itemWidth:12,itemHeight:8},
+    series:[{
+      type:"pie", radius:["42%","68%"], center:["50%","44%"],
+      label:{show:true,formatter:"{b}\n{d}%",fontSize:10,color:"#3D4A68"},
+      data:[
+        {name:"fund-explorer",value:1727,itemStyle:{color:C.brand}},
+        {name:"strategy-explorer",value:1207,itemStyle:{color:C.brandL}},
+        {name:"market-content",value:405,itemStyle:{color:C.violet}},
+        {name:"account-center",value:261,itemStyle:{color:C.cyan}},
+        {name:"market-insight",value:87,itemStyle:{color:C.gold}},
+        {name:"fund-trading",value:80,itemStyle:{color:C.up}}
+      ]
+    }]
+  });
+  window.addEventListener("resize",()=>ch.resize());
+})();
+
+/* 落地页分布 */
+(function(){
+  const el = document.getElementById("chart-landing");
+  const ch = echarts.init(el);
+  const data = [["基金详情页",620],["策略/组合详情页",550],["搜索结果页",300],["长赢页",200],["社区内容页",150],["基金经理页",100]].reverse();
+  ch.setOption({
+    grid:{left:8,right:44,top:8,bottom:8,containLabel:true},
+    xAxis:{type:"value",axisLabel:baseTxt,splitLine:{lineStyle:{color:C.line}}},
+    yAxis:{type:"category",data:data.map(d=>d[0]),axisLabel:baseTxt},
+    tooltip:{trigger:"axis",axisPointer:{type:"shadow"}},
+    series:[{type:"bar",data:data.map(d=>d[1]),barWidth:16,itemStyle:{color:C.violet,borderRadius:[0,4,4,0]},label:{show:true,position:"right",fontSize:11,color:"#3D4A68"}}]
+  });
+  window.addEventListener("resize",()=>ch.resize());
+})();
+</script>
+</body>
+</html>

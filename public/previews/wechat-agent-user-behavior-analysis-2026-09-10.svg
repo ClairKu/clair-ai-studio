@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">微信小微 × 且慢 AI Agent 用户行为与转化分析</title>
+  <desc id="desc">用户清单、调用分布、行为路径与转化：37 人 / 3783 次调用 / 1 例交易转化</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0E3A5D"/><stop offset=".55" stop-color="#0B2D4A"/><stop offset="1" stop-color="#152447"/></linearGradient>
+    <linearGradient id="headline" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#F6FBFF"/><stop offset=".5" stop-color="#8FC9F5"/><stop offset="1" stop-color="#C4BBEB"/></linearGradient>
+    <linearGradient id="barA" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#2E7FC4"/><stop offset="1" stop-color="#6FB4E8"/></linearGradient>
+    <linearGradient id="barB" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#6D5BD0"/><stop offset="1" stop-color="#A99AF0"/></linearGradient>
+    <radialGradient id="g1"><stop stop-color="#2E7FC4" stop-opacity=".4"/><stop offset="1" stop-color="#2E7FC4" stop-opacity="0"/></radialGradient>
+    <radialGradient id="g2"><stop stop-color="#8F7BE8" stop-opacity=".35"/><stop offset="1" stop-color="#8F7BE8" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1200" height="675" rx="30" fill="url(#bg)"/>
+  <circle cx="110" cy="90" r="300" fill="url(#g1)"/><circle cx="1100" cy="590" r="360" fill="url(#g2)"/>
+  <g opacity=".1" stroke="#A8C2D8"><path d="M0 112H1200M0 224H1200M0 336H1200M0 448H1200M0 560H1200"/><path d="M150 0V675M300 0V675M450 0V675M600 0V675M750 0V675M900 0V675M1050 0V675"/></g>
+  <g transform="translate(68 54)" font-family="Arial, 'PingFang SC', sans-serif">
+    <rect width="360" height="34" rx="17" fill="#0F2A44" stroke="#2C526C"/><circle cx="19" cy="17" r="5" fill="#56E5AE"/><text x="34" y="22" fill="#B8D2E5" font-size="13" letter-spacing="2">USER BEHAVIOR &amp; CONVERSION</text>
+    <text y="96" fill="url(#headline)" font-size="54" font-weight="800">微信小微 × AI Agent 用户行为分析</text>
+    <text y="140" fill="#9FBBD4" font-size="21">用户清单 · 调用分布 · 行为路径 · 转化追踪　2026-07-17 ~ 09-10（内测/灰度期）</text>
+  </g>
+  <g transform="translate(68 260)" font-family="Arial, 'PingFang SC', sans-serif">
+    <g><rect width="245" height="118" rx="16" fill="#10304E" stroke="#28506F"/><text x="22" y="36" fill="#8FB4D2" font-size="15">去重用户</text><text x="22" y="86" fill="#8FC9F5" font-size="42" font-weight="800">37 人</text></g>
+    <g transform="translate(263)"><rect width="245" height="118" rx="16" fill="#161F45" stroke="#3B3F73"/><text x="22" y="36" fill="#A9A3D6" font-size="15">原子接口调用</text><text x="22" y="86" fill="#C4BBEB" font-size="42" font-weight="800">3,783 次</text></g>
+    <g transform="translate(526)"><rect width="245" height="118" rx="16" fill="#10304E" stroke="#28506F"/><text x="22" y="36" fill="#8FB4D2" font-size="15">Agent 落地</text><text x="22" y="86" fill="#E9D9A8" font-size="42" font-weight="800">2,882 次</text></g>
+    <g transform="translate(789)"><rect width="245" height="118" rx="16" fill="#0F3A31" stroke="#1F5F50"/><text x="22" y="36" fill="#8FCDB8" font-size="15">自然用户交易转化</text><text x="22" y="86" fill="#56E5AE" font-size="42" font-weight="800">1 / 3</text></g>
+  </g>
+  <g transform="translate(68 430)">
+    <rect width="1034" height="190" rx="16" fill="#0D2740" stroke="#234A68"/>
+    <g transform="translate(30 24)" font-family="Arial, 'PingFang SC', sans-serif">
+      <text fill="#8FB4D2" font-size="14" y="4">调用量集中度（TOP2 占 61%）与转化路径</text>
+      <g transform="translate(0 26)" font-size="13">
+        <text fill="#9FBBD4" y="11">官方运营号 1947092</text><rect x="160" y="1" width="240" height="13" rx="6" fill="url(#barB)"/><text x="412" y="12" fill="#C4BBEB" font-weight="700">913</text>
+        <text fill="#9FBBD4" y="39">冯** 8775775</text><rect x="160" y="29" width="180" height="13" rx="6" fill="url(#barA)"/><text x="352" y="40" fill="#8FC9F5" font-weight="700">683</text>
+        <text fill="#9FBBD4" y="67">何** 1820872</text><rect x="160" y="57" width="43" height="13" rx="6" fill="url(#barA)"/><text x="215" y="68" fill="#8FC9F5" font-weight="700">163</text>
+        <text fill="#9FBBD4" y="95">黄** 1353908</text><rect x="160" y="85" width="18" height="13" rx="6" fill="#2C9A72"/><text x="190" y="96" fill="#56E5AE" font-weight="700">69 → 次日交易</text>
+        <text fill="#9FBBD4" y="123">匿名设备 ×31</text><rect x="160" y="113" width="130" height="13" rx="6" fill="#3C5A78"/><text x="302" y="124" fill="#9FBBD4" font-weight="700">1,946</text>
+      </g>
+      <g transform="translate(540 26)" font-size="14">
+        <rect width="440" height="126" rx="12" fill="#0F3A31" stroke="#1F5F50" opacity=".9"/>
+        <text x="20" y="30" fill="#8FCDB8">转化案例：黄** 首用 47 分钟浏览 79 次</text>
+        <text x="20" y="60" fill="#56E5AE" font-weight="700">次日资产大重组：长赢跟车 + 7 策略转出</text>
+        <text x="20" y="90" fill="#8FCDB8">09-03 创建定投 → 09-10 纳指组合申购</text>
+        <text x="20" y="114" fill="#6E9C8C" font-size="12">定性：存量老客资产重组，非拉新转化</text>
+      </g>
+    </g>
+  </g>
+  <text x="1132" y="648" text-anchor="end" fill="#6E8CA6" font-size="14" font-family="Arial, 'PingFang SC', sans-serif">神策 + 生产 TiDB · 盈米本体下钻 68 轮 · Clair's Studio</text>
+</svg>
