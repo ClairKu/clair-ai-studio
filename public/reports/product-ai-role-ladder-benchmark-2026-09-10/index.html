@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="light dark" />
-  <title>产品与 AI 产品岗位职级能力标准｜海内外金融与互联网标杆研究</title>
-  <meta name="description" content="基于官方能力框架、监管原文与海内外金融及互联网企业招聘样本，构建可用于招聘、定级、晋升和培养的产品与AI产品双轨职级体系。" />
+  <title>产品、AI 产品与视觉设计任职资格标准｜2026 重构版</title>
+  <meta name="description" content="基于两份现行任职资格表与31项海内外官方来源，重构IC1–IC7产品、AI产品和视觉设计AI能力标准，并提供可直接用于定级、晋升与校准的Excel工具。" />
   <style>
     :root{--bg:#f4f3ee;--paper:#fffdf8;--ink:#1c2624;--muted:#64706d;--line:#d9ddd5;--green:#0e6655;--green2:#13473f;--mint:#dcefe8;--orange:#ef8d42;--amber:#fff0d4;--blue:#2d638f;--bluebg:#e7f0f8;--red:#a64338;--redbg:#f9e7e3;--shadow:0 18px 50px rgba(24,45,40,.08);--radius:20px}
     *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:92px}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}a{color:var(--green);text-underline-offset:3px}button{font:inherit}.wrap{width:min(1180px,calc(100% - 36px));margin:auto}.topbar{position:sticky;top:0;z-index:30;background:rgba(244,243,238,.9);backdrop-filter:blur(18px);border-bottom:1px solid rgba(28,38,36,.1)}.topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px}.brand{font-weight:800;letter-spacing:-.02em}.nav{display:flex;gap:6px;overflow:auto;scrollbar-width:none}.nav a,.action{white-space:nowrap;border:0;border-radius:999px;padding:8px 12px;color:var(--ink);background:transparent;text-decoration:none}.nav a:hover,.action:hover{background:var(--paper)}.action{cursor:pointer;border:1px solid var(--line);background:var(--paper)}
@@ -13,7 +13,7 @@
     main{padding:28px 0 80px}.section{margin:26px 0 58px}.section-head{display:grid;grid-template-columns:260px 1fr;gap:30px;margin-bottom:24px}.kicker{font-size:13px;font-weight:800;letter-spacing:.1em;color:var(--orange);text-transform:uppercase}.section h2{font-size:clamp(28px,4vw,46px);line-height:1.12;letter-spacing:-.035em;margin:6px 0 10px}.section-intro{font-size:18px;color:var(--muted);max-width:780px}.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.verdict{border-left:6px solid var(--green);background:linear-gradient(135deg,var(--paper),#eef7f3);padding:28px}.verdict h3{font-size:26px;margin:0 0 10px}.bigquote{font-size:clamp(22px,3vw,34px);line-height:1.35;letter-spacing:-.02em;margin:0}.note{color:var(--muted);font-size:14px}.warn{border-color:#e8b4ac;background:var(--redbg)}.good{border-color:#b8d7cd;background:#eef7f3}.amber{background:var(--amber);border-color:#eed5aa}.blue{background:var(--bluebg);border-color:#c6d9e8}.card h3{margin:0 0 10px;font-size:20px}.card h4{margin:16px 0 6px}.card p:last-child{margin-bottom:0}.number{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--green);color:white;font-weight:800;margin-bottom:14px}
     .evidence-legend{display:flex;flex-wrap:wrap;gap:10px}.grade{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:700}.grade i{display:grid;place-items:center;width:24px;height:24px;border-radius:7px;font-style:normal;color:white}.ga i{background:#0e6655}.gb i{background:#2d638f}.gc i{background:#8a682f}.gd i{background:#8a4e47}
     .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:18px;background:var(--paper);box-shadow:var(--shadow)}table{width:100%;border-collapse:collapse;min-width:820px;font-size:14px}th,td{padding:14px 16px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{position:sticky;top:68px;background:#e9eee9;color:var(--green2);font-size:12px;letter-spacing:.04em;text-transform:uppercase;z-index:2}tr:last-child td{border-bottom:0}.level{font-weight:850;color:var(--green)}.tag{display:inline-block;padding:3px 8px;margin:2px;border-radius:999px;background:#edf1ed;font-size:12px;color:#42504d}.tag.ai{background:var(--bluebg);color:var(--blue)}.tag.risk{background:var(--redbg);color:var(--red)}.tag.biz{background:var(--amber);color:#7b561c}
-    .ladder{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;align-items:end}.rung{padding:16px 12px;border-radius:16px 16px 7px 7px;background:linear-gradient(180deg,#e7f3ee,#c8e2d8);border:1px solid #b5d2c7;min-height:var(--h);display:flex;flex-direction:column;justify-content:flex-end}.rung:nth-child(4),.rung:nth-child(5),.rung:nth-child(6){background:linear-gradient(180deg,#fff1d9,#f5d5a9);border-color:#e7c48e}.rung b{font-size:18px}.rung small{color:var(--muted)}
+    .ladder{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;align-items:end}.rung{padding:16px 12px;border-radius:16px 16px 7px 7px;background:linear-gradient(180deg,#e7f3ee,#c8e2d8);border:1px solid #b5d2c7;min-height:var(--h);display:flex;flex-direction:column;justify-content:flex-end}.rung:nth-child(n+4){background:linear-gradient(180deg,#fff1d9,#f5d5a9);border-color:#e7c48e}.rung b{font-size:18px}.rung small{color:var(--muted)}
     .tabs,.filters{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}.tab,.filter{border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:999px;padding:8px 13px;cursor:pointer}.tab.active,.filter.active{background:var(--green);border-color:var(--green);color:white}.panel{display:none}.panel.active{display:block}.company-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.company{transition:.18s}.company.hidden{display:none}.company-top{display:flex;justify-content:space-between;gap:12px}.company .origin{font-size:12px;color:var(--muted)}.company ul{padding-left:18px;margin-bottom:0}.source-links{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);font-size:13px}.source-links a{margin-right:9px}
     .radar{display:grid;grid-template-columns:220px 1fr;gap:20px}.bars{display:grid;gap:12px}.bar{display:grid;grid-template-columns:160px 1fr 38px;gap:10px;align-items:center}.track{height:10px;border-radius:99px;background:#e4e7e2;overflow:hidden}.fill{height:100%;width:calc(var(--v)*1%);background:linear-gradient(90deg,var(--green),var(--orange));border-radius:99px}.bar b{font-size:12px;text-align:right}.weight-set{display:none}.weight-set.active{display:grid}
     .gate{display:flex;gap:14px;align-items:flex-start}.gate-icon{flex:0 0 42px;height:42px;border-radius:12px;display:grid;place-items:center;background:var(--redbg);color:var(--red);font-weight:900}.timeline{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.timeline:before{content:"";position:absolute;top:25px;left:12%;right:12%;height:2px;background:var(--line)}.phase{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:18px;margin-top:0}.phase .week{display:inline-grid;place-items:center;min-width:56px;height:34px;border-radius:999px;background:var(--green);color:white;font-weight:800;position:relative;z-index:2}.phase ul{padding-left:18px}
@@ -29,7 +29,7 @@
     <div class="wrap">
       <div class="brand">CLAIR · ORGANIZATION RESEARCH</div>
       <nav class="nav" aria-label="报告目录">
-        <a href="#conclusion">结论</a><a href="#source-levels">等级原文</a><a href="#evidence">样本</a><a href="#ladder">职级</a><a href="#competency">能力</a><a href="#ai">AI 专项</a><a href="#finance">金融门槛</a><a href="#apply">落地</a><a href="#sources">原始材料</a>
+        <a href="#conclusion">结论</a><a href="#current">现状诊断</a><a href="#source-levels">等级原文</a><a href="#evidence">样本</a><a href="#ladder">职级</a><a href="#competency">能力</a><a href="#ai">AI 产品</a><a href="#design-ai">视觉 AI</a><a href="#finance">金融门槛</a><a href="#apply">落地</a><a href="#sources">原始材料</a>
       </nav>
       <button class="action" type="button" onclick="window.print()">打印 / PDF</button>
     </div>
@@ -38,14 +38,14 @@
   <section class="hero">
     <div class="wrap">
       <div class="eyebrow"><span class="dot"></span> Deep Research · 截止 2026-09-10</div>
-      <h1>产品与 AI 产品岗位<br>职级能力标准体系</h1>
-      <p class="lead">参考海内外互联网、AI 原生公司、金融机构及公共职业框架，不做 title 搬运，而是把公开证据转化为一套可用于<strong>招聘、定级、晋升、盘点与培养</strong>的行为标准。重点回答：什么是“下一职级”，AI 产品究竟多了什么，金融场景为什么必须另设硬门槛。</p>
-      <div class="meta"><span class="chip">研究对象：产品 / AI 产品 / 金融 AI 产品</span><span class="chip">资料：官方框架、监管原文、官方招聘</span><span class="chip">适用：金融科技与财富管理组织</span><span class="chip">证据边界：公开资料 ≠ 内部职级表</span></div>
+      <h1>产品、AI 产品与视觉设计<br>任职资格标准 · 2026 重构版</h1>
+      <p class="lead">以现行两份产品与视觉设计任职资格表为基线，对照海内外互联网、AI 原生公司、金融机构及公共职业框架，重写成可用于<strong>招聘、定级、晋升、盘点与培养</strong>的 IC1–IC7 行为标准，并配套可直接评分的 Excel 工具。</p>
+      <div class="meta"><span class="chip">内部基线：产品 + 视觉设计</span><span class="chip">外部依据：31 项官方框架 / 监管 / 招聘</span><span class="chip">适用：产品 / AI 产品 / 金融 AI 产品 / 视觉设计</span><span class="chip">隐私边界：不公开上传内部原表</span></div>
       <div class="hero-grid">
-        <div class="stat"><b>31</b><span>项核心原始来源</span></div>
-        <div class="stat"><b>18</b><span>家公司 / 公共框架</span></div>
-        <div class="stat"><b>6</b><span>级统一产品职级</span></div>
-        <div class="stat"><b>3</b><span>层能力：通用 × AI × 金融</span></div>
+        <div class="stat"><b>2</b><span>份现行内部标准诊断</span></div>
+        <div class="stat"><b>31</b><span>项公开原始来源</span></div>
+        <div class="stat"><b>7</b><span>级 IC 责任阶梯</span></div>
+        <div class="stat"><b>3</b><span>套矩阵：产品 × AI 产品 × 视觉 AI</span></div>
       </div>
     </div>
   </section>
@@ -72,8 +72,34 @@
       </div>
     </section>
 
+    <section class="section" id="current">
+      <div class="section-head"><div><div class="kicker">03 / Current-state diagnosis</div><h2>两份现行标准，哪里对、哪里必须重写</h2></div><div><p class="section-intro">现行产品表的 AI 应用能力已经明显领先于传统能力描述，视觉设计表的层级结构也较整齐；真正的问题不是“没有内容”，而是标准还不能稳定支持跨团队定级和晋升决策。</p><p class="note">证据边界：本节来自用户提供的两份内部工作簿结构化解析。为避免泄露，线上仅呈现归纳诊断，不上传原文件，也不逐字公开内部条文。</p></div></div>
+      <div class="grid4">
+        <article class="card good"><div class="number">1</div><h3>产品 AI 梯度值得保留</h3><p>从工具使用逐步走向 Prompt、RAG、Agent、Evals、风险治理、AI-native 与组织标准，方向完整；重写时保留主轴并改成可观察行为和证据。</p></article>
+        <article class="card warn"><div class="number">2</div><h3>IC6–IC7 传统能力缺失</h3><p>业务知识、项目、产品设计、行业风险、调研、数据、渠道与营销多在高阶留空，导致最高级只剩 AI 描述，无法解释完整产品责任。</p></article>
+        <article class="card amber"><div class="number">3</div><h3>两种 AI 能力混在一起</h3><p>“所有岗位都应会使用 AI”与“专门负责 AI 产品”不是一回事。前者进入通用产品第 11 维，后者单列 9 维专项并按角色调整权重。</p></article>
+        <article class="card blue"><div class="number">4</div><h3>IC 与管理责任串线</h3><p>专业序列中出现团队统筹和管理技能，会迫使专家靠带人证明晋升。新版只评专业影响，人员绩效、编制与继任另走管理通道。</p></article>
+        <article class="card warn"><div class="number">5</div><h3>学历年限不做硬门槛</h3><p>本科与若干年经验可作为招聘画像，不应替代内部晋升证据；晋升看是否持续承担下一层责任、形成结果并跨过风险门槛。</p></article>
+        <article class="card amber"><div class="number">6</div><h3>从“做了多少”改为“改变了什么”</h3><p>需求数、文档数、项目数只能证明活动。新版要求用户结果、业务结果、关键决策、失败复盘、风险处置和可复用资产。</p></article>
+        <article class="card warn"><div class="number">7</div><h3>金融风险不能平均掉</h3><p>原表的风险描述偏通用。新版把适当性、披露、数据权利、模型验证、人类接管、审计证据链和第三方风险设为否决项。</p></article>
+        <article class="card blue"><div class="number">8</div><h3>视觉 AI 从提效走向责任设计</h3><p>补入不确定性交互、可达性、品牌与知识产权、生成资产溯源、安全伦理和用户控制，覆盖真正 AI-native 的设计责任。</p></article>
+      </div>
+      <div class="card" style="margin-top:18px">
+        <h3>重构后的标准结构</h3>
+        <div class="table-wrap" style="box-shadow:none">
+          <table><thead><tr><th>模块</th><th>维度</th><th>适用对象</th><th>核心判断</th></tr></thead><tbody>
+            <tr><td class="level">通用产品骨架</td><td>11 维 × IC1–IC7</td><td>所有产品岗位</td><td>责任、问题、结果、影响、治理是否达到目标级</td></tr>
+            <tr><td class="level">AI 产品专项</td><td>9 维 × IC1–IC7</td><td>直接负责模型、RAG、Agent、Evals、安全或 AI 转型</td><td>是否能把非确定性系统做成可评测、可靠、安全且被采纳的产品</td></tr>
+            <tr><td class="level">视觉设计 AI 补充</td><td>7 维 × IC1–IC7</td><td>参与 AI 产品、生成式资产或设计系统的视觉 / 体验岗位</td><td>是否同时提升效率、体验质量、品牌一致性与责任设计</td></tr>
+            <tr><td class="level">证据与校准</td><td>动态权重 + 一票否决</td><td>招聘、转岗、晋升、盘点</td><td>总分达标只是必要条件；门槛失败、证据不足或仅一次性表现均不得晋升</td></tr>
+          </tbody></table>
+        </div>
+        <p style="margin-top:16px"><a class="action" href="./download/product-ai-role-ladder-standard-2026.xlsx" download>下载可评分 Excel 重构版 ↓</a></p>
+      </div>
+    </section>
+
     <section class="section" id="source-levels">
-      <div class="section-head"><div><div class="kicker">03 / Official levels translated</div><h2>官方能力等级中文译述</h2></div><div><p class="section-intro">保留官方英文等级名称，中文内容按原始定义忠实译述。需要特别区分三件事：<strong>岗位层级</strong>描述一个人负责多大的产品范围，<strong>技能成熟度</strong>描述某一项能力做到什么程度，<strong>责任等级</strong>描述整体自主性、影响力与问责范围。</p><p class="note">译述日期：2026-09-10。中文不是官方发布的授权译本；发生解释分歧时，以链接中的英文原文为准。</p></div></div>
+      <div class="section-head"><div><div class="kicker">04 / Official levels translated</div><h2>官方能力等级中文译述</h2></div><div><p class="section-intro">保留官方英文等级名称，中文内容按原始定义忠实译述。需要特别区分三件事：<strong>岗位层级</strong>描述一个人负责多大的产品范围，<strong>技能成熟度</strong>描述某一项能力做到什么程度，<strong>责任等级</strong>描述整体自主性、影响力与问责范围。</p><p class="note">译述日期：2026-09-10。中文不是官方发布的授权译本；发生解释分歧时，以链接中的英文原文为准。</p></div></div>
 
       <div class="card good">
         <h3>先把三个“等级”分开</h3>
@@ -104,11 +130,11 @@
         <table>
           <thead><tr><th>官方岗位名称</th><th>中文译述</th><th>责任范围的递进</th><th>本报告建议映射</th></tr></thead>
           <tbody>
-            <tr><td class="level">Associate Product Manager</td><td><b>助理产品经理</b></td><td>负责功能、组件或产品的一部分；在产品经理支持下管理较小产品或大型产品的功能子集，并学习产品管理方法。</td><td>P1：在指导下交付功能切片</td></tr>
-            <tr><td class="level">Product Manager</td><td><b>产品经理</b></td><td>对产品质量和价值负责；与团队制定和改进策略、战术，带领产品经历发现、开发、交付、持续改进直至退出。</td><td>P2：独立负责小产品或完整模块</td></tr>
-            <tr><td class="level">Senior Product Manager</td><td><b>高级产品经理</b></td><td>负责共享同一价值主张的一组产品，或单一但复杂、高风险、敏感的产品；按整体质量和价值决策，并可能管理较初级产品经理。</td><td>P3：复杂或高风险产品的端到端结果</td></tr>
-            <tr><td class="level">Lead Product Manager</td><td><b>产品负责人 / 领先产品经理</b></td><td>负责产品组合或端到端服务及其质量和价值；作为管理团队成员，为多个团队提供产品方向，同时管理人员、产品和高层路线图。</td><td>P4–P5：多团队平台/产品组合；是否带人决定走 IC 或管理线</td></tr>
-            <tr><td class="level">Head of Product</td><td><b>产品专业负责人</b></td><td>支持组织内全部产品经理并领导产品战略；设定和提高全组织产品管理标准，对专业社区成员的发展、绩效、流动与招聘承担责任。</td><td>P5：组织产品能力；若承担公司级 P&amp;L 和风险偏好再映射 P6</td></tr>
+            <tr><td class="level">Associate Product Manager</td><td><b>助理产品经理</b></td><td>负责功能、组件或产品的一部分；在产品经理支持下管理较小产品或大型产品的功能子集，并学习产品管理方法。</td><td>约 IC1：在指导下交付功能切片</td></tr>
+            <tr><td class="level">Product Manager</td><td><b>产品经理</b></td><td>对产品质量和价值负责；与团队制定和改进策略、战术，带领产品经历发现、开发、交付、持续改进直至退出。</td><td>约 IC2：独立负责小产品或完整模块</td></tr>
+            <tr><td class="level">Senior Product Manager</td><td><b>高级产品经理</b></td><td>负责共享同一价值主张的一组产品，或单一但复杂、高风险、敏感的产品；按整体质量和价值决策，并可能管理较初级产品经理。</td><td>约 IC3–IC4：复杂或高风险产品的端到端结果</td></tr>
+            <tr><td class="level">Lead Product Manager</td><td><b>产品负责人 / 领先产品经理</b></td><td>负责产品组合或端到端服务及其质量和价值；作为管理团队成员，为多个团队提供产品方向，同时管理人员、产品和高层路线图。</td><td>约 IC4–IC5：多团队平台 / 产品组合；带人责任另映射管理线</td></tr>
+            <tr><td class="level">Head of Product</td><td><b>产品专业负责人</b></td><td>支持组织内全部产品经理并领导产品战略；设定和提高全组织产品管理标准，对专业社区成员的发展、绩效、流动与招聘承担责任。</td><td>专业影响约 IC5–IC6；人员绩效、流动与招聘属于管理通道，不直接计入 IC 晋升</td></tr>
           </tbody>
         </table>
       </div>
@@ -120,20 +146,20 @@
         <table>
           <thead><tr><th>官方等级</th><th>建议中文</th><th>官方层级本质的中文译述</th><th>与本报告的近似关系</th></tr></thead>
           <tbody>
-            <tr><td class="level">Level 2 — Assist</td><td><b>协助</b></td><td>在常规监督下支持他人工作；可用有限判断处理常规问题，并通过培训和实际工作主动学习。</td><td>约 P1；重点是可靠协助和形成基本判断</td></tr>
-            <tr><td class="level">Level 3 — Apply</td><td><b>应用</b></td><td>使用标准方法完成多样任务，其中可能包含复杂或非常规工作；在一般指导下自主安排进度并运用判断。</td><td>约 P2；能独立管理自己的产品责任单元</td></tr>
-            <tr><td class="level">Level 4 — Enable</td><td><b>赋能</b></td><td>自主完成多种复杂专业活动，同时支持、指导他人，必要时进行任务委派；以专业能力帮助团队实现目标。</td><td>约 P3；复杂产品结果 + 团队影响</td></tr>
-            <tr><td class="level">Level 5 — Ensure, advise</td><td><b>把关并提供权威建议</b></td><td>在宽泛方向下主动开展工作，在专业领域提供权威指导；对从分析、执行到评估的重要工作结果承担责任。</td><td>约 P4；跨团队标准、关键决策与显著结果</td></tr>
-            <tr><td class="level">Level 6 — Initiate, influence</td><td><b>发起并产生组织级影响</b></td><td>显著影响组织，作出高层决策并参与形成政策和战略；展现领导力、促进组织协作，对重要领域的技术、财务与质量结果承担明确问责。</td><td>约 P5；若同时拥有公司级经营和最终风险责任，可覆盖部分 P6</td></tr>
+            <tr><td class="level">Level 2 — Assist</td><td><b>协助</b></td><td>在常规监督下支持他人工作；可用有限判断处理常规问题，并通过培训和实际工作主动学习。</td><td>约 IC1；重点是可靠协助和形成基本判断</td></tr>
+            <tr><td class="level">Level 3 — Apply</td><td><b>应用</b></td><td>使用标准方法完成多样任务，其中可能包含复杂或非常规工作；在一般指导下自主安排进度并运用判断。</td><td>约 IC2；能独立管理自己的产品责任单元</td></tr>
+            <tr><td class="level">Level 4 — Enable</td><td><b>赋能</b></td><td>自主完成多种复杂专业活动，同时支持、指导他人，必要时进行任务委派；以专业能力帮助团队实现目标。</td><td>约 IC3；复杂产品结果 + 团队影响</td></tr>
+            <tr><td class="level">Level 5 — Ensure, advise</td><td><b>把关并提供权威建议</b></td><td>在宽泛方向下主动开展工作，在专业领域提供权威指导；对从分析、执行到评估的重要工作结果承担责任。</td><td>约 IC4–IC5；跨团队标准、关键决策与显著结果</td></tr>
+            <tr><td class="level">Level 6 — Initiate, influence</td><td><b>发起并产生组织级影响</b></td><td>显著影响组织，作出高层决策并参与形成政策和战略；展现领导力、促进组织协作，对重要领域的技术、财务与质量结果承担明确问责。</td><td>约 IC5–IC6；行业范式和生态级持续影响才进入 IC7</td></tr>
           </tbody>
         </table>
       </div>
       <div class="source-links"><a href="https://sfia-online.org/en/sfia-9/responsibilities" target="_blank" rel="noopener">SFIA Levels of responsibility 原文 ↗</a><a href="https://sfia-online.org/en/sfia-9/skills/product-management" target="_blank" rel="noopener">SFIA Product management 原文 ↗</a></div>
-      <div class="card warn" style="margin-top:16px"><h3>不要做一一硬映射</h3><p>上表的 P 级关系只用于校准起点。SFIA 是跨职业责任框架，DDaT 是政府数字专业岗位框架，本报告 P1–P6 是面向金融科技产品组织的综合方案。最终定级仍应以真实责任、问题复杂度、结果证据、影响半径和金融风险问责为准。</p></div>
+      <div class="card warn" style="margin-top:16px"><h3>不要做一一硬映射</h3><p>上表关系只用于校准起点。SFIA 是跨职业责任框架，DDaT 是政府数字专业岗位框架，本报告 IC1–IC7 是结合现有内部编号重构的综合方案。最终定级仍应以真实责任、问题复杂度、结果证据、影响半径和金融风险问责为准。</p></div>
     </section>
 
     <section class="section" id="evidence">
-      <div class="section-head"><div><div class="kicker">04 / Benchmark</div><h2>标杆公司与框架对比</h2></div><p class="section-intro">使用筛选器查看不同类型样本。表内“启示”是基于原文的归纳，不是对公司未公开内部制度的断言。</p></div>
+      <div class="section-head"><div><div class="kicker">05 / Benchmark</div><h2>标杆公司与框架对比</h2></div><p class="section-intro">使用筛选器查看不同类型样本。表内“启示”是基于原文的归纳，不是对公司未公开内部制度的断言。</p></div>
       <div class="filters" role="group" aria-label="公司类型筛选"><button class="filter active" data-filter="all">全部</button><button class="filter" data-filter="framework">能力框架</button><button class="filter" data-filter="internet">互联网 / AI</button><button class="filter" data-filter="finance">金融 / Fintech</button><button class="filter" data-filter="china">中国样本</button></div>
       <div class="company-grid">
         <article class="card company" data-kind="framework"><div class="company-top"><h3>UK Government DDaT</h3><span class="grade ga"><i>A</i></span></div><div class="origin">正式能力框架 · 更新于 2025-02-28</div><ul><li>公开 5 级：Associate → Product → Senior → Lead → Head。</li><li>晋级主线：功能/小产品 → 完整生命周期 → 高风险复杂产品/产品组 → 组合与多团队 → 全组织专业标准。</li><li>能力成熟度采用 awareness / working / practitioner / expert。</li></ul><div class="source-links"><a href="https://ddat-capability-framework.service.gov.uk/role/product-manager" target="_blank" rel="noopener">官方原文 ↗</a></div></article>
@@ -161,39 +187,41 @@
     </section>
 
     <section class="section" id="ladder">
-      <div class="section-head"><div><div class="kicker">05 / Career architecture</div><h2>建议采用 6 级统一职级</h2></div><p class="section-intro">名字可以本地化，但责任结构不要变。晋级不是“做更大的需求”，而是依次扩大独立性、问题复杂度、结果跨度、影响半径与治理责任。</p></div>
-      <div class="ladder" aria-label="六级职级阶梯">
-        <div class="rung" style="--h:150px"><small>P1</small><b>Associate</b><span>功能切片<br>在指导下交付</span></div>
-        <div class="rung" style="--h:185px"><small>P2</small><b>Product Manager</b><span>小产品 / 模块<br>独立闭环</span></div>
-        <div class="rung" style="--h:220px"><small>P3</small><b>Senior</b><span>复杂产品<br>端到端结果</span></div>
-        <div class="rung" style="--h:255px"><small>P4</small><b>Lead / Principal</b><span>多团队 / 平台<br>跨域影响</span></div>
-        <div class="rung" style="--h:290px"><small>P5</small><b>Head / Director</b><span>产品组合<br>组织能力</span></div>
-        <div class="rung" style="--h:325px"><small>P6</small><b>VP / GM</b><span>业务系统<br>P&amp;L 与风险偏好</span></div>
+      <div class="section-head"><div><div class="kicker">06 / Career architecture</div><h2>保留现有编号，重写为 7 级 IC 责任阶梯</h2></div><p class="section-intro">为降低组织迁移成本，新版保留 IC1–IC7 编号；但每一级不再靠年限和形容词区分，而是依次扩大独立性、问题复杂度、结果跨度、影响半径、系统杠杆与治理责任。</p></div>
+      <div class="ladder" aria-label="七级IC职级阶梯">
+        <div class="rung" style="--h:145px"><small>IC1</small><b>初做者</b><span>功能切片<br>在指导下交付</span></div>
+        <div class="rung" style="--h:175px"><small>IC2</small><b>独立工作者</b><span>完整模块<br>独立闭环</span></div>
+        <div class="rung" style="--h:205px"><small>IC3</small><b>骨干</b><span>复杂产品<br>端到端结果</span></div>
+        <div class="rung" style="--h:235px"><small>IC4</small><b>初级专家</b><span>产品族 / 平台<br>多团队协同</span></div>
+        <div class="rung" style="--h:265px"><small>IC5</small><b>中级专家</b><span>事业部组合<br>机制与复用</span></div>
+        <div class="rung" style="--h:295px"><small>IC6</small><b>高级专家</b><span>公司级系统<br>战略与标准</span></div>
+        <div class="rung" style="--h:325px"><small>IC7</small><b>权威</b><span>行业 / 生态<br>范式与外部影响</span></div>
       </div>
       <div class="table-wrap" style="margin-top:18px">
         <table>
           <thead><tr><th>级别</th><th>典型责任单元</th><th>问题与决策</th><th>结果证据</th><th>影响半径</th><th>AI 责任增量</th></tr></thead>
           <tbody>
-            <tr><td class="level">P1 Associate</td><td>功能、流程节点、评测子集</td><td>问题已较清晰；在指导下排序与执行</td><td>按质量交付；基础使用/质量指标；复盘</td><td>单一小组</td><td>会比较非 AI 基线；执行既定 Evals；识别明显数据/安全风险</td></tr>
-            <tr><td class="level">P2 PM</td><td>小产品或完整模块</td><td>独立完成发现—上线—迭代；管理中等不确定性</td><td>连续 2 个周期改善用户与业务结果，而非只按时上线</td><td>1 个跨职能团队</td><td>定义质量/成本/延迟指标；设计 HITL、回退和监控；能做可用原型</td></tr>
-            <tr><td class="level">P3 Senior</td><td>复杂、高风险产品或产品组</td><td>在约束中定策略；决定继续、转向或停止</td><td>端到端结果、单位经济、风险受控、跨版本学习</td><td>2–3 团队 / 关键干系人</td><td>选择模型/数据/编排方案；建立分层 Evals；对上线 go/no-go 提建议</td></tr>
-            <tr><td class="level">P4 Lead / Principal</td><td>平台、产品族、跨域系统</td><td>处理组织级依赖与高模糊战略；设标准</td><td>多团队复用、组合价值、能力杠杆、人才辅导</td><td>跨部门 / 多业务线</td><td>统一评测与可观测平台；模型/供应商策略；红队、事件机制与治理标准</td></tr>
-            <tr><td class="level">P5 Head / Director</td><td>产品组合与产品组织</td><td>资源配置、投资组合、人才与机制</td><td>组合回报、人才密度、淘汰纪律、组织速度与风险质量</td><td>事业部 / 专业社区</td><td>AI 产品操作系统、风险分级、能力地图、Build/Buy/Partner 与预算</td></tr>
-            <tr><td class="level">P6 VP / GM</td><td>业务与产品系统</td><td>P&amp;L、战略下注、风险偏好、外部监管/生态</td><td>可持续商业价值、客户结果、资本效率、重大风险问责</td><td>公司 / 市场 / 监管</td><td>确定 AI 投资主题和不可逾越边界；最终承担高后果系统的人类问责</td></tr>
+            <tr><td class="level">IC1 初做者</td><td>功能、流程节点、评测子集</td><td>问题已较清晰；在指导下排序与执行</td><td>按质量交付；基础使用/质量指标；复盘</td><td>单一小组</td><td>正确使用批准工具；执行既定 Evals；识别明显数据与安全风险</td></tr>
+            <tr><td class="level">IC2 独立工作者</td><td>小产品或完整模块</td><td>独立完成发现—上线—迭代；管理中等不确定性</td><td>连续周期改善用户与业务结果，而非只按时上线</td><td>1 个跨职能团队</td><td>定义质量/成本/延迟指标；设计 HITL、回退和监控；能做可用原型</td></tr>
+            <tr><td class="level">IC3 骨干</td><td>复杂产品或关键业务域</td><td>在约束中定策略；决定继续、转向或停止</td><td>端到端结果、单位经济、风险受控、跨版本学习</td><td>2–3 团队 / 关键干系人</td><td>选择模型、数据、RAG/Agent 编排；建立分层 Evals；主导上线 go/no-go</td></tr>
+            <tr><td class="level">IC4 初级专家</td><td>平台、产品族、跨域系统</td><td>处理组织级依赖与高模糊战略；设局部标准</td><td>多团队复用、组合价值、能力杠杆、人才辅导</td><td>跨部门 / 多业务线</td><td>统一评测与可观测机制；制定供应商策略；建立红队和事件机制</td></tr>
+            <tr><td class="level">IC5 中级专家</td><td>事业部产品组合 / 专业机制</td><td>组合投资、资源取舍、标准化与退出</td><td>组合回报、复用率、专业能力提升、风险质量</td><td>事业部 / 专业社区</td><td>建立 AI 产品操作系统、风险分级、能力地图与 Build/Buy/Partner 原则</td></tr>
+            <tr><td class="level">IC6 高级专家</td><td>公司级产品系统 / 核心战略</td><td>跨事业部战略下注、治理设计和重大争议裁决</td><td>公司级客户与商业结果、资本效率、机制可持续</td><td>全公司 / 关键生态</td><td>确定 AI 投资主题、平台边界和不可逾越红线；主导重大事故复盘</td></tr>
+            <tr><td class="level">IC7 权威</td><td>行业范式与生态系统</td><td>定义新范式、外部标准和长期不确定性方向</td><td>行业影响、生态价值、长期信任与专业传承</td><td>行业 / 监管 / 生态</td><td>建立负责任 AI 产品范式；代表组织参与行业规则并守住最终人类问责</td></tr>
           </tbody>
         </table>
       </div>
       <div class="grid2" style="margin-top:16px">
-        <div class="card blue"><h3>专业通道（IC）</h3><p>P1 → P2 → P3 → P4 Lead/Principal。P4 的核心不是“资深执行”，而是跨团队产品系统、平台复用、复杂决策与方法标准。极大组织可增设 P5 Distinguished，但不建议为了 title 人为造级。</p></div>
+        <div class="card blue"><h3>专业通道（IC）</h3><p>IC1–IC7 全程允许以专业贡献晋升。IC5 以上的核心是跨团队产品系统、机制复用、复杂决策和专业标准，不以人数、编制或下属绩效为必要证据。</p></div>
         <div class="card amber"><h3>管理通道（M）</h3><p>M1 Manager → M2 Group/Head → M3 Director → M4 VP。评价人才密度、资源配置、组合质量、组织机制和继任梯队，不能用个人产品产出来替代管理责任。</p></div>
       </div>
     </section>
 
     <section class="section" id="competency">
-      <div class="section-head"><div><div class="kicker">06 / Core competency</div><h2>产品岗位 9 维能力矩阵</h2></div><p class="section-intro">统一采用五级成熟度：1 认知、2 在指导下实践、3 独立且重复、4 跨团队规模化并辅导、5 定义组织标准。职级不是平均分：每级有最低项与否决项。</p></div>
+      <div class="section-head"><div><div class="kicker">07 / Core competency</div><h2>通用产品岗位 11 维能力矩阵</h2></div><p class="section-intro">统一采用五级成熟度：1 认知、2 在指导下实践、3 独立且重复、4 跨团队规模化并辅导、5 定义组织标准。所有产品岗位评这 11 维；AI 产品再叠加下一节 9 维专项。职级不是平均分，每级都有最低项与否决项。</p></div>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>能力维度</th><th>P1</th><th>P2</th><th>P3</th><th>P4</th><th>P5–P6</th></tr></thead>
+          <thead><tr><th>能力维度</th><th>IC1</th><th>IC2</th><th>IC3</th><th>IC4–IC5</th><th>IC6–IC7</th></tr></thead>
           <tbody>
             <tr><td><b>1 用户与问题发现</b><br><span class="note">需求、行为、场景、可达性</span></td><td class="matrix-cell s2">参与访谈，区分方案与问题</td><td class="matrix-cell s3">独立三角验证并排序</td><td class="matrix-cell s4">识别跨场景结构性需求</td><td class="matrix-cell s5">建立洞察机制并指导多团队</td><td class="matrix-cell s5">让客户结果进入投资决策</td></tr>
             <tr><td><b>2 战略与价值</b><br><span class="note">定位、取舍、商业模式</span></td><td class="matrix-cell s1">解释产品目标</td><td class="matrix-cell s2">将路线图连接结果</td><td class="matrix-cell s4">制定差异化策略与 business case</td><td class="matrix-cell s5">跨产品组合与长期下注</td><td class="matrix-cell s5">P&amp;L、资本与风险偏好</td></tr>
@@ -204,13 +232,15 @@
             <tr><td><b>7 商业化与采纳</b><br><span class="note">GTM、定价、销售、变革</span></td><td class="matrix-cell s1">理解价值主张</td><td class="matrix-cell s2">参与上线与采纳</td><td class="matrix-cell s4">对增长/收入/效率闭环</td><td class="matrix-cell s5">规模化渠道与商业模式</td><td class="matrix-cell s5">市场选择与商业组合</td></tr>
             <tr><td><b>8 领导力与影响</b><br><span class="note">沟通、决策、辅导、组织</span></td><td class="matrix-cell s2">清晰书面沟通</td><td class="matrix-cell s3">无权影响小组</td><td class="matrix-cell s4">辅导同事、影响高层</td><td class="matrix-cell s5">跨域共识与专业标准</td><td class="matrix-cell s5">组织人才与继任</td></tr>
             <tr><td><b>9 风险、伦理与治理</b><br><span class="note">法规、隐私、安全、审计</span></td><td class="matrix-cell s2 critical">识别并升级风险</td><td class="matrix-cell s3 critical">落实控制与留痕</td><td class="matrix-cell s4 critical">在策略和上线中权衡</td><td class="matrix-cell s5 critical">建立标准与事件机制</td><td class="matrix-cell s5 critical">设风险偏好并承担问责</td></tr>
+            <tr><td><b>10 金融 / 领域专业</b><br><span class="note">业务规则、客户链路、行业机制</span></td><td class="matrix-cell s1">理解术语和基本流程</td><td class="matrix-cell s2">独立处理常规业务规则</td><td class="matrix-cell s4">把专业约束转成产品决策</td><td class="matrix-cell s5">跨域建模并形成复用机制</td><td class="matrix-cell s5">影响组织与行业专业标准</td></tr>
+            <tr><td><b>11 全员 AI 应用</b><br><span class="note">研究、原型、分析、交付提效</span></td><td class="matrix-cell s2">合规使用批准工具并核验输出</td><td class="matrix-cell s3">把 AI 嵌入个人工作流并留痕</td><td class="matrix-cell s4">构建团队可复用工作流与评估</td><td class="matrix-cell s5">规模化能力、成本与质量机制</td><td class="matrix-cell s5">定义组织级 AI 协作范式和边界</td></tr>
           </tbody>
         </table>
       </div>
     </section>
 
     <section class="section" id="ai">
-      <div class="section-head"><div><div class="kicker">07 / AI overlay</div><h2>AI 产品 9 项叠加能力</h2></div><p class="section-intro">“懂 AI”必须拆成可观察行为。不同岗位类型权重不同，但任何 AI PM 都应能把技术可行性、用户价值、评测与运营风险连接起来。</p></div>
+      <div class="section-head"><div><div class="kicker">08 / AI product overlay</div><h2>AI 产品 9 项叠加能力</h2></div><p class="section-intro">“懂 AI”必须拆成可观察行为。不同岗位类型权重不同，但任何 AI PM 都应能把技术可行性、用户价值、评测与运营风险连接起来。会用工具只计入通用产品第 11 维，不自动获得 AI 产品岗位资格。</p></div>
       <div class="grid3">
         <article class="card"><span class="tag ai">AI 01</span><h3>场景与非 AI 基线</h3><p>先证明 AI 比规则、搜索、人工或普通软件更好；明确自动化、增强、决策支持的边界和失败成本。</p></article>
         <article class="card"><span class="tag ai">AI 02</span><h3>模型与 Agent 系统</h3><p>理解模型能力边界、RAG、工具调用、Memory、编排、多模态及模型/工作流/产品问题的归因。</p></article>
@@ -233,8 +263,22 @@
       </div>
     </section>
 
+    <section class="section" id="design-ai">
+      <div class="section-head"><div><div class="kicker">09 / Visual design AI</div><h2>视觉设计 AI 能力：从出图提效到责任设计</h2></div><p class="section-intro">视觉岗位不应仅按“会多少工具、出图多快”升级。高阶价值在于把生成能力沉淀为品牌资产和设计系统，并对 AI 产品中的不确定性、可达性、用户控制、知识产权和伦理风险负责。</p></div>
+      <div class="grid3">
+        <article class="card"><span class="tag ai">D-AI 01</span><h3>工具与效率</h3><p>选用合规工具，建立可复现的提示、参数、版本与人工修订流程；以质量、周期和返工率证明提效。</p></article>
+        <article class="card"><span class="tag ai">D-AI 02</span><h3>AI 辅助研究与创意</h3><p>用 AI 扩展而非替代用户研究、概念探索与方案推演，明确哪些结论来自真实用户、哪些只是生成假设。</p></article>
+        <article class="card"><span class="tag risk">D-AI 03</span><h3>生成资产、品牌与 IP</h3><p>记录来源、授权和修改链路，处理相似性、肖像、商标与偏见风险；保证跨渠道品牌一致和可追溯。</p></article>
+        <article class="card"><span class="tag ai">D-AI 04</span><h3>AI-native 交互</h3><p>设计澄清、生成过程、来源、置信、编辑、撤销、拒答、降级与人工接管，让用户看得懂并控制系统。</p></article>
+        <article class="card"><span class="tag biz">D-AI 05</span><h3>体验评估与可达性</h3><p>建立任务成功、可理解性、信任校准、无障碍和边界人群测试，不以审美评审代替真实体验证据。</p></article>
+        <article class="card"><span class="tag biz">D-AI 06</span><h3>设计系统与业务赋能</h3><p>把组件、模式、生成规范和评审门禁沉淀为组织资产，衡量复用率、品牌一致性和业务采用效果。</p></article>
+        <article class="card"><span class="tag risk">D-AI 07</span><h3>安全、伦理与人类责任</h3><p>识别欺骗性设计、过度拟人、操纵、偏见、隐私和未成年人风险；高后果场景始终保留清晰责任人。</p></article>
+      </div>
+      <div class="card amber" style="margin-top:16px"><h3>视觉序列的晋级证据</h3><p>IC1–IC2 看合规使用和可复现交付；IC3 看完整项目中的体验与品牌结果；IC4 看多团队模式和系统复用；IC5 看事业部级设计机制；IC6 看公司级 AI 体验与品牌标准；IC7 看行业范式、伦理规则和生态影响。作品集必须同时提供过程、用户证据、业务结果、风险处置与资产复用，不只展示最终画面。</p></div>
+    </section>
+
     <section class="section" id="finance">
-      <div class="section-head"><div><div class="kicker">08 / Finance overlay</div><h2>金融 AI 产品的 7 道硬门槛</h2></div><p class="section-intro">越接近客户资金、推荐、授信、交易、营销与正式服务承诺，门槛越高。下面各项应设置“未通过则不得上线/晋级”的最低要求，不可被商业分抵销。</p></div>
+      <div class="section-head"><div><div class="kicker">10 / Finance overlay</div><h2>金融 AI 产品的 7 道硬门槛</h2></div><p class="section-intro">越接近客户资金、推荐、授信、交易、营销与正式服务承诺，门槛越高。下面各项应设置“未通过则不得上线/晋级”的最低要求，不可被商业分抵销。</p></div>
       <div class="grid2">
         <div class="card gate"><div class="gate-icon">01</div><div><h3>客户结果与适当性</h3><p>定义目标客群、适用/不适用场景、弱势客户影响与可能误导；把长期客户结果置于点击和转化之前。</p></div></div>
         <div class="card gate"><div class="gate-icon">02</div><div><h3>真实、清晰、可披露</h3><p>事实材料有来源；不暗示保本、收益或监管背书；明确 AI 身份、限制、人工渠道和关键假设。</p></div></div>
@@ -249,7 +293,7 @@
     </section>
 
     <section class="section" id="score">
-      <div class="section-head"><div><div class="kicker">09 / Assessment</div><h2>岗位权重与晋升评分</h2></div><p class="section-intro">点击岗位查看建议权重。分数用于结构化讨论，不替代证据与门禁；任何关键风险项低于最低标准，均不应以总分补偿。</p></div>
+      <div class="section-head"><div><div class="kicker">11 / Assessment</div><h2>岗位权重与晋升评分</h2></div><p class="section-intro">点击岗位查看建议权重。下载版 Excel 已实现岗位类型切换、目标职级、动态权重、加权得分、关键门槛与推荐结论。分数用于结构化讨论，不替代证据；任何关键风险项低于最低标准，均不得以总分补偿。</p></div>
       <div class="card radar">
         <div><h3>岗位类型</h3><div class="tabs" style="display:grid"><button class="tab active" data-weight="classic">通用产品</button><button class="tab" data-weight="aipm">AI 产品</button><button class="tab" data-weight="finaipm">金融 AI 产品</button></div><p class="note">建议总分 100；权重可按业务类型 ±3 调整，但治理项只可上调。</p></div>
         <div>
@@ -266,7 +310,7 @@
     </section>
 
     <section class="section" id="evidence-pack">
-      <div class="section-head"><div><div class="kicker">10 / Evidence pack</div><h2>什么才算晋升证据</h2></div><p class="section-intro">建议将晋升材料压缩成一份 6 页以内的证据包，链接原始仪表盘、研究记录、决策日志与风险审批。杜绝“项目清单堆砌”。</p></div>
+      <div class="section-head"><div><div class="kicker">12 / Evidence pack</div><h2>什么才算晋升证据</h2></div><p class="section-intro">建议将晋升材料压缩成一份 6 页以内的证据包，链接原始仪表盘、研究记录、决策日志与风险审批。杜绝“项目清单堆砌”。</p></div>
       <div class="grid4">
         <div class="card"><h3>① 责任边界</h3><p>你独立决定了什么？预算、用户、团队、风险和依赖范围多大？哪些不是你的贡献？</p></div>
         <div class="card"><h3>② 结果链</h3><p>基线 → 行动 → 中间指标 → 用户/商业结果；标明相关性、因果性和未验证部分。</p></div>
@@ -281,7 +325,7 @@
     </section>
 
     <section class="section" id="hiring">
-      <div class="section-head"><div><div class="kicker">11 / Hiring</div><h2>招聘与面试标准</h2></div><p class="section-intro">JD 应先写“要解决的问题与责任”，再写经历。AI 岗位若只罗列模型名、框架名和 Prompt，通常说明组织还没有定义清楚结果责任。</p></div>
+      <div class="section-head"><div><div class="kicker">13 / Hiring</div><h2>招聘与面试标准</h2></div><p class="section-intro">JD 应先写“要解决的问题与责任”，再写经历。AI 岗位若只罗列模型名、框架名和 Prompt，通常说明组织还没有定义清楚结果责任。</p></div>
       <div class="table-wrap"><table><thead><tr><th>环节</th><th>要验证什么</th><th>推荐方法</th><th>红旗</th></tr></thead><tbody>
         <tr><td>履历筛选</td><td>责任范围、真实结果、角色边界</td><td>要求候选人标出“我决定/团队完成/结果证据”</td><td>只有项目名、DAU、GMV，无基线与归因</td></tr>
         <tr><td>产品判断</td><td>问题定义、用户、价值、取舍</td><td>给模糊真实案例，观察先问什么、如何设停止条件</td><td>直接画功能；所有问题都用 AI</td></tr>
@@ -294,16 +338,16 @@
     </section>
 
     <section class="section" id="apply">
-      <div class="section-head"><div><div class="kicker">12 / Applicability</div><h2>适用于金融科技 / 财富管理的落地方案</h2></div><p class="section-intro">建议采用“一条产品骨架 + 两个叠加层 + 风险分级”的轻量架构。不要照搬银行职衔或互联网 P 码，也不要给所有会用 AI 的产品经理重新定级。</p></div>
+      <div class="section-head"><div><div class="kicker">14 / Applicability</div><h2>适用于金融科技 / 财富管理的落地方案</h2></div><p class="section-intro">采用“一条通用产品骨架 + AI 产品专项 + 视觉 AI 补充 + 金融硬门槛”。保留 IC1–IC7 编号以降低迁移成本，但不要给所有会用 AI 的产品经理重新定级。</p></div>
       <div class="grid3">
-        <div class="card good"><h3>立即采用</h3><ul><li>6 级责任架构与 IC/管理双通道</li><li>9 维产品能力 + AI 9 维叠加</li><li>晋升证据包与连续两周期要求</li><li>R1/R2/R3 产品风险分层</li></ul></div>
+        <div class="card good"><h3>立即采用</h3><ul><li>IC1–IC7 责任架构与 IC/管理双通道</li><li>通用产品 11 维 + AI 产品 9 维 + 视觉 AI 7 维</li><li>晋升证据包与连续两周期要求</li><li>R1/R2/R3 产品风险分层与一票否决</li></ul></div>
         <div class="card amber"><h3>按组织调整</h3><ul><li>层级名称和人员管理起点</li><li>商业、技术、数据权重</li><li>ToB / ToC、平台 / 应用分型</li><li>职级与薪酬带宽映射</li></ul></div>
         <div class="card warn"><h3>不要照搬</h3><ul><li>公司内部 P 级传闻与匿名表格</li><li>银行 VP / Director 的字面映射</li><li>把经验年限设成晋升硬条件</li><li>把模型术语或 Prompt 技巧当 AI 能力</li></ul></div>
       </div>
-      <div class="card" style="margin-top:16px"><h3>三个组织成熟度版本</h3><div class="table-wrap" style="box-shadow:none"><table><thead><tr><th>组织阶段</th><th>建议版本</th><th>先做什么</th><th>暂缓什么</th></tr></thead><tbody><tr><td><b>起步型</b><br>PM &lt; 15 人</td><td>P1–P4 四级 + Head；一张通用表</td><td>角色边界、最低行为、招聘与晋升证据</td><td>复杂分支、每类 AI PM 单独序列</td></tr><tr><td><b>成长型</b><br>15–60 人</td><td>P1–P5 + 双通道 + AI/金融叠加</td><td>校准委员会、风险分级、人才盘点、专业社区</td><td>超细颗粒度打分和强制排名</td></tr><tr><td><b>规模型</b><br>60+ 人</td><td>P1–P6 + 专业族群 + 组合治理</td><td>平台/应用/安全分型，统一 Evals 与数据治理</td><td>仅靠 HR 推动、只做年度静态评审</td></tr></tbody></table></div></div>
+      <div class="card" style="margin-top:16px"><h3>三个组织成熟度版本</h3><div class="table-wrap" style="box-shadow:none"><table><thead><tr><th>组织阶段</th><th>建议版本</th><th>先做什么</th><th>暂缓什么</th></tr></thead><tbody><tr><td><b>起步型</b><br>PM &lt; 15 人</td><td>保留 IC1–IC7 名称，日常重点使用 IC1–IC4</td><td>角色边界、最低行为、招聘与晋升证据</td><td>每类 AI PM 单独序列和高频评审</td></tr><tr><td><b>成长型</b><br>15–60 人</td><td>启用完整七级 + 双通道 + AI / 金融叠加</td><td>校准委员会、风险分级、人才盘点、专业社区</td><td>超细颗粒度打分和强制排名</td></tr><tr><td><b>规模型</b><br>60+ 人</td><td>七级 + 专业族群 + 产品组合治理</td><td>平台 / 应用 / 安全分型，统一 Evals 与数据治理</td><td>仅靠 HR 推动、只做年度静态评审</td></tr></tbody></table></div></div>
       <h3 style="font-size:26px;margin:28px 0 14px">12 周实施路线图</h3>
       <div class="timeline">
-        <div class="phase"><span class="week">W1–2</span><h3>定架构</h3><ul><li>盘点真实角色和决策权</li><li>确认 6 级名称与双通道</li><li>定义 AI 岗位分型</li></ul></div>
+        <div class="phase"><span class="week">W1–2</span><h3>定架构</h3><ul><li>盘点真实角色和决策权</li><li>确认七级行为锚点与双通道</li><li>定义 AI 岗位分型</li></ul></div>
         <div class="phase"><span class="week">W3–5</span><h3>做校准</h3><ul><li>选 8–12 个真实样本</li><li>逐维度行为锚定</li><li>找出 title 与责任错位</li></ul></div>
         <div class="phase"><span class="week">W6–8</span><h3>跑试点</h3><ul><li>一个招聘 + 一次晋升</li><li>证据包与面试题实测</li><li>记录评委分歧与偏差</li></ul></div>
         <div class="phase"><span class="week">W9–12</span><h3>上线治理</h3><ul><li>发布标准与案例库</li><li>衔接薪酬、学习地图</li><li>半年复盘有效性</li></ul></div>
@@ -312,8 +356,10 @@
     </section>
 
     <section class="section" id="sources">
-      <div class="section-head"><div><div class="kicker">13 / Primary sources</div><h2>原始材料索引</h2></div><p class="section-intro">以下均为本报告实际参照。A/B/C 为官方来源；个别中国互联网公司因公开页面信息不足，未用二手材料支撑核心结论。链接可能因招聘结束而下线，建议内部归档 PDF 或网页快照。</p></div>
+      <div class="section-head"><div><div class="kicker">15 / Primary sources</div><h2>原始材料索引</h2></div><p class="section-intro">报告实际参照包括 2 份用户提供的内部工作簿与 31 项公开来源。内部材料只用于校准并保持不公开；A/B/C 为公开官方来源。链接可能因招聘结束而下线，建议内部归档 PDF 或网页快照。</p></div>
       <div class="source-list">
+        <div class="source"><span class="no">I-1</span><div><b>任职资格能力标准（产品序列—产品）（2026v2）</b><small>用户提供内部工作簿 · IC1–IC7 · 用于现状诊断、编号沿用与 AI 能力梯度校准</small><br><span class="note">保密边界：原始文件不进入公开站点；本报告仅披露结构化归纳。</span></div><span class="kind">内部基线</span></div>
+        <div class="source"><span class="no">I-2</span><div><b>任职资格能力标准（产品序列—视觉设计）（2026 更新 AI 应用能力）</b><small>用户提供内部工作簿 · IC1–IC7 · 用于视觉设计层级与 AI 应用能力校准</small><br><span class="note">保密边界：原始文件不进入公开站点；本报告仅披露结构化归纳。</span></div><span class="kind">内部基线</span></div>
         <div class="source"><span class="no">01</span><div><b>Product manager — Government Digital and Data Profession Capability Framework</b><small>UK Government · 更新 2025-02-28 · 5 级岗位、4 级技能成熟度与逐项行为标准</small><br><a href="https://ddat-capability-framework.service.gov.uk/role/product-manager" target="_blank" rel="noopener">产品岗位原文</a> · <a href="https://ddat-capability-framework.service.gov.uk/skills" target="_blank" rel="noopener">技能等级原文</a></div><span class="kind">A 框架</span></div>
         <div class="source"><span class="no">02</span><div><b>SFIA 9 — Product management and Levels of responsibility</b><small>SFIA Foundation · Product management Levels 2–6 · 自主性、影响力、复杂度与问责</small><br><a href="https://sfia-online.org/en/sfia-9/skills/product-management" target="_blank" rel="noopener">产品管理原文</a> · <a href="https://sfia-online.org/en/sfia-9/responsibilities" target="_blank" rel="noopener">责任等级原文</a></div><span class="kind">A 框架</span></div>
         <div class="source"><span class="no">03</span><div><b>Skills-Based Hiring Guidance and Competency Model for AI Work</b><small>U.S. Office of Personnel Management · 40 通用 + 7 技术能力</small><br><a href="https://piv.opm.gov/chcoc/transmittals/2024/Skills-Based%20Hiring%20Guidance%20and%20Competency%20Model%20for%20Artificial%20Intelligence%20Work.pdf" target="_blank" rel="noopener">官方 PDF</a></div><span class="kind">A 框架</span></div>
@@ -346,11 +392,11 @@
         <div class="source"><span class="no">30</span><div><b>Regulation (EU) 2024/1689 — Artificial Intelligence Act</b><small>European Union · AI literacy、透明度与基本权利影响评估</small><br><a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32024R1689" target="_blank" rel="noopener">原文</a></div><span class="kind">A 法规</span></div>
         <div class="source"><span class="no">31</span><div><b>Humans keeping AI in check — regulatory expectations for finance</b><small>BIS Financial Stability Institute · 可靠性、问责、透明、公平与人类责任</small><br><a href="https://www.bis.org/publications/fsi-insight-35-humans-keeping-ai-check-8211-emerging-regulatory-expectations-financial-sector" target="_blank" rel="noopener">原文</a> · <a href="https://www.bis.org/publications/governance-ai-adoption-central-banks" target="_blank" rel="noopener">Governance AI adoption</a></div><span class="kind">A 监管研究</span></div>
       </div>
-      <p class="disclaimer">研究说明：招聘页面具有时效性，可能在职位关闭后下线；年限、地点、薪酬和 title 只代表对应公开岗位。报告未使用 Levels.fyi、匿名爆料或培训机构职级表来断言公司内部等级。建议组织落地前，由 HRBP、产品负责人、技术、数据、法务合规与风险共同完成本地校准。本报告为组织设计研究，不构成法律意见。</p>
+      <p class="disclaimer">研究说明：两份内部工作簿没有上传至公开站点，下载版仅包含本次重构后的新标准。招聘页面具有时效性，可能在职位关闭后下线；年限、地点、薪酬和 title 只代表对应公开岗位。报告未使用 Levels.fyi、匿名爆料或培训机构职级表来断言公司内部等级。建议组织落地前，由 HRBP、产品负责人、设计负责人、技术、数据、法务合规与风险共同完成本地校准。本报告为组织设计研究，不构成法律意见。</p>
     </section>
   </main>
 
-  <footer class="footer"><div class="wrap footer-grid"><div><div class="eyebrow" style="color:#9ad4c0"><span class="dot"></span> Clair AI Studio</div><h2 style="margin:12px 0;font-size:30px">从 title 管理，转向责任与证据管理。</h2><p style="color:#9fb0aa">版本 1.0 · 研究截止 2026-09-10 · 公开资料研究版</p></div><div><b>推荐下一步</b><p>用 8–12 位现有产品人员做一次匿名盲校准。若同一人的判断差异超过 1 级，先修行为标准，不要急着绑定薪酬。</p><a href="#conclusion">返回顶部 ↑</a></div></div></footer>
+  <footer class="footer"><div class="wrap footer-grid"><div><div class="eyebrow" style="color:#9ad4c0"><span class="dot"></span> Clair AI Studio</div><h2 style="margin:12px 0;font-size:30px">从 title 管理，转向责任、结果与证据管理。</h2><p style="color:#9fb0aa">版本 2.0 · 重构日期 2026-09-10 · 内部基线校准 + 公开资料研究</p></div><div><b>推荐下一步</b><p>用 8–12 位现有产品和设计人员做匿名盲校准。若同一人的判断差异超过 1 级，先修行为标准，不要急着绑定薪酬。</p><a href="#conclusion">返回顶部 ↑</a></div></div></footer>
 
   <script>
     document.querySelectorAll('.filter').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('.filter').forEach(b=>b.classList.remove('active'));button.classList.add('active');const f=button.dataset.filter;document.querySelectorAll('.company').forEach(card=>card.classList.toggle('hidden',f!=='all'&&!card.dataset.kind.split(' ').includes(f)));}));
