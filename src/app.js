@@ -146,6 +146,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "yingmi-deviation-rules-panorama-2026-09-10",
+      groupId: "knowledge",
+      title: "盈米偏离度全景调研｜调仓与单基金规则、算法与线上阈值",
+      url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-deviation-rules-panorama-2026-09-10/",
+      preview: "yingmi-deviation-rules-panorama-2026-09-10.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-10T14:56:00+08:00",
+      source: "盈米本体三层调研（图谱→源码→dw-tidb 生产库，2026-09-10）｜6 套偏离度口径：调仓/跟车两层门禁（默认 4%/0.4%，1283 组合独立配置全量清单）、AR 自动再平衡、调仓后校验（全局 5% + 7 组合定制）、自建组合成分提醒（294 组合）、定制账户匹配度（95/100 分）｜计算基准澄清：PO 交易链路对齐净值漂移后动态比例而非最近调仓静态设定（LATEST_ADJUST 例外）｜poadjust / pooss / pobatch / pmdj / po-metrics-spark 源码核实，含除以 2 的公式推导与阈值分布图",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["偏离度", "调仓", "跟车", "再平衡", "组合", "PO 交易", "本体", "阈值", "数据分析", "HTML", "生产"],
+    },
+    {
       id: "yingmi-advisor-workbench-2026-09-10",
       groupId: "ai-workbench",
       title: "新一代顾问工作台｜对话优先 + 盈米本体",

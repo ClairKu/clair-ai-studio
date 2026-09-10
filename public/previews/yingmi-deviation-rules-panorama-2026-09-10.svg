@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img">
+  <title>盈米偏离度场景全景调研</title>
+  <rect width="1200" height="675" rx="28" fill="#0E3A5D"/>
+  <rect x="48" y="48" width="1104" height="579" rx="16" fill="#0B2C49" stroke="#1E4A6E"/>
+  <rect x="84" y="84" width="132" height="30" rx="8" fill="#12558C"/>
+  <text x="100" y="105" fill="#FFFFFF" font-size="14" font-weight="700" font-family="PingFang SC, sans-serif">盈米本体</text>
+  <text x="232" y="105" fill="#7FA8C9" font-size="14" font-family="PingFang SC, sans-serif">图谱 → 源码 → 生产库 三层验证 · 2026-09-10</text>
+  <text x="84" y="180" fill="#FFFFFF" font-size="44" font-weight="800" font-family="PingFang SC, sans-serif">组合调仓偏离度 · 全景调研</text>
+  <text x="84" y="222" fill="#A8C4DD" font-size="20" font-family="PingFang SC, sans-serif">6 套口径 · 定义 / 算法 / 规则 / 线上阈值 · 设值组合清单 · 计算基准澄清</text>
+  <rect x="84" y="264" width="246" height="120" rx="12" fill="#FFFFFF"/>
+  <rect x="346" y="264" width="246" height="120" rx="12" fill="#FFFFFF"/>
+  <rect x="608" y="264" width="246" height="120" rx="12" fill="#FFFFFF"/>
+  <rect x="870" y="264" width="246" height="120" rx="12" fill="#FFFFFF"/>
+  <text x="104" y="298" fill="#7A86A3" font-size="14" font-family="PingFang SC, sans-serif">偏离度口径</text>
+  <text x="104" y="344" fill="#16213A" font-size="36" font-weight="800" font-family="PingFang SC, sans-serif">6 套</text>
+  <text x="366" y="298" fill="#7A86A3" font-size="14" font-family="PingFang SC, sans-serif">组合级门禁（默认）</text>
+  <text x="366" y="344" fill="#16213A" font-size="36" font-weight="800" font-family="PingFang SC, sans-serif">4%</text>
+  <text x="628" y="298" fill="#7A86A3" font-size="14" font-family="PingFang SC, sans-serif">单基金级（默认）</text>
+  <text x="628" y="344" fill="#16213A" font-size="36" font-weight="800" font-family="PingFang SC, sans-serif">0.4%</text>
+  <text x="890" y="298" fill="#7A86A3" font-size="14" font-family="PingFang SC, sans-serif">独立配置组合</text>
+  <text x="890" y="344" fill="#16213A" font-size="36" font-weight="800" font-family="PingFang SC, sans-serif">1284</text>
+  <rect x="84" y="412" width="1032" height="60" rx="10" fill="#0E3A5D" stroke="#1E4A6E"/>
+  <text x="104" y="449" fill="#D6E6F4" font-size="17" font-family="PingFang SC, sans-serif">偏离率 = Σ |用户当前占比 − 模型目标占比| ÷ 2　（空仓 = 100%，除以 2 还原单边搬动资金占比）</text>
+  <rect x="84" y="496" width="200" height="34" rx="17" fill="#1E4A6E"/>
+  <rect x="298" y="496" width="200" height="34" rx="17" fill="#1E4A6E"/>
+  <rect x="512" y="496" width="200" height="34" rx="17" fill="#1E4A6E"/>
+  <rect x="726" y="496" width="230" height="34" rx="17" fill="#1E4A6E"/>
+  <text x="118" y="519" fill="#A8C4DD" font-size="15" font-family="PingFang SC, sans-serif">调仓 / 跟车门禁</text>
+  <text x="330" y="519" fill="#A8C4DD" font-size="15" font-family="PingFang SC, sans-serif">AR 自动再平衡</text>
+  <text x="540" y="519" fill="#A8C4DD" font-size="15" font-family="PingFang SC, sans-serif">调仓后校验 5%</text>
+  <text x="748" y="519" fill="#A8C4DD" font-size="15" font-family="PingFang SC, sans-serif">自建组合提醒 · 定制匹配度</text>
+  <text x="84" y="592" fill="#5E7FA0" font-size="14" font-family="PingFang SC, sans-serif">数据源：poadjust / pooss / pobatch / pmdj 源码 + dw-tidb 生产配置（1688 条阈值记录 · 294 个自建组合）</text>
+</svg>

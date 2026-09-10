@@ -1,0 +1,2135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>盈米偏离度场景全景调研（含设值组合清单）</title>
+<script src="https://registry.npmmirror.com/echarts/5.6.0/files/dist/echarts.min.js"></script>
+<style>
+  body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; margin: 0; background: #f5f6f8; color: #2c3e50; }
+  .container { max-width: 1080px; margin: 0 auto; padding: 32px 24px 64px; }
+  h1 { font-size: 26px; border-bottom: 3px solid #34695c; padding-bottom: 12px; }
+  h2 { font-size: 20px; margin-top: 40px; color: #34695c; border-left: 4px solid #34695c; padding-left: 10px; }
+  h3 { font-size: 16px; margin-top: 24px; }
+  .meta { color: #888; font-size: 13px; margin-bottom: 24px; }
+  table { width: 100%; border-collapse: collapse; background: #fff; margin: 16px 0; font-size: 14px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+  th { background: #34695c; color: #fff; padding: 8px 10px; text-align: left; font-weight: 500; }
+  td { padding: 8px 10px; border-bottom: 1px solid #eee; vertical-align: top; }
+  tr:nth-child(even) td { background: #fafbfa; }
+  table.lt { font-size: 13px; }
+  table.lt td { padding: 5px 8px; }
+  code { background: #eef1f0; padding: 1px 5px; border-radius: 3px; font-size: 13px; color: #c0392b; }
+  .formula { background: #fff8e6; border-left: 4px solid #e6a23c; padding: 10px 14px; margin: 12px 0; font-size: 15px; }
+  .note { background: #eef6f4; border-left: 4px solid #34695c; padding: 10px 14px; margin: 12px 0; font-size: 13.5px; }
+  .warn { background: #fdeeee; border-left: 4px solid #c0392b; padding: 10px 14px; margin: 12px 0; font-size: 13.5px; }
+  .chart { flex: 1 1 480px; background: #fff; padding: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+  .charts { display: flex; flex-wrap: wrap; gap: 16px; margin: 20px 0; }
+  .badge { display:inline-block; font-size:12px; padding:1px 8px; border-radius:10px; margin-right:4px; }
+  .b-dyn { background:#e8f4e8; color:#2e7d32; }
+  .b-static { background:#e3ecf7; color:#1a5490; }
+  .b-mix { background:#fdf0d5; color:#9c6708; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>盈米各类场景"偏离度"规则、算法与线上阈值全景<br><span style="font-size:16px;color:#666">（v2 · 增设值组合清单 + 计算基准澄清）</span></h1>
+<div class="meta">调研口径：图谱 concept/svc 节点 + TP 源码（poadjust / portfolio-trade / pooss / pobatch / pomodel / po-metrics-spark）+ 且慢源码（pmdj / qieman-jobs-js）+ 线上配置实测（dw-tidb，截至 2026-09-10）· 提问人：辜腾玉（且慢·产品）</div>
+
+<h2>〇、总览：一句话区分六套"偏离度"</h2>
+<table>
+<tr><th>#</th><th>场景</th><th>比的是什么</th><th>算法</th><th>阈值真源</th><th>线上典型值</th></tr>
+<tr><td>1</td><td><b>调仓/跟车触发门禁（组合级）</b></td><td>用户持仓占比 vs 模型目标占比<span class="badge b-dyn">动态漂移</span></td><td>Σ|差| ÷ 2</td><td><code>advisor_portfolio_deviation_rate_split_info</code></td><td>默认 4%，逐组合配置（0.2%~10%）</td></tr>
+<tr><td>2</td><td><b>单基金级指令生成</b></td><td>单只基金占比差绝对值<span class="badge b-dyn">动态漂移</span></td><td>|当前占比 − 模型占比|</td><td>同上表 fund_deviation_rate 列</td><td>默认 0.4%</td></tr>
+<tr><td>3</td><td><b>AR 自动再平衡筛选</b></td><td>同 1（每日离线快照）<span class="badge b-dyn">动态漂移</span></td><td>同 1，落 <code>ca_deviation_rate</code></td><td>同 1（复用组合级阈值）</td><td>同 1</td></tr>
+<tr><td>4</td><td><b>调仓后偏离率校验</b></td><td>试算出的调仓后残留偏离<span class="badge b-mix">视 TradeMode</span></td><td>同 1（对调仓后目标持仓再算一遍）</td><td><code>sys_param</code> 两个参数</td><td>全局 5%，7 个组合定制 6%~15%</td></tr>
+<tr><td>5</td><td><b>自建组合成分偏离提醒</b></td><td>模型层当前成分 vs 上次调仓设定<span class="badge b-mix">动态 vs 静态</span></td><td>Σ|差| ÷ 2（BFF 现算）</td><td><code>portfolio_info.extra</code></td><td>默认 4%，用户可设 1%~50%</td></tr>
+<tr><td>6</td><td><b>定制账户匹配度</b></td><td>持仓占比 vs 方案配置占比<span class="badge b-static">静态方案</span></td><td>(1 − Σ|差|/2) × 100（偏离度镜像）</td><td>pmdj 代码常量</td><td>≥95%（多产品）/ 100%（单产品）</td></tr>
+</table>
+<div class="warn"><b>最容易混淆</b>：#1（调仓触发，用户持仓 vs 模型）与 #5（成分偏离，模型当前 vs 上次调仓设定）是<b>两个完全不同的口径，阈值不通用</b>。#5 只对 N 类自建组合开放。</div>
+
+<h2>一、场景 1+2：投顾组合调仓 / 跟车的两层偏离率门禁（核心）</h2>
+<h3>1.1 组合级偏离率 —— 决定"要不要调"</h3>
+<div class="formula">
+组合偏离率 = Σ<sub>所有成分基金</sub> |用户当前占比 − 模型目标占比| ÷ 2<br>
+<span style="font-size:13px;color:#888">落点：poadjust <code>ModelService#handleDeviationRate</code>；空仓固定返回 1（100%）；4 位小数、向上取整</span>
+</div>
+<ul>
+<li><b>分子含两类并组</b>：① 替代基金在算差之前并入主基金一组（<code>AdjustUtils#rebuildAdjustAssetWithCandidateFund</code>）；② 在途调仓赎回资产按 <code>reBuildAdjustAssetSimple</code> 并回。</li>
+<li><b>规则</b>：偏离率 &lt; 组合级阈值 → 整单终止，返回码 <code>7727 偏离率太小，无需调仓</code>。</li>
+<li><b>唯一例外</b>：持仓中有"不在模型中的基金"且 CA 已开通盈米宝 → 降级为<b>只清仓</b>模式（skipDeviationRateCheck = true），不受门禁拦截。</li>
+</ul>
+
+<h3>1.2 单基金级偏离率 —— 决定"动哪只、动多少"</h3>
+<div class="formula">
+单基金偏离 = |该基金当前占比 − 模型占比|；若 &lt; 单基金阈值（<b>严格小于</b>）→ 该只不生成交易指令
+</div>
+<ul>
+<li>被跳过的每只在预调仓响应 <code>causeDeviationRateReason</code> 落码 <code>7765 成分基金偏离率太小,不生成交易指令</code>（差恰为 0 时不落码）。</li>
+<li><b>钱包基金（盈米宝）不参与</b>此判定。</li>
+<li>所以"跟调后个别基金还差一点点"是<b>设计结果</b>：判断有效跟调看组合总偏离是否回到组合阈值内，不是每只都精确对齐。</li>
+</ul>
+
+<h3>1.3 两层阈值的配置机制（逐 poCode + broker）</h3>
+<table>
+<tr><th>匹配顺序</th><th>规则</th></tr>
+<tr><td>① 精确匹配</td><td><code>(poCode, broker)</code> 完全一致，取最新一条</td></tr>
+<tr><td>② 单边通配</td><td><code>(*, broker)</code> 或 <code>(poCode, *)</code>，按 create_time 取新</td></tr>
+<tr><td>③ 全通配</td><td><code>(* , *)</code> 兜底（线上现值：4% / 0.4%，2022-10-19 设置）</td></tr>
+<tr><td>④ 代码默认</td><td>组合级 0.04 / 单基金级 sys_param <code>constituentFundNeedAdjustDiffDeviationRate</code>（缺省 0.004）</td></tr>
+</table>
+<div class="note">poadjust 每次 <code>preAdjust</code> 都实时调 potrade <code>/advisor/prod/deviation/{po|fund}/getByPoCodeAndBroker</code> 现取现塞（带 Redis 缓存 poAdjustCache）；配置写入走运营后台 → potrade <code>AdvisorProdDeviationRateInfoController#saveOrUpdate</code>。小目标会先转化为底层组合码再匹配。</div>
+
+<h3>1.4 线上实际配置分布</h3>
+<ul>
+<li><b>1283 个组合</b>有独立配置（按 poCode+broker 最新一条共 1285 条，含 broker 维度重复），非主流档位（组合级≠4% 或单基金级≠0.4%）共 <b>441 个</b>。</li>
+<li>分布（组合级/单基金级 → 组合数）：4%/0.4% → 827（主流）；2%/0.4% → 161；1%/0.4% → 105；3%/0.4% → 40；10%/0.4% → 27；5%/0.4% → 20；1%/0.1% → 14；1.5%/0.4% → 12……（完整分布见第十章清单）</li>
+<li>两层量级可差两个数量级：如 ZH013136 组合级 2% / 单基金级 0.04%（QMRD-45918 案例）；ZH153288 系列组合级 6% / 单基金级 0.1%。</li>
+</ul>
+<div id="chart1" class="chart" style="height:360px"></div>
+
+<h2>二、场景 3：AR 自动再平衡（AutoRebalanceType=BUILD）</h2>
+<table>
+<tr><th>环节</th><th>时间</th><th>动作</th><th>阈值判定</th></tr>
+<tr><td>偏离率快照计算</td><td>交易日 13:00</td><td>poclear <code>PoDeviationCalcSchedual</code>（增量 DEV_ADD，按当天有份额变更的 CA）+ <code>PoDeviationCalcAllSchedule</code>（全量 DEV_ALL），逐 CA 算组合级偏离率落 <code>ca_deviation_rate</code>（+history 表）</td><td>只算不判</td></tr>
+<tr><td>AR 任务下发</td><td>交易日 14:00</td><td>poclear <code>AutoRebalanceSchedule</code>（AR_ICAM）→ Kafka <code>tp-po-rebalance_task</code> → pooss 编排</td><td>—</td></tr>
+<tr><td>筛 CA（第一道）</td><td>pooss</td><td><code>getCaListByRemoveLowDeviation</code>：读当日 <code>ca_deviation_rate</code>，按"驱动码 + broker"拉组合级阈值</td><td><b>偏离率 ≥ 阈值 留下</b>，或含零份额成分基金（<code>includesZeroShareFund</code>）也留下；pooss 兜底常量 <code>DEFAULT_DEVIATION_RATE_THRESHOLD = 0.04</code></td></tr>
+<tr><td>逐 CA 准入（第二道）</td><td>pobatch</td><td><code>judgeCaCanAutoFollow</code>：sys_param <code>autoRebalanceTaskMode=1</code> 时重查当日偏离率 vs 阈值</td><td>偏离率 &lt; 阈值 且无零份额基金 → <code>7727</code> 跳过该 CA</td></tr>
+</table>
+<div class="note">J7 被 AR 明确排除（<code>filter(t -> !J7)</code>）；SI 组合切了经典管理模式的（<code>sigRebalancePoCodeList</code>）会纳入偏离率计算范围。定制账户（FUND）偏离率按底层组合码存取。</div>
+
+<h2>三、场景 4：调仓后偏离率校验（试算结果兜底）</h2>
+<p>预调仓算出指令后，potrade/pocore <code>PreAdjustExecuteService</code> 对<b>调仓后残留偏离</b>再做两道断言（任一不过 → <code>canDo=false</code>）：</p>
+<div class="formula">
+① afterDeviationRate ≥ beforeDeviationRate → 拒绝（"调仓后偏离率未降低"）<br>
+② afterDeviationRate &gt; expectAdjustAfterDeviationRateLessThan → 拒绝（<code>ADJUST_TOO_BIG_AFTER_DEVIATION_RATE</code>，"由于交易限制原因…调仓后偏离率仍较大"）
+</div>
+<ul>
+<li><b>阈值真源</b>：sys_param <code>expectAdjustAfterDeviationRateLessThan</code>（代码默认 0.04）→ 线上实际 <b>0.05</b>（2017-04-08 设定）；<code>customExpectAdjustAfterDeviationRateLessThanJson</code> 线上定制 7 个组合（名单见第十章）。</li>
+<li><b>例外</b>：只清仓模式（skipDeviationRateCheck）跳过这两道断言。</li>
+<li>产品语义：这两道校验拦的是"交易限制导致调不干净"的场景（如惩罚性赎回费份额不卖、暂停申购买不进），给用户的文案即"调仓后偏离率仍较大"。</li>
+</ul>
+
+<h2>四、场景 5：自建组合"成分偏离度提醒"（N 类专属）</h2>
+<div class="formula">
+成分偏离度 = Σ<sub>成分</sub> |当前成分比例 − 上次调仓设定比例| ÷ 2<br>
+<span style="font-size:13px;color:#888">落点：pmdj <code>pomodel.composition-deviation.js</code>（BFF 实时算，非离线）</span>
+</div>
+<ul>
+<li><b>口径</b>：模型层当前比例每天随成分净值涨跌漂移，与"上次调仓当刻设定的比例"比——回答主理人视角"我的组合跑偏了没"。</li>
+<li><b>门控</b>：仅 <code>portfolio_type='N'</code> 自建组合；开关与阈值存 <code>portfolio_info.extra</code>（<code>enableCompositionDeviationAlert</code> + <code>compositionDeviationThreshold</code>）；P 类投顾组合写入侧直接拒。</li>
+<li><b>阈值</b>：默认 0.04；用户可设范围 <b>[0.01, 0.50]</b>，<b>越界静默丢弃回落默认</b>（不报错——"设了没生效"先查越界）。</li>
+<li><b>线上实际</b>：294 个自建组合配置了阈值，269 开启 / 25 关闭；主流 0.04（163 个）、0.05（40）、0.02（20）、0.01（18）、0.1（10）等（完整清单见第十章）。</li>
+<li><b>边界行为</b>：从未调仓过的组合返回 null（不是 0）；开启"固定比例"（isCompositionFixRatio）后成分恒等于上次目标 → 偏离恒 0，提醒自动关闭。</li>
+</ul>
+<div id="chart2" class="chart" style="height:340px"></div>
+
+<h2>五、场景 6：定制账户（UMA invest plan）持仓匹配度</h2>
+<div class="formula">
+匹配度 = (1 − Σ|方案配置占比 − 当前持仓占比| ÷ 2) × 100%（上限 100，空仓为 0）<br>
+<span style="font-size:13px;color:#888">落点：pmdj <code>uma-invest-plan.custom.trade.service.ts</code> + <code>calculateMatchingDegree</code></span>
+</div>
+<ul>
+<li><b>本质是偏离度的镜像</b>：匹配度 = 100% − 偏离率×100。</li>
+<li><b>在途资产处理</b>：赎回在途视为已离开原产品、申购在途视为已投入目标、跟车/转换在途直接反映到比例——比 PO 侧口径更"激进"地把在途算进去。</li>
+<li><b>阈值（代码常量）</b>：多产品方案 <code>DEVIATION_RATE_THRESHOLD_4_MULTI = 95</code>；单产品方案 <code>DEVIATION_RATE_THRESHOLD_4_SIMPLE = 100</code>。</li>
+<li><b>分档话术</b>：=100 完美契合 / ≥95"偏离率较低，暂不建议调整，以免增加不必要的交易手续费" / ≥90 近乎完美 / ≥75 小幅优化 / ≥60 适度调整 / &gt;0 大幅调整 / =0 开启投资之旅。</li>
+<li>另有独立的<b>偏离度监控开关</b> <code>deviationMonitorSwitch</code>（存 extra JSON），控制是否展示调仓建议。</li>
+</ul>
+
+<h2>六、其他边际场景</h2>
+<table>
+<tr><th>场景</th><th>偏离度规则</th></tr>
+<tr><td><b>小目标（CL*）建仓</b></td><td>建仓期单基金偏离阈值：<code>portfolio_param</code> 的 <code>TARGET_BUILD_FUND_THRESHOLD_DEVIATION_RATE</code>，代码默认 0.004；小目标调仓/再平衡前会转化为底层组合码参与常规判定</td></tr>
+<tr><td><b>组合转换（PoConvert）</b></td><td>两层阈值<b>全部置 0</b>（<code>PoConvertService</code>）——转换场景不做偏离率门禁，全量按目标搬</td></tr>
+<tr><td><b>投顾输出（adtrade/SMA）</b></td><td>复用同一套阈值：adtrade <code>PreAdjustService</code> 照样拉 <code>getPoThresholdDeviationRate / getFundThresholdDeviationRate</code> 传给 poadjust，无独立阈值体系</td></tr>
+<tr><td><b>风控双闸（riskmgrbackend）</b></td><td><b>不基于偏离度</b>——按"主理人风控期 + 品种风控期"两层独立判定，与偏离率无关</td></tr>
+<tr><td><b>前端展示 HIGH_DEVIATION 标记</b></td><td>pmdj <code>getAdjustResultType</code>：调仓可行 且 afterDeviationRate &gt; 组合级阈值 → 标记"高偏离"（提示用户调仓后仍偏离较大）</td></tr>
+</table>
+
+<h2>七、明确<b>不涉及</b>偏离度的场景（防误配）</h2>
+<table>
+<tr><th>场景</th><th>原因</th></tr>
+<tr><td><b>长赢发车 / 跟车 / AR</b></td><td>按<b>份数（UNIT 模式）</b>执行："发车 X 份"直接换算成各成分金额，无偏离率判定（长赢 AR 在 qieman-jobs-js，按用户计划份数跑）</td></tr>
+<tr><td><b>J7</b></td><td>"每用户 j7Date+365 天"定期 + 主理人模型调整事件触发，<b>不看偏离率</b>；AR 全量计算时被显式排除</td></tr>
+<tr><td><b>SI 信号类发车</b></td><td>按信号给定的买卖比例执行；<b>例外</b>：切了经典组合管理模式的 SI（isClassicModeSig / sigRebalancePoCodeList）会纳入偏离率计算与再平衡</td></tr>
+<tr><td><b>盈米宝 rebalance</b></td><td>是"换货基备选池提快取额度"，与组合偏离率无关（同名不同义）</td></tr>
+</table>
+<div class="note">偏离率体系的适用面由 <code>checkDeviationRateDriveMode</code> 门控：只有 <code>drive_mode='DR'</code>（+J7 特例白名单）走偏离率链路。</div>
+
+<h2>八、偏离计算基准澄清：模型目标占比取的是"动态漂移比例"还是"静态调仓目标"？</h2>
+<div class="warn"><b>结论先行</b>：PO 交易链路（调仓门禁、单基金指令、AR 再平衡）的"模型目标占比"默认取 <b>portfolio_composition 表最新一日的成分比例 —— 即随成分净值涨跌<b>逐日漂移后的动态比例</b></b>，不是主理人最近一次调仓设定的静态比例。<b>例外</b>是 trade_mode='LATEST_ADJUST'（按最新调仓比例交易）的组合，会被切换为静态调仓目标。用户偏离的语义因此是"<b>没跟上模型的实时漂移</b>"，而非"没跟上最近一次调仓"——两者在两次调仓之间会持续分叉。</div>
+
+<h3>8.1 动态漂移机制本身（模型层比例如何每天变化）</h3>
+<table>
+<tr><th>项</th><th>说明</th><th>源码/数据依据</th></tr>
+<tr><td>漂移公式</td><td>newPercent = 调仓设定比例 × (当前净值 ÷ 调仓日净值)，再归一化（normalizePercent，最大成分吸收尾差使 Σ=1）</td><td>po-metrics-spark <code>ProcessPortfolioMetrics#parseRow</code> L361：percent.multiply(currentFundNav).divide(adjustFundNav)</td></tr>
+<tr><td>初值来源</td><td><b>最近一次调仓</b>的目标比例：portfolio_adjustment_info 取 MAX(adjusted_on) JOIN portfolio_adjustment_detail.percent</td><td>同文件 <code>loadLatestAdjustDetail</code> L871-907</td></tr>
+<tr><td>净值对</td><td>调仓日 adj_nav（portfolio_adjustment_info.adjusted_on 当日的 fund_metrics.adj_nav）vs 最新 adj_nav</td><td><code>loadCurrentFundNav</code> + <code>loadFundNav</code></td></tr>
+<tr><td>写回</td><td>每日 INSERT … ON DUPLICATE KEY UPDATE 进 <code>ying99_pomodel.portfolio_composition</code>（按 po_code+prod_code+updated_date）</td><td><code>flushPoNavComposition</code> L968-1005</td></tr>
+<tr><td>固定比例例外</td><td>portfolio_info.is_composition_fix_ratio=1 时 percentMap 不漂移（恒等于上次调仓目标）</td><td>parseRow L377</td></tr>
+<tr><td>适用范围</td><td>drive_mode='DR' 或（SI 且 operate_type='CLASSIC'）且未清盘</td><td>loadLatestAdjustDetail L887</td></tr>
+<tr><td>线上实证</td><td>ZH036316 每个交易日都有 11 行成分快照，percent 逐日变化（如 000509：09-01=0.0606 → 09-04=0.0606 → 09-07=0.0542 → 09-09=0.0541）</td><td>dw-tidb portfolio_composition 实测 2026-09-10</td></tr>
+</table>
+
+<h3>8.2 分场景取数基准</h3>
+<table>
+<tr><th>场景</th><th>模型目标占比取什么</th><th>取数链（表/字段/类）</th></tr>
+<tr><td><b>① 调仓/跟车门禁<br>② 单基金指令</b></td><td><span class="badge b-dyn">动态漂移</span> 默认取 <code>portfolio_composition</code> 最新 updated_date 的 percent（spark 每日漂移后的值）；<b>例外</b>：portfolio_info.trade_mode='LATEST_ADJUST' 的组合改取 <code>portfolio_adjustment_detail.percent</code>（最近一次调仓的静态目标，源自 J7 固定买入比例能力）</td><td>pomodel <code>PortfolioDetailService#getPoListWithAdjustAndCompsByPoCodes</code> → <code>PoCompsDao#getLatestPoCompsWithCandidateByPoCodes</code>（SQL：portfolio_composition 按 po_code 取 MAX(updated_date) 那天，force index idx_pocomp_compound）；potrade <code>ClassicPortfolioModelService#getPoInfo</code> L37-45 判 trade_mode 决定是否覆盖为 adjustment_detail；经 <code>PoModelManager#getPoInfo</code>（调 pomodel /model/{poCode}/tradeDetail）注入 poadjust 的 models 参数（<code>PreAdjustService</code> L181/L500 targetComps）</td></tr>
+<tr><td><b>③ AR 再平衡</b></td><td><span class="badge b-dyn">动态漂移</span> 与 ①同源同基准：快照计算时取 <code>getModel(poCode)</code> 的 comps（同样走 tradeDetail → composition 最新日，LATEST_ADJUST 组合同样被切换为静态目标）</td><td>poclear <code>PoDeviationCalcService#getModels</code> L395-409 → <code>ModelService#getModel</code> → <code>ClassicPortfolioModelService#getPoInfo</code>；算出的偏离率落 <code>ca_deviation_rate.deviation_rate</code> 供 pooss/pobatch 次日筛选</td></tr>
+<tr><td><b>④ 调仓后偏离校验</b></td><td><span class="badge b-mix">视 TradeMode</span> afterDeviationRate 是"按本次调仓指令执行后"的持仓 vs <b>同一套 models</b>（默认漂移后比例）再算的偏离；before 亦然——基准与 ① 完全一致</td><td>potrade <code>PreAdjustExecuteService</code> L197-227，instructionDesc.afterDeviationRate 由 poadjust 试算产出（models 同 ①）</td></tr>
+<tr><td><b>⑤ 自建组合成分偏离提醒</b></td><td><span class="badge b-mix">动态 vs 静态</span> <b>左边</b>（当前成分）= portfolio_composition 最新日 percent（漂移后）；<b>右边</b>（基准）= 上次调仓设定的静态目标 portfolio_adjustment_detail.percent——本场景的"偏离"度量的恰恰是<b>漂移本身的大小</b></td><td>pmdj <code>pomodel.composition-deviation.js</code>：<code>doGetRawPoModelDetail(poCode, null, 'adjustInfo,comps')</code>，comps.percent（当前）vs adjustInfo.details.percent（上次调仓目标），单接口同时取两个口径</td></tr>
+<tr><td><b>⑥ 定制账户匹配度</b></td><td><span class="badge b-static">静态方案</span> 基准是用户自己的方案配置 <code>customProductDetails[].ratio</code>（建方案/改方案时设定的比例，不随净值漂移）；当前持仓比例含在途资产</td><td>pmdj <code>uma-invest-plan.custom.trade.service.ts#doGenerateCustomPlanTradeAdviceSummary</code> L171（umaProductConfigPlan）+ <code>calculateMatchingDegree</code>（uma-invest-plan.common.ts L1121-1171）</td></tr>
+</table>
+
+<h3>8.3 业务语义对照（这段直接回答"用户偏离是什么意思"）</h3>
+<table>
+<tr><th>问题</th><th>答案</th></tr>
+<tr><td>用户 A 没跟最近一次调仓，但各成分涨跌恰好使他持仓比例≈漂移后的模型比例，会触发调仓建议吗？</td><td><b>不会</b>——门禁比的是漂移后比例，A "歪打正着"跟上了漂移就无偏离</td></tr>
+<tr><td>用户 B 完美跟了上次调仓、之后没有任何操作，会逐渐出现偏离吗？</td><td><b>会</b>——他的持仓比例冻结在调仓日，而模型基准每天漂移；成分基金涨跌幅差异越大分叉越快。这就是"刚调完仓过几天又提示可调仓"的结构性来源（另一个来源是买入用旧净值确认）</td></tr>
+<tr><td>主理人视角"成分跑偏了"和用户视角"没跟上"是一回事吗？</td><td><b>不是</b>：前者（场景⑤）= 漂移本身（当前成分 vs 上次调仓设定）；后者（场景①②③）= 用户持仓 vs 漂移后的当前成分。两个偏离可以独立发生、独立大小</td></tr>
+<tr><td>有没有组合用"静态目标"做用户调仓基准？</td><td>有：trade_mode='LATEST_ADJUST' 的组合（J7 固定买入比例能力泛化而来），用户调仓时对齐的是最近一次调仓的设定比例，模型层照常漂移但交易基准不漂移</td></tr>
+</table>
+
+<h2>九、阈值速查卡（线上实测值汇总）</h2>
+<table>
+<tr><th>阈值</th><th>作用</th><th>真源</th><th>线上实际值</th></tr>
+<tr><td>组合级偏离率</td><td>调仓/AR 触发门禁</td><td><code>ying99_potrade.advisor_portfolio_deviation_rate_split_info</code></td><td>全局默认 4%；1283 组合独立配置，主流 4%，其次 2%/1%/3%/10%/5%</td></tr>
+<tr><td>单基金级偏离率</td><td>单只指令生成门禁</td><td>同上表 + sys_param 兜底</td><td>默认 0.4%；绝大多数配置 0.4%，个别 0.04%/0.05%/0.1%/0.2%/0.25%/…/5%</td></tr>
+<tr><td>调仓后偏离率上限</td><td>试算结果兜底</td><td>sys_param <code>expectAdjustAfterDeviationRateLessThan</code></td><td><b>5%</b>（全局）；7 组合定制 6%~15%</td></tr>
+<tr><td>成分偏离提醒阈值</td><td>自建组合跑偏提醒</td><td><code>portfolio_info.extra</code></td><td>默认 4%；294 组合配置，主流 4%，可设 1%~50%</td></tr>
+<tr><td>定制账户匹配度阈值</td><td>调仓建议展示</td><td>pmdj 代码常量</td><td>95（多产品）/ 100（单产品）</td></tr>
+<tr><td>小目标建仓单基金阈值</td><td>建仓期指令生成</td><td>portfolio_param</td><td>默认 0.4%</td></tr>
+</table>
+
+<h2>十、设值组合清单（线上实测 · 全量）</h2>
+<h3>10.1 调仓/AR 两层偏离率阈值：1283 个组合按档位分组</h3>
+
+<p>共 <b>1283</b> 个组合（1285 条按 poCode+broker 最新记录，其中 2 条为 broker 维度重复）有独立阈值配置，其中非主流档位 <b>458</b> 个全量列出，主流档位 4%/0.4% 共 827 个折叠展示。</p>
+
+<details style="margin:8px 0">
+<summary style="cursor:pointer;font-weight:600;padding:6px 10px;background:#eef6f4;border-radius:4px">▸ 主流档位：组合级 4% / 单基金级 0.4% —— 共 <b>827</b> 个组合（点击展开全量明细）</summary>
+<div style="max-height:480px;overflow:auto">
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>ZH000082</td><td>盈米稳健八心八箭</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH000113</td><td>华安端水加点股</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH000129</td><td>二八轮动</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH006358</td><td>安心动盈</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH006498</td><td>价值五剑</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-07-09</td></tr>
+<tr><td>ZH007212</td><td>积胜灵活进取</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH007219</td><td>德圣稳健收益</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH007251</td><td>胡芹1号</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH007476</td><td>胡芹88号</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH009532</td><td>a11</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH010292</td><td>Earl二八轮动</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH036118</td><td>小帮红利组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-12-25</td></tr>
+<tr><td>ZH036119</td><td>小帮睿定投（全球版）组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-03-11</td></tr>
+<tr><td>ZH038713</td><td>财商邦单笔进取型组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-07-10</td></tr>
+<tr><td>ZH038739</td><td>财商邦定投进取组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-09-12</td></tr>
+<tr><td>ZH038740</td><td>财商邦定投激进组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-09-12</td></tr>
+<tr><td>ZH043937</td><td>启明睿-进取</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2026-01-30</td></tr>
+<tr><td>ZH045206</td><td>启明睿-守恒</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2026-01-30</td></tr>
+<tr><td>ZH047177</td><td>暖光</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-08-21</td></tr>
+<tr><td>ZH054245</td><td>朝财进宝</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH059793</td><td>远望指基优选组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2026-03-24</td></tr>
+<tr><td>ZH066010</td><td>巨人肩膀</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2026-06-30</td></tr>
+<tr><td>ZH088799</td><td>6%目标投</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-05-25</td></tr>
+<tr><td>ZH105858</td><td>YQ稳稳赚钱</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH106035</td><td>稳健4060组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH106611</td><td>wxl111</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH106810</td><td>wxl2</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH106848</td><td>UI验收0611</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH107283</td><td>pmsw1</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH107323</td><td>wxl1242</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH107345</td><td>wxl1511</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH107459</td><td>wxl1438</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH107467</td><td>wxl1510</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH107527</td><td>wxl0006</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH107754</td><td>高新科技行业主题组合Y</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH108125</td><td>CM底层组合-偏股成长-测试</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH109230</td><td>尊享年年盈内侧</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH110139</td><td>基金豆小目标2021</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH110140</td><td>UI测试0712</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH110701</td><td>UI验收0716时间1400</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH111264</td><td>PMS兼容02</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH111357</td><td>hephzibah</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH111368</td><td>组合创建测试07201</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH111374</td><td>testxph</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH111376</td><td>test0720</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH111700</td><td>子女教育金组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH111731</td><td>养老规划长期定投组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH111732</td><td>月光族长期定投组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH111800</td><td>sddd</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH111801</td><td>单独</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH111948</td><td>稳中求进债基组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH111949</td><td>全明星进取组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH111951</td><td>分散平衡配置组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH112444</td><td>测试组合22号</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH112609</td><td>yyds新能源</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH112612</td><td>yyds新能源2号</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH112618</td><td>宇宙w2</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH113198</td><td>PMS组合创建1</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH113376</td><td>尊享年年盈合利测试款</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH113563</td><td>股基五剑侠</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH113565</td><td>陈峰测试组合20210805</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH113566</td><td>1</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH113829</td><td>海棠计划</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH114019</td><td>Cooperation</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH114020</td><td>Stabilization</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH114854</td><td>限额测试</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH115164</td><td>LINDA的组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH115695</td><td>安薪盈全债组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH116076</td><td>养鸡场3号</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH116876</td><td>宇宙无敌a1</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH116934</td><td>谢小慧的小金库</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH117013</td><td>启明测试专属组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH117015</td><td>配置期20211209</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH117017</td><td>基金豆测试组合lF</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH117090</td><td>Harvest</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH117092</td><td>晓凤测试</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH117479</td><td>预约买入模式内部测试</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH117480</td><td>基金豆小目标普通车202109</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH117482</td><td>基金豆小目标普通车21036测试</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH117557</td><td>Tendency</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH117559</td><td>Excellent</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH117561</td><td>预约买入测试2</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH117565</td><td>晓凤预约买入测试3</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH117610</td><td>晓凤预约买入测试4</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH117613</td><td>晓凤预约买入测试5</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH117663</td><td>Lucky</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH117687</td><td>晓凤预约买入测试6</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH117694</td><td>晓凤预约买入测试7</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH117887</td><td>Thrive</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH117897</td><td>基金豆小目标普通车1测试20210922</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH117899</td><td>基金豆小目标普通车2测试20210922</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH117900</td><td>基金豆小目标普通车3测试20210922</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH117906</td><td>配置期组合20211101</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH117909</td><td>普通组合创建看看</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH117924</td><td>啟明星预约买入测试4</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH117925</td><td>预约买入测试303</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH117969</td><td>小目标pro内测001</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH117972</td><td>小目标pro内测002</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH117981</td><td>小目标pro内测003</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH117982</td><td>小目标快车pro内测002</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH117984</td><td>小目标pro内测004</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH117985</td><td>小目标pro内测005</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH117987</td><td>小目标pro内测006</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH118005</td><td>啟明星预约买入测试5</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH118007</td><td>预约买入测试4</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH118066</td><td>小目标快车pro内测003</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH118164</td><td>小目标快车pro内测004</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH118176</td><td>预约买入测试05</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH118179</td><td>预约买入测试5</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH118349</td><td>更好的未来</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH118594</td><td>迁移测试</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH118603</td><td>晓峰测试版本</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH118606</td><td>晓峰测试2</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH118619</td><td>稳稳如泰山</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH118677</td><td>TAMP小目标测试120211010</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH118691</td><td>xm吃吃吃</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH118697</td><td>小目标Pro2139</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH118807</td><td>组合1012</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH118898</td><td>yyds1私有</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH118937</td><td>测试验证1</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH118966</td><td>小目标Pro2140</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH118993</td><td>小目标Pro2141</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH118994</td><td>小目标Pro2142</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH118995</td><td>小目标Pro2143</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH119001</td><td>按最新调仓买入组合测试</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH119002</td><td>最新调仓买入20211015测试验收</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH119193</td><td>Flexibility</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH119195</td><td>Elderlycare</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH119250</td><td>步步盈</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH119299</td><td>20211019最新调仓买入测试创建</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH119385</td><td>博弈垃圾债</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH119477</td><td>小目标Pro2144</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH119518</td><td>独立账户测试PMS创建</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH119519</td><td>pms独立账户创建</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH119520</td><td>pms独立功能已绑定账号</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH119523</td><td>股票</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH119615</td><td>小目标Pro2145</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH119661</td><td>独立账户测试01</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH119662</td><td>独立账户pms创建</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH119715</td><td>定存利率</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH119880</td><td>智友消费增强</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH119888</td><td>小目标Pro2146</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH120069</td><td>智友医疗增强</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH120106</td><td>300增强组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH120108</td><td>500增强组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH120109</td><td>安心盈</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH120112</td><td>智友新能源增强组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH120113</td><td>守中带攻</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH120115</td><td>智友中概互联组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH120119</td><td>智友消费增强组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH120188</td><td>智友沪深300组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH120189</td><td>智友中证500组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH120214</td><td>精选守中带攻</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH120215</td><td>精选明日之子</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH120218</td><td>精选跟随大佬</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH120279</td><td>十字星</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH120362</td><td>Wjzcpz</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH120363</td><td>Eldexutou</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH120392</td><td>稳健盈</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH120393</td><td>盈添积极盈</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH120412</td><td>小目标Pro2147</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH120462</td><td>启明睿-攻守</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2026-01-30</td></tr>
+<tr><td>ZH120579</td><td>Feixutou</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH120631</td><td>测试预约买入组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH120911</td><td>启明睿-稳健</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2026-01-30</td></tr>
+<tr><td>ZH120972</td><td>积极盈</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH121609</td><td>tracing组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH122812</td><td>新基准</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH122840</td><td>小豆趋势轮动策略2143</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH123305</td><td>小豆趋势轮动策略2144</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH123417</td><td>小豆趋势轮动策略2144期</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH123477</td><td>小豆趋势轮动策略2145</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH123732</td><td>双喜临门</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH123886</td><td>小豆趋势轮动策略2145期</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH124535</td><td>小豆趋势轮动策略2201</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH124545</td><td>小豆趋势轮动策略2202</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH124547</td><td>小豆趋势轮动策略2203</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH124549</td><td>小豆趋势轮动策略2204</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH124555</td><td>小豆趋势轮动策略2205</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH124648</td><td>木兰进取</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH124656</td><td>小目标快车pro内测005</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH124659</td><td>玄奘安心</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH124916</td><td>基准测试</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH124939</td><td>博时货币佳-且慢特别版</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH124940</td><td>博时乐享稳健-且慢特别版</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH124941</td><td>博时乐添平衡-且慢特别版</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH124970</td><td>鹏华稳收优选-旧</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH124985</td><td>驭千里马</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH125027</td><td>鹏华景气优选-旧</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH125029</td><td>盈米一号</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH125034</td><td>鹏华小美好-旧</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH125141</td><td>博时乐意进取-且慢特别版</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH125220</td><td>测试投顾组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH125589</td><td>Xinchun</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH125793</td><td>雄牛一号</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH127009</td><td>Zhaosrq</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH127010</td><td>Jiaoyinhb</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH127312</td><td>测试新指数</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH127379</td><td>无冕之王</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH127736</td><td>小豆趋势轮动策略2206</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH127816</td><td>测试excel导入组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH128354</td><td>X定投</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH128608</td><td>小豆趋势轮动策略2207</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH128609</td><td>小豆趋势轮动策略2208</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH128611</td><td>小豆趋势轮动策略2209</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH129184</td><td>神秘组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH129296</td><td>MEIS价值经典1号</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH129515</td><td>当康一号</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH129902</td><td>兴证全球低波动小幸福测试版本</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH130315</td><td>小豆趋势轮动策略2210</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH130375</td><td>财商邦单笔激进型组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH130378</td><td>财商邦定投激进组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH130379</td><td>财商邦单笔激进组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH130666</td><td>切换数据查看</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH130719</td><td>小豆积极趋势轮动</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH130722</td><td>未知组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH130853</td><td>小豆趋势轮动快车014</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH130977</td><td>小豆趋势轮动策略2211</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH130979</td><td>梦想家定投基金组合1号</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH131271</td><td>投顾输出测试组合1</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH131272</td><td>投顾输出测试组合2</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH131273</td><td>投顾输出测试组合3</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH131274</td><td>投顾输出测试组合4</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH131275</td><td>投顾输出测试组合5</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH131328</td><td>小豆趋势轮动快车015</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH131352</td><td>鹏华稳收优选</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH131358</td><td>鹏华景气优选</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH131412</td><td>丰澄长赢进取尊享</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH131451</td><td>丰澄长赢高景气</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH131540</td><td>小豆趋势轮动策略2212</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH131575</td><td>TaiLi</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH131806</td><td>致远专属组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH131807</td><td>致远经典配置组合2号</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH131939</td><td>唐僧稳健收益组合一</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH131943</td><td>唐僧股债混合组合1</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH131944</td><td>唐僧股债混合组合2</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH131946</td><td>唐僧股债混合组合8</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH132044</td><td>小豆趋势轮动策略2213</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH132208</td><td>鹏华小美好</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH132323</td><td>小豆趋势轮动策略2214</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH132600</td><td>小豆稳健配置策略</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH132650</td><td>JinLi</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH132703</td><td>小豆趋势轮动策略2215</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH132854</td><td>华安匠人匠心</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH132910</td><td>华安闲钱聪明投</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH133005</td><td>小豆趋势轮动策略2216</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH133032</td><td>asdfasdfa</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH133203</td><td>测试新建策略组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH133204</td><td>测试现有策略创建组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH133206</td><td>Fenglu</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH133208</td><td>Pinganzhong</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH133230</td><td>嘉实稳盈年年红</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH133455</td><td>小豆趋势轮动策略2217</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH133541</td><td>唐僧股债混合组合4</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH133543</td><td>唐僧股债混合组合6</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH133546</td><td>测试以现有策略创建组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH133624</td><td>唐僧四</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH133625</td><td>唐僧五</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH133626</td><td>唐僧六</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH133627</td><td>唐僧七</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH133629</td><td>唐僧八</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH133632</td><td>唐僧九</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH133773</td><td>丰澄长赢高景气臻选</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH133782</td><td>嘉实欧气满满</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH133786</td><td>小豆趋势轮动策略2218</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH134060</td><td>小豆趋势轮动策略2219</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH134206</td><td>小豆稳健配置策略2201</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH134234</td><td>小豆稳健配置策略001</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH134273</td><td>Xingli</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH134309</td><td>小豆趋势轮动策略2220</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH134399</td><td>测试1212</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH134669</td><td>小豆趋势轮动策略2221</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH134898</td><td>国泰闲钱稳稳走（测试）</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH134946</td><td>测试组合637</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH134960</td><td>国泰平衡更甜蜜</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH134988</td><td>中欧股票优选（测试）</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH135012</td><td>国泰闲钱稳稳走</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH135015</td><td>小豆趋势轮动策略2222</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH135017</td><td>小豆趋势轮动策略2222期</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH135034</td><td>小豆趋势轮动2222</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH135042</td><td>测试基金池CL00002830</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH135046</td><td>测试组合12313</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH135048</td><td>测试新建组合1</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH135181</td><td>策略关联测试</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH135331</td><td>小豆趋势轮动策略2223</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH135336</td><td>配置期组合报错测试</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH135337</td><td>配置期组合报错测试Again</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH135341</td><td>测试配置期</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH135599</td><td>小豆趋势轮动策略2224</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH136023</td><td>小豆趋势轮动策略2225</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH136191</td><td>创建测试组合0620</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH136314</td><td>小豆趋势轮动策略2226</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH136523</td><td>南方权益优选组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH136541</td><td>南方股债平衡组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH136686</td><td>小豆趋势轮动策略2227</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH136969</td><td>小豆趋势轮动策略2228</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH137296</td><td>小豆趋势轮动策略2229</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH137636</td><td>小豆趋势轮动策略2230</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH137637</td><td>智盈全天候策略</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH137930</td><td>小豆趋势轮动策略2231</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138090</td><td>小豆趋势轮动策略转托管2046</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138094</td><td>小豆趋势轮动策略转托管2101</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138098</td><td>小豆趋势轮动策略转托管2102</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138100</td><td>小豆趋势轮动策略转托管2103</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138105</td><td>小豆趋势轮动策略转托管2104</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138107</td><td>小豆趋势轮动策略转托管2119</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138138</td><td>小豆趋势轮动策略转托管2105</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138141</td><td>小豆趋势轮动策略转托管2133</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138144</td><td>小豆趋势轮动策略转托管2106</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138145</td><td>小豆趋势轮动策略转托管快车009</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138146</td><td>小豆趋势轮动策略转托管2107</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138147</td><td>小豆趋势轮动策略转托管2134</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138148</td><td>小豆趋势轮动策略转托管快车011</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138149</td><td>小豆趋势轮动策略转托管直达车001</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138150</td><td>小豆趋势轮动策略转托管2136</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138151</td><td>小豆趋势轮动策略转托管2139</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138152</td><td>小豆趋势轮动策略转托管快车013</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138154</td><td>小豆趋势轮动策略转托管2125</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138155</td><td>小豆趋势轮动策略转托管2137</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138156</td><td>小豆趋势轮动策略转托管2140</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138157</td><td>小豆趋势轮动策略转托管主题车001</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138158</td><td>小豆趋势轮动策略转托管直达车002</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138160</td><td>小豆趋势轮动策略转托管2141</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138161</td><td>小豆趋势轮动策略转托管2128</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138162</td><td>小豆趋势轮动策略转托管2142</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138163</td><td>小豆趋势轮动策略转托管2143</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138165</td><td>小豆趋势轮动策略转托管直达车003</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138166</td><td>小豆趋势轮动策略转托管2144</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138167</td><td>小豆趋势轮动策略转托管2132</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138169</td><td>小豆趋势轮动策略转托管快车006</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138170</td><td>小豆趋势轮动策略转托管直达车004</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138171</td><td>小豆趋势轮动策略转托管快车007</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138172</td><td>小豆趋势轮动策略转托管主题车003</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138173</td><td>小豆趋势轮动策略转托管主题车004</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138174</td><td>小豆趋势轮动策略转托管直达车005</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138176</td><td>小豆趋势轮动策略转托管直达车006</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138336</td><td>小豆趋势轮动策略2232</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138663</td><td>小豆趋势轮动策略2233</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138736</td><td>大橘股债轮动</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138737</td><td>大橘安心渐赢</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138738</td><td>大橘行稳致远</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138739</td><td>大橘锐意进取</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138877</td><td>岁岁有余</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138882</td><td>黑马测试</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH138883</td><td>返璞归真</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH139153</td><td>小豆趋势轮动策略2234</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH139368</td><td>测试预留现金组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH139370</td><td>预留现金比例测试001</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH139438</td><td>测试业绩基准兼容旧</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH139589</td><td>小豆趋势轮动策略2235</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH139595</td><td>测试业绩基准创建组合复合单和普</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH139903</td><td>小豆趋势轮动策略2236</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH139986</td><td>进取黑马</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH140203</td><td>小豆趋势轮动策略2237</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH140463</td><td>横琴1号</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH140505</td><td>小豆趋势轮动策略2238旧4</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH140517</td><td>小豆趋势轮动策略2238新</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH140518</td><td>测试关联组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH140827</td><td>小豆趋势轮动策略2239</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH141157</td><td>小豆趋势轮动策略2240</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH141511</td><td>小豆趋势轮动策略2241</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH142537</td><td>迦南甄锐</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-04-02</td></tr>
+<tr><td>ZH144575</td><td>天马稳健</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2026-07-27</td></tr>
+<tr><td>ZH148103</td><td>小豆趋势轮动策略2315</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-04-13</td></tr>
+<tr><td>ZH148118</td><td>东东稳进</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-04-13</td></tr>
+<tr><td>ZH148353</td><td>懒人稳中求进</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-04-18</td></tr>
+<tr><td>ZH148406</td><td>富国稳稳星稳健理财</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-04-19</td></tr>
+<tr><td>ZH148458</td><td>小豆趋势轮动策略2316</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-04-20</td></tr>
+<tr><td>ZH148937</td><td>权益百分百</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-05-05</td></tr>
+<tr><td>ZH148971</td><td>小豆趋势轮动策略2317</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-05-07</td></tr>
+<tr><td>ZH148974</td><td>小豆趋势轮动策略2317期</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-05-07</td></tr>
+<tr><td>ZH149015</td><td>庭前花开</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-05-08</td></tr>
+<tr><td>ZH149022</td><td>家和成长1号</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-05-08</td></tr>
+<tr><td>ZH149091</td><td>申菱稳健低波</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-05-10</td></tr>
+<tr><td>ZH149115</td><td>小豆趋势轮动策略2318</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-05-11</td></tr>
+<tr><td>ZH149282</td><td>小豆趋势轮动策略2319</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-05-18</td></tr>
+<tr><td>ZH149390</td><td>经典组合策略且慢测试专用</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-05-23</td></tr>
+<tr><td>ZH149392</td><td>鲍叔牙全球进取组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-05-23</td></tr>
+<tr><td>ZH149447</td><td>小豆趋势轮动策略2320</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-05-25</td></tr>
+<tr><td>ZH149549</td><td>测试策略自动生成策略说明书</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-05-29</td></tr>
+<tr><td>ZH149554</td><td>测试组合生成策略说明书</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-05-29</td></tr>
+<tr><td>ZH149630</td><td>小豆趋势轮动策略2321</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-06-01</td></tr>
+<tr><td>ZH149793</td><td>小豆趋势轮动策略2322</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-06-08</td></tr>
+<tr><td>ZH149794</td><td>小豆趋势轮动策略2322新</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-06-08</td></tr>
+<tr><td>ZH149903</td><td>测试谁是生生世世</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-06-12</td></tr>
+<tr><td>ZH149909</td><td>备选-昊天无极</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-06-13</td></tr>
+<tr><td>ZH149985</td><td>小豆趋势轮动策略2323</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-06-15</td></tr>
+<tr><td>ZH150185</td><td>小豆趋势轮动策略2324</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-06-25</td></tr>
+<tr><td>ZH150249</td><td>测试不生成策略说明书</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-06-27</td></tr>
+<tr><td>ZH150261</td><td>申万菱信稳健安鑫</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-06-28</td></tr>
+<tr><td>ZH150274</td><td>测试策略说明书不自动生成1</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-06-28</td></tr>
+<tr><td>ZH150301</td><td>小豆趋势轮动策略2325</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-06-29</td></tr>
+<tr><td>ZH150463</td><td>小豆趋势轮动策略2326</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-07-06</td></tr>
+<tr><td>ZH150644</td><td>小豆趋势轮动策略2327</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-07-13</td></tr>
+<tr><td>ZH150645</td><td>测试创建组合112</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-07-13</td></tr>
+<tr><td>ZH150646</td><td>测试以策略创建组合2</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-07-13</td></tr>
+<tr><td>ZH150647</td><td>测试组合创建2</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-07-13</td></tr>
+<tr><td>ZH150669</td><td>颐养天年养老计划</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-07-14</td></tr>
+<tr><td>ZH150691</td><td>测试717</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-07-17</td></tr>
+<tr><td>ZH150692</td><td>testccccc</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-07-17</td></tr>
+<tr><td>ZH150775</td><td>天天收蛋</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-07-20</td></tr>
+<tr><td>ZH150785</td><td>小豆趋势轮动策略2328</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-07-20</td></tr>
+<tr><td>ZH150788</td><td>test111</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-07-20</td></tr>
+<tr><td>ZH150821</td><td>测试创建策略1231</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-07-21</td></tr>
+<tr><td>ZH150822</td><td>测试非投顾策略创建组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-07-21</td></tr>
+<tr><td>ZH150862</td><td>测试非投顾创建组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-07-24</td></tr>
+<tr><td>ZH150863</td><td>测试组合贷111</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-07-24</td></tr>
+<tr><td>ZH150921</td><td>小豆趋势轮动策略2329</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-07-27</td></tr>
+<tr><td>ZH151097</td><td>小豆趋势轮动策略2330</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-08-03</td></tr>
+<tr><td>ZH151212</td><td>测试组合1234</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-08-07</td></tr>
+<tr><td>ZH151216</td><td>测试组合323</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-08-07</td></tr>
+<tr><td>ZH151219</td><td>测试经典222</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-08-07</td></tr>
+<tr><td>ZH151304</td><td>小豆趋势轮动策略2331</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-08-10</td></tr>
+<tr><td>ZH151437</td><td>测试组合创建</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-08-15</td></tr>
+<tr><td>ZH151483</td><td>小豆趋势轮动策略2332</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-08-17</td></tr>
+<tr><td>ZH151562</td><td>测试组合20230821</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-08-21</td></tr>
+<tr><td>ZH151602</td><td>测试2号</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-08-23</td></tr>
+<tr><td>ZH151603</td><td>测试3号</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-08-23</td></tr>
+<tr><td>ZH151617</td><td>与时偕行-1号</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-08-23</td></tr>
+<tr><td>ZH151620</td><td>长投策略</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-08-23</td></tr>
+<tr><td>ZH151643</td><td>小豆趋势轮动策略2333</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-08-24</td></tr>
+<tr><td>ZH151658</td><td>智晖稳健</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-08-25</td></tr>
+<tr><td>ZH151669</td><td>XXXX</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-08-25</td></tr>
+<tr><td>ZH151707</td><td>策牛长奔</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-08-29</td></tr>
+<tr><td>ZH151770</td><td>小豆趋势轮动策略2334</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-08-31</td></tr>
+<tr><td>ZH151865</td><td>staging目标日期组合创建</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-09-04</td></tr>
+<tr><td>ZH151869</td><td>正式环境创建测试目标日期组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-09-04</td></tr>
+<tr><td>ZH151870</td><td>测试创建经典组合223</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-09-04</td></tr>
+<tr><td>ZH151947</td><td>小豆趋势轮动策略2335</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-09-07</td></tr>
+<tr><td>ZH151952</td><td>满益低波</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-09-08</td></tr>
+<tr><td>ZH151962</td><td>新流程测试</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-09-08</td></tr>
+<tr><td>ZH151967</td><td>230908财通选成长测试</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-09-08</td></tr>
+<tr><td>ZH152038</td><td>超级定投家</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-09-13</td></tr>
+<tr><td>ZH152065</td><td>小豆趋势轮动策略2336</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-09-14</td></tr>
+<tr><td>ZH152150</td><td>测试经典组合窗20230918</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-09-18</td></tr>
+<tr><td>ZH152214</td><td>小豆趋势轮动策略2337</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-09-21</td></tr>
+<tr><td>ZH152305</td><td>麻烦删除</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-09-26</td></tr>
+<tr><td>ZH152306</td><td>启明滚投系列-30天</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-09-26</td></tr>
+<tr><td>ZH152308</td><td>启明滚投系列-90天</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-09-26</td></tr>
+<tr><td>ZH152310</td><td>启明滚投系列-180天</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-09-26</td></tr>
+<tr><td>ZH152311</td><td>启明滚投系列-360天</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-09-26</td></tr>
+<tr><td>ZH152360</td><td>小豆趋势轮动策略2338</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-09-28</td></tr>
+<tr><td>ZH152474</td><td>草稿组合草稿组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-10-09</td></tr>
+<tr><td>ZH152535</td><td>小豆趋势轮动策略2339</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-10-12</td></tr>
+<tr><td>ZH152612</td><td>启明-中西合璧(作废)</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-10-17</td></tr>
+<tr><td>ZH152691</td><td>小豆趋势轮动策略2340</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-10-19</td></tr>
+<tr><td>ZH152694</td><td>盈米银华天玑-奔跑狮子座</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-10-19</td></tr>
+<tr><td>ZH152695</td><td>盈米银华天玑-均衡天秤座</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-10-19</td></tr>
+<tr><td>ZH152696</td><td>盈米银华天玑-暖暖巨蟹座</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-10-19</td></tr>
+<tr><td>ZH152697</td><td>盈米银华天玑-年年红</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-10-19</td></tr>
+<tr><td>ZH152698</td><td>测试-盈米银华天玑-悄悄盈</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-10-19</td></tr>
+<tr><td>ZH152820</td><td>盈米银华天玑-悄悄盈</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-10-25</td></tr>
+<tr><td>ZH152825</td><td>启明-中西合璧</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2026-01-30</td></tr>
+<tr><td>ZH152836</td><td>小豆趋势轮动策略2341</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-10-26</td></tr>
+<tr><td>ZH152837</td><td>金匠2号</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-12-01</td></tr>
+<tr><td>ZH152922</td><td>且徐行</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-10-30</td></tr>
+<tr><td>ZH152927</td><td>万重山</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-10-30</td></tr>
+<tr><td>ZH152928</td><td>济沧海</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-10-30</td></tr>
+<tr><td>ZH152982</td><td>小豆趋势轮动策略2342</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-11-02</td></tr>
+<tr><td>ZH152984</td><td>万选全心组合测试</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-11-02</td></tr>
+<tr><td>ZH152985</td><td>智者股债配置策略</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-11-02</td></tr>
+<tr><td>ZH153047</td><td>启明-指数基金组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-11-06</td></tr>
+<tr><td>ZH153048</td><td>启明-另类组合(作废)</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-11-06</td></tr>
+<tr><td>ZH153063</td><td>测试创建组合20231106</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-11-06</td></tr>
+<tr><td>ZH153065</td><td>备选-指数组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-11-06</td></tr>
+<tr><td>ZH153093</td><td>备选-权益组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-11-07</td></tr>
+<tr><td>ZH153102</td><td>启明固收+</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-11-08</td></tr>
+<tr><td>ZH153114</td><td>启明海外权益优选指数</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-11-08</td></tr>
+<tr><td>ZH153136</td><td>小豆趋势轮动策略2343</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-11-09</td></tr>
+<tr><td>ZH153327</td><td>小豆趋势轮动策略2344</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-11-16</td></tr>
+<tr><td>ZH153383</td><td>红赢全股</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-11-17</td></tr>
+<tr><td>ZH153385</td><td>红赢全债</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-11-17</td></tr>
+<tr><td>ZH153443</td><td>测试纯债债基100</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-11-20</td></tr>
+<tr><td>ZH153444</td><td>CM底层组合-偏债固收+测试</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-11-20</td></tr>
+<tr><td>ZH153527</td><td>小豆趋势轮动策略2345</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-11-23</td></tr>
+<tr><td>ZH153770</td><td>小豆趋势轮动策略2346</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-11-30</td></tr>
+<tr><td>ZH153855</td><td>测试111诶诶诶</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-12-04</td></tr>
+<tr><td>ZH153857</td><td>测试上线建仓组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-12-04</td></tr>
+<tr><td>ZH153860</td><td>测试创建1204</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-12-04</td></tr>
+<tr><td>ZH153923</td><td>小豆趋势轮动策略2347</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-12-07</td></tr>
+<tr><td>ZH153951</td><td>稳定生财</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-12-08</td></tr>
+<tr><td>ZH153990</td><td>守财无忧</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-12-11</td></tr>
+<tr><td>ZH153993</td><td>稳稳变富</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-12-11</td></tr>
+<tr><td>ZH154061</td><td>小豆趋势轮动策略2348</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-12-14</td></tr>
+<tr><td>ZH154241</td><td>全天候-永久投资策略</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2026-05-26</td></tr>
+<tr><td>ZH154264</td><td>小豆趋势轮动策略2349</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-12-21</td></tr>
+<tr><td>ZH154303</td><td>1208测试</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-12-24</td></tr>
+<tr><td>ZH154395</td><td>小豆趋势轮动策略2401</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-12-28</td></tr>
+<tr><td>ZH154398</td><td>专心致志</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2023-12-28</td></tr>
+<tr><td>ZH154578</td><td>小豆趋势轮动策略2402</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-01-04</td></tr>
+<tr><td>ZH154673</td><td>有点乾正禾宏观多元策略</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-01-08</td></tr>
+<tr><td>ZH154683</td><td>盈添全球优质资产</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-01-09</td></tr>
+<tr><td>ZH154744</td><td>小豆趋势轮动策略2403</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-01-11</td></tr>
+<tr><td>ZH154770</td><td>市场观点测试组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-01-12</td></tr>
+<tr><td>ZH154772</td><td>验证测试功能组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-01-12</td></tr>
+<tr><td>ZH154805</td><td>懒猫全球稳健</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2026-08-03</td></tr>
+<tr><td>ZH154807</td><td>创建经典组合市场观点</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-01-15</td></tr>
+<tr><td>ZH154808</td><td>多肉ETF长久陪伴计划</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-01-15</td></tr>
+<tr><td>ZH154853</td><td>小豆趋势轮动策略2404</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-01-18</td></tr>
+<tr><td>ZH154997</td><td>小豆趋势轮动策略2405</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-01-25</td></tr>
+<tr><td>ZH155105</td><td>配置期组合测试</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-01-30</td></tr>
+<tr><td>ZH155150</td><td>小豆趋势轮动策略2406</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-02-01</td></tr>
+<tr><td>ZH155212</td><td>金匠1号</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-02-03</td></tr>
+<tr><td>ZH155215</td><td>阿基纯债测试</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-02-03</td></tr>
+<tr><td>ZH155289</td><td>小豆趋势轮动策略2407期</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-02-07</td></tr>
+<tr><td>ZH155492</td><td>小豆趋势轮动策略2408</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-02-22</td></tr>
+<tr><td>ZH155610</td><td>低波策略</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-02-26</td></tr>
+<tr><td>ZH155611</td><td>股债配置策略</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-02-26</td></tr>
+<tr><td>ZH155612</td><td>全球策略</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-02-26</td></tr>
+<tr><td>ZH155613</td><td>现金策略</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-02-26</td></tr>
+<tr><td>ZH155904</td><td>小豆趋势轮动策略2410</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-03-07</td></tr>
+<tr><td>ZH155932</td><td>天马短债</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-03-08</td></tr>
+<tr><td>ZH155994</td><td>测试投顾管理标准组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-03-11</td></tr>
+<tr><td>ZH156086</td><td>小豆趋势轮动策略2411</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-03-14</td></tr>
+<tr><td>ZH156110</td><td>测试11111111</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-03-15</td></tr>
+<tr><td>ZH156112</td><td>测试1111111111</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-03-15</td></tr>
+<tr><td>ZH156115</td><td>启明睿-稳健(中航版)-关停</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-03-15</td></tr>
+<tr><td>ZH156118</td><td>启明睿-进取(中航版)-关停</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-03-15</td></tr>
+<tr><td>ZH156119</td><td>启明睿-现金(中航版)-关停</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-03-15</td></tr>
+<tr><td>ZH156120</td><td>启明-中西合璧备选1</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-03-15</td></tr>
+<tr><td>ZH156187</td><td>启明-中西合璧(中航版)</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2026-01-20</td></tr>
+<tr><td>ZH156257</td><td>小豆趋势轮动策略2412</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-03-21</td></tr>
+<tr><td>ZH156399</td><td>债基优等生</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-03-29</td></tr>
+<tr><td>ZH156461</td><td>小豆趋势轮动策略2413</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-04-01</td></tr>
+<tr><td>ZH156466</td><td>测试创建包含互认基金的组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-04-01</td></tr>
+<tr><td>ZH156488</td><td>盈添精选股票策略</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-04-02</td></tr>
+<tr><td>ZH156498</td><td>盈添精选债券策略</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-04-03</td></tr>
+<tr><td>ZH156500</td><td>盈添股债配置策略</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-04-03</td></tr>
+<tr><td>ZH156502</td><td>盈添股债稳健策略</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-04-03</td></tr>
+<tr><td>ZH156511</td><td>小豆趋势轮动策略2414</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-04-03</td></tr>
+<tr><td>ZH156693</td><td>小豆趋势轮动策略2415</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-04-11</td></tr>
+<tr><td>ZH156810</td><td>交银债基债利</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-04-16</td></tr>
+<tr><td>ZH156811</td><td>交银指数星球</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-04-16</td></tr>
+<tr><td>ZH156849</td><td>小豆趋势轮动策略2416</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-04-18</td></tr>
+<tr><td>ZH156888</td><td>海投计划积极版</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-04-19</td></tr>
+<tr><td>ZH156890</td><td>海投计划稳健版</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-04-19</td></tr>
+<tr><td>ZH156962</td><td>银万天添利</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-04-23</td></tr>
+<tr><td>ZH157215</td><td>稳稳向前组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-04-30</td></tr>
+<tr><td>ZH157216</td><td>小豆趋势轮动策略2417</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-04-30</td></tr>
+<tr><td>ZH157343</td><td>复利长牛组合策略</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-05-07</td></tr>
+<tr><td>ZH157417</td><td>小豆趋势轮动策略2418</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-05-09</td></tr>
+<tr><td>ZH157650</td><td>小豆趋势轮动策略2419</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-05-16</td></tr>
+<tr><td>ZH157705</td><td>测试创建经典组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-05-17</td></tr>
+<tr><td>ZH157742</td><td>万选权益类资产包测试</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-05-19</td></tr>
+<tr><td>ZH157743</td><td>万选固收类资产包测试</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-05-19</td></tr>
+<tr><td>ZH157783</td><td>测试创建经典组合520</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-05-20</td></tr>
+<tr><td>ZH157884</td><td>小豆稳健配置策略002</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-05-23</td></tr>
+<tr><td>ZH157885</td><td>小豆稳健配置策略002期</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-05-23</td></tr>
+<tr><td>ZH157930</td><td>启明滚投系列-360Pro</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-05-24</td></tr>
+<tr><td>ZH157931</td><td>启明信用债</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-05-24</td></tr>
+<tr><td>ZH157932</td><td>备选-固收+2</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-05-24</td></tr>
+<tr><td>ZH157933</td><td>得我财报稳健恒运</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-05-24</td></tr>
+<tr><td>ZH158001</td><td>启明绝对收益</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-05-27</td></tr>
+<tr><td>ZH158006</td><td>启明红利</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-05-27</td></tr>
+<tr><td>ZH158030</td><td>启明均衡</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-05-28</td></tr>
+<tr><td>ZH158031</td><td>测试生产配置期组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-05-28</td></tr>
+<tr><td>ZH158033</td><td>启明成长</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-05-28</td></tr>
+<tr><td>ZH158040</td><td>启明价值</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-05-28</td></tr>
+<tr><td>ZH158064</td><td>启明另类</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-05-29</td></tr>
+<tr><td>ZH158065</td><td>启明香港</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-05-29</td></tr>
+<tr><td>ZH158067</td><td>启明美国</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-05-29</td></tr>
+<tr><td>ZH158068</td><td>启明大消费</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-05-29</td></tr>
+<tr><td>ZH158071</td><td>启明医药</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-05-29</td></tr>
+<tr><td>ZH158119</td><td>小豆稳健配置策略003</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-05-30</td></tr>
+<tr><td>ZH158200</td><td>测试纯股组合-且慢</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-03</td></tr>
+<tr><td>ZH158203</td><td>测试纯债底层资产包-且慢</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-03</td></tr>
+<tr><td>ZH158207</td><td>测试staging202406031</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-03</td></tr>
+<tr><td>ZH158209</td><td>测试创建组合不限制成分集中度</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-03</td></tr>
+<tr><td>ZH158213</td><td>大宗商品-且慢定制账户资产包</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-04</td></tr>
+<tr><td>ZH158220</td><td>海外固收-且慢定制账户资产包</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-04</td></tr>
+<tr><td>ZH158221</td><td>启明周期</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-04</td></tr>
+<tr><td>ZH158222</td><td>启明高端制造</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-04</td></tr>
+<tr><td>ZH158223</td><td>海外权益-且慢定制账户资产包</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-04</td></tr>
+<tr><td>ZH158224</td><td>启明金融</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-04</td></tr>
+<tr><td>ZH158225</td><td>启明新兴市场</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-04</td></tr>
+<tr><td>ZH158282</td><td>小豆稳健配置策略004</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-06</td></tr>
+<tr><td>ZH158396</td><td>小豆稳健配置策略005</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-13</td></tr>
+<tr><td>ZH158414</td><td>启明可转债</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-14</td></tr>
+<tr><td>ZH158417</td><td>启明科技</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-14</td></tr>
+<tr><td>ZH158484</td><td>77债优等生+23兴全进取派--测试</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-17</td></tr>
+<tr><td>ZH158485</td><td>63债优等生+37兴全进取派--测试</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-17</td></tr>
+<tr><td>ZH158486</td><td>50债优等生+50兴全进取派--测试</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-17</td></tr>
+<tr><td>ZH158488</td><td>36债优等生+64兴全进取派--测试</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-17</td></tr>
+<tr><td>ZH158489</td><td>23债优等生+77兴全进取派--测试</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-17</td></tr>
+<tr><td>ZH158491</td><td>10债优等生+90兴全进取派--测试</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-17</td></tr>
+<tr><td>ZH158492</td><td>89债优+3兴全进取+8全球优秀--测试</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-17</td></tr>
+<tr><td>ZH158493</td><td>73债优+8进取派+19全球优选--测试</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-17</td></tr>
+<tr><td>ZH158554</td><td>小豆稳健配置策略006</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-20</td></tr>
+<tr><td>ZH158689</td><td>备选-固收+</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-25</td></tr>
+<tr><td>ZH158694</td><td>启明星-绝对收益(粤开版)</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-25</td></tr>
+<tr><td>ZH158695</td><td>启明星-均衡(粤开版)</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-25</td></tr>
+<tr><td>ZH158696</td><td>启明星-红利(粤开版)</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-25</td></tr>
+<tr><td>ZH158697</td><td>启明星-成长(粤开版)</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-25</td></tr>
+<tr><td>ZH158698</td><td>启明星-价值(粤开版)</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-25</td></tr>
+<tr><td>ZH158699</td><td>启明星-周期(粤开版)</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-25</td></tr>
+<tr><td>ZH158700</td><td>启明星-高端制造(粤开版)</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-25</td></tr>
+<tr><td>ZH158701</td><td>启明星-TMT(粤开版)</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-25</td></tr>
+<tr><td>ZH158702</td><td>启明星-大消费(粤开版)</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-25</td></tr>
+<tr><td>ZH158703</td><td>启明星-医药(粤开版)</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-25</td></tr>
+<tr><td>ZH158704</td><td>启明星-金融(粤开版)</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-25</td></tr>
+<tr><td>ZH158705</td><td>启明星-香港(粤开版)</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-25</td></tr>
+<tr><td>ZH158709</td><td>启明星-美国(粤开版)</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-25</td></tr>
+<tr><td>ZH158710</td><td>启明星-新兴市场(粤开版)</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-25</td></tr>
+<tr><td>ZH158711</td><td>启明星-商品(粤开版)</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-25</td></tr>
+<tr><td>ZH158748</td><td>启明睿-现金</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-26</td></tr>
+<tr><td>ZH158756</td><td>启明星-美国1-1</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-27</td></tr>
+<tr><td>ZH158757</td><td>小豆稳健配置策略007</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-06-27</td></tr>
+<tr><td>ZH158844</td><td>测试创建staging经典组合自定义基金</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-07-01</td></tr>
+<tr><td>ZH158851</td><td>测试新建组合新建基金池</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-07-01</td></tr>
+<tr><td>ZH158867</td><td>全心权益-且慢资产包</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-07-02</td></tr>
+<tr><td>ZH158868</td><td>海外权益-且慢资产包</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-07-02</td></tr>
+<tr><td>ZH158869</td><td>大宗商品-且慢资产包</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-07-02</td></tr>
+<tr><td>ZH158870</td><td>纯债组合-且慢资产包</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-07-02</td></tr>
+<tr><td>ZH158871</td><td>海外权益2-且慢资产包</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-07-02</td></tr>
+<tr><td>ZH158877</td><td>纯债组合+且慢资产包</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-07-02</td></tr>
+<tr><td>ZH158905</td><td>小豆稳健配置策略008</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-07-04</td></tr>
+<tr><td>ZH159071</td><td>小豆稳健配置策略009</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-07-11</td></tr>
+<tr><td>ZH159245</td><td>小豆稳健配置策略010</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-07-18</td></tr>
+<tr><td>ZH159312</td><td>测试4号</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-07-23</td></tr>
+<tr><td>ZH159370</td><td>小豆稳健配置策略011</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-07-25</td></tr>
+<tr><td>ZH159435</td><td>测试非投顾组合用于复合模型调仓</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-07-29</td></tr>
+<tr><td>ZH159436</td><td>测试非投顾组合用于复合模型调仓2</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-07-29</td></tr>
+<tr><td>ZH159474</td><td>staging测试非投顾成分</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-07-31</td></tr>
+<tr><td>ZH159476</td><td>staging测试看坎坎坷坷的等待</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-07-31</td></tr>
+<tr><td>ZH159488</td><td>小豆稳健配置策略012</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-08-01</td></tr>
+<tr><td>ZH159548</td><td>启明其它发达市场</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-08-05</td></tr>
+<tr><td>ZH159549</td><td>启明全球行业</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-08-05</td></tr>
+<tr><td>ZH159580</td><td>海外权益优选</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-08-07</td></tr>
+<tr><td>ZH159596</td><td>小豆稳健配置策略013</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-08-08</td></tr>
+<tr><td>ZH159640</td><td>测试staging0812塞洛塞洛塞</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-08-12</td></tr>
+<tr><td>ZH159675</td><td>小豆稳健配置策略014</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-08-15</td></tr>
+<tr><td>ZH159804</td><td>小豆稳健配置策略015</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-08-22</td></tr>
+<tr><td>ZH159907</td><td>小豆稳健配置策略016</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-08-29</td></tr>
+<tr><td>ZH159978</td><td>安如山</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-09-05</td></tr>
+<tr><td>ZH159979</td><td>小豆稳健配置策略017</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-09-05</td></tr>
+<tr><td>ZH160064</td><td>小豆稳健配置策略018</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-09-12</td></tr>
+<tr><td>ZH160135</td><td>小豆稳健配置策略019</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-09-19</td></tr>
+<tr><td>ZH160249</td><td>小豆稳健配置策略020</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-09-26</td></tr>
+<tr><td>ZH160285</td><td>全球股债商(测试)</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-09-27</td></tr>
+<tr><td>ZH160312</td><td>轻舟测试1</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-09-28</td></tr>
+<tr><td>ZH160350</td><td>全球股债商</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-09-30</td></tr>
+<tr><td>ZH160521</td><td>测试新建风险等级组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-10-08</td></tr>
+<tr><td>ZH160557</td><td>-------轻舟长期均衡00测试</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-10-09</td></tr>
+<tr><td>ZH160570</td><td>小豆稳健配置策略021</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-10-10</td></tr>
+<tr><td>ZH160851</td><td>小豆稳健配置策略022</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-10-17</td></tr>
+<tr><td>ZH161053</td><td>小豆稳健配置策略023</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-10-24</td></tr>
+<tr><td>ZH161300</td><td>小豆稳健配置策略024</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-10-31</td></tr>
+<tr><td>ZH161344</td><td>备选全A指数</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-11-01</td></tr>
+<tr><td>ZH161346</td><td>启明创业指数</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-11-01</td></tr>
+<tr><td>ZH161347</td><td>启明科创指数</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-11-01</td></tr>
+<tr><td>ZH161348</td><td>启明北创指数</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-11-01</td></tr>
+<tr><td>ZH161349</td><td>启明成长指数</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-11-01</td></tr>
+<tr><td>ZH161351</td><td>启明红利指数</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-11-01</td></tr>
+<tr><td>ZH161352</td><td>备选价值指数</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-11-01</td></tr>
+<tr><td>ZH161353</td><td>启明金融指数</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-11-01</td></tr>
+<tr><td>ZH161354</td><td>启明周期指数</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-11-01</td></tr>
+<tr><td>ZH161355</td><td>启明消费指数</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-11-01</td></tr>
+<tr><td>ZH161356</td><td>启明高端制造指数</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-11-01</td></tr>
+<tr><td>ZH161357</td><td>启明科技指数</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-11-01</td></tr>
+<tr><td>ZH161358</td><td>备选医药指数</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-11-01</td></tr>
+<tr><td>ZH161359</td><td>启明新能源指数</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-11-01</td></tr>
+<tr><td>ZH161360</td><td>启明美国指数</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-11-01</td></tr>
+<tr><td>ZH161361</td><td>启明其它发达市场指数</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-11-01</td></tr>
+<tr><td>ZH161362</td><td>启明新兴市场指数</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-11-01</td></tr>
+<tr><td>ZH161363</td><td>启明香港指数</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-11-01</td></tr>
+<tr><td>ZH161364</td><td>启明全球行业指数</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-11-01</td></tr>
+<tr><td>ZH161442</td><td>启明新能源</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-11-04</td></tr>
+<tr><td>ZH161517</td><td>小豆稳健配置策略025</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-11-07</td></tr>
+<tr><td>ZH161639</td><td>启明另类指数</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-11-12</td></tr>
+<tr><td>ZH161693</td><td>小豆稳健配置策略026</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-11-14</td></tr>
+<tr><td>ZH161714</td><td>启明全A指数</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-11-14</td></tr>
+<tr><td>ZH161715</td><td>备选医药指数2</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-11-14</td></tr>
+<tr><td>ZH161716</td><td>启明医药指数</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-11-14</td></tr>
+<tr><td>ZH161718</td><td>启明价值指数</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-11-14</td></tr>
+<tr><td>ZH161816</td><td>交银多元资产优选</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-11-19</td></tr>
+<tr><td>ZH161900</td><td>小豆稳健配置策略027</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-11-21</td></tr>
+<tr><td>ZH162045</td><td>小豆稳健配置策略028</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-11-28</td></tr>
+<tr><td>ZH162214</td><td>测试组合成立日</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-12-05</td></tr>
+<tr><td>ZH162248</td><td>小豆稳健配置策略029</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-12-05</td></tr>
+<tr><td>ZH162314</td><td>国内被动权益-且慢定制账户资产包</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-12-06</td></tr>
+<tr><td>ZH162374</td><td>全天候策略2025年检查演示使用</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-12-09</td></tr>
+<tr><td>ZH162459</td><td>小豆稳健配置策略030</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-12-12</td></tr>
+<tr><td>ZH162687</td><td>小豆稳健配置策略031</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-12-19</td></tr>
+<tr><td>ZH162855</td><td>小豆稳健配置策略2501</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2024-12-26</td></tr>
+<tr><td>ZH163031</td><td>小豆稳健配置策略2502</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-01-02</td></tr>
+<tr><td>ZH163176</td><td>小豆稳健配置策略2503</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-01-09</td></tr>
+<tr><td>ZH163296</td><td>中欧步步红</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-01-14</td></tr>
+<tr><td>ZH163310</td><td>中欧指数先锋</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-01-15</td></tr>
+<tr><td>ZH163328</td><td>小豆稳健配置策略2504</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-01-16</td></tr>
+<tr><td>ZH163407</td><td>测试组合cjd</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-01-21</td></tr>
+<tr><td>ZH163436</td><td>小豆稳健配置策略2505</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-01-23</td></tr>
+<tr><td>ZH163626</td><td>小豆稳健配置策略2506</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-02-06</td></tr>
+<tr><td>ZH163834</td><td>小豆稳健配置策略2507</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-02-13</td></tr>
+<tr><td>ZH164081</td><td>小豆稳健配置策略2508</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-02-20</td></tr>
+<tr><td>ZH164305</td><td>小豆稳健配置策略2509</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-02-27</td></tr>
+<tr><td>ZH164308</td><td>麻利恒生科技定投计划</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-02-27</td></tr>
+<tr><td>ZH164309</td><td>麻利红利定投计划</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-02-27</td></tr>
+<tr><td>ZH164310</td><td>麻利沪深300定投计划</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-02-27</td></tr>
+<tr><td>ZH164311</td><td>麻利芯片定投计划</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-02-27</td></tr>
+<tr><td>ZH164337</td><td>测试新建组合检查调仓试算</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-02-28</td></tr>
+<tr><td>ZH164566</td><td>小豆稳健配置策略2510</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-03-06</td></tr>
+<tr><td>ZH164621</td><td>麻利低波组合(尊享版)</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2026-03-10</td></tr>
+<tr><td>ZH164744</td><td>小豆稳健配置策略2511</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-03-13</td></tr>
+<tr><td>ZH164958</td><td>小豆稳健配置策略2512</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-03-20</td></tr>
+<tr><td>ZH164959</td><td>小豆稳健配置策略2512期</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-03-20</td></tr>
+<tr><td>ZH165042</td><td>港股优选</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-03-24</td></tr>
+<tr><td>ZH165043</td><td>黄金+</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-03-24</td></tr>
+<tr><td>ZH165092</td><td>保叔水涨船高组合测试</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-03-26</td></tr>
+<tr><td>ZH165104</td><td>饭团全球债-废除</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-03-27</td></tr>
+<tr><td>ZH165107</td><td>趋势挖掘机</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-03-27</td></tr>
+<tr><td>ZH165108</td><td>饭团全球债</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-03-27</td></tr>
+<tr><td>ZH165121</td><td>小豆稳健配置策略2513</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-03-27</td></tr>
+<tr><td>ZH165122</td><td>小豆趋势轮动策略2501</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-03-27</td></tr>
+<tr><td>ZH165245</td><td>小豆稳健配置策略2514</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-04-03</td></tr>
+<tr><td>ZH165289</td><td>复利全天候</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-12-29</td></tr>
+<tr><td>ZH165340</td><td>晓峰测试1</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-04-08</td></tr>
+<tr><td>ZH165367</td><td>金如意测试</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-04-09</td></tr>
+<tr><td>ZH165384</td><td>小豆稳健配置策略2515</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-04-10</td></tr>
+<tr><td>ZH165433</td><td>测试组合成立日情况</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-04-11</td></tr>
+<tr><td>ZH165486</td><td>主打peiban</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-04-14</td></tr>
+<tr><td>ZH165517</td><td>测试专用组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-04-15</td></tr>
+<tr><td>ZH165524</td><td>启明睿-低波(中银版)废除</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-04-15</td></tr>
+<tr><td>ZH165525</td><td>启明睿-进取(中银版)废除</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-04-15</td></tr>
+<tr><td>ZH165526</td><td>启明-中西合璧(中银版)废除</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-04-15</td></tr>
+<tr><td>ZH165574</td><td>小豆稳健配置策略2516</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-04-17</td></tr>
+<tr><td>ZH165703</td><td>小豆稳健配置策略2517</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-04-24</td></tr>
+<tr><td>ZH165915</td><td>测试创建经典组合0507</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-05-07</td></tr>
+<tr><td>ZH165942</td><td>小豆稳健配置策略2519</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-05-08</td></tr>
+<tr><td>ZH166025</td><td>智盈优选灵动</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-05-12</td></tr>
+<tr><td>ZH166029</td><td>智盈稳盈增强</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-05-12</td></tr>
+<tr><td>ZH166086</td><td>小豆稳健配置策略2520</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-05-15</td></tr>
+<tr><td>ZH166087</td><td>现金资产包</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-05-15</td></tr>
+<tr><td>ZH166127</td><td>中短债资产包</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-05-18</td></tr>
+<tr><td>ZH166131</td><td>中长债资产包</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-05-18</td></tr>
+<tr><td>ZH166139</td><td>黄金资产包</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-05-18</td></tr>
+<tr><td>ZH166169</td><td>cn测试-资产包1</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-05-19</td></tr>
+<tr><td>ZH166243</td><td>小豆稳健配置策略2521</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-05-22</td></tr>
+<tr><td>ZH166377</td><td>小豆稳健配置策略2522</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-05-29</td></tr>
+<tr><td>ZH166519</td><td>小豆稳健配置策略2523</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-06-05</td></tr>
+<tr><td>ZH166533</td><td>PMS经典组合测试专用</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-06-06</td></tr>
+<tr><td>ZH166663</td><td>小豆稳健配置策略2524</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-06-12</td></tr>
+<tr><td>ZH166734</td><td>机构投顾测试组合1</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-06-16</td></tr>
+<tr><td>ZH166738</td><td>机构投顾测试组合2</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-06-16</td></tr>
+<tr><td>ZH166768</td><td>测试组合-机构投顾专用</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-06-17</td></tr>
+<tr><td>ZH166807</td><td>桥水平价</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-06-19</td></tr>
+<tr><td>ZH166862</td><td>小豆稳健配置策略2525</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-06-19</td></tr>
+<tr><td>ZH167020</td><td>小豆稳健配置策略2526</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-06-26</td></tr>
+<tr><td>ZH167186</td><td>小豆稳健配置策略2527</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-07-03</td></tr>
+<tr><td>ZH167283</td><td>麻利券商定投计划PLUS</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-07-07</td></tr>
+<tr><td>ZH167286</td><td>麻利恒生科技定投计划PLUS</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-07-07</td></tr>
+<tr><td>ZH167344</td><td>叩富稳盈组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-07-09</td></tr>
+<tr><td>ZH167362</td><td>海外资产包模拟</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-07-09</td></tr>
+<tr><td>ZH167384</td><td>小豆稳健配置策略2528</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-07-10</td></tr>
+<tr><td>ZH167501</td><td>中短债</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-07-13</td></tr>
+<tr><td>ZH167502</td><td>中长债</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-07-13</td></tr>
+<tr><td>ZH167513</td><td>美元债</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-07-13</td></tr>
+<tr><td>ZH167515</td><td>价值风格偏股</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-07-13</td></tr>
+<tr><td>ZH167517</td><td>成长风格偏股</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-07-13</td></tr>
+<tr><td>ZH167518</td><td>平衡(均衡风格)偏股</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-07-13</td></tr>
+<tr><td>ZH167520</td><td>QDII股票</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-07-13</td></tr>
+<tr><td>ZH167521</td><td>另类</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-07-13</td></tr>
+<tr><td>ZH167522</td><td>现金</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-07-13</td></tr>
+<tr><td>ZH167647</td><td>小豆稳健配置策略2529</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-07-17</td></tr>
+<tr><td>ZH167872</td><td>安盈测试</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-07-24</td></tr>
+<tr><td>ZH167875</td><td>小豆稳健配置策略2530</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-07-24</td></tr>
+<tr><td>ZH168101</td><td>小豆稳健配置策略2531</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-07-31</td></tr>
+<tr><td>ZH168272</td><td>小豆稳健配置策略2532</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-08-07</td></tr>
+<tr><td>ZH168436</td><td>小豆稳健配置策略内测快车001</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-08-12</td></tr>
+<tr><td>ZH168534</td><td>小豆稳健配置策略2533</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-08-14</td></tr>
+<tr><td>ZH168773</td><td>环球脚踏实地</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-08-20</td></tr>
+<tr><td>ZH168795</td><td>小豆稳健配置策略2534</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-08-21</td></tr>
+<tr><td>ZH169052</td><td>小豆稳健配置策略快车内测002</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-08-27</td></tr>
+<tr><td>ZH169057</td><td>环球披荆斩棘</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-08-27</td></tr>
+<tr><td>ZH169085</td><td>小豆稳健配置策略2535</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-08-28</td></tr>
+<tr><td>ZH169240</td><td>麻利机器人定投计划</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-09-01</td></tr>
+<tr><td>ZH169245</td><td>麻利人工智能定投计划</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-09-01</td></tr>
+<tr><td>ZH169246</td><td>麻利创业板50定投计划</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-09-01</td></tr>
+<tr><td>ZH169268</td><td>麻利创新药定投计划</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-09-01</td></tr>
+<tr><td>ZH169315</td><td>麻利新能源车定投计划</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-09-02</td></tr>
+<tr><td>ZH169408</td><td>小豆稳健配置策略2536</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-09-04</td></tr>
+<tr><td>ZH169639</td><td>启明睿-低波(万联版)</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2026-01-06</td></tr>
+<tr><td>ZH169641</td><td>启明睿-低波增强(万联版)</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2026-01-06</td></tr>
+<tr><td>ZH169642</td><td>启明-中西合璧(万联版)</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2026-01-06</td></tr>
+<tr><td>ZH169659</td><td>小豆稳健配置策略2537</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-09-11</td></tr>
+<tr><td>ZH169662</td><td>长情致远</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-09-11</td></tr>
+<tr><td>ZH169826</td><td>方舟全天候教育金稳航计划测试</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-09-16</td></tr>
+<tr><td>ZH169876</td><td>方舟全天候教育金稳航计划测试0917</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-09-17</td></tr>
+<tr><td>ZH169894</td><td>方舟教育金稳航计划</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-09-17</td></tr>
+<tr><td>ZH169936</td><td>小豆稳健配置策略258</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-09-18</td></tr>
+<tr><td>ZH169937</td><td>小豆稳健配置策略2538</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-09-18</td></tr>
+<tr><td>ZH170157</td><td>小豆稳健配置策略2539</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-09-25</td></tr>
+<tr><td>ZH170511</td><td>小豆稳健配置策略2540</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-10-09</td></tr>
+<tr><td>ZH170647</td><td>跬步-锐</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-10-13</td></tr>
+<tr><td>ZH170648</td><td>test1</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-10-13</td></tr>
+<tr><td>ZH170665</td><td>跬步-徐</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-10-14</td></tr>
+<tr><td>ZH170764</td><td>小豆稳健配置策略2541</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-10-16</td></tr>
+<tr><td>ZH170915</td><td>稳益全球安享</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-10-21</td></tr>
+<tr><td>ZH170935</td><td>测试策略说明书1</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-10-22</td></tr>
+<tr><td>ZH170989</td><td>小豆稳健配置策略2542</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-10-23</td></tr>
+<tr><td>ZH171127</td><td>长风破浪</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-10-27</td></tr>
+<tr><td>ZH171250</td><td>小豆稳健配置策略2543</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-10-30</td></tr>
+<tr><td>ZH171271</td><td>CM底层组合-偏股成长(指数)-测试</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-10-31</td></tr>
+<tr><td>ZH171433</td><td>全天候美投</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-11-04</td></tr>
+<tr><td>ZH171437</td><td>全天候美债</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-11-04</td></tr>
+<tr><td>ZH171506</td><td>小豆稳健配置策略2544</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-11-06</td></tr>
+<tr><td>ZH171750</td><td>小豆稳健配置策略2545</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-11-13</td></tr>
+<tr><td>ZH171771</td><td>小豆稳健配置策略加车内测003</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-11-14</td></tr>
+<tr><td>ZH171929</td><td>小豆稳健配置策略加车内测004</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-11-18</td></tr>
+<tr><td>ZH171988</td><td>麦穗安心精选</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-11-19</td></tr>
+<tr><td>ZH172001</td><td>小豆稳健配置策略加车0001</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-11-20</td></tr>
+<tr><td>ZH172022</td><td>小豆稳健配置策略2546</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-11-20</td></tr>
+<tr><td>ZH172194</td><td>小豆稳健配置策略2547</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-11-27</td></tr>
+<tr><td>ZH172412</td><td>小豆稳健配置策略2548</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-12-04</td></tr>
+<tr><td>ZH172421</td><td>鼎合大道1期</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-12-05</td></tr>
+<tr><td>ZH172539</td><td>货币策略组合-蜂鸟专用</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-12-08</td></tr>
+<tr><td>ZH172645</td><td>小豆稳健配置策略2549</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-12-11</td></tr>
+<tr><td>ZH172841</td><td>小豆稳健配置策略2550</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-12-18</td></tr>
+<tr><td>ZH173042</td><td>老王测试组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-12-24</td></tr>
+<tr><td>ZH173056</td><td>老王固收组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-12-25</td></tr>
+<tr><td>ZH173057</td><td>小豆稳健配置策略加车0002</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-12-25</td></tr>
+<tr><td>ZH173072</td><td>老王权益额度测试组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-12-25</td></tr>
+<tr><td>ZH173080</td><td>小豆稳健配置策略2601</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2025-12-25</td></tr>
+<tr><td>ZH173659</td><td>麻利低波组合</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2026-03-10</td></tr>
+<tr><td>ZH175132</td><td>风雨不动安如山</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2026-03-24</td></tr>
+<tr><td>ZH176103</td><td>新航道全天候</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2026-05-21</td></tr>
+<tr><td>ZH184508</td><td>麻利中证500定投计划</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2026-09-03</td></tr>
+<tr><td>ZH184510</td><td>麻利双创50定投计划</td><td>*</td><td>0.0400</td><td>0.0040</td><td>2026-09-03</td></tr>
+</table>
+</div>
+</details>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 2% / 单基金级 0.4% —— 共 161 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>ZH000010</td><td>广发进取1号</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH000134</td><td>谱蓝全球配置组合2号</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2025-12-09</td></tr>
+<tr><td>ZH000135</td><td>谱蓝全球配置组合1号</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2025-12-09</td></tr>
+<tr><td>ZH000136</td><td>谱蓝全球配置组合7号</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2025-12-09</td></tr>
+<tr><td>ZH000137</td><td>谱蓝全球配置组合8号</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2025-12-09</td></tr>
+<tr><td>ZH000138</td><td>环球宏观动力组合</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2025-12-09</td></tr>
+<tr><td>ZH000139</td><td>谱蓝全球配置组合5号</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2025-12-09</td></tr>
+<tr><td>ZH000140</td><td>谱蓝全球配置组合4号</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2025-12-09</td></tr>
+<tr><td>ZH000141</td><td>环球低波均衡组合</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2025-12-09</td></tr>
+<tr><td>ZH000142</td><td>谱蓝全球配置组合10号</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2025-12-09</td></tr>
+<tr><td>ZH000143</td><td>环球成长领航组合</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2025-12-09</td></tr>
+<tr><td>ZH005442</td><td>风险5</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH005495</td><td>守望者组合</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH005542</td><td>风险3</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH005570</td><td>线上组合-风险1</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH005571</td><td>线上组合-风险2</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH005572</td><td>线上组合-风险3</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH005573</td><td>线上组合-风险4</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH005574</td><td>线上组合-风险5</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH005575</td><td>线上组合-风险6</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH005576</td><td>线上组合-风险7</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH005577</td><td>线上组合-风险8</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH005578</td><td>线上组合-风险9</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH006283</td><td>二八轮动加二八股债</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH007220</td><td>德圣类绝对收益</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH012926</td><td>远足</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2025-09-04</td></tr>
+<tr><td>ZH016051</td><td>定投五剑</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH024288</td><td>老鹰计划2018</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH030393</td><td>自由人生</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2025-05-22</td></tr>
+<tr><td>ZH031620</td><td>稳益五剑</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH036316</td><td>小帮稳健增利（全球版）组合</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2026-09-07</td></tr>
+<tr><td>ZH037782</td><td>为你创金</td><td>0008</td><td>0.0200</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH038532</td><td>小确幸计划</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2025-11-13</td></tr>
+<tr><td>ZH039784</td><td>静水流深</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2025-01-08</td></tr>
+<tr><td>ZH043320</td><td>小帮稳健增利（A股版）组合</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-06-20</td></tr>
+<tr><td>ZH044931</td><td>启明睿-低波增强</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2026-05-11</td></tr>
+<tr><td>ZH045630</td><td>谱蓝全股配置</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2025-12-10</td></tr>
+<tr><td>ZH055622</td><td>破土永久组合</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-01-17</td></tr>
+<tr><td>ZH055631</td><td>永久组合</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-01-17</td></tr>
+<tr><td>ZH055635</td><td>破土成长</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-01-17</td></tr>
+<tr><td>ZH055770</td><td>优中选优</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-01-17</td></tr>
+<tr><td>ZH055853</td><td>强强组合</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-01-17</td></tr>
+<tr><td>ZH056011</td><td>懒人投资一均衡组合</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-06-14</td></tr>
+<tr><td>ZH058670</td><td>启明睿-低波</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2026-05-11</td></tr>
+<tr><td>ZH059372</td><td>破土斯文森</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-01-17</td></tr>
+<tr><td>ZH059384</td><td>全天候</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-01-17</td></tr>
+<tr><td>ZH063022</td><td>三年五载</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-01-17</td></tr>
+<tr><td>ZH094440</td><td>塞呐稳健组合A</td><td>0008</td><td>0.0200</td><td>0.0040</td><td>2024-11-07</td></tr>
+<tr><td>ZH098741</td><td>平安乐享双季盈</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH098742</td><td>平安乐享270天</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-03-06</td></tr>
+<tr><td>ZH099893</td><td>花好月圆</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2025-04-08</td></tr>
+<tr><td>ZH100849</td><td>稳稳破土</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-01-17</td></tr>
+<tr><td>ZH106271</td><td>极简投资组合</td><td>0008</td><td>0.0200</td><td>0.0040</td><td>2026-03-23</td></tr>
+<tr><td>ZH108798</td><td>三知己</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-01-17</td></tr>
+<tr><td>ZH109354</td><td>三好友</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-01-17</td></tr>
+<tr><td>ZH111370</td><td>PMS二期测试2001</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH111481</td><td>PMS告警测试2101</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH112600</td><td>PMS测试2801</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH112677</td><td>PMS测试2901</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH114862</td><td>PMS二期推广</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH115182</td><td>PMS820</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH119289</td><td>绘盈长投计划</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-12-31</td></tr>
+<tr><td>ZH119517</td><td>PMS测试1022组合</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH121037</td><td>均衡十字星</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2023-04-13</td></tr>
+<tr><td>ZH122817</td><td>测试新的基准</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH124287</td><td>颐乐多因子配置</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH124386</td><td>有行定投</td><td>0008</td><td>0.0200</td><td>0.0040</td><td>2025-03-05</td></tr>
+<tr><td>ZH124433</td><td>杠铃策略</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-01-17</td></tr>
+<tr><td>ZH127848</td><td>股债平衡组合</td><td>0008</td><td>0.0200</td><td>0.0040</td><td>2024-09-13</td></tr>
+<tr><td>ZH131945</td><td>唐僧股债混合组合3</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-04-16</td></tr>
+<tr><td>ZH131947</td><td>唐僧股债混合组合9</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-04-10</td></tr>
+<tr><td>ZH132018</td><td>丰澄长赢均衡</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH133542</td><td>唐僧股债混合组合5</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-04-10</td></tr>
+<tr><td>ZH133544</td><td>唐僧股债混合组合7</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-04-10</td></tr>
+<tr><td>ZH133633</td><td>唐僧股债混合组合10</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-04-16</td></tr>
+<tr><td>ZH134146</td><td>基厂全明星</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2025-03-21</td></tr>
+<tr><td>ZH135894</td><td>价值组合</td><td>0008</td><td>0.0200</td><td>0.0040</td><td>2024-05-24</td></tr>
+<tr><td>ZH140471</td><td>横琴11号</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH140685</td><td>测试创建组合111</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH141069</td><td>远足_私</td><td>0008</td><td>0.0200</td><td>0.0040</td><td>2025-09-04</td></tr>
+<tr><td>ZH142541</td><td>迦南磐石</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-04-02</td></tr>
+<tr><td>ZH142949</td><td>测试组合策略说明书staging</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2026-03-27</td></tr>
+<tr><td>ZH145146</td><td>fake远足Plus</td><td>0008</td><td>0.0200</td><td>0.0040</td><td>2025-09-05</td></tr>
+<tr><td>ZH145765</td><td>测试新建组合111</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2023-04-11</td></tr>
+<tr><td>ZH148071</td><td>安心甄选</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-02-07</td></tr>
+<tr><td>ZH149254</td><td>均衡十字星</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2026-05-25</td></tr>
+<tr><td>ZH149908</td><td>不惑之选</td><td>0008</td><td>0.0200</td><td>0.0040</td><td>2024-05-22</td></tr>
+<tr><td>ZH150339</td><td>时光不语</td><td>0008</td><td>0.0200</td><td>0.0040</td><td>2024-05-22</td></tr>
+<tr><td>ZH152970</td><td>心向明月</td><td>0008</td><td>0.0200</td><td>0.0040</td><td>2024-05-22</td></tr>
+<tr><td>ZH153952</td><td>三足鼎立</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-08-07</td></tr>
+<tr><td>ZH154032</td><td>全球优选</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2025-06-19</td></tr>
+<tr><td>ZH154230</td><td>永久全天候</td><td>0008</td><td>0.0200</td><td>0.0040</td><td>2025-03-05</td></tr>
+<tr><td>ZH155148</td><td>日富一日</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2025-04-08</td></tr>
+<tr><td>ZH155892</td><td>永久组合</td><td>0008</td><td>0.0200</td><td>0.0040</td><td>2025-03-05</td></tr>
+<tr><td>ZH155964</td><td>极简组合</td><td>0008</td><td>0.0200</td><td>0.0040</td><td>2025-03-05</td></tr>
+<tr><td>ZH156113</td><td>启明睿-低波备选1</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-04-16</td></tr>
+<tr><td>ZH156114</td><td>启明睿-低波增强(中航版)-关停</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-04-08</td></tr>
+<tr><td>ZH156116</td><td>启明睿-守恒(中航版)-关停</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-03-19</td></tr>
+<tr><td>ZH156117</td><td>启明睿-攻守(中航版)-关停</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-03-19</td></tr>
+<tr><td>ZH156181</td><td>启明睿-低波(中航版)</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2026-05-11</td></tr>
+<tr><td>ZH156182</td><td>启明睿-低波增强(中航版)</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2026-01-20</td></tr>
+<tr><td>ZH156462</td><td>观察</td><td>0008</td><td>0.0200</td><td>0.0040</td><td>2025-03-05</td></tr>
+<tr><td>ZH156465</td><td>跟随海外</td><td>0008</td><td>0.0200</td><td>0.0040</td><td>2025-03-05</td></tr>
+<tr><td>ZH156586</td><td>跟随稳钱</td><td>0008</td><td>0.0200</td><td>0.0040</td><td>2025-03-05</td></tr>
+<tr><td>ZH156671</td><td>永久组合2</td><td>0008</td><td>0.0200</td><td>0.0040</td><td>2025-03-05</td></tr>
+<tr><td>ZH156717</td><td>跟随海外2</td><td>0008</td><td>0.0200</td><td>0.0040</td><td>2025-03-05</td></tr>
+<tr><td>ZH156718</td><td>豆神组合</td><td>0008</td><td>0.0200</td><td>0.0040</td><td>2025-03-05</td></tr>
+<tr><td>ZH156981</td><td>钱包曲线第二定律</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2025-09-12</td></tr>
+<tr><td>ZH157874</td><td>长期资金</td><td>0008</td><td>0.0200</td><td>0.0040</td><td>2024-11-07</td></tr>
+<tr><td>ZH157883</td><td>丁昶传家</td><td>0008</td><td>0.0200</td><td>0.0040</td><td>2025-03-05</td></tr>
+<tr><td>ZH157887</td><td>我A权益</td><td>0008</td><td>0.0200</td><td>0.0040</td><td>2025-03-05</td></tr>
+<tr><td>ZH158255</td><td>模拟中欧</td><td>0008</td><td>0.0200</td><td>0.0040</td><td>2025-03-05</td></tr>
+<tr><td>ZH158413</td><td>启明利率债</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-06-14</td></tr>
+<tr><td>ZH158483</td><td>全球甄选债券增强</td><td>0008</td><td>0.0200</td><td>0.0040</td><td>2024-06-19</td></tr>
+<tr><td>ZH158688</td><td>启明纯债</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-06-25</td></tr>
+<tr><td>ZH158735</td><td>息息相关</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2025-04-08</td></tr>
+<tr><td>ZH158736</td><td>测试222</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-06-26</td></tr>
+<tr><td>ZH158739</td><td>启明睿-低波(粤开版)</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2026-01-20</td></tr>
+<tr><td>ZH158740</td><td>启明睿-低波增强(粤开版)</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2026-01-20</td></tr>
+<tr><td>ZH158741</td><td>启明睿-稳健(粤开版)</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-06-27</td></tr>
+<tr><td>ZH158742</td><td>启明睿-守恒(粤开版)</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-06-27</td></tr>
+<tr><td>ZH158743</td><td>启明睿-攻守(粤开版)</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-06-27</td></tr>
+<tr><td>ZH158744</td><td>启明睿-进取(粤开版)</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-06-27</td></tr>
+<tr><td>ZH158745</td><td>启明-中西合璧(粤开版)</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2026-01-20</td></tr>
+<tr><td>ZH158747</td><td>启明睿-现金(粤开版)</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-06-27</td></tr>
+<tr><td>ZH158766</td><td>启明美债</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-06-27</td></tr>
+<tr><td>ZH159163</td><td>模拟兴全</td><td>0008</td><td>0.0200</td><td>0.0040</td><td>2025-03-05</td></tr>
+<tr><td>ZH159173</td><td>模拟交银</td><td>0008</td><td>0.0200</td><td>0.0040</td><td>2025-03-05</td></tr>
+<tr><td>ZH160239</td><td>纯债优选</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-09-25</td></tr>
+<tr><td>ZH160240</td><td>货币Plus</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-09-25</td></tr>
+<tr><td>ZH161030</td><td>永久组合ETF</td><td>0008</td><td>0.0200</td><td>0.0040</td><td>2025-03-05</td></tr>
+<tr><td>ZH161343</td><td>启明短债</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-11-01</td></tr>
+<tr><td>ZH161350</td><td>启明现金</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-11-01</td></tr>
+<tr><td>ZH161366</td><td>启明亚洲债</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-11-01</td></tr>
+<tr><td>ZH161368</td><td>启明短债指数</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-11-01</td></tr>
+<tr><td>ZH161369</td><td>启明中长债指数</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2024-11-01</td></tr>
+<tr><td>ZH162128</td><td>中美股金</td><td>0008</td><td>0.0200</td><td>0.0040</td><td>2024-12-24</td></tr>
+<tr><td>ZH164292</td><td>富国多元低波稳健理财</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2026-07-22</td></tr>
+<tr><td>ZH165124</td><td>保叔水涨船高组合</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2025-04-18</td></tr>
+<tr><td>ZH165672</td><td>金如意</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2025-05-27</td></tr>
+<tr><td>ZH166165</td><td>求是平衡赢</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2025-12-23</td></tr>
+<tr><td>ZH166166</td><td>求是进取赢</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2025-12-23</td></tr>
+<tr><td>ZH166167</td><td>求是积极赢</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2025-12-23</td></tr>
+<tr><td>ZH166168</td><td>求是成长赢</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2026-01-07</td></tr>
+<tr><td>ZH167092</td><td>财商邦单笔守恒组合</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2026-08-11</td></tr>
+<tr><td>ZH167775</td><td>长坡厚雪</td><td>0008</td><td>0.0200</td><td>0.0040</td><td>2026-04-13</td></tr>
+<tr><td>ZH171514</td><td>启明睿-现金(国元版)</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2025-11-07</td></tr>
+<tr><td>ZH171515</td><td>启明睿-低波(国元版)</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2025-11-07</td></tr>
+<tr><td>ZH171516</td><td>启明睿-低波增强(国元版)</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2025-11-07</td></tr>
+<tr><td>ZH171517</td><td>启明睿-稳健(国元版)</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2025-11-07</td></tr>
+<tr><td>ZH171518</td><td>启明睿-守恒(国元版)</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2025-11-07</td></tr>
+<tr><td>ZH171519</td><td>启明睿-攻守(国元版)</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2025-11-07</td></tr>
+<tr><td>ZH171520</td><td>启明睿-进取(国元版)</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2025-11-07</td></tr>
+<tr><td>ZH171521</td><td>启明-中西合璧(国元版)</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2025-11-07</td></tr>
+<tr><td>ZH173073</td><td>老王权益组合</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2026-05-26</td></tr>
+<tr><td>ZH173899</td><td>搬砖核星策略</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2026-05-12</td></tr>
+<tr><td>ZH174411</td><td>搬砖核星计划</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2026-05-12</td></tr>
+<tr><td>ZH175120</td><td>富国稳健低波理财</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2026-07-30</td></tr>
+<tr><td>ZH175312</td><td>有财金库-乾兴</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2026-05-11</td></tr>
+<tr><td>ZH175347</td><td>MARP</td><td>0008</td><td>0.0200</td><td>0.0040</td><td>2026-04-13</td></tr>
+<tr><td>ZH176129</td><td>思远安心稳健</td><td>*</td><td>0.0200</td><td>0.0040</td><td>2026-06-24</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 1% / 单基金级 0.4% —— 共 105 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>SI000181</td><td>七十二变</td><td>*</td><td>0.0100</td><td>0.0040</td><td>2026-01-30</td></tr>
+<tr><td>SI000195</td><td>定海神针</td><td>*</td><td>0.0100</td><td>0.0040</td><td>2026-05-08</td></tr>
+<tr><td>ZH007459</td><td>大白5年期</td><td>*</td><td>0.0100</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH009067</td><td>大白5年期-copy</td><td>*</td><td>0.0100</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH012636</td><td>货币三佳</td><td>*</td><td>0.0100</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH017151</td><td>简易投资</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2024-11-11</td></tr>
+<tr><td>ZH022155</td><td>资产配置1号</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-01-02</td></tr>
+<tr><td>ZH029797</td><td>策略1号</td><td>*</td><td>0.0100</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH030146</td><td>雷森三板斧</td><td>*</td><td>0.0100</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH032680</td><td>春华秋实</td><td>*</td><td>0.0100</td><td>0.0040</td><td>2026-03-11</td></tr>
+<tr><td>ZH032687</td><td>风和日丽</td><td>*</td><td>0.0100</td><td>0.0040</td><td>2025-04-08</td></tr>
+<tr><td>ZH036469</td><td>健森定投</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-03-13</td></tr>
+<tr><td>ZH038068</td><td>国内权益主动基金组合</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH038182</td><td>华佗医药组合</td><td>*</td><td>0.0100</td><td>0.0040</td><td>2024-11-05</td></tr>
+<tr><td>ZH038742</td><td>财商邦单笔保守型组合</td><td>*</td><td>0.0100</td><td>0.0040</td><td>2026-08-11</td></tr>
+<tr><td>ZH041125</td><td>愿荣光归时代</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-04-24</td></tr>
+<tr><td>ZH041126</td><td>再次复兴伟大</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-04-24</td></tr>
+<tr><td>ZH041127</td><td>风林火山繁花</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-04-24</td></tr>
+<tr><td>ZH041619</td><td>pj.赢在基金</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2024-10-09</td></tr>
+<tr><td>ZH042938</td><td>财商邦单笔安稳组合</td><td>*</td><td>0.0100</td><td>0.0040</td><td>2026-07-06</td></tr>
+<tr><td>ZH045659</td><td>渺沧海之一粟</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-04-24</td></tr>
+<tr><td>ZH045845</td><td>山川风月同天</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-04-24</td></tr>
+<tr><td>ZH047460</td><td>海景洋房</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2024-10-09</td></tr>
+<tr><td>ZH099900</td><td>一帆风顺</td><td>*</td><td>0.0100</td><td>0.0040</td><td>2025-04-08</td></tr>
+<tr><td>ZH107241</td><td>西北望射天狼</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-04-24</td></tr>
+<tr><td>ZH107310</td><td>Finear专属组合</td><td>*</td><td>0.0100</td><td>0.0040</td><td>2025-11-18</td></tr>
+<tr><td>ZH107401</td><td>云无心以出岫</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-04-24</td></tr>
+<tr><td>ZH110609</td><td>致远经典配置组合</td><td>*</td><td>0.0100</td><td>0.0040</td><td>2025-09-02</td></tr>
+<tr><td>ZH112679</td><td>PMS测试</td><td>*</td><td>0.0100</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH113564</td><td>PMS培训演示</td><td>*</td><td>0.0100</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH114392</td><td>ETF天平plus</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2024-10-09</td></tr>
+<tr><td>ZH120523</td><td>致广轮动精选</td><td>*</td><td>0.0100</td><td>0.0040</td><td>2025-11-18</td></tr>
+<tr><td>ZH125205</td><td>幸福小太阳</td><td>*</td><td>0.0100</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH128102</td><td>老将基金(进攻)</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2024-07-25</td></tr>
+<tr><td>ZH129324</td><td>自由之混</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH130035</td><td>MQ主动优选</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2026-02-10</td></tr>
+<tr><td>ZH135830</td><td>稳稳财进</td><td>*</td><td>0.0100</td><td>0.0040</td><td>2026-04-14</td></tr>
+<tr><td>ZH139358</td><td>醉里挑灯看剑</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-04-24</td></tr>
+<tr><td>ZH143820</td><td>锦上添花</td><td>*</td><td>0.0100</td><td>0.0040</td><td>2023-11-17</td></tr>
+<tr><td>ZH144006</td><td>曾日月之几何</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-04-24</td></tr>
+<tr><td>ZH148508</td><td>随便</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-10-14</td></tr>
+<tr><td>ZH149024</td><td>家和成长策略</td><td>*</td><td>0.0100</td><td>0.0040</td><td>2023-05-22</td></tr>
+<tr><td>ZH149034</td><td>家和行业轮动</td><td>*</td><td>0.0100</td><td>0.0040</td><td>2023-05-22</td></tr>
+<tr><td>ZH149044</td><td>家和稳健策略</td><td>*</td><td>0.0100</td><td>0.0040</td><td>2023-05-22</td></tr>
+<tr><td>ZH150378</td><td>微芒造炬成阳</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-04-24</td></tr>
+<tr><td>ZH150519</td><td>秋风起兮</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-02-13</td></tr>
+<tr><td>ZH150619</td><td>枕石漱流饮泉</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-04-24</td></tr>
+<tr><td>ZH150710</td><td>剑胆琴心君威</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-04-24</td></tr>
+<tr><td>ZH150995</td><td>林子稳步钱进</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2024-11-22</td></tr>
+<tr><td>ZH151475</td><td>归途飞云有风</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-04-24</td></tr>
+<tr><td>ZH151528</td><td>年年有余组合策略</td><td>*</td><td>0.0100</td><td>0.0040</td><td>2024-06-25</td></tr>
+<tr><td>ZH153816</td><td>美股价值平均</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-10-14</td></tr>
+<tr><td>ZH154731</td><td>寸心天地飒流</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-04-24</td></tr>
+<tr><td>ZH154937</td><td>不知火问苍茫</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-04-24</td></tr>
+<tr><td>ZH155066</td><td>鲲鹏击浪万疆</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-04-24</td></tr>
+<tr><td>ZH155287</td><td>骑在银龙背上</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-04-24</td></tr>
+<tr><td>ZH155380</td><td>富岳快雪时晴</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-04-24</td></tr>
+<tr><td>ZH155725</td><td>排山倒海相依</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-04-24</td></tr>
+<tr><td>ZH156303</td><td>远足</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-09-04</td></tr>
+<tr><td>ZH156327</td><td>梦灯笼新造虹</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-04-24</td></tr>
+<tr><td>ZH156383</td><td>全天候-永久全球配置</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-04-30</td></tr>
+<tr><td>ZH156642</td><td>成长组合</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-03-13</td></tr>
+<tr><td>ZH156643</td><td>价值组合</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-03-13</td></tr>
+<tr><td>ZH157328</td><td>SuperDog</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2026-05-27</td></tr>
+<tr><td>ZH157591</td><td>华夏全自动超级配置策略组合</td><td>*</td><td>0.0100</td><td>0.0040</td><td>2026-04-20</td></tr>
+<tr><td>ZH158334</td><td>夕隐火凤燎原</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-04-24</td></tr>
+<tr><td>ZH158532</td><td>霜花扇幻紫昇</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-04-24</td></tr>
+<tr><td>ZH159112</td><td>一切境平生欢</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-04-24</td></tr>
+<tr><td>ZH159346</td><td>东霓西决南音</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-04-24</td></tr>
+<tr><td>ZH159772</td><td>腾云直面天命</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-04-24</td></tr>
+<tr><td>ZH159798</td><td>货币+</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2026-06-22</td></tr>
+<tr><td>ZH160000</td><td>中长债基25620</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-07-14</td></tr>
+<tr><td>ZH160066</td><td>赤焰风起长林</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-04-24</td></tr>
+<tr><td>ZH160492</td><td>星辰织锦未央</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-04-24</td></tr>
+<tr><td>ZH160614</td><td>千夜一梦唐歌</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-04-24</td></tr>
+<tr><td>ZH160800</td><td>过万境见心境</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-04-24</td></tr>
+<tr><td>ZH161279</td><td>一念关山竹月</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-04-24</td></tr>
+<tr><td>ZH161938</td><td>固收加-全球策略</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-04-30</td></tr>
+<tr><td>ZH162614</td><td>火星1号</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-10-17</td></tr>
+<tr><td>ZH163131</td><td>货币加-货债策略</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-04-30</td></tr>
+<tr><td>ZH163185</td><td>中短债250108</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-07-14</td></tr>
+<tr><td>ZH163533</td><td>永久基金组合国内版</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-10-14</td></tr>
+<tr><td>ZH164754</td><td>远航组合</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-03-13</td></tr>
+<tr><td>ZH164757</td><td>价值成长组合</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-03-13</td></tr>
+<tr><td>ZH165100</td><td>幸福号</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-10-17</td></tr>
+<tr><td>ZH165858</td><td>股五债五</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2026-07-01</td></tr>
+<tr><td>ZH165859</td><td>股五债五</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2026-07-01</td></tr>
+<tr><td>ZH165946</td><td>股二债八再平衡</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2026-07-01</td></tr>
+<tr><td>ZH165948</td><td>股二债八再平衡</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2026-07-01</td></tr>
+<tr><td>ZH166626</td><td>眺山远见</td><td>*</td><td>0.0100</td><td>0.0040</td><td>2025-06-20</td></tr>
+<tr><td>ZH166627</td><td>阅江稳进</td><td>*</td><td>0.0100</td><td>0.0040</td><td>2025-07-03</td></tr>
+<tr><td>ZH168044</td><td>七彩祥云</td><td>*</td><td>0.0100</td><td>0.0040</td><td>2026-01-14</td></tr>
+<tr><td>ZH169828</td><td>自由人生影子组合</td><td>*</td><td>0.0100</td><td>0.0040</td><td>2026-03-11</td></tr>
+<tr><td>ZH171064</td><td>嘉百全天候稳健天天</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-11-14</td></tr>
+<tr><td>ZH171068</td><td>嘉百全天候稳健天天</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2025-11-14</td></tr>
+<tr><td>ZH171427</td><td>基少成多</td><td>*</td><td>0.0100</td><td>0.0040</td><td>2026-03-06</td></tr>
+<tr><td>ZH171644</td><td>乐投多元睿盈</td><td>*</td><td>0.0100</td><td>0.0040</td><td>2025-11-11</td></tr>
+<tr><td>ZH171646</td><td>乐投安鑫固收+</td><td>*</td><td>0.0100</td><td>0.0040</td><td>2025-11-11</td></tr>
+<tr><td>ZH172600</td><td>养老储备金</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2026-01-09</td></tr>
+<tr><td>ZH175157</td><td>远望消费全球精选</td><td>*</td><td>0.0100</td><td>0.0040</td><td>2026-06-17</td></tr>
+<tr><td>ZH175425</td><td>股三债七黄金</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2026-07-01</td></tr>
+<tr><td>ZH175426</td><td>股三债七黄金</td><td>0008</td><td>0.0100</td><td>0.0040</td><td>2026-07-01</td></tr>
+<tr><td>ZH176106</td><td>Carat精选</td><td>*</td><td>0.0100</td><td>0.0040</td><td>2026-04-16</td></tr>
+<tr><td>ZH178228</td><td>稳健科技全球配置</td><td>*</td><td>0.0100</td><td>0.0040</td><td>2026-07-14</td></tr>
+<tr><td>ZH182596</td><td>智俊擒龙一号</td><td>*</td><td>0.0100</td><td>0.0040</td><td>2026-08-12</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 3% / 单基金级 0.4% —— 共 40 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>SI000101</td><td>对勾定投-测试版</td><td>*</td><td>0.0300</td><td>0.0040</td><td>2025-12-22</td></tr>
+<tr><td>ZH000583</td><td>萝卜组合</td><td>*</td><td>0.0300</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH019996</td><td>雄霸天下</td><td>*</td><td>0.0300</td><td>0.0040</td><td>2025-02-24</td></tr>
+<tr><td>ZH030050</td><td>111</td><td>0008</td><td>0.0300</td><td>0.0040</td><td>2024-07-25</td></tr>
+<tr><td>ZH030684</td><td>成长五剑</td><td>*</td><td>0.0300</td><td>0.0040</td><td>2026-06-01</td></tr>
+<tr><td>ZH036386</td><td>价值成长</td><td>*</td><td>0.0300</td><td>0.0040</td><td>2026-07-29</td></tr>
+<tr><td>ZH037268</td><td>富国启明星理财升级</td><td>*</td><td>0.0300</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH038714</td><td>财商邦单笔创享组合(攻守)</td><td>*</td><td>0.0300</td><td>0.0040</td><td>2026-08-11</td></tr>
+<tr><td>ZH039601</td><td>哥伦布领航</td><td>*</td><td>0.0300</td><td>0.0040</td><td>2025-01-07</td></tr>
+<tr><td>ZH041943</td><td>陪伴哥伦布</td><td>*</td><td>0.0300</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH043319</td><td>小帮睿定投（A股版）组合</td><td>*</td><td>0.0300</td><td>0.0040</td><td>2025-11-21</td></tr>
+<tr><td>ZH044380</td><td>十年如一</td><td>*</td><td>0.0300</td><td>0.0040</td><td>2025-07-31</td></tr>
+<tr><td>ZH049192</td><td>金牛二十</td><td>*</td><td>0.0300</td><td>0.0040</td><td>2024-08-07</td></tr>
+<tr><td>ZH056007</td><td>小帮3年平衡型组合</td><td>*</td><td>0.0300</td><td>0.0040</td><td>2024-06-14</td></tr>
+<tr><td>ZH111356</td><td>hephzibah</td><td>*</td><td>0.0300</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH112610</td><td>magic</td><td>*</td><td>0.0300</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH114107</td><td>xiaohuixie</td><td>*</td><td>0.0300</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH121490</td><td>稳稳的延迟</td><td>*</td><td>0.0300</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH129543</td><td>富国守护星稳健理财</td><td>*</td><td>0.0300</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH129546</td><td>富国双子星股债均衡</td><td>*</td><td>0.0300</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH129547</td><td>富国满天星追求收益</td><td>*</td><td>0.0300</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH131336</td><td>投顾输出测试组合6</td><td>*</td><td>0.0300</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH133760</td><td>丰澄长赢进取臻选</td><td>*</td><td>0.0300</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH137971</td><td>万选安心组合测试</td><td>*</td><td>0.0300</td><td>0.0040</td><td>2023-08-17</td></tr>
+<tr><td>ZH144355</td><td>【债券】基金</td><td>0008</td><td>0.0300</td><td>0.0040</td><td>2024-07-25</td></tr>
+<tr><td>ZH152971</td><td>楚才稳进</td><td>*</td><td>0.0300</td><td>0.0040</td><td>2025-04-09</td></tr>
+<tr><td>ZH155420</td><td>全球丰收</td><td>*</td><td>0.0300</td><td>0.0040</td><td>2025-06-13</td></tr>
+<tr><td>ZH157690</td><td>稳稳</td><td>0008</td><td>0.0300</td><td>0.0040</td><td>2024-05-29</td></tr>
+<tr><td>ZH160520</td><td>-----轻舟稳健测试01</td><td>*</td><td>0.0300</td><td>0.0040</td><td>2024-10-08</td></tr>
+<tr><td>ZH163264</td><td>稳稳财进（自配版）</td><td>0008</td><td>0.0300</td><td>0.0040</td><td>2025-07-09</td></tr>
+<tr><td>ZH164597</td><td>狂飙</td><td>0008</td><td>0.0300</td><td>0.0040</td><td>2025-10-23</td></tr>
+<tr><td>ZH168007</td><td>叩富安盈组合</td><td>*</td><td>0.0300</td><td>0.0040</td><td>2025-10-23</td></tr>
+<tr><td>ZH171990</td><td>测试均衡</td><td>*</td><td>0.0300</td><td>0.0040</td><td>2025-11-19</td></tr>
+<tr><td>ZH171991</td><td>测试积极</td><td>*</td><td>0.0300</td><td>0.0040</td><td>2025-11-19</td></tr>
+<tr><td>ZH172008</td><td>麦穗积极精选</td><td>*</td><td>0.0300</td><td>0.0040</td><td>2026-01-15</td></tr>
+<tr><td>ZH172016</td><td>麦穗均衡精选</td><td>*</td><td>0.0300</td><td>0.0040</td><td>2026-01-15</td></tr>
+<tr><td>ZH172017</td><td>麦穗安心精选</td><td>*</td><td>0.0300</td><td>0.0040</td><td>2026-01-15</td></tr>
+<tr><td>ZH172877</td><td>跬步-安</td><td>*</td><td>0.0300</td><td>0.0040</td><td>2025-12-19</td></tr>
+<tr><td>ZH175642</td><td>虎金-全球优选</td><td>*</td><td>0.0300</td><td>0.0040</td><td>2026-04-09</td></tr>
+<tr><td>ZH175744</td><td>蒙面Richeer固收+</td><td>*</td><td>0.0300</td><td>0.0040</td><td>2026-06-23</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 10% / 单基金级 0.4% —— 共 27 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>ZH031163</td><td>景顺长城犇犇全明星-盈米尊享</td><td>*</td><td>0.1000</td><td>0.0040</td><td>2024-11-18</td></tr>
+<tr><td>ZH112619</td><td>宇宙w3</td><td>*</td><td>0.1000</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH118609</td><td>测试组合</td><td>*</td><td>0.1000</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH120458</td><td>全天候组合等级1</td><td>*</td><td>0.1000</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH120459</td><td>全天候组合等级2</td><td>*</td><td>0.1000</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH120471</td><td>全天候组合等级3</td><td>*</td><td>0.1000</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH120472</td><td>全天候组合等级4旧</td><td>*</td><td>0.1000</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH120473</td><td>全天候组合等级5</td><td>*</td><td>0.1000</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH120474</td><td>全天候组合等级6</td><td>*</td><td>0.1000</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH120475</td><td>全天候组合等级7</td><td>*</td><td>0.1000</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH120476</td><td>全天候组合等级8</td><td>*</td><td>0.1000</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH120478</td><td>全天候组合等级9</td><td>*</td><td>0.1000</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH120479</td><td>全天候组合等级10</td><td>*</td><td>0.1000</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH120480</td><td>稳健组合</td><td>*</td><td>0.1000</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH120525</td><td>低估值定投组合</td><td>*</td><td>0.1000</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH120842</td><td>傻憨憨组合</td><td>*</td><td>0.1000</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH125298</td><td>景顺长城犇犇全明星</td><td>*</td><td>0.1000</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH125623</td><td>景顺长城稳稳小确幸</td><td>*</td><td>0.1000</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH126515</td><td>景顺长城攻守全明星</td><td>*</td><td>0.1000</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH127053</td><td>景顺长城稳稳小确幸-盈米尊享</td><td>*</td><td>0.1000</td><td>0.0040</td><td>2024-11-18</td></tr>
+<tr><td>ZH127054</td><td>景顺长城攻守全明星-盈米尊享</td><td>*</td><td>0.1000</td><td>0.0040</td><td>2024-11-18</td></tr>
+<tr><td>ZH162967</td><td>融易投</td><td>*</td><td>0.1000</td><td>0.0040</td><td>2026-06-16</td></tr>
+<tr><td>ZH172981</td><td>中国权益-价值</td><td>*</td><td>0.1000</td><td>0.0040</td><td>2025-12-23</td></tr>
+<tr><td>ZH172984</td><td>中国权益-均衡</td><td>*</td><td>0.1000</td><td>0.0040</td><td>2025-12-23</td></tr>
+<tr><td>ZH172985</td><td>中国权益-成长</td><td>*</td><td>0.1000</td><td>0.0040</td><td>2025-12-23</td></tr>
+<tr><td>ZH172994</td><td>海外权益</td><td>*</td><td>0.1000</td><td>0.0040</td><td>2025-12-23</td></tr>
+<tr><td>ZH172995</td><td>大宗商品</td><td>*</td><td>0.1000</td><td>0.0040</td><td>2025-12-23</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 5% / 单基金级 0.4% —— 共 20 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>ZH005579</td><td>线上组合-风险10</td><td>*</td><td>0.0500</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH035314</td><td>低波动小幸福</td><td>*</td><td>0.0500</td><td>0.0040</td><td>2023-09-07</td></tr>
+<tr><td>ZH035411</td><td>进取派优选</td><td>*</td><td>0.0500</td><td>0.0040</td><td>2023-09-07</td></tr>
+<tr><td>ZH049666</td><td>打散测试1</td><td>*</td><td>0.0500</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH108302</td><td>智能定投专用测试</td><td>*</td><td>0.0500</td><td>0.0040</td><td>2023-09-25</td></tr>
+<tr><td>ZH112770</td><td>宇宙w4</td><td>*</td><td>0.0500</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH117970</td><td>小目标快车pro内测001</td><td>*</td><td>0.0500</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH121415</td><td>闲钱佳</td><td>*</td><td>0.0500</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH130770</td><td>兴证全球低波动小幸福2</td><td>*</td><td>0.0500</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH130772</td><td>求稳派小添财</td><td>*</td><td>0.0500</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH146475</td><td>旧版-季季红</td><td>*</td><td>0.0500</td><td>0.0040</td><td>2023-04-11</td></tr>
+<tr><td>ZH155746</td><td>兴证全球安益派小添利-测试</td><td>*</td><td>0.0500</td><td>0.0040</td><td>2024-03-01</td></tr>
+<tr><td>ZH155823</td><td>安益派小添利</td><td>*</td><td>0.0500</td><td>0.0040</td><td>2024-03-05</td></tr>
+<tr><td>ZH157706</td><td>测试关联创建111</td><td>*</td><td>0.0500</td><td>0.0040</td><td>2024-05-17</td></tr>
+<tr><td>ZH161034</td><td>多元收益</td><td>*</td><td>0.0500</td><td>0.0040</td><td>2024-10-23</td></tr>
+<tr><td>ZH172976</td><td>中国纯债-短债</td><td>*</td><td>0.0500</td><td>0.0040</td><td>2025-12-23</td></tr>
+<tr><td>ZH172979</td><td>中国纯债-中债</td><td>*</td><td>0.0500</td><td>0.0040</td><td>2025-12-23</td></tr>
+<tr><td>ZH172980</td><td>中国纯债-超长债</td><td>*</td><td>0.0500</td><td>0.0040</td><td>2025-12-23</td></tr>
+<tr><td>ZH172997</td><td>海外纯债-美元债</td><td>*</td><td>0.0500</td><td>0.0040</td><td>2025-12-23</td></tr>
+<tr><td>ZH175514</td><td>稳稳的幸福TEST</td><td>*</td><td>0.0500</td><td>0.0040</td><td>2026-03-26</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 1% / 单基金级 0.1% —— 共 14 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>FUND</td><td>基金自助交易</td><td>1208</td><td>0.0100</td><td>0.0010</td><td>2023-05-05</td></tr>
+<tr><td>ZH036790</td><td>打败极简投资</td><td>0008</td><td>0.0100</td><td>0.0010</td><td>2023-02-13</td></tr>
+<tr><td>ZH036892</td><td>智投改良版-第1期</td><td>*</td><td>0.0100</td><td>0.0010</td><td>2022-10-19</td></tr>
+<tr><td>ZH037510</td><td>智投改良版-第2期</td><td>*</td><td>0.0100</td><td>0.0010</td><td>2022-10-19</td></tr>
+<tr><td>ZH037574</td><td>懒人投资</td><td>0008</td><td>0.0100</td><td>0.0010</td><td>2023-02-13</td></tr>
+<tr><td>ZH037607</td><td>智投改良版-第3期</td><td>*</td><td>0.0100</td><td>0.0010</td><td>2022-10-19</td></tr>
+<tr><td>ZH039366</td><td>模拟</td><td>0008</td><td>0.0100</td><td>0.0010</td><td>2023-02-13</td></tr>
+<tr><td>ZH040516</td><td>波动不是风险</td><td>0008</td><td>0.0100</td><td>0.0010</td><td>2023-02-13</td></tr>
+<tr><td>ZH147122</td><td>致远均衡臻选</td><td>*</td><td>0.0100</td><td>0.0010</td><td>2023-04-28</td></tr>
+<tr><td>ZH172999</td><td>虎金-安心低波</td><td>*</td><td>0.0100</td><td>0.0010</td><td>2026-01-20</td></tr>
+<tr><td>ZH177329</td><td>资产配置托付计划-保守</td><td>*</td><td>0.0100</td><td>0.0010</td><td>2026-08-19</td></tr>
+<tr><td>ZH177332</td><td>资产配置托付计划-稳健</td><td>*</td><td>0.0100</td><td>0.0010</td><td>2026-08-19</td></tr>
+<tr><td>ZH177334</td><td>资产配置托付计划-积极</td><td>*</td><td>0.0100</td><td>0.0010</td><td>2026-08-19</td></tr>
+<tr><td>ZH177834</td><td>债基优选</td><td>*</td><td>0.0100</td><td>0.0010</td><td>2026-08-19</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 1.5% / 单基金级 0.4% —— 共 12 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>ZH044047</td><td>G2组合</td><td>*</td><td>0.0150</td><td>0.0040</td><td>2024-11-04</td></tr>
+<tr><td>ZH047198</td><td>全天候积极组合</td><td>*</td><td>0.0150</td><td>0.0040</td><td>2025-03-07</td></tr>
+<tr><td>ZH056000</td><td>懒人投资一稳健组合</td><td>*</td><td>0.0150</td><td>0.0040</td><td>2024-06-14</td></tr>
+<tr><td>ZH135893</td><td>成长组合</td><td>0008</td><td>0.0150</td><td>0.0040</td><td>2024-03-01</td></tr>
+<tr><td>ZH154885</td><td>极简-中美资产配置</td><td>0008</td><td>0.0150</td><td>0.0040</td><td>2024-07-25</td></tr>
+<tr><td>ZH156332</td><td>全天候-永久全球配置</td><td>0008</td><td>0.0150</td><td>0.0040</td><td>2024-07-25</td></tr>
+<tr><td>ZH156663</td><td>【已暂停】永久组合</td><td>0008</td><td>0.0150</td><td>0.0040</td><td>2024-07-25</td></tr>
+<tr><td>ZH161549</td><td>固收加-全球策略</td><td>0008</td><td>0.0150</td><td>0.0040</td><td>2024-11-28</td></tr>
+<tr><td>ZH163884</td><td>中美股债商-子女账户</td><td>0008</td><td>0.0150</td><td>0.0040</td><td>2026-02-03</td></tr>
+<tr><td>ZH164761</td><td>稳进-中国权益组合</td><td>0008</td><td>0.0150</td><td>0.0040</td><td>2026-02-03</td></tr>
+<tr><td>ZH167304</td><td>幸福时光基</td><td>*</td><td>0.0150</td><td>0.0040</td><td>2025-10-09</td></tr>
+<tr><td>ZH175045</td><td>生生不息</td><td>*</td><td>0.0150</td><td>0.0040</td><td>2026-06-18</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 4% / 单基金级 1% —— 共 8 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>ZH000290</td><td>南北战斗机1号</td><td>*</td><td>0.0400</td><td>0.0100</td><td>2022-10-19</td></tr>
+<tr><td>ZH006374</td><td>激进型基金组合</td><td>*</td><td>0.0400</td><td>0.0100</td><td>2022-10-19</td></tr>
+<tr><td>ZH006376</td><td>进取型基金组合</td><td>*</td><td>0.0400</td><td>0.0100</td><td>2022-10-19</td></tr>
+<tr><td>ZH006381</td><td>平衡型</td><td>*</td><td>0.0400</td><td>0.0100</td><td>2022-10-19</td></tr>
+<tr><td>ZH006932</td><td>多彩活动组合</td><td>*</td><td>0.0400</td><td>0.0100</td><td>2022-10-19</td></tr>
+<tr><td>ZH007827</td><td>17组合</td><td>*</td><td>0.0400</td><td>0.0100</td><td>2022-10-19</td></tr>
+<tr><td>ZH013630</td><td>火笔三甲</td><td>*</td><td>0.0400</td><td>0.0100</td><td>2022-10-19</td></tr>
+<tr><td>ZH013688</td><td>守正出奇组合</td><td>*</td><td>0.0400</td><td>0.0100</td><td>2022-10-19</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 6% / 单基金级 0.1% —— 共 8 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>ZH153288</td><td>智者股债配置组合1</td><td>*</td><td>0.0600</td><td>0.0010</td><td>2026-07-09</td></tr>
+<tr><td>ZH153289</td><td>智者股债配置组合2</td><td>*</td><td>0.0600</td><td>0.0010</td><td>2024-10-08</td></tr>
+<tr><td>ZH153290</td><td>智者股债配置组合3</td><td>*</td><td>0.0600</td><td>0.0010</td><td>2026-07-09</td></tr>
+<tr><td>ZH153291</td><td>智者股债配置组合4</td><td>*</td><td>0.0600</td><td>0.0010</td><td>2024-10-08</td></tr>
+<tr><td>ZH153292</td><td>智者股债配置组合5</td><td>*</td><td>0.0600</td><td>0.0010</td><td>2024-10-08</td></tr>
+<tr><td>ZH153293</td><td>智者股债配置组合6</td><td>*</td><td>0.0600</td><td>0.0010</td><td>2026-07-09</td></tr>
+<tr><td>ZH153294</td><td>智者股债配置组合7</td><td>*</td><td>0.0600</td><td>0.0010</td><td>2024-10-08</td></tr>
+<tr><td>ZH153295</td><td>智者股债配置组合8</td><td>*</td><td>0.0600</td><td>0.0010</td><td>2024-10-08</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 0.5% / 单基金级 0.4% —— 共 7 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>ZH005974</td><td>慧牛保守型组合</td><td>*</td><td>0.0050</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH005975</td><td>慧牛稳健型组合</td><td>*</td><td>0.0050</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH005976</td><td>慧牛平衡型组合</td><td>*</td><td>0.0050</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH005977</td><td>慧牛进取型组合</td><td>*</td><td>0.0050</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH005978</td><td>慧牛激进型组合</td><td>*</td><td>0.0050</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH126578</td><td>安薪盈增强组合</td><td>*</td><td>0.0050</td><td>0.0040</td><td>2025-10-13</td></tr>
+<tr><td>ZH137488</td><td>点时成金组合1号</td><td>*</td><td>0.0050</td><td>0.0040</td><td>2023-07-18</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 0.6% / 单基金级 0.4% —— 共 7 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>ZH000095</td><td>长赢指数投资</td><td>*</td><td>0.0060</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH000733</td><td>常盈指数</td><td>*</td><td>0.0060</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH006613</td><td>稳定才是关键</td><td>*</td><td>0.0060</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH009187</td><td>剑指苍穹</td><td>*</td><td>0.0060</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH009204</td><td>量化为王</td><td>*</td><td>0.0060</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH013098</td><td>龙头时光基</td><td>*</td><td>0.0060</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH028708</td><td>HPGY基金</td><td>*</td><td>0.0060</td><td>0.0040</td><td>2022-10-19</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 3% / 单基金级 0.3% —— 共 5 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>ZH115235</td><td>一库十牛</td><td>*</td><td>0.0300</td><td>0.0030</td><td>2026-01-24</td></tr>
+<tr><td>ZH166135</td><td>价值股资产包</td><td>*</td><td>0.0300</td><td>0.0030</td><td>2026-03-12</td></tr>
+<tr><td>ZH166138</td><td>成长股资产包</td><td>*</td><td>0.0300</td><td>0.0030</td><td>2026-03-12</td></tr>
+<tr><td>ZH166141</td><td>商品资产包</td><td>*</td><td>0.0300</td><td>0.0030</td><td>2026-03-12</td></tr>
+<tr><td>ZH166143</td><td>海外成长资产包</td><td>*</td><td>0.0300</td><td>0.0030</td><td>2026-03-12</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 0.2% / 单基金级 0.4% —— 共 3 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>ZH105820</td><td>PMS60201组合</td><td>*</td><td>0.0020</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH105848</td><td>PMS60202组合</td><td>*</td><td>0.0020</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH113681</td><td>合规测试ing</td><td>*</td><td>0.0020</td><td>0.0040</td><td>2022-10-19</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 0.75% / 单基金级 0.4% —— 共 3 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>ZH059169</td><td>长情陪伴之上善若水</td><td>*</td><td>0.0075</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH061773</td><td>最长情陪伴之点石成金</td><td>*</td><td>0.0075</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH119803</td><td>最长情陪伴之年年有余</td><td>*</td><td>0.0075</td><td>0.0040</td><td>2022-10-19</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 2% / 单基金级 0.2% —— 共 3 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>ZH161866</td><td>股七债三积极配置</td><td>*</td><td>0.0200</td><td>0.0020</td><td>2025-07-10</td></tr>
+<tr><td>ZH165791</td><td>股五债五平衡配置</td><td>*</td><td>0.0200</td><td>0.0020</td><td>2025-04-29</td></tr>
+<tr><td>ZH165792</td><td>股三债七稳健配置</td><td>*</td><td>0.0200</td><td>0.0020</td><td>2025-04-29</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 2.5% / 单基金级 0.4% —— 共 3 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>ZH160524</td><td>稳健债基优选</td><td>*</td><td>0.0250</td><td>0.0040</td><td>2026-05-22</td></tr>
+<tr><td>ZH160573</td><td>全球长期均衡</td><td>*</td><td>0.0250</td><td>0.0040</td><td>2025-04-09</td></tr>
+<tr><td>ZH173561</td><td>神舟长期均衡</td><td>*</td><td>0.0250</td><td>0.0040</td><td>2026-05-22</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 4% / 单基金级 0.1% —— 共 3 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>FUND</td><td>基金自助交易</td><td>*</td><td>0.0400</td><td>0.0010</td><td>2023-11-01</td></tr>
+<tr><td>ZH008344</td><td>叮当的魔法口袋v2</td><td>*</td><td>0.0400</td><td>0.0010</td><td>2022-10-19</td></tr>
+<tr><td>ZH038737</td><td>叮当的固收口袋</td><td>*</td><td>0.0400</td><td>0.0010</td><td>2022-10-19</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 8% / 单基金级 0.4% —— 共 3 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>ZH008344</td><td>叮当的魔法口袋v2</td><td>0008</td><td>0.0800</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH132851</td><td>匠人匠心</td><td>*</td><td>0.0800</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH132852</td><td>端水加点股</td><td>*</td><td>0.0800</td><td>0.0040</td><td>2022-10-19</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 0.4% / 单基金级 0.4% —— 共 2 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>ZH112617</td><td>宇宙w1</td><td>*</td><td>0.0040</td><td>0.0040</td><td>2022-10-19</td></tr>
+<tr><td>ZH163490</td><td>诗贝全球均衡配置</td><td>*</td><td>0.0040</td><td>0.0040</td><td>2025-09-30</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 4% / 单基金级 2% —— 共 2 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>ZH010147</td><td>华宝指环王</td><td>*</td><td>0.0400</td><td>0.0200</td><td>2022-10-19</td></tr>
+<tr><td>ZH174686</td><td>月月分红</td><td>*</td><td>0.0400</td><td>0.0200</td><td>2026-08-21</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 8% / 单基金级 1% —— 共 2 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>ZH149293</td><td>麻利安心稳健(尊享版)</td><td>*</td><td>0.0800</td><td>0.0100</td><td>2026-07-31</td></tr>
+<tr><td>ZH164465</td><td>麻利安心稳健</td><td>*</td><td>0.0800</td><td>0.0100</td><td>2026-07-31</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 0.9% / 单基金级 0.4% —— 共 1 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>ZH000086</td><td>雨花石-绝对收益组合</td><td>*</td><td>0.0090</td><td>0.0040</td><td>2022-10-19</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 1% / 单基金级 0.2% —— 共 1 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>ZH146774</td><td>永久投资组合</td><td>0008</td><td>0.0100</td><td>0.0020</td><td>2023-12-05</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 1.11% / 单基金级 0.4% —— 共 1 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>ZH119234</td><td>资产配置阈值再平衡</td><td>0008</td><td>0.0111</td><td>0.0040</td><td>2024-07-26</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 1.3% / 单基金级 0.4% —— 共 1 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>ZH146720</td><td>路遥马力</td><td>*</td><td>0.0130</td><td>0.0040</td><td>2025-03-24</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 2% / 单基金级 0.04% —— 共 1 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>ZH013136</td><td>我要稳稳的幸福</td><td>*</td><td>0.0200</td><td>0.0004</td><td>2026-06-10</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 2% / 单基金级 0.25% —— 共 1 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>ZH173005</td><td>虎金-稳健长盈</td><td>*</td><td>0.0200</td><td>0.0025</td><td>2026-06-25</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 2% / 单基金级 0.3% —— 共 1 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>ZH018208</td><td>定投核心指数</td><td>*</td><td>0.0200</td><td>0.0030</td><td>2022-10-19</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 2% / 单基金级 0.7% —— 共 1 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>ZH000193</td><td>巨人指数</td><td>*</td><td>0.0200</td><td>0.0070</td><td>2022-10-19</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 2% / 单基金级 1% —— 共 1 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>J7</td><td>简慢投资组合</td><td>*</td><td>0.0200</td><td>0.0100</td><td>2022-10-19</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 2.4% / 单基金级 0.4% —— 共 1 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>ZH159302</td><td>在乎在乎所以呼</td><td>0008</td><td>0.0240</td><td>0.0040</td><td>2024-07-23</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 2.8% / 单基金级 0.4% —— 共 1 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>ZH059425</td><td>四足鼎立</td><td>*</td><td>0.0280</td><td>0.0040</td><td>2024-12-27</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 3% / 单基金级 0.2% —— 共 1 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>ZH111126</td><td>PMS二期投顾组合测试</td><td>*</td><td>0.0300</td><td>0.0020</td><td>2026-01-05</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 3.5% / 单基金级 0.4% —— 共 1 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>ZH133224</td><td>测试组合哈哈</td><td>0008</td><td>0.0350</td><td>0.0040</td><td>2024-07-23</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 3.75% / 单基金级 0.4% —— 共 1 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>ZH146861</td><td>股债平衡</td><td>0008</td><td>0.0375</td><td>0.0040</td><td>2024-07-25</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 4% / 单基金级 0.04% —— 共 1 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>ZH155008</td><td>且慢专用测试组合-经典组合</td><td>*</td><td>0.0400</td><td>0.0004</td><td>2026-05-11</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 4% / 单基金级 0.05% —— 共 1 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>ZH005446</td><td>叮当的魔法口袋</td><td>*</td><td>0.0400</td><td>0.0005</td><td>2022-10-19</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 4% / 单基金级 0.6% —— 共 1 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>ZH018147</td><td>雨花石-量化选基1</td><td>*</td><td>0.0400</td><td>0.0060</td><td>2022-10-19</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 4% / 单基金级 3% —— 共 1 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>ZH108889</td><td>测试二样例</td><td>*</td><td>0.0400</td><td>0.0300</td><td>2026-04-09</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 5% / 单基金级 5% —— 共 1 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>ZH092162</td><td>乘风破浪</td><td>*</td><td>0.0500</td><td>0.0500</td><td>2026-08-25</td></tr>
+</table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">档位：组合级 6% / 单基金级 0.4% —— 共 1 个组合（全量）</div>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>broker</th><th>组合级</th><th>单基金级</th><th>生效时间</th></tr>
+<tr><td>ZH112771</td><td>宇宙w5</td><td>*</td><td>0.0600</td><td>0.0040</td><td>2022-10-19</td></tr>
+</table>
+</div>
+
+<h3>调仓后偏离率校验（expectAdjustAfterDeviationRateLessThan）的 7 个定制组合</h3>
+<table class="lt">
+<tr><th>poCode</th><th>组合名称</th><th>定制阈值</th></tr>
+<tr><td>ZH005579</td><td>线上组合-风险10</td><td>5%</td></tr>
+<tr><td>ZH008344</td><td>叮当的魔法口袋v2</td><td>10%</td></tr>
+<tr><td>ZH021386</td><td>长线组合（N类）</td><td>15%</td></tr>
+<tr><td>ZH038739</td><td>财商邦定投进取组合</td><td>6%</td></tr>
+<tr><td>ZH039601</td><td>哥伦布领航</td><td>8%</td></tr>
+<tr><td>ZH046291</td><td>坚如磐石</td><td>7%</td></tr>
+<tr><td>ZH036456</td><td>慢慢变穷（已清盘 2025-10-16）</td><td>6%</td></tr>
+</table>
+<p style="color:#888;font-size:13px">其余组合一律走全局默认 5%（sys_param <code>expectAdjustAfterDeviationRateLessThan</code>，2017-04-08 设定）。</p>
+
+
+<h3>10.2 自建组合成分偏离提醒：294 个组合按阈值档位</h3>
+
+<p>共 <b>294</b> 个自建组合（portfolio_type='N'）配置了成分偏离提醒（extra 含 compositionDeviationThreshold 字段），其中 <b>269 个开关开启</b>、25 个关闭。按阈值档位分组：</p>
+
+<details style="margin:8px 0">
+<summary style="cursor:pointer;font-weight:600;padding:6px 10px;background:#eef6f4;border-radius:4px">▸ 阈值 4% —— 共 180 个组合（163 开启 / 17 关闭，点击展开）</summary>
+<table class="lt"><tr><th>poCode</th><th>组合名称</th><th>开关</th></tr><tr><td>ZH017567</td><td>长期投资-长赢</td><td>✅ 开启</td></tr>
+<tr><td>ZH022197</td><td>红利策略</td><td>✅ 开启</td></tr>
+<tr><td>ZH022537</td><td>四只平分模式</td><td>✅ 开启</td></tr>
+<tr><td>ZH022824</td><td>固守+红利债券策略</td><td>✅ 开启</td></tr>
+<tr><td>ZH022903</td><td>主动-成长战队</td><td>✅ 开启</td></tr>
+<tr><td>ZH023920</td><td>主动-价值团队</td><td>✅ 开启</td></tr>
+<tr><td>ZH024675</td><td>医药1</td><td>✅ 开启</td></tr>
+<tr><td>ZH024676</td><td>医药策略</td><td>✅ 开启</td></tr>
+<tr><td>ZH024679</td><td>A500策略</td><td>✅ 开启</td></tr>
+<tr><td>ZH024790</td><td>兴全七三R4</td><td>✅ 开启</td></tr>
+<tr><td>ZH027967</td><td>养老</td><td>✅ 开启</td></tr>
+<tr><td>ZH031667</td><td>静待花开</td><td>✅ 开启</td></tr>
+<tr><td>ZH039772</td><td>心中的白月光</td><td>✅ 开启</td></tr>
+<tr><td>ZH042862</td><td>长盈150份</td><td>✅ 开启</td></tr>
+<tr><td>ZH044087</td><td>削峰填谷2号</td><td>✅ 开启</td></tr>
+<tr><td>ZH064678</td><td>以战则胜以守则固</td><td>✅ 开启</td></tr>
+<tr><td>ZH076837</td><td>十指定乾坤</td><td>✅ 开启</td></tr>
+<tr><td>ZH076933</td><td>涓涓细流</td><td>✅ 开启</td></tr>
+<tr><td>ZH081863</td><td>五指山</td><td>✅ 开启</td></tr>
+<tr><td>ZH086685</td><td>择基择时安居乐业</td><td>✅ 开启</td></tr>
+<tr><td>ZH097540</td><td>星光熠熠</td><td>✅ 开启</td></tr>
+<tr><td>ZH098541</td><td>星光闪耀</td><td>✅ 开启</td></tr>
+<tr><td>ZH101322</td><td>长投指数实盘</td><td>✅ 开启</td></tr>
+<tr><td>ZH108019</td><td>红利组合</td><td>✅ 开启</td></tr>
+<tr><td>ZH110536</td><td>雅典娜呐喊</td><td>✅ 开启</td></tr>
+<tr><td>ZH110994</td><td>中证优选基金</td><td>✅ 开启</td></tr>
+<tr><td>ZH119849</td><td>长债一号</td><td>✅ 开启</td></tr>
+<tr><td>ZH120493</td><td>权益组合Second</td><td>✅ 开启</td></tr>
+<tr><td>ZH122001</td><td>简单投资</td><td>✅ 开启</td></tr>
+<tr><td>ZH126028</td><td>大海航时代-自建</td><td>✅ 开启</td></tr>
+<tr><td>ZH129120</td><td>共同富裕</td><td>✅ 开启</td></tr>
+<tr><td>ZH129654</td><td>固收+</td><td>✅ 开启</td></tr>
+<tr><td>ZH129754</td><td>消费和医药</td><td>✅ 开启</td></tr>
+<tr><td>ZH132987</td><td>安稳</td><td>✅ 开启</td></tr>
+<tr><td>ZH135752</td><td>微梦馆长-风险平衡</td><td>✅ 开启</td></tr>
+<tr><td>ZH135763</td><td>春耕秋收-风险对冲</td><td>✅ 开启</td></tr>
+<tr><td>ZH135767</td><td>星辰大海-指数投资</td><td>✅ 开启</td></tr>
+<tr><td>ZH135769</td><td>火力全开-股债平衡</td><td>✅ 开启</td></tr>
+<tr><td>ZH137085</td><td>测试pomodel</td><td>✅ 开启</td></tr>
+<tr><td>ZH143158</td><td>大类配置观察</td><td>✅ 开启</td></tr>
+<tr><td>ZH144156</td><td>相时而动</td><td>✅ 开启</td></tr>
+<tr><td>ZH144552</td><td>奢则不逊俭则固</td><td>✅ 开启</td></tr>
+<tr><td>ZH148352</td><td>债基组合</td><td>✅ 开启</td></tr>
+<tr><td>ZH148430</td><td>平衡基</td><td>✅ 开启</td></tr>
+<tr><td>ZH149276</td><td>躺赢</td><td>✅ 开启</td></tr>
+<tr><td>ZH151064</td><td>全天候</td><td>⬜ 关闭</td></tr>
+<tr><td>ZH151676</td><td>全球战术型</td><td>✅ 开启</td></tr>
+<tr><td>ZH151822</td><td>中美大小盘</td><td>✅ 开启</td></tr>
+<tr><td>ZH154922</td><td>抄作业-全天候</td><td>✅ 开启</td></tr>
+<tr><td>ZH155112</td><td>凌生-稳健组合</td><td>✅ 开启</td></tr>
+<tr><td>ZH156715</td><td>股4债4金2</td><td>✅ 开启</td></tr>
+<tr><td>ZH159229</td><td>全球配置型</td><td>✅ 开启</td></tr>
+<tr><td>ZH160686</td><td>永久组合79-21</td><td>✅ 开启</td></tr>
+<tr><td>ZH161255</td><td>姜诚张坤</td><td>✅ 开启</td></tr>
+<tr><td>ZH161707</td><td>我的10万中波组合</td><td>✅ 开启</td></tr>
+<tr><td>ZH161738</td><td>哈利布朗永久投资组合</td><td>✅ 开启</td></tr>
+<tr><td>ZH161757</td><td>全球轮动</td><td>✅ 开启</td></tr>
+<tr><td>ZH161822</td><td>价值风格基金</td><td>✅ 开启</td></tr>
+<tr><td>ZH161958</td><td>简稳</td><td>✅ 开启</td></tr>
+<tr><td>ZH162159</td><td>底仓</td><td>✅ 开启</td></tr>
+<tr><td>ZH162189</td><td>信息技术基金组合</td><td>✅ 开启</td></tr>
+<tr><td>ZH162335</td><td>消费基金组合</td><td>✅ 开启</td></tr>
+<tr><td>ZH162337</td><td>海外投资</td><td>✅ 开启</td></tr>
+<tr><td>ZH162870</td><td>全球配置</td><td>✅ 开启</td></tr>
+<tr><td>ZH164426</td><td>250303投100</td><td>✅ 开启</td></tr>
+<tr><td>ZH164561</td><td>我的20万高波组合</td><td>✅ 开启</td></tr>
+<tr><td>ZH164605</td><td>长期组合</td><td>✅ 开启</td></tr>
+<tr><td>ZH164882</td><td>我的100万养老组合</td><td>✅ 开启</td></tr>
+<tr><td>ZH166063</td><td>生存之盾1</td><td>✅ 开启</td></tr>
+<tr><td>ZH166625</td><td>永久投资组合</td><td>✅ 开启</td></tr>
+<tr><td>ZH167084</td><td>百灵全天候</td><td>✅ 开启</td></tr>
+<tr><td>ZH167202</td><td>增值</td><td>✅ 开启</td></tr>
+<tr><td>ZH168168</td><td>备用基金组合</td><td>✅ 开启</td></tr>
+<tr><td>ZH168210</td><td>跑赢偏股指数行业分散</td><td>✅ 开启</td></tr>
+<tr><td>ZH168490</td><td>风雨不动安如山</td><td>✅ 开启</td></tr>
+<tr><td>ZH168557</td><td>生存之盾2</td><td>✅ 开启</td></tr>
+<tr><td>ZH168765</td><td>生存之盾3</td><td>✅ 开启</td></tr>
+<tr><td>ZH168840</td><td>长期轮动</td><td>✅ 开启</td></tr>
+<tr><td>ZH168841</td><td>ETF行业轮动</td><td>✅ 开启</td></tr>
+<tr><td>ZH169061</td><td>周期行者</td><td>✅ 开启</td></tr>
+<tr><td>ZH169111</td><td>周期猎手</td><td>✅ 开启</td></tr>
+<tr><td>ZH169525</td><td>红利定投组合</td><td>✅ 开启</td></tr>
+<tr><td>ZH169530</td><td>指数债券配置组合</td><td>⬜ 关闭</td></tr>
+<tr><td>ZH169543</td><td>汇薪FOF</td><td>✅ 开启</td></tr>
+<tr><td>ZH169580</td><td>我的5万低波组合</td><td>✅ 开启</td></tr>
+<tr><td>ZH169673</td><td>三七</td><td>✅ 开启</td></tr>
+<tr><td>ZH170343</td><td>三十年超长期养老A</td><td>✅ 开启</td></tr>
+<tr><td>ZH171112</td><td>红利+低波100</td><td>✅ 开启</td></tr>
+<tr><td>ZH171444</td><td>百分计划</td><td>✅ 开启</td></tr>
+<tr><td>ZH173239</td><td>光年永动投资组合</td><td>✅ 开启</td></tr>
+<tr><td>ZH173668</td><td>豆包版风雨不动安如山</td><td>✅ 开启</td></tr>
+<tr><td>ZH173733</td><td>我的退休养老金</td><td>✅ 开启</td></tr>
+<tr><td>ZH173815</td><td>A股战斗机</td><td>✅ 开启</td></tr>
+<tr><td>ZH174260</td><td>精选红利组合</td><td>✅ 开启</td></tr>
+<tr><td>ZH174520</td><td>豆包消费组合精选</td><td>✅ 开启</td></tr>
+<tr><td>ZH174743</td><td>全球均衡增长</td><td>✅ 开启</td></tr>
+<tr><td>ZH174870</td><td>生存之盾4</td><td>✅ 开启</td></tr>
+<tr><td>ZH175246</td><td>抄只取三瓢</td><td>✅ 开启</td></tr>
+<tr><td>ZH175269</td><td>全天候验证+部分可调</td><td>⬜ 关闭</td></tr>
+<tr><td>ZH175719</td><td>周期律动</td><td>✅ 开启</td></tr>
+<tr><td>ZH175750</td><td>4只王牌固收基金</td><td>✅ 开启</td></tr>
+<tr><td>ZH175813</td><td>浩天长投</td><td>⬜ 关闭</td></tr>
+<tr><td>ZH176291</td><td>债券合成旅(固+</td><td>✅ 开启</td></tr>
+<tr><td>ZH176516</td><td>子慢2014</td><td>✅ 开启</td></tr>
+<tr><td>ZH176588</td><td>长投计划</td><td>✅ 开启</td></tr>
+<tr><td>ZH176652</td><td>2026组合</td><td>✅ 开启</td></tr>
+<tr><td>ZH177184</td><td>长持五年</td><td>✅ 开启</td></tr>
+<tr><td>ZH177186</td><td>支付宝一三年</td><td>✅ 开启</td></tr>
+<tr><td>ZH177205</td><td>红利</td><td>✅ 开启</td></tr>
+<tr><td>ZH177212</td><td>A股量化组合</td><td>✅ 开启</td></tr>
+<tr><td>ZH177624</td><td>债基</td><td>✅ 开启</td></tr>
+<tr><td>ZH177723</td><td>生存之盾5</td><td>✅ 开启</td></tr>
+<tr><td>ZH177790</td><td>十年靠谱</td><td>✅ 开启</td></tr>
+<tr><td>ZH177822</td><td>生存之盾6</td><td>✅ 开启</td></tr>
+<tr><td>ZH177981</td><td>全天候合成旅4+</td><td>⬜ 关闭</td></tr>
+<tr><td>ZH177986</td><td>半导体存储PCB</td><td>✅ 开启</td></tr>
+<tr><td>ZH178112</td><td>全球精选</td><td>✅ 开启</td></tr>
+<tr><td>ZH178137</td><td>不抱团25Earl</td><td>✅ 开启</td></tr>
+<tr><td>ZH178327</td><td>持有宽基</td><td>✅ 开启</td></tr>
+<tr><td>ZH178372</td><td>全天候</td><td>⬜ 关闭</td></tr>
+<tr><td>ZH178487</td><td>我</td><td>✅ 开启</td></tr>
+<tr><td>ZH178489</td><td>财通四倍</td><td>✅ 开启</td></tr>
+<tr><td>ZH178711</td><td>浮动费率</td><td>✅ 开启</td></tr>
+<tr><td>ZH178781</td><td>外债</td><td>⬜ 关闭</td></tr>
+<tr><td>ZH179253</td><td>股债平衡</td><td>⬜ 关闭</td></tr>
+<tr><td>ZH179254</td><td>三支柱</td><td>⬜ 关闭</td></tr>
+<tr><td>ZH179557</td><td>电吉他一号</td><td>✅ 开启</td></tr>
+<tr><td>ZH179558</td><td>电吉他二号</td><td>✅ 开启</td></tr>
+<tr><td>ZH179566</td><td>QDII科技</td><td>⬜ 关闭</td></tr>
+<tr><td>ZH179627</td><td>260625投40</td><td>✅ 开启</td></tr>
+<tr><td>ZH179651</td><td>现金奶牛</td><td>✅ 开启</td></tr>
+<tr><td>ZH179679</td><td>电吉他三号</td><td>✅ 开启</td></tr>
+<tr><td>ZH179680</td><td>电吉他四号</td><td>✅ 开启</td></tr>
+<tr><td>ZH179681</td><td>电吉他五号</td><td>✅ 开启</td></tr>
+<tr><td>ZH179682</td><td>电吉他六号</td><td>✅ 开启</td></tr>
+<tr><td>ZH179777</td><td>全球资产配置</td><td>✅ 开启</td></tr>
+<tr><td>ZH179898</td><td>模拟红利汉堡</td><td>✅ 开启</td></tr>
+<tr><td>ZH179900</td><td>复制医药汉堡</td><td>✅ 开启</td></tr>
+<tr><td>ZH179902</td><td>复制消费汉堡</td><td>✅ 开启</td></tr>
+<tr><td>ZH179907</td><td>自建固收组合</td><td>✅ 开启</td></tr>
+<tr><td>ZH179941</td><td>债券三佳</td><td>✅ 开启</td></tr>
+<tr><td>ZH180020</td><td>永久组合国内版-依依</td><td>✅ 开启</td></tr>
+<tr><td>ZH180028</td><td>美股</td><td>⬜ 关闭</td></tr>
+<tr><td>ZH180225</td><td>中美金豆</td><td>✅ 开启</td></tr>
+<tr><td>ZH180372</td><td>生存之盾现金管理</td><td>✅ 开启</td></tr>
+<tr><td>ZH180451</td><td>简慢+黄金</td><td>✅ 开启</td></tr>
+<tr><td>ZH180712</td><td>凌生-权益组合</td><td>✅ 开启</td></tr>
+<tr><td>ZH180728</td><td>哈哈哈哈哈</td><td>✅ 开启</td></tr>
+<tr><td>ZH180731</td><td>江枫渔火-债券投资</td><td>✅ 开启</td></tr>
+<tr><td>ZH180794</td><td>路在脚下</td><td>✅ 开启</td></tr>
+<tr><td>ZH180804</td><td>国内基金池</td><td>✅ 开启</td></tr>
+<tr><td>ZH180834</td><td>罗西策略</td><td>✅ 开启</td></tr>
+<tr><td>ZH180843</td><td>稳健慢跑</td><td>✅ 开启</td></tr>
+<tr><td>ZH180902</td><td>红利微盘73</td><td>✅ 开启</td></tr>
+<tr><td>ZH180903</td><td>债股73</td><td>✅ 开启</td></tr>
+<tr><td>ZH180904</td><td>债股商22222</td><td>✅ 开启</td></tr>
+<tr><td>ZH181344</td><td>黄金</td><td>✅ 开启</td></tr>
+<tr><td>ZH181392</td><td>十年定投</td><td>✅ 开启</td></tr>
+<tr><td>ZH181423</td><td>国内</td><td>✅ 开启</td></tr>
+<tr><td>ZH181425</td><td>债券C</td><td>✅ 开启</td></tr>
+<tr><td>ZH181661</td><td>攻守兼备组合</td><td>✅ 开启</td></tr>
+<tr><td>ZH181864</td><td>红利第一版</td><td>✅ 开启</td></tr>
+<tr><td>ZH181944</td><td>长期投资计划</td><td>✅ 开启</td></tr>
+<tr><td>ZH182035</td><td>红利第六版</td><td>✅ 开启</td></tr>
+<tr><td>ZH182100</td><td>靖基宝盈</td><td>✅ 开启</td></tr>
+<tr><td>ZH182215</td><td>日常积累</td><td>⬜ 关闭</td></tr>
+<tr><td>ZH182384</td><td>桃李春风</td><td>⬜ 关闭</td></tr>
+<tr><td>ZH182404</td><td>全球精选</td><td>⬜ 关闭</td></tr>
+<tr><td>ZH182407</td><td>简慢</td><td>⬜ 关闭</td></tr>
+<tr><td>ZH183254</td><td>永动机</td><td>✅ 开启</td></tr>
+<tr><td>ZH183346</td><td>简慢投资自建版</td><td>✅ 开启</td></tr>
+<tr><td>ZH183510</td><td>教育基金定投</td><td>✅ 开启</td></tr>
+<tr><td>ZH183548</td><td>1</td><td>✅ 开启</td></tr>
+<tr><td>ZH183566</td><td>我的资产配置计划</td><td>✅ 开启</td></tr>
+<tr><td>ZH183571</td><td>我的资产配置计划</td><td>✅ 开启</td></tr>
+<tr><td>ZH183576</td><td>玥来玥好</td><td>✅ 开启</td></tr>
+<tr><td>ZH183600</td><td>我的资产配置计划</td><td>⬜ 关闭</td></tr>
+<tr><td>ZH184274</td><td>app</td><td>✅ 开启</td></tr>
+<tr><td>ZH184521</td><td>我的七巧板策略</td><td>✅ 开启</td></tr>
+<tr><td>ZH186376</td><td>消费策略</td><td>⬜ 关闭</td></tr></table>
+</details>
+<details style="margin:8px 0">
+<summary style="cursor:pointer;font-weight:600;padding:6px 10px;background:#eef6f4;border-radius:4px">▸ 阈值 5% —— 共 42 个组合（40 开启 / 2 关闭，点击展开）</summary>
+<table class="lt"><tr><th>poCode</th><th>组合名称</th><th>开关</th></tr><tr><td>ZH026152</td><td>常青藤海外1号</td><td>✅ 开启</td></tr>
+<tr><td>ZH026729</td><td>海外之纳斯达克100</td><td>✅ 开启</td></tr>
+<tr><td>ZH054871</td><td>原始持仓9726</td><td>✅ 开启</td></tr>
+<tr><td>ZH055148</td><td>混合组合</td><td>✅ 开启</td></tr>
+<tr><td>ZH055151</td><td>lyx独自</td><td>✅ 开启</td></tr>
+<tr><td>ZH106498</td><td>稳如老狗</td><td>✅ 开启</td></tr>
+<tr><td>ZH129382</td><td>亲人专属求稳组合</td><td>✅ 开启</td></tr>
+<tr><td>ZH134337</td><td>纯债</td><td>✅ 开启</td></tr>
+<tr><td>ZH148954</td><td>不死鸟</td><td>✅ 开启</td></tr>
+<tr><td>ZH149786</td><td>阿美莉卡</td><td>✅ 开启</td></tr>
+<tr><td>ZH149883</td><td>宽基组合100</td><td>✅ 开启</td></tr>
+<tr><td>ZH150171</td><td>A股跑赢偏股五年</td><td>✅ 开启</td></tr>
+<tr><td>ZH153418</td><td>LYF山水425</td><td>✅ 开启</td></tr>
+<tr><td>ZH156553</td><td>雪球试验仓</td><td>✅ 开启</td></tr>
+<tr><td>ZH156554</td><td>陶朱建议仓</td><td>✅ 开启</td></tr>
+<tr><td>ZH156556</td><td>支付宝实仓</td><td>✅ 开启</td></tr>
+<tr><td>ZH157509</td><td>经典股债动态再平衡</td><td>✅ 开启</td></tr>
+<tr><td>ZH163888</td><td>纳指科技</td><td>✅ 开启</td></tr>
+<tr><td>ZH163939</td><td>长期稳健</td><td>✅ 开启</td></tr>
+<tr><td>ZH164207</td><td>海外国富</td><td>✅ 开启</td></tr>
+<tr><td>ZH167970</td><td>低估行业股债37稳健</td><td>✅ 开启</td></tr>
+<tr><td>ZH169867</td><td>九宫格投资组合</td><td>✅ 开启</td></tr>
+<tr><td>ZH170004</td><td>年化10年正收益</td><td>✅ 开启</td></tr>
+<tr><td>ZH171477</td><td>清仓了一年20</td><td>✅ 开启</td></tr>
+<tr><td>ZH171971</td><td>超级混合</td><td>⬜ 关闭</td></tr>
+<tr><td>ZH173534</td><td>金鱼长期组合</td><td>✅ 开启</td></tr>
+<tr><td>ZH175500</td><td>新目标2-雪球</td><td>✅ 开启</td></tr>
+<tr><td>ZH177228</td><td>价值100+自由现金</td><td>✅ 开启</td></tr>
+<tr><td>ZH178601</td><td>漫长的等待</td><td>✅ 开启</td></tr>
+<tr><td>ZH178875</td><td>自由现金组合</td><td>✅ 开启</td></tr>
+<tr><td>ZH179788</td><td>超强组合</td><td>✅ 开启</td></tr>
+<tr><td>ZH180226</td><td>中美</td><td>✅ 开启</td></tr>
+<tr><td>ZH180340</td><td>四时安盈</td><td>✅ 开启</td></tr>
+<tr><td>ZH180439</td><td>完美组合</td><td>✅ 开启</td></tr>
+<tr><td>ZH180476</td><td>行稳致远组合-邹</td><td>✅ 开启</td></tr>
+<tr><td>ZH180578</td><td>长牛拾穗组合-邹</td><td>✅ 开启</td></tr>
+<tr><td>ZH181208</td><td>年年正收益</td><td>✅ 开启</td></tr>
+<tr><td>ZH181829</td><td>DIY全天候永久策略</td><td>✅ 开启</td></tr>
+<tr><td>ZH182240</td><td>全球精选</td><td>⬜ 关闭</td></tr>
+<tr><td>ZH186792</td><td>c计划</td><td>✅ 开启</td></tr>
+<tr><td>ZH187047</td><td>scccc豆子</td><td>✅ 开启</td></tr>
+<tr><td>ZH187321</td><td>风格轮动</td><td>✅ 开启</td></tr></table>
+</details>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">阈值 2% —— 共 21 个组合（20 开启 / 1 关闭）</div>
+<table class="lt"><tr><th>poCode</th><th>组合名称</th><th>开关</th></tr><tr><td>ZH024677</td><td>稳健躺平组合策略</td><td>✅ 开启</td></tr>
+<tr><td>ZH037900</td><td>未来计划</td><td>✅ 开启</td></tr>
+<tr><td>ZH056735</td><td>测试组件</td><td>⬜ 关闭</td></tr>
+<tr><td>ZH114377</td><td>拾贰-210812</td><td>✅ 开启</td></tr>
+<tr><td>ZH115033</td><td>柒福-210818</td><td>✅ 开启</td></tr>
+<tr><td>ZH131836</td><td>十福-220322</td><td>✅ 开启</td></tr>
+<tr><td>ZH131837</td><td>六顺-220322</td><td>✅ 开启</td></tr>
+<tr><td>ZH131840</td><td>六福-220322</td><td>✅ 开启</td></tr>
+<tr><td>ZH138020</td><td>傲12-220729</td><td>✅ 开启</td></tr>
+<tr><td>ZH149792</td><td>6-230608</td><td>✅ 开启</td></tr>
+<tr><td>ZH154230</td><td>永久全天候</td><td>✅ 开启</td></tr>
+<tr><td>ZH155892</td><td>永久组合</td><td>✅ 开启</td></tr>
+<tr><td>ZH156671</td><td>永久组合2</td><td>✅ 开启</td></tr>
+<tr><td>ZH156706</td><td>十通-240412</td><td>✅ 开启</td></tr>
+<tr><td>ZH165793</td><td>老12-250428</td><td>✅ 开启</td></tr>
+<tr><td>ZH168573</td><td>十美-250818</td><td>✅ 开启</td></tr>
+<tr><td>ZH169895</td><td>七衡-250918</td><td>✅ 开启</td></tr>
+<tr><td>ZH170216</td><td>十八稳250929</td><td>✅ 开启</td></tr>
+<tr><td>ZH170290</td><td>十阳神-250930</td><td>✅ 开启</td></tr>
+<tr><td>ZH170743</td><td>中波九-251016</td><td>✅ 开启</td></tr>
+<tr><td>ZH182195</td><td>价值成长轮动</td><td>✅ 开启</td></tr></table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">阈值 1% —— 共 19 个组合（18 开启 / 1 关闭）</div>
+<table class="lt"><tr><th>poCode</th><th>组合名称</th><th>开关</th></tr><tr><td>ZH131839</td><td>十瑞-220322</td><td>✅ 开启</td></tr>
+<tr><td>ZH139049</td><td>圈地自盈</td><td>⬜ 关闭</td></tr>
+<tr><td>ZH164997</td><td>TOP25</td><td>✅ 开启</td></tr>
+<tr><td>ZH165076</td><td>稳稳号</td><td>✅ 开启</td></tr>
+<tr><td>ZH165100</td><td>幸福号</td><td>✅ 开启</td></tr>
+<tr><td>ZH165169</td><td>人未识安心组合</td><td>✅ 开启</td></tr>
+<tr><td>ZH167130</td><td>抄作业远</td><td>✅ 开启</td></tr>
+<tr><td>ZH170246</td><td>稳健九250929</td><td>✅ 开启</td></tr>
+<tr><td>ZH170721</td><td>天龙六-251016</td><td>✅ 开启</td></tr>
+<tr><td>ZH171359</td><td>幸福家庭</td><td>✅ 开启</td></tr>
+<tr><td>ZH171402</td><td>幸福家庭1</td><td>✅ 开启</td></tr>
+<tr><td>ZH173113</td><td>叁-251226</td><td>✅ 开启</td></tr>
+<tr><td>ZH178030</td><td>美股</td><td>✅ 开启</td></tr>
+<tr><td>ZH178031</td><td>债基</td><td>✅ 开启</td></tr>
+<tr><td>ZH178032</td><td>贵金属</td><td>✅ 开启</td></tr>
+<tr><td>ZH178033</td><td>红利低波</td><td>✅ 开启</td></tr>
+<tr><td>ZH178034</td><td>国股</td><td>✅ 开启</td></tr>
+<tr><td>ZH180218</td><td>调仓辅助组合</td><td>✅ 开启</td></tr>
+<tr><td>ZH183350</td><td>十-260812</td><td>✅ 开启</td></tr></table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">阈值 10% —— 共 13 个组合（10 开启 / 3 关闭）</div>
+<table class="lt"><tr><th>poCode</th><th>组合名称</th><th>开关</th></tr><tr><td>ZH089477</td><td>ETF组合+全球精选</td><td>✅ 开启</td></tr>
+<tr><td>ZH099592</td><td>哑铃</td><td>✅ 开启</td></tr>
+<tr><td>ZH100023</td><td>全球长期</td><td>✅ 开启</td></tr>
+<tr><td>ZH120929</td><td>国内国外双循环策略</td><td>⬜ 关闭</td></tr>
+<tr><td>ZH125969</td><td>平衡</td><td>✅ 开启</td></tr>
+<tr><td>ZH126640</td><td>现金流</td><td>✅ 开启</td></tr>
+<tr><td>ZH158988</td><td>永久投资组合</td><td>✅ 开启</td></tr>
+<tr><td>ZH179832</td><td>V形反转</td><td>✅ 开启</td></tr>
+<tr><td>ZH180155</td><td>持续买入资产</td><td>✅ 开启</td></tr>
+<tr><td>ZH180224</td><td>海外传奇</td><td>✅ 开启</td></tr>
+<tr><td>ZH180470</td><td>ETF组合+恒生科技</td><td>✅ 开启</td></tr>
+<tr><td>ZH180996</td><td>永久投资</td><td>⬜ 关闭</td></tr>
+<tr><td>ZH181381</td><td>养老值长红</td><td>⬜ 关闭</td></tr></table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">阈值 3% —— 共 5 个组合（4 开启 / 1 关闭）</div>
+<table class="lt"><tr><th>poCode</th><th>组合名称</th><th>开关</th></tr><tr><td>ZH017595</td><td>金牛版本</td><td>✅ 开启</td></tr>
+<tr><td>ZH091471</td><td>种田大户</td><td>✅ 开启</td></tr>
+<tr><td>ZH139172</td><td>均11-220818</td><td>✅ 开启</td></tr>
+<tr><td>ZH164399</td><td>衡16-250303</td><td>✅ 开启</td></tr>
+<tr><td>ZH170953</td><td>10年计划</td><td>⬜ 关闭</td></tr></table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">阈值 15% —— 共 4 个组合（4 开启 / 0 关闭）</div>
+<table class="lt"><tr><th>poCode</th><th>组合名称</th><th>开关</th></tr><tr><td>ZH179838</td><td>进攻20只1号半导体</td><td>✅ 开启</td></tr>
+<tr><td>ZH179889</td><td>自组全天候</td><td>✅ 开启</td></tr>
+<tr><td>ZH180332</td><td>子弹</td><td>✅ 开启</td></tr>
+<tr><td>ZH180453</td><td>永久投资组合</td><td>✅ 开启</td></tr></table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">阈值 8% —— 共 3 个组合（3 开启 / 0 关闭）</div>
+<table class="lt"><tr><th>poCode</th><th>组合名称</th><th>开关</th></tr><tr><td>ZH123928</td><td>稳健慢跑</td><td>✅ 开启</td></tr>
+<tr><td>ZH179274</td><td>逍遥的三分法</td><td>✅ 开启</td></tr>
+<tr><td>ZH184268</td><td>纳指定投组合</td><td>✅ 开启</td></tr></table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">阈值 7% —— 共 3 个组合（3 开启 / 0 关闭）</div>
+<table class="lt"><tr><th>poCode</th><th>组合名称</th><th>开关</th></tr><tr><td>ZH134705</td><td>Beta+</td><td>✅ 开启</td></tr>
+<tr><td>ZH134954</td><td>Alpha+</td><td>✅ 开启</td></tr>
+<tr><td>ZH145822</td><td>长钱</td><td>✅ 开启</td></tr></table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">阈值 6% —— 共 2 个组合（2 开启 / 0 关闭）</div>
+<table class="lt"><tr><th>poCode</th><th>组合名称</th><th>开关</th></tr><tr><td>ZH182858</td><td>FIRE-纳指</td><td>✅ 开启</td></tr>
+<tr><td>ZH184369</td><td>FIRE-E300</td><td>✅ 开启</td></tr></table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">阈值 20% —— 共 1 个组合（1 开启 / 0 关闭）</div>
+<table class="lt"><tr><th>poCode</th><th>组合名称</th><th>开关</th></tr><tr><td>ZH179780</td><td>极致进取型组合</td><td>✅ 开启</td></tr></table>
+</div>
+<div style="margin:8px 0">
+<div style="font-weight:600;padding:6px 10px;background:#fdf6ec;border-left:4px solid #e6a23c">阈值 22% —— 共 1 个组合（1 开启 / 0 关闭）</div>
+<table class="lt"><tr><th>poCode</th><th>组合名称</th><th>开关</th></tr><tr><td>ZH180160</td><td>宽基组合搭配主动</td><td>✅ 开启</td></tr></table>
+</div>
+
+
+<div class="meta" style="margin-top:40px">
+数据来源：① 图谱 bus/qieman/concepts/transactions/{adjust,follow,rebalance}.md、classic-portfolio.md、invest-plan.md、platform/tp/concepts/po-rebalance.md；② 源码 ~/Code/po/{poadjust,portfolio-trade,pooss,pobatch}、~/Code/qieman/{pmdj-service,qieman-jobs-js,pomodel,po-metrics-spark}；③ 线上配置经 prod-db-query 查生产库 dw-tidb：ying99_potrade.advisor_portfolio_deviation_rate_split_info（1688 条全量、按 poCode+broker 聚合最新，截至 2026-09-10）、ying99_pomodel.portfolio_info（组合名 join + extra 提取）、sys_param、portfolio_composition（漂移实证 ZH036316）。<br>
+口径说明：清单中"组合级/单基金级"为该组合 broker 维度最新一条配置；生效时间即该条 update_time；组合名取自 ying99_pomodel.portfolio_info.po_name，个别策略壳（如 J7/SI/FUND）为产品层名称。<br>
+报告生成：2026-09-10 · 盈米本体问答服务（v2）
+</div>
+</div>
+
+<script>
+const c1 = echarts.init(document.getElementById('chart1'));
+c1.setOption({
+  title: {text: '线上组合级偏离率阈值分布（1283个组合 · 按最新一条配置）', left:'center', textStyle:{fontSize:13}},
+  tooltip: {trigger:'axis'},
+  grid: {left:60, right:20, bottom:40},
+  xAxis: {type:'category', data:['4%','2%','1%','3%','10%','5%','1.5%','其他'], axisLabel:{fontSize:11}},
+  yAxis: {type:'value', name:'组合数'},
+  series: [{type:'bar', data:[827,161,105,40,27,20,12,91], itemStyle:{color:'#34695c'}, label:{show:true, position:'top', fontSize:10}}]
+});
+const c2 = echarts.init(document.getElementById('chart2'));
+c2.setOption({
+  title: {text: '自建组合成分偏离提醒阈值分布（线上294个组合）', left:'center', textStyle:{fontSize:13}},
+  tooltip: {trigger:'item', formatter:'{b}: {c} 个 ({d}%)'},
+  series: [{type:'pie', radius:['35%','62%'], center:['50%','55%'],
+    data:[
+      {value:180, name:'4%（163开+17关）', itemStyle:{color:'#34695c'}},
+      {value:42, name:'5%（40开+2关）', itemStyle:{color:'#5a8f7f'}},
+      {value:21, name:'2%（20开+1关）', itemStyle:{color:'#8fbcb0'}},
+      {value:19, name:'1%（18开+1关）', itemStyle:{color:'#c0392b'}},
+      {value:13, name:'10%（10开+3关）', itemStyle:{color:'#e6a23c'}},
+      {value:19, name:'其他', itemStyle:{color:'#bdc3c7'}}
+    ],
+    label:{fontSize:11}
+  }]
+});
+window.addEventListener('resize', ()=>{c1.resize(); c2.resize();});
+</script>
+</body>
+</html>
