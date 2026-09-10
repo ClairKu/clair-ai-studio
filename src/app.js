@@ -146,6 +146,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "product-ai-role-ladder-benchmark-2026-09-10",
+      groupId: "ai-platform",
+      title: "产品与 AI 产品岗位职级能力标准｜海内外金融与互联网标杆研究",
+      url: "https://clairku.github.io/clair-ai-studio/reports/product-ai-role-ladder-benchmark-2026-09-10/",
+      preview: "product-ai-role-ladder-benchmark-2026-09-10.png",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-10T16:30:00+08:00",
+      source: "31 项官方原始来源｜UK DDaT、SFIA 9、美国 OPM/NIST、Google、Microsoft、Amazon、Apple、Stripe、Uber、OpenAI、Anthropic、百度、京东、字节、腾讯、Capital One、JPMorgan Chase、BlackRock、招商银行、工商银行及中美欧监管材料｜建立 6 级产品骨架、9 维通用能力、9 维 AI 叠加、金融 7 道硬门槛、招聘晋升证据包与 12 周落地路线｜公开资料研究，不声称公司未公开内部职级",
+      access: "production",
+      workType: "research",
+      tags: ["产品经理", "AI 产品经理", "职级体系", "任职资格", "能力模型", "人才盘点", "晋升", "招聘", "金融科技", "AI 治理", "深度研究", "HTML", "生产"],
+    },
+    {
       id: "qieman-skill-library-install-audit-2026-09-09",
       groupId: "ai-platform",
       title: "且慢私域 Skill 库｜安装、质量与可运行性审计",
