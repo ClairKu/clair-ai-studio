@@ -146,6 +146,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "personal-ai-token-usage-audit-2026-09-10",
+      groupId: "ai-platform",
+      title: "五端 AI Token 月度盘点｜Codex · Cursor · Claude · WorkBuddy · YinmiWork",
+      url: "https://clairku.github.io/clair-ai-studio/reports/personal-ai-token-usage-audit-2026-09-10/",
+      preview: "personal-ai-token-usage-audit-2026-09-10.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-10T17:55:11+08:00",
+      source: "本机原始会话与用量记录只读盘点｜2026-08-10 00:00 至 2026-09-10 17:55（Asia/Shanghai）｜Codex、Claude、WorkBuddy、YinmiWork 可核验总处理量 28.682 亿 token；非缓存新增输入 + 输出 1.212 亿｜Cursor 本机 534 个模型调用，但 token 字段全部为 0，明确排除总量｜含每日趋势、模型明细、缓存口径、数据索引与自检｜公开脱敏，不含账号、密钥、会话正文、个人路径与任务内容",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["AI 用量", "Token", "Codex", "Cursor", "Claude", "WorkBuddy", "YinmiWork", "成本治理", "数据分析", "HTML", "生产"],
+    },
+    {
 
       id: "yingmi-deviation-rules-panorama-2026-09-10",
       groupId: "knowledge",

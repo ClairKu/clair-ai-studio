@@ -1,0 +1,171 @@
+{
+  "generatedAt": "2026-09-10T09:55:11.709Z",
+  "period": {
+    "start": "2026-08-10 00:00:00 +08:00",
+    "end": "2026/09/10 17:55:11",
+    "timezone": "Asia/Shanghai"
+  },
+  "definitions": {
+    "processedTokens": "输入上下文（含缓存命中）+ 输出；不同平台按其本机日志字段归一",
+    "effectiveTokens": "非缓存新增输入 + 输出；用于观察真正新增处理量，不代表账单金额",
+    "cursor": "本机数据库 tokenCount 字段均为 0，Cursor 不计入跨平台总量"
+  },
+  "summary": {
+    "exactSubtotalExcludingCursor": 2868195211,
+    "effectiveSubtotal": 121241171,
+    "processedInput": 2855958408,
+    "cachedInput": 2746954040,
+    "output": 12236803,
+    "cacheRatio": 96.18326486496927
+  },
+  "platforms": {
+    "Claude": {
+      "total": 1645842990,
+      "effective": 49629111,
+      "cachedInput": 1596213879,
+      "output": 7663698,
+      "events": 7766
+    },
+    "Codex": {
+      "total": 1176190230,
+      "effective": 33256086,
+      "cachedInput": 1142934144,
+      "output": 4354899,
+      "events": 10449
+    },
+    "YinmiWork": {
+      "total": 37573083,
+      "effective": 37573083,
+      "cachedInput": 0,
+      "output": 94960,
+      "events": 254
+    },
+    "WorkBuddy": {
+      "total": 8588908,
+      "effective": 782891,
+      "cachedInput": 7806017,
+      "output": 123246,
+      "events": 105
+    }
+  },
+  "cursor": {
+    "total": null,
+    "modelCalls": 534,
+    "bubbles": 2188,
+    "conversationsCreated": 19,
+    "visibleFinalContextTokens": 1670762,
+    "nonzeroTokenRecords": 0,
+    "localRecordCoverage": [
+      "2026-08-31T02:27:54.673Z",
+      "2026-09-10T09:54:37.082Z"
+    ]
+  },
+  "workbuddyCredits": 113.9,
+  "daily": [
+    {
+      "day": "2026-08-10",
+      "total": 14145542,
+      "effective": 415983
+    },
+    {
+      "day": "2026-08-11",
+      "total": 324391,
+      "effective": 3741
+    },
+    {
+      "day": "2026-08-18",
+      "total": 324575775,
+      "effective": 6424999
+    },
+    {
+      "day": "2026-08-19",
+      "total": 169535555,
+      "effective": 3869089
+    },
+    {
+      "day": "2026-08-20",
+      "total": 94695720,
+      "effective": 1828818
+    },
+    {
+      "day": "2026-08-24",
+      "total": 177866430,
+      "effective": 4530759
+    },
+    {
+      "day": "2026-08-25",
+      "total": 342911329,
+      "effective": 5664404
+    },
+    {
+      "day": "2026-08-27",
+      "total": 96417215,
+      "effective": 2046875
+    },
+    {
+      "day": "2026-08-28",
+      "total": 20839641,
+      "effective": 465586
+    },
+    {
+      "day": "2026-08-30",
+      "total": 47057318,
+      "effective": 1113254
+    },
+    {
+      "day": "2026-08-31",
+      "total": 20165499,
+      "effective": 890763
+    },
+    {
+      "day": "2026-09-01",
+      "total": 74952895,
+      "effective": 2686224
+    },
+    {
+      "day": "2026-09-02",
+      "total": 72779640,
+      "effective": 3088025
+    },
+    {
+      "day": "2026-09-03",
+      "total": 145032164,
+      "effective": 5492325
+    },
+    {
+      "day": "2026-09-04",
+      "total": 399027892,
+      "effective": 10948999
+    },
+    {
+      "day": "2026-09-05",
+      "total": 285790772,
+      "effective": 4323548
+    },
+    {
+      "day": "2026-09-06",
+      "total": 3620129,
+      "effective": 738349
+    },
+    {
+      "day": "2026-09-07",
+      "total": 108600740,
+      "effective": 3726562
+    },
+    {
+      "day": "2026-09-08",
+      "total": 32938811,
+      "effective": 1275725
+    },
+    {
+      "day": "2026-09-09",
+      "total": 216477912,
+      "effective": 14466927
+    },
+    {
+      "day": "2026-09-10",
+      "total": 220439841,
+      "effective": 47240216
+    }
+  ]
+}
