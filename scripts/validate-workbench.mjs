@@ -38,11 +38,18 @@ const reports = reportChunks.map((chunk) => ({
   access: chunk.match(/\baccess:\s*"([^"]+)"/)?.[1] || "",
 }));
 
+
 // +1 qianwen user question analysis 2026-09-05
 // +1 Doubao Qieman user dashboard 2026-09-05
 // -1 inaccessible qieman-ai-advisor-ecosystem private Site 2026-09-05
+<<<<<<< HEAD
 if (reports.length !== 154) { // +3 advisor workbench / ontology explorer / WeChat AI dashboard 2026-09-10 // +1 product and AI product role ladder benchmark 2026-09-10 // +1 qieman skill library install audit 2026-09-09 // +1 next-gen VIP advisor workbench demo 2026-09-09 // +1 designer ontology insurance delivery audit 2026-09-07 // +1 qieman full-user source attribution and AI demand report 2026-09-07 // +1 doubao seven-user inflow path audit 2026-09-07 // +1 doubao bound-user deep analysis 2026-09-05 // +3 backfill: yuyue-internship-portfolio 2026-09-03 / vesta-mcp-caliber-audit 2026-09-02 / yingmi-mcp-metrics-caliber 2026-08-31 // +1 doubao-mcp-user-panorama 2026-09-05 // +1 qieman three-user lifecycle audit 2026-09-05 // +1 OAP channel attribution dashboard 2026-09-04 // +1 xiaogu-3-investment-review 2026-09-04 // +1 xiaogu-buyer-advisor-evidence 2026-09-03 // +1 ai-xiaogu-impact-evolution 2026-09-03 // +1 xiaogu-technical-evolution 2026-09-03 // +1 doubao-oauth-mcp-radar 2026-09-02 // +1 Agent Harness executive report 2026-09-02 // +1 raft-human-ai-group-chat-research 2026-09-02 // +1 Agent Harness architecture report 2026-09-02 // +1 baidu-dumate-review 2026-09-01 // +1 GetLatestQuotations market temperature audit 2026-08-30
   fail(`初始成果数量异常：预期 154，实际 ${reports.length}`);
+=======
+// +1 longterm account post-investment analysis 2026-09-10
+if (reports.length !== 151) { // +1 qieman skill library install audit 2026-09-09 // +1 next-gen VIP advisor workbench demo 2026-09-09 // +1 designer ontology insurance delivery audit 2026-09-07 // +1 qieman full-user source attribution and AI demand report 2026-09-07 // +1 doubao seven-user inflow path audit 2026-09-07 // +1 doubao bound-user deep analysis 2026-09-05 // +3 backfill: yuyue-internship-portfolio 2026-09-03 / vesta-mcp-caliber-audit 2026-09-02 / yingmi-mcp-metrics-caliber 2026-08-31 // +1 doubao-mcp-user-panorama 2026-09-05 // +1 qieman three-user lifecycle audit 2026-09-05 // +1 OAP channel attribution dashboard 2026-09-04 // +1 xiaogu-3-investment-review 2026-09-04 // +1 xiaogu-buyer-advisor-evidence 2026-09-03 // +1 ai-xiaogu-impact-evolution 2026-09-03 // +1 xiaogu-technical-evolution 2026-09-03 // +1 doubao-oauth-mcp-radar 2026-09-02 // +1 Agent Harness executive report 2026-09-02 // +1 raft-human-ai-group-chat-research 2026-09-02 // +1 Agent Harness architecture report 2026-09-02 // +1 baidu-dumate-review 2026-09-01 // +1 GetLatestQuotations market temperature audit 2026-08-30
+  fail(`初始成果数量异常：预期 151，实际 ${reports.length}`);
+>>>>>>> 4a3dd6b (feat(xiaogu): 发布长期投资账户投后分析报告（四笔钱口径 15 子账户）)
 }
 
 for (const field of ["id", "url"]) {

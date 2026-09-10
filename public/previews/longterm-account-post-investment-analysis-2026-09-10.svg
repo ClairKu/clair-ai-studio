@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">长期投资账户投后分析</title>
+  <desc id="desc">四笔钱长期投资口径 15 个子账户的投后分析报告预览</desc>
+  <defs>
+    <radialGradient id="halo" cx="78%" cy="18%" r="66%"><stop stop-color="#6f9bff" stop-opacity=".24"/><stop offset="1" stop-color="#0a1024" stop-opacity="0"/></radialGradient>
+    <linearGradient id="screen" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#1d3a8a"/><stop offset="1" stop-color="#101d47"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="24" stdDeviation="28" flood-color="#000" flood-opacity=".42"/></filter>
+  </defs>
+  <rect width="1200" height="675" fill="#0a1024"/>
+  <rect width="1200" height="675" fill="url(#halo)"/>
+  <g opacity=".13" stroke="#8fb0ff"><path d="M0 96H1200M0 192H1200M0 288H1200M0 384H1200M0 480H1200M0 576H1200"/><path d="M96 0V675M192 0V675M288 0V675M384 0V675M480 0V675M576 0V675M672 0V675M768 0V675M864 0V675M960 0V675M1056 0V675"/></g>
+  <g font-family="PingFang SC,Microsoft YaHei,Arial,sans-serif">
+    <rect x="70" y="65" width="44" height="44" rx="13" fill="#8fb0ff"/><text x="92" y="96" text-anchor="middle" fill="#0a1024" font-size="20" font-weight="800">长</text>
+    <text x="132" y="82" fill="#eef2ff" font-size="18" font-weight="700">长期投资投后分析</text><text x="132" y="105" fill="#7f8db8" font-size="11" letter-spacing="3">POST-INVESTMENT REVIEW</text>
+    <text x="70" y="178" fill="#8fb0ff" font-size="14" font-weight="800" letter-spacing="4">HOLDING ANALYSIS · 2026</text>
+    <text x="66" y="278" fill="#eef2ff" font-size="60" font-weight="800" letter-spacing="-3">四笔钱里最重的一笔，</text>
+    <text x="66" y="352" fill="#7f8db8" font-size="60" font-weight="800" letter-spacing="-3">先理结构，再谈收益。</text>
+    <text x="71" y="410" fill="#b5c4ea" font-size="21">15 个子账户 · 股票 64.4% · 回撤 -4.82% · 年化 -1.39%</text>
+    <line x1="70" y1="485" x2="618" y2="485" stroke="#2a3560"/>
+    <text x="70" y="531" fill="#eef2ff" font-size="21" font-weight="700">6 高 / 7 低 / 2 适中 · 风险分化是主因</text>
+    <text x="70" y="589" fill="#6f7ba3" font-size="14" letter-spacing="2">CLAIR'S STUDIO · INTERACTIVE HTML</text>
+  </g>
+  <g transform="translate(760 55) rotate(3 165 280)" filter="url(#shadow)">
+    <rect x="0" y="0" width="340" height="568" rx="48" fill="#243060" stroke="#5b6ba8" stroke-width="2"/>
+    <rect x="12" y="12" width="316" height="544" rx="38" fill="#f5f7ff"/>
+    <rect x="12" y="12" width="316" height="150" rx="38" fill="url(#screen)"/>
+    <text x="36" y="60" fill="#a9b8ea" font-family="PingFang SC,Arial" font-size="12">长期投资 · 2026-06-09 → 09-09</text>
+    <text x="36" y="104" fill="#fff" font-family="PingFang SC,Arial" font-size="25" font-weight="800">-1.39% 年化</text>
+    <text x="36" y="132" fill="#9fb0e6" font-family="PingFang SC,Arial" font-size="13">期间收益 -530.88 元</text>
+    <rect x="36" y="176" width="140" height="10" rx="5" fill="#3b5bd6"/><text x="36" y="210" fill="#5c6a99" font-size="12" font-family="PingFang SC,Arial">股票 64.4%</text>
+    <rect x="186" y="176" width="56" height="10" rx="5" fill="#7c8cf8"/><text x="186" y="210" fill="#5c6a99" font-size="12" font-family="PingFang SC,Arial">债券 25.6%</text>
+    <rect x="252" y="176" width="20" height="10" rx="5" fill="#4fb6a8"/><text x="252" y="210" fill="#5c6a99" font-size="12" font-family="PingFang SC,Arial">现金 8.1%</text>
+    <g font-family="PingFang SC,Arial" font-size="13" fill="#39415f">
+      <text x="36" y="256">① 6 个风险过高账户优先降风险</text>
+      <text x="36" y="286">② 7 个偏低账户按目标重定位</text>
+      <text x="36" y="316">③ 补齐目标期限与投入计划</text>
+      <text x="36" y="346">④ 长期投入从 233 元/季提上来</text>
+    </g>
+    <line x1="36" y1="380" x2="304" y2="380" stroke="#e3e7f5"/>
+    <text x="36" y="414" fill="#8a94b8" font-size="12" font-family="PingFang SC,Arial">10 年正收益概率 95.23% · 1 年 56.34%</text>
+    <text x="36" y="440" fill="#8a94b8" font-size="12" font-family="PingFang SC,Arial">个人养老金账户 47,377 元 · 风险适中</text>
+  </g>
+</svg>
