@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />
+    <script data-clair-access-gate data-clair-access-scope="workspace" src="../../access-gate.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MPT 持仓优化工具 · YINGMIWORK</title>
+<style>
+:root{
+  --bg:#F4F5F8; --panel:#FFFFFF; --panel-2:#FAFBFD; --ink:#16213A; --ink-2:#3D4A68; --ink-3:#7A86A3;
+  --line:#E4E8F2; --line-2:#EEF1F8;
+  --brand:#0E3A5D; --brand-2:#12558C; --brand-soft:#E8F0F9;
+  --gold:#B98A2F; --gold-soft:#F8F1E2;
+  --up:#0E9F6E; --up-soft:#E5F6EF; --down:#E5484D; --down-soft:#FCEBEB;
+  --warn:#D97706; --warn-soft:#FCF3E3; --violet:#6D5BD0; --violet-soft:#EFECFB;
+  --buy:#D6353B; --sell:#0E9F6E;
+  --r-lg:14px; --r-md:10px; --r-sm:7px;
+  --shadow-1:0 1px 2px rgba(22,33,58,.05),0 1px 8px rgba(22,33,58,.04);
+  --shadow-2:0 4px 14px rgba(22,33,58,.09),0 1px 4px rgba(22,33,58,.06);
+  --font:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  --mono:"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:var(--font);font-size:13px;color:var(--ink);background:var(--bg);overflow:hidden;-webkit-font-smoothing:antialiased}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,textarea,select{font-family:inherit;outline:none}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-thumb{background:#CBD2E2;border-radius:8px;border:2px solid transparent;background-clip:content-box}
+::-webkit-scrollbar-track{background:transparent}
+.num{font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+a{color:var(--brand-2);text-decoration:none}
+
+#app{display:flex;flex-direction:column;height:100vh}
+#topbar{height:50px;flex:none;display:flex;align-items:center;gap:12px;padding:0 16px;background:var(--brand);color:#fff;z-index:60}
+#topbar .mark{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,#2E7FC4,#0E3A5D);border:1px solid rgba(255,255,255,.28);display:grid;place-items:center;font-size:12px;font-weight:800;color:#FFE9B8}
+#topbar .ttl{font-weight:700;font-size:14px}
+#topbar .sub{font-size:11px;opacity:.72}
+#topbar .sp{flex:1}
+#topbar a{color:rgba(255,255,255,.85);font-size:12px;padding:5px 10px;border-radius:7px}
+#topbar a:hover{background:rgba(255,255,255,.12)}
+
+#main{flex:1;display:grid;grid-template-columns:408px minmax(0,1fr);min-height:0}
+
+/* ---------- 左侧输入 ---------- */
+#inputs{border-right:1px solid var(--line);background:var(--panel);overflow-y:auto;padding:14px}
+.sec{margin-bottom:16px}
+.sec-h{display:flex;align-items:center;gap:8px;margin-bottom:9px}
+.sec-h .no{width:18px;height:18px;border-radius:6px;background:var(--brand);color:#fff;font-size:10.5px;font-weight:700;display:grid;place-items:center;flex:none}
+.sec-h h3{font-size:13px;font-weight:700}
+.sec-h .hint{font-size:11px;color:var(--ink-3);margin-left:auto}
+.frow{display:flex;gap:8px;margin-bottom:8px}
+.frow .fld{flex:1;min-width:0}
+.fld label{display:block;font-size:11px;color:var(--ink-2);margin-bottom:4px;font-weight:600}
+.fld input,.fld select{width:100%;height:30px;border:1px solid var(--line);border-radius:8px;padding:0 9px;font-size:12.5px;background:var(--panel-2);color:var(--ink)}
+.fld input:focus,.fld select:focus,textarea:focus{border-color:var(--brand-2);box-shadow:0 0 0 3px rgba(18,85,140,.12);background:#fff}
+textarea#dataText{width:100%;height:170px;border:1px solid var(--line);border-radius:9px;padding:9px 10px;font-family:var(--mono);font-size:11px;line-height:1.5;background:var(--panel-2);color:var(--ink-2);resize:vertical;white-space:pre;overflow:auto}
+.btn-row{display:flex;gap:7px;margin-top:8px;flex-wrap:wrap}
+.btn{height:30px;padding:0 12px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid var(--line);background:#fff;color:var(--ink-2);transition:.15s;display:inline-flex;align-items:center;gap:5px}
+.btn:hover{border-color:var(--brand-2);color:var(--brand-2);background:var(--brand-soft)}
+.btn.pri{background:var(--brand);border-color:var(--brand);color:#fff}
+.btn.pri:hover{background:var(--brand-2)}
+.btn.big{height:36px;width:100%;justify-content:center;font-size:13px;border-radius:10px}
+#dataStatus{font-size:11px;color:var(--ink-3);margin-top:7px;line-height:1.5}
+#dataStatus b{color:var(--brand-2)}
+
+table.htab{width:100%;border-collapse:collapse}
+.htab th{font-size:11px;color:var(--ink-3);font-weight:600;text-align:right;padding:5px 4px;border-bottom:1px solid var(--line);white-space:nowrap}
+.htab th:first-child{text-align:left}
+.htab td{padding:4px 4px;border-bottom:1px solid var(--line-2);text-align:right}
+.htab td:first-child{text-align:left;font-weight:600;font-size:12px;max-width:92px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.htab input{width:100%;height:26px;border:1px solid var(--line);border-radius:6px;padding:0 7px;font-size:12px;text-align:right;background:var(--panel-2)}
+.htab input:focus{border-color:var(--brand-2);background:#fff}
+.htab .tot td{font-weight:700;border-top:2px solid var(--line);border-bottom:none;background:var(--panel-2)}
+
+.radio-row{display:flex;gap:6px}
+.radio-row button{flex:1;height:30px;border:1px solid var(--line);border-radius:8px;font-size:12px;color:var(--ink-2);background:#fff;transition:.15s}
+.radio-row button.on{background:var(--brand);border-color:var(--brand);color:#fff;font-weight:600}
+
+#errBox{display:none;margin-top:10px;padding:9px 11px;border-radius:9px;background:var(--down-soft);color:#B03A3E;font-size:12px;line-height:1.55;border:1px solid #F3C8CA}
+#warnBox{display:none;margin-top:10px;padding:9px 11px;border-radius:9px;background:var(--warn-soft);color:#9A5B06;font-size:12px;line-height:1.6;border:1px solid #EFD9AE}
+
+/* ---------- 右侧结果 ---------- */
+#results{overflow-y:auto;padding:16px 18px 30px;min-width:0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-1);margin-bottom:14px;overflow:hidden}
+.card-h{padding:12px 16px;border-bottom:1px solid var(--line-2);display:flex;align-items:center;gap:8px}
+.card-h h3{font-size:13.5px;font-weight:700}
+.card-h .tag{font-size:10.5px;color:var(--ink-3);background:var(--panel-2);border:1px solid var(--line);border-radius:20px;padding:2px 8px}
+.card-h .sp{flex:1}
+.card-b{padding:14px 16px}
+
+#kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:14px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);padding:13px 14px;box-shadow:var(--shadow-1);position:relative;overflow:hidden}
+.kpi::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3.5px;background:var(--kc,var(--brand))}
+.kpi .kt{font-size:12px;font-weight:700;display:flex;align-items:center;gap:6px}
+.kpi .kt .dot{width:8px;height:8px;border-radius:50%;background:var(--kc,var(--brand))}
+.kpi .kb{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:10px}
+.kpi .kv .l{font-size:10.5px;color:var(--ink-3)}
+.kpi .kv .v{font-size:15px;font-weight:700;margin-top:2px;font-variant-numeric:tabular-nums}
+.kpi .kf{font-size:10.5px;color:var(--ink-3);margin-top:8px;border-top:1px dashed var(--line);padding-top:7px;line-height:1.5}
+.kpi .badge{position:absolute;top:10px;right:10px;font-size:10px;font-weight:700;color:var(--gold);background:var(--gold-soft);border-radius:12px;padding:2px 8px}
+
+#chartWrap{position:relative}
+#frontierCanvas{width:100%;height:400px;display:block;cursor:crosshair}
+#chartTip{position:absolute;pointer-events:none;background:rgba(22,33,58,.94);color:#fff;font-size:11.5px;line-height:1.6;border-radius:8px;padding:8px 10px;display:none;z-index:5;box-shadow:var(--shadow-2);max-width:260px;white-space:nowrap}
+#chartTip b{color:#FFD98A}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11.5px;color:var(--ink-2)}
+.legend .it{display:flex;align-items:center;gap:5px}
+.legend .sw{width:10px;height:10px;border-radius:50%;flex:none}
+.legend .ln{width:16px;height:0;border-top:2.5px solid var(--brand-2);border-radius:2px}
+.legend .ln.dash{border-top:2px dashed var(--gold)}
+
+table.rtab{width:100%;border-collapse:collapse}
+.rtab th{font-size:11.5px;color:var(--ink-3);font-weight:600;padding:7px 8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap;background:var(--panel-2)}
+.rtab th:first-child,.rtab td:first-child{text-align:left}
+.rtab td{padding:7px 8px;border-bottom:1px solid var(--line-2);text-align:right;font-size:12.5px}
+.rtab tr:last-child td{border-bottom:none}
+.rtab tr.hl td{background:var(--brand-soft)}
+.rtab .anm{font-weight:600;display:flex;align-items:center;gap:7px}
+.rtab .anm .sw{width:9px;height:9px;border-radius:3px;flex:none}
+.wcell{display:flex;align-items:center;gap:7px;justify-content:flex-end}
+.wbar{width:64px;height:5px;border-radius:3px;background:var(--line-2);overflow:hidden;flex:none}
+.wbar i{display:block;height:100%;border-radius:3px;background:var(--bc,var(--brand-2))}
+.pos{color:var(--buy);font-weight:600}
+.neg{color:var(--sell);font-weight:600}
+.sumgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:12px}
+.sumitem{background:var(--panel-2);border:1px solid var(--line-2);border-radius:10px;padding:9px 12px}
+.sumitem .l{font-size:11px;color:var(--ink-3)}
+.sumitem .v{font-size:15px;font-weight:700;margin-top:3px;font-variant-numeric:tabular-nums}
+.sumitem .v small{font-size:11px;color:var(--ink-3);font-weight:500}
+
+.rc-row{display:flex;align-items:center;gap:9px;padding:4.5px 0}
+.rc-row .nm{width:110px;font-size:12px;font-weight:600;text-align:right;flex:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rc-row .bars{flex:1;display:flex;flex-direction:column;gap:3px}
+.rc-row .bar{height:9px;border-radius:3px;background:var(--line-2);position:relative;overflow:hidden}
+.rc-row .bar i{position:absolute;left:0;top:0;bottom:0;border-radius:3px}
+.rc-row .pv{width:86px;font-size:11.5px;color:var(--ink-2);flex:none;font-variant-numeric:tabular-nums}
+.rc-leg{display:flex;gap:14px;font-size:11px;color:var(--ink-3);margin:2px 0 8px}
+.rc-leg .it{display:flex;align-items:center;gap:5px}
+.rc-leg .sw{width:9px;height:9px;border-radius:3px}
+
+.corr-wrap{overflow-x:auto}
+table.corr{border-collapse:collapse;margin:0 auto}
+.corr th,.corr td{padding:0;min-width:64px;height:30px;text-align:center;font-size:11.5px;border:2px solid #fff}
+.corr th{background:none;color:var(--ink-2);font-weight:600;white-space:nowrap;padding:0 8px}
+.corr td{border-radius:5px;font-variant-numeric:tabular-nums;font-weight:600}
+
+#insights{line-height:1.9;font-size:12.5px;color:var(--ink-2)}
+#insights li{margin-bottom:4px}
+#insights b{color:var(--ink)}
+#insights .hl-r{color:var(--brand-2);font-weight:700}
+#insights .hl-g{color:var(--gold);font-weight:700}
+
+.method{padding:12px 18px;font-size:11px;color:var(--ink-3);line-height:1.8}
+.method b{color:var(--ink-2)}
+#computeInfo{font-size:11px;color:var(--ink-3);text-align:right;margin-top:-6px;margin-bottom:12px}
+#computeInfo b{color:var(--brand-2)}
+.two-col{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:1280px){.two-col{grid-template-columns:1fr}#kpis{grid-template-columns:repeat(2,1fr)}}
+
+/* ---------- 基金导入 ---------- */
+#fundText{width:100%;height:92px;border:1px solid var(--line);border-radius:9px;padding:9px 10px;font-size:12px;line-height:1.6;background:var(--panel-2);color:var(--ink);resize:vertical}
+#pasteZone{margin-top:8px;border:1.5px dashed var(--line);border-radius:9px;padding:9px 11px;font-size:11.5px;color:var(--ink-3);background:var(--panel-2);line-height:1.7}
+#pasteZone a{color:var(--brand-2)}
+#ocrStatus{margin-top:3px;font-size:11px;color:var(--brand-2);font-weight:600}
+#ocrPreview img{max-height:90px;max-width:100%;border-radius:7px;margin-top:6px;border:1px solid var(--line)}
+#fetchLog{margin-top:8px;max-height:130px;overflow-y:auto;font-family:var(--mono);font-size:11px;line-height:1.7;background:var(--panel-2);border:1px solid var(--line-2);border-radius:8px;padding:7px 9px;display:none}
+#fetchLog:not(:empty){display:block}
+.fdel{width:20px;height:20px;border-radius:6px;color:var(--ink-3);font-size:14px;line-height:1;padding:0}
+.fdel:hover{background:var(--down-soft);color:var(--down)}
+#fundTable td:nth-child(2){max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#fundTableWrap{margin-top:8px}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="topbar">
+    <div class="mark">M</div>
+    <div>
+      <div class="ttl">MPT 持仓优化工具</div>
+    </div>
+    <div class="sub">现代投资组合理论 · 均值-方差优化 · 有效前沿 · 全部结果实时计算</div>
+    <div class="sp"></div>
+    <a href="../yingmi-advisor-workbench-2026-09-10/">← 返回顾问工作台</a>
+  </div>
+
+  <div id="main">
+    <!-- ============ 输入面板 ============ -->
+    <div id="inputs">
+      <div class="sec">
+        <div class="sec-h"><div class="no">1</div><h3>数据输入</h3><span class="hint">基金代码 / 截图 / CSV</span></div>
+        <div class="radio-row" style="margin-bottom:9px">
+          <button id="modeFund" class="on">基金组合导入</button>
+          <button id="modeCsv">历史收益 CSV</button>
+        </div>
+
+        <!-- 基金组合导入 -->
+        <div id="fundPanel">
+          <textarea id="fundText" spellcheck="false" placeholder="随意粘贴包含「基金代码 + 比例」的文字，例如：&#10;110022 30%，161725 25%，519736 45%&#10;也支持金额写法（110022 投3万元）、无比例（自动均分剩余）&#10;↓ 或直接粘贴 / 上传持仓截图，自动 OCR 识别"></textarea>
+          <div id="pasteZone">
+            📷 截图识别：在页面任意处 Ctrl/⌘+V 粘贴截图，或拖入图片 / <a href="javascript:void 0" id="imgBtn">选择图片</a>
+            <input type="file" id="imgInput" accept="image/*" style="display:none">
+            <div id="ocrStatus"></div>
+            <div id="ocrPreview"></div>
+          </div>
+          <div class="btn-row">
+            <button class="btn" id="parseFundBtn">解析文本中的基金与比例</button>
+          </div>
+          <div id="fundTableWrap" style="display:none">
+            <table class="htab" id="fundTable">
+              <thead><tr><th>代码</th><th>名称</th><th style="width:62px">比例%</th><th style="width:88px">市值(元)</th><th style="width:26px"></th></tr></thead>
+              <tbody id="fundTableBody"></tbody>
+              <tfoot><tr class="tot"><td colspan="2">合计</td><td id="fundSum" class="num" style="text-align:right;padding-right:11px"></td><td colspan="2"></td></tr></tfoot>
+            </table>
+          </div>
+          <div class="frow" style="margin-top:9px">
+            <div class="fld"><label>组合总金额（元）</label><input id="totalInput" type="number" step="10000" value="1000000"></div>
+            <div class="fld"><label>历史净值区间</label>
+              <select id="rangeSel">
+                <option value="12">近 12 个月</option>
+                <option value="24" selected>近 24 个月</option>
+                <option value="36">近 36 个月</option>
+                <option value="60">近 60 个月</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn pri big" id="fetchBtn">获取净值并计算</button>
+          <div id="fetchLog"></div>
+        </div>
+
+        <!-- CSV 导入 -->
+        <div id="csvPanel" style="display:none">
+          <div class="frow">
+            <div class="fld"><label>数据频率（年化口径）</label>
+              <select id="freqSel">
+                <option value="12" selected>月度（×12）</option>
+                <option value="52">周度（×52）</option>
+                <option value="252">日度（×252）</option>
+                <option value="4">季度（×4）</option>
+              </select>
+            </div>
+            <div class="fld"><label>数值单位</label>
+              <select id="unitSel">
+                <option value="pct" selected>百分比（如 1.25 = 1.25%）</option>
+                <option value="dec">小数（如 0.0125）</option>
+              </select>
+            </div>
+          </div>
+          <textarea id="dataText" spellcheck="false"></textarea>
+          <div class="btn-row">
+            <button class="btn pri" id="applyDataBtn">应用数据</button>
+            <button class="btn" id="sampleBtn">载入示例数据</button>
+            <button class="btn" id="randomBtn">随机生成一批</button>
+            <button class="btn" id="uploadBtn">上传 CSV</button>
+            <input type="file" id="fileInput" accept=".csv,.txt,.tsv" style="display:none">
+          </div>
+        </div>
+        <div id="dataStatus"></div>
+      </div>
+
+      <div class="sec">
+        <div class="sec-h"><div class="no">2</div><h3>当前持仓与投资约束</h3><span class="hint">权重上下限 %</span></div>
+        <div style="overflow-x:auto">
+          <table class="htab" id="holdTable">
+            <thead><tr><th>资产</th><th style="width:92px">当前市值(元)</th><th style="width:58px">下限%</th><th style="width:58px">上限%</th></tr></thead>
+            <tbody></tbody>
+            <tfoot><tr class="tot"><td>合计</td><td id="totalVal" class="num" style="text-align:right;padding-right:11px">—</td><td colspan="2"></td></tr></tfoot>
+          </table>
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="sec-h"><div class="no">3</div><h3>优化参数</h3></div>
+        <div class="frow">
+          <div class="fld"><label>无风险利率（年化 %）</label><input id="rfInput" type="number" step="0.1" value="1.8"></div>
+          <div class="fld"><label>交易费率（单边 %）</label><input id="costInput" type="number" step="0.01" value="0.10"></div>
+        </div>
+        <div class="fld" style="margin-bottom:8px"><label>目标组合设定方式</label>
+          <div class="radio-row">
+            <button id="modeRet" class="on">指定目标年化收益</button>
+            <button id="modeRisk">指定目标年化波动</button>
+          </div>
+        </div>
+        <div class="fld"><label id="targetLabel">目标年化收益率（%）</label><input id="targetInput" type="number" step="0.1" value="6.0"></div>
+      </div>
+
+      <button class="btn pri big" id="runBtn">重新计算</button>
+      <div id="errBox"></div>
+      <div id="warnBox"></div>
+    </div>
+
+    <!-- ============ 结果面板 ============ -->
+    <div id="results">
+      <div id="computeInfo"></div>
+      <div id="kpis"></div>
+
+      <div class="card">
+        <div class="card-h"><h3>有效前沿</h3><span class="tag">均值-方差有效组合轨迹</span><div class="sp"></div>
+          <div class="legend">
+            <span class="it"><span class="ln"></span>有效前沿</span>
+            <span class="it"><span class="ln dash"></span>资本市场线(CML)</span>
+            <span class="it"><span class="sw" style="background:#3D7AB5"></span>当前</span>
+            <span class="it"><span class="sw" style="background:#0E9F6E"></span>最小波动</span>
+            <span class="it"><span class="sw" style="background:#B98A2F"></span>最大夏普</span>
+            <span class="it"><span class="sw" style="background:#6D5BD0"></span>目标组合</span>
+            <span class="it"><span class="sw" style="background:#9AA5BF"></span>单资产</span>
+          </div>
+        </div>
+        <div class="card-b" style="padding:8px 10px 10px">
+          <div id="chartWrap">
+            <canvas id="frontierCanvas"></canvas>
+            <div id="chartTip"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-h"><h3>权重对比</h3><span class="tag">当前 vs 三类最优组合</span></div>
+        <div class="card-b" style="overflow-x:auto" id="weightsCard"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-h"><h3>调仓清单与成本分析</h3><span class="tag">当前持仓 → 目标组合</span></div>
+        <div class="card-b">
+          <div style="overflow-x:auto" id="tradesCard"></div>
+          <div class="sumgrid" id="costGrid"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-h"><h3>风险来源与相关性</h3><span class="tag">成分风险贡献 · 相关矩阵 · 分散化</span></div>
+        <div class="card-b two-col">
+          <div>
+            <div class="rc-leg">
+              <span class="it"><span class="sw" style="background:#3D7AB5"></span>当前组合风险贡献</span>
+              <span class="it"><span class="sw" style="background:#6D5BD0"></span>目标组合风险贡献</span>
+            </div>
+            <div id="riskContrib"></div>
+            <div id="divRatioBox" style="margin-top:12px"></div>
+          </div>
+          <div class="corr-wrap" id="corrCard"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-h"><h3>资产特征（样本期内，年化）</h3></div>
+        <div class="card-b" style="overflow-x:auto" id="assetCard"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-h"><h3>自动解读</h3><span class="tag">基于本次计算结果生成</span></div>
+        <div class="card-b"><ul id="insights" style="padding-left:18px"></ul></div>
+      </div>
+
+      <div class="card method">
+        <b>方法论：</b>基于输入的历史收益率序列估计各资产年化期望收益（样本均值×频率）与年化协方差矩阵（样本协方差×频率）；在「权重和=1、逐资产上下限」约束下，用投影加速梯度法（FISTA + Armijo 回溯）求解均值-方差二次规划 min λ·w′Σw − μ′w；通过风险厌恶系数 λ 的对分搜索得到指定目标收益/目标风险下的最优组合，λ 扫描刻画有效前沿；最大夏普组合经 λ 扫描 + 夏普梯度投影上升求精。相关性由协方差标准化得到；风险贡献 = wᵢ·(Σw)ᵢ/σₚ；调仓成本 = 单边费率 × 双边交易总额。历史数据不代表未来表现，结果仅供研究演示。
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+'use strict';
+/* ================= 工具函数 ================= */
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const dot = (a,b)=>{let s=0;for(let i=0;i<a.length;i++)s+=a[i]*b[i];return s;};
+const fmtPct = (x,d=2)=> (x*100).toFixed(d)+'%';
+const fmtNum = (x,d=2)=> x.toLocaleString('zh-CN',{minimumFractionDigits:d,maximumFractionDigits:d});
+const fmtMoney = x => Math.round(x).toLocaleString('zh-CN');
+const fmtSign = x => (x>=0?'+':'−') + fmtMoney(Math.abs(x));
+const ASSET_COLORS = ['#12558C','#B98A2F','#0E8FA8','#6D5BD0','#C0564F','#0E9F6E','#8A6D3B','#4A6FA5','#A34A8C','#5B8C5A','#7A86A3','#2E7FC4','#D97706','#3D4A68','#8896B3'];
+
+/* ================= 示例数据生成（固定种子可复现） ================= */
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function randn(rng){let u=0,v=0;while(u===0)u=rng();while(v===0)v=rng();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
+function cholesky(A){
+  const n=A.length, L=Array.from({length:n},()=>new Array(n).fill(0));
+  for(let i=0;i<n;i++)for(let j=0;j<=i;j++){
+    let s=A[i][j]; for(let k=0;k<j;k++) s-=L[i][k]*L[j][k];
+    L[i][j]= i===j ? Math.sqrt(Math.max(s,1e-14)) : s/L[j][j];
+  }
+  return L;
+}
+function genSample(seed){
+  const rng = mulberry32(seed);
+  const defs = [
+    {name:'沪深300',  mu:0.065, vol:0.200},
+    {name:'中证500',  mu:0.075, vol:0.240},
+    {name:'恒生指数', mu:0.045, vol:0.220},
+    {name:'标普500',  mu:0.090, vol:0.155},
+    {name:'中债总财富',mu:0.032, vol:0.018},
+    {name:'黄金',     mu:0.080, vol:0.150},
+    {name:'货币基金', mu:0.020, vol:0.004},
+  ];
+  const C = [
+    [1.00, 0.85, 0.65, 0.25,-0.05, 0.05, 0.00],
+    [0.85, 1.00, 0.55, 0.20,-0.08, 0.02, 0.00],
+    [0.65, 0.55, 1.00, 0.35,-0.05, 0.08, 0.00],
+    [0.25, 0.20, 0.35, 1.00, 0.05, 0.30, 0.00],
+    [-0.05,-0.08,-0.05, 0.05, 1.00, 0.10, 0.00],
+    [0.05, 0.02, 0.08, 0.30, 0.10, 1.00, 0.00],
+    [0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 1.00],
+  ];
+  const L = cholesky(C), T = 48, m = 12, n = defs.length;
+  const lines = ['period,' + defs.map(d=>d.name).join(',')];
+  const end = new Date(2026, 7, 1);
+  for(let t=0;t<T;t++){
+    const z = Array.from({length:n},()=>randn(rng));
+    const d = new Date(end.getFullYear(), end.getMonth()-(T-1-t), 1);
+    const cells = [`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`];
+    for(let j=0;j<n;j++){
+      let shock=0; for(let k=0;k<=j;k++) shock += L[j][k]*z[k];
+      const r = defs[j].mu/m + (defs[j].vol/Math.sqrt(m))*shock;
+      cells.push((r*100).toFixed(4));
+    }
+    lines.push(cells.join(','));
+  }
+  return lines.join('\n');
+}
+const DEFAULT_HOLDINGS = {'沪深300':300000,'中证500':150000,'恒生指数':100000,'标普500':150000,'中债总财富':200000,'黄金':50000,'货币基金':50000};
+
+/* ================= 数据解析 ================= */
+function parseDataText(text, unit){
+  const lines = text.split(/\r?\n/).map(s=>s.trim()).filter(s=>s.length>0);
+  if(lines.length < 3) throw new Error('数据行数不足：至少需要表头 + 3 期历史数据。');
+  const delim = lines[0].includes('\t') ? '\t' : (lines[0].includes(';') && !lines[0].includes(',')) ? ';' : ',';
+  const grid = lines.map(l=>l.split(delim).map(c=>c.trim()));
+  const ncol = grid[0].length;
+  grid.forEach((g,i)=>{ if(g.length!==ncol) throw new Error(`第 ${i+1} 行有 ${g.length} 列，与首行 ${ncol} 列不一致。`); });
+  const isNum = s => { if(s===''||s==null) return false; const x = Number(String(s).replace(/[%\s,]/g,'')); return isFinite(x); };
+  const hasHeader = grid[0].slice(1).some(c=>!isNum(c));
+  const body = hasHeader ? grid.slice(1) : grid;
+  const firstIsLabel = body.some(r=>!isNum(r[0]));
+  const n = ncol - (firstIsLabel?1:0);
+  if(n < 2) throw new Error('至少需要 2 个资产列。');
+  const names = hasHeader ? (firstIsLabel? grid[0].slice(1) : grid[0].slice()) : Array.from({length:n},(_,i)=>'资产'+(i+1));
+  if(new Set(names).size !== names.length) throw new Error('资产名称存在重复，请检查表头。');
+  const data = body.map((r,ri)=> (firstIsLabel? r.slice(1) : r).map((c,ci)=>{
+    const x = Number(String(c).replace(/[%\s,]/g,''));
+    if(!isFinite(x)) throw new Error(`第 ${ri+(hasHeader?2:1)} 行第 ${ci+(firstIsLabel?2:1)} 列「${c}」无法解析为数字。`);
+    return unit==='pct' ? x/100 : x;
+  }));
+  if(data.length < 3) throw new Error('有效数据期数过少（<3），无法稳健估计协方差。');
+  return {names, data};
+}
+
+/* ================= 统计估计 ================= */
+function computeStats(data, m){
+  const T = data.length, n = data[0].length;
+  const mean = new Array(n).fill(0);
+  for(const row of data) for(let j=0;j<n;j++) mean[j]+=row[j];
+  for(let j=0;j<n;j++) mean[j]/=T;
+  const cov = Array.from({length:n},()=>new Array(n).fill(0));
+  const d = new Array(n);
+  for(const row of data){
+    for(let j=0;j<n;j++) d[j]=row[j]-mean[j];
+    for(let i=0;i<n;i++) for(let j=0;j<=i;j++) cov[i][j]+=d[i]*d[j];
+  }
+  for(let i=0;i<n;i++) for(let j=0;j<=i;j++){ cov[i][j]/=(T-1); cov[j][i]=cov[i][j]; }
+  return { mean: mean.map(x=>x*m), cov: cov.map(r=>r.map(x=>x*m)), T, n };
+}
+function portVol(w, cov){
+  const n=w.length; let q=0;
+  for(let i=0;i<n;i++){ let s=0; const row=cov[i]; for(let j=0;j<n;j++) s+=row[j]*w[j]; q+=w[i]*s; }
+  return Math.sqrt(Math.max(q,0));
+}
+const portRet = (w,mu)=> dot(w,mu);
+function sharpeOf(w,mu,cov,rf){ const v=portVol(w,cov); return v>1e-12 ? (portRet(w,mu)-rf)/v : -1e9; }
+function maxDrawdownFromSeries(rs){ let w=1,pk=1,mdd=0; for(const r of rs){ w*=(1+r); if(w>pk)pk=w; const dd=1-w/pk; if(dd>mdd)mdd=dd; } return mdd; }
+function portfolioSeries(data,w){ return data.map(row=>dot(row,w)); }
+
+/* ================= 约束投影：{1'w=1, lo≤w≤hi} ================= */
+function projectCappedSimplexInPlace(w, lo, hi){
+  const n=w.length;
+  let a=Infinity, b=-Infinity;
+  for(let i=0;i<n;i++){ a=Math.min(a, w[i]-hi[i]); b=Math.max(b, w[i]-lo[i]); }
+  for(let it=0; it<100; it++){
+    const mid=(a+b)/2;
+    let s=0;
+    for(let i=0;i<n;i++){ const x=w[i]-mid; s+= x<lo[i]?lo[i]:(x>hi[i]?hi[i]:x); }
+    if(s>1) a=mid; else b=mid;
+  }
+  const tau=(a+b)/2;
+  for(let i=0;i<n;i++){ const x=w[i]-tau; w[i]= x<lo[i]?lo[i]:(x>hi[i]?hi[i]:x); }
+}
+function projectCappedSimplex(v, lo, hi){ const w=v.slice(); projectCappedSimplexInPlace(w,lo,hi); return w; }
+
+/* ================= 二次规划求解：min λ·w'Σw − μ'w ================= */
+function lipConst(cov, lambda){
+  const n=cov.length;
+  let v=new Array(n).fill(1/Math.sqrt(n)), lam=0;
+  const tmp=new Array(n);
+  for(let it=0;it<80;it++){
+    for(let i=0;i<n;i++){ let s=0; const row=cov[i]; for(let j=0;j<n;j++) s+=row[j]*v[j]; tmp[i]=s; }
+    let norm=0; for(let i=0;i<n;i++) norm+=tmp[i]*tmp[i]; norm=Math.sqrt(norm);
+    if(norm<1e-16) break;
+    lam=norm; for(let i=0;i<n;i++) v[i]=tmp[i]/norm;
+  }
+  return Math.max(1e-9, 2*lambda*lam);
+}
+function solveQP(mu, cov, lambda, lo, hi, w0){
+  const n=mu.length;
+  let w = w0 ? w0.slice() : new Array(n).fill(1/n);
+  projectCappedSimplexInPlace(w, lo, hi);
+  const g=new Array(n), y=w.slice(), wNew=new Array(n), sw=new Array(n);
+  const fval = x=>{
+    for(let i=0;i<n;i++){ let s=0; const row=cov[i]; for(let j=0;j<n;j++) s+=row[j]*x[j]; sw[i]=s; }
+    let q=0,l=0; for(let i=0;i<n;i++){ q+=x[i]*sw[i]; l+=mu[i]*x[i]; }
+    return lambda*q - l;
+  };
+  const gval = (x,out)=>{
+    for(let i=0;i<n;i++){ let s=0; const row=cov[i]; for(let j=0;j<n;j++) s+=row[j]*x[j]; out[i]=2*lambda*s-mu[i]; }
+  };
+  let L=lipConst(cov,lambda), t=1, fW=fval(w), fY=fW;
+  for(let iter=0; iter<1500; iter++){
+    gval(y,g);
+    let fNew=0, ok=false;
+    for(let bt=0; bt<80; bt++){
+      for(let i=0;i<n;i++) wNew[i]=y[i]-g[i]/L;
+      projectCappedSimplexInPlace(wNew,lo,hi);
+      let gd=0,d2=0;
+      for(let i=0;i<n;i++){ const dd=wNew[i]-y[i]; gd+=g[i]*dd; d2+=dd*dd; }
+      fNew=fval(wNew);
+      if(fNew <= fY + gd + 0.5*L*d2 + 1e-16){ ok=true; break; }
+      L*=2;
+    }
+    if(!ok) break;
+    const tNew=(1+Math.sqrt(1+4*t*t))/2, beta=(t-1)/tNew;
+    for(let i=0;i<n;i++){ const nw=wNew[i]; y[i]=nw+beta*(nw-w[i]); w[i]=nw; }
+    t=tNew;
+    const df=Math.abs(fW-fNew); fW=fNew; fY=fval(y);
+    if(df <= 1e-13*Math.max(1,Math.abs(fW))) break;
+  }
+  return w;
+}
+
+/* ================= 各类最优组合 ================= */
+function maxReturnPortfolio(mu, lo, hi){
+  const n=mu.length, w=lo.slice();
+  let rem = 1 - lo.reduce((a,b)=>a+b,0);
+  const idx=[...Array(n).keys()].sort((a,b)=>mu[b]-mu[a]);
+  for(const i of idx){ const add=Math.min(hi[i]-lo[i], rem); if(add>0){ w[i]+=add; rem-=add; } if(rem<=1e-12) break; }
+  return w;
+}
+function maximizeSharpe(mu, cov, rf, lo, hi, wGmv){
+  const n=mu.length;
+  let bestS=-Infinity, best=null, wPrev=wGmv;
+  for(let k=0;k<70;k++){
+    const lam=Math.pow(10, 6 - k*(13/69));
+    const w=solveQP(mu,cov,lam,lo,hi,wPrev); wPrev=w;
+    const s=sharpeOf(w,mu,cov,rf);
+    if(s>bestS+1e-12){ bestS=s; best=w.slice(); }
+  }
+  let w=best.slice(), S=bestS, L=1;
+  const g=new Array(n), sw=new Array(n), wn=new Array(n);
+  for(let iter=0; iter<400; iter++){
+    for(let i=0;i<n;i++){ let s=0; const row=cov[i]; for(let j=0;j<n;j++) s+=row[j]*w[j]; sw[i]=s; }
+    const r=dot(mu,w), v=Math.sqrt(Math.max(dot(w,sw),1e-18));
+    if(v<1e-10) break;
+    const c=(r-rf)/(v*v*v);
+    for(let i=0;i<n;i++) g[i]=mu[i]/v - c*sw[i];
+    let improved=false, Snew=S;
+    for(let bt=0; bt<60; bt++){
+      for(let i=0;i<n;i++) wn[i]=w[i]+g[i]/L;
+      projectCappedSimplexInPlace(wn,lo,hi);
+      Snew=sharpeOf(wn,mu,cov,rf);
+      if(Snew > S + 1e-13){ improved=true; break; }
+      L*=2;
+    }
+    if(!improved) break;
+    for(let i=0;i<n;i++) w[i]=wn[i];
+    if(Snew - S < 1e-11){ S=Snew; break; }
+    S=Snew;
+  }
+  return w;
+}
+function solveTargetReturn(target, mu, cov, lo, hi, w0){
+  let a=1e-7, b=1e7, w=w0||null;
+  for(let it=0; it<60; it++){
+    const lam=Math.sqrt(a*b);
+    w=solveQP(mu,cov,lam,lo,hi,w);
+    const r=portRet(w,mu);
+    if(r>target) a=lam; else b=lam;
+    if(Math.abs(r-target) <= 1e-7*Math.max(1,Math.abs(target))) break;
+  }
+  return w;
+}
+function solveTargetRisk(target, mu, cov, lo, hi, w0){
+  let a=1e-7, b=1e7, w=w0||null;
+  for(let it=0; it<60; it++){
+    const lam=Math.sqrt(a*b);
+    w=solveQP(mu,cov,lam,lo,hi,w);
+    const v=portVol(w,cov);
+    if(v>target) a=lam; else b=lam;
+    if(Math.abs(v-target) <= 1e-7*Math.max(1,target)) break;
+  }
+  return w;
+}
+function efficientFrontier(mu, cov, lo, hi, wGmv, wMaxRet){
+  const pts=[]; let wPrev=wGmv;
+  for(let k=0;k<48;k++){
+    const lam=Math.pow(10, 6 - k*(13/47));
+    const w=solveQP(mu,cov,lam,lo,hi,wPrev); wPrev=w;
+    pts.push({v:portVol(w,cov), r:portRet(w,mu), w:w.slice()});
+  }
+  pts.push({v:portVol(wMaxRet,cov), r:portRet(wMaxRet,mu), w:wMaxRet.slice()});
+  pts.sort((a,b)=>a.v-b.v);
+  const ded=[]; for(const p of pts){ if(!ded.length || Math.abs(p.v-ded[ded.length-1].v)>1e-7 || Math.abs(p.r-ded[ded.length-1].r)>1e-7) ded.push(p); }
+  return ded;
+}
+
+/* ================= 风险分解 / 相关性 ================= */
+function riskDecomp(w, cov){
+  const n=w.length, sw=new Array(n).fill(0);
+  for(let i=0;i<n;i++){ let s=0; const row=cov[i]; for(let j=0;j<n;j++) s+=row[j]*w[j]; sw[i]=s; }
+  const vol=Math.sqrt(Math.max(dot(w,sw),0));
+  if(vol<1e-14) return {vol, pct:new Array(n).fill(0), cr:new Array(n).fill(0)};
+  const cr=w.map((wi,i)=>wi*sw[i]/vol);
+  return {vol, cr, pct:cr.map(c=>c/vol)};
+}
+function corrMatrix(cov){
+  const n=cov.length, sd=cov.map((r,i)=>Math.sqrt(Math.max(r[i],0)));
+  return cov.map((r,i)=>r.map((c,j)=> (sd[i]>1e-14&&sd[j]>1e-14)? c/(sd[i]*sd[j]) : (i===j?1:0)));
+}
+function divRatio(w,cov){
+  const sd=cov.map((r,i)=>Math.sqrt(Math.max(r[i],0)));
+  const v=portVol(w,cov);
+  return v>1e-14 ? dot(w,sd)/v : NaN;
+}
+
+/* ================= 全局状态 ================= */
+const state = {
+  names: [], data: [], freq: 12, unit: 'pct',
+  holdings: [], lo: [], hi: [],
+  rf: 0.018, costRate: 0.001, targetMode: 'ret', targetValue: 0.06,
+};
+let lastResult = null;
+
+/* ================= 主计算 ================= */
+function computeAll(){
+  const t0 = performance.now();
+  const warns = [];
+  const {names, data, freq} = state;
+  const n = names.length;
+  const {mean:mu, cov, T} = computeStats(data, freq);
+  const lo=state.lo.slice(), hi=state.hi.slice();
+  const sumLo=lo.reduce((a,b)=>a+b,0), sumHi=hi.reduce((a,b)=>a+b,0);
+  if(sumLo > 1+1e-9) throw new Error(`权重下限合计 ${(sumLo*100).toFixed(1)}% 超过 100%，约束不可行，请调低下限。`);
+  if(sumHi < 1-1e-9) throw new Error(`权重上限合计 ${(sumHi*100).toFixed(1)}% 不足 100%，约束不可行，请调高上限。`);
+  const total = state.holdings.reduce((a,b)=>a+b,0);
+  if(!isFinite(total) || total <= 0) throw new Error('当前持仓总市值必须大于 0，请检查持仓输入。');
+  const rf = state.rf;
+
+  const wCur = state.holdings.map(h=>h/total);
+  const cur = { w:wCur, r:portRet(wCur,mu), v:portVol(wCur,cov) };
+  cur.s = cur.v>1e-12 ? (cur.r-rf)/cur.v : NaN;
+
+  const wStart = projectCappedSimplex(wCur, lo, hi);
+  const wGmv = solveQP(new Array(n).fill(0), cov, 1, lo, hi, wStart);
+  const gmv = { w:wGmv, r:portRet(wGmv,mu), v:portVol(wGmv,cov) };
+  gmv.s = gmv.v>1e-12 ? (gmv.r-rf)/gmv.v : NaN;
+
+  const wMaxRet = maxReturnPortfolio(mu, lo, hi);
+  const maxRet = { w:wMaxRet, r:portRet(wMaxRet,mu), v:portVol(wMaxRet,cov) };
+
+  const wMs = maximizeSharpe(mu, cov, rf, lo, hi, wGmv);
+  const ms = { w:wMs, r:portRet(wMs,mu), v:portVol(wMs,cov) };
+  ms.s = ms.v>1e-12 ? (ms.r-rf)/ms.v : NaN;
+
+  let tgt;
+  if(state.targetMode==='ret'){
+    const tRaw = state.targetValue;
+    const t = Math.min(Math.max(tRaw, gmv.r), maxRet.r);
+    if(t !== tRaw) warns.push(`目标年化收益 ${fmtPct(tRaw)} 超出可行区间 [${fmtPct(gmv.r)}, ${fmtPct(maxRet.r)}]，已自动调整为 ${fmtPct(t)}。`);
+    const w = solveTargetReturn(t, mu, cov, lo, hi, wMs);
+    tgt = { w, r:portRet(w,mu), v:portVol(w,cov), desc:`目标收益 ${fmtPct(t)}` };
+  }else{
+    const tRaw = state.targetValue;
+    const t = Math.min(Math.max(tRaw, gmv.v), maxRet.v);
+    if(t !== tRaw) warns.push(`目标年化波动 ${fmtPct(tRaw)} 超出可行区间 [${fmtPct(gmv.v)}, ${fmtPct(maxRet.v)}]，已自动调整为 ${fmtPct(t)}。`);
+    const w = solveTargetRisk(t, mu, cov, lo, hi, wMs);
+    tgt = { w, r:portRet(w,mu), v:portVol(w,cov), desc:`目标波动 ${fmtPct(t)}` };
+  }
+  tgt.s = tgt.v>1e-12 ? (tgt.r-rf)/tgt.v : NaN;
+
+  const frontier = efficientFrontier(mu, cov, lo, hi, wGmv, wMaxRet);
+
+  // 调仓
+  const trades = names.map((nm,i)=>{
+    const curVal = state.holdings[i];
+    const tgtVal = tgt.w[i]*total;
+    return { name:nm, curVal, tgtVal, delta:tgtVal-curVal, wCur:wCur[i], wTgt:tgt.w[i] };
+  });
+  const buys = trades.filter(t=>t.delta>0).reduce((a,t)=>a+t.delta,0);
+  const sells = -trades.filter(t=>t.delta<0).reduce((a,t)=>a+t.delta,0);
+  const gross = trades.reduce((a,t)=>a+Math.abs(t.delta),0);
+  const cost = gross * state.costRate;
+  const turnover1w = buys/total;
+
+  // 风险
+  const rcCur = riskDecomp(wCur, cov), rcTgt = riskDecomp(tgt.w, cov);
+  const corr = corrMatrix(cov);
+  const divCur = divRatio(wCur,cov), divTgt = divRatio(tgt.w,cov);
+
+  // 资产特征
+  const assetStats = names.map((nm,i)=>{
+    const series = data.map(row=>row[i]);
+    const ei = new Array(n).fill(0); ei[i]=1;
+    return { name:nm, r:mu[i], v:Math.sqrt(Math.max(cov[i][i],0)), s:(mu[i]-rf)/Math.sqrt(Math.max(cov[i][i],1e-18)), mdd:maxDrawdownFromSeries(series) };
+  });
+  const mddCur = maxDrawdownFromSeries(portfolioSeries(data, wCur));
+  const mddTgt = maxDrawdownFromSeries(portfolioSeries(data, tgt.w));
+
+  // 效率缺口：与当前同风险的前沿组合
+  let gap = null;
+  if(cur.v >= gmv.v-1e-9 && cur.v <= maxRet.v+1e-9){
+    const wEff = solveTargetRisk(Math.min(Math.max(cur.v, gmv.v), maxRet.v), mu, cov, lo, hi, wMs);
+    gap = { v:cur.v, rEff:portRet(wEff,mu), diff:portRet(wEff,mu)-cur.r };
+  }
+
+  const elapsed = performance.now()-t0;
+  return { names, n, T, mu, cov, total, rf, cur, gmv, ms, tgt, maxRet, frontier, trades, buys, sells, gross, cost, turnover1w,
+           rcCur, rcTgt, corr, divCur, divTgt, assetStats, mddCur, mddTgt, gap, warns, elapsed };
+}
+
+/* ================= 渲染 ================= */
+function renderKPIs(R){
+  const cards = [
+    { t:'当前组合', c:'#3D7AB5', r:R.cur.r, v:R.cur.v, s:R.cur.s, foot:`样本期最大回撤 ${fmtPct(R.mddCur,1)}` },
+    { t:'全局最小波动', c:'#0E9F6E', r:R.gmv.r, v:R.gmv.v, s:R.gmv.s, foot:'所有可行组合中波动最低' },
+    { t:'最大夏普比率', c:'#B98A2F', r:R.ms.r, v:R.ms.v, s:R.ms.s, foot:'单位风险超额收益最高', badge:'夏普最优' },
+    { t:'目标组合', c:'#6D5BD0', r:R.tgt.r, v:R.tgt.v, s:R.tgt.s, foot:`${R.tgt.desc} · 样本期回撤 ${fmtPct(R.mddTgt,1)}` },
+  ];
+  $('kpis').innerHTML = cards.map(k=>`
+    <div class="kpi" style="--kc:${k.c}">
+      ${k.badge?`<span class="badge">${k.badge}</span>`:''}
+      <div class="kt"><span class="dot"></span>${k.t}</div>
+      <div class="kb">
+        <div class="kv"><div class="l">年化收益</div><div class="v">${fmtPct(k.r)}</div></div>
+        <div class="kv"><div class="l">年化波动</div><div class="v">${fmtPct(k.v)}</div></div>
+        <div class="kv"><div class="l">夏普比率</div><div class="v">${isFinite(k.s)?k.s.toFixed(2):'—'}</div></div>
+      </div>
+      <div class="kf">${k.foot}</div>
+    </div>`).join('');
+}
+
+function renderWeights(R){
+  const cols = [
+    {k:'cur', label:'当前', c:'#3D7AB5', w:R.cur.w},
+    {k:'gmv', label:'最小波动', c:'#0E9F6E', w:R.gmv.w},
+    {k:'ms', label:'最大夏普', c:'#B98A2F', w:R.ms.w},
+    {k:'tgt', label:'目标组合', c:'#6D5BD0', w:R.tgt.w},
+  ];
+  const rows = R.names.map((nm,i)=>`
+    <tr>
+      <td><span class="anm"><span class="sw" style="background:${ASSET_COLORS[i%ASSET_COLORS.length]}"></span>${esc(nm)}</span></td>
+      ${cols.map(c=>`<td><div class="wcell"><span class="num">${fmtPct(c.w[i],1)}</span><span class="wbar"><i style="width:${Math.min(100,c.w[i]*100).toFixed(1)}%;--bc:${c.c}"></i></span></div></td>`).join('')}
+    </tr>`).join('');
+  $('weightsCard').innerHTML = `<table class="rtab">
+    <thead><tr><th>资产</th>${cols.map(c=>`<th style="color:${c.c}">${c.label}权重</th>`).join('')}</tr></thead>
+    <tbody>${rows}
+      <tr class="hl"><td><b>合计</b></td>${cols.map(c=>`<td class="num"><b>${fmtPct(c.w.reduce((a,b)=>a+b,0),0)}</b></td>`).join('')}</tr>
+    </tbody></table>`;
+}
+
+function renderTrades(R){
+  const rows = R.trades.map(t=>{
+    const cls = t.delta>0.005 ? 'pos' : (t.delta<-0.005 ? 'neg' : '');
+    const act = t.delta>0.005 ? '买入' : (t.delta<-0.005 ? '卖出' : '—');
+    return `<tr>
+      <td><span class="anm"><span class="sw" style="background:${ASSET_COLORS[R.names.indexOf(t.name)%ASSET_COLORS.length]}"></span>${esc(t.name)}</span></td>
+      <td class="num">${fmtMoney(t.curVal)}</td>
+      <td class="num">${fmtPct(t.wCur,1)}</td>
+      <td class="num">${fmtMoney(t.tgtVal)}</td>
+      <td class="num">${fmtPct(t.wTgt,1)}</td>
+      <td class="num ${cls}">${act==='—'?'—':act+' '+fmtSign(t.delta)}</td>
+    </tr>`;
+  }).join('');
+  $('tradesCard').innerHTML = `<table class="rtab">
+    <thead><tr><th>资产</th><th>当前市值(元)</th><th>当前权重</th><th>目标市值(元)</th><th>目标权重</th><th>调仓金额(元)</th></tr></thead>
+    <tbody>${rows}</tbody></table>`;
+  const costPctOfRet = R.tgt.r>0 ? R.cost/R.total/R.tgt.r : NaN;
+  $('costGrid').innerHTML = `
+    <div class="sumitem"><div class="l">买入合计 / 卖出合计</div><div class="v num" style="font-size:13.5px"><span style="color:var(--buy)">${fmtMoney(R.buys)}</span> / <span style="color:var(--sell)">${fmtMoney(R.sells)}</span></div></div>
+    <div class="sumitem"><div class="l">总交易额（双边）</div><div class="v num">${fmtMoney(R.gross)} <small>元</small></div></div>
+    <div class="sumitem"><div class="l">单边换手率</div><div class="v num">${fmtPct(R.turnover1w,1)}</div></div>
+    <div class="sumitem"><div class="l">预估交易成本（费率 ${(state.costRate*100).toFixed(2)}%）</div><div class="v num" style="color:var(--warn)">${fmtMoney(R.cost)} <small>元 · 占净值 ${fmtPct(R.cost/R.total,2)}</small></div></div>
+    <div class="sumitem" style="grid-column:1/-1;display:flex;justify-content:space-between;align-items:center">
+      <div><div class="l">目标组合年化预期收益</div><div class="v num">${fmtPct(R.tgt.r)}</div></div>
+      <div style="text-align:center"><div class="l">扣除一次性调仓成本后 · 首年预期净收益</div><div class="v num" style="color:var(--brand-2)">${fmtPct(R.tgt.r - R.cost/R.total)}</div></div>
+      <div style="text-align:right"><div class="l">成本约相当于年化预期收益的</div><div class="v num">${isFinite(costPctOfRet)?fmtPct(costPctOfRet,1):'—'}</div></div>
+    </div>`;
+}
+
+function renderRisk(R){
+  const maxPct = Math.max(...R.rcCur.pct, ...R.rcTgt.pct, 1e-9);
+  $('riskContrib').innerHTML = R.names.map((nm,i)=>{
+    const pc = R.rcCur.pct[i], pt = R.rcTgt.pct[i];
+    return `<div class="rc-row">
+      <div class="nm">${esc(nm)}</div>
+      <div class="bars">
+        <div class="bar"><i style="width:${(pc/maxPct*100).toFixed(1)}%;background:#3D7AB5"></i></div>
+        <div class="bar"><i style="width:${(pt/maxPct*100).toFixed(1)}%;background:#6D5BD0"></i></div>
+      </div>
+      <div class="pv">${fmtPct(pc,1)} / ${fmtPct(pt,1)}</div>
+    </div>`;
+  }).join('');
+  $('divRatioBox').innerHTML = `
+    <div style="display:flex;gap:10px">
+      <div class="sumitem" style="flex:1"><div class="l">分散化比率 · 当前</div><div class="v num">${isFinite(R.divCur)?R.divCur.toFixed(2):'—'}</div></div>
+      <div class="sumitem" style="flex:1"><div class="l">分散化比率 · 目标</div><div class="v num">${isFinite(R.divTgt)?R.divTgt.toFixed(2):'—'}</div></div>
+    </div>
+    <div style="font-size:11px;color:var(--ink-3);margin-top:7px;line-height:1.6">分散化比率 = 加权平均单资产波动 ÷ 组合波动，&gt;1 表示组合获得分散化收益，数值越大分散越充分。</div>`;
+  // 相关性热力图
+  const cell = c=>{
+    const a = Math.min(0.9, Math.abs(c)*0.92);
+    const bg = c>=0 ? `rgba(18,85,140,${a.toFixed(2)})` : `rgba(229,72,77,${a.toFixed(2)})`;
+    const fg = a>0.45 ? '#fff' : 'var(--ink-2)';
+    return `background:${bg};color:${fg}`;
+  };
+  $('corrCard').innerHTML = `<table class="corr">
+    <thead><tr><th></th>${R.names.map(nm=>`<th>${esc(nm)}</th>`).join('')}</tr></thead>
+    <tbody>${R.names.map((nm,i)=>`<tr><th>${esc(nm)}</th>${R.names.map((_,j)=>{
+      const c=R.corr[i][j];
+      return `<td style="${i===j?'background:var(--line-2);color:var(--ink-3)':cell(c)}">${c.toFixed(2)}</td>`;
+    }).join('')}</tr>`).join('')}</tbody></table>`;
+}
+
+function renderAssets(R){
+  $('assetCard').innerHTML = `<table class="rtab">
+    <thead><tr><th>资产</th><th>年化收益</th><th>年化波动</th><th>夏普比率</th><th>样本期最大回撤</th></tr></thead>
+    <tbody>${R.assetStats.map((a,i)=>`<tr>
+      <td><span class="anm"><span class="sw" style="background:${ASSET_COLORS[i%ASSET_COLORS.length]}"></span>${esc(a.name)}</span></td>
+      <td class="num">${fmtPct(a.r)}</td><td class="num">${fmtPct(a.v)}</td>
+      <td class="num">${isFinite(a.s)?a.s.toFixed(2):'—'}</td><td class="num">${fmtPct(a.mdd,1)}</td>
+    </tr>`).join('')}</tbody></table>`;
+}
+
+function renderInsights(R){
+  const out = [];
+  if(R.gap && R.gap.diff > 1e-5){
+    out.push(`<li><b>效率缺口：</b>当前组合年化波动 <span class="hl-r">${fmtPct(R.cur.v)}</span>，在相同风险水平下，有效前沿组合的预期收益可达 <span class="hl-r">${fmtPct(R.gap.rEff)}</span>，比当前组合（${fmtPct(R.cur.r)}）高 <span class="hl-g">${fmtPct(R.gap.diff)}</span> —— 当前组合不在有效前沿上，存在无额外风险的收益提升空间。</li>`);
+  } else if(R.gap){
+    out.push(`<li><b>效率缺口：</b>当前组合已接近有效前沿（同风险下前沿收益 ${fmtPct(R.gap.rEff)} vs 当前 ${fmtPct(R.cur.r)}）。</li>`);
+  }
+  out.push(`<li><b>最小波动组合：</b>年化波动可降至 <span class="hl-r">${fmtPct(R.gmv.v)}</span>（当前 ${fmtPct(R.cur.v)}），对应预期收益 ${fmtPct(R.gmv.r)}；<b>最大夏普组合</b>夏普比率为 <span class="hl-g">${R.ms.s.toFixed(2)}</span>（当前 ${isFinite(R.cur.s)?R.cur.s.toFixed(2):'—'}），预期收益 ${fmtPct(R.ms.r)}、波动 ${fmtPct(R.ms.v)}。</li>`);
+  const topRisk = R.names.map((nm,i)=>({nm, p:R.rcTgt.pct[i]})).sort((a,b)=>b.p-a.p);
+  if(topRisk.length){
+    const t0=topRisk[0];
+    let s = `<li><b>风险来源：</b>目标组合中 <span class="hl-r">${esc(t0.nm)}</span> 是第一大风险来源，贡献组合波动的 ${fmtPct(t0.p,1)}`;
+    if(topRisk.length>1) s += `，其次为 ${esc(topRisk[1].nm)}（${fmtPct(topRisk[1].p,1)}）`;
+    const eqShare = topRisk.filter((_,i)=>i<3).reduce((a,x)=>a+x.p,0);
+    s += `；前三大风险来源合计贡献 ${fmtPct(eqShare,1)}。</li>`;
+    out.push(s);
+  }
+  let maxC={v:-2,a:'',b:''}, minC={v:2,a:'',b:''};
+  for(let i=0;i<R.n;i++)for(let j=i+1;j<R.n;j++){
+    const c=R.corr[i][j];
+    if(c>maxC.v) maxC={v:c,a:R.names[i],b:R.names[j]};
+    if(c<minC.v) minC={v:c,a:R.names[i],b:R.names[j]};
+  }
+  out.push(`<li><b>相关性：</b>相关性最高的是 <span class="hl-r">${esc(maxC.a)} × ${esc(maxC.b)}</span>（${maxC.v.toFixed(2)}），同涨同跌明显，是组合分散化的主要瓶颈；相关性最低的是 <span class="hl-g">${esc(minC.a)} × ${esc(minC.b)}</span>（${minC.v.toFixed(2)}），${minC.v<0.1?'低/负相关提供了主要的分散化收益':'分散化贡献有限'}。当前组合分散化比率 ${isFinite(R.divCur)?R.divCur.toFixed(2):'—'}，目标组合 ${isFinite(R.divTgt)?R.divTgt.toFixed(2):'—'}。</li>`);
+  out.push(`<li><b>调仓成本：</b>从当前持仓调整到目标组合，双边总交易额 <span class="hl-r">${fmtMoney(R.gross)} 元</span>（单边换手率 ${fmtPct(R.turnover1w,1)}），按 ${(state.costRate*100).toFixed(2)}% 单边费率预估成本 <span class="hl-g">${fmtMoney(R.cost)} 元</span>，约占组合净值 ${fmtPct(R.cost/R.total,2)}，扣除后首年预期净收益约 ${fmtPct(R.tgt.r - R.cost/R.total)}。</li>`);
+  $('insights').innerHTML = out.join('');
+}
+
+/* ================= 有效前沿图 ================= */
+let chartHits = [];
+function drawChart(R){
+  const cv = $('frontierCanvas'), wrap = $('chartWrap');
+  const dpr = window.devicePixelRatio||1;
+  const W = wrap.clientWidth-0, H = 400;
+  cv.width = W*dpr; cv.height = H*dpr;
+  cv.style.width = W+'px'; cv.style.height = H+'px';
+  const ctx = cv.getContext('2d');
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.clearRect(0,0,W,H);
+  const padL=56, padR=18, padT=18, padB=40;
+  const iw=W-padL-padR, ih=H-padT-padB;
+
+  const pts = [
+    ...R.frontier.map(p=>({v:p.v,r:p.r})),
+    ...R.assetStats.map(a=>({v:a.v,r:a.r})),
+    {v:R.cur.v,r:R.cur.r},{v:R.gmv.v,r:R.gmv.r},{v:R.ms.v,r:R.ms.r},{v:R.tgt.v,r:R.tgt.r},
+    {v:0,r:R.rf}
+  ];
+  let xMin=Math.min(...pts.map(p=>p.v)), xMax=Math.max(...pts.map(p=>p.v));
+  let yMin=Math.min(...pts.map(p=>p.r)), yMax=Math.max(...pts.map(p=>p.r));
+  xMin=Math.max(0,xMin*0.55); xMax=xMax*1.12+1e-4;
+  const yPad=(yMax-yMin)*0.14+1e-4; yMin-=yPad; yMax+=yPad;
+  const X=v=>padL+(v-xMin)/(xMax-xMin)*iw;
+  const Y=r=>padT+ih-(r-yMin)/(yMax-yMin)*ih;
+
+  // 网格与坐标轴
+  ctx.font='10.5px -apple-system,"PingFang SC",sans-serif';
+  ctx.strokeStyle='#EEF1F8'; ctx.fillStyle='#7A86A3'; ctx.lineWidth=1;
+  for(let k=0;k<=5;k++){
+    const r=yMin+(yMax-yMin)*k/5, y=Y(r);
+    ctx.beginPath(); ctx.moveTo(padL,y); ctx.lineTo(W-padR,y); ctx.stroke();
+    ctx.textAlign='right'; ctx.fillText((r*100).toFixed(1)+'%', padL-7, y+3.5);
+  }
+  for(let k=0;k<=6;k++){
+    const v=xMin+(xMax-xMin)*k/6, x=X(v);
+    ctx.beginPath(); ctx.moveTo(x,padT); ctx.lineTo(x,H-padB); ctx.stroke();
+    ctx.textAlign='center'; ctx.fillText((v*100).toFixed(1)+'%', x, H-padB+16);
+  }
+  ctx.fillStyle='#3D4A68'; ctx.textAlign='center';
+  ctx.fillText('年化波动率（风险）→', padL+iw/2, H-6);
+  ctx.save(); ctx.translate(12, padT+ih/2); ctx.rotate(-Math.PI/2); ctx.fillText('年化收益率 →', 0, 0); ctx.restore();
+
+  chartHits = [];
+  // CML
+  if(isFinite(R.ms.s) && R.ms.s>0){
+    const x2 = xMax;
+    ctx.save(); ctx.setLineDash([5,4]); ctx.strokeStyle='#B98A2F'; ctx.lineWidth=1.4;
+    ctx.beginPath(); ctx.moveTo(X(0),Y(R.rf)); ctx.lineTo(X(x2),Y(R.rf+R.ms.s*x2)); ctx.stroke(); ctx.restore();
+  }
+  // 前沿
+  const grad = ctx.createLinearGradient(padL,0,W-padR,0);
+  grad.addColorStop(0,'#0E9F6E'); grad.addColorStop(0.5,'#12558C'); grad.addColorStop(1,'#B98A2F');
+  ctx.strokeStyle=grad; ctx.lineWidth=2.6; ctx.lineJoin='round';
+  ctx.beginPath();
+  R.frontier.forEach((p,i)=>{ const x=X(p.v),y=Y(p.r); i?ctx.lineTo(x,y):ctx.moveTo(x,y); });
+  ctx.stroke();
+  R.frontier.forEach(p=>chartHits.push({x:X(p.v),y:Y(p.r),kind:'frontier',p}));
+
+  const drawPt=(x,y,color,r,ring)=>{
+    ctx.beginPath(); ctx.arc(x,y,r,0,7); ctx.fillStyle=color; ctx.fill();
+    if(ring){ ctx.lineWidth=2; ctx.strokeStyle='#fff'; ctx.stroke(); ctx.lineWidth=1.4; ctx.strokeStyle=color; ctx.beginPath(); ctx.arc(x,y,r+3.4,0,7); ctx.stroke(); }
+  };
+  // 单资产
+  R.assetStats.forEach((a,i)=>{
+    const x=X(a.v), y=Y(a.r);
+    drawPt(x,y,'#9AA5BF',4,false);
+    ctx.fillStyle='#7A86A3'; ctx.textAlign='left'; ctx.fillText(a.name, x+7, y-6);
+    chartHits.push({x,y,kind:'asset',a});
+  });
+  // 特殊组合
+  const specials=[
+    {p:R.cur, c:'#3D7AB5', label:'当前组合'},
+    {p:R.gmv, c:'#0E9F6E', label:'全局最小波动'},
+    {p:R.ms,  c:'#B98A2F', label:'最大夏普'},
+    {p:R.tgt, c:'#6D5BD0', label:'目标组合'},
+  ];
+  specials.forEach(s=>{
+    const x=X(s.p.v), y=Y(s.p.r);
+    drawPt(x,y,s.c,6,true);
+    ctx.fillStyle=s.c; ctx.font='bold 11px -apple-system,"PingFang SC",sans-serif'; ctx.textAlign='left';
+    ctx.fillText(s.label, x+10, y+13);
+    ctx.font='10.5px -apple-system,"PingFang SC",sans-serif';
+    chartHits.push({x,y,kind:'special',s});
+  });
+}
+
+function bindChartHover(R){
+  const cv=$('frontierCanvas'), tip=$('chartTip');
+  cv.onmousemove = e=>{
+    const rect=cv.getBoundingClientRect();
+    const mx=e.clientX-rect.left, my=e.clientY-rect.top;
+    let best=null, bd=1e9;
+    for(const h of chartHits){ const d=(h.x-mx)**2+(h.y-my)**2; if(d<bd){bd=d;best=h;} }
+    if(!best || bd>26*26){ tip.style.display='none'; return; }
+    let html='';
+    if(best.kind==='asset'){
+      const a=best.a;
+      html=`<b>${esc(a.name)}</b><br>年化收益 ${fmtPct(a.r)} · 波动 ${fmtPct(a.v)}<br>夏普 ${isFinite(a.s)?a.s.toFixed(2):'—'} · 最大回撤 ${fmtPct(a.mdd,1)}`;
+    }else if(best.kind==='special'){
+      const s=best.s;
+      html=`<b>${s.label}</b><br>年化收益 ${fmtPct(s.p.r)} · 波动 ${fmtPct(s.p.v)}<br>夏普 ${isFinite(s.p.s)?s.p.s.toFixed(2):'—'}`;
+    }else{
+      const p=best.p;
+      const top = p.w.map((wi,i)=>({wi,nm:R.names[i]})).filter(x=>x.wi>0.005).sort((a,b)=>b.wi-a.wi).slice(0,4);
+      html=`<b>前沿组合</b><br>年化收益 ${fmtPct(p.r)} · 波动 ${fmtPct(p.v)}<br>${top.map(x=>`${esc(x.nm)} ${fmtPct(x.wi,0)}`).join(' · ')}`;
+    }
+    tip.innerHTML=html;
+    tip.style.display='block';
+    const wrapRect=$('chartWrap').getBoundingClientRect();
+    let tx=best.x+14, ty=best.y+14;
+    if(tx+tip.offsetWidth>wrapRect.width-8) tx=best.x-tip.offsetWidth-14;
+    if(ty+tip.offsetHeight>wrapRect.height-8) ty=best.y-tip.offsetHeight-14;
+    tip.style.left=tx+'px'; tip.style.top=ty+'px';
+  };
+  cv.onmouseleave = ()=>{ tip.style.display='none'; };
+}
+
+/* ================= 输入面板 ================= */
+function buildHoldTable(opts={}){
+  const {preserve=true, holdingsMap=null} = opts;
+  const old = {};
+  if(preserve) state.names.forEach((nm,i)=>{
+    const h=state.holdings[i], lo=state.lo[i], hi=state.hi[i];
+    if(isFinite(h) && isFinite(lo) && isFinite(hi)) old[nm]={h, lo, hi};
+  });
+  const getH = nm => (holdingsMap && holdingsMap[nm]!=null) ? holdingsMap[nm]
+                     : (old[nm] ? old[nm].h : (DEFAULT_HOLDINGS[nm]!=null ? DEFAULT_HOLDINGS[nm] : 100000));
+  const tb = $('holdTable').querySelector('tbody');
+  tb.innerHTML = state.names.map((nm,i)=>{
+    const o = old[nm];
+    const h = getH(nm);
+    const lo = o? o.lo : 0, hi = o? o.hi : 1;
+    return `<tr>
+      <td title="${esc(nm)}"><span class="anm"><span class="sw" style="background:${ASSET_COLORS[i%ASSET_COLORS.length]}"></span>${esc(nm)}</span></td>
+      <td><input data-i="${i}" data-f="h" type="number" min="0" step="1000" value="${Math.round(h)}"></td>
+      <td><input data-i="${i}" data-f="lo" type="number" step="1" value="${(lo*100).toFixed(0)}"></td>
+      <td><input data-i="${i}" data-f="hi" type="number" step="1" value="${(hi*100).toFixed(0)}"></td>
+    </tr>`;
+  }).join('');
+  state.holdings = state.names.map(getH);
+  state.lo = state.names.map(nm=> old[nm]? old[nm].lo : 0);
+  state.hi = state.names.map(nm=> old[nm]? old[nm].hi : 1);
+  tb.querySelectorAll('input').forEach(inp=>{
+    inp.addEventListener('input', ()=>{
+      const i=+inp.dataset.i, f=inp.dataset.f;
+      const v=Number(inp.value);
+      if(!isFinite(v)) return;
+      if(f==='h') state.holdings[i]=Math.max(0,v);
+      else if(f==='lo') state.lo[i]=v/100;
+      else state.hi[i]=v/100;
+      updateTotal();
+      scheduleRecompute();
+    });
+  });
+  updateTotal();
+}
+function updateTotal(){
+  const t=state.holdings.reduce((a,b)=>a+(isFinite(b)?b:0),0);
+  $('totalVal').textContent = fmtMoney(t);
+}
+function applyData(){
+  hideMsg();
+  try{
+    const {names, data} = parseDataText($('dataText').value, $('unitSel').value);
+    state.names=names; state.data=data;
+    state.freq=+$('freqSel').value;
+    fundDatasetActive=false;
+    buildHoldTable({preserve:true});
+    $('dataStatus').innerHTML = `已载入 <b>${data.length}</b> 期 × <b>${names.length}</b> 个资产（${names.map(esc).join('、')}），均值/协方差将据此实时估计。`;
+    recompute();
+  }catch(e){ showErr(e.message); }
+}
+function setDataset(names, data, holdingsMap, statusHTML){
+  state.names=names; state.data=data;
+  buildHoldTable({preserve:true, holdingsMap});
+  $('dataStatus').innerHTML = statusHTML;
+  recompute();
+}
+let recomputeTimer=null;
+function scheduleRecompute(){ clearTimeout(recomputeTimer); recomputeTimer=setTimeout(recompute, 350); }
+function showErr(m){ const b=$('errBox'); b.style.display='block'; b.innerHTML='⚠ '+esc(m); }
+function hideMsg(){ $('errBox').style.display='none'; }
+function recompute(){
+  hideMsg();
+  try{
+    state.rf = Number($('rfInput').value)/100 || 0;
+    state.costRate = Number($('costInput').value)/100 || 0;
+    state.targetValue = Number($('targetInput').value)/100 || 0;
+    const R = computeAll();
+    lastResult = R; window.__result = R;
+    renderKPIs(R); renderWeights(R); renderTrades(R); renderRisk(R); renderAssets(R); renderInsights(R);
+    drawChart(R); bindChartHover(R);
+    if(R.warns.length){ const b=$('warnBox'); b.style.display='block'; b.innerHTML=R.warns.map(w=>'⚠ '+esc(w)).join('<br>'); }
+    else $('warnBox').style.display='none';
+    $('computeInfo').innerHTML = `基于 <b>${R.T}</b> 期 × <b>${R.n}</b> 资产样本实时估计与数值优化 · 本次计算耗时 <b>${R.elapsed.toFixed(0)} ms</b>`;
+  }catch(e){ showErr(e.message||String(e)); }
+}
+
+/* ================= 基金组合导入 ================= */
+let inputMode = 'fund';
+let fundList = [];            // {code, name, pct, trend?, dispName?}
+let fundDatasetActive = false;
+function setInputMode(m){
+  inputMode = m;
+  $('modeFund').classList.toggle('on', m==='fund');
+  $('modeCsv').classList.toggle('on', m==='csv');
+  $('fundPanel').style.display = m==='fund' ? 'block' : 'none';
+  $('csvPanel').style.display = m==='csv' ? 'block' : 'none';
+}
+
+/* 从任意文本中解析 6 位基金代码 + 比例/金额 */
+function parseFundText(text){
+  const out=[]; const seen=new Set();
+  const re=/(?<!\d)(\d{6})(?!\d)/g; let m;
+  while((m=re.exec(text))){
+    const code=m[1];
+    if(seen.has(code)) continue; seen.add(code);
+    const tail=text.slice(m.index+6);
+    const nxt=tail.search(/(?<!\d)\d{6}(?!\d)/);
+    const seg=tail.slice(0, nxt===-1 ? 60 : Math.min(nxt,60));
+    let val=null, unit='none', mm;
+    if((mm=seg.match(/(\d+(?:\.\d+)?)\s*[%％]/))){ val=+mm[1]; unit='pct'; }
+    else if((mm=seg.match(/(\d+(?:\.\d+)?)\s*(万元|万|元|块)/))){ val=+mm[1]*(/万/.test(mm[2])?10000:1); unit='amt'; }
+    else if((mm=seg.match(/[\s,，:：\/](\d+(?:\.\d+)?)(?![\d.])/))){ const v=+mm[1]; val=v; unit = v<=1 ? 'frac' : (v<=100 ? 'pct' : 'amt'); }
+    out.push({code, name:'', val, unit, pct:0});
+  }
+  if(!out.length) return out;
+  let pctSum=0, amtSum=0, noneCnt=0;
+  out.forEach(o=>{ if(o.unit==='pct') pctSum+=o.val; else if(o.unit==='frac') pctSum+=o.val*100; else if(o.unit==='amt') amtSum+=o.val; else noneCnt++; });
+  if(pctSum===0 && amtSum===0){ const eq=100/out.length; out.forEach(o=>o.pct=eq); }
+  else{
+    const remain=Math.max(0, 100-pctSum);
+    out.forEach(o=>{
+      if(o.unit==='pct') o.pct=o.val;
+      else if(o.unit==='frac') o.pct=o.val*100;
+      else if(o.unit==='amt') o.pct = amtSum>0 ? o.val/amtSum*remain : 0;
+    });
+    const used=out.reduce((a,o)=>a+o.pct,0);
+    const left=Math.max(0, 100-used);
+    if(noneCnt>0) out.forEach(o=>{ if(o.unit==='none') o.pct=left/noneCnt; });
+  }
+  out.forEach(o=> o.pct=+o.pct.toFixed(2));
+  return out;
+}
+
+function renderFundTable(){
+  const wrap=$('fundTableWrap');
+  if(!fundList.length){ wrap.style.display='none'; return; }
+  wrap.style.display='block';
+  $('fundTableBody').innerHTML=fundList.map((f,i)=>`<tr>
+    <td class="num">${esc(f.code)}</td>
+    <td title="${esc(f.name||'获取净值后显示')}">${esc(f.name||'—')}</td>
+    <td><input data-i="${i}" type="number" step="1" min="0" value="${+f.pct.toFixed(2)}"></td>
+    <td class="num fmv">—</td>
+    <td><button class="fdel" data-i="${i}" title="删除">×</button></td>
+  </tr>`).join('');
+  $('fundTableBody').querySelectorAll('input').forEach(inp=>{
+    inp.addEventListener('input', ()=>{
+      const v=Number(inp.value);
+      if(!isFinite(v)||v<0) return;
+      fundList[+inp.dataset.i].pct=v;
+      refreshFundMvs(); scheduleSync();
+    });
+  });
+  $('fundTableBody').querySelectorAll('.fdel').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      fundList.splice(+btn.dataset.i,1);
+      renderFundTable(); scheduleSync();
+    });
+  });
+  refreshFundMvs();
+}
+function refreshFundMvs(){
+  const total=Number($('totalInput').value)||0;
+  const sum=fundList.reduce((a,f)=>a+f.pct,0);
+  $('fundTableBody').querySelectorAll('.fmv').forEach((td,i)=>{
+    td.textContent = sum>0 ? fmtMoney(fundList[i].pct/sum*total) : '—';
+  });
+  $('fundSum').textContent = sum.toFixed(1)+'%' + (Math.abs(sum-100)>0.5 ? '（计算时按比例归一）' : '');
+}
+let syncTimer=null;
+function scheduleSync(){ clearTimeout(syncTimer); syncTimer=setTimeout(syncFromFundTable, 350); }
+function syncFromFundTable(){
+  if(!fundDatasetActive) return;
+  const total=Number($('totalInput').value)||0;
+  const sum=fundList.reduce((a,f)=>a+f.pct,0);
+  if(sum<=0) return;
+  const map={};
+  fundList.forEach(f=>{ if(f.dispName) map[f.dispName]=f.pct/sum*total; });
+  buildHoldTable({preserve:true, holdingsMap:map});
+  scheduleRecompute();
+}
+
+/* 天天基金净值接口（script 标签跨域加载，数据挂在全局变量上） */
+function loadFund(code){
+  return new Promise((resolve,reject)=>{
+    const s=document.createElement('script');
+    const timer=setTimeout(()=>{ s.remove(); reject(new Error(`${code} 加载超时，请检查网络`)); }, 20000);
+    s.onload=()=>{
+      clearTimeout(timer);
+      const name=window.fS_name, trend=window.Data_netWorthTrend;
+      window.fS_name=undefined; window.Data_netWorthTrend=undefined;
+      s.remove();
+      if(!trend || !trend.length) return reject(new Error(`${code} 无净值数据，代码可能有误`));
+      resolve({code, name:name||code, trend});
+    };
+    s.onerror=()=>{ clearTimeout(timer); s.remove(); reject(new Error(`${code} 加载失败（代码错误或网络受限）`)); };
+    s.src=`https://fund.eastmoney.com/pingzhongdata/${code}.js?v=${Date.now()}`;
+    document.head.appendChild(s);
+  });
+}
+/* 日增长率 → 月度收益（含分红再投资） */
+function toMonthly(trend){
+  const m=new Map();
+  for(const p of trend){
+    const raw=p.equityReturn;
+    if(raw===''||raw==null||raw===undefined) continue;
+    const er=Number(raw);
+    if(!isFinite(er)) continue;
+    const d=new Date(p.x);
+    const k=d.getFullYear()*100 + (d.getMonth()+1);
+    m.set(k, (m.has(k)?m.get(k):1) * (1+er/100));
+  }
+  const out=new Map();
+  for(const [k,v] of m) out.set(k, v-1);
+  return out;
+}
+const monthLabel = k => `${Math.floor(k/100)}-${String(k%100).padStart(2,'0')}`;
+function buildFundDataset(){
+  const total=Number($('totalInput').value)||0;
+  const sum=fundList.reduce((a,f)=>a+f.pct,0);
+  const maps=fundList.map(f=>toMonthly(f.trend));
+  let common=[...maps[0].keys()];
+  for(const mp of maps.slice(1)) common=common.filter(k=>mp.has(k));
+  common.sort((a,b)=>a-b);
+  const N=+$('rangeSel').value;
+  const used=common.slice(-N);
+  if(used.length<6) throw new Error(`这些基金的共同历史区间仅 ${used.length} 个月（<6），请缩短区间或更换成立时间相近的基金`);
+  const data=used.map(k=> maps.map(mp=>mp.get(k)));
+  const seenN={};
+  const names=fundList.map(f=>{ let nm=f.name||f.code; if(seenN[nm]) nm=`${nm}(${f.code})`; seenN[nm]=1; return nm; });
+  const holdingsMap={};
+  names.forEach((nm,i)=> holdingsMap[nm]=fundList[i].pct/sum*total);
+  return {names, data, used, holdingsMap};
+}
+async function fetchAndCompute(){
+  hideMsg();
+  if(!fundList.length){ showErr('请先粘贴文本/截图并点击「解析」，得到基金列表。'); return; }
+  const total=Number($('totalInput').value)||0;
+  if(total<=0){ showErr('组合总金额必须大于 0。'); return; }
+  if(fundList.reduce((a,f)=>a+f.pct,0)<=0){ showErr('基金比例合计必须大于 0。'); return; }
+  const btn=$('fetchBtn'); btn.disabled=true; btn.textContent='正在获取…';
+  const log=$('fetchLog'); log.innerHTML='';
+  const addLog=(t,kind)=>{ const c= kind==='err'?'var(--down)':(kind==='ok'?'var(--up)':'var(--ink-3)'); log.innerHTML+=`<div style="color:${c}">${esc(t)}</div>`; log.scrollTop=log.scrollHeight; };
+  try{
+    for(let i=0;i<fundList.length;i++){
+      const f=fundList[i];
+      addLog(`(${i+1}/${fundList.length}) 获取 ${f.code} 历史净值…`);
+      const r=await loadFund(f.code);
+      f.name=r.name; f.trend=r.trend;
+      addLog(`✓ ${r.name} · ${r.trend.length} 个交易日`, 'ok');
+    }
+    renderFundTable();
+    const {names, data, used, holdingsMap}=buildFundDataset();
+    fundDatasetActive=true;
+    fundList.forEach((f,i)=> f.dispName=names[i]);
+    state.freq=12; $('freqSel').value='12';
+    setDataset(names, data, holdingsMap,
+      `已载入 <b>${data.length}</b> 期 × <b>${names.length}</b> 只基金<b>真实月度收益</b>（${monthLabel(used[0])} ~ ${monthLabel(used[used.length-1])}，来源：天天基金净值接口，含分红再投资）。`);
+    addLog(`✓ 计算完成：${used.length} 期月度收益（${monthLabel(used[0])} ~ ${monthLabel(used[used.length-1])}）`, 'ok');
+  }catch(e){
+    addLog('✗ '+(e.message||e), 'err');
+    showErr(e.message||String(e));
+  }finally{
+    btn.disabled=false; btn.textContent='获取净值并计算';
+  }
+}
+function rebuildFromCache(){
+  if(!fundDatasetActive || !fundList.length || !fundList[0].trend) return;
+  try{
+    const {names, data, used, holdingsMap}=buildFundDataset();
+    fundList.forEach((f,i)=> f.dispName=names[i]);
+    state.freq=12;
+    setDataset(names, data, holdingsMap,
+      `已载入 <b>${data.length}</b> 期 × <b>${names.length}</b> 只基金<b>真实月度收益</b>（${monthLabel(used[0])} ~ ${monthLabel(used[used.length-1])}，来源：天天基金净值接口，含分红再投资）。`);
+  }catch(e){ showErr(e.message); }
+}
+
+/* 截图 OCR（Tesseract.js，按需从 CDN 加载） */
+let tessPromise=null;
+function ensureTesseract(){
+  if(window.Tesseract) return Promise.resolve();
+  if(!tessPromise) tessPromise=new Promise((res,rej)=>{
+    const s=document.createElement('script');
+    s.src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';
+    s.onload=res;
+    s.onerror=()=>{ tessPromise=null; rej(new Error('OCR 组件加载失败（需联网），可直接手动粘贴文本')); };
+    document.head.appendChild(s);
+  });
+  return tessPromise;
+}
+async function handleImage(blob){
+  const url=URL.createObjectURL(blob);
+  $('ocrPreview').innerHTML=`<img src="${url}" alt="截图预览">`;
+  const st=$('ocrStatus');
+  st.textContent='OCR 识别中…（首次使用需加载识别引擎，约几秒）';
+  try{
+    await ensureTesseract();
+    const ret=await Tesseract.recognize(blob, 'chi_sim+eng', {logger:m=>{
+      st.textContent = m.status==='recognizing text' ? `OCR 识别中… ${(m.progress*100).toFixed(0)}%` : `OCR：${m.status}…`;
+    }});
+    const txt=ret.data.text||'';
+    $('fundText').value=($('fundText').value+'\n'+txt).trim();
+    const list=parseFundText($('fundText').value);
+    if(list.length){
+      fundList=list; renderFundTable();
+      st.textContent=`识别完成，解析出 ${list.length} 只基金，请核对比例后点击「获取净值并计算」`;
+    }else{
+      st.textContent='识别完成，但未找到 6 位基金代码，请检查文本框内容';
+    }
+  }catch(e){
+    st.textContent='';
+    showErr(e.message||'OCR 识别失败');
+  }
+}
+
+/* ================= 事件 ================= */
+$('applyDataBtn').onclick = applyData;
+$('sampleBtn').onclick = ()=>{ $('dataText').value = genSample(1051); applyData(); };
+$('randomBtn').onclick = ()=>{ $('dataText').value = genSample((Math.random()*2**31)|0); applyData(); };
+$('uploadBtn').onclick = ()=> $('fileInput').click();
+$('fileInput').addEventListener('change', e=>{
+  const f=e.target.files[0]; if(!f) return;
+  const rd=new FileReader();
+  rd.onload=()=>{ $('dataText').value=String(rd.result); applyData(); };
+  rd.readAsText(f, 'utf-8');
+  e.target.value='';
+});
+$('freqSel').onchange = applyData;
+$('unitSel').onchange = applyData;
+$('runBtn').onclick = recompute;
+['rfInput','costInput','targetInput'].forEach(id=> $(id).addEventListener('input', scheduleRecompute));
+$('modeRet').onclick = ()=>{ state.targetMode='ret'; $('modeRet').classList.add('on'); $('modeRisk').classList.remove('on'); $('targetLabel').textContent='目标年化收益率（%）'; scheduleRecompute(); };
+$('modeRisk').onclick = ()=>{ state.targetMode='risk'; $('modeRisk').classList.add('on'); $('modeRet').classList.remove('on'); $('targetLabel').textContent='目标年化波动率（%）'; scheduleRecompute(); };
+let resizeTimer=null;
+window.addEventListener('resize', ()=>{ clearTimeout(resizeTimer); resizeTimer=setTimeout(()=>{ if(lastResult){ drawChart(lastResult); bindChartHover(lastResult); } },200); });
+
+/* 基金导入相关事件 */
+$('modeFund').onclick = ()=>setInputMode('fund');
+$('modeCsv').onclick = ()=>setInputMode('csv');
+$('parseFundBtn').onclick = ()=>{
+  hideMsg();
+  const list=parseFundText($('fundText').value);
+  if(!list.length){ showErr('未识别到 6 位基金代码，请检查输入。'); return; }
+  fundList=list; fundDatasetActive=false; renderFundTable();
+};
+$('fetchBtn').onclick = fetchAndCompute;
+$('rangeSel').onchange = rebuildFromCache;
+$('totalInput').addEventListener('input', ()=>{ refreshFundMvs(); scheduleSync(); });
+$('imgBtn').onclick = e=>{ e.stopPropagation(); $('imgInput').click(); };
+$('imgInput').addEventListener('change', e=>{ const f=e.target.files[0]; if(f) handleImage(f); e.target.value=''; });
+$('pasteZone').addEventListener('dragover', e=>e.preventDefault());
+$('pasteZone').addEventListener('drop', e=>{
+  e.preventDefault();
+  const f=e.dataTransfer.files && e.dataTransfer.files[0];
+  if(f && f.type.startsWith('image/')) handleImage(f);
+});
+document.addEventListener('paste', e=>{
+  if(inputMode!=='fund') return;
+  const items=e.clipboardData && e.clipboardData.items;
+  if(!items) return;
+  for(const it of items){
+    if(it.type && it.type.startsWith('image/')){ e.preventDefault(); handleImage(it.getAsFile()); return; }
+  }
+});
+
+/* ================= 启动 ================= */
+setInputMode('fund');
+$('dataText').value = genSample(1051);
+applyData();
+$('dataStatus').innerHTML = '当前展示内置<b>模拟示例数据</b>（7 资产 × 48 期）。在上方粘贴基金代码+比例文本或持仓截图，点击「获取净值并计算」即可替换为真实基金数据。';
+</script>
+</body>
+</html>
