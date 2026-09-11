@@ -146,6 +146,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "tongzhou-advisor-workbench-demo-2026-09-10",
+      groupId: "ai-workbench",
+      title: "同舟 · VIP 顾问工作台｜双外壳交互 Demo",
+      url: "https://clairku.github.io/clair-ai-studio/reports/tongzhou-advisor-workbench-demo-2026-09-10/",
+      preview: "tongzhou-advisor-workbench-demo-2026-09-10.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-11T11:40:00+08:00",
+      source: "自研单文件交互 Demo（约 1.1MB，纯前端 · 无外部接口）｜双外壳共享一套状态：界面优先控制台 + 对话优先线程，⌘⇧M 一键互切且保留当前客户｜副驾知微：43 条确定性话术 · 15 类响应卡 · /btw 侧问 · 每条结论带口径与 data_as_of｜客户 360 十区块（三轴风险 · 舒适区光谱 · 双轨时间线 · 计划状态卡）｜SOP 七阶段看板 + 节点工作台（硬门/软缺）+ 执行看板（幂等锁 · L4 无下单键）+ 质量评估五维热力｜V5 报告全流程（复核关 → diff → 合规自审 → 发布进收件箱）｜设置内含旧 TWS+慧客通 64 项能力落位矩阵｜10 位虚构客户 persona，全部合成模拟数据",
+      access: "production",
+      workType: "product-demo",
+      tags: ["VIP 顾问", "顾问工作台", "同舟", "知微", "客户360", "SOP", "AI 副驾", "双外壳", "交互 Demo", "产品规划", "HTML", "生产"],
+    },
+    {
       id: "personal-ai-token-usage-audit-2026-09-10",
       groupId: "ai-platform",
       title: "五端 AI Token 使用看板｜年度趋势 · 习惯 · 同模型性价比",

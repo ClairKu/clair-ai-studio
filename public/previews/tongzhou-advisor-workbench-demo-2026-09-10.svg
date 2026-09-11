@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img">
+  <title>同舟 · VIP 顾问工作台交互 Demo</title>
+  <rect width="1200" height="675" rx="28" fill="#0B5192"/>
+  <rect x="48" y="48" width="56" height="579" rx="12" fill="#0A3E70"/>
+  <circle cx="76" cy="92" r="10" fill="#4AA7FF"/>
+  <rect x="66" y="130" width="20" height="20" rx="5" fill="#9DCBF7" opacity=".8"/>
+  <rect x="66" y="166" width="20" height="20" rx="5" fill="#9DCBF7" opacity=".5"/>
+  <rect x="66" y="202" width="20" height="20" rx="5" fill="#9DCBF7" opacity=".5"/>
+  <rect x="120" y="48" width="700" height="579" rx="12" fill="#FFFFFF"/>
+  <text x="152" y="112" font-family="PingFang SC, Noto Sans SC, sans-serif" font-size="40" font-weight="700" fill="#0B2C49">同舟 · VIP 顾问工作台</text>
+  <text x="152" y="152" font-family="PingFang SC, Noto Sans SC, sans-serif" font-size="21" fill="#41566E">双外壳交互 Demo：界面优先 ⇄ 对话优先 · 副驾知微</text>
+  <rect x="152" y="184" width="152" height="34" rx="17" fill="#E5F2FF"/>
+  <text x="168" y="207" font-family="PingFang SC, sans-serif" font-size="17" fill="#0F72CD">今日作业 · 6 位</text>
+  <rect x="316" y="184" width="130" height="34" rx="17" fill="#E5F2FF"/>
+  <text x="332" y="207" font-family="PingFang SC, sans-serif" font-size="17" fill="#0F72CD">客户 360</text>
+  <rect x="458" y="184" width="176" height="34" rx="17" fill="#E5F2FF"/>
+  <text x="474" y="207" font-family="PingFang SC, sans-serif" font-size="17" fill="#0F72CD">SOP 七阶段看板</text>
+  <rect x="152" y="248" width="644" height="88" rx="12" fill="#F4F8FD" stroke="#D7E7F7"/>
+  <text x="172" y="284" font-family="PingFang SC, sans-serif" font-size="17" fill="#41566E">承接 → KYC → 诊断 → 规划 → 讲解 → 执行 → 复盘</text>
+  <text x="172" y="314" font-family="PingFang SC, sans-serif" font-size="15" fill="#7A8CA0">出口门 · 留痕 · 质量五维 · 建议≠订单 · 每个数字带口径与 data_as_of</text>
+  <rect x="152" y="360" width="308" height="120" rx="12" fill="#F4F8FD" stroke="#D7E7F7"/>
+  <text x="172" y="394" font-family="PingFang SC, sans-serif" font-size="16" fill="#0B2C49" font-weight="600">报告中心</text>
+  <text x="172" y="422" font-family="PingFang SC, sans-serif" font-size="14" fill="#7A8CA0">V5 家庭财务规划 · 复核关 · diff</text>
+  <text x="172" y="446" font-family="PingFang SC, sans-serif" font-size="14" fill="#7A8CA0">合规自审 · 发布进收件箱</text>
+  <rect x="488" y="360" width="308" height="120" rx="12" fill="#F4F8FD" stroke="#D7E7F7"/>
+  <text x="508" y="394" font-family="PingFang SC, sans-serif" font-size="16" fill="#0B2C49" font-weight="600">执行看板</text>
+  <text x="508" y="422" font-family="PingFang SC, sans-serif" font-size="14" fill="#7A8CA0">长赢发车 · 逐 CA 状态机</text>
+  <text x="508" y="446" font-family="PingFang SC, sans-serif" font-size="14" fill="#7A8CA0">幂等锁 · 授权依据 · L4 无下单键</text>
+  <rect x="152" y="508" width="644" height="80" rx="12" fill="#0F72CD" opacity=".08"/>
+  <text x="172" y="542" font-family="PingFang SC, sans-serif" font-size="15" fill="#0F72CD">旧 TWS + 慧客通 64 项能力 100% 盘点落位 · 全部虚构演示数据</text>
+  <text x="172" y="568" font-family="PingFang SC, sans-serif" font-size="15" fill="#0F72CD">10 位客户 persona · 43 条知微话术 · 15 类响应卡 · 审计追踪链</text>
+  <rect x="836" y="48" width="316" height="579" rx="12" fill="#0A3E70"/>
+  <text x="864" y="104" font-family="PingFang SC, sans-serif" font-size="20" font-weight="600" fill="#9DCBF7">副驾 · 知微</text>
+  <rect x="864" y="128" width="260" height="66" rx="10" fill="#1B88EE" opacity=".25"/>
+  <text x="880" y="156" font-family="PingFang SC, sans-serif" font-size="14" fill="#DCEEFF">基于 @周敏 · KYC 了解节点</text>
+  <text x="880" y="178" font-family="PingFang SC, sans-serif" font-size="14" fill="#9DCBF7">持仓 51 ∈ 舒适区 [40,59]</text>
+  <rect x="864" y="210" width="260" height="92" rx="10" fill="#0B2C49"/>
+  <text x="880" y="240" font-family="PingFang SC, sans-serif" font-size="14" fill="#DCEEFF">教育金缺口 2.4 万 · 建议知悉</text>
+  <text x="880" y="264" font-family="PingFang SC, sans-serif" font-size="12" fill="#7FA8D0">来源 AI Insight #446 · data_as_of 09-08</text>
+  <text x="880" y="286" font-family="PingFang SC, sans-serif" font-size="12" fill="#7FA8D0">复盘包 · 转任务 · 静音（需理由）</text>
+  <rect x="864" y="326" width="260" height="44" rx="10" fill="#0B2C49"/>
+  <text x="880" y="354" font-family="PingFang SC, sans-serif" font-size="14" fill="#9DCBF7">今天先联系谁？</text>
+  <rect x="864" y="382" width="260" height="44" rx="10" fill="#0B2C49"/>
+  <text x="880" y="410" font-family="PingFang SC, sans-serif" font-size="14" fill="#9DCBF7">出家庭财务规划报告</text>
+  <rect x="864" y="556" width="260" height="44" rx="22" fill="#1B88EE"/>
+  <text x="886" y="584" font-family="PingFang SC, sans-serif" font-size="15" fill="#FFFFFF">问知微 · /命令 · @客户</text>
+</svg>
