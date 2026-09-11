@@ -1,0 +1,204 @@
+{
+  "meta": {
+    "generatedAt": "2026-09-11T13:54:07+08:00",
+    "timezone": "Asia/Shanghai",
+    "usagePeriod": "2026-08-10T00:00:00+08:00 — 2026-09-10T17:55:00+08:00",
+    "ruleCheckedAt": "2026-09-11",
+    "scope": "Local account metadata and usage records, plus official public plan rules"
+  },
+  "overview": {
+    "knownMonthlyCommitment": "US$400–500 + WorkBuddy 未知",
+    "knownMonthlyCommitmentNote": "Claude Max 5x US$100 + Cursor Ultra US$200 + Codex Pro US$100/200 二选一；不含税、WorkBuddy、YinmiWork 与额外用量",
+    "fullyObservableCycles": "1 / 5",
+    "fullyObservableCyclesNote": "只有 Cursor 同时暴露账期起止、套餐金额、已用和剩余额度",
+    "liveLimitSnapshots": "2 / 5",
+    "liveLimitSnapshotsNote": "Codex 有周额度快照；Cursor 有账期与双池进度；其余平台没有本机可核验剩余额度",
+    "decision": "保留 Claude + Codex；Cursor 本周期临近超前消耗，优先调度 Cursor Models；WorkBuddy 与 YinmiWork 暂不扩容"
+  },
+  "platforms": [
+    {
+      "id": "codex",
+      "name": "Codex",
+      "color": "#34d399",
+      "evidenceLevel": "本机确认 + 官方规则",
+      "plan": "Pro",
+      "planDetail": "本机只暴露 plan_type=pro，无法区分 US$100 / US$200 两档",
+      "price": "US$100–200 / 月",
+      "billingCycle": "月付；续费日未在本机记录中暴露",
+      "usageMonthTotal": 1176190230,
+      "usageMonthEffective": 33256086,
+      "cacheRate": 0.975337,
+      "costPerEffectiveMillion": "US$3.01–6.01",
+      "limitHeadline": "周额度已用 9%",
+      "limitSubline": "本机快照：2026-09-11 13:54；2026-09-15 12:00 重置",
+      "limits": [
+        {"label": "周额度", "usedPercent": 9, "detail": "91% 可用 · 9 月 15 日 12:00 重置", "status": "good"},
+        {"label": "使用 Credits", "usedPercent": null, "detail": "余额 328.633109；本机载荷未说明货币单位", "status": "neutral"},
+        {"label": "5 小时窗口", "usedPercent": null, "detail": "官方规则存在；当前本机事件没有返回独立进度", "status": "unknown"}
+      ],
+      "meteringRules": [
+        "Codex 与 ChatGPT Work 等能力共用套餐额度和 Credits 池；任务复杂度、上下文、推理强度、速度与工具都会影响消耗。",
+        "套餐包含 5 小时与每周使用窗口；Credits 用于套餐额度耗尽后的受支持用量。",
+        "本报告的 Token 是本机会话 token_count 正增量，不等于官方套餐百分比，不能用 Token 直接反推剩余额度。"
+      ],
+      "insights": [
+        "近月总吞吐 1.176B、有效新处理 33.26M，缓存占输入 97.2%；它是高复用的仓库执行主力。",
+        "周额度仅用 9%，当前没有限额压力；比起省额度，更应该优化线程边界与交付验证。",
+        "账号具体是 US$100 还是 US$200 档仍缺证据，因此成本只能给区间，不能伪造单值。"
+      ],
+      "action": "继续承担仓库级实施、测试和发布。每个里程碑压缩上下文并开新任务；下次账单页可见时补录具体 Pro 档位与续费日。",
+      "sources": [
+        {"label": "本机 Codex token_count / rate_limits", "kind": "local"},
+        {"label": "OpenAI：Using Codex with your ChatGPT plan", "url": "https://help.openai.com/en/articles/11369540-using-codex-with-your-chatgpt-plan", "kind": "official"},
+        {"label": "OpenAI：About ChatGPT Pro tiers", "url": "https://help.openai.com/en/articles/9793128-what-is-chatgpt-pro", "kind": "official"}
+      ]
+    },
+    {
+      "id": "claude",
+      "name": "Claude",
+      "color": "#a78bfa",
+      "evidenceLevel": "本机确认 + 官方规则",
+      "plan": "Max 5x",
+      "planDetail": "本机账户元数据：userRateLimitTier=default_claude_max_5x；Stripe subscription；Extra Usage 已启用",
+      "price": "US$100 / 月",
+      "billingCycle": "月付；本机仅见订阅创建于 4 月 17 日，当前续费日不可确认",
+      "usageMonthTotal": 1645842990,
+      "usageMonthEffective": 49629111,
+      "cacheRate": 0.974383,
+      "costPerEffectiveMillion": "US$2.01",
+      "limitHeadline": "5 小时滚动窗口；当前剩余不可见",
+      "limitSubline": "本机确认 Extra Usage 已启用；是否发生额外扣费需看 Billing/Console",
+      "limits": [
+        {"label": "5 小时窗口", "usedPercent": null, "detail": "Max 5x 官方参考约 50–200 个 Claude Code prompts / 5 小时；实际随任务复杂度变化", "status": "unknown"},
+        {"label": "统一额度", "usedPercent": null, "detail": "Claude、Claude Desktop 与 Claude Code 共用限额", "status": "neutral"},
+        {"label": "Extra Usage", "usedPercent": null, "detail": "本机账号元数据为已启用；额外 API credits 与套餐计费分开", "status": "warn"}
+      ],
+      "meteringRules": [
+        "消息长度、对话长度、附件、工具与模型选择都会改变可发送消息数，因此没有稳定的 Token→剩余额度换算。",
+        "Claude 与 Claude Code 共用订阅限额；5 小时窗口重置，达到限额后可等待重置或明确选择 API credits。",
+        "本报告含 cache creation / cache read；Claude 界面 Total tokens 更接近顶层直接 input + output，两者不是同一口径。"
+      ],
+      "insights": [
+        "近月 1.646B 为五端第一，有效新处理 49.63M；按 US$100 套餐折算约 US$2.01 / M 有效 Token，为已知固定月费平台中最低。",
+        "97.0% 输入来自缓存，说明长上下文和多轮深度工作是核心价值来源；需要防止旧线程夹带过期约束。",
+        "Extra Usage 已启用是成本风险点：套餐限额与额外 credits 是两个系统，不能把高 Token 自动视为仍在月费内。"
+      ],
+      "action": "继续承担长文、研究、大上下文综合；把 Extra Usage 账单提醒设为重点检查项。若连续两周频繁触顶，再评估 20x，而不是仅凭 Token 总量升级。",
+      "sources": [
+        {"label": "本机 Claude 账户元数据与项目 JSONL", "kind": "local"},
+        {"label": "Anthropic：Choosing a Claude Plan", "url": "https://support.anthropic.com/en/articles/11049762-choosing-a-claude-ai-plan", "kind": "official"},
+        {"label": "Anthropic：Using Claude Code with Pro or Max", "url": "https://support.anthropic.com/en/articles/11145838-using-claude-code-with-your-max-plan", "kind": "official"}
+      ]
+    },
+    {
+      "id": "cursor",
+      "name": "Cursor",
+      "color": "#fb7185",
+      "evidenceLevel": "本机登录态官方接口 + 官方规则",
+      "plan": "Ultra",
+      "planDetail": "本机登录态官方用量接口与截图均确认 Ultra；On-demand Disabled",
+      "price": "US$200 / 月",
+      "billingCycle": "2026-08-22 18:06 — 2026-09-22 18:06",
+      "usageMonthTotal": 470896729,
+      "usageMonthEffective": 38308681,
+      "cacheRate": 0.925579,
+      "costPerEffectiveMillion": "US$5.22",
+      "limitHeadline": "Included Usage 已用 76%",
+      "limitSubline": "账期进度约 63.7%，消耗进度快约 12.3 个百分点；剩余 US$96.18 等价额度",
+      "limits": [
+        {"label": "综合 Included Usage", "usedPercent": 75.955, "detail": "US$303.82 / US$400.00；剩余 US$96.18", "status": "warn"},
+        {"label": "Cursor Models 池", "usedPercent": 3.8333333333, "detail": "界面四舍五入 4%", "status": "good"},
+        {"label": "Other Models 池", "usedPercent": 37.764, "detail": "界面四舍五入 38%", "status": "neutral"},
+        {"label": "On-demand", "usedPercent": null, "detail": "Disabled；触顶后不会继续按量扣费", "status": "good"}
+      ],
+      "meteringRules": [
+        "Ultra 月费 US$200，官方保证 US$400 的 API Agent 使用量并可能附加 bonus usage。",
+        "Cursor Models 与 Other Models 是两个独立池，均随月度账期重置；模型选择按不同 API 价格消耗额度。",
+        "综合 Included Usage、Cursor Models 4% 与 Other Models 38% 是不同仪表盘口径，不能简单相加或互相反推。"
+      ],
+      "insights": [
+        "近月模型标价等价 US$487.31，相对 US$200 月费为 2.44×；在没有额外扣款时，订阅价值已被用出来。",
+        "但当前账期消耗 76%，时间只走到约 64%；若按相同速度，账期末预计接近 119%，存在提前触顶风险。",
+        "Cursor Models 仅 4%，Other Models 38%；后半程应优先 Grok / Composer 等 Cursor Models，把第三方模型留给确需场景。"
+      ],
+      "action": "本周期先不降档。接下来 11 天优先使用 Cursor Models，并保持 On-demand 关闭；到 9 月 22 日用正式交付物数判断 Ultra 是否续订。",
+      "sources": [
+        {"label": "本机登录态 Cursor DashboardService", "kind": "local-official"},
+        {"label": "Cursor：Models & Pricing", "url": "https://cursor.com/docs/models-and-pricing", "kind": "official"},
+        {"label": "Cursor：Usage and limits", "url": "https://prod.cursor.com/help/models-and-usage/usage-limits", "kind": "official"}
+      ]
+    },
+    {
+      "id": "workbuddy",
+      "name": "WorkBuddy",
+      "color": "#38bdf8",
+      "evidenceLevel": "本机用量确认；账号套餐缺失；官方规则",
+      "plan": "未识别",
+      "planDetail": "本机未找到套餐名称、购买日、积分总额或到期日；仅可确认会话和 Credits 消耗",
+      "price": "未知；官方个人版 ¥0 / 99 / 199 / 999",
+      "billingCycle": "账号周期不可见；官方个人月会员为购买日至次月同日",
+      "usageMonthTotal": 8588908,
+      "usageMonthEffective": 782891,
+      "cacheRate": 0.922057,
+      "costPerEffectiveMillion": "145.5 Credits / M",
+      "limitHeadline": "近月消耗约 113.9 Credits",
+      "limitSubline": "本机 session_usage 交叉核对 111.76；差异来自快照时点与留存范围",
+      "limits": [
+        {"label": "已用 Credits", "usedPercent": null, "detail": "约 113.9；账号套餐分母未缓存，不能画真实使用率", "status": "neutral"},
+        {"label": "体验版情景", "usedPercent": 22.78, "detail": "如果账号是 500 Credits 体验版，则约用 22.8%；仅情景，不是账号事实", "status": "scenario"},
+        {"label": "积分有效期", "usedPercent": null, "detail": "官方规则：月积分当月有效、不累积；加量包 1 个月", "status": "warn"}
+      ],
+      "meteringRules": [
+        "对话请求按 Credits 扣减；模型 Token 单价、任务复杂度和高级模型选择都会改变 Credits 消耗。",
+        "系统优先消耗最先到期的积分；同到期日先基础积分、再赠送积分。",
+        "当前官方个人版月实得积分为 500 / 4,000 / 9,000 / 50,000；但本机没有证据说明账号属于哪一档。"
+      ],
+      "insights": [
+        "近月仅 8.59M，总量占五端 0.3% 以下；当前更像专项办公、连接器和国内生态补充，不是吞吐主力。",
+        "约 145.5 Credits / M 有效 Token 只是本账号任务混合结构，不是平台固定汇率。",
+        "在套餐分母未知时升级没有证据；即使按最低 500 Credits 情景，也只用约 22.8%。"
+      ],
+      "action": "维持现状，不买加量包。只有当剩余额度和到期日在客户端可见且连续两期消耗超过 70% 时，再评估标准版或更高档。",
+      "sources": [
+        {"label": "本机 WorkBuddy rawUsage 与 session_usage", "kind": "local"},
+        {"label": "WorkBuddy：定价", "url": "https://www.codebuddy.cn/docs/workbuddy/Pricing", "kind": "official"},
+        {"label": "WorkBuddy：积分规则", "url": "https://www.codebuddy.cn/docs/workbuddy/Credits", "kind": "official"}
+      ]
+    },
+    {
+      "id": "yinmiwork",
+      "name": "YinmiWork",
+      "color": "#fbbf24",
+      "evidenceLevel": "本机用量确认；内部计费与额度不可见",
+      "plan": "内部账号 / 未暴露",
+      "planDetail": "内置 Codex runtime 的 rate_limits、credits 与 plan_type 均为 null",
+      "price": "个人成本不可归因",
+      "billingCycle": "未暴露",
+      "usageMonthTotal": 37573083,
+      "usageMonthEffective": 37573083,
+      "cacheRate": null,
+      "costPerEffectiveMillion": "不可计算",
+      "limitHeadline": "无可见额度分母与重置时间",
+      "limitSubline": "一次本机会话 37.57M；缓存字段为 0，但更准确的解释是“未上报”",
+      "limits": [
+        {"label": "平台额度", "usedPercent": null, "detail": "plan_type / primary / secondary / credits 全部未返回", "status": "unknown"},
+        {"label": "缓存口径", "usedPercent": null, "detail": "cached_input_tokens=0；不能据此断言完全没有缓存", "status": "unknown"},
+        {"label": "账期与限时", "usedPercent": null, "detail": "客户端与 runtime 本地状态均未暴露", "status": "unknown"}
+      ],
+      "meteringRules": [
+        "本报告按内置 Codex runtime 的累计 token_count 正增量统计。",
+        "内部代理可能在上游聚合、重计或承担成本，本机事件无法说明实际账单归属。",
+        "没有套餐、额度分母和重置时间，就不能计算使用率、单位成本或是否需要扩容。"
+      ],
+      "insights": [
+        "37.57M 来自单个重任务，说明它具备大上下文执行能力，但样本只有 1 个会话。",
+        "当前最大问题不是成本高低，而是可观测性不足：缓存、额度、上游模型和费用承担方都不可见。",
+        "在补齐计量前，不应该把它与个人订阅平台做价格排名。"
+      ],
+      "action": "产品侧补充 account_plan、billing_cycle、quota_used、quota_total、resets_at、cached_input_tokens 与 upstream_model；补齐后再进入性价比排名。",
+      "sources": [
+        {"label": "本机 YingmiWork 内置 Codex runtime", "kind": "local-internal"}
+      ]
+    }
+  ]
+}
