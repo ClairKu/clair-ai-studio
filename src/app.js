@@ -30,9 +30,11 @@ import {
   setReportDisposition,
 } from "./report-dispositions.js";
 import {
+  CONTENT_COVER_VARIANT,
   COVER_VARIANT_COUNT,
   COVER_VARIANT_NAMES,
   coverThumbnailDataUri,
+  ensureCoverContentProfile,
 } from "./cover-thumbnails.js";
 
 const STORAGE_KEY = "clair-service-report-workbench-v1";
@@ -5527,6 +5529,19 @@ function bindApp() {
         setPreviewCoverVariant(report.id, nextVariant);
         if (normalizeSearchText(query)) renderWorkbenchWithViewportSnapshot(snapshot);
         else renderWithViewportSnapshot(snapshot);
+        if (nextVariant === CONTENT_COVER_VARIANT) {
+          ensureCoverContentProfile(report, { localHtml: localHtmlForReport(report) })
+            .then((upgraded) => {
+              if (!upgraded || previewCoverVariant(report.id) !== CONTENT_COVER_VARIANT) return;
+              const card = reportElement(report.id);
+              const image = card?.querySelector(".report-preview img");
+              if (!image) return;
+              image.src = coverThumbnailDataUri(report, CONTENT_COVER_VARIANT, {
+                workTypeLabel: workTypeName(report.workType),
+                groupLabel: state.groups.find((group) => group.id === report.groupId)?.name || "",
+              });
+            });
+        }
         const message = nextVariant
           ? `已换上「${COVER_VARIANT_NAMES[nextVariant - 1]}」缩图（${nextVariant}/${COVER_VARIANT_COUNT}），再点试下一款`
           : "已恢复原始缩图";

@@ -2,7 +2,7 @@
 // 在浏览器端生成设计感封面 SVG，供“刷新缩图”按钮循环切换。
 // 只在 localStorage 里记录所选风格编号，SVG 本身在渲染时即时生成。
 
-export const COVER_VARIANT_COUNT = 6;
+export const COVER_VARIANT_COUNT = 7;
 
 const CANVAS_W = 1200;
 const CANVAS_H = 675;
@@ -69,7 +69,151 @@ function coverContext(report, extras = {}) {
   const date = String(report?.createdAt || report?.modifiedAt || "").slice(0, 10);
   const hiddenTags = new Set(["HTML", "手动保存", "生产", kicker, group]);
   const tags = (report?.tags || []).filter((tag) => !hiddenTags.has(tag)).slice(0, 3);
-  return { title, kicker, group, date, tags, seed: hashCode(report?.id || title) };
+  return {
+    title,
+    kicker,
+    group,
+    date,
+    tags,
+    seed: hashCode(report?.id || title),
+    profile: coverContentProfile(report),
+  };
+}
+
+// ---- 内容速览：从报告自身内容提取指标与要点 ----
+
+const CONTENT_CACHE_KEY = "clair-report-cover-content-v1";
+const CONTENT_FETCH_TIMEOUT_MS = 6000;
+const contentFetchAttempts = new Set();
+
+function loadContentProfiles() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(CONTENT_CACHE_KEY));
+    if (saved && typeof saved === "object" && !Array.isArray(saved)) return saved;
+  } catch {
+    // Fall through to an empty cache (invalid data, or non-browser runtime).
+  }
+  return {};
+}
+
+const contentProfiles = loadContentProfiles();
+
+function saveContentProfiles() {
+  try {
+    localStorage.setItem(CONTENT_CACHE_KEY, JSON.stringify(contentProfiles));
+  } catch {
+    // Cache is an optimization only; rendering falls back to derived profiles.
+  }
+}
+
+const SEGMENT_SPLIT = /[｜|→×•\n;；]/;
+
+function extractStats(text, limit = 3) {
+  const stats = [];
+  const seen = new Set();
+  const pattern = /(?:约|超|近)?\d[\d,，.]*(?:\s*(?:万亿|亿|万))?(?:\s*(?:元|人|户|次|个|条|天|日|年|月|份|款|家|项|倍|篇|页|场|支|只|位|名|分钟|小时|%|％))?\+?/g;
+  let match;
+  while ((match = pattern.exec(text)) !== null && stats.length < limit) {
+    const raw = match[0].replace(/\s+/g, "");
+    const digits = raw.replace(/\D/g, "");
+    const hasUnit = /万亿|亿|万|分钟|小时|[%％元人户次条天日年月份款家项倍篇页场支只位名]/.test(raw);
+    if (!hasUnit && !(digits.length >= 3 && digits.length <= 6 && /[,，.]/.test(raw))) continue;
+    if (digits.length >= 7 && !/[,，.]/.test(raw)) continue;
+    if (/^(?:19|20)\d{2}(?:[-.．年]\d{0,2})*$/.test(raw)) continue;
+    if (/^\d{1,2}[.．]\d{1,2}(?:[.．]\d{1,2})?$/.test(raw)) continue;
+    const before = text.slice(Math.max(0, match.index - 14), match.index);
+    const leading = (before.split(/[｜|→×•\n;；，。：:、()（）\s/=＝]+/).filter(Boolean).pop() || "")
+      .replace(/[\d,，.%％+＋]+$/, "");
+    const after = text.slice(match.index + raw.length, match.index + raw.length + 12);
+    const trailing = (after.match(/^([⺀-﫿A-Za-z]{2,10})/) || [])[1] || "";
+    const label = (leading.length >= 2 ? leading : trailing)
+      .replace(/^[\s\-_./·:：'"“”]+/, "")
+      .replace(/^[的了中与和及等共计约超近有并且或者最也仍]+/, "")
+      .slice(0, 10);
+    if (label.length < 2 || /^(?:19|20)\d{2}/.test(label) || /[的了中与和及或在从含]$/.test(label)) continue;
+    const key = `${label}|${raw}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    stats.push({ value: raw, label });
+  }
+  return stats;
+}
+
+function extractPoints(text, title = "", limit = 3) {
+  return [...new Set(
+    String(text)
+      .split(SEGMENT_SPLIT)
+      .map((segment) => segment.trim().replace(/^[·•\-—\s]+/, "")),
+  )]
+    .filter((segment) => segment.length >= 6 && segment.length <= 34 &&
+      segment !== title && !title.includes(segment))
+    .slice(0, limit);
+}
+
+function deriveProfileFromText(text, title = "") {
+  const compact = String(text || "").replace(/\s+/g, " ").trim();
+  if (!compact) return { subtitle: "", stats: [], points: [] };
+  const firstSegment = compact.split(SEGMENT_SPLIT).map((s) => s.trim()).find(Boolean) || "";
+  return {
+    subtitle: firstSegment.slice(0, 44),
+    stats: extractStats(compact),
+    points: extractPoints(compact, title),
+  };
+}
+
+function parseHtmlProfile(html, title = "") {
+  try {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    doc.querySelectorAll("script,style,noscript,svg").forEach((node) => node.remove());
+    const headings = [...doc.querySelectorAll("h2,h3")]
+      .map((node) => node.textContent.replace(/\s+/g, " ").trim())
+      .filter((text) => text.length >= 4 && text.length <= 30 && text !== title);
+    const bodyText = (doc.body?.textContent || "").replace(/\s+/g, " ").slice(0, 8000);
+    const derived = deriveProfileFromText(bodyText, title);
+    const points = [...new Set([...headings, ...derived.points])].slice(0, 3);
+    const h1 = doc.querySelector("h1")?.textContent.replace(/\s+/g, " ").trim() || "";
+    return {
+      subtitle: (h1 && h1 !== title ? h1 : derived.subtitle).slice(0, 44),
+      stats: derived.stats,
+      points,
+    };
+  } catch {
+    return { subtitle: "", stats: [], points: [] };
+  }
+}
+
+export function coverContentProfile(report) {
+  const cached = report?.id ? contentProfiles[report.id] : null;
+  if (cached && (cached.stats?.length || cached.points?.length)) return cached;
+  return deriveProfileFromText(
+    [report?.source, report?.summary, report?.description].filter(Boolean).join("｜"),
+    report?.title || "",
+  );
+}
+
+// 抓取报告正文升级内容画像；成功时返回新画像，无升级返回 null。
+export async function ensureCoverContentProfile(report, { localHtml = "" } = {}) {
+  const id = report?.id;
+  if (!id || contentProfiles[id]?.fetched || contentFetchAttempts.has(id)) return null;
+  contentFetchAttempts.add(id);
+  let html = localHtml || "";
+  if (!html && /^https?:/i.test(report?.url || "")) {
+    try {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), CONTENT_FETCH_TIMEOUT_MS);
+      const response = await fetch(report.url, { signal: controller.signal });
+      clearTimeout(timer);
+      if (response.ok) html = await response.text();
+    } catch {
+      // Keep the derived profile when the report page is unreachable.
+    }
+  }
+  if (!html) return null;
+  const profile = parseHtmlProfile(html, report.title || "");
+  if (!profile.stats.length && !profile.points.length) return null;
+  contentProfiles[id] = { ...profile, fetched: true };
+  saveContentProfiles();
+  return profile;
 }
 
 const ACCENT_WHEEL = [
@@ -82,6 +226,56 @@ const ACCENT_WHEEL = [
 
 function pickAccent(seed, offset = 0) {
   return ACCENT_WHEEL[(seed + offset) % ACCENT_WHEEL.length];
+}
+
+// 风格 0：内容速览 · 报告自身的指标与要点
+function contentDigest(ctx) {
+  const accent = pickAccent(ctx.seed, 1);
+  const profile = ctx.profile || { stats: [], points: [], subtitle: "" };
+  const stats = (profile.stats || []).slice(0, 3);
+  const points = (profile.points || []).slice(0, stats.length ? 2 : 4);
+  const lines = wrapText(ctx.title, 15, 2);
+  const parts = [];
+  parts.push(`<rect width="${CANVAS_W}" height="${CANVAS_H}" fill="#FAF9F6"/>`);
+  parts.push(`<rect x="0" y="0" width="14" height="${CANVAS_H}" fill="${accent.main}"/>`);
+  parts.push(`<text x="96" y="96" fill="${accent.main}" font-size="20" font-weight="800" letter-spacing="6" font-family="${SANS}">内容速览 / ${xmlEscape(ctx.kicker)}</text>`);
+  parts.push(titleLinesMarkup(lines, {
+    x: 96, startY: 168, lineHeight: 62, fill: "#232A38", fontSize: 46, fontFamily: SANS,
+  }));
+  const afterTitleY = 168 + (lines.length - 1) * 62;
+  if (stats.length) {
+    const gap = 24;
+    const tileWidth = Math.floor((1008 - gap * (stats.length - 1)) / stats.length);
+    const tileY = afterTitleY + 62;
+    stats.forEach((stat, index) => {
+      const x = 96 + index * (tileWidth + gap);
+      const value = String(stat.value);
+      const valueSize = value.length > 8 ? 30 : value.length > 5 ? 38 : 46;
+      parts.push(`<rect x="${x}" y="${tileY}" width="${tileWidth}" height="148" rx="16" fill="#FFFFFF" stroke="#E7E4DC"/>
+        <text x="${x + 28}" y="${tileY + 70}" fill="${accent.deep}" font-size="${valueSize}" font-weight="800" font-family="${SANS}">${xmlEscape(value)}</text>
+        <text x="${x + 28}" y="${tileY + 114}" fill="#8A90A0" font-size="21" font-family="${SANS}">${xmlEscape(stat.label)}</text>`);
+    });
+    points.forEach((point, index) => {
+      const y = tileY + 148 + 56 + index * 48;
+      parts.push(`<circle cx="104" cy="${y - 8}" r="6" fill="${accent.main}"/>
+        <text x="128" y="${y}" fill="#4A5164" font-size="24" font-family="${SANS}">${xmlEscape(point.slice(0, 30))}</text>`);
+    });
+  } else if (points.length) {
+    points.forEach((point, index) => {
+      const y = afterTitleY + 96 + index * 62;
+      parts.push(`<circle cx="104" cy="${y - 9}" r="7" fill="${accent.main}"/>
+        <text x="132" y="${y}" fill="#3A4154" font-size="28" font-family="${SANS}">${xmlEscape(point.slice(0, 30))}</text>`);
+    });
+  } else {
+    const subtitleLines = wrapText(profile.subtitle || ctx.tags.join(" · ") || ctx.group, 20, 3);
+    parts.push(`<rect x="96" y="${afterTitleY + 56}" width="6" height="${subtitleLines.length * 52}" fill="${accent.soft}"/>`);
+    parts.push(titleLinesMarkup(subtitleLines, {
+      x: 128, startY: afterTitleY + 96, lineHeight: 52, fill: "#4A5164", fontSize: 27,
+      fontFamily: SANS, fontWeight: 500,
+    }));
+  }
+  parts.push(`<text x="96" y="620" fill="#9AA0AC" font-size="19" letter-spacing="3" font-family="${SANS}">CLAIR AI STUDIO${ctx.date ? ` · ${xmlEscape(ctx.date)}` : ""}${ctx.group ? ` · ${xmlEscape(ctx.group)}` : ""}</text>`);
+  return `\n  ${parts.join("\n  ")}`;
 }
 
 // 风格 1：藏青编辑部 · 金色书脊
@@ -233,9 +427,11 @@ function gradientCard(ctx) {
   <text x="600" y="622" fill="rgba(255,255,255,0.85)" font-size="19" letter-spacing="4" font-family="${SANS}" text-anchor="middle">CLAIR AI STUDIO${ctx.date ? ` · ${xmlEscape(ctx.date)}` : ""}</text>`;
 }
 
-const VARIANT_RENDERERS = [editorialNavy, qiemanBlue, paperLight, gridDark, splitDuotone, gradientCard];
+const VARIANT_RENDERERS = [contentDigest, editorialNavy, qiemanBlue, paperLight, gridDark, splitDuotone, gradientCard];
 
-export const COVER_VARIANT_NAMES = ["藏青编辑部", "且慢蓝", "素纸浅色", "深空网格", "双色分栏", "晨昏渐变"];
+export const COVER_VARIANT_NAMES = ["内容速览", "藏青编辑部", "且慢蓝", "素纸浅色", "深空网格", "双色分栏", "晨昏渐变"];
+
+export const CONTENT_COVER_VARIANT = 1;
 
 export function coverThumbnailSvg(report, variant, extras = {}) {
   const renderer = VARIANT_RENDERERS[(variant - 1 + VARIANT_RENDERERS.length) % VARIANT_RENDERERS.length];
