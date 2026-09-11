@@ -1,0 +1,383 @@
+<!doctype html><html lang=zh-CN><head>
+    <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />
+    <script data-clair-access-gate data-clair-access-scope="report" src="../../access-gate.js"></script><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>同舟项目简报</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;800&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+:root{
+  --paper:#fafbfd; --card:#ffffff; --ink:#1c2431; --ink-2:#4b5768; --ink-3:#8592a6;
+  --line:#dde4ee; --line-soft:#eaeff7;
+  --accent:#1b88ee; --accent-text:#0f72cd; --accent-deep:#0b5192; --accent-soft:#e5f2ff; --accent-wash:#f2f8ff;
+  --good:#0f766e; --good-soft:#e4f3f1; --warn:#b45309; --warn-soft:#f9efe2; --critical:#b3382f; --critical-soft:#f9e9e7;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --serif:'Noto Serif SC','Songti SC',serif;
+  --sans:'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#12151c; --card:#191e28; --ink:#e6eaf2; --ink-2:#aab4c6; --ink-3:#71809a;
+    --line:#2b3342; --line-soft:#222937;
+    --accent:#4aa7ff; --accent-text:#7dbfff; --accent-deep:#9dcbf7; --accent-soft:#173252; --accent-wash:#151d2b;
+    --good:#3fb3a7; --good-soft:#12312e; --warn:#e0a352; --warn-soft:#33270f; --critical:#e2766c; --critical-soft:#391a17;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#12151c; --card:#191e28; --ink:#e6eaf2; --ink-2:#aab4c6; --ink-3:#71809a;
+  --line:#2b3342; --line-soft:#222937;
+  --accent:#4aa7ff; --accent-text:#7dbfff; --accent-deep:#9dcbf7; --accent-soft:#173252; --accent-wash:#151d2b;
+  --good:#3fb3a7; --good-soft:#12312e; --warn:#e0a352; --warn-soft:#33270f; --critical:#e2766c; --critical-soft:#391a17;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.75 var(--sans);-webkit-font-smoothing:antialiased}
+.page{max-width:920px;margin:0 auto;padding:56px 28px 80px}
+a{color:var(--accent-text);text-decoration:none;border-bottom:1px solid var(--line)}
+a:hover{border-bottom-color:var(--accent-text)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+
+/* ── 头部 ── */
+.eyebrow{font-size:12px;letter-spacing:.18em;color:var(--accent-text);font-weight:700;text-transform:uppercase}
+h1{font-family:var(--serif);font-weight:800;font-size:40px;line-height:1.25;margin:10px 0 6px;text-wrap:balance}
+.thesis{font-size:17px;color:var(--ink-2);max-width:40em;margin:0 0 22px}
+.thesis b{color:var(--ink)}
+.metarow{display:flex;flex-wrap:wrap;gap:10px 26px;font-size:13px;color:var(--ink-3);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 2px;margin-bottom:44px}
+.metarow b{color:var(--ink-2);font-weight:500}
+.metarow .demo-link{border:1px solid var(--accent);border-radius:999px;padding:2px 12px;color:var(--accent-text);font-weight:700}
+
+/* ── 章节 ── */
+section{margin:0 0 52px}
+h2{font-family:var(--serif);font-weight:800;font-size:25px;margin:0 0 6px;text-wrap:balance}
+.kicker{font-size:12px;letter-spacing:.16em;color:var(--ink-3);font-weight:700;margin-bottom:2px}
+.lede{color:var(--ink-2);max-width:44em;margin:0 0 20px}
+h3{font-size:16px;font-weight:700;margin:26px 0 10px}
+p{max-width:44em}
+.note{font-size:12.5px;color:var(--ink-3);max-width:46em}
+
+/* ── KPI 条 ── */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:24px 0 0}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.kpi .v{font-family:var(--mono);font-size:24px;font-weight:700;color:var(--accent-text);font-variant-numeric:tabular-nums}
+.kpi .l{font-size:12.5px;color:var(--ink-2);margin-top:2px}
+
+/* ── 痛点表 ── */
+.pain{width:100%;border-collapse:collapse;font-size:14px}
+.pain th{text-align:left;font-size:12px;letter-spacing:.08em;color:var(--ink-3);font-weight:700;border-bottom:1.5px solid var(--line);padding:8px 10px}
+.pain td{border-bottom:1px solid var(--line-soft);padding:10px;vertical-align:top}
+.pain td:first-child{white-space:nowrap;font-weight:700}
+.pain .ev{color:var(--ink-3);font-size:13px}
+.score{font-family:var(--mono);font-size:12px;color:var(--warn);background:var(--warn-soft);border-radius:5px;padding:1px 7px;white-space:nowrap}
+.tablewrap{overflow-x:auto}
+
+/* ── 结构图 ── */
+.arch{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;margin-top:18px}
+.arch .row{display:grid;gap:10px}
+.arch .shells{grid-template-columns:1fr 1fr}
+.shellbox{border:1.5px solid var(--accent);border-radius:10px;padding:12px 14px;background:var(--accent-wash)}
+.shellbox h4{margin:0 0 4px;font-size:14.5px;color:var(--accent-text)}
+.shellbox p{margin:0;font-size:13px;color:var(--ink-2)}
+.archband{margin:10px 0;text-align:center;border:1px dashed var(--line);border-radius:10px;padding:10px 14px;background:var(--paper)}
+.archband b{font-size:14px}
+.archband span{display:block;font-size:12.5px;color:var(--ink-3)}
+.arch .base{grid-template-columns:repeat(4,1fr)}
+.basebox{border:1px solid var(--line);border-radius:8px;padding:9px 12px;font-size:12.5px;color:var(--ink-2);background:var(--paper)}
+.basebox b{display:block;color:var(--ink);font-size:13px}
+.archjoin{text-align:center;color:var(--ink-3);font-size:16px;line-height:1;margin:2px 0}
+
+/* ── 一天对比 ── */
+.day{border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:18px}
+.day .head{display:grid;grid-template-columns:92px 1fr 1fr;background:var(--accent-deep);color:#fff;font-size:13px;font-weight:700}
+:root[data-theme="dark"] .day .head{color:#0e1420}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .day .head{color:#0e1420}}
+.day .head>div{padding:10px 14px}
+.moment{display:grid;grid-template-columns:92px 1fr 1fr;border-top:1px solid var(--line-soft);background:var(--card)}
+.moment>div{padding:13px 14px;font-size:13.5px}
+.moment .t{font-family:var(--mono);font-weight:700;color:var(--accent-text);font-size:13px}
+.moment .t small{display:block;color:var(--ink-3);font-family:var(--sans);font-weight:500;font-size:11.5px;letter-spacing:.05em}
+.moment .old{color:var(--ink-3);border-right:1px dashed var(--line-soft)}
+.moment .new{color:var(--ink)}
+.moment .new b{color:var(--accent-text)}
+.gain{display:inline-block;font-size:11.5px;font-weight:700;color:var(--good);background:var(--good-soft);border-radius:5px;padding:0 7px;margin-left:4px;white-space:nowrap}
+
+/* ── 钩子卡 ── */
+.hooks{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+.hook{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.hook h4{margin:0 0 6px;font-size:15px}
+.hook h4 .n{font-family:var(--mono);color:var(--accent-text);margin-right:8px}
+.hook p{margin:0;font-size:13.5px;color:var(--ink-2)}
+.hook .quote{margin-top:8px;font-size:12.5px;color:var(--accent-text);background:var(--accent-wash);border-left:3px solid var(--accent);padding:6px 10px;border-radius:0 6px 6px 0}
+
+/* ── 护栏 ── */
+.guards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.guard{border:1px solid var(--line);border-left:3px solid var(--good);border-radius:8px;background:var(--card);padding:12px 14px;font-size:13px;color:var(--ink-2)}
+.guard b{display:block;color:var(--ink);font-size:13.5px;margin-bottom:2px}
+
+/* ── 落地计划 ── */
+.phases{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:20px;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.phase{padding:16px 16px 14px;background:var(--card);border-left:1px solid var(--line-soft)}
+.phase:first-child{border-left:0;background:var(--accent-wash)}
+.phase .tag{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--accent-text)}
+.phase h4{margin:4px 0 2px;font-size:15px}
+.phase .when{font-size:12px;color:var(--ink-3);margin-bottom:8px}
+.phase ul{margin:0;padding-left:16px;font-size:12.8px;color:var(--ink-2)}
+.phase li{margin-bottom:4px}
+.phase .exit{margin-top:10px;font-size:12px;color:var(--good);font-weight:700}
+.done-pill{display:inline-block;font-size:11px;font-weight:700;color:var(--good);background:var(--good-soft);border-radius:999px;padding:1px 9px;margin-left:6px;vertical-align:2px}
+
+/* ── 指标 ── */
+.metrics{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:16px}
+.metric{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-size:13px;color:var(--ink-2)}
+.metric b{display:block;font-size:13.5px;color:var(--ink);margin-bottom:4px}
+.metric .star{color:var(--accent-text);font-weight:700}
+
+/* ── 诉求 ── */
+.asks{counter-reset:ask;margin:16px 0 0;padding:0;list-style:none;max-width:46em}
+.asks li{counter-increment:ask;display:flex;gap:14px;padding:12px 0;border-top:1px solid var(--line-soft)}
+.asks li::before{content:counter(ask,decimal-leading-zero);font-family:var(--mono);font-weight:700;color:var(--accent-text);font-size:14px;line-height:1.9}
+.asks b{color:var(--ink)}
+.asks span{color:var(--ink-2);font-size:13.5px}
+
+footer{border-top:1px solid var(--line);margin-top:26px;padding-top:16px;font-size:12.5px;color:var(--ink-3)}
+footer p{margin:4px 0}
+
+@media (max-width:860px){
+  .kpis{grid-template-columns:1fr 1fr}
+  .hooks,.guards{grid-template-columns:1fr}
+  .phases{grid-template-columns:1fr 1fr}
+  .metrics{grid-template-columns:1fr}
+  .arch .base{grid-template-columns:1fr 1fr}
+  .moment,.day .head{grid-template-columns:72px 1fr 1fr}
+  h1{font-size:32px}
+}
+@media (max-width:560px){
+  .day .head,.moment{grid-template-columns:1fr}
+  .moment .t{padding-bottom:0}
+  .moment .old{border-right:0;padding-top:4px}
+  .phases{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:no-preference){
+  .hook,.kpi{transition:border-color .15s ease}
+  .hook:hover,.kpi:hover{border-color:var(--accent)}
+}
+</style>
+
+</head><body><div class="page">
+
+<header>
+  <div class="eyebrow">项目简报 · 呈管理层 &amp; VIP 顾问团队 · 2026-09-11</div>
+  <h1>同舟 · 新一代 VIP 顾问工作台</h1>
+  <p class="thesis">把 VIP 顾问服务从<b>个人经验驱动</b>升级为<b>标准化、工具化、数据化、智能化</b>的高净值服务体系：一个工作台装下顾问的一天，一位随行副驾「知微」把 AI 缝进每一个动作——不是在旧系统上加一个聊天框。</p>
+  <div class="metarow">
+    <span>发起：<b>VIP 顾问业务 × AI 产品</b></span>
+    <span>现状：<b>高保真交互 DEMO 已完成并通过两轮 QA</b></span>
+    <span>底座：<b>YingmiWork（自研）+ 慧客通 AI Insight</b></span>
+    <a class="demo-link" href="https://clairku.github.io/clair-ai-studio/reports/tongzhou-advisor-workbench-demo-2026-09-10/">▶ 打开可点 DEMO</a>
+  </div>
+</header>
+
+<section>
+  <div class="kicker">TL;DR</div>
+  <h2>一页结论</h2>
+  <p class="lede">顾问的专业能力不缺，缺的是把专业装进每天工作流的系统。今天一位 VIP 顾问要在 TWS、慧客通、投研平台、企微之间来回切换，靠个人经验决定「今天先做什么」；服务过程无留痕、好方法无法复制。同舟用「客户 360 + 标准 SOP + 副驾知微」把这三件事一次解决，DEMO 已可完整演示顾问的一天。</p>
+  <div class="kpis">
+    <div class="kpi"><div class="v">7/7</div><div class="l">需求清单「最高优先」功能全部落地（客户详情 / 账户视图 / 服务状态 / 投资规划 / 财务规划 / 持仓报告 / 流程看板）</div></div>
+    <div class="kpi"><div class="v">64/64</div><div class="l">旧 TWS + 慧客通能力逐项盘点：承接 25 · 升级 23 · 后台 11 · 放弃 5，设置页内建「旧功能在哪」对照表</div></div>
+    <div class="kpi"><div class="v">2 种</div><div class="l">工作模式随手切换：界面优先（控制台）↔ 对话优先（线程），共享同一客户上下文</div></div>
+    <div class="kpi"><div class="v">18 条</div><div class="l">合规护栏做成看得见的产品能力：建议≠下单、对客必审批、结论带来源</div></div>
+  </div>
+</section>
+
+<section>
+  <div class="kicker">WHY · 问题</div>
+  <h2>顾问被什么拖住</h2>
+  <p class="lede">以下六个问题来自顾问团队自己的需求文档（26.5.12 规划 + 26.5.13 清单）。清单里现有功能的「好用度」自评大多只有 2–3 分（满分 5）；最想要的能力，一半还不存在。</p>
+  <div class="tablewrap">
+  <table class="pain">
+    <tr><th>问题</th><th>顾问的真实处境</th><th>现状证据</th></tr>
+    <tr><td>信息分散</td><td>客户信息、账户、沟通记录、产品材料散在 TWS、慧客通、投研平台、企微四处；两套系统各有一套客户主键，标签体系有三套互不相通</td><td class="ev">客户列表 <span class="score">3 分</span>「顾问仍需跳转多个系统理解客户」</td></tr>
+    <tr><td>服务过程不可视</td><td>客户是否 KYC、是否诊断、是否规划、是否复盘，没有统一视图；投资规划靠顾问个人五步法，无系统留痕</td><td class="ev">服务状态 <span class="score">2 分</span>；流程看板 <b>不存在</b>（最高优先）</td></tr>
+    <tr><td>重点事件易遗漏</td><td>大额赎回、私募未付款、回访失败、客户主动咨询……靠顾问自己盯；「市场波动、重大人生事件」这些服务启动时机全凭个人经验</td><td class="ev">交易卡点 / 主动咨询 / 合规风险提醒 <b>均不存在</b></td></tr>
+    <tr><td>工具素材不集中</td><td>话术、材料、诊断、规划工具入口分散；「需要更多材料支持方案讲解与异议处理」是顾问原话</td><td class="ev">适配规则 / 陪伴素材 / 话术材料 <b>均不存在</b></td></tr>
+    <tr><td>能力复制困难</td><td>优秀顾问的经验、案例、话术留在个人身上，新人只能靠悟</td><td class="ev">能力画像 / 案例复盘 <b>不存在</b>；陪练 <span class="score">2 分</span></td></tr>
+    <tr><td>AI 能力分散</td><td>公司 AI 能力（小顾 3.0、AI Insight 质检、报告生成 Skill）各在各处，没有嵌进顾问的工作动线</td><td class="ev">七大模块的 AI 层自评全部为「否 · 不存在」</td></tr>
+  </table>
+  </div>
+  <p class="note">佐证：公司同期 C 端实践已证明 AI 服务的杠杆——AI 小顾承担 75% 核心服务场景、使用后交易转化率 14%→37%（公司披露口径）；顾问侧报告类 Skill 在生产中做到约 5 倍产能。缺的不是 AI 能力，是把它装进顾问工作台的那个「台」。</p>
+</section>
+
+<section>
+  <div class="kicker">WHAT · 方案</div>
+  <h2>一个工作台，一位副驾</h2>
+  <p class="lede">同舟不是「旧界面 + 聊天框」。它是两副外壳共享同一套状态：习惯点界面的顾问用<b>控制台</b>，右侧副驾随屏随客户变化；习惯说话的顾问用<b>对话线程</b>，一句话驱动全部工作，产物落在工件面板。任何时刻一键互切，当前客户、当前任务原地保留。</p>
+
+  <div class="arch">
+    <div class="row shells">
+      <div class="shellbox"><h4>界面优先 · 控制台</h4><p>今日作业 / 客户360 / 流程看板 / 报告中心 / 数据看板……右侧副驾 Dock：数据段 + 今日任务 + 收件箱 + 助理框</p></div>
+      <div class="shellbox"><h4>对话优先 · 线程</h4><p>「给周女士出家庭财务规划报告」→ 副驾跑完整管线，报告、对比卡、审批卡落进右侧工件面板</p></div>
+    </div>
+    <div class="archjoin">▲ 两壳共享 ▼</div>
+    <div class="archband"><b>一套状态 · 一条动作总线 · 一位副驾「知微」</b><span>当前客户贯穿全局 · 每个 UI 动作也是线程事件 · 每个 AI 结论都带 来源 / 口径 / 数据时点，可一键跳回证据</span></div>
+    <div class="archjoin">▼ 站在已有底座上，不重复造轮子 ▼</div>
+    <div class="row base">
+      <div class="basebox"><b>YingmiWork</b>自研工作站：Copilot Dock、技能下发、审批与审计机制现成</div>
+      <div class="basebox"><b>慧客通 AI Insight</b>13 个客户数据接口 + 场景×Agent×调度平台，流失预警等已在跑</div>
+      <div class="basebox"><b>报告 Skill 生产线</b>家庭财务规划 V5 / 持仓分析已服务真实客户，直接接入报告中心</div>
+      <div class="basebox"><b>投研 MCP</b>启明投研 9 服务 96 工具已审批开通，产品投研不再是 iframe 外挂</div>
+    </div>
+  </div>
+
+  <h3>三条设计主张</h3>
+  <p><b>① 一份计划统领。</b>目标、四笔钱、风险、持仓、建议、执行、复盘写进同一个「计划」对象；SOP 七步（承接→KYC→诊断→规划→讲解→执行→复盘）只是推进这份计划，规划报告是它的版本快照。客户 360 首屏不是资产大数字，而是「计划状态 + 下一个主行动」。</p>
+  <p><b>② 副驾是意图路由 + 工具调用 + 审批门 + 证据链，不是聊天。</b>知微听得懂「今天先联系谁」「守望者还在管吗」「把定投提到 3000」，做的是查数、试算、生成、发起审批；每一步的工具调用、口径、耗时全部摊开可查。</p>
+  <p><b>③ 护栏做成看得见的产品能力。</b>合规不是文档里的一句话，而是界面上的门：L4 级动作永远只有「发给客户确认」没有下单按钮；一切对客产物先进收件箱等顾问批准。</p>
+</section>
+
+<section>
+  <div class="kicker">FEEL IT · 顾问的一天</div>
+  <h2>同一天，两种过法</h2>
+  <p class="lede">以名下 48 位 VIP 客户的陈顾问为例，左边是今天的真实动线，右边是 DEMO 里已经跑通的样子。右列每一幕都可以在演示中现场点给你看。</p>
+  <div class="day">
+    <div class="head"><div>时点</div><div>现在</div><div>用同舟</div></div>
+    <div class="moment">
+      <div class="t">08:00<small>晨检</small></div>
+      <div class="old">开三个系统扫一遍持仓和昨日异动，凭感觉列今天要联系的名单，怕漏了赎回和未付款</div>
+      <div class="new">开屏一句话：「48 位中 <b>6 位</b>今天需要你出面，我过滤了普通波动」。每张事件卡讲清<b>为什么找我、为什么重要、拖了会怎样</b>，附一键生成的沟通话术<span class="gain">告别漏单</span></div>
+    </div>
+    <div class="moment">
+      <div class="t">09:30<small>会前</small></div>
+      <div class="old">翻聊天记录、翻持仓、翻上次承诺了什么，拼一份会前功课，约 40 分钟</div>
+      <div class="new">副驾自动出<b>会前一页纸</b>：三轴风险、持仓落点、近 31 天沟通摘要、上次承诺、还缺哪两项 KYC；追问预案话术带调仓记录来源<span class="gain">40 分钟 → 3 分钟</span></div>
+    </div>
+    <div class="moment">
+      <div class="t">10:30<small>面谈</small></div>
+      <div class="old">客户问「定投提到 3000 行不行」，回去算了再答复</div>
+      <div class="new">当着客户拖动滑块：稳钱缺口 1.2 万→0.4 万、持仓风险分 51→53 仍在舒适区、教育金达成 68%→81%，<b>当场给结论</b>；确认后一键写回计划留痕<span class="gain">当场成交点</span></div>
+    </div>
+    <div class="moment">
+      <div class="t">13:30<small>规划</small></div>
+      <div class="old">写一份家庭财务规划报告要半天到一天，数字口径靠自己核</div>
+      <div class="new">一句话生成 V5 报告：可疑数值先过<b>复核关</b>由顾问裁决、合规自审标出禁用词、逐段留评改稿出对照。顾问只做判断，不做搬运<span class="gain">半天 → 十几分钟</span></div>
+    </div>
+    <div class="moment">
+      <div class="t">14:38<small>执行</small></div>
+      <div class="old">长赢发车窗口盯群消息，客户重复下单、卡单靠电话追</div>
+      <div class="new"><b>执行看板</b>逐客户逐账户显示排队/提交/成功/部分成交，重复提交被幂等锁拦下并说明原因；再平衡建议只能「发给客户确认」，永远没有代客下单键<span class="gain">零事故口径</span></div>
+    </div>
+    <div class="moment">
+      <div class="t">16:30<small>复盘</small></div>
+      <div class="old">面谈完凭记忆补记录，客户提过的「年底想换车」三天后就忘了</div>
+      <div class="new">录音转写出<b>摘要 + 行动项 + 企微草稿</b>（AI 补写灰色显示，顾问改一句自己发）；「年底想换 30 万的车」进客户记忆待确认，下次自动出现在会前功课里<span class="gain">服务有记忆</span></div>
+    </div>
+    <div class="moment">
+      <div class="t">17:30<small>日终</small></div>
+      <div class="old">日报手写，做得好不好没有镜子</div>
+      <div class="new">个人看板自动汇总客户 / 服务 / 经营 / 质量数据并给出下周建议；说一句「大跌时先告诉我哪些客户要安抚」，就变成一条<b>常驻监控规则</b><span class="gain">经验变资产</span></div>
+    </div>
+  </div>
+  <p class="note">左列为顾问访谈与需求文档描述；右列均为 DEMO 已实现交互，时间节省为估算口径，试点期以实测数据替换。</p>
+</section>
+
+<section>
+  <div class="kicker">ADOPTION · 为什么顾问会离不开</div>
+  <h2>给顾问团队的六个承诺</h2>
+  <div class="hooks">
+    <div class="hook"><h4><span class="n">01</span>你今天会的，一样不少</h4><p>旧 TWS 和慧客通的 64 项能力逐项盘点进新台，设置页有「旧功能在哪」对照表，每一项都写着去哪找、为什么这样安排。不适应的功能随时按老路径找到。</p></div>
+    <div class="hook"><h4><span class="n">02</span>先帮你排今天，而不是多给你一个系统</h4><p>首页是今日作业队列，不是菜单堆。必须介入的排最前，42 位无需动作的折叠起来——AI 先替你过滤，再给你选择。</p><div class="quote">「今天哪些客户必须优先处理？哪些事件不能漏？」——需求文档原文，这就是首页回答的问题</div></div>
+    <div class="hook"><h4><span class="n">03</span>每个建议都敢给客户看依据</h4><p>知微的每条结论带来源、口径、数据时点三件套，点「查看依据」直接跳到证据。你转述给客户时，底气是系统给的。</p></div>
+    <div class="hook"><h4><span class="n">04</span>报告从体力活变成判断活</h4><p>取数、算数、排版全部自动；你只在复核关裁决可疑数字、在段落上留评、点发布。生产线已经在给真实客户出报告，不是概念。</p></div>
+    <div class="hook"><h4><span class="n">05</span>两种用法，都是一等公民</h4><p>爱点界面的用控制台，爱打字的用对话线程，随时切换不丢上下文。不强迫任何人改变工作习惯。</p></div>
+    <div class="hook"><h4><span class="n">06</span>你的经验能变成你的资产</h4><p>自定义视图、自定义服务卡、把口头习惯变成自动化规则；优秀案例和话术沉淀进团队库——分享的是方法，不是你的客户数据。</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="kicker">TRUST · 合规与风控</div>
+  <h2>先立规矩，再谈智能</h2>
+  <p class="lede">给管理层的底线承诺：AI 提效不以合规换速度。以下护栏全部已在 DEMO 中做成可演示的界面行为。</p>
+  <div class="guards">
+    <div class="guard"><b>建议 ≠ 下单</b>交易类动作定为 L4 级：系统只产出「计划卡」，唯一按钮是发给客户确认，代客下单在产品层面不存在。</div>
+    <div class="guard"><b>对客内容一律过审批</b>报告发布、企微消息、批量触达全部先进收件箱，顾问逐条批准才出门，自动化规则也绕不过。</div>
+    <div class="guard"><b>文案只述已发生的事实</b>执行状态机是唯一事实源，禁用词校验拦下「已成功」类抢跑表述；进行中的订单绝不写成持仓。</div>
+    <div class="guard"><b>三轴风险不混算</b>适当性 C 档、晨星风险分、协会 R 级三条轴独立呈现，适当性矩阵硬门先行，风测过期即拦截。</div>
+    <div class="guard"><b>全程留痕可审计</b>每个动作一条追踪链：谁发起、AI 做了什么、谁批准、结果如何，审计页可回放；页面带隐形水印。</div>
+    <div class="guard"><b>审查者与执行者分离</b>生成报告的 Agent 与合规自审的 Agent 相互独立；PII 默认遮挡，解锁动作本身写入审计。</div>
+  </div>
+</section>
+
+<section>
+  <div class="kicker">HOW · 落地计划</div>
+  <h2>四步走，每步有退出条件</h2>
+  <div class="phases">
+    <div class="phase">
+      <div class="tag">PHASE 0<span class="done-pill">已完成</span></div>
+      <h4>方案与样机</h4>
+      <div class="when">2026-09</div>
+      <ul>
+        <li>需求 / 旧系统 64 项能力盘点</li>
+        <li>设计规格 + 高保真交互 DEMO</li>
+        <li>两轮 QA：最高/高优先需求 15/15 覆盖</li>
+      </ul>
+      <div class="exit">✓ 本简报 + 可点演示</div>
+    </div>
+    <div class="phase">
+      <div class="tag">PHASE 1</div>
+      <h4>真数据试点</h4>
+      <div class="when">立项后 6–8 周</div>
+      <ul>
+        <li>接通慧客通 13 个客户数据接口与 TWS 账户接口，客户主键归一</li>
+        <li>今日作业 + 客户 360 + 报告中心三个场景先行</li>
+        <li>3–5 位种子顾问真实使用，周度共创迭代</li>
+      </ul>
+      <div class="exit">出口：会前准备 ≤5 分钟 · 种子顾问愿意留下</div>
+    </div>
+    <div class="phase">
+      <div class="tag">PHASE 2</div>
+      <h4>全流程上线</h4>
+      <div class="when">+8–10 周</div>
+      <ul>
+        <li>SOP 流程看板、执行看板、事件中心全量</li>
+        <li>报告闭环：生成→审批→企微送达→回到客户时间线</li>
+        <li>VIP 顾问团队全员迁移，旧系统只读并行一个季度</li>
+      </ul>
+      <div class="exit">出口：SOP 留痕率 ≥90% · 旧系统访问自然归零</div>
+    </div>
+    <div class="phase">
+      <div class="tag">PHASE 3</div>
+      <h4>智能纵深</h4>
+      <div class="when">持续迭代</div>
+      <ul>
+        <li>顾问自定义监控规则与服务包市场</li>
+        <li>能力画像、陪练与案例库闭环</li>
+        <li>主管视角：团队看板 + 分配转移 + 代批</li>
+      </ul>
+      <div class="exit">出口：北极星指标进入季度经营复盘</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="kicker">MEASURE · 怎么算成功</div>
+  <h2>三层指标，全部带口径</h2>
+  <div class="metrics">
+    <div class="metric"><b><span class="star">★ 北极星</span>：有效计划资产覆盖率</b>有最新计划、且计划在推进中的客户资产 ÷ 在管总资产。它同时度量标准化程度与客户服务深度。</div>
+    <div class="metric"><b>过程：顾问真的省了时间吗</b>会前准备耗时、报告出稿耗时、SOP 节点完成率、服务留痕率、事件响应时长——试点期逐周公布，和顾问一起看。</div>
+    <div class="metric"><b>护栏：智能没有越界吗</b>提醒关闭率（打扰是否过度）、AI 建议采纳率、复核关驳回率、审批拒绝率、合规静音次数——异常即回调策略。</div>
+  </div>
+</section>
+
+<section>
+  <div class="kicker">ASK · 请求决策</div>
+  <h2>需要管理层拍板的三件事</h2>
+  <ol class="asks">
+    <li><div><b>立项进入 Phase 1</b>，<span>确认产品 + 研发 + 一位顾问团队业务负责人的试点编组，按上述出口条件滚动评审。</span></div></li>
+    <li><div><b>授权数据接口</b>，<span>慧客通客户数据接口与 TWS 账户接口的试点范围调用权限，客户主键归一方案由数据团队评审。</span></div></li>
+    <li><div><b>指定 3–5 位种子顾问</b>，<span>建议覆盖资深与新人各半；试点期共创工作量计入考核，而非额外负担。</span></div></li>
+  </ol>
+</section>
+
+<footer>
+  <p>演示：<a href="https://clairku.github.io/clair-ai-studio/reports/tongzhou-advisor-workbench-demo-2026-09-10/">同舟 · VIP 顾问工作台 DEMO</a>（虚构客户数据 · 支持浅色/深色 · 桌面端体验最佳）</p>
+  <p>依据材料：《VIP顾问投顾工作台产品规划文档｜26.5.12》《投顾工作台需求清单 26.5.13》、TWS 与慧客通现状盘点（2026-09-09）、同舟设计规格 v1.1。文中「好用度」评分与功能缺口均引自顾问团队自评；C 端 AI 成效为公司披露口径；时间节省为估算，试点期以实测替换。</p>
+</footer>
+
+</div>
+</body></html>

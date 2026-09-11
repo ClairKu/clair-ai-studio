@@ -146,6 +146,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "tongzhou-workbench-brief-2026-09-11",
+      groupId: "ai-workbench",
+      title: "同舟 · 新一代 VIP 顾问工作台｜立项简报",
+      url: "https://clairku.github.io/clair-ai-studio/reports/tongzhou-workbench-brief-2026-09-11/",
+      preview: "tongzhou-workbench-brief-2026-09-11.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-09-11T15:30:00+08:00",
+      source: "呈管理层与 VIP 顾问团队的立项简报｜顾问六大痛点（引自 26.5.12 规划文档与 26.5.13 需求清单自评）→ 一个工作台 + 一位副驾的双外壳方案 → 顾问的一天七幕前后对比（会前 40 分钟→3 分钟 · 报告半天→十几分钟，估算口径）→ 给顾问团队的六个承诺 → 六类合规护栏 → 四阶段落地计划（Phase 0 已完成）与三层指标 → 请管理层拍板的三件事；演示按钮直达站内同舟双外壳交互 Demo",
+      access: "production",
+      workType: "reporting",
+      tags: ["VIP 顾问", "顾问工作台", "同舟", "立项简报", "项目规划", "落地计划", "合规护栏", "管理汇报", "HTML", "生产"],
+    },
+    {
       id: "tongzhou-advisor-workbench-demo-2026-09-10",
       groupId: "ai-workbench",
       title: "同舟 · VIP 顾问工作台｜双外壳交互 Demo",
