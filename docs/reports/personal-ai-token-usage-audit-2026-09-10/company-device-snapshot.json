@@ -1,0 +1,2762 @@
+{
+  "generatedAt": "2026-09-11T02:43:55.890Z",
+  "timezone": "Asia/Shanghai",
+  "observedFrom": "2026-07-17",
+  "through": "2026-09-11",
+  "coverage": {
+    "requested": "2026 year to date",
+    "localRetentionVisibleFrom": "2026-07-17",
+    "warning": "Dates before 2026-07-17 are unknown, not zero usage. Cursor is fetched from its official usage endpoint through the locally logged-in client."
+  },
+  "definitions": {
+    "newContent": "fresh input plus cache write",
+    "reusedContent": "cache read",
+    "modelGenerated": "output; reasoning is a subset",
+    "total": "new content plus reused content plus model generated"
+  },
+  "ytdVisible": {
+    "summary": {
+      "total": 3751901979,
+      "fresh": 161642342,
+      "cached": 3572141218,
+      "output": 18118419,
+      "created": 179760761,
+      "cacheRatio": 0.9567081649478365
+    },
+    "platforms": {
+      "claude": {
+        "total": 1811026084,
+        "newContent": 44357646,
+        "reusedContent": 1758462051,
+        "modelGenerated": 8206387,
+        "newPlusGenerated": 52564033,
+        "source": "本机 Claude Code 消息记录"
+      },
+      "codex": {
+        "total": 1208560567,
+        "newContent": 29766673,
+        "reusedContent": 1174341120,
+        "modelGenerated": 4452774,
+        "newPlusGenerated": 34219447,
+        "source": "本机 Codex 会话累计量"
+      },
+      "cursor": {
+        "total": 686153337,
+        "newContent": 49380255,
+        "reusedContent": 631532030,
+        "modelGenerated": 5241052,
+        "newPlusGenerated": 54621307,
+        "source": "从本机已登录 Cursor 只读官方用量接口"
+      },
+      "yinmiwork": {
+        "total": 37573083,
+        "newContent": 37478123,
+        "reusedContent": 0,
+        "modelGenerated": 94960,
+        "newPlusGenerated": 37573083,
+        "source": "本机内置 Codex runtime"
+      },
+      "workbuddy": {
+        "total": 8588908,
+        "newContent": 659645,
+        "reusedContent": 7806017,
+        "modelGenerated": 123246,
+        "newPlusGenerated": 782891,
+        "source": "本机项目会话 rawUsage"
+      }
+    }
+  },
+  "frozenMonth": {
+    "period": {
+      "start": "2026-08-10 00:00:00 +08:00",
+      "end": "2026-09-10 17:55:11 +08:00"
+    },
+    "summary": {
+      "total": 3339091940,
+      "fresh": 143759096,
+      "cached": 3179542088,
+      "output": 15790756,
+      "created": 159549852,
+      "cacheRatio": 0.9567420802266955
+    },
+    "platforms": {
+      "claude": {
+        "total": 1645842990,
+        "newContent": 41965413,
+        "reusedContent": 1596213879,
+        "modelGenerated": 7663698,
+        "newPlusGenerated": 49629111
+      },
+      "codex": {
+        "total": 1176190230,
+        "newContent": 28901187,
+        "reusedContent": 1142934144,
+        "modelGenerated": 4354899,
+        "newPlusGenerated": 33256086
+      },
+      "cursor": {
+        "total": 470896729,
+        "newContent": 34754728,
+        "reusedContent": 432588048,
+        "modelGenerated": 3553953,
+        "newPlusGenerated": 38308681
+      },
+      "yinmiwork": {
+        "total": 37573083,
+        "newContent": 37478123,
+        "reusedContent": 0,
+        "modelGenerated": 94960,
+        "newPlusGenerated": 37573083
+      },
+      "workbuddy": {
+        "total": 8588908,
+        "newContent": 659645,
+        "reusedContent": 7806017,
+        "modelGenerated": 123246,
+        "newPlusGenerated": 782891
+      }
+    }
+  },
+  "behavior": {
+    "activeDays": 40,
+    "top5DaysShare": 0.4803860226328157,
+    "weekendShare": 0.09605580849850875,
+    "multiPlatformDays": 21,
+    "multiPlatformVolumeShare": 0.8890375243462617,
+    "frozenMonthShareOfVisibleYtd": 0.8899731279466883,
+    "peak": {
+      "day": "2026-09-10",
+      "observable": true,
+      "total": 415688406,
+      "claude": 216492771,
+      "codex": 74516814,
+      "cursor": 87065612,
+      "yinmiwork": 37573083,
+      "workbuddy": 40126
+    }
+  },
+  "daily": [
+    {
+      "day": "2026-01-01",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-01-02",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-01-03",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-01-04",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-01-05",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-01-06",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-01-07",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-01-08",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-01-09",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-01-10",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-01-11",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-01-12",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-01-13",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-01-14",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-01-15",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-01-16",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-01-17",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-01-18",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-01-19",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-01-20",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-01-21",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-01-22",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-01-23",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-01-24",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-01-25",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-01-26",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-01-27",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-01-28",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-01-29",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-01-30",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-01-31",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-02-01",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-02-02",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-02-03",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-02-04",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-02-05",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-02-06",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-02-07",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-02-08",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-02-09",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-02-10",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-02-11",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-02-12",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-02-13",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-02-14",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-02-15",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-02-16",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-02-17",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-02-18",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-02-19",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-02-20",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-02-21",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-02-22",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-02-23",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-02-24",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-02-25",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-02-26",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-02-27",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-02-28",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-03-01",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-03-02",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-03-03",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-03-04",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-03-05",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-03-06",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-03-07",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-03-08",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-03-09",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-03-10",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-03-11",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-03-12",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-03-13",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-03-14",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-03-15",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-03-16",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-03-17",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-03-18",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-03-19",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-03-20",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-03-21",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-03-22",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-03-23",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-03-24",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-03-25",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-03-26",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-03-27",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-03-28",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-03-29",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-03-30",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-03-31",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-04-01",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-04-02",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-04-03",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-04-04",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-04-05",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-04-06",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-04-07",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-04-08",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-04-09",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-04-10",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-04-11",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-04-12",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-04-13",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-04-14",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-04-15",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-04-16",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-04-17",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-04-18",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-04-19",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-04-20",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-04-21",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-04-22",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-04-23",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-04-24",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-04-25",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-04-26",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-04-27",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-04-28",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-04-29",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-04-30",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-05-01",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-05-02",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-05-03",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-05-04",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-05-05",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-05-06",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-05-07",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-05-08",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-05-09",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-05-10",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-05-11",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-05-12",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-05-13",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-05-14",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-05-15",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-05-16",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-05-17",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-05-18",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-05-19",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-05-20",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-05-21",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-05-22",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-05-23",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-05-24",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-05-25",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-05-26",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-05-27",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-05-28",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-05-29",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-05-30",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-05-31",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-06-01",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-06-02",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-06-03",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-06-04",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-06-05",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-06-06",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-06-07",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-06-08",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-06-09",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-06-10",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-06-11",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-06-12",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-06-13",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-06-14",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-06-15",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-06-16",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-06-17",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-06-18",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-06-19",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-06-20",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-06-21",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-06-22",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-06-23",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-06-24",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-06-25",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-06-26",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-06-27",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-06-28",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-06-29",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-06-30",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-07-01",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-07-02",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-07-03",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-07-04",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-07-05",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-07-06",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-07-07",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-07-08",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-07-09",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-07-10",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-07-11",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-07-12",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-07-13",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-07-14",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-07-15",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-07-16",
+      "observable": false,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-07-17",
+      "observable": true,
+      "total": 1473253,
+      "claude": 1473253,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-07-18",
+      "observable": true,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-07-19",
+      "observable": true,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-07-20",
+      "observable": true,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-07-21",
+      "observable": true,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-07-22",
+      "observable": true,
+      "total": 340869,
+      "claude": 0,
+      "codex": 340869,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-07-23",
+      "observable": true,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-07-24",
+      "observable": true,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-07-25",
+      "observable": true,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-07-26",
+      "observable": true,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-07-27",
+      "observable": true,
+      "total": 40784,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 40784,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-07-28",
+      "observable": true,
+      "total": 8690116,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 8690116,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-07-29",
+      "observable": true,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-07-30",
+      "observable": true,
+      "total": 27132179,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 27132179,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-07-31",
+      "observable": true,
+      "total": 53283189,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 53283189,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-08-01",
+      "observable": true,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-08-02",
+      "observable": true,
+      "total": 20217383,
+      "claude": 20217383,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-08-03",
+      "observable": true,
+      "total": 84540012,
+      "claude": 43992830,
+      "codex": 0,
+      "cursor": 40547182,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-08-04",
+      "observable": true,
+      "total": 23795021,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 23795021,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-08-05",
+      "observable": true,
+      "total": 30667759,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 30667759,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-08-06",
+      "observable": true,
+      "total": 22164290,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 22164290,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-08-07",
+      "observable": true,
+      "total": 3669305,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 3669305,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-08-08",
+      "observable": true,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-08-09",
+      "observable": true,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-08-10",
+      "observable": true,
+      "total": 15430495,
+      "claude": 14145542,
+      "codex": 0,
+      "cursor": 1284953,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-08-11",
+      "observable": true,
+      "total": 3269336,
+      "claude": 324391,
+      "codex": 0,
+      "cursor": 2944945,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-08-12",
+      "observable": true,
+      "total": 35534055,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 35534055,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-08-13",
+      "observable": true,
+      "total": 36352584,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 36352584,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-08-14",
+      "observable": true,
+      "total": 19058336,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 19058336,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-08-15",
+      "observable": true,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-08-16",
+      "observable": true,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-08-17",
+      "observable": true,
+      "total": 22164179,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 22164179,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-08-18",
+      "observable": true,
+      "total": 334965080,
+      "claude": 324575775,
+      "codex": 0,
+      "cursor": 10389305,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-08-19",
+      "observable": true,
+      "total": 170083503,
+      "claude": 169535555,
+      "codex": 0,
+      "cursor": 547948,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-08-20",
+      "observable": true,
+      "total": 128065673,
+      "claude": 24448498,
+      "codex": 70247222,
+      "cursor": 33369953,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-08-21",
+      "observable": true,
+      "total": 31180391,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 31180391,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-08-22",
+      "observable": true,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-08-23",
+      "observable": true,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-08-24",
+      "observable": true,
+      "total": 183443296,
+      "claude": 129484507,
+      "codex": 48381923,
+      "cursor": 5576866,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-08-25",
+      "observable": true,
+      "total": 361238247,
+      "claude": 268382115,
+      "codex": 74529214,
+      "cursor": 18326918,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-08-26",
+      "observable": true,
+      "total": 12659680,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 12659680,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-08-27",
+      "observable": true,
+      "total": 100633921,
+      "claude": 91694203,
+      "codex": 4723012,
+      "cursor": 4216706,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-08-28",
+      "observable": true,
+      "total": 20839641,
+      "claude": 20839641,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-08-29",
+      "observable": true,
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-08-30",
+      "observable": true,
+      "total": 47057318,
+      "claude": 0,
+      "codex": 47057318,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-08-31",
+      "observable": true,
+      "total": 54096841,
+      "claude": 16923141,
+      "codex": 3242358,
+      "cursor": 33931342,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-09-01",
+      "observable": true,
+      "total": 152527358,
+      "claude": 24396839,
+      "codex": 48134523,
+      "cursor": 77574463,
+      "yinmiwork": 0,
+      "workbuddy": 2421533
+    },
+    {
+      "day": "2026-09-02",
+      "observable": true,
+      "total": 92326946,
+      "claude": 19958925,
+      "codex": 52641261,
+      "cursor": 19547306,
+      "yinmiwork": 0,
+      "workbuddy": 179454
+    },
+    {
+      "day": "2026-09-03",
+      "observable": true,
+      "total": 148425750,
+      "claude": 34499772,
+      "codex": 110120399,
+      "cursor": 3393586,
+      "yinmiwork": 0,
+      "workbuddy": 411993
+    },
+    {
+      "day": "2026-09-04",
+      "observable": true,
+      "total": 404678764,
+      "claude": 86844231,
+      "codex": 312183661,
+      "cursor": 5650872,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-09-05",
+      "observable": true,
+      "total": 285790772,
+      "claude": 155853202,
+      "codex": 129937570,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-09-06",
+      "observable": true,
+      "total": 7326505,
+      "claude": 3544403,
+      "codex": 75726,
+      "cursor": 3706376,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-09-07",
+      "observable": true,
+      "total": 108600740,
+      "claude": 20407288,
+      "codex": 88193452,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-09-08",
+      "observable": true,
+      "total": 34164086,
+      "claude": 16611986,
+      "codex": 16326825,
+      "cursor": 1225275,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    },
+    {
+      "day": "2026-09-09",
+      "observable": true,
+      "total": 226607793,
+      "claude": 106379833,
+      "codex": 104562277,
+      "cursor": 10129881,
+      "yinmiwork": 0,
+      "workbuddy": 5535802
+    },
+    {
+      "day": "2026-09-10",
+      "observable": true,
+      "total": 415688406,
+      "claude": 216492771,
+      "codex": 74516814,
+      "cursor": 87065612,
+      "yinmiwork": 37573083,
+      "workbuddy": 40126
+    },
+    {
+      "day": "2026-09-11",
+      "observable": true,
+      "total": 23678123,
+      "claude": 0,
+      "codex": 23346143,
+      "cursor": 331980,
+      "yinmiwork": 0,
+      "workbuddy": 0
+    }
+  ],
+  "sameModelComparison": [
+    {
+      "family": "Claude Opus 5",
+      "claude": {
+        "input": 6614,
+        "cacheWriteInput": 14562221,
+        "cachedInput": 810287741,
+        "output": 2536198,
+        "total": 827392774,
+        "created": 17105033
+      },
+      "cursor": {
+        "input": 397056,
+        "cacheWriteInput": 4513300,
+        "cachedInput": 90075744,
+        "output": 539067,
+        "cost": 85.93984189999999,
+        "total": 95525167,
+        "created": 5449423
+      },
+      "throughputRatio": 8.661516121714815,
+      "cursorCostPerCreatedM": 15.770447972198154
+    },
+    {
+      "family": "Claude Fable 5",
+      "claude": {
+        "input": 8322,
+        "cacheWriteInput": 18352994,
+        "cachedInput": 633593303,
+        "output": 3805099,
+        "total": 655759718,
+        "created": 22166415
+      },
+      "cursor": {
+        "input": 592,
+        "cacheWriteInput": 1937640,
+        "cachedInput": 29509348,
+        "output": 200468,
+        "cost": 63.759168,
+        "total": 31648048,
+        "created": 2138700
+      },
+      "throughputRatio": 20.720384334604145,
+      "cursorCostPerCreatedM": 29.81211390096788
+    },
+    {
+      "family": "Claude Fable 5.1",
+      "claude": {
+        "input": 10394,
+        "cacheWriteInput": 7688257,
+        "cachedInput": 57710718,
+        "output": 1112298,
+        "total": 66521667,
+        "created": 8810949
+      },
+      "cursor": {
+        "input": 126,
+        "cacheWriteInput": 404368,
+        "cachedInput": 10291392,
+        "output": 70607,
+        "cost": 11.159058,
+        "total": 10766493,
+        "created": 475101
+      },
+      "throughputRatio": 6.1785826638256305,
+      "cursorCostPerCreatedM": 23.487759444833834
+    }
+  ],
+  "pricing": {
+    "cursorPlan": {
+      "name": "Ultra",
+      "includedAmountCents": 40000,
+      "price": "$200/mo",
+      "billingCycleEnd": "1790071567000"
+    },
+    "cursorMonthProviderEquivalentUsd": 487.3085941500001,
+    "cursorYtdProviderEquivalentUsd": 687.4739762999999,
+    "claudePlan": "Max 5x (local config)",
+    "codexPlan": "Pro tier unknown from local record",
+    "workbuddyCreditsMonth": 113.9,
+    "yinmiWork": "No attributable price found"
+  }
+}

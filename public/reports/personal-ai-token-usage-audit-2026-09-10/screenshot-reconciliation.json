@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-11T02:43:16.907Z",
+  "generatedAt": "2026-09-11T06:24:18.520Z",
   "screenshotCaptureLocal": "2026-09-11 10:34–10:35 +08:00",
   "codex": {
     "display": {
@@ -9,16 +9,15 @@
       "currentStreakDays": 12,
       "longestStreakDays": 13
     },
-    "localRetained": {
-      "totalTokens": 1176531099,
-      "peakDay": "2026-09-04",
-      "peakTokens": 312183661,
-      "activeDays": 17,
-      "currentStreakDays": 12,
-      "longestStreakDays": 12
+    "deviceLocal": {
+      "companyComputerTokens": 1208560567,
+      "personalComputerTokens": 9632909358,
+      "personalComputerMeasuredEvents": 80024,
+      "personalComputerFiles": 1113,
+      "personalToDisplayRatio": 0.9961643596690797
     },
-    "verdict": "partial",
-    "note": "连续 12 天完全一致；累计与峰值是平台历史展示，本机可恢复日志只覆盖保留期。"
+    "verdict": "near-exact-personal-device",
+    "note": "个人电脑本地可恢复 9,632,909,358 Token，与截图约 9.67B 相差约 0.4%。截图没有设备范围元数据，因此高度吻合只支持对应关系，不能证明公司电脑数据是否被截图包含。"
   },
   "cursor": {
     "display": {
@@ -35,7 +34,8 @@
       "totalSpendCents": 30382,
       "limitCents": 40000
     },
-    "verdict": "exact"
+    "verdict": "exact-account-level",
+    "note": "官方接口没有设备字段，报告只在账号共享桶计一次，不分摊到公司或个人电脑。"
   },
   "claude": {
     "display": {
