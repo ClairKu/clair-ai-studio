@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-09-11T02:43:16.907Z",
+  "screenshotCaptureLocal": "2026-09-11 10:34–10:35 +08:00",
+  "codex": {
+    "display": {
+      "cumulativeTokensApprox": 9670000000,
+      "peakTokensApprox": 670000000,
+      "longestTask": "92h11m",
+      "currentStreakDays": 12,
+      "longestStreakDays": 13
+    },
+    "localRetained": {
+      "totalTokens": 1176531099,
+      "peakDay": "2026-09-04",
+      "peakTokens": 312183661,
+      "activeDays": 17,
+      "currentStreakDays": 12,
+      "longestStreakDays": 12
+    },
+    "verdict": "partial",
+    "note": "连续 12 天完全一致；累计与峰值是平台历史展示，本机可恢复日志只覆盖保留期。"
+  },
+  "cursor": {
+    "display": {
+      "plan": "Ultra",
+      "price": "$200/mo",
+      "resetDay": "2026-09-22",
+      "cursorModelsPercent": 4,
+      "otherModelsPercent": 38,
+      "onDemand": "Disabled"
+    },
+    "officialApi": {
+      "cursorModelsPercentRaw": 3.833333333333333,
+      "otherModelsPercentRaw": 37.763999999999996,
+      "totalSpendCents": 30382,
+      "limitCents": 40000
+    },
+    "verdict": "exact"
+  },
+  "claude": {
+    "display": {
+      "sessions": 87,
+      "messages": 26064,
+      "totalTokensApprox": 16500000,
+      "activeDays": 23,
+      "currentStreakDays": 0,
+      "longestStreakDays": 11,
+      "peakHour": "10 AM",
+      "favoriteModel": "Fable 5"
+    },
+    "localTopLevel": {
+      "sessions": 87,
+      "messages": 26064,
+      "assistantRowsWithUsage": 16767,
+      "directInputTokens": 53791,
+      "outputTokens": 16269976,
+      "directPlusOutputTokens": 16323767
+    },
+    "localUsageLedger": {
+      "cacheInclusiveTokens": 1711526456,
+      "activeDays": 23,
+      "longestStreakDays": 11,
+      "favoriteModel": "claude-fable-5",
+      "favoriteModelUsageRows": 4796
+    },
+    "verdict": "near-exact",
+    "note": "Sessions、Messages、Active days、Longest streak、Favorite model 可逐项复现；界面 16.5M 接近顶层 assistant 原始 usage 的 input+output 16.324M，但不是缓存含量口径。"
+  }
+}
