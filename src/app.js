@@ -29,8 +29,14 @@ import {
   seedLegacyArchiveDispositions,
   setReportDisposition,
 } from "./report-dispositions.js";
+import {
+  COVER_VARIANT_COUNT,
+  COVER_VARIANT_NAMES,
+  coverThumbnailDataUri,
+} from "./cover-thumbnails.js";
 
 const STORAGE_KEY = "clair-service-report-workbench-v1";
+const PREVIEW_COVER_KEY = "clair-service-report-preview-cover-v1";
 const VIEW_KEY = "clair-service-report-workbench-view";
 const TIME_SORT_KEY = "clair-service-report-time-sort-v1";
 const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
@@ -82,6 +88,7 @@ const UI_ICONS = {
   minus: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"></path></svg>',
   edit: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4l10.5-10.5a2.8 2.8 0 0 0-4-4L4 16v4Z"></path><path d="m13 7 4 4"></path></svg>',
   archive: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v13H4z"></path><path d="M3 4h18v3H3zM9 11h6"></path></svg>',
+  refreshImage: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.4-5.7"></path><path d="M20 3v4h-4"></path><circle cx="9.6" cy="10" r="1.4"></circle><path d="m6.8 15.6 2.8-2.7 2 1.8 3-3 2.6 2.5"></path></svg>',
   close: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"></path></svg>',
   star: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3Z"></path></svg>',
   top: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14M12 19V8m0 0-4 4m4-4 4 4"></path></svg>',
@@ -2692,6 +2699,31 @@ function saveState() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 }
 
+function loadPreviewCovers() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(PREVIEW_COVER_KEY));
+    if (saved && typeof saved === "object" && !Array.isArray(saved)) return saved;
+  } catch {
+    // Ignore invalid cover data and fall back to original previews.
+  }
+  return {};
+}
+
+const previewCovers = loadPreviewCovers();
+
+function previewCoverVariant(reportId) {
+  const variant = Number(previewCovers[reportId]);
+  return Number.isInteger(variant) && variant >= 1 && variant <= COVER_VARIANT_COUNT
+    ? variant
+    : 0;
+}
+
+function setPreviewCoverVariant(reportId, variant) {
+  if (variant) previewCovers[reportId] = variant;
+  else delete previewCovers[reportId];
+  localStorage.setItem(PREVIEW_COVER_KEY, JSON.stringify(previewCovers));
+}
+
 function firstHttpUrl(text = "") {
   const matches = String(text).match(/https?:\/\/[^\s<>"'）)]+/gi) || [];
   return matches.find(validUrl) || "";
@@ -4315,7 +4347,13 @@ function cardMarkup(report, archivedView = false) {
   const hasPreview = !restricted && initialState.reports.some((item) => item.id === report.id);
   const previewAsset = report.preview || `${report.id}.png`;
   const primarySavedFile = (report.savedFiles || [])[0];
-  const preview = localHtml && report.isHtml
+  const coverVariant = previewCoverVariant(report.id);
+  const preview = coverVariant
+    ? `<img src="${coverThumbnailDataUri(report, coverVariant, {
+        workTypeLabel: workTypeName(report.workType),
+        groupLabel,
+      })}" alt="" loading="lazy" decoding="async" draggable="false" />`
+    : localHtml && report.isHtml
     ? `<iframe class="local-html-preview-frame" title="${escapeHtml(report.title)}视觉预览"
         srcdoc="${escapeHtml(localHtml)}" sandbox="allow-scripts" loading="lazy"
         tabindex="-1" aria-hidden="true"></iframe>`
@@ -4347,6 +4385,9 @@ function cardMarkup(report, archivedView = false) {
             <button type="button" data-action="restore" data-id="${escapeHtml(report.id)}">Restore</button>
             <button type="button" data-action="delete" data-id="${escapeHtml(report.id)}">Delete permanently</button>`
           : `
+            <button type="button" class="studio-icon-button card-icon-action" data-action="refresh-thumbnail" data-id="${escapeHtml(report.id)}" title="刷新缩图" aria-label="刷新缩图">
+              ${UI_ICONS.refreshImage}
+            </button>
             <button type="button" class="studio-icon-button card-icon-action" data-action="archive" data-id="${escapeHtml(report.id)}" title="归档成果" aria-label="归档成果">
               ${UI_ICONS.archive}
             </button>
@@ -5477,6 +5518,26 @@ function bindApp() {
         closeAppModal();
       } else if (action === "detect-title") {
         await detectTitle(event.currentTarget.closest("form"));
+      } else if (action === "refresh-thumbnail") {
+        const report = state.reports.find((item) => item.id === itemId);
+        if (!report) return;
+        const beforeVariant = previewCoverVariant(report.id);
+        const nextVariant = (beforeVariant + 1) % (COVER_VARIANT_COUNT + 1);
+        const snapshot = captureViewportSnapshot(actionCard || reportElement(itemId));
+        setPreviewCoverVariant(report.id, nextVariant);
+        if (normalizeSearchText(query)) renderWorkbenchWithViewportSnapshot(snapshot);
+        else renderWithViewportSnapshot(snapshot);
+        const message = nextVariant
+          ? `已换上「${COVER_VARIANT_NAMES[nextVariant - 1]}」缩图（${nextVariant}/${COVER_VARIANT_COUNT}），再点试下一款`
+          : "已恢复原始缩图";
+        showUndoToast(message, () => {
+          setPreviewCoverVariant(report.id, beforeVariant);
+          if (normalizeSearchText(query)) {
+            renderSearchAtCurrentScroll(() => reportElement(itemId));
+          } else {
+            renderAtCurrentScroll(() => reportElement(itemId));
+          }
+        });
       } else if (action === "archive") {
         const report = state.reports.find((item) => item.id === itemId);
         if (!report) return;
