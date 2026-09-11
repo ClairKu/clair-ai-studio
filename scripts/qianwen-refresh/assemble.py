@@ -38,12 +38,13 @@ metrics = {"bound_accounts": cn + ce + cu, "existing_accounts": ce, "new_account
 POP = {"all": metrics["bound_accounts"], "new": metrics["new_accounts"],
        "existing": metrics["existing_accounts"]}
 
-PROFILE_DIMS = ["asset_holding_status", "asset_bucket", "lifetime_investment_status",
+PROFILE_DIMS = ["asset_holding_status", "asset_bucket", "asset_at_bind_status", "lifetime_investment_status",
                 "age_bucket", "gender", "residence_province", "app_usage_status",
                 "wechat_mp_status", "bank_card_status", "risk_assessment_status"]
 BUCKET_ORDER = {
     "asset_holding_status": ["has_assets", "no_assets", "unknown"],
     "asset_bucket": ["no_assets", "lt_10k", "10k_100k", "100k_1m", "gte_1m", "unknown"],
+    "asset_at_bind_status": ["zero_at_bind", "has_assets_at_bind"],
     "lifetime_investment_status": ["invested", "not_invested"],
     "age_bucket": ["lte_25", "26_35", "36_45", "46_55", "56_65", "gte_66", "unknown"],
     "gender": ["male", "female", "unknown"],
@@ -52,9 +53,11 @@ BUCKET_ORDER = {
     "risk_assessment_status": ["assessed", "not_assessed"],
 }
 BUCKET_LABELS = {"100k_1m": "10—100 万元", "gte_1m": "100 万元以上",
+                 "zero_at_bind": "绑定时零资产（含未开户）", "has_assets_at_bind": "绑定时已有资产",
                  "lte_25": "25 岁及以下", "26_35": "26—35 岁", "36_45": "36—45 岁",
                  "46_55": "46—55 岁", "56_65": "56—65 岁", "gte_66": "66 岁以上"}
 DEFAULT_BUCKET = {"asset_holding_status": "unknown", "asset_bucket": "unknown",
+                  "asset_at_bind_status": "zero_at_bind",
                   "lifetime_investment_status": "not_invested", "age_bucket": "unknown",
                   "gender": "unknown", "residence_province": "unknown",
                   "wechat_mp_status": "mp_not_bound", "bank_card_status": "card_not_bound",
@@ -125,7 +128,8 @@ for co in COHORTS:
 BEHAVIOR_IDS = ["funded_after_binding", "first_investment_after_binding",
                 "investment_activity_after_binding", "redemption_after_binding",
                 "xiaogu_used_after_binding", "account_opened_after_binding",
-                "risk_assessed_after_binding", "first_funding_after_binding"]
+                "risk_assessed_after_binding", "first_funding_after_binding",
+                "repeat_investment_after_binding"]
 behavior_cohorts = {}
 for co in COHORTS:
     items = []

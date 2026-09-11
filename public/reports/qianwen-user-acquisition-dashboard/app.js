@@ -53,6 +53,11 @@ const PROFILE_DIMENSIONS = {
     description: "按顶层 ROOT 账户当前持有市值分档",
     panel: "asset",
   },
+  asset_at_bind_status: {
+    label: "绑定时资产状态",
+    description: "回溯每个用户绑定当日的顶层 ROOT 资产快照；为 0 或未开户即为零资产，是衡量渠道真实新增的基数",
+    panel: "asset",
+  },
   lifetime_investment_status: {
     label: "历史投资情况",
     description: "看是否曾在且慢完成投资",
@@ -132,6 +137,10 @@ const BEHAVIOR_METRICS = {
   first_funding_after_binding: {
     label: "绑定后首次入金",
     description: "此前从未入金，绑定后完成第一笔；已有入金记录的不计入可统计范围",
+  },
+  repeat_investment_after_binding: {
+    label: "绑定后复投",
+    description: "绑定后确认成功的产品买入（不含钱包充值）达到两笔及以上",
   },
 };
 const REQUIRED_BEHAVIOR_METRICS = ["first_investment_after_binding", "investment_activity_after_binding"];
@@ -611,15 +620,33 @@ function rangeTotals(rows) {
 function renderConversionKpis(data) {
   // 全窗口口径（锚在每个用户自己的绑定时刻），不随上方时间范围联动
   const bound = data.metrics.bound_accounts;
-  const firstInvest = data.behavior?.cohorts?.all?.metrics?.find((item) => item.id === "first_investment_after_binding");
-  const inflow = data.business?.cohorts?.all?.stats?.find((item) => item.id === "inflow_amount");
-  if (firstInvest?.state === "confirmed") {
-    $("#first-investors").textContent = number.format(firstInvest.reached_accounts);
-    $("#first-investors-share").textContent = formatShare(firstInvest.reached_accounts, bound);
+  const behaviorAll = data.behavior?.cohorts?.all?.metrics || [];
+  const renderBehaviorKpi = (metricId, valueSelector, shareSelector) => {
+    const item = behaviorAll.find((entry) => entry.id === metricId);
+    if (item?.state === "confirmed") {
+      $(valueSelector).textContent = number.format(item.reached_accounts);
+      $(shareSelector).textContent = formatShare(item.reached_accounts, bound);
+    } else {
+      $(valueSelector).textContent = "—";
+      $(shareSelector).textContent = publicStateCopy(item);
+    }
+  };
+  renderBehaviorKpi("account_opened_after_binding", "#opened-after", "#opened-after-share");
+  renderBehaviorKpi("risk_assessed_after_binding", "#risk-after", "#risk-after-share");
+  renderBehaviorKpi("first_investment_after_binding", "#first-investors", "#first-investors-share");
+  renderBehaviorKpi("repeat_investment_after_binding", "#repeat-investors", "#repeat-investors-share");
+  const atBind = data.profile?.cohorts?.all?.dimensions?.find((item) => item.id === "asset_at_bind_status");
+  const zeroBucket = atBind?.state === "confirmed"
+    ? (atBind.buckets || []).find((bucket) => bucket.id === "zero_at_bind")
+    : null;
+  if (zeroBucket) {
+    $("#zero-at-bind").textContent = number.format(zeroBucket.accounts);
+    $("#zero-at-bind-share").textContent = formatShare(zeroBucket.accounts, bound);
   } else {
-    $("#first-investors").textContent = "—";
-    $("#first-investors-share").textContent = publicStateCopy(firstInvest);
+    $("#zero-at-bind").textContent = "—";
+    $("#zero-at-bind-share").textContent = publicStateCopy(atBind);
   }
+  const inflow = data.business?.cohorts?.all?.stats?.find((item) => item.id === "inflow_amount");
   if (inflow?.state === "confirmed") {
     $("#inflow-total").textContent = formatAmount(inflow.amount_wan);
     $("#inflow-total-people").textContent = `${number.format(inflow.accounts)} 人`;

@@ -21,6 +21,7 @@ const cohortKeys = ["all", "new", "existing"];
 const profileDimensionIds = [
   "asset_holding_status",
   "asset_bucket",
+  "asset_at_bind_status",
   "lifetime_investment_status",
   "age_bucket",
   "gender",
@@ -39,6 +40,7 @@ const behaviorMetricIds = [
   "account_opened_after_binding",
   "risk_assessed_after_binding",
   "first_funding_after_binding",
+  "repeat_investment_after_binding",
 ];
 const businessStatIds = [
   "holding_amount",
@@ -357,6 +359,10 @@ assertNoForbiddenKeys(data);
 for (const signal of [
   'id="bound-total"',
   'id="first-investors"',
+  'id="opened-after"',
+  'id="risk-after"',
+  'id="repeat-investors"',
+  'id="zero-at-bind"',
   'id="inflow-total"',
   'id="new-accounts"',
   'id="existing-accounts"',
@@ -397,7 +403,7 @@ for (const signal of [
 ]) {
   if (!html.includes(signal)) fail(`交互控件缺少 ${signal}`);
 }
-if ((html.match(/<article class="kpi-card/g) || []).length !== 5) fail("关键数据卡必须为三张规模卡 + 两张转化卡");
+if ((html.match(/<article class="kpi-card/g) || []).length !== 9) fail("关键数据卡必须为三张规模卡 + 六张转化卡");
 if ((html.match(/name="series"/g) || []).length !== 4) fail("走势图必须有四个独立数据开关");
 for (const key of ["bound", "new", "existing", "daily"]) {
   if (!html.includes(`id="value-${key}"`)) fail(`读数条缺少 ${key} 的最新数值`);

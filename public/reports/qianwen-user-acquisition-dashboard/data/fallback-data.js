@@ -577,6 +577,25 @@ window.QIANWEN_ACQUISITION_DATA = {
             ]
           },
           {
+            "id": "asset_at_bind_status",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-09-11",
+            "state": "confirmed",
+            "buckets": [
+              {
+                "id": "zero_at_bind",
+                "label": "绑定时零资产（含未开户）",
+                "accounts": 2900
+              },
+              {
+                "id": "has_assets_at_bind",
+                "label": "绑定时已有资产",
+                "accounts": 261
+              }
+            ]
+          },
+          {
             "id": "lifetime_investment_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
@@ -885,6 +904,25 @@ window.QIANWEN_ACQUISITION_DATA = {
             ]
           },
           {
+            "id": "asset_at_bind_status",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-09-11",
+            "state": "confirmed",
+            "buckets": [
+              {
+                "id": "zero_at_bind",
+                "label": "绑定时零资产（含未开户）",
+                "accounts": 2545
+              },
+              {
+                "id": "has_assets_at_bind",
+                "label": "绑定时已有资产",
+                "accounts": 0
+              }
+            ]
+          },
+          {
             "id": "lifetime_investment_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
@@ -1094,6 +1132,25 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "id": "unknown",
                 "accounts": 256
+              }
+            ]
+          },
+          {
+            "id": "asset_at_bind_status",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-09-11",
+            "state": "confirmed",
+            "buckets": [
+              {
+                "id": "zero_at_bind",
+                "label": "绑定时零资产（含未开户）",
+                "accounts": 355
+              },
+              {
+                "id": "has_assets_at_bind",
+                "label": "绑定时已有资产",
+                "accounts": 261
               }
             ]
           },
@@ -1459,6 +1516,19 @@ window.QIANWEN_ACQUISITION_DATA = {
             "reached_accounts": 3,
             "not_reached_accounts": 2871,
             "unknown_accounts": 0
+          },
+          {
+            "id": "repeat_investment_after_binding",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "post_binding_window",
+            "data_as_of": "2026-09-11T11:39:08+08:00",
+            "state": "confirmed",
+            "population_accounts": 3161,
+            "eligible_accounts": 367,
+            "excluded_accounts": 2794,
+            "reached_accounts": 118,
+            "not_reached_accounts": 249,
+            "unknown_accounts": 0
           }
         ]
       },
@@ -1568,6 +1638,19 @@ window.QIANWEN_ACQUISITION_DATA = {
             "reached_accounts": 1,
             "not_reached_accounts": 2544,
             "unknown_accounts": 0
+          },
+          {
+            "id": "repeat_investment_after_binding",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "post_binding_window",
+            "data_as_of": "2026-09-11T11:39:08+08:00",
+            "state": "confirmed",
+            "population_accounts": 2545,
+            "eligible_accounts": 7,
+            "excluded_accounts": 2538,
+            "reached_accounts": 1,
+            "not_reached_accounts": 6,
+            "unknown_accounts": 0
           }
         ]
       },
@@ -1676,6 +1759,19 @@ window.QIANWEN_ACQUISITION_DATA = {
             "excluded_accounts": 287,
             "reached_accounts": 2,
             "not_reached_accounts": 327,
+            "unknown_accounts": 0
+          },
+          {
+            "id": "repeat_investment_after_binding",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "post_binding_window",
+            "data_as_of": "2026-09-11T11:39:08+08:00",
+            "state": "confirmed",
+            "population_accounts": 616,
+            "eligible_accounts": 360,
+            "excluded_accounts": 256,
+            "reached_accounts": 117,
+            "not_reached_accounts": 243,
             "unknown_accounts": 0
           }
         ]

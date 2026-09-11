@@ -189,9 +189,10 @@ input:focus-visible,
   border: 0;
   gap: 14px;
 }
-.kpi-grid-conversion { grid-template-columns: 1fr 1fr; margin-top: 14px; }
-.kpi-grid-conversion .kpi-card { min-height: 172px; }
-.kpi-grid-conversion .kpi-card strong { font-size: clamp(38px, 4vw, 56px); }
+.kpi-grid-conversion { grid-template-columns: repeat(3, 1fr); margin-top: 14px; }
+.kpi-grid-conversion .kpi-card { min-height: 148px; }
+.kpi-grid-conversion .kpi-card strong { font-size: clamp(30px, 3.2vw, 44px); }
+.kpi-grid-conversion .kpi-card em { font-size: 17px; }
 .kpi-firstinvest, .kpi-inflow { border-left: 3px solid #1B88EE; }
 .kpi-card {
   position: relative;
