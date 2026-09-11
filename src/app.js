@@ -211,16 +211,16 @@ const initialState = {
     {
       id: "personal-ai-token-usage-audit-2026-09-10",
       groupId: "ai-platform",
-      title: "五端 AI Token 使用看板｜年度趋势 · 习惯 · 同模型性价比",
+      title: "双设备 AI Token 使用看板｜平台 × 设备 × 日期",
       url: "https://clairku.github.io/clair-ai-studio/reports/personal-ai-token-usage-audit-2026-09-10/",
       preview: "personal-ai-token-usage-audit-2026-09-10.svg",
       pinned: true,
       position: 0,
       createdAt: "2026-09-10T17:55:11+08:00",
-      source: "本机优先用量审计（Cursor 通过本机登录态只读官方用量接口）｜年度查询范围 2026-01-01 至 2026-09-11，实际最早可见 2026-07-17，缺失期不按 0｜本机可见总量 3.752B，冻结近月 3.339B，复用内容占输入 95.7%｜每日/累计同图切换、平台勾选、时间区间、实时总量、使用习惯、优化建议、跨平台同模型性价比｜公开脱敏，不含账号、密钥、会话正文、个人路径与任务内容",
+      source: "双设备本地用量审计｜公司电脑 3.066B + 个人电脑 9.698B + Cursor 账号共享 686.15M，总可见量 13.45B｜年度查询范围 2026-01-01 至 2026-09-11，最早本地可见 2026-05-12，缺失期不按 0｜每日/累计、设备与平台双筛选、活动热力图、设备 × 平台矩阵、Codex 截图对账｜Cursor 无设备字段只计一次；Kiro 6,872 Token 无日期；公开脱敏，不含账号、密钥、会话正文、主机名、个人路径与任务内容",
       access: "production",
       workType: "data-analysis",
-      tags: ["AI 用量", "Token", "Codex", "Cursor", "Claude", "WorkBuddy", "YinmiWork", "成本治理", "数据分析", "HTML", "生产"],
+      tags: ["AI 用量", "Token", "双设备", "个人电脑", "公司电脑", "Codex", "Cursor", "Claude", "WorkBuddy", "YinmiWork", "Kiro", "成本治理", "数据分析", "HTML", "生产"],
     },
     {
 
