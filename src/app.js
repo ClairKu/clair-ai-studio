@@ -160,6 +160,18 @@ const initialState = {
       tags: ["VIP 顾问", "顾问工作台", "同舟", "知微", "客户360", "SOP", "AI 副驾", "双外壳", "交互 Demo", "产品规划", "HTML", "生产"],
     },
     {
+      id: "tongzhou-product-blueprint-2026-09-11",
+      groupId: "ai-workbench",
+      title: "同舟产品蓝图｜总览 · 框架 · 用户路径 · 路线图 · PRD",
+      url: "https://clairku.github.io/clair-ai-studio/reports/tongzhou-product-blueprint-2026-09-11/",
+      preview: "tongzhou-product-blueprint-2026-09-11.svg",
+      createdAt: "2026-09-11T15:30:00+08:00",
+      source: "同舟 · VIP 顾问工作台立项文档（五章单页）｜01 项目总览：六大问题 · 旧系统 64 项盘点 · 三个真缺口（任务事件对象 / 权限可视化 / 报告回流）· 五条设计立场与命名依据｜02 产品框架：双外壳 → store+bus → 知微（意图路由 · 工具调用 · 审批门 · 证据链）→ 四业务对象 → 数据能力层与 YingmiWork 底座五层架构，七大模块 × AI 层落位表｜03 用户路径：顾问的一天七时点 · SOP 七阶段五硬门 · 双模式动线｜04 路线图：M0 已交付 → M1 试点真数 → M2 标准化与报告闭环 → M3 主动服务与复制，附依赖风险与北极星度量｜05 PRD：F1–F22 功能需求（对齐需求清单优先级）· 对象模型 · 合规护栏 · 验收标准 · 七个开放问题｜依据：产品规划文档 26.5.12 · 需求清单 26.5.13 · 设计规格 v1.1 · 两轮 QA",
+      access: "production",
+      workType: "product-planning",
+      tags: ["VIP 顾问", "顾问工作台", "同舟", "产品蓝图", "PRD", "路线图", "用户路径", "产品框架", "立项", "知微", "HTML", "生产"],
+    },
+    {
       id: "personal-ai-token-usage-audit-2026-09-10",
       groupId: "ai-platform",
       title: "五端 AI Token 使用看板｜年度趋势 · 习惯 · 同模型性价比",

@@ -1,0 +1,520 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body style="margin:0"><title>同舟产品蓝图</title>
+<meta name="description" content="同舟 · VIP 顾问工作台：项目总览、产品框架、用户路径、路线图与 PRD">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --accent:#1b88ee; --accent-ink:#0f72cd; --accent-deep:#0b5192; --accent-soft:#e5f2ff;
+  --ground:#f6f8fb; --surface:#ffffff; --surface-2:#eef3f9;
+  --ink:#1c2430; --body:#3a4656; --muted:#6b7787; --line:#d9e1ec; --line-soft:#e7edf5;
+  --good:#25855a; --warn:#b07a17; --critical:#c94747;
+  --good-soft:#e3f4ec; --warn-soft:#faf1dc; --critical-soft:#fbe9e9;
+  --serif:"Noto Serif SC","Songti SC",serif;
+  --sans:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+  --mono:"JetBrains Mono","SF Mono",Menlo,monospace;
+  --shadow:0 1px 2px rgba(16,42,74,.06),0 8px 24px rgba(16,42,74,.07);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --accent:#4aa7ff; --accent-ink:#7dbcf7; --accent-deep:#9dcbf7; --accent-soft:#12283f;
+    --ground:#12151c; --surface:#1a1f29; --surface-2:#212836;
+    --ink:#e8ecf4; --body:#c0c9d6; --muted:#8593a6; --line:#303a4a; --line-soft:#27303e;
+    --good:#4cc38a; --warn:#d9a441; --critical:#e57373;
+    --good-soft:#15291f; --warn-soft:#2b2415; --critical-soft:#2e1a1a;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --accent:#4aa7ff; --accent-ink:#7dbcf7; --accent-deep:#9dcbf7; --accent-soft:#12283f;
+  --ground:#12151c; --surface:#1a1f29; --surface-2:#212836;
+  --ink:#e8ecf4; --body:#c0c9d6; --muted:#8593a6; --line:#303a4a; --line-soft:#27303e;
+  --good:#4cc38a; --warn:#d9a441; --critical:#e57373;
+  --good-soft:#15291f; --warn-soft:#2b2415; --critical-soft:#2e1a1a;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--body);font-family:var(--sans);font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{color:var(--ink);text-wrap:balance;line-height:1.3;margin:0}
+a{color:var(--accent-ink);text-decoration:none}
+a:hover{text-decoration:underline}
+b,strong{color:var(--ink)}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.wrap{max-width:1100px;margin:0 auto;padding:0 28px}
+/* ── 顶部导航 ── */
+.topnav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-soft)}
+.topnav .wrap{display:flex;align-items:center;gap:22px;height:52px}
+.brand{font-family:var(--serif);font-weight:900;font-size:19px;color:var(--ink);letter-spacing:.06em}
+.brand em{font-style:normal;color:var(--accent)}
+.topnav nav{display:flex;gap:4px;overflow-x:auto}
+.topnav nav a{padding:5px 12px;border-radius:99px;font-size:13.5px;color:var(--muted);white-space:nowrap}
+.topnav nav a:hover{background:var(--surface-2);color:var(--ink);text-decoration:none}
+.topnav .demo-link{margin-left:auto;font-size:13px;font-weight:500;color:var(--accent-ink);border:1px solid var(--line);border-radius:99px;padding:4px 14px;white-space:nowrap}
+/* ── 封面 ── */
+.hero{border-bottom:1px solid var(--line-soft);background:
+  linear-gradient(to bottom, color-mix(in srgb,var(--accent-soft) 55%,var(--ground)), var(--ground));}
+.hero .wrap{padding:64px 28px 48px}
+.kicker{font-size:12px;letter-spacing:.28em;color:var(--accent-ink);font-weight:700;text-transform:uppercase}
+.hero h1{font-family:var(--serif);font-weight:900;font-size:44px;margin:14px 0 6px}
+.hero .sub{font-size:17px;max-width:64ch}
+.hero .meta{display:flex;flex-wrap:wrap;gap:10px 26px;margin-top:26px;font-size:13px;color:var(--muted)}
+.hero .meta b{font-weight:500;color:var(--body)}
+/* ── 章节骨架 ── */
+section.ch{padding:64px 0 26px;border-bottom:1px solid var(--line-soft)}
+.ch-head{display:flex;align-items:baseline;gap:18px;margin-bottom:8px}
+.ch-num{font-family:var(--serif);font-weight:900;font-size:15px;color:var(--accent);letter-spacing:.15em}
+.ch-head h2{font-family:var(--serif);font-weight:900;font-size:30px}
+.ch-thesis{font-size:16px;color:var(--body);max-width:66ch;margin:6px 0 34px}
+h3{font-size:19px;margin:44px 0 14px;font-weight:700}
+h3 .tag{font-size:11.5px;font-weight:500;color:var(--muted);margin-left:10px;letter-spacing:.05em}
+h4{font-size:15.5px;margin:26px 0 10px}
+p{margin:0 0 14px;max-width:72ch}
+ul,ol{margin:0 0 16px;padding-left:22px}
+li{margin-bottom:6px;max-width:68ch}
+/* ── 组件 ── */
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(2,1fr)} .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:860px){.g3,.g4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line-soft);border-radius:10px;padding:16px 18px}
+.card h4{margin:0 0 6px;font-size:14.5px}
+.card p{font-size:13.5px;margin:0;color:var(--body)}
+.stat{background:var(--surface);border:1px solid var(--line-soft);border-radius:10px;padding:14px 18px}
+.stat .v{font-family:var(--mono);font-size:26px;font-weight:600;color:var(--ink)}
+.stat .v em{font-style:normal;font-size:14px;color:var(--muted);margin-left:2px}
+.stat .l{font-size:12.5px;color:var(--muted);margin-top:2px}
+.pill{display:inline-block;font-size:11.5px;font-weight:500;padding:1px 9px;border-radius:99px;border:1px solid var(--line);color:var(--muted);vertical-align:1px}
+.pill.p0{background:var(--critical-soft);color:var(--critical);border-color:transparent}
+.pill.p1{background:var(--warn-soft);color:var(--warn);border-color:transparent}
+.pill.p2{background:var(--surface-2);color:var(--muted);border-color:transparent}
+.pill.ok{background:var(--good-soft);color:var(--good);border-color:transparent}
+.pill.acc{background:var(--accent-soft);color:var(--accent-ink);border-color:transparent}
+.tablewrap{overflow-x:auto;border:1px solid var(--line-soft);border-radius:10px;background:var(--surface);margin:0 0 18px}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th{background:var(--surface-2);color:var(--muted);font-weight:500;text-align:left;padding:9px 14px;white-space:nowrap;font-size:12.5px}
+td{padding:9px 14px;border-top:1px solid var(--line-soft);vertical-align:top}
+td.mono,th.mono{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.note{border-left:3px solid var(--accent);background:var(--surface);border-radius:0 8px 8px 0;padding:12px 16px;font-size:13.5px;margin:0 0 18px;max-width:none}
+.note b{color:var(--accent-ink)}
+.foot-src{font-size:12px;color:var(--muted);margin:-8px 0 20px}
+/* ── 框架图（分层） ── */
+.arch{display:flex;flex-direction:column;gap:10px;margin:20px 0 8px}
+.arch-layer{display:grid;grid-template-columns:118px 1fr;gap:12px;align-items:stretch}
+.arch-label{display:flex;flex-direction:column;justify-content:center;font-size:12px;color:var(--muted);line-height:1.45}
+.arch-label b{color:var(--ink);font-size:13px}
+.arch-row{display:flex;flex-wrap:wrap;gap:8px}
+.arch-box{flex:1 1 120px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:9px 12px;font-size:12.5px;line-height:1.5;min-width:110px}
+.arch-box b{display:block;font-size:13px;color:var(--ink)}
+.arch-box.hi{border-color:var(--accent);background:var(--accent-soft)}
+.arch-box.hi b{color:var(--accent-ink)}
+.arch-box.dim{background:var(--surface-2);border-style:dashed}
+.arch-glue{display:flex;justify-content:center;gap:30px;font-size:11.5px;color:var(--muted);padding:1px 0}
+/* ── SOP 链 ── */
+.sopchain{display:flex;gap:0;overflow-x:auto;padding:8px 0 14px;margin-bottom:6px}
+.sop-step{min-width:138px;flex:1;position:relative;padding:0 10px 0 0}
+.sop-step:not(:last-child):after{content:"";position:absolute;right:0;top:26px;width:10px;height:2px;background:var(--line)}
+.sop-box{background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:10px 12px;height:100%}
+.sop-box b{font-size:13.5px;color:var(--ink)}
+.sop-box .g{font-size:11px;color:var(--critical);margin-top:4px}
+.sop-box .s{font-size:11.5px;color:var(--muted);margin-top:4px;line-height:1.5}
+/* ── 时间轴（顾问的一天 / 路线图） ── */
+.tl{border-left:2px solid var(--line);margin:8px 0 20px 6px;padding-left:22px;display:flex;flex-direction:column;gap:16px}
+.tl-item{position:relative}
+.tl-item:before{content:"";position:absolute;left:-28px;top:7px;width:10px;height:10px;border-radius:99px;background:var(--accent);border:2px solid var(--ground)}
+.tl-item.alt:before{background:var(--muted)}
+.tl-time{font-family:var(--mono);font-size:12.5px;color:var(--accent-ink);font-weight:600}
+.tl-item h4{margin:1px 0 3px;font-size:14.5px}
+.tl-item p{font-size:13.5px;margin:0}
+.tl-item .sys{font-size:12px;color:var(--muted);margin-top:3px}
+/* 路线图 */
+.roadmap{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0 10px}
+@media(max-width:900px){.roadmap{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.roadmap{grid-template-columns:1fr}}
+.rm-col{background:var(--surface);border:1px solid var(--line-soft);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.rm-col header{padding:11px 14px;border-bottom:1px solid var(--line-soft)}
+.rm-col header .ph{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.1em}
+.rm-col header b{display:block;font-size:14.5px;color:var(--ink)}
+.rm-col header .when{font-size:11.5px;color:var(--muted)}
+.rm-col.done header{background:var(--good-soft)}
+.rm-col.now header{background:var(--accent-soft)}
+.rm-col ul{list-style:none;padding:10px 14px;margin:0;flex:1}
+.rm-col li{font-size:12.5px;line-height:1.55;padding-left:14px;position:relative;margin-bottom:7px}
+.rm-col li:before{content:"·";position:absolute;left:2px;color:var(--accent);font-weight:700}
+.rm-col .exit{border-top:1px dashed var(--line);padding:9px 14px;font-size:11.5px;color:var(--muted)}
+.rm-col .exit b{font-size:11.5px;color:var(--body);font-weight:500}
+/* 模式对照 */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
+@media(max-width:760px){.duo{grid-template-columns:1fr}}
+.duo .card b.t{display:block;font-size:14px;margin-bottom:6px;color:var(--accent-ink)}
+.duo .card ol{font-size:13px;margin:0;padding-left:18px}
+.duo .card ol li{margin-bottom:4px}
+footer.page{padding:34px 0 60px;font-size:12.5px;color:var(--muted)}
+@media print{.topnav{position:static}}
+</style>
+
+<div class="topnav"><div class="wrap">
+  <span class="brand">同舟<em>·</em>产品蓝图</span>
+  <nav>
+    <a href="#overview">01 项目总览</a>
+    <a href="#arch">02 产品框架</a>
+    <a href="#journey">03 用户路径</a>
+    <a href="#roadmap">04 路线图</a>
+    <a href="#prd">05 PRD</a>
+  </nav>
+  <a class="demo-link" href="https://claude.ai/code/artifact/840a6860-4550-4c01-8b12-4124c00b916e" target="_blank" rel="noopener">打开交互 DEMO ↗</a>
+</div></div>
+
+<div class="hero"><div class="wrap">
+  <div class="kicker">Tongzhou Workbench · Product Blueprint</div>
+  <h1>同舟 · VIP 顾问工作台</h1>
+  <p class="sub">把 VIP 顾问服务从「个人经验驱动」升级为标准化、工具化、数据化、智能化的高净值客户服务体系。一份状态，两副外壳：界面优先的控制台，与对话优先的线程——副驾「知微」贯穿其间。</p>
+  <div class="meta">
+    <span>版本 <b>v1.0</b></span>
+    <span>日期 <b>2026-09-11</b></span>
+    <span>状态 <b>交互 DEMO 已交付 · 两轮 QA 通过</b></span>
+    <span>需求基线 <b>产品规划文档 26.5.12 · 需求清单 26.5.13</b></span>
+    <span>受众 <b>管理层评审 · 产品 · 研发 · VIP 顾问团队</b></span>
+  </div>
+</div></div>
+
+<!-- ======================= 01 项目总览 ======================= -->
+<section class="ch" id="overview"><div class="wrap">
+  <div class="ch-head"><span class="ch-num">第一章</span><h2>项目总览</h2></div>
+  <p class="ch-thesis">顾问不缺数据源，缺的是对象与闭环。同舟把散落在 TWS、慧客通、投研平台里的能力，围绕客户、任务、事件、规划报告四个对象重新组织，并让 AI 以副驾而非聊天框的方式长进每一个工作场景。</p>
+
+  <h3>1.1 为什么现在做</h3>
+  <p>VIP 顾问服务正从基金组合陪伴升级为覆盖承接、KYC、诊断、规划、执行、复盘的综合财富管理。顾问需求文档确认了六个结构性问题：</p>
+  <div class="grid g3">
+    <div class="card"><h4>信息分散</h4><p>客户信息、账户数据、沟通记录、产品材料、投研观点散在多个系统，理解一个客户要跳四五个页面。</p></div>
+    <div class="card"><h4>服务过程不可视</h4><p>客户是否 KYC、是否诊断、是否规划、是否复盘，没有统一视图，全凭顾问脑子记。</p></div>
+    <div class="card"><h4>重点事件易遗漏</h4><p>赎回、转出、私募未付款、回访失败、客户主动咨询，缺少统一提醒与优先级。</p></div>
+    <div class="card"><h4>工具素材不集中</h4><p>话术、材料、诊断、规划、会议、复盘的工具入口各自为政。</p></div>
+    <div class="card"><h4>能力复制困难</h4><p>优秀经验、案例、话术、服务方法没有系统沉淀，新人只能靠师傅带。</p></div>
+    <div class="card"><h4>AI 能力分散</h4><p>提醒、话术、材料推荐、方案辅助各自孤立，没有嵌入具体业务场景。</p></div>
+  </div>
+
+  <h3>1.2 旧系统盘点结论 <span class="tag">对 TWS 与慧客通 SCRM 的 64 项能力逐页只读爬取</span></h3>
+  <div class="grid g4">
+    <div class="stat"><div class="v">64</div><div class="l">旧能力全部盘点并给出处置（承接 25 · 升级 23 · 后台 11 · 放弃 5）</div></div>
+    <div class="stat"><div class="v">3<em>套</em></div><div class="l">互不相通的标签/客群体系（TWS 智能客群、SCRM 企业标签、名单库筛选）</div></div>
+    <div class="stat"><div class="v">2<em>套</em></div><div class="l">客户主键（交易账户 vs 企微好友），AI 小顾还需手工输 ID 匹配</div></div>
+    <div class="stat"><div class="v">0</div><div class="l">TWS 内的任务/待办系统——事件提醒只在 SCRM，且规则不可自建</div></div>
+  </div>
+  <p style="margin-top:14px">真正缺的是三样东西，而不是又一批功能页面：<b>任务/事件对象</b>（SCRM 预留位无 API）、<b>顾问×客户绑定与权限的可视化</b>、<b>报告回到客户时间线的闭环</b>（报告生成后没有对客发布与留痕的通路）。同舟的产品价值就是补齐这三个对象并把它们连成闭环。</p>
+
+  <h3>1.3 设计立场 <span class="tag">五条，全文的判断基准</span></h3>
+  <div class="grid g2">
+    <div class="card"><h4>① 一份状态，两副外壳</h4><p>控制台（界面优先）与线程（对话优先）是两副真正不同的原生外壳，读写同一个状态、派发同一条动作总线、共享同一个工件登记簿。切换零丢失。</p></div>
+    <div class="card"><h4>② 默认界面优先，副驾长在数字上</h4><p>左栏保留七大模块原名，传统顾问第一天就能用。AI 不是第八个模块，而是每个数字旁的 ⓘ 解释、每个区块的 ✦ 嵌入点、清单项旁的「AI 可代办」。</p></div>
+    <div class="card"><h4>③ 今日是队列，SOP 是门</h4><p>首页每行回答「为什么找我 / 为什么重要 / 现在做什么 / 有效期」；服务七阶段只设五处硬门，其余软门可留痕带缺口推进。</p></div>
+    <div class="card"><h4>④ 数字带口径，建议可追溯，对客必经收件箱</h4><p>数字组件强制口径与数据日期；AI 结论带四态证据徽标与查看依据；建议≠订单，高风险动作只出计划卡；客户资产默认分档遮挡。</p></div>
+  </div>
+  <div class="note" style="margin-top:14px"><b>⑤ 标准之上可加，标准之下不可减。</b>顾问可以加自己的视图、卡片、SOP 附加项、话术、监控规则；不能删标准节点、绕过收件箱、关闭适当性校验。留痕靠「说一句就是留痕」，不靠填表。</div>
+
+  <h3>1.4 命名</h3>
+  <div class="tablewrap"><table>
+    <tr><th style="width:120px">对象</th><th style="width:180px">名称</th><th>理由</th></tr>
+    <tr><td>产品</td><td><b>同舟</b> · VIP 顾问工作台</td><td>顾问与客户同舟、顾问与副驾同舟、两副外壳同一条船；两字口语化，属且慢语系，不与 TWS / 盈米TAMP / 慧客通 / YingmiWork 冲突。</td></tr>
+    <tr><td>副驾</td><td><b>知微</b></td><td>「知微见著」——先看见小信号（赎回、扣款失败、风测到期），再给顾问出面建议。不沿用「小顾」：小顾是 C 端客户可见 IP，同名会混淆「谁在对客户说话」。知微只对顾问说话，永不直接对客。</td></tr>
+    <tr><td>客户侧 AI</td><td>小顾（沿用）</td><td>在同舟中作为事件源（「小顾侧升级」）与洞察字段出现。</td></tr>
+  </table></div>
+  <p class="foot-src">演示旁白口径：「同舟是台，知微是副驾；顾问是舵手，客户是同船人。」</p>
+
+  <h3>1.5 DEMO 交付现状 <span class="tag">2026-09-10 · 单文件交互原型</span></h3>
+  <div class="grid g4">
+    <div class="stat"><div class="v">15</div><div class="l">屏幕全部注册渲染，含客户 360 十区块与双外壳</div></div>
+    <div class="stat"><div class="v">15/15</div><div class="l">需求清单「最高 + 高」优先级功能全部落地</div></div>
+    <div class="stat"><div class="v">43</div><div class="l">知微确定性意图规则 · 15 类响应卡 · 59 个总线动作</div></div>
+    <div class="stat"><div class="v">2<em>轮</em></div><div class="l">QA（覆盖度 + 演示走查），3 P0 + 13 P1 全部修复</div></div>
+  </div>
+  <p style="margin-top:14px">DEMO 为单 HTML（约 1.1MB，纯 mock 数据、无外部请求），双主题，桌面优先。演示主线客户「周敏」（教育金稳健型，风测过期→陪测→定投提额→V5 报告→执行→复盘全链路），另有私募卡点、大额赎回预警、长期未联系等 9 位典型画像与 38 位长尾客户。<a href="https://claude.ai/code/artifact/840a6860-4550-4c01-8b12-4124c00b916e" target="_blank" rel="noopener">→ 打开交互 DEMO</a>，或在设置页查看「旧功能在哪」64 项映射矩阵。</p>
+</div></section>
+
+<!-- ======================= 02 产品框架 ======================= -->
+<section class="ch" id="arch"><div class="wrap">
+  <div class="ch-head"><span class="ch-num">第二章</span><h2>产品框架</h2></div>
+  <p class="ch-thesis">自上而下五层：两副外壳共享一套状态与动作总线；副驾知微是意图路由 + 工具调用 + 审批门 + 证据链，而不是聊天框；四个业务对象由既有系统的数据能力喂养；一切跑在 YingmiWork 底座上。</p>
+
+  <div class="arch">
+    <div class="arch-layer">
+      <div class="arch-label"><b>外壳层</b>⌘⇧M 一键互切<br>上下文零丢失</div>
+      <div class="arch-row">
+        <div class="arch-box hi"><b>控制台（界面优先）</b>顶栏 + 七大模块左栏 + 工作区 + 副驾 Dock（上下文头/数据段/任务/收件箱/异常/助理框）+ 锁定条</div>
+        <div class="arch-box hi"><b>线程（对话优先）</b>线程栏（今日/客户/自动化）+ 线程流（15 类卡）+ 工件面板 + 大 composer（@客户 · /命令 · /btw 侧问 · 自治度拨档）</div>
+      </div>
+    </div>
+    <div class="arch-glue">▲ 两副外壳只换布局，不换真相 ▲</div>
+    <div class="arch-layer">
+      <div class="arch-label"><b>状态与协议层</b>单一事实源</div>
+      <div class="arch-row">
+        <div class="arch-box"><b>store</b>单一状态树：客户 / 计划 / 任务 / 事件 / 线程 / 工件 / 收件箱 / 偏好</div>
+        <div class="arch-box"><b>bus · 59 个动作</b>中间件链 policy → 幂等 → 审计 → reduce → render；对客动作一律进收件箱</div>
+        <div class="arch-box"><b>工件登记簿</b>报告 / 会前 brief / 计划 diff / 看板切片，两壳同一登记簿</div>
+        <div class="arch-box"><b>审计轨</b>每动作一条 traceId · 7 控制点 · 10 年留痕口径</div>
+      </div>
+    </div>
+    <div class="arch-layer">
+      <div class="arch-label"><b>副驾 知微</b>只对顾问说话</div>
+      <div class="arch-row">
+        <div class="arch-box hi"><b>意图路由</b>43 条确定性规则（特殊先于一般）+ 可选 LLM 实时通道（?live=1）</div>
+        <div class="arch-box"><b>工具调用</b>工具瀑布可视：限定名 / 入参出参 / 口径角标 / 耗时；L1–L4 分级徽标</div>
+        <div class="arch-box"><b>审批门</b>L3 同步审批卡 · 对客产物异步收件箱 · L4 只出计划卡永不执行</div>
+        <div class="arch-box"><b>证据链</b>每条结论：来源 + data_as_of + 公式 + 四态徽标（confirmed/inferred/missing/target）+ 高亮引用</div>
+      </div>
+    </div>
+    <div class="arch-layer">
+      <div class="arch-label"><b>业务对象层</b>同舟补齐的闭环</div>
+      <div class="arch-row">
+        <div class="arch-box"><b>客户 / plan</b>客户 360 十区块；目标、四笔钱、风险、建议、执行、复盘写入同一 plan，报告 = plan 的版本快照</div>
+        <div class="arch-box dim"><b>任务 / 事件</b>八场景事件 + 今日队列 + 预约（旧系统无此对象，需自建）</div>
+        <div class="arch-box"><b>报告</b>六模板 · 状态机：取数→复核关→润色→装配→确认→发布（回客户时间线）</div>
+        <div class="arch-box"><b>自动化 / 规则</b>五要素监控卡（何时/读什么/给什么/记什么/谁复核），产物必经收件箱</div>
+      </div>
+    </div>
+    <div class="arch-layer">
+      <div class="arch-label"><b>数据与能力层</b>既有资产</div>
+      <div class="arch-row">
+        <div class="arch-box"><b>慧客通 SCRM</b>13 个 query* 数据工具 · ~45 个 AI Insight 配置工具（场景×Agent×绑定）· 21 个持仓报告工具</div>
+        <div class="arch-box"><b>TWS / 盈米TAMP</b>客户 / 资产 / 规划 / 消息接口；经营五看板口径</div>
+        <div class="arch-box"><b>投研 vesta MCP</b>9 服务 96 工具（基金/组合/指数/宏观/资讯/研报）</div>
+        <div class="arch-box"><b>风险诊断链</b>风测 preview 算分（C1–C5）· 晨星组合分 · 舒适区五段 · 适当性 C×R 矩阵</div>
+        <div class="arch-box"><b>OAP 技能</b>11 个投顾 Skill（组合医生 / 家庭财务 / 目标测算 / 早报…）+ 报告 kit（家庭 V5 / 持仓 16 页）</div>
+      </div>
+    </div>
+    <div class="arch-layer">
+      <div class="arch-label"><b>底座</b>复用而非重建</div>
+      <div class="arch-row">
+        <div class="arch-box"><b>YingmiWork / FinDesk</b>Electron 壳 + Rust aioncore + ACP 多引擎（默认 claude-agent-sdk）</div>
+        <div class="arch-box"><b>Copilot Dock 机制</b>copilotContext + suggestPrompts + page-tools MCP：页面动作可被 Agent 调用——「深度融合」的现成通路</div>
+        <div class="arch-box"><b>模型网关</b>盈米 LiteLLM（qwen / deepseek / glm 等多模型 × 六档推理）</div>
+        <div class="arch-box"><b>治理</b>FinSafe 文件沙箱 · 工具策略 · 技能市场租户下发 · AGENT.md 数字员工容器</div>
+      </div>
+    </div>
+  </div>
+  <p class="foot-src">虚线框 = 旧系统没有、需要新建的对象。能力数字来源：SCRM skill 工具目录、vesta-mcp 网关盘点 v1.0、OAP 官网技能接口、YingmiWork 本机底座盘点（2026-09-09）。</p>
+
+  <h3>2.1 七大模块 × AI 能力层 <span class="tag">规划文档的框架，在同舟中的落位</span></h3>
+  <div class="tablewrap"><table>
+    <tr><th>模块</th><th>一句话定位</th><th>同舟落位</th><th>AI 嵌入点（六类：提醒/摘要/生成/推荐/质检/分析）</th></tr>
+    <tr><td><b>客户管理</b></td><td>看客户、找客户、理解客户的底座</td><td>客户列表三视图 + 客群标签 + 客户 360 十区块</td><td>客户摘要 · 洞察（潜在需求/流失风险）· 行为解读 · 下一步建议 · 会前准备</td></tr>
+    <tr><td><b>名单管理</b></td><td>线索进入客户池的轻量入口</td><td>我的名单 / 线索 / 活码，查重 + 转客户 + 回收</td><td>转化建议 · 查重识别</td></tr>
+    <tr><td><b>重点场景</b></td><td>每日优先级引擎</td><td>首页今日队列（四档：必须介入/建议知悉/AI 已处理/无需动作）+ 事件中心八场景 + 预约日历</td><td>事件识别 · 优先级排序 · 处理建议 · 话术建议 · 结果归因</td></tr>
+    <tr><td><b>服务流程</b></td><td>标准化服务主线</td><td>流程看板七列 + 节点工作台（硬门/软门/留痕/AI 可代办）+ 执行看板 + 质量评估</td><td>KYC 辅助（陪测实时算分）· 会议纪要（Debrief 链）· 方案辅助 · 节点提醒 · 质量检查</td></tr>
+    <tr><td><b>产品投研</b></td><td>专业服务的弹药库</td><td>产品库 / 产品分析 / 组合分析 / 投研观点 / 适配规则 / 陪伴素材 / 话术库（含审核态）</td><td>产品摘要 · 材料推荐 · 观点提炼 · 产品问答 · 异议处理</td></tr>
+    <tr><td><b>能力提升</b></td><td>顾问成长闭环</td><td>能力画像（五维雷达，由质量评估派生）+ 培训 / 案例 / 陪练</td><td>能力诊断 · 案例推荐 · 陪练模拟 · 复盘助手</td></tr>
+    <tr><td><b>数据看板</b></td><td>个人经营仪表盘</td><td>九 Tab（客户/服务/经营/产品/质量/活动量/业务 KPI/薪资提奖/客户投资）+ 审计</td><td>数据解读 · 异常提示 · 行动建议 · 周报辅助 · 目标差距</td></tr>
+  </table></div>
+  <div class="note"><b>AI 不是第八个模块。</b>横向能力层通过四个统一入面进入每个模块：数字旁 ⓘ「解释这个」、区块标题 ✦ 菜单、行尾建议 chip、清单项「AI 可代办」——加上随时可唤起的知微助理框与对话优先外壳。</div>
+</div></section>
+
+<!-- ======================= 03 用户路径 ======================= -->
+<section class="ch" id="journey"><div class="wrap">
+  <div class="ch-head"><span class="ch-num">第三章</span><h2>用户路径</h2></div>
+  <p class="ch-thesis">三条主路径：顾问的一天（时间维）、客户的服务旅程（SOP 维）、两种工作模式（习惯维）。规划文档的作业路径「首页待办 → 重点客户 → 客户详情 → 洞察账户 → 流程节点 → 调用工具 → 记录结果 → 留痕提醒」在此展开为可演示的具体动线。</p>
+
+  <h3>3.1 顾问的一天 <span class="tag">Persona：陈博 · VIP 顾问 · 名下 48 位客户 · 演示主线客户周敏</span></h3>
+  <div class="tl">
+    <div class="tl-item"><div class="tl-time">08:00 晨检</div><h4>今日队列开门见山</h4>
+      <p>「48 位 VIP 中 6 位今天需要你出面，我过滤了普通波动。」四档队列：必须介入 3（私募未付款 T+3、大额赎回 + 扣款失败、风测过期硬门触发）、建议知悉 2、AI 已处理 1、无需动作 42 折叠。每行给出为什么找我、有效期与主行动。早报草稿进收件箱，Approve 后才可外发。</p>
+      <div class="sys">屏幕：今日作业 · 收件箱 ｜ 事件源：AI Insight 晨跑 + TWS 事件 + 沟通窗口到期</div></div>
+    <div class="tl-item"><div class="tl-time">09:30 会前</div><h4>一键会前 brief</h4>
+      <p>10:30 要见周敏。知微生成 tearsheet：计划完整度、三轴风险落点（个人 48 / 持仓 51 ∈ [40,59]）、近 31 天沟通摘要、上次承诺（「解释守望者是否持续管理」）、缺失 KYC 字段。追问预案话术每条带来源。</p>
+      <div class="sys">屏幕：客户 360 · 工件面板 ｜ 硬门检查：风测有效期</div></div>
+    <div class="tl-item"><div class="tl-time">10:30 面谈</div><h4>协作试算 + 侧问不打断</h4>
+      <p>客户想把定投从 1,000 提到 3,000。顾问拖动定投滑块，知微实时解释影响（稳钱缺口 1.2→0.4 万、持仓分 51→53 仍在舒适区、教育金达成 68%→81%）；确认后写回 plan v8。顾问顺手 /btw 问「019305 管理费多少」——侧窗答，不写主线程。</p>
+      <div class="sys">屏幕：客户 360 · KYC 陪测（17 题实时算分 · 不落库）</div></div>
+    <div class="tl-item"><div class="tl-time">13:30 规划</div><h4>V5 报告全流程</h4>
+      <p>「给周敏出家庭财务规划报告。」状态机推进：取数（工具瀑布 4 步）→ 复核关（可疑数值人工裁决）→ 润色 → 装配。顾问框选段落留评 → v1/v2 并排 diff → 合规自审（标出禁用词与缺口径的段落）→ 确认（L3 审批卡）→ 发布进收件箱，从不自动外发。</p>
+      <div class="sys">屏幕：报告中心 / 线程 + 工件面板 ｜ 硬门：合规自审 + 顾问确认</div></div>
+    <div class="tl-item"><div class="tl-time">14:38 执行</div><h4>执行看板 = 唯一事实源</h4>
+      <p>长赢发车。逐客户逐账户状态机（排队/提交中/受理/成功/部分/失败），文案只述已发生事实；客户手动跟车被幂等锁拦截并给原因与锁持有者。想做再平衡？知微只出 L4 计划卡——有「发给客户确认」，没有下单键。</p>
+      <div class="sys">屏幕：执行看板 ｜ 护栏：建议≠订单 · 授权依据列 · 适当性前置</div></div>
+    <div class="tl-item"><div class="tl-time">16:30 复盘</div><h4>Debrief 链 + 记忆增量</h4>
+      <p>面谈纪要生成：摘要 → 行动项 → 草拟企微消息（顾问手记与 AI 补写分色），顾问改一句后自己发送 → 写回沟通记录。识别出 MEMORY DELTA「年底想换 30 万的车」，待顾问确认才入客户记忆；下一次触发（10-01 复盘）自动登记。</p>
+      <div class="sys">屏幕：客户 360 · 历程双轨时间线 ｜ 护栏：记忆有边界 · 对话变承诺</div></div>
+    <div class="tl-item"><div class="tl-time">17:30 日终</div><h4>看板 + 一句话变监控</h4>
+      <p>个人看板看北极星与漏斗，每个比率带分子/分母/窗口。顾问说「大跌时先告诉我哪些客户需要安抚」→ 五要素规则卡（何时运行/读什么/给什么/记什么/谁复核）→ 试跑 → 存为监控，产物永远先进收件箱。</p>
+      <div class="sys">屏幕：数据看板 · 自定义-自动化</div></div>
+  </div>
+
+  <h3>3.2 客户服务旅程 <span class="tag">标准 SOP 七阶段 · 五处硬门 · 其余软门留痕可越</span></h3>
+  <div class="sopchain">
+    <div class="sop-step"><div class="sop-box"><b>① 承接</b><div class="g">硬门：绑定确认</div><div class="s">身份/绑定/人群状态判定 · tearsheet · 出口 = 任务类型写入 plan</div></div></div>
+    <div class="sop-step"><div class="sop-box"><b>② KYC</b><div class="g">硬门：风测有效</div><div class="s">三轴风险不换算 · 目标/四笔钱/保障 · 陪测实时算分不落库</div></div></div>
+    <div class="sop-step"><div class="sop-box"><b>③ 诊断</b><div class="s">四维结论（风险匹配/多元配置/回测/相关性）· 持仓分 vs 舒适区 · 行为与交易交叉核对 · 每个数字带口径</div></div></div>
+    <div class="sop-step"><div class="sop-box"><b>④ 规划</b><div class="g">硬门：自审+顾问确认</div><div class="s">plan 版本 +1 · 复核关裁决 · 建议对象带出处/替代/有效期</div></div></div>
+    <div class="sop-step"><div class="sop-box"><b>⑤ 讲解</b><div class="g">硬门：客户确认意向</div><div class="s">客户版材料包 · 异议记录 · clientDecision 喂出口门</div></div></div>
+    <div class="sop-step"><div class="sop-box"><b>⑥ 执行</b><div class="g">硬门：适当性 C×R + 客户再确认</div><div class="s">状态机唯一事实源 · 幂等锁 · 异常必有任务（私募另有合投认证硬门）</div></div></div>
+    <div class="sop-step"><div class="sop-box"><b>⑦ 复盘</b><div class="s">归因带口径 · Debrief 写回 · 记忆增量确认 · 登记下一次触发 → 回到今日队列</div></div></div>
+  </div>
+  <p>每个节点有清单、留痕（说一句就是留痕）、五维质量分（完整性/及时性/专业性/合规性/有效性）与 SLA。看板横向看 48 位客户的分布与逾期；节点工作台纵向做单客户当前阶段的事，工具（电话/企微/会议/话术/材料/诊断/规划）嵌在节点里。允许回退与并行子任务；软门缺口须填理由、扣完整性分。</p>
+
+  <h3>3.3 两种工作模式 <span class="tag">同一状态 · ⌘⇧M 互切 · 锁定层四件事永不消失</span></h3>
+  <div class="duo">
+    <div class="card"><b class="t">界面优先（默认）· 我自己看</b>
+      <ol><li>今日作业队列 → 点行进客户 360</li><li>数字旁 ⓘ 要解释、区块 ✦ 要动作，副驾 Dock 随屏换数据段与建议</li><li>节点工作台勾清单、跑「AI 可代办」（跑完待确认，不直接写留痕）</li><li>报告中心走状态机；一切对客发送落收件箱</li></ol></div>
+    <div class="card"><b class="t">对话优先 · 替我干活</b>
+      <ol><li>线程栏：今日（锁定）/ 客户线程 / 自动化运行</li><li>大 composer：@客户 钉上下文 · /报告 /话术 /运行 斜杠命令 · /btw 侧问不污染主线程 · 自治度拨档（只查/拟稿需确认/先出计划/代办低风险）</li><li>回答是 15 类结构化卡：客户卡可展开、报告卡可预览进工件面板、审批卡当场决</li><li>「⤢ 在界面里展开」随时跳回控制台对应屏</li></ol></div>
+  </div>
+  <p>锁定层（今日待办、异常预警、计划状态、合规提醒）在两种模式下都固定存在；模式偏好按顾问记忆。这是「侧重对话 / 侧重界面可选」的产品化答案——不是一个界面加聊天框，而是两副外壳共享一份真相。</p>
+</div></section>
+
+<!-- ======================= 04 路线图 ======================= -->
+<section class="ch" id="roadmap"><div class="wrap">
+  <div class="ch-head"><span class="ch-num">第四章</span><h2>产品路线图</h2></div>
+  <p class="ch-thesis">四个阶段各三个月上下：先用真数据把「今日队列 + 客户 360 + 收件箱」跑给一小队顾问，再铺满 SOP 与报告闭环，最后开放主动服务与团队复制。每阶段有明确出口标准，不以功能上线数论成败。</p>
+
+  <div class="roadmap">
+    <div class="rm-col done"><header><span class="ph">M0 · 已完成</span><b>设计与可演示原型</b><span class="when">2026-09</span></header>
+      <ul>
+        <li>旧系统 64 项能力盘点 + 能力与需求地图</li>
+        <li>设计规格（65 节）+ 并行构建契约</li>
+        <li>单文件交互 DEMO：15 屏 · 双外壳 · 知微 43 规则 · 演示 11 拍</li>
+        <li>两轮 QA：覆盖度最高/高 15/15，3 P0 + 13 P1 修复</li>
+      </ul>
+      <div class="exit"><b>出口</b>：管理层评审通过 · 立项与资源确认</div></div>
+    <div class="rm-col now"><header><span class="ph">M1 · 试点 MVP</span><b>真数据 · 小队试跑</b><span class="when">≈ 3 个月</span></header>
+      <ul>
+        <li>客户 360 接真数：SCRM query*（脱敏口径）+ TWS 客户/资产接口；两套客户主键映射</li>
+        <li>今日队列三源聚合：AI Insight 晨跑结果 + TWS 事件 + 沟通窗口到期</li>
+        <li>自建任务/事件对象与收件箱（旧系统无此 API）</li>
+        <li>知微接模型网关：意图路由 + 答案契约 + 证据链；助理框可用</li>
+        <li>5–10 位 VIP 顾问试点；北极星与漏斗基线埋点</li>
+      </ul>
+      <div class="exit"><b>出口</b>：试点顾问每日打开率 &gt; 80% · 会前准备耗时下降可测 · 零合规事故</div></div>
+    <div class="rm-col"><header><span class="ph">M2 · 标准化</span><b>SOP 与报告闭环</b><span class="when">≈ +3 个月</span></header>
+      <ul>
+        <li>服务流程全量：七阶段看板 / 节点工作台 / 质量评估五维分</li>
+        <li>报告中心接真管线：家庭财务 V5 与持仓报告 kit；发布回流客户时间线（补齐闭环）</li>
+        <li>执行看板接交易状态：与「已执行」事件绑定口径对齐</li>
+        <li>对话优先外壳全量；名单/线索、产品投研适配规则</li>
+        <li>主管视角：团队聚合 / 待我审批 / 分配转移</li>
+      </ul>
+      <div class="exit"><b>出口</b>：SOP 留痕率与规划渗透率进看板 · 报告从生成到送达客户全程可追溯</div></div>
+    <div class="rm-col"><header><span class="ph">M3 · 智能化</span><b>主动服务与复制</b><span class="when">≈ +3 个月</span></header>
+      <ul>
+        <li>监控规则工作室：一句话成五要素卡，与 SCRM AI Insight Agent 分工收敛为一套触发</li>
+        <li>自动化运行以线程呈现，产物必经收件箱；定时任务本机 + 中继</li>
+        <li>能力提升闭环：质检 → 能力画像 → 培训推送 → 陪练</li>
+        <li>团队技能市场：视图/卡片/规则/话术只共享逻辑不共享数据</li>
+        <li>数字员工分发：顾问助手作为可订阅 bundle 下发</li>
+      </ul>
+      <div class="exit"><b>出口</b>：北极星「有效计划资产覆盖率」相对基线可归因提升 · 复制到第二顾问团队</div></div>
+  </div>
+
+  <h3>4.1 关键依赖与风险</h3>
+  <div class="tablewrap"><table>
+    <tr><th style="width:220px">依赖 / 风险</th><th>现状</th><th>对策</th></tr>
+    <tr><td><b>任务/事件对象无上游 API</b></td><td>SCRM 相关场景为预留位；TWS 无任务系统</td><td>M1 在底座本地库自建，同时映射 AI Insight 结果与 TWS 消息为事件源；后续再谈平台化</td></tr>
+    <tr><td><b>报告回流客户时间线</b></td><td>报告 Skill「工作台直接生成 + 文档中心」标注为规划中</td><td>M2 与报告 kit 团队共建发布回执与时间线挂载协议</td></tr>
+    <tr><td><b>两套客户主键</b></td><td>交易账户 vs 企微好友，AI 小顾需手工匹配</td><td>M1 建映射表并暴露「未映射」状态，禁止静默错配</td></tr>
+    <tr><td><b>内网口径服务</b></td><td>舒适区/组合分等接口仅内网可达</td><td>公网演示烘焙快照并打离线徽标；生产走内网直连</td></tr>
+    <tr><td><b>底座成熟度</b></td><td>YingmiWork 0.0.5：盈米 MCP 未预配、渲染缺陷待回归、接口仅 dev 环境</td><td>M1 与底座团队排期联调；工作台功能不依赖其未验收特性</td></tr>
+    <tr><td><b>三套 MCP 网关</b></td><td>stargate / vesta / 基础设施网关并存</td><td>知微统一经一个受控能力面调用，网关整合另立项</td></tr>
+    <tr><td><b>多顾问协作授权</b></td><td>主管/协作顾问读沟通数据的授权模型未定</td><td>M2 前与合规定稿；DEMO 先以「当前顾问视角」标注</td></tr>
+  </table></div>
+
+  <h3>4.2 度量体系 <span class="tag">北极星改看计划推进，不看功能上线数</span></h3>
+  <div class="grid g4">
+    <div class="stat"><div class="v">北极星</div><div class="l">有效计划资产覆盖率：有生效 plan 且 90 日内有服务留痕的客户资产 ÷ 在管资产</div></div>
+    <div class="stat"><div class="v">漏斗</div><div class="l">识别 → 补信息 → 方案生成 → 客户接受 → 签约执行 → 30/90 日持续服务</div></div>
+    <div class="stat"><div class="v">过程</div><div class="l">SOP 完成率 · 留痕率 · 待办完成率 · 规划/财务规划渗透率 · 复盘覆盖率</div></div>
+    <div class="stat"><div class="v">护栏</div><div class="l">提醒关闭率 · 解释查看率 · 人工复核率 · 评审驳回率 · AI 建议采纳率 · 顾问节省时长</div></div>
+  </div>
+  <p style="margin-top:12px" class="foot-src">所有比率在看板中带分子 / 分母 / 时间窗口展示；护栏指标恶化视同事故复盘，不作考核排名。</p>
+</div></section>
+
+<!-- ======================= 05 PRD ======================= -->
+<section class="ch" id="prd"><div class="wrap">
+  <div class="ch-head"><span class="ch-num">第五章</span><h2>产品需求文档（PRD）</h2></div>
+  <p class="ch-thesis">范围为顾问端工作台（含主管视角），管理后台与 C 端不在本期。优先级沿用需求清单口径：P0 = 清单「最高」，P1 = 清单「高」与闭环必需，P2 = 增益。以下每条在 DEMO 中均有可点的对应物。</p>
+
+  <h3>5.1 角色与场景</h3>
+  <div class="tablewrap"><table>
+    <tr><th style="width:140px">角色</th><th>核心诉求</th><th>关键场景</th></tr>
+    <tr><td><b>VIP 顾问</b></td><td>少跳转、少手工、少遗漏；按 SOP 推进并留痕；随手可问可查</td><td>晨检 / 会前 / 面谈试算 / 出报告 / 盯执行 / 复盘 / 日终看板</td></tr>
+    <tr><td><b>投顾团队主管</b></td><td>横向看团队流程与质量；审批转移与外发；不越权读沟通明细</td><td>团队看板聚合 · 待我审批 · 分配与转移（只读表）</td></tr>
+    <tr><td><b>合规/质检（查看）</b></td><td>抽查建议出处与外发记录</td><td>审计轨 · 质量评估 · 话术/素材审核态</td></tr>
+  </table></div>
+
+  <h3>5.2 功能需求 <span class="tag">按七大模块；「状态」= 交互 DEMO 中的实现程度</span></h3>
+  <div class="tablewrap"><table>
+    <tr><th>#</th><th style="width:110px">模块</th><th>需求</th><th style="width:52px">优先级</th><th style="width:70px">DEMO</th></tr>
+    <tr><td class="mono">F1</td><td rowspan="4">客户管理</td><td><b>客户 360</b>：十区块（概览/历程/KYC 与风险/账户与持仓/行为/事件提醒/沟通记录/规划报告/洞察/服务流程）。头部常驻三轴风险 + 计划状态 + 主行动；资产默认分档遮挡，👁 解锁写审计。</td><td><span class="pill p0">P0</span></td><td><span class="pill ok">已演示</span></td></tr>
+    <tr><td class="mono">F2</td><td><b>账户视图</b>：持仓/收益/资金进出/配置结构；进行中订单不计入持仓；行为轨与交易轨分列，冲突高亮（浏览≠成交）。</td><td><span class="pill p0">P0</span></td><td><span class="pill ok">已演示</span></td></tr>
+    <tr><td class="mono">F3</td><td><b>服务状态</b>：当前 SOP 阶段 + 节点留痕内嵌 360；列表/看板处处可见阶段徽标。</td><td><span class="pill p0">P0</span></td><td><span class="pill ok">已演示</span></td></tr>
+    <tr><td class="mono">F4</td><td>客户列表三视图 / 筛选 / 客群标签 / 批量（打标 · 去标 · 转任务 · 导出须审批带水印）；AI 层：客户摘要 / 洞察 / 行为解读 / 下一步建议 / 会前准备。</td><td><span class="pill p1">P1</span></td><td><span class="pill ok">已演示</span></td></tr>
+    <tr><td class="mono">F5</td><td>名单管理</td><td>名单/线索/活码；查重识别 → 转客户池 → 回收申请；只管「进来」，跟进归客户管理与今日队列。</td><td><span class="pill p2">P2</span></td><td><span class="pill ok">已演示</span></td></tr>
+    <tr><td class="mono">F6</td><td rowspan="2">重点场景</td><td><b>今日作业队列</b>：四档优先级（必须介入/建议知悉/AI 已处理/无需动作折叠）；每行五字段（客户/事件/为什么找我/有效期/主行动）；「今天无需动作」是合法输出。</td><td><span class="pill p0">P0</span></td><td><span class="pill ok">已演示</span></td></tr>
+    <tr><td class="mono">F7</td><td>事件中心八场景（资金异动/交易卡点/主动咨询/服务异常/产品机会/关系维护/合规风险/管理专项）+ 预约日历 + 逾期提醒 + 快速触达；合规与必须介入类事件的静音/降频升为 L3 并写审计。</td><td><span class="pill p1">P1</span></td><td><span class="pill ok">已演示</span></td></tr>
+    <tr><td class="mono">F8</td><td rowspan="4">服务流程</td><td><b>流程看板</b>：七阶段 × 48 客户，逾期/未留痕/停滞醒目；列头批量视图与服务包。</td><td><span class="pill p0">P0</span></td><td><span class="pill ok">已演示</span></td></tr>
+    <tr><td class="mono">F9</td><td><b>节点工作台</b>：清单（硬门/锁定/自加）+ 留痕 + AI 可代办（跑完待确认，不直接写）+ 出口门（硬门阻断、软门留痕接受缺口）+ 回退与子任务。</td><td><span class="pill p0">P0</span></td><td><span class="pill ok">已演示</span></td></tr>
+    <tr><td class="mono">F10</td><td><b>执行看板</b>：逐客户逐账户状态机为唯一事实源；文案只述已发生事实；幂等锁与授权依据可见；异常自动升级事件。</td><td><span class="pill p1">P1</span></td><td><span class="pill ok">已演示</span></td></tr>
+    <tr><td class="mono">F11</td><td><b>质量评估</b>：阶段 × 五维（完整/及时/专业/合规/有效）热力表 + 低分明细 + 改进事项，与节点分同源；喂给能力画像。</td><td><span class="pill p1">P1</span></td><td><span class="pill ok">已演示</span></td></tr>
+    <tr><td class="mono">F12</td><td rowspan="2">规划报告</td><td><b>报告中心</b>：六模板（家庭财务 V5/持仓分析/账户诊断/投资规划/定期回顾/组合周报）；状态机 取数→复核关→润色→装配→确认→发布；复核关人工裁决可疑值；v1/v2 段落 diff；合规自审（禁用词 + 缺口径标红）。</td><td><span class="pill p0">P0</span></td><td><span class="pill ok">已演示</span></td></tr>
+    <tr><td class="mono">F13</td><td><b>发布闭环</b>：发布 = 显式动作 → 收件箱审批 → 企微送达回执 → 挂回客户时间线；导出带水印，正式版与「草稿·未经确认」水印区分。</td><td><span class="pill p0">P0</span></td><td><span class="pill acc">演示级</span></td></tr>
+    <tr><td class="mono">F14</td><td>产品投研</td><td>产品库/产品分析/组合分析/投研观点/适配规则（客户三轴 × 产品 R 档 → Y/双确认/禁止）/陪伴素材/话术库（企业+个人，三态审核）/我的知识库；私募内容前置合投认证检查。</td><td><span class="pill p1">P1</span></td><td><span class="pill ok">已演示</span></td></tr>
+    <tr><td class="mono">F15</td><td>能力提升</td><td>能力画像五维雷达（由质量评估派生）+ 培训任务 + 案例复盘 + 陪练；AI 层：能力诊断/案例推荐/陪练模拟/复盘助手。</td><td><span class="pill p2">P2</span></td><td><span class="pill ok">已演示</span></td></tr>
+    <tr><td class="mono">F16</td><td>数据看板</td><td>九 Tab：客户/服务（SOP 完成率、留痕率、渗透率）/经营/产品/质量/活动量/业务 KPI（个人/小组/团队）/薪资提奖明细/客户投资数据 + 审计 Tab；每个比率带分子分母窗口；AI 解读五件套。</td><td><span class="pill p1">P1</span></td><td><span class="pill ok">已演示</span></td></tr>
+    <tr><td class="mono">F17</td><td rowspan="3">副驾知微</td><td><b>助理框</b>：搜索 + 咨询 + 行动合一；@客户 钉上下文、斜杠命令、/btw 侧问（≤120 字带来源与日期，不写主线程）；意图目录 ≥25 类；答案契约强制。</td><td><span class="pill p0">P0</span></td><td><span class="pill ok">已演示</span></td></tr>
+    <tr><td class="mono">F18</td><td><b>响应卡体系</b>：15 类结构化卡（答案/客户/清单/对比/报告/话术/任务/审批/节点/工具瀑布…）；每张 AI 卡带来源徽标、data_as_of、查看依据（口径/规则版本/判断链/替代/有效期）与「高亮引用」。</td><td><span class="pill p0">P0</span></td><td><span class="pill ok">已演示</span></td></tr>
+    <tr><td class="mono">F19</td><td><b>双外壳与自治度</b>：界面优先 ↔ 对话优先一键互切保上下文；自治度四档（只查/拟稿需确认/先出计划/代办低风险）只影响生成节奏，对客产物一律进收件箱。</td><td><span class="pill p0">P0</span></td><td><span class="pill ok">已演示</span></td></tr>
+    <tr><td class="mono">F20</td><td>自定义</td><td>我的视图/我的卡片/SOP 附加项/我的话术/监控规则（五要素 + 试跑）/技能草稿；只能加不能减标准；团队共享只共享逻辑不共享数据。</td><td><span class="pill p1">P1</span></td><td><span class="pill ok">已演示</span></td></tr>
+    <tr><td class="mono">F21</td><td>主管视角</td><td>团队聚合看板 · 待我审批 · 客户分配与转移；主管代批带徽标；沟通明细按授权模型（M2 前与合规定稿）。</td><td><span class="pill p1">P1</span></td><td><span class="pill acc">演示级</span></td></tr>
+    <tr><td class="mono">F22</td><td>旧功能迁移</td><td>设置内「旧功能在哪」64 项矩阵（承接/升级/后台/放弃四色，每项给去处或理由）；作为迁移期顾问自助答疑与培训底稿。</td><td><span class="pill p1">P1</span></td><td><span class="pill ok">已演示</span></td></tr>
+  </table></div>
+
+  <h3>5.3 数据与对象模型 <span class="tag">主键与来源；详细字段见设计规格 §6</span></h3>
+  <div class="tablewrap"><table>
+    <tr><th style="width:110px">对象</th><th>关键字段</th><th>权威来源</th></tr>
+    <tr><td><b>客户</b></td><td>brokerUserId（主键）· 企微 external_userid（映射表）· 分层/标签 · maskBand 资产分档 · 人群状态</td><td>SCRM queryUserInfo + TWS 客户接口；建仓日只信画像</td></tr>
+    <tr><td><b>plan</b></td><td>版本号 · 目标[] · 四笔钱 · 风险三轴 · 建议[]（recommendation_id）· 执行进度 · 复盘</td><td>同舟自有；报告 = plan 版本快照</td></tr>
+    <tr><td><b>任务/事件</b></td><td>类型（八场景）· 优先级 · 为什么找我 · 有效期 · 处置（含静音留痕）· 来源系统</td><td>同舟自建；源 = AI Insight 结果 + TWS 消息 + 日历</td></tr>
+    <tr><td><b>报告</b></td><td>模板 · 状态机 · 复核项[] · 段落 v1/v2 · 评论[] · 自审结果 · 发布回执</td><td>报告 kit 管线 + 同舟状态机</td></tr>
+    <tr><td><b>沟通</b></td><td>企微(≤31d)/外呼/会议 · 摘要 · 承诺/疑问/未决 · Debrief · 当前顾问视角标注</td><td>SCRM query 三件套；窗口口径随源</td></tr>
+    <tr><td><b>审计</b></td><td>traceId · 动作 · 等级 L1–L4 · 控制点 · 审批人 · 时间</td><td>同舟总线中间件，不可关闭</td></tr>
+  </table></div>
+  <p>硬口径（违者视为缺陷）：三轴风险不可换算；成交只信交易接口，行为埋点只写行为；进行中订单不写成持仓；金额一律以元存储、展示层折万；每个数字必须携带口径与数据日期，缺失渲染「unavailable + 原因 + 替代口径」。</p>
+
+  <h3>5.4 合规与护栏需求 <span class="tag">24 条全集见能力地图 §8；以下为验收级摘录</span></h3>
+  <ul>
+    <li><b>建议≠代客下单</b>：高风险动作只产生计划卡与「发给客户确认」，界面不存在下单键；执行前适当性 C×R 校验 + 客户再确认不可关闭。</li>
+    <li><b>对客输出必经收件箱</b>：报告发布、企微消息、批量触达、自动化产物，任何自治档一律异步审批；已批准信封原 traceId 重派，一次动作只有一条审计链。</li>
+    <li><b>文案只述已发生事实</b>：状态徽标按状态机映射，非终态禁「已完成/已成功」；禁用词校验进合规自审。</li>
+    <li><b>PII 与遮挡域</b>：列表与看板只显示资产分档；精确金额限 360 内解锁且写审计；手机号/证件号打码；导出审批 + 全局隐形水印。</li>
+    <li><b>证据与追溯</b>：AI 结论四态徽标；查看依据六字段；审查 Agent 与生成 Agent 分离；审计留痕十年口径。</li>
+  </ul>
+
+  <h3>5.5 非功能需求</h3>
+  <ul>
+    <li><b>性能</b>：常用屏切换 &lt; 300ms（DEMO 实测即时）；今日队列首屏 &lt; 2s（真数场景，允许骨架屏）。</li>
+    <li><b>可用性</b>：桌面 ≥1280 优先；浅/深双主题；键盘 ⌘K 全局检索、⌘⇧M 切模式（备选 ⌘⇧U）；无横向滚动。</li>
+    <li><b>可靠性</b>：执行类动作服务端幂等；状态陈旧时关闭强动作并显示「更新中」。</li>
+    <li><b>数据边界</b>：客户数据不出内网，不进公有 SaaS；演示环境全 mock 并明示。</li>
+  </ul>
+
+  <h3>5.6 验收标准 <span class="tag">节选自设计规格 §8.3 硬性验收项</span></h3>
+  <ul>
+    <li>需求清单全部「最高/高」功能可点可用；64 项旧能力矩阵每行可跳转或给出理由。</li>
+    <li>双外壳互切 10 次，客户/阶段/筛选/工件/待审批零丢失。</li>
+    <li>任一 AI 卡随机抽查：来源、口径、data_as_of、查看依据齐全。</li>
+    <li>报告从生成到发布走完全状态机，其间无任何静默外发；审计轨恰好一条 traceId 链。</li>
+    <li>执行看板重复提交被拦截并给出锁持有者与截止时间。</li>
+  </ul>
+
+  <h3>5.7 开放问题 <span class="tag">留给立项后决策</span></h3>
+  <ol>
+    <li>「今日需介入」排序权重（异常严重度 × 客户价值 × 距上次联系）需用真实数据回测标定。</li>
+    <li>自治度四档的对外业务命名由合规定义；新顾问默认档位需用户研究。</li>
+    <li>任务/事件对象长期归属：同舟本地库 vs 平台级服务。</li>
+    <li>定制方案初稿由 AI 生成、人工出具还是模板化（与投顾产品线对齐）。</li>
+    <li>多顾问协作与主管读权限的授权模型；客户在小顾侧记忆对顾问的可读写范围。</li>
+    <li>「已执行」绑定哪个真实交易事件；跨 15:00 的交易日承诺表述。</li>
+    <li>顾问监控卡与 SCRM AI Insight Agent 的触发规则如何归一，避免两套告警。</li>
+  </ol>
+</div></section>
+
+<footer class="page"><div class="wrap">
+  同舟 · 产品蓝图 v1.0 · 2026-09-11 ｜ 依据：VIP 顾问工作台产品规划文档（26.5.12）、需求清单（26.5.13）、旧系统 64 项能力盘点、能力与需求地图、设计规格 v1.1 与交互 DEMO 两轮 QA ｜ 客户与数字均为演示用虚构数据 ｜ 配套：<a href="https://claude.ai/code/artifact/840a6860-4550-4c01-8b12-4124c00b916e" target="_blank" rel="noopener">交互 DEMO</a>
+</div></footer>
+</body></html>

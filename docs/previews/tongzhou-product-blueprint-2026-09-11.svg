@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img">
+  <title>同舟产品蓝图</title>
+  <rect width="1200" height="675" rx="28" fill="#F6F8FB"/>
+  <rect x="0" y="0" width="1200" height="128" rx="28" fill="#E5F2FF"/>
+  <rect x="0" y="100" width="1200" height="28" fill="#F6F8FB"/>
+  <text x="72" y="82" font-family="Songti SC, Noto Serif SC, serif" font-size="46" font-weight="900" fill="#0B5192">同舟 · 产品蓝图</text>
+  <text x="72" y="182" font-family="PingFang SC, sans-serif" font-size="26" fill="#3A4656">VIP 顾问工作台 · 项目总览 / 框架 / 用户路径 / 路线图 / PRD</text>
+  <g font-family="PingFang SC, sans-serif" font-size="22" fill="#0F72CD">
+    <rect x="72" y="228" width="200" height="150" rx="14" fill="#FFFFFF" stroke="#D9E1EC"/>
+    <text x="96" y="272" font-weight="700">01 总览</text>
+    <text x="96" y="308" fill="#6B7787" font-size="17">六问题·三缺口</text>
+    <text x="96" y="338" fill="#6B7787" font-size="17">五条设计立场</text>
+    <rect x="292" y="228" width="200" height="150" rx="14" fill="#FFFFFF" stroke="#D9E1EC"/>
+    <text x="316" y="272" font-weight="700">02 框架</text>
+    <text x="316" y="308" fill="#6B7787" font-size="17">双外壳·知微</text>
+    <text x="316" y="338" fill="#6B7787" font-size="17">五层架构图</text>
+    <rect x="512" y="228" width="200" height="150" rx="14" fill="#FFFFFF" stroke="#D9E1EC"/>
+    <text x="536" y="272" font-weight="700">03 路径</text>
+    <text x="536" y="308" fill="#6B7787" font-size="17">顾问的一天</text>
+    <text x="536" y="338" fill="#6B7787" font-size="17">SOP 七阶段</text>
+    <rect x="732" y="228" width="200" height="150" rx="14" fill="#FFFFFF" stroke="#D9E1EC"/>
+    <text x="756" y="272" font-weight="700">04 路线图</text>
+    <text x="756" y="308" fill="#6B7787" font-size="17">M0–M3 四阶段</text>
+    <text x="756" y="338" fill="#6B7787" font-size="17">依赖与北极星</text>
+    <rect x="952" y="228" width="176" height="150" rx="14" fill="#1B88EE"/>
+    <text x="976" y="272" font-weight="700" fill="#FFFFFF">05 PRD</text>
+    <text x="976" y="308" fill="#DCEEFF" font-size="17">F1–F22 需求</text>
+    <text x="976" y="338" fill="#DCEEFF" font-size="17">护栏与验收</text>
+  </g>
+  <g font-family="PingFang SC, sans-serif" font-size="19" fill="#6B7787">
+    <text x="72" y="452">一份状态，两副外壳：界面优先控制台 ↔ 对话优先线程 · 副驾「知微」只对顾问说话</text>
+    <text x="72" y="492">今日是队列，SOP 是门 · 每个数字带口径 · 每条建议可追溯 · 对客输出必经收件箱</text>
+  </g>
+  <rect x="72" y="540" width="1056" height="2" fill="#D9E1EC"/>
+  <text x="72" y="600" font-family="PingFang SC, sans-serif" font-size="20" fill="#0F72CD">配套交互 Demo：同舟双外壳工作台 · 2026-09-11</text>
+</svg>
