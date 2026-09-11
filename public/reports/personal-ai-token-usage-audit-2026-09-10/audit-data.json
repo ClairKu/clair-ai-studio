@@ -1,171 +1,678 @@
 {
-  "generatedAt": "2026-09-10T09:55:11.709Z",
+  "generatedAt": "2026-09-11T02:19:57.778Z",
   "period": {
     "start": "2026-08-10 00:00:00 +08:00",
-    "end": "2026/09/10 17:55:11",
+    "end": "2026-09-10 17:55:11 +08:00",
     "timezone": "Asia/Shanghai"
   },
   "definitions": {
-    "processedTokens": "输入上下文（含缓存命中）+ 输出；不同平台按其本机日志字段归一",
-    "effectiveTokens": "非缓存新增输入 + 输出；用于观察真正新增处理量，不代表账单金额",
-    "cursor": "本机数据库 tokenCount 字段均为 0，Cursor 不计入跨平台总量"
+    "processedTokens": "非缓存输入 + 缓存写入 + 缓存读取 + 输出；对于日志把缓存包含在 input 中的平台先拆分后归一",
+    "effectiveTokens": "非缓存输入（含缓存写入）+ 输出；用于观察新增处理量，不等于费用或任务价值",
+    "reasoningTokens": "output 的子集，不重复加总"
   },
   "summary": {
-    "exactSubtotalExcludingCursor": 2868195211,
-    "effectiveSubtotal": 121241171,
-    "processedInput": 2855958408,
-    "cachedInput": 2746954040,
-    "output": 12236803,
-    "cacheRatio": 96.18326486496927
+    "total": 3339091940,
+    "effective": 159549852,
+    "cachedInput": 3179542088,
+    "output": 15790756,
+    "processedInput": 3323301184,
+    "cacheRatio": 0.9567420802266955
   },
   "platforms": {
     "Claude": {
       "total": 1645842990,
-      "effective": 49629111,
+      "share": 0.4929013694663346,
+      "freshInput": 41965413,
       "cachedInput": 1596213879,
       "output": 7663698,
+      "effective": 49629111,
       "events": 7766
     },
     "Codex": {
       "total": 1176190230,
-      "effective": 33256086,
+      "share": 0.3522485307787003,
+      "freshInput": 28901187,
       "cachedInput": 1142934144,
       "output": 4354899,
+      "effective": 33256086,
       "events": 10449
+    },
+    "Cursor": {
+      "total": 470896729,
+      "share": 0.14102538578197998,
+      "freshInput": 34754728,
+      "cachedInput": 432588048,
+      "output": 3553953,
+      "effective": 38308681,
+      "events": null
     },
     "YinmiWork": {
       "total": 37573083,
-      "effective": 37573083,
+      "share": 0.011252485308925036,
+      "freshInput": 37478123,
       "cachedInput": 0,
       "output": 94960,
+      "effective": 37573083,
       "events": 254
     },
     "WorkBuddy": {
       "total": 8588908,
-      "effective": 782891,
+      "share": 0.0025722286640600858,
+      "freshInput": 659645,
       "cachedInput": 7806017,
       "output": 123246,
+      "effective": 782891,
       "events": 105
     }
   },
   "cursor": {
-    "total": null,
-    "modelCalls": 534,
-    "bubbles": 2188,
-    "conversationsCreated": 19,
-    "visibleFinalContextTokens": 1670762,
-    "nonzeroTokenRecords": 0,
-    "localRecordCoverage": [
-      "2026-08-31T02:27:54.673Z",
-      "2026-09-10T09:54:37.082Z"
+    "plan": {
+      "name": "Ultra",
+      "includedAmountCents": 40000,
+      "price": "$200/mo",
+      "billingCycleEnd": "1790071567000"
+    },
+    "billingCycle": {
+      "start": "2026-08-22 18:06:07 +08:00",
+      "end": "2026-09-22 18:06:07 +08:00"
+    },
+    "providerEquivalentCostUsd": 487.3085941500001,
+    "usageCategories": [
+      "included"
+    ],
+    "models": [
+      {
+        "name": "cursor-grok-4.6-high-fast",
+        "fresh": 12521968,
+        "cached": 182676736,
+        "output": 1471543,
+        "total": 196670247,
+        "cost": 192.32564474999998
+      },
+      {
+        "name": "claude-opus-5-thinking-high",
+        "fresh": 4910356,
+        "cached": 90075744,
+        "output": 539067,
+        "total": 95525167,
+        "cost": 85.93984189999999
+      },
+      {
+        "name": "cursor-grok-4.5-high-fast",
+        "fresh": 3979985,
+        "cached": 43798720,
+        "output": 541728,
+        "total": 48320433,
+        "cost": 68.8737175
+      },
+      {
+        "name": "default",
+        "fresh": 7136584,
+        "cached": 24489504,
+        "output": 197585,
+        "total": 31823673,
+        "cost": 28.8154125
+      },
+      {
+        "name": "claude-fable-5-thinking-high",
+        "fresh": 1938232,
+        "cached": 29509348,
+        "output": 200468,
+        "total": 31648048,
+        "cost": 63.759168
+      },
+      {
+        "name": "kimi-k3-max",
+        "fresh": 872986,
+        "cached": 18962400,
+        "output": 190410,
+        "total": 20025796,
+        "cost": 11.163828
+      },
+      {
+        "name": "cursor-grok-4.6-high",
+        "fresh": 1893018,
+        "cached": 15744256,
+        "output": 217120,
+        "total": 17854394,
+        "cost": 12.919065100000001
+      },
+      {
+        "name": "claude-4.5-sonnet",
+        "fresh": 481982,
+        "cached": 12906533,
+        "output": 51513,
+        "total": 13440028,
+        "cost": 6.4505784
+      },
+      {
+        "name": "claude-fable-5-1-thinking-high",
+        "fresh": 404494,
+        "cached": 10291392,
+        "output": 70607,
+        "total": 10766493,
+        "cost": 11.159058
+      },
+      {
+        "name": "cursor-grok-4.6-xhigh-fast",
+        "fresh": 178193,
+        "cached": 2723904,
+        "output": 55445,
+        "total": 2957542,
+        "cost": 4.102016
+      },
+      {
+        "name": "cursor-grok-4.6-medium",
+        "fresh": 385595,
+        "cached": 932096,
+        "output": 14231,
+        "total": 1331922,
+        "cost": 1.3226240000000002
+      },
+      {
+        "name": "gpt-5.6-sol-medium",
+        "fresh": 38668,
+        "cached": 477415,
+        "output": 2152,
+        "total": 518235,
+        "cost": 0.42729799999999996
+      },
+      {
+        "name": "gemini-3.1-pro",
+        "fresh": 12667,
+        "cached": 0,
+        "output": 2084,
+        "total": 14751,
+        "cost": 0.050342000000000005
+      }
     ]
   },
   "workbuddyCredits": 113.9,
   "daily": [
     {
       "day": "2026-08-10",
-      "total": 14145542,
-      "effective": 415983
+      "total": 15430495,
+      "claude": 14145542,
+      "codex": 0,
+      "cursor": 1284953,
+      "yinmiwork": 0,
+      "workbuddy": 0,
+      "claudeCumulative": 14145542,
+      "codexCumulative": 0,
+      "cursorCumulative": 1284953,
+      "yinmiworkCumulative": 0,
+      "workbuddyCumulative": 0
     },
     {
       "day": "2026-08-11",
-      "total": 324391,
-      "effective": 3741
+      "total": 3269336,
+      "claude": 324391,
+      "codex": 0,
+      "cursor": 2944945,
+      "yinmiwork": 0,
+      "workbuddy": 0,
+      "claudeCumulative": 14469933,
+      "codexCumulative": 0,
+      "cursorCumulative": 4229898,
+      "yinmiworkCumulative": 0,
+      "workbuddyCumulative": 0
+    },
+    {
+      "day": "2026-08-12",
+      "total": 35534055,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 35534055,
+      "yinmiwork": 0,
+      "workbuddy": 0,
+      "claudeCumulative": 14469933,
+      "codexCumulative": 0,
+      "cursorCumulative": 39763953,
+      "yinmiworkCumulative": 0,
+      "workbuddyCumulative": 0
+    },
+    {
+      "day": "2026-08-13",
+      "total": 36352584,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 36352584,
+      "yinmiwork": 0,
+      "workbuddy": 0,
+      "claudeCumulative": 14469933,
+      "codexCumulative": 0,
+      "cursorCumulative": 76116537,
+      "yinmiworkCumulative": 0,
+      "workbuddyCumulative": 0
+    },
+    {
+      "day": "2026-08-14",
+      "total": 19058336,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 19058336,
+      "yinmiwork": 0,
+      "workbuddy": 0,
+      "claudeCumulative": 14469933,
+      "codexCumulative": 0,
+      "cursorCumulative": 95174873,
+      "yinmiworkCumulative": 0,
+      "workbuddyCumulative": 0
+    },
+    {
+      "day": "2026-08-15",
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0,
+      "claudeCumulative": 14469933,
+      "codexCumulative": 0,
+      "cursorCumulative": 95174873,
+      "yinmiworkCumulative": 0,
+      "workbuddyCumulative": 0
+    },
+    {
+      "day": "2026-08-16",
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0,
+      "claudeCumulative": 14469933,
+      "codexCumulative": 0,
+      "cursorCumulative": 95174873,
+      "yinmiworkCumulative": 0,
+      "workbuddyCumulative": 0
+    },
+    {
+      "day": "2026-08-17",
+      "total": 22164179,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 22164179,
+      "yinmiwork": 0,
+      "workbuddy": 0,
+      "claudeCumulative": 14469933,
+      "codexCumulative": 0,
+      "cursorCumulative": 117339052,
+      "yinmiworkCumulative": 0,
+      "workbuddyCumulative": 0
     },
     {
       "day": "2026-08-18",
-      "total": 324575775,
-      "effective": 6424999
+      "total": 334965080,
+      "claude": 324575775,
+      "codex": 0,
+      "cursor": 10389305,
+      "yinmiwork": 0,
+      "workbuddy": 0,
+      "claudeCumulative": 339045708,
+      "codexCumulative": 0,
+      "cursorCumulative": 127728357,
+      "yinmiworkCumulative": 0,
+      "workbuddyCumulative": 0
     },
     {
       "day": "2026-08-19",
-      "total": 169535555,
-      "effective": 3869089
+      "total": 170083503,
+      "claude": 169535555,
+      "codex": 0,
+      "cursor": 547948,
+      "yinmiwork": 0,
+      "workbuddy": 0,
+      "claudeCumulative": 508581263,
+      "codexCumulative": 0,
+      "cursorCumulative": 128276305,
+      "yinmiworkCumulative": 0,
+      "workbuddyCumulative": 0
     },
     {
       "day": "2026-08-20",
-      "total": 94695720,
-      "effective": 1828818
+      "total": 128065673,
+      "claude": 24448498,
+      "codex": 70247222,
+      "cursor": 33369953,
+      "yinmiwork": 0,
+      "workbuddy": 0,
+      "claudeCumulative": 533029761,
+      "codexCumulative": 70247222,
+      "cursorCumulative": 161646258,
+      "yinmiworkCumulative": 0,
+      "workbuddyCumulative": 0
+    },
+    {
+      "day": "2026-08-21",
+      "total": 31180391,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 31180391,
+      "yinmiwork": 0,
+      "workbuddy": 0,
+      "claudeCumulative": 533029761,
+      "codexCumulative": 70247222,
+      "cursorCumulative": 192826649,
+      "yinmiworkCumulative": 0,
+      "workbuddyCumulative": 0
+    },
+    {
+      "day": "2026-08-22",
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0,
+      "claudeCumulative": 533029761,
+      "codexCumulative": 70247222,
+      "cursorCumulative": 192826649,
+      "yinmiworkCumulative": 0,
+      "workbuddyCumulative": 0
+    },
+    {
+      "day": "2026-08-23",
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0,
+      "claudeCumulative": 533029761,
+      "codexCumulative": 70247222,
+      "cursorCumulative": 192826649,
+      "yinmiworkCumulative": 0,
+      "workbuddyCumulative": 0
     },
     {
       "day": "2026-08-24",
-      "total": 177866430,
-      "effective": 4530759
+      "total": 183443296,
+      "claude": 129484507,
+      "codex": 48381923,
+      "cursor": 5576866,
+      "yinmiwork": 0,
+      "workbuddy": 0,
+      "claudeCumulative": 662514268,
+      "codexCumulative": 118629145,
+      "cursorCumulative": 198403515,
+      "yinmiworkCumulative": 0,
+      "workbuddyCumulative": 0
     },
     {
       "day": "2026-08-25",
-      "total": 342911329,
-      "effective": 5664404
+      "total": 361238247,
+      "claude": 268382115,
+      "codex": 74529214,
+      "cursor": 18326918,
+      "yinmiwork": 0,
+      "workbuddy": 0,
+      "claudeCumulative": 930896383,
+      "codexCumulative": 193158359,
+      "cursorCumulative": 216730433,
+      "yinmiworkCumulative": 0,
+      "workbuddyCumulative": 0
+    },
+    {
+      "day": "2026-08-26",
+      "total": 12659680,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 12659680,
+      "yinmiwork": 0,
+      "workbuddy": 0,
+      "claudeCumulative": 930896383,
+      "codexCumulative": 193158359,
+      "cursorCumulative": 229390113,
+      "yinmiworkCumulative": 0,
+      "workbuddyCumulative": 0
     },
     {
       "day": "2026-08-27",
-      "total": 96417215,
-      "effective": 2046875
+      "total": 100633921,
+      "claude": 91694203,
+      "codex": 4723012,
+      "cursor": 4216706,
+      "yinmiwork": 0,
+      "workbuddy": 0,
+      "claudeCumulative": 1022590586,
+      "codexCumulative": 197881371,
+      "cursorCumulative": 233606819,
+      "yinmiworkCumulative": 0,
+      "workbuddyCumulative": 0
     },
     {
       "day": "2026-08-28",
       "total": 20839641,
-      "effective": 465586
+      "claude": 20839641,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0,
+      "claudeCumulative": 1043430227,
+      "codexCumulative": 197881371,
+      "cursorCumulative": 233606819,
+      "yinmiworkCumulative": 0,
+      "workbuddyCumulative": 0
+    },
+    {
+      "day": "2026-08-29",
+      "total": 0,
+      "claude": 0,
+      "codex": 0,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0,
+      "claudeCumulative": 1043430227,
+      "codexCumulative": 197881371,
+      "cursorCumulative": 233606819,
+      "yinmiworkCumulative": 0,
+      "workbuddyCumulative": 0
     },
     {
       "day": "2026-08-30",
       "total": 47057318,
-      "effective": 1113254
+      "claude": 0,
+      "codex": 47057318,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0,
+      "claudeCumulative": 1043430227,
+      "codexCumulative": 244938689,
+      "cursorCumulative": 233606819,
+      "yinmiworkCumulative": 0,
+      "workbuddyCumulative": 0
     },
     {
       "day": "2026-08-31",
-      "total": 20165499,
-      "effective": 890763
+      "total": 54096841,
+      "claude": 16923141,
+      "codex": 3242358,
+      "cursor": 33931342,
+      "yinmiwork": 0,
+      "workbuddy": 0,
+      "claudeCumulative": 1060353368,
+      "codexCumulative": 248181047,
+      "cursorCumulative": 267538161,
+      "yinmiworkCumulative": 0,
+      "workbuddyCumulative": 0
     },
     {
       "day": "2026-09-01",
-      "total": 74952895,
-      "effective": 2686224
+      "total": 152527358,
+      "claude": 24396839,
+      "codex": 48134523,
+      "cursor": 77574463,
+      "yinmiwork": 0,
+      "workbuddy": 2421533,
+      "claudeCumulative": 1084750207,
+      "codexCumulative": 296315570,
+      "cursorCumulative": 345112624,
+      "yinmiworkCumulative": 0,
+      "workbuddyCumulative": 2421533
     },
     {
       "day": "2026-09-02",
-      "total": 72779640,
-      "effective": 3088025
+      "total": 92326946,
+      "claude": 19958925,
+      "codex": 52641261,
+      "cursor": 19547306,
+      "yinmiwork": 0,
+      "workbuddy": 179454,
+      "claudeCumulative": 1104709132,
+      "codexCumulative": 348956831,
+      "cursorCumulative": 364659930,
+      "yinmiworkCumulative": 0,
+      "workbuddyCumulative": 2600987
     },
     {
       "day": "2026-09-03",
-      "total": 145032164,
-      "effective": 5492325
+      "total": 148425750,
+      "claude": 34499772,
+      "codex": 110120399,
+      "cursor": 3393586,
+      "yinmiwork": 0,
+      "workbuddy": 411993,
+      "claudeCumulative": 1139208904,
+      "codexCumulative": 459077230,
+      "cursorCumulative": 368053516,
+      "yinmiworkCumulative": 0,
+      "workbuddyCumulative": 3012980
     },
     {
       "day": "2026-09-04",
-      "total": 399027892,
-      "effective": 10948999
+      "total": 404678764,
+      "claude": 86844231,
+      "codex": 312183661,
+      "cursor": 5650872,
+      "yinmiwork": 0,
+      "workbuddy": 0,
+      "claudeCumulative": 1226053135,
+      "codexCumulative": 771260891,
+      "cursorCumulative": 373704388,
+      "yinmiworkCumulative": 0,
+      "workbuddyCumulative": 3012980
     },
     {
       "day": "2026-09-05",
       "total": 285790772,
-      "effective": 4323548
+      "claude": 155853202,
+      "codex": 129937570,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0,
+      "claudeCumulative": 1381906337,
+      "codexCumulative": 901198461,
+      "cursorCumulative": 373704388,
+      "yinmiworkCumulative": 0,
+      "workbuddyCumulative": 3012980
     },
     {
       "day": "2026-09-06",
-      "total": 3620129,
-      "effective": 738349
+      "total": 7326505,
+      "claude": 3544403,
+      "codex": 75726,
+      "cursor": 3706376,
+      "yinmiwork": 0,
+      "workbuddy": 0,
+      "claudeCumulative": 1385450740,
+      "codexCumulative": 901274187,
+      "cursorCumulative": 377410764,
+      "yinmiworkCumulative": 0,
+      "workbuddyCumulative": 3012980
     },
     {
       "day": "2026-09-07",
       "total": 108600740,
-      "effective": 3726562
+      "claude": 20407288,
+      "codex": 88193452,
+      "cursor": 0,
+      "yinmiwork": 0,
+      "workbuddy": 0,
+      "claudeCumulative": 1405858028,
+      "codexCumulative": 989467639,
+      "cursorCumulative": 377410764,
+      "yinmiworkCumulative": 0,
+      "workbuddyCumulative": 3012980
     },
     {
       "day": "2026-09-08",
-      "total": 32938811,
-      "effective": 1275725
+      "total": 34164086,
+      "claude": 16611986,
+      "codex": 16326825,
+      "cursor": 1225275,
+      "yinmiwork": 0,
+      "workbuddy": 0,
+      "claudeCumulative": 1422470014,
+      "codexCumulative": 1005794464,
+      "cursorCumulative": 378636039,
+      "yinmiworkCumulative": 0,
+      "workbuddyCumulative": 3012980
     },
     {
       "day": "2026-09-09",
-      "total": 216477912,
-      "effective": 14466927
+      "total": 226607793,
+      "claude": 106379833,
+      "codex": 104562277,
+      "cursor": 10129881,
+      "yinmiwork": 0,
+      "workbuddy": 5535802,
+      "claudeCumulative": 1528849847,
+      "codexCumulative": 1110356741,
+      "cursorCumulative": 388765920,
+      "yinmiworkCumulative": 0,
+      "workbuddyCumulative": 8548782
     },
     {
       "day": "2026-09-10",
-      "total": 220439841,
-      "effective": 47240216
+      "total": 302570650,
+      "claude": 116993143,
+      "codex": 65833489,
+      "cursor": 82130809,
+      "yinmiwork": 37573083,
+      "workbuddy": 40126,
+      "claudeCumulative": 1645842990,
+      "codexCumulative": 1176190230,
+      "cursorCumulative": 470896729,
+      "yinmiworkCumulative": 37573083,
+      "workbuddyCumulative": 8588908
     }
-  ]
+  ],
+  "pricingAssumptions": {
+    "codex": {
+      "plan": "Pro（本机只记录 pro，无法区分 10x/20x）",
+      "fee": "$100–$200/月",
+      "costPerM": "$0.09–$0.17",
+      "effectiveCostPerM": "$3.01–$6.01",
+      "status": "区间"
+    },
+    "claude": {
+      "plan": "Max 5x",
+      "fee": "$100/月",
+      "costPerM": "$0.06",
+      "effectiveCostPerM": "$2.01",
+      "status": "已识别"
+    },
+    "cursor": {
+      "plan": "Ultra",
+      "fee": "$200/月",
+      "costPerM": "$0.42",
+      "effectiveCostPerM": "$5.22",
+      "status": "已识别"
+    },
+    "workbuddy": {
+      "plan": "本机未识别套餐",
+      "fee": "113.9 Credits；加量包等价 ¥5.70",
+      "costPerM": "¥0.66",
+      "effectiveCostPerM": "¥7.27",
+      "status": "情景值"
+    },
+    "yinmiwork": {
+      "plan": "内部配置",
+      "fee": "未发现个人付费或结算价",
+      "costPerM": "不可算",
+      "effectiveCostPerM": "不可算",
+      "status": "缺价格"
+    }
+  }
 }
