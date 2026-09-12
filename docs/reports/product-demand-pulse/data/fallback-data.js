@@ -3,27 +3,27 @@ window.DEMAND_PULSE_DATA = {
   "meta": {
     "contract_version": "gitlab-mr-v1",
     "source_of_truth": "GitLab merge requests",
-    "generated_at": "2026-09-10T05:10:05.239Z",
-    "cutoff": "2026-09-10T05:10:05.239Z",
-    "last_change_at": "2026-09-10T05:10:05.239Z",
+    "generated_at": "2026-09-11T10:10:05.616Z",
+    "cutoff": "2026-09-11T10:10:05.616Z",
+    "last_change_at": "2026-09-11T10:10:05.616Z",
     "stale_after_minutes": 180,
-    "headline": "7 个已提交，5 个已上线，4 位 PM 完成端到端交付。",
+    "headline": "8 个已提交，5 个已上线，4 位 PM 完成端到端交付。",
     "window_start": "2026-07-01T00:00:00+08:00",
     "release_ticket_lookup": "ok",
     "link_exposure": "public",
     "links_note": "链接只发单号与地址，不发 MR 标题；打开需要内网与相应系统权限。"
   },
   "summary": {
-    "submitted": 7,
+    "submitted": 8,
     "released": 5,
-    "in_flight": 2,
+    "in_flight": 3,
     "end_to_end_people": 4
   },
   "delta": {
-    "new_submitted": 0,
-    "pending_release": 2,
+    "new_submitted": 1,
+    "pending_release": 3,
     "new_released": 0,
-    "changed": false
+    "changed": true
   },
   "people": [
     {
@@ -50,9 +50,9 @@ window.DEMAND_PULSE_DATA = {
       "id": "P04",
       "display_name": "春燕",
       "avatar": "🐧",
-      "submitted": 2,
+      "submitted": 3,
       "released": 1,
-      "in_flight": 1,
+      "in_flight": 2,
       "first_released_at": "2026-08-19T13:49:39.507+08:00",
       "end_to_end": true
     },
@@ -301,6 +301,40 @@ window.DEMAND_PULSE_DATA = {
             "target_branch": "master",
             "state": "opened",
             "merged_at": null,
+            "is_release": false
+          }
+        ],
+        "release_mr_url": null,
+        "demand_tickets": [],
+        "release_tickets": []
+      }
+    },
+    {
+      "id": "100198681a",
+      "person_id": "P04",
+      "brief": null,
+      "scopes": [
+        "前端"
+      ],
+      "submitted_at": "2026-09-11T14:29:32.465+08:00",
+      "released_at": null,
+      "status": "merged",
+      "links": {
+        "merge_requests": [
+          {
+            "iid": 15564,
+            "url": "https://git.frontnode.net/qieman/albus/-/merge_requests/15564",
+            "target_branch": "test",
+            "state": "merged",
+            "merged_at": "2026-09-11T15:39:10.182+08:00",
+            "is_release": false
+          },
+          {
+            "iid": 15566,
+            "url": "https://git.frontnode.net/qieman/albus/-/merge_requests/15566",
+            "target_branch": "test",
+            "state": "merged",
+            "merged_at": "2026-09-11T16:25:12.555+08:00",
             "is_release": false
           }
         ],
