@@ -45,7 +45,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 71;
+const DATA_VERSION = 72;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -105,55 +105,76 @@ const initialState = {
   groups: [
     {
       id: "xiaogu",
-      name: "AI 小顾与投顾服务",
-      description: "AI 小顾、顾问服务与客户体验",
+      name: "AI 产品与顾问服务",
+      description: "AI 小顾、顾问工作台与客户服务闭环",
       accent: "green",
       position: 0,
     },
     {
       id: "ai-workbench",
-      name: "AI 工作台与生产力",
-      description: "个人工作台、评审工具与 AI 生产力",
+      name: "AI 生产力与工作台",
+      description: "个人与团队工作台、评审工具和 AI 协作",
       accent: "blue",
       position: 1,
     },
     {
       id: "ai-platform",
-      name: "AI 开放平台",
-      description: "OAP、MCP、Skills、Agents 与治理",
+      name: "AI 开放平台与生态",
+      description: "OAP、MCP、Skills、Agents 与生态连接",
       accent: "violet",
       position: 2,
     },
     {
-      id: "product-planning",
-      name: "且慢产品与体验",
-      description: "产品规划、体验分析与交互方案",
-      accent: "blue",
+      id: "growth-insights",
+      name: "用户增长与数据洞察",
+      description: "用户、渠道、转化、经营指标与行为分析",
+      accent: "green",
       position: 3,
     },
     {
-      id: "research",
-      name: "投研与策略研究",
-      description: "基金、策略与资产配置研究",
-      accent: "amber",
+      id: "product-planning",
+      name: "且慢产品与客户体验",
+      description: "产品规划、需求评审、体验分析与交互方案",
+      accent: "blue",
       position: 4,
     },
     {
-      id: "reporting",
-      name: "经营分析与汇报",
-      description: "业务分析、周报与管理汇报",
-      accent: "blue",
+      id: "research",
+      name: "投研与资产配置",
+      description: "基金、策略、组合与资产配置研究",
+      accent: "amber",
       position: 5,
     },
     {
-      id: "knowledge",
-      name: "知识治理与组织协同",
-      description: "本体、飞书、SOUL 与知识资产",
-      accent: "slate",
+      id: "reporting",
+      name: "战略经营与项目复盘",
+      description: "战略判断、管理汇报、项目进展与阶段复盘",
+      accent: "blue",
       position: 6,
+    },
+    {
+      id: "knowledge",
+      name: "组织能力与知识治理",
+      description: "人才标准、本体、知识资产、合规与质量治理",
+      accent: "slate",
+      position: 7,
     },
   ],
   reports: [
+    {
+      id: "clair-studio-catalog-audit-2026-09-13",
+      groupId: "knowledge",
+      title: "Clair’s Studio｜162 份成果全面盘点与分类重构",
+      url: "https://clairku.github.io/clair-ai-studio/reports/clair-studio-catalog-audit-2026-09-13/",
+      preview: "clair-studio-catalog-audit-2026-09-13.png",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-13T17:35:00+08:00",
+      source: "基于 2026-09-13 GitHub 主分支 c7bd47d 的 162 份历史成果目录、159 个 Studio 地址、2 个内网本体地址与 1 个飞书地址进行全量盘点；核对重复项、本地报告与预览资源、线上可访问性、主题分布、工作类型和精选状态，并落地 8 类新主题体系。未删除历史成果；2 个内网地址仅标记为公网不可判定。",
+      access: "production",
+      workType: "governance-review",
+      tags: ["成果治理", "分类重构", "工作台", "信息架构", "质量审计", "HTML", "生产"],
+    },
     {
       id: "tongzhou-workbench-brief-2026-09-11",
       groupId: "ai-workbench",
@@ -2344,22 +2365,177 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
-  "auto-follow-requirement-review-2026-08-10": "product-planning",
-  "clair-product-design-reviewer-2026-08-06": "ai-workbench",
+  // 战略经营与项目复盘
+  "yuyue-internship-portfolio-2026-09-03": "reporting",
+  "yingmi-ai-financial-innovation-public-overview-2026-08-17": "reporting",
+  "qieman-ai-growth-oap-integrated-2026-08-14": "reporting",
+  "yingmi-ai-oap-growth-showcase-2026-08-14": "reporting",
+  "qieman-ai-growth-practice-2026-08-14": "reporting",
+  "yingmi-oap-report-2026-08-03": "reporting",
+  "oap-executive-report-2026-08-03": "reporting",
+  "oap-project-report-feishu-framework-2026-08-03": "reporting",
+  "yingmi-ai-oap-h2-2026-08-03": "reporting",
+  "yingmi-ai-open-platform-progress-2026-08-03": "reporting",
+  "oap-project-review-2026-08-03": "reporting",
+  "yingmi-oap-project-briefing-2026-08-03": "reporting",
+  "oap-report-collaboration-retrospective-2026-08-04": "reporting",
+  "qieman-ai-practice-sharing-2026-08-13": "reporting",
+  "xiaogu-oap-practice-results-2026-08-10": "reporting",
+  "qieman-ai-product-practice-oap-edition-2026-08-04": "reporting",
+  "yingmi-ai-oap-outline-concepts-2026-08-04": "reporting",
+  "yingmi-ai-oap-framework-2026-08-03": "reporting",
+  "yingmi-ai-bottom-up-architecture-2026-08-03": "reporting",
+  "yingmi-ai-brand-building-effects-2026-08-03": "reporting",
+  "yingmi-ai-two-modes-four-continuous-2026-08-02": "reporting",
+  "yingmi-ai-communications-evidence-report-2026-07-31": "reporting",
+  "oap-project-report-2026-08-03": "reporting",
+  "ai-h1-review-h2-okr-2026": "reporting",
   "ai-service-blueprint-serif-2026-07-30": "reporting",
-  "yingmi-ai-materials-compendium-2026-07-30": "ai-platform",
-  "qieman-ai-product-practice-2026-07-30": "ai-platform",
-  "qieman-home-entry-analysis": "product-planning",
-  "qieman-app-map": "product-planning",
-  "qieman-app-deep-analysis": "product-planning",
-  "qieman-app-usage": "product-planning",
-  "qieman-app-roadmap": "product-planning",
+  "yingmi-ai-materials-compendium-2026-07-30": "reporting",
+  "ai-three-projects-management-deck-2026-07-30": "reporting",
+  "oap-progress-roadmap": "reporting",
+  "oap-reporting-framework": "reporting",
+  "oap-h2-okr-iteration-review": "reporting",
+  "oap-h2-plan": "reporting",
+  "ai-productization-roadshow-2026-07-30": "reporting",
+  "advisor-report-skill-ai-practice": "reporting",
+  "ai-weekly-2026-07-13": "reporting",
+  "advisor-2-business-onboarding": "reporting",
+  // AI 产品与顾问服务
+  "tongzhou-workbench-brief-2026-09-11": "xiaogu",
+  "tongzhou-advisor-workbench-demo-2026-09-10": "xiaogu",
+  "tongzhou-product-blueprint-2026-09-11": "xiaogu",
+  "yingmi-advisor-workbench-2026-09-10": "xiaogu",
+  "longterm-account-post-investment-analysis-2026-09-10": "xiaogu",
+  "next-gen-vip-advisor-workbench-demo-2026-09-09": "xiaogu",
+  "xiaogu-3-investment-review-2026-09-04": "xiaogu",
+  "xiaogu-buyer-advisor-evidence-2026-09-03": "xiaogu",
+  "ai-xiaogu-impact-evolution-2026-09-03": "xiaogu",
+  "xiaogu-technical-evolution-2026-09-03": "xiaogu",
+  "qieman-xiaogu-service-card-landscape-2026-08-13": "xiaogu",
+  "ai-trading-capability-plan-2026-08-11": "xiaogu",
+  "qieman-advisor-service-redesign-2026-08-07": "xiaogu",
+  "ai-xiaogu-personal-service-demo-2026-07-30": "xiaogu",
+  "ai-xiaogu-product-experience-2026-07-30": "xiaogu",
+  "seed-xiaogu": "xiaogu",
+  "qieman-ai-native": "xiaogu",
   "financial-planning-review": "xiaogu",
-  "investment-behavior-report": "xiaogu",
+  "xiaogu-user-needs": "xiaogu",
+  // AI 开放平台与生态
+  "vesta-mcp-caliber-audit-2026-09-02": "ai-platform",
+  "yingmi-mcp-metrics-caliber-2026-08-31": "ai-platform",
+  "doubao-oauth-mcp-radar-2026-09-02": "ai-platform",
+  "agent-harness-executive-2026-09-02": "ai-platform",
+  "agent-harness-architecture-2026-09-02": "ai-platform",
+  "getlatestquotations-market-temperature-2026-08-30": "ai-platform",
+  "fund-data-mcp-capability-audit-2026-08-24": "ai-platform",
+  "seed-mcp-benchmark": "ai-platform",
+  "eastmoney-platform": "ai-platform",
+  "yingmi-ai-capability-system": "ai-platform",
+  // AI 生产力与工作台
+  "ai-operating-system-control-center-2026-09-11": "ai-workbench",
+  "personal-ai-token-usage-audit-2026-09-10": "ai-workbench",
+  "raft-human-ai-group-chat-research-2026-09-02": "ai-workbench",
+  "baidu-dumate-review-2026-09-01": "ai-workbench",
+  "yingmiwork-product-brief-2026-08-20": "ai-workbench",
+  "individual-finance-agent-evaluation-2026-08-10": "ai-workbench",
+  "clair-product-design-reviewer-2026-08-06": "ai-workbench",
+  "gpt-codex-plan-analysis-2026-08-04": "ai-workbench",
+  "clair-executive-visual-report-template-2026-08-02": "ai-workbench",
+  "workbench-quality-audit-2026-07-30": "ai-workbench",
+  "seed-ecosystem": "ai-workbench",
   "product-review-workbench": "ai-workbench",
   "community-ai-review": "ai-workbench",
-  "oap-h2-plan": "ai-platform",
-  "oap-h2-okr-iteration-review": "ai-platform",
+  "html-editor-guide": "ai-workbench",
+  // 用户增长与数据洞察
+  "wechat-ai-agent-usage-dashboard-2026-09-10": "growth-insights",
+  "wechat-agent-user-behavior-analysis-2026-09-10": "growth-insights",
+  "oap-command-deck-2026-09-05": "growth-insights",
+  "qieman-three-user-lifecycle-audit-2026-09-05": "growth-insights",
+  "yingmi-qieman-geo-effect-audit-2026-08-26": "growth-insights",
+  "qieman-selfservice-vs-advisory-cohorts-2026-08-19": "growth-insights",
+  "qieman-goal-account-longterm-value-2026-08-19": "growth-insights",
+  "qieman-advisor-value-ca-compare-2026-08-19": "growth-insights",
+  "qieman-dual-account-cohort-comparison-2026-08-19": "growth-insights",
+  "qieman-risk-comfort-match-2026-08-19": "growth-insights",
+  "qieman-business-trends-2026-08-19": "growth-insights",
+  "qieman-advisory-value-key-charts-2026-08-19": "growth-insights",
+  "qieman-pension-user-growth-2026-08-19": "growth-insights",
+  "qieman-multi-account-performance-2026-08-19": "growth-insights",
+  "qieman-selffund-vs-advisor-ca-2026-08-19": "growth-insights",
+  "qieman-vip-fee-service-results-2026-08-19": "growth-insights",
+  "qieman-goal-account-value-chart-2026-08-19": "growth-insights",
+  "qieman-goal-account-user-value-2026-08-18": "growth-insights",
+  "oap-qieman-user-dashboard": "growth-insights",
+  "qieman-ai-user-attribution-2026-09-07": "growth-insights",
+  "oap-channel-attribution-dashboard-2026-09-04": "growth-insights",
+  "qianwen-user-question-analysis-2026-09-05": "growth-insights",
+  "doubao-bound-qieman-users-2026-09-05": "growth-insights",
+  "doubao-seven-inflow-paths-2026-09-05": "growth-insights",
+  "doubao-qieman-user-dashboard": "growth-insights",
+  "doubao-mcp-user-panorama-2026-09-05": "growth-insights",
+  "qianwen-user-acquisition-dashboard": "growth-insights",
+  "qianwen-impact-showcase-2026-08-13": "growth-insights",
+  "yingmi-qianwen-launch-media-monitor-2026-08-12": "growth-insights",
+  "qieman-mcp-top20-2026-08-03": "growth-insights",
+  "stargate-financial-institutions-2026-08-02": "growth-insights",
+  "qieman-home-entry-analysis": "growth-insights",
+  "qieman-advisor-click-analysis": "growth-insights",
+  "qieman-app-deep-analysis": "growth-insights",
+  "qieman-app-usage": "growth-insights",
+  "oap-metrics-trend": "growth-insights",
+  "oap-journey-metrics-2026-08-02": "growth-insights",
+  "oap-traffic-analysis": "growth-insights",
+  "investment-behavior-report": "growth-insights",
+  // 且慢产品与客户体验
+  "qieman-risk-scope-2026-08-27": "product-planning",
+  "qieman-risk-lens-2026-08-27": "product-planning",
+  "qieman-cap-product-paradigm-2026-08-14": "product-planning",
+  "fund-benchmark-display-audit-2026-08-12": "product-planning",
+  "product-demand-pulse-2026-08-11": "product-planning",
+  "qieman-mcp-account-username-bug-2026-08-11": "product-planning",
+  "auto-follow-requirement-review-2026-08-10": "product-planning",
+  "qieman-advisor-page-redesign-2026-08-07": "product-planning",
+  "qieman-return-rate-incident-review-2026-08-04": "product-planning",
+  "family-asset-report-five-visual-directions-2026-07-31": "product-planning",
+  "family-asset-report-visual-review-2026-07-31": "product-planning",
+  "qieman-longwin-group-page-review-2026-07-30": "product-planning",
+  "qieman-ai-product-practice-2026-07-30": "product-planning",
+  "qieman-advisor-inventory": "product-planning",
+  "qieman-advisor-direction-research": "product-planning",
+  "qieman-advisor-v09": "product-planning",
+  "qieman-network-research": "product-planning",
+  "qieman-advisor-final": "product-planning",
+  "qieman-advisor-demo": "product-planning",
+  "qieman-advisor-plan": "product-planning",
+  "qieman-app-map": "product-planning",
+  "qieman-app-roadmap": "product-planning",
+  // 投研与资产配置
+  "qieman-cashflow-strategies-audit-2026-08-28": "research",
+  "seed-fund-report": "research",
+  "storage-big-three-fund-screening": "research",
+  "seed-strategy": "research",
+  "qieman-strategy-explorer": "research",
+  "pension-business-analysis": "research",
+  "schwab-ria-benchmark": "research",
+  // 组织能力与知识治理
+  "clair-studio-catalog-audit-2026-09-13": "knowledge",
+  "yingmi-deviation-rules-panorama-2026-09-10": "knowledge",
+  "yingmi-ontology-explorer-2026-09-10": "knowledge",
+  "product-ai-role-ladder-benchmark-2026-09-10": "knowledge",
+  "qieman-skill-library-install-audit-2026-09-09": "knowledge",
+  "designer-ontology-insurance-delivery-2026-09-07": "knowledge",
+  "oap-tool-governance-audit-2026-08-11": "knowledge",
+  "yingmi-skill-stability-eval-2026-08-09": "knowledge",
+  "skill-governance-audit-2026-08-09": "knowledge",
+  "obsidian-agent-stack-install-2026-08-09": "knowledge",
+  "third-party-platform-regulatory-filing-2026-08-08": "knowledge",
+  "content-classification-review-sop-2026-07-30": "knowledge",
+  "seed-agreement": "knowledge",
+  "qieman-library-index": "knowledge",
+  "jinzhenzi-review": "knowledge",
+  "jinzhenzi-history": "knowledge",
+  "skill-audit-2026-07-16": "knowledge",
 };
 
 function inferWorkType(report) {
@@ -2423,12 +2599,39 @@ function inferGroupId(report) {
   }[report.workType] || "product-planning";
 }
 
+const FEATURED_REPORT_IDS = new Set([
+  "clair-studio-catalog-audit-2026-09-13",
+  "ai-operating-system-control-center-2026-09-11",
+  "tongzhou-workbench-brief-2026-09-11",
+  "qieman-ai-growth-oap-integrated-2026-08-14",
+  "agent-harness-executive-2026-09-02",
+  "qieman-ai-user-attribution-2026-09-07",
+  "product-demand-pulse-2026-08-11",
+  "qieman-cashflow-strategies-audit-2026-08-28",
+  "yingmi-ontology-explorer-2026-09-10",
+]);
+
 initialState.reports = initialState.reports.map((report) => {
   const groupId = TOPIC_BY_REPORT[report.id] || report.groupId;
-  const workType = WORK_TYPE_BY_REPORT[report.id] || inferWorkType(report);
-  const next = { ...report, groupId, workType };
+  const workType = WORK_TYPE_BY_REPORT[report.id] ||
+    (WORK_TYPES.some((item) => item.id === report.workType) ? report.workType : inferWorkType(report));
+  const next = {
+    ...report,
+    groupId,
+    workType,
+    pinned: FEATURED_REPORT_IDS.has(report.id),
+  };
   return { ...next, tags: inferTags(next, workType) };
 });
+
+for (const group of initialState.groups) {
+  initialState.reports
+    .filter((report) => report.groupId === group.id)
+    .sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0))
+    .forEach((report, index) => {
+      report.position = index;
+    });
+}
 
 let state = loadState();
 let bucketOrder = loadBucketOrder();
@@ -2660,11 +2863,13 @@ function migrateState(saved) {
         savedReport.tags.length
         ? savedReport.tags
         : report.tags,
-      pinned: Boolean(savedReport.pinned),
+      pinned: saved.version >= DATA_VERSION
+        ? Boolean(savedReport.pinned)
+        : Boolean(report.pinned),
       modifiedAt: refreshCatalogMetadata
         ? report.modifiedAt || report.createdAt
         : savedReport.modifiedAt || report.modifiedAt || report.createdAt,
-      position: Number.isFinite(savedReport.position)
+      position: saved.version >= DATA_VERSION && Number.isFinite(savedReport.position)
         ? savedReport.position
         : report.position,
       archived: disposition?.status === "archived" || Boolean(savedReport.archived),
