@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img">
+  <title>MPT 持仓优化工具</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0E3A5D"/>
+      <stop offset="1" stop-color="#12558C"/>
+    </linearGradient>
+    <linearGradient id="area" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2E7FC4" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#2E7FC4" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" rx="28" fill="url(#bg)"/>
+  <text x="64" y="83" fill="#FFE9B8" font-size="20" font-weight="800" font-family="PingFang SC, sans-serif">YINGMIWORK · PORTFOLIO LAB</text>
+  <text x="64" y="145" fill="#FFFFFF" font-size="46" font-weight="800" font-family="PingFang SC, sans-serif">MPT 持仓优化工具</text>
+  <text x="64" y="183" fill="#C9DDEC" font-size="20" font-family="PingFang SC, sans-serif">基金导入 · 约束优化 · 有效前沿 · 调仓成本</text>
+  <rect x="64" y="226" width="285" height="377" rx="18" fill="#FFFFFF"/>
+  <text x="92" y="271" fill="#16213A" font-size="19" font-weight="700" font-family="PingFang SC, sans-serif">组合输入</text>
+  <rect x="92" y="300" width="229" height="64" rx="10" fill="#F4F5F8"/>
+  <text x="110" y="326" fill="#7A86A3" font-size="13" font-family="PingFang SC, sans-serif">基金代码 + 比例</text>
+  <text x="110" y="350" fill="#16213A" font-size="15" font-family="SFMono-Regular, monospace">110022 30% · 161725 25%</text>
+  <rect x="92" y="386" width="229" height="42" rx="9" fill="#0E3A5D"/>
+  <text x="151" y="413" fill="#FFFFFF" font-size="15" font-weight="700" font-family="PingFang SC, sans-serif">获取净值并计算</text>
+  <text x="92" y="474" fill="#7A86A3" font-size="13" font-family="PingFang SC, sans-serif">目标年化收益</text>
+  <text x="92" y="517" fill="#12558C" font-size="36" font-weight="800" font-family="PingFang SC, sans-serif">6.00%</text>
+  <text x="92" y="555" fill="#7A86A3" font-size="13" font-family="PingFang SC, sans-serif">结果仅供研究演示</text>
+  <rect x="377" y="226" width="759" height="377" rx="18" fill="#F8FAFC"/>
+  <text x="409" y="270" fill="#16213A" font-size="19" font-weight="700" font-family="PingFang SC, sans-serif">有效前沿</text>
+  <line x1="432" y1="544" x2="1092" y2="544" stroke="#CBD2E2" stroke-width="2"/>
+  <line x1="432" y1="304" x2="432" y2="544" stroke="#CBD2E2" stroke-width="2"/>
+  <path d="M456 522 C575 500 650 452 724 390 C810 317 934 283 1072 301 L1072 544 L456 544 Z" fill="url(#area)"/>
+  <path d="M456 522 C575 500 650 452 724 390 C810 317 934 283 1072 301" fill="none" stroke="#2E7FC4" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="640" cy="459" r="12" fill="#B98A2F" stroke="#FFFFFF" stroke-width="5"/>
+  <circle cx="830" cy="337" r="12" fill="#6D5BD0" stroke="#FFFFFF" stroke-width="5"/>
+  <circle cx="990" cy="294" r="12" fill="#0E9F6E" stroke="#FFFFFF" stroke-width="5"/>
+  <text x="618" y="495" fill="#B98A2F" font-size="13" font-weight="700" font-family="PingFang SC, sans-serif">最小波动</text>
+  <text x="794" y="373" fill="#6D5BD0" font-size="13" font-weight="700" font-family="PingFang SC, sans-serif">目标组合</text>
+  <text x="951" y="335" fill="#0E9F6E" font-size="13" font-weight="700" font-family="PingFang SC, sans-serif">最大夏普</text>
+</svg>

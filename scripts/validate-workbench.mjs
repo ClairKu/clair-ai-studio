@@ -43,7 +43,7 @@ const reports = reportChunks.map((chunk) => ({
 // +1 Doubao Qieman user dashboard 2026-09-05
 // -1 inaccessible qieman-ai-advisor-ecosystem private Site 2026-09-05
 
-if (reports.length !== 163) { // +1 catalog audit and reclassification 2026-09-13
+if (reports.length !== 164) { // +1 MPT portfolio optimizer 2026-09-14
   fail(`初始成果数量异常：预期 163，实际 ${reports.length}`);
 }
 

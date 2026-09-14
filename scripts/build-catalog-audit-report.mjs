@@ -18,7 +18,9 @@ function objectBetween(startMarker, endMarker) {
 const state = objectBetween("const initialState =", "const WORK_TYPE_BY_REPORT");
 const workTypeOverrides = objectBetween("const WORK_TYPE_BY_REPORT =", "const TOPIC_BY_REPORT");
 const topics = objectBetween("const TOPIC_BY_REPORT =", "function inferWorkType");
-const historicalReports = state.reports.filter((report) => report.id !== slug);
+const auditCutoff = "2026-09-14";
+const historicalReports = state.reports.filter((report) =>
+  report.id !== slug && (!report.createdAt || report.createdAt < auditCutoff));
 
 const oldGroups = {
   "ai-platform": { name: "AI 开放平台", count: 54 },
