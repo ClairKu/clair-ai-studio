@@ -18,7 +18,7 @@ U="SELECT b.pmid, b.fb, p.account3_id, p.gender, p.bank_no, p.unionid, p.registe
          HAVING MIN(created_at)>='2026-08-03 00:00:00' AND MIN(created_at)<'$CUT') b
    JOIN ying99_pomodel.portfolio_manager_info p ON p.po_manager_id=b.pmid"
 
-echo "### 1 daily"; R "SELECT DATE(u.fb) AS d, SUM(u.cohort='new') AS new_cnt, SUM(u.cohort='existing') AS ex_cnt, SUM(u.cohort='unclassified') AS unc FROM ($U) u GROUP BY DATE(u.fb) ORDER BY d" 2>&1 | tail -40
+echo "### 1 daily"; R "SELECT DATE(u.fb) AS d, SUM(u.cohort='new') AS new_cnt, SUM(u.cohort='existing') AS ex_cnt, SUM(u.cohort='unclassified') AS unc FROM ($U) u GROUP BY DATE(u.fb) ORDER BY d" 2>&1 | tail -120
 
 echo "### 2 profile"; R "SELECT u.cohort, COUNT(*) pop, SUM(u.gender='M') male, SUM(u.gender='F') female,
  SUM(u.age<=25) lte25, SUM(u.age BETWEEN 26 AND 35) a2635, SUM(u.age BETWEEN 36 AND 45) a3645,
