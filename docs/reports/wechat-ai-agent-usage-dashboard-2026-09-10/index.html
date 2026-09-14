@@ -17,11 +17,11 @@ html,body{overflow-x:hidden}
 <body>
 <header class="top"><div class="mark">AI</div><h1>微信 AI 能力调用看板</h1><span class="range">上线以来累计 · 更新至 2026-09-14 10:06</span><span class="src">神策 qiemanproduction · 微信 Agent 生产事件</span></header>
 <main class="wrap">
-  <div class="notice"><span>⚠</span><div><b>口径：</b>累计落地从 07-17 首报起，原子调用从 07-27 首报起，起点不同，“调用/落地比”不是漏斗转化率。原子调用 distinct_id 是 traceId，不是用户 ID。09-14 仅统计至 10:06。<b>本页未使用 OAP 经营驾驶舱数据</b>，也不公开用户编号、搜索词、产品代码或原始目标 URL。</div></div>
+  <div class="notice"><span>⚠</span><div><b>口径：</b>累计落地从 07-17 首报起，原子调用从 07-27 首报起，起点不同，“调用/落地比”不是漏斗转化率。原子调用 distinct_id 是 traceId，不是用户 ID。全量调用含 11 条 codex-* 手工测试记录；沿用旧版全事件口径未从主指标剔除，剔除后为 3,792 次。09-14 仅统计至 10:06。<b>本页未使用 OAP 经营驾驶舱数据</b>，也不公开用户编号、搜索词、产品代码或原始目标 URL。</div></div>
 
   <section class="kpis">
     <div class="kpi"><div class="label">Agent 落地总次数</div><div class="value num" style="color:var(--brand)">2,894</div><div class="sub">wechat_agent_landing · 07-17 起</div></div>
-    <div class="kpi"><div class="label">原子接口调用总次数</div><div class="value num" style="color:var(--violet)">3,803</div><div class="sub">wechat_agent_atomic_api_call · 07-27 起</div></div>
+    <div class="kpi"><div class="label">原子接口调用总次数</div><div class="value num" style="color:var(--violet)">3,803</div><div class="sub">07-27 起 · 含 11 条手工测试</div></div>
     <div class="kpi"><div class="label">调用成功率</div><div class="value num" style="color:var(--green)">96.1%</div><div class="sub">3,655 成功 / 148 失败</div></div>
     <div class="kpi"><div class="label">被调用原子接口数</div><div class="value num" style="color:#0e8fa8">19</div><div class="sub">全量有调用记录的接口</div></div>
     <div class="kpi"><div class="label">覆盖 Skill 数</div><div class="value num" style="color:var(--green)">7</div><div class="sub">fund-explorer 占 45.6%</div></div>
@@ -50,7 +50,7 @@ html,body{overflow-x:hidden}
 
   <section class="panel"><h2>事件口径</h2><table><thead><tr><th>事件</th><th>上报端</th><th>关键属性</th><th>distinct_id</th></tr></thead><tbody><tr><td class="mono"><b>wechat_agent_landing</b></td><td>nova 小程序端</td><td>trace_id、referrer、target_url、page_name</td><td>小程序端用户标识</td></tr><tr><td class="mono"><b>wechat_agent_atomic_api_call</b></td><td>meow 服务端</td><td>atomic_api、skill、trace_id、success、duration_ms、error_code</td><td>traceId 技术字段，非用户 ID</td></tr></tbody></table></section>
 
-  <div class="notice ok"><span>✓</span><div><b>数据自检：</b>19 个接口合计 3,803 = 7 个 Skill 合计 3,803；来源页合计 2,894 = 目标页八类合计 2,894；09-07～09-14 逐日合计落地 240、原子调用 329。查询执行于 2026-09-14 10:06～10:15，最新事件到达时间为 landing 10:06:29 / atomic 10:05:53。</div></div>
+  <div class="notice ok"><span>✓</span><div><b>数据自检：</b>19 个接口合计 3,803 = 7 个 Skill 合计 3,803；其中测试调用 11 条，剔除后 3,792。来源页合计 2,894 = 目标页八类合计 2,894；09-07～09-14 逐日合计落地 240、原子调用 329。查询执行于 2026-09-14 10:06～10:15，最新事件到达时间为 landing 10:06:29 / atomic 10:05:53。</div></div>
   <footer class="foot">更新日期 2026-09-14 · 神策项目 qiemanproduction · 09-14 为不完整日 · 未使用 OAP 经营驾驶舱</footer>
 </main>
 <script>

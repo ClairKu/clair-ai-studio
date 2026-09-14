@@ -33,7 +33,7 @@ need(skills.length === 7 && sum(skills, "value") === 3803, "Skill totals mismatc
 need(sum(pages, "value") === 2894, "page_name total mismatch");
 need(targets.length === 8 && sum(targets, "value") === 2894, "target category total mismatch");
 
-for (const marker of ["2026-09-14 10:06", "2,894", "3,803", "96.1%", "不完整日", "未使用 OAP 经营驾驶舱", "生活服务", "金融理财", "移动视频", "实用工具", "移动购物", "本次更新记录", "已聚合脱敏"]) {
+for (const marker of ["2026-09-14 10:06", "2,894", "3,803", "3,792", "11 条 codex-*", "96.1%", "不完整日", "未使用 OAP 经营驾驶舱", "生活服务", "金融理财", "移动视频", "实用工具", "移动购物", "本次更新记录", "已聚合脱敏"]) {
   need(html.includes(marker), `missing marker: ${marker}`);
 }
 need(catalog.includes("上线以来落地 2,894 次、原子接口调用 3,803 次"), "catalog source is stale");
