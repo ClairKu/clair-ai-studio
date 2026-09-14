@@ -3,361 +3,247 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>微信小微 × 且慢 AI Agent 用户行为与转化分析 · 2026-07-17 ~ 09-10</title>
+<meta name="description" content="微信小微 × 且慢 AI Agent 用户行为与转化分析，生产数据更新至 2026-09-14 14:16:30。">
+<title>微信小微 × 且慢 AI Agent 用户行为与转化分析 · 更新至 2026-09-14</title>
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<script src="./data/latest.js"></script>
 <style>
 :root{
-  --bg:#F4F5F8; --panel:#FFFFFF; --ink:#16213A; --ink-2:#3D4A68; --ink-3:#7A86A3;
-  --line:#E4E8F2;
-  --brand:#0E3A5D; --brand-2:#12558C; --brand-soft:#E8F0F9;
-  --gold:#B98A2F; --gold-soft:#F8F1E2;
-  --up:#0E9F6E; --up-soft:#E5F6EF; --down:#E5484D; --down-soft:#FCE9EA;
-  --warn:#D97706; --warn-soft:#FCF3E3; --violet:#6D5BD0; --violet-soft:#EFECFB;
-  --cyan:#0E8FA8; --cyan-soft:#E4F5F8;
-  --r-lg:14px; --r-md:10px;
-  --shadow-1:0 1px 2px rgba(22,33,58,.05),0 1px 8px rgba(22,33,58,.04);
+  --bg:#F3F5F8;--panel:#FFF;--ink:#16213A;--ink-2:#3D4A68;--ink-3:#74809A;--line:#E3E8F1;
+  --brand:#0E3A5D;--brand-2:#14649F;--brand-soft:#E8F1F8;--gold:#B27B18;--gold-soft:#FBF2DE;
+  --up:#0B8F67;--up-soft:#E5F6EF;--down:#D94348;--down-soft:#FBE9EA;--warn:#C66A05;--warn-soft:#FFF2DD;
+  --violet:#6658C7;--violet-soft:#EFEDFB;--cyan:#0D879E;--cyan-soft:#E4F5F8;
+  --radius:14px;--shadow:0 1px 2px rgba(22,33,58,.04),0 8px 24px rgba(22,33,58,.045);
   --font:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
   --mono:"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
 }
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:var(--font);font-size:13px;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;padding-bottom:40px}
-.num{font-variant-numeric:tabular-nums;letter-spacing:-.01em}
-
-#topbar{height:54px;display:flex;align-items:center;gap:12px;padding:0 22px;background:var(--brand);color:#fff;position:sticky;top:0;z-index:50}
-#topbar .mark{width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,#2E7FC4,#0E3A5D);border:1px solid rgba(255,255,255,.28);display:grid;place-items:center;font-size:12px;font-weight:800;color:#FFE9B8}
-#topbar h1{font-size:15px;font-weight:700;letter-spacing:.02em}
-#topbar .range{font-size:12px;opacity:.8;margin-left:4px}
-#topbar .sp{flex:1}
-#topbar .src{font-size:11px;opacity:.65}
-
-.wrap{max-width:1240px;margin:0 auto;padding:18px 22px}
-
-.notice{display:flex;gap:10px;align-items:flex-start;background:var(--warn-soft);border:1px solid #F0DBB4;border-radius:var(--r-md);padding:10px 14px;margin-bottom:16px;color:#7A5210;font-size:12px;line-height:1.7}
-.notice b{color:#6B4408}
-
-.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:16px}
-.kpi{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);padding:14px 16px;box-shadow:var(--shadow-1)}
-.kpi .label{font-size:12px;color:var(--ink-3);margin-bottom:6px;display:flex;align-items:center;gap:6px}
-.kpi .label .ic{width:18px;height:18px;border-radius:5px;display:grid;place-items:center;font-size:10px}
-.kpi .val{font-size:26px;font-weight:800;letter-spacing:-.02em}
-.kpi .sub{font-size:11px;color:var(--ink-3);margin-top:4px}
-
-.grid{display:grid;gap:14px}
-.g2{grid-template-columns:7fr 5fr}
-.g2b{grid-template-columns:1fr 1fr}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-1);padding:16px 18px;margin-bottom:14px}
-.panel h2{font-size:14px;font-weight:700;margin-bottom:2px}
-.panel .desc{font-size:11px;color:var(--ink-3);margin-bottom:10px}
-.chart{width:100%}
-
-table{width:100%;border-collapse:collapse;font-size:12px}
-th{text-align:left;color:var(--ink-3);font-weight:600;padding:7px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
-td{padding:7px 8px;border-bottom:1px solid #EEF1F8;color:var(--ink-2)}
-td.r,th.r{text-align:right}
-tr:hover td{background:var(--brand-soft)}
-.mono{font-family:var(--mono);font-size:11px;color:var(--brand-2)}
-.tag{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600}
-.tag.official{background:var(--warn-soft);color:var(--warn)}
-.tag.internal{background:var(--violet-soft);color:var(--violet)}
-.tag.natural{background:var(--up-soft);color:var(--up)}
-.tag.beta{background:var(--cyan-soft);color:var(--cyan)}
-
-.timeline{position:relative;padding-left:22px;margin-top:8px}
-.timeline::before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:2px;background:var(--line);border-radius:2px}
-.tl-item{position:relative;padding:0 0 14px 8px}
-.tl-item::before{content:"";position:absolute;left:-20px;top:5px;width:10px;height:10px;border-radius:50%;background:var(--brand-2);border:2px solid #fff;box-shadow:0 0 0 2px var(--brand-soft)}
-.tl-item.conv::before{background:var(--up)}
-.tl-item .t{font-weight:700;font-size:12px;color:var(--ink)}
-.tl-item .d{font-size:12px;color:var(--ink-2);line-height:1.7;margin-top:2px}
-
-.foot{font-size:11px;color:var(--ink-3);text-align:center;margin-top:18px;line-height:1.8}
-@media (max-width:900px){.kpis{grid-template-columns:repeat(2,1fr)}.g2,.g2b{grid-template-columns:1fr}}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:13px/1.65 var(--font);-webkit-font-smoothing:antialiased;padding-bottom:44px}
+a{color:inherit}.num{font-variant-numeric:tabular-nums}.mono{font-family:var(--mono);font-size:11px}
+#topbar{position:sticky;top:0;z-index:50;min-height:56px;padding:10px 22px;display:flex;align-items:center;gap:12px;background:var(--brand);color:#fff}
+#topbar .mark{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;background:linear-gradient(135deg,#3A91CE,#0E3A5D);border:1px solid rgba(255,255,255,.28);color:#FFE9B8;font-weight:800}
+#topbar h1{font-size:15px;line-height:1.3}.range{font-size:12px;opacity:.78}.sp{flex:1}.src{font-size:11px;opacity:.68;text-align:right}
+.wrap{max-width:1280px;margin:0 auto;padding:18px 22px}.anchor-nav{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
+.anchor-nav a{text-decoration:none;padding:5px 10px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink-2);font-size:11px}
+.anchor-nav a:hover{border-color:#B8CDE0;color:var(--brand-2)}
+.notice{display:flex;gap:11px;align-items:flex-start;padding:12px 14px;margin-bottom:14px;border-radius:12px;border:1px solid #EDD4A5;background:var(--warn-soft);color:#70480E}
+.notice strong{color:#573605}.notice .icon{font-size:16px;line-height:1.5}.notice p+p{margin-top:4px}
+.kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin-bottom:14px}
+.kpi,.panel,.delta-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.kpi{padding:14px 15px}.kpi .label{display:flex;gap:6px;align-items:center;color:var(--ink-3);font-size:11px}.kpi .ic{width:20px;height:20px;border-radius:6px;display:grid;place-items:center;font-size:10px;font-weight:700}
+.kpi .val{font-size:26px;font-weight:800;letter-spacing:-.03em;margin-top:5px}.kpi .sub{font-size:10.5px;color:var(--ink-3);margin-top:3px;line-height:1.45}
+.section-kicker{font-size:10px;letter-spacing:.14em;color:var(--brand-2);font-weight:800;margin-bottom:2px}.section-title{font-size:17px;margin-bottom:10px}.section-title small{font-size:11px;color:var(--ink-3);font-weight:400;margin-left:8px}
+.panel{padding:17px 18px;margin-bottom:14px}.panel h3{font-size:14px;margin-bottom:2px}.desc{font-size:11px;color:var(--ink-3);margin-bottom:10px}.grid{display:grid;gap:14px}.g2{grid-template-columns:1fr 1fr}.g57{grid-template-columns:5fr 7fr}.g73{grid-template-columns:7fr 3fr}
+.delta-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:11px 0}.delta-card{padding:12px 14px;box-shadow:none}.delta-card .d-label{font-size:11px;color:var(--ink-3)}.delta-card .d-main{display:flex;align-items:baseline;gap:6px;margin-top:2px}.delta-card .now{font-size:21px;font-weight:800}.delta-card .change{font-size:11px;color:var(--up);font-weight:700}.delta-card .old{font-size:10px;color:var(--ink-3)}
+.chart{width:100%;min-height:300px}.chart.tall{min-height:360px}.chart.short{min-height:260px}
+.toggle{display:inline-flex;gap:4px;padding:3px;background:#EEF2F6;border-radius:9px;margin-bottom:8px}.toggle button{border:0;background:transparent;color:var(--ink-3);padding:5px 10px;border-radius:7px;font:600 11px var(--font);cursor:pointer}.toggle button.active{background:#fff;color:var(--brand-2);box-shadow:0 1px 4px rgba(22,33,58,.12)}
+table{width:100%;border-collapse:collapse;font-size:12px}th{text-align:left;color:var(--ink-3);font-weight:600;padding:7px 8px;border-bottom:1px solid var(--line);white-space:nowrap}td{padding:8px;border-bottom:1px solid #EDF0F5;color:var(--ink-2);vertical-align:top}td.r,th.r{text-align:right}tbody tr:hover td{background:var(--brand-soft)}
+.tag{display:inline-block;padding:2px 8px;border-radius:999px;font-size:10.5px;font-weight:700;white-space:nowrap}.tag.confirmed{background:var(--up-soft);color:var(--up)}.tag.inferred{background:var(--warn-soft);color:var(--warn)}.tag.missing{background:var(--down-soft);color:var(--down)}.tag.neutral{background:var(--violet-soft);color:var(--violet)}
+.path{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.path-step{position:relative;border:1px solid var(--line);border-radius:12px;padding:12px;background:#FAFBFD}.path-step:not(:last-child)::after{content:"→";position:absolute;right:-10px;top:44%;z-index:2;color:var(--brand-2);font-weight:900}.path-step b{display:block;font-size:12px}.path-step span{font-size:11px;color:var(--ink-3)}
+.finding{padding:12px 14px;border-left:3px solid var(--brand-2);background:var(--brand-soft);border-radius:0 10px 10px 0;margin-top:10px;color:var(--ink-2)}.finding strong{color:var(--ink)}
+.risk{border-left-color:var(--down);background:var(--down-soft)}.good{border-left-color:var(--up);background:var(--up-soft)}
+.audit-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.audit{border:1px solid var(--line);border-radius:10px;padding:10px;background:#FAFBFD}.audit b{display:block;color:var(--up);font-size:11px}.audit span{font-size:10.5px;color:var(--ink-3)}
+.source-id{display:inline-block;font:700 10px var(--mono);padding:2px 6px;border-radius:5px;background:var(--brand-soft);color:var(--brand-2)}
+.foot{text-align:center;color:var(--ink-3);font-size:10.5px;line-height:1.8;margin-top:18px}
+@media(max-width:980px){.kpis{grid-template-columns:repeat(3,1fr)}.g2,.g57,.g73{grid-template-columns:1fr}.audit-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){#topbar{align-items:flex-start;flex-wrap:wrap;padding:10px 14px}.range{width:calc(100% - 44px);margin-left:42px;margin-top:-10px}.src{display:none}.wrap{padding:14px 12px}.kpis{grid-template-columns:repeat(2,1fr);gap:8px}.kpi{padding:12px}.kpi .val{font-size:22px}.delta-grid{grid-template-columns:repeat(2,1fr)}.path{grid-template-columns:1fr}.path-step:not(:last-child)::after{content:"↓";right:auto;left:50%;top:auto;bottom:-14px}.audit-grid{grid-template-columns:1fr}.panel{padding:14px;overflow-x:auto}.section-title small{display:block;margin-left:0}.chart{min-width:0}.anchor-nav{display:none}}
+@media print{#topbar{position:static}.anchor-nav,.toggle{display:none}.panel,.kpi,.delta-card{break-inside:avoid;box-shadow:none}body{background:#fff}.wrap{max-width:none}}
 </style>
 </head>
 <body>
-
-<div id="topbar">
+<header id="topbar">
   <div class="mark">AI</div>
   <h1>微信小微 × 且慢 AI Agent 用户行为与转化分析</h1>
-  <span class="range">2026-07-17（内测起点）~ 2026-09-10 15:36</span>
+  <span class="range">2026-07-17 ~ 2026-09-14 14:16:30</span>
   <div class="sp"></div>
-  <span class="src">数据源：神策 qiemanproduction + 生产 TiDB 身份核验（查询时刻 2026-09-10）</span>
-</div>
+  <span class="src">神策 qiemanproduction + 生产 TiDB · 更新于 2026-09-14</span>
+</header>
 
-<div class="wrap">
+<main class="wrap">
+  <nav class="anchor-nav" aria-label="报告目录">
+    <a href="#overview">老板速览</a><a href="#trend">每日与累计</a><a href="#users">用户构成</a><a href="#quality">接口质量</a><a href="#path">行为路径</a><a href="#conversion">转化核验</a><a href="#sources">数据索引</a><a href="#selfcheck">自检</a>
+  </nav>
 
-  <div class="notice">
-    <span>⚠️</span>
-    <div>
-      <b>解读前提：本项目仍处内测/灰度阶段，非自然流量。</b>
-      头部两个账号贡献 61% 调用量；37 人中 31 人是仅访问一次即离开的匿名访客。正式渠道 <b>qm-wechat-agent-20260817</b> 于 08-17 建立，此前（07-17~08-16）为内测期数据。所有转化分析必须在这个前提下解读。
+  <section id="overview">
+    <div class="notice">
+      <div class="icon">⚠️</div>
+      <div>
+        <p><strong>核心判断已修正：当前仍是测试/验收流量，不是自然增长样本。</strong>2,894 次落地中 2,844 次来自微信开发者工具，占 98.3%；真实手机仅 50 次。设备环境与人员身份是两条独立维度，不能把“真机”等同外部用户，也不能把“开发者工具”等同员工。</p>
+        <p><strong>可归因新增转化为 0。</strong>旧版“自然用户 1/3 交易转化”已撤回：最接近案例的长赢订单支付未完成，4 名下单用户也都有内测前形成的持续定投/下单行为，只能说明时间相关，不能证明 Agent 带来成交。</p>
+      </div>
     </div>
-  </div>
 
-  <div class="kpis">
-    <div class="kpi">
-      <div class="label"><span class="ic" style="background:var(--brand-soft);color:var(--brand-2)">人</span>去重用户数</div>
-      <div class="val num" style="color:var(--brand-2)">37</div>
-      <div class="sub">6 实名登录 + 31 匿名设备访客</div>
+    <div class="kpis">
+      <article class="kpi"><div class="label"><span class="ic" style="background:var(--brand-soft);color:var(--brand-2)">人</span>去重身份</div><div class="val num" style="color:var(--brand-2)">38</div><div class="sub">6 个实名 + 32 台匿名设备 <span class="source-id">D-001</span></div></article>
+      <article class="kpi"><div class="label"><span class="ic" style="background:var(--warn-soft);color:var(--warn)">测</span>devtools 落地占比</div><div class="val num" style="color:var(--warn)">98.3%</div><div class="sub">2,844 / 2,894；测试/验收特征 <span class="source-id">D-002</span></div></article>
+      <article class="kpi"><div class="label"><span class="ic" style="background:var(--brand-soft);color:var(--brand-2)">落</span>Agent 落地</div><div class="val num" style="color:var(--brand-2)">2,894</div><div class="sub">wechat_agent_landing 全量 <span class="source-id">D-003</span></div></article>
+      <article class="kpi"><div class="label"><span class="ic" style="background:var(--violet-soft);color:var(--violet)">调</span>原子接口调用</div><div class="val num" style="color:var(--violet)">3,792</div><div class="sub">3,803 原始 − 11 手工测试 <span class="source-id">D-004</span></div></article>
+      <article class="kpi"><div class="label"><span class="ic" style="background:var(--down-soft);color:var(--down)">败</span>调用失败率</div><div class="val num" style="color:var(--down)">3.88%</div><div class="sub">147 / 3,792；增量期零失败 <span class="source-id">D-005</span></div></article>
+      <article class="kpi"><div class="label"><span class="ic" style="background:var(--up-soft);color:var(--up)">转</span>可归因新增转化</div><div class="val num" style="color:var(--up)">0</div><div class="sub">开户 / 绑卡 / 成交 / 新定投均为 0 <span class="source-id">D-010</span></div></article>
     </div>
-    <div class="kpi">
-      <div class="label"><span class="ic" style="background:var(--warn-soft);color:var(--warn)">内</span>内部/官方账号</div>
-      <div class="val num" style="color:var(--warn)">3</div>
-      <div class="sub">官方运营号 + 产品经理 + 社区助理</div>
-    </div>
-    <div class="kpi">
-      <div class="label"><span class="ic" style="background:var(--brand-soft);color:var(--brand-2)">落</span>Agent 落地次数</div>
-      <div class="val num" style="color:var(--brand-2)">2,882</div>
-      <div class="sub">wechat_agent_landing · 人均 77.9 次</div>
-    </div>
-    <div class="kpi">
-      <div class="label"><span class="ic" style="background:var(--violet-soft);color:var(--violet)">原</span>原子接口调用</div>
-      <div class="val num" style="color:var(--violet)">3,783</div>
-      <div class="sub">已剔除 11 条手工测试 · 人均 102.2 次</div>
-    </div>
-    <div class="kpi">
-      <div class="label"><span class="ic" style="background:var(--down-soft);color:var(--down)">败</span>接口调用失败率</div>
-      <div class="val num" style="color:var(--down)">3.9%</div>
-      <div class="sub">147 / 3,783</div>
-    </div>
-    <div class="kpi">
-      <div class="label"><span class="ic" style="background:var(--up-soft);color:var(--up)">转</span>自然用户交易转化</div>
-      <div class="val num" style="color:var(--up)">1 / 3</div>
-      <div class="sub">黄** 首用次日发起交易（存量重组）</div>
-    </div>
-  </div>
 
-  <div class="grid g2">
-    <div class="panel" style="margin-bottom:0">
-      <h2>实名登录用户清单（6 人）</h2>
-      <div class="desc">身份经生产库 portfolio_manager_info（broker_code=0008）+ 社区认证表核验；3 人为内部/官方账号</div>
-      <table>
-        <thead><tr><th>userId</th><th>姓氏</th><th>社区认证身份</th><th class="r">landing</th><th class="r">调用</th><th>活跃区间</th><th>性质</th></tr></thead>
-        <tbody>
-          <tr><td class="mono">1947092</td><td>孙**</td><td>「小助理」官方 level 2</td><td class="r num">1,014</td><td class="r num">913</td><td>08-25 ~ 09-10</td><td><span class="tag official">官方运营账号</span></td></tr>
-          <tr><td class="mono">8775775</td><td>冯**</td><td>无</td><td class="r num">743</td><td class="r num">683</td><td>08-06 ~ 09-04</td><td><span class="tag natural">自然用户</span></td></tr>
-          <tr><td class="mono">1820872</td><td>何**</td><td>无</td><td class="r num">179</td><td class="r num">163</td><td>09-02 ~ 09-07</td><td><span class="tag natural">自然用户</span></td></tr>
-          <tr><td class="mono">1353908</td><td>黄**</td><td>level 0</td><td class="r num">79</td><td class="r num">69</td><td>09-01 单日</td><td><span class="tag natural">自然用户</span></td></tr>
-          <tr><td class="mono">881285</td><td>李**</td><td>「且慢产品经理」level 2</td><td class="r num">8</td><td class="r num">7</td><td>09-09 ~ 09-10</td><td><span class="tag internal">内部账号</span></td></tr>
-          <tr><td class="mono">1248587</td><td>吴**</td><td>「社区助理」level 2</td><td class="r num">2</td><td class="r num">2</td><td>09-04 / 09-07</td><td><span class="tag internal">内部账号</span></td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="panel" style="margin-bottom:0">
-      <h2>用户构成与集中度</h2>
-      <div class="desc">userId 1947092 一人占调用量 24%，TOP2 占 61%，TOP4 占 87%</div>
-      <div id="chart-users" class="chart" style="height:280px"></div>
-    </div>
-  </div>
-  <div style="height:14px"></div>
+    <article class="panel">
+      <div class="section-kicker">REFRESH DELTA</div>
+      <h2 class="section-title">旧页面之后，新增了什么</h2>
+      <div class="delta-grid">
+        <div class="delta-card"><div class="d-label">去重身份</div><div class="d-main"><span class="now num">38</span><span class="change">+1</span></div><div class="old">旧页面 37</div></div>
+        <div class="delta-card"><div class="d-label">Agent 落地</div><div class="d-main"><span class="now num">2,894</span><span class="change">+12</span></div><div class="old">旧页面 2,882</div></div>
+        <div class="delta-card"><div class="d-label">原子调用</div><div class="d-main"><span class="now num">3,792</span><span class="change">+9</span></div><div class="old">旧页面 3,783</div></div>
+        <div class="delta-card"><div class="d-label">失败调用</div><div class="d-main"><span class="now num">147</span><span class="change">+0</span></div><div class="old">旧页面 147</div></div>
+      </div>
+      <p class="desc">9 月 11 日 landing +4 / atomic +4，9 月 14 日 landing +8 / atomic +5；新增 1 台匿名 Android 真机。新增调用全部成功，无新增可归因转化。旧页面“15:36”实际包含 15:36 分钟内的一对同 trace 事件，且当日 15:37 后无事件，因此这里沿用旧页面显示值作为基线。 <span class="source-id">D-006</span> <span class="source-id">D-011</span></p>
+    </article>
+  </section>
 
-  <div class="panel">
-    <h2>匿名设备访客（31 人）</h2>
-    <div class="desc">未登录、以复合设备 ID 识别；内测期（07-17~08-16）15 人，正式期 23 人，跨期 1 人（8775775）</div>
-    <table>
-      <thead><tr><th>匿名设备 ID（截断）</th><th class="r">landing 次数</th><th>活跃区间</th><th>期别</th></tr></thead>
-      <tbody>
-        <tr><td class="mono">…6816700-06cc536fe1a8c54-18687880</td><td class="r num">628</td><td>07-18 ~ 07-27</td><td><span class="tag beta">内测期</span></td></tr>
-        <tr><td class="mono">…8940672-0ee34acc60ebfb8-22196980</td><td class="r num">87</td><td>07-22 ~ 07-23</td><td><span class="tag beta">内测期</span></td></tr>
-        <tr><td class="mono">…4873971-07def00e9bc6f8c-19841509</td><td class="r num">50</td><td>07-17</td><td><span class="tag beta">内测期</span></td></tr>
-        <tr><td class="mono">…8206961-0819cb0b4ebb3e-87835983</td><td class="r num">37</td><td>07-17</td><td><span class="tag beta">内测期</span></td></tr>
-        <tr><td class="mono">…4346707-015924bb61d5b84-29572492</td><td class="r num">6</td><td>08-24 ~ 09-09</td><td><span class="tag natural">正式期</span></td></tr>
-        <tr><td class="mono">…7804698-05c732eb47fd30c-32841063</td><td class="r num">4</td><td>07-22 ~ 07-24</td><td><span class="tag beta">内测期</span></td></tr>
-        <tr><td>其余 25 个设备</td><td class="r num">各 1~4 次</td><td>零星访问</td><td>—</td></tr>
-      </tbody>
-    </table>
-  </div>
+  <section id="trend">
+    <div class="section-kicker">TREND</div>
+    <h2 class="section-title">每日与累计走势 <small>2026-07-17 ~ 09-14 · 无数据自然日补 0</small></h2>
+    <article class="panel">
+      <div class="toggle" role="group" aria-label="趋势图视图切换"><button class="active" data-trend="daily">每日</button><button data-trend="cumulative">累计</button></div>
+      <div id="chart-trend" class="chart tall" role="img" aria-label="每日与累计调用趋势"></div>
+      <p class="desc">07-17~07-26 仅有 landing，atomic 埋点尚未稳定上报；08-18 的 2 次调用全部失败（UPSTREAM_UNAUTHORIZED），本次已补入逐日序列。趋势用于观察测试节奏，不应用来估算自然获客。 <span class="source-id">D-012</span></p>
+    </article>
+  </section>
 
-  <div class="grid g2b">
-    <div class="panel" style="margin-bottom:0">
-      <h2>原子接口调用分布 TOP</h2>
-      <div class="desc">wechat_agent_atomic_api_call · 其余接口（持仓/自选/分红/行情等）合计约 600 次</div>
-      <div id="chart-api" class="chart" style="height:300px"></div>
-    </div>
-    <div class="panel" style="margin-bottom:0">
-      <h2>Skill 维度调用分布</h2>
-      <div class="desc">fund-explorer 与 strategy-explorer 合计占 77.6%</div>
-      <div id="chart-skill" class="chart" style="height:300px"></div>
-    </div>
-  </div>
-  <div style="height:14px"></div>
-
-  <div class="panel">
-    <h2>行为路径分析｜调用前 → 调用中 → 调用后</h2>
-    <div class="desc">自然用户首用 Agent 前的主行为画像（神策全事件），与 Agent 回答后的落地目标页分布</div>
+  <section id="users">
+    <div class="section-kicker">AUDIENCE</div>
+    <h2 class="section-title">用户构成：身份与设备环境必须分开看</h2>
     <div class="grid g2">
-      <div>
-        <table>
-          <thead><tr><th>用户</th><th>Agent 前行为画像</th></tr></thead>
-          <tbody>
-            <tr><td class="mono" style="white-space:nowrap">8775775 冯**</td><td>投顾页、保险首页、四笔钱（m4）、基金详情浏览——<b>内容浏览型</b>；注册(06-16) → 风测+开户(08-04) → 首用 Agent(08-06) 时间紧邻，或与内测邀约相关</td></tr>
-            <tr><td class="mono" style="white-space:nowrap">1820872 何**</td><td>基金详情、搜索页、设置页——<b>基金研究型</b></td></tr>
-            <tr><td class="mono" style="white-space:nowrap">1353908 黄**</td><td>超级入口(AI小顾)、纳指管家、估值指数买入、QDII 额度管家——<b>工具/行情重度用户</b>，日访问量极大</td></tr>
-          </tbody>
-        </table>
-        <div style="font-size:12px;color:var(--ink-2);line-height:1.8;margin-top:10px">
-          <b>典型路径：</b>对话查基金/策略 → 点击卡片 → 落地详情页继续浏览。<br>
-          <b>高频落地标的：</b>长赢 LONG_WIN、SI000153、005827（债基优等生）、ZH000082。<br>
-          <b>调用后：</b>1353908 首用次日发起密集资产重组（见下方时间线）；8775775、1820872 用后未见新交易行为；1947092（官方号）持续高强度使用，用于运营测试。
-        </div>
-      </div>
-      <div>
-        <div id="chart-landing" class="chart" style="height:280px"></div>
-        <div style="font-size:11px;color:var(--ink-3);margin-top:4px">落地目标页分布（约值）· 来源：wechat_agent_landing 落地目标页字段</div>
-      </div>
+      <article class="panel"><h3>身份构成</h3><p class="desc">已核验内部/官方 3 人；另外 3 个实名身份的人员性质不做推断</p><div id="chart-identity" class="chart short"></div></article>
+      <article class="panel"><h3>落地环境</h3><p class="desc">开发者工具贡献 98.3%，真实手机 1.7%</p><div id="chart-environment" class="chart short"></div></article>
     </div>
-  </div>
+    <article class="panel">
+      <h3>实名用户清单（公开脱敏）</h3>
+      <p class="desc">生产身份核验仅用于分类；公开页移除姓名、完整 userId、设备 ID、账户号与订单号。</p>
+      <table><thead><tr><th>用户</th><th>已确认身份</th><th>使用环境</th><th class="r">landing</th><th class="r">关联 atomic</th><th>活跃区间</th></tr></thead><tbody id="registered-rows"></tbody></table>
+    </article>
+    <div class="finding"><strong>最重要的运营结论：</strong>38 个去重身份不是 38 个自然用户。可确认的只是真机设备 26 个、真机 landing 50 次；其中还包含已知内部账号。当前样本不足以评估自然用户留存、获客效率或转化率，应先建立“人员身份 × 设备环境 × 流量批次”三维排除规则。</div>
+  </section>
 
-  <div class="grid g2">
-    <div class="panel" style="margin-bottom:0">
-      <h2>转化分析</h2>
-      <div class="desc">注册 / 开户 / 绑卡 / 交易四类转化事件核查（神策全事件 + 交易流水）</div>
-      <table>
-        <thead><tr><th>转化类型</th><th>结果</th><th class="r">转化率</th></tr></thead>
-        <tbody>
-          <tr><td>注册</td><td>0 —— 6 个实名用户全部先注册后用 Agent；31 个匿名设备均未注册</td><td class="r num">0 / 37</td></tr>
-          <tr><td>开户</td><td>0 —— 6 人开户时间均早于 Agent 首用</td><td class="r num">0 / 37</td></tr>
-          <tr><td>绑卡</td><td>0 —— 无 add_card_success 事件</td><td class="r num">0 / 37</td></tr>
-          <tr style="background:var(--up-soft)"><td><b>交易/申购（Agent 后发起）</b></td><td><b>1 人（1353908 黄**，自然用户）</b></td><td class="r num"><b>自然 1/3 · 全量 2.7%</b></td></tr>
-        </tbody>
-      </table>
-      <div style="font-size:12px;color:var(--ink-2);line-height:1.8;margin-top:10px;background:var(--gold-soft);border:1px solid #EBD9AE;border-radius:var(--r-md);padding:10px 12px">
-        <b>客观定性：</b>该用户为 2020 年注册的存量活跃老客，交易属<b>存量资产重组</b>（卖旧买新 + 跟车），不能算 Agent 拉新转化的标准案例。另 8775775 的开户（08-04）仅早于首用 Agent（08-06）2 天，或与内测邀约相关，埋点无法建立因果。
-      </div>
+  <section id="quality" style="margin-top:18px">
+    <div class="section-kicker">CALL QUALITY</div>
+    <h2 class="section-title">接口调用与失败问题</h2>
+    <div class="grid g57">
+      <article class="panel"><h3>接口调用 TOP 9</h3><p class="desc">条形为调用量，红色为失败量</p><div id="chart-api" class="chart tall"></div></article>
+      <article class="panel"><h3>错误码分布</h3><p class="desc">失败 147 次；UPSTREAM_ERROR 占 79.6%</p><div id="chart-errors" class="chart short"></div><table><thead><tr><th>接口</th><th class="r">调用</th><th class="r">失败</th><th class="r">失败率</th></tr></thead><tbody id="api-risk-rows"></tbody></table></article>
     </div>
-    <div class="panel" style="margin-bottom:0">
-      <h2>重点转化案例时间线｜userId 1353908 黄**</h2>
-      <div class="desc">首用 Agent 47 分钟密集浏览 → 次日资产大重组 → 持续定投</div>
-      <div class="timeline">
-        <div class="tl-item">
-          <div class="t">09-01 17:52 ~ 18:39 · 首用 Agent</div>
-          <div class="d">47 分钟内 79 次落地，密集浏览基金详情页（005827 债基优等生、008887、003095、519185 等）+ 估值指数买入页</div>
-        </div>
-        <div class="tl-item conv">
-          <div class="t">09-02 13:33 ~ 13:41 · 次日午后发起资产大重组</div>
-          <div class="d">多笔基金卖出（兴全安泰平衡养老等）→ <b>长赢 150 份跟车 400 元</b> → 花好月圆 / 南方梦想佳 / 马拉松固收 / 我要稳稳的幸福 / 货币三佳 / 幸福小约定 / 超级理财加等 7 个策略集中转出</div>
-        </div>
-        <div class="tl-item conv">
-          <div class="t">09-03 · 创建组合定投</div>
-          <div class="d">重组完成后设置定投计划</div>
-        </div>
-        <div class="tl-item conv">
-          <div class="t">09-10 · 纳指定投组合申购 100 元</div>
-          <div class="d">定投计划持续执行中</div>
-        </div>
-      </div>
+    <div class="grid g2">
+      <article class="panel"><h3>Skill 调用分布</h3><p class="desc">7 个 Skill 合计必须等于 3,792</p><div id="chart-skills" class="chart short"></div></article>
+      <article class="panel"><h3>性能与链路完整性</h3><table><tbody>
+        <tr><td>调用耗时</td><td class="r num"><b>中位 355ms</b> · P90 990ms · P99 2,576ms · Max 4,798ms</td></tr>
+        <tr><td>atomic → landing</td><td class="r num"><b>中位 6 秒</b> · P90 11 秒</td></tr>
+        <tr><td>无 atomic 对应的 landing</td><td class="r num"><b>867 / 2,833（30.6%）</b></td></tr>
+        <tr><td>主要原因</td><td>07-17~08-03 早期 atomic 尚未上报 + meow fire-and-forget 丢失</td></tr>
+      </tbody></table><div class="finding risk"><strong>优先处理：</strong>getFundHolding 失败率 32.8%（40/122）；guessFundCode 与 getMyProfit 分别失败 31、26 次。先按错误码和上游链路拆解，避免被 09-09 以来“增量零失败”的小样本掩盖。</div></article>
     </div>
-  </div>
-  <div style="height:14px"></div>
+  </section>
 
-  <div class="panel">
-    <h2>数据口径与来源</h2>
-    <div class="desc">两个埋点事件口径均经 meow / nova 源码核实</div>
-    <table>
-      <thead><tr><th>口径项</th><th>说明</th></tr></thead>
-      <tbody>
-        <tr><td style="white-space:nowrap"><b>用户数口径</b></td><td><span class="mono">wechat_agent_landing</span>（nova 小程序端上报）：distinct_id 为神策用户 ID；仅 handoff URL 带 <span class="mono">referrer=wechatAgent</span> 时上报</td></tr>
-        <tr><td style="white-space:nowrap"><b>调用量口径</b></td><td><span class="mono">wechat_agent_atomic_api_call</span>（meow 服务端上报）：distinct_id 为 traceId（技术链路 ID，非用户）；两事件按 trace_id 关联，匹配率 69.3%</td></tr>
-        <tr><td style="white-space:nowrap"><b>身份核验</b></td><td>生产库 <span class="mono">ying99_pomodel.portfolio_manager_info</span>（broker_code=0008）+ <span class="mono">ying99_community.community_user_level</span></td></tr>
-        <tr><td style="white-space:nowrap"><b>剔除项</b></td><td><span class="mono">codex-*</span> 手工测试 traceId 共 11 条</td></tr>
-        <tr><td style="white-space:nowrap"><b>已知局限</b></td><td>① 对话原文不在我方系统（在微信侧 LLM 完成），无法分析提问内容；② meow 埋点 fire-and-forget，约 6% 丢失；③ 07-17 ~ 08-16 为内测期数据（正式渠道 08-17 建立）</td></tr>
-      </tbody>
-    </table>
-  </div>
+  <section id="path">
+    <div class="section-kicker">BEHAVIOR PATH</div>
+    <h2 class="section-title">调用前 → 调用中 → 落地 → 调用后</h2>
+    <article class="panel">
+      <div class="path">
+        <div class="path-step"><b>1. 微信提问</b><span>对话原文留在微信侧，当前不可观测用户真实意图</span></div>
+        <div class="path-step"><b>2. 原子接口</b><span>基金详情、策略概览、搜索与投顾内容为主</span></div>
+        <div class="path-step"><b>3. 卡片落地</b><span>同 trace 中位 6 秒点击，进入基金/策略/内容/资产页</span></div>
+        <div class="path-step"><b>4. 后续业务行为</b><span>需用生产订单、账户、支付与定投表再核验，不能只看点击</span></div>
+      </div>
+      <div id="chart-landing" class="chart" style="margin-top:10px"></div>
+      <p class="desc">高频路径：getFundDetail → 基金详情；getStrategyOverview → 组合/长赢页；searchFund → 搜索结果；getAdvisorContent → 内容页；getMyProfit → 收益日历。头部账号单个 90 秒聚类会话可连续跳转 73~108 次，约每 30 秒一次“提问→点击”，更像系统性遍历验收。 <span class="source-id">D-009</span></p>
+    </article>
+  </section>
 
-  <div class="foot">
-    数据来源：神策 qiemanproduction · rawdata.events（wechat_agent_landing / wechat_agent_atomic_api_call 全量明细 2026-07-17 ~ 09-10）+ 生产 TiDB 身份核验<br>
-    盈米本体下钻 68 轮 / 46 次工具调用 · 口径经源码核实 · Clair's Studio
-  </div>
+  <section id="conversion">
+    <div class="section-kicker">CONVERSION AUDIT</div>
+    <h2 class="section-title">转化核验：下单请求、订单落库、支付成功要分三层</h2>
+    <article class="panel">
+      <table><thead><tr><th>转化项</th><th class="r">人数</th><th>分母</th><th>生产核验结果</th><th>结论</th></tr></thead><tbody id="conversion-rows"></tbody></table>
+      <div class="finding risk"><strong>旧结论纠正：</strong>旧版把“首用次日出现交易动作”写成自然用户 1/3 转化。生产表复核后，长赢 400 元订单支付未完成；同时 4 名有组合订单的实名用户都在内测前已有持续下单/定投行为。因此更严谨的结论是：<b>观察到时序与标的重合，但可归因新增转化为 0</b>。</div>
+      <div class="finding good"><strong>下一步机会：</strong>产品侧应补一条贯穿微信提问、原子调用、小程序落地、下单、支付成功的业务 attribution_id，并单独识别内部测试批次。没有这个锚点，后续即使订单增长，也只能证明相关性。</div>
+    </article>
+  </section>
 
-</div>
+  <section id="sources">
+    <div class="section-kicker">TRACEABILITY</div>
+    <h2 class="section-title">数据来源与索引</h2>
+    <article class="panel">
+      <table><thead><tr><th>编号</th><th>指标/证据</th><th>数值</th><th>来源与口径</th></tr></thead><tbody id="source-rows"></tbody></table>
+      <div class="finding"><strong>数据源：</strong>神策 qiemanproduction 的 wechat_agent_landing 2,894 条、wechat_agent_atomic_api_call 3,803 条全量明细；生产 TiDB 的账户、基金账户、支付方式、组合订单、单基金订单与定投计划表。统计窗口 2026-07-17 00:00:00 ~ 2026-09-14 14:16:30（Asia/Shanghai）。</div>
+    </article>
+  </section>
+
+  <section id="selfcheck">
+    <div class="section-kicker">SELF CHECK</div>
+    <h2 class="section-title">数据核对与逻辑自检</h2>
+    <article class="panel">
+      <div class="audit-grid">
+        <div class="audit"><b>✓ 用户恒等式</b><span>38 = 6 实名 + 32 匿名</span></div>
+        <div class="audit"><b>✓ 环境恒等式</b><span>2,894 = 2,844 devtools + 50 真机</span></div>
+        <div class="audit"><b>✓ 调用恒等式</b><span>3,792 = 3,803 原始 − 11 测试</span></div>
+        <div class="audit"><b>✓ 成败恒等式</b><span>3,792 = 3,645 成功 + 147 失败</span></div>
+        <div class="audit"><b>✓ Skill 合计</b><span>7 个 Skill 合计 3,792</span></div>
+        <div class="audit"><b>✓ 每日 landing</b><span>60 个自然日合计 2,894</span></div>
+        <div class="audit"><b>✓ 每日 atomic</b><span>含 08-18 缺失行后合计 3,792</span></div>
+        <div class="audit"><b>✓ 每日失败</b><span>含 08-18 两次失败后合计 147</span></div>
+        <div class="audit"><b>✓ 增量对账</b><span>+12 landing / +9 atomic / +0 失败</span></div>
+        <div class="audit"><b>✓ 因果边界</b><span>转化全部用生产落库与支付状态复核</span></div>
+      </div>
+      <p class="desc" style="margin-top:10px">不确定项已标注：匿名设备不等于用户、devtools 不等于员工、真机不等于外部自然流量、下单请求不等于成交、行为先后不等于因果。页面数字由同目录数据快照驱动，并纳入构建期自动校验。</p>
+    </article>
+  </section>
+
+  <footer class="foot">生产数据刷新：2026-09-14 14:16:30（Asia/Shanghai） · 本体下钻 187 + 18 + 9 轮复核 · 神策明细与生产 TiDB 交叉验证<br>公开版仅保留聚合与掩码身份，不包含姓名、完整用户/设备/账户/订单标识；仅用于内部运营分析，不构成投资建议。</footer>
+</main>
 
 <script>
-const C = {
-  brand:"#12558C", brandL:"#2E7FC4", violet:"#6D5BD0", up:"#0E9F6E",
-  gold:"#B98A2F", cyan:"#0E8FA8", down:"#E5484D", ink3:"#7A86A3", line:"#E4E8F2"
-};
-const baseTxt = {color:"#3D4A68", fontSize:11};
+const D = window.WECHAT_AGENT_BEHAVIOR_DATA;
+if (!D) throw new Error("数据快照未加载");
+const C={brand:"#14649F",brandL:"#62A5D5",violet:"#6658C7",up:"#0B8F67",gold:"#B27B18",warn:"#C66A05",cyan:"#0D879E",down:"#D94348",muted:"#B8C2D2",line:"#E3E8F1",ink:"#3D4A68"};
+const baseText={color:C.ink,fontSize:11};
+const charts=[];
+const chart=(id,option)=>{const node=document.getElementById(id);const ch=echarts.init(node);ch.setOption(option);charts.push(ch);return ch};
+const fmt=n=>Number(n).toLocaleString("zh-CN");
 
-/* 用户构成：调用量集中度 */
-(function(){
-  const el = document.getElementById("chart-users");
-  const ch = echarts.init(el);
-  ch.setOption({
-    tooltip:{trigger:"item",formatter:"{b}<br/>调用 {c} 次（{d}%）"},
-    legend:{bottom:0,textStyle:baseTxt,itemWidth:12,itemHeight:8},
-    series:[{
-      type:"pie", radius:["42%","68%"], center:["50%","44%"],
-      label:{show:true,formatter:"{b}\n{d}%",fontSize:10,color:"#3D4A68"},
-      data:[
-        {name:"1947092 官方运营号",value:913,itemStyle:{color:C.gold}},
-        {name:"8775775 冯**",value:683,itemStyle:{color:C.brand}},
-        {name:"1820872 何**",value:163,itemStyle:{color:C.brandL}},
-        {name:"1353908 黄**",value:69,itemStyle:{color:C.up}},
-        {name:"内部账号×2",value:9,itemStyle:{color:C.violet}},
-        {name:"匿名设备×31",value:1946,itemStyle:{color:"#B9C4D8"}}
-      ]
-    }]
-  });
-  window.addEventListener("resize",()=>ch.resize());
-})();
+document.getElementById("registered-rows").innerHTML=D.registeredRows.map(r=>`<tr><td class="mono">${r.id}</td><td>${r.identity}</td><td><span class="tag ${r.environment==="devtools"?"inferred":"neutral"}">${r.environment}</span></td><td class="r num">${fmt(r.landing)}</td><td class="r num">${fmt(r.atomic)}</td><td>${r.active}</td></tr>`).join("");
+document.getElementById("api-risk-rows").innerHTML=D.apiTop.filter(r=>r.failures>0).sort((a,b)=>(b.failures/b.calls)-(a.failures/a.calls)).map(r=>`<tr><td class="mono">${r.name}</td><td class="r num">${fmt(r.calls)}</td><td class="r num">${fmt(r.failures)}</td><td class="r num">${(r.failures/r.calls*100).toFixed(1)}%</td></tr>`).join("");
+document.getElementById("conversion-rows").innerHTML=D.conversions.map(r=>`<tr><td><b>${r.name}</b></td><td class="r num">${r.people}</td><td>${r.denominator}</td><td>${r.result}</td><td><span class="tag ${r.status==="zero"?"confirmed":"inferred"}">${r.status==="zero"?"未见新增":"不可归因"}</span></td></tr>`).join("");
+document.getElementById("source-rows").innerHTML=D.evidenceIndex.map(r=>`<tr><td><span class="source-id">${r.id}</span></td><td>${r.metric}</td><td class="num"><b>${r.value}</b></td><td>${r.source}</td></tr>`).join("");
 
-/* 接口调用分布 */
-(function(){
-  const el = document.getElementById("chart-api");
-  const ch = echarts.init(el);
-  const data = [
-    ["getFundDetail",881],["getStrategyOverview",617],["searchStrategy",491],
-    ["getAdvisorContent",405],["searchFund",312],["guessFundCode",287],
-    ["getMyProfit",151],["其余接口合计",639]
-  ].reverse();
-  ch.setOption({
-    grid:{left:8,right:44,top:8,bottom:8,containLabel:true},
-    xAxis:{type:"value",axisLabel:baseTxt,splitLine:{lineStyle:{color:C.line}}},
-    yAxis:{type:"category",data:data.map(d=>d[0]),axisLabel:{...baseTxt,fontFamily:"Menlo,monospace"}},
-    tooltip:{trigger:"axis",axisPointer:{type:"shadow"}},
-    series:[{type:"bar",data:data.map((d,i)=>({value:d[1],itemStyle:{color:d[0]==="其余接口合计"?"#B9C4D8":C.brandL,borderRadius:[0,4,4,0]}})),barWidth:14,label:{show:true,position:"right",fontSize:11,color:"#3D4A68"}}]
-  });
-  window.addEventListener("resize",()=>ch.resize());
-})();
+function completeDaily(){
+  const byDate=new Map(D.dailyNonZero.map(r=>[r.date,r]));
+  const out=[];let cur=new Date(D.meta.startAt.slice(0,10)+"T00:00:00Z");const end=new Date(D.meta.cutoffAt.slice(0,10)+"T00:00:00Z");
+  while(cur<=end){const key=cur.toISOString().slice(0,10);out.push(byDate.get(key)||{date:key,newUsers:0,landing:0,atomic:0,failures:0});cur.setUTCDate(cur.getUTCDate()+1)}
+  let cu=0,cl=0,ca=0;return out.map(r=>({...r,cumUsers:cu+=r.newUsers,cumLanding:cl+=r.landing,cumAtomic:ca+=r.atomic}));
+}
+const DAILY=completeDaily();
+const trend=chart("chart-trend",{});
+function renderTrend(mode){
+  const cumulative=mode==="cumulative";
+  trend.setOption({animationDuration:500,grid:{left:44,right:42,top:42,bottom:62},tooltip:{trigger:"axis"},legend:{top:4,textStyle:baseText},dataZoom:[{type:"inside"},{type:"slider",height:18,bottom:10}],xAxis:{type:"category",data:DAILY.map(r=>r.date.slice(5)),axisLabel:{...baseText,interval:6},axisLine:{lineStyle:{color:C.line}}},yAxis:[{type:"value",name:cumulative?"累计次数":"每日次数",axisLabel:baseText,splitLine:{lineStyle:{color:C.line}}},{type:"value",name:cumulative?"累计身份":"失败/新增",axisLabel:baseText,splitLine:{show:false}}],series:cumulative?[
+    {name:"累计落地",type:"line",smooth:.18,symbol:"none",data:DAILY.map(r=>r.cumLanding),lineStyle:{width:2.5,color:C.brand},areaStyle:{color:"rgba(20,100,159,.08)"}},
+    {name:"累计调用",type:"line",smooth:.18,symbol:"none",data:DAILY.map(r=>r.cumAtomic),lineStyle:{width:2.5,color:C.violet}},
+    {name:"累计身份",type:"line",yAxisIndex:1,symbol:"circle",symbolSize:4,data:DAILY.map(r=>r.cumUsers),lineStyle:{color:C.up}}
+  ]:[
+    {name:"每日落地",type:"bar",data:DAILY.map(r=>r.landing),itemStyle:{color:C.brandL,borderRadius:[3,3,0,0]},barMaxWidth:14},
+    {name:"每日调用",type:"bar",data:DAILY.map(r=>r.atomic),itemStyle:{color:"#AEA5E7",borderRadius:[3,3,0,0]},barMaxWidth:14},
+    {name:"失败",type:"line",yAxisIndex:1,data:DAILY.map(r=>r.failures),symbol:"circle",symbolSize:4,lineStyle:{color:C.down}},
+    {name:"新增身份",type:"line",yAxisIndex:1,data:DAILY.map(r=>r.newUsers),symbol:"none",lineStyle:{color:C.up,type:"dashed"}}
+  ]},true);
+}
+renderTrend("daily");
+document.querySelectorAll("[data-trend]").forEach(btn=>btn.addEventListener("click",()=>{document.querySelectorAll("[data-trend]").forEach(b=>b.classList.remove("active"));btn.classList.add("active");renderTrend(btn.dataset.trend)}));
 
-/* Skill 分布 */
-(function(){
-  const el = document.getElementById("chart-skill");
-  const ch = echarts.init(el);
-  ch.setOption({
-    tooltip:{trigger:"item",formatter:"{b}<br/>{c} 次（{d}%）"},
-    legend:{bottom:0,textStyle:baseTxt,itemWidth:12,itemHeight:8},
-    series:[{
-      type:"pie", radius:["42%","68%"], center:["50%","44%"],
-      label:{show:true,formatter:"{b}\n{d}%",fontSize:10,color:"#3D4A68"},
-      data:[
-        {name:"fund-explorer",value:1727,itemStyle:{color:C.brand}},
-        {name:"strategy-explorer",value:1207,itemStyle:{color:C.brandL}},
-        {name:"market-content",value:405,itemStyle:{color:C.violet}},
-        {name:"account-center",value:261,itemStyle:{color:C.cyan}},
-        {name:"market-insight",value:87,itemStyle:{color:C.gold}},
-        {name:"fund-trading",value:80,itemStyle:{color:C.up}}
-      ]
-    }]
-  });
-  window.addEventListener("resize",()=>ch.resize());
-})();
+chart("chart-identity",{tooltip:{trigger:"item",formatter:"{b}<br/>{c} 个（{d}%）"},legend:{bottom:0,textStyle:baseText},series:[{type:"pie",radius:["42%","70%"],center:["50%","43%"],label:{formatter:"{b}\n{c}",fontSize:10,color:C.ink},data:D.identityRoles.map((x,i)=>({...x,itemStyle:{color:[C.gold,C.brand,C.muted][i]}}))}]});
+chart("chart-environment",{grid:{left:10,right:35,top:20,bottom:42,containLabel:true},tooltip:{trigger:"axis",axisPointer:{type:"shadow"}},xAxis:{type:"value",max:100,axisLabel:{formatter:"{value}%",...baseText},splitLine:{lineStyle:{color:C.line}}},yAxis:{type:"category",data:D.environments.map(x=>x.name),axisLabel:baseText},series:[{type:"bar",data:D.environments.map((x,i)=>({value:x.share,itemStyle:{color:[C.warn,C.up][i],borderRadius:[0,5,5,0]},label:{show:true,position:"right",formatter:`${x.share}% · ${fmt(x.landing)} 次`,color:C.ink,fontSize:11}})),barWidth:24}]});
 
-/* 落地页分布 */
-(function(){
-  const el = document.getElementById("chart-landing");
-  const ch = echarts.init(el);
-  const data = [["基金详情页",620],["策略/组合详情页",550],["搜索结果页",300],["长赢页",200],["社区内容页",150],["基金经理页",100]].reverse();
-  ch.setOption({
-    grid:{left:8,right:44,top:8,bottom:8,containLabel:true},
-    xAxis:{type:"value",axisLabel:baseTxt,splitLine:{lineStyle:{color:C.line}}},
-    yAxis:{type:"category",data:data.map(d=>d[0]),axisLabel:baseTxt},
-    tooltip:{trigger:"axis",axisPointer:{type:"shadow"}},
-    series:[{type:"bar",data:data.map(d=>d[1]),barWidth:16,itemStyle:{color:C.violet,borderRadius:[0,4,4,0]},label:{show:true,position:"right",fontSize:11,color:"#3D4A68"}}]
-  });
-  window.addEventListener("resize",()=>ch.resize());
-})();
+const apiData=[...D.apiTop].reverse();
+chart("chart-api",{grid:{left:8,right:48,top:28,bottom:12,containLabel:true},tooltip:{trigger:"axis",axisPointer:{type:"shadow"}},legend:{top:0,textStyle:baseText},xAxis:{type:"value",axisLabel:baseText,splitLine:{lineStyle:{color:C.line}}},yAxis:{type:"category",data:apiData.map(x=>x.name),axisLabel:{...baseText,fontFamily:"Menlo,monospace"}},series:[{name:"调用",type:"bar",data:apiData.map(x=>x.calls),itemStyle:{color:C.brandL,borderRadius:[0,4,4,0]},barWidth:13},{name:"失败",type:"bar",data:apiData.map(x=>x.failures),itemStyle:{color:C.down,borderRadius:[0,4,4,0]},barWidth:13}]});
+chart("chart-errors",{tooltip:{trigger:"item",formatter:"{b}<br/>{c} 次（{d}%）"},legend:{bottom:0,textStyle:baseText,itemWidth:11,itemHeight:8},series:[{type:"pie",radius:["42%","70%"],center:["50%","42%"],label:{show:false},data:D.errorCodes.map((x,i)=>({...x,itemStyle:{color:[C.down,C.warn,C.gold,C.violet,C.muted][i]}}))}]});
+chart("chart-skills",{tooltip:{trigger:"item",formatter:"{b}<br/>{c} 次（{d}%）"},legend:{type:"scroll",bottom:0,textStyle:baseText,itemWidth:11,itemHeight:8},series:[{type:"pie",radius:["42%","70%"],center:["50%","42%"],label:{formatter:"{b}\n{d}%",fontSize:10,color:C.ink},data:D.skills.map((x,i)=>({name:x.name,value:x.calls,itemStyle:{color:[C.brand,C.brandL,C.violet,C.cyan,C.gold,C.up,C.muted][i]}}))}]});
+const land=[...D.landingPages].reverse();
+chart("chart-landing",{grid:{left:8,right:45,top:16,bottom:12,containLabel:true},tooltip:{trigger:"axis",axisPointer:{type:"shadow"}},xAxis:{type:"value",axisLabel:baseText,splitLine:{lineStyle:{color:C.line}}},yAxis:{type:"category",data:land.map(x=>x.name),axisLabel:baseText},series:[{type:"bar",data:land.map(x=>x.value),barWidth:17,itemStyle:{color:C.violet,borderRadius:[0,4,4,0]},label:{show:true,position:"right",fontSize:11,color:C.ink}}]});
+window.addEventListener("resize",()=>charts.forEach(ch=>ch.resize()));
 </script>
 </body>
 </html>
