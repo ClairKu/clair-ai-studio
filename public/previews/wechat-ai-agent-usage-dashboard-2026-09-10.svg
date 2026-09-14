@@ -15,18 +15,18 @@
   <g transform="translate(68 54)" font-family="Arial, 'PingFang SC', sans-serif">
     <rect width="300" height="34" rx="17" fill="#0F2A44" stroke="#2C526C"/><circle cx="19" cy="17" r="5" fill="#56E5AE"/><text x="34" y="22" fill="#B8D2E5" font-size="13" letter-spacing="2">SENSORS DATA DASHBOARD</text>
     <text y="96" fill="url(#headline)" font-size="58" font-weight="800">微信 AI 能力调用看板</text>
-    <text y="140" fill="#9FBBD4" font-size="21">原子接口 × 落地埋点｜调用走势 · 接口质量 · 落地分析　2026-09-07 ~ 09-10</text>
+    <text y="140" fill="#9FBBD4" font-size="21">原子接口 × 落地埋点｜调用走势 · 接口质量 · 聚合脱敏　更新至 2026-09-14</text>
   </g>
   <g transform="translate(68 260)" font-family="Arial, 'PingFang SC', sans-serif">
-    <g><rect width="245" height="118" rx="16" fill="#10304E" stroke="#28506F"/><text x="22" y="36" fill="#8FB4D2" font-size="15">Agent 落地</text><text x="22" y="86" fill="#8FC9F5" font-size="42" font-weight="800">222 次</text></g>
-    <g transform="translate(263)"><rect width="245" height="118" rx="16" fill="#161F45" stroke="#3B3F73"/><text x="22" y="36" fill="#A9A3D6" font-size="15">原子接口调用</text><text x="22" y="86" fill="#C4BBEB" font-size="42" font-weight="800">317 次</text></g>
-    <g transform="translate(526)"><rect width="245" height="118" rx="16" fill="#0F3A31" stroke="#1F5F50"/><text x="22" y="36" fill="#8FCDB8" font-size="15">调用成功率</text><text x="22" y="86" fill="#56E5AE" font-size="42" font-weight="800">99.1%</text></g>
-    <g transform="translate(789)"><rect width="245" height="118" rx="16" fill="#0F2A44" stroke="#28506F"/><text x="22" y="36" fill="#8FB4D2" font-size="15">原子接口 / Skill</text><text x="22" y="86" fill="#E9D9A8" font-size="42" font-weight="800">18 / 7</text></g>
+    <g><rect width="245" height="118" rx="16" fill="#10304E" stroke="#28506F"/><text x="22" y="36" fill="#8FB4D2" font-size="15">Agent 落地</text><text x="22" y="86" fill="#8FC9F5" font-size="42" font-weight="800">2,894</text></g>
+    <g transform="translate(263)"><rect width="245" height="118" rx="16" fill="#161F45" stroke="#3B3F73"/><text x="22" y="36" fill="#A9A3D6" font-size="15">原子接口调用</text><text x="22" y="86" fill="#C4BBEB" font-size="42" font-weight="800">3,803</text></g>
+    <g transform="translate(526)"><rect width="245" height="118" rx="16" fill="#0F3A31" stroke="#1F5F50"/><text x="22" y="36" fill="#8FCDB8" font-size="15">调用成功率</text><text x="22" y="86" fill="#56E5AE" font-size="42" font-weight="800">96.1%</text></g>
+    <g transform="translate(789)"><rect width="245" height="118" rx="16" fill="#0F2A44" stroke="#28506F"/><text x="22" y="36" fill="#8FB4D2" font-size="15">原子接口 / Skill</text><text x="22" y="86" fill="#E9D9A8" font-size="42" font-weight="800">19 / 7</text></g>
   </g>
   <g transform="translate(68 430)">
     <rect width="1034" height="190" rx="16" fill="#0D2740" stroke="#234A68"/>
     <g transform="translate(30 24)">
-      <text fill="#8FB4D2" font-size="14" font-family="Arial, 'PingFang SC', sans-serif" y="4">分小时调用走势（两个集中尖峰）与接口 Top</text>
+      <text fill="#8FB4D2" font-size="14" font-family="Arial, 'PingFang SC', sans-serif" y="4">旧版观察窗延展与全量接口 Top</text>
       <g transform="translate(0 24)">
         <rect x="0" y="96" width="16" height="22" rx="3" fill="url(#barA)"/><rect x="22" y="88" width="16" height="30" rx="3" fill="url(#barB)"/>
         <rect x="60" y="70" width="16" height="48" rx="3" fill="url(#barA)"/><rect x="82" y="52" width="16" height="66" rx="3" fill="url(#barB)"/>
@@ -38,10 +38,10 @@
         <path d="M8 118 C 90 108, 120 30, 150 12 S 250 8, 270 10 S 360 96, 398 100" fill="none" stroke="#E9D9A8" stroke-width="2.5" opacity=".8"/>
       </g>
       <g transform="translate(470 24)" font-family="Arial, 'PingFang SC', sans-serif" font-size="13">
-        <text fill="#9FBBD4" y="10">getFundDetail</text><rect x="150" y="0" width="330" height="13" rx="6" fill="url(#barA)"/><text x="492" y="11" fill="#8FC9F5" font-weight="700">72</text>
-        <text fill="#9FBBD4" y="38">getAdvisorContent</text><rect x="150" y="28" width="220" height="13" rx="6" fill="url(#barB)"/><text x="382" y="39" fill="#C4BBEB" font-weight="700">48</text>
-        <text fill="#9FBBD4" y="66">searchFund</text><rect x="150" y="56" width="211" height="13" rx="6" fill="url(#barA)"/><text x="373" y="67" fill="#8FC9F5" font-weight="700">46</text>
-        <text fill="#9FBBD4" y="94">searchStrategy</text><rect x="150" y="84" width="174" height="13" rx="6" fill="url(#barB)"/><text x="336" y="95" fill="#C4BBEB" font-weight="700">38</text>
+        <text fill="#9FBBD4" y="10">getFundDetail</text><rect x="150" y="0" width="330" height="13" rx="6" fill="url(#barA)"/><text x="492" y="11" fill="#8FC9F5" font-weight="700">885</text>
+        <text fill="#9FBBD4" y="38">getStrategyOverview</text><rect x="150" y="28" width="230" height="13" rx="6" fill="url(#barB)"/><text x="392" y="39" fill="#C4BBEB" font-weight="700">617</text>
+        <text fill="#9FBBD4" y="66">searchStrategy</text><rect x="150" y="56" width="183" height="13" rx="6" fill="url(#barA)"/><text x="345" y="67" fill="#8FC9F5" font-weight="700">491</text>
+        <text fill="#9FBBD4" y="94">getAdvisorContent</text><rect x="150" y="84" width="153" height="13" rx="6" fill="url(#barB)"/><text x="315" y="95" fill="#C4BBEB" font-weight="700">409</text>
       </g>
     </g>
   </g>

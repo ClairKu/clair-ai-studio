@@ -309,7 +309,7 @@ const initialState = {
       pinned: true,
       position: 0,
       createdAt: "2026-09-10T11:55:00+08:00",
-      source: "神策 qiemanproduction 埋点（sensor skill × 盈米本体代查）｜2026-09-07~09-10 落地 222 次 × 原子接口调用 317 次（当天数据实时流入）｜18 个原子接口、7 个 Skill、成功率 99.1%，3 次失败集中于同一小时同一接口的 UPSTREAM_ERROR｜分小时/每日及累计走势、接口质量（平均/P95 耗时）、落地来源与目标页 Top20｜口径经 meow、nova 源码核实，总量三向交叉校验一致",
+      source: "神策 qiemanproduction 微信 Agent 生产埋点（sensor skill × 盈米本体代查）｜更新于 2026-09-14 10:06，09-14 为部分日｜上线以来落地 2,894 次、原子接口调用 3,803 次｜19 个原子接口、7 个 Skill、成功率 96.1%｜沿用 09-07 起观察窗，补齐 09-10 全天并延展至 09-14｜接口/Skill/页面多向校验一致，公开页已聚合脱敏｜明确排除 OAP 经营驾驶舱；历史行业占比仅作独立参考，不混入内部调用指标",
       access: "production",
       workType: "data-analysis",
       tags: ["微信 Agent", "AI 能力", "原子接口", "埋点分析", "神策", "调用质量", "数据分析", "AI 开放平台", "HTML", "生产"],
