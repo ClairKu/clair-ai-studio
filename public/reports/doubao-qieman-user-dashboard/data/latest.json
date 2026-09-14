@@ -2,8 +2,8 @@
   "schema_version": "doubao-qieman-user-dashboard-v2",
   "meta": {
     "title": "豆包 × 且慢｜使用后转化看板",
-    "generated_at": "2026-09-07T14:17:51+08:00",
-    "data_cutoff": "2026-09-07T14:17:51+08:00",
+    "generated_at": "2026-09-14T14:20:36+08:00",
+    "data_cutoff": "2026-09-14T14:20:36+08:00",
     "window_start_at": "2026-08-28T00:00:00+08:00",
     "first_observed_grant_at": "2026-08-28T19:17:00+08:00",
     "timezone": "Asia/Shanghai",
@@ -12,16 +12,16 @@
     "privacy": "仅公开聚合统计；不含用户身份、手机号、Client ID、Token、请求 ID 或原始对话"
   },
   "metrics": {
-    "boundAccounts": 397,
-    "currentAccounts": 397,
+    "boundAccounts": 790,
+    "currentAccounts": 790,
     "inactiveAccounts": 0,
-    "reauthorizedAccounts": 100,
-    "consentRecords": 543,
-    "readyAccounts": 389,
-    "activeReadyAccounts": 338,
-    "usageProxySessions": 3051,
-    "newAccounts": 238,
-    "existingAccounts": 159,
+    "reauthorizedAccounts": 209,
+    "consentRecords": 1091,
+    "readyAccounts": 756,
+    "activeReadyAccounts": 595,
+    "usageProxySessions": 9160,
+    "newAccounts": 518,
+    "existingAccounts": 272,
     "unclassifiedAccounts": 0
   },
   "daily": [
@@ -137,61 +137,146 @@
     },
     {
       "date": "2026-09-07",
-      "new": 15,
-      "existing": 5,
+      "new": 33,
+      "existing": 11,
       "unclassified": 0,
-      "total": 20,
-      "cumulativeNew": 238,
-      "cumulativeExisting": 159,
+      "total": 44,
+      "cumulativeNew": 256,
+      "cumulativeExisting": 165,
       "cumulativeUnclassified": 0,
-      "cumulativeTotal": 397
+      "cumulativeTotal": 421
+    },
+    {
+      "date": "2026-09-08",
+      "new": 45,
+      "existing": 20,
+      "unclassified": 0,
+      "total": 65,
+      "cumulativeNew": 301,
+      "cumulativeExisting": 185,
+      "cumulativeUnclassified": 0,
+      "cumulativeTotal": 486
+    },
+    {
+      "date": "2026-09-09",
+      "new": 36,
+      "existing": 14,
+      "unclassified": 0,
+      "total": 50,
+      "cumulativeNew": 337,
+      "cumulativeExisting": 199,
+      "cumulativeUnclassified": 0,
+      "cumulativeTotal": 536
+    },
+    {
+      "date": "2026-09-10",
+      "new": 44,
+      "existing": 20,
+      "unclassified": 0,
+      "total": 64,
+      "cumulativeNew": 381,
+      "cumulativeExisting": 219,
+      "cumulativeUnclassified": 0,
+      "cumulativeTotal": 600
+    },
+    {
+      "date": "2026-09-11",
+      "new": 27,
+      "existing": 15,
+      "unclassified": 0,
+      "total": 42,
+      "cumulativeNew": 408,
+      "cumulativeExisting": 234,
+      "cumulativeUnclassified": 0,
+      "cumulativeTotal": 642
+    },
+    {
+      "date": "2026-09-12",
+      "new": 42,
+      "existing": 17,
+      "unclassified": 0,
+      "total": 59,
+      "cumulativeNew": 450,
+      "cumulativeExisting": 251,
+      "cumulativeUnclassified": 0,
+      "cumulativeTotal": 701
+    },
+    {
+      "date": "2026-09-13",
+      "new": 42,
+      "existing": 8,
+      "unclassified": 0,
+      "total": 50,
+      "cumulativeNew": 492,
+      "cumulativeExisting": 259,
+      "cumulativeUnclassified": 0,
+      "cumulativeTotal": 751
+    },
+    {
+      "date": "2026-09-14",
+      "new": 26,
+      "existing": 13,
+      "unclassified": 0,
+      "total": 39,
+      "cumulativeNew": 518,
+      "cumulativeExisting": 272,
+      "cumulativeUnclassified": 0,
+      "cumulativeTotal": 790
     }
   ],
   "journey": {
     "anchor": "first_oauth_refresh_token_created_at",
     "anchorLabel": "首次会话令牌签发（豆包使用代理）",
-    "readyAccounts": 389,
+    "readyAccounts": 756,
     "actualToolUsers": null,
     "actualToolUsersState": "unavailable_no_client_to_user_call_link",
-    "openedAfterReady": 0,
-    "cardBoundAfterReady": 0,
-    "riskAssessedAfterReady": 0,
+    "openedAfterReady": 3,
+    "cardBoundAfterReady": 3,
+    "riskAssessedAfterReady": 3,
     "firstInvestmentAfterReady": 0,
-    "inflowUsersAfterReady": 7,
-    "inflowWanAfterReady": 0.9358,
-    "strictInflowUsersAfterReady": 6,
-    "strictInflowWanAfterReady": 0.8258,
-    "sameDayInflowUsers": 2,
-    "sameDayOnlyUsers": 1,
-    "sameDayInflowWan": 0.11,
+    "inflowUsersAfterReady": 15,
+    "inflowWanAfterReady": 3.3082,
+    "strictInflowUsersAfterReady": 13,
+    "strictInflowWanAfterReady": 3.0982,
+    "sameDayInflowUsers": 3,
+    "sameDayOnlyUsers": 2,
+    "sameDayInflowWan": 0.21,
     "firstReadyAt": "2026-08-28T19:17:01+08:00",
-    "lastReadyAt": "2026-09-07T14:17:12+08:00"
+    "lastReadyAt": "2026-09-14T14:20:35+08:00"
   },
   "cohorts": {
     "all": {
-      "population": 397,
+      "population": 790,
       "profile": {
         "gender": {
-          "male": 46,
-          "female": 9,
-          "unknown": 342
+          "male": 90,
+          "female": 23,
+          "unknown": 677
         },
         "age": {
-          "lte25": 2,
-          "age26_35": 23,
-          "age36_45": 23,
-          "age46_55": 6,
+          "lte25": 5,
+          "age26_35": 44,
+          "age36_45": 48,
+          "age46_55": 15,
           "age56_65": 1,
           "gte66": 0,
-          "unknown": 342
+          "unknown": 677
         },
         "provinces": [
           {
             "label": "unknown",
-            "accounts": 389
+            "accounts": 774
           },
           {
             "label": "北京",
+            "accounts": 4
+          },
+          {
+            "label": "广东",
+            "accounts": 3
+          },
+          {
+            "label": "海南",
             "accounts": 2
           },
           {
@@ -199,11 +284,11 @@
             "accounts": 2
           },
           {
-            "label": "广东",
-            "accounts": 1
+            "label": "上海",
+            "accounts": 2
           },
           {
-            "label": "海南",
+            "label": "江西",
             "accounts": 1
           },
           {
@@ -211,92 +296,92 @@
             "accounts": 1
           },
           {
-            "label": "上海",
+            "label": "四川",
             "accounts": 1
           }
         ],
-        "wechatBound": 87,
-        "bankCardBound": 56,
-        "riskAssessed": 13,
-        "everInvested": 42
+        "wechatBound": 156,
+        "bankCardBound": 114,
+        "riskAssessed": 27,
+        "everInvested": 78
       },
       "assets": {
-        "snapshotDate": "2026-09-04",
-        "openedAccounts": 56,
-        "hasAssets": 35,
-        "noAssets": 21,
-        "unknown": 341,
-        "holdingWan": 500.45,
+        "snapshotDate": "2026-09-11",
+        "openedAccounts": 114,
+        "hasAssets": 67,
+        "noAssets": 47,
+        "unknown": 676,
+        "holdingWan": 1037.87,
         "buckets": {
-          "noAssets": 21,
-          "lt10k": 5,
-          "between10k100k": 15,
-          "between100k1m": 14,
+          "noAssets": 47,
+          "lt10k": 14,
+          "between10k100k": 24,
+          "between100k1m": 28,
           "gte1m": 1,
-          "unknown": 341
+          "unknown": 676
         }
       },
       "behavior": {
-        "eligible": 56,
-        "fundedAfter": 7,
-        "fundedNotReached": 38,
-        "fundedUnknown": 11,
-        "boughtAfter": 16,
+        "eligible": 114,
+        "fundedAfter": 17,
+        "fundedNotReached": 69,
+        "fundedUnknown": 28,
+        "boughtAfter": 27,
         "firstInvestmentAfter": 0,
-        "redeemedAfter": 3,
+        "redeemedAfter": 8,
         "xiaoguUsage": null,
         "xiaoguUsageState": "unavailable_no_user_level_oauth_usage_link"
       }
     },
     "new": {
-      "population": 238,
+      "population": 518,
       "profile": {
         "gender": {
-          "male": 0,
-          "female": 0,
-          "unknown": 238
+          "male": 1,
+          "female": 1,
+          "unknown": 516
         },
         "age": {
           "lte25": 0,
-          "age26_35": 0,
+          "age26_35": 2,
           "age36_45": 0,
           "age46_55": 0,
           "age56_65": 0,
           "gte66": 0,
-          "unknown": 238
+          "unknown": 516
         },
         "provinces": [
           {
             "label": "unknown",
-            "accounts": 238
+            "accounts": 518
           }
         ],
-        "wechatBound": 3,
-        "bankCardBound": 0,
-        "riskAssessed": 0,
+        "wechatBound": 5,
+        "bankCardBound": 2,
+        "riskAssessed": 1,
         "everInvested": 0
       },
       "assets": {
-        "snapshotDate": "2026-09-04",
-        "openedAccounts": 0,
+        "snapshotDate": "2026-09-11",
+        "openedAccounts": 2,
         "hasAssets": 0,
-        "noAssets": 0,
-        "unknown": 238,
+        "noAssets": 2,
+        "unknown": 516,
         "holdingWan": 0,
         "buckets": {
-          "noAssets": 0,
+          "noAssets": 2,
           "lt10k": 0,
           "between10k100k": 0,
           "between100k1m": 0,
           "gte1m": 0,
-          "unknown": 238
+          "unknown": 516
         }
       },
       "behavior": {
-        "eligible": 0,
+        "eligible": 2,
         "fundedAfter": 0,
         "fundedNotReached": 0,
-        "fundedUnknown": 0,
+        "fundedUnknown": 2,
         "boughtAfter": 0,
         "firstInvestmentAfter": 0,
         "redeemedAfter": 0,
@@ -305,29 +390,37 @@
       }
     },
     "existing": {
-      "population": 159,
+      "population": 272,
       "profile": {
         "gender": {
-          "male": 46,
-          "female": 9,
-          "unknown": 104
+          "male": 89,
+          "female": 22,
+          "unknown": 161
         },
         "age": {
-          "lte25": 2,
-          "age26_35": 23,
-          "age36_45": 23,
-          "age46_55": 6,
+          "lte25": 5,
+          "age26_35": 42,
+          "age36_45": 48,
+          "age46_55": 15,
           "age56_65": 1,
           "gte66": 0,
-          "unknown": 104
+          "unknown": 161
         },
         "provinces": [
           {
             "label": "unknown",
-            "accounts": 151
+            "accounts": 256
           },
           {
             "label": "北京",
+            "accounts": 4
+          },
+          {
+            "label": "广东",
+            "accounts": 3
+          },
+          {
+            "label": "海南",
             "accounts": 2
           },
           {
@@ -335,11 +428,11 @@
             "accounts": 2
           },
           {
-            "label": "广东",
-            "accounts": 1
+            "label": "上海",
+            "accounts": 2
           },
           {
-            "label": "海南",
+            "label": "江西",
             "accounts": 1
           },
           {
@@ -347,39 +440,39 @@
             "accounts": 1
           },
           {
-            "label": "上海",
+            "label": "四川",
             "accounts": 1
           }
         ],
-        "wechatBound": 84,
-        "bankCardBound": 56,
-        "riskAssessed": 13,
-        "everInvested": 42
+        "wechatBound": 151,
+        "bankCardBound": 112,
+        "riskAssessed": 26,
+        "everInvested": 78
       },
       "assets": {
-        "snapshotDate": "2026-09-04",
-        "openedAccounts": 56,
-        "hasAssets": 35,
-        "noAssets": 21,
-        "unknown": 103,
-        "holdingWan": 500.45,
+        "snapshotDate": "2026-09-11",
+        "openedAccounts": 112,
+        "hasAssets": 67,
+        "noAssets": 45,
+        "unknown": 160,
+        "holdingWan": 1037.87,
         "buckets": {
-          "noAssets": 21,
-          "lt10k": 5,
-          "between10k100k": 15,
-          "between100k1m": 14,
+          "noAssets": 45,
+          "lt10k": 14,
+          "between10k100k": 24,
+          "between100k1m": 28,
           "gte1m": 1,
-          "unknown": 103
+          "unknown": 160
         }
       },
       "behavior": {
-        "eligible": 56,
-        "fundedAfter": 7,
-        "fundedNotReached": 38,
-        "fundedUnknown": 11,
-        "boughtAfter": 16,
+        "eligible": 112,
+        "fundedAfter": 17,
+        "fundedNotReached": 69,
+        "fundedUnknown": 26,
+        "boughtAfter": 27,
         "firstInvestmentAfter": 0,
-        "redeemedAfter": 3,
+        "redeemedAfter": 8,
         "xiaoguUsage": null,
         "xiaoguUsageState": "unavailable_no_user_level_oauth_usage_link"
       }
@@ -389,9 +482,9 @@
     "binding": "ying99_oap.api_user_consent_record × api_oauth_client；client_name=豆包；按 user_id 首次 granted_at 去重",
     "current": "revoked_at 与 superseded_at 均为空的当前有效授权；重新授权按同一用户多条 consent record 识别",
     "cohort": "新用户=注册时间与首次豆包授权时间相差不超过 60 分钟；老用户=授权前已有且慢账户",
-    "assets": "ying99_asset.dwd_app_service_account_profit_combine；2026-09-04 快照；只取 broker=0008 且 relation_account_type=ROOT，避免跨券商与树形账户重复求和",
+    "assets": "ying99_asset.dwd_app_service_account_profit_combine；2026-09-11 快照；只取 broker=0008 且 relation_account_type=ROOT，避免跨券商与树形账户重复求和",
     "ready": "api_oauth_refresh_token.created_at；会话令牌签发作为豆包使用代理，能证明客户端建立会话，但不是工具级实调用",
-    "journey": "开账户、绑卡、风测、首投均以首次会话令牌时间为锚点；入金采用 broker=0008、ROOT 层 input_amount，统计至 2026-09-04；同日记录因缺少时分秒单独列为不确定",
+    "journey": "开账户、绑卡、风测、首投均以首次会话令牌时间为锚点；入金采用 broker=0008、ROOT 层 input_amount，统计至 2026-09-11；同日记录因缺少时分秒单独列为不确定",
     "behavior": "首投只计首次成功且未取消的非 WALLET 买入；严格使用后入金只计资金日期晚于首次会话日期，input_amount 不等同独立现金充值",
     "usageGap": "逐次 API 调用缺少可稳定回连豆包 client_id 与授权 user_id 的链路；可使用人数不能替代实际工具调用人数"
   }

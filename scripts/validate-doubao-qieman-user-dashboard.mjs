@@ -7,6 +7,7 @@ const root = fileURLToPath(new URL("../", import.meta.url));
 const report = join(root, "public", "reports", "doubao-qieman-user-dashboard");
 const html = readFileSync(join(report, "index.html"), "utf8");
 const data = JSON.parse(readFileSync(join(report, "data", "latest.json"), "utf8"));
+const docsData = JSON.parse(readFileSync(join(root, "docs", "reports", "doubao-qieman-user-dashboard", "data", "latest.json"), "utf8"));
 const preview = readFileSync(join(root, "public", "previews", "doubao-qieman-user-dashboard.svg"), "utf8");
 const workbench = readFileSync(join(root, "src", "app.js"), "utf8");
 const numberFormat = new Intl.NumberFormat("zh-CN");
@@ -14,6 +15,7 @@ const coverage = `${(data.metrics.readyAccounts / data.metrics.boundAccounts * 1
 const cutoff = data.meta.data_cutoff.slice(0, 16).replace("T", " ");
 
 assert.equal(data.schema_version, "doubao-qieman-user-dashboard-v2");
+assert.deepEqual(data, docsData, "public 与 docs 的线上数据快照必须完全一致");
 assert.ok(data.metrics.boundAccounts >= 300, "豆包绑定用户数异常偏低");
 assert.equal(data.metrics.boundAccounts, data.metrics.currentAccounts + data.metrics.inactiveAccounts);
 assert.equal(data.metrics.boundAccounts, data.metrics.newAccounts + data.metrics.existingAccounts + data.metrics.unclassifiedAccounts);
@@ -31,9 +33,13 @@ assert.ok(data.journey.inflowUsersAfterReady >= 0);
 assert.ok(data.journey.inflowWanAfterReady >= 0);
 assert.ok(data.journey.strictInflowUsersAfterReady <= data.journey.inflowUsersAfterReady);
 assert.ok(data.journey.strictInflowWanAfterReady <= data.journey.inflowWanAfterReady);
-assert.equal(data.journey.strictInflowUsersAfterReady, 6, "严格后续日入金用户口径发生变化，请人工复核");
-assert.equal(data.journey.strictInflowWanAfterReady, 0.8258, "严格后续日入金金额发生变化，请人工复核");
-assert.equal(data.journey.sameDayInflowWan, 0.11, "同日不确定入金金额发生变化，请人工复核");
+assert.equal(data.journey.openedAfterReady, 3, "使用后开户人数发生变化，请人工复核");
+assert.equal(data.journey.cardBoundAfterReady, 3, "使用后绑卡人数发生变化，请人工复核");
+assert.equal(data.journey.riskAssessedAfterReady, 3, "使用后风测人数发生变化，请人工复核");
+assert.equal(data.journey.firstInvestmentAfterReady, 0, "使用后首投人数发生变化，请人工复核");
+assert.equal(data.journey.strictInflowUsersAfterReady, 13, "严格后续日入金用户口径发生变化，请人工复核");
+assert.equal(data.journey.strictInflowWanAfterReady, 3.0982, "严格后续日入金金额发生变化，请人工复核");
+assert.equal(data.journey.sameDayInflowWan, 0.21, "同日不确定入金金额发生变化，请人工复核");
 assert.equal(data.cohorts.new.assets.holdingWan, 0, "新用户不应凭空出现历史资产");
 assert.equal(data.cohorts.new.behavior.firstInvestmentAfter, 0, "新用户首投口径发生变化，请人工复核");
 assert.equal(data.cohorts.all.behavior.xiaoguUsage, null, "缺少用户级使用归因时不得填入小顾使用人数");
@@ -47,6 +53,9 @@ for (const key of ["all", "new", "existing"]) {
 
 for (const marker of ["使用之后有没有转化", "POST-USE CONVERSION", "EVIDENCE BOUNDARY", "实际工具调用", "growth-chart"]) {
   assert.match(html, new RegExp(marker), `页面缺少关键标记：${marker}`);
+}
+if ([data.journey.openedAfterReady, data.journey.cardBoundAfterReady, data.journey.riskAssessedAfterReady].some(Boolean)) {
+  assert.doesNotMatch(html, /开户、绑卡、风测、首投均为 0/, "页面仍保留过期的零转化判断");
 }
 assert.match(html, /id="growth-title"/, "增长标题必须从最新快照动态生成，避免静态人数过期");
 assert.match(html, /class="chart-readout" id="chart-readout"/, "图表每日数据必须使用绘图区外的固定读数栏，避免遮挡图形");
