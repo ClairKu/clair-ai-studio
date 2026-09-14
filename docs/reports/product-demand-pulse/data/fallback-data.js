@@ -3,9 +3,9 @@ window.DEMAND_PULSE_DATA = {
   "meta": {
     "contract_version": "gitlab-mr-v1",
     "source_of_truth": "GitLab merge requests",
-    "generated_at": "2026-09-11T10:10:05.616Z",
-    "cutoff": "2026-09-11T10:10:05.616Z",
-    "last_change_at": "2026-09-11T10:10:05.616Z",
+    "generated_at": "2026-09-14T03:15:35.271Z",
+    "cutoff": "2026-09-14T03:15:35.271Z",
+    "last_change_at": "2026-09-14T03:15:35.271Z",
     "stale_after_minutes": 180,
     "headline": "8 个已提交，5 个已上线，4 位 PM 完成端到端交付。",
     "window_start": "2026-07-01T00:00:00+08:00",
@@ -20,10 +20,10 @@ window.DEMAND_PULSE_DATA = {
     "end_to_end_people": 4
   },
   "delta": {
-    "new_submitted": 1,
+    "new_submitted": 0,
     "pending_release": 3,
     "new_released": 0,
-    "changed": true
+    "changed": false
   },
   "people": [
     {
@@ -312,7 +312,7 @@ window.DEMAND_PULSE_DATA = {
     {
       "id": "100198681a",
       "person_id": "P04",
-      "brief": null,
+      "brief": "盈米 AI 开放平台官网首页改版",
       "scopes": [
         "前端"
       ],
@@ -517,6 +517,21 @@ window.DEMAND_PULSE_DATA = {
       "evidence_level": "已上线",
       "in_scope": true,
       "released_at": "2026-09-02"
+    },
+    {
+      "id": "R13",
+      "person_id": "P04",
+      "person_display": "春燕",
+      "submitted_at": "2026-09-12",
+      "status": "merged",
+      "category": "important",
+      "priority": "P1",
+      "public_title": "AI 开放平台官网改版",
+      "pain_category": "开放平台官网首页信息陈旧、样式不适配",
+      "public_outcome": "首页改版已合入测试环境，待发布生产。",
+      "evidence_level": "已合测试",
+      "in_scope": true,
+      "released_at": null
     }
   ],
   "criteria": {
