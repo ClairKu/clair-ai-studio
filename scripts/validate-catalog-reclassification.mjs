@@ -18,7 +18,7 @@ const reportStart = app.indexOf("  reports: [");
 const reportEnd = app.indexOf("\n  ],\n};", reportStart);
 const reportBlock = app.slice(reportStart, reportEnd);
 const reportIds = [...reportBlock.matchAll(/\bid:\s*"([^"]+)"/g)].map((match) => match[1]);
-if (reportIds.length !== 166) fail(`成果数量异常：预期 166，实际 ${reportIds.length}`);
+if (reportIds.length !== 167) fail(`成果数量异常：预期 167，实际 ${reportIds.length}`);
 
 const topicStart = app.indexOf("const TOPIC_BY_REPORT = {");
 const topicEnd = app.indexOf("\n};\n\nfunction inferWorkType", topicStart);

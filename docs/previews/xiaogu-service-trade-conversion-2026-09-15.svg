@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="t d">
+  <title id="t">AI 小顾服务与交易转化生产数据复核</title>
+  <desc id="d">严格服务转化率13.20%，首次有效会话后7天真实买入率2.38%。</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#061c31"/><stop offset=".58" stop-color="#0a426e"/><stop offset="1" stop-color="#1488ee"/></linearGradient><filter id="s"><feDropShadow dx="0" dy="14" stdDeviation="20" flood-color="#021322" flood-opacity=".25"/></filter></defs>
+  <rect width="1200" height="675" fill="url(#bg)"/><circle cx="1090" cy="-40" r="310" fill="#7bd5ff" opacity=".18"/><circle cx="60" cy="710" r="270" fill="none" stroke="#fff" stroke-opacity=".12" stroke-width="70"/>
+  <text x="72" y="92" fill="#7bd5ff" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="18" font-weight="700" letter-spacing="4">CLAIR · 生产数据复核 · 2026.09.15</text>
+  <text x="72" y="178" fill="#fff" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="56" font-weight="800">AI 小顾服务与交易转化</text>
+  <text x="72" y="225" fill="#d5ecfa" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="24">神策回答“有没有开始服务”，真实流水回答“后来有没有买”</text>
+  <g filter="url(#s)"><rect x="72" y="292" width="492" height="230" rx="26" fill="#fff" fill-opacity=".11" stroke="#fff" stroke-opacity=".22"/><rect x="594" y="292" width="534" height="230" rx="26" fill="#fff" fill-opacity=".11" stroke="#fff" stroke-opacity=".22"/></g>
+  <text x="104" y="338" fill="#9bdfff" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="18" font-weight="700">严格服务转化</text><text x="104" y="425" fill="#fff" font-family="Arial,sans-serif" font-size="78" font-weight="800">13.20%</text><text x="104" y="472" fill="#d5ecfa" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="21">2,807 / 21,269 · 用户级有序漏斗</text>
+  <text x="626" y="338" fill="#a9f0d7" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="18" font-weight="700">7 天真实买入</text><text x="626" y="425" fill="#fff" font-family="Arial,sans-serif" font-size="78" font-weight="800">2.38%</text><text x="626" y="472" fill="#d5ecfa" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="21">312 / 13,083 · 生产订单同期群</text>
+  <text x="72" y="590" fill="#fff" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="22" font-weight="700">结论：有服务、有交易；AI 净增量仍需同口径对照或实验验证</text><text x="72" y="625" fill="#bcd9eb" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="16">公开脱敏聚合 · 点击不当成交 · 相关性不作因果</text>
+</svg>

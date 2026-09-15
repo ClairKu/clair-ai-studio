@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="基于神策生产埋点与真实交易流水，复核 AI 小顾服务转化率与交易转化率。">
+  <title>AI 小顾服务与交易转化｜生产数据复核</title>
+  <style>
+    :root{--ink:#10263b;--muted:#62778b;--line:#dce7ef;--paper:#f5f9fc;--white:#fff;--blue:#1488ee;--navy:#083459;--cyan:#7bd5ff;--green:#0f876a;--green-bg:#e0f7ef;--amber:#a86500;--amber-bg:#fff0d1;--red:#a83c3c;--red-bg:#ffe8e8;--shadow:0 18px 48px rgba(15,54,84,.09)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.65}a{color:inherit}.wrap{width:min(1160px,calc(100% - 36px));margin:auto}.hero{min-height:78vh;display:grid;align-items:center;overflow:hidden;position:relative;color:white;background:linear-gradient(132deg,#061c31 0%,#0a426e 56%,#1285d9 100%)}.hero:before{content:"";position:absolute;width:650px;height:650px;border-radius:50%;right:-230px;top:-260px;background:radial-gradient(circle,rgba(123,213,255,.42),transparent 67%)}.hero:after{content:"";position:absolute;width:420px;height:420px;border-radius:50%;left:-250px;bottom:-270px;border:1px solid rgba(255,255,255,.2);box-shadow:0 0 0 70px rgba(255,255,255,.035),0 0 0 140px rgba(255,255,255,.02)}.hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.15fr .85fr;gap:58px;align-items:center;padding:78px 0}.eyebrow,.kicker{font-size:12px;font-weight:850;letter-spacing:.16em;text-transform:uppercase}.eyebrow{color:var(--cyan)}h1{font-size:clamp(42px,6vw,78px);line-height:1.02;letter-spacing:-.05em;margin:18px 0 24px}h1 span{display:block;color:#8ddcff}.lead{font-size:clamp(18px,2vw,23px);color:#d9effd;max-width:760px}.hero-note{border-left:3px solid var(--cyan);padding-left:16px;color:#badbed;margin-top:26px}.verdict{padding:28px;border:1px solid rgba(255,255,255,.2);border-radius:26px;background:rgba(255,255,255,.1);backdrop-filter:blur(14px);box-shadow:var(--shadow)}.verdict strong{display:block;font-size:28px;line-height:1.2;margin:10px 0}.verdict p{color:#d4e9f6}.hero-metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:20px}.hero-metrics div{border-radius:16px;padding:13px;background:rgba(255,255,255,.09)}.hero-metrics b{display:block;font-size:24px}.hero-metrics span{font-size:11px;color:#c7e0ef}.pill{display:inline-flex;align-items:center;border-radius:999px;padding:5px 10px;font-size:11px;font-weight:850;letter-spacing:.04em}.ok{background:var(--green-bg);color:#096b54}.warn{background:var(--amber-bg);color:#825100}.gap{background:var(--red-bg);color:#963636}.nav{position:sticky;top:0;z-index:10;background:rgba(245,249,252,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}.nav .wrap{display:flex;gap:8px;overflow:auto;padding:10px 0}.nav a{white-space:nowrap;text-decoration:none;background:white;color:#425b70;border-radius:999px;padding:9px 14px;font-weight:750}.nav a:hover{background:var(--blue);color:white}.section{padding:78px 0}.section.alt{background:white}.section-head{display:grid;grid-template-columns:.75fr 1.25fr;gap:44px;align-items:end;margin-bottom:32px}.kicker{color:var(--blue)}h2{font-size:clamp(30px,4vw,50px);line-height:1.08;letter-spacing:-.035em;margin:9px 0}.section-intro{font-size:18px;color:var(--muted);margin:0}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.card{border:1px solid var(--line);border-radius:22px;padding:22px;background:white;box-shadow:0 8px 28px rgba(16,55,85,.05)}.alt .card{background:var(--paper)}.num{font-size:38px;line-height:1;font-weight:900;color:var(--navy);letter-spacing:-.04em;margin:14px 0 10px}.card h3{font-size:18px;margin:0 0 7px}.card p{color:var(--muted);margin:0}.meta{font-size:12px;margin-top:15px!important;color:#7a8fa2!important}.callout{margin-top:22px;border-radius:22px;background:#071f35;color:white;padding:24px 28px;display:grid;grid-template-columns:190px 1fr;gap:22px}.callout strong{color:var(--cyan);font-size:13px;letter-spacing:.08em}.funnels{display:grid;grid-template-columns:1fr 1fr;gap:18px}.funnel{border:1px solid var(--line);background:white;border-radius:24px;padding:25px}.funnel h3{font-size:24px;margin:0 0 5px}.funnel .sub{color:var(--muted);margin:0 0 22px}.step{margin:10px auto;padding:14px 18px;border-radius:15px;background:linear-gradient(90deg,#0d5f9d,#1494ef);color:white;text-align:center;min-width:44%}.step b{font-size:24px;display:block}.step small{color:#d9efff}.arrow{text-align:center;color:var(--blue);font-size:20px;font-weight:900}.step.s1{width:100%}.step.s2{width:78%}.step.s3{width:52%}.step.trade{background:linear-gradient(90deg,#0b6e5c,#18a47e)}.rail{display:grid;gap:15px}.rail-row{display:grid;grid-template-columns:210px 1fr 150px;gap:16px;align-items:center}.rail-label b{display:block}.rail-label small{color:var(--muted)}.track{height:18px;background:#e8f0f5;border-radius:99px;overflow:hidden}.fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--navy),var(--cyan))}.rail-value{text-align:right;font-weight:850}.compare{display:grid;grid-template-columns:1fr 80px 1fr;gap:18px;align-items:center}.side{border:1px solid var(--line);border-radius:24px;background:white;padding:26px}.side.primary{background:var(--navy);color:white}.side.primary p{color:#cee4f1}.vs{text-align:center;font-weight:900;color:var(--blue)}.metric{display:flex;justify-content:space-between;gap:18px;padding:13px 0;border-bottom:1px solid rgba(117,147,171,.25)}.metric:last-child{border-bottom:0}.metric b{font-size:21px}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:20px;background:white}.table{width:100%;border-collapse:collapse;min-width:900px}.table th,.table td{padding:15px 17px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}.table th{font-size:12px;letter-spacing:.05em;color:#60768a;background:#f8fbfd}.table tr:last-child td{border-bottom:0}.table tbody tr:hover{background:#f5faff}.tag{display:inline-block;border-radius:8px;background:#e8f2fb;color:#165f96;padding:2px 7px;font-size:11px;font-weight:850}.actions{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.action{border:1px solid var(--line);border-radius:22px;padding:22px;background:linear-gradient(145deg,#fff,#eef6fb)}.action .priority{font-size:12px;color:var(--blue);font-weight:900}.action h3{margin:6px 0 9px}.action p{color:var(--muted);margin:0}.foot{padding:60px 0;background:#061b2e;color:#c6ddeb}.foot-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:40px}.foot h2{color:white}.stamp{border:1px solid #34546a;border-radius:20px;padding:22px}.stamp b{display:block;color:white;font-size:22px}.stamp span{font-size:13px}@media(max-width:920px){.hero-grid,.section-head,.foot-grid{grid-template-columns:1fr}.cards{grid-template-columns:1fr 1fr}.funnels,.actions{grid-template-columns:1fr}.compare{grid-template-columns:1fr}.vs{transform:rotate(90deg)}.callout{grid-template-columns:1fr}}@media(max-width:620px){.wrap{width:min(100% - 24px,1160px)}.hero-grid{padding:64px 0}.cards{grid-template-columns:1fr}.section{padding:58px 0}.hero-metrics{grid-template-columns:1fr}.rail-row{grid-template-columns:1fr}.rail-value{text-align:left}.step.s2,.step.s3{width:100%}}
+  </style>
+</head>
+<body>
+  <header class="hero" id="top"><div class="wrap hero-grid">
+    <div><div class="eyebrow">CLAIR · PRODUCTION CONVERSION AUDIT / 2026.09.15</div><h1>AI 小顾<span>服务与交易转化</span></h1><p class="lead">用神策生产埋点回答“用户有没有真正开始服务”，用真实交易流水回答“服务后有没有买入”。</p><p class="hero-note">结论先行：服务启动后的严格有序提问率为 13.20%；可识别的后端会话用户在首次会话后 7 天真实买入率为 2.38%。两者窗口与分母不同，不能相乘，也不能直接解释为 AI 带来的增量。</p></div>
+    <aside class="verdict"><span class="pill ok">生产数据已复核</span><strong>有服务、有交易；因果链还没闭合</strong><p>服务端证明用户从入口走到提问，订单端证明部分用户随后真实买入。但尚无未使用小顾的同口径对照，不能说“这些交易由 AI 小顾带来”。</p><div class="hero-metrics"><div><b>13.20%</b><span>严格服务转化</span></div><div><b>2.38%</b><span>7 天真实买入</span></div><div><b>¥186.24万</b><span>7 天成交金额</span></div><div><b>0</b><span>匿名后端会话</span></div></div></aside>
+  </div></header>
+
+  <nav class="nav" aria-label="报告导航"><div class="wrap"><a href="#summary">核心结论</a><a href="#service">服务漏斗</a><a href="#trade">交易漏斗</a><a href="#boundary">口径边界</a><a href="#history">历史口径</a><a href="#actions">运营动作</a><a href="#index">数据索引</a></div></nav>
+
+  <main>
+    <section class="section" id="summary"><div class="wrap">
+      <div class="section-head"><div><div class="kicker">01 · EXECUTIVE READOUT</div><h2>四个数字先看懂</h2></div><p class="section-intro">服务转化与交易转化是两条独立证据链。前者来自神策 30 天事件漏斗，后者来自后端会话与订单流水的 7 天同期群。</p></div>
+      <div class="cards">
+        <article class="card"><span class="pill ok">严格有序</span><div class="num">13.20%</div><h3>启动/进入会话后提问</h3><p>2,807 / 21,269。起点合并 App 启动与会话页进入，并按用户取首次事件。</p><p class="meta">2026-08-16—09-14 · D-001</p></article>
+        <article class="card"><span class="pill warn">同窗代理</span><div class="num">33.3%</div><h3>会话页 UV / 提问 UV</h3><p>5,415 / 16,280。只是同窗口比值，不保证每个提问用户都先被记录到页面浏览。</p><p class="meta">不可替代严格漏斗 · D-002</p></article>
+        <article class="card"><span class="pill ok">真实流水</span><div class="num">2.38%</div><h3>首次会话后 7 天买入</h3><p>312 / 13,083。排除失败、撤单、赎回、钱包与纯现金管理。</p><p class="meta">cohort 2026-08-09—09-07 · D-003</p></article>
+        <article class="card"><span class="pill ok">真实流水</span><div class="num">0.84%</div><h3>首次会话后 1 天买入</h3><p>110 / 13,083；共 1,303 笔，有效成交 33.02 万元。</p><p class="meta">0—1 天观察窗 · D-004</p></article>
+      </div>
+      <div class="callout"><strong>一句话经营判断</strong><span>当前问题不是“小顾有没有带来交易”——生产数据已经证明服务后存在真实交易；真正的问题是入口埋点不完整、服务成功态缺失、没有同口径对照，因此还无法计算 AI 的净增量和 ROI。</span></div>
+    </div></section>
+
+    <section class="section alt" id="service"><div class="wrap">
+      <div class="section-head"><div><div class="kicker">02 · SERVICE CONVERSION</div><h2>服务转化：13.20%</h2></div><p class="section-intro">这是本次最严格的用户级口径：同一用户先发生“小顾启动或会话页进入”，随后发送有效提问。</p></div>
+      <div class="funnels">
+        <div class="funnel"><h3>严格有序漏斗</h3><p class="sub">两类起点先去重，再按首次时间排序。</p><div class="step s1"><b>21,269 UV</b><small>启动或进入会话页</small></div><div class="arrow">↓ 13.20%</div><div class="step s3"><b>2,807 UV</b><small>起点之后有效提问</small></div></div>
+        <div class="funnel"><h3>埋点缺口</h3><p class="sub">提问 UV 并不都能看到起点事件。</p><div class="step s1"><b>5,415 UV</b><small>窗口内有效提问</small></div><div class="arrow">↓ 43.6%</div><div class="step s2" style="background:linear-gradient(90deg,#a86500,#e2a63b)"><b>2,358 UV</b><small>提问前没有任何起点记录</small></div></div>
+      </div>
+      <div class="callout"><strong>为什么不是 33.3%</strong><span>33.3% = 5,415 提问 UV / 16,280 会话页浏览 UV，只能做同窗代理；严格漏斗要求同一用户、事件有序，结果是 2,807 / 21,269 = 13.20%。另有 250 人先提问、后出现起点事件，也被严格排除。</span></div>
+    </div></section>
+
+    <section class="section" id="trade"><div class="wrap">
+      <div class="section-head"><div><div class="kicker">03 · REAL TRADE CONVERSION</div><h2>交易转化：7 天 2.38%</h2></div><p class="section-intro">不用“点击买入”代替成交。以可识别的小顾后端有效会话为 cohort，连接真实基金订单，按首次会话后固定观察窗统计。</p></div>
+      <div class="rail">
+        <div class="rail-row"><div class="rail-label"><b>可识别有效会话用户</b><small>30 天 cohort；后端身份完整</small></div><div class="track"><div class="fill" style="width:100%"></div></div><div class="rail-value">13,083 人</div></div>
+        <div class="rail-row"><div class="rail-label"><b>0—1 天真实买入</b><small>扣款成功且非失败/撤单</small></div><div class="track"><div class="fill" style="width:35.3%"></div></div><div class="rail-value">110 人 · 0.84%</div></div>
+        <div class="rail-row"><div class="rail-label"><b>0—7 天真实买入</b><small>完整 7 天观察窗</small></div><div class="track"><div class="fill" style="width:100%"></div></div><div class="rail-value">312 人 · 2.38%</div></div>
+      </div>
+      <div class="cards" style="margin-top:22px">
+        <article class="card"><span class="pill ok">7 天</span><div class="num">7,434</div><h3>有效买入订单</h3><p>组合或基金篮子会拆成多笔成分腿，人均订单数偏高并非异常。</p><p class="meta">D-005</p></article>
+        <article class="card"><span class="pill ok">7 天</span><div class="num">¥186.24万</div><h3>受理/成交金额</h3><p>窗口内订单均已确认，受理金额与成交金额一致。</p><p class="meta">D-006</p></article>
+        <article class="card"><span class="pill ok">身份覆盖</span><div class="num">100%</div><h3>后端会话可识别</h3><p>有效会话表没有匿名用户；仅前端打开但未发起会话者不在此分母。</p><p class="meta">D-007</p></article>
+        <article class="card"><span class="pill warn">描述性</span><div class="num">+0.61pp</div><h3>后段 cohort 更高</h3><p>8/9—8/15 为 2.03%，8/16—9/7 为 2.64%；只描述差异，不作归因。</p><p class="meta">D-008</p></article>
+      </div>
+    </div></section>
+
+    <section class="section alt" id="boundary"><div class="wrap">
+      <div class="section-head"><div><div class="kicker">04 · BOUNDARIES</div><h2>两个率不能连乘</h2></div><p class="section-intro">13.20% 与 2.38% 来自不同窗口、不同起点和不同系统。把它们相乘得到“端到端转化”是错误的。</p></div>
+      <div class="compare">
+        <div class="side primary"><span class="pill ok">神策服务漏斗</span><h3>入口 → 有效提问</h3><div class="metric"><span>窗口</span><b>8/16—9/14</b></div><div class="metric"><span>分母</span><b>21,269</b></div><div class="metric"><span>分子</span><b>2,807</b></div><div class="metric"><span>结果</span><b>13.20%</b></div><p>起点为 App 启动与会话页进入去重并集。</p></div>
+        <div class="vs">≠</div>
+        <div class="side"><span class="pill ok">生产交易同期群</span><h3>有效会话 → 真实买入</h3><div class="metric"><span>cohort</span><b>8/9—9/7</b></div><div class="metric"><span>分母</span><b>13,083</b></div><div class="metric"><span>分子</span><b>312</b></div><div class="metric"><span>结果</span><b>2.38%</b></div><p>每人取窗口内首次有效会话，观察其后完整 7 天。</p></div>
+      </div>
+      <div class="callout"><strong>证据等级</strong><span>已证实：服务路径存在、服务后真实买入存在。未证实：回答成功、建议被采纳、交易由小顾触发、相对未使用小顾的净增量。下一步必须建设同一任务 ID/用户 ID/建议 ID/动作 ID/订单 ID 的结果回传链。</span></div>
+    </div></section>
+
+    <section class="section" id="history"><div class="wrap">
+      <div class="section-head"><div><div class="kicker">05 · HISTORICAL CLAIM AUDIT</div><h2>“14% 交易转化”仍不能成立</h2></div><p class="section-intro">本轮全量可识别 cohort、固定 7 天、真实订单得到 2.38%。历史数字不是简单过期，而是口径不具备可比性。</p></div>
+      <div class="table-wrap"><table class="table"><thead><tr><th>说法/结果</th><th>数值</th><th>样本与窗口</th><th>可否作为当前结论</th></tr></thead><tbody>
+        <tr><td>本轮真实交易主指标</td><td><b>312 / 13,083 = 2.38%</b></td><td>2026-08-09—09-07 cohort；首次有效会话后完整 7 天；生产订单</td><td><span class="tag">可用</span> 描述性同期群，不作因果</td></tr>
+        <tr><td>历史抽样复算</td><td>13 / 300 = 4.33%</td><td>随机抽样；历史材料未统一为本轮相同 cohort 与观察窗</td><td><span class="tag">仅对照</span> 样本与口径不同</td></tr>
+        <tr><td>历史千问绑定全量</td><td>35 / 2,618 = 1.34%</td><td>千问绑定人群；不是全量小顾后端会话用户</td><td><span class="tag">仅渠道</span> 不能外推全平台</td></tr>
+        <tr><td>历史“14%”</td><td>14%</td><td>分母、起点、交易状态与观察窗缺失</td><td><span class="pill gap">不可复现</span></td></tr>
+      </tbody></table></div>
+    </div></section>
+
+    <section class="section alt" id="actions"><div class="wrap">
+      <div class="section-head"><div><div class="kicker">06 · OPERATING ACTIONS</div><h2>下一步不要再争数字</h2></div><p class="section-intro">先把一张可复用事实表建起来，再做产品和运营优化。否则每次都要跨系统现场重算，无法形成周度经营。</p></div>
+      <div class="actions">
+        <article class="action"><div class="priority">P0 · 本周</div><h3>补齐统一入口事件</h3><p>所有 App、H5、微信、桌面、深链和自动发问统一上报一个入口事件，写入用户、会话、入口来源与触发类型；解决 43.6% 提问缺起点。</p></article>
+        <article class="action"><div class="priority">P0 · 本周</div><h3>定义“成功服务任务”</h3><p>至少区分回答完成、卡片成功、工具成功、用户采纳、转人工、失败/重试；当前只能量到提问，不能量到问题解决。</p></article>
+        <article class="action"><div class="priority">P1 · 两周</div><h3>建设任务—动作—订单事实表</h3><p>串联 session、message、recommendation、action、order，固化 1/7/30 天窗口和钱包/失败/撤单排除规则，形成每日自动更新。</p></article>
+        <article class="action"><div class="priority">P1 · 四周</div><h3>建立可比对照与实验</h3><p>按新老用户、持仓、资产、风险、入口匹配未使用小顾用户；优先用随机触达或分批开放验证净增量，而非用相关性替代因果。</p></article>
+      </div>
+    </div></section>
+
+    <section class="section" id="index"><div class="wrap">
+      <div class="section-head"><div><div class="kicker">07 · DATA INDEX &amp; SELF-CHECK</div><h2>每个数字可追溯</h2></div><p class="section-intro">公开版只保留聚合指标，不披露用户、订单、账户、内部库表名或查询凭证。</p></div>
+      <div class="table-wrap"><table class="table"><thead><tr><th>编号</th><th>指标</th><th>数值/公式</th><th>来源与边界</th></tr></thead><tbody>
+        <tr><td>D-001</td><td>严格服务转化</td><td>2,807 / 21,269 = 13.20%</td><td>神策生产埋点；用户级首次事件有序</td></tr>
+        <tr><td>D-002</td><td>会话页浏览→提问同窗代理</td><td>5,415 / 16,280 = 33.3%</td><td>神策生产埋点；非严格漏斗</td></tr>
+        <tr><td>D-003</td><td>7 天真实买入</td><td>312 / 13,083 = 2.38%</td><td>后端有效会话 cohort × 生产订单；描述性</td></tr>
+        <tr><td>D-004</td><td>1 天真实买入</td><td>110 / 13,083 = 0.84%</td><td>同一 cohort；0—1 天</td></tr>
+        <tr><td>D-005</td><td>7 天有效买入订单</td><td>7,434 笔</td><td>排除失败、撤单、赎回与纯现金管理</td></tr>
+        <tr><td>D-006</td><td>7 天成交金额</td><td>¥1,862,420.60</td><td>窗口内纳入订单均已确认</td></tr>
+        <tr><td>D-007</td><td>后端会话身份覆盖</td><td>13,137 / 13,137 = 100%</td><td>含 ERROR 检查；有效 cohort 为 13,083</td></tr>
+        <tr><td>D-008</td><td>分段 7 天买入率</td><td>2.03% → 2.64%，+0.61pp</td><td>不同 t0 分段；不作运营因果</td></tr>
+      </tbody></table></div>
+      <div class="callout"><strong>自检记录</strong><span>百分比已逐项复算；服务漏斗人数单调；交易观察窗完整；受理与成交金额勾稽一致；神策点击未当作成交；钱包/现金管理、失败、撤单和赎回已排除；未把相关性写成 AI 因果；未公开任何用户与订单明细。</span></div>
+    </div></section>
+  </main>
+
+  <footer class="foot"><div class="wrap foot-grid"><div><div class="eyebrow">CLAIR · DATA EVIDENCE</div><h2>服务率回答“有没有开始”，交易率回答“后来有没有买”。</h2><p>下一阶段真正要回答的是：如果没有 AI 小顾，同样的用户会不会也买？只有同口径对照或实验，才能把相关转化升级为增量价值。</p></div><div class="stamp"><b>生产数据复核完成</b><span>神策数据截至 2026-09-14 全天<br>订单数据截至 2026-09-15 12:46<br>小顾会话同步截至 2026-09-15 01:09<br>公开脱敏版 · 不构成投资建议</span></div></div></footer>
+</body>
+</html>
