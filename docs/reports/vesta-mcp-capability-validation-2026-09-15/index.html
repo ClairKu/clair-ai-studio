@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />
+    <script data-clair-access-gate data-clair-access-scope="report" src="../../access-gate.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="VESTA MCP 119 项能力全量盘点与安全执行验证，覆盖协议、鉴权、九大服务域、参数契约、隐私边界与上线建议。" />
+  <title>VESTA MCP 全量能力验证｜2026-09-15</title>
+  <style>
+    :root {
+      --ink: #17211b;
+      --muted: #657069;
+      --paper: #f4f1e9;
+      --panel: #fffdf8;
+      --line: #d9d6cc;
+      --green: #176b4d;
+      --green-soft: #dcebe4;
+      --amber: #a35d14;
+      --amber-soft: #f6e7ce;
+      --red: #a5392d;
+      --red-soft: #f3ddd8;
+      --blue: #315e81;
+      --blue-soft: #dce8f0;
+      --navy: #173047;
+      --shadow: 0 18px 45px rgba(23, 33, 27, .08);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      line-height: 1.65;
+    }
+    a { color: inherit; }
+    button { font: inherit; }
+    .shell { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid rgba(217, 214, 204, .82);
+      background: rgba(244, 241, 233, .92);
+      backdrop-filter: blur(14px);
+    }
+    .topbar-inner { min-height: 58px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+    .brand { display: flex; align-items: center; gap: 11px; font-weight: 760; letter-spacing: -.02em; }
+    .brand-mark { width: 28px; height: 28px; display: grid; place-items: center; background: var(--ink); color: white; border-radius: 8px; font-size: 12px; }
+    .topnav { display: flex; gap: 20px; color: var(--muted); font-size: 13px; }
+    .topnav a { text-decoration: none; }
+    .topnav a:hover { color: var(--ink); }
+    .hero { padding: 64px 0 52px; }
+    .eyebrow { margin: 0 0 14px; color: var(--green); font-size: 13px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+    h1 { max-width: 860px; margin: 0; font-size: clamp(40px, 6vw, 64px); line-height: 1.03; letter-spacing: -.055em; }
+    .lede { max-width: 780px; margin: 24px 0 0; font-size: clamp(17px, 2vw, 21px); color: #465149; }
+    .hero-grid { display: grid; grid-template-columns: 1.35fr .65fr; gap: 24px; align-items: end; }
+    .verdict {
+      background: var(--navy);
+      color: white;
+      padding: 28px;
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+    }
+    .verdict-label { color: #a9c3d5; font-size: 12px; font-weight: 800; letter-spacing: .12em; }
+    .verdict strong { display: block; margin: 10px 0 8px; font-size: 28px; line-height: 1.15; }
+    .verdict p { margin: 0; color: #d9e3e9; font-size: 14px; }
+    .metrics { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 40px; }
+    .metric { min-height: 132px; padding: 20px; border: 1px solid var(--line); background: var(--panel); border-radius: 16px; }
+    .metric-value { display: block; font-size: clamp(30px, 4vw, 45px); line-height: 1; letter-spacing: -.055em; font-weight: 790; }
+    .metric-label { display: block; margin-top: 13px; color: var(--muted); font-size: 13px; line-height: 1.35; }
+    .section { padding: 72px 0; border-top: 1px solid var(--line); }
+    .section-head { display: grid; grid-template-columns: .65fr 1.35fr; gap: 30px; margin-bottom: 34px; }
+    .section-kicker { color: var(--green); font-size: 12px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+    h2 { margin: 6px 0 0; font-size: clamp(29px, 4vw, 46px); line-height: 1.08; letter-spacing: -.04em; }
+    .section-intro { margin: 4px 0 0; max-width: 700px; color: var(--muted); font-size: 16px; }
+    .coverage-layout { display: grid; grid-template-columns: 350px 1fr; gap: 34px; align-items: center; }
+    .donut-wrap { position: relative; width: 290px; height: 290px; margin: auto; }
+    .donut { width: 100%; height: 100%; border-radius: 50%; background: conic-gradient(var(--green) 0 73.95%, var(--amber) 73.95% 94.96%, var(--red) 94.96% 95.80%, var(--blue) 95.80% 100%); }
+    .donut::after { content: ""; position: absolute; inset: 54px; border-radius: 50%; background: var(--paper); }
+    .donut-center { position: absolute; inset: 0; z-index: 1; display: grid; place-content: center; text-align: center; }
+    .donut-center strong { font-size: 46px; letter-spacing: -.05em; line-height: 1; }
+    .donut-center span { margin-top: 7px; color: var(--muted); font-size: 13px; }
+    .legend { display: grid; gap: 12px; }
+    .legend-row { display: grid; grid-template-columns: 14px 1fr auto; gap: 12px; align-items: center; padding: 15px 16px; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot.green { background: var(--green); } .dot.amber { background: var(--amber); } .dot.red { background: var(--red); } .dot.blue { background: var(--blue); }
+    .legend-row b { font-size: 14px; }
+    .legend-row small { display: block; color: var(--muted); }
+    .legend-row strong { font-size: 20px; }
+    .callout { margin-top: 28px; padding: 18px 20px; border-left: 4px solid var(--amber); background: var(--amber-soft); color: #634018; }
+    .toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+    .filter {
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--muted);
+      padding: 8px 13px;
+      border-radius: 9px;
+      cursor: pointer;
+    }
+    .filter[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: white; }
+    .table-wrap { overflow-x: auto; border: 1px solid var(--line); background: var(--panel); border-radius: 18px; }
+    table { width: 100%; min-width: 810px; border-collapse: collapse; }
+    th, td { padding: 16px 18px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { background: #ece9e0; color: #5a655e; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
+    tbody tr:last-child td { border-bottom: 0; }
+    td:first-child { font-weight: 760; }
+    .status { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 760; }
+    .status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+    .status.ok { color: var(--green); } .status.partial { color: var(--amber); } .status.issue { color: var(--red); } .status.skip { color: var(--blue); }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .card { padding: 23px; border: 1px solid var(--line); background: var(--panel); border-radius: 16px; }
+    .card-index { color: var(--green); font-size: 12px; font-weight: 800; letter-spacing: .1em; }
+    .card h3 { margin: 10px 0 8px; font-size: 19px; line-height: 1.25; }
+    .card p { margin: 0; color: var(--muted); font-size: 14px; }
+    .growth { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .growth-panel { padding: 27px; border: 1px solid var(--line); background: var(--panel); border-radius: 18px; }
+    .growth-panel h3 { margin: 0 0 22px; font-size: 18px; }
+    .bar-row { display: grid; grid-template-columns: 125px 1fr 50px; gap: 12px; align-items: center; margin: 13px 0; font-size: 13px; }
+    .bar-track { height: 9px; background: #e7e3d9; border-radius: 99px; overflow: hidden; }
+    .bar { height: 100%; background: var(--green); border-radius: inherit; }
+    .delta { display: flex; align-items: baseline; gap: 14px; padding: 24px 0 8px; }
+    .delta strong { font-size: 66px; line-height: 1; letter-spacing: -.06em; color: var(--green); }
+    .delta span { color: var(--muted); }
+    .issue-box { padding: 26px; border: 1px solid #dab2aa; background: var(--red-soft); border-radius: 18px; }
+    .issue-box h3 { margin: 0 0 9px; color: #7d281f; font-size: 22px; }
+    .code { margin: 16px 0 0; padding: 15px; overflow-wrap: anywhere; border: 1px solid rgba(165, 57, 45, .18); background: rgba(255,255,255,.5); border-radius: 10px; font: 12px/1.55 ui-monospace, SFMono-Regular, Menlo, monospace; color: #67251d; }
+    .recommendations { counter-reset: rec; display: grid; gap: 14px; }
+    .rec { counter-increment: rec; display: grid; grid-template-columns: 46px 1fr auto; gap: 16px; align-items: start; padding: 20px; border: 1px solid var(--line); background: var(--panel); border-radius: 15px; }
+    .rec::before { content: counter(rec, decimal-leading-zero); display: grid; place-items: center; width: 38px; height: 38px; border-radius: 10px; background: var(--ink); color: white; font-size: 12px; font-weight: 800; }
+    .rec h3 { margin: 0 0 4px; font-size: 17px; }
+    .rec p { margin: 0; color: var(--muted); font-size: 14px; }
+    .priority { color: var(--red); font-size: 12px; font-weight: 800; white-space: nowrap; }
+    .method { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .method-step { padding: 19px; border-top: 3px solid var(--blue); background: var(--panel); }
+    .method-step strong { display: block; margin-bottom: 7px; }
+    .method-step span { color: var(--muted); font-size: 13px; }
+    details { margin-top: 18px; border: 1px solid var(--line); background: var(--panel); border-radius: 14px; }
+    summary { padding: 16px 18px; cursor: pointer; font-weight: 760; }
+    .details-body { padding: 0 18px 18px; color: var(--muted); font-size: 14px; }
+    .details-body ul { margin: 8px 0 0; padding-left: 20px; }
+    footer { padding: 36px 0 60px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+    .footer-grid { display: flex; justify-content: space-between; gap: 24px; }
+    [hidden] { display: none !important; }
+    @media (max-width: 900px) {
+      .hero-grid, .section-head, .coverage-layout, .growth { grid-template-columns: 1fr; }
+      .metrics { grid-template-columns: repeat(2, 1fr); }
+      .cards { grid-template-columns: 1fr 1fr; }
+      .method { grid-template-columns: 1fr 1fr; }
+      .donut-wrap { width: 250px; height: 250px; }
+    }
+    @media (max-width: 560px) {
+      .shell { width: min(100% - 24px, 1180px); }
+      .topnav { display: none; }
+      .hero { padding: 50px 0 38px; }
+      h1 { font-size: 43px; }
+      .metrics, .cards, .method { grid-template-columns: 1fr; }
+      .metric { min-height: 0; }
+      .section { padding: 54px 0; }
+      .rec { grid-template-columns: 42px 1fr; }
+      .priority { grid-column: 2; }
+      .footer-grid { display: grid; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <div class="brand"><span class="brand-mark">V</span><span>VESTA MCP Audit</span></div>
+      <nav class="topnav" aria-label="报告目录">
+        <a href="#verdict">结论</a><a href="#matrix">能力矩阵</a><a href="#issues">问题</a><a href="#actions">行动</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero shell" id="verdict">
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">Full capability validation · 2026.09.15</p>
+          <h1>VESTA MCP<br />全量能力验证</h1>
+          <p class="lede">VESTA 已从“工具聚合入口”成长为覆盖基金、组合、指数、宏观、资讯与投研资料的九域网关。能力面可用，生产化仍卡在一个接口缺陷、两个客户端接入缺口和一组参数契约偏差。</p>
+        </div>
+        <aside class="verdict" aria-label="最终判断">
+          <span class="verdict-label">FINAL VERDICT</span>
+          <strong>可进入受控试用<br />暂不宜宣称全量生产就绪</strong>
+          <p>网关、鉴权与绝大多数公共数据能力稳定；真实组合与云盘投研能力因最小权限原则未读取，需业务授权后补验。</p>
+        </aside>
+      </div>
+      <div class="metrics" aria-label="关键验证指标">
+        <div class="metric"><span class="metric-value">119</span><span class="metric-label">当前工具总数<br />清单发现 100%</span></div>
+        <div class="metric"><span class="metric-value">9</span><span class="metric-label">后端服务域<br />命名与 schema 完整</span></div>
+        <div class="metric"><span class="metric-value">114</span><span class="metric-label">已安全执行<br />占全部工具 95.8%</span></div>
+        <div class="metric"><span class="metric-value">88</span><span class="metric-label">返回有效业务数据<br />公共或合成样本</span></div>
+        <div class="metric"><span class="metric-value">1</span><span class="metric-label">确认接口缺陷<br />批量指数查询</span></div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="coverage-title">
+      <div class="shell">
+        <div class="section-head">
+          <div><span class="section-kicker">Coverage</span><h2 id="coverage-title">不是“列得出来”<br />就算验证通过</h2></div>
+          <p class="section-intro">119 项工具逐项进入验证矩阵。对公共基金、指数、宏观和资讯使用真实公开标的；对实时组合计算使用公开基金构造的合成组合；涉及真实客户组合或私有云盘的能力只做路由与 schema 验证。</p>
+        </div>
+        <div class="coverage-layout">
+          <div class="donut-wrap" role="img" aria-label="119 项工具中，88 项返回业务数据，25 项完成边界验证，1 项确认缺陷，5 项仅核对清单">
+            <div class="donut"></div><div class="donut-center"><strong>95.8%</strong><span>安全执行覆盖率</span></div>
+          </div>
+          <div class="legend">
+            <div class="legend-row"><span class="dot green"></span><div><b>业务数据验证</b><small>公共数据或合成组合，结果非空</small></div><strong>88</strong></div>
+            <div class="legend-row"><span class="dot amber"></span><div><b>边界／路由验证</b><small>空结果、预期不存在或仅验证参数链路</small></div><strong>25</strong></div>
+            <div class="legend-row"><span class="dot red"></span><div><b>确认接口缺陷</b><small>合法入参重复调用仍失败</small></div><strong>1</strong></div>
+            <div class="legend-row"><span class="dot blue"></span><div><b>隐私边界内跳过</b><small>私有云盘与已发布文件元数据</small></div><strong>5</strong></div>
+          </div>
+        </div>
+        <div class="callout"><strong>关键口径：</strong>114 项“已执行”不等于 114 项“真实生产数据已验证”。真实业务数据覆盖为 88 项；其余必须保留边界标签。</div>
+      </div>
+    </section>
+
+    <section class="section" id="matrix" aria-labelledby="matrix-title">
+      <div class="shell">
+        <div class="section-head">
+          <div><span class="section-kicker">Capability matrix</span><h2 id="matrix-title">九大服务域<br />逐域验收</h2></div>
+          <p class="section-intro">点击状态筛选。数量按 2026-09-15 的在线 tools/list 结果；“通过”表示已获得有效业务数据，“受限”表示采用空标的或隐私保护策略验证。</p>
+        </div>
+        <div class="toolbar" role="group" aria-label="能力状态筛选">
+          <button class="filter" data-filter="all" aria-pressed="true">全部 9 域</button>
+          <button class="filter" data-filter="ok" aria-pressed="false">通过</button>
+          <button class="filter" data-filter="partial" aria-pressed="false">受限</button>
+          <button class="filter" data-filter="issue" aria-pressed="false">有缺陷</button>
+          <button class="filter" data-filter="skip" aria-pressed="false">未读取</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>服务域</th><th>工具数</th><th>验证结果</th><th>本次验证范围</th><th>判断</th></tr></thead>
+            <tbody>
+              <tr data-status="ok"><td>fund-analysis</td><td>36</td><td>35 数据 / 1 空结果</td><td>净值、风险收益、持仓、归因、债券分析等</td><td><span class="status ok">通过</span></td></tr>
+              <tr data-status="ok"><td>invest-single</td><td>19</td><td>19 数据</td><td>单基金指标、行情、公告与基础资料</td><td><span class="status ok">通过</span></td></tr>
+              <tr data-status="ok"><td>fund-select</td><td>7</td><td>7 数据</td><td>筛选、指标配置与候选基金</td><td><span class="status ok">通过</span></td></tr>
+              <tr data-status="ok"><td>world-news</td><td>7</td><td>7 数据</td><td>全球新闻、事件与时间过滤</td><td><span class="status ok">通过</span></td></tr>
+              <tr data-status="issue"><td>index</td><td>6</td><td>5 数据 / 1 失败</td><td>指数搜索、行情、估值；批量代码查询失败</td><td><span class="status issue">有缺陷</span></td></tr>
+              <tr data-status="ok"><td>macro-indicator</td><td>4</td><td>4 数据</td><td>宏观指标目录、序列与最新值</td><td><span class="status ok">通过</span></td></tr>
+              <tr data-status="ok"><td>fund-manager</td><td>3</td><td>3 数据</td><td>基金经理检索、任职与代表产品</td><td><span class="status ok">通过</span></td></tr>
+              <tr data-status="partial"><td>portfolio-analysis</td><td>32</td><td>8 合成数据 / 24 边界</td><td>实时计算已验证；真实内部组合未读取</td><td><span class="status partial">受限</span></td></tr>
+              <tr data-status="skip"><td>research-report</td><td>5</td><td>仅 schema</td><td>云盘授权、空间、节点、发布文件及下载地址</td><td><span class="status skip">未读取</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="growth-title">
+      <div class="shell">
+        <div class="section-head">
+          <div><span class="section-kicker">Change since 09.02</span><h2 id="growth-title">两周增加 23 项<br />集中补强分析能力</h2></div>
+          <p class="section-intro">与 2026-09-02 已发布的 96 项审计基线相比，本次在线清单增至 119 项，增幅约 24%。新增能力主要落在基金分析与投研报告链路。</p>
+        </div>
+        <div class="growth">
+          <div class="growth-panel">
+            <h3>工具数变化</h3>
+            <div class="delta"><strong>+23</strong><span>96 → 119<br />约 +24.0%</span></div>
+            <p style="color:var(--muted);margin:8px 0 0;font-size:14px">服务域仍为 9 个，说明本轮是既有领域纵深扩展，而不是新增独立服务。</p>
+          </div>
+          <div class="growth-panel">
+            <h3>新增工具分布</h3>
+            <div class="bar-row"><span>基金分析</span><div class="bar-track"><div class="bar" style="width:100%"></div></div><b>+16</b></div>
+            <div class="bar-row"><span>投研报告</span><div class="bar-track"><div class="bar" style="width:18.75%"></div></div><b>+3</b></div>
+            <div class="bar-row"><span>基金筛选</span><div class="bar-track"><div class="bar" style="width:12.5%"></div></div><b>+2</b></div>
+            <div class="bar-row"><span>单基金</span><div class="bar-track"><div class="bar" style="width:6.25%"></div></div><b>+1</b></div>
+            <div class="bar-row"><span>组合分析</span><div class="bar-track"><div class="bar" style="width:6.25%"></div></div><b>+1</b></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="proof-title">
+      <div class="shell">
+        <div class="section-head">
+          <div><span class="section-kicker">Evidence chain</span><h2 id="proof-title">四道证据门<br />逐层排除假可用</h2></div>
+          <p class="section-intro">验证使用现有本机授权直连 VESTA MCP 网关，未改动生产数据、未执行写入动作、未读取真实客户组合和私有云盘目录。</p>
+        </div>
+        <div class="method">
+          <div class="method-step"><strong>01 · 握手</strong><span>HTTP 200；服务名 vesta-mcp-gateway；版本 1.0.0。</span></div>
+          <div class="method-step"><strong>02 · 协议</strong><span>MCP 2024-11-05；声明 tools；resources 与 prompts 未实现。</span></div>
+          <div class="method-step"><strong>03 · 清单</strong><span>119 个名称全部唯一，均采用 server__tool 限定名，inputSchema 均为 object。</span></div>
+          <div class="method-step"><strong>04 · 调用</strong><span>公共标的真实调用、合成组合计算、空标的路由验证与隐私跳过并行分层。</span></div>
+        </div>
+        <details>
+          <summary>查看样本与安全边界</summary>
+          <div class="details-body">
+            <ul>
+              <li>公共基金样本：005827；指数样本：000300 / 000905；宏观指标样本：公开指标代码。</li>
+              <li>实时组合计算：由公开基金构造单基金、100% 权重的合成调仓记录，不对应真实客户或真实组合。</li>
+              <li>内部组合查询：统一使用不存在的审计占位码，仅验证参数接收、路由与错误语义。</li>
+              <li>投研云盘：5 项工具只核对名称与 schema，不调用空间列表、文件元数据、下载地址或访问凭证。</li>
+              <li>所有公开报告均不包含 Authorization、MCP key、真实客户组合代码、云盘目录或返回正文。</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="section" id="issues" aria-labelledby="issues-title">
+      <div class="shell">
+        <div class="section-head">
+          <div><span class="section-kicker">Defects & contracts</span><h2 id="issues-title">一个确认缺陷<br />七类契约摩擦</h2></div>
+          <p class="section-intro">失败不是都归咎于调用方。复测先纠正入参，再判断是 schema 描述问题、后端业务边界，还是网关序列化缺陷。</p>
+        </div>
+        <div class="issue-box">
+          <h3>P1 · index__searchIndexByCodes 无法正确传递数组参数</h3>
+          <p>按 schema 使用 <b>indexCodes</b> 数组，分别以单元素与双元素重试，均被上游判定为“缺少 indexCodes”。相邻指数接口正常，故更像 MCP 网关到 HTTP 查询参数的数组序列化桥接问题。</p>
+          <div class="code">合法输入：{"indexCodes":["000300","000905"]}<br />稳定返回：HTTP 400 / Required request parameter 'indexCodes' … is not present</div>
+        </div>
+        <div class="cards" style="margin-top:16px">
+          <article class="card"><span class="card-index">CONTRACT 01</span><h3>条件必填未进入 required</h3><p>收益分布需 target_return；调仓复盘需 trade_date 或 after_adj_duration；市场阶段工具另有隐藏组合条件。</p></article>
+          <article class="card"><span class="card-index">CONTRACT 02</span><h3>命名风格不统一</h3><p>组合实时工具多数使用 snake_case，但产品详情改用 prodCode / prodType；调用代理容易产生首轮 400。</p></article>
+          <article class="card"><span class="card-index">CONTRACT 03</span><h3>枚举与示例不足</h3><p>行业分类、持仓周期、定投频率等字段需要特定枚举或联动参数，schema 没有完整暴露可接受值。</p></article>
+          <article class="card"><span class="card-index">CONTRACT 04</span><h3>错误语义可再统一</h3><p>不存在的组合可能返回 400、404、422 或空数组；客户端难以统一分辨“参数错、无数据、对象不存在”。</p></article>
+          <article class="card"><span class="card-index">CONTRACT 05</span><h3>Mock 能力必须显式隔离</h3><p>实时组合拟合工具描述仍带 Mock 属性。接口返回成功只能证明链路，不等于数据已具备生产可信度。</p></article>
+          <article class="card"><span class="card-index">CONTRACT 06–07</span><h3>客户端挂载与私募域缺口</h3><p>当前 Codex 会话未原生挂载 VESTA；在线清单仍未出现 private-fund 服务域，需分别处理接入和授权。</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="actions" aria-labelledby="actions-title">
+      <div class="shell">
+        <div class="section-head">
+          <div><span class="section-kicker">Action plan</span><h2 id="actions-title">先修可用性<br />再扩开放面</h2></div>
+          <p class="section-intro">建议把 119 项“工具资产”转成可持续验收的产品能力，而不是继续依赖人工逐个试错。</p>
+        </div>
+        <div class="recommendations">
+          <article class="rec"><div><h3>修复批量指数查询的数组序列化</h3><p>为单元素、多元素、空数组加入网关契约测试；修复后重跑两组用例并记录发布版本。</p></div><span class="priority">P1 · 立即</span></article>
+          <article class="rec"><div><h3>把隐藏必填、枚举和联动条件写回 JSON Schema</h3><p>优先覆盖本次触发首轮失败的 7 类参数，减少 AI 客户端无效重试与误判。</p></div><span class="priority">P1 · 本周</span></article>
+          <article class="rec"><div><h3>给错误响应建立统一词典</h3><p>明确 validation_error、not_found、no_data、permission_denied 与 upstream_error，统一 HTTP 与业务码。</p></div><span class="priority">P1 · 本周</span></article>
+          <article class="rec"><div><h3>将 VESTA 正式挂载到 Codex，并做客户端回归</h3><p>当前仅后端直连验证。完成原生 MCP 配置后，应重新验证工具发现、调用、超时、错误透传与审计记录。</p></div><span class="priority">P2 · 接入</span></article>
+          <article class="rec"><div><h3>业务授权后补齐 29 项私域验证</h3><p>其中 24 项真实组合能力、5 项投研云盘能力。使用专用脱敏测试空间和沙盒组合，不用真实客户数据。</p></div><span class="priority">P2 · 授权后</span></article>
+          <article class="rec"><div><h3>建立每周自动冒烟与变更雷达</h3><p>固定检查握手、工具数、schema diff、核心样本、错误率与新增工具；变化自动生成差异报告。</p></div><span class="priority">P3 · 持续</span></article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell footer-grid">
+      <span>VESTA MCP capability validation · 2026-09-15 11:53 CST</span>
+      <span>仅系统能力验证｜不连接生产交易｜不构成投资建议</span>
+    </div>
+  </footer>
+
+  <script>
+    const buttons = [...document.querySelectorAll('[data-filter]')];
+    const rows = [...document.querySelectorAll('tbody tr[data-status]')];
+    buttons.forEach((button) => button.addEventListener('click', () => {
+      const filter = button.dataset.filter;
+      buttons.forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+      rows.forEach((row) => { row.hidden = filter !== 'all' && row.dataset.status !== filter; });
+    }));
+  </script>
+</body>
+</html>

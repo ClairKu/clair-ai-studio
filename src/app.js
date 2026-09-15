@@ -45,7 +45,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 73;
+const DATA_VERSION = 74;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -161,6 +161,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "vesta-mcp-capability-validation-2026-09-15",
+      groupId: "ai-platform",
+      title: "VESTA MCP｜119 项能力全量验证",
+      url: "https://clairku.github.io/clair-ai-studio/reports/vesta-mcp-capability-validation-2026-09-15/",
+      preview: "vesta-mcp-capability-validation-2026-09-15.png",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-15T11:53:20+08:00",
+      source: "2026-09-15 在线直连 VESTA MCP 网关｜MCP 2024-11-05、9 个服务域、119 项工具清单逐项审计｜114 项安全执行，其中 88 项以公共或合成样本返回有效业务数据、25 项完成边界验证、1 项确认接口缺陷；5 项私有云盘能力仅核对 schema｜不含密钥、真实客户组合、私有云盘目录或返回正文",
+      access: "production",
+      workType: "governance-review",
+      tags: ["VESTA", "MCP", "能力验证", "接口审计", "基金分析", "组合分析", "AI 平台", "安全边界", "HTML", "生产"],
+    },
     {
       id: "qieman-llm-trading-path-2026-09-15",
       groupId: "xiaogu",
@@ -2393,6 +2407,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "qieman-llm-trading-path-2026-09-15": "xiaogu",
   // 战略经营与项目复盘
   "yuyue-internship-portfolio-2026-09-03": "reporting",
   "yingmi-ai-financial-innovation-public-overview-2026-08-17": "reporting",
@@ -2451,6 +2466,7 @@ const TOPIC_BY_REPORT = {
   "financial-planning-review": "xiaogu",
   "xiaogu-user-needs": "xiaogu",
   // AI 开放平台与生态
+  "vesta-mcp-capability-validation-2026-09-15": "ai-platform",
   "vesta-mcp-caliber-audit-2026-09-02": "ai-platform",
   "yingmi-mcp-metrics-caliber-2026-08-31": "ai-platform",
   "doubao-oauth-mcp-radar-2026-09-02": "ai-platform",

@@ -43,8 +43,8 @@ const reports = reportChunks.map((chunk) => ({
 // +1 Doubao Qieman user dashboard 2026-09-05
 // -1 inaccessible qieman-ai-advisor-ecosystem private Site 2026-09-05
 
-if (reports.length !== 165) { // +1 Qieman LLM trading path report 2026-09-15
-  fail(`初始成果数量异常：预期 165，实际 ${reports.length}`);
+if (reports.length !== 166) { // +1 VESTA MCP capability validation 2026-09-15
+  fail(`初始成果数量异常：预期 166，实际 ${reports.length}`);
 }
 
 for (const field of ["id", "url"]) {
