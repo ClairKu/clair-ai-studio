@@ -45,7 +45,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 72;
+const DATA_VERSION = 73;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -161,6 +161,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "qieman-llm-trading-path-2026-09-15",
+      groupId: "xiaogu",
+      title: "且慢 AI 交易能力研究｜从对话到用户确认下单",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-llm-trading-path-2026-09-15/",
+      preview: "qieman-llm-trading-path-2026-09-15.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-15T10:15:00+08:00",
+      source: "16 项机构官网、监管与行业协会公开证据｜对标 IBKR、Robinhood、Alpaca、Capitalise.ai、AI 涨乐、国泰海通灵犀、中信建投 Chat2Trade 与且慢现状｜给出自营 App 内受控闭环、一期一买一查、六项交易契约与 12 周灰度路线；无客户数据、无生产接口、无真实交易",
+      access: "production",
+      workType: "competitive-research",
+      tags: ["且慢", "AI 小顾", "AI 交易", "大模型", "交易安全", "竞品调研", "产品规划", "MCP", "合规", "HTML", "生产"],
+    },
     {
       id: "clair-studio-catalog-audit-2026-09-13",
       groupId: "knowledge",

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />
+    <script data-clair-access-gate data-clair-access-scope="report" src="../../access-gate.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="且慢 AI 交易能力研究：从大模型理解交易意图，到规则预检、用户确认、交易执行与结果回写的受控闭环。">
+  <title>且慢 AI 交易能力研究｜从对话到用户确认下单</title>
+  <style>
+    :root{
+      --ink:#16221d;--muted:#65716a;--paper:#f5f2ea;--card:#fffefa;--line:#d9ddd5;
+      --green:#0e6b4e;--green2:#1f8a63;--mint:#dff1e8;--gold:#b9782e;--rose:#a63e3e;
+      --navy:#172a32;--shadow:0 18px 48px rgba(26,44,36,.10);--radius:24px;
+    }
+    *{box-sizing:border-box}html{scroll-behavior:smooth;overflow-x:hidden}body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.65;overflow-x:hidden}
+    a{color:inherit}.wrap{width:min(1180px,calc(100% - 40px));margin:auto}.eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:800;color:var(--green)}
+    .topbar{position:sticky;top:0;z-index:20;background:rgba(245,242,234,.9);backdrop-filter:blur(16px);border-bottom:1px solid rgba(22,34,29,.08)}
+    .topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}.brand{font-weight:900;letter-spacing:.02em}.brand b{color:var(--green)}
+    nav{display:flex;gap:18px;overflow:auto;white-space:nowrap}nav a{text-decoration:none;font-size:13px;color:var(--muted)}nav a:hover{color:var(--green)}
+    .hero{padding:78px 0 54px;position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:540px;height:540px;border-radius:50%;right:-170px;top:-210px;background:radial-gradient(circle,#bfe6d1 0,rgba(191,230,209,0) 68%);pointer-events:none}
+    .hero-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:46px;align-items:end}.hero-grid>*{min-width:0}.hero h1{font-family:"Songti SC",STSong,serif;font-size:clamp(44px,6vw,78px);line-height:1.05;margin:16px 0 24px;letter-spacing:-.035em}
+    .hero h1 em{font-style:normal;color:var(--green)}.hero .lead{font-size:20px;max-width:780px;color:#3f4d46}.verdict{background:var(--navy);color:white;padding:28px;border-radius:var(--radius);box-shadow:var(--shadow)}
+    .verdict small{color:#9fd5bd;letter-spacing:.12em;font-weight:800}.verdict strong{display:block;font-family:"Songti SC",STSong,serif;font-size:30px;line-height:1.35;margin:12px 0}.verdict p{margin:0;color:#d6e3dc}
+    .badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}.badge{background:#fff;border:1px solid var(--line);padding:8px 13px;border-radius:999px;font-size:13px;font-weight:700}
+    section{padding:72px 0}.soft{background:#edf1ec}.dark{background:var(--navy);color:#f8fbf9}.section-head{display:grid;grid-template-columns:.8fr 1.2fr;gap:32px;margin-bottom:34px}.section-head h2{font-family:"Songti SC",STSong,serif;font-size:clamp(34px,4vw,52px);line-height:1.15;margin:8px 0}.section-head p{color:var(--muted);font-size:17px;margin:24px 0 0}.dark .section-head p{color:#b9c7c0}
+    .grid{display:grid;gap:18px}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:0 8px 24px rgba(29,43,36,.04)}
+    .card h3{margin:7px 0 10px;font-size:20px}.card p{margin:0;color:var(--muted)}.num{font-size:12px;font-weight:900;letter-spacing:.12em;color:var(--green)}
+    .risk{border-top:4px solid var(--rose)}.go{border-top:4px solid var(--green)}.warn{border-top:4px solid var(--gold)}
+    .decision{background:linear-gradient(135deg,#0e6b4e,#173d33);color:white;border:none}.decision p{color:#d8e9e1}.decision .num{color:#99d8bb}
+    .lane{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;align-items:stretch}.step{position:relative;background:#fff;color:var(--ink);padding:18px 14px;border-radius:16px;min-height:156px;border:1px solid #d8e3dd}
+    .step:not(:last-child):after{content:"→";position:absolute;right:-12px;top:62px;color:#8a9d93;font-weight:900;z-index:2}.step b{display:block;font-size:12px;letter-spacing:.1em;color:var(--green);margin-bottom:12px}.step strong{display:block;font-size:17px}.step span{display:block;color:var(--muted);font-size:13px;margin-top:8px}.step.gate{background:#e3f3ea;border-color:#80b79e}.step.core{background:#172a32;color:#fff;border-color:#172a32}.step.core span{color:#bed0c7}.step.core b{color:#9fd5bd}
+    .rule{margin-top:22px;padding:18px 22px;border-left:5px solid #9fd5bd;background:rgba(255,255,255,.08);border-radius:0 14px 14px 0;font-size:17px}.rule strong{color:#b9f1d5}
+    table{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;font-size:14px}th,td{text-align:left;vertical-align:top;padding:16px;border-bottom:1px solid #e7e9e4}th{background:#eef3ef;color:#314139;font-size:12px;letter-spacing:.06em}tr:last-child td{border-bottom:0}tbody tr:hover{background:#fbfcf8}
+    .pill{display:inline-block;padding:4px 9px;border-radius:999px;font-size:12px;font-weight:800}.p3{background:#dff1e8;color:#0e6b4e}.p4{background:#fde9d1;color:#8a531b}.p2{background:#ecefea;color:#59655e}.fact{color:#0e6b4e;font-weight:800}.bounded{color:#a56320;font-weight:800}.missing{color:#a63e3e;font-weight:800}
+    .legend{display:flex;gap:15px;flex-wrap:wrap;margin:0 0 18px;color:var(--muted);font-size:13px}.legend b{color:var(--ink)}
+    .maturity{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:22px}.maturity div{padding:16px;border:1px solid var(--line);border-radius:14px;background:#fff}.maturity b{display:block;color:var(--green);font-size:13px}.maturity span{font-size:13px;color:var(--muted)}.maturity .chosen{background:var(--mint);border-color:#7cb298}
+    .split{display:grid;grid-template-columns:1fr 1fr;gap:20px}.list{margin:14px 0 0;padding:0;list-style:none}.list li{position:relative;padding:10px 0 10px 26px;border-bottom:1px dashed #dfe3dd}.list li:before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:900}.list.stop li:before{content:"×";color:var(--rose)}
+    .api{display:grid;grid-template-columns:1fr 1fr;gap:16px}.api-card{background:#10231d;color:#e9f4ef;border:1px solid #315145;border-radius:17px;padding:20px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.api-card b{color:#8fd3b3}.api-card p{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;color:#bcd0c6;margin:10px 0 0}.api-card.danger{opacity:.58;text-decoration:line-through;text-decoration-color:#ef8d8d;text-decoration-thickness:2px}
+    .timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;counter-reset:phase}.phase{background:white;border:1px solid var(--line);border-radius:18px;padding:22px}.phase:before{counter-increment:phase;content:"0" counter(phase);display:inline-grid;place-items:center;width:38px;height:38px;border-radius:12px;background:var(--mint);color:var(--green);font-weight:900}.phase h3{margin:15px 0 6px}.phase p{color:var(--muted);margin:0}.phase small{display:block;color:var(--gold);font-weight:800;margin-top:14px}
+    .metric{display:flex;gap:14px;align-items:flex-start}.metric i{font-style:normal;font-size:22px}.metric b{display:block}.metric span{display:block;color:var(--muted);font-size:13px;margin-top:4px}
+    .sources{columns:2;column-gap:32px}.source{break-inside:avoid;background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;margin:0 0 14px}.source b{color:var(--green)}.source a{word-break:break-all;color:#405f52}.source p{color:var(--muted);margin:8px 0 0;font-size:13px}
+    .note{padding:18px 22px;background:#fff6e8;border:1px solid #ecd2ab;border-radius:14px;color:#725020}.footer{padding:38px 0 60px;color:var(--muted);font-size:13px}.footer .wrap{display:flex;justify-content:space-between;gap:20px;border-top:1px solid var(--line);padding-top:24px}
+    @media(max-width:900px){.hero-grid,.section-head,.split{grid-template-columns:1fr}.g3,.g4,.timeline{grid-template-columns:1fr 1fr}.lane{grid-template-columns:1fr 1fr}.step:not(:last-child):after{display:none}.maturity{grid-template-columns:repeat(3,1fr)}.api{grid-template-columns:1fr}}
+    @media(max-width:620px){.wrap{width:auto;max-width:none;margin-left:12px;margin-right:12px}nav{display:none}.hero{padding-top:50px}.hero h1{font-size:44px}.hero .lead,.verdict strong{overflow-wrap:anywhere;word-break:break-word}.hero .lead{font-size:17px}.eyebrow{overflow-wrap:anywhere}.g3,.g4,.timeline,.lane,.maturity{grid-template-columns:minmax(0,1fr)}.sources{columns:1}section{padding:52px 0}.section-head h2{font-size:36px}.footer .wrap{display:block}table{display:block;max-width:100%;overflow-x:auto;white-space:nowrap}}
+    @media print{.topbar{display:none}body{background:#fff}.hero,section{padding:34px 0}.card,.phase,.source{box-shadow:none;break-inside:avoid}a{text-decoration:none}.wrap{width:100%}}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap"><div class="brand"><b>CLAIR</b> · 且慢 AI 交易研究</div><nav><a href="#decision">结论</a><a href="#benchmark">机构案例</a><a href="#scope">首期范围</a><a href="#architecture">技术路径</a><a href="#roadmap">路线图</a><a href="#evidence">证据</a></nav></div>
+  </header>
+
+  <main>
+    <section class="hero" id="top">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="eyebrow">Qieman · AI Trading Capability Study · 2026.09.15</div>
+          <h1>让一句话变成<br><em>可确认的交易</em></h1>
+          <p class="lead">这件事值得做，但项目定义必须克制：不是让大模型自主决定买什么，而是让 AI 把用户已表达的交易意图，编排成一笔规则正确、信息完整、可审计、由用户最终确认的订单。</p>
+          <div class="badges"><span class="badge">公开证据调研</span><span class="badge">8 个机构/模式</span><span class="badge">自营 App 内闭环</span><span class="badge">用户强确认</span><span class="badge">不构成投资建议</span></div>
+        </div>
+        <aside class="verdict"><small>ONE-LINE DECISION</small><strong>做“AI 交易协助”，暂不做“AI 自主交易”。</strong><p>模型负责理解和解释；规则服务负责校验；且慢交易系统负责接收指令与执行；用户对每笔真实订单负责最终确认。</p></aside>
+      </div>
+    </section>
+
+    <section id="decision">
+      <div class="wrap">
+        <header class="section-head"><div><div class="eyebrow">01 · PRODUCT DECISION</div><h2>先把“AI 下单”说清楚</h2></div><p>行业里最容易犯的错，是把“自然语言入口”“AI 推荐”“订单生成”“自动执行”混成一个概念。且慢应主动拆开责任。</p></header>
+        <div class="grid g4">
+          <article class="card go"><div class="num">MODEL</div><h3>大模型可以做</h3><p>识别用户意图、补齐缺失字段、调用只读事实、解释费用与失败原因、生成结构化订单草稿。</p></article>
+          <article class="card go"><div class="num">RULE ENGINE</div><h3>规则系统必须做</h3><p>实名、账户、适当性、产品可售、额度、支付、截止时间、重复单、风险与合规预检。</p></article>
+          <article class="card decision"><div class="num">USER</div><h3>用户必须做</h3><p>在且慢自营交易页面查看最终不可变订单，完成显式确认和强认证；模型不能替用户确认。</p></article>
+          <article class="card risk"><div class="num">NEVER</div><h3>第一阶段不做</h3><p>AI 自选产品、自定金额、自择时、代输交易密码、无人确认报单、把“可能成功”说成“已成交”。</p></article>
+        </div>
+        <div class="note" style="margin-top:18px"><b>一个硬设计决定：</b>模型工具集中不提供 <code>submit_order</code>。模型只能创建带有效期的订单草稿；真实提交由且慢 App 的确认组件触发，与当次用户认证和不可变订单摘要绑定。</div>
+      </div>
+    </section>
+
+    <section class="dark" id="architecture">
+      <div class="wrap">
+        <header class="section-head"><div><div class="eyebrow" style="color:#9fd5bd">02 · CONTROLLED LOOP</div><h2>目标态不是一句话直达交易所</h2></div><p>它是一条七段式受控链路。大模型只占前两段的一部分，交易核心仍是确定性系统。</p></header>
+        <div class="lane" aria-label="AI 交易受控链路">
+          <div class="step"><b>01 INTENT</b><strong>理解意图</strong><span>动作、产品、金额、账户、时间</span></div>
+          <div class="step"><b>02 GROUND</b><strong>拉取事实</strong><span>持仓、余额、产品、规则、时间戳</span></div>
+          <div class="step"><b>03 PREFLIGHT</b><strong>交易预检</strong><span>适当性、可售、限额、支付、重复单</span></div>
+          <div class="step gate"><b>04 DRAFT</b><strong>锁定草稿</strong><span>order_draft_id + TTL + 摘要哈希</span></div>
+          <div class="step gate"><b>05 CONFIRM</b><strong>用户确认</strong><span>自营页展示、强认证、一次性授权</span></div>
+          <div class="step core"><b>06 EXECUTE</b><strong>交易核心执行</strong><span>幂等提交、受理回执、状态机</span></div>
+          <div class="step"><b>07 WRITEBACK</b><strong>结果写回</strong><span>成功/失败/在途/退款与下一步</span></div>
+        </div>
+        <div class="rule"><strong>判断：</strong>且慢真正要建设的不是一个“下单 Prompt”，而是交易意图协议、预检服务、订单草稿、确认令牌、执行状态机、审计证据链六项平台能力。</div>
+      </div>
+    </section>
+
+    <section id="benchmark">
+      <div class="wrap">
+        <header class="section-head"><div><div class="eyebrow">03 · MARKET BENCHMARK</div><h2>已经有人做了，但没有人真的把控制权交给模型</h2></div><p>以下只记录可由机构官网、监管文件或官方技术文档支持的事实。对“是否已真实自动报单”证据不足的，明确标为未证实。</p></header>
+        <div class="maturity">
+          <div><b>L0</b><span>知识问答</span></div><div><b>L1</b><span>账户事实</span></div><div><b>L2</b><span>任务/订单草稿</span></div><div class="chosen"><b>L3 · 且慢目标</b><span>用户确认后提交</span></div><div><b>L4</b><span>用户规则自动执行</span></div><div><b>L5</b><span>AI 自主决策交易</span></div>
+        </div>
+        <div class="legend"><span><b class="fact">已确认</b>：官方材料明确支持</span><span><b class="bounded">边界有限</b>：能交易，但形态/细节有限</span><span><b class="missing">未证实</b>：公开资料不足</span></div>
+        <table>
+          <thead><tr><th>机构 / 产品</th><th>已做到什么</th><th>成熟度</th><th>对且慢的借鉴</th><th>证据</th></tr></thead>
+          <tbody>
+            <tr><td><b>Interactive Brokers</b><br>AI Integration / IBot</td><td>自然语言生成交易指令；每条指令在专门页面由客户审核、批准，再提交市场。IBot 也先准备订单票据供复核。</td><td><span class="pill p3">L3 已确认</span></td><td><b>最接近且慢。</b>AI 不直接报单，确认页是责任边界。</td><td>EV-001 / 002</td></tr>
+            <tr><td><b>Robinhood Cortex</b></td><td>官方称用户可用自然语言买卖股票和加密资产并执行 App 操作，同时“保持用户控制”；2026 年已向 Gold 用户推出 Assistant。</td><td><span class="pill p3">L3 边界有限</span></td><td>对话成为 App 入口，但研究、账户事实与动作工具分开。</td><td>EV-003 / 004</td></tr>
+            <tr><td><b>Alpaca MCP Server</b></td><td>向 AI 客户端暴露股票、期权、加密资产下单/改单/撤单工具，订单可直达 Trading API；默认纸面交易，官方要求复核 AI 建议订单。</td><td><span class="pill p4">L4 已确认</span></td><td>适合技术沙箱和工具协议参考，<b>不宜照搬其 API Key + 通用客户端模式</b>到境内 C 端。</td><td>EV-005</td></tr>
+            <tr><td><b>Capitalise.ai</b></td><td>用户用自然语言定义进出场规则，经回测/模拟后可运行实时自动触发策略；本质是受约束规则自动化，不是开放式 LLM 自主判断。</td><td><span class="pill p4">L4 已确认</span></td><td>可借鉴“先规则化、再模拟、后启用”和持续监控/停用机制。</td><td>EV-006</td></tr>
+            <tr><td><b>华泰证券 AI 涨乐</b></td><td>AI 原生交易 App；公开口径称投中可用自然语言解析交易意图并拆成可执行任务。</td><td><span class="pill p2">L2–L3</span></td><td>证明境内自营 App 正在走“对话 + 交易任务”；公开资料未披露最终确认和报单细节。</td><td>EV-007 / 008</td></tr>
+            <tr><td><b>国泰海通 灵犀</b></td><td>官方介绍称对话覆盖异动盯盘、交易下单、智能复盘，账户侧含智能订单。</td><td><span class="pill p2">L2–L3</span></td><td>证明国内券商已把“交易下单”纳入 AI 全旅程，但无公开细节证明可无人确认执行。</td><td>EV-009</td></tr>
+            <tr><td><b>中信建投 Chat2Trade</b></td><td>用微调大模型把债券 RFQ 聊天解析为结构化交易单元，解决机构询报价中的非结构化输入。</td><td><span class="pill p2">机构侧 L2</span></td><td>可借鉴小模型/垂类模型做高精度字段解析，不必用通用大模型包办全部。</td><td>EV-010</td></tr>
+            <tr><td><b>且慢 AI 小顾</b></td><td>已公开具备账户/交易记录调用、持仓诊断、资金规划、方案与任务交付；早期资料将基金交易、组合管理工具化列为后续方向。</td><td><span class="pill p2">当前 L1–L2</span></td><td>基础不是短板；缺的是从任务到订单草稿、确认和状态回写的交易契约。</td><td>EV-011 / 012 / 013</td></tr>
+          </tbody>
+        </table>
+        <div class="note" style="margin-top:18px"><b>本次检索结论：</b>我没有找到境内公募基金销售/基金投顾 App 已公开证明“用户在大模型对话里完成真实基金订单提交”的同类案例。这不等于机构内部没有灰度或未公开能力；只能说明公开证据不足。券商和海外 API 券商明显走得更前。</div>
+      </div>
+    </section>
+
+    <section class="soft" id="scope">
+      <div class="wrap">
+        <header class="section-head"><div><div class="eyebrow">04 · MVP SCOPE</div><h2>首期只打穿“一买一查”</h2></div><p>先证明模型能可靠地把一笔明确交易变成正确草稿，并在失败后说清楚原因。范围扩大之前，必须先把零事故门槛跑出来。</p></header>
+        <div class="split">
+          <article class="card go"><div class="num">IN · MUST BUILD</div><h3>一期包含</h3><ul class="list">
+            <li>已登录用户购买一只明确指定的、已上架投顾策略/组合</li>
+            <li>用户自己给出金额；AI 只做澄清，不替用户决定金额</li>
+            <li>完整交易前检查并解释每个阻断原因</li>
+            <li>生成有时效、不可变、可撤销的订单草稿</li>
+            <li>跳转且慢自营确认页，展示费用、支付方式、风险和预计处理时间</li>
+            <li>查询订单状态并用交易系统事实解释失败/在途</li>
+          </ul></article>
+          <article class="card risk"><div class="num">OUT · DO NOT BUILD YET</div><h3>一期排除</h3><ul class="list stop">
+            <li>“你帮我选一个”“现在该买什么”等 AI 自主选品与择时</li>
+            <li>长赢、复杂跟车、跨账户转账、赎回再买、组合级换仓</li>
+            <li>自动输入密码、人脸/生物信息或把凭据传给模型</li>
+            <li>外部大模型客户端内直接签约、测评、付款或报单</li>
+            <li>定时/条件触发后无人确认的开放式自动交易</li>
+            <li>模型根据聊天推断“已经成功”，而不查询交易状态</li>
+          </ul></article>
+        </div>
+        <div class="grid g3" style="margin-top:18px">
+          <article class="card"><div class="num">ACCEPTANCE A</div><h3>“我想买周周同行 2 万元”</h3><p>系统识别对象与金额 → 拉取账户/产品事实 → 预检 → 返回唯一草稿；若缺支付方式，只追问必要问题。</p></article>
+          <article class="card"><div class="num">ACCEPTANCE B</div><h3>“为什么我买不了？”</h3><p>只引用规则系统返回的阻断码，明确是风险测评、余额、银行卡限额、开放状态还是资格问题，并给正确入口。</p></article>
+          <article class="card"><div class="num">ACCEPTANCE C</div><h3>“昨天那笔失败了吗？”</h3><p>用 order_id 查询真实状态；区分受理、扣款、确认份额、失败、退款，不把“已受理”说成“已成交”。</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <header class="section-head"><div><div class="eyebrow">05 · REQUIREMENT CONTRACT</div><h2>要补的不是一个接口，而是六个契约</h2></div><p>这六项能同时约束产品、研发、交易、合规和数据团队，也是未来接入千问、ChatGPT 等外部 Agent 时的安全边界。</p></header>
+        <div class="grid g3">
+          <article class="card"><div class="num">01 INTENT SCHEMA</div><h3>交易意图协议</h3><p>action、product_id、amount、account_id、payment_method、schedule、source_utterance、confidence；金额与产品不可由模型暗填。</p></article>
+          <article class="card"><div class="num">02 PREFLIGHT</div><h3>交易前检查</h3><p>统一返回 pass / block / need_user_action、阻断码、可解释文案、修复入口、数据时间戳。</p></article>
+          <article class="card"><div class="num">03 DRAFT</div><h3>订单草稿</h3><p>draft_id、摘要哈希、费用/风险快照、expires_at。任何字段变化都使旧确认失效。</p></article>
+          <article class="card"><div class="num">04 CONFIRMATION</div><h3>确认令牌</h3><p>绑定 user、device、draft、认证级别、确认时间和一次性 nonce；防重放、防串单。</p></article>
+          <article class="card"><div class="num">05 STATE MACHINE</div><h3>执行状态机</h3><p>draft → awaiting_confirmation → submitted → accepted → processing → success / failed / refunded / canceled。</p></article>
+          <article class="card"><div class="num">06 EVIDENCE</div><h3>审计证据链</h3><p>原始话术、解析结果、事实版本、规则决策、确认画面、最终 payload、回执、模型/提示词版本与 trace_id。</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="dark">
+      <div class="wrap">
+        <header class="section-head"><div><div class="eyebrow" style="color:#9fd5bd">06 · TOOL BOUNDARY</div><h2>把危险能力放到模型拿不到的地方</h2></div><p>模型越强，权限边界越要简单。最安全的实现不是“写一个更严的 Prompt”，而是架构上让模型无法绕过确认门。</p></header>
+        <div class="api">
+          <div class="api-card"><b>✓ get_trade_context()</b><p>只读账户、产品、余额、规则和状态；字段最小化、按需授权。</p></div>
+          <div class="api-card"><b>✓ precheck_order(intent)</b><p>确定性预检；模型只能解释返回结果，不能覆盖规则。</p></div>
+          <div class="api-card"><b>✓ create_order_draft(intent)</b><p>创建短时有效草稿；记录摘要哈希和幂等键。</p></div>
+          <div class="api-card"><b>✓ get_order_status(order_id)</b><p>事实查询；所有“成功/失败”文案必须有状态响应。</p></div>
+          <div class="api-card danger"><b>✕ submit_order(payload)</b><p>不得作为模型工具；由 App 确认组件与交易网关直接调用。</p></div>
+          <div class="api-card danger"><b>✕ get_password / biometric</b><p>认证凭据绝不进入模型上下文、日志或第三方 Agent。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="roadmap">
+      <div class="wrap">
+        <header class="section-head"><div><div class="eyebrow">07 · DELIVERY ROADMAP</div><h2>12 周走到小流量真实订单</h2></div><p>时间是建议窗口，不是现有承诺。每一阶段都有“继续 / 收缩 / 停止”门，不以 Demo 演示代替真实证据。</p></header>
+        <div class="timeline">
+          <article class="phase"><h3>第 0–2 周<br>契约与影子模式</h3><p>冻结意图 schema、状态机和红线；用脱敏历史话术离线回放，不创建真实订单。</p><small>出口：字段准确率、边界测试、风险评审</small></article>
+          <article class="phase"><h3>第 3–6 周<br>沙箱纵切</h3><p>一只明确策略 + 明确金额；跑通预检、草稿、确认模拟、失败恢复和全链审计。</p><small>出口：100% 可回放的 Demo 与故障注入</small></article>
+          <article class="phase"><h3>第 7–10 周<br>员工/白名单真单</h3><p>仅且慢 App、自营确认页、限额、可撤销、人工值守；先从极小范围真实订单验证。</p><small>出口：零越权、零重复、零状态幻觉</small></article>
+          <article class="phase"><h3>第 11–12 周<br>1% 灰度</h3><p>扩大到符合条件用户；A/B 对比交易准备时长、阻断修复率、完成率和投诉。</p><small>出口：Go / Pivot / Stop 决策</small></article>
+        </div>
+        <div class="grid g3" style="margin-top:18px">
+          <article class="card"><div class="metric"><i>🛡️</i><div><b>安全门槛（必须为零）</b><span>未确认提交、重复订单、跨用户串单、凭据入模、虚构交易状态、绕过适当性。</span></div></div></article>
+          <article class="card"><div class="metric"><i>🎯</i><div><b>质量门槛（建议目标）</b><span>关键字段精确匹配 ≥99.9%；高风险意图 100% 拦截/转人工；交易状态事实一致率 100%。</span></div></div></article>
+          <article class="card"><div class="metric"><i>📈</i><div><b>业务假设（需 A/B 验证）</b><span>交易准备时长下降 40%–60%；可修复阻断的完成率相对提升 10%–20%；不预设 AUM 结果。</span></div></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="soft">
+      <div class="wrap">
+        <header class="section-head"><div><div class="eyebrow">08 · REGULATORY BOUNDARY</div><h2>为什么一定要在且慢自营 App 内完成</h2></div><p>监管要求把“谁接收客户交易指令、谁做销售和适当性、谁承担责任”钉得很清楚。外部大模型适合做入口和草稿，不适合作为真实交易终点。</p></header>
+        <div class="grid g3">
+          <article class="card warn"><div class="num">SELF-OPERATED SYSTEM</div><h3>交易指令由自营系统直接接收</h3><p>中基协《网上基金销售信息系统技术指引》要求基金销售机构通过自身运营管理的信息系统直接接收投资者交易指令，并记录接收时间。</p></article>
+          <article class="card warn"><div class="num">THIRD-PARTY LIMIT</div><h3>外部平台只能转接</h3><p>2026 年 9 月 30 日起施行的新规要求第三方平台在购买环节跳转金融机构自营平台，且不得介入签约、资金划转、适当性等销售环节。</p></article>
+          <article class="card warn"><div class="num">HUMAN IN THE LOOP</div><h3>核心决策需要人工复核</h3><p>基金业协会大模型应用规范强调权限审计、日志追溯，并建议生成内容作为辅助、经人工复核；涉及交易执行代码不得全自动生成上线。</p></article>
+        </div>
+        <p class="note" style="margin-top:18px">因此，面向千问、ChatGPT、Claude 等外部 Agent 的且慢 MCP，首期最多开放“查询 + 预检 + 创建行动草稿 + 拉起且慢 App”；签约、测评、支付、确认和报单必须回到且慢自营环境。这里是产品与合规共同评审建议，不替代正式法律意见。</p>
+      </div>
+    </section>
+
+    <section id="evidence">
+      <div class="wrap">
+        <header class="section-head"><div><div class="eyebrow">09 · EVIDENCE INDEX</div><h2>证据与自我纠察</h2></div><p>调研日期为 2026-09-15。竞品功能可能继续变化；下列链接均为机构官网、监管/协会或机构官方技术材料。</p></header>
+        <div class="sources">
+          <article class="source"><b>EV-001 · Interactive Brokers AI Hub</b><p>AI 平台生成交易指令；客户审核并提交每一笔订单。</p><a href="https://www.interactivebrokers.com/en/trading/ai-hub.php">interactivebrokers.com/en/trading/ai-hub.php</a></article>
+          <article class="source"><b>EV-002 · Interactive Brokers IBot</b><p>自然语言创建订单票据，提交前由用户复核。</p><a href="https://www.interactivebrokers.com/en/trading/ibot.php">interactivebrokers.com/en/trading/ibot.php</a></article>
+          <article class="source"><b>EV-003 · Robinhood Cortex 发布说明</b><p>自然语言买卖股票/加密资产与 App 动作，保持用户控制。</p><a href="https://robinhood.com/us/en/newsroom/robinhood-presents-yes-no-event/">robinhood.com/.../robinhood-presents-yes-no-event</a></article>
+          <article class="source"><b>EV-004 · Robinhood Cortex 架构</b><p>官方工程材料描述账户、研究、订单等 Agent 与真实资金约束。</p><a href="https://robinhood.com/us/en/careers/blog/loop-stays-dumb-so-the-model-can-be-smart/">robinhood.com/.../loop-stays-dumb-so-the-model-can-be-smart</a></article>
+          <article class="source"><b>EV-005 · Alpaca Trading MCP Server</b><p>65 个交易/行情工具，默认 paper 模式，可直达 Trading API。</p><a href="https://docs.alpaca.markets/us/docs/alpaca-mcp-server">docs.alpaca.markets/us/docs/alpaca-mcp-server</a></article>
+          <article class="source"><b>EV-006 · Capitalise.ai Automation</b><p>自然语言定义交易计划并可自动监控、执行。</p><a href="https://capitalise.ai/automation/">capitalise.ai/automation</a></article>
+          <article class="source"><b>EV-007 · 华泰证券 2025 年报</b><p>公开披露推出专注交易场景的 AI 原生应用“AI 涨乐”。</p><a href="https://crm.htsc.com.cn/pdf_finchina/HKSTOCK/2026/2026-3/2026-03-30/2469554.pdf">华泰证券 2025 年年度报告</a></article>
+          <article class="source"><b>EV-008 · 新华网：AI 涨乐全流程</b><p>投中以自然语言解析交易意图并拆成可执行任务。</p><a href="https://www.news.cn/money/20260828/0153300c375549faaeaedab7fe275f00/c.html">news.cn/money/20260828/...</a></article>
+          <article class="source"><b>EV-009 · 国泰海通灵犀官方页</b><p>官方介绍对话覆盖交易下单与智能复盘。</p><a href="https://app.gtht.com/lx/">app.gtht.com/lx</a></article>
+          <article class="source"><b>EV-010 · 中信建投 Chat2Trade</b><p>大模型将债券 RFQ 文本解析为结构化交易单元。</p><a href="https://www.group.citic/html/2026/News_0204/3157.html">group.citic/.../News_0204/3157.html</a></article>
+          <article class="source"><b>EV-011 · 且慢 AI 小顾 2.0</b><p>账户/交易记录、持仓诊断、规划、方案与多 Agent 能力。</p><a href="https://www.yingmi.cn/archives/787.html">yingmi.cn/archives/787.html</a></article>
+          <article class="source"><b>EV-012 · 且慢 AI 小顾 3.0</b><p>跨场景完成持仓、风险、基金筛选到报告生成的长链路任务。</p><a href="https://yingmi.cn/archives/847.html">yingmi.cn/archives/847.html</a></article>
+          <article class="source"><b>EV-013 · 盈米且慢 MCP</b><p>早期资料将基金交易和组合管理工具化列为后续方向。</p><a href="https://www.yingmi.cn/archives/565">yingmi.cn/archives/565</a></article>
+          <article class="source"><b>EV-014 · 网上基金销售信息系统技术指引</b><p>基金销售机构应由自身运营管理的信息系统直接接收并记录投资者交易指令。</p><a href="https://fg.amac.org.cn/governmentrules_3854/zcgz_zlgz/xxkj/201912/t20191222_24359.html">amac.org.cn/.../网上基金销售信息系统技术指引</a></article>
+          <article class="source"><b>EV-015 · 金融产品网络营销管理办法</b><p>第三方平台必须转接自营平台，不得介入签约、资金划转、适当性等环节；2026-09-30 施行。</p><a href="https://www.cac.gov.cn/2026-04/24/c_1778769008779432.htm">cac.gov.cn/2026-04/24/...</a></article>
+          <article class="source"><b>EV-016 · 基金经营机构大模型技术应用规范</b><p>模型、数据、权限、审计、业务安全和人在回路要求。</p><a href="https://fg.amac.org.cn/governmentrules_3854/hybz/tb/202606/t20260616_27834.html">amac.org.cn/.../T/AMAC 0004-2026</a></article>
+        </div>
+        <div class="grid g3" style="margin-top:22px">
+          <article class="card"><div class="num">FACT CHECK</div><h3>事实核查</h3><p>所有竞品能力均有 EV 编号；未把“覆盖交易场景”推断成“无人确认自动报单”。</p></article>
+          <article class="card"><div class="num">LOGIC CHECK</div><h3>逻辑核查</h3><p>建议来自共同模式：模型编排、规则校验、用户控制、交易核心执行；与境内自营系统边界一致。</p></article>
+          <article class="card"><div class="num">OPEN GAPS</div><h3>仍待内部验证</h3><p>现有交易接口、认证方式、幂等机制、状态码、产品首选、研发容量和合规意见均未在本次公开调研中确认。</p></article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer"><div class="wrap"><span>Clair AI Studio · 且慢 AI 交易能力研究</span><span>公开资料研究版 · 2026-09-15 · 不连接生产交易，不构成投资建议</span></div></footer>
+</body>
+</html>
