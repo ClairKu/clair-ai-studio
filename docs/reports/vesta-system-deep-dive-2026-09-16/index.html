@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <script data-clair-access-gate data-clair-access-scope="report" src="../../access-gate.js"></script>
+  <title>VESTA 盈米投研系统｜全景深度调研</title>
+  <meta name="description" content="VESTA 前台工作台、119 项 MCP 工具、数据对象、指标公式、系统边界与产品改进建议的系统级深度调研。" />
+  <style>
+    :root{--bg:#f1f2ec;--paper:#fbfcf8;--ink:#152019;--muted:#687169;--line:#d7dbd3;--green:#1b694d;--green2:#2f8a67;--soft:#dfebe4;--blue:#2f5e7f;--amber:#a5661e;--red:#a54236;--navy:#163044;--shadow:0 22px 60px rgba(21,32,25,.09)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.72 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}a{color:inherit}.shell{width:min(1180px,calc(100% - 40px));margin:auto}.top{position:sticky;top:0;z-index:20;border-bottom:1px solid rgba(215,219,211,.84);background:rgba(241,242,236,.92);backdrop-filter:blur(14px)}.topin{min-height:60px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;align-items:center;gap:11px;font-weight:820}.mark{display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:var(--ink);color:white}.nav{display:flex;gap:18px;font-size:13px;color:var(--muted)}.nav a{text-decoration:none}.hero{padding:70px 0 48px}.hero-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:28px;align-items:end}.eyebrow,.kicker{color:var(--green);font-size:12px;font-weight:850;letter-spacing:.13em;text-transform:uppercase}h1{margin:12px 0 0;font-size:clamp(42px,6vw,72px);line-height:1.02;letter-spacing:-.058em;max-width:900px}h1 span{color:var(--green)}.lede{max-width:800px;margin:24px 0 0;color:#435048;font-size:clamp(17px,2vw,21px)}.verdict{padding:28px;border-radius:22px;background:var(--navy);color:white;box-shadow:var(--shadow)}.verdict small{color:#a9c7da;font-weight:800;letter-spacing:.1em}.verdict strong{display:block;margin:10px 0 8px;font-size:27px;line-height:1.22}.verdict p{margin:0;color:#d8e3e9;font-size:14px}.metric-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:38px}.metric{padding:21px;border:1px solid var(--line);border-radius:16px;background:var(--paper)}.metric b{display:block;font-size:clamp(30px,4vw,46px);letter-spacing:-.06em;line-height:1}.metric span{display:block;margin-top:12px;color:var(--muted);font-size:13px}.section{padding:74px 0;border-top:1px solid var(--line)}.section-head{display:grid;grid-template-columns:.64fr 1.36fr;gap:32px;margin-bottom:32px}h2{margin:6px 0 0;font-size:clamp(30px,4vw,48px);line-height:1.08;letter-spacing:-.045em}.intro{margin:4px 0 0;color:var(--muted);font-size:16px;max-width:760px}.notice{padding:18px 20px;border-left:4px solid var(--amber);background:#f5e8d4;color:#684319;border-radius:0 14px 14px 0}.evidence-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.evidence{padding:20px;border:1px solid var(--line);background:var(--paper);border-radius:15px}.evidence em{display:block;color:var(--green);font-style:normal;font-weight:800;font-size:12px}.evidence strong{display:block;margin:9px 0 5px;font-size:17px}.evidence p{margin:0;color:var(--muted);font-size:13px}.architecture{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.layer{min-height:160px;padding:20px;border-radius:16px;background:var(--paper);border:1px solid var(--line)}.layer:nth-child(1){background:var(--navy);color:white}.layer:nth-child(2){background:#e5eee9}.layer h3{margin:0 0 10px;font-size:17px}.layer p{margin:0;font-size:13px;color:var(--muted)}.layer:nth-child(1) p{color:#d5e2e8}.flow{margin-top:14px;color:var(--muted);font-size:13px;text-align:center}.toolbar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}.chip{border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--muted);padding:8px 13px;cursor:pointer;font:inherit}.chip[aria-pressed="true"]{background:var(--ink);color:white;border-color:var(--ink)}.catalog{display:grid;gap:12px}.domain{border:1px solid var(--line);border-radius:16px;background:var(--paper);overflow:hidden}.domain summary{list-style:none;display:grid;grid-template-columns:48px 1fr auto;gap:14px;align-items:center;padding:19px 20px;cursor:pointer}.domain summary::-webkit-details-marker{display:none}.domain .num{display:grid;place-items:center;width:38px;height:38px;border-radius:10px;background:var(--soft);color:var(--green);font-weight:850}.domain h3{margin:0;font-size:18px}.domain .desc{color:var(--muted);font-size:13px}.tag{display:inline-flex;align-items:center;border-radius:999px;padding:5px 9px;font-size:11px;font-weight:800;white-space:nowrap}.confirmed{background:#dcebe4;color:#176b4d}.partial{background:#f6e7ce;color:#8d5518}.planned{background:#dce8f0;color:#2f5e7f}.domain-body{padding:0 20px 20px}.feature-list{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.feature{padding:12px 14px;border:1px solid var(--line);border-radius:11px;background:white}.feature b{display:block;font-size:14px}.feature span{display:block;margin-top:3px;color:var(--muted);font-size:12px}.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:17px;background:var(--paper)}table{border-collapse:collapse;width:100%;min-width:880px}th,td{padding:14px 16px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{background:#e9ebe5;color:#5a645d;font-size:12px;letter-spacing:.04em}tbody tr:last-child td{border-bottom:0}.status{font-size:12px;font-weight:800}.ok{color:var(--green)}.warn{color:var(--amber)}.issue{color:var(--red)}.tool-links{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}.tool-link{display:block;padding:18px;border:1px solid var(--line);border-radius:14px;background:var(--paper);text-decoration:none}.tool-link:hover{border-color:var(--green2);transform:translateY(-1px)}.tool-link strong{display:block}.tool-link span{display:block;margin-top:5px;color:var(--muted);font-size:13px}.data-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.data-card{padding:20px;border:1px solid var(--line);border-radius:15px;background:var(--paper)}.data-card h3{margin:0 0 9px;font-size:17px}.data-card p{margin:0;color:var(--muted);font-size:13px}.formula{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#203e31}.risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.risk-card{padding:22px;border-radius:16px;border:1px solid var(--line);background:var(--paper)}.risk-card h3{margin:0 0 8px;font-size:18px}.risk-card p{margin:0;color:var(--muted)}.roadmap{display:grid;gap:12px;counter-reset:road}.road{counter-increment:road;display:grid;grid-template-columns:48px 1fr auto;gap:15px;padding:20px;border:1px solid var(--line);border-radius:15px;background:var(--paper)}.road:before{content:counter(road,decimal-leading-zero);display:grid;place-items:center;width:38px;height:38px;border-radius:10px;background:var(--ink);color:white;font-size:12px;font-weight:850}.road h3{margin:0 0 5px;font-size:17px}.road p{margin:0;color:var(--muted);font-size:13px}.prio{color:var(--red);font-weight:850;font-size:12px;white-space:nowrap}.sources{display:grid;gap:8px}.source{display:grid;grid-template-columns:130px 1fr 120px;gap:16px;padding:13px 0;border-bottom:1px solid var(--line);font-size:13px}.source:last-child{border-bottom:0}.source span{color:var(--muted)}footer{padding:34px 0 60px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}.foot{display:flex;justify-content:space-between;gap:20px}[hidden]{display:none!important}
+    @media(max-width:920px){.hero-grid,.section-head,.architecture{grid-template-columns:1fr}.metric-grid{grid-template-columns:repeat(2,1fr)}.evidence-grid,.data-grid,.tool-links{grid-template-columns:1fr 1fr}.layer{min-height:auto}.risk-grid{grid-template-columns:1fr}}
+    @media(max-width:580px){.shell{width:calc(100% - 24px)}.nav{display:none}.hero{padding:50px 0 38px}h1{font-size:43px}.metric-grid,.evidence-grid,.data-grid,.tool-links,.feature-list{grid-template-columns:1fr}.domain summary{grid-template-columns:42px 1fr}.domain summary .tag{grid-column:2}.road{grid-template-columns:42px 1fr}.prio{grid-column:2}.source{grid-template-columns:1fr;gap:2px}.foot{display:grid}}
+  </style>
+</head>
+<body>
+  <header class="top"><div class="shell topin"><div class="brand"><span class="mark">V</span><span>VESTA System Deep Dive</span></div><nav class="nav" aria-label="报告目录"><a href="#map">系统图</a><a href="#features">功能</a><a href="#tools">工具</a><a href="#formula">公式</a><a href="#actions">行动</a></nav></div></header>
+  <main>
+    <section class="hero shell">
+      <div class="hero-grid">
+        <div><p class="eyebrow">Yingmi investment research OS · 2026.09.16</p><h1>VESTA 盈米投研系统<br /><span>全景深度调研</span></h1><p class="lede">从网页工作台、投研对象、数据底座、指标算法，到 119 项 MCP 工具与对外能力，做一次可追溯、可落地的系统盘点。</p></div>
+        <aside class="verdict"><small>ONE-LINE VERDICT</small><strong>VESTA 已是一套“投研生产操作系统”，但还不是完整闭环的投研 Copilot。</strong><p>强项是对象建模、分析深度和能力输出；短板是页面上下文、跨模块流程、口径治理、权限/异常语义和结果写回。</p></aside>
+      </div>
+      <div class="metric-grid">
+        <div class="metric"><b>14</b><span>系统能力域<br />从首页到开放能力</span></div>
+        <div class="metric"><b>119</b><span>2026-09-15 在线 MCP 工具<br />九个服务域</span></div>
+        <div class="metric"><b>88</b><span>取得有效业务数据<br />另 25 项边界验证</span></div>
+        <div class="metric"><b>30+</b><span>核心指标/公式口径<br />独立整理</span></div>
+        <div class="metric"><b>4</b><span>证据等级<br />实测 / 官方 / 推断 / 待核</span></div>
+      </div>
+    </section>
+
+    <section class="section"><div class="shell">
+      <div class="section-head"><div><span class="kicker">Evidence boundary</span><h2>先讲清楚<br />哪些真的看过</h2></div><p class="intro">本报告没有把“规划、接口存在、页面可见、真实执行”混为一谈。2026-09-16 当前浏览器只能到达 SSO 登录页；页面层以 2026-07-08 登录态实勘为主，工具层以 2026-09-15 在线 MCP 全量验证为主，公式层以官方 API/测试文档和 2026-09-02 口径实测为主。</p></div>
+      <div class="evidence-grid">
+        <article class="evidence"><em>E1 · 当前确认</em><strong>在线入口与鉴权</strong><p>当前生产域可达，采用短信/密码/SSO 登录；本次未输入账号凭据。</p></article>
+        <article class="evidence"><em>E2 · 登录态实勘</em><strong>前台页面与交互</strong><p>2026-07-08 实际进入首页、信号、研报、基金、组合、经理、参数与 Chat。</p></article>
+        <article class="evidence"><em>E3 · 在线执行</em><strong>MCP 工具能力</strong><p>2026-09-15 在线发现 119 项，安全执行 114 项，88 项返回有效业务数据。</p></article>
+        <article class="evidence"><em>E4 · 官方材料</em><strong>算法与工程证据</strong><p>项目规划、技术方案、API 文档、上线/测试记录；只将已验收部分标为已上线。</p></article>
+      </div>
+      <p class="notice" style="margin-top:18px"><strong>重要边界：</strong>“119 项工具”不等于“119 项真实生产场景全部验收”。真实内部组合 24 项、私有云盘 5 项仍受最小权限约束；前台最新菜单也需要重新登录后复验。</p>
+    </div></section>
+
+    <section class="section" id="map"><div class="shell">
+      <div class="section-head"><div><span class="kicker">System map</span><h2>它不是网站<br />是五层生产系统</h2></div><p class="intro">VESTA 的核心不是“有多少页面”，而是能否把数据、算法、对象、生产工具与对外输出连成闭环。当前前四层已经很厚，第五层已通过 MCP/OpenAPI/嵌入式页面开始外溢。</p></div>
+      <div class="architecture">
+        <article class="layer"><h3>业务输出层</h3><p>研究员、投顾、投资经理、机构 SaaS、启明工作台、且慢、MCP/API、报告与小程序。</p></article>
+        <article class="layer"><h3>生产应用层</h3><p>研报、基金优选、资产配置、组合实验室、固收研究、投资信号、私募集市、AI Skills。</p></article>
+        <article class="layer"><h3>分析算法层</h3><p>MVO、Bootstrap、RBSA、Brinson、风险收益、择时、HP 滤波、OLS、评分与归因。</p></article>
+        <article class="layer"><h3>投研对象层</h3><p>基金、经理、组合、指数、资产、行业、债券、信号、报告、市场阶段、评分方案。</p></article>
+        <article class="layer"><h3>数据治理层</h3><p>FDP、净值/行情/持仓/财务/宏观/资讯/爬虫/内部研究数据，带日期、频率、版本与权限。</p></article>
+      </div>
+      <div class="flow">原始数据 → 标准化对象 → 指标/模型 → 页面与工具 → 报告/API/MCP → 使用反馈与算法迭代</div>
+    </div></section>
+
+    <section class="section" id="features"><div class="shell">
+      <div class="section-head"><div><span class="kicker">Feature atlas</span><h2>14 个能力域<br />逐项拆开看</h2></div><p class="intro">点击展开。状态含义：已确认＝登录态页面、在线工具或测试执行均有证据；部分确认＝页面/接口有证据但最新生产未复验；规划/占位＝材料出现但不能当成已稳定上线。</p></div>
+      <div class="toolbar" role="group" aria-label="功能状态筛选"><button class="chip" data-filter="all" aria-pressed="true">全部</button><button class="chip" data-filter="confirmed" aria-pressed="false">已确认</button><button class="chip" data-filter="partial" aria-pressed="false">部分确认</button><button class="chip" data-filter="planned" aria-pressed="false">规划 / 占位</button></div>
+      <div class="catalog">
+        <details class="domain" data-status="confirmed" open><summary><span class="num">01</span><div><h3>首页 / Discover</h3><span class="desc">每日开工台：简报、信号、研报、资讯、Skills 与全局入口</span></div><span class="tag confirmed">已确认</span></summary><div class="domain-body"><div class="feature-list">
+          <div class="feature"><b>AI 晨/午/晚报</b><span>Dify 生成并落库；按时段展示，15 分钟刷新，支持空态。</span></div><div class="feature"><b>投资信号聚合</b><span>GRRI、中国/美国/日本/越南宏观、A 股风格、行业信号。</span></div><div class="feature"><b>实时资讯 24×7</b><span>标题、来源、时间、涨跌标签、相关公司；另有独立路由。</span></div><div class="feature"><b>研究报告热榜</b><span>标题、摘要、类型与 AI 摘要；跳转研报详情。</span></div><div class="feature"><b>Skills 卡片</b><span>主动权益、被动、二级债等季度分析；2026-04 仍含 mock/占位风险。</span></div><div class="feature"><b>全局搜索</b><span>Cmd/Ctrl+K 触发；目标对象应覆盖基金、经理、组合、信号、研报。</span></div><div class="feature"><b>全局导航</b><span>折叠侧栏、工具箱与顶部多标签；支持旧 Discover 兼容入口。</span></div><div class="feature"><b>AI Chat 入口</b><span>悬浮对话可调用信号工具，但尚不能自动读取当前页面上下文。</span></div>
+        </div></div></details>
+
+        <details class="domain" data-status="confirmed"><summary><span class="num">02</span><div><h3>资讯、日历与市场事件</h3><span class="desc">从实时新闻到财经日历、行情速览与外部信息聚合</span></div><span class="tag confirmed">已确认</span></summary><div class="domain-body"><div class="feature-list">
+          <div class="feature"><b>24×7 实时新闻</b><span>时间、来源、事件、涨跌与公司标签；适合作为投研触发器。</span></div><div class="feature"><b>热门事件 / 深度观察 / 实时解读</b><span>来自盈米图书馆与聚合资讯链路。</span></div><div class="feature"><b>财经日历</b><span>事件时间、重要性、前值/预期/实际；存在重复与 importance 不一致风险。</span></div><div class="feature"><b>行情速览</b><span>境内外指数、分钟/日频行情、估值与市场摘要。</span></div><div class="feature"><b>全球新闻工具</b><span>MCP world-news 7 项在线验证通过；部分资讯为批处理，不等于实时。</span></div><div class="feature"><b>事件到对象关联</b><span>现有公司/品种标签是起点，仍需强化“事件 → 基金/组合影响”。</span></div>
+        </div></div></details>
+
+        <details class="domain" data-status="confirmed"><summary><span class="num">03</span><div><h3>盈米研报 / 投研云盘</h3><span class="desc">结构化研报知识库、分类治理、上传下载与 AI 摘要</span></div><span class="tag confirmed">已确认</span></summary><div class="domain-body"><div class="feature-list">
+          <div class="feature"><b>全文/标题/关键词搜索</b><span>支持报告检索与分类过滤。</span></div><div class="feature"><b>分类体系</b><span>资产配置、数据洞察、内部专题、金融产品、组合投资、外部报告等。</span></div><div class="feature"><b>研究员 / 日期 / 文件类型筛选</b><span>列表支持作者、时间与 PDF/DOCX 等条件。</span></div><div class="feature"><b>报告详情</b><span>文件名、作者、日期、大小、摘要、浏览量、下载量。</span></div><div class="feature"><b>AI 摘要</b><span>把文件库提升为可检索、可推荐、可被 Agent 使用的知识层。</span></div><div class="feature"><b>上传与分类管理</b><span>支持大文件分片上传、后管分类与 OSS 维护。</span></div><div class="feature"><b>访问与下载</b><span>页面能力已确认；MCP 云盘 5 工具因隐私边界只核对 schema。</span></div><div class="feature"><b>报告生产工坊</b><span>年度规划明确，需继续核验模板化生产、审核、发布与版本闭环。</span></div>
+        </div></div></details>
+
+        <details class="domain" data-status="partial"><summary><span class="num">04</span><div><h3>宏观 / 大类资产 / 中观数据分析</h3><span class="desc">把宏观与行业数据做成可筛选、可比较、可解释的看板</span></div><span class="tag partial">部分确认</span></summary><div class="domain-body"><div class="feature-list">
+          <div class="feature"><b>大类资产看板</b><span>权益、固收、商品、另类、现金与区域资产表现/估值。</span></div><div class="feature"><b>宏观经济</b><span>经济增长、通胀、货币、利率、流动性等指标序列与最新值。</span></div><div class="feature"><b>FOMC 点阵图 / 议息概率</b><span>政策利率预期与爬虫数据展示；已出现专项测试记录。</span></div><div class="feature"><b>CFTC 持仓</b><span>美元/外汇等期货持仓与情绪观察。</span></div><div class="feature"><b>中观行业数据</b><span>景气、估值、盈利、资金、交易与政策等行业维度。</span></div><div class="feature"><b>行业定性分析</b><span>截面表、时序图、行业池、评估录入/保存/归档、标准下载。</span></div><div class="feature"><b>外汇日线</b><span>外汇日线汇率 API 与宏观研究数据补充。</span></div><div class="feature"><b>指数估值</b><span>PE/PB 区间分位、ERP 及 μ±σ 通道；窗口由调用方决定。</span></div>
+        </div></div></details>
+
+        <details class="domain" data-status="confirmed"><summary><span class="num">05</span><div><h3>投资信号</h3><span class="desc">宏观、权益、风格、中观、黄金、转债与多资产策略</span></div><span class="tag confirmed">已确认</span></summary><div class="domain-body"><div class="feature-list">
+          <div class="feature"><b>中国 A 股权益信号</b><span>估值/情绪/景气/货币四腿，最终 0/1 仓位。</span></div><div class="feature"><b>美国宏观与择时</b><span>经济气候 + 风险两腿，纳指/标普策略净值。</span></div><div class="feature"><b>日本 / 越南宏观周期</b><span>月频多维评分、总分与国家信号。</span></div><div class="feature"><b>GRRI 全球风险</b><span>全球多资产波动率与相关性共振，按阈值划分风险等级。</span></div><div class="feature"><b>A 股风格信号</b><span>红利/成长/现金仓位，含指标得分、信号指数、回测；采用 HP 滤波并做历史止血。</span></div><div class="feature"><b>中观行业信号</b><span>29 个中信一级行业，经济/景气/技术/政策/交易/估值等 8 类分项。</span></div><div class="feature"><b>黄金因子</b><span>原有多因子图表与金价对比。</span></div><div class="feature"><b>黄金预测信号</b><span>49 月滚动 OLS、11 特征、历史拟合与预测均值/上下界、实时参数试算。</span></div><div class="feature"><b>可转债信号</b><span>8 因子月频信号、连续仓位、策略/基准/超额/仓位回测图。</span></div><div class="feature"><b>多资产策略</b><span>11 档股债比，BENCHMARK/SAA/TAA 净值、权重堆积与绩效。</span></div><div class="feature"><b>信号日期筛选</b><span>近 3 月/1 年/最长/自定义区间，支持指标选择。</span></div><div class="feature"><b>算法更新时间</b><span>区分业务数据日期与任务 update_time；必须在对外结论中同时展示。</span></div>
+        </div></div></details>
+
+        <details class="domain" data-status="partial"><summary><span class="num">06</span><div><h3>固收研究</h3><span class="desc">资金面、利率债、信用债、利差水平与研究工具链</span></div><span class="tag partial">部分确认</span></summary><div class="domain-body"><div class="feature-list">
+          <div class="feature"><b>资金面</b><span>R001/R007/DR001/DR007 的 MA5、逆回购、FR007 互换曲线。</span></div><div class="feature"><b>利率债</b><span>国债/国开/地方债收益率，国债期货 TS/TF/T/TL 涨跌。</span></div><div class="feature"><b>信用债</b><span>NCD、中票、商金、二级资本债等曲线和 KPI 卡。</span></div><div class="feature"><b>日期与区间变动</b><span>YTD、自定义、日/周/月/季/年各三列，返回实际取数日期。</span></div><div class="feature"><b>期限利差</b><span>曲线 × 期限矩阵、分位热力、Excel 导出、流动性利差图。</span></div><div class="feature"><b>信用利差</b><span>六组信用曲线相对国开债的利差与分位。</span></div><div class="feature"><b>等级利差</b><span>AA+−AAA、AA−AA+ 等分级利差，按多个期限展示。</span></div><div class="feature"><b>分位算法</b><span>PERCENTRANK 或正态参数法，先平滑利差再平滑分位。</span></div><div class="feature"><b>下载</b><span>CSV/PNG/Excel 输出；需同时携带单位、日期和口径。</span></div><div class="feature"><b>待继续验收</b><span>宏观经济、流动性、投资信号、转债研究、研报分享等菜单历史上曾 disabled。</span></div>
+        </div></div></details>
+
+        <details class="domain" data-status="confirmed"><summary><span class="num">07</span><div><h3>公募基金分析</h3><span class="desc">从基础资料到风险收益、持仓、风格、归因与债券指标</span></div><span class="tag confirmed">已确认</span></summary><div class="domain-body"><div class="feature-list">
+          <div class="feature"><b>基金概要 / 基础信息</b><span>代码、类型、成立日、规模、管理人、经理、基准等。</span></div><div class="feature"><b>业绩指标</b><span>区间/年化收益、阶段表现、排名、滚动收益与定投对比。</span></div><div class="feature"><b>风险指标</b><span>波动、下行波动、最大/第二大回撤、修复天数、VaR。</span></div><div class="feature"><b>风险调整收益</b><span>Sharpe、Sortino、Calmar、Treynor、M2、信息比率。</span></div><div class="feature"><b>相对指标</b><span>Alpha、Beta、跟踪误差、基准/同类对比。</span></div><div class="feature"><b>基金风格</b><span>风格暴露、风格漂移、市场适应性与进攻/防守能力。</span></div><div class="feature"><b>资产配置</b><span>权益/固收/现金/其他与总资产、净资产不同分母。</span></div><div class="feature"><b>行业配置</b><span>中信/盈米行业视角，支持报告期与穿透。</span></div><div class="feature"><b>股票配置</b><span>重仓股、股票明细、收益分布与集中度。</span></div><div class="feature"><b>债券配置</b><span>券种、评级、期限、杠杆、集中度、久期与转债分析。</span></div><div class="feature"><b>业绩归因</b><span>Brinson、收益分解及标的选择能力。</span></div><div class="feature"><b>策略主题 / 标签</b><span>主题、行业、风格、能力与风险标签。</span></div><div class="feature"><b>估算净值缺口</b><span>基于报告持仓拟合估算净值与实际净值差，观察隐性调仓。</span></div><div class="feature"><b>报告期切片</b><span>时间区间、市场阶段与报告期联动。</span></div>
+        </div></div></details>
+
+        <details class="domain" data-status="confirmed"><summary><span class="num">08</span><div><h3>基金经理分析</h3><span class="desc">把“人”结构化为经验、产品、指数、观点与穿透配置</span></div><span class="tag confirmed">已确认</span></summary><div class="domain-body"><div class="feature-list">
+          <div class="feature"><b>经理概要</b><span>投资经验、历任基金、在管基金与在管规模。</span></div><div class="feature"><b>经理信息</b><span>从业与管理年限必须区分，不可混用。</span></div><div class="feature"><b>经理指数</b><span>区间/年化收益、回撤、波动及风险调整指标。</span></div><div class="feature"><b>经理穿透</b><span>在管基金聚合后的资产、行业和风格暴露。</span></div><div class="feature"><b>产品列表与业绩</b><span>代表产品、任职区间、规模与业绩表现。</span></div><div class="feature"><b>能力指标</b><span>Alpha/Beta、进攻/防守、选择能力与稳定性。</span></div><div class="feature"><b>观点 / 研报</b><span>经理观点与研究报告列表。</span></div><div class="feature"><b>对标体系</b><span>Wind 分类指数等多套基准；必须披露来源与分类口径。</span></div>
+        </div></div></details>
+
+        <details class="domain" data-status="confirmed"><summary><span class="num">09</span><div><h3>资产配置 / 资配方案</h3><span class="desc">目标、资产范围、约束、有效前沿与方案回测</span></div><span class="tag confirmed">已确认</span></summary><div class="domain-body"><div class="feature-list">
+          <div class="feature"><b>目标输入</b><span>目标收益、波动、最大回撤、投资年限。</span></div><div class="feature"><b>配置范围</b><span>全球/国内/海外；公募/私募/公私募组合。</span></div><div class="feature"><b>资产分类</b><span>一级/二级/三级资产与主动/被动资产包。</span></div><div class="feature"><b>权重约束</b><span>大类、细分类与具体标的最小/最大权重。</span></div><div class="feature"><b>有效前沿</b><span>均值-方差优化 + 蒙特卡洛/Bootstrap 情景。</span></div><div class="feature"><b>最优点</b><span>返回年化收益、波动、回撤与多层资产权重。</span></div><div class="feature"><b>组合成分优化</b><span>由资产权重推导基金权重，或直接使用指定基金比例。</span></div><div class="feature"><b>自定义/预设方案</b><span>导入用户资配项目与预设方案计算前沿。</span></div><div class="feature"><b>再平衡</b><span>季度/半年/年度与最短间隔。</span></div><div class="feature"><b>历史回测</b><span>收益、波动、回撤与最大回撤修复天数。</span></div><div class="feature"><b>AI 辅助分类</b><span>辅助映射标的到资产分类，仍需规则校验。</span></div>
+        </div></div></details>
+
+        <details class="domain" data-status="confirmed"><summary><span class="num">10</span><div><h3>组合实验室 / 组合引擎</h3><span class="desc">构建、清算、分析、穿透、归因、调仓与风险评分闭环</span></div><span class="tag confirmed">已确认</span></summary><div class="domain-body"><div class="feature-list">
+          <div class="feature"><b>组合增删改查</b><span>自建组合、关注组合、组合详情与类型识别。</span></div><div class="feature"><b>标的选择器</b><span>基金、VESTA/PMS 组合、资产包、基金池与优选方案。</span></div><div class="feature"><b>组合构建</b><span>从调仓记录、资配方案或目标风险收益构建。</span></div><div class="feature"><b>费率配置</b><span>申购、折扣、赎回费率与交易成本。</span></div><div class="feature"><b>净值拟合 / 清算</b><span>调仓分段、费前/费后净值、基准净值、日内/日度收益。</span></div><div class="feature"><b>当前持仓</b><span>基金级权重、分类与最新持仓。</span></div><div class="feature"><b>时序分析</b><span>净值、回撤、风险收益、滚动收益、定投与调仓复盘。</span></div><div class="feature"><b>截面分析</b><span>资产、基金、行业、股票、债券配置。</span></div><div class="feature"><b>递归展平</b><span>组合中组合递归下钻到基金/资产。</span></div><div class="feature"><b>大类资产穿透</b><span>PMS 与 VESTA 分类体系、总资产/净资产视角。</span></div><div class="feature"><b>行业穿透</b><span>FUND_ASSET / EQUITY_ASSET / A_H_ASSET 三种分母。</span></div><div class="feature"><b>收益分解</b><span>权益/固收/商品/另类/现金五大类收益贡献。</span></div><div class="feature"><b>Brinson 归因</b><span>配置、选择、交互三效应，按调仓区间分段。</span></div><div class="feature"><b>RBSA 风格暴露</b><span>用因子回归估算大类暴露并支撑归因。</span></div><div class="feature"><b>相关性</b><span>持仓收益相关性与区间比较。</span></div><div class="feature"><b>收益分布 / 达标概率</b><span>滚动收益、正态分布点与目标收益概率。</span></div><div class="feature"><b>风险评分 MPRS</b><span>组合展平、归一化后调用风险评分服务，返回 R² 等拟合质量。</span></div><div class="feature"><b>调仓管理</b><span>草稿、确认、历史、前后权重、费率与市场时点复盘。</span></div><div class="feature"><b>PMS/且慢同步</b><span>组合、净值、调仓、费率、持仓等增量/全量/手动同步。</span></div><div class="feature"><b>境外公募支持</b><span>组合标的范围向境外公募扩展，需继续验证数据完整性。</span></div>
+        </div></div></details>
+
+        <details class="domain" data-status="partial"><summary><span class="num">11</span><div><h3>基金优选 / 筛选 / 自选池</h3><span class="desc">463 条股票基金指标配置、评分方案与候选池管理</span></div><span class="tag partial">部分确认</span></summary><div class="domain-body"><div class="feature-list">
+          <div class="feature"><b>基金筛选</b><span>基础、交易、标签、收益、评分、风险六类指标。</span></div><div class="feature"><b>指标配置</b><span>STOCK 面板 463 条配置，remark 含大量口径原文。</span></div><div class="feature"><b>总评分</b><span>10 个标准化子评分均值；“基准值”仍缺完整定义。</span></div><div class="feature"><b>能力标签</b><span>通常取同类排名前 5%，行业主题/集中型放宽至前 10%。</span></div><div class="feature"><b>三类挂靠指数</b><span>行业对比、风格对比、市场适应性指数。</span></div><div class="feature"><b>经理综述</b><span>基于 Dify 生成研究摘要；支持批处理。</span></div><div class="feature"><b>自选基金池</b><span>用户基金池、基金列表、关注与候选管理。</span></div><div class="feature"><b>优选方案</b><span>平台/个人方案、指标权重与候选基金。</span></div><div class="feature"><b>合成指标</b><span>配置底层指标权重，形成可复用研究指标。</span></div><div class="feature"><b>现任主要基金经理</b><span>优选结果补充经理信息与综述。</span></div><div class="feature"><b>数据同步</b><span>已针对同步耗时做优化；需继续监控鲜度和批次一致性。</span></div>
+        </div></div></details>
+
+        <details class="domain" data-status="partial"><summary><span class="num">12</span><div><h3>私募集市 / 产品市场</h3><span class="desc">私募数据库、策略框架、定性定量评价与产品扩展</span></div><span class="tag partial">部分确认</span></summary><div class="domain-body"><div class="feature-list">
+          <div class="feature"><b>私募产品库</b><span>基础信息、净值、机构、经理与状态。</span></div><div class="feature"><b>筛选与详情</b><span>产品检索、标签、同步状态、字段变更记录。</span></div><div class="feature"><b>策略框架</b><span>私募策略分类、策略标签与管理框架。</span></div><div class="feature"><b>定性评价</b><span>尽调、团队、流程、风控等非量化维度。</span></div><div class="feature"><b>定量评价</b><span>净值、收益、回撤、波动、风格与同类比较。</span></div><div class="feature"><b>净值上传</b><span>面向非标准数据的人工/文件补录。</span></div><div class="feature"><b>同步状态</b><span>同步结果、失败原因与详情字段优化。</span></div><div class="feature"><b>理财集市</b><span>材料出现独立入口，但功能完成度与页面链路仍需复验。</span></div><div class="feature"><b>策略集市</b><span>年度规划明确，当前未取得完整页面级证据。</span></div>
+        </div></div></details>
+
+        <details class="domain" data-status="confirmed"><summary><span class="num">13</span><div><h3>参数设置 / 权限 / 治理</h3><span class="desc">把研究方法从个人经验变成可配置、可复用、可审计资产</span></div><span class="tag confirmed">已确认</span></summary><div class="domain-body"><div class="feature-list">
+          <div class="feature"><b>我的时间区间</b><span>牛熊震荡与趋势阶段；示例主题 39 个区间，覆盖 2005–2026。</span></div><div class="feature"><b>我的评分方案</b><span>配置二级指标权重；当前空状态仍缺模板与引导。</span></div><div class="feature"><b>合成指标管理</b><span>配置底层指标权重并复用于筛选/分析。</span></div><div class="feature"><b>投资数据维护</b><span>行业定性分析、信号参数与历史补数。</span></div><div class="feature"><b>RBAC</b><span>角色、菜单、数据与机构维度权限；需做跨租户回归。</span></div><div class="feature"><b>登录认证</b><span>短信、密码、SSO；当前生产入口可达 SSO 登录页。</span></div><div class="feature"><b>机构 / broker 过滤</b><span>PMS 组合可见范围增加 broker 过滤。</span></div><div class="feature"><b>版本与更新时间</b><span>算法、数据、报告与页面应分别记录版本/截止时间。</span></div>
+        </div></div></details>
+
+        <details class="domain" data-status="partial"><summary><span class="num">14</span><div><h3>AI、Skills、MCP、OpenAPI 与嵌入</h3><span class="desc">从“工具网站”走向可编排、可嵌入的投研能力平台</span></div><span class="tag partial">部分确认</span></summary><div class="domain-body"><div class="feature-list">
+          <div class="feature"><b>AI Chat</b><span>结构化数据解读、信号查询、客户话术和操作指导；页面上下文尚未注入。</span></div><div class="feature"><b>投研 Skills</b><span>主动权益、被动、二级债季度分析；应形成选择对象→参数→生成→写回→审核链路。</span></div><div class="feature"><b>VESTA MCP</b><span>9 个服务域、119 项工具；基金/组合/指数/宏观/资讯/研报能力。</span></div><div class="feature"><b>OpenAPI 换票</b><span>支持机构映射与外部系统换票进入。</span></div><div class="feature"><b>工作台 iframe</b><span>支持启明投顾工作台嵌入 VESTA 页面。</span></div><div class="feature"><b>算法 API</b><span>目标规划、诊断、组合优化、达成概率等可被上层调用。</span></div><div class="feature"><b>小程序</b><span>观点、推优、调研、日历等高频服务工具化。</span></div><div class="feature"><b>SaaS 账号</b><span>免费与多级收费账号、机构共建与模块定制。</span></div><div class="feature"><b>结果写回</b><span>研报、工作台、客户报告、知识库与审核流仍是关键缺口。</span></div><div class="feature"><b>审计与可解释</b><span>需要保留工具、参数、数据日期、公式版本、生成者与审核状态。</span></div>
+        </div></div></details>
+      </div>
+    </div></section>
+
+    <section class="section" id="tools"><div class="shell">
+      <div class="section-head"><div><span class="kicker">MCP tool layer</span><h2>119 项工具<br />当前在线盘点</h2></div><p class="intro">工具层不是另一个产品，而是把 VESTA 的研究能力变成 Agent 可调用的服务。下表为 2026-09-15 在线 tools/list 与安全执行结果；“通过”表示获得有效业务数据，“边界”表示仅验证参数、空对象或不存在对象。</p></div>
+      <div class="table-wrap"><table><thead><tr><th>服务域</th><th>工具数</th><th>验证</th><th>核心能力</th><th>结论</th></tr></thead><tbody>
+        <tr><td>fund-analysis</td><td>36</td><td>35 数据 / 1 空结果</td><td>净值、风险收益、持仓、风格、归因、债券与转债分析</td><td class="status ok">通过</td></tr>
+        <tr><td>portfolio-analysis</td><td>32</td><td>8 合成数据 / 24 边界</td><td>组合构建、净值、绩效、穿透、归因、调仓、风险评分</td><td class="status warn">受限</td></tr>
+        <tr><td>invest-single</td><td>19</td><td>19 数据</td><td>单基金指标、行情、公告、产品资料与部分信号原料</td><td class="status ok">通过</td></tr>
+        <tr><td>world-news</td><td>7</td><td>7 数据</td><td>全球新闻、事件、时间过滤与财经日历</td><td class="status ok">通过</td></tr>
+        <tr><td>fund-select</td><td>7</td><td>7 数据</td><td>指标配置、基金筛选、候选列表与 463 条股票基金指标</td><td class="status ok">通过</td></tr>
+        <tr><td>index</td><td>6</td><td>5 数据 / 1 失败</td><td>指数检索、行情、估值、ERP 与行业权重</td><td class="status issue">批量查询缺陷</td></tr>
+        <tr><td>research-report</td><td>5</td><td>仅 schema</td><td>空间、节点、授权、发布文件、下载地址</td><td class="status warn">隐私跳过</td></tr>
+        <tr><td>macro-indicator</td><td>4</td><td>4 数据</td><td>宏观指标目录、时间序列与最新值</td><td class="status ok">通过</td></tr>
+        <tr><td>fund-manager</td><td>3</td><td>3 数据</td><td>经理检索、任职经历、代表产品</td><td class="status ok">通过</td></tr>
+      </tbody></table></div>
+      <div class="tool-links">
+        <a class="tool-link" href="../vesta-mcp-capability-validation-2026-09-15/"><strong>119 项能力全量验证</strong><span>最新工具数、九域矩阵、执行覆盖、缺陷与安全边界。</span></a>
+        <a class="tool-link" href="../vesta-mcp-caliber-audit-2026-09-02/"><strong>96 工具指标·公式口径盘点</strong><span>56 次真实调用与公式反推；用于补充历史口径。</span></a>
+        <a class="tool-link" href="../vesta-mcp-caliber-audit-2026-09-02/portfolio-analysis.html"><strong>组合分析明细</strong><span>绩效、归因、穿透、调仓、风险评分与接口陷阱。</span></a>
+        <a class="tool-link" href="../vesta-mcp-caliber-audit-2026-09-02/fund-analysis.html"><strong>基金分析明细</strong><span>收益风险、持仓、债券、久期与估算净值。</span></a>
+        <a class="tool-link" href="../vesta-mcp-caliber-audit-2026-09-02/invest-single.html"><strong>投资信号明细</strong><span>A 股、风格、行业、GRRI、海外与黄金原料。</span></a>
+        <a class="tool-link" href="../vesta-mcp-caliber-audit-2026-09-02/fund_select_STOCK_indicators_full.html"><strong>463 条股票基金指标全表</strong><span>完整配置与说明；另附原始 JSON。</span></a>
+      </div>
+    </div></section>
+
+    <section class="section"><div class="shell">
+      <div class="section-head"><div><span class="kicker">Data inventory</span><h2>数据不是一张表<br />是十二类对象</h2></div><p class="intro">跨模块最容易出错的是“同名不同源、同值不同频率、同占比不同分母”。VESTA 对外输出时至少应同时带上：对象、来源、频率、截止时间、单位、分母、版本与缺失处理。</p></div>
+      <div class="data-grid">
+        <article class="data-card"><h3>净值与收益</h3><p>基金复权净值、组合费前/费后净值、基准净值、估算净值、策略回测净值；基金年化与组合年化基数并不一致。</p></article>
+        <article class="data-card"><h3>行情与估值</h3><p>指数日频/分钟行情、PE/PB、ERP、期货结算价、债券收益率、外汇与黄金。</p></article>
+        <article class="data-card"><h3>基金基础资料</h3><p>基本信息、分类、规模、费率、基准、管理人、经理、公告、交易规则。</p></article>
+        <article class="data-card"><h3>持仓与报告期</h3><p>资产、股票、债券、行业、评级、期限、转债；季度重仓与半年/年报全持仓必须区分。</p></article>
+        <article class="data-card"><h3>组合与调仓</h3><p>组合信息、成分、权重、费率、调仓草稿/记录、基准、日度清算与 PMS 同步。</p></article>
+        <article class="data-card"><h3>宏观与政策</h3><p>增长、通胀、利率、货币、流动性、FOMC、CFTC、国别周期；混合日/月/季频。</p></article>
+        <article class="data-card"><h3>行业与风格</h3><p>行业指数、盈利、ROE、估值、资金、政策、技术信号；风格因子与 HP 滤波结果。</p></article>
+        <article class="data-card"><h3>固收曲线</h3><p>资金价格、国债/国开/地方债、信用与等级曲线、期限利差、流动性利差与实际取数日。</p></article>
+        <article class="data-card"><h3>经理与观点</h3><p>任职、从业、在管、代表产品、观点、研报与聚合后的经理指数/穿透。</p></article>
+        <article class="data-card"><h3>研报与内容</h3><p>文件、作者、分类、日期、摘要、浏览、下载、发布状态与权限；是 AI 的知识输入。</p></article>
+        <article class="data-card"><h3>信号与模型</h3><p>因子原值/标准化值、分项得分、仓位、系数、预测区间、策略净值、算法更新时间。</p></article>
+        <article class="data-card"><h3>配置与治理</h3><p>时间区间、评分方案、合成指标、基金池、行业池、角色权限、机构映射和算法版本。</p></article>
+      </div>
+    </div></section>
+
+    <section class="section" id="formula"><div class="shell">
+      <div class="section-head"><div><span class="kicker">Metric & formula dictionary</span><h2>核心指标与公式<br />逐项对齐口径</h2></div><p class="intro">“公式”列写已取得的实现口径；无法确认的地方明确写成标准定义或待核。最重要的结论是：基金、组合、账户三个层级不能共用同一收益口径。</p></div>
+      <div class="table-wrap"><table><thead><tr><th>指标</th><th>VESTA 口径 / 公式</th><th>用途</th><th>证据与风险</th></tr></thead><tbody>
+        <tr><td>区间收益</td><td class="formula">R = NAV_end / NAV_start − 1</td><td>基金/组合区间表现</td><td>净值序列口径；与账户 MWR 不同</td></tr>
+        <tr><td>组合年化收益</td><td class="formula">(1+R)^(252/N) − 1</td><td>组合绩效</td><td>历史实测反推；N 为交易日</td></tr>
+        <tr><td>基金成立以来年化</td><td class="formula">(1+R)^(365.25/D) − 1</td><td>基金长期业绩</td><td>自然日口径；与组合侧并存</td></tr>
+        <tr><td>年化波动</td><td class="formula">std(日收益) × √250/252</td><td>风险波动</td><td>官方组合 API 写 250；MCP 实测指向 252，需按接口版本标注</td></tr>
+        <tr><td>下行波动</td><td class="formula">std(min(r−MAR,0)) × √年化因子</td><td>只惩罚下行</td><td>标准定义；MAR/基数需接口级确认</td></tr>
+        <tr><td>最大回撤</td><td class="formula">min(NAV_t / max(NAV_≤t) − 1)</td><td>峰谷损失</td><td>返回负值，并给起止/修复日</td></tr>
+        <tr><td>修复天数</td><td class="formula">谷底日 → 再次达到前高日的自然日数</td><td>回撤体验</td><td>未修复为 null；历史 tooltip 曾混淆形成区间与修复区间</td></tr>
+        <tr><td>VaR</td><td class="formula">历史收益分位数（置信水平待披露）</td><td>尾部风险</td><td>方法已由实测确认，95%/99% 未完全披露</td></tr>
+        <tr><td>Sharpe</td><td class="formula">(R_ann − R_f) / σ_ann</td><td>单位总风险超额收益</td><td>MCP 样本反推 R_f≈1.5%；官方 API 未写死值</td></tr>
+        <tr><td>Sortino</td><td class="formula">(R_ann − R_f) / downside_vol</td><td>单位下行风险收益</td><td>同上</td></tr>
+        <tr><td>Calmar</td><td class="formula">R_ann / |MDD|</td><td>收益/回撤效率</td><td>组合侧确认；基金比较工具存在含 R_f 变体</td></tr>
+        <tr><td>Beta</td><td class="formula">Cov(r_p,r_m) / Var(r_m)</td><td>市场敏感度</td><td>指数代码解析失败可能静默返回 null</td></tr>
+        <tr><td>Alpha</td><td class="formula">R_p − [R_f + β(R_m−R_f)]</td><td>超额能力</td><td>标准 CAPM 定义；具体频率/年化需接口确认</td></tr>
+        <tr><td>Treynor</td><td class="formula">(R_ann−R_f) / β</td><td>单位系统风险收益</td><td>需有效市场指数</td></tr>
+        <tr><td>M²</td><td class="formula">R_f + Sharpe_p×σ_b − R_b</td><td>调整到基准风险后的超额</td><td>标准定义；具体基准由组合配置/入参决定</td></tr>
+        <tr><td>跟踪误差</td><td class="formula">std(r_p−r_b) × √年化因子</td><td>偏离基准程度</td><td>分母与年化因子需随接口版本说明</td></tr>
+        <tr><td>信息比率</td><td class="formula">annualized(r_p−r_b) / tracking_error</td><td>主动风险效率</td><td>基准失效时会返回 null</td></tr>
+        <tr><td>滚动收益</td><td class="formula">(NAV_t−NAV_t−N月)/NAV_t−N月</td><td>持有体验分布</td><td>N 按日历月倒推，不是固定交易日</td></tr>
+        <tr><td>目标收益概率</td><td class="formula">Z=(target−avg)/std; P=1−Φ(Z)</td><td>达标概率</td><td>假设滚动收益正态；重叠窗口会偏乐观</td></tr>
+        <tr><td>收益贡献</td><td class="formula">contribution_i = weight_i × return_i</td><td>分解组合收益</td><td>分类收益 = Σ贡献 / Σ权重</td></tr>
+        <tr><td>Brinson 配置效应</td><td class="formula">A_j=(w_pj−w_bj)(R_bj−R_b)</td><td>超配/低配效果</td><td>官方技术文档明确</td></tr>
+        <tr><td>Brinson 选择效应</td><td class="formula">S_j=w_bj(R_pj−R_bj)</td><td>标的选择效果</td><td>官方技术文档明确</td></tr>
+        <tr><td>Brinson 交互效应</td><td class="formula">I_j=(w_pj−w_bj)(R_pj−R_bj)</td><td>配置与选择交叉</td><td>三效应之和应闭合到超额</td></tr>
+        <tr><td>RBSA 收益分解</td><td class="formula">contrib_j=Σ_i(w_i×r_i×β_ij)</td><td>五大类收益来源</td><td>因子回归估算资产暴露</td></tr>
+        <tr><td>固定收益 BPS 变动</td><td class="formula">(yield_end−yield_start)×100</td><td>资金/曲线变动</td><td>前提是库内 yield 为小数；单位错误会放大 100 倍</td></tr>
+        <tr><td>利差</td><td class="formula">spread = yield_minuend − yield_subtrahend</td><td>期限/信用/等级利差</td><td>仅在两条曲线日期交集计算</td></tr>
+        <tr><td>利差分位</td><td class="formula">PERCENTRANK 或 Φ((x−μ)/σ)</td><td>当前利差历史位置</td><td>页面当前固定参数法，和 Excel 排序法不同</td></tr>
+        <tr><td>ERP</td><td class="formula">ERP = 1/PE − 10Y 国债收益率</td><td>权益风险溢价</td><td>返回 μ±1σ/2σ；窗口由调用方决定</td></tr>
+        <tr><td>A 股权益信号</td><td class="formula">四子项中 ≥3 看多 → position=1，否则 0</td><td>权益仓位判断</td><td>历史全表穷举验证；离线计算后只读</td></tr>
+        <tr><td>转债连续仓位</td><td class="formula">weighted_signal = dot(8因子信号,归一权重)</td><td>转债策略仓位</td><td>权重向量已锁定；离散 final_position 不参与当前回测</td></tr>
+        <tr><td>行业定性合计</td><td class="formula">total = 0.5 × Σ(8项得分)</td><td>行业截面排序</td><td>0.5 权重曾未写入需求，需产品确认</td></tr>
+        <tr><td>组合风险评分</td><td class="formula">递归展平 → 基金权重归一 → 风险回归模型</td><td>MPRS/组合风险等级</td><td>返回 risk_score、R²、残差方差、标准误</td></tr>
+        <tr><td>有效前沿</td><td class="formula">min wᵀΣw / max μᵀw under Σw=1 and constraints</td><td>资配最优组合</td><td>MVO + 蒙特卡洛/Bootstrap 情景；约束决定可行域</td></tr>
+      </tbody></table></div>
+    </div></section>
+
+    <section class="section"><div class="shell">
+      <div class="section-head"><div><span class="kicker">Product diagnosis</span><h2>真正的问题<br />不在“功能不够多”</h2></div><p class="intro">VESTA 的功能密度已经很高。当前最需要解决的是：用户如何从对象进入任务、如何理解口径、如何把结果写回业务，以及平台如何证明每个结论可复核。</p></div>
+      <div class="risk-grid">
+        <article class="risk-card"><h3>1. 页面多，任务链仍断</h3><p>基金、经理、组合、信号、研报都很强，但“选对象 → 诊断 → 形成观点 → 生成报告 → 审核 → 输出”仍需要用户跨页拼装。</p></article>
+        <article class="risk-card"><h3>2. Chat 共屏但不共上下文</h3><p>历史实测中 Chat 无法自动读取当前经理页；长任务还出现网络中断。它更像通用问答，不像对象页 Copilot。</p></article>
+        <article class="risk-card"><h3>3. 口径治理追不上能力增长</h3><p>250/252、自然日/交易日、总资产/净资产、报告期/估算、排序分位/参数分位等并存，缺少统一口径护栏。</p></article>
+        <article class="risk-card"><h3>4. API 成功不等于业务可信</h3><p>存在静默空值、Mock、隐藏必填、枚举不全、错误码不一致；“HTTP 200”远不足以作为能力验收。</p></article>
+        <article class="risk-card"><h3>5. 权限与外输边界复杂</h3><p>RBAC、机构、broker、组合可见、云盘和 OpenAPI 并存；必须把身份、数据、功能、导出和调用权限统一治理。</p></article>
+        <article class="risk-card"><h3>6. 产品价值未被包装成岗位成果</h3><p>研究员要的是报告、观点和跟踪清单；投顾要的是可解释结论；机构要的是稳定接口和 SLA。页面功能还没有完全转成岗位结果。</p></article>
+      </div>
+    </div></section>
+
+    <section class="section" id="actions"><div class="shell">
+      <div class="section-head"><div><span class="kicker">Action plan</span><h2>下一步优先级<br />不是再加菜单</h2></div><p class="intro">建议沿“任务闭环、口径契约、AI 共上下文、能力治理”四条主线收敛，先让已有能力变得可用、可解释、可复用。</p></div>
+      <div class="roadmap">
+        <article class="road"><div><h3>建立对象页 Copilot</h3><p>基金/经理/组合/信号页自动注入对象、选中表格、筛选条件、图表口径与数据截止时间，提供“解读本页、生成报告、生成话术、找异常”四个动作。</p></div><span class="prio">P0 · 立即</span></article>
+        <article class="road"><div><h3>建立统一指标契约中心</h3><p>每个指标拥有公式、单位、方向、年化基数、分母、频率、来源、版本、缺失处理与示例；页面、API、MCP 共用一份 SSOT。</p></div><span class="prio">P0 · 立即</span></article>
+        <article class="road"><div><h3>修复 index 批量数组序列化与静默失败</h3><p>错误必须区分 validation_error / not_found / no_data / permission_denied / upstream_error；无效指数不可再静默 null。</p></div><span class="prio">P0 · 本周</span></article>
+        <article class="road"><div><h3>把 Skills 做成可审核生产线</h3><p>输入对象 → 参数模板 → 工具调用 → 图表与结论 → 引用证据 → 研究员审核 → 写回研报/工作台；支持断点续写。</p></div><span class="prio">P1 · 4周</span></article>
+        <article class="road"><div><h3>统一 VESTA × PMS × 启明 × 且慢的对象协议</h3><p>组合、持仓、调仓、信号、报告、客户解释使用稳定 ID、版本与状态机；VESTA 负责研究生产，不越过适当性与交易确认边界。</p></div><span class="prio">P1 · 6周</span></article>
+        <article class="road"><div><h3>建立每周能力变更雷达</h3><p>自动比对 tools/list、schema、核心样本、口径、错误率、最新数据与页面入口；新增或变更必须带发布说明和回归证据。</p></div><span class="prio">P2 · 持续</span></article>
+      </div>
+    </div></section>
+
+    <section class="section"><div class="shell">
+      <div class="section-head"><div><span class="kicker">Source register</span><h2>证据台账</h2></div><p class="intro">本报告只公开脱敏后的功能与口径摘要，不包含账号、密钥、真实客户、私有组合代码、云盘目录、内部接口域名或数据库连接信息。</p></div>
+      <div class="sources">
+        <div class="source"><strong>当前入口</strong><span>2026-09-16 生产域访问，短信/密码/SSO 登录页</span><b>当前确认</b></div>
+        <div class="source"><strong>页面实勘</strong><span>2026-07-08 登录态深度使用：首页、信号、研报、基金、组合、经理、参数、Chat</span><b>实测</b></div>
+        <div class="source"><strong>MCP 验证</strong><span>2026-09-15 在线 tools/list 与 114 项安全执行</span><b>实测</b></div>
+        <div class="source"><strong>公式盘点</strong><span>2026-09-02 96 工具 schema、56 次调用、组合/基金/信号/筛选分组明细</span><b>实测 + 反推</b></div>
+        <div class="source"><strong>官方 API</strong><span>组合实验室 API：风险收益、滚动收益、达标概率、风险评分、有效前沿</span><b>官方</b></div>
+        <div class="source"><strong>技术方案</strong><span>组合清算、穿透、RBSA/Brinson、固收、黄金、转债、多资产、风格与行业信号</span><b>官方</b></div>
+        <div class="source"><strong>测试/发布</strong><span>2026-04 至 2026-07 VES 系列测试分析、执行报告与发布记录</span><b>官方</b></div>
+        <div class="source"><strong>仍待复验</strong><span>2026-09 最新前台菜单、Skills 真实运行、全部私域组合与研报云盘、理财/策略集市</span><b>#verify</b></div>
+      </div>
+    </div></section>
+  </main>
+  <footer><div class="shell foot"><span>VESTA 盈米投研系统全景深度调研 · 2026-09-16</span><span>内部研究用途｜不构成投资建议｜敏感信息已脱敏</span></div></footer>
+  <script>
+    const chips=[...document.querySelectorAll('[data-filter]')];
+    const domains=[...document.querySelectorAll('.domain[data-status]')];
+    chips.forEach(chip=>chip.addEventListener('click',()=>{const f=chip.dataset.filter;chips.forEach(x=>x.setAttribute('aria-pressed',String(x===chip)));domains.forEach(d=>{d.hidden=f!=='all'&&d.dataset.status!==f;});}));
+  </script>
+</body>
+</html>

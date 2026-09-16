@@ -162,6 +162,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "vesta-system-deep-dive-2026-09-16",
+      groupId: "research",
+      title: "VESTA 盈米投研系统｜全景深度调研",
+      url: "https://clairku.github.io/clair-ai-studio/reports/vesta-system-deep-dive-2026-09-16/",
+      preview: "vesta-system-deep-dive-2026-09-16.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-16T16:20:00+08:00",
+      source: "VESTA 生产入口复核 + 2026-07-08 登录态网页实勘 + 2026-09-15 在线 MCP 119 项能力验证 + 2026-09-02 指标公式口径审计 + VESTA 官方规划/技术/API/测试/发布材料｜14 个系统能力域，覆盖首页、资讯研报、宏观/固收/信号、公募/经理/私募、资配、组合实验室、参数治理与 AI/MCP/OpenAPI｜整理 30+ 核心指标与公式，明确 250/252、自然日/交易日、总资产/净资产、标准定义/实现口径等边界｜当前前台因 SSO 未重新登录，最新菜单按 2026-07 实勘与官方材料标注复验状态｜公开脱敏，不含账号、密钥、真实客户、私有组合、内部域名或云盘正文",
+      access: "production",
+      workType: "investment-research",
+      tags: ["VESTA", "投研系统", "功能盘点", "MCP", "指标公式", "组合分析", "基金研究", "投资信号", "固收研究", "资产配置", "深度调研", "HTML", "生产"],
+    },
+    {
       id: "coral-investment-research-system-deep-dive-2026-09-16",
       groupId: "research",
       title: "CORAL 盈米投研系统深度盘点｜功能、数据、指标与公式",
@@ -2435,6 +2449,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "vesta-system-deep-dive-2026-09-16": "research",
   "coral-investment-research-system-deep-dive-2026-09-16": "research",
   "qieman-llm-trading-path-2026-09-15": "xiaogu",
   // 战略经营与项目复盘
