@@ -2,9 +2,9 @@
   <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#132b23"/><stop offset="1" stop-color="#1b694d"/></linearGradient><linearGradient id="beam" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#86c9aa" stop-opacity=".15"/><stop offset="1" stop-color="#d9f3e6" stop-opacity=".55"/></linearGradient></defs>
   <rect width="720" height="405" fill="url(#bg)"/>
   <circle cx="642" cy="52" r="150" fill="#53a880" opacity=".13"/><circle cx="70" cy="372" r="125" fill="#85c7a6" opacity=".09"/>
-  <text x="48" y="60" font-size="15" letter-spacing="3.5" fill="#a9d7c2" font-weight="700">YINGMI INVESTMENT RESEARCH OS · 2026.09.16</text>
+  <text x="48" y="60" font-size="15" letter-spacing="3.5" fill="#a9d7c2" font-weight="700">YINGMI INVESTMENT RESEARCH OS · V2 · 2026.09.16</text>
   <text x="48" y="127" font-size="45" fill="#fff" font-weight="900">VESTA 盈米投研系统</text><text x="48" y="184" font-size="45" fill="#fff" font-weight="900">全景深度调研</text>
-  <text x="48" y="228" font-size="19" fill="#cde7da">功能 · 工具 · 数据 · 指标 · 公式 · 系统边界</text>
+  <text x="48" y="228" font-size="19" fill="#cde7da">定位 · 框架 · 路线 · 用户 · 关联系统 · 功能与公式</text>
   <g transform="translate(48 270)"><rect width="118" height="64" rx="12" fill="#fff" opacity=".96"/><text x="16" y="28" font-size="25" fill="#173b2c" font-weight="800">14</text><text x="16" y="49" font-size="12" fill="#64776d">能力域</text><rect x="130" width="118" height="64" rx="12" fill="#fff" opacity=".96"/><text x="146" y="28" font-size="25" fill="#173b2c" font-weight="800">119</text><text x="146" y="49" font-size="12" fill="#64776d">MCP 工具</text><rect x="260" width="118" height="64" rx="12" fill="#fff" opacity=".96"/><text x="276" y="28" font-size="25" fill="#173b2c" font-weight="800">30+</text><text x="276" y="49" font-size="12" fill="#64776d">核心公式</text></g>
   <rect x="48" y="365" width="624" height="5" rx="3" fill="url(#beam)"/>
 </svg>

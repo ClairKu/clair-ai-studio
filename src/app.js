@@ -54,7 +54,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 76;
+const DATA_VERSION = 77;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -179,10 +179,10 @@ const initialState = {
       pinned: true,
       position: 0,
       createdAt: "2026-09-16T16:20:00+08:00",
-      source: "VESTA 生产入口复核 + 2026-07-08 登录态网页实勘 + 2026-09-15 在线 MCP 119 项能力验证 + 2026-09-02 指标公式口径审计 + VESTA 官方规划/技术/API/测试/发布材料｜14 个系统能力域，覆盖首页、资讯研报、宏观/固收/信号、公募/经理/私募、资配、组合实验室、参数治理与 AI/MCP/OpenAPI｜整理 30+ 核心指标与公式，明确 250/252、自然日/交易日、总资产/净资产、标准定义/实现口径等边界｜当前前台因 SSO 未重新登录，最新菜单按 2026-07 实勘与官方材料标注复验状态｜公开脱敏，不含账号、密钥、真实客户、私有组合、内部域名或云盘正文",
+      source: "VESTA 2025 年度汇报与一期/二期结项材料 + 2026-09-16 生产入口复核 + 2026-07-08 登录态网页实勘 + 2026-09-15 在线 MCP 119 项能力验证 + 2026-09-02 指标公式口径审计 + VESTA 官方规划/技术/API/测试/发布材料｜补全产品定位、四层产品框架、2025 实际迭代、2026 年度路线图、历史用户快照与 FDP/CORAL/PMS/启明/且慢/蜂鸟/API/MCP/OAP/Agent 关系｜14 个系统能力域，整理 30+ 核心指标与公式｜规划项与已上线能力分开标注；当前前台因 SSO 未重新登录，最新菜单按 2026-07 实勘与官方材料标注复验状态｜公开脱敏，不含账号、密钥、真实客户、私有组合、内部域名或云盘正文",
       access: "production",
       workType: "investment-research",
-      tags: ["VESTA", "投研系统", "功能盘点", "MCP", "指标公式", "组合分析", "基金研究", "投资信号", "固收研究", "资产配置", "深度调研", "HTML", "生产"],
+      tags: ["VESTA", "投研系统", "产品定位", "产品框架", "产品路线图", "迭代历程", "用户分析", "系统关系", "功能盘点", "MCP", "指标公式", "组合分析", "基金研究", "投资信号", "固收研究", "资产配置", "深度调研", "HTML", "生产"],
     },
     {
       id: "coral-investment-research-system-deep-dive-2026-09-16",
