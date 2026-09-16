@@ -18,6 +18,7 @@ const registryPath = join(new URL(".", root).pathname, "catalog", "report-regist
 const taskSource = read("src/task-center.js");
 const styleSource = read("src/style.css");
 const reportsRoot = join(new URL(".", root).pathname, "public", "reports");
+const docsReportsRoot = join(new URL(".", root).pathname, "docs", "reports");
 const reportStart = appSource.indexOf("  reports: [");
 const reportEnd = appSource.indexOf("\n  ],\n};", reportStart);
 
@@ -56,6 +57,82 @@ if (unregisteredIds.length) {
 }
 if (new Set(registeredIds).size !== registeredIds.length) {
   fail("成果登记册包含重复 ID");
+}
+
+const retiredReports = Array.isArray(registry.retiredReports)
+  ? registry.retiredReports
+  : [];
+const retiredIds = retiredReports.map((report) => report.id).filter(Boolean);
+if (new Set(retiredIds).size !== retiredIds.length) {
+  fail("历史下架登记包含重复 ID");
+}
+const revivedRetiredIds = retiredIds.filter((id) => currentIds.includes(id));
+if (revivedRetiredIds.length) {
+  fail(`已明确下架的成果被重新加入目录：${revivedRetiredIds.join("、")}`);
+}
+const missingRetiredReplacements = retiredReports
+  .filter((report) => report.replacementId && !currentIds.includes(report.replacementId))
+  .map((report) => `${report.id} -> ${report.replacementId}`);
+if (missingRetiredReplacements.length) {
+  fail(`历史下架成果的替代项缺失：${missingRetiredReplacements.join("、")}`);
+}
+
+const nonCatalogReports = Array.isArray(registry.nonCatalogReportSlugs)
+  ? registry.nonCatalogReportSlugs
+  : [];
+const nonCatalogSlugs = nonCatalogReports.map((report) => report.slug).filter(Boolean);
+if (new Set(nonCatalogSlugs).size !== nonCatalogSlugs.length) {
+  fail("非目录报告路径登记包含重复 slug");
+}
+const missingNonCatalogOwners = nonCatalogReports
+  .filter((report) => report.ownerId && !currentIds.includes(report.ownerId))
+  .map((report) => `${report.slug} -> ${report.ownerId}`);
+if (missingNonCatalogOwners.length) {
+  fail(`非目录报告路径缺少有效归属：${missingNonCatalogOwners.join("、")}`);
+}
+
+function reportDirectories(directory) {
+  return readdirSync(directory, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name)
+    .filter((slug) => existsSync(join(directory, slug, "index.html")));
+}
+
+function internalReportSlug(report) {
+  try {
+    const parsed = new URL(report.url);
+    if (parsed.hostname !== "clairku.github.io") return "";
+    return parsed.pathname.match(/^\/clair-ai-studio\/reports\/([^/]+)\/?(?:index\.html)?$/)?.[1] || "";
+  } catch {
+    return "";
+  }
+}
+
+const activeInternalSlugs = reports.map(internalReportSlug).filter(Boolean);
+const docsReportDirectories = reportDirectories(docsReportsRoot);
+const publicReportDirectories = reportDirectories(reportsRoot);
+const missingActiveReportFiles = activeInternalSlugs.filter((slug) =>
+  !docsReportDirectories.includes(slug) || !publicReportDirectories.includes(slug));
+if (missingActiveReportFiles.length) {
+  fail(`目录成果缺少 docs/public 页面：${missingActiveReportFiles.join("、")}`);
+}
+const missingAcknowledgedReportFiles = nonCatalogSlugs.filter((slug) =>
+  !docsReportDirectories.includes(slug) || !publicReportDirectories.includes(slug));
+if (missingAcknowledgedReportFiles.length) {
+  fail(`已登记的历史或辅助页面缺失：${missingAcknowledgedReportFiles.join("、")}`);
+}
+const knownReportSlugs = new Set([...activeInternalSlugs, ...nonCatalogSlugs]);
+const unaccountedReportDirectories = publicReportDirectories
+  .filter((slug) => !knownReportSlugs.has(slug));
+if (unaccountedReportDirectories.length) {
+  fail(`发现未登记、可能被遗漏的报告目录：${unaccountedReportDirectories.join("、")}`);
+}
+const docsOnlyReportDirectories = docsReportDirectories
+  .filter((slug) => !publicReportDirectories.includes(slug));
+const publicOnlyReportDirectories = publicReportDirectories
+  .filter((slug) => !docsReportDirectories.includes(slug));
+if (docsOnlyReportDirectories.length || publicOnlyReportDirectories.length) {
+  fail(`docs/public 报告镜像不一致：docs-only=${docsOnlyReportDirectories.join("、") || "无"}；public-only=${publicOnlyReportDirectories.join("、") || "无"}`);
 }
 
 for (const field of ["id", "url"]) {

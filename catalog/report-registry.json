@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
     "advisor-operations-workbench-deep-audit-2026-09-16",
@@ -69,6 +69,7 @@
   "doubao-qieman-user-dashboard",
   "doubao-mcp-user-panorama-2026-09-05",
   "qianwen-user-acquisition-dashboard",
+  "qieman-ai-practice-sharing-visual-2026-08-14",
   "qieman-ai-growth-oap-integrated-2026-08-14",
   "yingmi-ai-oap-growth-showcase-2026-08-14",
   "qieman-ai-growth-practice-2026-08-14",
@@ -87,6 +88,7 @@
   "skill-governance-audit-2026-08-09",
   "obsidian-agent-stack-install-2026-08-09",
   "third-party-platform-regulatory-filing-2026-08-08",
+  "qianwen-qieman-task-assistant-demo-2026-08-07",
   "qieman-advisor-service-redesign-2026-08-07",
   "qieman-advisor-page-redesign-2026-08-07",
   "clair-product-design-reviewer-2026-08-06",
@@ -172,5 +174,66 @@
   "skill-audit-2026-07-16",
   "html-editor-guide",
   "yingmi-ai-capability-system"
-]
+  ],
+  "retiredReports": [
+    {
+      "id": "yingmi-oap-project-report-2026-08-03",
+      "status": "consolidated",
+      "replacementId": "oap-project-report-2026-08-03",
+      "removedIn": "a582d84f9d74ac6691936d10842ca0297fe2e1a1",
+      "reason": "The password-era duplicate was consolidated into the refreshed Feishu-framework executive report."
+    },
+    {
+      "id": "qieman-mcp-top10-2026-08-03",
+      "status": "superseded",
+      "replacementId": "qieman-mcp-top20-2026-08-03",
+      "removedIn": "fcd6ab3e376f7c751ed46b353a3430c489d3c5d7",
+      "reason": "The TOP10 report was deliberately replaced by the audited full-catalog TOP20 report."
+    },
+    {
+      "id": "qieman-ai-advisor-ecosystem",
+      "status": "blocked",
+      "replacementId": "",
+      "removedIn": "651b12cfd3969ef0301d7ee9007fa3e6a61e4f89",
+      "reason": "The only URL was an inaccessible private chatgpt.site entry and must not return to the production catalog."
+    }
+  ],
+  "nonCatalogReportSlugs": [
+    {
+      "slug": "qianwen-user-question-detail-2026-09-05",
+      "status": "supporting-page",
+      "ownerId": "qianwen-user-question-analysis-2026-09-05"
+    },
+    {
+      "slug": "qieman-ai-practice-sharing-blue-2026-08-13",
+      "status": "alternate-visual",
+      "ownerId": "qieman-ai-practice-sharing-2026-08-13"
+    },
+    {
+      "slug": "qieman-mcp-top10-2026-08-03",
+      "status": "legacy-redirect",
+      "ownerId": "qieman-mcp-top20-2026-08-03"
+    },
+    {
+      "slug": "yingmi-oap-project-report-2026-08-03",
+      "status": "retained-archive",
+      "ownerId": "oap-project-report-2026-08-03"
+    },
+    {
+      "slug": "yingmi-portfolio-optimizer-2026-09-10",
+      "status": "legacy-route",
+      "ownerId": "yingmi-portfolio-optimizer-2026-09-10"
+    }
+  ],
+  "historyAudit": {
+    "auditedAt": "2026-09-16",
+    "baselineRef": "ac487c4867bbf325422098c0b92dcfac08b27e06",
+    "mainCatalogCommitsChecked": 279,
+    "mainHistoricalUniqueReportIds": 173,
+    "preRepairActiveReportIds": 170,
+    "orphanBranchReportsRecovered": [
+      "qianwen-qieman-task-assistant-demo-2026-08-07",
+      "qieman-ai-practice-sharing-visual-2026-08-14"
+    ]
+  }
 }

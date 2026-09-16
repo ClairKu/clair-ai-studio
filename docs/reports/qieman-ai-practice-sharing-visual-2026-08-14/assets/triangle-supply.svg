@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">产品供给不可能三角</title>
+  <desc id="desc">多元需求、有限资源和快速交付在传统串行研发模式下形成持续冲突。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#F8F7FC"/><stop offset="1" stop-color="#FFF5F0"/></linearGradient>
+    <linearGradient id="tri" x1="0" x2="1"><stop stop-color="#7457E8"/><stop offset="1" stop-color="#F08D62"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#2B214F" flood-opacity=".14"/></filter>
+  </defs>
+  <rect width="1200" height="675" rx="34" fill="url(#bg)"/>
+  <text x="64" y="78" fill="#7457E8" font-family="Arial,sans-serif" font-size="18" font-weight="700" letter-spacing="4">IMPOSSIBLE TRIANGLE · SUPPLY</text>
+  <text x="64" y="130" fill="#171A27" font-family="Songti SC,STSong,serif" font-size="42" font-weight="600">想要的越来越多，资源与交付被持续拉扯</text>
+  <g filter="url(#shadow)">
+    <path d="M600 176 L280 530 L920 530 Z" fill="#FFFFFF" stroke="url(#tri)" stroke-width="8" stroke-linejoin="round"/>
+    <path d="M600 226 L338 510 L862 510 Z" fill="#7457E8" opacity=".06"/>
+  </g>
+  <g font-family="Arial,'PingFang SC',sans-serif" text-anchor="middle">
+    <g transform="translate(600 180)">
+      <circle r="82" fill="#7457E8"/>
+      <text y="-6" fill="#FFF" font-size="31" font-weight="800">多元需求</text>
+      <text y="28" fill="#EEE9FF" font-size="18">用户 · 顾问 · 业务 · 机构</text>
+    </g>
+    <g transform="translate(275 523)">
+      <circle r="82" fill="#171A27"/>
+      <text y="-6" fill="#FFF" font-size="31" font-weight="800">有限资源</text>
+      <text y="28" fill="#C9CED9" font-size="18">产研人力 · 固定交互容量</text>
+    </g>
+    <g transform="translate(925 523)">
+      <circle r="82" fill="#F08D62"/>
+      <text y="-6" fill="#FFF" font-size="31" font-weight="800">快速交付</text>
+      <text y="28" fill="#FFF1EA" font-size="18">快速取得 · 高频迭代</text>
+    </g>
+    <g transform="translate(600 398)">
+      <circle r="105" fill="#FFF" stroke="#E6DCE8" stroke-width="2"/>
+      <text y="-22" fill="#5138B5" font-size="21" font-weight="800">串行功能开发</text>
+      <text y="15" fill="#687287" font-size="18">每个需求都进入分析与排期</text>
+      <text y="46" fill="#687287" font-size="18">取舍压力集中到产品团队</text>
+    </g>
+  </g>
+  <g fill="none" stroke="#8A70E8" stroke-width="3" stroke-linecap="round" opacity=".65">
+    <path d="M508 274 C438 292 381 340 347 402"/><path d="M692 274 C762 292 819 340 853 402"/><path d="M422 523 C520 563 680 563 778 523"/>
+  </g>
+  <text x="1136" y="78" text-anchor="end" fill="#9A8AD8" font-family="Arial,sans-serif" font-size="14" font-weight="700">SOURCE · PPT P3</text>
+</svg>

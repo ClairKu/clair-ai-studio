@@ -1,0 +1,110 @@
+{
+  "version": 1,
+  "assets": [
+    {
+      "path": "assets/entry-migration.svg",
+      "bytes": 4201,
+      "sha256": "eddb9accc0fe7aea42f1d06052af63b067bd41cae21c8a5a63a34e4b2d3d9d8b"
+    },
+    {
+      "path": "assets/evolution-1-to-4.png",
+      "bytes": 464230,
+      "sha256": "cf7a30af75273f2f0efd9c9bdf1ffadff4428afec97551a7339e8777be35c071"
+    },
+    {
+      "path": "assets/qwen-qieman-agent-service-flow.png",
+      "bytes": 712721,
+      "sha256": "9116eb6f24afa7266735adb4b2582516ad227f826cc08424148b58aaba7deff0"
+    },
+    {
+      "path": "assets/scene-asset-analysis-redacted.png",
+      "bytes": 885148,
+      "sha256": "841a7fd975441e91422c3b3b21d173d6cd1f78cb7b8e7b1a1c2550a0cb8c9cc1"
+    },
+    {
+      "path": "assets/scene-monthly-statement-redacted.png",
+      "bytes": 908548,
+      "sha256": "6ace4351d0e5bddd58102ae5cfe5817674207e9ca02d59930bb1eb748e3d3832"
+    },
+    {
+      "path": "assets/service-relationship.svg",
+      "bytes": 12799,
+      "sha256": "dd8f118bb2189beb0547c6f9ea857537990ae0bade75b63e59c50a69902ba72f"
+    },
+    {
+      "path": "assets/system-relationship.svg",
+      "bytes": 15307,
+      "sha256": "1acfc70356a4560d97b59ed664a46c8924caaa6a86d55e756b1e38a834d00d14"
+    },
+    {
+      "path": "assets/three-leaps.svg",
+      "bytes": 4561,
+      "sha256": "0447743382301b2f371037459dfc5d0be8ea7d5132a7e783324175596b1de43a"
+    },
+    {
+      "path": "assets/triangle-supply.svg",
+      "bytes": 3019,
+      "sha256": "85646208a3c0ef92fb619d4a60fa99f9fa8e80ab10e99fcfddce8df47bd80753"
+    },
+    {
+      "path": "assets/triangle-value.svg",
+      "bytes": 2981,
+      "sha256": "f2326bb2d3f43ec53672b3bbfffa37b76ac3a0da152c2ce13e52d9b4e1a18362"
+    },
+    {
+      "path": "assets/wechat-xiaowei-dialogue-01.png",
+      "bytes": 873405,
+      "sha256": "8dfef99d2a2451ef20275b0dcef37e230b197beecb8c43a8c10da2402f5c617a"
+    },
+    {
+      "path": "assets/posters/01-insight-article.jpg",
+      "bytes": 123533,
+      "sha256": "5540eb80273f4634d7149636c2f305848eb1b66d84a7ab194cae020ef32be0cc"
+    },
+    {
+      "path": "assets/posters/02-five-agent-review.jpg",
+      "bytes": 96856,
+      "sha256": "1bb03b67cd551d14108c65213a944f25366eba9205e0408320388ab18dbea9cc"
+    },
+    {
+      "path": "assets/posters/03-agent-deep-review.jpg",
+      "bytes": 105011,
+      "sha256": "de99feff23c26193da8a9e1da1174475276a2441931f3eb138af090b52a15fc6"
+    },
+    {
+      "path": "assets/posters/04-ai-tech-review.jpg",
+      "bytes": 78152,
+      "sha256": "f20fc112de225925b81bc7ae0b8b36dc793427c0213f1b4649464714e0606eca"
+    },
+    {
+      "path": "assets/posters/05-fourth-wave-review.jpg",
+      "bytes": 109928,
+      "sha256": "c1f3c890979ef681a89fec0521b044eca09f10e0928ef4e8ad16ec5a22b5ee4e"
+    },
+    {
+      "path": "assets/videos/01-insight-article.mp4",
+      "bytes": 9630295,
+      "sha256": "17a472cb5c52239da6729f439f91463a228afbbeadde5281ab3e07d8b1067848"
+    },
+    {
+      "path": "assets/videos/02-five-agent-review.mp4",
+      "bytes": 3432959,
+      "sha256": "c95851857f1df94a1f7815913210e437223108fc05882832c3d3d4071b7ef378"
+    },
+    {
+      "path": "assets/videos/03-agent-deep-review.mp4",
+      "bytes": 3962388,
+      "sha256": "3d973545cd762e541924fcabda624faa0fab149a408bb5daa1d33d66f1123fbd"
+    },
+    {
+      "path": "assets/videos/04-ai-tech-review.mp4",
+      "bytes": 3977388,
+      "sha256": "1be4748cbf5b3bb800f37a22eb523c8ef30bccc96777cb86e71d5d89d92aa9f6"
+    },
+    {
+      "path": "assets/videos/05-fourth-wave-review.mp4",
+      "bytes": 6776976,
+      "sha256": "a0c8f97f291c720b60da7ca8474a06e173660be97f39adb0632cb2ec659e30b9"
+    }
+  ]
+}

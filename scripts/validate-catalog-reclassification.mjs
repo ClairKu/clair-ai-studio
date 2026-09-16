@@ -8,6 +8,7 @@ const fail = (message) => { throw new Error(message); };
 const app = read("src/app.js");
 const publicReport = read(`public/reports/${slug}/index.html`);
 const docsReport = read(`docs/reports/${slug}/index.html`);
+const registry = JSON.parse(read("catalog/report-registry.json"));
 const publicPreview = new URL(`public/previews/${slug}.png`, root);
 const docsPreview = new URL(`docs/previews/${slug}.png`, root);
 
@@ -19,7 +20,12 @@ const reportStart = app.indexOf("  reports: [");
 const reportEnd = app.indexOf("\n  ],\n};", reportStart);
 const reportBlock = app.slice(reportStart, reportEnd);
 const reportIds = [...reportBlock.matchAll(/\bid:\s*"([^"]+)"/g)].map((match) => match[1]);
-if (reportIds.length !== 170) fail(`成果数量异常：预期 170，实际 ${reportIds.length}`);
+const protectedReportIds = Array.isArray(registry.protectedReportIds)
+  ? registry.protectedReportIds
+  : [];
+if (reportIds.length !== protectedReportIds.length) {
+  fail(`成果数量与保护登记册不一致：登记 ${protectedReportIds.length}，实际 ${reportIds.length}`);
+}
 
 const topicStart = app.indexOf("const TOPIC_BY_REPORT = {");
 const topicEnd = app.indexOf("\n};\n\nfunction inferWorkType", topicStart);
