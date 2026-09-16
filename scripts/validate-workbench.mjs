@@ -217,6 +217,8 @@ const requiredSignals = [
   [appSource, "reportTimeSort === \"modified\"", "TIME 缺少修改时间倒序"],
   [appSource, 'data-action="toggle-time-sort"', "TIME 缺少简洁的创建/修改切换"],
   [appSource, 'class="library-time-titles"', "TIME 左栏缺少成果标题清单"],
+  [appSource, 'class="library-time-report-link" data-action="open"', "TIME 成果标题不能直接打开报告"],
+  [styleSource, ".library-time-report-link:focus-visible", "TIME 成果标题缺少键盘焦点反馈"],
   [appSource, 'data-action="toggle-pin"', "卡片缺少精选操作"],
   [appSource, "function bindReportDragging()", "缺少统一卡片拖动会话"],
   [appSource, 'addEventListener("compositionend"', "搜索框缺少中文输入法完成事件"],

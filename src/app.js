@@ -5302,8 +5302,9 @@ function workbenchMarkup() {
                   </div>
                   <div class="library-time-titles" aria-label="按${reportTimeSort === "modified" ? "修改" : "创建"}时间排列的成果">
                     ${timeReports.map((report) => `
-                      <a href="#" data-nav-report-id="${escapeHtml(report.id)}"
-                        title="${escapeHtml(report.title)}">${escapeHtml(report.title)}</a>`).join("")}
+                      <button type="button" class="library-time-report-link" data-action="open"
+                        data-id="${escapeHtml(report.id)}" title="打开${escapeHtml(report.title)}"
+                        aria-label="打开成果：${escapeHtml(report.title)}">${escapeHtml(report.title)}</button>`).join("")}
                   </div>` : navBuckets.map((bucket) => `
                   <a href="#" data-nav-bucket-kind="${escapeHtml(bucket.kind)}"
                     data-nav-bucket-id="${escapeHtml(bucket.id)}">
@@ -6208,15 +6209,6 @@ function bindApp() {
         scrollElementToStart(bucketElement(bucketKind, bucketId));
       });
     });
-
-  document.querySelectorAll(".topic-nav a[data-nav-report-id]").forEach((link) => {
-    if (link.dataset.appNavBound === "true") return;
-    link.dataset.appNavBound = "true";
-    link.addEventListener("click", (event) => {
-      event.preventDefault();
-      scrollElementToStart(reportElement(link.dataset.navReportId));
-    });
-  });
 
   bindReportDragging();
 

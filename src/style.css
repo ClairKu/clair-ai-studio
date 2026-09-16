@@ -7708,22 +7708,30 @@ html {
   min-height: 0;
 }
 
-.topic-nav .library-time-titles a {
+.topic-nav .library-time-titles .library-time-report-link {
+  width: 100%;
   min-height: 28px;
   display: block;
   overflow: hidden;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
   padding: 7px 10px;
   color: #6f747e;
   font-size: 9px;
   font-weight: 520;
   line-height: 1.45;
+  text-align: left;
   text-overflow: ellipsis;
   white-space: nowrap;
+  cursor: pointer;
 }
 
-.topic-nav .library-time-titles a:hover {
+.topic-nav .library-time-titles .library-time-report-link:hover,
+.topic-nav .library-time-titles .library-time-report-link:focus-visible {
   background: #f1f1f4;
   color: #222329;
+  outline: none;
 }
 
 .search-results-panel {
@@ -8121,7 +8129,7 @@ html {
     padding: 0;
   }
 
-  .topic-nav .library-time-titles a {
+  .topic-nav .library-time-titles .library-time-report-link {
     width: min(220px, 58vw);
     min-height: 32px;
     border: 1px solid #e2e4e9;
