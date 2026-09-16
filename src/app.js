@@ -45,7 +45,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 75;
+const DATA_VERSION = 76;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -170,7 +170,7 @@ const initialState = {
       pinned: true,
       position: 0,
       createdAt: "2026-09-16T15:30:00+08:00",
-      source: "148 份产品规划与 260 份研发档案命中｜CORAL/VESTA 既有知识条目｜现行后继投研工具目录与代表性只读验证｜15 个能力域、16 类研究对象、30 项指标公式；当前 CORAL 网页未登录，仅验证登录入口，不含客户数据、凭据和内部地址",
+      source: "148 份产品规划与 260 份研发档案命中｜CORAL/VESTA 既有知识条目｜现行后继投研工具目录与代表性只读验证｜补充产品定位、六层产品框架、原规划与实际路线、2021–2026 迭代历程、四类机构用户与九类系统关系｜15 个能力域、16 类研究对象、30 项指标公式；当前 CORAL 网页未登录，仅验证登录入口，不含客户数据、凭据和内部地址",
       access: "production",
       workType: "investment-research",
       tags: ["CORAL", "VESTA", "投研", "基金研究", "组合分析", "资产配置", "指标口径", "MCP", "调研", "HTML", "生产"],

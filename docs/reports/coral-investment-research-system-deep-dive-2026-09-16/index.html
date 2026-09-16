@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>CORAL 盈米投研系统深度盘点｜功能、数据、指标与公式</title>
-  <meta name="description" content="基于 148 份产品规划、260 份研发文档、现有知识库与 VESTA 现行投研接口实测，对 CORAL 旧投研系统的功能、数据、指标、公式和演进关系进行证据分级盘点。" />
+  <meta name="description" content="基于 148 份产品规划、260 份研发文档、现有知识库与 VESTA 现行投研接口实测，对 CORAL 旧投研系统的产品定位、框架、路线、用户、系统关系、功能、数据、指标和公式进行证据分级盘点。" />
   <style>
     :root{--ink:#17201d;--muted:#65706b;--paper:#f4f3ee;--card:#fffef9;--line:#d9d9d1;--coral:#e85b45;--coral2:#ff8b6f;--sea:#164d4b;--mint:#dce9df;--amber:#e7b45f;--red:#a7382d;--shadow:0 18px 50px rgba(30,46,40,.10)}
     *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:var(--paper);font:400 16px/1.72 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}a{color:inherit}button,input{font:inherit}
@@ -14,20 +14,26 @@
     .hero{background:var(--sea);color:#fff;overflow:hidden;position:relative}.hero:after{content:"";position:absolute;width:680px;height:680px;border:120px solid rgba(255,139,111,.14);border-radius:50%;right:-220px;top:-340px}.hero:before{content:"";position:absolute;width:180px;height:180px;background:var(--coral);border-radius:46% 54% 62% 38%;right:11%;bottom:-120px;transform:rotate(24deg)}.hero-inner{max-width:1240px;margin:auto;padding:84px 24px 74px;position:relative;z-index:1}.eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#ffc2b4;font-weight:800}.hero h1{font-size:clamp(38px,7vw,82px);line-height:1.02;max-width:980px;margin:18px 0 24px;letter-spacing:-.045em}.hero h1 em{color:var(--coral2);font-style:normal}.lead{font-size:clamp(18px,2.3vw,25px);line-height:1.55;max-width:940px;color:#e7f0ed}.verdict{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:44px}.stat{padding:20px;border:1px solid rgba(255,255,255,.16);border-radius:16px;background:rgba(255,255,255,.07)}.stat b{font-size:30px;display:block;color:#fff}.stat span{font-size:13px;color:#bdd1cc}.method{margin-top:26px;font-size:13px;color:#bdd1cc;max-width:1000px}
     main{max-width:1240px;margin:auto;padding:62px 24px 100px}section{scroll-margin-top:74px;margin-bottom:78px}.sec-head{display:grid;grid-template-columns:1fr minmax(260px,460px);gap:36px;align-items:end;margin-bottom:30px}.kicker{font-size:12px;color:var(--coral);font-weight:900;letter-spacing:.15em;text-transform:uppercase}.sec-head h2{font-size:clamp(30px,4vw,50px);line-height:1.08;margin:8px 0 0;letter-spacing:-.035em}.sec-head p{color:var(--muted);margin:0}.callout{background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:22px;padding:28px}.callout strong{color:var(--sea)}
     .legend{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}.pill,.ev{display:inline-flex;align-items:center;border-radius:999px;font-size:12px;font-weight:800}.pill{padding:7px 11px;background:white;border:1px solid var(--line)}.ev{padding:4px 8px}.ev.archive{background:#e8f1ea;color:#28583e}.ev.live{background:#dfeeee;color:#164d4b}.ev.infer{background:#fff0d7;color:#7f5411}.ev.gap{background:#f5deda;color:#8b2d25}
-    .timeline{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}.time{background:var(--card);padding:18px;border-radius:16px;border-top:4px solid var(--coral)}.time b{font-size:20px}.time p{font-size:13px;color:var(--muted);margin:6px 0 0}.architecture{display:grid;grid-template-columns:1fr 1.5fr 1fr;gap:12px;align-items:stretch}.arch{border-radius:20px;padding:24px;background:#fff;border:1px solid var(--line)}.arch.core{background:var(--sea);color:white;border:0}.arch h3{margin-top:0}.arch ul{padding-left:18px;margin-bottom:0}.arch li{margin:6px 0}.flow{display:flex;gap:8px;align-items:center;justify-content:center;color:var(--coral);font-weight:900}.flow span{color:var(--muted);font-weight:500;font-size:13px}
+    .position-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.position-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px}.position-card b{display:block;color:var(--sea);font-size:17px;margin-bottom:6px}.position-card p{font-size:13px;color:var(--muted);margin:0}.position-card.focus{background:var(--sea);color:#fff;border:0}.position-card.focus b{color:#fff}.position-card.focus p{color:#cfe1dc}
+    .timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.time{background:var(--card);padding:18px;border-radius:16px;border-top:4px solid var(--coral)}.time b{font-size:20px}.time small{display:block;color:var(--sea);font-weight:800;margin-top:5px}.time p{font-size:13px;color:var(--muted);margin:6px 0 0}
+    .route-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.route{background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px}.route h3{margin:0 0 16px}.phase{display:grid;grid-template-columns:72px 1fr;gap:12px;padding:13px 0;border-bottom:1px solid #e7e6df}.phase:last-child{border:0}.phase b{color:var(--coral)}.phase span{font-size:13px;color:var(--muted)}
+    .product-frame{display:grid;gap:8px;background:#e9e8e0;border:1px solid var(--line);border-radius:22px;padding:10px}.frame-row{display:grid;grid-template-columns:150px 1fr;gap:8px}.frame-label{display:flex;align-items:center;justify-content:center;text-align:center;background:var(--sea);color:#fff;border-radius:12px;padding:15px;font-size:13px;font-weight:900}.frame-cells{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.frame-cell{background:#fff;border-radius:12px;padding:14px;font-size:13px}.frame-cell b{display:block;color:var(--sea);margin-bottom:4px}.frame-cell span{color:var(--muted)}.frame-row.foundation .frame-label{background:#6d4b37}.frame-row.foundation .frame-cell{background:#fff7ed}
+    .user-matrix{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.user-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px}.user-card h3{margin:0 0 6px}.user-card .axis{font-size:11px;font-weight:900;color:var(--coral);letter-spacing:.05em}.user-card p{font-size:13px;color:var(--muted)}.user-facts{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}.user-fact{background:var(--mint);border-radius:14px;padding:16px}.user-fact b{display:block;color:var(--sea)}.user-fact span{font-size:12px;color:#50645d}
+    .relation-map{display:grid;grid-template-columns:repeat(3,1fr);grid-template-areas:"ims fdp vesta" "pms coral output" "uaap qieman api";gap:10px;align-items:stretch}.rel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:17px;min-height:120px}.rel b{display:block;color:var(--sea);font-size:18px}.rel span{font-size:12px;color:var(--muted)}.rel em{display:block;margin-top:8px;font-style:normal;font-size:11px;color:var(--coral);font-weight:800}.rel.coral{grid-area:coral;background:var(--coral);color:#fff;border:0;box-shadow:var(--shadow)}.rel.coral b,.rel.coral span,.rel.coral em{color:#fff}.rel.ims{grid-area:ims}.rel.fdp{grid-area:fdp}.rel.vesta{grid-area:vesta}.rel.pms{grid-area:pms}.rel.output{grid-area:output}.rel.uaap{grid-area:uaap}.rel.qieman{grid-area:qieman}.rel.api{grid-area:api}
+    .architecture{display:grid;grid-template-columns:1fr 1.5fr 1fr;gap:12px;align-items:stretch}.arch{border-radius:20px;padding:24px;background:#fff;border:1px solid var(--line)}.arch.core{background:var(--sea);color:white;border:0}.arch h3{margin-top:0}.arch ul{padding-left:18px;margin-bottom:0}.arch li{margin:6px 0}.flow{display:flex;gap:8px;align-items:center;justify-content:center;color:var(--coral);font-weight:900}.flow span{color:var(--muted);font-weight:500;font-size:13px}
     .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}.search{flex:1;min-width:250px;border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#fff}.filter{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 13px;cursor:pointer}.filter.active{background:var(--sea);color:#fff;border-color:var(--sea)}.module-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.module{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px;display:flex;flex-direction:column;min-height:270px}.module:hover{transform:translateY(-2px);box-shadow:var(--shadow);transition:.2s}.num{font:900 38px/1 Georgia,serif;color:#e0ded4}.module h3{margin:10px 0 8px;font-size:20px}.module p{font-size:14px;color:var(--muted);margin:0 0 14px}.module dl{font-size:13px;margin:0}.module dt{font-weight:800;color:var(--sea);margin-top:9px}.module dd{margin:2px 0;color:#4e5854}.module .ev{margin-top:auto;align-self:flex-start}
     .tablewrap{overflow:auto;border:1px solid var(--line);border-radius:18px;background:#fff}table{width:100%;border-collapse:collapse;min-width:860px;font-size:13px}th,td{text-align:left;padding:13px 14px;border-bottom:1px solid #e7e6df;vertical-align:top}th{position:sticky;top:0;background:#f8f7f1;color:var(--sea);z-index:1}tr:last-child td{border-bottom:0}.formula{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#713429}.small{font-size:12px;color:var(--muted)}
     .objects{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.object{background:#fff;border-left:5px solid var(--coral);padding:17px;border-radius:6px 15px 15px 6px}.object b{display:block}.object span{font-size:12px;color:var(--muted)}
     .migration{display:grid;grid-template-columns:1fr 110px 1fr;gap:20px;align-items:center}.system{background:#fff;border-radius:22px;padding:26px;border:1px solid var(--line)}.system h3{font-size:28px;margin:0 0 8px}.system .big{font-size:44px;font-weight:900;color:var(--coral)}.arrow{text-align:center;font-size:42px;color:var(--coral)}.arrow small{display:block;font-size:11px;color:var(--muted)}.bars{display:grid;gap:8px;margin-top:16px}.bar{display:grid;grid-template-columns:110px 1fr 30px;gap:8px;align-items:center;font-size:12px}.track{height:8px;background:#eee;border-radius:10px;overflow:hidden}.fill{height:100%;background:var(--coral);border-radius:10px}
     .risk-grid,.recommend{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.risk,.rec{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px}.risk h3,.rec h3{margin:0 0 8px}.risk.high{border-top:5px solid var(--red)}.risk.mid{border-top:5px solid var(--amber)}.rec{counter-increment:recs}.recommend{counter-reset:recs}.rec h3:before{content:"0" counter(recs);color:var(--coral);margin-right:10px;font-family:Georgia,serif}.priority{font-size:12px;font-weight:800;color:var(--sea)}
     details{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin:9px 0}summary{cursor:pointer;font-weight:800;color:var(--sea)}details p,details li{font-size:13px;color:var(--muted)}.source-list{columns:2;column-gap:30px}.source-list li{break-inside:avoid;margin-bottom:7px}.foot{border-top:1px solid var(--line);padding-top:28px;color:var(--muted);font-size:13px}.no-results{display:none;padding:30px;text-align:center;color:var(--muted)}
-    @media(max-width:900px){.verdict,.module-grid{grid-template-columns:repeat(2,1fr)}.timeline{grid-template-columns:repeat(3,1fr)}.architecture{grid-template-columns:1fr}.migration{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}.objects{grid-template-columns:repeat(2,1fr)}.sec-head{grid-template-columns:1fr}.sec-head p{margin-top:10px}}
-    @media(max-width:560px){.navin{padding:9px 14px}.hero-inner{padding:60px 18px}.hero h1{font-size:42px}.verdict,.module-grid,.timeline,.objects,.risk-grid,.recommend{grid-template-columns:1fr}.stat{padding:15px}.stat b{font-size:26px}main{padding:44px 16px 80px}.sec-head h2{font-size:34px}.source-list{columns:1}.module{min-height:0}.architecture{gap:9px}}
+    @media(max-width:900px){.verdict,.module-grid,.position-grid{grid-template-columns:repeat(2,1fr)}.timeline{grid-template-columns:repeat(2,1fr)}.architecture,.route-grid{grid-template-columns:1fr}.migration{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}.objects,.user-facts{grid-template-columns:repeat(2,1fr)}.sec-head{grid-template-columns:1fr}.sec-head p{margin-top:10px}.frame-row{grid-template-columns:120px 1fr}.frame-cells{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:560px){.navin{padding:9px 14px}.hero-inner{padding:60px 18px}.hero h1{font-size:42px}.verdict,.module-grid,.timeline,.objects,.risk-grid,.recommend,.position-grid,.user-matrix,.user-facts{grid-template-columns:1fr}.stat{padding:15px}.stat b{font-size:26px}main{padding:44px 16px 80px}.sec-head h2{font-size:34px}.source-list{columns:1}.module{min-height:0}.architecture{gap:9px}.frame-row{grid-template-columns:1fr}.frame-cells{grid-template-columns:1fr}.relation-map{grid-template-columns:1fr;grid-template-areas:"coral" "ims" "fdp" "vesta" "pms" "uaap" "qieman" "output" "api"}.phase{grid-template-columns:58px 1fr}}
     @media print{.nav,.toolbar{display:none}.hero{background:#164d4b!important;-webkit-print-color-adjust:exact}.module{break-inside:avoid}section{break-before:auto}}
   </style>
 </head>
 <body>
-<nav class="nav"><div class="navin"><div class="brand">C<i>O</i>RAL</div><div class="navlinks"><a href="#judgment">结论</a><a href="#evolution">演进</a><a href="#inventory">功能全景</a><a href="#data">数据</a><a href="#formula">指标公式</a><a href="#migration">迁移</a><a href="#risk">风险</a><a href="#roadmap">建议</a><a href="#evidence">证据</a></div></div></nav>
+<nav class="nav"><div class="navin"><div class="brand">C<i>O</i>RAL</div><div class="navlinks"><a href="#judgment">结论</a><a href="#positioning">定位</a><a href="#evolution">历程</a><a href="#product-roadmap">路线</a><a href="#architecture">框架</a><a href="#users">用户</a><a href="#relations">关联系统</a><a href="#inventory">功能</a><a href="#formula">公式</a><a href="#migration">迁移</a><a href="#roadmap">建议</a></div></div></nav>
 <header class="hero"><div class="hero-inner">
   <div class="eyebrow">Yingmi Investment Research System · Evidence-led Audit · 2026.09.16</div>
   <h1>CORAL 不是一组页面，<br>而是盈米早期投研能力的<em>总装车间</em></h1>
@@ -42,29 +48,82 @@
   <div class="legend"><span class="ev archive">档案确认</span><span class="ev live">现行接口实测</span><span class="ev infer">继承/推断</span><span class="ev gap">未确认或缺口</span></div>
 </section>
 
-<section id="evolution">
-  <div class="sec-head"><div><div class="kicker">02 · Evolution</div><h2>从工具集合到投研工业化底座</h2></div><p>时间线来自公司月报、产品规划和研发设计。它说明系统不是一次性项目，而是持续吸纳研究能力的容器。</p></div>
-  <div class="timeline">
-    <div class="time"><b>2022.03</b><p>Beta 发布：专项筛选器、经理画像、权益基金分析、研究中心与客户定制能力形成骨架。</p></div>
-    <div class="time"><b>2022.04</b><p>正式上线，投研能力由零散工具转向统一平台入口。</p></div>
-    <div class="time"><b>2022.08</b><p>固收异常监控上线：单日异动、连续回撤和分层钻取补齐债券研究。</p></div>
-    <div class="time"><b>2023</b><p>跨团队平台化；数据工厂与 coral-api 开始拆分计算、服务与存储。</p></div>
-    <div class="time"><b>2024</b><p>与 CDP、FDP、PMS、内容平台共同组成投顾生产工具链。</p></div>
-    <div class="time"><b>2025–26</b><p>能力向 VESTA/启明与 MCP 工具化迁移，研究能力可被智能体调用。</p></div>
+<section id="positioning">
+  <div class="sec-head"><div><div class="kicker">02 · Product positioning</div><h2>产品定位：机构投研能力的统一装配与输出平台</h2></div><p>官方规划将 CORAL 定义为公司级项目、面向机构投资者的一站式投研工具平台。它不是数据终端的复制品，也不是单纯的研报库，而是把盈米的研究内容、数据计算、算法模型和场景工具装配后交付。</p></div>
+  <div class="position-grid">
+    <div class="position-card focus"><b>服务谁</b><p>资管机构及其研究员、投资经理、产品与科技团队；覆盖公募、私募、券商、保险、银行、信托等机构类型。</p></div>
+    <div class="position-card"><b>解决什么</b><p>把分散在 IMS、Juniper、Excel、脚本和人工服务里的投研能力，变成统一入口、可交互工具和可复用研究流程。</p></div>
+    <div class="position-card"><b>怎么交付</b><p>以“乐高积木”思路做模块化、组件化、原子化输出，支持 SaaS 页面、机构定制、API 与本地化部署。</p></div>
+    <div class="position-card"><b>商业角色</b><p>既是机构投研科技产品，也是投研能力展示与合作载体；通过标准工具切入，再以专项服务和定制建立深度合作。</p></div>
   </div>
+  <div class="callout" style="margin-top:14px"><strong>边界判断：</strong>CORAL 负责“研究能力如何被组织、分析和交付”；FDP 负责底层数据供给，IMS 偏研究内容，PMS 偏策略/组合/账户运营执行，VESTA 是后续工业化升级。把这些边界混在一起，会把 CORAL 错看成数据库、交易系统或纯研报门户。</div>
+</section>
+
+<section id="evolution">
+  <div class="sec-head"><div><div class="kicker">03 · Iteration history</div><h2>迭代历程：从工具箱到服务化能力底座</h2></div><p>时间线来自公司月报、产品规划、需求文档和研发设计。它说明 CORAL 不是一次性项目，而是经历“聚合—原生化—平台化—机构化—服务化—迁移”的连续演进。</p></div>
+  <div class="timeline">
+    <div class="time"><b>2021</b><small>立项与框架期</small><p>完成命名、公司级立项、供需调研和整体框架；明确短期公募、中期多资产、远期多金融产品路线。</p></div>
+    <div class="time"><b>2022 Q1</b><small>Beta 聚合期</small><p>以“工作台 + App Store”形态，将 IMS 与 Juniper 页面拆解、包装进统一工具箱，并复用 IMS 账户。</p></div>
+    <div class="time"><b>2022.04</b><small>正式上线</small><p>基金/经理分析、专项筛选、研报中心形成首批能力；平台从现有工具封装转入原生工具建设。</p></div>
+    <div class="time"><b>2022 H2</b><small>原生工具期</small><p>多维筛选、基金池、债基风险监控、业绩指标与 Brinson/Campisi 等研究深度快速补齐。</p></div>
+    <div class="time"><b>2023</b><small>组合与平台期</small><p>组合实验室、且慢组合关注、资产/基金/行业/地区配置、调仓分析、自定义主题和机构版本持续迭代。</p></div>
+    <div class="time"><b>2024</b><small>整合与机构化</small><p>基金优选、标签、量化/指增分析、报告工坊重构；功能逐步汇入 coral-huge，并推进本地化部署。</p></div>
+    <div class="time"><b>2025</b><small>底层平台化</small><p>建设 CORAL 投研数据平台、IAS-CORAL、cora-api 和数据映射；向且慢等上层场景提供指标数据。</p></div>
+    <div class="time"><b>2025–26</b><small>继承与迁移</small><p>部分能力向 VESTA/启明迁移并拆成 MCP 工具；CORAL 的页面资产逐步转为数据、算法与服务资产。</p></div>
+  </div>
+</section>
+
+<section id="product-roadmap">
+  <div class="sec-head"><div><div class="kicker">04 · Product roadmap</div><h2>产品路线图：原规划、实际演进与下一步治理</h2></div><p>原始路线按资产范围扩张，实际路线更像能力形态升级。两者叠加后，CORAL 的真正终点不是覆盖更多菜单，而是把投研能力变成可持续供给的服务。</p></div>
+  <div class="route-grid">
+    <div class="route"><h3>原规划（历史档案确认）</h3><div class="phase"><b>一期</b><span><strong>2022 年中：</strong>以公募基金为核心，完成基金、经理、筛选、基金池等投研工具。</span></div><div class="phase"><b>二期</b><span><strong>2022 年底：</strong>扩展到股票、债券等多资产研究，并增强组合与固收分析。</span></div><div class="phase"><b>三期</b><span><strong>2023 年：</strong>覆盖私募、银行理财、保险资管、信托等多金融产品。</span></div><div class="phase"><b>交付</b><span>SaaS、OPEN API、机构定制与本地化部署并行，逐层、逐个、逐粒输出能力。</span></div></div>
+    <div class="route"><h3>实际演进（档案综合）</h3><div class="phase"><b>0→1</b><span>先聚合 IMS / Juniper，快速建立入口和用户心智，再建设 CORAL 原生工具。</span></div><div class="phase"><b>1→N</b><span>围绕基金研究、组合实验室、固收监控、筛选、优选和报告持续扩模块。</span></div><div class="phase"><b>B 端化</b><span>通过客户主题、权限、数据隔离、API 和本地部署支持机构差异化。</span></div><div class="phase"><b>服务化</b><span>数据工厂、coral-api、coral-reef 把页面后的数据与计算能力逐步拆开。</span></div><div class="phase"><b>后继化</b><span>VESTA 接续投研工业化，PMS 接续组合运营，MCP 接续 Agent 调用。</span></div></div>
+  </div>
+  <details><summary>建议的下一段路线（分析建议，非已批准计划）</summary><div class="phase"><b>0–3月</b><span>冻结新增页面分叉；完成页面、接口、指标、模型、客户版本和负责人台账。</span></div><div class="phase"><b>3–6月</b><span>建立统一指标注册表、黄金样本和 CORAL→VESTA/PMS/FDP 的对象映射。</span></div><div class="phase"><b>6–12月</b><span>将高复用模型与查询能力服务化；把客户定制从代码分叉改为配置套餐。</span></div><div class="phase"><b>12月+</b><span>按“已迁移—只读保留—有替代方案”三条件逐模块退役旧页面，保留审计与历史结果。</span></div></details>
 </section>
 
 <section id="architecture">
-  <div class="sec-head"><div><div class="kicker">03 · Product architecture</div><h2>三层结构：研究入口、分析引擎、输出与集成</h2></div><p>历史前端是 Umi/React 单页壳与多个微前端/工具入口；后端围绕 coral-reef、coral-api、数据工厂与 DDB/MySQL 等服务协作。</p></div>
-  <div class="architecture">
-    <div class="arch"><h3>入口与治理</h3><ul><li>发现页 / 工具箱</li><li>参数与主题配置</li><li>用户、机构、权限</li><li>客户化菜单与品牌</li><li>研究报告访问控制</li></ul></div>
-    <div class="arch core"><h3>投研计算核心</h3><ul><li>基金 / 经理 / 指数 / 行业</li><li>筛选器、优选、基金池</li><li>组合净值、风险、归因</li><li>固收 Campisi、Brinson、Barra、Fama</li><li>MVO、情景模拟、投资信号</li></ul></div>
-    <div class="arch"><h3>输出与连接</h3><ul><li>研究中心与报告工厂</li><li>Excel / 图片 / PDF 导出</li><li>API 与客户定制页面</li><li>且慢模拟组合</li><li>后续 MCP / AI 调用</li></ul></div>
+  <div class="sec-head"><div><div class="kicker">05 · Product framework</div><h2>产品框架图：六层装配，一套投研能力多种交付</h2></div><p>这个框架同时解释产品与技术：上层按用户场景组织，下层按数据、指标和模型复用；权限、版本与血缘贯穿全部层级。</p></div>
+  <div class="product-frame" role="img" aria-label="CORAL 六层产品框架图">
+    <div class="frame-row"><div class="frame-label">用户与场景层</div><div class="frame-cells"><div class="frame-cell"><b>研究员</b><span>研究、筛选、比较、入池</span></div><div class="frame-cell"><b>投资经理</b><span>组合、归因、调仓复盘</span></div><div class="frame-cell"><b>科技与产品</b><span>模块接入、API、二次开发</span></div><div class="frame-cell"><b>机构管理者</b><span>投研体系与成果管理</span></div></div></div>
+    <div class="frame-row"><div class="frame-label">触点与交付层</div><div class="frame-cells"><div class="frame-cell"><b>CORAL Web</b><span>发现页、工具箱、工作台</span></div><div class="frame-cell"><b>机构版本</b><span>主题、菜单、数据隔离</span></div><div class="frame-cell"><b>API / 本地化</b><span>原子能力与私有部署</span></div><div class="frame-cell"><b>报告 / 导出</b><span>模板、Excel、图片、PDF</span></div></div></div>
+    <div class="frame-row"><div class="frame-label">应用工具层</div><div class="frame-cells"><div class="frame-cell"><b>基金与经理</b><span>全景分析、风格、持仓</span></div><div class="frame-cell"><b>筛选与基金池</b><span>多维查询、评分、准入</span></div><div class="frame-cell"><b>组合与资产配置</b><span>实验室、MVO、模拟</span></div><div class="frame-cell"><b>固收与报告</b><span>监控、归因、报告工坊</span></div></div></div>
+    <div class="frame-row"><div class="frame-label">共享能力层</div><div class="frame-cells"><div class="frame-cell"><b>对象与检索</b><span>基金、经理、指数、组合</span></div><div class="frame-cell"><b>参数与主题</b><span>区间、基准、分类、配色</span></div><div class="frame-cell"><b>任务与模板</b><span>批计算、导出、报告组件</span></div><div class="frame-cell"><b>权限与客户</b><span>组织、角色、伙伴、可见域</span></div></div></div>
+    <div class="frame-row"><div class="frame-label">研究引擎层</div><div class="frame-cells"><div class="frame-cell"><b>收益风险</b><span>TWR、回撤、波动、风险调整</span></div><div class="frame-cell"><b>归因与风格</b><span>Brinson、Campisi、Barra、Fama</span></div><div class="frame-cell"><b>配置与评分</b><span>MVO、Bootstrap、优选评分</span></div><div class="frame-cell"><b>指标与信号</b><span>行业、择时、估值、因子</span></div></div></div>
+    <div class="frame-row foundation"><div class="frame-label">数据与治理底座</div><div class="frame-cells"><div class="frame-cell"><b>FDP / 行情</b><span>主数据、净值、持仓、估值</span></div><div class="frame-cell"><b>IMS / 研究内容</b><span>研报、推荐、专题研究</span></div><div class="frame-cell"><b>Coral Data</b><span>业务加工、缓存、离线计算</span></div><div class="frame-cell"><b>治理信封</b><span>as-of、来源、版本、质量标记</span></div></div></div>
   </div>
 </section>
 
+<section id="users">
+  <div class="sec-head"><div><div class="kicker">06 · Users & adoption</div><h2>用户情况：四类机构、四类角色，规模数字仍未披露</h2></div><p>历史业务分析用“投研能力 × 科技能力”划分机构客群。它比按机构牌照分类更有用，因为决定了 CORAL 应交付标准产品、效率工具、模块能力还是共建方案。</p></div>
+  <div class="user-matrix">
+    <div class="user-card"><div class="axis">A · 高投研 × 高科技</div><h3>补真空、快 POC</h3><p>成熟机构不会整体采购外部系统，更需要专项模块、快速验证、本地部署和二次开发。CORAL 在这里承担能力证明与模块供给。</p></div>
+    <div class="user-card"><div class="axis">B · 高投研 × 低科技</div><h3>提效率、保专业</h3><p>研究能力强但工具分散，核心需求是减少人工计算和报告工作，同时保留分析逻辑透明度与可控性。</p></div>
+    <div class="user-card"><div class="axis">C · 低投研 × 高科技</div><h3>给框架、给原子能力</h3><p>科技部门正推动投研数字化，但缺研究框架；需要模块化工具、API、方法论和本地化能力，帮助建立体系。</p></div>
+    <div class="user-card"><div class="axis">D · 低投研 × 低科技</div><h3>标准化、低门槛</h3><p>更适合标准工具、策略建议和研究经验共享；产品要控制部署与学习成本，并逐步帮助其提升投研能力。</p></div>
+  </div>
+  <div class="user-facts"><div class="user-fact"><b>账户起点</b><span>Beta 首期复用 IMS 账户，存量与新增 IMS 用户可直接登录。</span></div><div class="user-fact"><b>核心角色</b><span>研究员、投资经理、策略经理、机构科技/产品人员与管理者。</span></div><div class="user-fact"><b>使用证据</b><span>存在通用版、机构定制版、本地化部署与上层业务数据供给记录。</span></div><div class="user-fact"><b>量化缺口</b><span>未发现可信累计用户、机构数、DAU/MAU、留存或模块渗透率，统一标记“未披露”。</span></div></div>
+  <details><summary>模块实际使用强弱的档案线索</summary><p>2025 年项目介绍显示，基金分析、基金经理、新旧筛选器、债基监控、基金池、主题分析和报告工坊持续维护；组合实验室主要存在于 CORAL 通用版，当时未作为客户部署模块；资产配置模块被标注为“很少用”，微信公众号管理“几乎没怎么用”。这是研发档案对使用状态的描述，不等同于正式活跃度统计。</p></details>
+</section>
+
+<section id="relations">
+  <div class="sec-head"><div><div class="kicker">07 · System relationships</div><h2>系统关联：CORAL 位于数据、研究、运营与交付之间</h2></div><p>它既向上消费数据与研究内容，又向下输出组合研究、报告和机构能力。VESTA 是能力后继，PMS 是运营执行承接，两者不应混为同一系统。</p></div>
+  <div class="relation-map" role="img" aria-label="CORAL 与其他系统关系图">
+    <div class="rel coral"><b>CORAL</b><span>研究能力装配、分析与交付中枢</span><em>对象 · 指标 · 模型 · 工具 · 报告</em></div>
+    <div class="rel ims"><b>IMS / Juniper</b><span>Beta 初期的研报、推荐、经理档案和基金分析供给；IMS 账户同时作为初期登录来源。</span><em>历史输入 / 能力聚合</em></div>
+    <div class="rel fdp"><b>FDP / 数据平台</b><span>提供基金、行情、持仓、指数等基础数据；CORAL 数据平台做业务定制与下沉。</span><em>上游数据</em></div>
+    <div class="rel vesta"><b>VESTA / 启明</b><span>承接新一代投研工业化、算法、信号、产品评价和工具服务化；vesta-reef 前身为 coral-reef。</span><em>后继与能力迁移</em></div>
+    <div class="rel pms"><b>PMS</b><span>承接策略、组合、调仓、审核、风控和账户运营；消费 CORAL/VESTA 产出的研究结论与方案。</span><em>下游运营执行</em></div>
+    <div class="rel output"><b>机构 SaaS / 本地部署</b><span>以客户主题、权限、数据隔离、功能模块、报告和私有部署向外部机构交付。</span><em>B 端交付</em></div>
+    <div class="rel uaap"><b>UAAP / 资产配置</b><span>资产配置算法与方案能力；历史规划中与 CORAL AAP 协同，再经 PMS/PO 连接业务前台。</span><em>算法与方案</em></div>
+    <div class="rel qieman"><b>且慢 / TAMP / SCRM</b><span>且慢组合可进入组合实验室；上层产品和顾问场景通过 PMS、PO、API 等中台消费研究能力。</span><em>业务应用</em></div>
+    <div class="rel api"><b>Coral-API / MCP</b><span>将底层数据、中间计算和研究工具原子化输出；后续由 VESTA MCP 扩展为 Agent 可编排能力。</span><em>能力出口</em></div>
+  </div>
+  <div class="tablewrap" style="margin-top:14px"><table><thead><tr><th>关联系统</th><th>CORAL 获取什么</th><th>CORAL 输出什么</th><th>关系状态</th></tr></thead><tbody><tr><td>FDP / 数据平台</td><td>标准金融数据、行情与基础指标</td><td>业务定制需求、投研主题数据消费</td><td><span class="ev archive">明确依赖</span></td></tr><tr><td>IMS / Juniper</td><td>研报、推荐、存量工具与初期账户</td><td>统一入口、重新包装与交互增强</td><td><span class="ev archive">历史整合</span></td></tr><tr><td>PMS</td><td>组合运营对象与执行反馈</td><td>策略研究、模型组合、资配与基金池</td><td><span class="ev archive">上下游协作</span></td></tr><tr><td>UAAP</td><td>资产配置算法与方案</td><td>配置工具界面、研究参数与方案分析</td><td><span class="ev infer">边界待固化</span></td></tr><tr><td>VESTA</td><td>—</td><td>被继承的页面、指标、算法、数据服务</td><td><span class="ev live">后继升级</span></td></tr><tr><td>且慢 / TAMP / SCRM</td><td>业务对象、组合与服务场景</td><td>分析、报告、指标和方案能力</td><td><span class="ev archive">间接连接为主</span></td></tr></tbody></table></div>
+</section>
+
 <section id="inventory">
-  <div class="sec-head"><div><div class="kicker">04 · Complete inventory</div><h2>15 个能力域，逐项盘点</h2></div><p>搜索任意关键词，例如“债券”“回撤”“导出”；也可按证据状态过滤。每张卡片同时说明目标、工具、数据、指标与产物。</p></div>
+  <div class="sec-head"><div><div class="kicker">08 · Complete inventory</div><h2>15 个能力域，逐项盘点</h2></div><p>搜索任意关键词，例如“债券”“回撤”“导出”；也可按证据状态过滤。每张卡片同时说明目标、工具、数据、指标与产物。</p></div>
   <div class="toolbar"><input class="search" id="moduleSearch" type="search" placeholder="搜索功能、数据、指标、工具……" aria-label="搜索功能清单"><button class="filter active" data-filter="all">全部</button><button class="filter" data-filter="archive">档案确认</button><button class="filter" data-filter="live">现行验证</button><button class="filter" data-filter="infer">继承推断</button></div>
   <div class="module-grid" id="moduleGrid">
     <article class="module" data-status="archive" data-search="门户 发现页 工具箱 参数 主题 权限 机构 菜单 Umi React 微前端"><div class="num">01</div><h3>平台壳与权限治理</h3><p>统一承载工具、客户和报告，支持通用入口与机构定制并存。</p><dl><dt>工具</dt><dd>发现页、参数页、系统管理、微前端装载、角色与机构权限。</dd><dt>数据</dt><dd>用户、机构、角色、菜单、主题、工具注册、访问记录。</dd><dt>产物</dt><dd>因人/因机构可见的研究工作台。</dd></dl><span class="ev archive">档案确认</span></article>
@@ -86,7 +145,7 @@
 </section>
 
 <section id="data">
-  <div class="sec-head"><div><div class="kicker">05 · Data model</div><h2>系统真正管理的是 16 类研究对象</h2></div><p>菜单只是入口；对象模型决定数据能否复用、指标能否统一、研究结论能否被组合和智能体调用。</p></div>
+  <div class="sec-head"><div><div class="kicker">09 · Data model</div><h2>系统真正管理的是 16 类研究对象</h2></div><p>菜单只是入口；对象模型决定数据能否复用、指标能否统一、研究结论能否被组合和智能体调用。</p></div>
   <div class="objects">
     <div class="object"><b>基金 Fund</b><span>主数据、分类、份额、费率、净值、规模</span></div><div class="object"><b>经理 Manager</b><span>履历、任职、在管产品、业绩区间</span></div><div class="object"><b>机构 Institution</b><span>基金公司、客户机构、权限与品牌</span></div><div class="object"><b>指数 Index</b><span>点位、成分、行业权重、估值</span></div>
     <div class="object"><b>证券 Security</b><span>股票、债券、可转债、分类与行情</span></div><div class="object"><b>持仓 Holding</b><span>基金/组合对证券和基金的暴露</span></div><div class="object"><b>净值 NAV</b><span>原始/复权净值、频率、来源与质量</span></div><div class="object"><b>组合 Portfolio</b><span>持仓、权重、现金、基准与状态</span></div>
@@ -98,7 +157,7 @@
 </section>
 
 <section id="formula">
-  <div class="sec-head"><div><div class="kicker">06 · Metric & formula dictionary</div><h2>指标与公式：已确认、可推导、仍缺契约</h2></div><p>公式旁边的状态比公式本身更重要。“接口返回了一个数”不等于口径已经治理完成。</p></div>
+  <div class="sec-head"><div><div class="kicker">10 · Metric & formula dictionary</div><h2>指标与公式：已确认、可推导、仍缺契约</h2></div><p>公式旁边的状态比公式本身更重要。“接口返回了一个数”不等于口径已经治理完成。</p></div>
   <div class="tablewrap"><table><thead><tr><th>指标 / 模型</th><th>公式或口径</th><th>关键输入</th><th>证据状态</th><th>待确认项</th></tr></thead><tbody>
     <tr><td>区间收益率</td><td class="formula">R = NAV_end / NAV_start − 1</td><td>复权净值、起止交易日</td><td><span class="ev archive">档案/接口</span></td><td>端点回退、分红复权模式</td></tr>
     <tr><td>年化收益率</td><td class="formula">(1 + R)^(252 / N) − 1</td><td>组合区间收益、交易日数</td><td><span class="ev infer">后继审计</span></td><td>基金侧曾见 365.25/N；对象需分开</td></tr>
@@ -135,7 +194,7 @@
 </section>
 
 <section id="migration">
-  <div class="sec-head"><div><div class="kicker">07 · CORAL → VESTA</div><h2>能力没有消失，而是从页面转成服务与工具</h2></div><p>研发资料显示 vesta-reef 的前身是 coral-reef。当前 122 项工具是“后继能力地图”，可用来识别哪些旧资产被继承、扩展或重组。</p></div>
+  <div class="sec-head"><div><div class="kicker">11 · CORAL → VESTA</div><h2>能力没有消失，而是从页面转成服务与工具</h2></div><p>研发资料显示 vesta-reef 的前身是 coral-reef。当前 122 项工具是“后继能力地图”，可用来识别哪些旧资产被继承、扩展或重组。</p></div>
   <div class="migration">
     <div class="system"><h3>CORAL</h3><div class="big">页面型</div><p>研究员在工具箱中选择页面、配置参数、查看图表并导出报告。核心组织方式是菜单与场景。</p><ul><li>基金/经理/组合页面</li><li>筛选、分析、导出</li><li>机构客户定制</li><li>研究中心与报告</li></ul></div>
     <div class="arrow">→<small>服务化 / 原子化 / 可编排</small></div>
@@ -147,7 +206,7 @@
 </section>
 
 <section id="risk">
-  <div class="sec-head"><div><div class="kicker">08 · Gaps & risks</div><h2>最大的风险不是没有功能，而是口径无法追责</h2></div><p>从旧系统走向 AI 可调用平台，错误会从“一个页面看错”放大为“多个智能体同时复用错误”。</p></div>
+  <div class="sec-head"><div><div class="kicker">12 · Gaps & risks</div><h2>最大的风险不是没有功能，而是口径无法追责</h2></div><p>从旧系统走向 AI 可调用平台，错误会从“一个页面看错”放大为“多个智能体同时复用错误”。</p></div>
   <div class="risk-grid">
     <div class="risk high"><h3>同名指标，多套年化与基准</h3><p>基金、组合、客户账户可能分别使用 365.25 日、252 交易日、TWR 或 MWR。若不在对象层锁定口径，比较结果会失真。</p></div>
     <div class="risk high"><h3>计算结果缺少血缘</h3><p>很多输出没有同时携带数据截至日、净值模式、分类版本、参数、代码版本和缺失处理，无法复算与审计。</p></div>
@@ -161,7 +220,7 @@
 </section>
 
 <section id="roadmap">
-  <div class="sec-head"><div><div class="kicker">09 · Recommended rebuild</div><h2>六步把旧系统变成可复用的投研能力资产</h2></div><p>目标不是再做一个“更漂亮的 CORAL”，而是建立可信、可组合、可验证、对人和智能体都友好的投研操作系统。</p></div>
+  <div class="sec-head"><div><div class="kicker">13 · Recommended rebuild</div><h2>六步把旧系统变成可复用的投研能力资产</h2></div><p>目标不是再做一个“更漂亮的 CORAL”，而是建立可信、可组合、可验证、对人和智能体都友好的投研操作系统。</p></div>
   <div class="recommend">
     <div class="rec"><h3>建立统一指标注册表</h3><p>每个指标拥有唯一 ID、中文名、数学定义、对象、频率、年化、基准、来源、缺失处理、版本和负责人。</p><span class="priority">P0 · 先于界面重做</span></div>
     <div class="rec"><h3>把数据血缘做成结果的一部分</h3><p>每个表格、图表和接口结果必须能展开看到 as-of、source、formula version、parameters 与 quality flags。</p><span class="priority">P0 · 审计底座</span></div>
@@ -173,9 +232,9 @@
 </section>
 
 <section id="evidence">
-  <div class="sec-head"><div><div class="kicker">10 · Evidence ledger</div><h2>证据范围、限制与代表性来源</h2></div><p>本报告是一份“可追责盘点”，不是把所有历史需求文档都当作已上线事实。功能是否上线、是否仍在、口径是否延续，按证据等级分别陈述。</p></div>
+  <div class="sec-head"><div><div class="kicker">14 · Evidence ledger</div><h2>证据范围、限制与代表性来源</h2></div><p>本报告是一份“可追责盘点”，不是把所有历史需求文档都当作已上线事实。功能是否上线、是否仍在、口径是否延续，按证据等级分别陈述。</p></div>
   <details open><summary>证据等级</summary><ul><li><strong>档案确认：</strong>产品规划、上线月报、研发设计或既有系统知识中有明确记录；不自动等于今天仍可用。</li><li><strong>现行接口实测：</strong>2026-09-16 通过后继投研工具执行了只读调用；证明当前服务响应，不证明旧 CORAL 当年已有相同实现。</li><li><strong>继承/推断：</strong>基于 coral-reef → vesta-reef、对象和接口连续性做的有边界推断。</li><li><strong>未确认：</strong>只有概念、字段或界面线索，没有足够材料锁定公式/实现。</li></ul></details>
-  <details><summary>代表性历史来源</summary><ol class="source-list"><li>CORAL 老投研系统知识条目</li><li>VESTA 投研工业化平台知识条目</li><li>2022 年 3 月 CEO 月报：CORAL Beta</li><li>2022 年 4 月 CEO 月报：正式上线</li><li>2022 年 5 月 CEO 月报：模块迭代</li><li>2022 年 8 月 CEO 月报：固收异常监控</li><li>2023 年 Coral 数据工厂设计</li><li>2023 年 coral-api 架构设计</li><li>2025 年投研系统容灾说明</li><li>基金分析与基金经理画像 PRD</li><li>基金筛选器新旧版规划</li><li>基金优选与指标权重说明</li><li>基金池/投资池管理规划</li><li>债券异常监控与久期估算文档</li><li>Campisi 持仓与回归归因说明</li><li>Brinson 与多期归因设计</li><li>Barra/Fama/Carhart 分析规划</li><li>组合实验室与模拟组合规划</li><li>资产配置 AAP / MVO 规划</li><li>报告工厂与批量导出设计</li><li>招商银行等机构定制页面规划</li><li>且慢模拟组合接入说明</li><li>vesta MCP 指标公式口径盘点</li><li>现行 9 域 122 工具目录</li></ol></details>
+  <details><summary>代表性历史来源</summary><ol class="source-list"><li>0-1 CORAL 投研平台项目规划</li><li>CORAL Beta 产品方案与正式版规划</li><li>机构投研科技业务分析报告</li><li>CORAL 老投研系统知识条目</li><li>VESTA 投研工业化平台知识条目</li><li>2022 年 3 月 CEO 月报：CORAL Beta</li><li>2022 年 4 月 CEO 月报：正式上线</li><li>2022 年 5 月 CEO 月报：模块迭代</li><li>2022 年 8 月 CEO 月报：固收异常监控</li><li>2023 年 Coral 数据工厂设计</li><li>2023 年 coral-api 架构设计</li><li>2025 年 CORAL 项目介绍与底层平台设计</li><li>基金分析与基金经理画像 PRD</li><li>基金筛选器新旧版规划</li><li>基金优选与指标权重说明</li><li>基金池/投资池管理规划</li><li>债券异常监控与久期估算文档</li><li>Campisi 持仓与回归归因说明</li><li>Brinson 与多期归因设计</li><li>Barra/Fama/Carhart 分析规划</li><li>组合实验室与模拟组合规划</li><li>资产配置 AAP / MVO 规划</li><li>报告工厂与批量导出设计</li><li>机构定制与本地化部署材料</li><li>且慢模拟组合接入说明</li><li>vesta MCP 指标公式口径盘点</li><li>现行 9 域 122 工具目录</li></ol></details>
   <details><summary>当前网页实机限制</summary><p>浏览器访问 <strong>https://coral.yingmi.com/</strong> 后跳转到登录页，页面标识为“盈米基金投研工具平台”，包含账号密码与短信登录入口；本轮未取得登录后会话，因此未对当前线上菜单逐页截图。报告据此没有声称“已遍历当前每个页面”。若后续提供合法会话，可追加一版“现网逐页验收差异表”。</p></details>
   <div class="foot">研究日期：2026-09-16 · 数据与接口仅用于只读验证 · 不含客户数据、凭据、内部地址或个人信息 · CLAIR Research</div>
 </section>
