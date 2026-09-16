@@ -173,6 +173,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "global-ai-advice-advisor-copilot-cases-2026-09-16",
+      groupId: "research",
+      title: "全球智能投顾与顾问 AI 副驾｜16 家经典案例",
+      url: "https://clairku.github.io/clair-ai-studio/reports/global-ai-advice-advisor-copilot-cases-2026-09-16/",
+      preview: "global-ai-advice-advisor-copilot-cases-2026-09-16.png",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-16T19:10:00+08:00",
+      source: "截至 2026-09-16 的 30+ 条公司官网、监管披露、年报、投资者关系材料与当事方确认媒体证据｜逐条核查用户提供的 Morgan Stanley、Vanguard、BlackRock、Betterment、LPL × Anthropic、OpenAI × Roi/Hiro 两张原图｜分为 8 家直接面向投资者的智能投顾与 8 家顾问 AI 副驾，每家独立一页，区分已上线、试点、Coming Soon、公司自报与未证实口径｜公开行业研究，不含客户数据或内部敏感信息",
+      access: "production",
+      workType: "competitive-research",
+      tags: ["智能投顾", "AI 投顾", "财富管理", "顾问副驾", "Robo Advisor", "Morgan Stanley", "BlackRock", "Vanguard", "Betterment", "Wealthfront", "LPL", "UBS", "Morningstar", "Envestnet", "OpenAI", "竞品调研", "事实核查", "HTML", "生产"],
+    },
+    {
       id: "vesta-system-deep-dive-2026-09-16",
       groupId: "research",
       title: "VESTA 盈米投研系统｜全景深度调研",
@@ -2502,6 +2516,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "global-ai-advice-advisor-copilot-cases-2026-09-16": "research",
   "vesta-system-deep-dive-2026-09-16": "research",
   "coral-investment-research-system-deep-dive-2026-09-16": "research",
   "qieman-llm-trading-path-2026-09-15": "xiaogu",
