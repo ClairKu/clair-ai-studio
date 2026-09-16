@@ -23,12 +23,21 @@ import {
   packReportArchive,
 } from "./single-file-archive.js";
 import {
-  clearReportDisposition,
+  mergeReportDispositions,
   normalizedReportUrl as normalizedUrl,
   reportDisposition,
   seedLegacyArchiveDispositions,
   setReportDisposition,
 } from "./report-dispositions.js";
+import {
+  applyReportDispositions,
+  DISPOSITION_BACKUP_DATABASE_ID,
+  DISPOSITION_LEDGER_BACKUP_KEY,
+  DISPOSITION_LEDGER_KEY,
+  dispositionFingerprint,
+  loadDispositionLedger,
+  saveDispositionLedger,
+} from "./workbench-persistence.js";
 import {
   CONTENT_COVER_VARIANT,
   COVER_VARIANT_COUNT,
@@ -2841,21 +2850,26 @@ function saveReportOrder() {
 }
 
 function loadState() {
+  let saved = null;
   try {
-    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
-    if (Array.isArray(saved?.groups) && Array.isArray(saved?.reports)) {
-      return migrateState(saved);
-    }
+    const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if (Array.isArray(parsed?.groups) && Array.isArray(parsed?.reports)) saved = parsed;
   } catch {
-    // Use initial state when local data is invalid.
+    // The independent ledger below still recovers archive/delete decisions.
   }
-  return clone(initialState);
+  const dispositionLedger = loadDispositionLedger(localStorage);
+  const source = saved || clone(initialState);
+  source.reportDispositions = mergeReportDispositions(
+    source.reportDispositions,
+    dispositionLedger,
+  );
+  return migrateState(source);
 }
 
 function migrateState(saved) {
   const catalog = clone(initialState);
   const reportDispositions = seedLegacyArchiveDispositions(
-    saved.reportDispositions,
+    mergeReportDispositions(saved.reportDispositions, loadDispositionLedger(localStorage)),
     saved.reports,
   );
   const catalogGroupIds = new Set(catalog.groups.map((group) => group.id));
@@ -2962,9 +2976,12 @@ function migrateState(saved) {
       position: saved.version >= DATA_VERSION && Number.isFinite(savedReport.position)
         ? savedReport.position
         : report.position,
-      archived: disposition?.status === "archived" || Boolean(savedReport.archived),
+      archived: disposition?.status === "archived" ||
+        (!disposition && Boolean(savedReport.archived)),
       archivedAt: disposition?.status === "archived"
         ? disposition.changedAt || savedReport.archivedAt || ""
+        : disposition?.status === "active"
+        ? ""
         : savedReport.archivedAt || "",
     };
   }).filter(Boolean);
@@ -2976,7 +2993,7 @@ function migrateState(saved) {
     }
     catalogReportIds.add(report.id);
     if (reportUrl) catalogUrls.add(reportUrl);
-    reports.push(report);
+    reports.push(...applyReportDispositions([report], reportDispositions));
   });
   const migrated = {
     version: DATA_VERSION,
@@ -2984,16 +3001,66 @@ function migrateState(saved) {
     groups: uniqueGroups,
     reports,
   };
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(migrated));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(migrated));
+  } catch {
+    // A catalog migration must never discard a valid in-memory state merely
+    // because the legacy all-in-one localStorage record reached its quota.
+  }
   return migrated;
 }
 
 function saveState() {
+  state.reportDispositions = mergeReportDispositions(
+    state.reportDispositions,
+    loadDispositionLedger(localStorage),
+  );
+  state.reports = applyReportDispositionsInPlace(state.reports, state.reportDispositions);
   state.version = DATA_VERSION;
   state.groups.forEach((group, index) => {
     group.position = index;
   });
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+function commitReportDisposition(report, status, changedAt = new Date().toISOString()) {
+  const next = setReportDisposition(
+    mergeReportDispositions(state.reportDispositions, loadDispositionLedger(localStorage)),
+    report,
+    status,
+    changedAt,
+  );
+  try {
+    state.reportDispositions = saveDispositionLedger(localStorage, next, changedAt);
+  } catch {
+    state.reportDispositions = next;
+  }
+  state.reports = applyReportDispositionsInPlace(state.reports, state.reportDispositions);
+  void backupDispositionLedger(state.reportDispositions);
+  void requestPersistentWorkbenchStorage();
+  return state.reportDispositions;
+}
+
+function applyReportDispositionsInPlace(reports, entries) {
+  return reports.filter((report) => {
+    const disposition = reportDisposition(entries, report);
+    if (disposition?.status === "deleted") return false;
+    if (disposition?.status === "archived") {
+      report.archived = true;
+      report.archivedAt = disposition.changedAt || report.archivedAt || "";
+    } else if (disposition?.status === "active") {
+      report.archived = false;
+      report.archivedAt = "";
+    }
+    return true;
+  });
+}
+
+function reconcileDispositionLedger(entries = loadDispositionLedger(localStorage)) {
+  const before = dispositionFingerprint(state.reportDispositions);
+  const merged = mergeReportDispositions(state.reportDispositions, entries);
+  state = migrateState({ ...clone(state), reportDispositions: merged });
+  return before !== dispositionFingerprint(state.reportDispositions);
 }
 
 function loadPreviewCovers() {
@@ -3286,7 +3353,7 @@ async function saveIntakeToLibrary({ material, files }, onProgress = () => {}) {
     !item.archived && item.groupId === report.groupId).length;
 
   const beforeDispositions = clone(state.reportDispositions || []);
-  state.reportDispositions = clearReportDisposition(state.reportDispositions, report);
+  commitReportDisposition(report, "active", now);
   state.reports.push(report);
   try {
     saveState();
@@ -4255,6 +4322,7 @@ function renderSearchAtCurrentScroll(resolvePreferredElement = null, viewportSna
 });
 
 let fileDatabasePromise = null;
+let persistentStorageRequested = false;
 const activeFileObjectUrls = new Set();
 
 function openFileDatabase() {
@@ -4276,6 +4344,62 @@ function openFileDatabase() {
     request.onerror = () => reject(request.error || new Error("File database failed"));
   });
   return fileDatabasePromise;
+}
+
+async function requestPersistentWorkbenchStorage() {
+  if (persistentStorageRequested || !navigator.storage?.persist) return;
+  persistentStorageRequested = true;
+  try {
+    if (!await navigator.storage.persisted?.()) await navigator.storage.persist();
+  } catch {
+    // The redundant ledger and IndexedDB snapshot still protect the state.
+  }
+}
+
+async function backupDispositionLedger(entries) {
+  try {
+    const database = await openFileDatabase();
+    await new Promise((resolve, reject) => {
+      const transaction = database.transaction(FILE_STORE_NAME, "readwrite");
+      transaction.objectStore(FILE_STORE_NAME).put({
+        id: DISPOSITION_BACKUP_DATABASE_ID,
+        reportId: "__workbench_system__",
+        entries: mergeReportDispositions(entries),
+        updatedAt: new Date().toISOString(),
+      });
+      transaction.oncomplete = resolve;
+      transaction.onerror = () => reject(transaction.error || new Error("Disposition backup failed"));
+      transaction.onabort = () => reject(transaction.error || new Error("Disposition backup aborted"));
+    });
+  } catch {
+    // localStorage has two independent ledger copies; IndexedDB is a third layer.
+  }
+}
+
+async function readDispositionLedgerBackup() {
+  try {
+    const database = await openFileDatabase();
+    return await new Promise((resolve, reject) => {
+      const transaction = database.transaction(FILE_STORE_NAME, "readonly");
+      const request = transaction.objectStore(FILE_STORE_NAME).get(DISPOSITION_BACKUP_DATABASE_ID);
+      request.onsuccess = () => resolve(request.result?.entries || []);
+      request.onerror = () => reject(request.error || new Error("Disposition backup read failed"));
+    });
+  } catch {
+    return [];
+  }
+}
+
+async function restoreDispositionLedgerBackup() {
+  const backup = await readDispositionLedgerBackup();
+  if (!backup.length) return false;
+  let merged = mergeReportDispositions(state.reportDispositions, backup);
+  try {
+    merged = saveDispositionLedger(localStorage, merged);
+  } catch {
+    // IndexedDB remains the authoritative recovery layer.
+  }
+  return reconcileDispositionLedger(merged);
 }
 
 async function persistUploadedFiles(reportId, files = []) {
@@ -5852,17 +5976,16 @@ function bindApp() {
         const report = state.reports.find((item) => item.id === itemId);
         if (!report) return;
         const beforeReport = clone(report);
-        const beforeDispositions = clone(state.reportDispositions || []);
         const snapshot = adjacentReportSnapshot(itemId, actionCard);
         report.archived = true;
         report.archivedAt = new Date().toISOString();
-        state.reportDispositions = setReportDisposition(
-          state.reportDispositions,
-          report,
-          "archived",
-          report.archivedAt,
-        );
-        saveState();
+        commitReportDisposition(report, "archived", report.archivedAt);
+        try {
+          saveState();
+        } catch {
+          // The small independent ledger is already durable even when the
+          // legacy all-in-one state is too large for localStorage.
+        }
         if (normalizeSearchText(query)) renderWorkbenchWithViewportSnapshot(snapshot);
         else renderWithViewportSnapshot(snapshot);
         showUndoToast("已归档，可随时恢复", () => {
@@ -5871,8 +5994,8 @@ function bindApp() {
           Object.assign(current, beforeReport);
           current.archived = Boolean(beforeReport.archived);
           current.archivedAt = beforeReport.archivedAt || "";
-          state.reportDispositions = beforeDispositions;
-          saveState();
+          commitReportDisposition(current, beforeReport.archived ? "archived" : "active");
+          try { saveState(); } catch { /* ledger already saved */ }
           if (normalizeSearchText(query)) {
             renderSearchAtCurrentScroll(() => reportElement(itemId));
           } else {
@@ -5883,19 +6006,18 @@ function bindApp() {
         const report = state.reports.find((item) => item.id === itemId);
         if (!report) return;
         const beforeReport = clone(report);
-        const beforeDispositions = clone(state.reportDispositions || []);
         const snapshot = adjacentReportSnapshot(itemId);
         report.archived = false;
         report.archivedAt = "";
-        state.reportDispositions = clearReportDisposition(state.reportDispositions, report);
-        saveState();
+        commitReportDisposition(report, "active");
+        try { saveState(); } catch { /* ledger already saved */ }
         renderWithViewportSnapshot(snapshot);
         showUndoToast("报告已恢复到原主题", () => {
           const current = state.reports.find((item) => item.id === itemId);
           if (!current) return;
           Object.assign(current, beforeReport);
-          state.reportDispositions = beforeDispositions;
-          saveState();
+          commitReportDisposition(current, "archived");
+          try { saveState(); } catch { /* ledger already saved */ }
           renderAtCurrentScroll(() => reportElement(itemId));
         });
       } else if (action === "delete") {
@@ -5909,15 +6031,10 @@ function bindApp() {
       } else if (action === "confirm-delete") {
         const report = state.reports.find((item) => item.id === itemId);
         if (!report?.archived || modal?.type !== "delete-report") return;
-        state.reportDispositions = setReportDisposition(
-          state.reportDispositions,
-          report,
-          "deleted",
-          new Date().toISOString(),
-        );
+        commitReportDisposition(report, "deleted");
         state.reports = state.reports.filter((item) => item.id !== itemId);
         if (readerId === itemId) readerId = "";
-        saveState();
+        try { saveState(); } catch { /* deletion tombstone already saved */ }
         await deleteStoredFilesForReport(itemId);
         closeAppModal({ fallbackSelector: ".archive-grid, .archive-search" });
         showToast(`已永久删除“${report.title}”`);
@@ -6374,7 +6491,7 @@ function bindApp() {
     if (modal.mode === "edit") {
       const report = state.reports.find((item) => item.id === modal.reportId);
       Object.assign(report, saveMetadata, { tags });
-      state.reportDispositions = clearReportDisposition(state.reportDispositions, report);
+      commitReportDisposition(report, "active");
       touchReport(report);
     } else {
       const now = new Date().toISOString();
@@ -6390,7 +6507,7 @@ function bindApp() {
         archivedAt: "",
         tags,
       };
-      state.reportDispositions = clearReportDisposition(state.reportDispositions, newReport);
+      commitReportDisposition(newReport, "active", now);
       state.reports.push(newReport);
     }
     saveState();
@@ -6403,7 +6520,27 @@ function bindApp() {
 }
 
 export function renderApp() {
+  bindWorkbenchPersistence();
   bindApplicationUpdateChecks();
   ensureSearchIndex();
   render();
+}
+
+let workbenchPersistenceBound = false;
+
+function bindWorkbenchPersistence() {
+  if (workbenchPersistenceBound) return;
+  workbenchPersistenceBound = true;
+  window.addEventListener("storage", (event) => {
+    if (![DISPOSITION_LEDGER_KEY, DISPOSITION_LEDGER_BACKUP_KEY].includes(event.key)) return;
+    if (!reconcileDispositionLedger()) return;
+    try { saveState(); } catch { /* the independent ledger remains authoritative */ }
+    render();
+  });
+  void backupDispositionLedger(state.reportDispositions);
+  void restoreDispositionLedgerBackup().then((changed) => {
+    if (!changed) return;
+    try { saveState(); } catch { /* the recovered ledger remains authoritative */ }
+    render();
+  });
 }

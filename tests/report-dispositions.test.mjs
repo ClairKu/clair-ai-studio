@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 
 import {
   clearReportDisposition,
+  mergeReportDispositions,
   normalizedReportUrl,
   reportDisposition,
   seedLegacyArchiveDispositions,
@@ -66,4 +67,35 @@ test("migrates legacy archived flags and clears the decision on restore", () => 
 
   assert.equal(reportDisposition(migrated, report)?.status, "archived");
   assert.equal(reportDisposition(clearReportDisposition(migrated, report), report), null);
+});
+
+test("a newer active decision beats a stale archive from another tab", () => {
+  const report = { id: "stable-report", url: "https://example.com/report/" };
+  const archived = setReportDisposition([], report, "archived", "2026-09-04T02:00:00.000Z");
+  const active = setReportDisposition([], report, "active", "2026-09-04T03:00:00.000Z");
+  const merged = mergeReportDispositions(archived, active);
+
+  assert.equal(reportDisposition(merged, report)?.status, "active");
+});
+
+test("merges independent changes made in two stale tabs", () => {
+  const first = { id: "first", url: "https://example.com/first/" };
+  const second = { id: "second", url: "https://example.com/second/" };
+  const merged = mergeReportDispositions(
+    setReportDisposition([], first, "archived", archivedAt),
+    setReportDisposition([], second, "deleted", archivedAt),
+  );
+
+  assert.equal(reportDisposition(merged, first)?.status, "archived");
+  assert.equal(reportDisposition(merged, second)?.status, "deleted");
+});
+
+test("deletion wins deterministic ties instead of resurrecting a report", () => {
+  const report = { id: "tie", url: "https://example.com/tie/" };
+  const merged = mergeReportDispositions(
+    setReportDisposition([], report, "active", archivedAt),
+    setReportDisposition([], report, "deleted", archivedAt),
+  );
+
+  assert.equal(reportDisposition(merged, report)?.status, "deleted");
 });

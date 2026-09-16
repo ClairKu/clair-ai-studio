@@ -14,6 +14,7 @@ const fileRendererSource = read("src/file-renderers.js");
 const fileTypesSource = read("src/file-types.js");
 const searchSource = read("src/search.js");
 const searchIndexPath = join(new URL(".", root).pathname, "public", "search-index.json");
+const registryPath = join(new URL(".", root).pathname, "catalog", "report-registry.json");
 const taskSource = read("src/task-center.js");
 const styleSource = read("src/style.css");
 const reportsRoot = join(new URL(".", root).pathname, "public", "reports");
@@ -39,12 +40,22 @@ const reports = reportChunks.map((chunk) => ({
 }));
 
 
-// +1 qianwen user question analysis 2026-09-05
-// +1 Doubao Qieman user dashboard 2026-09-05
-// -1 inaccessible qieman-ai-advisor-ecosystem private Site 2026-09-05
-
-if (reports.length !== 169) { // +1 VESTA system deep dive 2026-09-16
-  fail(`初始成果数量异常：预期 169，实际 ${reports.length}`);
+if (!existsSync(registryPath)) fail("缺少不可静默删减的成果登记册");
+const registry = JSON.parse(readFileSync(registryPath, "utf8"));
+const registeredIds = Array.isArray(registry.protectedReportIds)
+  ? registry.protectedReportIds
+  : [];
+const currentIds = reports.map((report) => report.id);
+const missingRegisteredIds = registeredIds.filter((id) => !currentIds.includes(id));
+const unregisteredIds = currentIds.filter((id) => !registeredIds.includes(id));
+if (missingRegisteredIds.length) {
+  fail(`成果目录发生静默删减：${missingRegisteredIds.join("、")}`);
+}
+if (unregisteredIds.length) {
+  fail(`新增成果尚未登记到 catalog/report-registry.json：${unregisteredIds.join("、")}`);
+}
+if (new Set(registeredIds).size !== registeredIds.length) {
+  fail("成果登记册包含重复 ID");
 }
 
 for (const field of ["id", "url"]) {
@@ -87,9 +98,12 @@ const requiredSignals = [
   [appSource, 'aria-label="搜索归档"', "归档搜索入口缺失"],
   [appSource, "seedLegacyArchiveDispositions(", "旧版归档状态没有迁入独立账本"],
   [appSource, 'disposition?.status === "deleted"', "永久删除后仍会被系统目录重新补回"],
-  [appSource, 'setReportDisposition(\n          state.reportDispositions,\n          report,\n          "archived"', "归档操作没有写入独立账本"],
-  [appSource, 'setReportDisposition(\n          state.reportDispositions,\n          report,\n          "deleted"', "永久删除操作没有写入墓碑标记"],
-  [dispositionSource, 'new Set(["archived", "deleted"])', "归档账本缺少状态约束"],
+  [appSource, 'commitReportDisposition(report, "archived"', "归档操作没有写入独立账本"],
+  [appSource, 'commitReportDisposition(report, "deleted"', "永久删除操作没有写入墓碑标记"],
+  [dispositionSource, 'new Set(["active", "archived", "deleted"])', "归档账本缺少显式恢复状态"],
+  [appSource, "saveDispositionLedger(localStorage", "归档与删除仍依赖单一目录快照"],
+  [appSource, "restoreDispositionLedgerBackup()", "归档账本缺少 IndexedDB 恢复层"],
+  [appSource, 'window.addEventListener("storage"', "归档账本缺少多标签页合并"],
   [appSource, 'data-id="type">Type</button>', "分类按钮未使用英文"],
   [taskSource, 'placeholder="Set an idea in motion"', "统一输入缺少英文提示"],
   [taskSource, 'name: "Decide"', "统一输入操作未使用英文"],

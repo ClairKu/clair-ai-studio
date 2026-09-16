@@ -1,4 +1,9 @@
-const VALID_STATUSES = new Set(["archived", "deleted"]);
+const VALID_STATUSES = new Set(["active", "archived", "deleted"]);
+const STATUS_PRIORITY = new Map([
+  ["active", 1],
+  ["archived", 2],
+  ["deleted", 3],
+]);
 
 export function normalizedReportUrl(value = "") {
   try {
@@ -41,19 +46,48 @@ function matchesReport(entry, report) {
   );
 }
 
+function compareDispositions(a, b) {
+  const timeDifference = new Date(a?.changedAt || 0) - new Date(b?.changedAt || 0);
+  if (timeDifference) return timeDifference;
+  return (STATUS_PRIORITY.get(a?.status) || 0) - (STATUS_PRIORITY.get(b?.status) || 0);
+}
+
+export function mergeReportDispositions(...collections) {
+  const merged = [];
+  const candidates = collections.flatMap((entries) => normalizeReportDispositions(entries));
+
+  for (const candidate of candidates) {
+    const matchingIndexes = merged
+      .map((entry, index) => matchesReport(entry, candidate) ? index : -1)
+      .filter((index) => index >= 0);
+    if (!matchingIndexes.length) {
+      merged.push(candidate);
+      continue;
+    }
+
+    const matches = matchingIndexes.map((index) => merged[index]);
+    const winner = [...matches, candidate]
+      .sort((a, b) => compareDispositions(b, a))[0];
+    for (const index of matchingIndexes.sort((a, b) => b - a)) merged.splice(index, 1);
+    merged.push(winner);
+  }
+
+  return merged.sort((a, b) => {
+    const idDifference = a.id.localeCompare(b.id);
+    if (idDifference) return idDifference;
+    return a.url.localeCompare(b.url);
+  });
+}
+
 export function reportDisposition(entries, report) {
   return normalizeReportDispositions(entries)
     .filter((entry) => matchesReport(entry, report))
-    .sort((a, b) => {
-      const timeDifference = new Date(b.changedAt || 0) - new Date(a.changedAt || 0);
-      if (timeDifference) return timeDifference;
-      return Number(b.status === "deleted") - Number(a.status === "deleted");
-    })[0] || null;
+    .sort((a, b) => compareDispositions(b, a))[0] || null;
 }
 
 export function setReportDisposition(entries, report, status, changedAt = new Date().toISOString()) {
   if (!VALID_STATUSES.has(status)) return normalizeReportDispositions(entries);
-  const next = normalizeReportDispositions(entries)
+  const next = mergeReportDispositions(entries)
     .filter((entry) => !matchesReport(entry, report));
   const disposition = normalizedDisposition({
     id: report?.id,
@@ -66,7 +100,7 @@ export function setReportDisposition(entries, report, status, changedAt = new Da
 }
 
 export function clearReportDisposition(entries, report) {
-  return normalizeReportDispositions(entries)
+  return mergeReportDispositions(entries)
     .filter((entry) => !matchesReport(entry, report));
 }
 
