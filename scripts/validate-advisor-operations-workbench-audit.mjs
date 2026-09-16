@@ -32,6 +32,9 @@ const requiredSignals = [
   "脚本 35 vs 28",
   "没有进行越权或破坏性写测试",
   "data-filter=\"blocked\"",
+  "公开脱敏核心 MD",
+  "查看核心 MD 内容",
+  "## 触发 / 使用案例",
   "顾问运营 AI 工作台｜全功能、数据与 Skill 深度审计",
 ];
 for (const signal of requiredSignals) if (!html.includes(signal)) fail(`报告缺少信号：${signal}`);
@@ -44,6 +47,7 @@ if (skillRows !== 29) fail(`技能条目应为 29，实际 ${skillRows}`);
 if (ready !== 15 || conditional !== 6 || blocked !== 8) {
   fail(`运行状态计数异常：ready=${ready}, conditional=${conditional}, blocked=${blocked}`);
 }
+if (!html.includes("const coreMd=")) fail("技能核心 MD 生成器缺失");
 
 for (const signal of ["29", "52", "P0", "顾问运营 AI 工作台"]) {
   if (!preview.includes(signal)) fail(`预览缺少信号：${signal}`);
