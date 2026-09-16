@@ -173,6 +173,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "pms-system-deep-dive-2026-09-16",
+      groupId: "research",
+      title: "PMS 组合运营管理系统｜全景深度调研",
+      url: "https://clairku.github.io/clair-ai-studio/reports/pms-system-deep-dive-2026-09-16/",
+      preview: "pms-system-deep-dive-2026-09-16.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-16T19:20:00+08:00",
+      source: "PMS 系统/产品/研发/测试档案 + 2026 年更新与 Sprint 81–92 + 生产入口登录门核验｜8 个一级业务域、99 个策略管理员页面节点、39 个平台管理扩展页面、137 条主流程场景｜补全产品定位、六层框架、2021–2026 演进、多租户三层用户角色、系统关系、17 个能力域、8 类数据对象与 30+ 指标公式｜已上线、历史确认、规划和未确认项分级；未获取当前活跃用户数，不含客户数据、凭据、内部地址、人员或租户代码",
+      access: "production",
+      workType: "investment-research",
+      tags: ["PMS", "组合管理", "策略管理", "调仓", "发车", "风控", "账户运营", "多租户", "产品定位", "产品框架", "路线图", "功能盘点", "指标公式", "系统关系", "深度调研", "HTML", "生产"],
+    },
+    {
       id: "global-ai-advice-advisor-copilot-cases-2026-09-16",
       groupId: "research",
       title: "全球智能投顾与顾问 AI 副驾｜16 家经典案例",
@@ -2516,6 +2530,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "pms-system-deep-dive-2026-09-16": "research",
   "global-ai-advice-advisor-copilot-cases-2026-09-16": "research",
   "vesta-system-deep-dive-2026-09-16": "research",
   "coral-investment-research-system-deep-dive-2026-09-16": "research",
