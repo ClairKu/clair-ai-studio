@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="t d">
+  <title id="t">顾问运营 AI 工作台深度审计</title>
+  <desc id="d">四个核心工作区、二十九份唯一技能、五十二条当日机会和三个高优先治理项。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#07100e"/><stop offset="1" stop-color="#10251f"/></linearGradient>
+    <radialGradient id="g"><stop stop-color="#5ce4a7" stop-opacity=".34"/><stop offset="1" stop-color="#5ce4a7" stop-opacity="0"/></radialGradient>
+    <filter id="s"><feDropShadow dx="0" dy="16" stdDeviation="22" flood-opacity=".3"/></filter>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/><circle cx="140" cy="10" r="390" fill="url(#g)"/><circle cx="1090" cy="120" r="310" fill="#66d9ea" opacity=".06"/>
+  <text x="72" y="78" fill="#5ce4a7" font-family="Arial,'PingFang SC',sans-serif" font-size="20" font-weight="700" letter-spacing="4">ADVISOR OPERATIONS · FULL-STACK AUDIT</text>
+  <text x="72" y="145" fill="#f3f7f4" font-family="Arial,'PingFang SC',sans-serif" font-size="54" font-weight="800">顾问运营 AI 工作台</text>
+  <text x="72" y="205" fill="#f3f7f4" font-family="Arial,'PingFang SC',sans-serif" font-size="54" font-weight="800">全功能、数据与 Skill 深度审计</text>
+  <text x="72" y="253" fill="#a9bbb4" font-family="Arial,'PingFang SC',sans-serif" font-size="22">从“技能下载页”走向可治理的顾问运营操作系统</text>
+  <g filter="url(#s)" font-family="Arial,'PingFang SC',sans-serif">
+    <rect x="72" y="312" width="242" height="196" rx="26" fill="#10201c" stroke="#dffff1" stroke-opacity=".13"/>
+    <text x="98" y="372" fill="#66d9ea" font-size="52" font-weight="800">4</text><text x="98" y="410" fill="#f3f7f4" font-size="20" font-weight="700">核心工作区</text><text x="98" y="449" fill="#a9bbb4" font-size="16">技能 · 机会 · 固收</text><text x="98" y="476" fill="#a9bbb4" font-size="16">定制方案</text>
+    <rect x="336" y="312" width="242" height="196" rx="26" fill="#10201c" stroke="#dffff1" stroke-opacity=".13"/>
+    <text x="362" y="372" fill="#b49cff" font-size="52" font-weight="800">29</text><text x="362" y="410" fill="#f3f7f4" font-size="20" font-weight="700">唯一 Skill</text><text x="362" y="449" fill="#a9bbb4" font-size="16">29/29 安装与</text><text x="362" y="476" fill="#a9bbb4" font-size="16">结构校验通过</text>
+    <rect x="600" y="312" width="242" height="196" rx="26" fill="#10201c" stroke="#dffff1" stroke-opacity=".13"/>
+    <text x="626" y="372" fill="#5ce4a7" font-size="52" font-weight="800">52</text><text x="626" y="410" fill="#f3f7f4" font-size="20" font-weight="700">当日机会</text><text x="626" y="449" fill="#a9bbb4" font-size="16">51 条信号 + 1 条</text><text x="626" y="476" fill="#a9bbb4" font-size="16">营销日历规则</text>
+    <rect x="864" y="312" width="264" height="196" rx="26" fill="#1d2018" stroke="#ffc65b" stroke-opacity=".4"/>
+    <text x="890" y="372" fill="#ffc65b" font-size="52" font-weight="800">P0</text><text x="890" y="410" fill="#f3f7f4" font-size="20" font-weight="700">先修身份与权限</text><text x="890" y="449" fill="#a9bbb4" font-size="16">再统一指标口径</text><text x="890" y="476" fill="#a9bbb4" font-size="16">最后补客户闭环</text>
+  </g>
+  <rect x="72" y="554" width="1056" height="1" fill="#dffff1" opacity=".13"/>
+  <text x="72" y="604" fill="#a9bbb4" font-family="Arial,'PingFang SC',sans-serif" font-size="18">2026-09-16 · 公开脱敏版 · 功能盘点 / 数据与公式 / 技能用例 / 安全与路线图</text>
+</svg>

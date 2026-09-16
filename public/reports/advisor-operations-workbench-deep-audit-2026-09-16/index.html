@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <title>顾问运营 AI 工作台｜全功能、数据与 Skill 深度审计</title>
+  <style>
+    :root{--bg:#07100e;--bg2:#0b1714;--panel:#10201c;--panel2:#142923;--ink:#f3f7f4;--muted:#a9bbb4;--line:rgba(224,255,241,.12);--green:#5ce4a7;--lime:#b9f36a;--cyan:#66d9ea;--amber:#ffc65b;--red:#ff7b72;--purple:#b49cff;--shadow:0 24px 70px rgba(0,0,0,.28)}
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:radial-gradient(circle at 12% 0,rgba(92,228,167,.15),transparent 32rem),radial-gradient(circle at 95% 10%,rgba(102,217,234,.11),transparent 34rem),var(--bg);color:var(--ink);font:15px/1.68 Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;overflow-wrap:anywhere} a{color:var(--cyan)} button,input{font:inherit}.wrap{width:min(1200px,calc(100% - 34px));margin:auto}.eyebrow{color:var(--green);font-size:12px;font-weight:900;letter-spacing:.16em;text-transform:uppercase}.hero{padding:76px 0 36px}.hero h1{max-width:1020px;margin:16px 0 18px;font-size:clamp(40px,7vw,76px);line-height:.98;letter-spacing:-.055em}.lead{max-width:900px;margin:0;color:#d6e3de;font-size:clamp(17px,2.1vw,23px);line-height:1.52}.meta{display:flex;flex-wrap:wrap;gap:9px;margin-top:24px}.pill,.tag{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.025);padding:6px 10px;color:var(--muted);font-size:12px}.verdict{margin:34px 0 26px;padding:25px;border:1px solid rgba(92,228,167,.35);border-radius:24px;background:linear-gradient(135deg,rgba(92,228,167,.11),rgba(102,217,234,.055));box-shadow:var(--shadow)}.verdict strong{display:block;margin-bottom:8px;font-size:24px;line-height:1.28}.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:13px;margin:28px 0 78px}.kpi{min-height:150px;padding:21px;border:1px solid var(--line);border-radius:20px;background:rgba(16,32,28,.9)}.kpi b{display:block;font-size:42px;line-height:1;letter-spacing:-.05em}.kpi span{display:block;margin-top:8px;color:#dbe6e1}.kpi small{display:block;margin-top:11px;color:var(--muted)}section{margin:0 0 82px;scroll-margin-top:18px}h2{margin:0 0 11px;font-size:clamp(29px,4vw,47px);line-height:1.07;letter-spacing:-.045em}h3{margin:0 0 8px;font-size:20px}.intro{max-width:900px;margin:0 0 27px;color:var(--muted)}.panel{padding:24px;border:1px solid var(--line);border-radius:22px;background:rgba(16,32,28,.92)}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}.card{padding:21px;border:1px solid var(--line);border-radius:19px;background:var(--panel)}.card p{margin:8px 0 0;color:var(--muted)}.card .no{color:var(--green);font-size:12px;font-weight:900;letter-spacing:.12em}.risk{border-color:rgba(255,123,114,.36);background:linear-gradient(155deg,rgba(255,123,114,.10),var(--panel) 48%)}.warn{border-color:rgba(255,198,91,.33)}.good{border-color:rgba(92,228,167,.3)}.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.flow article{position:relative;min-height:165px;padding:20px;border:1px solid var(--line);border-radius:19px;background:var(--panel)}.flow article:not(:last-child)::after{content:"→";position:absolute;right:-19px;top:60px;z-index:2;color:var(--green);font-size:23px}.flow b{display:block;margin:9px 0;font-size:24px}.flow p{margin:0;color:var(--muted);font-size:13px}.bars{display:grid;gap:13px;margin-top:18px}.bar-row{display:grid;grid-template-columns:112px 1fr 44px;gap:11px;align-items:center}.bar{height:13px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden}.bar i{display:block;height:100%;border-radius:inherit}.table-shell{overflow-x:auto;border:1px solid var(--line);border-radius:20px;background:var(--panel)}table{width:100%;border-collapse:collapse;min-width:860px}th,td{padding:13px 15px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{position:sticky;top:0;background:#142620;color:var(--muted);font-size:12px;letter-spacing:.07em}tr:last-child td{border-bottom:0}.num{font-variant-numeric:tabular-nums}.status{display:inline-flex;border-radius:999px;padding:3px 8px;font-size:12px;font-weight:900}.ok{color:var(--green);background:rgba(92,228,167,.1)}.conditional{color:var(--amber);background:rgba(255,198,91,.11)}.blocked{color:var(--red);background:rgba(255,123,114,.1)}.definition{display:grid;grid-template-columns:190px 1fr;gap:14px;padding:15px 0;border-bottom:1px solid var(--line)}.definition:last-child{border-bottom:0}.definition dt{font-weight:800}.definition dd{margin:0;color:var(--muted)}.formula{margin:8px 0 0;padding:10px 12px;border-radius:12px;background:rgba(102,217,234,.07);color:#d7f4f7;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px}.tools{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}.tools button{appearance:none;border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:999px;padding:8px 12px;cursor:pointer}.tools button[aria-pressed="true"]{background:var(--green);border-color:var(--green);color:#062016;font-weight:900}.tools input{min-width:250px;flex:1;border:1px solid var(--line);border-radius:999px;background:var(--panel);color:var(--ink);padding:8px 14px}.skill-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.skill-card{padding:21px;border:1px solid var(--line);border-radius:20px;background:var(--panel)}.skill-card header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.skill-card h3{font-size:18px}.skill-card .sub{margin:3px 0 12px;color:var(--muted);font-size:12px}.skill-card dl{margin:0}.skill-card dt{margin-top:10px;color:var(--green);font-size:12px;font-weight:900;letter-spacing:.06em}.skill-card dd{margin:3px 0 0;color:#dbe5e1}.skill-card .deps{color:var(--muted)}.skill-card[hidden]{display:none}.scorecard{display:grid;grid-template-columns:1.05fr .95fr;gap:16px}.ring-wrap{display:grid;grid-template-columns:180px 1fr;gap:22px;align-items:center}.ring{width:170px;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--green) 0 52%,var(--amber) 52% 73%,var(--red) 73% 100%)}.ring::after{content:"29\A唯一技能";white-space:pre;display:grid;place-items:center;width:120px;aspect-ratio:1;border-radius:50%;background:var(--panel);font-size:24px;font-weight:900;text-align:center;line-height:1.05}.legend{display:grid;gap:9px}.legend div{display:grid;grid-template-columns:10px 1fr auto;gap:9px;align-items:center}.dot{width:9px;height:9px;border-radius:50%}.timeline{display:grid;gap:12px}.timeline article{display:grid;grid-template-columns:72px 1fr auto;gap:15px;align-items:start;padding:17px;border:1px solid var(--line);border-radius:17px;background:var(--panel)}.timeline .p{display:grid;place-items:center;width:52px;height:38px;border-radius:11px;background:var(--amber);color:#092019;font-weight:900}.timeline p{margin:4px 0 0;color:var(--muted)}.timeline time{color:var(--cyan);white-space:nowrap}.note{padding:20px;border:1px dashed rgba(180,156,255,.5);border-radius:18px;background:rgba(180,156,255,.07);color:#ddd5ff}.evidence{font-size:13px;color:var(--muted)}footer{padding:24px 0 60px;border-top:1px solid var(--line);color:var(--muted)}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+    @media(max-width:940px){.kpis{grid-template-columns:repeat(2,1fr)}.grid4,.grid3{grid-template-columns:repeat(2,1fr)}.grid2,.scorecard{grid-template-columns:1fr}.flow{grid-template-columns:1fr 1fr}.flow article:not(:last-child)::after{display:none}.skill-grid{grid-template-columns:1fr}}
+    @media(max-width:580px){.wrap{width:min(100% - 22px,1200px)}.hero{padding-top:48px}.kpis,.grid4,.grid3,.flow{grid-template-columns:1fr}.kpi{min-height:125px}.ring-wrap{grid-template-columns:1fr;justify-items:center}.legend{width:100%}.definition{grid-template-columns:1fr;gap:3px}.timeline article{grid-template-columns:55px 1fr}.timeline time{grid-column:2}.tools input{min-width:100%;order:-1}}
+  </style>
+</head>
+<body>
+  <header class="hero wrap">
+    <div class="eyebrow">Advisor operations · full-stack audit · 2026-09-16</div>
+    <h1>这不是一个“Skill 下载页”，<br>而是一套半成品的顾问运营操作系统。</h1>
+    <p class="lead">本报告逐页核验顾问运营团队自建工作台，拆解功能、数据、指标、公式和 31 个可见 Skill 记录；完成去重、兼容处理、安装与运行依赖审计，并对“机会发现 → 内容生产 → 合规检查 → 对客执行”的业务闭环给出整改优先级。</p>
+    <div class="meta">
+      <span class="pill">实时核验：2026-09-16 16:50 CST</span><span class="pill">来源：登录后页面、前端逻辑、数据接口、技能正文</span><span class="pill">公开脱敏：不含账号、口令、密钥、个人路径与原始 Skill 全文</span>
+    </div>
+    <div class="verdict"><strong>一句话结论：业务方向对，数据产品化已成形；但身份安全、口径治理和运行依赖还没有达到“全员生产系统”标准。</strong>当前最有价值的是“机会挖掘 + 固收陪伴 + 技能编排”；最危险的是把前端登录当授权边界、把规则分数当投研结论、把技能安装当运行可用。建议先封安全口，再统一指标字典与来源时间，最后接用户行为和真正的一键执行闭环。</div>
+  </header>
+
+  <main class="wrap">
+    <div class="kpis" aria-label="核心盘点指标">
+      <div class="kpi"><b style="color:var(--cyan)">4</b><span>核心工作区</span><small>Skill 库、机会挖掘、固收+陪伴、定制方案陪伴</small></div>
+      <div class="kpi"><b style="color:var(--purple)">31</b><span>页面可见 Skill</span><small>对应 29 份唯一内容，2 组完全重复</small></div>
+      <div class="kpi"><b style="color:var(--green)">29/29</b><span>安装结构校验</span><small>8 新增、7 更新、14 无变化</small></div>
+      <div class="kpi"><b style="color:var(--amber)">52</b><span>当日机会</span><small>51 条静态信号 + 1 条开学季日历规则</small></div>
+      <div class="kpi"><b style="color:var(--red)">3</b><span>高优先治理项</span><small>认证授权、口径一致、数据来源与时效</small></div>
+    </div>
+
+    <section id="architecture">
+      <div class="eyebrow">System map</div><h2>产品真正的主链路：发现机会，再把机会变成可审核物料</h2>
+      <p class="intro">四块页面并非平行孤岛。Skill 库提供可复用方法，机会引擎决定“现在做什么”，固收工作台把组合数据变成陪伴内容，定制方案页承载资产配置研究。缺口在最后两步：合规只做关键词级过滤，执行记录也未与真实客户、触达、成交结果闭环。</p>
+      <div class="flow">
+        <article><span class="eyebrow">01 · SIGNAL</span><b>机会发现</b><p>策略状态、周期披露、用户行为、营销日历与固收预警合流，按紧急度排序。</p></article>
+        <article><span class="eyebrow">02 · REASON</span><b>数据解释</b><p>组合净值、回撤、持仓、市场观点、估值温度和历史窗口共同形成依据。</p></article>
+        <article><span class="eyebrow">03 · GENERATE</span><b>Skill 生产</b><p>29 个唯一技能覆盖分析、H5、日报、推送、报告、计算器与留存弹窗。</p></article>
+        <article><span class="eyebrow">04 · GOVERN</span><b>合规与复盘</b><p>当前是红线词/必备语句和本地处理状态；尚缺审批、发布、客户反馈与转化归因。</p></article>
+      </div>
+    </section>
+
+    <section id="modules">
+      <div class="eyebrow">Every surface</div><h2>四个工作区，逐项盘点</h2>
+      <div class="grid2">
+        <article class="panel"><h3>① Skill 库｜方法资产中心</h3><dl><div class="definition"><dt>核心功能</dt><dd>按分类、关键字、更新时间、名称、下载量和“有 Demo”筛选；查看简介、用法、Markdown、版本、评论；下载、上传、刷新、编辑。</dd></div><div class="definition"><dt>个人侧功能</dt><dd>“我的记录”保存本地使用历史；“本地备份”最多 8 个快照、单份最多 2,000,000 字符；本地日志上限 1,000 条。</dd></div><div class="definition"><dt>数据现状</dt><dd>12 条本地增强记录 + 21 条云记录；其中 2 条云记录被本地覆盖，页面显示 31 条，正文哈希去重后 29 份。</dd></div><div class="definition"><dt>关键问题</dt><dd>列表数量不是唯一能力数量；附件和 Demo 链接部分不可取；下载量只有 29，不能代表业务使用效果。</dd></div></dl></article>
+        <article class="panel"><h3>② 机会挖掘｜运营信号雷达</h3><dl><div class="definition"><dt>覆盖面</dt><dd>23 个策略、51 条基础信号，另叠加 7 条营销日历规则；本次开学季规则生效后显示 52 条。</dd></div><div class="definition"><dt>信号构成</dt><dd>周期披露 30、策略状态 20、用户行为 1；紧急度高 16、中 26、低 9。</dd></div><div class="definition"><dt>交互动作</dt><dd>查看机会卡、筛选类型与紧急度、生成物料、标记已处理；“已处理”只改变标签，不会移除记录。</dd></div><div class="definition"><dt>关键问题</dt><dd>用户行为只有 1 条占位，内部客户数据尚未接入；“机会”大量来自规则而非真实转化证据。</dd></div></dl></article>
+        <article class="panel"><h3>③ 固收+陪伴｜组合监控与话术工厂</h3><dl><div class="definition"><dt>页面模块</dt><dd>债券资讯 37、市场资讯 70、陪伴话术 28、策略深度分析 3；覆盖净值曲线、调仓/信号、机构观点、估值、风险披露和群公告草稿。</dd></div><div class="definition"><dt>策略监控</dt><dd>息息相关、我要稳稳的幸福、生生不息；展示日涨跌、周/月/季/年/成立收益、年化、最大回撤、距峰值、年度回撤。</dd></div><div class="definition"><dt>内容引擎</dt><dd>把净值下跌、连续下跌、成分替换、经理观点和市场新闻转换成 28 套陪伴场景。</dd></div><div class="definition"><dt>关键问题</dt><dd>观点样本存在时效断层；词典情绪法无法可靠处理否定、转折和语境；接口脚本数 35 与前台可见 28 口径不一致。</dd></div></dl></article>
+        <article class="panel"><h3>④ 定制方案陪伴｜组合研究驾驶舱</h3><dl><div class="definition"><dt>覆盖面</dt><dd>16 个组合、全球/国内两大系列、3%–10% 八档目标；风险等级按目标映射为 R2/R3/R4。</dd></div><div class="definition"><dt>深度能力</dt><dd>区间/成立以来收益、波动、回撤、Sharpe、Calmar、基准、目标差；持仓、资产配置、调仓、回撤修复与相关材料。</dd></div><div class="definition"><dt>知识材料</dt><dd>124 条材料，可按分类、搜索和分页浏览；材料窗口 2024-10-14 至 2026-09-07。</dd></div><div class="definition"><dt>未完成</dt><dd>“历史回测”和“AI 知识问答”仍是开发中占位；数据窗口停在 2026-09-11，与主工作台刷新链路相互独立。</dd></div></dl></article>
+      </div>
+    </section>
+
+    <section id="data">
+      <div class="eyebrow">Data & freshness</div><h2>数据不少，真正缺的是统一“截至何时、来自哪里、怎么算”</h2>
+      <div class="grid4">
+        <div class="card"><div class="no">STRATEGY</div><h3>23 个策略</h3><p>机会引擎以净值、状态、披露周期和规则标签为主，当前净值日 2026-09-15。</p></div>
+        <div class="card"><div class="no">BOND+</div><h3>3 个重点组合</h3><p>接口刷新至 2026-09-16 15:03:08，主数据共含债券资讯 18、市场资讯 15、实时资讯 12、脚本 35、观点 38、运营项 3。</p></div>
+        <div class="card"><div class="no">CUSTOM</div><h3>16 个组合</h3><p>源区间为 2024-06-20 至 2026-09-11，版本 1.3.1；与主站独立部署，不能假定同步更新。</p></div>
+        <div class="card warn"><div class="no">GAP</div><h3>客户行为未接</h3><p>用户行为信号仅 1 条占位。工作台尚不能回答“哪类机会对哪类客户、通过何种触达带来何种结果”。</p></div>
+      </div>
+      <div class="panel" style="margin-top:16px"><h3>固收+ 三策略核心指标｜净值日 2026-09-15</h3><div class="table-shell"><table><thead><tr><th>策略</th><th>最新净值</th><th>近 1 年</th><th>成立以来</th><th>年化</th><th>历史最大回撤</th><th>距峰值</th><th>2026 年内</th></tr></thead><tbody><tr><td>息息相关</td><td>1.0743</td><td>1.99%</td><td>7.43%</td><td>3.28%</td><td>0.91%</td><td>-0.37%</td><td>+1.34%</td></tr><tr><td>我要稳稳的幸福</td><td>1.5668</td><td>2.99%</td><td>56.68%</td><td>4.76%</td><td>2.79%</td><td>-1.21%</td><td>+2.04%</td></tr><tr><td>生生不息</td><td>1.2740</td><td>1.58%</td><td>27.40%</td><td>3.94%</td><td>5.17%</td><td>-3.71%</td><td>+0.56%</td></tr></tbody></table></div><p class="evidence">边界：这些是页面在审计时刻展示的策略维度数据，不是客户账户收益，也不构成产品推荐。</p></div>
+      <div class="panel" style="margin-top:16px"><h3>已发现的数据质量/口径异常</h3><div class="grid3"><div class="card risk"><b>指数标签疑似错配</b><p>一项标为“道琼斯指数”的收盘值为 552.32，与常用道琼斯工业平均指数点位明显不符，可能是指数/ETF 名称映射错误，需回查代码与单位。</p></div><div class="card warn"><b>脚本 35 vs 28</b><p>数据接口统计脚本 35，页面显示陪伴话术 28。可能是分组/过滤/去重口径差异，必须补充定义，不能在运营汇报中混用。</p></div><div class="card warn"><b>观点样本不连续</b><p>债券经理观点 19 条集中在 2026-06-30，而工作台刷新到 9 月；“最新观点”标签必须和内容日期分开展示。</p></div></div></div>
+    </section>
+
+    <section id="formula">
+      <div class="eyebrow">Metric dictionary</div><h2>指标与公式：哪些是事实，哪些是规则，哪些只是启发</h2>
+      <div class="grid2">
+        <article class="panel"><h3>机会与状态规则</h3><dl><div class="definition"><dt>当前状态</dt><dd>净值缺失 → 缺失；否则创新高 → 新高；否则当期回撤绝对值 ≥ 5% → 回撤；其余为稳定。</dd></div><div class="definition"><dt>排序</dt><dd>高紧急度优先，其次中、低；同级按日期由新到旧。</dd></div><div class="definition"><dt>固收预警</dt><dd>连续下跌天数 ≥ 3；或当前回撤达到历史最大回撤幅度的 70% 以上。</dd></div><div class="definition"><dt>合规扫描</dt><dd>22 个红线词做字符串命中 + 3 条必备风险语句缺失检查。通过仅表示“未命中规则”，不是法律意见。</dd></div></dl></article>
+        <article class="panel"><h3>收益与风险口径</h3><dl><div class="definition"><dt>区间收益</dt><dd><div class="formula">R = NAV_end / NAV_start − 1</div></dd></div><div class="definition"><dt>年化波动</dt><dd><div class="formula">σ_annual = sampleStd(daily returns) × √252</div></dd></div><div class="definition"><dt>Sharpe</dt><dd><div class="formula">Sharpe = (区间年化收益 − 1.5%无风险利率) / 年化波动</div></dd></div><div class="definition"><dt>Calmar</dt><dd><div class="formula">Calmar = 区间年化收益 / |区间最大回撤|</div></dd></div><div class="definition"><dt>超额</dt><dd><div class="formula">Excess = Portfolio return − Benchmark return</div></dd></div></dl></article>
+        <article class="panel"><h3>滚动统计与回撤</h3><dl><div class="definition"><dt>正收益率</dt><dd>每个交易日作为起点，持有自然 3 月/6 月/1 年/2 年；收益 &gt; 0 的样本数 ÷ 有效样本数。</dd></div><div class="definition"><dt>回撤</dt><dd><div class="formula">DD_t = NAV_t / max(NAV_0…NAV_t) − 1</div></dd></div><div class="definition"><dt>修复天数</dt><dd>从前高到净值重新达到前高的自然日天数；未恢复必须显式标注。</dd></div><div class="definition"><dt>统计警告</dt><dd>滚动窗口高度重叠，并非独立样本；“100% 正收益”不能外推为未来概率，尤其样本只有 57 时。</dd></div></dl></article>
+        <article class="panel"><h3>情绪与组合目标</h3><dl><div class="definition"><dt>情绪分</dt><dd>标题命中词权重为摘要的 2 倍，正负词频归一化到 −100…100；经理观点 &gt;15 为积极、&lt;−15 为谨慎，其余中性。</dd></div><div class="definition"><dt>目标风险映射</dt><dd>目标 ≥ 8% → R4；目标 ≥ 6% → R3；其余 → R2。</dd></div><div class="definition"><dt>目标差</dt><dd><div class="formula">Gap = 成立以来年化收益 − 战略目标</div></dd></div><div class="definition"><dt>边界</dt><dd>3%–10% 是组合目标标签，不是预测或承诺；词典情绪分是内容索引信号，不是市场方向模型。</dd></div></dl></article>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="eyebrow">29 unique skills</div><h2>每一个 Skill：做什么、怎么用、依赖什么</h2>
+      <p class="intro">页面 31 条可见记录中，两组正文完全重复，因此能力层按 29 份唯一内容分析。状态含义：<b>可用</b>＝当前会话具备完成主流程的必要能力；<b>条件可用</b>＝可走可验证的降级路径，但要看具体策略与数据覆盖；<b>阻塞</b>＝主文已安装但其明确要求的附件、专用 CLI、命名空间或设计 Skill 缺失。</p>
+      <div class="scorecard">
+        <div class="panel ring-wrap"><div class="ring"></div><div class="legend"><div><i class="dot" style="background:var(--green)"></i><span>可直接进入实做</span><b>15</b></div><div><i class="dot" style="background:var(--amber)"></i><span>按数据覆盖条件运行</span><b>6</b></div><div><i class="dot" style="background:var(--red)"></i><span>完整流程被依赖阻塞</span><b>8</b></div></div></div>
+        <div class="panel"><h3>安装结果</h3><div class="bars"><div class="bar-row"><span>新增</span><div class="bar"><i style="width:53%;background:var(--cyan)"></i></div><b>8</b></div><div class="bar-row"><span>更新</span><div class="bar"><i style="width:47%;background:var(--purple)"></i></div><b>7</b></div><div class="bar-row"><span>已一致</span><div class="bar"><i style="width:93%;background:var(--green)"></i></div><b>14</b></div></div><p class="intro" style="margin:18px 0 0">29/29 通过官方结构校验且安装哈希一致。格式通过不等于运行闭环；下一轮对话起新安装技能才会被完整加载。</p></div>
+      </div>
+      <div class="tools" style="margin-top:18px"><input id="skillSearch" type="search" placeholder="搜索技能、场景、公式或依赖…" aria-label="搜索技能" /><button data-filter="all" aria-pressed="true">全部 29</button><button data-filter="ready" aria-pressed="false">可用 15</button><button data-filter="conditional" aria-pressed="false">条件 6</button><button data-filter="blocked" aria-pressed="false">阻塞 8</button></div>
+      <div id="skillGrid" class="skill-grid" aria-live="polite"></div>
+    </section>
+
+    <section id="deep-dive">
+      <div class="eyebrow">Representative use cases</div><h2>六类典型使用场景，决定这套库能否转化为生产力</h2>
+      <div class="grid3">
+        <div class="card"><div class="no">01 · 监控</div><h3>创新高后的运营动作</h3><p>机会引擎发现新高 → 拉取净值/基准/回撤 → 运行“新高营销”或“要不要卖” → 合规扫描 → 运营复核后生成 H5。必须区分营销与决策，不能用同一套单向挽留话术。</p></div>
+        <div class="card"><div class="no">02 · 陪伴</div><h3>固收策略连续下跌</h3><p>连续下跌 ≥3 日或回撤接近历史阈值 → 核对期限与原因 → 选历史窗口和经理观点 → 输出解释/行动边界。当前情绪分只能当线索，不能替代投研判断。</p></div>
+        <div class="card"><div class="no">03 · 配置</div><h3>新资金方案</h3><p>录入可投资金、期限、风险与流动性 → 四笔钱映射 → 调取真实策略数据 → 形成金额、比例与风险提示。若实时策略接口缺失，应停止产品推荐，不能套静态示例。</p></div>
+        <div class="card"><div class="no">04 · 复盘</div><h3>策略亏损诊断</h3><p>识别峰值、回撤、修复史和市场周期 → 判断策略机制是否失效 → 给持有、减仓或退出条件。技能明确要求“数据指向该走时如实说”，不能把留存等同于死扛。</p></div>
+        <div class="card"><div class="no">05 · 内容</div><h3>从早报到私域日报</h3><p>只读用户提供的早报文档 → 提炼市场变化与普通投资者影响 → 去 AI 味 → 过营销合规 → 输出纯文本/推送。来源边界清晰，是当前最容易规模化的链路。</p></div>
+        <div class="card"><div class="no">06 · 计算</div><h3>客户持有单价</h3><p>交易流水结构化 → 移动加权平均或主理人特定算法 → 对账份额/本金/卖出到账 → 输出可复核明细。三项计算技能已纠正费率方向文字，仍应保留逐笔校验。</p></div>
+      </div>
+    </section>
+
+    <section id="security">
+      <div class="eyebrow">Risk review</div><h2>最需要先修的不是 UI，而是身份与数据责任边界</h2>
+      <div class="grid3"><article class="card risk"><div class="no">P0 · AUTH</div><h3>前端登录不是授权</h3><p>页面公开脚本包含静态登录材料，并在浏览器端持有匿名数据访问配置。若后端行级策略不严，攻击者可绕过 UI 直接访问数据。本次没有进行破坏性写测试，因此写入风险仍是“未验证高风险”，不能宣称安全。</p></article><article class="card warn"><div class="no">P1 · DATA</div><h3>来源与时点未统一</h3><p>净值日、接口刷新时刻、观点发布日期、材料窗口和独立看板数据各自存在。每个数值都应同时携带 source / asOf / generatedAt / formulaVersion。</p></article><article class="card warn"><div class="no">P1 · CLAIM</div><h3>规则分数容易被误读</h3><p>情绪分、估值温度、机会紧急度、目标收益和正收益比例都不是收益承诺。页面需要把“事实、规则计算、模型推断、运营建议”视觉分层。</p></article></div>
+      <div class="note" style="margin-top:16px"><b>安全处置建议：</b>立刻废弃前端静态凭据；切换企业 SSO/短期令牌；只允许服务端读取数据；逐表检查行级策略；将上传、编辑、评论、处理状态等写操作纳入角色权限和审计日志；在完成授权测试前，禁止接入真实客户数据。</div>
+    </section>
+
+    <section id="roadmap">
+      <div class="eyebrow">Action plan</div><h2>不是继续堆 Skill，而是把“信号—证据—动作—结果”闭环做实</h2>
+      <div class="timeline">
+        <article><span class="p">P0</span><div><b>重建身份与权限边界</b><p>移除前端凭据与长期匿名密钥；完成读取/写入/越权测试；建立角色、审批与审计日志。</p></div><time>48 小时</time></article>
+        <article><span class="p">P1</span><div><b>统一指标字典与数据血缘</b><p>解决 35/28、观点时效、指数映射和正收益样本口径；所有卡片强制显示来源、截至日、生成时刻和公式版本。</p></div><time>1 周</time></article>
+        <article><span class="p">P1</span><div><b>补齐 Skill 依赖仓</b><p>为每个技能打包主文、references、scripts、assets、Demo 与版本锁；建立依赖安装和真实案例回归测试。</p></div><time>1 周</time></article>
+        <article><span class="p">P2</span><div><b>接入真实客户行为与效果归因</b><p>让机会卡关联客户分群、触达渠道、审核人、发送时间、点击、咨询、交易与投诉，形成可证伪的运营效果。</p></div><time>2–4 周</time></article>
+        <article><span class="p">P2</span><div><b>把合规从关键词升级为工作流</b><p>保留规则扫描，同时增加适当性、风险等级、数据新鲜度、历史业绩展示规则、人工复核与最终责任人。</p></div><time>2–4 周</time></article>
+      </div>
+    </section>
+
+    <section id="boundary">
+      <div class="eyebrow">Evidence boundary</div><h2>完成项与未完成项</h2>
+      <div class="grid2"><div class="panel good"><h3>已验证</h3><p>登录后四块页面可访问；关键交互和显示值已核对；静态脚本与数据接口已留存哈希；31 条可见记录已去重为 29 份；29/29 技能主文安装且通过官方结构校验；当前会话可发现 122 个投研/基金/组合/宏观/资讯工具；公开报告已脱敏。</p></div><div class="panel warn"><h3>未验证 / 不应过度声称</h3><p>没有进行越权或破坏性写测试；未逐一运行 29 个技能的端到端真实业务案例；页面引用的部分附件与 Demo 无法从源站取回；“开发中”页面没有真实能力；情绪、估值、机会规则未做预测有效性回测。</p></div></div>
+    </section>
+  </main>
+
+  <footer><div class="wrap">顾问运营 AI 工作台深度审计 · 公开脱敏版 · 数据核验截至 2026-09-16。历史业绩不代表未来表现；本报告用于产品、数据与治理评审，不构成投资建议或法律意见。</div></footer>
+
+  <script>
+  const skills = [
+    {n:'且慢信号类策略分析师',c:'策略运营',s:'blocked',a:'新增',u:'分析 PO_SI 发车类策略：行业覆盖、止盈次数、分年度/持有期胜率、一次买入与持续跟车。',f:'入场收益=最新净值/发车日净值−1；胜率=盈利样本/有效样本。',d:'缺 2 份参考文件；专用且慢/信号 MCP 命名空间未在当前会话出现。',x:'“分析这个发车策略最近三年的跟车胜率与止盈效率”。'},
+    {n:'且慢策略分析师',c:'策略运营',s:'blocked',a:'更新',u:'完整评估普通策略：业绩、市场周期、风险、回撤修复、调仓、定投和适合人群。',f:'扣费年化=年化收益−年投顾费；滚动持有收益按交易日起点逐窗计算。',d:'技能前置要求 qieman-mcp-cli，当前未安装；虽有投研工具但不满足其硬前置。',x:'“分析周周同行在牛熊周期里的收益与修复能力”。'},
+    {n:'且慢策略对比分析',c:'策略运营',s:'conditional',a:'新增',u:'对比两只策略的资产画像、同区间收益回撤、创新高、修复、超额和适合人群，输出 H5。',f:'统一起点=较晚成立日；超额=策略收益−各自声明的基准收益。',d:'当前有组合/基金投研工具；具体策略字段、基准和净值覆盖决定是否能完整运行。',x:'“中西合璧和全球丰收哪个更适合长期定投？”'},
+    {n:'信号类策略亏损怎么办',c:'策略运营',s:'blocked',a:'新增',u:'专门回答 PO_SI 跟车后亏损：诊断发车节奏、行业暴露、入场胜率和当前回撤。',f:'回撤=当前净值/历史峰值−1；同类入场样本按持有期统计。',d:'缺 2 份参考/示例文件，且技能指定的信号调整与且慢数据工具不可直接调用。',x:'“跟车半年一直亏，要不要停止下一车？”'},
+    {n:'新高后要不要卖（决策 H5）',c:'策略运营',s:'conditional',a:'新增',u:'两步决策：先判断能否承担历史/基准回撤，再按信号类、多元或纯权益给止盈方法。',f:'卖飞成本=新高日卖出后空仓收益−继续持有收益；实际比较用收益差表达。',d:'122 个投研工具可覆盖部分降级路径；是否可做取决于策略描述、基准、持仓和完整净值。',x:'“策略创新高，我是继续拿还是先落袋一半？”'},
+    {n:'策略亏损怎么办',c:'策略运营',s:'blocked',a:'更新',u:'对普通策略做数据诊断、下跌原因、沟通框架与持有/减仓/退出条件。',f:'最大回撤、修复天数、区间相对基准和风格漂移共同判断，不以单日涨跌下结论。',d:'正文硬编码且慢/PMS 工具命名空间；当前只确认 vesta 类能力，完整调用链不成立。',x:'“这个组合亏了 8%，是市场原因还是策略失效？”'},
+    {n:'策略介绍页 H5',c:'策略运营',s:'conditional',a:'更新',u:'先提炼差异化卖点，再按稳钱/平衡/长钱切换指标与图表，输出移动端单页。',f:'卖点=机制+客户价值；回撤、滚动持有、基准超额按策略类型选择。',d:'可用投研组合工具较丰富；且慢完整策略描述缺失时需降级并标注来源。',x:'“做一页息息相关介绍，重点解释它为什么适合稳钱”。'},
+    {n:'策略创新高营销 H5',c:'策略运营',s:'conditional',a:'新增',u:'用收益走势、创新高频率、回撤修复、月度胜率和超额解释策略的新高能力。',f:'复合基准=Σ(权重×真实归一化指数序列)，禁止固定年化模拟。',d:'当前有指数与组合数据工具；需验证策略基准权重和完整历史区间。',x:'“全球丰收创新高，生成一页有证据的运营 H5”。'},
+    {n:'策略历史中的情况',c:'策略运营',s:'conditional',a:'新增',u:'把今天的持仓和权重静态回放到最近 10 个完整自然年；不是策略真实历史。',f:'年度收益=年末净值/年初净值−1；年度最大回撤只在当年窗口滚动计算。',d:'当前有实时组合回测与基金/指数工具；替代份额、ETF 代理和数据起点需逐项核验。',x:'“按这个组合现在的配置，回测过去十年每年表现”。'},
+    {n:'且慢营销 H5 设计规范',c:'内容创作',s:'blocked',a:'新增',u:'规定营销 H5 的品牌、组件、排版、动效和移动端交互，是多个页面技能的设计底座。',f:'无金融公式；强调视觉层级、单文件交付和移动端可用性。',d:'缺 5 份引用资源，且其父依赖 qieman-ui-design 未安装。',x:'“按且慢品牌规范做一个策略活动页”。'},
+    {n:'图片宣传框生成器',c:'内容创作',s:'ready',a:'已一致',u:'上传图片并填写标题、作者、来源，以 Canvas 高清渲染手机分享卡并下载 PNG。',f:'输出倍率基于 Canvas 像素密度；不涉及金融收益计算。',d:'单文件、无外部数据依赖；页面两条记录正文重复，只保留一份能力。',x:'“把这张市场图做成带来源和标题的且慢分享卡”。'},
+    {n:'顾问工作台（Advisor Console）',c:'平台运营',s:'conditional',a:'新增',u:'把策略状态、披露、调仓、用户行为和营销日历生成机会卡并绑定物料 Skill。',f:'机会由规则命中并按高/中/低排序，不等同于转化概率。',d:'页面本身可运行；用户行为是 mock，占位数据不应对客或用于绩效归因。',x:'“今天有哪些策略值得陪伴或宣传？”'},
+    {n:'新增资金配置',c:'私域运营',s:'blocked',a:'已一致',u:'按客户金额、风险、期限和四笔钱框架生成配置建议书，要求实时策略详情。',f:'配置金额=可投资金×资产/策略比例；比例需与风险和流动性约束一致。',d:'强制要求的且慢配置/策略工具未在当前会话命名空间出现，静态产品库不能替代。',x:'“50 万、R3、三年不用，怎么分四笔钱？”'},
+    {n:'卖出挽回弹窗',c:'平台运营',s:'blocked',a:'已一致',u:'识别离场动机，用 1–2 个最有说服力的真实数据点生成第一道卖出拦截弹窗。',f:'数据必须以官方接口复核，自算值需与 API 对照；不能承诺收益。',d:'缺 qieman-sell-retention-modal、qieman-ui-design、qieman-xiaogu-ip 三个设计依赖。',x:'“为生生不息做一个回撤期卖出确认弹窗”。'},
+    {n:'且慢每日市场日报生成',c:'内容创作',s:'ready',a:'已一致',u:'只使用盈米基金研究院早报文档，整理成且慢私域每日市场日报纯文本。',f:'无投资计算；核心是来源封闭、事实忠实与口语化重写。',d:'文档读取能力可用；页面两条记录正文重复，只保留一份能力。',x:'“把今天的宏观策略早报整理成群里能发的日报”。'},
+    {n:'市场热点吸睛选题',c:'平台运营',s:'ready',a:'已一致',u:'研究近期热点和普通投资者讨论，输出按天、可用于投教与运营的选题。',f:'无固定公式；必须以发布日期、事件日期和来源交叉核验。',d:'网页检索可用；时效性任务必须实时搜索并避免把热度当投资价值。',x:'“给明天选题会准备 10 个普通人关心的市场话题”。'},
+    {n:'投资配置方案生成器',c:'私域运营',s:'ready',a:'更新',u:'根据资金、风险偏好和市场背景生成且慢风格 HTML 配置方案。',f:'金额=总资金×配置比例；风险预算和流动性优先于收益目标。',d:'可在用户给定数据下运行；涉及具体产品时仍要实时取数与适当性确认。',x:'“为 100 万稳健型客户制作可编辑配置方案”。'},
+    {n:'基金投顾文章整理',c:'平台运营',s:'ready',a:'已一致',u:'固定三段式：热点原因、对长期投资的影响、普通人如何布局，附图表和来源。',f:'数字必须保留口径与来源；不把短期涨跌线性外推。',d:'网页研究和 HTML 输出能力可用，外发前需合规复核。',x:'“把黄金波动写成普通投资者看得懂的投教文章”。'},
+    {n:'教育金储蓄计算器',c:'策略运营',s:'ready',a:'已一致',u:'按孩子年龄处理投入期、临时提取和取用期，输出逐年余额、曲线和敏感性比较。',f:'月利率=(1+年化)^(1/12)−1；逐月余额=上月余额×(1+r_m)+当月投入−提取。',d:'纯本地计算可用；预期年化上限 8%，仍须声明非保证收益。',x:'“孩子 5 岁，18 岁上大学，每月要存多少？”'},
+    {n:'用户调研报告',c:'策略运营',s:'ready',a:'已一致',u:'从问卷、开放题、截图和文档生成画像、痛点、行为偏好、满意度与竞品洞察。',f:'比例分母必须明确；小样本、缺失值和多选题单独说明。',d:'资料分析与 HTML 输出可用；没有材料时不能生成伪数据。',x:'“把这 300 份客户问卷整理成可发布的调研报告”。'},
+    {n:'推送文案生成',c:'平台运营',s:'ready',a:'已一致',u:'根据链接/文段/图片生成至少 3 组不同切入点的 APP 推送标题与正文。',f:'无固定公式；应记录素材来源、发送对象与实验版本。',d:'内容生成可用；实时市场切入需联网核实，最终过合规。',x:'“给这篇策略季报写三版推送，分别强调陪伴、数据、行动”。'},
+    {n:'数据分析',c:'数据分析',s:'ready',a:'已一致',u:'分析用户给的数据材料，识别趋势、异动、机会与风险，交付图文 HTML。',f:'先核对口径、分母、时间窗和缺失值，再做派生指标与建议。',d:'当前报告即按该技能流程执行；结论必须绑定证据，不能补写未知值。',x:'“分析上月私域运营数据，找增长机会和风险”。'},
+    {n:'竞品调研',c:'平台运营',s:'ready',a:'已一致',u:'盘点基金投顾 APP 的功能、转化路径和运营策略，输出提升转化的 HTML 报告。',f:'对比必须用统一版本、日期、入口和用户条件。',d:'网页与浏览器核验可用；登录墙或地区差异要标注不可见范围。',x:'“对比三家 APP 的定投开户和加仓路径”。'},
+    {n:'金融产品网络营销合规审查',c:'私域运营',s:'ready',a:'已一致',u:'按 2026 金融产品网络营销规则做十项检查，覆盖文章、直播、短视频、社群和海报。',f:'规则检查不是法律意见；需要逐条标出命中、证据、修改建议和责任边界。',d:'技能可用；法规与生效状态属于高时效信息，正式外发前要查官方来源。',x:'“审核这份策略新高海报是否有收益暗示或主体不清”。'},
+    {n:'去 AI 味',c:'内容创作',s:'ready',a:'已一致',u:'把投教和服务文本改成且慢式长期主义、理性投资语气，减少模板感和口号感。',f:'无计算公式；保留事实、数字、来源和风险提示，不做信息替换。',d:'纯文本能力可用，不能用文风润色掩盖数据缺失。',x:'“把这段市场解读改得像顾问亲自写的”。'},
+    {n:'策略解读生成',c:'私域运营',s:'blocked',a:'已一致',u:'按私域 SOP 固定 9 模块输出策略解读，并标注各数据项更新要求。',f:'收益、回撤、持仓等必须取实时数据；仓位只能给参考区间。',d:'正文要求 3 个 references 文件，但当前安装目录只有主文；完整模板与数据清单缺失。',x:'“为新社群生成一份周周同行策略解读”。'},
+    {n:'长赢计划 · 客户持有单价',c:'基金计算',s:'ready',a:'更新',u:'按移动加权平均成本法处理客户买入/卖出流水，计算剩余持仓摊薄单价。',f:'卖出按卖出份额/卖前份额同比扣减本金；持有单价=剩余本金/剩余份额。',d:'本地计算可用；必须逐笔核对金额、份额、费用和分红口径。',x:'“根据波段交易截图计算客户当前持有单价”。'},
+    {n:'主理人 · 累计收益率',c:'基金计算',s:'ready',a:'更新',u:'计算主理人单只基金累计收益与累计收益率，分母采用最大持仓成本。',f:'累计收益=最新净值×剩余份额+卖出到账−总投入；累计收益率=累计收益/最大持仓成本。',d:'本地计算可用；每份跟车金额和历史峰值份数必须有证据。',x:'“计算主理人这只基金从首次买入至今的累计收益率”。'},
+    {n:'主理人 · 无分红持有单价',c:'基金计算',s:'ready',a:'更新',u:'用于无分红基金；每次卖出剔除剩余持仓里买入价最低的一份。',f:'剩余本金=剩余份数×每份跟车金额；客户成本含费时为调和均值×(1+费率)。',d:'本地计算可用；仅适合技能声明的无分红、按份跟车口径。',x:'“按主理人算法计算剔除两份后的持有单价”。'}
+  ];
+  const labels={ready:'可用',conditional:'条件可用',blocked:'阻塞'};
+  const grid=document.getElementById('skillGrid');
+  const search=document.getElementById('skillSearch');
+  let active='all';
+  function render(){const q=search.value.trim().toLowerCase();grid.innerHTML='';skills.forEach((v,i)=>{const hay=Object.values(v).join(' ').toLowerCase();if((active!=='all'&&v.s!==active)||(q&&!hay.includes(q)))return;const el=document.createElement('article');el.className='skill-card';el.dataset.state=v.s;el.innerHTML=`<header><div><h3>${String(i+1).padStart(2,'0')} · ${v.n}</h3><div class="sub">${v.c} · 安装动作：${v.a}</div></div><span class="status ${v.s==='ready'?'ok':v.s}">${labels[v.s]}</span></header><dl><dt>能力</dt><dd>${v.u}</dd><dt>核心口径 / 公式</dt><dd>${v.f}</dd><dt>依赖审计</dt><dd class="deps">${v.d}</dd><dt>典型场景</dt><dd>${v.x}</dd></dl>`;grid.appendChild(el)});}
+  document.querySelectorAll('[data-filter]').forEach(b=>b.addEventListener('click',()=>{active=b.dataset.filter;document.querySelectorAll('[data-filter]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));render()}));search.addEventListener('input',render);render();
+  </script>
+</body>
+</html>
