@@ -43,8 +43,8 @@ const reports = reportChunks.map((chunk) => ({
 // +1 Doubao Qieman user dashboard 2026-09-05
 // -1 inaccessible qieman-ai-advisor-ecosystem private Site 2026-09-05
 
-if (reports.length !== 167) { // +1 AI Xiaogu service and trade conversion audit 2026-09-15
-  fail(`初始成果数量异常：预期 167，实际 ${reports.length}`);
+if (reports.length !== 168) { // +1 CORAL investment research deep dive 2026-09-16
+  fail(`初始成果数量异常：预期 168，实际 ${reports.length}`);
 }
 
 for (const field of ["id", "url"]) {

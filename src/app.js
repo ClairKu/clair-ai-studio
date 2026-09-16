@@ -45,7 +45,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 74;
+const DATA_VERSION = 75;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -161,6 +161,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "coral-investment-research-system-deep-dive-2026-09-16",
+      groupId: "research",
+      title: "CORAL 盈米投研系统深度盘点｜功能、数据、指标与公式",
+      url: "https://clairku.github.io/clair-ai-studio/reports/coral-investment-research-system-deep-dive-2026-09-16/",
+      preview: "coral-investment-research-system-deep-dive-2026-09-16.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-16T15:30:00+08:00",
+      source: "148 份产品规划与 260 份研发档案命中｜CORAL/VESTA 既有知识条目｜现行后继投研工具目录与代表性只读验证｜15 个能力域、16 类研究对象、30 项指标公式；当前 CORAL 网页未登录，仅验证登录入口，不含客户数据、凭据和内部地址",
+      access: "production",
+      workType: "investment-research",
+      tags: ["CORAL", "VESTA", "投研", "基金研究", "组合分析", "资产配置", "指标口径", "MCP", "调研", "HTML", "生产"],
+    },
     {
       id: "vesta-mcp-capability-validation-2026-09-15",
       groupId: "ai-platform",
@@ -2421,6 +2435,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "coral-investment-research-system-deep-dive-2026-09-16": "research",
   "qieman-llm-trading-path-2026-09-15": "xiaogu",
   // 战略经营与项目复盘
   "yuyue-internship-portfolio-2026-09-03": "reporting",

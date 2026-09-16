@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />
+    <script data-clair-access-gate data-clair-access-scope="report" src="../../access-gate.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CORAL 盈米投研系统深度盘点｜功能、数据、指标与公式</title>
+  <meta name="description" content="基于 148 份产品规划、260 份研发文档、现有知识库与 VESTA 现行投研接口实测，对 CORAL 旧投研系统的功能、数据、指标、公式和演进关系进行证据分级盘点。" />
+  <style>
+    :root{--ink:#17201d;--muted:#65706b;--paper:#f4f3ee;--card:#fffef9;--line:#d9d9d1;--coral:#e85b45;--coral2:#ff8b6f;--sea:#164d4b;--mint:#dce9df;--amber:#e7b45f;--red:#a7382d;--shadow:0 18px 50px rgba(30,46,40,.10)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:var(--paper);font:400 16px/1.72 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}a{color:inherit}button,input{font:inherit}
+    .access-note{display:none}.nav{position:sticky;top:0;z-index:30;background:rgba(244,243,238,.93);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}.navin{max-width:1240px;margin:auto;padding:12px 24px;display:flex;gap:20px;align-items:center}.brand{font-weight:900;letter-spacing:.08em}.brand i{color:var(--coral);font-style:normal}.navlinks{display:flex;gap:6px;overflow:auto;scrollbar-width:none}.navlinks a{text-decoration:none;white-space:nowrap;padding:7px 10px;border-radius:999px;color:var(--muted);font-size:13px}.navlinks a:hover{background:#fff;color:var(--ink)}
+    .hero{background:var(--sea);color:#fff;overflow:hidden;position:relative}.hero:after{content:"";position:absolute;width:680px;height:680px;border:120px solid rgba(255,139,111,.14);border-radius:50%;right:-220px;top:-340px}.hero:before{content:"";position:absolute;width:180px;height:180px;background:var(--coral);border-radius:46% 54% 62% 38%;right:11%;bottom:-120px;transform:rotate(24deg)}.hero-inner{max-width:1240px;margin:auto;padding:84px 24px 74px;position:relative;z-index:1}.eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#ffc2b4;font-weight:800}.hero h1{font-size:clamp(38px,7vw,82px);line-height:1.02;max-width:980px;margin:18px 0 24px;letter-spacing:-.045em}.hero h1 em{color:var(--coral2);font-style:normal}.lead{font-size:clamp(18px,2.3vw,25px);line-height:1.55;max-width:940px;color:#e7f0ed}.verdict{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:44px}.stat{padding:20px;border:1px solid rgba(255,255,255,.16);border-radius:16px;background:rgba(255,255,255,.07)}.stat b{font-size:30px;display:block;color:#fff}.stat span{font-size:13px;color:#bdd1cc}.method{margin-top:26px;font-size:13px;color:#bdd1cc;max-width:1000px}
+    main{max-width:1240px;margin:auto;padding:62px 24px 100px}section{scroll-margin-top:74px;margin-bottom:78px}.sec-head{display:grid;grid-template-columns:1fr minmax(260px,460px);gap:36px;align-items:end;margin-bottom:30px}.kicker{font-size:12px;color:var(--coral);font-weight:900;letter-spacing:.15em;text-transform:uppercase}.sec-head h2{font-size:clamp(30px,4vw,50px);line-height:1.08;margin:8px 0 0;letter-spacing:-.035em}.sec-head p{color:var(--muted);margin:0}.callout{background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:22px;padding:28px}.callout strong{color:var(--sea)}
+    .legend{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}.pill,.ev{display:inline-flex;align-items:center;border-radius:999px;font-size:12px;font-weight:800}.pill{padding:7px 11px;background:white;border:1px solid var(--line)}.ev{padding:4px 8px}.ev.archive{background:#e8f1ea;color:#28583e}.ev.live{background:#dfeeee;color:#164d4b}.ev.infer{background:#fff0d7;color:#7f5411}.ev.gap{background:#f5deda;color:#8b2d25}
+    .timeline{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}.time{background:var(--card);padding:18px;border-radius:16px;border-top:4px solid var(--coral)}.time b{font-size:20px}.time p{font-size:13px;color:var(--muted);margin:6px 0 0}.architecture{display:grid;grid-template-columns:1fr 1.5fr 1fr;gap:12px;align-items:stretch}.arch{border-radius:20px;padding:24px;background:#fff;border:1px solid var(--line)}.arch.core{background:var(--sea);color:white;border:0}.arch h3{margin-top:0}.arch ul{padding-left:18px;margin-bottom:0}.arch li{margin:6px 0}.flow{display:flex;gap:8px;align-items:center;justify-content:center;color:var(--coral);font-weight:900}.flow span{color:var(--muted);font-weight:500;font-size:13px}
+    .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}.search{flex:1;min-width:250px;border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#fff}.filter{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 13px;cursor:pointer}.filter.active{background:var(--sea);color:#fff;border-color:var(--sea)}.module-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.module{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px;display:flex;flex-direction:column;min-height:270px}.module:hover{transform:translateY(-2px);box-shadow:var(--shadow);transition:.2s}.num{font:900 38px/1 Georgia,serif;color:#e0ded4}.module h3{margin:10px 0 8px;font-size:20px}.module p{font-size:14px;color:var(--muted);margin:0 0 14px}.module dl{font-size:13px;margin:0}.module dt{font-weight:800;color:var(--sea);margin-top:9px}.module dd{margin:2px 0;color:#4e5854}.module .ev{margin-top:auto;align-self:flex-start}
+    .tablewrap{overflow:auto;border:1px solid var(--line);border-radius:18px;background:#fff}table{width:100%;border-collapse:collapse;min-width:860px;font-size:13px}th,td{text-align:left;padding:13px 14px;border-bottom:1px solid #e7e6df;vertical-align:top}th{position:sticky;top:0;background:#f8f7f1;color:var(--sea);z-index:1}tr:last-child td{border-bottom:0}.formula{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#713429}.small{font-size:12px;color:var(--muted)}
+    .objects{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.object{background:#fff;border-left:5px solid var(--coral);padding:17px;border-radius:6px 15px 15px 6px}.object b{display:block}.object span{font-size:12px;color:var(--muted)}
+    .migration{display:grid;grid-template-columns:1fr 110px 1fr;gap:20px;align-items:center}.system{background:#fff;border-radius:22px;padding:26px;border:1px solid var(--line)}.system h3{font-size:28px;margin:0 0 8px}.system .big{font-size:44px;font-weight:900;color:var(--coral)}.arrow{text-align:center;font-size:42px;color:var(--coral)}.arrow small{display:block;font-size:11px;color:var(--muted)}.bars{display:grid;gap:8px;margin-top:16px}.bar{display:grid;grid-template-columns:110px 1fr 30px;gap:8px;align-items:center;font-size:12px}.track{height:8px;background:#eee;border-radius:10px;overflow:hidden}.fill{height:100%;background:var(--coral);border-radius:10px}
+    .risk-grid,.recommend{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.risk,.rec{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px}.risk h3,.rec h3{margin:0 0 8px}.risk.high{border-top:5px solid var(--red)}.risk.mid{border-top:5px solid var(--amber)}.rec{counter-increment:recs}.recommend{counter-reset:recs}.rec h3:before{content:"0" counter(recs);color:var(--coral);margin-right:10px;font-family:Georgia,serif}.priority{font-size:12px;font-weight:800;color:var(--sea)}
+    details{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin:9px 0}summary{cursor:pointer;font-weight:800;color:var(--sea)}details p,details li{font-size:13px;color:var(--muted)}.source-list{columns:2;column-gap:30px}.source-list li{break-inside:avoid;margin-bottom:7px}.foot{border-top:1px solid var(--line);padding-top:28px;color:var(--muted);font-size:13px}.no-results{display:none;padding:30px;text-align:center;color:var(--muted)}
+    @media(max-width:900px){.verdict,.module-grid{grid-template-columns:repeat(2,1fr)}.timeline{grid-template-columns:repeat(3,1fr)}.architecture{grid-template-columns:1fr}.migration{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}.objects{grid-template-columns:repeat(2,1fr)}.sec-head{grid-template-columns:1fr}.sec-head p{margin-top:10px}}
+    @media(max-width:560px){.navin{padding:9px 14px}.hero-inner{padding:60px 18px}.hero h1{font-size:42px}.verdict,.module-grid,.timeline,.objects,.risk-grid,.recommend{grid-template-columns:1fr}.stat{padding:15px}.stat b{font-size:26px}main{padding:44px 16px 80px}.sec-head h2{font-size:34px}.source-list{columns:1}.module{min-height:0}.architecture{gap:9px}}
+    @media print{.nav,.toolbar{display:none}.hero{background:#164d4b!important;-webkit-print-color-adjust:exact}.module{break-inside:avoid}section{break-before:auto}}
+  </style>
+</head>
+<body>
+<nav class="nav"><div class="navin"><div class="brand">C<i>O</i>RAL</div><div class="navlinks"><a href="#judgment">结论</a><a href="#evolution">演进</a><a href="#inventory">功能全景</a><a href="#data">数据</a><a href="#formula">指标公式</a><a href="#migration">迁移</a><a href="#risk">风险</a><a href="#roadmap">建议</a><a href="#evidence">证据</a></div></div></nav>
+<header class="hero"><div class="hero-inner">
+  <div class="eyebrow">Yingmi Investment Research System · Evidence-led Audit · 2026.09.16</div>
+  <h1>CORAL 不是一组页面，<br>而是盈米早期投研能力的<em>总装车间</em></h1>
+  <p class="lead">它把基金、经理、组合、指数、资产配置、研究报告与客户定制工具装进同一平台；真正需要继承的不是旧界面，而是已经沉淀的研究对象、指标口径、算法模型和工作流。</p>
+  <div class="verdict"><div class="stat"><b>15</b><span>能力域逐项拆解</span></div><div class="stat"><b>408</b><span>份历史档案命中</span></div><div class="stat"><b>122</b><span>项现行后继工具映射</span></div><div class="stat"><b>4</b><span>级证据与口径状态</span></div></div>
+  <p class="method">方法：148 份产品规划 + 260 份研发文档命中、CORAL/VESTA 既有知识条目、现行后继接口目录与代表性只读调用。当前 coral.yingmi.com 未登录，仅确认登录入口；报告不把未看到的当前页面伪装成“实机遍历”。</p>
+</div></header>
+<main>
+<section id="judgment">
+  <div class="sec-head"><div><div class="kicker">01 · Executive judgment</div><h2>先给结论：旧系统该被“资产化”，不该被“复刻”</h2></div><p>CORAL 的战略价值在于投研知识与计算能力的组织方式。旧 UI、客户分叉和孤立报表可以淘汰；指标注册表、模型契约、数据血缘与验证样本必须保住。</p></div>
+  <div class="callout"><strong>一句话定位：</strong>CORAL 是面向基金研究、组合研究和机构定制的投研工具平台，以“通用场景 → 研究策略 → 模型组合”为主链，既承载投研人员的分析生产，也向客户化页面、报告与接口输出结果。<br><br><strong>最重要的判断：</strong>历史材料显示它从 2022 年正式上线，随后不断吸收基金优选、固收监控、组合实验室、报告工厂、资产配置和定制分析；后续能力迁入 VESTA/启明及 MCP 化工具链。今天若只按页面菜单理解 CORAL，会低估其核心资产；若把后继 VESTA 全部倒推成 CORAL 原生能力，又会高估旧系统。</div>
+  <div class="legend"><span class="ev archive">档案确认</span><span class="ev live">现行接口实测</span><span class="ev infer">继承/推断</span><span class="ev gap">未确认或缺口</span></div>
+</section>
+
+<section id="evolution">
+  <div class="sec-head"><div><div class="kicker">02 · Evolution</div><h2>从工具集合到投研工业化底座</h2></div><p>时间线来自公司月报、产品规划和研发设计。它说明系统不是一次性项目，而是持续吸纳研究能力的容器。</p></div>
+  <div class="timeline">
+    <div class="time"><b>2022.03</b><p>Beta 发布：专项筛选器、经理画像、权益基金分析、研究中心与客户定制能力形成骨架。</p></div>
+    <div class="time"><b>2022.04</b><p>正式上线，投研能力由零散工具转向统一平台入口。</p></div>
+    <div class="time"><b>2022.08</b><p>固收异常监控上线：单日异动、连续回撤和分层钻取补齐债券研究。</p></div>
+    <div class="time"><b>2023</b><p>跨团队平台化；数据工厂与 coral-api 开始拆分计算、服务与存储。</p></div>
+    <div class="time"><b>2024</b><p>与 CDP、FDP、PMS、内容平台共同组成投顾生产工具链。</p></div>
+    <div class="time"><b>2025–26</b><p>能力向 VESTA/启明与 MCP 工具化迁移，研究能力可被智能体调用。</p></div>
+  </div>
+</section>
+
+<section id="architecture">
+  <div class="sec-head"><div><div class="kicker">03 · Product architecture</div><h2>三层结构：研究入口、分析引擎、输出与集成</h2></div><p>历史前端是 Umi/React 单页壳与多个微前端/工具入口；后端围绕 coral-reef、coral-api、数据工厂与 DDB/MySQL 等服务协作。</p></div>
+  <div class="architecture">
+    <div class="arch"><h3>入口与治理</h3><ul><li>发现页 / 工具箱</li><li>参数与主题配置</li><li>用户、机构、权限</li><li>客户化菜单与品牌</li><li>研究报告访问控制</li></ul></div>
+    <div class="arch core"><h3>投研计算核心</h3><ul><li>基金 / 经理 / 指数 / 行业</li><li>筛选器、优选、基金池</li><li>组合净值、风险、归因</li><li>固收 Campisi、Brinson、Barra、Fama</li><li>MVO、情景模拟、投资信号</li></ul></div>
+    <div class="arch"><h3>输出与连接</h3><ul><li>研究中心与报告工厂</li><li>Excel / 图片 / PDF 导出</li><li>API 与客户定制页面</li><li>且慢模拟组合</li><li>后续 MCP / AI 调用</li></ul></div>
+  </div>
+</section>
+
+<section id="inventory">
+  <div class="sec-head"><div><div class="kicker">04 · Complete inventory</div><h2>15 个能力域，逐项盘点</h2></div><p>搜索任意关键词，例如“债券”“回撤”“导出”；也可按证据状态过滤。每张卡片同时说明目标、工具、数据、指标与产物。</p></div>
+  <div class="toolbar"><input class="search" id="moduleSearch" type="search" placeholder="搜索功能、数据、指标、工具……" aria-label="搜索功能清单"><button class="filter active" data-filter="all">全部</button><button class="filter" data-filter="archive">档案确认</button><button class="filter" data-filter="live">现行验证</button><button class="filter" data-filter="infer">继承推断</button></div>
+  <div class="module-grid" id="moduleGrid">
+    <article class="module" data-status="archive" data-search="门户 发现页 工具箱 参数 主题 权限 机构 菜单 Umi React 微前端"><div class="num">01</div><h3>平台壳与权限治理</h3><p>统一承载工具、客户和报告，支持通用入口与机构定制并存。</p><dl><dt>工具</dt><dd>发现页、参数页、系统管理、微前端装载、角色与机构权限。</dd><dt>数据</dt><dd>用户、机构、角色、菜单、主题、工具注册、访问记录。</dd><dt>产物</dt><dd>因人/因机构可见的研究工作台。</dd></dl><span class="ev archive">档案确认</span></article>
+    <article class="module" data-status="archive" data-search="研究中心 ims 报告 节点 空间 发布 下载 预签名"><div class="num">02</div><h3>研究中心</h3><p>把研究文档从文件存储转为有层级、权限和发布状态的知识空间。</p><dl><dt>工具</dt><dd>空间、目录节点、已发布查询、预签名下载、访问控制。</dd><dt>数据</dt><dd>报告元数据、作者、机构、节点、版本、发布时间与附件。</dd><dt>指标</dt><dd>发布状态、时效性、覆盖对象、访问权限。</dd></dl><span class="ev archive">档案确认</span></article>
+    <article class="module" data-status="live" data-search="基金分析 净值 业绩 排名 回撤 波动 夏普 Sortino Calmar 费率 持有人"><div class="num">03</div><h3>基金全景分析</h3><p>从基本信息、净值与持仓进入业绩、风险、风格和费用的完整诊断。</p><dl><dt>工具</dt><dd>基金搜索、净值、区间收益、排名、持仓、规模、持有人、公告、费率。</dd><dt>数据</dt><dd>复权净值、定期报告、股票/债券明细、资产配置、分类与基准。</dd><dt>指标</dt><dd>收益、最大回撤、波动率、Sharpe、Sortino、Calmar、Alpha/Beta。</dd></dl><span class="ev live">后继接口实测</span></article>
+    <article class="module" data-status="archive" data-search="基金经理 画像 履历 管理基金 任职 业绩 稳定性"><div class="num">04</div><h3>基金经理画像</h3><p>围绕“人”聚合履历、在管产品、任职区间表现与投资能力标签。</p><dl><dt>工具</dt><dd>经理搜索、简历、在管/历任基金、任职业绩与变更轨迹。</dd><dt>数据</dt><dd>任职关系、管理规模、产品分类、业绩区间、公司履历。</dd><dt>指标</dt><dd>任职收益、同类排名、管理年限、规模、产品数与稳定性。</dd></dl><span class="ev archive">档案确认</span></article>
+    <article class="module" data-status="archive" data-search="基金筛选器 老版 新版 元数据 指标 条件 组合筛选 Excel"><div class="num">05</div><h3>基金筛选器</h3><p>将研究判断编码为可保存、复用和组合的定量条件。</p><dl><dt>工具</dt><dd>指标元数据、分类/日期选项、条件组、结果排序、方案保存与导出。</dd><dt>数据</dt><dd>基金主数据、分类、区间指标、规模、持仓、机构与经理字段。</dd><dt>指标</dt><dd>收益/回撤/波动/胜率/规模/持仓结构等动态指标集合。</dd></dl><span class="ev archive">档案确认</span></article>
+    <article class="module" data-status="archive" data-search="基金优选 打分 权重 排名 股票选基金 Preferred"><div class="num">06</div><h3>基金优选与评分</h3><p>在筛选基础上引入加权排名、正向/反向指标和选股反查基金。</p><dl><dt>工具</dt><dd>优选方案、权重配置、评分排序、股票到基金、候选池。</dd><dt>数据</dt><dd>同类样本、指标值、指标方向、权重、持仓穿透关系。</dd><dt>公式</dt><dd>归一权重加权；同类排名分 = (1 − 排名/样本数) × 100。</dd></dl><span class="ev archive">档案确认</span></article>
+    <article class="module" data-status="archive" data-search="基金池 投资池 维护 入池 出池 标签 状态 版本"><div class="num">07</div><h3>基金池与投资池</h3><p>把一次性分析变为可管理名单，形成研究覆盖、准入与复核闭环。</p><dl><dt>工具</dt><dd>池创建、成员维护、批量导入、标签、状态、查看器。</dd><dt>数据</dt><dd>基金、池、成员、入池原因、操作者、时间、版本与备注。</dd><dt>治理</dt><dd>需要补齐准入规则、变更审批、失效复核和历史快照。</dd></dl><span class="ev archive">档案确认</span></article>
+    <article class="module" data-status="archive" data-search="债券 固收 异动 违约 久期 信用利差 Campisi 可转债"><div class="num">08</div><h3>固收与债券监控</h3><p>从基金净值异动下钻到底层券，解释久期、曲线、信用与个券贡献。</p><dl><dt>工具</dt><dd>单日异动、连续下跌、债券明细、信用评级、久期估算、可转债信号。</dd><dt>数据</dt><dd>债券持仓、收益率曲线、评级、利差、价格、票息与基金披露。</dd><dt>模型</dt><dd>Campisi：票息 + 国债 + 利差 + 个券选择；回归拆分利率风险。</dd></dl><span class="ev archive">档案确认</span></article>
+    <article class="module" data-status="live" data-search="组合实验室 模拟组合 净值 调仓 归因 风险 相关性 定投 实时"><div class="num">09</div><h3>组合实验室</h3><p>以模型组合为对象，覆盖建模、调仓、净值、风险、归因和复盘。</p><dl><dt>工具</dt><dd>组合创建、持仓、调仓、基准、净值、区间表现、风险、定投与复盘。</dd><dt>数据</dt><dd>组合份额/权重、现金流、调仓指令、基金净值、基准与资产分类。</dd><dt>指标</dt><dd>TWR、最大回撤、年化波动、Sharpe、贡献、相关性、胜率。</dd></dl><span class="ev live">后继接口实测</span></article>
+    <article class="module" data-status="archive" data-search="资产配置 AAP MVO 有效前沿 协方差 模拟 Bootstrap 正态"><div class="num">10</div><h3>资产配置 AAP</h3><p>用资本市场假设与约束生成候选权重，并通过多种收益模拟检查稳健性。</p><dl><dt>工具</dt><dd>资产选择、预期收益、协方差、有效前沿、约束、重采样和情景模拟。</dd><dt>数据</dt><dd>资产历史收益、预期收益、协方差矩阵、上下限与目标收益。</dd><dt>模型</dt><dd>MVO；Historical / Expected / Normal / Bootstrap 四类模拟。</dd></dl><span class="ev archive">档案确认</span></article>
+    <article class="module" data-status="archive" data-search="报告工厂 模板 图表 Excel PDF 图片 导出 批量"><div class="num">11</div><h3>报告工厂与导出</h3><p>将研究计算结果装配成可交付的图表、表格和机构报告。</p><dl><dt>工具</dt><dd>模板、组件、图表、批量任务、在线预览、Excel/图片/PDF 导出。</dd><dt>数据</dt><dd>模板版本、参数、计算结果、图表配置、生成任务与文件。</dd><dt>风险</dt><dd>需要严格记录口径版本、数据截至日和生成时使用的参数。</dd></dl><span class="ev archive">档案确认</span></article>
+    <article class="module" data-status="archive" data-search="参数 主题 口径 分类 映射 配置 多语言 国际化"><div class="num">12</div><h3>参数与主题配置</h3><p>让分类、指标、主题和展示参数脱离代码，支撑多机构复用。</p><dl><dt>工具</dt><dd>参数字典、指标配置、主题、分类映射、客户开关、多语言。</dd><dt>数据</dt><dd>参数键值、有效期、作用域、默认值、覆盖值和变更记录。</dd><dt>治理</dt><dd>配置若无版本和影响分析，会产生同名指标不同口径。</dd></dl><span class="ev archive">档案确认</span></article>
+    <article class="module" data-status="live" data-search="指数 行业 估值 PE PB ERP 权重 趋势 地图"><div class="num">13</div><h3>指数、行业与估值</h3><p>查看指数行情、估值分位、行业权重，并把宏观/行业信号连接到基金与组合。</p><dl><dt>工具</dt><dd>指数搜索、行情趋势、估值、行业权重、行业地图、板块信号。</dd><dt>数据</dt><dd>指数点位、成分、PE/PB、盈利收益率、国债收益率、行业分类。</dd><dt>指标</dt><dd>区间分位、ERP = 1/PE − 10 年期国债收益率。</dd></dl><span class="ev live">后继接口实测</span></article>
+    <article class="module" data-status="archive" data-search="客户定制 招商银行 微信小程序 模拟组合 且慢 外部 工具"><div class="num">14</div><h3>机构定制与外部触点</h3><p>同一底层能力被包装成银行定制页、微信入口和且慢模拟组合等触点。</p><dl><dt>工具</dt><dd>机构专属基金/经理/指数页、固收监控、小程序、模拟组合。</dd><dt>数据</dt><dd>机构权限、品牌主题、专属池、展示配置和外部对象映射。</dd><dt>风险</dt><dd>分叉式定制容易造成版本漂移；应转为配置化能力套餐。</dd></dl><span class="ev archive">档案确认</span></article>
+    <article class="module" data-status="infer" data-search="AI GPT Coral-M MCP 智能体 世界新闻 研究报告 信号"><div class="num">15</div><h3>AI、信号与 MCP 化</h3><p>后续平台把研究能力拆成可调用工具，并叠加宏观、世界新闻和策略信号。</p><dl><dt>工具</dt><dd>122 项现行工具，覆盖 9 个域；AI 报告、深度洞察、新闻与因子信号。</dd><dt>数据</dt><dd>结构化投研对象 + 非结构化报告/新闻 + 因子/信号结果。</dd><dt>边界</dt><dd>这是 CORAL 的后继演进证据，不能等同于 2022 年旧系统原生功能。</dd></dl><span class="ev infer">继承/推断</span></article>
+  </div><div id="noResults" class="no-results">没有匹配项，请换一个关键词。</div>
+</section>
+
+<section id="data">
+  <div class="sec-head"><div><div class="kicker">05 · Data model</div><h2>系统真正管理的是 16 类研究对象</h2></div><p>菜单只是入口；对象模型决定数据能否复用、指标能否统一、研究结论能否被组合和智能体调用。</p></div>
+  <div class="objects">
+    <div class="object"><b>基金 Fund</b><span>主数据、分类、份额、费率、净值、规模</span></div><div class="object"><b>经理 Manager</b><span>履历、任职、在管产品、业绩区间</span></div><div class="object"><b>机构 Institution</b><span>基金公司、客户机构、权限与品牌</span></div><div class="object"><b>指数 Index</b><span>点位、成分、行业权重、估值</span></div>
+    <div class="object"><b>证券 Security</b><span>股票、债券、可转债、分类与行情</span></div><div class="object"><b>持仓 Holding</b><span>基金/组合对证券和基金的暴露</span></div><div class="object"><b>净值 NAV</b><span>原始/复权净值、频率、来源与质量</span></div><div class="object"><b>组合 Portfolio</b><span>持仓、权重、现金、基准与状态</span></div>
+    <div class="object"><b>调仓 Adjustment</b><span>生效日、目标权重、理由、执行与复盘</span></div><div class="object"><b>资产 Asset class</b><span>大类资产、行业、风格与映射体系</span></div><div class="object"><b>指标 Metric</b><span>定义、公式、频率、年化、缺失处理</span></div><div class="object"><b>模型 Model</b><span>MVO、归因、回归、评分、信号</span></div>
+    <div class="object"><b>方案 Scheme</b><span>筛选、优选、参数与权重配置</span></div><div class="object"><b>基金池 Pool</b><span>成员、准入原因、状态与历史版本</span></div><div class="object"><b>报告 Report</b><span>空间、节点、版本、附件与发布状态</span></div><div class="object"><b>任务 Job</b><span>生成、批量计算、导出、状态与审计</span></div>
+  </div>
+  <details open><summary>数据来源与更新节奏</summary><p>历史架构表明，CORAL 数据侧依赖基金/行情/财务/报告等内部数据资产，部分批计算落在 MySQL/DDB，并通过 coral-data-factory 汇总到投研主题库。典型频率包括交易日日更、盘中/实时、季报/半年报披露后更新、研究员手工维护和任务触发。系统设计必须同时携带 <strong>as-of date、source、frequency、adjustment mode、quality flag</strong>，否则同一个指标无法复现。</p></details>
+  <details><summary>数据质量的五个关键检查</summary><ol><li>净值是否复权、币种和交易日历是否一致；</li><li>基金分类、行业分类和资产分类采用哪个版本；</li><li>持仓披露日、报告期和计算日是否错位；</li><li>停牌、缺失、异常值、成立/清盘样本如何处理；</li><li>前端展示、导出、API 与 MCP 是否使用同一指标版本。</li></ol></details>
+</section>
+
+<section id="formula">
+  <div class="sec-head"><div><div class="kicker">06 · Metric & formula dictionary</div><h2>指标与公式：已确认、可推导、仍缺契约</h2></div><p>公式旁边的状态比公式本身更重要。“接口返回了一个数”不等于口径已经治理完成。</p></div>
+  <div class="tablewrap"><table><thead><tr><th>指标 / 模型</th><th>公式或口径</th><th>关键输入</th><th>证据状态</th><th>待确认项</th></tr></thead><tbody>
+    <tr><td>区间收益率</td><td class="formula">R = NAV_end / NAV_start − 1</td><td>复权净值、起止交易日</td><td><span class="ev archive">档案/接口</span></td><td>端点回退、分红复权模式</td></tr>
+    <tr><td>年化收益率</td><td class="formula">(1 + R)^(252 / N) − 1</td><td>组合区间收益、交易日数</td><td><span class="ev infer">后继审计</span></td><td>基金侧曾见 365.25/N；对象需分开</td></tr>
+    <tr><td>最大回撤</td><td class="formula">min_t(NAV_t / max_{s≤t} NAV_s − 1)</td><td>连续净值序列</td><td><span class="ev live">接口实测</span></td><td>空窗、修复日与第二大回撤</td></tr>
+    <tr><td>年化波动率</td><td class="formula">σ_ann = sd(r_daily) × √252</td><td>日收益率</td><td><span class="ev infer">后继审计</span></td><td>总体/样本标准差、缺失日处理</td></tr>
+    <tr><td>Sharpe</td><td class="formula">(R_ann − R_f) / σ_ann</td><td>年化收益、无风险利率、波动</td><td><span class="ev gap">口径未完全公开</span></td><td>历史反推 Rf≈1.5%，需正式契约</td></tr>
+    <tr><td>Sortino</td><td class="formula">(R_ann − R_f) / downside_dev</td><td>下行收益偏差</td><td><span class="ev live">接口存在</span></td><td>MAR/Rf、下行样本选择</td></tr>
+    <tr><td>Calmar</td><td class="formula">R_ann / |MDD|</td><td>年化收益、最大回撤</td><td><span class="ev infer">后继审计</span></td><td>基金比较版本是否扣 Rf</td></tr>
+    <tr><td>Alpha / Beta</td><td class="formula">r_p − r_f = α + β(r_b − r_f) + ε</td><td>基金、基准、无风险利率</td><td><span class="ev live">接口实测</span></td><td>回归频率、窗口、年化方式</td></tr>
+    <tr><td>跟踪误差 / IR</td><td class="formula">TE = σ(r_p−r_b); IR = excess_ann / TE</td><td>主动收益序列</td><td><span class="ev live">接口字段</span></td><td>短样本可为空；年化与最小样本</td></tr>
+    <tr><td>同类排名分</td><td class="formula">Score = (1 − rank / class_count) × 100</td><td>同类样本与排序方向</td><td><span class="ev archive">档案确认</span></td><td>并列排名、缺失值和样本过滤</td></tr>
+    <tr><td>基金优选总分</td><td class="formula">Σ metric_score_i × weight_i / Σ weight_i</td><td>各指标分、正反向、权重</td><td><span class="ev archive">档案确认</span></td><td>归一化、极值截断、版本</td></tr>
+    <tr><td>组合收益贡献</td><td class="formula">Contribution_i,t = weight_i,t−1 × return_i,t</td><td>期初权重、单资产收益</td><td><span class="ev infer">后继审计</span></td><td>调仓日、现金流和残差处理</td></tr>
+    <tr><td>类别收益</td><td class="formula">R_category = Σ contribution_i / Σ weight_i</td><td>类别内权重与贡献</td><td><span class="ev infer">后继审计</span></td><td>空权重、跨分类映射</td></tr>
+    <tr><td>Brinson 配置</td><td class="formula">A_i=(w_p,i−w_b,i)(r_b,i−r_b)</td><td>组合/基准分类权重与收益</td><td><span class="ev archive">模型确认</span></td><td>BF/BHB 变体与多期链接</td></tr>
+    <tr><td>Brinson 选择</td><td class="formula">S_i=w_b,i(r_p,i−r_b,i)</td><td>分类内组合/基准收益</td><td><span class="ev archive">模型确认</span></td><td>交互项归属；后继使用 Carino 链接</td></tr>
+    <tr><td>Brinson 交互</td><td class="formula">I_i=(w_p,i−w_b,i)(r_p,i−r_b,i)</td><td>权重差和收益差</td><td><span class="ev archive">模型确认</span></td><td>是否合并到选择效应</td></tr>
+    <tr><td>Campisi 收益</td><td class="formula">R_bond = Income + Treasury + Spread + Selection</td><td>票息、久期、利率、利差、价格</td><td><span class="ev archive">档案确认</span></td><td>多期链接和现金项</td></tr>
+    <tr><td>Campisi 收入效应</td><td class="formula">2 × interest / (MV_begin + MV_end)</td><td>债券利息、期初期末市值</td><td><span class="ev archive">档案确认</span></td><td>应计利息口径</td></tr>
+    <tr><td>国债效应</td><td class="formula">−Duration_begin × (Yield_end − Yield_begin)</td><td>久期、国债收益率变化</td><td><span class="ev archive">档案确认</span></td><td>关键期限映射与凸性</td></tr>
+    <tr><td>久期估算</td><td class="formula">(MV_rate-down − MV_rate-up) / (2n bps × MV)</td><td>平行移位后的估值</td><td><span class="ev archive">档案确认</span></td><td>n 值、曲线非平移情景</td></tr>
+    <tr><td>信用利差效应</td><td class="formula">Σ Duration_begin × rating_weight × Δspread</td><td>评级权重、久期、利差变化</td><td><span class="ev archive">档案确认</span></td><td>评级迁移和曲线节点</td></tr>
+    <tr><td>个券选择效应</td><td class="formula">CapitalGain − Treasury − Spread</td><td>资本利得和系统风险效应</td><td><span class="ev archive">档案确认</span></td><td>交易效应和残差</td></tr>
+    <tr><td>MVO 期望收益</td><td class="formula">μ_p = wᵀμ</td><td>权重、资产预期收益</td><td><span class="ev archive">档案确认</span></td><td>预期收益估计方法</td></tr>
+    <tr><td>MVO 方差</td><td class="formula">σ²_p = wᵀΣw</td><td>权重、协方差矩阵</td><td><span class="ev archive">档案确认</span></td><td>协方差窗口、收缩与稳健估计</td></tr>
+    <tr><td>MVO 优化</td><td class="formula">min wᵀΣw; s.t. wᵀμ=target, 0≤w≤1, wᵀ1=1</td><td>目标收益与权重约束</td><td><span class="ev archive">档案确认</span></td><td>交易成本、换手、整数和分组约束</td></tr>
+    <tr><td>ERP</td><td class="formula">ERP = 1 / PE − Yield_10Y</td><td>指数 PE、10 年期国债收益率</td><td><span class="ev live">后继接口</span></td><td>PE 类型、负值处理、分位窗口</td></tr>
+    <tr><td>择时胜率</td><td class="formula">sign(Δequity_weight) = sign(market_return)</td><td>季初末调整后权益仓位、沪深800</td><td><span class="ev archive">档案确认</span></td><td>零值、报告期与基金披露滞后</td></tr>
+    <tr><td>择时贡献</td><td class="formula">Δequity_weight × market_return</td><td>权益仓位变化、市场收益</td><td><span class="ev archive">档案确认</span></td><td>行业/风格交叉效应</td></tr>
+    <tr><td>行业配置能力</td><td class="formula">Σ industry_rank_score × fund_industry_weight</td><td>行业排名分、基金行业权重</td><td><span class="ev archive">档案确认</span></td><td>行业收益计算与满仓归一</td></tr>
+    <tr><td>VaR</td><td class="formula">quantile(loss, confidence, horizon)</td><td>收益分布、置信度、持有期</td><td><span class="ev gap">旧功能提及</span></td><td>历史/参数/蒙特卡洛方法未确认</td></tr>
+  </tbody></table></div>
+  <p class="small">注意：上表把“数学定义”“CORAL 文档中的实现”“后继 VESTA 的现行口径”分开标示。Sharpe 无风险利率、Alpha/Beta/TE/IR 年化、VaR 方法、信号合成权重等仍应进入正式指标契约，而不是依赖页面或代码反推。</p>
+</section>
+
+<section id="migration">
+  <div class="sec-head"><div><div class="kicker">07 · CORAL → VESTA</div><h2>能力没有消失，而是从页面转成服务与工具</h2></div><p>研发资料显示 vesta-reef 的前身是 coral-reef。当前 122 项工具是“后继能力地图”，可用来识别哪些旧资产被继承、扩展或重组。</p></div>
+  <div class="migration">
+    <div class="system"><h3>CORAL</h3><div class="big">页面型</div><p>研究员在工具箱中选择页面、配置参数、查看图表并导出报告。核心组织方式是菜单与场景。</p><ul><li>基金/经理/组合页面</li><li>筛选、分析、导出</li><li>机构客户定制</li><li>研究中心与报告</li></ul></div>
+    <div class="arrow">→<small>服务化 / 原子化 / 可编排</small></div>
+    <div class="system"><h3>VESTA / 启明</h3><div class="big">工具型</div><p>研究能力拆为可组合接口，可被工作台、报告、MCP 和智能体复用。当前目录按 9 个域组织。</p><div class="bars">
+      <div class="bar"><span>组合分析</span><div class="track"><div class="fill" style="width:94%"></div></div><b>34</b></div><div class="bar"><span>基金分析</span><div class="track"><div class="fill" style="width:100%"></div></div><b>36</b></div><div class="bar"><span>单品研究</span><div class="track"><div class="fill" style="width:56%"></div></div><b>20</b></div><div class="bar"><span>基金筛选</span><div class="track"><div class="fill" style="width:19%"></div></div><b>7</b></div><div class="bar"><span>指数</span><div class="track"><div class="fill" style="width:17%"></div></div><b>6</b></div><div class="bar"><span>经理</span><div class="track"><div class="fill" style="width:8%"></div></div><b>3</b></div><div class="bar"><span>宏观</span><div class="track"><div class="fill" style="width:11%"></div></div><b>4</b></div><div class="bar"><span>研究报告</span><div class="track"><div class="fill" style="width:14%"></div></div><b>5</b></div><div class="bar"><span>世界新闻</span><div class="track"><div class="fill" style="width:19%"></div></div><b>7</b></div>
+    </div></div>
+  </div>
+  <details open><summary>代表性只读验证结果（2026-09-16）</summary><p>现行后继接口可返回基金搜索与业绩风险、基金筛选元数据、指数搜索、板块信号、研究报告权限和实时资讯。以公开基金 000001 与沪深 300 为样本，区间收益、最大回撤、波动、Sharpe、Sortino、Calmar、Alpha/Beta 等字段均可计算返回；行业信号返回 29 个板块。研究报告空间在当前身份下为无权限，说明“服务可达”和“数据有权访问”是两件事。</p></details>
+</section>
+
+<section id="risk">
+  <div class="sec-head"><div><div class="kicker">08 · Gaps & risks</div><h2>最大的风险不是没有功能，而是口径无法追责</h2></div><p>从旧系统走向 AI 可调用平台，错误会从“一个页面看错”放大为“多个智能体同时复用错误”。</p></div>
+  <div class="risk-grid">
+    <div class="risk high"><h3>同名指标，多套年化与基准</h3><p>基金、组合、客户账户可能分别使用 365.25 日、252 交易日、TWR 或 MWR。若不在对象层锁定口径，比较结果会失真。</p></div>
+    <div class="risk high"><h3>计算结果缺少血缘</h3><p>很多输出没有同时携带数据截至日、净值模式、分类版本、参数、代码版本和缺失处理，无法复算与审计。</p></div>
+    <div class="risk high"><h3>机构定制形成分叉</h3><p>页面复制和客户专属逻辑会产生版本漂移。应把品牌、菜单、数据范围、指标包和权限改为配置化套餐。</p></div>
+    <div class="risk mid"><h3>批量与实时混在一起</h3><p>季报、日更、盘中和手工数据若没有显式时效标记，会造成“最新页面 + 旧底数”的组合。</p></div>
+    <div class="risk mid"><h3>静默空值被误解为零</h3><p>短样本下跟踪误差、信息比率可能为空；无权限的报告空间也会返回空集合。前端与智能体必须区分无数据、无权限、未计算和 0。</p></div>
+    <div class="risk mid"><h3>AI 内容的日期一致性</h3><p>现行资讯接口曾出现报告时间与正文叙述年份不一致，说明生成式摘要必须经过日期、实体、数字三类校验。</p></div>
+    <div class="risk mid"><h3>DDB 与高并发边界</h3><p>历史架构设计已提示查询服务和存储并发约束；若研究接口直接扩到 C 端，需要缓存、限流与降级策略。</p></div>
+    <div class="risk mid"><h3>公式靠代码反推</h3><p>Sharpe 无风险利率、VaR 方法、信号合成权重等关键契约仍不完整。代码实现不应成为唯一说明书。</p></div>
+  </div>
+</section>
+
+<section id="roadmap">
+  <div class="sec-head"><div><div class="kicker">09 · Recommended rebuild</div><h2>六步把旧系统变成可复用的投研能力资产</h2></div><p>目标不是再做一个“更漂亮的 CORAL”，而是建立可信、可组合、可验证、对人和智能体都友好的投研操作系统。</p></div>
+  <div class="recommend">
+    <div class="rec"><h3>建立统一指标注册表</h3><p>每个指标拥有唯一 ID、中文名、数学定义、对象、频率、年化、基准、来源、缺失处理、版本和负责人。</p><span class="priority">P0 · 先于界面重做</span></div>
+    <div class="rec"><h3>把数据血缘做成结果的一部分</h3><p>每个表格、图表和接口结果必须能展开看到 as-of、source、formula version、parameters 与 quality flags。</p><span class="priority">P0 · 审计底座</span></div>
+    <div class="rec"><h3>以研究对象重构工作流</h3><p>从基金/经理/组合对象出发，串联搜索、分析、比较、入池、建模、报告和复盘，而不是让用户反复找工具。</p><span class="priority">P1 · 体验主线</span></div>
+    <div class="rec"><h3>保留模型，淘汰页面耦合</h3><p>MVO、Brinson、Campisi、Barra、Fama、筛选评分和信号都应成为版本化服务；页面只是其中一个调用者。</p><span class="priority">P1 · 能力服务化</span></div>
+    <div class="rec"><h3>建立黄金样本与回归测试</h3><p>为每个关键指标准备可人工复算的小样本，覆盖分红、调仓、缺失、跨币种、短样本和分类变更。</p><span class="priority">P1 · 防止口径漂移</span></div>
+    <div class="rec"><h3>给 AI 加“投研防错层”</h3><p>工具调用前校验权限和参数，调用后校验日期、单位、口径与空值；所有结论可回溯到原始数据和计算链。</p><span class="priority">P2 · 智能体治理</span></div>
+  </div>
+</section>
+
+<section id="evidence">
+  <div class="sec-head"><div><div class="kicker">10 · Evidence ledger</div><h2>证据范围、限制与代表性来源</h2></div><p>本报告是一份“可追责盘点”，不是把所有历史需求文档都当作已上线事实。功能是否上线、是否仍在、口径是否延续，按证据等级分别陈述。</p></div>
+  <details open><summary>证据等级</summary><ul><li><strong>档案确认：</strong>产品规划、上线月报、研发设计或既有系统知识中有明确记录；不自动等于今天仍可用。</li><li><strong>现行接口实测：</strong>2026-09-16 通过后继投研工具执行了只读调用；证明当前服务响应，不证明旧 CORAL 当年已有相同实现。</li><li><strong>继承/推断：</strong>基于 coral-reef → vesta-reef、对象和接口连续性做的有边界推断。</li><li><strong>未确认：</strong>只有概念、字段或界面线索，没有足够材料锁定公式/实现。</li></ul></details>
+  <details><summary>代表性历史来源</summary><ol class="source-list"><li>CORAL 老投研系统知识条目</li><li>VESTA 投研工业化平台知识条目</li><li>2022 年 3 月 CEO 月报：CORAL Beta</li><li>2022 年 4 月 CEO 月报：正式上线</li><li>2022 年 5 月 CEO 月报：模块迭代</li><li>2022 年 8 月 CEO 月报：固收异常监控</li><li>2023 年 Coral 数据工厂设计</li><li>2023 年 coral-api 架构设计</li><li>2025 年投研系统容灾说明</li><li>基金分析与基金经理画像 PRD</li><li>基金筛选器新旧版规划</li><li>基金优选与指标权重说明</li><li>基金池/投资池管理规划</li><li>债券异常监控与久期估算文档</li><li>Campisi 持仓与回归归因说明</li><li>Brinson 与多期归因设计</li><li>Barra/Fama/Carhart 分析规划</li><li>组合实验室与模拟组合规划</li><li>资产配置 AAP / MVO 规划</li><li>报告工厂与批量导出设计</li><li>招商银行等机构定制页面规划</li><li>且慢模拟组合接入说明</li><li>vesta MCP 指标公式口径盘点</li><li>现行 9 域 122 工具目录</li></ol></details>
+  <details><summary>当前网页实机限制</summary><p>浏览器访问 <strong>https://coral.yingmi.com/</strong> 后跳转到登录页，页面标识为“盈米基金投研工具平台”，包含账号密码与短信登录入口；本轮未取得登录后会话，因此未对当前线上菜单逐页截图。报告据此没有声称“已遍历当前每个页面”。若后续提供合法会话，可追加一版“现网逐页验收差异表”。</p></details>
+  <div class="foot">研究日期：2026-09-16 · 数据与接口仅用于只读验证 · 不含客户数据、凭据、内部地址或个人信息 · CLAIR Research</div>
+</section>
+</main>
+<script>
+  const search = document.getElementById('moduleSearch');
+  const cards = [...document.querySelectorAll('.module')];
+  const filters = [...document.querySelectorAll('.filter')];
+  let active = 'all';
+  function applyFilter(){
+    const q = search.value.trim().toLowerCase(); let visible = 0;
+    cards.forEach(card => { const okStatus = active === 'all' || card.dataset.status === active; const okText = !q || card.textContent.toLowerCase().includes(q) || card.dataset.search.toLowerCase().includes(q); const show = okStatus && okText; card.hidden = !show; if(show) visible++; });
+    document.getElementById('noResults').style.display = visible ? 'none' : 'block';
+  }
+  search.addEventListener('input', applyFilter);
+  filters.forEach(btn => btn.addEventListener('click', () => { active = btn.dataset.filter; filters.forEach(x => x.classList.toggle('active', x === btn)); applyFilter(); }));
+</script>
+</body>
+</html>
