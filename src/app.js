@@ -187,6 +187,20 @@ const initialState = {
       tags: ["PMS", "组合管理", "策略管理", "调仓", "发车", "风控", "账户运营", "多租户", "产品定位", "产品框架", "路线图", "功能盘点", "指标公式", "系统关系", "深度调研", "HTML", "生产"],
     },
     {
+      id: "tws-advisor-workbench-deep-dive-2026-09-16",
+      groupId: "research",
+      title: "启明 TWS 顾问工作台｜全景深度调研",
+      url: "https://clairku.github.io/clair-ai-studio/reports/tws-advisor-workbench-deep-dive-2026-09-16/",
+      preview: "tws-advisor-workbench-deep-dive-2026-09-16.png",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-16T21:20:00+08:00",
+      source: "2026-09-16 当前 TWS 前端页面骨架、路由、字段和状态文案复核 + 2023–2026 产品规划、系统架构与 Sprint 73/81/83/84/86 测试验收 + 收益与风险指标口径资料｜盘点 8 个一级域、14 个完整能力域、90+ 功能与工具项、14 类关键数据对象和 30 项核心指标公式｜补全产品定位、六层框架、2020–2026 迭代历程、角色与用户边界、ECIF/SCRM/VESTA/CORAL/PMS/AAP/AMS/交易/App/H5/OAP/MCP/Agent 系统关系及下一阶段路线图｜当前账号内实页未登录，租户权限、真实用户规模、MAU/WAU 与未披露评分公式不作推断｜公开脱敏，不含客户、账户、资产、交易、密钥、内部地址或私有商业数据",
+      access: "production",
+      workType: "product-planning",
+      tags: ["启明", "TWS", "顾问工作台", "财富管理", "买方投顾", "产品定位", "产品框架", "产品路线图", "迭代历程", "用户分析", "系统关系", "功能盘点", "数据字典", "指标公式", "任务中心", "智能客群", "报告与投后", "投资规划", "APC", "MPRS", "AI Native", "深度调研", "HTML", "生产"],
+    },
+    {
       id: "global-ai-advice-advisor-copilot-cases-2026-09-16",
       groupId: "research",
       title: "全球智能投顾与顾问 AI 副驾｜16 家经典案例",
@@ -2534,6 +2548,7 @@ const TOPIC_BY_REPORT = {
   "global-ai-advice-advisor-copilot-cases-2026-09-16": "research",
   "vesta-system-deep-dive-2026-09-16": "research",
   "coral-investment-research-system-deep-dive-2026-09-16": "research",
+  "tws-advisor-workbench-deep-dive-2026-09-16": "research",
   "qieman-llm-trading-path-2026-09-15": "xiaogu",
   // 战略经营与项目复盘
   "yuyue-internship-portfolio-2026-09-03": "reporting",

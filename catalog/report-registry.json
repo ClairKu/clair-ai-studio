@@ -3,6 +3,7 @@
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
     "pms-system-deep-dive-2026-09-16",
+    "tws-advisor-workbench-deep-dive-2026-09-16",
     "global-ai-advice-advisor-copilot-cases-2026-09-16",
     "advisor-operations-workbench-deep-audit-2026-09-16",
     "vesta-system-deep-dive-2026-09-16",

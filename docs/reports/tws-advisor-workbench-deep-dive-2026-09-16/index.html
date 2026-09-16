@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <script data-clair-access-gate data-clair-access-scope="report" src="../../access-gate.js"></script>
+  <title>启明 TWS 顾问工作台｜全景深度调研</title>
+  <meta name="description" content="基于当前前端资源、产品规划、测试验收、收益与风险口径材料，对启明 TWS 顾问工作台的定位、框架、功能、数据、指标、公式、用户、系统关系和产品路线进行全景盘点。" />
+  <meta property="og:title" content="启明 TWS 顾问工作台｜全景深度调研" />
+  <meta property="og:description" content="8 个一级域、14 个能力域、90+ 功能项、数据与指标公式、2020–2026 演进及下一阶段路线。" />
+  <meta property="og:image" content="https://clairku.github.io/clair-ai-studio/reports/tws-advisor-workbench-deep-dive-2026-09-16/cover.png" />
+  <meta name="theme-color" content="#071525" />
+  <style>
+    :root{--bg:#07111f;--panel:#0d1d30;--panel2:#11263d;--line:#24405b;--text:#eaf4ff;--muted:#91a8bf;--cyan:#35d1df;--blue:#5fa8ff;--amber:#f4bb57;--green:#67d6a3;--red:#ff7e7e;--ink:#142538;--paper:#f5f8fb;--paper2:#fff;--shadow:0 18px 50px rgba(0,0,0,.22);--r:22px}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.72 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}a{color:inherit}.shell{max-width:1240px;margin:auto;padding:0 28px}.hero{min-height:720px;color:var(--text);position:relative;overflow:hidden;background:linear-gradient(90deg,rgba(5,15,29,.98) 0%,rgba(5,15,29,.93) 34%,rgba(5,15,29,.28) 68%,rgba(5,15,29,.08) 100%),url('./cover.png') center/cover}.hero:after{content:"";position:absolute;inset:auto 0 0;height:160px;background:linear-gradient(transparent,#07111f)}.hero .shell{position:relative;z-index:2;padding-top:44px}.topline{display:flex;align-items:center;justify-content:space-between;gap:18px}.brand{font-size:13px;letter-spacing:.16em;color:#b4c9dc}.badge{border:1px solid rgba(53,209,223,.45);background:rgba(12,35,55,.72);color:#8cebf2;padding:7px 12px;border-radius:999px;font-size:12px}.hero h1{font-size:64px;line-height:1.04;letter-spacing:-.04em;margin:125px 0 18px;max-width:720px}.hero h1 span{display:block;color:var(--cyan)}.lead{max-width:675px;font-size:20px;line-height:1.65;color:#c7d8e8;margin:0}.hero-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:820px;margin-top:42px}.hero-metrics div{padding:15px 16px;border:1px solid rgba(122,171,211,.24);background:rgba(8,24,40,.66);backdrop-filter:blur(12px);border-radius:14px}.hero-metrics strong{font-size:23px;display:block;color:white}.hero-metrics span{font-size:12px;color:#9eb5c9}.hero-note{font-size:12px;color:#86a0b6;margin-top:18px}.toc-wrap{background:#07111f;padding:0 0 36px}.toc{position:relative;z-index:3;display:flex;gap:8px;flex-wrap:wrap}.toc a{color:#b7c9d9;text-decoration:none;border:1px solid #243d54;background:#0d1b2b;padding:8px 12px;border-radius:999px;font-size:12px}.toc a:hover{color:white;border-color:var(--cyan)}main{padding:72px 0 100px}.section{margin:0 0 76px;scroll-margin-top:24px}.eyebrow{color:#177f8b;font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:12px;margin-bottom:8px}.section h2{font-size:38px;line-height:1.18;letter-spacing:-.03em;margin:0 0 14px}.section>.intro{max-width:900px;color:#546879;font-size:17px;margin:0 0 28px}.verdict{background:var(--bg);color:white;border-radius:var(--r);padding:34px 38px;box-shadow:var(--shadow);position:relative;overflow:hidden}.verdict:before{content:"";position:absolute;width:280px;height:280px;border-radius:50%;right:-120px;top:-150px;background:radial-gradient(circle,rgba(53,209,223,.34),transparent 68%)}.verdict h3{font-size:27px;margin:0 0 12px;max-width:900px}.verdict p{color:#afc2d2;margin:0;max-width:940px}.grid{display:grid;gap:16px}.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}.card{background:var(--paper2);border:1px solid #dce5ed;border-radius:18px;padding:22px;box-shadow:0 8px 24px rgba(32,66,94,.06)}.card h3,.card h4{margin:0 0 8px}.card p{margin:0;color:#5f7283}.num{font-size:32px;font-weight:800;letter-spacing:-.04em;color:#0e7180}.chip{display:inline-block;border-radius:999px;padding:4px 9px;font-size:11px;font-weight:700;margin:0 6px 6px 0}.c-now{background:#dff8ec;color:#147149}.c-code{background:#e5f1ff;color:#2460a0}.c-hist{background:#fff1d4;color:#8b5b05}.c-plan{background:#ece8ff;color:#5a46a6}.c-gap{background:#ffe5e5;color:#a33d3d}.legend{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 26px}.legend .chip{margin:0}.evidence{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.evidence .card{padding:18px}.evidence b{display:block;margin-bottom:5px}.architecture{background:var(--bg);color:white;border-radius:22px;padding:28px;box-shadow:var(--shadow)}.architecture .layer{display:grid;grid-template-columns:160px 1fr;gap:18px;border:1px solid #24405b;background:linear-gradient(90deg,#0c1c2e,#102640);padding:16px 18px;border-radius:14px;margin:10px 0}.architecture .layer strong{color:var(--cyan)}.architecture .nodes{display:flex;flex-wrap:wrap;gap:8px}.architecture .nodes span{border:1px solid #33536d;background:#142b42;color:#d3e1ed;padding:6px 10px;border-radius:8px;font-size:12px}.architecture .arrow{text-align:center;color:#5f849e;font-size:18px;line-height:1}.module-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.module{border-radius:16px;padding:18px;background:#0c2034;color:#dbeafa;min-height:140px}.module .idx{font-size:11px;color:var(--cyan);letter-spacing:.12em}.module h3{margin:8px 0 6px;color:white;font-size:18px}.module p{font-size:12px;color:#9eb3c6;margin:0}.table-wrap{overflow:auto;border:1px solid #d8e2ea;border-radius:16px;background:white}.table-tools{display:flex;gap:10px;justify-content:space-between;align-items:center;margin:0 0 12px;flex-wrap:wrap}.table-tools input{min-width:290px;max-width:420px;flex:1;border:1px solid #cbd7e1;border-radius:12px;padding:11px 14px;font:inherit}.table-tools small{color:#6a7d8d}.data-table{width:100%;border-collapse:collapse;min-width:860px}.data-table th{position:sticky;top:0;background:#edf3f7;text-align:left;font-size:12px;color:#4d6376;padding:12px;border-bottom:1px solid #d8e2ea}.data-table td{padding:12px;border-bottom:1px solid #e8eef3;vertical-align:top}.data-table tr:last-child td{border-bottom:0}.data-table td:nth-child(1){font-weight:700;width:140px}.data-table td:nth-child(2){width:170px}.data-table p{margin:0;color:#5d7080;font-size:13px}.fn-group{margin:28px 0}.fn-group h3{font-size:22px;margin:0 0 12px}.roadmap{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.phase{position:relative;background:white;border:1px solid #d8e2ea;border-radius:18px;padding:22px}.phase:before{content:"";position:absolute;top:0;left:22px;right:22px;height:4px;border-radius:0 0 5px 5px;background:var(--cyan)}.phase:nth-child(2):before{background:var(--blue)}.phase:nth-child(3):before{background:var(--amber)}.phase:nth-child(4):before{background:var(--green)}.phase .when{font-size:11px;font-weight:800;color:#62788b;letter-spacing:.1em}.phase h3{font-size:19px;margin:10px 0}.phase ul{padding-left:18px;margin:0;color:#536777}.timeline{position:relative;padding-left:28px}.timeline:before{content:"";position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:#b6cbd9}.event{position:relative;margin:0 0 22px;background:white;border:1px solid #d8e2ea;border-radius:16px;padding:18px 20px}.event:before{content:"";position:absolute;left:-27px;top:25px;width:12px;height:12px;border-radius:50%;background:var(--cyan);border:3px solid var(--paper)}.event b{color:#0a7180}.event p{margin:4px 0 0;color:#5d7080}.formula{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#eef4f8;border:1px solid #dbe7ee;padding:7px 9px;border-radius:8px;display:inline-block;font-size:12px;color:#25455e}.risk{border-left:4px solid var(--amber)}.risk.red{border-color:var(--red)}.risk.green{border-color:var(--green)}.relationship{display:grid;grid-template-columns:1fr 150px 1fr;gap:12px;align-items:stretch}.relationship .hub{background:var(--bg);color:white;border-radius:20px;display:flex;align-items:center;justify-content:center;text-align:center;padding:18px;font-size:22px;font-weight:800}.relationship .side{display:grid;gap:10px}.rel{background:white;border:1px solid #d8e2ea;border-radius:14px;padding:14px}.rel b{display:block}.rel small{color:#617486}.source-list{columns:2;column-gap:34px}.source-list li{break-inside:avoid;margin-bottom:9px}.footer{background:#07111f;color:#9eb2c4;padding:42px 0}.footer strong{color:white}.footer .shell{display:flex;justify-content:space-between;gap:30px}.no-result{display:none;padding:18px;color:#8a4f0b;background:#fff4df}.callout{background:#e9f8f8;border:1px solid #bde8e9;border-radius:16px;padding:18px 20px;color:#24535a}.callout strong{color:#0d6672}.mini{font-size:12px;color:#6e8192}.kicker{color:#067584;font-weight:800}.compact{margin:8px 0 0;padding-left:18px}.compact li{margin:4px 0}.nowrap{white-space:nowrap}
+    @media(max-width:900px){.hero{min-height:680px;background-position:60% center}.hero h1{font-size:44px;margin-top:110px;max-width:570px}.hero-metrics,.g4,.module-grid,.roadmap,.evidence{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:1fr}.relationship{grid-template-columns:1fr}.relationship .hub{min-height:100px}.source-list{columns:1}}
+    @media(max-width:620px){.shell{padding:0 18px}.hero{min-height:700px;background-position:67% center}.hero h1{font-size:38px;margin-top:88px}.lead{font-size:17px}.hero-metrics,.g2,.g4,.module-grid,.roadmap,.evidence{grid-template-columns:1fr}.section h2{font-size:30px}.architecture{padding:18px}.architecture .layer{grid-template-columns:1fr}.footer .shell{display:block}.topline{align-items:flex-start}.badge{max-width:170px;text-align:center}}
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="shell">
+      <div class="topline"><div class="brand">CLAIR’S STUDIO · SYSTEM RESEARCH</div><div class="badge">证据截止 2026-09-16</div></div>
+      <h1>启明 TWS<span>顾问工作台全景调研</span></h1>
+      <p class="lead">它不只是客户管理、账户查询或报告工具，而是一套把“客户—账户—方案—任务—交易—投后—经营”连接起来的顾问经营操作系统；当前最大机会不是继续堆页面，而是完成对象、事件、指标和动作的统一。</p>
+      <div class="hero-metrics">
+        <div><strong>8</strong><span>当前一级功能域</span></div><div><strong>14</strong><span>完整能力域</span></div><div><strong>90+</strong><span>盘点功能与工具项</span></div><div><strong>2020–26</strong><span>可追溯产品演进</span></div>
+      </div>
+      <div class="hero-note">证据：当前前端资源与页面骨架、2023–2026 产品规划及测试验收、系统架构资料、收益与风险指标口径。未使用真实客户、账号、资产或交易数据。</div>
+    </div>
+  </header>
+  <div class="toc-wrap"><nav class="shell toc">
+    <a href="#summary">结论</a><a href="#evidence">证据边界</a><a href="#position">定位</a><a href="#framework">框架</a><a href="#inventory">完整功能</a><a href="#tools">工具</a><a href="#data">数据</a><a href="#metrics">指标与公式</a><a href="#users">用户</a><a href="#relations">系统关系</a><a href="#history">迭代历程</a><a href="#roadmap">路线图</a><a href="#actions">建议</a><a href="#sources">来源</a>
+  </nav></div>
+
+  <main class="shell">
+    <section class="section" id="summary">
+      <div class="eyebrow">Executive verdict</div><h2>一句话判断</h2>
+      <div class="verdict"><h3>启明已经长成“顾问经营中枢”的骨架，但还没有完全成为顾问每天离不开的闭环操作系统。</h3><p>客户分群、账户分析、任务、报告、投研、消息、经营管理和权限后台已经形成八大工作域；历史能力还覆盖投资规划、定制账户、交易与签约。真正的产品缺口集中在三处：跨域对象仍松散、部分客户详情能力仍是占位或待开放、指标与动作之间缺少统一的事件—策略—执行—证据闭环。</p></div>
+      <div class="grid g4" style="margin-top:16px">
+        <div class="card"><div class="num">01</div><h3>核心资产</h3><p>客户与账户全景、顾问服务关系、投资规划和投后报告。</p></div>
+        <div class="card"><div class="num">02</div><h3>经营引擎</h3><p>智能客群触发任务，再由顾问跟进、产出报告并沉淀结果。</p></div>
+        <div class="card"><div class="num">03</div><h3>现阶段断点</h3><p>任务、沟通、交易、风险与文档尚未完全共享同一事件事实链。</p></div>
+        <div class="card"><div class="num">04</div><h3>下一步胜负手</h3><p>从“菜单集合”升级为可配置、可证明、可复盘的顾问作业系统。</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="evidence">
+      <div class="eyebrow">Evidence boundary</div><h2>先讲清楚：哪些是现在，哪些是历史或规划</h2>
+      <p class="intro">本报告把“出现过”与“可用”分开。前端资源中存在代码，只证明能力已进入当前发布包；测试报告通过生产验证，才可视为正式交付；历史规划只用于解释产品方向。</p>
+      <div class="legend"><span class="chip c-now">当前已确认</span><span class="chip c-code">当前资源可见／待账号实页复核</span><span class="chip c-hist">历史已交付或历史能力</span><span class="chip c-plan">规划／建议</span><span class="chip c-gap">占位、缺口或未披露</span></div>
+      <div class="evidence">
+        <div class="card"><b>当前发布包</b><p>2026-09-16 获取的 TWS 前端页面骨架、路由、字段与交互文案，能确认八个一级域及细部能力。</p></div>
+        <div class="card"><b>生产验收记录</b><p>2025–2026 多轮 Sprint 测试报告，用于确认 APC 投资规划、MPRS、定制账户迁移等已通过生产验证。</p></div>
+        <div class="card"><b>产品与架构档案</b><p>2023 功能结构、2025 路线图、TWS/SCRM/资配关系等材料，用于还原系统边界和演进。</p></div>
+        <div class="card"><b>当前限制</b><p>账号登录页已复核，但本轮未获得登录态；真实菜单权限、客户数据、MAU/WAU 与商户规模不作推断。</p></div>
+      </div>
+      <div class="callout" style="margin-top:14px"><strong>可信度规则：</strong>“当前已确认”不等于每个租户都启用；菜单、数据和能力会受商户配置、角色权限、数据接入与灰度开关影响。</div>
+    </section>
+
+    <section class="section" id="position">
+      <div class="eyebrow">Product position</div><h2>产品定位：买方投顾组织的“经营与作业操作系统”</h2>
+      <p class="intro">启明的正确比较对象不是单一 CRM，也不是单一报告平台。它向上承接管理经营目标，向下调用客户、账户、投研、组合和交易能力，在中间把顾问的人工作业变成可分发、可执行、可审计的流程。</p>
+      <div class="grid g3">
+        <div class="card"><h3>面向一线顾问</h3><p>知道今天该服务谁、为什么服务、用什么工具、完成后留下什么证据。</p></div>
+        <div class="card"><h3>面向团队管理者</h3><p>看客户、资产、流入流出、产品、任务、服务质量与顾问绩效，不只看结果。</p></div>
+        <div class="card"><h3>面向机构与平台</h3><p>以权限、模板、租户配置、API/MCP 和多端协同输出顾问能力。</p></div>
+      </div>
+      <div class="grid g2" style="margin-top:16px">
+        <div class="card risk green"><h3>应该做</h3><ul class="compact"><li>统一客户、家庭、账户、服务关系、事件、方案、任务、订单、报告和证据。</li><li>把洞察转成可控动作，把动作结果反哺客户与经营视图。</li><li>让投研、资配、交易、合规能力以可复用服务进入顾问流程。</li></ul></div>
+        <div class="card risk red"><h3>不应该变成</h3><ul class="compact"><li>把所有后台系统页面复制到一个导航里的“超级入口”。</li><li>只展示指标、不产生后续动作的经营看板。</li><li>让 AI 绕过适当性、授权、强确认、交易与审计系统直接执行。</li></ul></div>
+      </div>
+    </section>
+
+    <section class="section" id="framework">
+      <div class="eyebrow">Product framework</div><h2>六层产品框架</h2>
+      <p class="intro">从用户工作面到业务中台再到底层数据，启明不是一个孤立系统，而是多个专业能力的编排层和证据层。</p>
+      <div class="architecture">
+        <div class="layer"><strong>1 · 角色与入口</strong><div class="nodes"><span>投资总监</span><span>团队管理者</span><span>投资顾问</span><span>顾问助理</span><span>运营／客服</span><span>系统管理员</span><span>机构租户</span></div></div><div class="arrow">↓</div>
+        <div class="layer"><strong>2 · 八大工作域</strong><div class="nodes"><span>客户管理</span><span>消息中心</span><span>报告与投后</span><span>投研</span><span>经营管理</span><span>设置</span><span>系统管理</span><span>任务中心</span></div></div><div class="arrow">↓</div>
+        <div class="layer"><strong>3 · 核心业务对象</strong><div class="nodes"><span>客户／家庭</span><span>账户／持仓</span><span>服务关系</span><span>标签／客群</span><span>事件</span><span>方案</span><span>任务</span><span>订单</span><span>报告</span><span>证据</span></div></div><div class="arrow">↓</div>
+        <div class="layer"><strong>4 · 决策与流程引擎</strong><div class="nodes"><span>智能分群</span><span>规则触发</span><span>任务编排</span><span>APC 规划</span><span>账户诊断</span><span>MPRS 风控</span><span>报告生成</span><span>AI 助手</span><span>权限审计</span></div></div><div class="arrow">↓</div>
+        <div class="layer"><strong>5 · 业务能力服务</strong><div class="nodes"><span>ECIF 客户</span><span>PMS 组合与账户</span><span>VESTA／CORAL 投研</span><span>AAP／UAAP 资配</span><span>AMS 投后维护</span><span>交易与签约</span><span>消息与企微</span></div></div><div class="arrow">↓</div>
+        <div class="layer"><strong>6 · 数据与技术底座</strong><div class="nodes"><span>Keycloak／OIDC</span><span>客户与账户数据</span><span>行情／净值／产品</span><span>埋点与 CDP</span><span>报表数据集</span><span>租户／角色／权限</span><span>API／MCP／Agent</span></div></div>
+      </div>
+      <h3 style="margin-top:28px">当前一级信息架构</h3>
+      <div class="module-grid">
+        <div class="module"><div class="idx">01 / CUSTOMER</div><h3>客户管理</h3><p>客户、持有客户、线索、智能客群；客户详情含全景、账户、服务、画像、订单、风险、沟通、文档与投资规划。</p></div>
+        <div class="module"><div class="idx">02 / MESSAGE</div><h3>消息中心</h3><p>近 30 天消息、未读、客户搜索、通知设置与短信触达。</p></div>
+        <div class="module"><div class="idx">03 / REPORT</div><h3>报告与投后</h3><p>账户定期报告、报告创建、我的报告、报告模板、数据模板与编辑器。</p></div>
+        <div class="module"><div class="idx">04 / RESEARCH</div><h3>投研</h3><p>基金深度分析、业绩归因、持仓风格、组合穿透、相关性、风险与核心观察池。</p></div>
+        <div class="module"><div class="idx">05 / MANAGEMENT</div><h3>经营管理</h3><p>总览、业务、监控、产品、团队、CRM、业绩、顾问、客户与服务质量。</p></div>
+        <div class="module"><div class="idx">06 / SETTINGS</div><h3>设置</h3><p>用户、团队与个人／组织级工作配置；受租户和角色权限影响。</p></div>
+        <div class="module"><div class="idx">07 / ADMIN</div><h3>系统管理</h3><p>用户、角色、权限、券商模板、报告工作区、模型与 Agent 会话、调试能力。</p></div>
+        <div class="module"><div class="idx">08 / TASK</div><h3>任务中心</h3><p>我的任务、任务管理、创建任务、自动任务；支持客群触发、分发、进度与团队视角。</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="inventory">
+      <div class="eyebrow">Complete capability inventory</div><h2>完整功能清单</h2>
+      <p class="intro">按“能力域—功能点—细节—状态—证据”拆解。搜索可快速定位模块、指标或工具；这份清单覆盖当前包、已验收历史能力与明确缺口。</p>
+      <div class="table-tools"><input id="fnSearch" placeholder="搜索：客群、报告、APC、任务、交易、风险……" /><small id="fnCount">显示全部功能项</small></div>
+      <div class="table-wrap"><div class="no-result" id="noResult">没有匹配项，请换一个关键词。</div><table class="data-table" id="fnTable"><thead><tr><th>能力域</th><th>功能／工具</th><th>详细说明</th><th>状态</th><th>证据与边界</th></tr></thead><tbody>
+        <tr><td>身份与权限</td><td>统一登录</td><td>OIDC / Keycloak 单点登录；登录后同步或更新 TWS 用户。</td><td><span class="chip c-now">当前已确认</span></td><td>登录页与历史系统说明一致。</td></tr>
+        <tr><td>身份与权限</td><td>角色权限</td><td>用户、TWS 用户、角色、权限、团队；菜单、数据范围和操作权限分离。</td><td><span class="chip c-code">当前资源可见</span></td><td>后台路由可见；实际授权矩阵需管理员实页复核。</td></tr>
+        <tr><td>身份与权限</td><td>租户与机构模板</td><td>不同机构可配置券商模板、报告工作区、页面和数据能力。</td><td><span class="chip c-code">当前资源可见</span></td><td>商户差异由配置和数据接入决定。</td></tr>
+        <tr><td>客户管理</td><td>全部客户</td><td>展示客户身份、顾问关系、账户、资产、收益、风险、标签与最近交易等。</td><td><span class="chip c-now">当前已确认</span></td><td>当前客户列表字段与交互文案。</td></tr>
+        <tr><td>客户管理</td><td>持有客户</td><td>按账户／持仓状态识别已持有客户，用于投后与服务经营。</td><td><span class="chip c-now">当前已确认</span></td><td>当前标签页。</td></tr>
+        <tr><td>客户管理</td><td>潜在线索</td><td>线索登记、去重检查、转化跟踪；支持新增前校验同名或同标识。</td><td><span class="chip c-now">当前已确认</span></td><td>当前线索页与去重提示。</td></tr>
+        <tr><td>客群与标签</td><td>智能客群</td><td>基于标签、资产、收益、交易、服务关系等条件保存客群；同类条件 OR、跨类 AND。</td><td><span class="chip c-now">当前已确认</span></td><td>当前分群规则；个人／正式客群并存。</td></tr>
+        <tr><td>客群与标签</td><td>常用客群</td><td>常用客群上限 8 个，快速进入高频服务对象。</td><td><span class="chip c-now">当前已确认</span></td><td>当前前端交互限制。</td></tr>
+        <tr><td>客群与标签</td><td>标签筛选</td><td>单次可选标签上限 20；可组合客户、账户、行为和服务属性。</td><td><span class="chip c-now">当前已确认</span></td><td>当前前端交互限制。</td></tr>
+        <tr><td>客户全景</td><td>全景分析</td><td>客户关系、账户收益、近 7/14 日盈亏、资产变化、当前回撤、问卷、沟通、持仓 Top5、月度贡献与最近交易。</td><td><span class="chip c-code">当前资源可见</span></td><td>数据取决于账号权限与客户接入。</td></tr>
+        <tr><td>客户全景</td><td>账户分析</td><td>AUM、持仓与已清仓资产、资产类型分布、账户清单、收益与风险表现。</td><td><span class="chip c-code">当前资源可见</span></td><td>当前客户详情资源。</td></tr>
+        <tr><td>客户全景</td><td>服务关系</td><td>主服务顾问、辅助服务关系、团队与归属；支撑任务分配和客户转移。</td><td><span class="chip c-code">当前资源可见</span></td><td>与经营管理、任务分发联动。</td></tr>
+        <tr><td>客户全景</td><td>客户画像</td><td>基础信息、风险偏好、投资目标、账户状态、标签与问卷历史。</td><td><span class="chip c-code">当前资源可见</span></td><td>“认知档案”明确为后续开放。</td></tr>
+        <tr><td>客户全景</td><td>交易订单</td><td>目标为查看订单、交易状态和客户动作。</td><td><span class="chip c-gap">模块开发中</span></td><td>当前页面文案明确标注开发中。</td></tr>
+        <tr><td>客户全景</td><td>风控预警</td><td>目标为聚合账户风险、产品风险和客户风险事件。</td><td><span class="chip c-gap">模块开发中</span></td><td>当前页面文案明确标注开发中；MPRS 为独立已验收能力。</td></tr>
+        <tr><td>客户全景</td><td>沟通记录</td><td>目标为沉淀电话、企微、面谈、消息及后续动作。</td><td><span class="chip c-gap">模块开发中</span></td><td>当前页面文案明确标注开发中。</td></tr>
+        <tr><td>客户全景</td><td>文档中心</td><td>自动归档任务附件和定期报告，支持上传顾问材料、模拟客户视图并留痕。</td><td><span class="chip c-code">当前资源可见</span></td><td>客户视图模拟带提示与审计要求。</td></tr>
+        <tr><td>客户全景</td><td>投资规划主页</td><td>汇总投资目标、问卷、期望收益、最大回撤、风险舒适区与账户方案。</td><td><span class="chip c-code">当前资源可见</span></td><td>依赖资配算法和问卷服务。</td></tr>
+        <tr><td>账户与收益</td><td>账户资产</td><td>账户市值、资产分布、持仓、清仓资产、现金、产品维度汇总。</td><td><span class="chip c-now">当前已确认</span></td><td>列表、详情及经营指标中均有口径。</td></tr>
+        <tr><td>账户与收益</td><td>收益周期</td><td>当日、年初至今、近 1/3/6 月、近 1/2/3/5 年、累计收益率与累计收益。</td><td><span class="chip c-now">当前已确认</span></td><td>当前客户列表字段。</td></tr>
+        <tr><td>账户与收益</td><td>收益日历</td><td>以日期呈现客户／账户盈亏、回撤与贡献，支持投后沟通。</td><td><span class="chip c-hist">历史已交付</span></td><td>历史 TWS 产品能力；当前是否保留需登录态复核。</td></tr>
+        <tr><td>账户与收益</td><td>业绩归因</td><td>区分资产、产品、交易和配置变化对收益的贡献。</td><td><span class="chip c-code">当前资源可见</span></td><td>报告与投研模块均出现；具体归因模型未披露。</td></tr>
+        <tr><td>规划与诊断</td><td>问卷与风险测评</td><td>测评客户风险等级；支持历史问卷复用，保留评估记录。</td><td><span class="chip c-now">当前已确认</span></td><td>2026 Sprint 83 通过生产验收。</td></tr>
+        <tr><td>规划与诊断</td><td>账户诊断</td><td>从收益、风险、配置、持仓和目标匹配识别问题，并可生成服务任务或报告。</td><td><span class="chip c-hist">历史已交付</span></td><td>2023–2025 多份产品与测试材料；当前入口需登录态复核。</td></tr>
+        <tr><td>规划与诊断</td><td>APC 投资规划 2.0</td><td>输入目标、期限、现金替代、基金数量、权重限制等参数，输出资产配置和产品方案。</td><td><span class="chip c-now">生产验收</span></td><td>2025 Sprint 73 通过；64 个问题修复后验收。</td></tr>
+        <tr><td>规划与诊断</td><td>规划转交易</td><td>方案经适当性、风险和授权校验后进入申购、调仓或定投流程。</td><td><span class="chip c-hist">历史／规划并存</span></td><td>2025 路线图明确；各租户交易闭环不等同。</td></tr>
+        <tr><td>规划与诊断</td><td>方案对比</td><td>比较预期收益、波动、回撤、成功概率、资产与产品构成。</td><td><span class="chip c-hist">历史能力</span></td><td>依赖 VESTA／AAP／UAAP 算法。</td></tr>
+        <tr><td>交易与账户服务</td><td>签约与开户</td><td>客户签约、风险确认、账户开立、服务关系建立。</td><td><span class="chip c-hist">历史已交付</span></td><td>旧 TWS 能力；由不同机构接入方式决定。</td></tr>
+        <tr><td>交易与账户服务</td><td>申购／赎回／调仓</td><td>交易申请、状态跟踪、确认结果、失败处理与账户影响。</td><td><span class="chip c-hist">历史已交付</span></td><td>当前详情“交易订单”仍在重构中。</td></tr>
+        <tr><td>交易与账户服务</td><td>定投计划</td><td>定投创建、暂停、恢复、终止和执行记录。</td><td><span class="chip c-hist">历史已交付</span></td><td>旧功能结构与客户全景均可见定投对象。</td></tr>
+        <tr><td>交易与账户服务</td><td>定制账户</td><td>定制账户创建、资产迁移、费用、终止及状态约束。</td><td><span class="chip c-now">生产验收</span></td><td>3.0 与 1.0 迁移、终止、幂等和三方一致性在 Sprint 86 通过。</td></tr>
+        <tr><td>交易与账户服务</td><td>服务费</td><td>记录费用方案、扣费与费后收益；用于客户与产品收益分析。</td><td><span class="chip c-hist">已交付</span></td><td>经营分析明确采用费后累计收益。</td></tr>
+        <tr><td>任务中心</td><td>我的任务</td><td>按客户、类型、状态、时间查看个人任务；支持客户任务堆栈。</td><td><span class="chip c-now">当前已确认</span></td><td>当前路由与资源。</td></tr>
+        <tr><td>任务中心</td><td>任务管理</td><td>从客户视角和任务视角查看组织、团队、顾问进度与完成情况。</td><td><span class="chip c-now">当前已确认</span></td><td>当前资源支持团队／组织聚合。</td></tr>
+        <tr><td>任务中心</td><td>手工任务</td><td>选择客群／客户、任务类型、顾问、期限和材料，创建一次性任务。</td><td><span class="chip c-now">当前已确认</span></td><td>未绑定主顾问的客户不会被正常分发。</td></tr>
+        <tr><td>任务中心</td><td>自动任务</td><td>以智能客群和规则周期生成任务；支持暂停、恢复、关闭并保留历史。</td><td><span class="chip c-code">当前资源可见</span></td><td>代码存在；公开路由返回需账号内复核。</td></tr>
+        <tr><td>任务中心</td><td>任务类型</td><td>关系维护、电话沟通、账户诊断、风险干预、产品推荐与业务推进。</td><td><span class="chip c-now">当前已确认</span></td><td>当前任务配置资源。</td></tr>
+        <tr><td>任务中心</td><td>客群预检查</td><td>校验标签、目标客户、主顾问与可分配顾问，跳过无效对象并给出统计。</td><td><span class="chip c-now">当前已确认</span></td><td>用于降低错误分发。</td></tr>
+        <tr><td>报告与投后</td><td>账户定期报告</td><td>组合／单账户月报或定期回顾；选择账户、模板并跟踪生成状态。</td><td><span class="chip c-now">当前已确认</span></td><td>当前报告资源。</td></tr>
+        <tr><td>报告与投后</td><td>报告创建器</td><td>从报告模板与数据模板组装报告，支持预览、编辑、生成和分发。</td><td><span class="chip c-now">当前已确认</span></td><td>当前创建与编辑路由。</td></tr>
+        <tr><td>报告与投后</td><td>报告类型</td><td>组合报告、业绩报告、投资规划、账户诊断、账户定期回顾。</td><td><span class="chip c-now">当前已确认</span></td><td>“我的报告”类型枚举。</td></tr>
+        <tr><td>报告与投后</td><td>模板管理</td><td>报告模板、数据模板及关联关系；常用快速模板上限 6 个。</td><td><span class="chip c-now">当前已确认</span></td><td>当前前端限制。</td></tr>
+        <tr><td>报告与投后</td><td>导出与下载</td><td>支持图片／PDF；页面提示生成约需 10–30 秒。</td><td><span class="chip c-now">当前已确认</span></td><td>性能为前端提示，不代表 SLA。</td></tr>
+        <tr><td>报告与投后</td><td>完整性检查</td><td>预览时识别缺少净值曲线或被跳过的账户，并调整完整率分母。</td><td><span class="chip c-now">当前已确认</span></td><td>当前报告生成逻辑。</td></tr>
+        <tr><td>报告与投后</td><td>AI 报告助手</td><td>辅助报告组装、解读、摘要与文案生成。</td><td><span class="chip c-plan">规划／逐步接入</span></td><td>2025 路线图与当前管理配置可见，实际模型、审核链未披露。</td></tr>
+        <tr><td>投研</td><td>基金深度分析</td><td>基金业绩、归因、持仓、风格与风险的综合研究。</td><td><span class="chip c-code">当前资源可见</span></td><td>具体数据由投研服务提供。</td></tr>
+        <tr><td>投研</td><td>组合穿透</td><td>穿透组合到底层资产／产品，分析整体风险、集中度和暴露。</td><td><span class="chip c-code">当前资源可见</span></td><td>依赖产品与组合数据完整性。</td></tr>
+        <tr><td>投研</td><td>相关性分析</td><td>比较产品或组合收益序列的相关性，用于分散化判断。</td><td><span class="chip c-code">当前资源可见</span></td><td>时间窗口和缺失值处理需在实页确认。</td></tr>
+        <tr><td>投研</td><td>核心观察池</td><td>持续跟踪重点产品净值、持仓和研究结论。</td><td><span class="chip c-code">当前资源可见</span></td><td>研究对象权限与租户相关。</td></tr>
+        <tr><td>消息中心</td><td>会话与搜索</td><td>按客户搜索近 30 天消息，查看全部／未读状态。</td><td><span class="chip c-now">当前已确认</span></td><td>当前消息中心资源。</td></tr>
+        <tr><td>消息中心</td><td>通知设置</td><td>配置 TWS 内通知与消息偏好。</td><td><span class="chip c-now">当前已确认</span></td><td>设置与 TWS 共用。</td></tr>
+        <tr><td>消息中心</td><td>短信触达</td><td>面向客户发送短信或通知；需遵循模板、授权与留痕。</td><td><span class="chip c-code">当前资源可见</span></td><td>供应商、额度与审核规则未披露。</td></tr>
+        <tr><td>经营管理</td><td>经营总览</td><td>AUM、客户数、流入流出、交易、持仓、收益与顾问经营概览。</td><td><span class="chip c-now">当前已确认</span></td><td>多数日终 T+1，待确认交易可小时级更新。</td></tr>
+        <tr><td>经营管理</td><td>客户转化漏斗</td><td>从线索、接触、诊断、开户到持有／服务的分阶段转化。</td><td><span class="chip c-code">当前资源可见</span></td><td>阶段定义需机构配置。</td></tr>
+        <tr><td>经营管理</td><td>客户资产分层</td><td>按资产规模、活跃度、收益状态和服务关系分析客户结构。</td><td><span class="chip c-now">当前已确认</span></td><td>当前经营管理资源。</td></tr>
+        <tr><td>经营管理</td><td>产品销售分析</td><td>申购／赎回、持有、销售排行 Top20、产品客户结构。</td><td><span class="chip c-now">当前已确认</span></td><td>申请与确认口径分开。</td></tr>
+        <tr><td>经营管理</td><td>收益结果分析</td><td>客户／产品费后累计收益、正收益客户与收益分布。</td><td><span class="chip c-now">当前已确认</span></td><td>需明确可比客户分母。</td></tr>
+        <tr><td>经营管理</td><td>团队与顾问</td><td>团队 AUM、客户数、流入流出、任务进度、服务质量与顾问排行。</td><td><span class="chip c-now">当前已确认</span></td><td>排名应配合数据权限和口径治理。</td></tr>
+        <tr><td>经营管理</td><td>客户转移</td><td>客户与服务关系转移、未分配池、接收与分派。</td><td><span class="chip c-code">当前资源可见</span></td><td>审批与生效规则需账号内复核。</td></tr>
+        <tr><td>经营管理</td><td>服务质量</td><td>服务频率、任务、触达、报告、及时性与结果的综合监控。</td><td><span class="chip c-gap">口径未披露</span></td><td>当前有入口；综合评分公式未公开。</td></tr>
+        <tr><td>风险与合规</td><td>MPRS 风险监控</td><td>0–100 风险值、阈值区间、当日与前交易日对比、交易后风险预测。</td><td><span class="chip c-now">生产验收</span></td><td>2026 Sprint 84 通过；内部评分公式未披露。</td></tr>
+        <tr><td>风险与合规</td><td>适当性与强确认</td><td>方案和交易应经过身份、协议、风险等级、适当性、支付与用户确认。</td><td><span class="chip c-hist">底层交易能力</span></td><td>属于自有交易系统边界，不应由 AI 绕过。</td></tr>
+        <tr><td>风险与合规</td><td>审计与幂等</td><td>关键操作留痕、状态校验、重复请求幂等、三方状态一致性。</td><td><span class="chip c-now">生产验收</span></td><td>定制账户迁移／终止验收中明确验证。</td></tr>
+        <tr><td>系统管理</td><td>报告工作区</td><td>配置报告编辑、数据模板和机构工作空间。</td><td><span class="chip c-code">当前资源可见</span></td><td>管理员能力。</td></tr>
+        <tr><td>系统管理</td><td>模型与 Agent 配置</td><td>模型测试、Agent 会话、Claude 配置与调试聊天入口。</td><td><span class="chip c-code">当前资源可见</span></td><td>仅确认管理入口，生产用途与开放范围需复核。</td></tr>
+        <tr><td>开放与多端</td><td>API／MCP</td><td>把顾问工作台的数据、工具或流程能力开放给外部应用和 AI Agent。</td><td><span class="chip c-plan">2025 路线</span></td><td>需逐项验证实际暴露工具、权限和审计能力。</td></tr>
+        <tr><td>开放与多端</td><td>TWS／App／H5 联动</td><td>顾问端产出方案、报告或诊断，客户端查看、确认、交易并回传结果。</td><td><span class="chip c-hist">持续建设</span></td><td>不同机构接入范围不同。</td></tr>
+        <tr><td>开放与多端</td><td>企微 Copilot</td><td>在企微沟通中调用客户、账户、方案和话术能力，并沉淀沟通证据。</td><td><span class="chip c-plan">2026 高优先级</span></td><td>当前启明沟通记录尚未完成闭环。</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section class="section" id="tools">
+      <div class="eyebrow">Tool map</div><h2>顾问真正会用到的工具箱</h2>
+      <p class="intro">菜单是入口，工具才决定作业效率。以下按顾问任务说明每个工具解决什么问题，以及它应该产生什么可复用结果。</p>
+      <div class="grid g3">
+        <div class="card"><h3>智能客群</h3><p><b>输入：</b>标签、资产、收益、交易、服务关系。<br><b>输出：</b>可保存客群、目标名单和触发条件。<br><b>关键：</b>需要版本、命中快照与可解释性。</p></div>
+        <div class="card"><h3>任务引擎</h3><p><b>输入：</b>客群／事件、任务模板、顾问。<br><b>输出：</b>可执行任务、期限、材料与结果。<br><b>关键：</b>未分配客户、重复任务、静默规则。</p></div>
+        <div class="card"><h3>账户诊断</h3><p><b>输入：</b>账户、持仓、收益、风险、目标。<br><b>输出：</b>问题清单、证据、建议与后续动作。<br><b>关键：</b>诊断不等于适当性结论。</p></div>
+        <div class="card"><h3>APC 投资规划</h3><p><b>输入：</b>目标、期限、风险、约束。<br><b>输出：</b>资产配置、产品组合、预期风险收益。<br><b>关键：</b>方案版本、参数留痕、客户确认。</p></div>
+        <div class="card"><h3>报告工作室</h3><p><b>输入：</b>账户、数据模板、内容模板。<br><b>输出：</b>规划、诊断、业绩、投后报告。<br><b>关键：</b>数据完整性、生成状态、审阅与分发证据。</p></div>
+        <div class="card"><h3>投研工具</h3><p><b>输入：</b>基金、组合、持仓、收益序列。<br><b>输出：</b>归因、风格、相关性与风险。<br><b>关键：</b>研究口径、截至日期、数据版本。</p></div>
+        <div class="card"><h3>MPRS 风控</h3><p><b>输入：</b>最新持仓与拟交易。<br><b>输出：</b>风险值、阈值、变化与预测。<br><b>关键：</b>评分解释和阈值责任仍需披露。</p></div>
+        <div class="card"><h3>客户视图模拟</h3><p><b>输入：</b>顾问材料和报告。<br><b>输出：</b>客户看到的版本。<br><b>关键：</b>预览与真正发送必须分开留痕。</p></div>
+        <div class="card"><h3>经营驾驶舱</h3><p><b>输入：</b>客户、资产、交易、任务、服务数据。<br><b>输出：</b>机构、团队和顾问的经营监控。<br><b>关键：</b>结果指标要能下钻到可行动对象。</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="data">
+      <div class="eyebrow">Data map</div><h2>关键数据对象与治理要求</h2>
+      <p class="intro">系统价值不在拥有多少字段，而在同一对象能否跨页面、流程和系统保持同一个身份、同一个时间口径和同一条责任链。</p>
+      <div class="table-wrap"><table class="data-table"><thead><tr><th>数据对象</th><th>核心字段</th><th>用途</th><th>治理要点</th></tr></thead><tbody>
+        <tr><td>客户／家庭</td><td>身份、联系、家庭关系、生命周期、来源</td><td>客户 360、分群、转化</td><td>ECIF 主键、合并拆分、授权与脱敏</td></tr>
+        <tr><td>顾问／团队</td><td>人员、角色、组织、服务范围、状态</td><td>权限、分派、绩效</td><td>任职历史和数据范围需可追溯</td></tr>
+        <tr><td>服务关系</td><td>主顾问、辅助顾问、起止时间、来源</td><td>任务、转移、经营归属</td><td>不能只存当前值，应保留历史</td></tr>
+        <tr><td>账户</td><td>账户类型、状态、风险、目标、币种、机构</td><td>分析、规划、交易、报告</td><td>账户与客户／家庭关系需明确</td></tr>
+        <tr><td>资产与持仓</td><td>产品、份额、成本、市值、净值、估值日</td><td>AUM、收益、风险、穿透</td><td>申请中与已确认分开；估值时间可见</td></tr>
+        <tr><td>现金流／交易</td><td>流入流出、申购赎回、调仓、费用、状态</td><td>收益计算、交易跟踪</td><td>申请额、确认额、份额和到账日分开</td></tr>
+        <tr><td>收益序列</td><td>日收益、日收益率、累计收益、基准</td><td>绩效、归因、报告</td><td>缺失值、异常值、重算与版本</td></tr>
+        <tr><td>风险与测评</td><td>问卷、等级、阈值、风险值、舒适区</td><td>适当性、风控、规划</td><td>评估版本、有效期和责任口径</td></tr>
+        <tr><td>产品／组合</td><td>产品属性、风险、净值、底层持仓、策略</td><td>投研、推荐、交易</td><td>产品主数据、可售范围、截至日期</td></tr>
+        <tr><td>标签／客群</td><td>规则、版本、命中时间、成员快照</td><td>运营、任务、统计</td><td>动态客群与当时快照必须并存</td></tr>
+        <tr><td>事件／任务</td><td>触发源、客户、负责人、期限、结果、证据</td><td>顾问作业闭环</td><td>去重、静默、失败、取消和责任转移</td></tr>
+        <tr><td>方案／报告</td><td>模板、数据版本、内容、审核、分发、阅读</td><td>建议交付与投后服务</td><td>生成版本不等于客户已阅读／接受</td></tr>
+        <tr><td>沟通／文档</td><td>渠道、参与人、摘要、附件、授权、时间</td><td>关系维护、合规留痕</td><td>敏感信息、保存期限和可见范围</td></tr>
+        <tr><td>经营指标</td><td>指标、分母、时间窗、组织、数据截至日</td><td>管理驾驶舱</td><td>每个数字必须可下钻和复算</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section class="section" id="metrics">
+      <div class="eyebrow">Metrics & formulas</div><h2>指标、公式与口径</h2>
+      <p class="intro">以下列出能从现有口径材料确认或合理标准化的公式。凡属于内部模型、综合评分或归因算法而未披露者，明确标记为“公式未披露”。</p>
+      <div class="fn-group"><h3>资产、交易与经营</h3><div class="table-wrap"><table class="data-table"><thead><tr><th>指标</th><th>公式／口径</th><th>注意事项</th></tr></thead><tbody>
+        <tr><td>AUM</td><td><span class="formula">Σ 账户在管资产市值</span></td><td>应明确现金、待确认、外部账户和估值日是否纳入。</td></tr>
+        <tr><td>户均 AUM</td><td><span class="formula">AUM 总额 ÷ 在管客户数</span></td><td>当前经营管理资源明确此口径；去重到客户还是家庭需统一。</td></tr>
+        <tr><td>权益资产占比</td><td><span class="formula">权益类资产市值 ÷ 全部持仓市值</span></td><td>资产分类映射必须稳定。</td></tr>
+        <tr><td>单产品资产占比</td><td><span class="formula">产品持有金额 ÷ 账户总资产 × 100%</span></td><td>2026 风险监控验收材料明确。</td></tr>
+        <tr><td>待确认交易额</td><td><span class="formula">Σ 交易申请金额</span></td><td>申购使用申请额；赎回估算口径需区别单基金与组合。</td></tr>
+        <tr><td>单基金赎回估算</td><td><span class="formula">赎回份额 × 最新净值</span></td><td>组合赎回在当前管理看板按申请金额统计。</td></tr>
+        <tr><td>已确认交易额</td><td><span class="formula">Σ 交易确认金额</span></td><td>不能与申请金额混用。</td></tr>
+        <tr><td>正收益客户占比</td><td><span class="formula">正收益客户数 ÷ 可比客户数</span></td><td>需排除无完整收益序列、零资产或口径不一致的客户。</td></tr>
+        <tr><td>漏斗转化率</td><td><span class="formula">进入下一阶段客户数 ÷ 上一阶段客户数</span></td><td>阶段、观察窗和去重规则必须固定。</td></tr>
+        <tr><td>任务完成率</td><td><span class="formula">已完成任务数 ÷ 应完成任务数</span></td><td>取消、转派、逾期补完需单独披露。</td></tr>
+      </tbody></table></div></div>
+      <div class="fn-group"><h3>收益与成本</h3><div class="table-wrap"><table class="data-table"><thead><tr><th>指标</th><th>公式／口径</th><th>注意事项</th></tr></thead><tbody>
+        <tr><td>当日收益</td><td><span class="formula">当日流出 + 当日市值 − 当日流入 − 昨日市值</span></td><td>流入流出方向按对客户资产影响定义；费用要一致处理。</td></tr>
+        <tr><td>当日收益率</td><td><span class="formula">当日收益 ÷ (昨日市值 + 当日流入)</span></td><td>大额日内现金流可能需要时间加权；分母为 0 时不可直接计算。</td></tr>
+        <tr><td>累计收益</td><td><span class="formula">Σ 每日收益</span></td><td>等价于期末市值 + 累计流出 − 期初市值 − 累计流入。</td></tr>
+        <tr><td>时间加权收益 TWR</td><td><span class="formula">∏(1 + rₜ) − 1</span></td><td>减少外部现金流影响，适合评价投资管理表现。</td></tr>
+        <tr><td>资金加权收益 MWR</td><td><span class="formula">使现金流净现值为 0 的 IRR</span></td><td>反映客户真实资金体验，对现金流时点敏感。</td></tr>
+        <tr><td>Modified Dietz</td><td><span class="formula">区间收益 ÷ (期初资产 + Σ 权重ₖ×现金流ₖ)</span></td><td>权重按现金流在区间内实际占用时间确定，适合规模化近似 MWR。</td></tr>
+        <tr><td>摊薄持有单价</td><td><span class="formula">买入后持有成本 ÷ 持有份额</span></td><td>买入更新加权成本；卖出通常不改变剩余份额单位成本。</td></tr>
+        <tr><td>持有收益</td><td><span class="formula">当前市值 − 当前持有成本</span></td><td>与累计收益不同；历史卖出已实现收益是否纳入要明确。</td></tr>
+        <tr><td>持有收益率</td><td><span class="formula">持有收益 ÷ 当前持有成本</span></td><td>成本为 0 或异常时需降级展示。</td></tr>
+        <tr><td>主动收益</td><td><span class="formula">账户收益率 − 基准收益率</span></td><td>账户与基准必须使用同一时间窗和频率。</td></tr>
+      </tbody></table></div></div>
+      <div class="fn-group"><h3>风险与风险调整后收益</h3><div class="table-wrap"><table class="data-table"><thead><tr><th>指标</th><th>公式／口径</th><th>注意事项</th></tr></thead><tbody>
+        <tr><td>年化收益</td><td><span class="formula">(1 + 区间收益)^(年化天数/区间天数) − 1</span></td><td>短区间年化容易放大噪声；页面需标注是否年化。</td></tr>
+        <tr><td>年化波动率</td><td><span class="formula">日收益率标准差 × √年交易日</span></td><td>交易日数、缺失值和频率必须一致。</td></tr>
+        <tr><td>最大回撤</td><td><span class="formula">max[(历史峰值 − 后续谷值) ÷ 历史峰值]</span></td><td>示例：15,000 跌至 5,000，回撤约 66.7%。</td></tr>
+        <tr><td>VaR</td><td><span class="formula">收益分布给定置信度的尾部分位损失</span></td><td>现有材料用日收益序列第 5 分位近似；必须标注置信度和持有期。</td></tr>
+        <tr><td>Sharpe</td><td><span class="formula">(年化收益 − 无风险利率) ÷ 年化波动率</span></td><td>历史材料有简化为年化收益／波动，产品应统一到标准定义。</td></tr>
+        <tr><td>Sortino</td><td><span class="formula">(年化收益 − 目标收益) ÷ 年化下行波动</span></td><td>只惩罚负向偏离。</td></tr>
+        <tr><td>Calmar</td><td><span class="formula">年化收益 ÷ 最大回撤</span></td><td>最大回撤为 0 时不可计算。</td></tr>
+        <tr><td>Beta</td><td><span class="formula">Cov(组合, 基准) ÷ Var(基准)</span></td><td>时间窗和基准选择对结果影响很大。</td></tr>
+        <tr><td>Alpha</td><td><span class="formula">组合收益 − [无风险收益 + β×(基准收益−无风险收益)]</span></td><td>若用简化超额收益，应明确不是 CAPM Alpha。</td></tr>
+        <tr><td>MPRS 风险值</td><td><span class="formula">0–100 内部模型评分</span></td><td><b>公式未披露。</b>已确认持仓范围、阈值、变化和拟交易预测。</td></tr>
+        <tr><td>服务质量分</td><td><span class="formula">综合评分（未披露）</span></td><td>建议公开维度、权重、分母、刷新频率和可申诉机制。</td></tr>
+      </tbody></table></div></div>
+      <div class="callout"><strong>异常保护：</strong>历史收益口径材料把单日收益率 &gt; 100% 或 &lt; −50% 视为显著可疑，需要检查现金流、净值、份额、账户迁移或数据缺失，不应直接进入客户报告。</div>
+    </section>
+
+    <section class="section" id="users">
+      <div class="eyebrow">Users & usage</div><h2>用户、角色与真实使用边界</h2>
+      <div class="grid g3">
+        <div class="card"><h3>投资总监／团队管理者</h3><p>管理资产、客户、顾问、产品与服务质量；需要从指标下钻到客户和任务。</p></div>
+        <div class="card"><h3>投资顾问／顾问助理</h3><p>筛选客户、诊断账户、制定方案、创建任务、出报告、沟通和跟踪交易。</p></div>
+        <div class="card"><h3>运营／系统管理员</h3><p>配置团队、权限、模板、规则、消息、租户工作区和 AI／模型相关能力。</p></div>
+      </div>
+      <div class="grid g2" style="margin-top:16px">
+        <div class="card"><h3>服务对象</h3><p>自然人客户及其家庭、多个投资账户；可覆盖自营且慢顾问团队，也可向券商、基金销售机构和其他财富机构输出。</p></div>
+        <div class="card risk red"><h3>本轮无法确认的数据</h3><p>当前登录用户数、月活／周活、顾问数、机构数、管理客户数、管理规模、功能使用率与留存率均未获得可信当前数据，报告不使用历史规划中的规模预测替代。</p></div>
+      </div>
+      <h3 style="margin-top:26px">建议统一的采用度指标</h3>
+      <div class="grid g4"><div class="card"><b>顾问周活率</b><p>周内完成至少一个核心动作的顾问／可用顾问。</p></div><div class="card"><b>闭环率</b><p>有触发、有执行、有结果、有证据的任务／全部到期任务。</p></div><div class="card"><b>报告触达率</b><p>已送达且被客户打开的报告／已生成报告。</p></div><div class="card"><b>行动转化率</b><p>诊断／规划后进入客户确认或交易的客户／完成诊断客户。</p></div></div>
+    </section>
+
+    <section class="section" id="relations">
+      <div class="eyebrow">System relationships</div><h2>与其他系统的关系</h2>
+      <p class="intro">启明是“前台编排和证据系统”，不应重复建设所有专业中台。它要把正确的客户、账户、投研和交易能力，在正确时点送到正确顾问。</p>
+      <div class="relationship">
+        <div class="side">
+          <div class="rel"><b>ECIF／客户主数据</b><small>提供客户身份、家庭、联系和统一客户 ID；启明回写服务与触达。</small></div>
+          <div class="rel"><b>SCRM／企微运营</b><small>提供沟通、营销和私域触达；启明承接账户与投顾作业。</small></div>
+          <div class="rel"><b>VESTA／CORAL</b><small>提供产品研究、组合分析、风险、资配算法和研究结论。</small></div>
+          <div class="rel"><b>PMS</b><small>提供策略、组合、调仓、账户计划与组合运营后台。</small></div>
+          <div class="rel"><b>AAP／UAAP</b><small>匹配客户目标、约束与产品，形成投资建议和资产配置。</small></div>
+        </div>
+        <div class="hub">启明<br />TWS<br /><span style="font-size:12px;color:#96adbf;font-weight:500">编排 · 作业 · 证据</span></div>
+        <div class="side">
+          <div class="rel"><b>AMS／投后维护</b><small>账户持续监控、再平衡、事件识别与投后建议。</small></div>
+          <div class="rel"><b>交易／签约／清算</b><small>身份、协议、适当性、订单、支付、确认和资产结果的事实源。</small></div>
+          <div class="rel"><b>且慢 App／H5／机构端</b><small>客户查看方案、报告、确认与交易；状态回到启明。</small></div>
+          <div class="rel"><b>CDP／埋点／经营数据</b><small>提供行为和经营数据；启明产生服务、任务和转化事件。</small></div>
+          <div class="rel"><b>OAP／MCP／Agent</b><small>以受控工具方式查询、解释、预检和草拟；最终执行留在自有系统。</small></div>
+        </div>
+      </div>
+      <div class="table-wrap" style="margin-top:18px"><table class="data-table"><thead><tr><th>系统关系</th><th>启明应该拥有</th><th>启明不该重复拥有</th><th>必须对齐的事实</th></tr></thead><tbody>
+        <tr><td>客户</td><td>服务视图、作业状态、顾问归属</td><td>多套客户主键与身份档案</td><td>客户 ID、家庭关系、授权</td></tr>
+        <tr><td>投研</td><td>顾问可用结论和应用场景</td><td>重复的基金／组合研究底座</td><td>研究版本、截至日、可售范围</td></tr>
+        <tr><td>账户</td><td>面向服务的账户全景</td><td>交易账本和清算账本</td><td>账户状态、持仓、现金流、估值</td></tr>
+        <tr><td>交易</td><td>方案到交易的流程编排和状态解释</td><td>绕开适当性与强确认的下单</td><td>草稿、确认、订单、份额、到账</td></tr>
+        <tr><td>AI</td><td>意图理解、资料组装、预检、解释</td><td>无授权自动承诺或交易</td><td>使用的数据、工具、提示、审批和结果</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section class="section" id="history">
+      <div class="eyebrow">Evolution</div><h2>2020–2026 产品迭代历程</h2>
+      <p class="intro">这是基于架构、产品规划和测试验收还原的主线，不声称覆盖每个 Sprint。</p>
+      <div class="timeline">
+        <div class="event"><b>2020–2022 · 从账户与交易能力起步</b><p>TAMP／TWS 重点在账户、签约、交易、定制账户和投后服务，先解决“能服务、能交易、能看结果”。</p></div>
+        <div class="event"><b>2023 · 通用顾问工作台成型</b><p>规划统一客户管理、账户基本管理、定投、定制账户、账户优化、工具、通知、产品／内容、报告、团队和个人中心；明确投资总监、顾问、顾问助理角色。</p></div>
+        <div class="event"><b>2024 · 从账户查询走向分析与服务</b><p>账户分析、收益日历、诊断、投资规划、报告和机构能力输出持续增强，工作台开始承担一站式顾问服务。</p></div>
+        <div class="event"><b>2025 H1 · 机构化与报告能力扩展</b><p>国元、财商帮等机构场景持续交付；规划 AI 报告、H5 诊断、TWS／App／H5 联动和开放接口。</p></div>
+        <div class="event"><b>2025 H2 · 投资规划 2.0 与开放能力</b><p>APC 支持现金替代、基金数量与权重限制等约束；Sprint 73 在修复 64 个问题后通过生产验收。</p></div>
+        <div class="event"><b>2026 Q1 · 定制账户 3.0 与规划改造</b><p>Sprint 81 完成定制账户 3.0 和投资规划改进；该轮累计解决 110 个问题并通过验收。</p></div>
+        <div class="event"><b>2026 Q2 · 风险、迁移与一致性强化</b><p>Sprint 84 上线 MPRS 风险监控；Sprint 86 验证定制账户 1.0→3.0 迁移、终止、费用、双向审计、幂等和三方一致性。</p></div>
+        <div class="event"><b>2026 H2 · 新一代顾问运营层</b><p>当前发布包呈现客户、任务、报告、投研、消息、经营、设置和系统管理八域架构；客户沟通、订单、风险等详情域仍在补齐。</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="roadmap">
+      <div class="eyebrow">Roadmap</div><h2>建议产品路线图：先闭环，再智能</h2>
+      <p class="intro">不是继续扩菜单，而是把“识别机会—形成判断—发起作业—客户确认—执行—结果复盘”串成一条有证据的链。</p>
+      <div class="roadmap">
+        <div class="phase"><div class="when">M0 · 0–6 周</div><h3>事实与口径统一</h3><ul><li>建立对象／事件／指标字典</li><li>清理占位页面与重复入口</li><li>统一任务、报告、交易状态</li><li>指标可下钻、可复算</li></ul></div>
+        <div class="phase"><div class="when">M1 · 2–3 月</div><h3>客户服务闭环</h3><ul><li>完成沟通、订单、风险详情</li><li>客群→任务→沟通→证据</li><li>报告送达／阅读／反馈</li><li>服务关系历史化</li></ul></div>
+        <div class="phase"><div class="when">M2 · 3–6 月</div><h3>方案到执行闭环</h3><ul><li>诊断→规划→预检→草稿</li><li>App 强确认与交易回传</li><li>投后事件触发再服务</li><li>机构模板与能力复用</li></ul></div>
+        <div class="phase"><div class="when">M3 · 6–12 月</div><h3>AI Native 顾问 OS</h3><ul><li>每条 AI 建议带证据与边界</li><li>MCP 工具分级与审批</li><li>顾问 Copilot + 管理 Copilot</li><li>闭环质量学习，不用点击量替代价值</li></ul></div>
+      </div>
+      <h3 style="margin-top:30px">北极星与护栏</h3>
+      <div class="grid g3">
+        <div class="card"><h3>北极星</h3><p><span class="kicker">高质量服务闭环客户数</span><br>在观察期内完成“洞察／事件、顾问判断、客户动作、执行结果、服务证据”的去重客户数。</p></div>
+        <div class="card"><h3>效率护栏</h3><p>顾问核心作业时长、任务逾期率、报告生成成功率、重复任务率、数据缺失率。</p></div>
+        <div class="card"><h3>风险护栏</h3><p>适当性拦截率、越权访问、AI 无证据结论、交易状态不一致、敏感信息泄露与审计缺口。</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="actions">
+      <div class="eyebrow">Product recommendations</div><h2>最值得立即做的 8 件事</h2>
+      <div class="grid g2">
+        <div class="card risk red"><h3>1. 停止用“入口数量”代表成熟度</h3><p>订单、风险、沟通当前仍有开发中占位；首页和导航应直接标注 Beta、建设中或无权限，避免制造假完成。</p></div>
+        <div class="card risk"><h3>2. 建立统一事件模型</h3><p>收益异动、回撤、到期、资金流、风险变化、客户沟通和交易结果都应成为可订阅、可静默、可归责事件。</p></div>
+        <div class="card risk"><h3>3. 把任务结果结构化</h3><p>“已完成”不够：需要客户是否触达、顾问判断、客户反馈、后续动作、材料和证据。</p></div>
+        <div class="card risk"><h3>4. 报告成为服务对象，不只是文件</h3><p>报告需要版本、数据截至日、审核、送达、阅读、反馈、引发任务和客户确认。</p></div>
+        <div class="card risk"><h3>5. 经营看板必须可行动</h3><p>每个异常或机会指标应能一键生成客群、任务或检查单，并回看最终结果。</p></div>
+        <div class="card risk"><h3>6. 先把指标口径做成产品</h3><p>页面上展示公式、分母、时间窗、刷新频率、数据截至日和缺失规则，减少团队争论。</p></div>
+        <div class="card risk"><h3>7. AI 只做受控副驾</h3><p>AI 可解释、草拟、预检和查询；最终适当性、协议、确认、交易和审计仍由自有系统承担。</p></div>
+        <div class="card risk green"><h3>8. 用闭环质量而非点击量衡量价值</h3><p>把目标从“打开工作台”改为“完成高质量客户服务闭环，并产生可验证的客户与经营结果”。</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="sources">
+      <div class="eyebrow">Sources & disclosure</div><h2>证据来源与披露边界</h2>
+      <ol class="source-list">
+        <li>启明 TWS 当前登录入口、页面骨架、路由、字段、状态文案与前端交互资源（2026-09-16）。</li>
+        <li>《TWS 系统分享》（2023-06-21）：角色、SSO、用户与权限关系。</li>
+        <li>《投顾工作台功能结构—2023 规划》：通用功能架构与产品方向。</li>
+        <li>《2025「TWS」产品规划线路图》：投资规划、报告、开放能力、多端与机构输出。</li>
+        <li>Advisor Sprint 73／81／83／84／86 TWS 测试报告：APC、定制账户、问卷、MPRS 与迁移验收。</li>
+        <li>《TWS、SCRM 以及资配系统等的关系》：ECIF、CORAL、PMS、AAP、AMS 与前台系统边界。</li>
+        <li>TA 用户产品收益计算字段说明：收益、收益率、TWR、MWR、Modified Dietz 与成本口径。</li>
+        <li>用户收益—风险特征数据分析规划：回撤、VaR、Sharpe、Calmar、Sortino、Beta、Alpha。</li>
+        <li>TWS 业绩指标组件优化：主动收益、区间业绩、波动与缺失数据展示规则。</li>
+        <li>且慢顾问工作台 2026 规划：客户、数据 MCP、企微 Copilot、财务规划、工作流与事件管理。</li>
+      </ol>
+      <div class="card risk red" style="margin-top:22px"><h3>公开披露限制</h3><p>本报告不包含账号、密钥、内部地址、客户身份、真实资产、交易明细、私有组合、机构权限配置或未公开商业数据。当前功能清单依据公开可达前端资源和内部授权资料做脱敏抽象；凡公式或现状无法确认处均明确标注，不用规划预测替代当前用户数据。</p></div>
+    </section>
+  </main>
+  <footer class="footer"><div class="shell"><div><strong>启明 TWS 顾问工作台｜全景深度调研</strong><br><span class="mini">Clair’s Studio · 2026-09-16</span></div><div class="mini">研究版本 v1.0 · 当前状态与历史／规划分层呈现</div></div></footer>
+  <script>
+    const input=document.getElementById('fnSearch');const rows=[...document.querySelectorAll('#fnTable tbody tr')];const count=document.getElementById('fnCount');const empty=document.getElementById('noResult');
+    function filter(){const q=input.value.trim().toLowerCase();let n=0;rows.forEach(r=>{const show=!q||r.textContent.toLowerCase().includes(q);r.style.display=show?'':'none';if(show)n++;});count.textContent=`显示 ${n} / ${rows.length} 项`;empty.style.display=n?'none':'block'}
+    input.addEventListener('input',filter);filter();
+  </script>
+</body>
+</html>
