@@ -46,6 +46,7 @@ import {
   coverThumbnailDataUri,
   ensureCoverContentProfile,
 } from "./cover-thumbnails.js";
+import { reorderItemIds } from "./bucket-order.js";
 
 const STORAGE_KEY = "clair-service-report-workbench-v1";
 const PREVIEW_COVER_KEY = "clair-service-report-preview-cover-v1";
@@ -2803,6 +2804,7 @@ let pendingScrollFrame = 0;
 let viewportRestoreFrame = 0;
 let suppressReportOpenId = "";
 let suppressReportOpenUntil = 0;
+let suppressBucketNavigationUntil = 0;
 let catalogViewportSnapshot = null;
 let modalViewportSnapshot = null;
 let searchContentIndex = {};
@@ -2893,6 +2895,10 @@ function loadReportOrder() {
 
 function saveReportOrder() {
   localStorage.setItem(REPORT_ORDER_KEY, JSON.stringify(reportOrder));
+}
+
+function saveBucketOrder() {
+  localStorage.setItem(BUCKET_ORDER_KEY, JSON.stringify(bucketOrder));
 }
 
 function loadState() {
@@ -3471,7 +3477,31 @@ function moveBucketByCommand(sourceId, direction, kind = catalogView) {
     return true;
   }
   bucketOrder[kind] = ids;
-  localStorage.setItem(BUCKET_ORDER_KEY, JSON.stringify(bucketOrder));
+  saveBucketOrder();
+  return true;
+}
+
+function moveBucketToTarget(sourceId, targetId, placeAfter = false, kind = catalogView) {
+  if (!sourceId || !targetId || sourceId === targetId) return false;
+  if (!["topic", "type", "tag"].includes(kind)) return false;
+  const ids = kind === "topic"
+    ? state.groups.map((group) => group.id)
+    : classificationBuckets(state.reports.filter((report) => !report.archived))
+      .filter((bucket) => bucket.kind === kind)
+      .map((bucket) => bucket.id);
+  const nextIds = reorderItemIds(ids, sourceId, targetId, placeAfter);
+  if (nextIds.join("\n") === ids.join("\n")) return false;
+  if (kind === "topic") {
+    const rank = new Map(nextIds.map((id, index) => [id, index]));
+    state.groups.sort((a, b) => rank.get(a.id) - rank.get(b.id));
+    state.groups.forEach((group, index) => {
+      group.position = index;
+    });
+    saveState();
+    return true;
+  }
+  bucketOrder[kind] = nextIds;
+  saveBucketOrder();
   return true;
 }
 
@@ -5307,7 +5337,9 @@ function workbenchMarkup() {
                         aria-label="打开成果：${escapeHtml(report.title)}">${escapeHtml(report.title)}</button>`).join("")}
                   </div>` : navBuckets.map((bucket) => `
                   <a href="#" data-nav-bucket-kind="${escapeHtml(bucket.kind)}"
-                    data-nav-bucket-id="${escapeHtml(bucket.id)}">
+                    data-nav-bucket-id="${escapeHtml(bucket.id)}"
+                    data-bucket-reorderable="${["topic", "type", "tag"].includes(bucket.kind)}"
+                    draggable="false" title="${["topic", "type", "tag"].includes(bucket.kind) ? "长按拖动调整顺序：" : ""}${escapeHtml(bucket.name)}">
                     ${escapeHtml(bucket.name)}<span>${bucket.reports.length}</span>
                   </a>`).join("")}
                 <span class="library-nav-spacer" aria-hidden="true"></span>
@@ -5714,6 +5746,192 @@ function bindReportDragging() {
   board.addEventListener("pointercancel", () => {
     cleanupSession();
     session = null;
+  });
+}
+
+function bindBucketDragging() {
+  const nav = document.querySelector(".topic-nav");
+  if (!nav || nav.dataset.bucketDraggingBound === "true" || query || catalogView === "time") return;
+  nav.dataset.bucketDraggingBound = "true";
+  let session = null;
+
+  const reorderableLinks = () => [...nav.querySelectorAll('a[data-bucket-reorderable="true"]')];
+  const clearDropTarget = () => {
+    reorderableLinks().forEach((link) => link.classList.remove(
+      "is-bucket-drop-before",
+      "is-bucket-drop-after",
+    ));
+  };
+  const positionPreview = () => {
+    if (!session?.preview) return;
+    const maxX = Math.max(8, window.innerWidth - session.previewWidth - 8);
+    const maxY = Math.max(8, window.innerHeight - session.previewHeight - 8);
+    const left = Math.max(8, Math.min(maxX, session.x - session.previewOffsetX));
+    const top = Math.max(8, Math.min(maxY, session.y - session.previewOffsetY));
+    session.preview.style.transform = `translate3d(${left}px, ${top}px, 0)`;
+  };
+  const updateDropTarget = () => {
+    if (!session?.active) return;
+    const candidates = reorderableLinks().filter((link) => link !== session.sourceLink);
+    if (!candidates.length) return;
+    const vertical = getComputedStyle(nav).flexDirection === "column";
+    const coordinate = vertical ? session.y : session.x;
+    let target = candidates[candidates.length - 1];
+    let placeAfter = true;
+    for (const candidate of candidates) {
+      const rect = candidate.getBoundingClientRect();
+      const midpoint = vertical ? rect.top + rect.height / 2 : rect.left + rect.width / 2;
+      if (coordinate < midpoint) {
+        target = candidate;
+        placeAfter = false;
+        break;
+      }
+    }
+    clearDropTarget();
+    target.classList.add(placeAfter ? "is-bucket-drop-after" : "is-bucket-drop-before");
+    target.parentElement.insertBefore(
+      session.placeholder,
+      placeAfter ? target.nextSibling : target,
+    );
+    session.targetId = target.dataset.navBucketId;
+    session.placeAfter = placeAfter;
+  };
+  const activateSession = () => {
+    if (!session || session.active) return;
+    session.active = true;
+    session.sourceLink.setPointerCapture?.(session.pointerId);
+    const rect = session.sourceLink.getBoundingClientRect();
+    session.previewWidth = rect.width;
+    session.previewHeight = rect.height;
+    session.previewOffsetX = Math.max(10, Math.min(rect.width - 10, session.startX - rect.left));
+    session.previewOffsetY = Math.max(10, Math.min(rect.height - 10, session.startY - rect.top));
+    session.preview = session.sourceLink.cloneNode(true);
+    session.preview.removeAttribute("href");
+    session.preview.className = "bucket-drag-preview";
+    session.preview.style.width = `${rect.width}px`;
+    session.preview.style.height = `${rect.height}px`;
+    session.placeholder = document.createElement("span");
+    session.placeholder.className = "bucket-nav-placeholder";
+    session.placeholder.style.width = `${rect.width}px`;
+    session.placeholder.style.height = `${rect.height}px`;
+    session.sourceLink.before(session.placeholder);
+    session.sourceLink.classList.add("is-bucket-dragging");
+    document.body.append(session.preview);
+    document.body.classList.add("bucket-drag-session");
+    positionPreview();
+    updateDropTarget();
+  };
+  const cleanupSession = () => {
+    if (!session) return;
+    clearTimeout(session.holdTimer);
+    session.preview?.remove();
+    session.placeholder?.remove();
+    session.sourceLink.classList.remove("is-bucket-dragging");
+    document.body.classList.remove("bucket-drag-session");
+    clearDropTarget();
+  };
+  const finishSession = () => {
+    if (!session) return;
+    const finished = session;
+    const wasActive = finished.active;
+    const wasScrolling = finished.scrolling;
+    const beforeGroups = clone(state.groups);
+    const beforeOrder = clone(bucketOrder);
+    const navScrollLeft = nav.scrollLeft;
+    cleanupSession();
+    session = null;
+    if (wasScrolling) {
+      suppressBucketNavigationUntil = Date.now() + 300;
+      return;
+    }
+    if (!wasActive) return;
+    suppressBucketNavigationUntil = Date.now() + 600;
+    const moved = moveBucketToTarget(
+      finished.sourceId,
+      finished.targetId,
+      finished.placeAfter,
+      finished.kind,
+    );
+    if (!moved) return;
+    renderAtCurrentScroll();
+    requestAnimationFrame(() => {
+      const nextNav = document.querySelector(".topic-nav");
+      if (nextNav) nextNav.scrollLeft = navScrollLeft;
+    });
+    showUndoToast("分类顺序已更新", () => {
+      state.groups = beforeGroups;
+      bucketOrder = beforeOrder;
+      saveState();
+      saveBucketOrder();
+      renderAtCurrentScroll();
+    });
+  };
+
+  nav.addEventListener("pointerdown", (event) => {
+    if (event.button !== 0) return;
+    const sourceLink = event.target.closest('a[data-bucket-reorderable="true"]');
+    if (!sourceLink || !nav.contains(sourceLink)) return;
+    session = {
+      pointerId: event.pointerId,
+      sourceId: sourceLink.dataset.navBucketId,
+      kind: sourceLink.dataset.navBucketKind,
+      sourceLink,
+      startX: event.clientX,
+      startY: event.clientY,
+      x: event.clientX,
+      y: event.clientY,
+      active: false,
+      scrolling: false,
+      horizontal: getComputedStyle(nav).flexDirection !== "column",
+      startScrollLeft: nav.scrollLeft,
+      targetId: "",
+      placeAfter: false,
+      preview: null,
+      placeholder: null,
+      holdTimer: 0,
+    };
+    session.holdTimer = window.setTimeout(() => activateSession(), 280);
+  });
+  nav.addEventListener("pointermove", (event) => {
+    if (!session || event.pointerId !== session.pointerId) return;
+    session.x = event.clientX;
+    session.y = event.clientY;
+    if (session.scrolling) {
+      event.preventDefault();
+      nav.scrollLeft = session.startScrollLeft - (session.x - session.startX);
+      return;
+    }
+    if (!session.active && Math.hypot(session.x - session.startX, session.y - session.startY) >= 8) {
+      const deltaX = session.x - session.startX;
+      const deltaY = session.y - session.startY;
+      if (session.horizontal && Math.abs(deltaX) > Math.abs(deltaY)) {
+        clearTimeout(session.holdTimer);
+        session.scrolling = true;
+        event.preventDefault();
+        nav.scrollLeft = session.startScrollLeft - deltaX;
+        return;
+      }
+      cleanupSession();
+      session = null;
+      return;
+    }
+    if (!session.active) return;
+    event.preventDefault();
+    positionPreview();
+    updateDropTarget();
+  });
+  nav.addEventListener("pointerup", (event) => {
+    if (!session || event.pointerId !== session.pointerId) return;
+    finishSession();
+  });
+  nav.addEventListener("pointercancel", () => {
+    cleanupSession();
+    session = null;
+  });
+  nav.addEventListener("contextmenu", (event) => {
+    if (session?.active && event.target.closest('a[data-bucket-reorderable="true"]')) {
+      event.preventDefault();
+    }
   });
 }
 
@@ -6198,6 +6416,7 @@ function bindApp() {
       link.dataset.appNavBound = "true";
       link.addEventListener("click", (event) => {
         event.preventDefault();
+        if (Date.now() < suppressBucketNavigationUntil) return;
         const bucketKind = link.dataset.navBucketKind;
         const bucketId = link.dataset.navBucketId;
         if (query) {
@@ -6210,6 +6429,7 @@ function bindApp() {
       });
     });
 
+  bindBucketDragging();
   bindReportDragging();
 
   // Kept inert during the transition from the original per-card drag listeners.
