@@ -4415,6 +4415,26 @@ footer {
   font-size: 11px;
 }
 
+.archive-clear-button {
+  min-height: 32px;
+  margin-top: 12px;
+  border: 1px solid #e4c1bd;
+  border-radius: 9px;
+  background: #fff8f7;
+  padding: 0 12px;
+  color: #8a3933;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.archive-clear-button:hover,
+.archive-clear-button:focus-visible {
+  border-color: #c77e76;
+  background: #fff0ee;
+  outline: none;
+}
+
 .archive-results {
   padding: 34px 0 44px;
 }

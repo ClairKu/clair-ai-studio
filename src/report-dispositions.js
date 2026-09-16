@@ -99,6 +99,14 @@ export function setReportDisposition(entries, report, status, changedAt = new Da
   return next;
 }
 
+export function setReportsDisposition(entries, reports, status, changedAt = new Date().toISOString()) {
+  if (!VALID_STATUSES.has(status)) return normalizeReportDispositions(entries);
+  return (Array.isArray(reports) ? reports : []).reduce(
+    (next, report) => setReportDisposition(next, report, status, changedAt),
+    mergeReportDispositions(entries),
+  );
+}
+
 export function clearReportDisposition(entries, report) {
   return mergeReportDispositions(entries)
     .filter((entry) => !matchesReport(entry, report));

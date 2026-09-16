@@ -28,6 +28,7 @@ import {
   reportDisposition,
   seedLegacyArchiveDispositions,
   setReportDisposition,
+  setReportsDisposition,
 } from "./report-dispositions.js";
 import {
   applyReportDispositions,
@@ -3069,9 +3070,13 @@ function saveState() {
 }
 
 function commitReportDisposition(report, status, changedAt = new Date().toISOString()) {
-  const next = setReportDisposition(
+  return commitReportDispositions([report], status, changedAt);
+}
+
+function commitReportDispositions(reports, status, changedAt = new Date().toISOString()) {
+  const next = setReportsDisposition(
     mergeReportDispositions(state.reportDispositions, loadDispositionLedger(localStorage)),
-    report,
+    reports,
     status,
     changedAt,
   );
@@ -4868,6 +4873,30 @@ function cardMarkup(report, archivedView = false) {
 
 function modalMarkup() {
   if (!modal) return "";
+  if (modal.type === "clear-archive") {
+    const archivedCount = state.reports.filter((report) => report.archived).length;
+    if (!archivedCount) return "";
+    return `
+      <div class="dialog-backdrop">
+        <section class="dialog compact-dialog destructive-dialog" role="dialog" aria-modal="true"
+          aria-labelledby="clear-archive-dialog-title" aria-describedby="clear-archive-dialog-description" tabindex="-1">
+          <div class="dialog-title-row">
+            <div>
+              <span class="section-kicker">CLEAR ARCHIVE</span>
+              <h2 id="clear-archive-dialog-title">清空全部归档成果？</h2>
+            </div>
+            <button type="button" class="studio-icon-button dialog-close-button" data-action="close-modal" title="关闭" aria-label="关闭">${UI_ICONS.close}</button>
+          </div>
+          <p id="clear-archive-dialog-description" class="destructive-dialog-copy">
+            将永久删除归档区中的 <strong>${archivedCount} 份成果</strong>及其保存在本机的附件。此操作无法撤销，删除后也不会因刷新或升级重新出现。
+          </p>
+          <div class="dialog-actions">
+            <button type="button" class="quiet-button" data-action="close-modal" autofocus>取消</button>
+            <button type="button" class="danger-button" data-action="confirm-clear-archive">确认清空全部</button>
+          </div>
+        </section>
+      </div>`;
+  }
   if (modal.type === "delete-report") {
     const deletingReport = state.reports.find((report) => report.id === modal.reportId);
     if (!deletingReport) return "";
@@ -5116,7 +5145,11 @@ function archiveMarkup() {
             <h1>先收起来，<br />随时找回来。</h1>
             <p>归档只会让报告离开主目录，不会删除内容。预览、主题和原始入口都会保留，也可以随时恢复。</p>
           </div>
-          <div class="archive-total"><strong>${archiveCount}</strong><span>份已归档</span></div>
+          <div class="archive-total">
+            <strong>${archiveCount}</strong>
+            <span>份已归档</span>
+            ${archiveCount ? '<button type="button" class="archive-clear-button" data-action="clear-archive">清空全部</button>' : ""}
+          </div>
         </div>
         <label class="search archive-search">
           <span aria-hidden="true">⌕</span>
@@ -6073,6 +6106,13 @@ function bindApp() {
           adjacentReportSnapshot(itemId),
           event.currentTarget,
         );
+      } else if (action === "clear-archive") {
+        if (!state.reports.some((report) => report.archived)) return;
+        openAppModal(
+          { type: "clear-archive" },
+          captureViewportSnapshot(document.querySelector(".archive-hero")),
+          event.currentTarget,
+        );
       } else if (action === "confirm-delete") {
         const report = state.reports.find((item) => item.id === itemId);
         if (!report?.archived || modal?.type !== "delete-report") return;
@@ -6083,6 +6123,18 @@ function bindApp() {
         await deleteStoredFilesForReport(itemId);
         closeAppModal({ fallbackSelector: ".archive-grid, .archive-search" });
         showToast(`已永久删除“${report.title}”`);
+      } else if (action === "confirm-clear-archive") {
+        if (modal?.type !== "clear-archive") return;
+        const archivedReports = state.reports.filter((report) => report.archived);
+        if (!archivedReports.length) return;
+        const archivedIds = archivedReports.map((report) => report.id);
+        commitReportDispositions(archivedReports, "deleted");
+        if (archivedIds.includes(readerId)) readerId = "";
+        query = "";
+        try { saveState(); } catch { /* deletion tombstones already saved */ }
+        await Promise.all(archivedIds.map((reportId) => deleteStoredFilesForReport(reportId)));
+        closeAppModal({ fallbackSelector: ".archive-search, .archive-hero" });
+        showToast(`已永久删除 ${archivedReports.length} 份归档成果`);
       } else if (action === "add-group") {
         openAppModal(
           { type: "group", mode: "create" },

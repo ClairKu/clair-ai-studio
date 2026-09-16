@@ -8,6 +8,7 @@ import {
   reportDisposition,
   seedLegacyArchiveDispositions,
   setReportDisposition,
+  setReportsDisposition,
 } from "../src/report-dispositions.js";
 
 const archivedAt = "2026-09-04T02:00:00.000Z";
@@ -54,6 +55,18 @@ test("persists permanent deletion as an explicit tombstone", () => {
     status: "deleted",
     changedAt: archivedAt,
   });
+});
+
+test("creates deletion tombstones for every report in a cleared archive", () => {
+  const reports = [
+    { id: "built-in-report", url: "https://example.com/built-in/" },
+    { id: "local-report", url: "" },
+  ];
+  const entries = setReportsDisposition([], reports, "deleted", archivedAt);
+
+  assert.equal(reportDisposition(entries, reports[0])?.status, "deleted");
+  assert.equal(reportDisposition(entries, reports[1])?.status, "deleted");
+  assert.equal(entries.length, 2);
 });
 
 test("migrates legacy archived flags and clears the decision on restore", () => {
