@@ -3,9 +3,9 @@
   "meta": {
     "contract_version": "gitlab-mr-v1",
     "source_of_truth": "GitLab merge requests",
-    "generated_at": "2026-09-16T10:10:05.983Z",
-    "cutoff": "2026-09-16T10:10:05.983Z",
-    "last_change_at": "2026-09-16T10:10:05.983Z",
+    "generated_at": "2026-09-17T10:10:05.403Z",
+    "cutoff": "2026-09-17T10:10:05.403Z",
+    "last_change_at": "2026-09-17T10:10:05.403Z",
     "stale_after_minutes": 180,
     "headline": "8 个已提交，5 个已上线，4 位 PM 完成端到端交付。",
     "window_start": "2026-07-01T00:00:00+08:00",
