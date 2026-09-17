@@ -12,6 +12,7 @@ const selfProtectedEntries = new Set([
   // 自带解锁页，不再叠加站点门。
   "reports/qianwen-user-question-analysis-2026-09-05/index.html",
   "reports/qianwen-user-question-detail-2026-09-05/index.html",
+  "reports/qianwen-new-user-first-investor-cases-2026-09-17/index.html",
 ]);
 
 if (!existsSync(gateAsset)) throw new Error(`Missing access gate asset: ${gateAsset}`);

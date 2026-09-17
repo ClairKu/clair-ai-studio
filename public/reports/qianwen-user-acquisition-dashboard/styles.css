@@ -600,3 +600,6 @@ tbody tr:hover td:first-child, tbody tr.is-selected td:first-child { background:
   .analysis-canvas { break-inside: avoid; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
   .table-scroll { overflow: visible; }
 }
+
+.deep-dive-link { margin: 26px 0 0; padding: 14px 18px; background: var(--panel, #fff); border: 1px solid rgba(20,30,50,.08); border-radius: 10px; font-size: 14px; }
+.deep-dive-link a { font-weight: 700; }
