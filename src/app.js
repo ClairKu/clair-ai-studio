@@ -56,7 +56,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 77;
+const DATA_VERSION = 78;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -172,6 +172,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "ai-native-advisor-workbench-v1-2-review-2026-09-17",
+      groupId: "product-planning",
+      title: "AI-Native 投顾工作台 V1.2｜完整评审与优化方案",
+      url: "https://clairku.github.io/clair-ai-studio/reports/ai-native-advisor-workbench-v1-2-review-2026-09-17/",
+      preview: "ai-native-advisor-workbench-v1-2-review-2026-09-17.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-17T18:10:00+08:00",
+      source: "用户提供的 AI-Native 投顾工作台高保真 Demo V1.2（单文件 HTML，19,746 行 / 1,002,797 字节，SHA-256 aba6fd78…7493951）+ 2026-09-17 本地浏览器交互走查与源文件静态检查｜覆盖首页、任务中心、客户管理、资料库、报告与工具、数据看板、技能仓库、客户 360、持仓、角色权限与 AI 上下文联动｜区分已验证界面、纯前端模拟、尚未连接和生产未验证能力｜提出 12 项 P0/P1/P2 问题、目标架构、统一对象模型、三条黄金服务链路、V1.3 / Pilot / V2.0 路线图与验收指标｜公开脱敏，不含源文件、本地路径、真实客户、账号、密钥、内部地址或未授权数据",
+      access: "production",
+      workType: "requirement-review",
+      tags: ["AI Native", "投顾工作台", "顾问作业", "产品评审", "需求评审", "客户360", "任务中心", "AI副驾", "报告工作坊", "权限治理", "证据链", "数据口径", "产品路线图", "高保真Demo", "HTML", "生产"],
+    },
     {
       id: "pms-system-deep-dive-2026-09-16",
       groupId: "research",
@@ -2544,6 +2558,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "ai-native-advisor-workbench-v1-2-review-2026-09-17": "product-planning",
   "pms-system-deep-dive-2026-09-16": "research",
   "global-ai-advice-advisor-copilot-cases-2026-09-16": "research",
   "vesta-system-deep-dive-2026-09-16": "research",

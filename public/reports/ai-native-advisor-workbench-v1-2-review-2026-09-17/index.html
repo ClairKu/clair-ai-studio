@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AI-Native 投顾工作台高保真 Demo V1.2 的完整产品评审、问题清单、方案完善与分阶段落地建议。">
+  <title>AI-Native 投顾工作台 V1.2｜完整评审与优化方案</title>
+  <style>
+    :root {
+      --ink:#122035; --muted:#5f6c7d; --line:#dfe5eb; --soft:#f4f7f9; --paper:#ffffff;
+      --navy:#173a5e; --blue:#2670b8; --cyan:#3ba9a2; --green:#2d8c6f; --amber:#c17a16;
+      --red:#b84b4b; --red-soft:#fff1f0; --amber-soft:#fff8e8; --green-soft:#edf8f3;
+      --blue-soft:#eef6ff; --shadow:0 18px 60px rgba(22,46,76,.12); --radius:18px;
+    }
+    *{box-sizing:border-box}
+    html{overflow-x:hidden;scroll-behavior:smooth;background:#edf2f5}
+    body{margin:0;overflow-x:hidden;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.65;background:linear-gradient(180deg,#eaf0f4 0,#f7f9fa 420px,#f7f9fa 100%)}
+    a{color:inherit} button{font:inherit}
+    .page{width:min(1180px,calc(100% - 40px));margin:0 auto;padding:34px 0 80px}
+    .topbar{position:sticky;top:12px;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:22px;padding:11px 14px;border:1px solid rgba(255,255,255,.72);border-radius:14px;background:rgba(255,255,255,.88);box-shadow:0 10px 35px rgba(22,46,76,.08);backdrop-filter:blur(14px)}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:760;letter-spacing:.02em}.brand-mark{display:grid;place-items:center;width:30px;height:30px;border-radius:9px;color:white;background:linear-gradient(135deg,var(--blue),var(--cyan))}
+    .nav{display:flex;gap:4px;overflow:auto}.nav a{padding:7px 10px;border-radius:9px;text-decoration:none;color:var(--muted);font-size:13px;white-space:nowrap}.nav a:hover{color:var(--blue);background:var(--blue-soft)}
+    .hero{position:relative;overflow:hidden;padding:54px;border-radius:28px;color:white;background:linear-gradient(135deg,#102c49 0%,#194d72 52%,#228b89 100%);box-shadow:var(--shadow)}
+    .hero:before,.hero:after{content:"";position:absolute;border-radius:50%;filter:blur(1px)}.hero:before{width:360px;height:360px;right:-140px;top:-180px;background:rgba(255,255,255,.11)}.hero:after{width:240px;height:240px;left:45%;bottom:-185px;background:rgba(88,216,199,.20)}
+    .hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:42px;align-items:end}
+    .eyebrow{display:inline-flex;align-items:center;gap:7px;margin-bottom:16px;padding:6px 10px;border:1px solid rgba(255,255,255,.24);border-radius:999px;background:rgba(255,255,255,.09);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+    h1{margin:0 0 18px;font-family:"Songti SC","STSong",serif;font-size:clamp(38px,5vw,68px);line-height:1.08;letter-spacing:-.04em}.hero h1 span{display:block;color:#8ee2d7}
+    .hero-lead{max-width:760px;margin:0;color:rgba(255,255,255,.82);font-size:17px}
+    .verdict{padding:22px;border:1px solid rgba(255,255,255,.18);border-radius:18px;background:rgba(5,20,35,.22)}
+    .verdict strong{display:block;font-size:15px}.verdict p{margin:8px 0 0;color:rgba(255,255,255,.77);font-size:13px}
+    .score-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:17px}.score{padding:14px;border-radius:14px;background:rgba(255,255,255,.1)}.score b{display:block;font-size:30px;line-height:1}.score small{display:block;margin-top:7px;color:rgba(255,255,255,.7)}
+    .meta-strip{display:grid;grid-template-columns:repeat(4,1fr);margin-top:18px;border:1px solid var(--line);border-radius:16px;background:white;box-shadow:0 12px 34px rgba(22,46,76,.06)}
+    .meta-item{padding:18px 20px;border-right:1px solid var(--line)}.meta-item:last-child{border-right:0}.meta-item small{display:block;color:var(--muted);font-size:12px}.meta-item strong{display:block;margin-top:4px;font-size:16px;word-break:break-word}
+    section{margin-top:52px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:20px}.section-no{font-size:12px;font-weight:760;letter-spacing:.16em;color:var(--blue);text-transform:uppercase}.section-head h2{margin:3px 0 0;font-family:"Songti SC","STSong",serif;font-size:clamp(28px,4vw,44px);line-height:1.2}.section-head p{max-width:460px;margin:0;color:var(--muted);font-size:14px}
+    .card{border:1px solid var(--line);border-radius:var(--radius);background:var(--paper);box-shadow:0 10px 35px rgba(22,46,76,.05)}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+    .mini-card{padding:22px}.mini-card h3{margin:12px 0 8px;font-size:17px}.mini-card p{margin:0;color:var(--muted);font-size:14px}.icon{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;font-weight:800;color:var(--blue);background:var(--blue-soft)}
+    .decision{display:grid;grid-template-columns:1.1fr .9fr;overflow:hidden}.decision-main{padding:30px}.decision-side{padding:30px;background:var(--soft)}.decision h3{margin:0 0 12px;font-size:21px}.decision p{margin:0;color:var(--muted)}
+    .good,.bad{margin-top:18px;padding-left:0;list-style:none}.good li,.bad li{position:relative;margin:10px 0;padding-left:27px}.good li:before,.bad li:before{position:absolute;left:0;top:1px;font-weight:800}.good li:before{content:"✓";color:var(--green)}.bad li:before{content:"!";color:var(--red)}
+    .loop{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;align-items:center}.loop-step{position:relative;padding:17px 10px;border:1px solid var(--line);border-radius:13px;text-align:center;background:white}.loop-step:not(:last-child):after{content:"›";position:absolute;right:-8px;top:50%;z-index:2;transform:translate(50%,-50%);display:grid;place-items:center;width:20px;height:20px;border-radius:50%;color:var(--blue);background:#edf4fa;font-weight:800}.loop-step b{display:block;font-size:13px}.loop-step small{display:block;margin-top:5px;color:var(--muted)}.loop-step.on{border-color:#92c9c2;background:var(--green-soft)}.loop-step.weak{border-color:#efc6c2;background:var(--red-soft)}
+    .evidence-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.evidence-card{padding:18px}.evidence-card b{display:block;color:var(--blue);font-size:28px;line-height:1}.evidence-card span{display:block;margin-top:8px;font-weight:700}.evidence-card small{display:block;margin-top:5px;color:var(--muted)}
+    .scoreboard{padding:26px}.score-row{display:grid;grid-template-columns:180px 1fr 58px;gap:14px;align-items:center;margin:14px 0}.score-row span{font-size:14px}.bar{height:10px;overflow:hidden;border-radius:999px;background:#e8edf1}.bar i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--blue),var(--cyan))}.score-row b{text-align:right;color:var(--navy)}
+    .callout{margin-top:16px;padding:18px 20px;border-left:4px solid var(--amber);border-radius:10px;background:var(--amber-soft)}.callout strong{display:block}.callout p{margin:4px 0 0;color:#72501a;font-size:14px}
+    .filterbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.filterbar button{padding:8px 12px;border:1px solid var(--line);border-radius:999px;color:var(--muted);background:white;cursor:pointer}.filterbar button[aria-pressed="true"]{border-color:var(--blue);color:white;background:var(--blue)}
+    .issue-list{display:grid;gap:12px}.issue{display:grid;grid-template-columns:64px minmax(0,1.35fr) minmax(0,1fr) 126px;gap:16px;align-items:start;padding:18px 20px}.issue[hidden]{display:none}.priority{display:inline-flex;justify-content:center;padding:5px 8px;border-radius:999px;font-size:12px;font-weight:800}.p0{color:#8f2727;background:#ffe7e4}.p1{color:#855716;background:#fff0c9}.p2{color:#2c5f8a;background:#e9f4ff}.issue h3{margin:0 0 6px;font-size:16px}.issue p{margin:0;color:var(--muted);font-size:13px}.issue .impact{padding-left:16px;border-left:1px solid var(--line)}.owner{color:var(--muted);font-size:12px;text-align:right}
+    .arch{padding:26px;overflow:auto}.arch-flow{min-width:920px}.arch-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.arch-box{padding:16px;border:1px solid var(--line);border-radius:12px;text-align:center;background:white}.arch-box strong{display:block}.arch-box small{display:block;margin-top:5px;color:var(--muted)}.arch-arrow{padding:12px;text-align:center;color:var(--blue);font-weight:800}.arch-policy{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.arch-policy .arch-box{background:var(--soft)}
+    .objects{display:grid;grid-template-columns:repeat(6,1fr);gap:9px}.object{padding:13px 8px;border:1px solid #cfd9e2;border-radius:11px;text-align:center;background:#f9fbfc;font-size:13px;font-weight:700}.object.key{color:white;border-color:var(--blue);background:var(--blue)}
+    .roadmap{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.phase{padding:24px}.phase .tag{display:inline-block;padding:5px 9px;border-radius:999px;color:var(--blue);background:var(--blue-soft);font-size:12px;font-weight:800}.phase h3{margin:12px 0 8px}.phase ul{margin:12px 0 0;padding-left:20px;color:var(--muted);font-size:14px}.phase li{margin:7px 0}.phase.recommend{border-color:#87c4bb;box-shadow:0 12px 38px rgba(45,140,111,.12)}
+    .acceptance{display:grid;gap:10px;margin-top:14px}.acceptance div{display:flex;gap:10px;padding:11px;border-radius:10px;background:var(--soft);font-size:13px}.acceptance b{color:var(--green)}
+    table{width:100%;border-collapse:collapse}.table-wrap{overflow:auto}.metric-table{min-width:860px}.metric-table th,.metric-table td{padding:13px 14px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}.metric-table th{color:var(--muted);font-size:12px;background:var(--soft)}.metric-table td{font-size:13px}.metric-table code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--navy);white-space:normal}
+    .do-dont{display:grid;grid-template-columns:1fr 1fr;gap:16px}.do-dont .card{padding:24px}.do-dont h3{margin:0}.do-dont ul{margin:13px 0 0;padding-left:20px;color:var(--muted)}
+    .foot{margin-top:54px;padding:28px;border-radius:18px;color:white;background:#122b43}.foot-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:28px}.foot h2{margin:0 0 8px;font-family:"Songti SC","STSong",serif}.foot p{margin:0;color:rgba(255,255,255,.72)}.foot-meta{display:grid;gap:7px;font-size:13px;color:rgba(255,255,255,.76)}
+    .status-line{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.status-line span{padding:6px 9px;border-radius:999px;background:rgba(255,255,255,.09);font-size:12px}
+    .print-note{margin-top:14px;color:var(--muted);font-size:12px}
+    @media (max-width:960px){.hero{padding:38px}.hero-inner,.decision,.foot-grid{grid-template-columns:1fr}.meta-strip{grid-template-columns:repeat(2,1fr)}.meta-item:nth-child(2){border-right:0}.meta-item:nth-child(-n+2){border-bottom:1px solid var(--line)}.grid-3,.grid-2,.roadmap{grid-template-columns:1fr}.loop{grid-template-columns:repeat(2,1fr)}.loop-step:after{display:none}.evidence-grid{grid-template-columns:repeat(2,1fr)}.issue{grid-template-columns:58px 1fr}.issue .impact{grid-column:2;padding-left:0;border-left:0}.owner{grid-column:2;text-align:left}.objects{grid-template-columns:repeat(3,1fr)}.do-dont{grid-template-columns:1fr}}
+    @media (max-width:640px){.page{width:min(100% - 22px,1180px);padding-top:14px}.topbar{top:6px}.nav{display:none}.hero{padding:28px 22px;border-radius:20px}.hero-inner{gap:24px}.hero-lead{font-size:15px}.meta-strip{grid-template-columns:1fr}.meta-item,.meta-item:nth-child(2){border-right:0;border-bottom:1px solid var(--line)}.meta-item:last-child{border-bottom:0}.section-head{align-items:start;flex-direction:column}.evidence-grid{grid-template-columns:1fr}.score-row{grid-template-columns:1fr 50px}.score-row .bar{grid-column:1/-1;grid-row:2}.issue{grid-template-columns:1fr}.issue .impact,.owner{grid-column:1}.priority{width:max-content}.objects{grid-template-columns:repeat(2,1fr)}.hero h1{font-size:38px}}
+    @media print{body{background:white}.topbar,.filterbar{display:none}.page{width:100%;padding:0}.hero{box-shadow:none}.card{box-shadow:none}.issue[hidden]{display:grid}section{break-inside:avoid}}
+  </style>
+</head>
+<body data-report-id="ai-native-advisor-workbench-v1-2-review-2026-09-17">
+  <div class="page">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">L</span><span>Lodestar V1.2 · Product Review</span></div>
+      <nav class="nav" aria-label="报告章节">
+        <a href="#verdict">结论</a><a href="#evidence">证据</a><a href="#issues">问题</a><a href="#target">目标方案</a><a href="#roadmap">路线图</a><a href="#metrics">验收</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="verdict">
+        <div class="hero-inner">
+          <div>
+            <span class="eyebrow">High-fidelity demo audit · 2026-09-17</span>
+            <h1>AI-Native 投顾工作台<span>方向对了，生产闭环还没站稳</span></h1>
+            <p class="hero-lead">这不是“旧工作台 + 聊天框”，而是把 AI、客户、任务、资料和多页签作业融合成一套顾问操作系统。建议保留总体架构，但不建议直接进入生产试点；先用 3 条黄金服务链路补齐数据真相、证据链、权限与回写闭环。</p>
+          </div>
+          <aside class="verdict" aria-label="评审结论">
+            <strong>一句话决策</strong>
+            <p>继续投入，收窄范围。V1.3 从“功能全景 Demo”改造成“可验证闭环 Demo”；V2.0 再做平台化与技能生态。</p>
+            <div class="score-pair">
+              <div class="score"><b>8.2</b><small>概念与体验方向 / 10</small></div>
+              <div class="score"><b>3.1</b><small>生产就绪度 / 10</small></div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <div class="meta-strip" aria-label="评审范围">
+        <div class="meta-item"><small>源文件</small><strong>Demo V1.2 · 单文件 HTML</strong></div>
+        <div class="meta-item"><small>文件体量</small><strong>19,746 行 · 1,002,797 字节</strong></div>
+        <div class="meta-item"><small>完整性指纹</small><strong>SHA-256 aba6fd78…7493951</strong></div>
+        <div class="meta-item"><small>本轮实测</small><strong>7 个一级域 + 核心任务/客户/权限链路</strong></div>
+      </div>
+
+      <section>
+        <div class="section-head"><div><div class="section-no">01 · Executive judgment</div><h2>该保留什么，必须重做什么</h2></div><p>真正的产品价值不在页面数量，而在“系统发现重要时刻后，帮助顾问安全地把服务做完”。</p></div>
+        <div class="decision card">
+          <div class="decision-main">
+            <h3>值得保留：AI 已经进入作业流，而不是漂浮在旁边</h3>
+            <ul class="good">
+              <li>任务、客户、资料、报告与 AI 共享上下文，页签式工作区适合复杂顾问作业。</li>
+              <li>大额赎回、购房用款、配置偏离、年度检视等场景贴近真实服务时刻。</li>
+              <li>“先核实事实、不主动挽留、不承诺收益、顾问确认后再写回”体现了正确的人机边界。</li>
+              <li>任务具备来源、优先级、状态、判断依据和关闭原因，已经有案例化运营底座。</li>
+            </ul>
+          </div>
+          <div class="decision-side">
+            <h3>必须重做：从演示壳升级为可信作业系统</h3>
+            <ul class="bad">
+              <li>AI、报告、数据源和系统连接目前均为本地模拟，不能按“已接入”验收。</li>
+              <li>同一页面体系出现客户数、日期、任务内容等真相冲突，影响管理决策可信度。</li>
+              <li>权限只到菜单可见，缺少客户归属、字段、动作、工具和审计层的控制。</li>
+              <li>生成报告、写资料、改任务等高风险动作尚无统一预览、审批、落库和回滚协议。</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="evidence">
+        <div class="section-head"><div><div class="section-no">02 · What was verified</div><h2>证据边界：看见、模拟、连接是三件事</h2></div><p>本报告基于源文件静态检查与本地浏览器实测，不把界面出现的能力自动当成生产能力。</p></div>
+        <div class="evidence-grid">
+          <article class="evidence-card card"><b>7</b><span>一级导航域</span><small>首页、任务、客户、资料、报告、看板、技能均已走查。</small></article>
+          <article class="evidence-card card"><b>55</b><span>演示任务</span><small>其中部分由补齐脚本生成，正文直接标记为 Demo 列表数据。</small></article>
+          <article class="evidence-card card"><b>44</b><span>演示客户</span><small>客户管理口径为 44，但数据看板显示 128，存在跨模块冲突。</small></article>
+          <article class="evidence-card card"><b>0</b><span>真实远程调用</span><small>未发现 fetch / XHR / WebSocket；AI 回复由本地规则与延时模拟。</small></article>
+        </div>
+        <div class="grid-3" style="margin-top:16px">
+          <article class="mini-card card"><div class="icon">✓</div><h3>已验证</h3><p>桌面 1280px 主要路径可操作；任务可打开详情并把上下文带入 AI；客户 360、持仓、资料、角色菜单和技能市场均有交互。</p></article>
+          <article class="mini-card card"><div class="icon">≈</div><h3>仅模拟</h3><p>AI 对话、报告生成、监控待办、技能/Agent/CLI 安装、文件上传、分享和任务写回主要发生在内存或 localStorage。</p></article>
+          <article class="mini-card card"><div class="icon">?</div><h3>未证明</h3><p>生产数据源、模型服务、CRM/PMS/交易/适当性连接、对象级权限、真实审计、消息发送、文档导出与系统回写均未验证。</p></article>
+        </div>
+        <div class="callout"><strong>关键实测结果</strong><p>桌面宽度 1280px 未出现页面级横向溢出且控制台无告警；设置为 390px 后，页面 scrollWidth 为 720px，主导航与工作区被裁切，说明当前是明确的桌面原型，不是可用的移动响应式版本。</p></div>
+      </section>
+
+      <section>
+        <div class="section-head"><div><div class="section-no">03 · Product value loop</div><h2>价值链覆盖了前半程，后半程仍偏虚</h2></div><p>AI-Native 不是“能回答”，而是重要时刻从发现到结果可审计地闭环。</p></div>
+        <div class="loop" aria-label="服务闭环">
+          <div class="loop-step on"><b>发现信号</b><small>资金 / 持仓 / 承诺</small></div>
+          <div class="loop-step on"><b>解释原因</b><small>事实与线索</small></div>
+          <div class="loop-step on"><b>形成任务</b><small>来源 / 优先级</small></div>
+          <div class="loop-step on"><b>辅助判断</b><small>话术 / 建议</small></div>
+          <div class="loop-step weak"><b>人工确认</b><small>缺统一协议</small></div>
+          <div class="loop-step weak"><b>执行回写</b><small>多数为 Demo</small></div>
+          <div class="loop-step weak"><b>衡量结果</b><small>无闭环指标</small></div>
+        </div>
+        <div class="scoreboard card" style="margin-top:18px">
+          <div class="score-row"><span>产品定位与场景选择</span><div class="bar"><i style="width:88%"></i></div><b>8.8</b></div>
+          <div class="score-row"><span>工作流与信息架构</span><div class="bar"><i style="width:79%"></i></div><b>7.9</b></div>
+          <div class="score-row"><span>演示交互与视觉完成度</span><div class="bar"><i style="width:82%"></i></div><b>8.2</b></div>
+          <div class="score-row"><span>数据口径与对象一致性</span><div class="bar"><i style="width:43%"></i></div><b>4.3</b></div>
+          <div class="score-row"><span>AI 连接与工具执行</span><div class="bar"><i style="width:28%"></i></div><b>2.8</b></div>
+          <div class="score-row"><span>权限、合规与可审计性</span><div class="bar"><i style="width:39%"></i></div><b>3.9</b></div>
+          <div class="score-row"><span>工程可维护与生产就绪</span><div class="bar"><i style="width:31%"></i></div><b>3.1</b></div>
+          <div class="score-row"><span>移动端与跨端体验</span><div class="bar"><i style="width:12%"></i></div><b>1.2</b></div>
+        </div>
+      </section>
+
+      <section id="issues">
+        <div class="section-head"><div><div class="section-no">04 · Issue register</div><h2>不是继续加页面，而是先清掉这些风险</h2></div><p>P0 阻断可信试点；P1 决定产品效率；P2 影响规模化与体验质量。</p></div>
+        <div class="filterbar" role="group" aria-label="问题优先级筛选">
+          <button type="button" data-filter="all" aria-pressed="true">全部 12</button>
+          <button type="button" data-filter="P0" aria-pressed="false">P0 · 6</button>
+          <button type="button" data-filter="P1" aria-pressed="false">P1 · 4</button>
+          <button type="button" data-filter="P2" aria-pressed="false">P2 · 2</button>
+        </div>
+        <div class="issue-list">
+          <article class="issue card" data-priority="P0"><span class="priority p0">P0</span><div><h3>统一数据真相缺失</h3><p>首页“服务客户数 44 / 在管 11”，看板“管户客户数 128 / 在管 121”；同一 Demo 还出现 2028–2029 服务日期与 2026 场景混用。</p></div><div class="impact"><p>管理者会先质疑数据，后续所有 AI 判断与经营指标都失去信任基础。</p></div><div class="owner">数据产品 + 后端<br>1 周内</div></article>
+          <article class="issue card" data-priority="P0"><span class="priority p0">P0</span><div><h3>AI 只模拟，不是真连接</h3><p>无真实远程调用；路由由关键词判断，回复来自本地模板，700ms 后显示。模型下拉只是字符串列表。</p></div><div class="impact"><p>无法评估时延、幻觉、权限、成本、工具调用成功率和故障降级。</p></div><div class="owner">AI 平台<br>V1.3 前</div></article>
+          <article class="issue card" data-priority="P0"><span class="priority p0">P0</span><div><h3>“完全访问”一键授权过粗</h3><p>权限主要是菜单可见；AI 端一个开关就允许改待办、替换洞察或写资料，缺少对象、字段、动作、工具、时效和审批维度。</p></div><div class="impact"><p>不满足客户数据隔离、最小权限、敏感动作确认和事后追责。</p></div><div class="owner">安全 + 合规<br>2 周内</div></article>
+          <article class="issue card" data-priority="P0"><span class="priority p0">P0</span><div><h3>证据语义没有贯穿所有 AI 输出</h3><p>部分客户对象区分事实 / 推断 / 未知，但 AI 画像、市场洞察、风险分和建议没有逐条来源、口径、时间、置信度与复核状态。</p></div><div class="impact"><p>顾问容易把推断对客说成事实；管理者无法追查某次建议基于哪一版数据。</p></div><div class="owner">产品 + 算法<br>2 周内</div></article>
+          <article class="issue card" data-priority="P0"><span class="priority p0">P0</span><div><h3>写回与回滚协议不完整</h3><p>任务关闭、报告生成、文件上传、分享等行为多数只改内存或提示文案；刷新后状态可能消失，外部流程未触发。</p></div><div class="impact"><p>无法证明“顾问完成了一项服务”，也无法在误操作后恢复。</p></div><div class="owner">后端 + 工作流<br>3 周内</div></article>
+          <article class="issue card" data-priority="P0"><span class="priority p0">P0</span><div><h3>移动端发生结构性溢出</h3><p>根节点最小宽度 1280px、主区最小宽度 720px；390px 视口实测页面宽 720px，关键内容不可见。</p></div><div class="impact"><p>若移动端不是目标，应明确“仅桌面”；若要跨端，不能靠补丁修复，需重做布局模式。</p></div><div class="owner">设计系统 + 前端<br>决策先行</div></article>
+          <article class="issue card" data-priority="P1"><span class="priority p1">P1</span><div><h3>任务数据夹杂占位内容</h3><p>列表中直接出现“Demo 列表任务”“用于分页展示”“补齐数据”等文案，并有同名客户同题任务重复。</p></div><div class="impact"><p>用户研究会被假任务误导，难以判断任务中心是否真正可用。</p></div><div class="owner">产品运营<br>3 天</div></article>
+          <article class="issue card" data-priority="P1"><span class="priority p1">P1</span><div><h3>报告入口与信息架构断裂</h3><p>顶级“报告与工具”页面显示“暂无工具”，但客户详情又能生成 3 类报告并写入资料库。</p></div><div class="impact"><p>功能存在但找不到；生成、编辑、审核、导出、发送、归档没有统一工作坊。</p></div><div class="owner">产品设计<br>1 周</div></article>
+          <article class="issue card" data-priority="P1"><span class="priority p1">P1</span><div><h3>持仓指标口径不够可解释</h3><p>混合资产组合只对比中证 500；风险值 64、舒适区 40–45、累计收益与持有收益均缺少公式和适用边界。</p></div><div class="impact"><p>数字看起来专业，但无法复核，容易形成“权威感大于证据”的反效果。</p></div><div class="owner">投研 + 数据<br>2 周</div></article>
+          <article class="issue card" data-priority="P1"><span class="priority p1">P1</span><div><h3>技能市场早于治理能力</h3><p>可创建 Agent、上传 Skill、添加 CLI，但缺少发布者、版本、依赖、数据权限、风险级别、测试结果和审批状态。</p></div><div class="impact"><p>生态越丰富，提示注入、越权调用、输出不一致和运维风险越大。</p></div><div class="owner">平台治理<br>V2.0</div></article>
+          <article class="issue card" data-priority="P2"><span class="priority p2">P2</span><div><h3>单文件原型已到维护上限</h3><p>约 100 万字节、19,746 行，数据、视图、状态机和交互在同一文件内，功能函数/动作点约 442 处。</p></div><div class="impact"><p>改一处容易伤及多处；缺少模块边界、类型约束、组件测试和契约测试。</p></div><div class="owner">前端架构<br>V1.3 重构</div></article>
+          <article class="issue card" data-priority="P2"><span class="priority p2">P2</span><div><h3>可访问性完成度不均</h3><p>ARIA、键盘行操作和焦点样式总体不错，但实测仍有未标注控件；弹窗焦点限制、背景 inert 与完整键盘流需专项验收。</p></div><div class="impact"><p>影响键盘用户与长期组件质量，也容易在重构后回退。</p></div><div class="owner">前端 QA<br>持续</div></article>
+        </div>
+      </section>
+
+      <section id="target">
+        <div class="section-head"><div><div class="section-no">05 · Target product</div><h2>把它定义成“顾问服务操作系统”</h2></div><p>首页不是报表墙，AI 不是聊天框，技能市场也不是第一主角；核心是服务事件的可控闭环。</p></div>
+        <div class="arch card">
+          <div class="arch-flow">
+            <div class="arch-row">
+              <div class="arch-box"><strong>客户 / 家庭</strong><small>身份、目标、偏好、关系</small></div>
+              <div class="arch-box"><strong>账户 / 持仓</strong><small>资产、交易、收益、风险</small></div>
+              <div class="arch-box"><strong>服务记录</strong><small>沟通、承诺、纪要、材料</small></div>
+              <div class="arch-box"><strong>适当性 / 规则</strong><small>测评、限制、阈值、期限</small></div>
+              <div class="arch-box"><strong>投研 / 内容</strong><small>行情、产品、策略、模板</small></div>
+            </div>
+            <div class="arch-arrow">↓ 规范化对象 + 事件时间线 + 数据版本 ↓</div>
+            <div class="arch-row">
+              <div class="arch-box"><strong>信号引擎</strong><small>事实检测、去重、优先级</small></div>
+              <div class="arch-box"><strong>案例 / 任务引擎</strong><small>状态机、SLA、责任人</small></div>
+              <div class="arch-box"><strong>AI 编排层</strong><small>模型、技能、工具、上下文</small></div>
+              <div class="arch-box"><strong>报告工作坊</strong><small>生成、编辑、复核、发布</small></div>
+              <div class="arch-box"><strong>动作网关</strong><small>写回、发送、下单前置、回滚</small></div>
+            </div>
+            <div class="arch-arrow">↓ 每个建议都要带证据；每个动作都要有人、权限和结果 ↓</div>
+            <div class="arch-policy">
+              <div class="arch-box"><strong>证据与来源</strong><small>事实 / 规则 / 推断 / 未知</small></div>
+              <div class="arch-box"><strong>权限与审批</strong><small>对象 / 字段 / 动作 / 工具</small></div>
+              <div class="arch-box"><strong>审计与回滚</strong><small>谁、何时、改了什么</small></div>
+              <div class="arch-box"><strong>运营与评估</strong><small>质量、效率、风险、结果</small></div>
+            </div>
+          </div>
+        </div>
+
+        <h3 style="margin:24px 0 12px">统一对象模型：先把“真相”建好，再谈智能</h3>
+        <div class="objects" aria-label="统一对象模型">
+          <div class="object key">客户</div><div class="object key">家庭</div><div class="object">账户</div><div class="object">目标</div><div class="object">持仓</div><div class="object">交易</div>
+          <div class="object">信号</div><div class="object key">案例</div><div class="object key">任务</div><div class="object">沟通</div><div class="object">报告</div><div class="object">承诺</div>
+          <div class="object">事实</div><div class="object">规则</div><div class="object">推断</div><div class="object">决策</div><div class="object">动作</div><div class="object">审计事件</div>
+        </div>
+
+        <div class="grid-3" style="margin-top:18px">
+          <article class="mini-card card"><div class="icon">1</div><h3>首页：今日服务驾驶舱</h3><p>只回答三件事：今天必须服务谁、为什么、下一步怎么完成。经营指标下沉到看板，不抢任务决策的注意力。</p></article>
+          <article class="mini-card card"><div class="icon">2</div><h3>客户 360：决策证据页</h3><p>所有摘要逐条绑定数据源、时间、口径与状态；把“我知道什么 / 我推测什么 / 还缺什么”固定成页面骨架。</p></article>
+          <article class="mini-card card"><div class="icon">3</div><h3>AI：受控执行协议</h3><p>每次动作先生成不可变草稿，展示影响对象与差异，顾问强确认后由业务系统执行，再回写状态和审计记录。</p></article>
+        </div>
+      </section>
+
+      <section id="roadmap">
+        <div class="section-head"><div><div class="section-no">06 · Roadmap</div><h2>三阶段推进，先闭环再平台化</h2></div><p>不建议继续横向补齐 7 个域。先把 3 条高频、高价值、高风险链路做深。</p></div>
+        <div class="roadmap">
+          <article class="phase card recommend">
+            <span class="tag">V1.3 · 0–4 周</span><h3>可信闭环 Demo</h3>
+            <ul><li>清洗成一套可追溯演示数据，统一日期与全局口径。</li><li>只保留资金异动、配置偏离、定期检视三条黄金链路。</li><li>接入至少一个真实模型网关，工具仍可用沙盒。</li><li>补齐事实 / 规则 / 推断 / 未知的统一呈现。</li><li>建报告工作坊最小闭环：预览、编辑、复核、归档。</li></ul>
+            <div class="acceptance"><div><b>验收</b><span>刷新后状态可恢复；所有动作有草稿、确认、结果和审计。</span></div><div><b>验收</b><span>3 条链路各完成 10 个真实顾问脚本测试，无占位数据。</span></div></div>
+          </article>
+          <article class="phase card">
+            <span class="tag">Pilot · 5–10 周</span><h3>小范围生产试点</h3>
+            <ul><li>连接客户、持仓、交易、适当性和服务记录的只读数据。</li><li>启用对象级权限、租户隔离、脱敏和审计。</li><li>开放任务写回与报告归档；对客发送仍需人工确认。</li><li>做 10–20 位顾问灰度，建立人工兜底与问题升级。</li><li>按任务类型做模型评估，不用“整体满意度”掩盖风险。</li></ul>
+            <div class="acceptance"><div><b>验收</b><span>数据新鲜度、信号准确率、任务 SLA、证据覆盖率达到阈值。</span></div><div><b>验收</b><span>无越权访问、无自动对客发送、关键动作 100% 可回放。</span></div></div>
+          </article>
+          <article class="phase card">
+            <span class="tag">V2.0 · 11–20 周</span><h3>平台化与规模运营</h3>
+            <ul><li>上线技能注册、版本、依赖、权限、评测与审批体系。</li><li>模型路由按任务质量 / 成本 / 时延选择，而非让顾问挑模型名。</li><li>扩展服务机会、团队运营和多机构配置。</li><li>形成报告模板市场、规则市场与可观测性平台。</li><li>在有实验设计时评估业务结果，不把相关性叫 AI 增量。</li></ul>
+            <div class="acceptance"><div><b>验收</b><span>每个技能都有负责人、测试集、版本、风险级别和回滚版本。</span></div><div><b>验收</b><span>业务指标、人工编辑率、错误类型和模型成本可按场景追踪。</span></div></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="metrics">
+        <div class="section-head"><div><div class="section-no">07 · Acceptance & metrics</div><h2>验收不能只看“能不能点”</h2></div><p>每条链路都需要数据、决策、动作、结果四类指标；业务结果需与因果归因分开。</p></div>
+        <div class="table-wrap card">
+          <table class="metric-table">
+            <thead><tr><th>层级</th><th>核心指标</th><th>建议口径</th><th>建议门槛</th></tr></thead>
+            <tbody>
+              <tr><td>数据</td><td>数据新鲜度达标率</td><td><code>在 SLA 内更新的数据对象 / 应更新对象</code></td><td>≥ 99%</td></tr>
+              <tr><td>信号</td><td>可行动信号准确率</td><td><code>顾问确认需要处理的信号 / 已复核信号</code></td><td>试点 ≥ 75%</td></tr>
+              <tr><td>证据</td><td>证据覆盖率</td><td><code>含来源 + 时间 + 口径的 AI 判断 / AI 判断总数</code></td><td>关键场景 100%</td></tr>
+              <tr><td>任务</td><td>SLA 达成率</td><td><code>到期前完成的任务 / 当期到期任务</code></td><td>≥ 95%</td></tr>
+              <tr><td>效率</td><td>准备时长下降</td><td><code>上线前后同类任务中位耗时差</code></td><td>下降 ≥ 30%</td></tr>
+              <tr><td>质量</td><td>人工大改率</td><td><code>核心内容被重写的 AI 草稿 / 已使用 AI 草稿</code></td><td>持续下降，不追求 0</td></tr>
+              <tr><td>风险</td><td>越权 / 错发 / 错写</td><td><code>生产事故数，按严重度分层</code></td><td>P0/P1 = 0</td></tr>
+              <tr><td>业务</td><td>服务覆盖与客户响应</td><td><code>实验组 vs 对照组；明确窗口、去重与排除</code></td><td>仅实验后谈增量</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="do-dont" style="margin-top:16px">
+          <div class="card"><h3>建议立即做</h3><ul><li>把 44 / 128 等冲突全部收敛为同一 fixture 与口径服务。</li><li>首页首屏只保留“必须处理的 3–5 件事”。</li><li>把“模型名称”换成“快速 / 深度 / 合规优先”等任务策略。</li><li>每个 AI 输出附一键查看证据与差异。</li><li>所有写动作先显示影响范围和回滚点。</li></ul></div>
+          <div class="card"><h3>建议暂缓</h3><ul><li>暂缓扩充 Agent / Skill / CLI 数量与市场运营。</li><li>暂缓对客自动发送、自动改客户事实、自动结案。</li><li>暂缓把经营净流入变化归因给 AI。</li><li>暂缓移动端“硬压缩”；先确定移动端只做提醒还是完整作业。</li><li>暂缓用更多仪表盘掩盖核心服务链路没有闭环。</li></ul></div>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-head"><div><div class="section-no">08 · Golden flows</div><h2>下一版只需要赢下三条链路</h2></div><p>每条都必须从真实事件开始，到可验证结果结束。</p></div>
+        <div class="grid-3">
+          <article class="mini-card card"><div class="icon">A</div><h3>未知原因大额资金变动</h3><p>交易事实 → 已知计划比对 → 创建任务 → 先问用途 → 记录事实 → 判断是否需要规划 → 约定下一步。验收重点：不挽留、不推销、不把推断写成事实。</p></article>
+          <article class="mini-card card"><div class="icon">B</div><h3>配置偏离与风险复核</h3><p>持仓变化 → 适当性规则 → 偏离原因假设 → 顾问核实 → 客户意愿 → 是否启动再平衡。验收重点：基准、风险分、阈值和例外都可解释。</p></article>
+          <article class="mini-card card"><div class="icon">C</div><h3>定期检视与报告交付</h3><p>到期提醒 → 数据冻结 → 报告草稿 → 顾问编辑 → 合规复核 → 客户沟通 → 结论与后续任务回写。验收重点：文档版本、发送对象、结果和承诺可追溯。</p></article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <div class="foot-grid">
+        <div><h2>最终建议：做减法，换可信度</h2><p>V1.2 已经证明“AI 深度融入顾问工作流”的方向可行。下一步不应继续证明页面能做多少，而要证明三件事：数据是真的、建议说得清、动作收得回来。</p><div class="status-line"><span>保留：任务 × 客户 × AI 融合</span><span>强化：证据与状态机</span><span>重做：权限与写回协议</span><span>暂缓：技能生态扩张</span></div></div>
+        <div class="foot-meta"><span>评审日期：2026-09-17</span><span>来源：用户提供的 AI-Native 投顾工作台高保真 Demo V1.2</span><span>方法：源文件检查 + 本地交互走查 + 窄屏与运行时验证</span><span>边界：未连接生产系统；不含真实客户数据；未执行任何真实交易或对客发送</span></div>
+      </div>
+    </footer>
+    <p class="print-note">公开脱敏版：不含本地路径、账号、密钥、真实客户、内部地址或未授权业务数据。</p>
+  </div>
+  <script>
+    const filters = [...document.querySelectorAll('[data-filter]')];
+    const issues = [...document.querySelectorAll('.issue[data-priority]')];
+    filters.forEach((button) => button.addEventListener('click', () => {
+      const value = button.dataset.filter;
+      filters.forEach((item) => item.setAttribute('aria-pressed', item === button ? 'true' : 'false'));
+      issues.forEach((item) => { item.hidden = value !== 'all' && item.dataset.priority !== value; });
+    }));
+  </script>
+</body>
+</html>
