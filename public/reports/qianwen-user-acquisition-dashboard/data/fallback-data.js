@@ -668,6 +668,30 @@ window.QIANWEN_ACQUISITION_DATA = {
             ]
           },
           {
+            "id": "holding_lifecycle_status",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-09-17",
+            "state": "confirmed",
+            "buckets": [
+              {
+                "id": "no_first_investment",
+                "label": "无首投（从未买入）",
+                "accounts": 4688
+              },
+              {
+                "id": "churned",
+                "label": "已流失（投过已清零）",
+                "accounts": 34
+              },
+              {
+                "id": "under_management",
+                "label": "在管（当前有资产）",
+                "accounts": 308
+              }
+            ]
+          },
+          {
             "id": "lifetime_investment_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
@@ -1000,6 +1024,30 @@ window.QIANWEN_ACQUISITION_DATA = {
             ]
           },
           {
+            "id": "holding_lifecycle_status",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-09-17",
+            "state": "confirmed",
+            "buckets": [
+              {
+                "id": "no_first_investment",
+                "label": "无首投（从未买入）",
+                "accounts": 4249
+              },
+              {
+                "id": "churned",
+                "label": "已流失（投过已清零）",
+                "accounts": 0
+              },
+              {
+                "id": "under_management",
+                "label": "在管（当前有资产）",
+                "accounts": 2
+              }
+            ]
+          },
+          {
             "id": "lifetime_investment_status",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
@@ -1228,6 +1276,30 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "id": "has_assets_at_bind",
                 "label": "绑定时已有资产",
                 "accounts": 302
+              }
+            ]
+          },
+          {
+            "id": "holding_lifecycle_status",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-09-17",
+            "state": "confirmed",
+            "buckets": [
+              {
+                "id": "no_first_investment",
+                "label": "无首投（从未买入）",
+                "accounts": 439
+              },
+              {
+                "id": "churned",
+                "label": "已流失（投过已清零）",
+                "accounts": 34
+              },
+              {
+                "id": "under_management",
+                "label": "在管（当前有资产）",
+                "accounts": 306
               }
             ]
           },

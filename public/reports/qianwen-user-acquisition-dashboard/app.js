@@ -53,6 +53,11 @@ const PROFILE_DIMENSIONS = {
     description: "按顶层 ROOT 账户当前持有市值分档",
     panel: "asset",
   },
+  holding_lifecycle_status: {
+    label: "资金留存状态",
+    description: "终身视角：从未有过任何买入（不含钱包充值）为无首投；曾买入但当前顶层账户已无资产为已流失；当前有资产在管（含当日成交尚未进快照）为在管",
+    panel: "asset",
+  },
   asset_at_bind_status: {
     label: "绑定时资产状态",
     description: "回溯每个用户绑定当日的顶层 ROOT 资产快照；为 0 或未开户即为零资产，是衡量渠道真实新增的基数",
@@ -666,6 +671,19 @@ function renderKpis(rows) {
   $("#existing-share").textContent = formatShare(totals.existing, totals.bound);
   $("#kpi-scope").textContent = scope;
   $("#bound-context").textContent = `${formatDay(rows[0].date)}—${formatDay(rows.at(-1).date)} · ${rows.length} 天累计`;
+  // 老用户卡小字：资金留存三段拆分。该拆分是全窗口口径，范围被收窄时退回定义文案，
+  // 免得小字加总与上方被过滤的人数对不上。
+  const lifecycle = currentData.profile?.cohorts?.existing?.dimensions?.find((item) => item.id === "holding_lifecycle_status");
+  const breakdown = $("#existing-breakdown");
+  if (breakdown) {
+    const fullWindow = rows.length === currentData.daily.length;
+    if (fullWindow && lifecycle?.state === "confirmed") {
+      const seg = (id) => lifecycle.buckets.find((bucket) => bucket.id === id)?.accounts ?? 0;
+      breakdown.textContent = `${number.format(seg("no_first_investment"))} 无首投 · ${number.format(seg("churned"))} 已流失 · ${number.format(seg("under_management"))} 在管`;
+    } else {
+      breakdown.textContent = "绑定时已有且慢账户";
+    }
+  }
   const prelaunchTotal = rows.filter((row) => row.date < LAUNCH_DAY).reduce((sum, row) => sum + row.bound_accounts_today, 0);
   const prelaunchCopy = prelaunchTotal
     ? `其中 ${number.format(prelaunchTotal)} 人在 8 月 10 日 08:00 正式上线前的灰度期间完成绑定。`
