@@ -339,7 +339,8 @@ const forbidden = /(ying99_|union_id|user_id|po_manager_id|手机号|phone|redas
 if (forbidden.test(publicText)) fail("公开快照包含内部标识、PII 或凭证字段");
 const forbiddenPublicKey = /(?:^|_)(?:user_ids?|customer_ids?|member_ids?|po_manager_ids?|union_ids?|open_ids?|account_ids?|phone|mobile|email|full_name|real_name|id_card|identity_card|device|device_id|device_model|imei|idfa|oaid|ip|ip_address|city|province|district|address|longitude|latitude|amount|balance|aum|asset_value|total_asset|money|cash_value|conversation_text|dialogue_text|transcript|prompt|question_text|answer_text|message_text|content_text|query_text|response_text)(?:_|$)/i;
 const forbiddenChineseKey = /(手机号|手机号码|邮箱|姓名|身份证|用户\s*[Ii][Dd]|用户标识|设备|城市|省份|地址|经纬度|金额|余额|资产总额|对话文本|问题文本|回答文本|消息文本)/;
-const aggregateAmountKeys = new Set(["amount_wan", "per_capita_wan", "median_wan"]);
+const aggregateAmountKeys = new Set(["amount_wan", "per_capita_wan", "median_wan",
+  "inflow_amount_wan", "total_asset_wan", "per_capita_asset_wan"]);
 function assertNoForbiddenKeys(value, path = "data") {
   if (Array.isArray(value)) {
     value.forEach((item, index) => assertNoForbiddenKeys(item, `${path}[${index}]`));
@@ -348,7 +349,9 @@ function assertNoForbiddenKeys(value, path = "data") {
   if (!value || typeof value !== "object") return;
   for (const [key, nested] of Object.entries(value)) {
     // 经营模块的整体金额是公开口径的一部分，其余位置一律禁止出现金额类字段。
-    const allowedAggregateAmount = aggregateAmountKeys.has(key) && path.startsWith("data.business.");
+    // 经营段与分客群面板的聚合金额是公开口径的一部分，其余位置一律禁止金额字段。
+    const allowedAggregateAmount = aggregateAmountKeys.has(key)
+      && (path.startsWith("data.business.") || path.startsWith("data.segments."));
     if (!allowedAggregateAmount && (forbiddenPublicKey.test(key) || forbiddenChineseKey.test(key))) {
       fail(`${path}.${key} 是禁止公开的明细字段`);
     }
@@ -357,15 +360,60 @@ function assertNoForbiddenKeys(value, path = "data") {
 }
 assertNoForbiddenKeys(data);
 
+const segmentIds = ["all", "existing", "existing_awakened", "existing_no_first_investment", "new"];
+{
+  const minimumPublicCell = data.privacy.minimum_public_cell;
+  assertPlainObject(data.segments, "segments");
+  if (data.segments.anchor !== "first_bound_at" || data.segments.window_end_at !== data.meta.data_cutoff) {
+    fail("segments 观察窗口异常");
+  }
+  assertItemIds(data.segments.items, segmentIds, "segments.items");
+  const expectedSegmentPopulation = {
+    all: data.metrics.bound_accounts,
+    existing: data.metrics.existing_accounts,
+    new: data.metrics.new_accounts,
+  };
+  for (const item of data.segments.items) {
+    const path = `segments.items.${item.id}`;
+    if (!publicStates.has(item.state)) fail(`${path}.state 无效`);
+    assertAudienceDataAsOf(item, path);
+    if (item.state !== "confirmed") { assertHiddenItemCarriesNoCounts(item, path); continue; }
+    const counts = ["population_accounts", "card_bound_accounts", "risk_assessed_accounts",
+                    "inflow_accounts", "holder_accounts"];
+    for (const field of counts) assertPublicCell(item[field], `${path}.${field}`, minimumPublicCell);
+    if (Object.hasOwn(expectedSegmentPopulation, item.id)
+        && item.population_accounts !== expectedSegmentPopulation[item.id]) {
+      fail(`${path}.population_accounts 与 metrics 不一致`);
+    }
+    if (item.id.startsWith("existing_") && item.population_accounts > data.metrics.existing_accounts) {
+      fail(`${path}.population_accounts 超过老用户总数`);
+    }
+    for (const field of counts.slice(1)) {
+      if (item[field] > item.population_accounts) fail(`${path}.${field} 超过该维度人数`);
+    }
+    for (const field of ["inflow_amount_wan", "total_asset_wan"]) {
+      if (!Number.isFinite(item[field]) || item[field] < 0) fail(`${path}.${field} 必须为非负数`);
+    }
+    if (item.holder_accounts === 0 && item.total_asset_wan !== 0) fail(`${path} 无人持有却有资产`);
+    if (item.inflow_accounts === 0 && item.inflow_amount_wan !== 0) fail(`${path} 无人入金却有金额`);
+    if (item.holder_accounts > 0) {
+      const expected = Math.round((item.total_asset_wan / item.holder_accounts) * 10000) / 10000;
+      if (Math.abs((item.per_capita_asset_wan ?? -1) - expected) > 0.001) fail(`${path}.per_capita_asset_wan 与总资产不一致`);
+    }
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(item.asset_as_of || "")) fail(`${path}.asset_as_of 无效`);
+  }
+}
+
 for (const signal of [
   'id="bound-total"',
-  'id="first-investors"',
-  'id="opened-after"',
-  'id="risk-after"',
-  'id="repeat-investors"',
-  'id="zero-at-bind"',
+  'id="seg-pop"',
+  'id="seg-card"',
+  'id="seg-risk"',
+  'id="seg-inflow"',
+  'id="seg-asset"',
+  'id="seg-percapita"',
+  'id="segment-control"',
   'id="existing-breakdown"',
-  'id="inflow-total"',
   'id="new-accounts"',
   'id="existing-accounts"',
   'id="trend-chart"',
@@ -402,10 +450,16 @@ for (const signal of [
   'name="audience-cohort" value="all"',
   'name="audience-cohort" value="new"',
   'name="audience-cohort" value="existing"',
+  'name="segment" value="all"',
+  'name="segment" value="existing"',
+  'name="segment" value="existing_awakened"',
+  'name="segment" value="existing_no_first_investment"',
+  'name="segment" value="new"',
 ]) {
   if (!html.includes(signal)) fail(`交互控件缺少 ${signal}`);
 }
-if ((html.match(/<article class="kpi-card/g) || []).length !== 9) fail("关键数据卡必须为三张规模卡 + 六张转化卡");
+if ((html.match(/<article class="kpi-card/g) || []).length !== 9) fail("关键数据卡必须为三张规模卡 + 六张分客群指标卡");
+if ((html.match(/name="segment"/g) || []).length !== 5) fail("分客群面板必须有五个维度开关");
 if ((html.match(/name="series"/g) || []).length !== 4) fail("走势图必须有四个独立数据开关");
 for (const key of ["bound", "new", "existing", "daily"]) {
   if (!html.includes(`id="value-${key}"`)) fail(`读数条缺少 ${key} 的最新数值`);
@@ -450,7 +504,7 @@ for (const signal of [
   "renderBusinessTiles",
   "renderAudienceTable",
   "renderReadout",
-  "renderConversionKpis",
+  "renderSegmentPanel",
   "loadPublishedData",
   "LOCAL_REFRESH_BASES",
   "127.0.0.1:43123",

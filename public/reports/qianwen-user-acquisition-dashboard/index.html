@@ -60,37 +60,53 @@
           <small id="existing-breakdown" title="绑定时已有且慢账户">绑定时已有且慢账户</small>
         </article>
       </section>
-      <section class="kpi-grid kpi-grid-conversion" aria-label="绑定后的转化结果">
-        <article class="kpi-card kpi-opened">
-          <span class="kpi-select">绑定后开立资金账户</span>
-          <div><strong id="opened-after">—</strong><em id="opened-after-share">—</em></div>
-          <small>以首次风险测评时间为开户代理口径</small>
-        </article>
-        <article class="kpi-card kpi-risk">
-          <span class="kpi-select">绑定后完成风险测评</span>
-          <div><strong id="risk-after">—</strong><em id="risk-after-share">—</em></div>
-          <small>绑定后新产生过风险测评记录</small>
-        </article>
-        <article class="kpi-card kpi-firstinvest">
-          <span class="kpi-select">绑定后首投</span>
-          <div><strong id="first-investors">—</strong><em id="first-investors-share">—</em></div>
-          <small>此前从未投资，绑定后完成人生第一笔</small>
-        </article>
-        <article class="kpi-card kpi-repeatinvest">
-          <span class="kpi-select">绑定后复投</span>
-          <div><strong id="repeat-investors">—</strong><em id="repeat-investors-share">—</em></div>
-          <small>绑定后完成两笔及以上产品买入（不含钱包充值）</small>
-        </article>
-        <article class="kpi-card kpi-zerobind">
-          <span class="kpi-select">绑定时零资产用户</span>
-          <div><strong id="zero-at-bind">—</strong><em id="zero-at-bind-share">—</em></div>
-          <small>绑定当刻无任何资产（含未开户），渠道真实新增的基数</small>
-        </article>
-        <article class="kpi-card kpi-inflow">
-          <span class="kpi-select">绑定后入金总额</span>
-          <div><strong id="inflow-total">—</strong><em id="inflow-total-people">—</em></div>
-          <small>绑定后新增转入且慢的资金合计</small>
-        </article>
+      <section class="segment-panel" aria-labelledby="segment-title">
+        <div class="segment-head">
+          <div>
+            <h3 id="segment-title">分客群转化与资产</h3>
+            <p class="segment-sub" id="segment-sub">按客群看转化与资金结果，锚定各用户自己的绑定时刻</p>
+          </div>
+          <fieldset class="segmented segment-segmented" id="segment-control" aria-label="选择客群维度">
+            <legend>客群</legend>
+            <label><input type="radio" name="segment" value="all" checked /><span>全部</span></label>
+            <label><input type="radio" name="segment" value="existing" /><span>老用户</span></label>
+            <label><input type="radio" name="segment" value="existing_awakened" /><span>老用户唤醒</span></label>
+            <label><input type="radio" name="segment" value="existing_no_first_investment" /><span>无首投老用户</span></label>
+            <label><input type="radio" name="segment" value="new" /><span>新用户</span></label>
+          </fieldset>
+        </div>
+        <div class="kpi-grid kpi-grid-conversion">
+          <article class="kpi-card kpi-segpop">
+            <span class="kpi-select">用户</span>
+            <div><strong id="seg-pop">—</strong><em id="seg-pop-share">—</em></div>
+            <small id="seg-pop-note">该客群人数</small>
+          </article>
+          <article class="kpi-card kpi-segcard">
+            <span class="kpi-select">已开户绑卡</span>
+            <div><strong id="seg-card">—</strong><em id="seg-card-share">—</em></div>
+            <small>已绑定银行卡，具备下单条件</small>
+          </article>
+          <article class="kpi-card kpi-segrisk">
+            <span class="kpi-select">已风险测评</span>
+            <div><strong id="seg-risk">—</strong><em id="seg-risk-share">—</em></div>
+            <small>已完成且慢风险测评</small>
+          </article>
+          <article class="kpi-card kpi-seginflow">
+            <span class="kpi-select">新增入金规模</span>
+            <div><strong id="seg-inflow">—</strong><em id="seg-inflow-people">—</em></div>
+            <small>绑定后转入：盈米宝充值＋银行卡直接买产品；组合赎回回款不计</small>
+          </article>
+          <article class="kpi-card kpi-segasset">
+            <span class="kpi-select">总资产</span>
+            <div><strong id="seg-asset">—</strong><em id="seg-asset-people">—</em></div>
+            <small id="seg-asset-note">顶层账户资产合计，含老用户绑定前已有资产</small>
+          </article>
+          <article class="kpi-card kpi-segpercapita">
+            <span class="kpi-select">人均资产</span>
+            <div><strong id="seg-percapita">—</strong><em id="seg-percapita-note">—</em></div>
+            <small>总资产 ÷ 有资产人数</small>
+          </article>
+        </div>
       </section>
     </section>
 

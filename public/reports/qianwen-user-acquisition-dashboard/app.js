@@ -112,8 +112,8 @@ const PROFILE_PANELS = {
 };
 const BEHAVIOR_METRICS = {
   funded_after_binding: {
-    label: "绑定后成功入金",
-    description: "绑定后买入类交易单确认成功，即计入入金",
+    label: "绑定后账户资金流入",
+    description: "绑定后顶层账户出现资金流入（资产表口径，与上方按支付方式统计的新增入金不同源）",
   },
   first_investment_after_binding: {
     label: "绑定后首次投资",
@@ -177,6 +177,13 @@ const BUSINESS_STATS = {
     tone: "flow",
   },
 };
+const SEGMENTS = [
+  { id: "all", label: "全部", note: "全部绑定用户" },
+  { id: "existing", label: "老用户", note: "绑定时已有且慢账户" },
+  { id: "existing_awakened", label: "老用户唤醒", note: "老用户中绑定后发生过资金动作（买入或充值）" },
+  { id: "existing_no_first_investment", label: "无首投老用户", note: "老用户中从未买入、当前也无资产" },
+  { id: "new", label: "新用户", note: "绑定时当场新注册且慢" },
+];
 const PUBLIC_STATES = new Set(["confirmed", "suppressed", "unavailable"]);
 
 const viewState = {
@@ -187,6 +194,7 @@ const viewState = {
   selectedDate: "",
   hoverDate: "",
   audienceCohort: "all",
+  segment: "all",
 };
 
 let currentData = null;
@@ -622,42 +630,47 @@ function rangeTotals(rows) {
   } : { bound: 0, new: 0, existing: 0, unclassified: 0 };
 }
 
-function renderConversionKpis(data) {
-  // 全窗口口径（锚在每个用户自己的绑定时刻），不随上方时间范围联动
-  const bound = data.metrics.bound_accounts;
-  const behaviorAll = data.behavior?.cohorts?.all?.metrics || [];
-  const renderBehaviorKpi = (metricId, valueSelector, shareSelector) => {
-    const item = behaviorAll.find((entry) => entry.id === metricId);
-    if (item?.state === "confirmed") {
-      $(valueSelector).textContent = number.format(item.reached_accounts);
-      $(shareSelector).textContent = formatShare(item.reached_accounts, bound);
-    } else {
-      $(valueSelector).textContent = "—";
-      $(shareSelector).textContent = publicStateCopy(item);
-    }
+function renderSegmentPanel() {
+  // 分客群面板：全窗口口径（锚在各用户自己的绑定时刻），不随上方时间范围联动。
+  const items = currentData?.segments?.items || [];
+  const meta = SEGMENTS.find((entry) => entry.id === viewState.segment) || SEGMENTS[0];
+  const item = items.find((entry) => entry.id === viewState.segment);
+  const bound = currentData?.metrics?.bound_accounts || 0;
+  const blank = () => {
+    ["#seg-pop", "#seg-card", "#seg-risk", "#seg-inflow", "#seg-asset", "#seg-percapita"]
+      .forEach((selector) => { const node = $(selector); if (node) node.textContent = "—"; });
+    ["#seg-pop-share", "#seg-card-share", "#seg-risk-share", "#seg-inflow-people",
+      "#seg-asset-people", "#seg-percapita-note"]
+      .forEach((selector) => { const node = $(selector); if (node) node.textContent = "—"; });
   };
-  renderBehaviorKpi("account_opened_after_binding", "#opened-after", "#opened-after-share");
-  renderBehaviorKpi("risk_assessed_after_binding", "#risk-after", "#risk-after-share");
-  renderBehaviorKpi("first_investment_after_binding", "#first-investors", "#first-investors-share");
-  renderBehaviorKpi("repeat_investment_after_binding", "#repeat-investors", "#repeat-investors-share");
-  const atBind = data.profile?.cohorts?.all?.dimensions?.find((item) => item.id === "asset_at_bind_status");
-  const zeroBucket = atBind?.state === "confirmed"
-    ? (atBind.buckets || []).find((bucket) => bucket.id === "zero_at_bind")
-    : null;
-  if (zeroBucket) {
-    $("#zero-at-bind").textContent = number.format(zeroBucket.accounts);
-    $("#zero-at-bind-share").textContent = formatShare(zeroBucket.accounts, bound);
-  } else {
-    $("#zero-at-bind").textContent = "—";
-    $("#zero-at-bind-share").textContent = publicStateCopy(atBind);
+  const note = $("#seg-pop-note");
+  if (note) note.textContent = meta.note;
+  if (!item || item.state !== "confirmed") {
+    blank();
+    return;
   }
-  const inflow = data.business?.cohorts?.all?.stats?.find((item) => item.id === "inflow_amount");
-  if (inflow?.state === "confirmed") {
-    $("#inflow-total").textContent = formatAmount(inflow.amount_wan);
-    $("#inflow-total-people").textContent = `${number.format(inflow.accounts)} 人`;
-  } else {
-    $("#inflow-total").textContent = "—";
-    $("#inflow-total-people").textContent = publicStateCopy(inflow);
+  const population = item.population_accounts;
+  $("#seg-pop").textContent = number.format(population);
+  $("#seg-pop-share").textContent = viewState.segment === "all"
+    ? "全部绑定" : formatShare(population, bound);
+  $("#seg-card").textContent = number.format(item.card_bound_accounts);
+  $("#seg-card-share").textContent = formatShare(item.card_bound_accounts, population);
+  $("#seg-risk").textContent = number.format(item.risk_assessed_accounts);
+  $("#seg-risk-share").textContent = formatShare(item.risk_assessed_accounts, population);
+  $("#seg-inflow").textContent = formatAmount(item.inflow_amount_wan);
+  $("#seg-inflow-people").textContent = item.inflow_accounts
+    ? `${number.format(item.inflow_accounts)} 人` : "暂无入金";
+  $("#seg-asset").textContent = formatAmount(item.total_asset_wan);
+  $("#seg-asset-people").textContent = item.holder_accounts
+    ? `${number.format(item.holder_accounts)} 人持有` : "暂无资产";
+  $("#seg-percapita").textContent = item.holder_accounts
+    ? formatAmount(item.per_capita_asset_wan) : "—";
+  $("#seg-percapita-note").textContent = item.holder_accounts ? "有资产用户" : "暂无资产";
+  const assetNote = $("#seg-asset-note");
+  if (assetNote) {
+    assetNote.textContent = item.asset_as_of
+      ? `顶层账户资产合计（含绑定前已有），快照 ${formatDay(item.asset_as_of)}`
+      : "顶层账户资产合计，含老用户绑定前已有资产";
   }
 }
 
@@ -1366,7 +1379,7 @@ function renderView({ announce = false } = {}) {
   if (!rows.some((row) => row.date === viewState.selectedDate)) viewState.selectedDate = rows.at(-1).date;
   syncControls();
   renderKpis(rows);
-  renderConversionKpis(currentData);
+  renderSegmentPanel();
   renderChart(rows);
   renderTable(rows);
   renderAudience();
@@ -1406,6 +1419,11 @@ function bindInteractions() {
     viewState.range = input.value;
     $("#range-error").textContent = "";
     renderView({ announce: true });
+  }));
+  document.querySelectorAll('input[name="segment"]').forEach((input) => input.addEventListener("change", () => {
+    if (!input.checked) return;
+    viewState.segment = input.value;
+    renderSegmentPanel();
   }));
   document.querySelectorAll('input[name="audience-cohort"]').forEach((input) => input.addEventListener("change", () => {
     if (input.disabled) return;

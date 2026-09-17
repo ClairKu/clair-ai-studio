@@ -16,6 +16,7 @@ DEF_VERSION = "2026-08-20-v2"
 
 template = json.load(open(sys.argv[1]))
 q1, q2, q3, q4 = (json.load(open(HERE / f"q{i}.json")) for i in (1, 2, 3, 4))
+q5 = json.load(open(HERE / "q5.json"))   # 分客群面板；缺了宁可失败，别发个空面板
 cutoff = q1["data_cutoff"]
 cutoff_day = cutoff[:10]
 
@@ -190,6 +191,36 @@ out["profile"] = {"cohorts": profile_cohorts}
 for key, cohorts in (("behavior", behavior_cohorts), ("business", business_cohorts)):
     out[key] = {"window_start_at": template[key]["window_start_at"], "window_end_at": cutoff,
                 "anchor": "first_bound_at", "cohorts": cohorts}
+
+# ── 分客群面板（5 维度 × 6 指标）──
+SEG_IDS = ["all", "existing", "existing_awakened", "existing_no_first_investment", "new"]
+SEG_POP = {"all": metrics["bound_accounts"], "existing": metrics["existing_accounts"],
+           "new": metrics["new_accounts"]}
+seg_items = []
+for item in q5["items"]:
+    sid = item["id"]
+    if sid in SEG_POP and item["population_accounts"] != SEG_POP[sid]:
+        raise SystemExit(f"segments.{sid} 人数 {item['population_accounts']} 与 metrics 不一致")
+    if sid.startswith("existing_") and item["population_accounts"] > metrics["existing_accounts"]:
+        raise SystemExit(f"segments.{sid} 人数超过老用户总数")
+    holders = int(item["holder_accounts"])
+    total = round(float(item["total_asset_wan"]), 2)
+    entry = {"id": sid, "definition_version": DEF_VERSION, "state": "confirmed",
+             "data_as_of": cutoff, "asset_as_of": q5["asset_as_of"],
+             "population_accounts": int(item["population_accounts"]),
+             "card_bound_accounts": int(item["card_bound_accounts"]),
+             "risk_assessed_accounts": int(item["risk_assessed_accounts"]),
+             "inflow_accounts": int(item["inflow_accounts"]),
+             "inflow_amount_wan": round(float(item["inflow_amount_wan"]), 4),
+             "holder_accounts": holders, "total_asset_wan": total}
+    if holders:
+        entry["per_capita_asset_wan"] = round(total / holders, 4)
+    for key in ("card_bound_accounts", "risk_assessed_accounts", "inflow_accounts", "holder_accounts"):
+        if entry[key] > entry["population_accounts"]:
+            raise SystemExit(f"segments.{sid}.{key} 超过该维度人数")
+    seg_items.append(entry)
+assert [x["id"] for x in seg_items] == SEG_IDS, [x["id"] for x in seg_items]
+out["segments"] = {"anchor": "first_bound_at", "window_end_at": cutoff, "items": seg_items}
 
 json.dump(out, open(HERE / "latest.new.json", "w"), ensure_ascii=False, indent=2)
 open(HERE / "latest.new.json", "a").write("\n")

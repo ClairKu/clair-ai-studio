@@ -1956,8 +1956,8 @@
             "time_basis": "snapshot_as_of",
             "data_as_of": "2026-09-17T16:45:49+08:00",
             "state": "confirmed",
-            "accounts": 209,
-            "amount_wan": 637.469
+            "accounts": 146,
+            "amount_wan": 205.593
           },
           {
             "id": "buy_amount",
@@ -1975,7 +1975,7 @@
             "data_as_of": "2026-09-17T16:45:49+08:00",
             "state": "confirmed",
             "accounts": 7,
-            "amount_wan": 21.85
+            "amount_wan": 16.02
           },
           {
             "id": "sell_amount",
@@ -2008,7 +2008,7 @@
             "data_as_of": "2026-09-17T16:45:49+08:00",
             "state": "confirmed",
             "accounts": 2,
-            "amount_wan": 12.42
+            "amount_wan": 10.12
           },
           {
             "id": "buy_amount",
@@ -2026,7 +2026,7 @@
             "data_as_of": "2026-09-17T16:45:49+08:00",
             "state": "confirmed",
             "accounts": 2,
-            "amount_wan": 12.42
+            "amount_wan": 10.12
           },
           {
             "id": "sell_amount",
@@ -2058,8 +2058,8 @@
             "time_basis": "snapshot_as_of",
             "data_as_of": "2026-09-17T16:45:49+08:00",
             "state": "confirmed",
-            "accounts": 207,
-            "amount_wan": 625.049
+            "accounts": 144,
+            "amount_wan": 195.473
           },
           {
             "id": "buy_amount",
@@ -2077,7 +2077,7 @@
             "data_as_of": "2026-09-17T16:45:49+08:00",
             "state": "confirmed",
             "accounts": 5,
-            "amount_wan": 9.43
+            "amount_wan": 5.9
           },
           {
             "id": "sell_amount",
@@ -2091,5 +2091,85 @@
         ]
       }
     }
+  },
+  "segments": {
+    "anchor": "first_bound_at",
+    "window_end_at": "2026-09-17T16:45:49+08:00",
+    "items": [
+      {
+        "id": "all",
+        "definition_version": "2026-08-20-v2",
+        "state": "confirmed",
+        "data_as_of": "2026-09-17T16:45:49+08:00",
+        "asset_as_of": "2026-09-16",
+        "population_accounts": 5030,
+        "card_bound_accounts": 451,
+        "risk_assessed_accounts": 144,
+        "inflow_accounts": 146,
+        "inflow_amount_wan": 205.593,
+        "holder_accounts": 305,
+        "total_asset_wan": 8818.12,
+        "per_capita_asset_wan": 28.9119
+      },
+      {
+        "id": "existing",
+        "definition_version": "2026-08-20-v2",
+        "state": "confirmed",
+        "data_as_of": "2026-09-17T16:45:49+08:00",
+        "asset_as_of": "2026-09-16",
+        "population_accounts": 779,
+        "card_bound_accounts": 437,
+        "risk_assessed_accounts": 130,
+        "inflow_accounts": 144,
+        "inflow_amount_wan": 195.473,
+        "holder_accounts": 304,
+        "total_asset_wan": 8818.0,
+        "per_capita_asset_wan": 29.0066
+      },
+      {
+        "id": "existing_awakened",
+        "definition_version": "2026-08-20-v2",
+        "state": "confirmed",
+        "data_as_of": "2026-09-17T16:45:49+08:00",
+        "asset_as_of": "2026-09-16",
+        "population_accounts": 189,
+        "card_bound_accounts": 189,
+        "risk_assessed_accounts": 74,
+        "inflow_accounts": 144,
+        "inflow_amount_wan": 195.473,
+        "holder_accounts": 187,
+        "total_asset_wan": 7470.31,
+        "per_capita_asset_wan": 39.9482
+      },
+      {
+        "id": "existing_no_first_investment",
+        "definition_version": "2026-08-20-v2",
+        "state": "confirmed",
+        "data_as_of": "2026-09-17T16:45:49+08:00",
+        "asset_as_of": "2026-09-16",
+        "population_accounts": 439,
+        "card_bound_accounts": 97,
+        "risk_assessed_accounts": 20,
+        "inflow_accounts": 0,
+        "inflow_amount_wan": 0.0,
+        "holder_accounts": 0,
+        "total_asset_wan": 0.0
+      },
+      {
+        "id": "new",
+        "definition_version": "2026-08-20-v2",
+        "state": "confirmed",
+        "data_as_of": "2026-09-17T16:45:49+08:00",
+        "asset_as_of": "2026-09-16",
+        "population_accounts": 4251,
+        "card_bound_accounts": 14,
+        "risk_assessed_accounts": 14,
+        "inflow_accounts": 2,
+        "inflow_amount_wan": 10.12,
+        "holder_accounts": 1,
+        "total_asset_wan": 0.12,
+        "per_capita_asset_wan": 0.12
+      }
+    ]
   }
 }
