@@ -14,7 +14,11 @@ WORK=$(mktemp -d)/qianwen-refresh && mkdir -p $WORK
 QW_CUT="$(date '+%Y-%m-%d %H:%M:%S')" QW_AD=2026-09-03 \
   scripts/qianwen-refresh/run-sql.sh | tee $WORK/sql-raw.txt
 
-# 2. 人工/会话把 6 段输出整理成 $WORK/q1.json..q4.json（schema 见下）
+# 2. 另跑 6 段之外的扩展查询（SQL 见 build-q.py 文件头与仓库提交记录）：
+#    money.txt / newdims.txt / repeat.txt / zeroasset.txt / zeroatbind.txt /
+#    lifecycle.txt / segments.txt
+# 3. 整理成 q1..q5.json
+python3 scripts/qianwen-refresh/build-q.py $WORK
 
 # 3. 组装 + 校验（逐日闭合、维度人数与 q1 基准归一、资产两维一致性）
 python3 scripts/qianwen-refresh/assemble.py \
