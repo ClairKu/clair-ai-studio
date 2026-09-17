@@ -154,6 +154,66 @@ def verdict(u):
         return f'<div class="verdict h5"><b>渠道判定：且慢平台内完成，具体端不确定</b>存在 {name} 设备记录（{fmt_t(d0["created_on"], True)} 注册），但设备最后更新于 {fmt_t(d0["updated_on"], True)}，未覆盖交易期；{"已绑定公众号" if mp else "未绑定公众号"}；支付方式 {esc(pay_txt)}。</div>'
     return f'<div class="verdict h5"><b>渠道判定：{"微信 H5（高置信推断）" if mp else "且慢平台内完成，具体端不确定"}</b>全库无任何且慢 App 设备记录；{"已绑定且慢微信公众号，指向 H5" if mp else "亦未绑定微信公众号，触点最少"}；支付方式 {esc(pay_txt)}。风测、下单均为且慢账户体系动作。</div>'
 
+MIA_SCENE = {"MIA": "小顾会话页", "STRATEGY_DETAIL": "策略详情页", "ADVISOR_PAGE_TOP": "投顾页顶部入口",
+             "ASSET_M4": "资产页", "QUICK_MENU": "快捷菜单", "FIRST_IN_DAY": "当日首次进入"}
+def channel_block(u):
+    ch = u.get("channels") or {}
+    fb = dt(u["fb"]); fbuy = dt(u["derived"]["first_buy_after"])
+    mia = ch.get("app_mia", [])
+    toks = ch.get("tokens", [])
+    # 千问侧活跃时刻（令牌签发）与首笔买入的关系
+    tok_near = [t for t in toks if fbuy and abs((dt(t) - fbuy).total_seconds()) <= 3600]
+    cells = f'''<div class="kv three">
+      <div><b class="num">{ch.get("qwen_msgs", 0)} 条</b><span>千问小顾 · {ch.get("qwen_sessions", 0)} 个会话</span></div>
+      <div><b class="num">{len(mia)} 次</b><span>且慢 App 内小顾（Mia）</span></div>
+      <div><b class="num">{ch.get("wechat_msgs", 0)} 条</b><span>微信 / 企微侧小顾</span></div>
+    </div>'''
+    rows = ""
+    for m in mia:
+        rows += f'<li><span class="qt">{fmt_t(m["ts"], True)}</span><span class="qd"><span class="scene">{MIA_SCENE.get(m.get("scene"), m.get("scene") or "")}</span>{esc((m.get("text") or "").strip()[:60])}{" <i>（快捷入口）</i>" if m.get("mode") == "AUTO_LEAD" else " <i>（自行输入）</i>" if m.get("mode") == "SELF_INPUT" else ""}</span></li>'
+    mia_list = f'<ul class="qlist mini">{rows}</ul>' if rows else '<p class="muted tight">绑定后没有在且慢 App 内使用过小顾。</p>'
+    dev_note = ""
+    if u["dev"]:
+        d0 = min(u["dev"], key=lambda d: d["created_on"])
+        dev_note = f'App 设备（{PLAT.get(str(d0["platform"]), d0["platform"])}）{fmt_t(d0["created_on"], True)} 注册、{fmt_t(d0["updated_on"], True)} 最近更新'
+    else:
+        dev_note = "无任何且慢 App 设备记录"
+    tok_note = (f'千问侧令牌在首笔买入前后 1 小时内有签发（{"、".join(fmt_t(t, True) for t in tok_near)}），说明下单时段正在千问会话中，页面很可能是千问内嵌的且慢 H5' if tok_near
+                else f'千问侧令牌签发时刻（{"、".join(fmt_t(t, True) for t in toks[:6])}{"…" if len(toks) > 6 else ""}）均不在首笔买入前后 1 小时内——下单时段没有千问会话活动')
+    ops = []
+    for r in u["risk"]:
+        if dt(r["created_at"]) >= fb - __import__("datetime").timedelta(days=60): ops.append(f'{fmt_t(r["created_at"], True)} 风险测评（{r["score"]} 分）')
+    for m in mia: ops.append(f'{fmt_t(m["ts"], True)} App 小顾 · {MIA_SCENE.get(m.get("scene"), m.get("scene") or "")} · {esc((m.get("text") or "")[:20])}')
+    for t in u["trades"]:
+        if dt(t["accept_time"]) < fb or t["canceled"]: continue
+        if t["trade_type"] == "wallet.recharge": ops.append(f'{fmt_t(t["accept_time"], True)} 盈米宝充值 {money(t["buy"])}（{esc(t["extra"] or "")}）')
+        elif t["buy"] and float(t["buy"]) > 0: ops.append(f'{fmt_t(t["accept_time"], True)} 买入 {esc(t["po_name"] or t["po_code"])} {money(t["buy"])}')
+    ops.sort()
+    ops_html = "".join(f"<li>{o}</li>" for o in ops[:14]) + (f"<li>…共 {len(ops)} 项</li>" if len(ops) > 14 else "")
+    return f'''<div class="sub-block">
+  <h4>小顾入口</h4>{cells}{mia_list}
+  <h4>下单终端与千问侧活跃</h4>
+  <p class="tight">{dev_note}；{tok_note}。</p>
+  <h4>在且慢平台内的主要操作（绑定后）</h4>
+  <ul class="ops">{ops_html}</ul>
+</div>'''
+
+def holdings_block(u):
+    hs = u.get("holdings") or []; fd = u.get("fund_detail") or []; hm = u.get("holdings_meta") or {}
+    if not hs and not fd:
+        return '<div class="sub-block"><h4>最终持有</h4><p class="muted tight">资产表尚无该账户持仓行（当日成交，次日批次体现）。</p></div>'
+    rows = "".join(f'<tr><td>{esc(h["kind"])}</td><td>{esc(h["name"])}{f" <span class=num>{esc(h[chr(99)+chr(111)+chr(100)+chr(101)])}</span>" if h.get("code") and h["code"] not in ("WALLET","FUND") else ""}</td><td class="num">{money(h["value"]) + " 元" if h.get("value") is not None else "买入 " + money(h.get("buy")) + " 元（未落账）"}</td></tr>' for h in hs)
+    tbl = f'''<table class="mini-table"><thead><tr><th>类型</th><th>产品</th><th>当前市值{f"（{hm.get('as_of','')[5:]} 快照）" if hm.get("as_of") else ""}</th></tr></thead><tbody>{rows}</tbody></table>'''
+    fund_html = ""
+    if fd:
+        top = sorted([f for f in fd if f["po"] != "盈米宝"], key=lambda f: -f["mv"])[:8]
+        wallet = sum(f["mv"] for f in fd if f["po"] == "盈米宝")
+        items = "".join(f'<li><span class="num">{esc(f["fund_code"])}</span> {esc(f["fund_name"])} <span class="muted">{"· " + esc(f["po"]) + " " if f.get("po") and f["po"] != "—" else ""}· {money(f["mv"])} 元</span></li>' for f in top)
+        more = len([f for f in fd if f["po"] != "盈米宝"]) - len(top)
+        basis = f'{hm.get("bill_month")} 月末账单市值' if hm.get("bill_month") else "绑定后子订单成功金额（未扣净值波动）"
+        fund_html = f'''<p class="tight muted">穿透到基金（{basis}，前 {len(top)} 只{f"，另 {more} 只未列" if more > 0 else ""}{f"；盈米宝货币基金 {money(wallet)} 元" if wallet else ""}）</p><ul class="funds">{items}</ul>'''
+    return f'<div class="sub-block"><h4>最终持有</h4>{tbl}{fund_html}</div>'
+
 def card(u):
     d = u["derived"]
     who = f'{u["age"]} 岁 · {"男" if u["gender"]=="M" else "女" if u["gender"]=="F" else "性别未知"}' + (f' · {esc(u["prov"])}' if u.get("prov") else "")
@@ -174,6 +234,7 @@ def card(u):
       <div><b class="num">{dur(u["fb"], d["first_buy_after"])}</b><span>绑定 → 首笔买入</span></div>
     </div>'''
     narrative = f'<p class="muted">{u["narrative"]}</p>' if u.get("narrative") else ""
+    extra_blocks = channel_block(u) + holdings_block(u)
     badge_cls = "badge n" if u["cohort"] == "new" else "badge"
     return f'''<div class="case" data-pmid="{u["pmid"]}" data-letter="{u["letter"]}">
   <div class="case-head">
@@ -186,6 +247,7 @@ def card(u):
 {timeline(u)}
     </ul>
     {verdict(u)}
+    {extra_blocks}
     {narrative}
     <div class="case-foot">
       <span class="foot-label">用户 {u["letter"]} · {"新客" if u["cohort"]=="new" else "老客"} · 提问 {len(u["asks"])} 条</span>
@@ -262,6 +324,22 @@ page = f'''<!doctype html>
 <title>千问绑定用户个例分析台｜截至 {CUT[:10]}</title>
 <style>
 {CSS}
+  .sub-block{{margin-top:16px;padding:14px 16px;border:1px solid var(--rule);border-radius:10px;background:var(--ground)}}
+  .sub-block h4{{margin:10px 0 6px;font-size:13px;color:var(--ink-blue);letter-spacing:.04em}}
+  .sub-block h4:first-child{{margin-top:0}}
+  .kv.three{{grid-template-columns:repeat(3,1fr);margin:6px 0 8px}}
+  .kv.three div{{background:var(--surface)}}
+  .tight{{margin:4px 0;font-size:13px;color:var(--ink-2)}}
+  .qlist.mini li{{grid-template-columns:110px 1fr;padding:5px 0;font-size:12.5px;border-bottom:1px dashed var(--rule)}}
+  .qlist.mini .scene{{display:inline-block;margin-right:6px;padding:1px 6px;border-radius:4px;background:var(--soft);color:var(--ink-blue);font-size:11px}}
+  .qlist.mini i{{color:var(--ink-3);font-style:normal;font-size:11px}}
+  .ops{{margin:4px 0 0;padding-left:18px;font-size:12.5px;color:var(--ink-2);columns:2;column-gap:24px}}
+  .ops li{{margin:2px 0;break-inside:avoid}}
+  @media(max-width:700px){{.ops{{columns:1}}}}
+  .mini-table{{margin-top:6px;font-size:13px}}
+  .mini-table th,.mini-table td{{padding:6px 10px}}
+  .funds{{margin:4px 0 0;padding-left:18px;font-size:12.5px;color:var(--ink-2)}}
+  .funds li{{margin:2px 0}}
   .tabs{{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 6px}}
   .tab{{font:inherit;font-size:14px;font-weight:700;padding:9px 16px;border-radius:99px;border:1px solid var(--rule-2);
     background:var(--surface);color:var(--ink-2);cursor:pointer;display:inline-flex;align-items:center;gap:8px}}

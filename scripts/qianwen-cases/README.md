@@ -23,3 +23,12 @@ cp public/reports/<slug>/index.html docs/reports/<slug>/index.html   # docs 副�
 渠道判定规则驱动（device_info platform 3=iOS/4=安卓/5=鸿蒙 + 订单 extra + 时间线），有手写 verdict 的用户优先用手写。
 候选 SQL 的 asset_at_bind 子查询要加 `CASE WHEN account3_id IS NULL THEN NULL ELSE (...) END` 短路，否则 5k 用户会超时。
 新加密子页落库五处：public+docs 密文、inject-site-access-gate.mjs、tests/site-access-gate.test.mjs、validate-workbench.mjs、catalog/report-registry.json（supporting-page）。
+
+## 2026-09-17 晚追加：小顾入口 / 下单终端 / App 操作 / 最终持有
+
+assemble-users.py 额外读取（缺失则跳过）：`m_sessions.json`（agent_dj_sessions LEFT JOIN qwen_a2a_session_map，is_qwen 标千问会话；另一 agent 844489… 为且慢 App 内小顾 3.0）、
+`m_mia_msgs.json`（ying99_mia.user_message = 且慢 App 内小顾 Mia，sender_id='USER' 行，scene/query_mode）、`m_tokens.json`（ying99_qieman.qwen_issued_token，
+千问侧 agent 登录令牌签发时刻=千问会话活跃时刻）、`m_combine17.json`（dwd combine 当日全层级行，CA/WALLET 子账户市值）、`m_bill.json`
+（dwd_ast_bill_user_holding_detail_monthly_full 月末基金明细）、`m_fundorders.json`（ying99_fundtxn.fund_order，account_id=account3_id，
+order_type=1 按 fund_code 汇总成功金额，穿透组合底层基金）。CA→组合名：asset_service_account.meta 无数据时按绑定后买入金额就近匹配。
+口径限制：fund_order.txn_source 是销售机构代码非终端；微信/企微侧小顾（advisor_conversation）七人均无记录；「千问内嵌 H5 vs App」仍为推断。

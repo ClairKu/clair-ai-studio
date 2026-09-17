@@ -12,6 +12,28 @@ trades = json.load(open(D/"d_trades.json")); risk = json.load(open(D/"d_risk.jso
 asks = json.load(open(D/"d_asks.json")); assets = json.load(open(D/"d_assets.json")); dev = json.load(open(D/"d_device.json"))
 flows = json.load(open(D/"d_flows.json")) if (D/"d_flows.json").exists() else []
 narr = json.load(open(D/"narratives.json")) if (D/"narratives.json").exists() else {}
+def load(name):
+    f = D/name
+    return json.load(open(f)) if f.exists() else []
+m_sessions, m_mia, m_tokens, m_combine, m_bill, m_meta, m_fo = (load(x) for x in
+    ("m_sessions.json","m_mia_msgs.json","m_tokens.json","m_combine17.json","m_bill.json","m_meta.json","m_fundorder.json"))
+g_sess = {}
+for r in m_sessions: g_sess.setdefault(str(r["uid"]), []).append(r)
+g_mia = {}
+for r in m_mia:
+    if r.get("sender_id") == "USER": g_mia.setdefault(str(r["owner_id"]), []).append(r)
+g_tok = {}
+for r in m_tokens: g_tok.setdefault(str(r["user_id"]), []).append(r["created_at"])
+g_comb = {}
+for r in m_combine: g_comb.setdefault(str(r["account3_id"]), []).append(r)
+g_bill = {}
+for r in m_bill: g_bill.setdefault(str(r["account3_id"]), []).append(r)
+sa_meta = {r["service_account_id"]: r.get("meta") for r in m_meta}
+m_fo_all = load("m_fundorders.json")
+import re as _re
+def po_from_meta(meta):
+    m = _re.search(r'"po_code"\s*:\s*"([A-Z0-9_]+)"', meta or "") or _re.search(r'(ZH\d{6}|SI\d{6})', meta or "")
+    return m.group(1) if m else None
 by = lambda rows, k: {}
 def group(rows, key):
     g = {}
@@ -54,6 +76,48 @@ for c in sorted(cand, key=lambda c: c["fb"]):
         "new_first_invest": bool(c["cohort"] == "new" and buys),
     }
     n = narr.get(pmid, {})
+    # 小顾入口
+    sess = g_sess.get(pmid, [])
+    mia = sorted(g_mia.get(pmid, []), key=lambda r: r["create_time"])
+    channels = {
+        "qwen_sessions": sum(1 for r in sess if r.get("is_qwen")), "qwen_msgs": sum(int(r["msgs"] or 0) for r in sess if r.get("is_qwen")),
+        "app_sessions": sum(1 for r in sess if not r.get("is_qwen")),
+        "app_mia": [{"ts": r["create_time"], "scene": r.get("scene"), "mode": r.get("query_mode"), "text": r.get("content")} for r in mia],
+        "wechat_msgs": 0,
+        "tokens": sorted(g_tok.get(pmid, [])),
+    }
+    # 最终持有：CA/WALLET 子账户 + 组合名（meta→po_code，否则按买入金额就近匹配）+ 月度账单基金明细
+    po_names = {t["po_code"]: t["po_name"] for t in tr if t.get("po_code") and t.get("po_name")}
+    buy_by_po = {}
+    for t in buys: buy_by_po[t["po_code"]] = buy_by_po.get(t["po_code"], 0) + float(t["buy"])
+    holdings = []
+    used = set()
+    for r in sorted([x for x in g_comb.get(a3 or "", []) if x["relation_account_type"] in ("CA", "WALLET")], key=lambda x: -float(x["ta"])):
+        if r["relation_account_type"] == "WALLET":
+            holdings.append({"kind": "钱包", "code": "WALLET", "name": "盈米宝", "value": float(r["ta"]), "sa": r["service_account_id"]}); continue
+        po = po_from_meta(sa_meta.get(r["service_account_id"]))
+        if not po:
+            cands = [(abs(buy_by_po[c] - float(r["sh"] or r["ta"])), c) for c in buy_by_po if c not in used and c != "WALLET"]
+            po = min(cands)[1] if cands else None
+        if po: used.add(po)
+        holdings.append({"kind": "自助基金" if po == "FUND" else "组合" if po and po.startswith("ZH") else "策略" if po and po.startswith("SI") else "组合/策略",
+                         "code": po, "name": po_names.get(po, po or "未知"), "value": float(r["ta"]), "sa": r["service_account_id"]})
+    if not holdings and buys:
+        for pc, amt in sorted(buy_by_po.items(), key=lambda kv: -kv[1]):
+            holdings.append({"kind": "自助基金" if pc == "FUND" else "组合/策略", "code": pc, "name": po_names.get(pc, pc), "value": None, "buy": amt})
+    bill = g_bill.get(a3 or "", [])
+    latest_month = max((b["cal_month"] for b in bill), default=None)
+    fund_detail = [{"po": b["po_name"] or "盈米宝", "fund_code": b["fund_code"], "fund_name": b["fund_name"], "mv": float(b["mv"] or 0)}
+                   for b in bill if b["cal_month"] == latest_month] if bill else []
+    # 账单缺失/过旧时，用绑定后子订单（fund_order，按基金汇总成功金额）穿透
+    fos = [r for r in m_fo_all if str(r["account_id"]) == (a3 or "")] if a3 else []
+    last_buy_month = max((t["accept_time"][:7] for t in buys), default=fb.strftime("%Y-%m"))
+    if fos and (not fund_detail or (latest_month or "") < last_buy_month):
+        fund_detail = [{"po": r.get("po") or "—", "fund_code": r["fund_code"], "fund_name": r["fund_name"] or r["fund_code"],
+                        "mv": float(r["amt"] or 0), "basis": "绑定后子订单成功金额"} for r in fos]
+        latest_month = None
+    holdings_meta = {"as_of": (asset_latest or {}).get("cal_date"), "bill_month": latest_month,
+                     "fund_basis": "子订单成功金额" if (fos and latest_month is None) else ("月末账单市值" if fund_detail else None)}
     users.append({
         "pmid": pmid, "letter": n.get("letter"), "cohort": c["cohort"], "gender": c.get("gender"), "age": c.get("age"),
         "prov": c.get("prov"), "mp": bool(c.get("mp")), "card": bool(c.get("card")), "account3_id": a3,
@@ -63,7 +127,7 @@ for c in sorted(cand, key=lambda c: c["fb"]):
         "risk": [{"created_at": r["created_at"], "score": r["score"]} for r in sorted(g_risk.get(a3, []), key=lambda r: r["created_at"])] if a3 else [],
         "trades": tr,
         "asks": [{"ts": q["ts"], "text": q["text"], "session_id": str(q["session_id"])} for q in g_asks.get(pmid, [])],
-        "asset_latest": asset_latest,
+        "asset_latest": asset_latest, "channels": channels, "holdings": holdings, "fund_detail": fund_detail, "holdings_meta": holdings_meta,
         "flags": flags,
         "derived": {"buys_after": len(buys), "buy_amount_after": sum(float(t["buy"]) for t in buys), "inflow_after": inflow,
                     "sell_after": sell, "first_buy_after": first_buy_after, "cancels_after": cancels,
