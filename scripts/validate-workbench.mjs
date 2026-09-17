@@ -376,7 +376,7 @@ const selfProtectedReportIds = new Set([
   "qianwen-user-acquisition-dashboard",
   "qianwen-user-question-analysis-2026-09-05",
   "qianwen-user-question-detail-2026-09-05",
-  "qianwen-new-user-first-investor-cases-2026-09-17",
+  "qianwen-first-investor-cases-2026-09-17",
 ]);
 const gatedReports = reportHtmlPaths
   .filter((path) => passwordGatePattern.test(readFileSync(path, "utf8").replace(actionGateInput, "")))
