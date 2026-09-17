@@ -852,8 +852,9 @@ const WTYPE={
   dash:{glyph:'▤',color:'#0E8FA8',lb:'功能页'},
   ontology:{glyph:'◎',color:'#6D5BD0',lb:'功能页'},
   c360:{glyph:'◉',color:'#12558C',lb:'功能页'},
+  cockpit:{glyph:'◈',color:'#0E8FA8',lb:'功能页'},
 };
-const PAGE_TITLES={home:'今日工作台',customers:'客户列表',tasks:'任务中心',events:'事件中心',reports:'规划报告',research:'产品投研',scripts:'话术材料',dash:'数据看板',ontology:'盈米本体',c360:'客户 360° 引擎'};
+const PAGE_TITLES={home:'今日工作台',customers:'客户列表',tasks:'任务中心',events:'事件中心',reports:'规划报告',research:'产品投研',scripts:'话术材料',dash:'数据看板',ontology:'盈米本体',c360:'客户 360° 引擎',cockpit:'客户 360° 驾驶舱'};
 let FLOAT_N=0,FLOAT_Z=10,THREAD_N=0;
 
 /* ================= SVG 图表 ================= */
@@ -893,6 +894,7 @@ const NAV=[
  {k:'home',ico:'⌂',lb:'今日'},
  {k:'customers',ico:'♟',lb:'客户'},
  {k:'c360',ico:'◉',lb:'客户 360° 引擎'},
+ {k:'cockpit',ico:'◈',lb:'客户 360° 驾驶舱'},
  {k:'tasks',ico:'✓',lb:'任务',bdg:()=>DB.tasks.filter(t=>!t.done).length},
  {k:'events',ico:'⚡',lb:'事件'},
  {k:'reports',ico:'❖',lb:'规划报告'},
@@ -905,6 +907,7 @@ const NAV_SVG={
  home:'<path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-6h6v6"/>',
  customers:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.4 3.4-5 6.5-5s5.7 1.6 6.5 5"/><circle cx="17" cy="9" r="2.6"/><path d="M15.5 14.6c2.9.2 5.2 1.7 6 4.4"/>',
  c360:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/>',
+ cockpit:'<circle cx="12" cy="12" r="9"/><path d="M12 12l4.5-4.5"/><path d="M6.5 15.5a6 6 0 0 1 11 0"/>',
  tasks:'<rect x="4" y="4" width="16" height="16" rx="3"/><path d="m8.5 12.5 2.5 2.5 4.5-5"/>',
  events:'<path d="M13 2 4.5 13.5H11L9.5 22 19 9.5h-6.5z"/>',
  reports:'<path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6"/>',
@@ -1134,6 +1137,7 @@ function pgCustomer360(wtab){
           <div class="flex" style="gap:6px;margin-top:9px;justify-content:flex-end">
             <button class="mini-btn pri" onclick="quickAsk('帮我写${c.name}的沟通话术')">✦ 问副驾</button>
             <button class="mini-btn" style="border-color:#C9DCF1;color:var(--brand)" title="新一代 AI 驱动客户 360 引擎（模块化 · 证据链 · 冲突仲裁）" onclick="go('c360')">◉ 360 引擎</button>
+            <button class="mini-btn" style="border-color:#B9E3EA;color:#0E8FA8" title="客户 360° 驾驶舱（七层模型 · 统一时间轴 · 关系图谱 · 方案偏离）" onclick="go('cockpit')">◈ 驾驶舱</button>
             <button class="mini-btn" onclick="toast('已发起企微会话（演示）')">企微</button>
             <button class="mini-btn" onclick="toast('已发起外呼（演示）')">外呼</button>
             <button class="mini-btn gold" onclick="addReminderUI('${c.id}')">＋提醒</button>
@@ -1398,6 +1402,9 @@ function pgOntology(){
 function pgC360(){
   return `<div class="onto-wrap"><iframe src="customer-360.html" title="客户 360° 引擎"></iframe></div>`;
 }
+function pgCockpit(){
+  return `<div class="onto-wrap"><iframe src="customer-360-cockpit.html" title="客户 360° 驾驶舱"></iframe></div>`;
+}
 function openOnto(id){
   S.ontoHash=id||'';
   go('ontology');
@@ -1464,7 +1471,7 @@ function wtabHTML(p,t){
 function tabContent(t){
   if(t.type==='customer')return pgCustomer360(t);
   if(t.type==='report')return pgReport(DB.reports.find(x=>x.id===t.refId));
-  return {home:pgHome,customers:pgCustomers,tasks:pgTasks,events:pgEvents,reports:pgReports,research:pgResearch,scripts:pgScripts,dash:pgDash,ontology:pgOntology,c360:pgC360}[t.refId]();
+  return {home:pgHome,customers:pgCustomers,tasks:pgTasks,events:pgEvents,reports:pgReports,research:pgResearch,scripts:pgScripts,dash:pgDash,ontology:pgOntology,c360:pgC360,cockpit:pgCockpit}[t.refId]();
 }
 function renderCanvas(){
   const cv=$('#canvas');

@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>客户 360° 驾驶舱 · YINGMIWORK 顾问工作台</title>
+<style>
+:root{
+  --bg:#070B14; --bg-2:#0B1220; --panel:#0E1626; --panel-2:#121C2F; --panel-3:#172238;
+  --line:rgba(160,180,220,.10); --line-2:rgba(160,180,220,.06); --line-3:rgba(160,180,220,.18);
+  --ink:#E9EFFA; --ink-2:#AAB7D0; --ink-3:#6F7D9B; --ink-4:#4A5670;
+  --cyan:#38D9F5; --cyan-soft:rgba(56,217,245,.12);
+  --blue:#4C9AFF; --blue-soft:rgba(76,154,255,.13);
+  --gold:#F2C14E; --gold-soft:rgba(242,193,78,.13);
+  --up:#2EE59D; --up-soft:rgba(46,229,157,.12);
+  --down:#FF5D6C; --down-soft:rgba(255,93,108,.13);
+  --warn:#FFA940; --warn-soft:rgba(255,169,64,.13);
+  --violet:#A78BFA; --violet-soft:rgba(167,139,250,.14);
+  --pink:#F472B6; --pink-soft:rgba(244,114,182,.13);
+  --r-lg:14px; --r-md:10px; --r-sm:7px;
+  --font:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  --mono:"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:var(--font);font-size:13px;color:var(--ink);background:var(--bg);overflow:hidden;-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(ellipse 60% 40% at 20% 0%,rgba(76,154,255,.10),transparent 60%),radial-gradient(ellipse 40% 30% at 90% 10%,rgba(56,217,245,.07),transparent 60%)}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,select{font-family:inherit;outline:none}
+a{color:inherit}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-thumb{background:#243049;border-radius:8px;border:2px solid transparent;background-clip:content-box}
+::-webkit-scrollbar-track{background:transparent}
+.num{font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.mono{font-family:var(--mono)}
+.muted{color:var(--ink-3)}
+.up{color:var(--up)}.down{color:var(--down)}.warn{color:var(--warn)}
+.sp{flex:1}
+.flex{display:flex;align-items:center;gap:8px}
+
+/* ===== 框架 ===== */
+#app{display:grid;grid-template-rows:48px auto minmax(0,1fr);height:100vh}
+#topbar{display:flex;align-items:center;gap:10px;padding:0 14px;background:rgba(8,12,22,.85);border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}
+#topbar .logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:13px;letter-spacing:.02em}
+#topbar .logo .mark{width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,#4C9AFF,#38D9F5);display:grid;place-items:center;font-size:11px;font-weight:900;color:#06101F}
+#topbar .crumb{font-size:12px;color:var(--ink-3)}
+#topbar .crumb b{color:var(--ink-2);font-weight:600}
+.seg{display:inline-flex;background:var(--panel-2);border:1px solid var(--line);border-radius:9px;padding:2px;gap:2px}
+.seg button{height:26px;padding:0 11px;border-radius:7px;font-size:12px;color:var(--ink-3);font-weight:600;transition:.15s;display:inline-flex;align-items:center;gap:5px}
+.seg button:hover{color:var(--ink)}
+.seg button.on{background:var(--panel-3);color:var(--cyan);box-shadow:inset 0 0 0 1px rgba(56,217,245,.35)}
+.seg button kbd{font-family:var(--mono);font-size:9.5px;color:var(--ink-4);border:1px solid var(--line-3);border-radius:4px;padding:0 4px;line-height:14px}
+.tb-btn{display:inline-flex;align-items:center;gap:5px;height:28px;padding:0 10px;border-radius:8px;font-size:12px;color:var(--ink-2);border:1px solid var(--line);background:var(--panel-2);transition:.15s;text-decoration:none;white-space:nowrap}
+.tb-btn:hover{border-color:var(--line-3);color:var(--ink)}
+.tb-btn kbd{font-family:var(--mono);font-size:9.5px;color:var(--ink-4);border:1px solid var(--line-3);border-radius:4px;padding:0 4px;line-height:14px}
+.tb-sel{height:28px;border-radius:8px;background:var(--panel-2);color:var(--ink-2);border:1px solid var(--line);font-size:12px;padding:0 8px}
+.tb-sel option{color:var(--ink);background:#0E1626}
+.live{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;color:var(--ink-3);font-weight:600}
+.live i{width:7px;height:7px;border-radius:50%;background:var(--up);box-shadow:0 0 0 0 rgba(46,229,157,.6);animation:pulse 1.8s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(46,229,157,.55)}70%{box-shadow:0 0 0 7px rgba(46,229,157,0)}100%{box-shadow:0 0 0 0 rgba(46,229,157,0)}}
+
+/* ===== Hero ===== */
+#hero{background:linear-gradient(180deg,rgba(18,28,47,.9),rgba(14,22,38,.6));border-bottom:1px solid var(--line);padding:12px 18px 0;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:18px;align-items:start}
+#hero .cav{width:58px;height:58px;border-radius:16px;display:grid;place-items:center;font-weight:800;font-size:20px;color:#06101F;background:linear-gradient(135deg,#F2C14E,#FFE9B8);position:relative;flex:none}
+#hero .cav .ring{position:absolute;inset:-4px;border-radius:19px;border:1.5px solid rgba(242,193,78,.45)}
+#hero .cav .st{position:absolute;right:-4px;bottom:-4px;width:15px;height:15px;border-radius:50%;background:var(--down);border:2.5px solid var(--panel)}
+#hero .who{min-width:0}
+#hero .nm{font-size:19px;font-weight:800;display:flex;align-items:center;gap:8px;flex-wrap:wrap;letter-spacing:-.01em}
+#hero .meta{font-size:11.5px;color:var(--ink-3);margin-top:3px;display:flex;gap:10px;flex-wrap:wrap}
+#hero .meta b{color:var(--ink-2);font-weight:600}
+.ids{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap;align-items:center}
+.ids .lb{font-size:10px;color:var(--ink-4);font-weight:700;letter-spacing:.06em;margin-right:2px}
+.idc{display:inline-flex;align-items:center;gap:4px;height:19px;padding:0 7px;border-radius:5px;font-size:10px;font-weight:600;background:var(--panel-2);border:1px solid var(--line);color:var(--ink-2);font-family:var(--mono)}
+.idc i{width:6px;height:6px;border-radius:50%;background:var(--up)}
+.idc.pend i{background:var(--warn)}
+.stages{display:flex;align-items:center;gap:0;margin-top:9px}
+.stg{display:flex;align-items:center;gap:0;font-size:10.5px;color:var(--ink-4);font-weight:600}
+.stg .dot{width:9px;height:9px;border-radius:50%;background:var(--panel-3);border:1.5px solid var(--ink-4);position:relative}
+.stg.done .dot{background:var(--blue);border-color:var(--blue)}
+.stg.done{color:var(--ink-3)}
+.stg.cur .dot{background:var(--cyan);border-color:var(--cyan);box-shadow:0 0 0 4px var(--cyan-soft)}
+.stg.cur{color:var(--cyan);font-weight:800}
+.stg .ln{width:34px;height:1.5px;background:var(--line-3);margin:0 2px}
+.stg.done .ln{background:var(--blue)}
+.stg span{margin-left:5px}
+.stg.risk .dot{border-color:var(--down);border-style:dashed}
+.stg.risk{color:var(--down)}
+#hero .kpis{display:flex;gap:0;flex:none}
+.hk{padding:2px 16px 0;border-left:1px solid var(--line);min-width:118px;position:relative}
+.hk:first-child{border-left:none;padding-left:0}
+.hk .lb{font-size:10.5px;color:var(--ink-3);font-weight:600;display:flex;align-items:center;gap:4px}
+.hk .vl{font-size:21px;font-weight:800;margin-top:2px;letter-spacing:-.02em;display:flex;align-items:baseline;gap:4px}
+.hk .vl small{font-size:11px;color:var(--ink-3);font-weight:600}
+.hk .dl{font-size:10.5px;margin-top:1px;font-weight:600}
+.hk .spark{margin-top:4px}
+.ringk{display:flex;align-items:center;gap:8px}
+#alerts{grid-column:1/-1;display:flex;gap:8px;padding:9px 0 10px;overflow-x:auto;border-top:1px solid var(--line-2);margin-top:8px}
+.al{display:inline-flex;align-items:center;gap:7px;height:26px;padding:0 10px 0 8px;border-radius:8px;font-size:11.5px;font-weight:600;white-space:nowrap;cursor:pointer;border:1px solid transparent;transition:.15s}
+.al i{width:7px;height:7px;border-radius:50%;flex:none}
+.al.red{background:var(--down-soft);color:#FFB3BA;border-color:rgba(255,93,108,.3)}.al.red i{background:var(--down)}
+.al.gold{background:var(--gold-soft);color:#FFE3A1;border-color:rgba(242,193,78,.3)}.al.gold i{background:var(--gold)}
+.al.violet{background:var(--violet-soft);color:#D6C8FF;border-color:rgba(167,139,250,.3)}.al.violet i{background:var(--violet)}
+.al.cyan{background:var(--cyan-soft);color:#B7F0FA;border-color:rgba(56,217,245,.3)}.al.cyan i{background:var(--cyan)}
+.al:hover{filter:brightness(1.15)}
+.al .k{opacity:.7;font-weight:500}
+
+/* ===== 三栏 ===== */
+#body{display:grid;grid-template-columns:224px minmax(0,1fr) 340px;min-height:0}
+#nav{background:rgba(11,18,32,.7);border-right:1px solid var(--line);overflow-y:auto;padding:10px 10px 20px}
+#center{overflow-y:auto;padding:14px 18px 60px;scroll-behavior:smooth;position:relative;min-width:0}
+#rail{background:rgba(11,18,32,.7);border-left:1px solid var(--line);overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:12px}
+@media (max-width:1400px){#body{grid-template-columns:200px minmax(0,1fr) 304px}}
+@media (max-width:1180px){#body{grid-template-columns:0 minmax(0,1fr) 0}#nav,#rail{display:none}}
+
+/* 左导航：七层 */
+.nv-h{font-size:10px;color:var(--ink-4);font-weight:800;letter-spacing:.1em;padding:6px 8px 6px;text-transform:uppercase;display:flex;align-items:center;gap:6px}
+.nv-h .ln{flex:1;height:1px;background:var(--line)}
+.layer{margin-bottom:4px;border-radius:10px;border:1px solid transparent;transition:.15s}
+.layer.on{background:var(--panel-2);border-color:var(--line)}
+.layer-h{display:flex;align-items:center;gap:8px;padding:7px 9px;border-radius:9px;cursor:pointer}
+.layer-h:hover{background:var(--panel-2)}
+.layer-h .n{width:18px;height:18px;border-radius:6px;display:grid;place-items:center;font-size:10px;font-weight:800;font-family:var(--mono);color:#06101F}
+.layer-h .t{font-size:12px;font-weight:700;color:var(--ink-2)}
+.layer-h .q{font-size:10.5px;color:var(--ink-4);margin-left:auto;font-family:var(--mono)}
+.layer-h .bar{position:absolute}
+.layer .cmp{height:2px;background:var(--line);margin:0 9px 4px;border-radius:2px;overflow:hidden}
+.layer .cmp i{display:block;height:100%;border-radius:2px}
+.layer .subs{display:none;padding:0 6px 6px}
+.layer.on .subs{display:block}
+.sub{display:flex;align-items:center;gap:6px;padding:4px 8px 4px 22px;border-radius:7px;font-size:11.5px;color:var(--ink-3);cursor:pointer}
+.sub:hover{background:var(--panel-3);color:var(--ink)}
+.sub .bd{margin-left:auto;font-size:9.5px;font-weight:800;min-width:15px;height:15px;padding:0 4px;border-radius:7px;display:grid;place-items:center;background:var(--panel-3);color:var(--ink-3)}
+.sub .bd.red{background:var(--down);color:#fff}.sub .bd.gold{background:var(--gold);color:#06101F}.sub .bd.violet{background:var(--violet);color:#06101F}
+.nv-legend{margin:10px 6px 0;padding:10px;border-radius:10px;background:var(--panel-2);border:1px solid var(--line)}
+.nv-legend .t{font-size:10px;font-weight:800;color:var(--ink-4);letter-spacing:.08em;margin-bottom:6px}
+.lg{display:flex;align-items:center;gap:6px;font-size:10.5px;color:var(--ink-3);padding:2px 0}
+.lg i{width:7px;height:7px;border-radius:50%}
+.lg .f{margin-left:auto;font-family:var(--mono);font-size:9.5px;color:var(--ink-4)}
+.nv-mini{margin:10px 6px 0;padding:8px;border-radius:10px;background:var(--panel-2);border:1px solid var(--line);cursor:pointer}
+.nv-mini:hover{border-color:var(--line-3)}
+.nv-mini .t{font-size:10px;font-weight:800;color:var(--ink-4);letter-spacing:.08em;margin-bottom:4px;display:flex}
+.nv-mini .t span{margin-left:auto;color:var(--cyan)}
+
+/* 中心：模块 */
+.view{display:none}.view.on{display:block}
+.grp{margin-bottom:18px}
+.grp-h{display:flex;align-items:center;gap:8px;margin:2px 2px 10px}
+.grp-h .n{width:20px;height:20px;border-radius:6px;display:grid;place-items:center;font-size:10.5px;font-weight:800;font-family:var(--mono);color:#06101F}
+.grp-h h2{font-size:13px;font-weight:800;color:var(--ink);letter-spacing:.02em}
+.grp-h .ds{font-size:11px;color:var(--ink-3)}
+.grp-h .ln{flex:1;height:1px;background:var(--line)}
+.grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;align-items:start}
+.mod{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);min-width:0;transition:border-color .2s,box-shadow .2s;position:relative;grid-column:span 3}
+.mod.s2{grid-column:span 2}.mod.s4{grid-column:span 4}.mod.s6{grid-column:span 6}
+.mod:hover{border-color:var(--line-3)}
+.mod.flash{animation:flash 1.8s ease}
+@keyframes flash{0%{box-shadow:0 0 0 0 rgba(56,217,245,0)}15%{box-shadow:0 0 0 3px rgba(56,217,245,.7),0 0 30px rgba(56,217,245,.35);border-color:var(--cyan)}100%{box-shadow:none}}
+.mod-h{display:flex;align-items:center;gap:7px;padding:10px 13px 8px}
+.mod-h h3{font-size:12.5px;font-weight:700;white-space:nowrap}
+.mod-h .ai{font-size:9px;font-weight:800;padding:1px 6px;border-radius:4px;background:var(--violet-soft);color:var(--violet);letter-spacing:.06em;border:1px solid rgba(167,139,250,.3)}
+.mod-h .srcs{display:flex;gap:3px;margin-left:2px}
+.sd{width:6px;height:6px;border-radius:50%;display:inline-block;cursor:help}
+.mod-h .tools{margin-left:auto;display:flex;gap:6px;align-items:center}
+.mod-h .fresh{font-size:10px;color:var(--ink-4);font-family:var(--mono)}
+.mod-h .tools button{height:20px;padding:0 6px;border-radius:5px;font-size:10.5px;color:var(--ink-3);border:1px solid transparent}
+.mod-h .tools button:hover{border-color:var(--line-3);color:var(--ink)}
+.mod-b{padding:4px 13px 12px}
+.mod-f{padding:6px 13px;border-top:1px solid var(--line-2);font-size:10px;color:var(--ink-4);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.mod-f .lk{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap}
+.chip{font-size:9.5px;padding:1px 6px;border-radius:4px;background:var(--panel-2);border:1px solid var(--line);color:var(--ink-3);cursor:pointer;white-space:nowrap}
+.chip:hover{border-color:var(--cyan);color:var(--cyan)}
+.chip.ev{color:var(--cyan);border-color:rgba(56,217,245,.3);background:var(--cyan-soft)}
+
+/* 通用 */
+.tag{display:inline-flex;align-items:center;gap:3px;height:19px;padding:0 7px;border-radius:5px;font-size:10.5px;font-weight:600;white-space:nowrap;border:1px solid transparent}
+.tag.blue{background:var(--blue-soft);color:#9CC4FF}.tag.gold{background:var(--gold-soft);color:var(--gold)}
+.tag.green{background:var(--up-soft);color:var(--up)}.tag.red{background:var(--down-soft);color:#FF8A95}
+.tag.gray{background:var(--panel-3);color:var(--ink-3)}.tag.violet{background:var(--violet-soft);color:var(--violet)}
+.tag.cyan{background:var(--cyan-soft);color:var(--cyan)}.tag.warn{background:var(--warn-soft);color:var(--warn)}.tag.pink{background:var(--pink-soft);color:var(--pink)}
+.tag.outline{background:transparent;border-color:var(--line-3);color:var(--ink-2)}
+.tag.sm{height:16px;font-size:9.5px;padding:0 5px}
+.btn{height:25px;padding:0 10px;border-radius:7px;font-size:11px;font-weight:600;display:inline-flex;align-items:center;gap:4px;border:1px solid var(--line-3);background:var(--panel-2);color:var(--ink-2);transition:.13s;white-space:nowrap}
+.btn:hover{border-color:var(--cyan);color:var(--cyan)}
+.btn.pri{background:var(--cyan);border-color:var(--cyan);color:#06101F}.btn.pri:hover{filter:brightness(1.1);color:#06101F}
+.btn.xs{height:21px;padding:0 7px;font-size:10px}
+.kv{display:flex;justify-content:space-between;gap:10px;font-size:11.5px;padding:5px 0;border-bottom:1px dashed var(--line-2)}
+.kv:last-child{border-bottom:none}
+.kv .k{color:var(--ink-3);flex:none}.kv .v{font-weight:600;text-align:right}
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{font-size:10.5px;color:var(--ink-3);font-weight:600;text-align:left;padding:5px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+.tbl td{font-size:11.5px;padding:6px 8px;border-bottom:1px solid var(--line-2);vertical-align:middle}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tbody tr{cursor:pointer}
+.tbl tbody tr:hover{background:var(--panel-2)}
+.tbl .r{text-align:right}
+.wbar{height:4px;border-radius:2px;background:var(--panel-3);overflow:hidden;min-width:50px}
+.wbar i{display:block;height:100%;border-radius:2px}
+.stat3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:6px 0 8px}
+.stat3 .s{padding:8px 10px;border-radius:9px;background:var(--panel-2);border:1px solid var(--line)}
+.stat3 .s .k{font-size:10px;color:var(--ink-3);font-weight:600}
+.stat3 .s .v{font-size:16px;font-weight:800;margin-top:2px;letter-spacing:-.02em}
+.stat3 .s .d{font-size:10px;margin-top:1px}
+.ct{font-size:10px;color:var(--ink-4);margin-top:4px;font-family:var(--mono)}
+.legend{display:flex;gap:10px;flex-wrap:wrap;font-size:10.5px;color:var(--ink-3);margin-top:6px}
+.legend i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:4px;vertical-align:middle}
+.tabs{display:inline-flex;gap:2px;background:var(--panel-2);border:1px solid var(--line);border-radius:7px;padding:2px}
+.tabs button{height:20px;padding:0 8px;border-radius:5px;font-size:10.5px;color:var(--ink-3);font-weight:600}
+.tabs button.on{background:var(--panel-3);color:var(--cyan)}
+.list{display:flex;flex-direction:column;gap:6px}
+.li{display:flex;gap:9px;align-items:flex-start;padding:8px 9px;border-radius:9px;background:var(--panel-2);border:1px solid var(--line);cursor:pointer;transition:.13s}
+.li:hover{border-color:var(--line-3)}
+.li .ic{width:24px;height:24px;border-radius:7px;display:grid;place-items:center;font-size:11px;flex:none;font-weight:800}
+.li .t{font-size:11.5px;font-weight:600;line-height:1.4}
+.li .d{font-size:10.5px;color:var(--ink-3);margin-top:2px;line-height:1.45}
+.li .rt{margin-left:auto;text-align:right;flex:none;font-size:10.5px;color:var(--ink-3);font-family:var(--mono)}
+.goal{padding:8px 0;border-bottom:1px dashed var(--line-2)}
+.goal:last-child{border-bottom:none}
+.goal .h{display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600}
+.goal .h .r{margin-left:auto;font-family:var(--mono);font-size:10.5px;color:var(--ink-3)}
+.goal .bar{height:6px;border-radius:3px;background:var(--panel-3);margin-top:6px;position:relative;overflow:visible}
+.goal .bar i{display:block;height:100%;border-radius:3px}
+.goal .bar b{position:absolute;top:-3px;width:2px;height:12px;background:var(--gold)}
+.goal .m{display:flex;gap:10px;font-size:10px;color:var(--ink-3);margin-top:4px}
+.heat{display:grid;grid-template-columns:repeat(12,1fr);gap:3px}
+.heat i{height:13px;border-radius:2px;background:var(--panel-3);display:block;cursor:help}
+.heat-l{display:flex;justify-content:space-between;font-size:9.5px;color:var(--ink-4);margin-top:4px;font-family:var(--mono)}
+.tagcloud{display:flex;flex-direction:column;gap:7px}
+.tagrow{display:flex;gap:6px;align-items:flex-start}
+.tagrow .src{width:64px;flex:none;font-size:10px;font-weight:700;color:var(--ink-3);padding-top:3px;display:flex;align-items:center;gap:4px}
+.tagrow .tags{display:flex;flex-wrap:wrap;gap:4px}
+.tagrow .tag{cursor:pointer}
+.tagrow .tag:hover{filter:brightness(1.2)}
+.bullet{margin:7px 0}
+.bullet .h{display:flex;font-size:11.5px;font-weight:600;gap:6px;align-items:center}
+.bullet .h .r{margin-left:auto;font-family:var(--mono);font-size:10.5px}
+.bullet .tr{height:10px;border-radius:5px;background:var(--panel-3);position:relative;margin-top:5px}
+.bullet .tr .rng{position:absolute;top:0;bottom:0;background:rgba(160,180,220,.12);border-radius:5px}
+.bullet .tr .act{position:absolute;top:2px;bottom:2px;left:0;border-radius:3px}
+.bullet .tr .tgt{position:absolute;top:-3px;width:2px;height:16px;background:var(--gold)}
+.jour{position:relative;padding:6px 0 4px}
+.jour .line{position:absolute;left:0;right:0;top:19px;height:2px;background:var(--line-3)}
+.jour .pts{display:flex;justify-content:space-between;position:relative}
+.jp{display:flex;flex-direction:column;align-items:center;width:70px;cursor:pointer}
+.jp .d{width:12px;height:12px;border-radius:50%;background:var(--panel);border:2px solid var(--blue);margin-top:8px;position:relative;z-index:1}
+.jp.key .d{background:var(--gold);border-color:var(--gold);box-shadow:0 0 0 4px var(--gold-soft)}
+.jp.now .d{background:var(--cyan);border-color:var(--cyan);box-shadow:0 0 0 4px var(--cyan-soft)}
+.jp.fut .d{border-style:dashed;border-color:var(--ink-4)}
+.jp .t{font-size:10.5px;font-weight:600;margin-top:6px;text-align:center;line-height:1.3}
+.jp .y{font-size:9.5px;color:var(--ink-4);font-family:var(--mono)}
+.chatq{padding:7px 9px;border-radius:9px;background:var(--panel-2);border:1px solid var(--line);font-size:11px;line-height:1.5;display:flex;gap:8px}
+.chatq .q{color:var(--ink-2)}
+.chatq .n{color:var(--ink-4);font-family:var(--mono);font-size:10px;flex:none}
+.fam{display:flex;gap:8px;flex-wrap:wrap}
+.fm{flex:1;min-width:120px;padding:8px 10px;border-radius:9px;background:var(--panel-2);border:1px solid var(--line)}
+.fm .n{font-size:11.5px;font-weight:700;display:flex;gap:6px;align-items:center}
+.fm .d{font-size:10.5px;color:var(--ink-3);margin-top:3px;line-height:1.45}
+.fm .v{font-size:13px;font-weight:800;margin-top:4px;font-family:var(--mono)}
+
+/* 时间轴 */
+#tl-wrap{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg)}
+.tl-ctl{display:flex;align-items:center;gap:8px;padding:10px 13px;border-bottom:1px solid var(--line-2);flex-wrap:wrap}
+.lane-chip{display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 9px;border-radius:6px;font-size:11px;font-weight:600;border:1px solid var(--line);background:var(--panel-2);color:var(--ink-2);cursor:pointer;transition:.13s}
+.lane-chip i{width:7px;height:7px;border-radius:50%}
+.lane-chip.off{opacity:.38}
+.lane-chip .c{font-family:var(--mono);font-size:9.5px;color:var(--ink-4)}
+#tl-svg{display:block;width:100%}
+.tl-ev{cursor:pointer;transition:.12s}
+.tl-ev:hover{filter:brightness(1.3)}
+.tl-ev.dim{opacity:.18}
+.tl-ev.sel circle,.tl-ev.sel rect,.tl-ev.sel path{stroke:#fff;stroke-width:2}
+.tl-foot{display:flex;gap:14px;padding:8px 13px;border-top:1px solid var(--line-2);font-size:10.5px;color:var(--ink-3);flex-wrap:wrap}
+.tl-foot b{color:var(--ink-2)}
+
+/* 图谱 */
+#gr-wrap{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);position:relative;overflow:hidden}
+#gr-svg{display:block;width:100%}
+.gn{cursor:pointer}
+.gn circle{transition:.15s}
+.gn text{pointer-events:none;font-family:var(--font)}
+.gn.dim{opacity:.13}
+.ge{transition:.15s}
+.ge.dim{opacity:.05}
+.ge.hi{stroke-width:2.2 !important;opacity:1 !important}
+.gr-ctl{position:absolute;left:12px;top:12px;display:flex;gap:6px;flex-wrap:wrap;z-index:2}
+.gr-info{position:absolute;right:12px;top:12px;width:250px;padding:11px 12px;border-radius:10px;background:rgba(14,22,38,.92);border:1px solid var(--line-3);backdrop-filter:blur(8px);z-index:2;font-size:11.5px;line-height:1.55}
+.gr-info h4{font-size:12.5px;font-weight:800;margin-bottom:4px;display:flex;align-items:center;gap:6px}
+.gr-info .d{color:var(--ink-3);font-size:11px}
+.gr-info .rel{margin-top:7px;display:flex;flex-wrap:wrap;gap:4px}
+.gr-legend{position:absolute;left:12px;bottom:12px;display:flex;gap:12px;font-size:10.5px;color:var(--ink-3);z-index:2;flex-wrap:wrap}
+.gr-legend i{display:inline-block;width:14px;height:2px;vertical-align:middle;margin-right:5px}
+
+/* 右栏 */
+.rc{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg)}
+.rc-h{display:flex;align-items:center;gap:7px;padding:10px 12px 6px}
+.rc-h h3{font-size:12.5px;font-weight:700}
+.rc-h .ai{font-size:9px;font-weight:800;padding:1px 6px;border-radius:4px;background:var(--violet-soft);color:var(--violet);letter-spacing:.06em;border:1px solid rgba(167,139,250,.3)}
+.rc-h .rt{margin-left:auto;font-size:10px;color:var(--ink-4);font-family:var(--mono)}
+.rc-b{padding:2px 12px 12px}
+.brief{font-size:12px;line-height:1.7;color:var(--ink-2)}
+.brief b{color:var(--ink);font-weight:700}
+.ev{display:inline-flex;align-items:center;height:16px;padding:0 5px;border-radius:4px;font-size:9.5px;font-weight:700;background:var(--cyan-soft);color:var(--cyan);cursor:pointer;margin:0 1px;vertical-align:1px;border:1px solid rgba(56,217,245,.25);font-family:var(--mono)}
+.ev:hover{background:var(--cyan);color:#06101F}
+.states{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:9px}
+.stt{padding:7px 8px;border-radius:8px;background:var(--panel-2);border:1px solid var(--line);cursor:pointer}
+.stt .k{font-size:10px;color:var(--ink-3);font-weight:600}
+.stt .v{font-size:12.5px;font-weight:800;margin-top:2px}
+.nba{padding:9px 10px;border-radius:10px;background:var(--panel-2);border:1px solid var(--line);margin-bottom:7px;position:relative;overflow:hidden}
+.nba::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--ink-4)}
+.nba.high::before{background:var(--down)}.nba.mid::before{background:var(--gold)}.nba.low::before{background:var(--blue)}
+.nba .t{font-size:11.5px;font-weight:700;line-height:1.4;display:flex;gap:6px;align-items:flex-start}
+.nba .t .cf{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--ink-4);flex:none}
+.nba .w{font-size:10.5px;color:var(--ink-3);line-height:1.5;margin-top:4px}
+.nba .evs{display:flex;flex-wrap:wrap;gap:3px;margin-top:6px}
+.nba .acts{display:flex;gap:5px;margin-top:8px}
+.nba.done{opacity:.5}
+.rem{display:flex;gap:8px;align-items:center;padding:6px 0;border-bottom:1px dashed var(--line-2);font-size:11.5px}
+.rem:last-child{border-bottom:none}
+.rem .d{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);width:44px;flex:none}
+.rem .p{width:6px;height:6px;border-radius:50%;flex:none}
+.rem .t{flex:1}
+.task{display:flex;gap:8px;align-items:center;padding:6px 0;border-bottom:1px dashed var(--line-2);font-size:11.5px}
+.task:last-child{border-bottom:none}
+.task .cb{width:15px;height:15px;border-radius:4px;border:1.5px solid var(--ink-4);display:grid;place-items:center;font-size:9px;cursor:pointer;flex:none}
+.task.done .cb{background:var(--up);border-color:var(--up);color:#06101F}
+.task.done .t{text-decoration:line-through;color:var(--ink-4)}
+.task .due{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+.detail{font-size:11.5px;line-height:1.6}
+.detail .h{font-weight:700;font-size:12px;margin-bottom:3px}
+
+/* 命令面板 & 弹层 */
+.overlay{position:fixed;inset:0;background:rgba(3,6,12,.6);z-index:100;display:none;backdrop-filter:blur(3px)}
+.overlay.on{display:block}
+#cmdk{position:fixed;left:50%;top:14%;transform:translateX(-50%);width:560px;background:var(--panel);border:1px solid var(--line-3);border-radius:14px;z-index:101;display:none;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+#cmdk.on{display:block}
+#cmdk input{width:100%;height:46px;background:transparent;border:none;border-bottom:1px solid var(--line);color:var(--ink);font-size:14px;padding:0 16px}
+#cmdk .res{max-height:360px;overflow-y:auto;padding:6px}
+.cr{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;cursor:pointer;font-size:12px}
+.cr:hover,.cr.on{background:var(--panel-3)}
+.cr .k{font-size:10px;color:var(--ink-4);font-family:var(--mono);margin-left:auto}
+.cr .g{font-size:10px;color:var(--ink-3);background:var(--panel-2);padding:1px 6px;border-radius:4px}
+.tt{position:fixed;z-index:300;pointer-events:none;background:#1A2540;color:#fff;font-size:11px;padding:7px 10px;border-radius:8px;border:1px solid var(--line-3);max-width:280px;line-height:1.5;display:none;box-shadow:0 8px 30px rgba(0,0,0,.5)}
+#toast-wrap{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:500;display:flex;flex-direction:column;gap:8px;align-items:center}
+.toast{background:#1A2540;color:#fff;font-size:12px;font-weight:600;padding:9px 16px;border-radius:10px;border:1px solid var(--line-3);animation:toastIn .25s ease;display:flex;gap:8px;align-items:center}
+.toast i{width:7px;height:7px;border-radius:50%;background:var(--cyan)}
+@keyframes toastIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.foot-note{margin:26px 2px 0;font-size:10.5px;color:var(--ink-4);line-height:1.6;border-top:1px solid var(--line);padding-top:10px}
+</style>
+</head>
+<body>
+<div id="app">
+  <header id="topbar">
+    <div class="logo"><div class="mark">YW</div>YINGMIWORK</div>
+    <a id="back-link" class="tb-btn" href="index.html">‹ 工作台</a>
+    <div class="crumb">客户 › <b>客户 360° 驾驶舱</b></div>
+    <div class="sp"></div>
+    <div class="seg" id="view-seg">
+      <button data-v="overview" class="on">全景 <kbd>1</kbd></button>
+      <button data-v="timeline">时间轴 <kbd>2</kbd></button>
+      <button data-v="graph">关系图谱 <kbd>3</kbd></button>
+      <button data-v="plan">方案偏离 <kbd>4</kbd></button>
+    </div>
+    <select class="tb-sel" id="scene-sel" title="场景模式：决定哪几层置顶"></select>
+    <button class="tb-btn" onclick="openCmd()">⌕ 搜索 <kbd>⌘K</kbd></button>
+    <button class="tb-btn" onclick="toast('已把当前 360 上下文同步给 AI 副驾（演示）')">✦ 问副驾</button>
+    <span class="live"><i></i>实时</span>
+  </header>
+  <section id="hero"></section>
+  <div id="body">
+    <nav id="nav"></nav>
+    <main id="center">
+      <div class="view on" id="v-overview"></div>
+      <div class="view" id="v-timeline"></div>
+      <div class="view" id="v-graph"></div>
+      <div class="view" id="v-plan"></div>
+      <div class="foot-note">数据为合成脱敏演示（人物、金额、机构均为虚构），未连接生产接口；AI 输出为推断，需顾问确认后对客。手机号、证件号已按最小化原则脱敏；本页仅归属顾问及授权协作者可见。</div>
+    </main>
+    <aside id="rail"></aside>
+  </div>
+</div>
+<div class="tt" id="tt"></div>
+<div class="overlay" id="overlay" onclick="closeCmd()"></div>
+<div id="cmdk"><input id="cmd-in" placeholder="搜索模块、对象、事件、标签…（回车跳转）" autocomplete="off"><div class="res" id="cmd-res"></div></div>
+<div id="toast-wrap"></div>
+
+<script>
+"use strict";
+/* ============================================================
+   客户 360° 驾驶舱 · 单文件 DEMO
+   七层模型：谁 / 有什么 / 在做什么 / 要什么 / 我们给了什么 / 怎么样了 / 接下来做什么
+   三条主链：事实链（协议→账户→持仓→交易→资金）、意图链（测评→目标→方案→持仓→偏离）、触点链（行为+沟通+交易→标签→旅程）
+   一条闭环：事件→洞察→建议→任务→沟通→反馈→画像
+   ============================================================ */
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const pct=(n,d=1)=>(n>0?'+':'')+n.toFixed(d)+'%';
+const sgn=n=>n>0?'up':n<0?'down':'muted';
+const wan=n=>n.toLocaleString('zh-CN',{maximumFractionDigits:1})+' 万';
+const TODAY=new Date('2026-09-17');
+const fmtD=d=>`${d.getMonth()+1}/${d.getDate()}`;
+const daysAgo=n=>{const d=new Date(TODAY);d.setDate(d.getDate()-n);return d};
+
+/* ---------- 数据源 ---------- */
+const SRC={
+  trade:{lb:'蜂鸟 交易/持仓',c:'#2EE59D',fresh:'T-1 清算 · 09-16'},
+  pms:{lb:'投研 PMS',c:'#F2C14E',fresh:'每日 08:00'},
+  cdp:{lb:'CDP 标签',c:'#4C9AFF',fresh:'T-1 06:00'},
+  ccdp:{lb:'CCDP 行为标签',c:'#38D9F5',fresh:'实时 ≤5 分'},
+  sensor:{lb:'神策 行为',c:'#FFA940',fresh:'实时 5 分'},
+  scrm:{lb:'企微 / SCRM',c:'#F472B6',fresh:'实时'},
+  plan:{lb:'规划系统',c:'#A78BFA',fresh:'事件驱动'},
+  comp:{lb:'合规 / 适当性',c:'#C9A27E',fresh:'实时'},
+  ins:{lb:'保险 / 私募',c:'#FF7A59',fresh:'T-1'},
+  ai:{lb:'AI 引擎',c:'#C084FC',fresh:'10:48 重算'},
+  adv:{lb:'顾问录入',c:'#8A97B5',fresh:'手工'},
+};
+const srcDots=a=>a.map(k=>`<span class="sd" style="background:${SRC[k].c}" data-tt="${SRC[k].lb} · ${SRC[k].fresh}"></span>`).join('');
+
+/* ---------- 七层 ---------- */
+const LAYERS=[
+  {id:'who',n:'1',t:'他是谁',ds:'身份 · 家庭 · 标签 · 备注',c:'#4C9AFF',cmp:.92},
+  {id:'has',n:'2',t:'他有什么',ds:'资产 · 持仓 · 保险私募 · 站外',c:'#2EE59D',cmp:.88},
+  {id:'doing',n:'3',t:'他在做什么',ds:'交易 · 资金 · 行为 · 小顾 · 社区',c:'#FFA940',cmp:.95},
+  {id:'want',n:'4',t:'他要什么',ds:'目标 · 四笔钱 · 规划 · 偏好',c:'#A78BFA',cmp:.74},
+  {id:'give',n:'5',t:'我们给了什么',ds:'协议 · 服务 · 权益 · 费用',c:'#F2C14E',cmp:.90},
+  {id:'how',n:'6',t:'怎么样了',ds:'风险 · 收益 · 洞察 · 旅程 · 审查',c:'#38D9F5',cmp:.86},
+  {id:'next',n:'7',t:'接下来做什么',ds:'摘要 · 建议 · 提醒 · 任务',c:'#F472B6',cmp:1},
+];
+
+/* ---------- 客户 ---------- */
+const C={
+  name:'陈明远',ini:'陈',gender:'男',age:45,city:'佛山',job:'制造业企业主',tier:'私行客户',lvl:'L4 · 高净值',
+  cno:'QM2019****0418',phone:'138****2201',idno:'4406**********3X',
+  advisor:'李慕白',team:'私行一组',co:'张晴（保险顾问·只读）',referrer:'何静怡',
+  joinDate:'2019-04-18',firstInvest:'2019-05-06',signDate:'2020-03-12',
+  ids:[['App','QM****0418'],['企微','wx****7c2e'],['蜂鸟','FN****9031'],['保险','IN****2207'],['机构','—',true]],
+  aum:1280.6,aumChg7:-3.2,aumChgY:8.4,
+  aumM:[1102,1118,1140,1131,1176,1198,1205,1240,1268,1255,1321,1280.6],
+  aumL:['10月','11月','12月','1月','2月','3月','4月','5月','6月','7月','8月','9月'],
+  ret:{twr:9.6,mwr:8.1,bench:6.2,mdd:-7.8,mddNow:-3.2,ytd:5.4,sinceStart:41.2,retAbs:373.5},
+  risk:{tol:'C4 · 积极',hold:'R3 · 中等',score:73,expire:'2027-03-02',match:'匹配'},
+  health:72,churn:.71,oppo:.58,
+  radar:[['资产健康',82],['配置匹配',64],['行为活跃',58],['服务触达',76],['风险适配',88],['目标进度',61]],
+  buckets:[
+    {k:'活钱',c:'#38D9F5',tgt:8,act:7.5,amt:96.2,ds:'货基 + 短债'},
+    {k:'稳钱',c:'#4C9AFF',tgt:37,act:31.8,amt:407.6,ds:'固收+ · 稳稳的幸福'},
+    {k:'长钱',c:'#F2C14E',tgt:40,act:47.1,amt:603.4,ds:'长赢 · 主动权益'},
+    {k:'保障',c:'#A78BFA',tgt:15,act:13.6,amt:173.4,ds:'年金 + 增额寿（现价）'},
+  ],
+  offsite:{amt:860,items:[['房产（自住+1 套投资）','约 1,200 万（不计）'],['企业股权','未纳入'],['他行理财','约 360 万'],['房贷余额','-180 万'],['他行存款','约 500 万']]},
+  holdings:[
+    {n:'长赢指数投资计划 · 150 份',code:'PO_ZH',bk:'长钱',amt:318.2,w:24.8,r:12.4,r7:-3.1,acct:'投顾账户 A',spark:[91,93,95,94,98,101,103,100,104,106,103,100]},
+    {n:'我要稳稳的幸福',code:'PO_ZH',bk:'稳钱',amt:296.5,w:23.2,r:5.8,r7:-.4,acct:'投顾账户 A',spark:[100,100.4,100.9,101.2,101.8,102.1,102.6,103,103.5,104.1,104.6,104.4]},
+    {n:'兴全合润混合',code:'163406',bk:'长钱',amt:186.0,w:14.5,r:18.9,r7:-4.2,acct:'自选账户',spark:[88,90,94,92,97,101,105,102,108,111,107,103]},
+    {n:'易方达蓝筹精选',code:'005827',bk:'长钱',amt:99.2,w:7.7,r:-6.3,r7:-3.8,acct:'自选账户',spark:[100,98,95,96,93,95,92,94,91,93,90,88]},
+    {n:'招商产业债 C',code:'217023',bk:'稳钱',amt:111.1,w:8.7,r:3.9,r7:.1,acct:'自选账户',spark:[100,100.3,100.6,101,101.3,101.6,102,102.3,102.7,103,103.4,103.7]},
+    {n:'南方现金通 E',code:'000719',bk:'活钱',amt:96.2,w:7.5,r:1.8,r7:.0,acct:'活钱账户',spark:[100,100.1,100.3,100.4,100.6,100.7,100.9,101,101.2,101.3,101.5,101.6]},
+    {n:'教育金定制账户（目标 2035）',code:'GOAL',bk:'长钱',amt:80.0,w:6.2,r:2.1,r7:-1.9,acct:'目标账户',spark:[0,0,0,0,0,0,0,40,40,40,80,80]},
+  ],
+  insurance:[
+    {n:'增额终身寿（合成）',co:'某人寿',prem:'年缴 30 万 · 第 4/10 年',cv:'现价 118.4 万',st:'有效',c:'violet'},
+    {n:'养老年金（合成）',co:'某养老',prem:'年缴 20 万 · 第 3/5 年',cv:'现价 55.0 万',st:'有效',c:'violet'},
+    {n:'私募 FOF · 稳进 3 号',co:'合格投资者',prem:'认购 100 万 · 2024-06',cv:'净值 1.062',st:'封闭至 2027-06',c:'gold'},
+  ],
+  flows:{l:['10月','11月','12月','1月','2月','3月','4月','5月','6月','7月','8月','9月'],in:[20,180,0,50,0,60,0,50,0,40,0,0],out:[0,0,0,0,30,0,0,0,0,0,20,0]},
+  sip:[{n:'教育金 · 定制账户',amt:'40 万 / 期',next:'10-15 · 第 3/5 期',st:'正常'},{n:'长赢 · 月定投',amt:'2 万 / 月',next:'9-25',st:'正常'},{n:'活钱 · 工资自动转入',amt:'不定',next:'—',st:'已停 6 个月',warn:true}],
+  goals:[
+    {n:'子 · 教育金（2030 出国）',tgt:200,cur:80,plan:120,due:'2030',c:'#A78BFA'},
+    {n:'女 · 教育金（2035）',tgt:150,cur:0,plan:0,due:'2035',c:'#F472B6',pend:true},
+    {n:'养老储备（55 岁）',tgt:800,cur:228,plan:280,due:'2036',c:'#4C9AFF'},
+    {n:'企业备用金（活钱底线）',tgt:80,cur:96,plan:80,due:'常备',c:'#38D9F5'},
+  ],
+  planVer:'家庭财务规划 V5 · 2026-06-20 解读',planDev:{overall:7.1,items:[['长钱超配','+7.1pp','权益市场上涨被动漂移 + 教育金账户归入长钱'],['稳钱低配','-5.2pp','8 月赎回 20 万稳稳的幸福转活钱'],['保障略低','-1.4pp','增额寿现价增长慢于总资产']]},
+  tags:{
+    cdp:['私行客户','存量 7 年','企业主','佛山','45-50 岁','家庭三口以上','年金持有人'],
+    ccdp:['近 7 日活跃','赎回页 3 日','夜间浏览偏好','行情敏感','推文低打开','直播未参与'],
+    ai:['流失风险 · 高 0.71','追加机会 · 中高 0.58','焦虑型持有人','电话偏好 14-16 时','家庭决策共议'],
+    adv:['Q4 货款回笼 300 万（申报）','太太参与大额决策','关注传承','不喜欢群消息'],
+  },
+  notes:[
+    {d:'09-03',t:'企微沟通：客户问"最近是不是该减一点长赢"，情绪偏担忧，已发历史回撤修复图；约 9/10 电话'},
+    {d:'08-26',t:'外呼：Q4 约 300 万货款回笼，倾向稳健承接；提到太太想了解增额寿加保'},
+    {d:'06-20',t:'规划 V5 解读会（线下）：确认教育金 200 万分 5 期；传承议题下半年再聊'},
+  ],
+  family:[
+    {n:'陈明远',r:'本人 · 决策人',v:'1,280.6 万',ds:'投顾 A + 自选 + 活钱 + 目标账户'},
+    {n:'王女士',r:'配偶 · 共议',v:'186.3 万',ds:'稳稳的幸福 + 年金投保人；已授权家庭视图'},
+    {n:'陈同学',r:'子 14 岁',v:'80.0 万',ds:'教育金目标账户（父代持）'},
+    {n:'陈小姐',r:'女 9 岁',v:'—',ds:'教育金目标待开立（规划已列）'},
+  ],
+  trades:[
+    {d:'09-12',t:'长赢 Q3 调仓确认',ty:'调仓',amt:'权益 55%→50%',st:'待确认 · 9/15 截止',c:'gold'},
+    {d:'08-20',t:'赎回 我要稳稳的幸福',ty:'赎回',amt:'-20.0 万',st:'已确认',c:'red'},
+    {d:'07-15',t:'教育金账户 第 2 期',ty:'买入',amt:'+40.0 万',st:'已确认',c:'green'},
+    {d:'06-25',t:'长赢 月定投',ty:'定投',amt:'+2.0 万',st:'已确认',c:'green'},
+    {d:'05-08',t:'兴全合润 追加',ty:'买入',amt:'+50.0 万',st:'已确认',c:'green'},
+  ],
+  fees:{ytd:6.8,rate:'0.8% / 年 · 投顾 A',next:'10-01 季度扣收 2.6 万',items:[['投顾服务费（Q1-Q3）','6.8 万'],['基金申赎费','1.1 万'],['权益抵扣','-0.9 万']]},
+  agreements:[
+    {n:'投顾服务协议（私行版）',d:'2020-03-12 · 自动续期',st:'有效',c:'green'},
+    {n:'风险揭示书 & 适当性确认',d:'2026-03-02 · 有效期 12 月',st:'有效',c:'green'},
+    {n:'长赢 Q3 调仓确认书',d:'9/15 截止',st:'待签',c:'gold'},
+    {n:'私募合格投资者认定',d:'2024-06-01 · 复核 2027',st:'有效',c:'green'},
+    {n:'家庭视图授权（配偶）',d:'2025-11-08',st:'有效',c:'green'},
+  ],
+  service:{sla:[['季度复盘会','3/4 · Q3 待排 10/15 前',75,'warn'],['月度持仓报告','9/9 已发',100,'ok'],['年度规划更新','V5 已完成',100,'ok'],['重大事件 24h 触达','2/2',100,'ok'],['专属投研直播','6/8 邀请 · 0 参与',0,'bad']],pkg:'私行服务包 · 专属顾问 + 保险顾问 + 税务咨询 2 次/年'},
+  rights:[['生日礼 & 节礼','10-05 太太生日待寄'],['投研闭门会','Q4 名额 1'],['税务咨询','剩余 2/2 次'],['积分','12,480 · 可抵扣费'],],
+  community:[['自建组合「稳中求进」',' 跟投 3 人 · 近 1 年 +4.1%'],['且慢社区','发帖 2 · 评论 11 · 关注 8 位主理人'],['活动参与','2025 年度策略会 ✓ · 2026 春季答谢会 ✓']],
+  xiaogu:{n:47,adopt:.36,topics:[['长赢要不要减仓？',3],['回撤多久能修复',2],['教育金账户怎么看收益',2],['增额寿加保划不划算',1]],last:'09-14 22:41'},
+  journey:[
+    {y:'2019',t:'注册·首投',k:false},{y:'2020',t:'投顾签约',k:true},{y:'2021',t:'首次追加 100 万',k:false},{y:'2023',t:'购房大额赎回',k:true},{y:'2024',t:'私募认购',k:false},{y:'2025',t:'配偶授权',k:false},{y:'2026.6',t:'规划 V5',k:true},{y:'现在',t:'回撤焦虑窗口',now:true},{y:'2026.Q4',t:'300 万承接',fut:true},
+  ],
+  audit:[
+    {d:'09-17 10:48',t:'AI 重算流失分 0.64→0.71',by:'c360-insight v2.3',ty:'ai'},
+    {d:'09-16 18:02',t:'月度持仓报告已合规审核并发送',by:'合规机器人 · 通过',ty:'comp'},
+    {d:'09-12 09:30',t:'查看家庭视图（配偶资产）',by:'李慕白 · 授权有效',ty:'view'},
+    {d:'09-03 15:21',t:'外发历史回撤图 · 已过合规词表',by:'李慕白',ty:'comp'},
+  ],
+  brief:`7 年存量私行客户，四笔钱结构完整。近 7 日权益回撤 <b>-3.2%</b> 后出现焦虑行为：<b>连续 3 日访问赎回页未下单</b>{ev:m-behavior:行为}{ev:m-holdings:持仓}，9/3 企微问"要不要减长赢"{ev:m-comms:沟通}。该模式与 <b>2023 年购房赎回前 2 周</b>相似度 0.83{ev:m-journey:旅程}。同时 8/26 外呼提及 <b>Q4 约 300 万货款回笼</b>（顾问申报，未验证）{ev:m-cashflow:资金}。长赢 Q3 调仓确认 <b>9/15 截止</b>{ev:m-trades:交易}。当前是「防流失 + 承接追加」双重窗口，建议一次触达三件事。`,
+  nba:[
+    {id:'n1',t:'24h 内电话安抚：回撤归因 + 历史修复数据',pri:'high',conf:.86,why:'赎回意向 3 日 × 回撤 -3.2% × 2023 同模式；客户偏好电话 14-16 时',ev:[['m-behavior','行为'],['m-holdings','持仓'],['m-journey','旅程'],['m-prefs','偏好']],acts:['生成话术','创建任务']},
+    {id:'n2',t:'合并沟通：长赢 Q3 调仓信号（降权益）与安抚同向',pri:'high',conf:.90,why:'9/15 截止；适当性 C4/R3 匹配；避免两次触达给矛盾信息',ev:[['m-trades','交易'],['m-risk','风险'],['m-agreements','协议']],acts:['生成话术','查看调仓']},
+    {id:'n3',t:'10 月中旬前给出 300 万承接方案（稳钱补配）',pri:'mid',conf:.62,why:'稳钱低配 -5.2pp 正好承接；历史追加均在 11 月分红后',ev:[['m-cashflow','资金'],['m-plan','偏离'],['m-comms','沟通']],acts:['生成方案','创建任务']},
+    {id:'n4',t:'女儿教育金账户开立（规划已列、未执行）',pri:'low',conf:.95,why:'V5 规划列明 150 万 / 2035；目前 0 进度',ev:[['m-goals','目标'],['m-family','家庭']],acts:['创建任务']},
+  ],
+  reminders:[['09-17','回撤安抚电话 14:00-16:00','high'],['09-15','长赢 Q3 调仓确认已逾期 2 天','high'],['09-25','长赢月定投扣款','low'],['10-05','太太生日 · 礼品','mid'],['10-15','教育金第 3 期扣款 40 万','mid'],['10-15','Q3 季度复盘会 SLA 截止','mid']],
+  tasks:[['回撤安抚外呼','今天 16:00',false],['Q3 调仓确认书催签','9/18',false],['300 万承接方案初稿','10/10',false],['月度报告已发送','9/16',true]],
+};
+
+/* ---------- 统一时间轴事件 ---------- */
+const LANES=[
+  {id:'trade',t:'交易 / 资金',c:'#2EE59D'},
+  {id:'comm',t:'沟通',c:'#F472B6'},
+  {id:'beh',t:'App 行为',c:'#FFA940'},
+  {id:'ai',t:'AI / 洞察',c:'#C084FC'},
+  {id:'sys',t:'系统 / 合规',c:'#4C9AFF'},
+];
+const EV=[];
+const addEv=(dago,lane,t,ds,shape,mod,imp)=>EV.push({d:daysAgo(dago),lane,t,ds,shape:shape||'c',mod,imp:imp||1});
+addEv(0,'ai','流失分重算 0.71','赎回页 3 日 × 情绪转弱 × 历史模式','d','m-insights',3);
+addEv(1,'beh','访问赎回页（第 3 日）','22:41 · 停留 4 分 · 未下单','c','m-behavior',3);
+addEv(2,'beh','访问赎回页（第 2 日）','23:02 · 停留 2 分','c','m-behavior',2);
+addEv(3,'beh','访问赎回页（第 1 日）','21:15 · 查看长赢持仓后进入','c','m-behavior',2);
+addEv(3,'beh','小顾提问「长赢要不要减仓」','AI 回复含回撤修复数据 · 未采纳建议','c','m-xiaogu',2);
+addEv(1,'sys','月度持仓报告发送','合规审核通过 · 企微推送 · 未打开','s','m-audit',1);
+addEv(2,'sys','调仓确认书逾期','长赢 Q3 · 9/15 截止','s','m-agreements',3);
+addEv(5,'trade','长赢 Q3 调仓信号','权益 55%→50% · 待确认','d','m-trades',3);
+addEv(12,'trade','组合回撤 -3.2%','沪深300 -2.1% · 创业板 -3.4%','c','m-returns',2);
+addEv(14,'comm','企微：要不要减长赢','情绪 担忧 · 已发修复图 · 约电话','c','m-comms',3);
+addEv(22,'comm','外呼：Q4 300 万回笼','顾问申报 · 倾向稳健','c','m-comms',2);
+addEv(28,'trade','赎回 稳稳的幸福 -20 万','转活钱 · 客户自主','c','m-trades',2);
+addEv(30,'beh','浏览增额寿加保页','太太账号 · 2 次','c','m-behavior',1);
+addEv(35,'ai','追加机会分 0.58','货款回笼申报 + 历史追加节律','d','m-insights',2);
+addEv(40,'sys','积分到账 1,200','月活权益','s','m-rights',1);
+addEv(45,'beh','直播邀请未参与','专属投研直播 · 第 6 次未参与','c','m-service',1);
+addEv(52,'sys','季度扣费 2.6 万','投顾费 Q2','s','m-fees',1);
+addEv(64,'trade','教育金账户 第 2 期 +40 万','定制账户 · 目标 2030','c','m-cashflow',2);
+addEv(70,'comm','企微：孩子夏令营闲聊','关系维护 · 情绪 积极','c','m-comms',1);
+addEv(84,'trade','长赢月定投 +2 万','自动','c','m-trades',1);
+addEv(89,'comm','规划 V5 解读会（线下）','教育金分 5 期 · 传承下半年','d','m-plan',3);
+addEv(95,'sys','规划 V5 生成','规划系统 · 4 目标','s','m-plan',2);
+addEv(100,'beh','连续 5 日打开持仓页','市场上涨期 · 正向关注','c','m-behavior',1);
+addEv(110,'ai','家庭决策共议 标签生成','沟通纪要 + 配偶行为联动','d','m-tags',1);
+addEv(132,'trade','兴全合润 追加 +50 万','自选账户','c','m-trades',2);
+addEv(150,'comm','年度答谢会到场','携太太 · 互动良好','d','m-comms',2);
+addEv(165,'trade','活钱工资转入停止','连续 6 月未转入','c','m-cashflow',2);
+addEv(199,'sys','风险测评更新 C4','有效期至 2027-03','s','m-risk',2);
+addEv(230,'trade','年金第 3 期缴费 20 万','保险系统','c','m-insurance',1);
+addEv(260,'comm','企微：春节问候','关系维护','c','m-comms',1);
+addEv(290,'trade','年终奖追加 稳稳的幸福 +180 万','企业分红后','c','m-trades',3);
+addEv(300,'ai','追加节律洞察','每年 11 月分红后追加 · 3 年一致','d','m-insights',2);
+addEv(320,'trade','私募 FOF 分红再投','稳进 3 号','c','m-insurance',1);
+addEv(340,'comm','Q4 季度复盘会','线下 · 传承初聊','d','m-service',2);
+addEv(355,'sys','家庭视图授权（配偶）','协议签署','s','m-agreements',1);
+
+/* ---------- 图谱节点与边 ---------- */
+const GN=[
+  {id:'c',t:'陈明远',ty:'center',ds:'私行客户 · L4 · 归属 李慕白'},
+  ...LAYERS.map(l=>({id:l.id,t:l.t,ty:'layer',c:l.c,ds:l.ds})),
+  // 谁
+  {id:'fam',t:'家庭 4 人',l:'who',mod:'m-family',ds:'配偶授权 · 子女教育金'},{id:'ref',t:'介绍人 何静怡',l:'who',mod:'m-family',ds:'转介绍网络 · 2 人'},{id:'tag',t:'标签 4 源 22 个',l:'who',mod:'m-tags',ds:'CDP / CCDP / AI / 顾问'},{id:'kyc',t:'KYC 档案',l:'who',mod:'m-profile',ds:'测评 C4 · 有效至 2027-03'},
+  // 有什么
+  {id:'acctA',t:'投顾账户 A',l:'has',mod:'m-holdings',ds:'长赢 + 稳稳的幸福 · 614.7 万'},{id:'acctS',t:'自选账户',l:'has',mod:'m-holdings',ds:'3 只基金 · 396.3 万'},{id:'acctG',t:'教育金目标账户',l:'has',mod:'m-goals',ds:'80 / 200 万'},{id:'ins',t:'保单 2 张',l:'has',mod:'m-insurance',ds:'现价 173.4 万'},{id:'pe',t:'私募 FOF',l:'has',mod:'m-insurance',ds:'100 万 · 封闭至 2027'},{id:'off',t:'站外 860 万',l:'has',mod:'m-offsite',ds:'他行理财/存款 − 房贷'},
+  // 在做什么
+  {id:'tr',t:'交易 5 笔/季',l:'doing',mod:'m-trades',ds:'调仓待确认'},{id:'cf',t:'资金流',l:'doing',mod:'m-cashflow',ds:'净流入 +330 万/年'},{id:'beh',t:'赎回页 3 日',l:'doing',mod:'m-behavior',ds:'神策 · 夜间'},{id:'xg',t:'小顾 47 次',l:'doing',mod:'m-xiaogu',ds:'采纳 36%'},{id:'cm',t:'社区 / 自建组合',l:'doing',mod:'m-community',ds:'跟投 3 人'},
+  // 要什么
+  {id:'g1',t:'子教育金 2030',l:'want',mod:'m-goals',ds:'200 万 · 40%'},{id:'g2',t:'养老 2036',l:'want',mod:'m-goals',ds:'800 万 · 29%'},{id:'bk',t:'四笔钱方案',l:'want',mod:'m-plan',ds:'8/37/40/15'},{id:'pref',t:'偏好',l:'want',mod:'m-prefs',ds:'电话 14-16 · 不喜群消息'},
+  // 我们给了什么
+  {id:'agr',t:'协议 5 份',l:'give',mod:'m-agreements',ds:'1 待签'},{id:'svc',t:'私行服务包',l:'give',mod:'m-service',ds:'SLA 4/5 达成'},{id:'fee',t:'费用 6.8 万',l:'give',mod:'m-fees',ds:'0.8%/年'},{id:'rt',t:'权益',l:'give',mod:'m-rights',ds:'积分 12,480'},
+  // 怎么样了
+  {id:'rk',t:'风险 C4/R3',l:'how',mod:'m-risk',ds:'匹配'},{id:'ret',t:'收益 +9.6%',l:'how',mod:'m-returns',ds:'TWR · 基准 +6.2%'},{id:'dev',t:'偏离 7.1pp',l:'how',mod:'m-plan',ds:'长钱超配'},{id:'ins1',t:'洞察：流失 0.71',l:'how',mod:'m-insights',ds:'AI · 需确认'},{id:'jr',t:'关键旅程',l:'how',mod:'m-journey',ds:'2023 大额赎回'},{id:'aud',t:'审查记录',l:'how',mod:'m-audit',ds:'4 条/周'},
+  // 接下来
+  {id:'nba',t:'建议 4 条',l:'next',mod:'r-nba',ds:'2 高优'},{id:'rem',t:'提醒 6 条',l:'next',mod:'r-rem',ds:'1 逾期'},{id:'tk',t:'任务 4 项',l:'next',mod:'r-task',ds:'3 未完成'},
+];
+const GE=[
+  ...GN.filter(n=>n.ty==='layer').map(n=>({s:'c',t:n.id,k:'st'})),
+  ...GN.filter(n=>n.l).map(n=>({s:n.l,t:n.id,k:'st'})),
+  // 事实链
+  {s:'agr',t:'acctA',k:'fact'},{s:'acctA',t:'tr',k:'fact'},{s:'tr',t:'cf',k:'fact'},{s:'cf',t:'fee',k:'fact'},{s:'acctS',t:'tr',k:'fact'},{s:'acctG',t:'cf',k:'fact'},
+  // 意图链
+  {s:'kyc',t:'rk',k:'intent'},{s:'g1',t:'acctG',k:'intent'},{s:'bk',t:'dev',k:'intent'},{s:'g2',t:'bk',k:'intent'},{s:'dev',t:'ins1',k:'intent'},{s:'rk',t:'acctA',k:'intent'},
+  // 触点链
+  {s:'beh',t:'tag',k:'touch'},{s:'xg',t:'ins1',k:'touch'},{s:'beh',t:'ins1',k:'touch'},{s:'tr',t:'jr',k:'touch'},{s:'pref',t:'nba',k:'touch'},{s:'svc',t:'jr',k:'touch'},
+  // 闭环
+  {s:'ins1',t:'nba',k:'loop'},{s:'nba',t:'tk',k:'loop'},{s:'rem',t:'tk',k:'loop'},{s:'tk',t:'aud',k:'loop'},{s:'fam',t:'g1',k:'loop'},{s:'ref',t:'fam',k:'loop'},
+];
+const CHAINS={st:{t:'结构',c:'rgba(160,180,220,.22)'},fact:{t:'事实链',c:'#2EE59D'},intent:{t:'意图链',c:'#A78BFA'},touch:{t:'触点链',c:'#FFA940'},loop:{t:'行动闭环',c:'#38D9F5'}};
+
+/* ---------- 场景 ---------- */
+const SCENES={
+  default:{t:'默认 · 全景',order:null},
+  churn:{t:'场景 · 流失预警处置',order:['doing','how','next','has','want','give','who']},
+  plan:{t:'场景 · 规划面谈准备',order:['want','who','has','how','give','doing','next']},
+  comp:{t:'角色 · 合规/风控视角',order:['who','how','give','has','doing','want','next']},
+  onboard:{t:'场景 · 大额承接',order:['has','want','doing','how','next','give','who']},
+};
+
+/* ============ 迷你图表库（纯 SVG 字串） ============ */
+/* 宽度自适应槽位：先占位，渲染后按容器实际宽度出图 */
+const CH={};let chSeq=0;
+const chart=(fn,h)=>{const id='ch'+(++chSeq);CH[id]=fn;return `<div class="chart" data-ch="${id}" style="height:${h}px;overflow:hidden"></div>`};
+function mountCharts(){$$('.chart[data-ch]').forEach(el=>{const fn=CH[el.dataset.ch];if(!fn||!el.clientWidth)return;const w=Math.max(200,el.clientWidth);if(el.dataset.w===String(w))return;el.dataset.w=w;el.innerHTML=fn(w)})}
+let rsT;addEventListener('resize',()=>{clearTimeout(rsT);rsT=setTimeout(mountCharts,120)});
+const svgLine=(vals,w,h,c,opt={})=>{
+  const mn=opt.min??Math.min(...vals),mx=opt.max??Math.max(...vals),r=mx-mn||1,pad=opt.pad??2;
+  const pts=vals.map((v,i)=>[pad+i*(w-pad*2)/(vals.length-1),h-pad-(v-mn)/r*(h-pad*2)]);
+  const d=pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ');
+  const id='g'+Math.random().toString(36).slice(2,8);
+  const last=pts[pts.length-1];
+  return `<svg class="spark" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c}" stop-opacity=".35"/><stop offset="1" stop-color="${c}" stop-opacity="0"/></linearGradient></defs>${opt.area!==false?`<path d="${d} L${last[0].toFixed(1)},${h} L${pts[0][0].toFixed(1)},${h} Z" fill="url(#${id})"/>`:''}<path d="${d}" fill="none" stroke="${c}" stroke-width="${opt.sw??1.6}" stroke-linejoin="round"/>${opt.dot!==false?`<circle cx="${last[0]}" cy="${last[1]}" r="2.4" fill="${c}"/>`:''}</svg>`;
+};
+const svgArea=(vals,labels,w,h,c,opt={})=>{
+  const padL=opt.padL??34,padR=8,padT=10,padB=18;
+  const mn=opt.min??Math.min(...vals)*0.97,mx=opt.max??Math.max(...vals)*1.02,r=mx-mn||1;
+  const X=i=>padL+i*(w-padL-padR)/(vals.length-1),Y=v=>padT+(1-(v-mn)/r)*(h-padT-padB);
+  const pts=vals.map((v,i)=>[X(i),Y(v)]);
+  const d=pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ');
+  const id='a'+Math.random().toString(36).slice(2,8);
+  const ticks=[mn,(mn+mx)/2,mx];
+  let s=`<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" style="display:block"><defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c}" stop-opacity=".4"/><stop offset="1" stop-color="${c}" stop-opacity="0"/></linearGradient></defs>`;
+  ticks.forEach(t=>{s+=`<line x1="${padL}" x2="${w-padR}" y1="${Y(t)}" y2="${Y(t)}" stroke="rgba(160,180,220,.08)"/><text x="${padL-5}" y="${Y(t)+3}" font-size="9" fill="#6F7D9B" text-anchor="end" font-family="SF Mono,Menlo,monospace">${opt.fmt?opt.fmt(t):Math.round(t)}</text>`});
+  if(opt.bench){const bp=opt.bench.map((v,i)=>(i?'L':'M')+X(i).toFixed(1)+','+Y(v).toFixed(1)).join(' ');s+=`<path d="${bp}" fill="none" stroke="#6F7D9B" stroke-width="1.2" stroke-dasharray="3 3"/>`}
+  s+=`<path d="${d} L${pts[pts.length-1][0]},${h-padB} L${pts[0][0]},${h-padB} Z" fill="url(#${id})"/><path d="${d}" fill="none" stroke="${c}" stroke-width="2" stroke-linejoin="round"/>`;
+  pts.forEach((p,i)=>{s+=`<circle cx="${p[0]}" cy="${p[1]}" r="${i===pts.length-1?3.5:2}" fill="${i===pts.length-1?c:'#0E1626'}" stroke="${c}" stroke-width="1.2"/><circle cx="${p[0]}" cy="${p[1]}" r="9" fill="transparent" data-tt="${labels[i]} · ${opt.fmt?opt.fmt(vals[i]):vals[i]}${opt.bench?'<br>基准 '+(opt.fmt?opt.fmt(opt.bench[i]):opt.bench[i]):''}"/>`;if(i%2===0||i===vals.length-1)s+=`<text x="${p[0]}" y="${h-5}" font-size="9" fill="#6F7D9B" text-anchor="middle">${labels[i]}</text>`});
+  if(opt.marks)opt.marks.forEach(m=>{s+=`<line x1="${X(m.i)}" x2="${X(m.i)}" y1="${padT}" y2="${h-padB}" stroke="${m.c}" stroke-dasharray="2 3"/><text x="${X(m.i)+3}" y="${padT+8}" font-size="9" fill="${m.c}">${m.t}</text>`});
+  return s+'</svg>';
+};
+const svgBars=(pos,neg,labels,w,h,cp,cn)=>{
+  const padL=30,padR=6,padT=8,padB=18,n=pos.length,bw=(w-padL-padR)/n;
+  const mx=Math.max(...pos,...neg,1),zero=padT+(h-padT-padB)*mx/(mx+Math.max(...neg,1)*0+mx*0.35);
+  const scale=(zero-padT)/mx;
+  let s=`<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" style="display:block"><line x1="${padL}" x2="${w-padR}" y1="${zero}" y2="${zero}" stroke="rgba(160,180,220,.2)"/>`;
+  s+=`<text x="${padL-4}" y="${padT+6}" font-size="9" fill="#6F7D9B" text-anchor="end">${mx}</text><text x="${padL-4}" y="${zero+3}" font-size="9" fill="#6F7D9B" text-anchor="end">0</text>`;
+  for(let i=0;i<n;i++){const x=padL+i*bw+bw*.22,wd=bw*.56;
+    if(pos[i])s+=`<rect x="${x}" y="${zero-pos[i]*scale}" width="${wd}" height="${pos[i]*scale}" rx="2" fill="${cp}" data-tt="${labels[i]} 流入 +${pos[i]} 万"/>`;
+    if(neg[i])s+=`<rect x="${x}" y="${zero}" width="${wd}" height="${Math.min(neg[i]*scale,h-padB-zero)}" rx="2" fill="${cn}" data-tt="${labels[i]} 流出 -${neg[i]} 万"/>`;
+    if(i%2===0)s+=`<text x="${x+wd/2}" y="${h-5}" font-size="9" fill="#6F7D9B" text-anchor="middle">${labels[i]}</text>`}
+  return s+'</svg>';
+};
+const svgDonut=(segs,size,thick,center)=>{
+  const r=size/2-thick/2,cx=size/2,cy=size/2,tot=segs.reduce((a,b)=>a+b.v,0);let off=0,s=`<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" style="flex:none">`;
+  segs.forEach(g=>{const f=g.v/tot,a0=off*2*Math.PI-Math.PI/2,a1=(off+f)*2*Math.PI-Math.PI/2;off+=f;
+    const x0=cx+r*Math.cos(a0),y0=cy+r*Math.sin(a0),x1=cx+r*Math.cos(a1),y1=cy+r*Math.sin(a1);
+    s+=`<path d="M${x0},${y0} A${r},${r} 0 ${f>.5?1:0} 1 ${x1},${y1}" fill="none" stroke="${g.c}" stroke-width="${thick}" data-tt="${g.k} · ${(f*100).toFixed(1)}%${g.d?' · '+g.d:''}" style="cursor:help"/>`});
+  if(center)s+=`<text x="${cx}" y="${cy-2}" text-anchor="middle" font-size="${size/6}" font-weight="800" fill="#E9EFFA">${center[0]}</text><text x="${cx}" y="${cy+size/8}" text-anchor="middle" font-size="${size/11}" fill="#6F7D9B">${center[1]}</text>`;
+  return s+'</svg>';
+};
+const svgRing=(v,size,c,lb)=>{
+  const r=size/2-4,circ=2*Math.PI*r;
+  return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" style="flex:none"><circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="rgba(160,180,220,.12)" stroke-width="4"/><circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="${c}" stroke-width="4" stroke-linecap="round" stroke-dasharray="${circ*v/100} ${circ}" transform="rotate(-90 ${size/2} ${size/2})"/><text x="50%" y="53%" text-anchor="middle" dominant-baseline="middle" font-size="${size/3.2}" font-weight="800" fill="#E9EFFA">${lb??v}</text></svg>`;
+};
+const svgRadar=(items,size)=>{
+  const cx=size/2,cy=size/2,R=size/2-30,n=items.length,ang=i=>i*2*Math.PI/n-Math.PI/2;
+  let s=`<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">`;
+  [.25,.5,.75,1].forEach(k=>{s+=`<polygon points="${items.map((_,i)=>(cx+R*k*Math.cos(ang(i))).toFixed(1)+','+(cy+R*k*Math.sin(ang(i))).toFixed(1)).join(' ')}" fill="none" stroke="rgba(160,180,220,.12)"/>`});
+  items.forEach((it,i)=>{s+=`<line x1="${cx}" y1="${cy}" x2="${cx+R*Math.cos(ang(i))}" y2="${cy+R*Math.sin(ang(i))}" stroke="rgba(160,180,220,.1)"/>`;
+    const lx=cx+(R+16)*Math.cos(ang(i)),ly=cy+(R+16)*Math.sin(ang(i));s+=`<text x="${lx}" y="${ly+3}" font-size="9.5" fill="#AAB7D0" text-anchor="middle">${it[0]}</text><text x="${lx}" y="${ly+14}" font-size="9" fill="${it[1]<65?'#FF5D6C':'#6F7D9B'}" text-anchor="middle" font-weight="700">${it[1]}</text>`});
+  const poly=items.map((it,i)=>(cx+R*it[1]/100*Math.cos(ang(i))).toFixed(1)+','+(cy+R*it[1]/100*Math.sin(ang(i))).toFixed(1)).join(' ');
+  s+=`<polygon points="${poly}" fill="rgba(56,217,245,.18)" stroke="#38D9F5" stroke-width="1.8"/>`;
+  items.forEach((it,i)=>{s+=`<circle cx="${cx+R*it[1]/100*Math.cos(ang(i))}" cy="${cy+R*it[1]/100*Math.sin(ang(i))}" r="3" fill="${it[1]<65?'#FF5D6C':'#38D9F5'}"/>`});
+  return s+'</svg>';
+};
+const svgGauge=(tolIdx,holdIdx,w)=>{
+  // 5 档 C1-C5 / R1-R5 半环，展示承受能力与持仓风险位置
+  const h=w*.56,cx=w/2,cy=h-8,R=w/2-14;
+  const pos=k=>{const a=Math.PI-(k-.5)/5*Math.PI;return [cx+R*Math.cos(a),cy-R*Math.sin(a)]};
+  const cols=['#2EE59D','#38D9F5','#4C9AFF','#F2C14E','#FF5D6C'];
+  let s=`<svg width="100%" viewBox="0 0 ${w} ${h}" style="display:block;height:${h}px">`;
+  for(let i=0;i<5;i++){const a0=Math.PI-i/5*Math.PI,a1=Math.PI-(i+1)/5*Math.PI+.03;
+    s+=`<path d="M${cx+R*Math.cos(a0)},${cy-R*Math.sin(a0)} A${R},${R} 0 0 1 ${cx+R*Math.cos(a1)},${cy-R*Math.sin(a1)}" fill="none" stroke="${cols[i]}" stroke-opacity=".35" stroke-width="12"/>`;
+    const [lx,ly]=pos(i+1);s+=`<text x="${lx}" y="${ly-14}" font-size="9" fill="#6F7D9B" text-anchor="middle">C${i+1}/R${i+1}</text>`}
+  const [tx,ty]=pos(tolIdx),[hx,hy]=pos(holdIdx);
+  s+=`<line x1="${cx}" y1="${cy}" x2="${tx}" y2="${ty}" stroke="#F2C14E" stroke-width="2.2" stroke-linecap="round"/><circle cx="${tx}" cy="${ty}" r="5" fill="#F2C14E" data-tt="风险承受能力 C${tolIdx} · 测评 2026-03"/>`;
+  s+=`<line x1="${cx}" y1="${cy}" x2="${hx}" y2="${hy}" stroke="#38D9F5" stroke-width="2.2" stroke-linecap="round"/><circle cx="${hx}" cy="${hy}" r="5" fill="#38D9F5" data-tt="持仓综合风险 R${holdIdx} · T-1"/>`;
+  s+=`<circle cx="${cx}" cy="${cy}" r="4" fill="#E9EFFA"/></svg>`;
+  return s;
+};
+
+/* ============ 模块注册表 ============ */
+const M=[];
+const mod=(id,layer,title,srcs,render,opt={})=>M.push({id,layer,title,srcs,render,...opt});
+
+mod('m-profile','who','基本信息 · KYC 档案',['cdp','comp','adv'],()=>`
+  <div class="stat3"><div class="s"><div class="k">客户分层</div><div class="v" style="font-size:13px">${C.tier}</div><div class="d muted">${C.lvl}</div></div><div class="s"><div class="k">存量年限</div><div class="v">7.4<small style="font-size:10px;color:var(--ink-3)"> 年</small></div><div class="d muted">首投 ${C.firstInvest}</div></div><div class="s"><div class="k">风险测评</div><div class="v" style="font-size:13px">${C.risk.tol}</div><div class="d muted">有效至 ${C.risk.expire}</div></div></div>
+  <div class="kv"><span class="k">年龄 / 城市 / 职业</span><span class="v">${C.age} 岁 · ${C.city} · ${C.job}</span></div>
+  <div class="kv"><span class="k">手机 / 证件</span><span class="v mono">${C.phone} · ${C.idno}</span></div>
+  <div class="kv"><span class="k">投资者分类</span><span class="v">普通投资者 · 私募合格投资者 ✓</span></div>
+  <div class="kv"><span class="k">双录 / 反洗钱</span><span class="v"><span class="tag green sm">已完成</span> <span class="tag green sm">低风险</span></span></div>
+  <div class="kv"><span class="k">归属 / 协作</span><span class="v">${C.advisor} · ${C.team} <span class="muted">/ ${C.co}</span></span></div>
+  <div class="kv"><span class="k">来源</span><span class="v">转介绍 · ${C.referrer}（2019）</span></div>`,{foot:'合规硬约束字段以合规系统为准；顾问录入为申报口径'});
+
+mod('m-family','who','家庭关系与账户图谱',['trade','scrm','adv'],()=>`
+  <div class="fam">${C.family.map(f=>`<div class="fm"><div class="n">${f.n}<span class="tag gray sm">${f.r}</span></div><div class="v">${f.v}</div><div class="d">${f.ds}</div></div>`).join('')}</div>
+  <div class="kv" style="margin-top:8px"><span class="k">家庭合并 AUM</span><span class="v num">1,546.9 万 <span class="muted">（本人 82.8%）</span></span></div>
+  <div class="kv"><span class="k">转介绍网络</span><span class="v">介绍人 ${C.referrer} → 本人 → 已介绍 2 人（1 人签约）</span></div>`,{s:3,foot:'配偶数据依据「家庭视图授权」展示；子女账户为父代持'});
+
+mod('m-tags','who','标签体系 · 四源分层',['cdp','ccdp','ai','adv'],()=>{
+  const rows=[['cdp','CDP 事实','blue'],['ccdp','CCDP 行为','cyan'],['ai','AI 推断','violet'],['adv','顾问申报','gray']];
+  return `<div class="tagcloud">${rows.map(([k,lb,c])=>`<div class="tagrow"><div class="src"><span class="sd" style="background:${SRC[k].c}"></span>${lb}</div><div class="tags">${C.tags[k].map(t=>`<span class="tag ${c} sm" data-tt="来源 ${SRC[k].lb} · ${SRC[k].fresh}" onclick="toast('已加入筛选：${esc(t)}')">${t}</span>`).join('')}</div></div>`).join('')}</div>`;
+},{foot:'事实 > 行为 > 推断 > 申报；冲突时按权威级别取值'});
+
+mod('m-notes','who','顾问备注',['adv'],()=>`<div class="list">${C.notes.map(n=>`<div class="li"><div class="ic" style="background:var(--panel-3);color:var(--ink-3)">${n.d.slice(0,2)}</div><div><div class="t">${n.t}</div><div class="d mono">${n.d} · ${C.advisor}</div></div></div>`).join('')}</div><div style="margin-top:8px"><button class="btn xs" onclick="toast('备注已保存（演示）')">＋ 新备注</button></div>`,{s:2});
+
+mod('m-assets','has','资产总览 · 四笔钱 & 站内外',['trade','ins','plan','adv'],()=>{
+  const segs=C.buckets.map(b=>({k:b.k,v:b.amt,c:b.c,d:b.ds}));
+  return `<div style="display:flex;gap:14px;align-items:center">
+    ${svgDonut(segs,118,16,[wan(C.aum).replace(' 万',''),'万 · 站内'])}
+    <div style="flex:1;min-width:0">${C.buckets.map(b=>`<div class="kv"><span class="k"><i class="sd" style="background:${b.c};margin-right:5px"></i>${b.k}</span><span class="v num">${b.amt.toFixed(1)} 万 <span class="muted" style="font-weight:500">${b.act}%</span> <span class="${Math.abs(b.act-b.tgt)>4?'warn':'muted'}" style="font-size:10px">目标 ${b.tgt}%</span></span></div>`).join('')}</div>
+  </div>
+  <div style="margin-top:10px">${chart(w=>svgArea(C.aumM,C.aumL,w,120,'#38D9F5',{fmt:v=>Math.round(v),marks:[{i:10,t:'高点 1,321',c:'#F2C14E'}]}),120)}</div>
+  <div class="ct">站内 AUM 近 12 月（万元） · 蜂鸟 T-1 · 高点 8 月 1,321 万 · 当前 -3.1%</div>`;
+},{s:4,foot:'站内口径 = 公募/组合市值 + 保单现价 + 私募净值；站外资产见右侧模块，仅用于规划'});
+
+mod('m-offsite','has','站外资产与负债',['adv'],()=>`<div class="kv"><span class="k">纳入规划的站外净资产</span><span class="v num" style="color:var(--gold)">约 ${C.offsite.amt} 万</span></div>${C.offsite.items.map(i=>`<div class="kv"><span class="k">${i[0]}</span><span class="v">${i[1]}</span></div>`).join('')}<div class="ct">顾问申报 · 2026-06 规划面谈；房产与股权仅登记不计入四笔钱</div>`,{s:2});
+
+mod('m-holdings','has','持仓明细 · 三视角',['trade','pms'],()=>{
+  const v=STATE.holdView;
+  let rows=C.holdings;
+  if(v==='bucket')rows=[...rows].sort((a,b)=>a.bk.localeCompare(b.bk,'zh'));
+  if(v==='acct')rows=[...rows].sort((a,b)=>a.acct.localeCompare(b.acct,'zh'));
+  return `<div class="flex" style="margin-bottom:6px"><div class="tabs">${[['fund','基金/组合'],['bucket','四笔钱'],['acct','账户']].map(([k,t])=>`<button class="${v===k?'on':''}" onclick="STATE.holdView='${k}';rerender('m-holdings')">${t}</button>`).join('')}</div><span class="sp"></span><span class="muted" style="font-size:10.5px">7 项 · 合计 ${wan(C.aum)}</span></div>
+  <table class="tbl"><thead><tr><th>名称</th><th>${v==='acct'?'账户':'笔'}</th><th class="r">市值(万)</th><th>占比</th><th class="r">持有收益</th><th class="r">7 日</th><th>走势</th></tr></thead><tbody>
+  ${rows.map(h=>`<tr onclick="toast('打开 ${esc(h.n)} 详情（演示）')"><td><div style="font-weight:600">${h.n}</div><div class="muted mono" style="font-size:9.5px">${h.code}</div></td><td><span class="tag gray sm">${v==='acct'?h.acct:h.bk}</span></td><td class="r num">${h.amt.toFixed(1)}</td><td><div class="wbar"><i style="width:${h.w*3.5}%;background:${C.buckets.find(b=>b.k===h.bk).c}"></i></div><span class="muted" style="font-size:9.5px">${h.w}%</span></td><td class="r num ${sgn(h.r)}">${pct(h.r)}</td><td class="r num ${sgn(h.r7)}">${pct(h.r7)}</td><td>${svgLine(h.spark,64,20,h.r7<0?'#FF5D6C':'#2EE59D',{area:false,dot:false,sw:1.3})}</td></tr>`).join('')}
+  </tbody></table>`;
+},{s:6,foot:'持有收益为摊薄成本口径；组合类穿透至成分基金可在 PMS 查看'});
+
+mod('m-insurance','has','私募 · 保险 · 历史已投',['ins','trade'],()=>`
+  <div class="fam">${C.insurance.map(p=>`<div class="fm" style="border-top:2px solid var(--${p.c==='gold'?'gold':'violet'})"><div class="n">${p.n}<span class="tag ${p.c==='gold'?'gold':'green'} sm" style="margin-left:auto">${p.st}</span></div><div class="v">${p.cv}</div><div class="d">${p.co} · ${p.prem}</div></div>`).join('')}
+  <div class="fm" style="border-top:2px solid var(--ink-4)"><div class="n">历史已投 · 已清仓</div><div class="v up">+58.2 万</div><div class="d">6 只 · 累计实现收益 · 最长持有 3.2 年 · 无踩雷</div></div></div>`,{s:6,foot:'保单现价与私募净值均为 T-1；私募封闭期内不计入可动用资产'});
+
+mod('m-trades','doing','交易流水',['trade','pms'],()=>`<div class="list">${C.trades.map(t=>`<div class="li"><div class="ic" style="background:var(--${t.c==='red'?'down':t.c==='gold'?'gold':'up'}-soft);color:var(--${t.c==='red'?'down':t.c==='gold'?'gold':'up'})">${t.ty.slice(0,1)}</div><div style="flex:1"><div class="t">${t.t}</div><div class="d">${t.st}</div></div><div class="rt"><div class="num" style="font-weight:700;color:var(--ink)">${t.amt}</div>${t.d}</div></div>`).join('')}</div>`,{s:3,foot:'近 90 日 5 笔 · 主动 3 / 自动 1 / 调仓 1'});
+
+mod('m-cashflow','doing','资金 · 流水与计划',['trade','plan'],()=>`
+  ${chart(w=>svgBars(C.flows.in,C.flows.out,C.flows.l,w,110,'#2EE59D','#FF5D6C'),110)}
+  <div class="legend"><span><i style="background:#2EE59D"></i>流入</span><span><i style="background:#FF5D6C"></i>流出</span><span class="sp"></span><span>近 12 月净流入 <b class="up">+330 万</b></span></div>
+  <div style="margin-top:8px">${C.sip.map(s=>`<div class="kv"><span class="k">${s.n}</span><span class="v">${s.amt} · <span class="muted">${s.next}</span> <span class="tag ${s.warn?'warn':'green'} sm">${s.st}</span></span></div>`).join('')}</div>
+  <div class="kv"><span class="k">预期入金（申报）</span><span class="v"><span class="tag gold sm">Q4 约 300 万</span> 货款回笼 · 8/26 外呼</span></div>`,{s:3});
+
+mod('m-behavior','doing','App 行为 · 12 周热力',['sensor','ccdp'],()=>{
+  const cells=[];for(let w=0;w<12;w++)for(let d=0;d<7;d++){let v=Math.max(0,Math.round(Math.sin(w*1.7+d*.9)*1.3+.5+(d>=5?.6:0)+(w>=10?1.2:0)+(w===11&&d>=4?3:0)));cells.push(v)}
+  const cols=['var(--panel-3)','rgba(255,169,64,.25)','rgba(255,169,64,.45)','rgba(255,169,64,.7)','#FFA940','#FF7A59','#FF5D6C'];
+  let g='';for(let d=0;d<7;d++)for(let w=0;w<12;w++){const v=cells[w*7+d];g+=`<i style="background:${cols[Math.min(v,6)]}" data-tt="第 ${w+1} 周 · 周${'一二三四五六日'[d]} · ${v} 次访问${w===11&&d>=3?'<br>含赎回页':''}"></i>`}
+  return `<div class="stat3"><div class="s"><div class="k">近 7 日访问</div><div class="v">11<small style="font-size:10px;color:var(--ink-3)"> 次</small></div><div class="d up">+83% vs 前 7 日</div></div><div class="s"><div class="k">赎回页</div><div class="v down">3<small style="font-size:10px;color:var(--ink-3)"> 日连续</small></div><div class="d muted">未下单</div></div><div class="s"><div class="k">活跃时段</div><div class="v" style="font-size:14px">21-23 时</div><div class="d muted">夜间 · 行情敏感</div></div></div>
+  <div class="heat">${g}</div><div class="heat-l"><span>12 周前</span><span>本周（行 = 周一 → 周日）</span></div>
+  <div class="ct">神策 · 实时 · 颜色越深访问越多；最近一周赎回页访问已标红</div>`;
+},{s:3});
+
+mod('m-xiaogu','doing','AI 小顾 · 使用与咨询',['ai','sensor'],()=>`
+  <div class="stat3"><div class="s"><div class="k">累计对话</div><div class="v">${C.xiaogu.n}</div><div class="d muted">近 30 日 9 次</div></div><div class="s"><div class="k">建议采纳率</div><div class="v">${Math.round(C.xiaogu.adopt*100)}%</div><div class="d muted">低于私行均值 52%</div></div><div class="s"><div class="k">最近一次</div><div class="v" style="font-size:12px">${C.xiaogu.last}</div><div class="d warn">夜间 · 减仓话题</div></div></div>
+  <div class="list">${C.xiaogu.topics.map(t=>`<div class="chatq"><span class="q">「${t[0]}」</span><span class="sp"></span><span class="n">×${t[1]}</span></div>`).join('')}</div>
+  <div class="ct">小顾对话已同步为「焦虑型持有人」AI 标签的证据之一；顾问可查看对话摘要，不展示原文</div>`,{s:3});
+
+mod('m-community','doing','权益 · 社区 · 自建组合 · 活动',['cdp','sensor'],()=>`
+  ${C.community.map(c=>`<div class="kv"><span class="k">${c[0]}</span><span class="v" style="font-weight:500">${c[1]}</span></div>`).join('')}
+  <div class="kv"><span class="k">内容触达</span><span class="v" style="font-weight:500">推文打开率 <span class="down">12%</span> · 直播参与 <span class="down">0/8</span> · 更偏好一对一</span></div>`,{s:3});
+
+mod('m-goals','want','目标与四笔钱 · 方案 vs 实际',['plan','trade'],()=>`
+  ${C.goals.map(g=>{const p=Math.min(100,g.cur/g.tgt*100),pp=Math.min(100,g.plan/g.tgt*100);return `<div class="goal"><div class="h"><i class="sd" style="background:${g.c}"></i>${g.n}${g.pend?'<span class="tag warn sm">未开立</span>':''}<span class="r">${g.cur} / ${g.tgt} 万 · ${g.due}</span></div><div class="bar"><i style="width:${p}%;background:${g.c}"></i><b style="left:${pp}%" data-tt="规划应达进度 ${g.plan} 万"></b></div><div class="m"><span>实际 ${p.toFixed(0)}%</span><span>方案应达 ${pp.toFixed(0)}%</span><span class="${g.cur>=g.plan?'up':'down'}">${g.cur>=g.plan?'领先':'落后'} ${Math.abs(g.cur-g.plan)} 万</span></div></div>`}).join('')}
+  <div class="ct">金色刻度 = 规划方案应达进度 · 规划系统 ${C.planVer}</div>`,{s:3});
+
+mod('m-prefs','want','偏好与服务设置',['scrm','ccdp','adv'],()=>`
+  <div class="kv"><span class="k">沟通渠道 / 时段</span><span class="v">电话 › 企微 › 线下 · 14:00-16:00</span></div>
+  <div class="kv"><span class="k">内容偏好</span><span class="v">数据图表 · 简短结论 · 不喜群消息</span></div>
+  <div class="kv"><span class="k">决策方式</span><span class="v">与太太共议 · 大额需 1-2 周</span></div>
+  <div class="kv"><span class="k">报告频率</span><span class="v">月报 ✓ · 周报 ✗ · 重大事件即时</span></div>
+  <div class="kv"><span class="k">推送设置</span><span class="v">行情提醒 关 · 到账通知 开 · 直播 关</span></div>
+  <div class="kv"><span class="k">数据授权</span><span class="v"><span class="tag green sm">家庭视图</span> <span class="tag green sm">行为分析</span> <span class="tag gray sm">AI 外呼 未授权</span></span></div>`,{s:3});
+
+mod('m-agreements','give','投顾协议与签约',['comp','trade'],()=>`<div class="list">${C.agreements.map(a=>`<div class="li"><div class="ic" style="background:var(--${a.c==='gold'?'gold':'up'}-soft);color:var(--${a.c==='gold'?'gold':'up'})">约</div><div style="flex:1"><div class="t">${a.n}</div><div class="d mono">${a.d}</div></div><div class="rt"><span class="tag ${a.c==='gold'?'gold':'green'} sm">${a.st}</span></div></div>`).join('')}</div>`,{s:3});
+
+mod('m-service','give','投顾服务 · 履约 SLA',['scrm','adv'],()=>`
+  <div class="muted" style="font-size:11px;margin-bottom:6px">${C.service.pkg}</div>
+  ${C.service.sla.map(s=>`<div class="goal" style="padding:6px 0"><div class="h">${s[0]}<span class="r ${s[3]==='bad'?'down':s[3]==='warn'?'warn':'muted'}">${s[1]}</span></div><div class="bar" style="height:4px;margin-top:4px"><i style="width:${s[2]}%;background:${s[3]==='bad'?'var(--down)':s[3]==='warn'?'var(--warn)':'var(--up)'}"></i></div></div>`).join('')}`,{s:3});
+
+mod('m-fees','give','费用',['trade'],()=>`<div class="stat3"><div class="s"><div class="k">年内投顾费</div><div class="v">${C.fees.ytd}<small style="font-size:10px;color:var(--ink-3)"> 万</small></div><div class="d muted">${C.fees.rate}</div></div><div class="s"><div class="k">下次扣收</div><div class="v" style="font-size:12px">${C.fees.next}</div></div><div class="s"><div class="k">费后超额</div><div class="v up">+2.6<small style="font-size:10px;color:var(--ink-3)"> pp</small></div><div class="d muted">vs 基准 · 近 1 年</div></div></div>${C.fees.items.map(i=>`<div class="kv"><span class="k">${i[0]}</span><span class="v num">${i[1]}</span></div>`).join('')}`,{s:3});
+
+mod('m-rights','give','权益',['cdp'],()=>C.rights.map(r=>`<div class="kv"><span class="k">${r[0]}</span><span class="v" style="font-weight:500">${r[1]}</span></div>`).join(''),{s:3});
+
+mod('m-returns','how','收益 · 口径双显',['trade','pms'],()=>{
+  const nav=[100,101.2,103.5,102.8,105.9,107.6,108.1,110.4,112.9,111.6,115.2,109.6];const bench=[100,100.8,101.9,101.5,103.2,104.1,104.6,105.5,106.4,105.9,107.3,106.2];
+  return `<div class="stat3"><div class="s"><div class="k">时间加权 TWR</div><div class="v up">${pct(C.ret.twr)}</div><div class="d muted">近 1 年 · 基准 ${pct(C.ret.bench)}</div></div><div class="s"><div class="k">资金加权 MWR</div><div class="v up">${pct(C.ret.mwr)}</div><div class="d muted">客户实际体验</div></div><div class="s"><div class="k">累计盈亏</div><div class="v up">+${C.ret.retAbs}<small style="font-size:10px;color:var(--ink-3)"> 万</small></div><div class="d muted">成立以来 ${pct(C.ret.sinceStart)}</div></div></div>
+  ${chart(w=>svgArea(nav,C.aumL,w,120,'#2EE59D',{bench,fmt:v=>v.toFixed(0),marks:[{i:10,t:'高点',c:'#F2C14E'}]}),120)}
+  <div class="legend"><span><i style="background:#2EE59D"></i>组合净值（归一 100）</span><span><i style="background:#6F7D9B"></i>业绩基准</span><span class="sp"></span>当前回撤 <b class="down">${C.ret.mddNow}%</b> · 历史最大 <b>${C.ret.mdd}%</b> · 修复中位 47 天</div>`;
+},{s:3});
+
+mod('m-risk','how','风险 · 适当性与压力测试',['comp','pms','trade'],()=>`
+  ${svgGauge(4,3,300)}
+  <div class="legend" style="justify-content:center"><span><i style="background:#F2C14E"></i>承受能力 ${C.risk.tol}</span><span><i style="background:#38D9F5"></i>持仓风险 ${C.risk.hold}</span><span class="tag green sm">适当性 ${C.risk.match}</span></div>
+  <div style="margin-top:8px">${[['沪深300 -20%','-8.9%','#FF5D6C'],['利率 +100bp','-1.6%','#FFA940'],['2022 全年重演','-11.2%','#FF5D6C'],['2024.9 反弹重演','+9.4%','#2EE59D']].map(s=>`<div class="kv"><span class="k">${s[0]}</span><span class="v num" style="color:${s[2]}">${s[1]}</span></div>`).join('')}</div>
+  <div class="ct">压力测试 · PMS 每日 · 客户可承受最大回撤（面谈申报）约 -15%</div>`,{s:3});
+
+mod('m-insights','how','洞察 · 证据链',['ai','ccdp','pms'],()=>`
+  <div class="list">
+    <div class="li" style="border-color:rgba(255,93,108,.35)"><div class="ic" style="background:var(--down-soft);color:var(--down)">!</div><div style="flex:1"><div class="t">赎回风险 · 0.71 <span class="tag red sm">高</span></div><div class="d">赎回页 3 日 × 回撤 -3.2% × 情绪转弱 × 2023 同模式（相似 0.83）</div><div class="nba evs" style="padding:0;border:none;background:none;margin:4px 0 0">${[['m-behavior','行为'],['m-returns','回撤'],['m-comms','沟通'],['m-journey','2023']].map(e=>`<span class="chip ev" onclick="jump('${e[0]}')">${e[1]}</span>`).join('')}</div></div></div>
+    <div class="li" style="border-color:rgba(242,193,78,.35)"><div class="ic" style="background:var(--gold-soft);color:var(--gold)">↑</div><div style="flex:1"><div class="t">追加机会 · 0.58 <span class="tag gold sm">中高</span></div><div class="d">Q4 300 万申报 + 3 年「11 月分红后追加」节律 + 稳钱低配 -5.2pp</div></div></div>
+    <div class="li"><div class="ic" style="background:var(--violet-soft);color:var(--violet)">∿</div><div style="flex:1"><div class="t">行为模式：夜间行情敏感型</div><div class="d">下跌日 21-23 时访问概率 3.4×；建议当日 16 时前主动触达以抢先于夜间焦虑</div></div></div>
+  </div>
+  <div class="ct">AI 引擎 c360-insight v2.3 · 置信度 0.82 · 需顾问确认后对客；采纳/驳回将回流训练</div>`,{s:3});
+
+mod('m-journey','how','关键旅程 · 生命周期与关键时刻',['trade','scrm','ai'],()=>`
+  <div class="jour"><div class="line"></div><div class="pts">${C.journey.map(j=>`<div class="jp ${j.k?'key':''} ${j.now?'now':''} ${j.fut?'fut':''}" data-tt="${j.y} · ${j.t}" onclick="toast('${esc(j.t)} · 查看当时上下文（演示）')"><div class="d"></div><div class="t">${j.t}</div><div class="y">${j.y}</div></div>`).join('')}</div></div>
+  <div class="legend" style="margin-top:8px"><span><i style="background:#F2C14E;border-radius:50%"></i>关键时刻</span><span><i style="background:#38D9F5;border-radius:50%"></i>当前</span><span><i style="border:1px dashed #6F7D9B;border-radius:50%;background:none"></i>预测</span><span class="sp"></span>生命周期阶段：<b style="color:var(--cyan)">活跃 · 深度服务</b> → <b class="down">流失预警</b></div>`,{s:6});
+
+mod('m-comms','how','沟通历程 · 全渠道',['scrm','adv'],()=>`<div class="list">${[['09-03','企微','「最近是不是该减一点长赢」— 情绪 担忧；已发历史修复图，约 9/10 电话','down'],['08-26','外呼 18 分','Q4 约 300 万货款回笼，倾向稳健；太太想了解增额寿加保','gold'],['07-08','企微','孩子夏令营闲聊 · 关系维护 · 情绪 积极','up'],['06-20','线下 90 分','规划 V5 解读会：教育金 5 期确认，传承下半年再聊','violet']].map(c=>`<div class="li"><div class="ic" style="background:var(--${c[3]}-soft);color:var(--${c[3]})">${c[1].slice(0,1)}</div><div style="flex:1"><div class="t">${c[2]}</div><div class="d mono">${c[0]} · ${c[1]}</div></div></div>`).join('')}</div>`,{s:3,foot:'近 90 日触达 4 次 · 顾问主动 2 / 客户主动 2 · 情绪趋势 ↓'});
+
+mod('m-audit','how','审查记录 · 合规 / AI 输出 / 操作审计',['comp','ai'],()=>`<div class="list">${C.audit.map(a=>`<div class="li"><div class="ic" style="background:var(--${a.ty==='ai'?'violet':a.ty==='comp'?'gold':'blue'}-soft);color:var(--${a.ty==='ai'?'violet':a.ty==='comp'?'gold':'blue'})">${a.ty==='ai'?'AI':a.ty==='comp'?'合':'查'}</div><div style="flex:1"><div class="t">${a.t}</div><div class="d mono">${a.d} · ${a.by}</div></div></div>`).join('')}</div>`,{s:3});
+
+mod('m-plan','want','四笔钱 · 方案 vs 实际偏离',['plan','trade'],()=>`
+  ${C.buckets.map(b=>{const dev=b.act-b.tgt;return `<div class="bullet"><div class="h"><i class="sd" style="background:${b.c}"></i>${b.k}<span class="muted" style="font-weight:500">${b.ds}</span><span class="r ${Math.abs(dev)>4?'warn':'muted'}">${b.act}% <span class="muted">/ 目标 ${b.tgt}%</span> · ${dev>0?'+':''}${dev.toFixed(1)}pp</span></div><div class="tr"><div class="rng" style="left:${Math.max(0,b.tgt-4)*1.6}%;width:${8*1.6}%"></div><div class="act" style="width:${b.act*1.6}%;background:${b.c}"></div><div class="tgt" style="left:${b.tgt*1.6}%"></div></div></div>`}).join('')}
+  <div class="legend"><span><i style="background:rgba(160,180,220,.3)"></i>容忍带 ±4pp</span><span><i style="background:#F2C14E;width:2px"></i>目标</span><span class="sp"></span>整体偏离 <b class="warn">${C.planDev.overall} pp</b> · 触发再平衡建议</div>
+  <div style="margin-top:8px">${C.planDev.items.map(i=>`<div class="kv"><span class="k">${i[0]} <b class="warn mono">${i[1]}</b></span><span class="v" style="font-weight:500;color:var(--ink-3)">${i[2]}</span></div>`).join('')}</div>`,{s:6,foot:'规划 V5 · 横轴 0-60% · 偏离 > 4pp 进入建议'});
+
+mod('m-health','how','客户健康分 · 六维',['ai','ccdp','trade','scrm'],()=>`
+  <div style="display:flex;gap:10px;align-items:center">${svgRadar(C.radar,230)}
+  <div style="flex:1;min-width:0"><div class="kv"><span class="k">综合健康分</span><span class="v num" style="font-size:16px;color:var(--gold)">${C.health} <span class="muted" style="font-size:10px">/ 100 · 30 日 -6</span></span></div>
+  ${C.radar.filter(r=>r[1]<65).map(r=>`<div class="kv"><span class="k">${r[0]}</span><span class="v down">${r[1]} · 拖累项</span></div>`).join('')}
+  <div class="kv"><span class="k">私行同分层中位</span><span class="v muted">78</span></div>
+  <div class="ct" style="margin-top:6px">红点 = 低于 65 的维度；行为活跃与配置匹配是本次下降主因</div></div></div>`,{s:3,ord:M.findIndex(m=>m.id==='m-journey')-.5});
+
+/* ============ 状态 & 渲染 ============ */
+const STATE={view:'overview',scene:'default',holdView:'fund',lanes:new Set(LANES.map(l=>l.id)),range:365,selEv:null,chain:null,grSel:null,tasks:C.tasks.map(t=>({t:t[0],due:t[1],done:t[2]})),nbaDone:new Set()};
+
+function renderHero(){
+  const stages=['注册','开户','首投','签约','加仓','活跃','休眠'];
+  const cur=5;
+  $('#hero').innerHTML=`
+    <div class="cav">${C.ini}<div class="ring"></div><div class="st" data-tt="流失风险 高 · 0.71"></div></div>
+    <div class="who">
+      <div class="nm">${C.name}<span class="tag gold">${C.tier}</span><span class="tag outline sm">${C.lvl}</span><span class="tag red sm">流失预警 0.71</span><span class="tag gold sm">追加机会 0.58</span><span class="muted" style="font-size:11px;font-weight:500">${C.gender} · ${C.age} 岁 · ${C.city} · ${C.job}</span></div>
+      <div class="meta"><span>客户号 <b class="mono">${C.cno}</b></span><span>归属 <b>${C.advisor}</b> · ${C.team}</span><span>协作 <b>${C.co}</b></span><span>介绍人 <b>${C.referrer}</b></span><span>存量 <b>7.4 年</b></span></div>
+      <div class="ids"><span class="lb">ID 合并</span>${C.ids.map(i=>`<span class="idc ${i[2]?'pend':''}" data-tt="${i[0]} 侧 ID${i[2]?' · 未匹配（非机构客户）':' · 已对齐'}"><i></i>${i[0]} ${i[1]}</span>`).join('')}<span class="muted" style="font-size:10px">4/5 已对齐</span></div>
+      <div class="stages">${stages.map((s,i)=>`<div class="stg ${i<cur?'done':i===cur?'cur':i===6?'risk':''}"><div class="dot"></div><span>${s}</span>${i<stages.length-1?'<div class="ln"></div>':''}</div>`).join('')}</div>
+    </div>
+    <div class="kpis">
+      <div class="hk"><div class="lb">站内 AUM</div><div class="vl num">${C.aum.toLocaleString()}<small>万</small></div><div class="dl down">7 日 ${pct(C.aumChg7)} · 年 <span class="up">${pct(C.aumChgY)}</span></div>${svgLine(C.aumM,110,22,'#38D9F5')}</div>
+      <div class="hk"><div class="lb">收益 TWR / MWR</div><div class="vl num up">${pct(C.ret.twr)}</div><div class="dl muted">MWR ${pct(C.ret.mwr)} · 基准 ${pct(C.ret.bench)}</div><div class="dl">回撤 <span class="down">${C.ret.mddNow}%</span> <span class="muted">/ 最大 ${C.ret.mdd}%</span></div></div>
+      <div class="hk"><div class="lb">风险 · 适当性</div><div class="vl" style="font-size:16px">C4 <span class="muted" style="font-size:12px">承受</span> · R3 <span class="muted" style="font-size:12px">持仓</span></div><div class="dl up">匹配 · 测评有效至 27-03</div><div class="dl warn">四笔钱偏离 ${C.planDev.overall}pp</div></div>
+      <div class="hk"><div class="lb">健康分</div><div class="ringk">${svgRing(C.health,44,'#F2C14E')}<div><div class="dl down">-6 · 30 日</div><div class="dl muted">行为 58 · 配置 64</div></div></div></div>
+      <div class="hk" style="cursor:pointer" onclick="jump('r-nba')"><div class="lb">待办</div><div class="vl num">5</div><div class="dl down">1 逾期 · 2 高优</div><div class="dl muted">建议 4 · 提醒 6</div></div>
+    </div>
+    <div id="alerts">
+      <span class="al red" onclick="jump('m-behavior')"><i></i>赎回页连续 3 日访问未下单<span class="k">· 22:41 最近</span></span>
+      <span class="al red" onclick="jump('m-agreements')"><i></i>长赢 Q3 调仓确认书已逾期 2 天</span>
+      <span class="al gold" onclick="jump('m-cashflow')"><i></i>Q4 约 300 万货款回笼待承接<span class="k">· 顾问申报</span></span>
+      <span class="al gold" onclick="setView('plan')"><i></i>稳钱低配 -5.2pp · 长钱超配 +7.1pp</span>
+      <span class="al violet" onclick="jump('m-xiaogu')"><i></i>小顾夜间提问「长赢要不要减仓」×3</span>
+      <span class="al cyan" onclick="jump('m-service')"><i></i>Q3 季度复盘 SLA 10/15 前</span>
+    </div>`;
+}
+
+function renderNav(){
+  const counts={who:'',has:'',doing:'3',want:'2',give:'1',how:'2',next:'5'};
+  const badge={doing:'red',want:'gold',give:'red',how:'violet',next:'red'};
+  $('#nav').innerHTML=`<div class="nv-h">七层模型<span class="ln"></span><span class="mono" style="letter-spacing:0">完整度 86%</span></div>
+  ${orderedLayers().map(l=>{const ms=M.filter(m=>m.layer===l.id);return `<div class="layer ${STATE.layerOpen===l.id?'on':''}" id="nv-${l.id}"><div class="layer-h" onclick="toggleLayer('${l.id}')"><div class="n" style="background:${l.c}">${l.n}</div><div class="t">${l.t}</div><span class="q">${l.id==='next'?'':ms.length}</span>${counts[l.id]?`<span class="sub-bd tag ${badge[l.id]==='red'?'red':badge[l.id]==='gold'?'gold':'violet'} sm" style="height:15px;padding:0 5px;margin-left:0">${counts[l.id]}</span>`:''}</div><div class="cmp"><i style="width:${l.cmp*100}%;background:${l.c}"></i></div><div class="subs">${ms.map(m=>`<div class="sub" onclick="jump('${m.id}')">${m.title.split(' · ')[0]}</div>`).join('')}${l.id==='next'?['r-brief|AI 摘要','r-nba|跟进建议 NBA','r-rem|关注提醒','r-task|事件 → 任务'].map(x=>{const [id,t]=x.split('|');return `<div class="sub" onclick="jump('${id}')">${t}</div>`}).join(''):''}</div></div>`}).join('')}
+  <div class="nv-mini" onclick="setView('graph')"><div class="t">关系图谱<span>展开 →</span></div>${miniGraph()}</div>
+  <div class="nv-legend"><div class="t">数据源 · 时效</div>${Object.entries(SRC).map(([k,s])=>`<div class="lg"><i style="background:${s.c}"></i>${s.lb}<span class="f">${s.fresh}</span></div>`).join('')}</div>`;
+}
+function miniGraph(){
+  const w=196,h=120,cx=w/2,cy=h/2;let s=`<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">`;
+  LAYERS.forEach((l,i)=>{const a=i/7*2*Math.PI-Math.PI/2,x=cx+46*Math.cos(a),y=cy+46*Math.sin(a);s+=`<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="rgba(160,180,220,.18)"/><circle cx="${x}" cy="${y}" r="7" fill="${l.c}" fill-opacity=".85"/><text x="${x}" y="${y+3}" font-size="7" font-weight="800" fill="#06101F" text-anchor="middle" font-family="SF Mono,Menlo,monospace">${l.n}</text>`;
+    for(let k=0;k<3;k++){const b=a+(k-1)*.28,x2=cx+58*Math.cos(b),y2=cy+58*Math.sin(b);s+=`<circle cx="${x2}" cy="${y2}" r="1.8" fill="${l.c}" fill-opacity=".6"/>`}});
+  s+=`<circle cx="${cx}" cy="${cy}" r="11" fill="#F2C14E"/><text x="${cx}" y="${cy+4}" font-size="10" font-weight="800" fill="#06101F" text-anchor="middle">陈</text></svg>`;return s;
+}
+function orderedLayers(){const o=SCENES[STATE.scene].order;if(!o)return LAYERS;return o.map(id=>LAYERS.find(l=>l.id===id))}
+function toggleLayer(id){STATE.layerOpen=STATE.layerOpen===id?null:id;renderNav();if(STATE.layerOpen){setView('overview');const g=$('#grp-'+id);g&&g.scrollIntoView({behavior:'smooth',block:'start'})}}
+
+function modHTML(m){
+  return `<section class="mod s${m.s||3}" id="${m.id}"><div class="mod-h"><h3>${m.title}</h3>${m.srcs.includes('ai')?'<span class="ai">AI</span>':''}<span class="srcs">${srcDots(m.srcs)}</span><div class="tools"><span class="fresh">${SRC[m.srcs[0]].fresh}</span><button onclick="toast('已在原系统打开：${esc(SRC[m.srcs[0]].lb)}（演示）')">↗ 原系统</button><button onclick="toast('已加入副驾上下文：${esc(m.title)}')">✦</button></div></div><div class="mod-b">${m.render()}</div>${m.foot?`<div class="mod-f">${m.foot}</div>`:''}</section>`;
+}
+function renderOverview(){
+  const ordOf=m=>m.ord??M.indexOf(m);
+  $('#v-overview').innerHTML=orderedLayers().filter(l=>l.id!=='next').map(l=>{const ms=M.filter(m=>m.layer===l.id).sort((a,b)=>ordOf(a)-ordOf(b));return `<div class="grp" id="grp-${l.id}"><div class="grp-h"><div class="n" style="background:${l.c}">${l.n}</div><h2>${l.t}</h2><span class="ds">${l.ds}</span><span class="ln"></span><span class="ds mono">${ms.length} 模块</span></div><div class="grid">${ms.map(modHTML).join('')}</div></div>`}).join('');
+  mountCharts();
+}
+function rerender(id){const m=M.find(x=>x.id===id);const el=$('#'+id);if(m&&el){el.outerHTML=modHTML(m);mountCharts()}}
+
+/* ---------- 时间轴 ---------- */
+function renderTimeline(){
+  const W=Math.max(760,($('#center').clientWidth||1100)-38),laneH=58,padL=96,padR=24,padT=30,H=padT+LANES.length*laneH+30;
+  const from=daysAgo(STATE.range),span=TODAY-from;
+  const X=d=>padL+(d-from)/span*(W-padL-padR);
+  const evs=EV.filter(e=>STATE.lanes.has(e.lane)&&e.d>=from);
+  let s=`<svg id="tl-svg" viewBox="0 0 ${W} ${H}" style="height:${H}px">`;
+  // 月份网格
+  const m0=new Date(from.getFullYear(),from.getMonth()+1,1);
+  for(let d=new Date(m0);d<=TODAY;d.setMonth(d.getMonth()+1)){const x=X(d);s+=`<line x1="${x}" x2="${x}" y1="${padT-8}" y2="${H-24}" stroke="rgba(160,180,220,.08)"/>${X(TODAY)-x>44?`<text x="${x+3}" y="${padT-12}" font-size="9.5" fill="#6F7D9B" font-family="SF Mono,Menlo,monospace">${d.getFullYear()!==TODAY.getFullYear()?d.getFullYear()+'.':''}${d.getMonth()+1}月</text>`:''}`}
+  // 泳道
+  LANES.forEach((l,i)=>{const y=padT+i*laneH;s+=`<rect x="${padL}" y="${y}" width="${W-padL-padR}" height="${laneH}" fill="${i%2?'rgba(160,180,220,.025)':'transparent'}"/><text x="${padL-10}" y="${y+laneH/2+4}" font-size="11" font-weight="700" fill="${STATE.lanes.has(l.id)?l.c:'#4A5670'}" text-anchor="end">${l.t}</text><line x1="${padL}" x2="${W-padR}" y1="${y+laneH/2}" y2="${y+laneH/2}" stroke="${l.c}" stroke-opacity=".18"/>`});
+  // 关键旅程标注
+  [[89,'规划 V5 解读'],[290,'年终奖追加'],[14,'焦虑窗口开始']].forEach(([da,t])=>{if(da>STATE.range)return;const x=X(daysAgo(da));s+=`<line x1="${x}" x2="${x}" y1="${padT-4}" y2="${H-24}" stroke="#F2C14E" stroke-opacity=".5" stroke-dasharray="3 3"/><text x="${x}" y="${H-10}" font-size="9.5" fill="#F2C14E" text-anchor="middle">${t}</text>`});
+  // 今日线
+  s+=`<line x1="${X(TODAY)}" x2="${X(TODAY)}" y1="${padT-4}" y2="${H-24}" stroke="#38D9F5" stroke-width="1.5"/><text x="${X(TODAY)-4}" y="${padT-12}" font-size="9.5" fill="#38D9F5" text-anchor="end" font-weight="700">今天</text>`;
+  // 事件（时间接近的做轻微垂直抖动）
+  const byLane={};evs.forEach((e,i)=>{e.i=EV.indexOf(e);(byLane[e.lane]=byLane[e.lane]||[]).push(e)});
+  Object.values(byLane).forEach(arr=>{arr.sort((a,b)=>a.d-b.d);arr.forEach((e,i)=>{e.jit=0;if(i>0&&Math.abs(X(e.d)-X(arr[i-1].d))<14)e.jit=(arr[i-1].jit===0?-14:arr[i-1].jit===-14?14:0)})});
+  evs.forEach(e=>{const li=LANES.findIndex(l=>l.id===e.lane),l=LANES[li],x=X(e.d),y=padT+li*laneH+laneH/2+(e.jit||0),r=4+e.imp*1.6;
+    const sel=STATE.selEv===e.i;const dim=STATE.selEv!==null&&!sel&&STATE.selMod&&e.mod!==STATE.selMod;
+    let shape=e.shape==='d'?`<path d="M${x},${y-r} L${x+r},${y} L${x},${y+r} L${x-r},${y} Z" fill="${l.c}" fill-opacity=".9"/>`:e.shape==='s'?`<rect x="${x-r*.85}" y="${y-r*.85}" width="${r*1.7}" height="${r*1.7}" rx="2" fill="${l.c}" fill-opacity=".9"/>`:`<circle cx="${x}" cy="${y}" r="${r}" fill="${l.c}" fill-opacity="${e.imp>=3?.95:.7}"/>`;
+    if(e.imp>=3)shape+=`<circle cx="${x}" cy="${y}" r="${r+4}" fill="none" stroke="${l.c}" stroke-opacity=".35"/>`;
+    s+=`<g class="tl-ev ${sel?'sel':''} ${dim?'dim':''}" onclick="selEv(${e.i})" data-tt="<b>${esc(e.t)}</b><br>${esc(e.ds)}<br><span style='color:#6F7D9B'>${fmtD(e.d)} · ${l.t}</span>">${shape}</g>`});
+  s+='</svg>';
+  const cnt=id=>EV.filter(e=>e.lane===id&&e.d>=from).length;
+  $('#v-timeline').innerHTML=`<div id="tl-wrap"><div class="tl-ctl">${LANES.map(l=>`<span class="lane-chip ${STATE.lanes.has(l.id)?'':'off'}" onclick="toggleLane('${l.id}')"><i style="background:${l.c}"></i>${l.t}<span class="c">${cnt(l.id)}</span></span>`).join('')}<span class="sp"></span><div class="tabs">${[[90,'3 月'],[180,'6 月'],[365,'1 年']].map(([r,t])=>`<button class="${STATE.range===r?'on':''}" onclick="STATE.range=${r};renderTimeline()">${t}</button>`).join('')}</div><button class="btn xs" onclick="STATE.selEv=null;STATE.selMod=null;renderTimeline()">清除选中</button></div>${s}
+  <div class="tl-foot"><span>形状：<b>●</b> 事实事件 <b>◆</b> 洞察/关键时刻 <b>■</b> 系统/合规</span><span>大小 = 重要度</span><span>金色虚线 = 关键旅程节点</span><span class="sp"></span><span>点击事件 → 右栏显示详情与关联模块；再点「查看模块」跳转全景</span></div></div>
+  <div class="grp" style="margin-top:14px"><div class="grp-h"><h2>时间轴上的三条主链</h2><span class="ln"></span></div><div class="grid">
+    <section class="mod s2"><div class="mod-h"><h3>事实链 · 钱的来龙去脉</h3></div><div class="mod-b detail">年终奖追加 +180 万（去年 11 月）→ 稳稳的幸福 → 8/20 赎回 -20 万转活钱 → 9/12 调仓信号待确认。<br><span class="muted">协议 → 账户 → 持仓 → 交易 → 资金 → 费用，每一笔可回溯。</span></div></section>
+    <section class="mod s2"><div class="mod-h"><h3>意图链 · 方案 vs 实际</h3></div><div class="mod-b detail">6 月 V5 规划 → 7 月教育金第 2 期 +40 万 → 权益上涨长钱漂移至 47% → 8 月赎回稳钱 → 偏离 7.1pp 触发再平衡建议。<br><span class="muted">偏离处就是洞察产生的地方。</span></div></section>
+    <section class="mod s2"><div class="mod-h"><h3>触点链 · 人怎么被服务</h3></div><div class="mod-b detail">直播 8 邀 0 参与 → 推文低打开 → 企微/电话高响应 → 「一对一偏好」标签 → 9/3 企微焦虑 → 建议改电话触达。<br><span class="muted">行为 + 沟通 + 交易 → 标签 → 画像 → 旅程。</span></div></section>
+  </div></div>`;
+}
+function toggleLane(id){STATE.lanes.has(id)?STATE.lanes.delete(id):STATE.lanes.add(id);renderTimeline()}
+function selEv(i){const e=EV[i];STATE.selEv=i;STATE.selMod=e.mod;renderTimeline();renderRailDetail(e)}
+
+/* ---------- 图谱 ---------- */
+function renderGraph(){
+  const W=Math.max(760,($('#center').clientWidth||1100)-38),H=640,cx=W/2,cy=H/2+10,R1=Math.min(140,W*.13),R2=Math.min(292,W*.27);
+  const pos={c:[cx,cy]};
+  LAYERS.forEach((l,i)=>{const a=i/7*2*Math.PI-Math.PI/2;pos[l.id]=[cx+R1*Math.cos(a),cy+R1*Math.sin(a),a]});
+  LAYERS.forEach((l,i)=>{const kids=GN.filter(n=>n.l===l.id);const a0=pos[l.id][2],spread=Math.min(.8,kids.length*.17);kids.forEach((k,j)=>{const a=a0+(j-(kids.length-1)/2)*(spread/Math.max(1,kids.length-1)*2||0);pos[k.id]=[cx+R2*Math.cos(a),cy+R2*Math.sin(a),a]})});
+  const sel=STATE.grSel,chain=STATE.chain;
+  const conn=new Set();if(sel){GE.forEach(e=>{if(e.s===sel)conn.add(e.t);if(e.t===sel)conn.add(e.s)});conn.add(sel)}
+  let s=`<svg id="gr-svg" viewBox="0 0 ${W} ${H}" style="height:${H}px">`;
+  [R1,R2].forEach(r=>{s+=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="rgba(160,180,220,.07)" stroke-dasharray="2 4"/>`});
+  GE.forEach(e=>{const a=pos[e.s],b=pos[e.t];if(!a||!b)return;const k=CHAINS[e.k];const isSt=e.k==='st';
+    let cls='ge';if(chain&&e.k!==chain&&!isSt)cls+=' dim';if(chain&&e.k===chain)cls+=' hi';if(sel&&!(e.s===sel||e.t===sel))cls+=' dim';if(sel&&(e.s===sel||e.t===sel))cls+=' hi';
+    const mx=(a[0]+b[0])/2+(isSt?0:(b[1]-a[1])*.18),my=(a[1]+b[1])/2-(isSt?0:(b[0]-a[0])*.18);
+    s+=`<path class="${cls}" d="M${a[0]},${a[1]} Q${mx},${my} ${b[0]},${b[1]}" fill="none" stroke="${k.c}" stroke-width="${isSt?1:1.4}" stroke-opacity="${isSt?1:.75}" ${isSt?'':'stroke-dasharray="5 3"'}/>`});
+  GN.forEach(n=>{const p=pos[n.id];if(!p)return;const dim=sel&&!conn.has(n.id);
+    if(n.ty==='center'){s+=`<g class="gn" onclick="grSel(null)"><circle cx="${p[0]}" cy="${p[1]}" r="34" fill="#F2C14E" fill-opacity=".15"/><circle cx="${p[0]}" cy="${p[1]}" r="24" fill="#F2C14E"/><text x="${p[0]}" y="${p[1]+6}" font-size="17" font-weight="800" fill="#06101F" text-anchor="middle">陈</text><text x="${p[0]}" y="${p[1]+46}" font-size="11" font-weight="700" fill="#E9EFFA" text-anchor="middle">${n.t}</text></g>`;return}
+    if(n.ty==='layer'){s+=`<g class="gn ${dim?'dim':''}" onclick="grSel('${n.id}')"><circle cx="${p[0]}" cy="${p[1]}" r="17" fill="${n.c}" fill-opacity="${sel===n.id?1:.9}" stroke="${sel===n.id?'#fff':'none'}" stroke-width="2"/><text x="${p[0]}" y="${p[1]+4}" font-size="11" font-weight="800" fill="#06101F" text-anchor="middle" font-family="SF Mono,Menlo,monospace">${LAYERS.find(l=>l.id===n.id).n}</text><text x="${p[0]}" y="${p[1]+31}" font-size="10.5" font-weight="700" fill="${n.c}" text-anchor="middle">${n.t}</text></g>`;return}
+    const l=LAYERS.find(x=>x.id===n.l),ang=p[2],out=Math.cos(ang)>=0,ty=p[1]+3;
+    s+=`<g class="gn ${dim?'dim':''}" onclick="grSel('${n.id}')" data-tt="<b>${esc(n.t)}</b><br>${esc(n.ds)}"><circle cx="${p[0]}" cy="${p[1]}" r="${sel===n.id?9:6.5}" fill="#0E1626" stroke="${l.c}" stroke-width="2"/><text x="${p[0]+(out?12:-12)}" y="${ty}" font-size="10.5" fill="${sel===n.id?'#fff':'#AAB7D0'}" font-weight="${sel===n.id?700:500}" text-anchor="${out?'start':'end'}">${n.t}</text></g>`});
+  s+='</svg>';
+  const n=sel?GN.find(x=>x.id===sel):null;
+  const rel=n?GE.filter(e=>e.s===sel||e.t===sel).map(e=>{const o=GN.find(x=>x.id===(e.s===sel?e.t:e.s));return `<span class="chip" style="border-color:${CHAINS[e.k].c};color:${CHAINS[e.k].c}" onclick="grSel('${o.id}')">${e.s===sel?'→':'←'} ${o.t}</span>`}).join(''):'';
+  $('#v-graph').innerHTML=`<div id="gr-wrap">
+    <div class="gr-ctl">${Object.entries(CHAINS).filter(([k])=>k!=='st').map(([k,v])=>`<span class="lane-chip ${chain&&chain!==k?'off':''}" style="${chain===k?'border-color:'+v.c+';color:'+v.c:''}" onclick="STATE.chain=STATE.chain==='${k}'?null:'${k}';renderGraph()"><i style="background:${v.c}"></i>${v.t}</span>`).join('')}</div>
+    <div class="gr-info">${n?`<h4>${n.ty==='layer'?`<span class="tag sm" style="background:${n.c};color:#06101F">${LAYERS.find(l=>l.id===n.id).n}</span>`:''}${n.t}</h4><div class="d">${n.ds}</div><div class="rel">${rel}</div>${n.mod?`<div style="margin-top:8px"><button class="btn xs pri" onclick="jump('${n.mod}')">查看模块 →</button></div>`:''}`:`<h4>客户关系图谱</h4><div class="d">中心 = 客户（合并 ID）；内环 = 七层；外环 = 具体对象。实线为结构归属，虚线为四条业务链。点击节点高亮其关联；点击上方链名只看该链。</div>`}</div>
+    ${s}
+    <div class="gr-legend"><span><i style="background:rgba(160,180,220,.4)"></i>结构归属</span>${Object.entries(CHAINS).filter(([k])=>k!=='st').map(([k,v])=>`<span><i style="background:${v.c}"></i>${v.t}</span>`).join('')}</div>
+  </div>
+  <div class="grp" style="margin-top:14px"><div class="grp-h"><h2>三个技术锚点</h2><span class="ln"></span></div><div class="grid">
+    <section class="mod s2"><div class="mod-h"><h3>客户 ID（合并后）</h3></div><div class="mod-b detail">App / 企微 / 蜂鸟 / 保险 4 侧已对齐，机构侧无。所有对象挂在同一个合并 ID 上，家庭与转介绍是「客户-客户」边。</div></section>
+    <section class="mod s2"><div class="mod-h"><h3>时间戳</h3></div><div class="mod-b detail">交易、沟通、行为、AI、系统 5 类事件进同一条时间轴（见「时间轴」视图），洞察与关键时刻作为标记叠在轴上。</div></section>
+    <section class="mod s2"><div class="mod-h"><h3>标的 ID</h3></div><div class="mod-b detail">基金 / 组合 / 协议 / 目标可点击跳转：任一笔交易 → 所属组合 → 所属协议 → 所属笔（四笔钱）→ 对应目标。</div></section>
+  </div></div>`;
+}
+function grSel(id){STATE.grSel=id;renderGraph()}
+
+/* ---------- 方案偏离视图 ---------- */
+function renderPlan(){
+  const ms=['m-plan','m-goals','m-risk','m-returns','m-cashflow','m-offsite'].map(id=>({...M.find(m=>m.id===id),s:3}));
+  $('#v-plan').innerHTML=`<div class="grp"><div class="grp-h"><div class="n" style="background:#A78BFA">4</div><h2>意图链 · 方案 vs 实际</h2><span class="ds">风险测评 → 四笔钱 / 目标 → 规划方案 → 实际持仓 → 偏离 → 建议</span><span class="ln"></span></div>
+  <div class="grid">
+    <section class="mod s6" style="background:linear-gradient(90deg,rgba(167,139,250,.08),transparent)"><div class="mod-b" style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;padding:14px">
+      ${[['① 承受能力','C4 · 积极','测评 2026-03 · 可承受回撤约 -15%','#F2C14E'],['② 目标','4 项 · 1 未开立','教育金 ×2 · 养老 · 备用金','#A78BFA'],['③ 方案','8 / 37 / 40 / 15','V5 · 2026-06-20','#4C9AFF'],['④ 实际','7.5 / 31.8 / 47.1 / 13.6','T-1 · 蜂鸟 + 保险现价','#38D9F5'],['⑤ 偏离','7.1 pp','稳钱 -5.2 · 长钱 +7.1 → 再平衡建议','#FF5D6C']].map(x=>`<div style="padding:10px 12px;border-radius:10px;background:var(--panel-2);border:1px solid var(--line);border-top:2px solid ${x[3]}"><div class="muted" style="font-size:10.5px;font-weight:700">${x[0]}</div><div style="font-size:15px;font-weight:800;margin-top:3px;letter-spacing:-.01em">${x[1]}</div><div class="muted" style="font-size:10.5px;margin-top:3px;line-height:1.4">${x[2]}</div></div>`).join('')}
+    </div></section>
+    ${ms.map(modHTML).join('')}
+    <section class="mod s6"><div class="mod-h"><h3>再平衡建议 · 结合 Q4 300 万承接</h3><span class="ai">AI</span><span class="srcs">${srcDots(['ai','plan','pms'])}</span></div><div class="mod-b">
+      <table class="tbl"><thead><tr><th>笔</th><th class="r">当前</th><th class="r">目标</th><th class="r">偏离</th><th>动作</th><th class="r">金额</th><th>说明</th></tr></thead><tbody>
+      ${[['稳钱','31.8%','37%','-5.2pp','新增承接 → 稳稳的幸福 / 短债','+230 万','300 万回笼优先补稳钱，不动存量长钱，避免在回撤中卖出'],['长钱','47.1%','40%','+7.1pp','Q3 调仓自然降权益 + 不再追加','0','调仓信号 55%→50% 已可修正约 2.5pp；剩余靴子随新增资金摊薄'],['保障','13.6%','15%','-1.4pp','增额寿加保（太太意向）','+50 万','保险顾问张晴协同；不计入投顾费'],['活钱','7.5%','8%','-0.5pp','恢复工资自动转入','+20 万','已停 6 个月；企业备用金底线 80 万']].map(r=>`<tr><td style="font-weight:700">${r[0]}</td><td class="r num">${r[1]}</td><td class="r num">${r[2]}</td><td class="r num ${r[3].startsWith('-')?'down':r[3]==='0'?'muted':'warn'}">${r[3]}</td><td>${r[4]}</td><td class="r num" style="font-weight:700">${r[5]}</td><td class="muted" style="font-size:10.5px">${r[6]}</td></tr>`).join('')}
+      </tbody></table>
+      <div class="flex" style="margin-top:10px"><span class="muted" style="font-size:10.5px">承接后预计：8.0 / 36.9 / 41.2 / 13.9 · 整体偏离 1.2pp · 适当性仍为 C4/R3 匹配</span><span class="sp"></span><button class="btn" onclick="toast('已生成方案草稿 → 待合规审核（演示）')">生成承接方案</button><button class="btn pri" onclick="toast('已创建任务：300 万承接方案初稿 · 10/10')">创建任务</button></div>
+    </div></section>
+  </div></div>`;
+  mountCharts();
+}
+
+/* ---------- 右栏 ---------- */
+function renderRail(){
+  $('#rail').innerHTML=`
+  <div class="rc" id="r-brief"><div class="rc-h"><h3>AI 客户摘要</h3><span class="ai">AI</span><span class="rt">10:48 · 置信 0.82</span></div><div class="rc-b">
+    <div class="brief">${C.brief.replace(/\{ev:([\w-]+):([^}]+)\}/g,(_,id,t)=>`<span class="ev" onclick="jump('${id}')">${t}</span>`)}</div>
+    <div class="states"><div class="stt" onclick="jump('m-behavior')"><div class="k">流失风险</div><div class="v down">高 · 0.71</div></div><div class="stt" onclick="jump('m-cashflow')"><div class="k">追加机会</div><div class="v" style="color:var(--gold)">中高 · 0.58</div></div><div class="stt" onclick="jump('m-service')"><div class="k">服务健康</div><div class="v">72 / 100</div></div></div>
+    <div class="flex" style="margin-top:9px"><button class="btn xs" onclick="toast('摘要已标记为准确，反馈已回流')">✓ 准确</button><button class="btn xs" onclick="toast('已提交修正意见（演示）')">✎ 修正</button><span class="sp"></span><span class="muted" style="font-size:10px">c360-insight v2.3</span></div>
+  </div></div>
+  <div class="rc" id="r-nba"><div class="rc-h"><h3>跟进建议 · Next Best Action</h3><span class="ai">AI</span><span class="rt">${C.nba.length} 条</span></div><div class="rc-b">
+    ${C.nba.map(n=>`<div class="nba ${n.pri} ${STATE.nbaDone.has(n.id)?'done':''}"><div class="t">${n.t}<span class="cf">${Math.round(n.conf*100)}%</span></div><div class="w">${n.why}</div><div class="evs">${n.ev.map(e=>`<span class="chip ev" onclick="jump('${e[0]}')">${e[1]}</span>`).join('')}</div><div class="acts">${n.acts.map(a=>`<button class="btn xs ${a.startsWith('生成')?'pri':''}" onclick="nbaAct('${n.id}','${a}')">${a}</button>`).join('')}<span class="sp"></span><button class="btn xs" onclick="STATE.nbaDone.add('${n.id}');renderRail();toast('已驳回，反馈回流训练')">驳回</button></div></div>`).join('')}
+  </div></div>
+  <div class="rc" id="r-rem"><div class="rc-h"><h3>关注提醒</h3><span class="rt">${C.reminders.length} 条 · 1 逾期</span></div><div class="rc-b">
+    ${C.reminders.map(r=>`<div class="rem"><span class="d">${r[0]}</span><span class="p" style="background:${r[2]==='high'?'var(--down)':r[2]==='mid'?'var(--gold)':'var(--ink-4)'}"></span><span class="t">${r[1]}</span></div>`).join('')}
+  </div></div>
+  <div class="rc" id="r-task"><div class="rc-h"><h3>事件 → 任务</h3><span class="rt">${STATE.tasks.filter(t=>!t.done).length} 未完成</span></div><div class="rc-b">
+    ${STATE.tasks.map((t,i)=>`<div class="task ${t.done?'done':''}"><div class="cb" onclick="STATE.tasks[${i}].done=!STATE.tasks[${i}].done;renderRail()">${t.done?'✓':''}</div><span class="t">${t.t}</span><span class="due">${t.due}</span></div>`).join('')}
+    <div style="margin-top:8px"><button class="btn xs" onclick="toast('已从最新事件创建任务（演示）')">＋ 从事件创建</button></div>
+  </div></div>
+  <div class="rc" id="r-detail" style="display:none"><div class="rc-h"><h3>事件详情</h3><span class="rt" id="r-detail-t"></span></div><div class="rc-b detail" id="r-detail-b"></div></div>`;
+}
+function renderRailDetail(e){const l=LANES.find(x=>x.id===e.lane);const box=$('#r-detail');box.style.display='block';$('#r-detail-t').textContent=fmtD(e.d)+' · '+l.t;$('#r-detail-b').innerHTML=`<div class="h" style="color:${l.c}">${esc(e.t)}</div><div class="muted">${esc(e.ds)}</div><div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">${e.mod?`<button class="btn xs pri" onclick="jump('${e.mod}')">查看关联模块 →</button>`:''}<button class="btn xs" onclick="toast('已从事件创建任务（演示）')">创建任务</button><button class="btn xs" onclick="toast('已加入副驾上下文')">✦ 问副驾</button></div><div class="muted" style="font-size:10.5px;margin-top:8px">同模块其他事件已在时间轴高亮，其余淡化。</div>`;box.scrollIntoView({behavior:'smooth',block:'nearest'})}
+function nbaAct(id,a){const n=C.nba.find(x=>x.id===id);if(a.startsWith('生成'))toast(`${a}：已基于 ${n.ev.length} 条证据生成草稿 → 合规检查中（演示）`);else if(a==='创建任务'){STATE.tasks.unshift({t:n.t.split('：')[0].slice(0,18),due:'待定',done:false});renderRail();toast('任务已创建并关联证据链')}else toast(a+'（演示）')}
+
+/* ---------- 导航 / 跳转 ---------- */
+function setView(v){STATE.view=v;$$('#view-seg button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));$$('.view').forEach(x=>x.classList.toggle('on',x.id==='v-'+v));if(v==='timeline')renderTimeline();if(v==='graph')renderGraph();if(v==='plan')renderPlan();mountCharts();$('#center').scrollTop=0}
+function jump(id){
+  if(id.startsWith('r-')){const el=$('#'+id);if(el){el.scrollIntoView({behavior:'smooth',block:'start'});el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash')}return}
+  const m=M.find(x=>x.id===id);if(!m)return;
+  if(STATE.view!=='overview'&&!(STATE.view==='plan'&&$('#v-plan #'+id)))setView('overview');
+  STATE.layerOpen=m.layer;renderNav();
+  setTimeout(()=>{const el=$('.view.on #'+id)||$('#'+id);if(!el)return;el.scrollIntoView({behavior:'smooth',block:'center'});el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash')},40);
+}
+function applyScene(k){STATE.scene=k;renderNav();renderOverview();toast('已切换：'+SCENES[k].t);if(STATE.view!=='overview')setView('overview');$('#center').scrollTop=0}
+
+/* ---------- 命令面板 ---------- */
+function cmdItems(){const a=[];M.forEach(m=>a.push({t:m.title,g:LAYERS.find(l=>l.id===m.layer).t,act:()=>jump(m.id)}));
+  [['AI 摘要','r-brief'],['跟进建议','r-nba'],['关注提醒','r-rem'],['任务','r-task']].forEach(x=>a.push({t:x[0],g:'接下来做什么',act:()=>jump(x[1])}));
+  C.holdings.forEach(h=>a.push({t:h.n,g:'持仓 · '+h.code,act:()=>jump('m-holdings')}));
+  EV.slice(0,20).forEach(e=>a.push({t:e.t,g:'事件 · '+fmtD(e.d),act:()=>{setView('timeline');selEv(EV.indexOf(e))}}));
+  Object.values(C.tags).flat().forEach(t=>a.push({t,g:'标签',act:()=>jump('m-tags')}));
+  [['时间轴','timeline'],['关系图谱','graph'],['方案偏离','plan'],['全景','overview']].forEach(v=>a.push({t:'视图 · '+v[0],g:'视图',act:()=>setView(v[1])}));
+  Object.entries(SCENES).forEach(([k,s])=>a.push({t:s.t,g:'场景',act:()=>{$('#scene-sel').value=k;applyScene(k)}}));
+  return a}
+let cmdIdx=0,cmdList=[];
+function openCmd(){$('#overlay').classList.add('on');$('#cmdk').classList.add('on');const i=$('#cmd-in');i.value='';i.focus();cmdFilter('')}
+function closeCmd(){$('#overlay').classList.remove('on');$('#cmdk').classList.remove('on')}
+function cmdFilter(q){q=q.trim().toLowerCase();cmdList=cmdItems().filter(x=>!q||(x.t+x.g).toLowerCase().includes(q)).slice(0,14);cmdIdx=0;$('#cmd-res').innerHTML=cmdList.map((x,i)=>`<div class="cr ${i===0?'on':''}" onclick="cmdGo(${i})">${esc(x.t)}<span class="g">${esc(x.g)}</span>${i===0?'<span class="k">↵</span>':''}</div>`).join('')||'<div class="cr muted">无匹配</div>'}
+function cmdGo(i){const x=cmdList[i];closeCmd();x&&x.act()}
+$('#cmd-in').addEventListener('input',e=>cmdFilter(e.target.value));
+$('#cmd-in').addEventListener('keydown',e=>{if(e.key==='ArrowDown'){cmdIdx=Math.min(cmdIdx+1,cmdList.length-1)}else if(e.key==='ArrowUp'){cmdIdx=Math.max(cmdIdx-1,0)}else if(e.key==='Enter'){cmdGo(cmdIdx);return}else if(e.key==='Escape'){closeCmd();return}else return;$$('.cr').forEach((el,i)=>el.classList.toggle('on',i===cmdIdx))});
+document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();openCmd();return}if(e.key==='Escape')closeCmd();if(document.activeElement&&/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName))return;const map={'1':'overview','2':'timeline','3':'graph','4':'plan'};if(map[e.key])setView(map[e.key])});
+
+/* ---------- 工具 ---------- */
+function toast(t){const w=$('#toast-wrap'),d=document.createElement('div');d.className='toast';d.innerHTML=`<i></i>${esc(t)}`;w.appendChild(d);setTimeout(()=>{d.style.opacity='0';d.style.transition='.3s';setTimeout(()=>d.remove(),300)},2400)}
+const tt=$('#tt');
+document.addEventListener('mouseover',e=>{const el=e.target.closest('[data-tt]');if(!el){tt.style.display='none';return}tt.innerHTML=el.dataset.tt;tt.style.display='block'});
+document.addEventListener('mousemove',e=>{if(tt.style.display==='none')return;const x=Math.min(e.clientX+14,innerWidth-tt.offsetWidth-10),y=Math.min(e.clientY+14,innerHeight-tt.offsetHeight-10);tt.style.left=x+'px';tt.style.top=y+'px'});
+$$('#view-seg button').forEach(b=>b.onclick=()=>setView(b.dataset.v));
+const ss=$('#scene-sel');ss.innerHTML=Object.entries(SCENES).map(([k,s])=>`<option value="${k}">${s.t}</option>`).join('');ss.onchange=()=>applyScene(ss.value);
+
+/* ---------- 启动 ---------- */
+try{if(window.self!==window.top)$('#back-link').style.display='none'}catch(e){}
+renderHero();renderNav();renderOverview();renderRail();
+setTimeout(()=>toast('客户 360° 已就绪 · 4 侧 ID 已合并 · 数据 T-1 + 实时'),400);
+</script>
+</body>
+</html>
