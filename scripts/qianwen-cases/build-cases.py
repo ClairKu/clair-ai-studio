@@ -69,15 +69,15 @@ PLAT = {"3": "iOS", "4": "安卓", "5": "鸿蒙"}
 # ───── 口径定义 ─────
 SCOPES = [
   {"id": "new_inv", "label": "新投", "flag": "zero_at_bind",
-   "def": "绑定千问时没有资产，绑定后有了新的入金（新老用户都算）。"},
+   "def": "绑定千问时没有投资资产，绑定后开始投入资金，新客和老客都包括在内。"},
   {"id": "first_inv", "label": "首投", "flag": "first_invest_after",
-   "def": "绑定前从未投资，绑定后完成了人生第一笔买入（新老用户都算）。"},
+   "def": "绑定千问前从未投资，绑定后完成了人生第一笔投资，新客和老客都包括在内。"},
   {"id": "new_first_inv", "label": "新户首投", "flag": "new_first_invest",
-   "def": "在千问当场注册且慢，并在绑定后完成第一笔买入。"},
+   "def": "在绑定千问时新注册且慢，之后完成了人生第一笔投资。"},
   {"id": "existing_reactivated", "label": "老户唤回", "flag": "recall",
-   "def": "已有且慢账号，但绑定时还没投或已经清仓，绑定后又入金了。"},
+   "def": "已有且慢账号，绑定时尚未投资或已经清仓，绑定后重新投入资金。"},
   {"id": "existing_first_inv", "label": "老户首投", "flag": "existing_first_invest",
-   "def": "已有且慢账号但从未投资，绑定后完成了人生第一笔买入。"},
+   "def": "已有且慢账号但从未投资，绑定千问后完成了人生第一笔投资。"},
 ]
 
 def scope_users(sc):
@@ -311,7 +311,7 @@ def path_summary(u):
 def top_stats(u):
     d = u["derived"]; al = u.get("asset_latest"); ch = u.get("channels") or {}
     inf = u.get("inflow_txns") or []
-    asset_sub = f'{al["cal_date"][5:].replace("-", "/")} 资产 {money(al["ta"])} 元' if al else "资产待次日批次落账"
+    asset_sub = f'{al["cal_date"][5:].replace("-", "/")} 资产 {wan(al["ta"])}' if al else "资产待次日批次落账"
     first_in = inf[0]["t"] if inf else d["first_buy_after"]
     dates = "、".join(f'{"首笔" if i == 0 else "第二笔"} {fmt_md(x["t"])}' for i, x in enumerate(inf[:2]))
     q = len(u["asks"]); m = len(ch.get("app_mia", [])); w = int(ch.get("wechat_msgs", 0) or 0)
@@ -407,41 +407,45 @@ def matrix(us):
   <td class="num">{fmt_t(d["first_buy_after"], True)}</td>
   <td class="num">{dur(u["fb"], d["first_buy_after"])}</td>
   <td class="num">{money(d["inflow_after"])}</td>
-  <td class="num">{money(d["buy_amount_after"])}</td>
   <td class="num">{money(al["ta"]) if al else "—"}</td>
   <td class="num">{u["risk"][-1]["score"] if u["risk"] else "—"}</td>
   <td class="num">{len(u["asks"])}</td>
   <td class="wrap">{dev_txt}</td>
 </tr>''')
     return f'''<div class="scrollx"><table class="matrix">
-<thead><tr><th>用户</th><th>客群</th><th>画像</th><th>绑定</th><th>绑定后首笔买入</th><th>间隔</th><th title="充值盈米宝或银行卡直接买入">入金</th><th title="实际买入基金或组合">买入</th><th>当前资产</th><th>风测</th><th>提问</th><th>下单终端</th></tr></thead>
+<thead><tr><th>用户</th><th>客群</th><th>画像</th><th>绑定</th><th>绑定后首笔投资</th><th>间隔</th><th title="充值盈米宝或银行卡直接投资">入金</th><th>当前资产</th><th>风测</th><th>提问</th><th>下单终端</th></tr></thead>
 <tbody>{"".join(rows)}</tbody></table></div>'''
+
+def short_duration(seconds):
+    if seconds is None:
+        return "—"
+    if seconds >= 86400:
+        return f"{seconds/86400:.1f} 天"
+    if seconds >= 3600:
+        return f"{seconds/3600:.1f} 小时"
+    return f"{seconds/60:.0f} 分钟"
 
 def scope_section(sc):
     us = scope_users(sc); a = agg(us)
-    n = max(a["n"], 1)
-    keep = f'{a["asset"]/a["inflow"]*100:.0f}%' if a["inflow"] else "—"
-    top_inflow = f'{a["max_inflow"]/a["inflow"]*100:.0f}%' if a["inflow"] else "—"
-    top_asks = f'{a["max_asks"]/a["asks"]*100:.0f}%' if a["asks"] else "—"
-    # 绑定→首笔买入的中位时长
+    # 决策时长：绑定千问 → 第一笔入金；无入金记录的用户不进入时长计算。
     import statistics
-    durs = [(dt(u["derived"]["first_buy_after"]) - dt(u["fb"])).total_seconds() for u in us if u["derived"]["first_buy_after"]]
-    med = statistics.median(durs) if durs else None
-    med_txt = ("—" if med is None else f"{med/86400:.1f} 天" if med >= 86400 else f"{med/3600:.1f} 小时")
+    durs = [(dt(u["inflow_txns"][0]["t"]) - dt(u["fb"])).total_seconds() for u in us if u.get("inflow_txns")]
+    avg_txt = short_duration(statistics.mean(durs)) if durs else "—"
+    med_txt = short_duration(statistics.median(durs)) if durs else "—"
     cells = f'''<div class="grid sumrow">
-  <div class="cell key users"><b>{a["n"]}</b><span>用户数</span><em>{(f"未首投 {sum(1 for u in us if not u.get('last_buy_before'))} 人 / 已清仓 {sum(1 for u in us if u.get('last_buy_before'))} 人") if sc["id"] == "existing_reactivated" else f"新客 {a['new']} / 老客 {a['n']-a['new']}"} · 绑定→首投中位 {med_txt}</em></div>
-  <div class="cell secondary"><b>{wan(a["asset"])}</b><span>当前资产规模</span><em>人均 {wan(a["asset"]/n)} · 相当于入金的 {keep}</em></div>
-  <div class="cell key money"><b>{wan(a["inflow"])}</b><span>入金</span><em>充宝或卡买入 · 人均 {wan(a["inflow"]/n)}</em></div>
-  <div class="cell key money"><b>{wan(a["buy"])}</b><span>买入</span><em>基金或组合 · 复投 {a["repeat"]} 人</em></div>
-  <div class="cell secondary"><b>{a["asks"]:,}</b><span>小顾提问合计</span><em>零提问 {a["no_asks"]} 人 · 最多一人占 {top_asks}</em></div>
+  <div class="cell"><b>{a["n"]}</b><span>用户数</span></div>
+  <div class="cell"><b>{wan(a["inflow"])}</b><span>总入金</span></div>
+  <div class="cell"><b>{wan(a["asset"])}</b><span>总资产</span></div>
+  <div class="cell"><b>{a["asks"]:,}</b><span>提问数</span></div>
+  <div class="cell decision" title="绑定千问到第一笔入金，按 {len(durs)} 位有入金记录的用户计算"><b>{avg_txt}</b><span>平均决策时长</span><em>中位数 {med_txt}</em></div>
 </div>'''
     cards = "\n".join(card(u) for u in us) if us else '<div class="note">该口径下暂无用户。</div>'
     return f'''<section class="scope" id="scope-{sc["id"]}" hidden>
   <p class="sub scope-def">{esc(sc["def"])}</p>
   {cells}
-  {f'<p class="metric-note"><b>入金</b>＝充值盈米宝或银行卡直接买入；<b>买入</b>＝实际买进基金或组合。入金－买入通常是留在盈米宝的资金；买入高于入金时，差额来自绑定前余额或回款。</p>' if us else ''}
+  <h2 class="section-h matrix-h">个例汇总</h2>
   {matrix(us) if us else ""}
-  <h2 class="cases-h">个例分析 <span class="muted">{esc(sc["label"])} {a["n"]}人・第<b class="pg-cur">1</b>人</span></h2>
+  <h2 class="section-h cases-h">个例分析 <span class="muted">{esc(sc["label"])} {a["n"]}人・第<b class="pg-cur">1</b>人</span></h2>
   {cards}
 </section>'''
 
@@ -453,8 +457,8 @@ R = SCOPE_AGG["existing_reactivated"]
 EF = SCOPE_AGG["existing_first_inv"]
 _first_users = scope_users(next(sc for sc in SCOPES if sc["id"] == "first_inv"))
 _med = None
+import statistics as _st
 if _first_users:
-    import statistics as _st
     _med = _st.median([(dt(u["derived"]["first_buy_after"]) - dt(u["fb"])).total_seconds() for u in _first_users if u["derived"]["first_buy_after"]])
 _med_txt = "—" if _med is None else (f"{_med/86400:.1f} 天" if _med >= 86400 else f"{_med/3600:.1f} 小时")
 from collections import Counter as _C
@@ -462,11 +466,45 @@ _tc = _C(LIBN.get(terminal_of(u), "未知") for u in scope_users(next(sc for sc 
 _term_txt = "、".join(f"{k} {v}" for k, v in _tc.most_common())
 _terminal_evidence_n = sum(terminal_of(u) is not None for u in scope_users(next(sc for sc in SCOPES if sc["id"] == "new_inv")))
 _mia_n = sum(len((u.get("channels") or {}).get("app_mia", [])) for u in scope_users(next(sc for sc in SCOPES if sc["id"] == "new_inv")))
-LEDE = (
-    f"{META['bound_total']:,} 位绑定用户中，新投 <b>{Z['n']}</b> 人、首投 <b>{F1['n']}</b> 人"
-    f"（新户首投 {NF['n']} 人、老户首投 {EF['n']} 人），老户唤回 {R['n']} 人；"
-    f"其中 <b>{_terminal_evidence_n}</b> 位可由且慢 App 原生埋点识别下单终端。"
-)
+_new_users = scope_users(next(sc for sc in SCOPES if sc["id"] == "new_inv"))
+_ages = [int(u["age"]) for u in _new_users if u.get("age") is not None]
+_age_mid = int(_st.median(_ages)) if _ages else None
+_male_n = sum(1 for u in _new_users if u.get("gender") == "M")
+_gender_txt = f"均为男性" if _male_n == Z["n"] else f"男性 {_male_n} 人"
+_durations = [
+    (dt(u["inflow_txns"][0]["t"]) - dt(u["fb"])).total_seconds()
+    for u in _new_users if u.get("inflow_txns")
+]
+_new_med = _st.median(_durations) if _durations else None
+_new_med_txt = "—" if _new_med is None else (f"{_new_med/86400:.1f} 天" if _new_med >= 86400 else f"{_new_med/3600:.1f} 小时")
+_within_day_n = sum(seconds <= 86400 for seconds in _durations)
+_app_order_n = 0
+for _u in _new_users:
+    _buy_at = dt(_u["derived"].get("first_buy_after"))
+    if not _buy_at:
+        continue
+    _lo, _hi = _buy_at - _td(minutes=30), _buy_at + _td(minutes=30)
+    if any(e.get("lib") != "js" and _lo <= dt(e.get("t")) <= _hi for e in (_u.get("events") or []) if dt(e.get("t"))):
+        _app_order_n += 1
+_prior_recall = [u for u in _new_users if u.get("cohort") == "existing" and u.get("last_buy_before")]
+_big_new = max((u for u in _new_users if u.get("cohort") == "new"), key=lambda u: float(u["derived"].get("inflow_after") or 0), default=None)
+_big_recall = max(_prior_recall, key=lambda u: float(u["derived"].get("inflow_after") or 0), default=None)
+_top_two = sorted(_new_users, key=lambda u: float(u["derived"].get("inflow_after") or 0), reverse=True)[:2]
+_top_two_inflow_share = (sum(float(u["derived"].get("inflow_after") or 0) for u in _top_two) / Z["inflow"] * 100) if Z["inflow"] else 0
+_max_ask_user = max(_new_users, key=lambda u: len(u.get("asks") or []), default=None)
+_max_ask_share = (len(_max_ask_user.get("asks") or []) / Z["asks"] * 100) if _max_ask_user and Z["asks"] else 0
+_max_ask_inflow_share = (float(_max_ask_user["derived"].get("inflow_after") or 0) / Z["inflow"] * 100) if _max_ask_user and Z["inflow"] else 0
+
+INSIGHTS = [
+    f'<b>成效</b>{META["bound_total"]:,} 位绑定用户中识别出 {Z["n"]} 位新投、{F1["n"]} 位首投；累计入金 {wan(Z["inflow"])}，当前资产 {wan(Z["asset"])}。',
+    f'<b>客群</b>本批 {Z["n"]} 例{_gender_txt}，年龄 {_ages and min(_ages) or "—"}–{_ages and max(_ages) or "—"} 岁、中位 {_age_mid if _age_mid is not None else "—"} 岁；新客 {Z["new"]} 人、老客 {Z["n"] - Z["new"]} 人，其中 {EF["n"]} 位老客完成人生首投，{len(_prior_recall)} 位沉寂老客重新入金。',
+    f'<b>行为</b>绑定到首笔入金中位 {_new_med_txt}，{_within_day_n} 人在 24 小时内完成；{_terminal_evidence_n} 人均有且慢 App 原生行为记录，其中 {_app_order_n} 人的首笔投资时点可直接确认在 App 完成。',
+    (f'<b>关键案例</b>{_big_new["age"]} 岁新客入金 {wan(_big_new["derived"]["inflow_after"])}、当前资产 {wan(float((_big_new.get("asset_latest") or {}).get("ta") or 0))}；'
+     f'沉寂老客回流入金 {wan(_big_recall["derived"]["inflow_after"])}、当前资产 {wan(float((_big_recall.get("asset_latest") or {}).get("ta") or 0))}。'
+     f'两例合计贡献 {_top_two_inflow_share:.1f}% 入金，成效高度集中。') if _big_new and _big_recall else '',
+    f'<b>判断</b>提问最多的用户占全部千问提问 {_max_ask_share:.0f}%，但仅贡献 {_max_ask_inflow_share:.1f}% 入金；咨询量不是转化强度的可靠代理。现有数据证明的是“绑定后发生转化”，不能单独归因为千问增量。',
+]
+INSIGHTS_HTML = "\n".join(f'<li>{item}</li>' for item in INSIGHTS if item)
 tabs = "".join(f'<button type="button" class="tab" role="tab" data-scope="{sc["id"]}" aria-selected="false">{sc["label"]}<small>{agg(scope_users(sc))["n"]}</small></button>' for sc in SCOPES)
 sections = "\n".join(scope_section(sc) for sc in SCOPES)
 
@@ -485,23 +523,22 @@ PAGER_SNIPPET = r'''<style>
 *,*::before,*::after{font-family:var(--serif) !important}
 html,body{max-width:100%}
 .page-wrap{min-width:0}
-.lede-summary{display:block;width:100%;max-width:72em;margin:8px 0 30px;color:var(--ink-2);font-size:14px;line-height:1.75;white-space:normal;overflow-wrap:anywhere}
+.insight-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 24px;width:100%;max-width:76em;margin:16px 0 30px;padding:0;list-style:none;color:var(--ink-2);font-size:13.5px;line-height:1.65}
+.insight-list li{position:relative;min-width:0;padding:10px 13px 10px 30px;border-top:1px solid var(--rule);background:rgba(255,255,255,.38);overflow-wrap:anywhere}
+.insight-list li::before{content:"";position:absolute;left:13px;top:18px;width:6px;height:6px;border-radius:50%;background:var(--blue)}
+.insight-list li:last-child:nth-child(odd){grid-column:1/-1}
+.insight-list b{margin-right:8px;color:var(--blue-deep);font-weight:800}
 .sumrow,.sumrow .cell{min-width:0}
 .sumrow .cell em{white-space:nowrap;overflow-wrap:normal;font-size:clamp(10px,.9vw,12px);letter-spacing:-.025em}
 .tabs{display:flex;align-items:flex-end}
-.back-home{margin-left:auto;align-self:center;flex:0 0 34px;width:34px;height:34px;display:inline-grid;place-items:center;border:1.5px solid var(--rule-2);border-radius:50%;color:var(--ink-3);text-decoration:none;font-size:22px;line-height:1;padding-bottom:2px}
+.back-home{margin-left:auto;align-self:center;flex:0 0 36px;width:36px;height:36px;display:inline-grid;place-items:center;border:1.5px solid var(--rule-2);border-radius:50%;color:var(--ink-3);text-decoration:none;line-height:0;padding:0}
+.back-home svg,.pager .pg svg,.mini-ic svg,.icon-btn svg{display:block;margin:auto}
 .back-home:hover{border-color:var(--blue);color:var(--blue)}
 .pager{display:inline-flex;align-items:center;gap:8px;margin-left:8px;vertical-align:middle;font-size:14px;color:var(--ink-2)}
-.pager .pg{width:28px;height:28px;border:1.5px solid var(--rule-2);border-radius:50%;background:var(--surface);color:var(--ink-3);cursor:pointer;font-size:18px;line-height:1;display:inline-grid;place-items:center;padding:0 0 2px}
+.pager .pg{width:28px;height:28px;border:1.5px solid var(--rule-2);border-radius:50%;background:var(--surface);color:var(--ink-3);cursor:pointer;line-height:0;display:inline-grid;place-items:center;padding:0}
 .pager .pg:hover{border-color:var(--blue);color:var(--blue)}
 .pager .pg:disabled{opacity:.35;cursor:default}
 .pager b{font-weight:600;font-variant-numeric:tabular-nums;min-width:3ch;text-align:center}
-.ctabs{display:flex;gap:22px;margin:18px 0 0;border-bottom:1px solid var(--rule-2)}
-.ctab{font:inherit;font-size:14px;font-weight:600;padding:8px 2px 10px;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;background:transparent;color:var(--ink-3);cursor:pointer}
-.ctab:hover{color:var(--ink)}
-.ctab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--blue-deep)}
-.cpanel{max-height:clamp(380px,56vh,620px);overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable;
-  padding:0 12px 10px 2px;scrollbar-color:var(--rule-2) transparent}
 .cpanel:focus-visible{outline:2px solid rgba(115,87,232,.35);outline-offset:4px;border-radius:6px}
 .tl.beh .t{min-width:118px;color:var(--ink-3)}
 .tl.beh li.day .t{min-width:0;display:inline;font-weight:800;color:var(--blue-deep)}
@@ -509,20 +546,18 @@ html,body{max-width:100%}
 .tl.beh li.b-xg::before{background:var(--blue)}
 .tl.beh li.b-xg .d{color:var(--ink-blue)}
 .tl.beh li.b-trade .d{color:var(--good);font-weight:700}
-.summary{margin-top:16px;padding:14px 18px;border-radius:8px;background:#eef7f2;border:1px solid #cfe9dc;color:#0b5e42;font-size:14px}
-.summary h4{margin:0 0 6px;font-size:13px;letter-spacing:.04em}
-.summary p{margin:6px 0 0;color:var(--ink-2)}
-.summary .path b{color:#0b5e42;margin-right:8px}
-.kv.top span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
 .mini-ic{display:inline-grid;place-items:center;width:18px;height:18px;margin-left:6px;vertical-align:-4px;border:1px solid var(--rule-2);border-radius:50%;background:var(--surface);color:var(--ink-3);cursor:pointer;padding:0}
 .mini-ic:hover{border-color:var(--blue);color:var(--blue)}
 .mini-table tr.total td{font-weight:700;border-top:1px solid var(--rule-2);background:var(--pale)}
 .matrix tbody tr[data-jump]{cursor:pointer}
-.matrix tbody tr[data-jump]:hover td{background:var(--pale)}
+.matrix tbody tr[data-jump]:hover td{background:#f0edff;color:#171b2a}
 .matrix tbody tr[data-jump] .badge{box-shadow:0 0 0 0 transparent;transition:box-shadow .15s}
 .matrix tbody tr[data-jump]:hover .badge{box-shadow:0 0 0 3px rgba(27,136,238,.18)}
 @media(max-width:760px){
-  .lede-summary{margin:7px 0 22px;font-size:13px;line-height:1.65}
+  .insight-list{grid-template-columns:1fr;gap:7px;margin:13px 0 22px;font-size:12.5px;line-height:1.6}
+  .insight-list li{padding:9px 10px 9px 27px}
+  .insight-list li::before{left:11px;top:17px}
+  .insight-list li:last-child:nth-child(odd){grid-column:auto}
   .tabs{margin-top:22px}
   .tab{margin-right:20px}
   .back-home{position:sticky;right:0;background:var(--ground);box-shadow:-12px 0 16px var(--ground)}
@@ -542,7 +577,7 @@ html,body{max-width:100%}
     var idx=0, box=null, btns=null, cnt=null;
     if(cases.length>1){
       box=document.createElement('span'); box.className='pager';
-      box.innerHTML='<button type="button" class="pg" aria-label="下一位">›</button>';
+      box.innerHTML='<button type="button" class="pg" aria-label="下一位"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button>';
       head.appendChild(box);
       box.addEventListener('click',function(e){ if(!e.target.closest('.pg')) return; idx=(idx+1)%cases.length; render(); });
     }
@@ -607,29 +642,60 @@ page = f'''<!doctype html>
   .tab[aria-selected="true"]{{color:var(--ink);border-bottom-color:var(--blue-deep)}}
   .tab[aria-selected="true"] small{{color:var(--blue-deep);font-weight:700}}
   @media(max-width:520px){{.tab{{font-size:15px;margin-right:22px}}}}
-  .scope-def{{margin:14px 0 18px!important;color:var(--ink-2)!important;font-size:14px!important}}
-  .scope-def::before{{content:"口径";display:inline-block;margin-right:9px;padding:1px 7px;border-radius:99px;background:#eceef4;color:var(--ink-3);font-size:10px;font-weight:700;letter-spacing:.08em;vertical-align:2px}}
-  .cases-h{{display:flex;align-items:center;gap:10px;margin-top:36px;margin-bottom:14px}}
+  .scope-def{{margin:16px 0 18px!important;padding:11px 14px;border:1px solid #ddd9f2;border-left:3px solid var(--blue);border-radius:8px;background:rgba(255,255,255,.72);color:#34394b!important;font-size:14px!important;line-height:1.65}}
+  .section-h{{font:800 26px/1.3 var(--serif);letter-spacing:-.02em;color:var(--ink)}}
+  .matrix-h{{margin:32px 0 12px}}
+  .cases-h{{display:flex;align-items:center;gap:10px;margin-top:38px;margin-bottom:14px}}
   .cases-h .muted{{font:500 13px/1 Inter,"PingFang SC",sans-serif;margin-left:10px;white-space:nowrap}}
   .cases-h .muted b{{font-weight:700;color:var(--ink)}}
   .metric-note{{margin:12px 2px 8px;color:var(--ink-3);font-size:12px;line-height:1.6}}
   .metric-note b{{color:var(--ink-2);font-weight:700}}
-  .sumrow .cell{{min-height:108px}}
-  .sumrow .cell b{{margin-top:3px}}
+  .sumrow{{gap:12px}}
+  .sumrow .cell{{min-height:106px;padding:17px 18px;border-color:#d7d4e8;background:var(--surface);box-shadow:inset 0 3px 0 var(--blue),0 8px 24px rgb(34 39 63 / 4%)}}
+  .sumrow .cell b{{margin-top:2px;color:#27234d;font-size:27px}}
+  .sumrow .cell span{{margin-top:8px;color:#555b70;font-size:12.5px;font-weight:650}}
+  .sumrow .cell em{{display:block;margin-top:4px;color:#70768a;font-size:11.5px;font-style:normal}}
+  .scrollx{{border:1px solid #d4d8e5;border-radius:13px;background:var(--surface);box-shadow:0 10px 30px rgb(30 36 58 / 5%)}}
+  .matrix{{min-width:1000px;margin:0;border:0;border-radius:0;background:var(--surface);font-size:13.5px}}
+  .matrix th,.matrix td{{padding:11px 13px;border-bottom:1px solid #dce0eb;color:#24293a}}
+  .matrix th{{background:#eceaf6;color:#484d62;font-size:12.5px;font-weight:800;letter-spacing:.025em}}
+  .matrix tbody tr:nth-child(even) td{{background:#faf9fd}}
+  .matrix tbody tr:last-child td{{border-bottom:0}}
+  .matrix tbody tr[data-jump]{{transition:background-color .14s ease,box-shadow .14s ease}}
+  .matrix tbody tr[data-jump]:hover td{{background:#f0edff;color:#171b2a}}
+  .matrix tbody tr[data-jump]:hover{{box-shadow:inset 3px 0 0 var(--blue)}}
+  .matrix .badge{{border-color:#cfc8f2;background:#f1effd;color:#5540b8;font-weight:750}}
   .kv.top{{margin:4px 0 18px}}
-  .kv.top > div{{min-height:72px}}
-  .kv.top > div.primary{{border-color:#bfe3d4;background:#f1faf6;box-shadow:inset 3px 0 0 var(--good)}}
-  .kv.top > div.primary b{{color:#087b5d}}
-  .ctabs{{display:flex;gap:28px;margin-top:4px;border-bottom:1px solid var(--rule);background:var(--surface)}}
-  .ctab{{font:inherit;font-size:14px;font-weight:600;padding:9px 1px 10px;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;background:transparent;color:var(--ink-3);cursor:pointer}}
-  .ctab:hover{{color:var(--ink)}}
-  .ctab[aria-selected="true"]{{color:var(--ink);border-bottom-color:var(--blue-deep)}}
+  .case{{border-color:#ccd2e0;border-radius:18px;background:var(--surface);box-shadow:0 16px 42px rgb(25 31 52 / 8%)}}
+  .case-head{{min-height:68px;padding:17px 22px;border-bottom-color:#d8dbea;background:linear-gradient(105deg,#efedfb 0%,#f7f6fc 62%,#f1f3f9 100%)}}
+  .case-head .who{{color:#1e2233;font-size:20px;font-weight:800}}
+  .case-head .badge{{width:25px;height:25px;border-color:#c9c2ed;background:#fff;color:#4e38ac;font-weight:800}}
+  .case-head .tag{{padding:4px 10px;border-color:#d4d0e9;background:rgba(255,255,255,.78);color:#4d5266;font-size:11.5px;font-weight:700}}
+  .case-body{{padding:18px 24px 24px}}
+  .kv.top{{gap:12px;margin:0 0 20px}}
+  .kv.top > div,.kv.top > div.primary{{min-height:88px;padding:15px 16px;border:1px solid #d7d4e8;border-radius:11px;background:#fbfaff;box-shadow:inset 0 3px 0 var(--blue),0 7px 18px rgb(34 39 63 / 4%)}}
+  .kv.top > div b,.kv.top > div.primary b{{color:#27234d;font-size:19px;font-weight:800}}
+  .kv.top > div span{{margin-top:7px;color:#5d6377;font-size:12px;line-height:1.55;white-space:normal;overflow:visible;text-overflow:clip}}
+  .ctabs{{display:flex;gap:28px;margin-top:2px;padding:0 14px;border:1px solid #d8dbea;border-bottom-color:#cfd3e0;border-radius:11px 11px 0 0;background:#f3f2f8}}
+  .ctab{{font:inherit;font-size:14px;font-weight:700;padding:11px 1px 12px;border:0;border-bottom:3px solid transparent;margin-bottom:-1px;background:transparent;color:#656b7f;cursor:pointer}}
+  .ctab:hover{{color:#292d3d}}
+  .ctab[aria-selected="true"]{{color:#27234d;border-bottom-color:var(--blue-deep)}}
   .cpanel{{max-height:clamp(380px,56vh,620px);overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable;
-    padding:8px 12px 10px 2px;scrollbar-color:var(--rule-2) transparent}}
-  .summary{{margin-top:18px!important;background:#f7f8fb!important;border-color:#e3e6ee!important;color:var(--ink-2)!important}}
-  .summary h4{{color:var(--ink)!important}}
+    padding:12px 18px 16px;border:1px solid #d8dbea;border-top:0;border-radius:0 0 11px 11px;background:#fdfdff;scrollbar-color:#b9bdd0 transparent}}
+  .journey-tl{{margin-top:0}}
+  .journey-tl::before{{background:#c8ccdc}}
+  .journey-tl .t{{color:#5e657a;font-weight:650}}
+  .journey-tl .d{{color:#24293a}}
+  .journey-tl .day-marker{{background:linear-gradient(90deg,#fdfdff 82%,rgba(253,253,255,.88));color:#24293a}}
+  .summary{{margin-top:18px!important;padding:16px 18px 17px!important;border:1px solid #d7d4e8!important;border-left:4px solid var(--blue)!important;border-radius:10px!important;background:#f8f7fd!important;color:#24293a!important}}
+  .summary h4{{margin-bottom:8px!important;color:#27234d!important;font-size:14px!important;font-weight:800}}
+  .summary p{{color:#34394b!important;line-height:1.75}}
   .summary .path b{{color:var(--blue-deep)!important}}
-  .sub-block{{margin-top:14px!important;background:#fafbfc!important;border-color:#e3e6ee!important}}
+  .sub-block{{margin-top:16px!important;padding:16px 18px!important;border-color:#d8dbea!important;border-radius:10px!important;background:#fbfbfe!important}}
+  .sub-block h4{{color:#342d66!important;font-weight:800}}
+  .mini-table{{border-color:#d8dbea}}
+  .mini-table th{{background:#efedf8;color:#4b5064;font-weight:750}}
+  .mini-table td{{color:#292e40}}
   .icon-btn{{width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--rule-2);border-radius:9px;
     background:var(--surface);color:var(--ink-2);cursor:pointer;position:relative}}
   .icon-btn:hover{{border-color:var(--blue);color:var(--blue-deep);background:var(--pale)}}
@@ -640,22 +706,21 @@ page = f'''<!doctype html>
   .copy-id.failed{{opacity:1;border-color:#efc7c1;background:#fff3f1;color:var(--warn)}}
   .modal{{position:fixed;inset:0;z-index:50;display:none;place-items:center;padding:20px;background:rgb(15 20 30 / 45%)}}
   .modal[open]{{display:grid}}
-  .modal-card{{width:min(760px,100%);max-height:88vh;display:flex;flex-direction:column;background:var(--surface);
+  .modal-card{{width:min(920px,calc(100vw - 48px));height:min(760px,calc(100svh - 48px));min-height:520px;display:flex;flex-direction:column;background:var(--surface);
     border-radius:14px;box-shadow:0 30px 90px rgb(10 20 40 / 30%);overflow:hidden}}
   .modal-head{{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 20px;
-    border-bottom:1px solid var(--rule);background:var(--pale)}}
-  .modal-title-group{{min-width:0;display:flex;align-items:center;flex-wrap:wrap;gap:8px 16px}}
+    min-height:72px;border-bottom:1px solid var(--rule);background:var(--pale)}}
+  .modal-title-group{{min-width:0;flex:1;display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:12px 18px}}
   .modal-head h3{{margin:0;font:600 18px/1.3 var(--serif)}}
-  .modal-head .muted{{font-size:12px;font-weight:500;color:var(--ink-3)}}
-  .asks-filters{{display:flex;align-items:center;flex-wrap:wrap;gap:6px}}
+  .asks-filters{{display:flex;align-items:center;flex-wrap:nowrap;gap:6px}}
   .asks-filter{{border:1px solid var(--rule-2);border-radius:99px;background:var(--surface);color:var(--ink-3);
-    padding:4px 10px;font:600 12px/1.35 var(--serif);cursor:pointer;transition:.15s}}
+    min-width:72px;padding:5px 10px;font:600 12px/1.35 var(--serif);cursor:pointer;transition:.15s}}
   .asks-filter:hover{{border-color:var(--blue);color:var(--blue-deep)}}
   .asks-filter[aria-pressed="true"]{{border-color:var(--blue);background:var(--soft);color:var(--blue-deep)}}
   .asks-filter b{{font-weight:700;font-variant-numeric:tabular-nums}}
   .modal-close{{width:32px;height:32px;border:0;border-radius:8px;background:transparent;font-size:20px;cursor:pointer;color:var(--ink-3)}}
   .modal-close:hover{{background:var(--ground);color:var(--ink)}}
-  .modal-body{{overflow:auto;padding:6px 20px 18px}}
+  .modal-body{{flex:1;min-height:0;overflow-y:scroll;overflow-x:hidden;scrollbar-gutter:stable;padding:6px 20px 18px}}
   .qlist{{margin:0;padding:0;list-style:none}}
   .qlist li{{display:grid;grid-template-columns:130px 1fr;gap:12px;padding:8px 0;border-bottom:1px solid var(--rule);font-size:13.5px}}
   .qlist li:last-child{{border-bottom:0}}
@@ -666,12 +731,17 @@ page = f'''<!doctype html>
   .qlist .qmark.qm{{color:var(--good);background:#e6f5ee}}
   .qlist .via{{color:var(--ink-3);font-style:normal;font-size:11.5px}}
   @media(max-width:600px){{
-    .modal-head{{align-items:flex-start;padding:14px 16px}}
-    .modal-title-group{{gap:8px}}
-    .asks-filters{{width:100%}}
-    .asks-filter{{padding:4px 9px}}
+    .modal{{padding:10px}}
+    .modal-card{{width:calc(100vw - 20px);height:calc(100svh - 20px);min-height:0;border-radius:12px}}
+    .modal-head{{align-items:flex-start;min-height:112px;padding:14px 16px}}
+    .modal-title-group{{grid-template-columns:1fr;gap:9px}}
+    .asks-filters{{width:100%;overflow-x:auto;scrollbar-width:none}}
+    .asks-filters::-webkit-scrollbar{{display:none}}
+    .asks-filter{{min-width:68px;padding:5px 9px}}
     .modal-body{{padding-inline:16px}}
     .qlist li{{grid-template-columns:1fr}}
+    .section-h{{font-size:23px}}
+    .matrix-h{{margin-top:28px}}
   }}
 </style>
 </head>
@@ -679,16 +749,18 @@ page = f'''<!doctype html>
 <div class="page-wrap">
   <div class="eyebrow">QIANWEN × QIEMAN AI · CASE EXPLORER</div>
   <h1>千问用户转化分析</h1>
-  <p class="lede-summary" title="{esc(re.sub('<[^>]+>', '', LEDE))}">{LEDE}</p>
+  <ul class="insight-list" aria-label="转化分析洞察与总结">
+    {INSIGHTS_HTML}
+  </ul>
 
-  <div class="tabs" role="tablist" aria-label="口径切换">{tabs}<a class="back-home" href="../qianwen-user-acquisition-dashboard/" title="回到千问主看板" aria-label="回到千问主看板">›</a></div>
+  <div class="tabs" role="tablist" aria-label="分类切换">{tabs}<a class="back-home" href="../qianwen-user-acquisition-dashboard/" title="回到千问主看板" aria-label="回到千问主看板"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></div>
   {sections}
 
   <div class="caveat">
     <h4>口径与局限</h4>
     <ul>
       <li>分类名称与主看板一致：「新投」= 绑定后有新增投资且绑定时无资产（含新老用户）；「首投」= 绑定后完成第一笔投资（人生首笔非钱包买入，<span class="num">po.buy / fund.buy / si.trade / po.adjust / plan.trade</span>，撤单不计，含新老用户）；「新户首投」= 其中绑定时当场新注册（注册与绑定相差 ≤60 分钟）的用户；「老户唤回」= 绑定时已有且慢帐号但未首投或已清仓，绑定后重新入金；「老户首投」= 老用户的人生首笔投资发生在绑定后。统计截至 {CUT}。</li>
-      <li>入金与主看板完全同口径：绑定后线上/线下充值到盈米宝 + 银行卡直付买产品；组合回款进宝、宝内余额买产品不计。买入 = 绑定后非钱包买入合计；资产 = 各用户最近一个已跑批的 ROOT 快照。</li>
+      <li>入金与主看板完全同口径：绑定后线上/线下充值到盈米宝 + 银行卡直付投资；组合回款进宝、宝内余额投资不计。资产 = 各用户最近一个已跑批的 ROOT 快照。</li>
       <li>下单终端与「且慢行为」来自神策埋点（<span class="num">qm_meta.ai_insight_sensors_event_detail</span>）：iOS / Android / HarmonyOS 为 App 原生页记录，js 为 App 内嵌或独立 H5 页；以首笔买入前后 30 分钟内的原生页记录判定终端，设备注册表仅作辅证。页面名已从技术类名翻译成业务页名，不可读的类名不展示；「入金 X 笔」按看板口径（线上/线下充值到盈米宝 + 银行卡直付买入）计数。</li>
       <li>风测得分为且慢风险测评原始分（broker 0008，<span class="num">risk_survey_record</span> 全量历史，取最近一次），未换算等级档位。</li>
       <li>千问提问取 <span class="num">agent_dj_messages</span> 中 role=USER 的非空记录，时间用 <span class="num">dj_gmt_create</span>（业务时间）；且慢 App 内小顾取 <span class="num">ying99_mia.user_message</span> 用户输入行；微信 / 企微侧小顾七人均无记录。关键旅程最多展示前 10 条提问。</li>
@@ -703,7 +775,7 @@ page = f'''<!doctype html>
   <div class="modal-card">
     <div class="modal-head">
       <div class="modal-title-group">
-        <h3 id="asks-title">提问历程 <span class="muted" id="asks-count"></span></h3>
+        <h3 id="asks-title">提问历程</h3>
         <div class="asks-filters" id="asks-filters" role="toolbar" aria-label="按提问渠道筛选"></div>
       </div>
       <button type="button" class="modal-close" aria-label="关闭">×</button>
@@ -756,10 +828,10 @@ function openAsks(pmid){{
 function renderAsks(){{
   const u=asksUser; if(!u) return;
   const rows=asksChannel ? u.asks.filter(a=>a.ch===asksChannel) : u.asks;
-  document.getElementById('asks-title').firstChild.textContent=`用户 ${{u.letter}} 的小顾对话 `;
-  document.getElementById('asks-count').textContent=asksChannel ? `${{rows.length}} / ${{u.asks.length}} 条` : `${{u.asks.length}} 条`;
+  document.getElementById('asks-title').textContent=`用户 ${{u.letter}} 的小顾对话`;
   const filters=document.getElementById('asks-filters'); filters.innerHTML='';
-  [['','全部',u.asks.length], ...askChannels.map(ch=>[ch,ch,u.asks.filter(a=>a.ch===ch).length])].forEach(spec=>{{
+  const channelSpecs=askChannels.map(ch=>[ch,ch,u.asks.filter(a=>a.ch===ch).length]).filter(spec=>spec[2]>0);
+  [['','全部',u.asks.length], ...channelSpecs].forEach(spec=>{{
     const b=document.createElement('button'); b.type='button'; b.className='asks-filter'; b.dataset.channel=spec[0];
     b.setAttribute('aria-pressed',String(asksChannel===spec[0])); b.title=spec[0] ? `只看${{spec[1]}}提问` : '查看全部渠道提问';
     b.appendChild(document.createTextNode(spec[1]+' ')); const n=document.createElement('b'); n.textContent=spec[2]; b.appendChild(n); filters.appendChild(b);
