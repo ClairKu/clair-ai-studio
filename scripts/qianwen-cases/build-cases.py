@@ -19,6 +19,18 @@ data = json.load(open(SRC))
 users = data["users"]; META = data["meta"]
 CUT = META["cutoff"]  # 'YYYY-MM-DD HH:MM'
 
+# 公开展示统一使用匿名数字编号；沿用原 A→1、B→2… 的稳定映射，不改变底层用户身份。
+for user in users:
+    label = str(user.get("letter") or "")
+    if len(label) == 1 and label.isalpha():
+        user["letter"] = str(ord(label.upper()) - ord("A") + 1)
+    if user.get("narrative"):
+        user["narrative"] = re.sub(
+            r"用户\s+([A-Z])\b",
+            lambda match: f"用户 {ord(match.group(1)) - ord('A') + 1}",
+            user["narrative"],
+        )
+
 def esc(s): return html.escape(str(s if s is not None else ""))
 def dt(s):
     if not s: return None
@@ -519,7 +531,7 @@ html,body{max-width:100%}
     }
     cnt=head.querySelector('.pg-cur');
     function render(){ cases.forEach(function(c,i){ c.hidden = i!==idx; }); if(cnt) cnt.textContent=String(idx+1); }
-    // 表格行 → 对应个例：按用户字母匹配 .case[data-letter]
+    // 表格行 → 对应个例：按匿名用户编号匹配 .case[data-letter]
     sec.querySelectorAll('.matrix tbody tr').forEach(function(tr){
       var badge=tr.querySelector('.badge'); if(!badge) return;
       var letter=badge.textContent.trim(); var target=cases.findIndex(function(c){ return c.dataset.letter===letter; });
