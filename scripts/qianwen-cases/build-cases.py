@@ -70,7 +70,12 @@ def agg(us):
         "inflow": sum(float(u["derived"]["inflow_after"] or 0) for u in us),
         "buy": sum(float(u["derived"]["buy_amount_after"] or 0) for u in us),
         "repeat": sum(1 for u in us if (u["derived"]["buys_after"] or 0) >= 2),
+        "cancels": sum(1 for u in us if (u["derived"]["cancels_after"] or 0) > 0),
         "asks": sum(len(u["asks"]) for u in us),
+        "max_inflow": max((float(u["derived"]["inflow_after"] or 0) for u in us), default=0),
+        "max_asks": max((len(u["asks"]) for u in us), default=0),
+        "no_asks": sum(1 for u in us if not u["asks"]),
+        "mid_days": None,
     }
 
 # ───── 时间线 ─────
@@ -178,7 +183,7 @@ def channel_block(u):
         dev_note = f'App 设备（{PLAT.get(str(d0["platform"]), d0["platform"])}）{fmt_t(d0["created_on"], True)} 注册、{fmt_t(d0["updated_on"], True)} 最近更新'
     else:
         dev_note = "无任何且慢 App 设备记录"
-    tok_note = (f'千问侧令牌在首笔买入前后 1 小时内有签发（{"、".join(fmt_t(t, True) for t in tok_near)}），说明下单时段正在千问会话中，页面很可能是千问内嵌的且慢 H5' if tok_near
+    tok_note = (f'首笔买入前后 1 小时内有千问会话活动（令牌 {"、".join(fmt_t(t, True) for t in tok_near)} 签发）——下单前刚在千问里问过小顾；是否经千问内嵌的且慢页面下单，库内无终端字段可判' if tok_near
                 else f'千问侧令牌签发时刻（{"、".join(fmt_t(t, True) for t in toks[:6])}{"…" if len(toks) > 6 else ""}）均不在首笔买入前后 1 小时内——下单时段没有千问会话活动')
     ops = []
     for r in u["risk"]:
@@ -290,12 +295,21 @@ def matrix(us):
 
 def scope_section(sc):
     us = scope_users(sc); a = agg(us)
+    n = max(a["n"], 1)
+    keep = f'{a["asset"]/a["inflow"]*100:.0f}%' if a["inflow"] else "—"
+    top_inflow = f'{a["max_inflow"]/a["inflow"]*100:.0f}%' if a["inflow"] else "—"
+    top_asks = f'{a["max_asks"]/a["asks"]*100:.0f}%' if a["asks"] else "—"
+    # 绑定→首笔买入的中位时长
+    import statistics
+    durs = [(dt(u["derived"]["first_buy_after"]) - dt(u["fb"])).total_seconds() for u in us if u["derived"]["first_buy_after"]]
+    med = statistics.median(durs) if durs else None
+    med_txt = ("—" if med is None else f"{med/86400:.1f} 天" if med >= 86400 else f"{med/3600:.1f} 小时")
     cells = f'''<div class="grid sumrow">
-  <div class="cell"><b>{a["n"]}</b><span>用户数</span><em>新客 {a["new"]} / 老客 {a["n"]-a["new"]}</em></div>
-  <div class="cell"><b>{wan(a["asset"])}</b><span>当前资产规模</span><em>最近 ROOT 快照合计</em></div>
-  <div class="cell"><b>{wan(a["inflow"])}</b><span>绑定后入金</span><em>ROOT 账户实际入流</em></div>
-  <div class="cell"><b>{wan(a["buy"])}</b><span>绑定后买入</span><em>复投 {a["repeat"]} 人</em></div>
-  <div class="cell"><b>{a["asks"]:,}</b><span>小顾提问合计</span><em>{"零提问 " + str(sum(1 for u in us if not u["asks"])) + " 人" if us else ""}</em></div>
+  <div class="cell"><b>{a["n"]}</b><span>用户数</span><em>新客 {a["new"]} / 老客 {a["n"]-a["new"]} · 绑定→首投中位 {med_txt}</em></div>
+  <div class="cell"><b>{wan(a["asset"])}</b><span>当前资产规模</span><em>人均 {wan(a["asset"]/n)} · 相当于入金的 {keep}</em></div>
+  <div class="cell"><b>{wan(a["inflow"])}</b><span>绑定后入金</span><em>人均 {wan(a["inflow"]/n)} · 最大单人占 {top_inflow}</em></div>
+  <div class="cell"><b>{wan(a["buy"])}</b><span>绑定后买入</span><em>复投 {a["repeat"]} 人 · 撤单重下 {a["cancels"]} 人</em></div>
+  <div class="cell"><b>{a["asks"]:,}</b><span>小顾提问合计</span><em>零提问 {a["no_asks"]} 人 · 最多一人占 {top_asks}</em></div>
 </div>'''
     cards = "\n".join(card(u) for u in us) if us else '<div class="note">该口径下暂无用户。</div>'
     return f'''<section class="scope" id="scope-{sc["id"]}" hidden>
@@ -306,7 +320,7 @@ def scope_section(sc):
   {cards}
 </section>'''
 
-tabs = "".join(f'<button type="button" class="tab" role="tab" data-scope="{sc["id"]}" aria-selected="false">{sc["label"]}<small>{agg(scope_users(sc))["n"]} 人</small></button>' for sc in SCOPES)
+tabs = "".join(f'<button type="button" class="tab" role="tab" data-scope="{sc["id"]}" aria-selected="false">{sc["label"]}<small>{agg(scope_users(sc))["n"]}</small></button>' for sc in SCOPES)
 sections = "\n".join(scope_section(sc) for sc in SCOPES)
 
 ASKS_JSON = json.dumps({u["pmid"]: {"letter": u["letter"], "cohort": u["cohort"],
@@ -340,13 +354,17 @@ page = f'''<!doctype html>
   .mini-table th,.mini-table td{{padding:6px 10px}}
   .funds{{margin:4px 0 0;padding-left:18px;font-size:12.5px;color:var(--ink-2)}}
   .funds li{{margin:2px 0}}
-  .tabs{{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 6px}}
-  .tab{{font:inherit;font-size:14px;font-weight:700;padding:9px 16px;border-radius:99px;border:1px solid var(--rule-2);
-    background:var(--surface);color:var(--ink-2);cursor:pointer;display:inline-flex;align-items:center;gap:8px}}
-  .tab small{{font:600 11.5px/1 var(--mono);color:var(--ink-3);background:var(--ground);border-radius:99px;padding:3px 7px}}
-  .tab:hover{{border-color:var(--blue)}}
-  .tab[aria-selected="true"]{{background:var(--ink-blue);color:#fff;border-color:var(--ink-blue)}}
-  .tab[aria-selected="true"] small{{background:rgba(255,255,255,.18);color:#fff}}
+  .tabs{{display:inline-flex;flex-wrap:nowrap;gap:2px;margin:26px 0 8px;padding:4px;max-width:100%;overflow-x:auto;
+    background:var(--surface);border:1px solid var(--rule);border-radius:12px;scrollbar-width:none}}
+  .tabs::-webkit-scrollbar{{display:none}}
+  .tab{{font:inherit;font-size:13.5px;font-weight:600;line-height:1;padding:9px 14px;border:0;border-radius:9px;
+    background:transparent;color:var(--ink-2);cursor:pointer;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;
+    transition:background .15s,color .15s}}
+  .tab small{{font:600 11.5px/1 var(--mono);color:var(--ink-3);letter-spacing:0}}
+  .tab:hover{{background:var(--ground);color:var(--ink)}}
+  .tab[aria-selected="true"]{{background:var(--ink-blue);color:#fff}}
+  .tab[aria-selected="true"] small{{color:rgba(255,255,255,.7)}}
+  @media(max-width:520px){{.tab{{padding:8px 11px;font-size:13px}}}}
   .scope-def{{margin:8px 0 18px!important}}
   .cases-h{{margin-top:36px}}
   .cases-h .muted{{font:500 13px/1 Inter,"PingFang SC",sans-serif;margin-left:10px}}
