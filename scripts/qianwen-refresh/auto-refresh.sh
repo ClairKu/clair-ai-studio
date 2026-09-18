@@ -65,8 +65,8 @@ QW_CUT="$CUT" QW_AD="$AD" QW_WORK="$WORK" zsh "$S/run-ext-sql.sh" || fail "扩�
 
 # ── 整理 / 组装 ──
 git -C "$WORK/src" show HEAD:public/reports/qianwen-user-acquisition-dashboard/data/latest.json > "$WORK/template.json"
-python3 "$S/build-q.py" "$WORK" || fail "build-q 整理失败（口径/闭合问题，见日志）"
-python3 "$S/assemble.py" "$WORK/template.json" "$WORK" || fail "assemble 校验失败"
+out=$(python3 "$S/build-q.py" "$WORK" 2>&1) || fail "build-q 整理失败：$(echo "$out" | tail -1)"; echo "$out" | tail -2
+out=$(python3 "$S/assemble.py" "$WORK/template.json" "$WORK" 2>&1) || fail "assemble 校验失败：$(echo "$out" | tail -1)"; echo "$out" | tail -2
 
 # ── 构建 + 提交（replay.sh 会在 $WORK/wt 建 worktree、npm run build、只提交 3 个文件）──
 QW_WORK="$WORK" zsh "$S/replay.sh" || fail "replay/build 失败"

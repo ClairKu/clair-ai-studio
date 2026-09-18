@@ -477,6 +477,53 @@ function renderRefreshSchedule() {
   if (node) node.textContent = `每日 ${REFRESH_SCHEDULE.join(" / ")} 自动更新`;
 }
 
+function decorateRows(rows) {
+  let cumulativeNew = 0;
+  let cumulativeExisting = 0;
+  let cumulativeUnclassified = 0;
+  let cumulativeBound = 0;
+  return rows.map((row) => {
+    cumulativeNew += row.new_accounts_today;
+    cumulativeExisting += row.existing_accounts_today;
+    cumulativeUnclassified += row.unclassified_accounts_today;
+    cumulativeBound += row.bound_accounts_today;
+    return {
+      ...row,
+      window_cumulative_new: cumulativeNew,
+      window_cumulative_existing: cumulativeExisting,
+      window_cumulative_unclassified: cumulativeUnclassified,
+      window_cumulative_bound: cumulativeBound,
+    };
+  });
+}
+
+function filteredRows() {
+  if (!currentData) return [];
+  let rows = currentData.daily;
+  if (viewState.range === "since-launch") rows = rows.filter((row) => row.date >= LAUNCH_DAY);
+  if (viewState.range === "last-7") rows = rows.slice(-7);
+  if (viewState.range === "custom") rows = rows.filter((row) => row.date >= viewState.start && row.date <= viewState.end);
+  return decorateRows(rows);
+}
+
+function scopeLabel(rows, short = false) {
+  if (viewState.range === "full-window") return short ? "全部区间" : `${formatDay(currentData.daily[0].date)}以来（含上线前灰度）`;
+  if (viewState.range === "since-launch") return short ? "上线以来" : "服务上线以来";
+  if (viewState.range === "last-7") return "近 7 日";
+  if (!rows.length) return "自定义日期";
+  return `${formatDay(rows[0].date)}—${formatDay(rows.at(-1).date)}`;
+}
+
+function rangeTotals(rows) {
+  const latest = rows.at(-1);
+  return latest ? {
+    bound: latest.window_cumulative_bound,
+    new: latest.window_cumulative_new,
+    existing: latest.window_cumulative_existing,
+    unclassified: latest.window_cumulative_unclassified,
+  } : { bound: 0, new: 0, existing: 0, unclassified: 0 };
+}
+
 function renderSegmentPanel() {
   // 分客群面板：全窗口口径（锚在各用户自己的绑定时刻），不随上方时间范围联动。
   const items = currentData?.segments?.items || [];
