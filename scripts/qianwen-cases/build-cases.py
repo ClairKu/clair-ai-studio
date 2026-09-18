@@ -474,7 +474,7 @@ html,body{max-width:100%}
 .page-wrap{min-width:0}
 .lede-summary{display:block;width:100%;max-width:72em;margin:8px 0 30px;color:var(--ink-2);font-size:14px;line-height:1.75;white-space:normal;overflow-wrap:anywhere}
 .sumrow,.sumrow .cell{min-width:0}
-.sumrow .cell em{white-space:normal;overflow-wrap:anywhere}
+.sumrow .cell em{white-space:nowrap;overflow-wrap:normal;font-size:clamp(10px,.9vw,12px);letter-spacing:-.025em}
 .tabs{display:flex;align-items:flex-end}
 .back-home{margin-left:auto;align-self:center;flex:0 0 34px;width:34px;height:34px;display:inline-grid;place-items:center;border:1.5px solid var(--rule-2);border-radius:50%;color:var(--ink-3);text-decoration:none;font-size:22px;line-height:1;padding-bottom:2px}
 .back-home:hover{border-color:var(--blue);color:var(--blue)}
