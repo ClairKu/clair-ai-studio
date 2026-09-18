@@ -69,15 +69,15 @@ PLAT = {"3": "iOS", "4": "安卓", "5": "鸿蒙"}
 # ───── 口径定义 ─────
 SCOPES = [
   {"id": "new_inv", "label": "新投", "flag": "zero_at_bind",
-   "def": "绑定后有新增投资，且绑定时无资产（含新老用户）"},
+   "def": "绑定千问时没有资产，绑定后有了新的入金（新老用户都算）。"},
   {"id": "first_inv", "label": "首投", "flag": "first_invest_after",
-   "def": "绑定后有新增投资，且绑定前没有投资过（含新老用户）"},
+   "def": "绑定前从未投资，绑定后完成了人生第一笔买入（新老用户都算）。"},
   {"id": "new_first_inv", "label": "新户首投", "flag": "new_first_invest",
-   "def": "在千问当场注册且慢帐号，并在绑定后完成第一笔投资"},
+   "def": "在千问当场注册且慢，并在绑定后完成第一笔买入。"},
   {"id": "existing_reactivated", "label": "老户唤回", "flag": "recall",
-   "def": "绑定时已有且慢帐号、未首投或已清仓，绑定后重新入金"},
+   "def": "已有且慢账号，但绑定时还没投或已经清仓，绑定后又入金了。"},
   {"id": "existing_first_inv", "label": "老户首投", "flag": "existing_first_invest",
-   "def": "老用户的人生第一笔投资发生在绑定后"},
+   "def": "已有且慢账号但从未投资，绑定后完成了人生第一笔买入。"},
 ]
 
 def scope_users(sc):
@@ -157,14 +157,19 @@ def timeline(u):
         ev.append((dt(al["cal_date"] + "T23:59:59"), "sys", f"最近资产快照（{al['cal_date'][5:]}）{money(al['ta'])} 元"))
     ev = [e for e in ev if e[0]]
     ev.sort(key=lambda e: e[0])
-    out, last_day = [], None
+    out, last_day, last_time = [], None, None
     for t, cls, text in ev:
         day = t.date()
         first = day != last_day
+        if first:
+            weekday = "一二三四五六日"[t.weekday()]
+            out.append(f'<li class="day-marker"><span class="day-date">{t.strftime("%-m月%-d日")}</span><span class="weekday">周{weekday}</span></li>')
+            last_time = None
         last_day = day
-        cls2 = cls + (" day" if first else "")
-        tt = t.strftime("%-m-%d %H:%M:%S") if first else t.strftime("%H:%M:%S")
-        out.append(f'<li class="{cls2}"><span class="t">{tt}</span><span class="d">{text}</span></li>')
+        same_time = t == last_time
+        tt = "同刻" if same_time else t.strftime("%H:%M:%S")
+        out.append(f'<li class="{cls}{" same-time" if same_time else ""}"><span class="t">{tt}</span><span class="d">{text}</span></li>')
+        last_time = t
     return "\n".join(out)
 
 LIBN = {"iOS": "iOS", "Android": "安卓", "HarmonyOS": "鸿蒙"}
@@ -316,7 +321,7 @@ def top_stats(u):
     icon = (f'<button type="button" class="mini-ic" data-asks="{u["pmid"]}" title="查看在千问、且慢小顾、微信小顾的全部提问记录" aria-label="查看全部提问记录">'
             '<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1.1-4.3A8 8 0 1 1 21 12z"/></svg></button>') if total else ""
     return (f'<div class="kv top">'
-            f'<div><b class="num">{money(d["inflow_after"])} 元</b><span>入金（充宝或卡买入） · {asset_sub}</span></div>'
+            f'<div class="primary"><b class="num">{money(d["inflow_after"])} 元</b><span>入金（充宝或卡买入） · {asset_sub}</span></div>'
             f'<div><b class="num">{dur(u["fb"], first_in)}</b><span>绑定 → 首笔入金</span></div>'
             f'<div><b class="num">{len(inf) if inf else d["buys_after"]} 笔</b><span>入金{" · " + dates if dates else ""}</span></div>'
             f'<div><b class="num">{total} 条</b><span>小顾对话 · {chs}{icon}</span></div>'
@@ -380,7 +385,7 @@ def card(u):
             f'      <button type="button" class="ctab" role="tab" aria-selected="true" data-panel="journey">关键旅程</button>\n'
             f'      <button type="button" class="ctab" role="tab" aria-selected="false" data-panel="behavior">且慢行为</button>\n'
             f'    </div>\n'
-            f'    <div class="cpanel" data-panel="journey" role="region" aria-label="关键旅程内容" tabindex="0">\n    <ul class="tl">\n{timeline(u)}\n    </ul>\n    </div>\n'
+            f'    <div class="cpanel" data-panel="journey" role="region" aria-label="关键旅程内容" tabindex="0">\n    <ul class="tl journey-tl">\n{timeline(u)}\n    </ul>\n    </div>\n'
             f'    <div class="cpanel" data-panel="behavior" role="region" aria-label="且慢行为内容" tabindex="0" hidden>\n    {behavior_panel(u)}\n    </div>\n'
             f'    {path_summary(u)}\n'
             f'    {holdings_block(u)}\n'
@@ -424,11 +429,11 @@ def scope_section(sc):
     med = statistics.median(durs) if durs else None
     med_txt = ("—" if med is None else f"{med/86400:.1f} 天" if med >= 86400 else f"{med/3600:.1f} 小时")
     cells = f'''<div class="grid sumrow">
-  <div class="cell"><b>{a["n"]}</b><span>用户数</span><em>{(f"未首投 {sum(1 for u in us if not u.get('last_buy_before'))} 人 / 已清仓 {sum(1 for u in us if u.get('last_buy_before'))} 人") if sc["id"] == "existing_reactivated" else f"新客 {a['new']} / 老客 {a['n']-a['new']}"} · 绑定→首投中位 {med_txt}</em></div>
-  <div class="cell"><b>{wan(a["asset"])}</b><span>当前资产规模</span><em>人均 {wan(a["asset"]/n)} · 相当于入金的 {keep}</em></div>
-  <div class="cell"><b>{wan(a["inflow"])}</b><span>入金</span><em>充宝或卡买入 · 人均 {wan(a["inflow"]/n)}</em></div>
-  <div class="cell"><b>{wan(a["buy"])}</b><span>买入</span><em>基金或组合 · 复投 {a["repeat"]} 人</em></div>
-  <div class="cell"><b>{a["asks"]:,}</b><span>小顾提问合计</span><em>零提问 {a["no_asks"]} 人 · 最多一人占 {top_asks}</em></div>
+  <div class="cell key users"><b>{a["n"]}</b><span>用户数</span><em>{(f"未首投 {sum(1 for u in us if not u.get('last_buy_before'))} 人 / 已清仓 {sum(1 for u in us if u.get('last_buy_before'))} 人") if sc["id"] == "existing_reactivated" else f"新客 {a['new']} / 老客 {a['n']-a['new']}"} · 绑定→首投中位 {med_txt}</em></div>
+  <div class="cell secondary"><b>{wan(a["asset"])}</b><span>当前资产规模</span><em>人均 {wan(a["asset"]/n)} · 相当于入金的 {keep}</em></div>
+  <div class="cell key money"><b>{wan(a["inflow"])}</b><span>入金</span><em>充宝或卡买入 · 人均 {wan(a["inflow"]/n)}</em></div>
+  <div class="cell key money"><b>{wan(a["buy"])}</b><span>买入</span><em>基金或组合 · 复投 {a["repeat"]} 人</em></div>
+  <div class="cell secondary"><b>{a["asks"]:,}</b><span>小顾提问合计</span><em>零提问 {a["no_asks"]} 人 · 最多一人占 {top_asks}</em></div>
 </div>'''
     cards = "\n".join(card(u) for u in us) if us else '<div class="note">该口径下暂无用户。</div>'
     return f'''<section class="scope" id="scope-{sc["id"]}" hidden>
@@ -602,21 +607,37 @@ page = f'''<!doctype html>
   .tab[aria-selected="true"]{{color:var(--ink);border-bottom-color:var(--blue-deep)}}
   .tab[aria-selected="true"] small{{color:var(--blue-deep);font-weight:700}}
   @media(max-width:520px){{.tab{{font-size:15px;margin-right:22px}}}}
-  .scope-def{{margin:14px 0 18px!important}}
-  .cases-h{{margin-top:36px}}
+  .scope-def{{margin:14px 0 18px!important;color:var(--ink-2)!important;font-size:14px!important}}
+  .scope-def::before{{content:"口径";display:inline-block;margin-right:9px;padding:1px 7px;border-radius:99px;background:#eceef4;color:var(--ink-3);font-size:10px;font-weight:700;letter-spacing:.08em;vertical-align:2px}}
+  .cases-h{{display:flex;align-items:center;gap:10px;margin-top:36px;margin-bottom:14px}}
   .cases-h .muted{{font:500 13px/1 Inter,"PingFang SC",sans-serif;margin-left:10px;white-space:nowrap}}
   .cases-h .muted b{{font-weight:700;color:var(--ink)}}
   .metric-note{{margin:12px 2px 8px;color:var(--ink-3);font-size:12px;line-height:1.6}}
   .metric-note b{{color:var(--ink-2);font-weight:700}}
+  .sumrow .cell{{min-height:108px}}
+  .sumrow .cell b{{margin-top:3px}}
+  .kv.top{{margin:4px 0 18px}}
+  .kv.top > div{{min-height:72px}}
+  .kv.top > div.primary{{border-color:#bfe3d4;background:#f1faf6;box-shadow:inset 3px 0 0 var(--good)}}
+  .kv.top > div.primary b{{color:#087b5d}}
+  .ctabs{{display:flex;gap:28px;margin-top:4px;border-bottom:1px solid var(--rule);background:var(--surface)}}
+  .ctab{{font:inherit;font-size:14px;font-weight:600;padding:9px 1px 10px;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;background:transparent;color:var(--ink-3);cursor:pointer}}
+  .ctab:hover{{color:var(--ink)}}
+  .ctab[aria-selected="true"]{{color:var(--ink);border-bottom-color:var(--blue-deep)}}
+  .cpanel{{max-height:clamp(380px,56vh,620px);overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable;
+    padding:8px 12px 10px 2px;scrollbar-color:var(--rule-2) transparent}}
+  .summary{{margin-top:18px!important;background:#f7f8fb!important;border-color:#e3e6ee!important;color:var(--ink-2)!important}}
+  .summary h4{{color:var(--ink)!important}}
+  .summary .path b{{color:var(--blue-deep)!important}}
+  .sub-block{{margin-top:14px!important;background:#fafbfc!important;border-color:#e3e6ee!important}}
   .icon-btn{{width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--rule-2);border-radius:9px;
     background:var(--surface);color:var(--ink-2);cursor:pointer;position:relative}}
   .icon-btn:hover{{border-color:var(--blue);color:var(--blue-deep);background:var(--pale)}}
   .icon-btn.done{{border-color:var(--good);color:var(--good)}}
-  .copy-id{{width:28px;height:28px;border-color:transparent;background:transparent;color:var(--ink-3);opacity:.72}}
+  .copy-id{{width:28px;height:28px;flex:0 0 28px;align-self:center;border-color:transparent;background:transparent;color:var(--ink-3);opacity:.72}}
   .copy-id:hover{{opacity:1;border-color:var(--rule-2);background:rgba(255,255,255,.7)}}
-  .icon-btn .tip{{position:absolute;bottom:calc(100% + 6px);right:0;background:var(--ink);color:#fff;font-size:11px;
-    padding:4px 8px;border-radius:6px;white-space:nowrap;pointer-events:none;opacity:0;transform:translateY(3px);transition:.15s}}
-  .icon-btn.done .tip{{opacity:1;transform:none}}
+  .copy-id.done{{opacity:1;border-color:#bfe3d4;background:#eaf7f1;color:var(--good)}}
+  .copy-id.failed{{opacity:1;border-color:#efc7c1;background:#fff3f1;color:var(--warn)}}
   .modal{{position:fixed;inset:0;z-index:50;display:none;place-items:center;padding:20px;background:rgb(15 20 30 / 45%)}}
   .modal[open]{{display:grid}}
   .modal-card{{width:min(760px,100%);max-height:88vh;display:flex;flex-direction:column;background:var(--surface);
@@ -710,9 +731,17 @@ async function copyText(text){{
 }}
 document.addEventListener('click', async (e)=>{{
   const c=e.target.closest('[data-copy]');
-  if(c){{ const ok=await copyText(c.dataset.copy); c.classList.add('done');
-    let tip=c.querySelector('.tip'); if(!tip){{ tip=document.createElement('span'); tip.className='tip'; c.appendChild(tip); }}
-    tip.textContent= ok ? '已复制 ID' : '复制失败'; setTimeout(()=>c.classList.remove('done'),1600); return; }}
+  if(c){{
+    const original=c.innerHTML, originalLabel=c.getAttribute('aria-label')||'复制用户 ID', originalTitle=c.title;
+    const ok=await copyText(c.dataset.copy);
+    c.classList.toggle('done',ok); c.classList.toggle('failed',!ok);
+    c.innerHTML=ok
+      ? '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6"/></svg>'
+      : '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>';
+    c.setAttribute('aria-label',ok?'用户 ID 已复制':'复制失败'); c.title=ok?'已复制用户 ID':'复制失败，请重试';
+    setTimeout(()=>{{ c.classList.remove('done','failed'); c.innerHTML=original; c.setAttribute('aria-label',originalLabel); c.title=originalTitle; }},1400);
+    return;
+  }}
   const a=e.target.closest('[data-asks]');
   if(a){{ openAsks(a.dataset.asks); }}
 }});
