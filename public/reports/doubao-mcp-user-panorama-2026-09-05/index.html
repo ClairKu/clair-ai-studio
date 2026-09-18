@@ -113,19 +113,19 @@ a{color:var(--accent-text)}
 <div class="wrap">
 <header>
   <div class="eyebrow">盈米 MCP 开放平台 · 渠道运营分析</div>
-  <h1>豆包上架盈米 MCP：首 9 日用户全景</h1>
+  <h1>豆包上架盈米 MCP：上架三周用户全景</h1>
   <div class="meta">
     <span>上架时间 <span class="mono">2026-08-28 19:17</span>（豆包 OAuth 客户端首次授权）</span>
-    <span>取数截至 <span class="mono">2026-09-05 ≈21:00</span>（北京时间）</span>
+    <span>取数截至 <span class="mono">2026-09-18 ≈17:00</span>（北京时间）</span>
     <span>数据源 <span class="mono">ying99_oap / ying99_accounts / ying99_asset</span></span>
   </div>
   <div class="kpis">
-    <div class="kpi hot"><small>OAuth 绑定用户</small><b>336</b><span>累计授权 469 次 · 零撤销</span></div>
-    <div class="kpi"><small>激活率（用过 ≥1 次）</small><b>97.9%</b><span>329 / 336 人产生会话</span></div>
-    <div class="kpi"><small>单日活跃峰值</small><b>167</b><span>9-04 · 会话令牌口径</span></div>
-    <div class="kpi"><small>次周留存</small><b>41.7%</b><span>首周绑定 115 人中 48 人</span></div>
-    <div class="kpi"><small>有且慢基金账户</small><b>49</b><span>占 14.6% · 全部为存量老客</span></div>
-    <div class="kpi"><small>绑定后新增入金</small><b>+35.7万</b><span>18 人 · 9 户零资产激活</span></div>
+    <div class="kpi hot"><small>OAuth 绑定用户</small><b>1,111</b><span>累计授权 1,647 次 · 撤销 1 人</span></div>
+    <div class="kpi"><small>激活率（用过 ≥1 次）</small><b>94.9%</b><span>1,054 / 1,111 人产生会话</span></div>
+    <div class="kpi"><small>单日活跃峰值</small><b>587</b><span>9-18（截至 17 点）· 会话令牌口径</span></div>
+    <div class="kpi"><small>首周用户长期留存</small><b>40.9%</b><span>115 人中 47 人近 7 日仍活跃</span></div>
+    <div class="kpi"><small>有且慢基金账户</small><b>160</b><span>占 14.4% · 3 户绑定后新开</span></div>
+    <div class="kpi"><small>绑定后新增入金</small><b>+211.1万</b><span>65 人 · 30 户零资产激活</span></div>
   </div>
 </header>
 
@@ -138,44 +138,44 @@ a{color:var(--accent-text)}
       <td><span class="chip">OAuth 授权</span></td>
       <td>豆包个人版 MCP 广场一键授权。预注册客户端 <span class="mono">doubao</span>（2026-08-28 建），回调地址为豆包 <span class="mono">personal</span> 通道，挂在「官方渠道」OpenChannel 下，经且慢账号（IdP）登录授权。</td>
       <td><b style="color:var(--good)">完全可归因</b>：授权记录、绑定账号、令牌活跃全部落库。</td>
-      <td class="num">336 人 / 469 次授权</td>
+      <td class="num">1,111 人 / 1,647 次授权</td>
     </tr>
     <tr>
       <td><span class="tag">传统 API Key</span></td>
       <td>用户在开放平台自助申请 Key，手工粘贴进豆包办公 / 其他任意客户端。</td>
       <td><b style="color:var(--bad)">不可归因</b>：申请表无平台字段（platform_type 恒为 0008=且慢），调用明细不落 User-Agent，一把 Key 可在任何客户端使用。</td>
-      <td class="num">全平台新增 1,087 把<br>豆包份额未知</td>
+      <td class="num">全平台新增 2,834 把<br>豆包份额未知</td>
     </tr>
   </table></div>
   <div class="callout">
     <b class="t">「豆包办公」没有独立标识</b>
-    <p>OAuth 侧只有一个 <span class="mono">doubao</span> 客户端且回调为个人版通道；豆包办公用户若经传统 Key 接入则混入全平台申请中无法拆分。同期全平台日新增 Key（58–200 把/日）相比 8 月中旬无豆包上架相关的显著跳升，说明传统 Key 侧未见可观测的豆包增量。本报告的用户级分析均基于 <b>OAuth 绑定的 336 人</b>。</p>
+    <p>OAuth 侧只有一个 <span class="mono">doubao</span> 客户端且回调为个人版通道；豆包办公用户若经传统 Key 接入则混入全平台申请中无法拆分。同期全平台日新增 Key（58–200 把/日）相比 8 月中旬无豆包上架相关的显著跳升，说明传统 Key 侧未见可观测的豆包增量。本报告的用户级分析均基于 <b>OAuth 绑定的 1,111 人</b>。</p>
   </div>
 </section>
 
 <section>
   <div class="sec-head"><span class="no">02</span><h2>用户绑定走势</h2></div>
-  <p class="sec-note">绑定 = 用户在豆包内完成且慢账号 OAuth 授权。日均新增约 37 人、无衰减迹象；9-04 出现峰值（63 人）。336 人零主动撤销。</p>
+  <p class="sec-note">绑定 = 用户在豆包内完成且慢账号 OAuth 授权。前 9 日日均约 37 人，9-14 起加速到日均 70+（峰值 80 人），三周无衰减迹象。1,111 人中仅 1 人主动撤销。</p>
   <div class="grid2">
     <div class="panel"><h3>每日新增绑定用户</h3><p class="sub">按用户首次授权日去重（人）</p><div id="c-newbind"></div></div>
     <div class="panel"><h3>累计绑定用户</h3><p class="sub">截至当日 24:00（9-05 为取数时点）</p><div id="c-cum"></div></div>
   </div>
   <details><summary>数据表</summary><div class="tblwrap" style="margin-top:8px"><table id="t-bind"></table></div></details>
   <div class="callout">
-    <b class="t">授权链路疑似「双重授权」：59% 的重复授权发生在 60 秒内</b>
-    <p>469 次授权中 133 次被后续授权替代（superseded），其中 <b class="mono">78 次（59%）间隔 ≤60 秒</b>、117 次 ≤1 小时；1 名用户累计授权 12 次。60 秒内的连续二次授权更像豆包侧回调重试 / 双击触发，而非用户主动重绑，建议排查 OAuth 流程幂等性。</p>
+    <b class="t">授权链路疑似「双重授权」：63% 的重复授权发生在 60 秒内</b>
+    <p>1,647 次授权中 536 次被后续授权替代（superseded），其中 <b class="mono">336 次（63%）间隔 ≤60 秒</b>。60 秒内的连续二次授权更像豆包侧回调重试 / 双击触发，而非用户主动重绑，问题比首周更普遍，建议排查 OAuth 流程幂等性。</p>
   </div>
 </section>
 
 <section>
   <div class="sec-head"><span class="no">03</span><h2>用户构成与画像</h2></div>
   <div class="kpis" style="margin-top:0">
-    <div class="kpi"><small>已持传统 Key</small><b>96 人</b><span>占 28.6% · 存量开放平台用户</span></div>
-    <div class="kpi"><small>绑定后新申请 Key</small><b>7 把</b><span>OAuth 与 Key 用户基本不互转</span></div>
-    <div class="kpi"><small>有且慢基金账户</small><b>49 人</b><span>其余 287 人仅有且慢注册账号</span></div>
-    <div class="kpi"><small>做过风险测评</small><b>48 人</b><span>C3 有 18 人 · C5 有 17 人</span></div>
+    <div class="kpi"><small>已持传统 Key</small><b>200 人</b><span>占 18.0% · 存量占比在稀释</span></div>
+    <div class="kpi"><small>绑定后新申请 Key</small><b>32 把</b><span>OAuth 与 Key 用户少量互转</span></div>
+    <div class="kpi"><small>有且慢基金账户</small><b>160 人</b><span>其余 951 人仅有且慢注册账号</span></div>
+    <div class="kpi"><small>做过风险测评</small><b>158 人</b><span>C3 有 52 人 · C5 有 50 人</span></div>
   </div>
-  <p style="margin-top:16px">三成绑定者本来就是盈米开放平台的 Key 持有者（最早 2025-04 申请），说明首批流量里<b>技术尝鲜用户占比高</b>；49 名有基金账户的用户中，2025 年后开户的占 20 人（41%），但也有 2017—2019 年的长账龄老客。风险偏好呈两端分布：稳健的 C3（18 人）与进取的 C5（17 人）合计占七成。</p>
+  <p style="margin-top:16px">首周有近三成绑定者是开放平台存量 Key 持有者，三周后这一比例稀释到 18%——<b>技术尝鲜人群之外的泛用户开始进来</b>。160 名有基金账户的用户风险偏好仍呈两端分布：稳健的 C3（52 人）与进取的 C5（50 人）合计约占三分之二。</p>
 </section>
 
 <section>
@@ -186,39 +186,39 @@ a{color:var(--accent-text)}
   </div>
   <div class="grid2" style="margin-top:16px">
     <div class="callout red" style="margin:0">
-      <b class="t">绑定后：0 新开户、0 新绑卡</b>
-      <p>49 个基金账户与 68 张银行卡（64 张有效）全部在绑定豆包<b>之前</b>就已存在。9 天内没有任何用户因豆包而完成开户或绑卡——豆包目前是<b>存量客户的查询入口</b>，尚未成为获客渠道。</p>
+      <b class="t">绑定后：仅 3 户新开户、4 人新绑卡</b>
+      <p>160 个基金账户中 157 个、绝大多数银行卡都在绑定豆包<b>之前</b>就已存在；三周里仅新增 3 户开户、4 人绑卡（首 9 日为零，第二三周破零）。豆包仍以<b>存量客户的查询入口</b>为主，获客转化刚刚萌芽。</p>
     </div>
     <div class="callout blue" style="margin:0">
       <b class="t">但出现了「沉睡账户激活」信号</b>
-      <p>绑定后 18 人净入金合计 <b class="mono">+356,802 元</b>，其中 <b>9 户从零资产状态重新入金</b>（8-27 基线无资产记录，属清仓/沉睡账户激活；经交易流水口径核实，绑定后「人生首投」为 0）。绑定用户当前在且慢的存量资产 <b class="mono">434.5 万元</b>（30 人持仓，11 人在 10–100 万档，1 人超 100 万）。</p>
+      <p>绑定后 65 人净入金合计 <b class="mono">+211.1 万元</b>（对比 8-27 基线，含既有定投），其中 <b>30 户从零资产状态重新入金</b>（清仓/沉睡账户激活；首周经交易流水核实绑定后「人生首投」为 0，本期未复核）。绑定用户当前在且慢的存量资产 <b class="mono">1,967.9 万元</b>（87 人持仓，36 人在 10–100 万档，3 人超 100 万）。</p>
     </div>
   </div>
   <details><summary>资产分布明细</summary><div class="tblwrap" style="margin-top:8px"><table>
     <tr><th>当前资产档位</th><th class="num">人数</th><th class="num">合计资产（元）</th></tr>
-    <tr><td>&gt;100 万</td><td class="num">1</td><td class="num">1,007,236</td></tr>
-    <tr><td>10–100 万</td><td class="num">11</td><td class="num">2,831,434</td></tr>
-    <tr><td>1–10 万</td><td class="num">13</td><td class="num">503,935</td></tr>
-    <tr><td>1 万以下</td><td class="num">5</td><td class="num">2,249</td></tr>
-    <tr><td>已清仓（曾入金）</td><td class="num">10</td><td class="num">0</td></tr>
+    <tr><td>&gt;100 万</td><td class="num">3</td><td class="num">8,289,202</td></tr>
+    <tr><td>10–100 万</td><td class="num">36</td><td class="num">10,277,931</td></tr>
+    <tr><td>1–10 万</td><td class="num">26</td><td class="num">1,030,883</td></tr>
+    <tr><td>1 万以下</td><td class="num">22</td><td class="num">80,617</td></tr>
+    <tr><td>已清仓（曾入金）</td><td class="num">28</td><td class="num">0</td></tr>
   </table></div></details>
 </section>
 
 <section>
   <div class="sec-head"><span class="no">05</span><h2>用户行为分析</h2></div>
-  <p class="sec-note">豆包 OAuth 调用不落工具级明细（见 §07），行为分析采用会话令牌（refresh token 签发）作为活跃代理：一次签发 ≈ 一次使用会话。共 2,307 次会话，98% 绑定用户至少用过一次。</p>
+  <p class="sec-note">豆包 OAuth 调用不落工具级明细（见 §07），行为分析采用会话令牌（refresh token 签发）作为活跃代理。三周累计约 39,600 次签发，94.9% 绑定用户至少用过一次。注意：9-16 起豆包端令牌轮换节奏突变（人均签发从 ~3.5 次/日跳至 12–21 次/日），「会话次数」前后不可比，「日活跃用户数」不受影响。</p>
   <div class="grid2">
     <div class="panel"><h3>每日活跃用户</h3><p class="sub">当日产生 ≥1 次会话的去重用户（人）</p><div id="c-dau"></div></div>
-    <div class="panel"><h3>活跃时段分布</h3><p class="sub">会话次数 × 24 小时（北京时间，累计 9 日）</p><div id="c-hour"></div></div>
+    <div class="panel"><h3>活跃时段分布</h3><p class="sub">会话次数 × 24 小时（北京时间，仅取 9-16 轮换异动前的 10,994 次）</p><div id="c-hour"></div></div>
   </div>
   <div class="grid2" style="margin-top:16px">
-    <div class="panel"><h3>使用黏性：活跃天数分布</h3><p class="sub">9 天窗口内，每用户有会话的天数（人）</p><div id="c-days"></div></div>
+    <div class="panel"><h3>使用黏性：活跃天数分布</h3><p class="sub">22 天窗口内，每用户有会话的天数（人）</p><div id="c-days"></div></div>
     <div class="panel" style="display:flex;flex-direction:column;justify-content:center">
       <h3>怎么读这些曲线</h3>
       <ul class="small" style="margin:8px 0 0">
-        <li><b>日活持续爬坡</b>：从上架次日 29 人升至 9-04 的 167 人，增速快于绑定增速——老用户在回访，不只是新用户在试。</li>
-        <li><b>办公时段主导</b>：9:00–17:00 占 62%（午休 12 点有明显凹口），晚间 20–21 点有第二峰。豆包里的理财对话更像「上班摸鱼查基金」而非睡前理财。</li>
-        <li><b>近半用户只来一天</b>（160 人，48.6%），但 <b>98 人（29.8%）活跃 ≥3 天</b>、42 人 ≥5 天；首周绑定用户的次周回访率 41.7%，对一个纯查询入口来说不低。</li>
+        <li><b>日活持续爬坡</b>：从上架次日 29 人升至 9-18 的 587 人，三周翻了 20 倍，增速持续快于绑定增速——老用户在回访，不只是新用户在试。</li>
+        <li><b>办公时段主导</b>：9:00–17:00 占 59%（午休 12 点有明显凹口），晚间 19–21 点有第二峰。豆包里的理财对话更像「上班摸鱼查基金」而非睡前理财。</li>
+        <li><b>黏性明显强化</b>：只来一天的占比从首周的 48.6% 降到 39.7%（418 人）；<b>540 人（51.2%）活跃 ≥3 天</b>、289 人 ≥7 天。首周绑定的 115 人有 47 人（40.9%）近 7 日仍在使用——三周后留存几乎没有衰减。</li>
       </ul>
     </div>
   </div>
@@ -226,21 +226,21 @@ a{color:var(--accent-text)}
 
 <section>
   <div class="sec-head"><span class="no">06</span><h2>工具使用偏好（代理口径）</h2></div>
-  <p class="sec-note">OAuth 调用无工具级留痕，此处退而求其次：96 名「同时持传统 Key 的豆包绑定用户」在绑定之后经自己 Key 发起的调用（≈2,900 次）。注意这些调用不一定发自豆包，仅代表这批用户的工具偏好。</p>
+  <p class="sec-note">OAuth 调用无工具级留痕，此处退而求其次：200 名「同时持传统 Key 的豆包绑定用户」在绑定之后经自己 Key 发起的调用。注意这些调用不一定发自豆包，仅代表这批用户的工具偏好。</p>
   <div class="tblwrap"><table>
     <tr><th>工具</th><th>说明</th><th class="num">调用次数</th><th class="num">使用人数</th></tr>
-    <tr><td class="mono">SearchFunds</td><td>搜索基金</td><td class="num">379</td><td class="num">16</td></tr>
-    <tr><td class="mono">BatchGetFundsDetail</td><td>批量获取基金详情</td><td class="num">265</td><td class="num">16</td></tr>
-    <tr><td class="mono">GetBatchFundPerformance</td><td>批量基金业绩表现</td><td class="num">190</td><td class="num">18</td></tr>
-    <tr><td class="mono">filterBondFundByCreditRating</td><td>按信用评级筛债基</td><td class="num">185</td><td class="num">1</td></tr>
-    <tr><td class="mono">SearchFinancialNews</td><td>财经资讯</td><td class="num">154</td><td class="num">6</td></tr>
-    <tr><td class="mono">GetFundsBackTest</td><td>回测分析</td><td class="num">142</td><td class="num">5</td></tr>
-    <tr><td class="mono">GetFundDiagnosis</td><td>基金诊断</td><td class="num">125</td><td class="num">12</td></tr>
-    <tr><td class="mono">BatchGetFundNavHistory</td><td>基金净值历史</td><td class="num">123</td><td class="num">18</td></tr>
-    <tr><td class="mono">BatchGetFundTradeLimit</td><td>基金交易限制信息</td><td class="num">109</td><td class="num">8</td></tr>
-    <tr><td class="mono">GetLatestQuotations</td><td>市场温度计</td><td class="num">48</td><td class="num">10</td></tr>
+    <tr><td class="mono">SearchFunds</td><td>搜索基金</td><td class="num">564</td><td class="num">25</td></tr>
+    <tr><td class="mono">BatchGetFundsDetail</td><td>批量获取基金详情</td><td class="num">488</td><td class="num">31</td></tr>
+    <tr><td class="mono">GetFundDiagnosis</td><td>基金诊断</td><td class="num">450</td><td class="num">23</td></tr>
+    <tr><td class="mono">GetBatchFundPerformance</td><td>批量基金业绩表现</td><td class="num">401</td><td class="num">37</td></tr>
+    <tr><td class="mono">BatchGetFundNavHistory</td><td>基金净值历史</td><td class="num">351</td><td class="num">40</td></tr>
+    <tr><td class="mono">GetFundsBackTest</td><td>回测分析</td><td class="num">237</td><td class="num">18</td></tr>
+    <tr><td class="mono">SearchFinancialNews</td><td>财经资讯</td><td class="num">222</td><td class="num">16</td></tr>
+    <tr><td class="mono">filterBondFundByCreditRating</td><td>按信用评级筛债基</td><td class="num">187</td><td class="num">1</td></tr>
+    <tr><td class="mono">BatchGetFundTradeLimit</td><td>基金交易限制信息</td><td class="num">179</td><td class="num">14</td></tr>
+    <tr><td class="mono">getBondIndicator</td><td>债基风险</td><td class="num">172</td><td class="num">7</td></tr>
   </table></div>
-  <p class="small" style="margin-top:10px">偏好画像：<b>查（搜索/详情/净值/业绩）远大于断（诊断/风险）</b>，交易前置类工具（交易限制、交易规则）已被 8 人触达，说明有真实的申购意图在链路里。</p>
+  <p class="small" style="margin-top:10px">偏好画像：<b>查（搜索/详情/净值/业绩）为主，诊断类明显上量</b>（基金诊断升至第 3 位、23 人使用）；交易前置类工具（交易限制）已被 14 人触达，与本期绑定后开户、入金破零的信号相互印证。</p>
 </section>
 
 <section>
@@ -262,28 +262,28 @@ a{color:var(--accent-text)}
 <section>
   <div class="sec-head"><span class="no">08</span><h2>口径与已知局限</h2></div>
   <ul class="small">
-    <li>豆包 OAuth 客户端 <span class="mono">client_id=doubao</span> 建于 2026-08-28 17:32，首次用户授权 19:17，本报告以此为「上架」时点；9-05 数据为截至约 21:00 的不完整日。取数期间用户仍在实时绑定（约 21:10 已达 338 人），各表之间可能有 ±2 的时点差。</li>
+    <li>豆包 OAuth 客户端 <span class="mono">client_id=doubao</span> 建于 2026-08-28 17:32，首次用户授权 19:17，本报告以此为「上架」时点；本版数据更新至 2026-09-18 约 17:00（不完整日），取数期间用户仍在实时绑定，各表之间可能有个位数时点差。首版（9-05）基线数字见 git 历史。</li>
     <li>「绑定用户」= <span class="mono">ying99_oap.api_user_consent_record</span> 去重 user_id；user_id 即且慢用户 ID（经 <span class="mono">account.broker_user_id, broker='0008'</span> 与账户体系打通）。</li>
-    <li>「活跃」为 refresh token 签发代理口径，豆包客户端令牌轮换节奏未知，人均会话次数不可与其他产品横比；日活跃用户数口径可靠。</li>
+    <li>「活跃」为 refresh token 签发代理口径，人均会话次数不可与其他产品横比；日活跃用户数口径可靠。<b>9-16 起签发量突增</b>（人均 ~3.5 → 12–21 次/日），疑为豆包端令牌轮换策略变化：会话次数前后不可比，时段分布图已剔除 9-16 后数据。</li>
     <li>「绑定后新增入金」= ROOT 层累计投入（<span class="mono">acc_input_amount</span>）最新快照 − 8-27 基线，含既有定投扣款，不能全部归因豆包；「零资产激活 9 户」为 8-27 基线无资产记录且现累计投入 &gt;0，含清仓后再入金，不等于人生首投（首投口径见姊妹看板，绑定后为 0）。</li>
-    <li>287 名无基金账户的绑定者是否为「因豆包新注册的且慢账号」在本数据源（Redash 41）不可判定——passport 注册库不在其中；工作台姊妹看板《豆包 × 且慢｜绑定用户数据看板》经另一数据通道给出拆分：绑定时新注册 194 人、绑定前已有且慢账号 147 人（21:43 时点，341 人口径）。</li>
+    <li>951 名无基金账户的绑定者是否为「因豆包新注册的且慢账号」在本数据源（Redash 41）不可判定——passport 注册库不在其中；工作台姊妹看板《豆包 × 且慢｜绑定用户数据看板》经另一数据通道给出拆分：绑定时新注册 194 人、绑定前已有且慢账号 147 人（21:43 时点，341 人口径）。</li>
     <li>豆包办公与豆包个人版共用或不用 OAuth 无从区分；传统 Key 无客户端归因（详见 §01）。</li>
     <li>盈米本体（ontology）登录已过期，SLS 日志留存时长等需登录后追问确认。</li>
   </ul>
 </section>
 
-<footer>豆包 × 盈米MCP 用户观察 · 窗口 2026-08-28 → 2026-09-05 · Redash 数据源 41 直查生产库 · 排除内部测试 Key</footer>
+<footer>豆包 × 盈米MCP 用户观察 · 窗口 2026-08-28 → 2026-09-18 · Redash 数据源 41 直查生产库 · 排除内部测试 Key</footer>
 </div>
 <div id="tip" role="tooltip"></div>
 
 <script>
-const DAYS=["8-28","8-29","8-30","8-31","9-01","9-02","9-03","9-04","9-05"];
-const NEWBIND=[2,29,29,55,54,41,34,63,30];
+const DAYS=["8-28","8-29","8-30","8-31","9-01","9-02","9-03","9-04","9-05","9-06","9-07","9-08","9-09","9-10","9-11","9-12","9-13","9-14","9-15","9-16","9-17","9-18"];
+const NEWBIND=[2,29,29,55,54,41,34,63,35,35,44,65,50,64,42,59,50,80,74,66,76,64];
 const CUM=NEWBIND.reduce((a,v)=>{a.push((a.length?a[a.length-1]:0)+v);return a},[]);
-const DAU=[2,29,40,66,92,102,120,167,104];
-const TOKENS=[9,71,83,186,266,382,425,573,312];
-const HOURS=[46,26,23,14,6,8,18,45,111,161,169,163,88,169,189,184,191,140,97,96,122,94,82,67];
-const ADAYS=[["1 天",160],["2 天",71],["3 天",32],["4 天",24],["5 天",27],["6 天",12],["7 天",3]];
+const DAU=[2,29,40,66,92,102,120,167,113,118,214,250,259,289,275,227,221,336,365,533,571,587];
+const TOKENS=[9,71,83,186,266,382,425,573,357,352,737,828,973,1035,972,637,687,1149,1272,6742,12315,9542];
+const HOURS=[241,144,107,66,43,50,104,379,566,775,741,712,447,671,891,856,795,619,451,481,517,495,461,382];
+const ADAYS=[["1 天",418],["2 天",96],["3-4 天",138],["5-7 天",161],["8-14 天",180],["≥15 天",61]];
 
 const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
 const tip=document.getElementById("tip");
@@ -338,7 +338,7 @@ function lineChart(el,labels,vals){
   s+=`<polyline points="${pts}" fill="none" stroke="var(--s1)" stroke-width="2" stroke-linejoin="round"/>`;
   vals.forEach((v,i)=>{
     s+=`<circle data-i="${i}" cx="${x(i)}" cy="${y(v)}" r="${i===vals.length-1?5:4}" fill="var(--s1)" stroke="var(--surface)" stroke-width="2"/>`;
-    if(i%2===0||i===vals.length-1) s+=`<text x="${x(i)}" y="${H-7}" text-anchor="middle">${labels[i]}</text>`;
+    if(i%3===0||i===vals.length-1) s+=`<text x="${x(i)}" y="${H-7}" text-anchor="middle">${labels[i]}</text>`;
   });
   const li=vals.length-1;
   s+=`<text class="dl" x="${x(li)+8}" y="${y(vals[li])+4}" text-anchor="start">${vals[li]}</text>`;
@@ -351,9 +351,9 @@ function lineChart(el,labels,vals){
   });
 }
 
-barChart(document.getElementById("c-newbind"),DAYS,NEWBIND,{tipLabel:"新增绑定 ",unit:" 人",peaks:1});
+barChart(document.getElementById("c-newbind"),DAYS,NEWBIND,{tipLabel:"新增绑定 ",unit:" 人",peaks:1,labelEvery:3});
 lineChart(document.getElementById("c-cum"),DAYS,CUM);
-barChart(document.getElementById("c-dau"),DAYS,DAU,{tipLabel:"活跃 ",unit:" 人",peaks:1});
+barChart(document.getElementById("c-dau"),DAYS,DAU,{tipLabel:"活跃 ",unit:" 人",peaks:1,labelEvery:3});
 barChart(document.getElementById("c-hour"),[...Array(24).keys()].map(h=>String(h).padStart(2,"0")),HOURS,
   {color:"var(--s2)",labelEvery:3,peaks:1,tipLabel:"会话 ",unit:" 次",h:210});
 barChart(document.getElementById("c-days"),ADAYS.map(d=>d[0]),ADAYS.map(d=>d[1]),
@@ -363,21 +363,21 @@ barChart(document.getElementById("c-days"),ADAYS.map(d=>d[0]),ADAYS.map(d=>d[1])
 document.getElementById("t-bind").innerHTML=
   `<tr><th>日期</th><th class="num">授权次数</th><th class="num">新增用户</th><th class="num">累计用户</th><th class="num">活跃用户</th><th class="num">会话次数</th></tr>`+
   DAYS.map((d,i)=>`<tr><td class="mono">2026-${d.replace("-","-")}</td>
-    <td class="num">${[3,42,54,76,68,59,44,90,33][i]}</td>
+    <td class="num">${[3,42,54,76,68,59,44,90,41,39,57,73,62,99,72,82,72,114,140,122,125,113][i]}</td>
     <td class="num">${NEWBIND[i]}</td><td class="num">${CUM[i]}</td>
     <td class="num">${DAU[i]}</td><td class="num">${TOKENS[i]}</td></tr>`).join("");
 
 // funnel
 const FUN=[
- ["OAuth 绑定",336,"零撤销 · 133 次重复授权","var(--s1)"],
- ["有且慢基金账户",49,"14.6% · 全部为绑定前存量","var(--s1)"],
- ["历史曾入金",39,"累计投入 973 万元","var(--s1)"],
- ["当前有持仓",30,"存量资产 434.5 万元","var(--s1)"],
- ["绑定后有新入金",18,"+35.7 万元 · 含定投","var(--s2)"],
- ["其中零资产激活",9,"清仓/沉睡账户重新入金","var(--s2)"],
+ ["OAuth 绑定",1111,"仅 1 人撤销 · 536 次重复授权","var(--s1)"],
+ ["有且慢基金账户",160,"14.4% · 其中 3 户绑定后新开","var(--s1)"],
+ ["历史曾入金",114,"累计投入 6,652 万元","var(--s1)"],
+ ["当前有持仓",87,"存量资产 1,967.9 万元","var(--s1)"],
+ ["绑定后有新入金",65,"+211.1 万元 · 含定投","var(--s2)"],
+ ["其中零资产激活",30,"清仓/沉睡账户重新入金","var(--s2)"],
 ];
 document.getElementById("funnel").innerHTML=FUN.map(f=>{
-  const w=Math.max(f[1]/336*100,4);
+  const w=Math.max(f[1]/1111*100,4);
   return `<div class="fstep"><div class="fl">${f[0]}</div>
     <div><div class="fbar" style="width:${w}%;background:${f[3]}"><b>${f[1]}</b></div></div>
     <div class="fr">${f[2]}</div></div>`;}).join("");
