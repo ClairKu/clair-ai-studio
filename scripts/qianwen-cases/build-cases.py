@@ -359,6 +359,40 @@ def holdings_block(u):
                      f'{f"；盈米宝货币基金 {money(wallet)} 元" if wallet else ""}）</p><ul class="funds">{items}</ul>')
     return f'<div class="sub-block"><h4>最终持有</h4><p class="tight muted">入金金额：各产品为绑定后买入金额，盈米宝为充值后仍留在钱包的部分。</p>{tbl}{fund_html}</div>'
 
+def one_line_summary(u):
+    d = u["derived"]; inf = u.get("inflow_txns") or []; ch = u.get("channels") or {}
+    if u["cohort"] == "new":
+        segment = "新客首投" if u["flags"].get("first_invest_after") else "新客转化"
+    elif u.get("last_buy_before"):
+        segment = "沉寂老客回流"
+    elif u["flags"].get("first_invest_after"):
+        segment = "老客首投"
+    else:
+        segment = "老客唤回"
+    first_action = inf[0]["t"] if inf else d.get("first_buy_after")
+    action_text = "首笔入金" if inf else "首笔投资"
+    inflow_text = f'累计入金 {wan(d.get("inflow_after") or 0)}' if d.get("inflow_after") else "使用已有余额，暂无新增入金"
+    terminal = LIBN.get(terminal_of(u), terminal_of(u))
+    terminal_text = f'，主要在 {terminal} App 活动' if terminal else ""
+    total_asks = len(u.get("asks") or []) + len(ch.get("app_mia", [])) + int(ch.get("wechat_msgs", 0) or 0)
+    max_inflow = max((float(x["derived"].get("inflow_after") or 0) for x in users), default=0)
+    if float(d.get("inflow_after") or 0) == max_inflow and max_inflow > 0:
+        feature = "是本批入金规模最大的高意向案例"
+    elif total_asks >= 100:
+        feature = "呈现高咨询、低入金的体验型特征"
+    elif u.get("last_buy_before"):
+        feature = "属于返回且慢后分批投资的回流型案例"
+    elif d.get("cancels_after"):
+        feature = "经历撤单后重新完成投资，首次交易仍有犹豫或阻点"
+    elif first_action and (dt(first_action) - dt(u["fb"])).total_seconds() <= 86400:
+        feature = "决策链路较短，属于快速触发型案例"
+    elif total_asks >= 10:
+        feature = "在多轮咨询与产品浏览后逐步完成决策"
+    else:
+        feature = "从咨询到投资的转化节奏相对清晰"
+    return (f'{u["age"]} 岁{segment}，绑定后 {dur(u["fb"], first_action)} 完成{action_text}，'
+            f'{inflow_text}、共投资 {d.get("buys_after") or 0} 笔{terminal_text}；{feature}。')
+
 def card(u):
     gender = "男" if u["gender"] == "M" else "女" if u["gender"] == "F" else "性别未知"
     who = f'{u["age"]} 岁 · {esc(u.get("surname") or "")}{gender}'
@@ -379,6 +413,7 @@ def card(u):
             f'    {"".join(tags)}\n'
             f'    <button type="button" class="icon-btn copy-id" data-copy="{u["pmid"]}" title="复制用户 ID" aria-label="复制用户 ID">{copy_svg}</button>\n'
             f'  </div>\n'
+            f'  <p class="case-snapshot"><b>一句话</b>{one_line_summary(u)}</p>\n'
             f'  <div class="case-body">\n'
             f'    {top_stats(u)}\n'
             f'    <div class="ctabs" role="tablist" aria-label="历程切换">\n'
@@ -672,6 +707,8 @@ page = f'''<!doctype html>
   .case-head .badge{{width:25px;height:25px;border-color:#c9c2ed;background:#fff;color:#4e38ac;font-weight:800}}
   .case-head .tag{{padding:4px 10px;border-color:#d4d0e9;background:rgba(255,255,255,.78);color:#4d5266;font-size:11.5px;font-weight:700}}
   .case-body{{padding:18px 24px 24px}}
+  .case-snapshot{{margin:0;padding:12px 24px;border-bottom:1px solid #d8dbea;background:#fbfaff;color:#34394b;font-size:13.5px;line-height:1.7}}
+  .case-snapshot b{{display:inline-block;margin-right:9px;color:var(--blue-deep);font-weight:800}}
   .kv.top{{gap:12px;margin:0 0 20px}}
   .kv.top > div,.kv.top > div.primary{{min-height:88px;padding:15px 16px;border:1px solid #d7d4e8;border-radius:11px;background:#fbfaff;box-shadow:inset 0 3px 0 var(--blue),0 7px 18px rgb(34 39 63 / 4%)}}
   .kv.top > div b,.kv.top > div.primary b{{color:#27234d;font-size:19px;font-weight:800}}
@@ -742,6 +779,7 @@ page = f'''<!doctype html>
     .qlist li{{grid-template-columns:1fr}}
     .section-h{{font-size:23px}}
     .matrix-h{{margin-top:28px}}
+    .case-snapshot{{padding:11px 18px;font-size:13px}}
   }}
 </style>
 </head>
