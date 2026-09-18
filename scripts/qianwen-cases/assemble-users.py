@@ -32,6 +32,7 @@ sa_meta = {r["service_account_id"]: r.get("meta") for r in m_meta}
 m_fo_all = load("m_fundorders.json")
 # 神策埋点（qm_meta.ai_insight_sensors_event_detail）：lib=iOS/Android/HarmonyOS 为 App 原生页，js 为内嵌 H5
 m_sens = load("m_sensors.json")
+surname_by_pmid = {str(r["pmid"]): str(r.get("surname") or "").strip()[:1] for r in load("m_surnames.json")}
 g_sens = {}
 for r in m_sens: g_sens.setdefault(str(r["broker_user_id"]), []).append(r)
 PAGE_MAP = {
@@ -175,7 +176,7 @@ for c in sorted(cand, key=lambda c: c["fb"]):
     holdings_meta = {"as_of": (asset_latest or {}).get("cal_date"), "bill_month": latest_month,
                      "fund_basis": "子订单成功金额" if (fos and latest_month is None) else ("月末账单市值" if fund_detail else None)}
     users.append({
-        "pmid": pmid, "letter": n.get("letter"), "cohort": c["cohort"], "gender": c.get("gender"), "age": c.get("age"),
+        "pmid": pmid, "letter": n.get("letter"), "surname": surname_by_pmid.get(pmid), "cohort": c["cohort"], "gender": c.get("gender"), "age": c.get("age"),
         "prov": c.get("prov"), "mp": bool(c.get("mp")), "card": bool(c.get("card")), "account3_id": a3,
         "fb": c["fb"], "registered_at": c["registered_at"], "asset_at_bind": c.get("asset_at_bind"),
         "first_buy_ever": c.get("first_buy_ever"), "last_buy_before": c.get("last_buy_before"),

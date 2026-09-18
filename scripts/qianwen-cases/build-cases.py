@@ -19,8 +19,14 @@ data = json.load(open(SRC))
 users = data["users"]; META = data["meta"]
 CUT = META["cutoff"]  # 'YYYY-MM-DD HH:MM'
 
+# 姓氏单独存放在作者端临时数据中，公开源码不落真实姓名；页面仅进入加密产物。
+surname_file = SRC.with_name("m_surnames.json")
+surname_rows = json.load(open(surname_file)) if surname_file.exists() else []
+surname_by_pmid = {str(row["pmid"]): str(row.get("surname") or "").strip()[:1] for row in surname_rows}
+
 # 公开展示统一使用匿名数字编号；沿用原 A→1、B→2… 的稳定映射，不改变底层用户身份。
 for user in users:
+    user["surname"] = str(user.get("surname") or surname_by_pmid.get(str(user["pmid"]), "")).strip()[:1]
     label = str(user.get("letter") or "")
     if len(label) == 1 and label.isalpha():
         user["letter"] = str(ord(label.upper()) - ord("A") + 1)
@@ -310,7 +316,7 @@ def top_stats(u):
     icon = (f'<button type="button" class="mini-ic" data-asks="{u["pmid"]}" title="查看在千问、且慢小顾、微信小顾的全部提问记录" aria-label="查看全部提问记录">'
             '<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1.1-4.3A8 8 0 1 1 21 12z"/></svg></button>') if total else ""
     return (f'<div class="kv top">'
-            f'<div><b class="num">{money(d["inflow_after"])} 元</b><span>绑定后入金 · {asset_sub}</span></div>'
+            f'<div><b class="num">{money(d["inflow_after"])} 元</b><span>入金（充宝或卡买入） · {asset_sub}</span></div>'
             f'<div><b class="num">{dur(u["fb"], first_in)}</b><span>绑定 → 首笔入金</span></div>'
             f'<div><b class="num">{len(inf) if inf else d["buys_after"]} 笔</b><span>入金{" · " + dates if dates else ""}</span></div>'
             f'<div><b class="num">{total} 条</b><span>小顾对话 · {chs}{icon}</span></div>'
@@ -349,7 +355,8 @@ def holdings_block(u):
     return f'<div class="sub-block"><h4>最终持有</h4><p class="tight muted">入金金额：各产品为绑定后买入金额，盈米宝为充值后仍留在钱包的部分。</p>{tbl}{fund_html}</div>'
 
 def card(u):
-    who = f'{u["age"]} 岁 · {"男" if u["gender"]=="M" else "女" if u["gender"]=="F" else "性别未知"}'
+    gender = "男" if u["gender"] == "M" else "女" if u["gender"] == "F" else "性别未知"
+    who = f'{u["age"]} 岁 · {esc(u.get("surname") or "")}{gender}'
     app_dates = [d.get("created_on") for d in u.get("dev", []) if d.get("created_on")]
     app_download = min(app_dates) if app_dates else None
     risk_score = u["risk"][-1]["score"] if u.get("risk") else "—"
@@ -402,7 +409,7 @@ def matrix(us):
   <td class="wrap">{dev_txt}</td>
 </tr>''')
     return f'''<div class="scrollx"><table class="matrix">
-<thead><tr><th>用户</th><th>客群</th><th>画像</th><th>绑定</th><th>绑定后首笔买入</th><th>间隔</th><th>绑定后入金</th><th>绑定后买入</th><th>当前资产</th><th>风测</th><th>提问</th><th>下单终端</th></tr></thead>
+<thead><tr><th>用户</th><th>客群</th><th>画像</th><th>绑定</th><th>绑定后首笔买入</th><th>间隔</th><th title="充值盈米宝或银行卡直接买入">入金</th><th title="实际买入基金或组合">买入</th><th>当前资产</th><th>风测</th><th>提问</th><th>下单终端</th></tr></thead>
 <tbody>{"".join(rows)}</tbody></table></div>'''
 
 def scope_section(sc):
@@ -419,14 +426,15 @@ def scope_section(sc):
     cells = f'''<div class="grid sumrow">
   <div class="cell"><b>{a["n"]}</b><span>用户数</span><em>{(f"未首投 {sum(1 for u in us if not u.get('last_buy_before'))} 人 / 已清仓 {sum(1 for u in us if u.get('last_buy_before'))} 人") if sc["id"] == "existing_reactivated" else f"新客 {a['new']} / 老客 {a['n']-a['new']}"} · 绑定→首投中位 {med_txt}</em></div>
   <div class="cell"><b>{wan(a["asset"])}</b><span>当前资产规模</span><em>人均 {wan(a["asset"]/n)} · 相当于入金的 {keep}</em></div>
-  <div class="cell"><b>{wan(a["inflow"])}</b><span>绑定后入金</span><em>人均 {wan(a["inflow"]/n)} · 最大单人占 {top_inflow}</em></div>
-  <div class="cell"><b>{wan(a["buy"])}</b><span>绑定后买入</span><em>复投 {a["repeat"]} 人 · 撤单重下 {a["cancels"]} 人</em></div>
+  <div class="cell"><b>{wan(a["inflow"])}</b><span>入金</span><em>充宝或卡买入 · 人均 {wan(a["inflow"]/n)}</em></div>
+  <div class="cell"><b>{wan(a["buy"])}</b><span>买入</span><em>基金或组合 · 复投 {a["repeat"]} 人</em></div>
   <div class="cell"><b>{a["asks"]:,}</b><span>小顾提问合计</span><em>零提问 {a["no_asks"]} 人 · 最多一人占 {top_asks}</em></div>
 </div>'''
     cards = "\n".join(card(u) for u in us) if us else '<div class="note">该口径下暂无用户。</div>'
     return f'''<section class="scope" id="scope-{sc["id"]}" hidden>
   <p class="sub scope-def">{esc(sc["def"])}</p>
   {cells}
+  {f'<p class="metric-note"><b>入金</b>＝充值盈米宝或银行卡直接买入；<b>买入</b>＝实际买进基金或组合。入金－买入通常是留在盈米宝的资金；买入高于入金时，差额来自绑定前余额或回款。</p>' if us else ''}
   {matrix(us) if us else ""}
   <h2 class="cases-h">个例分析 <span class="muted">{esc(sc["label"])} {a["n"]}人・第<b class="pg-cur">1</b>人</span></h2>
   {cards}
@@ -487,7 +495,7 @@ html,body{max-width:100%}
 .ctab{font:inherit;font-size:14px;font-weight:600;padding:8px 2px 10px;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;background:transparent;color:var(--ink-3);cursor:pointer}
 .ctab:hover{color:var(--ink)}
 .ctab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--blue-deep)}
-.cpanel{height:clamp(380px,56vh,620px);overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable;
+.cpanel{max-height:clamp(380px,56vh,620px);overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable;
   padding:0 12px 10px 2px;scrollbar-color:var(--rule-2) transparent}
 .cpanel:focus-visible{outline:2px solid rgba(115,87,232,.35);outline-offset:4px;border-radius:6px}
 .tl.beh .t{min-width:118px;color:var(--ink-3)}
@@ -517,7 +525,7 @@ html,body{max-width:100%}
   .sumrow{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
   .cases-h{display:flex;align-items:center;flex-wrap:wrap;gap:6px}
   .cases-h .muted{margin-left:0}
-  .cpanel{height:clamp(300px,52svh,460px);padding-right:8px}
+  .cpanel{max-height:clamp(300px,52svh,460px);padding-right:8px}
 }
 </style>
 <script>
@@ -598,6 +606,8 @@ page = f'''<!doctype html>
   .cases-h{{margin-top:36px}}
   .cases-h .muted{{font:500 13px/1 Inter,"PingFang SC",sans-serif;margin-left:10px;white-space:nowrap}}
   .cases-h .muted b{{font-weight:700;color:var(--ink)}}
+  .metric-note{{margin:12px 2px 8px;color:var(--ink-3);font-size:12px;line-height:1.6}}
+  .metric-note b{{color:var(--ink-2);font-weight:700}}
   .icon-btn{{width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--rule-2);border-radius:9px;
     background:var(--surface);color:var(--ink-2);cursor:pointer;position:relative}}
   .icon-btn:hover{{border-color:var(--blue);color:var(--blue-deep);background:var(--pale)}}

@@ -35,6 +35,8 @@ assemble-users.py 额外读取（缺失则跳过）：`m_sessions.json`（agent_
 order_type=1 按 fund_code 汇总成功金额，穿透组合底层基金）。CA→组合名：asset_service_account.meta 无数据时按绑定后买入金额就近匹配。
 口径限制：fund_order.txn_source 是销售机构代码非终端；微信/企微侧小顾（advisor_conversation）七人均无记录；「千问内嵌 H5 vs App」仍为推断。
 
+`m_surnames.json` 为作者端临时输入，仅保存 `pmid` 与从 `portfolio_manager_info.real_name` 提取的首字姓氏；完整姓名不进入生成数据与版本库。个例标题以「姓氏+性别」展示（如「李男」），缺失时仅显示性别。
+
 ## 2026-09-18 下午：神策埋点接入（且慢行为 / 下单终端）+ 个例卡改版
 
 - 新增可选输入 `m_sensors.json`：`qm_meta.ai_insight_sensors_event_detail`，按 `broker_user_id`（= po_manager_id）拉 `event_date>='2026-08-01'` 的
@@ -48,4 +50,5 @@ order_type=1 按 fund_code 汇总成功金额，穿透组合底层基金）。CA
 - 小顾对话弹窗顶部支持按「全部 / 千问 / 且慢 / 微信」筛选提问；筛选数量、列表与空状态同步更新。
 - 页面用户编号统一用匿名数字展示（原 A→1、B→2…），表格、个例、对话弹窗和跳转定位保持一致。
 - 个例卡头部不展示地点和装置，统一展示千问绑定日、App 下载日、首投日与最新风测分；复制 ID 的低调图标移至头部，卡尾重复信息整行移除。
+- 金额展示统一简化为「入金 / 买入」：入金指充值盈米宝或银行卡直接买入，买入指实际买进基金或组合；两者差额通常为盈米宝留存，买入高于入金时来自绑定前余额或回款。
 - 标题下方只展示一行小字总结（不换行，窄屏省略）；分类标签与主看板同名同义，并补齐「老户首投」。
