@@ -51,7 +51,8 @@ for line in changed:
     else:
         sha = api("POST", f"/repos/{REPO}/git/blobs",
                   {"content": base64.b64encode((WT / path).read_bytes()).decode(), "encoding": "base64"})["sha"]
-        tree_entries.append({"path": path, "mode": "100644", "type": "blob", "sha": sha})
+        mode = "100755" if os.access(WT / path, os.X_OK) else "100644"   # 保留可执行位，脚本才能直接调用
+        tree_entries.append({"path": path, "mode": mode, "type": "blob", "sha": sha})
         print("blob", path, sha[:12])
 
 tree = api("POST", f"/repos/{REPO}/git/trees", {"base_tree": base_tree, "tree": tree_entries})["sha"]

@@ -1,7 +1,8 @@
 #!/bin/zsh
 # 千问看板一键/定时刷新：取数 → 整理 → 组装校验 → 加密构建 → 推送 → 校验上线。
 # 由 launchd（com.clair.qianwen-auto-refresh）每日 09:30/17:30 调起；也可手动 zsh 本脚本。
-# 所有子脚本都从 origin/main 的临时 worktree 取，避免主克隆落后带来的旧版脚本问题。
+# 所有子脚本都从 origin/main 的临时 worktree 取，避免主克隆落后带来的旧版脚本问题；
+# 一律用显式解释器调用——API 推送不保留可执行位，不能依赖 chmod。
 set -u
 source ~/.zshrc 2>/dev/null
 export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:$PATH"
@@ -52,9 +53,9 @@ echo "scripts @ $(git -C "$WORK/src" rev-parse --short HEAD)"
 AD=$(python3 "$S/pick-asset-date.py") || fail "资产快照日判定失败（redash 不可达？）"
 CUT="$(date '+%Y-%m-%d %H:%M:%S')"; echo "$CUT" > "$WORK/cut.txt"; echo "$AD" > "$WORK/ad.txt"
 echo "CUT=$CUT AD=$AD"
-QW_CUT="$CUT" QW_AD="$AD" "$S/run-sql.sh" > "$WORK/sql-raw.txt" 2>&1 || fail "6 段取数失败"
+QW_CUT="$CUT" QW_AD="$AD" zsh "$S/run-sql.sh" > "$WORK/sql-raw.txt" 2>&1 || fail "6 段取数失败：$(tail -1 "$WORK/sql-raw.txt")"
 grep -q "### 6 province" "$WORK/sql-raw.txt" || fail "6 段取数不完整"
-QW_CUT="$CUT" QW_AD="$AD" QW_WORK="$WORK" "$S/run-ext-sql.sh" || fail "扩展取数失败"
+QW_CUT="$CUT" QW_AD="$AD" QW_WORK="$WORK" zsh "$S/run-ext-sql.sh" || fail "扩展取数失败"
 
 # ── 整理 / 组装 ──
 git -C "$WORK/src" show HEAD:public/reports/qianwen-user-acquisition-dashboard/data/latest.json > "$WORK/template.json"
@@ -62,7 +63,7 @@ python3 "$S/build-q.py" "$WORK" || fail "build-q 整理失败（口径/闭合问
 python3 "$S/assemble.py" "$WORK/template.json" "$WORK" || fail "assemble 校验失败"
 
 # ── 构建 + 提交（replay.sh 会在 $WORK/wt 建 worktree、npm run build、只提交 3 个文件）──
-QW_WORK="$WORK" "$S/replay.sh" || fail "replay/build 失败"
+QW_WORK="$WORK" zsh "$S/replay.sh" || fail "replay/build 失败"
 
 # ── 推送（远端被并行会话推进就重取 head 再推）──
 pushed=0
