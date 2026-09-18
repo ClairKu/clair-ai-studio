@@ -586,7 +586,6 @@ def scope_section(sc):
 </div>'''
     cards = "\n".join(card(u) for u in us) if us else '<div class="note">该口径下暂无用户。</div>'
     return f'''<section class="scope" id="scope-{sc["id"]}" hidden>
-  <p class="sub scope-def">{esc(sc["def"])}</p>
   {cells}
   <h2 class="section-h matrix-h">个例汇总</h2>
   {matrix(us) if us else ""}
@@ -646,10 +645,9 @@ INSIGHTS = [
     (f'<b>关键案例</b>{_big_new["age"]} 岁新客入金 {wan(_big_new["derived"]["inflow_after"])}、当前资产 {wan(float((_big_new.get("asset_latest") or {}).get("ta") or 0))}；'
      f'沉寂老客回流入金 {wan(_big_recall["derived"]["inflow_after"])}、当前资产 {wan(float((_big_recall.get("asset_latest") or {}).get("ta") or 0))}。'
      f'两例合计贡献 {_top_two_inflow_share:.1f}% 入金，成效高度集中。') if _big_new and _big_recall else '',
-    f'<b>判断</b>提问最多的用户占全部千问提问 {_max_ask_share:.0f}%，但仅贡献 {_max_ask_inflow_share:.1f}% 入金；咨询量不是转化强度的可靠代理。现有数据证明的是“绑定后发生转化”，不能单独归因为千问增量。',
 ]
 INSIGHTS_HTML = "\n".join(f'<li>{item}</li>' for item in INSIGHTS if item)
-tabs = "".join(f'<button type="button" class="tab" role="tab" data-scope="{sc["id"]}" aria-selected="false">{sc["label"]}<small>{agg(scope_users(sc))["n"]}</small></button>' for sc in SCOPES)
+tabs = "".join(f'<button type="button" class="tab" role="tab" data-scope="{sc["id"]}" data-desc="{esc(sc["def"])}" aria-selected="false">{sc["label"]}<small>{agg(scope_users(sc))["n"]}</small></button>' for sc in SCOPES)
 sections = "\n".join(scope_section(sc) for sc in SCOPES)
 
 def all_asks(u):
@@ -667,16 +665,16 @@ PAGER_SNIPPET = r'''<style>
 *,*::before,*::after{font-family:var(--serif) !important}
 html,body{max-width:100%}
 .page-wrap{min-width:0}
-.insight-list{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;width:100%;max-width:76em;margin:16px 0 30px;padding:0;list-style:none;color:var(--ink-2);font-size:13.5px;line-height:1.65}
+.insight-list{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;width:100%;max-width:none;margin:16px 0 30px;padding:0;list-style:none;color:var(--ink-2);font-size:13.5px;line-height:1.65}
 .insight-list li{position:relative;min-width:0;padding:10px 13px 10px 30px;border-top:1px solid var(--rule);background:rgba(255,255,255,.38);overflow-wrap:anywhere}
 .insight-list li::before{content:"";position:absolute;left:13px;top:18px;width:6px;height:6px;border-radius:50%;background:var(--blue)}
 .insight-list b{margin-right:8px;color:var(--blue-deep);font-weight:800}
+@media(min-width:1280px){.insight-list li{white-space:nowrap}}
 .sumrow,.sumrow .cell{min-width:0}
 .sumrow .cell em{white-space:nowrap;overflow-wrap:normal;font-size:clamp(10px,.9vw,12px);letter-spacing:-.025em}
-.tabs{display:flex;align-items:flex-end}
-.back-home{margin-left:auto;align-self:center;flex:0 0 28px;width:28px;height:28px;display:inline-grid;place-items:center;border:1.5px solid var(--rule-2);border-radius:50%;background:var(--surface);color:var(--ink-3);text-decoration:none;line-height:0;padding:0}
-.back-home svg,.pager .pg svg,.mini-ic svg,.icon-btn svg{display:block;margin:auto}
-.back-home:hover{border-color:var(--blue);color:var(--blue)}
+.scope-nav{display:flex;align-items:center;gap:22px}
+.tabs{display:flex;align-items:center}
+.dashboard-link svg,.pager .pg svg,.mini-ic svg,.icon-btn svg{display:block;margin:auto}
 .pager{display:inline-flex;align-items:center;gap:8px;margin-left:8px;vertical-align:middle;font-size:14px;color:var(--ink-2)}
 .pager .pg{width:28px;height:28px;border:1.5px solid var(--rule-2);border-radius:50%;background:var(--surface);color:var(--ink-3);cursor:pointer;line-height:0;display:inline-grid;place-items:center;padding:0}
 .pager .pg:hover{border-color:var(--blue);color:var(--blue)}
@@ -700,10 +698,10 @@ html,body{max-width:100%}
   .insight-list{grid-template-columns:1fr;gap:7px;margin:13px 0 22px;font-size:12.5px;line-height:1.6}
   .insight-list li{padding:9px 10px 9px 27px}
   .insight-list li::before{left:11px;top:17px}
-  .tabs{margin-top:22px}
-  .tab{min-height:40px;padding:0 13px;font-size:13px}
-  .back-home{position:sticky;right:0;background:var(--ground);box-shadow:-12px 0 16px var(--ground)}
-  .scope-def{font-size:13px;line-height:1.65}
+  .scope-nav{display:grid;gap:10px;margin-top:22px}
+  .tabs{max-width:100%;overflow-x:auto}
+  .tab{min-height:44px;padding:0 15px;font-size:13px}
+  .scope-def{padding-left:0;border-left:0;font-size:13px;line-height:1.65}
   .sumrow{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
   .cases-h{display:flex;align-items:center;flex-wrap:wrap;gap:6px}
   .cases-h .muted{margin-left:0}
@@ -774,18 +772,38 @@ page = f'''<!doctype html>
   .mini-table th,.mini-table td{{padding:6px 10px}}
   .funds{{margin:4px 0 0;padding-left:18px;font-size:12.5px;color:var(--ink-2)}}
   .funds li{{margin:2px 0}}
-  .tabs{{display:flex;flex-wrap:nowrap;align-items:center;gap:0;margin:34px 0 0;max-width:100%;overflow-x:auto;scrollbar-width:none}}
+  .report-hero{{display:flex;align-items:flex-start;justify-content:space-between;gap:32px}}
+  .report-hero-copy{{min-width:0}}
+  .dashboard-link{{flex:0 0 auto;display:inline-flex;align-items:center;gap:11px;margin-top:2px;padding:11px 14px;border:1px solid var(--rule-2);border-radius:10px;
+    background:rgba(255,255,255,.72);color:var(--ink-2);text-decoration:none;box-shadow:0 8px 22px rgb(32 38 60 / 5%);transition:border-color .15s,background-color .15s,transform .15s}}
+  .dashboard-link span{{display:grid;gap:1px}}
+  .dashboard-link b{{font-size:13.5px;line-height:1.2}}
+  .dashboard-link small{{color:var(--ink-3);font-size:10.5px;line-height:1.2}}
+  .dashboard-link svg{{flex:0 0 18px;color:var(--blue-deep)}}
+  .dashboard-link:hover{{border-color:var(--blue);background:var(--surface);transform:translateY(-1px)}}
+  .scope-nav{{display:flex;align-items:center;gap:24px;margin:34px 0 18px;padding-bottom:14px;border-bottom:1px solid var(--rule-2)}}
+  .tabs{{display:flex;flex:0 0 auto;flex-wrap:nowrap;align-items:center;gap:0;margin:0;max-width:100%;overflow-x:auto;scrollbar-width:none}}
   .tabs::-webkit-scrollbar{{display:none}}
-  .tab{{min-height:40px;padding:0 14px;border:1px solid var(--rule-2);background:var(--surface);color:var(--ink-3);cursor:pointer;
-    display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;font:700 13.5px/1 var(--serif);transition:color .15s,border-color .15s,background-color .15s}}
+  .tab{{min-height:50px;padding:0 22px;border:1px solid var(--rule-2);background:var(--surface);color:var(--ink-3);cursor:pointer;
+    display:inline-flex;align-items:center;justify-content:center;gap:9px;white-space:nowrap;font:750 16px/1 var(--serif);transition:color .15s,border-color .15s,background-color .15s}}
   .tab + .tab{{margin-left:-1px}}
-  .tab small{{font:700 11.5px/1 var(--serif);color:inherit;opacity:.78;letter-spacing:0}}
+  .tab small{{font:700 12.5px/1 var(--serif);color:inherit;opacity:.78;letter-spacing:0}}
   .tab:hover{{position:relative;z-index:1;border-color:var(--ink);color:var(--ink)}}
   .tab:focus-visible{{position:relative;z-index:2;outline:3px solid var(--amber);outline-offset:2px}}
   .tab[aria-selected="true"]{{position:relative;z-index:1;border-color:var(--ink);background:var(--ink);color:var(--surface)}}
   .tab[aria-selected="true"] small{{color:inherit;opacity:.72}}
-  @media(max-width:520px){{.tab{{min-height:38px;padding:0 12px;font-size:12.5px}}}}
-  .scope-def{{margin:14px 0 18px!important;padding:0;border:0;background:transparent;color:var(--ink-3)!important;font-size:13.5px!important;line-height:1.65}}
+  .scope-def{{min-width:0;margin:0!important;padding-left:22px;border-left:1px solid var(--rule-2);background:transparent;color:var(--ink-2)!important;font-size:14px!important;line-height:1.65}}
+  @media(max-width:900px){{
+    .report-hero{{align-items:center}}
+    .dashboard-link small{{display:none}}
+    .scope-nav{{display:grid;gap:11px}}
+    .scope-def{{padding:0;border-left:0}}
+  }}
+  @media(max-width:520px){{
+    .report-hero{{display:block}}
+    .dashboard-link{{margin-top:14px;padding:9px 12px}}
+    .tab{{min-height:44px;padding:0 15px;font-size:13px}}
+  }}
   .section-h{{font:800 26px/1.3 var(--serif);letter-spacing:-.02em;color:var(--ink)}}
   .matrix-h{{margin:32px 0 12px}}
   .cases-h{{display:flex;align-items:center;gap:10px;margin-top:38px;margin-bottom:14px}}
@@ -931,13 +949,24 @@ page = f'''<!doctype html>
 </head>
 <body>
 <div class="page-wrap">
-  <div class="eyebrow">QIANWEN × QIEMAN AI · CASE EXPLORER</div>
-  <h1>千问用户转化分析</h1>
+  <div class="report-hero">
+    <div class="report-hero-copy">
+      <div class="eyebrow">QIANWEN × QIEMAN AI · CASE EXPLORER</div>
+      <h1>千问用户转化分析</h1>
+    </div>
+    <a class="dashboard-link" href="../qianwen-user-acquisition-dashboard/" title="返回千问引流数据分析主看板" aria-label="返回千问引流数据分析主看板">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg>
+      <span><b>引流数据分析</b><small>返回主看板</small></span>
+    </a>
+  </div>
   <ul class="insight-list" aria-label="转化分析洞察与总结">
     {INSIGHTS_HTML}
   </ul>
 
-  <div class="tabs" role="tablist" aria-label="分类切换">{tabs}<a class="back-home" href="../qianwen-user-acquisition-dashboard/" title="回到千问主看板" aria-label="回到千问主看板"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></div>
+  <div class="scope-nav">
+    <div class="tabs" role="tablist" aria-label="分类切换">{tabs}</div>
+    <p class="scope-def" id="scope-description" aria-live="polite"></p>
+  </div>
   {sections}
 
   <footer>千问 X 且慢AI小顾 · 绑定用户个例分析台 · 生成于 {META["generated"]} · <a href="../qianwen-user-acquisition-dashboard/">返回用户数据看板</a></footer>
@@ -959,9 +988,12 @@ page = f'''<!doctype html>
 <script>
 const ASKS = {ASKS_JSON};
 const tabs=[...document.querySelectorAll('.tab')];
+const scopeDescription=document.getElementById('scope-description');
 function show(id){{
   tabs.forEach(t=>t.setAttribute('aria-selected', String(t.dataset.scope===id)));
   document.querySelectorAll('.scope').forEach(s=>{{ s.hidden = s.id!=='scope-'+id; }});
+  const active=tabs.find(t=>t.dataset.scope===id);
+  if(scopeDescription) scopeDescription.textContent=active ? active.dataset.desc : '';
   try{{ history.replaceState(null,'','#'+id); }}catch(e){{}}
 }}
 tabs.forEach(t=>t.addEventListener('click',()=>show(t.dataset.scope)));
