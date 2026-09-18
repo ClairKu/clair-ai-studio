@@ -86,7 +86,7 @@ for pid in $pids; do wait $pid || fails=$((fails+1)); done
 
 # ── 串行两步：绑定时资产候选(逐行) → zeroatbind.txt + 已清仓名单 → 分客群面板 ──
 # 候选 = 绑定日前曾有 ROOT 资产>0 的用户(几百人)，只对他们取绑定日最近一行，避免全量回溯超时。
-Q candidates 580 "SELECT x.cohort, x.pmid, x.asset_at_bind
+Q candidates 900 "SELECT x.cohort, x.pmid, x.asset_at_bind
 FROM (SELECT b.pmid, $COHORT cohort,
     (SELECT d2.total_asset FROM ying99_asset.dwd_app_service_account_profit_combine d2 WHERE d2.account3_id=p.account3_id
        AND d2.relation_account_type='ROOT' AND d2.cal_date<=DATE(b.fb) ORDER BY d2.cal_date DESC LIMIT 1) asset_at_bind
@@ -119,7 +119,7 @@ IDS=$(cat "$W/cleared-ids.txt")
 
 # 分客群面板 v2：5 维度 × 指标（含新老拆分、绑定后新开户/新风测、入金笔数、资产分层、再投）
 # 老用户唤醒 = 已有帐号中绑定时已清仓（曾持有、绑定当刻资产为零）
-Q segments 580 "SELECT s.seg, COUNT(*) pop, SUM(u.cohort='new') new_cnt,
+Q segments 900 "SELECT s.seg, COUNT(*) pop, SUM(u.cohort='new') new_cnt,
   SUM(u.card) card_bound, SUM(u.opened_after) opened_after, SUM(u.assessed) assessed, SUM(u.risk_after) risk_after,
   ROUND(SUM(COALESCE(f.inflow,0))/10000,4) inflow_wan, SUM(COALESCE(f.inflow,0)>0) inflow_users, SUM(COALESCE(f.txns,0)) inflow_txns,
   ROUND(SUM(COALESCE(a.ta,0))/10000,2) asset_wan, SUM(COALESCE(a.ta,0)>0) holders,
