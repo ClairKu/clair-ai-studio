@@ -476,6 +476,22 @@ def holdings_block(u):
     return f'<div class="deposit-products"><div class="deposit-head"><h4>入金产品</h4><span>买入去向与当前状态</span></div><p class="tight muted">各产品入金金额为绑定后买入金额；盈米宝为充值后仍留在钱包的部分。</p>{tbl}{fund_html}</div>'
 
 def case_insight(u):
+    style = str(u.get("conversion_path_label") or "")
+    focus_by_style = {
+        "规划推荐型": "先用千问明确资金金额、投资期限、收益目标与提醒需求",
+        "诊断试单型": "围绕持仓诊断和长期基金推荐反复求证",
+        "专业体验型": "高频追问平台能力、账户体系、投顾生态与绩效归因",
+        "市场问询型": "先询问热门基金与投顾策略，再自行评估",
+        "投后求证型": "反复使用持仓诊断问法，并在成交后继续确认持仓",
+        "临门触发型": "只做少量行情问询，几乎不依赖长对话",
+        "研究筛选型": "提交基金清单，持续要求回测、比较与替代筛选",
+        "规则执行型": "围绕估值分位定投、止盈、执行频率、自动执行与实时提醒持续提问",
+        "小白引导型": "反复确认买什么、怎么买和从多少金额开始",
+    }
+    focus = focus_by_style.get(style)
+    behavior = str(u.get("behavior_insight") or "").strip()
+    if focus and behavior:
+        return esc(f'{style}：{focus}；{behavior}')
     if u.get("insight"):
         return esc(u["insight"])
     if u.get("narrative"):
@@ -496,21 +512,23 @@ def case_overview(u):
 
 def card(u):
     gender = "男" if u["gender"] == "M" else "女" if u["gender"] == "F" else "性别未知"
-    who = f'{u["age"]} 岁 · {esc(u.get("surname") or "")}{gender}'
+    age = f'{u["age"]}岁' if u.get("age") else "年龄未知"
+    who = f'千问用户 #{u["letter"]} · {esc(u.get("surname") or "")}{gender} · {age}'
     app_dates = [d.get("created_on") for d in u.get("dev", []) if d.get("created_on")]
     app_download = min(app_dates) if app_dates else None
-    risk_score = u["risk"][-1]["score"] if u.get("risk") else "—"
-    tags = [
-        f'<span class="tag">千问绑定 {fmt_badge_date(u["fb"])}</span>',
-        f'<span class="tag">下载 App {fmt_badge_date(app_download)}</span>',
-        f'<span class="tag">首投 {fmt_badge_date(u.get("first_buy_ever"))}</span>',
-        f'<span class="tag">风测 {risk_score} 分</span>',
-    ]
-    badge_cls = "badge n" if u["cohort"] == "new" else "badge"
+    tags = [f'<span class="tag route-tag">{esc(u.get("conversion_path_label") or "待研判")}</span>']
+    if u.get("fb"):
+        tags.append(f'<span class="tag">千问绑定 {fmt_badge_date(u["fb"])}</span>')
+    if app_download:
+        tags.append(f'<span class="tag">下载 App {fmt_badge_date(app_download)}</span>')
+    if u.get("first_buy_ever"):
+        tags.append(f'<span class="tag">首投 {fmt_badge_date(u.get("first_buy_ever"))}</span>')
+    if u.get("risk"):
+        tags.append(f'<span class="tag">风测 {u["risk"][-1]["score"]} 分</span>')
     copy_svg = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>'
     return (f'<div class="case" data-pmid="{u["pmid"]}" data-letter="{u["letter"]}">\n'
             f'  <div class="case-head">\n'
-            f'    <span class="who"><span class="{badge_cls}">{u["letter"]}</span>{who}</span>\n'
+            f'    <span class="who">{who}</span>\n'
             f'    {"".join(tags)}\n'
             f'    <button type="button" class="icon-btn copy-id" data-copy="{u["pmid"]}" title="复制用户 ID" aria-label="复制用户 ID">{copy_svg}</button>\n'
             f'  </div>\n'
@@ -832,6 +850,7 @@ page = f'''<!doctype html>
   .case-head .who{{color:#1e2233;font-size:20px;font-weight:800}}
   .case-head .badge{{width:25px;height:25px;border-color:#c9c2ed;background:#fff;color:#4e38ac;font-weight:800}}
   .case-head .tag{{padding:4px 10px;border-color:#d4d0e9;background:rgba(255,255,255,.78);color:#4d5266;font-size:11.5px;font-weight:700}}
+  .case-head .route-tag{{border-color:#cfc6f5;background:#ece8ff;color:#5740bd}}
   .case-body{{padding:18px 24px 24px}}
   .case-overview{{display:grid;grid-template-columns:minmax(270px,.78fr) minmax(0,1.35fr);border-bottom:1px solid #d8dbea;background:#faf9fe}}
   .case-verdict{{padding:20px 24px;background:#292744;color:#fff}}
