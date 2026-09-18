@@ -41,6 +41,8 @@ def fmt_t(s, day=False):
     return d.strftime("%-m-%d %H:%M") if day else d.strftime("%H:%M:%S")
 def fmt_md(s):
     d = dt(s); return d.strftime("%-m-%d") if d else "—"
+def fmt_badge_date(s):
+    d = dt(s); return f"{d.month}/{d.day:02d}" if d else "—"
 def money(v):
     if v is None: return "—"
     v = float(v)
@@ -347,21 +349,23 @@ def holdings_block(u):
     return f'<div class="sub-block"><h4>最终持有</h4><p class="tight muted">入金金额：各产品为绑定后买入金额，盈米宝为充值后仍留在钱包的部分。</p>{tbl}{fund_html}</div>'
 
 def card(u):
-    d = u["derived"]
-    who = f'{u["age"]} 岁 · {"男" if u["gender"]=="M" else "女" if u["gender"]=="F" else "性别未知"}' + (f' · {esc(u["prov"])}' if u.get("prov") else "")
-    term = terminal_of(u)
-    dev_txt = f'{LIBN.get(term, term)} App' if term else ("网页端" if u.get("events") else "无埋点记录")
-    tags = [f'<span class="tag">{ "绑定当场注册" if u["cohort"]=="new" else "老客 · " + dt(u["registered_at"]).strftime("%Y-%m") + " 注册" }</span>',
-            f'<span class="tag good">绑定后入金 {money(d["inflow_after"])} 元</span>']
-    if d["cancels_after"]: tags.append(f'<span class="tag amber">撤单重下 {d["cancels_after"]} 次</span>')
-    if not u["asks"]: tags.append('<span class="tag amber">千问提问 0 条</span>')
+    who = f'{u["age"]} 岁 · {"男" if u["gender"]=="M" else "女" if u["gender"]=="F" else "性别未知"}'
+    app_dates = [d.get("created_on") for d in u.get("dev", []) if d.get("created_on")]
+    app_download = min(app_dates) if app_dates else None
+    risk_score = u["risk"][-1]["score"] if u.get("risk") else "—"
+    tags = [
+        f'<span class="tag">千问绑定 {fmt_badge_date(u["fb"])}</span>',
+        f'<span class="tag">下载 App {fmt_badge_date(app_download)}</span>',
+        f'<span class="tag">首投 {fmt_badge_date(u.get("first_buy_ever"))}</span>',
+        f'<span class="tag">风测 {risk_score} 分</span>',
+    ]
     badge_cls = "badge n" if u["cohort"] == "new" else "badge"
-    foot = f'用户 {u["letter"]} · {"新客" if u["cohort"]=="new" else "老客"} · 风测 {u["risk"][-1]["score"] if u["risk"] else "—"} 分 · 绑定后买入 {d["buys_after"]} 笔' + (f' · 赎回 {money(d["sell_after"])} 元' if d["sell_after"] else "")
     copy_svg = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>'
     return (f'<div class="case" data-pmid="{u["pmid"]}" data-letter="{u["letter"]}">\n'
             f'  <div class="case-head">\n'
-            f'    <span class="who"><span class="{badge_cls}">{u["letter"]}</span>{who} · {dev_txt}</span>\n'
+            f'    <span class="who"><span class="{badge_cls}">{u["letter"]}</span>{who}</span>\n'
             f'    {"".join(tags)}\n'
+            f'    <button type="button" class="icon-btn copy-id" data-copy="{u["pmid"]}" title="复制用户 ID" aria-label="复制用户 ID">{copy_svg}</button>\n'
             f'  </div>\n'
             f'  <div class="case-body">\n'
             f'    {top_stats(u)}\n'
@@ -373,10 +377,6 @@ def card(u):
             f'    <div class="cpanel" data-panel="behavior" role="region" aria-label="且慢行为内容" tabindex="0" hidden>\n    {behavior_panel(u)}\n    </div>\n'
             f'    {path_summary(u)}\n'
             f'    {holdings_block(u)}\n'
-            f'    <div class="case-foot">\n'
-            f'      <span class="foot-label">{foot}</span>\n'
-            f'      <span class="foot-actions"><button type="button" class="icon-btn" data-copy="{u["pmid"]}" title="复制用户 ID 到剪贴板" aria-label="复制用户 ID">{copy_svg}</button></span>\n'
-            f'    </div>\n'
             f'  </div>\n'
             f'</div>')
 
@@ -567,7 +567,7 @@ page = f'''<!doctype html>
   :root{{--serif:"Songti SC",STSong,"Noto Serif CJK SC","Source Han Serif SC",SimSun,Georgia,"Times New Roman",serif;--mono:var(--serif)}}
   body,button,input,table{{font-family:var(--serif)}}
   .num,.cell b,.kv b,.tl .t,.matrix td.num,.qt,.badge{{font-variant-numeric:tabular-nums}}
-  .eyebrow,.foot-label{{letter-spacing:.14em}}
+  .eyebrow{{letter-spacing:.14em}}
   .sub-block{{margin-top:16px;padding:14px 16px;border:1px solid var(--rule);border-radius:10px;background:var(--ground)}}
   .sub-block h4{{margin:10px 0 6px;font-size:13px;color:var(--ink-blue);letter-spacing:.04em}}
   .sub-block h4:first-child{{margin-top:0}}
@@ -598,14 +598,12 @@ page = f'''<!doctype html>
   .cases-h{{margin-top:36px}}
   .cases-h .muted{{font:500 13px/1 Inter,"PingFang SC",sans-serif;margin-left:10px;white-space:nowrap}}
   .cases-h .muted b{{font-weight:700;color:var(--ink)}}
-  .case-foot{{display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding-top:12px;
-    border-top:1px dashed var(--rule)}}
-  .foot-label{{color:var(--ink-3);font-size:12px}}
-  .foot-actions{{display:inline-flex;gap:6px}}
   .icon-btn{{width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--rule-2);border-radius:9px;
     background:var(--surface);color:var(--ink-2);cursor:pointer;position:relative}}
   .icon-btn:hover{{border-color:var(--blue);color:var(--blue-deep);background:var(--pale)}}
   .icon-btn.done{{border-color:var(--good);color:var(--good)}}
+  .copy-id{{width:28px;height:28px;border-color:transparent;background:transparent;color:var(--ink-3);opacity:.72}}
+  .copy-id:hover{{opacity:1;border-color:var(--rule-2);background:rgba(255,255,255,.7)}}
   .icon-btn .tip{{position:absolute;bottom:calc(100% + 6px);right:0;background:var(--ink);color:#fff;font-size:11px;
     padding:4px 8px;border-radius:6px;white-space:nowrap;pointer-events:none;opacity:0;transform:translateY(3px);transition:.15s}}
   .icon-btn.done .tip{{opacity:1;transform:none}}
