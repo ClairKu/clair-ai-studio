@@ -378,8 +378,11 @@ const segmentIds = ["all", "existing", "existing_awakened", "existing_no_first_i
     if (!publicStates.has(item.state)) fail(`${path}.state 无效`);
     assertAudienceDataAsOf(item, path);
     if (item.state !== "confirmed") { assertHiddenItemCarriesNoCounts(item, path); continue; }
-    const counts = ["population_accounts", "card_bound_accounts", "risk_assessed_accounts",
-                    "inflow_accounts", "holder_accounts"];
+    const counts = ["population_accounts", "new_accounts", "existing_accounts",
+                    "card_bound_accounts", "opened_after_binding_accounts",
+                    "risk_assessed_accounts", "risk_after_binding_accounts",
+                    "inflow_accounts", "inflow_transactions", "holder_accounts",
+                    "holders_gte_100k_accounts", "holders_gte_1m_accounts", "reinvested_accounts"];
     for (const field of counts) assertPublicCell(item[field], `${path}.${field}`, minimumPublicCell);
     if (Object.hasOwn(expectedSegmentPopulation, item.id)
         && item.population_accounts !== expectedSegmentPopulation[item.id]) {
@@ -389,8 +392,13 @@ const segmentIds = ["all", "existing", "existing_awakened", "existing_no_first_i
       fail(`${path}.population_accounts 超过老用户总数`);
     }
     for (const field of counts.slice(1)) {
+      if (field === "inflow_transactions") continue;   // 笔数可以多于人数
       if (item[field] > item.population_accounts) fail(`${path}.${field} 超过该维度人数`);
     }
+    if (item.new_accounts + item.existing_accounts !== item.population_accounts) fail(`${path} 新老拆分不闭合`);
+    if (item.holders_gte_1m_accounts > item.holders_gte_100k_accounts) fail(`${path} 资产分层不单调`);
+    if (item.holders_gte_100k_accounts > item.holder_accounts) fail(`${path} 资产分层超过持有人数`);
+    if (item.inflow_accounts === 0 && item.inflow_transactions !== 0) fail(`${path} 无人入金却有笔数`);
     for (const field of ["inflow_amount_wan", "total_asset_wan"]) {
       if (!Number.isFinite(item[field]) || item[field] < 0) fail(`${path}.${field} 必须为非负数`);
     }
@@ -433,7 +441,7 @@ for (const signal of [
   'id="audience-table"',
   'id="audience-table-body"',
   'id="audience-footnote"',
-  'id="refresh-schedule"',
+  'id="data-refresh-button"',
   'data/fallback-data.js',
 ]) {
   if (!html.includes(signal)) fail(`页面缺少 ${signal}`);
@@ -470,10 +478,6 @@ for (const removed of [
   "阶段",
   "数据状态",
   "refresh-explainer",
-  "data-refresh-button",
-  "callRefreshService",
-  "127.0.0.1:43122",
-  "127.0.0.1:43123",
   "pulse-notes",
   "handoff-route",
   "doc-fab",
@@ -510,8 +514,13 @@ for (const signal of [
   "renderReadout",
   "renderSegmentPanel",
   "loadPublishedData",
-  "REFRESH_SCHEDULE",
-  "renderRefreshSchedule",
+  "LOCAL_REFRESH_BASES",
+  "127.0.0.1:43123",
+  "127.0.0.1:43122",
+  "callRefreshService",
+  "waitForRefresh",
+  "waitForPublishedData",
+  "refreshPublishedData",
   "window_cumulative_bound",
   "visibleSeries",
   "selectedDate",

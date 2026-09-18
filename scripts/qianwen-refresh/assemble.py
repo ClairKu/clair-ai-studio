@@ -208,14 +208,24 @@ for item in q5["items"]:
     entry = {"id": sid, "definition_version": DEF_VERSION, "state": "confirmed",
              "data_as_of": cutoff, "asset_as_of": q5["asset_as_of"],
              "population_accounts": int(item["population_accounts"]),
+             "new_accounts": int(item["new_accounts"]),
+             "existing_accounts": int(item["existing_accounts"]),
              "card_bound_accounts": int(item["card_bound_accounts"]),
+             "opened_after_binding_accounts": int(item["opened_after_binding_accounts"]),
              "risk_assessed_accounts": int(item["risk_assessed_accounts"]),
+             "risk_after_binding_accounts": int(item["risk_after_binding_accounts"]),
              "inflow_accounts": int(item["inflow_accounts"]),
+             "inflow_transactions": int(item["inflow_transactions"]),
+             "holders_gte_100k_accounts": int(item["holders_gte_100k_accounts"]),
+             "holders_gte_1m_accounts": int(item["holders_gte_1m_accounts"]),
+             "reinvested_accounts": int(item["reinvested_accounts"]),
              "inflow_amount_wan": round(float(item["inflow_amount_wan"]), 4),
              "holder_accounts": holders, "total_asset_wan": total}
     if holders:
         entry["per_capita_asset_wan"] = round(total / holders, 4)
-    for key in ("card_bound_accounts", "risk_assessed_accounts", "inflow_accounts", "holder_accounts"):
+    assert entry["new_accounts"] + entry["existing_accounts"] == entry["population_accounts"], sid
+    for key in ("card_bound_accounts", "risk_assessed_accounts", "inflow_accounts", "holder_accounts",
+                "opened_after_binding_accounts", "risk_after_binding_accounts", "reinvested_accounts"):
         if entry[key] > entry["population_accounts"]:
             raise SystemExit(f"segments.{sid}.{key} 超过该维度人数")
     seg_items.append(entry)

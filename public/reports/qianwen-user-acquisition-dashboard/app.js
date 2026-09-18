@@ -1,7 +1,9 @@
 const DATA_URL = "./data/latest.json";
-// 数据由本机 launchd 定时任务（scripts/qianwen-refresh/auto-refresh.sh）取数、构建并发布，
-// 页面本身只读；这里只把发布节奏告诉读者。
-const REFRESH_SCHEDULE = ["09:30", "17:30"];
+const LOCAL_REFRESH_BASES = ["http://127.0.0.1:43123", "http://127.0.0.1:43122"];
+const REFRESH_POLL_MS = 3000;
+const REFRESH_TIMEOUT_MS = 45 * 60 * 1000;
+const PUBLISHED_POLL_MS = 5000;
+const PUBLISHED_TIMEOUT_MS = 5 * 60 * 1000;
 const SCHEMA_VERSION = "qianwen-user-acquisition-v6";
 const LAUNCH_AT = "2026-08-10T08:00:00+08:00";
 const WINDOW_START_AT = "2026-08-03T00:00:00+08:00";
@@ -178,9 +180,9 @@ const BUSINESS_STATS = {
 const SEGMENTS = [
   { id: "all", label: "全部", note: "全部绑定用户" },
   { id: "existing", label: "老用户", note: "绑定时已有且慢账户" },
-  { id: "existing_awakened", label: "老用户唤醒", note: "老用户中绑定后发生过资金动作（买入或充值）" },
-  { id: "existing_no_first_investment", label: "无首投老用户", note: "老用户中从未买入、当前也无资产" },
-  { id: "new", label: "新用户", note: "绑定时当场新注册且慢" },
+  { id: "existing_awakened", label: "老用户唤醒", note: "绑定时已清仓" },
+  { id: "existing_no_first_investment", label: "无首投老用户", note: "从未买入" },
+  { id: "new", label: "新用户", note: "在千问注册且慢帐号" },
 ];
 const PUBLIC_STATES = new Set(["confirmed", "suppressed", "unavailable"]);
 
@@ -472,9 +474,113 @@ function setNotice(message) {
   $("#refresh-status").textContent = message;
 }
 
-function renderRefreshSchedule() {
-  const node = $("#refresh-schedule");
-  if (node) node.textContent = `每日 ${REFRESH_SCHEDULE.join(" / ")} 自动更新`;
+function setRefreshButtonLoading(loading) {
+  const button = $("#data-refresh-button");
+  button.disabled = loading;
+  button.setAttribute("aria-busy", String(loading));
+  button.querySelector("span").textContent = loading ? "更新中" : "更新数据";
+}
+
+const pause = (milliseconds) => new Promise((resolve) => window.setTimeout(resolve, milliseconds));
+
+async function callRefreshService(path, init = {}) {
+  let response;
+  let connectionError;
+  for (const base of LOCAL_REFRESH_BASES) {
+    try {
+      response = await fetch(`${base}${path}`, {
+        cache: "no-store",
+        ...init,
+        headers: {
+          "Content-Type": "application/json",
+          ...(init.headers || {}),
+        },
+      });
+      break;
+    } catch (error) {
+      connectionError = error;
+    }
+  }
+  if (!response) throw connectionError || new Error("无法连接本机更新服务");
+  const body = await response.json().catch(() => ({}));
+  if (!response.ok && !(response.status === 409 && body.run_id)) {
+    const error = new Error(body.summary || body.error || `更新服务返回 ${response.status}`);
+    error.status = response.status;
+    throw error;
+  }
+  return body;
+}
+
+async function waitForRefresh(runId) {
+  const deadline = Date.now() + REFRESH_TIMEOUT_MS;
+  while (Date.now() < deadline) {
+    await pause(REFRESH_POLL_MS);
+    const state = await callRefreshService(`/status?run_id=${encodeURIComponent(runId)}`);
+    if (state.status === "running") {
+      setNotice(state.summary || "正在从生产数据源重新取数…");
+      continue;
+    }
+    return state;
+  }
+  throw new Error("实时更新仍在后台执行，请稍后再点一次查看结果。");
+}
+
+async function waitForPublishedData(expectedCutoff, previousCutoff) {
+  const deadline = Date.now() + PUBLISHED_TIMEOUT_MS;
+  while (Date.now() < deadline) {
+    const data = await loadPublishedData({ allowFallback: false });
+    const cutoff = data.meta.data_cutoff;
+    if (
+      (expectedCutoff && parseTime(cutoff) >= parseTime(expectedCutoff))
+      || (!expectedCutoff && cutoff !== previousCutoff)
+    ) return data;
+    setNotice("新快照已生成，正在等待生产页面发布…");
+    await pause(PUBLISHED_POLL_MS);
+  }
+  throw new Error("新快照已生成，但生产页面尚未完成发布，请稍后再试。");
+}
+
+async function refreshPublishedData() {
+  const previousCutoff = currentData?.meta?.data_cutoff;
+  setRefreshButtonLoading(true);
+  setFreshness("loading", "正在更新数据");
+  setNotice("正在启动生产数据刷新…");
+  try {
+    let state = await callRefreshService("/refresh", {
+      method: "POST",
+      headers: { "X-Qianwen-Action": "refresh-v1" },
+      body: JSON.stringify({
+        schema: "qianwen-user-acquisition-refresh/v1",
+        published_cutoff: previousCutoff || null,
+      }),
+    });
+    if (state.status === "running") state = await waitForRefresh(state.run_id);
+    if (state.status === "blocked") throw new Error(state.summary || "生产数据刷新受阻。");
+    const data = state.status === "updated"
+      ? await waitForPublishedData(state.data_cutoff, previousCutoff)
+      : await loadPublishedData({ allowFallback: false });
+    render(data);
+    const changed = previousCutoff && previousCutoff !== data.meta.data_cutoff;
+    const summary = state.summary ? `${state.summary} ` : "";
+    setNotice(changed
+      ? `${summary}数据已更新至 ${formatCutoff(data.meta.data_cutoff)}`
+      : `${summary}已是最新数据（截至 ${formatCutoff(data.meta.data_cutoff)}）`);
+  } catch (error) {
+    try {
+      const data = await loadPublishedData({ allowFallback: false });
+      if (!currentData || data.meta.data_cutoff !== currentData.meta.data_cutoff) render(data);
+    } catch {
+      // 保留已经通过校验的当前快照。
+    }
+    if (currentData) setFreshness("ready", `数据截至 ${formatCutoff(currentData.meta.data_cutoff)}`);
+    else setFreshness("error", "数据读取失败");
+    const serviceUnavailable = error instanceof TypeError;
+    setNotice(serviceUnavailable
+      ? "实时更新服务未启动；当前展示最近发布数据。"
+      : `更新未完成：${error?.message || "当前数据已保留，请稍后重试。"}`);
+  } finally {
+    setRefreshButtonLoading(false);
+  }
 }
 
 function decorateRows(rows) {
@@ -530,42 +636,71 @@ function renderSegmentPanel() {
   const meta = SEGMENTS.find((entry) => entry.id === viewState.segment) || SEGMENTS[0];
   const item = items.find((entry) => entry.id === viewState.segment);
   const bound = currentData?.metrics?.bound_accounts || 0;
-  const blank = () => {
-    ["#seg-pop", "#seg-card", "#seg-risk", "#seg-inflow", "#seg-asset", "#seg-percapita"]
-      .forEach((selector) => { const node = $(selector); if (node) node.textContent = "—"; });
-    ["#seg-pop-share", "#seg-card-share", "#seg-risk-share", "#seg-inflow-people",
-      "#seg-asset-people", "#seg-percapita-note"]
-      .forEach((selector) => { const node = $(selector); if (node) node.textContent = "—"; });
-  };
-  const note = $("#seg-pop-note");
-  if (note) note.textContent = meta.note;
+  const set = (selector, text) => { const node = $(selector); if (node) node.textContent = text; };
+  const people = (n) => `${number.format(n)} 人`;
   if (!item || item.state !== "confirmed") {
-    blank();
+    ["#seg-pop", "#seg-card", "#seg-risk", "#seg-inflow", "#seg-asset", "#seg-percapita"].forEach((id) => set(id, "—"));
+    ["#seg-pop-share", "#seg-card-share", "#seg-risk-share", "#seg-inflow-people", "#seg-asset-people",
+      "#seg-percapita-note", "#seg-pop-note", "#seg-card-note", "#seg-risk-note", "#seg-inflow-note",
+      "#seg-asset-note", "#seg-percapita-small"].forEach((id) => set(id, "—"));
     return;
   }
   const population = item.population_accounts;
-  $("#seg-pop").textContent = number.format(population);
-  $("#seg-pop-share").textContent = viewState.segment === "all"
-    ? "全部绑定" : formatShare(population, bound);
-  $("#seg-card").textContent = number.format(item.card_bound_accounts);
-  $("#seg-card-share").textContent = formatShare(item.card_bound_accounts, population);
-  $("#seg-risk").textContent = number.format(item.risk_assessed_accounts);
-  $("#seg-risk-share").textContent = formatShare(item.risk_assessed_accounts, population);
-  $("#seg-inflow").textContent = formatAmount(item.inflow_amount_wan);
-  $("#seg-inflow-people").textContent = item.inflow_accounts
-    ? `${number.format(item.inflow_accounts)} 人` : "暂无入金";
-  $("#seg-asset").textContent = formatAmount(item.total_asset_wan);
-  $("#seg-asset-people").textContent = item.holder_accounts
-    ? `${number.format(item.holder_accounts)} 人持有` : "暂无资产";
-  $("#seg-percapita").textContent = item.holder_accounts
-    ? formatAmount(item.per_capita_asset_wan) : "—";
-  $("#seg-percapita-note").textContent = item.holder_accounts ? "有资产用户" : "暂无资产";
-  const assetNote = $("#seg-asset-note");
-  if (assetNote) {
-    assetNote.textContent = item.asset_as_of
-      ? `顶层账户资产合计（含绑定前已有），快照 ${formatDay(item.asset_as_of)}`
-      : "顶层账户资产合计，含老用户绑定前已有资产";
+
+  // 用户：小字按客群给最有信息量的一句
+  set("#seg-pop", number.format(population));
+  set("#seg-pop-share", viewState.segment === "all" ? "全部绑定" : formatShare(population, bound));
+  let popNote = meta.note;
+  if (viewState.segment === "all") {
+    popNote = `${number.format(item.new_accounts)} 新注册 · ${number.format(item.existing_accounts)} 已有帐号`;
+  } else if (viewState.segment === "existing") {
+    const lifecycle = currentData.profile?.cohorts?.existing?.dimensions?.find((d) => d.id === "holding_lifecycle_status");
+    if (lifecycle?.state === "confirmed") {
+      const seg = (id) => lifecycle.buckets.find((b) => b.id === id)?.accounts ?? 0;
+      popNote = `${number.format(seg("no_first_investment"))} 无首投 · ${number.format(seg("churned"))} 已流失 · ${number.format(seg("under_management"))} 在管`;
+    }
+  } else if (viewState.segment === "existing_awakened") {
+    popNote = item.reinvested_accounts
+      ? `绑定时已清仓 · ${people(item.reinvested_accounts)}绑定后再投`
+      : "绑定时已清仓";
+  } else if (viewState.segment === "existing_no_first_investment") {
+    const existing = currentData.metrics?.existing_accounts || 0;
+    popNote = `从未买入 · 占已有帐号 ${formatShare(population, existing)}`;
   }
+  set("#seg-pop-note", popNote);
+
+  // 已开户绑卡：小字给绑定后新开户的人数
+  set("#seg-card", number.format(item.card_bound_accounts));
+  set("#seg-card-share", formatShare(item.card_bound_accounts, population));
+  set("#seg-card-note", item.opened_after_binding_accounts
+    ? `${people(item.opened_after_binding_accounts)}为绑定后新开户`
+    : "绑定后无新开户");
+
+  // 已风险测评：小字给绑定后新做风测的人数
+  set("#seg-risk", number.format(item.risk_assessed_accounts));
+  set("#seg-risk-share", formatShare(item.risk_assessed_accounts, population));
+  set("#seg-risk-note", item.risk_after_binding_accounts
+    ? `${people(item.risk_after_binding_accounts)}绑定后新做风测`
+    : "绑定后无新风测");
+
+  // 新增入金：人数与笔数放小字
+  set("#seg-inflow", formatAmount(item.inflow_amount_wan));
+  set("#seg-inflow-people", "");
+  set("#seg-inflow-note", item.inflow_accounts
+    ? `${people(item.inflow_accounts)} · ${number.format(item.inflow_transactions)} 笔交易`
+    : "暂无入金");
+
+  // 总资产：持有人数放小字
+  set("#seg-asset", formatAmount(item.total_asset_wan));
+  set("#seg-asset-people", "");
+  set("#seg-asset-note", item.holder_accounts ? `${people(item.holder_accounts)}持有` : "暂无资产");
+
+  // 人均资产：小字给分层人数
+  set("#seg-percapita", item.holder_accounts ? formatAmount(item.per_capita_asset_wan) : "—");
+  set("#seg-percapita-note", "");
+  set("#seg-percapita-small", item.holder_accounts
+    ? `${people(item.holders_gte_100k_accounts)}超 10 万 · ${people(item.holders_gte_1m_accounts)}超 100 万`
+    : "暂无资产");
 }
 
 function renderKpis(rows) {
@@ -1296,11 +1431,11 @@ function render(data) {
   endInput.value = viewState.end;
   $("#range-error").textContent = "";
   document.documentElement.dataset.dataMode = "published";
-  renderRefreshSchedule();
   renderView();
 }
 
 function bindInteractions() {
+  $("#data-refresh-button").addEventListener("click", refreshPublishedData);
   document.querySelectorAll('input[name="series"]').forEach((input) => input.addEventListener("change", () => {
     if (input.checked) viewState.visibleSeries.add(input.value);
     else viewState.visibleSeries.delete(input.value);

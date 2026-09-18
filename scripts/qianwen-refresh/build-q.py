@@ -191,12 +191,20 @@ q3 = {"as_of": iso(CUT), "behavior": behavior, "business": business}
 SEG_ID = {"all": "all", "existing": "existing", "awakened": "existing_awakened",
           "never_inv": "existing_no_first_investment", "new": "new"}
 items = [{"id": SEG_ID[k], "population_accounts": I(sg[k]["pop"]),
+          "new_accounts": I(sg[k]["new_cnt"]),
+          "existing_accounts": I(sg[k]["pop"]) - I(sg[k]["new_cnt"]),
           "card_bound_accounts": I(sg[k]["card_bound"]),
+          "opened_after_binding_accounts": I(sg[k]["opened_after"]),
           "risk_assessed_accounts": I(sg[k]["assessed"]),
+          "risk_after_binding_accounts": I(sg[k]["risk_after"]),
           "inflow_amount_wan": round(F(sg[k]["inflow_wan"]), 4),
           "inflow_accounts": I(sg[k]["inflow_users"]),
+          "inflow_transactions": I(sg[k]["inflow_txns"]),
           "total_asset_wan": round(F(sg[k]["asset_wan"]), 2),
-          "holder_accounts": I(sg[k]["holders"])}
+          "holder_accounts": I(sg[k]["holders"]),
+          "holders_gte_100k_accounts": I(sg[k]["h100k"]),
+          "holders_gte_1m_accounts": I(sg[k]["h1m"]),
+          "reinvested_accounts": I(sg[k]["reinvested"])}
          for k in ("all", "existing", "awakened", "never_inv", "new")]
 q5 = {"as_of": iso(CUT), "asset_as_of": AD, "items": items}
 
