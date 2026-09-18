@@ -320,6 +320,17 @@ def scope_section(sc):
   {cards}
 </section>'''
 
+Z, R, F1, NF = (agg(scope_users(sc)) for sc in SCOPES)
+_first_users = scope_users(SCOPES[2])
+_med = None
+if _first_users:
+    import statistics as _st
+    _med = _st.median([(dt(u["derived"]["first_buy_after"]) - dt(u["fb"])).total_seconds() for u in _first_users if u["derived"]["first_buy_after"]])
+_med_txt = "—" if _med is None else (f"{_med/86400:.1f} 天" if _med >= 86400 else f"{_med/3600:.1f} 小时")
+LEDE = (f"{META['bound_total']:,} 个绑定用户里，绑定时零资产且随后真金白银入金的只有 <b>{Z['n']} 人</b>，合计入金 <b>{wan(Z['inflow'])}</b>、当前资产 {wan(Z['asset'])}；"
+        f"其中老户唤回 {R['n']} 人贡献 {wan(R['inflow'])}，全新首投 {NF['n']} 人贡献 {wan(NF['inflow'])}。"
+        f"用户首投 {F1['n']} 人，绑定到首投中位 {_med_txt}，最快 11 分钟、最慢 25 天；{Z['repeat']} 人复投、{Z['cancels']} 人撤单重下。"
+        f"七人 {Z['asks']:,} 条小顾提问全部发生在千问，交易则 100% 回到且慢完成——千问侧零成交痕迹。")
 tabs = "".join(f'<button type="button" class="tab" role="tab" data-scope="{sc["id"]}" aria-selected="false">{sc["label"]}<small>{agg(scope_users(sc))["n"]}</small></button>' for sc in SCOPES)
 sections = "\n".join(scope_section(sc) for sc in SCOPES)
 
@@ -335,9 +346,13 @@ page = f'''<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>千问绑定用户个例分析台｜截至 {CUT[:10]}</title>
+<title>千问用户转化分析｜截至 {CUT[:10]}</title>
 <style>
 {CSS}
+  :root{{--serif:"Songti SC",STSong,"Noto Serif CJK SC","Source Han Serif SC",SimSun,Georgia,"Times New Roman",serif;--mono:var(--serif)}}
+  body,button,input,table{{font-family:var(--serif)}}
+  .num,.cell b,.kv b,.tl .t,.matrix td.num,.qt,.badge{{font-variant-numeric:tabular-nums}}
+  .eyebrow,.foot-label{{letter-spacing:.14em}}
   .sub-block{{margin-top:16px;padding:14px 16px;border:1px solid var(--rule);border-radius:10px;background:var(--ground)}}
   .sub-block h4{{margin:10px 0 6px;font-size:13px;color:var(--ink-blue);letter-spacing:.04em}}
   .sub-block h4:first-child{{margin-top:0}}
@@ -354,18 +369,17 @@ page = f'''<!doctype html>
   .mini-table th,.mini-table td{{padding:6px 10px}}
   .funds{{margin:4px 0 0;padding-left:18px;font-size:12.5px;color:var(--ink-2)}}
   .funds li{{margin:2px 0}}
-  .tabs{{display:inline-flex;flex-wrap:nowrap;gap:2px;margin:26px 0 8px;padding:4px;max-width:100%;overflow-x:auto;
-    background:var(--surface);border:1px solid var(--rule);border-radius:12px;scrollbar-width:none}}
+  .tabs{{display:flex;flex-wrap:nowrap;gap:0;margin:34px 0 0;max-width:100%;overflow-x:auto;border-bottom:1px solid var(--rule-2);scrollbar-width:none}}
   .tabs::-webkit-scrollbar{{display:none}}
-  .tab{{font:inherit;font-size:13.5px;font-weight:600;line-height:1;padding:9px 14px;border:0;border-radius:9px;
-    background:transparent;color:var(--ink-2);cursor:pointer;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;
-    transition:background .15s,color .15s}}
-  .tab small{{font:600 11.5px/1 var(--mono);color:var(--ink-3);letter-spacing:0}}
-  .tab:hover{{background:var(--ground);color:var(--ink)}}
-  .tab[aria-selected="true"]{{background:var(--ink-blue);color:#fff}}
-  .tab[aria-selected="true"] small{{color:rgba(255,255,255,.7)}}
-  @media(max-width:520px){{.tab{{padding:8px 11px;font-size:13px}}}}
-  .scope-def{{margin:8px 0 18px!important}}
+  .tab{{font:inherit;font-size:17px;font-weight:600;line-height:1;padding:12px 4px 14px;margin-right:34px;border:0;border-bottom:2px solid transparent;
+    background:transparent;color:var(--ink-3);cursor:pointer;display:inline-flex;align-items:baseline;gap:8px;white-space:nowrap;margin-bottom:-1px;
+    transition:color .15s,border-color .15s}}
+  .tab small{{font:500 12.5px/1 inherit;color:var(--ink-3);letter-spacing:0}}
+  .tab:hover{{color:var(--ink)}}
+  .tab[aria-selected="true"]{{color:var(--ink);border-bottom-color:var(--blue-deep)}}
+  .tab[aria-selected="true"] small{{color:var(--blue-deep);font-weight:700}}
+  @media(max-width:520px){{.tab{{font-size:15px;margin-right:22px}}}}
+  .scope-def{{margin:14px 0 18px!important}}
   .cases-h{{margin-top:36px}}
   .cases-h .muted{{font:500 13px/1 Inter,"PingFang SC",sans-serif;margin-left:10px}}
   .case-foot{{display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding-top:12px;
@@ -403,8 +417,8 @@ page = f'''<!doctype html>
 <body>
 <div class="wrap">
   <div class="eyebrow">QIANWEN × QIEMAN AI · CASE EXPLORER</div>
-  <h1>千问绑定用户个例分析台</h1>
-  <p class="lede">四种口径切换看同一批人：每种口径给出用户数、资产规模、绑定后入金，以及名单下每一位用户的完整决策路径——他们是谁、和小顾聊了什么、钱怎么进来的、最后在哪个端完成交易。</p>
+  <h1>千问用户转化分析</h1>
+  <p class="lede">{LEDE}</p>
   <p class="meta-line">数据截至 {CUT}（北京时间） · 全部绑定用户 {META["bound_total"]:,} · 口径锚定各用户自己的绑定时刻 · 本页含个例级明细，已作者端加密发布</p>
 
   <div class="tabs" role="tablist" aria-label="口径切换">{tabs}</div>
