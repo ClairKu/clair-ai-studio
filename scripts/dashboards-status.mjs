@@ -23,7 +23,7 @@ const DASHBOARDS = [
     name: "千问用户数据看板",
     data: path.join(root, "public/reports/qianwen-user-acquisition-dashboard/data/latest.json"),
     time: (d) => d.meta?.generated_at,
-    mechanism: "半自动：scripts/qianwen-refresh/（runbook 见其 README）+ 本机刷新服务",
+    mechanism: "全自动：launchd 每日 09:30/17:30 跑 scripts/qianwen-refresh/auto-refresh.sh（redash 取数→组装校验→加密构建→API 推送；失败弹通知，见其 README）",
     launchd: ["com.clair.qianwen-auto-refresh"],
     staleHours: 24 * 4,
   },
