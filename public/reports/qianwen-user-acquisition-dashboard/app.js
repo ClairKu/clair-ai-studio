@@ -156,10 +156,17 @@ const BUSINESS_STATS = {
     description: "绑定后确认成功的买入订单金额合计，按入金口径统计",
     tone: "flow",
   },
+  inflow_transactions: {
+    label: "交易入金笔数",
+    description: "绑定后按入金口径识别的交易笔数",
+    tone: "flow",
+    unit: "count",
+  },
   buy_amount: {
     label: "绑定后买入",
     description: "绑定后确认成功的买入金额合计",
     tone: "flow",
+    hidden: true,
   },
   zero_asset_inflow_amount: {
     label: "零资产用户绑定后入金",
@@ -357,11 +364,16 @@ function validateAudienceData(data) {
         }
         if (key === "business") {
           const label = BUSINESS_STATS[item.id].label;
-          if (!Number.isFinite(item.amount_wan) || item.amount_wan < 0) throw new Error(`${label}金额异常`);
           assertPublicCount(item.accounts, `${label}人数`);
           if (item.accounts > cohort.population_accounts) throw new Error(`${label}人数超出总人数`);
-          for (const field of ["per_capita_wan", "median_wan"]) {
-            if (item[field] !== undefined && (!Number.isFinite(item[field]) || item[field] < 0)) throw new Error(`${label}人均或中位数异常`);
+          if (item.id === "inflow_transactions") {
+            assertPublicCount(item.event_count, `${label}笔数`);
+            if (item.event_count < item.accounts) throw new Error(`${label}笔数小于涉及人数`);
+          } else {
+            if (!Number.isFinite(item.amount_wan) || item.amount_wan < 0) throw new Error(`${label}金额异常`);
+            for (const field of ["per_capita_wan", "median_wan"]) {
+              if (item[field] !== undefined && (!Number.isFinite(item[field]) || item[field] < 0)) throw new Error(`${label}人均或中位数异常`);
+            }
           }
         }
       });
@@ -484,26 +496,20 @@ function formatClock(value) {
   return new Intl.DateTimeFormat("zh-CN", { timeZone: "Asia/Shanghai", hour: "numeric", minute: "2-digit", hour12: false }).format(date);
 }
 
-// 标题下的小字：全窗口的重点数据总结，不随下方时间范围联动
+// 标题下的小字：合作场景 + 老户激活漏斗 + 全量绑定用户入金，不随下方时间范围联动
 function renderHeroLead() {
   const node = $("#hero-lead");
   if (!node || !currentData) return;
-  const m = currentData.metrics;
   const segment = (id) => currentData.segments?.items?.find((item) => item.id === id);
   const all = segment("all");
   const awakened = segment("existing_reactivated");
-  const firstInvest = currentData.behavior?.cohorts?.all?.metrics?.find((item) => item.id === "first_investment_after_binding");
-  const tail = [];
-  if (awakened?.state === "confirmed") tail.push(`老户唤回 ${number.format(awakened.population_accounts)} 人`);
-  if (firstInvest?.state === "confirmed") tail.push(`绑定后首投 ${number.format(firstInvest.reached_accounts)} 人`);
-  if (all?.state === "confirmed") {
-    tail.push(`新增入金 ${formatAmount(all.inflow_amount_wan)}`);
-    tail.push(`在管资产 ${formatAmount(all.total_asset_wan)}`);
+  const intro = "盈米基金与 AI 流量入口千问 App 合作，以 A2A 模式接入且慢 AI 小顾";
+  const parts = [];
+  if (awakened?.state === "confirmed") {
+    parts.push(`已激活老用户 ${number.format(awakened.population_accounts)} 人，其中 ${number.format(awakened.opened_after_binding_accounts)} 人绑定后开户、${number.format(awakened.risk_after_binding_accounts)} 人完成风测、${number.format(awakened.inflow_accounts)} 人完成入金`);
   }
-  const days = currentData.daily?.length || 0;
-  const head = `上线 ${days} 天累计绑定 ${number.format(m.bound_accounts)} 人，新用户 ${number.format(m.new_accounts)} 人（${formatShare(m.new_accounts, m.bound_accounts)}）当场注册且慢`;
-  const mid = tail.length ? `；${tail.join("、")}` : "";
-  node.textContent = `${head}${mid}。`;
+  if (all?.state === "confirmed") parts.push(`千问绑定用户累计入金 ${formatAmount(all.inflow_amount_wan)}`);
+  node.textContent = `${intro}。${parts.join("；")}。`;
 }
 
 
@@ -646,25 +652,25 @@ function renderSegmentPanel() {
 }
 
 function renderKpis(rows) {
-  const totals = rangeTotals(rows);
-  const scope = scopeLabel(rows, true);
+  // 顶部三张总览卡固定展示全窗口累计口径；日期筛选只影响下方走势和日明细。
+  const totals = {
+    bound: currentData.metrics.bound_accounts,
+    new: currentData.metrics.new_accounts,
+    existing: currentData.metrics.existing_accounts,
+  };
+  const allRows = currentData.daily;
   $("#bound-total").textContent = number.format(totals.bound);
   $("#new-accounts").textContent = number.format(totals.new);
   $("#existing-accounts").textContent = number.format(totals.existing);
   $("#new-share").textContent = formatShare(totals.new, totals.bound);
   $("#existing-share").textContent = formatShare(totals.existing, totals.bound);
-  const isFullWindow = rows.length === currentData.daily.length;
-  const range = `${formatDay(rows[0].date)}—${formatDay(rows.at(-1).date)}`;
-  $("#bound-context").textContent = isFullWindow
-    ? `${range} ${formatClock(currentData.meta.data_cutoff)} · ${rows.length} 天`
-    : `${range} · ${scope} · ${rows.length} 天`;
-  // 老用户卡小字：资金留存三段拆分。该拆分是全窗口口径，范围被收窄时退回定义文案，
-  // 免得小字加总与上方被过滤的人数对不上。
+  const range = `${formatDay(allRows[0].date)}—${formatDay(allRows.at(-1).date)}`;
+  $("#bound-context").textContent = `${range} ${formatClock(currentData.meta.data_cutoff)} · ${allRows.length} 天`;
+  // 老用户卡小字同样固定为全窗口生命周期拆分。
   const lifecycle = currentData.profile?.cohorts?.existing?.dimensions?.find((item) => item.id === "holding_lifecycle_status");
   const breakdown = $("#existing-breakdown");
   if (breakdown) {
-    const fullWindow = rows.length === currentData.daily.length;
-    if (fullWindow && lifecycle?.state === "confirmed") {
+    if (lifecycle?.state === "confirmed") {
       const seg = (id) => lifecycle.buckets.find((bucket) => bucket.id === id)?.accounts ?? 0;
       breakdown.textContent = `${number.format(seg("no_first_investment"))} 无首投 · ${number.format(seg("churned"))} 已流失 · ${number.format(seg("under_management"))} 在管`;
     } else {
@@ -756,8 +762,9 @@ function chartMarkup(rows) {
   }).join("");
   const grids = (cumulativeKeys.length ? gridLines([0, 0.25, 0.5, 0.75, 1], layout.cumulativeBase, layout.cumulativeHeight, cumulativeMaximum) : "")
     + (dailyVisible ? gridLines([0, 0.5, 1], layout.dailyBase, layout.dailyHeight, dailyMaximum) : "");
-  const panelTitles = `${cumulativeKeys.length ? `<text class="chart-panel-title" x="${layout.left}" y="${layout.top - 14}">累计绑定用户（人）</text>` : ""}
-    ${dailyVisible ? `<text class="chart-panel-title" x="${layout.left}" y="${layout.dailyTop - 12}">每日新增绑定（人）</text>` : ""}`;
+  const panelTitles = dailyVisible
+    ? `<text class="chart-panel-title" x="${layout.left}" y="${layout.dailyTop - 12}">每日新增绑定（人）</text>`
+    : "";
 
   // 上线前灰度区间：底纹 + 分界线，让 8/10 08:00 正式上线的位置一眼可辨。
   const launchIndex = rows.findIndex((row) => row.date === LAUNCH_DAY);
@@ -974,7 +981,6 @@ function renderChart(rows) {
     : rows.some((row) => row.date === LAUNCH_DAY)
       ? `${formatDay(LAUNCH_DAY)}按自然日统计，含当日 08:00 正式上线前的灰度绑定。`
       : "";
-  $("#chart-note").textContent = `当前范围：${formatDay(rows[0].date)}—${formatDay(rows.at(-1).date)}。${prelaunchNote}最新数据截至 ${formatCutoff(currentData.meta.data_cutoff)}，当日尚未走完。`;
   $("#chart-tooltip").hidden = true;
   viewState.hoverDate = "";
   bindChartInteractions(rows);
@@ -1162,10 +1168,13 @@ function renderBusinessTiles(business, population) {
     const extra = [];
     if (Number.isFinite(stat.per_capita_wan)) extra.push(`人均 ${formatAmount(stat.per_capita_wan)}`);
     if (Number.isFinite(stat.median_wan)) extra.push(`中位 ${formatAmount(stat.median_wan)}`);
-    if (Number.isFinite(stat.event_count)) extra.push(`共 ${number.format(stat.event_count)} 笔`);
+    if (Number.isFinite(stat.event_count) && config.unit !== "count") extra.push(`共 ${number.format(stat.event_count)} 笔`);
+    const value = config.unit === "count"
+      ? `${number.format(stat.event_count)} 笔`
+      : formatAmount(stat.amount_wan);
     return `<article class="metric-tile tone-${config.tone}">
       <span class="metric-tile-label">${escapeHtml(config.label)}</span>
-      <strong class="metric-tile-value">${escapeHtml(formatAmount(stat.amount_wan))}</strong>
+      <strong class="metric-tile-value">${escapeHtml(value)}</strong>
       <p class="metric-tile-people">涉及 ${number.format(stat.accounts)} 人<em>${share === null ? "—" : percent.format(share)}</em></p>
       <small>${escapeHtml(extra.length ? extra.join(" · ") : config.description)}</small>
     </article>`;
@@ -1233,80 +1242,6 @@ function renderBehaviorBars(behavior) {
   }).join("");
 }
 
-function confirmedBehaviorNote(metric) {
-  const notes = [`可统计 ${number.format(metric.eligible_accounts)} 人`];
-  if (metric.not_reached_accounts) notes.push(`${number.format(metric.not_reached_accounts)} 人尚未发生`);
-  if (metric.unknown_accounts) notes.push(`${number.format(metric.unknown_accounts)} 人暂无法判断`);
-  if (metric.excluded_accounts) notes.push(`${number.format(metric.excluded_accounts)} 人不在本次统计范围`);
-  if (metric.event_count !== undefined) notes.push(`共 ${number.format(metric.event_count)} 笔`);
-  return notes.join("；");
-}
-
-function renderAudienceTable(profile, behavior, business, population) {
-  const rows = [];
-  businessStatsFor(business).forEach((stat) => {
-    const config = BUSINESS_STATS[stat.id];
-    rows.push({
-      type: "经营金额",
-      label: config.label,
-      state: stat.state,
-      reasonCode: stat.reason_code,
-      value: stat.state === "confirmed" ? formatAmount(stat.amount_wan) : null,
-      accounts: stat.state === "confirmed" ? stat.accounts : null,
-      share: stat.state === "confirmed" ? safeShare(stat.accounts, population) : null,
-      note: stat.state === "confirmed"
-        ? [config.description, Number.isFinite(stat.per_capita_wan) ? `人均 ${formatAmount(stat.per_capita_wan)}` : ""].filter(Boolean).join("；")
-        : config.description,
-    });
-  });
-  profileDimensionsFor(profile).forEach((dimension) => {
-    const config = PROFILE_DIMENSIONS[dimension.id];
-    if (dimension.state !== "confirmed") {
-      rows.push({ type: config.label, label: config.label, state: dimension.state, reasonCode: dimension.reason_code, note: config.description });
-      return;
-    }
-    dimension.buckets.forEach((bucket) => rows.push({
-      type: config.label,
-      label: bucketLabel(bucket),
-      state: "confirmed",
-      accounts: bucket.accounts,
-      share: safeShare(bucket.accounts, population),
-      note: config.description,
-    }));
-  });
-  behaviorMetricsFor(behavior).forEach((metric) => {
-    const config = BEHAVIOR_METRICS[metric.id];
-    rows.push({
-      type: "绑定后行为",
-      label: config.label,
-      state: metric.state,
-      reasonCode: metric.reason_code,
-      accounts: metric.state === "confirmed" ? metric.reached_accounts : null,
-      share: metric.state === "confirmed" ? safeShare(metric.reached_accounts, metric.eligible_accounts) : null,
-      note: metric.state === "confirmed" ? confirmedBehaviorNote(metric) : config.description,
-    });
-  });
-  if (!rows.length) {
-    $("#audience-table-body").innerHTML = '<tr><td class="audience-table-empty" colspan="5">数据源待确认</td></tr>';
-    return;
-  }
-  $("#audience-table-body").innerHTML = rows.map((row) => {
-    const stateCopy = row.state === "confirmed" ? "" : publicStateCopy({ state: row.state, reason_code: row.reasonCode });
-    const figure = row.state !== "confirmed"
-      ? escapeHtml(stateCopy)
-      : row.value
-        ? `${escapeHtml(row.value)}<small>${number.format(row.accounts)} 人</small>`
-        : number.format(row.accounts);
-    return `<tr class="${row.state === "confirmed" ? "" : `is-${row.state}`}">
-      <td data-label="类别">${escapeHtml(row.type)}</td>
-      <td data-label="指标"><strong>${escapeHtml(row.label)}</strong></td>
-      <td data-label="${row.value ? "金额" : "人数"}" class="audience-number-cell">${figure}</td>
-      <td data-label="占比" class="audience-share-cell">${row.state === "confirmed" && row.share !== null ? percent.format(row.share) : "—"}</td>
-      <td data-label="说明" class="audience-note-cell">${escapeHtml(row.note)}</td>
-    </tr>`;
-  }).join("");
-}
-
 function renderAudience({ announce = false } = {}) {
   const available = syncAudienceControls();
   const cohortKey = viewState.audienceCohort;
@@ -1330,9 +1265,6 @@ function renderAudience({ announce = false } = {}) {
   renderBusinessTiles(business, population);
   renderDistributionPanels(profile, population);
   renderBehaviorBars(behavior);
-  renderAudienceTable(profile, behavior, business, population);
-  $("#audience-detail-context").textContent = population === null ? label : `${label} · ${number.format(population)} 人`;
-  $("#audience-footnote").textContent = `规模与画像取查询时点各账户最近记录；入金、交易与绑定后行为按各自绑定时间起算至 ${formatCutoff(currentData.meta.data_cutoff)}。各指标独立统计，不代表先后顺序；自 2026-08-24 起按业务方要求，小分组不再合并或隐藏，人数较少的分组数字请谨慎解读。`;
   if (announce) $("#audience-announcement").textContent = `已切换至${label}，共 ${population === null ? "未知" : number.format(population)} 人。`;
 }
 

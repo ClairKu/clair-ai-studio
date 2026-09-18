@@ -435,11 +435,12 @@ _med_txt = "—" if _med is None else (f"{_med/86400:.1f} 天" if _med >= 86400 
 from collections import Counter as _C
 _tc = _C(LIBN.get(terminal_of(u), "未知") for u in scope_users(next(sc for sc in SCOPES if sc["id"] == "new_inv")))
 _term_txt = "、".join(f"{k} {v}" for k, v in _tc.most_common())
+_terminal_evidence_n = sum(terminal_of(u) is not None for u in scope_users(next(sc for sc in SCOPES if sc["id"] == "new_inv")))
 _mia_n = sum(len((u.get("channels") or {}).get("app_mia", [])) for u in scope_users(next(sc for sc in SCOPES if sc["id"] == "new_inv")))
 LEDE = (
     f"{META['bound_total']:,} 位绑定用户中，新投 <b>{Z['n']}</b> 人、首投 <b>{F1['n']}</b> 人"
     f"（新户首投 {NF['n']} 人、老户首投 {EF['n']} 人），老户唤回 {R['n']} 人；"
-    f"{Z['n']} 位新投用户均回到且慢 App 下单。"
+    f"其中 <b>{_terminal_evidence_n}</b> 位可由且慢 App 原生埋点识别下单终端。"
 )
 tabs = "".join(f'<button type="button" class="tab" role="tab" data-scope="{sc["id"]}" aria-selected="false">{sc["label"]}<small>{agg(scope_users(sc))["n"]}</small></button>' for sc in SCOPES)
 sections = "\n".join(scope_section(sc) for sc in SCOPES)
@@ -618,7 +619,7 @@ page = f'''<!doctype html>
     <h4>口径与局限</h4>
     <ul>
       <li>分类名称与主看板一致：「新投」= 绑定后有新增投资且绑定时无资产（含新老用户）；「首投」= 绑定后完成第一笔投资（人生首笔非钱包买入，<span class="num">po.buy / fund.buy / si.trade / po.adjust / plan.trade</span>，撤单不计，含新老用户）；「新户首投」= 其中绑定时当场新注册（注册与绑定相差 ≤60 分钟）的用户；「老户唤回」= 绑定时已有且慢帐号但未首投或已清仓，绑定后重新入金；「老户首投」= 老用户的人生首笔投资发生在绑定后。统计截至 {CUT}。</li>
-      <li>入金 = 各用户自绑定日起顶层 ROOT 账户的实际入流合计（资产表 input_amount，含线下汇款与钱包充值，不重复计从钱包转买的部分）；当日成交尚未落账者以盈米宝充值额暂代。买入 = 绑定后非钱包买入合计；资产 = 各用户最近一个已跑批的 ROOT 快照。</li>
+      <li>入金与主看板完全同口径：绑定后线上/线下充值到盈米宝 + 银行卡直付买产品；组合回款进宝、宝内余额买产品不计。买入 = 绑定后非钱包买入合计；资产 = 各用户最近一个已跑批的 ROOT 快照。</li>
       <li>下单终端与「且慢行为」来自神策埋点（<span class="num">qm_meta.ai_insight_sensors_event_detail</span>）：iOS / Android / HarmonyOS 为 App 原生页记录，js 为 App 内嵌或独立 H5 页；以首笔买入前后 30 分钟内的原生页记录判定终端，设备注册表仅作辅证。页面名已从技术类名翻译成业务页名，不可读的类名不展示；「入金 X 笔」按看板口径（线上/线下充值到盈米宝 + 银行卡直付买入）计数。</li>
       <li>风测得分为且慢风险测评原始分（broker 0008，<span class="num">risk_survey_record</span> 全量历史，取最近一次），未换算等级档位。</li>
       <li>千问提问取 <span class="num">agent_dj_messages</span> 中 role=USER 的非空记录，时间用 <span class="num">dj_gmt_create</span>（业务时间）；且慢 App 内小顾取 <span class="num">ying99_mia.user_message</span> 用户输入行；微信 / 企微侧小顾七人均无记录。关键旅程最多展示前 10 条提问。</li>

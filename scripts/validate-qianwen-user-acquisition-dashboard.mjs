@@ -46,6 +46,7 @@ const behaviorMetricIds = [
 const businessStatIds = [
   "holding_amount",
   "inflow_amount",
+  "inflow_transactions",
   "buy_amount",
   "zero_asset_inflow_amount",
   "sell_amount",
@@ -179,9 +180,15 @@ function assertBusinessItem(item, path, population, minimumPublicCell) {
     return;
   }
   const amountFields = ["amount_wan", "per_capita_wan", "median_wan"];
-  if (!Number.isFinite(item.amount_wan) || item.amount_wan < 0) fail(`${path}.amount_wan 必须为非负数`);
-  for (const field of amountFields.slice(1)) {
-    if (Object.hasOwn(item, field) && (!Number.isFinite(item[field]) || item[field] < 0)) fail(`${path}.${field} 必须为非负数`);
+  const isTransactionCount = item.id === "inflow_transactions";
+  if (isTransactionCount) {
+    if (!isCount(item.event_count)) fail(`${path}.event_count 必须为非负整数`);
+    if (Object.hasOwn(item, "amount_wan")) fail(`${path} 笔数指标不得携带金额`);
+  } else {
+    if (!Number.isFinite(item.amount_wan) || item.amount_wan < 0) fail(`${path}.amount_wan 必须为非负数`);
+    for (const field of amountFields.slice(1)) {
+      if (Object.hasOwn(item, field) && (!Number.isFinite(item[field]) || item[field] < 0)) fail(`${path}.${field} 必须为非负数`);
+    }
   }
   assertPublicCell(item.accounts, `${path}.accounts`, minimumPublicCell);
   if (item.accounts > population) fail(`${path}.accounts 超过所属用户数`);
@@ -189,6 +196,7 @@ function assertBusinessItem(item, path, population, minimumPublicCell) {
   if (Object.hasOwn(item, "event_count")) {
     if (!isCount(item.event_count)) fail(`${path}.event_count 必须为非负整数`);
     if (item.accounts === 0 && item.event_count !== 0) fail(`${path}.event_count 与人数矛盾`);
+    if (item.event_count < item.accounts) fail(`${path}.event_count 小于涉及人数`);
   }
   assertDescriptiveExtrasOnly(
     item,
@@ -361,7 +369,6 @@ function assertNoForbiddenKeys(value, path = "data") {
 assertNoForbiddenKeys(data);
 
 const segmentIds = ["all", "new_inv", "first_inv", "reinvested", "new", "new_first_inv", "existing", "existing_reactivated", "existing_first_inv"];
-const legacySegmentIds = ["all", "invested", "first_inv", "new", "new_first_inv", "existing", "existing_reactivated", "existing_first_inv"];
 {
   const minimumPublicCell = data.privacy.minimum_public_cell;
   assertPlainObject(data.segments, "segments");
@@ -369,8 +376,7 @@ const legacySegmentIds = ["all", "invested", "first_inv", "new", "new_first_inv"
     fail("segments 观察窗口异常");
   }
   const actualSegmentIds = data.segments.items.map((item) => item.id);
-  if (actualSegmentIds.join() === legacySegmentIds.join()) console.warn("[warn] segments.items 仍是 8 维度旧口径，等待下一次自动刷新产出 9 维度");
-  else assertItemIds(data.segments.items, segmentIds, "segments.items");
+  assertItemIds(data.segments.items, segmentIds, "segments.items");
   const expectedSegmentPopulation = {
     all: data.metrics.bound_accounts,
     existing: data.metrics.existing_accounts,
@@ -441,9 +447,6 @@ for (const signal of [
   'id="behavior-bars"',
   'id="profile-distribution"',
   'id="touchpoint-distribution"',
-  'id="audience-table"',
-  'id="audience-table-body"',
-  'id="audience-footnote"',
   'data/fallback-data.js',
 ]) {
   if (!html.includes(signal)) fail(`页面缺少 ${signal}`);
@@ -529,7 +532,6 @@ for (const signal of [
   "renderDistributionPanels",
   "renderBehaviorBars",
   "renderBusinessTiles",
-  "renderAudienceTable",
   "renderReadout",
   "renderSegmentPanel",
   "loadPublishedData",
@@ -538,6 +540,9 @@ for (const signal of [
   "selectedDate",
 ]) {
   if (!app.includes(signal)) fail(`页面脚本缺少 ${signal}`);
+}
+for (const removed of ["所选用户数据明细", 'id="audience-table"', 'id="audience-footnote"']) {
+  if (html.includes(removed) || app.includes(removed)) fail(`页面仍包含已移除模块：${removed}`);
 }
 for (const rule of [
   ".chart-line-bound",
@@ -558,6 +563,11 @@ for (const removed of [".chart-axis-right", ".chart-area-new", ".chart-area-exis
 }
 if (/https?:\/\/(?!127\.0\.0\.1)/.test(app.replaceAll("https://ontology.yingmi-inc.com", ""))) fail("页面脚本含未审计外部服务");
 if (/(token|secret|password)\s*[:=]\s*["'][^"']+/i.test(app)) fail("页面脚本疑似硬编码凭证");
+const renderKpisSource = app.slice(app.indexOf("function renderKpis"), app.indexOf("function niceMaximum"));
+if (renderKpisSource.includes("rangeTotals(rows)")) fail("顶部累计总览卡仍与日期区间联动");
+if (!renderKpisSource.includes("bound: currentData.metrics.bound_accounts")) fail("顶部累计总览卡没有固定使用全量 metrics");
+if (app.includes("累计绑定用户（人）")) fail("增长趋势图仍显示累计绑定用户顶部标题");
+if (html.includes('id="chart-note"')) fail("增长趋势图仍保留底部范围说明");
 
 const reportEntryStart = workbench.indexOf('id: "qianwen-user-acquisition-dashboard"');
 const reportEntryEnd = workbench.indexOf("\n    {", reportEntryStart + 1);
@@ -567,9 +577,12 @@ for (const word of ["映射", "聚合", "去重", "关联", "存量", "ACCOUNT H
   if (reportingCopy.includes(word)) fail(`汇报文案仍包含技术术语：${word}`);
 }
 for (const phrase of [
-  "千问 · 且慢AI小顾",
+  "千问·且慢AI小顾",
   "累计绑定用户",
-  "当场注册且慢",
+  "盈米基金与 AI 流量入口千问 App 合作",
+  "绑定后开户",
+  "完成风测",
+  "完成入金",
   "老用户",
   "用户增长走势",
   "对应数据明细",

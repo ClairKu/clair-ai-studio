@@ -181,6 +181,9 @@ for co in ("all", "new", "existing"):
         "holding_amount": {"accounts": hcnt, "amount_wan": wan,
                            **({"per_capita_wan": round(wan / hcnt, 4)} if hcnt else {})},
         "inflow_amount": {"accounts": m["inflow_users"], "amount_wan": round(m["inflow_wan"], 4)},
+        # 兼容旧版 money.txt：入金笔数也存在 segments 的 all/new/existing 行中。
+        "inflow_transactions": {"accounts": m["inflow_users"],
+                                "event_count": I(m.get("inflow_txns", sg[co]["inflow_txns"]))},
         "buy_amount": {"accounts": m["buy_users"], "amount_wan": round(m["buy_wan"], 4)},
         "zero_asset_inflow_amount": {"accounts": z["zero_users"], "amount_wan": round(z["zero_wan"], 4)},
         "sell_amount": {"accounts": m["sell_users"], "amount_wan": round(m["sell_wan"], 4)},

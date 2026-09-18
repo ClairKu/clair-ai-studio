@@ -101,28 +101,26 @@ for c in sorted(cand, key=lambda c: c["fb"]):
     after = [t for t in tr if T(t["accept_time"]) >= fb and not t["canceled"]]
     BUY_TYPES = {"po.buy","fund.buy","si.trade","po.adjust","plan.trade"}
     buys = [t for t in after if t["trade_type"] in BUY_TYPES and t["buy"] and float(t["buy"]) > 0]
-    recharge_secs = {t["accept_time"] for t in after if t["trade_type"] == "wallet.recharge"}
-    inflow = sum(float(t["buy"]) for t in after if t["trade_type"] == "wallet.recharge") + \
-             sum(float(t["buy"]) for t in buys if t["accept_time"] not in recharge_secs)
+    # 与主看板完全同口径：线上/线下充值到盈米宝 + 银行卡直付买产品；
+    # 组合回款进宝、宝内余额买产品不计，避免 ROOT 资产表和交易表混用造成金额漂移。
+    inflow_rows = [t for t in after if
+                   (t["trade_type"] == "wallet.recharge" and (t["extra"] or "") in ("by.online", "by.offline") and float(t["buy"] or 0) > 0)
+                   or (t["trade_type"] != "wallet.recharge" and (t["extra"] or "") == "from.card" and float(t["buy"] or 0) > 0)]
+    inflow = sum(float(t["buy"]) for t in inflow_rows)
     sell = sum(float(t["redeem"] or 0) for t in after if t["redeem"] and float(t["redeem"]) > 0)
     cancels = sum(1 for t in tr if T(t["accept_time"]) >= fb and t["canceled"])
     fl = [f for f in g_flow.get(a3, []) if a3 and f["cal_date"][:10] >= fb.strftime("%Y-%m-%d")]
     root_in = sum(float(f["inflow"] or 0) for f in fl); root_out = sum(float(f["outflow"] or 0) for f in fl)
-    wallet_inflow = inflow
-    if fl: inflow = root_in
-    else:
-        rc = sum(float(t["buy"]) for t in after if t["trade_type"] == "wallet.recharge")
-        inflow = rc if rc > 0 else sum(float(t["buy"]) for t in buys)
     first_buy_after = min((t["accept_time"] for t in buys), default=None)
     asset_rows = sorted(g_assets.get(a3, []), key=lambda r: r["cal_date"]) if a3 else []
     asset_latest = {"cal_date": asset_rows[-1]["cal_date"][:10], "ta": asset_rows[-1]["ta"]} if asset_rows else None
     zero = (c.get("asset_at_bind") is None) or float(c["asset_at_bind"]) <= 0
     first_ever = T(c.get("first_buy_ever"))
     flags = {
-        "zero_at_bind": bool(zero and inflow > 0),
+        "zero_at_bind": bool(zero and buys),
         "recall": bool(zero and inflow > 0 and c["cohort"] == "existing"),
         "first_invest_after": bool(first_ever and first_ever >= fb),
-        "new_first_invest": bool(c["cohort"] == "new" and buys),
+        "new_first_invest": bool(c["cohort"] == "new" and first_ever and first_ever >= fb),
     }
     n = narr.get(pmid, {})
     # 埋点：绑定前 7 天起到截止时间
@@ -133,9 +131,7 @@ for c in sorted(cand, key=lambda c: c["fb"]):
         e = norm_event(x)
         if e: ev.append(e)
     # 入金（看板口径）：线上/线下充值到盈米宝 + 银行卡直付买入
-    inflow_txns = sorted([t for t in after if (t["trade_type"] == "wallet.recharge" and (t["extra"] or "") in ("by.online", "by.offline") and float(t["buy"] or 0) > 0)
-                          or (t["trade_type"] != "wallet.recharge" and (t["extra"] or "") == "from.card" and float(t["buy"] or 0) > 0)],
-                         key=lambda t: t["accept_time"])
+    inflow_txns = sorted(inflow_rows, key=lambda t: t["accept_time"])
     # 小顾入口
     sess = g_sess.get(pmid, [])
     mia = sorted(g_mia.get(pmid, []), key=lambda r: r["create_time"])
@@ -192,8 +188,8 @@ for c in sorted(cand, key=lambda c: c["fb"]):
         "flags": flags,
         "derived": {"buys_after": len(buys), "buy_amount_after": sum(float(t["buy"]) for t in buys), "inflow_after": inflow,
                     "sell_after": sell, "first_buy_after": first_buy_after, "cancels_after": cancels,
-                    "wallet_inflow": wallet_inflow, "root_out": root_out if fl else None},
-        **({"narrative": n["narrative"], "verdict": n["verdict"]} if n else {}),
+                    "root_inflow_reference": root_in if fl else None, "root_out": root_out if fl else None},
+        **{key: n[key] for key in ("narrative", "verdict") if key in n},
     })
 # 字母：沿用已有 A—F，其余按绑定时间顺延
 used = {u["letter"] for u in users if u["letter"]}

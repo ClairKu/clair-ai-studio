@@ -1972,6 +1972,15 @@
             "amount_wan": 209.4974
           },
           {
+            "id": "inflow_transactions",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-09-18T14:12:03+08:00",
+            "state": "confirmed",
+            "accounts": 151,
+            "event_count": 777
+          },
+          {
             "id": "buy_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
@@ -2023,6 +2032,15 @@
             "amount_wan": 10.1325
           },
           {
+            "id": "inflow_transactions",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-09-18T14:12:03+08:00",
+            "state": "confirmed",
+            "accounts": 3,
+            "event_count": 8
+          },
+          {
             "id": "buy_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
@@ -2072,6 +2090,15 @@
             "state": "confirmed",
             "accounts": 148,
             "amount_wan": 199.3649
+          },
+          {
+            "id": "inflow_transactions",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-09-18T14:12:03+08:00",
+            "state": "confirmed",
+            "accounts": 148,
+            "event_count": 769
           },
           {
             "id": "buy_amount",

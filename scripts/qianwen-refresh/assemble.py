@@ -163,7 +163,7 @@ UNAVAILABLE_MONEY = {"inflow_amount", "buy_amount", "sell_amount"}
 business_cohorts = {}
 for co in COHORTS:
     stats = []
-    for sid in ["holding_amount", "inflow_amount", "buy_amount", "zero_asset_inflow_amount", "sell_amount"]:
+    for sid in ["holding_amount", "inflow_amount", "inflow_transactions", "buy_amount", "zero_asset_inflow_amount", "sell_amount"]:
         if sid in UNAVAILABLE_MONEY and sid not in q3["business"][co]:
             stats.append({"id": sid, "definition_version": DEF_VERSION,
                           "time_basis": "post_binding_window", "state": "unavailable",
@@ -171,12 +171,16 @@ for co in COHORTS:
             continue
         r = q3["business"][co][sid]
         accounts = int(r["accounts"])
-        stats.append({"id": sid, "definition_version": DEF_VERSION,
-                      "time_basis": "snapshot_as_of", "data_as_of": cutoff,
-                      "state": "confirmed", "accounts": accounts,
-                      "amount_wan": 0 if accounts == 0 else round(float(r["amount_wan"]), 4),
-                      **{k: round(float(r[k]), 4) for k in ("per_capita_wan", "median_wan")
-                         if k in r and accounts > 0}})
+        item = {"id": sid, "definition_version": DEF_VERSION,
+                "time_basis": "snapshot_as_of", "data_as_of": cutoff,
+                "state": "confirmed", "accounts": accounts}
+        if sid == "inflow_transactions":
+            item["event_count"] = int(r["event_count"])
+        else:
+            item["amount_wan"] = 0 if accounts == 0 else round(float(r["amount_wan"]), 4)
+            item.update({k: round(float(r[k]), 4) for k in ("per_capita_wan", "median_wan")
+                         if k in r and accounts > 0})
+        stats.append(item)
     business_cohorts[co] = {"population_accounts": POP[co], "stats": stats}
 
 out = dict(template)

@@ -13,13 +13,15 @@ python3 $S/fetch.py $W/d_trades.json "..." ; ... d_risk d_asks d_assets d_device
 # 3. 归一化 + 生成 + 加密
 cp $S/narratives.json $W/            # 已有个例的手写叙事与渠道判定（按 pmid），新用户可追加
 python3 $S/assemble-users.py $W "$CUT" <bound_total>
+python3 $S/validate-alignment.py public/reports/qianwen-user-acquisition-dashboard/data/latest.json $W/users.json
 python3 $S/build-cases.py $W/users.json $W/page.html $S/base.css
 node $S/encrypt-page.mjs $W/page.html public/reports/<slug>/index.html "千问绑定用户个例分析台"
 cp public/reports/<slug>/index.html docs/reports/<slug>/index.html   # docs 副本须在 build 前就位
 ```
 
 口径要点：个例页分类名称与主看板对齐 = 新投 / 首投 / 新户首投 / 老户唤回 / 老户首投；
-入金用资产表 ROOT input_amount（各用户自绑定日起），当日成交未落账者以充值额暂代；
+入金与主看板同口径：绑定后线上/线下充值到盈米宝 + 银行卡直付买产品；组合回款进宝、宝内余额买产品不计；
+发布前必须通过 `validate-alignment.py`，确保两页截止时刻一致，且五个共同客群的人数、入金人数、笔数与金额全部闭合；
 渠道判定规则驱动（device_info platform 3=iOS/4=安卓/5=鸿蒙 + 订单 extra + 时间线），有手写 verdict 的用户优先用手写。
 候选 SQL 的 asset_at_bind 子查询要加 `CASE WHEN account3_id IS NULL THEN NULL ELSE (...) END` 短路，否则 5k 用户会超时。
 新加密子页落库五处：public+docs 密文、inject-site-access-gate.mjs、tests/site-access-gate.test.mjs、validate-workbench.mjs、catalog/report-registry.json（supporting-page）。
