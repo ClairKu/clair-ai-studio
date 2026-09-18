@@ -48,14 +48,14 @@ PLAT = {"3": "iOS", "4": "安卓", "5": "鸿蒙"}
 
 # ───── 口径定义 ─────
 SCOPES = [
-  {"id": "zero", "label": "绑定时资产为 0", "flag": "zero_at_bind",
-   "def": "绑定当日回溯顶层 ROOT 资产为 0 或未开户，且绑定后有入金（含新客与老客）——渠道「真实新增」的全部来源"},
-  {"id": "recall", "label": "老用户唤回", "flag": "recall",
-   "def": "已有且慢账户但未首投或已清仓，绑定后重新入金"},
-  {"id": "newfirst", "label": "全新用户首投", "flag": "new_first_invest",
-   "def": "绑定时当场新注册且慢（注册与绑定相差 ≤60 分钟），并在绑定后完成人生首笔非钱包买入"},
+  {"id": "zero", "label": "新投用户", "flag": "zero_at_bind",
+   "def": "在千问绑定且慢帐号时，无资产（含新老用户）"},
+  {"id": "recall", "label": "老户唤回", "flag": "recall",
+   "def": "在千问绑定且慢帐号时，已有且慢帐户，但未首投或已清仓"},
   {"id": "first", "label": "用户首投", "flag": "first_invest_after",
-   "def": "不分新老，人生首笔非钱包买入（po.buy / fund.buy / si.trade / po.adjust / plan.trade，撤单不计）发生在绑定之后"},
+   "def": "在千问绑且慢帐号后，完成第一笔且慢投资（含新老用户）"},
+  {"id": "newfirst", "label": "全新首投", "flag": "new_first_invest",
+   "def": "在千问绑且慢帐号后，完成第一笔且慢投资（仅绑定时新注册的用户）"},
 ]
 
 def scope_users(sc):
@@ -305,7 +305,7 @@ def scope_section(sc):
     med = statistics.median(durs) if durs else None
     med_txt = ("—" if med is None else f"{med/86400:.1f} 天" if med >= 86400 else f"{med/3600:.1f} 小时")
     cells = f'''<div class="grid sumrow">
-  <div class="cell"><b>{a["n"]}</b><span>用户数</span><em>新客 {a["new"]} / 老客 {a["n"]-a["new"]} · 绑定→首投中位 {med_txt}</em></div>
+  <div class="cell"><b>{a["n"]}</b><span>用户数</span><em>{(f"未首投 {sum(1 for u in us if not u.get('last_buy_before'))} 人 / 已清仓 {sum(1 for u in us if u.get('last_buy_before'))} 人") if sc["id"] == "recall" else f"新客 {a['new']} / 老客 {a['n']-a['new']}"} · 绑定→首投中位 {med_txt}</em></div>
   <div class="cell"><b>{wan(a["asset"])}</b><span>当前资产规模</span><em>人均 {wan(a["asset"]/n)} · 相当于入金的 {keep}</em></div>
   <div class="cell"><b>{wan(a["inflow"])}</b><span>绑定后入金</span><em>人均 {wan(a["inflow"]/n)} · 最大单人占 {top_inflow}</em></div>
   <div class="cell"><b>{wan(a["buy"])}</b><span>绑定后买入</span><em>复投 {a["repeat"]} 人 · 撤单重下 {a["cancels"]} 人</em></div>
@@ -413,7 +413,7 @@ page = f'''<!doctype html>
   <div class="caveat">
     <h4>口径与局限</h4>
     <ul>
-      <li>「绑定时资产为 0」按各用户绑定当日回溯顶层 ROOT 资产快照，为 0 或未开户即计入，并要求绑定后有入金；「老用户唤回」= 已有且慢账户但未首投或已清仓、绑定后重新入金；「首投」= 人生首笔非钱包买入（<span class="num">po.buy / fund.buy / si.trade / po.adjust / plan.trade</span>，撤单不计）晚于首次绑定；新客 / 老客按注册与绑定相差是否 ≤60 分钟划分。统计截至 {CUT}。</li>
+      <li>「新投用户」= 在千问绑定且慢帐号时无资产（回溯绑定当日顶层 ROOT 资产为 0 或未开户，含新老用户），且绑定后有入金；「老户唤回」= 绑定时已有且慢帐户但未首投或已清仓，绑定后重新入金；「用户首投」= 绑定后完成第一笔且慢投资（人生首笔非钱包买入，<span class="num">po.buy / fund.buy / si.trade / po.adjust / plan.trade</span>，撤单不计，含新老用户）；「全新首投」= 其中绑定时当场新注册（注册与绑定相差 ≤60 分钟）的用户。统计截至 {CUT}。</li>
       <li>入金 = 各用户自绑定日起顶层 ROOT 账户的实际入流合计（资产表 input_amount，含线下汇款与钱包充值，不重复计从钱包转买的部分）；当日成交尚未落账者以盈米宝充值额暂代。买入 = 绑定后非钱包买入合计；资产 = 各用户最近一个已跑批的 ROOT 快照。</li>
       <li>渠道判定基于设备注册记录（<span class="num">ying99_pomodel.device_info</span>，platform 3=iOS / 4=Android / 5=鸿蒙）、订单支付方式（<span class="num">by.online</span> 线上充值 / <span class="num">from.card</span> 银行卡直付）与时间线交叉推断。<b>交易订单表没有终端来源字段，神策埋点凭证本机未配置</b>，故 H5 判定为高置信推断而非直接证据。</li>
       <li>风测得分为且慢风险测评原始分（broker 0008，<span class="num">risk_survey_record</span> 全量历史，取最近一次），未换算等级档位。</li>
