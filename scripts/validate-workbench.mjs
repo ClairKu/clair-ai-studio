@@ -374,6 +374,7 @@ const passwordGatePattern = /type=["']password["']|id=["']password["']|id=["']pa
 const actionGateInput = /<input\b[^>]*\bdata-gate=["']action["'][^>]*>/gi;
 const selfProtectedReportIds = new Set([
   "qianwen-user-acquisition-dashboard",
+  "doubao-user-acquisition-dashboard",
   "qianwen-user-question-analysis-2026-09-05",
   "qianwen-user-question-detail-2026-09-05",
   "qianwen-first-investor-cases-2026-09-17",

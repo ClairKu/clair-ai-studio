@@ -28,6 +28,14 @@ const DASHBOARDS = [
     staleHours: 24 * 4,
   },
   {
+    name: "豆包用户数据看板",
+    data: path.join(root, "public/reports/doubao-user-acquisition-dashboard/data/latest.json"),
+    time: (d) => d.meta?.generated_at,
+    mechanism: "半自动：scripts/doubao-refresh/（与千问看板同构：redash 取数→build-q→assemble→npm run build→提交），runbook 见其 README",
+    launchd: [],
+    staleHours: 24 * 7,
+  },
+  {
     name: "OAP × 且慢用户看板",
     data: path.join(root, "public/reports/oap-qieman-user-dashboard/data/latest.json"),
     time: (d) => d.meta?.generated_at,
