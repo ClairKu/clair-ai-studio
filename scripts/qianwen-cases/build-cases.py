@@ -308,7 +308,7 @@ def decision_chain_panel(u):
         f'<li class="decision-step {kind}"><time>{esc(when)}</time><div><b>{esc(label)}</b><p>{esc(detail)}</p></div></li>'
         for kind, label, when, detail in steps[:5]
     )
-    return (f'<div class="decision-head"><h4>主要下单决策链</h4><small>按可验证时序提炼</small></div>'
+    return (f'<div class="decision-head"><h4>关键行为证据</h4><small>按可验证时序提炼</small></div>'
             f'<ol class="decision-chain">{rows}</ol>'
             f'<p class="decision-caveat">链路表示行为先后与伴随关系，用于定位关键承接点；不能单独证明某次提问或某个页面造成了下单。</p>')
 
@@ -430,17 +430,18 @@ def top_stats(u):
     asset_sub = f'{al["cal_date"][5:].replace("-", "/")} 资产 {wan(al["ta"])}' if al else "资产待次日批次落账"
     first_in = inf[0]["t"] if inf else d["first_buy_after"]
     dates = "、".join(f'{"首笔" if i == 0 else "第二笔"} {fmt_md(x["t"])}' for i, x in enumerate(inf[:2]))
+    dates_html = f'<small>{dates}</small>' if dates else ''
     q = len(u["asks"]); m = len(ch.get("app_mia", [])); w = int(ch.get("wechat_msgs", 0) or 0)
     total = q + m + w
     chs = [f'千问 {q} 条' if q else "", f'且慢 {m} 条' if m else "", f'微信 {w} 条' if w else ""]
     chs = " · ".join(x for x in chs if x) or "三端均无提问"
     icon = (f'<button type="button" class="mini-ic" data-asks="{u["pmid"]}" title="查看在千问、且慢小顾、微信小顾的全部提问记录" aria-label="查看全部提问记录">'
             '<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1.1-4.3A8 8 0 1 1 21 12z"/></svg></button>') if total else ""
-    return (f'<div class="kv top">'
-            f'<div class="primary"><b class="num">{money(d["inflow_after"])} 元</b><span>入金（充宝或卡买入） · {asset_sub}</span></div>'
-            f'<div><b class="num">{dur(u["fb"], first_in)}</b><span>绑定 → 首笔入金</span></div>'
-            f'<div><b class="num">{len(inf) if inf else d["buys_after"]} 笔</b><span>入金{" · " + dates if dates else ""}</span></div>'
-            f'<div><b class="num">{total} 条</b><span>小顾对话 · {chs}{icon}</span></div>'
+    return (f'<div class="case-facts" aria-label="个例关键结果">'
+            f'<div class="fact primary"><span>绑定后入金</span><b class="num">{money(d["inflow_after"])} 元</b><small>{asset_sub}</small></div>'
+            f'<div class="fact"><span>首笔决策时长</span><b class="num">{dur(u["fb"], first_in)}</b><small>千问绑定 → 首笔入金</small></div>'
+            f'<div class="fact"><span>入金节奏</span><b class="num">{len(inf) if inf else d["buys_after"]} 笔</b>{dates_html}</div>'
+            f'<div class="fact"><span>小顾对话</span><b class="num">{total} 条{icon}</b><small>{chs}</small></div>'
             f'</div>')
 
 def holdings_block(u):
@@ -451,7 +452,7 @@ def holdings_block(u):
         if dt(t["accept_time"]) >= fb and not t["canceled"] and t["trade_type"] != "wallet.recharge" and t["buy"] and float(t["buy"]) > 0:
             buy_by_po[t["po_code"]] = buy_by_po.get(t["po_code"], 0) + float(t["buy"])
     if not hs and not fd:
-        return '<div class="deposit-products"><h4>入金产品</h4><p class="muted tight">资产表尚无该账户持仓行（当日成交，次日批次体现）。</p></div>'
+        return '<div class="deposit-products"><div class="deposit-head"><h4>买入去向与当前状态</h4><span>资产尚待次日批次落账</span></div><p class="muted tight">当前尚无可展示的账户持仓行。</p></div>'
     wallet_keep = max(float(d["inflow_after"] or 0) - sum(buy_by_po.values()), 0)
     rows = ""; tot_in = 0; tot_v = 0
     for h in hs:
@@ -473,7 +474,7 @@ def holdings_block(u):
         basis = f'{hm.get("bill_month")} 月末账单市值' if hm.get("bill_month") else "绑定后子订单成功金额（未扣净值波动）"
         fund_html = (f'<p class="tight muted">穿透到基金（{basis}，前 {len(top)} 只{f"，另 {more} 只未列" if more > 0 else ""}'
                      f'{f"；盈米宝货币基金 {money(wallet)} 元" if wallet else ""}）</p><ul class="funds">{items}</ul>')
-    return f'<div class="deposit-products"><div class="deposit-head"><h4>入金产品</h4><span>买入去向与当前状态</span></div><p class="tight muted">各产品入金金额为绑定后买入金额；盈米宝为充值后仍留在钱包的部分。</p>{tbl}{fund_html}</div>'
+    return f'<div class="deposit-products"><div class="deposit-head"><h4>买入去向与当前状态</h4><span>入金金额与最新市值</span></div><p class="tight muted">各产品入金金额为绑定后买入金额；盈米宝为充值后仍留在钱包的部分。</p>{tbl}{fund_html}</div>'
 
 def case_insight(u):
     style = str(u.get("conversion_path_label") or "")
@@ -500,14 +501,12 @@ def case_insight(u):
     return "该个案暂缺足够证据，尚不能定义其主要特征。"
 
 def case_overview(u):
-    route_label = esc(u.get("conversion_path_label") or "待研判")
     route_steps = [step.strip() for step in str(u.get("conversion_path") or "").split("→") if step.strip()]
     route_html = "".join(f'<li>{esc(step)}</li>' for step in route_steps)
-    behavior = esc(u.get("behavior_insight") or "该个案尚未完成行为特性研判。")
-    return (f'<section class="case-overview" aria-label="案例判断与转化分析">'
-            f'<div class="case-verdict"><span>案例判断</span><p>{case_insight(u)}</p></div>'
-            f'<div class="case-analysis"><div class="route-title"><span>转化路径</span><b>{route_label}</b></div>'
-            f'<p class="analysis-copy">{behavior}</p><ol class="overview-route">{route_html}</ol></div>'
+    return (f'<section class="case-overview" aria-label="用户洞察与转化路径">'
+            f'<div class="case-insight"><div class="overview-title"><b>用户洞察</b><span>结合提问、使用行为与交易时序</span></div><p>{case_insight(u)}</p></div>'
+            f'<div class="case-route"><div class="overview-title"><b>转化路径</b><span>从需求表达走到真实下单</span></div>'
+            f'<ol class="overview-route">{route_html}</ol></div>'
             f'</section>')
 
 def card(u):
@@ -532,9 +531,11 @@ def card(u):
             f'    {"".join(tags)}\n'
             f'    <button type="button" class="icon-btn copy-id" data-copy="{u["pmid"]}" title="复制用户 ID" aria-label="复制用户 ID">{copy_svg}</button>\n'
             f'  </div>\n'
-            f'  {case_overview(u)}\n'
-            f'  <div class="case-body">\n'
+            f'  <div class="case-summary">\n'
+            f'    {case_overview(u)}\n'
             f'    {top_stats(u)}\n'
+            f'  </div>\n'
+            f'  <div class="case-body">\n'
             f'    <div class="ctabs" role="tablist" aria-label="历程切换">\n'
             f'      <button type="button" class="ctab" role="tab" aria-selected="true" data-panel="journey">关键旅程</button>\n'
             f'      <button type="button" class="ctab" role="tab" aria-selected="false" data-panel="behavior">且慢行为</button>\n'
@@ -723,7 +724,7 @@ html,body{max-width:100%}
   .sumrow{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
   .cases-h{display:flex;align-items:center;flex-wrap:wrap;gap:6px}
   .cases-h .muted{margin-left:0}
-  .cpanel{max-height:clamp(300px,52svh,460px);padding-right:8px}
+  .cpanel{max-height:none;padding-right:15px}
 }
 </style>
 <script>
@@ -844,41 +845,47 @@ page = f'''<!doctype html>
   .matrix tbody tr[data-jump]:hover td{{background:#f0edff;color:#171b2a}}
   .matrix tbody tr[data-jump]:hover{{box-shadow:inset 3px 0 0 var(--blue)}}
   .matrix .badge{{border-color:#cfc8f2;background:#f1effd;color:#5540b8;font-weight:750}}
-  .kv.top{{margin:4px 0 18px}}
   .case{{border-color:#ccd2e0;border-radius:18px;background:var(--surface);box-shadow:0 16px 42px rgb(25 31 52 / 8%)}}
-  .case-head{{min-height:68px;padding:17px 22px;border-bottom-color:#d8dbea;background:linear-gradient(105deg,#efedfb 0%,#f7f6fc 62%,#f1f3f9 100%)}}
+  .case-head{{min-height:72px;padding:18px 24px;border-bottom:1px solid #d8dbea;background:linear-gradient(105deg,#f1effb 0%,#faf9fd 70%,#f4f5fa 100%)}}
   .case-head .who{{color:#1e2233;font-size:20px;font-weight:800}}
   .case-head .badge{{width:25px;height:25px;border-color:#c9c2ed;background:#fff;color:#4e38ac;font-weight:800}}
   .case-head .tag{{padding:4px 10px;border-color:#d4d0e9;background:rgba(255,255,255,.78);color:#4d5266;font-size:11.5px;font-weight:700}}
   .case-head .route-tag{{border-color:#cfc6f5;background:#ece8ff;color:#5740bd}}
-  .case-body{{padding:18px 24px 24px}}
-  .case-overview{{display:grid;grid-template-columns:minmax(270px,.78fr) minmax(0,1.35fr);border-bottom:1px solid #d8dbea;background:#faf9fe}}
-  .case-verdict{{padding:20px 24px;background:#292744;color:#fff}}
-  .case-verdict span{{display:block;margin-bottom:8px;color:#bfb6f5;font-size:11px;font-weight:800;letter-spacing:.12em}}
-  .case-verdict p{{margin:0;font-size:16px;font-weight:800;line-height:1.65;letter-spacing:.005em}}
-  .case-analysis{{min-width:0;padding:17px 22px 18px;background:linear-gradient(105deg,#f5f2ff 0%,#fbfaff 70%,#fdfdff 100%)}}
-  .case-analysis .route-title{{margin-bottom:7px}}
-  .analysis-copy{{margin:0;color:#34394b;font-size:13.5px;font-weight:650;line-height:1.68}}
-  .overview-route{{display:flex;align-items:center;gap:16px;margin:12px 0 0;padding:0;list-style:none}}
-  .overview-route li{{position:relative;min-width:0;flex:1;padding:8px 10px;border:1px solid #d8d3ee;border-radius:8px;background:rgba(255,255,255,.82);color:#393d50;font-size:11.5px;font-weight:700;line-height:1.45;text-align:center}}
-  .overview-route li + li::before{{content:"→";position:absolute;left:-13px;top:50%;transform:translateY(-50%);color:var(--blue);font-weight:900}}
-  .kv.top{{gap:12px;margin:0 0 20px}}
-  .kv.top > div,.kv.top > div.primary{{min-height:88px;padding:15px 16px;border:1px solid #d7d4e8;border-radius:11px;background:#fbfaff;box-shadow:inset 0 3px 0 var(--blue),0 7px 18px rgb(34 39 63 / 4%)}}
-  .kv.top > div b,.kv.top > div.primary b{{color:#27234d;font-size:19px;font-weight:800}}
-  .kv.top > div span{{margin-top:7px;color:#5d6377;font-size:12px;line-height:1.55;white-space:normal;overflow:visible;text-overflow:clip}}
-  .ctabs{{display:flex;gap:28px;margin-top:2px;padding:0 14px;border:1px solid #d8dbea;border-bottom-color:#cfd3e0;border-radius:11px 11px 0 0;background:#f3f2f8}}
-  .ctab{{font:inherit;font-size:14px;font-weight:700;padding:11px 1px 12px;border:0;border-bottom:3px solid transparent;margin-bottom:-1px;background:transparent;color:#656b7f;cursor:pointer}}
-  .ctab:hover{{color:#292d3d}}
-  .ctab[aria-selected="true"]{{color:#27234d;border-bottom-color:var(--blue-deep)}}
-  .cpanel{{max-height:clamp(380px,56vh,620px);overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable;
-    padding:12px 18px 16px;border:1px solid #d8dbea;border-top:0;border-radius:0 0 11px 11px;background:#fdfdff;scrollbar-color:#b9bdd0 transparent}}
+  .case-summary{{padding:0 24px 22px;border-bottom:1px solid #d8dbea;background:linear-gradient(180deg,#fcfbff 0%,#f8f7fc 100%)}}
+  .case-overview{{display:grid;grid-template-columns:minmax(320px,.92fr) minmax(0,1.45fr);gap:34px;padding:22px 0 20px}}
+  .case-insight{{min-width:0;padding-left:17px;border-left:3px solid var(--blue)}}
+  .overview-title{{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:10px}}
+  .overview-title b{{color:#302965;font-size:13px;font-weight:850}}
+  .overview-title span{{color:#777d90;font-size:10.5px;white-space:nowrap}}
+  .case-insight p{{margin:0;color:#24283a;font-size:15px;font-weight:750;line-height:1.72}}
+  .case-route{{min-width:0}}
+  .overview-route{{counter-reset:route;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px;margin:13px 0 0;padding:0;list-style:none}}
+  .overview-route li{{counter-increment:route;position:relative;min-width:0;padding-left:31px;color:#3f4558;font-size:11.5px;font-weight:720;line-height:1.5}}
+  .overview-route li::before{{content:counter(route);position:absolute;left:0;top:0;width:23px;height:23px;display:grid;place-items:center;border-radius:50%;background:#ebe7ff;color:#5a42bf;font-size:10.5px;font-weight:850}}
+  .overview-route li + li::after{{content:"";position:absolute;left:-15px;top:11px;width:10px;border-top:1px solid #bdb4eb}}
+  .case-facts{{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid #d8dbea;border-radius:12px;background:#fff;overflow:hidden}}
+  .fact{{min-width:0;min-height:92px;padding:14px 17px 15px}}
+  .fact + .fact{{border-left:1px solid #e0e2eb}}
+  .fact > span{{display:block;color:#757b8d;font-size:10.5px;font-weight:800;letter-spacing:.04em}}
+  .fact > b{{display:flex;align-items:center;gap:7px;margin-top:6px;color:#27234d;font-size:21px;font-weight:850;line-height:1.15}}
+  .fact.primary > b{{color:#087b5d}}
+  .fact > small{{display:block;margin-top:6px;color:#656b7f;font-size:11.5px;line-height:1.45;white-space:normal}}
+  .fact .mini-ic{{margin-left:0;vertical-align:0}}
+  .case-body{{padding:22px 24px 24px}}
+  .ctabs{{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:0;border:1px solid #d8dbea;border-radius:11px 11px 0 0;background:#f1f0f7;overflow:hidden}}
+  .ctab{{min-height:48px;font:inherit;font-size:14px;font-weight:760;padding:0 16px;border:0;border-right:1px solid #d8dbea;background:transparent;color:#666c7f;cursor:pointer;transition:background-color .15s,color .15s}}
+  .ctab:last-child{{border-right:0}}
+  .ctab:hover{{color:#292d3d;background:#f8f7fc}}
+  .ctab[aria-selected="true"]{{color:#352b75;background:#fff;box-shadow:inset 0 -3px 0 var(--blue-deep)}}
+  .cpanel{{height:clamp(420px,56vh,620px);overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable;
+    padding:20px 22px 22px;border:1px solid #d8dbea;border-top:0;border-radius:0 0 11px 11px;background:#fff;scrollbar-color:#b9bdd0 transparent}}
   .route-title{{display:flex;align-items:center;gap:9px;margin-bottom:12px;color:var(--ink-3);font-size:12px;font-weight:700}}
   .route-title b{{padding:4px 10px;border-radius:99px;background:var(--ink);color:#fff;font-size:12px;letter-spacing:.02em}}
-  .decision-head{{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:2px 0 10px}}
+  .decision-head{{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 12px}}
   .decision-head h4{{margin:0;color:#27234d;font-size:14px}}
   .decision-head small{{color:var(--ink-3);font-size:11px}}
   .decision-chain{{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:9px;margin:0;padding:0;list-style:none}}
-  .decision-step{{min-width:0;padding:11px 12px 12px;border:1px solid #dfe2eb;border-radius:9px;background:#fff;box-shadow:0 5px 14px rgb(34 39 63 / 4%)}}
+  .decision-step{{min-width:0;padding:11px 12px 12px;border:1px solid #dfe2eb;border-radius:9px;background:#fafafe}}
   .decision-step time{{display:block;margin-bottom:7px;color:var(--ink-3);font:700 11px/1.2 var(--serif);font-variant-numeric:tabular-nums}}
   .decision-step b{{display:block;color:#302965;font-size:13px}}
   .decision-step p{{margin:5px 0 0;color:#555b70;font-size:12px;line-height:1.6;overflow-wrap:anywhere}}
@@ -891,11 +898,11 @@ page = f'''<!doctype html>
   .behavior-raw summary::before{{content:"＋";display:inline-block;margin-right:7px;color:var(--blue)}}
   .behavior-raw[open] summary::before{{content:"－"}}
   .behavior-raw .tl{{margin-top:12px}}
-  .deposit-products{{padding:2px 2px 8px}}
-  .deposit-head{{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:4px}}
+  .deposit-products{{padding:0 2px 8px}}
+  .deposit-head{{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:6px}}
   .deposit-head h4,.deposit-products > h4{{margin:0;color:#27234d;font-size:14px;font-weight:800}}
   .deposit-head span{{color:var(--ink-3);font-size:11px}}
-  .journey-tl{{margin-top:0}}
+  .journey-tl{{margin:0}}
   .journey-tl::before{{background:#c8ccdc}}
   .journey-tl .t{{color:#5e657a;font-weight:650}}
   .journey-tl .d{{color:#24293a}}
@@ -955,13 +962,24 @@ page = f'''<!doctype html>
     .qlist li{{grid-template-columns:1fr}}
     .section-h{{font-size:23px}}
     .matrix-h{{margin-top:28px}}
-    .case-overview{{grid-template-columns:1fr}}
-    .case-verdict{{padding:17px 18px}}
-    .case-verdict p{{font-size:14.5px}}
-    .case-analysis{{padding:15px 18px 17px}}
-    .overview-route{{display:grid;gap:7px}}
-    .overview-route li{{text-align:left}}
-    .overview-route li + li::before{{content:"↓";left:12px;top:-11px;transform:none;background:#f6f3ff;padding:0 4px}}
+    .case-head{{padding:16px 18px}}
+    .case-head .who{{width:100%;font-size:18px}}
+    .case-summary{{padding:0 18px 18px}}
+    .case-overview{{grid-template-columns:1fr;gap:20px;padding:18px 0}}
+    .overview-title{{margin-bottom:8px}}
+    .overview-title span{{white-space:normal;text-align:right}}
+    .case-insight p{{font-size:14px}}
+    .overview-route{{grid-template-columns:1fr;gap:11px}}
+    .overview-route li{{min-height:24px}}
+    .overview-route li + li::after{{left:11px;top:-11px;width:0;height:10px;border-top:0;border-left:1px solid #bdb4eb}}
+    .case-facts{{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    .fact{{min-height:88px;padding:13px 14px}}
+    .fact + .fact{{border-left:0}}
+    .fact:nth-child(even){{border-left:1px solid #e0e2eb}}
+    .fact:nth-child(n+3){{border-top:1px solid #e0e2eb}}
+    .case-body{{padding:18px}}
+    .ctab{{min-height:46px;padding:0 8px;font-size:13px}}
+    .cpanel{{height:clamp(420px,58svh,590px);padding:17px 15px 20px}}
     .decision-chain{{grid-template-columns:1fr}}
   }}
 </style>
