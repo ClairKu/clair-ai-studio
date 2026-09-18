@@ -18,7 +18,7 @@ node $S/encrypt-page.mjs $W/page.html public/reports/<slug>/index.html "千问�
 cp public/reports/<slug>/index.html docs/reports/<slug>/index.html   # docs 副本须在 build 前就位
 ```
 
-口径要点：四口径 = 绑定时资产为 0（含入金）/ 老用户唤回（其中老客）/ 全新用户首投 / 用户首投；
+口径要点：个例页分类名称与主看板对齐 = 新投 / 首投 / 新户首投 / 老户唤回 / 老户首投；
 入金用资产表 ROOT input_amount（各用户自绑定日起），当日成交未落账者以充值额暂代；
 渠道判定规则驱动（device_info platform 3=iOS/4=安卓/5=鸿蒙 + 订单 extra + 时间线），有手写 verdict 的用户优先用手写。
 候选 SQL 的 asset_at_bind 子查询要加 `CASE WHEN account3_id IS NULL THEN NULL ELSE (...) END` 短路，否则 5k 用户会超时。
@@ -32,3 +32,15 @@ assemble-users.py 额外读取（缺失则跳过）：`m_sessions.json`（agent_
 （dwd_ast_bill_user_holding_detail_monthly_full 月末基金明细）、`m_fundorders.json`（ying99_fundtxn.fund_order，account_id=account3_id，
 order_type=1 按 fund_code 汇总成功金额，穿透组合底层基金）。CA→组合名：asset_service_account.meta 无数据时按绑定后买入金额就近匹配。
 口径限制：fund_order.txn_source 是销售机构代码非终端；微信/企微侧小顾（advisor_conversation）七人均无记录；「千问内嵌 H5 vs App」仍为推断。
+
+## 2026-09-18 下午：神策埋点接入（且慢行为 / 下单终端）+ 个例卡改版
+
+- 新增可选输入 `m_sensors.json`：`qm_meta.ai_insight_sensors_event_detail`，按 `broker_user_id`（= po_manager_id）拉 `event_date>='2026-08-01'` 的
+  `event/event_category/page_name/screen_name/title/element_content/lib/event_time`（fetch.py 一条 SQL，7 人约 5k 行，LIMIT 20000 足够）。
+  `lib` = iOS / Android / HarmonyOS 为 App 原生页，`js` 为内嵌或独立 H5。assemble-users.py 用 PAGE_MAP 把类名译成业务页名，不可读类名丢弃，
+  输出每人 `events`（绑定前 7 天起至截止）与 `inflow_txns`（看板口径：线上/线下充值 + 银行卡直付买入）。
+- 埋点推翻了 4 个手写渠道判定（B/D/E/F 其实都在 iOS App 内下单），故 narratives.json 的 `verdict` 已删除，
+  「用户路径与行为总结」改为 build-cases.py `path_summary()` 规则生成（白话，不出现字段名/令牌/by.online）。
+- 个例卡结构：顶部四格（入金+资产快照 / 绑定→首笔入金 / 入金笔数+前两笔日期 / 小顾对话三端拆分+全量弹窗图标）→
+  「关键旅程｜且慢行为」双 TAB → 路径与行为总结（绿框）→ 最终持有（新增「入金金额」列与合计）。分页只保留 › 且循环。
+- 标题下方只展示一行小字总结（不换行，窄屏省略）；分类标签与主看板同名同义，并补齐「老户首投」。

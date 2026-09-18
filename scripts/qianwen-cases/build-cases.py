@@ -48,18 +48,23 @@ PLAT = {"3": "iOS", "4": "安卓", "5": "鸿蒙"}
 
 # ───── 口径定义 ─────
 SCOPES = [
-  {"id": "zero", "label": "新投用户", "flag": "zero_at_bind",
-   "def": "在千问绑定且慢帐号时，无资产（含新老用户）"},
-  {"id": "recall", "label": "老户唤回", "flag": "recall",
-   "def": "在千问绑定且慢帐号时，已有且慢帐户，但未首投或已清仓"},
-  {"id": "first", "label": "用户首投", "flag": "first_invest_after",
-   "def": "在千问绑且慢帐号后，完成第一笔且慢投资（含新老用户）"},
-  {"id": "newfirst", "label": "全新首投", "flag": "new_first_invest",
-   "def": "在千问绑且慢帐号后，完成第一笔且慢投资（仅绑定时新注册的用户）"},
+  {"id": "new_inv", "label": "新投", "flag": "zero_at_bind",
+   "def": "绑定后有新增投资，且绑定时无资产（含新老用户）"},
+  {"id": "first_inv", "label": "首投", "flag": "first_invest_after",
+   "def": "绑定后有新增投资，且绑定前没有投资过（含新老用户）"},
+  {"id": "new_first_inv", "label": "新户首投", "flag": "new_first_invest",
+   "def": "在千问当场注册且慢帐号，并在绑定后完成第一笔投资"},
+  {"id": "existing_reactivated", "label": "老户唤回", "flag": "recall",
+   "def": "绑定时已有且慢帐号、未首投或已清仓，绑定后重新入金"},
+  {"id": "existing_first_inv", "label": "老户首投", "flag": "existing_first_invest",
+   "def": "老用户的人生第一笔投资发生在绑定后"},
 ]
 
 def scope_users(sc):
-    us = [u for u in users if u["flags"].get(sc["flag"])]
+    if sc["flag"] == "existing_first_invest":
+        us = [u for u in users if u["cohort"] == "existing" and u["flags"].get("first_invest_after")]
+    else:
+        us = [u for u in users if u["flags"].get(sc["flag"])]
     return sorted(us, key=lambda u: -(u["derived"]["buy_amount_after"] or 0))
 
 def agg(us):
@@ -142,73 +147,182 @@ def timeline(u):
         out.append(f'<li class="{cls2}"><span class="t">{tt}</span><span class="d">{text}</span></li>')
     return "\n".join(out)
 
-def verdict(u):
-    if u.get("verdict"):
-        v = u["verdict"]; return f'<div class="verdict {v.get("cls","")}"><b>{esc(v["title"])}</b>{esc(v["text"])}</div>'
-    fb = dt(u["fb"]); fbuy = dt(u["derived"]["first_buy_after"])
-    devs = u["dev"]; mp = u["mp"]
-    pays = sorted({(t["extra"] or "").strip() for t in u["trades"] if dt(t["accept_time"]) >= fb and t["extra"]})
-    pay_txt = "、".join(pays) if pays else "无支付标记"
-    if devs:
-        d0 = min(devs, key=lambda d: d["created_on"]); cr = dt(d0["created_on"]); up = dt(d0.get("updated_on") or d0["created_on"])
-        name = PLAT.get(str(d0["platform"]), d0["platform"])
-        if fbuy and cr <= fbuy and up >= fb:
-            return f'<div class="verdict"><b>渠道判定：回到且慢 App（{name}端）完成交易</b>App 设备于 {fmt_t(d0["created_on"], True)} 注册、{fmt_t(d0["updated_on"], True)} 仍有更新，覆盖首投时点；支付方式 {esc(pay_txt)}。千问侧会话仅有对话，无交易动作。</div>'
-        if fbuy and cr > fbuy:
-            return f'<div class="verdict h5"><b>渠道判定：首投时无 App 记录，判定微信 H5（高置信推断）；{fmt_md(d0["created_on"])} 起转入 App</b>App 设备（{name}）在首投之后才首次出现；{"已绑定公众号" if mp else "未绑定公众号"}；支付方式 {esc(pay_txt)}。</div>'
-        return f'<div class="verdict h5"><b>渠道判定：且慢平台内完成，具体端不确定</b>存在 {name} 设备记录（{fmt_t(d0["created_on"], True)} 注册），但设备最后更新于 {fmt_t(d0["updated_on"], True)}，未覆盖交易期；{"已绑定公众号" if mp else "未绑定公众号"}；支付方式 {esc(pay_txt)}。</div>'
-    return f'<div class="verdict h5"><b>渠道判定：{"微信 H5（高置信推断）" if mp else "且慢平台内完成，具体端不确定"}</b>全库无任何且慢 App 设备记录；{"已绑定且慢微信公众号，指向 H5" if mp else "亦未绑定微信公众号，触点最少"}；支付方式 {esc(pay_txt)}。风测、下单均为且慢账户体系动作。</div>'
-
+LIBN = {"iOS": "iOS", "Android": "安卓", "HarmonyOS": "鸿蒙"}
 MIA_SCENE = {"MIA": "小顾会话页", "STRATEGY_DETAIL": "策略详情页", "ADVISOR_PAGE_TOP": "投顾页顶部入口",
              "ASSET_M4": "资产页", "QUICK_MENU": "快捷菜单", "FIRST_IN_DAY": "当日首次进入"}
-def channel_block(u):
-    ch = u.get("channels") or {}
-    fb = dt(u["fb"]); fbuy = dt(u["derived"]["first_buy_after"])
-    mia = ch.get("app_mia", [])
-    toks = ch.get("tokens", [])
-    # 千问侧活跃时刻（令牌签发）与首笔买入的关系
-    tok_near = [t for t in toks if fbuy and abs((dt(t) - fbuy).total_seconds()) <= 3600]
-    cells = f'''<div class="kv three">
-      <div><b class="num">{ch.get("qwen_msgs", 0)} 条</b><span>千问小顾 · {ch.get("qwen_sessions", 0)} 个会话</span></div>
-      <div><b class="num">{len(mia)} 次</b><span>且慢 App 内小顾（Mia）</span></div>
-      <div><b class="num">{ch.get("wechat_msgs", 0)} 条</b><span>微信 / 企微侧小顾</span></div>
-    </div>'''
-    rows = ""
-    for m in mia:
-        rows += f'<li><span class="qt">{fmt_t(m["ts"], True)}</span><span class="qd"><span class="scene">{MIA_SCENE.get(m.get("scene"), m.get("scene") or "")}</span>{esc((m.get("text") or "").strip()[:60])}{" <i>（快捷入口）</i>" if m.get("mode") == "AUTO_LEAD" else " <i>（自行输入）</i>" if m.get("mode") == "SELF_INPUT" else ""}</span></li>'
-    mia_list = f'<ul class="qlist mini">{rows}</ul>' if rows else '<p class="muted tight">绑定后没有在且慢 App 内使用过小顾。</p>'
-    dev_note = ""
-    if u["dev"]:
-        d0 = min(u["dev"], key=lambda d: d["created_on"])
-        dev_note = f'App 设备（{PLAT.get(str(d0["platform"]), d0["platform"])}）{fmt_t(d0["created_on"], True)} 注册、{fmt_t(d0["updated_on"], True)} 最近更新'
-    else:
-        dev_note = "无任何且慢 App 设备记录"
-    tok_note = (f'首笔买入前后 1 小时内有千问会话活动（令牌 {"、".join(fmt_t(t, True) for t in tok_near)} 签发）——下单前刚在千问里问过小顾；是否经千问内嵌的且慢页面下单，库内无终端字段可判' if tok_near
-                else f'千问侧令牌签发时刻（{"、".join(fmt_t(t, True) for t in toks[:6])}{"…" if len(toks) > 6 else ""}）均不在首笔买入前后 1 小时内——下单时段没有千问会话活动')
-    ops = []
-    for r in u["risk"]:
-        if dt(r["created_at"]) >= fb - __import__("datetime").timedelta(days=60): ops.append(f'{fmt_t(r["created_at"], True)} 风险测评（{r["score"]} 分）')
-    for m in mia: ops.append(f'{fmt_t(m["ts"], True)} App 小顾 · {MIA_SCENE.get(m.get("scene"), m.get("scene") or "")} · {esc((m.get("text") or "")[:20])}')
+OP_RE = re.compile(r"转入|买入|定投|跟车|下单|确定|确认|下一题|提交|搜索|关注|充值|汇款|转账|复制账号|继续投资|新增投资|立即定制|回顾建议书|去看看|开户|上传|拍照|存入|切换账户|修改定投|产品明细|管理的策略|优惠券|创建|建议书|试试")
+NOISE_RE = re.compile(r"tab$|^输入|^取消|^关闭|^返回|^知道了|^我知道了|^稍后再说|Banner|imgUrl|^on$|^完成$|^选择$|^其他手机号|^\[object")
+PROD_RE = re.compile(r"^(策略详情|策略介绍|主理人详情|资产详情)-(?=.)")
+GENERIC_LAST = {"须知及协议", "风险提示", "投顾服务费说明", "登录", "密码登录", "短信验证码登录", "本机号登录", "反洗钱-完善个人信息页", "下单结果", "充值结果", "通知", "首页", "我的"}
+XG_PAGES = {"超级入口", "且慢AI小顾"}
+_td = __import__("datetime").timedelta
+
+def app_events(u, since=None, until=None):
+    out = []
+    for e in u.get("events") or []:
+        if since and e["t"] < since: continue
+        if until and e["t"] > until: continue
+        out.append(e)
+    return out
+
+def terminal_of(u):
+    # 绑定后 App 原生页记录最多的终端；无原生页记录时返回 None
+    fb = u["fb"][:19]
+    c = {}
+    for e in app_events(u, since=fb):
+        if e["lib"] != "js": c[e["lib"]] = c.get(e["lib"], 0) + 1
+    return max(c, key=c.get) if c else None
+
+def behavior_panel(u):
+    # 且慢行为：按日汇总埋点（浏览 / 策略与产品 / 功能操作 / 小顾入口 / 交易）
+    fb = dt(u["fb"]); evs = u.get("events") or []
+    if not evs:
+        return '<p class="muted tight">该用户在且慢 App / H5 没有埋点记录。</p>'
+    from collections import Counter, OrderedDict
+    days = OrderedDict()
+    for e in evs: days.setdefault(e["t"][:10], []).append(e)
+    mia_by_day = {}
+    for m in (u.get("channels") or {}).get("app_mia", []): mia_by_day.setdefault(m["ts"][:10], []).append(m)
+    tr_by_day = {}
     for t in u["trades"]:
-        if dt(t["accept_time"]) < fb or t["canceled"]: continue
-        if t["trade_type"] == "wallet.recharge": ops.append(f'{fmt_t(t["accept_time"], True)} 盈米宝充值 {money(t["buy"])}（{esc(t["extra"] or "")}）')
-        elif t["buy"] and float(t["buy"]) > 0: ops.append(f'{fmt_t(t["accept_time"], True)} 买入 {esc(t["po_name"] or t["po_code"])} {money(t["buy"])}')
-    ops.sort()
-    ops_html = "".join(f"<li>{o}</li>" for o in ops[:14]) + (f"<li>…共 {len(ops)} 项</li>" if len(ops) > 14 else "")
-    return f'''<div class="sub-block">
-  <h4>小顾入口</h4>{cells}{mia_list}
-  <h4>下单终端与千问侧活跃</h4>
-  <p class="tight">{dev_note}；{tok_note}。</p>
-  <h4>在且慢平台内的主要操作（绑定后）</h4>
-  <ul class="ops">{ops_html}</ul>
-</div>'''
+        if dt(t["accept_time"]) >= fb and not t["canceled"]: tr_by_day.setdefault(t["accept_time"][:10], []).append(t)
+    items = []
+    for day, es in days.items():
+        d = datetime.fromisoformat(day)
+        libs = Counter(e["lib"] for e in es if e["lib"] != "js")
+        term = f'{LIBN.get(libs.most_common(1)[0][0], libs.most_common(1)[0][0])} App' if libs else "网页端（微信 / 千问内嵌页）"
+        views = [e for e in es if e["k"] == "view"]; clicks = [e for e in es if e["k"] == "click" and e["e"]]
+        pre = "（绑定前）" if d.date() < fb.date() else ""
+        head = f'{d.strftime("%-m-%d")}{pre} · {term} · {es[0]["t"][11:16]}–{es[-1]["t"][11:16]} · 浏览 {len(views)} 页 · 操作 {len(clicks)} 次'
+        items.append(f'<li class="day sys"><span class="t">{esc(head)}</span></li>')
+        pv = Counter(e["p"] for e in views if e["p"] and not PROD_RE.match(e["p"]) and e["p"] not in XG_PAGES)
+        if pv:
+            top = pv.most_common(7)
+            items.append('<li class="b-view"><span class="t">浏览</span><span class="d">' + "、".join(f'{esc(pg)}{f" ×{n}" if n >= 3 else ""}' for pg, n in top) + (f'，另 {len(pv) - len(top)} 个页面' if len(pv) > len(top) else "") + '</span></li>')
+        prods = OrderedDict()
+        for e in views:
+            if e["p"] and PROD_RE.match(e["p"]): prods.setdefault(e["p"], set())
+        for e in clicks:
+            if e["p"] and PROD_RE.match(e["p"]) and not NOISE_RE.search(e["e"]): prods.setdefault(e["p"], set()).add(e["e"])
+        if prods:
+            parts = []
+            for pg, acts in list(prods.items())[:6]:
+                name = re.sub(r"^(策略详情|策略介绍|主理人详情|资产详情)-", "", pg)
+                if name.isdigit(): continue
+                kind = "主理人" if pg.startswith("主理人") else "持仓" if pg.startswith("资产详情") else "策略"
+                a = "、".join(sorted(acts)[:3])
+                parts.append(f'{kind}「{esc(name)}」' + (f' → {esc(a)}' if a else ""))
+            items.append('<li class="b-prod"><span class="t">策略与产品</span><span class="d">' + "；".join(parts) + '</span></li>')
+        ops = Counter((e["p"] or "", e["e"]) for e in clicks
+                      if not NOISE_RE.search(e["e"]) and OP_RE.search(e["e"]) and not (e["p"] and (PROD_RE.match(e["p"]) or e["p"] in XG_PAGES)))
+        if ops:
+            parts = [f'{esc(pg) + " · " if pg else ""}{esc(el)}{f" ×{n}" if n >= 2 else ""}' for (pg, el), n in ops.most_common(7)]
+            items.append('<li class="b-op"><span class="t">功能操作</span><span class="d">' + "；".join(parts) + '</span></li>')
+        xg = []
+        for m in mia_by_day.get(day, []):
+            xg.append(f'从{MIA_SCENE.get(m.get("scene"), m.get("scene") or "App")}{"快捷入口" if m.get("mode") == "AUTO_LEAD" else ""}进小顾 →「{esc((m.get("text") or "").strip()[:30])}」')
+        xn = sum(1 for e in clicks if e["p"] in XG_PAGES and e["e"] in ("PlainText", "MultiThink"))
+        if xn: xg.append(f'在 App 小顾入口自行输入 {xn} 次')
+        if xg: items.append('<li class="b-xg"><span class="t">小顾</span><span class="d">' + "；".join(xg) + '</span></li>')
+        trs = []
+        for t in tr_by_day.get(day, []):
+            nm = t["po_name"] or t["po_code"]
+            if t["trade_type"] == "wallet.recharge":
+                if (t["extra"] or "") in ("by.online", "by.offline"): trs.append(f'{"线上" if t["extra"] == "by.online" else "线下汇款"}充值 {money(t["buy"])} 元')
+            elif t["redeem"] and float(t["redeem"]) > 0: trs.append(f'赎回「{esc(nm)}」{money(t["redeem"])} 元')
+            elif t["buy"] and float(t["buy"]) > 0: trs.append(f'买入「{esc(nm)}」{money(t["buy"])} 元')
+        if trs: items.append('<li class="b-trade trade"><span class="t">交易</span><span class="d">' + "；".join(trs) + '</span></li>')
+    return '<ul class="tl beh">' + "\n".join(items) + '</ul>'
+
+def path_summary(u):
+    # 用户路径与行为总结：终端 / 下单情境 / 千问侧关系 / App 内小顾——全部白话，不出现字段名
+    fb = dt(u["fb"]); fbuy = dt(u["derived"]["first_buy_after"])
+    evs = u.get("events") or []
+    app = [e for e in evs if e["lib"] != "js"]
+    term = terminal_of(u)
+    tname = LIBN.get(term, term)
+    parts = []
+    if app:
+        first = dt(min(e["t"] for e in app))
+        if first < fb:
+            parts.append(f'绑定千问前 {dur(first.isoformat(), fb.isoformat())} 就已在且慢 App（{tname}）里活动')
+        else:
+            parts.append(f'绑定后 {dur(fb.isoformat(), first.isoformat())} 打开且慢 App（{tname}）')
+    elif evs:
+        parts.append('全程只有网页端记录、没有装 App')
+    else:
+        parts.append('且慢侧没有埋点记录')
+    if fbuy:
+        lo = (fbuy - _td(minutes=30)).isoformat(); hi = (fbuy + _td(minutes=30)).isoformat()
+        near_app = [e for e in app if lo <= e["t"] <= hi]
+        near_any = [e for e in evs if lo <= e["t"] <= hi]
+        if near_app:
+            before = [e for e in evs if e["k"] == "view" and e["p"] and lo <= e["t"] <= fbuy.isoformat()
+                      and not e["p"].startswith(("下单", "策略买入", "策略转入", "定投买入", "策略跟投页")) and e["p"] not in GENERIC_LAST]
+            last = before[-1]["p"] if before else None
+            parts.append('首笔买入在 App 内完成' + (f'，下单前最后停留在「{esc(last)}」' if last else ""))
+        elif near_any:
+            parts.append('首笔买入时段只有网页端记录，应是在微信或千问内嵌的且慢页面里下单')
+        else:
+            parts.append('首笔买入时段没有埋点记录，终端无法直接判定')
+    asks = sorted(u["asks"], key=lambda a: a["ts"])
+    if not asks:
+        parts.append('千问侧零提问，会话建好就直接去且慢下单了')
+    else:
+        near = [a for a in asks if fbuy and 0 <= (fbuy - dt(a["ts"])).total_seconds() <= 3600]
+        if near:
+            a = near[-1]; mins = int((fbuy - dt(a["ts"])).total_seconds() // 60)
+            parts.append(f'下单前 {mins} 分钟刚在千问问了「{esc(a["text"][:24])}{"…" if len(a["text"]) > 24 else ""}」')
+        else:
+            parts.append(f'千问侧 {len(asks)} 条提问全是咨询，下单时段没有回到千问')
+    mia = (u.get("channels") or {}).get("app_mia", [])
+    if mia:
+        scenes = sorted({MIA_SCENE.get(m.get("scene"), m.get("scene") or "App") for m in mia})
+        parts.append(f'在 App 内也用了 {len(mia)} 次小顾（{"、".join(scenes)}入口）')
+    path = "，".join(parts[:2]) + "；" + "；".join(parts[2:]) + "。"
+    narrative = f'<p>{u["narrative"]}</p>' if u.get("narrative") else ""
+    return f'<div class="summary"><h4>用户路径与行为总结</h4><p class="path"><b>路径</b>{path}</p>{narrative}</div>'
+
+def top_stats(u):
+    d = u["derived"]; al = u.get("asset_latest"); ch = u.get("channels") or {}
+    inf = u.get("inflow_txns") or []
+    asset_sub = f'{al["cal_date"][5:].replace("-", "/")} 资产 {money(al["ta"])} 元' if al else "资产待次日批次落账"
+    first_in = inf[0]["t"] if inf else d["first_buy_after"]
+    dates = "、".join(f'{"首笔" if i == 0 else "第二笔"} {fmt_md(x["t"])}' for i, x in enumerate(inf[:2]))
+    q = len(u["asks"]); m = len(ch.get("app_mia", [])); w = int(ch.get("wechat_msgs", 0) or 0)
+    total = q + m + w
+    chs = [f'千问 {q} 条' if q else "", f'且慢 {m} 条' if m else "", f'微信 {w} 条' if w else ""]
+    chs = " · ".join(x for x in chs if x) or "三端均无提问"
+    icon = (f'<button type="button" class="mini-ic" data-asks="{u["pmid"]}" title="查看在千问、且慢小顾、微信小顾的全部提问记录" aria-label="查看全部提问记录">'
+            '<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1.1-4.3A8 8 0 1 1 21 12z"/></svg></button>') if total else ""
+    return (f'<div class="kv top">'
+            f'<div><b class="num">{money(d["inflow_after"])} 元</b><span>绑定后入金 · {asset_sub}</span></div>'
+            f'<div><b class="num">{dur(u["fb"], first_in)}</b><span>绑定 → 首笔入金</span></div>'
+            f'<div><b class="num">{len(inf) if inf else d["buys_after"]} 笔</b><span>入金{" · " + dates if dates else ""}</span></div>'
+            f'<div><b class="num">{total} 条</b><span>小顾对话 · {chs}{icon}</span></div>'
+            f'</div>')
 
 def holdings_block(u):
     hs = u.get("holdings") or []; fd = u.get("fund_detail") or []; hm = u.get("holdings_meta") or {}
+    d = u["derived"]; fb = dt(u["fb"])
+    buy_by_po = {}
+    for t in u["trades"]:
+        if dt(t["accept_time"]) >= fb and not t["canceled"] and t["trade_type"] != "wallet.recharge" and t["buy"] and float(t["buy"]) > 0:
+            buy_by_po[t["po_code"]] = buy_by_po.get(t["po_code"], 0) + float(t["buy"])
     if not hs and not fd:
         return '<div class="sub-block"><h4>最终持有</h4><p class="muted tight">资产表尚无该账户持仓行（当日成交，次日批次体现）。</p></div>'
-    rows = "".join(f'<tr><td>{esc(h["kind"])}</td><td>{esc(h["name"])}{f" <span class=num>{esc(h[chr(99)+chr(111)+chr(100)+chr(101)])}</span>" if h.get("code") and h["code"] not in ("WALLET","FUND") else ""}</td><td class="num">{money(h["value"]) + " 元" if h.get("value") is not None else "买入 " + money(h.get("buy")) + " 元（未落账）"}</td></tr>' for h in hs)
-    tbl = f'''<table class="mini-table"><thead><tr><th>类型</th><th>产品</th><th>当前市值{f"（{hm.get('as_of','')[5:]} 快照）" if hm.get("as_of") else ""}</th></tr></thead><tbody>{rows}</tbody></table>'''
+    wallet_keep = max(float(d["inflow_after"] or 0) - sum(buy_by_po.values()), 0)
+    rows = ""; tot_in = 0; tot_v = 0
+    for h in hs:
+        put = wallet_keep if h.get("code") == "WALLET" else buy_by_po.get(h.get("code"), h.get("buy") or 0)
+        tot_in += put or 0
+        if h.get("value") is not None: tot_v += float(h["value"])
+        code = f' <span class="num muted">{esc(h["code"])}</span>' if h.get("code") and h["code"] not in ("WALLET", "FUND") else ""
+        val = money(h["value"]) + " 元" if h.get("value") is not None else "未落账"
+        rows += f'<tr><td>{esc(h["kind"])}</td><td>{esc(h["name"])}{code}</td><td class="num">{money(put)} 元</td><td class="num">{val}</td></tr>'
+    foot = f'<tr class="total"><td colspan="2">合计</td><td class="num">{money(tot_in)} 元</td><td class="num">{money(tot_v) + " 元" if tot_v else "—"}</td></tr>'
+    snap = f'（{hm.get("as_of", "")[5:]} 快照）' if hm.get("as_of") else ""
+    tbl = f'<table class="mini-table"><thead><tr><th>类型</th><th>产品</th><th>入金金额</th><th>当前市值{snap}</th></tr></thead><tbody>{rows}{foot}</tbody></table>'
     fund_html = ""
     if fd:
         top = sorted([f for f in fd if f["po"] != "盈米宝"], key=lambda f: -f["mv"])[:8]
@@ -216,64 +330,51 @@ def holdings_block(u):
         items = "".join(f'<li><span class="num">{esc(f["fund_code"])}</span> {esc(f["fund_name"])} <span class="muted">{"· " + esc(f["po"]) + " " if f.get("po") and f["po"] != "—" else ""}· {money(f["mv"])} 元</span></li>' for f in top)
         more = len([f for f in fd if f["po"] != "盈米宝"]) - len(top)
         basis = f'{hm.get("bill_month")} 月末账单市值' if hm.get("bill_month") else "绑定后子订单成功金额（未扣净值波动）"
-        fund_html = f'''<p class="tight muted">穿透到基金（{basis}，前 {len(top)} 只{f"，另 {more} 只未列" if more > 0 else ""}{f"；盈米宝货币基金 {money(wallet)} 元" if wallet else ""}）</p><ul class="funds">{items}</ul>'''
-    return f'<div class="sub-block"><h4>最终持有</h4>{tbl}{fund_html}</div>'
+        fund_html = (f'<p class="tight muted">穿透到基金（{basis}，前 {len(top)} 只{f"，另 {more} 只未列" if more > 0 else ""}'
+                     f'{f"；盈米宝货币基金 {money(wallet)} 元" if wallet else ""}）</p><ul class="funds">{items}</ul>')
+    return f'<div class="sub-block"><h4>最终持有</h4><p class="tight muted">入金金额：各产品为绑定后买入金额，盈米宝为充值后仍留在钱包的部分。</p>{tbl}{fund_html}</div>'
 
 def card(u):
     d = u["derived"]
     who = f'{u["age"]} 岁 · {"男" if u["gender"]=="M" else "女" if u["gender"]=="F" else "性别未知"}' + (f' · {esc(u["prov"])}' if u.get("prov") else "")
-    dev_txt = "、".join(sorted({PLAT.get(str(x["platform"]), str(x["platform"])) for x in u["dev"]})) or "无 App 记录"
+    term = terminal_of(u)
+    dev_txt = f'{LIBN.get(term, term)} App' if term else ("网页端" if u.get("events") else "无埋点记录")
     tags = [f'<span class="tag">{ "绑定当场注册" if u["cohort"]=="new" else "老客 · " + dt(u["registered_at"]).strftime("%Y-%m") + " 注册" }</span>',
             f'<span class="tag good">绑定后入金 {money(d["inflow_after"])} 元</span>']
     if d["cancels_after"]: tags.append(f'<span class="tag amber">撤单重下 {d["cancels_after"]} 次</span>')
-    if not u["asks"]: tags.append('<span class="tag amber">提问 0 条</span>')
-    risk_last = u["risk"][-1]["score"] if u["risk"] else "—"
-    al = u.get("asset_latest")
-    asset_txt = f'{money(al["ta"])} 元' if al else "尚无快照"
-    asset_sub = f'当前资产（{al["cal_date"][5:]} 快照）' if al else "当前资产（当日成交，次日批次体现）"
-    kv = f'''<div class="kv">
-      <div><b class="num">{risk_last} 分</b><span>风险测评得分</span></div>
-      <div><b class="num">{asset_txt}</b><span>{asset_sub}</span></div>
-      <div><b class="num">{d["buys_after"]} 笔</b><span>绑定后买入（赎回 {money(d["sell_after"])} 元）</span></div>
-      <div><b class="num">{dur(u["fb"], d["first_buy_after"])}</b><span>绑定 → 首笔买入</span></div>
-    </div>'''
-    narrative = f'<p class="muted">{u["narrative"]}</p>' if u.get("narrative") else ""
-    extra_blocks = channel_block(u) + holdings_block(u)
+    if not u["asks"]: tags.append('<span class="tag amber">千问提问 0 条</span>')
     badge_cls = "badge n" if u["cohort"] == "new" else "badge"
-    return f'''<div class="case" data-pmid="{u["pmid"]}" data-letter="{u["letter"]}">
-  <div class="case-head">
-    <span class="who"><span class="{badge_cls}">{u["letter"]}</span>{who} · {dev_txt}</span>
-    {"".join(tags)}
-  </div>
-  <div class="case-body">
-    {kv}
-    <ul class="tl">
-{timeline(u)}
-    </ul>
-    {verdict(u)}
-    {extra_blocks}
-    {narrative}
-    <div class="case-foot">
-      <span class="foot-label">用户 {u["letter"]} · {"新客" if u["cohort"]=="new" else "老客"} · 提问 {len(u["asks"])} 条</span>
-      <span class="foot-actions">
-        <button type="button" class="icon-btn" data-copy="{u["pmid"]}" title="复制用户 ID 到剪贴板" aria-label="复制用户 ID">
-          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>
-        </button>
-        <button type="button" class="icon-btn" data-asks="{u["pmid"]}" title="查看在千问侧的全部提问历程" aria-label="查看提问历程">
-          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1.1-4.3A8 8 0 1 1 21 12z"/><path d="M8 11h8M8 14h5"/></svg>
-        </button>
-      </span>
-    </div>
-  </div>
-</div>'''
+    foot = f'用户 {u["letter"]} · {"新客" if u["cohort"]=="new" else "老客"} · 风测 {u["risk"][-1]["score"] if u["risk"] else "—"} 分 · 绑定后买入 {d["buys_after"]} 笔' + (f' · 赎回 {money(d["sell_after"])} 元' if d["sell_after"] else "")
+    copy_svg = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>'
+    return (f'<div class="case" data-pmid="{u["pmid"]}" data-letter="{u["letter"]}">\n'
+            f'  <div class="case-head">\n'
+            f'    <span class="who"><span class="{badge_cls}">{u["letter"]}</span>{who} · {dev_txt}</span>\n'
+            f'    {"".join(tags)}\n'
+            f'  </div>\n'
+            f'  <div class="case-body">\n'
+            f'    {top_stats(u)}\n'
+            f'    <div class="ctabs" role="tablist" aria-label="历程切换">\n'
+            f'      <button type="button" class="ctab" role="tab" aria-selected="true" data-panel="journey">关键旅程</button>\n'
+            f'      <button type="button" class="ctab" role="tab" aria-selected="false" data-panel="behavior">且慢行为</button>\n'
+            f'    </div>\n'
+            f'    <div class="cpanel" data-panel="journey">\n    <ul class="tl">\n{timeline(u)}\n    </ul>\n    </div>\n'
+            f'    <div class="cpanel" data-panel="behavior" hidden>\n    {behavior_panel(u)}\n    </div>\n'
+            f'    {path_summary(u)}\n'
+            f'    {holdings_block(u)}\n'
+            f'    <div class="case-foot">\n'
+            f'      <span class="foot-label">{foot}</span>\n'
+            f'      <span class="foot-actions"><button type="button" class="icon-btn" data-copy="{u["pmid"]}" title="复制用户 ID 到剪贴板" aria-label="复制用户 ID">{copy_svg}</button></span>\n'
+            f'    </div>\n'
+            f'  </div>\n'
+            f'</div>')
 
 # ───── 汇总矩阵 ─────
 def matrix(us):
     rows = []
     for u in us:
         d = u["derived"]; al = u.get("asset_latest")
-        dev = u["dev"]
-        dev_txt = ("、".join(sorted({PLAT.get(str(x["platform"]), str(x["platform"])) for x in dev})) + " · " + fmt_md(min(x["created_on"] for x in dev)) + " 注册") if dev else "无记录"
+        term = terminal_of(u); app = [e for e in (u.get("events") or []) if e["lib"] != "js"]
+        dev_txt = (f'{LIBN.get(term, term)} App · {fmt_md(min(e["t"] for e in app))} 起') if term else ("网页端" if u.get("events") else "无埋点")
         rows.append(f'''<tr>
   <td><span class="who"><span class="{"badge n" if u["cohort"]=="new" else "badge"}">{u["letter"]}</span></span></td>
   <td>{"新客" if u["cohort"]=="new" else "老客"}</td>
@@ -289,7 +390,7 @@ def matrix(us):
   <td class="wrap">{dev_txt}</td>
 </tr>''')
     return f'''<div class="scrollx"><table class="matrix">
-<thead><tr><th>用户</th><th>客群</th><th>画像</th><th>绑定</th><th>绑定后首笔买入</th><th>间隔</th><th>绑定后入金</th><th>绑定后买入</th><th>当前资产</th><th>风测</th><th>提问</th><th>且慢 App 设备</th></tr></thead>
+<thead><tr><th>用户</th><th>客群</th><th>画像</th><th>绑定</th><th>绑定后首笔买入</th><th>间隔</th><th>绑定后入金</th><th>绑定后买入</th><th>当前资产</th><th>风测</th><th>提问</th><th>下单终端</th></tr></thead>
 <tbody>{"".join(rows)}</tbody></table></div>'''
 
 def scope_section(sc):
@@ -304,7 +405,7 @@ def scope_section(sc):
     med = statistics.median(durs) if durs else None
     med_txt = ("—" if med is None else f"{med/86400:.1f} 天" if med >= 86400 else f"{med/3600:.1f} 小时")
     cells = f'''<div class="grid sumrow">
-  <div class="cell"><b>{a["n"]}</b><span>用户数</span><em>{(f"未首投 {sum(1 for u in us if not u.get('last_buy_before'))} 人 / 已清仓 {sum(1 for u in us if u.get('last_buy_before'))} 人") if sc["id"] == "recall" else f"新客 {a['new']} / 老客 {a['n']-a['new']}"} · 绑定→首投中位 {med_txt}</em></div>
+  <div class="cell"><b>{a["n"]}</b><span>用户数</span><em>{(f"未首投 {sum(1 for u in us if not u.get('last_buy_before'))} 人 / 已清仓 {sum(1 for u in us if u.get('last_buy_before'))} 人") if sc["id"] == "existing_reactivated" else f"新客 {a['new']} / 老客 {a['n']-a['new']}"} · 绑定→首投中位 {med_txt}</em></div>
   <div class="cell"><b>{wan(a["asset"])}</b><span>当前资产规模</span><em>人均 {wan(a["asset"]/n)} · 相当于入金的 {keep}</em></div>
   <div class="cell"><b>{wan(a["inflow"])}</b><span>绑定后入金</span><em>人均 {wan(a["inflow"]/n)} · 最大单人占 {top_inflow}</em></div>
   <div class="cell"><b>{wan(a["buy"])}</b><span>绑定后买入</span><em>复投 {a["repeat"]} 人 · 撤单重下 {a["cancels"]} 人</em></div>
@@ -315,44 +416,78 @@ def scope_section(sc):
   <p class="sub scope-def">{esc(sc["def"])}</p>
   {cells}
   {matrix(us) if us else ""}
-  <h2 class="cases-h">个例分析 <span class="muted">按绑定后买入金额降序 · {a["n"]} 人</span></h2>
+  <h2 class="cases-h">个例分析 <span class="muted">{esc(sc["label"])} {a["n"]}人・第<b class="pg-cur">1</b>人</span></h2>
   {cards}
 </section>'''
 
-Z, R, F1, NF = (agg(scope_users(sc)) for sc in SCOPES)
-_first_users = scope_users(SCOPES[2])
+SCOPE_AGG = {sc["id"]: agg(scope_users(sc)) for sc in SCOPES}
+Z = SCOPE_AGG["new_inv"]
+F1 = SCOPE_AGG["first_inv"]
+NF = SCOPE_AGG["new_first_inv"]
+R = SCOPE_AGG["existing_reactivated"]
+EF = SCOPE_AGG["existing_first_inv"]
+_first_users = scope_users(next(sc for sc in SCOPES if sc["id"] == "first_inv"))
 _med = None
 if _first_users:
     import statistics as _st
     _med = _st.median([(dt(u["derived"]["first_buy_after"]) - dt(u["fb"])).total_seconds() for u in _first_users if u["derived"]["first_buy_after"]])
 _med_txt = "—" if _med is None else (f"{_med/86400:.1f} 天" if _med >= 86400 else f"{_med/3600:.1f} 小时")
-LEDE_POINTS = [
-    f"{META['bound_total']:,} 个绑定用户里，绑定时零资产且随后真金白银入金的只有 <b>{Z['n']} 人</b>，合计入金 <b>{wan(Z['inflow'])}</b>、当前资产 {wan(Z['asset'])}；其中老户唤回 {R['n']} 人贡献 {wan(R['inflow'])}，全新首投 {NF['n']} 人贡献 {wan(NF['inflow'])}。",
-    f"用户首投 {F1['n']} 人，绑定到首投中位 {_med_txt}，最快 11 分钟、最慢 25 天；{Z['repeat']} 人复投、{Z['cancels']} 人撤单重下。",
-    f"七人 {Z['asks']:,} 条小顾提问全部发生在千问，交易则 100% 回到且慢完成——千问侧零成交痕迹。",
-]
-LEDE = "".join(f"<li>{x}</li>" for x in LEDE_POINTS)
+from collections import Counter as _C
+_tc = _C(LIBN.get(terminal_of(u), "未知") for u in scope_users(next(sc for sc in SCOPES if sc["id"] == "new_inv")))
+_term_txt = "、".join(f"{k} {v}" for k, v in _tc.most_common())
+_mia_n = sum(len((u.get("channels") or {}).get("app_mia", [])) for u in scope_users(next(sc for sc in SCOPES if sc["id"] == "new_inv")))
+LEDE = (
+    f"{META['bound_total']:,} 位绑定用户中，新投 <b>{Z['n']}</b> 人、首投 <b>{F1['n']}</b> 人"
+    f"（新户首投 {NF['n']} 人、老户首投 {EF['n']} 人），老户唤回 {R['n']} 人；"
+    f"{Z['n']} 位新投用户均回到且慢 App 下单。"
+)
 tabs = "".join(f'<button type="button" class="tab" role="tab" data-scope="{sc["id"]}" aria-selected="false">{sc["label"]}<small>{agg(scope_users(sc))["n"]}</small></button>' for sc in SCOPES)
 sections = "\n".join(scope_section(sc) for sc in SCOPES)
 
-ASKS_JSON = json.dumps({u["pmid"]: {"letter": u["letter"], "cohort": u["cohort"],
-                                    "asks": [{"ts": a["ts"][:19], "text": a["text"]} for a in sorted(u["asks"], key=lambda a: a["ts"])]}
-                        for u in users}, ensure_ascii=False).replace("</", "<\\/")
+def all_asks(u):
+    rows = [{"ts": a["ts"][:19], "text": a["text"], "ch": "千问"} for a in u["asks"]]
+    for m in (u.get("channels") or {}).get("app_mia", []):
+        rows.append({"ts": m["ts"][:19], "text": (m.get("text") or "").strip(), "ch": "且慢",
+                     "via": MIA_SCENE.get(m.get("scene"), m.get("scene") or "") + ("快捷入口" if m.get("mode") == "AUTO_LEAD" else "")})
+    return sorted(rows, key=lambda r: r["ts"])
+ASKS_JSON = json.dumps({u["pmid"]: {"letter": u["letter"], "cohort": u["cohort"], "asks": all_asks(u)} for u in users},
+                       ensure_ascii=False).replace("</", "<\\/")
 
 CSS = Path(sys.argv[3]).read_text() if len(sys.argv) > 3 else ""
 
 PAGER_SNIPPET = r'''<style>
 *,*::before,*::after{font-family:var(--serif) !important}
-.lede-points{margin:0 0 30px;padding:0 0 0 1.15em;color:var(--ink-2);font-size:16px;line-height:1.75;max-width:62em}
-.lede-points li{margin:6px 0}
+html,body{max-width:100%;overflow-x:hidden}
+.wrap{width:100%;min-width:0}
+.lede-summary{display:block;width:100%;max-width:100%;margin:8px 0 30px;color:var(--ink-2);font-size:13px;line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sumrow,.sumrow .cell{min-width:0}
+.sumrow .cell em{white-space:normal;overflow-wrap:anywhere}
 .tabs{display:flex;align-items:flex-end}
 .back-home{margin-left:auto;align-self:center;width:34px;height:34px;display:inline-grid;place-items:center;border:1.5px solid var(--rule-2);border-radius:50%;color:var(--ink-3);text-decoration:none;font-size:22px;line-height:1;padding-bottom:2px}
 .back-home:hover{border-color:var(--blue);color:var(--blue)}
-.pager{display:inline-flex;align-items:center;gap:8px;margin-left:14px;vertical-align:middle;font-size:14px;color:var(--ink-2)}
+.pager{display:inline-flex;align-items:center;gap:8px;margin-left:8px;vertical-align:middle;font-size:14px;color:var(--ink-2)}
 .pager .pg{width:28px;height:28px;border:1.5px solid var(--rule-2);border-radius:50%;background:var(--surface);color:var(--ink-3);cursor:pointer;font-size:18px;line-height:1;display:inline-grid;place-items:center;padding:0 0 2px}
 .pager .pg:hover{border-color:var(--blue);color:var(--blue)}
 .pager .pg:disabled{opacity:.35;cursor:default}
 .pager b{font-weight:600;font-variant-numeric:tabular-nums;min-width:3ch;text-align:center}
+.ctabs{display:flex;gap:22px;margin:18px 0 0;border-bottom:1px solid var(--rule-2)}
+.ctab{font:inherit;font-size:14px;font-weight:600;padding:8px 2px 10px;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;background:transparent;color:var(--ink-3);cursor:pointer}
+.ctab:hover{color:var(--ink)}
+.ctab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--blue-deep)}
+.tl.beh .t{min-width:118px;color:var(--ink-3)}
+.tl.beh li.day .t{min-width:0;display:inline;font-weight:800;color:var(--blue-deep)}
+.tl.beh li .d{color:var(--ink-2);font-size:13.5px}
+.tl.beh li.b-xg::before{background:var(--blue)}
+.tl.beh li.b-xg .d{color:var(--ink-blue)}
+.tl.beh li.b-trade .d{color:var(--good);font-weight:700}
+.summary{margin-top:16px;padding:14px 18px;border-radius:8px;background:#eef7f2;border:1px solid #cfe9dc;color:#0b5e42;font-size:14px}
+.summary h4{margin:0 0 6px;font-size:13px;letter-spacing:.04em}
+.summary p{margin:6px 0 0;color:var(--ink-2)}
+.summary .path b{color:#0b5e42;margin-right:8px}
+.kv.top span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+.mini-ic{display:inline-grid;place-items:center;width:18px;height:18px;margin-left:6px;vertical-align:-4px;border:1px solid var(--rule-2);border-radius:50%;background:var(--surface);color:var(--ink-3);cursor:pointer;padding:0}
+.mini-ic:hover{border-color:var(--blue);color:var(--blue)}
+.mini-table tr.total td{font-weight:700;border-top:1px solid var(--rule-2);background:var(--pale)}
 .matrix tbody tr[data-jump]{cursor:pointer}
 .matrix tbody tr[data-jump]:hover td{background:var(--pale)}
 .matrix tbody tr[data-jump] .badge{box-shadow:0 0 0 0 transparent;transition:box-shadow .15s}
@@ -367,11 +502,12 @@ PAGER_SNIPPET = r'''<style>
     var idx=0, box=null, btns=null, cnt=null;
     if(cases.length>1){
       box=document.createElement('span'); box.className='pager';
-      box.innerHTML='<button type="button" class="pg" data-dir="-1" aria-label="上一个">‹</button><b></b><button type="button" class="pg" data-dir="1" aria-label="下一个">›</button>';
-      head.appendChild(box); btns=box.querySelectorAll('.pg'); cnt=box.querySelector('b');
-      box.addEventListener('click',function(e){ var b=e.target.closest('.pg'); if(!b||b.disabled) return; idx=Math.min(cases.length-1,Math.max(0,idx+Number(b.dataset.dir))); render(); });
+      box.innerHTML='<button type="button" class="pg" aria-label="下一位">›</button>';
+      head.appendChild(box);
+      box.addEventListener('click',function(e){ if(!e.target.closest('.pg')) return; idx=(idx+1)%cases.length; render(); });
     }
-    function render(){ cases.forEach(function(c,i){ c.hidden = i!==idx; }); if(box){ cnt.textContent=(idx+1)+'/'+cases.length; btns[0].disabled = idx===0; btns[1].disabled = idx===cases.length-1; } }
+    cnt=head.querySelector('.pg-cur');
+    function render(){ cases.forEach(function(c,i){ c.hidden = i!==idx; }); if(cnt) cnt.textContent=String(idx+1); }
     // 表格行 → 对应个例：按用户字母匹配 .case[data-letter]
     sec.querySelectorAll('.matrix tbody tr').forEach(function(tr){
       var badge=tr.querySelector('.badge'); if(!badge) return;
@@ -381,6 +517,12 @@ PAGER_SNIPPET = r'''<style>
       tr.addEventListener('click',function(e){ if(e.target.closest('a,button,[data-copy]')) return; idx=target; render(); head.scrollIntoView({behavior:'smooth',block:'start'}); });
     });
     render();
+  });
+  document.addEventListener('click',function(e){
+    var b=e.target.closest('.ctab'); if(!b) return;
+    var body=b.closest('.case-body');
+    body.querySelectorAll('.ctab').forEach(function(x){ x.setAttribute('aria-selected', String(x===b)); });
+    body.querySelectorAll('.cpanel').forEach(function(p){ p.hidden = p.dataset.panel!==b.dataset.panel; });
   });
 })();
 </script>
@@ -427,7 +569,8 @@ page = f'''<!doctype html>
   @media(max-width:520px){{.tab{{font-size:15px;margin-right:22px}}}}
   .scope-def{{margin:14px 0 18px!important}}
   .cases-h{{margin-top:36px}}
-  .cases-h .muted{{font:500 13px/1 Inter,"PingFang SC",sans-serif;margin-left:10px}}
+  .cases-h .muted{{font:500 13px/1 Inter,"PingFang SC",sans-serif;margin-left:10px;white-space:nowrap}}
+  .cases-h .muted b{{font-weight:700;color:var(--ink)}}
   .case-foot{{display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding-top:12px;
     border-top:1px dashed var(--rule)}}
   .foot-label{{color:var(--ink-3);font-size:12px}}
@@ -456,7 +599,9 @@ page = f'''<!doctype html>
   .qlist .qt{{color:var(--ink-3);font:12px/1.7 var(--mono)}}
   .qlist .qd{{color:var(--ink-2);overflow-wrap:anywhere}}
   .qlist li.daysep .qt{{font-weight:800;color:var(--blue-deep)}}
-  .qlist .qmark{{color:var(--blue);font-weight:700;font-size:12px;margin-right:6px}}
+  .qlist .qmark{{display:inline-block;min-width:32px;text-align:center;color:var(--ink-blue);background:var(--soft);border-radius:4px;font-weight:700;font-size:11px;margin-right:8px;padding:1px 6px}}
+  .qlist .qmark.qm{{color:var(--good);background:#e6f5ee}}
+  .qlist .via{{color:var(--ink-3);font-style:normal;font-size:11.5px}}
   @media(max-width:600px){{.qlist li{{grid-template-columns:1fr}}}}
 </style>
 </head>
@@ -464,7 +609,7 @@ page = f'''<!doctype html>
 <div class="wrap">
   <div class="eyebrow">QIANWEN × QIEMAN AI · CASE EXPLORER</div>
   <h1>千问用户转化分析</h1>
-  <ul class="lede-points">{LEDE}</ul>
+  <p class="lede-summary" title="{esc(re.sub('<[^>]+>', '', LEDE))}">{LEDE}</p>
 
   <div class="tabs" role="tablist" aria-label="口径切换">{tabs}<a class="back-home" href="../qianwen-user-acquisition-dashboard/" title="回到千问主看板" aria-label="回到千问主看板">›</a></div>
   {sections}
@@ -472,12 +617,12 @@ page = f'''<!doctype html>
   <div class="caveat">
     <h4>口径与局限</h4>
     <ul>
-      <li>「新投用户」= 在千问绑定且慢帐号时无资产（回溯绑定当日顶层 ROOT 资产为 0 或未开户，含新老用户），且绑定后有入金；「老户唤回」= 绑定时已有且慢帐户但未首投或已清仓，绑定后重新入金；「用户首投」= 绑定后完成第一笔且慢投资（人生首笔非钱包买入，<span class="num">po.buy / fund.buy / si.trade / po.adjust / plan.trade</span>，撤单不计，含新老用户）；「全新首投」= 其中绑定时当场新注册（注册与绑定相差 ≤60 分钟）的用户。统计截至 {CUT}。</li>
+      <li>分类名称与主看板一致：「新投」= 绑定后有新增投资且绑定时无资产（含新老用户）；「首投」= 绑定后完成第一笔投资（人生首笔非钱包买入，<span class="num">po.buy / fund.buy / si.trade / po.adjust / plan.trade</span>，撤单不计，含新老用户）；「新户首投」= 其中绑定时当场新注册（注册与绑定相差 ≤60 分钟）的用户；「老户唤回」= 绑定时已有且慢帐号但未首投或已清仓，绑定后重新入金；「老户首投」= 老用户的人生首笔投资发生在绑定后。统计截至 {CUT}。</li>
       <li>入金 = 各用户自绑定日起顶层 ROOT 账户的实际入流合计（资产表 input_amount，含线下汇款与钱包充值，不重复计从钱包转买的部分）；当日成交尚未落账者以盈米宝充值额暂代。买入 = 绑定后非钱包买入合计；资产 = 各用户最近一个已跑批的 ROOT 快照。</li>
-      <li>渠道判定基于设备注册记录（<span class="num">ying99_pomodel.device_info</span>，platform 3=iOS / 4=Android / 5=鸿蒙）、订单支付方式（<span class="num">by.online</span> 线上充值 / <span class="num">from.card</span> 银行卡直付）与时间线交叉推断。<b>交易订单表没有终端来源字段，神策埋点凭证本机未配置</b>，故 H5 判定为高置信推断而非直接证据。</li>
+      <li>下单终端与「且慢行为」来自神策埋点（<span class="num">qm_meta.ai_insight_sensors_event_detail</span>）：iOS / Android / HarmonyOS 为 App 原生页记录，js 为 App 内嵌或独立 H5 页；以首笔买入前后 30 分钟内的原生页记录判定终端，设备注册表仅作辅证。页面名已从技术类名翻译成业务页名，不可读的类名不展示；「入金 X 笔」按看板口径（线上/线下充值到盈米宝 + 银行卡直付买入）计数。</li>
       <li>风测得分为且慢风险测评原始分（broker 0008，<span class="num">risk_survey_record</span> 全量历史，取最近一次），未换算等级档位。</li>
-      <li>提问取 <span class="num">agent_dj_messages</span> 中 role=USER 的非空记录，时间用 <span class="num">dj_gmt_create</span>（业务时间）；卡内时间线最多展示前 10 条，完整历程点卡尾对话图标查看。</li>
-      <li>卡尾两个图标：复制该用户 ID 到剪贴板；查看其在千问侧的全部提问历程。页面不明文展示用户 ID。</li>
+      <li>千问提问取 <span class="num">agent_dj_messages</span> 中 role=USER 的非空记录，时间用 <span class="num">dj_gmt_create</span>（业务时间）；且慢 App 内小顾取 <span class="num">ying99_mia.user_message</span> 用户输入行；微信 / 企微侧小顾七人均无记录。关键旅程最多展示前 10 条提问。</li>
+      <li>顶部「小顾对话」旁的小图标可查看该用户在千问、且慢 App 小顾、微信小顾三端的全部提问；卡尾图标复制用户 ID 到剪贴板。页面不明文展示用户 ID。</li>
       <li>本页含个例级信息，发布前已在作者端以 PBKDF2 + AES-GCM 加密，明文不进入版本库。</li>
     </ul>
   </div>
@@ -519,16 +664,17 @@ document.addEventListener('click', async (e)=>{{
 const modal=document.getElementById('asks-modal');
 function openAsks(pmid){{
   const u=ASKS[pmid]; if(!u) return;
-  document.getElementById('asks-title').innerHTML = `用户 ${{u.letter}} 的提问历程 <span class="muted">${{u.asks.length}} 条 · 千问侧小顾会话</span>`;
+  const nq=u.asks.filter(a=>a.ch==='千问').length, nm=u.asks.filter(a=>a.ch==='且慢').length;
+  document.getElementById('asks-title').innerHTML = `用户 ${{u.letter}} 的小顾对话 <span class="muted">${{u.asks.length}} 条 · 千问 ${{nq}} · 且慢 ${{nm}} · 微信 0</span>`;
   const list=document.getElementById('asks-list'); list.innerHTML='';
-  if(!u.asks.length){{ list.innerHTML='<li><span class="qt">—</span><span class="qd">该用户在千问侧没有任何提问记录（会话已创建但零输入）。</span></li>'; }}
+  if(!u.asks.length){{ list.innerHTML='<li><span class="qt">—</span><span class="qd">该用户在千问、且慢、微信三端都没有向小顾提问（千问会话已创建但零输入）。</span></li>'; }}
   let lastDay='';
   u.asks.forEach(q=>{{
     const day=q.ts.slice(0,10), first=day!==lastDay; lastDay=day;
     const li=document.createElement('li'); if(first) li.className='daysep';
     const t=document.createElement('span'); t.className='qt'; t.textContent = first ? q.ts.slice(5,16).replace('T',' ') : q.ts.slice(11,19);
-    const d=document.createElement('span'); d.className='qd'; const m=document.createElement('span'); m.className='qmark'; m.textContent='问';
-    d.appendChild(m); d.appendChild(document.createTextNode(q.text));
+    const d=document.createElement('span'); d.className='qd'; const m=document.createElement('span'); m.className='qmark'+(q.ch==='且慢'?' qm':''); m.textContent=q.ch;
+    d.appendChild(m); d.appendChild(document.createTextNode(q.text)); if(q.via){{ const v=document.createElement('i'); v.className='via'; v.textContent=' · '+q.via; d.appendChild(v); }}
     li.appendChild(t); li.appendChild(d); list.appendChild(li);
   }});
   modal.setAttribute('open',''); document.body.style.overflow='hidden';

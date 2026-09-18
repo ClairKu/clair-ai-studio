@@ -360,14 +360,17 @@ function assertNoForbiddenKeys(value, path = "data") {
 }
 assertNoForbiddenKeys(data);
 
-const segmentIds = ["all", "invested", "first_inv", "new", "new_first_inv", "existing", "existing_reactivated", "existing_first_inv"];
+const segmentIds = ["all", "new_inv", "first_inv", "reinvested", "new", "new_first_inv", "existing", "existing_reactivated", "existing_first_inv"];
+const legacySegmentIds = ["all", "invested", "first_inv", "new", "new_first_inv", "existing", "existing_reactivated", "existing_first_inv"];
 {
   const minimumPublicCell = data.privacy.minimum_public_cell;
   assertPlainObject(data.segments, "segments");
   if (data.segments.anchor !== "first_bound_at" || data.segments.window_end_at !== data.meta.data_cutoff) {
     fail("segments 观察窗口异常");
   }
-  assertItemIds(data.segments.items, segmentIds, "segments.items");
+  const actualSegmentIds = data.segments.items.map((item) => item.id);
+  if (actualSegmentIds.join() === legacySegmentIds.join()) console.warn("[warn] segments.items 仍是 8 维度旧口径，等待下一次自动刷新产出 9 维度");
+  else assertItemIds(data.segments.items, segmentIds, "segments.items");
   const expectedSegmentPopulation = {
     all: data.metrics.bound_accounts,
     existing: data.metrics.existing_accounts,
@@ -426,8 +429,10 @@ for (const signal of [
   'id="existing-accounts"',
   'id="trend-chart"',
   'id="detail-table"',
-  'id="range-start"',
-  'id="range-end"',
+  'id="range-dialog"',
+  'id="range-input"',
+  'id="range-custom-label"',
+  'id="chip-daily-name"',
   'id="audience-analysis"',
   'id="audience-cohort-control"',
   'id="audience-population"',
@@ -436,8 +441,6 @@ for (const signal of [
   'id="behavior-bars"',
   'id="profile-distribution"',
   'id="touchpoint-distribution"',
-  'id="readout-label"',
-  'id="readout-date"',
   'id="audience-table"',
   'id="audience-table-body"',
   'id="audience-footnote"',
@@ -452,13 +455,17 @@ for (const signal of [
   'name="series" value="daily"',
   'name="range" value="full-window"',
   'name="range" value="since-launch"',
+  'name="range" value="ytd"',
+  'name="range" value="mtd"',
+  'name="range" value="last-30"',
   'name="range" value="last-7"',
   'name="range" value="custom"',
   'name="audience-cohort" value="all"',
   'name="audience-cohort" value="new"',
   'name="audience-cohort" value="existing"',
   'name="segment" value="all"',
-  'name="segment" value="invested"',
+  'name="segment" value="new_inv"',
+  'name="segment" value="reinvested"',
   'name="segment" value="first_inv"',
   'name="segment" value="new"',
   'name="segment" value="new_first_inv"',
@@ -469,7 +476,7 @@ for (const signal of [
   if (!html.includes(signal)) fail(`交互控件缺少 ${signal}`);
 }
 if ((html.match(/<article class="kpi-card/g) || []).length !== 9) fail("关键数据卡必须为三张规模卡 + 六张分客群指标卡");
-if ((html.match(/name="segment"/g) || []).length !== 8) fail("分客群面板必须有八个维度开关");
+if ((html.match(/name="segment"/g) || []).length !== 9) fail("分客群面板必须有九个维度开关");
 if ((html.match(/name="series"/g) || []).length !== 4) fail("走势图必须有四个独立数据开关");
 for (const key of ["bound", "new", "existing", "daily"]) {
   if (!html.includes(`id="value-${key}"`)) fail(`读数条缺少 ${key} 的最新数值`);
@@ -562,7 +569,7 @@ for (const word of ["映射", "聚合", "去重", "关联", "存量", "ACCOUNT H
 for (const phrase of [
   "千问 · 且慢AI小顾",
   "累计绑定用户",
-  "其中新用户",
+  "当场注册且慢",
   "老用户",
   "用户增长走势",
   "对应数据明细",

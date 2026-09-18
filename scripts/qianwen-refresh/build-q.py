@@ -188,7 +188,7 @@ for co in ("all", "new", "existing"):
 q3 = {"as_of": iso(CUT), "behavior": behavior, "business": business}
 
 # ── q5 分客群面板 ──
-SEG_ORDER = ["all", "invested", "first_inv", "new", "new_first_inv", "existing", "existing_reactivated", "existing_first_inv"]
+SEG_ORDER = ["all", "new_inv", "first_inv", "reinvested", "new", "new_first_inv", "existing", "existing_reactivated", "existing_first_inv"]
 items = [{"id": k, "population_accounts": I(sg[k]["pop"]),
           "new_accounts": I(sg[k]["new_cnt"]),
           "existing_accounts": I(sg[k]["pop"]) - I(sg[k]["new_cnt"]),

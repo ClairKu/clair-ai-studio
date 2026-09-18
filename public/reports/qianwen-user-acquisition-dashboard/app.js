@@ -175,8 +175,9 @@ const BUSINESS_STATS = {
 };
 const SEGMENTS = [
   { id: "all", label: "全部", note: "全部绑定用户" },
-  { id: "invested", label: "新投", note: "绑定后完成过产品买入（不含钱包充值）" },
-  { id: "first_inv", label: "首投", note: "人生第一笔投资发生在绑定之后" },
+  { id: "new_inv", label: "新投", note: "绑定后有新增投资，且绑定时无资产", legacy: null },
+  { id: "first_inv", label: "首投", note: "绑定后有新增投资，且绑定前没有投资过" },
+  { id: "reinvested", label: "再投", note: "绑定后有新增投资（产品买入，不含钱包充值）", legacy: "invested" },
   { id: "new", label: "新户", note: "在千问注册且慢帐号" },
   { id: "new_first_inv", label: "新户首投", note: "新户中完成首投" },
   { id: "existing", label: "老用户", note: "绑定时已有且慢账户" },
@@ -192,6 +193,7 @@ const viewState = {
   end: "",
   selectedDate: "",
   hoverDate: "",
+  customApplied: false,
   audienceCohort: "all",
   segment: "all",
 };
@@ -495,11 +497,11 @@ function renderHeroLead() {
   if (awakened?.state === "confirmed") tail.push(`老户唤回 ${number.format(awakened.population_accounts)} 人`);
   if (firstInvest?.state === "confirmed") tail.push(`绑定后首投 ${number.format(firstInvest.reached_accounts)} 人`);
   if (all?.state === "confirmed") {
-    tail.push(`带来新增入金 ${formatAmount(all.inflow_amount_wan)}`);
+    tail.push(`新增入金 ${formatAmount(all.inflow_amount_wan)}`);
     tail.push(`在管资产 ${formatAmount(all.total_asset_wan)}`);
   }
   const days = currentData.daily?.length || 0;
-  const head = `上线 ${days} 天累计绑定 ${number.format(m.bound_accounts)} 人，其中新用户 ${number.format(m.new_accounts)} 人（${formatShare(m.new_accounts, m.bound_accounts)}）在千问当场注册且慢`;
+  const head = `上线 ${days} 天累计绑定 ${number.format(m.bound_accounts)} 人，新用户 ${number.format(m.new_accounts)} 人（${formatShare(m.new_accounts, m.bound_accounts)}）当场注册且慢`;
   const mid = tail.length ? `；${tail.join("、")}` : "";
   node.textContent = `${head}${mid}。`;
 }
@@ -528,18 +530,25 @@ function decorateRows(rows) {
 function filteredRows() {
   if (!currentData) return [];
   let rows = currentData.daily;
+  const last = rows.at(-1)?.date || "";
   if (viewState.range === "since-launch") rows = rows.filter((row) => row.date >= LAUNCH_DAY);
+  if (viewState.range === "ytd") rows = rows.filter((row) => row.date >= `${last.slice(0, 4)}-01-01`);
+  if (viewState.range === "mtd") rows = rows.filter((row) => row.date >= `${last.slice(0, 7)}-01`);
+  if (viewState.range === "last-30") rows = rows.slice(-30);
   if (viewState.range === "last-7") rows = rows.slice(-7);
   if (viewState.range === "custom") rows = rows.filter((row) => row.date >= viewState.start && row.date <= viewState.end);
   return decorateRows(rows);
 }
 
 function scopeLabel(rows, short = false) {
-  if (viewState.range === "full-window") return short ? "全部区间" : `${formatDay(currentData.daily[0].date)}以来（含上线前灰度）`;
-  if (viewState.range === "since-launch") return short ? "上线以来" : "服务上线以来";
-  if (viewState.range === "last-7") return "近 7 日";
-  if (!rows.length) return "自定义日期";
-  return `${formatDay(rows[0].date)}—${formatDay(rows.at(-1).date)}`;
+  if (viewState.range === "full-window") return short ? "全部" : `${formatDay(currentData.daily[0].date)}以来（含上线前灰度）`;
+  if (viewState.range === "since-launch") return short ? "首发来" : "服务上线以来";
+  if (viewState.range === "ytd") return "今年来";
+  if (viewState.range === "mtd") return "本月来";
+  if (viewState.range === "last-30") return "近一月";
+  if (viewState.range === "last-7") return "近7日";
+  if (!rows.length) return "自订区间";
+  return short ? "自订" : `${formatDay(rows[0].date)}—${formatDay(rows.at(-1).date)}`;
 }
 
 function rangeTotals(rows) {
@@ -556,7 +565,8 @@ function renderSegmentPanel() {
   // 分客群面板：全窗口口径（锚在各用户自己的绑定时刻），不随上方时间范围联动。
   const items = currentData?.segments?.items || [];
   const meta = SEGMENTS.find((entry) => entry.id === viewState.segment) || SEGMENTS[0];
-  const item = items.find((entry) => entry.id === viewState.segment);
+  const item = items.find((entry) => entry.id === viewState.segment)
+    || (meta.legacy ? items.find((entry) => entry.id === meta.legacy) : null);
   const bound = currentData?.metrics?.bound_accounts || 0;
   const set = (selector, text) => { const node = $(selector); if (node) node.textContent = text; };
   const people = (n) => `${number.format(n)} 人`;
@@ -565,6 +575,7 @@ function renderSegmentPanel() {
     ["#seg-pop-share", "#seg-card-share", "#seg-risk-share", "#seg-inflow-people", "#seg-asset-people",
       "#seg-percapita-note", "#seg-pop-note", "#seg-card-note", "#seg-risk-note", "#seg-inflow-note",
       "#seg-asset-note", "#seg-percapita-small"].forEach((id) => set(id, "—"));
+    if (!item) set("#seg-pop-note", "该维度将在下一次自动刷新后产出");
     return;
   }
   const population = item.population_accounts;
@@ -581,10 +592,14 @@ function renderSegmentPanel() {
       const seg = (id) => lifecycle.buckets.find((b) => b.id === id)?.accounts ?? 0;
       popNote = `${number.format(seg("no_first_investment"))} 无首投 · ${number.format(seg("churned"))} 已流失 · ${number.format(seg("under_management"))} 在管`;
     }
-  } else if (viewState.segment === "invested") {
+  } else if (viewState.segment === "reinvested") {
     popNote = item.first_investor_accounts
       ? `绑定后有产品买入 · 其中 ${people(item.first_investor_accounts)}为人生首投`
       : meta.note;
+  } else if (viewState.segment === "new_inv") {
+    popNote = `绑定时零资产、绑定后买入产品 · 新户 ${number.format(item.new_accounts)} · 老户 ${number.format(item.existing_accounts)}`;
+  } else if (viewState.segment === "first_inv") {
+    popNote = `人生首笔投资在绑定后 · 新户 ${number.format(item.new_accounts)} · 老户 ${number.format(item.existing_accounts)}`;
   } else if (viewState.segment === "new_first_inv") {
     popNote = `新户中完成首投 · 占新户 ${formatShare(population, currentData.metrics?.new_accounts || 0)}`;
   } else if (viewState.segment === "existing_reactivated") {
@@ -632,7 +647,7 @@ function renderSegmentPanel() {
 
 function renderKpis(rows) {
   const totals = rangeTotals(rows);
-  const scope = scopeLabel(rows);
+  const scope = scopeLabel(rows, true);
   $("#bound-total").textContent = number.format(totals.bound);
   $("#new-accounts").textContent = number.format(totals.new);
   $("#existing-accounts").textContent = number.format(totals.existing);
@@ -852,8 +867,9 @@ function rowLabel(row) {
 // 读数条：默认停在最新一天的累计值；hover / 键盘移动时切换到对应日期。
 function renderReadout(row) {
   const isLatest = row.date === currentRows.at(-1)?.date;
-  $("#readout-label").textContent = isLatest ? "最新读数" : "该日读数";
-  $("#readout-date").textContent = rowLabel(row);
+  const dailyName = $("#chip-daily-name");
+  if (dailyName) dailyName.textContent = `${Number(row.date.slice(5, 7))}.${row.date.slice(8, 10)}新增`;
+  void isLatest;
   SERIES_ORDER.forEach((key) => {
     const value = row[SERIES[key].field];
     $(`#value-${key}`).textContent = `${key === "daily" ? "+" : ""}${number.format(value)}`;
@@ -965,7 +981,8 @@ function renderChart(rows) {
 }
 
 function metricCell(value, share, className, prefix = "") {
-  return `<td class="metric-cell ${className}"><strong>${prefix}${number.format(value)}</strong><small>${share}</small></td>`;
+  void share;
+  return `<td class="metric-cell ${className}"><strong>${prefix}${number.format(value)}</strong></td>`;
 }
 
 function renderTable(rows) {
@@ -1319,10 +1336,34 @@ function renderAudience({ announce = false } = {}) {
   if (announce) $("#audience-announcement").textContent = `已切换至${label}，共 ${population === null ? "未知" : number.format(population)} 人。`;
 }
 
+function shortDay(value) {
+  return `${Number(value.slice(5, 7))}/${value.slice(8, 10)}`;
+}
+
+function parseRangeInput(text) {
+  const m = String(text || "").trim().match(/^(\d{4})[\/.\-年](\d{1,2})[\/.\-月](\d{1,2})日?\s*[-–—~至到]\s*(\d{4})[\/.\-年](\d{1,2})[\/.\-月](\d{1,2})日?$/);
+  if (!m) return null;
+  const pad = (v) => String(v).padStart(2, "0");
+  const a = `${m[1]}-${pad(m[2])}-${pad(m[3])}`;
+  const b = `${m[4]}-${pad(m[5])}-${pad(m[6])}`;
+  if (Number.isNaN(Date.parse(a)) || Number.isNaN(Date.parse(b))) return null;
+  return [a, b];
+}
+
+function openRangeDialog() {
+  const dialog = $("#range-dialog");
+  if (!dialog || !currentData) return;
+  $("#range-input").value = `${viewState.start.replaceAll("-", "/")}-${viewState.end.replaceAll("-", "/")}`;
+  $("#range-error").textContent = "";
+  if (typeof dialog.showModal === "function") dialog.showModal(); else dialog.setAttribute("open", "");
+  window.requestAnimationFrame(() => $("#range-input").select());
+}
+
 function syncControls() {
   document.querySelectorAll('input[name="series"]').forEach((input) => { input.checked = viewState.visibleSeries.has(input.value); });
   document.querySelectorAll('input[name="range"]').forEach((input) => { input.checked = input.value === viewState.range; });
-  $("#custom-range").hidden = viewState.range !== "custom";
+  const customLabel = $("#range-custom-label");
+  if (customLabel) customLabel.textContent = viewState.customApplied ? `${shortDay(viewState.start)}–${shortDay(viewState.end)}` : "自订";
 }
 
 function renderView({ announce = false } = {}) {
@@ -1344,16 +1385,9 @@ function render(data) {
   currentData = validateData(data);
   const firstDate = currentData.daily[0].date;
   const lastDate = currentData.daily.at(-1).date;
-  const startInput = $("#range-start");
-  const endInput = $("#range-end");
-  startInput.min = firstDate;
-  startInput.max = lastDate;
-  endInput.min = firstDate;
-  endInput.max = lastDate;
   if (!viewState.start || viewState.start < firstDate || viewState.start > lastDate) viewState.start = firstDate;
   if (!viewState.end || viewState.end < firstDate || viewState.end > lastDate) viewState.end = lastDate;
-  startInput.value = viewState.start;
-  endInput.value = viewState.end;
+  $("#range-hint").textContent = `可选 ${firstDate.replaceAll("-", "/")} 至 ${lastDate.replaceAll("-", "/")}`;
   $("#range-error").textContent = "";
   document.documentElement.dataset.dataMode = "published";
   renderHeroLead();
@@ -1370,8 +1404,8 @@ function bindInteractions() {
     $("#selection-announcement").textContent = `${input.checked ? "已显示" : "已隐藏"}${SERIES[input.value].label}，当前显示 ${visibleCount} 项数据。`;
   }));
   document.querySelectorAll('input[name="range"]').forEach((input) => input.addEventListener("change", () => {
+    if (input.value === "custom") { openRangeDialog(); return; }
     viewState.range = input.value;
-    $("#range-error").textContent = "";
     renderView({ announce: true });
   }));
   document.querySelectorAll('input[name="segment"]').forEach((input) => input.addEventListener("change", () => {
@@ -1384,19 +1418,28 @@ function bindInteractions() {
     viewState.audienceCohort = input.value;
     renderAudience({ announce: true });
   }));
-  $("#custom-range").addEventListener("submit", (event) => {
+  $("#range-form").addEventListener("submit", (event) => {
     event.preventDefault();
-    const start = $("#range-start").value;
-    const end = $("#range-end").value;
-    if (!start || !end || start > end) {
-      $("#range-error").textContent = "开始日期不能晚于结束日期。";
-      return;
-    }
+    const parsed = parseRangeInput($("#range-input").value);
+    const firstDate = currentData.daily[0].date;
+    const lastDate = currentData.daily.at(-1).date;
+    if (!parsed) { $("#range-error").textContent = "格式应为 YYYY/MM/DD-YYYY/MM/DD。"; return; }
+    let [start, end] = parsed;
+    if (start > end) { $("#range-error").textContent = "开始日期不能晚于结束日期。"; return; }
+    if (end < firstDate || start > lastDate) { $("#range-error").textContent = `区间需与 ${firstDate.replaceAll("-", "/")}–${lastDate.replaceAll("-", "/")} 有交集。`; return; }
+    start = start < firstDate ? firstDate : start;
+    end = end > lastDate ? lastDate : end;
     viewState.start = start;
     viewState.end = end;
+    viewState.range = "custom";
+    viewState.customApplied = true;
     $("#range-error").textContent = "";
+    $("#range-dialog").close();
     renderView({ announce: true });
   });
+  $("#range-cancel").addEventListener("click", () => $("#range-dialog").close());
+  $("#range-dialog").addEventListener("close", () => syncControls());
+  $("#range-dialog").addEventListener("click", (event) => { if (event.target === $("#range-dialog")) $("#range-dialog").close(); });
   window.addEventListener("resize", () => {
     window.clearTimeout(resizeTimer);
     resizeTimer = window.setTimeout(() => renderView(), 140);

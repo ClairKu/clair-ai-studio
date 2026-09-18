@@ -193,7 +193,7 @@ for key, cohorts in (("behavior", behavior_cohorts), ("business", business_cohor
                 "anchor": "first_bound_at", "cohorts": cohorts}
 
 # ── 分客群面板（8 维度 × 6 指标）──
-SEG_IDS = ["all", "invested", "first_inv", "new", "new_first_inv", "existing", "existing_reactivated", "existing_first_inv"]
+SEG_IDS = ["all", "new_inv", "first_inv", "reinvested", "new", "new_first_inv", "existing", "existing_reactivated", "existing_first_inv"]
 SEG_POP = {"all": metrics["bound_accounts"], "existing": metrics["existing_accounts"],
            "new": metrics["new_accounts"]}
 seg_items = []
@@ -234,6 +234,8 @@ for item in q5["items"]:
             raise SystemExit(f"segments.{sid}.{key} 超过该维度人数")
     seg_items.append(entry)
 assert [x["id"] for x in seg_items] == SEG_IDS, [x["id"] for x in seg_items]
+_pop = {x["id"]: x["population_accounts"] for x in seg_items}
+assert _pop["new_inv"] <= _pop["reinvested"] and _pop["first_inv"] <= _pop["reinvested"], _pop
 out["segments"] = {"anchor": "first_bound_at", "window_end_at": cutoff, "items": seg_items}
 
 json.dump(out, open(HERE / "latest.new.json", "w"), ensure_ascii=False, indent=2)

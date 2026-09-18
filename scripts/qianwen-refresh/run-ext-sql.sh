@@ -118,7 +118,7 @@ print(f"[zeroatbind] 候选 {len(rows)}，绑定时有资产 {nonzero}")
 PYEOF
 NZ=$(cat "$W/nonzero-ids.txt")
 
-# 分客群面板 v3：8 维度。新投=绑定后有产品买入；首投=人生首笔投资在绑定后；
+# 分客群面板 v4：9 维度。新投=绑定后有产品买入且绑定时无资产；首投=人生首笔投资在绑定后；再投=绑定后有产品买入；
 # 老户唤回=老户中绑定时零资产（未投过或已清仓）且绑定后重新入金；新户/老户首投=按客群拆首投。
 Q segments 900 "SELECT s.seg, COUNT(*) pop, SUM(u.cohort='new') new_cnt,
   SUM(u.card) card_bound, SUM(u.opened_after) opened_after, SUM(u.assessed) assessed, SUM(u.risk_after) risk_after,
@@ -141,16 +141,17 @@ LEFT JOIN (SELECT t.user_id, SUM($INFLOW_CASE) inflow,
   FROM qm_meta.trade_detail t JOIN (SELECT user_id AS pmid, MIN(created_at) AS fb FROM ying99_qieman.qwen_user_map WHERE is_deleted=0 GROUP BY user_id) bb ON bb.pmid=t.user_id
   WHERE t.canceled=0 AND t.accept_time>=bb.fb AND t.accept_time<'$CUT' GROUP BY t.user_id) f ON f.user_id=u.pmid
 LEFT JOIN $ASSET_AD a ON a.account3_id=u.account3_id AND u.account3_id<>1002
-JOIN (SELECT 'all' seg UNION ALL SELECT 'invested' UNION ALL SELECT 'first_inv' UNION ALL SELECT 'new' UNION ALL SELECT 'new_first_inv'
+JOIN (SELECT 'all' seg UNION ALL SELECT 'new_inv' UNION ALL SELECT 'first_inv' UNION ALL SELECT 'reinvested' UNION ALL SELECT 'new' UNION ALL SELECT 'new_first_inv'
       UNION ALL SELECT 'existing' UNION ALL SELECT 'existing_reactivated' UNION ALL SELECT 'existing_first_inv') s
   ON s.seg='all'
-  OR (s.seg='invested' AND u.reinvested)
+  OR (s.seg='new_inv' AND u.reinvested AND u.pmid NOT IN ($NZ))
   OR (s.seg='first_inv' AND u.first_inv)
+  OR (s.seg='reinvested' AND u.reinvested)
   OR (s.seg='new' AND u.cohort='new')
   OR (s.seg='new_first_inv' AND u.cohort='new' AND u.first_inv)
   OR (s.seg='existing' AND u.cohort='existing')
   OR (s.seg='existing_reactivated' AND u.cohort='existing' AND COALESCE(f.inflow,0)>0 AND u.pmid NOT IN ($NZ))
   OR (s.seg='existing_first_inv' AND u.cohort='existing' AND u.first_inv)
-GROUP BY s.seg ORDER BY FIELD(s.seg,'all','invested','first_inv','new','new_first_inv','existing','existing_reactivated','existing_first_inv')" || fails=$((fails+1))
+GROUP BY s.seg ORDER BY FIELD(s.seg,'all','new_inv','first_inv','reinvested','new','new_first_inv','existing','existing_reactivated','existing_first_inv')" || fails=$((fails+1))
 
 [ $fails -eq 0 ] && echo "扩展取数全部完成" || { echo "扩展取数有 $fails 段失败"; exit 1; }

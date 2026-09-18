@@ -30,6 +30,55 @@ g_bill = {}
 for r in m_bill: g_bill.setdefault(str(r["account3_id"]), []).append(r)
 sa_meta = {r["service_account_id"]: r.get("meta") for r in m_meta}
 m_fo_all = load("m_fundorders.json")
+# 神策埋点（qm_meta.ai_insight_sensors_event_detail）：lib=iOS/Android/HarmonyOS 为 App 原生页，js 为内嵌 H5
+m_sens = load("m_sensors.json")
+g_sens = {}
+for r in m_sens: g_sens.setdefault(str(r["broker_user_id"]), []).append(r)
+PAGE_MAP = {
+  "HomePage": "首页", "rayleigh.RNHomePage": "首页", "MainFragment": "首页",
+  "rayleigh.AssetsHomePage": "资产页", "AssetsPage": "资产页", "AssetFragmentV2": "资产页", "总资产": "资产页",
+  "rayleigh.UserInfoPage": "我的", "MinePage": "我的", "MineFragment": "我的",
+  "rayleigh.M4NewHomePage": "投顾页", "AdvisorPage": "投顾页", "M4Fragment": "投顾页", "投顾": "投顾页",
+  "rayleigh.FindPage": "发现页", "rayleigh.FindRecommandPage": "发现页", "DiscoverPage": "发现页",
+  "rayleigh.NotificationPage": "通知", "rayleigh.NormalRoleNotifyPage": "通知",
+  "rayleigh.GeneralSearchPage": "搜索页", "SearchFragment": "搜索页",
+  "rayleigh.POBuyPage": "策略买入页", "PoDepositPage": "策略转入页", "DepositFragment": "策略转入页",
+  "rayleigh.POBuyWithAIPResultPage": "下单结果", "PoDepositResultPage": "下单结果",
+  "SmartAIPWithBuyPage": "定投买入页", "POAIPWithBuyPage": "定投买入页", "YMTradeModule.WalletAIPPage": "盈米宝定投",
+  "YMTradeModule.AIPDetailPage": "定投详情", "YMCommonModule.POAIPPickerPage": "定投设置", "YMCommonModule.QMUserRiskTipPage": "风险提示",
+  "rayleigh.AdvisorFeesPOPPage": "投顾服务费说明",
+  "YMTradeRecordModule.QMTotalAssetRecordPage": "交易记录", "TotalAssetRecordPage": "交易记录", "YMTradeRecordModule.BaseRecordDetailPage": "交易详情",
+  "YMTradeModule.WalletRechargePage": "盈米宝充值页", "WalletDepositFragment": "盈米宝充值页", "YMTradeModule.WalletRechargeResultPage": "充值结果",
+  "rayleigh.SuperWalletAssetPage": "盈米宝资产页",
+  "rayleigh.CreateAssetsAccount": "新增投资账户", "rayleigh.CreateAssetsAccountSuccessPage": "新增账户成功",
+  "rayleigh.ListAssetsAccount": "账户列表", "AssetUmaListFragment": "账户列表", "rayleigh.UMADetailPage": "账户详情", "UmaDetailFragment": "账户详情",
+  "UploadIdentityCardPage": "开户-上传身份证", "BindingBankCardPage": "开户-绑卡", "CreateFundAccountGuidePage": "开户引导",
+  "IdentityAuthenticationPage": "实名认证", "TXSSOLoginViewController": "登录",
+  "PoDetailPage": "组合详情", "CreatePoFundSearchPage": "创建组合-搜基金", "CreatePoPage": "创建组合",
+  "FollowedProductsPage": "关注的产品", "MyPoFragment": "管理的策略",
+}
+SKIP_PAGES = {"rayleigh.CachedWebViewPage", "rayleigh.WebViewPage", "rayleigh.MicroAppWebPage", "WebViewPage", "WebPage", "MicroappPage",
+              "LaunchPage", "FormInputPage", "TOCropViewController", "rayleigh.PreRequestPushPage", "rayleigh.QMStyledAlertPresentationContainerPage",
+              "WebViewNavFragment", "闪屏页", "", "?"}
+def norm_page(x):
+    raw = (x.get("page_name") or x.get("screen_name") or x.get("title") or "").strip()
+    if raw in PAGE_MAP: return PAGE_MAP[raw]
+    if raw in SKIP_PAGES: return None
+    if "|" in raw: raw = raw.split("|")[-1].split(".")[-1]
+    if raw in PAGE_MAP: return PAGE_MAP[raw]
+    if raw in SKIP_PAGES: return None
+    if _re.fullmatch(r"测评第\d+题", raw): return "风险测评答题"
+    if _re.fullmatch(r"[\d\W]+", raw): return None
+    if _re.search(r"[\u4e00-\u9fff]", raw): return raw
+    if raw.startswith("_TtCC8rayleigh17GeneralSearchPage"): return "搜索结果"
+    return None  # 其余英文类名：不可读，丢弃
+def norm_event(x):
+    page = norm_page(x)
+    el = (x.get("element_content") or "").strip() or None
+    if x["event_category"] == "浏览" and not page: return None
+    if el and len(el) > 14 and "-" in el: el = el.split("-")[0].strip() or el
+    if el and len(el) > 22: el = el[:22] + "…"
+    return {"t": x["event_time"][:19], "lib": x["lib"], "k": "view" if x["event_category"] == "浏览" else "click", "p": page, "e": el}
 import re as _re
 def po_from_meta(meta):
     m = _re.search(r'"po_code"\s*:\s*"([A-Z0-9_]+)"', meta or "") or _re.search(r'(ZH\d{6}|SI\d{6})', meta or "")
@@ -76,6 +125,17 @@ for c in sorted(cand, key=lambda c: c["fb"]):
         "new_first_invest": bool(c["cohort"] == "new" and buys),
     }
     n = narr.get(pmid, {})
+    # 埋点：绑定前 7 天起到截止时间
+    ev = []
+    lo = (fb - __import__("datetime").timedelta(days=7)).strftime("%Y-%m-%dT%H:%M:%S")
+    for x in sorted(g_sens.get(pmid, []), key=lambda r: r["event_time"]):
+        if x["event_time"][:19] < lo or x["event_time"][:16] > CUT.replace(" ", "T"): continue
+        e = norm_event(x)
+        if e: ev.append(e)
+    # 入金（看板口径）：线上/线下充值到盈米宝 + 银行卡直付买入
+    inflow_txns = sorted([t for t in after if (t["trade_type"] == "wallet.recharge" and (t["extra"] or "") in ("by.online", "by.offline") and float(t["buy"] or 0) > 0)
+                          or (t["trade_type"] != "wallet.recharge" and (t["extra"] or "") == "from.card" and float(t["buy"] or 0) > 0)],
+                         key=lambda t: t["accept_time"])
     # 小顾入口
     sess = g_sess.get(pmid, [])
     mia = sorted(g_mia.get(pmid, []), key=lambda r: r["create_time"])
@@ -127,7 +187,8 @@ for c in sorted(cand, key=lambda c: c["fb"]):
         "risk": [{"created_at": r["created_at"], "score": r["score"]} for r in sorted(g_risk.get(a3, []), key=lambda r: r["created_at"])] if a3 else [],
         "trades": tr,
         "asks": [{"ts": q["ts"], "text": q["text"], "session_id": str(q["session_id"])} for q in g_asks.get(pmid, [])],
-        "asset_latest": asset_latest, "channels": channels, "holdings": holdings, "fund_detail": fund_detail, "holdings_meta": holdings_meta,
+        "asset_latest": asset_latest, "channels": channels, "events": ev,
+        "inflow_txns": [{"t": t["accept_time"], "amt": float(t["buy"]), "kind": "充值" if t["trade_type"] == "wallet.recharge" else "银行卡买入"} for t in inflow_txns], "holdings": holdings, "fund_detail": fund_detail, "holdings_meta": holdings_meta,
         "flags": flags,
         "derived": {"buys_after": len(buys), "buy_amount_after": sum(float(t["buy"]) for t in buys), "inflow_after": inflow,
                     "sell_after": sell, "first_buy_after": first_buy_after, "cancels_after": cancels,
