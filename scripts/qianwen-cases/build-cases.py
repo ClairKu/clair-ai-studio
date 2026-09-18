@@ -369,8 +369,8 @@ def card(u):
             f'      <button type="button" class="ctab" role="tab" aria-selected="true" data-panel="journey">关键旅程</button>\n'
             f'      <button type="button" class="ctab" role="tab" aria-selected="false" data-panel="behavior">且慢行为</button>\n'
             f'    </div>\n'
-            f'    <div class="cpanel" data-panel="journey">\n    <ul class="tl">\n{timeline(u)}\n    </ul>\n    </div>\n'
-            f'    <div class="cpanel" data-panel="behavior" hidden>\n    {behavior_panel(u)}\n    </div>\n'
+            f'    <div class="cpanel" data-panel="journey" role="region" aria-label="关键旅程内容" tabindex="0">\n    <ul class="tl">\n{timeline(u)}\n    </ul>\n    </div>\n'
+            f'    <div class="cpanel" data-panel="behavior" role="region" aria-label="且慢行为内容" tabindex="0" hidden>\n    {behavior_panel(u)}\n    </div>\n'
             f'    {path_summary(u)}\n'
             f'    {holdings_block(u)}\n'
             f'    <div class="case-foot">\n'
@@ -487,6 +487,9 @@ html,body{max-width:100%}
 .ctab{font:inherit;font-size:14px;font-weight:600;padding:8px 2px 10px;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;background:transparent;color:var(--ink-3);cursor:pointer}
 .ctab:hover{color:var(--ink)}
 .ctab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--blue-deep)}
+.cpanel{height:clamp(380px,56vh,620px);overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable;
+  padding:0 12px 10px 2px;scrollbar-color:var(--rule-2) transparent}
+.cpanel:focus-visible{outline:2px solid rgba(115,87,232,.35);outline-offset:4px;border-radius:6px}
 .tl.beh .t{min-width:118px;color:var(--ink-3)}
 .tl.beh li.day .t{min-width:0;display:inline;font-weight:800;color:var(--blue-deep)}
 .tl.beh li .d{color:var(--ink-2);font-size:13.5px}
@@ -514,6 +517,7 @@ html,body{max-width:100%}
   .sumrow{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
   .cases-h{display:flex;align-items:center;flex-wrap:wrap;gap:6px}
   .cases-h .muted{margin-left:0}
+  .cpanel{height:clamp(300px,52svh,460px);padding-right:8px}
 }
 </style>
 <script>
