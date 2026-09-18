@@ -1,7 +1,23 @@
 # 千问看板数据刷新（qianwen-user-acquisition-dashboard）
 
-半自动流程：SQL 取数 → 整理成 q1..q4.json → 组装校验 → worktree 重放 → API 推送。
-整轮约 15 分钟。历史沿革与口径详证见 research/qianwen-user-acquisition-dashboard-2026-08-17.md。
+## 自动更新（默认）
+
+本机 launchd 任务 `com.clair.qianwen-auto-refresh` 每日 **09:30 / 17:30** 调起
+`auto-refresh.sh`：取数（redash 直连 dw-tidb）→ 整理 → 组装校验 → 加密构建 → API 推送 → 校验 Pages 上线。
+页面右上角只展示节奏，没有手动刷新按钮（加密单页内联数据，前端刷不动）。
+
+```bash
+npm run install:qianwen-refresh           # 安装/更新定时任务（幂等，会顺手下掉旧的按钮服务）
+launchctl kickstart gui/$(id -u)/com.clair.qianwen-auto-refresh   # 立刻手动跑一轮
+tail -f ~/Library/Logs/Clair\ AI\ Studio/qianwen-refresh/latest.log   # 看进度
+cat ~/Library/Application\ Support/Clair\ AI\ Studio/qianwen-refresh/status.json   # 上次结果
+```
+
+前置：这台机器在内网/VPN（redash 可达）、`~/.zshrc` 有 `REDASH_API_KEY`、`gh auth` 已登录。
+失败会弹 macOS 通知并写 status.json（ok=false + 原因）；不会发布半成品——任一步校验不过就终止。
+子脚本一律从 origin/main 的临时 worktree 取，主克隆落后也不影响。
+
+## 手动流程（自动任务的展开形式，排障时用）
 
 ## 流程
 

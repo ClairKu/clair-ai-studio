@@ -1,9 +1,7 @@
 const DATA_URL = "./data/latest.json";
-const LOCAL_REFRESH_BASES = ["http://127.0.0.1:43123", "http://127.0.0.1:43122"];
-const REFRESH_POLL_MS = 3000;
-const REFRESH_TIMEOUT_MS = 45 * 60 * 1000;
-const PUBLISHED_POLL_MS = 5000;
-const PUBLISHED_TIMEOUT_MS = 5 * 60 * 1000;
+// 数据由本机 launchd 定时任务（scripts/qianwen-refresh/auto-refresh.sh）取数、构建并发布，
+// 页面本身只读；这里只把发布节奏告诉读者。
+const REFRESH_SCHEDULE = ["09:30", "17:30"];
 const SCHEMA_VERSION = "qianwen-user-acquisition-v6";
 const LAUNCH_AT = "2026-08-10T08:00:00+08:00";
 const WINDOW_START_AT = "2026-08-03T00:00:00+08:00";
@@ -474,160 +472,9 @@ function setNotice(message) {
   $("#refresh-status").textContent = message;
 }
 
-function setRefreshButtonLoading(loading) {
-  const button = $("#data-refresh-button");
-  button.disabled = loading;
-  button.setAttribute("aria-busy", String(loading));
-  button.querySelector("span").textContent = loading ? "更新中" : "更新数据";
-}
-
-const pause = (milliseconds) => new Promise((resolve) => window.setTimeout(resolve, milliseconds));
-
-async function callRefreshService(path, init = {}) {
-  let response;
-  let connectionError;
-  for (const base of LOCAL_REFRESH_BASES) {
-    try {
-      response = await fetch(`${base}${path}`, {
-        cache: "no-store",
-        ...init,
-        headers: {
-          "Content-Type": "application/json",
-          ...(init.headers || {}),
-        },
-      });
-      break;
-    } catch (error) {
-      connectionError = error;
-    }
-  }
-  if (!response) throw connectionError || new Error("无法连接本机更新服务");
-  const body = await response.json().catch(() => ({}));
-  if (!response.ok && !(response.status === 409 && body.run_id)) {
-    const error = new Error(body.summary || body.error || `更新服务返回 ${response.status}`);
-    error.status = response.status;
-    throw error;
-  }
-  return body;
-}
-
-async function waitForRefresh(runId) {
-  const deadline = Date.now() + REFRESH_TIMEOUT_MS;
-  while (Date.now() < deadline) {
-    await pause(REFRESH_POLL_MS);
-    const state = await callRefreshService(`/status?run_id=${encodeURIComponent(runId)}`);
-    if (state.status === "running") {
-      setNotice(state.summary || "正在从生产数据源重新取数…");
-      continue;
-    }
-    return state;
-  }
-  throw new Error("实时更新仍在后台执行，请稍后再点一次查看结果。");
-}
-
-async function waitForPublishedData(expectedCutoff, previousCutoff) {
-  const deadline = Date.now() + PUBLISHED_TIMEOUT_MS;
-  while (Date.now() < deadline) {
-    const data = await loadPublishedData({ allowFallback: false });
-    const cutoff = data.meta.data_cutoff;
-    if (
-      (expectedCutoff && parseTime(cutoff) >= parseTime(expectedCutoff))
-      || (!expectedCutoff && cutoff !== previousCutoff)
-    ) return data;
-    setNotice("新快照已生成，正在等待生产页面发布…");
-    await pause(PUBLISHED_POLL_MS);
-  }
-  throw new Error("新快照已生成，但生产页面尚未完成发布，请稍后再试。");
-}
-
-async function refreshPublishedData() {
-  const previousCutoff = currentData?.meta?.data_cutoff;
-  setRefreshButtonLoading(true);
-  setFreshness("loading", "正在更新数据");
-  setNotice("正在启动生产数据刷新…");
-  try {
-    let state = await callRefreshService("/refresh", {
-      method: "POST",
-      headers: { "X-Qianwen-Action": "refresh-v1" },
-      body: JSON.stringify({
-        schema: "qianwen-user-acquisition-refresh/v1",
-        published_cutoff: previousCutoff || null,
-      }),
-    });
-    if (state.status === "running") state = await waitForRefresh(state.run_id);
-    if (state.status === "blocked") throw new Error(state.summary || "生产数据刷新受阻。");
-    const data = state.status === "updated"
-      ? await waitForPublishedData(state.data_cutoff, previousCutoff)
-      : await loadPublishedData({ allowFallback: false });
-    render(data);
-    const changed = previousCutoff && previousCutoff !== data.meta.data_cutoff;
-    const summary = state.summary ? `${state.summary} ` : "";
-    setNotice(changed
-      ? `${summary}数据已更新至 ${formatCutoff(data.meta.data_cutoff)}`
-      : `${summary}已是最新数据（截至 ${formatCutoff(data.meta.data_cutoff)}）`);
-  } catch (error) {
-    try {
-      const data = await loadPublishedData({ allowFallback: false });
-      if (!currentData || data.meta.data_cutoff !== currentData.meta.data_cutoff) render(data);
-    } catch {
-      // 保留已经通过校验的当前快照。
-    }
-    if (currentData) setFreshness("ready", `数据截至 ${formatCutoff(currentData.meta.data_cutoff)}`);
-    else setFreshness("error", "数据读取失败");
-    const serviceUnavailable = error instanceof TypeError;
-    setNotice(serviceUnavailable
-      ? "实时更新服务未启动；当前展示最近发布数据。"
-      : `更新未完成：${error?.message || "当前数据已保留，请稍后重试。"}`);
-  } finally {
-    setRefreshButtonLoading(false);
-  }
-}
-
-function decorateRows(rows) {
-  let cumulativeNew = 0;
-  let cumulativeExisting = 0;
-  let cumulativeUnclassified = 0;
-  let cumulativeBound = 0;
-  return rows.map((row) => {
-    cumulativeNew += row.new_accounts_today;
-    cumulativeExisting += row.existing_accounts_today;
-    cumulativeUnclassified += row.unclassified_accounts_today;
-    cumulativeBound += row.bound_accounts_today;
-    return {
-      ...row,
-      window_cumulative_new: cumulativeNew,
-      window_cumulative_existing: cumulativeExisting,
-      window_cumulative_unclassified: cumulativeUnclassified,
-      window_cumulative_bound: cumulativeBound,
-    };
-  });
-}
-
-function filteredRows() {
-  if (!currentData) return [];
-  let rows = currentData.daily;
-  if (viewState.range === "since-launch") rows = rows.filter((row) => row.date >= LAUNCH_DAY);
-  if (viewState.range === "last-7") rows = rows.slice(-7);
-  if (viewState.range === "custom") rows = rows.filter((row) => row.date >= viewState.start && row.date <= viewState.end);
-  return decorateRows(rows);
-}
-
-function scopeLabel(rows, short = false) {
-  if (viewState.range === "full-window") return short ? "全部区间" : `${formatDay(currentData.daily[0].date)}以来（含上线前灰度）`;
-  if (viewState.range === "since-launch") return short ? "上线以来" : "服务上线以来";
-  if (viewState.range === "last-7") return "近 7 日";
-  if (!rows.length) return "自定义日期";
-  return `${formatDay(rows[0].date)}—${formatDay(rows.at(-1).date)}`;
-}
-
-function rangeTotals(rows) {
-  const latest = rows.at(-1);
-  return latest ? {
-    bound: latest.window_cumulative_bound,
-    new: latest.window_cumulative_new,
-    existing: latest.window_cumulative_existing,
-    unclassified: latest.window_cumulative_unclassified,
-  } : { bound: 0, new: 0, existing: 0, unclassified: 0 };
+function renderRefreshSchedule() {
+  const node = $("#refresh-schedule");
+  if (node) node.textContent = `每日 ${REFRESH_SCHEDULE.join(" / ")} 自动更新`;
 }
 
 function renderSegmentPanel() {
@@ -1402,11 +1249,11 @@ function render(data) {
   endInput.value = viewState.end;
   $("#range-error").textContent = "";
   document.documentElement.dataset.dataMode = "published";
+  renderRefreshSchedule();
   renderView();
 }
 
 function bindInteractions() {
-  $("#data-refresh-button").addEventListener("click", refreshPublishedData);
   document.querySelectorAll('input[name="series"]').forEach((input) => input.addEventListener("change", () => {
     if (input.checked) viewState.visibleSeries.add(input.value);
     else viewState.visibleSeries.delete(input.value);

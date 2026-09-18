@@ -9,7 +9,7 @@
     "audit:history": "node scripts/audit-report-history.mjs",
     "package:reports": "node scripts/package-recent-reports.mjs",
     "install:pain-off-refresh": "node scripts/install-product-demand-pulse-refresh.mjs",
-    "install:qianwen-refresh": "node scripts/install-qianwen-user-acquisition-refresh.mjs",
+    "install:qianwen-refresh": "zsh scripts/qianwen-refresh/install-auto-refresh.sh",
     "sync:oap-channels": "node scripts/sync-oap-channel-attribution.mjs",
     "sync:doubao-qieman": "node scripts/sync-doubao-qieman-user-dashboard.mjs",
     "validate:oap-channels": "node scripts/validate-oap-channel-attribution.mjs",

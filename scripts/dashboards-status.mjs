@@ -24,7 +24,7 @@ const DASHBOARDS = [
     data: path.join(root, "public/reports/qianwen-user-acquisition-dashboard/data/latest.json"),
     time: (d) => d.meta?.generated_at,
     mechanism: "半自动：scripts/qianwen-refresh/（runbook 见其 README）+ 本机刷新服务",
-    launchd: ["com.clair.qianwen-user-acquisition-refresh"],
+    launchd: ["com.clair.qianwen-auto-refresh"],
     staleHours: 24 * 4,
   },
   {
