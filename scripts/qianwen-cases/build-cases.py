@@ -304,17 +304,11 @@ def decision_chain_panel(u):
                 first = after_pages[0]
                 steps.append(("after", "投后回看", chain_time(first["t"]), f'回到“{short_quote(first.get("p"), 26)}”查看状态'))
 
-    insight = esc(u.get("behavior_insight") or "该个案尚未完成行为特性研判。")
-    route_label = esc(u.get("conversion_path_label") or "待研判")
-    route_steps = [step.strip() for step in str(u.get("conversion_path") or "").split("→") if step.strip()]
-    route_html = "".join(f'<li>{esc(step)}</li>' for step in route_steps)
     rows = "".join(
         f'<li class="decision-step {kind}"><time>{esc(when)}</time><div><b>{esc(label)}</b><p>{esc(detail)}</p></div></li>'
         for kind, label, when, detail in steps[:5]
     )
-    return (f'<div class="conversion-route"><div class="route-title"><span>转化路径</span><b>{route_label}</b></div><ol>{route_html}</ol></div>'
-            f'<div class="behavior-verdict"><span>行为判断</span><p>{insight}</p></div>'
-            f'<div class="decision-head"><h4>主要下单决策链</h4><small>按可验证时序提炼</small></div>'
+    return (f'<div class="decision-head"><h4>主要下单决策链</h4><small>按可验证时序提炼</small></div>'
             f'<ol class="decision-chain">{rows}</ol>'
             f'<p class="decision-caveat">链路表示行为先后与伴随关系，用于定位关键承接点；不能单独证明某次提问或某个页面造成了下单。</p>')
 
@@ -457,7 +451,7 @@ def holdings_block(u):
         if dt(t["accept_time"]) >= fb and not t["canceled"] and t["trade_type"] != "wallet.recharge" and t["buy"] and float(t["buy"]) > 0:
             buy_by_po[t["po_code"]] = buy_by_po.get(t["po_code"], 0) + float(t["buy"])
     if not hs and not fd:
-        return '<div class="sub-block"><h4>最终持有</h4><p class="muted tight">资产表尚无该账户持仓行（当日成交，次日批次体现）。</p></div>'
+        return '<div class="deposit-products"><h4>入金产品</h4><p class="muted tight">资产表尚无该账户持仓行（当日成交，次日批次体现）。</p></div>'
     wallet_keep = max(float(d["inflow_after"] or 0) - sum(buy_by_po.values()), 0)
     rows = ""; tot_in = 0; tot_v = 0
     for h in hs:
@@ -479,7 +473,7 @@ def holdings_block(u):
         basis = f'{hm.get("bill_month")} 月末账单市值' if hm.get("bill_month") else "绑定后子订单成功金额（未扣净值波动）"
         fund_html = (f'<p class="tight muted">穿透到基金（{basis}，前 {len(top)} 只{f"，另 {more} 只未列" if more > 0 else ""}'
                      f'{f"；盈米宝货币基金 {money(wallet)} 元" if wallet else ""}）</p><ul class="funds">{items}</ul>')
-    return f'<div class="sub-block"><h4>最终持有</h4><p class="tight muted">入金金额：各产品为绑定后买入金额，盈米宝为充值后仍留在钱包的部分。</p>{tbl}{fund_html}</div>'
+    return f'<div class="deposit-products"><div class="deposit-head"><h4>入金产品</h4><span>买入去向与当前状态</span></div><p class="tight muted">各产品入金金额为绑定后买入金额；盈米宝为充值后仍留在钱包的部分。</p>{tbl}{fund_html}</div>'
 
 def case_insight(u):
     if u.get("insight"):
@@ -489,6 +483,17 @@ def case_insight(u):
         return esc(re.split(r"[。！？]", plain, maxsplit=1)[0] + "。")
     return "该个案暂缺足够证据，尚不能定义其主要特征。"
 
+def case_overview(u):
+    route_label = esc(u.get("conversion_path_label") or "待研判")
+    route_steps = [step.strip() for step in str(u.get("conversion_path") or "").split("→") if step.strip()]
+    route_html = "".join(f'<li>{esc(step)}</li>' for step in route_steps)
+    behavior = esc(u.get("behavior_insight") or "该个案尚未完成行为特性研判。")
+    return (f'<section class="case-overview" aria-label="案例判断与转化分析">'
+            f'<div class="case-verdict"><span>案例判断</span><p>{case_insight(u)}</p></div>'
+            f'<div class="case-analysis"><div class="route-title"><span>转化路径</span><b>{route_label}</b></div>'
+            f'<p class="analysis-copy">{behavior}</p><ol class="overview-route">{route_html}</ol></div>'
+            f'</section>')
+
 def card(u):
     gender = "男" if u["gender"] == "M" else "女" if u["gender"] == "F" else "性别未知"
     who = f'{u["age"]} 岁 · {esc(u.get("surname") or "")}{gender}'
@@ -496,7 +501,6 @@ def card(u):
     app_download = min(app_dates) if app_dates else None
     risk_score = u["risk"][-1]["score"] if u.get("risk") else "—"
     tags = [
-        f'<span class="tag route-tag">路径 · {esc(u.get("conversion_path_label") or "待研判")}</span>',
         f'<span class="tag">千问绑定 {fmt_badge_date(u["fb"])}</span>',
         f'<span class="tag">下载 App {fmt_badge_date(app_download)}</span>',
         f'<span class="tag">首投 {fmt_badge_date(u.get("first_buy_ever"))}</span>',
@@ -510,16 +514,17 @@ def card(u):
             f'    {"".join(tags)}\n'
             f'    <button type="button" class="icon-btn copy-id" data-copy="{u["pmid"]}" title="复制用户 ID" aria-label="复制用户 ID">{copy_svg}</button>\n'
             f'  </div>\n'
-            f'  <div class="case-insight" aria-label="个案洞察"><span class="case-insight-mark" aria-hidden="true">“</span><p>{case_insight(u)}</p></div>\n'
+            f'  {case_overview(u)}\n'
             f'  <div class="case-body">\n'
             f'    {top_stats(u)}\n'
             f'    <div class="ctabs" role="tablist" aria-label="历程切换">\n'
             f'      <button type="button" class="ctab" role="tab" aria-selected="true" data-panel="journey">关键旅程</button>\n'
             f'      <button type="button" class="ctab" role="tab" aria-selected="false" data-panel="behavior">且慢行为</button>\n'
+            f'      <button type="button" class="ctab" role="tab" aria-selected="false" data-panel="products">入金产品</button>\n'
             f'    </div>\n'
             f'    <div class="cpanel" data-panel="journey" role="region" aria-label="关键旅程内容" tabindex="0">\n    <ul class="tl journey-tl">\n{timeline(u)}\n    </ul>\n    </div>\n'
             f'    <div class="cpanel" data-panel="behavior" role="region" aria-label="且慢行为内容" tabindex="0" hidden>\n    {behavior_panel(u)}\n    </div>\n'
-            f'    {holdings_block(u)}\n'
+            f'    <div class="cpanel" data-panel="products" role="region" aria-label="入金产品内容" tabindex="0" hidden>\n    {holdings_block(u)}\n    </div>\n'
             f'  </div>\n'
             f'</div>')
 
@@ -809,11 +814,17 @@ page = f'''<!doctype html>
   .case-head .who{{color:#1e2233;font-size:20px;font-weight:800}}
   .case-head .badge{{width:25px;height:25px;border-color:#c9c2ed;background:#fff;color:#4e38ac;font-weight:800}}
   .case-head .tag{{padding:4px 10px;border-color:#d4d0e9;background:rgba(255,255,255,.78);color:#4d5266;font-size:11.5px;font-weight:700}}
-  .case-head .route-tag{{border-color:#c8c0ef;background:#e9e5fb;color:#4b36ad}}
   .case-body{{padding:18px 24px 24px}}
-  .case-insight{{display:grid;grid-template-columns:26px minmax(0,1fr);align-items:start;gap:8px;margin:0;padding:15px 24px 16px;border-bottom:1px solid #d8dbea;background:linear-gradient(90deg,#f8f6ff 0%,#fbfaff 70%,#fdfdff 100%);color:#292d3d}}
-  .case-insight-mark{{color:var(--blue);font:800 32px/.9 Georgia,serif;transform:translateY(2px)}}
-  .case-insight p{{margin:0;font-size:14.5px;font-weight:700;line-height:1.72;letter-spacing:.005em}}
+  .case-overview{{display:grid;grid-template-columns:minmax(270px,.78fr) minmax(0,1.35fr);border-bottom:1px solid #d8dbea;background:#faf9fe}}
+  .case-verdict{{padding:20px 24px;background:#292744;color:#fff}}
+  .case-verdict span{{display:block;margin-bottom:8px;color:#bfb6f5;font-size:11px;font-weight:800;letter-spacing:.12em}}
+  .case-verdict p{{margin:0;font-size:16px;font-weight:800;line-height:1.65;letter-spacing:.005em}}
+  .case-analysis{{min-width:0;padding:17px 22px 18px;background:linear-gradient(105deg,#f5f2ff 0%,#fbfaff 70%,#fdfdff 100%)}}
+  .case-analysis .route-title{{margin-bottom:7px}}
+  .analysis-copy{{margin:0;color:#34394b;font-size:13.5px;font-weight:650;line-height:1.68}}
+  .overview-route{{display:flex;align-items:center;gap:16px;margin:12px 0 0;padding:0;list-style:none}}
+  .overview-route li{{position:relative;min-width:0;flex:1;padding:8px 10px;border:1px solid #d8d3ee;border-radius:8px;background:rgba(255,255,255,.82);color:#393d50;font-size:11.5px;font-weight:700;line-height:1.45;text-align:center}}
+  .overview-route li + li::before{{content:"→";position:absolute;left:-13px;top:50%;transform:translateY(-50%);color:var(--blue);font-weight:900}}
   .kv.top{{gap:12px;margin:0 0 20px}}
   .kv.top > div,.kv.top > div.primary{{min-height:88px;padding:15px 16px;border:1px solid #d7d4e8;border-radius:11px;background:#fbfaff;box-shadow:inset 0 3px 0 var(--blue),0 7px 18px rgb(34 39 63 / 4%)}}
   .kv.top > div b,.kv.top > div.primary b{{color:#27234d;font-size:19px;font-weight:800}}
@@ -824,16 +835,8 @@ page = f'''<!doctype html>
   .ctab[aria-selected="true"]{{color:#27234d;border-bottom-color:var(--blue-deep)}}
   .cpanel{{max-height:clamp(380px,56vh,620px);overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable;
     padding:12px 18px 16px;border:1px solid #d8dbea;border-top:0;border-radius:0 0 11px 11px;background:#fdfdff;scrollbar-color:#b9bdd0 transparent}}
-  .conversion-route{{margin:2px 0 14px;padding:14px 16px 15px;border:1px solid #d8dbea;border-radius:11px;background:#f8f7fd}}
   .route-title{{display:flex;align-items:center;gap:9px;margin-bottom:12px;color:var(--ink-3);font-size:12px;font-weight:700}}
   .route-title b{{padding:4px 10px;border-radius:99px;background:var(--ink);color:#fff;font-size:12px;letter-spacing:.02em}}
-  .conversion-route ol{{display:flex;align-items:stretch;gap:0;margin:0;padding:0;list-style:none}}
-  .conversion-route li{{position:relative;flex:1;min-width:0;padding:10px 13px;border:1px solid #dedbea;background:#fff;color:#292e40;font-size:12.5px;font-weight:700;line-height:1.55}}
-  .conversion-route li + li{{margin-left:22px}}
-  .conversion-route li + li::before{{content:"→";position:absolute;left:-18px;top:50%;transform:translateY(-50%);color:var(--blue);font-weight:800}}
-  .behavior-verdict{{display:grid;grid-template-columns:70px minmax(0,1fr);gap:12px;margin:0 0 16px;padding:13px 15px;border-left:3px solid var(--blue);background:#faf9fe}}
-  .behavior-verdict span{{color:var(--blue-deep);font-size:12px;font-weight:800;letter-spacing:.05em}}
-  .behavior-verdict p{{margin:0;color:#34394b;font-size:13.5px;line-height:1.72}}
   .decision-head{{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:2px 0 10px}}
   .decision-head h4{{margin:0;color:#27234d;font-size:14px}}
   .decision-head small{{color:var(--ink-3);font-size:11px}}
@@ -851,6 +854,10 @@ page = f'''<!doctype html>
   .behavior-raw summary::before{{content:"＋";display:inline-block;margin-right:7px;color:var(--blue)}}
   .behavior-raw[open] summary::before{{content:"－"}}
   .behavior-raw .tl{{margin-top:12px}}
+  .deposit-products{{padding:2px 2px 8px}}
+  .deposit-head{{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:4px}}
+  .deposit-head h4,.deposit-products > h4{{margin:0;color:#27234d;font-size:14px;font-weight:800}}
+  .deposit-head span{{color:var(--ink-3);font-size:11px}}
   .journey-tl{{margin-top:0}}
   .journey-tl::before{{background:#c8ccdc}}
   .journey-tl .t{{color:#5e657a;font-weight:650}}
@@ -911,13 +918,13 @@ page = f'''<!doctype html>
     .qlist li{{grid-template-columns:1fr}}
     .section-h{{font-size:23px}}
     .matrix-h{{margin-top:28px}}
-    .case-insight{{grid-template-columns:22px minmax(0,1fr);gap:6px;padding:13px 18px 14px}}
-    .case-insight-mark{{font-size:28px}}
-    .case-insight p{{font-size:13.5px}}
-    .conversion-route ol{{display:grid;gap:8px}}
-    .conversion-route li + li{{margin-left:0}}
-    .conversion-route li + li::before{{content:"↓";left:12px;top:-9px;transform:none;background:#f8f7fd;padding:0 4px}}
-    .behavior-verdict{{grid-template-columns:1fr;gap:5px}}
+    .case-overview{{grid-template-columns:1fr}}
+    .case-verdict{{padding:17px 18px}}
+    .case-verdict p{{font-size:14.5px}}
+    .case-analysis{{padding:15px 18px 17px}}
+    .overview-route{{display:grid;gap:7px}}
+    .overview-route li{{text-align:left}}
+    .overview-route li + li::before{{content:"↓";left:12px;top:-11px;transform:none;background:#f6f3ff;padding:0 4px}}
     .decision-chain{{grid-template-columns:1fr}}
   }}
 </style>
@@ -933,18 +940,6 @@ page = f'''<!doctype html>
   <div class="tabs" role="tablist" aria-label="分类切换">{tabs}<a class="back-home" href="../qianwen-user-acquisition-dashboard/" title="回到千问主看板" aria-label="回到千问主看板"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></div>
   {sections}
 
-  <div class="caveat">
-    <h4>口径与局限</h4>
-    <ul>
-      <li>分类名称与主看板一致：「新投」= 绑定后有新增投资且绑定时无资产（含新老用户）；「首投」= 绑定后完成第一笔投资（人生首笔非钱包买入，<span class="num">po.buy / fund.buy / si.trade / po.adjust / plan.trade</span>，撤单不计，含新老用户）；「新户首投」= 其中绑定时当场新注册（注册与绑定相差 ≤60 分钟）的用户；「老户唤回」= 绑定时已有且慢帐号但未首投或已清仓，绑定后重新入金；「老户首投」= 老用户的人生首笔投资发生在绑定后。统计截至 {CUT}。</li>
-      <li>入金与主看板完全同口径：绑定后线上/线下充值到盈米宝 + 银行卡直付投资；组合回款进宝、宝内余额投资不计。资产 = 各用户最近一个已跑批的 ROOT 快照。</li>
-      <li>下单终端与「且慢行为」来自神策埋点（<span class="num">qm_meta.ai_insight_sensors_event_detail</span>）：iOS / Android / HarmonyOS 为 App 原生页记录，js 为 App 内嵌或独立 H5 页；以首笔买入前后 30 分钟内的原生页记录判定终端，设备注册表仅作辅证。页面名已从技术类名翻译成业务页名，不可读的类名不展示；「入金 X 笔」按看板口径（线上/线下充值到盈米宝 + 银行卡直付买入）计数。</li>
-      <li>风测得分为且慢风险测评原始分（broker 0008，<span class="num">risk_survey_record</span> 全量历史，取最近一次），未换算等级档位。</li>
-      <li>千问提问取 <span class="num">agent_dj_messages</span> 中 role=USER 的非空记录，时间用 <span class="num">dj_gmt_create</span>（业务时间）；且慢 App 内小顾取 <span class="num">ying99_mia.user_message</span> 用户输入行；微信 / 企微侧小顾七人均无记录。关键旅程最多展示前 10 条提问。</li>
-      <li>顶部「小顾对话」旁的小图标可查看该用户在千问、且慢 App 小顾、微信小顾三端的全部提问；卡尾图标复制用户 ID 到剪贴板。页面不明文展示用户 ID。</li>
-      <li>本页含个例级信息，发布前已在作者端以 PBKDF2 + AES-GCM 加密，明文不进入版本库。</li>
-    </ul>
-  </div>
   <footer>千问 X 且慢AI小顾 · 绑定用户个例分析台 · 生成于 {META["generated"]} · <a href="../qianwen-user-acquisition-dashboard/">返回用户数据看板</a></footer>
 </div>
 
