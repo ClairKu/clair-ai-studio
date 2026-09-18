@@ -173,6 +173,7 @@ const BUSINESS_STATS = {
     label: "绑定后赎回",
     description: "绑定后确认成功的赎回金额合计",
     tone: "flow",
+    hidden: true,
   },
 };
 const SEGMENTS = [
@@ -1090,7 +1091,7 @@ function behaviorMetricsFor(cohort) {
 function businessStatsFor(cohort) {
   if (!cohort) return [];
   const byId = new Map(cohort.stats.map((item) => [item.id, item]));
-  return Object.keys(BUSINESS_STATS).map((id) => byId.get(id)).filter(Boolean);
+  return Object.keys(BUSINESS_STATS).filter((id) => !BUSINESS_STATS[id].hidden).map((id) => byId.get(id)).filter(Boolean);
 }
 
 // 金额型指标做成数字块：金额是主角，人数与人均做辅助行，不进走势图，避免量纲混用。
