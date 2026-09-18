@@ -12,6 +12,10 @@ PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
 UID_=$(id -u)
 mkdir -p "$BASE/bin" "$LOGDIR" "$HOME/Library/LaunchAgents"
 
+# 尽力刷新主克隆的 origin/main（60s 看门狗），让下面的缓存预热拿到最新脚本；失败不阻塞安装
+( git -C "$REPO" -c http.lowSpeedLimit=1000 -c http.lowSpeedTime=30 fetch origin main >/dev/null 2>&1 & pid=$!
+  i=0; while kill -0 $pid 2>/dev/null; do sleep 3; i=$((i+3)); [ $i -ge 60 ] && kill -9 $pid 2>/dev/null; done ) || true
+
 # 自更新引导：每次触发先从 origin/main 取最新 auto-refresh.sh 再执行，避免主克隆落后
 cat > "$BASE/bin/bootstrap.sh" <<EOF
 #!/bin/zsh
