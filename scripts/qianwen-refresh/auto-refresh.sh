@@ -6,7 +6,7 @@
 set -u
 source ~/.zshrc 2>/dev/null
 export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:$PATH"
-REPO="${QW_REPO:-$HOME/AI/clair-ai-studio}"
+REPO="${QW_REPO_DIR:-$HOME/AI/clair-ai-studio}"   # 本地克隆路径；QW_REPO 留给 api-push.py 表示 owner/name，勿混用
 BASE="$HOME/Library/Application Support/Clair AI Studio/qianwen-refresh"
 LOGDIR="$HOME/Library/Logs/Clair AI Studio/qianwen-refresh"
 TS=$(date +%Y%m%d-%H%M%S); WORK="$BASE/runs/$TS"
@@ -75,7 +75,7 @@ QW_WORK="$WORK" zsh "$S/replay.sh" || fail "replay/build 失败"
 pushed=0
 for i in 1 2 3 4 5 6; do
   git ls-remote origin main 2>/dev/null | cut -f1 > "$WORK/base-sha.txt"
-  out=$(QW_WT="$WORK/wt" python3 "$S/api-push.py" 2>&1); echo "$out" | tail -3
+  out=$(QW_REPO=clairku/clair-ai-studio QW_WT="$WORK/wt" python3 "$S/api-push.py" 2>&1); echo "$out" | tail -3
   if echo "$out" | grep -q "^DONE"; then pushed=1; COMMIT=$(echo "$out" | grep "^ref ->" | awk '{print $3}'); break; fi
   sleep 10
 done

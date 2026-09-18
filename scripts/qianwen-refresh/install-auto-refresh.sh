@@ -3,7 +3,7 @@
 # 幂等；同时下掉从未跑通、且会把明文写回 docs/ 的旧按钮服务。
 # 用法：zsh scripts/qianwen-refresh/install-auto-refresh.sh   （或 npm run install:qianwen-refresh）
 set -eu
-REPO="${QW_REPO:-$(cd "$(dirname "$0")/../.." && pwd)}"   # 从临时 worktree 里跑安装时用 QW_REPO 指向主克隆
+REPO="${QW_REPO_DIR:-${QW_REPO:-$(cd "$(dirname "$0")/../.." && pwd)}}"   # 从临时 worktree 里跑安装时用 QW_REPO 指向主克隆
 LABEL=com.clair.qianwen-auto-refresh
 OLD=com.clair.qianwen-user-acquisition-refresh
 BASE="$HOME/Library/Application Support/Clair AI Studio/qianwen-refresh"
@@ -55,7 +55,7 @@ cat > "$PLIST" <<EOF
   <key>Label</key><string>$LABEL</string>
   <key>ProgramArguments</key><array><string>/bin/zsh</string><string>$BASE/bin/bootstrap.sh</string></array>
   <key>EnvironmentVariables</key><dict>
-    <key>QW_REPO</key><string>$REPO</string>
+    <key>QW_REPO_DIR</key><string>$REPO</string>
     <key>PATH</key><string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
   </dict>
   <key>StartCalendarInterval</key><array>
