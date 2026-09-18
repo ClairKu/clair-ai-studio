@@ -190,7 +190,7 @@ for c in sorted(cand, key=lambda c: c["fb"]):
         "derived": {"buys_after": len(buys), "buy_amount_after": sum(float(t["buy"]) for t in buys), "inflow_after": inflow,
                     "sell_after": sell, "first_buy_after": first_buy_after, "cancels_after": cancels,
                     "root_inflow_reference": root_in if fl else None, "root_out": root_out if fl else None},
-        **{key: n[key] for key in ("narrative", "verdict") if key in n},
+        **{key: n[key] for key in ("insight", "conversion_path_label", "conversion_path", "behavior_insight", "narrative", "verdict") if key in n},
     })
 # 字母：沿用已有 A—F，其余按绑定时间顺延
 used = {u["letter"] for u in users if u["letter"]}

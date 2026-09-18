@@ -19,6 +19,15 @@ data = json.load(open(SRC))
 users = data["users"]; META = data["meta"]
 CUT = META["cutoff"]  # 'YYYY-MM-DD HH:MM'
 
+# 个案洞察由作者逐例研判，不用固定字段模板拼接。兼容已经生成、尚未内嵌 insight 的 users.json。
+insight_file = Path(__file__).with_name("narratives.json")
+insight_rows = json.load(open(insight_file)) if insight_file.exists() else {}
+for user in users:
+    curated = insight_rows.get(str(user.get("pmid")), {})
+    for key in ("insight", "conversion_path_label", "conversion_path", "behavior_insight"):
+        if curated.get(key) and not user.get(key):
+            user[key] = curated[key]
+
 # 姓氏单独存放在作者端临时数据中，公开源码不落真实姓名；页面仅进入加密产物。
 surname_file = SRC.with_name("m_surnames.json")
 surname_rows = json.load(open(surname_file)) if surname_file.exists() else []
@@ -198,11 +207,123 @@ def terminal_of(u):
         if e["lib"] != "js": c[e["lib"]] = c.get(e["lib"], 0) + 1
     return max(c, key=c.get) if c else None
 
+def chain_time(value):
+    point = dt(value)
+    return point.strftime("%-m-%d %H:%M") if point else "—"
+
+def short_quote(value, limit=40):
+    text = re.sub(r"\s+", " ", str(value or "")).strip()
+    return text[:limit] + ("…" if len(text) > limit else "")
+
+def decision_chain_panel(u):
+    """只保留与首笔下单最相关的时序证据；这是链路判断，不宣称单点因果。"""
+    fb = dt(u["fb"])
+    first_trade = dt(u["derived"].get("first_buy_after"))
+    first_inflow = dt((u.get("inflow_txns") or [{}])[0].get("t")) if u.get("inflow_txns") else None
+    decision_at = first_trade or first_inflow
+    steps = []
+
+    asks = sorted((u.get("asks") or []), key=lambda row: row.get("ts") or "")
+    if asks:
+        first_ask = asks[0]
+        steps.append(("intent", "需求出现", chain_time(first_ask.get("ts")), f'千问提出“{short_quote(first_ask.get("text"))}”'))
+    else:
+        steps.append(("intent", "入口触发", chain_time(u.get("fb")), "完成千问绑定，但没有留下有效提问"))
+
+    native = sorted([e for e in (u.get("events") or []) if e.get("lib") != "js" and dt(e.get("t")) and dt(e.get("t")) >= fb], key=lambda e: e["t"])
+    if native:
+        first_app = native[0]
+        steps.append(("app", "进入且慢", chain_time(first_app["t"]), f'{LIBN.get(first_app.get("lib"), first_app.get("lib"))} App 开始承接后续操作'))
+
+    before_trade = [e for e in (u.get("events") or []) if dt(e.get("t")) and dt(e.get("t")) >= fb and (not decision_at or dt(e.get("t")) <= decision_at)]
+    signals = []
+    signal_times = []
+    signal_texts = [(e, f'{e.get("p") or ""} {e.get("e") or ""}') for e in before_trade]
+    if any(re.search(r"开户|绑卡|实名", text) for _, text in signal_texts):
+        signals.append("开户绑卡")
+        signal_times += [dt(e["t"]) for e, text in signal_texts if re.search(r"开户|绑卡|实名", text)]
+    if any(re.search(r"风险测评|测评结果", text) for _, text in signal_texts):
+        signals.append("风险测评")
+        signal_times += [dt(e["t"]) for e, text in signal_texts if re.search(r"风险测评|测评结果", text)]
+    product_pages = [re.sub(r"^(策略详情|策略介绍|主理人详情|资产详情)-", "", e.get("p") or "") for e, _ in signal_texts if e.get("p") and PROD_RE.match(e["p"])]
+    product_pages = [name for name in product_pages if name and not name.isdigit()]
+    if product_pages:
+        from collections import Counter
+        product = Counter(product_pages).most_common(1)[0][0]
+        signals.append(f'比较“{short_quote(product, 18)}”')
+        signal_times += [dt(e["t"]) for e, _ in signal_texts if e.get("p") and product in e["p"]]
+    if any(re.search(r"投资规划|定投|开启计划|确认提交|转入一笔试试", text) for _, text in signal_texts):
+        signals.append("进入执行环节")
+        signal_times += [dt(e["t"]) for e, text in signal_texts if re.search(r"投资规划|定投|开启计划|确认提交|转入一笔试试", text)]
+    if signals:
+        unique_signals = list(dict.fromkeys(signals))[:4]
+        lo, hi = min(signal_times), max(signal_times)
+        if lo == hi:
+            time_text = chain_time(lo.isoformat())
+        elif lo.date() == hi.date():
+            time_text = f'{chain_time(lo.isoformat())}–{hi.strftime("%H:%M")}'
+        else:
+            time_text = f'{chain_time(lo.isoformat())}–{chain_time(hi.isoformat())}'
+        steps.append(("prepare", "决策准备", time_text, "、".join(unique_signals)))
+
+    if decision_at:
+        products = []
+        for trade in u.get("trades") or []:
+            when = dt(trade.get("accept_time"))
+            if not when or when < fb or trade.get("canceled") or trade.get("trade_type") == "wallet.recharge":
+                continue
+            if float(trade.get("buy") or 0) > 0 and trade.get("po_name"):
+                products.append(trade["po_name"])
+        products = list(dict.fromkeys(products))
+        inflow = float(u["derived"].get("inflow_after") or 0)
+        if inflow > 0:
+            trade_text = f'完成首次买入；累计入金 {wan(inflow)}'
+        else:
+            trade_text = "使用已有余额完成首次买入"
+        if products:
+            trade_text += f'，主要买入“{short_quote(products[0], 20)}”'
+        steps.append(("trade", "完成下单", chain_time(decision_at.isoformat()), trade_text))
+
+        post = []
+        for row in asks:
+            when = dt(row.get("ts"))
+            if when and when > decision_at:
+                post.append((when, "千问", row.get("text") or ""))
+        for row in (u.get("channels") or {}).get("app_mia", []):
+            when = dt(row.get("ts"))
+            text = row.get("text") or ""
+            if when and when > decision_at and text != "HI_AGAIN":
+                post.append((when, "App 小顾", text))
+        post.sort(key=lambda item: item[0])
+        if post:
+            when, channel, text = post[0]
+            steps.append(("after", "投后确认", chain_time(when.isoformat()), f'{channel}继续追问“{short_quote(text)}”'))
+        else:
+            after_pages = sorted([e for e in (u.get("events") or []) if dt(e.get("t")) and dt(e.get("t")) > decision_at and re.search(r"资产|持仓|交易记录", e.get("p") or "")], key=lambda e: e["t"])
+            if after_pages:
+                first = after_pages[0]
+                steps.append(("after", "投后回看", chain_time(first["t"]), f'回到“{short_quote(first.get("p"), 26)}”查看状态'))
+
+    insight = esc(u.get("behavior_insight") or "该个案尚未完成行为特性研判。")
+    route_label = esc(u.get("conversion_path_label") or "待研判")
+    route_steps = [step.strip() for step in str(u.get("conversion_path") or "").split("→") if step.strip()]
+    route_html = "".join(f'<li>{esc(step)}</li>' for step in route_steps)
+    rows = "".join(
+        f'<li class="decision-step {kind}"><time>{esc(when)}</time><div><b>{esc(label)}</b><p>{esc(detail)}</p></div></li>'
+        for kind, label, when, detail in steps[:5]
+    )
+    return (f'<div class="conversion-route"><div class="route-title"><span>转化路径</span><b>{route_label}</b></div><ol>{route_html}</ol></div>'
+            f'<div class="behavior-verdict"><span>行为判断</span><p>{insight}</p></div>'
+            f'<div class="decision-head"><h4>主要下单决策链</h4><small>按可验证时序提炼</small></div>'
+            f'<ol class="decision-chain">{rows}</ol>'
+            f'<p class="decision-caveat">链路表示行为先后与伴随关系，用于定位关键承接点；不能单独证明某次提问或某个页面造成了下单。</p>')
+
 def behavior_panel(u):
     # 且慢行为：按日汇总埋点（浏览 / 策略与产品 / 功能操作 / 小顾入口 / 交易）
     fb = dt(u["fb"]); evs = u.get("events") or []
+    analysis = decision_chain_panel(u)
     if not evs:
-        return '<p class="muted tight">该用户在且慢 App / H5 没有埋点记录。</p>'
+        return analysis + '<p class="muted tight">该用户在且慢 App / H5 没有埋点记录。</p>'
     from collections import Counter, OrderedDict
     days = OrderedDict()
     for e in evs: days.setdefault(e["t"][:10], []).append(e)
@@ -257,7 +378,8 @@ def behavior_panel(u):
             elif t["redeem"] and float(t["redeem"]) > 0: trs.append(f'赎回「{esc(nm)}」{money(t["redeem"])} 元')
             elif t["buy"] and float(t["buy"]) > 0: trs.append(f'买入「{esc(nm)}」{money(t["buy"])} 元')
         if trs: items.append('<li class="b-trade trade"><span class="t">交易</span><span class="d">' + "；".join(trs) + '</span></li>')
-    return '<ul class="tl beh">' + "\n".join(items) + '</ul>'
+    return (analysis + '<details class="behavior-raw"><summary>查看按日浏览与操作明细</summary>'
+            '<ul class="tl beh">' + "\n".join(items) + '</ul></details>')
 
 def path_summary(u):
     # 用户路径与行为总结：终端 / 下单情境 / 千问侧关系 / App 内小顾——全部白话，不出现字段名
@@ -359,39 +481,13 @@ def holdings_block(u):
                      f'{f"；盈米宝货币基金 {money(wallet)} 元" if wallet else ""}）</p><ul class="funds">{items}</ul>')
     return f'<div class="sub-block"><h4>最终持有</h4><p class="tight muted">入金金额：各产品为绑定后买入金额，盈米宝为充值后仍留在钱包的部分。</p>{tbl}{fund_html}</div>'
 
-def one_line_summary(u):
-    d = u["derived"]; inf = u.get("inflow_txns") or []; ch = u.get("channels") or {}
-    if u["cohort"] == "new":
-        segment = "新客首投" if u["flags"].get("first_invest_after") else "新客转化"
-    elif u.get("last_buy_before"):
-        segment = "沉寂老客回流"
-    elif u["flags"].get("first_invest_after"):
-        segment = "老客首投"
-    else:
-        segment = "老客唤回"
-    first_action = inf[0]["t"] if inf else d.get("first_buy_after")
-    action_text = "首笔入金" if inf else "首笔投资"
-    inflow_text = f'累计入金 {wan(d.get("inflow_after") or 0)}' if d.get("inflow_after") else "使用已有余额，暂无新增入金"
-    terminal = LIBN.get(terminal_of(u), terminal_of(u))
-    terminal_text = f'，主要在 {terminal} App 活动' if terminal else ""
-    total_asks = len(u.get("asks") or []) + len(ch.get("app_mia", [])) + int(ch.get("wechat_msgs", 0) or 0)
-    max_inflow = max((float(x["derived"].get("inflow_after") or 0) for x in users), default=0)
-    if float(d.get("inflow_after") or 0) == max_inflow and max_inflow > 0:
-        feature = "是本批入金规模最大的高意向案例"
-    elif total_asks >= 100:
-        feature = "呈现高咨询、低入金的体验型特征"
-    elif u.get("last_buy_before"):
-        feature = "属于返回且慢后分批投资的回流型案例"
-    elif d.get("cancels_after"):
-        feature = "经历撤单后重新完成投资，首次交易仍有犹豫或阻点"
-    elif first_action and (dt(first_action) - dt(u["fb"])).total_seconds() <= 86400:
-        feature = "决策链路较短，属于快速触发型案例"
-    elif total_asks >= 10:
-        feature = "在多轮咨询与产品浏览后逐步完成决策"
-    else:
-        feature = "从咨询到投资的转化节奏相对清晰"
-    return (f'{u["age"]} 岁{segment}，绑定后 {dur(u["fb"], first_action)} 完成{action_text}，'
-            f'{inflow_text}、共投资 {d.get("buys_after") or 0} 笔{terminal_text}；{feature}。')
+def case_insight(u):
+    if u.get("insight"):
+        return esc(u["insight"])
+    if u.get("narrative"):
+        plain = re.sub(r"<[^>]+>", "", str(u["narrative"]))
+        return esc(re.split(r"[。！？]", plain, maxsplit=1)[0] + "。")
+    return "该个案暂缺足够证据，尚不能定义其主要特征。"
 
 def card(u):
     gender = "男" if u["gender"] == "M" else "女" if u["gender"] == "F" else "性别未知"
@@ -400,6 +496,7 @@ def card(u):
     app_download = min(app_dates) if app_dates else None
     risk_score = u["risk"][-1]["score"] if u.get("risk") else "—"
     tags = [
+        f'<span class="tag route-tag">路径 · {esc(u.get("conversion_path_label") or "待研判")}</span>',
         f'<span class="tag">千问绑定 {fmt_badge_date(u["fb"])}</span>',
         f'<span class="tag">下载 App {fmt_badge_date(app_download)}</span>',
         f'<span class="tag">首投 {fmt_badge_date(u.get("first_buy_ever"))}</span>',
@@ -413,7 +510,7 @@ def card(u):
             f'    {"".join(tags)}\n'
             f'    <button type="button" class="icon-btn copy-id" data-copy="{u["pmid"]}" title="复制用户 ID" aria-label="复制用户 ID">{copy_svg}</button>\n'
             f'  </div>\n'
-            f'  <p class="case-snapshot"><b>一句话</b>{one_line_summary(u)}</p>\n'
+            f'  <div class="case-insight" aria-label="个案洞察"><span class="case-insight-mark" aria-hidden="true">“</span><p>{case_insight(u)}</p></div>\n'
             f'  <div class="case-body">\n'
             f'    {top_stats(u)}\n'
             f'    <div class="ctabs" role="tablist" aria-label="历程切换">\n'
@@ -422,7 +519,6 @@ def card(u):
             f'    </div>\n'
             f'    <div class="cpanel" data-panel="journey" role="region" aria-label="关键旅程内容" tabindex="0">\n    <ul class="tl journey-tl">\n{timeline(u)}\n    </ul>\n    </div>\n'
             f'    <div class="cpanel" data-panel="behavior" role="region" aria-label="且慢行为内容" tabindex="0" hidden>\n    {behavior_panel(u)}\n    </div>\n'
-            f'    {path_summary(u)}\n'
             f'    {holdings_block(u)}\n'
             f'  </div>\n'
             f'</div>')
@@ -573,7 +669,7 @@ html,body{max-width:100%}
 .sumrow,.sumrow .cell{min-width:0}
 .sumrow .cell em{white-space:nowrap;overflow-wrap:normal;font-size:clamp(10px,.9vw,12px);letter-spacing:-.025em}
 .tabs{display:flex;align-items:flex-end}
-.back-home{margin-left:auto;align-self:center;flex:0 0 36px;width:36px;height:36px;display:inline-grid;place-items:center;border:1.5px solid var(--rule-2);border-radius:50%;color:var(--ink-3);text-decoration:none;line-height:0;padding:0}
+.back-home{margin-left:auto;align-self:center;flex:0 0 28px;width:28px;height:28px;display:inline-grid;place-items:center;border:1.5px solid var(--rule-2);border-radius:50%;background:var(--surface);color:var(--ink-3);text-decoration:none;line-height:0;padding:0}
 .back-home svg,.pager .pg svg,.mini-ic svg,.icon-btn svg{display:block;margin:auto}
 .back-home:hover{border-color:var(--blue);color:var(--blue)}
 .pager{display:inline-flex;align-items:center;gap:8px;margin-left:8px;vertical-align:middle;font-size:14px;color:var(--ink-2)}
@@ -713,9 +809,11 @@ page = f'''<!doctype html>
   .case-head .who{{color:#1e2233;font-size:20px;font-weight:800}}
   .case-head .badge{{width:25px;height:25px;border-color:#c9c2ed;background:#fff;color:#4e38ac;font-weight:800}}
   .case-head .tag{{padding:4px 10px;border-color:#d4d0e9;background:rgba(255,255,255,.78);color:#4d5266;font-size:11.5px;font-weight:700}}
+  .case-head .route-tag{{border-color:#c8c0ef;background:#e9e5fb;color:#4b36ad}}
   .case-body{{padding:18px 24px 24px}}
-  .case-snapshot{{margin:0;padding:12px 24px;border-bottom:1px solid #d8dbea;background:#fbfaff;color:#34394b;font-size:13.5px;line-height:1.7}}
-  .case-snapshot b{{display:inline-block;margin-right:9px;color:var(--blue-deep);font-weight:800}}
+  .case-insight{{display:grid;grid-template-columns:26px minmax(0,1fr);align-items:start;gap:8px;margin:0;padding:15px 24px 16px;border-bottom:1px solid #d8dbea;background:linear-gradient(90deg,#f8f6ff 0%,#fbfaff 70%,#fdfdff 100%);color:#292d3d}}
+  .case-insight-mark{{color:var(--blue);font:800 32px/.9 Georgia,serif;transform:translateY(2px)}}
+  .case-insight p{{margin:0;font-size:14.5px;font-weight:700;line-height:1.72;letter-spacing:.005em}}
   .kv.top{{gap:12px;margin:0 0 20px}}
   .kv.top > div,.kv.top > div.primary{{min-height:88px;padding:15px 16px;border:1px solid #d7d4e8;border-radius:11px;background:#fbfaff;box-shadow:inset 0 3px 0 var(--blue),0 7px 18px rgb(34 39 63 / 4%)}}
   .kv.top > div b,.kv.top > div.primary b{{color:#27234d;font-size:19px;font-weight:800}}
@@ -726,6 +824,33 @@ page = f'''<!doctype html>
   .ctab[aria-selected="true"]{{color:#27234d;border-bottom-color:var(--blue-deep)}}
   .cpanel{{max-height:clamp(380px,56vh,620px);overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable;
     padding:12px 18px 16px;border:1px solid #d8dbea;border-top:0;border-radius:0 0 11px 11px;background:#fdfdff;scrollbar-color:#b9bdd0 transparent}}
+  .conversion-route{{margin:2px 0 14px;padding:14px 16px 15px;border:1px solid #d8dbea;border-radius:11px;background:#f8f7fd}}
+  .route-title{{display:flex;align-items:center;gap:9px;margin-bottom:12px;color:var(--ink-3);font-size:12px;font-weight:700}}
+  .route-title b{{padding:4px 10px;border-radius:99px;background:var(--ink);color:#fff;font-size:12px;letter-spacing:.02em}}
+  .conversion-route ol{{display:flex;align-items:stretch;gap:0;margin:0;padding:0;list-style:none}}
+  .conversion-route li{{position:relative;flex:1;min-width:0;padding:10px 13px;border:1px solid #dedbea;background:#fff;color:#292e40;font-size:12.5px;font-weight:700;line-height:1.55}}
+  .conversion-route li + li{{margin-left:22px}}
+  .conversion-route li + li::before{{content:"→";position:absolute;left:-18px;top:50%;transform:translateY(-50%);color:var(--blue);font-weight:800}}
+  .behavior-verdict{{display:grid;grid-template-columns:70px minmax(0,1fr);gap:12px;margin:0 0 16px;padding:13px 15px;border-left:3px solid var(--blue);background:#faf9fe}}
+  .behavior-verdict span{{color:var(--blue-deep);font-size:12px;font-weight:800;letter-spacing:.05em}}
+  .behavior-verdict p{{margin:0;color:#34394b;font-size:13.5px;line-height:1.72}}
+  .decision-head{{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:2px 0 10px}}
+  .decision-head h4{{margin:0;color:#27234d;font-size:14px}}
+  .decision-head small{{color:var(--ink-3);font-size:11px}}
+  .decision-chain{{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:9px;margin:0;padding:0;list-style:none}}
+  .decision-step{{min-width:0;padding:11px 12px 12px;border:1px solid #dfe2eb;border-radius:9px;background:#fff;box-shadow:0 5px 14px rgb(34 39 63 / 4%)}}
+  .decision-step time{{display:block;margin-bottom:7px;color:var(--ink-3);font:700 11px/1.2 var(--serif);font-variant-numeric:tabular-nums}}
+  .decision-step b{{display:block;color:#302965;font-size:13px}}
+  .decision-step p{{margin:5px 0 0;color:#555b70;font-size:12px;line-height:1.6;overflow-wrap:anywhere}}
+  .decision-step.trade{{border-color:#bfe3d4;background:#f2faf7}}
+  .decision-step.trade b{{color:#087b5d}}
+  .decision-caveat{{margin:10px 2px 0;color:#7a8091;font-size:11.5px;line-height:1.6}}
+  .behavior-raw{{margin-top:16px;border-top:1px solid #dfe2eb;padding-top:12px}}
+  .behavior-raw summary{{width:max-content;max-width:100%;cursor:pointer;color:#5a6072;font-size:12.5px;font-weight:700;list-style:none}}
+  .behavior-raw summary::-webkit-details-marker{{display:none}}
+  .behavior-raw summary::before{{content:"＋";display:inline-block;margin-right:7px;color:var(--blue)}}
+  .behavior-raw[open] summary::before{{content:"－"}}
+  .behavior-raw .tl{{margin-top:12px}}
   .journey-tl{{margin-top:0}}
   .journey-tl::before{{background:#c8ccdc}}
   .journey-tl .t{{color:#5e657a;font-weight:650}}
@@ -786,7 +911,14 @@ page = f'''<!doctype html>
     .qlist li{{grid-template-columns:1fr}}
     .section-h{{font-size:23px}}
     .matrix-h{{margin-top:28px}}
-    .case-snapshot{{padding:11px 18px;font-size:13px}}
+    .case-insight{{grid-template-columns:22px minmax(0,1fr);gap:6px;padding:13px 18px 14px}}
+    .case-insight-mark{{font-size:28px}}
+    .case-insight p{{font-size:13.5px}}
+    .conversion-route ol{{display:grid;gap:8px}}
+    .conversion-route li + li{{margin-left:0}}
+    .conversion-route li + li::before{{content:"↓";left:12px;top:-9px;transform:none;background:#f8f7fd;padding:0 4px}}
+    .behavior-verdict{{grid-template-columns:1fr;gap:5px}}
+    .decision-chain{{grid-template-columns:1fr}}
   }}
 </style>
 </head>
@@ -798,7 +930,7 @@ page = f'''<!doctype html>
     {INSIGHTS_HTML}
   </ul>
 
-  <div class="tabs" role="tablist" aria-label="分类切换">{tabs}<a class="back-home" href="../qianwen-user-acquisition-dashboard/" title="回到千问主看板" aria-label="回到千问主看板"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></div>
+  <div class="tabs" role="tablist" aria-label="分类切换">{tabs}<a class="back-home" href="../qianwen-user-acquisition-dashboard/" title="回到千问主看板" aria-label="回到千问主看板"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></div>
   {sections}
 
   <div class="caveat">
