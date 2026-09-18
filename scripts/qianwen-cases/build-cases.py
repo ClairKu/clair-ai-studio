@@ -467,12 +467,21 @@ def scope_section(sc):
     durs = [(dt(u["inflow_txns"][0]["t"]) - dt(u["fb"])).total_seconds() for u in us if u.get("inflow_txns")]
     avg_txt = short_duration(statistics.mean(durs)) if durs else "—"
     med_txt = short_duration(statistics.median(durs)) if durs else "—"
+    inflow_people = sum(1 for u in us if u.get("inflow_txns"))
+    inflow_count = sum(len(u.get("inflow_txns") or []) for u in us)
+    asset_people = sum(1 for u in us if float((u.get("asset_latest") or {}).get("ta") or 0) > 0)
+    asset_dates = [dt((u.get("asset_latest") or {}).get("cal_date")) for u in us if (u.get("asset_latest") or {}).get("cal_date")]
+    asset_date_txt = fmt_md(max(asset_dates).isoformat()) if asset_dates else "—"
+    ask_counts = [len(u.get("asks") or []) for u in us]
+    ask_avg = statistics.mean(ask_counts) if ask_counts else 0
+    ask_med = statistics.median(ask_counts) if ask_counts else 0
+    ask_med_txt = f'{ask_med:g}'
     cells = f'''<div class="grid sumrow">
-  <div class="cell"><b>{a["n"]}</b><span>用户数</span></div>
-  <div class="cell"><b>{wan(a["inflow"])}</b><span>总入金</span></div>
-  <div class="cell"><b>{wan(a["asset"])}</b><span>总资产</span></div>
-  <div class="cell"><b>{a["asks"]:,}</b><span>提问数</span></div>
-  <div class="cell decision" title="绑定千问到第一笔入金，按 {len(durs)} 位有入金记录的用户计算"><b>{avg_txt}</b><span>平均决策时长</span><em>中位数 {med_txt}</em></div>
+  <div class="cell"><b>{a["n"]}</b><span>用户数</span><em>新客 {a["new"]} 人 · 老客 {a["n"] - a["new"]} 人</em></div>
+  <div class="cell"><b>{wan(a["inflow"])}</b><span>总入金</span><em>入金 {inflow_people} 人 · {inflow_count} 笔</em></div>
+  <div class="cell"><b>{wan(a["asset"])}</b><span>总资产</span><em>持有资产 {asset_people} 人 · 快照 {asset_date_txt}</em></div>
+  <div class="cell"><b>{a["asks"]:,}</b><span>提问数</span><em>人均 {ask_avg:.1f} 问 · 中位数 {ask_med_txt} 问</em></div>
+  <div class="cell decision" title="绑定千问到第一笔入金，按 {len(durs)} 位有入金记录的用户计算"><b>{avg_txt}</b><span>平均决策时长</span><em>中位数 {med_txt} · 样本 {len(durs)} 人</em></div>
 </div>'''
     cards = "\n".join(card(u) for u in us) if us else '<div class="note">该口径下暂无用户。</div>'
     return f'''<section class="scope" id="scope-{sc["id"]}" hidden>
@@ -532,7 +541,6 @@ _max_ask_inflow_share = (float(_max_ask_user["derived"].get("inflow_after") or 0
 
 INSIGHTS = [
     f'<b>成效</b>{META["bound_total"]:,} 位绑定用户中识别出 {Z["n"]} 位新投、{F1["n"]} 位首投；累计入金 {wan(Z["inflow"])}，当前资产 {wan(Z["asset"])}。',
-    f'<b>客群</b>本批 {Z["n"]} 例{_gender_txt}，年龄 {_ages and min(_ages) or "—"}–{_ages and max(_ages) or "—"} 岁、中位 {_age_mid if _age_mid is not None else "—"} 岁；新客 {Z["new"]} 人、老客 {Z["n"] - Z["new"]} 人，其中 {EF["n"]} 位老客完成人生首投，{len(_prior_recall)} 位沉寂老客重新入金。',
     f'<b>行为</b>绑定到首笔入金中位 {_new_med_txt}，{_within_day_n} 人在 24 小时内完成；{_terminal_evidence_n} 人均有且慢 App 原生行为记录，其中 {_app_order_n} 人的首笔投资时点可直接确认在 App 完成。',
     (f'<b>关键案例</b>{_big_new["age"]} 岁新客入金 {wan(_big_new["derived"]["inflow_after"])}、当前资产 {wan(float((_big_new.get("asset_latest") or {}).get("ta") or 0))}；'
      f'沉寂老客回流入金 {wan(_big_recall["derived"]["inflow_after"])}、当前资产 {wan(float((_big_recall.get("asset_latest") or {}).get("ta") or 0))}。'
@@ -558,10 +566,9 @@ PAGER_SNIPPET = r'''<style>
 *,*::before,*::after{font-family:var(--serif) !important}
 html,body{max-width:100%}
 .page-wrap{min-width:0}
-.insight-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 24px;width:100%;max-width:76em;margin:16px 0 30px;padding:0;list-style:none;color:var(--ink-2);font-size:13.5px;line-height:1.65}
+.insight-list{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;width:100%;max-width:76em;margin:16px 0 30px;padding:0;list-style:none;color:var(--ink-2);font-size:13.5px;line-height:1.65}
 .insight-list li{position:relative;min-width:0;padding:10px 13px 10px 30px;border-top:1px solid var(--rule);background:rgba(255,255,255,.38);overflow-wrap:anywhere}
 .insight-list li::before{content:"";position:absolute;left:13px;top:18px;width:6px;height:6px;border-radius:50%;background:var(--blue)}
-.insight-list li:last-child:nth-child(odd){grid-column:1/-1}
 .insight-list b{margin-right:8px;color:var(--blue-deep);font-weight:800}
 .sumrow,.sumrow .cell{min-width:0}
 .sumrow .cell em{white-space:nowrap;overflow-wrap:normal;font-size:clamp(10px,.9vw,12px);letter-spacing:-.025em}
@@ -592,9 +599,8 @@ html,body{max-width:100%}
   .insight-list{grid-template-columns:1fr;gap:7px;margin:13px 0 22px;font-size:12.5px;line-height:1.6}
   .insight-list li{padding:9px 10px 9px 27px}
   .insight-list li::before{left:11px;top:17px}
-  .insight-list li:last-child:nth-child(odd){grid-column:auto}
   .tabs{margin-top:22px}
-  .tab{margin-right:20px}
+  .tab{min-height:40px;padding:0 13px;font-size:13px}
   .back-home{position:sticky;right:0;background:var(--ground);box-shadow:-12px 0 16px var(--ground)}
   .scope-def{font-size:13px;line-height:1.65}
   .sumrow{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
@@ -667,17 +673,18 @@ page = f'''<!doctype html>
   .mini-table th,.mini-table td{{padding:6px 10px}}
   .funds{{margin:4px 0 0;padding-left:18px;font-size:12.5px;color:var(--ink-2)}}
   .funds li{{margin:2px 0}}
-  .tabs{{display:flex;flex-wrap:nowrap;gap:0;margin:34px 0 0;max-width:100%;overflow-x:auto;border-bottom:1px solid var(--rule-2);scrollbar-width:none}}
+  .tabs{{display:flex;flex-wrap:nowrap;align-items:center;gap:0;margin:34px 0 0;max-width:100%;overflow-x:auto;scrollbar-width:none}}
   .tabs::-webkit-scrollbar{{display:none}}
-  .tab{{font:inherit;font-size:17px;font-weight:600;line-height:1;padding:12px 4px 14px;margin-right:34px;border:0;border-bottom:2px solid transparent;
-    background:transparent;color:var(--ink-3);cursor:pointer;display:inline-flex;align-items:baseline;gap:8px;white-space:nowrap;margin-bottom:-1px;
-    transition:color .15s,border-color .15s}}
-  .tab small{{font:500 12.5px/1 inherit;color:var(--ink-3);letter-spacing:0}}
-  .tab:hover{{color:var(--ink)}}
-  .tab[aria-selected="true"]{{color:var(--ink);border-bottom-color:var(--blue-deep)}}
-  .tab[aria-selected="true"] small{{color:var(--blue-deep);font-weight:700}}
-  @media(max-width:520px){{.tab{{font-size:15px;margin-right:22px}}}}
-  .scope-def{{margin:16px 0 18px!important;padding:11px 14px;border:1px solid #ddd9f2;border-left:3px solid var(--blue);border-radius:8px;background:rgba(255,255,255,.72);color:#34394b!important;font-size:14px!important;line-height:1.65}}
+  .tab{{min-height:40px;padding:0 14px;border:1px solid var(--rule-2);background:var(--surface);color:var(--ink-3);cursor:pointer;
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;font:700 13.5px/1 var(--serif);transition:color .15s,border-color .15s,background-color .15s}}
+  .tab + .tab{{margin-left:-1px}}
+  .tab small{{font:700 11.5px/1 var(--serif);color:inherit;opacity:.78;letter-spacing:0}}
+  .tab:hover{{position:relative;z-index:1;border-color:var(--ink);color:var(--ink)}}
+  .tab:focus-visible{{position:relative;z-index:2;outline:3px solid var(--amber);outline-offset:2px}}
+  .tab[aria-selected="true"]{{position:relative;z-index:1;border-color:var(--ink);background:var(--ink);color:var(--surface)}}
+  .tab[aria-selected="true"] small{{color:inherit;opacity:.72}}
+  @media(max-width:520px){{.tab{{min-height:38px;padding:0 12px;font-size:12.5px}}}}
+  .scope-def{{margin:14px 0 18px!important;padding:0;border:0;background:transparent;color:var(--ink-3)!important;font-size:13.5px!important;line-height:1.65}}
   .section-h{{font:800 26px/1.3 var(--serif);letter-spacing:-.02em;color:var(--ink)}}
   .matrix-h{{margin:32px 0 12px}}
   .cases-h{{display:flex;align-items:center;gap:10px;margin-top:38px;margin-bottom:14px}}
