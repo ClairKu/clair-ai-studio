@@ -458,13 +458,13 @@ CSS = Path(sys.argv[3]).read_text() if len(sys.argv) > 3 else ""
 
 PAGER_SNIPPET = r'''<style>
 *,*::before,*::after{font-family:var(--serif) !important}
-html,body{max-width:100%;overflow-x:hidden}
-.wrap{width:100%;min-width:0}
-.lede-summary{display:block;width:100%;max-width:100%;margin:8px 0 30px;color:var(--ink-2);font-size:13px;line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+html,body{max-width:100%}
+.page-wrap{min-width:0}
+.lede-summary{display:block;width:100%;max-width:72em;margin:8px 0 30px;color:var(--ink-2);font-size:14px;line-height:1.75;white-space:normal;overflow-wrap:anywhere}
 .sumrow,.sumrow .cell{min-width:0}
 .sumrow .cell em{white-space:normal;overflow-wrap:anywhere}
 .tabs{display:flex;align-items:flex-end}
-.back-home{margin-left:auto;align-self:center;width:34px;height:34px;display:inline-grid;place-items:center;border:1.5px solid var(--rule-2);border-radius:50%;color:var(--ink-3);text-decoration:none;font-size:22px;line-height:1;padding-bottom:2px}
+.back-home{margin-left:auto;align-self:center;flex:0 0 34px;width:34px;height:34px;display:inline-grid;place-items:center;border:1.5px solid var(--rule-2);border-radius:50%;color:var(--ink-3);text-decoration:none;font-size:22px;line-height:1;padding-bottom:2px}
 .back-home:hover{border-color:var(--blue);color:var(--blue)}
 .pager{display:inline-flex;align-items:center;gap:8px;margin-left:8px;vertical-align:middle;font-size:14px;color:var(--ink-2)}
 .pager .pg{width:28px;height:28px;border:1.5px solid var(--rule-2);border-radius:50%;background:var(--surface);color:var(--ink-3);cursor:pointer;font-size:18px;line-height:1;display:inline-grid;place-items:center;padding:0 0 2px}
@@ -493,6 +493,16 @@ html,body{max-width:100%;overflow-x:hidden}
 .matrix tbody tr[data-jump]:hover td{background:var(--pale)}
 .matrix tbody tr[data-jump] .badge{box-shadow:0 0 0 0 transparent;transition:box-shadow .15s}
 .matrix tbody tr[data-jump]:hover .badge{box-shadow:0 0 0 3px rgba(27,136,238,.18)}
+@media(max-width:760px){
+  .lede-summary{margin:7px 0 22px;font-size:13px;line-height:1.65}
+  .tabs{margin-top:22px}
+  .tab{margin-right:20px}
+  .back-home{position:sticky;right:0;background:var(--ground);box-shadow:-12px 0 16px var(--ground)}
+  .scope-def{font-size:13px;line-height:1.65}
+  .sumrow{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .cases-h{display:flex;align-items:center;flex-wrap:wrap;gap:6px}
+  .cases-h .muted{margin-left:0}
+}
 </style>
 <script>
 (function(){
@@ -589,8 +599,15 @@ page = f'''<!doctype html>
     border-radius:14px;box-shadow:0 30px 90px rgb(10 20 40 / 30%);overflow:hidden}}
   .modal-head{{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 20px;
     border-bottom:1px solid var(--rule);background:var(--pale)}}
+  .modal-title-group{{min-width:0;display:flex;align-items:center;flex-wrap:wrap;gap:8px 16px}}
   .modal-head h3{{margin:0;font:600 18px/1.3 var(--serif)}}
-  .modal-head .muted{{margin-left:8px}}
+  .modal-head .muted{{font-size:12px;font-weight:500;color:var(--ink-3)}}
+  .asks-filters{{display:flex;align-items:center;flex-wrap:wrap;gap:6px}}
+  .asks-filter{{border:1px solid var(--rule-2);border-radius:99px;background:var(--surface);color:var(--ink-3);
+    padding:4px 10px;font:600 12px/1.35 var(--serif);cursor:pointer;transition:.15s}}
+  .asks-filter:hover{{border-color:var(--blue);color:var(--blue-deep)}}
+  .asks-filter[aria-pressed="true"]{{border-color:var(--blue);background:var(--soft);color:var(--blue-deep)}}
+  .asks-filter b{{font-weight:700;font-variant-numeric:tabular-nums}}
   .modal-close{{width:32px;height:32px;border:0;border-radius:8px;background:transparent;font-size:20px;cursor:pointer;color:var(--ink-3)}}
   .modal-close:hover{{background:var(--ground);color:var(--ink)}}
   .modal-body{{overflow:auto;padding:6px 20px 18px}}
@@ -603,11 +620,18 @@ page = f'''<!doctype html>
   .qlist .qmark{{display:inline-block;min-width:32px;text-align:center;color:var(--ink-blue);background:var(--soft);border-radius:4px;font-weight:700;font-size:11px;margin-right:8px;padding:1px 6px}}
   .qlist .qmark.qm{{color:var(--good);background:#e6f5ee}}
   .qlist .via{{color:var(--ink-3);font-style:normal;font-size:11.5px}}
-  @media(max-width:600px){{.qlist li{{grid-template-columns:1fr}}}}
+  @media(max-width:600px){{
+    .modal-head{{align-items:flex-start;padding:14px 16px}}
+    .modal-title-group{{gap:8px}}
+    .asks-filters{{width:100%}}
+    .asks-filter{{padding:4px 9px}}
+    .modal-body{{padding-inline:16px}}
+    .qlist li{{grid-template-columns:1fr}}
+  }}
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="page-wrap">
   <div class="eyebrow">QIANWEN × QIEMAN AI · CASE EXPLORER</div>
   <h1>千问用户转化分析</h1>
   <p class="lede-summary" title="{esc(re.sub('<[^>]+>', '', LEDE))}">{LEDE}</p>
@@ -632,7 +656,13 @@ page = f'''<!doctype html>
 
 <div class="modal" id="asks-modal" role="dialog" aria-modal="true" aria-labelledby="asks-title">
   <div class="modal-card">
-    <div class="modal-head"><h3 id="asks-title">提问历程</h3><button type="button" class="modal-close" aria-label="关闭">×</button></div>
+    <div class="modal-head">
+      <div class="modal-title-group">
+        <h3 id="asks-title">提问历程 <span class="muted" id="asks-count"></span></h3>
+        <div class="asks-filters" id="asks-filters" role="toolbar" aria-label="按提问渠道筛选"></div>
+      </div>
+      <button type="button" class="modal-close" aria-label="关闭">×</button>
+    </div>
     <div class="modal-body"><ul class="qlist" id="asks-list"></ul></div>
   </div>
 </div>
@@ -663,14 +693,30 @@ document.addEventListener('click', async (e)=>{{
   if(a){{ openAsks(a.dataset.asks); }}
 }});
 const modal=document.getElementById('asks-modal');
+const askChannels=['千问','且慢','微信'];
+let asksUser=null, asksChannel='';
 function openAsks(pmid){{
   const u=ASKS[pmid]; if(!u) return;
-  const nq=u.asks.filter(a=>a.ch==='千问').length, nm=u.asks.filter(a=>a.ch==='且慢').length;
-  document.getElementById('asks-title').innerHTML = `用户 ${{u.letter}} 的小顾对话 <span class="muted">${{u.asks.length}} 条 · 千问 ${{nq}} · 且慢 ${{nm}} · 微信 0</span>`;
+  asksUser=u; asksChannel=''; renderAsks();
+  modal.setAttribute('open',''); document.body.style.overflow='hidden';
+}}
+function renderAsks(){{
+  const u=asksUser; if(!u) return;
+  const rows=asksChannel ? u.asks.filter(a=>a.ch===asksChannel) : u.asks;
+  document.getElementById('asks-title').firstChild.textContent=`用户 ${{u.letter}} 的小顾对话 `;
+  document.getElementById('asks-count').textContent=asksChannel ? `${{rows.length}} / ${{u.asks.length}} 条` : `${{u.asks.length}} 条`;
+  const filters=document.getElementById('asks-filters'); filters.innerHTML='';
+  [['','全部',u.asks.length], ...askChannels.map(ch=>[ch,ch,u.asks.filter(a=>a.ch===ch).length])].forEach(spec=>{{
+    const b=document.createElement('button'); b.type='button'; b.className='asks-filter'; b.dataset.channel=spec[0];
+    b.setAttribute('aria-pressed',String(asksChannel===spec[0])); b.title=spec[0] ? `只看${{spec[1]}}提问` : '查看全部渠道提问';
+    b.appendChild(document.createTextNode(spec[1]+' ')); const n=document.createElement('b'); n.textContent=spec[2]; b.appendChild(n); filters.appendChild(b);
+  }});
   const list=document.getElementById('asks-list'); list.innerHTML='';
-  if(!u.asks.length){{ list.innerHTML='<li><span class="qt">—</span><span class="qd">该用户在千问、且慢、微信三端都没有向小顾提问（千问会话已创建但零输入）。</span></li>'; }}
+  if(!rows.length){{ const li=document.createElement('li'), t=document.createElement('span'), d=document.createElement('span');
+    t.className='qt'; t.textContent='—'; d.className='qd'; d.textContent=asksChannel ? `该用户没有${{asksChannel}}渠道的提问记录。` : '该用户在千问、且慢、微信三端都没有向小顾提问（千问会话已创建但零输入）。';
+    li.appendChild(t); li.appendChild(d); list.appendChild(li); }}
   let lastDay='';
-  u.asks.forEach(q=>{{
+  rows.forEach(q=>{{
     const day=q.ts.slice(0,10), first=day!==lastDay; lastDay=day;
     const li=document.createElement('li'); if(first) li.className='daysep';
     const t=document.createElement('span'); t.className='qt'; t.textContent = first ? q.ts.slice(5,16).replace('T',' ') : q.ts.slice(11,19);
@@ -678,8 +724,11 @@ function openAsks(pmid){{
     d.appendChild(m); d.appendChild(document.createTextNode(q.text)); if(q.via){{ const v=document.createElement('i'); v.className='via'; v.textContent=' · '+q.via; d.appendChild(v); }}
     li.appendChild(t); li.appendChild(d); list.appendChild(li);
   }});
-  modal.setAttribute('open',''); document.body.style.overflow='hidden';
 }}
+document.getElementById('asks-filters').addEventListener('click',e=>{{
+  const b=e.target.closest('.asks-filter'); if(!b) return;
+  asksChannel=b.dataset.channel; renderAsks();
+}});
 function closeAsks(){{ modal.removeAttribute('open'); document.body.style.overflow=''; }}
 modal.querySelector('.modal-close').addEventListener('click', closeAsks);
 modal.addEventListener('click', e=>{{ if(e.target===modal) closeAsks(); }});
