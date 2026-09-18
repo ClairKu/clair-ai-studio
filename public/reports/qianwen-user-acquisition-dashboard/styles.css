@@ -531,13 +531,15 @@ tbody tr:hover td:first-child, tbody tr.is-selected td:first-child { background:
 .deep-dive-link { margin: 26px 0 0; padding: 14px 18px; background: var(--panel, #fff); border: 1px solid rgba(20,30,50,.08); border-radius: 10px; font-size: 14px; }
 .deep-dive-link a { font-weight: 700; }
 
-.segment-panel { margin-top: 22px; }
-.segment-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 14px 20px; margin-bottom: 14px; }
-.segment-head h3 { margin: 0; font-size: 19px; letter-spacing: -0.01em; }
+.segment-panel { margin-top: 36px; }
+.segment-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px 28px; margin-bottom: 22px; }
+.segment-head h3 { margin: 0; font-size: clamp(25px, 2.15vw, 31px); font-weight: 800; line-height: 1.2; letter-spacing: -0.025em; }
 .segment-segmented { flex-wrap: wrap; row-gap: 8px; justify-content: flex-end; }
 .segment-segmented span { min-height: 36px; padding: 0 12px; font-size: 12.5px; }
 @media (max-width: 760px) {
-  .segment-head { flex-direction: column; align-items: stretch; }
+  .segment-panel { margin-top: 28px; }
+  .segment-head { flex-direction: column; align-items: stretch; gap: 16px; margin-bottom: 18px; }
+  .segment-head h3 { font-size: 24px; }
   .segment-segmented { margin-top: 4px; }
   .segment-segmented legend { margin-bottom: 6px; }
 }

@@ -496,20 +496,25 @@ function formatClock(value) {
   return new Intl.DateTimeFormat("zh-CN", { timeZone: "Asia/Shanghai", hour: "numeric", minute: "2-digit", hour12: false }).format(date);
 }
 
-// 标题下的小字：合作场景 + 老户激活漏斗 + 全量绑定用户入金，不随下方时间范围联动
+// 标题下的小字：正式上线后的新增贡献 + 老户激活 + 全量绑定与交易，不随下方时间范围联动
 function renderHeroLead() {
   const node = $("#hero-lead");
   if (!node || !currentData) return;
   const segment = (id) => currentData.segments?.items?.find((item) => item.id === id);
   const all = segment("all");
   const awakened = segment("existing_reactivated");
-  const intro = "盈米基金与 AI 流量入口千问 App 合作，以 A2A 模式接入且慢 AI 小顾";
-  const parts = [];
+  const launchedNewAccounts = currentData.daily
+    .filter((row) => row.date >= LAUNCH_DAY)
+    .reduce((sum, row) => sum + row.new_accounts_today, 0);
+  const sentences = [`8 月 10 日正式上线以来，千问已为且慢新增 ${number.format(launchedNewAccounts)} 名且慢用户`];
   if (awakened?.state === "confirmed") {
-    parts.push(`已激活老用户 ${number.format(awakened.population_accounts)} 人，其中 ${number.format(awakened.opened_after_binding_accounts)} 人绑定后开户、${number.format(awakened.risk_after_binding_accounts)} 人完成风测、${number.format(awakened.inflow_accounts)} 人完成入金`);
+    sentences[0] += `，并激活 ${number.format(awakened.population_accounts)} 名老用户（${number.format(awakened.opened_after_binding_accounts)} 人开户、${number.format(awakened.risk_after_binding_accounts)} 人完成风测、${number.format(awakened.inflow_accounts)} 人完成入金）`;
   }
-  if (all?.state === "confirmed") parts.push(`千问绑定用户累计入金 ${formatAmount(all.inflow_amount_wan)}`);
-  node.textContent = `${intro}。${parts.join("；")}。`;
+  sentences.push(`千问累计绑定用户 ${number.format(currentData.metrics.bound_accounts)} 人（含上线前灰度），其中新注册 ${number.format(currentData.metrics.new_accounts)} 人、已有账号 ${number.format(currentData.metrics.existing_accounts)} 人`);
+  if (all?.state === "confirmed") {
+    sentences.push(`绑定后 ${number.format(all.inflow_accounts)} 人完成交易入金，共 ${number.format(all.inflow_transactions)} 笔、${formatAmount(all.inflow_amount_wan)}`);
+  }
+  node.textContent = `${sentences.join("。")}。`;
 }
 
 
