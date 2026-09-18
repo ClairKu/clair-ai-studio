@@ -192,8 +192,8 @@ for key, cohorts in (("behavior", behavior_cohorts), ("business", business_cohor
     out[key] = {"window_start_at": template[key]["window_start_at"], "window_end_at": cutoff,
                 "anchor": "first_bound_at", "cohorts": cohorts}
 
-# ── 分客群面板（5 维度 × 6 指标）──
-SEG_IDS = ["all", "existing", "existing_awakened", "existing_no_first_investment", "new"]
+# ── 分客群面板（8 维度 × 6 指标）──
+SEG_IDS = ["all", "invested", "first_inv", "new", "new_first_inv", "existing", "existing_reactivated", "existing_first_inv"]
 SEG_POP = {"all": metrics["bound_accounts"], "existing": metrics["existing_accounts"],
            "new": metrics["new_accounts"]}
 seg_items = []
@@ -203,6 +203,8 @@ for item in q5["items"]:
         raise SystemExit(f"segments.{sid} 人数 {item['population_accounts']} 与 metrics 不一致")
     if sid.startswith("existing_") and item["population_accounts"] > metrics["existing_accounts"]:
         raise SystemExit(f"segments.{sid} 人数超过老用户总数")
+    if sid.startswith("new_") and item["population_accounts"] > metrics["new_accounts"]:
+        raise SystemExit(f"segments.{sid} 人数超过新用户总数")
     holders = int(item["holder_accounts"])
     total = round(float(item["total_asset_wan"]), 2)
     entry = {"id": sid, "definition_version": DEF_VERSION, "state": "confirmed",
@@ -219,13 +221,15 @@ for item in q5["items"]:
              "holders_gte_100k_accounts": int(item["holders_gte_100k_accounts"]),
              "holders_gte_1m_accounts": int(item["holders_gte_1m_accounts"]),
              "reinvested_accounts": int(item["reinvested_accounts"]),
+             "first_investor_accounts": int(item["first_investor_accounts"]),
              "inflow_amount_wan": round(float(item["inflow_amount_wan"]), 4),
              "holder_accounts": holders, "total_asset_wan": total}
     if holders:
         entry["per_capita_asset_wan"] = round(total / holders, 4)
     assert entry["new_accounts"] + entry["existing_accounts"] == entry["population_accounts"], sid
     for key in ("card_bound_accounts", "risk_assessed_accounts", "inflow_accounts", "holder_accounts",
-                "opened_after_binding_accounts", "risk_after_binding_accounts", "reinvested_accounts"):
+                "opened_after_binding_accounts", "risk_after_binding_accounts", "reinvested_accounts",
+                "first_investor_accounts"):
         if entry[key] > entry["population_accounts"]:
             raise SystemExit(f"segments.{sid}.{key} 超过该维度人数")
     seg_items.append(entry)

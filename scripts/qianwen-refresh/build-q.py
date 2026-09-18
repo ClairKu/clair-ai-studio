@@ -188,9 +188,8 @@ for co in ("all", "new", "existing"):
 q3 = {"as_of": iso(CUT), "behavior": behavior, "business": business}
 
 # ── q5 分客群面板 ──
-SEG_ID = {"all": "all", "existing": "existing", "awakened": "existing_awakened",
-          "never_inv": "existing_no_first_investment", "new": "new"}
-items = [{"id": SEG_ID[k], "population_accounts": I(sg[k]["pop"]),
+SEG_ORDER = ["all", "invested", "first_inv", "new", "new_first_inv", "existing", "existing_reactivated", "existing_first_inv"]
+items = [{"id": k, "population_accounts": I(sg[k]["pop"]),
           "new_accounts": I(sg[k]["new_cnt"]),
           "existing_accounts": I(sg[k]["pop"]) - I(sg[k]["new_cnt"]),
           "card_bound_accounts": I(sg[k]["card_bound"]),
@@ -204,8 +203,10 @@ items = [{"id": SEG_ID[k], "population_accounts": I(sg[k]["pop"]),
           "holder_accounts": I(sg[k]["holders"]),
           "holders_gte_100k_accounts": I(sg[k]["h100k"]),
           "holders_gte_1m_accounts": I(sg[k]["h1m"]),
-          "reinvested_accounts": I(sg[k]["reinvested"])}
-         for k in ("all", "existing", "awakened", "never_inv", "new")]
+          "reinvested_accounts": I(sg[k]["reinvested"]),
+          "first_investor_accounts": I(sg[k]["first_inv_cnt"])}
+         for k in SEG_ORDER if k in sg]
+assert len(items) == len(SEG_ORDER), f"segments 缺维度: {set(SEG_ORDER)-set(sg)}"
 q5 = {"as_of": iso(CUT), "asset_as_of": AD, "items": items}
 
 for name, obj in (("q1", q1), ("q2", q2), ("q3", q3), ("q4", q4), ("q5", q5)):

@@ -1,7 +1,4 @@
 const DATA_URL = "./data/latest.json";
-// 数据由本机 launchd 定时任务（scripts/qianwen-refresh/auto-refresh.sh）取数、构建并发布，
-// 页面本身只读；这里只把发布节奏告诉读者。
-const REFRESH_SCHEDULE = ["09:30", "17:30"];
 const SCHEMA_VERSION = "qianwen-user-acquisition-v6";
 const LAUNCH_AT = "2026-08-10T08:00:00+08:00";
 const WINDOW_START_AT = "2026-08-03T00:00:00+08:00";
@@ -178,10 +175,13 @@ const BUSINESS_STATS = {
 };
 const SEGMENTS = [
   { id: "all", label: "全部", note: "全部绑定用户" },
+  { id: "invested", label: "新投", note: "绑定后完成过产品买入（不含钱包充值）" },
+  { id: "first_inv", label: "首投", note: "人生第一笔投资发生在绑定之后" },
+  { id: "new", label: "新户", note: "在千问注册且慢帐号" },
+  { id: "new_first_inv", label: "新户首投", note: "新户中完成首投" },
   { id: "existing", label: "老用户", note: "绑定时已有且慢账户" },
-  { id: "existing_awakened", label: "老用户唤醒", note: "绑定时已清仓" },
-  { id: "existing_no_first_investment", label: "无首投老用户", note: "从未买入" },
-  { id: "new", label: "新用户", note: "在千问注册且慢帐号" },
+  { id: "existing_reactivated", label: "老户唤回", note: "绑定时零资产（未投过或已清仓），绑定后重新入金" },
+  { id: "existing_first_inv", label: "老户首投", note: "老户中人生首投发生在绑定后" },
 ];
 const PUBLIC_STATES = new Set(["confirmed", "suppressed", "unavailable"]);
 
@@ -489,23 +489,21 @@ function renderHeroLead() {
   const m = currentData.metrics;
   const segment = (id) => currentData.segments?.items?.find((item) => item.id === id);
   const all = segment("all");
-  const awakened = segment("existing_awakened");
+  const awakened = segment("existing_reactivated");
   const firstInvest = currentData.behavior?.cohorts?.all?.metrics?.find((item) => item.id === "first_investment_after_binding");
   const tail = [];
-  if (awakened?.state === "confirmed") tail.push(`老用户唤醒 ${number.format(awakened.population_accounts)} 人`);
+  if (awakened?.state === "confirmed") tail.push(`老户唤回 ${number.format(awakened.population_accounts)} 人`);
   if (firstInvest?.state === "confirmed") tail.push(`绑定后首投 ${number.format(firstInvest.reached_accounts)} 人`);
   if (all?.state === "confirmed") {
-    tail.push(`新增入金 ${formatAmount(all.inflow_amount_wan)}`);
+    tail.push(`带来新增入金 ${formatAmount(all.inflow_amount_wan)}`);
     tail.push(`在管资产 ${formatAmount(all.total_asset_wan)}`);
   }
-  const head = `累计绑定 ${number.format(m.bound_accounts)} 人，其中新用户 ${number.format(m.new_accounts)} 人（${formatShare(m.new_accounts, m.bound_accounts)}）`;
-  node.textContent = tail.length ? `${head}；${tail.join("、")}。` : `${head}。`;
+  const days = currentData.daily?.length || 0;
+  const head = `上线 ${days} 天累计绑定 ${number.format(m.bound_accounts)} 人，其中新用户 ${number.format(m.new_accounts)} 人（${formatShare(m.new_accounts, m.bound_accounts)}）在千问当场注册且慢`;
+  const mid = tail.length ? `；${tail.join("、")}` : "";
+  node.textContent = `${head}${mid}。`;
 }
 
-function renderRefreshSchedule() {
-  const node = $("#refresh-schedule");
-  if (node) node.textContent = `每日 ${REFRESH_SCHEDULE.join(" / ")} 自动更新`;
-}
 
 function decorateRows(rows) {
   let cumulativeNew = 0;
@@ -583,13 +581,18 @@ function renderSegmentPanel() {
       const seg = (id) => lifecycle.buckets.find((b) => b.id === id)?.accounts ?? 0;
       popNote = `${number.format(seg("no_first_investment"))} 无首投 · ${number.format(seg("churned"))} 已流失 · ${number.format(seg("under_management"))} 在管`;
     }
-  } else if (viewState.segment === "existing_awakened") {
+  } else if (viewState.segment === "invested") {
+    popNote = item.first_investor_accounts
+      ? `绑定后有产品买入 · 其中 ${people(item.first_investor_accounts)}为人生首投`
+      : meta.note;
+  } else if (viewState.segment === "new_first_inv") {
+    popNote = `新户中完成首投 · 占新户 ${formatShare(population, currentData.metrics?.new_accounts || 0)}`;
+  } else if (viewState.segment === "existing_reactivated") {
     popNote = item.reinvested_accounts
-      ? `绑定时已清仓 · ${people(item.reinvested_accounts)}绑定后再投`
-      : "绑定时已清仓";
-  } else if (viewState.segment === "existing_no_first_investment") {
-    const existing = currentData.metrics?.existing_accounts || 0;
-    popNote = `从未买入 · 占已有帐号 ${formatShare(population, existing)}`;
+      ? `绑定时零资产，绑定后重新入金 · ${people(item.reinvested_accounts)}已买入产品`
+      : meta.note;
+  } else if (viewState.segment === "existing_first_inv") {
+    popNote = `老户中首投 · 占老用户 ${formatShare(population, currentData.metrics?.existing_accounts || 0)}`;
   }
   set("#seg-pop-note", popNote);
 
@@ -1353,7 +1356,6 @@ function render(data) {
   endInput.value = viewState.end;
   $("#range-error").textContent = "";
   document.documentElement.dataset.dataMode = "published";
-  renderRefreshSchedule();
   renderHeroLead();
   renderView();
 }

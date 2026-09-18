@@ -96,34 +96,35 @@ FROM (SELECT b.pmid, $COHORT cohort,
                  AND d.relation_account_type='ROOT' AND d.cal_date<=DATE(b.fb) AND d.total_asset>0)
 ) x ORDER BY x.cohort, x.pmid" || fails=$((fails+1))
 
-# 候选表 → zeroatbind.txt(cohort/candidates/nonzero_at_bind) + cleared-ids.txt(已有帐号中绑定时已清仓 = 老用户唤醒)
+# 候选表 → zeroatbind.txt(cohort/candidates/nonzero_at_bind) + nonzero-ids.txt(老户中绑定时有资产的人)
 python3 - "$W" <<'PYEOF'
 import re, sys
 from pathlib import Path
 W = Path(sys.argv[1])
 rows = [l.split() for l in W.joinpath("candidates.txt").read_text().splitlines()
         if re.match(r"^(new|existing)\s+\d+", l)]
-nonzero = {"new": 0, "existing": 0}; cand = {"new": 0, "existing": 0}; cleared = []
+nonzero = {"new": 0, "existing": 0}; cand = {"new": 0, "existing": 0}; nonzero_ids = []
 for co, pmid, ta in rows:
     cand[co] += 1
     v = None if ta in ("None", "NULL", "") else float(ta)
-    if v and v > 0: nonzero[co] += 1
-    elif co == "existing": cleared.append(pmid)
+    if v and v > 0:
+        nonzero[co] += 1
+        if co == "existing": nonzero_ids.append(pmid)
 lines = ["cohort  candidates  nonzero_at_bind", "-" * 40]
 lines += [f"{co}  {cand[co]}  {nonzero[co]}" for co in ("new", "existing") if cand[co]]
 W.joinpath("zeroatbind.txt").write_text("\n".join(lines) + "\n")
-W.joinpath("cleared-ids.txt").write_text(",".join(cleared) if cleared else "0")
-print(f"[zeroatbind] 候选 {len(rows)}，绑定时有资产 {nonzero}，已清仓 {len(cleared)}")
+W.joinpath("nonzero-ids.txt").write_text(",".join(nonzero_ids) if nonzero_ids else "0")
+print(f"[zeroatbind] 候选 {len(rows)}，绑定时有资产 {nonzero}")
 PYEOF
-IDS=$(cat "$W/cleared-ids.txt")
+NZ=$(cat "$W/nonzero-ids.txt")
 
-# 分客群面板 v2：5 维度 × 指标（含新老拆分、绑定后新开户/新风测、入金笔数、资产分层、再投）
-# 老用户唤醒 = 已有帐号中绑定时已清仓（曾持有、绑定当刻资产为零）
+# 分客群面板 v3：8 维度。新投=绑定后有产品买入；首投=人生首笔投资在绑定后；
+# 老户唤回=老户中绑定时零资产（未投过或已清仓）且绑定后重新入金；新户/老户首投=按客群拆首投。
 Q segments 900 "SELECT s.seg, COUNT(*) pop, SUM(u.cohort='new') new_cnt,
   SUM(u.card) card_bound, SUM(u.opened_after) opened_after, SUM(u.assessed) assessed, SUM(u.risk_after) risk_after,
   ROUND(SUM(COALESCE(f.inflow,0))/10000,4) inflow_wan, SUM(COALESCE(f.inflow,0)>0) inflow_users, SUM(COALESCE(f.txns,0)) inflow_txns,
   ROUND(SUM(COALESCE(a.ta,0))/10000,2) asset_wan, SUM(COALESCE(a.ta,0)>0) holders,
-  SUM(COALESCE(a.ta,0)>=100000) h100k, SUM(COALESCE(a.ta,0)>=1000000) h1m, SUM(u.reinvested) reinvested
+  SUM(COALESCE(a.ta,0)>=100000) h100k, SUM(COALESCE(a.ta,0)>=1000000) h1m, SUM(u.reinvested) reinvested, SUM(u.first_inv) first_inv_cnt
 FROM (SELECT b.pmid, b.fb, p.account3_id, $COHORT cohort,
     (p.bank_no IS NOT NULL AND p.bank_no<>'') card,
     EXISTS(SELECT 1 FROM qm_meta.user_survey_record_latest sv WHERE sv.broker='0008' AND sv.account3_id=CAST(p.account3_id AS CHAR)
@@ -131,7 +132,8 @@ FROM (SELECT b.pmid, b.fb, p.account3_id, $COHORT cohort,
     ((SELECT MIN(r.created_at) FROM ying99_accounts.risk_survey_record r WHERE r.account3_id=p.account3_id AND r.broker='0008' AND r.created_at<'$CUT') > b.fb) opened_after,
     EXISTS(SELECT 1 FROM ying99_accounts.risk_survey_record r WHERE r.account3_id=p.account3_id AND r.broker='0008' AND r.created_at>b.fb AND r.created_at<'$CUT') risk_after,
     EXISTS(SELECT 1 FROM qm_meta.trade_detail t WHERE t.user_id=b.pmid AND t.canceled=0 AND t.buy_amount>0 AND t.po_code<>'WALLET' AND t.accept_time>=b.fb AND t.accept_time<'$CUT') reinvested,
-    NOT EXISTS(SELECT 1 FROM qm_meta.trade_detail t WHERE t.user_id=b.pmid AND t.canceled=0 AND t.buy_amount>0 AND t.po_code<>'WALLET' AND t.accept_time<'$CUT') ever_no_buy
+    (NOT EXISTS(SELECT 1 FROM qm_meta.trade_detail t WHERE t.user_id=b.pmid AND t.canceled=0 AND t.buy_amount>0 AND t.po_code<>'WALLET' AND t.accept_time<b.fb)
+     AND EXISTS(SELECT 1 FROM qm_meta.trade_detail t WHERE t.user_id=b.pmid AND t.canceled=0 AND t.buy_amount>0 AND t.po_code<>'WALLET' AND t.accept_time>=b.fb AND t.accept_time<'$CUT')) first_inv
   FROM $B) u
 LEFT JOIN (SELECT t.user_id, SUM($INFLOW_CASE) inflow,
     SUM(CASE WHEN (t.trade_type='wallet.recharge' AND t.extra IN ('by.online','by.offline') AND t.buy_amount>0)
@@ -139,11 +141,16 @@ LEFT JOIN (SELECT t.user_id, SUM($INFLOW_CASE) inflow,
   FROM qm_meta.trade_detail t JOIN (SELECT user_id AS pmid, MIN(created_at) AS fb FROM ying99_qieman.qwen_user_map WHERE is_deleted=0 GROUP BY user_id) bb ON bb.pmid=t.user_id
   WHERE t.canceled=0 AND t.accept_time>=bb.fb AND t.accept_time<'$CUT' GROUP BY t.user_id) f ON f.user_id=u.pmid
 LEFT JOIN $ASSET_AD a ON a.account3_id=u.account3_id AND u.account3_id<>1002
-JOIN (SELECT 'all' seg UNION ALL SELECT 'existing' UNION ALL SELECT 'awakened' UNION ALL SELECT 'never_inv' UNION ALL SELECT 'new') s
-  ON s.seg='all' OR (s.seg='existing' AND u.cohort='existing')
-  OR (s.seg='awakened' AND u.cohort='existing' AND u.pmid IN ($IDS))
-  OR (s.seg='never_inv' AND u.cohort='existing' AND u.ever_no_buy AND COALESCE(a.ta,0)<=0)
+JOIN (SELECT 'all' seg UNION ALL SELECT 'invested' UNION ALL SELECT 'first_inv' UNION ALL SELECT 'new' UNION ALL SELECT 'new_first_inv'
+      UNION ALL SELECT 'existing' UNION ALL SELECT 'existing_reactivated' UNION ALL SELECT 'existing_first_inv') s
+  ON s.seg='all'
+  OR (s.seg='invested' AND u.reinvested)
+  OR (s.seg='first_inv' AND u.first_inv)
   OR (s.seg='new' AND u.cohort='new')
-GROUP BY s.seg ORDER BY FIELD(s.seg,'all','existing','awakened','never_inv','new')" || fails=$((fails+1))
+  OR (s.seg='new_first_inv' AND u.cohort='new' AND u.first_inv)
+  OR (s.seg='existing' AND u.cohort='existing')
+  OR (s.seg='existing_reactivated' AND u.cohort='existing' AND COALESCE(f.inflow,0)>0 AND u.pmid NOT IN ($NZ))
+  OR (s.seg='existing_first_inv' AND u.cohort='existing' AND u.first_inv)
+GROUP BY s.seg ORDER BY FIELD(s.seg,'all','invested','first_inv','new','new_first_inv','existing','existing_reactivated','existing_first_inv')" || fails=$((fails+1))
 
 [ $fails -eq 0 ] && echo "扩展取数全部完成" || { echo "扩展取数有 $fails 段失败"; exit 1; }

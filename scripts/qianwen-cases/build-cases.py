@@ -224,7 +224,6 @@ def card(u):
     who = f'{u["age"]} 岁 · {"男" if u["gender"]=="M" else "女" if u["gender"]=="F" else "性别未知"}' + (f' · {esc(u["prov"])}' if u.get("prov") else "")
     dev_txt = "、".join(sorted({PLAT.get(str(x["platform"]), str(x["platform"])) for x in u["dev"]})) or "无 App 记录"
     tags = [f'<span class="tag">{ "绑定当场注册" if u["cohort"]=="new" else "老客 · " + dt(u["registered_at"]).strftime("%Y-%m") + " 注册" }</span>',
-            f'<span class="tag good">绑定后买入 {money(d["buy_amount_after"])} 元</span>',
             f'<span class="tag good">绑定后入金 {money(d["inflow_after"])} 元</span>']
     if d["cancels_after"]: tags.append(f'<span class="tag amber">撤单重下 {d["cancels_after"]} 次</span>')
     if not u["asks"]: tags.append('<span class="tag amber">提问 0 条</span>')
@@ -327,10 +326,12 @@ if _first_users:
     import statistics as _st
     _med = _st.median([(dt(u["derived"]["first_buy_after"]) - dt(u["fb"])).total_seconds() for u in _first_users if u["derived"]["first_buy_after"]])
 _med_txt = "—" if _med is None else (f"{_med/86400:.1f} 天" if _med >= 86400 else f"{_med/3600:.1f} 小时")
-LEDE = (f"{META['bound_total']:,} 个绑定用户里，绑定时零资产且随后真金白银入金的只有 <b>{Z['n']} 人</b>，合计入金 <b>{wan(Z['inflow'])}</b>、当前资产 {wan(Z['asset'])}；"
-        f"其中老户唤回 {R['n']} 人贡献 {wan(R['inflow'])}，全新首投 {NF['n']} 人贡献 {wan(NF['inflow'])}。"
-        f"用户首投 {F1['n']} 人，绑定到首投中位 {_med_txt}，最快 11 分钟、最慢 25 天；{Z['repeat']} 人复投、{Z['cancels']} 人撤单重下。"
-        f"七人 {Z['asks']:,} 条小顾提问全部发生在千问，交易则 100% 回到且慢完成——千问侧零成交痕迹。")
+LEDE_POINTS = [
+    f"{META['bound_total']:,} 个绑定用户里，绑定时零资产且随后真金白银入金的只有 <b>{Z['n']} 人</b>，合计入金 <b>{wan(Z['inflow'])}</b>、当前资产 {wan(Z['asset'])}；其中老户唤回 {R['n']} 人贡献 {wan(R['inflow'])}，全新首投 {NF['n']} 人贡献 {wan(NF['inflow'])}。",
+    f"用户首投 {F1['n']} 人，绑定到首投中位 {_med_txt}，最快 11 分钟、最慢 25 天；{Z['repeat']} 人复投、{Z['cancels']} 人撤单重下。",
+    f"七人 {Z['asks']:,} 条小顾提问全部发生在千问，交易则 100% 回到且慢完成——千问侧零成交痕迹。",
+]
+LEDE = "".join(f"<li>{x}</li>" for x in LEDE_POINTS)
 tabs = "".join(f'<button type="button" class="tab" role="tab" data-scope="{sc["id"]}" aria-selected="false">{sc["label"]}<small>{agg(scope_users(sc))["n"]}</small></button>' for sc in SCOPES)
 sections = "\n".join(scope_section(sc) for sc in SCOPES)
 
@@ -339,6 +340,51 @@ ASKS_JSON = json.dumps({u["pmid"]: {"letter": u["letter"], "cohort": u["cohort"]
                         for u in users}, ensure_ascii=False).replace("</", "<\\/")
 
 CSS = Path(sys.argv[3]).read_text() if len(sys.argv) > 3 else ""
+
+PAGER_SNIPPET = r'''<style>
+*,*::before,*::after{font-family:var(--serif) !important}
+.lede-points{margin:0 0 30px;padding:0 0 0 1.15em;color:var(--ink-2);font-size:16px;line-height:1.75;max-width:62em}
+.lede-points li{margin:6px 0}
+.tabs{display:flex;align-items:flex-end}
+.back-home{margin-left:auto;align-self:center;width:34px;height:34px;display:inline-grid;place-items:center;border:1.5px solid var(--rule-2);border-radius:50%;color:var(--ink-3);text-decoration:none;font-size:22px;line-height:1;padding-bottom:2px}
+.back-home:hover{border-color:var(--blue);color:var(--blue)}
+.pager{display:inline-flex;align-items:center;gap:8px;margin-left:14px;vertical-align:middle;font-size:14px;color:var(--ink-2)}
+.pager .pg{width:28px;height:28px;border:1.5px solid var(--rule-2);border-radius:50%;background:var(--surface);color:var(--ink-3);cursor:pointer;font-size:18px;line-height:1;display:inline-grid;place-items:center;padding:0 0 2px}
+.pager .pg:hover{border-color:var(--blue);color:var(--blue)}
+.pager .pg:disabled{opacity:.35;cursor:default}
+.pager b{font-weight:600;font-variant-numeric:tabular-nums;min-width:3ch;text-align:center}
+.matrix tbody tr[data-jump]{cursor:pointer}
+.matrix tbody tr[data-jump]:hover td{background:var(--pale)}
+.matrix tbody tr[data-jump] .badge{box-shadow:0 0 0 0 transparent;transition:box-shadow .15s}
+.matrix tbody tr[data-jump]:hover .badge{box-shadow:0 0 0 3px rgba(27,136,238,.18)}
+</style>
+<script>
+(function(){
+  document.querySelectorAll('section.scope').forEach(function(sec){
+    var cases=[].slice.call(sec.querySelectorAll(':scope > .case'));
+    var head=sec.querySelector('.cases-h');
+    if(!head||!cases.length) return;
+    var idx=0, box=null, btns=null, cnt=null;
+    if(cases.length>1){
+      box=document.createElement('span'); box.className='pager';
+      box.innerHTML='<button type="button" class="pg" data-dir="-1" aria-label="上一个">‹</button><b></b><button type="button" class="pg" data-dir="1" aria-label="下一个">›</button>';
+      head.appendChild(box); btns=box.querySelectorAll('.pg'); cnt=box.querySelector('b');
+      box.addEventListener('click',function(e){ var b=e.target.closest('.pg'); if(!b||b.disabled) return; idx=Math.min(cases.length-1,Math.max(0,idx+Number(b.dataset.dir))); render(); });
+    }
+    function render(){ cases.forEach(function(c,i){ c.hidden = i!==idx; }); if(box){ cnt.textContent=(idx+1)+'/'+cases.length; btns[0].disabled = idx===0; btns[1].disabled = idx===cases.length-1; } }
+    // 表格行 → 对应个例：按用户字母匹配 .case[data-letter]
+    sec.querySelectorAll('.matrix tbody tr').forEach(function(tr){
+      var badge=tr.querySelector('.badge'); if(!badge) return;
+      var letter=badge.textContent.trim(); var target=cases.findIndex(function(c){ return c.dataset.letter===letter; });
+      if(target<0) return;
+      tr.setAttribute('data-jump',letter); tr.title='查看用户 '+letter+' 的个例';
+      tr.addEventListener('click',function(e){ if(e.target.closest('a,button,[data-copy]')) return; idx=target; render(); head.scrollIntoView({behavior:'smooth',block:'start'}); });
+    });
+    render();
+  });
+})();
+</script>
+'''
 
 page = f'''<!doctype html>
 <html lang="zh-CN">
@@ -418,10 +464,9 @@ page = f'''<!doctype html>
 <div class="wrap">
   <div class="eyebrow">QIANWEN × QIEMAN AI · CASE EXPLORER</div>
   <h1>千问用户转化分析</h1>
-  <p class="lede">{LEDE}</p>
-  <p class="meta-line">数据截至 {CUT}（北京时间） · 全部绑定用户 {META["bound_total"]:,} · 口径锚定各用户自己的绑定时刻 · 本页含个例级明细，已作者端加密发布</p>
+  <ul class="lede-points">{LEDE}</ul>
 
-  <div class="tabs" role="tablist" aria-label="口径切换">{tabs}</div>
+  <div class="tabs" role="tablist" aria-label="口径切换">{tabs}<a class="back-home" href="../qianwen-user-acquisition-dashboard/" title="回到千问主看板" aria-label="回到千问主看板">›</a></div>
   {sections}
 
   <div class="caveat">
@@ -493,7 +538,7 @@ modal.querySelector('.modal-close').addEventListener('click', closeAsks);
 modal.addEventListener('click', e=>{{ if(e.target===modal) closeAsks(); }});
 document.addEventListener('keydown', e=>{{ if(e.key==='Escape') closeAsks(); }});
 </script>
-</body>
+{PAGER_SNIPPET}</body>
 </html>'''
 OUT.write_text(page)
 print(f"OK → {OUT} ({len(page)//1024} KB); scopes:", {sc["id"]: agg(scope_users(sc))["n"] for sc in SCOPES})

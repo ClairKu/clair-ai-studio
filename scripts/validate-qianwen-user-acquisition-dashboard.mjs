@@ -360,7 +360,7 @@ function assertNoForbiddenKeys(value, path = "data") {
 }
 assertNoForbiddenKeys(data);
 
-const segmentIds = ["all", "existing", "existing_awakened", "existing_no_first_investment", "new"];
+const segmentIds = ["all", "invested", "first_inv", "new", "new_first_inv", "existing", "existing_reactivated", "existing_first_inv"];
 {
   const minimumPublicCell = data.privacy.minimum_public_cell;
   assertPlainObject(data.segments, "segments");
@@ -382,7 +382,7 @@ const segmentIds = ["all", "existing", "existing_awakened", "existing_no_first_i
                     "card_bound_accounts", "opened_after_binding_accounts",
                     "risk_assessed_accounts", "risk_after_binding_accounts",
                     "inflow_accounts", "inflow_transactions", "holder_accounts",
-                    "holders_gte_100k_accounts", "holders_gte_1m_accounts", "reinvested_accounts"];
+                    "holders_gte_100k_accounts", "holders_gte_1m_accounts", "reinvested_accounts", "first_investor_accounts"];
     for (const field of counts) assertPublicCell(item[field], `${path}.${field}`, minimumPublicCell);
     if (Object.hasOwn(expectedSegmentPopulation, item.id)
         && item.population_accounts !== expectedSegmentPopulation[item.id]) {
@@ -441,7 +441,6 @@ for (const signal of [
   'id="audience-table"',
   'id="audience-table-body"',
   'id="audience-footnote"',
-  'id="refresh-schedule"',
   'data/fallback-data.js',
 ]) {
   if (!html.includes(signal)) fail(`页面缺少 ${signal}`);
@@ -459,15 +458,18 @@ for (const signal of [
   'name="audience-cohort" value="new"',
   'name="audience-cohort" value="existing"',
   'name="segment" value="all"',
-  'name="segment" value="existing"',
-  'name="segment" value="existing_awakened"',
-  'name="segment" value="existing_no_first_investment"',
+  'name="segment" value="invested"',
+  'name="segment" value="first_inv"',
   'name="segment" value="new"',
+  'name="segment" value="new_first_inv"',
+  'name="segment" value="existing"',
+  'name="segment" value="existing_reactivated"',
+  'name="segment" value="existing_first_inv"',
 ]) {
   if (!html.includes(signal)) fail(`交互控件缺少 ${signal}`);
 }
 if ((html.match(/<article class="kpi-card/g) || []).length !== 9) fail("关键数据卡必须为三张规模卡 + 六张分客群指标卡");
-if ((html.match(/name="segment"/g) || []).length !== 5) fail("分客群面板必须有五个维度开关");
+if ((html.match(/name="segment"/g) || []).length !== 8) fail("分客群面板必须有八个维度开关");
 if ((html.match(/name="series"/g) || []).length !== 4) fail("走势图必须有四个独立数据开关");
 for (const key of ["bound", "new", "existing", "daily"]) {
   if (!html.includes(`id="value-${key}"`)) fail(`读数条缺少 ${key} 的最新数值`);
@@ -478,6 +480,7 @@ for (const removed of [
   "阶段",
   "数据状态",
   "refresh-explainer",
+  'id="refresh-schedule"',
   'class="topbar"',
   "DATA WINDOW SINCE",
   'id="kpi-scope"',
@@ -523,8 +526,6 @@ for (const signal of [
   "renderReadout",
   "renderSegmentPanel",
   "loadPublishedData",
-  "REFRESH_SCHEDULE",
-  "renderRefreshSchedule",
   "window_cumulative_bound",
   "visibleSeries",
   "selectedDate",
@@ -559,7 +560,7 @@ for (const word of ["映射", "聚合", "去重", "关联", "存量", "ACCOUNT H
   if (reportingCopy.includes(word)) fail(`汇报文案仍包含技术术语：${word}`);
 }
 for (const phrase of [
-  "千问 X 且慢AI小顾",
+  "千问 · 且慢AI小顾",
   "累计绑定用户",
   "其中新用户",
   "老用户",

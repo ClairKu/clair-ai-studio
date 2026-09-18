@@ -88,7 +88,7 @@ const shell = `<!doctype html>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
   <meta name="theme-color" content="#f2f1ed">
-  <title>千问 X 且慢AI小顾｜用户数据看板</title>
+  <title>千问 · 且慢AI小顾｜用户引流成效</title>
   <style>
     * { box-sizing: border-box; }
     body {
