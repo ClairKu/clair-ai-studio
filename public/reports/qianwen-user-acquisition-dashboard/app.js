@@ -496,23 +496,19 @@ function formatClock(value) {
   return new Intl.DateTimeFormat("zh-CN", { timeZone: "Asia/Shanghai", hour: "numeric", minute: "2-digit", hour12: false }).format(date);
 }
 
-// 标题下的小字：正式上线后的新增贡献 + 老户激活 + 全量绑定与交易，不随下方时间范围联动
+// 标题下的小字：合作方式 + 绑定构成 + 关键转化 + 资金结果；全部取自当前数据快照，不随下方时间范围联动
 function renderHeroLead() {
   const node = $("#hero-lead");
   if (!node || !currentData) return;
   const segment = (id) => currentData.segments?.items?.find((item) => item.id === id);
   const all = segment("all");
-  const awakened = segment("existing_reactivated");
-  const launchedNewAccounts = currentData.daily
-    .filter((row) => row.date >= LAUNCH_DAY)
-    .reduce((sum, row) => sum + row.new_accounts_today, 0);
-  const sentences = [`8 月 10 日正式上线以来，千问已为且慢新增 ${number.format(launchedNewAccounts)} 名且慢用户`];
-  if (awakened?.state === "confirmed") {
-    sentences[0] += `，并激活 ${number.format(awakened.population_accounts)} 名老用户（${number.format(awakened.opened_after_binding_accounts)} 人开户、${number.format(awakened.risk_after_binding_accounts)} 人完成风测、${number.format(awakened.inflow_accounts)} 人完成入金）`;
-  }
-  sentences.push(`千问累计绑定用户 ${number.format(currentData.metrics.bound_accounts)} 人（含上线前灰度），其中新注册 ${number.format(currentData.metrics.new_accounts)} 人、已有账号 ${number.format(currentData.metrics.existing_accounts)} 人`);
-  if (all?.state === "confirmed") {
-    sentences.push(`绑定后 ${number.format(all.inflow_accounts)} 人完成交易入金，共 ${number.format(all.inflow_transactions)} 笔、${formatAmount(all.inflow_amount_wan)}`);
+  const firstInvestors = segment("first_inv");
+  const newInvestors = segment("new_inv");
+  const sentences = ["盈米基金与 AI 流量入口平台千问合作，以 A2A 模式接入且慢 AI 小顾 Agent"];
+  sentences.push(`上线以来，已有 ${number.format(currentData.metrics.bound_accounts)} 个千问用户绑定且慢账户，其中带来 ${number.format(currentData.metrics.new_accounts)} 个新用户注册，并连接 ${number.format(currentData.metrics.existing_accounts)} 位且慢老用户`);
+  if (all?.state === "confirmed" && firstInvestors?.state === "confirmed" && newInvestors?.state === "confirmed") {
+    sentences.push(`绑定后完成开户 ${number.format(all.opened_after_binding_accounts)} 人、风测 ${number.format(all.risk_after_binding_accounts)} 人，首投 ${number.format(firstInvestors.population_accounts)} 人、新投 ${number.format(newInvestors.population_accounts)} 人，新投用户入金 ${formatAmount(newInvestors.inflow_amount_wan)}`);
+    sentences.push(`全部绑定用户累计新增入金 ${formatAmount(all.inflow_amount_wan)}，总资产规模 ${formatAmount(all.total_asset_wan)}`);
   }
   node.textContent = `${sentences.join("。")}。`;
 }

@@ -566,6 +566,22 @@ if (/(token|secret|password)\s*[:=]\s*["'][^"']+/i.test(app)) fail("页面脚本
 const renderKpisSource = app.slice(app.indexOf("function renderKpis"), app.indexOf("function niceMaximum"));
 if (renderKpisSource.includes("rangeTotals(rows)")) fail("顶部累计总览卡仍与日期区间联动");
 if (!renderKpisSource.includes("bound: currentData.metrics.bound_accounts")) fail("顶部累计总览卡没有固定使用全量 metrics");
+const renderHeroLeadSource = app.slice(app.indexOf("function renderHeroLead"), app.indexOf("function decorateRows"));
+for (const requiredSource of [
+  'segment("all")',
+  'segment("first_inv")',
+  'segment("new_inv")',
+  "currentData.metrics.bound_accounts",
+  "currentData.metrics.new_accounts",
+  "currentData.metrics.existing_accounts",
+  "all.opened_after_binding_accounts",
+  "all.risk_after_binding_accounts",
+  "newInvestors.inflow_amount_wan",
+  "all.inflow_amount_wan",
+  "all.total_asset_wan",
+]) {
+  if (!renderHeroLeadSource.includes(requiredSource)) fail(`顶部动态总结缺少数据字段：${requiredSource}`);
+}
 if (app.includes("累计绑定用户（人）")) fail("增长趋势图仍显示累计绑定用户顶部标题");
 if (html.includes('id="chart-note"')) fail("增长趋势图仍保留底部范围说明");
 
@@ -579,13 +595,18 @@ for (const word of ["映射", "聚合", "去重", "关联", "存量", "ACCOUNT H
 for (const phrase of [
   "千问·且慢AI小顾",
   "用户引流成效看板",
-  "累计绑定用户",
-  "正式上线以来",
-  "名且慢用户",
-  "人开户",
-  "完成风测",
-  "完成入金",
-  "老用户",
+  "AI 流量入口平台千问合作",
+  "A2A 模式接入且慢 AI 小顾 Agent",
+  "千问用户绑定且慢账户",
+  "个新用户注册",
+  "位且慢老用户",
+  "绑定后完成开户",
+  "风测",
+  "首投",
+  "新投",
+  "新投用户入金",
+  "全部绑定用户累计新增入金",
+  "总资产规模",
   "用户增长走势",
   "对应数据明细",
   "在且慢的经营情况与用户画像",
