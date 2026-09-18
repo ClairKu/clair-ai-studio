@@ -876,7 +876,7 @@ page = f'''<!doctype html>
   .ctab{{min-height:48px;font:inherit;font-size:14px;font-weight:760;padding:0 16px;border:0;border-right:1px solid #d8dbea;background:transparent;color:#666c7f;cursor:pointer;transition:background-color .15s,color .15s}}
   .ctab:last-child{{border-right:0}}
   .ctab:hover{{color:#292d3d;background:#f8f7fc}}
-  .ctab:focus-visible{{outline:2px solid var(--blue);outline-offset:-2px}}
+  .ctab:focus,.ctab:focus-visible{{outline:2px solid var(--blue);outline-offset:-2px}}
   .ctab[aria-selected="true"]{{color:#352b75;background:#fff;box-shadow:inset 0 -3px 0 var(--blue-deep)}}
   .cpanel{{height:clamp(420px,56vh,620px);overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable;
     padding:20px 22px 22px;border:1px solid #d8dbea;border-top:0;border-radius:0 0 11px 11px;background:#fff;scrollbar-color:#b9bdd0 transparent}}
