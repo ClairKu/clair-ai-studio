@@ -42,7 +42,13 @@ trap cleanup EXIT
 [ -n "${REDASH_API_KEY:-}" ] || fail "缺 REDASH_API_KEY（~/.zshrc）"
 gh auth token >/dev/null 2>&1 || fail "gh 未登录，无法推送"
 cd "$REPO" || fail "仓库不存在 $REPO"
-ok=0; for i in 1 2 3 4 5; do git fetch origin main >/dev/null 2>&1 && ok=1 && break; sleep 8; done
+fetch_once() {  # 90s 看门狗：这台机器上 github 443 会半开挂死，不能裸 fetch
+  git -c http.lowSpeedLimit=1000 -c http.lowSpeedTime=30 fetch origin main >/dev/null 2>&1 &
+  local pid=$!; local i=0
+  while kill -0 $pid 2>/dev/null; do sleep 3; i=$((i+3)); [ $i -ge 90 ] && { kill -9 $pid 2>/dev/null; return 1; }; done
+  wait $pid
+}
+ok=0; for i in 1 2 3 4; do fetch_once && ok=1 && break; sleep 8; done
 [ $ok -eq 1 ] || fail "git fetch origin main 连续失败（网络/SNI）"
 git worktree add --detach "$WORK/src" origin/main >/dev/null 2>&1 || fail "建 src worktree 失败"
 ln -sfn "$REPO/node_modules" "$WORK/src/node_modules"
