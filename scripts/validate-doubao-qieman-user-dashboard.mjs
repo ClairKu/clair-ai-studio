@@ -35,11 +35,11 @@ assert.ok(data.journey.strictInflowUsersAfterReady <= data.journey.inflowUsersAf
 assert.ok(data.journey.strictInflowWanAfterReady <= data.journey.inflowWanAfterReady);
 assert.equal(data.journey.openedAfterReady, 3, "使用后开户人数发生变化，请人工复核");
 assert.equal(data.journey.cardBoundAfterReady, 3, "使用后绑卡人数发生变化，请人工复核");
-assert.equal(data.journey.riskAssessedAfterReady, 3, "使用后风测人数发生变化，请人工复核");
+assert.equal(data.journey.riskAssessedAfterReady, 4, "使用后风测人数发生变化，请人工复核");
 assert.equal(data.journey.firstInvestmentAfterReady, 0, "使用后首投人数发生变化，请人工复核");
-assert.equal(data.journey.strictInflowUsersAfterReady, 13, "严格后续日入金用户口径发生变化，请人工复核");
-assert.equal(data.journey.strictInflowWanAfterReady, 3.0982, "严格后续日入金金额发生变化，请人工复核");
-assert.equal(data.journey.sameDayInflowWan, 0.21, "同日不确定入金金额发生变化，请人工复核");
+assert.equal(data.journey.strictInflowUsersAfterReady, 21, "严格后续日入金用户口径发生变化，请人工复核");
+assert.equal(data.journey.strictInflowWanAfterReady, 9.8788, "严格后续日入金金额发生变化，请人工复核");
+assert.equal(data.journey.sameDayInflowWan, 0.3458, "同日不确定入金金额发生变化，请人工复核");
 assert.equal(data.cohorts.new.assets.holdingWan, 0, "新用户不应凭空出现历史资产");
 assert.equal(data.cohorts.new.behavior.firstInvestmentAfter, 0, "新用户首投口径发生变化，请人工复核");
 assert.equal(data.cohorts.all.behavior.xiaoguUsage, null, "缺少用户级使用归因时不得填入小顾使用人数");
@@ -71,14 +71,14 @@ for (const prohibited of ["REDASH_API_KEY", "client_secret", "token_hash", '"use
   assert.ok(!readFileSync(join(report, "data", "latest.json"), "utf8").includes(prohibited), `公开数据包含敏感字段：${prohibited}`);
 }
 assert.match(preview, /豆包 × 且慢/);
-assert.match(preview, new RegExp(`>${data.metrics.boundAccounts}<`), "工作台预览中的授权人数未同步");
-assert.match(preview, new RegExp(`>${data.metrics.readyAccounts}<`), "工作台预览中的使用代理人数未同步");
+assert.match(preview, new RegExp(`>${numberFormat.format(data.metrics.boundAccounts)}<`), "工作台预览中的授权人数未同步");
+assert.match(preview, new RegExp(`>${numberFormat.format(data.metrics.readyAccounts)}<`), "工作台预览中的使用代理人数未同步");
 assert.match(preview, new RegExp(coverage.replace(".", "\\.")), "工作台预览中的使用代理覆盖率未同步");
 assert.match(workbench, /id: "doubao-qieman-user-dashboard"/);
 assert.match(workbench, /reports\/doubao-qieman-user-dashboard\//);
 assert.match(workbench, new RegExp(`数据截至 ${cutoff.replace(".", "\\.")}`), "工作台摘要中的数据截止时间未同步");
-assert.match(workbench, new RegExp(`${data.metrics.boundAccounts} 人完成豆包授权`), "工作台摘要中的授权人数未同步");
-assert.match(workbench, new RegExp(`${data.metrics.readyAccounts} 人产生至少一次 OAuth 会话令牌`), "工作台摘要中的使用代理人数未同步");
+assert.match(workbench, new RegExp(`${numberFormat.format(data.metrics.boundAccounts)} 人完成豆包授权`), "工作台摘要中的授权人数未同步");
+assert.match(workbench, new RegExp(`${numberFormat.format(data.metrics.readyAccounts)} 人产生至少一次 OAuth 会话令牌`), "工作台摘要中的使用代理人数未同步");
 assert.match(workbench, new RegExp(`共 ${numberFormat.format(data.metrics.usageProxySessions)} 次`), "工作台摘要中的会话令牌次数未同步");
 
 console.log(`豆包且慢使用后转化看板校验通过：授权 ${data.metrics.boundAccounts} 人，使用代理 ${data.journey.readyAccounts} 人，严格后续日入金 ${data.journey.strictInflowWanAfterReady} 万。`);
