@@ -464,13 +464,42 @@ async function loadPublishedData({ allowFallback = true } = {}) {
 
 function setFreshness(mode, text) {
   const freshness = $("#freshness");
+  if (!freshness) return;   // 顶栏已移除，截止时间改在「累计绑定用户」卡的小字里展示
   freshness.classList.toggle("is-loading", mode === "loading");
   freshness.classList.toggle("is-error", mode === "error");
   freshness.querySelector("span").textContent = text;
 }
 
 function setNotice(message) {
-  $("#refresh-status").textContent = message;
+  const node = $("#refresh-status");
+  if (node) node.textContent = message;
+}
+
+// 截止时刻只取时:分（8:30 / 17:30 这种写法），配合日期范围放进黑底卡小字
+function formatClock(value) {
+  const date = new Date(value);
+  if (!Number.isFinite(date.getTime())) return "";
+  return new Intl.DateTimeFormat("zh-CN", { timeZone: "Asia/Shanghai", hour: "numeric", minute: "2-digit", hour12: false }).format(date);
+}
+
+// 标题下的小字：全窗口的重点数据总结，不随下方时间范围联动
+function renderHeroLead() {
+  const node = $("#hero-lead");
+  if (!node || !currentData) return;
+  const m = currentData.metrics;
+  const segment = (id) => currentData.segments?.items?.find((item) => item.id === id);
+  const all = segment("all");
+  const awakened = segment("existing_awakened");
+  const firstInvest = currentData.behavior?.cohorts?.all?.metrics?.find((item) => item.id === "first_investment_after_binding");
+  const tail = [];
+  if (awakened?.state === "confirmed") tail.push(`老用户唤醒 ${number.format(awakened.population_accounts)} 人`);
+  if (firstInvest?.state === "confirmed") tail.push(`绑定后首投 ${number.format(firstInvest.reached_accounts)} 人`);
+  if (all?.state === "confirmed") {
+    tail.push(`新增入金 ${formatAmount(all.inflow_amount_wan)}`);
+    tail.push(`在管资产 ${formatAmount(all.total_asset_wan)}`);
+  }
+  const head = `累计绑定 ${number.format(m.bound_accounts)} 人，其中新用户 ${number.format(m.new_accounts)} 人（${formatShare(m.new_accounts, m.bound_accounts)}）`;
+  node.textContent = tail.length ? `${head}；${tail.join("、")}。` : `${head}。`;
 }
 
 function renderRefreshSchedule() {
@@ -606,8 +635,11 @@ function renderKpis(rows) {
   $("#existing-accounts").textContent = number.format(totals.existing);
   $("#new-share").textContent = formatShare(totals.new, totals.bound);
   $("#existing-share").textContent = formatShare(totals.existing, totals.bound);
-  $("#kpi-scope").textContent = scope;
-  $("#bound-context").textContent = `${formatDay(rows[0].date)}—${formatDay(rows.at(-1).date)} · ${rows.length} 天累计`;
+  const isFullWindow = rows.length === currentData.daily.length;
+  const range = `${formatDay(rows[0].date)}—${formatDay(rows.at(-1).date)}`;
+  $("#bound-context").textContent = isFullWindow
+    ? `${range} ${formatClock(currentData.meta.data_cutoff)} · ${rows.length} 天`
+    : `${range} · ${scope} · ${rows.length} 天`;
   // 老用户卡小字：资金留存三段拆分。该拆分是全窗口口径，范围被收窄时退回定义文案，
   // 免得小字加总与上方被过滤的人数对不上。
   const lifecycle = currentData.profile?.cohorts?.existing?.dimensions?.find((item) => item.id === "holding_lifecycle_status");
@@ -621,11 +653,6 @@ function renderKpis(rows) {
       breakdown.textContent = "绑定时已有且慢账户";
     }
   }
-  const prelaunchTotal = rows.filter((row) => row.date < LAUNCH_DAY).reduce((sum, row) => sum + row.bound_accounts_today, 0);
-  const prelaunchCopy = prelaunchTotal
-    ? `其中 ${number.format(prelaunchTotal)} 人在 8 月 10 日 08:00 正式上线前的灰度期间完成绑定。`
-    : "";
-  $("#hero-lead").textContent = `截至 ${formatCutoff(currentData.meta.data_cutoff)}，${scope}绑定用户 ${number.format(totals.bound)} 人，其中新用户 ${number.format(totals.new)} 人，占 ${formatShare(totals.new, totals.bound)}。${prelaunchCopy}`;
   setFreshness("ready", `数据截至 ${formatCutoff(currentData.meta.data_cutoff)}`);
 }
 
@@ -1327,6 +1354,7 @@ function render(data) {
   $("#range-error").textContent = "";
   document.documentElement.dataset.dataMode = "published";
   renderRefreshSchedule();
+  renderHeroLead();
   renderView();
 }
 
