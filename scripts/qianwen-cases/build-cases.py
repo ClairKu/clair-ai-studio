@@ -867,13 +867,13 @@ page = f'''<!doctype html>
   .insight-main{{margin:14px 0 0;color:#fff;font-size:16px;font-weight:760;line-height:1.72}}
   .insight-detail{{margin:12px 0 0;padding-top:11px;border-top:1px solid rgb(255 255 255 / 15%);color:#d9d7e5;font-size:12.5px;font-weight:600;line-height:1.65}}
   .case-insight small{{display:block;margin-top:auto;padding-top:13px;color:#aaa7bf;font-size:10.5px;line-height:1.45}}
-  .case-route{{min-width:0;padding:21px 22px 20px;background:linear-gradient(135deg,#f8f7fd 0%,#fdfdff 100%)}}
+  .case-route{{min-width:0;display:flex;flex-direction:column;padding:21px 22px 20px;background:linear-gradient(135deg,#f8f7fd 0%,#fdfdff 100%)}}
   .overview-title{{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0}}
   .overview-title div{{display:flex;align-items:center;gap:9px}}
   .overview-title div > span{{background:#ebe7ff;color:#5b43bf}}
   .overview-title b{{color:#302965;font-size:13px;font-weight:850;letter-spacing:.04em}}
   .overview-title em{{color:#777d90;font-size:10.5px;font-style:normal;font-weight:650;white-space:nowrap}}
-  .overview-route{{counter-reset:route;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:16px 0 0;padding:0;list-style:none}}
+  .overview-route{{counter-reset:route;flex:1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));align-items:center;gap:14px;margin:16px 0 0;padding:0;list-style:none}}
   .overview-route li{{counter-increment:route;position:relative;min-width:0;min-height:72px;display:flex;align-items:flex-start;padding:38px 12px 11px;border:1px solid #dcd8ed;border-radius:10px;background:#fff;color:#34384a;font-size:12.5px;font-weight:760;line-height:1.5;box-shadow:0 4px 12px rgb(42 36 78 / 4%)}}
   .overview-route li::before{{content:"0" counter(route);position:absolute;left:12px;top:11px;color:#6a50d1;font:850 11px/1 var(--mono);letter-spacing:.04em}}
   .overview-route li + li::after{{content:"→";position:absolute;left:-12px;top:50%;transform:translate(-50%,-50%);color:#8d7cdd;font-size:13px;font-weight:900}}
