@@ -503,9 +503,16 @@ def case_insight(u):
 def case_overview(u):
     route_steps = [step.strip() for step in str(u.get("conversion_path") or "").split("→") if step.strip()]
     route_html = "".join(f'<li>{esc(step)}</li>' for step in route_steps)
+    insight = case_insight(u)
+    if "：" in insight:
+        insight = insight.split("：", 1)[1]
+    lead, separator, detail = insight.partition("；")
+    detail_html = f'<p class="insight-detail">{detail}</p>' if separator and detail else ''
     return (f'<section class="case-overview" aria-label="用户洞察与转化路径">'
-            f'<div class="case-insight"><div class="overview-title"><b>用户洞察</b><span>结合提问、使用行为与交易时序</span></div><p>{case_insight(u)}</p></div>'
-            f'<div class="case-route"><div class="overview-title"><b>转化路径</b><span>从需求表达走到真实下单</span></div>'
+            f'<article class="case-insight"><div class="insight-kicker"><span>01</span><b>核心判断</b></div>'
+            f'<p class="insight-main">{lead}</p>{detail_html}'
+            f'<small>基于提问、使用行为与交易时序综合判断</small></article>'
+            f'<div class="case-route"><div class="overview-title"><div><span>02</span><b>转化路径</b></div><em>4 个关键节点</em></div>'
             f'<ol class="overview-route">{route_html}</ol></div>'
             f'</section>')
 
@@ -851,19 +858,26 @@ page = f'''<!doctype html>
   .case-head .badge{{width:25px;height:25px;border-color:#c9c2ed;background:#fff;color:#4e38ac;font-weight:800}}
   .case-head .tag{{padding:4px 10px;border-color:#d4d0e9;background:rgba(255,255,255,.78);color:#4d5266;font-size:11.5px;font-weight:700}}
   .case-head .route-tag{{border-color:#cfc6f5;background:#ece8ff;color:#5740bd}}
-  .case-summary{{padding:0 24px 22px;border-bottom:1px solid #d8dbea;background:linear-gradient(180deg,#fcfbff 0%,#f8f7fc 100%)}}
-  .case-overview{{display:grid;grid-template-columns:minmax(320px,.92fr) minmax(0,1.45fr);gap:34px;padding:22px 0 20px}}
-  .case-insight{{min-width:0;padding-left:17px;border-left:3px solid var(--blue)}}
-  .overview-title{{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:10px}}
-  .overview-title b{{color:#302965;font-size:13px;font-weight:850}}
-  .overview-title span{{color:#777d90;font-size:10.5px;white-space:nowrap}}
-  .case-insight p{{margin:0;color:#24283a;font-size:15px;font-weight:750;line-height:1.72}}
-  .case-route{{min-width:0}}
-  .overview-route{{counter-reset:route;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px;margin:13px 0 0;padding:0;list-style:none}}
-  .overview-route li{{counter-increment:route;position:relative;min-width:0;padding-left:31px;color:#3f4558;font-size:11.5px;font-weight:720;line-height:1.5}}
-  .overview-route li::before{{content:counter(route);position:absolute;left:0;top:0;width:23px;height:23px;display:grid;place-items:center;border-radius:50%;background:#ebe7ff;color:#5a42bf;font-size:10.5px;font-weight:850}}
-  .overview-route li + li::after{{content:"";position:absolute;left:-15px;top:11px;width:10px;border-top:1px solid #bdb4eb}}
-  .case-facts{{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid #d8dbea;border-radius:12px;background:#fff;overflow:hidden}}
+  .case-summary{{padding:20px 24px 22px;border-bottom:1px solid #d8dbea;background:linear-gradient(180deg,#fcfbff 0%,#f8f7fc 100%)}}
+  .case-overview{{display:grid;grid-template-columns:minmax(320px,.88fr) minmax(0,1.42fr);gap:0;padding:0;border:1px solid #d5d3e5;border-radius:14px;background:#fff;box-shadow:0 8px 24px rgb(37 31 72 / 6%);overflow:hidden}}
+  .case-insight{{min-width:0;display:flex;flex-direction:column;padding:21px 24px 20px;background:linear-gradient(145deg,#292642 0%,#332e57 100%);color:#fff}}
+  .insight-kicker{{display:flex;align-items:center;gap:9px;color:#dcd6ff}}
+  .insight-kicker span,.overview-title div > span{{width:25px;height:25px;display:grid;place-items:center;border-radius:7px;background:#7660df;color:#fff;font:800 10px/1 var(--mono);letter-spacing:.04em}}
+  .insight-kicker b{{font-size:13px;font-weight:850;letter-spacing:.06em}}
+  .insight-main{{margin:14px 0 0;color:#fff;font-size:16px;font-weight:760;line-height:1.72}}
+  .insight-detail{{margin:12px 0 0;padding-top:11px;border-top:1px solid rgb(255 255 255 / 15%);color:#d9d7e5;font-size:12.5px;font-weight:600;line-height:1.65}}
+  .case-insight small{{display:block;margin-top:auto;padding-top:13px;color:#aaa7bf;font-size:10.5px;line-height:1.45}}
+  .case-route{{min-width:0;padding:21px 22px 20px;background:linear-gradient(135deg,#f8f7fd 0%,#fdfdff 100%)}}
+  .overview-title{{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0}}
+  .overview-title div{{display:flex;align-items:center;gap:9px}}
+  .overview-title div > span{{background:#ebe7ff;color:#5b43bf}}
+  .overview-title b{{color:#302965;font-size:13px;font-weight:850;letter-spacing:.04em}}
+  .overview-title em{{color:#777d90;font-size:10.5px;font-style:normal;font-weight:650;white-space:nowrap}}
+  .overview-route{{counter-reset:route;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:16px 0 0;padding:0;list-style:none}}
+  .overview-route li{{counter-increment:route;position:relative;min-width:0;min-height:72px;display:flex;align-items:flex-start;padding:38px 12px 11px;border:1px solid #dcd8ed;border-radius:10px;background:#fff;color:#34384a;font-size:12.5px;font-weight:760;line-height:1.5;box-shadow:0 4px 12px rgb(42 36 78 / 4%)}}
+  .overview-route li::before{{content:"0" counter(route);position:absolute;left:12px;top:11px;color:#6a50d1;font:850 11px/1 var(--mono);letter-spacing:.04em}}
+  .overview-route li + li::after{{content:"→";position:absolute;left:-12px;top:50%;transform:translate(-50%,-50%);color:#8d7cdd;font-size:13px;font-weight:900}}
+  .case-facts{{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:14px;border:1px solid #d8dbea;border-radius:12px;background:#fff;overflow:hidden}}
   .fact{{min-width:0;min-height:92px;padding:14px 17px 15px}}
   .fact + .fact{{border-left:1px solid #e0e2eb}}
   .fact > span{{display:block;color:#757b8d;font-size:10.5px;font-weight:800;letter-spacing:.04em}}
@@ -965,14 +979,16 @@ page = f'''<!doctype html>
     .matrix-h{{margin-top:28px}}
     .case-head{{padding:16px 18px}}
     .case-head .who{{width:100%;font-size:18px}}
-    .case-summary{{padding:0 18px 18px}}
-    .case-overview{{grid-template-columns:1fr;gap:20px;padding:18px 0}}
-    .overview-title{{margin-bottom:8px}}
-    .overview-title span{{white-space:normal;text-align:right}}
-    .case-insight p{{font-size:14px}}
-    .overview-route{{grid-template-columns:1fr;gap:11px}}
-    .overview-route li{{min-height:24px}}
-    .overview-route li + li::after{{left:11px;top:-11px;width:0;height:10px;border-top:0;border-left:1px solid #bdb4eb}}
+    .case-summary{{padding:16px 18px 18px}}
+    .case-overview{{grid-template-columns:1fr}}
+    .case-insight{{padding:19px 20px 18px}}
+    .insight-main{{font-size:14.5px}}
+    .case-route{{padding:18px 18px 19px}}
+    .overview-title em{{white-space:normal;text-align:right}}
+    .overview-route{{grid-template-columns:1fr;gap:10px}}
+    .overview-route li{{min-height:54px;padding:17px 14px 14px 49px;align-items:center}}
+    .overview-route li::before{{left:15px;top:50%;transform:translateY(-50%)}}
+    .overview-route li + li::after{{content:"↓";left:25px;top:-7px;transform:none;background:#f8f7fd;padding:0 3px}}
     .case-facts{{grid-template-columns:repeat(2,minmax(0,1fr))}}
     .fact{{min-height:88px;padding:13px 14px}}
     .fact + .fact{{border-left:0}}
