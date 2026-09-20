@@ -25,7 +25,8 @@ insight_rows = json.load(open(insight_file)) if insight_file.exists() else {}
 for user in users:
     curated = insight_rows.get(str(user.get("pmid")), {})
     for key in ("insight", "conversion_path_label", "conversion_path", "behavior_insight"):
-        if curated.get(key) and not user.get(key):
+        # 作者侧判断会持续迭代；重烘焙时应以最新版 narratives.json 覆盖旧快照。
+        if curated.get(key):
             user[key] = curated[key]
 
 # 姓氏单独存放在作者端临时数据中，公开源码不落真实姓名；页面仅进入加密产物。
@@ -586,9 +587,9 @@ def case_overview(u):
             style = prefix
     lead, separator, detail = insight.partition("；")
     detail_html = f'<p class="insight-detail">{detail}</p>' if separator and detail else ''
-    return (f'<section class="case-overview" aria-label="用户洞察与转化路径">'
-            f'<article class="case-insight"><blockquote class="insight-main"><b>{style}</b>：{lead}</blockquote>{detail_html}</article>'
-            f'<div class="case-route"><ol class="overview-route" aria-label="清晰的转化步骤">{route_html}</ol></div>'
+    return (f'<section class="case-overview" aria-label="用户洞察与关键决策路径">'
+            f'<article class="case-insight"><blockquote class="insight-main"><b>{style}</b>：{lead}</blockquote>{detail_html}'
+            f'<ol class="overview-route" aria-label="关键决策路径">{route_html}</ol></article>'
             f'</section>')
 
 def card(u):
@@ -943,17 +944,16 @@ page = f'''<!doctype html>
   .case-head .badge{{width:25px;height:25px;border-color:#c9c2ed;background:#fff;color:#4e38ac;font-weight:800}}
   .case-head .tag{{padding:4px 10px;border-color:#d4d0e9;background:rgba(255,255,255,.78);color:#4d5266;font-size:11.5px;font-weight:700}}
   .case-summary{{padding:20px 24px 22px;border-bottom:1px solid #d8dbea;background:linear-gradient(180deg,#fcfbff 0%,#f8f7fc 100%)}}
-  .case-overview{{display:block;padding:0;border:1px solid #d5d3e5;border-radius:14px;background:#fff;box-shadow:0 8px 24px rgb(37 31 72 / 6%);overflow:hidden}}
-  .case-insight{{min-width:0;padding:24px 28px 22px;background:linear-gradient(145deg,#292642 0%,#332e57 100%);color:#fff}}
-  .insight-main{{position:relative;margin:0;padding-left:30px;color:#fff;font-size:18px;font-weight:760;line-height:1.72}}
-  .insight-main::before{{content:"“";position:absolute;left:0;top:-6px;color:#8c74f3;font:900 34px/1 var(--serif)}}
+  .case-overview{{display:block;padding:0;border:1px solid #39345f;border-radius:14px;background:linear-gradient(145deg,#292642 0%,#332e57 100%);box-shadow:0 9px 26px rgb(37 31 72 / 10%);overflow:hidden}}
+  .case-insight{{min-width:0;padding:19px 24px 18px;color:#fff}}
+  .insight-main{{position:relative;margin:0;padding-left:27px;color:#fff;font-size:16.5px;font-weight:760;line-height:1.62}}
+  .insight-main::before{{content:"“";position:absolute;left:0;top:-4px;color:#9b85ff;font:900 30px/1 var(--serif)}}
   .insight-main b{{color:#c9bdff;font-weight:900}}
-  .insight-detail{{max-width:1080px;margin:13px 0 0;padding:12px 0 0 30px;border-top:1px solid rgb(255 255 255 / 15%);color:#d9d7e5;font-size:12.5px;font-weight:600;line-height:1.7}}
-  .case-route{{min-width:0;padding:20px 24px 22px;background:linear-gradient(135deg,#f8f7fd 0%,#fdfdff 100%)}}
-  .overview-route{{counter-reset:route;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));align-items:stretch;gap:20px;margin:0;padding:0;list-style:none}}
-  .overview-route li{{counter-increment:route;position:relative;min-width:0;min-height:76px;display:flex;align-items:center;padding:22px 15px 15px 48px;border:1px solid #dcd8ed;border-radius:10px;background:#fff;color:#34384a;font-size:12.5px;font-weight:800;line-height:1.5;box-shadow:0 4px 12px rgb(42 36 78 / 4%)}}
-  .overview-route li::before{{content:"0" counter(route);position:absolute;left:12px;top:11px;color:#6a50d1;font:850 11px/1 var(--mono);letter-spacing:.04em}}
-  .overview-route li + li::after{{content:"→";position:absolute;left:-16px;top:50%;transform:translate(-50%,-50%);color:#8d7cdd;font-size:14px;font-weight:900}}
+  .insight-detail{{max-width:1180px;margin:8px 0 0;padding-left:27px;color:#d9d7e5;font-size:12px;font-weight:600;line-height:1.62}}
+  .overview-route{{counter-reset:route;display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));align-items:stretch;gap:9px 18px;margin:14px 0 0;padding:14px 0 0;border-top:1px solid rgb(255 255 255 / 14%);list-style:none}}
+  .overview-route li{{counter-increment:route;position:relative;min-width:0;min-height:48px;display:flex;align-items:center;padding:9px 12px 9px 39px;border:1px solid rgb(255 255 255 / 17%);border-radius:9px;background:rgb(255 255 255 / 7%);color:#f7f5ff;font-size:12px;font-weight:780;line-height:1.42}}
+  .overview-route li::before{{content:counter(route,decimal-leading-zero);position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#b9a9ff;font:850 10px/1 var(--mono);letter-spacing:.04em}}
+  .overview-route li + li::after{{content:"→";position:absolute;left:-13px;top:50%;transform:translate(-50%,-50%);color:#9c89ef;font-size:13px;font-weight:900}}
   .case-facts{{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:14px;border:1px solid #d8dbea;border-radius:12px;background:#fff;overflow:hidden}}
   .fact{{min-width:0;min-height:92px;padding:14px 17px 15px}}
   .fact + .fact{{border-left:1px solid #e0e2eb}}
@@ -1058,14 +1058,13 @@ page = f'''<!doctype html>
     .case-head{{padding:16px 18px}}
     .case-head .who{{width:100%;font-size:18px}}
     .case-summary{{padding:16px 18px 18px}}
-    .case-insight{{padding:19px 20px 18px}}
+    .case-insight{{padding:17px 18px 16px}}
     .insight-main{{font-size:14.5px}}
     .insight-detail{{padding-left:0}}
-    .case-route{{padding:18px 18px 19px}}
-    .overview-route{{grid-template-columns:1fr;gap:10px}}
-    .overview-route li{{min-height:54px;padding:17px 14px 14px 49px;align-items:center}}
-    .overview-route li::before{{left:15px;top:50%;transform:translateY(-50%)}}
-    .overview-route li + li::after{{content:"↓";left:25px;top:-7px;transform:none;background:#f8f7fd;padding:0 3px}}
+    .overview-route{{grid-template-columns:1fr;gap:8px;margin-top:12px;padding-top:12px}}
+    .overview-route li{{min-height:44px;padding:9px 12px 9px 42px;align-items:center}}
+    .overview-route li::before{{left:14px}}
+    .overview-route li + li::after{{content:"↓";left:20px;top:-7px;transform:none;background:#302b50;padding:0 3px}}
     .case-facts{{grid-template-columns:repeat(2,minmax(0,1fr))}}
     .fact{{min-height:88px;padding:13px 14px}}
     .fact + .fact{{border-left:0}}
