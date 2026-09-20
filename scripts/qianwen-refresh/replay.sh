@@ -29,7 +29,9 @@ print(f"pre-check: data minimum_public_cell={cell}, app.js minimumCell 阈值={m
 EOF
 
 cp "$WORK/latest.new.json" "$DASH/data/latest.json"
-npm run build 2>&1 | grep -E "千问|Injected|error" | head -5
+BUILD_LOG="$WORK/build.log"
+npm run build >"$BUILD_LOG" 2>&1
+grep -E "千问|Injected|error" "$BUILD_LOG" | head -5 || true
 git rev-parse HEAD > "$WORK/base-sha.txt"
 
 CUT=$(python3 -c "import json;print(json.load(open('$DASH/data/latest.json'))['meta']['data_cutoff'][:16])")
