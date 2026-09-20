@@ -4,8 +4,8 @@ window.QIANWEN_ACQUISITION_DATA = {
     "title": "千问 X 且慢AI小顾 用户数据看板",
     "window_start_at": "2026-08-03T00:00:00+08:00",
     "launch_at": "2026-08-10T08:00:00+08:00",
-    "generated_at": "2026-09-20T09:27:32+08:00",
-    "data_cutoff": "2026-09-20T09:27:32+08:00",
+    "generated_at": "2026-09-20T17:56:29+08:00",
+    "data_cutoff": "2026-09-20T17:56:29+08:00",
     "timezone": "Asia/Shanghai",
     "source": "盈米本体 · 生产数据库",
     "evidence_state": "confirmed",
@@ -26,9 +26,9 @@ window.QIANWEN_ACQUISITION_DATA = {
     "multi_dimension_cross_tabs_public": false
   },
   "metrics": {
-    "bound_accounts": 5322,
-    "existing_accounts": 812,
-    "new_accounts": 4510,
+    "bound_accounts": 5359,
+    "existing_accounts": 817,
+    "new_accounts": 4542,
     "missing_registration_time": 0,
     "duplicate_bindings": 0,
     "unmatched_accounts": 0
@@ -612,21 +612,638 @@ window.QIANWEN_ACQUISITION_DATA = {
     },
     {
       "date": "2026-09-20",
-      "new_accounts_today": 11,
-      "existing_accounts_today": 1,
+      "new_accounts_today": 43,
+      "existing_accounts_today": 6,
       "unclassified_accounts_today": 0,
-      "bound_accounts_today": 12,
-      "cumulative_new_accounts": 4510,
-      "cumulative_existing_accounts": 812,
+      "bound_accounts_today": 49,
+      "cumulative_new_accounts": 4542,
+      "cumulative_existing_accounts": 817,
       "cumulative_unclassified_accounts": 0,
-      "cumulative_bound_accounts": 5322,
+      "cumulative_bound_accounts": 5359,
       "partial": true
     }
   ],
   "profile": {
     "cohorts": {
       "all": {
-        "population_accounts": 5322,
+        "population_accounts": 5359,
+        "dimensions": [
+          {
+            "id": "asset_holding_status",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-09-18",
+            "state": "confirmed",
+            "buckets": [
+              {
+                "id": "has_assets",
+                "accounts": 324
+              },
+              {
+                "id": "no_assets",
+                "accounts": 158
+              },
+              {
+                "id": "unknown",
+                "accounts": 4877
+              }
+            ]
+          },
+          {
+            "id": "asset_bucket",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-09-18",
+            "state": "confirmed",
+            "buckets": [
+              {
+                "id": "no_assets",
+                "accounts": 158
+              },
+              {
+                "id": "lt_10k",
+                "accounts": 93
+              },
+              {
+                "id": "10k_100k",
+                "accounts": 98
+              },
+              {
+                "id": "100k_1m",
+                "label": "10—100 万元",
+                "accounts": 114
+              },
+              {
+                "id": "gte_1m",
+                "label": "100 万元以上",
+                "accounts": 19
+              },
+              {
+                "id": "unknown",
+                "accounts": 4877
+              }
+            ]
+          },
+          {
+            "id": "asset_at_bind_status",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-09-20",
+            "state": "confirmed",
+            "buckets": [
+              {
+                "id": "zero_at_bind",
+                "label": "绑定时零资产（含未开户）",
+                "accounts": 5041
+              },
+              {
+                "id": "has_assets_at_bind",
+                "label": "绑定时已有资产",
+                "accounts": 318
+              }
+            ]
+          },
+          {
+            "id": "holding_lifecycle_status",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-09-20",
+            "state": "confirmed",
+            "buckets": [
+              {
+                "id": "no_first_investment",
+                "label": "无首投（从未买入）",
+                "accounts": 4999
+              },
+              {
+                "id": "churned",
+                "label": "已流失（投过已清零）",
+                "accounts": 35
+              },
+              {
+                "id": "under_management",
+                "label": "在管（当前有资产）",
+                "accounts": 325
+              }
+            ]
+          },
+          {
+            "id": "lifetime_investment_status",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-09-20",
+            "state": "confirmed",
+            "buckets": [
+              {
+                "id": "invested",
+                "accounts": 350
+              },
+              {
+                "id": "not_invested",
+                "accounts": 5009
+              }
+            ]
+          },
+          {
+            "id": "age_bucket",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-09-20",
+            "state": "confirmed",
+            "buckets": [
+              {
+                "id": "lte_25",
+                "label": "25 岁及以下",
+                "accounts": 36
+              },
+              {
+                "id": "26_35",
+                "label": "26—35 岁",
+                "accounts": 172
+              },
+              {
+                "id": "36_45",
+                "label": "36—45 岁",
+                "accounts": 170
+              },
+              {
+                "id": "46_55",
+                "label": "46—55 岁",
+                "accounts": 71
+              },
+              {
+                "id": "56_65",
+                "label": "56—65 岁",
+                "accounts": 26
+              },
+              {
+                "id": "gte_66",
+                "label": "66 岁以上",
+                "accounts": 5
+              },
+              {
+                "id": "unknown",
+                "accounts": 4879
+              }
+            ]
+          },
+          {
+            "id": "gender",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-09-20",
+            "state": "confirmed",
+            "buckets": [
+              {
+                "id": "male",
+                "accounts": 406
+              },
+              {
+                "id": "female",
+                "accounts": 75
+              },
+              {
+                "id": "unknown",
+                "accounts": 4878
+              }
+            ]
+          },
+          {
+            "id": "residence_province",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-09-20",
+            "state": "confirmed",
+            "buckets": [
+              {
+                "id": "unknown",
+                "accounts": 5249
+              },
+              {
+                "id": "上海",
+                "label": "上海",
+                "accounts": 20
+              },
+              {
+                "id": "广东",
+                "label": "广东",
+                "accounts": 18
+              },
+              {
+                "id": "北京",
+                "label": "北京",
+                "accounts": 16
+              },
+              {
+                "id": "江苏",
+                "label": "江苏",
+                "accounts": 10
+              },
+              {
+                "id": "浙江",
+                "label": "浙江",
+                "accounts": 8
+              },
+              {
+                "id": "四川",
+                "label": "四川",
+                "accounts": 6
+              },
+              {
+                "id": "山东",
+                "label": "山东",
+                "accounts": 6
+              },
+              {
+                "id": "河北",
+                "label": "河北",
+                "accounts": 4
+              },
+              {
+                "id": "福建",
+                "label": "福建",
+                "accounts": 3
+              },
+              {
+                "id": "广西",
+                "label": "广西",
+                "accounts": 3
+              },
+              {
+                "id": "湖北",
+                "label": "湖北",
+                "accounts": 3
+              },
+              {
+                "id": "甘肃",
+                "label": "甘肃",
+                "accounts": 2
+              },
+              {
+                "id": "河南",
+                "label": "河南",
+                "accounts": 2
+              },
+              {
+                "id": "辽宁",
+                "label": "辽宁",
+                "accounts": 2
+              },
+              {
+                "id": "安徽",
+                "label": "安徽",
+                "accounts": 1
+              },
+              {
+                "id": "山西",
+                "label": "山西",
+                "accounts": 1
+              },
+              {
+                "id": "湖南",
+                "label": "湖南",
+                "accounts": 1
+              },
+              {
+                "id": "云南",
+                "label": "云南",
+                "accounts": 1
+              },
+              {
+                "id": "黑龙江",
+                "label": "黑龙江",
+                "accounts": 1
+              },
+              {
+                "id": "吉林",
+                "label": "吉林",
+                "accounts": 1
+              },
+              {
+                "id": "陕西",
+                "label": "陕西",
+                "accounts": 1
+              }
+            ]
+          },
+          {
+            "id": "app_usage_status",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "post_binding_window",
+            "state": "unavailable",
+            "reason_code": "not_refreshed_this_cycle"
+          },
+          {
+            "id": "wechat_mp_status",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-09-20",
+            "state": "confirmed",
+            "buckets": [
+              {
+                "id": "mp_bound",
+                "accounts": 551
+              },
+              {
+                "id": "mp_not_bound",
+                "accounts": 4808
+              }
+            ]
+          },
+          {
+            "id": "bank_card_status",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-09-20",
+            "state": "confirmed",
+            "buckets": [
+              {
+                "id": "card_bound",
+                "accounts": 480
+              },
+              {
+                "id": "card_not_bound",
+                "accounts": 4879
+              }
+            ]
+          },
+          {
+            "id": "risk_assessment_status",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-09-20",
+            "state": "confirmed",
+            "buckets": [
+              {
+                "id": "assessed",
+                "accounts": 159
+              },
+              {
+                "id": "not_assessed",
+                "accounts": 5200
+              }
+            ]
+          }
+        ]
+      },
+      "new": {
+        "population_accounts": 4542,
+        "dimensions": [
+          {
+            "id": "asset_holding_status",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-09-18",
+            "state": "confirmed",
+            "buckets": [
+              {
+                "id": "has_assets",
+                "accounts": 2
+              },
+              {
+                "id": "no_assets",
+                "accounts": 18
+              },
+              {
+                "id": "unknown",
+                "accounts": 4522
+              }
+            ]
+          },
+          {
+            "id": "asset_bucket",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-09-18",
+            "state": "confirmed",
+            "buckets": [
+              {
+                "id": "no_assets",
+                "accounts": 18
+              },
+              {
+                "id": "lt_10k",
+                "accounts": 1
+              },
+              {
+                "id": "10k_100k",
+                "accounts": 1
+              },
+              {
+                "id": "100k_1m",
+                "label": "10—100 万元",
+                "accounts": 0
+              },
+              {
+                "id": "gte_1m",
+                "label": "100 万元以上",
+                "accounts": 0
+              },
+              {
+                "id": "unknown",
+                "accounts": 4522
+              }
+            ]
+          },
+          {
+            "id": "asset_at_bind_status",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-09-20",
+            "state": "confirmed",
+            "buckets": [
+              {
+                "id": "zero_at_bind",
+                "label": "绑定时零资产（含未开户）",
+                "accounts": 4542
+              },
+              {
+                "id": "has_assets_at_bind",
+                "label": "绑定时已有资产",
+                "accounts": 0
+              }
+            ]
+          },
+          {
+            "id": "holding_lifecycle_status",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-09-20",
+            "state": "confirmed",
+            "buckets": [
+              {
+                "id": "no_first_investment",
+                "label": "无首投（从未买入）",
+                "accounts": 4539
+              },
+              {
+                "id": "churned",
+                "label": "已流失（投过已清零）",
+                "accounts": 0
+              },
+              {
+                "id": "under_management",
+                "label": "在管（当前有资产）",
+                "accounts": 3
+              }
+            ]
+          },
+          {
+            "id": "lifetime_investment_status",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-09-20",
+            "state": "confirmed",
+            "buckets": [
+              {
+                "id": "invested",
+                "accounts": 3
+              },
+              {
+                "id": "not_invested",
+                "accounts": 4539
+              }
+            ]
+          },
+          {
+            "id": "age_bucket",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-09-20",
+            "state": "confirmed",
+            "buckets": [
+              {
+                "id": "lte_25",
+                "label": "25 岁及以下",
+                "accounts": 5
+              },
+              {
+                "id": "26_35",
+                "label": "26—35 岁",
+                "accounts": 8
+              },
+              {
+                "id": "36_45",
+                "label": "36—45 岁",
+                "accounts": 2
+              },
+              {
+                "id": "46_55",
+                "label": "46—55 岁",
+                "accounts": 3
+              },
+              {
+                "id": "56_65",
+                "label": "56—65 岁",
+                "accounts": 0
+              },
+              {
+                "id": "gte_66",
+                "label": "66 岁以上",
+                "accounts": 1
+              },
+              {
+                "id": "unknown",
+                "accounts": 4523
+              }
+            ]
+          },
+          {
+            "id": "gender",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-09-20",
+            "state": "confirmed",
+            "buckets": [
+              {
+                "id": "male",
+                "accounts": 16
+              },
+              {
+                "id": "female",
+                "accounts": 4
+              },
+              {
+                "id": "unknown",
+                "accounts": 4522
+              }
+            ]
+          },
+          {
+            "id": "residence_province",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-09-20",
+            "state": "confirmed",
+            "buckets": [
+              {
+                "id": "unknown",
+                "accounts": 4542
+              }
+            ]
+          },
+          {
+            "id": "app_usage_status",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "post_binding_window",
+            "state": "unavailable",
+            "reason_code": "not_refreshed_this_cycle"
+          },
+          {
+            "id": "wechat_mp_status",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-09-20",
+            "state": "confirmed",
+            "buckets": [
+              {
+                "id": "mp_bound",
+                "accounts": 19
+              },
+              {
+                "id": "mp_not_bound",
+                "accounts": 4523
+              }
+            ]
+          },
+          {
+            "id": "bank_card_status",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-09-20",
+            "state": "confirmed",
+            "buckets": [
+              {
+                "id": "card_bound",
+                "accounts": 19
+              },
+              {
+                "id": "card_not_bound",
+                "accounts": 4523
+              }
+            ]
+          },
+          {
+            "id": "risk_assessment_status",
+            "definition_version": "2026-08-20-v2",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-09-20",
+            "state": "confirmed",
+            "buckets": [
+              {
+                "id": "assessed",
+                "accounts": 18
+              },
+              {
+                "id": "not_assessed",
+                "accounts": 4524
+              }
+            ]
+          }
+        ]
+      },
+      "existing": {
+        "population_accounts": 817,
         "dimensions": [
           {
             "id": "asset_holding_status",
@@ -641,11 +1258,11 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "id": "no_assets",
-                "accounts": 155
+                "accounts": 140
               },
               {
                 "id": "unknown",
-                "accounts": 4845
+                "accounts": 355
               }
             ]
           },
@@ -658,7 +1275,7 @@ window.QIANWEN_ACQUISITION_DATA = {
             "buckets": [
               {
                 "id": "no_assets",
-                "accounts": 155
+                "accounts": 140
               },
               {
                 "id": "lt_10k",
@@ -680,7 +1297,7 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "id": "unknown",
-                "accounts": 4845
+                "accounts": 355
               }
             ]
           },
@@ -694,12 +1311,12 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "id": "zero_at_bind",
                 "label": "绑定时零资产（含未开户）",
-                "accounts": 5006
+                "accounts": 499
               },
               {
                 "id": "has_assets_at_bind",
                 "label": "绑定时已有资产",
-                "accounts": 316
+                "accounts": 318
               }
             ]
           },
@@ -713,7 +1330,7 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "id": "no_first_investment",
                 "label": "无首投（从未买入）",
-                "accounts": 4964
+                "accounts": 460
               },
               {
                 "id": "churned",
@@ -723,7 +1340,7 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "id": "under_management",
                 "label": "在管（当前有资产）",
-                "accounts": 323
+                "accounts": 322
               }
             ]
           },
@@ -736,628 +1353,11 @@ window.QIANWEN_ACQUISITION_DATA = {
             "buckets": [
               {
                 "id": "invested",
-                "accounts": 348
+                "accounts": 347
               },
               {
                 "id": "not_invested",
-                "accounts": 4974
-              }
-            ]
-          },
-          {
-            "id": "age_bucket",
-            "definition_version": "2026-08-20-v2",
-            "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-20",
-            "state": "confirmed",
-            "buckets": [
-              {
-                "id": "lte_25",
-                "label": "25 岁及以下",
-                "accounts": 36
-              },
-              {
-                "id": "26_35",
-                "label": "26—35 岁",
-                "accounts": 169
-              },
-              {
-                "id": "36_45",
-                "label": "36—45 岁",
-                "accounts": 169
-              },
-              {
-                "id": "46_55",
-                "label": "46—55 岁",
-                "accounts": 70
-              },
-              {
-                "id": "56_65",
-                "label": "56—65 岁",
-                "accounts": 26
-              },
-              {
-                "id": "gte_66",
-                "label": "66 岁以上",
-                "accounts": 5
-              },
-              {
-                "id": "unknown",
-                "accounts": 4847
-              }
-            ]
-          },
-          {
-            "id": "gender",
-            "definition_version": "2026-08-20-v2",
-            "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-20",
-            "state": "confirmed",
-            "buckets": [
-              {
-                "id": "male",
-                "accounts": 402
-              },
-              {
-                "id": "female",
-                "accounts": 74
-              },
-              {
-                "id": "unknown",
-                "accounts": 4846
-              }
-            ]
-          },
-          {
-            "id": "residence_province",
-            "definition_version": "2026-08-20-v2",
-            "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-20",
-            "state": "confirmed",
-            "buckets": [
-              {
-                "id": "unknown",
-                "accounts": 5212
-              },
-              {
-                "id": "上海",
-                "label": "上海",
-                "accounts": 20
-              },
-              {
-                "id": "广东",
-                "label": "广东",
-                "accounts": 18
-              },
-              {
-                "id": "北京",
-                "label": "北京",
-                "accounts": 16
-              },
-              {
-                "id": "江苏",
-                "label": "江苏",
-                "accounts": 10
-              },
-              {
-                "id": "浙江",
-                "label": "浙江",
-                "accounts": 8
-              },
-              {
-                "id": "四川",
-                "label": "四川",
-                "accounts": 6
-              },
-              {
-                "id": "山东",
-                "label": "山东",
-                "accounts": 6
-              },
-              {
-                "id": "河北",
-                "label": "河北",
-                "accounts": 4
-              },
-              {
-                "id": "湖北",
-                "label": "湖北",
-                "accounts": 3
-              },
-              {
-                "id": "福建",
-                "label": "福建",
-                "accounts": 3
-              },
-              {
-                "id": "广西",
-                "label": "广西",
-                "accounts": 3
-              },
-              {
-                "id": "河南",
-                "label": "河南",
-                "accounts": 2
-              },
-              {
-                "id": "甘肃",
-                "label": "甘肃",
-                "accounts": 2
-              },
-              {
-                "id": "辽宁",
-                "label": "辽宁",
-                "accounts": 2
-              },
-              {
-                "id": "黑龙江",
-                "label": "黑龙江",
-                "accounts": 1
-              },
-              {
-                "id": "陕西",
-                "label": "陕西",
-                "accounts": 1
-              },
-              {
-                "id": "山西",
-                "label": "山西",
-                "accounts": 1
-              },
-              {
-                "id": "云南",
-                "label": "云南",
-                "accounts": 1
-              },
-              {
-                "id": "湖南",
-                "label": "湖南",
-                "accounts": 1
-              },
-              {
-                "id": "安徽",
-                "label": "安徽",
-                "accounts": 1
-              },
-              {
-                "id": "吉林",
-                "label": "吉林",
-                "accounts": 1
-              }
-            ]
-          },
-          {
-            "id": "app_usage_status",
-            "definition_version": "2026-08-20-v2",
-            "time_basis": "post_binding_window",
-            "state": "unavailable",
-            "reason_code": "not_refreshed_this_cycle"
-          },
-          {
-            "id": "wechat_mp_status",
-            "definition_version": "2026-08-20-v2",
-            "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-20",
-            "state": "confirmed",
-            "buckets": [
-              {
-                "id": "mp_bound",
-                "accounts": 546
-              },
-              {
-                "id": "mp_not_bound",
-                "accounts": 4776
-              }
-            ]
-          },
-          {
-            "id": "bank_card_status",
-            "definition_version": "2026-08-20-v2",
-            "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-20",
-            "state": "confirmed",
-            "buckets": [
-              {
-                "id": "card_bound",
-                "accounts": 475
-              },
-              {
-                "id": "card_not_bound",
-                "accounts": 4847
-              }
-            ]
-          },
-          {
-            "id": "risk_assessment_status",
-            "definition_version": "2026-08-20-v2",
-            "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-20",
-            "state": "confirmed",
-            "buckets": [
-              {
-                "id": "assessed",
-                "accounts": 157
-              },
-              {
-                "id": "not_assessed",
-                "accounts": 5165
-              }
-            ]
-          }
-        ]
-      },
-      "new": {
-        "population_accounts": 4510,
-        "dimensions": [
-          {
-            "id": "asset_holding_status",
-            "definition_version": "2026-08-20-v2",
-            "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-18",
-            "state": "confirmed",
-            "buckets": [
-              {
-                "id": "has_assets",
-                "accounts": 2
-              },
-              {
-                "id": "no_assets",
-                "accounts": 17
-              },
-              {
-                "id": "unknown",
-                "accounts": 4491
-              }
-            ]
-          },
-          {
-            "id": "asset_bucket",
-            "definition_version": "2026-08-20-v2",
-            "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-18",
-            "state": "confirmed",
-            "buckets": [
-              {
-                "id": "no_assets",
-                "accounts": 17
-              },
-              {
-                "id": "lt_10k",
-                "accounts": 1
-              },
-              {
-                "id": "10k_100k",
-                "accounts": 1
-              },
-              {
-                "id": "100k_1m",
-                "label": "10—100 万元",
-                "accounts": 0
-              },
-              {
-                "id": "gte_1m",
-                "label": "100 万元以上",
-                "accounts": 0
-              },
-              {
-                "id": "unknown",
-                "accounts": 4491
-              }
-            ]
-          },
-          {
-            "id": "asset_at_bind_status",
-            "definition_version": "2026-08-20-v2",
-            "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-20",
-            "state": "confirmed",
-            "buckets": [
-              {
-                "id": "zero_at_bind",
-                "label": "绑定时零资产（含未开户）",
-                "accounts": 4510
-              },
-              {
-                "id": "has_assets_at_bind",
-                "label": "绑定时已有资产",
-                "accounts": 0
-              }
-            ]
-          },
-          {
-            "id": "holding_lifecycle_status",
-            "definition_version": "2026-08-20-v2",
-            "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-20",
-            "state": "confirmed",
-            "buckets": [
-              {
-                "id": "no_first_investment",
-                "label": "无首投（从未买入）",
-                "accounts": 4507
-              },
-              {
-                "id": "churned",
-                "label": "已流失（投过已清零）",
-                "accounts": 0
-              },
-              {
-                "id": "under_management",
-                "label": "在管（当前有资产）",
-                "accounts": 3
-              }
-            ]
-          },
-          {
-            "id": "lifetime_investment_status",
-            "definition_version": "2026-08-20-v2",
-            "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-20",
-            "state": "confirmed",
-            "buckets": [
-              {
-                "id": "invested",
-                "accounts": 3
-              },
-              {
-                "id": "not_invested",
-                "accounts": 4507
-              }
-            ]
-          },
-          {
-            "id": "age_bucket",
-            "definition_version": "2026-08-20-v2",
-            "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-20",
-            "state": "confirmed",
-            "buckets": [
-              {
-                "id": "lte_25",
-                "label": "25 岁及以下",
-                "accounts": 5
-              },
-              {
-                "id": "26_35",
-                "label": "26—35 岁",
-                "accounts": 8
-              },
-              {
-                "id": "36_45",
-                "label": "36—45 岁",
-                "accounts": 2
-              },
-              {
-                "id": "46_55",
-                "label": "46—55 岁",
-                "accounts": 2
-              },
-              {
-                "id": "56_65",
-                "label": "56—65 岁",
-                "accounts": 0
-              },
-              {
-                "id": "gte_66",
-                "label": "66 岁以上",
-                "accounts": 1
-              },
-              {
-                "id": "unknown",
-                "accounts": 4492
-              }
-            ]
-          },
-          {
-            "id": "gender",
-            "definition_version": "2026-08-20-v2",
-            "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-20",
-            "state": "confirmed",
-            "buckets": [
-              {
-                "id": "male",
-                "accounts": 15
-              },
-              {
-                "id": "female",
-                "accounts": 4
-              },
-              {
-                "id": "unknown",
-                "accounts": 4491
-              }
-            ]
-          },
-          {
-            "id": "residence_province",
-            "definition_version": "2026-08-20-v2",
-            "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-20",
-            "state": "confirmed",
-            "buckets": [
-              {
-                "id": "unknown",
-                "accounts": 4510
-              }
-            ]
-          },
-          {
-            "id": "app_usage_status",
-            "definition_version": "2026-08-20-v2",
-            "time_basis": "post_binding_window",
-            "state": "unavailable",
-            "reason_code": "not_refreshed_this_cycle"
-          },
-          {
-            "id": "wechat_mp_status",
-            "definition_version": "2026-08-20-v2",
-            "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-20",
-            "state": "confirmed",
-            "buckets": [
-              {
-                "id": "mp_bound",
-                "accounts": 19
-              },
-              {
-                "id": "mp_not_bound",
-                "accounts": 4491
-              }
-            ]
-          },
-          {
-            "id": "bank_card_status",
-            "definition_version": "2026-08-20-v2",
-            "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-20",
-            "state": "confirmed",
-            "buckets": [
-              {
-                "id": "card_bound",
-                "accounts": 18
-              },
-              {
-                "id": "card_not_bound",
-                "accounts": 4492
-              }
-            ]
-          },
-          {
-            "id": "risk_assessment_status",
-            "definition_version": "2026-08-20-v2",
-            "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-20",
-            "state": "confirmed",
-            "buckets": [
-              {
-                "id": "assessed",
-                "accounts": 18
-              },
-              {
-                "id": "not_assessed",
-                "accounts": 4492
-              }
-            ]
-          }
-        ]
-      },
-      "existing": {
-        "population_accounts": 812,
-        "dimensions": [
-          {
-            "id": "asset_holding_status",
-            "definition_version": "2026-08-20-v2",
-            "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-18",
-            "state": "confirmed",
-            "buckets": [
-              {
-                "id": "has_assets",
-                "accounts": 320
-              },
-              {
-                "id": "no_assets",
-                "accounts": 138
-              },
-              {
-                "id": "unknown",
-                "accounts": 354
-              }
-            ]
-          },
-          {
-            "id": "asset_bucket",
-            "definition_version": "2026-08-20-v2",
-            "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-18",
-            "state": "confirmed",
-            "buckets": [
-              {
-                "id": "no_assets",
-                "accounts": 138
-              },
-              {
-                "id": "lt_10k",
-                "accounts": 91
-              },
-              {
-                "id": "10k_100k",
-                "accounts": 96
-              },
-              {
-                "id": "100k_1m",
-                "label": "10—100 万元",
-                "accounts": 114
-              },
-              {
-                "id": "gte_1m",
-                "label": "100 万元以上",
-                "accounts": 19
-              },
-              {
-                "id": "unknown",
-                "accounts": 354
-              }
-            ]
-          },
-          {
-            "id": "asset_at_bind_status",
-            "definition_version": "2026-08-20-v2",
-            "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-20",
-            "state": "confirmed",
-            "buckets": [
-              {
-                "id": "zero_at_bind",
-                "label": "绑定时零资产（含未开户）",
-                "accounts": 496
-              },
-              {
-                "id": "has_assets_at_bind",
-                "label": "绑定时已有资产",
-                "accounts": 316
-              }
-            ]
-          },
-          {
-            "id": "holding_lifecycle_status",
-            "definition_version": "2026-08-20-v2",
-            "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-20",
-            "state": "confirmed",
-            "buckets": [
-              {
-                "id": "no_first_investment",
-                "label": "无首投（从未买入）",
-                "accounts": 457
-              },
-              {
-                "id": "churned",
-                "label": "已流失（投过已清零）",
-                "accounts": 35
-              },
-              {
-                "id": "under_management",
-                "label": "在管（当前有资产）",
-                "accounts": 320
-              }
-            ]
-          },
-          {
-            "id": "lifetime_investment_status",
-            "definition_version": "2026-08-20-v2",
-            "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-20",
-            "state": "confirmed",
-            "buckets": [
-              {
-                "id": "invested",
-                "accounts": 345
-              },
-              {
-                "id": "not_invested",
-                "accounts": 467
+                "accounts": 470
               }
             ]
           },
@@ -1376,12 +1376,12 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "id": "26_35",
                 "label": "26—35 岁",
-                "accounts": 161
+                "accounts": 164
               },
               {
                 "id": "36_45",
                 "label": "36—45 岁",
-                "accounts": 167
+                "accounts": 168
               },
               {
                 "id": "46_55",
@@ -1400,7 +1400,7 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "id": "unknown",
-                "accounts": 355
+                "accounts": 356
               }
             ]
           },
@@ -1413,15 +1413,15 @@ window.QIANWEN_ACQUISITION_DATA = {
             "buckets": [
               {
                 "id": "male",
-                "accounts": 387
+                "accounts": 390
               },
               {
                 "id": "female",
-                "accounts": 70
+                "accounts": 71
               },
               {
                 "id": "unknown",
-                "accounts": 355
+                "accounts": 356
               }
             ]
           },
@@ -1434,7 +1434,7 @@ window.QIANWEN_ACQUISITION_DATA = {
             "buckets": [
               {
                 "id": "unknown",
-                "accounts": 702
+                "accounts": 707
               },
               {
                 "id": "上海",
@@ -1477,11 +1477,6 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "accounts": 4
               },
               {
-                "id": "湖北",
-                "label": "湖北",
-                "accounts": 3
-              },
-              {
                 "id": "福建",
                 "label": "福建",
                 "accounts": 3
@@ -1492,13 +1487,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "accounts": 3
               },
               {
-                "id": "河南",
-                "label": "河南",
-                "accounts": 2
+                "id": "湖北",
+                "label": "湖北",
+                "accounts": 3
               },
               {
                 "id": "甘肃",
                 "label": "甘肃",
+                "accounts": 2
+              },
+              {
+                "id": "河南",
+                "label": "河南",
                 "accounts": 2
               },
               {
@@ -1507,13 +1507,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "accounts": 2
               },
               {
-                "id": "黑龙江",
-                "label": "黑龙江",
-                "accounts": 1
-              },
-              {
-                "id": "陕西",
-                "label": "陕西",
+                "id": "安徽",
+                "label": "安徽",
                 "accounts": 1
               },
               {
@@ -1522,23 +1517,28 @@ window.QIANWEN_ACQUISITION_DATA = {
                 "accounts": 1
               },
               {
-                "id": "云南",
-                "label": "云南",
-                "accounts": 1
-              },
-              {
                 "id": "湖南",
                 "label": "湖南",
                 "accounts": 1
               },
               {
-                "id": "安徽",
-                "label": "安徽",
+                "id": "云南",
+                "label": "云南",
+                "accounts": 1
+              },
+              {
+                "id": "黑龙江",
+                "label": "黑龙江",
                 "accounts": 1
               },
               {
                 "id": "吉林",
                 "label": "吉林",
+                "accounts": 1
+              },
+              {
+                "id": "陕西",
+                "label": "陕西",
                 "accounts": 1
               }
             ]
@@ -1559,7 +1559,7 @@ window.QIANWEN_ACQUISITION_DATA = {
             "buckets": [
               {
                 "id": "mp_bound",
-                "accounts": 527
+                "accounts": 532
               },
               {
                 "id": "mp_not_bound",
@@ -1576,11 +1576,11 @@ window.QIANWEN_ACQUISITION_DATA = {
             "buckets": [
               {
                 "id": "card_bound",
-                "accounts": 457
+                "accounts": 461
               },
               {
                 "id": "card_not_bound",
-                "accounts": 355
+                "accounts": 356
               }
             ]
           },
@@ -1593,11 +1593,11 @@ window.QIANWEN_ACQUISITION_DATA = {
             "buckets": [
               {
                 "id": "assessed",
-                "accounts": 139
+                "accounts": 141
               },
               {
                 "id": "not_assessed",
-                "accounts": 673
+                "accounts": 676
               }
             ]
           }
@@ -1607,371 +1607,371 @@ window.QIANWEN_ACQUISITION_DATA = {
   },
   "behavior": {
     "window_start_at": "2026-08-03T00:00:00+08:00",
-    "window_end_at": "2026-09-20T09:27:32+08:00",
+    "window_end_at": "2026-09-20T17:56:29+08:00",
     "anchor": "first_bound_at",
     "cohorts": {
       "all": {
-        "population_accounts": 5322,
+        "population_accounts": 5359,
         "metrics": [
           {
             "id": "funded_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
-            "population_accounts": 5322,
-            "eligible_accounts": 475,
-            "excluded_accounts": 4847,
+            "population_accounts": 5359,
+            "eligible_accounts": 480,
+            "excluded_accounts": 4879,
             "reached_accounts": 164,
-            "not_reached_accounts": 211,
-            "unknown_accounts": 100
+            "not_reached_accounts": 213,
+            "unknown_accounts": 103
           },
           {
             "id": "first_investment_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
-            "population_accounts": 5322,
-            "eligible_accounts": 475,
-            "excluded_accounts": 4847,
+            "population_accounts": 5359,
+            "eligible_accounts": 480,
+            "excluded_accounts": 4879,
             "reached_accounts": 7,
-            "not_reached_accounts": 468,
+            "not_reached_accounts": 473,
             "unknown_accounts": 0
           },
           {
             "id": "investment_activity_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
-            "population_accounts": 5322,
-            "eligible_accounts": 475,
-            "excluded_accounts": 4847,
+            "population_accounts": 5359,
+            "eligible_accounts": 480,
+            "excluded_accounts": 4879,
             "reached_accounts": 210,
-            "not_reached_accounts": 265,
+            "not_reached_accounts": 270,
             "unknown_accounts": 0
           },
           {
             "id": "redemption_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
-            "population_accounts": 5322,
-            "eligible_accounts": 475,
-            "excluded_accounts": 4847,
+            "population_accounts": 5359,
+            "eligible_accounts": 480,
+            "excluded_accounts": 4879,
             "reached_accounts": 221,
-            "not_reached_accounts": 254,
+            "not_reached_accounts": 259,
             "unknown_accounts": 0
           },
           {
             "id": "xiaogu_used_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
-            "population_accounts": 5322,
-            "eligible_accounts": 5322,
+            "population_accounts": 5359,
+            "eligible_accounts": 5359,
             "excluded_accounts": 0,
-            "reached_accounts": 4482,
-            "not_reached_accounts": 840,
+            "reached_accounts": 4515,
+            "not_reached_accounts": 844,
             "unknown_accounts": 0
           },
           {
             "id": "account_opened_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
-            "population_accounts": 5322,
-            "eligible_accounts": 5322,
+            "population_accounts": 5359,
+            "eligible_accounts": 5359,
             "excluded_accounts": 0,
-            "reached_accounts": 23,
-            "not_reached_accounts": 5299,
+            "reached_accounts": 24,
+            "not_reached_accounts": 5335,
             "unknown_accounts": 0
           },
           {
             "id": "risk_assessed_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
-            "population_accounts": 5322,
-            "eligible_accounts": 5322,
+            "population_accounts": 5359,
+            "eligible_accounts": 5359,
             "excluded_accounts": 0,
-            "reached_accounts": 53,
-            "not_reached_accounts": 5269,
+            "reached_accounts": 54,
+            "not_reached_accounts": 5305,
             "unknown_accounts": 0
           },
           {
             "id": "first_funding_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
-            "population_accounts": 5322,
-            "eligible_accounts": 4974,
-            "excluded_accounts": 348,
+            "population_accounts": 5359,
+            "eligible_accounts": 5009,
+            "excluded_accounts": 350,
             "reached_accounts": 7,
-            "not_reached_accounts": 4967,
+            "not_reached_accounts": 5002,
             "unknown_accounts": 0
           },
           {
             "id": "repeat_investment_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
-            "population_accounts": 5322,
-            "eligible_accounts": 475,
-            "excluded_accounts": 4847,
+            "population_accounts": 5359,
+            "eligible_accounts": 480,
+            "excluded_accounts": 4879,
             "reached_accounts": 170,
-            "not_reached_accounts": 305,
+            "not_reached_accounts": 310,
             "unknown_accounts": 0
           }
         ]
       },
       "new": {
-        "population_accounts": 4510,
+        "population_accounts": 4542,
         "metrics": [
           {
             "id": "funded_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
-            "population_accounts": 4510,
-            "eligible_accounts": 18,
-            "excluded_accounts": 4492,
+            "population_accounts": 4542,
+            "eligible_accounts": 19,
+            "excluded_accounts": 4523,
             "reached_accounts": 2,
             "not_reached_accounts": 0,
-            "unknown_accounts": 16
+            "unknown_accounts": 17
           },
           {
             "id": "first_investment_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
-            "population_accounts": 4510,
-            "eligible_accounts": 18,
-            "excluded_accounts": 4492,
+            "population_accounts": 4542,
+            "eligible_accounts": 19,
+            "excluded_accounts": 4523,
             "reached_accounts": 3,
-            "not_reached_accounts": 15,
+            "not_reached_accounts": 16,
             "unknown_accounts": 0
           },
           {
             "id": "investment_activity_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
-            "population_accounts": 4510,
-            "eligible_accounts": 18,
-            "excluded_accounts": 4492,
+            "population_accounts": 4542,
+            "eligible_accounts": 19,
+            "excluded_accounts": 4523,
             "reached_accounts": 3,
-            "not_reached_accounts": 15,
+            "not_reached_accounts": 16,
             "unknown_accounts": 0
           },
           {
             "id": "redemption_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
-            "population_accounts": 4510,
-            "eligible_accounts": 18,
-            "excluded_accounts": 4492,
+            "population_accounts": 4542,
+            "eligible_accounts": 19,
+            "excluded_accounts": 4523,
             "reached_accounts": 1,
-            "not_reached_accounts": 17,
+            "not_reached_accounts": 18,
             "unknown_accounts": 0
           },
           {
             "id": "xiaogu_used_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
-            "population_accounts": 4510,
-            "eligible_accounts": 4510,
+            "population_accounts": 4542,
+            "eligible_accounts": 4542,
             "excluded_accounts": 0,
-            "reached_accounts": 3780,
-            "not_reached_accounts": 730,
+            "reached_accounts": 3809,
+            "not_reached_accounts": 733,
             "unknown_accounts": 0
           },
           {
             "id": "account_opened_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
-            "population_accounts": 4510,
-            "eligible_accounts": 4510,
+            "population_accounts": 4542,
+            "eligible_accounts": 4542,
             "excluded_accounts": 0,
-            "reached_accounts": 16,
-            "not_reached_accounts": 4494,
+            "reached_accounts": 17,
+            "not_reached_accounts": 4525,
             "unknown_accounts": 0
           },
           {
             "id": "risk_assessed_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
-            "population_accounts": 4510,
-            "eligible_accounts": 4510,
+            "population_accounts": 4542,
+            "eligible_accounts": 4542,
             "excluded_accounts": 0,
-            "reached_accounts": 17,
-            "not_reached_accounts": 4493,
+            "reached_accounts": 18,
+            "not_reached_accounts": 4524,
             "unknown_accounts": 0
           },
           {
             "id": "first_funding_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
-            "population_accounts": 4510,
-            "eligible_accounts": 4510,
+            "population_accounts": 4542,
+            "eligible_accounts": 4542,
             "excluded_accounts": 0,
             "reached_accounts": 3,
-            "not_reached_accounts": 4507,
+            "not_reached_accounts": 4539,
             "unknown_accounts": 0
           },
           {
             "id": "repeat_investment_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
-            "population_accounts": 4510,
-            "eligible_accounts": 18,
-            "excluded_accounts": 4492,
+            "population_accounts": 4542,
+            "eligible_accounts": 19,
+            "excluded_accounts": 4523,
             "reached_accounts": 2,
-            "not_reached_accounts": 16,
+            "not_reached_accounts": 17,
             "unknown_accounts": 0
           }
         ]
       },
       "existing": {
-        "population_accounts": 812,
+        "population_accounts": 817,
         "metrics": [
           {
             "id": "funded_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
-            "population_accounts": 812,
-            "eligible_accounts": 457,
-            "excluded_accounts": 355,
+            "population_accounts": 817,
+            "eligible_accounts": 461,
+            "excluded_accounts": 356,
             "reached_accounts": 162,
-            "not_reached_accounts": 211,
-            "unknown_accounts": 84
+            "not_reached_accounts": 213,
+            "unknown_accounts": 86
           },
           {
             "id": "first_investment_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
-            "population_accounts": 812,
-            "eligible_accounts": 457,
-            "excluded_accounts": 355,
+            "population_accounts": 817,
+            "eligible_accounts": 461,
+            "excluded_accounts": 356,
             "reached_accounts": 4,
-            "not_reached_accounts": 453,
+            "not_reached_accounts": 457,
             "unknown_accounts": 0
           },
           {
             "id": "investment_activity_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
-            "population_accounts": 812,
-            "eligible_accounts": 457,
-            "excluded_accounts": 355,
+            "population_accounts": 817,
+            "eligible_accounts": 461,
+            "excluded_accounts": 356,
             "reached_accounts": 207,
-            "not_reached_accounts": 250,
+            "not_reached_accounts": 254,
             "unknown_accounts": 0
           },
           {
             "id": "redemption_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
-            "population_accounts": 812,
-            "eligible_accounts": 457,
-            "excluded_accounts": 355,
+            "population_accounts": 817,
+            "eligible_accounts": 461,
+            "excluded_accounts": 356,
             "reached_accounts": 220,
-            "not_reached_accounts": 237,
+            "not_reached_accounts": 241,
             "unknown_accounts": 0
           },
           {
             "id": "xiaogu_used_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
-            "population_accounts": 812,
-            "eligible_accounts": 812,
+            "population_accounts": 817,
+            "eligible_accounts": 817,
             "excluded_accounts": 0,
-            "reached_accounts": 702,
-            "not_reached_accounts": 110,
+            "reached_accounts": 706,
+            "not_reached_accounts": 111,
             "unknown_accounts": 0
           },
           {
             "id": "account_opened_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
-            "population_accounts": 812,
-            "eligible_accounts": 812,
+            "population_accounts": 817,
+            "eligible_accounts": 817,
             "excluded_accounts": 0,
             "reached_accounts": 7,
-            "not_reached_accounts": 805,
+            "not_reached_accounts": 810,
             "unknown_accounts": 0
           },
           {
             "id": "risk_assessed_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
-            "population_accounts": 812,
-            "eligible_accounts": 812,
+            "population_accounts": 817,
+            "eligible_accounts": 817,
             "excluded_accounts": 0,
             "reached_accounts": 36,
-            "not_reached_accounts": 776,
+            "not_reached_accounts": 781,
             "unknown_accounts": 0
           },
           {
             "id": "first_funding_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
-            "population_accounts": 812,
-            "eligible_accounts": 464,
-            "excluded_accounts": 348,
+            "population_accounts": 817,
+            "eligible_accounts": 467,
+            "excluded_accounts": 350,
             "reached_accounts": 4,
-            "not_reached_accounts": 460,
+            "not_reached_accounts": 463,
             "unknown_accounts": 0
           },
           {
             "id": "repeat_investment_after_binding",
             "definition_version": "2026-08-20-v2",
             "time_basis": "post_binding_window",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
-            "population_accounts": 812,
-            "eligible_accounts": 457,
-            "excluded_accounts": 355,
+            "population_accounts": 817,
+            "eligible_accounts": 461,
+            "excluded_accounts": 356,
             "reached_accounts": 168,
-            "not_reached_accounts": 289,
+            "not_reached_accounts": 293,
             "unknown_accounts": 0
           }
         ]
@@ -1980,27 +1980,27 @@ window.QIANWEN_ACQUISITION_DATA = {
   },
   "business": {
     "window_start_at": "2026-08-03T00:00:00+08:00",
-    "window_end_at": "2026-09-20T09:27:32+08:00",
+    "window_end_at": "2026-09-20T17:56:29+08:00",
     "anchor": "first_bound_at",
     "cohorts": {
       "all": {
-        "population_accounts": 5322,
+        "population_accounts": 5359,
         "stats": [
           {
             "id": "holding_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
-            "accounts": 322,
-            "amount_wan": 8934.74,
-            "per_capita_wan": 27.7476
+            "accounts": 324,
+            "amount_wan": 8944.41,
+            "per_capita_wan": 27.6062
           },
           {
             "id": "inflow_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
             "accounts": 162,
             "amount_wan": 219.6493
@@ -2009,7 +2009,7 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "inflow_transactions",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
             "accounts": 162,
             "event_count": 842
@@ -2018,16 +2018,16 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "buy_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
             "accounts": 198,
-            "amount_wan": 302.8928
+            "amount_wan": 302.9928
           },
           {
             "id": "zero_asset_inflow_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
             "accounts": 8,
             "amount_wan": 16.0325
@@ -2036,21 +2036,21 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "sell_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
             "accounts": 74,
-            "amount_wan": 487.6302
+            "amount_wan": 491.4834
           }
         ]
       },
       "new": {
-        "population_accounts": 4510,
+        "population_accounts": 4542,
         "stats": [
           {
             "id": "holding_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
             "accounts": 2,
             "amount_wan": 10.11,
@@ -2060,7 +2060,7 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "inflow_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
             "accounts": 3,
             "amount_wan": 10.1325
@@ -2069,7 +2069,7 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "inflow_transactions",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
             "accounts": 3,
             "event_count": 8
@@ -2078,7 +2078,7 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "buy_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
             "accounts": 3,
             "amount_wan": 7.0325
@@ -2087,7 +2087,7 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "zero_asset_inflow_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
             "accounts": 3,
             "amount_wan": 10.1325
@@ -2096,7 +2096,7 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "sell_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
             "accounts": 0,
             "amount_wan": 0
@@ -2104,23 +2104,23 @@ window.QIANWEN_ACQUISITION_DATA = {
         ]
       },
       "existing": {
-        "population_accounts": 812,
+        "population_accounts": 817,
         "stats": [
           {
             "id": "holding_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
-            "accounts": 320,
-            "amount_wan": 8924.63,
-            "per_capita_wan": 27.8895
+            "accounts": 322,
+            "amount_wan": 8934.3,
+            "per_capita_wan": 27.7463
           },
           {
             "id": "inflow_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
             "accounts": 159,
             "amount_wan": 209.5168
@@ -2129,7 +2129,7 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "inflow_transactions",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
             "accounts": 159,
             "event_count": 834
@@ -2138,16 +2138,16 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "buy_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
             "accounts": 195,
-            "amount_wan": 295.8603
+            "amount_wan": 295.9603
           },
           {
             "id": "zero_asset_inflow_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
             "accounts": 5,
             "amount_wan": 5.9
@@ -2156,10 +2156,10 @@ window.QIANWEN_ACQUISITION_DATA = {
             "id": "sell_amount",
             "definition_version": "2026-08-20-v2",
             "time_basis": "snapshot_as_of",
-            "data_as_of": "2026-09-20T09:27:32+08:00",
+            "data_as_of": "2026-09-20T17:56:29+08:00",
             "state": "confirmed",
             "accounts": 74,
-            "amount_wan": 487.6302
+            "amount_wan": 491.4834
           }
         ]
       }
@@ -2167,21 +2167,21 @@ window.QIANWEN_ACQUISITION_DATA = {
   },
   "segments": {
     "anchor": "first_bound_at",
-    "window_end_at": "2026-09-20T09:27:32+08:00",
+    "window_end_at": "2026-09-20T17:56:29+08:00",
     "items": [
       {
         "id": "all",
         "definition_version": "2026-08-20-v2",
         "state": "confirmed",
-        "data_as_of": "2026-09-20T09:27:32+08:00",
+        "data_as_of": "2026-09-20T17:56:29+08:00",
         "asset_as_of": "2026-09-18",
-        "population_accounts": 5322,
-        "new_accounts": 4510,
-        "existing_accounts": 812,
-        "card_bound_accounts": 475,
-        "opened_after_binding_accounts": 23,
-        "risk_assessed_accounts": 157,
-        "risk_after_binding_accounts": 53,
+        "population_accounts": 5359,
+        "new_accounts": 4542,
+        "existing_accounts": 817,
+        "card_bound_accounts": 480,
+        "opened_after_binding_accounts": 24,
+        "risk_assessed_accounts": 159,
+        "risk_after_binding_accounts": 54,
         "inflow_accounts": 162,
         "inflow_transactions": 842,
         "holders_gte_100k_accounts": 133,
@@ -2189,15 +2189,15 @@ window.QIANWEN_ACQUISITION_DATA = {
         "reinvested_accounts": 198,
         "first_investor_accounts": 7,
         "inflow_amount_wan": 219.6493,
-        "holder_accounts": 322,
-        "total_asset_wan": 8934.74,
-        "per_capita_asset_wan": 27.7476
+        "holder_accounts": 324,
+        "total_asset_wan": 8944.41,
+        "per_capita_asset_wan": 27.6062
       },
       {
         "id": "new_inv",
         "definition_version": "2026-08-20-v2",
         "state": "confirmed",
-        "data_as_of": "2026-09-20T09:27:32+08:00",
+        "data_as_of": "2026-09-20T17:56:29+08:00",
         "asset_as_of": "2026-09-18",
         "population_accounts": 8,
         "new_accounts": 3,
@@ -2221,7 +2221,7 @@ window.QIANWEN_ACQUISITION_DATA = {
         "id": "first_inv",
         "definition_version": "2026-08-20-v2",
         "state": "confirmed",
-        "data_as_of": "2026-09-20T09:27:32+08:00",
+        "data_as_of": "2026-09-20T17:56:29+08:00",
         "asset_as_of": "2026-09-18",
         "population_accounts": 7,
         "new_accounts": 3,
@@ -2245,7 +2245,7 @@ window.QIANWEN_ACQUISITION_DATA = {
         "id": "reinvested",
         "definition_version": "2026-08-20-v2",
         "state": "confirmed",
-        "data_as_of": "2026-09-20T09:27:32+08:00",
+        "data_as_of": "2026-09-20T17:56:29+08:00",
         "asset_as_of": "2026-09-18",
         "population_accounts": 198,
         "new_accounts": 3,
@@ -2269,15 +2269,15 @@ window.QIANWEN_ACQUISITION_DATA = {
         "id": "new",
         "definition_version": "2026-08-20-v2",
         "state": "confirmed",
-        "data_as_of": "2026-09-20T09:27:32+08:00",
+        "data_as_of": "2026-09-20T17:56:29+08:00",
         "asset_as_of": "2026-09-18",
-        "population_accounts": 4510,
-        "new_accounts": 4510,
+        "population_accounts": 4542,
+        "new_accounts": 4542,
         "existing_accounts": 0,
-        "card_bound_accounts": 18,
-        "opened_after_binding_accounts": 16,
+        "card_bound_accounts": 19,
+        "opened_after_binding_accounts": 17,
         "risk_assessed_accounts": 18,
-        "risk_after_binding_accounts": 17,
+        "risk_after_binding_accounts": 18,
         "inflow_accounts": 3,
         "inflow_transactions": 8,
         "holders_gte_100k_accounts": 0,
@@ -2293,7 +2293,7 @@ window.QIANWEN_ACQUISITION_DATA = {
         "id": "new_first_inv",
         "definition_version": "2026-08-20-v2",
         "state": "confirmed",
-        "data_as_of": "2026-09-20T09:27:32+08:00",
+        "data_as_of": "2026-09-20T17:56:29+08:00",
         "asset_as_of": "2026-09-18",
         "population_accounts": 3,
         "new_accounts": 3,
@@ -2317,14 +2317,14 @@ window.QIANWEN_ACQUISITION_DATA = {
         "id": "existing",
         "definition_version": "2026-08-20-v2",
         "state": "confirmed",
-        "data_as_of": "2026-09-20T09:27:32+08:00",
+        "data_as_of": "2026-09-20T17:56:29+08:00",
         "asset_as_of": "2026-09-18",
-        "population_accounts": 812,
+        "population_accounts": 817,
         "new_accounts": 0,
-        "existing_accounts": 812,
-        "card_bound_accounts": 457,
+        "existing_accounts": 817,
+        "card_bound_accounts": 461,
         "opened_after_binding_accounts": 7,
-        "risk_assessed_accounts": 139,
+        "risk_assessed_accounts": 141,
         "risk_after_binding_accounts": 36,
         "inflow_accounts": 159,
         "inflow_transactions": 834,
@@ -2333,15 +2333,15 @@ window.QIANWEN_ACQUISITION_DATA = {
         "reinvested_accounts": 195,
         "first_investor_accounts": 4,
         "inflow_amount_wan": 209.5168,
-        "holder_accounts": 320,
-        "total_asset_wan": 8924.63,
-        "per_capita_asset_wan": 27.8895
+        "holder_accounts": 322,
+        "total_asset_wan": 8934.3,
+        "per_capita_asset_wan": 27.7463
       },
       {
         "id": "existing_reactivated",
         "definition_version": "2026-08-20-v2",
         "state": "confirmed",
-        "data_as_of": "2026-09-20T09:27:32+08:00",
+        "data_as_of": "2026-09-20T17:56:29+08:00",
         "asset_as_of": "2026-09-18",
         "population_accounts": 5,
         "new_accounts": 0,
@@ -2365,7 +2365,7 @@ window.QIANWEN_ACQUISITION_DATA = {
         "id": "existing_first_inv",
         "definition_version": "2026-08-20-v2",
         "state": "confirmed",
-        "data_as_of": "2026-09-20T09:27:32+08:00",
+        "data_as_of": "2026-09-20T17:56:29+08:00",
         "asset_as_of": "2026-09-18",
         "population_accounts": 4,
         "new_accounts": 0,
