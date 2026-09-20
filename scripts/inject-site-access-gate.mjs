@@ -9,6 +9,7 @@ const marker = "data-clair-access-gate";
 const selfProtectedEntries = new Set([
   "reports/qianwen-user-acquisition-dashboard/index.html",
   "reports/doubao-user-acquisition-dashboard/index.html",
+  "reports/doubao-user-conversion-cases-2026-09-20/index.html",
   // 下面两页在提交前就已加密（含客户对话原文，本仓库是 public repo），
   // 自带解锁页，不再叠加站点门。
   "reports/qianwen-user-question-analysis-2026-09-05/index.html",

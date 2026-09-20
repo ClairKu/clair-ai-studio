@@ -375,6 +375,7 @@ const actionGateInput = /<input\b[^>]*\bdata-gate=["']action["'][^>]*>/gi;
 const selfProtectedReportIds = new Set([
   "qianwen-user-acquisition-dashboard",
   "doubao-user-acquisition-dashboard",
+  "doubao-user-conversion-cases-2026-09-20",
   "qianwen-user-question-analysis-2026-09-05",
   "qianwen-user-question-detail-2026-09-05",
   "qianwen-first-investor-cases-2026-09-17",

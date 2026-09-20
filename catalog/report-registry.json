@@ -233,6 +233,11 @@
       "slug": "yingmi-portfolio-optimizer-2026-09-10",
       "status": "legacy-route",
       "ownerId": "yingmi-portfolio-optimizer-2026-09-10"
+    },
+    {
+      "slug": "doubao-user-conversion-cases-2026-09-20",
+      "status": "supporting-page",
+      "ownerId": "doubao-user-acquisition-dashboard"
     }
   ],
   "historyAudit": {

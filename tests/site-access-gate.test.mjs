@@ -10,6 +10,7 @@ const gatePath = join(docsRoot, "access-gate.js");
 const selfProtectedPaths = new Set([
   join(docsRoot, "reports", "qianwen-user-acquisition-dashboard", "index.html"),
   join(docsRoot, "reports", "doubao-user-acquisition-dashboard", "index.html"),
+  join(docsRoot, "reports", "doubao-user-conversion-cases-2026-09-20", "index.html"),
   join(docsRoot, "reports", "qianwen-user-question-analysis-2026-09-05", "index.html"),
   join(docsRoot, "reports", "qianwen-user-question-detail-2026-09-05", "index.html"),
   join(docsRoot, "reports", "qianwen-first-investor-cases-2026-09-17", "index.html"),
