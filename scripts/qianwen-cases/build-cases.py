@@ -950,10 +950,10 @@ page = f'''<!doctype html>
   .insight-main::before{{content:"“";position:absolute;left:0;top:-4px;color:#9b85ff;font:900 30px/1 var(--serif)}}
   .insight-main b{{color:#c9bdff;font-weight:900}}
   .insight-detail{{max-width:1180px;margin:8px 0 0;padding-left:27px;color:#d9d7e5;font-size:12px;font-weight:600;line-height:1.62}}
-  .overview-route{{counter-reset:route;display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));align-items:stretch;gap:9px 18px;margin:14px 0 0;padding:14px 0 0;border-top:1px solid rgb(255 255 255 / 14%);list-style:none}}
-  .overview-route li{{counter-increment:route;position:relative;min-width:0;min-height:48px;display:flex;align-items:center;padding:9px 12px 9px 39px;border:1px solid rgb(255 255 255 / 17%);border-radius:9px;background:rgb(255 255 255 / 7%);color:#f7f5ff;font-size:12px;font-weight:780;line-height:1.42}}
-  .overview-route li::before{{content:counter(route,decimal-leading-zero);position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#b9a9ff;font:850 10px/1 var(--mono);letter-spacing:.04em}}
-  .overview-route li + li::after{{content:"→";position:absolute;left:-13px;top:50%;transform:translate(-50%,-50%);color:#9c89ef;font-size:13px;font-weight:900}}
+  .overview-route{{counter-reset:route;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));align-items:stretch;gap:10px;margin:14px 0 0;padding:14px 0 0;border-top:1px solid rgb(255 255 255 / 18%);list-style:none}}
+  .overview-route li{{counter-increment:route;position:relative;min-width:0;min-height:56px;display:flex;align-items:center;padding:11px 35px 11px 48px;border:1px solid rgb(255 255 255 / 28%);border-radius:9px;background:rgb(255 255 255 / 10%);box-shadow:inset 0 1px 0 rgb(255 255 255 / 6%);color:#fff;font-size:13px;font-weight:800;line-height:1.48}}
+  .overview-route li::before{{content:counter(route,decimal-leading-zero);position:absolute;left:12px;top:50%;transform:translateY(-50%);display:grid;place-items:center;width:25px;height:25px;border-radius:50%;background:#7b64df;color:#fff;font:850 9.5px/1 var(--mono);letter-spacing:.03em}}
+  .overview-route li:not(:last-child)::after{{content:"›";position:absolute;right:12px;top:50%;transform:translateY(-52%);color:#c7bcff;font:800 19px/1 var(--serif)}}
   .case-facts{{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:14px;border:1px solid #d8dbea;border-radius:12px;background:#fff;overflow:hidden}}
   .fact{{min-width:0;min-height:92px;padding:14px 17px 15px}}
   .fact + .fact{{border-left:1px solid #e0e2eb}}
@@ -1043,6 +1043,9 @@ page = f'''<!doctype html>
   .qlist .qmark{{display:inline-block;min-width:32px;text-align:center;color:var(--ink-blue);background:var(--soft);border-radius:4px;font-weight:700;font-size:11px;margin-right:8px;padding:1px 6px}}
   .qlist .qmark.qm{{color:var(--good);background:#e6f5ee}}
   .qlist .via{{color:var(--ink-3);font-style:normal;font-size:11.5px}}
+  @media(max-width:900px){{
+    .overview-route{{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  }}
   @media(max-width:600px){{
     .modal{{padding:10px}}
     .modal-card{{width:calc(100vw - 20px);height:calc(100svh - 20px);min-height:0;border-radius:12px}}
@@ -1062,9 +1065,9 @@ page = f'''<!doctype html>
     .insight-main{{font-size:14.5px}}
     .insight-detail{{padding-left:0}}
     .overview-route{{grid-template-columns:1fr;gap:8px;margin-top:12px;padding-top:12px}}
-    .overview-route li{{min-height:44px;padding:9px 12px 9px 42px;align-items:center}}
-    .overview-route li::before{{left:14px}}
-    .overview-route li + li::after{{content:"↓";left:20px;top:-7px;transform:none;background:#302b50;padding:0 3px}}
+    .overview-route li{{min-height:48px;padding:10px 35px 10px 48px;align-items:center}}
+    .overview-route li::before{{left:12px}}
+    .overview-route li:not(:last-child)::after{{content:"↓";right:13px;font-size:13px}}
     .case-facts{{grid-template-columns:repeat(2,minmax(0,1fr))}}
     .fact{{min-height:88px;padding:13px 14px}}
     .fact + .fact{{border-left:0}}
