@@ -308,9 +308,8 @@ def decision_chain_panel(u):
         f'<li class="decision-step {kind}"><time>{esc(when)}</time><div><b>{esc(label)}</b><p>{esc(detail)}</p></div></li>'
         for kind, label, when, detail in steps[:5]
     )
-    return (f'<div class="decision-head"><h4>关键行为证据</h4><small>按可验证时序提炼</small></div>'
-            f'<ol class="decision-chain">{rows}</ol>'
-            f'<p class="decision-caveat">链路表示行为先后与伴随关系，用于定位关键承接点；不能单独证明某次提问或某个页面造成了下单。</p>')
+    return (f'<div class="decision-head"><h4>关键行为证据</h4></div>'
+            f'<ol class="decision-chain">{rows}</ol>')
 
 def behavior_panel(u):
     # 且慢行为：按日汇总埋点（浏览 / 策略与产品 / 功能操作 / 小顾入口 / 交易）
@@ -687,6 +686,14 @@ ASKS_JSON = json.dumps({u["pmid"]: {"letter": u["letter"], "cohort": u["cohort"]
 
 CSS = Path(sys.argv[3]).read_text() if len(sys.argv) > 3 else ""
 
+# 与主看板共用同一组合作品牌标识，避免子看板出现第二套近似 Logo。
+main_dashboard = Path(__file__).resolve().parents[2] / "public/reports/qianwen-user-acquisition-dashboard/index.html"
+main_dashboard_html = main_dashboard.read_text(encoding="utf-8")
+brand_marks_match = re.search(r'<span class="cobrand-marks">(.+?)</span>', main_dashboard_html)
+if not brand_marks_match:
+    raise RuntimeError("未能从主看板读取千问 × 且慢合作 Logo")
+COBRAND_MARKS_HTML = brand_marks_match.group(1)
+
 PAGER_SNIPPET = r'''<style>
 *,*::before,*::after{font-family:var(--serif) !important}
 html,body{max-width:100%}
@@ -798,15 +805,17 @@ page = f'''<!doctype html>
   .mini-table th,.mini-table td{{padding:6px 10px}}
   .funds{{margin:4px 0 0;padding-left:18px;font-size:12.5px;color:var(--ink-2)}}
   .funds li{{margin:2px 0}}
-  .report-hero{{display:flex;align-items:flex-start;justify-content:space-between;gap:32px}}
-  .report-hero-copy{{min-width:0}}
-  .dashboard-link{{flex:0 0 auto;display:inline-flex;align-items:center;gap:11px;margin-top:2px;padding:11px 14px;border:1px solid var(--rule-2);border-radius:10px;
-    background:rgba(255,255,255,.72);color:var(--ink-2);text-decoration:none;box-shadow:0 8px 22px rgb(32 38 60 / 5%);transition:border-color .15s,background-color .15s,transform .15s}}
-  .dashboard-link span{{display:grid;gap:1px}}
-  .dashboard-link b{{font-size:13.5px;line-height:1.2}}
-  .dashboard-link small{{color:var(--ink-3);font-size:10.5px;line-height:1.2}}
-  .dashboard-link svg{{flex:0 0 18px;color:var(--blue-deep)}}
-  .dashboard-link:hover{{border-color:var(--blue);background:var(--surface);transform:translateY(-1px)}}
+  .report-hero{{display:block}}
+  .brand-nav{{display:flex;align-items:center;justify-content:space-between;gap:24px;margin:0 0 22px}}
+  .cobrand-brand{{display:inline-flex;align-items:center;min-width:0}}
+  .cobrand-marks{{display:inline-flex;align-items:center;flex:0 0 auto}}
+  .cobrand-marks img{{display:block;width:26px;height:26px;border-radius:50%;background:var(--surface);box-shadow:0 0 0 2px var(--surface)}}
+  .cobrand-marks img + img{{margin-left:-6px}}
+  .cobrand-text{{margin-left:16px;color:var(--blue-deep);font:750 11px/1.4 var(--mono);letter-spacing:.16em;white-space:nowrap}}
+  .dashboard-link{{flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;padding:4px 0;color:var(--blue-deep);font:750 13px/1.3 var(--serif);letter-spacing:.02em;text-decoration:none;white-space:nowrap;transition:color .15s}}
+  .dashboard-link i{{display:inline-grid;place-items:center;width:19px;height:19px;padding:0 0 1px;border:1.5px solid currentColor;border-radius:50%;font:750 14px/1 var(--serif);font-style:normal}}
+  .dashboard-link:hover{{color:var(--ink)}}
+  .dashboard-link:focus-visible{{outline:3px solid var(--amber);outline-offset:4px;border-radius:3px}}
   .scope-nav{{display:flex;align-items:center;gap:24px;margin:34px 0 18px;padding-bottom:14px;border-bottom:1px solid var(--rule-2)}}
   .tabs{{display:flex;flex:0 0 auto;flex-wrap:nowrap;align-items:center;gap:0;margin:0;max-width:100%;overflow-x:auto;scrollbar-width:none}}
   .tabs::-webkit-scrollbar{{display:none}}
@@ -820,14 +829,14 @@ page = f'''<!doctype html>
   .tab[aria-selected="true"] small{{color:inherit;opacity:.72}}
   .scope-def{{min-width:0;margin:0!important;padding-left:22px;border-left:1px solid var(--rule-2);background:transparent;color:var(--ink-2)!important;font-size:14px!important;line-height:1.65}}
   @media(max-width:900px){{
-    .report-hero{{align-items:center}}
-    .dashboard-link small{{display:none}}
     .scope-nav{{display:grid;gap:11px}}
     .scope-def{{padding:0;border-left:0}}
   }}
   @media(max-width:520px){{
-    .report-hero{{display:block}}
-    .dashboard-link{{margin-top:14px;padding:9px 12px}}
+    .brand-nav{{align-items:flex-start;gap:14px;margin-bottom:18px}}
+    .cobrand-marks img{{width:24px;height:24px}}
+    .cobrand-text{{margin-left:11px;font-size:9px;letter-spacing:.11em;white-space:normal}}
+    .dashboard-link{{font-size:12px}}
     .tab{{min-height:44px;padding:0 15px;font-size:13px}}
   }}
   .section-h{{font:800 26px/1.3 var(--serif);letter-spacing:-.02em;color:var(--ink)}}
@@ -882,7 +891,7 @@ page = f'''<!doctype html>
   .fact + .fact{{border-left:1px solid #e0e2eb}}
   .fact > span{{display:block;color:#757b8d;font-size:10.5px;font-weight:800;letter-spacing:.04em}}
   .fact > b{{display:flex;align-items:center;gap:7px;margin-top:6px;color:#27234d;font-size:21px;font-weight:850;line-height:1.15}}
-  .fact.primary > b{{color:#087b5d}}
+  .fact.primary > b{{color:var(--blue-deep);font-weight:900}}
   .fact > small{{display:block;margin-top:6px;color:#656b7f;font-size:11.5px;line-height:1.45;white-space:normal}}
   .fact .mini-ic{{margin-left:0;vertical-align:0}}
   .case-body{{padding:22px 24px 24px}}
@@ -892,7 +901,7 @@ page = f'''<!doctype html>
   .ctab:hover{{color:#292d3d;background:#f8f7fc}}
   .ctab:focus,.ctab:focus-visible{{outline:2px solid var(--blue);outline-offset:-2px}}
   .ctab[aria-selected="true"]{{color:#352b75;background:#fff;box-shadow:inset 0 -3px 0 var(--blue-deep)}}
-  .cpanel{{height:clamp(420px,56vh,620px);overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable;
+  .cpanel{{height:clamp(560px,68vh,780px);overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable;
     padding:20px 22px 22px;border:1px solid #d8dbea;border-top:0;border-radius:0 0 11px 11px;background:#fff;scrollbar-color:#b9bdd0 transparent}}
   .route-title{{display:flex;align-items:center;gap:9px;margin-bottom:12px;color:var(--ink-3);font-size:12px;font-weight:700}}
   .route-title b{{padding:4px 10px;border-radius:99px;background:var(--ink);color:#fff;font-size:12px;letter-spacing:.02em}}
@@ -907,12 +916,13 @@ page = f'''<!doctype html>
   .decision-step.trade{{border-color:#bfe3d4;background:#f2faf7}}
   .decision-step.trade b{{color:#087b5d}}
   .decision-caveat{{margin:10px 2px 0;color:#7a8091;font-size:11.5px;line-height:1.6}}
-  .behavior-raw{{margin-top:16px;border-top:1px solid #dfe2eb;padding-top:12px}}
-  .behavior-raw summary{{width:max-content;max-width:100%;cursor:pointer;color:#5a6072;font-size:12.5px;font-weight:700;list-style:none}}
-  .behavior-raw summary::-webkit-details-marker{{display:none}}
-  .behavior-raw summary::before{{content:"＋";display:inline-block;margin-right:7px;color:var(--blue)}}
-  .behavior-raw[open] summary::before{{content:"－"}}
-  .behavior-raw .tl{{margin-top:12px}}
+  .behavior-raw{{margin-top:18px;border-top:1px solid #dfe2eb;padding-top:16px}}
+  .behavior-raw > h4{{margin:0 0 14px;color:#27234d;font-size:14px;font-weight:800}}
+  .behavior-raw .tl{{margin-top:0}}
+  .behavior-sequence .d{{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}}
+  .behavior-sequence .d b{{color:#352b75;font-size:11.5px}}
+  .behavior-sequence .d i{{padding:2px 7px;border-radius:99px;background:#f0eefc;color:#655aa4;font-size:10.5px;font-style:normal;white-space:nowrap}}
+  .behavior-sequence .seq-trade .d b{{color:#087b5d}}
   .deposit-products{{padding:0 2px 8px}}
   .deposit-head{{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:6px}}
   .deposit-head h4,.deposit-products > h4{{margin:0;color:#27234d;font-size:14px;font-weight:800}}
@@ -996,7 +1006,7 @@ page = f'''<!doctype html>
     .fact:nth-child(n+3){{border-top:1px solid #e0e2eb}}
     .case-body{{padding:18px}}
     .ctab{{min-height:46px;padding:0 8px;font-size:13px}}
-    .cpanel{{height:clamp(420px,58svh,590px);padding:17px 15px 20px}}
+    .cpanel{{height:clamp(520px,70svh,720px);padding:17px 15px 20px}}
     .decision-chain{{grid-template-columns:1fr}}
   }}
 </style>
@@ -1004,14 +1014,16 @@ page = f'''<!doctype html>
 <body>
 <div class="page-wrap">
   <div class="report-hero">
-    <div class="report-hero-copy">
-      <div class="eyebrow">QIANWEN × QIEMAN AI · CASE EXPLORER</div>
-      <h1>千问用户转化分析</h1>
+    <div class="brand-nav">
+      <span class="cobrand-brand">
+        <span class="cobrand-marks">{COBRAND_MARKS_HTML}</span>
+        <span class="cobrand-text">QIANWEN × QIEMAN AI · CASE EXPLORER</span>
+      </span>
+      <a class="dashboard-link" href="../qianwen-user-acquisition-dashboard/" title="返回千问引流数据分析主看板" aria-label="返回千问引流数据分析主看板">
+        <span>引流数据分析</span><i aria-hidden="true">‹</i>
+      </a>
     </div>
-    <a class="dashboard-link" href="../qianwen-user-acquisition-dashboard/" title="返回千问引流数据分析主看板" aria-label="返回千问引流数据分析主看板">
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg>
-      <span><b>引流数据分析</b><small>返回主看板</small></span>
-    </a>
+    <h1>千问用户转化分析</h1>
   </div>
   <ul class="insight-list" aria-label="转化分析洞察与总结">
     {INSIGHTS_HTML}
