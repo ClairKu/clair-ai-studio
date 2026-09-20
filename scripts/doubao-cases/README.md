@@ -15,6 +15,17 @@
 
 其余（候选口径、入金口径、五个客群与主看板对齐校验、埋点页名翻译、最终持有穿透、匿名编号、加密壳）完全一致。
 
+## 跟随千问模板改版
+
+`build-cases.py` / `assemble-users.py` / `encrypt-page.mjs` / `validate-alignment.py` / `base.css` / `fetch.py` **不要手改**，
+它们由 `derive-from-qianwen.py` 从 `scripts/qianwen-cases/` 的当前版本按锚点替换派生。千问个例台改版后：
+
+```bash
+python3 scripts/doubao-cases/derive-from-qianwen.py   # 锚点漂移会报错并指出哪一条，按新模板改锚点再跑
+```
+
+然后按下面流程重烘焙页面即可。只有 `fetch-all.sh`（豆包取数）、`narratives.json`（作者研判）和本 README 是豆包专有的。
+
 ## 重烘焙流程
 
 ```bash

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""豆包个例分析台生成器（与 qianwen-cases/build-cases.py 同构；豆包侧只有 OAuth 会话令牌、没有提问文本，asks = 且慢 App 内小顾 3.0 提问）：users.json（归一化用户明细）→ 可切换口径的单文件 HTML（明文，随后作者端加密）。
+"""豆包个例分析台生成器（由 derive-from-qianwen.py 从 qianwen-cases/build-cases.py 派生；豆包侧只有 OAuth 会话令牌、没有提问文本，asks = 且慢 App 内小顾 3.0 提问）：users.json（归一化用户明细）→ 可切换口径的单文件 HTML（明文，随后作者端加密）。
 
 users.json 每个用户字段：
   pmid, letter, cohort(new|existing), gender, age, prov, mp, card, account3_id,
@@ -25,7 +25,8 @@ insight_rows = json.load(open(insight_file)) if insight_file.exists() else {}
 for user in users:
     curated = insight_rows.get(str(user.get("pmid")), {})
     for key in ("insight", "conversion_path_label", "conversion_path", "behavior_insight"):
-        if curated.get(key) and not user.get(key):
+        # 作者侧判断会持续迭代；重烘焙时应以最新版 narratives.json 覆盖旧快照。
+        if curated.get(key):
             user[key] = curated[key]
 
 # 姓氏单独存放在作者端临时数据中，公开源码不落真实姓名；页面仅进入加密产物。
@@ -233,7 +234,6 @@ def decision_chain_panel(u):
     asks = sorted((u.get("asks") or []), key=lambda row: row.get("ts") or "")
     n_tok = int((u.get("channels") or {}).get("doubao_sessions") or 0)
     steps.append(("intent", "入口触发", chain_time(u.get("fb")), f"完成豆包 OAuth 授权绑定；豆包侧共 {n_tok} 次会话，提问内容协议层不可得" if n_tok else "完成豆包 OAuth 授权绑定，此后豆包侧没有再产生会话"))
-    # 只有发生在首笔下单之前的 App 小顾提问才算「需求出现」；下单之后的提问归入末尾的投后确认
     if asks and (not decision_at or (dt(asks[0].get("ts")) or decision_at) <= decision_at):
         first_ask = asks[0]
         steps.append(("intent", "需求出现", chain_time(first_ask.get("ts")), f'且慢 App 小顾提出“{short_quote(first_ask.get("text"))}”'))
@@ -316,72 +316,147 @@ def decision_chain_panel(u):
         f'<li class="decision-step {kind}"><time>{esc(when)}</time><div><b>{esc(label)}</b><p>{esc(detail)}</p></div></li>'
         for kind, label, when, detail in steps[:5]
     )
-    return (f'<div class="decision-head"><h4>关键行为证据</h4><small>按可验证时序提炼</small></div>'
-            f'<ol class="decision-chain">{rows}</ol>'
-            f'<p class="decision-caveat">链路表示行为先后与伴随关系，用于定位关键承接点；不能单独证明某次提问或某个页面造成了下单。</p>')
+    return (f'<div class="decision-head"><h4>关键行为证据</h4></div>'
+            f'<ol class="decision-chain">{rows}</ol>')
 
 def behavior_panel(u):
-    # 且慢行为：按日汇总埋点（浏览 / 策略与产品 / 功能操作 / 小顾入口 / 交易）
+    # 且慢行为：保留关键操作的真实发生顺序，只合并短时间内连续重复的同一动作。
     fb = dt(u["fb"]); evs = u.get("events") or []
     analysis = decision_chain_panel(u)
-    if not evs:
+    mia_rows = (u.get("channels") or {}).get("app_mia", [])
+    trade_rows = [
+        trade for trade in (u.get("trades") or [])
+        if dt(trade.get("accept_time")) and dt(trade["accept_time"]) >= fb and not trade.get("canceled")
+    ]
+    if not evs and not mia_rows and not trade_rows:
         return analysis + '<p class="muted tight">该用户在且慢 App / H5 没有埋点记录。</p>'
-    from collections import Counter, OrderedDict
-    days = OrderedDict()
-    for e in evs: days.setdefault(e["t"][:10], []).append(e)
-    mia_by_day = {}
-    for m in (u.get("channels") or {}).get("app_mia", []): mia_by_day.setdefault(m["ts"][:10], []).append(m)
-    tr_by_day = {}
-    for t in u["trades"]:
-        if dt(t["accept_time"]) >= fb and not t["canceled"]: tr_by_day.setdefault(t["accept_time"][:10], []).append(t)
+
+    signal_re = re.compile(r"首页|我的|资产|持仓|交易|订单|风险|测评|搜索|策略|组合|投顾|小顾|基金|开户|登录|银行卡|身份|个人信息|反洗钱|确认|支付|充值|转入|跟车|定投|建议书|发车")
+    records = []
+
+    def add_record(value, kind, channel, detail):
+        when = dt(value)
+        if when and detail:
+            records.append({
+                "when": when,
+                "kind": kind,
+                "channel": channel,
+                "detail": re.sub(r"\s+", " ", str(detail)).strip(),
+            })
+
+    for event in evs:
+        page = (event.get("p") or "").strip()
+        action = (event.get("e") or "").strip()
+        channel = f'{LIBN.get(event.get("lib"), event.get("lib"))} App' if event.get("lib") != "js" else "网页端"
+        if event.get("k") == "view" and page and page not in {"首页", "我的"} and (signal_re.search(page) or PROD_RE.match(page) or page in XG_PAGES):
+            name = re.sub(r"^(策略详情|策略介绍|主理人详情|资产详情)-", "", page)
+            if page.startswith(("策略详情", "策略介绍")):
+                detail = f'查看策略「{name}」'
+            elif page.startswith("资产详情"):
+                detail = f'查看持仓「{name}」'
+            else:
+                detail = f'进入页面「{name}」'
+            add_record(event.get("t"), "view", channel, detail)
+        elif event.get("k") == "click" and action and not NOISE_RE.search(action):
+            if OP_RE.search(action) or signal_re.search(action) or PROD_RE.match(page) or page in XG_PAGES:
+                add_record(event.get("t"), "op", channel, f'{page + " → " if page else ""}{action}')
+
+    for message in mia_rows:
+        text = (message.get("text") or "").strip()
+        source = MIA_SCENE.get(message.get("scene"), message.get("scene") or "App")
+        detail = f'从{source}进入小顾'
+        if text and text != "HI_AGAIN":
+            detail += f' →「{short_quote(text, 48)}」'
+        add_record(message.get("ts"), "xg", "App 小顾", detail)
+
+    for trade in trade_rows:
+        name = trade.get("po_name") or trade.get("po_code") or ""
+        if trade.get("trade_type") == "wallet.recharge" and (trade.get("extra") or "") in ("by.online", "by.offline"):
+            detail = f'{"线上" if trade.get("extra") == "by.online" else "线下汇款"}充值 {money(trade.get("buy"))} 元'
+        elif float(trade.get("redeem") or 0) > 0:
+            detail = f'赎回「{name}」{money(trade.get("redeem"))} 元'
+        elif float(trade.get("buy") or 0) > 0:
+            detail = f'买入「{name}」{money(trade.get("buy"))} 元'
+        else:
+            continue
+        add_record(trade.get("accept_time"), "trade", "交易", detail)
+
+    stage_rules = (
+        ("account", "开户准备", re.compile(r"开户|绑卡|实名认证|银行卡|身份|个人信息|反洗钱")),
+        ("risk", "风险测评", re.compile(r"风险|测评")),
+        ("strategy", "研究选品", re.compile(r"搜索|策略|组合|基金|投顾|建议书|跟车|定投|发车")),
+        ("asset", "资产回看", re.compile(r"资产|持仓|交易记录")),
+        ("trade", "交易执行", re.compile(r"买入|下单|订单|支付|充值|转入|汇款|确认提交")),
+    )
+
+    def stage_of(row):
+        if row["kind"] == "trade":
+            return "trade", "交易执行"
+        if row["kind"] == "xg":
+            return "xg", "小顾咨询"
+        for stage, label, pattern in stage_rules:
+            if pattern.search(row["detail"]):
+                return stage, label
+        return "nav", "页面操作"
+
+    records.sort(key=lambda row: (row["when"], {"view": 0, "op": 1, "xg": 2, "trade": 3}.get(row["kind"], 9)))
+    merged = []
+    for row in records:
+        stage, stage_label = stage_of(row)
+        if (
+            merged
+            and merged[-1]["stage"] == stage
+            and row["when"].date() == merged[-1]["when"].date()
+            and row["when"] - merged[-1]["end"] <= _td(minutes=8)
+        ):
+            merged[-1]["end"] = row["when"]
+            merged[-1]["count"] += 1
+            if row["channel"] not in merged[-1]["channels"]:
+                merged[-1]["channels"].append(row["channel"])
+            if row["detail"] != merged[-1]["actions"][-1]:
+                merged[-1]["actions"].append(row["detail"])
+        else:
+            merged.append({
+                **row,
+                "stage": stage,
+                "stage_label": stage_label,
+                "end": row["when"],
+                "count": 1,
+                "channels": [row["channel"]],
+                "actions": [row["detail"]],
+            })
+
     items = []
-    for day, es in days.items():
-        d = datetime.fromisoformat(day)
-        libs = Counter(e["lib"] for e in es if e["lib"] != "js")
-        term = f'{LIBN.get(libs.most_common(1)[0][0], libs.most_common(1)[0][0])} App' if libs else "网页端（微信 / 豆包内嵌页）"
-        views = [e for e in es if e["k"] == "view"]; clicks = [e for e in es if e["k"] == "click" and e["e"]]
-        pre = "（绑定前）" if d.date() < fb.date() else ""
-        head = f'{d.strftime("%-m-%d")}{pre} · {term} · {es[0]["t"][11:16]}–{es[-1]["t"][11:16]} · 浏览 {len(views)} 页 · 操作 {len(clicks)} 次'
-        items.append(f'<li class="day sys"><span class="t">{esc(head)}</span></li>')
-        pv = Counter(e["p"] for e in views if e["p"] and not PROD_RE.match(e["p"]) and e["p"] not in XG_PAGES)
-        if pv:
-            top = pv.most_common(7)
-            items.append('<li class="b-view"><span class="t">浏览</span><span class="d">' + "、".join(f'{esc(pg)}{f" ×{n}" if n >= 3 else ""}' for pg, n in top) + (f'，另 {len(pv) - len(top)} 个页面' if len(pv) > len(top) else "") + '</span></li>')
-        prods = OrderedDict()
-        for e in views:
-            if e["p"] and PROD_RE.match(e["p"]): prods.setdefault(e["p"], set())
-        for e in clicks:
-            if e["p"] and PROD_RE.match(e["p"]) and not NOISE_RE.search(e["e"]): prods.setdefault(e["p"], set()).add(e["e"])
-        if prods:
-            parts = []
-            for pg, acts in list(prods.items())[:6]:
-                name = re.sub(r"^(策略详情|策略介绍|主理人详情|资产详情)-", "", pg)
-                if name.isdigit(): continue
-                kind = "主理人" if pg.startswith("主理人") else "持仓" if pg.startswith("资产详情") else "策略"
-                a = "、".join(sorted(acts)[:3])
-                parts.append(f'{kind}「{esc(name)}」' + (f' → {esc(a)}' if a else ""))
-            items.append('<li class="b-prod"><span class="t">策略与产品</span><span class="d">' + "；".join(parts) + '</span></li>')
-        ops = Counter((e["p"] or "", e["e"]) for e in clicks
-                      if not NOISE_RE.search(e["e"]) and OP_RE.search(e["e"]) and not (e["p"] and (PROD_RE.match(e["p"]) or e["p"] in XG_PAGES)))
-        if ops:
-            parts = [f'{esc(pg) + " · " if pg else ""}{esc(el)}{f" ×{n}" if n >= 2 else ""}' for (pg, el), n in ops.most_common(7)]
-            items.append('<li class="b-op"><span class="t">功能操作</span><span class="d">' + "；".join(parts) + '</span></li>')
-        xg = []
-        for m in mia_by_day.get(day, []):
-            xg.append(f'从{MIA_SCENE.get(m.get("scene"), m.get("scene") or "App")}{"快捷入口" if m.get("mode") == "AUTO_LEAD" else ""}进小顾 →「{esc((m.get("text") or "").strip()[:30])}」')
-        xn = sum(1 for e in clicks if e["p"] in XG_PAGES and e["e"] in ("PlainText", "MultiThink"))
-        if xn: xg.append(f'在 App 小顾入口自行输入 {xn} 次')
-        if xg: items.append('<li class="b-xg"><span class="t">小顾</span><span class="d">' + "；".join(xg) + '</span></li>')
-        trs = []
-        for t in tr_by_day.get(day, []):
-            nm = t["po_name"] or t["po_code"]
-            if t["trade_type"] == "wallet.recharge":
-                if (t["extra"] or "") in ("by.online", "by.offline"): trs.append(f'{"线上" if t["extra"] == "by.online" else "线下汇款"}充值 {money(t["buy"])} 元')
-            elif t["redeem"] and float(t["redeem"]) > 0: trs.append(f'赎回「{esc(nm)}」{money(t["redeem"])} 元')
-            elif t["buy"] and float(t["buy"]) > 0: trs.append(f'买入「{esc(nm)}」{money(t["buy"])} 元')
-        if trs: items.append('<li class="b-trade trade"><span class="t">交易</span><span class="d">' + "；".join(trs) + '</span></li>')
-    return (analysis + '<details class="behavior-raw"><summary>查看按日浏览与操作明细</summary>'
-            '<ul class="tl beh">' + "\n".join(items) + '</ul></details>')
+    last_day = None
+    weekdays = "一二三四五六日"
+    for row in merged:
+        day = row["when"].date()
+        if day != last_day:
+            pre = " · 绑定前" if day < fb.date() else ""
+            items.append(
+                f'<li class="day-marker"><span class="day-date">{row["when"].strftime("%-m月%-d日")}</span>'
+                f'<span class="weekday">周{weekdays[row["when"].weekday()]}{pre}</span></li>'
+            )
+            last_day = day
+        time_text = row["when"].strftime("%H:%M:%S")
+        if row["end"] != row["when"]:
+            time_text += "–" + row["end"].strftime("%H:%M:%S")
+        actions = row["actions"][:6]
+        detail_text = " → ".join(actions)
+        if len(row["actions"]) > len(actions):
+            detail_text += f' → 另 {len(row["actions"]) - len(actions)} 步'
+        channel_text = " / ".join(row["channels"])
+        items.append(
+            f'<li class="seq-{row["stage"]}{" trade" if row["stage"] == "trade" else ""}">'
+            f'<span class="t">{time_text}</span><span class="d"><b>{row["stage_label"]}</b>'
+            f'<i>{esc(channel_text)}</i>{esc(detail_text)}</span></li>'
+        )
+
+    detail_html = (
+        '<ul class="tl beh behavior-sequence">' + "\n".join(items) + '</ul>'
+        if items else '<p class="muted tight">没有可识别的关键页面或操作记录。</p>'
+    )
+    return analysis + '<div class="behavior-raw"><h4>关键时点与操作顺序</h4>' + detail_html + '</div>'
 
 def path_summary(u):
     # 用户路径与行为总结：终端 / 下单情境 / 豆包侧关系 / App 内小顾——全部白话，不出现字段名
@@ -516,16 +591,16 @@ def case_overview(u):
     route_steps = [step.strip() for step in str(u.get("conversion_path") or "").split("→") if step.strip()]
     route_html = "".join(f'<li>{esc(step)}</li>' for step in route_steps)
     insight = case_insight(u)
+    style = esc(u.get("conversion_path_label") or "转化路径待研判")
     if "：" in insight:
-        insight = insight.split("：", 1)[1]
+        prefix, insight = insight.split("：", 1)
+        if prefix:
+            style = prefix
     lead, separator, detail = insight.partition("；")
     detail_html = f'<p class="insight-detail">{detail}</p>' if separator and detail else ''
-    return (f'<section class="case-overview" aria-label="用户洞察与转化路径">'
-            f'<article class="case-insight"><div class="insight-kicker"><span>01</span><b>核心判断</b></div>'
-            f'<p class="insight-main">{lead}</p>{detail_html}'
-            f'<small>基于提问、使用行为与交易时序综合判断</small></article>'
-            f'<div class="case-route"><div class="overview-title"><div><span>02</span><b>转化路径</b></div><em>4 个关键节点</em></div>'
-            f'<ol class="overview-route">{route_html}</ol></div>'
+    return (f'<section class="case-overview" aria-label="用户洞察与关键决策路径">'
+            f'<article class="case-insight"><blockquote class="insight-main"><b>{style}</b>：{lead}</blockquote>{detail_html}'
+            f'<ol class="overview-route" aria-label="关键决策路径">{route_html}</ol></article>'
             f'</section>')
 
 def card(u):
@@ -534,7 +609,7 @@ def card(u):
     who = f'豆包用户 #{u["letter"]} · {esc(u.get("surname") or "")}{gender} · {age}'
     app_dates = [d.get("created_on") for d in u.get("dev", []) if d.get("created_on")]
     app_download = min(app_dates) if app_dates else None
-    tags = [f'<span class="tag route-tag">{esc(u.get("conversion_path_label") or "待研判")}</span>']
+    tags = []
     if u.get("fb"):
         tags.append(f'<span class="tag">豆包绑定 {fmt_badge_date(u["fb"])}</span>')
     if app_download:
@@ -706,6 +781,14 @@ ASKS_JSON = json.dumps({u["pmid"]: {"letter": u["letter"], "cohort": u["cohort"]
 
 CSS = Path(sys.argv[3]).read_text() if len(sys.argv) > 3 else ""
 
+# 与主看板共用同一组合作品牌标识，避免子看板出现第二套近似 Logo。
+main_dashboard = Path(__file__).resolve().parents[2] / "public/reports/doubao-user-acquisition-dashboard/index.html"
+main_dashboard_html = main_dashboard.read_text(encoding="utf-8")
+brand_marks_match = re.search(r'<span class="cobrand-marks">(.+?)</span>', main_dashboard_html)
+if not brand_marks_match:
+    raise RuntimeError("未能从主看板读取豆包 × 且慢合作 Logo")
+COBRAND_MARKS_HTML = brand_marks_match.group(1)
+
 PAGER_SNIPPET = r'''<style>
 *,*::before,*::after{font-family:var(--serif) !important}
 html,body{max-width:100%}
@@ -817,15 +900,17 @@ page = f'''<!doctype html>
   .mini-table th,.mini-table td{{padding:6px 10px}}
   .funds{{margin:4px 0 0;padding-left:18px;font-size:12.5px;color:var(--ink-2)}}
   .funds li{{margin:2px 0}}
-  .report-hero{{display:flex;align-items:flex-start;justify-content:space-between;gap:32px}}
-  .report-hero-copy{{min-width:0}}
-  .dashboard-link{{flex:0 0 auto;display:inline-flex;align-items:center;gap:11px;margin-top:2px;padding:11px 14px;border:1px solid var(--rule-2);border-radius:10px;
-    background:rgba(255,255,255,.72);color:var(--ink-2);text-decoration:none;box-shadow:0 8px 22px rgb(32 38 60 / 5%);transition:border-color .15s,background-color .15s,transform .15s}}
-  .dashboard-link span{{display:grid;gap:1px}}
-  .dashboard-link b{{font-size:13.5px;line-height:1.2}}
-  .dashboard-link small{{color:var(--ink-3);font-size:10.5px;line-height:1.2}}
-  .dashboard-link svg{{flex:0 0 18px;color:var(--blue-deep)}}
-  .dashboard-link:hover{{border-color:var(--blue);background:var(--surface);transform:translateY(-1px)}}
+  .report-hero{{display:block}}
+  .brand-nav{{display:flex;align-items:center;justify-content:space-between;gap:24px;margin:0 0 22px}}
+  .cobrand-brand{{display:inline-flex;align-items:center;min-width:0}}
+  .cobrand-marks{{display:inline-flex;align-items:center;flex:0 0 auto}}
+  .cobrand-marks img{{display:block;width:26px;height:26px;border-radius:50%;background:var(--surface);box-shadow:0 0 0 2px var(--surface)}}
+  .cobrand-marks img + img{{margin-left:-6px}}
+  .cobrand-text{{margin-left:16px;color:var(--blue-deep);font:750 11px/1.4 var(--mono);letter-spacing:.16em;white-space:nowrap}}
+  .dashboard-link{{flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;padding:4px 0;color:var(--blue-deep);font:750 13px/1.3 var(--serif);letter-spacing:.02em;text-decoration:none;white-space:nowrap;transition:color .15s}}
+  .dashboard-link i{{display:inline-grid;place-items:center;width:19px;height:19px;padding:0 0 1px;border:1.5px solid currentColor;border-radius:50%;font:750 14px/1 var(--serif);font-style:normal}}
+  .dashboard-link:hover{{color:var(--ink)}}
+  .dashboard-link:focus-visible{{outline:3px solid var(--amber);outline-offset:4px;border-radius:3px}}
   .scope-nav{{display:flex;align-items:center;gap:24px;margin:34px 0 18px;padding-bottom:14px;border-bottom:1px solid var(--rule-2)}}
   .tabs{{display:flex;flex:0 0 auto;flex-wrap:nowrap;align-items:center;gap:0;margin:0;max-width:100%;overflow-x:auto;scrollbar-width:none}}
   .tabs::-webkit-scrollbar{{display:none}}
@@ -839,14 +924,14 @@ page = f'''<!doctype html>
   .tab[aria-selected="true"] small{{color:inherit;opacity:.72}}
   .scope-def{{min-width:0;margin:0!important;padding-left:22px;border-left:1px solid var(--rule-2);background:transparent;color:var(--ink-2)!important;font-size:14px!important;line-height:1.65}}
   @media(max-width:900px){{
-    .report-hero{{align-items:center}}
-    .dashboard-link small{{display:none}}
     .scope-nav{{display:grid;gap:11px}}
     .scope-def{{padding:0;border-left:0}}
   }}
   @media(max-width:520px){{
-    .report-hero{{display:block}}
-    .dashboard-link{{margin-top:14px;padding:9px 12px}}
+    .brand-nav{{align-items:flex-start;gap:14px;margin-bottom:18px}}
+    .cobrand-marks img{{width:24px;height:24px}}
+    .cobrand-text{{margin-left:11px;font-size:9px;letter-spacing:.11em;white-space:normal}}
+    .dashboard-link{{font-size:12px}}
     .tab{{min-height:44px;padding:0 15px;font-size:13px}}
   }}
   .section-h{{font:800 26px/1.3 var(--serif);letter-spacing:-.02em;color:var(--ink)}}
@@ -876,32 +961,23 @@ page = f'''<!doctype html>
   .case-head .who{{color:#1e2233;font-size:20px;font-weight:800}}
   .case-head .badge{{width:25px;height:25px;border-color:#c9c2ed;background:#fff;color:#4e38ac;font-weight:800}}
   .case-head .tag{{padding:4px 10px;border-color:#d4d0e9;background:rgba(255,255,255,.78);color:#4d5266;font-size:11.5px;font-weight:700}}
-  .case-head .route-tag{{border-color:#cfc6f5;background:#ece8ff;color:#5740bd}}
   .case-summary{{padding:20px 24px 22px;border-bottom:1px solid #d8dbea;background:linear-gradient(180deg,#fcfbff 0%,#f8f7fc 100%)}}
-  .case-overview{{display:grid;grid-template-columns:minmax(320px,.88fr) minmax(0,1.42fr);gap:0;padding:0;border:1px solid #d5d3e5;border-radius:14px;background:#fff;box-shadow:0 8px 24px rgb(37 31 72 / 6%);overflow:hidden}}
-  .case-insight{{min-width:0;display:flex;flex-direction:column;padding:21px 24px 20px;background:linear-gradient(145deg,#292642 0%,#332e57 100%);color:#fff}}
-  .insight-kicker{{display:flex;align-items:center;gap:9px;color:#dcd6ff}}
-  .insight-kicker span,.overview-title div > span{{width:25px;height:25px;display:grid;place-items:center;border-radius:7px;background:#7660df;color:#fff;font:800 10px/1 var(--mono);letter-spacing:.04em}}
-  .insight-kicker b{{font-size:13px;font-weight:850;letter-spacing:.06em}}
-  .insight-main{{margin:14px 0 0;color:#fff;font-size:16px;font-weight:760;line-height:1.72}}
-  .insight-detail{{margin:12px 0 0;padding-top:11px;border-top:1px solid rgb(255 255 255 / 15%);color:#d9d7e5;font-size:12.5px;font-weight:600;line-height:1.65}}
-  .case-insight small{{display:block;margin-top:auto;padding-top:13px;color:#aaa7bf;font-size:10.5px;line-height:1.45}}
-  .case-route{{min-width:0;display:flex;flex-direction:column;padding:21px 22px 20px;background:linear-gradient(135deg,#f8f7fd 0%,#fdfdff 100%)}}
-  .overview-title{{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0}}
-  .overview-title div{{display:flex;align-items:center;gap:9px}}
-  .overview-title div > span{{background:#ebe7ff;color:#5b43bf}}
-  .overview-title b{{color:#302965;font-size:13px;font-weight:850;letter-spacing:.04em}}
-  .overview-title em{{color:#777d90;font-size:10.5px;font-style:normal;font-weight:650;white-space:nowrap}}
-  .overview-route{{counter-reset:route;flex:1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));align-items:center;gap:14px;margin:16px 0 0;padding:0;list-style:none}}
-  .overview-route li{{counter-increment:route;position:relative;min-width:0;min-height:72px;display:flex;align-items:flex-start;padding:38px 12px 11px;border:1px solid #dcd8ed;border-radius:10px;background:#fff;color:#34384a;font-size:12.5px;font-weight:760;line-height:1.5;box-shadow:0 4px 12px rgb(42 36 78 / 4%)}}
-  .overview-route li::before{{content:"0" counter(route);position:absolute;left:12px;top:11px;color:#6a50d1;font:850 11px/1 var(--mono);letter-spacing:.04em}}
-  .overview-route li + li::after{{content:"→";position:absolute;left:-12px;top:50%;transform:translate(-50%,-50%);color:#8d7cdd;font-size:13px;font-weight:900}}
+  .case-overview{{display:block;padding:0;border:1px solid #39345f;border-radius:14px;background:linear-gradient(145deg,#292642 0%,#332e57 100%);box-shadow:0 9px 26px rgb(37 31 72 / 10%);overflow:hidden}}
+  .case-insight{{min-width:0;padding:19px 24px 18px;color:#fff}}
+  .insight-main{{position:relative;margin:0;padding-left:27px;color:#fff;font-size:16.5px;font-weight:760;line-height:1.62}}
+  .insight-main::before{{content:"“";position:absolute;left:0;top:-4px;color:#9b85ff;font:900 30px/1 var(--serif)}}
+  .insight-main b{{color:#c9bdff;font-weight:900}}
+  .insight-detail{{max-width:1180px;margin:8px 0 0;padding-left:27px;color:#d9d7e5;font-size:12px;font-weight:600;line-height:1.62}}
+  .overview-route{{counter-reset:route;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));align-items:stretch;gap:10px;margin:14px 0 0;padding:14px 0 0;border-top:1px solid rgb(255 255 255 / 18%);list-style:none}}
+  .overview-route li{{counter-increment:route;position:relative;min-width:0;min-height:56px;display:flex;align-items:center;padding:11px 35px 11px 48px;border:1px solid rgb(255 255 255 / 28%);border-radius:9px;background:rgb(255 255 255 / 10%);box-shadow:inset 0 1px 0 rgb(255 255 255 / 6%);color:#fff;font-size:13px;font-weight:800;line-height:1.48}}
+  .overview-route li::before{{content:counter(route,decimal-leading-zero);position:absolute;left:12px;top:50%;transform:translateY(-50%);display:grid;place-items:center;width:25px;height:25px;border-radius:50%;background:#7b64df;color:#fff;font:850 9.5px/1 var(--mono);letter-spacing:.03em}}
+  .overview-route li:not(:last-child)::after{{content:"›";position:absolute;right:12px;top:50%;transform:translateY(-52%);color:#c7bcff;font:800 19px/1 var(--serif)}}
   .case-facts{{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:14px;border:1px solid #d8dbea;border-radius:12px;background:#fff;overflow:hidden}}
   .fact{{min-width:0;min-height:92px;padding:14px 17px 15px}}
   .fact + .fact{{border-left:1px solid #e0e2eb}}
   .fact > span{{display:block;color:#757b8d;font-size:10.5px;font-weight:800;letter-spacing:.04em}}
   .fact > b{{display:flex;align-items:center;gap:7px;margin-top:6px;color:#27234d;font-size:21px;font-weight:850;line-height:1.15}}
-  .fact.primary > b{{color:#087b5d}}
+  .fact.primary > b{{color:var(--blue-deep);font-weight:900}}
   .fact > small{{display:block;margin-top:6px;color:#656b7f;font-size:11.5px;line-height:1.45;white-space:normal}}
   .fact .mini-ic{{margin-left:0;vertical-align:0}}
   .case-body{{padding:22px 24px 24px}}
@@ -911,7 +987,7 @@ page = f'''<!doctype html>
   .ctab:hover{{color:#292d3d;background:#f8f7fc}}
   .ctab:focus,.ctab:focus-visible{{outline:2px solid var(--blue);outline-offset:-2px}}
   .ctab[aria-selected="true"]{{color:#352b75;background:#fff;box-shadow:inset 0 -3px 0 var(--blue-deep)}}
-  .cpanel{{height:clamp(420px,56vh,620px);overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable;
+  .cpanel{{height:clamp(560px,68vh,780px);overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable;
     padding:20px 22px 22px;border:1px solid #d8dbea;border-top:0;border-radius:0 0 11px 11px;background:#fff;scrollbar-color:#b9bdd0 transparent}}
   .route-title{{display:flex;align-items:center;gap:9px;margin-bottom:12px;color:var(--ink-3);font-size:12px;font-weight:700}}
   .route-title b{{padding:4px 10px;border-radius:99px;background:var(--ink);color:#fff;font-size:12px;letter-spacing:.02em}}
@@ -926,12 +1002,13 @@ page = f'''<!doctype html>
   .decision-step.trade{{border-color:#bfe3d4;background:#f2faf7}}
   .decision-step.trade b{{color:#087b5d}}
   .decision-caveat{{margin:10px 2px 0;color:#7a8091;font-size:11.5px;line-height:1.6}}
-  .behavior-raw{{margin-top:16px;border-top:1px solid #dfe2eb;padding-top:12px}}
-  .behavior-raw summary{{width:max-content;max-width:100%;cursor:pointer;color:#5a6072;font-size:12.5px;font-weight:700;list-style:none}}
-  .behavior-raw summary::-webkit-details-marker{{display:none}}
-  .behavior-raw summary::before{{content:"＋";display:inline-block;margin-right:7px;color:var(--blue)}}
-  .behavior-raw[open] summary::before{{content:"－"}}
-  .behavior-raw .tl{{margin-top:12px}}
+  .behavior-raw{{margin-top:18px;border-top:1px solid #dfe2eb;padding-top:16px}}
+  .behavior-raw > h4{{margin:0 0 14px;color:#27234d;font-size:14px;font-weight:800}}
+  .behavior-raw .tl{{margin-top:0}}
+  .behavior-sequence .d{{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}}
+  .behavior-sequence .d b{{color:#352b75;font-size:11.5px}}
+  .behavior-sequence .d i{{padding:2px 7px;border-radius:99px;background:#f0eefc;color:#655aa4;font-size:10.5px;font-style:normal;white-space:nowrap}}
+  .behavior-sequence .seq-trade .d b{{color:#087b5d}}
   .deposit-products{{padding:0 2px 8px}}
   .deposit-head{{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:6px}}
   .deposit-head h4,.deposit-products > h4{{margin:0;color:#27234d;font-size:14px;font-weight:800}}
@@ -984,6 +1061,9 @@ page = f'''<!doctype html>
   .qlist .qmark{{display:inline-block;min-width:32px;text-align:center;color:var(--ink-blue);background:var(--soft);border-radius:4px;font-weight:700;font-size:11px;margin-right:8px;padding:1px 6px}}
   .qlist .qmark.qm{{color:var(--good);background:#e6f5ee}}
   .qlist .via{{color:var(--ink-3);font-style:normal;font-size:11.5px}}
+  @media(max-width:900px){{
+    .overview-route{{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  }}
   @media(max-width:600px){{
     .modal{{padding:10px}}
     .modal-card{{width:calc(100vw - 20px);height:calc(100svh - 20px);min-height:0;border-radius:12px}}
@@ -999,15 +1079,13 @@ page = f'''<!doctype html>
     .case-head{{padding:16px 18px}}
     .case-head .who{{width:100%;font-size:18px}}
     .case-summary{{padding:16px 18px 18px}}
-    .case-overview{{grid-template-columns:1fr}}
-    .case-insight{{padding:19px 20px 18px}}
+    .case-insight{{padding:17px 18px 16px}}
     .insight-main{{font-size:14.5px}}
-    .case-route{{padding:18px 18px 19px}}
-    .overview-title em{{white-space:normal;text-align:right}}
-    .overview-route{{grid-template-columns:1fr;gap:10px}}
-    .overview-route li{{min-height:54px;padding:17px 14px 14px 49px;align-items:center}}
-    .overview-route li::before{{left:15px;top:50%;transform:translateY(-50%)}}
-    .overview-route li + li::after{{content:"↓";left:25px;top:-7px;transform:none;background:#f8f7fd;padding:0 3px}}
+    .insight-detail{{padding-left:0}}
+    .overview-route{{grid-template-columns:1fr;gap:8px;margin-top:12px;padding-top:12px}}
+    .overview-route li{{min-height:48px;padding:10px 35px 10px 48px;align-items:center}}
+    .overview-route li::before{{left:12px}}
+    .overview-route li:not(:last-child)::after{{content:"↓";right:13px;font-size:13px}}
     .case-facts{{grid-template-columns:repeat(2,minmax(0,1fr))}}
     .fact{{min-height:88px;padding:13px 14px}}
     .fact + .fact{{border-left:0}}
@@ -1015,7 +1093,7 @@ page = f'''<!doctype html>
     .fact:nth-child(n+3){{border-top:1px solid #e0e2eb}}
     .case-body{{padding:18px}}
     .ctab{{min-height:46px;padding:0 8px;font-size:13px}}
-    .cpanel{{height:clamp(420px,58svh,590px);padding:17px 15px 20px}}
+    .cpanel{{height:clamp(520px,70svh,720px);padding:17px 15px 20px}}
     .decision-chain{{grid-template-columns:1fr}}
   }}
 </style>
@@ -1023,14 +1101,16 @@ page = f'''<!doctype html>
 <body>
 <div class="page-wrap">
   <div class="report-hero">
-    <div class="report-hero-copy">
-      <div class="eyebrow">DOUBAO × QIEMAN AI · CASE EXPLORER</div>
-      <h1>豆包用户转化分析</h1>
+    <div class="brand-nav">
+      <span class="cobrand-brand">
+        <span class="cobrand-marks">{COBRAND_MARKS_HTML}</span>
+        <span class="cobrand-text">DOUBAO × QIEMAN AI · CASE EXPLORER</span>
+      </span>
+      <a class="dashboard-link" href="../doubao-user-acquisition-dashboard/" title="返回豆包引流数据分析主看板" aria-label="返回豆包引流数据分析主看板">
+        <span>引流数据分析</span><i aria-hidden="true">‹</i>
+      </a>
     </div>
-    <a class="dashboard-link" href="../doubao-user-acquisition-dashboard/" title="返回豆包引流数据分析主看板" aria-label="返回豆包引流数据分析主看板">
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg>
-      <span><b>引流数据分析</b><small>返回主看板</small></span>
-    </a>
+    <h1>豆包用户转化分析</h1>
   </div>
   <ul class="insight-list" aria-label="转化分析洞察与总结">
     {INSIGHTS_HTML}
@@ -1110,7 +1190,7 @@ function renderAsks(){{
   const channelSpecs=askChannels.map(ch=>[ch,ch,u.asks.filter(a=>a.ch===ch).length]).filter(spec=>spec[2]>0);
   [['','全部',u.asks.length], ...channelSpecs].forEach(spec=>{{
     const b=document.createElement('button'); b.type='button'; b.className='asks-filter'; b.dataset.channel=spec[0];
-    b.setAttribute('aria-pressed',String(asksChannel===spec[0])); b.title=spec[0] ? `只看${{spec[1]}}提问` : '查看全部渠道提问';
+    b.setAttribute('aria-pressed',String(asksChannel===spec[0])); b.title=spec[0] ? `只看${{spec[1]}}记录` : '查看全部渠道记录';
     b.appendChild(document.createTextNode(spec[1]+' ')); const n=document.createElement('b'); n.textContent=spec[2]; b.appendChild(n); filters.appendChild(b);
   }});
   const list=document.getElementById('asks-list'); list.innerHTML='';

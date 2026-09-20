@@ -10,6 +10,7 @@ const gatePath = join(docsRoot, "access-gate.js");
 const selfProtectedPaths = new Set([
   join(docsRoot, "reports", "qianwen-user-acquisition-dashboard", "index.html"),
   join(docsRoot, "reports", "doubao-user-acquisition-dashboard", "index.html"),
+  join(docsRoot, "reports", "doubao-user-conversion-cases-2026-09-20", "index.html"),
   join(docsRoot, "reports", "qianwen-user-question-analysis-2026-09-05", "index.html"),
   join(docsRoot, "reports", "qianwen-user-question-detail-2026-09-05", "index.html"),
   join(docsRoot, "reports", "qianwen-first-investor-cases-2026-09-17", "index.html"),
@@ -72,6 +73,21 @@ test("Qianwen encrypted reports share a reliable one-submit session unlock", () 
     assert.match(html, /正在验证，请稍候/);
     assert.match(html, /input\.readOnly=busy/);
     assert.match(html, /event\.key!=="Enter"/);
+    assert.match(html, /form\.requestSubmit\(\)/);
+    assert.doesNotMatch(html, /input\.disabled=true/);
+  }
+});
+
+test("Doubao encrypted reports share the same one-submit session unlock (own session key)", () => {
+  const paths = [
+    join(docsRoot, "reports", "doubao-user-acquisition-dashboard", "index.html"),
+    join(docsRoot, "reports", "doubao-user-conversion-cases-2026-09-20", "index.html"),
+  ];
+  for (const htmlPath of paths) {
+    const html = readFileSync(htmlPath, "utf8");
+    assert.match(html, /clair-doubao-report-unlock-v1/);
+    assert.match(html, /sessionStorage\.setItem\(sessionKey,supplied\)/);
+    assert.match(html, /let unlocking=false/);
     assert.match(html, /form\.requestSubmit\(\)/);
     assert.doesNotMatch(html, /input\.disabled=true/);
   }

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """豆包个例：candidates.json + d_*.json + narratives.json → users.json（build-cases.py 的输入）。
-与 qianwen-cases/assemble-users.py 同构；差别：m_tokens 是豆包 OAuth 会话令牌（channels.doubao_sessions），
+由 derive-from-qianwen.py 从 qianwen-cases/assemble-users.py 派生；差别：m_tokens 是豆包 OAuth 会话令牌（channels.doubao_sessions），
 d_asks 只含且慢 App 内小顾 3.0 的提问（豆包侧走 MCP，提问文本协议层不可得）。
 用法: assemble-users.py <dir> <cutoff 'YYYY-MM-DD HH:MM'> <bound_total>"""
 import json, sys, re
