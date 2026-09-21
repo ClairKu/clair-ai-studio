@@ -173,6 +173,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "qieman-mcp-account-redesign-2026-09-21",
+      groupId: "ai-platform",
+      title: "盈米 MCP 个人中心重设计｜个人版 · 团队版 · 企业版账号与积分管理",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-mcp-account-redesign-2026-09-21/",
+      preview: "qieman-mcp-account-redesign-2026-09-21.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-21T16:05:00+08:00",
+      source: "以 qieman.com/mcp/account 现有个人中心（身份 / API Key / 配额｜MCP · Skills → 工具 / 配置 / 统计）为骨架重设计｜新增团队版与企业版账户模型：席位 + 积分额度（一次性 / 月度重置）+ 使用期限 + 工具范围，口令（席位激活 / 积分追加 / 期限延长）一次有效可作废可重发｜管理员：概览、账号与成员、积分与额度、口令管理、用量统计（成员 / 部门 / 工具 / 平台四维 + 热力 + 明细下钻）、申请审批、接入配置、套餐与账单、审计日志（企业版）｜成员：我的额度 / 期限 / 用量 / 申请，待激活口令兑换引导｜5 个演示视角切换，单文件零依赖，全部 mock 数据，计费口径与价格为占位假设",
+      access: "production",
+      workType: "product-demo",
+      tags: ["盈米 MCP", "AI 开放平台", "个人中心", "团队版", "企业版", "账号管理", "积分额度", "口令", "用量统计", "权限", "审计日志", "交互原型", "HTML", "生产"],
+    },
+    {
       id: "qieman-pension-planner-2026-09-21",
       groupId: "product-planning",
       title: "且慢养老规划｜统一工具原型与 VESTA 规则审计",
@@ -2512,6 +2526,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "qieman-mcp-account-redesign-2026-09-21": "product-demo",
   "qieman-pension-planner-2026-09-21": "product-planning",
   "qieman-ai-user-attribution-2026-09-07": "data-analysis",
   "oap-command-deck-2026-09-05": "data-analysis",
@@ -2587,6 +2602,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "qieman-mcp-account-redesign-2026-09-21": "ai-platform",
   "qieman-pension-planner-2026-09-21": "product-planning",
   "ai-native-advisor-workbench-v1-2-review-2026-09-17": "product-planning",
   "pms-system-deep-dive-2026-09-16": "research",

@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>盈米AI开放平台 · 个人中心（个人版 / 团队版 / 企业版）重设计</title>
+<style>
+:root{
+  --blue:#2F6BFF; --blue-dark:#1E52D6; --blue-soft:#EAF0FF; --blue-line:#C9D8FF;
+  --bg:#F3F6FC; --card:#FFFFFF; --line:#E6EBF5; --line-2:#EEF2F9;
+  --text:#1F2633; --text-2:#4B5566; --muted:#7A8497; --faint:#A7AFC0;
+  --green:#1FA971; --green-soft:#E6F7EF; --orange:#F08A24; --orange-soft:#FFF3E6;
+  --red:#E5484D; --red-soft:#FDEBEC; --purple:#7C5CFF; --purple-soft:#EFEBFF; --cyan:#12A5C6; --gold:#C89B3C;
+  --shadow:0 1px 2px rgba(20,32,60,.04), 0 6px 20px rgba(20,32,60,.05);
+  --r:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue","Microsoft YaHei",Arial,sans-serif;background:var(--bg);color:var(--text);font-size:13px;line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:88px}
+a{color:var(--blue);text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+input,select,textarea{font-family:inherit;font-size:13px;color:var(--text)}
+::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-thumb{background:#D6DCE8;border-radius:8px}
+
+/* ===== Top nav ===== */
+.topnav{height:56px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+.topnav .in{max-width:1280px;margin:0 auto;height:100%;display:flex;align-items:center;padding:0 24px;gap:28px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:600;font-size:14px}
+.logo .mark{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,#FF5A5F,#2F6BFF);display:grid;place-items:center;color:#fff;font-weight:800;font-size:11px;letter-spacing:-.5px}
+.nav-links{display:flex;gap:26px;margin-left:auto;font-size:13.5px;color:var(--text-2)}
+.nav-links a{color:var(--text-2)}
+.nav-links a.on{color:var(--blue);font-weight:600}
+.orgswitch{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:20px;padding:4px 10px 4px 4px;background:#fff;cursor:pointer;font-size:12.5px}
+.orgswitch .av{width:24px;height:24px;border-radius:50%;background:#1F2633;color:#fff;display:grid;place-items:center;font-size:11px;font-weight:700}
+.orgswitch .plan{font-size:10.5px;padding:1px 6px;border-radius:10px;background:var(--blue-soft);color:var(--blue);font-weight:600}
+.orgswitch .caret{color:var(--faint);font-size:10px}
+
+/* ===== Layout ===== */
+.wrap{max-width:1280px;margin:20px auto 0;padding:0 24px;display:grid;grid-template-columns:284px minmax(0,1fr);gap:18px;align-items:start}
+#right{min-width:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
+.card + .card{margin-top:14px}
+.card .hd{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 0;font-weight:600;font-size:13.5px}
+.card .hd .sub{font-weight:400;color:var(--muted);font-size:12px;margin-left:8px}
+.card .bd{padding:14px 16px 16px}
+.card.tight .bd{padding-top:10px}
+.h-actions{display:flex;gap:8px;align-items:center}
+
+/* ===== Badges / buttons ===== */
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;line-height:1.5;white-space:nowrap}
+.b-blue{background:var(--blue-soft);color:var(--blue)} .b-green{background:var(--green-soft);color:var(--green)}
+.b-orange{background:var(--orange-soft);color:#C9700F} .b-red{background:var(--red-soft);color:var(--red)}
+.b-gray{background:#F0F2F7;color:var(--muted)} .b-purple{background:var(--purple-soft);color:var(--purple)}
+.b-gold{background:#FBF3E1;color:#9A6F1B}
+.b-dot::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.btn{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 14px;border-radius:8px;border:1px solid var(--line);background:#fff;color:var(--text-2);font-size:12.5px;font-weight:500;transition:.15s;white-space:nowrap}
+.btn:hover{border-color:var(--blue-line);color:var(--blue);background:var(--blue-soft)}
+.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn.primary:hover{background:var(--blue-dark);border-color:var(--blue-dark);color:#fff}
+.btn.ghost{border-color:transparent;background:transparent}
+.btn.sm{height:26px;padding:0 10px;font-size:12px;border-radius:6px}
+.btn.xs{height:22px;padding:0 8px;font-size:11.5px;border-radius:5px}
+.btn.danger:hover{border-color:#F3B4B6;color:var(--red);background:var(--red-soft)}
+.btn.block{width:100%;justify-content:center}
+.link{color:var(--blue);cursor:pointer;font-size:12px}
+.link:hover{text-decoration:underline}
+.ico{width:14px;height:14px;display:inline-block;vertical-align:-2px}
+
+/* ===== Left profile ===== */
+.profile{text-align:center;padding:22px 16px 16px}
+.avatar{width:64px;height:64px;border-radius:50%;margin:0 auto 10px;background:#1F2633;color:#fff;display:grid;place-items:center;font-size:22px;font-weight:700;letter-spacing:-1px;position:relative}
+.avatar.org{border-radius:16px;background:linear-gradient(135deg,#1F2633,#3B4C7A)}
+.avatar .crown{position:absolute;right:-4px;bottom:-4px;width:22px;height:22px;border-radius:50%;background:#fff;border:1px solid var(--line);display:grid;place-items:center;font-size:12px}
+.pname{font-size:15px;font-weight:600}
+.psub{color:var(--muted);font-size:12px;margin-top:2px}
+.kv{display:grid;grid-template-columns:64px 1fr;row-gap:8px;font-size:12.5px;text-align:left;margin-top:14px;padding-top:14px;border-top:1px dashed var(--line)}
+.kv .k{color:var(--muted)} .kv .v{color:var(--text)}
+.keybox{display:flex;align-items:center;gap:8px;background:#F6F8FC;border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-family:"SF Mono",Menlo,Consolas,monospace;font-size:12px;color:var(--text-2)}
+.keybox .k{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mini-actions{display:flex;gap:6px;margin-top:8px}
+.quota{margin-top:10px}
+.quota .row{display:flex;justify-content:space-between;font-size:12px;color:var(--text-2);margin-bottom:5px}
+.quota .row b{color:var(--text)}
+.bar{height:6px;border-radius:6px;background:#EDF0F6;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:6px;background:var(--blue)}
+.bar i.warn{background:var(--orange)} .bar i.danger{background:var(--red)} .bar i.green{background:var(--green)} .bar i.purple{background:var(--purple)}
+.quota + .quota{margin-top:12px}
+.list{list-style:none}
+.list li{display:flex;gap:8px;font-size:12.5px;color:var(--text-2);padding:6px 0;border-bottom:1px solid var(--line-2)}
+.list li:last-child{border-bottom:0}
+.list li .dot{width:6px;height:6px;border-radius:50%;background:var(--blue);margin-top:7px;flex:none}
+.todo li{align-items:flex-start;cursor:pointer}
+.todo li:hover{color:var(--blue)}
+.todo .n{margin-left:auto;font-weight:600;color:var(--text)}
+.qr{width:96px;height:96px;margin:6px auto 0;border-radius:8px;background:
+  repeating-linear-gradient(90deg,#1F2633 0 4px,transparent 4px 8px),repeating-linear-gradient(0deg,#1F2633 0 4px,#fff 4px 8px);opacity:.85;border:6px solid #fff;outline:1px solid var(--line)}
+.upgrade{background:linear-gradient(135deg,#1F2633 0%,#2A3E7A 100%);color:#fff;border-radius:var(--r);padding:16px;margin-top:14px;position:relative;overflow:hidden}
+.upgrade::after{content:"";position:absolute;right:-30px;top:-30px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.08)}
+.upgrade h4{font-size:14px;font-weight:600;margin-bottom:4px}
+.upgrade p{font-size:12px;color:rgba(255,255,255,.75);margin-bottom:12px}
+.upgrade .btn{background:#fff;border-color:#fff;color:#1F2633}
+
+/* ===== Product switcher (right top) ===== */
+.products{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.prod{display:flex;align-items:center;gap:12px;padding:12px 16px;border:1px solid var(--line);border-radius:10px;background:#fff;cursor:pointer;box-shadow:var(--shadow)}
+.prod.on{border-color:var(--blue);box-shadow:0 0 0 2px rgba(47,107,255,.12)}
+.prod .ic{width:34px;height:34px;border-radius:8px;display:grid;place-items:center;font-size:15px;background:var(--blue-soft);color:var(--blue)}
+.prod .t{font-weight:600;font-size:13.5px}
+.prod .s{font-size:11.5px;color:var(--muted)}
+.prod .right{margin-left:auto;text-align:right}
+
+/* ===== Tabs ===== */
+.tabs{display:flex;gap:4px;padding:6px 10px 0;border-bottom:1px solid var(--line);overflow-x:auto}
+.tab{padding:10px 12px;font-size:13px;color:var(--text-2);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;display:flex;align-items:center;gap:6px}
+.tab:hover{color:var(--blue)}
+.tab.on{color:var(--blue);font-weight:600;border-bottom-color:var(--blue)}
+.tab .n{font-size:10.5px;padding:0 5px;border-radius:8px;background:#F0F2F7;color:var(--muted);font-weight:500}
+.tab .n.red{background:var(--red-soft);color:var(--red)}
+.panel{padding:16px}
+
+/* ===== KPI ===== */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.kpis.five{grid-template-columns:repeat(5,1fr)}
+.kpi{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:#fff;position:relative}
+.kpi .l{font-size:12px;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
+.kpi .v{font-size:22px;font-weight:700;letter-spacing:-.5px;margin-top:4px;font-variant-numeric:tabular-nums}
+.kpi .v small{font-size:12px;color:var(--muted);font-weight:500;margin-left:3px}
+.kpi .d{font-size:11.5px;color:var(--muted);margin-top:2px}
+.kpi .d.up{color:var(--green)} .kpi .d.down{color:var(--red)}
+.kpi .bar{margin-top:8px}
+.kpi.accent{background:linear-gradient(135deg,#F2F6FF,#fff)}
+
+/* ===== Grid helpers ===== */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.g21{display:grid;grid-template-columns:2fr 1fr;gap:14px}
+.g12{display:grid;grid-template-columns:1fr 2fr;gap:14px}
+.mt{margin-top:14px}
+.sec{border:1px solid var(--line);border-radius:10px;background:#fff}
+.sec .hd{padding:12px 14px 0;font-size:13px;font-weight:600;display:flex;justify-content:space-between;align-items:center}
+.sec .bd{padding:10px 14px 14px}
+.sec .hd .sub{font-weight:400;color:var(--muted);font-size:11.5px}
+.legend{display:flex;gap:12px;font-size:11.5px;color:var(--muted);flex-wrap:wrap}
+.legend i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:4px;vertical-align:1px}
+.callout{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:8px;background:var(--blue-soft);color:var(--text-2);font-size:12.5px;border:1px solid var(--blue-line)}
+.callout.warn{background:var(--orange-soft);border-color:#F7D6B0}
+.callout.ok{background:var(--green-soft);border-color:#BFE8D2}
+.callout b{color:var(--text)}
+.note{font-size:11.5px;color:var(--muted)}
+
+/* ===== Charts ===== */
+.chart{width:100%;display:block}
+.hbars .r{display:grid;grid-template-columns:130px 1fr 64px;gap:10px;align-items:center;padding:5px 0;font-size:12px}
+.hbars .r .nm{color:var(--text-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hbars .r .nm .rk{display:inline-block;width:16px;color:var(--faint);font-variant-numeric:tabular-nums}
+.hbars .r .val{text-align:right;color:var(--text);font-variant-numeric:tabular-nums;font-weight:500}
+.hbars .r .val small{color:var(--muted);font-weight:400}
+.donut-wrap{display:flex;gap:16px;align-items:center}
+.donut-legend{flex:1;font-size:12px}
+.donut-legend div{display:flex;justify-content:space-between;padding:3px 0;color:var(--text-2)}
+.donut-legend div b{color:var(--text);font-variant-numeric:tabular-nums;font-weight:500}
+.heat{display:grid;grid-template-columns:34px repeat(24,1fr);gap:2px;font-size:10px;color:var(--muted)}
+.heat .c{height:14px;border-radius:2px;background:#EEF2F9}
+.heat .lb{display:flex;align-items:center}
+.heat .hh{text-align:center;height:14px;line-height:14px}
+
+/* ===== Table ===== */
+.toolbar{display:flex;gap:8px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+.toolbar .sp{flex:1}
+.input{height:32px;border:1px solid var(--line);border-radius:8px;padding:0 10px;background:#fff;outline:none;min-width:120px}
+.input:focus{border-color:var(--blue)}
+.input.search{min-width:220px;background:#fff url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%237A8497' stroke-width='2'><circle cx='11' cy='11' r='7'/><path d='m20 20-3.5-3.5'/></svg>") no-repeat 9px center;padding-left:28px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff}
+.seg button{height:30px;padding:0 12px;border:0;background:transparent;color:var(--text-2);font-size:12.5px;border-right:1px solid var(--line)}
+.seg button:last-child{border-right:0}
+.seg button.on{background:var(--blue-soft);color:var(--blue);font-weight:600}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{font-weight:500;color:var(--muted);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap;background:#FAFBFE}
+td{padding:10px 10px;border-bottom:1px solid var(--line-2);vertical-align:middle}
+tr:hover td{background:#FAFBFE}
+td .who{display:flex;align-items:center;gap:8px}
+td .who .av{width:28px;height:28px;border-radius:50%;background:#E8EDF7;color:#3A4A6B;display:grid;place-items:center;font-size:11px;font-weight:600;flex:none}
+td .who .nm{font-weight:600;color:var(--text)}
+td .who .ph{font-size:11px;color:var(--muted);font-family:"SF Mono",Menlo,monospace}
+td .q .row{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);margin-bottom:3px;font-variant-numeric:tabular-nums}
+td .q .bar{height:5px}
+td .q{min-width:120px}
+td .code{font-family:"SF Mono",Menlo,Consolas,monospace;font-size:11.5px;background:#F6F8FC;border:1px solid var(--line);border-radius:5px;padding:2px 6px;color:var(--text-2);white-space:nowrap}
+td.ops{white-space:nowrap;position:relative}
+td.ops .btn{margin-right:2px}
+td.exp{white-space:nowrap}
+.tbl{overflow-x:auto}
+table.members td{padding:9px 8px}
+table.members th{padding:8px 8px}
+table.members td .q{min-width:110px}
+.more{position:relative;display:inline-block}
+.menu{position:absolute;right:0;top:26px;background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:0 10px 30px rgba(20,30,60,.14);z-index:20;min-width:120px;display:none;padding:4px}
+.menu.show{display:block}
+.menu button{display:block;width:100%;text-align:left;border:0;background:transparent;padding:7px 10px;border-radius:5px;font-size:12.5px;color:var(--text-2)}
+.menu button:hover{background:var(--blue-soft);color:var(--blue)}
+.menu button.danger:hover{background:var(--red-soft);color:var(--red)}
+.num{font-variant-numeric:tabular-nums}
+.pager{display:flex;justify-content:space-between;align-items:center;padding-top:12px;color:var(--muted);font-size:12px}
+.pager .pg{display:flex;gap:4px}
+.pager .pg b{width:24px;height:24px;border-radius:5px;display:grid;place-items:center;border:1px solid var(--line);font-weight:500}
+.pager .pg b.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+.empty{padding:30px;text-align:center;color:var(--muted)}
+input[type=checkbox]{accent-color:var(--blue)}
+.expire-soon{color:#C9700F} .expired{color:var(--red)}
+
+/* ===== Config block ===== */
+.codebox{background:#F7F9FD;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.codebox .cap{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;font-size:12px;color:var(--muted);border-bottom:1px solid var(--line);background:#FBFCFE}
+.codebox pre{padding:12px 14px;font-family:"SF Mono",Menlo,Consolas,monospace;font-size:12px;line-height:1.7;color:#2A3446;overflow:auto;white-space:pre}
+.codebox pre .s{color:#1A7F5A} .codebox pre .k{color:#2F6BFF}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.step{border:1px solid var(--line);border-radius:10px;padding:12px;background:#fff}
+.step .n{width:22px;height:22px;border-radius:50%;background:var(--blue);color:#fff;font-size:11px;display:grid;place-items:center;font-weight:700;margin-bottom:8px}
+.step .t{font-weight:600;font-size:12.5px;margin-bottom:2px}
+.step .d{font-size:11.5px;color:var(--muted)}
+
+/* ===== Plan compare ===== */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.plan{border:1px solid var(--line);border-radius:12px;padding:16px;background:#fff;position:relative}
+.plan.cur{border-color:var(--blue);box-shadow:0 0 0 2px rgba(47,107,255,.12)}
+.plan.hi{background:linear-gradient(180deg,#F5F8FF,#fff)}
+.plan .nm{font-weight:700;font-size:15px}
+.plan .pr{font-size:22px;font-weight:700;margin:6px 0 2px}
+.plan .pr small{font-size:12px;color:var(--muted);font-weight:400}
+.plan .for{font-size:12px;color:var(--muted);margin-bottom:10px}
+.plan ul{list-style:none;font-size:12.5px;color:var(--text-2)}
+.plan ul li{padding:4px 0;display:flex;gap:6px}
+.plan ul li::before{content:"✓";color:var(--green);font-weight:700}
+.plan ul li.no{color:var(--faint)} .plan ul li.no::before{content:"–";color:var(--faint)}
+.plan .tag{position:absolute;top:-10px;right:14px}
+
+/* ===== Drawer / modal / toast ===== */
+.mask{position:fixed;inset:0;background:rgba(20,30,60,.35);z-index:80;display:none}
+.mask.show{display:block}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:480px;background:#fff;z-index:90;transform:translateX(100%);transition:.22s;display:flex;flex-direction:column;box-shadow:-10px 0 40px rgba(20,30,60,.12)}
+.drawer.show{transform:none}
+.drawer .dh{padding:16px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:15px}
+.drawer .db{flex:1;overflow:auto;padding:18px 20px}
+.drawer .df{padding:14px 20px;border-top:1px solid var(--line);display:flex;gap:8px;justify-content:flex-end}
+.x{width:28px;height:28px;border-radius:6px;border:0;background:transparent;color:var(--muted);font-size:18px}
+.x:hover{background:#F0F2F7}
+.f{margin-bottom:14px}
+.f label{display:block;font-size:12.5px;color:var(--text-2);margin-bottom:6px;font-weight:500}
+.f label .req{color:var(--red)}
+.f label .hint{color:var(--faint);font-weight:400;margin-left:6px}
+.f .input,.f select,.f textarea{width:100%}
+.f textarea{border:1px solid var(--line);border-radius:8px;padding:8px 10px;min-height:60px;resize:vertical}
+.f .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{height:26px;padding:0 10px;border-radius:14px;border:1px solid var(--line);background:#fff;font-size:12px;color:var(--text-2)}
+.chip.on{background:var(--blue-soft);border-color:var(--blue);color:var(--blue);font-weight:600}
+.radio-cards{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.rc{border:1px solid var(--line);border-radius:8px;padding:10px;cursor:pointer;font-size:12.5px}
+.rc.on{border-color:var(--blue);background:var(--blue-soft)}
+.rc b{display:block;font-size:12.5px}
+.rc span{color:var(--muted);font-size:11.5px}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;font-size:12.5px;color:var(--text-2)}
+.checks label{display:flex;gap:6px;align-items:center;font-weight:400;margin:0}
+.pass-preview{border:1px dashed var(--blue-line);background:var(--blue-soft);border-radius:10px;padding:14px;text-align:center}
+.pass-preview .code{font-family:"SF Mono",Menlo,Consolas,monospace;font-size:22px;font-weight:700;letter-spacing:2px;color:var(--blue-dark)}
+.pass-preview .meta{font-size:11.5px;color:var(--muted);margin-top:4px}
+.send-ways{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
+.send-ways .btn{justify-content:center}
+.modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) scale(.98);width:920px;max-width:calc(100vw - 40px);max-height:calc(100vh - 80px);background:#fff;border-radius:14px;z-index:90;display:none;flex-direction:column;box-shadow:0 30px 80px rgba(20,30,60,.25)}
+.modal.show{display:flex;transform:translate(-50%,-50%)}
+.modal .dh{padding:16px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:15px}
+.modal .db{overflow:auto;padding:18px 20px}
+.toast{position:fixed;left:50%;bottom:110px;transform:translateX(-50%) translateY(20px);background:#1F2633;color:#fff;padding:10px 16px;border-radius:8px;font-size:13px;opacity:0;pointer-events:none;transition:.2s;z-index:100;box-shadow:0 10px 30px rgba(0,0,0,.2)}
+.toast.show{opacity:1;transform:translateX(-50%)}
+
+/* ===== Demo view switcher ===== */
+.demobar{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:rgba(31,38,51,.94);backdrop-filter:blur(10px);color:#fff;border-radius:14px;padding:10px 12px;display:flex;align-items:center;gap:10px;z-index:70;box-shadow:0 14px 40px rgba(0,0,0,.28);max-width:calc(100vw - 32px)}
+.demobar .lb{font-size:11.5px;color:rgba(255,255,255,.6);padding:0 4px 0 6px;white-space:nowrap}
+.demobar .lb b{display:block;color:#fff;font-size:12px}
+.demobar .vs{display:flex;gap:4px}
+.demobar .v{height:38px;padding:0 12px;border-radius:9px;border:1px solid transparent;background:rgba(255,255,255,.06);color:rgba(255,255,255,.85);font-size:12.5px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;line-height:1.25;white-space:nowrap}
+.demobar .v small{font-size:10px;color:rgba(255,255,255,.5)}
+.demobar .v:hover{background:rgba(255,255,255,.14)}
+.demobar .v.on{background:#fff;color:#1F2633;border-color:#fff}
+.demobar .v.on small{color:var(--muted)}
+.demobar .sep{width:1px;height:26px;background:rgba(255,255,255,.15)}
+.viewtip{max-width:1280px;margin:16px auto 0;padding:0 24px}
+.viewtip .in{display:flex;gap:10px;align-items:center;background:#1F2633;color:#fff;border-radius:10px;padding:9px 14px;font-size:12.5px}
+.viewtip .in .tag{background:rgba(255,255,255,.14);padding:1px 8px;border-radius:10px;font-size:11px;white-space:nowrap}
+.viewtip .in b{white-space:nowrap}
+.viewtip .in .desc{color:rgba(255,255,255,.75)}
+.viewtip .in .sp{flex:1}
+.viewtip .in .btn{height:26px;border-color:rgba(255,255,255,.25);background:transparent;color:#fff;font-size:12px}
+
+/* ===== Pending join ===== */
+.join{padding:18px 16px}
+.join .big{font-size:15px;font-weight:600;margin-bottom:4px}
+.join p{color:var(--muted);font-size:12.5px;margin-bottom:12px}
+.passinput{display:flex;gap:8px}
+.passinput .input{flex:1;font-family:"SF Mono",Menlo,Consolas,monospace;letter-spacing:1px;text-transform:uppercase}
+.timeline{list-style:none}
+.timeline li{position:relative;padding:0 0 14px 22px;font-size:12.5px;color:var(--text-2)}
+.timeline li::before{content:"";position:absolute;left:5px;top:6px;width:8px;height:8px;border-radius:50%;background:var(--blue)}
+.timeline li::after{content:"";position:absolute;left:8.5px;top:16px;bottom:-2px;width:1px;background:var(--line)}
+.timeline li:last-child::after{display:none}
+.timeline li b{display:block;color:var(--text)}
+.locked{position:relative}
+.locked::after{content:"";position:absolute;inset:0;background:rgba(255,255,255,.55);border-radius:var(--r)}
+.lock-tip{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 16px;box-shadow:var(--shadow);text-align:center;font-size:12.5px;color:var(--text-2)}
+
+@media (max-width:1000px){.wrap{grid-template-columns:1fr}.kpis,.kpis.five{grid-template-columns:repeat(2,1fr)}.g2,.g3,.g21,.g12{grid-template-columns:1fr}.steps{grid-template-columns:1fr 1fr}.plans{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- ===== Top nav ===== -->
+<header class="topnav">
+  <div class="in">
+    <div class="logo"><span class="mark">AI</span>盈米AI开放平台</div>
+    <nav class="nav-links">
+      <a href="#">首页</a><a href="#">盈米MCP</a><a href="#">盈米Skills</a><a href="#">盈米智能体</a><a href="#">客户案例</a>
+      <a href="#" class="on">个人中心</a>
+    </nav>
+    <div class="orgswitch" id="orgswitch" onclick="toast('组织切换：一个且慢账号可同时属于多个团队/企业，在此切换当前工作空间')"></div>
+  </div>
+</header>
+
+<div class="viewtip" id="viewtip"></div>
+
+<main class="wrap">
+  <aside id="left"></aside>
+  <section id="right"></section>
+</main>
+
+<!-- ===== Demo switcher ===== -->
+<div class="demobar">
+  <div class="lb">演示视角<b>切换看到的页面</b></div>
+  <div class="vs" id="views"></div>
+  <div class="sep"></div>
+  <button class="v" onclick="openPlans()">套餐对比<small>个人 / 团队 / 企业</small></button>
+</div>
+
+<div class="mask" id="mask" onclick="closeAll()"></div>
+<aside class="drawer" id="drawer"></aside>
+<div class="modal" id="modal"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* =====================================================================
+   数据模型（演示用 mock，字段即产品设计中的数据结构）
+   ===================================================================== */
+const ORGS = {
+  personal: { id:'me', name:'Guty', plan:'personal', planName:'个人版 · 标准', initials:'G' },
+  team: { id:'team', name:'量化研究小组', plan:'team', planName:'团队版', initials:'量',
+          seats:{used:6,total:10}, credits:{total:300000,allocated:236000,used:141260}, expire:'2027-01-15', owner:'陈嘉禾', monthCalls:38420 },
+  enterprise: { id:'ent', name:'盈米资管科技有限公司', short:'盈米资管科技', plan:'enterprise', planName:'企业版', initials:'盈',
+          seats:{used:38,total:50}, credits:{total:2000000,allocated:1450000,used:812340}, expire:'2027-03-31', owner:'陈嘉禾', monthCalls:236850 },
+};
+const PLATFORMS = ['Cursor','扣子 Coze','Dify','openclaw','阿里云百炼','WorkBuddy','自有系统','Codex','Trae'];
+const DEPTS = ['产品部','技术部','量化研究','投顾服务','内容运营'];
+
+let members = [
+  {id:1,name:'陈嘉禾',phone:'138****2211',role:'owner',dept:'产品部',status:'active',alloc:60000,used:41230,expire:'2027-03-31',platform:'Cursor',month:9860,last:'今天 14:20',joined:'2026-03-02'},
+  {id:2,name:'林墨',phone:'139****8032',role:'admin',dept:'技术部',status:'active',alloc:50000,used:28900,expire:'2027-03-31',platform:'openclaw',month:7210,last:'今天 11:05',joined:'2026-03-02'},
+  {id:3,name:'周子航',phone:'136****4410',role:'member',dept:'量化研究',status:'active',alloc:40000,used:37800,expire:'2026-12-31',platform:'Dify',month:12480,last:'今天 15:02',joined:'2026-03-10'},
+  {id:4,name:'吴晚晴',phone:'137****9921',role:'member',dept:'投顾服务',status:'active',alloc:30000,used:12040,expire:'2026-10-15',platform:'扣子 Coze',month:3120,last:'昨天 18:40',joined:'2026-04-15'},
+  {id:5,name:'韩奕',phone:'150****3388',role:'member',dept:'技术部',status:'pending',alloc:20000,used:0,expire:'2027-03-31',platform:'—',month:0,last:'—',joined:'—',code:'YM-ENT-4H8K-2ZQ7',codeExp:'2026-09-27'},
+  {id:6,name:'苏漫',phone:'186****7712',role:'member',dept:'内容运营',status:'active',alloc:20000,used:8320,expire:'2027-03-31',platform:'WorkBuddy',month:2260,last:'今天 09:31',joined:'2026-05-08'},
+  {id:7,name:'郑柏然',phone:'135****6650',role:'member',dept:'量化研究',status:'disabled',alloc:30000,used:29950,expire:'2026-09-30',platform:'Cursor',month:0,last:'09-12 17:10',joined:'2026-03-10'},
+  {id:8,name:'何雨桐',phone:'158****2049',role:'member',dept:'投顾服务',status:'active',alloc:30000,used:15600,expire:'2027-03-31',platform:'阿里云百炼',month:4380,last:'今天 13:47',joined:'2026-04-15'},
+  {id:9,name:'顾子墨',phone:'133****5177',role:'deptadmin',dept:'投顾服务',status:'active',alloc:40000,used:22100,expire:'2027-03-31',platform:'Cursor',month:6040,last:'今天 10:12',joined:'2026-04-01'},
+  {id:10,name:'唐诗涵',phone:'187****0906',role:'member',dept:'产品部',status:'pending',alloc:15000,used:0,expire:'2026-12-31',platform:'—',month:0,last:'—',joined:'—',code:'YM-ENT-9P2M-6TXA',codeExp:'2026-09-25'},
+  {id:11,name:'罗一鸣',phone:'131****8823',role:'member',dept:'技术部',status:'active',alloc:25000,used:24100,expire:'2026-11-30',platform:'自有系统',month:8890,last:'今天 15:10',joined:'2026-06-20'},
+  {id:12,name:'方知远',phone:'159****4471',role:'member',dept:'内容运营',status:'expired',alloc:10000,used:9800,expire:'2026-08-31',platform:'Codex',month:0,last:'08-30 16:22',joined:'2026-06-01'},
+];
+let passcodes = [
+  {code:'YM-ENT-4H8K-2ZQ7',type:'seat',to:'韩奕',credits:20000,expire:'2027-03-31',status:'unused',created:'09-20 16:12',valid:'09-27',by:'林墨'},
+  {code:'YM-ENT-9P2M-6TXA',type:'seat',to:'唐诗涵',credits:15000,expire:'2026-12-31',status:'unused',created:'09-18 10:40',valid:'09-25',by:'陈嘉禾'},
+  {code:'YM-ENT-C7RD-1LQ8',type:'topup',to:'周子航',credits:10000,expire:'—',status:'used',created:'09-15 09:02',valid:'09-22',by:'陈嘉禾'},
+  {code:'YM-ENT-M2X5-8VBN',type:'extend',to:'吴晚晴',credits:0,expire:'2027-03-31',status:'unused',created:'09-14 14:31',valid:'09-21',by:'顾子墨'},
+  {code:'YM-ENT-Q9WE-3KJP',type:'seat',to:'（未指定）',credits:20000,expire:'2027-03-31',status:'unused',created:'09-10 11:20',valid:'09-17',by:'林墨'},
+  {code:'YM-ENT-Z4TA-7HGF',type:'seat',to:'苏漫',credits:20000,expire:'2027-03-31',status:'used',created:'05-08 09:15',valid:'05-15',by:'陈嘉禾'},
+  {code:'YM-ENT-B8NU-5DSE',type:'topup',to:'罗一鸣',credits:5000,expire:'—',status:'void',created:'09-02 17:50',valid:'09-09',by:'林墨'},
+];
+const TOOLS = [
+  ['财经资讯','公开内容',18420],['基金代码模糊匹配','金融工具',15270],['搜索基金','基金数据',12180],['批量获取基金详情','基金数据',9880],
+  ['基金经理观点','盈米生产',7620],['批量获取基金业绩表现','基金数据',6910],['基金诊断','投前分析',5830],['基金业绩基准','基金数据',4720],
+  ['基金净值历史','基金数据',4210],['基金风险分析','基金数据',3880],['获取资产配置方案','投资顾问',2960],['账户诊断','投后诊断',2140]
+];
+const CATS = [['基金数据',46.2,'#2F6BFF'],['投资顾问',14.8,'#7C5CFF'],['公开内容',12.6,'#12A5C6'],['投前分析',9.1,'#1FA971'],['盈米生产',6.4,'#F08A24'],['策略数据',5.2,'#C89B3C'],['其他',5.7,'#B7BFD0']];
+const PLAT_DIST = [['Cursor',31],['扣子 Coze',18],['openclaw',14],['Dify',12],['阿里云百炼',9],['WorkBuddy',7],['自有系统',6],['其他',3]];
+
+/* 确定性随机 */
+function rnd(seed){ let s=seed; return ()=>{ s=(s*9301+49297)%233280; return s/233280; }; }
+function series(n,base,amp,seed,trend=0){ const r=rnd(seed); return Array.from({length:n},(_,i)=>Math.round(base+trend*i+amp*(r()-.5)+(i%7===5||i%7===6?-base*.35:0))); }
+const DAYS = Array.from({length:30},(_,i)=>{const d=new Date(2026,7,23+i);return `${d.getMonth()+1}/${d.getDate()}`});
+const S_MCP = series(30,7600,2600,7,22), S_SK = series(30,620,260,3,4), S_CRED = S_MCP.map((v,i)=>Math.round(v*1.35+S_SK[i]*10));
+const S_ME = series(30,320,180,11,3);
+
+/* =====================================================================
+   工具函数
+   ===================================================================== */
+const fmt = n => n.toLocaleString('zh-CN');
+const pct = (a,b)=> Math.min(100,Math.round(a/b*100));
+const roleName = {owner:'所有者',admin:'管理员',deptadmin:'部门管理员',member:'成员'};
+const roleBadge = r=>({owner:'b-gold',admin:'b-purple',deptadmin:'b-blue',member:'b-gray'}[r]);
+const statusBadge = s=>({active:['b-green','已激活'],pending:['b-orange','待激活'],disabled:['b-gray','已停用'],expired:['b-red','已过期']}[s]);
+const daysLeft = d=>{ if(!d||d==='—')return null; const t=(new Date(d)-new Date(2026,8,21))/864e5; return Math.round(t); };
+const expireCell = d=>{ const n=daysLeft(d); if(n===null)return d; if(n<0)return `<span class="expired">${d}<br><small>已过期 ${-n} 天</small></span>`; if(n<=30)return `<span class="expire-soon">${d}<br><small>剩余 ${n} 天</small></span>`; return `${d}<br><small class="note">剩余 ${n} 天</small>`; };
+const barClass = p=> p>=95?'danger':p>=80?'warn':'';
+function toast(m){ const t=document.getElementById('toast'); t.textContent=m; t.classList.add('show'); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('show'),2200); }
+function copy(txt,msg){ try{navigator.clipboard&&navigator.clipboard.writeText(txt)}catch(e){} toast(msg||'已复制到剪贴板'); }
+function genCode(prefix){ const a='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; const g=()=>Array.from({length:4},()=>a[Math.floor(Math.random()*a.length)]).join(''); return `${prefix}-${g()}-${g()}`; }
+
+/* ---------- SVG 图表 ---------- */
+function lineChart(seriesArr, {w=640,h=180,colors=['#2F6BFF','#7C5CFF'],labels=DAYS,fill=true,unit=''}={}){
+  const pad={l:44,r:12,t:12,b:24}; const max=Math.max(...seriesArr.flat())*1.12; const n=seriesArr[0].length;
+  const x=i=>pad.l+(w-pad.l-pad.r)*i/(n-1), y=v=>pad.t+(h-pad.t-pad.b)*(1-v/max);
+  let s=`<svg class="chart" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" style="height:${h}px">`;
+  for(let g=0;g<=4;g++){const yy=pad.t+(h-pad.t-pad.b)*g/4; const val=Math.round(max*(1-g/4)); s+=`<line x1="${pad.l}" x2="${w-pad.r}" y1="${yy}" y2="${yy}" stroke="#EEF2F9"/><text x="${pad.l-6}" y="${yy+4}" font-size="10" fill="#A7AFC0" text-anchor="end">${val>=1000?(val/1000).toFixed(val>=10000?0:1)+'k':val}</text>`;}
+  seriesArr.forEach((sr,si)=>{
+    const pts=sr.map((v,i)=>`${x(i)},${y(v)}`).join(' ');
+    if(fill) s+=`<polygon points="${x(0)},${y(0)} ${pts} ${x(n-1)},${y(0)}" fill="${colors[si]}" opacity=".08"/>`;
+    s+=`<polyline points="${pts}" fill="none" stroke="${colors[si]}" stroke-width="2" stroke-linejoin="round"/>`;
+    const li=n-1; s+=`<circle cx="${x(li)}" cy="${y(sr[li])}" r="3.5" fill="#fff" stroke="${colors[si]}" stroke-width="2"/>`;
+  });
+  for(let i=0;i<n;i+=Math.ceil(n/8)) s+=`<text x="${x(i)}" y="${h-6}" font-size="10" fill="#A7AFC0" text-anchor="middle">${labels[i]}</text>`;
+  return s+'</svg>';
+}
+function barChart(vals,{w=640,h=160,color='#2F6BFF',labels=[],stack=null,color2='#7C5CFF'}={}){
+  const pad={l:40,r:8,t:10,b:24}; const tot=vals.map((v,i)=>v+(stack?stack[i]:0)); const max=Math.max(...tot)*1.15; const n=vals.length;
+  const bw=(w-pad.l-pad.r)/n; const y=v=>pad.t+(h-pad.t-pad.b)*(1-v/max);
+  let s=`<svg class="chart" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" style="height:${h}px">`;
+  for(let g=0;g<=3;g++){const yy=pad.t+(h-pad.t-pad.b)*g/3; s+=`<line x1="${pad.l}" x2="${w-pad.r}" y1="${yy}" y2="${yy}" stroke="#EEF2F9"/><text x="${pad.l-6}" y="${yy+4}" font-size="10" fill="#A7AFC0" text-anchor="end">${Math.round(max*(1-g/3)/1000)}k</text>`;}
+  vals.forEach((v,i)=>{const x0=pad.l+bw*i+bw*.22, ww=bw*.56; s+=`<rect x="${x0}" y="${y(v)}" width="${ww}" height="${y(0)-y(v)}" rx="3" fill="${color}"/>`;
+    if(stack) s+=`<rect x="${x0}" y="${y(v+stack[i])}" width="${ww}" height="${y(v)-y(v+stack[i])}" rx="3" fill="${color2}"/>`;
+    if(labels[i]) s+=`<text x="${x0+ww/2}" y="${h-7}" font-size="10" fill="#7A8497" text-anchor="middle">${labels[i]}</text>`;});
+  return s+'</svg>';
+}
+function donut(items,{size=140,stroke=18}={}){
+  const r=(size-stroke)/2, c=2*Math.PI*r; let off=0;
+  let s=`<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">`;
+  items.forEach(([n,p,col])=>{ const len=c*p/100; s+=`<circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="${col}" stroke-width="${stroke}" stroke-dasharray="${len} ${c-len}" stroke-dashoffset="${-off}" transform="rotate(-90 ${size/2} ${size/2})"/>`; off+=len; });
+  s+=`<text x="50%" y="47%" text-anchor="middle" font-size="18" font-weight="700" fill="#1F2633">${items.length}</text><text x="50%" y="62%" text-anchor="middle" font-size="10" fill="#7A8497">类别</text></svg>`;
+  return `<div class="donut-wrap">${s}<div class="donut-legend">${items.map(([n,p,col])=>`<div><span><i style="display:inline-block;width:8px;height:8px;border-radius:2px;background:${col};margin-right:6px"></i>${n}</span><b>${p}%</b></div>`).join('')}</div></div>`;
+}
+function hbars(items,{unit='次',color='var(--blue)'}={}){
+  const max=Math.max(...items.map(i=>i[1]));
+  return `<div class="hbars">${items.map((it,i)=>`<div class="r"><div class="nm"><span class="rk">${i+1}</span>${it[0]}${it[2]?` <span class="badge b-gray" style="font-size:10px;padding:0 5px">${it[2]}</span>`:''}</div><div class="bar" style="height:8px"><i style="width:${it[1]/max*100}%;background:${color}"></i></div><div class="val">${fmt(it[1])}<small> ${unit}</small></div></div>`).join('')}</div>`;
+}
+function heatmap(){
+  const r=rnd(21); const days=['一','二','三','四','五','六','日'];
+  let s='<div class="heat"><div></div>'+Array.from({length:24},(_,h)=>`<div class="hh">${h%3===0?h:''}</div>`).join('');
+  days.forEach((d,di)=>{ s+=`<div class="lb">周${d}</div>`; for(let h=0;h<24;h++){ let v=r(); if(h>=9&&h<=18)v+=.5; if(h>=10&&h<=11||h>=14&&h<=16)v+=.4; if(di>=5)v*=.35; if(h<7)v*=.15; const a=Math.min(1,v/1.6); s+=`<div class="c" style="background:rgba(47,107,255,${(.06+a*.9).toFixed(2)})" title="周${d} ${h}:00"></div>`; } });
+  return s+'</div>';
+}
+
+/* =====================================================================
+   视图状态
+   ===================================================================== */
+const VIEWS = [
+  {id:'personal', l:'个人版', s:'现有个人中心（重设计）'},
+  {id:'team-admin', l:'团队版 · 管理员', s:'≤10 席位的小团队'},
+  {id:'ent-admin', l:'企业版 · 管理员', s:'部门 / 审计 / 组织 Key'},
+  {id:'member', l:'成员 · 已激活', s:'被分配额度的人'},
+  {id:'member-pending', l:'成员 · 待激活', s:'收到口令，尚未加入'},
+];
+let state = { view:'ent-admin', tab:'overview', product:'mcp', mfilter:'all', mq:'', usageRange:'30', usageDim:'member', ptab:'usage', pdept:'all' };
+const isAdmin = ()=> state.view==='team-admin'||state.view==='ent-admin';
+const org = ()=> state.view==='personal'?ORGS.personal: state.view==='team-admin'?ORGS.team: ORGS.enterprise;
+const isEnt = ()=> state.view!=='team-admin' && state.view!=='personal';
+/* 团队版只展示自己的 6 人小组；企业版展示全量 mock。数字按组织规模缩放。 */
+const TEAM_IDS = new Set([1,2,3,5,7,11]);
+const curMembers = ()=> isEnt()? members : members.filter(m=>TEAM_IDS.has(m.id)||m.team);
+const curPasscodes = ()=> isEnt()? passcodes : passcodes.filter(p=>p.team||['韩奕','周子航','罗一鸣','（未指定）'].includes(p.to)).map(p=>({...p,code:p.code.replace('YM-ENT','YM-TEAM')}));
+const scale = ()=> isEnt()?1:0.16;
+const sc = v => Math.round(v*scale());
+
+function setView(v){ state.view=v; state.tab = isAdmin()?'overview':(v==='personal'?'stats':'usage'); render(); window.scrollTo(0,0); }
+function setTab(t){ state.tab=t; renderRight(); }
+
+/* =====================================================================
+   渲染入口
+   ===================================================================== */
+function render(){
+  // 演示条
+  document.getElementById('views').innerHTML = VIEWS.map(v=>`<button class="v ${state.view===v.id?'on':''}" onclick="setView('${v.id}')">${v.l}<small>${v.s}</small></button>`).join('');
+  // 顶栏组织切换
+  const o=org(); const os=document.getElementById('orgswitch');
+  if(state.view==='personal') os.innerHTML=`<span class="av">G</span>Guty <span class="plan">个人版</span><span class="caret">▾</span>`;
+  else if(state.view==='member-pending') os.innerHTML=`<span class="av">G</span>Guty <span class="plan" style="background:#F0F2F7;color:#7A8497">个人版 · 待加入</span><span class="caret">▾</span>`;
+  else os.innerHTML=`<span class="av">${o.initials}</span>${o.short||o.name} <span class="plan">${o.planName}${isAdmin()?' · 管理员':' · 成员'}</span><span class="caret">▾</span>`;
+  // 视图说明
+  const tips={
+    personal:['个人版','这就是现在 qieman.com/mcp/account 的用户看到的页面。保留「左：身份 / Key / 配额；右：产品 → 工具 / 配置 / 统计」的骨架，新增升级入口与更完整的调用统计。'],
+    'team-admin':['团队版 · 管理员','团队所有者 / 管理员登录后，同一个个人中心自动切换为「组织工作台」：管理席位、分配积分与期限、生成并发送口令、查看全队用量。团队版不含部门、审计日志与组织级 Key。'],
+    'ent-admin':['企业版 · 管理员','企业版在团队版基础上增加：部门 / 部门管理员、组织共享 Key 与 IP 白名单、SSO、审计日志、发票与合同账期。示例组织 38/50 席位。'],
+    member:['成员 · 已激活','被管理员分配了账号的人。只能看到自己的 Key、额度、期限与用量，不能改额度；接入配置与个人版完全一致，所以现有教程照样能用。'],
+    'member-pending':['成员 · 待激活','收到管理员发来的口令、但还没兑换的且慢用户。他登录后仍是个人版，页面顶部多出「输入口令加入团队」引导。'],
+  }[state.view];
+  document.getElementById('viewtip').innerHTML=`<div class="in"><span class="tag">当前视角</span><b>${tips[0]}</b><span class="desc">${tips[1]}</span><span class="sp"></span></div>`;
+  renderLeft(); renderRight();
+}
+
+/* =====================================================================
+   左侧栏
+   ===================================================================== */
+function renderLeft(){
+  const L=document.getElementById('left'); const o=org();
+  if(state.view==='personal'){
+    L.innerHTML = `
+    <div class="card"><div class="profile">
+      <div class="avatar">G</div><div class="pname">Guty</div><div class="psub">且慢账号 · <span class="badge b-blue">个人版 · 标准</span></div>
+      <div class="kv"><span class="k">手机号</span><span class="v">138****2211</span><span class="k">邮箱</span><span class="v">gu***@yingmi.cn</span><span class="k">开通日期</span><span class="v">2025-05-12</span></div>
+    </div></div>
+    ${apiKeyCard('g08************fCFQ','个人 API Key')}
+    <div class="card tight"><div class="hd">服务等级与配额 <span class="badge b-blue">标准版</span></div><div class="bd">
+      <div class="quota"><div class="row"><span>每日 MCP 调用</span><b>86 / 200</b></div><div class="bar"><i style="width:43%"></i></div></div>
+      <div class="quota"><div class="row"><span>每日 Skills 调用</span><b>3 / 20</b></div><div class="bar"><i class="purple" style="width:15%"></i></div></div>
+      <div class="note" style="margin-top:8px">每日 0:00 重置 · 超出后当日限流</div>
+    </div></div>
+    <div class="card tight"><div class="hd">当前访问范围</div><div class="bd"><ul class="list">
+      <li><span class="dot"></span>MCP 数据协议访问权限（已包含）</li><li><span class="dot"></span>全部盈米 Skills 调用资格（按需在右侧启用）</li><li><span class="dot"></span>支持龙虾、Coze 等外部平台接入</li></ul></div></div>
+    <div class="upgrade"><h4>升级团队版 / 企业版</h4><p>多人共用一份积分池，按人分配额度与期限，用口令一键开通，统一看全队用量。</p><button class="btn sm" onclick="openPlans()">查看套餐对比 →</button></div>
+    <div class="card tight" style="margin-top:14px"><div class="hd">服务群与帮助</div><div class="bd" style="text-align:center"><div class="qr"></div><div class="note" style="margin-top:6px">扫码加入用户交流群 · 或 <a href="#">查看使用指南</a></div></div></div>`;
+    return;
+  }
+  if(state.view==='member-pending'){
+    L.innerHTML = `
+    <div class="card"><div class="profile">
+      <div class="avatar">G</div><div class="pname">Guty</div><div class="psub">且慢账号 · <span class="badge b-blue">个人版 · 标准</span></div>
+      <div class="kv"><span class="k">手机号</span><span class="v">138****2211</span><span class="k">邮箱</span><span class="v">gu***@yingmi.cn</span><span class="k">开通日期</span><span class="v">2025-05-12</span></div>
+    </div></div>
+    <div class="card" style="border-color:var(--blue)"><div class="join">
+      <div class="big">输入口令，加入团队 / 企业</div>
+      <p>管理员会通过短信、邮件或企微把口令发给你。兑换后即获得该组织分配的积分额度与使用期限，个人 Key 保持不变。</p>
+      <div class="passinput"><input class="input" id="joincode" placeholder="YM-XXX-XXXX-XXXX" value="YM-ENT-4H8K-2ZQ7"><button class="btn primary" onclick="redeem()">兑换</button></div>
+      <div class="note" style="margin-top:8px">口令仅可使用一次 · 7 天内有效 · 兑换即视为同意该组织的用量可见策略</div>
+    </div></div>
+    ${apiKeyCard('g08************fCFQ','个人 API Key')}
+    <div class="card tight"><div class="hd">服务等级与配额 <span class="badge b-blue">标准版</span></div><div class="bd">
+      <div class="quota"><div class="row"><span>每日 MCP 调用</span><b>86 / 200</b></div><div class="bar"><i style="width:43%"></i></div></div>
+      <div class="quota"><div class="row"><span>每日 Skills 调用</span><b>3 / 20</b></div><div class="bar"><i class="purple" style="width:15%"></i></div></div>
+    </div></div>`;
+    return;
+  }
+  if(state.view==='member'){
+    const me = members[2]; const p=pct(me.used,me.alloc); const dl=daysLeft(me.expire);
+    L.innerHTML = `
+    <div class="card"><div class="profile">
+      <div class="avatar">周</div><div class="pname">周子航</div><div class="psub">${o.short||o.name} · <span class="badge b-blue">企业版 · 成员</span></div>
+      <div class="kv"><span class="k">手机号</span><span class="v">136****4410</span><span class="k">邮箱</span><span class="v">zh***@yingmi.cn</span><span class="k">部门</span><span class="v">量化研究</span><span class="k">加入日期</span><span class="v">2026-03-10</span><span class="k">管理员</span><span class="v">陈嘉禾 · 林墨 <span class="link" onclick="toast('已打开与管理员的企微会话')">联系</span></span></div>
+    </div></div>
+    ${apiKeyCard('g08************fCFQ','我的 API Key','由组织分配额度，Key 仍归个人；重置后需自行更新各平台配置')}
+    <div class="card tight"><div class="hd">我的额度 <span class="badge ${p>=95?'b-red':p>=80?'b-orange':'b-green'}">${p>=95?'额度告急':p>=80?'即将用尽':'正常'}</span></div><div class="bd">
+      <div class="quota"><div class="row"><span>积分（本期）</span><b>${fmt(me.used)} / ${fmt(me.alloc)}</b></div><div class="bar"><i class="${barClass(p)}" style="width:${p}%"></i></div><div class="note" style="margin-top:4px">剩余 ${fmt(me.alloc-me.used)} 积分 · 每月 1 日按管理员设置自动重置</div></div>
+      <div class="quota"><div class="row"><span>使用期限</span><b>${me.expire}</b></div><div class="bar"><i class="green" style="width:${Math.max(6,100-dl/365*100)}%"></i></div><div class="note" style="margin-top:4px">剩余 ${dl} 天 · 到期后自动回落为个人版标准配额</div></div>
+      <div class="mini-actions" style="margin-top:12px"><button class="btn sm primary block" onclick="openRequest()">申请追加额度 / 延期</button></div>
+    </div></div>
+    <div class="card tight"><div class="hd">我的访问范围 <span class="sub">由管理员分配</span></div><div class="bd"><ul class="list">
+      <li><span class="dot"></span>盈米 MCP：全部 72 个工具</li><li><span class="dot"></span>盈米 Skills：5 / 11 个（基金诊断、组合分析、市场解读、合规审查、财务规划）</li><li><span class="dot" style="background:var(--orange)"></span>单日调用上限 2,000 次（组织策略）</li></ul></div></div>`;
+    return;
+  }
+  // 管理员
+  const ent=isEnt(); const sp=pct(o.seats.used,o.seats.total), cp=pct(o.credits.used,o.credits.total), ap=pct(o.credits.allocated,o.credits.total);
+  const ms=curMembers();
+  const pend=ms.filter(m=>m.status==='pending').length, low=ms.filter(m=>m.status==='active'&&m.used/m.alloc>=.9).length, soon=ms.filter(m=>{const d=daysLeft(m.expire);return d!==null&&d>=0&&d<=30&&m.status==='active'}).length, exp=ms.filter(m=>m.status==='expired'||m.status==='disabled').length;
+  L.innerHTML = `
+  <div class="card"><div class="profile">
+    <div class="avatar org">${o.initials}<span class="crown" title="所有者">👑</span></div><div class="pname">${o.name}</div>
+    <div class="psub"><span class="badge ${ent?'b-gold':'b-blue'}">${o.planName}</span> &nbsp;<span class="badge b-green b-dot">服务中</span></div>
+    <div class="kv"><span class="k">当前身份</span><span class="v">陈嘉禾 · 所有者</span><span class="k">组织 ID</span><span class="v" style="font-family:Menlo,monospace">${ent?'org_8f3k2z9q':'team_4h7x1p'}</span><span class="k">服务到期</span><span class="v">${o.expire} <span class="note">（剩余 ${daysLeft(o.expire)} 天）</span></span>${ent?'<span class="k">合同编号</span><span class="v">YM-OAP-2026-0312</span>':''}</div>
+  </div></div>
+  <div class="card tight"><div class="hd">席位与积分池</div><div class="bd">
+    <div class="quota"><div class="row"><span>席位</span><b>${o.seats.used} / ${o.seats.total}</b></div><div class="bar"><i class="${barClass(sp)}" style="width:${sp}%"></i></div><div class="note" style="margin-top:4px">${o.seats.total-o.seats.used} 个空席位 · <span class="link" onclick="toast('加购席位：进入订单流程')">加购席位</span></div></div>
+    <div class="quota"><div class="row"><span>积分池已消耗</span><b>${fmt(o.credits.used)} / ${fmt(o.credits.total)}</b></div><div class="bar" style="position:relative"><i style="width:${cp}%"></i><i style="position:absolute;left:0;top:0;width:${ap}%;background:transparent;border-right:2px solid var(--blue-dark);opacity:.6;border-radius:0" title="已分配 ${ap}%"></i></div><div class="note" style="margin-top:4px">已分配 ${fmt(o.credits.allocated)} · 未分配 <b>${fmt(o.credits.total-o.credits.allocated)}</b> · <span class="link" onclick="toast('充值积分：进入订单流程')">充值</span></div></div>
+  </div></div>
+  <div class="card tight"><div class="hd">快捷操作</div><div class="bd" style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+    <button class="btn primary" onclick="openCreate()">＋ 新建账号</button><button class="btn" onclick="openPasscode()">生成口令</button>
+    <button class="btn" onclick="toast('批量导入：下载模板 → 上传 Excel（姓名/手机号/角色/积分/期限）→ 批量生成口令')">批量导入</button><button class="btn" onclick="toast('已生成用量报表（CSV / PDF），已发送到管理员邮箱')">导出报表</button>
+  </div></div>
+  <div class="card tight"><div class="hd">待处理 <span class="badge b-red">${pend+low+soon+exp+(ent?2:1)}</span></div><div class="bd"><ul class="list todo">
+    <li onclick="setTab('members');state.mfilter='pending';renderRight()"><span class="dot" style="background:var(--orange)"></span>口令已发送、成员未激活<span class="n">${pend}</span></li>
+    <li onclick="setTab('members');state.mfilter='low';renderRight()"><span class="dot" style="background:var(--red)"></span>积分剩余不足 10%<span class="n">${low}</span></li>
+    <li onclick="setTab('members');state.mfilter='soon';renderRight()"><span class="dot" style="background:var(--orange)"></span>30 天内到期的账号<span class="n">${soon}</span></li>
+    <li onclick="setTab('members');state.mfilter='expired';renderRight()"><span class="dot" style="background:var(--faint)"></span>已过期待处理（回收 / 续期）<span class="n">${exp}</span></li>
+    <li onclick="setTab('requests')"><span class="dot"></span>成员申请追加额度<span class="n">${ent?2:1}</span></li>
+  </ul></div></div>
+  <div class="card tight"><div class="hd">${ent?'专属客户经理':'服务群与帮助'}</div><div class="bd" style="text-align:center">${ent?'<div class="note" style="text-align:left">客户经理：李思远<br>邮箱：oap@yingmi.cn<br>企业专线：400-***-8899</div>':'<div class="qr"></div><div class="note" style="margin-top:6px">扫码加入用户交流群</div>'}</div></div>`;
+}
+function apiKeyCard(key,title,note){
+  return `<div class="card tight"><div class="hd">${title}</div><div class="bd">
+    <div class="keybox"><span class="k">${key}</span><button class="btn xs" onclick="copy('${key}','API Key 已复制')">复制</button></div>
+    <div class="mini-actions"><button class="btn xs ghost" onclick="toast('已显示完整 Key（5 秒后自动隐藏）')">显示</button><button class="btn xs ghost danger" onclick="toast('重置后旧 Key 立即失效，请更新所有平台配置')">重置</button><span class="note" style="margin-left:auto">最近使用：今天 15:02</span></div>
+    ${note?`<div class="note" style="margin-top:8px">${note}</div>`:''}
+  </div></div>`;
+}
+
+/* =====================================================================
+   右侧
+   ===================================================================== */
+function productCards(){
+  const memberScope = state.view==='member';
+  return `<div class="products">
+    <div class="prod ${state.product==='mcp'?'on':''}" onclick="state.product='mcp';renderRight()"><div class="ic">⌬</div><div><div class="t">盈米 MCP</div><div class="s">72 个工具 · 5 大类</div></div><div class="right">${memberScope?'<span class="badge b-green">已授权 72</span>':'<span class="badge b-blue">Streamable HTTP</span>'}</div></div>
+    <div class="prod ${state.product==='skills'?'on':''}" onclick="state.product='skills';renderRight()"><div class="ic" style="background:var(--purple-soft);color:var(--purple)">✦</div><div><div class="t">盈米 Skills</div><div class="s">11 个 Skill · 按需启用</div></div><div class="right">${memberScope?'<span class="badge b-orange">已授权 5 / 11</span>':'<span class="badge b-gray">7 已启用</span>'}</div></div>
+  </div>`;
+}
+function tabsHtml(list){
+  return `<div class="tabs">${list.map(t=>`<div class="tab ${state.tab===t.id?'on':''}" onclick="setTab('${t.id}')">${t.l}${t.n?`<span class="n ${t.red?'red':''}">${t.n}</span>`:''}</div>`).join('')}</div>`;
+}
+
+function renderRight(){
+  const R=document.getElementById('right');
+  if(isAdmin()){ R.innerHTML=renderAdmin(); return; }
+  if(state.view==='member-pending'){ R.innerHTML=renderPending(); return; }
+  // 个人版 / 成员
+  const tabs = state.view==='member'
+    ? [{id:'usage',l:'我的用量'},{id:'tools',l:'工具列表',n:'72'},{id:'config',l:'配置方式'},{id:'requests',l:'我的申请',n:'1'}]
+    : [{id:'tools',l:'工具列表',n:'72'},{id:'config',l:'配置方式'},{id:'stats',l:'调用统计'}];
+  let body='';
+  if(state.tab==='tools') body=toolsPanel();
+  else if(state.tab==='config') body=configPanel(false);
+  else if(state.tab==='stats'||state.tab==='usage') body=personalUsage();
+  else if(state.tab==='requests') body=myRequests();
+  R.innerHTML = productCards() + `<div class="card" style="margin-top:14px">${tabsHtml(tabs)}<div class="panel">${body}</div></div>`;
+}
+
+/* ---------- 个人版 / 成员：面板 ---------- */
+function toolsPanel(){
+  const cats=[['全部',69],['基金数据',28],['策略数据',7],['投前分析',8],['金融工具',1],['测算能力',2],['投后诊断',3],['投资顾问',11],['常用工具',4],['公开内容',2],['盈米生产',3]];
+  return `<div class="toolbar"><input class="input search" placeholder="搜索工具名称 / 功能描述"><div class="chips">${cats.map((c,i)=>`<button class="chip ${i===0?'on':''}">${c[0]} ${c[1]}</button>`).join('')}</div></div>
+  <table><thead><tr><th>工具</th><th>类别</th><th>说明</th><th>积分 / 次</th><th>累计调用</th>${state.view==='member'?'<th>授权</th>':''}<th></th></tr></thead><tbody>
+  ${TOOLS.slice(0,10).map(t=>`<tr><td><b>${t[0]}</b></td><td><span class="badge b-gray">${t[1]}</span></td><td class="note">${{'财经资讯':'检索财经资讯内容并提取核心事件摘要','基金代码模糊匹配':'将模糊基金名称智能匹配为准确基金代码','搜索基金':'按多维条件搜索筛选目标基金产品清单','基金诊断':'多维评估单只基金质地并给出诊断结论'}[t[0]]||'批量获取基金基础数据与指标'}</td><td class="num">${t[1]==='投前分析'||t[1]==='投后诊断'?3:1}</td><td class="num">${fmt(t[2]*47)}</td>${state.view==='member'?'<td><span class="badge b-green">✓</span></td>':''}<td><span class="link" onclick="toast('已在右侧打开工具详情：参数 / 返回示例 / 调用示例')">详情</span></td></tr>`).join('')}
+  </tbody></table><div class="pager"><span>共 69 个工具</span><div class="pg"><b class="on">1</b><b>2</b><b>3</b><b>…</b><b>7</b></div></div>`;
+}
+function configPanel(admin){
+  const key = admin ? (isEnt()?'org_8f3k2z9q****************':'成员各自 Key') : 'g08****************fCFQ';
+  return `
+  <div class="g12">
+    <div>
+      <div class="sec"><div class="hd">配置信息</div><div class="bd">
+        <div class="seg" style="margin-bottom:10px"><button class="on">Streamable HTTP</button><button onclick="toast('SSE 协议仅用于兼容旧平台')">SSE 协议</button></div>
+        <div class="kv" style="margin:0;padding:0;border:0;grid-template-columns:70px 1fr;font-size:12px"><span class="k">服务地址</span><span class="v" style="font-family:Menlo,monospace;font-size:11.5px">https://stargate.yingmi.com/mcp/v2</span><span class="k">认证方式</span><span class="v">Header <code>x-api-key</code></span><span class="k">适用平台</span><span class="v">Cursor / Codex / Trae / 扣子 / Dify / 百炼 / openclaw / WorkBuddy</span></div>
+        ${admin?`<div class="callout mt" style="font-size:12px"><span>ⓘ</span><div><b>${isEnt()?'认证策略：成员 Key（默认） + 组织共享 Key':'认证策略：成员各自 Key'}</b><br>成员用自己的 Key 接入，用量自动归属到人；${isEnt()?'服务端系统可用组织 Key 并绑定 IP 白名单，用量归属到「系统账号」。':'团队版不提供组织级共享 Key。'}</div></div>`:''}
+      </div></div>
+      <div class="sec mt"><div class="hd">快速接入</div><div class="bd"><ul class="list">
+        <li><span class="dot"></span><a href="#">Cursor 接入指引</a></li><li><span class="dot"></span><a href="#">openclaw / WorkBuddy 接入</a></li><li><span class="dot"></span><a href="#">扣子（新版）/ Dify 接入</a></li><li><span class="dot"></span><a href="#">阿里云百炼</a></li></ul></div></div>
+    </div>
+    <div class="codebox"><div class="cap"><span>MCP 接入配置 · 适用于大多数平台，将以下内容贴入对应配置文件</span><button class="btn xs" onclick="copy('{mcpServers}','配置已复制')">复制</button></div>
+<pre>{
+  <span class="k">"mcpServers"</span>: {
+    <span class="k">"qieman"</span>: {
+      <span class="k">"url"</span>: <span class="s">"https://stargate.yingmi.com/mcp/v2"</span>,
+      <span class="k">"headers"</span>: {
+        <span class="k">"x-api-key"</span>: <span class="s">"${key}"</span>,
+        <span class="k">"Accept"</span>: <span class="s">"application/json, text/event-stream"</span>
+      }
+    }
+  }
+}</pre></div>
+  </div>
+  ${admin&&isEnt()?`<div class="g2 mt">
+    <div class="sec"><div class="hd">IP 白名单 <span class="sub">组织 Key 仅允许以下来源</span><button class="btn xs" onclick="toast('添加 IP / CIDR')">＋ 添加</button></div><div class="bd"><table><thead><tr><th>IP / CIDR</th><th>备注</th><th>添加时间</th><th></th></tr></thead><tbody>
+      <tr><td class="num">47.98.12.0/24</td><td>生产集群</td><td class="note">2026-03-02</td><td><span class="link">删除</span></td></tr><tr><td class="num">120.55.7.66</td><td>投顾工作台网关</td><td class="note">2026-05-20</td><td><span class="link">删除</span></td></tr></tbody></table></div></div>
+    <div class="sec"><div class="hd">单点登录（SSO）</div><div class="bd"><div class="kv" style="margin:0;padding:0;border:0;grid-template-columns:90px 1fr;font-size:12px"><span class="k">状态</span><span class="v"><span class="badge b-green b-dot">已启用 · 企业微信</span></span><span class="k">自动建号</span><span class="v">开 · 新员工首次登录即创建待激活账号，仍需管理员分配额度</span><span class="k">Key 轮换</span><span class="v">组织 Key 每 90 天强制轮换 · 下次 2026-11-28</span></div><div class="mini-actions" style="margin-top:10px"><button class="btn sm">配置 SSO</button><button class="btn sm" onclick="toast('组织 Key 已轮换，旧 Key 24 小时后失效')">立即轮换组织 Key</button></div></div></div>
+  </div>`:''}`;
+}
+function personalUsage(){
+  const member = state.view==='member';
+  const s = member? S_ME : S_ME.map(v=>Math.round(v*.3));
+  const tot=s.reduce((a,b)=>a+b,0);
+  const myTools = TOOLS.slice(0,6).map(t=>[t[0],Math.round(t[2]/(member?9:30)),t[1]]);
+  return `
+  <div class="toolbar"><div class="seg"><button class="on">近 30 天</button><button>近 7 天</button><button>本月</button><button>自定义</button></div><div class="seg"><button class="on">MCP</button><button>Skills</button><button>全部</button></div><span class="sp"></span><button class="btn sm" onclick="toast('明细已导出 CSV')">导出明细</button></div>
+  <div class="kpis">
+    <div class="kpi"><div class="l">MCP 调用（30 天）</div><div class="v">${fmt(tot)}</div><div class="d up">▲ 12.4% 较上期</div></div>
+    ${member?`<div class="kpi"><div class="l">积分消耗</div><div class="v">${fmt(Math.round(tot*1.3))}</div><div class="d">≈ 1.3 积分 / 次</div></div>
+    <div class="kpi"><div class="l">剩余积分</div><div class="v">2,200<small>/ 40,000</small></div><div class="d down">剩余 5.5% · 建议申请追加</div></div>
+    <div class="kpi"><div class="l">使用期限</div><div class="v">101<small>天</small></div><div class="d">2026-12-31 到期</div></div>`
+    :`<div class="kpi"><div class="l">Skills 调用（30 天）</div><div class="v">${fmt(Math.round(tot*.08))}</div><div class="d">7 个已启用 Skill</div></div>
+    <div class="kpi"><div class="l">今日已用</div><div class="v">86<small>/ 200</small></div><div class="d">每日配额 0:00 重置 · 触发限流 0 次</div></div>
+    <div class="kpi"><div class="l">成功率</div><div class="v">99.1%</div><div class="d">平均耗时 812 ms</div></div>`}
+  </div>
+  <div class="g21 mt">
+    <div class="sec"><div class="hd">每日调用趋势 <span class="legend"><span><i style="background:#2F6BFF"></i>MCP 调用</span><span><i style="background:#7C5CFF"></i>Skills 调用</span></span></div><div class="bd">${lineChart([s, s.map(v=>Math.round(v*.12))])}</div></div>
+    <div class="sec"><div class="hd">工具类别分布</div><div class="bd">${donut(CATS.slice(0,5).concat([['其他',100-CATS.slice(0,5).reduce((a,c)=>a+c[1],0),'#B7BFD0']]).map(c=>[c[0],+c[1].toFixed(1),c[2]]),{size:120,stroke:16})}</div></div>
+  </div>
+  <div class="g2 mt">
+    <div class="sec"><div class="hd">我常用的工具 Top 6</div><div class="bd">${hbars(myTools)}</div></div>
+    <div class="sec"><div class="hd">接入平台 <span class="sub">按 User-Agent / 平台标识识别</span></div><div class="bd">${hbars(member?[['Dify',62],['Cursor',27],['openclaw',11]]:[['Cursor',71],['扣子 Coze',19],['WorkBuddy',10]],{unit:'%',color:'var(--cyan)'})}
+      <div class="callout mt" style="font-size:12px"><span>💡</span><div>你在 <b>${member?'Dify':'Cursor'}</b> 上的调用最多。对话类平台建议配合「基金代码模糊匹配」预处理，可减少约 15% 的无效调用。</div></div></div></div>
+  </div>
+  <div class="sec mt"><div class="hd">最近调用明细</div><div class="bd"><table><thead><tr><th>时间</th><th>工具</th><th>平台</th><th>耗时</th><th>${member?'积分':'计次'}</th><th>状态</th></tr></thead><tbody>
+    ${(member?[['15:02:11','基金诊断','Dify','1,240 ms',3,'成功'],['15:01:58','基金代码模糊匹配','Dify','310 ms',1,'成功'],['14:47:20','批量获取基金业绩表现','Cursor','980 ms',1,'成功'],['14:46:02','搜索基金','Cursor','520 ms',1,'成功'],['11:20:33','财经资讯','openclaw','760 ms',1,'成功'],['09:05:47','获取资产配置方案','Dify','2,130 ms',5,'参数错误']]
+      :[['15:02:11','基金诊断','Cursor','1,240 ms','—','成功'],['15:01:58','基金代码模糊匹配','Cursor','310 ms','—','成功'],['14:47:20','批量获取基金业绩表现','Cursor','980 ms','—','成功'],['14:46:02','搜索基金','扣子 Coze','520 ms','—','成功'],['11:20:33','财经资讯','WorkBuddy','760 ms','—','成功'],['09:05:47','获取资产配置方案','扣子 Coze','2,130 ms','—','参数错误']]).map(r=>`<tr><td class="num note">今天 ${r[0]}</td><td><b>${r[1]}</b></td><td>${r[2]}</td><td class="num">${r[3]}</td><td class="num">${r[4]}</td><td><span class="badge ${r[5]==='成功'?'b-green':'b-red'}">${r[5]}</span></td></tr>`).join('')}
+  </tbody></table></div></div>`;
+}
+function myRequests(){
+  return `<div class="callout" style="margin-bottom:12px"><span>ⓘ</span><div>申请会推送给组织管理员（陈嘉禾、林墨）审批；通过后额度 / 期限自动生效，无需重新配置。</div></div>
+  <table><thead><tr><th>申请时间</th><th>类型</th><th>内容</th><th>理由</th><th>状态</th><th>审批人</th></tr></thead><tbody>
+  <tr><td class="note">今天 15:05</td><td><span class="badge b-blue">追加积分</span></td><td>+ 10,000 积分</td><td class="note">Q4 组合回测批量任务</td><td><span class="badge b-orange b-dot">待审批</span></td><td>—</td></tr>
+  <tr><td class="note">09-12 10:20</td><td><span class="badge b-purple">延长期限</span></td><td>2026-12-31 → 2027-03-31</td><td class="note">项目延期</td><td><span class="badge b-gray">已撤回</span></td><td>—</td></tr>
+  <tr><td class="note">08-28 16:44</td><td><span class="badge b-blue">追加积分</span></td><td>+ 5,000 积分</td><td class="note">月末报告集中调用</td><td><span class="badge b-green">已通过</span></td><td>林墨</td></tr>
+  </tbody></table><div style="margin-top:12px"><button class="btn primary sm" onclick="openRequest()">＋ 新申请</button></div>`;
+}
+function renderPending(){
+  return `${productCards()}
+  <div class="card" style="margin-top:14px"><div class="hd">加入组织后会发生什么</div><div class="bd">
+    <div class="steps">
+      <div class="step"><div class="n">1</div><div class="t">兑换口令</div><div class="d">在左侧输入管理员发来的口令。口令一次有效，绑定了积分额度、使用期限与工具范围。</div></div>
+      <div class="step"><div class="n">2</div><div class="t">身份切换</div><div class="d">个人中心顶部出现组织切换器，你可在「个人版」与「组织成员」间切换。</div></div>
+      <div class="step"><div class="n">3</div><div class="t">额度生效</div><div class="d">个人版每日配额被组织分配的积分额度替代；到期后自动回落为个人版。</div></div>
+      <div class="step"><div class="n">4</div><div class="t">Key 不变</div><div class="d">仍使用你现有的 API Key 与配置，已经接好的 Cursor / Coze 无需改动。</div></div>
+    </div>
+    <div class="g2 mt">
+      <div class="sec"><div class="hd">收到的口令示例</div><div class="bd"><div class="pass-preview"><div class="code">YM-ENT-4H8K-2ZQ7</div><div class="meta">来自 盈米资管科技 · 席位激活 · 20,000 积分 · 有效期至 2027-03-31 · 口令 09-27 前有效</div></div><div class="note mt">短信 / 邮件 / 企微中的口令都可直接粘贴。管理员也可发送带口令的链接，点击即自动填入。</div></div></div>
+      <div class="sec"><div class="hd">个人版 vs 组织成员</div><div class="bd"><table><thead><tr><th></th><th>个人版</th><th>组织成员</th></tr></thead><tbody>
+        <tr><td>配额方式</td><td>每日次数上限</td><td>积分额度（组织分配）</td></tr><tr><td>有效期</td><td>长期</td><td>管理员设定</td></tr><tr><td>工具范围</td><td>全部 MCP · Skills 自行启用</td><td>管理员授权范围</td></tr><tr><td>用量可见</td><td>仅自己</td><td>自己 + 组织管理员</td></tr><tr><td>费用</td><td>免费</td><td>由组织承担</td></tr>
+      </tbody></table></div></div>
+    </div>
+  </div></div>
+  <div class="card locked" style="margin-top:14px"><div class="lock-tip">兑换口令后解锁「我的用量」「我的申请」</div>${tabsHtml([{id:'usage',l:'我的用量'},{id:'tools',l:'工具列表',n:'72'},{id:'config',l:'配置方式'}])}<div class="panel" style="height:160px"></div></div>`;
+}
+function redeem(){
+  const v=document.getElementById('joincode').value.trim().toUpperCase();
+  if(!/^YM-[A-Z]{3}-[A-Z0-9]{4}-[A-Z0-9]{4}$/.test(v)){ toast('口令格式不正确，应为 YM-XXX-XXXX-XXXX'); return; }
+  toast('兑换成功：已加入 盈米资管科技 · 获得 20,000 积分 · 有效期至 2027-03-31');
+  setTimeout(()=>setView('member'),900);
+}
+
+/* =====================================================================
+   管理员视图
+   ===================================================================== */
+function renderAdmin(){
+  const ent=isEnt();
+  const tabs=[{id:'overview',l:'概览'},{id:'members',l:'账号与成员',n:ent?org().seats.used:curMembers().length},{id:'credits',l:'积分与额度'},{id:'passcodes',l:'口令管理',n:curPasscodes().filter(p=>p.status==='unused').length,red:true},{id:'usage',l:'用量统计'},{id:'requests',l:'申请审批',n:ent?2:1,red:true},{id:'access',l:'接入配置'},{id:'billing',l:'套餐与账单'}];
+  if(ent) tabs.push({id:'audit',l:'审计日志'});
+  const body={overview:adminOverview,members:adminMembers,credits:adminCredits,passcodes:adminPasscodes,usage:adminUsage,requests:adminRequests,access:()=>configPanel(true),billing:adminBilling,audit:adminAudit}[state.tab]||adminOverview;
+  return `<div class="card">${tabsHtml(tabs)}<div class="panel">${body()}</div></div>`;
+}
+
+function adminOverview(){
+  const o=org(); const ent=isEnt(); const ms=curMembers();
+  const active= ent? 31 : ms.filter(m=>m.status==='active').length;
+  const topM=[...ms].filter(m=>m.month>0).sort((a,b)=>b.month-a.month).slice(0,6).map(m=>[m.name,m.month,ent?m.dept:null]);
+  const cp=pct(o.credits.used,o.credits.total);
+  const lowN=ms.filter(m=>m.status==='active'&&m.used/m.alloc>=.9).length;
+  return `
+  <div class="toolbar" style="margin-bottom:12px"><div class="seg"><button class="on">近 30 天</button><button>近 7 天</button><button>本月</button></div>${ent?`<select class="input" style="height:30px" onchange="toast('已按部门筛选概览')"><option>全部部门</option>${DEPTS.map(d=>`<option>${d}</option>`).join('')}</select>`:''}<span class="sp"></span><span class="note">数据更新于 今天 15:10 · 延迟 &lt; 5 分钟</span></div>
+  <div class="kpis five">
+    <div class="kpi accent"><div class="l">积分池剩余</div><div class="v">${fmt(o.credits.total-o.credits.used)}</div><div class="d">总量 ${fmt(o.credits.total)} · 已消耗 ${cp}%</div><div class="bar"><i class="${barClass(cp)}" style="width:${cp}%"></i></div></div>
+    <div class="kpi"><div class="l">本月调用量</div><div class="v">${fmt(o.monthCalls)}</div><div class="d up">▲ 18.6% 较上月</div></div>
+    <div class="kpi"><div class="l">活跃成员 / 席位</div><div class="v">${active}<small>/ ${o.seats.total}</small></div><div class="d">7 日活跃 ${Math.round(active*.84)} · 待激活 ${ms.filter(m=>m.status==='pending').length}</div></div>
+    <div class="kpi"><div class="l">预计可用</div><div class="v">${Math.round((o.credits.total-o.credits.used)/(o.credits.used/47))}<small>天</small></div><div class="d ${((o.credits.total-o.credits.used)/(o.credits.used/47))<60?'down':''}">按近 30 天日均消耗推算</div></div>
+    <div class="kpi"><div class="l">成功率 / 耗时</div><div class="v">99.2%</div><div class="d">P50 812 ms · 错误 0.8%（多为参数错误）</div></div>
+  </div>
+  <div class="g21 mt">
+    <div class="sec"><div class="hd">调用量与积分消耗趋势 <span class="legend"><span><i style="background:#2F6BFF"></i>MCP 调用</span><span><i style="background:#7C5CFF"></i>Skills 调用 ×10</span><span><i style="background:#F08A24"></i>积分消耗</span></span></div><div class="bd">${lineChart([S_MCP.map(sc),S_SK.map(v=>sc(v*10)),S_CRED.map(sc)],{colors:['#2F6BFF','#7C5CFF','#F08A24'],h:200})}</div></div>
+    <div class="sec"><div class="hd">积分池分配状态</div><div class="bd">
+      ${donut([['已消耗',cp,'#2F6BFF'],['已分配未用',pct(o.credits.allocated-o.credits.used,o.credits.total),'#9DB7FF'],['未分配',100-pct(o.credits.allocated,o.credits.total),'#E6EBF5']],{size:120,stroke:16})}
+      <div class="callout warn mt" style="font-size:12px"><span>⚠</span><div><b>${lowN} 位成员</b>积分剩余不足 10%，其中周子航、罗一鸣本周内可能用尽。<span class="link" onclick="setTab('members');state.mfilter='low';renderRight()">去处理</span></div></div>
+    </div></div>
+  </div>
+  <div class="g3 mt">
+    <div class="sec"><div class="hd">成员消耗 Top ${topM.length} <span class="link" onclick="setTab('usage')">全部</span></div><div class="bd">${hbars(topM)}</div></div>
+    <div class="sec"><div class="hd">工具调用 Top 6 <span class="link" onclick="setTab('usage')">全部</span></div><div class="bd">${hbars(TOOLS.slice(0,6).map(t=>[t[0],sc(t[2])]))}</div></div>
+    <div class="sec"><div class="hd">接入平台分布</div><div class="bd">${hbars(PLAT_DIST.slice(0,6),{unit:'%',color:'var(--cyan)'})}</div></div>
+  </div>
+  <div class="g2 mt">
+    <div class="sec"><div class="hd">近期动态</div><div class="bd"><ul class="timeline">
+      <li><b>周子航 申请追加 10,000 积分</b>今天 15:05 · 理由：Q4 组合回测批量任务 <span class="link" onclick="setTab('requests')">审批</span></li>
+      <li><b>林墨 为 韩奕 生成席位口令</b>09-20 16:12 · 20,000 积分 · 至 2027-03-31 · 尚未激活</li>
+      <li><b>系统 回收 ${ent?'方知远':'郑柏然'} 剩余 ${ent?'200':'50'} 积分</b>09-01 00:00 · ${ent?'账号到期':'账号停用'}自动回收至积分池</li>
+      <li><b>陈嘉禾 停用 郑柏然</b>09-12 17:30 · 备注：离职</li>
+      <li><b>积分池充值 500,000</b>08-28 · 订单 YM-20260828-0031 · 已开票</li>
+    </ul></div></div>
+    <div class="sec"><div class="hd">调用时段热力 <span class="sub">近 30 天 · 按星期 × 小时</span></div><div class="bd">${heatmap()}<div class="note" style="margin-top:8px">工作日 10–11 点、14–16 点为高峰；周末几乎无调用，可据此设置成员单日上限与限流阈值。</div></div></div>
+  </div>`;
+}
+
+function memberFilterList(){
+  const q=state.mq.trim();
+  return curMembers().filter(m=>{
+    if(state.mfilter==='pending')return m.status==='pending';
+    if(state.mfilter==='low')return m.status==='active'&&m.used/m.alloc>=.9;
+    if(state.mfilter==='soon'){const d=daysLeft(m.expire);return m.status==='active'&&d!==null&&d>=0&&d<=30;}
+    if(state.mfilter==='expired')return m.status==='expired'||m.status==='disabled';
+    return true;
+  }).filter(m=>state.pdept==='all'||m.dept===state.pdept).filter(m=>!q||m.name.includes(q)||m.phone.includes(q)||m.dept.includes(q));
+}
+function adminMembers(){
+  const ent=isEnt(); const list=memberFilterList(); const o=org(); const ms=curMembers();
+  const cnt=f=>({all:ms.length,pending:ms.filter(m=>m.status==='pending').length,low:ms.filter(m=>m.status==='active'&&m.used/m.alloc>=.9).length,soon:ms.filter(m=>{const d=daysLeft(m.expire);return m.status==='active'&&d!==null&&d>=0&&d<=30}).length,expired:ms.filter(m=>m.status==='expired'||m.status==='disabled').length}[f]);
+  return `
+  <div class="toolbar">
+    <input class="input search" style="min-width:170px" placeholder="搜索姓名 / 手机号${ent?' / 部门':''}" value="${state.mq}" oninput="state.mq=this.value;renderRight();const s=document.querySelector('.input.search');s.focus();s.setSelectionRange(s.value.length,s.value.length)">
+    <div class="seg">${[['all','全部'],['pending','待激活'],['low','额度告急'],['soon','即将到期'],['expired','停用/过期']].map(f=>`<button class="${state.mfilter===f[0]?'on':''}" onclick="state.mfilter='${f[0]}';renderRight()">${f[1]} ${cnt(f[0])}</button>`).join('')}</div>
+    ${ent?`<select class="input" style="height:30px" onchange="state.pdept=this.value;renderRight()"><option value="all">全部部门</option>${DEPTS.map(d=>`<option ${state.pdept===d?'selected':''}>${d}</option>`).join('')}</select>`:''}
+    <span class="sp"></span>
+    <button class="btn sm" onclick="toast('批量模式：显示勾选框，对选中成员 调整额度 / 延期 / 停用 / 重发口令')">批量操作</button>
+    <button class="btn sm" onclick="toast('批量导入：下载模板 → 上传 Excel → 批量生成口令')">批量导入</button>
+    <button class="btn sm primary" onclick="openCreate()">＋ 新建账号</button>
+  </div>
+  <div class="callout" style="margin-bottom:12px;font-size:12px"><span>ⓘ</span><div>席位 <b>${o.seats.used} / ${o.seats.total}</b> · 积分池未分配 <b>${fmt(o.credits.total-o.credits.allocated)}</b>。新建账号会占用 1 个席位并从未分配积分中划拨额度；停用 / 移除 / 到期会自动回收剩余积分。</div></div>
+  <div class="tbl"><table class="members"><thead><tr><th>成员</th><th>角色${ent?' / 部门':''}</th><th>状态</th><th>积分额度（已用 / 分配）</th><th>使用期限</th><th>本月调用 · 平台</th><th>操作</th></tr></thead><tbody>
+  ${list.length?list.map(m=>{ const p=pct(m.used,m.alloc); const sb=statusBadge(m.status); const code=ent?m.code:(m.code||'').replace('YM-ENT','YM-TEAM'); return `<tr>
+    <td><div class="who"><div class="av">${m.name[0]}</div><div><div class="nm">${m.name} ${m.role==='owner'?'<span title="所有者">👑</span>':''}</div><div class="ph">${m.phone}</div></div></div></td>
+    <td><span class="badge ${roleBadge(m.role)}">${roleName[m.role]}</span>${ent?`<div class="note" style="margin-top:3px">${m.dept}</div>`:''}</td>
+    <td><span class="badge ${sb[0]} b-dot">${sb[1]}</span>${m.status==='pending'?`<div style="margin-top:4px"><span class="code" style="font-size:10.5px" title="点击复制" onclick="copy('${code}','口令已复制')">${code}</span></div>`:''}</td>
+    <td><div class="q"><div class="row"><span>${fmt(m.used)} / ${fmt(m.alloc)}</span><span>${p}%</span></div><div class="bar"><i class="${barClass(p)}" style="width:${p}%"></i></div></div></td>
+    <td class="num exp">${expireCell(m.expire)}</td>
+    <td><div class="num"><b>${fmt(m.month)}</b> <span class="note">次</span></div><div class="note">${m.platform} · ${m.last}</div></td>
+    <td class="ops">
+      ${m.status==='pending'?`<button class="btn xs" onclick="resend('${code}')">重发口令</button>`:`<button class="btn xs" onclick="openAdjust(${m.id})">调整额度</button>`}
+      <button class="btn xs" onclick="openAdjust(${m.id},'extend')">延期</button>
+      ${m.role==='owner'?'':`<span class="more"><button class="btn xs" onclick="toggleMenu(this)">更多 ▾</button><div class="menu">
+        <button onclick="toast('已打开 ${m.name} 的用量下钻')">查看用量</button><button onclick="toast('已打开 ${m.name} 的权限设置：工具范围 / 单日上限 / 角色')">权限与范围</button>${ent?`<button onclick="toast('调整部门')">调整部门</button>`:''}
+        <button class="${m.status==='disabled'?'':'danger'}" onclick="toggleMember(${m.id})">${m.status==='disabled'?'启用账号':'停用账号'}</button><button class="danger" onclick="removeMember(${m.id})">移除成员</button></div></span>`}
+    </td></tr>`}).join(''):'<tr><td colspan="7" class="empty">没有符合条件的成员</td></tr>'}
+  </tbody></table></div>
+  <div class="pager"><span>显示 ${list.length} / 共 ${ent?o.seats.used:ms.length} 位成员${ent?'（演示数据仅列出部分）':''}</span><div class="pg"><b class="on">1</b>${ent?'<b>2</b><b>3</b><b>4</b>':''}</div></div>`;
+}
+function toggleMenu(btn){ const m=btn.nextElementSibling; const open=m.classList.contains('show'); document.querySelectorAll('.menu.show').forEach(x=>x.classList.remove('show')); if(!open) m.classList.add('show'); event.stopPropagation(); }
+document.addEventListener('click',e=>{ if(!e.target.closest('.more')) document.querySelectorAll('.menu.show').forEach(x=>x.classList.remove('show')); });
+function toggleMember(id){ const m=members.find(x=>x.id===id); m.status=m.status==='disabled'?'active':'disabled'; toast(m.status==='disabled'?`已停用 ${m.name}，剩余 ${fmt(m.alloc-m.used)} 积分已回收至积分池`:`已启用 ${m.name}`); renderRight(); renderLeft(); }
+function removeMember(id){ const m=members.find(x=>x.id===id); if(!confirm(`移除 ${m.name}？其 Key 将立即失去组织额度，剩余 ${fmt(m.alloc-m.used)} 积分回收至积分池。`))return; members=members.filter(x=>x.id!==id); toast(`已移除 ${m.name}，释放 1 个席位`); renderRight(); renderLeft(); }
+function resend(code){ toast(`口令 ${code} 已通过短信重新发送，有效期重置为 7 天`); }
+
+function adminCredits(){
+  const o=org(); const ent=isEnt(); const ms=curMembers();
+  const byDept=DEPTS.map(d=>{const x=members.filter(m=>m.dept===d);return [d,x.reduce((a,m)=>a+m.alloc,0),x.reduce((a,m)=>a+m.used,0)]});
+  const flows=[['今天 15:02','消耗','周子航 · 基金诊断','-3','系统','1,187,660'],['今天 09:31','消耗','苏漫 · 财经资讯','-1','系统','1,187,663'],['09-20 16:12','分配（口令）','韩奕 · 席位激活口令','-20,000','林墨','—'],['09-15 09:10','追加（口令兑换）','周子航','-10,000','陈嘉禾','—'],['09-12 17:30','回收','郑柏然 · 停用','+50','陈嘉禾','—'],['09-01 00:00','回收','方知远 · 到期','+200','系统','—'],['09-01 00:00','月度重置','全体 · 按规则重置 31 人','—','系统','—'],['08-28 11:02','充值','订单 YM-20260828-0031','+500,000','陈嘉禾','—']];
+  return `
+  <div class="kpis">
+    <div class="kpi accent"><div class="l">积分池总量</div><div class="v">${fmt(o.credits.total)}</div><div class="d">有效期至 ${o.expire} · 到期未用积分按合同处理</div></div>
+    <div class="kpi"><div class="l">已分配给成员</div><div class="v">${fmt(o.credits.allocated)}</div><div class="d">${pct(o.credits.allocated,o.credits.total)}% · 含待激活口令中锁定的 ${fmt(curPasscodes().filter(p=>p.status==='unused').reduce((a,p)=>a+p.credits,0))}</div></div>
+    <div class="kpi"><div class="l">已消耗</div><div class="v">${fmt(o.credits.used)}</div><div class="d">日均 ${fmt(Math.round(o.credits.used/47))} · 本月 ${fmt(Math.round(o.monthCalls*1.3))}</div></div>
+    <div class="kpi"><div class="l">未分配（可划拨）</div><div class="v" style="color:var(--green)">${fmt(o.credits.total-o.credits.allocated)}</div><div class="d"><span class="link" onclick="toast('充值积分：进入订单流程')">充值</span> · <span class="link" onclick="openPasscode('topup')">生成追加口令</span></div></div>
+  </div>
+  <div class="g21 mt">
+    <div class="sec"><div class="hd">${ent?'各部门 分配 vs 消耗':'各成员 分配 vs 消耗'} <span class="legend"><span><i style="background:#2F6BFF"></i>已消耗</span><span><i style="background:#C9D8FF"></i>分配未用</span></span></div><div class="bd">${ent?barChart(byDept.map(d=>d[2]),{labels:byDept.map(d=>d[0]),stack:byDept.map(d=>d[1]-d[2]),color2:'#C9D8FF',h:190}):barChart(ms.map(m=>m.used),{labels:ms.map(m=>m.name),stack:ms.map(m=>m.alloc-m.used),color2:'#C9D8FF',h:190})}</div></div>
+    <div class="sec"><div class="hd">分配规则</div><div class="bd">
+      <div class="f"><label>默认新成员额度</label><div class="row"><input class="input" value="20,000 积分"><select class="input"><option>每月自动重置</option><option>一次性总量</option></select></div></div>
+      <div class="f"><label>默认使用期限</label><select class="input"><option>随组织到期（${o.expire}）</option><option>3 个月</option><option>6 个月</option><option>12 个月</option></select></div>
+      <div class="f"><label>预警与限流</label><div class="checks"><label><input type="checkbox" checked>剩余 &lt; 10% 提醒成员与管理员</label><label><input type="checkbox" checked>到期前 30 / 7 / 1 天提醒</label><label><input type="checkbox" checked>用尽后停止调用（不透支）</label><label><input type="checkbox">允许透支至 110%</label></div></div>
+      <div class="f"><label>回收策略</label><div class="checks"><label><input type="checkbox" checked>停用 / 移除立即回收</label><label><input type="checkbox" checked>到期自动回收</label><label><input type="checkbox">月末未用额度自动回收</label></div></div>
+      <button class="btn sm primary" onclick="toast('分配规则已保存，对新建账号生效')">保存规则</button>
+    </div></div>
+  </div>
+  <div class="sec mt"><div class="hd">积分流水 <span class="sub">充值 / 分配 / 口令 / 回收 / 消耗</span><div class="h-actions"><div class="seg"><button class="on">全部</button><button>充值</button><button>分配</button><button>回收</button><button>消耗</button></div><button class="btn xs" onclick="toast('流水已导出')">导出</button></div></div><div class="bd">
+    <table><thead><tr><th>时间</th><th>类型</th><th>对象</th><th style="text-align:right">积分</th><th>操作人</th><th style="text-align:right">池余额</th></tr></thead><tbody>
+    ${flows.map(f=>`<tr><td class="note num">${f[0]}</td><td><span class="badge ${f[1].startsWith('充值')?'b-green':f[1].startsWith('回收')?'b-blue':f[1].startsWith('消耗')?'b-gray':'b-purple'}">${f[1]}</span></td><td>${f[2]}</td><td class="num" style="text-align:right;color:${f[3].startsWith('+')?'var(--green)':f[3]==='—'?'var(--muted)':'var(--text)'};font-weight:600">${f[3]}</td><td class="note">${f[4]}</td><td class="num note" style="text-align:right">${f[5]}</td></tr>`).join('')}
+    </tbody></table></div></div>
+  <div class="callout mt" style="font-size:12px"><span>ⓘ</span><div><b>计费口径：</b>普通数据工具 1 积分 / 次；诊断 / 回测 / 配置方案类 3–5 积分 / 次；Skills 调用 10 积分 / 次。失败调用（参数错误、限流）不计积分。<a href="#">查看完整积分规则</a></div></div>`;
+}
+
+function adminPasscodes(){
+  const typeName={seat:['席位激活','b-blue'],topup:['积分追加','b-green'],extend:['期限延长','b-purple']};
+  const st={unused:['未使用','b-orange'],used:['已使用','b-green'],void:['已作废','b-gray'],expired:['已过期','b-red']};
+  const pcs=curPasscodes();
+  return `
+  <div class="callout" style="margin-bottom:12px"><span>🗝</span><div><b>口令（Passcode）</b>是把「席位 + 积分额度 + 使用期限 + 工具范围」打包成一串可发送的兑换码。成员在自己的个人中心输入即生效，管理员无需知道对方的且慢账号。口令一次有效、默认 7 天内可用、可随时作废。</div></div>
+  <div class="toolbar"><div class="seg"><button class="on">全部 ${pcs.length}</button><button>未使用 ${pcs.filter(p=>p.status==='unused').length}</button><button>已使用</button><button>已作废 / 过期</button></div><div class="seg"><button class="on">全部类型</button><button>席位激活</button><button>积分追加</button><button>期限延长</button></div><span class="sp"></span><button class="btn sm" onclick="toast('已复制 5 个未使用口令（含说明文案）')">复制全部未使用</button><button class="btn sm primary" onclick="openPasscode()">＋ 生成口令</button></div>
+  <table><thead><tr><th>口令</th><th>类型</th><th>指定对象</th><th>积分</th><th>使用期限</th><th>状态</th><th>生成 / 口令有效至</th><th>生成人</th><th>操作</th></tr></thead><tbody>
+  ${pcs.map(p=>`<tr><td><span class="code">${p.code}</span></td><td><span class="badge ${typeName[p.type][1]}">${typeName[p.type][0]}</span></td><td>${p.to}</td><td class="num">${p.credits?fmt(p.credits):'—'}</td><td class="num">${p.expire}</td><td><span class="badge ${st[p.status][1]} b-dot">${st[p.status][0]}</span></td><td class="note num">${p.created}<br>至 ${p.valid}</td><td class="note">${p.by}</td>
+    <td class="ops">${p.status==='unused'?`<button class="btn xs" onclick="copy('${p.code}','口令已复制')">复制</button><button class="btn xs" onclick="openSend('${p.code}')">发送</button><button class="btn xs ghost danger" onclick="voidCode('${p.code}')">作废</button>`:'<span class="note">—</span>'}</td></tr>`).join('')}
+  </tbody></table>
+  <div class="g2 mt">
+    <div class="sec"><div class="hd">口令激活漏斗 <span class="sub">近 90 天</span></div><div class="bd">${hbars(isEnt()?[['已生成',42],['已发送',40],['已兑换',35],['7 日内兑换',31]]:[['已生成',9],['已发送',9],['已兑换',7],['7 日内兑换',6]],{unit:'个',color:'var(--purple)'})}<div class="note mt">兑换率 83%，未兑换主要因短信被拦截；建议优先使用企微 / 邮件发送。</div></div></div>
+    <div class="sec"><div class="hd">发送模板 <span class="sub">短信 / 邮件 / 企微通用</span></div><div class="bd"><div class="codebox"><pre style="white-space:pre-wrap">【盈米AI开放平台】{组织名} 邀请你使用盈米 MCP。
+登录 qieman.com/mcp/account 输入口令 {口令} 即可激活，
+获得 {积分} 积分，有效期至 {期限}。口令 {口令有效至} 前有效。</pre></div><div class="mini-actions"><button class="btn xs" onclick="toast('模板已保存')">编辑模板</button></div></div></div>
+  </div>`;
+}
+function voidCode(c){ const p=passcodes.find(x=>x.code===c||x.code===c.replace('YM-TEAM','YM-ENT')); p.status='void'; toast(`口令 ${c} 已作废，锁定的 ${fmt(p.credits)} 积分已释放`); renderRight(); }
+
+function adminUsage(){
+  const ent=isEnt(); const ms=curMembers(); if(!ent&&state.usageDim==='dept')state.usageDim='member';
+  const rows=[...ms].filter(m=>m.month>0).sort((a,b)=>b.month-a.month);
+  const dims=[['member','按成员'],...(ent?[['dept','按部门']]:[]),['tool','按工具'],['platform','按平台']];
+  const dimData = state.usageDim==='dept'?DEPTS.map(d=>[d,members.filter(m=>m.dept===d).reduce((a,m)=>a+m.month,0)]).sort((a,b)=>b[1]-a[1])
+    : state.usageDim==='tool'?TOOLS.slice(0,10).map(t=>[t[0],sc(t[2]),t[1]])
+    : state.usageDim==='platform'?PLAT_DIST.map(p=>[p[0],Math.round(p[1]/100*org().monthCalls)])
+    : rows.slice(0,10).map(m=>[m.name,m.month,ent?m.dept:null]);
+  const S1=S_MCP.map(sc), S2=S_SK.map(sc), S3=S_CRED.map(sc);
+  return `
+  <div class="toolbar">
+    <div class="seg">${[['7','近 7 天'],['30','近 30 天'],['90','近 90 天'],['c','自定义']].map(r=>`<button class="${state.usageRange===r[0]?'on':''}" onclick="state.usageRange='${r[0]}';renderRight()">${r[1]}</button>`).join('')}</div>
+    <div class="seg">${dims.map(d=>`<button class="${state.usageDim===d[0]?'on':''}" onclick="state.usageDim='${d[0]}';renderRight()">${d[1]}</button>`).join('')}</div>
+    <select class="input" style="height:30px"><option>MCP + Skills</option><option>仅 MCP</option><option>仅 Skills</option></select>
+    ${ent?`<select class="input" style="height:30px"><option>全部部门</option>${DEPTS.map(d=>`<option>${d}</option>`).join('')}</select>`:''}
+    <span class="sp"></span><button class="btn sm" onclick="toast('已生成用量报表：CSV 明细 + PDF 汇总')">导出报表</button><button class="btn sm" onclick="toast('已订阅：每周一 9:00 发送用量周报至管理员邮箱')">订阅周报</button>
+  </div>
+  <div class="kpis five">
+    <div class="kpi"><div class="l">总调用</div><div class="v">${fmt(S1.reduce((a,b)=>a+b,0)+S2.reduce((a,b)=>a+b,0))}</div><div class="d up">▲ 18.6%</div></div>
+    <div class="kpi"><div class="l">积分消耗</div><div class="v">${fmt(S3.reduce((a,b)=>a+b,0))}</div><div class="d">≈ 1.36 积分 / 次</div></div>
+    <div class="kpi"><div class="l">活跃成员</div><div class="v">${ent?31:rows.length}<small>/ ${ent?org().seats.used:ms.length}</small></div><div class="d">人均 ${fmt(Math.round(rows.reduce((a,m)=>a+m.month,0)/rows.length))} 次 / 月</div></div>
+    <div class="kpi"><div class="l">成功率</div><div class="v">99.2%</div><div class="d">参数错误 0.6% · 限流 0.1% · 服务异常 0.1%</div></div>
+    <div class="kpi"><div class="l">平均耗时</div><div class="v">812<small>ms</small></div><div class="d">P95 2,310 ms（诊断类）</div></div>
+  </div>
+  <div class="g21 mt">
+    <div class="sec"><div class="hd">调用趋势 <span class="legend"><span><i style="background:#2F6BFF"></i>MCP</span><span><i style="background:#7C5CFF"></i>Skills</span></span></div><div class="bd">${barChart(S1,{stack:S2.map(v=>v*4),labels:DAYS.map((d,i)=>i%5===0?d:''),h:200})}</div></div>
+    <div class="sec"><div class="hd">工具类别分布</div><div class="bd">${donut(CATS,{size:130,stroke:16})}</div></div>
+  </div>
+  <div class="g2 mt">
+    <div class="sec"><div class="hd">${dims.find(d=>d[0]===state.usageDim)[1]} Top ${dimData.length} <span class="sub">调用次数</span></div><div class="bd">${hbars(dimData)}</div></div>
+    <div class="sec"><div class="hd">调用时段热力</div><div class="bd">${heatmap()}</div>
+      <div class="hd" style="padding-top:4px">异常与限流</div><div class="bd"><ul class="list"><li><span class="dot" style="background:var(--red)"></span>罗一鸣 · 自有系统 · 09-19 触发单日上限 2,000 次限流 3 次</li><li><span class="dot" style="background:var(--orange)"></span>「获取资产配置方案」参数错误率 4.2%，高于均值</li><li><span class="dot" style="background:var(--orange)"></span>组织 Key 出现 1 次非白名单 IP 访问（已拒绝）</li></ul></div></div>
+  </div>
+  <div class="sec mt"><div class="hd">成员用量明细 <span class="sub">点击成员可下钻到工具 / 平台 / 明细</span></div><div class="bd"><table><thead><tr><th>成员</th>${ent?'<th>部门</th>':''}<th style="text-align:right">调用次数</th><th style="text-align:right">积分消耗</th><th style="text-align:right">占比</th><th>Top 工具</th><th>主要平台</th><th style="text-align:right">成功率</th><th style="text-align:right">额度使用</th></tr></thead><tbody>
+    ${rows.map((m,i)=>{const tot=rows.reduce((a,x)=>a+x.month,0);return `<tr style="cursor:pointer" onclick="toast('下钻：${m.name} 的工具 / 平台 / 逐条调用明细')"><td><div class="who"><div class="av">${m.name[0]}</div><div class="nm">${m.name}</div></div></td>${ent?`<td class="note">${m.dept}</td>`:''}<td class="num" style="text-align:right">${fmt(m.month)}</td><td class="num" style="text-align:right">${fmt(Math.round(m.month*1.32))}</td><td class="num" style="text-align:right">${(m.month/tot*100).toFixed(1)}%</td><td class="note">${TOOLS[i%5][0]}</td><td class="note">${m.platform}</td><td class="num" style="text-align:right">${(99.6-i*.12).toFixed(1)}%</td><td><div class="q"><div class="bar"><i class="${barClass(pct(m.used,m.alloc))}" style="width:${pct(m.used,m.alloc)}%"></i></div></div></td></tr>`}).join('')}
+    </tbody></table></div></div>`;
+}
+
+function adminRequests(){
+  return `<div class="toolbar"><div class="seg"><button class="on">待审批 ${isEnt()?2:1}</button><button>已处理</button></div><span class="sp"></span><span class="note">审批通过后额度 / 期限即时生效，成员收到通知</span></div>
+  <table><thead><tr><th>申请时间</th><th>成员</th><th>类型</th><th>内容</th><th>理由</th><th>当前状态</th><th>操作</th></tr></thead><tbody>
+  <tr><td class="note">今天 15:05</td><td><div class="who"><div class="av">周</div><div><div class="nm">周子航</div><div class="ph">量化研究</div></div></div></td><td><span class="badge b-blue">追加积分</span></td><td>+ 10,000 积分</td><td class="note">Q4 组合回测批量任务</td><td class="note">已用 37,800 / 40,000（94.5%）</td><td class="ops"><button class="btn xs primary" onclick="toast('已通过：周子航 +10,000 积分，积分池未分配 -10,000')">通过</button><button class="btn xs" onclick="toast('已改为 +5,000 通过')">调整后通过</button><button class="btn xs ghost danger" onclick="toast('已驳回，成员收到通知')">驳回</button></td></tr>
+  ${isEnt()?`<tr><td class="note">昨天 18:42</td><td><div class="who"><div class="av">吴</div><div><div class="nm">吴晚晴</div><div class="ph">投顾服务</div></div></div></td><td><span class="badge b-purple">延长期限</span></td><td>2026-10-15 → 2027-03-31</td><td class="note">客户陪伴项目延续至明年 Q1</td><td class="note expire-soon">24 天后到期</td><td class="ops"><button class="btn xs primary" onclick="toast('已通过：吴晚晴 使用期限延至 2027-03-31')">通过</button><button class="btn xs" onclick="toast('已改为延至 2026-12-31 通过')">调整后通过</button><button class="btn xs ghost danger" onclick="toast('已驳回')">驳回</button></td></tr>`:''}
+  </tbody></table>`;
+}
+
+function adminBilling(){
+  const o=org(); const ent=isEnt();
+  return `
+  <div class="g21">
+    <div class="sec"><div class="hd">当前套餐</div><div class="bd">
+      <div style="display:flex;gap:16px;align-items:center"><div><div style="font-size:20px;font-weight:700">${o.planName} <span class="badge ${ent?'b-gold':'b-blue'}">${ent?'年付 · 合同客户':'年付'}</span></div><div class="note">${o.seats.total} 席位 · ${fmt(o.credits.total)} 积分 / 年 · 服务至 ${o.expire}</div></div><span class="sp" style="flex:1"></span><button class="btn" onclick="toast('加购席位')">加购席位</button><button class="btn" onclick="toast('充值积分')">充值积分</button><button class="btn primary" onclick="toast('续费 / 升级')">续费${ent?'':' / 升级企业版'}</button></div>
+      <div class="kpis mt" style="grid-template-columns:repeat(3,1fr)">
+        <div class="kpi"><div class="l">席位</div><div class="v">${o.seats.used}<small>/ ${o.seats.total}</small></div><div class="d">${ent?'¥ 1,200 / 席 / 年':'¥ 800 / 席 / 年'} · 加购按剩余月份折算</div></div>
+        <div class="kpi"><div class="l">积分包</div><div class="v">${fmt(o.credits.total)}</div><div class="d">${ent?'¥ 0.06 / 积分 · 阶梯优惠':'¥ 0.08 / 积分'} · 加购不限次数</div></div>
+        <div class="kpi"><div class="l">下次续费</div><div class="v">${o.expire}</div><div class="d">${ent?'合同自动续期 · 提前 60 天确认':'到期前 30 天提醒'}</div></div>
+      </div>
+    </div></div>
+    <div class="sec"><div class="hd">发票与付款</div><div class="bd"><div class="kv" style="margin:0;padding:0;border:0;grid-template-columns:70px 1fr;font-size:12px"><span class="k">抬头</span><span class="v">${ent?'盈米资管科技有限公司':'量化研究小组（个人抬头：陈嘉禾）'}</span><span class="k">税号</span><span class="v">${ent?'9144****3K2Z9Q':'—'}</span><span class="k">付款方式</span><span class="v">${ent?'对公转账 · 30 天账期':'在线支付（微信 / 支付宝 / 企业网银）'}</span><span class="k">通知邮箱</span><span class="v">finance@***.com</span></div><div class="mini-actions" style="margin-top:10px"><button class="btn sm">编辑开票信息</button>${ent?'<button class="btn sm">下载合同</button>':''}</div></div></div>
+  </div>
+  <div class="sec mt"><div class="hd">账单记录</div><div class="bd"><table><thead><tr><th>时间</th><th>订单号</th><th>项目</th><th style="text-align:right">金额</th><th>状态</th><th>发票</th><th></th></tr></thead><tbody>
+    <tr><td class="note">2026-08-28</td><td class="code">YM-20260828-0031</td><td>积分包 500,000</td><td class="num" style="text-align:right">¥ ${ent?'30,000':'40,000'}.00</td><td><span class="badge b-green">已支付</span></td><td><span class="badge b-green">已开票</span></td><td><span class="link">下载</span></td></tr>
+    <tr><td class="note">2026-06-15</td><td class="code">YM-20260615-0187</td><td>加购 10 席位（剩余 9.5 月折算）</td><td class="num" style="text-align:right">¥ ${ent?'9,500':'6,333'}.00</td><td><span class="badge b-green">已支付</span></td><td><span class="badge b-green">已开票</span></td><td><span class="link">下载</span></td></tr>
+    <tr><td class="note">2026-03-02</td><td class="code">YM-20260302-0004</td><td>${o.planName} 年费 · ${ent?'40':'10'} 席位 + ${fmt(o.credits.total-500000)} 积分</td><td class="num" style="text-align:right">¥ ${ent?'138,000':'24,000'}.00</td><td><span class="badge b-green">已支付</span></td><td><span class="badge b-green">已开票</span></td><td><span class="link">下载</span></td></tr>
+  </tbody></table></div></div>
+  <div class="mt">${plansHtml(o.plan)}</div>`;
+}
+function adminAudit(){
+  const logs=[['今天 15:10','陈嘉禾','查看','用量统计 · 按部门导出 CSV','10.21.3.8'],['今天 14:02','林墨','轮换','组织 Key（旧 Key 24h 后失效）','10.21.3.15'],['09-20 16:12','林墨','生成口令','韩奕 · 席位激活 · 20,000 积分','10.21.3.15'],['09-18 10:40','陈嘉禾','生成口令','唐诗涵 · 席位激活 · 15,000 积分','10.21.3.8'],['09-15 09:10','陈嘉禾','追加额度','周子航 +10,000（口令兑换）','10.21.3.8'],['09-12 17:30','陈嘉禾','停用成员','郑柏然 · 备注：离职 · 回收 50 积分','10.21.3.8'],['09-10 11:20','林墨','生成口令','未指定 · 席位激活 · 20,000 积分','10.21.3.15'],['09-05 09:00','系统','拒绝访问','组织 Key 来自非白名单 IP 61.**.**.12','—'],['09-01 00:00','系统','月度重置','31 位成员额度按规则重置','—'],['08-28 11:02','陈嘉禾','充值','积分包 500,000 · 订单 YM-20260828-0031','10.21.3.8']];
+  return `<div class="toolbar"><input class="input search" placeholder="搜索操作人 / 对象 / 内容"><div class="seg"><button class="on">全部</button><button>成员管理</button><button>额度与口令</button><button>Key 与安全</button><button>系统</button></div><select class="input" style="height:30px"><option>近 30 天</option><option>近 90 天</option><option>自定义</option></select><span class="sp"></span><button class="btn sm" onclick="toast('审计日志已导出（含签名，可供合规留档）')">导出</button></div>
+  <div class="callout" style="margin-bottom:12px;font-size:12px"><span>🛡</span><div>企业版审计日志保留 <b>2 年</b>，记录所有管理操作、Key 事件与安全拒绝；日志只读、不可删除，支持对接企业 SIEM。</div></div>
+  <table><thead><tr><th>时间</th><th>操作人</th><th>动作</th><th>对象 / 内容</th><th>来源 IP</th></tr></thead><tbody>${logs.map(l=>`<tr><td class="note num">${l[0]}</td><td>${l[1]}</td><td><span class="badge ${l[2].includes('拒绝')?'b-red':l[2].includes('停用')?'b-gray':l[2].includes('口令')||l[2].includes('额度')?'b-purple':'b-blue'}">${l[2]}</span></td><td>${l[3]}</td><td class="note num">${l[4]}</td></tr>`).join('')}</tbody></table>`;
+}
+
+/* =====================================================================
+   套餐对比
+   ===================================================================== */
+function plansHtml(cur){
+  return `<div class="plans">
+    <div class="plan ${cur==='personal'?'cur':''}"><div class="nm">个人版</div><div class="pr">免费</div><div class="for">个人开发者 / 探索体验</div><ul>
+      <li>每日 MCP 200 次 · Skills 20 次</li><li>全部 72 个 MCP 工具</li><li>个人 API Key · 个人用量统计</li><li class="no">多人共享额度</li><li class="no">积分分配 / 口令</li><li class="no">组织用量汇总</li></ul>${cur==='personal'?'<div class="mt"><span class="badge b-blue">当前套餐</span></div>':''}</div>
+    <div class="plan hi ${cur==='team'?'cur':''}"><span class="badge b-orange tag">小团队推荐</span><div class="nm">团队版</div><div class="pr">¥ 800<small> / 席 / 年 起</small></div><div class="for">2–10 人研究 / 投顾小组</div><ul>
+      <li>共享积分池 · 按人分配额度与期限</li><li>口令一键开通 · 席位增减</li><li>全队用量统计与导出</li><li>成员申请 / 管理员审批</li><li class="no">部门 / 部门管理员</li><li class="no">组织 Key · IP 白名单 · SSO · 审计</li></ul>${cur==='team'?'<div class="mt"><span class="badge b-blue">当前套餐</span></div>':'<button class="btn primary sm block mt" onclick="toast(\'开通团队版：选择席位数与积分包 → 在线支付 → 立即生效\')">开通团队版</button>'}</div>
+    <div class="plan ${cur==='enterprise'?'cur':''}"><div class="nm">企业版</div><div class="pr">按合同<small> · 阶梯积分价</small></div><div class="for">金融机构 / 多部门 / 系统级接入</div><ul>
+      <li>团队版全部能力 · 不限席位</li><li>部门与部门管理员 · 分级预算</li><li>组织共享 Key · IP 白名单 · Key 轮换</li><li>企业微信 / 飞书 SSO 自动建号</li><li>审计日志 2 年 · 合规导出</li><li>专属客户经理 · 对公账期 · 发票合同</li></ul>${cur==='enterprise'?'<div class="mt"><span class="badge b-gold">当前套餐</span></div>':'<button class="btn sm block mt" onclick="toast(\'企业版：提交需求 → 客户经理 1 个工作日内联系\')">联系商务</button>'}</div>
+  </div>`;
+}
+function openPlans(){ openModal('套餐对比 · 个人版 / 团队版 / 企业版', plansHtml(state.view==='personal'||state.view==='member-pending'?'personal':org().plan)+`<div class="callout mt" style="font-size:12px"><span>ⓘ</span><div>三种套餐共用同一个个人中心页面与同一套接入配置：<b>身份决定看到什么</b>——个人版看自己、成员看自己 + 所属组织额度、管理员看整个组织。升级不需要更换 Key。</div></div>`); }
+
+/* =====================================================================
+   抽屉：新建账号 / 生成口令 / 调整额度 / 发送口令 / 成员申请
+   ===================================================================== */
+const D=document.getElementById('drawer'), M=document.getElementById('modal'), MASK=document.getElementById('mask');
+function openDrawer(title,body,foot){ D.innerHTML=`<div class="dh">${title}<button class="x" onclick="closeAll()">×</button></div><div class="db">${body}</div><div class="df">${foot}</div>`; D.classList.add('show'); MASK.classList.add('show'); }
+function openModal(title,body){ M.innerHTML=`<div class="dh">${title}<button class="x" onclick="closeAll()">×</button></div><div class="db">${body}</div>`; M.classList.add('show'); MASK.classList.add('show'); }
+function closeAll(){ D.classList.remove('show'); M.classList.remove('show'); MASK.classList.remove('show'); }
+function pick(el){ [...el.parentElement.children].forEach(c=>c.classList.remove('on')); el.classList.add('on'); }
+function chipToggle(el){ el.classList.toggle('on'); }
+
+function openCreate(){
+  const ent=isEnt(); const o=org();
+  openDrawer('新建账号 <span class="note" style="font-weight:400;margin-left:8px">占用 1 席位 · 剩余 '+(o.seats.total-o.seats.used)+'</span>',`
+  <div class="f"><label>成员姓名 <span class="req">*</span></label><input class="input" id="c_name" placeholder="用于组织内显示"></div>
+  <div class="f"><div class="row"><div><label>手机号 <span class="hint">用于发送口令 / 匹配且慢账号</span></label><input class="input" id="c_phone" placeholder="138 0000 0000"></div><div><label>邮箱 <span class="hint">可选</span></label><input class="input" placeholder="name@company.com"></div></div></div>
+  <div class="f"><label>角色</label><div class="radio-cards">
+    <div class="rc on" onclick="pick(this)"><b>成员</b><span>使用分配的额度，只看自己的用量</span></div>
+    <div class="rc" onclick="pick(this)"><b>管理员</b><span>管理成员、额度、口令，看全组织用量</span></div>
+    ${ent?`<div class="rc" onclick="pick(this)"><b>部门管理员</b><span>仅管理本部门成员与预算</span></div><div class="rc" onclick="pick(this)"><b>只读观察者</b><span>财务 / 审计：只看报表与账单</span></div>`:''}
+  </div></div>
+  ${ent?`<div class="f"><label>部门</label><select class="input">${DEPTS.map(d=>`<option>${d}</option>`).join('')}<option>＋ 新建部门…</option></select></div>`:''}
+  <div class="f"><label>积分额度 <span class="hint">未分配可用 ${fmt(o.credits.total-o.credits.allocated)}</span></label><div class="row"><input class="input" id="c_credits" value="20000"><select class="input"><option>每月自动重置为该额度</option><option>一次性总量（用完即止）</option></select></div>
+    <div class="chips" style="margin-top:8px">${[5000,10000,20000,50000].map(v=>`<button class="chip ${v===20000?'on':''}" onclick="pick(this);document.getElementById('c_credits').value=${v}">${fmt(v)}</button>`).join('')}</div></div>
+  <div class="f"><label>使用期限</label><div class="chips">${['1 个月','3 个月','6 个月','12 个月',`随组织到期 ${o.expire}`].map((v,i)=>`<button class="chip ${i===4?'on':''}" onclick="pick(this)">${v}</button>`).join('')}</div><input class="input" style="margin-top:8px" value="${o.expire}" id="c_expire"></div>
+  <div class="f"><label>工具范围</label><div class="checks"><label><input type="checkbox" checked>盈米 MCP · 全部 72 个工具</label><label><input type="checkbox">仅勾选类别（基金数据 / 投顾…）</label><label><input type="checkbox" checked>盈米 Skills · 5 个默认</label><label><input type="checkbox">单日上限 <input class="input" style="width:70px;height:24px;display:inline-block;min-width:0" value="2000"> 次</label></div></div>
+  <div class="f"><label>开通方式</label><div class="radio-cards">
+    <div class="rc on" onclick="pick(this)"><b>生成口令发送给对方</b><span>对方登录且慢账号输入口令即激活（推荐）</span></div>
+    <div class="rc" onclick="pick(this)"><b>直接绑定且慢账号</b><span>手机号已注册且慢时可直接开通，无需口令</span></div>
+  </div></div>`,
+  `<button class="btn" onclick="closeAll()">取消</button><button class="btn" onclick="createMember(false)">保存为草稿</button><button class="btn primary" onclick="createMember(true)">创建并生成口令</button>`);
+}
+function createMember(withCode){
+  const name=document.getElementById('c_name').value.trim()||'新成员'; const credits=+String(document.getElementById('c_credits').value).replace(/,/g,'')||20000; const expire=document.getElementById('c_expire').value||org().expire;
+  const code=genCode(isEnt()?'YM-ENT':'YM-TEAM');
+  members.unshift({id:Date.now(),name,phone:(document.getElementById('c_phone').value||'1**').slice(0,3)+'****'+String(Math.floor(Math.random()*9000+1000)),role:'member',dept:DEPTS[0],status:'pending',alloc:credits,used:0,expire,platform:'—',month:0,last:'—',joined:'—',code,codeExp:'2026-09-28',team:!isEnt()});
+  passcodes.unshift({code,type:'seat',to:name,credits,expire,status:'unused',created:'今天 '+new Date().toTimeString().slice(0,5),valid:'09-28',by:'陈嘉禾',team:!isEnt()});
+  const o=org(); o.seats.used++; o.credits.allocated+=credits;
+  closeAll(); state.tab='members'; state.mfilter='all'; renderRight(); renderLeft();
+  if(withCode) setTimeout(()=>openSend(code,name,credits,expire),200); else toast('已保存草稿');
+}
+function openSend(code,name,credits,expire){
+  const p=passcodes.find(x=>x.code===code)||{to:name,credits,expire}; const o=org();
+  openDrawer('发送口令',`
+  <div class="pass-preview"><div class="code">${code}</div><div class="meta">${p.to||name} · 席位激活 · ${fmt(p.credits||credits)} 积分 · 有效期至 ${p.expire||expire} · 口令 7 天内可用</div></div>
+  <div class="f mt"><label>发送方式</label><div class="send-ways">
+    <button class="btn" onclick="copy('${code}','口令已复制')">复制口令</button><button class="btn" onclick="toast('短信已发送至成员手机')">短信</button><button class="btn" onclick="toast('邮件已发送')">邮件</button><button class="btn" onclick="toast('已通过企业微信发送')">企微</button></div></div>
+  <div class="f"><label>消息预览</label><textarea readonly>【盈米AI开放平台】${o.short||o.name} 邀请你使用盈米 MCP。登录 qieman.com/mcp/account 输入口令 ${code} 即可激活，获得 ${fmt(p.credits||credits)} 积分，有效期至 ${p.expire||expire}。口令 7 天内有效。</textarea></div>
+  <div class="f"><label>带口令的链接 <span class="hint">点击即自动填入</span></label><div class="keybox"><span class="k">https://qieman.com/mcp/account?join=${code}</span><button class="btn xs" onclick="copy('https://qieman.com/mcp/account?join=${code}','链接已复制')">复制</button></div></div>
+  <div class="callout" style="font-size:12px"><span>ⓘ</span><div>对方兑换后，本页「账号与成员」中的状态自动变为「已激活」，并开始出现用量。7 天未兑换口令会失效并释放锁定的积分，可在「口令管理」重发。</div></div>`,
+  `<button class="btn" onclick="closeAll()">稍后发送</button><button class="btn primary" onclick="toast('已发送');closeAll()">发送并关闭</button>`);
+}
+function openPasscode(type='seat'){
+  const o=org();
+  openDrawer('生成口令',`
+  <div class="f"><label>口令类型</label><div class="radio-cards" style="grid-template-columns:1fr 1fr 1fr">
+    <div class="rc ${type==='seat'?'on':''}" onclick="pick(this)"><b>席位激活</b><span>新成员加入，占用席位</span></div>
+    <div class="rc ${type==='topup'?'on':''}" onclick="pick(this)"><b>积分追加</b><span>给已有成员加额度</span></div>
+    <div class="rc ${type==='extend'?'on':''}" onclick="pick(this)"><b>期限延长</b><span>延长已有成员到期日</span></div></div></div>
+  <div class="f"><div class="row"><div><label>生成数量</label><input class="input" value="1"></div><div><label>指定对象 <span class="hint">可留空为通用口令</span></label><select class="input"><option>（不指定，谁兑换谁获得）</option>${members.filter(m=>m.status==='active').map(m=>`<option>${m.name}</option>`).join('')}</select></div></div></div>
+  <div class="f"><div class="row"><div><label>每个口令积分</label><input class="input" value="20000"></div><div><label>使用期限</label><input class="input" value="${o.expire}"></div></div></div>
+  <div class="f"><label>口令有效时间</label><div class="chips">${['24 小时','3 天','7 天','30 天'].map((v,i)=>`<button class="chip ${i===2?'on':''}" onclick="pick(this)">${v}</button>`).join('')}</div></div>
+  <div class="f"><label>备注 <span class="hint">仅管理员可见</span></label><input class="input" placeholder="如：Q4 新入职批次"></div>
+  <div class="callout" style="font-size:12px"><span>ⓘ</span><div>生成即从「未分配积分」中<b>锁定</b>对应积分；未兑换过期或作废后自动释放。批量生成的口令可一键复制为表格发给 HR / 部门负责人分发。</div></div>`,
+  `<button class="btn" onclick="closeAll()">取消</button><button class="btn primary" onclick="genPasscodes()">生成</button>`);
+}
+function genPasscodes(){ const code=genCode(isEnt()?'YM-ENT':'YM-TEAM'); passcodes.unshift({code,type:'seat',to:'（未指定）',credits:20000,expire:org().expire,status:'unused',created:'今天 '+new Date().toTimeString().slice(0,5),valid:'09-28',by:'陈嘉禾',team:!isEnt()}); closeAll(); state.tab='passcodes'; renderRight(); toast(`已生成口令 ${code}，锁定 20,000 积分`); }
+function openAdjust(id,mode){
+  const m=members.find(x=>x.id===id); const o=org();
+  openDrawer(`${mode==='extend'?'延长期限':'调整额度'} · ${m.name}`,`
+  <div class="sec"><div class="bd"><div class="who" style="display:flex;gap:10px;align-items:center"><div class="av" style="width:36px;height:36px;border-radius:50%;background:#E8EDF7;display:grid;place-items:center;font-weight:600">${m.name[0]}</div><div><b>${m.name}</b> <span class="badge ${roleBadge(m.role)}">${roleName[m.role]}</span><div class="note">${m.dept} · 本月 ${fmt(m.month)} 次 · 最近活跃 ${m.last}</div></div></div>
+    <div class="quota mt"><div class="row"><span>当前积分</span><b>${fmt(m.used)} / ${fmt(m.alloc)}</b></div><div class="bar"><i class="${barClass(pct(m.used,m.alloc))}" style="width:${pct(m.used,m.alloc)}%"></i></div></div>
+    <div class="quota"><div class="row"><span>使用期限</span><b>${m.expire}</b></div></div></div></div>
+  ${mode==='extend'?`<div class="f mt"><label>新的到期日</label><div class="chips">${['+1 个月','+3 个月','+6 个月',`随组织到期 ${o.expire}`].map((v,i)=>`<button class="chip ${i===3?'on':''}" onclick="pick(this)">${v}</button>`).join('')}</div><input class="input" style="margin-top:8px" id="a_val" value="${o.expire}"></div>`
+  :`<div class="f mt"><label>调整方式</label><div class="radio-cards"><div class="rc on" onclick="pick(this)"><b>追加</b><span>在当前额度上增加</span></div><div class="rc" onclick="pick(this)"><b>重设额度</b><span>直接设为新数值</span></div></div></div>
+    <div class="f"><label>积分 <span class="hint">未分配可用 ${fmt(o.credits.total-o.credits.allocated)}</span></label><input class="input" id="a_val" value="10000"><div class="chips" style="margin-top:8px">${[5000,10000,20000].map(v=>`<button class="chip ${v===10000?'on':''}" onclick="pick(this);document.getElementById('a_val').value=${v}">+${fmt(v)}</button>`).join('')}</div></div>
+    <div class="f"><label>同时调整</label><div class="checks"><label><input type="checkbox">单日调用上限</label><label><input type="checkbox">工具范围</label></div></div>`}
+  <div class="f"><label>备注</label><input class="input" placeholder="如：Q4 回测项目"></div>
+  <div class="f"><label>生效方式</label><div class="radio-cards"><div class="rc on" onclick="pick(this)"><b>立即生效</b><span>直接写入成员额度并通知</span></div><div class="rc" onclick="pick(this)"><b>生成口令</b><span>由成员自行兑换后生效</span></div></div></div>`,
+  `<button class="btn" onclick="closeAll()">取消</button><button class="btn primary" onclick="applyAdjust(${id},'${mode||'credit'}')">确认</button>`);
+}
+function applyAdjust(id,mode){ const m=members.find(x=>x.id===id); const v=document.getElementById('a_val').value; if(mode==='extend'){ m.expire=v; toast(`${m.name} 使用期限已延至 ${v}`);} else { const n=+String(v).replace(/,/g,'')||0; m.alloc+=n; org().credits.allocated+=n; toast(`${m.name} 已追加 ${fmt(n)} 积分`);} closeAll(); renderRight(); renderLeft(); }
+function openRequest(){
+  openDrawer('申请追加额度 / 延期',`
+  <div class="f"><label>申请类型</label><div class="radio-cards"><div class="rc on" onclick="pick(this)"><b>追加积分</b><span>当前剩余 2,200 / 40,000</span></div><div class="rc" onclick="pick(this)"><b>延长期限</b><span>当前至 2026-12-31</span></div></div></div>
+  <div class="f"><label>申请数量</label><div class="chips">${[5000,10000,20000].map((v,i)=>`<button class="chip ${i===1?'on':''}" onclick="pick(this)">+${fmt(v)}</button>`).join('')}</div></div>
+  <div class="f"><label>理由 <span class="hint">管理员可见</span></label><textarea placeholder="说明用途，有助于更快审批">Q4 组合回测批量任务，预计调用 8,000 次「基金诊断」「回测分析」。</textarea></div>
+  <div class="callout" style="font-size:12px"><span>ⓘ</span><div>申请将推送给管理员 陈嘉禾、林墨。通常 1 个工作日内处理；通过后立即生效，无需重新配置。</div></div>`,
+  `<button class="btn" onclick="closeAll()">取消</button><button class="btn primary" onclick="toast('申请已提交，管理员已收到通知');closeAll()">提交申请</button>`);
+}
+
+/* URL ?join= 自动进入待激活视图 */
+(function(){ const q=new URLSearchParams(location.search); const j=q.get('join'); if(j){ state.view='member-pending'; } const v=q.get('view'); if(v&&VIEWS.some(x=>x.id===v)) state.view=v; if(isAdmin())state.tab='overview'; else state.tab=state.view==='personal'?'stats':'usage'; const t=q.get('tab'); if(t) state.tab=t; })();
+render();
+(function(){ const q=new URLSearchParams(location.search); if(q.get('join')) document.getElementById('joincode').value=q.get('join');
+  const op=q.get('open'); if(op==='create')openCreate(); else if(op==='passcode')openPasscode(); else if(op==='plans')openPlans(); else if(op==='adjust')openAdjust(3); else if(op==='send')openSend('YM-ENT-4H8K-2ZQ7'); else if(op==='request')openRequest(); })();
+</script>
+</body>
+</html>
