@@ -10,6 +10,7 @@ CUT='2026-09-17 16:45:49'          # 与看板 data_cutoff 一致
 python3 $S/fetch.py $W/candidates.json "<候选 SQL>" 900
 # 2. 明细：trades / risk / asks / assets(ta 序列) / device / flows(ROOT input/output) —— 字段名见 assemble-users.py
 python3 $S/fetch.py $W/d_trades.json "..." ; ... d_risk d_asks d_assets d_device d_flows
+#    ↑ 以上两步（含第 3 步的 m_*.json）已固化为一条命令：CASE_CUT="$CUT" CASE_AD=<资产快照日> CASE_WORK=$W $S/fetch-all.sh
 # 3. 归一化 + 生成 + 加密
 cp $S/narratives.json $W/            # 已有个例的手写叙事与渠道判定（按 pmid），新用户可追加
 python3 $S/assemble-users.py $W "$CUT" <bound_total>
