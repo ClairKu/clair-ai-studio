@@ -154,8 +154,10 @@
         input::placeholder { color: #9ba1a9; letter-spacing: 0; }
         button { width: 46px; height: 46px; flex: 0 0 46px; border: 0; border-radius: 10px; background: #18202a; color: #fff; font: 22px/1 inherit; cursor: pointer; box-shadow: 0 8px 20px rgb(24 32 42 / 16%); }
         button:hover { background: #2b3644; transform: translateY(-1px); }
-        button:disabled { cursor: wait; opacity: .58; transform: none; }
-        .error { min-height: 20px; margin: 10px 4px 0; color: #b4232d; font-size: 13px; }
+        button:disabled { cursor: wait; opacity: .72; transform: none; }
+        button.is-busy { animation: clair-gate-pulse 1s ease-in-out infinite alternate; }
+        .status { min-height: 20px; margin: 10px 4px 0; color: #737b87; font-size: 13px; }
+        .status[data-state="error"] { color: #b4232d; }
         .foot { margin-top: 24px; color: #9297a0; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
         .foot::before { content: "\u25cf"; margin-right: 7px; color: #6c72f6; }
         @media (max-width: 520px) {
@@ -163,7 +165,8 @@
           .card { padding: 34px 26px; border-radius: 24px; }
           h1 { margin-top: 42px; }
         }
-        @media (prefers-reduced-motion: reduce) { button { transition: none; } }
+        @keyframes clair-gate-pulse { to { opacity: .5; } }
+        @media (prefers-reduced-motion: reduce) { button { transition: none; animation: none; } }
       </style>
       <main class="card">
         <div class="brand"><span class="mark">C</span><span>${profile.brandLabel}</span></div>
@@ -172,10 +175,10 @@
         <form novalidate>
           <label for="clair-access-password">${profile.fieldLabel}</label>
           <div class="password-row">
-            <input id="clair-access-password" name="password" type="password" inputmode="numeric" autocomplete="current-password" placeholder="${profile.fieldLabel}" autofocus />
+            <input id="clair-access-password" name="password" type="password" inputmode="numeric" autocomplete="current-password" enterkeyhint="go" placeholder="${profile.fieldLabel}" autofocus />
             <button type="submit" aria-label="验证并进入">→</button>
           </div>
-          <p class="error" role="alert" aria-live="polite"></p>
+          <p class="status" role="status" aria-live="polite"></p>
         </form>
         <div class="foot">${profile.foot}</div>
       </main>
@@ -185,28 +188,63 @@
     const form = shadow.querySelector("form");
     const input = shadow.querySelector("input");
     const button = shadow.querySelector("button");
-    const error = shadow.querySelector(".error");
+    const status = shadow.querySelector(".status");
 
-    form.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      const password = input.value;
-      error.textContent = "";
-      button.disabled = true;
-      input.disabled = true;
+    let verifying = false;
+    const setBusy = (busy) => {
+      button.classList.toggle("is-busy", busy);
+      button.textContent = busy ? "\u2026" : "\u2192";
+      button.setAttribute("aria-busy", String(busy));
+      button.disabled = busy;
+      // Toggling readOnly (not disabled) keeps the field focused and the mobile
+      // keyboard open, and preserves the typed value while PBKDF2 runs.
+      input.readOnly = busy;
+      form.setAttribute("aria-busy", String(busy));
+    };
+
+    const attempt = async () => {
+      if (verifying) return;
+      // Tolerate stray whitespace from autofill, IME, or copy-paste.
+      const password = input.value.trim();
+      status.removeAttribute("data-state");
+      if (!password) {
+        status.dataset.state = "error";
+        status.textContent = `请输入${profile.fieldLabel}`;
+        input.focus();
+        return;
+      }
+      verifying = true;
+      status.textContent = "正在验证，请稍候…";
+      setBusy(true);
+      // Let the busy state paint before the (slow) key derivation blocks the thread.
+      await new Promise((resolve) => requestAnimationFrame(() => resolve()));
       try {
         if (await verifyPassword(password)) {
           input.value = "";
+          status.textContent = "验证成功，正在进入…";
           unlock();
           return;
         }
-        error.textContent = "密码不正确，请再试一次";
+        status.dataset.state = "error";
+        status.textContent = "密码不正确，请再试一次";
       } catch {
-        error.textContent = "当前浏览器无法完成验证，请升级后重试";
+        status.dataset.state = "error";
+        status.textContent = "当前浏览器无法完成验证，请升级后重试";
       }
-      button.disabled = false;
-      input.disabled = false;
+      verifying = false;
+      setBusy(false);
       input.select();
       input.focus();
+    };
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      attempt();
+    });
+    input.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter") return;
+      event.preventDefault();
+      form.requestSubmit();
     });
 
     requestAnimationFrame(() => input.focus());

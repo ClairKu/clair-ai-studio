@@ -35,6 +35,19 @@ test("uses a derived password verifier without a plaintext credential", () => {
   assert.doesNotMatch(source, /password\s*[!=]==?\s*["'][^"']+["']/i);
 });
 
+test("shared gate submits reliably: trims input, guards re-entry, keeps the field usable", () => {
+  const source = readFileSync(gatePath, "utf8");
+  // Stray whitespace from autofill/IME/paste must not reject a correct password.
+  assert.match(source, /input\.value\.trim\(\)/);
+  // A single in-flight verification blocks concurrent submits (no double-submit race).
+  assert.match(source, /if\s*\(verifying\)\s*return/);
+  // The field is made read-only (not disabled) so focus and the mobile keyboard survive.
+  assert.match(source, /input\.readOnly\s*=\s*busy/);
+  assert.doesNotMatch(source, /input\.disabled\s*=\s*true/);
+  // A visible progress state is shown before the slow key derivation blocks the thread.
+  assert.match(source, /正在验证，请稍候/);
+});
+
 test("gates published HTML entries except the independently encrypted ones", () => {
   const htmlPaths = walkHtml(docsRoot);
   assert.ok(htmlPaths.length > 1);
