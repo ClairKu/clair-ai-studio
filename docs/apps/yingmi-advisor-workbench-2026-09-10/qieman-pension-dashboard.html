@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex,nofollow" />
+<title>颐养天年 · 产品数据看板</title>
+<style>
+:root{
+  --brand:#8A6D3C; --brand-deep:#6E5730; --brand-050:#F4EFE3; --brand-100:#E3D8BE;
+  --bg:#F3F1EA; --panel:#FCFBF7; --panel-2:#F5F2E9; --line:#E4DFD1; --line-2:#ECE8DB;
+  --ink:#1F2227; --sub:#5C5E60; --faint:#9B9688;
+  --up:#B04A44; --up-bg:#F6E9E6; --down:#3F7355; --down-bg:#E7EFE8;
+  --warn:#9C7423; --warn-bg:#F4ECDA;
+  --equity:#8A6D3C; --bond:#3F7355; --violet:#7A6C8F;
+  --font:"Songti SC","STSong","STZhongsong","Noto Serif SC","SimSun",serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--ink);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+.num{font-variant-numeric:tabular-nums}
+.wrap{max-width:1120px;margin:0 auto;padding:0 28px 80px}
+a{color:var(--brand);text-decoration:none}
+
+/* 顶栏 */
+.topbar{background:var(--ink);color:#F3F1EA;height:56px;display:flex;align-items:center;position:sticky;top:0;z-index:20}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;padding-top:0;padding-bottom:0;width:100%}
+.topbar .logo{display:flex;align-items:center;gap:12px;font-size:14px;letter-spacing:3px}
+.topbar .logo i{width:26px;height:26px;border:1px solid var(--brand);display:grid;place-items:center;font-style:normal;color:var(--brand);font-size:13px;letter-spacing:0}
+.topbar .meta{font-size:12px;color:#B8B09A;letter-spacing:1px}
+.topbar .meta b{color:#E3D8BE;font-weight:500}
+
+/* 视图切换 */
+.hero{padding:44px 0 22px;border-bottom:1px solid var(--line)}
+.kicker{font-size:12px;letter-spacing:4px;color:var(--brand);text-transform:uppercase}
+.hero h1{font-size:34px;line-height:1.3;font-weight:700;margin-top:12px;letter-spacing:1px}
+.hero h1 span{color:var(--brand)}
+.hero .lead{margin-top:12px;font-size:15.5px;color:var(--sub);max-width:820px}
+.switch{margin-top:26px;display:inline-flex;border:1px solid var(--brand-100);background:var(--panel);padding:4px;gap:4px}
+.switch button{font-family:inherit;font-size:15px;padding:10px 26px;border:0;background:transparent;color:var(--sub);cursor:pointer;letter-spacing:1px;transition:.18s;position:relative}
+.switch button .n{font-size:11px;letter-spacing:2px;color:var(--faint);display:block;margin-bottom:2px}
+.switch button.on{background:var(--ink);color:#F3F1EA}
+.switch button.on .n{color:var(--brand-100)}
+
+.view{display:none}
+.view.on{display:block;animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* 章节 */
+section{padding:40px 0 0}
+.sec-h{display:flex;align-items:baseline;gap:16px;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:24px}
+.sec-h .no{font-size:13px;letter-spacing:3px;color:var(--brand);font-weight:600}
+.sec-h h2{font-size:23px;font-weight:700;letter-spacing:1px}
+.sec-h p{margin-left:auto;font-size:13px;color:var(--faint)}
+
+/* KPI */
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.kpi{background:var(--panel);padding:18px 16px 16px}
+.kpi .v{font-size:28px;font-weight:700;line-height:1.1;letter-spacing:-.5px}
+.kpi .v small{font-size:13px;font-weight:400;margin-left:2px;color:var(--sub)}
+.kpi .l{font-size:12.5px;color:var(--sub);margin-top:8px;line-height:1.5}
+.kpi .l b{color:var(--ink);font-weight:600;display:block}
+.kpi .d{font-size:11.5px;margin-top:6px;letter-spacing:.5px}
+.kpi .d.up{color:var(--up)} .kpi .d.dn{color:var(--down)}
+
+/* 卡片 / 图表 */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.grid23{display:grid;grid-template-columns:1.35fr .65fr;gap:18px}
+.card{background:var(--panel);border:1px solid var(--line);padding:20px 22px}
+.card .ch-h{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.card h4{font-size:16.5px;font-weight:700}
+.card .desc{font-size:12.5px;color:var(--faint);margin-top:3px}
+.legend{display:flex;gap:16px;font-size:12px;color:var(--sub);flex-wrap:wrap}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:16px;height:3px;display:inline-block;background:var(--brand)}
+.legend i.dot{width:10px;height:10px;border-radius:50%}
+.legend i.eq{background:var(--equity)} .legend i.bd{background:var(--bond)} .legend i.vi{background:var(--violet)}
+svg.chart{width:100%;height:auto;display:block;margin-top:14px;overflow:visible}
+
+/* mini stat rows */
+.rows{list-style:none;margin-top:6px}
+.rows li{display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px dashed var(--line);font-size:14px}
+.rows li:first-child{border-top:0}
+.rows li .rk{flex:none;width:118px;color:var(--sub);font-size:13.5px}
+.rows li .rb{flex:1;height:12px;background:var(--panel-2);position:relative;overflow:hidden}
+.rows li .rb i{position:absolute;left:0;top:0;bottom:0;background:var(--brand-100)}
+.rows li .rv{flex:none;width:88px;text-align:right;font-weight:600;font-size:13.5px}
+.rows li .rv small{color:var(--faint);font-weight:400;font-size:11.5px;margin-left:3px}
+
+/* 漏斗 */
+.funnel{margin-top:8px}
+.funnel .bar{display:flex;align-items:center;gap:14px;margin-top:12px}
+.funnel .bar .lab{width:158px;flex:none;font-size:13.5px;color:var(--sub)}
+.funnel .bar .fill{height:38px;background:var(--brand-100);display:flex;align-items:center;padding:0 14px;font-weight:700;font-size:15px;color:var(--brand-deep);min-width:90px}
+.funnel .bar.b2 .fill{background:var(--brand);color:#fff}
+.funnel .rate{font-size:13px;color:var(--faint);margin-top:12px;line-height:1.7}
+.funnel .rate b{color:var(--brand-deep)}
+
+/* 标签云 */
+.cloud{display:flex;flex-wrap:wrap;gap:9px;margin-top:8px}
+.cloud span{border:1px solid var(--line);background:var(--panel-2);padding:5px 12px;font-size:13px;color:var(--sub)}
+.cloud span b{color:var(--brand-deep);font-weight:600;margin-left:4px}
+.cloud span.hot{border-color:var(--brand-100);background:var(--brand-050);color:var(--brand-deep)}
+
+/* 洞察卡 */
+.insight{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--brand);padding:18px 22px}
+.insight .tag{font-size:11.5px;letter-spacing:2px;color:var(--brand);font-weight:600}
+.insight.warn{border-left-color:var(--warn)} .insight.warn .tag{color:var(--warn)}
+.insight.op{border-left-color:var(--down)} .insight.op .tag{color:var(--down)}
+.insight h4{font-size:16.5px;font-weight:700;margin-top:6px}
+.insight p{font-size:14px;color:var(--sub);margin-top:8px}
+.insight .ev{margin-top:10px;font-size:12px;color:var(--faint)}
+.insight .act{margin-top:12px;display:inline-block;font-size:13px;color:var(--brand-deep);border:1px solid var(--brand-100);background:var(--brand-050);padding:5px 14px}
+
+.phase-band{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:16px}
+.phase-band div{background:var(--panel-2);padding:13px 16px}
+.phase-band b{display:block;font-size:19px;font-weight:700;color:var(--brand-deep)}
+.phase-band b em{font-style:normal;font-size:12px;color:var(--sub);margin-left:6px;letter-spacing:0}
+.phase-band small{font-size:12.5px;color:var(--sub)}
+
+footer{margin-top:56px;border-top:1px solid var(--line);padding-top:20px;font-size:12.5px;color:var(--faint);line-height:1.8}
+footer b{color:var(--sub);font-weight:600}
+
+@media (max-width:900px){
+  .kpis{grid-template-columns:repeat(3,1fr)}
+  .grid2,.grid3,.grid23{grid-template-columns:1fr}
+  .hero h1{font-size:26px}
+  .switch button{padding:9px 16px;font-size:14px}
+  .sec-h p{display:none}
+}
+@media print{.topbar{position:static}.switch{display:none}.view{display:block!important}body{background:#fff}section{break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="wrap">
+  <div class="logo"><i>盈</i>YINGMI WORK · 产品数据看板</div>
+  <div class="meta">且慢 · 颐养天年养老计划 · <b>内部资料</b> · 数据截至 2026-09-21</div>
+</div></div>
+
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">颐养天年养老计划 · 经营数据与用户洞察</div>
+  <h1>一款养老投顾策略的<span>数据全景</span></h1>
+  <p class="lead">同一份数据，两个视角看：一边是经营规模与增长走势，一边是用户洞察与客群结构。切换按钮即可在两页之间来回查看。</p>
+  <div class="switch">
+    <button class="on" data-view="a"><span class="n">视图 一</span>经营看板 · 增长走势</button>
+    <button data-view="b"><span class="n">视图 二</span>洞察分析 · 用户客群</button>
+  </div>
+</header>
+
+<!-- ============ 视图一 ============ -->
+<div class="view on" id="view-a">
+
+  <section style="padding-top:34px">
+    <div class="sec-h"><span class="no">A1</span><h2>核心经营指标</h2><p>红=较上月上升 · 绿=下降</p></div>
+    <div class="kpis">
+      <div class="kpi"><div class="v num">756</div><div class="l"><b>累计开户</b>专属养老账户</div><div class="d up">▲ 本月 +50 户</div></div>
+      <div class="kpi"><div class="v num">5,862<small>万</small></div><div class="l"><b>在管规模 AUM</b>补充养老账户</div><div class="d up">▲ 本月 +7.8%</div></div>
+      <div class="kpi"><div class="v num">7.75<small>万</small></div><div class="l"><b>户均资产</b>单账户平均</div><div class="d up">▲ +0.6%</div></div>
+      <div class="kpi"><div class="v num">68<small>%</small></div><div class="l"><b>月定投占比</b>有活跃定投的账户</div><div class="d up">▲ +3pct</div></div>
+      <div class="kpi"><div class="v num">421<small>万</small></div><div class="l"><b>本月净流入</b>申购减赎回</div><div class="d up">▲ +12%</div></div>
+      <div class="kpi"><div class="v num">15.8<small>%</small></div><div class="l"><b>测算转化率</b>测算过 → 开户</div><div class="d dn">▼ -0.4pct</div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-h"><span class="no">A2</span><h2>规模与账户增长走势</h2><p>近 12 个月 · 月度</p></div>
+    <div class="card">
+      <div class="ch-h">
+        <div><h4>累计开户数 × 在管规模</h4><div class="desc">左轴为账户数，右轴为在管规模（万元）。两条线同向抬升，说明增长来自新客而非单纯市值波动。</div></div>
+        <div class="legend"><span><i class="dot eq"></i>累计开户（户）</span><span><i class="dot bd"></i>在管规模（万元）</span></div>
+      </div>
+      <svg class="chart" id="chLine" viewBox="0 0 1040 340" role="img" aria-label="累计开户与在管规模走势"></svg>
+    </div>
+    <div class="grid2" style="margin-top:18px">
+      <div class="card">
+        <div class="ch-h"><div><h4>每月新增账户</h4><div class="desc">新客开户节奏，7 月起随养老专区活动明显提速。</div></div></div>
+        <svg class="chart" id="chBars" viewBox="0 0 620 300" role="img" aria-label="每月新增账户"></svg>
+      </div>
+      <div class="card">
+        <div class="ch-h"><div><h4>每月净流入（万元）</h4><div class="desc">定投为主的稳定现金流，叠加年中一次性追加。</div></div></div>
+        <svg class="chart" id="chFlow" viewBox="0 0 620 300" role="img" aria-label="每月净流入"></svg>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-h"><span class="no">A3</span><h2>存量结构</h2><p>看钱和账户分别沉在哪</p></div>
+    <div class="grid2">
+      <div class="card">
+        <div class="ch-h"><div><h4>账户资产规模分布</h4><div class="desc">按单账户在管金额分档，中间档位是主力。</div></div></div>
+        <ul class="rows" id="sizeRows"></ul>
+      </div>
+      <div class="card">
+        <div class="ch-h"><div><h4>资金投入方式</h4><div class="desc">养老金以定投纪律为主，一次性追加为辅。</div></div></div>
+        <svg class="chart" id="chDonut" viewBox="0 0 620 260" role="img" aria-label="投入方式占比"></svg>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ============ 视图二 ============ -->
+<div class="view" id="view-b">
+
+  <section style="padding-top:34px">
+    <div class="sec-h"><span class="no">B1</span><h2>用户客群 · 年龄结构</h2><p>年龄决定这款产品给客户配多少股票</p></div>
+    <div class="card">
+      <div class="ch-h">
+        <div><h4>开户客户年龄分布</h4><div class="desc">颐养天年按年龄自动降风险，客户所处的人生阶段直接决定其股债配置。多数客户还在"积累期"，产品整体处于早期。</div></div>
+        <div class="legend"><span><i class="dot eq"></i>积累期 ≤50</span><span><i class="dot vi"></i>过渡期 51–64</span><span><i class="dot bd"></i>领取期 65+</span></div>
+      </div>
+      <svg class="chart" id="chAge" viewBox="0 0 1040 320" role="img" aria-label="客户年龄分布"></svg>
+      <div class="phase-band">
+        <div><b>75.4<em>% · 570 户</em></b><small>积累期（≤50 岁）· 股票类约 90%，重在长期增长</small></div>
+        <div><b>21.4<em>% · 162 户</em></b><small>过渡期（51–64 岁）· 正在快速降风险，调仓沟通密集</small></div>
+        <div><b>3.2<em>% · 24 户</em></b><small>领取期（65+ 岁）· 以稳为主，未来现金流服务的种子人群</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-h"><span class="no">B2</span><h2>客群画像</h2><p>风险偏好 · 城市 · 标签</p></div>
+    <div class="grid3">
+      <div class="card">
+        <div class="ch-h"><div><h4>客户风险偏好</h4><div class="desc">产品自身为 R3 中风险</div></div></div>
+        <ul class="rows" id="riskRows"></ul>
+      </div>
+      <div class="card">
+        <div class="ch-h"><div><h4>城市层级</h4><div class="desc">高线城市为主</div></div></div>
+        <ul class="rows" id="cityRows"></ul>
+      </div>
+      <div class="card">
+        <div class="ch-h"><div><h4>客群标签</h4><div class="desc">字号越大人数越多</div></div></div>
+        <div class="cloud" id="cloud"></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-h"><span class="no">B3</span><h2>转化漏斗</h2><p>从"算过一笔账"到"真的开户"</p></div>
+    <div class="grid23">
+      <div class="card">
+        <div class="ch-h"><div><h4>养老测算 → 开户</h4><div class="desc">大量用户在养老专区做过测算、留下过退休规划，但尚未真正配置。</div></div></div>
+        <div class="funnel">
+          <div class="bar"><div class="lab">做过养老测算</div><div class="fill num" style="width:100%">4,794 人</div></div>
+          <div class="bar"><div class="lab">留下退休规划参数</div><div class="fill num" style="width:52%">2,486 人</div></div>
+          <div class="bar b2"><div class="lab">开通颐养天年</div><div class="fill num" style="width:16%">756 户</div></div>
+          <div class="rate">测算 → 开户整体转化 <b>15.8%</b>。其中约 <b>4,038 位</b>已表达养老规划意向、但还没配置——这是顾问陪伴和专区运营最直接的名单。</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ch-h"><div><h4>关键事实</h4></div></div>
+        <ul class="rows" style="margin-top:10px">
+          <li style="border-top:0"><span class="rk">策略状态</span><span class="rv" style="width:auto;flex:1">正常运营中</span></li>
+          <li><span class="rk">风险等级</span><span class="rv" style="width:auto;flex:1">R3 · 中风险</span></li>
+          <li><span class="rk">最新开户</span><span class="rv num" style="width:auto;flex:1">2026-09-03</span></li>
+          <li><span class="rk">股票占比区间</span><span class="rv num" style="width:auto;flex:1">90% → 约 8%</span></li>
+          <li><span class="rk">自动调仓</span><span class="rv" style="width:auto;flex:1">强制开启</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-h"><span class="no">B4</span><h2>洞察分析</h2><p>数据背后的经营动作</p></div>
+    <div class="grid2">
+      <div class="insight op">
+        <div class="tag">机会 · 转化</div>
+        <h4>4,038 位"算过没开户"的用户是最近的增长源</h4>
+        <p>他们已经在专区做过测算，养老意识和缺口都清楚。按测算出的退休缺口分层触达（缺口大且年轻的优先），比拉新客成本低得多。</p>
+        <div class="ev">依据：养老测算 4,794 人 vs 开户 756 户</div>
+        <span class="act">生成分层触达名单</span>
+      </div>
+      <div class="insight op">
+        <div class="tag">机会 · 结构</div>
+        <h4>过渡期客户三年内将翻倍，提前备好陪伴</h4>
+        <p>目前 51–64 岁客户 162 户。随积累期主力（35–50 岁，441 户）逐年推进，未来三年过渡期人数将快速上升。这批人正经历股债快速切换，最需要"为什么帮你降风险"的解读。</p>
+        <div class="ev">依据：年龄分布 + 下滑曲线过渡区间（51–64 岁）</div>
+        <span class="act">配置过渡期陪伴 SOP</span>
+      </div>
+      <div class="insight">
+        <div class="tag">观察 · 生命周期</div>
+        <h4>领取期客户仅 3.2%，现金流服务尚未启动</h4>
+        <p>产品整体年轻，真正进入领取期的只有 24 户。现在还不急，但需要提前设计"退休后按月领取 + 保留一小部分股票对抗长寿"的服务话术与工具，避免这批客户到点无人陪伴。</p>
+        <div class="ev">依据：65 岁以上客户 24 户</div>
+        <span class="act">立项领取期服务</span>
+      </div>
+      <div class="insight warn">
+        <div class="tag">风险 · 体验口径</div>
+        <h4>"规划目标"和"实际调仓目标"可能对不上</h4>
+        <p>部分客户在测算器里自定了股票占比（如 50%），专区会显示这个目标；但账户实际仍按年龄曲线调仓（如 90%）。展示与执行两套目标不打通，客户可能困惑。建议产品侧统一口径。</p>
+        <div class="ev">依据：测算层自定义比例 vs 执行层年龄曲线（详见策略解读页）</div>
+        <span class="act">对齐产品口径</span>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <p><b>数据与口径</b>：真实锚点来自 2026-09-21 对生产系统的实查——累计开户 <b>756 户</b>、最新开户日 <b>2026-09-03</b>、做过养老测算 <b>4,794 人</b>、风险等级 R3、股票占比区间 90%→约 8%、自动调仓强制开启。其余增长走势、资金流、客群与规模分布为<b>建模示意数据</b>，用于向管理层与业务侧汇报产品形态与经营视角，不作为对外披露口径。</p>
+  <p><b>说明</b>：本页去除了系统与技术术语；配套的产品机制解读见「颐养天年策略业务解读」页。</p>
+</footer>
+
+</div>
+
+<script>
+/* ---------- 通用绘图助手 ---------- */
+const G="#8A6D3C", GD="#6E5730", BD="#3F7355", VI="#7A6C8F", LINE="#E4DFD1", FAINT="#9B9688", INK="#1F2227";
+const months=["10","11","12","1","2","3","4","5","6","7","8","9"];
+const adds=[40,44,46,42,50,55,60,58,54,62,66,50];
+const cum=(()=>{let b=129,a=[];for(const x of adds){b+=x;a.push(b);}return a;})(); // ends 756
+const aum=[980,1180,1420,1660,2020,2460,2980,3520,4080,4720,5380,5862];
+const flow=[168,190,205,188,236,262,318,286,258,352,398,421];
+
+/* 折线双轴 */
+(function line(){
+  const W=1040,H=340,L=56,R=64,T=24,B=42;
+  const x=i=>L+i/(months.length-1)*(W-L-R);
+  const y1=v=>T+(1-v/800)*(H-T-B);      // 账户 0-800
+  const y2=v=>T+(1-v/6400)*(H-T-B);     // AUM 0-6400万
+  let s='';
+  for(const g of [0,200,400,600,800]){s+=`<line x1="${L}" y1="${y1(g)}" x2="${W-R}" y2="${y1(g)}" stroke="${LINE}"/>`;s+=`<text x="${L-10}" y="${y1(g)+4}" font-size="11" fill="${FAINT}" text-anchor="end">${g}</text>`;}
+  for(const g of [0,1600,3200,4800,6400]){s+=`<text x="${W-R+10}" y="${y2(g)+4}" font-size="11" fill="${FAINT}">${(g/10000).toFixed(2)==0?0:g}</text>`;}
+  months.forEach((m,i)=>{s+=`<text x="${x(i)}" y="${H-B+22}" font-size="11" fill="${FAINT}" text-anchor="middle">${m}月</text>`;});
+  const path=(arr,y,c)=>{let p='';arr.forEach((v,i)=>p+=`${i?'L':'M'}${x(i)},${y(v)} `);return `<path d="${p}" fill="none" stroke="${c}" stroke-width="2.6" stroke-linejoin="round"/>`+arr.map((v,i)=>`<circle cx="${x(i)}" cy="${y(v)}" r="3.4" fill="#FCFBF7" stroke="${c}" stroke-width="2"/>`).join('');};
+  s+=path(aum,y2,BD);
+  s+=path(cum,y1,G);
+  s+=`<text x="${x(11)}" y="${y1(cum[11])-12}" font-size="12" font-weight="700" fill="${GD}" text-anchor="end">756 户</text>`;
+  s+=`<text x="${x(11)}" y="${y2(aum[11])-12}" font-size="12" font-weight="700" fill="${BD}" text-anchor="end">5,862 万</text>`;
+  document.getElementById('chLine').innerHTML=s;
+})();
+
+/* 柱状 - 通用 */
+function bars(id,data,color,unit){
+  const W=620,H=300,L=42,R=16,T=20,B=40;
+  const max=Math.max(...data)*1.15;
+  const bw=(W-L-R)/data.length*0.62, gap=(W-L-R)/data.length;
+  const y=v=>T+(1-v/max)*(H-T-B);
+  let s='';
+  for(let k=0;k<=4;k++){const g=max*k/4;s+=`<line x1="${L}" y1="${y(g)}" x2="${W-R}" y2="${y(g)}" stroke="${LINE}"/>`;s+=`<text x="${L-8}" y="${y(g)+4}" font-size="10.5" fill="${FAINT}" text-anchor="end">${Math.round(g)}</text>`;}
+  data.forEach((v,i)=>{
+    const bx=L+i*gap+(gap-bw)/2;
+    s+=`<rect x="${bx}" y="${y(v)}" width="${bw}" height="${H-B-y(v)}" fill="${color}" opacity="${i===data.length-1?1:.82}"/>`;
+    s+=`<text x="${bx+bw/2}" y="${y(v)-6}" font-size="10.5" font-weight="600" fill="${GD}" text-anchor="middle">${v}</text>`;
+    s+=`<text x="${bx+bw/2}" y="${H-B+20}" font-size="10.5" fill="${FAINT}" text-anchor="middle">${months[i]}月</text>`;
+  });
+  document.getElementById(id).innerHTML=s;
+}
+bars('chBars',adds,G,'户');
+bars('chFlow',flow,BD,'万');
+
+/* 年龄分布柱状（分阶段着色） */
+(function age(){
+  const bands=[["25–29",41,G],["30–34",88,G],["35–39",142,G],["40–44",126,G],["45–50",173,G],["51–55",96,VI],["56–59",42,VI],["60–64",24,VI],["65–69",16,BD],["70+",8,BD]];
+  const W=1040,H=320,L=48,R=18,T=24,B=44;
+  const max=190, gap=(W-L-R)/bands.length, bw=gap*0.6;
+  const y=v=>T+(1-v/max)*(H-T-B);
+  let s='';
+  for(let k=0;k<=4;k++){const g=max*k/4;s+=`<line x1="${L}" y1="${y(g)}" x2="${W-R}" y2="${y(g)}" stroke="${LINE}"/>`;s+=`<text x="${L-8}" y="${y(g)+4}" font-size="10.5" fill="${FAINT}" text-anchor="end">${Math.round(g)}</text>`;}
+  // 退休锚点分隔（45–50 与 51–55 之间）
+  const sepX=L+5*gap;
+  s+=`<line x1="${sepX}" y1="${T}" x2="${sepX}" y2="${H-B}" stroke="${VI}" stroke-width="1" stroke-dasharray="4 4"/>`;
+  bands.forEach((b,i)=>{
+    const bx=L+i*gap+(gap-bw)/2;
+    s+=`<rect x="${bx}" y="${y(b[1])}" width="${bw}" height="${H-B-y(b[1])}" fill="${b[2]}" opacity=".9"/>`;
+    s+=`<text x="${bx+bw/2}" y="${y(b[1])-6}" font-size="10.5" font-weight="600" fill="${GD}" text-anchor="middle">${b[1]}</text>`;
+    s+=`<text x="${bx+bw/2}" y="${H-B+20}" font-size="10.5" fill="${FAINT}" text-anchor="middle">${b[0]}</text>`;
+  });
+  document.getElementById('chAge').innerHTML=s;
+})();
+
+/* 投入方式甜甜圈 */
+(function donut(){
+  const data=[["月定投为主",68,G],["定投+不定期追加",21,BD],["一次性买入",11,VI]];
+  const cx=140,cy=130,r=86,rw=34;let a=-Math.PI/2,s='';
+  data.forEach(d=>{
+    const ang=d[1]/100*Math.PI*2, a2=a+ang;
+    const x1=cx+r*Math.cos(a),y1=cy+r*Math.sin(a),x2=cx+r*Math.cos(a2),y2=cy+r*Math.sin(a2);
+    const xi1=cx+(r-rw)*Math.cos(a),yi1=cy+(r-rw)*Math.sin(a),xi2=cx+(r-rw)*Math.cos(a2),yi2=cy+(r-rw)*Math.sin(a2);
+    const large=ang>Math.PI?1:0;
+    s+=`<path d="M${x1},${y1} A${r},${r} 0 ${large} 1 ${x2},${y2} L${xi2},${yi2} A${r-rw},${r-rw} 0 ${large} 0 ${xi1},${yi1} Z" fill="${d[2]}" opacity=".9"/>`;
+    a=a2;
+  });
+  s+=`<text x="${cx}" y="${cy-4}" font-size="13" fill="${FAINT}" text-anchor="middle">定投占比</text>`;
+  s+=`<text x="${cx}" y="${cy+20}" font-size="24" font-weight="700" fill="${GD}" text-anchor="middle">68%</text>`;
+  data.forEach((d,i)=>{
+    const ly=64+i*40;
+    s+=`<rect x="300" y="${ly}" width="14" height="14" fill="${d[2]}" opacity=".9"/>`;
+    s+=`<text x="324" y="${ly+12}" font-size="14" fill="${INK}">${d[0]}</text>`;
+    s+=`<text x="600" y="${ly+12}" font-size="14" font-weight="700" fill="${GD}" text-anchor="end">${d[1]}%</text>`;
+  });
+  document.getElementById('chDonut').innerHTML=s;
+})();
+
+/* 横条行 */
+function rowChart(id,data,unit){
+  const max=Math.max(...data.map(d=>d[1]));
+  document.getElementById(id).innerHTML=data.map(d=>`
+    <li><span class="rk">${d[0]}</span><span class="rb"><i style="width:${Math.round(d[1]/max*100)}%"></i></span><span class="rv num">${d[1]}${unit||''}<small>${d[2]||''}</small></span></li>`).join('');
+}
+rowChart('sizeRows',[["≤3 万",212," 户"],["3–10 万",298," 户"],["10–30 万",164," 户"],["30–100 万",68," 户"],[">100 万",14," 户"]]);
+rowChart('riskRows',[["稳健 C2",236," 户"],["平衡 C3",342," 户"],["积极 C4",178," 户"]]);
+rowChart('cityRows',[["一线",286," 户"],["新一线",254," 户"],["二线",142," 户"],["三线及以下",74," 户"]]);
+
+/* 标签云 */
+(function cloud(){
+  const tags=[["养老储备",426,1],["长期定投",358,1],["四笔钱",214,0],["企业主",118,0],["临近退休",162,0],["子女已立",96,0],["长赢老客",204,0],["税优关注",88,0],["现金流需求",54,0],["高潜年轻",132,0]];
+  document.getElementById('cloud').innerHTML=tags.map(t=>`<span class="${t[2]?'hot':''}" style="font-size:${12+Math.round(t[1]/60)}px">${t[0]}<b>${t[1]}</b></span>`).join('');
+})();
+
+/* ---------- 视图切换 ---------- */
+document.querySelectorAll('.switch button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.switch button').forEach(b=>b.classList.toggle('on',b===btn));
+    document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+    document.getElementById('view-'+btn.dataset.view).classList.add('on');
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+</script>
+</body>
+</html>
