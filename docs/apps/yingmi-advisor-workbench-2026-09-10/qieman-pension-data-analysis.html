@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex,nofollow" />
+<title>且慢养老产品数据分析 · 颐养天年上线以来</title>
+<style>
+:root{
+  --brand:#8A6D3C; --brand-deep:#6E5730; --brand-050:#F4EFE3; --brand-100:#E3D8BE;
+  --bg:#F3F1EA; --panel:#FCFBF7; --panel-2:#F5F2E9; --line:#E4DFD1; --line-2:#ECE8DB;
+  --ink:#1F2227; --sub:#5C5E60; --faint:#9B9688;
+  --up:#B04A44; --up-bg:#F6E9E6; --down:#3F7355; --down-bg:#E7EFE8;
+  --warn:#9C7423; --warn-bg:#F4ECDA;
+  --equity:#8A6D3C; --bond:#3F7355; --violet:#7A6C8F;
+  --font:"Songti SC","STSong","STZhongsong","Noto Serif SC","SimSun",serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--ink);font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased}
+.num{font-variant-numeric:tabular-nums}
+.wrap{max-width:1120px;margin:0 auto;padding:0 28px 90px}
+a{color:var(--brand);text-decoration:none}
+
+.topbar{background:var(--ink);color:#F3F1EA;height:56px;display:flex;align-items:center;position:sticky;top:0;z-index:30}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;padding:0;width:100%}
+.topbar .logo{display:flex;align-items:center;gap:12px;font-size:14px;letter-spacing:3px}
+.topbar .logo i{width:26px;height:26px;border:1px solid var(--brand);display:grid;place-items:center;font-style:normal;color:var(--brand);font-size:13px}
+.topbar .meta{font-size:12px;color:#B8B09A;letter-spacing:1px}
+.topbar .meta b{color:#E3D8BE;font-weight:500}
+
+.nav{position:sticky;top:56px;z-index:20;background:rgba(243,241,234,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;gap:2px;padding-top:0;padding-bottom:0;flex-wrap:wrap}
+.nav a{padding:13px 18px;font-size:14px;color:var(--sub);border-bottom:2px solid transparent;letter-spacing:1px}
+.nav a:hover{color:var(--brand-deep)}
+.nav a.on{color:var(--brand-deep);border-bottom-color:var(--brand);font-weight:600}
+
+.hero{padding:52px 0 30px;border-bottom:1px solid var(--line)}
+.kicker{font-size:12px;letter-spacing:4px;color:var(--brand);text-transform:uppercase}
+.hero h1{font-size:38px;line-height:1.3;font-weight:700;margin-top:14px;letter-spacing:1px}
+.hero h1 span{color:var(--brand)}
+.hero .lead{margin-top:16px;font-size:16px;color:var(--sub);max-width:820px}
+.verdict{margin-top:26px;display:grid;grid-template-columns:3px 1fr;gap:20px;background:var(--panel);border:1px solid var(--line);padding:20px 24px}
+.verdict::before{content:"";background:var(--brand);display:block}
+.verdict h3{font-size:13px;letter-spacing:3px;color:var(--brand);font-weight:600}
+.verdict p{margin-top:8px;font-size:16px;line-height:1.7}
+.verdict p b{color:var(--brand-deep)}
+.verdict p+p{margin-top:6px}
+
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:28px}
+.kpi{background:var(--panel);padding:16px 15px}
+.kpi .v{font-size:26px;font-weight:700;line-height:1.1;letter-spacing:-.5px}
+.kpi .v small{font-size:13px;font-weight:400;margin-left:2px;color:var(--sub)}
+.kpi .l{font-size:12px;color:var(--sub);margin-top:7px;line-height:1.5}
+.kpi .l b{color:var(--ink);font-weight:600;display:block}
+
+section{padding:50px 0 0;scroll-margin-top:110px}
+.sec-h{display:flex;align-items:baseline;gap:16px;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:24px}
+.sec-h .no{font-size:13px;letter-spacing:3px;color:var(--brand);font-weight:600}
+.sec-h h2{font-size:25px;font-weight:700;letter-spacing:1px}
+.sec-h p{margin-left:auto;font-size:13px;color:var(--faint)}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:var(--panel);border:1px solid var(--line);padding:20px 22px}
+.card h4{font-size:16.5px;font-weight:700}
+.card .desc{font-size:12.5px;color:var(--faint);margin-top:3px;margin-bottom:4px}
+.legend{display:flex;gap:16px;font-size:12px;color:var(--sub);flex-wrap:wrap;margin-top:2px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;display:inline-block}
+.legend i.eq{background:var(--equity)} .legend i.bd{background:var(--bond)} .legend i.vi{background:var(--violet)}
+svg.chart{width:100%;height:auto;display:block;margin-top:12px;overflow:visible}
+
+.funnel{margin-top:8px}
+.funnel .bar{display:flex;align-items:center;gap:14px;margin-top:11px}
+.funnel .bar .lab{width:190px;flex:none;font-size:13.5px;color:var(--sub)}
+.funnel .bar .fill{height:36px;background:var(--brand-100);display:flex;align-items:center;padding:0 14px;font-weight:700;font-size:15px;color:var(--brand-deep);min-width:96px}
+.funnel .bar.hl .fill{background:var(--brand);color:#fff}
+.funnel .bar .pct{font-size:12.5px;color:var(--faint);flex:none}
+
+.rows{list-style:none;margin-top:6px}
+.rows li{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px dashed var(--line);font-size:14px}
+.rows li:first-child{border-top:0}
+.rows li .rk{flex:none;width:120px;color:var(--sub);font-size:13.5px}
+.rows li .rb{flex:1;height:12px;background:var(--panel-2);position:relative;overflow:hidden}
+.rows li .rb i{position:absolute;left:0;top:0;bottom:0;background:var(--brand-100)}
+.rows li .rv{flex:none;width:104px;text-align:right;font-weight:600;font-size:13.5px}
+.rows li .rv small{color:var(--faint);font-weight:400;font-size:11.5px;margin-left:3px}
+
+table.tb{width:100%;border-collapse:collapse;margin-top:6px;font-size:14px}
+table.tb th,table.tb td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line)}
+table.tb th{font-size:12.5px;letter-spacing:1px;color:var(--faint);font-weight:600;border-bottom:1px solid var(--brand-100)}
+table.tb td.n{text-align:right;font-variant-numeric:tabular-nums}
+table.tb tr.hl td{background:#FBF7EC;font-weight:600}
+table.tb td .tag{font-size:11px;color:var(--faint)}
+
+.phase-band{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:16px}
+.phase-band div{background:var(--panel-2);padding:13px 16px}
+.phase-band b{display:block;font-size:19px;font-weight:700;color:var(--brand-deep)}
+.phase-band b em{font-style:normal;font-size:12px;color:var(--sub);margin-left:6px}
+.phase-band small{font-size:12.5px;color:var(--sub)}
+
+.gap{background:var(--ink);color:#F3F1EA;padding:26px 30px;margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:center}
+.gap h4{font-size:13px;letter-spacing:3px;color:var(--brand-100);font-weight:600}
+.gap .big{font-size:20px;line-height:1.6;margin-top:12px}
+.gap .big b{color:#E3D8BE}
+.gapbar{margin-top:8px}
+.gapbar .row{margin-top:14px}
+.gapbar .row .t{display:flex;justify-content:space-between;font-size:13px;color:#B8B09A;margin-bottom:5px}
+.gapbar .row .t b{color:#F3F1EA;font-size:15px}
+.gapbar .row .track{height:26px;background:#2b2e34}
+.gapbar .row .track i{display:block;height:100%}
+.gapbar .row.a .track i{background:var(--brand)}
+.gapbar .row.b .track i{background:#6f8f79}
+
+.insight{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--brand);padding:18px 22px}
+.insight .tag{font-size:11.5px;letter-spacing:2px;color:var(--brand);font-weight:600}
+.insight.warn{border-left-color:var(--warn)} .insight.warn .tag{color:var(--warn)}
+.insight.op{border-left-color:var(--down)} .insight.op .tag{color:var(--down)}
+.insight h4{font-size:16.5px;font-weight:700;margin-top:6px}
+.insight p{font-size:14px;color:var(--sub);margin-top:8px}
+.insight .ev{margin-top:10px;font-size:12px;color:var(--faint)}
+
+.pending{margin-top:18px;background:var(--warn-bg);border:1px solid #E0D2B0;padding:16px 22px}
+.pending b{color:var(--warn);letter-spacing:1px}
+.pending ul{margin:8px 0 0 18px;font-size:13.5px;color:var(--sub)}
+.pending li{margin-top:4px}
+
+footer{margin-top:56px;border-top:1px solid var(--line);padding-top:20px;font-size:12.5px;color:var(--faint);line-height:1.85}
+footer b{color:var(--sub);font-weight:600}
+
+@media (max-width:900px){
+  .kpis{grid-template-columns:repeat(3,1fr)}
+  .grid2,.grid3{grid-template-columns:1fr}
+  .gap{grid-template-columns:1fr}
+  .hero h1{font-size:28px}
+  .sec-h p{display:none}
+  .nav{overflow-x:auto} .nav .wrap{flex-wrap:nowrap}
+}
+@media print{.topbar,.nav{position:static}body{background:#fff}section{break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="wrap">
+  <div class="logo"><i>盈</i>YINGMI WORK · 数据分析</div>
+  <div class="meta">且慢 · 养老产品线 · <b>内部资料 · 真实生产数据</b></div>
+</div></div>
+
+<nav class="nav"><div class="wrap">
+  <a href="#overview" class="on">摘要</a>
+  <a href="#pc">颐养天年</a>
+  <a href="#compare">产品对比</a>
+  <a href="#returns">收益分析</a>
+  <a href="#insight">洞察与待补</a>
+</div></nav>
+
+<div class="wrap">
+
+<header class="hero" id="overview">
+  <div class="kicker">且慢养老产品线 · 上线以来数据分析</div>
+  <h1>颐养天年跑了两年，<span>数据告诉我们什么</span></h1>
+  <p class="lead">基于生产库直查（dw-tidb），交易与开户口径截至 2026-09-21，资产与收益快照为 2026-09-18。本报告拆三块看：颐养天年上线以来的经营口径、用户在各类养老产品间的选择、以及账户真实收益对比。</p>
+
+  <div class="verdict">
+    <div>
+      <h3>三 条 核 心 结 论</h3>
+      <p>① <b>体量仍小、流失偏高</b>：颐养天年累计签约 681 户，真正在管仅 <b>370 户</b>、AUM <b>670 万</b>；近半签约账户已清仓成空户，户均中位数只有 7,247 元。</p>
+      <p>② <b>人群与"养老"定位错位</b>：客户中位年龄 <b>34 岁</b>，无一人进入领取期；它今天更像"年轻人的长期定投"，而不是临近退休的养老领取工具。</p>
+      <p>③ <b>拿不住，吃掉一半收益</b>：策略净值成立以来涨 <b>+19.41%</b>，但用户账户实际只赚 <b>+9.28%</b>——频繁申赎带来的行为差几乎吃掉一半。</p>
+    </div>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="v num">370</div><div class="l"><b>当前在管账户</b>签约 681 / 交易 599</div></div>
+    <div class="kpi"><div class="v num">670<small>万</small></div><div class="l"><b>在管 AUM</b>净申购 606 万</div></div>
+    <div class="kpi"><div class="v num">7,247<small>元</small></div><div class="l"><b>户均中位数</b>均值 1.83 万</div></div>
+    <div class="kpi"><div class="v num">34<small>岁</small></div><div class="l"><b>客户中位年龄</b>领取期 0 人</div></div>
+    <div class="kpi"><div class="v num">+9.28<small>%</small></div><div class="l"><b>账户平均收益</b>盈利占比 69.9%</div></div>
+    <div class="kpi"><div class="v num">11<small>%</small></div><div class="l"><b>AUM / 税优账户</b>670万 vs 6,229万</div></div>
+  </div>
+</header>
+
+<!-- 颐养天年 -->
+<section id="pc">
+  <div class="sec-h"><span class="no">01</span><h2>颐养天年（PC00010026）上线以来</h2><p>首个开户 2023-07-21 · 上线两年余</p></div>
+
+  <div class="grid2">
+    <div class="card">
+      <h4>开户到留存漏斗</h4>
+      <div class="desc">从养老专区一路走到"真正在管"，每一层都在大幅收窄。</div>
+      <div class="funnel">
+        <div class="bar"><div class="lab">养老专区账户（含仅测算）</div><div class="fill num" style="width:100%">19,716</div></div>
+        <div class="bar"><div class="lab">开养老金账户（累计）</div><div class="fill num" style="width:34%">3,020</div><div class="pct">专区 15.3%</div></div>
+        <div class="bar"><div class="lab">签约颐养天年</div><div class="fill num" style="width:16%">681</div><div class="pct">UMA 22.5%</div></div>
+        <div class="bar"><div class="lab">发生过交易</div><div class="fill num" style="width:14%">599</div><div class="pct">签约 88%</div></div>
+        <div class="bar hl"><div class="lab">当前在管</div><div class="fill num" style="width:10%">370</div><div class="pct">交易 61.8% 留存</div></div>
+        <div class="bar"><div class="lab">清仓成空户</div><div class="fill num" style="width:9%">332</div><div class="pct">签约 CA 47.9%</div></div>
+      </div>
+      <div class="desc" style="margin-top:12px">产品规则不可销户、资产禁转出，所以流失表现为"清仓成空户"而非注销。</div>
+    </div>
+
+    <div class="card">
+      <h4>放量与降速</h4>
+      <div class="desc">2023-09 单月放量 626 户后逐年降速，2026 月均已降到约 30 户。柱为关键月份新增开户。</div>
+      <svg class="chart" id="chMonth" viewBox="0 0 620 300" role="img" aria-label="关键月份新增开户"></svg>
+    </div>
+  </div>
+
+  <div class="grid2" style="margin-top:18px">
+    <div class="card">
+      <h4>资金口径</h4>
+      <table class="tb">
+        <tr><td>累计申购</td><td class="n">968.67 万</td></tr>
+        <tr><td>累计赎回</td><td class="n">362.24 万</td></tr>
+        <tr class="hl"><td>累计净申购</td><td class="n">606.43 万</td></tr>
+        <tr><td>当前在管 AUM（366 户）</td><td class="n">669.98 万</td></tr>
+        <tr><td>户均 / 中位数</td><td class="n">1.83 万 / 7,247 元</td></tr>
+        <tr><td>发生过赎回的用户占比</td><td class="n">53.1%</td></tr>
+      </table>
+      <div class="desc" style="margin-top:10px">2024-10 是唯一净申购为负的月份（−2.53 万）；2026-03 出现单月大额赎回 34.7 万。</div>
+    </div>
+
+    <div class="card">
+      <h4>账户资产分层</h4>
+      <div class="desc">资金高度集中在小额：不足 1 万的账户占近六成。</div>
+      <ul class="rows" id="sizeRows"></ul>
+    </div>
+  </div>
+
+  <div class="grid2" style="margin-top:18px">
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px">
+        <div><h4>客户年龄分布</h4><div class="desc">FUDA 自报年龄，覆盖 70%（身份证年龄被脱敏）。</div></div>
+        <div class="legend"><span><i class="eq"></i>积累段 &lt;45</span><span><i class="vi"></i>过渡段 45–59</span><span><i class="bd"></i>领取段 ≥60</span></div>
+      </div>
+      <svg class="chart" id="chAge" viewBox="0 0 620 280" role="img" aria-label="客户年龄分布"></svg>
+      <div class="phase-band">
+        <div><b>89<em>% · ≈375 户</em></b><small>积累段 · 曲线股票约 90%</small></div>
+        <div><b>11<em>% · ≈47 户</em></b><small>过渡段 · 正在降风险</small></div>
+        <div><b>0<em>% · 0 户</em></b><small>领取段 · 尚无人到点</small></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h4>风险偏好 & 定投</h4>
+      <div class="desc">风险等级覆盖 51%（正式等级被脱敏，用风测 score 映射）。</div>
+      <ul class="rows" id="riskRows"></ul>
+      <div class="desc" style="margin-top:16px;margin-bottom:0">定投状态（历史建过 451 人 = 75%）</div>
+      <ul class="rows" id="aipRows"></ul>
+      <div class="desc" style="margin-top:8px">当前活跃定投 210 人（35.1%），每期合计 17.52 万、中位 500 元——定投流失明显。</div>
+    </div>
+  </div>
+</section>
+
+<!-- 产品对比 -->
+<section id="compare">
+  <div class="sec-h"><span class="no">02</span><h2>各类养老产品的用户选择</h2><p>且慢养老货架横向对比</p></div>
+
+  <div class="card">
+    <table class="tb">
+      <tr><th>产品</th><th>覆盖</th><th style="text-align:right">当前在管</th><th style="text-align:right">AUM</th><th style="text-align:right">户均</th></tr>
+      <tr class="hl"><td>颐养天年<span class="tag"> · 投顾下滑曲线策略</span></td><td>签约 681</td><td class="n">370</td><td class="n">669.98 万</td><td class="n">1.83 万</td></tr>
+      <tr><td>个人养老金 / 税优账户 TD</td><td>开户 4,608</td><td class="n">2,460</td><td class="n">6,229.02 万</td><td class="n">2.53 万</td></tr>
+      <tr><td>养老 FOF · Y 份额（税优额度内）</td><td>持仓 2,030 人次</td><td class="n">—</td><td class="n">待补</td><td class="n">—</td></tr>
+      <tr><td>养老 FOF · 普通份额</td><td>263 只在架</td><td class="n">—</td><td class="n">待补</td><td class="n">—</td></tr>
+      <tr><td>养老保险 / 年金</td><td>仅 35 人次</td><td class="n">样本极小</td><td class="n">待补</td><td class="n">—</td></tr>
+    </table>
+  </div>
+
+  <div class="grid2" style="margin-top:18px">
+    <div class="card">
+      <h4>规模对比：颐养天年 vs 税优账户</h4>
+      <div class="desc">颐养天年 AUM 只有税优账户的 11%。且慢养老盘的增长主力在税优账户一侧。</div>
+      <svg class="chart" id="chAum" viewBox="0 0 620 220" role="img" aria-label="AUM 对比"></svg>
+    </div>
+    <div class="card">
+      <h4>Y 份额持仓 Top 5</h4>
+      <div class="desc">税优账户里 Y 份额高度集中，华夏养老 2045 一只就占大头。</div>
+      <ul class="rows" id="yRows"></ul>
+      <div class="desc" style="margin-top:8px">全市场养老 FOF 372 只（目标日期 162 / 目标风险 210），Y 份额 109 只。</div>
+    </div>
+  </div>
+  <div class="pending" style="margin-top:18px">
+    <b>本节待补</b>
+    <ul>
+      <li>三类产品（颐养天年 / 税优 TD / Y 份额）的人群重合度：同时持有 2 类及以上的用户比例、只持单一产品比例、典型两两搭配——用户清单已就位，交集运算因超时未跑完。</li>
+      <li>Y 份额 / 普通养老 FOF 的当前 AUM 量级。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 收益分析 -->
+<section id="returns">
+  <div class="sec-h"><span class="no">03</span><h2>账户真实收益对比</h2><p>快照 2026-09-18</p></div>
+
+  <div class="grid2">
+    <div class="card">
+      <h4>账户层实际收益</h4>
+      <table class="tb">
+        <tr><th>产品</th><th style="text-align:right">平均收益率</th><th style="text-align:right">盈利账户占比</th></tr>
+        <tr class="hl"><td>颐养天年（366 户）</td><td class="n">+9.28%</td><td class="n">69.9%<br><span class="tag">256/366</span></td></tr>
+        <tr><td>税优账户 TD（2,460 户）</td><td class="n">—</td><td class="n">89.7%<br><span class="tag">2,206/2,460</span></td></tr>
+      </table>
+      <div class="desc" style="margin-top:10px">颐养天年 +9.28% = 累计收益 56.51 万 ÷ 净投入 608.59 万。盈利占比比税优账户低近 20 个百分点，主因是税优账户户均投入更高、持有更长期。</div>
+    </div>
+    <div class="card">
+      <h4>底仓与样例组合业绩（净值口径）</h4>
+      <table class="tb">
+        <tr><th>组合</th><th style="text-align:right">成立以来</th><th style="text-align:right">最大回撤</th><th style="text-align:right">近一年</th><th style="text-align:right">年化</th></tr>
+        <tr class="hl"><td>ZH150669 样例</td><td class="n">+19.41%</td><td class="n">15.64%</td><td class="n">−0.57%</td><td class="n">+5.75%</td></tr>
+        <tr><td>ZH149039 权益底仓</td><td class="n">+17.71%</td><td class="n">19.07%</td><td class="n">−1.12%</td><td class="n">+4.96%</td></tr>
+        <tr><td>ZH150453 纯债底仓</td><td class="n">+11.00%</td><td class="n">0.95%</td><td class="n">+3.54%</td><td class="n">+3.31%</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="gap">
+    <div>
+      <h4>行 为 差 · BEHAVIORAL GAP</h4>
+      <div class="big">策略本身涨了 <b>+19.41%</b>，用户实际只赚 <b>+9.28%</b>。<br>差出来的一半，是频繁申赎和买卖时点造成的——一款主打"全自动、省心拿得住"的产品，用户却没拿住。</div>
+    </div>
+    <div class="gapbar">
+      <div class="row a"><div class="t"><span>ZH150669 样例组合净值 · 成立以来</span><b>+19.41%</b></div><div class="track"><i style="width:100%"></i></div></div>
+      <div class="row b"><div class="t"><span>颐养天年用户账户 · 实际平均</span><b>+9.28%</b></div><div class="track"><i style="width:47.8%"></i></div></div>
+    </div>
+  </div>
+  <div class="pending" style="margin-top:18px">
+    <b>本节待补</b>
+    <ul>
+      <li>颐养天年 366 户按"首次买入年份 / 年龄段"分组的收益率与盈利占比。</li>
+      <li>Y 份额持有人的账户实际平均收益与盈利占比（同 09-18 快照口径）。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 洞察 -->
+<section id="insight">
+  <div class="sec-h"><span class="no">04</span><h2>洞察与运营建议</h2><p>数据指向的动作</p></div>
+  <div class="grid2">
+    <div class="insight warn">
+      <div class="tag">风险 · 留存</div>
+      <h4>近半签约账户已清仓，"拿不住"是头号问题</h4>
+      <p>332 户签约后清仓成空户（占签约 CA 47.9%），53.1% 用户赎回过。产品卖点是全自动省心，但真实持有行为背离卖点。建议把"行为差"讲给客户听，用陪伴（下跌时的解读、创新高时的克制）压住频繁申赎。</p>
+      <div class="ev">依据：空户 332 / 赎回率 53.1% / 用户收益 9.28% vs 净值 19.41%</div>
+    </div>
+    <div class="insight">
+      <div class="tag">观察 · 定位</div>
+      <h4>客户中位 34 岁，产品与"养老领取"定位错位</h4>
+      <p>无人进入领取期，89% 在积累段。短期这是"年轻人长期定投"的现实，运营话术应顺势主打"越早开始越省力"，而非强调临近退休；同时提前为未来过渡期人群备好降风险解读。</p>
+      <div class="ev">依据：年龄中位 34、领取段 0 户</div>
+    </div>
+    <div class="insight op">
+      <div class="tag">机会 · 转化</div>
+      <h4>专区两万账户 vs 签约六百，转化漏斗极陡</h4>
+      <p>19,716 个养老专区账户里只有 681 签约颐养天年。中间的"测算过但没开户/没交易"人群是最近的增长源，建议按测算退休缺口分层触达。</p>
+      <div class="ev">依据：专区 19,716 → 签约 681（3.5%）</div>
+    </div>
+    <div class="insight op">
+      <div class="tag">机会 · 结构</div>
+      <h4>养老盘主力在税优账户，颐养天年可做其"投顾内核"</h4>
+      <p>税优账户 AUM 是颐养天年的 9 倍、盈利占比高 20pct。与其把两者当竞争，不如把颐养天年的下滑曲线能力嵌进税优账户的默认配置，借大盘导流。</p>
+      <div class="ev">依据：AUM 670万 vs 6,229万；盈利占比 69.9% vs 89.7%</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><b>数据来源</b>：生产库 dw-tidb（prod-db-query 直查）——<code>ying99_qieman.user_manage_account / retirement_savings_plan / user_property</code>、<code>qm_meta.trade_detail</code>、<code>ying99_potrade.capital_account</code>、<code>ying99_asset.dwd_ast_aum_po_account_mv_1d_delta</code>（2026-09-18）、<code>ying99_accounts.risk_survey_record</code>、<code>ying99_newaip.plan</code>、<code>ying99_fundtxn.fund_info / cust_share</code>、<code>ying99_pomodel.portfolio_nav_latest</code>。交易/开户口径截至 2026-09-21，AUM 与收益快照 2026-09-18（asset4 最新完成批次，T-1~T-3）。</p>
+  <p><b>口径边界</b>：身份证精确年龄、正式风险等级被网关脱敏，分别用 FUDA 自报年龄（覆盖 70%）、风测 score 映射（覆盖 51%）近似；看板级产品类别宽表（MaxCompute 通道）未开放，月度净增等宽表口径缺失。标注"待补"的项为轻量查询因单次提问墙钟超时未跑完，取数路径均已验证可复跑。本页去除系统与技术术语，配套产品机制解读见「颐养天年策略业务解读」。</p>
+</footer>
+
+</div>
+
+<script>
+const G="#8A6D3C",GD="#6E5730",BD="#3F7355",VI="#7A6C8F",LINE="#E4DFD1",FAINT="#9B9688",INK="#1F2227";
+
+/* 关键月份新增开户（真实节选） */
+(function(){
+  const data=[["23-09",626],["23-12",130],["24-01",201],["24-05",112],["24-12",95],["25-06",52],["26-01",59],["26-09",9]];
+  const W=620,H=300,L=44,R=16,T=22,B=42,max=680;
+  const gap=(W-L-R)/data.length,bw=gap*0.56;
+  const y=v=>T+(1-v/max)*(H-T-B);
+  let s='';
+  for(let k=0;k<=4;k++){const g=max*k/4;s+=`<line x1="${L}" y1="${y(g)}" x2="${W-R}" y2="${y(g)}" stroke="${LINE}"/>`;s+=`<text x="${L-8}" y="${y(g)+4}" font-size="10.5" fill="${FAINT}" text-anchor="end">${Math.round(g)}</text>`;}
+  data.forEach((d,i)=>{const bx=L+i*gap+(gap-bw)/2;
+    s+=`<rect x="${bx}" y="${y(d[1])}" width="${bw}" height="${H-B-y(d[1])}" fill="${G}" opacity="${d[1]===626?1:.8}"/>`;
+    s+=`<text x="${bx+bw/2}" y="${y(d[1])-6}" font-size="10.5" font-weight="600" fill="${GD}" text-anchor="middle">${d[1]}</text>`;
+    s+=`<text x="${bx+bw/2}" y="${H-B+20}" font-size="10" fill="${FAINT}" text-anchor="middle">${d[0]}</text>`;});
+  document.getElementById('chMonth').innerHTML=s;
+})();
+
+/* 年龄分布 */
+(function(){
+  const bands=[["<30",108,G],["30–39",199,G],["40–49",95,VI],["50–59",20,VI],["≥60",0,BD]];
+  const W=620,H=280,L=44,R=16,T=22,B=40,max=210;
+  const gap=(W-L-R)/bands.length,bw=gap*0.56;
+  const y=v=>T+(1-v/max)*(H-T-B);
+  let s='';
+  for(let k=0;k<=4;k++){const g=max*k/4;s+=`<line x1="${L}" y1="${y(g)}" x2="${W-R}" y2="${y(g)}" stroke="${LINE}"/>`;s+=`<text x="${L-8}" y="${y(g)+4}" font-size="10.5" fill="${FAINT}" text-anchor="end">${Math.round(g)}</text>`;}
+  bands.forEach((b,i)=>{const bx=L+i*gap+(gap-bw)/2;const h=H-B-y(b[1]);
+    s+=`<rect x="${bx}" y="${y(b[1])}" width="${bw}" height="${Math.max(h,0)}" fill="${b[2]}" opacity=".9"/>`;
+    s+=`<text x="${bx+bw/2}" y="${y(b[1])-6}" font-size="11" font-weight="600" fill="${GD}" text-anchor="middle">${b[1]}</text>`;
+    s+=`<text x="${bx+bw/2}" y="${H-B+20}" font-size="10.5" fill="${FAINT}" text-anchor="middle">${b[0]}岁</text>`;});
+  document.getElementById('chAge').innerHTML=s;
+})();
+
+/* AUM 对比 */
+(function(){
+  const data=[["颐养天年",669.98,G],["税优账户 TD",6229.02,BD]];
+  const W=620,H=220,L=120,R=70,T=20,B=30,max=6600;
+  const gap=(H-T-B)/data.length,bh=42;
+  const x=v=>L+v/max*(W-L-R);
+  let s='';
+  data.forEach((d,i)=>{const by=T+i*gap+(gap-bh)/2;
+    s+=`<text x="${L-12}" y="${by+bh/2+4}" font-size="13.5" fill="${INK}" text-anchor="end">${d[0]}</text>`;
+    s+=`<rect x="${L}" y="${by}" width="${x(d[1])-L}" height="${bh}" fill="${d[2]}" opacity=".9"/>`;
+    s+=`<text x="${x(d[1])+8}" y="${by+bh/2+4}" font-size="13.5" font-weight="700" fill="${GD}">${d[1].toLocaleString()} 万</text>`;});
+  document.getElementById('chAum').innerHTML=s;
+})();
+
+function rowChart(id,data,unit){
+  const max=Math.max(...data.map(d=>d[1]));
+  document.getElementById(id).innerHTML=data.map(d=>`<li><span class="rk">${d[0]}</span><span class="rb"><i style="width:${Math.round(d[1]/max*100)}%"></i></span><span class="rv num">${d[1]}${unit||''}<small>${d[2]||''}</small></span></li>`).join('');
+}
+rowChart('sizeRows',[["<1 千",86," 户","23%"],["1千–1万",129," 户","35%"],["1万–5万",120," 户","33%"],["5万–10万",21," 户","6%"],[">10 万",10," 户","3%"]]);
+rowChart('riskRows',[["C1 保守",4," 户","2%"],["C2 稳健",19," 户","10%"],["C3 平衡",71," 户","38%"],["C4 进取",48," 户","26%"],["C5 激进",46," 户","24%"]]);
+rowChart('aipRows',[["当前活跃",210," 人","35%"],["已暂停",92," 人",""],["已终止",149," 人",""]]);
+rowChart('yRows',[["华夏养老2045三年Y",702," 人",""],["汇添富养老2050五年Y",196," 人",""],["广发安泰稳健养老一年Y",121," 人",""],["易方达汇诚养老2038三年Y",113," 人",""],["南方养老2045三年Y",100," 人",""]]);
+
+/* nav 高亮 */
+const links=[...document.querySelectorAll('.nav a')];
+const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const i=secs.indexOf(e.target);links.forEach(l=>l.classList.remove('on'));links[i]?.classList.add('on');}});},{rootMargin:'-120px 0px -70% 0px'});
+secs.forEach(s=>s&&obs.observe(s));
+</script>
+</body>
+</html>
