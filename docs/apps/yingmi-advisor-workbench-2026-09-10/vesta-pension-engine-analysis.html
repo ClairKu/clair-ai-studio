@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />
+    <script data-clair-access-gate data-clair-access-scope="workspace" src="../../access-gate.js"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>VESTA 养老测算引擎 · 深度规则解析（2026-09-21 登录态实测）</title>
+<style>
+:root{
+  --ink:#16324A; --ink2:#4A6478; --ink3:#8AA0B4;
+  --brand:#0E6FD9; --brand-soft:#EAF3FE; --cyan:#0E9AA8; --orange:#E87A1E; --orange-soft:#FFF4E8;
+  --green:#0E8563; --green-soft:#E7F6F1; --red:#C64040; --red-soft:#FDECEC; --purple:#6E5FCE; --purple-soft:#F1EFFC;
+  --paper:#FFFFFF; --bg:#F4F7FB; --line:#DEE8F1; --line2:#EAF0F6;
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+  --shadow:0 2px 12px rgba(22,50,74,.06); --radius:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;line-height:1.7;font-size:14.5px}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(244,247,251,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:1180px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:14px}
+.logo{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,#0E6FD9,#0E9AA8);display:grid;place-items:center;color:#fff;font-weight:800;font-size:13px;flex:none}
+.topbar h1{font-size:15px;font-weight:700;letter-spacing:.01em}
+.topbar .meta{margin-left:auto;font-size:12px;color:var(--ink2);display:flex;gap:8px;align-items:center}
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:var(--green-soft);color:var(--green)}
+.badge.blue{background:var(--brand-soft);color:var(--brand)}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 24px 90px}
+.hero{background:linear-gradient(120deg,#0B3A63 0%,#0E6FD9 55%,#0E9AA8 100%);color:#fff;border-radius:22px;padding:34px 36px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-70px;top:-90px;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.08)}
+.hero .eyebrow{font-size:11.5px;font-weight:800;letter-spacing:.16em;color:#9FE0DC;text-transform:uppercase}
+.hero h2{font-size:30px;line-height:1.25;letter-spacing:-.01em;margin:8px 0 10px;max-width:820px}
+.hero p{max-width:820px;color:rgba(255,255,255,.85);font-size:14px}
+.hero .chips{margin-top:16px;display:flex;gap:8px;flex-wrap:wrap}
+.hero .chips span{font-size:11.5px;padding:4px 11px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22)}
+nav.toc{margin:22px 0;display:flex;gap:8px;flex-wrap:wrap}
+nav.toc a{font-size:12.5px;color:var(--ink2);text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 13px}
+nav.toc a:hover{color:var(--brand);border-color:#BBD7F5}
+section{margin-top:34px}
+.sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-h .no{font-family:var(--mono);font-size:12px;color:var(--brand);font-weight:700}
+.sec-h h2{font-size:22px;letter-spacing:-.01em}
+.lead{color:var(--ink2);max-width:940px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;margin-top:16px}
+.card h3{font-size:16px;margin-bottom:10px}
+.card h4{font-size:14px;margin:14px 0 6px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:900px){.grid2,.grid3,.grid4{grid-template-columns:1fr}}
+.kpi{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.kpi b{display:block;font-size:20px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.kpi span{font-size:11.5px;color:var(--ink2)}
+.kpi small{display:block;font-size:10.5px;color:var(--ink3);margin-top:2px}
+.tag{display:inline-block;font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:999px;vertical-align:middle}
+.tag.ok{background:var(--green-soft);color:var(--green)}
+.tag.warn{background:var(--orange-soft);color:var(--orange)}
+.tag.bad{background:var(--red-soft);color:var(--red)}
+.tag.info{background:var(--brand-soft);color:var(--brand)}
+.tag.purple{background:var(--purple-soft);color:var(--purple)}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line2);vertical-align:top}
+th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink2);background:#F8FBFE;font-weight:700}
+tr:last-child td{border-bottom:0}
+td.num,th.num{font-variant-numeric:tabular-nums;font-family:var(--mono);font-size:12.5px}
+.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:14px}
+.flow .step{position:relative;padding:18px 18px 18px 22px;background:#fff;border:1px solid var(--line)}
+.flow .step:first-child{border-radius:14px 0 0 14px}
+.flow .step:last-child{border-radius:0 14px 14px 0}
+.flow .step:not(:first-child){border-left:0}
+.flow .step::after{content:"›";position:absolute;right:-9px;top:50%;transform:translateY(-50%);z-index:2;color:var(--brand);font-size:22px;font-weight:800;background:var(--bg);border-radius:50%;width:18px;height:18px;display:grid;place-items:center;font-size:13px}
+.flow .step:last-child::after{display:none}
+.flow .s-no{font-family:var(--mono);font-size:11px;color:var(--brand);font-weight:700}
+.flow h3{font-size:15px;margin:4px 0 6px}
+.flow p{font-size:12px;color:var(--ink2);line-height:1.6}
+.flow .api{margin-top:8px;font-family:var(--mono);font-size:10.5px;background:#0E314C;color:#9FE5E0;border-radius:8px;padding:6px 9px;word-break:break-all}
+pre.json{background:#0E314C;color:#D9ECFF;border-radius:12px;padding:16px;font-family:var(--mono);font-size:11.5px;line-height:1.65;overflow:auto;white-space:pre;word-break:break-all}
+pre.json .k{color:#9FE5E0}
+.formula{background:#0E314C;color:#fff;border-radius:14px;padding:18px 20px}
+.formula h3{font-size:14px;margin-bottom:8px;color:#9FE5E0}
+.formula code{display:block;font-family:var(--mono);font-size:12.5px;line-height:1.8;color:#fff;white-space:pre-wrap}
+.formula p{font-size:11.5px;color:rgba(255,255,255,.65);margin-top:8px}
+.callout{border-left:4px solid var(--orange);background:var(--orange-soft);border-radius:0 12px 12px 0;padding:14px 16px;margin-top:14px;font-size:13px;color:#6B4A26}
+.callout.blue{border-color:var(--brand);background:var(--brand-soft);color:#1D4E7E}
+.callout.green{border-color:var(--green);background:var(--green-soft);color:#0B5D47}
+.callout b{color:inherit}
+.chart-wrap{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;margin-top:12px}
+.chart-wrap h4{margin:0 0 4px;font-size:13.5px}
+.chart-wrap .sub{font-size:11.5px;color:var(--ink3);margin-bottom:6px}
+.legend{display:flex;gap:14px;font-size:11px;color:var(--ink2);margin-top:6px;flex-wrap:wrap}
+.legend i{display:inline-block;width:14px;height:3px;border-radius:2px;vertical-align:middle;margin-right:5px}
+.note{font-size:11.5px;color:var(--ink3);margin-top:8px;line-height:1.6}
+.mdd-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:12px}
+@media(max-width:900px){.mdd-grid{grid-template-columns:repeat(2,1fr)}}
+.mdd{background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 12px}
+.mdd b{display:block;font-size:13px}
+.mdd span{font-size:11px;color:var(--ink2);font-family:var(--mono)}
+.diff-table td:first-child{font-weight:700;white-space:nowrap}
+.footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-size:11.5px;color:var(--ink3);line-height:1.8}
+h3 .tag{margin-left:8px}
+ul.tight{padding-left:20px;color:var(--ink2);font-size:13px}
+ul.tight li{margin:4px 0}
+.pill-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.pill-row span{font-size:11px;background:#F0F5FA;border:1px solid var(--line);border-radius:8px;padding:3px 9px;color:var(--ink2)}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-in">
+    <span class="logo">V</span>
+    <h1>VESTA 养老测算引擎 · 深度规则解析</h1>
+    <div class="meta"><span class="badge">✓ 登录态实测</span><span class="badge blue">2026-09-21</span></div>
+  </div>
+</header>
+<div class="wrap">
+
+<div class="hero">
+  <div class="eyebrow">VESTА PO-LAB · 组合引擎 · 养老规划场景</div>
+  <h2>一套「下滑曲线 × 蒙特卡洛 × 双向现金流 × 产品映射」的完整养老测算引擎</h2>
+  <p>本文基于 2026-09-21 真实登录态，对 VESTA 组合引擎（vesta-aap / rbc-riskmanager）养老规划场景做全流程实测与逆向分析：三个服务端接口的全部参数、下滑曲线公式（已验证到小数点后 4 位）、风险值—回撤映射、三情景与跑赢通胀概率口径、以及到启明睿系列组合的产品映射规则。文末给出且慢 C 端工具的复用与替换建议。</p>
+  <div class="chips"><span>3 个服务端接口</span><span>下滑曲线公式已验证</span><span>19 个风险值探测点</span><span>4 组现金流实测案例</span><span>概率曲面实测</span></div>
+</div>
+
+<nav class="toc">
+  <a href="#overview">① 能力全景</a><a href="#flow">② 三步闸门流程</a><a href="#step1">③ 投资场景与下滑曲线</a><a href="#step2">④ 资金计划与三情景</a><a href="#step3">⑤ 产品映射规则</a><a href="#api">⑥ API 技术档案</a><a href="#simple">⑦ 简易版计算器</a><a href="#findings">⑧ 关键发现与缺陷</a><a href="#qieman">⑨ 对且慢的应用建议</a>
+</nav>
+
+<!-- ① 概览 -->
+<section id="overview">
+  <div class="sec-h"><span class="no">01</span><h2>能力全景：VESTA 里其实有两层养老测算</h2></div>
+  <p class="lead">VESTA 面向投研/投顾人员。与养老相关的测算能力分两层：一是<b>组合引擎里的「养老规划」场景</b>（本文重点，即给定 URL 所在页面），它是一条完整的「参数 → 曲线 → 现金流 → 产品」流水线；二是<b>简易版养老计算器</b>（确定性单点估算，见第 ⑦ 节）。两者规则、精度、用途完全不同，不能混用。</p>
+  <div class="grid2" style="margin-top:16px">
+    <div class="card">
+      <h3>组合引擎 · 养老规划（主力）<span class="tag ok">本文实测</span></h3>
+      <ul class="tight">
+        <li><b>定位</b>：投研级「基于资金流方式构建」的组合策略生成器，养老是其中一个规划场景（另一个是教育规划）</li>
+        <li><b>入口</b>：VESTA → 组合引擎 → 创建策略 → 构建方式「基于资金流方式构建」→ 规划场景「养老规划」</li>
+        <li><b>技术形态</b>：qiankun 微前端（子应用 coralAap）+ 服务端 <code style="font-family:var(--mono);font-size:12px">/rbc-riskmanager</code> 三个接口</li>
+        <li><b>输出</b>：收益/权益曲线 → 三情景出入金 + IRR + 跑赢通胀概率 → 分阶段组合配置表 → 可保存为组合对象</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>简易版养老计算器（旧版/独立）<span class="tag warn">规则见第 ⑦ 节</span></h3>
+      <ul class="tight">
+        <li><b>定位</b>：单页确定性估算器，回答「缺口多大、每月再存多少」</li>
+        <li><b>输入</b>：当前年龄/退休年龄/预期寿命/年收入/年储蓄/已有储蓄 + 收入增长、通胀、退休前/后收益 4 个假设 + 退休后年支出</li>
+        <li><b>输出</b>：退休时总储蓄、退休后总需求、资金缺口、建议每月额外储蓄（缺口按剩余年限平摊到每月）</li>
+        <li><b>局限</b>：无情景、无概率、无风险预算、无产品映射；收益假设由用户手填，结果敏感且不可复核</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout blue"><b>结论：</b>且慢 C 端应以「组合引擎」的规则为量化内核（下滑曲线、三情景、双向现金流、概率），简易版的能力被其完全覆盖；简易版与富达测算器、且慢旧自订测算器同属「确定性单点估算」一代，建议整合进新工具后淡出。</div>
+</section>
+
+<!-- ② 流程 -->
+<section id="flow">
+  <div class="sec-h"><span class="no">02</span><h2>三步闸门流程：严格依次解锁</h2></div>
+  <p class="lead">页面强制按顺序执行三步，前一步完成前下一步按钮不可用（「请先完成投资场景测算」「请先完成资金计划测算」）。三步共用同一份场景参数头（性别、年龄、配置范围、风险值、再平衡频率、开始日期）。</p>
+  <div class="flow">
+    <div class="step">
+      <div class="s-no">STEP 1 · 投资场景测算</div>
+      <h3>测算养老收益曲线及权益配比</h3>
+      <p>输入人群与风险参数，输出逐年龄的乐观/基准/熊市收益曲线 + 权益配比下滑曲线。核心是「风险值 → 起始权益 → 抛物线下滑」。</p>
+      <div class="api">POST /rbc-riskmanager/asset_config/cash_in_out/simulate</div>
+    </div>
+    <div class="step">
+      <div class="s-no">STEP 2 · 资金计划测算</div>
+      <h3>测算出入金及跑赢通胀概率</h3>
+      <p>在 Step 1 的曲线上叠加现金流：存入计划（分期/一次性、频率、时点、每年额外存入）与领取计划（频率、时点、通胀增长、期末留存）。支持双向：已知入金算出金 / 已知出金算入金。</p>
+      <div class="api">POST /rbc-riskmanager/asset_config/cash_in_out/calculate</div>
+    </div>
+    <div class="step">
+      <div class="s-no">STEP 3 · 组合配置</div>
+      <h3>按渠道映射可执行组合</h3>
+      <p>把连续下滑曲线离散成 10% 步长的权益档位，每个年龄段映射到渠道（当前仅「盈米基金」）下的组合搭配，生成可保存的方案文案与配置表。</p>
+      <div class="api">POST /rbc-riskmanager/asset_config/cash_in_out/portfolio_plan</div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>场景参数头（三步共享）</h3>
+    <table>
+      <thead><tr><th>参数</th><th>字段</th><th>取值</th><th>默认/实测</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td>规划场景</td><td class="num">scene</td><td class="num">retire / edu</td><td class="num">retire</td><td>养老规划 / 教育规划；教育场景末期权益降到 0（无养老地板）</td></tr>
+        <tr><td>性别</td><td class="num">gender</td><td class="num">male / female</td><td class="num">male</td><td>实测对曲线与结果几乎无影响（rt_base 差异 &lt;0.1pp）</td></tr>
+        <tr><td>开始存入年龄</td><td class="num">age_begin_inflow</td><td class="num">整数</td><td class="num">25</td><td>存入期起点</td></tr>
+        <tr><td>开始领取年龄</td><td class="num">age_begin_outflow</td><td class="num">整数</td><td class="num">63</td><td>系统自动令 停止存入年龄 = 开始领取年龄 − 1（如 63 → 62）</td></tr>
+        <tr><td>领取截止年龄</td><td class="num">age_end_outflow</td><td class="num">整数</td><td class="num">99</td><td>领取期终点</td></tr>
+        <tr><td>资产配置范围</td><td class="num">asset_range</td><td class="num">domestic / global</td><td class="num">domestic</td><td>全球配置下同风险值收益更高（25 岁基准 7.82% vs 国内 5.55%）</td></tr>
+        <tr><td>风险值</td><td class="num">risk_score</td><td class="num">0—100</td><td class="num">50</td><td>核心风险预算旋钮，决定起始权益与回撤区间（见对照表）</td></tr>
+        <tr><td>再平衡频率（年）</td><td class="num">nyr_rebal</td><td class="num">整数</td><td class="num">1</td><td>权益比例再平衡间隔；实测对结果影响极小</td></tr>
+        <tr><td>开始日期</td><td class="num">record_date</td><td class="num">交易日</td><td class="num">2026.09.18</td><td>模拟所用市场数据的截止日（前端仅允许 2024-09-01 至前一交易日）</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ③ Step1 -->
+<section id="step1">
+  <div class="sec-h"><span class="no">03</span><h2>Step 1 · 投资场景：收益曲线与下滑曲线</h2></div>
+  <p class="lead">接口返回逐年龄四组收益率（乐观 rt_bull / 基准 rt_base / 熊市 rt_bear / 基准上下限 rt_base_upper·lower）与权益配比 equity_ratio。经 19 个风险值探测点 + 逐点验证，下滑曲线的构造规则已完全反推确认。</p>
+
+  <div class="card">
+    <h3>3.1 下滑曲线公式 <span class="tag ok">已验证 · 误差 &lt;0.0005</span></h3>
+    <div class="grid2">
+      <div class="formula">
+        <h3>积累期（开始存入年龄 → 开始领取年龄），风险值 ≥ 30</h3>
+        <code>equity(t) = 0.20 + (E₀ − 0.20) × (1 − t/T)²</code>
+        <p>t = 当前年龄 − 开始存入年龄；T = 开始领取年龄 − 开始存入年龄；E₀ = 起始权益（仅由风险值决定）。二次抛物线：早年降得慢、临近退休降得快，退休当年恰好落到 20% 地板。</p>
+      </div>
+      <div class="formula">
+        <h3>领取期（开始领取年龄之后）+ 低风险值（&lt;30）</h3>
+        <code>退休当年：20%（rs≥30）或 E₀（rs&lt;30，持平不下滑）
+之后 7 年线性 → 10%：equity(k) = E_retire + (0.10 − E_retire) × k/7
+70 岁起：恒定 10%（养老权益地板）</code>
+        <p>rs&lt;30 时积累期权益持平在 E₀（不下滑），退休后同样 7 年线性收敛到 10%。教育场景（edu）无地板，末期降到 0。</p>
+      </div>
+    </div>
+    <div class="chart-wrap">
+      <h4>实测下滑曲线（男 · 25 岁存入 · 63 岁领取 · 99 岁截止 · 国内配置）</h4>
+      <div class="sub">实线为接口返回的权益配比；风险值 50/75/100 三条实测曲线与公式完全重合</div>
+      <svg viewBox="0 0 760 260" style="width:100%;height:auto" id="glideChart"></svg>
+      <div class="legend"><span><i style="background:#0E6FD9"></i>风险值 50（E₀=67.1%）</span><span><i style="background:#0E9AA8">风险值 75（E₀=86.1%）</i></span><span><i style="background:#E87A1E"></i>风险值 100（E₀=100%）</span><span><i style="background:#8AA0B4"></i>风险值 25（E₀=15.5%，持平型）</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>3.2 起始权益 E₀ 只由风险值决定 <span class="tag ok">19 点实测</span></h3>
+    <p style="font-size:13px;color:var(--ink2)">与年龄、性别、场景、配置范围均无关（已逐一控制变量验证）。风险值 &lt; 30 为「持平型」低权益；≥ 30 进入抛物线下滑。60 分以上近似 E₀ ≈ 1 − (100−score)/180。</p>
+    <table>
+      <thead><tr><th>风险值</th><th class="num">0</th><th class="num">10</th><th class="num">15</th><th class="num">20</th><th class="num">25</th><th class="num">30</th><th class="num">35</th><th class="num">40</th><th class="num">45</th><th class="num">50</th></tr></thead>
+      <tbody><tr><td>起始权益 E₀</td><td class="num">0%</td><td class="num">4.6%</td><td class="num">6.8%</td><td class="num">9.1%</td><td class="num">15.5%</td><td class="num">24.6%</td><td class="num">33.6%</td><td class="num">42.7%</td><td class="num">52.9%</td><td class="num"><b>67.1%</b></td></tr></tbody>
+    </table>
+    <table>
+      <thead><tr><th>风险值</th><th class="num">55</th><th class="num">60</th><th class="num">65</th><th class="num">70</th><th class="num">75</th><th class="num">80</th><th class="num">85</th><th class="num">90</th><th class="num">95</th><th class="num">100</th></tr></thead>
+      <tbody><tr><td>起始权益 E₀</td><td class="num">73.1%</td><td class="num">76.9%</td><td class="num">80.6%</td><td class="num">83.3%</td><td class="num">86.1%</td><td class="num">88.9%</td><td class="num">91.7%</td><td class="num">94.4%</td><td class="num">97.2%</td><td class="num"><b>100%</b></td></tr></tbody>
+    </table>
+    <div class="chart-wrap">
+      <h4>风险值 → 起始权益映射曲线</h4>
+      <div class="sub">横轴风险值 0—100，纵轴起始权益比例；30 分以下为低权益持平区</div>
+      <svg viewBox="0 0 760 220" style="width:100%;height:auto" id="ebChart"></svg>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>3.3 风险值 ↔ 预期最大回撤对照（前端提示表原文）</h3>
+    <div class="mdd-grid">
+      <div class="mdd"><b>0—9</b><span>-2.11% ≤ MDD &lt; -1.75%</span></div>
+      <div class="mdd"><b>10—19</b><span>-3.53% ≤ MDD &lt; -2.22%</span></div>
+      <div class="mdd"><b>20—29</b><span>-9.20% ≤ MDD &lt; -3.71%</span></div>
+      <div class="mdd"><b>30—39</b><span>-16.61% ≤ MDD &lt; -9.95%</span></div>
+      <div class="mdd"><b>40—49</b><span>-25.52% ≤ MDD &lt; -17.32%</span></div>
+      <div class="mdd"><b>50—59</b><span>-29.76% ≤ MDD &lt; -26.57%</span></div>
+      <div class="mdd"><b>60—69</b><span>-32.06% ≤ MDD &lt; -30.03%</span></div>
+      <div class="mdd"><b>70—79</b><span>-33.93% ≤ MDD &lt; -32.25%</span></div>
+      <div class="mdd"><b>80—89</b><span>-35.79% ≤ MDD &lt; -34.12%</span></div>
+      <div class="mdd"><b>90—100</b><span>-37.75% ≤ MDD ≤ -35.96%</span></div>
+    </div>
+    <p class="note">注意：回撤区间随风险值单调加深但边际收敛（70 分以上回撤几乎不再加深，权益继续升高）——即高风险值主要买的是「更高预期收益」，不是「成比例更大的回撤」。这是向用户解释风险值时最容易被误读的一点。</p>
+  </div>
+
+  <div class="card">
+    <h3>3.4 收益率曲线与资产池</h3>
+    <div class="grid2">
+      <div>
+        <h4>基准年化收益（国内配置 · 风险值 50）</h4>
+        <ul class="tight">
+          <li>25 岁（权益 67.1%）：<b>5.55%</b>；40 岁（37.3%）：3.75%；62 岁（20%）：2.60%；70 岁后（10%）：约 1.9%</li>
+          <li>由极端值反推的构建块：<b>国内权益 ≈ 7.7%/年</b>（rs=100），<b>债券/现金 ≈ 1.2—1.5%/年</b>（rs=0）</li>
+          <li>组合基准收益 ≈ 权益×7.5% + 固收×1.5%（沿曲线拟合误差 &lt;0.2pp）</li>
+          <li>全球配置同风险值 25 岁基准 <b>7.82%</b>（权益为全球资产，收益假设更高）</li>
+        </ul>
+        <h4>情景口径</h4>
+        <ul class="tight">
+          <li>rt_base = 中性（中位路径）；rt_bull ≈ 乐观（约 95 分位路径）；rt_bear ≈ 悲观（约 5 分位路径）</li>
+          <li>rt_base_upper / lower = 逐年收益波动区间（蒙特卡洛逐年分位，噪声大）</li>
+          <li>情景利差随权益收窄：25 岁乐观−基准 ≈ +6.7pp，63 岁后 ≈ +0.4pp</li>
+        </ul>
+      </div>
+      <div>
+        <h4>资产池（asset_categories 接口 · 每类资产锚定具体指数）</h4>
+        <table>
+          <thead><tr><th>大类</th><th>细分（指数）</th></tr></thead>
+          <tbody>
+            <tr><td>中国权益</td><td>红利（红利低波100 930955）· 价值（上证50 000016）· 均衡（万得全A 881001）· 成长（中证500+创业板指各 50%）· 周期（中证上游 000961）</td></tr>
+            <tr><td>海外权益</td><td>美国（标普500+纳指各50%）· 欧洲（MSCI欧洲）· 香港（恒生科技/恒生高股息/恒生指数）· 日本（日经225）· 新兴市场（MSCI EM 美元）· 越南（VN30）</td></tr>
+            <tr><td>债券</td><td>中国：短债（0-1综合债净价）/ 利率债（国债及政金债 931303）/ 信用债（中证信用）/ 可转债（中证转债）/ 综合（中债新综合全价）；美国（iBoxx美元债）；亚洲（iBoxx亚洲除日中）</td></tr>
+            <tr><td>商品 / 另类 / 现金</td><td>黄金（COMEX）· 原油（Brent）· REITs（中证REITs全收益 932047）· 稳定币指数 · 货币基金（H11025）</td></tr>
+          </tbody>
+        </table>
+        <p class="note">国内配置 = 只用中国权益 + 中国债券 + 现金等境内资产；全球配置 = 全池。蒙特卡洛内核（模拟次数、分布、相关性矩阵、资本市场假设版本）在服务端，页面不可见——正式对客时必须要求投研提供版本号。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ④ Step2 -->
+<section id="step2">
+  <div class="sec-h"><span class="no">04</span><h2>Step 2 · 资金计划：双向现金流 + 三情景 + 跑赢通胀概率</h2></div>
+  <p class="lead">在 Step 1 的收益/权益曲线上叠加存入与领取计划，解算每期可领（或应存）金额。全部现金流按<b>月</b>粒度、按期初/期末约定复利滚存；领取额按通胀率逐年增长（保值领取）。</p>
+
+  <div class="card">
+    <h3>4.1 参数全集</h3>
+    <table>
+      <thead><tr><th>参数</th><th>字段</th><th>取值 / 默认</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td>测算方向</td><td class="num">calc_mode</td><td class="num">out（默认）/ in</td><td>已知入金算出金（定投→能领多少）/ 已知出金算入金（要领多少→该存多少）</td></tr>
+        <tr><td>存入方式</td><td class="num">mode_inflow</td><td class="num">periodic（默认）/ lumpsum</td><td>分期存入 / 一次性存入（一次性时停止存入年龄=开始存入年龄）</td></tr>
+        <tr><td>存入频率 / 时点</td><td class="num">mode_freq_in / mode_point_in</td><td class="num">monthly/quarterly/yearly · begin/end</td><td>默认月存、期初</td></tr>
+        <tr><td>每期存入金额</td><td class="num">amt_period_in</td><td class="num">默认 8,200 元</td><td>按频率计（月=每月，季=每季，年=每年）</td></tr>
+        <tr><td>停止存入年龄</td><td class="num">age_end_inflow</td><td class="num">默认 = 开始领取年龄 − 1</td><td>可早于领取年龄（提前停缴）</td></tr>
+        <tr><td>每年额外存入一笔</td><td class="num">is_add_subinflow / amt_period_in_sub / mode_point_in_sub</td><td class="num">默认否；示例 50,000 元 · 期初</td><td>年终奖场景：常规存入外每年再补一笔</td></tr>
+        <tr><td>领取频率 / 时点</td><td class="num">mode_freq_out / mode_point_out</td><td class="num">monthly/quarterly/yearly · begin/end</td><td>默认月领、期初</td></tr>
+        <tr><td>预计通胀率</td><td class="num">growth_rate_annual_out</td><td class="num">默认 3%/年</td><td>领取额按此逐年增长（实际购买力恒定）；同时作为跑赢目标 target_inv_rate</td></tr>
+        <tr><td>期末留存金额</td><td class="num">amt_remain_end</td><td class="num">默认 10,000 元</td><td>领取截止年龄时的保底余额（遗产/应急垫）</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>4.2 输出口径：三情景 + IRR + 跑赢通胀概率</h3>
+    <div class="grid3">
+      <div class="kpi"><b style="color:var(--orange)">乐观 ≈ 95 分位</b><span>results.bull · irr.bull</span><small>前端固定文案「达成概率 5%」</small></div>
+      <div class="kpi"><b style="color:var(--green)">中性 = 中位</b><span>results.base · irr.base</span><small>附 60% 区间 base_lower ~ base_upper（约 20—80 分位）</small></div>
+      <div class="kpi"><b style="color:var(--red)">悲观 ≈ 5 分位</b><span>results.bear · irr.bear</span><small>前端固定文案「触发概率 5%」</small></div>
+    </div>
+    <ul class="tight" style="margin-top:12px">
+      <li><b>IRR</b>：整条现金流（存入负、领取正、期末留存正）的资金加权年化收益率。基准情景 2.71%（默认案例）。</li>
+      <li><b>跑赢通胀概率 prob_beat_target</b>：蒙特卡洛路径中「计划年化收益 &gt; 通胀目标」的比例。<b>与存入/领取金额无关</b>（实测改金额、改方向、加额外存入，概率恒为 32.91%）——它是「这条下滑曲线 + 这个风险值」对通胀目标的纯收益属性。</li>
+      <li><b>反向测算的区间方向会翻转</b>：已知出金算入金时，收益越好需要存得越少，所以 base_upper（4,019.5）&lt; base_lower（5,709）——展示时需注意文案方向。</li>
+    </ul>
+    <div class="chart-wrap">
+      <h4>默认案例资金流图（月存 8,200 元至 62 岁 → 63 岁起月领 13,849 元·年增 3% → 99 岁留存 1 万）</h4>
+      <div class="sub">蓝柱=每年存入，绿柱=每年领取（按通胀增长），橙线=权益配比（右轴）</div>
+      <svg viewBox="0 0 760 240" style="width:100%;height:auto" id="cfChart"></svg>
+      <div class="legend"><span><i style="background:#0E6FD9"></i>年存入</span><span><i style="background:#0E8563"></i>年领取（中性）</span><span><i style="background:#E87A1E"></i>权益配比</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>4.3 实测案例矩阵（2026-09-18 数据 · 男 · 25 存 63 领 99 止 · 风险值 50 · 国内）</h3>
+    <table>
+      <thead><tr><th>案例</th><th>输入</th><th class="num">悲观(5%)</th><th class="num">中性(50%)</th><th class="num">乐观(95%)</th><th class="num">IRR 中/乐/悲</th><th class="num">跑赢3%通胀</th></tr></thead>
+      <tbody>
+        <tr><td><b>正向 · 分期月存</b></td><td>月存 8,200（期初）至 62 岁；月领期初；通胀 3%；留存 1 万</td><td class="num">9,887.45</td><td class="num"><b>13,849.21</b></td><td class="num">20,248.89</td><td class="num">2.71% / 3.66% / 1.87%</td><td class="num">32.91%</td></tr>
+        <tr><td><b>反向 · 目标月领 8,000</b></td><td>同上，反推每月应存</td><td class="num">6,636.16</td><td class="num"><b>4,739.01</b></td><td class="num">3,241.86</td><td class="num">2.71% / 3.66% / 1.87%</td><td class="num">32.91%</td></tr>
+        <tr><td><b>一次性存入 100 万</b></td><td>lumpsum；其余同上</td><td class="num">3,476.03</td><td class="num"><b>7,572.56</b></td><td class="num">16,817.91</td><td class="num">3.17% / 4.66% / 1.77%</td><td class="num">32.91%</td></tr>
+        <tr><td><b>月存 8,200 + 每年额外 5 万</b></td><td>is_add_subinflow=1（年终奖）</td><td class="num">14,955.20</td><td class="num"><b>21,022.69</b></td><td class="num">30,888.43</td><td class="num">2.71% / 3.68% / 1.87%</td><td class="num">32.91%</td></tr>
+      </tbody>
+    </table>
+    <p class="note">中性区间（60%）：13,849.21 ± [11,494.86 ~ 16,330.71]。反向案例的「悲观=需存更多」方向与直觉相反，展示文案必须随方向切换。</p>
+  </div>
+
+  <div class="card">
+    <h3>4.4 跑赢通胀概率曲面（实测探测）</h3>
+    <div class="grid2">
+      <div>
+        <h4>随风险值变化（通胀目标 3%）</h4>
+        <table>
+          <thead><tr><th class="num">风险值</th><th class="num">10</th><th class="num">30</th><th class="num">50</th><th class="num">70</th><th class="num">90</th><th class="num">100</th></tr></thead>
+          <tbody><tr><td>跑赢概率</td><td class="num">0%</td><td class="num">7.3%</td><td class="num"><b>32.9%</b></td><td class="num">39.0%</td><td class="num">42.5%</td><td class="num">43.9%</td></tr></tbody>
+        </table>
+      </div>
+      <div>
+        <h4>随通胀目标变化（风险值 50）</h4>
+        <table>
+          <thead><tr><th class="num">通胀目标</th><th class="num">2%</th><th class="num">3%</th><th class="num">4%</th></tr></thead>
+          <tbody><tr><td>跑赢概率</td><td class="num">77.7%</td><td class="num"><b>32.9%</b></td><td class="num">5.2%</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="callout"><b>产品含义：</b>即使风险值拉满（100），跑赢 3% 通胀的概率也只有 43.9%——因为权益越高波动越大，长期年化收益的中位数提升有限而分布更宽。<b>「提高风险值就能稳赢通胀」是错误直觉</b>；这是 C 端工具必须诚实呈现的反直觉点，也是投顾话术的价值点。</div>
+  </div>
+</section>
+
+<!-- ⑤ Step3 -->
+<section id="step3">
+  <div class="sec-h"><span class="no">05</span><h2>Step 3 · 组合配置：下滑曲线 → 权益档位 → 启明睿组合</h2></div>
+  <p class="lead">连续的下滑曲线被离散成 10% 步长的权益档位，同档位的连续年龄合并为一个「阶段」，每个阶段映射到盈米基金渠道下的启明睿系列组合搭配。档位是<b>名义标签</b>，与实际组合权益有系统性偏差（见下表）。</p>
+  <div class="card">
+    <h3>5.1 档位规则（实测反推）</h3>
+    <ul class="tight">
+      <li>积累期：档位 = floor(当年权益 × 10) / 10（向下取整到 10%）；同档位连续年龄合并为阶段（如 25—27 岁同为 60% 档）</li>
+      <li>退休首年（63 岁）保持 20% 档；64 岁起进入 10% 档直至 99 岁</li>
+      <li>每档内相邻两组合各 50% 过渡（如 40% 档 = 守恒 50% + 稳健 50%），纯档位置 100%</li>
+    </ul>
+    <h3 style="margin-top:18px">5.2 默认案例配置表（接口原文）+ 实际权益核对</h3>
+    <table>
+      <thead><tr><th>年龄阶段</th><th>时间阶段</th><th class="num">名义权益档位</th><th>配置组合（权重）</th><th class="num">组合实际权益</th><th class="num">偏差</th></tr></thead>
+      <tbody>
+        <tr><td>25—27 岁</td><td>2026—2028</td><td class="num">60%</td><td>启明睿-攻守(ZH120462)×50% + 启明睿-守恒(ZH045206)×50%</td><td class="num">58.5%×.5 + 44.4%×.5 = <b>51.5%</b></td><td class="num" style="color:var(--red)">−8.5pp</td></tr>
+        <tr><td>28—32 岁</td><td>2029—2033</td><td class="num">50%</td><td>启明睿-守恒 ×100%</td><td class="num"><b>44.4%</b></td><td class="num" style="color:var(--red)">−5.6pp</td></tr>
+        <tr><td>33—38 岁</td><td>2034—2039</td><td class="num">40%</td><td>守恒 ×50% + 启明睿-稳健(ZH120911) ×50%</td><td class="num">44.4%×.5 + 25.6%×.5 = <b>35.0%</b></td><td class="num" style="color:var(--red)">−5.0pp</td></tr>
+        <tr><td>39—45 岁</td><td>2040—2046</td><td class="num">30%</td><td>启明睿-稳健 ×100%</td><td class="num"><b>25.6%</b></td><td class="num" style="color:var(--red)">−4.4pp</td></tr>
+        <tr><td>46—63 岁</td><td>2047—2064</td><td class="num">20%</td><td>稳健 ×50% + 启明睿-低波增强(ZH044931) ×50%</td><td class="num">25.6%×.5 + 19.6%×.5 = <b>22.6%</b></td><td class="num" style="color:var(--orange)">+2.6pp</td></tr>
+        <tr><td>64—99 岁</td><td>2065—2100</td><td class="num">10%</td><td>启明睿-低波增强 ×100%</td><td class="num"><b>19.6%</b></td><td class="num" style="color:var(--red)">+9.6pp</td></tr>
+      </tbody>
+    </table>
+    <div class="callout"><b>关键发现：</b>名义档位与实际组合权益偏差最高达 9.6pp（64 岁后名义 10% 实际 19.6%）。启明睿四组合的实际权益为 攻守 58.5% / 守恒 44.4% / 稳健 25.6% / 低波增强 19.6%（asset-allocation-by-code 实测）。档位只是「货架标签」，真实风险暴露由产品本身决定。对客展示时不能用名义档位承诺风险水平。</div>
+    <h3 style="margin-top:18px">5.3 方案文案自动生成</h3>
+    <p style="font-size:13px;color:var(--ink2)">系统按固定模板生成方案说明（客户画像 + 计划 + 风险值对应回撤区间 + 再平衡频率 + 通胀目标 → 测算结果 → 配置表），可直接保存为组合对象（组合名称 ≤20 字），保存后进入组合列表/详情与风险管理模块。</p>
+  </div>
+</section>
+
+<!-- ⑥ API -->
+<section id="api">
+  <div class="sec-h"><span class="no">06</span><h2>API 技术档案（实测请求/响应）</h2></div>
+  <div class="card">
+    <h3>6.1 投资场景测算</h3>
+    <pre class="json">POST /rbc-riskmanager/asset_config/cash_in_out/simulate
+<span class="k">请求</span> {
+  "scene": "retire",            // retire 养老 / edu 教育
+  "gender": "male",             // male / female
+  "age_begin_inflow": 25,       // 开始存入年龄
+  "age_end_inflow": 62,         // 停止存入年龄（= 开始领取年龄 - 1，前端自动）
+  "age_begin_outflow": 63,      // 开始领取年龄
+  "age_end_outflow": 99,        // 领取截止年龄
+  "asset_range": "domestic",    // domestic / global
+  "risk_score": 50,             // 0—100
+  "nyr_rebal": 1,               // 再平衡频率（年）
+  "record_date": "2026.09.18"   // 数据截止交易日
+}
+<span class="k">响应</span> { "success": true, "ages": [25..99],
+  "rt_bull": [...],  "rt_base": [...],  "rt_bear": [...],          // 逐年龄三情景年化收益
+  "rt_base_upper": [...], "rt_base_lower": [...],                  // 逐年收益波动区间
+  "equity_ratio": [0.6714, ..., 0.2, 0.1857, ..., 0.1, ...],       // 逐年龄权益配比（下滑曲线）
+  "equity_begin": 0.6714, "risk_score": 50 }</pre>
+  </div>
+  <div class="card">
+    <h3>6.2 资金计划测算</h3>
+    <pre class="json">POST /rbc-riskmanager/asset_config/cash_in_out/calculate
+<span class="k">请求</span> { ...场景参数头（同上）,
+  "calc_mode": "out",              // out 已知入金算出金 / in 已知出金算入金
+  "mode_inflow": "periodic",       // periodic 分期 / lumpsum 一次性
+  "mode_freq_in": "monthly",       // monthly / quarterly / yearly
+  "mode_point_in": "begin",        // begin 期初 / end 期末
+  "amt_period_in": 8200,           // 每期存入金额
+  "is_add_subinflow": 0,           // 是否每年额外存入一笔
+  "amt_period_in_sub": 50000,      // 额外存入金额（年终奖）
+  "mode_point_in_sub": "begin",    // 额外存入时点
+  "mode_freq_out": "monthly", "mode_point_out": "begin",
+  "amt_period_out": 8000,          // 每期领取金额（in 模式为输入；out 模式为占位）
+  "growth_rate_annual_out": 0.03,  // 领取额年增长率 = 通胀率
+  "target_inv_rate": 0.03,         // 跑赢目标（= 通胀率）
+  "amt_remain_end": 10000          // 期末留存
+}
+<span class="k">响应</span> { "success": true,
+  "results": { "bull": 20248.89, "base": 13849.21, "bear": 9887.45,
+               "base_upper": 16330.71, "base_lower": 11494.86 },  // 每期可领（out）或应存（in）
+  "irr": { "bull": 0.036626, "base": 0.027067, "bear": 0.018665 },
+  "prob_beat_target": 0.3291, ...回显输入参数 }</pre>
+  </div>
+  <div class="card">
+    <h3>6.3 组合配置方案</h3>
+    <pre class="json">POST /rbc-riskmanager/asset_config/cash_in_out/portfolio_plan
+<span class="k">请求</span> { ...场景参数头, "age_base": 25, "year_base": 2026, "match_channel": "ym" }
+<span class="k">响应</span> { "success": true, "plan": [
+  { "age_begin": 25, "age_end": 27, "year_begin": 2026, "year_end": 2028, "equity_ratio": 0.6,
+    "portfolios": [ {"po_code": "ZH120462", "po_name": "启明睿-攻守", "weight": 0.5},
+                    {"po_code": "ZH045206", "po_name": "启明睿-守恒", "weight": 0.5} ] },
+  { "age_begin": 28, "age_end": 32, ..., "equity_ratio": 0.5, "portfolios": [守恒 ×1.0] },
+  { "age_begin": 33, "age_end": 38, ..., "equity_ratio": 0.4, "portfolios": [守恒 ×.5 + 稳健 ×.5] },
+  { "age_begin": 39, "age_end": 45, ..., "equity_ratio": 0.3, "portfolios": [稳健 ×1.0] },
+  { "age_begin": 46, "age_end": 63, ..., "equity_ratio": 0.2, "portfolios": [稳健 ×.5 + 低波增强 ×.5] },
+  { "age_begin": 64, "age_end": 99, ..., "equity_ratio": 0.1, "portfolios": [低波增强 ×1.0] } ] }</pre>
+    <p class="note">配套接口：资产池 <code style="font-family:var(--mono)">GET /rbc-riskmanager/asset_config/asset_categories</code>；组合实际持仓 <code style="font-family:var(--mono)">POST /rbc-riskmanager/portfolios/asset-allocation-by-code</code>（本文实际权益数据出处）。</p>
+  </div>
+</section>
+
+<!-- ⑦ 简易版 -->
+<section id="simple">
+  <div class="sec-h"><span class="no">07</span><h2>简易版养老计算器（截图存档 · 与引擎版对照）</h2></div>
+  <p class="lead">用户提供的截图来自 VESTA 旧版/独立的「养老计算器」页面（当前账号在该入口无权限或已下线，以下规则来自截图与页面「计算说明」）。它是确定性单点估算，与组合引擎不是一个量级的能力。</p>
+  <div class="card">
+    <div class="grid2">
+      <div>
+        <h4>输入（11 项）</h4>
+        <ul class="tight">
+          <li>当前年龄 35 · 退休年龄 60 · 预期寿命 85</li>
+          <li>当前年收入 30 万 · 年储蓄 5 万 · 当前养老储蓄 10 万</li>
+          <li>收入增长假设 3% · 通胀假设 2% · 退休前收益 4% · 退休后收益 3%</li>
+          <li>退休后年支出（当前购买力）15 万</li>
+        </ul>
+        <h4>输出（截图实测值）</h4>
+        <ul class="tight">
+          <li>退休时总储蓄 <b>2,755,000</b> 元 · 退休后总需求 <b>4,500,000</b> 元</li>
+          <li>资金缺口 <b>1,745,000</b> 元 · 建议每月额外储蓄 <b>4,365</b> 元</li>
+        </ul>
+      </div>
+      <div>
+        <h4>计算说明（页面原文）</h4>
+        <ul class="tight">
+          <li>退休前储蓄按收入增长假设逐年增加</li>
+          <li>退休后支出按通胀调整</li>
+          <li>考虑现有储蓄及未来储蓄的投资收益</li>
+          <li>缺口按退休前剩余年限平摊到每月</li>
+        </ul>
+        <h4>与组合引擎的差异</h4>
+        <table class="diff-table">
+          <tbody>
+            <tr><td>收益假设</td><td>用户手填 4 个固定值</td><td>→ 引擎：资产池 + 蒙特卡洛 + 下滑曲线内生</td></tr>
+            <tr><td>情景</td><td>单点确定值</td><td>→ 引擎：乐观/中性/悲观 + 区间 + 概率</td></tr>
+            <tr><td>风险预算</td><td>无</td><td>→ 引擎：风险值—回撤对照</td></tr>
+            <tr><td>产品落地</td><td>无</td><td>→ 引擎：分阶段组合配置表</td></tr>
+            <tr><td>缺口分摊</td><td>简单平摊（不计复利）</td><td>→ 引擎：按月复利精确解算</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="note">注：按截图参数复算，退休时总储蓄 ≈ 现有 10 万复利 + 年储蓄 5 万（年增 3%）年金终值，量级吻合（约 275—312 万，取决于存入时点约定）；总需求 450 万 ≈ 15 万 × 30 年（或为 25 年领取 + 5 年缓冲 / 含通胀调整的近似）。精确口径（存入时点、需求年数）需与投研确认。</p>
+  </div>
+</section>
+
+<!-- ⑧ 发现 -->
+<section id="findings">
+  <div class="sec-h"><span class="no">08</span><h2>关键发现与缺陷清单</h2></div>
+  <div class="grid2">
+    <div class="card">
+      <h3>引擎设计上的亮点</h3>
+      <ul class="tight">
+        <li><b>抛物线下滑曲线</b>：早年降得慢（保持复利弹性）、临近退休降得快（锁定成果），比线性下滑更符合生命周期逻辑；公式极简，可解释、可复刻</li>
+        <li><b>风险值一元旋钮</b>：0—100 一个数同时决定起始权益与回撤区间，对用户心智友好；且有明确的 MDD 对照表可披露</li>
+        <li><b>双向现金流</b>：「能存多少→领多少」与「要领多少→存多少」一体两面，覆盖规划与执行两类问题</li>
+        <li><b>跑赢通胀概率与金额解耦</b>：概率只依赖风险值与通胀目标，天然适合做「风险姿态」教育</li>
+        <li><b>领取额随通胀增长</b>：保值领取（实际购买力恒定），比定额领取更贴近真实养老需求</li>
+        <li><b>每年额外存入（年终奖）</b>：贴合工薪现金流节奏，且慢可借鉴为「年终奖一笔投」</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>缺陷与对客风险 <span class="tag bad">须治理</span></h3>
+      <ul class="tight">
+        <li><b>名义档位 ≠ 实际权益</b>（最大偏差 9.6pp）：档位是货架标签，不能直接当风险承诺；C 端要么用真实组合权益，要么明示口径</li>
+        <li><b>「达成概率 5%/60%/5%」是前端固定文案</b>，不是接口字段——不能向用户解释为统计置信度，需核实分位定义后重写</li>
+        <li><b>陈旧结果未清空</b>：切换测算方向/存入方式后旧金额仍显示（仅换标签），C 端必须参数一变即作废结果</li>
+        <li><b>蒙特卡洛内核黑箱</b>：模拟次数、分布、相关性、资本市场假设版本均在服务端；对客前需投研提供 model_version 并留痕</li>
+        <li><b>无社保/税优/多账户/保险维度</b>：引擎只算投资资金流，养老规划的另外半边（第一二支柱、税优额度、确定现金流）要且慢自己补</li>
+        <li><b>领取期收益假设偏保守</b>（10% 权益地板对应 ~1.9%），长寿用户后期购买力侵蚀需另作提示</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ⑨ 且慢建议 -->
+<section id="qieman">
+  <div class="sec-h"><span class="no">09</span><h2>对且慢的应用建议：复用引擎规则，替换产品映射，补齐账户层</h2></div>
+  <div class="card">
+    <h3>9.1 三层复用 / 替换 / 补齐</h3>
+    <table>
+      <thead><tr><th>层</th><th>VESTA 引擎规则</th><th>且慢 C 端处置</th></tr></thead>
+      <tbody>
+        <tr><td><b>量化内核（复用）</b></td><td>抛物线下滑曲线 + 风险值旋钮 + 双向现金流 + 三情景/IRR/跑赢通胀概率</td><td><span class="tag ok">整体复用</span> 作为新养老规划工具的测算内核；建议服务端化调用 VESTA，前端只做参数与展示</td></tr>
+        <tr><td><b>产品映射（替换）</b></td><td>权益档位 → 启明睿四组合（投研内部货架）</td><td><span class="tag info">替换为且慢体系</span> 税优账户（Y 份额，≤1.2 万/年）→ 颐养天年（补充账户主方案，自带下滑曲线投顾）→ 保险（确定现金流，按需）；FOF/单品作为备选抽屉</td></tr>
+        <tr><td><b>账户与合规（补齐）</b></td><td>无</td><td><span class="tag purple">且慢自建</span> 社保估算、已有养老资产去重、税优适配（边际税率）、保险单列披露、适当性与版本留痕</td></tr>
+      </tbody>
+    </table>
+    <h3 style="margin-top:18px">9.2 与且慢旧能力的整合关系（处置建议）</h3>
+    <table>
+      <thead><tr><th>现有能力</th><th>与新工具的关系</th><th>处置</th></tr></thead>
+      <tbody>
+        <tr><td><b>富达测算器</b></td><td>「同龄该攒几倍年薪」的进度刻度有价值，但其替代率/社保深算与引擎口径冲突</td><td><span class="tag warn">弱化</span> 收成新工具里的「进度参考刻度」，不再做独立测算入口</td></tr>
+        <tr><td><b>自订测算器</b></td><td>固定历史参数（股票 8.556%/债券 3.95%）与引擎假设冲突，各算各的目标</td><td><span class="tag bad">替代</span> 由新工具（VESTA 内核）替代；历史结果只读保留</td></tr>
+        <tr><td><b>简易版养老计算器（VESTA 截图版）</b></td><td>能力被引擎完全覆盖</td><td><span class="tag bad">放弃</span> 不建议引入且慢；避免第三个口径</td></tr>
+        <tr><td><b>养老专区 / 养老方案 / 多账户</b></td><td>内容货架与资产盘点层，不是测算器</td><td><span class="tag ok">保留整合</span> 专区改为计划总览；多账户余额计入「已有养老资产」入参</td></tr>
+        <tr><td><b>税优账户</b></td><td>制度容器（1.2 万/年额度、领取限制），不是策略</td><td><span class="tag ok">保留</span> 作为分桶第一层；按边际税率适配</td></tr>
+        <tr><td><b>颐养天年</b></td><td>且慢主推养老投顾策略，本身就是「下滑曲线 + 自动调仓」的产品化</td><td><span class="tag ok">主推但可选</span> 承接补充账户层；与引擎的下滑曲线叙事天然一致</td></tr>
+        <tr><td><b>单品 / FOF / 保险</b></td><td>FOF/单品与颐养天年同类（投资），保险解决确定现金流（不同类）</td><td><span class="tag info">分角色整合</span> 投资类做备选抽屉（不叠加第二套主策略）；保险按需单列</td></tr>
+      </tbody>
+    </table>
+    <div class="callout green" style="margin-top:14px"><b>落地形态：</b>新工具 = 「VESTA 量化内核 × 且慢账户分层 × 且慢产品货架」。默认 3 个问题出方案（好用），展开可改全部引擎参数（可进阶），产品层主推颐养天年但保留 FOF/自选/暂不买（可选且自恰）。配套原型见同目录 <b>qieman-pension-planner.html</b>。</div>
+  </div>
+</section>
+
+<div class="footer">
+  <p><b>数据来源与口径：</b>本文全部接口数据于 2026-09-21 在 VESTA 真实登录态下实测（record_date=2026-09-18，男，25 存 63 领 99 止，国内配置，风险值 50 为默认案例）。下滑曲线公式经 19 个风险值探测点与逐年龄核对验证（最大误差 &lt;0.0005）。启明睿组合实际权益来自 portfolios/asset-allocation-by-code 实测。蒙特卡洛内核细节（模拟次数、分布、相关性、资本市场假设版本）为服务端黑箱，本文未做断言。</p>
+  <p style="margin-top:6px"><b>免责声明：</b>本文为内部投研工具规则解析，仅供产品设计与工程对接参考，不构成投资建议。所有收益测算均为模型输出，不代表未来实际表现。市场有风险，投资需谨慎。</p>
+</div>
+
+</div>
+
+<script>
+// 实测数据（rs=50, 25-63-99, domestic）
+const AGES = Array.from({length:75},(_,i)=>25+i);
+const EQ50 = [0.6714,0.646916,0.623085,0.599907,0.577381,0.555509,0.534289,0.513723,0.493809,0.474548,0.45594,0.437985,0.420683,0.404034,0.388038,0.372694,0.358004,0.343966,0.330582,0.31785,0.305771,0.294345,0.283572,0.273452,0.263985,0.255171,0.247009,0.239501,0.232645,0.226443,0.220893,0.215996,0.211752,0.208161,0.205223,0.202938,0.201306,0.200326,0.2,0.185714,0.171429,0.157143,0.142857,0.128571,0.114286,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1];
+// 公式验证：equity(t)=0.2+(E0-0.2)*(1-t/T)^2
+function glideFormula(age, start, retire, e0){ if(age<=retire){ const t=age-start,T=retire-start; return 0.2+(e0-0.2)*Math.pow(1-t/T,2);} const k=age-retire; if(k>=7)return 0.1; return 0.2-0.1*k/7; }
+const EB=[[0,0],[10,.0455],[15,.0682],[20,.0909],[25,.1545],[30,.2455],[35,.3364],[40,.4273],[45,.5286],[50,.6714],[55,.7308],[60,.7692],[65,.8056],[70,.8333],[75,.8611],[80,.8889],[85,.9167],[90,.9444],[95,.9722],[100,1]];
+function ebOf(rs){ if(rs<=0)return 0; if(rs>=100)return 1; for(let i=1;i<EB.length;i++){ if(rs<=EB[i][0]){ const [x0,y0]=EB[i-1],[x1,y1]=EB[i]; return y0+(y1-y0)*(rs-x0)/(x1-x0);} } return 1; }
+
+function line(pts, x, y){ return pts.map((p,i)=>(i?'L':'M')+x(p[0]).toFixed(1)+' '+y(p[1]).toFixed(1)).join(' '); }
+
+// 下滑曲线图
+(function(){
+  const W=760,H=260,L=44,R=52,T=14,B=30, iw=W-L-R, ih=H-T-B;
+  const x=a=>L+(a-25)/(99-25)*iw, y=v=>T+(1-v)*ih;
+  const series=[{rs:50,c:'#0E6FD9'},{rs:75,c:'#0E9AA8'},{rs:100,c:'#E87A1E'},{rs:25,c:'#8AA0B4'}];
+  let inner='';
+  [0,.2,.4,.6,.8,1].forEach(v=>{ inner+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="#EDF2F7"/><text x="${L-6}" y="${y(v)+3}" font-size="9" fill="#8AA0B4" text-anchor="end">${v*100}%</text>`; });
+  [25,35,45,55,63,75,85,99].forEach(a=>{ inner+=`<text x="${x(a)}" y="${H-10}" font-size="9" fill="#8AA0B4" text-anchor="middle">${a===63?'63(领取)':a+'岁'}</text>`; });
+  // 实测 rs=50 数据点
+  inner+=`<path d="${line(AGES.map((a,i)=>[a,EQ50[i]]),x,y)}" fill="none" stroke="#0E6FD9" stroke-width="2.4"/>`;
+  // 公式曲线 rs=75/100/25
+  series.slice(1).forEach(s=>{ const e0=ebOf(s.rs); const pts=AGES.map(a=>[a, s.rs>=30?glideFormula(a,25,63,e0):(a<=63?e0:(a-63>=7?0.1:e0+(0.1-e0)*(a-63)/7))]); inner+=`<path d="${line(pts,x,y)}" fill="none" stroke="${s.c}" stroke-width="2" stroke-dasharray="${s.rs===25?'5 4':'none'}"/>`; });
+  // 退休线
+  inner+=`<line x1="${x(63)}" x2="${x(63)}" y1="${T}" y2="${T+ih}" stroke="#E87A1E" stroke-width="1" stroke-dasharray="4 3" opacity=".6"/>`;
+  inner+=`<text x="${x(63)+4}" y="${T+10}" font-size="9" fill="#E87A1E">领取起点 20% 地板</text>`;
+  inner+=`<text x="${x(72)}" y="${y(0.1)-6}" font-size="9" fill="#8AA0B4">70 岁起恒定 10%</text>`;
+  document.getElementById('glideChart').innerHTML=inner;
+})();
+
+// E0 映射图
+(function(){
+  const W=760,H=220,L=44,R=20,T=14,B=30, iw=W-L-R, ih=H-T-B;
+  const x=s=>L+s/100*iw, y=v=>T+(1-v)*ih;
+  let inner='';
+  [0,.25,.5,.75,1].forEach(v=>{ inner+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="#EDF2F7"/><text x="${L-6}" y="${y(v)+3}" font-size="9" fill="#8AA0B4" text-anchor="end">${v*100}%</text>`; });
+  [0,10,20,30,40,50,60,70,80,90,100].forEach(s=>{ inner+=`<text x="${x(s)}" y="${H-10}" font-size="9" fill="#8AA0B4" text-anchor="middle">${s}</text>`; });
+  inner+=`<path d="${line(EB,x,y)}" fill="none" stroke="#0E6FD9" stroke-width="2.4"/>`;
+  EB.forEach(p=>{ inner+=`<circle cx="${x(p[0])}" cy="${y(p[1])}" r="3" fill="#fff" stroke="#0E6FD9" stroke-width="2"/>`; });
+  inner+=`<rect x="${x(0)}" y="${T}" width="${x(30)-x(0)}" height="${ih}" fill="#8AA0B4" opacity=".07"/>`;
+  inner+=`<text x="${x(15)}" y="${T+14}" font-size="10" fill="#8AA0B4" text-anchor="middle">rs&lt;30：持平型低权益</text>`;
+  inner+=`<text x="${x(65)}" y="${T+14}" font-size="10" fill="#0E6FD9" text-anchor="middle">rs≥30：抛物线下滑，E₀ 随分位上升</text>`;
+  document.getElementById('ebChart').innerHTML=inner;
+})();
+
+// 资金流图
+(function(){
+  const W=760,H=240,L=52,R=52,T=14,B=30, iw=W-L-R, ih=H-T-B;
+  const infl=0.03, Wm=13849.21, D=8200;
+  const years=[]; for(let a=25;a<=99;a++){ const inflow = a<=62 ? D*12 : 0; const outflow = a>=63 ? Wm*12*Math.pow(1.03, a-63) : 0; years.push([a,inflow,outflow]); }
+  const maxV=Math.max(...years.map(y=>Math.max(y[1],y[2])))*1.08;
+  const x=a=>L+(a-25)/(99-25)*iw, y=v=>T+(1-v/maxV)*ih, bw=iw/75*0.62;
+  let inner='';
+  [200000,400000,600000].forEach(v=>{ inner+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="#EDF2F7"/><text x="${L-6}" y="${y(v)+3}" font-size="9" fill="#8AA0B4" text-anchor="end">${v/10000}万</text>`; });
+  years.forEach(([a,inf,out])=>{ if(inf>0) inner+=`<rect x="${x(a)-bw/2}" y="${y(inf)}" width="${bw}" height="${T+ih-y(inf)}" fill="#0E6FD9" opacity=".85"/>`; if(out>0) inner+=`<rect x="${x(a)-bw/2}" y="${y(out)}" width="${bw}" height="${T+ih-y(out)}" fill="#0E8563" opacity=".8"/>`; });
+  // 权益线（右轴 0-100%）
+  const ye=v=>T+(1-v)*ih;
+  inner+=`<path d="${line(AGES.map((a,i)=>[a,EQ50[i]]),x,ye)}" fill="none" stroke="#E87A1E" stroke-width="2"/>`;
+  [0,.5,1].forEach(v=>{ inner+=`<text x="${W-R+6}" y="${ye(v)+3}" font-size="9" fill="#E87A1E">${v*100}%</text>`; });
+  [25,40,55,63,70,85,99].forEach(a=>{ inner+=`<text x="${x(a)}" y="${H-10}" font-size="9" fill="#8AA0B4" text-anchor="middle">${a}</text>`; });
+  inner+=`<line x1="${x(63)}" x2="${x(63)}" y1="${T}" y2="${T+ih}" stroke="#8AA0B4" stroke-width="1" stroke-dasharray="4 3"/>`;
+  inner+=`<text x="${x(63)+4}" y="${T+10}" font-size="9" fill="#4A6478">63 岁起领取（年增 3%）</text>`;
+  document.getElementById('cfChart').innerHTML=inner;
+})();
+</script>
+</body>
+</html>

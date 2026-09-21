@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />
+    <script data-clair-access-gate data-clair-access-scope="workspace" src="../../access-gate.js"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>养老规划 · 且慢</title>
+<style>
+:root{
+  --brand:#1B88EE; --brand-pressed:#0F78D4; --brand-faded:#F0F6FF;
+  --page:#ECF4FF; --card:#FFFFFF; --card-soft:#F8FBFF; --card-blue:#F0F7FF; --card-warm:#FFF8F3; --card-purple:#F4F3FF; --card-green:#F3FBF0;
+  --t1:#333333; --t2:#606060; --t3:#999999;
+  --line:#EDF2F7; --line-2:#E6EEF7;
+  --orange:#FF8A3D; --red:#FA6A55; --warn:#EA9500; --green:#07AD8F; --purple:#8E8CF6;
+  --shadow:0 2px 10px rgba(36,91,165,.06); --shadow-2:0 6px 20px rgba(36,91,165,.10);
+  --font:"PingFang SC","MiSans",system-ui,-apple-system,BlinkMacSystemFont,"Microsoft YaHei",sans-serif;
+  --num:"MiSans","DIN Alternate","PingFang SC",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;min-height:100%;overflow-x:hidden;font-family:var(--font);color:var(--t1);-webkit-font-smoothing:antialiased}
+body{display:flex;justify-content:center;background:#E3EDFB}
+button,input,select{font-family:inherit;border:0;background:none;color:inherit}
+button{cursor:pointer}
+.num{font-family:var(--num);font-variant-numeric:tabular-nums}
+.phone{width:100%;max-width:375px;min-height:100vh;margin:0 auto;background:var(--page);position:relative;overflow:hidden;padding-bottom:128px}
+button,a.btn{scroll-margin-bottom:120px}
+
+.statusbar{height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;font-size:14px;font-weight:600;color:#fff;position:relative;z-index:5}
+.statusbar .icons{display:flex;gap:5px;align-items:center}
+.topnav{height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;position:relative;z-index:5;color:#fff}
+.topnav .back,.topnav .more{width:32px;height:32px;display:grid;place-items:center}
+.topnav .title{font-size:17px;font-weight:600}
+
+.hero{position:relative;margin-top:-88px;padding-top:88px;height:330px;overflow:hidden;
+  background:linear-gradient(180deg,#2A74D8 0%,#4B93EC 32%,#9AC8F8 62%,#D7EAFD 84%,var(--page) 100%)}
+.hero svg.scene{position:absolute;inset:0;width:375px;height:330px;pointer-events:none}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:88px;background:linear-gradient(180deg,rgba(236,244,255,0) 0%,rgba(236,244,255,.72) 58%,var(--page) 100%);pointer-events:none}
+.hero-body{position:relative;z-index:2;padding:8px 20px 0}
+.kicker{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.4);color:#fff;font-size:11px;padding:4px 10px;border-radius:999px}
+.kicker i{width:6px;height:6px;border-radius:50%;background:#FFE7B0;box-shadow:0 0 0 3px rgba(255,231,176,.35)}
+.hero h1{margin-top:10px;font-size:25px;line-height:1.25;color:#fff;font-weight:700;max-width:260px}
+.hero h1 small{display:block;font-size:13px;font-weight:400;opacity:.92;margin-top:6px;line-height:1.5;max-width:250px}
+.hero .tags{margin-top:12px;display:flex;gap:6px;flex-wrap:wrap}
+.hero .tags span{font-size:11px;padding:4px 9px;border-radius:8px;background:rgba(255,255,255,.55);color:#1E4E8F;font-weight:500}
+
+.card{width:343px;margin:0 auto 12px;padding:16px;border-radius:16px;background:var(--card);box-shadow:var(--shadow);position:relative}
+.first-card{margin-top:-52px;z-index:3;box-shadow:var(--shadow-2)}
+.sec-title{display:flex;align-items:baseline;justify-content:space-between;width:343px;margin:18px auto 10px;padding:0 2px}
+.sec-title h2{font-size:18px;font-weight:700}
+.sec-title h2 em{font-style:normal;color:var(--brand)}
+.sec-title span{font-size:11px;color:var(--t3)}
+.card h3{font-size:16px;font-weight:600;line-height:1.4}
+.card .sub{font-size:12px;color:var(--t2);line-height:1.6;margin-top:4px}
+.chip{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:3px 8px;border-radius:6px;background:var(--brand-faded);color:var(--brand);font-weight:500}
+.chip.warm{background:#FFF1E8;color:#E56A1A}.chip.gray{background:#F2F5F9;color:var(--t2)}.chip.green{background:#E6F7F3;color:#079C81}.chip.purple{background:#F1F0FF;color:#6E6BE0}
+.src{font-size:10px;color:var(--t3);line-height:1.5;margin-top:10px}
+
+/* 模式切换 */
+.mode-toggle{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:#F0F5FA;border-radius:12px;padding:4px;margin-top:12px}
+.mode-toggle button{height:44px;border-radius:9px;font-size:13px;font-weight:600;color:var(--t2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;line-height:1.2}
+.mode-toggle button small{font-size:10px;font-weight:400;color:var(--t3)}
+.mode-toggle button.on{background:#fff;color:var(--brand);box-shadow:0 2px 8px rgba(36,91,165,.10)}
+.mode-toggle button.on small{color:var(--brand)}
+
+.sliders{margin-top:14px;display:flex;flex-direction:column;gap:13px}
+.sl{display:grid;grid-template-columns:76px 1fr 76px;align-items:center;gap:8px}
+.sl label{font-size:12px;color:var(--t2)}
+.sl output{font-size:13px;font-weight:600;text-align:right}
+input[type=range]{-webkit-appearance:none;appearance:none;height:4px;border-radius:999px;background:#D7E6F6;width:100%}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid var(--brand);box-shadow:0 1px 4px rgba(27,136,238,.25)}
+
+/* 结果 */
+.hero-num{margin-top:12px;padding:16px;border-radius:14px;background:linear-gradient(135deg,#F0F7FF,#E8F3FF);text-align:center}
+.hero-num .lab{font-size:12px;color:var(--t2)}
+.hero-num .val{font-size:38px;font-weight:800;letter-spacing:-.02em;color:var(--brand);line-height:1.15;margin-top:2px}
+.hero-num .val small{font-size:14px;font-weight:600}
+.hero-num .hint{font-size:11px;color:var(--t3);margin-top:4px}
+.scenarios{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.scn{border-radius:12px;padding:10px 6px;text-align:center;border:1px solid var(--line-2);background:var(--card-soft)}
+.scn .nm{font-size:11px;font-weight:600}
+.scn b{display:block;font-size:15px;font-weight:700;margin-top:3px}
+.scn small{display:block;font-size:9.5px;color:var(--t3);margin-top:2px}
+.scn.bear .nm{color:var(--red)}.scn.base{background:var(--card-blue);border-color:#CFE4FB}.scn.base .nm{color:var(--brand)}.scn.bull .nm{color:var(--green)}
+.prob-row{display:flex;align-items:center;gap:12px;margin-top:12px;padding:11px 12px;border-radius:12px;background:var(--card-soft)}
+.prob-ring{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;flex:none;position:relative}
+.prob-ring::after{content:"";position:absolute;inset:5px;background:#fff;border-radius:50%}
+.prob-ring b{position:relative;z-index:1;font-size:13px}
+.prob-tx{flex:1;font-size:11.5px;color:var(--t2);line-height:1.55}
+.prob-tx b{color:var(--t1)}
+.interp{margin-top:10px;padding:10px 12px;border-radius:10px;background:var(--card-blue);font-size:12px;line-height:1.65;color:#2A4A78;display:flex;gap:8px}
+.interp svg{width:16px;height:16px;flex:none;color:var(--brand);margin-top:2px}
+
+/* 图表 */
+.chart-box{margin-top:12px}
+.chart-box .t{font-size:12px;font-weight:600;color:var(--t2);margin-bottom:2px}
+.chart-box .d{font-size:10px;color:var(--t3);margin-bottom:6px}
+.legend{display:flex;gap:12px;font-size:10px;color:var(--t2);margin-top:6px;flex-wrap:wrap}
+.legend i{display:inline-block;width:12px;height:3px;border-radius:2px;vertical-align:middle;margin-right:4px}
+
+/* 进阶 */
+.adv-toggle{width:100%;display:flex;justify-content:space-between;align-items:center;padding:2px 0;font-size:14px;font-weight:600}
+.adv-toggle .st{font-size:11px;color:var(--brand);font-weight:500;display:flex;align-items:center;gap:4px}
+.adv-body{display:none;margin-top:12px}
+.adv.open .adv-body{display:block}
+.adv.open .adv-toggle .st svg{transform:rotate(180deg)}
+.adv-toggle .st svg{transition:transform .25s}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg button{font-size:11px;padding:5px 10px;border-radius:8px;background:#F0F5FA;color:var(--t2);font-weight:500}
+.seg button.on{background:var(--brand-faded);color:var(--brand);font-weight:600;box-shadow:inset 0 0 0 1px #BBD7F5}
+.adv-row{margin-top:12px}
+.adv-row>label{font-size:12px;color:var(--t2);display:block;margin-bottom:6px}
+.adv-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.adv-field label{font-size:11px;color:var(--t3);display:block;margin-bottom:4px}
+.inp{display:flex;align-items:center;gap:6px;background:#F8FBFF;border:1px solid var(--line-2);border-radius:10px;padding:0 10px;height:38px}
+.inp input{flex:1;min-width:0;font-size:14px;font-weight:600;text-align:right;outline:none;background:none}
+.inp span{font-size:11px;color:var(--t3);flex:none}
+.risk-note{margin-top:8px;padding:9px 11px;border-radius:10px;background:var(--card-purple);font-size:11px;line-height:1.6;color:#4C49B0}
+
+/* 产品 */
+.layers{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+.layer{display:flex;gap:12px;padding:12px;border-radius:12px;background:var(--card-soft);align-items:flex-start;border:1px solid transparent}
+.layer.on{border-color:#CFE4FB;background:var(--card-blue)}
+.layer .ord{width:22px;height:22px;border-radius:50%;background:var(--brand);color:#fff;font-size:12px;font-weight:700;display:grid;place-items:center;flex:none;margin-top:1px}
+.layer .ord.g{background:var(--green)}.layer .ord.p{background:var(--purple)}
+.layer .tx{flex:1;min-width:0}
+.layer .tx b{display:block;font-size:14px}
+.layer .tx p{font-size:12px;color:var(--t2);line-height:1.55;margin-top:3px}
+.layer .amt{text-align:right;flex:none}
+.layer .amt b{display:block;font-size:15px;font-weight:700;color:var(--brand)}
+.layer .amt small{font-size:10px;color:var(--t3)}
+.pick{margin-top:10px}
+.pick .opt{display:flex;align-items:flex-start;gap:10px;padding:11px 12px;border:1px solid var(--line-2);border-radius:12px;margin-top:8px;background:#fff}
+.pick .opt.on{border-color:var(--brand);background:var(--card-blue)}
+.pick .opt .rd{width:18px;height:18px;border-radius:50%;border:2px solid #C9D8EA;flex:none;margin-top:2px;display:grid;place-items:center}
+.pick .opt.on .rd{border-color:var(--brand)}
+.pick .opt.on .rd::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--brand)}
+.pick .opt .ot{flex:1}
+.pick .opt .ot b{display:block;font-size:13px}
+.pick .opt .ot small{display:block;font-size:11px;color:var(--t3);line-height:1.5;margin-top:2px}
+.pick .opt .tagx{font-size:10px;color:var(--brand);background:var(--brand-faded);border-radius:5px;padding:2px 6px;flex:none}
+.conflict{margin-top:10px;padding:10px 12px;border-radius:10px;background:#FFF8F3;font-size:12px;line-height:1.65;color:#8A5A2B}
+.conflict b{color:#6B3E16}
+
+.todo{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line)}
+.todo:last-child{border-bottom:0}
+.check{width:22px;height:22px;border-radius:7px;border:2px solid #C9D8EA;flex:none;margin-top:1px;display:grid;place-items:center}
+.todo.on .check{background:var(--brand);border-color:var(--brand)}
+.todo.on .check svg{opacity:1}
+.check svg{width:14px;height:14px;color:#fff;opacity:0}
+.todo .tt b{display:block;font-size:14px}
+.todo .tt p{font-size:12px;color:var(--t2);line-height:1.55;margin-top:3px}
+.todo .go{margin-left:auto;font-size:12px;color:var(--brand);font-weight:600;flex:none}
+
+.faq{border-bottom:1px solid var(--line)}
+.faq:last-child{border-bottom:0}
+.faq button{width:100%;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;text-align:left;font-size:14px;font-weight:600}
+.faq button svg{width:16px;height:16px;flex:none;color:var(--t3);transition:transform .25s}
+.faq.open button svg{transform:rotate(180deg)}
+.faq .a{display:none;font-size:12px;color:var(--t2);line-height:1.7;padding-bottom:12px}
+.faq.open .a{display:block}
+
+.risk{width:343px;margin:16px auto 0;font-size:11px;line-height:1.7;color:var(--t3)}
+.risk b{color:var(--t2);font-weight:600}
+
+.fixed-cta{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:100%;max-width:375px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-top:1px solid var(--line);display:flex;gap:10px;align-items:center;z-index:20}
+.fixed-cta .ask{width:64px;height:48px;border-radius:14px;background:var(--brand-faded);color:var(--brand);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10px;font-weight:600;gap:2px}
+.fixed-cta .ask svg{width:18px;height:18px}
+.fixed-cta .main{flex:1;height:48px;border-radius:999px;background:var(--brand);color:#fff;font-size:15px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:0 6px 16px rgba(27,136,238,.3)}
+.fixed-cta .main:active{background:var(--brand-pressed)}
+
+.mask{position:fixed;inset:0;background:rgba(20,40,70,.45);z-index:40;display:none;justify-content:center;align-items:flex-end}
+.mask.show{display:flex}
+.sheet{width:100%;max-width:375px;background:#fff;border-radius:20px 20px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom));animation:up .28s cubic-bezier(.2,.8,.2,1);max-height:76vh;overflow-y:auto}
+@keyframes up{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+.sheet .grab{width:36px;height:4px;border-radius:2px;background:#E1E7F0;margin:0 auto 12px}
+.sheet h3{font-size:17px;font-weight:700}
+.sheet .sub{font-size:12px;color:var(--t2);margin-top:4px;line-height:1.6}
+.sheet .opt{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.sheet .opt:last-of-type{border-bottom:0}
+.sheet .opt .ot{flex:1}
+.sheet .opt .ot b{display:block;font-size:14px}
+.sheet .opt .ot small{display:block;font-size:11px;color:var(--t3);line-height:1.5;margin-top:2px}
+.toast{position:fixed;left:50%;bottom:130px;transform:translateX(-50%) translateY(10px);background:rgba(30,50,80,.92);color:#fff;font-size:13px;padding:10px 16px;border-radius:10px;opacity:0;pointer-events:none;transition:.25s;z-index:50;max-width:300px;text-align:center;line-height:1.5}
+.toast.show{opacity:1;transform:translateX(-50%)}
+.btn{height:36px;padding:0 14px;border-radius:999px;font-size:12px;font-weight:600;display:inline-flex;align-items:center;justify-content:center;gap:4px;text-decoration:none}
+.btn.primary{background:var(--brand);color:#fff}.btn.primary:active{background:var(--brand-pressed)}
+.btn.ghost{background:#fff;color:var(--brand);border:1px solid #CFE4FB}
+.btn.block{flex:1}
+.calc-note{margin-top:10px;padding:10px 12px;border-radius:10px;background:#F8FBFF;border:1px dashed #CFE4FB;font-size:11px;color:var(--t2);line-height:1.6}
+</style>
+</head>
+<body>
+<main class="phone" id="phone">
+
+  <header class="statusbar">
+    <span>9:41</span>
+    <span class="icons">
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="#fff"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="4.3" y="5.5" width="3" height="6.5" rx=".6"/><rect x="8.6" y="3" width="3" height="9" rx=".6"/><rect x="13" y="0" width="3" height="12" rx=".6"/></svg>
+      <svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x=".5" y=".5" width="20" height="11" rx="3" stroke="#fff" opacity=".7"/><rect x="2" y="2" width="15" height="8" rx="1.6" fill="#fff"/><rect x="21.5" y="4" width="2" height="4" rx="1" fill="#fff" opacity=".7"/></svg>
+    </span>
+  </header>
+  <nav class="topnav">
+    <button class="back" aria-label="返回"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <div class="title">养老规划</div>
+    <button class="more" aria-label="说明" onclick="openSheet('rule')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></button>
+  </nav>
+
+  <section class="hero">
+    <svg class="scene" viewBox="0 0 375 330" aria-hidden="true">
+      <defs>
+        <radialGradient id="sun" cx=".78" cy=".28" r=".46">
+          <stop offset="0" stop-color="#FFF6D8" stop-opacity=".9"/>
+          <stop offset=".4" stop-color="#FFE2A8" stop-opacity=".28"/>
+          <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="m1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6FAEF5"/><stop offset="1" stop-color="#A9D0FA"/></linearGradient>
+        <linearGradient id="m2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9CC9F8"/><stop offset="1" stop-color="#CFE4FC"/></linearGradient>
+      </defs>
+      <rect width="375" height="330" fill="url(#sun)"/>
+      <ellipse cx="308" cy="88" rx="26" ry="26" fill="#FFF4D2" opacity=".9"/>
+      <g fill="#fff" opacity=".5"><ellipse cx="62" cy="112" rx="32" ry="8"/><ellipse cx="84" cy="107" rx="18" ry="7"/><ellipse cx="210" cy="92" rx="26" ry="7"/></g>
+      <path d="M0 226 C48 196 92 190 138 202 C176 212 198 192 236 186 C278 178 312 200 375 194 L375 330 L0 330 Z" fill="url(#m2)"/>
+      <path d="M0 254 C56 230 104 224 150 236 C198 250 228 226 268 232 C310 238 338 252 375 246 L375 330 L0 330 Z" fill="url(#m1)" opacity=".9"/>
+      <path d="M0 292 C70 278 140 300 210 286 C270 276 320 292 375 284 L375 330 L0 330 Z" fill="#D7EAFD"/>
+    </svg>
+    <div class="hero-body">
+      <span class="kicker"><i></i>投研引擎同款测算 · 双向可算</span>
+      <h1>养老两件事，<small>现在每月存多少，将来每月领多少——一个工具算清。</small></h1>
+      <div class="tags">
+        <span>三情景测算</span><span>下滑曲线</span><span>跑赢通胀概率</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1. 测算 -->
+  <section class="card first-card">
+    <h3>先选你想算哪个</h3>
+    <div class="mode-toggle" id="modeToggle">
+      <button data-mode="out" class="on">我每月能存一笔钱<small>算退休后每月能领多少</small></button>
+      <button data-mode="in">我退休想每月领钱<small>算现在每月要存多少</small></button>
+    </div>
+    <div class="sliders">
+      <div class="sl"><label>现在年龄</label><input type="range" id="age" min="22" max="60" value="35"><output id="age-o">35 岁</output></div>
+      <div class="sl"><label>计划领取</label><input type="range" id="retire" min="50" max="70" value="60"><output id="retire-o">60 岁</output></div>
+      <div class="sl" id="sl-amt"><label id="amt-label">每月能存</label><input type="range" id="amt" min="500" max="20000" step="100" value="3000"><output id="amt-o">3,000 元</output></div>
+      <div class="sl"><label>波动承受</label><input type="range" id="risk" min="10" max="90" step="10" value="50"><output id="risk-o">均衡 50</output></div>
+    </div>
+    <div class="adv" id="adv">
+      <button class="adv-toggle" onclick="document.getElementById('adv').classList.toggle('open')">
+        <span>想算得更准（可进阶）</span>
+        <span class="st">展开全部参数 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
+      </button>
+      <div class="adv-body">
+        <div class="adv-grid">
+          <div class="adv-field"><label>领到几岁</label><div class="inp"><input id="endAge" type="number" min="70" max="105" value="90"><span>岁</span></div></div>
+          <div class="adv-field"><label>已有养老资产</label><div class="inp"><input id="existing" type="number" min="0" step="10000" value="100000"><span>元</span></div></div>
+          <div class="adv-field"><label>预计社保养老金</label><div class="inp"><input id="social" type="number" min="0" step="500" value="0"><span>元/月</span></div></div>
+          <div class="adv-field"><label>长期通胀假设</label><div class="inp"><input id="infl" type="number" min="0" max="8" step="0.5" value="3"><span>%/年</span></div></div>
+          <div class="adv-field"><label>期末留存（给家人的钱）</label><div class="inp"><input id="remain" type="number" min="0" step="10000" value="0"><span>元</span></div></div>
+          <div class="adv-field"><label>每年额外存入（年终奖）</label><div class="inp"><input id="bonus" type="number" min="0" step="5000" value="0"><span>元/年</span></div></div>
+        </div>
+        <div class="adv-row">
+          <label>存入方式与频率</label>
+          <div class="seg" id="segFreq">
+            <button data-v="monthly" class="on">每月存</button>
+            <button data-v="quarterly">每季存</button>
+            <button data-v="yearly">每年存</button>
+            <button data-v="lumpsum">一次性存入</button>
+          </div>
+        </div>
+        <div class="adv-row" id="lumpsumRow" style="display:none">
+          <label>一次性存入金额</label>
+          <div class="inp"><input id="lumpsumAmt" type="number" min="10000" step="10000" value="500000"><span>元</span></div>
+        </div>
+        <div class="risk-note" id="riskNote"></div>
+      </div>
+    </div>
+    <p class="src">测算内核与盈米投研 VESTA 组合引擎养老场景同构：权益随年龄按抛物线下滑（年轻时高、退休前降到 20%、70 岁后 10%），蒙特卡洛三情景。本页为离线复刻演示，正式接入以投研参数版本为准。</p>
+  </section>
+
+  <!-- 2. 结果 -->
+  <div class="sec-title"><h2>你的<em>测算结果</em></h2><span id="res-mode-tag">每月能领</span></div>
+  <section class="card">
+    <div class="hero-num">
+      <div class="lab" id="hero-lab">退休后每月能领（中性情景）</div>
+      <div class="val num" id="hero-val">--</div>
+      <div class="hint" id="hero-hint">按今天购买力 · 随通胀逐年增长</div>
+    </div>
+    <div class="scenarios">
+      <div class="scn bear"><div class="nm">悲观</div><b class="num" id="s-bear">--</b><small>约 5% 分位</small></div>
+      <div class="scn base"><div class="nm">中性</div><b class="num" id="s-base">--</b><small>中位 · 60% 区间</small></div>
+      <div class="scn bull"><div class="nm">乐观</div><b class="num" id="s-bull">--</b><small>约 95% 分位</small></div>
+    </div>
+    <div class="prob-row">
+      <div class="prob-ring" id="probRing"><b id="probVal">--</b></div>
+      <div class="prob-tx" id="probTx">跑赢通胀概率：长期年化收益超过通胀假设的蒙特卡洛路径占比。</div>
+    </div>
+    <div class="interp">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+      <span id="interp"></span>
+    </div>
+    <div class="chart-box">
+      <div class="t">你的权益配比随年龄下滑</div>
+      <div class="d">与投研养老引擎同一条下滑曲线：年轻多配权益求增长，临近退休自动降风险</div>
+      <svg id="glideMini" viewBox="0 0 311 120" style="width:100%;height:auto"></svg>
+      <div class="legend"><span><i style="background:#1B88EE"></i>权益配比</span><span><i style="background:#FF8A3D"></i>你现在的位置</span></div>
+    </div>
+    <div class="chart-box">
+      <div class="t">存入与领取全景（中性情景）</div>
+      <div class="d" id="cf-desc">蓝柱=每年存入，绿柱=每年领取（按通胀 3% 逐年增长）</div>
+      <svg id="cfMini" viewBox="0 0 311 120" style="width:100%;height:auto"></svg>
+      <div class="legend"><span><i style="background:#1B88EE"></i>年存入</span><span><i style="background:#07AD8F"></i>年领取</span></div>
+    </div>
+  </section>
+
+  <!-- 3. 产品方案 -->
+  <div class="sec-title"><h2>钱放进<em>三层账户</em></h2><span>落地产品方案</span></div>
+  <section class="card">
+    <h3>每月的钱自动拆三层</h3>
+    <p class="sub">先分账户，再谈产品。税优是政策额度（不用就过期），颐养天年是长期主方案，保险管确定现金流。</p>
+    <div class="layers" id="layers"></div>
+    <div class="pick" id="pick">
+      <p class="sub" style="margin:10px 0 2px"><b>补充账户里买什么</b>（主推但可换，不强制）：</p>
+      <div class="opt on" data-p="yy">
+        <span class="rd"></span>
+        <div class="ot"><b>颐养天年 · 主推</b><small>且慢养老投顾策略：按你的退休日期自动执行下滑曲线、自动调仓，与本页测算的权益路径同源。</small></div>
+        <span class="tagx">推荐</span>
+      </div>
+      <div class="opt" data-p="fof">
+        <span class="rd"></span>
+        <div class="ot"><b>养老目标日期 FOF（自选）</b><small>自己选一只目标日期基金。与颐养天年同类，二选一即可，不要两套叠加。</small></div>
+      </div>
+      <div class="opt" data-p="wd">
+        <span class="rd"></span>
+        <div class="ot"><b>我要稳稳的幸福（更稳）</b><small>R2 稳健组合作缓冲；适合波动承受度低或离退休不足 10 年的人。</small></div>
+      </div>
+      <div class="opt" data-p="none">
+        <span class="rd"></span>
+        <div class="ot"><b>先不买，只保存计划</b><small>测算结果保留，想清楚了再执行。</small></div>
+      </div>
+    </div>
+    <div class="conflict">
+      <b>避免撞车：</b>颐养天年和养老 FOF 是同一类问题的两种解法，选一个当主方案就好；税优账户是「盒子」不是产品，每年 1.2 万额度先用完；保险不替代投资，有长寿/确定领取需求再配。
+    </div>
+  </section>
+
+  <!-- 4. 行动 -->
+  <div class="sec-title"><h2>本月<em>就做这三件</em></h2><span>服务闭环</span></div>
+  <section class="card">
+    <div id="todos"></div>
+  </section>
+
+  <div class="sec-title"><h2>常见<em>问题</em></h2><span>先看这几问</span></div>
+  <section class="card" id="faq">
+    <div class="faq"><button>这个测算和以前的测算器什么关系？<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="a">本页是且慢养老的统一测算入口，内核与盈米投研 VESTA 养老引擎同构（下滑曲线 + 蒙特卡洛三情景 + 双向现金流）。旧的自订测算器由本页替代；富达「同龄几倍年薪」只保留为进度参考，不再单独算目标。</div></div>
+    <div class="faq"><button>悲观情景是什么意思？要按它准备吗？<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="a">悲观≈5% 分位：长期市场明显不利的路径。规划按中性做，但要知道悲观时每月会少领（或需多存）多少。如果悲观情景完全无法接受，说明波动承受度选高了，往左调。</div></div>
+    <div class="faq"><button>为什么风险拉满，跑赢通胀概率也不到一半？<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="a">这是投研引擎实测的反直觉点：权益越高，收益分布越宽，中位数提升有限。风险值 100 时跑赢 3% 通胀的概率也只有约 44%。所以「提高风险」不是答案，「尽早开始 + 足额存入 + 长期坚持」才是。</div></div>
+    <div class="faq"><button>已经有养老 FOF / 长赢计划了怎么办？<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="a">把它们的现值填进「已有养老资产」，缺口会自动变小。存量继续持有即可，新增的钱按本页方案走；不建议同时给颐养天年和多只养老 FOF 一起加仓，避免重复配置。</div></div>
+    <div class="faq"><button>税优账户值得开吗？<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="a">只要有个税边际税率（≥3%），每年 1.2 万额度的税优就是确定性收益，和市场无关；但账户内资金要到法定退休年龄等情形才能领取，不适合放应急钱。额度外的养老储蓄再走颐养天年。</div></div>
+  </section>
+
+  <div class="risk">
+    <p><b>测算口径：</b>本页为产品原型，测算内核离线复刻自盈米投研 VESTA 组合引擎养老场景（2026-09-21 实测）：权益下滑曲线 = 20% + (起始权益−20%)×(1−t/T)²，退休年 20%、7 年线性降至 10% 后恒定；起始权益由波动承受度（风险值）唯一决定；中性收益假设≈权益×5.7%+固收×1.4%（国内配置）；三情景与跑赢通胀概率由 600 条蒙特卡洛路径估计，与 VESTA 中性结果偏差约 2% 以内、情景分位约 8% 以内。正式接入以投研参数版本与 VESTA 服务端为准。</p>
+    <p style="margin-top:8px"><b>风险提示：</b>市场有风险，投资需谨慎。测算结果仅供规划参考，不构成收益承诺或投资建议； Monte Carlo 情景不代表未来实际表现。个人养老金账户有缴存上限（1.2 万/年）、投资范围与领取条件限制；税收优惠以国家政策为准。基金及投顾组合过往业绩不代表未来。保险产品由合作保司承保，以保险合同为准。购买前需完成风险测评与适当性匹配。</p>
+  </div>
+
+  <footer class="fixed-cta">
+    <button class="ask" onclick="toast('小顾：先选「能存多少」还是「要领多少」，我帮你把方案调到可执行。')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2a7 7 0 0 1 7 7v1h1a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1.3A7 7 0 0 1 5.3 17H4a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h1V9a7 7 0 0 1 7-7z"/><circle cx="9.5" cy="12" r="1"/><circle cx="14.5" cy="12" r="1"/></svg>
+      问小顾
+    </button>
+    <button class="main" onclick="openSheet('start')">按这个方案开始</button>
+  </footer>
+
+  <div class="mask" id="mask" onclick="if(event.target===this)closeSheet()">
+    <div class="sheet" id="sheet"></div>
+  </div>
+  <div class="toast" id="toast"></div>
+</main>
+
+<script>
+/* ================= VESTA 引擎离线复刻（2026-09-21 实测校准） ================= */
+// 风险值 → 起始权益 E0（19 点实测，线性插值）
+const EB=[[0,0],[10,.0455],[15,.0682],[20,.0909],[25,.1545],[30,.2455],[35,.3364],[40,.4273],[45,.5286],[50,.6714],[55,.7308],[60,.7692],[65,.8056],[70,.8333],[75,.8611],[80,.8889],[85,.9167],[90,.9444],[95,.9722],[100,1]];
+function ebOf(rs){ if(rs<=0)return 0; if(rs>=100)return 1; for(let i=1;i<EB.length;i++){ if(rs<=EB[i][0]){ const a=EB[i-1],b=EB[i]; return a[1]+(b[1]-a[1])*(rs-a[0])/(b[0]-a[0]); } } return 1; }
+// 下滑曲线（已验证）：积累期抛物线到 20%，领取期 7 年线性到 10%
+function eqAt(age, startAge, retireAge, rs){
+  const eb=ebOf(rs);
+  if(rs>=30){
+    if(age<=retireAge){ const t=age-startAge, T=Math.max(1,retireAge-startAge); return 0.2+(eb-0.2)*Math.pow(1-t/T,2); }
+  }else{
+    if(age<=retireAge) return eb;
+  }
+  const eqR = rs>=30?0.2:eb, k=age-retireAge;
+  if(k>=7) return 0.1;
+  return eqR+(0.1-eqR)*k/7;
+}
+// 中性年化收益（国内配置，沿 VESTA 基准曲线拟合）与波动
+const RT_SCALE=0.94;
+const rtBase=eq=>(0.015+0.0604*eq)*RT_SCALE;
+const sigOf=eq=>0.21*eq;
+// 风险值→MDD 区间（VESTA 前端提示表）
+const MDD=[[10,'-1.75% ~ -2.11%'],[20,'-2.22% ~ -3.53%'],[30,'-3.71% ~ -9.20%'],[40,'-9.95% ~ -16.61%'],[50,'-17.32% ~ -25.52%'],[60,'-26.57% ~ -29.76%'],[70,'-30.03% ~ -32.06%'],[80,'-32.25% ~ -33.93%'],[90,'-34.12% ~ -35.79%'],[101,'-35.96% ~ -37.75%']];
+function mddOf(rs){ for(const [cap,txt] of MDD){ if(rs<cap) return txt; } return MDD[9][1]; }
+
+function mulberry32(a){return function(){let t=a+=0x6D2B79F5;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296}}
+function normal(rand){let u=0,v=0;while(!u)u=rand();while(!v)v=rand();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)}
+
+/* 参数 */
+const $=id=>document.getElementById(id);
+let MODE='out', FREQ='monthly';
+function params(){
+  return {
+    age:+$('age').value, retire:+$('retire').value, end:+$('endAge').value,
+    amt:+$('amt').value, risk:+$('risk').value,
+    existing:+$('existing').value, social:+$('social').value,
+    infl:+$('infl').value/100, remain:+$('remain').value, bonus:+$('bonus').value,
+    freq:FREQ, lump:+$('lumpsumAmt').value
+  };
+}
+/* 月度现金流模拟：retFn(age)→年化收益；D=每期存入（月口径）；W=每月领取（首年） */
+function endBalance(p, retFn, D, W){
+  let bal=p.existing + (p.freq==='lumpsum'?p.lump:0);
+  const months=Math.round((p.end-p.age)*12);
+  const perMonth = p.freq==='yearly'?0:(p.freq==='quarterly'?3:1);
+  for(let m=0;m<months;m++){
+    const age=p.age+m/12, r=retFn(age)/12;
+    let flow=0;
+    if(p.freq!=='lumpsum' && age<p.retire){
+      if(p.freq==='monthly') flow=D;
+      else if(p.freq==='quarterly' && m%3===0) flow=D*3;
+      else if(p.freq==='yearly' && m%12===0) flow=D*12;
+    }
+    if(m%12===0 && age<p.retire && p.bonus>0) flow+=p.bonus; // 每年额外存入（年初）
+    if(age>=p.retire){
+      const yr=Math.floor(age-p.retire);
+      flow-=W*Math.pow(1+p.infl,yr);
+    }
+    bal=(bal+flow)*(1+r); // 期初约定
+  }
+  return bal;
+}
+function solveW(p, retFn, D){ let lo=0,hi=300000; for(let i=0;i<44;i++){ const mid=(lo+hi)/2; if(endBalance(p,retFn,D,mid)>=p.remain) lo=mid; else hi=mid; } return lo; }
+function solveD(p, retFn, W){ let lo=0,hi=120000; for(let i=0;i<44;i++){ const mid=(lo+hi)/2; if(endBalance(p,retFn,mid,W)>=p.remain) hi=mid; else lo=mid; } return hi; }
+/* 主测算：蒙特卡洛 */
+function runEngine(p){
+  const startAge=p.age, retireAge=p.retire, rs=p.risk;
+  const baseFn=age=>rtBase(eqAt(age,startAge,retireAge,rs));
+  const rand=mulberry32(20260921+rs*17+p.age*3+p.retire);
+  const N=600, Ws=[], Ds=[], annRets=[];
+  const targetW = MODE==='in' ? Math.max(0, p.amt - p.social) : 0; // in 模式：目标月领（扣社保）
+  const Dgiven = MODE==='out' ? p.amt : 0;
+  for(let s=0;s<N;s++){
+    const years=Math.ceil(p.end-p.age)+1, shocks=[];
+    for(let y=0;y<years;y++) shocks.push(normal(rand));
+    const fn=age=>{ const eq=eqAt(age,startAge,retireAge,rs); const yi=Math.min(years-1,Math.max(0,Math.floor(age-p.age))); return Math.max(-0.6, rtBase(eq)+sigOf(eq)*shocks[yi]); };
+    if(MODE==='out') Ws.push(solveW(p,fn,Dgiven)); else Ds.push(solveD(p,fn,targetW));
+    // 时间加权年化（跑赢通胀概率口径）
+    let logSum=0, cnt=0;
+    for(let y=0;y<years-1;y++){ const age=p.age+y; const eq=eqAt(age,startAge,retireAge,rs); logSum+=Math.log(1+Math.max(-0.6,rtBase(eq)+sigOf(eq)*shocks[y])); cnt++; }
+    annRets.push(Math.exp(logSum/cnt)-1);
+  }
+  const sort=a=>a.slice().sort((x,y)=>x-y);
+  const pick=(a,q)=>a[Math.floor((a.length-1)*q)];
+  let bear,base,bull;
+  if(MODE==='out'){ const s=sort(Ws); bear=pick(s,.05); base=pick(s,.5); bull=pick(s,.95); }
+  else{ const s=sort(Ds); bull=pick(s,.05); base=pick(s,.5); bear=pick(s,.95); } // in 模式：存得越少=情景越好
+  const prob=annRets.filter(r=>r>p.infl).length/annRets.length;
+  // 中位方案的 IRR
+  const Dm = MODE==='out'?Dgiven:base, Wm = MODE==='out'?base:targetW;
+  let lo=-0.05,hi=0.15;
+  for(let i=0;i<44;i++){ const mid=(lo+hi)/2; if(endBalance(p,()=>mid,Dm,Wm)>=p.remain) hi=mid; else lo=mid; }
+  return {bear,base,bull,prob,irr:hi};
+}
+
+/* ================= 渲染 ================= */
+const fmtMoney=n=>Math.round(n).toLocaleString('zh-CN');
+const fmtWan=n=>n>=10000?(n/10000).toFixed(n>=100000?0:1)+' 万':fmtMoney(n)+' 元';
+const RISK_NAME=r=>r<30?'保守':r<45?'稳健':r<60?'均衡':r<75?'积极':'进取';
+let lastRes=null;
+
+function render(){
+  const p=params();
+  if(p.retire<=p.age){ p.retire=p.age+1; }
+  if(p.end<=p.retire){ p.end=p.retire+5; }
+  $('amt-label').textContent = MODE==='out'?'每月能存':'退休想月领';
+  $('amt-o').textContent = fmtMoney(p.amt)+' 元';
+  $('res-mode-tag').textContent = MODE==='out'?'每月能领':'每月要存';
+  const res=runEngine(p); lastRes=res;
+  const socialNote = p.social>0 ? `（另加社保约 ${fmtMoney(p.social)} 元/月）` : '';
+  if(MODE==='out'){
+    $('hero-lab').textContent='退休后每月能领（中性情景）';
+    $('hero-val').innerHTML=fmtMoney(res.base)+'<small> 元/月</small>';
+    $('hero-hint').textContent=`按今天购买力 · 起领 ${p.retire} 岁 · 领到 ${p.end} 岁`+socialNote;
+  }else{
+    $('hero-lab').textContent='现在每月要存（中性情景）';
+    $('hero-val').innerHTML=fmtMoney(res.base)+'<small> 元/月</small>';
+    $('hero-hint').textContent=`目标：${p.retire} 岁起每月领 ${fmtMoney(Math.max(0,p.amt-p.social))} 元（已扣社保）· 领到 ${p.end} 岁`;
+  }
+  $('s-bear').textContent=fmtMoney(res.bear);
+  $('s-base').textContent=fmtMoney(res.base);
+  $('s-bull').textContent=fmtMoney(res.bull);
+  const prob=Math.round(res.prob*100);
+  $('probVal').textContent=prob+'%';
+  const pc=prob>=60?'#07AD8F':prob>=40?'#EA9500':'#FA6A55';
+  $('probRing').style.background=`conic-gradient(${pc} ${prob}%, #E6EEF7 0)`;
+  $('probVal').style.color=pc;
+  $('probTx').innerHTML=`跑赢通胀概率 <b>${prob}%</b>：在 ${MODE==='out'?'当前存入计划':'目标领取计划'}下，长期年化收益超过 ${(p.infl*100).toFixed(1)}% 通胀假设的模拟路径占比。中性 IRR 约 <b>${(res.irr*100).toFixed(1)}%</b>。`;
+  // 解读
+  let tip='';
+  if(MODE==='out'){
+    const gap = res.bear/res.base;
+    tip = `中性情景每月领 <b>${fmtMoney(res.base)}</b> 元；即使悲观情景也有约 <b>${fmtMoney(res.bear)}</b> 元（${Math.round(gap*100)}%）。想领得更多：多存、晚退休、或提高波动承受度——但注意跑赢通胀概率并不会等比例上升。`;
+  }else{
+    tip = `要支撑每月领 <b>${fmtMoney(Math.max(0,p.amt-p.social))}</b> 元，中性情景每月存 <b>${fmtMoney(res.base)}</b> 元；悲观情景需约 <b>${fmtMoney(res.bear)}</b> 元。存不到就先按可承受金额开始，计划可以每年复盘上调。`;
+  }
+  $('interp').innerHTML=tip;
+  $('riskNote').innerHTML=`波动承受度 <b>${p.risk}（${RISK_NAME(p.risk)}）</b>：起始权益约 <b>${Math.round(ebOf(p.risk)*100)}%</b>，预期最大回撤区间约 <b>${mddOf(p.risk)}</b>（VESTA 风险值对照表）。权益随年龄自动下滑，无需自己择时。`;
+  drawGlide(p);
+  drawCf(p,res);
+  renderLayers(p,res);
+  renderTodos(p,res);
+}
+
+/* 下滑曲线小图 */
+function drawGlide(p){
+  const W=311,H=120,L=26,R=10,T=10,B=18,iw=W-L-R,ih=H-T-B;
+  const x=a=>L+(a-p.age)/(p.end-p.age)*iw, y=v=>T+(1-v)*ih;
+  let inner='';
+  [0,.25,.5,.75,1].forEach(v=>{ inner+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="#EDF2F7"/><text x="${L-3}" y="${y(v)+3}" font-size="8" fill="#999" text-anchor="end">${v*100}%</text>`; });
+  const pts=[]; for(let a=p.age;a<=p.end;a++) pts.push([a,eqAt(a,p.age,p.retire,p.risk)]);
+  const d=pts.map((q,i)=>(i?'L':'M')+x(q[0]).toFixed(1)+' '+y(q[1]).toFixed(1)).join(' ');
+  inner+=`<path d="${d} L${x(p.end)} ${T+ih} L${x(p.age)} ${T+ih} Z" fill="#1B88EE" opacity=".07"/>`;
+  inner+=`<path d="${d}" fill="none" stroke="#1B88EE" stroke-width="2.4" stroke-linecap="round"/>`;
+  inner+=`<line x1="${x(p.retire)}" x2="${x(p.retire)}" y1="${T}" y2="${T+ih}" stroke="#FF8A3D" stroke-width="1" stroke-dasharray="4 3"/>`;
+  inner+=`<text x="${Math.min(W-46,x(p.retire)+3)}" y="${T+9}" font-size="8.5" fill="#E56A1A">${p.retire} 岁领取</text>`;
+  const eq0=eqAt(p.age,p.age,p.retire,p.risk);
+  inner+=`<circle cx="${x(p.age)}" cy="${y(eq0)}" r="4.5" fill="#FF8A3D" stroke="#fff" stroke-width="2"/>`;
+  inner+=`<text x="${x(p.age)+7}" y="${y(eq0)-5}" font-size="9" fill="#E56A1A" font-weight="600">现在 ${Math.round(eq0*100)}%</text>`;
+  [p.age,p.retire,p.end].forEach(a=>{ inner+=`<text x="${x(a)}" y="${H-4}" font-size="8.5" fill="#999" text-anchor="middle">${a}</text>`; });
+  $('glideMini').innerHTML=inner;
+}
+/* 资金流小图 */
+function drawCf(p,res){
+  const W=311,H=120,L=34,R=8,T=10,B=18,iw=W-L-R,ih=H-T-B;
+  const years=[];
+  const Wm = MODE==='out'?res.base:Math.max(0,p.amt-p.social);
+  const Dm = MODE==='out'?p.amt:res.base;
+  for(let a=p.age;a<=p.end;a++){
+    let inf=0;
+    if(a<p.retire){
+      if(p.freq==='lumpsum') inf = a===p.age?p.lump:0;
+      else inf = Dm*12 + p.bonus;
+    }
+    const out = a>=p.retire ? Wm*12*Math.pow(1+p.infl,a-p.retire) : 0;
+    years.push([a,inf,out]);
+  }
+  const maxV=Math.max(...years.map(y=>Math.max(y[1],y[2])),1)*1.1;
+  const x=a=>L+(a-p.age)/(p.end-p.age)*iw, y=v=>T+(1-v/maxV)*ih, bw=Math.max(1.6,iw/years.length*0.6);
+  let inner='';
+  [0.5,1].forEach(f=>{ const v=maxV*f/1.1; inner+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="#EDF2F7"/><text x="${L-3}" y="${y(v)+3}" font-size="8" fill="#999" text-anchor="end">${fmtWan(v)}</text>`; });
+  years.forEach(([a,inf,out])=>{
+    if(inf>0) inner+=`<rect x="${x(a)-bw/2}" y="${y(inf)}" width="${bw}" height="${T+ih-y(inf)}" fill="#1B88EE" opacity=".85"/>`;
+    if(out>0) inner+=`<rect x="${x(a)-bw/2}" y="${y(out)}" width="${bw}" height="${T+ih-y(out)}" fill="#07AD8F" opacity=".8"/>`;
+  });
+  inner+=`<line x1="${x(p.retire)}" x2="${x(p.retire)}" y1="${T}" y2="${T+ih}" stroke="#FF8A3D" stroke-width="1" stroke-dasharray="4 3"/>`;
+  [p.age,p.retire,p.end].forEach(a=>{ inner+=`<text x="${x(a)}" y="${H-4}" font-size="8.5" fill="#999" text-anchor="middle">${a}岁</text>`; });
+  $('cfMini').innerHTML=inner;
+  $('cf-desc').textContent=`蓝柱=每年存入${p.bonus>0?'（含每年额外 '+fmtWan(p.bonus)+'）':''}，绿柱=每年领取（按通胀 ${(p.infl*100).toFixed(1)}% 逐年增长）`;
+}
+
+/* 三层账户拆分 */
+function renderLayers(p,res){
+  const monthly = MODE==='out' ? p.amt : res.base;
+  const taxM=Math.min(1000, monthly);
+  const flexM=Math.max(0, monthly-taxM);
+  const pick=document.querySelector('#pick .opt.on').dataset.p;
+  const pickName={yy:'颐养天年',fof:'养老目标 FOF',wd:'我要稳稳的幸福',none:'暂不买'}[pick];
+  $('layers').innerHTML=`
+    <div class="layer on">
+      <span class="ord">1</span>
+      <div class="tx"><b>个人养老金账户（税优）</b><p>每月先放 ${fmtMoney(taxM)} 元（每年 1.2 万额度用完）。账户内选养老目标基金 Y 份额；有领取限制，不放应急钱。</p></div>
+      <div class="amt"><b class="num">${fmtMoney(taxM)}</b><small>元 / 月</small></div>
+    </div>
+    <div class="layer">
+      <span class="ord g">2</span>
+      <div class="tx"><b>补充养老账户 · ${pickName}</b><p>${pick==='none'?'你选择先不执行，额度保留。':'税优外的部分放这里，按下滑曲线自动降风险，是本计划的主方案。'}</p></div>
+      <div class="amt"><b class="num">${fmtMoney(flexM)}</b><small>元 / 月</small></div>
+    </div>
+    <div class="layer">
+      <span class="ord p">3</span>
+      <div class="tx"><b>养老保险账户（按需）</b><p>只回答「活得太久、确定要领」的问题。先做 2 分钟保障盘点，有缺口再配，不与上面两层抢预算。</p></div>
+      <div class="amt"><b>按需</b><small>不默认扣款</small></div>
+    </div>`;
+}
+/* 行动清单 */
+const checkSvg='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg>';
+function renderTodos(p,res){
+  const monthly = MODE==='out' ? p.amt : res.base;
+  const items=[
+    {id:'tax', t:'开通个人养老金账户，缴今年额度', p:`约 ${fmtMoney(Math.min(12000,Math.min(1000,monthly)*12))} 元/年。额度不用就过期，与市场涨跌无关。`, go:'去开通'},
+    {id:'plan', t:'开启主方案定投', p:`建议 ${fmtMoney(Math.max(0,monthly-Math.min(1000,monthly)))} 元/月进补充养老账户。觉得吃力可先按一半开始。`, go:'去开启'},
+    {id:'review', t:'把本页加入每年复盘', p:'收入、目标或市场假设变了就重算；参数一变结果立即作废重算，不看旧数。', go:'设提醒'}
+  ];
+  $('todos').innerHTML=items.map(x=>`
+    <div class="todo" data-id="${x.id}">
+      <button class="check" aria-label="完成">${checkSvg}</button>
+      <div class="tt"><b>${x.t}</b><p>${x.p}</p></div>
+      <button class="go" data-act="${x.id}">${x.go}</button>
+    </div>`).join('');
+  $('todos').querySelectorAll('.todo').forEach(el=>{
+    el.querySelector('.check').onclick=()=>{ el.classList.toggle('on'); toast(el.classList.contains('on')?'已勾选，记得去完成':'已取消勾选'); };
+    el.querySelector('.go').onclick=()=>openSheet('start');
+  });
+}
+
+/* sheet / toast */
+function toast(msg){ const t=$('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove('show'),2400); }
+function closeSheet(){ $('mask').classList.remove('show'); }
+function openSheet(kind){
+  const p=params(), res=lastRes;
+  const monthly = MODE==='out' ? p.amt : (res?res.base:0);
+  const html = kind==='rule' ? `
+    <div class="grab"></div>
+    <h3>这一页怎么读</h3>
+    <p class="sub">且慢养老只有一个测算入口（本页），内核与投研 VESTA 养老引擎同构。旧工具这样归位：</p>
+    <div class="opt"><div class="ot"><b>自订测算器 → 已被本页替代</b><small>固定历史参数的旧算法不再单独生成目标。</small></div></div>
+    <div class="opt"><div class="ot"><b>富达测算器 → 进度参考</b><small>「同龄该攒几倍年薪」只作刻度，不再做独立测算。</small></div></div>
+    <div class="opt"><div class="ot"><b>养老专区 → 内容与货架</b><small>规划完成后再去逛，不被货架带跑。</small></div></div>
+    <div class="opt"><div class="ot"><b>税优 / 颐养天年 / 保险 → 三层账户</b><small>先分账户再放产品，主推但可选。</small></div></div>
+    <button class="btn primary" style="width:100%;height:48px;margin-top:12px;font-size:15px" onclick="closeSheet()">知道了</button>
+  ` : `
+    <div class="grab"></div>
+    <h3>按这个方案开始</h3>
+    <p class="sub">建议顺序：额度 → 主方案 → 保障。每一步都能单独完成。</p>
+    <div class="opt"><div class="ot"><b>1. 开通个人养老金并缴存</b><small>今年先用 ${fmtMoney(Math.min(12000,Math.min(1000,monthly)*12))} 元额度，账户内选 Y 份额。</small></div></div>
+    <div class="opt"><div class="ot"><b>2. 补充账户开启定投</b><small>建议 ${fmtMoney(Math.max(0,monthly-Math.min(1000,monthly)))} 元/月。可先按一半起步。</small></div></div>
+    <div class="opt"><div class="ot"><b>3. 保障缺口检查</b><small>与市场无关。有缺口再进保险账户，没有就跳过。</small></div></div>
+    <button class="btn primary" style="width:100%;height:48px;margin-top:8px;font-size:15px" onclick="closeSheet();toast('演示：已生成「税优开通 + 主方案定投」下一步')">先去开通税优</button>
+    <button class="btn ghost" style="width:100%;height:44px;margin-top:8px" onclick="closeSheet();toast('已把计划发给顾问，工作时间会联系你')">让顾问帮我看</button>
+    <p style="font-size:10px;color:#999;text-align:center;margin-top:10px;line-height:1.5">本页为规划演示，确认交易前仍需适当性匹配与协议签署。</p>`;
+  $('sheet').innerHTML=html;
+  $('mask').classList.add('show');
+}
+
+/* 事件 */
+$('modeToggle').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
+  $('modeToggle').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));
+  MODE=b.dataset.mode;
+  $('amt').value = MODE==='out'?3000:10000;
+  $('amt').min = MODE==='out'?500:1000;
+  $('amt').max = MODE==='out'?20000:50000;
+  $('amt').step = MODE==='out'?100:500;
+  render();
+}));
+$('segFreq').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
+  $('segFreq').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));
+  FREQ=b.dataset.v;
+  $('lumpsumRow').style.display = FREQ==='lumpsum'?'block':'none';
+  $('sl-amt').style.opacity = FREQ==='lumpsum'?'.35':'1';
+  render();
+}));
+let _rt=null;
+function renderSoon(){ // 滑杆拖动防抖，避免蒙特卡洛频繁重算
+  $('age-o').textContent=$('age').value+' 岁';
+  $('retire-o').textContent=$('retire').value+' 岁';
+  const r=+$('risk').value; $('risk-o').textContent=RISK_NAME(r)+' '+r;
+  $('amt-o').textContent=fmtMoney(+$('amt').value)+' 元';
+  clearTimeout(_rt); _rt=setTimeout(render,140);
+}
+['age','retire','amt','risk'].forEach(id=>$(id).addEventListener('input',renderSoon));
+['endAge','existing','social','infl','remain','bonus','lumpsumAmt'].forEach(id=>$(id).addEventListener('input',()=>{ clearTimeout(_rt); _rt=setTimeout(render,200); }));
+document.querySelectorAll('#pick .opt').forEach(o=>o.addEventListener('click',()=>{
+  document.querySelectorAll('#pick .opt').forEach(x=>x.classList.toggle('on',x===o));
+  render();
+}));
+document.querySelectorAll('#faq .faq button').forEach(b=>b.addEventListener('click',()=>b.parentElement.classList.toggle('open')));
+
+render();
+</script>
+</body>
+</html>
