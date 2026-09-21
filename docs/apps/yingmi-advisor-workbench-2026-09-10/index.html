@@ -853,8 +853,9 @@ const WTYPE={
   ontology:{glyph:'◎',color:'#6D5BD0',lb:'功能页'},
   c360:{glyph:'◉',color:'#12558C',lb:'功能页'},
   cockpit:{glyph:'◈',color:'#0E8FA8',lb:'功能页'},
+  signal:{glyph:'◐',color:'#1B88EE',lb:'C 端工具'},
 };
-const PAGE_TITLES={home:'今日工作台',customers:'客户列表',tasks:'任务中心',events:'事件中心',reports:'规划报告',research:'产品投研',scripts:'话术材料',dash:'数据看板',ontology:'盈米本体',c360:'客户 360° 引擎',cockpit:'客户 360° 驾驶舱'};
+const PAGE_TITLES={home:'今日工作台',customers:'客户列表',tasks:'任务中心',events:'事件中心',reports:'规划报告',research:'产品投研',scripts:'话术材料',dash:'数据看板',ontology:'盈米本体',c360:'客户 360° 引擎',cockpit:'客户 360° 驾驶舱',signal:'市场信号灯（且慢 C 端）'};
 let FLOAT_N=0,FLOAT_Z=10,THREAD_N=0;
 
 /* ================= SVG 图表 ================= */
@@ -899,6 +900,7 @@ const NAV=[
  {k:'events',ico:'⚡',lb:'事件'},
  {k:'reports',ico:'❖',lb:'规划报告'},
  {k:'research',ico:'◈',lb:'投研'},
+ {k:'signal',ico:'◐',lb:'市场信号灯'},
  {k:'scripts',ico:'✎',lb:'话术库'},
  {k:'dash',ico:'▤',lb:'数据看板'},
  {k:'ontology',ico:'◎',lb:'盈米本体'},
@@ -915,6 +917,7 @@ const NAV_SVG={
  scripts:'<path d="M4 20h4L20 8a2.8 2.8 0 0 0-4-4L4 16z"/><path d="m13.5 6.5 4 4"/>',
  dash:'<rect x="3" y="3" width="8" height="10" rx="2"/><rect x="13" y="3" width="8" height="6" rx="2"/><rect x="13" y="11" width="8" height="10" rx="2"/><rect x="3" y="15" width="8" height="6" rx="2"/>',
  ontology:'<circle cx="6" cy="7" r="2.4"/><circle cx="18" cy="7" r="2.4"/><circle cx="12" cy="17" r="2.4"/><path d="M8.2 8.2 10.4 15.2M15.8 8.2 13.6 15.2M8.4 7h7.2"/>',
+ signal:'<path d="M4 17a8 8 0 0 1 16 0"/><path d="M12 17l4-5"/><circle cx="12" cy="17" r="1.6"/><path d="M4 21h16"/>',
 };
 function railBtn(n){
   const bdg=n.bdg?n.bdg():0;
@@ -1405,6 +1408,9 @@ function pgC360(){
 function pgCockpit(){
   return `<div class="onto-wrap"><iframe src="customer-360-cockpit.html" title="客户 360° 驾驶舱"></iframe></div>`;
 }
+function pgSignal(){
+  return `<div class="onto-wrap"><iframe src="qieman-market-signal.html" title="市场信号灯 · 且慢 C 端工具页"></iframe></div>`;
+}
 function openOnto(id){
   S.ontoHash=id||'';
   go('ontology');
@@ -1471,7 +1477,7 @@ function wtabHTML(p,t){
 function tabContent(t){
   if(t.type==='customer')return pgCustomer360(t);
   if(t.type==='report')return pgReport(DB.reports.find(x=>x.id===t.refId));
-  return {home:pgHome,customers:pgCustomers,tasks:pgTasks,events:pgEvents,reports:pgReports,research:pgResearch,scripts:pgScripts,dash:pgDash,ontology:pgOntology,c360:pgC360,cockpit:pgCockpit}[t.refId]();
+  return {home:pgHome,customers:pgCustomers,tasks:pgTasks,events:pgEvents,reports:pgReports,research:pgResearch,scripts:pgScripts,dash:pgDash,ontology:pgOntology,c360:pgC360,cockpit:pgCockpit,signal:pgSignal}[t.refId]();
 }
 function renderCanvas(){
   const cv=$('#canvas');
