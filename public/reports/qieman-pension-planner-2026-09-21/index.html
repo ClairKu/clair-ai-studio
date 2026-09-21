@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#f5f8fc" />
+  <title>且慢养老规划｜统一工具原型与 VESTA 规则审计</title>
+  <meta name="description" content="基于 VESTA 资金流养老测算能力设计的且慢养老规划工具原型，含旧能力整合建议、参数规则、公式边界、账户与产品落地方案。" />
+  <style>
+    :root {
+      --ink:#123049; --ink-2:#486275; --blue:#1b88ee; --blue-dark:#075fae;
+      --blue-soft:#eaf5ff; --cyan:#3cc5c9; --orange:#f58a32; --orange-soft:#fff3e9;
+      --green:#14866d; --red:#c64040; --paper:#fff; --bg:#f5f8fc; --line:#dce7ef;
+      --shadow:0 18px 54px rgba(18,48,73,.09); --radius:24px;
+    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;line-height:1.6}
+    button,input,select{font:inherit} button{cursor:pointer} a{color:var(--blue-dark)}
+    .topbar{position:sticky;top:0;z-index:30;background:rgba(245,248,252,.92);backdrop-filter:blur(14px);border-bottom:1px solid rgba(220,231,239,.85)}
+    .topbar-inner{max-width:1360px;margin:auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.02em}.brand-mark{width:34px;height:34px;border-radius:50%;background:conic-gradient(from 210deg,var(--blue),#7adbd7,var(--blue-dark));box-shadow:inset 0 0 0 8px rgba(255,255,255,.82)}
+    .tabs{display:flex;gap:6px;background:#eaf0f5;padding:4px;border-radius:999px}.tab-btn{border:0;background:transparent;color:var(--ink-2);padding:8px 16px;border-radius:999px;font-weight:700}.tab-btn.active{background:#fff;color:var(--blue-dark);box-shadow:0 4px 16px rgba(18,48,73,.08)}
+    .status{font-size:12px;color:var(--ink-2);white-space:nowrap}.status b{color:var(--green)}
+    .view{display:none}.view.active{display:block}.shell{max-width:1360px;margin:auto;padding:30px 24px 80px}
+    .hero{position:relative;overflow:hidden;border-radius:32px;background:linear-gradient(125deg,#073c68 0%,#096aa8 52%,#18a4ad 100%);color:#fff;padding:46px;box-shadow:var(--shadow)}
+    .hero:before,.hero:after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.1)}.hero:before{width:320px;height:320px;right:-90px;top:-170px}.hero:after{width:210px;height:210px;right:190px;bottom:-150px}
+    .eyebrow{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#8fe7e0}.hero h1{max-width:850px;margin:10px 0 14px;font-size:clamp(34px,5.5vw,66px);line-height:1.08;letter-spacing:-.04em}.hero p{max-width:820px;margin:0;color:rgba(255,255,255,.82);font-size:17px}.hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}.hero-badges span{border:1px solid rgba(255,255,255,.24);background:rgba(255,255,255,.1);border-radius:999px;padding:7px 12px;font-size:13px}
+    .decision-strip{display:grid;grid-template-columns:1.25fr repeat(3,1fr);gap:12px;margin:18px 0 26px}.decision-main,.decision-item{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px}.decision-main{background:var(--orange-soft);border-color:#ffd8ba}.decision-main b,.decision-item b{display:block;font-size:15px;margin-bottom:4px}.decision-main span,.decision-item span{font-size:13px;color:var(--ink-2)}
+    .planner-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(430px,.95fr);gap:22px;align-items:start}.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 10px 30px rgba(18,48,73,.055)}
+    .form-card{padding:26px}.card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:20px}.card-head h2{margin:0;font-size:25px;letter-spacing:-.02em}.card-head p{margin:5px 0 0;color:var(--ink-2);font-size:14px}.mode-chip{font-size:12px;color:var(--blue-dark);background:var(--blue-soft);border:1px solid #cce8ff;padding:7px 10px;border-radius:999px;white-space:nowrap}
+    .step-title{display:flex;align-items:center;gap:10px;margin:24px 0 12px;font-weight:800}.step-no{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;color:#fff;background:var(--blue);font-size:13px}
+    .form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:13px;font-weight:700;color:var(--ink-2)}
+    .input-wrap{position:relative}.input-wrap input,.field select{width:100%;height:46px;border:1px solid #cddce7;border-radius:13px;background:#fbfdff;color:var(--ink);padding:0 40px 0 13px;outline:none}.input-wrap input:focus,.field select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,136,238,.12)}.suffix{position:absolute;right:12px;top:11px;color:#7990a1;font-size:13px}
+    .range-line{display:grid;grid-template-columns:1fr 46px;gap:10px;align-items:center}.range-line input[type=range]{accent-color:var(--blue);width:100%}.range-val{font-weight:800;color:var(--blue-dark);text-align:right}
+    details.advanced{margin-top:18px;border:1px solid var(--line);border-radius:16px;background:#fafdff}details.advanced summary{cursor:pointer;padding:14px 16px;font-weight:800}details.advanced .detail-body{padding:0 16px 16px}.assumption{font-size:12px;color:var(--ink-2);padding:10px 12px;background:#f2f6f9;border-radius:12px;margin-top:12px}
+    .primary{width:100%;border:0;border-radius:14px;padding:14px 18px;background:linear-gradient(90deg,var(--blue-dark),var(--blue));color:#fff;font-weight:800;margin-top:20px;box-shadow:0 8px 22px rgba(27,136,238,.23)}.primary:hover{filter:brightness(1.03)}
+    .result-stack{display:grid;gap:16px;position:sticky;top:82px}.score-card{padding:24px;background:linear-gradient(145deg,#ffffff,#f7fbff)}.score-top{display:flex;justify-content:space-between;gap:18px;align-items:center}.score-top h2{margin:0 0 4px;font-size:23px}.score-top p{margin:0;color:var(--ink-2);font-size:13px}.gauge{--p:50;width:112px;height:112px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--green) calc(var(--p)*1%),#e8eff4 0);position:relative;flex:0 0 auto}.gauge:after{content:"";position:absolute;width:84px;height:84px;background:#fff;border-radius:50%}.gauge strong{z-index:1;font-size:24px;color:var(--green)}.gauge small{z-index:1;position:absolute;top:67px;font-size:10px;color:var(--ink-2)}
+    .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px}.metric{border:1px solid var(--line);border-radius:15px;padding:13px;background:#fff}.metric span{display:block;font-size:11px;color:var(--ink-2)}.metric strong{display:block;font-size:19px;margin-top:3px}.metric em{font-size:11px;color:var(--ink-2);font-style:normal}
+    .chart-card{padding:20px}.chart-title{display:flex;justify-content:space-between;align-items:center}.chart-title h3{margin:0;font-size:17px}.legend{font-size:11px;color:var(--ink-2)}.canvas-wrap{height:230px;margin-top:8px;position:relative}.canvas-wrap canvas{width:100%;height:100%}
+    .bucket-card{padding:20px}.bucket-card h3{margin:0 0 4px}.bucket-card>p{margin:0 0 15px;color:var(--ink-2);font-size:13px}.bucket{display:grid;grid-template-columns:108px 1fr auto;gap:12px;align-items:center;padding:13px 0;border-top:1px solid var(--line)}.bucket-name{font-weight:800}.bar{height:9px;background:#edf2f6;border-radius:999px;overflow:hidden}.bar i{display:block;height:100%;border-radius:999px}.bucket b{font-size:13px}.bucket small{display:block;color:var(--ink-2);font-size:11px;margin-top:3px}.choice-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.choice{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 11px;color:var(--ink-2);font-size:12px}.choice.active{border-color:var(--blue);color:var(--blue-dark);background:var(--blue-soft)}
+    .notice{margin-top:16px;background:#fffaf3;border:1px solid #ffe0b8;border-radius:16px;padding:14px;font-size:12px;color:#76522f}.notice b{color:#a7570d}
+    .next-card{padding:20px;background:#0f334f;color:#fff}.next-card h3{margin:0 0 8px}.next-card p{margin:0;color:rgba(255,255,255,.72);font-size:13px}.next-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}.next-actions button{border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;border-radius:12px;padding:10px 8px;font-size:12px}.next-actions button.selected{background:#fff;color:#123049}
+    .report-hero{padding:36px;border-radius:28px;background:#102f49;color:#fff}.report-hero h1{font-size:clamp(32px,5vw,56px);line-height:1.08;margin:10px 0}.report-hero p{max-width:850px;color:rgba(255,255,255,.76)}.report-nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}.report-nav a{color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:7px 12px;font-size:12px}
+    .section{margin-top:26px}.section h2{font-size:28px;letter-spacing:-.02em;margin:0 0 14px}.section-lead{color:var(--ink-2);max-width:900px}.verdict{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}.verdict-main{padding:26px;background:var(--orange-soft);border:1px solid #ffd6b5;border-radius:24px}.verdict-main h3{font-size:26px;margin:0 0 10px}.verdict-main p{margin:0;color:#6e4a2b}.verdict-side{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.mini{background:#fff;border:1px solid var(--line);border-radius:18px;padding:17px}.mini b{display:block}.mini span{font-size:12px;color:var(--ink-2)}
+    .architecture{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}.arch{min-height:150px;padding:16px;border-radius:18px;border:1px solid var(--line);background:#fff;position:relative}.arch:after{content:"→";position:absolute;right:-9px;top:62px;color:#8aa0af;font-weight:800}.arch:last-child:after{display:none}.arch .n{font-size:11px;color:var(--blue);font-weight:800}.arch h3{font-size:16px;margin:8px 0 6px}.arch p{font-size:12px;color:var(--ink-2);margin:0}
+    .table-wrap{overflow:auto;background:#fff;border:1px solid var(--line);border-radius:20px}.data-table{width:100%;border-collapse:collapse;min-width:820px}.data-table th,.data-table td{text-align:left;padding:13px 15px;border-bottom:1px solid var(--line);vertical-align:top;font-size:13px}.data-table th{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-2);background:#f7fafc}.data-table tr:last-child td{border-bottom:0}.tag{display:inline-block;border-radius:999px;padding:3px 8px;font-size:11px;font-weight:800}.keep{color:#08735e;background:#e8f7f2}.merge{color:#075fae;background:#eaf5ff}.fade{color:#a15712;background:#fff1df}.stop{color:#a43131;background:#ffeaea}.verified{color:#08735e;background:#e8f7f2}.boundary{color:#7a559c;background:#f5ebff}
+    .audit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.audit-card{padding:20px;background:#fff;border:1px solid var(--line);border-radius:20px}.audit-card h3{margin:0 0 8px;font-size:18px}.audit-card p,.audit-card li{font-size:13px;color:var(--ink-2)}.audit-card ul{padding-left:18px;margin:8px 0 0}
+    .formula-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.formula{padding:20px;border-radius:20px;background:#0e314c;color:#fff}.formula h3{margin:0 0 10px}.formula code{display:block;white-space:normal;color:#9fe5e0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;background:rgba(255,255,255,.06);border-radius:12px;padding:12px}.formula p{color:rgba(255,255,255,.72);font-size:12px}
+    .risk-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.risk{background:#fff;border:1px solid var(--line);padding:13px;border-radius:14px}.risk b{font-size:13px}.risk span{display:block;font-size:11px;color:var(--ink-2)}
+    .callout{padding:18px 20px;border-left:5px solid var(--orange);background:var(--orange-soft);border-radius:0 18px 18px 0}.callout b{display:block}.callout p{margin:5px 0 0;font-size:13px;color:#6d4d31}
+    .roadmap{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.phase{background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px}.phase .time{color:var(--blue);font-weight:800;font-size:12px}.phase h3{margin:6px 0}.phase ul{padding-left:18px;color:var(--ink-2);font-size:13px}
+    .source-list{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.source{background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px}.source b{display:block}.source span{font-size:12px;color:var(--ink-2)}
+    .footer{margin-top:36px;padding:22px 0;color:var(--ink-2);font-size:12px;border-top:1px solid var(--line)}
+    @media(max-width:1080px){.planner-grid{grid-template-columns:1fr}.result-stack{position:static}.decision-strip{grid-template-columns:1fr 1fr}.architecture{grid-template-columns:repeat(3,1fr)}.arch:nth-child(3):after{display:none}.audit-grid{grid-template-columns:1fr 1fr}.risk-grid{grid-template-columns:repeat(3,1fr)}}
+    @media(max-width:720px){.topbar-inner{padding:10px 14px}.status{display:none}.tab-btn{padding:7px 10px;font-size:12px}.shell{padding:18px 12px 60px}.hero{padding:28px 22px}.hero p{font-size:14px}.decision-strip{grid-template-columns:1fr}.form-card,.score-card{padding:18px}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.metrics{grid-template-columns:1fr}.score-top{align-items:flex-start}.gauge{width:96px;height:96px}.gauge:after{width:72px;height:72px}.gauge small{top:58px}.bucket{grid-template-columns:90px 1fr}.bucket>b{grid-column:2}.next-actions{grid-template-columns:1fr}.report-hero{padding:26px 20px}.verdict{grid-template-columns:1fr}.verdict-side{grid-template-columns:1fr}.architecture{grid-template-columns:1fr 1fr}.arch:nth-child(odd):after{display:block}.arch:nth-child(even):after{display:none}.audit-grid,.formula-grid,.roadmap,.source-list{grid-template-columns:1fr}.risk-grid{grid-template-columns:1fr 1fr}.section h2{font-size:24px}}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand"><span class="brand-mark" aria-hidden="true"></span>且慢养老规划</div>
+      <nav class="tabs" aria-label="页面视图">
+        <button class="tab-btn active" data-view="planner">用户端原型</button>
+        <button class="tab-btn" data-view="report">规则审计与整合方案</button>
+      </nav>
+      <div class="status"><b>已验证</b> · VESTA 登录态实测 2026-09-21</div>
+    </div>
+  </header>
+
+  <main id="planner" class="view active">
+    <div class="shell">
+      <section class="hero">
+        <div class="eyebrow">ONE PLAN · MANY ACCOUNTS</div>
+        <h1>先有一份养老计划，再决定钱放哪里。</h1>
+        <p>把测算、账户和产品放进同一条主线：先看目标缺口与可行性，再按税优、灵活投资和确定性现金流分桶，最后由你选择具体产品。</p>
+        <div class="hero-badges"><span>3 分钟快速算</span><span>可展开进阶参数</span><span>多账户不重复计算</span><span>方案可选、不默认搭售</span></div>
+      </section>
+
+      <section class="decision-strip" aria-label="产品定位">
+        <div class="decision-main"><b>这不是第 N 个养老计算器</b><span>它是唯一的计划入口；旧测算结果、已有账户与产品持仓都回写到同一 plan_id。</span></div>
+        <div class="decision-item"><b>测算只回答“够不够”</b><span>目标、投入、期限、情景概率。</span></div>
+        <div class="decision-item"><b>账户回答“放哪里”</b><span>税优、灵活、保险分桶。</span></div>
+        <div class="decision-item"><b>产品回答“怎么买”</b><span>策略、FOF、单品均可选。</span></div>
+      </section>
+
+      <section class="planner-grid">
+        <form class="card form-card" id="planForm">
+          <div class="card-head"><div><h2>建立我的养老计划</h2><p>先填日常能理解的信息，复杂参数放在进阶区。</p></div><span class="mode-chip">快速模式</span></div>
+
+          <div class="step-title"><span class="step-no">1</span>我想过怎样的退休生活</div>
+          <div class="form-grid">
+            <div class="field"><label for="currentAge">当前年龄</label><div class="input-wrap"><input id="currentAge" type="number" min="18" max="74" value="35"><span class="suffix">岁</span></div></div>
+            <div class="field"><label for="retireAge">预计退休年龄</label><div class="input-wrap"><input id="retireAge" type="number" min="45" max="80" value="65"><span class="suffix">岁</span></div></div>
+            <div class="field"><label for="monthlyGoal">退休后每月想花（按今天购买力）</label><div class="input-wrap"><input id="monthlyGoal" type="number" min="0" step="500" value="10000"><span class="suffix">元</span></div></div>
+            <div class="field"><label for="socialPension">预计社保养老金（按今天购买力）</label><div class="input-wrap"><input id="socialPension" type="number" min="0" step="500" value="3500"><span class="suffix">元</span></div></div>
+          </div>
+
+          <div class="step-title"><span class="step-no">2</span>我现在能为养老做多少</div>
+          <div class="form-grid">
+            <div class="field"><label for="existingAssets">已准备的养老资产</label><div class="input-wrap"><input id="existingAssets" type="number" min="0" step="10000" value="200000"><span class="suffix">元</span></div></div>
+            <div class="field"><label for="monthlySave">每月可持续投入</label><div class="input-wrap"><input id="monthlySave" type="number" min="0" step="100" value="3000"><span class="suffix">元</span></div></div>
+            <div class="field"><label for="annualBonus">每年可额外投入</label><div class="input-wrap"><input id="annualBonus" type="number" min="0" step="1000" value="20000"><span class="suffix">元</span></div></div>
+            <div class="field"><label for="taxRate">当前边际个税税率</label><select id="taxRate"><option value="0">暂不确定</option><option value="0.03">3%</option><option value="0.1" selected>10%</option><option value="0.2">20%</option><option value="0.25">25%</option><option value="0.3">30% 及以上</option></select></div>
+          </div>
+
+          <div class="step-title"><span class="step-no">3</span>我能承受怎样的过程</div>
+          <div class="form-grid">
+            <div class="field full"><label for="riskScore">波动承受度：<span id="riskLabel">均衡</span></label><div class="range-line"><input id="riskScore" type="range" min="10" max="90" step="10" value="50"><span class="range-val" id="riskValue">50</span></div></div>
+            <div class="field full"><label for="certainty">退休现金流偏好：<span id="certaintyLabel">兼顾确定与增长</span></label><div class="range-line"><input id="certainty" type="range" min="0" max="100" step="10" value="40"><span class="range-val" id="certaintyValue">40%</span></div></div>
+          </div>
+
+          <details class="advanced">
+            <summary>进阶参数 · 通胀、寿命、再平衡与模拟假设</summary>
+            <div class="detail-body">
+              <div class="form-grid">
+                <div class="field"><label for="endAge">规划到</label><div class="input-wrap"><input id="endAge" type="number" min="70" max="120" value="90"><span class="suffix">岁</span></div></div>
+                <div class="field"><label for="inflation">预计长期通胀</label><div class="input-wrap"><input id="inflation" type="number" min="0" max="10" step="0.1" value="2.5"><span class="suffix">%</span></div></div>
+                <div class="field"><label for="rebalance">再平衡频率</label><select id="rebalance"><option value="1" selected>每年</option><option value="2">每 2 年</option><option value="3">每 3 年</option></select></div>
+                <div class="field"><label for="depositTiming">投入时点</label><select id="depositTiming"><option value="begin" selected>每月期初</option><option value="end">每月期末</option></select></div>
+              </div>
+              <div class="assumption">本原型采用公开可解释的简化蒙特卡洛模型，不直接调用 VESTA 生产接口；股票/固收长期收益、波动和相关性均为演示假设，可在正式接入时替换为有版本号的投研参数。</div>
+            </div>
+          </details>
+          <button class="primary" type="submit">更新我的养老计划</button>
+        </form>
+
+        <aside class="result-stack" aria-live="polite">
+          <section class="card score-card">
+            <div class="score-top">
+              <div><h2 id="planHeadline">计划可行，但还有缺口</h2><p id="planSub">在当前投入下，先看达成概率，再决定调金额还是调目标。</p></div>
+              <div class="gauge" id="probGauge"><strong id="probability">--</strong><small>达成概率</small></div>
+            </div>
+            <div class="metrics">
+              <div class="metric"><span>退休资金目标</span><strong id="targetCapital">--</strong><em>扣除社保后的生活缺口</em></div>
+              <div class="metric"><span>中性预计可积累</span><strong id="medianCapital">--</strong><em>不代表实际收益</em></div>
+              <div class="metric"><span>建议每月投入</span><strong id="requiredMonthly">--</strong><em id="monthlyHint">以当前目标反推</em></div>
+            </div>
+          </section>
+
+          <section class="card chart-card">
+            <div class="chart-title"><h3>从现在到退休：资金路径</h3><span class="legend">中性路径 · 目标线 · 投入本金</span></div>
+            <div class="canvas-wrap"><canvas id="capitalChart" width="760" height="360" aria-label="养老资金路径图"></canvas></div>
+          </section>
+
+          <section class="card bucket-card">
+            <h3>钱怎么放：先分账户，再选产品</h3><p>账户约束与产品风险分开处理，避免把“税优”“投顾”“保险”混成同一类推荐。</p>
+            <div class="bucket"><div><div class="bucket-name">税优账户</div><small id="taxNote">按政策上限测算</small></div><div class="bar"><i id="taxBar" style="width:25%;background:#1b88ee"></i></div><b id="taxAmount">--</b></div>
+            <div class="bucket"><div><div class="bucket-name">灵活投资</div><small>颐养天年 / FOF / 自选</small></div><div class="bar"><i id="flexBar" style="width:55%;background:#3cc5c9"></i></div><b id="flexAmount">--</b></div>
+            <div class="bucket"><div><div class="bucket-name">确定性现金流</div><small>保险按需、单独比较</small></div><div class="bar"><i id="secureBar" style="width:20%;background:#f58a32"></i></div><b id="secureAmount">--</b></div>
+            <div class="choice-row" aria-label="灵活投资产品选择"><button class="choice active" type="button">颐养天年</button><button class="choice" type="button">养老目标 FOF</button><button class="choice" type="button">单品自选</button><button class="choice" type="button">暂不购买</button></div>
+            <div class="notice"><b>为什么不直接把全部钱推给一个产品？</b>个人养老金是账户制度，颐养天年是投顾策略，保险解决的是确定性现金流。三者约束不同，只能在同一计划下协同，不能互相替代。</div>
+          </section>
+
+          <section class="card next-card">
+            <h3>下一步，只做一个动作</h3><p id="nextCopy">优先补足投入缺口；确认后再进入适当性校验与产品选择。</p>
+            <div class="next-actions"><button type="button" class="selected">调整每月投入</button><button type="button">查看账户方案</button><button type="button">先保存计划</button></div>
+          </section>
+        </aside>
+      </section>
+    </div>
+  </main>
+
+  <main id="report" class="view">
+    <div class="shell">
+      <section class="report-hero">
+        <div class="eyebrow">PRODUCT DECISION REPORT · 2026-09-21</div>
+        <h1>统一养老计划，放弃“工具各算各的”。</h1>
+        <p>本报告基于 VESTA 当前登录态实测、当前前端规则审计、且慢养老专区历史 PRD 与 2026 年个人养老金政策核对。重点不是再加一个入口，而是定义唯一计划对象、分层整合旧能力，并补上从测算到执行再到复盘的闭环。</p>
+        <nav class="report-nav"><a href="#decision">结论</a><a href="#architecture">新主链</a><a href="#disposition">旧能力处置</a><a href="#vesta">VESTA 审计</a><a href="#formula">公式</a><a href="#roadmap">落地路线</a></nav>
+      </section>
+
+      <section class="section" id="decision">
+        <h2>结论先行</h2>
+        <div class="verdict">
+          <div class="verdict-main"><h3>新工具应成为“养老计划操作系统”，而不是新测算器。</h3><p>VESTA 的优势是把年龄、资金流、风险预算、蒙特卡洛与阶段性权益下滑连接起来；它的不足是缺少社保、已有多账户、税优、保险需求、流动性和适当性。最优解是用 VESTA 做量化引擎之一，再由且慢负责用户目标、账户分桶、产品路由和投后闭环。</p></div>
+          <div class="verdict-side">
+            <div class="mini"><b>唯一真相</b><span>一个 plan_id 管目标、参数、版本与当前方案。</span></div>
+            <div class="mini"><b>多引擎</b><span>VESTA、社保估算、税优规则和保险测算各司其职。</span></div>
+            <div class="mini"><b>多账户</b><span>账户是执行容器，不再各自生成养老目标。</span></div>
+            <div class="mini"><b>产品可选</b><span>主推不等于唯一；保留替代与暂不购买。</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="architecture">
+        <h2>新的六段主链</h2><p class="section-lead">把所有旧页面重新归位：工具只负责计算，计划负责决策，账户负责执行，投后负责持续更新。</p>
+        <div class="architecture">
+          <div class="arch"><div class="n">01 · 目标</div><h3>想过怎样的退休生活</h3><p>退休年龄、生活费、寿命、社保与底线需求。</p></div>
+          <div class="arch"><div class="n">02 · 盘点</div><h3>现在已经有什么</h3><p>税优、且慢、保险、其他养老账户去重归集。</p></div>
+          <div class="arch"><div class="n">03 · 测算</div><h3>够不够、差多少</h3><p>资金流、情景区间、达成概率、压力测试。</p></div>
+          <div class="arch"><div class="n">04 · 分桶</div><h3>钱放在哪类账户</h3><p>税优额度、灵活性与确定性现金流约束。</p></div>
+          <div class="arch"><div class="n">05 · 执行</div><h3>选择具体产品</h3><p>颐养天年、FOF、单品、保险，保留替代。</p></div>
+          <div class="arch"><div class="n">06 · 跟踪</div><h3>每年自动复盘</h3><p>目标、投入、权益比例、账户与产品状态同步。</p></div>
+        </div>
+      </section>
+
+      <section class="section" id="disposition">
+        <h2>旧能力：保留、整合、弱化还是停止</h2>
+        <div class="table-wrap"><table class="data-table"><thead><tr><th>现有能力</th><th>问题</th><th>处置</th><th>新位置</th></tr></thead><tbody>
+          <tr><td><b>富达测算器</b></td><td>社保与替代率维度细，但结果不可调整，且与后续产品方案断裂。</td><td><span class="tag fade">弱化</span> 历史结果只读保留；“社保深算”作为进阶模块，不再做默认入口。</td><td>计划 → 进阶 → 社保与退休品质</td></tr>
+          <tr><td><b>自订储蓄测算器</b></td><td>可调金额，但采用固定历史参数，和富达、VESTA 各自产生目标。</td><td><span class="tag merge">整合</span> 输入与历史记录迁移到统一计划，停止独立生成方案。</td><td>计划 → 快速算</td></tr>
+          <tr><td><b>养老专区</b></td><td>同时承担内容、货架、资产和入口，主任务不清晰。</td><td><span class="tag keep">保留</span> 改成计划总览页，首屏只展示状态与下一行动。</td><td>养老首页 / 总控台</td></tr>
+          <tr><td><b>养老投资方案</b></td><td>建议内容薄、与测算状态容易脱节。</td><td><span class="tag keep">升级</span> 成为唯一计划详情页，展示版本、假设、分桶和产品选择。</td><td>plan_id 的方案快照</td></tr>
+          <tr><td><b>多养老账户 / 储蓄罐</b></td><td>资产展示完整，但容易把账户当方案。</td><td><span class="tag keep">保留</span> 作为执行与盘点层，所有余额先计入已有养老资产。</td><td>计划 → 已有资产与执行账户</td></tr>
+          <tr><td><b>个人养老金税优账户</b></td><td>账户制度常被误当成单一产品；存在额度与流动性约束。</td><td><span class="tag keep">保留</span> 作为账户分桶选项，用户确认税率与锁定接受度后再推荐。</td><td>账户分桶 → 税优账户</td></tr>
+          <tr><td><b>颐养天年</b></td><td>适合长期灵活养老投资，但不能代替税优账户、保险或全部资产。</td><td><span class="tag keep">主推但可选</span> 在适配用户的灵活投资桶中优先展示，同时提供 FOF / 自选 / 暂不买。</td><td>产品执行 → 灵活投资</td></tr>
+          <tr><td><b>单品 / FOF / 保险</b></td><td>规则、风险和现金流口径不同，不宜共用一个收益排名。</td><td><span class="tag merge">分角色整合</span> FOF/单品解决投资，保险解决确定性现金流；分别披露。</td><td>产品抽屉，不再另建测算器</td></tr>
+        </tbody></table></div>
+      </section>
+
+      <section class="section" id="vesta">
+        <h2>VESTA 当前能力：三段闸门、一个服务端黑箱</h2>
+        <p class="section-lead">2026-09-21 已在真实登录态完成默认养老场景、资金计划与配置方案实测。页面证据与服务端未披露部分严格分开。</p>
+        <div class="audit-grid">
+          <div class="audit-card"><span class="tag verified">已验证</span><h3>① 投资场景</h3><ul><li>养老 / 教育两个场景</li><li>性别、年龄、国内/全球、风险值、1—20 年再平衡</li><li>输出年龄序列、权益/固收比例、乐观/中性/悲观收益曲线</li></ul></div>
+          <div class="audit-card"><span class="tag verified">已验证</span><h3>② 资金计划</h3><ul><li>已知入金算出金 / 已知出金算入金</li><li>一次性或分期；月/季/年；期初/期末</li><li>年度额外投入、通胀目标、期末留存</li><li>输出三情景金额、IRR 与跑赢通胀概率</li></ul></div>
+          <div class="audit-card"><span class="tag verified">已验证</span><h3>③ 组合配置</h3><ul><li>基于下滑曲线生成阶段性权益档位</li><li>按渠道映射可执行组合及权重</li><li>当前页面只开放“盈米基金”渠道</li><li>阶段表可保存到组合对象</li></ul></div>
+          <div class="audit-card"><span class="tag boundary">未披露</span><h3>蒙特卡洛内核</h3><p>前端确认使用蒙特卡洛，并返回三种情景、IRR、区间与概率；但模拟次数、抽样分布、相关性、资本市场假设、分位点定义与随机种子均在服务端，不能从页面反推。</p></div>
+          <div class="audit-card"><span class="tag boundary">需治理</span><h3>概率标签风险</h3><p>“乐观达成概率 5% / 中性 60% / 悲观触发概率 5%”是前端固定文案，不是接口字段。必须核实它们是分位点还是展示标签，不能直接向用户解释为统计置信度。</p></div>
+          <div class="audit-card"><span class="tag stop">已发现缺陷</span><h3>陈旧结果未清空</h3><p>切换测算方向或存入方式后，旧金额仍留在结果区，只改变“领取/存入”标签并加一条重算提醒。消费者页面应立即隐藏旧结果，避免把 13,849.21 元误读成新方案。</p></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>默认场景实测快照</h2>
+        <div class="table-wrap"><table class="data-table"><thead><tr><th>输入 / 输出</th><th>实测值</th><th>说明</th></tr></thead><tbody>
+          <tr><td>基础场景</td><td>男，25 岁开始；63 岁领取；99 岁结束；风险值 50；国内；每年再平衡</td><td>开始日为 2026-09-18，当前前端仅允许 2024-09-01 至昨日的有效交易日。</td></tr>
+          <tr><td>资金计划</td><td>月初投入 8,200 元至 62 岁；月初领取；通胀 3%；期末留存 10,000 元</td><td>支持反向计算、一次性投入和每年额外投入。</td></tr>
+          <tr><td>结果</td><td>乐观 20,248.89；中性 13,849.21；悲观 9,887.45 元/月</td><td>对应 IRR 3.66% / 2.71% / 1.87%；中性区间 11,494.86—16,330.71 元。</td></tr>
+          <tr><td>概率</td><td>跑赢 3% 通胀概率 32.91%</td><td>前端以 &lt;40% 红、40%—59.99% 橙、≥60% 绿显示。</td></tr>
+          <tr><td>权益路径</td><td>60% → 50% → 40% → 30% → 20% → 10%</td><td>阶段为 25—27、28—32、33—38、39—45、46—63、64—99 岁。</td></tr>
+        </tbody></table></div>
+      </section>
+
+      <section class="section" id="formula">
+        <h2>公式与参数：哪些明确，哪些不能假装知道</h2>
+        <div class="formula-grid">
+          <div class="formula"><h3>旧自订测算器 · 已有明确公式</h3><code>当年收益率 = 权益占比 × 股票指数收益率 + (1 − 权益占比) × 债券指数收益率<br><br>当年金额 = 上年金额 + 月储蓄 × 12 + 当年收益<br><br>退休后月领 = 退休时金额 ÷ [(假设寿命 − 退休年龄) × 12]</code><p>历史参数：寿命 85、贴现率 2.5%、股票 8.556% / 波动 19.27%、债券 3.95% / 波动 0.6%。这些是 2023 年配置，不应继续写死。</p></div>
+          <div class="formula"><h3>VESTA · 前端可确认的参数变换</h3><code>通胀输入百分数 ÷ 100 → growth_rate_annual_out<br>target_inv_rate = growth_rate_annual_out<br>一次性投入时：停止投入年龄 = 开始投入年龄<br>配置表：权益档位 = round(equity_ratio × 100%)</code><p>三段服务依次返回：收益曲线与权益比例 → 三情景资金结果/IRR/概率 → 阶段组合。核心模拟算法在服务端，当前未披露。</p></div>
+        </div>
+        <div class="callout" style="margin-top:14px"><b>必须补一个公式版本对象</b><p>正式对客结果至少记录 model_version、capital_market_assumption_version、glide_path_version、tax_rule_version、product_universe_version、data_as_of 与随机模拟设置；否则同一用户过几个月重算无法解释为什么变了。</p></div>
+      </section>
+
+      <section class="section">
+        <h2>VESTA 风险值与预期最大回撤映射</h2><p class="section-lead">以下为 2026-09-21 当前前端提示表。它是产品规则映射，不代表未来实际回撤上下限。</p>
+        <div class="risk-grid">
+          <div class="risk"><b>0—9</b><span>-2.11% ≤ MDD &lt; -1.75%</span></div><div class="risk"><b>10—19</b><span>-3.53% ≤ MDD &lt; -2.22%</span></div><div class="risk"><b>20—29</b><span>-9.20% ≤ MDD &lt; -3.71%</span></div><div class="risk"><b>30—39</b><span>-16.61% ≤ MDD &lt; -9.95%</span></div><div class="risk"><b>40—49</b><span>-25.52% ≤ MDD &lt; -17.32%</span></div>
+          <div class="risk"><b>50—59</b><span>-29.76% ≤ MDD &lt; -26.57%</span></div><div class="risk"><b>60—69</b><span>-32.06% ≤ MDD &lt; -30.03%</span></div><div class="risk"><b>70—79</b><span>-33.93% ≤ MDD &lt; -32.25%</span></div><div class="risk"><b>80—89</b><span>-35.79% ≤ MDD &lt; -34.12%</span></div><div class="risk"><b>90—100</b><span>-37.75% ≤ MDD ≤ -35.96%</span></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>且慢对客版必须补齐的七件事</h2>
+        <div class="audit-grid">
+          <div class="audit-card"><h3>社保与缺口</h3><p>VESTA 算投资资金流，不算基本养老金。快速版允许用户填估值；进阶版再接社保模型。</p></div>
+          <div class="audit-card"><h3>已有资产去重</h3><p>所有养老账户、颐养天年、FOF 与保险现值先计入已有资产，不能再算一遍缺口。</p></div>
+          <div class="audit-card"><h3>税优适配</h3><p>不是“工资低于某值就不推荐”，而是基于边际税率、年度额度、流动性接受度与可用产品。</p></div>
+          <div class="audit-card"><h3>保险单列</h3><p>保险责任、保证与非保证利益、退保损失和流动性单独披露，不用基金 IRR 排名。</p></div>
+          <div class="audit-card"><h3>适当性和授权</h3><p>测算可以匿名试算；保存计划需登录；产品推荐、签约与交易必须经过适当性和强确认。</p></div>
+          <div class="audit-card"><h3>陈旧结果治理</h3><p>任何关键参数变化立即作废结果；不允许旧数换标签继续显示。</p></div>
+        </div>
+      </section>
+
+      <section class="section" id="roadmap">
+        <h2>落地路线：先统一计划，再接生产引擎</h2>
+        <div class="roadmap">
+          <div class="phase"><div class="time">P0 · 0—6 周</div><h3>统一对象与前端 MVP</h3><ul><li>定义 plan_id 与版本字段</li><li>迁移富达 / 自订结果</li><li>接已有养老账户快照</li><li>上线快速算与方案保存</li></ul></div>
+          <div class="phase"><div class="time">P1 · 6—12 周</div><h3>接 VESTA 与账户分桶</h3><ul><li>服务化三段测算</li><li>补税优、社保、流动性</li><li>颐养天年 / FOF / 保险可选</li><li>适当性、审计和降级态</li></ul></div>
+          <div class="phase"><div class="time">P2 · 12—20 周</div><h3>投后闭环</h3><ul><li>年度计划复盘</li><li>偏离与再平衡提醒</li><li>调目标 / 调投入影响解释</li><li>计划覆盖资产与完成率指标</li></ul></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>政策与证据来源</h2>
+        <div class="source-list">
+          <div class="source"><b>VESTA 组合引擎养老资金流页面</b><span>2026-09-21 登录态实测 + 当前前端资源审计；未读取客户组合或账户数据。</span></div>
+          <div class="source"><b>且慢养老专区 / 2.0 / 富达 / 自订测算历史 PRD</b><span>2022—2023 产品方案、Q&A 与公式说明；用于识别遗留能力和历史参数，不代表当前全部已上线。</span></div>
+          <div class="source"><b><a href="https://fgk.chinatax.gov.cn/zcfgk/c100013/c5236500/content.html" target="_blank" rel="noopener">个人养老金全面实施通知</a></b><span>2024-12-15 起全国实施；个人自主决定投资品种与金额。</span></div>
+          <div class="source"><b><a href="https://shanxi.chinatax.gov.cn/zdgk/detail/sx-11400-545-1802422" target="_blank" rel="noopener">个人养老金税收优惠政策</a></b><span>年度据实扣除上限 12,000 元；投资环节暂不征税；领取单独按 3% 计税。</span></div>
+          <div class="source"><b><a href="https://www.csrc.gov.cn/csrc/c101900/c6551799/content.shtml" target="_blank" rel="noopener">个人养老金基金名录</a></b><span>证监会截至 2026-06-30 的当前名录；正式产品推荐应动态读取。</span></div>
+          <div class="source"><b><a href="https://www.cac.gov.cn/2026-04/24/c_1778769008779432.htm" target="_blank" rel="noopener">金融产品网络营销管理办法</a></b><span>公告〔2026〕第9号，2026-09-30 起实施；页面需完成营销材料审核与清晰风险披露。</span></div>
+        </div>
+      </section>
+
+      <footer class="footer">公开去敏产品决策原型 · 测算结果仅用于规划演示，不构成收益承诺、产品推荐或交易指令。具体产品风险、费用与适当性以正式合同和销售页面为准。</footer>
+    </div>
+  </main>
+
+  <script>
+    const $ = id => document.getElementById(id);
+    const fmt = n => n >= 1e8 ? (n/1e8).toFixed(2)+'亿' : n >= 1e4 ? (n/1e4).toFixed(1)+'万' : Math.round(n).toLocaleString('zh-CN');
+    const clamp = (v,a,b) => Math.min(b,Math.max(a,v));
+    const tabs = document.querySelectorAll('.tab-btn');
+    tabs.forEach(btn=>btn.addEventListener('click',()=>{tabs.forEach(x=>x.classList.toggle('active',x===btn));document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===btn.dataset.view));window.scrollTo({top:0,behavior:'smooth'});}));
+
+    function mulberry32(a){return function(){let t=a+=0x6D2B79F5;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296}}
+    function normal(rand){let u=0,v=0;while(!u)u=rand();while(!v)v=rand();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)}
+    function equityForAge(age, retire, risk){const d=retire-age;let base=d>35?60:d>30?50:d>24?40:d>17?30:d>0?20:10;return clamp(base+(risk-50)*.45,10,90)/100}
+    function capitalPath(p, monthlyOverride){let cap=p.existing,principal=p.existing,points=[cap],principalPoints=[principal];const months=(p.retire-p.age)*12;for(let m=0;m<months;m++){const age=p.age+m/12,eq=equityForAge(age,p.retire,p.risk);const annual=eq*.075+(1-eq)*.032;const mr=Math.pow(1+annual,1/12)-1;if(p.timing==='begin'){cap+=monthlyOverride}else{cap*=1+mr;cap+=monthlyOverride}if(p.timing==='begin')cap*=1+mr;principal+=monthlyOverride;if((m+1)%12===0){cap+=p.bonus;principal+=p.bonus}points.push(cap);principalPoints.push(principal)}return{cap,points,principalPoints}}
+    function annuityPV(payment,years,annualReturn,annualGrowth){const n=years*12,r=Math.pow(1+annualReturn,1/12)-1,g=Math.pow(1+annualGrowth,1/12)-1;if(Math.abs(r-g)<1e-8)return payment*n/(1+r);return payment*(1-Math.pow((1+g)/(1+r),n))/(r-g)}
+    function runSimulation(p,target){const rand=mulberry32(20260921+Math.round(p.risk*17+p.age));const outcomes=[];for(let s=0;s<500;s++){let cap=p.existing;for(let y=p.age;y<p.retire;y++){const eq=equityForAge(y,p.retire,p.risk);const mu=eq*.075+(1-eq)*.032;const sigma=Math.sqrt(Math.pow(eq*.18,2)+Math.pow((1-eq)*.045,2)+2*eq*(1-eq)*.2*.18*.045);const ret=clamp(mu+sigma*normal(rand),-.55,.55);cap=(cap+p.monthly*12+p.bonus)*(1+ret)}outcomes.push(Math.max(0,cap))}outcomes.sort((a,b)=>a-b);const q=x=>outcomes[Math.floor((outcomes.length-1)*x)];return{prob:outcomes.filter(v=>v>=target).length/outcomes.length,bear:q(.1),median:q(.5),bull:q(.9)}}
+    function parameters(){return{age:+$('currentAge').value,retire:+$('retireAge').value,end:+$('endAge').value,goal:+$('monthlyGoal').value,social:+$('socialPension').value,existing:+$('existingAssets').value,monthly:+$('monthlySave').value,bonus:+$('annualBonus').value,inflation:+$('inflation').value/100,risk:+$('riskScore').value,certainty:+$('certainty').value/100,taxRate:+$('taxRate').value,timing:$('depositTiming').value}}
+    function drawChart(path,principal,target){const canvas=$('capitalChart'),ctx=canvas.getContext('2d'),w=canvas.width,h=canvas.height,dpr=window.devicePixelRatio||1;const cssW=canvas.clientWidth||760,cssH=canvas.clientHeight||230;canvas.width=cssW*dpr;canvas.height=cssH*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);const W=cssW,H=cssH,pad={l:42,r:16,t:18,b:30};const max=Math.max(target,...path)*1.08,min=0;ctx.clearRect(0,0,W,H);ctx.strokeStyle='#e5edf3';ctx.lineWidth=1;for(let i=0;i<5;i++){const y=pad.t+(H-pad.t-pad.b)*i/4;ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(W-pad.r,y);ctx.stroke()}const xy=(i,v)=>[pad.l+(W-pad.l-pad.r)*i/(path.length-1),H-pad.b-(H-pad.t-pad.b)*(v-min)/(max-min)];function line(data,color,width,dash=[]){ctx.strokeStyle=color;ctx.lineWidth=width;ctx.setLineDash(dash);ctx.beginPath();data.forEach((v,i)=>{const [x,y]=xy(i,v);i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.stroke();ctx.setLineDash([])}line(principal,'#a8bac7',1.5,[5,5]);line(path,'#1b88ee',3);line([target,target],'#f58a32',2,[7,6]);ctx.fillStyle='#71899a';ctx.font='11px sans-serif';ctx.fillText('现在',pad.l,H-9);ctx.fillText('退休',W-pad.r-26,H-9);ctx.fillStyle='#f58a32';ctx.fillText('目标 '+fmt(target),pad.l+8,Math.max(13,xy(0,target)[1]-6));}
+    function update(){const p=parameters();p.retire=Math.max(p.age+1,p.retire);p.end=Math.max(p.retire+1,p.end);const years=p.retire-p.age;const futureGap=Math.max(0,p.goal-p.social)*Math.pow(1+p.inflation,years);const target=annuityPV(futureGap,p.end-p.retire,.035,p.inflation);const deterministic=capitalPath(p,p.monthly);const sim=runSimulation(p,target);let lo=0,hi=100000;for(let i=0;i<35;i++){const mid=(lo+hi)/2;capitalPath(p,mid).cap>=target?hi=mid:lo=mid}const required=Math.max(0,hi);const prob=Math.round(sim.prob*100);$('probability').textContent=prob+'%';$('probGauge').style.setProperty('--p',prob);const gaugeColor=prob>=60?'#14866d':prob>=40?'#d97706':'#c64040';$('probGauge').style.background=`conic-gradient(${gaugeColor} ${prob}%,#e8eff4 0)`;$('probGauge').querySelector('strong').style.color=gaugeColor;$('targetCapital').textContent=fmt(target);$('medianCapital').textContent=fmt(sim.median);$('requiredMonthly').textContent=fmt(required)+'元';$('monthlyHint').textContent=required>p.monthly?'比当前多 '+fmt(required-p.monthly)+'元/月':'当前投入已覆盖中性目标';$('planHeadline').textContent=prob>=70?'计划基础较稳':prob>=45?'计划可行，但还有缺口':'目标与投入需要重新平衡';$('planSub').textContent=prob>=70?'下一步重点是账户选择和长期执行。':prob>=45?'可以增加投入、延后退休或下调目标，三选一。':'先调整目标或投入，不急着选具体产品。';$('nextCopy').textContent=required>p.monthly?'优先把每月投入向 '+fmt(required)+' 元靠近；也可以延后退休或降低目标。':'投入基本匹配，下一步确认账户分桶和产品适配。';drawChart(deterministic.points,deterministic.principalPoints,target);
+      const annual=p.monthly*12+p.bonus,tax=Math.min(12000,annual)*clamp(1-p.certainty*.35,.65,1),secure=Math.max(0,annual-tax)*p.certainty*.45,flex=Math.max(0,annual-tax-secure),sum=Math.max(1,tax+secure+flex);$('taxAmount').textContent=fmt(tax)+'/年';$('flexAmount').textContent=fmt(flex)+'/年';$('secureAmount').textContent=fmt(secure)+'/年';$('taxBar').style.width=(tax/sum*100)+'%';$('flexBar').style.width=(flex/sum*100)+'%';$('secureBar').style.width=(secure/sum*100)+'%';$('taxNote').textContent=p.taxRate?`按 1.2 万上限，税率 ${Math.round(p.taxRate*100)}% 待确认`:'未填税率，先保留额度';$('riskValue').textContent=p.risk;$('riskLabel').textContent=p.risk<40?'稳健':p.risk<70?'均衡':'进取';$('certaintyValue').textContent=Math.round(p.certainty*100)+'%';$('certaintyLabel').textContent=p.certainty<.3?'更重视增长':p.certainty<.7?'兼顾确定与增长':'更重视确定现金流';}
+    $('planForm').addEventListener('submit',e=>{e.preventDefault();update();document.querySelector('.result-stack').scrollIntoView({behavior:'smooth',block:'start'})});
+    document.querySelectorAll('#planForm input,#planForm select').forEach(el=>el.addEventListener('input',update));
+    document.querySelectorAll('.choice-row .choice').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.choice-row .choice').forEach(x=>x.classList.toggle('active',x===btn))}));
+    document.querySelectorAll('.next-actions button').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.next-actions button').forEach(x=>x.classList.toggle('selected',x===btn))}));
+    window.addEventListener('resize',()=>{if($('planner').classList.contains('active'))update()});update();
+  </script>
+</body>
+</html>

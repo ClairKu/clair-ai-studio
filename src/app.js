@@ -173,6 +173,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "qieman-pension-planner-2026-09-21",
+      groupId: "product-planning",
+      title: "且慢养老规划｜统一工具原型与 VESTA 规则审计",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-pension-planner-2026-09-21/",
+      preview: "qieman-pension-planner-2026-09-21.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-21T21:30:00+08:00",
+      source: "2026-09-21 VESTA 养老资金流构建页面登录态实测与当前前端规则核验 + 且慢历年养老计算器、养老专区、养老方案、多养老账户、税优账户与产品路径梳理 + 个人养老金现行政策核对｜交付可交互用户端原型、三段式 VESTA 规则与参数审计、旧能力去留表、统一计划对象、账户分桶、产品可选路由和分期实施方案｜明确服务端蒙特卡洛参数未披露，页面试算不构成收益承诺或产品推荐｜公开脱敏，不含账号、客户数据、内部接口或私有产品代码",
+      access: "production",
+      workType: "product-planning",
+      tags: ["且慢", "养老规划", "养老计算器", "个人养老金", "税优账户", "多账户", "颐养天年", "FOF", "保险", "VESTA", "资金流", "蒙特卡洛", "产品规划", "交互原型", "规则审计", "HTML", "生产"],
+    },
+    {
       id: "ai-native-advisor-workbench-v1-2-review-2026-09-17",
       groupId: "product-planning",
       title: "AI-Native 投顾工作台 V1.2｜完整评审与优化方案",
@@ -2498,6 +2512,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "qieman-pension-planner-2026-09-21": "product-planning",
   "qieman-ai-user-attribution-2026-09-07": "data-analysis",
   "oap-command-deck-2026-09-05": "data-analysis",
   "doubao-mcp-user-panorama-2026-09-05": "data-analysis",
@@ -2572,6 +2587,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "qieman-pension-planner-2026-09-21": "product-planning",
   "ai-native-advisor-workbench-v1-2-review-2026-09-17": "product-planning",
   "pms-system-deep-dive-2026-09-16": "research",
   "global-ai-advice-advisor-copilot-cases-2026-09-16": "research",
