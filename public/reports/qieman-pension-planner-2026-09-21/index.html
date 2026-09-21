@@ -21,24 +21,27 @@
     .tabs{display:flex;gap:6px;background:#eaf0f5;padding:4px;border-radius:999px}.tab-btn{border:0;background:transparent;color:var(--ink-2);padding:8px 16px;border-radius:999px;font-weight:700}.tab-btn.active{background:#fff;color:var(--blue-dark);box-shadow:0 4px 16px rgba(18,48,73,.08)}
     .status{font-size:12px;color:var(--ink-2);white-space:nowrap}.status b{color:var(--green)}
     .view{display:none}.view.active{display:block}.shell{max-width:1360px;margin:auto;padding:30px 24px 80px}
-    .hero{position:relative;overflow:hidden;border-radius:32px;background:linear-gradient(125deg,#073c68 0%,#096aa8 52%,#18a4ad 100%);color:#fff;padding:46px;box-shadow:var(--shadow)}
+    .hero{position:relative;overflow:hidden;border-radius:28px;background:linear-gradient(125deg,#073c68 0%,#096aa8 52%,#18a4ad 100%);color:#fff;padding:34px 38px;box-shadow:var(--shadow)}
     .hero:before,.hero:after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.1)}.hero:before{width:320px;height:320px;right:-90px;top:-170px}.hero:after{width:210px;height:210px;right:190px;bottom:-150px}
-    .eyebrow{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#8fe7e0}.hero h1{max-width:850px;margin:10px 0 14px;font-size:clamp(34px,5.5vw,66px);line-height:1.08;letter-spacing:-.04em}.hero p{max-width:820px;margin:0;color:rgba(255,255,255,.82);font-size:17px}.hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}.hero-badges span{border:1px solid rgba(255,255,255,.24);background:rgba(255,255,255,.1);border-radius:999px;padding:7px 12px;font-size:13px}
+    .eyebrow{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#8fe7e0}.hero h1{max-width:850px;margin:8px 0 10px;font-size:clamp(32px,4.6vw,54px);line-height:1.08;letter-spacing:-.04em}.hero p{max-width:720px;margin:0;color:rgba(255,255,255,.82);font-size:16px}
     .decision-strip{display:grid;grid-template-columns:1.25fr repeat(3,1fr);gap:12px;margin:18px 0 26px}.decision-main,.decision-item{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px}.decision-main{background:var(--orange-soft);border-color:#ffd8ba}.decision-main b,.decision-item b{display:block;font-size:15px;margin-bottom:4px}.decision-main span,.decision-item span{font-size:13px;color:var(--ink-2)}
-    .planner-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(430px,.95fr);gap:22px;align-items:start}.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 10px 30px rgba(18,48,73,.055)}
+    .planner-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(430px,1.1fr);gap:22px;align-items:start;margin-top:22px}.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 10px 30px rgba(18,48,73,.055)}
     .form-card{padding:26px}.card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:20px}.card-head h2{margin:0;font-size:25px;letter-spacing:-.02em}.card-head p{margin:5px 0 0;color:var(--ink-2);font-size:14px}.mode-chip{font-size:12px;color:var(--blue-dark);background:var(--blue-soft);border:1px solid #cce8ff;padding:7px 10px;border-radius:999px;white-space:nowrap}
-    .step-title{display:flex;align-items:center;gap:10px;margin:24px 0 12px;font-weight:800}.step-no{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;color:#fff;background:var(--blue);font-size:13px}
+    .step-title{display:flex;align-items:center;gap:10px;margin:18px 0 12px;font-weight:800}.step-no{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;color:#fff;background:var(--blue);font-size:13px}
     .form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:13px;font-weight:700;color:var(--ink-2)}
+    .form-grid.quick{grid-template-columns:1fr}.advanced-intro{font-size:12px;color:var(--ink-2);margin:-4px 0 14px}
     .input-wrap{position:relative}.input-wrap input,.field select{width:100%;height:46px;border:1px solid #cddce7;border-radius:13px;background:#fbfdff;color:var(--ink);padding:0 40px 0 13px;outline:none}.input-wrap input:focus,.field select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(27,136,238,.12)}.suffix{position:absolute;right:12px;top:11px;color:#7990a1;font-size:13px}
     .range-line{display:grid;grid-template-columns:1fr 46px;gap:10px;align-items:center}.range-line input[type=range]{accent-color:var(--blue);width:100%}.range-val{font-weight:800;color:var(--blue-dark);text-align:right}
     details.advanced{margin-top:18px;border:1px solid var(--line);border-radius:16px;background:#fafdff}details.advanced summary{cursor:pointer;padding:14px 16px;font-weight:800}details.advanced .detail-body{padding:0 16px 16px}.assumption{font-size:12px;color:var(--ink-2);padding:10px 12px;background:#f2f6f9;border-radius:12px;margin-top:12px}
     .primary{width:100%;border:0;border-radius:14px;padding:14px 18px;background:linear-gradient(90deg,var(--blue-dark),var(--blue));color:#fff;font-weight:800;margin-top:20px;box-shadow:0 8px 22px rgba(27,136,238,.23)}.primary:hover{filter:brightness(1.03)}
-    .result-stack{display:grid;gap:16px;position:sticky;top:82px}.score-card{padding:24px;background:linear-gradient(145deg,#ffffff,#f7fbff)}.score-top{display:flex;justify-content:space-between;gap:18px;align-items:center}.score-top h2{margin:0 0 4px;font-size:23px}.score-top p{margin:0;color:var(--ink-2);font-size:13px}.gauge{--p:50;width:112px;height:112px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--green) calc(var(--p)*1%),#e8eff4 0);position:relative;flex:0 0 auto}.gauge:after{content:"";position:absolute;width:84px;height:84px;background:#fff;border-radius:50%}.gauge strong{z-index:1;font-size:24px;color:var(--green)}.gauge small{z-index:1;position:absolute;top:67px;font-size:10px;color:var(--ink-2)}
-    .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px}.metric{border:1px solid var(--line);border-radius:15px;padding:13px;background:#fff}.metric span{display:block;font-size:11px;color:var(--ink-2)}.metric strong{display:block;font-size:19px;margin-top:3px}.metric em{font-size:11px;color:var(--ink-2);font-style:normal}
+    .result-stack{display:grid;gap:14px;position:sticky;top:82px}.score-card{padding:28px;background:linear-gradient(145deg,#ffffff,#f7fbff)}.score-top{display:flex;justify-content:space-between;gap:18px;align-items:center}.score-top h2{margin:0 0 4px;font-size:22px}.score-top p{margin:0;color:var(--ink-2);font-size:13px}.gauge{--p:50;width:88px;height:88px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--green) calc(var(--p)*1%),#e8eff4 0);position:relative;flex:0 0 auto}.gauge:after{content:"";position:absolute;width:66px;height:66px;background:#fff;border-radius:50%}.gauge strong{z-index:1;font-size:20px;color:var(--green)}.gauge small{z-index:1;position:absolute;top:54px;font-size:9px;color:var(--ink-2)}
+    .focus-result{margin-top:22px;padding:20px;border-radius:18px;background:#eaf5ff}.focus-result span{display:block;color:var(--blue-dark);font-size:13px;font-weight:700}.focus-result strong{display:block;margin:3px 0;font-size:clamp(34px,5vw,52px);line-height:1.1;color:#075fae}.focus-result em{font-style:normal;font-size:12px;color:var(--ink-2)}
+    .metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}.metric{border:1px solid var(--line);border-radius:15px;padding:13px;background:#fff}.metric span{display:block;font-size:11px;color:var(--ink-2)}.metric strong{display:block;font-size:18px;margin-top:3px}.metric em{font-size:11px;color:var(--ink-2);font-style:normal}
+    .result-details{border:1px solid var(--line);border-radius:18px;background:#fff;overflow:hidden}.result-details>summary{cursor:pointer;padding:14px 18px;font-weight:800;color:var(--blue-dark)}.result-details>.detail-content{padding:0 16px 16px}.result-details .chart-card,.result-details .bucket-card{border:0;box-shadow:none;padding:16px 0}.result-details .bucket-card{border-top:1px solid var(--line)}
     .chart-card{padding:20px}.chart-title{display:flex;justify-content:space-between;align-items:center}.chart-title h3{margin:0;font-size:17px}.legend{font-size:11px;color:var(--ink-2)}.canvas-wrap{height:230px;margin-top:8px;position:relative}.canvas-wrap canvas{width:100%;height:100%}
     .bucket-card{padding:20px}.bucket-card h3{margin:0 0 4px}.bucket-card>p{margin:0 0 15px;color:var(--ink-2);font-size:13px}.bucket{display:grid;grid-template-columns:108px 1fr auto;gap:12px;align-items:center;padding:13px 0;border-top:1px solid var(--line)}.bucket-name{font-weight:800}.bar{height:9px;background:#edf2f6;border-radius:999px;overflow:hidden}.bar i{display:block;height:100%;border-radius:999px}.bucket b{font-size:13px}.bucket small{display:block;color:var(--ink-2);font-size:11px;margin-top:3px}.choice-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.choice{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 11px;color:var(--ink-2);font-size:12px}.choice.active{border-color:var(--blue);color:var(--blue-dark);background:var(--blue-soft)}
     .notice{margin-top:16px;background:#fffaf3;border:1px solid #ffe0b8;border-radius:16px;padding:14px;font-size:12px;color:#76522f}.notice b{color:#a7570d}
-    .next-card{padding:20px;background:#0f334f;color:#fff}.next-card h3{margin:0 0 8px}.next-card p{margin:0;color:rgba(255,255,255,.72);font-size:13px}.next-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}.next-actions button{border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;border-radius:12px;padding:10px 8px;font-size:12px}.next-actions button.selected{background:#fff;color:#123049}
+    .next-card{padding:20px;background:#0f334f;color:#fff}.next-card h3{margin:0 0 8px}.next-card p{margin:0;color:rgba(255,255,255,.72);font-size:13px}.next-actions{display:grid;grid-template-columns:1fr;gap:8px;margin-top:14px}.next-actions button{border:0;background:#fff;color:#123049;border-radius:12px;padding:12px 10px;font-weight:800}.next-actions button.selected{background:#fff;color:#123049}
     .report-hero{padding:36px;border-radius:28px;background:#102f49;color:#fff}.report-hero h1{font-size:clamp(32px,5vw,56px);line-height:1.08;margin:10px 0}.report-hero p{max-width:850px;color:rgba(255,255,255,.76)}.report-nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}.report-nav a{color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:7px 12px;font-size:12px}
     .section{margin-top:26px}.section h2{font-size:28px;letter-spacing:-.02em;margin:0 0 14px}.section-lead{color:var(--ink-2);max-width:900px}.verdict{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}.verdict-main{padding:26px;background:var(--orange-soft);border:1px solid #ffd6b5;border-radius:24px}.verdict-main h3{font-size:26px;margin:0 0 10px}.verdict-main p{margin:0;color:#6e4a2b}.verdict-side{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.mini{background:#fff;border:1px solid var(--line);border-radius:18px;padding:17px}.mini b{display:block}.mini span{font-size:12px;color:var(--ink-2)}
     .architecture{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}.arch{min-height:150px;padding:16px;border-radius:18px;border:1px solid var(--line);background:#fff;position:relative}.arch:after{content:"→";position:absolute;right:-9px;top:62px;color:#8aa0af;font-weight:800}.arch:last-child:after{display:none}.arch .n{font-size:11px;color:var(--blue);font-weight:800}.arch h3{font-size:16px;margin:8px 0 6px}.arch p{font-size:12px;color:var(--ink-2);margin:0}
@@ -51,7 +54,7 @@
     .source-list{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.source{background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px}.source b{display:block}.source span{font-size:12px;color:var(--ink-2)}
     .footer{margin-top:36px;padding:22px 0;color:var(--ink-2);font-size:12px;border-top:1px solid var(--line)}
     @media(max-width:1080px){.planner-grid{grid-template-columns:1fr}.result-stack{position:static}.decision-strip{grid-template-columns:1fr 1fr}.architecture{grid-template-columns:repeat(3,1fr)}.arch:nth-child(3):after{display:none}.audit-grid{grid-template-columns:1fr 1fr}.risk-grid{grid-template-columns:repeat(3,1fr)}}
-    @media(max-width:720px){.topbar-inner{padding:10px 14px}.status{display:none}.tab-btn{padding:7px 10px;font-size:12px}.shell{padding:18px 12px 60px}.hero{padding:28px 22px}.hero p{font-size:14px}.decision-strip{grid-template-columns:1fr}.form-card,.score-card{padding:18px}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.metrics{grid-template-columns:1fr}.score-top{align-items:flex-start}.gauge{width:96px;height:96px}.gauge:after{width:72px;height:72px}.gauge small{top:58px}.bucket{grid-template-columns:90px 1fr}.bucket>b{grid-column:2}.next-actions{grid-template-columns:1fr}.report-hero{padding:26px 20px}.verdict{grid-template-columns:1fr}.verdict-side{grid-template-columns:1fr}.architecture{grid-template-columns:1fr 1fr}.arch:nth-child(odd):after{display:block}.arch:nth-child(even):after{display:none}.audit-grid,.formula-grid,.roadmap,.source-list{grid-template-columns:1fr}.risk-grid{grid-template-columns:1fr 1fr}.section h2{font-size:24px}}
+    @media(max-width:720px){.topbar-inner{padding:10px 14px}.status{display:none}.tab-btn{padding:7px 10px;font-size:12px}.shell{padding:14px 12px 60px}.hero{padding:25px 20px}.hero p{font-size:14px}.decision-strip{grid-template-columns:1fr}.form-card,.score-card{padding:18px}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.metrics{grid-template-columns:1fr 1fr}.score-top{align-items:flex-start}.gauge{width:78px;height:78px}.gauge:after{width:58px;height:58px}.gauge small{top:48px}.bucket{grid-template-columns:90px 1fr}.bucket>b{grid-column:2}.next-actions{grid-template-columns:1fr}.report-hero{padding:26px 20px}.verdict{grid-template-columns:1fr}.verdict-side{grid-template-columns:1fr}.architecture{grid-template-columns:1fr 1fr}.arch:nth-child(odd):after{display:block}.arch:nth-child(even):after{display:none}.audit-grid,.formula-grid,.roadmap,.source-list{grid-template-columns:1fr}.risk-grid{grid-template-columns:1fr 1fr}.section h2{font-size:24px}}
   </style>
 </head>
 <body>
@@ -59,8 +62,8 @@
     <div class="topbar-inner">
       <div class="brand"><span class="brand-mark" aria-hidden="true"></span>且慢养老规划</div>
       <nav class="tabs" aria-label="页面视图">
-        <button class="tab-btn active" data-view="planner">用户端原型</button>
-        <button class="tab-btn" data-view="report">规则审计与整合方案</button>
+        <button class="tab-btn active" data-view="planner">养老测算</button>
+        <button class="tab-btn" data-view="report">产品规则</button>
       </nav>
       <div class="status"><b>已验证</b> · VESTA 登录态实测 2026-09-21</div>
     </div>
@@ -69,91 +72,78 @@
   <main id="planner" class="view active">
     <div class="shell">
       <section class="hero">
-        <div class="eyebrow">ONE PLAN · MANY ACCOUNTS</div>
-        <h1>先有一份养老计划，再决定钱放哪里。</h1>
-        <p>把测算、账户和产品放进同一条主线：先看目标缺口与可行性，再按税优、灵活投资和确定性现金流分桶，最后由你选择具体产品。</p>
-        <div class="hero-badges"><span>3 分钟快速算</span><span>可展开进阶参数</span><span>多账户不重复计算</span><span>方案可选、不默认搭售</span></div>
-      </section>
-
-      <section class="decision-strip" aria-label="产品定位">
-        <div class="decision-main"><b>这不是第 N 个养老计算器</b><span>它是唯一的计划入口；旧测算结果、已有账户与产品持仓都回写到同一 plan_id。</span></div>
-        <div class="decision-item"><b>测算只回答“够不够”</b><span>目标、投入、期限、情景概率。</span></div>
-        <div class="decision-item"><b>账户回答“放哪里”</b><span>税优、灵活、保险分桶。</span></div>
-        <div class="decision-item"><b>产品回答“怎么买”</b><span>策略、FOF、单品均可选。</span></div>
+        <div class="eyebrow">3 个问题 · 1 个答案</div>
+        <h1>退休后想怎么生活？现在算算就知道。</h1>
+        <p>告诉我们年龄和退休生活目标，先算出每月需要准备多少。</p>
       </section>
 
       <section class="planner-grid">
         <form class="card form-card" id="planForm">
-          <div class="card-head"><div><h2>建立我的养老计划</h2><p>先填日常能理解的信息，复杂参数放在进阶区。</p></div><span class="mode-chip">快速模式</span></div>
+          <div class="card-head"><div><h2>先算最重要的</h2><p>只需要 3 个信息，约 30 秒。</p></div><span class="mode-chip">快速测算</span></div>
 
-          <div class="step-title"><span class="step-no">1</span>我想过怎样的退休生活</div>
-          <div class="form-grid">
+          <div class="form-grid quick">
             <div class="field"><label for="currentAge">当前年龄</label><div class="input-wrap"><input id="currentAge" type="number" min="18" max="74" value="35"><span class="suffix">岁</span></div></div>
             <div class="field"><label for="retireAge">预计退休年龄</label><div class="input-wrap"><input id="retireAge" type="number" min="45" max="80" value="65"><span class="suffix">岁</span></div></div>
             <div class="field"><label for="monthlyGoal">退休后每月想花（按今天购买力）</label><div class="input-wrap"><input id="monthlyGoal" type="number" min="0" step="500" value="10000"><span class="suffix">元</span></div></div>
-            <div class="field"><label for="socialPension">预计社保养老金（按今天购买力）</label><div class="input-wrap"><input id="socialPension" type="number" min="0" step="500" value="3500"><span class="suffix">元</span></div></div>
-          </div>
-
-          <div class="step-title"><span class="step-no">2</span>我现在能为养老做多少</div>
-          <div class="form-grid">
-            <div class="field"><label for="existingAssets">已准备的养老资产</label><div class="input-wrap"><input id="existingAssets" type="number" min="0" step="10000" value="200000"><span class="suffix">元</span></div></div>
-            <div class="field"><label for="monthlySave">每月可持续投入</label><div class="input-wrap"><input id="monthlySave" type="number" min="0" step="100" value="3000"><span class="suffix">元</span></div></div>
-            <div class="field"><label for="annualBonus">每年可额外投入</label><div class="input-wrap"><input id="annualBonus" type="number" min="0" step="1000" value="20000"><span class="suffix">元</span></div></div>
-            <div class="field"><label for="taxRate">当前边际个税税率</label><select id="taxRate"><option value="0">暂不确定</option><option value="0.03">3%</option><option value="0.1" selected>10%</option><option value="0.2">20%</option><option value="0.25">25%</option><option value="0.3">30% 及以上</option></select></div>
-          </div>
-
-          <div class="step-title"><span class="step-no">3</span>我能承受怎样的过程</div>
-          <div class="form-grid">
-            <div class="field full"><label for="riskScore">波动承受度：<span id="riskLabel">均衡</span></label><div class="range-line"><input id="riskScore" type="range" min="10" max="90" step="10" value="50"><span class="range-val" id="riskValue">50</span></div></div>
-            <div class="field full"><label for="certainty">退休现金流偏好：<span id="certaintyLabel">兼顾确定与增长</span></label><div class="range-line"><input id="certainty" type="range" min="0" max="100" step="10" value="40"><span class="range-val" id="certaintyValue">40%</span></div></div>
           </div>
 
           <details class="advanced">
-            <summary>进阶参数 · 通胀、寿命、再平衡与模拟假设</summary>
+            <summary>想算得更准（可选）</summary>
             <div class="detail-body">
+              <div class="advanced-intro">补充社保、已有资产、可投入金额和风险偏好，结果会更贴近你。</div>
               <div class="form-grid">
+                <div class="field"><label for="socialPension">预计社保养老金</label><div class="input-wrap"><input id="socialPension" type="number" min="0" step="500" value="3500"><span class="suffix">元/月</span></div></div>
+                <div class="field"><label for="existingAssets">已准备的养老资产</label><div class="input-wrap"><input id="existingAssets" type="number" min="0" step="10000" value="200000"><span class="suffix">元</span></div></div>
+                <div class="field"><label for="monthlySave">目前每月可投入</label><div class="input-wrap"><input id="monthlySave" type="number" min="0" step="100" value="3000"><span class="suffix">元</span></div></div>
+                <div class="field"><label for="annualBonus">每年额外投入</label><div class="input-wrap"><input id="annualBonus" type="number" min="0" step="1000" value="20000"><span class="suffix">元</span></div></div>
+                <div class="field"><label for="taxRate">当前边际个税税率</label><select id="taxRate"><option value="0">暂不确定</option><option value="0.03">3%</option><option value="0.1" selected>10%</option><option value="0.2">20%</option><option value="0.25">25%</option><option value="0.3">30% 及以上</option></select></div>
                 <div class="field"><label for="endAge">规划到</label><div class="input-wrap"><input id="endAge" type="number" min="70" max="120" value="90"><span class="suffix">岁</span></div></div>
                 <div class="field"><label for="inflation">预计长期通胀</label><div class="input-wrap"><input id="inflation" type="number" min="0" max="10" step="0.1" value="2.5"><span class="suffix">%</span></div></div>
                 <div class="field"><label for="rebalance">再平衡频率</label><select id="rebalance"><option value="1" selected>每年</option><option value="2">每 2 年</option><option value="3">每 3 年</option></select></div>
                 <div class="field"><label for="depositTiming">投入时点</label><select id="depositTiming"><option value="begin" selected>每月期初</option><option value="end">每月期末</option></select></div>
+                <div class="field full"><label for="riskScore">波动承受度：<span id="riskLabel">均衡</span></label><div class="range-line"><input id="riskScore" type="range" min="10" max="90" step="10" value="50"><span class="range-val" id="riskValue">50</span></div></div>
+                <div class="field full"><label for="certainty">更在意：<span id="certaintyLabel">兼顾确定与增长</span></label><div class="range-line"><input id="certainty" type="range" min="0" max="100" step="10" value="40"><span class="range-val" id="certaintyValue">40%</span></div></div>
               </div>
               <div class="assumption">本原型采用公开可解释的简化蒙特卡洛模型，不直接调用 VESTA 生产接口；股票/固收长期收益、波动和相关性均为演示假设，可在正式接入时替换为有版本号的投研参数。</div>
             </div>
           </details>
-          <button class="primary" type="submit">更新我的养老计划</button>
+          <button class="primary" type="submit">算算每月要准备多少</button>
         </form>
 
         <aside class="result-stack" aria-live="polite">
           <section class="card score-card">
             <div class="score-top">
-              <div><h2 id="planHeadline">计划可行，但还有缺口</h2><p id="planSub">在当前投入下，先看达成概率，再决定调金额还是调目标。</p></div>
+              <div><h2 id="planHeadline">先看结果，再决定下一步</h2><p id="planSub">这是规划参考，不是收益承诺。</p></div>
               <div class="gauge" id="probGauge"><strong id="probability">--</strong><small>达成概率</small></div>
             </div>
+            <div class="focus-result"><span>建议每月准备</span><strong id="requiredMonthly">--</strong><em id="monthlyHint">以当前退休生活目标反推</em></div>
             <div class="metrics">
               <div class="metric"><span>退休资金目标</span><strong id="targetCapital">--</strong><em>扣除社保后的生活缺口</em></div>
               <div class="metric"><span>中性预计可积累</span><strong id="medianCapital">--</strong><em>不代表实际收益</em></div>
-              <div class="metric"><span>建议每月投入</span><strong id="requiredMonthly">--</strong><em id="monthlyHint">以当前目标反推</em></div>
             </div>
           </section>
 
-          <section class="card chart-card">
-            <div class="chart-title"><h3>从现在到退休：资金路径</h3><span class="legend">中性路径 · 目标线 · 投入本金</span></div>
-            <div class="canvas-wrap"><canvas id="capitalChart" width="760" height="360" aria-label="养老资金路径图"></canvas></div>
-          </section>
-
-          <section class="card bucket-card">
-            <h3>钱怎么放：先分账户，再选产品</h3><p>账户约束与产品风险分开处理，避免把“税优”“投顾”“保险”混成同一类推荐。</p>
-            <div class="bucket"><div><div class="bucket-name">税优账户</div><small id="taxNote">按政策上限测算</small></div><div class="bar"><i id="taxBar" style="width:25%;background:#1b88ee"></i></div><b id="taxAmount">--</b></div>
-            <div class="bucket"><div><div class="bucket-name">灵活投资</div><small>颐养天年 / FOF / 自选</small></div><div class="bar"><i id="flexBar" style="width:55%;background:#3cc5c9"></i></div><b id="flexAmount">--</b></div>
-            <div class="bucket"><div><div class="bucket-name">确定性现金流</div><small>保险按需、单独比较</small></div><div class="bar"><i id="secureBar" style="width:20%;background:#f58a32"></i></div><b id="secureAmount">--</b></div>
-            <div class="choice-row" aria-label="灵活投资产品选择"><button class="choice active" type="button">颐养天年</button><button class="choice" type="button">养老目标 FOF</button><button class="choice" type="button">单品自选</button><button class="choice" type="button">暂不购买</button></div>
-            <div class="notice"><b>为什么不直接把全部钱推给一个产品？</b>个人养老金是账户制度，颐养天年是投顾策略，保险解决的是确定性现金流。三者约束不同，只能在同一计划下协同，不能互相替代。</div>
-          </section>
-
           <section class="card next-card">
-            <h3>下一步，只做一个动作</h3><p id="nextCopy">优先补足投入缺口；确认后再进入适当性校验与产品选择。</p>
-            <div class="next-actions"><button type="button" class="selected">调整每月投入</button><button type="button">查看账户方案</button><button type="button">先保存计划</button></div>
+            <h3>下一步</h3><p id="nextCopy">先保存这份计划，再看适合你的账户与产品方案。</p>
+            <div class="next-actions"><button type="button" class="selected">保存计划，查看可选方案</button></div>
           </section>
+
+          <details class="result-details" id="resultDetail">
+            <summary>查看测算过程和账户方案</summary>
+            <div class="detail-content">
+              <section class="chart-card">
+                <div class="chart-title"><h3>从现在到退休：资金路径</h3><span class="legend">中性路径 · 目标线 · 投入本金</span></div>
+                <div class="canvas-wrap"><canvas id="capitalChart" width="760" height="360" aria-label="养老资金路径图"></canvas></div>
+              </section>
+              <section class="bucket-card">
+                <h3>钱怎么放：先分账户，再选产品</h3><p>税优、灵活投资和保险各司其职，具体产品由你选择。</p>
+                <div class="bucket"><div><div class="bucket-name">税优账户</div><small id="taxNote">按政策上限测算</small></div><div class="bar"><i id="taxBar" style="width:25%;background:#1b88ee"></i></div><b id="taxAmount">--</b></div>
+                <div class="bucket"><div><div class="bucket-name">灵活投资</div><small>颐养天年 / FOF / 自选</small></div><div class="bar"><i id="flexBar" style="width:55%;background:#3cc5c9"></i></div><b id="flexAmount">--</b></div>
+                <div class="bucket"><div><div class="bucket-name">确定性现金流</div><small>保险按需、单独比较</small></div><div class="bar"><i id="secureBar" style="width:20%;background:#f58a32"></i></div><b id="secureAmount">--</b></div>
+                <div class="choice-row" aria-label="灵活投资产品选择"><button class="choice active" type="button">颐养天年</button><button class="choice" type="button">养老目标 FOF</button><button class="choice" type="button">单品自选</button><button class="choice" type="button">暂不购买</button></div>
+              </section>
+            </div>
+          </details>
         </aside>
       </section>
     </div>
@@ -306,6 +296,7 @@
     document.querySelectorAll('#planForm input,#planForm select').forEach(el=>el.addEventListener('input',update));
     document.querySelectorAll('.choice-row .choice').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.choice-row .choice').forEach(x=>x.classList.toggle('active',x===btn))}));
     document.querySelectorAll('.next-actions button').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.next-actions button').forEach(x=>x.classList.toggle('selected',x===btn))}));
+    $('resultDetail').addEventListener('toggle',()=>{if($('resultDetail').open)update()});
     window.addEventListener('resize',()=>{if($('planner').classList.contains('active'))update()});update();
   </script>
 </body>
