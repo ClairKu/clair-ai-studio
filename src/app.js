@@ -173,6 +173,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "qieman-mcp-account-lite-2026-09-21",
+      groupId: "ai-platform",
+      title: "盈米 MCP 个人中心 · 机构版精简方案｜合约范围内管账号、分限额",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-mcp-account-lite-2026-09-21/",
+      preview: "qieman-mcp-account-lite-2026-09-21.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-21T18:20:00+08:00",
+      source: "在「个人中心重设计（个人 / 团队 / 企业版）」基础上按反馈做减法：去掉口令、部门、审计、套餐账单与多层角色，只保留两种视图｜管理员：在盈米按约定提供的账号数、总积分、使用效期范围内，新增 / 编辑 / 停用 / 移除账号（填且慢手机号即生效），为每个账号分配总额度与可选的日 / 月限额，表单内校验 分配之和 ≤ 合约总积分、成员效期 ≤ 合约效期、日限 ≤ 月限 ≤ 总额度；停用 / 移除 / 到期自动回收到可分配额度；用量统计含趋势、Top 工具、成员明细与日限额触发｜成员：与现有个人版同布局，「服务等级与配额」改为机构分配的总额度 / 日限额 / 月限额 / 效期，Key 与接入配置不变｜沿用生产页蓝色系与左右两栏布局，单文件零依赖，全部 mock 数据",
+      access: "production",
+      workType: "product-demo",
+      tags: ["盈米 MCP", "AI 开放平台", "个人中心", "机构版", "账号管理", "积分额度", "日限额", "月限额", "合约配额", "精简方案", "交互原型", "HTML", "生产"],
+    },
+    {
       id: "qieman-mcp-account-redesign-2026-09-21",
       groupId: "ai-platform",
       title: "盈米 MCP 个人中心重设计｜个人版 · 团队版 · 企业版账号与积分管理",
@@ -2526,6 +2540,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "qieman-mcp-account-lite-2026-09-21": "product-demo",
   "qieman-mcp-account-redesign-2026-09-21": "product-demo",
   "qieman-pension-planner-2026-09-21": "product-planning",
   "qieman-ai-user-attribution-2026-09-07": "data-analysis",
@@ -2602,6 +2617,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "qieman-mcp-account-lite-2026-09-21": "ai-platform",
   "qieman-mcp-account-redesign-2026-09-21": "ai-platform",
   "qieman-pension-planner-2026-09-21": "product-planning",
   "ai-native-advisor-workbench-v1-2-review-2026-09-17": "product-planning",

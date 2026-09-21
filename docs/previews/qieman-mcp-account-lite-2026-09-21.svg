@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">盈米 MCP 个人中心 · 机构版精简方案</title>
+  <desc id="desc">管理员在合约范围内增减账号并分配总额度与日月限额的精简页面封面</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#EAF1FF"/><stop offset="1" stop-color="#F7F9FC"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#1F3878" flood-opacity=".12"/></filter>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <circle cx="1080" cy="80" r="220" fill="#3B7BFF" opacity=".07"/>
+  <g transform="translate(75 62)" font-family="PingFang SC,Microsoft YaHei,sans-serif">
+    <rect width="212" height="34" rx="17" fill="#3B7BFF" opacity=".1"/>
+    <text x="106" y="23" text-anchor="middle" font-size="15" font-weight="700" fill="#2A62E0">盈米 AI 开放平台 · 机构版 · 精简</text>
+    <text y="108" font-size="56" font-weight="800" fill="#1F2633">合约范围内，管账号、分限额</text>
+    <text y="154" font-size="24" fill="#4E5869">账号数 · 总积分 · 效期由盈米按约定提供 ｜ 管理员分配 总额度 / 日限额 / 月限额</text>
+  </g>
+  <g transform="translate(75 240)" filter="url(#shadow)" font-family="PingFang SC,Microsoft YaHei,sans-serif">
+    <rect width="1050" height="330" rx="18" fill="#fff"/>
+    <g transform="translate(28 26)">
+      <rect width="994" height="58" rx="10" fill="#EEF3FF" stroke="#CFDCFF"/>
+      <text x="22" y="24" font-size="13" fill="#4E5869">可新增账号</text><text x="22" y="47" font-size="20" font-weight="800" fill="#1F2633">13 <tspan font-size="13" font-weight="500" fill="#8A93A6">/ 20</tspan></text>
+      <text x="360" y="24" font-size="13" fill="#4E5869">可分配积分</text><text x="360" y="47" font-size="20" font-weight="800" fill="#1F2633">250,000 <tspan font-size="13" font-weight="500" fill="#8A93A6">/ 500,000</tspan></text>
+      <text x="700" y="24" font-size="13" fill="#4E5869">成员效期上限</text><text x="700" y="47" font-size="20" font-weight="800" fill="#1F2633">2027-08-31</text>
+    </g>
+    <g transform="translate(28 104)" font-size="14">
+      <g fill="#8A93A6"><text x="0" y="14">成员</text><text x="220" y="14">总额度（已用 / 分配）</text><text x="520" y="14">日限额（今日）</text><text x="700" y="14">月限额（本月）</text><text x="880" y="14">有效期</text></g>
+      <rect y="28" width="994" height="1" fill="#E8ECF3"/>
+      <g transform="translate(0 44)">
+        <circle cx="14" cy="12" r="14" fill="#E8EDF7"/><text x="14" y="17" text-anchor="middle" font-size="11" font-weight="700" fill="#3A4A6B">周</text>
+        <text x="38" y="17" font-weight="600" fill="#1F2633">周子航</text>
+        <text x="220" y="17" fill="#4E5869">37,800 / 40,000</text><rect x="360" y="8" width="140" height="6" rx="3" fill="#EDF0F6"/><rect x="360" y="8" width="133" height="6" rx="3" fill="#E5484D"/>
+        <text x="520" y="17" fill="#4E5869">2,000 / 2,000</text><rect x="620" y="3" width="56" height="18" rx="9" fill="#FDECEC"/><text x="648" y="16" text-anchor="middle" font-size="11" font-weight="700" fill="#E5484D">已限流</text>
+        <text x="700" y="17" fill="#4E5869">12,480 / 15,000</text><text x="880" y="17" fill="#4E5869">2026-12-31</text>
+      </g>
+      <g transform="translate(0 92)">
+        <circle cx="14" cy="12" r="14" fill="#E8EDF7"/><text x="14" y="17" text-anchor="middle" font-size="11" font-weight="700" fill="#3A4A6B">林</text>
+        <text x="38" y="17" font-weight="600" fill="#1F2633">林墨</text>
+        <text x="220" y="17" fill="#4E5869">28,900 / 50,000</text><rect x="360" y="8" width="140" height="6" rx="3" fill="#EDF0F6"/><rect x="360" y="8" width="81" height="6" rx="3" fill="#3B7BFF"/>
+        <text x="520" y="17" fill="#4E5869">1,930 / 2,000</text><text x="700" y="17" fill="#4E5869">7,210 / 15,000</text><text x="880" y="17" fill="#4E5869">2027-08-31</text>
+      </g>
+      <g transform="translate(0 140)">
+        <circle cx="14" cy="12" r="14" fill="#E8EDF7"/><text x="14" y="17" text-anchor="middle" font-size="11" font-weight="700" fill="#3A4A6B">吴</text>
+        <text x="38" y="17" font-weight="600" fill="#1F2633">吴晚晴</text>
+        <text x="220" y="17" fill="#4E5869">12,040 / 30,000</text><rect x="360" y="8" width="140" height="6" rx="3" fill="#EDF0F6"/><rect x="360" y="8" width="56" height="6" rx="3" fill="#3B7BFF"/>
+        <text x="520" y="17" fill="#4E5869">210 / 1,000</text><text x="700" y="17" fill="#8A93A6">不限</text><text x="880" y="17" fill="#C9700F">2026-10-15 · 剩 24 天</text>
+      </g>
+      <g transform="translate(0 188)">
+        <circle cx="14" cy="12" r="14" fill="#E8EDF7"/><text x="14" y="17" text-anchor="middle" font-size="11" font-weight="700" fill="#3A4A6B">韩</text>
+        <text x="38" y="17" font-weight="600" fill="#1F2633">韩奕</text><rect x="100" y="3" width="84" height="18" rx="9" fill="#FFF4E8"/><text x="142" y="16" text-anchor="middle" font-size="11" font-weight="700" fill="#C9700F">待登录激活</text>
+        <text x="220" y="17" fill="#4E5869">0 / 20,000</text><rect x="360" y="8" width="140" height="6" rx="3" fill="#EDF0F6"/>
+        <text x="520" y="17" fill="#4E5869">0 / 1,000</text><text x="700" y="17" fill="#4E5869">0 / 8,000</text><text x="880" y="17" fill="#4E5869">2027-08-31</text>
+      </g>
+    </g>
+  </g>
+  <text x="75" y="628" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="18" fill="#4E5869">管理员 / 成员 两种视图 ｜ 沿用生产页色系与左右布局 ｜ 无口令、无部门、无审计的精简版</text>
+</svg>

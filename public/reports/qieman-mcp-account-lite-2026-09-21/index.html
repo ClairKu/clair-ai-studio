@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>盈米AI开放平台 · 个人中心（机构版 · 精简）</title>
+<style>
+:root{
+  --blue:#3B7BFF; --blue-dark:#2A62E0; --blue-soft:#EEF3FF; --blue-line:#CFDCFF;
+  --bg-top:#EAF1FF; --bg:#F5F7FB; --card:#fff; --line:#E8ECF3; --line-2:#F0F2F7;
+  --text:#1F2633; --text-2:#4E5869; --muted:#8A93A6; --faint:#B4BBCB;
+  --green:#22A96F; --green-soft:#E8F7F0; --orange:#F0902B; --orange-soft:#FFF4E8; --red:#E5484D; --red-soft:#FDECEC;
+  --shadow:0 2px 12px rgba(31,56,120,.06);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue","Microsoft YaHei",Arial,sans-serif;color:var(--text);font-size:13px;line-height:1.55;background:linear-gradient(180deg,var(--bg-top) 0,var(--bg) 320px);min-height:100vh;padding-bottom:80px;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+input,select{font-family:inherit;font-size:13px;color:var(--text)}
+
+/* nav (沿用生产页) */
+.topnav{height:56px;background:#fff;border-bottom:1px solid var(--line)}
+.topnav .in{max-width:1220px;margin:0 auto;height:100%;display:flex;align-items:center;padding:0 24px;gap:28px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:600;font-size:14px}
+.logo .mark{width:26px;height:26px;border-radius:6px;background:linear-gradient(135deg,#FF5A5F,#3B7BFF);display:grid;place-items:center;color:#fff;font-weight:800;font-size:11px}
+.nav-links{display:flex;gap:26px;margin-left:auto;font-size:13.5px}
+.nav-links a{color:var(--text-2)} .nav-links a.on{color:var(--blue);font-weight:600}
+.me{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--blue);font-weight:600}
+.me .av{width:24px;height:24px;border-radius:50%;background:#1F2633;color:#fff;font-size:11px;display:grid;place-items:center;font-weight:700}
+
+.wrap{max-width:1220px;margin:20px auto 0;padding:0 24px;display:grid;grid-template-columns:270px minmax(0,1fr);gap:16px;align-items:start}
+.card{background:#fff;border-radius:12px;box-shadow:var(--shadow);border:1px solid #fff}
+.card + .card{margin-top:12px}
+.card .hd{padding:14px 16px 0;font-weight:600;font-size:13.5px;display:flex;justify-content:space-between;align-items:center}
+.card .bd{padding:12px 16px 16px}
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;white-space:nowrap}
+.b-blue{background:var(--blue-soft);color:var(--blue)} .b-green{background:var(--green-soft);color:var(--green)} .b-orange{background:var(--orange-soft);color:#C9700F} .b-red{background:var(--red-soft);color:var(--red)} .b-gray{background:#F0F2F7;color:var(--muted)}
+.b-dot::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.btn{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 14px;border-radius:8px;border:1px solid var(--line);background:#fff;color:var(--text-2);font-size:12.5px;font-weight:500;white-space:nowrap}
+.btn:hover{border-color:var(--blue-line);color:var(--blue);background:var(--blue-soft)}
+.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}.btn.primary:hover{background:var(--blue-dark);border-color:var(--blue-dark)}
+.btn.sm{height:26px;padding:0 10px;font-size:12px;border-radius:6px}.btn.xs{height:22px;padding:0 8px;font-size:11.5px;border-radius:5px}
+.btn.ghost{border-color:transparent;background:transparent}.btn.danger:hover{color:var(--red);background:var(--red-soft);border-color:#F3B4B6}
+.btn.block{width:100%;justify-content:center}
+.link{color:var(--blue);cursor:pointer}
+.note{font-size:11.5px;color:var(--muted)}
+
+/* left */
+.profile{text-align:center;padding:22px 16px 16px}
+.avatar{width:64px;height:64px;border-radius:50%;margin:0 auto 10px;background:#1F2633;color:#fff;display:grid;place-items:center;font-size:22px;font-weight:700}
+.avatar.org{border-radius:16px;background:linear-gradient(135deg,#1F2633,#3B4C7A)}
+.pname{font-size:15px;font-weight:600}
+.kv{display:grid;grid-template-columns:64px 1fr;row-gap:8px;font-size:12.5px;text-align:left;margin-top:14px;padding-top:14px;border-top:1px dashed var(--line)}
+.kv .k{color:var(--muted)}
+.keybox{display:flex;align-items:center;gap:8px;background:#F6F8FC;border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-family:"SF Mono",Menlo,monospace;font-size:12px;color:var(--text-2)}
+.keybox .k{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mini{display:flex;gap:6px;margin-top:8px;align-items:center}
+.quota{margin-top:10px}.quota+.quota{margin-top:12px}
+.quota .row{display:flex;justify-content:space-between;font-size:12px;color:var(--text-2);margin-bottom:5px}.quota .row b{color:var(--text);font-variant-numeric:tabular-nums}
+.bar{height:6px;border-radius:6px;background:#EDF0F6;overflow:hidden}.bar i{display:block;height:100%;border-radius:6px;background:var(--blue)}
+.bar i.warn{background:var(--orange)}.bar i.danger{background:var(--red)}.bar i.green{background:var(--green)}
+.list{list-style:none}.list li{display:flex;gap:8px;font-size:12.5px;color:var(--text-2);padding:6px 0;border-bottom:1px solid var(--line-2)}.list li:last-child{border-bottom:0}
+.list li .dot{width:6px;height:6px;border-radius:50%;background:var(--blue);margin-top:7px;flex:none}
+.qr{width:96px;height:96px;margin:6px auto 0;border-radius:8px;background:repeating-linear-gradient(90deg,#1F2633 0 4px,transparent 4px 8px),repeating-linear-gradient(0deg,#1F2633 0 4px,#fff 4px 8px);opacity:.85;border:6px solid #fff;outline:1px solid var(--line)}
+
+/* product switch + tabs（沿用生产页） */
+.products{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.prod{display:flex;align-items:center;gap:12px;padding:12px 16px;border:1px solid #fff;border-radius:10px;background:#fff;cursor:pointer;box-shadow:var(--shadow)}
+.prod.on{border-color:var(--blue)}
+.prod .ic{width:34px;height:34px;border-radius:8px;display:grid;place-items:center;background:var(--blue-soft);color:var(--blue);font-size:15px}
+.prod .t{font-weight:600;font-size:13.5px}.prod .s{font-size:11.5px;color:var(--muted)}
+.tabs{display:flex;gap:4px;padding:6px 10px 0;border-bottom:1px solid var(--line)}
+.tab{padding:10px 12px;font-size:13px;color:var(--text-2);cursor:pointer;border-bottom:2px solid transparent;display:flex;align-items:center;gap:6px}
+.tab.on{color:var(--blue);font-weight:600;border-bottom-color:var(--blue)}
+.tab .n{font-size:10.5px;padding:0 5px;border-radius:8px;background:#F0F2F7;color:var(--muted)}
+.panel{padding:16px}
+
+/* content bits */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.kpi{border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.kpi .l{font-size:12px;color:var(--muted)}.kpi .v{font-size:22px;font-weight:700;margin-top:4px;font-variant-numeric:tabular-nums}.kpi .v small{font-size:12px;color:var(--muted);font-weight:500;margin-left:3px}
+.kpi .d{font-size:11.5px;color:var(--muted);margin-top:2px}.kpi .d.up{color:var(--green)}.kpi .bar{margin-top:8px}
+.callout{display:flex;gap:10px;padding:10px 12px;border-radius:8px;background:var(--blue-soft);color:var(--text-2);font-size:12.5px;border:1px solid var(--blue-line)}
+.callout.warn{background:var(--orange-soft);border-color:#F7D6B0}
+.callout b{color:var(--text)}
+.toolbar{display:flex;gap:8px;align-items:center;margin-bottom:12px;flex-wrap:wrap}.toolbar .sp{flex:1}
+.input{height:32px;border:1px solid var(--line);border-radius:8px;padding:0 10px;background:#fff;outline:none;min-width:100px}
+.input:focus{border-color:var(--blue)}
+.input.search{min-width:200px;padding-left:28px;background:#fff url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%238A93A6' stroke-width='2'><circle cx='11' cy='11' r='7'/><path d='m20 20-3.5-3.5'/></svg>") no-repeat 9px center}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff}
+.seg button{height:30px;padding:0 12px;border:0;background:transparent;color:var(--text-2);font-size:12.5px;border-right:1px solid var(--line)}
+.seg button:last-child{border-right:0}.seg button.on{background:var(--blue-soft);color:var(--blue);font-weight:600}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{font-weight:500;color:var(--muted);text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);white-space:nowrap;background:#FAFBFE}
+td{padding:10px 6px;border-bottom:1px solid var(--line-2);vertical-align:middle}
+tr:hover td{background:#FAFBFE}
+.who{display:flex;align-items:center;gap:8px}.who .av{width:28px;height:28px;border-radius:50%;background:#E8EDF7;color:#3A4A6B;display:grid;place-items:center;font-size:11px;font-weight:600;flex:none}
+.who .nm{font-weight:600}.who .ph{font-size:11px;color:var(--muted);font-family:"SF Mono",Menlo,monospace}
+.q{min-width:105px}.q .row{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);margin-bottom:3px;font-variant-numeric:tabular-nums}.q .bar{height:5px}
+.num{font-variant-numeric:tabular-nums}
+.cap{font-variant-numeric:tabular-nums;white-space:nowrap}.cap small{color:var(--muted)}
+td.ops{white-space:nowrap}
+.expire-soon{color:#C9700F}.expired{color:var(--red)}
+td.exp,td.st{white-space:nowrap}
+.viewtip .in b{white-space:nowrap}
+.sec{border:1px solid var(--line);border-radius:10px}.sec .hd{padding:12px 14px 0;font-size:13px;font-weight:600;display:flex;justify-content:space-between;align-items:center}.sec .bd{padding:10px 14px 14px}
+.sec .hd .sub{font-weight:400;color:var(--muted);font-size:11.5px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}.g21{display:grid;grid-template-columns:2fr 1fr;gap:14px}.mt{margin-top:14px}
+.legend{display:flex;gap:12px;font-size:11.5px;color:var(--muted)}.legend i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:4px}
+.chart{width:100%;display:block}
+.hbars .r{display:grid;grid-template-columns:120px 1fr 64px;gap:10px;align-items:center;padding:5px 0;font-size:12px}
+.hbars .nm{color:var(--text-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.hbars .val{text-align:right;font-variant-numeric:tabular-nums}
+.codebox{background:#F7F9FD;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.codebox .cap{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;font-size:12px;color:var(--muted);border-bottom:1px solid var(--line)}
+.codebox pre{padding:12px 14px;font-family:"SF Mono",Menlo,monospace;font-size:12px;line-height:1.7;color:#2A3446;overflow:auto}
+.codebox .s{color:#1A7F5A}.codebox .k{color:var(--blue)}
+.g12{display:grid;grid-template-columns:1fr 2fr;gap:14px}
+.pager{display:flex;justify-content:space-between;align-items:center;padding-top:12px;color:var(--muted);font-size:12px}
+.empty{padding:30px;text-align:center;color:var(--muted)}
+
+/* drawer */
+.mask{position:fixed;inset:0;background:rgba(20,30,60,.35);z-index:80;display:none}.mask.show{display:block}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:460px;background:#fff;z-index:90;transform:translateX(100%);transition:.22s;display:flex;flex-direction:column;box-shadow:-10px 0 40px rgba(20,30,60,.12)}
+.drawer.show{transform:none}
+.drawer .dh{padding:16px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:15px}
+.drawer .db{flex:1;overflow:auto;padding:18px 20px}.drawer .df{padding:14px 20px;border-top:1px solid var(--line);display:flex;gap:8px;justify-content:flex-end}
+.x{width:28px;height:28px;border-radius:6px;border:0;background:transparent;color:var(--muted);font-size:18px}
+.f{margin-bottom:14px}.f label{display:block;font-size:12.5px;color:var(--text-2);margin-bottom:6px;font-weight:500}
+.f label .req{color:var(--red)}.f label .hint{color:var(--faint);font-weight:400;margin-left:6px}
+.f .input,.f select{width:100%}.f .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.f .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}.chip{height:26px;padding:0 10px;border-radius:14px;border:1px solid var(--line);background:#fff;font-size:12px;color:var(--text-2)}.chip.on{background:var(--blue-soft);border-color:var(--blue);color:var(--blue);font-weight:600}
+.err{color:var(--red);font-size:11.5px;margin-top:4px;display:none}.err.show{display:block}
+.limit-box{border:1px dashed var(--blue-line);background:var(--blue-soft);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--text-2);display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.limit-box b{display:block;font-size:14px;color:var(--text);font-variant-numeric:tabular-nums}
+.toast{position:fixed;left:50%;bottom:100px;transform:translateX(-50%) translateY(20px);background:#1F2633;color:#fff;padding:10px 16px;border-radius:8px;font-size:13px;opacity:0;pointer-events:none;transition:.2s;z-index:100}
+.toast.show{opacity:1;transform:translateX(-50%)}
+
+/* demo bar */
+.demobar{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:rgba(31,38,51,.94);color:#fff;border-radius:14px;padding:10px 12px;display:flex;align-items:center;gap:10px;z-index:70;box-shadow:0 14px 40px rgba(0,0,0,.28)}
+.demobar .lb{font-size:11.5px;color:rgba(255,255,255,.6);padding:0 6px;white-space:nowrap}.demobar .lb b{display:block;color:#fff;font-size:12px}
+.demobar .v{height:38px;padding:0 14px;border-radius:9px;border:1px solid transparent;background:rgba(255,255,255,.06);color:rgba(255,255,255,.85);font-size:12.5px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;line-height:1.25;white-space:nowrap}
+.demobar .v small{font-size:10px;color:rgba(255,255,255,.5)}.demobar .v.on{background:#fff;color:#1F2633}.demobar .v.on small{color:var(--muted)}
+.viewtip{max-width:1220px;margin:14px auto 0;padding:0 24px}
+.viewtip .in{display:flex;gap:10px;align-items:center;background:#1F2633;color:#fff;border-radius:10px;padding:9px 14px;font-size:12.5px}
+.viewtip .tag{background:rgba(255,255,255,.14);padding:1px 8px;border-radius:10px;font-size:11px;white-space:nowrap}.viewtip .desc{color:rgba(255,255,255,.75)}
+@media (max-width:960px){.wrap{grid-template-columns:1fr}.kpis{grid-template-columns:1fr 1fr}.g2,.g21,.g12{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="topnav"><div class="in">
+  <div class="logo"><span class="mark">AI</span>盈米AI开放平台</div>
+  <nav class="nav-links"><a href="#">首页</a><a href="#">盈米MCP</a><a href="#">盈米Skills</a><a href="#">盈米智能体</a><a href="#">客户案例</a><a href="#" class="on me"><span class="av" id="navav">盈</span><span id="navname">个人中心</span></a></nav>
+</div></header>
+<div class="viewtip" id="viewtip"></div>
+<main class="wrap"><aside id="left"></aside><section id="right"></section></main>
+
+<div class="demobar"><div class="lb">演示视角<b>切换看到的页面</b></div>
+  <button class="v" id="v-admin" onclick="setView('admin')">机构管理员<small>在合约范围内增减账号、分配限额</small></button>
+  <button class="v" id="v-member" onclick="setView('member')">成员<small>被分配限额的使用者</small></button>
+</div>
+<div class="mask" id="mask" onclick="closeDrawer()"></div>
+<aside class="drawer" id="drawer"></aside>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ===== 合约（由盈米按约定提供，管理员不可修改，只能在范围内分配） ===== */
+const CONTRACT = { org:'盈米资管科技有限公司', short:'盈米资管科技', accounts:20, credits:500000, start:'2026-09-01', end:'2027-08-31', admin:'陈嘉禾', key:'g08************fCFQ' };
+const TODAY = new Date(2026,8,21);
+
+let members = [
+  {id:1,name:'陈嘉禾',phone:'138****2211',role:'admin',status:'active',total:60000,used:23480,daily:3000,monthly:20000,todayUsed:640,monthUsed:9860,expire:'2027-08-31',last:'今天 14:20'},
+  {id:2,name:'林墨',phone:'139****8032',role:'member',status:'active',total:50000,used:28900,daily:2000,monthly:15000,todayUsed:1930,monthUsed:7210,expire:'2027-08-31',last:'今天 11:05'},
+  {id:3,name:'周子航',phone:'136****4410',role:'member',status:'active',total:40000,used:37800,daily:2000,monthly:15000,todayUsed:2000,monthUsed:12480,expire:'2026-12-31',last:'今天 15:02'},
+  {id:4,name:'吴晚晴',phone:'137****9921',role:'member',status:'active',total:30000,used:12040,daily:1000,monthly:0,todayUsed:210,monthUsed:3120,expire:'2026-10-15',last:'昨天 18:40'},
+  {id:5,name:'韩奕',phone:'150****3388',role:'member',status:'pending',total:20000,used:0,daily:1000,monthly:8000,todayUsed:0,monthUsed:0,expire:'2027-08-31',last:'—'},
+  {id:6,name:'苏漫',phone:'186****7712',role:'member',status:'active',total:20000,used:8320,daily:0,monthly:0,todayUsed:120,monthUsed:2260,expire:'2027-08-31',last:'今天 09:31'},
+  {id:7,name:'郑柏然',phone:'135****6650',role:'member',status:'disabled',total:30000,used:29950,daily:2000,monthly:15000,todayUsed:0,monthUsed:0,expire:'2026-09-30',last:'09-12 17:10'},
+  {id:8,name:'何雨桐',phone:'158****2049',role:'member',status:'active',total:30000,used:15600,daily:1500,monthly:10000,todayUsed:880,monthUsed:4380,expire:'2027-08-31',last:'今天 13:47'},
+];
+const TOOLS=[['财经资讯',18420],['基金代码模糊匹配',15270],['搜索基金',12180],['批量获取基金详情',9880],['基金经理观点',7620],['批量获取基金业绩表现',6910]];
+function rnd(seed){let s=seed;return()=>{s=(s*9301+49297)%233280;return s/233280}}
+const DAYS=Array.from({length:30},(_,i)=>{const d=new Date(2026,7,23+i);return `${d.getMonth()+1}/${d.getDate()}`});
+const R=rnd(7); const S_ORG=Array.from({length:30},(_,i)=>Math.round(1800+i*18+900*(R()-.5)+((i%7===5||i%7===6)?-700:0)));
+const R2=rnd(3); const S_ME=Array.from({length:30},(_,i)=>Math.round(320+180*(R2()-.5)+((i%7===5||i%7===6)?-150:0)));
+
+const fmt=n=>n.toLocaleString('zh-CN'); const pct=(a,b)=>b?Math.min(100,Math.round(a/b*100)):0;
+const daysLeft=d=>Math.round((new Date(d)-TODAY)/864e5);
+const barClass=p=>p>=95?'danger':p>=80?'warn':'';
+const capText=v=>v?fmt(v):'<small>不限</small>';
+const stBadge={active:['b-green','正常'],pending:['b-orange','待登录激活'],disabled:['b-gray','已停用'],expired:['b-red','已过期']};
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2200)}
+function copy(t,m){try{navigator.clipboard&&navigator.clipboard.writeText(t)}catch(e){}toast(m||'已复制')}
+const alive=()=>members.filter(m=>m.status!=='disabled');
+const allocated=()=>alive().reduce((a,m)=>a+m.total,0);
+const consumed=()=>members.reduce((a,m)=>a+m.used,0);
+const expireCell=d=>{const n=daysLeft(d);if(n<0)return `<span class="expired">${d}<br><small>已过期</small></span>`;if(n<=30)return `<span class="expire-soon">${d}<br><small>剩余 ${n} 天</small></span>`;return `${d}<br><small class="note">剩余 ${n} 天</small>`};
+
+function lineChart(sr,{h=180,color='#3B7BFF'}={}){const w=640,pad={l:44,r:12,t:12,b:24},max=Math.max(...sr)*1.15,n=sr.length,x=i=>pad.l+(w-pad.l-pad.r)*i/(n-1),y=v=>pad.t+(h-pad.t-pad.b)*(1-v/max);let s=`<svg class="chart" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" style="height:${h}px">`;for(let g=0;g<=4;g++){const yy=pad.t+(h-pad.t-pad.b)*g/4,val=Math.round(max*(1-g/4));s+=`<line x1="${pad.l}" x2="${w-pad.r}" y1="${yy}" y2="${yy}" stroke="#EEF2F9"/><text x="${pad.l-6}" y="${yy+4}" font-size="10" fill="#B4BBCB" text-anchor="end">${val>=1000?(val/1000).toFixed(1)+'k':val}</text>`}const pts=sr.map((v,i)=>`${x(i)},${y(v)}`).join(' ');s+=`<polygon points="${x(0)},${y(0)} ${pts} ${x(n-1)},${y(0)}" fill="${color}" opacity=".08"/><polyline points="${pts}" fill="none" stroke="${color}" stroke-width="2"/>`;for(let i=0;i<n;i+=4)s+=`<text x="${x(i)}" y="${h-6}" font-size="10" fill="#B4BBCB" text-anchor="middle">${DAYS[i]}</text>`;return s+'</svg>'}
+function hbars(items,unit='次'){const max=Math.max(...items.map(i=>i[1]));return `<div class="hbars">${items.map((it,i)=>`<div class="r"><div class="nm">${i+1}&nbsp; ${it[0]}</div><div class="bar" style="height:8px"><i style="width:${it[1]/max*100}%"></i></div><div class="val">${fmt(it[1])} <small class="note">${unit}</small></div></div>`).join('')}</div>`}
+
+let state={view:'admin',tab:'members',product:'mcp',q:'',filter:'all'};
+function setView(v){state.view=v;state.tab=v==='admin'?'members':'usage';render();window.scrollTo(0,0)}
+function setTab(t){state.tab=t;renderRight()}
+
+function render(){
+  document.getElementById('v-admin').classList.toggle('on',state.view==='admin');
+  document.getElementById('v-member').classList.toggle('on',state.view==='member');
+  document.getElementById('navav').textContent=state.view==='admin'?'盈':'周';
+  document.getElementById('navname').textContent=state.view==='admin'?'个人中心 · 机构管理员':'个人中心 · 成员';
+  document.getElementById('viewtip').innerHTML=state.view==='admin'
+    ?`<div class="in"><span class="tag">当前视角</span><b>机构管理员</b><span class="desc">盈米按合约开通：${CONTRACT.accounts} 个账号、${fmt(CONTRACT.credits)} 积分、有效期 ${CONTRACT.start} ~ ${CONTRACT.end}。管理员只能在这个范围内增减账号、分配每个账号的总额度与日 / 月限额，合约本身不可自行修改。</span></div>`
+    :`<div class="in"><span class="tag">当前视角</span><b>成员</b><span class="desc">被管理员分配了额度的使用者。页面与现有个人版一致，只是「服务等级与配额」变成了管理员分配的总额度 / 日限额 / 月限额与有效期，Key 与接入配置不变。</span></div>`;
+  renderLeft();renderRight();
+}
+
+function apiKeyCard(){return `<div class="card"><div class="hd">API Key</div><div class="bd"><div class="keybox"><span class="k">${CONTRACT.key}</span><button class="btn xs" onclick="copy('${CONTRACT.key}','API Key 已复制')">复制</button></div><div class="mini"><button class="btn xs ghost" onclick="toast('已显示完整 Key')">显示</button><button class="btn xs ghost danger" onclick="toast('重置后旧 Key 立即失效')">重置</button><span class="note" style="margin-left:auto">最近使用 今天 15:02</span></div></div></div>`}
+
+function renderLeft(){
+  const L=document.getElementById('left');
+  if(state.view==='admin'){
+    const ap=pct(allocated(),CONTRACT.credits),cp=pct(consumed(),CONTRACT.credits),n=alive().length,dl=daysLeft(CONTRACT.end);
+    L.innerHTML=`
+    <div class="card"><div class="profile"><div class="avatar org">盈</div><div class="pname">${CONTRACT.org}</div><div class="note" style="margin-top:2px"><span class="badge b-blue">机构版</span> <span class="badge b-green b-dot">服务中</span></div>
+      <div class="kv"><span class="k">管理员</span><span>${CONTRACT.admin} · 138****2211</span><span class="k">邮箱</span><span>ch***@yingmi.cn</span><span class="k">开通日期</span><span>${CONTRACT.start}</span></div></div></div>
+    ${apiKeyCard()}
+    <div class="card"><div class="hd">合约配额 <span class="note">由盈米按约定提供</span></div><div class="bd">
+      <div class="quota"><div class="row"><span>账号数</span><b>${n} / ${CONTRACT.accounts}</b></div><div class="bar"><i class="${barClass(pct(n,CONTRACT.accounts))}" style="width:${pct(n,CONTRACT.accounts)}%"></i></div><div class="note" style="margin-top:4px">还可新增 ${CONTRACT.accounts-n} 个</div></div>
+      <div class="quota"><div class="row"><span>总积分 · 已分配</span><b>${fmt(allocated())} / ${fmt(CONTRACT.credits)}</b></div><div class="bar"><i class="${barClass(ap)}" style="width:${ap}%"></i></div><div class="note" style="margin-top:4px">未分配 <b>${fmt(CONTRACT.credits-allocated())}</b> · 已消耗 ${fmt(consumed())}（${cp}%）</div></div>
+      <div class="quota"><div class="row"><span>使用效期</span><b>${CONTRACT.end}</b></div><div class="bar"><i class="green" style="width:${Math.max(4,100-dl/365*100)}%"></i></div><div class="note" style="margin-top:4px">${CONTRACT.start} 起 · 剩余 ${dl} 天 · 成员效期不得晚于此</div></div>
+      <div class="note" style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--line)">需要更多账号 / 积分或延长效期，请联系客户经理：<a href="#">oap@yingmi.cn</a></div>
+    </div></div>
+    <div class="card"><div class="hd">当前访问范围</div><div class="bd"><ul class="list"><li><span class="dot"></span>MCP 数据协议访问权限（已包含）</li><li><span class="dot"></span>全部盈米 Skills 调用资格</li><li><span class="dot"></span>支持龙虾、Coze 等外部平台接入</li></ul></div></div>`;
+    return;
+  }
+  const me=members[2],tp=pct(me.used,me.total),dp=pct(me.todayUsed,me.daily),mp=pct(me.monthUsed,me.monthly);
+  L.innerHTML=`
+  <div class="card"><div class="profile"><div class="avatar">周</div><div class="pname">周子航</div><div class="note" style="margin-top:2px">${CONTRACT.short} · <span class="badge b-blue">机构成员</span></div>
+    <div class="kv"><span class="k">手机号</span><span>136****4410</span><span class="k">邮箱</span><span>zh***@yingmi.cn</span><span class="k">加入日期</span><span>2026-09-03</span><span class="k">管理员</span><span>${CONTRACT.admin}</span></div></div></div>
+  ${apiKeyCard()}
+  <div class="card"><div class="hd">服务等级与配额 <span class="badge b-blue">机构分配</span></div><div class="bd">
+    <div class="quota"><div class="row"><span>总额度</span><b>${fmt(me.used)} / ${fmt(me.total)}</b></div><div class="bar"><i class="${barClass(tp)}" style="width:${tp}%"></i></div><div class="note" style="margin-top:4px">剩余 ${fmt(me.total-me.used)} 积分</div></div>
+    <div class="quota"><div class="row"><span>今日限额</span><b>${fmt(me.todayUsed)} / ${fmt(me.daily)}</b></div><div class="bar"><i class="${barClass(dp)}" style="width:${dp}%"></i></div><div class="note" style="margin-top:4px">${dp>=100?'今日已达上限，0:00 后恢复':'每日 0:00 重置'}</div></div>
+    <div class="quota"><div class="row"><span>本月限额</span><b>${fmt(me.monthUsed)} / ${fmt(me.monthly)}</b></div><div class="bar"><i class="${barClass(mp)}" style="width:${mp}%"></i></div><div class="note" style="margin-top:4px">每月 1 日重置</div></div>
+    <div class="quota"><div class="row"><span>有效期至</span><b>${me.expire}</b></div><div class="note">剩余 ${daysLeft(me.expire)} 天 · 到期后回落为个人版标准配额</div></div>
+    <div class="mini" style="margin-top:12px"><button class="btn sm block" onclick="toast('已通知管理员 ${CONTRACT.admin}')">额度不够？联系管理员</button></div>
+  </div></div>
+  <div class="card"><div class="hd">当前访问范围</div><div class="bd"><ul class="list"><li><span class="dot"></span>MCP 数据协议访问权限（已包含）</li><li><span class="dot"></span>全部盈米 Skills 调用资格</li><li><span class="dot"></span>支持龙虾、Coze 等外部平台接入</li></ul></div></div>`;
+}
+
+function products(){return `<div class="products"><div class="prod ${state.product==='mcp'?'on':''}" onclick="state.product='mcp';renderRight()"><div class="ic">⌬</div><div><div class="t">盈米 MCP</div><div class="s">72 个工具</div></div></div><div class="prod ${state.product==='skills'?'on':''}" onclick="state.product='skills';renderRight()"><div class="ic" style="background:#F1EDFF;color:#7C5CFF">✦</div><div><div class="t">盈米 Skills</div><div class="s">11 个 Skills</div></div></div></div>`}
+function tabs(list){return `<div class="tabs">${list.map(t=>`<div class="tab ${state.tab===t.id?'on':''}" onclick="setTab('${t.id}')">${t.l}${t.n?`<span class="n">${t.n}</span>`:''}</div>`).join('')}</div>`}
+
+function renderRight(){
+  const R=document.getElementById('right');
+  const list=state.view==='admin'?[{id:'members',l:'账号与限额',n:alive().length},{id:'usage',l:'用量统计'},{id:'tools',l:'工具列表'},{id:'config',l:'配置方式'}]:[{id:'tools',l:'工具列表'},{id:'config',l:'配置方式'},{id:'usage',l:'调用统计'}];
+  const body={members:membersPanel,usage:usagePanel,tools:toolsPanel,config:configPanel}[state.tab]();
+  R.innerHTML=products()+`<div class="card" style="margin-top:12px">${tabs(list)}<div class="panel">${body}</div></div>`;
+}
+
+/* ---- 账号与限额 ---- */
+function membersPanel(){
+  const q=state.q.trim();
+  const rows=members.filter(m=>state.filter==='all'||(state.filter==='low'&&m.status==='active'&&(m.used/m.total>=.9||(m.daily&&m.todayUsed>=m.daily)))||(state.filter==='soon'&&m.status!=='disabled'&&daysLeft(m.expire)<=30)||(state.filter==='off'&&m.status==='disabled')).filter(m=>!q||m.name.includes(q)||m.phone.includes(q));
+  const free=CONTRACT.credits-allocated(),seatsLeft=CONTRACT.accounts-alive().length;
+  return `
+  <div class="toolbar"><input class="input search" placeholder="搜索姓名 / 手机号" value="${state.q}" oninput="state.q=this.value;renderRight();const s=document.querySelector('.input.search');s.focus();s.setSelectionRange(s.value.length,s.value.length)">
+    <div class="seg">${[['all','全部'],['low','额度告急'],['soon','即将到期'],['off','已停用']].map(f=>`<button class="${state.filter===f[0]?'on':''}" onclick="state.filter='${f[0]}';renderRight()">${f[1]}</button>`).join('')}</div>
+    <span class="sp"></span><button class="btn sm" onclick="toast('已导出账号与限额清单（CSV）')">导出</button><button class="btn sm primary" onclick="openEdit()" ${seatsLeft<=0?'disabled':''}>＋ 新增账号</button></div>
+  <div class="limit-box" style="margin-bottom:12px"><div>可新增账号<b>${seatsLeft} <small style="font-size:12px;color:var(--muted)">/ ${CONTRACT.accounts}</small></b></div><div>可分配积分<b>${fmt(free)}</b></div><div>成员效期上限<b>${CONTRACT.end}</b></div></div>
+  <table><thead><tr><th>成员</th><th>状态</th><th>总额度（已用 / 分配）</th><th>日限额（今日）</th><th>月限额（本月）</th><th>有效期</th><th>操作</th></tr></thead><tbody>
+  ${rows.length?rows.map(m=>{const p=pct(m.used,m.total),sb=stBadge[daysLeft(m.expire)<0&&m.status!=='disabled'?'expired':m.status];return `<tr>
+    <td><div class="who"><div class="av">${m.name[0]}</div><div><div class="nm">${m.name} ${m.role==='admin'?'<span class="badge b-blue" style="font-size:10px;padding:0 5px">管理员</span>':''}</div><div class="ph">${m.phone}</div></div></div></td>
+    <td class="st"><span class="badge ${sb[0]} b-dot">${sb[1]}</span><div class="note" style="margin-top:3px">${m.last==='—'?'尚未登录':'最近 '+m.last}</div></td>
+    <td><div class="q"><div class="row"><span>${fmt(m.used)} / ${fmt(m.total)}</span><span>${p}%</span></div><div class="bar"><i class="${barClass(p)}" style="width:${p}%"></i></div></div></td>
+    <td class="cap">${m.daily?`${fmt(m.todayUsed)} / ${fmt(m.daily)}${m.todayUsed>=m.daily?' <span class="badge b-red" style="font-size:10px;padding:0 5px">已限流</span>':''}`:capText(0)}</td>
+    <td class="cap">${m.monthly?`${fmt(m.monthUsed)} / ${fmt(m.monthly)}`:capText(0)}</td>
+    <td class="num exp">${expireCell(m.expire)}</td>
+    <td class="ops"><button class="btn xs" onclick="openEdit(${m.id})">编辑限额</button>${m.role==='admin'?'':`<button class="btn xs ${m.status==='disabled'?'':'danger'}" onclick="toggleMember(${m.id})">${m.status==='disabled'?'启用':'停用'}</button><button class="btn xs ghost danger" onclick="removeMember(${m.id})">移除</button>`}</td></tr>`}).join(''):'<tr><td colspan="7" class="empty">没有符合条件的账号</td></tr>'}
+  </tbody></table>
+  <div class="pager"><span>共 ${alive().length} 个有效账号（含管理员）· 已停用 ${members.filter(m=>m.status==='disabled').length}</span><span class="note">停用 / 移除 / 到期后，剩余积分自动回到可分配额度</span></div>
+  <div class="callout mt" style="font-size:12px"><span>ⓘ</span><div><b>规则：</b>成员总额度之和 ≤ 合约总积分；成员有效期 ≤ 合约效期；日 / 月限额为可选的节流上限，留空即不限，仅受总额度约束。新增账号填对方且慢手机号即可，对方登录个人中心即自动生效，无需口令。</div></div>`;
+}
+function toggleMember(id){const m=members.find(x=>x.id===id);m.status=m.status==='disabled'?'active':'disabled';toast(m.status==='disabled'?`已停用 ${m.name}，其剩余 ${fmt(m.total-m.used)} 积分回到可分配额度`:`已启用 ${m.name}`);render()}
+function removeMember(id){const m=members.find(x=>x.id===id);if(!confirm(`移除 ${m.name}？其 Key 立即失去机构额度，剩余 ${fmt(m.total-m.used)} 积分回到可分配额度。`))return;members=members.filter(x=>x.id!==id);toast(`已移除 ${m.name}`);render()}
+
+/* ---- 新增 / 编辑抽屉 ---- */
+function openEdit(id){
+  const m=id?members.find(x=>x.id===id):null;
+  const free=CONTRACT.credits-allocated()+(m?m.total:0);
+  document.getElementById('drawer').innerHTML=`<div class="dh">${m?'编辑限额 · '+m.name:'新增账号'}<button class="x" onclick="closeDrawer()">×</button></div><div class="db">
+    ${m?'':`<div class="f"><label>且慢账号手机号 <span class="req">*</span><span class="hint">对方登录个人中心即生效</span></label><input class="input" id="e_phone" placeholder="138 0000 0000"></div>
+    <div class="f"><label>姓名 <span class="hint">机构内显示</span></label><input class="input" id="e_name" placeholder="如：李思远"></div>`}
+    <div class="limit-box" style="margin-bottom:14px"><div>可分配积分<b>${fmt(free)}</b></div><div>合约效期<b>${CONTRACT.end}</b></div><div>${m?'已使用':'可新增账号'}<b>${m?fmt(m.used):CONTRACT.accounts-alive().length}</b></div></div>
+    <div class="f"><label>总额度（积分）<span class="req">*</span></label><input class="input" id="e_total" value="${m?m.total:20000}" oninput="validate()"><div class="chips" style="margin-top:8px">${[10000,20000,50000].map(v=>`<button class="chip" onclick="document.getElementById('e_total').value=${v};validate()">${fmt(v)}</button>`).join('')}</div><div class="err" id="err_total"></div></div>
+    <div class="f"><div class="row"><div><label>日限额 <span class="hint">留空不限</span></label><input class="input" id="e_daily" value="${m&&m.daily?m.daily:''}" placeholder="不限" oninput="validate()"></div><div><label>月限额 <span class="hint">留空不限</span></label><input class="input" id="e_monthly" value="${m&&m.monthly?m.monthly:''}" placeholder="不限" oninput="validate()"></div></div><div class="err" id="err_cap"></div></div>
+    <div class="f"><label>有效期至 <span class="req">*</span><span class="hint">不得晚于合约效期</span></label><div class="chips" style="margin-bottom:8px">${['3 个月','6 个月','12 个月','随合约到期'].map((v,i)=>`<button class="chip ${i===3?'on':''}" onclick="setExp(this,${i})">${v}</button>`).join('')}</div><input class="input" id="e_expire" value="${m?m.expire:CONTRACT.end}" oninput="validate()"><div class="err" id="err_exp"></div></div>
+    <div class="f"><label>备注 <span class="hint">仅管理员可见</span></label><input class="input" id="e_note" placeholder="如：量化研究 · Q4 回测项目"></div>
+  </div><div class="df"><button class="btn" onclick="closeDrawer()">取消</button><button class="btn primary" id="e_save" onclick="saveEdit(${id||0})">${m?'保存':'创建账号'}</button></div>`;
+  document.getElementById('drawer').classList.add('show');document.getElementById('mask').classList.add('show');
+  window._editFree=free;validate();
+}
+function setExp(el,i){[...el.parentElement.children].forEach(c=>c.classList.remove('on'));el.classList.add('on');const d=new Date(TODAY);if(i<3){d.setMonth(d.getMonth()+[3,6,12][i]);const s=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;document.getElementById('e_expire').value=s>CONTRACT.end?CONTRACT.end:s}else document.getElementById('e_expire').value=CONTRACT.end;validate()}
+function num(id){return +String(document.getElementById(id).value).replace(/[^\d]/g,'')||0}
+function validate(){
+  const total=num('e_total'),daily=num('e_daily'),monthly=num('e_monthly'),exp=document.getElementById('e_expire').value;let ok=true;
+  const e1=document.getElementById('err_total');e1.textContent=total<=0?'请填写总额度':total>window._editFree?`超出可分配积分 ${fmt(window._editFree)}`:'';e1.classList.toggle('show',!!e1.textContent);ok=ok&&!e1.textContent;
+  const e2=document.getElementById('err_cap');e2.textContent=(daily&&daily>total)?'日限额不能大于总额度':(monthly&&monthly>total)?'月限额不能大于总额度':(daily&&monthly&&daily>monthly)?'日限额不能大于月限额':'';e2.classList.toggle('show',!!e2.textContent);ok=ok&&!e2.textContent;
+  const e3=document.getElementById('err_exp');e3.textContent=!/^\d{4}-\d{2}-\d{2}$/.test(exp)?'日期格式 YYYY-MM-DD':exp>CONTRACT.end?`不得晚于合约效期 ${CONTRACT.end}`:daysLeft(exp)<0?'不能早于今天':'';e3.classList.toggle('show',!!e3.textContent);ok=ok&&!e3.textContent;
+  document.getElementById('e_save').disabled=!ok;document.getElementById('e_save').style.opacity=ok?1:.5;return ok;
+}
+function saveEdit(id){
+  if(!validate())return;const total=num('e_total'),daily=num('e_daily'),monthly=num('e_monthly'),exp=document.getElementById('e_expire').value;
+  if(id){const m=members.find(x=>x.id===id);Object.assign(m,{total,daily,monthly,expire:exp});toast(`已更新 ${m.name} 的限额`)}
+  else{const ph=(document.getElementById('e_phone').value||'').replace(/\s/g,'');if(!/^1\d{10}$/.test(ph)){toast('请填写正确的手机号');return}const name=document.getElementById('e_name').value.trim()||('用户'+ph.slice(-4));members.push({id:Date.now(),name,phone:ph.slice(0,3)+'****'+ph.slice(-4),role:'member',status:'pending',total,used:0,daily,monthly,todayUsed:0,monthUsed:0,expire:exp,last:'—'});toast(`已创建 ${name}，对方登录个人中心后即可使用`)}
+  closeDrawer();render();
+}
+function closeDrawer(){document.getElementById('drawer').classList.remove('show');document.getElementById('mask').classList.remove('show')}
+
+/* ---- 用量统计 ---- */
+function usagePanel(){
+  const admin=state.view==='admin';const s=admin?S_ORG:S_ME;const tot=s.reduce((a,b)=>a+b,0);
+  const rows=[...members].filter(m=>m.monthUsed>0).sort((a,b)=>b.monthUsed-a.monthUsed);
+  return `
+  <div class="toolbar"><div class="seg"><button class="on">近 30 天</button><button>近 7 天</button><button>本月</button></div><div class="seg"><button class="on">MCP</button><button>Skills</button></div><span class="sp"></span><button class="btn sm" onclick="toast('明细已导出 CSV')">导出明细</button></div>
+  <div class="kpis">
+    <div class="kpi"><div class="l">调用次数（30 天）</div><div class="v">${fmt(tot)}</div><div class="d up">▲ 12.4% 较上期</div></div>
+    <div class="kpi"><div class="l">积分消耗（30 天）</div><div class="v">${fmt(Math.round(tot*1.3))}</div><div class="d">≈ 1.3 积分 / 次</div></div>
+    ${admin?`<div class="kpi"><div class="l">活跃账号</div><div class="v">${rows.length}<small>/ ${alive().length}</small></div><div class="d">今日触发日限额 ${members.filter(m=>m.daily&&m.todayUsed>=m.daily).length} 人</div></div>
+    <div class="kpi"><div class="l">预计可用</div><div class="v">${Math.round((CONTRACT.credits-consumed())/(consumed()/21))}<small>天</small></div><div class="d">按近期日均消耗推算 · 合约剩余 ${daysLeft(CONTRACT.end)} 天</div></div>`
+    :`<div class="kpi"><div class="l">今日 / 日限额</div><div class="v">2,000<small>/ 2,000</small></div><div class="d" style="color:var(--red)">已达上限 · 0:00 恢复</div></div><div class="kpi"><div class="l">成功率</div><div class="v">99.1%</div><div class="d">平均耗时 812 ms</div></div>`}
+  </div>
+  <div class="g21 mt">
+    <div class="sec"><div class="hd">每日调用趋势 <span class="legend"><span><i style="background:#3B7BFF"></i>MCP 调用</span></span></div><div class="bd">${lineChart(s)}</div></div>
+    <div class="sec"><div class="hd">${admin?'工具调用 Top 6':'我常用的工具'}</div><div class="bd">${hbars(TOOLS.map(t=>[t[0],admin?t[1]:Math.round(t[1]/9)]))}</div></div>
+  </div>
+  ${admin?`<div class="sec mt"><div class="hd">成员用量明细 <span class="sub">本月</span></div><div class="bd"><table><thead><tr><th>成员</th><th style="text-align:right">本月调用</th><th style="text-align:right">本月积分</th><th style="text-align:right">占比</th><th>Top 工具</th><th style="text-align:right">日限额触发</th><th>总额度使用</th></tr></thead><tbody>
+    ${rows.map((m,i)=>{const t=rows.reduce((a,x)=>a+x.monthUsed,0);return `<tr><td><div class="who"><div class="av">${m.name[0]}</div><div class="nm">${m.name}</div></div></td><td class="num" style="text-align:right">${fmt(m.monthUsed)}</td><td class="num" style="text-align:right">${fmt(Math.round(m.monthUsed*1.3))}</td><td class="num" style="text-align:right">${(m.monthUsed/t*100).toFixed(1)}%</td><td class="note">${TOOLS[i%6][0]}</td><td class="num" style="text-align:right">${m.daily&&m.todayUsed>=m.daily?'<span class="badge b-red">今日 1 次</span>':[3,0,1,0,0,0][i]||0} 次</td><td><div class="q"><div class="bar"><i class="${barClass(pct(m.used,m.total))}" style="width:${pct(m.used,m.total)}%"></i></div></div></td></tr>`}).join('')}
+  </tbody></table></div></div>`
+  :`<div class="sec mt"><div class="hd">最近调用明细</div><div class="bd"><table><thead><tr><th>时间</th><th>工具</th><th>平台</th><th>耗时</th><th>积分</th><th>状态</th></tr></thead><tbody>
+    ${[['15:02:11','基金诊断','Dify','1,240 ms',3,'成功'],['15:01:58','基金代码模糊匹配','Dify','310 ms',1,'成功'],['14:47:20','批量获取基金业绩表现','Cursor','980 ms',1,'成功'],['14:46:02','搜索基金','Cursor','520 ms',1,'成功'],['11:20:33','财经资讯','openclaw','760 ms',1,'成功'],['15:03:40','基金诊断','Dify','—',0,'日限额已达']].map(r=>`<tr><td class="num note">今天 ${r[0]}</td><td><b>${r[1]}</b></td><td>${r[2]}</td><td class="num">${r[3]}</td><td class="num">${r[4]}</td><td><span class="badge ${r[5]==='成功'?'b-green':'b-red'}">${r[5]}</span></td></tr>`).join('')}
+  </tbody></table></div></div>`}`;
+}
+
+/* ---- 工具列表 / 配置方式（沿用生产页） ---- */
+function toolsPanel(){
+  const cats=[['全部',69],['基金数据',28],['策略数据',7],['投前分析',8],['金融工具',1],['测算能力',2],['投后诊断',3],['投资顾问',11],['常用工具',4],['公开内容',2],['盈米生产',3]];
+  const desc={'财经资讯':'检索财经资讯内容并提取核心事件摘要','基金代码模糊匹配':'将模糊基金名称智能匹配为准确基金代码','搜索基金':'按多维条件搜索筛选目标基金产品清单','批量获取基金详情':'批量获取基金基础详情及产品属性信息','基金经理观点':'检索基金经理公开观点表态及市场看法','批量获取基金业绩表现':'批量对比基金业绩表现及收益风险指标'};
+  return `<div class="toolbar"><input class="input search" placeholder="搜索工具名称 / 功能描述"><div class="chips">${cats.map((c,i)=>`<button class="chip ${i===0?'on':''}">${c[0]} ${c[1]}</button>`).join('')}</div></div>
+  <table><thead><tr><th>工具</th><th>说明</th><th>积分 / 次</th><th>累计调用</th><th></th></tr></thead><tbody>${TOOLS.map(t=>`<tr><td><b>${t[0]}</b></td><td class="note">${desc[t[0]]}</td><td class="num">1</td><td class="num">${fmt(t[1]*47)}</td><td><span class="link" onclick="toast('工具详情：参数 / 返回示例 / 调用示例')">详情</span></td></tr>`).join('')}</tbody></table><div class="pager"><span>共 69 个工具</span><span>1 / 7 页</span></div>`;
+}
+function configPanel(){
+  return `<div class="g12"><div><div class="sec"><div class="hd">配置信息</div><div class="bd"><div class="seg" style="margin-bottom:10px"><button class="on">Streamable HTTP</button><button>SSE 协议</button></div><div class="kv" style="margin:0;padding:0;border:0;grid-template-columns:70px 1fr;font-size:12px"><span class="k">服务地址</span><span style="font-family:Menlo,monospace;font-size:11.5px">https://stargate.yingmi.com/mcp/v2</span><span class="k">认证方式</span><span>Header <code>x-api-key</code>（每人各自的 Key）</span><span class="k">用量归属</span><span>按 Key 归到成员，受该成员的总额度与日 / 月限额约束</span></div></div></div>
+    <div class="sec mt"><div class="hd">快速接入</div><div class="bd"><ul class="list"><li><span class="dot"></span><a href="#">Cursor 接入指引</a></li><li><span class="dot"></span><a href="#">openclaw / WorkBuddy 接入</a></li><li><span class="dot"></span><a href="#">扣子 / Dify 接入</a></li><li><span class="dot"></span><a href="#">阿里云百炼</a></li></ul></div></div></div>
+  <div class="codebox"><div class="cap"><span>MCP 接入配置 · 适用于大多数平台</span><button class="btn xs" onclick="copy('','配置已复制')">复制</button></div><pre>{
+  <span class="k">"mcpServers"</span>: {
+    <span class="k">"qieman"</span>: {
+      <span class="k">"url"</span>: <span class="s">"https://stargate.yingmi.com/mcp/v2"</span>,
+      <span class="k">"headers"</span>: {
+        <span class="k">"x-api-key"</span>: <span class="s">"${CONTRACT.key}"</span>,
+        <span class="k">"Accept"</span>: <span class="s">"application/json, text/event-stream"</span>
+      }
+    }
+  }
+}</pre></div></div>`;
+}
+
+(function(){const q=new URLSearchParams(location.search);const v=q.get('view');if(v==='member'||v==='admin')state.view=v;state.tab=state.view==='admin'?'members':'usage';const t=q.get('tab');if(t)state.tab=t;})();
+render();
+(function(){const q=new URLSearchParams(location.search);if(q.get('open')==='create')openEdit();else if(q.get('open')==='edit')openEdit(3);})();
+</script>
+</body>
+</html>
