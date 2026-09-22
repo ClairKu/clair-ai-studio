@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />
+    <script data-clair-access-gate data-clair-access-scope="workspace" src="../../access-gate.js"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>颐养天年 · 养老钱如何随年龄自动降风险 · 业务解读</title>
+<style>
+:root{
+  --brand:#8A6D3C; --brand-deep:#6E5730; --brand-050:#F4EFE3; --brand-100:#E3D8BE;
+  --bg:#F3F1EA; --panel:#FCFBF7; --panel-2:#F5F2E9; --line:#E4DFD1; --line-2:#ECE8DB;
+  --ink:#1F2227; --sub:#5C5E60; --faint:#9B9688;
+  --up:#B04A44; --up-bg:#F6E9E6; --down:#3F7355; --down-bg:#E7EFE8;
+  --warn:#9C7423; --warn-bg:#F4ECDA;
+  --equity:#8A6D3C; --bond:#3F7355;
+  --font:"Songti SC","STSong","STZhongsong","Noto Serif SC","SimSun",serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--ink);font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased}
+.num{font-variant-numeric:tabular-nums}
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px 80px}
+a{color:var(--brand);text-decoration:none}
+
+/* 顶栏 */
+.topbar{background:var(--ink);color:#F3F1EA;height:56px;display:flex;align-items:center}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;padding-top:0;padding-bottom:0;width:100%}
+.topbar .logo{display:flex;align-items:center;gap:12px;font-size:14px;letter-spacing:3px}
+.topbar .logo i{width:26px;height:26px;border:1px solid var(--brand);display:grid;place-items:center;font-style:normal;color:var(--brand);font-size:13px;letter-spacing:0}
+.topbar .meta{font-size:12px;color:#B8B09A;letter-spacing:1px}
+.topbar .meta b{color:#E3D8BE;font-weight:500}
+
+/* Hero */
+.hero{padding:64px 0 36px;border-bottom:1px solid var(--line)}
+.kicker{font-size:12px;letter-spacing:4px;color:var(--brand);text-transform:uppercase}
+.hero h1{font-size:40px;line-height:1.3;font-weight:700;margin-top:14px;letter-spacing:1px}
+.hero h1 span{color:var(--brand)}
+.hero .lead{margin-top:16px;font-size:17px;color:var(--sub);max-width:760px}
+.verdict{margin-top:30px;display:grid;grid-template-columns:3px 1fr;gap:22px;background:var(--panel);border:1px solid var(--line);padding:22px 26px}
+.verdict::before{content:"";background:var(--brand);display:block}
+.verdict h3{font-size:13px;letter-spacing:3px;color:var(--brand);font-weight:600}
+.verdict p{margin-top:8px;font-size:18px;line-height:1.7}
+.verdict p b{color:var(--brand-deep)}
+
+/* KPI */
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:32px}
+.kpi{background:var(--panel);padding:18px 16px 16px}
+.kpi .v{font-size:30px;font-weight:700;line-height:1.1;letter-spacing:-.5px}
+.kpi .v small{font-size:14px;font-weight:400;margin-left:2px;color:var(--sub)}
+.kpi .l{font-size:12.5px;color:var(--sub);margin-top:8px;line-height:1.5}
+.kpi .l b{color:var(--ink);font-weight:600;display:block}
+
+/* 章节 */
+section{padding:54px 0 0}
+.sec-h{display:flex;align-items:baseline;gap:16px;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:26px}
+.sec-h .no{font-size:13px;letter-spacing:3px;color:var(--brand);font-weight:600}
+.sec-h h2{font-size:26px;font-weight:700;letter-spacing:1px}
+.sec-h p{margin-left:auto;font-size:13px;color:var(--faint)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.card{background:var(--panel);border:1px solid var(--line);padding:22px 24px;position:relative}
+.card h4{font-size:17px;font-weight:700;display:flex;align-items:center;gap:10px}
+.card h4::before{content:"";width:14px;height:2px;background:var(--brand);flex:none}
+.card p{margin-top:10px;color:var(--sub);font-size:14.5px}
+.card .big{font-size:44px;font-weight:700;color:var(--brand);line-height:1;margin-bottom:12px;letter-spacing:-1px}
+.card .tip{margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);font-size:13px;color:var(--faint)}
+.card .tip b{color:var(--brand-deep);font-weight:600}
+.pill{display:inline-block;font-size:12px;padding:2px 10px;border:1px solid var(--brand-100);color:var(--brand-deep);background:var(--brand-050);border-radius:2px;letter-spacing:1px}
+.pill.green{border-color:#C9DACD;color:var(--down);background:var(--down-bg)}
+.pill.red{border-color:#E4C7C4;color:var(--up);background:var(--up-bg)}
+.pill.warn{border-color:#E0D2B0;color:var(--warn);background:var(--warn-bg)}
+
+/* 曲线图 */
+.chart-wrap{background:var(--panel);border:1px solid var(--line);padding:24px 26px 18px}
+.chart-top{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.chart-top h4{font-size:17px;font-weight:700}
+.chart-top p{font-size:13.5px;color:var(--sub);margin-top:4px}
+.legend{display:flex;gap:18px;font-size:12.5px;color:var(--sub);flex-wrap:wrap}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:18px;height:3px;background:var(--brand);display:inline-block}
+.legend i.band{height:10px;background:var(--brand-100);opacity:.7}
+.legend i.dash{background:repeating-linear-gradient(90deg,var(--faint) 0 4px,transparent 4px 7px)}
+svg.glide{width:100%;height:auto;display:block;margin-top:14px;overflow:visible}
+.phases{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:18px}
+.phase{background:var(--panel-2);padding:14px 16px}
+.phase b{display:block;font-size:14.5px}
+.phase b em{font-style:normal;color:var(--brand);margin-left:6px;font-size:12.5px;letter-spacing:1px}
+.phase p{font-size:13px;color:var(--sub);margin-top:4px;line-height:1.6}
+
+/* 年龄模拟器 */
+.sim{background:var(--ink);color:#F3F1EA;padding:28px 30px;margin-top:18px;display:grid;grid-template-columns:1.1fr .9fr;gap:34px;align-items:center}
+.sim h4{font-size:13px;letter-spacing:3px;color:var(--brand-100);font-weight:600}
+.sim .age{font-size:64px;font-weight:700;line-height:1;margin-top:10px;letter-spacing:-2px}
+.sim .age small{font-size:20px;font-weight:400;margin-left:6px;color:#B8B09A}
+.sim .stage{margin-top:8px;font-size:15px;color:#E3D8BE;min-height:26px}
+.sim input[type=range]{width:100%;margin-top:22px;-webkit-appearance:none;appearance:none;height:2px;background:#5C5E60;outline:none}
+.sim input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--brand-100);border:3px solid var(--ink);box-shadow:0 0 0 2px var(--brand);cursor:pointer}
+.sim .ticks{display:flex;justify-content:space-between;font-size:11px;color:#9B9688;margin-top:8px;letter-spacing:1px}
+.split{display:flex;height:54px;border:1px solid #3a3d43;overflow:hidden}
+.split div{display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600;transition:flex .35s ease;white-space:nowrap;overflow:hidden}
+.split .eq{background:var(--brand);color:#fff}
+.split .bd{background:var(--down);color:#fff}
+.money{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+.money div{border:1px solid #3a3d43;padding:12px 14px}
+.money .k{font-size:12px;color:#9B9688;letter-spacing:1px}
+.money .v{font-size:22px;font-weight:700;margin-top:2px}
+.money .v small{font-size:13px;font-weight:400;color:#B8B09A}
+.sim .note{margin-top:14px;font-size:12.5px;color:#9B9688;line-height:1.6}
+.sim .presets{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.sim .presets button{font-family:inherit;font-size:12.5px;padding:5px 12px;border:1px solid #5C5E60;background:transparent;color:#E3D8BE;cursor:pointer;letter-spacing:1px}
+.sim .presets button:hover,.sim .presets button.on{border-color:var(--brand-100);background:rgba(227,216,190,.12)}
+
+/* 流程 */
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.step{background:var(--panel);border:1px solid var(--line);padding:18px 18px 16px;position:relative}
+.step .n{font-size:12px;letter-spacing:3px;color:var(--brand);font-weight:600}
+.step b{display:block;font-size:16px;margin-top:6px}
+.step p{font-size:13.5px;color:var(--sub);margin-top:6px;line-height:1.6}
+.step .who{margin-top:10px;font-size:11.5px;color:var(--faint);letter-spacing:1px}
+.step::after{content:"›";position:absolute;right:-13px;top:50%;transform:translateY(-50%);font-size:22px;color:var(--brand-100);z-index:1}
+.step:nth-child(4n)::after,.step:last-child::after{display:none}
+
+/* 触发 */
+.trig{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.trig .card .freq{font-size:12px;letter-spacing:2px;color:var(--faint);margin-top:14px}
+.trig .card .freq b{color:var(--ink);font-weight:600;letter-spacing:0;font-size:14px;display:block;margin-top:2px}
+.callout{margin-top:18px;background:var(--brand-050);border:1px solid var(--brand-100);padding:16px 22px;font-size:14.5px;display:flex;gap:14px;align-items:flex-start}
+.callout b{color:var(--brand-deep);flex:none;letter-spacing:1px}
+
+/* 对比 */
+.cmp{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.cmp .col{background:var(--panel);padding:22px 22px 20px}
+.cmp .col.hl{background:#FBF7EC;outline:2px solid var(--brand);outline-offset:-2px}
+.cmp .col h4{font-size:17px;font-weight:700}
+.cmp .col .sub{font-size:12.5px;color:var(--faint);margin-top:2px;letter-spacing:1px}
+.cmp .row{display:flex;gap:10px;padding:10px 0;border-top:1px dashed var(--line);font-size:14px}
+.cmp .row:first-of-type{margin-top:14px}
+.cmp .row .k{flex:none;width:86px;color:var(--faint);font-size:12.5px;letter-spacing:1px;padding-top:2px}
+.cmp .row .v{color:var(--ink)}
+.cmp .col.hl .row .v{font-weight:600}
+
+/* 能改/不能改 */
+.rights{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.rights ul{list-style:none;margin-top:12px}
+.rights li{display:flex;gap:12px;padding:10px 0;border-top:1px dashed var(--line);font-size:14.5px}
+.rights li i{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:12px;margin-top:3px}
+.rights .can li i{background:var(--down-bg);color:var(--down)}
+.rights .cant li i{background:var(--up-bg);color:var(--up)}
+.rights li small{display:block;color:var(--faint);font-size:12.5px;margin-top:2px}
+
+/* 关注点 */
+.issues{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.issue{background:var(--panel);border:1px solid var(--line);padding:22px 24px;border-top:3px solid var(--warn)}
+.issue.hi{border-top-color:var(--up)}
+.issue .tag{font-size:11.5px;letter-spacing:2px;color:var(--warn);font-weight:600}
+.issue.hi .tag{color:var(--up)}
+.issue h4{font-size:17px;font-weight:700;margin-top:6px}
+.issue p{font-size:14px;color:var(--sub);margin-top:8px}
+.issue .adv{margin-top:12px;padding:10px 14px;background:var(--panel-2);font-size:13.5px}
+.issue .adv b{color:var(--brand-deep);letter-spacing:1px;margin-right:6px}
+
+/* 经营快照 */
+.ops{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}
+.funnel{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.funnel .bar{display:flex;align-items:center;gap:14px}
+.funnel .bar .lab{width:150px;flex:none;font-size:13.5px;color:var(--sub)}
+.funnel .bar .fill{height:34px;background:var(--brand-100);display:flex;align-items:center;padding:0 12px;font-weight:700;font-size:15px;color:var(--brand-deep);min-width:80px}
+.funnel .bar.b2 .fill{background:var(--brand);color:#fff}
+.funnel .rate{font-size:13px;color:var(--faint);margin-top:6px}
+.facts{list-style:none}
+.facts li{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px dashed var(--line);font-size:14px}
+.facts li:first-child{border-top:0}
+.facts li span{color:var(--sub)}
+.facts li b{font-weight:600;text-align:right}
+
+/* 尾注 */
+footer{margin-top:64px;border-top:1px solid var(--line);padding-top:20px;font-size:12.5px;color:var(--faint);line-height:1.8}
+footer b{color:var(--sub);font-weight:600}
+
+@media (max-width:900px){
+  .kpis{grid-template-columns:repeat(3,1fr)}
+  .grid3,.trig,.cmp,.phases{grid-template-columns:1fr}
+  .grid2,.rights,.issues,.ops,.sim{grid-template-columns:1fr}
+  .flow{grid-template-columns:1fr 1fr}
+  .step::after{display:none}
+  .hero h1{font-size:30px}
+  .sec-h p{display:none}
+}
+@media print{
+  .topbar{display:none}
+  body{background:#fff}
+  section{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="wrap">
+  <div class="logo"><i>盈</i>YINGMI WORK · 产品解读</div>
+  <div class="meta">且慢 · 养老投顾 · <b>内部资料</b> · 数据截至 2026-09-21</div>
+</div></div>
+
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">颐养天年 养老投顾策略 · 产品逻辑业务解读</div>
+  <h1>一笔养老钱，<span>怎么做到"越接近退休越稳"</span>，而且不用客户动手？</h1>
+  <p class="lead">颐养天年是且慢面向补充养老账户推出的投顾策略。它承诺"随年龄自动降低风险"。这份材料用业务语言拆解：这个承诺在系统里到底是怎么实现的、什么时候会动、客户能改什么、以及经营上值得注意的几点。</p>
+
+  <div class="verdict">
+    <div>
+      <h3>一 句 话 结 论</h3>
+      <p>颐养天年<b>不是</b>给客户一排"2035 / 2040 / 2045"让他自己挑，也<b>不是</b>一个股债比例固定的组合。它是<b>一条策略、两只底仓、一条按年龄画好的曲线</b>：客户开户时系统记下生日，之后每一次买入和检查，都按客户当年的年龄从曲线上取"股票类应占多少"，再把钱在"股票底仓"和"债券底仓"之间自动摆好。年龄每长一岁，比例自然往下走一格，客户全程不需要做任何选择。</p>
+    </div>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="v num">1</div><div class="l"><b>一条策略</b>所有客户买的是同一个策略</div></div>
+    <div class="kpi"><div class="v num">2</div><div class="l"><b>两只底仓</b>股票类底仓 + 债券类底仓</div></div>
+    <div class="kpi"><div class="v num">90<small>%</small></div><div class="l"><b>50 岁前股票类占比</b>积累期全力增长</div></div>
+    <div class="kpi"><div class="v num">26<small>%</small></div><div class="l"><b>65 岁退休时占比</b>逐步降到四分之一</div></div>
+    <div class="kpi"><div class="v num">4<small>个点</small></div><div class="l"><b>偏离容忍度</b>超过即自动调回</div></div>
+    <div class="kpi"><div class="v num">756</div><div class="l"><b>在册客户账户</b>最新开户 2026-09-03</div></div>
+  </div>
+</header>
+
+<!-- 01 底层逻辑 -->
+<section>
+  <div class="sec-h"><span class="no">01</span><h2>底层逻辑：三句话讲完</h2><p>策略本身很简单，复杂度都在"自动"两个字上</p></div>
+  <div class="grid3">
+    <div class="card">
+      <div class="big">①</div>
+      <h4>客户的钱只买两样东西</h4>
+      <p>一只"股票类底仓"（由主理人管理的一篓子权益基金），一只"债券类底仓"（一篓子债券基金）。所有客户，不论年龄，买的都是这两只。</p>
+      <div class="tip"><b>意义</b>：投研团队只需要管好两只底仓，不用为每个年龄段单独维护一套产品。</div>
+    </div>
+    <div class="card">
+      <div class="big">②</div>
+      <h4>两样东西各占多少，由年龄决定</h4>
+      <p>系统里存着一条从 18 岁到 120 岁、逐岁一格的曲线。50 岁以前股票类固定 90%；50 岁以后每年降几个点；65 岁退休时降到 26%；之后继续缓慢下降。</p>
+      <div class="tip"><b>意义</b>：相邻两岁差别不超过 3 个点，客户感受不到"跳档"，也不需要自己换产品。</div>
+    </div>
+    <div class="card">
+      <div class="big">③</div>
+      <h4>系统每天体检，偏了就自动调回</h4>
+      <p>每个交易日结束后，系统算一遍每位客户的实际持仓和"当年应有比例"差多少。差距超过 4 个百分点，就自动下单调回来，客户不能关闭。</p>
+      <div class="tip"><b>意义</b>：市场涨跌、年龄增长带来的偏离，都靠同一套机制收敛，没有人工环节。</div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 曲线 -->
+<section>
+  <div class="sec-h"><span class="no">02</span><h2>随年龄下滑的曲线长什么样</h2><p>数值来自生产系统当前配置 · 中间年份为线性示意</p></div>
+  <div class="chart-wrap">
+    <div class="chart-top">
+      <div><h4>股票类资产占比 × 客户年龄</h4><p>横轴是客户年龄，纵轴是这一年"股票类应占多少"。灰色区域是养老专区测算器里允许客户自选的范围。</p></div>
+      <div class="legend"><span><i></i>系统实际执行的目标比例</span><span><i class="band"></i>测算器允许自选区间</span><span><i class="dash"></i>65 岁退休锚点</span></div>
+    </div>
+    <svg class="glide" id="glide" viewBox="0 0 1000 380" role="img" aria-label="股票类占比随年龄下滑曲线"></svg>
+    <div class="phases">
+      <div class="phase"><b>18 – 50 岁<em>积累期</em></b><p>股票类恒定 90%。离退休还远，用时间换收益，全力增长。</p></div>
+      <div class="phase"><b>51 – 65 岁<em>过渡期</em></b><p>从 90% 一路降到 26%，每年降 3 – 5 个点。越接近退休，越多成果被锁进债券类。</p></div>
+      <div class="phase"><b>65 岁以后<em>领取期</em></b><p>继续缓降到 10% 上下。以稳为主，留一小部分股票类对抗长寿与通胀。</p></div>
+    </div>
+  </div>
+
+  <div class="sim">
+    <div>
+      <h4>试一试：同一天买入，不同年龄的客户拿到什么</h4>
+      <div class="age num"><span id="simAge">35</span><small>岁</small></div>
+      <div class="stage" id="simStage"></div>
+      <input type="range" id="simRange" min="18" max="90" value="35" step="1" aria-label="客户年龄" />
+      <div class="ticks"><span>18</span><span>30</span><span>40</span><span>50</span><span>60</span><span>65</span><span>70</span><span>80</span><span>90</span></div>
+      <div class="presets">
+        <button data-age="30">30 岁 · 刚工作几年</button>
+        <button data-age="45">45 岁 · 收入高峰</button>
+        <button data-age="58">58 岁 · 退休前夜</button>
+        <button data-age="66">66 岁 · 刚退休</button>
+        <button data-age="75">75 岁 · 领取期</button>
+      </div>
+    </div>
+    <div>
+      <div class="split"><div class="eq" id="splitEq">股票类 90%</div><div class="bd" id="splitBd">债券类 10%</div></div>
+      <div class="money">
+        <div><div class="k">10 万元里 · 股票类</div><div class="v num" id="mEq">90,000<small> 元</small></div></div>
+        <div><div class="k">10 万元里 · 债券类</div><div class="v num" id="mBd">10,000<small> 元</small></div></div>
+      </div>
+      <div class="note" id="simNote"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 客户旅程 -->
+<section>
+  <div class="sec-h"><span class="no">03</span><h2>客户买入后，系统替他做了什么</h2><p>八步全自动，客户只有第一步和最后一步有感知</p></div>
+  <div class="flow">
+    <div class="step"><div class="n">第 1 步</div><b>开户买入</b><p>客户在养老专区开通补充养老账户，选择颐养天年，首次买入。</p><div class="who">客户操作</div></div>
+    <div class="step"><div class="n">第 2 步</div><b>记下生日</b><p>系统为他单独建一个专属账户，并把身份证上的出生日期抄一份记在这个账户上。</p><div class="who">系统自动</div></div>
+    <div class="step"><div class="n">第 3 步</div><b>算出年龄</b><p>用"今年 − 出生年"得到年龄。按自然年计算：每年 1 月 1 日全体客户长一岁。</p><div class="who">系统自动</div></div>
+    <div class="step"><div class="n">第 4 步</div><b>查曲线定比例</b><p>拿年龄去曲线上查，得到"股票类应占多少"，比如 35 岁 → 90%。</p><div class="who">系统自动</div></div>
+    <div class="step"><div class="n">第 5 步</div><b>拼出目标持仓</b><p>目标 = 股票底仓 × 90% + 债券底仓 × 10%。这一步在每次买入、检查时实时算，不预先存。</p><div class="who">系统自动</div></div>
+    <div class="step"><div class="n">第 6 步</div><b>每日体检</b><p>每个交易日结束后比对实际持仓与目标，算出偏离了多少个百分点。</p><div class="who">系统自动 · 每日</div></div>
+    <div class="step"><div class="n">第 7 步</div><b>偏了就调回</b><p>偏离超过 4 个点，自动生成调仓单，把持仓拉回目标。主理人调整底仓时也会同步带动。</p><div class="who">系统自动</div></div>
+    <div class="step"><div class="n">第 8 步</div><b>年龄涨了，比例自然降</b><p>跨年后年龄 +1，第 4 步查到的比例变低，第 6、7 步自然把股票类往下调。不需要单独的"生日调仓"。</p><div class="who">客户收到调仓通知</div></div>
+  </div>
+</section>
+
+<!-- 04 触发 -->
+<section>
+  <div class="sec-h"><span class="no">04</span><h2>什么时候会真的动一笔调仓</h2><p>三个来源，一套执行</p></div>
+  <div class="trig">
+    <div class="card">
+      <span class="pill">来源一</span>
+      <h4 style="margin-top:12px">主理人调整底仓</h4>
+      <p>投研团队调整股票底仓或债券底仓里的基金时，所有客户按各自的年龄比例同步跟调。</p>
+      <div class="freq">频率<b>不定期 · 由投研决定</b></div>
+    </div>
+    <div class="card">
+      <span class="pill">来源二</span>
+      <h4 style="margin-top:12px">日常偏离检查</h4>
+      <p>市场涨跌让实际比例偏离目标，偏出 4 个百分点即自动调回。这是最主要的调仓来源。</p>
+      <div class="freq">频率<b>每个交易日检查一次</b></div>
+    </div>
+    <div class="card">
+      <span class="pill">来源三</span>
+      <h4 style="margin-top:12px">年龄增长</h4>
+      <p>本身不单独触发调仓。它只是让"目标比例"变低，再经由来源二被自然消化。因为每岁只差 2–3 个点，通常要累积一两年才够到 4 个点的门槛。</p>
+      <div class="freq">频率<b>每年 1 月 1 日目标下调一格</b></div>
+    </div>
+  </div>
+  <div class="callout"><b>要点</b><span>"按年龄调仓"在系统里并不是一个独立动作。它是把年龄揉进了"目标比例"这个数字里，再交给日常的偏离检查去执行。好处是机制简单、不会漏；代价是年龄导致的调整节奏不精确，取决于市场把持仓推离目标多远。</span></div>
+</section>
+
+<!-- 05 对比 -->
+<section>
+  <div class="sec-h"><span class="no">05</span><h2>和市场上同类做法比，差别在哪</h2><p>三种"随年龄降风险"的实现方式</p></div>
+  <div class="cmp">
+    <div class="col">
+      <h4>目标日期基金</h4>
+      <div class="sub">市面常见 · 如"养老 2040"</div>
+      <div class="row"><span class="k">客户要做</span><span class="v">自己按退休年份挑一只，选错了自己换</span></div>
+      <div class="row"><span class="k">档位</span><span class="v">5 年一档，跨档时比例有跳跃</span></div>
+      <div class="row"><span class="k">调整方式</span><span class="v">基金经理在基金内部调，客户看不到比例</span></div>
+      <div class="row"><span class="k">形态</span><span class="v">一只基金一个产品，产品线多</span></div>
+    </div>
+    <div class="col">
+      <h4>目标风险基金</h4>
+      <div class="sub">市面常见 · 如"稳健养老"</div>
+      <div class="row"><span class="k">客户要做</span><span class="v">选一个风险档，年龄变了要自己换</span></div>
+      <div class="row"><span class="k">档位</span><span class="v">比例固定，不随年龄变</span></div>
+      <div class="row"><span class="k">调整方式</span><span class="v">只做再平衡，不降风险</span></div>
+      <div class="row"><span class="k">形态</span><span class="v">一只基金一个产品</span></div>
+    </div>
+    <div class="col hl">
+      <h4>颐养天年</h4>
+      <div class="sub">且慢 · 投顾策略</div>
+      <div class="row"><span class="k">客户要做</span><span class="v">开户买入即可，系统按身份证生日自动定档</span></div>
+      <div class="row"><span class="k">档位</span><span class="v">逐岁一格，相邻差 ≤3 个点，无跳档</span></div>
+      <div class="row"><span class="k">调整方式</span><span class="v">在客户账户层面自动调，比例透明可见</span></div>
+      <div class="row"><span class="k">形态</span><span class="v">一条策略两只底仓，服务所有年龄</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 能改不能改 -->
+<section>
+  <div class="sec-h"><span class="no">06</span><h2>客户能改什么、不能改什么</h2><p>"规划层"和"执行层"是两套东西</p></div>
+  <div class="rights">
+    <div class="card can">
+      <span class="pill green">能改 · 只影响规划与展示</span>
+      <ul>
+        <li><i>✓</i><div>计划退休年龄<small>在养老专区测算器里可调，范围 49–76 岁。用于算"每月该存多少"，不改变实际持仓比例。</small></div></li>
+        <li><i>✓</i><div>目标股票类占比<small>可在曲线允许的区间内自定一个固定值（如 50%）。同样只用于测算和专区展示。</small></div></li>
+        <li><i>✓</i><div>每月定投金额、追加买入、部分转出<small>正常的资金进出不受限制。</small></div></li>
+      </ul>
+    </div>
+    <div class="card cant">
+      <span class="pill red">不能改 · 执行层全部锁定</span>
+      <ul>
+        <li><i>✕</i><div>关闭自动调仓<small>系统对该策略强制开启。客户尝试关闭会被提示"全自动管理型策略，不支持修改"。</small></div></li>
+        <li><i>✕</i><div>修改实际执行的股债比例<small>只由"生日 + 曲线"决定，没有任何修改入口。</small></div></li>
+        <li><i>✕</i><div>更改记录在账户上的生日<small>开户时抄录一次后固化，之后即便证件信息更新也不会同步。</small></div></li>
+        <li><i>✕</i><div>解约策略<small>没有解约按钮，只能转出全部资产后服务自动终止。</small></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 07 关注点 -->
+<section>
+  <div class="sec-h"><span class="no">07</span><h2>值得产品与业务关注的四点</h2><p>不是故障，是设计取舍留下的缝</p></div>
+  <div class="issues">
+    <div class="issue hi">
+      <div class="tag">体验一致性 · 优先级高</div>
+      <h4>"规划里说 50%，账户里却调向 90%"</h4>
+      <p>客户在测算器里把股票类占比自定为 50%，专区页面会显示"目标 50%"。但实际调仓仍按年龄曲线执行（比如 35 岁 → 90%）。两层目标不打通，理论上会出现客户看到的目标和被调向的目标不一致。</p>
+      <div class="adv"><b>建议</b>明确产品口径：要么让自定比例真正生效于执行层，要么在展示上讲清"这是测算假设，不是实际配置"。</div>
+    </div>
+    <div class="issue">
+      <div class="tag">计算口径</div>
+      <h4>年龄按自然年算，1 月 1 日全员长一岁</h4>
+      <p>系统用"今年 − 出生年"算年龄，不是精确周岁。12 月出生的客户在 1 月 1 日就被视为长了一岁，比实际早 11 个月进入下一格。</p>
+      <div class="adv"><b>建议</b>影响幅度小（每格差 2–3 个点），但对外解释"随年龄调整"时应准确表述为"随出生年份调整"。</div>
+    </div>
+    <div class="issue">
+      <div class="tag">个性化空间</div>
+      <h4>退休年龄统一按 65 岁，不能个性化到执行层</h4>
+      <p>曲线的退休锚点固定为 65 岁。客户即便在测算器里填"55 岁提前退休"，实际持仓还是按 65 岁退休的节奏降风险，55 岁时股票类仍有 75%。</p>
+      <div class="adv"><b>建议</b>若目标客群中"提前退休"诉求明显，可评估按计划退休年龄平移曲线的可行性。</div>
+    </div>
+    <div class="issue">
+      <div class="tag">数据固化</div>
+      <h4>生日只在开户那一刻抄录一次</h4>
+      <p>之后即便客户更新了证件信息，账户上的生日也不会同步。极端情况下（开户时证件信息有误），比例会一直按错误年龄执行。</p>
+      <div class="adv"><b>建议</b>属低频风险，建议在客服或运维侧保留一个人工修正入口。</div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 经营快照 -->
+<section>
+  <div class="sec-h"><span class="no">08</span><h2>经营快照</h2><p>生产数据 · 截至 2026-09-21</p></div>
+  <div class="ops">
+    <div class="card">
+      <h4>从"算过"到"买了"</h4>
+      <p>在养老专区用过测算、留下过规划参数的用户，与真正开通颐养天年账户的用户之间，还有一段明显的转化空间。</p>
+      <div class="funnel">
+        <div class="bar"><div class="lab">做过养老测算的用户</div><div class="fill num" style="width:100%">4,794 人</div></div>
+        <div class="bar b2"><div class="lab">开通颐养天年账户</div><div class="fill num" style="width:16%">756 户</div></div>
+        <div class="rate">测算 → 开户 转化约 <b>15.8%</b>。其余约 4,000 位已表达过养老规划意向、但尚未配置的用户，是顾问陪伴和专区运营最直接的名单。</div>
+      </div>
+    </div>
+    <div class="card">
+      <h4>关键事实</h4>
+      <ul class="facts">
+        <li><span>策略状态</span><b>正常运营中</b></li>
+        <li><span>最新开户日期</span><b class="num">2026-09-03</b></li>
+        <li><span>在册专属账户数</span><b class="num">756 户</b></li>
+        <li><span>风险等级</span><b>R3 · 中风险</b></li>
+        <li><span>所在账户</span><b>且慢养老金账户（补充养老）</b></li>
+        <li><span>股票类占比区间</span><b class="num">90% → 约 8%（18 → 90 岁+）</b></li>
+        <li><span>偏离容忍度</span><b class="num">4 个百分点（通用标准）</b></li>
+        <li><span>自动调仓</span><b>强制开启 · 不可关闭</b></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><b>数据与口径</b>：本页所有数字来自 2026-09-21 对生产系统的实查——策略与曲线配置、客户专属账户、养老专区规划数据；产品规则来自对应系统源码的核对。曲线上 18–50、51、55、60、65、70、80、90 岁为系统实际配置值，其余年份为线性示意。"10 万元"拆分为演示计算，不构成任何收益承诺。</p>
+  <p><b>说明</b>：本材料用于内部产品与业务沟通，去除了系统与技术术语；如需对应的技术实现细节（服务、表结构、字段），可另行提供。</p>
+</footer>
+
+</div>
+
+<script>
+/* ---- 曲线数据：关键年龄为生产配置值，其余线性插值 ---- */
+const KEY = [[18,90],[50,90],[51,87],[55,75],[60,49],[65,26],[70,18],[80,12],[90,8],[100,8]];
+function equityAt(age){
+  age = Math.max(18, Math.min(100, age));
+  for(let i=0;i<KEY.length-1;i++){
+    const [a0,v0]=KEY[i],[a1,v1]=KEY[i+1];
+    if(age>=a0 && age<=a1){ return Math.round(v0 + (v1-v0)*(age-a0)/(a1-a0)); }
+  }
+  return 8;
+}
+
+/* ---- 绘制下滑曲线 ---- */
+(function drawGlide(){
+  const svg=document.getElementById('glide');
+  const W=1000,H=380,L=56,R=24,T=26,B=44;
+  const x=a=>L+(a-18)/(90-18)*(W-L-R);
+  const y=v=>T+(100-v)/100*(H-T-B);
+  let s='';
+  // 网格
+  for(const v of [0,25,50,75,100]){
+    s+=`<line x1="${L}" y1="${y(v)}" x2="${W-R}" y2="${y(v)}" stroke="#E4DFD1" stroke-width="1"/>`;
+    s+=`<text x="${L-10}" y="${y(v)+4}" font-size="12" fill="#9B9688" text-anchor="end">${v}%</text>`;
+  }
+  for(const a of [18,30,40,50,60,65,70,80,90]){
+    s+=`<text x="${x(a)}" y="${H-B+22}" font-size="12" fill="#9B9688" text-anchor="middle">${a}${a===18?' 岁':''}</text>`;
+  }
+  // 允许区间（中枢 -15 / +10，限 0–100）
+  let up='',lo='';
+  for(let a=18;a<=90;a++){
+    const c=equityAt(a);
+    up+=`${a===18?'M':'L'}${x(a)},${y(Math.min(100,c+10))} `;
+  }
+  for(let a=90;a>=18;a--){
+    const c=equityAt(a);
+    lo+=`L${x(a)},${y(Math.max(0,c-15))} `;
+  }
+  s+=`<path d="${up}${lo}Z" fill="#E3D8BE" opacity=".55"/>`;
+  // 阶段底色分隔
+  s+=`<line x1="${x(50)}" y1="${T}" x2="${x(50)}" y2="${H-B}" stroke="#D4CDBB" stroke-width="1" stroke-dasharray="2 4"/>`;
+  s+=`<line x1="${x(65)}" y1="${T}" x2="${x(65)}" y2="${H-B}" stroke="#8A6D3C" stroke-width="1.2" stroke-dasharray="5 4"/>`;
+  s+=`<text x="${x(65)+6}" y="${T+14}" font-size="12" fill="#8A6D3C">65 岁 · 退休锚点</text>`;
+  s+=`<text x="${(x(18)+x(50))/2}" y="${T+14}" font-size="12" fill="#9B9688" text-anchor="middle">积累期</text>`;
+  s+=`<text x="${(x(50)+x(65))/2}" y="${T+14}" font-size="12" fill="#9B9688" text-anchor="middle">过渡期</text>`;
+  s+=`<text x="${(x(65)+x(90))/2+40}" y="${T+14}" font-size="12" fill="#9B9688" text-anchor="middle">领取期</text>`;
+  // 主曲线
+  let p='';
+  for(let a=18;a<=90;a++){ p+=`${a===18?'M':'L'}${x(a)},${y(equityAt(a))} `; }
+  s+=`<path d="${p}" fill="none" stroke="#8A6D3C" stroke-width="3" stroke-linejoin="round"/>`;
+  // 关键点标注
+  const marks=[[30,90,'90%',-14,0],[55,75,'75%',-14,0],[60,49,'49%',-14,0],[65,26,'26%',-12,-16],[70,18,'18%',-14,0],[80,12,'12%',-14,0],[90,8,'8%',-14,0]];
+  for(const [a,v,t,dy,dx] of marks){
+    s+=`<circle cx="${x(a)}" cy="${y(v)}" r="5" fill="#FCFBF7" stroke="#8A6D3C" stroke-width="2.5"/>`;
+    s+=`<text x="${x(a)+dx}" y="${y(v)+dy}" font-size="13" font-weight="700" fill="#6E5730" text-anchor="middle">${t}</text>`;
+  }
+  // 交互指示点
+  s+=`<g id="glideCursor"><line id="gcLine" x1="0" y1="${T}" x2="0" y2="${H-B}" stroke="#1F2227" stroke-width="1" opacity=".5"/><circle id="gcDot" r="7" fill="#1F2227"/><text id="gcText" font-size="13" font-weight="700" fill="#1F2227" text-anchor="middle"></text></g>`;
+  svg.innerHTML=s;
+  window.__glideXY={x,y};
+})();
+
+/* ---- 年龄模拟器 ---- */
+(function sim(){
+  const range=document.getElementById('simRange');
+  const fmt=n=>n.toLocaleString('zh-CN');
+  function stageOf(a){
+    if(a<=50) return ['积累期 · 股票类恒定 90%，全力增长','离退休还有 '+(65-a)+' 年。这个阶段不降风险，靠时间和复利把本金做大。'];
+    if(a<65) return ['过渡期 · 每年降 3–5 个点，逐步锁定成果','离 65 岁退休还有 '+(65-a)+' 年。系统每年把一部分股票类挪进债券类，把已有的增长慢慢"落袋"。'];
+    if(a===65) return ['退休锚点 · 股票类降到 26%','进入领取阶段。四分之一股票类用于对抗长寿与通胀，其余以稳为主。'];
+    return ['领取期 · 以稳为主，缓慢下降','退休后第 '+(a-65)+' 年。股票类继续缓降，保证养老金按计划领取不受大幅波动影响。'];
+  }
+  function render(){
+    const a=+range.value, e=equityAt(a), b=100-e;
+    document.getElementById('simAge').textContent=a;
+    const [st,note]=stageOf(a);
+    document.getElementById('simStage').textContent=st;
+    document.getElementById('simNote').textContent=note+' 同一天买入 10 万元，系统会按下面的比例摆放。';
+    const eq=document.getElementById('splitEq'), bd=document.getElementById('splitBd');
+    eq.style.flex=e; bd.style.flex=b;
+    eq.textContent=e>=14?`股票类 ${e}%`:`${e}%`;
+    bd.textContent=b>=14?`债券类 ${b}%`:`${b}%`;
+    document.getElementById('mEq').innerHTML=`${fmt(e*1000)}<small> 元</small>`;
+    document.getElementById('mBd').innerHTML=`${fmt(b*1000)}<small> 元</small>`;
+    document.querySelectorAll('.presets button').forEach(btn=>btn.classList.toggle('on',+btn.dataset.age===a));
+    // 曲线上的光标
+    const {x,y}=window.__glideXY;
+    const cx=x(Math.min(a,90)), cy=y(e);
+    document.getElementById('gcLine').setAttribute('x1',cx);
+    document.getElementById('gcLine').setAttribute('x2',cx);
+    const dot=document.getElementById('gcDot'); dot.setAttribute('cx',cx); dot.setAttribute('cy',cy);
+    const tx=document.getElementById('gcText'); tx.setAttribute('x',cx); tx.setAttribute('y',cy+26); tx.textContent=`${a} 岁 · ${e}%`;
+  }
+  range.addEventListener('input',render);
+  document.querySelectorAll('.presets button').forEach(btn=>btn.addEventListener('click',()=>{range.value=btn.dataset.age;render();}));
+  render();
+})();
+</script>
+</body>
+</html>

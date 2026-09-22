@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OAP 官网升级产品方案 — 接入 YCC 帐号体系 + 积分方案</title>
+<style>
+:root{
+  --blue:#2F6BFF; --blue-deep:#1E4FD6; --blue-soft:#EEF3FF; --blue-line:#CFDCFF;
+  --navy:#0B1E3F; --navy-2:#12294F;
+  --ink:#111827; --ink-2:#374151; --ink-3:#6B7280; --ink-4:#9CA3AF;
+  --line:#E5E7EB; --line-2:#F0F2F6; --bg:#F5F7FB; --card:#FFFFFF;
+  --green:#059669; --green-soft:#E6F6F0;
+  --amber:#D97706; --amber-soft:#FEF3E2;
+  --red:#DC2626; --red-soft:#FDECEC;
+  --purple:#7C3AED; --purple-soft:#F1EBFF;
+  --teal:#0E7490; --teal-soft:#E0F2F7;
+  --font:"PingFang SC","MiSans","Hiragino Sans GB",system-ui,-apple-system,"Microsoft YaHei",sans-serif;
+  --mono:"SF Mono",Menlo,Consolas,monospace;
+  --r:14px; --r-sm:8px;
+  --sh:0 1px 2px rgba(17,24,39,.04),0 6px 20px rgba(17,24,39,.05);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);color:var(--ink);background:var(--bg);font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+.num,.mono{font-variant-numeric:tabular-nums}
+.mono{font-family:var(--mono)}
+
+.topbar{position:sticky;top:0;z-index:50;height:56px;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 28px;gap:18px}
+.topbar .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:15px;white-space:nowrap}
+.topbar .logo .mark{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,#4F86FF,#1E4FD6);color:#fff;display:grid;place-items:center;font-size:11px;font-weight:800}
+.topbar .logo span.tag{font-size:11px;font-weight:600;color:var(--blue-deep);background:var(--blue-soft);border:1px solid var(--blue-line);padding:1px 8px;border-radius:4px}
+.topbar nav{display:flex;gap:2px;margin-left:8px;overflow-x:auto;scrollbar-width:none}
+.topbar nav::-webkit-scrollbar{display:none}
+.topbar nav a{font-size:12.5px;color:var(--ink-2);padding:6px 10px;border-radius:6px;white-space:nowrap}
+.topbar nav a:hover{background:var(--line-2)}
+.topbar nav a.on{color:var(--blue-deep);background:var(--blue-soft);font-weight:600}
+.topbar .sp{flex:1}
+.topbar .meta{font-size:11.5px;color:var(--ink-3);white-space:nowrap}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 28px 80px}
+
+.hero{background:linear-gradient(135deg,var(--navy) 0%,#163A7A 60%,#1E4FD6 100%);color:#fff;border-radius:20px;padding:40px 44px;position:relative;overflow:hidden;box-shadow:0 20px 50px rgba(11,30,63,.25)}
+.hero:before{content:"";position:absolute;right:-120px;top:-140px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.14),transparent 70%)}
+.hero>*{position:relative;z-index:1}
+.hero .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.85;font-weight:600}
+.hero .eyebrow i{width:8px;height:8px;border-radius:50%;background:#7DD3FC;display:inline-block}
+.hero h1{font-size:32px;line-height:1.25;margin:14px 0 8px;letter-spacing:-.01em}
+.hero h1 small{display:block;font-size:16px;font-weight:500;opacity:.8;margin-top:6px}
+.hero .lead{font-size:15px;max-width:800px;opacity:.92;margin-top:12px}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:26px}
+.three div{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:16px 18px}
+.three b{font-size:16px;display:block;margin-bottom:4px}
+.three small{font-size:12.5px;opacity:.85;line-height:1.5;display:block}
+.three .n{font-family:var(--mono);font-size:11px;opacity:.7;letter-spacing:.1em}
+
+.section{margin-top:44px}
+.sec-head{display:flex;align-items:flex-end;gap:14px;margin-bottom:16px}
+.sec-head .no{font-family:var(--mono);font-size:12px;color:var(--blue-deep);background:var(--blue-soft);border:1px solid var(--blue-line);padding:2px 8px;border-radius:6px;font-weight:700}
+.sec-head h2{font-size:22px;letter-spacing:-.01em}
+.sec-head p{font-size:13px;color:var(--ink-3);margin-left:auto;max-width:520px;text-align:right}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh);padding:20px 22px}
+.card h3{font-size:15px;margin-bottom:8px}
+.card p{color:var(--ink-2);font-size:13.5px}
+.card ul.pl{padding-left:16px;font-size:13px;color:var(--ink-2);line-height:1.75}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:1fr 1fr}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.tag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.tag.blue{background:var(--blue-soft);color:var(--blue-deep)}
+.tag.green{background:var(--green-soft);color:var(--green)}
+.tag.amber{background:var(--amber-soft);color:var(--amber)}
+.tag.red{background:var(--red-soft);color:var(--red)}
+.tag.purple{background:var(--purple-soft);color:var(--purple)}
+.tag.gray{background:var(--line-2);color:var(--ink-3)}
+.tag.teal{background:var(--teal-soft);color:var(--teal)}
+.tag.navy{background:var(--navy);color:#fff}
+.callout{border-left:4px solid var(--blue);background:var(--blue-soft);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:12px 16px;font-size:13.5px;color:var(--ink-2)}
+.callout.amber{border-color:var(--amber);background:var(--amber-soft)}
+.callout.green{border-color:var(--green);background:var(--green-soft)}
+.callout.red{border-color:var(--red);background:var(--red-soft)}
+.callout b{color:var(--ink)}
+.src{font-size:11.5px;color:var(--ink-4);margin-top:10px}
+.src b{color:var(--ink-3);font-weight:600}
+
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:var(--sh)}
+.kpi .l{font-size:12px;color:var(--ink-3)}
+.kpi .v{font-size:24px;font-weight:800;letter-spacing:-.02em;margin-top:2px}
+.kpi .v small{font-size:12px;color:var(--ink-3);font-weight:500;margin-left:3px}
+.kpi .t{font-size:11.5px;margin-top:4px;color:var(--ink-3)}
+.kpi .t b{color:var(--blue-deep)}
+.bar{height:6px;background:var(--line-2);border-radius:4px;overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--blue);border-radius:4px}
+
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;background:var(--bg);color:var(--ink-3);font-weight:600;padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:10px 12px;border-bottom:1px solid var(--line-2);color:var(--ink-2);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:600;white-space:nowrap}
+td.r,th.r{text-align:right}
+.tbl-card{padding:0;overflow:hidden}
+.tbl-card>h3{padding:16px 20px 0}
+.tbl-card table th:first-child,.tbl-card table td:first-child{padding-left:20px}
+
+/* 架构 Before/After */
+.arch{display:grid;grid-template-columns:1fr 60px 1fr;gap:0;align-items:stretch}
+.arch .mid{display:grid;place-items:center;color:var(--ink-4);font-size:28px}
+.arch .box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;box-shadow:var(--sh)}
+.arch .box h3{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.layer{border:1px dashed var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px;background:var(--bg);position:relative}
+.layer .lbl{font-size:10.5px;color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase;font-weight:600;margin-bottom:6px}
+.layer .items{display:flex;gap:6px;flex-wrap:wrap}
+.layer .items span{font-size:12px;background:#fff;border:1px solid var(--line);border-radius:6px;padding:3px 9px;color:var(--ink-2)}
+.layer .items span.bad{border-color:#F3C4C4;background:#FFF6F6;color:#9F2A2A}
+.layer .items span.new{border-color:var(--blue-line);background:var(--blue-soft);color:var(--blue-deep);font-weight:600}
+.layer .items span.keep{border-color:#CFE3D8;background:#F3FBF7;color:#1F6B4A}
+.layer.ycc{border:1.5px solid var(--blue-line);background:linear-gradient(180deg,#F3F7FF,#fff)}
+.arrow-down{text-align:center;color:var(--blue);font-size:16px;line-height:1;margin:-2px 0 6px}
+
+/* 实体关系 */
+.er{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;align-items:start}
+.ent{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--sh);overflow:hidden}
+.ent .h{background:var(--navy);color:#fff;font-size:12.5px;font-weight:700;padding:8px 12px;display:flex;justify-content:space-between;align-items:center}
+.ent .h small{font-weight:500;opacity:.7;font-size:10.5px}
+.ent.p1 .h{background:var(--blue)}
+.ent.p2 .h{background:#6FA0FF}
+.ent.sg .h{background:#374151}
+.ent ul{list-style:none;padding:8px 12px;font-size:12px;color:var(--ink-2);line-height:1.7}
+.ent li b{color:var(--ink);font-weight:600}
+.er-note{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;font-size:12px;color:var(--ink-3)}
+.er-note span:before{content:"—";margin-right:6px;color:var(--blue)}
+
+/* 登录方式 */
+.logins{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.login{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:var(--sh)}
+.login .ic{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;font-weight:800;color:#fff;font-size:12px;margin-bottom:10px}
+.login b{display:block;font-size:13.5px}
+.login small{display:block;font-size:12px;color:var(--ink-3);margin-top:4px;line-height:1.5}
+
+/* 迁移 */
+.migrate{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.mg{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;box-shadow:var(--sh);border-top:4px solid var(--blue)}
+.mg.b{border-top-color:var(--purple)}.mg.c{border-top-color:var(--teal)}
+.mg h4{font-size:14px;margin-bottom:4px}
+.mg .who{font-size:12px;color:var(--ink-3);margin-bottom:10px}
+.mg ol{padding-left:18px;font-size:12.5px;color:var(--ink-2);line-height:1.7}
+.mg .keep{margin-top:10px;font-size:12px;background:var(--green-soft);color:var(--green);border-radius:8px;padding:6px 10px}
+
+.flow{display:flex;align-items:stretch;gap:0}
+.flow .step{flex:1;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;box-shadow:var(--sh)}
+.flow .step .n{font-family:var(--mono);font-size:11px;color:var(--blue-deep);font-weight:700}
+.flow .step b{display:block;font-size:13.5px;margin:2px 0 4px}
+.flow .step small{font-size:11.5px;color:var(--ink-3);line-height:1.5;display:block}
+.flow .arr{flex:none;width:30px;display:grid;place-items:center;color:var(--blue);font-size:20px}
+.flow .step.hl{border-color:var(--blue-line);background:var(--blue-soft)}
+.flow .step.gray{border-style:dashed;background:transparent;box-shadow:none}
+.flow .step.ycc{border-color:var(--blue);border-width:1.5px}
+
+/* 积分 */
+.pt-def{display:grid;grid-template-columns:1.2fr 1fr;gap:14px}
+.rule{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.rule div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:12.5px;color:var(--ink-2);box-shadow:var(--sh)}
+.rule div b{display:block;color:var(--ink);font-size:13px;margin-bottom:3px}
+.acct{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.ac{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:var(--sh);position:relative}
+.ac .who{font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--blue-deep);text-transform:uppercase}
+.ac b{display:block;font-size:14px;margin:4px 0 6px}
+.ac ul{list-style:none;font-size:12px;color:var(--ink-3);line-height:1.65}
+.ac.sub:before{content:"⤷ 子帐户";position:absolute;top:12px;right:12px;font-size:10.5px;color:var(--ink-4)}
+.earn{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.earn .card h3{display:flex;align-items:center;gap:8px}
+.el{list-style:none}
+.el li{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:13px;color:var(--ink-2)}
+.el li:last-child{border-bottom:0}
+.el li span:last-child{font-family:var(--mono);color:var(--blue-deep);font-weight:600;white-space:nowrap}
+.plans{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:var(--sh);position:relative;display:flex;flex-direction:column}
+.plan.hot{border-color:var(--blue);box-shadow:0 12px 30px rgba(47,107,255,.15)}
+.plan .hotb{position:absolute;top:-10px;left:16px;font-size:10.5px;font-weight:700;color:#fff;background:var(--blue);padding:2px 9px;border-radius:999px}
+.plan .nm{font-size:14px;font-weight:800}
+.plan .for{font-size:11.5px;color:var(--ink-3);margin-bottom:10px}
+.plan .pr{font-size:22px;font-weight:800;letter-spacing:-.02em}
+.plan .pr small{font-size:11.5px;color:var(--ink-3);font-weight:500}
+.plan ul{list-style:none;font-size:12px;color:var(--ink-2);line-height:1.8;margin-top:8px;flex:1}
+.plan ul li:before{content:"·";color:var(--blue);font-weight:800;margin-right:6px}
+.plan .pay{margin-top:10px;font-size:11.5px;color:var(--ink-3);border-top:1px dashed var(--line);padding-top:8px}
+
+.calc{display:grid;grid-template-columns:1.1fr 1fr;gap:14px}
+.calc .ctl{display:grid;gap:12px}
+.calc label{font-size:12.5px;color:var(--ink-3);display:block;margin-bottom:4px}
+.calc input[type=range]{width:100%}
+.calc .val{font-family:var(--mono);font-weight:700;color:var(--blue-deep)}
+.calc .out{background:var(--navy);color:#fff;border-radius:12px;padding:16px 18px}
+.calc .out .row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed rgba(255,255,255,.15);font-size:13px}
+.calc .out .row:last-child{border-bottom:0}
+.calc .out .row span:last-child{font-family:var(--mono);font-weight:700}
+.calc .out .big{font-size:26px;font-weight:800;margin:4px 0 8px}
+.calc .out .note{font-size:11px;opacity:.7;margin-top:8px}
+.seg{display:inline-flex;background:var(--line-2);border-radius:8px;padding:2px;gap:2px}
+.seg button{font-family:inherit;border:0;background:transparent;font-size:12px;padding:5px 12px;border-radius:6px;color:var(--ink-3);cursor:pointer}
+.seg button.on{background:#fff;color:var(--blue-deep);font-weight:700;box-shadow:0 1px 3px rgba(17,24,39,.12)}
+
+.chain{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;align-items:stretch}
+.ch{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:12px;color:var(--ink-2);box-shadow:var(--sh);position:relative}
+.ch .sys{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:3px}
+.ch.sg .sys{color:#374151}.ch.ycc .sys{color:var(--blue-deep)}.ch.web .sys{color:var(--teal)}.ch.fin .sys{color:var(--amber)}
+.ch.ycc{border-color:var(--blue-line);background:var(--blue-soft)}
+.ch b{display:block;font-size:13px;color:var(--ink);margin-bottom:3px}
+.ch:after{content:"›";position:absolute;right:-9px;top:50%;transform:translateY(-50%);color:var(--blue);font-size:18px;background:var(--bg);line-height:1}
+.ch:last-child:after{display:none}
+
+/* 旅程 */
+.tabs{display:inline-flex;background:var(--line-2);border-radius:10px;padding:3px;gap:3px;margin-bottom:14px}
+.tabs button{font-family:inherit;border:0;background:transparent;font-size:13px;padding:7px 16px;border-radius:8px;color:var(--ink-3);cursor:pointer;font-weight:500}
+.tabs button.on{background:#fff;color:var(--blue-deep);font-weight:700;box-shadow:0 1px 3px rgba(17,24,39,.12)}
+.scene{display:none}.scene.on{display:block}
+.jour{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.jr{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;box-shadow:var(--sh)}
+.jr .st{font-size:10.5px;color:var(--ink-4);letter-spacing:.06em;text-transform:uppercase;font-weight:700}
+.jr b{display:block;font-size:13.5px;margin:2px 0 6px}
+.jr .u{font-size:12px;color:var(--ink-2);line-height:1.55}
+.jr .s{font-size:11.5px;color:var(--blue-deep);margin-top:8px;border-top:1px dashed var(--line);padding-top:6px}
+.jr .s:before{content:"系统：";color:var(--ink-4)}
+
+/* 路线图 */
+.roadmap{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.roadmap:before{content:"";position:absolute;left:0;right:0;top:18px;border-top:2px solid var(--blue-line)}
+.ph-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:34px 18px 16px;box-shadow:var(--sh);position:relative}
+.ph-card .dot{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:16px;height:16px;border-radius:50%;background:#fff;border:4px solid var(--blue)}
+.ph-card .when{font-size:11.5px;color:var(--blue-deep);font-weight:700;text-align:center;letter-spacing:.04em;margin-bottom:14px}
+.ph-card h3{font-size:15px;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.ph-card ul{padding-left:16px;font-size:12.5px;color:var(--ink-2);line-height:1.7}
+.ph-card .out{margin-top:10px;font-size:12px;background:var(--green-soft);color:var(--green);border-radius:8px;padding:6px 10px}
+.ph-card .dep{margin-top:6px;font-size:11.5px;color:var(--ink-3)}
+.ph-card .dep b{color:var(--ink-2)}
+
+.metric{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px dashed var(--line)}
+.metric:last-child{border-bottom:0}
+.metric span{font-size:13px;color:var(--ink-2)}
+.metric b{font-family:var(--mono);font-size:13px;color:var(--blue-deep)}
+
+.risks{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.risk{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:var(--sh);display:grid;grid-template-columns:auto 1fr;gap:12px}
+.risk .lv{width:44px;height:44px;border-radius:10px;display:grid;place-items:center;font-weight:800;font-size:12px}
+.risk .lv.h{background:var(--red-soft);color:var(--red)}.risk .lv.m{background:var(--amber-soft);color:var(--amber)}.risk .lv.l{background:var(--green-soft);color:var(--green)}
+.risk b{display:block;font-size:13.5px;margin-bottom:3px}
+.risk p{font-size:12.5px;color:var(--ink-2)}
+.risk .do{font-size:12px;color:var(--ink-3);margin-top:5px}
+.risk .do em{font-style:normal;color:var(--blue-deep);font-weight:600}
+
+.decisions{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.dec{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;gap:12px;box-shadow:var(--sh)}
+.dec .n{flex:none;width:28px;height:28px;border-radius:8px;background:var(--amber-soft);color:var(--amber);display:grid;place-items:center;font-weight:800;font-size:12px}
+.dec b{display:block;font-size:13.5px;margin-bottom:3px}
+.dec p{font-size:12.5px;color:var(--ink-2)}
+.dec .opt{margin-top:6px;font-size:12px;color:var(--ink-3)}
+.dec .opt em{font-style:normal;color:var(--blue-deep);font-weight:600}
+
+footer{margin-top:60px;padding-top:18px;border-top:1px solid var(--line);font-size:11.5px;color:var(--ink-4);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+
+@media (max-width:1000px){
+  .three,.kpis,.g2,.g3,.g4,.arch,.er,.logins,.migrate,.pt-def,.rule,.acct,.earn,.plans,.calc,.chain,.jour,.roadmap,.risks,.decisions{grid-template-columns:1fr}
+  .arch .mid{transform:rotate(90deg)}
+  .flow{flex-direction:column}.flow .arr{transform:rotate(90deg);height:26px}
+  .roadmap:before{display:none}.sec-head p,.topbar nav{display:none}
+  .ch:after{display:none}
+}
+@media print{.topbar{position:static}.section{break-inside:avoid}}
+.package-nav{position:sticky;top:0;z-index:60;background:rgba(14,32,57,.96);backdrop-filter:blur(14px);color:#fff;border-bottom:1px solid rgba(255,255,255,.14)}.package-nav .inner{max-width:1180px;margin:auto;padding:10px 24px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}.package-nav b{margin-right:auto;font-size:13px}.package-nav a{color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.26);padding:6px 10px;border-radius:999px;font-size:12px}.package-nav a:hover{background:#fff;color:#173f70}
+</style>
+</head>
+<body>
+<nav class="package-nav"><div class="inner"><b>YCC × OAP 升级方案包</b><a href="./">01 项目全景</a><a href="oap-ycc-upgrade-plan.html">02 产品升级方案</a><a href="oap-ycc-site-demo.html">03 官网交互 Demo</a></div></nav>
+
+<header class="topbar">
+  <div class="logo"><span class="mark">OAP</span> OAP 官网升级产品方案 <span class="tag">接入 YCC 帐号体系 + 积分方案 · V0.1</span></div>
+  <nav id="nav">
+    <a href="#now">现状</a><a href="#overview">升级总览</a><a href="#account">帐号体系</a><a href="#points">积分方案</a><a href="#journey">用户旅程</a><a href="#scope">改造清单</a><a href="#plan">实施计划</a><a href="#kpi">指标</a><a href="#risk">风险</a><a href="#decide">待拍板</a>
+  </nav>
+  <div class="sp"></div>
+  <div class="meta">配套文档：<a href="ycc-project-overview.html">《YCC 项目可视化方案》</a> · 2026-09-22</div>
+</header>
+
+<main class="wrap">
+
+<section class="hero">
+  <div class="eyebrow"><i></i> 盈米 AI 开放平台 · ai.yingmi.com / qieman.com/mcp</div>
+  <h1>OAP 官网升级：换帐号底座、上积分体系、打通"买—用—算"
+    <small>让开放平台从"申请一个 Key 免费用"，升级为"一个盈米帐号、按积分用量、可自助购买与对账"的经营型平台</small>
+  </h1>
+  <p class="lead">OAP 是盈米科技产品中用户最多、商业化目标最明确、且已有合同按"预充值积分"计费的产品。本方案把 OAP 官网作为 <b>YCC 盈米商业服务中枢</b>的首个接入产品：官网前端保留，帐号、商品、权益、订单、收银交给 YCC，用量计量仍由 Stargate 网关执行。</p>
+  <div class="three">
+    <div><span class="n">01 · 帐号</span><b>切到 YCC 统一帐号</b><small>手机号主身份 + 微信 / 且慢快捷登录 + 机构成员管理；存量用户与 API Key 无感迁移。</small></div>
+    <div><span class="n">02 · 积分</span><b>用量按积分计量与扣减</b><small>按工具计价、按帐户扣减；个人 / 机构 / 合同三类积分帐户；有效期、限额、流水可查。</small></div>
+    <div><span class="n">03 · 交易</span><b>可买、可付、可对账</b><small>套餐与加油包在线购买，机构对公入帐自动到权益，统一主体开票，售后自动回收。</small></div>
+  </div>
+</section>
+
+<!-- 01 现状 -->
+<section class="section" id="now">
+  <div class="sec-head"><span class="no">01</span><h2>OAP 官网现状盘点</h2><p>先讲清楚今天是什么样，升级才有参照。</p></div>
+  <div class="kpis">
+    <div class="kpi"><div class="l">服务金融机构</div><div class="v num">350<small>+ 家</small></div><div class="t">2026-05 官网升级稿口径</div></div>
+    <div class="kpi"><div class="l">注册 / 申请用户</div><div class="v num">5,500<small>+</small></div><div class="t">年底目标 <b>10,000</b> · MAU <b>2,000</b></div><div class="bar"><i style="width:55%"></i></div></div>
+    <div class="kpi"><div class="l">累计调用</div><div class="v num">800<small>万+</small></div><div class="t">年底目标 <b>1,300 万</b></div><div class="bar"><i style="width:62%"></i></div></div>
+    <div class="kpi"><div class="l">开放能力</div><div class="v num">72<small>工具 · 11 Skills</small></div><div class="t">MCP + Skills + Agents 三层</div></div>
+    <div class="kpi"><div class="l">已接入 AI 平台</div><div class="v num">4<small>+</small></div><div class="t">阿里云百炼 · 火山引擎 · 腾讯云 ADP · WorkBuddy</div></div>
+  </div>
+
+  <div class="grid g2" style="margin-top:14px">
+    <div class="card tbl-card">
+      <h3>今天的帐号与收费是怎么做的</h3>
+      <table>
+        <thead><tr><th>维度</th><th>现状</th><th>问题</th></tr></thead>
+        <tbody>
+          <tr><td class="k">官网入口</td><td>ai.yingmi.com（品牌与能力展示）+ qieman.com/mcp/*（landing、申请、指南、个人中心 account）</td><td>两个域名两套体验，帐号与购买缺位</td></tr>
+          <tr><td class="k">个人身份</td><td>Stargate OAuth；C 端身份来源走且慢（pmdj OIDC）</td><td>OAP 用户 = 且慢用户，边界不清；无法独立经营</td></tr>
+          <tr><td class="k">机构身份</td><td>走慧客通 yingchat-gateway 身份，或直接发 API Key</td><td>机构成员管理靠运营手工；无自助</td></tr>
+          <tr><td class="k">凭证</td><td>API Key（申请制、免费）与 OAuth 并存</td><td>Key 无归属到"可付费的帐户"，用量无法变现</td></tr>
+          <tr><td class="k">计费</td><td>合同"预充值积分"（如山西证券 12 万 / 12 月）；外部渠道有工具级 credits 定价表与计量推送</td><td>积分入账、扣减、余额靠线下表格；客户不可见</td></tr>
+          <tr><td class="k">购买</td><td>无商品、无收银台、无发票自助</td><td>个人想付钱没入口；机构对公流程全人工</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:14px">
+        <h3>已经具备的基础（不用重做）</h3>
+        <ul class="pl">
+          <li><b>Stargate 网关</b>：API Key、OAuth、OpenChannel、Scope、服务分组、审计日志已上线；一期 PRD 明确 <b>Stargate 作为统一授权服务器、BU 降级为 IdP</b>——这正是 YCC 接入的技术接口。</li>
+          <li><b>工具级计价表</b>：库内已有 <span class="mono">api_external_market_tool_pricing</span>（按 market_code / 工具的 credits）与 <span class="mono">api_external_market_metering_push</span>（计量推送）。积分方案可直接复用"工具 → credits"口径。</li>
+          <li><b>合同先例</b>：山西证券合同已按"预充值积分、额度 / 计量 / 有效期以附件为准"约定，积分作为 2B 计费单位已被客户接受。</li>
+          <li><b>帐号与额度管理原型</b>：昨日已完成个人 / 团队 / 企业版控制台原型（成员、额度、期限、口令、用量统计），可作为官网"帐号中心"的页面基础。</li>
+        </ul>
+      </div>
+      <div class="callout amber"><b>核心判断：</b>OAP 缺的不是接口，而是"帐号—权益—交易"这一层。自己再造一套只会成为下一个孤岛；接入 YCC 是成本最低、也能让其他产品复用的路径。</div>
+    </div>
+  </div>
+  <p class="src"><b>来源：</b>盈米本体核查（2026-09-22）· Stargate 升级版 PRD（一期）· OAP 产品规划文档 · 2026-05 官网升级发布稿 · 2026 下半年 OKR（P2）· 山西证券 MCP 服务合同文本 · OAP 商业化审计脚本（ying99_oap）。</p>
+</section>
+
+<!-- 02 升级总览 -->
+<section class="section" id="overview">
+  <div class="sec-head"><span class="no">02</span><h2>升级总览：改哪一层，不改哪一层</h2><p>官网前端与 Stargate 执行层保留；帐号、商品、权益、订单、收银换成 YCC。</p></div>
+  <div class="arch">
+    <div class="box">
+      <h3><span class="tag red">现在</span> 官网 + Stargate 各扛一半</h3>
+      <div class="layer"><div class="lbl">官网前端</div><div class="items"><span>ai.yingmi.com</span><span>qieman.com/mcp landing</span><span>申请服务</span><span>个人中心 account</span><span class="bad">无商品 / 购买</span></div></div>
+      <div class="arrow-down">↓</div>
+      <div class="layer"><div class="lbl">身份与凭证</div><div class="items"><span class="bad">且慢 pmdj OIDC（个人）</span><span class="bad">yingchat（机构）</span><span>Stargate OAuth</span><span>API Key 申请制</span></div></div>
+      <div class="arrow-down">↓</div>
+      <div class="layer"><div class="lbl">权益与计费</div><div class="items"><span class="bad">合同积分线下表格</span><span>外部渠道 credits 定价表</span><span class="bad">用户不可见余额</span></div></div>
+      <div class="arrow-down">↓</div>
+      <div class="layer"><div class="lbl">执行与计量</div><div class="items"><span class="keep">Stargate 网关 · MCP · 路由 · 审计</span><span class="keep">72 工具 · 11 Skills</span></div></div>
+    </div>
+    <div class="mid">→</div>
+    <div class="box">
+      <h3><span class="tag green">升级后</span> 官网 + YCC + Stargate 三层分工</h3>
+      <div class="layer"><div class="lbl">官网前端（保留并改造）</div><div class="items"><span>ai.yingmi.com 统一入口</span><span class="new">登录 / 注册（YCC）</span><span class="new">商品与套餐页</span><span class="new">帐号中心 · 机构中心</span><span class="new">积分与订单</span></div></div>
+      <div class="arrow-down">↓</div>
+      <div class="layer ycc"><div class="lbl" style="color:var(--blue-deep)">YCC 盈米商业服务中枢（新增接入）</div><div class="items"><span class="new">用户认证 · 用户管理（P0）</span><span class="new">商品管理 · 权益 / 积分（P1）</span><span class="new">订单 · 统一收银台（P2）</span><span class="new">售后（P3）</span></div></div>
+      <div class="arrow-down">↓</div>
+      <div class="layer"><div class="lbl">执行与计量（保留）</div><div class="items"><span class="keep">Stargate：YCC 作为 IdP · API Key 归属 YCC 帐户</span><span class="keep">调用计量 → 推送 YCC 扣减积分</span><span class="keep">审计 · Scope · 路由不变</span></div></div>
+    </div>
+  </div>
+  <div class="callout" style="margin-top:14px"><b>一句话分工：</b>官网负责"看和操作"，YCC 负责"谁、买了什么、还剩多少、怎么付"，Stargate 负责"调用能不能过、用了多少"。三者通过身份（YCC 用户 / 机构 ID）与计量事件（工具、次数、credits）串起来。</div>
+</section>
+
+<!-- 03 帐号体系 -->
+<section class="section" id="account">
+  <div class="sec-head"><span class="no">03</span><h2>帐号体系切换方案</h2><p>目标帐号模型 → 登录方式 → 与 Stargate 的关系 → 存量迁移 → 灰度。</p></div>
+
+  <h3 style="font-size:15px;margin-bottom:10px">3.1 目标帐号模型（OAP 视角）</h3>
+  <div class="er">
+    <div class="ent"><div class="h">YCC 用户 <small>P0</small></div><ul><li><b>user_id</b></li><li>手机号（主身份，唯一）</li><li>昵称 / 头像</li><li>实名状态（机构成员可选）</li><li>状态：正常 / 冻结</li></ul></div>
+    <div class="ent"><div class="h">身份来源 <small>P0</small></div><ul><li>手机号验证码</li><li>微信 OpenID / UnionID</li><li>且慢 App（OIDC）</li><li>机构邀请口令</li><li>一个用户可绑多个来源</li></ul></div>
+    <div class="ent"><div class="h">机构 / 组织 <small>P0</small></div><ul><li><b>org_id</b></li><li>名称 · 统一社会信用代码</li><li>开票信息</li><li>合同列表</li><li>成员：管理员 / 采购 / 使用人</li></ul></div>
+    <div class="ent p1"><div class="h">产品开通关系 <small>P0/P1</small></div><ul><li>user / org ↔ 产品 = OAP</li><li>套餐类型：免费 / 专业 / 团队 / 企业 / 合同</li><li>开通时间 · 到期时间</li><li>状态：试用 / 生效 / 到期 / 停用</li></ul></div>
+    <div class="ent p1"><div class="h">权益 / 积分帐户 <small>P1</small></div><ul><li>个人帐户 / 机构池 / 成员配额 / 合同帐户</li><li>余额 · 冻结 · 有效期</li><li>使用范围（产品、工具组）</li><li>日 / 月限额</li><li>流水</li></ul></div>
+    <div class="ent sg"><div class="h">Stargate 凭证 <small>保留</small></div><ul><li>API Key → 绑定 user_id / org_id</li><li>OAuth Client / Consent</li><li>OpenChannel：<b>identity_provider = ycc</b></li><li>Scope / 服务分组不变</li></ul></div>
+  </div>
+  <div class="er-note"><span>一个手机号 = 一个 YCC 用户，可同时是个人客户与某机构成员</span><span>机构成员的 Key 归属机构，离职停用即回收</span><span>Stargate 只认 YCC 的 user_id / org_id，不再直接依赖且慢或 yingchat 身份</span></div>
+
+  <h3 style="font-size:15px;margin:22px 0 10px">3.2 登录方式</h3>
+  <div class="logins">
+    <div class="login"><div class="ic" style="background:var(--blue)">主</div><b>手机号验证码</b><small>主身份，注册即登录；所有其他方式最终绑定到手机号。</small></div>
+    <div class="login"><div class="ic" style="background:#07C160">微</div><b>微信扫码 / 小程序</b><small>PC 扫码、移动端一键；首次登录要求绑定手机号完成合并。</small></div>
+    <div class="login"><div class="ic" style="background:#FF6A00">且</div><b>且慢 App 快捷登录</b><small>且慢仅作为身份来源之一（IdP），不同步交易与持仓数据；隐私隔离。</small></div>
+    <div class="login"><div class="ic" style="background:var(--purple)">机</div><b>机构成员邀请口令</b><small>管理员在机构中心发口令 / 链接，成员用手机号登录后自动加入机构。</small></div>
+  </div>
+
+  <h3 style="font-size:15px;margin:22px 0 10px">3.3 存量用户迁移：三类人，三种路径，Key 都不换</h3>
+  <div class="migrate">
+    <div class="mg"><h4>A · 只有 API Key 的老用户</h4><div class="who">最多的一类：通过申请表 / 官网申请拿到 Key，未走 OAuth</div>
+      <ol><li>下次访问官网提示"升级为盈米帐号"，输入手机号验证</li><li>系统按申请时留存的手机号 / 邮箱自动匹配并合并 Key</li><li>匹配不到的走人工核验（口令或申请邮箱）</li></ol>
+      <div class="keep">API Key 保持不变；MCP 配置无需改动</div></div>
+    <div class="mg b"><h4>B · 通过且慢 OAuth 登录的用户</h4><div class="who">在官网 / MCP 客户端用且慢帐号授权过</div>
+      <ol><li>双轨期内且慢登录仍可用，登录后引导绑定手机号</li><li>生成 YCC 用户并把 Consent、Key 归属迁移</li><li>双轨结束后且慢仅作为快捷登录方式存在</li></ol>
+      <div class="keep">已授权的 OAuth Client 与 Consent 记录保留</div></div>
+    <div class="mg c"><h4>C · 合同机构与成员</h4><div class="who">山西证券等已签约机构，及 yingchat 身份的机构用户</div>
+      <ol><li>运营按合同导入机构、开票信息、合同积分帐户</li><li>指定管理员，管理员邀请成员 / 为成员发口令</li><li>历史积分余额按合同附件一次性入帐并对账确认</li></ol>
+      <div class="keep">合同期、协议价、剩余积分完整继承</div></div>
+  </div>
+
+  <h3 style="font-size:15px;margin:22px 0 10px">3.4 灰度与回滚</h3>
+  <div class="flow">
+    <div class="step"><div class="n">T0</div><b>影子期（2 周）</b><small>YCC 登录上线但隐藏入口；内部与种子用户验证；Stargate 配置 ycc IdP 但不切默认</small></div><div class="arr">›</div>
+    <div class="step hl"><div class="n">T1</div><b>双轨期（4–6 周）</b><small>官网默认走 YCC 登录，保留"用且慢登录"入口；老用户首次登录引导绑定</small></div><div class="arr">›</div>
+    <div class="step"><div class="n">T2</div><b>切换期</b><small>迁移率 ≥ 95% 后关闭且慢作为默认身份来源；仅保留为快捷登录方式</small></div><div class="arr">›</div>
+    <div class="step gray"><div class="n">回滚</div><b>任一阶段可回退</b><small>Stargate IdP 配置切回；YCC 用户表保留；Key 未变动因此调用不受影响</small></div>
+  </div>
+</section>
+
+<!-- 04 积分方案 -->
+<section class="section" id="points">
+  <div class="sec-head"><span class="no">04</span><h2>积分方案</h2><p>积分 = OAP 用量的统一计量与支付单位；属于 YCC 权益，由 Stargate 计量、YCC 扣减。</p></div>
+
+  <div class="pt-def">
+    <div class="card">
+      <h3>4.1 定义与四条原则</h3>
+      <p><b>积分</b>是用户或机构在 OAP 使用工具、Skills、报告生成等能力时的<b>计量单位</b>，同时可在统一收银台<b>抵扣</b>商品价格。参考换算：<b>10 万积分 = ¥600</b>（即 1 积分 ≈ ¥0.006，示例口径，待定价确认）。</p>
+      <div class="rule" style="margin-top:12px">
+        <div><b>不是货币</b>不可提现、不可转让、不计息；对外表述为"服务额度 / 预付费额度"</div>
+        <div><b>有有效期</b>赠送积分短效、购买积分长效、合同积分随合同期</div>
+        <div><b>默认按产品与合同隔离</b>OAP 积分只用于 OAP；跨产品打通需配置</div>
+        <div><b>每一分都有流水</b>获得、扣减、冻结、退还全部留痕，可对账</div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>4.2 为什么用"积分"而不是"直接按元计费"</h3>
+      <ul class="pl">
+        <li><b>与合同先例一致：</b>山西证券合同已按"预充值积分"约定，客户与法务已接受该口径。</li>
+        <li><b>与现有计量对齐：</b>库内外部渠道计价表本来就是 credits/工具。</li>
+        <li><b>解耦定价与计量：</b>工具成本变了改计价表，不必改合同金额；促销、赠送、兑换更灵活。</li>
+        <li><b>对个人更友好：</b>免费额度、加油包、活动赠送都可以用积分表达，降低付费门槛。</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="font-size:15px;margin:22px 0 10px">4.3 四类积分帐户</h3>
+  <div class="acct">
+    <div class="ac"><div class="who">2P 个人</div><b>个人积分帐户</b><ul><li>赠送 + 购买两个分池，分别有效期</li><li>使用范围：OAP 全部公开工具</li><li>可设月度提醒阈值</li></ul></div>
+    <div class="ac"><div class="who">2B 机构</div><b>机构积分池</b><ul><li>来源：合同预充值、对公购买</li><li>绑定合同与有效期</li><li>管理员可查全池余额与消耗</li></ul></div>
+    <div class="ac sub"><div class="who">2B 成员</div><b>成员配额</b><ul><li>管理员从池中分配</li><li>总额度 + 日 / 月限额</li><li>成员到期或停用自动回收未用额度</li></ul></div>
+    <div class="ac"><div class="who">2B 合同</div><b>合同积分帐户</b><ul><li>一份合同一个帐户，多合同并存</li><li>协议价、附件额度、到期日</li><li>用于对账、验收、收入确认</li></ul></div>
+  </div>
+
+  <h3 style="font-size:15px;margin:22px 0 10px">4.4 积分从哪里来、到哪里去</h3>
+  <div class="earn">
+    <div class="card">
+      <h3><span class="tag green">获得</span> 五种来源</h3>
+      <ul class="el">
+        <li><span><b>注册赠送</b>（免费版）· 30 天有效</span><span>5,000 分</span></li>
+        <li><span><b>购买加油包</b> · 12 个月有效</span><span>100,000 分 / ¥600</span></li>
+        <li><span><b>套餐月度发放</b>（专业 / 团队版）· 当月有效，不结转</span><span>按套餐</span></li>
+        <li><span><b>合同预充值</b> · 合同期有效</span><span>按附件</span></li>
+        <li><span><b>运营发放</b>：活动、邀请、Skill 贡献、补偿 · 30–90 天</span><span>按规则</span></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><span class="tag amber">消耗</span> 按工具计价，失败不扣</h3>
+      <ul class="el">
+        <li><span>基础查询类工具（基金基础信息、指数行情…）</span><span>1–2 分 / 次</span></li>
+        <li><span>分析类工具（基金对比、持仓穿透、市场信号…）</span><span>3–6 分 / 次</span></li>
+        <li><span>帐户与重计算类（持仓收益分析、组合回测…）</span><span>8–20 分 / 次</span></li>
+        <li><span>Skills 报告生成（基金深度分析、财富规划等）</span><span>50–200 分 / 份</span></li>
+        <li><span>收银台抵扣商品价格</span><span>按换算比例</span></li>
+      </ul>
+      <p class="src"><b>扣减顺序：</b>先扣即将过期的、再扣赠送的、最后扣购买的；机构成员先扣成员配额，配额不足按策略拒绝或向池申请。<b>计价表</b>沿用现有工具级 credits 口径，由商品管理维护版本。</p>
+    </div>
+  </div>
+
+  <h3 style="font-size:15px;margin:22px 0 10px">4.5 规则细则</h3>
+  <div class="card tbl-card">
+    <table>
+      <thead><tr><th>规则</th><th>个人帐户</th><th>机构池 / 成员配额</th><th>合同帐户</th></tr></thead>
+      <tbody>
+        <tr><td class="k">有效期</td><td>赠送 30 天；购买 12 个月；套餐当月</td><td>随合同 / 购买批次；成员配额随成员期限</td><td>合同期，附件另有约定除外</td></tr>
+        <tr><td class="k">限额</td><td>可选日限额（防盗刷）</td><td>管理员设成员总额度 + 日 / 月限额；池级预警阈值</td><td>合同总额；超额需加购</td></tr>
+        <tr><td class="k">超额策略</td><td>拒绝调用并提示购买；可开自动续购</td><td>成员：拒绝 / 向管理员申请；池：提醒商务</td><td>拒绝或按合同约定后付</td></tr>
+        <tr><td class="k">预扣与结算</td><td colspan="3">调用开始预扣（冻结）→ 成功结算 → 失败 / 超时自动解冻；Skills 报告按任务粒度预扣</td></tr>
+        <tr><td class="k">冻结 / 回收</td><td>违规使用可冻结</td><td>成员停用即回收未用配额到池</td><td>合同终止按约定处理</td></tr>
+        <tr><td class="k">退还</td><td>未使用的购买积分按售后规则原路退款</td><td>对公订单退款需财务审批</td><td>按合同条款</td></tr>
+        <tr><td class="k">提醒</td><td>余额 &lt; 20% / 到期前 7 天</td><td>池余额 &lt; 20%；成员配额 &lt; 10%</td><td>到期前 60 / 30 天推商务续约</td></tr>
+        <tr><td class="k">发票</td><td>在线订单自助申请电子普票</td><td>对公订单开 6% 增值税专用发票</td><td>合同约定：开通 + 联调 + 验收后开票</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="font-size:15px;margin:22px 0 10px">4.6 套餐与商品（示例定价，沿用帐号中心原型口径）</h3>
+  <div class="plans">
+    <div class="plan"><div class="nm">免费版</div><div class="for">个人开发者试用</div><div class="pr">¥0</div><ul><li>注册赠送 5,000 分 / 30 天</li><li>1 个 API Key</li><li>公开工具全量可调</li><li>社区支持</li></ul><div class="pay">在线注册即得</div></div>
+    <div class="plan"><div class="nm">个人专业版</div><div class="for">高频个人 / KOL / 量化</div><div class="pr">¥99<small> / 月</small></div><ul><li>每月 20,000 分（当月有效）</li><li>3 个 API Key</li><li>Skills 报告生成</li><li>用量看板</li></ul><div class="pay">在线支付 · 支持积分抵扣</div></div>
+    <div class="plan hot"><span class="hotb">推荐</span><div class="nm">团队版</div><div class="for">投顾工作室 / 小型机构</div><div class="pr">¥4,800<small> / 年</small></div><ul><li>20 席位 · 500,000 分 / 年</li><li>管理员分配额度与期限</li><li>成员口令 · 日 / 月限额</li><li>团队用量统计</li></ul><div class="pay">在线 / 对公 · 可开专票</div></div>
+    <div class="plan"><div class="nm">企业版</div><div class="for">证券 / 银行 / 基金公司</div><div class="pr">定制<small> 报价</small></div><ul><li>席位与积分池按需</li><li>专属能力包 · Scope 定制</li><li>SLA · 审计报表</li><li>专属对接人</li></ul><div class="pay">合同订单 · 对公 · 专票</div></div>
+    <div class="plan"><div class="nm">积分加油包</div><div class="for">所有付费版本可加购</div><div class="pr">¥600<small> / 10 万分</small></div><ul><li>12 个月有效</li><li>可叠加购买</li><li>机构可对公购买入池</li><li>阶梯优惠（50 万分起）</li></ul><div class="pay">在线 / 对公</div></div>
+  </div>
+  <p class="src"><b>说明：</b>价格为产品方案示例口径，需与商务、财务共同定价；企业版沿用现有合同模式（如 12 万元 / 12 个月预充值）。套餐与工具计价表均由 YCC 商品管理配置，业务可上下架与调价。</p>
+
+  <h3 style="font-size:15px;margin:22px 0 10px">4.7 积分估算器（用于和业务 / 客户沟通）</h3>
+  <div class="calc card">
+    <div class="ctl">
+      <div><label>客户类型</label><div class="seg" id="calcType"><button class="on" data-t="p">个人</button><button data-t="t">团队（20 人）</button><button data-t="e">企业（200 人）</button></div></div>
+      <div><label>每人每月调用次数：<span class="val" id="callsV">800</span> 次</label><input type="range" id="calls" min="50" max="5000" step="50" value="800"></div>
+      <div><label>平均每次消耗：<span class="val" id="costV">4</span> 分（基础 1–2 · 分析 3–6 · 重计算 8–20）</label><input type="range" id="cost" min="1" max="20" step="1" value="4"></div>
+      <div><label>每人每月 Skills 报告数：<span class="val" id="repV">5</span> 份（约 100 分 / 份）</label><input type="range" id="rep" min="0" max="100" step="1" value="5"></div>
+    </div>
+    <div class="out" id="calcOut"></div>
+  </div>
+
+  <h3 style="font-size:15px;margin:22px 0 10px">4.8 计量与扣减链路</h3>
+  <div class="chain">
+    <div class="ch web"><div class="sys">客户端</div><b>发起调用</b>携带 API Key / OAuth Token</div>
+    <div class="ch sg"><div class="sys">Stargate</div><b>鉴权 · 路由</b>解析 Key → YCC user / org；Scope 校验</div>
+    <div class="ch ycc"><div class="sys">YCC 权益</div><b>预扣 / 校验</b>按计价表冻结积分；余额 / 限额不足即拒绝</div>
+    <div class="ch sg"><div class="sys">Stargate</div><b>执行 · 计量</b>调用工具，记录工具、耗时、结果、credits</div>
+    <div class="ch ycc"><div class="sys">YCC 权益</div><b>结算 / 解冻</b>成功结算写流水；失败解冻不扣</div>
+    <div class="ch web"><div class="sys">官网</div><b>余额与流水可见</b>个人中心 / 机构中心实时刷新</div>
+    <div class="ch fin"><div class="sys">财务</div><b>对账 · 收入确认</b>按合同 / 订单出用量账单与发票</div>
+  </div>
+  <div class="callout" style="margin-top:14px"><b>外部 AI 平台渠道（阿里云百炼、火山引擎等）：</b>渠道调用不走用户积分，沿用现有 market_code 计价与计量推送，按渠道结算对账；如果渠道用户通过官网注册成为 YCC 用户，再归到其个人积分帐户。两条计量线在 YCC 权益里分开记帐。</div>
+</section>
+
+<!-- 05 用户旅程 -->
+<section class="section" id="journey">
+  <div class="sec-head"><span class="no">05</span><h2>升级后的用户旅程</h2><p>每一步标注"用户做什么"与"系统做什么"。</p></div>
+  <div class="tabs" id="jTabs"><button class="on" data-s="p">个人开发者</button><button data-s="b">机构客户</button></div>
+  <div class="scene on" id="j-p">
+    <div class="jour">
+      <div class="jr"><div class="st">1 · 发现</div><b>访问 ai.yingmi.com</b><div class="u">看能力、看套餐、看示例</div><div class="s">商品展示（YCC 商品管理）</div></div>
+      <div class="jr"><div class="st">2 · 注册</div><b>手机号 / 微信登录</b><div class="u">30 秒完成，无需申请表</div><div class="s">创建 YCC 用户；发 5,000 赠送积分；自动开通 OAP 免费版</div></div>
+      <div class="jr"><div class="st">3 · 接入</div><b>创建 Key，配置 MCP</b><div class="u">复制安装口令到 Cursor / Claude / WorkBuddy</div><div class="s">Stargate 生成 Key 并绑定 user_id</div></div>
+      <div class="jr"><div class="st">4 · 使用</div><b>调用工具、生成报告</b><div class="u">在自己的 AI 助手里直接用</div><div class="s">Stargate 计量 → YCC 预扣 / 结算 → 流水</div></div>
+      <div class="jr"><div class="st">5 · 购买</div><b>余额不足提示 → 买加油包</b><div class="u">微信 / 支付宝支付，申请电子发票</div><div class="s">订单 → 收银台 → 积分入帐；发票自助</div></div>
+      <div class="jr"><div class="st">6 · 留存</div><b>升级专业版 / 邀请获积分</b><div class="u">看用量看板，决定是否订阅</div><div class="s">套餐月度发放；运营发放规则</div></div>
+    </div>
+  </div>
+  <div class="scene" id="j-b">
+    <div class="jour">
+      <div class="jr"><div class="st">1 · 商务</div><b>咨询 → 试用 → 报价</b><div class="u">机构联系人在官网留资或商务对接</div><div class="s">创建机构草稿；发试用积分（企业版试用）</div></div>
+      <div class="jr"><div class="st">2 · 签约</div><b>合同 + 对公付款</b><div class="u">协议价、预充值积分、服务期</div><div class="s">合同订单 → 对公入帐确认 → 合同积分帐户入帐</div></div>
+      <div class="jr"><div class="st">3 · 开通</div><b>管理员激活机构中心</b><div class="u">手机号登录，看到机构池与合同</div><div class="s">运营导入机构与开票信息；指定管理员</div></div>
+      <div class="jr"><div class="st">4 · 分配</div><b>邀请成员、分额度与期限</b><div class="u">发口令；按部门设总额度与日 / 月限额</div><div class="s">成员配额从池中划出；Key 归属机构</div></div>
+      <div class="jr"><div class="st">5 · 使用与看板</div><b>成员接入使用</b><div class="u">管理员看成员用量、工具分布、余额趋势</div><div class="s">计量与扣减；池余额 &lt; 20% 提醒管理员与商务</div></div>
+      <div class="jr"><div class="st">6 · 对账与续约</div><b>月度账单 · 验收 · 开票 · 续约</b><div class="u">下载用量账单，核对后续约或加购</div><div class="s">对账单自动生成；到期前 60 / 30 天提醒</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 改造清单 -->
+<section class="section" id="scope">
+  <div class="sec-head"><span class="no">06</span><h2>官网页面与功能改造清单</h2><p>按优先级与依赖的 YCC 模块列出，便于排期。</p></div>
+  <div class="card tbl-card">
+    <table>
+      <thead><tr><th>页面 / 功能</th><th>改造内容</th><th>依赖 YCC 模块</th><th>优先级</th><th>阶段</th></tr></thead>
+      <tbody>
+        <tr><td class="k">登录 / 注册</td><td>新登录页：手机号验证码、微信、且慢快捷、机构口令；老用户升级引导与 Key 合并</td><td>用户认证 · 用户管理</td><td><span class="tag navy">P0</span></td><td>一</td></tr>
+        <tr><td class="k">帐号中心（原 account）</td><td>个人资料、身份来源绑定、API Key 列表（沿用现有原型）、积分余额与流水入口</td><td>用户管理 · 权益</td><td><span class="tag navy">P0</span></td><td>一</td></tr>
+        <tr><td class="k">机构中心</td><td>机构信息与开票、成员与角色、口令、额度与期限分配、日 / 月限额、用量统计（沿用团队 / 企业版原型）</td><td>用户管理 · 权益</td><td><span class="tag navy">P0</span></td><td>一 / 二</td></tr>
+        <tr><td class="k">申请服务（service-activation）</td><td>免费版改为注册即开通；企业试用改为留资 + 运营开通</td><td>用户管理 · 商品</td><td><span class="tag navy">P0</span></td><td>一</td></tr>
+        <tr><td class="k">积分中心</td><td>余额、分池、有效期、流水明细、按工具 / 按日消耗图、预警设置</td><td>权益管理</td><td><span class="tag blue">P1</span></td><td>二</td></tr>
+        <tr><td class="k">套餐与商品页</td><td>免费 / 专业 / 团队 / 企业 / 加油包展示与对比；工具计价表公开页</td><td>商品管理</td><td><span class="tag blue">P1</span></td><td>二</td></tr>
+        <tr><td class="k">下单与收银台</td><td>个人在线支付、积分抵扣、组合支付；机构对公信息与凭证上传</td><td>订单 · 统一收银台</td><td><span class="tag teal">P2</span></td><td>三</td></tr>
+        <tr><td class="k">订单与发票</td><td>订单列表、状态、电子普票自助、专票申请</td><td>订单 · 收银台</td><td><span class="tag teal">P2</span></td><td>三</td></tr>
+        <tr><td class="k">对账单（机构）</td><td>月度用量账单、按成员 / 工具明细、导出</td><td>权益 · 订单</td><td><span class="tag teal">P2</span></td><td>三</td></tr>
+        <tr><td class="k">售后</td><td>退款 / 退订申请、进度、积分回收记录</td><td>售后管理</td><td><span class="tag gray">P3</span></td><td>四</td></tr>
+        <tr><td class="k">Stargate 配置（后台）</td><td>新增 OpenChannel identity_provider = ycc；Key 归属字段改为 YCC user / org；计量事件推送 YCC</td><td>—（技术对接）</td><td><span class="tag navy">P0</span></td><td>一 / 二</td></tr>
+        <tr><td class="k">域名与入口收敛</td><td>ai.yingmi.com 为统一入口；qieman.com/mcp/* 保留跳转</td><td>—</td><td><span class="tag blue">P1</span></td><td>二</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 07 实施计划 -->
+<section class="section" id="plan">
+  <div class="sec-head"><span class="no">07</span><h2>分期实施计划（建议）</h2><p>与 YCC 项目路线图对齐；积分先"影子计量"再"正式扣减"，避免上线即引发计费争议。</p></div>
+  <div class="roadmap">
+    <div class="ph-card"><div class="dot"></div><div class="when">阶段一 · 2026 Q4</div><h3>帐号切换 <span class="tag navy">P0</span></h3>
+      <ul><li>YCC 登录 / 注册页上线；Stargate 接 ycc IdP</li><li>帐号中心、机构中心（成员 / 额度 / 口令）</li><li>三类存量用户迁移；双轨 4–6 周</li><li>合同机构与积分余额导入</li></ul>
+      <div class="out"><b>验收：</b>迁移率 ≥ 95%；登录成功率 ≥ 99.5%；Key 零变更</div>
+      <div class="dep"><b>依赖：</b>YCC P0 模块就绪；收费主体确认</div></div>
+    <div class="ph-card"><div class="dot"></div><div class="when">阶段二 · 2027 Q1</div><h3>积分上线 <span class="tag blue">P1</span></h3>
+      <ul><li>商品管理配置套餐与工具计价表</li><li><b>影子计量 4 周</b>：只记不扣，用户可见"预计消耗"</li><li>正式扣减：免费版赠送积分 + 合同积分帐户</li><li>积分中心、预警、限额</li></ul>
+      <div class="out"><b>验收：</b>100% 调用可计量；合同客户自助查余额；影子期与合同附件差异 &lt; 1%</div>
+      <div class="dep"><b>依赖：</b>YCC P1；Stargate 计量事件推送</div></div>
+    <div class="ph-card"><div class="dot"></div><div class="when">阶段三 · 2027 Q2</div><h3>在线购买 <span class="tag teal">P2</span></h3>
+      <ul><li>个人专业版、团队版、加油包在线支付</li><li>机构对公订单与入帐确认</li><li>订单、电子发票、月度对账单</li><li>域名入口收敛到 ai.yingmi.com</li></ul>
+      <div class="out"><b>验收：</b>首批个人付费转化；机构对公入帐到权益 T+1</div>
+      <div class="dep"><b>依赖：</b>YCC P2 收银台；支付通道与发票系统</div></div>
+    <div class="ph-card"><div class="dot"></div><div class="when">阶段四 · 2027 H2</div><h3>售后与生态 <span class="tag gray">P3</span></h3>
+      <ul><li>退款 / 退订与积分自动回收</li><li>运营发放：活动、邀请、Skill 贡献奖励</li><li>外部渠道结算并入 YCC 记帐</li><li>为 WealthWork 等产品复用积分与套餐能力</li></ul>
+      <div class="out"><b>验收：</b>售后闭环无人工对帐；第二个产品复用 OAP 积分方案</div>
+      <div class="dep"><b>依赖：</b>YCC P3</div></div>
+  </div>
+</section>
+
+<!-- 08 指标 -->
+<section class="section" id="kpi">
+  <div class="sec-head"><span class="no">08</span><h2>指标与验收</h2><p>与 2026 下半年 OKR（P2：1,300 万调用 / 1 万用户 / MAU 2,000）挂钩。</p></div>
+  <div class="grid g3">
+    <div class="card"><h3>帐号切换</h3>
+      <div class="metric"><span>存量用户迁移完成率</span><b>≥ 95%</b></div>
+      <div class="metric"><span>统一登录成功率</span><b>≥ 99.5%</b></div>
+      <div class="metric"><span>因迁移导致的 Key 失效</span><b>0</b></div>
+      <div class="metric"><span>新用户注册到首次调用</span><b>≤ 10 分钟</b></div>
+      <div class="metric"><span>机构管理员自助开通成员占比</span><b>≥ 90%</b></div>
+    </div>
+    <div class="card"><h3>积分与经营</h3>
+      <div class="metric"><span>可按积分计量的调用占比</span><b>100%</b></div>
+      <div class="metric"><span>影子期计量 vs 合同附件差异</span><b>&lt; 1%</b></div>
+      <div class="metric"><span>活跃个人用户付费转化率</span><b>3–5%</b></div>
+      <div class="metric"><span>机构积分池月消耗率（健康区间）</span><b>5–15%</b></div>
+      <div class="metric"><span>系统账 vs 财务账差异率</span><b>&lt; 0.1%</b></div>
+    </div>
+    <div class="card"><h3>体验与服务</h3>
+      <div class="metric"><span>余额 / 有效期客服咨询</span><b>环比 -50%</b></div>
+      <div class="metric"><span>计费争议工单</span><b>&lt; 0.5% 付费用户</b></div>
+      <div class="metric"><span>对账单自动生成覆盖</span><b>100% 合同客户</b></div>
+      <div class="metric"><span>发票申请到开出</span><b>≤ 3 个工作日</b></div>
+      <div class="metric"><span>OKR 承接：年底用户 / MAU / 调用</span><b>1 万 / 2,000 / 1,300 万</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- 09 风险 -->
+<section class="section" id="risk">
+  <div class="sec-head"><span class="no">09</span><h2>风险与合规</h2><p>高 / 中 / 低三级，每条附应对。</p></div>
+  <div class="risks">
+    <div class="risk"><div class="lv h">高</div><div><b>积分的法律属性与财务处理</b><p>预付费积分涉及单用途预付卡、预收款与收入确认口径；表述不当可能被视作虚拟货币。</p><div class="do"><em>应对：</em>对外统一表述"服务额度"；不可提现 / 转让；按使用确认收入；法务与财务在阶段二前出具口径。</div></div></div>
+    <div class="risk"><div class="lv h">高</div><div><b>迁移导致存量客户中断</b><p>5,500+ 用户与 350+ 机构中，大量 Key 分散在各类 AI 客户端配置里。</p><div class="do"><em>应对：</em>Key 不变原则；双轨期 4–6 周；影子期先验证；任一阶段可回滚 IdP 配置。</div></div></div>
+    <div class="risk"><div class="lv m">中</div><div><b>计费争议</b><p>正式扣减后客户对"这次为什么扣 8 分"有异议；工具计价与文档不一致。</p><div class="do"><em>应对：</em>影子期让用户先看到"预计消耗"；公开工具计价表并版本化；每笔流水可追溯到调用记录（requestId）。</div></div></div>
+    <div class="risk"><div class="lv m">中</div><div><b>且慢隐私与数据隔离</b><p>且慢快捷登录可能被误解为打通且慢帐户与持仓数据。</p><div class="do"><em>应对：</em>且慢仅作 IdP，只传最小身份字段；YCC 独立用户表；隐私政策与授权页明示。</div></div></div>
+    <div class="risk"><div class="lv m">中</div><div><b>双轨期数据一致性</b><p>同一用户在且慢身份与 YCC 身份下产生两份权益或两份 Key 归属。</p><div class="do"><em>应对：</em>以手机号为合并键；合并前冻结写操作；每日一致性对账任务。</div></div></div>
+    <div class="risk"><div class="lv l">低</div><div><b>外部渠道计量口径冲突</b><p>渠道 credits 与用户积分混记导致重复计费。</p><div class="do"><em>应对：</em>渠道结算与用户积分分帐户记帐；market_code 维度独立报表。</div></div></div>
+  </div>
+</section>
+
+<!-- 10 待拍板 -->
+<section class="section" id="decide">
+  <div class="sec-head"><span class="no">10</span><h2>需要拍板的事项</h2></div>
+  <div class="decisions">
+    <div class="dec"><div class="n">1</div><div><b>OAP 作为 YCC 首个接入产品，2026 Q4 完成帐号切换</b><p>是否确认；确认后 YCC P0 的排期以 OAP 为验收场景。</p><div class="opt">建议：<em>确认</em></div></div></div>
+    <div class="dec"><div class="n">2</div><div><b>统一收费主体与支付 / 发票通道</b><p>影响阶段三收银台，需在阶段二前确定，否则在线购买无法上线。</p><div class="opt">待定：<em>盈米基金</em> / <em>盈米科技</em></div></div></div>
+    <div class="dec"><div class="n">3</div><div><b>积分换算与套餐定价</b><p>本方案示例：10 万分 = ¥600；团队版 ¥4,800 / 年含 50 万分。需要商务与财务定稿。</p><div class="opt">建议：<em>阶段二影子期结束前定稿</em></div></div></div>
+    <div class="dec"><div class="n">4</div><div><b>免费版额度与是否长期免费</b><p>5,000 分 / 30 天是否足够形成体验；是否给持续活跃的免费用户月度补给。</p><div class="opt">建议：<em>首期 5,000 分 / 30 天</em>，按转化数据调整</div></div></div>
+    <div class="dec"><div class="n">5</div><div><b>且慢快捷登录的边界</b><p>只作 IdP、不同步任何交易数据；是否需要且慢侧合规评审。</p><div class="opt">建议：<em>只作 IdP</em>，阶段一前完成评审</div></div></div>
+    <div class="dec"><div class="n">6</div><div><b>存量合同客户的迁移沟通</b><p>山西证券等合同客户需书面确认积分余额导入与对账口径。</p><div class="opt">建议：<em>商务牵头</em>，阶段一完成</div></div></div>
+  </div>
+</section>
+
+<footer>
+  <span>来源：《YCC 产品功能模块关系图 · 产品概念版 V0.1》· 盈米本体帐号体系核查（2026-09-22）· Stargate 升级版 PRD（一期）· OAP 产品规划 · 2026-05 官网升级稿 · 2026 下半年 OKR · 山西证券 MCP 服务合同 · OAP 帐号与额度管理原型（2026-09-21）</span>
+  <span>价格、积分换算、阶段时间均为产品方案示例口径，待商务 / 财务 / 研发确认。</span>
+</footer>
+</main>
+
+<script>
+/* 估算器 */
+const T={p:{n:1,label:'个人'},t:{n:20,label:'团队（20 人）'},e:{n:200,label:'企业（200 人）'}};
+let type='p';
+const $=id=>document.getElementById(id);
+function fmt(n){return Math.round(n).toLocaleString('zh-CN')}
+function calc(){
+  const calls=+$('calls').value,cost=+$('cost').value,rep=+$('rep').value,n=T[type].n;
+  $('callsV').textContent=calls;$('costV').textContent=cost;$('repV').textContent=rep;
+  const perUser=calls*cost+rep*100;
+  const month=perUser*n, year=month*12;
+  const yuan=year*0.006;
+  let plan,planNote;
+  if(type==='p'){ if(month<=5000){plan='免费版即可';planNote='赠送 5,000 分 / 30 天覆盖'} else if(month<=20000){plan='个人专业版 ¥99 / 月';planNote='含 20,000 分 / 月'} else {plan='专业版 + 加油包';planNote='超出部分约 '+fmt((month-20000)/100000*600)+' 元 / 月'} }
+  else if(type==='t'){ if(year<=500000){plan='团队版 ¥4,800 / 年';planNote='含 50 万分 / 年，够用'} else {plan='团队版 + 加油包';planNote='需加购约 '+Math.ceil((year-500000)/100000)+' 个加油包 / 年（约 ¥'+fmt(Math.ceil((year-500000)/100000)*600)+'）'} }
+  else { plan='企业版 · 合同预充值';planNote='建议合同预充值约 '+fmt(year/10000)+' 万分 / 年，参考价 ¥'+fmt(yuan)+'（示例换算）'; }
+  $('calcOut').innerHTML=`<div style="font-size:12px;opacity:.75">${T[type].label} · 每人每月约 ${fmt(perUser)} 分</div>
+   <div class="big">${fmt(month)} 分 / 月</div>
+   <div class="row"><span>全年积分需求</span><span>${fmt(year)} 分</span></div>
+   <div class="row"><span>按 10 万分 = ¥600 折算</span><span>≈ ¥${fmt(yuan)} / 年</span></div>
+   <div class="row"><span>推荐方案</span><span>${plan}</span></div>
+   <div class="note">${planNote}。示例换算与定价口径，仅用于沟通估算。</div>`;
+}
+['calls','cost','rep'].forEach(id=>$(id).addEventListener('input',calc));
+document.querySelectorAll('#calcType button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('#calcType button').forEach(x=>x.classList.remove('on'));b.classList.add('on');type=b.dataset.t;calc()}));
+calc();
+
+/* 旅程 tabs */
+document.querySelectorAll('#jTabs button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#jTabs button').forEach(x=>x.classList.remove('on'));b.classList.add('on');
+  document.querySelectorAll('.scene').forEach(s=>s.classList.remove('on'));
+  document.getElementById('j-'+b.dataset.s).classList.add('on');
+}));
+
+/* nav highlight */
+const links=[...document.querySelectorAll('#nav a')];
+const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id))}})},{rootMargin:'-40% 0px -55% 0px'});
+secs.forEach(s=>s&&io.observe(s));
+</script>
+</body>
+</html>

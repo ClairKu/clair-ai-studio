@@ -2,6 +2,12 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "weekly-ai-output-audit-2026-09-22",
+    "ycc-oap-upgrade-package-2026-09-22",
+    "qieman-dividend-holding-plan-2026-09-22",
+    "dividend-income-product-competitive-research-2026-09-22",
+    "tmeet-cli-user-guide-2026-09-21",
+    "xingyao-etf-skills-research-2026-09-11",
     "wb-customer-360",
     "wb-customer-360-cockpit",
     "wb-qieman-market-signal",
@@ -200,13 +206,6 @@
   ],
   "retiredReports": [
     {
-      "id": "yingmi-oap-project-report-2026-08-03",
-      "status": "consolidated",
-      "replacementId": "oap-project-report-2026-08-03",
-      "removedIn": "a582d84f9d74ac6691936d10842ca0297fe2e1a1",
-      "reason": "The password-era duplicate was consolidated into the refreshed Feishu-framework executive report."
-    },
-    {
       "id": "qieman-mcp-top10-2026-08-03",
       "status": "superseded",
       "replacementId": "qieman-mcp-top20-2026-08-03",
@@ -222,6 +221,11 @@
     }
   ],
   "nonCatalogReportSlugs": [
+    {
+      "slug": "yingmi-advisor-workbench-2026-09-10",
+      "status": "report-alias-for-app",
+      "ownerId": "yingmi-advisor-workbench-2026-09-10"
+    },
     {
       "slug": "qianwen-user-question-detail-2026-09-05",
       "status": "supporting-page",
@@ -241,11 +245,6 @@
       "slug": "qieman-mcp-top10-2026-08-03",
       "status": "legacy-redirect",
       "ownerId": "qieman-mcp-top20-2026-08-03"
-    },
-    {
-      "slug": "yingmi-oap-project-report-2026-08-03",
-      "status": "retained-archive",
-      "ownerId": "oap-project-report-2026-08-03"
     },
     {
       "slug": "yingmi-portfolio-optimizer-2026-09-10",

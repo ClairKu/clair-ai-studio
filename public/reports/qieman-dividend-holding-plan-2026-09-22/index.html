@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>分红持有动机方案</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700&family=Noto+Sans+SC:wght@400;500;700&family=Barlow:wght@500;600;700&display=swap">
+<style>
+:root{
+  --bg:#F6F8FB; --surface:#FFFFFF; --surface-2:#F2F6FC; --line:#E2E9F2;
+  --ink:#1F2A37; --ink-2:#4B5A6B; --ink-3:#86939F;
+  --blue:#1B88EE; --blue-ink:#0F72CD; --blue-deep:#125EA5; --blue-soft:#DBEBFF; --blue-100:#F5F9FF;
+  --gold:#B97A12; --gold-soft:#FFF4DD; --gold-deep:#7A4E05;
+  --up:#E8532B; --down:#07AD8F; --warn-soft:#FFF1EC;
+  --shadow:0 10px 30px rgba(18,94,165,.08); --r:14px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0E141C; --surface:#161E29; --surface-2:#1B2531; --line:#27333F;
+  --ink:#ECF1F7; --ink-2:#B4C0CE; --ink-3:#7F8C9B;
+  --blue:#4AA7FF; --blue-ink:#7DBDF7; --blue-deep:#9DCBF7; --blue-soft:#1A2E45; --blue-100:#152234;
+  --gold:#E2B15C; --gold-soft:#2C2313; --gold-deep:#F0CB86;
+  --up:#FF7A55; --down:#2FC9A9; --warn-soft:#3A2119; --shadow:0 10px 30px rgba(0,0,0,.35);
+}}
+:root[data-theme="dark"]{
+  --bg:#0E141C; --surface:#161E29; --surface-2:#1B2531; --line:#27333F;
+  --ink:#ECF1F7; --ink-2:#B4C0CE; --ink-3:#7F8C9B;
+  --blue:#4AA7FF; --blue-ink:#7DBDF7; --blue-deep:#9DCBF7; --blue-soft:#1A2E45; --blue-100:#152234;
+  --gold:#E2B15C; --gold-soft:#2C2313; --gold-deep:#F0CB86;
+  --up:#FF7A55; --down:#2FC9A9; --warn-soft:#3A2119; --shadow:0 10px 30px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans SC",-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding-block:40px 80px;padding-inline:20px}
+h1,h2,h3{font-family:"Noto Serif SC","Songti SC",serif;line-height:1.3;text-wrap:balance;margin:0}
+h1{font-size:clamp(28px,4vw,40px);font-weight:700;letter-spacing:.01em}
+h2{font-size:clamp(22px,2.6vw,28px);font-weight:700}
+h3{font-size:17px;font-weight:600;font-family:"Noto Sans SC",sans-serif}
+p{margin:0 0 12px}
+.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue-ink);font-weight:700;font-family:Barlow,sans-serif}
+.meta{color:var(--ink-3);font-size:13px}
+.lead{font-size:17px;color:var(--ink-2);max-width:68ch}
+.num{font-family:Barlow,"Noto Sans SC",sans-serif;font-variant-numeric:tabular-nums}
+header.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:32px;align-items:end;padding-bottom:36px;border-bottom:1px solid var(--line)}
+.hero-side{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;box-shadow:var(--shadow)}
+.hero-side dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:13.5px}
+.hero-side dt{color:var(--ink-3)}
+.hero-side dd{margin:0;color:var(--ink)}
+section{padding-block:44px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.sec-head{display:flex;flex-direction:column;gap:8px;margin-bottom:22px}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:32px;align-items:start}
+.cols.two-phones{grid-template-columns:minmax(0,1fr) 700px}
+.cols .text{max-width:68ch}
+.figs{display:flex;gap:24px;flex-wrap:wrap;justify-content:center}
+.figcap{font-size:12.5px;color:var(--ink-3);text-align:center;margin-top:10px;max-width:320px}
+.callout{background:var(--blue-100);border:1px solid var(--blue-soft);border-left:4px solid var(--blue);border-radius:10px;padding:14px 16px;margin:16px 0;font-size:14px}
+.callout.gold{background:var(--gold-soft);border-color:transparent;border-left-color:var(--gold)}
+.callout.warn{background:var(--warn-soft);border-color:transparent;border-left-color:var(--up)}
+.callout b{color:var(--ink)}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:14px 0}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+th{color:var(--ink-3);font-weight:500;font-size:12.5px;letter-spacing:.04em}
+.tbl-wrap{overflow-x:auto}
+ul,ol{padding-left:22px;margin:8px 0 14px}
+li{margin:4px 0}
+li b{color:var(--ink)}
+.tag{display:inline-block;font-size:11px;padding:1px 8px;border-radius:999px;border:1px solid var(--line);color:var(--ink-2);background:var(--surface);margin-right:4px;vertical-align:middle;font-weight:500}
+.tag.blue{background:var(--blue-soft);border-color:transparent;color:var(--blue-ink)}
+.tag.gold{background:var(--gold-soft);border-color:transparent;color:var(--gold)}
+.tag.new{background:var(--up);border-color:transparent;color:#fff}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:18px 0}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:18px 0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px}
+.card h3{margin-bottom:6px}
+.card p{font-size:14px;color:var(--ink-2);margin:0}
+.card .k{font-size:12px;color:var(--blue-ink);font-weight:700;letter-spacing:.1em;font-family:Barlow,sans-serif;margin-bottom:4px}
+.mech{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0}
+.mech .card{border-top:4px solid var(--blue)}
+.mech .card.gold{border-top-color:var(--gold)}
+.steps{counter-reset:s;list-style:none;padding:0;margin:14px 0}
+.steps li{position:relative;padding-left:40px;margin:10px 0}
+.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:2px;width:26px;height:26px;border-radius:50%;background:var(--blue);color:#fff;font:700 13px Barlow,sans-serif;display:grid;place-items:center}
+.phase{display:grid;grid-template-columns:110px 1fr;gap:14px;padding:14px 0;border-bottom:1px dashed var(--line)}
+.phase:last-child{border-bottom:0}
+.phase .ph{font:700 13px/1.3 Barlow,sans-serif;color:var(--blue-ink);letter-spacing:.06em}
+.phase .ph small{display:block;color:var(--ink-3);font-weight:500;letter-spacing:0;font-family:"Noto Sans SC",sans-serif;margin-top:2px}
+.phase ul{margin:0;font-size:14px}
+footer{padding-top:30px;color:var(--ink-3);font-size:12.5px}
+footer ul{margin:6px 0}
+
+/* ===== Phone mockups (always light: they depict the app) ===== */
+.phone{width:320px;flex:0 0 320px;background:#F4F6F9;border-radius:30px;border:7px solid #1A1D23;box-shadow:0 22px 50px rgba(0,0,0,.25);overflow:hidden;color:#333;font-family:"Noto Sans SC","PingFang SC",sans-serif;font-size:12px;line-height:1.45;text-align:left}
+.phone *{box-sizing:border-box}
+.phone .sb{display:flex;justify-content:space-between;padding:8px 16px 0;font:600 11px Barlow,sans-serif;color:#333}
+.phone .nav{display:flex;align-items:center;justify-content:center;position:relative;padding:8px 14px 10px;font-weight:700;font-size:15px}
+.phone .nav .bk{position:absolute;left:14px;color:#666;font-weight:400}
+.phone .nav .more{position:absolute;right:14px;color:#666;font-weight:400;font-size:12px}
+.phone .body{padding:0 12px 12px;display:flex;flex-direction:column;gap:10px}
+.phone .acct{font-size:11px;color:#8A5A0B;background:#FFF4DD;border-radius:6px;padding:4px 8px;align-self:flex-start}
+.phone .c{background:#fff;border-radius:12px;padding:12px}
+.phone .c .t{display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:13px;margin-bottom:8px}
+.phone .c .t span{font-weight:400;color:#999;font-size:11px}
+.phone .c .t b{border-left:3px solid #1B88EE;padding-left:7px}
+.phone .c .t b.g{border-left-color:#C98A1E}
+.phone .hero{background:linear-gradient(135deg,#0E4F8F 0%,#1B88EE 100%);color:#fff;border-radius:14px;padding:14px;position:relative;overflow:hidden}
+.phone .hero.calm{background:linear-gradient(135deg,#0B5192 0%,#1F9C8B 100%)}
+.phone .hero .lbl{font-size:11px;opacity:.85}
+.phone .hero .big{font:700 34px/1 Barlow,sans-serif;margin:4px 0 2px}
+.phone .hero .big small{font-size:13px;font-weight:500;opacity:.85;margin-left:2px}
+.phone .hero .sub{font-size:11px;opacity:.9}
+.phone .hero .chip{display:inline-block;background:rgba(255,255,255,.18);border-radius:5px;padding:2px 6px;font-size:11px;margin-top:6px}
+.phone .hero .chip.up{background:rgba(255,204,102,.28);color:#FFE7B0}
+.phone .hero .note{font-size:10px;opacity:.75;margin-top:8px}
+.phone .hero .ring{position:absolute;right:14px;top:14px;width:84px;height:84px}
+.phone .hero .ring svg{width:84px;height:84px;transform:rotate(-90deg)}
+.phone .hero .ring .rv{position:absolute;inset:0;display:grid;place-items:center;text-align:center;line-height:1.1}
+.phone .hero .ring .rv b{font:700 18px Barlow,sans-serif;display:block}
+.phone .hero .ring .rv i{font-style:normal;font-size:9px;opacity:.85}
+.phone .hero .goal{margin-top:10px;border-top:1px solid rgba(255,255,255,.2);padding-top:8px;font-size:11px;display:flex;justify-content:space-between;align-items:center}
+.phone .hero .goal .btn{background:#FFCC66;color:#5A3A00;border-radius:999px;padding:3px 9px;font-weight:700;font-size:11px}
+.phone .kpis{display:grid;grid-template-columns:repeat(3,1fr);text-align:center}
+.phone .kpis div{padding:4px 2px;border-right:1px solid #F0F0F0}
+.phone .kpis div:last-child{border-right:0}
+.phone .kpis .v{font:700 16px Barlow,sans-serif;color:#333;display:block}
+.phone .kpis .v.up{color:#FF6633}.phone .kpis .v.dn{color:#07AD8F}.phone .kpis .v.g{color:#C98A1E}
+.phone .kpis .l{font-size:10px;color:#999}
+.phone .dots{display:flex;gap:4px;align-items:center;margin-top:8px}
+.phone .dots i{width:14px;height:14px;border-radius:50%;background:#E5EAF0;display:inline-block;position:relative}
+.phone .dots i.on{background:#FFCC66}
+.phone .dots i.now{background:#fff;border:2px solid #FFCC66}
+.phone .dots span{font-size:10px;color:#999;margin-left:4px}
+.phone .src{display:flex;gap:8px;align-items:flex-start}
+.phone .src .ic{width:26px;height:26px;border-radius:8px;background:#E8F2FD;color:#1B88EE;display:grid;place-items:center;font-weight:700;flex:0 0 26px;font-size:12px}
+.phone .src .ic.g{background:#FFF4DD;color:#C98A1E}
+.phone .src .ic.r{background:#FFEDE6;color:#E8532B}
+.phone .src p{margin:0;font-size:11.5px;color:#555}
+.phone .src p b{color:#333;display:block;font-size:12px}
+.phone .calc{background:#F5F9FF;border-radius:10px;padding:10px}
+.phone .calc .row{display:flex;justify-content:space-between;align-items:center;font-size:11.5px;margin:4px 0}
+.phone .calc .sel{background:#fff;border:1px solid #9CCBF8;border-radius:6px;padding:2px 8px;color:#0F72CD;font-weight:600}
+.phone .calc .res{font-size:12px;margin-top:6px;padding-top:6px;border-top:1px dashed #C9DDF3}
+.phone .calc .res b{font:700 16px Barlow,sans-serif;color:#0F72CD}
+.phone .slider{height:4px;background:#DBEBFF;border-radius:2px;position:relative;margin:10px 4px 4px}
+.phone .slider::after{content:"";position:absolute;left:38%;top:-5px;width:14px;height:14px;border-radius:50%;background:#1B88EE;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.phone .risk{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.phone .risk div{background:#F7F8FA;border-radius:8px;padding:6px 4px;text-align:center}
+.phone .risk .v{font:700 14px Barlow,sans-serif;display:block;color:#333}
+.phone .risk .l{font-size:10px;color:#999}
+.phone .seg{display:flex;background:#F0F3F7;border-radius:8px;padding:3px}
+.phone .seg div{flex:1;text-align:center;padding:5px 0;border-radius:6px;font-size:11.5px;color:#666}
+.phone .seg div.on{background:#fff;color:#0F72CD;font-weight:700;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.phone .cta{display:flex;gap:8px;padding:10px 12px 12px;background:#fff;border-top:1px solid #EEF1F5}
+.phone .cta div{flex:1;text-align:center;padding:9px 0;border-radius:999px;font-weight:700;font-size:13px}
+.phone .cta .pri{background:#1B88EE;color:#fff}
+.phone .cta .sec{background:#EAF3FD;color:#0F72CD}
+.phone .cta .ghost{background:#F3F4F6;color:#666;flex:.7}
+.phone .todo{display:flex;flex-direction:column;gap:6px}
+.phone .todo .it{display:flex;gap:8px;align-items:flex-start}
+.phone .todo .d{width:8px;height:8px;border-radius:50%;margin-top:5px;flex:0 0 8px}
+.phone .todo .d.a{background:#07AD8F}.phone .todo .d.b{background:#FFB020}.phone .todo .d.c{background:#1B88EE}.phone .todo .d.g{background:#C98A1E}
+.phone .todo .it p{margin:0;font-size:11.5px;color:#555;flex:1}
+.phone .todo .it p b{color:#333}
+.phone .todo .it .amt{font:600 12px Barlow,sans-serif;color:#07AD8F;white-space:nowrap}
+.phone .ladder{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;text-align:center}
+.phone .ladder .st{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:9.5px;color:#666}
+.phone .ladder .st i{width:14px;height:14px;border-radius:50%;border:2px solid #E5EAF0;display:block}
+.phone .ladder .st.on i{background:#FF8A3D;border-color:#FF8A3D}
+.phone .ladder .st.next i{border-color:#FF8A3D;background:#fff}
+.phone .ladder .st .em{font-size:16px;line-height:1.2}
+.phone .ladder .st .amt{font:600 9.5px Barlow,sans-serif;color:#999}
+.phone .ladder .st.on .amt{color:#FF8A3D}
+.phone .nextgoal{background:#FFF7E5;border:1px solid #FFDD99;border-radius:8px;padding:7px 9px;margin-top:8px;font-size:11px;color:#555;display:flex;justify-content:space-between;gap:8px}
+.phone .nextgoal b{color:#8A5A0B}
+.phone .nextgoal .r{color:#C98A1E;font-weight:700;white-space:nowrap}
+.phone .bars{display:flex;align-items:flex-end;gap:5px;height:60px;padding:0 2px;border-bottom:1px solid #EEE}
+.phone .bars i{flex:1;background:#FFCC66;border-radius:3px 3px 0 0;display:block;position:relative}
+.phone .bars i.z{background:#EEF1F5;height:3px!important}
+.phone .bars i.now{background:#1B88EE}
+.phone .bars i.plan{background:repeating-linear-gradient(135deg,#C9DDF3 0 3px,#EAF3FD 3px 6px)}
+.phone .barl{display:flex;gap:5px;padding:3px 2px 0;font:500 9px Barlow,sans-serif;color:#999}
+.phone .barl span{flex:1;text-align:center}
+.phone .ledger .row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #F3F4F6;font-size:11.5px}
+.phone .ledger .row:last-child{border-bottom:0}
+.phone .ledger .row .n{color:#333}
+.phone .ledger .row .n small{display:block;color:#999;font-size:10px}
+.phone .ledger .row .a{font:600 13px Barlow,sans-serif;color:#C98A1E}
+.phone .ledger .row .a small{display:block;font:400 9.5px "Noto Sans SC",sans-serif;color:#999;text-align:right}
+.phone .miles{display:flex;gap:6px}
+.phone .miles div{flex:1;background:#F7F8FA;border-radius:8px;padding:6px 4px;text-align:center;font-size:10px;color:#666}
+.phone .miles div b{display:block;font-size:14px;line-height:1.3}
+.phone .miles div.done{background:#FFF4DD;color:#8A5A0B}
+.phone .plan .row{display:flex;justify-content:space-between;font-size:11.5px;padding:4px 0;color:#555}
+.phone .plan .row b{color:#333;font-weight:600}
+.phone .plan .row .st{color:#07AD8F;font-weight:700}
+.phone .link{color:#1B88EE;font-size:11px}
+.phone .tl{position:relative;padding-left:16px;font-size:11.5px}
+.phone .tl::before{content:"";position:absolute;left:4px;top:6px;bottom:6px;width:2px;background:#DBEBFF}
+.phone .tl div{position:relative;padding:3px 0 3px 4px;color:#555}
+.phone .tl div::before{content:"";position:absolute;left:-15px;top:8px;width:8px;height:8px;border-radius:50%;background:#1B88EE;border:2px solid #fff}
+.phone .tl div b{color:#333}
+.phone .tl div small{color:#999;margin-left:4px}
+.phone .tab{display:flex;justify-content:space-around;background:#fff;padding:8px 0 10px;border-top:1px solid #EEF1F5;font-size:10px;color:#999}
+.phone .tab div.on{color:#1B88EE;font-weight:700}
+.phone .tab .ic{display:block;width:18px;height:18px;border-radius:5px;background:#E5EAF0;margin:0 auto 2px}
+.phone .tab div.on .ic{background:#1B88EE}
+.phone .cmp{font-size:11px;width:100%;border-collapse:collapse}
+.phone .cmp td,.phone .cmp th{padding:4px 4px;border-bottom:1px solid #F3F4F6;text-align:left}
+.phone .cmp th{color:#999;font-weight:500;font-size:10px}
+.phone .cmp td:first-child{color:#999}
+.phone .warn{font-size:10.5px;color:#999;line-height:1.4}
+.phone .badge{display:inline-block;font-size:10px;padding:1px 6px;border-radius:4px;background:#EAF3FD;color:#0F72CD;font-weight:600;margin-left:4px;vertical-align:middle}
+.phone .badge.r{background:#FFEDE6;color:#E8532B}
+.phone .badge.g{background:#E6F7F3;color:#07AD8F}
+/* modal mock */
+.phone.modal{background:#5C6470}
+.phone.modal .dim{background:rgba(20,24,30,.55);padding:150px 16px 30px;min-height:520px}
+.phone .sheet{background:#fff;border-radius:16px;padding:16px 14px}
+.phone .sheet h4{margin:0 0 8px;font-size:15px}
+.phone .sheet .imp{display:flex;flex-direction:column;gap:7px;margin:10px 0}
+.phone .sheet .imp div{display:flex;justify-content:space-between;font-size:12px;color:#555;background:#F7F8FA;border-radius:8px;padding:7px 10px}
+.phone .sheet .imp div b{font-family:Barlow,sans-serif;color:#E8532B}
+.phone .sheet .imp div b.k{color:#333}
+.phone .sheet .alt{background:#F5F9FF;border-radius:8px;padding:8px 10px;font-size:11.5px;color:#0F72CD;margin-top:6px}
+.phone .sheet .btns{display:flex;gap:8px;margin-top:12px}
+.phone .sheet .btns div{flex:1;text-align:center;padding:9px 0;border-radius:999px;font-weight:700;font-size:13px}
+.phone .sheet .btns .pri{background:#1B88EE;color:#fff}
+.phone .sheet .btns .sec{background:#F3F4F6;color:#666}
+.phone .sheet .fine{font-size:10px;color:#999;margin-top:8px;text-align:center}
+
+.demo-note{font-size:12px;color:var(--ink-3);text-align:center;margin-top:6px}
+@media (max-width:980px){
+  header.hero,.cols,.cols.two-phones{grid-template-columns:1fr}
+  .grid3,.grid2,.mech{grid-template-columns:1fr}
+  .phase{grid-template-columns:1fr}
+}
+@media (max-width:400px){.phone{width:100%;flex-basis:100%}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+<header class="hero">
+  <div>
+    <div class="eyebrow">Qieman · Dividend Scenario · Product & Holding Page</div>
+    <h1 style="margin:10px 0 14px">让分红长成「被动月收入」<br>月月分红 × 生生不息 持有动机优化方案</h1>
+    <p class="lead">把「收息越薪」小程序的三个巧思（被动月薪、账单覆盖阶梯、到账日历）移植到且慢的分红场景，但按两条产品线的真实现金流机制分别落地：月月分红讲「真实股息覆盖账单」，生生不息讲「计划到账覆盖账单」。买前用目标试算制造买入理由，买后用现金流卡与账单阶梯替代净值焦虑，卖出时用「降薪拦截」守住持有。</p>
+    <p class="meta">2026-09-22 · 面向产品 / 运营 / 投研 / 合规讨论稿 · 原型内数字均为示例，非真实用户或策略数据</p>
+  </div>
+  <aside class="hero-side">
+    <div class="eyebrow" style="margin-bottom:8px">方案一页纸</div>
+    <dl>
+      <dt>核心主张</dt><dd>收益卡讲「涨跌」，现金流卡讲「每月到账」；把后者放到持仓页第一屏</dd>
+      <dt>一个新指标</dt><dd>每月现金流（估算 / 计划）+ 用户自设的账单覆盖率</dd>
+      <dt>三个新模块</dt><dd>账单覆盖阶梯 · 到账日历与今日事项 · 到账账本与里程碑</dd>
+      <dt>两道拦截</dt><dd>买前「算算我的目标」· 卖出前「降薪预警」</dd>
+      <dt>合规底线</dt><dd>不叫月薪、不承诺频率、定取不叫分红、预计值标基准与区间</dd>
+      <dt>P0 周期</dt><dd>4 周内可上线：复用 dividend-summary / arp-overview / 目标规划入口</dd>
+    </dl>
+  </aside>
+</header>
+
+<!-- ============ 01 ============ -->
+<section id="insight">
+  <div class="sec-head">
+    <div class="eyebrow">01 · What to borrow</div>
+    <h2>「收息越薪」值得抄的不是页面，是七个把收益翻译成生活的动作</h2>
+    <p class="lead">截图里的每个模块都在做同一件事：把一个投资者不可控的变量（净值）换成一个他可控、只会随持有增长的变量（份额 × 每份分红）。这就是它让人「想买、想拿住」的原因。</p>
+  </div>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th style="width:18%">小程序模块</th><th style="width:30%">它做了什么</th><th style="width:26%">心理机制</th><th>移植到且慢的形态</th></tr></thead>
+    <tbody>
+      <tr><td><b>被动月薪 ¥676.54/月</b></td><td>把年度分红 ÷ 12，用「月收入」而不是「收益率」做第一屏主数</td><td>收益→收入的重新框定；收入是身份感，收益率是赌局</td><td>「每月现金流」主数：月月分红用近 12 个月实际每份分红 × 持有份额估算；生生不息用计划领取额</td></tr>
+      <tr><td><b>较上月 +¥13.42</b></td><td>月薪的环比只在加仓 / 提高分红时变动，与市值涨跌解耦</td><td>制造一条「只涨不跌」的进度条，抵消净值回撤的挫败感</td><td>「较上月」只反映份额变化与分红基准变化，明确标注来源（加投 / 再投）</td></tr>
+      <tr><td><b>月薪替代率 10.1%</b></td><td>用自己的工资做分母，进度环可视化</td><td>目标梯度效应：离目标越近动力越强</td><td>不用「工资」做分母（合规与隐私），改用<b>用户自设月度账单</b>：账单覆盖率</td></tr>
+      <tr><td><b>预计 15 年后达成</b></td><td>把目标折算成时间，加仓会直接缩短年份</td><td>把「多买一点」翻译成「提前 N 个月」，增购有即时反馈</td><td>目标试算器：加投 X 元 → 提前 N 个月；接入现有「目标规划」入口</td></tr>
+      <tr><td><b>财务自由度 2/8</b></td><td>八档生活账单（宽带、水电、医保、零食、养车…）逐档点亮</td><td>小胜利 + 收集感 + 具体化：抽象的「自由」变成一张张账单</td><td>账单覆盖阶梯：用户从模板挑 6 档、可改金额；公式沿用且慢家庭财务规划的「财务自由度 = 年理财收入 ÷ 年支出」</td></tr>
+      <tr><td><b>今日事项：分红登记 / 除息</b></td><td>每天给用户一个打开 App 的理由</td><td>事件驱动的习惯回路；等待到账本身是愉悦的</td><td>到账日历 + 今日事项：月月分红取自分红预告；生生不息取自定取计划（发起日 / 到账日 / 封闭解锁日）</td></tr>
+      <tr><td><b>下一目标 · 预计 2026 年 11 月达成</b></td><td>永远只展示「下一个」目标，不是全部差距</td><td>近目标比远目标更能驱动行动</td><td>阶梯下方固定一行「下一目标 + 预计达成 + 加投可提前」</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="callout gold"><b>一句话结论：</b>用户买红利产品是为了「钱进账」，但今天且慢的策略页和持仓页仍然以「净值涨跌」作为第一语言。月月分红成立以来最大回撤 15.41%（2026-08-27 策略接口），如果第一屏只有收益，用户看到的就是亏损；如果第一屏是「本月到账 ¥212、连续 4 个月到账」，同一份持仓就有了拿住的理由。</div>
+</section>
+
+<!-- ============ 02 ============ -->
+<section id="mechanism">
+  <div class="sec-head">
+    <div class="eyebrow">02 · Two engines, one story</div>
+    <h2>先分清楚：两个产品是两种现金流引擎，只能共用叙事外壳，不能共用事实层</h2>
+    <p class="lead">同一个「每月现金流卡」，底下的数从两条完全不同的链路来。这决定了文案、指标口径和风险披露都要分开写。</p>
+  </div>
+  <div class="mech">
+    <div class="card gold">
+      <div class="k">月月分红 · ZH174686</div>
+      <h3>真实分红型权益</h3>
+      <p>99% 股票权益（红利指数，含港股约 19%），默认现金分红、可一键切红利再投（T+1 生效）。现金流来自 9 只成分基金的真实分红，<b>当月没有分红就没有到账，系统不兜底</b>。R3、建议持有 3 年以上；成立以来 -5.50%、最大回撤 15.41%（截至 2026-08-27）。</p>
+      <p style="margin-top:8px"><span class="tag">现有模块</span>策略页：持有 10 万实盘的「累计分红 / 本月分红 / 预计下次分红日期」；持仓页：分红记录卡「累计分红 / 本月分红 / 预计分红日期 + 最近分红」，金刚区「修改分红方式」</p>
+    </div>
+    <div class="card">
+      <div class="k">生生不息 · ZH175045</div>
+      <h3>计划领取型稳钱</h3>
+      <p>约 82% 债券固收 + 13% 权益的全托管组合，底层统一红利再投，自动调仓不可关闭。现金流来自<b>每月定期赎回指定货基</b>：目标月定比 0.25%（年 3%），基数剔除近 90 天新入金，用户选 1–28 号到账日，首笔满 90 天才开始。<b>到账可能含本金</b>。R2、建议持有 1 年以上；底层最大回撤 5.17%、年化波动 3.66%。</p>
+      <p style="margin-top:8px"><span class="tag">现有模块</span>策略页：定取概览「年定取率 / 月定取率 / 定取频率 / 定取持有期」；持仓页：定取记录卡「累计定取 / 本月定取 / 预计领取日期 + 最近定取」，金刚区「定取计划」</p>
+    </div>
+  </div>
+  <h3 style="margin-top:22px">「每月现金流」指标的两套口径</h3>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th style="width:16%"></th><th>月月分红</th><th>生生不息</th></tr></thead>
+    <tbody>
+      <tr><td>页面标签</td><td>每月现金流 <span class="tag">估算</span></td><td>每月现金流 <span class="tag">计划</span></td></tr>
+      <tr><td>计算</td><td>Σ（用户持有份额<sub>i</sub> × 该基金近 12 个月实际每份分红<sub>i</sub>）÷ 12；成立不足 12 个月按实际月数折算并注明</td><td>MAX(0, 持仓市值 − 近 90 天转入本金及收益) × 0.25%，与生生不息 PRD 基数公式一致</td></tr>
+      <tr><td>展示方式</td><td>点值 + 区间（近 12 个月月度到账的最小值～最大值），配 12 格「到账月份点阵」</td><td>点值 + 下期到账日；封闭期内显示「首次到账 yyyy-mm-dd」倒计时</td></tr>
+      <tr><td>「较上月」来源</td><td>份额变化（加投 / 红利再投）与分红基准滚动，不含市值涨跌</td><td>基数变化（新入金解锁进入基数 / 赎回），不含净值涨跌</td></tr>
+      <tr><td>必须并列的风险信息</td><td>净值涨跌 / 最大回撤；「分红摊薄净值，总资产不变」；「过往分红不构成未来保证」</td><td>「到账含本金」；「不等同于基金分红或收益分配」；90 天封闭；不保本不保收益</td></tr>
+      <tr><td>数据来源</td><td>pmdj dividend-summary（已有累计 / 本月 / 下次日期）+ <span class="tag new">新增</span>近 12 月每份分红与到账月份数</td><td>pmdj arp overview（已有）+ <span class="tag new">新增</span>每笔定取的「其中收益 / 其中本金」拆分（依赖排期中的定取除权收益指标）</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="callout"><b>对老板那句话的回应：</b>「围绕客户的财富目标做产品和运营」，在分红场景里最可感知的财富目标不是「年化 X%」，而是「每月这笔到账能付掉哪几张账单」。账单覆盖率就是把财富目标落到分红场景的载体，而且分母由用户自己填，不构成任何收益承诺。</div>
+</section>
+
+<!-- ============ 03 ============ -->
+<section id="product-page">
+  <div class="sec-head">
+    <div class="eyebrow">03 · Before purchase</div>
+    <h2>产品页：把「这个策略收益如何」改成「买它每月能到账多少、够付什么」</h2>
+    <p class="lead">当前策略页首屏是模型业绩（累计收益 / 年化 / 最大回撤），分红数据模块排在下面。方案把顺序反过来，并加一个让用户带着自己的目标进来的试算器。</p>
+  </div>
+  <div class="cols two-phones">
+    <div class="text">
+      <h3>五处改动（两条产品线共用结构，文案分开）</h3>
+      <ol class="steps">
+        <li><b>首屏现金流答案卡。</b>月月分红：「投入 10 万，每月现金流估算 ¥380，成立以来 7 个月中 6 个月有到账」，数据仍用现有 10 万机构实盘，但补上「到账月份点阵」和「区间」，直接回应「月月」是否真的月月；生生不息：「投入 10 万，每月 15 日到账约 ¥250，含本金」，并画出「买入 → 90 天封闭 → 首次到账 → 之后每月」时间线。</li>
+        <li><b>钱从哪来卡（3 行）。</b>用三行说清资金来源、到账去向、不做什么。月月分红明确「没有分红的月份不卖份额兜底」；生生不息明确「是从组合内货基赎回，不是基金分红」。这是把 08-28 剖析里「最危险的是认知错配」直接前置到买入前。</li>
+        <li><b>算算我的目标。</b>两种入口：从账单模板选一项（水电燃气 ¥180 / 通勤 ¥300 / 买菜 ¥1,200…）反推需要投入多少；或拖投入金额看每月能到账多少。月月分红按近 12 个月实际分红率估算并标注区间，生生不息按 0.25% 计算。试算结果可一键带入买入金额，并生成「我的第一张账单目标」，进入持仓页后直接点亮阶梯。</li>
+        <li><b>风险并列不后置。</b>月月分红在现金流卡正下方并排放「最大回撤 15.4% / 建议持有 3 年+ / 到账月份 6/7」，文案「现金流相对稳，净值不稳」；生生不息并排「最大回撤 5.2% / 90 天封闭 / 到账含本金」。</li>
+        <li><b>分红方式前置为「领现金 / 滚雪球」。</b>月月分红买入前就让用户选，「滚雪球」展示再投三年后每月现金流估算的增长，为长期持有埋下第二个动机；生生不息不可选，改为展示「底层红利再投、自动调仓不可关闭」的托管说明。</li>
+      </ol>
+      <div class="callout warn"><b>分流卡：</b>两个产品页底部互相放一张「想要真实股息且能承受权益波动 → 月月分红；想要固定日期到账、偏稳 → 生生不息」的对比卡。红利策略专区入口本身也应按此分流，而不是并列三个名字。</div>
+    </div>
+    <div class="figs">
+      <div>
+        <div class="phone">
+          <div class="sb"><span>9:41</span><span>5G ▮▮▮ 78</span></div>
+          <div class="nav"><span class="bk">‹</span>月月分红<span class="more">···</span></div>
+          <div class="body">
+            <div style="font-size:11px;color:#999">红利策略专区 · 经典组合 <span class="badge r">R3 中风险</span><span class="badge">建议持有 3 年+</span></div>
+            <div class="hero">
+              <div class="lbl">投入 10 万 · 每月现金流（估算）</div>
+              <div class="big">¥380<small>/月</small></div>
+              <div class="sub">近 7 个月到账区间 ¥210 ～ ¥520</div>
+              <div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="now"></i><i></i><i></i><i></i><i></i><span>成立以来 7 个月 · 6 个月有到账</span></div>
+              <div class="goal"><span>累计到账 ¥2,640 · 本月 ¥412 · 预计下次分红 10-15</span></div>
+              <div class="note">数据来自 10 万机构实盘，与个人实际分红存在差异；过往分红不构成未来分红的保证</div>
+            </div>
+            <div class="c">
+              <div class="t"><b class="g">钱从哪来</b><span>3 件事说清</span></div>
+              <div class="src" style="margin-bottom:8px"><div class="ic g">息</div><p><b>来自 9 只红利指数基金的真实分红</b>基金公告分红 → 权益登记 → 派息到你的盈米宝</p></div>
+              <div class="src" style="margin-bottom:8px"><div class="ic">选</div><p><b>领现金，或一键改成红利再投</b>T+1 生效，作用于全部持仓与未来调入基金</p></div>
+              <div class="src"><div class="ic r">否</div><p><b>没有分红的月份，不会卖份额凑分红</b>「月月」是频率目标，不是承诺</p></div>
+            </div>
+            <div class="c">
+              <div class="t"><b>算算我的目标</b><span>示例</span></div>
+              <div class="calc">
+                <div class="row"><span>我想用分红覆盖</span><span class="sel">水电燃气 ¥180/月 ▾</span></div>
+                <div class="row"><span>我准备投入</span><span class="num" style="font-weight:700">¥30,000</span></div>
+                <div class="slider"></div>
+                <div class="res">按近 12 个月实际分红估算，约需 <b>¥4.7 万</b>；投入 3 万时每月约 <b>¥114</b>，每月再定投 500 元，预计 <b>2028 年 2 月</b>覆盖这张账单</div>
+              </div>
+              <div class="warn" style="margin-top:6px">估算基于历史分红率 4.2%～5.1%，不预示未来；市场波动可能导致分红暂停或减少</div>
+            </div>
+            <div class="c">
+              <div class="t"><b>先看清风险</b><span>现金流相对稳，净值不稳</span></div>
+              <div class="risk"><div><span class="v" style="color:#E8532B">-15.4%</span><span class="l">最大回撤</span></div><div><span class="v">12.3%</span><span class="l">年化波动</span></div><div><span class="v">6/7</span><span class="l">到账月份</span></div></div>
+            </div>
+            <div class="c">
+              <div class="t"><b>分红怎么领</b></div>
+              <div class="seg"><div class="on">领现金 · 到盈米宝</div><div>滚雪球 · 红利再投</div></div>
+              <div class="warn" style="margin-top:6px">滚雪球模式下份额逐月增加，3 年后每月现金流估算 ¥114 → ¥131（示例）</div>
+            </div>
+            <div class="c" style="background:#F5F9FF">
+              <div class="t"><b>拿不准？比一比</b></div>
+              <table class="cmp"><tr><th></th><th>月月分红</th><th>生生不息</th></tr><tr><td>钱从哪来</td><td>基金真实分红</td><td>按计划赎回货基</td></tr><tr><td>到账日</td><td>随基金公告</td><td>每月固定日</td></tr><tr><td>风险</td><td>R3 · 权益 99%</td><td>R2 · 固收 82%</td></tr></table>
+            </div>
+          </div>
+          <div class="cta"><div class="sec">先定个目标</div><div class="pri">买入 ¥30,000</div></div>
+        </div>
+        <div class="figcap">图 1 · 月月分红产品页（优化后）。首屏是「每月现金流 + 到账月份点阵」，试算器带着账单目标进入买入流。</div>
+      </div>
+      <div>
+        <div class="phone">
+          <div class="sb"><span>9:41</span><span>5G ▮▮▮ 78</span></div>
+          <div class="nav"><span class="bk">‹</span>生生不息<span class="more">···</span></div>
+          <div class="body">
+            <div style="font-size:11px;color:#999">红利策略专区 · 全托管固收+ <span class="badge g">R2 中低风险</span><span class="badge">建议持有 1 年+</span></div>
+            <div class="hero calm">
+              <div class="lbl">投入 10 万 · 每月现金流（计划）</div>
+              <div class="big">≈ ¥250<small>/月</small></div>
+              <div class="sub">每月 15 日到账 · 年定取率 3% · 到账含本金</div>
+              <div class="tl" style="margin-top:10px;color:#fff">
+                <div style="color:#fff"><b style="color:#fff">今天买入</b><small style="color:rgba(255,255,255,.7)">09-22 确认</small></div>
+                <div style="color:#fff"><b style="color:#fff">封闭 90 天</b><small style="color:rgba(255,255,255,.7)">12-21 解锁</small></div>
+                <div style="color:#fff"><b style="color:#fff">首次到账</b><small style="color:rgba(255,255,255,.7)">2027-01-15 起每月</small></div>
+              </div>
+              <div class="note">目标月定比 0.25% 是支取规则，不是收益率或分红率；实际金额受可领取基数与交易限制影响</div>
+            </div>
+            <div class="c">
+              <div class="t"><b class="g">钱从哪来</b><span>3 件事说清</span></div>
+              <div class="src" style="margin-bottom:8px"><div class="ic">取</div><p><b>从组合内的货币基金按计划赎回</b>这不是基金分红，是帮你定期取一笔钱</p></div>
+              <div class="src" style="margin-bottom:8px"><div class="ic g">本</div><p><b>到账的钱可能包含本金</b>每笔到账会拆开显示「其中收益 / 其中本金」</p></div>
+              <div class="src"><div class="ic r">管</div><p><b>全托管：自动调仓不可关闭，底层红利再投</b>你只需要选到账日和到账去向</p></div>
+            </div>
+            <div class="c">
+              <div class="t"><b>算算我的目标</b><span>示例</span></div>
+              <div class="calc">
+                <div class="row"><span>我想每月固定领</span><span class="sel">通勤交通 ¥300/月 ▾</span></div>
+                <div class="row"><span>我准备投入</span><span class="num" style="font-weight:700">¥120,000</span></div>
+                <div class="slider"></div>
+                <div class="res">按月定比 0.25% 计算，覆盖这张账单约需 <b>¥12 万</b>；首次到账 <b>2027-01-15</b>，此后每月 15 日</div>
+              </div>
+              <div class="warn" style="margin-top:6px">定期取现不保本、不保收益；封闭期内新入金不计入当期基数</div>
+            </div>
+            <div class="c">
+              <div class="t"><b>先看清风险</b><span>稳，但不是存款</span></div>
+              <div class="risk"><div><span class="v" style="color:#E8532B">-5.2%</span><span class="l">最大回撤</span></div><div><span class="v">90 天</span><span class="l">首笔封闭</span></div><div><span class="v">3.7%</span><span class="l">年化波动</span></div></div>
+            </div>
+            <div class="c" style="background:#F5F9FF">
+              <div class="t"><b>拿不准？比一比</b></div>
+              <table class="cmp"><tr><th></th><th>生生不息</th><th>月月分红</th></tr><tr><td>到账日</td><td>你选的固定日</td><td>随基金公告</td></tr><tr><td>钱从哪来</td><td>按计划赎回货基</td><td>基金真实分红</td></tr><tr><td>风险</td><td>R2 · 固收 82%</td><td>R3 · 权益 99%</td></tr></table>
+            </div>
+          </div>
+          <div class="cta"><div class="sec">先定个目标</div><div class="pri">建立领取计划并买入</div></div>
+        </div>
+        <div class="figcap">图 2 · 生生不息产品页（优化后）。首屏是「计划到账 + 时间线」，把 90 天封闭和「含本金」放在买入前。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 ============ -->
+<section id="holding-page">
+  <div class="sec-head">
+    <div class="eyebrow">04 · After purchase</div>
+    <h2>持仓页：现金流卡上第一屏，账单阶梯给目标，到账日历给理由，账本与里程碑给成就</h2>
+    <p class="lead">当前 CA 资产页的区块顺序是「总资产 → 定取记录 / 分红记录 → 跟投管理 → 陪伴 → 走势 → 成分」。方案不删任何现有模块，只做三件事：把分红 / 定取记录卡升级成现金流卡并前置；新增账单覆盖阶梯与今日事项；把分红记录页升级成到账账本。</p>
+  </div>
+  <div class="cols two-phones">
+    <div class="text">
+      <h3>持仓页七个模块</h3>
+      <ol class="steps">
+        <li><b>每月现金流卡（替换分红 / 定取记录卡，前置到总资产上方）。</b>主数是每月现金流，右侧账单覆盖率进度环，底部一行「下一目标 + 预计达成 + 加投可提前 N 个月」。「较上月」只反映份额 / 基数变化。市场下跌时这张卡不变，是留住用户的锚。</li>
+        <li><b>资产收益行（保留原三栏，加一栏「累计到账」）。</b>让「持有收益 -¥1,240」和「累计到账 ¥1,372」并排出现，用户才会明白分红摊薄净值、总资产不变的道理；配一句「净值跌了，你的份额没变」。这直接回应 2024 年「分红后以为资产丢失」的投诉来源。</li>
+        <li><b>今日事项 / 到账日历。</b>月月分红：取分红预告的权益登记日、除息日、派息日，逐基金展示每份分红；生生不息：下期定取发起日与到账日、近 90 天新入金的解锁日、轮空原因。日历页按月切换，每天最多三条事项，形成打开习惯。</li>
+        <li><b>账单覆盖阶梯（财务自由度）。</b>六档账单来自模板（手机话费 / 网络宽带 / 水电燃气 / 通勤交通 / 买菜餐饮 / 房租房贷），用户可替换、改金额、排序；分红或定取估算 ≥ 账单金额即点亮。公式沿用且慢家庭财务规划的「财务自由度」，只是把年度分母拆成了一张张月账单。跨策略汇总（月月分红 + 息息相关 + 生生不息）放 P2。</li>
+        <li><b>到账账本（升级分红记录页）。</b>页头保留「历史到账 N 次 / 累计 / 本月」，新增 12 个月柱状图与「本月有分红的基金 5/9」；生生不息每笔拆「其中收益 / 其中本金」，依赖排期中的定取除权收益指标，上线前先显示总额并注明「含本金」。</li>
+        <li><b>里程碑与分享。</b>累计到账破 ¥1,000 / ¥5,000 / ¥10,000、连续 N 个月到账、生生不息首次到账、持有满 1 年。里程碑卡可生成分享图，只含到账事实与账单目标，不含收益率。</li>
+        <li><b>领现金 / 滚雪球 卡（仅月月分红）。</b>在持仓页可切换分红方式（已有能力），旁边展示两种模式下未来 3 年每月现金流估算的差异，把「红利再投」从一个设置项变成一个持有理由。</li>
+      </ol>
+    </div>
+    <div class="figs">
+      <div>
+        <div class="phone">
+          <div class="sb"><span>9:41</span><span>5G ▮▮▮ 78</span></div>
+          <div class="nav"><span class="bk">‹</span>持仓详情<span class="more">···</span></div>
+          <div class="body">
+            <div class="acct">当前账户：月月分红 ›</div>
+            <div class="hero">
+              <div class="lbl">每月现金流（近 12 个月估算）</div>
+              <div class="big">¥196<small>/月</small></div>
+              <div class="chip up">↑ 较上月 +¥8.6 · 来自 9 月加投</div>
+              <div class="sub" style="margin-top:6px">连续 4 个月有到账 · 本月 ¥212</div>
+              <div class="ring"><svg viewBox="0 0 84 84"><circle cx="42" cy="42" r="34" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="7"/><circle cx="42" cy="42" r="34" fill="none" stroke="#FFCC66" stroke-width="7" stroke-linecap="round" stroke-dasharray="213.6" stroke-dashoffset="128"/></svg><div class="rv"><span><b>40%</b><i>账单覆盖率</i></span></div></div>
+              <div class="goal"><span>下一张账单：水电燃气 ¥180 · 预计 2027 年 3 月</span><span class="btn">加投 1,000 提前 1 月</span></div>
+              <div class="note">按持有份额 × 近 12 个月实际每份分红估算，不预示未来；覆盖率分母为你自设的账单</div>
+            </div>
+            <div class="c">
+              <div class="kpis"><div><span class="v">52,300</span><span class="l">持有金额</span></div><div><span class="v dn">-1,240</span><span class="l">持有收益</span></div><div><span class="v g">1,372</span><span class="l">累计到账</span></div></div>
+              <div class="warn" style="margin-top:8px;text-align:center">净值跌了 2.4%，你的份额没变，本月到账估算不受影响</div>
+            </div>
+            <div class="c">
+              <div class="t"><b>今日事项</b><span>9月22日 · 查看日历 ›</span></div>
+              <div class="todo">
+                <div class="it"><i class="d a"></i><p><b>分红登记</b> 华泰柏瑞红利低波 ETF 联接</p><span class="amt">每份 0.012 元</span></div>
+                <div class="it"><i class="d b"></i><p><b>明日除息</b> 中证红利 ETF 联接 · 净值将相应下调</p></div>
+                <div class="it"><i class="d c"></i><p><b>预计到账</b> 9 月 26 日 · 2 只基金派息至盈米宝</p><span class="amt">≈ ¥86</span></div>
+              </div>
+            </div>
+            <div class="c">
+              <div class="t"><b>账单覆盖</b><span>2/6 已点亮</span></div>
+              <div class="ladder">
+                <div class="st on"><i></i><span class="em">📱</span>话费<span class="amt">¥58</span></div>
+                <div class="st on"><i></i><span class="em">🌐</span>宽带<span class="amt">¥99</span></div>
+                <div class="st next"><i></i><span class="em">💡</span>水电燃气<span class="amt">¥180</span></div>
+                <div class="st"><i></i><span class="em">🚇</span>通勤<span class="amt">¥300</span></div>
+                <div class="st"><i></i><span class="em">🥬</span>买菜<span class="amt">¥1,200</span></div>
+                <div class="st"><i></i><span class="em">🏠</span>房租<span class="amt">¥3,500</span></div>
+              </div>
+              <div class="nextgoal"><span>已点亮 <b>网络宽带</b>（2026 年 6 月）<br>下一目标：水电燃气 ¥180/月</span><span class="r">预计 2027 年 3 月</span></div>
+            </div>
+            <div class="c">
+              <div class="t"><b class="g">到账账本</b><span>本月有分红基金 5/9 ›</span></div>
+              <div class="bars"><i class="z"></i><i class="z"></i><i style="height:34%"></i><i style="height:52%"></i><i style="height:28%"></i><i class="z"></i><i style="height:70%"></i><i style="height:60%"></i><i class="now" style="height:64%"></i><i class="plan" style="height:40%"></i><i class="plan" style="height:40%"></i><i class="plan" style="height:40%"></i></div>
+              <div class="barl"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span></div>
+              <div class="miles" style="margin-top:8px"><div class="done"><b>¥1,000</b>累计到账 ✓</div><div class="done"><b>4 个月</b>连续到账 ✓</div><div><b>¥2,000</b>差 ¥628</div></div>
+            </div>
+            <div class="c">
+              <div class="t"><b>分红怎么领</b><span>T+1 生效</span></div>
+              <div class="seg"><div class="on">领现金</div><div>滚雪球</div></div>
+              <div class="warn" style="margin-top:6px">切到滚雪球：份额逐月增加，3 年后每月现金流估算 ¥196 → ¥226</div>
+            </div>
+          </div>
+          <div class="cta"><div class="ghost">卖出</div><div class="pri">加投</div></div>
+        </div>
+        <div class="figcap">图 3 · 月月分红持仓页（优化后）。现金流卡替代分红记录卡并前置；持有收益与累计到账并排；今日事项与账单阶梯是新增模块。</div>
+      </div>
+      <div>
+        <div class="phone">
+          <div class="sb"><span>9:41</span><span>5G ▮▮▮ 78</span></div>
+          <div class="nav"><span class="bk">‹</span>持仓详情<span class="more">···</span></div>
+          <div class="body">
+            <div class="acct">当前账户：生生不息 ›</div>
+            <div class="hero calm">
+              <div class="lbl">每月现金流（计划领取）</div>
+              <div class="big">¥500<small>/月</small></div>
+              <div class="chip">下期到账 10 月 15 日（周四）· 到盈米宝</div>
+              <div class="sub" style="margin-top:6px">计划运行中 · 已连续到账 3 期</div>
+              <div class="ring"><svg viewBox="0 0 84 84"><circle cx="42" cy="42" r="34" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="7"/><circle cx="42" cy="42" r="34" fill="none" stroke="#FFCC66" stroke-width="7" stroke-linecap="round" stroke-dasharray="213.6" stroke-dashoffset="107"/></svg><div class="rv"><span><b>50%</b><i>账单覆盖率</i></span></div></div>
+              <div class="goal"><span>下一张账单：买菜餐饮 ¥1,200 · 需再投 ¥28 万</span><span class="btn">加投 2 万 提前 1 期</span></div>
+              <div class="note">按可领取基数 × 0.25% 计算，到账含本金；不等同于基金分红，不保本不保收益</div>
+            </div>
+            <div class="c">
+              <div class="kpis"><div><span class="v">201,140</span><span class="l">持有金额</span></div><div><span class="v up">+2,640</span><span class="l">含已领取总收益</span></div><div><span class="v g">1,500</span><span class="l">累计领取</span></div></div>
+              <div class="warn" style="margin-top:8px;text-align:center">「含已领取总收益」= 持有收益 + 已领取中的收益部分（依赖定取除权收益指标）</div>
+            </div>
+            <div class="c">
+              <div class="t"><b>今日事项</b><span>9月22日 · 查看日历 ›</span></div>
+              <div class="todo">
+                <div class="it"><i class="d c"></i><p><b>下期定取</b> 10 月 14 日发起 · 10 月 15 日到账</p><span class="amt">≈ ¥478</span></div>
+                <div class="it"><i class="d b"></i><p><b>封闭解锁</b> 9 月加投 ¥10,000 于 11 月 20 日进入基数</p><span class="amt">+¥25/月</span></div>
+                <div class="it"><i class="d g"></i><p><b>近一次到账</b> 9 月 15 日 定取确认 ¥500，其中收益 ¥312</p></div>
+              </div>
+            </div>
+            <div class="c">
+              <div class="t"><b>领取计划</b><span class="link">修改到账日 · 暂停</span></div>
+              <div class="plan">
+                <div class="row"><span>到账日 / 去向</span><b>每月 15 日 · 盈米宝</b></div>
+                <div class="row"><span>本期可领取基数</span><b class="num">¥191,140</b></div>
+                <div class="row"><span>目标月定比</span><b>0.25%（年 3%，不可调）</b></div>
+                <div class="row"><span>计划状态</span><span class="st">运行中</span></div>
+              </div>
+            </div>
+            <div class="c">
+              <div class="t"><b>账单覆盖</b><span>3/6 已点亮</span></div>
+              <div class="ladder">
+                <div class="st on"><i></i><span class="em">📱</span>话费<span class="amt">¥58</span></div>
+                <div class="st on"><i></i><span class="em">🌐</span>宽带<span class="amt">¥99</span></div>
+                <div class="st on"><i></i><span class="em">💡</span>水电燃气<span class="amt">¥180</span></div>
+                <div class="st next"><i></i><span class="em">🚇</span>通勤<span class="amt">¥300</span></div>
+                <div class="st"><i></i><span class="em">🥬</span>买菜<span class="amt">¥1,200</span></div>
+                <div class="st"><i></i><span class="em">🏠</span>房租<span class="amt">¥3,500</span></div>
+              </div>
+              <div class="nextgoal"><span>已点亮 <b>水电燃气</b>（首次到账当月）<br>下一目标：通勤交通 ¥300/月</span><span class="r">差 ¥163/月</span></div>
+            </div>
+            <div class="c ledger">
+              <div class="t"><b class="g">领取账本</b><span>累计 3 期 ›</span></div>
+              <div class="row"><span class="n">9 月 15 日 定取到账<small>基数 ¥200,000 × 0.25%</small></span><span class="a">¥500<small>其中收益 ¥312 · 本金 ¥188</small></span></div>
+              <div class="row"><span class="n">8 月 15 日 定取到账</span><span class="a">¥500<small>其中收益 ¥290 · 本金 ¥210</small></span></div>
+              <div class="row"><span class="n">7 月 15 日 首次到账 🎉<small>封闭期结束</small></span><span class="a">¥500<small>其中收益 ¥305 · 本金 ¥195</small></span></div>
+            </div>
+          </div>
+          <div class="cta"><div class="ghost">卖出</div><div class="pri">加投</div></div>
+        </div>
+        <div class="figcap">图 4 · 生生不息持仓页（优化后）。现金流卡讲「下期到账日」，领取计划卡保留全部 PRD 字段，账本逐笔拆收益与本金。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cols" style="margin-top:36px">
+    <div class="text">
+      <h3>卖出前的「降薪拦截」</h3>
+      <p>用户点卖出时，把这笔赎回翻译成三件他在意的事：每月现金流减少多少、哪张账单会熄灭、目标推迟几个月。给「只卖一部分」一个默认选项，把赎回额压到刚好保住当前账单。生生不息额外提示封闭期与计划暂停规则。这是损失规避在持有场景里最直接的应用，也是整套方案里对留存影响最大、实现成本最低的一处。</p>
+      <p>同一套翻译也用于陪伴内容：每月一封「到账月报」（本月到账 ¥212、点亮的账单、距离下一张账单还差多少），以及净值下跌日推送「份额没变、到账估算不变」的安抚卡。这两类内容已有 CA 陪伴与消息通道可承接。</p>
+      <div class="callout"><b>拦截文案只做事实翻译，不做劝阻。</b>不出现「建议不要卖出」，只出现「卖出后每月现金流 ¥196 → ¥121」。金额和月份均基于用户自己的份额与自设账单。</div>
+    </div>
+    <div class="figs">
+      <div>
+        <div class="phone modal">
+          <div class="dim">
+            <div class="sheet">
+              <h4>卖出 ¥20,000 之后</h4>
+              <div class="imp">
+                <div><span>每月现金流（估算）</span><b>¥196 → ¥121</b></div>
+                <div><span>账单覆盖</span><b>「网络宽带」将熄灭</b></div>
+                <div><span>下一张账单达成</span><b>推迟约 8 个月</b></div>
+                <div><span>累计到账 / 连续到账</span><b class="k">保留 ¥1,372 · 4 个月</b></div>
+              </div>
+              <div class="alt">只卖 ¥8,000 可以保住现在两张账单，每月现金流 ¥166</div>
+              <div class="btns"><div class="sec">继续卖出 2 万</div><div class="pri">改为卖出 8,000</div></div>
+              <div class="fine">以上为基于你当前份额与自设账单的估算，不构成投资建议</div>
+            </div>
+          </div>
+        </div>
+        <div class="figcap">图 5 · 卖出前的降薪拦截（月月分红示例）。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 ============ -->
+<section id="compliance">
+  <div class="sec-head">
+    <div class="eyebrow">05 · Guardrails</div>
+    <h2>合规边界：叙事可以像月薪，用词不能是月薪</h2>
+    <p class="lead">2026 年 1 月证监会机构监管通报点名了「以高比例分红为卖点营销」，且慢自己的公众号也已固定了一段分红风险提示。方案里的所有文案都按下面的清单过一遍。</p>
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <div class="k">可以用</div>
+      <ul style="margin:0;font-size:14px">
+        <li>每月现金流（估算）/（计划）、到账、账单覆盖率、账单覆盖阶梯</li>
+        <li>「成立以来 7 个月中 6 个月有到账」这类可核验的事实计数</li>
+        <li>区间表达：「近 12 个月到账 ¥210 ～ ¥520」</li>
+        <li>用户自设的目标与分母：「你设的账单」「你的目标」</li>
+        <li>生生不息：计划领取、定取、到账含本金、目标月定比</li>
+        <li>月月分红：真实分红、领现金 / 滚雪球（红利再投）</li>
+      </ul>
+    </div>
+    <div class="card" style="border-top:4px solid var(--up)">
+      <div class="k" style="color:var(--up)">不能用</div>
+      <ul style="margin:0;font-size:14px">
+        <li>月薪、工资、发薪、加薪、被动月薪、月薪替代率（暗示确定性收入）</li>
+        <li>固定收益、稳赚、锁定、保证到账、每月必分（承诺频率或收益）</li>
+        <li>生生不息任何位置出现「分红」「收益分配」；不得把 0.25% 写成分红率或收益率</li>
+        <li>用 10 万机构实盘数据暗示「你也会拿到这么多」；必须标「与个人实际分红存在差异」</li>
+        <li>把生生不息 2020 年起的继承净值说成定取功能的成果</li>
+        <li>用模型业绩（红利再投口径）与现金分红到账混排而不注明口径差异</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout"><b>三条固定脚注（每个含现金流数字的卡片下方至少一条）：</b>①「基金分红并非固定收益承诺，分红将摊薄基金份额净值，投资者总资产不发生变化，过往分红记录不构成未来分红的保证」（且慢现行口径）；②「定期取现不保本、不保收益，不等同于基金分红或收益分配，到账资金可能包含本金与收益」（生生不息 PRD 口径）；③「估算基于你当前持有份额与历史数据 / 你自设的账单目标，不预示未来，不构成投资建议」。投顾组合业绩仍只在适当性匹配后展示。</div>
+</section>
+
+<!-- ============ 06 ============ -->
+<section id="data">
+  <div class="sec-head">
+    <div class="eyebrow">06 · Data & dependencies</div>
+    <h2>数据依赖：大部分是已有接口的重排，真正新增的是三样东西</h2>
+  </div>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th style="width:26%">模块</th><th style="width:38%">依赖</th><th>状态</th></tr></thead>
+    <tbody>
+      <tr><td>现金流卡 · 累计 / 本月 / 下次日期</td><td>pmdj dividend-summary（含 nextDividendDate、latestDividendRecord）；arp overview</td><td><span class="tag blue">已有</span></td></tr>
+      <tr><td>现金流卡 · 月月分红估算值与区间</td><td>用户持有份额 × 近 12 个月每份分红；到账月份数。需在 dividend-summary 增加逐基金近 12 个月分红序列</td><td><span class="tag new">新增</span>后端聚合，前端计算</td></tr>
+      <tr><td>今日事项 · 月月分红</td><td>基金分红预告（权益登记 / 除息 / 派息日，按确认时间判断）；现有分红预告能力</td><td><span class="tag blue">已有</span>需按 CA 汇总</td></tr>
+      <tr><td>今日事项 · 生生不息</td><td>定取计划下期发起日 / 到账日、近 90 天入金解锁日、轮空原因</td><td><span class="tag blue">已有</span>计划服务具备，需暴露给资产页</td></tr>
+      <tr><td>账单覆盖阶梯 / 目标试算</td><td>账户设置「目标规划」入口（目标金额 / 时间 / 首投 / 每月投入）扩展一个「现金流目标」类型；账单模板与用户自定义存储</td><td><span class="tag new">新增</span>目标类型 + 模板</td></tr>
+      <tr><td>领取账本 · 其中收益 / 其中本金</td><td>定取除权收益指标（Sprint96 记录「暂未开发」，08-31 已列新需求）</td><td><span class="tag">排期中</span>上线前先显示总额并注「含本金」</td></tr>
+      <tr><td>降薪拦截</td><td>赎回流内调用现金流估算与账单目标，纯前端计算</td><td><span class="tag blue">已有</span>能力拼装</td></tr>
+      <tr><td>里程碑 / 分享卡</td><td>到账次数、累计金额、连续月数；分享模板走现有海报能力</td><td><span class="tag new">新增</span>规则表</td></tr>
+      <tr><td>原生分红记录页</td><td>已开发的 dividend-record 页当前搁置，线上仍跳交易记录分红 tab</td><td><span class="tag">待启用</span>作为到账账本的底子</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- ============ 07 ============ -->
+<section id="metrics">
+  <div class="sec-head">
+    <div class="eyebrow">07 · Metrics & experiments</div>
+    <h2>怎么证明它有用：一个北极星，四个过程指标，两组实验</h2>
+  </div>
+  <div class="grid3">
+    <div class="card"><div class="k">北极星</div><h3>持有满 180 天且未净赎回的用户比例</h3><p>按买入月分 cohort，月月分红与生生不息分开看。这是「持续持有动机」唯一诚实的度量。</p></div>
+    <div class="card"><div class="k">买入侧</div><h3>目标设置率 → 转化率</h3><p>产品页试算器使用率、带目标进入买入流的比例、目标用户 vs 非目标用户的首购金额与 30 天增购率。</p></div>
+    <div class="card"><div class="k">持有侧</div><h3>打开频次与拦截挽回</h3><p>今日事项 / 到账日历的周打开率、账单点亮事件数、降薪拦截出现后的改单率与最终赎回率。</p></div>
+  </div>
+  <h3>两组实验</h3>
+  <ul>
+    <li><b>实验 A（持仓页首屏）：</b>对照组保持总资产卡在前，实验组现金流卡在前。看 30 / 90 天净赎回率、加投率、页面停留。预期现金流卡组在净值回撤周内赎回率显著更低。</li>
+    <li><b>实验 B（产品页试算器）：</b>对照组无试算器，实验组有「算算我的目标」。看转化率与首购金额；若目标用户首购金额显著更高，则把试算器推到红利策略专区入口。</li>
+  </ul>
+  <div class="callout warn"><b>先补经营底表。</b>08-28 剖析已指出两策略缺少持有人、AUM、净流入、分红方式切换比例、定取履约成功率的日更数据；没有这些分子分母，任何实验都读不出结果。这一项应与 P0 并行。</div>
+</section>
+
+<!-- ============ 08 ============ -->
+<section id="roadmap">
+  <div class="sec-head">
+    <div class="eyebrow">08 · Roadmap</div>
+    <h2>落地节奏</h2>
+  </div>
+  <div class="phase"><div class="ph">P0<small>0–4 周</small></div><ul>
+    <li>持仓页：现金流卡替换分红 / 定取记录卡并前置；资产行加「累计到账」；今日事项（先做生生不息，数据最规整；月月分红接分红预告）</li>
+    <li>产品页：首屏现金流答案卡 + 到账月份点阵 / 时间线；「钱从哪来」三行卡；两产品互相分流卡</li>
+    <li>后端：dividend-summary 增加近 12 个月逐基金分红序列与到账月份数</li>
+    <li>并行：双策略经营底表日更</li>
+  </ul></div>
+  <div class="phase"><div class="ph">P1<small>4–8 周</small></div><ul>
+    <li>账单覆盖阶梯 + 目标试算器（扩展目标规划的「现金流目标」类型）；实验 A / B 开跑</li>
+    <li>降薪拦截；到账账本（启用原生分红记录页 + 12 月柱状图）；里程碑规则与分享卡</li>
+    <li>陪伴：到账月报、下跌日安抚卡两套模板</li>
+  </ul></div>
+  <div class="phase"><div class="ph">P2<small>8–12 周</small></div><ul>
+    <li>生生不息领取账本「其中收益 / 其中本金」（随定取除权收益指标上线）</li>
+    <li>跨策略「收息总账」：月月分红 + 息息相关 + 生生不息的现金流与账单覆盖汇总，接入总资产页策略视图</li>
+    <li>家庭视角：账单阶梯支持家庭账户合并（对应家庭财务规划的财务自由度口径）</li>
+  </ul></div>
+</section>
+
+<footer>
+  <b>口径与来源</b>
+  <ul>
+    <li>两策略机制、风险与业绩：《且慢两类现金流策略深度剖析：月月分红 vs 生生不息》（2026-08-28，策略接口数据截至 08-27/28）；月月分红 PRD（2026-02-27）、功能宣讲（03-11）、调仓间隔更正（08-21）；生生不息 PRD（v16, 05-21）、功能宣讲（06-15）、定期赎回规则梳理（09-04）。</li>
+    <li>现有页面结构与字段原名：CA 资产页 / 分红记录卡 / 定取记录卡 / 分红记录页实现（nova 源码对标 App RN）；总资产页改版 PRD（2024-02-29）；分红优化 PRD（2024-06-26）。</li>
+    <li>财务自由度公式：且慢家庭财务规划、财务规划报告 skill V2；目标规划入口：财富目标规划测算器验收用例（QMRD-42632）。</li>
+    <li>竞品与叙事：「收息越薪」小程序官方教程（2026-09-13 / 09-19）；盈米研究《定期支付型产品基础研究》（2024-01）；且慢陪伴公众号红利策略风险提示（2026-09-21）。</li>
+    <li>监管：证监会机构监管情况通报 2025 年第 10 期（2026-01 报道）；《公开募集证券投资基金宣传推介材料管理暂行规定》；基金投顾业务规定（征求意见稿）。</li>
+    <li>原型中的金额、日期、账单、到账记录均为示例数据；月月分红「6/7 到账月份」「¥380/月」为演示用假设，上线前须以 10 万机构实盘真实数据替换。两策略的持有人、AUM、分红方式切换比例等经营数据本次未取得。</li>
+  </ul>
+</footer>
+</div>
+</body>
+</html>

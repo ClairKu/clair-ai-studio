@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />
+    <script data-clair-access-gate data-clair-access-scope="report" src="../../access-gate.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>腾讯会议 CLI 上手手册</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap">
+<style>
+:root{
+  --bg:#f6f8fc; --paper:#ffffff; --ink:#15213a; --ink-2:#4f5b75; --ink-3:#8590a6;
+  --line:#e1e7f2; --accent:#0a5cff; --accent-ink:#ffffff; --accent-soft:#e9f0ff;
+  --ok:#0f9d58; --ok-soft:#e8f6ee; --warn:#b86e00; --warn-soft:#fff5e3;
+  --cmd-bg:#0f172a; --cmd-ink:#eef3fb; --cmd-dim:#93a1bd; --cmd-ok:#6fe3a8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0c1220; --paper:#161e31; --ink:#eaeffa; --ink-2:#b7c1d6; --ink-3:#8290aa;
+    --line:#293450; --accent:#6a97ff; --accent-ink:#0b1430; --accent-soft:#1b2848;
+    --ok:#52d38f; --ok-soft:#12321f; --warn:#f2b552; --warn-soft:#3a2b10;
+    --cmd-bg:#070b14; --cmd-ink:#eef3fb; --cmd-dim:#8290aa; --cmd-ok:#6fe3a8;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0c1220; --paper:#161e31; --ink:#eaeffa; --ink-2:#b7c1d6; --ink-3:#8290aa;
+  --line:#293450; --accent:#6a97ff; --accent-ink:#0b1430; --accent-soft:#1b2848;
+  --ok:#52d38f; --ok-soft:#12321f; --warn:#f2b552; --warn-soft:#3a2b10;
+  --cmd-bg:#070b14; --cmd-ink:#eef3fb; --cmd-dim:#8290aa; --cmd-ok:#6fe3a8;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;font-size:17px;line-height:1.8;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding-inline:20px;padding-block:40px 80px}
+h1,h2,h3{text-wrap:balance;line-height:1.25;margin:0}
+h1{font-size:clamp(30px,6vw,42px);font-weight:900}
+h2{font-size:22px;font-weight:700;margin-top:56px;display:flex;align-items:center;gap:12px}
+h2 .n{flex:none;width:34px;height:34px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-size:17px;font-weight:900;display:grid;place-items:center}
+p{margin:0}
+.lead{font-size:19px;color:var(--ink-2);margin-top:14px}
+.sub{color:var(--ink-2);margin-top:10px}
+.sub b{color:var(--ink)}
+a{color:var(--accent)}
+
+.who{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.who span{background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:15px;color:var(--ink-2)}
+.who b{color:var(--ink);font-weight:700}
+
+/* big example bubbles */
+.talk{display:grid;gap:10px;margin-top:18px}
+.talk div{justify-self:start;max-width:92%;background:var(--accent-soft);color:var(--ink);border-radius:18px 18px 18px 6px;padding:10px 16px;font-size:16px}
+
+/* the one-sentence box */
+.big{margin-top:18px;background:var(--paper);border:2px solid var(--accent);border-radius:16px;padding:20px 20px 18px}
+.big .label{font-size:13px;font-weight:700;letter-spacing:.08em;color:var(--accent)}
+.big .text{margin-top:8px;font-size:17px;line-height:1.7;word-break:break-all}
+.btn{appearance:none;border:0;background:var(--accent);color:var(--accent-ink);font:inherit;font-size:16px;font-weight:700;padding:10px 22px;border-radius:999px;cursor:pointer;margin-top:14px}
+.btn:hover{filter:brightness(1.05)}
+.btn:focus-visible{outline:3px solid var(--accent-soft);outline-offset:2px}
+.btn.done{background:var(--ok)}
+
+/* steps list */
+.steps{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:12px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:40px 1fr;gap:14px;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.steps li::before{counter-increment:s;content:counter(s);width:40px;height:40px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-weight:900;font-size:18px;display:grid;place-items:center}
+.steps li b{color:var(--ink)}
+.steps li p{color:var(--ink-2);font-size:16px}
+.steps li .then{margin-top:8px;font-size:15px;color:var(--ok);font-weight:700}
+
+/* command box for the manual path */
+.cmd{margin-top:12px;background:var(--cmd-bg);color:var(--cmd-ink);border-radius:12px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:14px;overflow-x:auto}
+.cmd code{white-space:nowrap}
+.copy{appearance:none;flex:none;border:1px solid rgba(255,255,255,.25);background:transparent;color:var(--cmd-ink);font:inherit;font-family:"Noto Sans SC",system-ui,sans-serif;font-size:13px;padding:5px 12px;border-radius:7px;cursor:pointer}
+.copy:hover{background:rgba(255,255,255,.1)}
+.copy.done{border-color:var(--cmd-ok);color:var(--cmd-ok)}
+.see{margin-top:8px;font-size:15px;color:var(--ink-2)}
+.see b{color:var(--ok)}
+.see code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13.5px;background:var(--ok-soft);color:var(--ok);padding:1px 7px;border-radius:5px}
+
+/* callout */
+.note{margin-top:16px;background:var(--warn-soft);border-radius:12px;padding:14px 16px;font-size:15.5px;color:var(--ink-2)}
+.note b{color:var(--warn)}
+.note.ok{background:var(--ok-soft)}.note.ok b{color:var(--ok)}
+
+/* q&a */
+details{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:0 18px;margin-top:10px}
+summary{cursor:pointer;font-weight:700;padding:14px 0;list-style:none;display:flex;justify-content:space-between;gap:12px;font-size:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--ink-3);font-weight:400;font-size:22px;line-height:1}
+details[open] summary::after{content:"−"}
+details .a{padding:0 0 16px;color:var(--ink-2);font-size:15.5px}
+details .a code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13.5px;background:var(--accent-soft);color:var(--ink);padding:1px 7px;border-radius:5px}
+.manual{margin-top:22px}
+.manual summary{font-size:17px}
+
+footer{margin-top:64px;padding-top:18px;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink-3)}
+footer a{color:var(--ink-2)}
+@media (max-width:480px){.steps li{grid-template-columns:34px 1fr;gap:10px}.steps li::before{width:34px;height:34px;font-size:16px}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <h1>腾讯会议 CLI 上手手册</h1>
+    <p class="lead">装一次，以后开会的事直接跟 AI 助手说一句话就行。不用懂技术，照着做 10 分钟。</p>
+    <div class="who">
+      <span>你需要：<b>一台电脑</b></span>
+      <span><b>腾讯会议账号</b>（平时开会用的那个）</span>
+      <span>一个 <b>AI 助手</b>（Claude Code、WorkBuddy、Codex 都行）</span>
+    </div>
+  </header>
+
+  <h2><span class="n">?</span>装好以后能干什么</h2>
+  <p class="sub">在 AI 助手的聊天框里，像跟同事说话一样说：</p>
+  <div class="talk">
+    <div>帮我约明天下午 3 点的周会，开 1 小时</div>
+    <div>把周三那场评审会的纪要给我，列出待办</div>
+    <div>今天上午那个客户会都谁来了？谁中途走的？</div>
+    <div>上个月哪场会提到过「预算」？</div>
+    <div>把明天那个会改到下午 4 点</div>
+  </div>
+  <p class="sub" style="margin-top:14px">它就会去你的腾讯会议里把事办了。<b>只能碰你自己账号里的会</b>，看不到别人的。</p>
+
+  <h2><span class="n">1</span>安装：把这句话发给你的 AI 助手</h2>
+  <p class="sub">这是最省事的办法。AI 助手会自己把工具装好，中间只需要你在浏览器里点一次「同意」。</p>
+  <div class="big">
+    <div class="label">复制这句话，发给 AI 助手</div>
+    <div class="text" id="magic">帮我安装腾讯会议CLI，链接地址：https://meeting.tencent.com/wemeet-tapi/v2/oauth2/oauth/cli-install-guide?ch=web</div>
+    <button class="btn" type="button" data-copy-from="magic">一键复制</button>
+  </div>
+  <ol class="steps">
+    <li><div><b>AI 助手开始安装</b><p>会跑一两分钟，期间它可能问你「是否继续」，回它「是」就行。</p></div></li>
+    <li><div><b>浏览器自动弹出一个腾讯会议页面</b><p>用你平时开会的账号登录（微信扫码或手机号），然后点「同意授权」。这一步是在腾讯会议官方网站上做的，密码不会经过 AI。</p><p class="then">看到「授权成功」就对了</p></div></li>
+    <li><div><b>把 AI 助手完全退出，再重新打开</b><p>不重启它记不住新装的东西。重开后跟它说「查一下我这周的会议」，它能答上来，就全部搞定。</p><p class="then">以后 30 天内都不需要再登录</p></div></li>
+  </ol>
+  <div class="note"><b>浏览器没有自动弹出来？</b> 看一下 AI 助手的回复，里面有一个以 https://meeting.tencent.com 开头的链接，自己复制到浏览器打开就行。</div>
+
+  <details class="manual">
+    <summary>AI 助手装不了？手动装也就 3 行命令</summary>
+    <div class="a">
+      <p><b style="color:var(--ink)">先打开「命令窗口」：</b>Mac 按 ⌘+空格，输入「终端」回车；Windows 按 Win 键，输入「PowerShell」回车。会出来一个黑色或白色的输入框。</p>
+      <p style="margin-top:14px"><b style="color:var(--ink)">第 1 行：装工具。</b>粘贴进去，回车，等 10 秒。</p>
+      <div class="cmd"><code>npm install -g @tencentcloud/tmeet</code><button class="copy" type="button" data-copy="npm install -g @tencentcloud/tmeet">复制</button></div>
+      <p class="see">装完再输 <code>tmeet -V</code>，看到 <b>tmeet version v1.0.xx</b> 就对了。</p>
+
+      <p style="margin-top:14px"><b style="color:var(--ink)">第 2 行：登录。</b>粘贴回车后浏览器会弹出腾讯会议授权页，登录并点「同意授权」。</p>
+      <div class="cmd"><code>tmeet auth login</code><button class="copy" type="button" data-copy="tmeet auth login">复制</button></div>
+      <p class="see">窗口里出现绿色的 <b>Login successful</b> 就对了。</p>
+
+      <p style="margin-top:14px"><b style="color:var(--ink)">第 3 行：教 AI 助手怎么用它。</b>粘贴回车，中间问「是否安装」就输 y 回车。</p>
+      <div class="cmd"><code>npx -y skills add TencentCloud/tencentmeeting-cli -y -g</code><button class="copy" type="button" data-copy="npx -y skills add TencentCloud/tencentmeeting-cli -y -g">复制</button></div>
+      <p class="see">出现绿色的 <b>✓ tmeet-skill</b> 就对了。最后把 AI 助手退出重开。</p>
+
+      <div class="note" style="margin-top:16px"><b>第 1 行提示 command not found？</b> 电脑上缺一个基础软件 Node.js。去 <a href="https://nodejs.org/zh-cn" target="_blank" rel="noopener">nodejs.org/zh-cn</a> 点绿色「下载 LTS」，像装普通软件一样装完，关掉命令窗口重新打开，再来一遍。</div>
+      <div class="note"><b>Mac 上第 1 行提示 permission denied？</b> 公司电脑常见，把第 1 行换成下面这行就行，其余不变。
+        <div class="cmd" style="margin-top:10px"><code>mkdir -p ~/.npm-global && npm install -g --prefix ~/.npm-global @tencentcloud/tmeet && echo 'export PATH="$HOME/.npm-global/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc</code><button class="copy" type="button" data-copy="mkdir -p ~/.npm-global && npm install -g --prefix ~/.npm-global @tencentcloud/tmeet && echo 'export PATH=&quot;$HOME/.npm-global/bin:$PATH&quot;' >> ~/.zshrc && source ~/.zshrc">复制</button></div>
+      </div>
+    </div>
+  </details>
+
+  <h2><span class="n">2</span>使用：直接说人话</h2>
+  <p class="sub">不用再碰命令窗口了。想到什么说什么，AI 助手会自己去查、去约、去改。几个小提醒：</p>
+  <ol class="steps">
+    <li><div><b>改时间、取消、邀请人之前，AI 会先复述一遍问你「确认吗」</b><p>因为这些事会影响别人或者没法撤销。你回「确认」它才动手。这是故意设计的，不是它没听懂。</p></div></li>
+    <li><div><b>要纪要，会议得开过「云录制」或「元宝纪要」</b><p>没开的会只有时间、参会人这些基本信息，没有内容。</p></div></li>
+    <li><div><b>只能看你参加过的会</b><p>别人的会、别人的通讯录，它查不到，也不会帮你查。</p></div></li>
+  </ol>
+
+  <h2><span class="n">3</span>出问题了怎么办</h2>
+  <details><summary>AI 说「找不到 tmeet」或「没有安装」</summary><div class="a">大概率是装完没重启 AI 助手。完全退出再打开。还不行就把第 1 部分那句话再发一次让它重装。</div></details>
+  <details><summary>AI 说「未登录」或 user config is empty</summary><div class="a">跟它说「帮我登录腾讯会议 CLI」，浏览器再点一次授权就好。</div></details>
+  <details><summary>AI 说这场会「没有录制」，但我明明录了</summary><div class="a">可能录制是别人开的，你还没权限。跟 AI 说「帮我申请这场会的录制权限」。如果录制设了密码，得找录制的人要密码。刚结束的会还在转码，等几分钟再试。</div></details>
+  <details><summary>我是企业版账号，登录报错</summary><div class="a">企业版目前要先找腾讯会议申请开通。个人版、专业版直接就能用。可以先找 IT 或群里问一下公司账号有没有开。</div></details>
+  <details><summary>换电脑了 / 不想用了</summary><div class="a">换电脑：在新电脑上把第 1 部分那句话再发一遍。不想用了：跟 AI 说「退出腾讯会议 CLI 登录」，它会帮你注销授权。</div></details>
+
+  <div class="note ok" style="margin-top:32px"><b>一条安全提醒</b> AI 助手拿到的权限等于你本人，能看到你的会议纪要和录制。别把电脑上 <code style="font-family:ui-monospace,Menlo,monospace;font-size:14px">.tmeet</code> 这个文件夹发给任何人；怀疑账号有问题，跟 AI 说「退出腾讯会议 CLI 登录」即可切断。</div>
+
+  <footer>
+    2026-09-21 盈米 AI 团队按本机实测整理。工具由腾讯会议官方开源：<a href="https://github.com/TencentCloud/tencentmeeting-cli" target="_blank" rel="noopener">GitHub</a> · <a href="https://meeting.tencent.com/meeting-cli/index.html" target="_blank" rel="noopener">官方介绍页</a>
+  </footer>
+</div>
+
+<script>
+(function(){
+  function flash(btn, label){ var old=btn.textContent; btn.textContent=label; btn.classList.add('done'); setTimeout(function(){btn.textContent=old;btn.classList.remove('done');},1800); }
+  function copyText(text, btn){
+    var ok=function(){flash(btn,'已复制，去粘贴吧');};
+    var fallback=function(){ try{var ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);ok();}catch(e){btn.textContent='请手动选中复制';} };
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(ok,fallback);}else{fallback();}
+  }
+  document.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){copyText(b.getAttribute('data-copy'),b);});});
+  document.querySelectorAll('[data-copy-from]').forEach(function(b){b.addEventListener('click',function(){var el=document.getElementById(b.getAttribute('data-copy-from'));copyText(el?el.textContent.trim():'',b);});});
+})();
+</script>
+</body>
+</html>

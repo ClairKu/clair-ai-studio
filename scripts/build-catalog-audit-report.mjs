@@ -116,6 +116,9 @@ const escapeHtml = (value) => String(value ?? "")
   .replaceAll('"', "&quot;");
 
 const categoryNotes = {
+  "advisor-workbench": "客户 360、顾问副驾、SOP、任务事件、方案与服务闭环；把顾问侧产品资产从通用工作台中独立出来。",
+  "pension-planning": "养老测算、账户方案、颐养天年、产品经营与用户分析；把同一业务链的研究、原型和看板放在一起。",
+  "market-signals": "市场温度、宏观信号、持仓关联与陪伴动作；区分指标口径与面向客户的可理解表达。",
   xiaogu: "面向客户与顾问的 AI 服务产品、顾问工作台和服务闭环；不再混入用户增长统计。",
   "ai-workbench": "个人与团队的 AI 工作方法、协作工作台、评审器与生产力工具。",
   "ai-platform": "OAP、MCP、Agent、协议、接口能力和外部生态；项目汇报与运营数据分别归入经营、增长。",
@@ -223,8 +226,8 @@ const html = `<!doctype html>
     </div></section>
 
     <section><div class="shell">
-      <div class="section-head"><div><span class="section-kicker">02 · 前后对比</span><h2>从 7 个混合桶到 8 个业务域</h2></div><p>${movedCount} 份历史成果重新归位。最大变化是拆出“用户增长与数据洞察”，并把项目汇报与平台能力分开。</p></div>
-      <div class="compare"><article class="chart"><h3>重构前 · 7 类</h3><p>最大分类 54 份，占 33.3%；数据与项目汇报大量寄存在业务主题里。</p>${oldBars}</article><article class="chart after"><h3>重构后 · 8 类</h3><p>对 162 份历史成果的分类分布；新增本报告后，工作台总计 163 份。</p>${newBars}</article></div>
+      <div class="section-head"><div><span class="section-kicker">02 · 前后对比</span><h2>从 7 个混合桶到 ${state.groups.length} 个业务主题</h2></div><p>${movedCount} 份历史成果重新归位。2026-09-22 进一步拆出“投顾工作台、养老规划、市场信号”，把高频专项从通用大类中独立出来。</p></div>
+      <div class="compare"><article class="chart"><h3>重构前 · 7 类</h3><p>最大分类 54 份，占 33.3%；数据与项目汇报大量寄存在业务主题里。</p>${oldBars}</article><article class="chart after"><h3>当前 · ${state.groups.length} 类</h3><p>对 162 份历史成果的分类分布；工作台持续新增成果，但历史基线保持可追溯。</p>${newBars}</article></div>
     </div></section>
 
     <section id="taxonomy"><div class="shell">

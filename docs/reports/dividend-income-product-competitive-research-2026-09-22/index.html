@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />
+    <script data-clair-access-gate data-clair-access-scope="report" src="../../access-gate.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>竞品调研报告：收息越薪 —— "被动月薪"与收息账本的产品设计拆解</title>
+<style>
+  :root{
+    --ink:#1f2328; --muted:#6b7280; --line:#e5e7eb; --bg:#f6f7f9; --card:#fff;
+    --brand:#0f766e; --brand-soft:#e6f4f1;
+    --copper:#8a5a2b; --copper-soft:#f7efe6;
+    --hi:#dc2626; --hi-soft:#fee2e2; --mid:#2563eb; --mid-soft:#dbeafe; --lo:#6b7280; --lo-soft:#f3f4f6;
+    --ok:#16a34a; --ok-soft:#dcfce7; --warn:#d97706; --warn-soft:#fef3c7;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;color:var(--ink);background:var(--bg);line-height:1.65;font-size:15px}
+  .wrap{max-width:1120px;margin:0 auto;padding:32px 24px 80px}
+  header.hero{background:linear-gradient(135deg,#5b3a1c 0%,#8a5a2b 55%,#b07a3f 100%);color:#fff;border-radius:16px;padding:36px 40px;margin-bottom:28px}
+  header.hero h1{margin:0 0 8px;font-size:28px;letter-spacing:.5px}
+  header.hero p{margin:4px 0;opacity:.92}
+  .meta{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:13px;margin-top:14px;opacity:.9}
+  nav.toc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin-bottom:24px;display:flex;flex-wrap:wrap;gap:8px 18px;font-size:14px}
+  nav.toc a{color:var(--brand);text-decoration:none}
+  nav.toc a:hover{text-decoration:underline}
+  section{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px 28px;margin-bottom:24px}
+  h2{margin:0 0 16px;font-size:20px;padding-left:12px;border-left:4px solid var(--copper)}
+  h3{margin:22px 0 10px;font-size:16px}
+  p{margin:8px 0}
+  table{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0}
+  th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+  th{background:#f9fafb;font-weight:600;white-space:nowrap}
+  tbody tr:nth-child(even){background:#fbfbfc}
+  tbody tr:hover{background:#f1f5f9}
+  .ev{display:inline-block;background:#111827;color:#fff;font-size:11px;padding:1px 7px;border-radius:999px;font-weight:600;letter-spacing:.3px;white-space:nowrap}
+  .tag{display:inline-block;font-size:12px;padding:2px 9px;border-radius:999px;font-weight:600;white-space:nowrap}
+  .ok{background:var(--ok-soft);color:var(--ok)} .warn{background:var(--warn-soft);color:var(--warn)}
+  .hi{background:var(--hi-soft);color:var(--hi)} .mid{background:var(--mid-soft);color:var(--mid)} .lo{background:var(--lo-soft);color:var(--lo)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+  .card{border:1px solid var(--line);border-radius:12px;padding:16px 18px;background:#fff}
+  .card h4{margin:0 0 8px;font-size:15px}
+  .card .sub{color:var(--muted);font-size:13px}
+  .kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:12px 0}
+  .kpi div{background:var(--copper-soft);border-radius:10px;padding:12px 14px}
+  .kpi b{display:block;font-size:20px;color:var(--copper)}
+  .kpi span{font-size:12px;color:var(--muted)}
+  .callout{border-left:4px solid var(--brand);background:var(--brand-soft);padding:12px 16px;border-radius:8px;margin:12px 0}
+  .callout.warn{border-color:var(--warn);background:var(--warn-soft)}
+  .shot{display:grid;grid-template-columns:260px 1fr;gap:24px;align-items:start}
+  .shot img{width:100%;border-radius:18px;border:1px solid var(--line);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+  ol.anat{margin:0;padding-left:20px}
+  ol.anat li{margin:6px 0}
+  .num{font-variant-numeric:tabular-nums}
+  ul.check li{list-style:none;margin:6px 0}
+  ul.check{padding-left:4px}
+  small.src{color:var(--muted)}
+  footer{color:var(--muted);font-size:12px;text-align:center;margin-top:24px}
+  @media (max-width:760px){
+    .shot{grid-template-columns:1fr}
+    .wrap{padding:16px}
+    section{padding:18px;min-width:0;max-width:100%;overflow-x:auto}
+    section table{min-width:600px}
+  }
+  @media print{body{background:#fff} section,header.hero{break-inside:avoid;box-shadow:none} nav.toc{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <h1>竞品调研报告：收息越薪 —— "被动月薪"与收息账本的产品设计拆解</h1>
+  <p>把"收益率"翻译成"月薪"：一个小程序如何用生活化指标、账单里程碑与分红日历，让"攒股收息"变成可持续的日常习惯。</p>
+  <div class="meta">
+    <span>调研对象：微信小程序「收息越薪」（工具类，独立开发者）</span>
+    <span>调研时间：2026-09-22</span>
+    <span>调研方式：用户提供的首页截图逐模块拆解 + 公开网络资料检索 + 同类工具横向对照</span>
+    <span>视角：基金投顾 App 运营（指标：交易转化率 / 交易转化金额）</span>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#s1">1. 调研概述</a>
+  <a href="#s2">2. 这是哪家产品</a>
+  <a href="#s3">3. 首页模块逐一拆解</a>
+  <a href="#s4">4. 对标总览表</a>
+  <a href="#s5">5. 关键发现</a>
+  <a href="#s6">6. 可复用模式</a>
+  <a href="#s7">7. 落地建议与验证计划</a>
+  <a href="#s8">8. 证据索引</a>
+  <a href="#s9">9. 自我纠察记录</a>
+</nav>
+
+<!-- 1 -->
+<section id="s1">
+  <h2>1. 调研概述（Executive Summary）</h2>
+  <p><b>调研目标：</b>识别截图产品的归属，拆解其首页的完整产品设计模块，并从"提升基金投顾 App 交易转化率与转化金额"的角度提炼可借鉴与需规避之处。</p>
+  <p><b>竞品范围：</b>主竞品「收息越薪」；参照组：股息罐罐、财迹、FIRE记账、食息指南（倍发科技）、Pulse 股息追踪（海外）。</p>
+
+  <h3>核心结论（5 条）</h3>
+  <ol>
+    <li><b>产品定位：</b>「收息越薪」是一款<b>独立开发者出品的微信小程序</b>（工具类，非持牌机构），核心是"攒股收息记账本"：记录高股息股票/红利基金持仓 → 计算年度/月度分红 → 与主业月薪对比，目标是"被动月薪超过主业月薪"。公开渠道未披露开发主体（<span class="ev">EV-002</span>）。</li>
+    <li><b>最大设计亮点是"指标翻译"：</b>它不把首屏留给收益率或净值，而是把年分红 ÷ 12 包装成<b>"被动月薪 ¥676.54/月"</b>，再配"月薪替代率 10.1%"和"预计 15 年后达成月薪目标"。用户的心理锚点从"市场涨跌"切换为"我的工资"（<span class="ev">EV-001</span>）。</li>
+    <li><b>第二亮点是"生活账单里程碑"：</b>"财务自由度 2/8 已达成"把抽象目标拆成网络宽带→水电燃气→医保→零食→养车……8 级可解锁的真实账单，并给出"下一目标 ¥320/月，预计 2026 年 11 月达成"。这是低频、正向、可预期的游戏化，与"长期持有"天然契合（<span class="ev">EV-001</span>）。</li>
+    <li><b>留存钩子绑定分红日历而非行情：</b>"今日事项 = 分红登记 / 分红除息"，给用户一个不看涨跌也要打开的理由；月度对比（"较上月 +¥13.42"）而非日度涨跌，弱化波动焦虑（<span class="ev">EV-001</span>）。</li>
+    <li><b>需规避：</b>纯手工记账、按历史股息率线性外推"预计年分红"、口号式绝对化表述（"高股息是最稳定的现金流来源"）、忽略总回报与红利税——对持牌投顾机构而言，这些既是合规风险也是专业性短板（<span class="ev">EV-001</span> <span class="ev">EV-003</span>）。</li>
+  </ol>
+
+  <h3>主要建议（按优先级）</h3>
+  <ul>
+    <li><span class="tag hi">高</span> 在持仓页为红利/分红型策略与基金上线"现金流视图"：预计年分红、月度分红日历、分红到账事项——我们有真实持仓数据，可自动生成，无需用户手工记账。</li>
+    <li><span class="tag hi">高</span> 上线"生活账单覆盖"目标阶梯 + "加投/定投多少可提前 N 年达成"模拟器，把里程碑直接接到加仓/定投转化入口。</li>
+    <li><span class="tag mid">中</span> 把"分红到账 / 权益登记日"纳入顾问工作台关键时刻，配陪伴话术与再投入引导。</li>
+    <li><span class="tag mid">中</span> 稳钱、红利类策略默认展示"较上月"而非"今日涨跌"，降低无效打开与恐慌赎回。</li>
+    <li><span class="tag lo">低</span> 首页指标自定义、家庭/多账户视角。</li>
+  </ul>
+</section>
+
+<!-- 2 -->
+<section id="s2">
+  <h2>2. 这是哪家产品</h2>
+  <div class="shot">
+    <img src="cover.jpg" alt="收息越薪小程序首页截图（EV-001）">
+    <div>
+      <p><b>产品名称：</b>收息越薪（微信小程序）。截图顶部为标准小程序胶囊按钮，可确认形态为小程序而非独立 App（<span class="ev">EV-001</span>）。</p>
+      <p><b>开发主体：</b>公开可检索到的仅有第三方小程序商店 weweplay 的收录页（工具分类，评分 4.0，0 条评价），介绍原文为："收息越薪是一个记录攒股收息的小程序，购买稳定高分红的股票、红利基金等构建自己的收息持仓，小程序计算每年分红、每月分红金额，最终目标是每个月的被动分红（小程序把这个取名为被动月薪）超过自己的主业月薪……"（<span class="ev">EV-002</span>）。未检索到公司官网、公众号、开发者署名或媒体报道；结合无 UGC、无评价、纯工具属性，判断为<b>个人/独立开发者作品</b>。<b>待验证：</b>可在微信内打开小程序 → 右上角"…" → 查看"账号主体"确认。</p>
+      <p><b>所处赛道："收息佬"工具。</b>新浪财经 2026-09-21 报道：低利率环境下年轻人从"攒利息"转向"攒股息"，晒分红到账截图、订"股息覆盖奶茶钱 / 水电费"的小目标、整理"分红日历"，相比晒收益曲线更愿意晒现金流（<span class="ev">EV-003</span>）。「收息越薪」几乎是把这篇报道里的用户行为逐条产品化。</p>
+      <p><b>同类工具：</b>股息罐罐（iOS + 小程序 + H5，AI 截图导入持仓、收息日历、FIRE 进度、17 项指标自定义、红利税明细，<span class="ev">EV-004</span>）、财迹（股息跟踪 + 现金流报告 + 目标进度，<span class="ev">EV-005</span>）、FIRE记账（分红日自动入账现金账户，<span class="ev">EV-006</span>）、食息指南（倍发科技，把红利指数/月月分红 ETF/场外基金与银行存款利息放在同一比较框架，<span class="ev">EV-007</span>）、Pulse（海外，"每个数字可点开看公式与假设"的透明层，<span class="ev">EV-008</span>）。</p>
+
+      <h3>从截图反推的账本数据（<span class="ev">EV-001</span>）</h3>
+      <div class="kpi">
+        <div><b class="num">¥676.54</b><span>被动月薪 = 预计年分红 8,118.50 ÷ 12 ≈ 676.54，口径吻合</span></div>
+        <div><b class="num">≈ ¥6,700</b><span>反推主业月薪 = 676.54 ÷ 10.1%</span></div>
+        <div><b class="num">≈ ¥16.0 万</b><span>反推持仓市值 = 8,118.50 ÷ 5.08%</span></div>
+        <div><b class="num">≈ +3.5%</b><span>盈亏 +5,484.38 ÷ 成本≈15.4 万；说明该用户浮盈不多，但被"月薪"叙事稳住</span></div>
+      </div>
+      <p><small class="src">注：以上为按屏幕数字反推的近似值，用于理解产品口径，非该产品披露数据。</small></p>
+    </div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section id="s3">
+  <h2>3. 首页模块逐一拆解（<span class="ev">EV-001</span>）</h2>
+  <table>
+    <thead><tr><th style="width:12%">模块</th><th style="width:30%">截图中的观察</th><th style="width:30%">设计意图（我们的解读）</th><th>对投顾 App 的启发</th></tr></thead>
+    <tbody>
+      <tr><td>① 账户切换条</td><td>"当前账户：收息越薪 &gt;"，位于首屏顶部</td><td>支持多账本（如本人/家人/不同券商），账户是一等对象</td><td>家庭视角、多账户汇总是高净值/家庭客户的真实需求；我们已有家庭财务规划报告，可考虑在 App 端呈现家庭现金流汇总</td></tr>
+      <tr><td>② 主视觉卡（铜金色）</td><td>大字"被动月薪 ¥676.54/月"；小字"↑ 较上月 +¥13.42"；链接"预计 15 年后达成月薪目标 &gt;"；右侧环形仪表"10.1% 月薪替代率"，带 ? 说明</td><td>把资产收益重新表述为"工资"，用替代率（借自养老金替代率概念）做进度，给出可达成的时间点；月度对比而非日度</td><td><b>最核心的可借鉴点。</b>把"收益率"翻译为用户能感知的生活单位；替代率与我们的养老规划天然同源；"预计 N 年后达成"是加投/定投转化的最佳前置话术</td></tr>
+      <tr><td>③ 口号条</td><td>"高股息是最稳定的现金流来源"</td><td>价值观灌输，强化"收息"信仰</td><td><span class="tag warn">⚠️ 需规避</span> 绝对化表述。持牌机构需改为"分红是现金流的来源之一，不代表收益承诺"等可验证表述</td></tr>
+      <tr><td>④ 三指标条</td><td>年化分红率 5.08% ｜ 预计年分红 ¥8,118.50 ｜ 盈亏额 +¥5,484.38；下方"展开 ∨""⚙ 设置指标"</td><td>把"盈亏"降级为第三位且可折叠；指标可自定义</td><td>对稳钱/红利类策略可考虑"分红率 / 预计年分红 / 盈亏"的排序；指标自定义优先级较低，但"折叠盈亏"值得 A/B</td></tr>
+      <tr><td>⑤ 今日事项</td><td>"9 月 14 日 &gt;"；绿点"分红登记：XX 每股 0.004 元"；黄点"分红除息"</td><td>用分红日历事件制造每日打开理由，替代行情推送</td><td>我们有产品分红公告数据源，可直接生成"你持有的 XX 今日权益登记 / 除息 / 到账"，并接顾问陪伴话术</td></tr>
+      <tr><td>⑥ 财务自由度</td><td>"2/8 已达成"；八个图标：网络宽带●、水电燃气●、猪猪医保○、水果零食○、养车支出○、其他支出○……；"已解锁：水电燃气"；"下一目标：猪猪医保 ¥320.00/月"；"预计 2026 年 11 月达成"</td><td>把大目标拆为小额、可命名、可预期的账单里程碑（名称可自定义，如"猪猪医保"），每次解锁都是一次成就感，且给出 ETA 日期</td><td><b>第二核心借鉴点。</b>与"长期持有"完全同向的游戏化；每一级里程碑都是"再多投一点就能提前解锁"的自然转化场景</td></tr>
+      <tr><td>⑦ 底部 Tab</td><td>首页 ｜ 持仓 ｜ 分红 ｜ 我的</td><td>"分红"是一级导航，与"持仓"平级</td><td>对于分红型/现金流型产品，"分红/现金流"可以是一级页签或持仓页一级视图</td></tr>
+      <tr><td>⑧ 视觉语言</td><td>铜金/棕色渐变主卡，米白背景，无红绿涨跌色</td><td>"钱币/现金"意象，刻意远离股票软件的红绿</td><td>现金流视图可采用与行情页不同的暖色体系，视觉上区隔"看涨跌"与"看现金流"两种心智</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 4 -->
+<section id="s4">
+  <h2>4. 对标总览表</h2>
+  <table>
+    <thead><tr><th>竞品</th><th>调研模块</th><th>核心亮点</th><th>转化相关设计</th><th>证据</th><th>可借鉴性</th></tr></thead>
+    <tbody>
+      <tr><td>收息越薪</td><td>首页主卡</td><td>被动月薪 / 月薪替代率 / 达成年限</td><td>"预计 15 年后达成"隐含加投变量，可导向加仓</td><td><span class="ev">EV-001</span></td><td><span class="tag ok">✅ 可借鉴</span></td></tr>
+      <tr><td>收息越薪</td><td>财务自由度</td><td>8 级生活账单里程碑 + 下一目标金额 + ETA 日期</td><td>每级解锁都是"再投一点"的自然场景</td><td><span class="ev">EV-001</span></td><td><span class="tag ok">✅ 可借鉴</span></td></tr>
+      <tr><td>收息越薪</td><td>今日事项</td><td>分红登记 / 除息事件日历</td><td>非行情驱动的打开理由；分红到账可引导再投入</td><td><span class="ev">EV-001</span></td><td><span class="tag ok">✅ 可借鉴</span></td></tr>
+      <tr><td>收息越薪</td><td>指标条 / 口号</td><td>盈亏降级可折叠；"最稳定"口号</td><td>弱化波动；但口号绝对化</td><td><span class="ev">EV-001</span></td><td><span class="tag ok">✅ 折叠盈亏</span> <span class="tag warn">⚠️ 口号需规避</span></td></tr>
+      <tr><td>收息越薪</td><td>数据录入</td><td>手工记账（描述为"记录"类小程序）</td><td>录入成本高，留存依赖用户自律</td><td><span class="ev">EV-002</span></td><td><span class="tag warn">⚠️ 需规避（我们有真实持仓）</span></td></tr>
+      <tr><td>股息罐罐</td><td>持仓账本 / 收息日历 / 主页</td><td>AI 截图导入；12 个月现金流柱图；FIRE 进度（被动收入覆盖月支出）；17 项指标自定义；红利税明细</td><td>降低录入门槛；覆盖率进度条</td><td><span class="ev">EV-004</span></td><td><span class="tag ok">✅ 现金流柱图、税费明细</span></td></tr>
+      <tr><td>财迹</td><td>股息跟踪 / 目标</td><td>逐股票"对被动收入的贡献"；现金流报告；目标进度与提醒</td><td>贡献度可导向"补哪只"</td><td><span class="ev">EV-005</span></td><td><span class="tag ok">✅ 贡献度视图</span></td></tr>
+      <tr><td>FIRE记账</td><td>分红入账</td><td>分红日自动入账现金账户，打通资产与现金</td><td>分红到账即再配置时点</td><td><span class="ev">EV-006</span></td><td><span class="tag ok">✅ 到账即引导</span></td></tr>
+      <tr><td>食息指南（倍发）</td><td>收益对比</td><td>红利指数 / 月月分红 ETF / 场外基金 vs 银行存款利息同框比较，并明确"不能等同实际到手收益"</td><td>用存款利息做收益锚点，降低决策门槛</td><td><span class="ev">EV-007</span></td><td><span class="tag ok">✅ 收益锚点 + 免责写法</span></td></tr>
+      <tr><td>Pulse（海外）</td><td>信任层</td><td>任何指标可点开看精确公式、变量与假设</td><td>透明度建立信任，减少"为什么少了"的客诉</td><td><span class="ev">EV-008</span></td><td><span class="tag ok">✅ 强烈建议</span></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 5 -->
+<section id="s5">
+  <h2>5. 关键发现</h2>
+  <div class="grid">
+    <div class="card">
+      <h4>发现 1｜"指标翻译"把心理锚点从市场换成工资 <span class="tag ok">✅</span></h4>
+      <p>首屏不是收益率，而是"被动月薪 ¥676.54/月"+"月薪替代率 10.1%"。同一笔约 16 万的持仓，若显示"+3.5%"是一个平庸数字；显示"每月多发 676 元工资、已覆盖 10% 的月薪"则是一个有进度感的故事。</p>
+      <p class="sub"><b>证据：</b><span class="ev">EV-001</span>　<b>转化影响：</b>降低"浮盈不多→无感→流失"的概率；替代率给出了加投的明确理由。</p>
+    </div>
+    <div class="card">
+      <h4>发现 2｜里程碑用真实账单命名，且可自定义 <span class="tag ok">✅</span></h4>
+      <p>"猪猪医保"这类命名说明账单项由用户自定义。目标被具象为"这笔分红已经替我交了水电燃气"，成就感来自生活而非 K 线。8 级阶梯保证在很长时间里总有"下一个可达成的小目标"。</p>
+      <p class="sub"><b>证据：</b><span class="ev">EV-001</span>　<b>转化影响：</b>"下一目标 ¥320/月，预计 2026 年 11 月"本身就是一句促加投文案。</p>
+    </div>
+    <div class="card">
+      <h4>发现 3｜留存钩子绑定分红日历，而非行情 <span class="tag ok">✅</span></h4>
+      <p>"今日事项"只放分红登记/除息事件。用户打开 App 的诱因从"今天涨跌多少"变成"今天有没有分红"，与长期持有行为同向，也天然低频、低焦虑。</p>
+      <p class="sub"><b>证据：</b><span class="ev">EV-001</span> <span class="ev">EV-003</span>　<b>转化影响：</b>分红到账日是再投入意愿最强的时刻（FIRE记账、财迹均围绕此设计，<span class="ev">EV-005</span> <span class="ev">EV-006</span>）。</p>
+    </div>
+    <div class="card">
+      <h4>发现 4｜盈亏被降级、月度对比替代日度 <span class="tag ok">✅</span></h4>
+      <p>"盈亏额"是三指标中的最后一项且可折叠；主卡对比口径为"较上月"。这是刻意的信息架构选择：让用户少看波动。</p>
+      <p class="sub"><b>证据：</b><span class="ev">EV-001</span>　<b>转化影响：</b>减少因日度回撤触发的恐慌赎回，对稳钱/红利类持仓尤其有效。</p>
+    </div>
+    <div class="card">
+      <h4>发现 5｜绝对化口号与线性外推 <span class="tag warn">⚠️ 需规避</span></h4>
+      <p>"高股息是最稳定的现金流来源"是绝对化表述；"预计年分红"按历史分红率线性外推，未提示分红可变、可能贴息、需扣红利税。海外与港台的红利投资讨论都反复强调应看总回报、配息来源与税费（<span class="ev">EV-003</span> 相关趋势报道亦提示风险）。</p>
+      <p class="sub"><b>证据：</b><span class="ev">EV-001</span>　<b>影响：</b>持牌机构若照搬，触碰《金融产品网络营销管理办法》对收益暗示/绝对化用语的限制；建议采用食息指南式的免责写法（<span class="ev">EV-007</span>）与 Pulse 式的公式透明层（<span class="ev">EV-008</span>）。</p>
+    </div>
+    <div class="card">
+      <h4>发现 6｜纯工具、无产品闭环 <span class="tag warn">⚠️</span></h4>
+      <p>该小程序只记账、不交易，用户需要手工录入持仓与分红。它把"想法"做到了极致，却没有"下一步"。这正是投顾机构的结构性优势：我们有真实持仓、分红公告和交易能力，可以把同一套叙事直接接到定投/加投/再投入。</p>
+      <p class="sub"><b>证据：</b><span class="ev">EV-002</span>　<b>影响：</b>借鉴其"叙事层"，用我们的"数据层 + 交易层"补全闭环。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 6 -->
+<section id="s6">
+  <h2>6. 可复用模式</h2>
+  <div class="grid">
+    <div class="card">
+      <h4>模式 A｜生活单位换算（Life-Unit Translation）</h4>
+      <p>把年化现金流换算为"每月 X 元"，再与用户自报的月薪 / 月支出 / 某项账单对比得到"覆盖率"。适用：红利/分红型策略持仓页、养老账户、稳钱账户。预期效果：提高持仓页停留与加投点击。</p>
+      <p class="sub">来源：<span class="ev">EV-001</span> <span class="ev">EV-004</span></p>
+    </div>
+    <div class="card">
+      <h4>模式 B｜账单里程碑阶梯（Bill Ladder）</h4>
+      <p>用户勾选/自定义 6–8 项固定支出并排序，系统按预计月现金流逐级"解锁"，展示下一目标金额与预计达成月份。适用：长期目标账户、定投计划。预期效果：把"继续投"变成"解锁下一项"。</p>
+      <p class="sub">来源：<span class="ev">EV-001</span></p>
+    </div>
+    <div class="card">
+      <h4>模式 C｜"再投多少可提前多久"模拟器</h4>
+      <p>在"预计 N 年后达成"旁放滑杆："每月多定投 500 元 → 提前 X 年"。这是从叙事到交易最短的一步；收息越薪只给了链接（<span class="ev">EV-001</span>），我们可以直接给出定投开通按钮。</p>
+      <p class="sub">来源：<span class="ev">EV-001</span>（延伸）</p>
+    </div>
+    <div class="card">
+      <h4>模式 D｜分红事件日历 + 到账陪伴</h4>
+      <p>权益登记日、除息日、到账日三类事件生成"今日事项"；到账当天推送顾问话术并提供"一键再投入"。适用：所有有分红的策略/基金。</p>
+      <p class="sub">来源：<span class="ev">EV-001</span> <span class="ev">EV-005</span> <span class="ev">EV-006</span></p>
+    </div>
+    <div class="card">
+      <h4>模式 E｜波动降级信息架构</h4>
+      <p>对稳钱/红利类持仓，默认口径"较上月"，日度涨跌折叠；盈亏排在现金流指标之后。适用：稳钱、红利、养老类页面。</p>
+      <p class="sub">来源：<span class="ev">EV-001</span></p>
+    </div>
+    <div class="card">
+      <h4>模式 F｜公式透明层 + 存款锚点</h4>
+      <p>每个现金流指标可点开查看"数据来源 / 计算公式 / 假设（历史分红不代表未来）"；并可与同期银行存款利息同框对照但明确"口径不同、不可等同实际到手"。适用：所有预测型数字。</p>
+      <p class="sub">来源：<span class="ev">EV-007</span> <span class="ev">EV-008</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- 7 -->
+<section id="s7">
+  <h2>7. 落地建议与验证计划</h2>
+  <div class="callout">前提：以下建议均建立在<b>真实持仓数据 + 产品分红公告数据</b>自动计算之上，不要求用户手工记账；所有预测类数字必须带"基于历史分红估算，不构成收益承诺"的说明。</div>
+
+  <h3>7.1 落地建议</h3>
+  <table>
+    <thead><tr><th>优先级</th><th>建议</th><th>对应发现/模式</th><th>预期转化指标（假设，待验证）</th><th>实施难度</th></tr></thead>
+    <tbody>
+      <tr><td><span class="tag hi">高</span></td><td>持仓页新增"现金流视图"：预计年分红、被动月现金流、12 个月分红柱图、分红事件日历。先覆盖红利/分红型策略与月月分红类基金持有人。</td><td>发现 1/3；模式 A/D</td><td>该人群持仓页→加仓/定投开通率 +10%～20%</td><td>中（需分红公告数据接入与口径核对）</td></tr>
+      <tr><td><span class="tag hi">高</span></td><td>"生活账单覆盖"目标阶梯 + "再投多少可提前多久"模拟器，末端直接挂定投开通/加投按钮。</td><td>发现 2；模式 B/C</td><td>模拟器曝光→定投开通转化 3%～5%；定投客单提升</td><td>中</td></tr>
+      <tr><td><span class="tag mid">中</span></td><td>分红到账 / 权益登记日纳入顾问工作台"关键时刻"，自动生成陪伴话术 + 一键再投入。</td><td>发现 3；模式 D</td><td>分红到账 7 日内再投入率 +5～10 个百分点</td><td>低（已有关键时刻框架）</td></tr>
+      <tr><td><span class="tag mid">中</span></td><td>稳钱/红利类策略持仓卡默认"较上月"口径，日度涨跌折叠；盈亏后置。</td><td>发现 4；模式 E</td><td>回撤期赎回率下降；无效打开减少</td><td>低（A/B 即可）</td></tr>
+      <tr><td><span class="tag mid">中</span></td><td>养老规划中的"替代率"与现金流视图统一口径，把"被动月现金流"接入养老账户仪表盘。</td><td>发现 1</td><td>养老账户加投率</td><td>低（已有养老仪表盘）</td></tr>
+      <tr><td><span class="tag lo">低</span></td><td>所有预测数字加"公式透明层"；可选"与同期定存利息对照"，附口径免责。</td><td>发现 5；模式 F</td><td>相关客诉下降；信任度</td><td>低</td></tr>
+      <tr><td><span class="tag lo">低</span></td><td>首页指标自定义、家庭/多账户现金流汇总。</td><td>模块 ①④</td><td>高净值家庭客户留存</td><td>高</td></tr>
+    </tbody>
+  </table>
+
+  <h3>7.2 验证计划</h3>
+  <table>
+    <thead><tr><th>实验</th><th>分组</th><th>核心指标</th><th>周期</th><th>成功标准</th></tr></thead>
+    <tbody>
+      <tr><td>A｜现金流视图</td><td>红利/分红型持有人 50/50：持仓页默认收益视图 vs 默认现金流视图</td><td>持仓页→加仓/定投点击率；7 日加投金额；页面停留</td><td>4 周（覆盖至少 1 个分红周期）</td><td>加仓/定投点击率相对提升 ≥10%，赎回率不升</td></tr>
+      <tr><td>B｜账单阶梯 + 模拟器</td><td>现金流视图内：有阶梯与模拟器 vs 无</td><td>模拟器互动率；定投开通率；定投月供金额</td><td>6 周</td><td>定投开通率 ≥3%，月供中位数不低于基线</td></tr>
+      <tr><td>C｜分红到账陪伴</td><td>分红到账用户：推送 + 一键再投 vs 仅到账通知</td><td>7 日再投入率；再投入金额；投诉率</td><td>2 个分红周期</td><td>再投入率提升 ≥5 个百分点，投诉率不升</td></tr>
+      <tr><td>D｜波动降级口径</td><td>稳钱/红利持仓卡："较上月" vs "今日涨跌"</td><td>回撤期赎回率；打开频次；NPS</td><td>8 周并覆盖一次 ≥3% 回撤</td><td>回撤期赎回率下降，NPS 不降</td></tr>
+    </tbody>
+  </table>
+  <div class="callout warn"><b>合规提示：</b>现金流类数字属预测性信息，上线前需过合规审查：避免"最稳定""保证""每月发薪"等绝对化/暗示保本表述；明示"历史分红不代表未来、分红需扣税、基金分红会相应降低净值"。</div>
+</section>
+
+<!-- 8 -->
+<section id="s8">
+  <h2>8. 证据索引</h2>
+  <table>
+    <thead><tr><th>编号</th><th>来源</th><th>描述</th><th>关联发现</th></tr></thead>
+    <tbody>
+      <tr><td><span class="ev">EV-001</span></td><td>用户提供截图，发布版随页文件 <code>cover.jpg</code></td><td>收息越薪首页：被动月薪 ¥676.54/月、较上月 +¥13.42、月薪替代率 10.1%、预计 15 年后达成；年化分红率 5.08%、预计年分红 ¥8,118.50、盈亏 +¥5,484.38；今日事项（9 月 14 日）分红登记 每股 0.004 元 / 分红除息；财务自由度 2/8（网络宽带、水电燃气、猪猪医保、水果零食、养车支出、其他支出…），下一目标 猪猪医保 ¥320.00/月、预计 2026 年 11 月达成；Tab：首页/持仓/分红/我的</td><td>1–6</td></tr>
+      <tr><td><span class="ev">EV-002</span></td><td><a href="https://www.weweplay.com/home/we/698.html" target="_blank">weweplay 小程序商店 · 收息越薪</a></td><td>第三方收录页：工具分类、评分 4.0、0 条评价；产品自述"记录攒股收息……被动月薪超过主业月薪"。未披露开发主体</td><td>产品归属、发现 6</td></tr>
+      <tr><td><span class="ev">EV-003</span></td><td><a href="https://finance.sina.com.cn/roll/2026-09-21/doc-inisqkzx2087327.shtml" target="_blank">新浪财经 2026-09-21《低利率环境年轻人重新当起"收息佬"》</a></td><td>年轻人从攒利息转向攒股息；订"股息覆盖奶茶钱/水电费"小目标；整理分红日历；更愿晒现金流而非收益曲线；"四份钱"收息矩阵</td><td>赛道背景、发现 3/5</td></tr>
+      <tr><td><span class="ev">EV-004</span></td><td><a href="https://mwm.ai/apps/app/6777746529" target="_blank">股息罐罐（App Store 信息聚合页）</a></td><td>持仓账本（A/B/港/美/ETF/场外基金）、AI 截图导入、收息日历 12 个月柱图、年度派息预测、红利税明细、FIRE 进度、17 项指标自定义、iOS+小程序+H5</td><td>对标、模式 A/F</td></tr>
+      <tr><td><span class="ev">EV-005</span></td><td><a href="https://mwm.ai/apps/app/6758879968" target="_blank">财迹-股息跟踪·被动收入·资产记账</a></td><td>预计年收入、逐股票对被动收入贡献、现金流报告、目标进度与提醒、截图导入</td><td>对标、模式 D</td></tr>
+      <tr><td><span class="ev">EV-006</span></td><td><a href="https://www.333ttt.com/game/497633.html" target="_blank">FIRE记账 应用介绍</a></td><td>股票分红日自动入账现金账户；负债、工资、定期收支管理</td><td>模式 D</td></tr>
+      <tr><td><span class="ev">EV-007</span></td><td><a href="https://www.betalpha.com/products/dividend-guide" target="_blank">倍发科技 · 食息指南</a></td><td>红利指数 / 月月分红 ETF / 场外基金与银行存款利息同框比较；FAQ 明确"不能直接等同实际到手收益"</td><td>模式 F、合规写法</td></tr>
+      <tr><td><span class="ev">EV-008</span></td><td><a href="https://apps.apple.com/us/app/%E8%82%A1%E6%81%AF%E8%BF%BD%E8%B8%AA-pulse/id6756194388?l=zh-Hans-CN" target="_blank">Pulse 股息追踪（App Store）</a></td><td>逐月预测收入图、红利日历、月收入目标进度；"轻点任何指标即可查看公式、变量和假设"</td><td>模式 F</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 9 -->
+<section id="s9">
+  <h2>9. 自我纠察记录</h2>
+  <ul class="check">
+    <li>☑ <b>事实核查：</b>截图数值逐项核对（676.54 × 12 = 8,118.48 与"预计年分红 8,118.50"吻合，确认口径推断成立）；开发主体未能确认，已如实标注"独立开发者（推断）/ 待验证"，未编造公司名。</li>
+    <li>☑ <b>逻辑检查：</b>所有建议均对应具体发现或模式；"预期转化指标"均标注为假设，需通过第 7.2 节实验验证，非既有数据。</li>
+    <li>☑ <b>完整性检查：</b>概述、归属、模块拆解、对标表、发现、模式、建议与验证、证据索引、纠察九节齐全；8 条证据均有可回溯来源；截图以相对路径嵌入，与报告同目录。</li>
+    <li>☑ <b>专业性检查：</b>建议围绕交易转化率/金额与长期持有；对绝对化口号、线性外推、忽略税费与总回报等问题明确标注"需规避"，并给出合规写法。</li>
+    <li>☑ <b>可读性检查：</b>目录导航、颜色化优先级、卡片式发现/模式、表格斑马纹与悬停、打印样式均已提供。</li>
+    <li>⚠ <b>已知局限：</b>仅拿到首页一屏截图，"持仓 / 分红 / 我的"三个页签及"展开""设置指标""预计 15 年"背后的参数（是否含每月新增投入、分红再投假设）未能核实；建议后续在微信内实际体验并补充 EV。</li>
+  </ul>
+</section>
+
+<footer>竞品调研报告 · 收息越薪 · 2026-09-22 · 内部参考，数据口径以证据索引为准</footer>
+</div>
+</body>
+</html>

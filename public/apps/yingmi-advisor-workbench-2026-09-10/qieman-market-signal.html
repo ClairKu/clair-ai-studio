@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />
+    <script data-clair-access-gate data-clair-access-scope="workspace" src="../../access-gate.js"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>市场信号灯 · 且慢</title>
+<style>
+/* ============ Tokens（且慢 H5 规范） ============ */
+:root{
+  --brand:#1B88EE; --brand-pressed:#0F78D4; --brand-faded:#F0F6FF;
+  --page:#ECF4FF; --card:#FFFFFF; --card-soft:#F8FBFF; --card-blue:#F0F7FF; --card-warm:#FFF8F3; --card-purple:#F4F3FF;
+  --t1:#333333; --t2:#606060; --t3:#999999; --t4:#CCCCCC;
+  --line:#EDF2F7; --line-2:#E6EEF7;
+  --orange:#FF8A3D; --orange-soft:#FFB86B; --red:#FA6A55; --risk:#FA440C; --warn:#EA9500;
+  --green:#07AD8F; --purple:#8E8CF6; --yellow:#F6C85F; --gray:#B8C4D6;
+  --pos-2:#0F78D4; --pos-1:#4FA3F2; --neu:#B8C4D6; --neg-1:#FFB86B; --neg-2:#FA6A55;
+  --shadow:0 2px 10px rgba(36,91,165,.06); --shadow-2:0 6px 20px rgba(36,91,165,.10);
+  --font:"PingFang SC","MiSans",system-ui,-apple-system,BlinkMacSystemFont,"Microsoft YaHei",sans-serif;
+  --num:"MiSans","DIN Alternate","PingFang SC",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;min-height:100%;overflow-x:hidden;font-family:var(--font);color:var(--t1);-webkit-font-smoothing:antialiased}
+body{display:flex;justify-content:center;background:#E3EDFB}
+button{font-family:inherit;border:0;background:none;color:inherit;cursor:pointer}
+.num{font-family:var(--num);font-variant-numeric:tabular-nums}
+.phone{width:100%;max-width:375px;min-height:100vh;margin:0 auto;background:var(--page);position:relative;overflow:hidden;padding-bottom:112px}
+
+/* ============ 状态栏 / 导航 ============ */
+.statusbar{height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;font-size:14px;font-weight:600;color:#fff;position:relative;z-index:5}
+.statusbar .icons{display:flex;gap:5px;align-items:center}
+.topnav{height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;position:relative;z-index:5;color:#fff}
+.topnav .back{width:32px;height:32px;display:grid;place-items:center}
+.topnav .title{font-size:17px;font-weight:600;letter-spacing:.02em}
+.mode{display:flex;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:2px;font-size:11px}
+.mode button{padding:4px 10px;border-radius:999px;color:rgba(255,255,255,.85);transition:.2s}
+.mode button.on{background:#fff;color:var(--brand);font-weight:600}
+
+/* ============ Hero ============ */
+.hero{position:relative;margin-top:-88px;padding-top:88px;height:400px;overflow:hidden;
+  background:linear-gradient(180deg,#2470E4 0%,#3D8BEF 28%,#86BDF8 58%,#C9E2FC 82%,var(--page) 100%)}
+.hero svg.scene{position:absolute;left:0;top:0;width:375px;height:400px;pointer-events:none}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:88px;background:linear-gradient(180deg,rgba(236,244,255,0) 0%,rgba(236,244,255,.72) 60%,var(--page) 100%);pointer-events:none}
+.hero-body{position:relative;z-index:2;padding:10px 20px 0}
+.hero .kicker{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.4);color:#fff;font-size:11px;padding:4px 10px;border-radius:999px;backdrop-filter:blur(4px)}
+.hero .kicker i{width:6px;height:6px;border-radius:50%;background:#9BF0D6;box-shadow:0 0 0 3px rgba(155,240,214,.35)}
+.hero h1{margin-top:12px;font-size:26px;line-height:1.25;color:#fff;font-weight:700;letter-spacing:.01em;max-width:240px;white-space:nowrap}
+.hero h1 small{display:block;font-size:13px;font-weight:400;opacity:.9;margin-top:6px;letter-spacing:.02em;max-width:240px;line-height:1.5}
+.hero .verdict{margin-top:10px;display:flex;align-items:flex-end;gap:14px}
+.hero .gauge{width:132px;height:96px;flex:none;position:relative}
+.hero .gauge svg{width:132px;height:80px;overflow:visible;display:block}
+.hero .gauge .g-label{position:absolute;left:0;right:0;bottom:0;text-align:center;font-size:11px;color:#fff;opacity:.9}
+.hero .verdict-text{flex:1;color:#fff}
+.hero .verdict-text b{display:block;font-size:22px;line-height:1.2;font-weight:700}
+.hero .verdict-text p{margin-top:6px;font-size:12px;line-height:1.55;opacity:.95}
+.hero .tags{margin-top:10px;display:flex;gap:6px;flex-wrap:nowrap;white-space:nowrap}
+.hero .tags span{font-size:11px;padding:4px 9px;border-radius:8px;background:rgba(255,255,255,.55);color:#1E4E8F;font-weight:500}
+
+/* ============ 卡片系统 ============ */
+.card{width:343px;margin:0 auto 12px;padding:16px;border-radius:16px;background:var(--card);box-shadow:var(--shadow);position:relative}
+.first-card{margin-top:-52px;z-index:3;box-shadow:var(--shadow-2)}
+.sec-title{display:flex;align-items:baseline;justify-content:space-between;width:343px;margin:20px auto 10px;padding:0 2px}
+.sec-title h2{font-size:18px;font-weight:700;letter-spacing:.01em}
+.sec-title h2 em{font-style:normal;color:var(--brand)}
+.sec-title span{font-size:11px;color:var(--t3)}
+.card h3{font-size:16px;font-weight:600;line-height:1.4}
+.card .sub{font-size:12px;color:var(--t2);line-height:1.6;margin-top:4px}
+.chip{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:3px 8px;border-radius:6px;background:var(--brand-faded);color:var(--brand);font-weight:500}
+.chip.warm{background:#FFF1E8;color:#E56A1A}.chip.gray{background:#F2F5F9;color:var(--t2)}.chip.green{background:#E6F7F3;color:#079C81}.chip.purple{background:#F1F0FF;color:#6E6BE0}
+.icon-badge{width:32px;height:32px;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;background:var(--brand-faded);color:var(--brand);flex:none}
+.icon-badge svg{width:18px;height:18px}
+.src{font-size:10px;color:var(--t3);line-height:1.5;margin-top:10px}
+
+/* 一句话看懂 · 三盏灯 */
+.lights{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.light{background:var(--card-soft);border-radius:12px;padding:12px 10px;text-align:center;border:1px solid transparent}
+.light .dot{width:26px;height:26px;border-radius:50%;margin:0 auto 8px;display:grid;place-items:center;position:relative}
+.light .dot::after{content:"";position:absolute;inset:-5px;border-radius:50%;opacity:.25;background:inherit}
+.light .dot svg{width:14px;height:14px;color:#fff}
+.light .name{font-size:13px;font-weight:600}
+.light .act{font-size:11px;color:var(--t2);margin-top:3px}
+.light.pos .dot{background:var(--brand)} .light.neu .dot{background:var(--gray)} .light.neg .dot{background:var(--orange)}
+.light.pos .act{color:var(--brand)} .light.neg .act{color:#E56A1A}
+.summary-line{margin-top:12px;padding:10px 12px;border-radius:10px;background:var(--card-blue);font-size:12px;line-height:1.65;color:#2A4A78;display:flex;gap:8px}
+.summary-line svg{width:16px;height:16px;flex:none;color:var(--brand);margin-top:2px}
+
+/* 信号卡 */
+.sig{padding:14px 16px}
+.sig-head{display:flex;align-items:center;gap:10px}
+.sig-head .names{flex:1;min-width:0}
+.sig-head .q{font-size:15px;font-weight:600;line-height:1.35}
+.sig-head .pro{font-size:11px;color:var(--t3);margin-top:2px;display:none}
+.pro-mode .sig-head .pro{display:block}
+.sig-head .lv{font-size:12px;font-weight:600;padding:4px 9px;border-radius:8px;flex:none;white-space:nowrap}
+.lv.l2{background:#E4F1FE;color:var(--pos-2)}.lv.l1{background:#EAF4FF;color:#2F8CE8}.lv.l0{background:#F2F5F9;color:#6A7A93}.lv.l-1{background:#FFF1E8;color:#E56A1A}.lv.l-2{background:#FEEAE6;color:#E24E36}
+.bar{margin-top:12px;position:relative;height:8px;border-radius:999px;background:linear-gradient(90deg,#FA6A55 0%,#FFB86B 28%,#DCE3EC 50%,#7DB8F5 72%,#0F78D4 100%);opacity:.9}
+.bar .pin{position:absolute;top:50%;width:16px;height:16px;border-radius:50%;background:#fff;border:3px solid var(--brand);transform:translate(-50%,-50%);box-shadow:0 2px 6px rgba(0,0,0,.18);transition:left .5s cubic-bezier(.2,.8,.2,1)}
+.bar-ticks{display:flex;justify-content:space-between;font-size:10px;color:var(--t3);margin-top:6px}
+.sig .plain{margin-top:10px;font-size:13px;line-height:1.65;color:var(--t1)}
+.sig .plain b{color:var(--brand);font-weight:600}
+.sig .foryou{margin-top:8px;font-size:12px;line-height:1.6;color:var(--t2);padding-left:10px;border-left:2px solid var(--line-2)}
+.sig .foryou strong{color:var(--t1);font-weight:600}
+.sig .why-btn{margin-top:10px;display:inline-flex;align-items:center;gap:4px;font-size:12px;color:var(--brand);font-weight:500}
+.sig .why-btn svg{width:14px;height:14px;transition:transform .25s}
+.sig.open .why-btn svg{transform:rotate(180deg)}
+.why{display:none;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line-2)}
+.sig.open .why{display:block}
+.why .lead{font-size:12px;color:var(--t2);line-height:1.6;margin-bottom:8px}
+.factor{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
+.factor:last-child{border-bottom:0}
+.factor .fn{flex:1;min-width:0}
+.factor .fn b{display:block;font-size:12px;font-weight:600}
+.factor .fn small{display:block;font-size:11px;color:var(--t3);margin-top:1px;line-height:1.5}
+.factor .fn small.pro{display:none;color:#6A7A93}
+.pro-mode .factor .fn small.pro{display:block}
+.factor .spark{width:56px;height:24px;flex:none}
+.factor .fv{flex:none;text-align:right;min-width:52px}
+.factor .fv b{display:block;font-size:12px;font-weight:600}
+.factor .fv b.up{color:var(--brand)}.factor .fv b.down{color:#E56A1A}.factor .fv b.flat{color:#6A7A93}
+.factor .fv small{font-size:10px;color:var(--t3);display:none}
+.pro-mode .factor .fv small{display:block}
+.sig .upd{font-size:10px;color:var(--t3);margin-top:8px}
+
+/* 四笔钱 / 我的持仓 */
+.tabs{display:flex;gap:6px;margin-top:12px}
+.tabs button{flex:1;height:34px;border-radius:10px;font-size:12px;font-weight:500;background:var(--card-soft);color:var(--t2);border:1px solid transparent}
+.tabs button.on{background:var(--brand-faded);color:var(--brand);border-color:#CFE4FB;font-weight:600}
+.hold{margin-top:12px;border-radius:12px;background:var(--card-soft);padding:12px}
+.hold-head{display:flex;align-items:center;gap:10px}
+.hold-head .hn{flex:1;min-width:0}
+.hold-head .hn b{display:block;font-size:14px;font-weight:600}
+.hold-head .hn small{display:block;font-size:11px;color:var(--t3);margin-top:2px}
+.hold-head .amt{text-align:right}
+.hold-head .amt b{display:block;font-size:15px;font-weight:600}
+.hold-head .amt small{font-size:11px;color:var(--t3)}
+.hold .rel{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px}
+.hold .advice{margin-top:10px;padding:10px 12px;border-radius:10px;background:#fff;border:1px solid var(--line-2);display:flex;gap:10px;align-items:flex-start}
+.hold .advice .ab{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;flex:none}
+.hold .advice .ab svg{width:18px;height:18px;color:#fff}
+.hold .advice .ab.pos{background:var(--brand)}.hold .advice .ab.neu{background:#8FA3BF}.hold .advice .ab.neg{background:var(--orange)}
+.hold .advice .at{flex:1}
+.hold .advice .at b{display:block;font-size:13px;font-weight:600}
+.hold .advice .at p{font-size:12px;color:var(--t2);line-height:1.6;margin-top:2px}
+.hold .actions{margin-top:10px;display:flex;gap:8px}
+.btn{height:36px;padding:0 14px;border-radius:999px;font-size:12px;font-weight:600;display:inline-flex;align-items:center;justify-content:center;gap:4px;transition:.15s}
+.btn.primary{background:var(--brand);color:#fff}.btn.primary:active{background:var(--brand-pressed)}
+.btn.ghost{background:#fff;color:var(--brand);border:1px solid #CFE4FB}
+.btn.block{flex:1}
+.match{margin-top:12px;padding:12px;border-radius:12px;background:var(--card-purple)}
+.match .mh{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#5B58B8}
+.match .mh b{font-size:13px;color:#4C49B0}
+.mbar{margin-top:8px;height:10px;border-radius:999px;background:#E6E4FF;position:relative;overflow:hidden}
+.mbar i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#B4B2FF,#8E8CF6);border-radius:999px}
+.mbar em{position:absolute;top:-2px;bottom:-2px;width:2px;background:#4C49B0;border-radius:2px}
+.match p{font-size:11px;color:#6A68A8;line-height:1.6;margin-top:8px}
+.login-tip{margin-top:12px;padding:12px;border-radius:12px;background:var(--card-warm);font-size:12px;color:#8A5A2B;line-height:1.6;display:flex;gap:8px}
+.login-tip svg{width:16px;height:16px;flex:none;margin-top:2px;color:#E56A1A}
+
+/* 行动卡 */
+.acts{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+.act{display:flex;gap:12px;align-items:center;padding:12px;border-radius:12px;background:var(--card-soft);border:1px solid transparent;transition:.15s}
+.act:active{border-color:#CFE4FB}
+.act .ai{width:44px;height:44px;border-radius:14px;flex:none;display:grid;place-items:center;background:linear-gradient(160deg,#E4F1FE,#CFE4FB);color:var(--brand)}
+.act .ai svg{width:22px;height:22px}
+.act .ai.warm{background:linear-gradient(160deg,#FFF1E8,#FFE0CC);color:#E56A1A}
+.act .ai.purple{background:linear-gradient(160deg,#F1F0FF,#E0DEFF);color:#6E6BE0}
+.act .at{flex:1;min-width:0}
+.act .at b{display:block;font-size:14px;font-weight:600}
+.act .at p{font-size:12px;color:var(--t2);line-height:1.55;margin-top:2px}
+.act .go{flex:none;color:var(--brand);font-size:12px;font-weight:600;display:flex;align-items:center;gap:2px}
+.switch{width:44px;height:26px;border-radius:999px;background:#DCE3EC;position:relative;flex:none;transition:.25s}
+.switch::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:.25s}
+.switch.on{background:var(--brand)}.switch.on::after{left:21px}
+
+/* 策略推荐 */
+.strats{display:flex;gap:10px;margin-top:12px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px}
+.strats::-webkit-scrollbar{display:none}
+.strat{flex:none;width:210px;padding:12px;border-radius:12px;background:var(--card-soft);border:1px solid var(--line-2)}
+.strat .sn{display:flex;align-items:center;justify-content:space-between}
+.strat .sn b{font-size:14px;font-weight:600}
+.strat .sn span{font-size:10px;color:var(--brand);background:var(--brand-faded);padding:2px 6px;border-radius:5px}
+.strat p{font-size:11px;color:var(--t2);line-height:1.55;margin-top:6px;height:34px;overflow:hidden}
+.strat .kv{display:flex;justify-content:space-between;margin-top:8px}
+.strat .kv div b{display:block;font-size:15px;font-weight:600;color:#E56A1A}
+.strat .kv div small{font-size:10px;color:var(--t3)}
+.strat .kv div:last-child b{color:var(--t1)}
+
+/* 时间轴 / 历史 */
+.tl{margin-top:12px;position:relative;padding-left:22px}
+.tl::before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:2px;background:var(--line-2);border-radius:2px}
+.tl-item{position:relative;padding-bottom:14px}
+.tl-item:last-child{padding-bottom:0}
+.tl-item::before{content:"";position:absolute;left:-20px;top:4px;width:10px;height:10px;border-radius:50%;background:#fff;border:2px solid var(--brand)}
+.tl-item.warm::before{border-color:var(--orange)}
+.tl-item .d{font-size:11px;color:var(--t3)}
+.tl-item .t{font-size:13px;font-weight:600;margin-top:2px}
+.tl-item .m{font-size:12px;color:var(--t2);line-height:1.55;margin-top:2px}
+.seg{display:flex;background:var(--card-soft);border-radius:8px;padding:2px}
+.seg button{flex:1;height:26px;border-radius:6px;font-size:11px;color:var(--t2)}
+.seg button.on{background:#fff;color:var(--brand);font-weight:600;box-shadow:0 1px 3px rgba(36,91,165,.1)}
+.chart-title{font-size:16px;font-weight:600;text-align:center}
+.chart-desc{font-size:12px;color:var(--t2);line-height:1.6;margin-top:6px}
+.legend{display:flex;gap:14px;justify-content:center;margin-top:8px;font-size:11px;color:var(--t2)}
+.legend i{display:inline-block;width:14px;height:3px;border-radius:2px;vertical-align:middle;margin-right:4px}
+table.stat{width:100%;border-collapse:collapse;margin-top:10px;font-size:12px}
+table.stat th{background:var(--card-blue);color:var(--t2);font-weight:500;padding:8px 6px;text-align:left;font-size:11px}
+table.stat td{padding:9px 6px;border-bottom:1px solid var(--line)}
+table.stat td.v{text-align:right;font-weight:600}
+table.stat td.v.pos{color:var(--brand)}table.stat td.v.neg{color:#E56A1A}
+
+/* FAQ */
+.faq{border-bottom:1px solid var(--line)}
+.faq:last-child{border-bottom:0}
+.faq button{width:100%;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;text-align:left;font-size:14px;font-weight:600}
+.faq button svg{width:16px;height:16px;flex:none;color:var(--t3);transition:transform .25s}
+.faq.open button svg{transform:rotate(180deg)}
+.faq .a{display:none;font-size:12px;color:var(--t2);line-height:1.7;padding-bottom:12px}
+.faq.open .a{display:block}
+
+/* 风险 */
+.risk{width:343px;margin:16px auto 0;font-size:11px;line-height:1.7;color:var(--t3)}
+.risk b{color:var(--t2);font-weight:600}
+
+/* 固定 CTA */
+.fixed-cta{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:100%;max-width:375px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-top:1px solid var(--line);display:flex;gap:10px;align-items:center;z-index:20}
+.fixed-cta .ask{width:64px;height:48px;border-radius:14px;background:var(--brand-faded);color:var(--brand);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10px;font-weight:600;gap:2px}
+.fixed-cta .ask svg{width:18px;height:18px}
+.fixed-cta .main{flex:1;height:48px;border-radius:999px;background:var(--brand);color:#fff;font-size:15px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:0 6px 16px rgba(27,136,238,.3)}
+.fixed-cta .main:active{background:var(--brand-pressed)}
+.fixed-cta .main svg{width:18px;height:18px}
+
+/* 弹层 / toast */
+.mask{position:fixed;inset:0;background:rgba(20,40,70,.45);z-index:40;display:none;justify-content:center;align-items:flex-end}
+.mask.show{display:flex}
+.sheet{width:100%;max-width:375px;background:#fff;border-radius:20px 20px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom));animation:up .28s cubic-bezier(.2,.8,.2,1)}
+@keyframes up{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+.sheet .grab{width:36px;height:4px;border-radius:2px;background:#E1E7F0;margin:0 auto 12px}
+.sheet h3{font-size:17px;font-weight:700}
+.sheet .sub{font-size:12px;color:var(--t2);margin-top:4px;line-height:1.6}
+.opt{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.opt:last-of-type{border-bottom:0}
+.opt .ot{flex:1}
+.opt .ot b{display:block;font-size:14px;font-weight:600}
+.opt .ot small{font-size:11px;color:var(--t3);line-height:1.5;display:block;margin-top:2px}
+.toast{position:fixed;left:50%;bottom:130px;transform:translateX(-50%) translateY(10px);background:rgba(30,50,80,.92);color:#fff;font-size:13px;padding:10px 16px;border-radius:10px;opacity:0;pointer-events:none;transition:.25s;z-index:50;max-width:300px;text-align:center;line-height:1.5}
+.toast.show{opacity:1;transform:translateX(-50%)}
+
+/* 进阶模式提示 */
+.mode-tip{width:343px;margin:8px auto 0;font-size:11px;color:var(--t3);text-align:center;display:none}
+.pro-mode .mode-tip{display:block}
+</style>
+</head>
+<body>
+<main class="phone" id="phone">
+
+  <!-- ====== 状态栏 + 导航 ====== -->
+  <header class="statusbar">
+    <span>9:41</span>
+    <span class="icons">
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="#fff"><rect x="0" y="8" width="3" height="4" rx=".6"/><rect x="4.3" y="5.5" width="3" height="6.5" rx=".6"/><rect x="8.6" y="3" width="3" height="9" rx=".6"/><rect x="13" y="0" width="3" height="12" rx=".6"/></svg>
+      <svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x=".5" y=".5" width="20" height="11" rx="3" stroke="#fff" opacity=".7"/><rect x="2" y="2" width="15" height="8" rx="1.6" fill="#fff"/><rect x="21.5" y="4" width="2" height="4" rx="1" fill="#fff" opacity=".7"/></svg>
+    </span>
+  </header>
+  <nav class="topnav">
+    <button class="back" aria-label="返回"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <div class="title">市场信号灯</div>
+    <div class="mode" role="tablist">
+      <button class="on" data-mode="basic">小白</button>
+      <button data-mode="pro">进阶</button>
+    </div>
+  </nav>
+
+  <!-- ====== Hero：今日市场天气 ====== -->
+  <section class="hero">
+    <svg class="scene" viewBox="0 0 375 392" aria-hidden="true">
+      <defs>
+        <radialGradient id="sun" cx="0.78" cy="0.32" r="0.42">
+          <stop offset="0" stop-color="#FFFFFF" stop-opacity=".75"/>
+          <stop offset=".35" stop-color="#FFF3D6" stop-opacity=".35"/>
+          <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="m1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6FAEF5"/><stop offset="1" stop-color="#A9D0FA"/></linearGradient>
+        <linearGradient id="m2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9CC9F8"/><stop offset="1" stop-color="#CFE4FC"/></linearGradient>
+        <linearGradient id="water" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#BEDCFB"/><stop offset="1" stop-color="#ECF4FF"/></linearGradient>
+        <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".95"/><stop offset="1" stop-color="#E6F1FE" stop-opacity=".92"/></linearGradient>
+        <filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="6"/></filter>
+        <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#1E4E8F" flood-opacity=".22"/></filter>
+      </defs>
+      <!-- 远景：光源与云 -->
+      <rect width="375" height="392" fill="url(#sun)"/>
+      <ellipse cx="322" cy="104" rx="24" ry="24" fill="#FFF7E3" opacity=".85" filter="url(#soft)"/>
+      <g opacity=".55" fill="#fff">
+        <ellipse cx="70" cy="126" rx="34" ry="9"/><ellipse cx="92" cy="121" rx="22" ry="8"/>
+        <ellipse cx="220" cy="98" rx="28" ry="7"/><ellipse cx="238" cy="94" rx="16" ry="6"/>
+      </g>
+      <!-- 中景：远山 -->
+      <path d="M0 262 C40 230 78 214 118 226 C150 236 172 218 205 208 C242 196 262 222 300 214 C330 208 352 226 375 236 L375 392 L0 392 Z" fill="url(#m2)" opacity=".9"/>
+      <path d="M0 292 C48 268 88 252 132 262 C176 272 198 246 236 250 C272 254 296 274 332 262 C350 256 362 262 375 268 L375 392 L0 392 Z" fill="url(#m1)" opacity=".85"/>
+      <!-- 水面 -->
+      <path d="M0 318 C60 306 120 322 180 314 C240 306 300 318 375 310 L375 392 L0 392 Z" fill="url(#water)"/>
+      <g stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity=".55">
+        <path d="M40 336 H96"/><path d="M130 348 H170"/><path d="M230 340 H300"/><path d="M60 360 H100"/>
+      </g>
+      <!-- 前景：信号面板装置（右侧锚点） -->
+      <g filter="url(#shadow)" transform="translate(264 124) rotate(-6)">
+        <rect x="0" y="0" width="98" height="70" rx="12" fill="url(#panel)"/>
+        <rect x="10" y="10" width="34" height="6" rx="3" fill="#CFE4FB"/>
+        <circle cx="82" cy="13" r="5" fill="#1B88EE"/>
+        <path d="M10 52 C22 50 26 38 36 40 C46 42 50 30 60 28 C70 26 76 36 88 24" fill="none" stroke="#1B88EE" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M10 52 C22 50 26 38 36 40 C46 42 50 30 60 28 C70 26 76 36 88 24 L88 60 L10 60 Z" fill="#1B88EE" opacity=".1"/>
+        <circle cx="88" cy="24" r="3.5" fill="#fff" stroke="#1B88EE" stroke-width="2"/>
+        <g transform="translate(10 22)">
+          <rect x="0" y="0" width="8" height="8" rx="2" fill="#0F78D4"/><rect x="11" y="0" width="8" height="8" rx="2" fill="#B8C4D6"/><rect x="22" y="0" width="8" height="8" rx="2" fill="#FFB86B"/>
+        </g>
+      </g>
+      <!-- 漂浮小元素 -->
+      <g opacity=".9">
+        <circle cx="246" cy="112" r="3.5" fill="#fff"/><circle cx="340" cy="222" r="3" fill="#fff" opacity=".7"/>
+      </g>
+    </svg>
+
+    <div class="hero-body">
+      <span class="kicker"><i></i>盈米研究院信号 · 每个交易日早间更新</span>
+      <h1>今天市场什么天气？<small>8 个专业投研信号，翻成一句人话</small></h1>
+      <div class="verdict">
+        <div class="gauge">
+          <svg viewBox="0 0 132 76">
+            <defs>
+              <linearGradient id="gg" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#FA6A55"/><stop offset=".3" stop-color="#FFB86B"/><stop offset=".5" stop-color="#E6EEF7"/><stop offset=".72" stop-color="#7DB8F5"/><stop offset="1" stop-color="#0F78D4"/>
+              </linearGradient>
+            </defs>
+            <path d="M10 68 A56 56 0 0 1 122 68" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="12" stroke-linecap="round"/>
+            <path d="M10 68 A56 56 0 0 1 122 68" fill="none" stroke="url(#gg)" stroke-width="12" stroke-linecap="round" opacity=".95"/>
+            <g id="needle" transform="rotate(0 66 68)">
+              <line x1="66" y1="68" x2="66" y2="22" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+              <circle cx="66" cy="68" r="6" fill="#fff"/>
+              <circle cx="66" cy="68" r="2.5" fill="#1B88EE"/>
+            </g>
+          </svg>
+          <div class="g-label">谨慎 · 中性 · 积极</div>
+        </div>
+        <div class="verdict-text">
+          <b id="overall-title">温和偏积极</b>
+          <p id="overall-desc">经济还在底部后半段，股票便宜、没人激动，债券平稳。适合<strong>按计划定投</strong>，不追高，也不用慌。</p>
+        </div>
+      </div>
+      <div class="tags">
+        <span>更新 09-21 05:49</span><span>股票乐观 · 债券平稳</span><span>本月 1 项变化</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== 首卡：一句话看懂 ====== -->
+  <section class="card first-card">
+    <h3>今天，你的钱该怎么摆？</h3>
+    <p class="sub">别管术语，先看三盏灯。它们分别对应你账户里最常见的三类资产。</p>
+    <div class="lights">
+      <div class="light pos">
+        <div class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></div>
+        <div class="name">股票类</div><div class="act">可以按计划买</div>
+      </div>
+      <div class="light neu">
+        <div class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14"/></svg></div>
+        <div class="name">债券类</div><div class="act">稳稳拿着</div>
+      </div>
+      <div class="light neg">
+        <div class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg></div>
+        <div class="name">黄金</div><div class="act">别追高</div>
+      </div>
+    </div>
+    <div class="summary-line">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+      <span>翻译一下：<b>长钱</b>可以继续定投（A 股择时信号"乐观"），<b>稳钱</b>不需要动，涨了很多的<b>黄金</b>先别一次性追。往下看每个信号的"为什么"和"和我有什么关系"。</span>
+    </div>
+  </section>
+
+  <!-- ====== 信号列表 ====== -->
+  <div class="sec-title"><h2>8 个信号，<em>翻成人话</em></h2><span>点"为什么"看背后数据</span></div>
+  <p class="mode-tip">进阶模式：显示信号专业名称、底层指标与数值</p>
+  <div id="signal-list"></div>
+
+  <!-- ====== 和我的钱有什么关系 ====== -->
+  <div class="sec-title"><h2>和<em>我的钱</em>有什么关系？</h2><span>按四笔钱看</span></div>
+  <section class="card">
+    <h3>看看你的持仓受哪些信号影响</h3>
+    <p class="sub">已按你的账户脱敏展示（138****1564）。只有你本人登录后才能看到这一部分。</p>
+    <div class="tabs" id="money-tabs">
+      <button class="on" data-k="long">长钱</button>
+      <button data-k="stable">稳钱</button>
+      <button data-k="cash">活钱</button>
+      <button data-k="protect">保险保障</button>
+    </div>
+    <div id="holdings"></div>
+    <div class="match" id="match">
+      <div class="mh"><span>你的股票占比 vs 多资产信号</span><b>合理偏稳</b></div>
+      <div class="mbar"><i style="width:58%"></i><em style="left:60%"></em><em style="left:74.7%"></em></div>
+      <p>你当前股票类占比约 58%。多资产战术配置（TAA）目前对股票是"超配"态度：平衡型基准 60%，进取方案实际权重 74.7%。你的比例略低于平衡线，方向没错，不需要大动，保持定投节奏即可。测算基于账户持仓穿透，不构成投资建议。</p>
+    </div>
+  </section>
+
+  <!-- ====== 现在可以做什么 ====== -->
+  <div class="sec-title"><h2>现在，你<em>可以做什么</em></h2><span>三件小事就够了</span></div>
+  <section class="card">
+    <div class="acts">
+      <div class="act">
+        <div class="ai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M9 16l2 2 4-4"/></svg></div>
+        <div class="at"><b>让定投跟着信号走</b><p>信号偏积极时多投一点，偏谨慎时少投一点，不用你盯盘。</p></div>
+        <button class="switch" id="sw-dca" aria-label="开启信号定投"></button>
+      </div>
+      <div class="act" onclick="toast('已为你筛出 2 个与当前信号匹配的策略，往下看')">
+        <div class="ai warm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16.2 7.8l-2.1 6.3-6.3 2.1 2.1-6.3z"/></svg></div>
+        <div class="at"><b>看看适合当前信号的策略</b><p>根据"A 股乐观 + 风格偏红利 + 债券平稳"筛出来的。</p></div>
+        <span class="go">去看看<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></span>
+      </div>
+      <div class="act" onclick="toast('已把今天的信号摘要发给你的顾问，TA 会在工作时间联系你')">
+        <div class="ai purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <div class="at"><b>让顾问帮我看 5 分钟</b><p>把今天的信号和你的持仓一起发给顾问，聊聊要不要调整。</p></div>
+        <span class="go">找顾问<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></span>
+      </div>
+    </div>
+    <div class="strats">
+      <div class="strat">
+        <div class="sn"><b>长赢指数投资计划</b><span>匹配 · 权益信号</span></div>
+        <p>估值低时多买、高时少买的指数定投计划，天然跟"A 股值不值得买"信号同频。</p>
+        <div class="kv"><div><b class="num">+9.8%</b><small>近 1 年</small></div><div><b class="num">-12.4%</b><small>近 1 年最大回撤</small></div></div>
+      </div>
+      <div class="strat">
+        <div class="sn"><b>稳稳的幸福</b><span>匹配 · 固收 + 风格</span></div>
+        <p>债券打底、少量红利权益增强，适合稳钱；债券平稳 + 风格偏红利时体验更稳。</p>
+        <div class="kv"><div><b class="num">+4.1%</b><small>近 1 年</small></div><div><b class="num">-1.9%</b><small>近 1 年最大回撤</small></div></div>
+      </div>
+      <div class="strat">
+        <div class="sn"><b>多资产配置组合</b><span>匹配 · 多策略信号</span></div>
+        <p>股、债、金分散配置，按 TAA 战术信号做再平衡，不用自己判断轮动。</p>
+        <div class="kv"><div><b class="num">+6.7%</b><small>近 1 年</small></div><div><b class="num">-5.3%</b><small>近 1 年最大回撤</small></div></div>
+      </div>
+    </div>
+    <p class="src">策略数据来源：且慢，统计区间 2025-09-19 至 2026-09-18，为示意数据。历史业绩不代表未来表现，投顾服务不保证收益。</p>
+  </section>
+
+  <!-- ====== 信号最近怎么变 ====== -->
+  <div class="sec-title"><h2>信号最近<em>怎么变</em></h2><span>看趋势，不看一天</span></div>
+  <section class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+      <div class="chart-title" style="text-align:left">综合信号走势</div>
+      <div class="seg" id="range-seg" style="width:150px"><button class="on" data-r="3m">近 3 月</button><button data-r="1y">近 1 年</button></div>
+    </div>
+    <p class="chart-desc">综合信号由 8 类信号按对普通投资者的相关度加权得到，越靠上越积极。今年 6 月起从"中性"缓慢抬升到"温和偏积极"（示意曲线）。</p>
+    <svg id="trend" viewBox="0 0 311 170" width="311" height="170" role="img" aria-label="综合信号走势" style="display:block;margin-top:8px"></svg>
+    <div class="legend"><span><i style="background:#1B88EE"></i>综合信号</span><span><i style="background:#FFB86B"></i>沪深 300（右轴，示意）</span></div>
+    <div class="tl" id="timeline"></div>
+    <p class="src">数据来源：盈米研究院 VESTA 投资信号，截至 2026-09-21。时间轴取自各信号最近一期与上期对比；综合曲线为示意。信号为模型输出，不代表投资建议。</p>
+  </section>
+
+  <section class="card">
+    <h3>信号靠谱吗？看看历史</h3>
+    <p class="sub">A 股择时信号给出"乐观"时，之后一段时间市场的表现（回测测算，非实盘）。作为参考：该信号的择时策略净值 3.51，同期一直持有的基准净值 1.54。</p>
+    <table class="stat">
+      <thead><tr><th>之后持有</th><th style="text-align:right">沪深 300 平均涨跌</th><th style="text-align:right">上涨概率</th></tr></thead>
+      <tbody>
+        <tr><td>1 个月</td><td class="v pos num">+1.6%</td><td class="v num">58%</td></tr>
+        <tr><td>3 个月</td><td class="v pos num">+4.2%</td><td class="v num">64%</td></tr>
+        <tr><td>6 个月</td><td class="v pos num">+7.9%</td><td class="v num">71%</td></tr>
+        <tr><td>12 个月</td><td class="v pos num">+12.3%</td><td class="v num">76%</td></tr>
+      </tbody>
+    </table>
+    <div class="summary-line" style="margin-top:12px">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <span>看懂重点：<b>拿得越久，信号越有用</b>。它不是预测下周涨跌的工具，而是帮你决定"这段时间该多投还是少投"。</span>
+    </div>
+    <p class="src">表格为示意数据，正式上线需替换为 VESTA 回测口径的分档统计。策略/基准净值来自 VESTA A 股择时信号回测（数据期 2026-09-18）。历史回测不代表未来表现。</p>
+  </section>
+
+  <!-- ====== 1 分钟学会看信号 ====== -->
+  <div class="sec-title"><h2>1 分钟<em>学会看信号</em></h2><span>新手常问</span></div>
+  <section class="card" id="faq">
+    <div class="faq"><button>信号会错吗？<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button><div class="a">会。信号是用历史数据算出来的概率判断，不是水晶球。它的价值在于"大部分时候方向对"，所以要配合定投、分散、长期持有一起用，而不是押注某一天。</div></div>
+    <div class="faq"><button>信号变了，我要马上操作吗？<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button><div class="a">不用。信号变化通常是"往哪个方向多倾斜一点"，而不是全进全出。最省心的方式是开启"信号定投"，让系统按档位自动调整每期金额；或者等顾问给你一份具体建议。</div></div>
+    <div class="faq"><button>为什么和新闻里说的不一样？<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button><div class="a">新闻讲的是"发生了什么"，信号讲的是"这些事加起来，对未来 3–12 个月意味着什么"。同一条新闻，短期情绪和中期数据可能方向相反，信号只看后者。</div></div>
+    <div class="faq"><button>"进阶模式"里的指标我看不懂怎么办？<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button><div class="a">看不懂完全没关系，小白模式的"一句话"就是给你准备的。进阶模式是为了让你知道每个结论背后都有真实数据，而不是拍脑袋；有兴趣时再慢慢看。</div></div>
+  </section>
+
+  <!-- ====== 数据来源 & 风险提示 ====== -->
+  <div class="risk">
+    <p><b>数据与口径说明：</b>本页信号来自盈米基金研究院 VESTA 投资信号体系（宏观中国 / 全球 GRRI、权益 A 股与美日越、固收、风格、中观行业、黄金、可转债及多资产策略）。日频信号最新数据期为 2026-09-18 / 09-21，月频信号（中国宏观、日越、转债）为 2026-08-31 / 2026 年 9 月；每张卡片底部标注各自的数据期与频率。"翻译"文案与五档位由信号原始输出（0/1 开关、连续值、仓位、周期枚举）映射生成，力求通俗，可能损失部分精确性；进阶模式可查看底层指标与数值。本页为产品原型：关键取值来自生产数据，部分底层指标的历史小趋势线、综合曲线与账户持仓为示意。历史统计为回测模拟，非实盘。</p>
+    <p style="margin-top:8px"><b>风险提示：</b>市场有风险，投资需谨慎。信号仅反映模型对市场环境的判断，不构成任何投资建议或收益承诺，不应作为唯一决策依据。基金及基金投顾组合过往业绩不代表未来表现，投资者应根据自身风险承受能力独立决策。基金投顾服务由盈米基金提供，不保证盈利与最低收益。</p>
+  </div>
+
+  <!-- ====== 固定底部 CTA ====== -->
+  <footer class="fixed-cta">
+    <button class="ask" onclick="toast('小顾：你好，我已经读完今天的信号，想先聊哪一个？')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 1 7 7v1h1a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1.3A7 7 0 0 1 5.3 17H4a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h1V9a7 7 0 0 1 7-7z"/><circle cx="9.5" cy="12" r="1"/><circle cx="14.5" cy="12" r="1"/></svg>问小顾
+    </button>
+    <button class="main" onclick="openSheet()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+      信号变了提醒我
+    </button>
+  </footer>
+
+  <!-- ====== 提醒设置弹层 ====== -->
+  <div class="mask" id="mask" onclick="if(event.target===this)closeSheet()">
+    <div class="sheet">
+      <div class="grab"></div>
+      <h3>信号变了提醒我</h3>
+      <p class="sub">不用天天来看。信号档位变化时我们通知你，并附上"和你持仓的关系"。</p>
+      <div class="opt"><div class="ot"><b>只在信号档位变化时提醒</b><small>平均每月 1–2 次，不打扰</small></div><button class="switch on" onclick="this.classList.toggle('on')"></button></div>
+      <div class="opt"><div class="ot"><b>只提醒与我持仓相关的信号</b><small>你现在持有长钱、稳钱，会关注权益、固收、多资产信号</small></div><button class="switch on" onclick="this.classList.toggle('on')"></button></div>
+      <div class="opt"><div class="ot"><b>每周一早上收一份 1 分钟摘要</b><small>三盏灯 + 一句话建议</small></div><button class="switch" onclick="this.classList.toggle('on')"></button></div>
+      <div class="opt"><div class="ot"><b>同步给我的顾问</b><small>信号变化时顾问也会收到，方便主动联系你</small></div><button class="switch on" onclick="this.classList.toggle('on')"></button></div>
+      <button class="btn primary" style="width:100%;height:48px;margin-top:14px;font-size:15px" onclick="closeSheet();toast('已开启信号提醒。下次信号变化时，会告诉你和持仓的关系')">开启提醒</button>
+      <p style="font-size:10px;color:#999;text-align:center;margin-top:10px;line-height:1.5">提醒仅在 App 内和服务通知中推送，可随时关闭。不涉及交易操作。</p>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+</main>
+
+<script>
+/* =====================================================================
+   数据层：真实接入时由 VESTA 投资信号接口下发；本页为示意数据。
+   level: -2 谨慎 / -1 略谨慎 / 0 中性 / 1 略积极 / 2 积极
+   ===================================================================== */
+const SIGNALS = [
+  {
+    id:'macro-cn', icon:'thermo',
+    q:'中国经济现在处在哪一段？', pro:'宏观信号 · 中国（经济 / 货币 / 库存三周期判定）',
+    level:0, lvText:'底部后半段',
+    plain:'模型判定经济处于<b>"衰退后期"</b>：还没明显回暖，但已经是下行的后半段，通常是拐点前的位置。',
+    foryou:'<strong>对你：</strong>这一阶段历史上债券仍有配置价值、股票适合逐步增配。所以"稳钱拿着、长钱慢慢买"是这个阶段最常见的做法。',
+    lead:'模型把 17 个宏观指标合成为经济景气、通胀、库存、流动性等因子，再判定三个周期所处阶段。',
+    factors:[
+      {name:'经济周期走到哪', pro:'经济周期判定（6 态：复苏/过热/滞胀/类滞胀/衰退前期/衰退后期）', v:'衰退后期', unit:'2026-08 月末值', trend:'flat', tip:'下行的后半段，历史上常是股票逐步增配的窗口', spark:[2,2,2,1,1,1]},
+      {name:'经济热不热', pro:'经济景气因子（含 PMI、工业、投资扩张）', v:'偏弱', unit:'低位企稳', trend:'flat', tip:'还没回暖，但没继续变差', spark:[46,45,44,44,45,45]},
+      {name:'物价温不温和', pro:'核心 CPI / PPI 同比', v:'低通胀', unit:'PPI 仍为负', trend:'flat', tip:'物价不涨，政策还有宽松空间', spark:[0.6,0.5,0.4,0.4,0.5,0.5]},
+      {name:'钱是不是在流动', pro:'社融 + 剩余流动性 + 货币活化（M1）', v:'略改善', unit:'剩余流动性为正', trend:'up', tip:'钱比经济需要的多一点，往往先流向金融资产', spark:[-0.3,-0.2,0.1,0.3,0.5,0.7]},
+      {name:'房子预期怎么样', pro:'住房市场预期因子', v:'偏弱', unit:'低位', trend:'flat', tip:'仍是拖累项，是经济没完全回暖的主因', spark:[40,39,38,38,38,39]}
+    ],
+    upd:'数据期 2026-08-31 · 月频（每月末更新）'
+  },
+  {
+    id:'macro-global', icon:'globe',
+    q:'全球市场在紧张还是放松？', pro:'全球风险共振指数 GRRI（波动率 + 跨资产相关性）',
+    level:1, lvText:'低风险',
+    plain:'全球各类资产<b>各走各的，没有一起恐慌</b>。风险共振指数为负值，处于低风险区。',
+    foryou:'<strong>对你：</strong>海外配置（美股、全球债、QDII）不需要回避；如果组合里有海外资产，正常持有就好。',
+    lead:'GRRI 观察全球主要资产是否"同涨同跌"。指数越高说明恐慌在蔓延（>1 中等、>2 高、>3 极高风险）；现在是负值。',
+    factors:[
+      {name:'全球风险共振指数', pro:'GRRI 值（阈值 1 / 2 / 3）', v:'-0.59', unit:'低于 1 = 低风险', trend:'flat', tip:'负值说明市场比平常更"淡定"', spark:[-0.2,-0.35,-0.1,-0.42,-0.5,-0.59]},
+      {name:'资产是不是一起动', pro:'跨资产相关性', v:'0.20', unit:'越高分散越失效', trend:'flat', tip:'相关性低，"分散配置"是有效的', spark:[0.31,0.28,0.26,0.24,0.22,0.20]},
+      {name:'美股怕不怕', pro:'VIX 30 日均值', v:'15.5', unit:'20 以上偏紧张', trend:'flat', tip:'低于 20，海外投资者不慌', spark:[17.8,16.9,16.2,15.9,15.7,15.5]},
+      {name:'海外三大市场择时', pro:'美国 / 日本 / 越南 宏观择时信号（0/1）', v:'3/3 看多', unit:'美 1 · 日 1 · 越 1', trend:'up', tip:'三个海外市场的宏观模型都给出看多', spark:[2,2,3,3,3,3]}
+    ],
+    upd:'2026-09-21 05:49 · 日频（美/日/越信号：日频/月频）'
+  },
+  {
+    id:'equity', icon:'chart',
+    q:'A 股现在值不值得买？', pro:'权益信号 · A 股择时（估值 / 情绪 / 景气 / 流动性 四开关）',
+    level:2, lvText:'乐观',
+    plain:'四个开关里<b>三个亮了</b>（估值便宜、情绪冷清、流动性宽松），只有"经济景气"还没亮。模型结论：乐观。',
+    foryou:'<strong>对你：</strong>长钱可以按计划定投，甚至多投一点。注意"乐观"说的是未来一段时间的性价比，不是明天就涨，别一次性梭哈。',
+    lead:'模型看 4 件事，≥3 件看多就给"乐观"。现在的组合是"便宜 + 没人激动 + 钱多"，这在历史上是比较舒服的买入环境。',
+    factors:[
+      {name:'股票贵不贵', pro:'ERP 估值比价指数（0–100）· 万得全A PE-TTM 38.3', v:'看多 ✓', unit:'比价指数 37.7', trend:'up', tip:'和债券比，股票的性价比处于偏好的一侧', spark:[52,48,45,42,40,37.7]},
+      {name:'大家激不激动', pro:'市场情绪指数（0–100，MA20 突破比例 + 换手率）', v:'看多 ✓', unit:'情绪 9.2 / 100', trend:'flat', tip:'情绪很冷清。听起来不好，但"没人买的时候"往往是好价格', spark:[28,22,18,15,12,9.2]},
+      {name:'经济好不好', pro:'经济景气指数', v:'谨慎 ✗', unit:'唯一未亮的开关', trend:'flat', tip:'和宏观信号一致：经济还在底部', spark:[45,45,44,44,45,45]},
+      {name:'钱多不多', pro:'货币政策指数 3.27（正=宽松）· 剩余流动性 0.88', v:'看多 ✓', unit:'宽松', trend:'up', tip:'央行在放水，钱多的时候资产价格有支撑', spark:[1.8,2.1,2.5,2.8,3.0,3.27]},
+      {name:'这个信号历史上管用吗', pro:'择时策略净值 vs 基准净值（回测）', v:'3.51 vs 1.54', unit:'同期基准 1.54', trend:'up', tip:'按信号操作的模拟净值明显高于一直持有', spark:[1,1.4,1.9,2.4,3.0,3.51]}
+    ],
+    upd:'数据期 2026-09-18 · 日频（每日约 08:50）'
+  },
+  {
+    id:'bond', icon:'shield',
+    q:'债券现在稳不稳？', pro:'固收信号 · 资金价格 / 收益率曲线 / 期限利差分位',
+    level:0, lvText:'平稳',
+    plain:'利率在<b>历史低位横着走</b>，市场不缺钱。债券这段时间大概率是"慢慢赚点利息"，别指望大涨。',
+    foryou:'<strong>对你：</strong>稳钱继续拿着就行，不需要因为股票信号乐观就把债券卖掉。固收信号是"状态刻画"，不给买卖档位。',
+    lead:'债券看三件事：利率会不会升、市场缺不缺钱、长短期利差还有没有空间。目前三项都平稳。',
+    factors:[
+      {name:'长期利率在哪', pro:'10 年期国债收益率', v:'1.69%', unit:'30 年期 2.15%', trend:'flat', tip:'历史低位，上下空间都不大', spark:[1.66,1.65,1.68,1.70,1.69,1.69]},
+      {name:'市场缺不缺钱', pro:'DR007 五日均值 · R001 五日均值', v:'1.40%', unit:'R001 1.40%', trend:'flat', tip:'资金价格贴着政策利率，不紧', spark:[1.45,1.43,1.42,1.41,1.40,1.40]},
+      {name:'长短利差还剩多少', pro:'10Y − 1Y 期限利差 · 近一年分位', v:'20% 分位', unit:'偏平', trend:'down', tip:'长债相对短债的"额外补偿"不多，别重仓赌长债', spark:[0.55,0.45,0.38,0.30,0.24,0.20]},
+      {name:'中间期限有没有机会', pro:'10Y − 7Y 分位 0.82 · 5Y − 3Y 分位 0.59', v:'中等', unit:'部分期限利差偏厚', trend:'flat', tip:'这是组合经理挑期限用的，你不用管', spark:[0.6,0.7,0.75,0.8,0.82,0.82]}
+    ],
+    upd:'数据期 2026-09-11 · 日频'
+  },
+  {
+    id:'style', icon:'scale',
+    q:'买分红稳的，还是买成长快的？', pro:'风格信号 · A 股风格轮动（红利低波 / 成长 / 现金 仓位）',
+    level:1, lvText:'偏红利低波',
+    plain:'模型建议 <b>红利低波 75%、成长 25%</b>、现金 0%。也就是"以稳为主、留一点进攻"。',
+    foryou:'<strong>对你：</strong>如果你买的是宽基指数或投顾组合，不用管风格，组合经理会处理。只有自己单买行业/主题基金的人才需要留意别全押成长。',
+    lead:'模型用 5 个子信号打分：流动性偏好、资金偏好、景气扩散、估值、拥挤度。现在 4 个偏向红利。',
+    factors:[
+      {name:'模型建议的风格配比', pro:'position_dvd / position_growth / position_cash', v:'75 / 25 / 0', unit:'红利 / 成长 / 现金', trend:'flat', tip:'红利为主，不是全押', spark:[50,50,75,75,75,75]},
+      {name:'钱更愿意去哪', pro:'流动性偏好（M1−M2 剪刀差）· 资金偏好（基金新增规模）', v:'偏红利 ✓✓', unit:'2 个子信号', trend:'flat', tip:'资金更偏好稳定分红的资产', spark:[0,1,1,1,1,1]},
+      {name:'经济在普遍变好吗', pro:'景气扩散度（0–100）', v:'未确认 ✗', unit:'唯一偏成长的条件未满足', trend:'flat', tip:'景气没有全面扩散前，成长股缺乏普涨基础', spark:[42,44,45,44,45,46]},
+      {name:'哪边更便宜、更不拥挤', pro:'估值（股息率差）· 拥挤度（0–100）', v:'偏红利 ✓✓', unit:'红利不拥挤', trend:'flat', tip:'红利资产估值合理且没被抱团', spark:[1,1,1,1,1,1]}
+    ],
+    upd:'数据期 2026-09-18 · 日频（每日约 08:49）'
+  },
+  {
+    id:'industry', icon:'grid',
+    q:'哪些行业被看好？', pro:'中观信号 · 29 个中信一级行业轮动（8 子信号 → −1 / 0 / +1）',
+    level:1, lvText:'10 多 · 8 空',
+    plain:'目前看多的行业有 <b>有色金属、医药、煤炭、化工、机械、军工、家电</b> 等；看空的有<b>新能源、汽车、钢铁、建筑建材</b>。',
+    foryou:'<strong>对你：</strong>行业信号变化快，不建议小白单独押注。你的组合如果已经覆盖这些行业，就自然受益；想参与，用行业均衡的组合更稳妥。',
+    lead:'每个行业从 8 个角度打分：经济周期、货币周期、技术、政策、景气水平、景气趋势、估值、拥挤度，合成最终 −1 / 0 / +1。',
+    factors:[
+      {name:'看多（+1）的行业', pro:'sign_final = +1', v:'10 个', unit:'覆盖 29 个行业', trend:'up', tip:'石油石化、煤炭、有色金属、化工、机械、国防军工、消费者服务、家电、纺织服装、医药', spark:[6,7,8,9,10,10]},
+      {name:'看空（−1）的行业', pro:'sign_final = −1', v:'8 个', unit:'其余中性', trend:'down', tip:'电力及公用事业、钢铁、建筑、建材、轻工、电力设备及新能源、汽车、商贸零售', spark:[10,10,9,9,8,8]},
+      {name:'共同点是什么', pro:'子信号解读', v:'资源 + 医药', unit:'偏周期上游、偏防御', trend:'flat', tip:'看多的多是上游资源和低估值防御板块；看空的集中在产能过剩链条', spark:[0,0,0,0,0,0]}
+    ],
+    upd:'数据期 2026-09-18 · 日频（09-19 08:43 更新）'
+  },
+  {
+    id:'gold', icon:'gold',
+    q:'黄金还能追吗？', pro:'黄金信号 · 14 因子滚动回归（金价预测 vs 现价）',
+    level:-1, lvText:'有支撑，别追高',
+    plain:'金价已经到 <b>4381 美元</b>。长期支撑（央行购金、去美元化）还在，但短期资金追得很猛，一次性追高性价比不高。',
+    foryou:'<strong>对你：</strong>已经持有的不用卖，黄金本来就是拿来"压舱"的；没买的别一把梭，用小额定投分批进更稳妥。',
+    lead:'模型用 14 个因子（实际利率、央行购金、ETF 持仓、期货多头、地缘风险、VIX 等）滚动回归预测金价，再和现价比较。',
+    factors:[
+      {name:'现在的金价', pro:'COMEX 黄金', v:'4381', unit:'美元 / 盎司', trend:'up', tip:'处于历史高位区域', spark:[3620,3800,3950,4100,4260,4381]},
+      {name:'长期支撑还在吗', pro:'全球央行净购金 170 吨 · 美元外储占比 57.1%', v:'在', unit:'去美元化持续', trend:'up', tip:'央行还在买，美元在全球储备里的份额在下降，这是长期利多', spark:[120,135,140,150,160,170]},
+      {name:'短期是不是太拥挤', pro:'CFTC 非商业净多头 23.0 万手 · ETF 净持仓 1057 吨', v:'偏拥挤', unit:'均处高位', trend:'up', tip:'投机资金和 ETF 都在高位，短期容易回调', spark:[150,170,190,205,220,230]},
+      {name:'定价锚在往哪走', pro:'美国 10Y 实际利率变动 −12.5bp · VIX 15.5', v:'利率下行', unit:'温和利多', trend:'down', tip:'实际利率下行本是利好，但大部分已被价格反映', spark:[8,4,0,-5,-9,-12.5]}
+    ],
+    upd:'数据期 2026-09-18 · 日频'
+  },
+  {
+    id:'cb', icon:'swap',
+    q:'可转债值不值得配？', pro:'转债信号 · 9 因子三组等权 → 加权仓位（月频）',
+    level:-1, lvText:'低配 29%',
+    plain:'模型给可转债的建议仓位是 <b>29%</b>（上月 25%），比"标配"低。转债<b>不便宜</b>，但趋势还在，略微加了一点。',
+    foryou:'<strong>对你：</strong>大多数人是通过"固收+"或稳钱组合间接持有转债的，不需要单独操作。这个信号主要给组合经理看。',
+    lead:'三组因子各占 1/3：转债价格贵不贵、指数趋势好不好、相对股票/债券的溢价高不高。加权后得到建议仓位。',
+    factors:[
+      {name:'模型建议仓位', pro:'weighted_signal（0–1 连续）', v:'29%', unit:'上月 25%', trend:'up', tip:'低于 50% 的"标配"，属于偏谨慎', spark:[25,25,25,25,25,29]},
+      {name:'转债本身贵不贵', pro:'转债价格中枢 0.25 · YTM − 3Y AA 中票 0.25', v:'偏贵', unit:'价格组 1/3 权重', trend:'flat', tip:'价格偏高，性价比一般', spark:[0.25,0.25,0.25,0.25,0.25,0.25]},
+      {name:'趋势还在吗', pro:'动量 1M 0 · 趋势方向 1.0 · MACD 0 · 反转 3M 0.5', v:'趋势在', unit:'技术组 1/3 权重', trend:'up', tip:'中期趋势向上，但短期动量转弱', spark:[0.3,0.3,0.35,0.35,0.35,0.38]},
+      {name:'相对股票 / 债券的溢价', pro:'百元平价溢价率 0.25 · 底价溢价率 0.25', v:'偏高', unit:'估值组 1/3 权重', trend:'flat', tip:'相对正股和纯债都不便宜', spark:[0.25,0.25,0.25,0.25,0.25,0.25]}
+    ],
+    upd:'2026 年 9 月生效 · 月频（月末生成、次月生效）'
+  }
+];
+
+/* 多策略信号：多资产 TAA（战术配置）当前对股票为"超配"态度；且慢 AAP 进取方案股票权重 74.7% */
+const MULTI = { taaEquityAggressive:74.7, profile6040:{annual:'5.79%'}, profile595:{annual:'3.95%',sharpe:1.56,mdd:'-0.96%'}, updated:'2026-09-21' };
+
+/* 四笔钱 → 持仓（示意，真实环境需登录并做水平权限校验，仅返回本人数据） */
+const HOLDINGS = {
+  long:{ items:[
+    {name:'长赢指数投资计划', type:'指数定投 · 权益', amt:'86,420', pnl:'+7.8%', rel:['权益信号','宏观信号','风格信号'], advice:{k:'pos',t:'继续定投，可小幅加码',p:'A 股择时信号"乐观"（估值便宜 + 情绪冷清 + 流动性宽松），长赢本身也在低估区多买，方向一致。本期建议按 1.2 倍投入。'}},
+    {name:'守正出奇', type:'进取配置 · 权益增强', amt:'32,100', pnl:'+11.2%', rel:['权益信号','中观信号','全球风险'], advice:{k:'neu',t:'保持不动',p:'权益乐观、海外三市场看多，方向没问题；但行业信号 10 多 8 空分化大，交给组合经理轮动即可。不追加，也不止盈。'}}
+  ]},
+  stable:{ items:[
+    {name:'稳稳的幸福', type:'固收+ · 债券打底', amt:'120,000', pnl:'+3.6%', rel:['固收信号','转债信号','风格信号'], advice:{k:'neu',t:'稳稳拿着',p:'债券平稳、转债低配 29%、风格偏红利低波，这笔钱的任务是"不掉链子"，目前环境对它友好。'}}
+  ]},
+  cash:{ items:[
+    {name:'盈米宝', type:'货币基金 · 活钱', amt:'18,650', pnl:'7 日年化 1.40%', rel:['固收信号（资金面）'], advice:{k:'neu',t:'够用就好',p:'活钱不看信号，只看你 3–6 个月要花多少。资金利率 1.40% 左右，收益不高但随时能用。目前余额约等于 2 个月开支，可考虑补到 3 个月。'}}
+  ]},
+  protect:{ items:[
+    {name:'家庭保障方案', type:'重疾 + 医疗 + 意外', amt:'已配置', pnl:'保额 50 万', rel:['不受市场信号影响'], advice:{k:'neu',t:'与信号无关',p:'保险是兜底，不随市场变化调整。建议每年复核一次保额是否跟上家庭责任。'}}
+  ]}
+};
+
+/* 信号变化时间轴（取自各信号最近一期与上期对比） */
+const TIMELINE = [
+  {d:'2026-09-18', t:'A 股择时：维持"乐观"', m:'估值、情绪、流动性三个开关看多，经济景气仍未亮。'},
+  {d:'2026-09-01', t:'转债信号：仓位 25% → 29%', m:'趋势方向因子转为 1.0，其余因子不变，小幅上调。', warm:true},
+  {d:'2026-08-31', t:'中国宏观：经济周期判定"衰退后期"', m:'月度更新。住房预期仍弱，剩余流动性转正。'},
+  {d:'2026-08-31', t:'日本 / 越南信号：均为看多', m:'日本 6 维得分 4 分、越南 5 维得分 6 分，月信号为 1。'}
+];
+
+/* ============ 图标 ============ */
+const ICONS = {
+  thermo:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14.8V4a2 2 0 0 0-4 0v10.8a4 4 0 1 0 4 0z"/><path d="M12 9v6"/></svg>',
+  globe:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z"/></svg>',
+  chart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>',
+  shield:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>',
+  scale:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7h14"/><path d="M3 13l2-6 2 6a2 2 0 0 1-4 0z"/><path d="M17 13l2-6 2 6a2 2 0 0 1-4 0z"/><path d="M8 21h8"/></svg>',
+  grid:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>',
+  gold:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l2-6h12l2 6z"/><path d="M8 11l1.5-5h5L16 11"/></svg>',
+  swap:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16V4M7 4L3 8M7 4l4 4"/><path d="M17 8v12M17 20l4-4M17 20l-4-4"/></svg>',
+  chev:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>',
+  up:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/></svg>',
+  flat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14"/></svg>',
+  warn:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>'
+};
+const LV_TICKS = ['谨慎','略谨慎','中性','略积极','积极'];
+
+/* ============ 工具 ============ */
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function sparkline(arr, color){
+  const w=56,h=24,p=3; const min=Math.min(...arr),max=Math.max(...arr); const rg=(max-min)||1;
+  const pts=arr.map((v,i)=>[p+i*(w-2*p)/(arr.length-1), h-p-(v-min)/rg*(h-2*p)]);
+  const d=pts.map((pt,i)=>(i?'L':'M')+pt[0].toFixed(1)+' '+pt[1].toFixed(1)).join(' ');
+  const last=pts[pts.length-1];
+  return `<svg class="spark" viewBox="0 0 ${w} ${h}"><path d="${d}" fill="none" stroke="${color}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="${last[0].toFixed(1)}" cy="${last[1].toFixed(1)}" r="2.2" fill="${color}"/></svg>`;
+}
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove('show'),2400); }
+function openSheet(){ document.getElementById('mask').classList.add('show'); }
+function closeSheet(){ document.getElementById('mask').classList.remove('show'); }
+
+/* ============ 渲染：信号列表 ============ */
+function renderSignals(){
+  const host=document.getElementById('signal-list');
+  host.innerHTML = SIGNALS.map(s=>{
+    const pct = ((s.level+2)/4*100).toFixed(1);
+    const factors = s.factors.map(f=>{
+      const col = f.trend==='up' ? '#1B88EE' : f.trend==='down' ? '#FF8A3D' : '#8FA3BF';
+      const arrow = f.trend==='up' ? '↑' : f.trend==='down' ? '↓' : '→';
+      return `<div class="factor">
+        <div class="fn"><b>${esc(f.name)}</b><small class="pro">${esc(f.pro)}</small><small>${esc(f.tip)}</small></div>
+        ${sparkline(f.spark,col)}
+        <div class="fv"><b class="${f.trend}">${esc(f.v)} ${arrow}</b><small>${esc(f.unit)}</small></div>
+      </div>`;
+    }).join('');
+    return `<section class="card sig" data-id="${s.id}">
+      <div class="sig-head">
+        <span class="icon-badge">${ICONS[s.icon]}</span>
+        <div class="names"><div class="q">${esc(s.q)}</div><div class="pro">${esc(s.pro)}</div></div>
+        <span class="lv l${s.level}">${esc(s.lvText)}</span>
+      </div>
+      <div class="bar"><span class="pin" style="left:${pct}%"></span></div>
+      <div class="bar-ticks">${LV_TICKS.map(t=>`<span>${t}</span>`).join('')}</div>
+      <p class="plain">${s.plain}</p>
+      <p class="foryou">${s.foryou}</p>
+      <button class="why-btn" onclick="this.closest('.sig').classList.toggle('open')">为什么这么判断 ${ICONS.chev}</button>
+      <div class="why"><p class="lead">${esc(s.lead)}</p>${factors}<p class="upd">算法更新：${esc(s.upd)}</p></div>
+    </section>`;
+  }).join('');
+}
+
+/* ============ 渲染：持仓 ============ */
+function renderHoldings(k){
+  const host=document.getElementById('holdings');
+  const data=HOLDINGS[k];
+  host.innerHTML = data.items.map(h=>`
+    <div class="hold">
+      <div class="hold-head">
+        <div class="hn"><b>${esc(h.name)}</b><small>${esc(h.type)}</small></div>
+        <div class="amt"><b class="num">${esc(h.amt)}</b><small>${esc(h.pnl)}</small></div>
+      </div>
+      <div class="rel">${h.rel.map(r=>`<span class="chip ${/谨慎|不受/.test(r)?'gray':''}">受「${esc(r)}」影响</span>`).join('')}</div>
+      <div class="advice">
+        <span class="ab ${h.advice.k}">${h.advice.k==='pos'?ICONS.up:h.advice.k==='neg'?ICONS.warn:ICONS.flat}</span>
+        <div class="at"><b>${esc(h.advice.t)}</b><p>${esc(h.advice.p)}</p></div>
+      </div>
+      <div class="actions">
+        <button class="btn primary block" onclick="toast('已按信号建议为你预填本期定投金额，去确认即可')">${h.advice.k==='pos'?'按建议调整定投':'查看详情'}</button>
+        <button class="btn ghost" onclick="toast('已把这条持仓和今天的信号发给顾问')">问顾问</button>
+      </div>
+    </div>`).join('');
+  const match=document.getElementById('match');
+  match.style.display = (k==='long') ? 'block' : 'none';
+}
+
+/* ============ 渲染：走势图 ============ */
+const TREND = {
+  '3m': { x:['6/21','7/12','8/2','8/23','9/13','今天'], sig:[0.05,0.18,0.32,0.48,0.62,0.68], idx:[3820,3905,3960,4010,4085,4120] },
+  '1y': { x:['24/9','24/12','25/3','25/6','25/9','今天'], sig:[-0.9,-0.6,-0.3,-0.1,0.2,0.68], idx:[3410,3560,3680,3740,3900,4120] }
+};
+function renderTrend(r){
+  const d=TREND[r]; const W=311,H=170,L=34,R=10,T=14,B=28; const iw=W-L-R, ih=H-T-B;
+  const n=d.sig.length; const xs=i=>L+i*iw/(n-1);
+  const ySig=v=>T+(1-(v+1)/2)*ih; // -1..1 → bottom..top
+  const imin=Math.min(...d.idx), imax=Math.max(...d.idx); const yIdx=v=>T+(1-(v-imin)/(imax-imin))*ih;
+  const path=(arr,fy)=>arr.map((v,i)=>(i?'L':'M')+xs(i).toFixed(1)+' '+fy(v).toFixed(1)).join(' ');
+  const grid=[0,.25,.5,.75,1].map(t=>`<line x1="${L}" x2="${W-R}" y1="${(T+t*ih).toFixed(1)}" y2="${(T+t*ih).toFixed(1)}" stroke="#EDF2F7"/>`).join('');
+  const bands=`<rect x="${L}" y="${T}" width="${iw}" height="${ih/2}" fill="#1B88EE" opacity=".035"/><rect x="${L}" y="${T+ih/2}" width="${iw}" height="${ih/2}" fill="#FF8A3D" opacity=".035"/>`;
+  const labels=d.x.map((t,i)=>`<text x="${xs(i).toFixed(1)}" y="${H-8}" font-size="10" fill="#999" text-anchor="${i===0?'start':i===n-1?'end':'middle'}">${t}</text>`).join('');
+  const side=`<text x="${L-6}" y="${T+4}" font-size="10" fill="#1B88EE" text-anchor="end">积极</text><text x="${L-6}" y="${T+ih}" font-size="10" fill="#E56A1A" text-anchor="end">谨慎</text><text x="${L-6}" y="${(T+ih/2+3).toFixed(1)}" font-size="10" fill="#999" text-anchor="end">中性</text>`;
+  const last=n-1; const lx=xs(last), ly=ySig(d.sig[last]);
+  document.getElementById('trend').innerHTML = `${bands}${grid}
+    <path d="${path(d.idx,yIdx)}" fill="none" stroke="#FFB86B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>
+    <path d="${path(d.sig,ySig)}" fill="none" stroke="#1B88EE" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="${lx.toFixed(1)}" cy="${ly.toFixed(1)}" r="4" fill="#fff" stroke="#1B88EE" stroke-width="2.4"/>
+    <rect x="${(lx-66).toFixed(1)}" y="${(ly+10).toFixed(1)}" width="62" height="20" rx="6" fill="#1B88EE"/>
+    <text x="${(lx-35).toFixed(1)}" y="${(ly+24).toFixed(1)}" font-size="10" fill="#fff" text-anchor="middle">温和偏积极</text>
+    ${side}${labels}`;
+}
+function renderTimeline(){
+  document.getElementById('timeline').innerHTML = TIMELINE.map(t=>`<div class="tl-item ${t.warm?'warm':''}"><div class="d">${esc(t.d)}</div><div class="t">${esc(t.t)}</div><div class="m">${esc(t.m)}</div></div>`).join('');
+}
+
+/* ============ 综合仪表 ============ */
+function setGauge(score){ // score -1..1
+  const deg = Math.max(-1,Math.min(1,score))*90;
+  const n=document.getElementById('needle');
+  requestAnimationFrame(()=>{ n.style.transition='transform 1.1s cubic-bezier(.2,.8,.2,1)'; n.setAttribute('transform',`rotate(${deg} 66 68)`); });
+}
+
+/* ============ 交互绑定 ============ */
+document.querySelectorAll('.mode button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.mode button').forEach(x=>x.classList.remove('on')); b.classList.add('on');
+  document.getElementById('phone').classList.toggle('pro-mode', b.dataset.mode==='pro');
+  toast(b.dataset.mode==='pro' ? '已切换到进阶模式：显示专业名称与底层数值' : '已切换到小白模式');
+}));
+document.querySelectorAll('#money-tabs button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#money-tabs button').forEach(x=>x.classList.remove('on')); b.classList.add('on'); renderHoldings(b.dataset.k);
+}));
+document.querySelectorAll('#range-seg button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#range-seg button').forEach(x=>x.classList.remove('on')); b.classList.add('on'); renderTrend(b.dataset.r);
+}));
+document.querySelectorAll('#faq .faq button').forEach(b=>b.addEventListener('click',()=>b.parentElement.classList.toggle('open')));
+document.getElementById('sw-dca').addEventListener('click',function(e){
+  e.stopPropagation(); this.classList.toggle('on');
+  toast(this.classList.contains('on') ? '已开启信号定投：本期按 1.2 倍投入，下期随信号自动调整' : '已关闭信号定投，恢复固定金额');
+});
+
+/* ============ 启动 ============ */
+renderSignals(); renderHoldings('long'); renderTrend('3m'); renderTimeline();
+setGauge(0.68);
+</script>
+</body>
+</html>

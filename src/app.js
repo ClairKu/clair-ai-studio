@@ -56,7 +56,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 78;
+const DATA_VERSION = 79;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -81,6 +81,9 @@ const TAG_ORDER = [
   "飞书",
   "调研",
   "产品规划",
+  "投顾工作台",
+  "养老规划",
+  "市场信号",
   "AI 小顾",
   "AI 工作台",
   "AI 开放平台",
@@ -115,63 +118,162 @@ const initialState = {
   reportDispositions: [],
   groups: [
     {
+      id: "advisor-workbench",
+      name: "投顾工作台",
+      description: "客户 360、顾问副驾、SOP、任务事件与服务闭环",
+      accent: "green",
+      position: 0,
+    },
+    {
+      id: "pension-planning",
+      name: "养老规划",
+      description: "养老测算、账户方案、颐养天年、经营与用户分析",
+      accent: "amber",
+      position: 1,
+    },
+    {
+      id: "market-signals",
+      name: "市场信号",
+      description: "市场温度、宏观信号、持仓关联与陪伴动作",
+      accent: "blue",
+      position: 2,
+    },
+    {
       id: "xiaogu",
       name: "AI 产品与顾问服务",
       description: "AI 小顾、顾问工作台与客户服务闭环",
       accent: "green",
-      position: 0,
+      position: 3,
     },
     {
       id: "ai-workbench",
       name: "AI 生产力与工作台",
       description: "个人与团队工作台、评审工具和 AI 协作",
       accent: "blue",
-      position: 1,
+      position: 4,
     },
     {
       id: "ai-platform",
       name: "AI 开放平台与生态",
       description: "OAP、MCP、Skills、Agents 与生态连接",
       accent: "violet",
-      position: 2,
+      position: 5,
     },
     {
       id: "growth-insights",
       name: "用户增长与数据洞察",
       description: "用户、渠道、转化、经营指标与行为分析",
       accent: "green",
-      position: 3,
+      position: 6,
     },
     {
       id: "product-planning",
       name: "且慢产品与客户体验",
       description: "产品规划、需求评审、体验分析与交互方案",
       accent: "blue",
-      position: 4,
+      position: 7,
     },
     {
       id: "research",
       name: "投研与资产配置",
       description: "基金、策略、组合与资产配置研究",
       accent: "amber",
-      position: 5,
+      position: 8,
     },
     {
       id: "reporting",
       name: "战略经营与项目复盘",
       description: "战略判断、管理汇报、项目进展与阶段复盘",
       accent: "blue",
-      position: 6,
+      position: 9,
     },
     {
       id: "knowledge",
       name: "组织能力与知识治理",
       description: "人才标准、本体、知识资产、合规与质量治理",
       accent: "slate",
-      position: 7,
+      position: 10,
     },
   ],
   reports: [
+    {
+      id: "weekly-ai-output-audit-2026-09-22",
+      groupId: "reporting",
+      title: "Claude × Cursor 近一周产出总览｜发布与分类对账",
+      url: "https://clairku.github.io/clair-ai-studio/reports/weekly-ai-output-audit-2026-09-22/",
+      preview: "weekly-ai-output-audit-2026-09-22.svg",
+      pinned: false,
+      createdAt: "2026-09-22T10:40:00+08:00",
+      source: "2026-09-15—09-22 本机 Claude 33 个顶层会话 + Cursor 27 个 Composer 逐项核验｜60 个原始会话合并为 24 条工作流｜区分聊过、本机有文件、已进入工作台、线上可访问四个状态｜14 条此前已上线或已部署，6 份缺口成果本轮补发，实名持仓分析保留私有｜新增投顾工作台、养老规划、市场信号三个一级主题并迁入历史成果",
+      access: "production",
+      workType: "reporting",
+      tags: ["Claude", "Cursor", "产出盘点", "发布对账", "经营汇报", "HTML", "生产"],
+    },
+    {
+      id: "ycc-oap-upgrade-package-2026-09-22",
+      groupId: "ai-platform",
+      title: "YCC × OAP 升级方案包｜统一帐号、积分与官网 Demo",
+      url: "https://clairku.github.io/clair-ai-studio/reports/ycc-oap-upgrade-package-2026-09-22/",
+      preview: "ycc-oap-upgrade-package-2026-09-22.svg",
+      pinned: false,
+      createdAt: "2026-09-22T10:25:00+08:00",
+      source: "Cursor 本地方案三件套补发｜01 YCC 盈米商业服务中枢业务与管理汇报全景；02 OAP 官网接入 YCC 帐号体系、积分权益、存量迁移与分期实施方案；03 升级版官网交互 Demo｜手机号、API Key 与机构口令均为掩码或 Mock；积分、价格、权益包与节奏是评审假设，不代表已上线能力或正式商业条款",
+      access: "production",
+      workType: "product-planning",
+      tags: ["YCC", "OAP", "统一帐号", "积分", "官网", "产品规划", "交互 Demo", "HTML", "生产"],
+    },
+    {
+      id: "qieman-dividend-holding-plan-2026-09-22",
+      groupId: "product-planning",
+      title: "且慢分红场景持仓页优化｜月月分红 × 生生不息",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-dividend-holding-plan-2026-09-22/",
+      preview: "qieman-dividend-holding-plan-2026-09-22.svg",
+      pinned: false,
+      createdAt: "2026-09-22T10:20:00+08:00",
+      source: "Claude 产品方案补发｜围绕月月分红与生生不息两类现金流产品，重构买入后持仓页：被动月薪、财务自由度、分红 / 定取账本、目标进度、到账预期与持续持有动机｜示例金额、预计分红与收益均为界面演示，不构成收益承诺或投资建议",
+      access: "production",
+      workType: "product-planning",
+      tags: ["且慢", "月月分红", "生生不息", "持仓页", "现金流", "产品规划", "HTML", "生产"],
+    },
+    {
+      id: "dividend-income-product-competitive-research-2026-09-22",
+      groupId: "product-planning",
+      title: "收息越薪竞品调研｜被动月薪与收息账本设计",
+      url: "https://clairku.github.io/clair-ai-studio/reports/dividend-income-product-competitive-research-2026-09-22/",
+      preview: "dividend-income-product-competitive-research-2026-09-22.svg",
+      pinned: false,
+      createdAt: "2026-09-22T09:44:00+08:00",
+      source: "Cursor 基于用户截图与公开网页完成的竞品拆解｜分析被动月薪、工资替代率、分红日历、年度派息预测、目标进度与账本机制，并给出对且慢现金流产品和持仓陪伴的可落地启发｜产品主体未披露处明确标注未确认",
+      access: "production",
+      workType: "competitive-research",
+      tags: ["竞品调研", "收息越薪", "被动月薪", "收息账本", "现金流", "产品设计", "HTML", "生产"],
+    },
+    {
+      id: "tmeet-cli-user-guide-2026-09-21",
+      groupId: "ai-workbench",
+      title: "腾讯会议 CLI｜非技术上手手册",
+      url: "https://clairku.github.io/clair-ai-studio/reports/tmeet-cli-user-guide-2026-09-21/",
+      preview: "tmeet-cli-user-guide-2026-09-21.svg",
+      pinned: false,
+      createdAt: "2026-09-21T10:35:00+08:00",
+      source: "Claude 本机实测整理｜面向非技术同事说明安装、OAuth 登录、创建 / 查询会议、录制、纪要、转写、权限排错与注销授权｜公开页不含本机授权文件、会议号、录制内容或登录凭证",
+      access: "production",
+      workType: "product-demo",
+      tags: ["腾讯会议", "CLI", "使用手册", "AI 工作台", "OAuth", "安全", "HTML", "生产"],
+    },
+    {
+      id: "xingyao-etf-skills-research-2026-09-11",
+      groupId: "research",
+      title: "星耀数智 ETF Skills｜工具、生态与产品深度调研",
+      url: "https://clairku.github.io/clair-ai-studio/reports/xingyao-etf-skills-research-2026-09-11/",
+      preview: "xingyao-etf-skills-research-2026-09-11.svg",
+      pinned: false,
+      createdAt: "2026-09-15T11:27:00+08:00",
+      source: "Claude 临时 HTML 恢复补发｜从 ETF 年会现场 PPT 出发，交叉核对银河证券官网、定期报告、主流媒体与开发者社区；盘点星耀数智 AmazingData SDK 工具面、开通门槛、第三方 Skill 包与竞品路线｜对 9 项仅见 PPT 的指标明确标注无法公开复核，不将会议口径升级为已证实事实",
+      access: "production",
+      workType: "competitive-research",
+      tags: ["银河证券", "星耀数智", "ETF", "Skills", "竞品调研", "工具实测", "HTML", "生产"],
+    },
     {
       id: "wb-customer-360",
       groupId: "ai-workbench",
@@ -2735,6 +2837,12 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "weekly-ai-output-audit-2026-09-22": "reporting",
+  "ycc-oap-upgrade-package-2026-09-22": "product-planning",
+  "qieman-dividend-holding-plan-2026-09-22": "product-planning",
+  "dividend-income-product-competitive-research-2026-09-22": "competitive-research",
+  "tmeet-cli-user-guide-2026-09-21": "product-demo",
+  "xingyao-etf-skills-research-2026-09-11": "competitive-research",
   "wb-customer-360": "product-demo",
   "wb-customer-360-cockpit": "product-demo",
   "wb-qieman-market-signal": "product-demo",
@@ -2827,16 +2935,22 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
-  "wb-customer-360": "ai-workbench",
-  "wb-customer-360-cockpit": "ai-workbench",
-  "wb-qieman-market-signal": "ai-workbench",
-  "wb-qieman-pension-planner": "ai-workbench",
-  "wb-qieman-pension-dashboard": "ai-workbench",
-  "wb-qieman-pension-strategy-brief": "ai-workbench",
-  "wb-vesta-pension-engine-analysis": "ai-workbench",
-  "wb-wechat-ai-dashboard": "ai-workbench",
-  "wb-ontology-explorer": "ai-workbench",
-  "wb-index-dark": "ai-workbench",
+  "weekly-ai-output-audit-2026-09-22": "reporting",
+  "ycc-oap-upgrade-package-2026-09-22": "ai-platform",
+  "qieman-dividend-holding-plan-2026-09-22": "product-planning",
+  "dividend-income-product-competitive-research-2026-09-22": "product-planning",
+  "tmeet-cli-user-guide-2026-09-21": "ai-workbench",
+  "xingyao-etf-skills-research-2026-09-11": "research",
+  "wb-customer-360": "advisor-workbench",
+  "wb-customer-360-cockpit": "advisor-workbench",
+  "wb-qieman-market-signal": "market-signals",
+  "wb-qieman-pension-planner": "pension-planning",
+  "wb-qieman-pension-dashboard": "pension-planning",
+  "wb-qieman-pension-strategy-brief": "pension-planning",
+  "wb-vesta-pension-engine-analysis": "pension-planning",
+  "wb-wechat-ai-dashboard": "advisor-workbench",
+  "wb-ontology-explorer": "advisor-workbench",
+  "wb-index-dark": "advisor-workbench",
   "doubao-user-conversion-cases-2026-09-20": "growth-insights",
   "qianwen-first-investor-cases-2026-09-17": "growth-insights",
   "qianwen-user-question-detail-2026-09-05": "growth-insights",
@@ -2844,13 +2958,13 @@ const TOPIC_BY_REPORT = {
   "yingmi-oap-project-report-2026-08-03": "ai-platform",
   "qieman-mcp-account-lite-2026-09-21": "ai-platform",
   "qieman-mcp-account-redesign-2026-09-21": "ai-platform",
-  "qieman-pension-planner-2026-09-21": "product-planning",
-  "ai-native-advisor-workbench-v1-2-review-2026-09-17": "product-planning",
+  "qieman-pension-planner-2026-09-21": "pension-planning",
+  "ai-native-advisor-workbench-v1-2-review-2026-09-17": "advisor-workbench",
   "pms-system-deep-dive-2026-09-16": "research",
   "global-ai-advice-advisor-copilot-cases-2026-09-16": "research",
   "vesta-system-deep-dive-2026-09-16": "research",
   "coral-investment-research-system-deep-dive-2026-09-16": "research",
-  "tws-advisor-workbench-deep-dive-2026-09-16": "research",
+  "tws-advisor-workbench-deep-dive-2026-09-16": "advisor-workbench",
   "qieman-llm-trading-path-2026-09-15": "xiaogu",
   // 战略经营与项目复盘
   "yuyue-internship-portfolio-2026-09-03": "reporting",
@@ -2890,13 +3004,13 @@ const TOPIC_BY_REPORT = {
   "ai-weekly-2026-07-13": "reporting",
   "advisor-2-business-onboarding": "reporting",
   // AI 产品与顾问服务
-  "tongzhou-workbench-brief-2026-09-11": "xiaogu",
-  "tongzhou-advisor-workbench-demo-2026-09-10": "xiaogu",
-  "tongzhou-product-blueprint-2026-09-11": "xiaogu",
-  "yingmi-advisor-workbench-2026-09-10": "xiaogu",
+  "tongzhou-workbench-brief-2026-09-11": "advisor-workbench",
+  "tongzhou-advisor-workbench-demo-2026-09-10": "advisor-workbench",
+  "tongzhou-product-blueprint-2026-09-11": "advisor-workbench",
+  "yingmi-advisor-workbench-2026-09-10": "advisor-workbench",
   "yingmi-portfolio-optimizer-2026-09-10": "xiaogu",
   "longterm-account-post-investment-analysis-2026-09-10": "xiaogu",
-  "next-gen-vip-advisor-workbench-demo-2026-09-09": "xiaogu",
+  "next-gen-vip-advisor-workbench-demo-2026-09-09": "advisor-workbench",
   "xiaogu-service-trade-conversion-2026-09-15": "xiaogu",
   "xiaogu-3-investment-review-2026-09-04": "xiaogu",
   "xiaogu-buyer-advisor-evidence-2026-09-03": "xiaogu",
@@ -2918,7 +3032,7 @@ const TOPIC_BY_REPORT = {
   "doubao-oauth-mcp-radar-2026-09-02": "ai-platform",
   "agent-harness-executive-2026-09-02": "ai-platform",
   "agent-harness-architecture-2026-09-02": "ai-platform",
-  "getlatestquotations-market-temperature-2026-08-30": "ai-platform",
+  "getlatestquotations-market-temperature-2026-08-30": "market-signals",
   "fund-data-mcp-capability-audit-2026-08-24": "ai-platform",
   "qianwen-qieman-task-assistant-demo-2026-08-07": "ai-platform",
   "seed-mcp-benchmark": "ai-platform",
@@ -2929,7 +3043,7 @@ const TOPIC_BY_REPORT = {
   "personal-ai-token-usage-audit-2026-09-10": "ai-workbench",
   "raft-human-ai-group-chat-research-2026-09-02": "ai-workbench",
   "baidu-dumate-review-2026-09-01": "ai-workbench",
-  "yingmiwork-product-brief-2026-08-20": "ai-workbench",
+  "yingmiwork-product-brief-2026-08-20": "advisor-workbench",
   "individual-finance-agent-evaluation-2026-08-10": "ai-workbench",
   "clair-product-design-reviewer-2026-08-06": "ai-workbench",
   "gpt-codex-plan-analysis-2026-08-04": "ai-workbench",
@@ -2952,7 +3066,7 @@ const TOPIC_BY_REPORT = {
   "qieman-risk-comfort-match-2026-08-19": "growth-insights",
   "qieman-business-trends-2026-08-19": "growth-insights",
   "qieman-advisory-value-key-charts-2026-08-19": "growth-insights",
-  "qieman-pension-user-growth-2026-08-19": "growth-insights",
+  "qieman-pension-user-growth-2026-08-19": "pension-planning",
   "qieman-multi-account-performance-2026-08-19": "growth-insights",
   "qieman-selffund-vs-advisor-ca-2026-08-19": "growth-insights",
   "qieman-vip-fee-service-results-2026-08-19": "growth-insights",
@@ -3009,7 +3123,7 @@ const TOPIC_BY_REPORT = {
   "storage-big-three-fund-screening": "research",
   "seed-strategy": "research",
   "qieman-strategy-explorer": "research",
-  "pension-business-analysis": "research",
+  "pension-business-analysis": "pension-planning",
   "schwab-ria-benchmark": "research",
   // 组织能力与知识治理
   "clair-studio-catalog-audit-2026-09-13": "knowledge",
@@ -3017,7 +3131,7 @@ const TOPIC_BY_REPORT = {
   "yingmi-ontology-explorer-2026-09-10": "knowledge",
   "product-ai-role-ladder-benchmark-2026-09-10": "knowledge",
   "qieman-skill-library-install-audit-2026-09-09": "knowledge",
-  "advisor-operations-workbench-deep-audit-2026-09-16": "knowledge",
+  "advisor-operations-workbench-deep-audit-2026-09-16": "advisor-workbench",
   "designer-ontology-insurance-delivery-2026-09-07": "knowledge",
   "oap-tool-governance-audit-2026-08-11": "knowledge",
   "yingmi-skill-stability-eval-2026-08-09": "knowledge",
@@ -3056,6 +3170,9 @@ function inferTags(report, workType = inferWorkType(report)) {
   if (/feishu\.cn|飞书|community-ai-review|oap-h2-plan/.test(text)) add("飞书");
   if (workType === "competitive-research" || /调研|研究|盘点/.test(text)) add("调研");
   if (workType === "product-planning") add("产品规划");
+  if (report.groupId === "advisor-workbench") add("投顾工作台");
+  if (report.groupId === "pension-planning") add("养老规划");
+  if (report.groupId === "market-signals") add("市场信号");
   if (/xiaogu|小顾|财务规划|投资行为/.test(text) || report.groupId === "xiaogu") add("AI 小顾");
   if (/studio|workbench|工作台|skill-audit/i.test(text) || report.groupId === "ai-workbench") add("AI 工作台");
   if (/ai-platform|开放平台|OAP|MCP|Skills|能力体系/.test(text) || report.groupId === "ai-platform") add("AI 开放平台");
@@ -3074,6 +3191,9 @@ function inferTags(report, workType = inferWorkType(report)) {
 
 function inferGroupId(report) {
   const text = `${report.title || ""} ${report.url || ""} ${report.savedContent || ""} ${report.detectedDescription || ""}`;
+  if (/顾问工作台|客户\s*360|Customer\s*360|TWS|同舟/.test(text)) return "advisor-workbench";
+  if (/养老|颐养天年|pension|退休规划/i.test(text)) return "pension-planning";
+  if (/市场信号|市场温度|宏观信号|market[- ]signal/i.test(text)) return "market-signals";
   if (/小顾|财务规划|投顾服务|客户陪伴/.test(text)) return "xiaogu";
   if (/OAP|MCP|Skills?|开放平台|API|Agent|智能体/.test(text)) return "ai-platform";
   if (/Studio|工作台|生产力|Copilot|编辑器/i.test(text)) return "ai-workbench";

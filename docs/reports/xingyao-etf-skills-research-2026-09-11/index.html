@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />
+    <script data-clair-access-gate data-clair-access-scope="report" src="../../access-gate.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>星耀数智 ETF Skills 调研</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;900&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --paper:#F6F7F9;
+  --panel:#FFFFFF;
+  --panel-2:#EEF1F5;
+  --ink:#1B2432;
+  --ink-2:#48546A;
+  --ink-3:#7B879C;
+  --line:#D8DEE8;
+  --accent:#C41E2F;
+  --navy:#16305A;
+  --navy-soft:#E5EBF5;
+  --g-official:#1D7A4A; --g-official-bg:#E2F1E8;
+  --g-media:#9A6B10;   --g-media-bg:#F5EBD4;
+  --g-comm:#A8442E;    --g-comm-bg:#F6E3DD;
+  --g-ppt:#5B5470;     --g-ppt-bg:#E9E6F0;
+  --code-bg:#EDF0F4;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#12161E;
+    --panel:#1A2029;
+    --panel-2:#222A36;
+    --ink:#E8EAF0;
+    --ink-2:#AEB8C9;
+    --ink-3:#7E8AA0;
+    --line:#333D4D;
+    --accent:#E0616E;
+    --navy:#A9C3E8;
+    --navy-soft:#212E44;
+    --g-official:#6FC796; --g-official-bg:#1B3327;
+    --g-media:#D9AE55;   --g-media-bg:#3A2F17;
+    --g-comm:#E08A6F;    --g-comm-bg:#3B241C;
+    --g-ppt:#A79FC4;     --g-ppt-bg:#2A2638;
+    --code-bg:#20262F;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#12161E;
+  --panel:#1A2029;
+  --panel-2:#222A36;
+  --ink:#E8EAF0;
+  --ink-2:#AEB8C9;
+  --ink-3:#7E8AA0;
+  --line:#333D4D;
+  --accent:#E0616E;
+  --navy:#A9C3E8;
+  --navy-soft:#212E44;
+  --g-official:#6FC796; --g-official-bg:#1B3327;
+  --g-media:#D9AE55;   --g-media-bg:#3A2F17;
+  --g-comm:#E08A6F;    --g-comm-bg:#3B241C;
+  --g-ppt:#A79FC4;     --g-ppt-bg:#2A2638;
+  --code-bg:#20262F;
+}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  font-size:15px; line-height:1.85;
+  margin:0;
+}
+.wrap{max-width:880px;margin:0 auto;padding:0 28px 96px;}
+.serif{font-family:"Noto Serif SC","Songti SC",serif;}
+.mono{font-family:"IBM Plex Mono","SF Mono",Menlo,monospace;}
+
+/* ---- masthead ---- */
+.masthead{border-bottom:3px solid var(--accent);padding:44px 0 20px;margin-bottom:8px;}
+.mast-top{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;}
+.mast-kicker{font-size:12px;letter-spacing:.35em;color:var(--accent);font-weight:600;}
+.mast-meta{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink-3);}
+h1{font-family:"Noto Serif SC","Songti SC",serif;font-weight:900;font-size:38px;line-height:1.3;margin:14px 0 6px;text-wrap:balance;}
+.subtitle{font-size:16px;color:var(--ink-2);margin:0 0 18px;max-width:46em;}
+.mast-facts{display:flex;gap:0;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:14px;}
+.mast-facts div{padding:0 22px 0 0;margin-right:22px;border-right:1px solid var(--line);}
+.mast-facts div:last-child{border-right:none;}
+.mast-facts dt{font-size:11px;letter-spacing:.12em;color:var(--ink-3);margin:0;}
+.mast-facts dd{margin:2px 0 0;font-weight:600;font-size:13.5px;font-variant-numeric:tabular-nums;}
+
+/* ---- grade chips ---- */
+.chip{display:inline-block;font-size:11px;font-weight:600;line-height:1;padding:4px 8px;border-radius:3px;white-space:nowrap;vertical-align:1px;letter-spacing:.04em;}
+.chip.official{color:var(--g-official);background:var(--g-official-bg);}
+.chip.media{color:var(--g-media);background:var(--g-media-bg);}
+.chip.comm{color:var(--g-comm);background:var(--g-comm-bg);}
+.chip.ppt{color:var(--g-ppt);background:var(--g-ppt-bg);}
+.legend{display:flex;gap:14px;flex-wrap:wrap;align-items:center;font-size:12.5px;color:var(--ink-2);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px 16px;margin:22px 0 0;}
+.legend b{font-weight:600;color:var(--ink);}
+
+/* ---- sections ---- */
+section{margin-top:56px;}
+.sec-head{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:22px;}
+.sec-num{font-family:"IBM Plex Mono",monospace;color:var(--accent);font-size:13px;font-weight:600;letter-spacing:.08em;}
+h2{font-family:"Noto Serif SC","Songti SC",serif;font-weight:900;font-size:24px;margin:0;text-wrap:balance;}
+h3{font-size:16.5px;font-weight:700;margin:30px 0 10px;}
+p{margin:10px 0;max-width:52em;}
+ul,ol{padding-left:1.4em;max-width:50em;}
+li{margin:6px 0;}
+li::marker{color:var(--ink-3);}
+strong{font-weight:700;}
+em{font-style:normal;background:linear-gradient(transparent 62%,var(--navy-soft) 62%);}
+a{color:var(--navy);text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px;}
+a:hover,a:focus-visible{text-decoration-color:var(--navy);}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+code{font-family:"IBM Plex Mono",monospace;font-size:.88em;background:var(--code-bg);padding:2px 6px;border-radius:4px;}
+
+/* ---- summary box ---- */
+.verdict{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:0 8px 8px 0;padding:20px 24px;margin:24px 0;}
+.verdict h3{margin:0 0 10px;font-size:14px;letter-spacing:.2em;color:var(--accent);}
+.verdict ol{margin:0;}
+.verdict li{margin:9px 0;}
+
+/* ---- KPI tiles ---- */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:18px 0;}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px 16px 12px;}
+.kpi .v{font-family:"IBM Plex Mono",monospace;font-size:24px;font-weight:600;line-height:1.15;font-variant-numeric:tabular-nums;color:var(--navy);}
+.kpi .l{font-size:12px;color:var(--ink-2);margin-top:4px;line-height:1.5;}
+.kpi .c{margin-top:8px;}
+
+/* ---- tables ---- */
+.tbl-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--line);border-radius:8px;background:var(--panel);}
+table{border-collapse:collapse;width:100%;font-size:13.5px;line-height:1.6;}
+th{font-size:12px;letter-spacing:.06em;color:var(--ink-3);text-align:left;font-weight:600;padding:10px 14px;border-bottom:2px solid var(--line);background:var(--panel-2);white-space:nowrap;}
+td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap;}
+td .mono{font-size:12.5px;}
+
+/* ---- architecture map ---- */
+.arch{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0;}
+.arch-col{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:16px 18px;}
+.arch-col h4{margin:0 0 4px;font-size:13px;letter-spacing:.15em;color:var(--accent);font-weight:700;}
+.arch-col .who{font-size:12px;color:var(--ink-3);margin-bottom:12px;}
+.arch-item{border:1px solid var(--line);border-radius:6px;padding:9px 12px;margin:8px 0;background:var(--paper);}
+.arch-item b{display:block;font-size:13.5px;}
+.arch-item span{font-size:12.5px;color:var(--ink-2);line-height:1.55;display:block;margin-top:2px;}
+.arch-item.hot{border-color:var(--accent);}
+@media (max-width:640px){.arch{grid-template-columns:1fr;}}
+
+/* ---- slide transcription ---- */
+.slide{background:var(--navy-soft);border:1px solid var(--line);border-radius:8px;padding:18px 22px;margin:16px 0;}
+.slide h4{margin:0 0 8px;font-size:14px;color:var(--navy);font-family:"Noto Serif SC",serif;font-weight:900;}
+.slide .src{font-size:11.5px;color:var(--ink-3);margin-top:10px;}
+
+/* ---- quote ---- */
+blockquote{margin:14px 0;padding:10px 18px;border-left:3px solid var(--line);color:var(--ink-2);font-size:14px;}
+
+/* ---- checklist ---- */
+.gate{display:grid;grid-template-columns:auto 1fr;gap:8px 14px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:16px 20px;margin:16px 0;font-size:13.5px;}
+.gate .no{color:var(--accent);font-weight:700;white-space:nowrap;font-family:"IBM Plex Mono",monospace;font-size:12px;padding-top:2px;}
+.gate .ok{color:var(--g-official);font-weight:700;white-space:nowrap;font-family:"IBM Plex Mono",monospace;font-size:12px;padding-top:2px;}
+
+.note{font-size:12.5px;color:var(--ink-3);}
+.footer{margin-top:72px;border-top:1px solid var(--line);padding-top:16px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header class="masthead">
+  <div class="mast-top">
+    <div class="mast-kicker">竞 品 调 研 · 深 度 报 告</div>
+    <div class="mast-meta">2026-09-11 · 现场情报 + 公开信源 30+ 次检索 + 工具实测</div>
+  </div>
+  <h1 class="serif">星耀数智 ETF Skills：银河证券把 AI 交到谁手上</h1>
+  <p class="subtitle">从 ETF 年会现场两页 PPT 出发，对中国银河证券「星耀数智」品牌下的 AI 工具与 Skill 生态做了全链路调研与可行范围内的实测：官方入口、SDK 工具面、开通门槛、野生 Skill 生态与真实用户评测、财报口径核对、券商 Skills 竞局对照。</p>
+  <dl class="mast-facts">
+    <div><dt>调研对象</dt><dd>中国银河证券 601881.SH</dd></div>
+    <div><dt>产品品牌</dt><dd>星耀数智 / 财富星 / STAR</dd></div>
+    <div><dt>情报起点</dt><dd>ETF 行业年会现场 PPT 第 21–22 页</dd></div>
+    <div><dt>实测边界</dt><dd>无银河账户 · macOS ARM</dd></div>
+  </dl>
+  <div class="legend">
+    <b>口径分级</b>
+    <span><span class="chip official">官方</span> 定期报告 / 官网 / 交易所披露</span>
+    <span><span class="chip media">媒体</span> 证券时报、财联社等主流报道</span>
+    <span><span class="chip comm">社区</span> Skill 平台评测 / GitHub / 开发者社区</span>
+    <span><span class="chip ppt">仅见 PPT</span> 公开渠道检索不到，无法证实</span>
+  </div>
+</header>
+
+<div class="verdict">
+  <h3>核 心 判 断</h3>
+  <ol>
+    <li><strong>「星耀数智 ETF Skills」是一次品牌再包装</strong>：星耀数智的公开身份自 2023 年起一直是<em>机构/量化客户的金融数据平台</em>（AmazingData SDK）。PPT 把它延伸成 C 端「AI Skill 底座」，这个口径领先于全部公开信源——官网、财报、媒体均无发布记录，大概率是尚未发稿的会议口径。</li>
+    <li><strong>C 端 Skills 是 APP 内封闭能力，不是开放 Skill</strong>：五大能力（金融数据/ETF定投/ETF组合配置/公告搜索/自选股管理）只活在中国银河证券 APP 里，需开户使用；与国泰海通灵犀把 Skills 上架腾讯 SkillHub、华为小艺的开放路线相反。</li>
+    <li><strong>真正可被外部触碰的只有量化数据 SDK</strong>，且门槛是天花板级：银河 111 开头账户 + 申请权限 + x86_64 Linux + 账密明文直连指定 IP。官方从未发布过 Skill/MCP 包，第三方封装全部来自同一位社区开发者。</li>
+    <li><strong>PPT 的 ETF 生态数据无一可在公开渠道证实</strong>（+70%、650亿、232.81万、3.6倍等 9 项全部「仅见 PPT」），但方向与财报可证实的事实（ETF 保有市占行业第一、买方投顾 70 万人）一致——数字可信，口径需会后新闻稿或年报核实。</li>
+    <li><strong>对盈米的镜鉴</strong>：银河证明了「券商把专业工具 Skill 化交给客户」已从叙事进入 KPI（查询量较年初 3.6 倍进了高管 PPT）；但其封闭发布、开发者体验缺位、凭证安全粗糙，恰是 OAP「开放安装 + 网关鉴权」路线可以打的差异点。</li>
+  </ol>
+</div>
+
+<!-- ================================================================ -->
+<section>
+  <div class="sec-head"><span class="sec-num">01</span><h2 class="serif">现场两页 PPT：他们讲了什么</h2></div>
+
+  <p>会议主视觉带人民日报《证券时报》与券商中国标识，银河证券登台讲 ETF 业务。两页核心 PPT（第 21、22 页）分别讲「生态」与「AI」：</p>
+
+  <div class="slide">
+    <h4>P21 · ETF 业务生态：从业务协同到生态自然</h4>
+    <p style="margin:6px 0">2024 年设立 ETF 业务专项工作组，横跨<strong>财富管理总部、证券金融总部、产品中心、数字金融中心、做市业务总部</strong>五部门，落到五个板块：</p>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="v">+70%</div><div class="l">ETF 交易客户数 同比<br>（客群培育）</div><div class="c"><span class="chip ppt">仅见 PPT</span></div></div>
+    <div class="kpi"><div class="v">+50%</div><div class="l">ETF 交易佣金创收 同比</div><div class="c"><span class="chip ppt">仅见 PPT</span></div></div>
+    <div class="kpi"><div class="v">+21%</div><div class="l">权益 ETF 首发销量 同比<br>（产品引入）</div><div class="c"><span class="chip ppt">仅见 PPT</span></div></div>
+    <div class="kpi"><div class="v">+66%</div><div class="l">非货 ETF 保有 同比</div><div class="c"><span class="chip ppt">仅见 PPT</span></div></div>
+    <div class="kpi"><div class="v">650亿+</div><div class="l">ETF 投顾服务客户资产<br>（投顾生态）</div><div class="c"><span class="chip ppt">仅见 PPT</span></div></div>
+    <div class="kpi"><div class="v">160人+</div><div class="l">优秀 ETF 投顾</div><div class="c"><span class="chip ppt">仅见 PPT</span></div></div>
+    <div class="kpi"><div class="v">232.81万</div><div class="l">APP【ETF专区】累计访问客户数（线上营销）</div><div class="c"><span class="chip ppt">仅见 PPT</span></div></div>
+    <div class="kpi"><div class="v">12%</div><div class="l">精细转化率</div><div class="c"><span class="chip ppt">仅见 PPT</span></div></div>
+    <div class="kpi"><div class="v">AA</div><div class="l">深交所 ETF 做市年度综合评价</div><div class="c"><span class="chip ppt">仅见 PPT</span></div></div>
+  </div>
+
+  <p>投顾生态一栏还点出关键模式词：<em>「分布式 ETF 投顾 + 智能 ETF 投顾」并行</em>——即人力投顾网络与 AI 投顾双轨服务同一 ETF 客群。</p>
+
+  <div class="slide">
+    <h4>P22 · 星耀数智 ETF Skills：AI 赋能 ETF 投资</h4>
+    <p style="margin:6px 0">主张一句话：「ETF 投资的每一步，都能用 AI Skill 问清楚——挑哪只、投多少、怎么配、拿不拿得住，问 AI，分析结果就摆到眼前。」页面用「传统投资 vs AI 投资」四栏对照（选-挑ETF / 投-做定投 / 配-建组合 / 顾-管持仓），底座为覆盖 ETF 投资全流程的五大 Skill 能力：</p>
+    <ul style="margin:8px 0 4px">
+      <li><strong>金融数据</strong> — ETF 行情、净值、份额随手查，「挑产品不用再打听」</li>
+      <li><strong>ETF 定投</strong> — 投多少、几年会怎样、历史最差亏多少，投前算清</li>
+      <li><strong>ETF 组合配置</strong> — 按风险偏好搭配多只 ETF，回测收益与回撤心里有数</li>
+      <li><strong>公告搜索</strong> — ETF 公告不用自己翻，AI 读完直接给结论</li>
+      <li><strong>自选股管理</strong> — 自选池持续盯盘，异动第一时间主动提醒</li>
+    </ul>
+    <div class="src">收尾口号：「星耀数智，用 AI 把专业能力交到客户自己手上」。</div>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="v">9.7*</div><div class="l">8 月平均（指标名被讲者遮挡，疑为日均查询量，单位不明）</div><div class="c"><span class="chip ppt">仅见 PPT</span></div></div>
+    <div class="kpi"><div class="v">3.6倍</div><div class="l">查询量较年初（1 月）增长</div><div class="c"><span class="chip ppt">仅见 PPT</span></div></div>
+    <div class="kpi"><div class="v">年内新高</div><div class="l">8 月单月查询量再创年内最高</div><div class="c"><span class="chip ppt">仅见 PPT</span></div></div>
+  </div>
+
+  <p class="note">检索状态：该场年会（含主办方、演讲人身份）截至 2026-09-11 尚无公开新闻稿；两页 PPT 的全部数字在官网、定期报告、媒体报道中均检索不到。这不代表数字为假——半年报有方向一致的弱对应（见第 05 节），但口径、时点、分母均无从核对。</p>
+</section>
+
+<!-- ================================================================ -->
+<section>
+  <div class="sec-head"><span class="sec-num">02</span><h2 class="serif">「星耀数智」到底是什么：一个品牌，两副面孔</h2></div>
+
+  <p>把公开信源拼起来，银河的 AI/数智版图是清晰的双轨结构，「星耀数智」四个字目前横跨其中一轨半：</p>
+
+  <div class="arch">
+    <div class="arch-col">
+      <h4>C 端 · 中国银河证券 APP</h4>
+      <div class="who">零售客户（开户后使用），封闭生态</div>
+      <div class="arch-item hot"><b>星耀数智 ETF Skills <span class="chip ppt">仅见 PPT</span></b><span>五大能力嵌入【ETF专区】；PPT 首次将「星耀数智」品牌用于 C 端 AI</span></div>
+      <div class="arch-item"><b>财富星-AI投顾 <span class="chip media">媒体</span></b><span>AI选股 / AI数据 / AI ETF 三项付费功能：按笔 8.8 元或包月 2888/3888 元档（2025-08 中新经纬）</span></div>
+      <div class="arch-item"><b>「问TA」投顾平台 <span class="chip media">媒体</span></b><span>2025 年初全面接入 DeepSeek-R1 并深度适配</span></div>
+      <div class="arch-item"><b>ETF 专区 + 新媒体矩阵 <span class="chip media">媒体</span></b><span>9 位明星 ETF 基金经理常驻直播间做「去商业化科普」（财联社）</span></div>
+    </div>
+    <div class="arch-col">
+      <h4>机构端 · 星耀 / 启明系</h4>
+      <div class="who">私募、机构、专业交易个人，申请制</div>
+      <div class="arch-item hot"><b>星耀数智服务平台（AmazingData）<span class="chip official">官方</span></b><span>金融数据 + 业绩归因标准化方案：SDK（Python/C++）、FPGA 加速传输；官网可下载 TGW-SDK V1.0.8</span></div>
+      <div class="arch-item"><b>PB 智能助手 / 策略中心 MCP·Skill <span class="chip official">官方</span></b><span>2026 半年报首次披露——银河定期报告里第一次出现「MCP/Skill」字样，落点在机构 PB 条线</span></div>
+      <div class="arch-item"><b>量化平台矩阵 <span class="chip official">官方</span></b><span>Apama（CEP，150 万笔/秒）、GMatrix、TFast 策略云，与星耀数智并列</span></div>
+      <div class="arch-item"><b>星耀品牌族 <span class="chip official">官方</span></b><span>星耀管理人俱乐部 / 领航计划 / 企业家办公室 / 家族办公室——「星耀」原本是机构与高净值品牌</span></div>
+    </div>
+  </div>
+
+  <p><strong>关键洞察：</strong>星耀数智 2023 年以「机构量化数据平台」出道，2026 年这场演讲把它<em>平移成 C 端 AI Skill 底座的品牌</em>。合理推测是内部复用了同一套数据服务中台（行情/净值/公告/回测算力）向 APP 输出能力，品牌顺势下沉——「用 AI 把专业能力交到客户自己手上」这句口号本身，就是把机构级工具零售化的宣言。另一个佐证：C 端頁面上的五大能力（数据/定投测算/组合回测/公告解读/盯盘提醒），每一项都能在 AmazingData 的接口面里找到对应原料（见第 03 节）。</p>
+</section>
+
+<!-- ================================================================ -->
+<section>
+  <div class="sec-head"><span class="sec-num">03</span><h2 class="serif">实测记录：外部能摸到哪里，卡在哪里</h2></div>
+
+  <h3>3.1 官方入口实测</h3>
+  <ul>
+    <li><strong>官网下载中心</strong>确有「星耀数智服务平台」独立条目，详情页给出定位（量化四环节中承担「数据获取 + 业绩归因」）、业务邮箱 <code>xysz@chinastock.com.cn</code>、「立即下载 / 注册试用」入口；可公开下载 <code>TGW-SDK_V1.0.8.zip</code>（2025-11-20 更新）与《星耀数智服务平台(TGW)开发手册（C++版）》。<span class="chip official">官方</span></li>
+    <li><strong>API 文档不在官网</strong>：Python SDK 的完整文档托管在第三方站 amazing.ptradeapi.com（「可转债量化分析」博主维护），开通指引也是「关注公众号申请权限」——官方开发者门户缺位。<span class="chip comm">社区</span></li>
+    <li><strong>分发闭环</strong>：<code>tgw</code> 包曾出现在 PyPI（搜索引擎有收录），实测现已 404 下架；SDK 实际经银河官方云盘/腾讯云 COS 分发 wheel 文件，配 SHA256 校验。即不走公共包管理器，装包即闭环。<span class="chip comm">社区</span></li>
+  </ul>
+
+  <h3>3.2 工具面盘点：165 个接口 + 92 个算子</h3>
+  <p>基于 API 文档与社区实测报告，SDK 能力分七大模块（InfoData / BaseData / MarketData / Math / Stats / TimeSeries / CrossSection），核心目录如下：</p>
+  <div class="tbl-wrap"><table>
+    <tr><th>模块</th><th>代表接口</th><th>覆盖</th></tr>
+    <tr><td><b>行情</b></td><td class="mono">query_kline · query_snapshot · onSnapshot*（8 类实时快照）</td><td>股票/指数/ETF/可转债/期权/期货/港股通/逆回购；日周月+分钟 K；股票自 2013 年回溯</td></tr>
+    <tr><td><b>财务</b></td><td class="mono">get_income · get_balance_sheet · get_cash_flow · get_profit_express/notice</td><td>三大报表 + 业绩快报/预告</td></tr>
+    <tr><td><b>ETF 专属</b></td><td class="mono">get_etf_pcf · get_fund_share · get_fund_nav · get_fund_iopv</td><td>申赎清单与成分股、份额、净值、收盘 IOPV——C 端「金融数据」Skill 的直接原料</td></tr>
+    <tr><td><b>交易异动</b></td><td class="mono">get_long_hu_bang · get_block_trading · get_margin_summary/detail</td><td>龙虎榜、大宗、两融</td></tr>
+    <tr><td><b>指数/行业</b></td><td class="mono">get_index_constituent/weight · get_industry_*</td><td>成分与权重、行业日行情</td></tr>
+    <tr><td><b>股东/权益</b></td><td class="mono">get_dividend · get_right_issue · 股本结构/质押/解禁</td><td>股东户数、十大股东等</td></tr>
+    <tr><td><b>算子引擎</b></td><td class="mono">MACD/RSI/BOLL/MA · STD/CORREL · CSZSCORE 等 92 个</td><td>51 时序 + 18 统计 + 横截面；社区层再封装 PE/PB/ROE 批量计算</td></tr>
+  </table></div>
+  <p class="note">另有可转债 11 个细分接口（条款/转股/赎回/回售）与国债收益率曲线（3M–30Y）——数据面明显是按「专业投研全场景」配置的，不是行情 App 的取数口。</p>
+
+  <h3>3.3 开通链路与硬门槛：为什么外部跑不通</h3>
+  <div class="gate">
+    <span class="no">门槛 1</span><span><strong>必须是银河证券客户</strong>，且资金账户为 111 开头；非 111 账号服务端自动拒绝。开通需人工申请「星耀数智」数据权限，获账密 + 指定服务器（实测社区口径：<code>140.206.44.234:8600</code>）。</span>
+    <span class="no">门槛 2</span><span><strong>仅支持 x86_64 Linux</strong>——ARM 与 macOS 不支持，本机（Apple Silicon）被硬件层直接排除；需放行 8600 端口，云沙箱环境普遍拦截。</span>
+    <span class="no">门槛 3</span><span><strong>凭证走明文</strong>：<code>ad.login(username, password, host, port)</code>，账密以环境变量/参数直传外部 IP，无 OAuth、无令牌化——Skill 平台安全检测因此给出 HIGH/红色评级。</span>
+    <span class="no">门槛 4</span><span><strong>C 端 ETF Skills 无任何外部入口</strong>：无 H5、无小程序公开入口、无第三方平台上架记录，只能在开户后的银河 APP 内体验。</span>
+    <span class="ok">已测项</span><span>官网入口与下载物验证、API 文档全目录盘点、PyPI 分发状态核实（404）、三个第三方 Skill 页与全部 18 条真实评测抓取、GitHub 生产级用例代码结构审读。社区 Skill 包因平台安全检测标红（红=不安全），按安全边界未下载执行。</span>
+  </div>
+
+  <p class="note">结论：银河的「开放」止步于<em>自家客户的开发者化</em>（给客户 SDK），从未开放给公域 AI 生态。这与第 06 节竞品的公域上架策略形成直接对照。</p>
+</section>
+
+<!-- ================================================================ -->
+<section>
+  <div class="sec-head"><span class="sec-num">04</span><h2 class="serif">野生生态与真实使用效果：18 条评测告诉我们什么</h2></div>
+
+  <p>官方不发 Skill，社区替它发了。虾评 Skill 平台（OpenClaw/龙虾生态）上有三个「星耀数智」条目，<strong>全部出自同一位个人开发者「老樊」</strong>，均处众测期：</p>
+
+  <div class="tbl-wrap"><table>
+    <tr><th>Skill</th><th>形态</th><th>版本/迭代</th><th>下载</th><th>评分</th><th>安全检测</th></tr>
+    <tr><td><b>星耀数智</b></td><td>SDK 封装（K线/财报/龙虎榜/大宗）</td><td class="num">v1.1.4 · 15 版</td><td class="num">41</td><td class="num">3.6 / 5（11 评）</td><td>🔴 HIGH</td></tr>
+    <tr><td><b>星耀数智·量化数据助手</b></td><td>SDK 全功能 + 20+ 算子 + 选股器 v5.5</td><td class="num">v10.0.3 · 21 版</td><td class="num">24</td><td class="num">4.2 / 5（5 评）</td><td>🟡 警告</td></tr>
+    <tr><td><b>星耀数智MCP</b></td><td>MCP 封装，165 接口全量实测 + 回测/选股/连板扫描脚本</td><td class="num">v1.1.1 · 12 版</td><td class="num">11</td><td class="num">3.5 / 5（2 评）</td><td>🔴 HIGH</td></tr>
+  </table></div>
+
+  <h3>评测共识（好评侧）</h3>
+  <ul>
+    <li><strong>数据权威性是核心卖点</strong>：直连银河官方服务器、无第三方中转，被多位评测者视为「券商级官方数据 SDK 在 AI Agent 生态中独一无二」，稀缺性普遍打 4–5 分。</li>
+    <li><strong>接口全量可用</strong>：「120/165 个接口和算子全部测试验证通过」出现在多条独立评测中；有评测者用它跑通了 MACD 金叉选股、持仓回测、连板扫描等实战脚本。</li>
+    <li><strong>供应链安全意识超行业水平</strong>：SDK 文件 SHA256 校验、数据流向声明、十条款隐私声明，被评「金融机构合规标准」。</li>
+  </ul>
+
+  <h3>评测共识（差评侧）——每一条都指向银河产品本体</h3>
+  <ul>
+    <li><strong>准入即天花板</strong>：「对银河客户是神器，普通投资者完全无法使用」「非银河客户优先考虑 AKShare/TuShare（零门槛覆盖 85% 同类需求）」——几乎每条评测都以账号门槛收尾。</li>
+    <li><strong>凭证安全被反复点名</strong>：明文账密传外部 IP 被平台判 HIGH 风险，多人建议「改 OAuth 或令牌化授权」，有评测者「因安全顾虑未敢接入真实账号」。</li>
+    <li><strong>工程适配粗糙</strong>：仅 x86_64 Linux、Python 版本苛刻、闭源 wheel 无法审计、Coze 等沙箱环境完全跑不起来；试用期 2026-06-30 已到期未续。</li>
+  </ul>
+
+  <h3>一个生产级用例：SDK 被拿去建数据湖</h3>
+  <p>GitHub 项目 <a href="https://github.com/SindenDev/AmazingData">SindenDev/AmazingData</a> 用星耀数智 SDK 搭了完整生产管道：Airflow 调度每日采集，Parquet(zstd) 落盘，同步 RustFS/S3 + Iceberg + ClickHouse，覆盖 K 线（股票/指数/ETF，2013 年至今回填）、三表、两融、股本分红、指数行业成分。<span class="chip comm">社区</span> 这证明数据面质量足以支撑机构级工作流；但其 README 同时留下了 SDK 工程质量的证词——作者不得不在客户端修补：</p>
+  <blockquote>SDK 内部 <code>local_path + "infodata"</code> 字符串拼接导致路径错误，需自行规范化；指数权重必须逐个指数请求，「批量调用触发 SDK 异常」；返回值 None/dict/DataFrame 三态混杂，需统一兜底处理。</blockquote>
+  <p><strong>读法：</strong>数据资产是真的强（券商直连、全品类、深回溯），开发者体验是真的糙（闭源、跨平台缺位、接口不稳、文档外包给博主）。这组反差正是「数据中台强、产品化弱」的典型画像。</p>
+</section>
+
+<!-- ================================================================ -->
+<section>
+  <div class="sec-head"><span class="sec-num">05</span><h2 class="serif">案例效果核对：PPT 数字 × 财报事实</h2></div>
+
+  <p>PPT 的九项 ETF 生态数据虽无法逐项证实，但银河财报里有一组<strong>可证实的硬事实</strong>，方向完全同频：</p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="v">24.57%</div><div class="l">经纪业务 ETF 保有市占，行业第一（2025-04 末）</div><div class="c"><span class="chip media">媒体</span></div></div>
+    <div class="kpi"><div class="v">22.75%</div><div class="l">沪市 ETF 持有规模占比第一（2025-09 末）</div><div class="c"><span class="chip media">媒体</span></div></div>
+    <div class="kpi"><div class="v">2050万+</div><div class="l">客户总数（2026H1，年内净增超 120 万）</div><div class="c"><span class="chip official">官方</span></div></div>
+    <div class="kpi"><div class="v">70万+</div><div class="l">买方投顾服务客户（2026H1，STAR 财富解决方案）</div><div class="c"><span class="chip official">官方</span></div></div>
+    <div class="kpi"><div class="v">130万人次</div><div class="l">数字人服务累计（2025 年报，全场景数字人体系）</div><div class="c"><span class="chip official">官方</span></div></div>
+    <div class="kpi"><div class="v">5639亿</div><div class="l">PB 业务规模（2026H1，+17.1%；上线策略中心 MCP/Skill）</div><div class="c"><span class="chip official">官方</span></div></div>
+  </div>
+
+  <div class="tbl-wrap"><table>
+    <tr><th>PPT 主张</th><th>财报/公开可证实的最近对应</th><th>判断</th></tr>
+    <tr><td>ETF 投顾服务客户资产 650亿+、优秀 ETF 投顾 160人+</td><td>半年报仅表述「财富星多维度覆盖指数化投资客群，持续升级智能投顾策略体系」；买方投顾 70 万人不分产品线</td><td>方向吻合，口径未披露</td></tr>
+    <tr><td>ETF 专区累计访问 232.81 万、转化率 12%</td><td>无任何披露；媒体只报道过 APP ETF 内容矩阵（9 位基金经理直播）</td><td>完全增量信息</td></tr>
+    <tr><td>ETF 做市深交所评价 AA</td><td>半年报披露科创板做市 103 只/北交所 53 只（均第 4）、基金做市 563 只（第 11），未提深交所评价</td><td>无从核对</td></tr>
+    <tr><td>星耀数智 Skills 查询量较 1 月增长 3.6 倍、8 月创年内新高</td><td>无披露。可比事实：财富星-AI投顾以按次/包月收费在售（说明 C 端 AI 已商业化）；2025 年报确认大模型营销助手、智能对话模型上线</td><td>完全增量信息</td></tr>
+    <tr><td>2024 年设立五部门 ETF 专项工作组</td><td>年报有「聚焦指数化投资趋势、全年落地 23 项创新交易产品」等结果性表述，无组织架构披露</td><td>组织细节首次曝光</td></tr>
+  </table></div>
+
+  <p><strong>读法：</strong>这场演讲的信息增量恰恰在「公开渠道没有」的部分——ETF 专项工作组的组织形态、ETF 专区运营数据、Skills 查询量增长曲线。银河把 <em>AI Skill 的使用量做成了向行业汇报的 KPI</em>，这是券商业内第一次有人在公开场合用「Skill 查询量较年初 N 倍」讲 AI 成绩，标志这类能力已过 demo 期、进入运营期。</p>
+</section>
+
+<!-- ================================================================ -->
+<section>
+  <div class="sec-head"><span class="sec-num">06</span><h2 class="serif">竞局对照：券商 Skills 大战里的银河站位</h2></div>
+
+  <p>2026 年 4 月起，头部券商密集把 AI 能力封装成 Skills 对外发布，主流路径是「自有 APP AI 化 + 上架第三方智能体平台」双线：</p>
+
+  <div class="tbl-wrap"><table>
+    <tr><th>机构</th><th>产品</th><th>时间</th><th>开放度</th></tr>
+    <tr><td><b>国泰海通</b></td><td>灵犀 Skills 六件套（查研报/行情/数据/榜单/筛股/自选股）+ 灵犀App3.0</td><td class="num">2026-04</td><td>首批入驻腾讯 SkillHub、华为小艺，ClawHub 有官方条目；累计服务 8300 万人次（2026-06 末）</td></tr>
+    <tr><td><b>东方财富</b></td><td>妙想 Skills / 妙想投研 ClawBot</td><td class="num">2026-04</td><td>上架华为小艺、阿里云 JVS；被评「功能最完整金融 Skill 套件」</td></tr>
+    <tr><td><b>广发证券</b></td><td>易淘金 Skill·AI 透镜，内部 30 类技能插件</td><td class="num">2026-05</td><td>进驻腾讯 IMA Skill 广场、OpenClaw</td></tr>
+    <tr><td><b>国信证券</b></td><td>六大 Skills（智能选股/ETF 筛选/基金对比/宏观/行情/财务）</td><td class="num">2026-05</td><td>上架 Claw 平台</td></tr>
+    <tr><td><b>华泰证券</b></td><td>智研 Skill&amp;MCP（机构）+ AI 涨乐 Skills（个人）；与华泰柏瑞办首届 ETF AI 交易赛（允许自带 Agent 实盘）</td><td class="num">2026-06</td><td>绑定自研数据中台，机构个人双线</td></tr>
+    <tr><td><b>中金公司</b></td><td>分析师 Skill「老于」+ 5 大投研 Skill</td><td class="num">2026-06</td><td>研究方法论产品化</td></tr>
+    <tr><td><b>中信建投</b></td><td>蜻蜓 Skill 广场（ETF 筛选/行情/财务）+ AI 翼答 10.0</td><td class="num">2026</td><td>规划选股/选基ETF/盯盘/交易四大智能体</td></tr>
+    <tr><td><b>南方基金</b></td><td>ETFirst Skill（对话式指数/ETF 查询对比）</td><td class="num">2026-07</td><td>小程序 + 可外挂龙虾等 AI 助手，三步配置</td></tr>
+    <tr><td style="border-left:3px solid var(--accent)"><b>中国银河</b></td><td>星耀数智 ETF Skills（APP 内五能力）+ AmazingData SDK（客户申请制）+ PB 策略中心 MCP/Skill（机构）</td><td class="num">2026-09 亮相</td><td><strong>全封闭</strong>：无公域平台上架记录；财联社报道其打包「行情/技术指标/基本面/因子分析」四类示例，21 财经 8 月 AI Skills 全景稿未点名银河</td></tr>
+  </table></div>
+
+  <p><strong>站位判断：</strong>银河在 Skill 生态声量上属第二梯队，但选择了一条与国泰海通相反的路——<em>不出海到公域智能体平台，把 Skills 留在自家 APP 里做用户活跃与转化</em>。配合其 ETF 保有市占第一的底盘，这是「流量内循环」策略：Skill 是留客工具而非获客渠道。风险在于：当用户习惯在豆包/元宝/小艺里问投资问题时，不在场的券商会被代答。</p>
+</section>
+
+<!-- ================================================================ -->
+<section>
+  <div class="sec-head"><span class="sec-num">07</span><h2 class="serif">产品深度分析：七条判断</h2></div>
+
+  <ol>
+    <li><strong>能力底座是真实的，且同源复用。</strong>C 端五大 Skill 的每项原料都能在 AmazingData 接口面找到对应（ETF 净值/份额/IOPV→金融数据；K 线回溯→定投测算与组合回测；申赎与公告数据→公告解读；实时快照→盯盘提醒）。一套机构级数据中台喂两端，是其效率优势。</li>
+    <li><strong>「Skill」在银河语境里是产品叙事，不是技术协议。</strong>C 端五能力更像 APP 内的 AI 功能菜单；真正协议意义上的 MCP/Skill 只在机构 PB 条线（半年报原话）。对外讲「Skills」蹭的是 2026 年行业热词，产品实体是封闭的。</li>
+    <li><strong>商业模式已跑通「AI 直接收费」。</strong>财富星-AI投顾按笔 8.8 元/包月数千元档收费，这在券商 C 端 AI 里相当激进；ETF Skills 查询量进高管 PPT，说明内部已把 AI 使用量当经营指标考核。</li>
+    <li><strong>安全与合规是最大暗伤。</strong>明文账密直连指定 IP 的鉴权设计，放在 2026 年的 Agent 生态里是显眼的落后项；社区平台连续给出 HIGH/红色评级。一旦官方想开放生态，鉴权体系需要推倒重来（OAuth/网关代理）。</li>
+    <li><strong>开发者体验外包给了民间。</strong>API 文档挂在博主网站、开通靠公众号私信、SDK 下架 PyPI、Skill 封装靠个人开发者用爱发电——与其数据资产的强度严重不匹配。这说明星耀数智内部定位仍是「客户服务工具」，不是「平台产品」。</li>
+    <li><strong>数字口径有会销水分,但趋势可信。</strong>「+70%」「3.6 倍」全部无分母无绝对值,典型的低基数高增速讲法;不过 ETF 保有市占第一、客户 2050 万是审计过的硬底盘,「AI 查询量指数级爬坡」与全行业观察一致,方向不必怀疑。</li>
+    <li><strong>下一步棋可以预判：</strong>参照同业节奏与其半年报「PB 已上 MCP/Skill」的伏笔，银河大概率在 12 个月内把 ETF Skills 从 APP 内走向公域上架（腾讯 SkillHub/华为小艺），并补一次正式发布会。届时今天 PPT 里的口径会成为对外基线。</li>
+  </ol>
+</section>
+
+<!-- ================================================================ -->
+<section>
+  <div class="sec-head"><span class="sec-num">08</span><h2 class="serif">对盈米 / OAP 的启示</h2></div>
+
+  <ol>
+    <li><strong>「Skill 查询量」已成对外汇报语言。</strong>银河把「较年初 3.6 倍、单月创新高」放进行业年会 PPT——OAP 的 Skill 调用量、MCP 工具调用数据同样可以且应该做成对客户/董事会的叙事资产（盈米已有豆包/千问渠道用量基线，口径成熟度反而领先）。</li>
+    <li><strong>银河的封闭是盈米的空间。</strong>券商 Skill 无一例外只服务「自家开户客户 + 自家产品数据」；OAP 面向投顾机构的开放安装、跨管理人产品数据、买方立场分析，是券商结构性做不了的差异位。竞标或客户沟通中，「券商 Skills=导流工具，OAP Skills=投顾生产力」是一句现成的定位话术。</li>
+    <li><strong>鉴权设计是显性竞争力。</strong>银河被社区反复打 HIGH 风险的明文账密,反衬 OAP「Key + 网关限定名 + 权限盘点」路线的正确性——这一点值得写进 OAP 的安全白皮书/售前材料,做成可对比的卖点。</li>
+    <li><strong>ETF 定投/组合回测/公告解读三个 C 端场景已被验证有真实查询需求</strong>（银河用查询量证明了）。OAP 的投顾侧 Skill 清单可对照检查：面向投顾的「帮客户算定投」「组合回测讲解」「公告转话术」是否已覆盖——这是被券商验证过的需求清单，值得逐项对齐。</li>
+    <li><strong>值得持续盯梢的信号</strong>：银河 ETF Skills 的正式发布稿/公域上架动作、2026 年报是否披露 ETF 专区与 Skills 运营数据、「星耀数智」商标向 C 端的延伸注册。建议纳入季度竞品扫描。</li>
+  </ol>
+</section>
+
+<!-- ================================================================ -->
+<section>
+  <div class="sec-head"><span class="sec-num">09</span><h2 class="serif">附录：口径台账与信源</h2></div>
+
+  <h3>9.1 未能证实清单（仅见 PPT，9 项）</h3>
+  <p class="note">ETF 交易客户数 +70% · 佣金创收 +50% · 权益 ETF 首发 +21% · 非货保有 +66% · 投顾资产 650亿+ · 优秀投顾 160人+ · 专区访问 232.81万/转化 12% · 深交所做市 AA · Skills 查询量 9.7*/3.6倍/年内新高；另含：会议本身无新闻稿、五部门专项工作组无披露、「星耀数智 ETF Skills」无官方发布记录。</p>
+
+  <h3>9.2 主要信源</h3>
+  <ul style="font-size:13px">
+    <li><span class="chip official">官方</span> <a href="https://www.chinastock.com.cn/newsite/cgs-services/strategyTrade/geWuInstitution.html">星耀数智服务平台官网详情页</a> · <a href="https://www.chinastock.com.cn/newsite/online/downloadCenter.html">下载中心（TGW-SDK V1.0.8）</a> · <a href="http://cdn.chinastock.com.cn/omc/investRelation/sh/601881_20260829_NLBZ.pdf">2026 中期报告（PB 智能助手、策略中心 MCP/Skill）</a> · <a href="http://static.cninfo.com.cn/finalpage/2026-03-31/1225051718.PDF">2025 年报摘要</a></li>
+    <li><span class="chip media">媒体</span> <a href="https://www.stcn.com/article/detail/3968426.html">证券时报：STAR 财富解决方案发布</a> · <a href="https://finance.sina.com.cn/roll/2025-08-23/doc-infmxxvk4723646.shtml">中新经纬：财富星-AI投顾收费</a> · <a href="https://www.cls.cn/detail/2448184">财联社：银河 APP ETF 直播矩阵</a> · <a href="https://finance.sina.com.cn/roll/2026-06-21/doc-inieeaqv7807965.shtml">财联社：券商密集上线 Skills</a> · <a href="https://m.21jingji.com/article/20260818/herald/5f2b1f54245e67aa4fde33986f01bba0.html">21 财经：券商 AI Skills 全景</a> · <a href="https://www.nbd.com.cn/articles/2025-05-25/3887331.html">每经：ETF 保有市占 24.57%</a></li>
+    <li><span class="chip comm">社区</span> <a href="https://amazing.ptradeapi.com/">AmazingData API 文档站</a> · 虾评 Skill：<a href="https://xiaping.coze.com/skill/2cd162e2-b82f-4c9a-83ac-8b655e69febc">星耀数智</a> / <a href="https://xiaping.coze.com/skill/94657d62-b702-4c0d-8b4f-affb5b4e2b01">量化数据助手</a> / <a href="https://xiaping.coze.com/skill/518f9af1-72a8-481b-8585-8053f3954816">星耀数智MCP</a> · <a href="https://github.com/SindenDev/AmazingData">GitHub 数据湖用例</a> · <a href="https://clawhub.ai/gtht-tech/skills/lingxi-financialsearch-skill">国泰海通灵犀官方 Skill（对照）</a></li>
+  </ul>
+
+  <h3>9.3 实测方法与边界</h3>
+  <p class="note">实测手段：官网全站导航与下载物核验、API 文档全目录抽取、PyPI 元数据核查、Skill 平台三个条目共 18 条评测全文抓取、GitHub 用例代码结构审读、竞品公开信源 30+ 次交叉检索。未执行项及原因：SDK 实跑（无银河 111 账户；本机 macOS ARM 不在支持矩阵）、APP 内 ETF Skills 体验（需开户）、社区 Skill 包安装（平台安全检测标红，且需向外部 IP 明文传凭证）。如你有银河账户，可在一台 x86_64 Linux 上复现 SDK 链路，或直接在银河 APP 内体验 ETF 专区五项 Skill——报告可据此补一节实机测评。</p>
+</section>
+
+<div class="footer">
+  <span>调研与撰写：Claude（guty 的会话）· 2026-09-11</span>
+  <span>口径分级贯穿全文 · 仅供内部研究参考，不构成投资建议</span>
+</div>
+
+</div>
+</body>
+</html>

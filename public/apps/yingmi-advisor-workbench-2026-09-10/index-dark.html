@@ -1,0 +1,1907 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />
+    <script data-clair-access-gate data-clair-access-scope="workspace" src="../../access-gate.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YINGMI WORK · 新一代顾问工作台 · 墨玉版</title>
+<style>
+/* ============ 设计系统 ============ */
+:root{
+  --brand:#C0A468; --brand-deep:#D8C095; --brand-050:rgba(192,164,104,.14); --brand-100:#4A3F28;
+  --gold:#C0A468; --gold-050:rgba(192,164,104,.14);
+  --bg:#12141A; --panel:#1B1E25; --panel-2:#22262F; --line:#30343E; --line-2:#2A2E37;
+  --ink:#E9E5D8; --sub:#A9A496; --faint:#7C7768;
+  --up:#D0665E; --up-bg:rgba(208,102,94,.14); --down:#5FA07C; --down-bg:rgba(95,160,124,.14);
+  --warn:#D0A94E; --warn-bg:rgba(208,169,78,.13); --info:#C0A468; --info-bg:rgba(192,164,104,.14);
+  --violet:#9A8CB8; --violet-bg:rgba(154,140,184,.13);
+  --r-lg:10px; --r-md:7px; --r-sm:5px;
+  --sh-1:0 1px 2px rgba(0,0,0,.3);
+  --sh-2:0 4px 14px rgba(0,0,0,.35);
+  --sh-3:0 16px 48px rgba(0,0,0,.5);
+  --top-h:58px; --nav-w:74px;
+  --font:"Songti SC","STSong","STZhongsong","Noto Serif SC","SimSun",serif;
+  --num:"Songti SC","STSong","Georgia","Times New Roman",serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:var(--font);background:var(--bg);color:var(--ink);font-size:13.5px;line-height:1.6;overflow:hidden;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-thumb{background:#D4CDBB;border-radius:8px}
+::-webkit-scrollbar-thumb:hover{background:#B8B09A}
+::-webkit-scrollbar-track{background:transparent}
+button{font-family:var(--font);cursor:pointer;border:none;background:none;color:inherit}
+input,textarea,select{font-family:var(--font);font-size:13.5px;color:var(--ink);outline:none}
+a{color:var(--brand);text-decoration:none}
+.num{font-family:var(--num);font-variant-numeric:tabular-nums}
+.up{color:var(--up)} .down{color:var(--down)}
+.muted{color:var(--sub)} .faint{color:var(--faint)}
+.ellipsis{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* ============ 顶栏 ============ */
+#topbar{height:var(--top-h);background:#191B1F;border-bottom:1px solid #2A2D33;display:flex;align-items:center;padding:0 16px;gap:14px;position:relative;z-index:60;color:#F3F1EA}
+#topbar .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;letter-spacing:2px;white-space:nowrap}
+#topbar .logo .mark{width:30px;height:30px;border-radius:5px;background:#8A6D3C;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#F3F1EA}
+#topbar .logo small{font-weight:400;font-size:11px;opacity:.55;margin-left:2px;letter-spacing:1px}
+#topbar .env{font-size:10px;background:transparent;color:#C9B585;border:1px solid rgba(138,109,60,.65);padding:1px 8px;border-radius:3px;white-space:nowrap;letter-spacing:2px}
+.mode-switch{display:flex;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);border-radius:4px;padding:2px;gap:2px;margin-left:6px}
+.mode-switch button{color:rgba(243,241,234,.6);font-size:12px;padding:5px 14px;border-radius:3px;display:flex;align-items:center;gap:5px;transition:all .22s;white-space:nowrap;letter-spacing:1px}
+.mode-switch button.on{background:#8A6D3C;color:#F3F1EA;font-weight:600}
+#topbar .searchbox{flex:1;max-width:430px;margin:0 auto}
+#topbar .searchbox .fake-input{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:4px;padding:7px 13px;color:rgba(243,241,234,.5);font-size:12.5px;cursor:pointer;transition:all .2s}
+#topbar .searchbox .fake-input:hover{background:rgba(255,255,255,.1)}
+#topbar .searchbox kbd{margin-left:auto;background:rgba(255,255,255,.1);border-radius:3px;padding:1px 7px;font-size:11px;font-family:var(--font)}
+.top-ico{width:34px;height:34px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:16px;color:rgba(243,241,234,.75);position:relative;transition:background .2s}
+.top-ico:hover{background:rgba(255,255,255,.1)}
+.top-ico .dot{position:absolute;top:5px;right:5px;min-width:15px;height:15px;border-radius:3px;background:#B04A44;color:#fff;font-size:9.5px;display:flex;align-items:center;justify-content:center;padding:0 4px;font-weight:700;border:2px solid #191B1F}
+#topbar .me{display:flex;align-items:center;gap:9px;padding-left:6px;border-left:1px solid rgba(255,255,255,.16)}
+#topbar .me .who{text-align:right;line-height:1.25}
+#topbar .me .who b{font-size:12.5px;display:block}
+#topbar .me .who span{font-size:10.5px;opacity:.6}
+.avatar{border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;flex:none;box-shadow:inset 0 0 0 1px rgba(255,255,255,.25)}
+
+/* ============ 主布局 ============ */
+#shell{display:flex;height:calc(100vh - var(--top-h));position:relative}
+#navrail{width:var(--nav-w);background:var(--panel);border-right:1px solid var(--line);display:flex;flex-direction:column;align-items:center;padding:10px 0;gap:2px;z-index:40;flex:none}
+#navrail .nav-item{width:58px;padding:7px 0 6px;border-radius:6px;display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--sub);font-size:10.5px;position:relative;transition:all .18s;margin-bottom:1px;letter-spacing:1px}
+#navrail .nav-item .ic{font-size:15px;line-height:1;font-weight:700;width:28px;height:28px;border-radius:5px;display:flex;align-items:center;justify-content:center;transition:all .18s;border:1px solid transparent}
+#navrail .nav-item:hover{background:var(--panel-2);color:var(--ink)}
+#navrail .nav-item.on{background:var(--brand-050);color:var(--brand-deep);font-weight:600}
+#navrail .nav-item.on .ic{background:var(--brand);color:#FCFBF7}
+#navrail .nav-item .bdg{position:absolute;top:4px;right:9px;min-width:15px;height:15px;border-radius:3px;background:var(--up);color:#fff;font-size:9px;display:flex;align-items:center;justify-content:center;padding:0 3.5px;font-weight:700}
+#navrail .spacer{flex:1}
+
+#listcol{width:296px;background:var(--panel);border-right:1px solid var(--line);display:none;flex-direction:column;flex:none;overflow:hidden}
+#copilot{width:400px;background:var(--panel);display:flex;flex-direction:column;flex:none;overflow:hidden;position:relative;border-left:1px solid var(--line)}
+#workarea{flex:1;overflow-y:auto;overflow-x:hidden;position:relative;min-width:0}
+
+/* 模式：对话优先（默认） */
+body.mode-copilot #shell{display:grid;grid-template-columns:var(--nav-w) 452px 1fr;grid-template-areas:"nav copilot work"}
+body.mode-copilot #navrail{grid-area:nav}
+body.mode-copilot #copilot{grid-area:copilot;width:auto;border-left:none;border-right:1px solid var(--line)}
+body.mode-copilot #workarea{grid-area:work}
+body.mode-copilot #listcol{display:none!important}
+/* 模式：界面优先 */
+body.mode-classic #shell{display:grid;grid-template-columns:var(--nav-w) 296px 1fr 380px;grid-template-areas:"nav list work copilot"}
+body.mode-classic #navrail{grid-area:nav}
+body.mode-classic #listcol{grid-area:list;display:flex}
+body.mode-classic #workarea{grid-area:work}
+body.mode-classic #copilot{grid-area:copilot;width:auto}
+body.mode-classic #copilot.docked-off{width:0;border:none}
+body.mode-classic.copilot-hidden #shell{grid-template-columns:var(--nav-w) 296px 1fr 0}
+body.mode-classic.copilot-hidden #copilot{display:none}
+body.mode-copilot .only-classic{display:none!important}
+body.mode-classic .only-copilot{display:none!important}
+
+/* ============ 通用组件 ============ */
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--sh-1)}
+.card .card-h{display:flex;align-items:center;gap:8px;padding:13px 16px 10px;font-weight:700;font-size:13.5px;letter-spacing:1px}
+.card .card-h::before{content:"";width:3px;height:13px;background:var(--gold);flex:none;border-radius:1px}
+.card .card-h .more{margin-left:auto;font-size:12px;color:var(--faint);cursor:pointer;font-weight:400;letter-spacing:0}
+.card .card-h .more:hover{color:var(--brand)}
+.card .card-b{padding:0 16px 14px}
+.chip{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:2px 9px;border-radius:4px;background:var(--panel-2);border:1px solid var(--line);color:var(--sub);white-space:nowrap}
+.chip.brand{background:var(--brand-050);border-color:var(--brand-100);color:var(--brand-deep)}
+.chip.gold{background:var(--gold-050);border-color:#E0D2B2;color:#7A6134}
+.chip.red{background:var(--up-bg);border-color:#E8CCC8;color:var(--up)}
+.chip.green{background:var(--down-bg);border-color:#C4DACC;color:var(--down)}
+.chip.orange{background:var(--warn-bg);border-color:#E4D3AE;color:#8A6210}
+.chip.violet{background:var(--violet-bg);border-color:#D8D0E4;color:var(--violet)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:5px;font-size:12.5px;padding:7px 14px;border-radius:5px;border:1px solid var(--line);background:var(--panel);color:var(--ink);transition:all .18s;font-weight:500;white-space:nowrap}
+.btn:hover{border-color:var(--brand);color:var(--brand-deep);background:var(--brand-050)}
+.btn.primary{background:#1F2227;border-color:#1F2227;color:#F3F1EA}
+.btn.primary:hover{background:#000;color:#fff}
+.btn.ghost{border-color:transparent;background:transparent;color:var(--brand-deep)}
+.btn.ghost:hover{background:var(--brand-050)}
+.btn.sm{padding:4px 10px;font-size:12px;border-radius:4px}
+.btn.gold{background:#8A6D3C;border:none;color:#F3F1EA}
+.btn.gold:hover{background:#6E5730;color:#fff}
+.tag-sev{font-size:10.5px;font-weight:700;padding:1.5px 8px;border-radius:3px;letter-spacing:1px}
+.tag-sev.high{background:var(--up-bg);color:var(--up)}
+.tag-sev.med{background:var(--warn-bg);color:#8A6210}
+.tag-sev.low{background:var(--info-bg);color:var(--info)}
+.tabs{display:flex;gap:2px;border-bottom:1px solid var(--line);padding:0 16px;background:var(--panel);position:sticky;top:0;z-index:20}
+.tabs button{padding:11px 14px 9px;font-size:13px;color:var(--sub);border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;white-space:nowrap}
+.tabs button:hover{color:var(--ink)}
+.tabs button.on{color:var(--brand-deep);border-bottom-color:var(--gold);font-weight:700}
+.progress{height:5px;border-radius:3px;background:var(--line-2);overflow:hidden}
+.progress>i{display:block;height:100%;border-radius:3px;background:var(--gold)}
+.ring{position:relative;display:inline-flex;align-items:center;justify-content:center}
+.ring svg{transform:rotate(-90deg)}
+.ring .ring-txt{position:absolute;font-weight:700;font-size:13px}
+.divider{height:1px;background:var(--line);margin:12px 0}
+.kv{display:flex;justify-content:space-between;align-items:baseline;padding:5px 0;font-size:12.5px}
+.kv .k{color:var(--faint)} .kv .v{font-weight:600}
+.empty{padding:40px 20px;text-align:center;color:var(--faint);font-size:12.5px}
+.empty .ic{font-size:30px;display:block;margin-bottom:8px;opacity:.5}
+
+/* 视图容器 */
+.view{padding:18px 22px 40px;max-width:1180px;margin:0 auto;animation:fadeUp .28s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.view-h{display:flex;align-items:flex-end;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.view-h h1{font-size:19px;font-weight:700;letter-spacing:.3px}
+.view-h .sub{color:var(--faint);font-size:12.5px}
+.view-h .actions{margin-left:auto;display:flex;gap:8px}
+.grid{display:grid;gap:14px}
+.grid.c2{grid-template-columns:1fr 1fr}
+.grid.c3{grid-template-columns:repeat(3,1fr)}
+.grid.c4{grid-template-columns:repeat(4,1fr)}
+@media (max-width:1500px){.grid.c4{grid-template-columns:repeat(2,1fr)}}
+.grid.c32{grid-template-columns:1.35fr 1fr}
+.grid.c23{grid-template-columns:1fr 1.35fr}
+@media (max-width:1500px){.grid.c3{grid-template-columns:1fr 1fr}.grid.c32,.grid.c23{grid-template-columns:1fr}}
+
+/* 统计卡 */
+.stat{padding:14px 16px}
+.stat .lbl{font-size:12px;color:var(--faint);display:flex;align-items:center;gap:5px}
+.stat .val{font-size:23px;font-weight:700;font-family:var(--num);margin-top:3px;letter-spacing:.3px}
+.stat .val small{font-size:12px;font-weight:500;color:var(--faint);margin-left:3px}
+.stat .delta{font-size:11.5px;margin-top:2px;display:flex;align-items:center;gap:4px}
+
+/* 列表列（界面优先模式） */
+#listcol .list-h{padding:14px 14px 10px;border-bottom:1px solid var(--line)}
+#listcol .list-h h2{font-size:14.5px;font-weight:700;display:flex;align-items:center;gap:8px}
+#listcol .list-h .count{font-size:11px;color:var(--faint);font-weight:400}
+#listcol .list-search{margin-top:9px;display:flex;align-items:center;gap:6px;background:var(--panel-2);border:1px solid var(--line);border-radius:9px;padding:6px 10px}
+#listcol .list-search input{border:none;background:none;flex:1;font-size:12.5px}
+#listcol .list-body{flex:1;overflow-y:auto;padding:8px}
+.list-cell{display:flex;gap:10px;padding:10px;border-radius:12px;cursor:pointer;border:1px solid transparent;transition:all .15s;align-items:center}
+.list-cell:hover{background:var(--panel-2)}
+.list-cell.on{background:var(--brand-050);border-color:var(--brand-100)}
+.list-cell .cell-main{flex:1;min-width:0}
+.list-cell .cell-t{font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px}
+.list-cell .cell-s{font-size:11.5px;color:var(--faint);margin-top:1px}
+.list-cell .cell-r{text-align:right;flex:none}
+
+/* 客户360 */
+.c360-head{background:#1E2126;color:#F3F1EA;padding:20px 24px 16px;position:relative;overflow:hidden;border-bottom:2px solid var(--gold)}
+.c360-head::after{content:"";position:absolute;right:24px;top:0;bottom:0;width:1px;background:linear-gradient(180deg,transparent,rgba(138,109,60,.6),transparent)}
+.c360-head .row1{display:flex;align-items:center;gap:14px;position:relative;z-index:2}
+.c360-head .nm{font-size:20px;font-weight:700}
+.c360-head .meta{font-size:12px;opacity:.78;margin-top:3px;display:flex;gap:10px;flex-wrap:wrap}
+.c360-head .kpi-row{display:flex;gap:26px;margin-top:15px;position:relative;z-index:2;flex-wrap:wrap}
+.c360-head .kpi .l{font-size:11px;opacity:.65}
+.c360-head .kpi .v{font-size:18px;font-weight:700;font-family:var(--num);margin-top:1px}
+.c360-head .kpi .v small{font-size:11px;font-weight:400;opacity:.7}
+.c360-head .head-act{margin-left:auto;display:flex;gap:8px;position:relative;z-index:2}
+.c360-head .head-act .btn{background:rgba(255,255,255,.13);border-color:rgba(255,255,255,.22);color:#fff}
+.c360-head .head-act .btn:hover{background:rgba(255,255,255,.24)}
+.c360-head .head-act .btn.gold{background:#8A6D3C;border:none}
+.hbar{display:flex;align-items:center;gap:8px;font-size:12px}
+.hbar .bar{flex:1;height:8px;border-radius:5px;background:var(--line-2);overflow:hidden;display:flex}
+.hbar .bar i{display:block;height:100%}
+
+/* 时间线 */
+.tl{position:relative;padding-left:20px}
+.tl::before{content:"";position:absolute;left:6px;top:8px;bottom:8px;width:2px;background:var(--line);border-radius:2px}
+.tl-item{position:relative;padding:0 0 16px 8px}
+.tl-item::before{content:"";position:absolute;left:-19px;top:5px;width:10px;height:10px;border-radius:50%;background:var(--brand);border:2px solid #fff;box-shadow:0 0 0 2px var(--brand-100)}
+.tl-item.t-comm::before{background:var(--violet);box-shadow:0 0 0 2px var(--violet-bg)}
+.tl-item.t-trade::before{background:var(--down);box-shadow:0 0 0 2px var(--down-bg)}
+.tl-item.t-event::before{background:var(--warn);box-shadow:0 0 0 2px var(--warn-bg)}
+.tl-item.t-report::before{background:var(--gold);box-shadow:0 0 0 2px var(--gold-050)}
+.tl-item .tt{font-size:12.5px;font-weight:600;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.tl-item .tt time{font-weight:400;color:var(--faint);font-size:11.5px}
+.tl-item .td{font-size:12px;color:var(--sub);margin-top:2px;line-height:1.6}
+
+/* 任务 */
+.task{display:flex;gap:10px;padding:11px 12px;border-radius:12px;border:1px solid var(--line);background:var(--panel);margin-bottom:8px;transition:all .18s;align-items:flex-start}
+.task:hover{box-shadow:var(--sh-1);border-color:var(--brand-100)}
+.task.done{opacity:.55}
+.task.done .tk-t{text-decoration:line-through}
+.task .ck{width:18px;height:18px;border-radius:6px;border:1.5px solid #C4CDDF;flex:none;margin-top:2px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;transition:all .15s;cursor:pointer}
+.task .ck:hover{border-color:var(--brand)}
+.task.done .ck{background:var(--down);border-color:var(--down)}
+.task .tk-t{font-size:13px;font-weight:600;line-height:1.45}
+.pri-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:7px;vertical-align:1px}
+.pri-dot.high{background:var(--up)} .pri-dot.med{background:var(--warn)} .pri-dot.low{background:#B9B29E}
+.task .tk-m{font-size:11.5px;color:var(--faint);margin-top:3px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.task .tk-act{margin-left:auto;display:flex;gap:6px;flex:none}
+
+/* 事件流 */
+.evt{display:flex;gap:12px;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--panel);margin-bottom:8px;align-items:flex-start;transition:all .15s}
+.evt:hover{box-shadow:var(--sh-1)}
+.evt .e-ic{width:34px;height:34px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:15px;flex:none;filter:saturate(.35)}
+.evt .e-main{flex:1;min-width:0}
+.evt .e-t{font-size:13px;font-weight:600}
+.evt .e-s{font-size:12px;color:var(--sub);margin-top:2px;line-height:1.6}
+.evt .e-m{font-size:11px;color:var(--faint);margin-top:4px;display:flex;gap:10px;flex-wrap:wrap}
+
+/* 洞察卡 */
+.insight{border-radius:14px;border:1px solid var(--line);background:var(--panel);padding:13px 15px;margin-bottom:10px;position:relative;overflow:hidden;transition:all .18s}
+.insight:hover{box-shadow:var(--sh-2)}
+.insight::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3.5px}
+.insight.sev-high::before{background:var(--up)}
+.insight.sev-med::before{background:var(--warn)}
+.insight.sev-low::before{background:var(--brand)}
+.insight .i-h{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.insight .i-t{font-size:13.5px;font-weight:700}
+.insight .i-b{font-size:12.5px;color:var(--sub);margin-top:6px;line-height:1.65}
+.insight .i-b b{color:var(--ink)}
+.insight .i-ev{font-size:11.5px;color:var(--faint);background:var(--panel-2);border-radius:8px;padding:6px 9px;margin-top:8px;line-height:1.6}
+.insight .i-act{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap}
+
+/* SOP 管道 */
+.sop-board{display:grid;grid-template-columns:repeat(6,minmax(180px,1fr));gap:10px;overflow-x:auto;padding-bottom:8px}
+.sop-col{background:var(--panel-2);border:1px solid var(--line);border-radius:14px;padding:10px;min-height:300px}
+.sop-col .sc-h{display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:700;padding:2px 4px 9px}
+.sop-col .sc-h .n{width:19px;height:19px;border-radius:4px;background:#1F2227;color:#F3F1EA;font-size:11px;display:flex;align-items:center;justify-content:center}
+.sop-col .sc-h .cnt{margin-left:auto;color:var(--faint);font-weight:400;font-size:11px}
+.sop-card{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:10px 11px;margin-bottom:8px;cursor:pointer;transition:all .15s;box-shadow:var(--sh-1)}
+.sop-card:hover{border-color:var(--brand);transform:translateY(-1px)}
+.sop-card .sc-t{font-size:12.5px;font-weight:600;display:flex;align-items:center;gap:6px}
+.sop-card .sc-s{font-size:11px;color:var(--faint);margin-top:4px;line-height:1.5}
+.sop-steps{display:flex;align-items:center;gap:0;margin:6px 0 2px;flex-wrap:wrap}
+.sop-step{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--faint)}
+.sop-step .st-ic{width:26px;height:26px;border-radius:50%;background:var(--line-2);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--faint);flex:none}
+.sop-step.done{color:var(--down)}
+.sop-step.done .st-ic{background:var(--down-bg);color:var(--down)}
+.sop-step.cur{color:var(--brand-deep);font-weight:700}
+.sop-step.cur .st-ic{background:var(--gold);color:#FCFBF7;box-shadow:0 0 0 4px var(--brand-050)}
+.sop-step .st-line{width:26px;height:2px;background:var(--line);margin:0 5px}
+
+/* 副驾 */
+#copilot .cp-h{padding:13px 15px 11px;border-bottom:1px solid var(--line);background:var(--panel)}
+#copilot .cp-h .t{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px;letter-spacing:1px}
+#copilot .cp-h .t .ai-badge{background:transparent;border:1px solid var(--gold);color:var(--gold);font-size:9.5px;padding:2px 7px;border-radius:3px;font-weight:600;letter-spacing:2px}
+#copilot .cp-h .s{font-size:11px;color:var(--faint);margin-top:3px}
+#copilot .cp-h .cp-mode{margin-left:auto;display:flex;gap:4px}
+#cp-stream{flex:1;overflow-y:auto;padding:14px 14px 8px;display:flex;flex-direction:column;gap:12px}
+.msg{display:flex;gap:9px;max-width:100%;animation:fadeUp .25s ease}
+.msg .m-av{width:28px;height:28px;border-radius:5px;flex:none;display:flex;align-items:center;justify-content:center;font-size:13px;margin-top:2px}
+.msg.ai .m-av{background:#1E2126;color:#C9B585}
+.msg.me{align-self:flex-end;flex-direction:row-reverse}
+.msg.me .m-av{background:#4A463E;color:#F3F1EA}
+.msg .m-body{max-width:calc(100% - 40px);min-width:0}
+.msg.me .m-body{display:flex;flex-direction:column;align-items:flex-end}
+.msg .m-txt{background:var(--panel-2);border:1px solid var(--line);padding:9px 12px;border-radius:3px 10px 10px 10px;font-size:13px;line-height:1.65;white-space:pre-wrap;word-break:break-word}
+.msg.me .m-txt{background:#1E2126;color:#F3F1EA;border:none;border-radius:10px 3px 10px 10px}
+.msg .m-time{font-size:10px;color:var(--faint);margin-top:4px}
+.m-card{width:100%;margin-top:8px}
+.cp-input{border-top:1px solid var(--line);padding:10px 12px 12px;background:var(--panel)}
+.cp-input .box{border:1px solid var(--line);border-radius:6px;padding:9px 12px;transition:border .2s;background:var(--panel-2)}
+.cp-input .box:focus-within{border-color:var(--gold);background:#fff;box-shadow:0 0 0 3px var(--brand-050)}
+.cp-input textarea{width:100%;border:none;background:none;resize:none;font-size:13px;line-height:1.5;max-height:110px}
+.cp-input .row{display:flex;align-items:center;gap:6px;margin-top:7px}
+.cp-input .send{margin-left:auto;width:32px;height:32px;border-radius:5px;background:#1E2126;color:#F3F1EA;display:flex;align-items:center;justify-content:center;font-size:14px;transition:all .18s}
+.cp-input .send:hover{background:#000}
+.cp-input .send:disabled{background:#C9C3B2;cursor:not-allowed}
+.skill-chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 2px}
+.skill-chips .sk{font-size:11.5px;padding:4px 10px;border-radius:4px;background:var(--panel-2);border:1px solid var(--line);color:var(--sub);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:4px}
+.skill-chips .sk:hover{border-color:var(--gold);color:var(--brand-deep);background:var(--brand-050)}
+.typing{display:inline-flex;gap:4px;padding:12px 14px}
+.typing i{width:6px;height:6px;border-radius:50%;background:#B6C0D8;animation:tp 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.18s}.typing i:nth-child(3){animation-delay:.36s}
+@keyframes tp{0%,60%,100%{transform:none;opacity:.5}30%{transform:translateY(-4px);opacity:1}}
+
+/* 简报卡 */
+.brief{border-radius:8px;background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--gold);color:var(--ink);padding:15px 16px;position:relative;overflow:hidden}
+.brief .b-t{font-size:13.5px;font-weight:700;display:flex;align-items:center;gap:7px;letter-spacing:1px}
+.brief .b-s{font-size:11.5px;color:var(--faint);margin-top:2px}
+.brief .b-stats{display:flex;gap:8px;margin-top:11px;position:relative;z-index:2}
+.brief .b-stat{flex:1;background:var(--panel-2);border:1px solid var(--line);border-radius:6px;padding:8px 9px;cursor:pointer;transition:all .18s}
+.brief .b-stat:hover{border-color:var(--gold)}
+.brief .b-stat .n{font-size:19px;font-weight:700;font-family:var(--num);color:var(--ink)}
+.brief .b-stat .l{font-size:10.5px;color:var(--faint);margin-top:1px}
+.brief .b-sum{font-size:12px;line-height:1.7;color:var(--sub);margin-top:11px;position:relative;z-index:2}
+.brief .b-sum b{color:var(--brand-deep)}
+
+/* 富卡片（副驾流内） */
+.rich{border:1px solid var(--line);border-radius:13px;background:#fff;overflow:hidden;box-shadow:var(--sh-1)}
+.rich .r-h{padding:9px 12px;background:var(--panel-2);border-bottom:1px solid var(--line);font-size:12px;font-weight:700;display:flex;align-items:center;gap:7px}
+.rich .r-b{padding:11px 12px}
+.rich .r-f{padding:8px 12px;border-top:1px solid var(--line-2);display:flex;gap:7px;flex-wrap:wrap;background:var(--panel-2)}
+.mini-row{display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px dashed var(--line-2);cursor:pointer}
+.mini-row:last-child{border-bottom:none}
+.mini-row:hover .mr-t{color:var(--brand)}
+.mini-row .mr-t{font-size:12.5px;font-weight:600;flex:1;min-width:0;transition:color .15s}
+.mini-row .mr-s{font-size:11px;color:var(--faint)}
+
+/* 命令面板 */
+#palette{position:fixed;inset:0;background:rgba(18,28,58,.45);backdrop-filter:blur(3px);z-index:200;display:none;align-items:flex-start;justify-content:center;padding-top:12vh}
+#palette.open{display:flex}
+#palette .pal-box{width:640px;max-width:92vw;background:#fff;border-radius:18px;box-shadow:var(--sh-3);overflow:hidden;animation:palIn .2s ease}
+@keyframes palIn{from{opacity:0;transform:translateY(-10px) scale(.98)}to{opacity:1;transform:none}}
+#palette .pal-in{display:flex;align-items:center;gap:10px;padding:15px 18px;border-bottom:1px solid var(--line)}
+#palette .pal-in input{flex:1;border:none;font-size:15px;background:none}
+#palette .pal-list{max-height:52vh;overflow-y:auto;padding:8px}
+#palette .pal-sec{font-size:10.5px;color:var(--faint);padding:8px 10px 4px;letter-spacing:1px;font-weight:700}
+#palette .pal-item{display:flex;align-items:center;gap:11px;padding:9px 10px;border-radius:10px;cursor:pointer}
+#palette .pal-item.sel,#palette .pal-item:hover{background:var(--brand-050)}
+#palette .pal-item .pi-ic{width:30px;height:30px;border-radius:5px;background:var(--panel-2);display:flex;align-items:center;justify-content:center;font-size:14px;flex:none;filter:saturate(.35)}
+#palette .pal-item .pi-t{font-size:13px;font-weight:600}
+#palette .pal-item .pi-s{font-size:11px;color:var(--faint)}
+#palette .pal-foot{display:flex;gap:14px;padding:9px 16px;border-top:1px solid var(--line);font-size:11px;color:var(--faint);background:var(--panel-2)}
+#palette kbd{background:#fff;border:1px solid var(--line);border-radius:5px;padding:0 6px;font-size:10.5px}
+
+/* 通知抽屉 & 弹层 */
+#drawer-mask{position:fixed;inset:0;background:rgba(18,28,58,.4);z-index:150;display:none}
+#drawer-mask.open{display:block}
+.drawer{position:fixed;top:0;right:-430px;width:420px;height:100vh;background:#fff;z-index:160;transition:right .28s ease;box-shadow:var(--sh-3);display:flex;flex-direction:column}
+.drawer.open{right:0}
+.drawer .d-h{padding:15px 18px;border-bottom:1px solid var(--line);font-weight:700;font-size:14.5px;display:flex;align-items:center;gap:8px}
+.drawer .d-h .x{margin-left:auto;color:var(--faint);font-size:16px;padding:4px}
+.drawer .d-b{flex:1;overflow-y:auto;padding:12px 14px}
+
+/* Toast */
+#toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);background:#1E2126;color:#F3F1EA;padding:10px 18px;border-radius:6px;font-size:13px;z-index:300;opacity:0;pointer-events:none;transition:all .3s;box-shadow:var(--sh-3);display:flex;align-items:center;gap:8px;max-width:70vw}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* 表格 */
+.tbl{width:100%;border-collapse:collapse;font-size:12.5px}
+.tbl th{text-align:left;color:var(--faint);font-weight:500;font-size:11.5px;padding:7px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+.tbl td{padding:9px 10px;border-bottom:1px solid var(--line-2);vertical-align:middle}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr{transition:background .12s}
+.tbl tbody tr:hover{background:var(--panel-2)}
+
+/* 看板图 */
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:11.5px;color:var(--sub)}
+.legend .lg{display:flex;align-items:center;gap:5px}
+.legend .lg i{width:9px;height:9px;border-radius:3px;display:inline-block}
+.hold-bar{display:flex;height:12px;border-radius:7px;overflow:hidden}
+.hold-bar i{display:block;height:100%}
+
+/* 设置 */
+.set-row{display:flex;align-items:center;gap:12px;padding:13px 2px;border-bottom:1px solid var(--line-2)}
+.set-row .sr-t{font-size:13px;font-weight:600}
+.set-row .sr-s{font-size:11.5px;color:var(--faint);margin-top:2px}
+.switch{margin-left:auto;width:40px;height:22px;border-radius:4px;background:#CFC9B8;position:relative;cursor:pointer;transition:background .2s;flex:none}
+.switch::after{content:"";position:absolute;top:2.5px;left:3px;width:17px;height:17px;border-radius:3px;background:#fff;transition:left .2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.switch.on{background:var(--gold)}
+.switch.on::after{left:20px}
+
+/* 报告预览 */
+.report-doc{background:#fff;border:1px solid var(--line);border-radius:14px;padding:26px 30px;max-width:760px;margin:0 auto;box-shadow:var(--sh-1)}
+.report-doc h2{font-size:18px;text-align:center;letter-spacing:1px}
+.report-doc .rd-sub{text-align:center;color:var(--faint);font-size:11.5px;margin-top:5px}
+.report-doc h3{font-size:14px;margin:20px 0 8px;padding-left:9px;border-left:3px solid var(--gold)}
+.report-doc p{font-size:12.5px;color:var(--sub);line-height:1.8;margin-bottom:8px}
+.report-doc .rd-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:12px 0}
+.report-doc .rd-kpi{background:var(--panel-2);border-radius:10px;padding:10px;text-align:center}
+.report-doc .rd-kpi .n{font-size:17px;font-weight:700;font-family:var(--num)}
+.report-doc .rd-kpi .l{font-size:10.5px;color:var(--faint);margin-top:2px}
+
+/* 浮动副驾按钮（界面优先且收起时） */
+#cp-fab{position:fixed;right:22px;bottom:22px;width:52px;height:52px;border-radius:8px;background:#1E2126;color:#C9B585;font-size:19px;display:none;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(31,34,39,.35);z-index:90;transition:transform .18s}
+#cp-fab:hover{transform:scale(1.06)}
+body.mode-classic.copilot-hidden #cp-fab{display:flex}
+
+.tooltip{position:relative}
+.fade-in{animation:fadeUp .3s ease}
+
+/* 演示讲解模式 */
+#tourbar{position:fixed;left:50%;transform:translateX(-50%);bottom:20px;width:min(860px,94vw);background:rgba(16,24,48,.92);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.14);border-radius:16px;box-shadow:0 16px 48px rgba(0,0,0,.4);z-index:300;display:none;flex-direction:column;color:#fff;overflow:hidden}
+#tourbar .tb-main{display:flex;align-items:center;gap:14px;padding:13px 18px}
+#tourbar .tb-badge{background:#8A6D3C;color:#F3F1EA;border-radius:3px;padding:4px 10px;font-size:11.5px;font-weight:700;white-space:nowrap;letter-spacing:1px}
+#tourbar .tb-step{font-size:11px;color:rgba(255,255,255,.55);white-space:nowrap;font-family:var(--num)}
+#tourbar .tb-m{flex:1;min-width:0}
+#tourbar .tb-t{font-size:14px;font-weight:700;margin-bottom:3px}
+#tourbar .tb-n{font-size:12px;color:rgba(255,255,255,.72);line-height:1.6}
+#tourbar .tb-r{display:flex;gap:6px;flex:none}
+#tourbar .tb-r button{width:34px;height:34px;border-radius:10px;background:rgba(255,255,255,.1);color:#fff;font-size:14px;display:flex;align-items:center;justify-content:center;transition:background .15s}
+#tourbar .tb-r button:hover{background:rgba(255,255,255,.22)}
+#tourbar .tb-prog{height:3px;background:rgba(255,255,255,.12)}
+#tourbar .tb-prog i{display:block;height:100%;width:0;background:#8A6D3C;transition:width linear}
+body.touring #topbar{box-shadow:0 0 0 3px rgba(138,109,60,.4)}
+
+/* ============ 墨玉深色版覆盖层 ============ */
+::-webkit-scrollbar-thumb{background:#3A3E47}
+::-webkit-scrollbar-thumb:hover{background:#4C515C}
+#topbar{background:#0E1013;border-bottom-color:#23262D}
+#topbar .logo .mark{background:#C0A468;color:#14161A}
+.mode-switch button.on{background:#C0A468;color:#14161A}
+.top-ico .dot{border-color:#0E1013}
+#navrail .nav-item.on .ic{background:#C0A468;color:#14161A}
+.btn.primary{background:#C0A468;border-color:#C0A468;color:#14161A}
+.btn.primary:hover{background:#D8C095;color:#14161A}
+.btn.gold{background:#C0A468;color:#14161A}
+.btn.gold:hover{background:#D8C095;color:#14161A}
+.c360-head{background:#14161C;border-bottom-color:#C0A468}
+.c360-head::after{background:linear-gradient(180deg,transparent,rgba(192,164,104,.5),transparent)}
+.c360-head .head-act .btn{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.16);color:#E9E5D8}
+.c360-head .head-act .btn:hover{background:rgba(255,255,255,.16)}
+.c360-head .head-act .btn.gold{background:#C0A468;color:#14161A;border:none}
+.sop-col .sc-h .n{background:#C0A468;color:#14161A}
+.sop-step.cur{color:#D8C095}
+.sop-step.cur .st-ic{background:#C0A468;color:#14161A;box-shadow:0 0 0 4px rgba(192,164,104,.15)}
+.msg.ai .m-av{background:#C0A468;color:#14161A}
+.msg.me .m-av{background:#3A3E47;color:#E9E5D8}
+.msg.me .m-txt{background:#33373F;color:#E9E5D8}
+.cp-input .send{background:#C0A468;color:#14161A}
+.cp-input .send:hover{background:#D8C095}
+.cp-input .send:disabled{background:#3A3E47;color:#7C7768}
+.cp-input .box:focus-within{background:var(--panel);border-color:#C0A468;box-shadow:0 0 0 3px rgba(192,164,104,.15)}
+#copilot .cp-h .t .ai-badge{border-color:#C0A468;color:#C0A468}
+.brief{border-left-color:#C0A468}
+.brief .b-sum b{color:#D8C095}
+.tl-item::before{border-color:var(--panel)}
+.rich{background:var(--panel)}
+.report-doc{background:var(--panel);border-color:var(--line)}
+.report-doc .rd-kpi{background:var(--panel-2)}
+#palette{background:rgba(8,9,12,.6)}
+#palette .pal-box{background:var(--panel);border:1px solid var(--line)}
+#palette kbd{background:var(--panel-2);border-color:var(--line)}
+#drawer-mask{background:rgba(8,9,12,.55)}
+.drawer{background:var(--panel)}
+#toast{background:#2A2E37;color:#E9E5D8;border:1px solid #3A3E47}
+#cp-fab{background:#C0A468;color:#14161A;box-shadow:0 8px 24px rgba(0,0,0,.5)}
+.switch{background:#3A3E47}
+.switch.on{background:#C0A468}
+.task .ck{border-color:#4A4E58}
+.typing i{background:#5A5E68}
+.pri-dot.low{background:#5A5E68}
+.evt .e-ic{background:var(--panel-2)!important}
+#tourbar{background:rgba(14,16,19,.94);border-color:rgba(255,255,255,.1)}
+#tourbar .tb-badge{background:#C0A468;color:#14161A}
+#tourbar .tb-prog i{background:#C0A468}
+body.touring #topbar{box-shadow:0 0 0 3px rgba(192,164,104,.45)}
+.insight.sev-low::before{background:#C0A468}
+.avatar{box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
+</style>
+</head>
+<body class="mode-copilot">
+
+<!-- 顶栏 -->
+<header id="topbar">
+  <div class="logo"><span class="mark">盈</span>YINGMI WORK<small>· 顾问工作台</small><span class="env">墨玉版</span></div>
+  <div class="mode-switch" id="modeSwitch">
+    <button data-mode="copilot" class="on">对话优先</button>
+    <button data-mode="classic">界面优先</button>
+  </div>
+  <button class="top-ico" id="tourBtn" title="演示讲解模式" onclick="startTour()" style="width:auto;padding:0 14px;font-size:12.5px;font-weight:600;gap:6px;display:flex;letter-spacing:1px"><svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><path d="M1 0.8 L9 5 L1 9.2 Z"/></svg>演示</button>
+  <div class="searchbox"><div class="fake-input" id="openPalette"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg><span>搜索客户 / 报告 / 素材，或直接问副驾…</span><kbd>⌘K</kbd></div></div>
+  <button class="top-ico" id="bellBtn" title="通知"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><span class="dot" id="bellDot">6</span></button>
+  <button class="top-ico" title="个性化设置" onclick="go('settings')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
+  <div class="me">
+    <div class="who"><b>沈望舒</b><span>资深投顾顾问 · 高净值一组</span></div>
+    <div class="avatar" style="width:34px;height:34px;background:#8A6D3C;font-size:13px;border-radius:5px">沈</div>
+  </div>
+</header>
+
+<div id="shell">
+  <!-- 导航 -->
+  <nav id="navrail"></nav>
+  <!-- 列表列（界面优先模式） -->
+  <aside id="listcol"></aside>
+  <!-- 副驾 -->
+  <aside id="copilot">
+    <div class="cp-h">
+      <div class="t">盈米副驾 <span class="ai-badge">COPILOT</span>
+        <div class="cp-mode">
+          <button class="top-ico only-classic" style="color:var(--sub);width:28px;height:28px" title="收起副驾" onclick="toggleCopilot(false)">⇥</button>
+        </div>
+      </div>
+      <div class="s">已接入客户 360 · 投研 · 交易 · 企微 · 神策行为 · AI 洞察</div>
+    </div>
+    <div id="cp-stream"></div>
+    <div class="cp-input">
+      <div class="skill-chips" id="skillChips"></div>
+      <div class="box" style="margin-top:8px">
+        <textarea id="cp-text" rows="1" placeholder="问客户、问市场、查报告、写话术…（Enter 发送）"></textarea>
+        <div class="row">
+          <button class="btn sm ghost" title="语音输入" onclick="toast('🎙 语音输入（演示）')">🎙</button>
+          <button class="btn sm ghost" title="上传文件解读" onclick="toast('📎 支持拖入合同/账单/截图，AI 自动解读（演示）')">📎</button>
+          <button class="btn sm ghost" title="副驾记忆与权限" onclick="toast('🔐 副驾遵循数据权限与合规留痕（演示）')">🔐</button>
+          <button class="send" id="cp-send" title="发送">➤</button>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <!-- 工作区 -->
+  <main id="workarea"></main>
+</div>
+
+<button id="cp-fab" onclick="toggleCopilot(true)" title="打开副驾">✦</button>
+
+<!-- 演示讲解条 -->
+<div id="tourbar">
+  <div class="tb-main">
+    <span class="tb-badge">🎬 演示</span>
+    <div class="tb-m"><div class="tb-t" id="tb-t"></div><div class="tb-n" id="tb-n"></div></div>
+    <span class="tb-step" id="tb-step"></span>
+    <div class="tb-r">
+      <button onclick="tourPrev()" title="上一幕">⏮</button>
+      <button id="tb-play" onclick="tourToggle()" title="暂停 / 继续">⏸</button>
+      <button onclick="tourNext()" title="下一幕">⏭</button>
+      <button onclick="endTour()" title="退出演示">✕</button>
+    </div>
+  </div>
+  <div class="tb-prog"><i id="tb-bar"></i></div>
+</div>
+
+<!-- 命令面板 -->
+<div id="palette">
+  <div class="pal-box">
+    <div class="pal-in">🔍<input id="pal-input" placeholder="搜索客户、任务、报告、素材、功能，或输入问题直接问副驾…"><kbd>ESC</kbd></div>
+    <div class="pal-list" id="pal-list"></div>
+    <div class="pal-foot"><span><kbd>↑↓</kbd> 选择</span><span><kbd>⏎</kbd> 打开</span><span><kbd>⇧⏎</kbd> 问副驾</span><span>支持拼音 / 模糊搜索</span></div>
+  </div>
+</div>
+
+<!-- 通知抽屉 -->
+<div id="drawer-mask"></div>
+<div class="drawer" id="drawer">
+  <div class="d-h"><span id="drawer-title">通知中心</span><button class="x" onclick="closeDrawer()">✕</button></div>
+  <div class="d-b" id="drawer-body"></div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+/* ==================== Mock 数据层（对接 SCRM/TWS/投研/神策/AI洞察 的演示数据） ==================== */
+const TODAY = '2026-09-21';
+const DB = {
+  advisor:{name:'沈望舒',team:'高净值一组',title:'资深投顾顾问',licence:'基金从业 · 投顾资格',custCount:86,aum:2.41e8},
+  market:{
+    date:'2026-09-21 09:30', summary:'隔夜美联储如期降息 25bp，全球 risk-on；A 股高开，沪深300 +0.8%，红利低波领涨；10Y 国债收益率 1.78% 低位企稳；黄金 2680 美元/盎司续创新高。',
+    indices:[{n:'上证指数',v:'3,847.21',c:+0.82},{n:'沪深300',v:'4,512.36',c:+0.79},{n:'创业板指',v:'2,268.40',c:+1.24},{n:'中证红利',v:'5,893.12',c:+1.05},{n:'10Y国债',v:'1.782%',c:-0.012},{n:'黄金AU9999',v:'612.4元/g',c:+0.46}]
+  },
+  customers:[
+    { id:'c1',name:'陈明远',py:'chenmingyuan',gender:'男',age:45,job:'制造业企业主',city:'广州',vip:3,vipLabel:'钻石',risk:'稳健型 C3',riskScore:62,riskExp:'2027-02-10',
+      aum:8624000,aumChg:+0.42,pnlTotal:486200,pnlRate:5.97,pnlYear:213400,pnlYearRate:2.54,maxDD:-6.8,ddLimit:-10,
+      openDate:'2021-03-18',firstInvest:'2021-03-25',investYears:'5年6个月',lastActive:'2026-09-20 21:34',
+      tags:['长赢跟车','四笔钱','企业主','家有二宝','税务敏感'],sopStage:4,sopName:'执行期',
+      family:'已婚，配偶全职太太；长子 14 岁（国际校），次女 9 岁；父母同住，有赡养压力',
+      goals:[{t:'子女教育金',target:3000000,cur:1420000,year:2032},{t:'养老补充',target:8000000,cur:3860000,year:2041},{t:'企业应急流动性',target:2000000,cur:2000000,year:2026}],
+      allocation:[['权益策略',34,'#2E5BFF'],['固收+',28,'#7C5CFF'],['现金管理',18,'#12A150'],['保险年金',12,'#C9A254'],['另类/QDII',8,'#F79009']],
+      holdings:[
+        {n:'长赢计划·主理人组合',type:'投顾策略',amt:2380000,pnl:186400,rate:8.49,spark:[3.1,3.4,3.2,3.8,4.1,4.6,4.3,5.0,5.6,5.2,6.1,6.6]},
+        {n:'全天候多元配置',type:'投顾策略',amt:1860000,pnl:94200,rate:5.34,spark:[2.0,2.2,2.1,2.5,2.4,2.8,3.1,2.9,3.3,3.6,3.4,3.8]},
+        {n:'固收增强组合',type:'投顾策略',amt:1520000,pnl:61800,rate:4.24,spark:[1.2,1.4,1.3,1.6,1.8,1.7,2.0,2.2,2.1,2.4,2.6,2.8]},
+        {n:'盈米宝(货币)',type:'现金管理',amt:980000,pnl:12600,rate:1.82,spark:[1,1,1,1,1,1,1,1,1,1,1,1]},
+        {n:'年金保险(传世金生)',type:'保险',amt:1040000,pnl:0,rate:0,spark:[1,1,1,1,1,1,1,1,1,1,1,1]},
+        {n:'纳斯达克100QDII',type:'公募基金',amt:844000,pnl:112200,rate:15.33,spark:[6,7,6.4,7.8,8.6,9.2,8.4,10.1,11.6,10.8,12.9,14.2]}
+      ],
+      trend:[7.9,8.05,7.88,8.12,8.3,8.18,8.42,8.36,8.55,8.48,8.6,8.624],
+      behavior:{active30:18,lastPages:['持仓收益页','长赢计划详情','市场解读'],intent:'关注收益波动'},
+      timeline:[
+        {d:'2026-09-18',type:'event',t:'组合回撤触及 -5% 关注线',dsc:'长赢计划近一月回撤 -5.2%，接近客户风险承受阈值（-10%）的预警区间'},
+        {d:'2026-09-12',type:'comm',t:'企微沟通 · 市场波动安抚',dsc:'客户询问“最近是不是跌得有点多”，已发送《波动期的三道防线》图文，客户回复“明白，再看看”'},
+        {d:'2026-09-02',type:'trade',t:'跟车买入 · 长赢计划第47期信号',dsc:'确认金额 ¥200,000，按 SOP 完成双录与风险揭示'},
+        {d:'2026-08-20',type:'report',t:'送达《2026 中期家庭财务检视》',dsc:'报告打开 3 次，平均阅读 6 分钟，重点停留“教育金缺口”章节'},
+        {d:'2026-07-30',type:'comm',t:'线下会面 · 年中复盘',dsc:'到访营业部，沟通 65 分钟；明确“不追加权益、保持现金流充裕”'}
+      ],
+      comms:[
+        {type:'wechat',d:'2026-09-12',t:'企微会话',dsc:'波动安抚 + 投教材料送达，客户情绪平稳',dur:'会话 12 条'},
+        {type:'call',d:'2026-08-28',t:'外呼回访',dsc:'确认 9 月家庭现金流安排，提示企业应急资金勿动',dur:'18 分钟'},
+        {type:'meeting',d:'2026-07-30',t:'线下面谈',dsc:'年中复盘：维持配置，Q4 再评估加仓',dur:'65 分钟'}
+      ],
+      reports:[{id:'r1',t:'家庭财务规划报告 V5',d:'2026-06-12',st:'已送达·已读'},{id:'r2',t:'2026 中期检视报告',d:'2026-08-20',st:'已送达·已读'}],
+      reminders:[{t:'配偶生日（10-02）· 轻关怀触点',d:'2026-10-02'},{t:'风险测评到期前 30 天提醒',d:'2027-01-11'}]
+    },
+    { id:'c2',name:'林晓芸',py:'linxiaoyun',gender:'女',age:38,job:'互联网大厂高管',city:'深圳',vip:2,vipLabel:'铂金',risk:'平衡型 C4',riskScore:74,riskExp:'2026-12-05',
+      aum:3286000,aumChg:+0.96,pnlTotal:312800,pnlRate:10.52,pnlYear:186400,pnlYearRate:6.02,maxDD:-9.4,ddLimit:-15,
+      openDate:'2023-05-11',firstInvest:'2023-05-20',investYears:'3年4个月',lastActive:'2026-09-21 08:12',
+      tags:['定投执行中','RSU期权','年终奖窗口','高净值潜力'],sopStage:3,sopName:'规划期',
+      family:'已婚，一子 5 岁；配偶同为互联网从业；房贷月供 2.8 万',
+      goals:[{t:'子女教育金',target:2000000,cur:460000,year:2036},{t:'提前退休储备',target:10000000,cur:3286000,year:2045}],
+      allocation:[['权益策略',46,'#2E5BFF'],['固收+',22,'#7C5CFF'],['现金管理',14,'#12A150'],['QDII',18,'#F79009']],
+      holdings:[
+        {n:'长赢计划·主理人组合',type:'投顾策略',amt:1120000,pnl:128600,rate:12.97,spark:[4,4.6,4.2,5.1,5.8,6.4,6,6.9,7.6,7.1,8.2,9]},
+        {n:'周周同行(定投)',type:'投顾策略',amt:486000,pnl:38200,rate:8.53,spark:[2,2.4,2.2,2.8,3.2,3,3.6,4,3.8,4.4,4.8,5.2]},
+        {n:'纳斯达克100QDII',type:'公募基金',amt:592000,pnl:98600,rate:19.98,spark:[8,9,8.2,9.6,10.8,11.4,10.2,12.1,13.6,12.8,14.9,16.2]},
+        {n:'固收增强组合',type:'投顾策略',amt:724000,pnl:28600,rate:4.11,spark:[1.2,1.5,1.4,1.7,1.9,1.8,2.1,2.3,2.2,2.5,2.7,2.9]},
+        {n:'盈米宝(货币)',type:'现金管理',amt:364000,pnl:5200,rate:1.8,spark:[1,1,1,1,1,1,1,1,1,1,1,1]}
+      ],
+      trend:[2.86,2.92,2.88,2.98,3.05,3.02,3.12,3.09,3.18,3.15,3.24,3.286],
+      behavior:{active30:24,lastPages:['工资理财','定投计划','教育金测算'],intent:'近期多次使用教育金计算器'},
+      timeline:[
+        {d:'2026-09-19',type:'event',t:'工资卡大额入账 ¥86 万（年终奖）',dsc:'神策捕捉到入账后 2 次浏览“大额配置”页面，未下单'},
+        {d:'2026-09-15',type:'comm',t:'企微沟通 · 规划方案初稿',dsc:'已发送教育金+提前退休双目标规划框架，客户反馈“年终奖下来再定”'},
+        {d:'2026-09-08',type:'trade',t:'定投扣款成功',dsc:'周周同行月定投 ¥8,000 扣款成功（连续 26 期）'}
+      ],
+      comms:[{type:'wechat',d:'2026-09-15',t:'企微会话',dsc:'规划框架沟通，待年终奖落地推进',dur:'会话 9 条'},{type:'call',d:'2026-08-22',t:'外呼',dsc:'KYC 更新：晋升 VP，收入结构变化（RSU 占比提升）',dur:'22 分钟'}],
+      reports:[{id:'r3',t:'家庭财务规划报告（草案）',d:'2026-09-15',st:'待确认'}],
+      reminders:[{t:'风险测评 12-05 到期',d:'2026-12-05'},{t:'孩子生日 11-11',d:'2026-11-11'}]
+    },
+    { id:'c3',name:'王建国',py:'wangjianguo',gender:'男',age:52,job:'制造业工厂主',city:'佛山',vip:4,vipLabel:'私行级',risk:'保守型 C2',riskScore:41,riskExp:'2027-04-18',
+      aum:15800000,aumChg:-1.24,pnlTotal:486000,pnlRate:3.17,pnlYear:-126000,pnlYearRate:-0.79,maxDD:-4.2,ddLimit:-5,
+      openDate:'2019-11-06',firstInvest:'2019-11-15',investYears:'6年10个月',lastActive:'2026-09-21 07:48',
+      tags:['私行级','企业主','赎回预警','重保本'],sopStage:4,sopName:'执行期',alert:true,
+      family:'已婚，一子一女均已成家；企业处于交班过渡期',
+      goals:[{t:'资产保值',target:15000000,cur:15800000,year:2030},{t:'传承安排',target:5000000,cur:1200000,year:2035}],
+      allocation:[['固收+',38,'#7C5CFF'],['现金管理',26,'#12A150'],['权益策略',14,'#2E5BFF'],['保险年金',22,'#C9A254']],
+      holdings:[
+        {n:'固收增强组合',type:'投顾策略',amt:6000000,pnl:286000,rate:5.01,spark:[2,2.3,2.2,2.6,2.9,2.8,3.2,3.5,3.3,3.8,4,4.3]},
+        {n:'盈米宝(货币)',type:'现金管理',amt:4100000,pnl:52000,rate:1.78,spark:[1,1,1,1,1,1,1,1,1,1,1,1]},
+        {n:'年金保险(尊享传家)',type:'保险',amt:3480000,pnl:0,rate:0,spark:[1,1,1,1,1,1,1,1,1,1,1,1]},
+        {n:'全天候多元配置',type:'投顾策略',amt:2220000,pnl:148000,rate:7.14,spark:[3,3.4,3.1,3.7,4,4.4,4.1,4.8,5.2,4.9,5.6,6]}
+      ],
+      trend:[16.1,16.05,15.9,15.98,15.86,15.92,15.78,15.84,15.7,15.76,15.9,15.8],
+      behavior:{active30:9,lastPages:['交易记录','赎回页(3次)','活期+转出'],intent:'近 7 日 3 次进入赎回页，2 次咨询大额转出规则'},
+      timeline:[
+        {d:'2026-09-20',type:'event',t:'⚠️ 赎回预警：7 日内 3 次访问赎回页',dsc:'神策行为序列显示赎回页停留累计 14 分钟；同期无交易流水（以交易 API 为准）'},
+        {d:'2026-09-16',type:'comm',t:'企微沟通 · 询问大额转出规则',dsc:'客户问“一笔转 500 万要多久到账”，已解答 T+1 规则；未说明用途'},
+        {d:'2026-09-01',type:'trade',t:'分红到账 ¥42,600',dsc:'固收增强组合季度分红，已按约定转盈米宝'}
+      ],
+      comms:[{type:'wechat',d:'2026-09-16',t:'企微会话',dsc:'大额转出规则咨询，用途未明',dur:'会话 6 条'},{type:'call',d:'2026-08-05',t:'外呼',dsc:'年中回访：对企业交班后的资金安排有顾虑',dur:'31 分钟'}],
+      reports:[{id:'r4',t:'持仓诊断报告',d:'2026-09-21',st:'AI 已生成·待发送'},{id:'r5',t:'年度资产检视',d:'2026-01-16',st:'已送达·已读'}],
+      reminders:[{t:'保单周年（尊享传家）',d:'2026-10-12'}]
+    },
+    { id:'c4',name:'苏婉晴',py:'suwanqing',gender:'女',age:41,job:'三甲医院主任医师',city:'广州',vip:2,vipLabel:'铂金',risk:'稳健型 C3',riskScore:58,riskExp:'2027-06-01',
+      aum:2154000,aumChg:+0.31,pnlTotal:126400,pnlRate:6.23,pnlYear:68400,pnlYearRate:3.28,maxDD:-3.9,ddLimit:-10,
+      openDate:'2026-08-28',firstInvest:'2026-09-05',investYears:'1个月',lastActive:'2026-09-20 22:05',
+      tags:['新承接','KYC进行中','医生','时间稀缺'],sopStage:1,sopName:'KYC期',
+      family:'已婚，一女 12 岁；父母健在；家庭年收入约 120 万',
+      goals:[{t:'子女教育金',target:1500000,cur:0,year:2033},{t:'父母医疗储备',target:800000,cur:200000,year:2030}],
+      allocation:[['现金管理',42,'#12A150'],['固收+',35,'#7C5CFF'],['权益策略',23,'#2E5BFF']],
+      holdings:[
+        {n:'盈米宝(货币)',type:'现金管理',amt:904000,pnl:2100,rate:1.8,spark:[1,1,1,1,1,1,1,1,1,1,1,1]},
+        {n:'固收增强组合',type:'投顾策略',amt:754000,pnl:8600,rate:1.15,spark:[0.2,0.3,0.3,0.4,0.5,0.5,0.6,0.7,0.8,0.9,1,1.1]},
+        {n:'长赢计划·主理人组合',type:'投顾策略',amt:496000,pnl:9800,rate:2.02,spark:[0.4,0.6,0.5,0.8,1,0.9,1.2,1.4,1.3,1.6,1.8,2]}
+      ],
+      trend:[2.0,2.02,2.05,2.04,2.08,2.1,2.09,2.12,2.13,2.14,2.15,2.154],
+      behavior:{active30:12,lastPages:['新手专区','风险测评','投顾协议'],intent:'学习期，浏览投教内容多'},
+      timeline:[
+        {d:'2026-09-20',type:'comm',t:'企微沟通 · KYC 资料补充',dsc:'已收集职业/收入/家庭信息，待补充投资经验与流动性需求'},
+        {d:'2026-09-05',type:'trade',t:'首转入金 ¥2,000,000',dsc:'承接后首笔入金，按 SOP 完成新手引导'},
+        {d:'2026-08-28',type:'event',t:'新客承接',dsc:'渠道：老客转介绍（陈明远）；分配至高净值一组'}
+      ],
+      comms:[{type:'wechat',d:'2026-09-20',t:'企微会话',dsc:'KYC 资料补充沟通',dur:'会话 15 条'},{type:'meeting',d:'2026-09-06',t:'首次面谈(视频)',dsc:'建立信任，明确“先学习、再配置”的节奏',dur:'48 分钟'}],
+      reports:[],
+      reminders:[{t:'KYC 完整度 70%，剩余项本周内补齐',d:'2026-09-25'}]
+    },
+    { id:'c5',name:'黄子轩',py:'huangzixuan',gender:'男',age:35,job:'律所合伙人',city:'广州',vip:1,vipLabel:'黄金',risk:'进取型 C5',riskScore:88,riskExp:'2027-08-20',
+      aum:964000,aumChg:+1.62,pnlTotal:88600,pnlRate:10.13,pnlYear:52400,pnlYearRate:5.74,maxDD:-12.6,ddLimit:-20,
+      openDate:'2026-09-10',firstInvest:'2026-09-12',investYears:'11天',lastActive:'2026-09-21 09:02',
+      tags:['新承接','高潜年轻','进取型','自研组合兴趣'],sopStage:0,sopName:'承接期',
+      family:'未婚；收入高波动（案件提成制）',
+      goals:[{t:'购房首付补充',target:1200000,cur:964000,year:2028}],
+      allocation:[['权益策略',58,'#2E5BFF'],['QDII',24,'#F79009'],['现金管理',18,'#12A150']],
+      holdings:[
+        {n:'长赢计划·主理人组合',type:'投顾策略',amt:560000,pnl:12600,rate:2.3,spark:[0.5,0.8,0.6,1,1.2,1,1.4,1.7,1.5,1.9,2.1,2.3]},
+        {n:'纳斯达克100QDII',type:'公募基金',amt:231000,pnl:6800,rate:3.03,spark:[0.6,0.9,0.7,1.1,1.4,1.2,1.6,1.9,1.7,2.1,2.4,2.7]},
+        {n:'盈米宝(货币)',type:'现金管理',amt:173000,pnl:300,rate:1.8,spark:[1,1,1,1,1,1,1,1,1,1,1,1]}
+      ],
+      trend:[0.9,0.91,0.9,0.92,0.93,0.92,0.94,0.95,0.94,0.95,0.96,0.964],
+      behavior:{active30:9,lastPages:['策略排行榜','QDII专区','费率说明'],intent:'研究型客户，对比多个策略'},
+      timeline:[
+        {d:'2026-09-18',type:'comm',t:'企微沟通 · 承接确认',dsc:'完成投顾协议签署与双录；约定每周三固定沟通'},
+        {d:'2026-09-12',type:'trade',t:'首笔申购 ¥800,000',dsc:'长赢计划+QDII 组合，客户自主研究后下单'},
+        {d:'2026-09-10',type:'event',t:'新客承接',dsc:'渠道：App 自助开户转人工服务'}
+      ],
+      comms:[{type:'wechat',d:'2026-09-18',t:'企微会话',dsc:'承接确认与沟通节奏约定',dur:'会话 11 条'}],
+      reports:[],
+      reminders:[{t:'承接期 SOP：首次回访（开户后 14 天）',d:'2026-09-24'}]
+    },
+    { id:'c6',name:'周雅琴',py:'zhouyaqin',gender:'女',age:58,job:'退休教师',city:'珠海',vip:2,vipLabel:'铂金',risk:'保守型 C2',riskScore:38,riskExp:'2027-03-15',
+      aum:4520000,aumChg:+0.18,pnlTotal:342000,pnlRate:8.18,pnlYear:98600,pnlYearRate:2.23,maxDD:-2.8,ddLimit:-5,
+      openDate:'2020-06-22',firstInvest:'2020-07-02',investYears:'6年2个月',lastActive:'2026-09-19 16:20',
+      tags:['退休','分红现金流','生日关怀','保险配置'],sopStage:4,sopName:'执行期',
+      family:'丧偶，一子定居加拿大；独立生活，重视稳定现金流',
+      goals:[{t:'养老现金流',target:300000,cur:300000,year:2026},{t:'传承安排',target:2000000,cur:4520000,year:2040}],
+      allocation:[['固收+',44,'#7C5CFF'],['保险年金',30,'#C9A254'],['现金管理',16,'#12A150'],['权益策略',10,'#2E5BFF']],
+      holdings:[
+        {n:'固收增强组合',type:'投顾策略',amt:1988000,pnl:142000,rate:7.69,spark:[3,3.4,3.2,3.7,4,3.8,4.3,4.6,4.4,4.9,5.2,5.5]},
+        {n:'年金保险(颐年金生)',type:'保险',amt:1356000,pnl:0,rate:0,spark:[1,1,1,1,1,1,1,1,1,1,1,1]},
+        {n:'盈米宝(货币)',type:'现金管理',amt:723000,pnl:9800,rate:1.79,spark:[1,1,1,1,1,1,1,1,1,1,1,1]},
+        {n:'全天候多元配置',type:'投顾策略',amt:453000,pnl:28400,rate:6.69,spark:[2.5,2.8,2.6,3,3.3,3.1,3.5,3.8,3.6,4,4.3,4.5]}
+      ],
+      trend:[4.3,4.32,4.31,4.35,4.38,4.36,4.4,4.42,4.41,4.45,4.5,4.52],
+      behavior:{active30:6,lastPages:['分红记录','年金领取'],intent:'低频，关注分红到账'},
+      timeline:[
+        {d:'2026-09-18',type:'trade',t:'分红到账 ¥18,600',dsc:'固收增强组合月度分红，进入盈米宝'},
+        {d:'2026-09-10',type:'comm',t:'外呼 · 季度关怀',dsc:'身体近况好；提示 10 月保单周年与生日关怀安排',dur:'24 分钟'}
+      ],
+      comms:[{type:'call',d:'2026-09-10',t:'外呼关怀',dsc:'季度关怀+保单周年预告',dur:'24 分钟'},{type:'wechat',d:'2026-08-15',t:'企微会话',dsc:'分红再投资确认',dur:'会话 4 条'}],
+      reports:[{id:'r6',t:'年度资产检视',d:'2026-01-16',st:'已送达·已读'}],
+      reminders:[{t:'生日关怀（10-08）· 建议电话+小礼品',d:'2026-10-08'},{t:'保单周年领取确认',d:'2026-10-20'}]
+    },
+    { id:'c7',name:'吴海涛',py:'wuhaitao',gender:'男',age:48,job:'地产行业',city:'广州',vip:3,vipLabel:'钻石',risk:'平衡型 C4',riskScore:70,riskExp:'2026-11-30',
+      aum:7306000,aumChg:-0.36,pnlTotal:512000,pnlRate:7.53,pnlYear:164000,pnlYearRate:2.3,maxDD:-8.8,ddLimit:-15,
+      openDate:'2021-09-14',firstInvest:'2021-09-28',investYears:'5年',lastActive:'2026-09-17 20:44',
+      tags:['信号跟车','地产链承压','资金大额进出'],sopStage:4,sopName:'执行期',
+      family:'已婚，一子读大一；行业下行，收入不确定性高',
+      goals:[{t:'子女留学金',target:2400000,cur:1360000,year:2028}],
+      allocation:[['权益策略',32,'#2E5BFF'],['固收+',30,'#7C5CFF'],['现金管理',24,'#12A150'],['QDII',14,'#F79009']],
+      holdings:[
+        {n:'长赢计划·主理人组合',type:'投顾策略',amt:2340000,pnl:198000,rate:9.24,spark:[3.5,3.9,3.6,4.2,4.7,5.1,4.8,5.5,6,5.6,6.4,6.9]},
+        {n:'固收增强组合',type:'投顾策略',amt:2192000,pnl:98600,rate:4.71,spark:[1.8,2,1.9,2.3,2.5,2.4,2.8,3,2.9,3.2,3.5,3.7]},
+        {n:'盈米宝(货币)',type:'现金管理',amt:1753000,pnl:21600,rate:1.81,spark:[1,1,1,1,1,1,1,1,1,1,1,1]},
+        {n:'恒生科技QDII',type:'公募基金',amt:1021000,pnl:194000,rate:23.46,spark:[8,9.5,8.4,10.2,11.8,10.6,12.4,14.2,12.8,15.1,17.4,19.8]}
+      ],
+      trend:[7.4,7.46,7.38,7.5,7.58,7.52,7.44,7.36,7.42,7.34,7.28,7.306],
+      behavior:{active30:4,lastPages:['长赢计划信号页'],intent:'已读发车信号，未跟车'},
+      timeline:[
+        {d:'2026-09-18',type:'event',t:'发车信号未跟车（第48期，已 3 天）',dsc:'历史跟车率 85%；本次信号发布后浏览 2 次未下单'},
+        {d:'2026-08-12',type:'trade',t:'大额转出 ¥1,500,000',dsc:'用于项目周转，已提前报备；约定 Q4 回补'}
+      ],
+      comms:[{type:'call',d:'2026-08-12',t:'外呼',dsc:'大额转出报备与回补约定',dur:'19 分钟'},{type:'wechat',d:'2026-07-26',t:'企微会话',dsc:'地产行业近况交流，情绪偏谨慎',dur:'会话 8 条'}],
+      reports:[{id:'r7',t:'中期检视报告',d:'2026-08-20',st:'已送达·未读'}],
+      reminders:[{t:'风险测评 11-30 到期',d:'2026-11-30'}]
+    },
+    { id:'c8',name:'郑立新',py:'zhenglixin',gender:'男',age:55,job:'外贸公司创始人',city:'东莞',vip:3,vipLabel:'钻石',risk:'稳健型 C3',riskScore:60,riskExp:'2027-01-25',
+      aum:12040000,aumChg:+0.54,pnlTotal:986000,pnlRate:8.92,pnlYear:342000,pnlYearRate:2.92,maxDD:-7.2,ddLimit:-10,
+      openDate:'2018-04-09',firstInvest:'2018-04-20',investYears:'8年5个月',lastActive:'2026-09-20 19:16',
+      tags:['老客户','季度复盘到期','汇率敏感','家族信托意向'],sopStage:5,sopName:'复盘期',
+      family:'已婚，一子一女均海外；有家族信托与跨境配置需求',
+      goals:[{t:'家族信托启动金',target:10000000,cur:12040000,year:2027}],
+      allocation:[['权益策略',30,'#2E5BFF'],['固收+',34,'#7C5CFF'],['QDII',18,'#F79009'],['现金管理',10,'#12A150'],['保险年金',8,'#C9A254']],
+      holdings:[
+        {n:'全天候多元配置',type:'投顾策略',amt:3612000,pnl:312000,rate:9.45,spark:[4,4.5,4.2,4.9,5.4,5,5.7,6.2,5.8,6.6,7.2,7.8]},
+        {n:'固收增强组合',type:'投顾策略',amt:4093600,pnl:198000,rate:5.08,spark:[2,2.3,2.2,2.6,2.9,2.7,3.1,3.4,3.2,3.7,4,4.3]},
+        {n:'纳斯达克100QDII',type:'公募基金',amt:2167200,pnl:398000,rate:22.49,spark:[9,10.5,9.6,11.4,12.8,13.6,12.4,14.6,16.2,15.2,17.8,19.6]},
+        {n:'盈米宝(货币)',type:'现金管理',amt:1204000,pnl:18000,rate:1.8,spark:[1,1,1,1,1,1,1,1,1,1,1,1]},
+        {n:'年金保险(传世金生)',type:'保险',amt:963200,pnl:0,rate:0,spark:[1,1,1,1,1,1,1,1,1,1,1,1]}
+      ],
+      trend:[11.4,11.5,11.42,11.58,11.7,11.62,11.78,11.7,11.84,11.78,11.96,12.04],
+      behavior:{active30:11,lastPages:['家族信托介绍','QDII专区'],intent:'关注信托与跨境'},
+      timeline:[
+        {d:'2026-09-20',type:'event',t:'季度复盘到期（Q3）',dsc:'按 SOP 应于 9 月底前完成季度复盘并送达报告'},
+        {d:'2026-06-28',type:'meeting',t:'Q2 复盘面谈',dsc:'确认增配 QDII 至 18%；提及家族信托意向',dur:'72 分钟'}
+      ],
+      comms:[{type:'meeting',d:'2026-06-28',t:'季度复盘面谈',dsc:'Q2 复盘+信托意向',dur:'72 分钟'},{type:'wechat',d:'2026-09-05',t:'企微会话',dsc:'汇率波动对 QDII 影响解读',dur:'会话 7 条'}],
+      reports:[{id:'r8',t:'Q2 季度复盘报告',d:'2026-06-30',st:'已送达·已读'}],
+      reminders:[{t:'Q3 复盘报告 9 月底前送达',d:'2026-09-30'}]
+    }
+  ],
+  /* 今日待办 */
+  tasks:[
+    {id:'t1',t:'王建国赎回预警 · 24h 内主动外呼',c:'c3',due:'今天 11:00',pri:'high',src:'AI洞察',done:false,note:'先共情不劝阻，了解资金用途；备好《流动性替代方案》'},
+    {id:'t2',t:'林晓芸年终奖配置方案定稿并约面谈',c:'c2',due:'今天 14:00',pri:'high',src:'AI洞察',done:false,note:'86 万年终奖入账；教育金+退休双目标方案已 80%'},
+    {id:'t3',t:'苏婉晴 KYC 补齐：投资经验+流动性需求',c:'c4',due:'今天 17:00',pri:'med',src:'SOP',done:false,note:'KYC 完整度 70% → 目标 100% 后进入诊断期'},
+    {id:'t4',t:'郑立新 Q3 复盘报告初稿',c:'c8',due:'今天',pri:'med',src:'SOP',done:false,note:'AI 已生成 70% 草稿，需补信托章节'},
+    {id:'t5',t:'长赢第48期发车信号 · 跟车提醒触达（含吴海涛）',c:'c7',due:'今天 16:00',pri:'med',src:'信号',done:false,note:'未跟车客户 4 人，吴海涛历史跟车率 85%'},
+    {id:'t6',t:'陈明远回撤安抚随访（-5% 关注线）',c:'c1',due:'本周',pri:'med',src:'AI洞察',done:false,note:'发送《波动期的三道防线》后续篇+组合体检卡'},
+    {id:'t7',t:'黄子轩承接期首次回访（开户 14 天）',c:'c5',due:'09-24',pri:'low',src:'SOP',done:false,note:'确认服务节奏，引导四笔钱框架'},
+    {id:'t8',t:'周雅琴生日关怀准备（电话+礼品）',c:'c6',due:'10-02',pri:'low',src:'提醒',done:false,note:'偏好：粤剧、养生；避免营销感'},
+    {id:'t9',t:'9 月合规学习《金融产品网络营销管理办法》',c:null,due:'09-30',pri:'low',src:'合规',done:false,note:'全员必修，约 40 分钟'},
+    {id:'t10',t:'陈明远教育金缺口测算更新（学费上调）',c:'c1',due:'本周',pri:'low',src:'自建',done:true,note:'国际学校学费 +8%/年'}
+  ],
+  /* 事件流 */
+  events:[
+    {id:'e1',type:'alert',ic:'🚨',bg:'var(--up-bg)',t:'赎回预警：王建国 7 日内 3 次访问赎回页',s:'神策行为序列 + 企微咨询大额转出规则；同期无交易流水。AI 评估流失概率 62%，建议 24h 内主动沟通。',d:'今天 08:42',c:'c3',sev:'high'},
+    {id:'e2',type:'signal',ic:'📣',bg:'var(--brand-050)',t:'长赢计划第 48 期发车信号已发布',s:'本期方向：红利低波+中短债；建议跟车区间 9/18–9/24。名下 4 位客户未跟车。',d:'09-18 15:30',c:null,sev:'med'},
+    {id:'e3',type:'money',ic:'💰',bg:'var(--down-bg)',t:'林晓芸年终奖入账 ¥86 万',s:'入账后 2 次浏览大额配置页未下单，配置窗口期 3–5 天。',d:'09-19 10:12',c:'c2',sev:'med'},
+    {id:'e4',type:'market',ic:'📉',bg:'var(--warn-bg)',t:'昨夜美联储降息 25bp，A 股高开',s:'沪深300 +0.8%；黄金续创新高。适合对持仓客户推送《降息周期资产配置》解读。',d:'今天 09:30',c:null,sev:'low'},
+    {id:'e5',type:'kyc',ic:'🪪',bg:'var(--violet-bg)',t:'苏婉晴 KYC 完整度 70%',s:'缺：投资经验、流动性需求、受益人信息。SOP 要求承接后 21 天内完成。',d:'09-20 22:05',c:'c4',sev:'med'},
+    {id:'e6',type:'report',ic:'📊',bg:'var(--gold-050)',t:'郑立新 Q3 季度复盘到期',s:'SOP 要求 9/30 前完成复盘并送达报告；AI 草稿已生成 70%。',d:'09-20 09:00',c:'c8',sev:'med'},
+    {id:'e7',type:'bond',ic:'🎂',bg:'var(--gold-050)',t:'周雅琴生日临近（10-08）',s:'建议电话关怀 + 小礼品；历史反馈偏好粤剧与养生主题。',d:'09-18 09:00',c:'c6',sev:'low'},
+    {id:'e8',type:'dividend',ic:'💵',bg:'var(--down-bg)',t:'固收增强组合季度分红已到账',s:'名下 12 位客户合计 ¥386,200；周雅琴 ¥18,600、王建国 ¥42,600。',d:'09-18 08:00',c:null,sev:'low'},
+    {id:'e9',type:'dd',ic:'📐',bg:'var(--warn-bg)',t:'陈明远组合回撤触及 -5% 关注线',s:'长赢计划近一月 -5.2%，距其风险承受阈值（-10%）尚有空间，建议预防性安抚。',d:'09-18 16:20',c:'c1',sev:'med'},
+    {id:'e10',type:'sys',ic:'🎓',bg:'var(--info-bg)',t:'合规学习截止提醒（9/30）',s:'《金融产品网络营销管理办法》全员必修，当前完成率 0%。',d:'09-15 12:00',c:null,sev:'low'}
+  ],
+  /* AI 洞察 */
+  insights:[
+    {id:'i1',sev:'high',kind:'异常',c:'c3',t:'王建国 · 大额流失风险',b:'私行级客户，AUM 1,580 万（占您总量 6.6%）。<b>7 日内 3 次进入赎回页</b>、咨询大额转出规则，叠加企业交班期资金焦虑，AI 评估流失概率 <b>62%</b>。',ev:'依据：神策行为序列（赎回页停留 14 分钟）· 企微会话 09-16 · 交易 API 同期无流水 · 画像：保守型 C2',acts:['生成挽留方案','一键外呼','创建跟进任务']},
+    {id:'i2',sev:'high',kind:'风险',c:'c1',t:'陈明远 · 回撤接近心理阈值',b:'长赢计划近一月回撤 -5.2%，客户已主动询问。历史数据显示：<b>此类客户收到主动安抚后，90 日留存率提升 23%</b>。',ev:'依据：组合净值序列 · 09-12 企微会话情绪分析（焦虑指数 0.58）· 同类客户干预对照',acts:['生成安抚话术','发送组合体检卡','预约复盘']},
+    {id:'i3',sev:'med',kind:'机会',c:'c2',t:'林晓芸 · 年终奖配置窗口',b:'86 万年终奖入账后 2 次浏览配置页未下单，处于典型决策窗口（3–5 天）。客户双目标（教育金+退休）方案完成度 80%，<b>预计可承接 50–60 万</b>。',ev:'依据：神策入账事件 · 页面浏览行为 · 规划报告草案 V3 · 历史转化漏斗',acts:['完善配置方案','生成对比测算','约面谈']},
+    {id:'i4',sev:'med',kind:'机会',c:'c7',t:'吴海涛 · 发车信号未跟车',b:'第 48 期信号发布 3 天，客户浏览 2 次未下单（历史跟车率 85%）。8 月大额转出 150 万约定 Q4 回补，<b>本次跟车可作为回补起点</b>。',ev:'依据：信号触达日志 · 页面行为 · 08-12 外呼纪要（回补约定）',acts:['发送信号解读','一键跟车提醒','电话沟通']},
+    {id:'i5',sev:'med',kind:'机会',c:'c8',t:'郑立新 · 家族信托意向升温',b:'Q2 复盘提及信托意向，近期 3 次浏览信托介绍页。其可投资产已超信托门槛，<b>建议联动私行信托经理发起三方会谈</b>。',ev:'依据：页面行为 · Q2 复盘纪要 · 资产规模达标',acts:['预约信托经理','生成信托科普','创建商机']},
+    {id:'i6',sev:'low',kind:'提醒',c:'c6',t:'周雅琴 · 生日+保单周年双触点',b:'10-08 生日、10-20 保单周年领取。退休教师重视仪式感，<b>非营销式关怀</b>可显著提升转介绍意愿（同类客户 NPS +18）。',ev:'依据：画像重要日期 · 保单周年数据 · 历史关怀反馈',acts:['生成关怀文案','礼品建议','创建提醒']},
+    {id:'i7',sev:'low',kind:'提醒',c:'c4',t:'苏婉晴 · KYC 进度落后 SOP',b:'承接已 24 天，KYC 完整度 70%（SOP 要求 21 天 100%）。客户为医生、时间稀缺，<b>建议改用“5 分钟语音问卷”替代表单</b>。',ev:'依据：KYC 字段完整度 · SOP 时限 · 客户职业特征',acts:['发送语音问卷','调整 SOP 节点','约视频面访']}
+  ],
+  /* 报告 */
+  reports:[
+    {id:'r4',t:'王建国 · 持仓诊断与流动性方案',type:'持仓诊断',d:'2026-09-21',st:'AI 已生成 · 待发送',c:'c3',kpi:['AUM 1,580万','年内 -0.79%','最大回撤 -4.2%','现金占比 26%']},
+    {id:'r8',t:'郑立新 · Q3 季度复盘报告',type:'季度复盘',d:'2026-09-21',st:'AI 草稿 70%',c:'c8',kpi:['AUM 1,204万','Q3 +2.1%','超额 +1.3%','QDII 18%']},
+    {id:'r3',t:'林晓芸 · 家庭财务规划报告（草案）',type:'规划报告',d:'2026-09-15',st:'待客户确认',c:'c2',kpi:['教育金缺口 154万','退休缺口 671万','建议月投 1.2万','保障缺口 300万']},
+    {id:'r1',t:'陈明远 · 家庭财务规划报告 V5',type:'规划报告',d:'2026-06-12',st:'已送达 · 已读 3 次',c:'c1',kpi:['教育金 2032 达标','养老进度 48%','应急资金 充足','保障覆盖 82%']},
+    {id:'r2',t:'陈明远 · 2026 中期检视',type:'中期检视',d:'2026-08-20',st:'已送达 · 已读',c:'c1',kpi:['年内 +2.54%','回撤 -6.8%','配置偏离 +2.1%','再平衡建议']},
+    {id:'r6',t:'周雅琴 · 年度资产检视',type:'年度检视',d:'2026-01-16',st:'已送达 · 已读',c:'c6',kpi:['年分红 7.4万','现金流覆盖 106%','回撤 -2.8%','达标']}
+  ],
+  /* 投研 */
+  research:[
+    {id:'res1',t:'降息周期开启：四笔钱配置再平衡建议',src:'盈米研究院',d:'今天 08:30',tag:'宏观策略',hot:true,s:'美联储降息 25bp 落地，建议长钱账户增配中短债+红利，稳钱账户锁定票息。'},
+    {id:'res2',t:'长赢计划第 48 期信号解读：红利低波的胜率',src:'主理人团队',d:'09-18 15:30',tag:'发车解读',hot:true,s:'近 10 年红利低波在降息周期首年平均超额 6.8%；本期建议仓位 15%。'},
+    {id:'res3',t:'黄金 2680 美元之后：还能配吗？',src:'盈米研究院',d:'09-19 17:00',tag:'大类资产',hot:false,s:'央行购金+实际利率下行支撑金价，建议配置比例维持 5–8%，不追高。'},
+    {id:'res4',t:'三季报前瞻：高股息资产的盈利韧性',src:'策略组',d:'09-20 12:00',tag:'行业观点',hot:false,s:'公用事业、运营商股息率 5%+ 且盈利稳定，适配保守型客户替代存款。'}
+  ],
+  /* 发车信号 */
+  signals:[
+    {id:'s1',t:'长赢计划 · 第 48 期发车',dir:'加仓',target:'红利低波 + 中短债',pos:'建议仓位 15%',d:'09-18 15:30',st:'跟车窗口中',followed:4,total:8,win:'近 10 年降息周期首年平均超额 6.8%'},
+    {id:'s2',t:'稳钱管家 · 再平衡信号',dir:'调仓',target:'短债 → 同业存单指数',pos:'锁定票息',d:'09-15 10:00',st:'已完成',followed:8,total:8,win:'近 1 年最大回撤仅 0.3%'},
+    {id:'s3',t:'全球配置 · QDII 额度提醒',dir:'提示',target:'纳指 / 标普 ETF 联接',pos:'额度紧张 · 先到先得',d:'09-12 09:00',st:'进行中',followed:2,total:5,win:'年内 QDII 组合平均 +14.2%'}
+  ],
+  /* 投教直播 */
+  lives:[
+    {t:'降息周期下的家庭资产配置',who:'盈米研究院 · 首席策略 周远',time:'今晚 20:00',st:'预约',n:1243},
+    {t:'三季报前瞻 · 高股息专场',who:'策略组 · 林一',time:'周四 19:30',st:'预约',n:856},
+    {t:'第 47 期信号跟车答疑（回放）',who:'主理人团队',time:'上周五',st:'回放',n:2105}
+  ],
+  /* 话术素材 */
+  materials:[
+    {id:'m1',t:'赎回挽留 · 了解需求优先（不劝阻）',sc:'流失预警',used:38,conv:'41%',s:'“王总，看到您最近了解大额转出，是不是企业上要用钱？我帮您算了几种不动本金的流动性方案…”'},
+    {id:'m2',t:'回撤安抚 · 三道防线框架',sc:'市场波动',used:126,conv:'留存+23%',s:'“您的组合有三道防线：债底、再平衡、信号止盈。当前回撤 -5%，处于历史 68% 分位，属正常波动…”'},
+    {id:'m3',t:'年终奖配置 · 双目标拆分法',sc:'大额入账',used:57,conv:'转化 52%',s:'“86 万建议分三笔：教育金专户 30 万、退休长钱 26 万、机动 30 万。我按您两个目标做了测算…”'},
+    {id:'m4',t:'发车信号 · 30 秒讲清本期逻辑',sc:'信号跟车',used:203,conv:'跟车率 68%',s:'“本期加红利低波+中短债，逻辑是降息周期里股息率 5% 的资产比存款香。您历史跟车 85%，这次别落下…”'},
+    {id:'m5',t:'KYC 邀约 · 5 分钟语音问卷',sc:'新客承接',used:44,conv:'完成率 81%',s:'“苏医生，知道您忙，KYC 不用填表，您语音回我 5 个问题就行，通勤路上就能完成…”'},
+    {id:'m6',t:'生日关怀 · 零营销感版本',sc:'客户关怀',used:91,conv:'NPS+18',s:'“周老师，生日快乐！不聊产品，就问候您。天凉了，给您寄了点新会陈皮…”'}
+  ],
+  /* 通知 */
+  notices:[
+    {ic:'🚨',t:'赎回预警：王建国',s:'7 日 3 次访问赎回页',d:'08:42',sev:'high',link:'insights'},
+    {ic:'📣',t:'长赢第 48 期发车信号',s:'4 位客户未跟车',d:'昨天',sev:'med',link:'events'},
+    {ic:'💰',t:'林晓芸年终奖入账 ¥86 万',s:'配置窗口 3–5 天',d:'昨天',sev:'med',link:'insights'},
+    {ic:'📊',t:'郑立新 Q3 复盘报告草稿',s:'AI 已完成 70%',d:'昨天',sev:'low',link:'reports'},
+    {ic:'🪪',t:'苏婉晴 KYC 70%',s:'SOP 时限临近',d:'昨天',sev:'med',link:'customers'},
+    {ic:'🎓',t:'合规学习截止 9/30',s:'当前完成率 0%',d:'周一',sev:'low',link:'tasks'}
+  ],
+  /* SOP 定义 */
+  sopStages:[
+    {n:'承接',ic:'🤝',dsc:'分配确认 · 首联 · 服务约定',days:'T+3'},
+    {n:'KYC',ic:'🪪',dsc:'画像 · 家庭 · 目标 · 风险',days:'T+21'},
+    {n:'诊断',ic:'🩺',dsc:'持仓体检 · 缺口分析',days:'T+30'},
+    {n:'规划',ic:'📐',dsc:'方案设计 · 报告确认',days:'T+45'},
+    {n:'执行',ic:'⚙️',dsc:'配置落地 · 定投 · 调仓',days:'持续'},
+    {n:'复盘',ic:'🔁',dsc:'季度复盘 · 检视迭代',days:'每季'}
+  ],
+  /* 看板数据 */
+  board:{
+    aumTrend:[2.18,2.21,2.19,2.24,2.28,2.25,2.31,2.29,2.35,2.33,2.38,2.41],
+    months:['10月','11月','12月','1月','2月','3月','4月','5月','6月','7月','8月','9月'],
+    netFlow:[+320,+180,-90,+260,+410,+150,+380,-120,+290,+510,+340,+460],
+    tiers:[['私行级',1,15.8],['钻石',3,27.9],['铂金',3,9.96],['黄金',1,0.96]],
+    funnel:[['触达',86],['深度沟通',52],['诊断',34],['规划方案',21],['配置落地',15]],
+    service:[['季度复盘覆盖',82],['KYC 完整度≥90%',76],['30 天触达率',91],['报告阅读率',68]],
+    monthNew:[['承接',6],['KYC完成',4],['诊断',5],['规划',3],['首配',3]],
+    team:{rank:[['周慧',3.12],['沈望舒',2.41],['陈岗',2.28],['李牧',1.95],['赵倩',1.72]],myRank:2,total:18,
+      metrics:[['AUM 规模','第 2'],['90 日留存','第 2'],['复盘覆盖率','第 5'],['NPS 净推荐','第 3'],['合规质检','第 1']]},
+    segments:{age:[['35 岁以下',1],['35–45 岁',2],['45–55 岁',4],['55 岁以上',1]],risk:[['C2 保守',2],['C3 稳健',3],['C4 平衡',2],['C5 进取',1]],city:[['广州',4],['深圳',1],['佛山',1],['东莞',1],['珠海',1]]}
+  }
+};
+/* 主视觉：配置色统一哑光化（墨色 × 哑光金 × 纸白） */
+const MUTE={'#2E5BFF':'#8A6D3C','#7C5CFF':'#5B6B5A','#12A150':'#7A8B99','#C9A254':'#A08C5B','#F79009':'#8C6D6D','#0E9BD8':'#6E7F8C','#8B5CF6':'#7A6C8F'};
+DB.customers.forEach(c=>{if(c.allocation)c.allocation=c.allocation.map(a=>[a[0],a[1],MUTE[a[2]]||a[2]])});
+const C = id => DB.customers.find(x=>x.id===id);
+const fmtW = v => v>=1e8?(v/1e8).toFixed(2)+' 亿':v>=1e4?(v/1e4).toFixed(v>=1e6?0:1)+' 万':v.toLocaleString();
+const fmtPct = v => (v>0?'+':'')+v.toFixed(2)+'%';
+const fmtMoney = v => '¥'+Math.round(v).toLocaleString();
+const AVA_COLORS=[['#8A6D3C','#6E5730'],['#5B6B5A','#47544A'],['#7A8B99','#5F6E7A'],['#A08C5B','#7F7048'],['#8C6D6D','#6E5656'],['#4A5568','#39424F'],['#97795C','#79603F'],['#6B7A6E','#546157']];
+const avaStyle = c => {const p=AVA_COLORS[(c.id.charCodeAt(1)-1)%AVA_COLORS.length];return `background:${p[0]}`};
+
+</script>
+<script>
+/* ==================== 工具与图表 ==================== */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+function toast(msg){const t=$('#toast');t.innerHTML=msg;t.classList.add('show');clearTimeout(t._tm);t._tm=setTimeout(()=>t.classList.remove('show'),2400)}
+function openDrawer(title,html){$('#drawer-title').textContent=title;$('#drawer-body').innerHTML=html;$('#drawer').classList.add('open');$('#drawer-mask').classList.add('open');deEmoji($('#drawer-body'))}
+function closeDrawer(){$('#drawer').classList.remove('open');$('#drawer-mask').classList.remove('open')}
+$('#drawer-mask').addEventListener('click',closeDrawer);
+
+/* SVG: 折线/面积图 */
+function lineChart(data,{w=560,h=160,color='#8A6D3C',fill=true,labels=null,base=null}={}){
+  const min=Math.min(...data),max=Math.max(...data),pad=6;
+  const X=i=>pad+i*(w-2*pad)/(data.length-1), Y=v=>h-pad-((v-min)/(max-min||1))*(h-2*pad);
+  let line=data.map((v,i)=>(i?'L':'M')+X(i).toFixed(1)+','+Y(v).toFixed(1)).join(' ');
+  let area=line+` L${X(data.length-1).toFixed(1)},${h-pad} L${X(0).toFixed(1)},${h-pad} Z`;
+  const gid='g'+Math.random().toString(36).slice(2,8);
+  let baseLine='';
+  if(base!=null&&base>=min&&base<=max){baseLine=`<line x1="${pad}" y1="${Y(base)}" x2="${w-pad}" y2="${Y(base)}" stroke="#C4CDDF" stroke-dasharray="4 4" stroke-width="1"/>`}
+  const xl = labels?labels.map((l,i)=>i%2===0?`<text x="${X(i)}" y="${h-0}" font-size="9" fill="#8B94AB" text-anchor="middle" dy="8">${l}</text>`:'').join(''):'';
+  return `<svg viewBox="0 0 ${w} ${h+12}" width="100%" style="display:block"><defs><linearGradient id="${gid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${color}" stop-opacity=".22"/><stop offset="1" stop-color="${color}" stop-opacity="0"/></linearGradient></defs>${fill?`<path d="${area}" fill="url(#${gid})"/>`:''}${baseLine}<path d="${line}" fill="none" stroke="${color}" stroke-width="2.2" stroke-linecap="round"/><circle cx="${X(data.length-1)}" cy="${Y(data[data.length-1])}" r="3.5" fill="${color}" stroke="#1B1E25" stroke-width="1.5"/>${xl}</svg>`;
+}
+/* SVG: 迷你 sparkline */
+function spark(data,{w=84,h=26,up=true}={}){
+  const min=Math.min(...data),max=Math.max(...data);
+  const X=i=>2+i*(w-4)/(data.length-1), Y=v=>h-3-((v-min)/(max-min||1))*(h-6);
+  const d=data.map((v,i)=>(i?'L':'M')+X(i).toFixed(1)+','+Y(v).toFixed(1)).join(' ');
+  const col=up?'var(--up)':'var(--down)';
+  return `<svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" style="display:block"><path d="${d}" fill="none" stroke="${col}" stroke-width="1.6" stroke-linecap="round"/></svg>`;
+}
+/* SVG: 环形图 */
+function donut(parts,{size=148,th=20}={}){
+  const total=parts.reduce((s,p)=>s+p[1],0);const r=(size-th)/2,cx=size/2,cy=size/2;let a0=-90;
+  const arcs=parts.map(([k,v,col])=>{
+    const a1=a0+v/total*360;const large=(a1-a0)>180?1:0;
+    const x0=cx+r*Math.cos(a0*Math.PI/180),y0=cy+r*Math.sin(a0*Math.PI/180);
+    const x1=cx+r*Math.cos(a1*Math.PI/180),y1=cy+r*Math.sin(a1*Math.PI/180);
+    const d=`M${x0.toFixed(1)},${y0.toFixed(1)} A${r},${r} 0 ${large} 1 ${x1.toFixed(1)},${y1.toFixed(1)}`;
+    a0=a1;return `<path d="${d}" fill="none" stroke="${col}" stroke-width="${th}" stroke-linecap="butt"/>`;
+  }).join('');
+  return `<svg viewBox="0 0 ${size} ${size}" width="${size}" height="${size}">${arcs}</svg>`;
+}
+/* SVG: 横向条形 */
+function hbars(rows,{w=300,hMax=110,color='var(--brand)'}={}){
+  const max=Math.max(...rows.map(r=>r[1]));
+  return rows.map(([k,v,extra])=>`<div style="display:flex;align-items:center;gap:8px;margin:7px 0;font-size:12px">
+    <span style="width:86px;color:var(--sub);text-align:right;flex:none" class="ellipsis">${k}</span>
+    <span style="flex:1;height:14px;background:var(--line-2);border-radius:4px;overflow:hidden"><i style="display:block;height:100%;width:${(v/max*100).toFixed(1)}%;background:${color};border-radius:4px"></i></span>
+    <b style="width:44px;flex:none" class="num">${extra??v}</b></div>`).join('');
+}
+/* 进度环 */
+function ring(pct,{size=54,th=5,color='var(--brand)',txt=null}={}){
+  const r=(size-th)/2,cir=2*Math.PI*r;
+  return `<span class="ring" style="width:${size}px;height:${size}px"><svg width="${size}" height="${size}"><circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="var(--line-2)" stroke-width="${th}"/><circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="${color}" stroke-width="${th}" stroke-linecap="round" stroke-dasharray="${cir}" stroke-dashoffset="${cir*(1-pct/100)}"/></svg><span class="ring-txt num">${txt??Math.round(pct)+'%'}</span></span>`;
+}
+const vipChip = c => `<span class="chip gold">👑 ${c.vipLabel}</span>`;
+const avatarOf = (c,sz=38) => `<span class="avatar" style="width:${sz}px;height:${sz}px;font-size:${sz*0.36}px;${avaStyle(c)}">${c.name[0]}</span>`;
+const custLink = (id,txt) => `<a href="javascript:openCustomer('${id}')">${txt??C(id).name}</a>`;
+
+</script>
+<script>
+/* ==================== 路由与视图 ==================== */
+const NAV=[
+  {id:'today',ic:'今',t:'今日'},
+  {id:'customers',ic:'客',t:'客户'},
+  {id:'sop',ic:'程',t:'流程'},
+  {id:'tasks',ic:'务',t:'任务',bdg:()=>DB.tasks.filter(t=>!t.done).length},
+  {id:'events',ic:'事',t:'事件'},
+  {id:'insights',ic:'察',t:'洞察',bdg:()=>DB.insights.filter(i=>i.sev==='high').length},
+  {id:'reports',ic:'报',t:'报告'},
+  {id:'research',ic:'研',t:'投研'},
+  {id:'materials',ic:'材',t:'素材'},
+  {id:'board',ic:'览',t:'看板'},
+];
+const state={mode:'copilot',view:'today',custId:null,tab:'overview',evtFilter:'all',insFilter:'all',taskDone:{},listQ:'',repFilter:'all',resTab:'market',boardView:'me',prefs:{focus:true,todo:true,events:true,sop:true,research:true,board:true,tools:true}};
+
+function renderNav(){
+  $('#navrail').innerHTML = NAV.map(n=>`<button class="nav-item ${state.view===n.id?'on':''}" onclick="go('${n.id}')"><span class="ic">${n.ic}</span>${n.t}${n.bdg?`<span class="bdg">${n.bdg()}</span>`:''}</button>`).join('')
+    + `<div class="spacer"></div><button class="nav-item ${state.view==='settings'?'on':''}" onclick="go('settings')"><span class="ic">设</span>个性化</button>`;
+}
+/* 去装饰 emoji：主视觉要求极简编辑部风格 */
+const DEOJI_SEL='.card-h,.btn,.sk,.stat .lbl,.rich .r-h,.brief .b-t,.sop-col .sc-h,.set-row .sr-t,.mini-row .mr-t';
+const DEOJI_RE=/^[\p{Extended_Pictographic}\uFE0F\u200D]+\s*/u;
+function deEmoji(root){
+  (root||document).querySelectorAll(DEOJI_SEL).forEach(el=>{const h=el.innerHTML,n=h.replace(DEOJI_RE,'');if(n!==h&&n.replace(/<[^>]+>/g,'').trim()!=='')el.innerHTML=n});
+  (root||document).querySelectorAll('.view-h h1').forEach(el=>{const h=el.innerHTML,n=h.replace(/[\p{Extended_Pictographic}\uFE0F\u200D]/gu,'').replace(/\s{2,}/g,' ').trim();if(n!==h&&n!=='')el.innerHTML=n});
+}
+
+function go(view,arg){
+  state.view=view;
+  if(view==='customers'){state.custId=arg||state.custId||'c3'}
+  renderNav();renderListCol();renderWork();
+  if(view==='customers'&&state.custId)copilotContext(`已打开 ${C(state.custId).name} 的客户 360`);
+}
+function openCustomer(id,tab){state.custId=id;state.tab=tab||'overview';go('customers',id)}
+function renderWork(){
+  const el=$('#workarea');
+  const V={today:vToday,customers:vCustomers,sop:vSop,tasks:vTasks,events:vEvents,insights:vInsights,reports:vReports,research:vResearch,materials:vMaterials,board:vBoard,settings:vSettings};
+  el.innerHTML=(V[state.view]||vToday)();
+  el.scrollTop=0;deEmoji(el);
+}
+function renderListCol(){
+  const el=$('#listcol');
+  if(state.mode!=='classic'){el.innerHTML='';return}
+  const L={customers:listCustomers,tasks:listTasks,events:listEvents,reports:listReports,insights:listInsights};
+  el.innerHTML=(L[state.view]||listCustomers)();deEmoji(el);
+}
+
+/* ---------- 列表列内容（界面优先模式） ---------- */
+function listCustomers(){
+  const q=state.listQ||'';
+  const rows=DB.customers.filter(c=>!q||c.name.includes(q)||c.py.includes(q.toLowerCase())).map(c=>`
+    <div class="list-cell ${state.custId===c.id?'on':''}" onclick="openCustomer('${c.id}')">
+      ${avatarOf(c,36)}
+      <div class="cell-main"><div class="cell-t">${c.name}${c.alert?' <span style="color:var(--up)">●</span>':''}</div>
+      <div class="cell-s">${c.vipLabel} · ${c.risk.slice(0,3)} · ${c.sopName}</div></div>
+      <div class="cell-r"><div class="num" style="font-weight:700;font-size:12.5px">${fmtW(c.aum)}</div>
+      <div class="num ${c.aumChg>=0?'up':'down'}" style="font-size:11px">${fmtPct(c.aumChg)}</div></div>
+    </div>`).join('');
+  return `<div class="list-h"><h2>客户 <span class="count">${DB.customers.length} 位 · AUM ${fmtW(DB.customers.reduce((s,c)=>s+c.aum,0))}</span></h2>
+    <div class="list-search"><input placeholder="搜索客户（姓名/拼音）" value="${esc(q)}" oninput="state.listQ=this.value;renderListCol()"></div></div>
+    <div class="list-body">${rows}</div>`;
+}
+function listTasks(){
+  return `<div class="list-h"><h2>任务 <span class="count">${DB.tasks.filter(t=>!t.done).length} 待办</span></h2></div>
+  <div class="list-body">${DB.tasks.filter(t=>!t.done).map(t=>`<div class="list-cell" onclick="go('tasks')"><div class="cell-main"><div class="cell-t" style="font-size:12.5px">${t.pri==='high'?'🔴 ':t.pri==='med'?'🟡 ':''}${t.t}</div><div class="cell-s">${t.c?C(t.c).name+' · ':''}${t.due} · 来自${t.src}</div></div></div>`).join('')}</div>`;
+}
+function listEvents(){
+  return `<div class="list-h"><h2>事件 <span class="count">近 7 日 ${DB.events.length} 条</span></h2></div>
+  <div class="list-body">${DB.events.map(e=>`<div class="list-cell" onclick="go('events')"><span style="font-size:15px">${e.ic}</span><div class="cell-main"><div class="cell-t" style="font-size:12.5px">${e.t}</div><div class="cell-s">${e.d}</div></div></div>`).join('')}</div>`;
+}
+function listReports(){
+  return `<div class="list-h"><h2>报告 <span class="count">${DB.reports.length} 份</span></h2></div>
+  <div class="list-body">${DB.reports.map(r=>`<div class="list-cell" onclick="go('reports')"><span style="font-size:15px">📑</span><div class="cell-main"><div class="cell-t" style="font-size:12.5px">${r.t}</div><div class="cell-s">${r.type} · ${r.d} · ${r.st}</div></div></div>`).join('')}</div>`;
+}
+function listInsights(){
+  return `<div class="list-h"><h2>AI 洞察 <span class="count">${DB.insights.length} 条活跃</span></h2></div>
+  <div class="list-body">${DB.insights.map(i=>`<div class="list-cell" onclick="go('insights')"><span class="tag-sev ${i.sev}">${i.sev==='high'?'高':i.sev==='med'?'中':'低'}</span><div class="cell-main"><div class="cell-t" style="font-size:12.5px">${i.t}</div><div class="cell-s">${i.kind} · ${C(i.c).name}</div></div></div>`).join('')}</div>`;
+}
+
+/* ---------- 今日工作台 ---------- */
+function vToday(){
+  const todos=DB.tasks.filter(t=>!t.done);
+  const highs=DB.insights.filter(i=>i.sev!=='low');
+  return `<div class="view">
+  <div class="view-h"><h1>早安，望舒 ☀️</h1><span class="sub">${TODAY} 周一 · 名下 ${DB.advisor.custCount} 位客户 · AUM ${fmtW(DB.advisor.aum)} · 今日 ${todos.filter(t=>t.due.includes('今天')).length} 项待办</span>
+  <div class="actions"><button class="btn" onclick="toast('📅 日程视图（演示）')">📅 日程</button><button class="btn primary" onclick="askCopilot('帮我安排今天的工作优先级')">✨ 让副驾安排今天</button></div></div>
+
+  <div class="grid c32">
+    <div class="grid" style="grid-template-columns:1fr;gap:14px;align-content:start">
+      ${state.prefs.focus?`<div class="card"><div class="card-h">🚨 异常与重点 <span class="chip red">${highs.length} 项需今日处理</span><span class="more" onclick="go('insights')">全部洞察 ›</span></div>
+      <div class="card-b">${DB.insights.filter(i=>i.sev!=='low').slice(0,3).map(insightHTML).join('')}</div></div>`:''}
+
+      ${state.prefs.todo?`<div class="card"><div class="card-h">✅ 今日待办<span class="more" onclick="go('tasks')">任务中心 ›</span></div>
+      <div class="card-b" id="todayTasks">${DB.tasks.filter(t=>t.due.includes('今天')).map(taskHTML).join('')}
+      <div style="text-align:center;padding:6px"><button class="btn sm ghost" onclick="go('tasks')">查看全部 ${todos.length} 项 ›</button></div></div></div>`:''}
+
+      ${state.prefs.events?`<div class="card"><div class="card-h">⚡ 重点事件<span class="more" onclick="go('events')">事件中心 ›</span></div>
+      <div class="card-b">${DB.events.slice(0,4).map(evtHTML).join('')}</div></div>`:''}
+    </div>
+
+    <div class="grid" style="grid-template-columns:1fr;gap:14px;align-content:start">
+      ${state.prefs.sop?`<div class="card"><div class="card-h">🧭 SOP 服务管线<span class="more" onclick="go('sop')">流程看板 ›</span></div>
+      <div class="card-b">
+        <div style="display:flex;gap:6px;margin:4px 0 10px">${DB.sopStages.map((s,i)=>{const n=DB.customers.filter(c=>c.sopStage===i).length;return `<div style="flex:1;text-align:center;padding:8px 2px;background:var(--panel-2);border-radius:9px;cursor:pointer" onclick="go('sop')"><div style="font-size:15px">${s.ic}</div><div style="font-size:11px;font-weight:600;margin-top:2px">${s.n}</div><div class="num" style="font-size:14px;font-weight:700;color:var(--brand)">${n}</div></div>`}).join('')}</div>
+        <div class="kv"><span class="k">流程健康度</span><span class="v up">良好 · 1 项超时（苏婉晴 KYC）</span></div>
+      </div></div>`:''}
+
+      ${state.prefs.research?`<div class="card"><div class="card-h">🔭 今日投研速递<span class="more" onclick="go('research')">投研中心 ›</span></div>
+      <div class="card-b">${DB.research.slice(0,2).map(r=>`<div class="mini-row" onclick="go('research')"><span style="font-size:15px">${r.hot?'🔥':'📄'}</span><div style="flex:1;min-width:0"><div class="mr-t ellipsis">${r.t}</div><div class="mr-s">${r.src} · ${r.d}</div></div></div>`).join('')}
+      <div style="margin-top:8px"><button class="btn sm" style="width:100%" onclick="askCopilot('把今日降息解读生成一版客户推送文案')">✨ 一键生成客户推送文案</button></div></div></div>`:''}
+
+      ${state.prefs.board?`<div class="card"><div class="card-h">📈 经营速览<span class="more" onclick="go('board')">数据看板 ›</span></div>
+      <div class="card-b">
+        <div style="display:flex;gap:10px;margin-bottom:6px">
+          <div style="flex:1"><div class="lbl faint" style="font-size:11px">管理 AUM</div><div class="num" style="font-size:19px;font-weight:700">2.41 亿</div><div class="up num" style="font-size:11px">+1.27% 本月</div></div>
+          <div style="flex:1"><div class="lbl faint" style="font-size:11px">本月新承接</div><div class="num" style="font-size:19px;font-weight:700">6 <small style="font-size:11px;color:var(--faint)">位</small></div><div class="up num" style="font-size:11px">转介绍占 67%</div></div>
+          <div style="flex:1"><div class="lbl faint" style="font-size:11px">服务覆盖</div><div class="num" style="font-size:19px;font-weight:700">91%</div><div class="faint num" style="font-size:11px">30 天触达</div></div>
+        </div>
+        ${lineChart(DB.board.aumTrend,{w:360,h:88,labels:DB.board.months.filter((_,i)=>i%3===0)})}
+      </div></div>`:''}
+
+      ${state.prefs.tools?`<div class="card"><div class="card-h">🧩 快捷服务工具</div><div class="card-b">
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+          ${[['规划测算','教育金/养老/传承'],['生成报告','规划/复盘/诊断'],['话术库','分场景带数据'],['合规检查','文案一键过检'],['组合体检','回撤/归因/再平衡'],['信号跟车','发车名单与触达'],['双录预约','合规留痕'],['关怀工具','生日/节日触点']].map(t=>`<button class="btn" style="flex-direction:column;height:58px;gap:3px" onclick="toast('${t[0]}（演示）')"><span style="font-size:12.5px;font-weight:600;letter-spacing:1px">${t[0]}</span><span style="font-size:10px;color:var(--faint)">${t[1]}</span></button>`).join('')}
+        </div>
+      </div></div>`:''}
+    </div>
+  </div></div>`;
+}
+
+/* ---------- 客户列表（工作区内） ---------- */
+function vCustomers(){
+  if(state.custId)return vC360();
+  return `<div class="view"><div class="view-h"><h1>客户</h1><span class="sub">共 ${DB.customers.length} 位 · 按 AUM 排序</span>
+  <div class="actions"><button class="btn" onclick="toast('🔽 筛选：VIP 等级 / 风险 / SOP 阶段（演示）')">筛选</button><button class="btn primary" onclick="toast('➕ 新建客户档案（演示）')">+ 新建客户</button></div></div>
+  <div class="card"><table class="tbl"><thead><tr><th>客户</th><th>等级</th><th>风险</th><th>SOP</th><th>AUM</th><th>今日</th><th>累计收益</th><th>最近活跃</th><th>AI 关注</th><th></th></tr></thead><tbody>
+  ${DB.customers.map(c=>`<tr style="cursor:pointer" onclick="openCustomer('${c.id}')">
+    <td><div style="display:flex;align-items:center;gap:9px">${avatarOf(c,32)}<div><b>${c.name}</b>${c.alert?' 🚨':''}<div class="faint" style="font-size:11px">${c.age}岁 · ${c.job}</div></div></div></td>
+    <td>${vipChip(c)}</td><td style="font-size:12px">${c.risk}</td><td><span class="chip brand">${c.sopName}</span></td>
+    <td class="num" style="font-weight:700">${fmtW(c.aum)}</td>
+    <td class="num ${c.aumChg>=0?'up':'down'}">${fmtPct(c.aumChg)}</td>
+    <td class="num ${c.pnlRate>=0?'up':'down'}">${fmtPct(c.pnlRate)}</td>
+    <td class="faint" style="font-size:11.5px">${c.lastActive.slice(5)}</td>
+    <td style="font-size:11.5px;max-width:180px" class="ellipsis">${c.behavior.intent}</td>
+    <td><button class="btn sm" onclick="event.stopPropagation();askCopilot('总结一下${c.name}的近况')">✨ 摘要</button></td>
+  </tr>`).join('')}</tbody></table></div></div>`;
+}
+
+</script>
+<script>
+/* ---------- 共享小组件 ---------- */
+function insightHTML(i){
+  const c=C(i.c);
+  return `<div class="insight sev-${i.sev}">
+    <div class="i-h"><span class="tag-sev ${i.sev}">${i.sev==='high'?'高优先':i.sev==='med'?'中优先':'低优先'}</span><span class="chip">${i.kind}</span><span class="i-t">${i.t}</span></div>
+    <div class="i-b">${i.b}</div>
+    <div class="i-ev">依据 · ${i.ev}</div>
+    <div class="i-act">
+      ${i.acts.map((a,x)=>`<button class="btn sm ${x===0?'primary':''}" onclick="insightAct('${i.id}','${a}')">${a}</button>`).join('')}
+      <button class="btn sm ghost" onclick="openCustomer('${i.c}','insights')">查看 ${c.name} 360 ›</button>
+    </div></div>`;
+}
+function insightAct(id,a){
+  const i=DB.insights.find(x=>x.id===id);const c=C(i.c);
+  if(a.includes('挽留')){askCopilot(`帮我生成${c.name}的赎回挽留方案`);return}
+  if(a.includes('安抚')||a.includes('话术')){askCopilot(`生成给${c.name}的回撤安抚话术`);return}
+  if(a.includes('方案')||a.includes('测算')){askCopilot(`完善${c.name}的配置方案`);return}
+  if(a.includes('外呼')||a.includes('电话')){toast(`📞 正在呼叫 ${c.name}（企微外呼 · 全程留痕）`);return}
+  if(a.includes('任务')||a.includes('提醒')||a.includes('商机')){toast(`✅ 已创建：${a} · ${c.name}`);return}
+  if(a.includes('报告')||a.includes('体检')){toast(`📑 已为 ${c.name} 生成报告草稿，前往报告中心查看`);go('reports');return}
+  if(a.includes('问卷')){toast(`📩 已向 ${c.name} 发送语音问卷（企微）`);return}
+  if(a.includes('信托')){toast(`🤝 已预约私行信托经理，待确认三方会谈时间`);return}
+  toast(`✅ 已执行：${a}`);
+}
+function taskHTML(t){
+  const done=state.taskDone[t.id]??t.done;
+  return `<div class="task ${done?'done':''}">
+    <span class="ck" onclick="toggleTask('${t.id}')">${done?'✓':''}</span>
+    <div style="flex:1;min-width:0"><div class="tk-t"><i class="pri-dot ${t.pri}"></i>${t.t}</div>
+    <div class="tk-m">${t.c?`<span class="chip brand" style="cursor:pointer" onclick="openCustomer('${t.c}')">${C(t.c).name}</span>`:''}<span>${t.due}</span><span>来自：${t.src}</span>${t.note?`<span title="${esc(t.note)}">${esc(t.note.slice(0,26))}${t.note.length>26?'…':''}</span>`:''}</div></div>
+    <div class="tk-act">${t.c?`<button class="btn sm" onclick="askCopilot('帮我处理任务：${t.t}')">副驾处理</button>`:''}</div>
+  </div>`;
+}
+function toggleTask(id){state.taskDone[id]=!(state.taskDone[id]??DB.tasks.find(t=>t.id===id).done);renderWork();renderNav();toast(state.taskDone[id]?'✅ 已完成，已同步 SOP 与留痕':'↩️ 已恢复待办')}
+function evtHTML(e){
+  return `<div class="evt"><span class="e-ic" style="background:${e.bg}">${e.ic}</span>
+    <div class="e-main"><div class="e-t">${e.t}</div><div class="e-s">${e.s}</div>
+    <div class="e-m"><span>${e.d}</span>${e.c?`<span>${custLink(e.c)}</span>`:''}<span class="tag-sev ${e.sev}">${e.sev==='high'?'高':e.sev==='med'?'中':'低'}</span></div></div>
+    <div style="display:flex;flex-direction:column;gap:5px">${e.c?`<button class="btn sm" onclick="askCopilot('事件「${e.t}」我该怎么处理？')">建议</button>`:`<button class="btn sm" onclick="askCopilot('解读一下：${e.t}')">解读</button>`}</div>
+  </div>`;
+}
+
+/* ---------- 客户 360 ---------- */
+const C360_TABS=[['overview','概览'],['holdings','持仓'],['kyc','KYC'],['journey','历程'],['comms','沟通'],['reports','报告'],['insights','洞察'],['reminders','提醒']];
+function vC360(){
+  const c=C(state.custId);if(!c)return vCustomers();
+  const tabHTML={overview:c360Overview,holdings:c360Holdings,kyc:c360Kyc,journey:c360Journey,comms:c360Comms,reports:c360Reports,insights:c360Insights,reminders:c360Reminders};
+  return `<div class="fade-in">
+  <div class="c360-head">
+    <div class="row1">
+      <span class="avatar" style="width:56px;height:56px;font-size:21px;${avaStyle(c)};box-shadow:0 0 0 2px rgba(255,255,255,.35)">${c.name[0]}</span>
+      <div style="min-width:0">
+        <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap"><span class="nm">${c.name}</span>${vipChip(c)}<span class="chip" style="background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.2);color:#fff">${c.risk}</span><span class="chip" style="background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.2);color:#fff">SOP · ${c.sopName}</span>${c.alert?'<span class="chip red">🚨 流失预警</span>':''}</div>
+        <div class="meta"><span>${c.gender} · ${c.age} 岁 · ${c.city}</span><span>${c.job}</span><span>建仓 ${c.firstInvest}（${c.investYears}）</span><span>最近活跃 ${c.lastActive}</span></div>
+      </div>
+      <div class="head-act">
+        <button class="btn" onclick="toast('💬 打开企微会话（演示）')">💬 企微</button>
+        <button class="btn" onclick="toast('📞 外呼 ${c.name}（全程留痕）')">📞 外呼</button>
+        <button class="btn" onclick="toast('📅 预约面谈/会议（演示）')">📅 约见</button>
+        <button class="btn gold" onclick="askCopilot('总结一下${c.name}的近况并给出服务建议')">✨ AI 摘要</button>
+      </div>
+    </div>
+    <div class="kpi-row">
+      <div class="kpi"><div class="l">管理资产 AUM</div><div class="v num">${fmtW(c.aum)} <small>${fmtPct(c.aumChg)} 今日</small></div></div>
+      <div class="kpi"><div class="l">累计收益</div><div class="v num ${c.pnlTotal>=0?'':'down'}" style="color:${c.pnlTotal>=0?'#FFD9A8':'#9BE7C4'}">${fmtMoney(c.pnlTotal)} <small>${fmtPct(c.pnlRate)}</small></div></div>
+      <div class="kpi"><div class="l">年内收益</div><div class="v num" style="color:${c.pnlYear>=0?'#FFD9A8':'#9BE7C4'}">${fmtMoney(c.pnlYear)} <small>${fmtPct(c.pnlYearRate)}</small></div></div>
+      <div class="kpi"><div class="l">最大回撤 / 阈值</div><div class="v num">${c.maxDD}% <small>/ ${c.ddLimit}%</small></div></div>
+      <div class="kpi"><div class="l">风险测评有效期</div><div class="v num" style="font-size:14px">${c.riskExp}</div></div>
+    </div>
+  </div>
+  <div class="tabs">${C360_TABS.map(([id,t])=>`<button class="${state.tab===id?'on':''}" onclick="state.tab='${id}';renderWork()">${t}</button>`).join('')}
+  <button style="margin-left:auto;color:var(--faint)" onclick="go('customers',null);state.custId=null;renderWork()">‹ 返回列表</button></div>
+  <div class="view" style="max-width:1100px">${tabHTML[state.tab](c)}</div></div>`;
+}
+
+function c360Overview(c){
+  const myIns=DB.insights.filter(i=>i.c===c.id);
+  const myTasks=DB.tasks.filter(t=>t.c===c.id&&!t.done);
+  return `<div class="grid c32">
+    <div class="grid" style="grid-template-columns:1fr;gap:14px;align-content:start">
+      <div class="card"><div class="card-h">💼 资产与配置<span class="more" onclick="state.tab='holdings';renderWork()">持仓明细 ›</span></div>
+      <div class="card-b" style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
+        ${donut(c.allocation)}
+        <div style="flex:1;min-width:180px">${c.allocation.map(([k,v,col])=>`<div class="kv"><span class="k"><i style="display:inline-block;width:8px;height:8px;border-radius:3px;background:${col};margin-right:6px"></i>${k}</span><span class="v num">${v}%</span></div>`).join('')}</div>
+        <div style="flex:1.2;min-width:220px"><div class="faint" style="font-size:11px;margin-bottom:4px">近 12 月资产走势（百万）</div>${lineChart(c.trend,{w:340,h:96,color:c.trend.at(-1)>=c.trend[0]?'#D0665E':'#5FA07C'})}</div>
+      </div></div>
+      <div class="card"><div class="card-h">🧠 AI 洞察 <span class="chip ${myIns.some(i=>i.sev==='high')?'red':'brand'}">${myIns.length} 条</span></div>
+      <div class="card-b">${myIns.length?myIns.map(insightHTML).join(''):'<div class="empty"><span class="ic">✨</span>暂无异常，服务节奏良好</div>'}</div></div>
+      <div class="card"><div class="card-h">🕐 最近历程<span class="more" onclick="state.tab='journey';renderWork()">完整历程 ›</span></div>
+      <div class="card-b"><div class="tl" style="margin-top:6px">${c.timeline.slice(0,3).map(tlHTML).join('')}</div></div></div>
+    </div>
+    <div class="grid" style="grid-template-columns:1fr;gap:14px;align-content:start">
+      <div class="card"><div class="card-h">🎯 服务状态</div><div class="card-b">
+        <div class="sop-steps" style="margin:4px 0 10px">${DB.sopStages.map((s,i)=>`<div class="sop-step ${i<c.sopStage?'done':i===c.sopStage?'cur':''}"><span class="st-ic">${i<c.sopStage?'✓':s.ic}</span></div>${i<5?'<span class="st-line"></span>':''}`).join('')}</div>
+        <div class="kv"><span class="k">当前阶段</span><span class="v" style="color:var(--brand)">${c.sopName}</span></div>
+        <div class="kv"><span class="k">30 天活跃</span><span class="v num">${c.behavior.active30} 天</span></div>
+        <div class="kv"><span class="k">行为意图</span><span class="v" style="font-size:12px">${c.behavior.intent}</span></div>
+        <div class="kv"><span class="k">最近浏览</span><span class="v faint" style="font-size:11.5px">${c.behavior.lastPages.join('、')}</span></div>
+      </div></div>
+      <div class="card"><div class="card-h">🏷️ 画像标签</div><div class="card-b"><div style="display:flex;gap:6px;flex-wrap:wrap">${c.tags.map(t=>`<span class="chip brand">${t}</span>`).join('')}</div>
+      <div class="divider"></div><div class="faint" style="font-size:11.5px;line-height:1.7">👪 ${c.family}</div></div></div>
+      <div class="card"><div class="card-h">🎯 财务目标</div><div class="card-b">${c.goals.map(g=>{const p=Math.min(100,g.cur/g.target*100);return `<div style="margin-bottom:11px"><div style="display:flex;justify-content:space-between;font-size:12.5px"><b>${g.t}</b><span class="num faint">${fmtW(g.cur)} / ${fmtW(g.target)} · ${g.year}</span></div><div class="progress" style="margin-top:5px"><i style="width:${p}%"></i></div></div>`}).join('')}
+      <button class="btn sm" style="width:100%;margin-top:2px" onclick="askCopilot('帮${c.name}更新财务目标测算')">✨ 更新目标测算</button></div></div>
+      <div class="card"><div class="card-h">✅ 待办（${myTasks.length}）<span class="more" onclick="go('tasks')">全部 ›</span></div>
+      <div class="card-b">${myTasks.length?myTasks.map(taskHTML).join(''):'<div class="empty">无待办</div>'}</div></div>
+      <div class="card"><div class="card-h">⏰ 客户提醒</div><div class="card-b">${c.reminders.map(r=>`<div class="mini-row"><span>🔔</span><div style="flex:1"><div class="mr-t" style="font-size:12.5px">${r.t}</div><div class="mr-s">${r.d}</div></div></div>`).join('')||'<div class="empty">暂无提醒</div>'}</div></div>
+    </div>
+  </div>`;
+}
+
+function c360Holdings(c){
+  return `<div class="grid c32">
+    <div class="card"><div class="card-h">💼 持仓明细 <span class="chip">合计 ${fmtW(c.aum)}</span><span class="more">数据：交易/持仓 API · T 日收盘</span></div>
+    <div class="card-b"><table class="tbl"><thead><tr><th>资产 / 策略</th><th>类型</th><th>市值</th><th>占比</th><th>持有收益</th><th>收益率</th><th>近 12 月</th><th></th></tr></thead><tbody>
+    ${c.holdings.map(h=>`<tr><td><b>${h.n}</b></td><td><span class="chip">${h.type}</span></td><td class="num">${fmtW(h.amt)}</td><td class="num">${(h.amt/c.aum*100).toFixed(1)}%</td>
+      <td class="num ${h.pnl>=0?'up':'down'}">${h.pnl?fmtMoney(h.pnl):'—'}</td><td class="num ${h.rate>=0?'up':'down'}">${h.rate?fmtPct(h.rate):'—'}</td>
+      <td>${spark(h.spark,{up:h.rate>=0})}</td>
+      <td><button class="btn sm ghost" onclick="askCopilot('解读${c.name}持有的${h.n}')">✨ 解读</button></td></tr>`).join('')}
+    </tbody></table></div></div>
+    <div class="grid" style="grid-template-columns:1fr;gap:14px;align-content:start">
+      <div class="card"><div class="card-h">📊 配置分布</div><div class="card-b" style="display:flex;justify-content:center;padding-top:16px">${donut(c.allocation,{size:170,th:24})}</div>
+      <div class="card-b">${c.allocation.map(([k,v,col])=>`<div class="kv"><span class="k"><i style="display:inline-block;width:8px;height:8px;border-radius:3px;background:${col};margin-right:6px"></i>${k}</span><span class="v num">${v}%</span></div>`).join('')}</div></div>
+      <div class="card"><div class="card-h">🩺 组合体检（AI）</div><div class="card-b">
+        <div class="kv"><span class="k">与目标配置偏离</span><span class="v ${Math.abs(c.pnlYearRate)>5?'up':''}">+2.1% 权益超配</span></div>
+        <div class="kv"><span class="k">回撤 / 客户阈值</span><span class="v">${c.maxDD}% / ${c.ddLimit}%</span></div>
+        <div class="kv"><span class="k">集中度</span><span class="v">健康</span></div>
+        <div class="kv"><span class="k">流动性覆盖</span><span class="v up">充足</span></div>
+        <div class="divider"></div>
+        <div style="font-size:12px;color:var(--sub);line-height:1.7">💡 建议：${c.riskScore>=70?'权益仓位已接近上限，新增资金优先固收+以平衡':'结构与客户风险偏好匹配，可按 SOP 季度再平衡'}。</div>
+        <button class="btn sm primary" style="width:100%;margin-top:9px" onclick="toast('📑 已生成《组合体检报告》草稿')">✨ 生成组合体检报告</button>
+      </div></div>
+    </div>
+  </div>`;
+}
+
+function c360Kyc(c){
+  const fields=[['基本信息',100],['职业与收入',c.id==='c4'?80:100],['家庭结构',c.id==='c4'?75:100],['投资经验',c.id==='c4'?40:100],['风险偏好',100],['流动性需求',c.id==='c4'?30:100],['受益人信息',c.id==='c4'?0:100]];
+  const full=Math.round(fields.reduce((s,f)=>s+f[1],0)/fields.length);
+  return `<div class="grid c32">
+    <div class="grid" style="grid-template-columns:1fr;gap:14px;align-content:start">
+      <div class="card"><div class="card-h">🪪 KYC 档案 <span class="chip ${full>=90?'green':'orange'}">完整度 ${full}%</span><span class="more">SOP 要求承接后 21 天内 100%</span></div>
+      <div class="card-b">${fields.map(([k,v])=>`<div style="display:flex;align-items:center;gap:10px;margin:9px 0"><span style="width:92px;font-size:12.5px;color:var(--sub)">${k}</span><div class="progress" style="flex:1"><i style="width:${v}%;${v<100?'background:linear-gradient(90deg,#F79009,#FBBF24)':''}"></i></div><span class="num" style="width:38px;text-align:right;font-size:12px;font-weight:700;${v<100?'color:var(--warn)':''}">${v}%</span></div>`).join('')}
+      ${full<100?`<button class="btn primary sm" style="margin-top:8px" onclick="insightAct('i7','发送语音问卷')">📩 发送 5 分钟语音问卷补齐</button>`:''}</div></div>
+      <div class="card"><div class="card-h">📋 风险测评</div><div class="card-b">
+        <div style="display:flex;gap:16px;align-items:center">${ring(c.riskScore,{size:64,txt:c.riskScore})}
+        <div style="flex:1"><div class="kv"><span class="k">风险等级</span><span class="v">${c.risk}</span></div>
+        <div class="kv"><span class="k">可承受最大回撤</span><span class="v num">${c.ddLimit}%</span></div>
+        <div class="kv"><span class="k">有效期至</span><span class="v">${c.riskExp}</span></div></div></div>
+        <div class="faint" style="font-size:11px;margin-top:8px">测评留痕：${c.openDate.replace(/-/g,'/')} 首次 · 此后每年复测，双录编号 SH2026****</div>
+      </div></div>
+    </div>
+    <div class="grid" style="grid-template-columns:1fr;gap:14px;align-content:start">
+      <div class="card"><div class="card-h">👪 家庭与财务</div><div class="card-b" style="font-size:12.5px;line-height:1.9;color:var(--sub)">${c.family}</div></div>
+      <div class="card"><div class="card-h">🎯 财务目标（${c.goals.length}）</div><div class="card-b">${c.goals.map(g=>{const p=Math.min(100,g.cur/g.target*100);return `<div style="margin-bottom:12px"><div style="display:flex;justify-content:space-between;font-size:12.5px"><b>${g.t}</b><span class="chip ${p>=100?'green':p>=50?'brand':'orange'}">${p.toFixed(0)}%</span></div><div class="faint" style="font-size:11px;margin:3px 0">目标 ${fmtW(g.target)} · ${g.year} 年 · 当前 ${fmtW(g.cur)}</div><div class="progress"><i style="width:${p}%"></i></div></div>`}).join('')}</div></div>
+      <div class="card"><div class="card-h">🏷️ 标签体系</div><div class="card-b"><div style="display:flex;gap:6px;flex-wrap:wrap">${c.tags.map(t=>`<span class="chip brand">${t}</span>`).join('')}<span class="chip" style="cursor:pointer" onclick="toast('➕ 添加自定义标签（演示）')">＋ 自定义</span></div></div></div>
+    </div>
+  </div>`;
+}
+
+function tlHTML(t){return `<div class="tl-item t-${t.type}"><div class="tt">${t.t}<time>${t.d}</time></div><div class="td">${t.dsc}</div></div>`}
+function c360Journey(c){
+  return `<div class="grid c32"><div class="card"><div class="card-h">🕐 客户历程 <span class="chip">事件 · 沟通 · 交易 · 报告 全留痕</span></div>
+  <div class="card-b" style="padding-top:12px"><div class="tl">${c.timeline.map(tlHTML).join('')}</div></div></div>
+  <div class="grid" style="grid-template-columns:1fr;gap:14px;align-content:start">
+    <div class="card"><div class="card-h">📱 行为动态（神策）</div><div class="card-b">
+      <div class="kv"><span class="k">近 30 天活跃</span><span class="v num">${c.behavior.active30} 天</span></div>
+      <div class="kv"><span class="k">最近活跃</span><span class="v">${c.lastActive}</span></div>
+      <div class="kv"><span class="k">最近浏览</span><span class="v faint" style="font-size:11.5px">${c.behavior.lastPages.join('、')}</span></div>
+      <div class="divider"></div>
+      <div style="font-size:12px;color:var(--sub);line-height:1.7">🤖 AI 意图识别：<b>${c.behavior.intent}</b></div>
+      <div class="faint" style="font-size:10.5px;margin-top:6px">注：交易事实以交易 API 为准，行为数据仅作意图参考</div>
+    </div></div>
+    <div class="card"><div class="card-h">⏰ 提醒</div><div class="card-b">${c.reminders.map(r=>`<div class="mini-row"><span>🔔</span><div style="flex:1"><div class="mr-t" style="font-size:12.5px">${r.t}</div><div class="mr-s">${r.d}</div></div></div>`).join('')}</div></div>
+  </div></div>`;
+}
+
+function c360Comms(c){
+  const ic={wechat:'💬',call:'📞',meeting:'🤝'};
+  return `<div class="grid c32"><div class="card"><div class="card-h">💬 沟通记录 <span class="chip">企微 · 外呼 · 会议 全量留痕</span>
+  <div style="margin-left:auto;display:flex;gap:6px"><button class="btn sm" onclick="toast('💬 打开企微会话窗口（演示）')">发起企微</button><button class="btn sm primary" onclick="toast('📞 外呼中…（演示）')">发起外呼</button></div></div>
+  <div class="card-b">${c.comms.map(m=>`<div class="evt"><span class="e-ic" style="background:var(--violet-bg)">${ic[m.type]}</span>
+    <div class="e-main"><div class="e-t">${m.t}<span class="faint" style="font-weight:400;font-size:11px;margin-left:8px">${m.d} · ${m.dur}</span></div>
+    <div class="e-s">${m.dsc}</div>
+    <div class="e-m"><span style="color:var(--violet)">🤖 AI 纪要已生成</span><span>情绪：平稳</span><span style="cursor:pointer;color:var(--brand)" onclick="toast('📄 查看完整纪要（演示）')">查看纪要 ›</span></div></div></div>`).join('')}
+  </div></div>
+  <div class="grid" style="grid-template-columns:1fr;gap:14px;align-content:start">
+    <div class="card"><div class="card-h">🤖 沟通质检（AI Insight）</div><div class="card-b">
+      <div class="kv"><span class="k">近 90 天沟通</span><span class="v num">${c.comms.length+6} 次</span></div>
+      <div class="kv"><span class="k">合规通过率</span><span class="v up">100%</span></div>
+      <div class="kv"><span class="k">响应及时率</span><span class="v up">98%</span></div>
+      <div class="kv"><span class="k">客户情绪趋势</span><span class="v">平稳 ↗</span></div>
+      <div class="divider"></div><div class="faint" style="font-size:11px;line-height:1.7">质检 Agent「服务规范 v3」运行中：未检出敏感词、承诺收益等违规。</div>
+    </div></div>
+    <div class="card"><div class="card-h">💡 下次沟通建议（AI）</div><div class="card-b" style="font-size:12.5px;color:var(--sub);line-height:1.8">
+      ${c.id==='c3'?'优先<b>电话</b>而非文字；先聊企业交班与家庭，再谈资金安排；避免“赎回”字眼，用“流动性安排”替代。':'建议本周内一次轻触点；结合其关注内容推送对应投研解读；沟通后更新 KYC 动态字段。'}
+      <button class="btn sm" style="width:100%;margin-top:8px" onclick="askCopilot('给${c.name}写一段开场白')">✨ 生成开场白</button>
+    </div></div>
+  </div></div>`;
+}
+
+function c360Reports(c){
+  const rs=DB.reports.filter(r=>r.c===c.id);
+  return `<div class="grid c32"><div class="card"><div class="card-h">📑 规划与服务报告
+  <div style="margin-left:auto;display:flex;gap:6px"><button class="btn sm" onclick="toast('📑 选择模板：规划/复盘/诊断/检视（演示）')">模板库</button><button class="btn sm primary" onclick="toast('✨ AI 正在为 ${c.name} 生成报告草稿…')">✨ AI 生成报告</button></div></div>
+  <div class="card-b">${rs.length?rs.map(r=>`<div class="evt"><span class="e-ic" style="background:var(--gold-050)">📑</span>
+    <div class="e-main"><div class="e-t">${r.t}</div>
+    <div class="e-m"><span>${r.type}</span><span>${r.d}</span><span class="chip ${r.st.includes('已读')?'green':r.st.includes('草稿')||r.st.includes('待')?'orange':'brand'}">${r.st}</span></div>
+    <div style="display:flex;gap:6px;margin-top:7px;flex-wrap:wrap">${r.kpi.map(k=>`<span class="chip">${k}</span>`).join('')}</div></div>
+    <div style="display:flex;flex-direction:column;gap:5px"><button class="btn sm" onclick="state.view='reports';renderNav();renderWork()">预览</button><button class="btn sm ghost" onclick="toast('📤 已发送至客户企微（留痕）')">发送</button></div>
+  </div>`).join(''):'<div class="empty"><span class="ic">📑</span>暂无报告，点击右上角 AI 生成</div>'}</div></div>
+  <div class="card"><div class="card-h">📖 阅读效果</div><div class="card-b">
+    ${rs.length?rs.map(r=>`<div class="kv"><span class="k ellipsis" style="max-width:150px">${r.t.split('·')[1]||r.t}</span><span class="v" style="font-size:11.5px">${r.st}</span></div>`).join(''):'<div class="empty">—</div>'}
+    <div class="divider"></div>
+    <div class="faint" style="font-size:11px;line-height:1.7">阅读行为（打开次数/停留章节）回流至 AI，用于优化下次沟通切入点。</div>
+  </div></div></div>`;
+}
+
+function c360Insights(c){
+  const my=DB.insights.filter(i=>i.c===c.id);
+  return `<div class="view" style="padding:0;max-width:none">
+  ${my.length?my.map(insightHTML).join(''):'<div class="empty"><span class="ic">✨</span>当前无活跃洞察，AI 持续监测中…</div>'}
+  <div class="card" style="margin-top:12px"><div class="card-h">⚙️ 该客户的监测规则（可自定义）</div><div class="card-b">
+    ${[['赎回页访问 ≥2 次/7 日',true],['回撤触及阈值 50%',true],['发车信号 3 日未跟车',true],['大额入账 ≥50 万',true],['生日/纪念日提前 10 天',true],['新增自定义规则…',false]].map(r=>`<div class="set-row" style="padding:9px 2px"><span style="font-size:12.5px">${r[0]}</span><span class="switch ${r[1]?'on':''}" onclick="this.classList.toggle('on');toast('已保存监测规则')"></span></div>`).join('')}
+  </div></div></div>`;
+}
+
+function c360Reminders(c){
+  return `<div class="grid c2">
+  <div class="card"><div class="card-h">⏰ 客户提醒<div style="margin-left:auto"><button class="btn sm primary" onclick="toast('➕ 新建提醒（演示）')">+ 新建提醒</button></div></div>
+  <div class="card-b">${c.reminders.map(r=>`<div class="evt"><span class="e-ic" style="background:var(--gold-050)">🔔</span><div class="e-main"><div class="e-t" style="font-size:13px">${r.t}</div><div class="e-m"><span>📅 ${r.d}</span></div></div><button class="btn sm ghost" onclick="toast('✅ 已完成')">完成</button></div>`).join('')||'<div class="empty">暂无提醒</div>'}
+  <div class="faint" style="font-size:11px;margin-top:6px">系统提醒（SOP/合规/信号）自动生成；个人提醒可自建，支持企微/短信/App 推送。</div></div></div>
+  <div class="card"><div class="card-h">📅 服务日历（近 30 天）</div><div class="card-b">
+    ${[['09-24','季度复盘准备 · 数据归集'],['09-30','合规学习截止'],['10-02','客户关怀触点'],['10-12','保单周年']].map(x=>`<div class="mini-row"><span>📌</span><div style="flex:1"><div class="mr-t" style="font-size:12.5px">${x[1]}</div><div class="mr-s">${x[0]}</div></div></div>`).join('')}
+  </div></div></div>`;
+}
+
+</script>
+<script>
+/* ---------- SOP 流程看板 ---------- */
+function vSop(){
+  return `<div class="view" style="max-width:none"><div class="view-h"><h1>服务流程（SOP）</h1><span class="sub">承接 → KYC → 诊断 → 规划 → 执行 → 复盘 · 标准动作+时限自动校验，支持自定义节点</span>
+  <div class="actions"><button class="btn" onclick="toast('⚙️ SOP 模板配置（演示）：可为不同客群定义不同 SOP')">⚙️ 模板配置</button><button class="btn primary" onclick="askCopilot('检查一下我所有客户的 SOP 进度有没有超时的')">✨ 流程体检</button></div></div>
+  <div class="sop-board">${DB.sopStages.map((s,i)=>{
+    const cs=DB.customers.filter(c=>c.sopStage===i);
+    return `<div class="sop-col"><div class="sc-h"><span class="n">${i+1}</span>${s.ic} ${s.n}<span class="cnt">${cs.length}</span></div>
+    <div class="faint" style="font-size:10.5px;padding:0 4px 8px">${s.dsc} · 时限 ${s.days}</div>
+    ${cs.map(c=>`<div class="sop-card" onclick="openCustomer('${c.id}')"><div class="sc-t">${avatarOf(c,22)} ${c.name}${c.alert?' 🚨':''}</div>
+      <div class="sc-s">${c.vipLabel} · AUM ${fmtW(c.aum)}</div>
+      ${i===1?'<div class="sc-s" style="color:var(--warn)">⚠️ KYC 70% · 临近时限</div>':''}
+      ${i===5?'<div class="sc-s" style="color:var(--warn)">📊 Q3 复盘报告待送达</div>':''}
+      <div class="sc-s" style="color:var(--brand)">下一步：${['完成首联与服务约定','补齐 KYC 至 100%','生成持仓诊断','确认规划方案','按信号/定投执行','送达复盘报告'][i]}</div></div>`).join('')||'<div class="empty" style="padding:18px 8px">—</div>'}
+    </div>`}).join('')}</div>
+  <div class="grid c3" style="margin-top:14px">
+    <div class="card stat"><div class="lbl">⏱️ 平均承接周期</div><div class="val num">38 <small>天</small></div><div class="delta up">较上季 -6 天</div></div>
+    <div class="card stat"><div class="lbl">🎯 SOP 按时完成率</div><div class="val num">94<small>%</small></div><div class="delta up">+3pct</div></div>
+    <div class="card stat"><div class="lbl">⚠️ 当前超时节点</div><div class="val num">1 <small>项</small></div><div class="delta" style="color:var(--warn)">苏婉晴 · KYC</div></div>
+  </div></div>`;
+}
+
+/* ---------- 任务中心 ---------- */
+function vTasks(){
+  const groups=[['今天',DB.tasks.filter(t=>t.due.includes('今天'))],['本周',DB.tasks.filter(t=>t.due==='本周'||t.due==='09-24')],['稍后',DB.tasks.filter(t=>!t.due.includes('今天')&&t.due!=='本周'&&t.due!=='09-24')]];
+  return `<div class="view"><div class="view-h"><h1>任务中心</h1><span class="sub">系统生成 + AI 建议 + SOP 节点 + 自建 · 完成自动留痕</span>
+  <div class="actions"><button class="btn" onclick="toast('➕ 新建任务（演示）')">+ 新建任务</button><button class="btn primary" onclick="askCopilot('帮我安排今天的工作优先级')">✨ 智能排程</button></div></div>
+  <div class="grid c3" style="margin-bottom:14px">
+    <div class="card stat"><div class="lbl">今日待办</div><div class="val num">${DB.tasks.filter(t=>t.due.includes('今天')&&!t.done).length}</div><div class="delta" style="color:var(--up)">2 项高优先</div></div>
+    <div class="card stat"><div class="lbl">AI 建议任务采纳率</div><div class="val num">87<small>%</small></div><div class="delta up">+12pct 本月</div></div>
+    <div class="card stat"><div class="lbl">平均响应时长</div><div class="val num">2.1<small>小时</small></div><div class="delta up">优于团队均值 35%</div></div>
+  </div>
+  ${groups.map(([g,ts])=>ts.length?`<div class="card" style="margin-bottom:14px"><div class="card-h">${g==='今天'?'🌞':g==='本周'?'📅':'🗓'} ${g} <span class="chip">${ts.filter(t=>!(state.taskDone[t.id]??t.done)).length} 待办</span></div><div class="card-b">${ts.map(taskHTML).join('')}</div></div>`:'').join('')}
+  </div>`;
+}
+
+/* ---------- 事件中心 ---------- */
+function vEvents(){
+  const F=[['all','全部'],['alert','预警'],['signal','信号'],['money','资金'],['market','市场'],['kyc','KYC'],['report','报告'],['bond','关怀']];
+  const list=DB.events.filter(e=>state.evtFilter==='all'||e.type===state.evtFilter);
+  return `<div class="view"><div class="view-h"><h1>事件中心</h1><span class="sub">市场 · 组合信号 · 客户行为 · 系统提醒，统一事件流驱动工作</span>
+  <div class="actions"><button class="btn" onclick="toast('⚙️ 事件订阅规则（演示）：按客户/类型/阈值自定义推送')">⚙️ 订阅规则</button></div></div>
+  <div style="display:flex;gap:7px;margin-bottom:14px;flex-wrap:wrap">${F.map(([id,t])=>`<button class="btn sm ${state.evtFilter===id?'primary':''}" onclick="state.evtFilter='${id}';renderWork()">${t}</button>`).join('')}</div>
+  ${list.map(evtHTML).join('')||'<div class="empty">该分类暂无事件</div>'}</div>`;
+}
+
+/* ---------- 洞察中心 ---------- */
+function vInsights(){
+  const F=[['all','全部'],['high','高优先'],['med','中优先'],['low','低优先']];
+  const list=DB.insights.filter(i=>state.insFilter==='all'||i.sev===state.insFilter);
+  return `<div class="view"><div class="view-h"><h1>AI 洞察</h1><span class="sub">7×24 监测持仓 · 行为 · 事件 · 情绪，主动推送异常 / 机会 / 风险 / 提醒</span>
+  <div class="actions"><button class="btn" onclick="toast('🤖 洞察 Agent 管理（演示）：筛查规则、运行记录、通过率')">🤖 Agent 管理</button></div></div>
+  <div class="grid c3" style="margin-bottom:14px">
+    <div class="card stat"><div class="lbl">本周新增洞察</div><div class="val num">23</div><div class="delta up">采纳 19 条</div></div>
+    <div class="card stat"><div class="lbl">预警→干预转化</div><div class="val num">76<small>%</small></div><div class="delta up">留存提升显著</div></div>
+    <div class="card stat"><div class="lbl">监测客户覆盖</div><div class="val num">86/86</div><div class="delta faint">全量 7×24</div></div>
+  </div>
+  <div style="display:flex;gap:7px;margin-bottom:14px">${F.map(([id,t])=>`<button class="btn sm ${state.insFilter===id?'primary':''}" onclick="state.insFilter='${id}';renderWork()">${t}</button>`).join('')}</div>
+  ${list.map(insightHTML).join('')}</div>`;
+}
+
+/* ---------- 报告中心 ---------- */
+function vReports(){
+  const types=['all','规划报告','季度复盘','持仓诊断','中期检视','年度检视'];
+  const list=DB.reports.filter(r=>state.repFilter==='all'||r.type===state.repFilter);
+  const sent=DB.reports.filter(r=>r.st.includes('已送达')).length,draft=DB.reports.filter(r=>r.st.includes('草稿')||r.st.includes('生成')).length,pending=DB.reports.filter(r=>r.st.includes('待')).length;
+  return `<div class="view"><div class="view-h"><h1>报告中心</h1><span class="sub">规划 · 复盘 · 诊断 · 检视 · AI 起草 + 顾问确认 + 合规校验后送达</span>
+  <div class="actions"><button class="btn" onclick="toast('🗂 模板库：规划 V5 / 季度复盘 / 持仓诊断 / 中期检视 / 年度检视 / 临时专题（演示）')">模板库</button><button class="btn primary" onclick="reportWizard()">✨ AI 生成报告</button></div></div>
+  <div class="grid c4" style="margin-bottom:14px">
+    <div class="card stat"><div class="lbl">📑 报告总数</div><div class="val num">${DB.reports.length}<small>份</small></div><div class="delta">覆盖 ${new Set(DB.reports.map(r=>r.c)).size} 位客户</div></div>
+    <div class="card stat"><div class="lbl">📤 已送达</div><div class="val num">${sent}<small>份</small></div><div class="delta up">平均阅读 2.1 次</div></div>
+    <div class="card stat"><div class="lbl">✨ AI 起草中</div><div class="val num">${draft}<small>份</small></div><div class="delta" style="color:var(--warn)">待顾问确认</div></div>
+    <div class="card stat"><div class="lbl">⏳ 待客户确认</div><div class="val num">${pending}<small>份</small></div><div class="delta">超 7 天未读将提醒</div></div>
+  </div>
+  <div style="display:flex;gap:7px;margin-bottom:14px;flex-wrap:wrap">${types.map(t=>`<span class="chip ${state.repFilter===t?'brand':''}" style="cursor:pointer;padding:6px 14px" onclick="state.repFilter='${t}';renderWork()">${t==='all'?'全部':t}</span>`).join('')}</div>
+  <div class="grid c2">${list.map(r=>{const c=C(r.c);return `<div class="card"><div class="card-h">${r.st.includes('草稿')||r.st.includes('待')?'📝':'📑'} ${r.t}</div>
+  <div class="card-b">
+    <div style="display:flex;gap:8px;align-items:center;margin-bottom:9px">${avatarOf(c,26)}<span style="font-size:12px">${c.name} · ${c.vipLabel}</span><span class="chip">${r.type}</span><span class="chip ${r.st.includes('已读')?'green':r.st.includes('草稿')||r.st.includes('待')?'orange':'brand'}" style="margin-left:auto">${r.st}</span></div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap">${r.kpi.map(k=>`<span class="chip">${k}</span>`).join('')}</div>
+    <div class="divider"></div>
+    <div style="display:flex;gap:7px"><button class="btn sm" onclick="openReport('${r.id}')">👁 预览</button><button class="btn sm" onclick="askCopilot('优化报告《${r.t}》的解读措辞')">✨ 改解读</button><button class="btn sm ghost" onclick="toast('🛡️ 合规校验通过（演示）')">🛡️ 合规</button><button class="btn sm primary" style="margin-left:auto" onclick="toast('📤 已发送至 ${c.name} 企微（留痕）')">发送</button></div>
+  </div></div>`}).join('')||'<div class="empty" style="padding:30px">该类型下暂无报告</div>'}</div>
+  <div id="reportViewer"></div></div>`;
+}
+/* AI 报告生成向导：选客户 → 选模板 → AI 起草 → 完成 */
+function reportWizard(){
+  const tpls=[['📋','家庭财务规划报告 V5','全目标诊断+配置建议'],['🔁','季度复盘报告','业绩归因+目标进度'],['🩺','持仓诊断报告','回撤/集中度/再平衡'],['🔍','中期检视报告','配置偏离+再平衡建议']];
+  openDrawer('✨ AI 生成报告',`
+  <div id="wiz">
+    <div class="faint" style="font-size:11.5px;margin-bottom:8px">第 1 步 · 选择客户</div>
+    ${DB.customers.map(c=>`<div class="mini-row" style="cursor:pointer" onclick="wizStep2('${c.id}')">${avatarOf(c,28)}<div style="flex:1"><div class="mr-t">${c.name} · ${c.vipLabel}</div><div class="mr-s">AUM ${fmtW(c.aum)} · ${c.sopName}</div></div><span style="color:var(--faint)">›</span></div>`).join('')}
+  </div>`);
+}
+function wizStep2(cid){
+  const c=C(cid);
+  $('#wiz').innerHTML=`<div class="faint" style="font-size:11.5px;margin-bottom:8px">第 2 步 · 为 ${c.name} 选择模板</div>
+  ${[['📋','家庭财务规划报告 V5','全目标诊断 + 配置建议'],['🔁','季度复盘报告','业绩归因 + 目标进度'],['🩺','持仓诊断报告','回撤 / 集中度 / 再平衡'],['🔍','中期检视报告','配置偏离 + 再平衡建议']].map(t=>`<div class="mini-row" style="cursor:pointer" onclick="wizStep3('${cid}','${t[1]}')"><span style="font-size:16px">${t[0]}</span><div style="flex:1"><div class="mr-t">${t[1]}</div><div class="mr-s">${t[2]}</div></div><span style="color:var(--faint)">›</span></div>`).join('')}`;
+}
+function wizStep3(cid,tpl){
+  const c=C(cid);
+  $('#wiz').innerHTML=`<div class="faint" style="font-size:11.5px;margin-bottom:8px">第 3 步 · AI 起草中</div>
+  <div style="text-align:center;padding:18px 0 8px"><div style="font-size:26px;animation:palIn .4s">✨</div><div style="font-weight:600;margin:8px 0 4px">正在为 ${c.name} 起草《${tpl}》</div><div class="faint" style="font-size:11.5px" id="wiz-msg">正在拉取持仓 / 交易 / 行为数据…</div>
+  <div class="progress" style="margin:14px 24px 4px"><i id="wiz-bar" style="width:5%;transition:width .8s"></i></div></div>`;
+  const steps=[['正在拉取持仓 / 交易 / 行为数据…',25],['AI 归因分析与市场环境比对…',52],['生成解读文字（待顾问确认）…',78],['大模型合规校验 · 附加风险提示…',94],['完成',100]];
+  steps.forEach((s,i)=>setTimeout(()=>{const b=$('#wiz-bar');if(!b)return;b.style.width=s[1]+'%';$('#wiz-msg').textContent=s[0];if(i===steps.length-1)setTimeout(()=>{closeDrawer();toast(`✅ 《${c.name} · ${tpl}》草稿已生成，待您确认`);go('reports')},500)},400+i*850));
+}
+function openReport(id){
+  const r=DB.reports.find(x=>x.id===id);const c=C(r.c);
+  const trend=[0,1.2,0.6,1.8,2.4,1.9,2.8,2.2,3.1,2.6,3.4,c.pnlYearRate];
+  const html=`<div class="card" style="margin-top:16px"><div class="card-h">👁 报告预览 · ${r.t}<span class="more" onclick="$('#reportViewer').innerHTML=''">收起 ✕</span></div>
+  <div class="card-b" style="background:var(--panel-2);padding:18px"><div class="report-doc">
+    <h2>${r.t}</h2><div class="rd-sub">盈米基金 · 投顾服务报告 · ${r.d} · 顾问：沈望舒 · 已过大模型合规校验</div>
+    <div class="rd-kpis">${r.kpi.map(k=>{const i=k.indexOf(' ');return `<div class="rd-kpi"><div class="n num">${i>0?k.slice(i+1):k}</div><div class="l">${i>0?k.slice(0,i):'指标'}</div></div>`}).join('')}</div>
+    <h3>一、本期回顾</h3><p>本期市场呈现“债稳股震”格局。${c.name} 的组合按既定配置运行，权益部分受市场波动影响有所回撤，固收底仓贡献稳定票息，整体运行在风险预算之内。期间完成信号跟车与分红再投资，现金管理部分保持充足流动性。</p>
+    <div style="background:var(--panel-2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0"><div style="font-size:11.5px;color:var(--faint);margin-bottom:4px">年内累计收益走势（%）</div>${lineChart(trend,{w:520,h:110,color:c.pnlYearRate>=0?'#D0665E':'#5FA07C',labels:['1月','','4月','','7月','','今']})}</div>
+    <h3>二、目标进度</h3><p>${c.goals.map(g=>`「${g.t}」目标 ${fmtW(g.target)}（${g.year}），当前 ${fmtW(g.cur)}，进度 ${(g.cur/g.target*100).toFixed(0)}%。`).join(' ')}按当前假设测算，各目标均在可达路径上。</p>
+    <h3>三、下期建议</h3><p>维持战略配置不变；关注降息周期下的票息资产再配置窗口；如市场波动放大触及心理阈值，建议优先回顾“三道防线”框架而非情绪化操作。具体调仓以发车信号为准。</p>
+    <p class="faint" style="font-size:10.5px;margin-top:14px">风险提示：本报告不构成收益承诺，市场有风险，投资须谨慎。历史业绩不代表未来。</p>
+    <div style="display:flex;gap:8px;margin-top:14px;padding-top:12px;border-top:1px dashed var(--line)"><button class="btn sm" onclick="askCopilot('优化报告《${r.t}》的解读措辞')">✨ AI 改解读</button><button class="btn sm" onclick="toast('🛡️ 合规校验通过')">🛡️ 重新校验</button><button class="btn sm primary" style="margin-left:auto" onclick="toast('📤 已确认并发送至 ${c.name} 企微（留痕）')">顾问确认 · 发送</button></div>
+  </div></div></div>`;
+  $('#reportViewer').innerHTML=html;
+  deEmoji($('#reportViewer'));
+  $('#reportViewer').scrollIntoView({behavior:'smooth'});
+}
+
+/* ---------- 投研中心 ---------- */
+function vResearch(){
+  const tabs=[['market','🌐 市场速览'],['view','📄 策略观点'],['signal','🎯 信号中心'],['live','🎥 投教直播']];
+  let body='';
+  if(state.resTab==='market'){
+    body=`<div class="card" style="margin-bottom:14px"><div class="card-h">🌐 市场速览 <span class="chip">${DB.market.date}</span><span class="more" onclick="askCopilot('解读一下今天降息对客户组合的影响')">✨ 问副驾影响 ›</span></div>
+    <div class="card-b"><div style="font-size:12.5px;color:var(--sub);line-height:1.75;margin-bottom:10px">${DB.market.summary}</div>
+    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:8px">${DB.market.indices.map(x=>`<div style="background:var(--panel-2);border-radius:10px;padding:8px 10px"><div class="faint" style="font-size:10.5px">${x.n}</div><div class="num" style="font-weight:700;font-size:13px">${x.v}</div><div class="num ${x.c>=0?'up':'down'}" style="font-size:11px">${x.c>0?'+':''}${x.c}${Math.abs(x.c)<1?'':'%'}</div></div>`).join('')}</div></div></div>
+    <div class="card"><div class="card-h">🧭 今日操作含义（AI 提炼）</div><div class="card-b" style="font-size:12.5px;line-height:1.9;color:var(--sub)">
+      <div class="mini-row"><span>💰</span><div class="mr-t">债牛延续 → 稳钱账户可锁定票息，今日适合做「存款替代」沟通</div></div>
+      <div class="mini-row"><span>📈</span><div class="mr-t">红利低波领涨 → 长钱账户跟车窗口，4 位客户未跟车待触达</div></div>
+      <div class="mini-row"><span>🥇</span><div class="mr-t">黄金新高 → 已配客户维持 5–8%，未配客户不追高，等回调信号</div></div>
+    </div></div>`;
+  }else if(state.resTab==='view'){
+    body=`<div class="grid c2">${DB.research.map(r=>`<div class="card"><div class="card-h">${r.hot?'🔥':'📄'} ${r.t}</div>
+    <div class="card-b"><div class="faint" style="font-size:11px;margin-bottom:6px">${r.src} · ${r.d} · <span class="chip brand">${r.tag}</span></div>
+    <div style="font-size:12.5px;color:var(--sub);line-height:1.75">${r.s}</div>
+    <div class="divider"></div><div style="display:flex;gap:7px"><button class="btn sm" onclick="toast('📖 阅读全文（演示）')">阅读全文</button><button class="btn sm" onclick="askCopilot('把《${r.t}》转成客户推送文案')">✨ 转推送文案</button><button class="btn sm ghost" onclick="toast('📤 已加入群发草稿')">群发</button></div></div></div>`).join('')}</div>`;
+  }else if(state.resTab==='signal'){
+    body=`<div class="grid c3">${DB.signals.map(s=>`<div class="card"><div class="card-h">${s.dir==='加仓'?'📈':s.dir==='调仓'?'🔁':'💡'} ${s.t}</div>
+    <div class="card-b">
+      <div class="kv"><span class="k">方向 / 标的</span><span class="v" style="font-size:12px">${s.dir} · ${s.target}</span></div>
+      <div class="kv"><span class="k">仓位建议</span><span class="v num">${s.pos}</span></div>
+      <div class="kv"><span class="k">历史依据</span><span class="v" style="font-size:11.5px">${s.win}</span></div>
+      <div class="kv"><span class="k">我的客户跟车</span><span class="v num ${s.followed<s.total?'': 'up'}">${s.followed}/${s.total} 位</span></div>
+      <div class="progress" style="margin:2px 0 8px"><i style="width:${s.followed/s.total*100}%"></i></div>
+      <div style="display:flex;gap:7px"><span class="chip ${s.st.includes('完成')?'green':'orange'}">${s.st}</span><span class="faint" style="font-size:11px;margin-left:auto">${s.d}</span></div>
+      <div class="divider"></div>
+      <div style="display:flex;gap:7px">${s.followed<s.total?`<button class="btn sm primary" onclick="askCopilot('第48期发车信号还有4位客户未跟车，帮我生成触达话术')">✨ 触达未跟车</button>`:`<button class="btn sm" onclick="toast('✅ 全部客户已跟车')">✅ 已全部跟车</button>`}<button class="btn sm ghost" onclick="toast('📖 信号解读全文（演示）')">解读</button></div>
+    </div></div>`).join('')}</div>`;
+  }else{
+    body=`<div class="grid c3">${DB.lives.map(l=>`<div class="card"><div class="card-h">🎥 ${l.t}</div>
+    <div class="card-b">
+      <div class="kv"><span class="k">主讲</span><span class="v" style="font-size:12px">${l.who}</span></div>
+      <div class="kv"><span class="k">时间</span><span class="v num">${l.time}</span></div>
+      <div class="kv"><span class="k">热度</span><span class="v num">${l.n} 人${l.st==='回放'?'看过':'已约'}</span></div>
+      <div class="divider"></div>
+      <div style="display:flex;gap:7px"><button class="btn sm ${l.st==='预约'?'primary':''}" onclick="toast('${l.st==='预约'?'📅 已预约，开播前 15 分钟提醒':'▶️ 播放回放（演示）'}')">${l.st==='预约'?'📅 预约':'▶️ 看回放'}</button><button class="btn sm ghost" onclick="toast('📤 已生成客户邀约海报文案（演示）')">邀客户</button></div>
+    </div></div>`).join('')}</div>`;
+  }
+  return `<div class="view"><div class="view-h"><h1>投研中心</h1><span class="sub">盈米研究院 · 主理人团队 · 策略组，观点直达可转话术</span></div>
+  <div style="display:flex;gap:7px;margin-bottom:14px">${tabs.map(t=>`<span class="chip ${state.resTab===t[0]?'brand':''}" style="cursor:pointer;padding:6px 14px" onclick="state.resTab='${t[0]}';renderWork()">${t[1]}</span>`).join('')}</div>
+  ${body}</div>`;
+}
+
+/* ---------- 素材/话术库 ---------- */
+function vMaterials(){
+  return `<div class="view"><div class="view-h"><h1>话术与素材</h1><span class="sub">分场景话术 · 带真实转化数据 · 用前自动合规校验</span>
+  <div class="actions"><button class="btn" onclick="toast('➕ 贡献我的话术（演示）')">+ 贡献话术</button></div></div>
+  <div class="grid c2">${DB.materials.map(m=>`<div class="card"><div class="card-h">💬 ${m.t}</div>
+  <div class="card-b">
+    <div style="display:flex;gap:6px;margin-bottom:8px"><span class="chip brand">${m.sc}</span><span class="chip green">使用 ${m.used} 次</span><span class="chip gold">效果 ${m.conv}</span></div>
+    <div style="font-size:12.5px;color:var(--sub);line-height:1.8;background:var(--panel-2);border-radius:10px;padding:10px 12px">${m.s}</div>
+    <div class="divider"></div><div style="display:flex;gap:7px"><button class="btn sm primary" onclick="askCopilot('基于话术「${m.t}」给王建国定制一版')">✨ 按客户定制</button><button class="btn sm" onclick="navigator.clipboard&&navigator.clipboard.writeText('${m.s.replace(/'/g,"")}');toast('📋 已复制，已过合规校验')">📋 复制</button></div>
+  </div></div>`).join('')}</div></div>`;
+}
+
+/* ---------- 数据看板 ---------- */
+function vBoard(){
+  const b=DB.board;
+  const views=[['me','👤 个人经营'],['team','🏆 团队对比'],['seg','🧬 客群分析']];
+  let body='';
+  if(state.boardView==='me'){
+    body=`<div class="grid c3" style="margin-bottom:14px">
+    <div class="card stat"><div class="lbl">💰 管理 AUM</div><div class="val num">2.41<small>亿</small></div><div class="delta up">+1.27% 本月 · 同比 +18.4%</div></div>
+    <div class="card stat"><div class="lbl">👥 服务客户</div><div class="val num">86<small>位</small></div><div class="delta up">本月新承接 6 位</div></div>
+    <div class="card stat"><div class="lbl">🔁 90 日留存率</div><div class="val num">97.7<small>%</small></div><div class="delta up">团队第 2 / 18</div></div>
+  </div>
+  <div class="grid c2" style="margin-bottom:14px">
+    <div class="card"><div class="card-h">📈 AUM 走势（近 12 月，亿）</div><div class="card-b">${lineChart(b.aumTrend,{w:520,h:150,labels:b.months})}</div></div>
+    <div class="card"><div class="card-h">💧 月度净申购（万）</div><div class="card-b" style="padding-top:14px">${hbars(b.months.map((m,i)=>[m+(b.netFlow[i]<0?' · 流出':''),Math.abs(b.netFlow[i])]),{color:'linear-gradient(90deg,#8A6D3C,#C0A468)'})}
+    <div class="faint" style="font-size:11px;margin-top:6px">近 12 月累计净申购 +3,090 万；2 次净流出均在市场急跌当月，次月均回正。</div></div></div>
+  </div>
+  <div class="grid c2" style="margin-bottom:14px">
+    <div class="card"><div class="card-h">👑 客户分层（AUM，百万）</div><div class="card-b" style="padding-top:14px">${hbars(b.tiers.map(t=>[t[0]+' · '+t[1]+'位',t[2]]),{color:'linear-gradient(90deg,#8A6D3C,#C0A468)'})}
+    <div class="faint" style="font-size:11px;margin-top:8px">私行级 1 位贡献 29% AUM，需重点维护；铂金层是明年钻石的主要蓄水池。</div></div></div>
+    <div class="card"><div class="card-h">🎯 服务转化漏斗</div><div class="card-b" style="padding-top:12px">${hbars(b.funnel,{color:'linear-gradient(90deg,#8A6D3C,#C0A468)'})}
+    <div class="faint" style="font-size:11px;margin-top:8px">「深度沟通 → 诊断」转化 65%，高于团队均值 52% —— 副驾预诊断功不可没。</div></div></div>
+  </div>
+  <div class="grid c2">
+    <div class="card"><div class="card-h">🧭 服务动作覆盖率</div><div class="card-b" style="padding-top:12px">${b.service.map(s=>`<div class="kv"><span class="k">${s[0]}</span><span class="v num ${s[1]>=80?'up':''}">${s[1]}%</span></div><div class="progress" style="margin:2px 0 8px"><i style="width:${s[1]}%"></i></div>`).join('')}</div></div>
+    <div class="card"><div class="card-h">🌱 本月新客管线</div><div class="card-b" style="padding-top:12px">${hbars(b.monthNew,{color:'linear-gradient(90deg,#8A6D3C,#C0A468)'})}
+    <div class="faint" style="font-size:11px;margin-top:8px">转介绍占比 67% —— 存量服务质量是最好的获客渠道。</div></div></div>
+  </div>`;
+  }else if(state.boardView==='team'){
+    body=`<div class="grid c2" style="margin-bottom:14px">
+    <div class="card"><div class="card-h">🏆 团队 AUM 排名（亿）<span class="chip brand">我 · 第 ${b.team.myRank} / ${b.team.total}</span></div><div class="card-b" style="padding-top:14px">
+      ${hbars(b.team.rank.map(r=>[r[0]+(r[0]==='沈望舒'?' ⭐':''),r[1]]),{color:'linear-gradient(90deg,#8A6D3C,#C0A468)'})}
+      <div class="faint" style="font-size:11px;margin-top:8px">与第 1 名差距 0.71 亿；按本月净申购速度，预计 4 个月可追平。</div></div></div>
+    <div class="card"><div class="card-h">📊 分项指标队内位置</div><div class="card-b" style="padding-top:10px">
+      ${b.team.metrics.map(m=>`<div class="kv"><span class="k">${m[0]}</span><span class="v num ${m[1]<='第 3'?'up':''}">${m[1]}<small style="color:var(--faint);font-weight:400"> / ${b.team.total}</small></span></div>`).join('')}
+      <div class="divider"></div>
+      <div style="font-size:12px;color:var(--sub);line-height:1.7">合规质检全队第 1；复盘覆盖率有提升空间——建议用「AI 起草 + 批量确认」把 Q3 复盘覆盖率从 82% 提到 95%。</div></div></div>
+  </div>
+  <div class="card"><div class="card-h">💡 向第 1 名学什么（AI 对比分析）</div><div class="card-b" style="font-size:12.5px;line-height:1.9;color:var(--sub)">
+    <div class="mini-row"><span>①</span><div class="mr-t">周慧的私行级客户 3 位（我 1 位）——她的转介绍话术「企业主圈层饭局」值得借鉴</div></div>
+    <div class="mini-row"><span>②</span><div class="mr-t">她的报告阅读率 91%（我 68%）——她在报告发送后 24h 内必做一次 5 分钟电话导读</div></div>
+    <div class="mini-row"><span>③</span><div class="mr-t">她的信号跟车率 94%（我 85%）——发车当日她用副驾批量生成个性化提醒</div></div>
+  </div></div>`;
+  }else{
+    const sg=b.segments;
+    body=`<div class="grid c3" style="margin-bottom:14px">
+    <div class="card"><div class="card-h">🎂 年龄段分布</div><div class="card-b" style="padding-top:12px">${hbars(sg.age,{color:'linear-gradient(90deg,#8A6D3C,#C0A468)'})}</div></div>
+    <div class="card"><div class="card-h">🛡️ 风险等级分布</div><div class="card-b" style="padding-top:12px">${hbars(sg.risk,{color:'linear-gradient(90deg,#8A6D3C,#C0A468)'})}</div></div>
+    <div class="card"><div class="card-h">📍 城市分布</div><div class="card-b" style="padding-top:12px">${hbars(sg.city,{color:'linear-gradient(90deg,#8A6D3C,#C0A468)'})}</div></div>
+  </div>
+  <div class="grid c2">
+    <div class="card"><div class="card-h">🏷️ 客群标签云</div><div class="card-b" style="display:flex;gap:8px;flex-wrap:wrap;padding-top:14px">
+      ${[['企业主',3],['长赢跟车',4],['四笔钱',3],['新承接',2],['退休现金流',1],['家族信托',2],['税务敏感',1],['跨境需求',1],['医生',1],['高潜年轻',1]].map(t=>`<span class="chip ${t[1]>=3?'brand':''}" style="font-size:${11+t[1]}px;cursor:pointer" onclick="toast('筛选标签「${t[0]}」的客户（演示）')">${t[0]} ${t[1]}</span>`).join('')}
+      <div class="faint" style="font-size:11px;width:100%;margin-top:6px">点击标签可下钻客户清单；「企业主 + 家族信托」交叉客群是明年私行升级主战场。</div></div></div>
+    <div class="card"><div class="card-h">🧠 AI 客群洞察</div><div class="card-b" style="font-size:12.5px;line-height:1.9;color:var(--sub)">
+      <div class="mini-row"><span>📌</span><div class="mr-t">45–55 岁企业主占 AUM 68%：共性需求是「企业交班 + 资产隔离」，适合组织私享会</div></div>
+      <div class="mini-row"><span>📌</span><div class="mr-t">C2 保守客户 2 位合计 AUM 2,032 万：对「存款替代」话术响应率最高（历史 71%）</div></div>
+      <div class="mini-row"><span>📌</span><div class="mr-t">35 岁以下仅 1 位：年轻高潜客群断层，建议从存量客户子女切入（已有 2 个转介绍线索）</div></div>
+    </div></div>
+  </div>`;
+  }
+  return `<div class="view"><div class="view-h"><h1>经营看板</h1><span class="sub">个人经营全景 · 数据 T+1 · 可下钻到客户</span>
+  <div class="actions">${views.map(v=>`<button class="btn ${state.boardView===v[0]?'primary':''}" onclick="state.boardView='${v[0]}';renderWork()">${v[1]}</button>`).join('')}</div></div>
+  ${body}</div>`;
+}
+
+/* ---------- 个性化设置 ---------- */
+function vSettings(){
+  return `<div class="view" style="max-width:820px"><div class="view-h"><h1>个性化工作台</h1><span class="sub">标准化 SOP 之上，保留你的个人服务风格</span></div>
+  <div class="card" style="margin-bottom:14px"><div class="card-h">🖥️ 工作模式</div><div class="card-b">
+    <div class="set-row"><div><div class="sr-t">✨ 对话优先模式</div><div class="sr-s">副驾为主视图，对话驱动工作区 —— 适合“先问 AI”的工作习惯</div></div><span class="switch ${state.mode==='copilot'?'on':''}" onclick="setMode('copilot')"></span></div>
+    <div class="set-row"><div><div class="sr-t">🗂 界面优先模式</div><div class="sr-s">传统列表+详情布局，副驾停靠右侧 —— 适合“按清单推进”的工作习惯</div></div><span class="switch ${state.mode==='classic'?'on':''}" onclick="setMode('classic')"></span></div>
+    <div class="set-row"><div><div class="sr-t">🌅 每日 AI 晨报</div><div class="sr-s">开工自动推送：今日待办 + 异常 + 市场要点</div></div><span class="switch on" onclick="this.classList.toggle('on')"></span></div>
+    <div class="set-row"><div><div class="sr-t">🔔 高优先洞察即时推送</div><div class="sr-s">赎回预警/回撤越线即时弹窗+企微提醒</div></div><span class="switch on" onclick="this.classList.toggle('on')"></span></div>
+  </div></div>
+  <div class="card" style="margin-bottom:14px"><div class="card-h">🧩 我的快捷技能（副驾）</div><div class="card-b">
+    <div class="faint" style="font-size:11.5px;margin-bottom:8px">拖拽排序 · 点击移除 · 支持从技能市场添加</div>
+    <div style="display:flex;gap:7px;flex-wrap:wrap">${['客户摘要','生成话术','生成报告','合规检查','市场解读','赎回挽留','定投测算','组合体检'].map(s=>`<span class="chip brand" style="cursor:pointer" onclick="toast('已移除「${s}」（演示）')">${s} ✕</span>`).join('')}<span class="chip" style="cursor:pointer" onclick="toast('🛒 技能市场：公司级/团队级/个人级技能（演示）')">＋ 技能市场</span></div>
+  </div></div>
+  <div class="card" style="margin-bottom:14px"><div class="card-h">🏠 今日页组件<span class="more">开关后即时生效</span></div><div class="card-b">
+    ${[['focus','🚨 异常与重点','高优洞察置顶，开工即见风险'],['todo','✅ 今日待办','按截止时间排序的任务清单'],['events','⚡ 重点事件','行为/交易/市场事件流'],['sop','🧭 SOP 服务管线','六阶段客户分布一览'],['research','🔭 今日投研速递','研究院观点 + 一键转文案'],['board','📈 经营速览','AUM 走势与本月新客'],['tools','🧩 快捷服务工具','测算/报告/话术/合规等 8 件工具']].map(p=>`<div class="set-row" style="padding:9px 2px"><div><div class="sr-t" style="font-size:12.5px">${p[1]}</div><div class="sr-s">${p[2]}</div></div><span class="switch ${state.prefs[p[0]]?'on':''}" onclick="state.prefs.${p[0]}=!state.prefs.${p[0]};renderWork();toast('已保存 · 今日页即时生效')"></span></div>`).join('')}
+  </div></div>
+  <div class="card" style="margin-bottom:14px"><div class="card-h">🧭 我的 SOP 阶段与 SLA<span class="more">在公司标准流程上做微调</span></div><div class="card-b">
+    <div class="faint" style="font-size:11.5px;margin-bottom:8px">阶段名与时限可直接修改 · 新增阶段将进入流程看板</div>
+    ${DB.sopStages.map((s,i)=>`<div class="set-row" style="padding:8px 2px;gap:10px"><span style="font-size:16px">${s.ic}</span><input style="flex:1;border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:12.5px" value="${s.n}" onchange="DB.sopStages[${i}].n=this.value;toast('已保存阶段名')"><input style="width:86px;border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:12.5px;text-align:center" value="${s.days}" onchange="DB.sopStages[${i}].days=this.value;toast('已保存 SLA')"><span class="faint" style="font-size:11px;width:120px">${s.dsc}</span></div>`).join('')}
+    <div style="margin-top:8px"><button class="btn sm" onclick="toast('➕ 自定义阶段（如「企业主传承专案」）将进入看板（演示）')">➕ 添加自定义阶段</button><button class="btn sm ghost" style="margin-left:6px" onclick="toast('↩️ 已恢复公司标准 SOP（演示）')">恢复默认</button></div>
+  </div></div>
+  <div class="card" style="margin-bottom:14px"><div class="card-h">📏 我的监测规则（全局默认）</div><div class="card-b">
+    ${[['赎回页访问 ≥2 次/7 日 → 高优先预警',true],['组合回撤达客户阈值 50% → 提醒',true],['大额入账 ≥50 万 → 机会提示',true],['发车信号 3 日未跟车 → 提醒',true],['客户生日提前 10 天 → 关怀建议',true],['KYC/测评到期前 30 天 → 任务',true]].map(r=>`<div class="set-row" style="padding:10px 2px"><span style="font-size:12.5px">${r[0]}</span><span class="switch ${r[1]?'on':''}" onclick="this.classList.toggle('on');toast('已保存')"></span></div>`).join('')}
+  </div></div>
+  <div class="card"><div class="card-h">🔐 数据与合规</div><div class="card-b">
+    <div class="kv"><span class="k">数据权限</span><span class="v">仅本人名下客户 · 最小必要</span></div>
+    <div class="kv"><span class="k">副驾留痕</span><span class="v up">全量留痕 · 可审计</span></div>
+    <div class="kv"><span class="k">对外文案</span><span class="v">强制过合规校验后发送</span></div>
+    <div class="kv"><span class="k">底座</span><span class="v faint">YINGMI WORK · 客户360 / 任务 / 事件 / 报告 中台</span></div>
+  </div></div></div>`;
+}
+
+</script>
+<script>
+/* ==================== AI 副驾 ==================== */
+const SKILLS=['📇 客户摘要','💬 生成话术','📑 生成报告','🛡️ 合规检查','🌐 市场解读','🚨 赎回挽留','📐 目标测算','🧭 流程体检'];
+function renderSkillChips(){$('#skillChips').innerHTML=SKILLS.map(s=>`<span class="sk" onclick="skillTap('${s}')">${s}</span>`).join('')}
+function skillTap(s){
+  const map={'📇 客户摘要':'总结一下我重点客户的近况','💬 生成话术':'生成给王建国的回撤安抚话术','📑 生成报告':'帮我生成郑立新的Q3复盘报告','🛡️ 合规检查':'检查这段话术是否合规：本产品稳健增值，预期年化6%，名额有限先到先得','🌐 市场解读':'解读一下今天降息对客户组合的影响','🚨 赎回挽留':'帮我生成王建国的赎回挽留方案','📐 目标测算':'帮林晓芸算一下年终奖怎么配置','🧭 流程体检':'检查一下我所有客户的SOP进度有没有超时的'};
+  askCopilot(map[s]||s);
+}
+function nowTime(){return new Date().toTimeString().slice(0,5)}
+function pushMsg(role,txt,card){
+  const st=$('#cp-stream');
+  const div=document.createElement('div');div.className='msg '+role;
+  div.innerHTML=`<span class="m-av">${role==='ai'?'✦':'沈'}</span><div class="m-body"><div class="m-txt">${txt}</div>${card?`<div class="m-card">${card}</div>`:''}<div class="m-time">${nowTime()}</div></div>`;
+  st.appendChild(div);st.scrollTop=st.scrollHeight;deEmoji(st);return div;
+}
+function copilotContext(txt){
+  const st=$('#cp-stream');if(!st)return;
+  const div=document.createElement('div');
+  div.style.cssText='text-align:center;font-size:10.5px;color:var(--faint);margin:2px 0';
+  div.innerHTML=`<span style="background:var(--panel-2);border:1px solid var(--line);border-radius:12px;padding:2px 10px">🔗 ${txt}</span>`;
+  st.appendChild(div);st.scrollTop=st.scrollHeight;
+}
+function typing(){const st=$('#cp-stream');const d=document.createElement('div');d.className='msg ai';d.id='typing';d.innerHTML='<span class="m-av">✦</span><div class="m-body"><div class="m-txt typing"><i></i><i></i><i></i></div></div>';st.appendChild(d);st.scrollTop=st.scrollHeight}
+function untyping(){$('#typing')?.remove()}
+
+function askCopilot(q){
+  if(!q)return;
+  if(state.mode==='classic'&&document.body.classList.contains('copilot-hidden'))toggleCopilot(true);
+  pushMsg('me',esc(q));
+  $('#cp-text').value='';autosize();
+  typing();
+  setTimeout(()=>{untyping();const r=copilotAnswer(q);pushMsg('ai',r.txt,r.card);if(r.act)r.act()},650+Math.random()*550);
+}
+
+/* 副驾知识库：意图 → 回答 + 富卡片 + 工作区联动 */
+function copilotAnswer(q){
+  const findC=()=>DB.customers.find(c=>q.includes(c.name)||q.includes(c.name.slice(0,2)));
+  const c=findC();
+
+  /* —— 赎回挽留 —— */
+  if(q.includes('挽留')||(q.includes('赎回')&&c)){
+    const cc=c||C('c3');
+    return {txt:`好的，这是为 ${cc.name} 定制的「赎回挽留三步法」。核心原则：先了解真实需求，不劝阻、给方案。`,card:`
+    <div class="rich"><div class="r-h">🚨 ${cc.name} · 流失干预方案 <span class="chip red" style="margin-left:auto">流失概率 62%</span></div>
+    <div class="r-b" style="font-size:12.5px;line-height:1.8">
+      <b>第一步 · 开场（今天 11:00 前电话）</b><br>“王总，最近企业交班还顺利吗？看到您了解过大额转出，我帮您把几种资金安排都准备好了，占用您 5 分钟。”<br>
+      <b>第二步 · 诊断需求</b><br>若是<b>企业周转</b> → 推荐「盈米宝大额快线 + 短债增强」，T+0/T+1 可达，不动长钱；若是<b>对收益不满</b> → 展示固收组合年内 5.01% 与回撤 -4.2% 的体检卡，对比存款与理财；若是<b>传承安排</b> → 联动私行信托经理。<br>
+      <b>第三步 · 留钩</b><br>无论是否动用资金，约定一周内上门做「企业交班期家庭资产检视」。</div>
+    <div class="r-f"><button class="btn sm primary" onclick="toast('📞 正在呼叫 ${cc.name}…（全程留痕）')">📞 立即外呼</button><button class="btn sm" onclick="toast('📄 方案已存至 ${cc.name} 档案')">存入档案</button><button class="btn sm ghost" onclick="openCustomer('${cc.id}','insights')">打开 360 ›</button></div></div>`,
+    act:()=>{if(state.view!=='customers'||state.custId!==cc.id)openCustomer(cc.id,'insights')}};
+  }
+  /* —— 安抚话术 —— */
+  if(q.includes('安抚')||q.includes('话术')){
+    const cc=c||C('c1');
+    return {txt:`给 ${cc.name}（${cc.risk}，回撤阈值 ${cc.ddLimit}%）的安抚话术，已按合规要求校验：`,card:`
+    <div class="rich"><div class="r-h">💬 回撤安抚 · 三道防线框架 <span class="chip green" style="margin-left:auto">🛡️ 合规通过</span></div>
+    <div class="r-b" style="font-size:12.5px;line-height:1.85">“${cc.name[0]}总，看到您关注最近的波动，跟您同步三个事实：<br>① 您的组合回撤 -5.2%，在您的风险预算（${cc.ddLimit}%）内，处于历史 68% 分位的正常波动；<br>② 组合有三道防线：固收底仓票息、跨资产再平衡、信号止盈机制；<br>③ 历史上同类回撤后 6 个月修复概率 82%（基于策略 2019 年以来数据）。<br>我周五前给您发一份组合体检报告，有任何担心随时打我电话。”</div>
+    <div class="r-f"><button class="btn sm primary" onclick="toast('📤 已发送至 ${cc.name} 企微（留痕）')">发送至企微</button><button class="btn sm" onclick="toast('📋 已复制')">复制</button><button class="btn sm ghost" onclick="askCopilot('换一版更简短的')">换一版</button></div></div>`};
+  }
+  /* —— 报告生成 —— */
+  if(q.includes('报告')&&(q.includes('生成')||q.includes('复盘')||q.includes('优化'))){
+    const cc=c||C('c8');
+    return {txt:`已为 ${cc.name} 生成报告草稿（数据取自持仓/交易/行为 API，解读由 AI 起草、待您确认）。要点如下：`,card:`
+    <div class="rich"><div class="r-h">📑 ${cc.name} · Q3 季度复盘报告 <span class="chip orange" style="margin-left:auto">草稿 70%</span></div>
+    <div class="r-b">
+      <div class="kv"><span class="k">Q3 收益</span><span class="v num up">+2.1%（基准 +0.8%）</span></div>
+      <div class="kv"><span class="k">AUM</span><span class="v num">${fmtW(cc.aum)}</span></div>
+      <div class="kv"><span class="k">关键动作</span><span class="v" style="font-size:12px">QDII 增配至 18% · 分红再投资</span></div>
+      <div class="kv"><span class="k">待补充</span><span class="v" style="font-size:12px;color:var(--warn)">家族信托章节（需您确认意向表述）</span></div></div>
+    <div class="r-f"><button class="btn sm primary" onclick="go('reports');setTimeout(()=>openReport('r8'),80)">👁 打开预览</button><button class="btn sm" onclick="toast('✨ 已补全信托章节草稿')">✨ 补全信托章节</button><button class="btn sm ghost" onclick="toast('🛡️ 合规校验通过')">🛡️ 合规校验</button></div></div>`,
+    act:()=>go('reports')};
+  }
+  /* —— 合规检查 —— */
+  if(q.includes('合规')){
+    return {txt:`检查发现 3 处违规表述，已按《金融产品网络营销管理办法》给出修改建议：`,card:`
+    <div class="rich"><div class="r-h">🛡️ 合规检查结果 <span class="chip red" style="margin-left:auto">3 处需修改</span></div>
+    <div class="r-b" style="font-size:12.5px;line-height:1.9">
+      ❌ <b>“稳健增值”</b> → 暗示保本，改为「以固收资产为底仓、追求低波动」<br>
+      ❌ <b>“预期年化6%”</b> → 禁止预期收益承诺，改为「历史区间年化 X%（2019–2025，不代表未来）」<br>
+      ❌ <b>“名额有限先到先得”</b> → 禁止饥饿营销，删除<br>
+      <div class="i-ev" style="margin-top:8px">✅ 修改后版本已生成，风险提示与适当性声明已自动附加。</div></div>
+    <div class="r-f"><button class="btn sm primary" onclick="toast('📋 已复制合规版本')">📋 复制合规版</button><button class="btn sm ghost" onclick="toast('📖 《金融产品网络营销管理办法》要点（演示）')">查看法规依据</button></div></div>`};
+  }
+  /* —— 市场解读 / 推送文案 —— */
+  if(q.includes('降息')||q.includes('市场')||q.includes('推送')||q.includes('文案')){
+    return {txt:`今日市场要点与客户沟通建议，推送文案已按客群分层生成（稳健版/进取版）：`,card:`
+    <div class="rich"><div class="r-h">🌐 降息 25bp · 客户沟通包</div>
+    <div class="r-b" style="font-size:12.5px;line-height:1.8">
+      <b>对组合的影响：</b>债牛延续利好固收底仓；红利低波相对存款性价比提升；黄金已处高位不追高。<br>
+      <b>稳健版（C2–C3）：</b>“利息越来越低，您组合里的债券和红利资产正在‘替存款打工’，今天给您讲讲票息的力量。”<br>
+      <b>进取版（C4–C5）：</b>“降息周期开启，历史上首年权益胜率 68%。您的长钱账户已按信号布局，坐稳就好。”</div>
+    <div class="r-f"><button class="btn sm primary" onclick="toast('📤 已加入群发草稿（按客群分版）')">加入群发</button><button class="btn sm" onclick="go('research')">查看原文 ›</button></div></div>`};
+  }
+  /* —— 今日安排 —— */
+  if(q.includes('安排')||q.includes('优先级')||q.includes('今天')){
+    return {txt:`早！按「风险优先 → 窗口优先 → SOP 时限」为您排好了今天：`,card:`
+    <div class="rich"><div class="r-h">🗓 今日智能排程 <span class="chip brand" style="margin-left:auto">已同步任务中心</span></div>
+    <div class="r-b">
+      <div class="mini-row"><b class="num" style="color:var(--up)">09:30</b><div style="flex:1"><div class="mr-t">外呼王建国（赎回预警 · 黄金 24h）</div><div class="mr-s">话术与流动性方案已备好</div></div></div>
+      <div class="mini-row"><b class="num" style="color:var(--up)">11:00</b><div style="flex:1"><div class="mr-t">林晓芸年终奖方案定稿</div><div class="mr-s">配置窗口 3–5 天，约本周面谈</div></div></div>
+      <div class="mini-row"><b class="num" style="color:var(--warn)">14:00</b><div style="flex:1"><div class="mr-t">苏婉晴 KYC 语音问卷跟进</div><div class="mr-s">SOP 时限临近</div></div></div>
+      <div class="mini-row"><b class="num" style="color:var(--warn)">16:00</b><div style="flex:1"><div class="mr-t">发车信号未跟车触达（4 人）</div><div class="mr-s">吴海涛优先，历史跟车率 85%</div></div></div>
+      <div class="mini-row"><b class="num">17:30</b><div style="flex:1"><div class="mr-t">郑立新 Q3 复盘报告补信托章节</div><div class="mr-s">AI 草稿 70%，9/30 前送达</div></div></div></div>
+    <div class="r-f"><button class="btn sm primary" onclick="go('tasks')">去执行 ›</button><button class="btn sm ghost" onclick="toast('📅 已同步到日程')">同步日程</button></div></div>`};
+  }
+  /* —— SOP 体检 —— */
+  if(q.includes('SOP')||q.includes('流程')||q.includes('超时')){
+    return {txt:`已体检全部 8 位客户的 SOP 进度：7 位正常，1 项超时风险。`,card:`
+    <div class="rich"><div class="r-h">🧭 SOP 流程体检</div>
+    <div class="r-b">
+      <div class="mini-row"><span>⚠️</span><div style="flex:1"><div class="mr-t">苏婉晴 · KYC 70%（承接已 24 天 / 时限 21 天）</div><div class="mr-s">建议：改用 5 分钟语音问卷，今晚 8 点客户空闲时段推送</div></div><button class="btn sm primary" onclick="insightAct('i7','发送语音问卷')">一键处理</button></div>
+      <div class="mini-row"><span>📊</span><div style="flex:1"><div class="mr-t">郑立新 · Q3 复盘报告 9/30 前送达</div><div class="mr-s">草稿 70%，剩信托章节</div></div><button class="btn sm" onclick="go('reports')">去完善</button></div>
+      <div class="kv" style="margin-top:6px"><span class="k">整体按时完成率</span><span class="v up">94%（团队均值 88%）</span></div></div>
+    <div class="r-f"><button class="btn sm" onclick="go('sop')">打开流程看板 ›</button></div></div>`};
+  }
+  /* —— 目标测算（林晓芸年终奖） —— */
+  if(q.includes('测算')||q.includes('配置方案')||q.includes('年终奖')){
+    const cc=c||C('c2');
+    return {txt:`按 ${cc.name} 的双目标（教育金 2036 / 提前退休 2045），86 万年终奖建议这样拆分：`,card:`
+    <div class="rich"><div class="r-h">📐 ${cc.name} · 年终奖配置测算 <span class="chip green" style="margin-left:auto">🛡️ 合规通过</span></div>
+    <div class="r-b">
+      <div class="kv"><span class="k">① 教育金专户（长赢+固收）</span><span class="v num">30 万 → 2036 年约 52 万*</span></div>
+      <div class="kv"><span class="k">② 退休长钱（长赢计划定投加倍）</span><span class="v num">26 万 → 2045 年约 71 万*</span></div>
+      <div class="kv"><span class="k">③ 机动资金（盈米宝+短债）</span><span class="v num">30 万 · 随取随用</span></div>
+      <div class="i-ev">*按年化 4.5%/6% 中性假设测算，非收益承诺；已叠加其现有 328 万资产统一体检，配置后权益占比 46%→44%，仍在 C4 预算内。</div></div>
+    <div class="r-f"><button class="btn sm primary" onclick="toast('📑 已并入《林晓芸家庭财务规划报告》草案')">并入规划报告</button><button class="btn sm" onclick="openCustomer('c2','kyc')">查看目标 ›</button></div></div>`};
+  }
+  /* —— 客户摘要 —— */
+  if(c&&(q.includes('怎么样')||q.includes('近况')||q.includes('摘要')||q.includes('总结')||q.includes('建议'))){
+    const ins=DB.insights.filter(i=>i.c===c.id);
+    return {txt:`${c.name} 的 360° 摘要（数据：持仓/交易/企微/神策/AI洞察）：`,card:`
+    <div class="rich"><div class="r-h">${avatarOf(c,22)} ${c.name} · ${c.vipLabel} · ${c.risk}</div>
+    <div class="r-b">
+      <div class="kv"><span class="k">AUM / 年内</span><span class="v num">${fmtW(c.aum)} · ${fmtPct(c.pnlYearRate)}</span></div>
+      <div class="kv"><span class="k">SOP 阶段</span><span class="v">${c.sopName}</span></div>
+      <div class="kv"><span class="k">最近动态</span><span class="v" style="font-size:11.5px">${c.timeline[0].t}</span></div>
+      <div class="kv"><span class="k">行为意图</span><span class="v" style="font-size:11.5px">${c.behavior.intent}</span></div>
+      ${ins.length?`<div class="i-ev">🧠 ${ins[0].t}：${ins[0].b.replace(/<[^>]+>/g,'').slice(0,60)}…</div>`:'<div class="i-ev">✨ 服务节奏良好，无异常信号</div>'}
+      <div style="font-size:12px;color:var(--sub);margin-top:8px;line-height:1.7"><b>建议下一步：</b>${c.id==='c3'?'24h 内电话沟通资金安排（挽留方案已备好）':c.id==='c2'?'本周约面谈敲定年终奖配置':c.id==='c4'?'推送语音问卷补齐 KYC':c.id==='c8'?'9/30 前送达 Q3 复盘报告':'维持 SOP 节奏，本周一次轻触点'}</div></div>
+    <div class="r-f"><button class="btn sm primary" onclick="openCustomer('${c.id}')">打开客户 360 ›</button><button class="btn sm" onclick="askCopilot('给${c.name}写一段开场白')">✨ 开场白</button></div></div>`,
+    act:()=>openCustomer(c.id)};
+  }
+  /* —— 开场白 —— */
+  if(q.includes('开场白')){
+    const cc=c||C('c1');
+    return {txt:`给 ${cc.name} 的开场白（结合其最近动态：${cc.timeline[0].t}）：`,card:`
+    <div class="rich"><div class="r-h">💬 沟通开场白 · ${cc.name}</div>
+    <div class="r-b" style="font-size:12.5px;line-height:1.8">“${cc.name[0]}${cc.gender==='女'?'姐':'总'}，好久没联系。${cc.id==='c3'?'最近企业交班的事进展怎么样？我这边把您关心的资金安排方案都整理好了。':cc.id==='c6'?'最近天气转凉，您多注意身体。对了，您这个月的分红已经到账了。':'最近市场有些波动，我盯着您的组合呢，一切在计划内，跟您同步一下。」'}</div>
+    <div class="r-f"><button class="btn sm primary" onclick="toast('📋 已复制')">📋 复制</button><button class="btn sm ghost" onclick="askCopilot('换一版更简短的')">换一版</button></div></div>`};
+  }
+  if(q.includes('换一版')){
+    return {txt:`更简短的版本：`,card:`<div class="rich"><div class="r-b" style="font-size:12.5px;line-height:1.8">“最近市场波动您别操心，组合的三道防线都在正常工作，详细情况我整理成一页纸发您，两分钟就能看完。”</div><div class="r-f"><button class="btn sm primary" onclick="toast('📋 已复制')">📋 复制</button></div></div>`};
+  }
+  /* —— 任务处理 —— */
+  if(q.includes('处理任务')){
+    return {txt:`好的，我来拆解这个任务并准备好所需材料：`,card:`
+    <div class="rich"><div class="r-h">✨ 副驾任务协助</div><div class="r-b" style="font-size:12.5px;line-height:1.8">① 相关客户 360 与最近沟通纪要已就绪<br>② 对应话术/方案模板已按客户特征定制<br>③ 执行后将自动留痕并更新 SOP 进度<br>④ 需要我直接发起外呼或发送企微，点下方按钮即可。</div>
+    <div class="r-f"><button class="btn sm primary" onclick="go('tasks')">查看任务 ›</button></div></div>`};
+  }
+  /* —— 默认：智能引导 —— */
+  return {txt:`我可以这样帮你（已接入客户360/交易/企微/神策/投研/AI洞察）：`,card:`
+  <div class="rich"><div class="r-h">✨ 试试这些</div><div class="r-b">
+    <div class="mini-row" onclick="askCopilot('总结一下王建国的近况')"><span>📇</span><div class="mr-t">“总结一下王建国的近况”</div></div>
+    <div class="mini-row" onclick="askCopilot('帮我安排今天的工作优先级')"><span>🗓</span><div class="mr-t">“帮我安排今天的工作优先级”</div></div>
+    <div class="mini-row" onclick="askCopilot('帮我生成王建国的赎回挽留方案')"><span>🚨</span><div class="mr-t">“生成王建国的赎回挽留方案”</div></div>
+    <div class="mini-row" onclick="askCopilot('把今日降息解读生成客户推送文案')"><span>🌐</span><div class="mr-t">“把降息解读生成客户推送文案”</div></div>
+    <div class="mini-row" onclick="askCopilot('检查我所有客户的SOP进度')"><span>🧭</span><div class="mr-t">“检查所有客户的 SOP 进度”</div></div></div></div>`};
+}
+
+/* 晨报（主动推送） */
+function morningBrief(){
+  const html=`<div class="brief"><div class="b-t">🌅 副驾晨报 · ${TODAY}</div><div class="b-s">基于昨夜至今的市场、行为与事件数据生成</div>
+  <div class="b-stats">
+    <div class="b-stat" onclick="go('insights')"><div class="n num">2</div><div class="l">高优先异常</div></div>
+    <div class="b-stat" onclick="go('tasks')"><div class="n num">5</div><div class="l">今日待办</div></div>
+    <div class="b-stat" onclick="go('events')"><div class="n num">10</div><div class="l">新事件</div></div>
+    <div class="b-stat" onclick="go('sop')"><div class="n num">1</div><div class="l">SOP 超时</div></div>
+  </div>
+  <div class="b-sum"><b>王建国</b>（AUM 1,580 万）出现赎回预警，建议 11:00 前外呼，挽留方案已备好；<br><b>林晓芸</b> 86 万年终奖入账，配置窗口 3–5 天；<br>长赢第 48 期信号发布，4 位客户未跟车；<br>美联储降息 25bp，今日适合推送《票息的力量》。</div></div>`;
+  const st=$('#cp-stream');
+  const div=document.createElement('div');div.className='msg ai';
+  div.innerHTML=`<span class="m-av">✦</span><div class="m-body"><div class="m-card" style="margin-top:0">${html}</div><div class="m-time">${nowTime()} · 主动推送</div></div>`;
+  st.appendChild(div);
+  pushMsg('ai','早安！今天最值得先做的三件事：① 王建国赎回预警外呼 ② 林晓芸年终奖方案 ③ 苏婉晴 KYC 补齐。回复「安排」我帮你排好全天节奏。');
+}
+
+</script>
+<script>
+/* ==================== 应用装配 ==================== */
+/* 模式切换 */
+function setMode(m){
+  state.mode=m;
+  document.body.classList.toggle('mode-copilot',m==='copilot');
+  document.body.classList.toggle('mode-classic',m==='classic');
+  document.body.classList.remove('copilot-hidden');
+  document.querySelectorAll('#modeSwitch button').forEach(b=>b.classList.toggle('on',b.dataset.mode===m));
+  renderListCol();renderWork();
+  toast(m==='copilot'?'✨ 对话优先：副驾驱动工作区，开口即办':'🗂 界面优先：列表+详情经典布局，副驾右侧待命');
+  copilotContext(m==='copilot'?'已切换「对话优先」——我会主动推送并联动右侧工作区':'已切换「界面优先」——我在右侧待命，随时可问');
+}
+document.querySelectorAll('#modeSwitch button').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode)));
+function toggleCopilot(show){document.body.classList.toggle('copilot-hidden',!show)}
+
+/* 副驾输入 */
+const cpText=$('#cp-text');
+function autosize(){cpText.style.height='auto';cpText.style.height=Math.min(110,cpText.scrollHeight)+'px'}
+cpText.addEventListener('input',autosize);
+cpText.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();const v=cpText.value.trim();if(v)askCopilot(v)}});
+$('#cp-send').addEventListener('click',()=>{const v=cpText.value.trim();if(v)askCopilot(v)});
+
+/* 通知抽屉 */
+$('#bellBtn').addEventListener('click',()=>{
+  openDrawer('通知中心',DB.notices.map(n=>`<div class="evt" style="cursor:pointer" onclick="closeDrawer();go('${n.link}')"><span class="e-ic" style="background:var(--panel-2)">${n.ic}</span>
+  <div class="e-main"><div class="e-t" style="font-size:13px">${n.t}</div><div class="e-s">${n.s}</div><div class="e-m"><span>${n.d}</span><span class="tag-sev ${n.sev}">${n.sev==='high'?'高':n.sev==='med'?'中':'低'}</span></div></div></div>`).join('')
+  +'<div class="empty" style="padding:16px">全部通知已读取 · 推送规则可在「个性化」中配置</div>');
+  $('#bellDot').style.display='none';
+});
+
+/* 命令面板 Cmd+K */
+const PAL_ITEMS=[
+  ...DB.customers.map(c=>({sec:'客户',ic:'👤',t:c.name+' · '+c.vipLabel,s:`AUM ${fmtW(c.aum)} · ${c.sopName} · ${c.risk}`,fn:()=>openCustomer(c.id),kw:c.py+c.name})),
+  ...DB.tasks.filter(t=>!t.done).map(t=>({sec:'任务',ic:'✅',t:t.t,s:`${t.due} · 来自${t.src}`,fn:()=>go('tasks'),kw:t.t})),
+  ...DB.reports.map(r=>({sec:'报告',ic:'📑',t:r.t,s:`${r.type} · ${r.st}`,fn:()=>{go('reports');setTimeout(()=>openReport(r.id),100)},kw:r.t})),
+  ...DB.materials.map(m=>({sec:'话术',ic:'💬',t:m.t,s:`${m.sc} · 使用${m.used}次`,fn:()=>go('materials'),kw:m.t+m.sc})),
+  {sec:'功能',ic:'🏠',t:'今日工作台',s:'待办 · 异常 · 事件',fn:()=>go('today'),kw:'今日 today 首页'},
+  {sec:'功能',ic:'🧭',t:'SOP 流程看板',s:'承接→KYC→诊断→规划→执行→复盘',fn:()=>go('sop'),kw:'流程 sop 看板'},
+  {sec:'功能',ic:'📈',t:'经营看板',s:'AUM · 分层 · 漏斗',fn:()=>go('board'),kw:'看板 数据 dashboard'},
+  {sec:'功能',ic:'✨',t:'切换对话优先模式',s:'副驾驱动',fn:()=>setMode('copilot'),kw:'模式 对话 copilot'},
+  {sec:'功能',ic:'🗂',t:'切换界面优先模式',s:'经典布局',fn:()=>setMode('classic'),kw:'模式 界面 classic'},
+  {sec:'AI 技能',ic:'🚨',t:'生成赎回挽留方案',s:'副驾技能',fn:()=>askCopilot('帮我生成王建国的赎回挽留方案'),kw:'挽留 赎回'},
+  {sec:'AI 技能',ic:'📑',t:'AI 生成报告',s:'副驾技能',fn:()=>askCopilot('帮我生成郑立新的Q3复盘报告'),kw:'报告 生成'},
+  {sec:'AI 技能',ic:'🛡️',t:'合规检查',s:'副驾技能',fn:()=>skillTap('🛡️ 合规检查'),kw:'合规 检查'},
+];
+let palSel=0;
+function openPalette(){$('#palette').classList.add('open');$('#pal-input').value='';palSel=0;renderPal('');setTimeout(()=>$('#pal-input').focus(),30)}
+function closePalette(){$('#palette').classList.remove('open')}
+function renderPal(q){
+  q=q.trim().toLowerCase();
+  const list=q?PAL_ITEMS.filter(i=>(i.t+i.s+i.kw).toLowerCase().includes(q)):PAL_ITEMS.slice(0,12);
+  const secs=[...new Set(list.map(i=>i.sec))];
+  let html='';let idx=0;
+  secs.forEach(s=>{html+=`<div class="pal-sec">${s}</div>`;list.filter(i=>i.sec===s).forEach(i=>{const my=idx++;html+=`<div class="pal-item ${my===palSel?'sel':''}" data-i="${my}" onmouseenter="palSel=${my};renderPal($('#pal-input').value)" onclick="palGo(${PAL_ITEMS.indexOf(i)})"><span class="pi-ic">${i.ic}</span><div style="flex:1;min-width:0"><div class="pi-t">${i.t}</div><div class="pi-s">${i.s}</div></div><span style="color:var(--faint);font-size:11px">⏎</span></div>`})});
+  if(q)html+=`<div class="pal-sec">副驾</div><div class="pal-item" onclick="closePalette();askCopilot('${esc(q)}')"><span class="pi-ic">✨</span><div style="flex:1"><div class="pi-t">问副驾：“${esc(q)}”</div><div class="pi-s">AI 将检索客户360/投研/报告并联动工作区</div></div></div>`;
+  $('#pal-list').innerHTML=html||'<div class="empty">无匹配结果</div>';
+  $('#pal-list')._list=list;
+}
+function palGo(i){const it=PAL_ITEMS[i]||$('#pal-list')._list?.[i];if(!it)return;closePalette();it.fn()}
+$('#openPalette').addEventListener('click',openPalette);
+$('#pal-input').addEventListener('input',e=>{palSel=0;renderPal(e.target.value)});
+$('#pal-input').addEventListener('keydown',e=>{
+  const n=$('#pal-list')._list?.length||0;
+  if(e.key==='ArrowDown'){e.preventDefault();palSel=Math.min(palSel+1,n-1);renderPal(e.target.value)}
+  if(e.key==='ArrowUp'){e.preventDefault();palSel=Math.max(palSel-1,0);renderPal(e.target.value)}
+  if(e.key==='Enter'){e.preventDefault();const q=e.target.value.trim();if(e.shiftKey&&q){closePalette();askCopilot(q);return}const it=$('#pal-list')._list?.[palSel];if(it){closePalette();it.fn()}else if(q){closePalette();askCopilot(q)}}
+});
+document.addEventListener('keydown',e=>{
+  if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();$('#palette').classList.contains('open')?closePalette():openPalette()}
+  if(e.key==='Escape'){closePalette();closeDrawer()}
+});
+$('#palette').addEventListener('click',e=>{if(e.target.id==='palette')closePalette()});
+
+/* ==================== 演示讲解模式 ==================== */
+const TOUR=[
+ {t:'开工 · AI 晨报',n:'早上 9 点，副驾已基于昨夜市场、客户行为与事件数据生成晨报：2 项高优异常、5 项今日待办、1 项 SOP 超时。顾问不再翻十几个页面找重点。',dur:9000,run:()=>{setMode('copilot');go('today')}},
+ {t:'一句话智能排程',n:'「帮我安排今天的工作优先级」——副驾按风险优先、窗口优先、SOP 时限自动排程，并同步任务中心。',dur:10000,run:()=>{askCopilot('帮我安排今天的工作优先级')}},
+ {t:'异常驱动 · 赎回挽留',n:'王建国（AUM 1,580 万）触发赎回预警。副驾给出挽留三步法与合规话术，可一键外呼——从「看到预警」到「开始行动」只需 30 秒。',dur:12000,run:()=>{askCopilot('帮我生成王建国的赎回挽留方案')}},
+ {t:'客户 360 全景联动',n:'工作区自动联动打开客户 360：画像、持仓、KYC、历程、沟通、报告、洞察、提醒——所有数据与 AI 洞察整合在同一视图。',dur:9000,run:()=>{openCustomer('c3','overview')}},
+ {t:'SOP 标准化流程',n:'承接→KYC→诊断→规划→执行→复盘，六阶段管线可视。苏婉晴 KYC 已超时，系统标红并给出处理建议——服务不再依赖个人记忆。',dur:9000,run:()=>{go('sop')}},
+ {t:'AI 报告生成',n:'「生成郑立新的 Q3 复盘报告」——数据取自持仓/交易 API，AI 起草解读，顾问确认、合规校验后送达。报告不再是加班写出来的。',dur:12000,run:()=>{askCopilot('帮我生成郑立新的Q3复盘报告')}},
+ {t:'投研直达客户',n:'研究院观点一键转成客群分层推送文案，过合规、进群发草稿。投研价值直达客户指尖。',dur:11000,run:()=>{go('research');askCopilot('把今日降息解读生成一版客户推送文案')}},
+ {t:'双模式自由切换',n:'界面优先模式：经典列表+详情布局，副驾停靠右侧待命；⌘K 命令面板全局搜索直达。不同习惯的顾问都能找到最顺手的方式。',dur:9000,run:()=>{setMode('classic');go('customers','c1')}},
+ {t:'经营驾驶舱',n:'AUM 走势、净申购、客户分层、转化漏斗、团队排名、客群洞察——顾问第一次拥有自己的经营驾驶舱。',dur:9000,run:()=>{go('board')}},
+ {t:'新一代顾问工作台',n:'标准化 SOP × 数据化洞察 × AI 副驾 × 个性化空间——从「个人经验驱动」到「体系能力驱动」。感谢观看。',dur:11000,run:()=>{setMode('copilot');state.custId=null;go('today')}}
+];
+let tourOn=false,tourIdx=-1,tourTimer=null,tourPaused=false;
+function startTour(){tourOn=true;tourPaused=false;document.body.classList.add('touring');$('#tourbar').style.display='flex';closeDrawer();closePalette();tourGo(0)}
+function tourGo(i){
+  tourIdx=i;const s=TOUR[i];
+  $('#tb-t').textContent=s.t;$('#tb-n').textContent=s.n;$('#tb-step').textContent=(i+1)+' / '+TOUR.length;
+  $('#tb-play').textContent=tourPaused?'▶':'⏸';
+  const bar=$('#tb-bar');bar.style.transition='none';bar.style.width='0';void bar.offsetWidth;
+  if(!tourPaused){bar.style.transition=`width ${s.dur}ms linear`;bar.style.width='100%'}
+  s.run();
+  clearTimeout(tourTimer);
+  if(!tourPaused)tourTimer=setTimeout(tourNext,s.dur);
+}
+function tourNext(){if(tourIdx>=TOUR.length-1){endTour();toast('🎬 演示结束 · 可自由探索');return}tourGo(tourIdx+1)}
+function tourPrev(){if(tourIdx>0)tourGo(tourIdx-1)}
+function tourToggle(){
+  tourPaused=!tourPaused;clearTimeout(tourTimer);
+  $('#tb-play').textContent=tourPaused?'▶':'⏸';
+  const bar=$('#tb-bar');
+  if(tourPaused){const w=getComputedStyle(bar).width;bar.style.transition='none';bar.style.width=w}
+  else{const s=TOUR[tourIdx];bar.style.transition=`width ${s.dur}ms linear`;bar.style.width='100%';tourTimer=setTimeout(tourNext,s.dur)}
+}
+function endTour(){tourOn=false;clearTimeout(tourTimer);$('#tourbar').style.display='none';document.body.classList.remove('touring')}
+
+/* 启动 */
+renderNav();renderListCol();renderWork();renderSkillChips();
+setTimeout(morningBrief,400);
+setTimeout(()=>toast('🚨 高优先洞察：王建国赎回预警，建议 24h 内沟通'),6000);
+
+</script>
+</body>
+</html>

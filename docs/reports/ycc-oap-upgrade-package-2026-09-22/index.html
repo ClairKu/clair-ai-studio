@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />
+    <script data-clair-access-gate data-clair-access-scope="report" src="../../access-gate.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YCC · 盈米商业服务中枢 — 项目可视化方案（业务沟通 / 管理汇报版）</title>
+<style>
+:root{
+  --blue:#2F6BFF; --blue-deep:#1E4FD6; --blue-soft:#EEF3FF; --blue-line:#CFDCFF;
+  --navy:#0B1E3F; --navy-2:#12294F;
+  --ink:#111827; --ink-2:#374151; --ink-3:#6B7280; --ink-4:#9CA3AF;
+  --line:#E5E7EB; --line-2:#F0F2F6; --bg:#F5F7FB; --card:#FFFFFF;
+  --green:#059669; --green-soft:#E6F6F0;
+  --amber:#D97706; --amber-soft:#FEF3E2;
+  --red:#DC2626; --red-soft:#FDECEC;
+  --purple:#7C3AED; --purple-soft:#F1EBFF;
+  --teal:#0E7490; --teal-soft:#E0F2F7;
+  --font:"PingFang SC","MiSans","Hiragino Sans GB",system-ui,-apple-system,"Microsoft YaHei",sans-serif;
+  --mono:"SF Mono",Menlo,Consolas,monospace;
+  --r:14px; --r-sm:8px;
+  --sh:0 1px 2px rgba(17,24,39,.04),0 6px 20px rgba(17,24,39,.05);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);color:var(--ink);background:var(--bg);font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+b,strong{font-weight:700}
+.num{font-variant-numeric:tabular-nums}
+
+/* ===== 顶栏 ===== */
+.topbar{position:sticky;top:0;z-index:50;height:56px;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 28px;gap:18px}
+.topbar .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:15px;letter-spacing:.02em;white-space:nowrap}
+.topbar .logo .mark{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,#4F86FF,#1E4FD6);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:800}
+.topbar .logo span.tag{font-size:11px;font-weight:600;color:var(--blue-deep);background:var(--blue-soft);border:1px solid var(--blue-line);padding:1px 8px;border-radius:4px}
+.topbar nav{display:flex;gap:2px;margin-left:8px;overflow-x:auto;scrollbar-width:none}
+.topbar nav::-webkit-scrollbar{display:none}
+.topbar nav a{font-size:12.5px;color:var(--ink-2);padding:6px 10px;border-radius:6px;white-space:nowrap}
+.topbar nav a:hover{background:var(--line-2)}
+.topbar nav a.on{color:var(--blue-deep);background:var(--blue-soft);font-weight:600}
+.topbar .sp{flex:1}
+.topbar .meta{font-size:11.5px;color:var(--ink-3);white-space:nowrap}
+
+.wrap{max-width:1180px;margin:0 auto;padding:28px 28px 80px}
+
+/* ===== Hero ===== */
+.hero{background:linear-gradient(135deg,var(--navy) 0%,#163A7A 60%,#1E4FD6 100%);color:#fff;border-radius:20px;padding:40px 44px;position:relative;overflow:hidden;box-shadow:0 20px 50px rgba(11,30,63,.25)}
+.hero:before{content:"";position:absolute;right:-120px;top:-140px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.14),transparent 70%)}
+.hero:after{content:"";position:absolute;left:40%;bottom:-200px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(79,134,255,.35),transparent 70%)}
+.hero>*{position:relative;z-index:1}
+.hero .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.85;font-weight:600}
+.hero .eyebrow i{width:8px;height:8px;border-radius:50%;background:#7DD3FC;display:inline-block}
+.hero h1{font-size:34px;line-height:1.25;margin:14px 0 8px;letter-spacing:-.01em}
+.hero h1 small{display:block;font-size:16px;font-weight:500;opacity:.8;margin-top:6px;letter-spacing:0}
+.hero .lead{font-size:15.5px;max-width:760px;opacity:.92;margin-top:14px}
+.hero .lead b{color:#fff;background:rgba(255,255,255,.14);padding:0 6px;border-radius:4px}
+.hero-kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:28px}
+.hk{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:14px 16px}
+.hk .v{font-size:24px;font-weight:800;letter-spacing:-.02em}
+.hk .v small{font-size:12px;font-weight:500;opacity:.8;margin-left:4px}
+.hk .l{font-size:12px;opacity:.8;margin-top:2px}
+
+/* ===== Section ===== */
+.section{margin-top:44px}
+.sec-head{display:flex;align-items:flex-end;gap:14px;margin-bottom:16px}
+.sec-head .no{font-family:var(--mono);font-size:12px;color:var(--blue-deep);background:var(--blue-soft);border:1px solid var(--blue-line);padding:2px 8px;border-radius:6px;font-weight:700}
+.sec-head h2{font-size:22px;letter-spacing:-.01em}
+.sec-head p{font-size:13px;color:var(--ink-3);margin-left:auto;max-width:520px;text-align:right}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh);padding:20px 22px}
+.card h3{font-size:15px;margin-bottom:8px}
+.card p{color:var(--ink-2);font-size:13.5px}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:1fr 1fr}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.tag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.tag.blue{background:var(--blue-soft);color:var(--blue-deep)}
+.tag.green{background:var(--green-soft);color:var(--green)}
+.tag.amber{background:var(--amber-soft);color:var(--amber)}
+.tag.red{background:var(--red-soft);color:var(--red)}
+.tag.purple{background:var(--purple-soft);color:var(--purple)}
+.tag.gray{background:var(--line-2);color:var(--ink-3)}
+.tag.teal{background:var(--teal-soft);color:var(--teal)}
+.tag.navy{background:var(--navy);color:#fff}
+.callout{border-left:4px solid var(--blue);background:var(--blue-soft);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:12px 16px;font-size:13.5px;color:var(--ink-2)}
+.callout.amber{border-color:var(--amber);background:var(--amber-soft)}
+.callout.green{border-color:var(--green);background:var(--green-soft)}
+.callout b{color:var(--ink)}
+.src{font-size:11.5px;color:var(--ink-4);margin-top:10px}
+.src b{color:var(--ink-3);font-weight:600}
+
+/* ===== 痛点 Before/After ===== */
+.pain{display:grid;grid-template-columns:1fr 80px 1fr;gap:0;align-items:stretch}
+.pain .col{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;box-shadow:var(--sh)}
+.pain .col.before{border-color:#F3D3D3;background:linear-gradient(180deg,#fff, #FFF7F7)}
+.pain .col.after{border-color:#CFE3D8;background:linear-gradient(180deg,#fff,#F3FBF7)}
+.pain .col h3{display:flex;align-items:center;gap:8px;font-size:15px;margin-bottom:12px}
+.pain .mid{display:grid;place-items:center;color:var(--ink-4);font-size:26px}
+.pain ul{list-style:none}
+.pain li{display:flex;gap:10px;padding:8px 0;border-top:1px dashed var(--line);font-size:13px;color:var(--ink-2)}
+.pain li:first-child{border-top:0}
+.pain li i{flex:none;width:20px;height:20px;border-radius:6px;display:grid;place-items:center;font-size:11px;font-weight:800;margin-top:2px}
+.before li i{background:var(--red-soft);color:var(--red)}
+.after li i{background:var(--green-soft);color:var(--green)}
+
+/* ===== 客户与产品 ===== */
+.persona{display:flex;gap:14px;align-items:flex-start}
+.persona .av{flex:none;width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-weight:800;font-size:15px;color:#fff}
+.persona .av.p{background:linear-gradient(135deg,#4F86FF,#1E4FD6)}
+.persona .av.b{background:linear-gradient(135deg,#8B5CF6,#5B21B6)}
+.persona h3{margin-bottom:4px}
+.persona .sub{font-size:12.5px;color:var(--ink-3);margin-bottom:10px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:13px}
+.kv dt{color:var(--ink-3);white-space:nowrap}
+.kv dd{color:var(--ink-2)}
+.journey{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
+.journey span{font-size:12px;background:var(--line-2);border-radius:6px;padding:3px 9px;color:var(--ink-2);display:inline-flex;align-items:center;gap:6px}
+.journey span:after{content:"›";color:var(--ink-4)}
+.journey span:last-child:after{content:""}
+
+.products{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.prod{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;box-shadow:var(--sh);position:relative}
+.prod.dash{border-style:dashed;background:transparent;box-shadow:none}
+.prod .ic{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;font-size:11px;font-weight:800;color:#fff;background:var(--blue);margin-bottom:10px}
+.prod.dash .ic{background:var(--ink-4)}
+.prod b{font-size:13.5px;display:block}
+.prod small{font-size:11.5px;color:var(--ink-3);display:block;margin-top:2px;line-height:1.5}
+.prod .st{position:absolute;top:12px;right:12px}
+
+/* ===== 模块地图 ===== */
+.map{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:var(--sh)}
+.map .row-cust{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:10px}
+.map .cust{background:var(--blue-soft);border:1px solid var(--blue-line);border-radius:12px;padding:12px 16px;display:flex;gap:12px;align-items:center}
+.map .cust .av{width:36px;height:36px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-weight:800;font-size:12px;flex:none}
+.map .cust.b .av{background:var(--purple)}
+.map .cust.b{background:var(--purple-soft);border-color:#DDD2FA}
+.map .cust b{font-size:13.5px}
+.map .cust small{display:block;font-size:11.5px;color:var(--ink-3)}
+.map .arrows{display:grid;grid-template-columns:repeat(6,1fr);height:22px}
+.map .arrows i{display:block;position:relative}
+.map .arrows i:before{content:"";position:absolute;left:50%;top:0;bottom:0;border-left:2px dashed var(--blue-line)}
+.map .arrows i:after{content:"";position:absolute;left:50%;bottom:-2px;transform:translateX(-50%);border:5px solid transparent;border-top:7px solid var(--blue)}
+.map .arrows i.dim:before{border-color:var(--line)}
+.map .arrows i.dim:after{border-top-color:var(--ink-4)}
+.map .touch{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;border:1px dashed var(--line);border-radius:12px;padding:12px;background:var(--bg);position:relative}
+.map .touch .lbl{position:absolute;top:-9px;left:14px;font-size:11px;color:var(--ink-3);background:var(--bg);padding:0 6px}
+.map .touch .t{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;display:flex;gap:9px;align-items:center}
+.map .touch .t.dash{border-style:dashed;background:transparent}
+.map .touch .t .ic{width:28px;height:28px;border-radius:8px;background:var(--blue);color:#fff;font-size:9.5px;font-weight:800;display:grid;place-items:center;flex:none}
+.map .touch .t.dash .ic{background:var(--ink-4)}
+.map .touch .t b{font-size:12.5px;display:block}
+.map .touch .t small{font-size:10.5px;color:var(--ink-3)}
+.ycc{margin-top:14px;background:linear-gradient(180deg,#F3F7FF,#FFFFFF);border:1.5px solid var(--blue-line);border-radius:16px;padding:16px}
+.ycc .ycc-head{display:flex;align-items:baseline;gap:12px;margin-bottom:12px}
+.ycc .ycc-head b{font-size:16px;color:var(--blue-deep)}
+.ycc .ycc-head small{font-size:12px;color:var(--ink-3)}
+.ycc .ycc-head .r{margin-left:auto;font-size:12px;color:var(--blue-deep);font-weight:600}
+.ux{background:var(--navy);color:#fff;border-radius:12px;padding:14px 18px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ux b{font-size:14px;margin-right:12px}
+.ux span{font-size:12.5px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);border-radius:6px;padding:3px 10px}
+.ux .r{margin-left:auto;font-size:11.5px;opacity:.75}
+.prio{display:grid;grid-template-columns:2fr 2fr 2fr 1fr;gap:10px;margin-top:14px}
+.prio .ph{color:#fff;font-size:12px;font-weight:700;padding:6px 12px;border-radius:8px;letter-spacing:.02em}
+.prio .p0{background:#1A3D8F}.prio .p1{background:#2F6BFF}.prio .p2{background:#6FA0FF}.prio .p3{background:#7A8599}
+.modules{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin-top:10px}
+.mod{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 12px 12px 14px;position:relative;cursor:pointer;transition:.15s;border-top:3px solid var(--blue)}
+.mod:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(17,24,39,.1)}
+.mod.on{outline:2px solid var(--blue);outline-offset:1px}
+.mod.p0{border-top-color:#1A3D8F}.mod.p1{border-top-color:#2F6BFF}.mod.p2{border-top-color:#6FA0FF}.mod.p3{border-top-color:#7A8599}
+.mod b{font-size:13.5px;display:block;margin-bottom:6px}
+.mod .pp{position:absolute;right:10px;top:10px;font-size:10px;font-weight:800;color:#fff;border-radius:999px;padding:1px 7px;background:#2F6BFF}
+.mod.p0 .pp{background:#1A3D8F}.mod.p2 .pp{background:#6FA0FF}.mod.p3 .pp{background:#7A8599}
+.mod ul{list-style:none;font-size:11.5px;color:var(--ink-3);line-height:1.6}
+.mod-detail{margin-top:12px;background:var(--card);border:1px solid var(--blue-line);border-radius:12px;padding:16px 18px;display:none}
+.mod-detail.show{display:block}
+.mod-detail h4{font-size:15px;display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.mod-detail .cols{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.mod-detail .cols h5{font-size:12px;color:var(--ink-3);font-weight:600;margin-bottom:4px;text-transform:uppercase;letter-spacing:.06em}
+.mod-detail .cols p,.mod-detail .cols li{font-size:12.5px;color:var(--ink-2)}
+.mod-detail ul{padding-left:16px}
+.legend{display:flex;gap:18px;font-size:11.5px;color:var(--ink-3);margin-top:12px;align-items:center}
+.legend i{display:inline-block;width:26px;border-top:2px solid var(--blue);vertical-align:middle;margin-right:6px}
+.legend i.d{border-top-style:dashed}
+.legend i.g{border-color:var(--ink-4);border-top-style:dashed}
+.legend .r{margin-left:auto;font-weight:600;color:var(--blue-deep)}
+.principles{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
+.principles div{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:12.5px;text-align:center;color:var(--ink-2)}
+.principles div b{display:block;color:var(--ink);font-size:13px}
+
+/* ===== 表格 ===== */
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;background:var(--bg);color:var(--ink-3);font-weight:600;padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:10px 12px;border-bottom:1px solid var(--line-2);color:var(--ink-2);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:600;white-space:nowrap}
+.tbl-card{padding:0;overflow:hidden}
+.tbl-card table th:first-child,.tbl-card table td:first-child{padding-left:20px}
+
+/* ===== Flow ===== */
+.flow{display:flex;align-items:stretch;gap:0;margin-top:6px}
+.flow .step{flex:1;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;position:relative;box-shadow:var(--sh)}
+.flow .step .n{font-family:var(--mono);font-size:11px;color:var(--blue-deep);font-weight:700}
+.flow .step b{display:block;font-size:13.5px;margin:2px 0 4px}
+.flow .step small{font-size:11.5px;color:var(--ink-3);line-height:1.5;display:block}
+.flow .arr{flex:none;width:34px;display:grid;place-items:center;color:var(--blue);font-size:20px}
+.flow .step.hl{border-color:var(--blue-line);background:var(--blue-soft)}
+.flow .step.gray{border-style:dashed;background:transparent;box-shadow:none}
+
+/* ===== 场景 Tabs ===== */
+.tabs{display:inline-flex;background:var(--line-2);border-radius:10px;padding:3px;gap:3px;margin-bottom:14px}
+.tabs button{font-family:inherit;border:0;background:transparent;font-size:13px;padding:7px 16px;border-radius:8px;color:var(--ink-3);cursor:pointer;font-weight:500}
+.tabs button.on{background:#fff;color:var(--blue-deep);font-weight:700;box-shadow:0 1px 3px rgba(17,24,39,.12)}
+.scene{display:none}
+.scene.on{display:block}
+.scene-grid{display:grid;grid-template-columns:1fr 340px;gap:14px}
+.ledger{background:var(--navy);color:#fff;border-radius:12px;padding:16px 18px}
+.ledger h4{font-size:13px;opacity:.8;font-weight:600;letter-spacing:.06em;margin-bottom:10px}
+.ledger .row{display:flex;justify-content:space-between;font-size:13px;padding:6px 0;border-bottom:1px dashed rgba(255,255,255,.15)}
+.ledger .row:last-child{border-bottom:0}
+.ledger .row span:last-child{font-family:var(--mono);font-weight:600}
+.ledger .row.sum{border-top:1px solid rgba(255,255,255,.3);margin-top:6px;padding-top:10px;font-weight:700}
+.ledger .note{font-size:11px;opacity:.7;margin-top:10px}
+
+/* ===== 路线图 ===== */
+.roadmap{position:relative;padding-left:0;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.roadmap:before{content:"";position:absolute;left:0;right:0;top:18px;border-top:2px solid var(--blue-line)}
+.ph-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:34px 18px 16px;box-shadow:var(--sh);position:relative}
+.ph-card .dot{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:16px;height:16px;border-radius:50%;background:#fff;border:4px solid var(--blue)}
+.ph-card .when{font-size:11.5px;color:var(--blue-deep);font-weight:700;text-align:center;letter-spacing:.04em;margin-bottom:14px}
+.ph-card h3{font-size:15px;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.ph-card ul{padding-left:16px;font-size:12.5px;color:var(--ink-2);line-height:1.7}
+.ph-card .out{margin-top:10px;font-size:12px;background:var(--green-soft);color:var(--green);border-radius:8px;padding:6px 10px}
+.ph-card .out b{color:var(--green)}
+
+/* ===== 价值 / 指标 ===== */
+.value{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.value .card{border-top:4px solid var(--blue)}
+.value .card.g{border-top-color:var(--green)}
+.value .card.p{border-top-color:var(--purple)}
+.value ul{padding-left:16px;font-size:13px;color:var(--ink-2);line-height:1.75}
+.metric{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px dashed var(--line)}
+.metric:last-child{border-bottom:0}
+.metric span{font-size:13px;color:var(--ink-2)}
+.metric b{font-family:var(--mono);font-size:13px;color:var(--blue-deep)}
+
+/* ===== 决策 ===== */
+.decisions{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.dec{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;gap:12px;box-shadow:var(--sh)}
+.dec .n{flex:none;width:28px;height:28px;border-radius:8px;background:var(--amber-soft);color:var(--amber);display:grid;place-items:center;font-weight:800;font-size:12px}
+.dec b{display:block;font-size:13.5px;margin-bottom:3px}
+.dec p{font-size:12.5px;color:var(--ink-2)}
+.dec .opt{margin-top:6px;font-size:12px;color:var(--ink-3)}
+.dec .opt em{font-style:normal;color:var(--blue-deep);font-weight:600}
+
+.gloss{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.gloss div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:12.5px;color:var(--ink-2)}
+.gloss div b{display:block;color:var(--ink);font-size:13px;margin-bottom:2px}
+
+footer{margin-top:60px;padding-top:18px;border-top:1px solid var(--line);font-size:11.5px;color:var(--ink-4);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+
+@media (max-width:1000px){
+  .hero-kpis{grid-template-columns:repeat(2,1fr)}
+  .g2,.g3,.g4,.value,.decisions,.gloss,.roadmap,.scene-grid,.pain{grid-template-columns:1fr}
+  .products,.modules,.map .touch,.map .arrows{grid-template-columns:repeat(2,1fr)}
+  .map .arrows{display:none}
+  .prio{display:none}
+  .flow{flex-direction:column}
+  .flow .arr{transform:rotate(90deg);height:26px}
+  .roadmap:before{display:none}
+  .sec-head p{display:none}
+  .topbar nav{display:none}
+}
+@media (max-width:600px){
+  .topbar{padding:0 16px}
+  .topbar .meta{display:none}
+  .wrap{padding:18px 16px 64px}
+  .hero{padding:28px 22px}
+  .g2>*{min-width:0}
+  .tbl-card{min-width:0;max-width:100%;overflow-x:auto}
+}
+@media print{
+  .topbar{position:static}
+  .hero{box-shadow:none}
+  .section{break-inside:avoid}
+  .mod-detail{display:block!important}
+}
+.package-nav{position:sticky;top:0;z-index:50;background:rgba(14,32,57,.96);backdrop-filter:blur(14px);color:#fff;border-bottom:1px solid rgba(255,255,255,.14)}
+.package-nav .inner{max-width:1180px;margin:auto;padding:10px 24px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.package-nav b{margin-right:auto;font-size:13px}.package-nav a{color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.26);padding:6px 10px;border-radius:999px;font-size:12px}.package-nav a:hover{background:#fff;color:#173f70}.package-note{max-width:1180px;margin:16px auto 0;padding:10px 16px;border-radius:10px;background:#fff5dd;border:1px solid #ead7a4;color:#6d551f;font-size:12px}
+</style>
+</head>
+<body>
+<nav class="package-nav"><div class="inner"><b>YCC × OAP 升级方案包</b><a href="./">01 项目全景</a><a href="oap-ycc-upgrade-plan.html">02 产品升级方案</a><a href="oap-ycc-site-demo.html">03 官网交互 Demo</a></div></nav>
+<div class="package-note">公开脱敏方案稿：页面中的手机号、API Key、机构口令均为掩码或 Mock；积分、价格、权益包与实施节奏是供业务评审的方案假设，不代表已上线能力或正式商业条款。</div>
+
+<header class="topbar">
+  <div class="logo"><span class="mark">YCC</span> 盈米商业服务中枢 <span class="tag">项目方案 · 概念版 V0.1</span></div>
+  <nav id="nav">
+    <a href="#why">为什么做</a><a href="#what">YCC 是什么</a><a href="#who">服务谁</a><a href="#map">功能地图</a><a href="#goods">商品与权益</a><a href="#story">一笔生意</a><a href="#roadmap">路线图</a><a href="#value">价值与指标</a><a href="#decide">待拍板</a>
+  </nav>
+  <div class="sp"></div>
+  <div class="meta">面向业务沟通 / 管理汇报 · 2026-09-22</div>
+</header>
+
+<main class="wrap">
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="eyebrow"><i></i> YCC · Yingmi Commerce Core</div>
+  <h1>把盈米所有科技产品的「登录、购买、算账、发权益」收到一处
+    <small>YCC 盈米商业服务中枢 —— 面向 2P 个人与 2B 机构的统一科技服务商业底座</small>
+  </h1>
+  <p class="lead">今天 OAP、WealthWork、AI 编辑部、内容合规各自建帐号、各自收钱、各自记权益。YCC 不做任何一个业务产品的功能，只做它们共同缺的那一层：<b>一个帐号</b>登所有产品、<b>一个收银台</b>付所有订单、<b>一套积分/权益</b>算所有用量、<b>一个主体</b>开所有发票。</p>
+  <div class="hero-kpis">
+    <div class="hk"><div class="v">2P + 2B</div><div class="l">个人与机构两类客户一套体系</div></div>
+    <div class="hk"><div class="v">4<small>+2</small></div><div class="l">首批接入 4 个产品，2 个待定扩展</div></div>
+    <div class="hk"><div class="v">7</div><div class="l">个能力模块，分 P0–P3 四级优先级</div></div>
+    <div class="hk"><div class="v">1</div><div class="l">个统一收费主体 · 统一开票</div></div>
+    <div class="hk"><div class="v">OAP</div><div class="l">建议首个接入产品（帐号 + 积分）</div></div>
+  </div>
+</section>
+
+<!-- ===== 01 为什么做 ===== -->
+<section class="section" id="why">
+  <div class="sec-head"><span class="no">01</span><h2>为什么要做 YCC</h2><p>盈米对外的科技产品越来越多，但"卖东西"这件事还是一个产品一套做法。</p></div>
+  <div class="pain">
+    <div class="col before">
+      <h3><span class="tag red">现状</span> 一个产品一套帐、一套钱、一套权益</h3>
+      <ul>
+        <li><i>!</i><span><b>帐号各自为政。</b>OAP 官网个人用户借用且慢登录，机构用户走慧客通（yingchat）身份，WealthWork / AI 编辑部各有一套；同一个客户在不同产品里是不同的人。</span></li>
+        <li><i>!</i><span><b>收费靠合同 + 线下。</b>机构合同按"预充值积分"计费（如山西证券 12 万元 / 12 个月），但积分入账、扣减、对账多靠人工表格，客户无法自助查看。</span></li>
+        <li><i>!</i><span><b>个人用户想付钱也没入口。</b>OAP 只有免费申请 API Key，没有商品、没有收银台，用量做不成收入。</span></li>
+        <li><i>!</i><span><b>权益口径不统一。</b>Token 额度、MCP 权限、积分余额、席位数分散在各系统，业务侧无法回答"这个客户到底还剩多少、能用到什么时候"。</span></li>
+        <li><i>!</i><span><b>每个新产品都要重造一遍。</b>Vesta、更多产品要商业化，就得再做一次登录、购买、发票、售后。</span></li>
+      </ul>
+    </div>
+    <div class="mid">→</div>
+    <div class="col after">
+      <h3><span class="tag green">YCC 之后</span> 一个客户、一个帐、一张单、一份权益</h3>
+      <ul>
+        <li><i>✓</i><span><b>统一登录身份。</b>手机号为主身份，微信 / 且慢 App 快捷登录；机构有管理员、采购、使用人角色，成员统一管理。</span></li>
+        <li><i>✓</i><span><b>商品上架即可卖。</b>Token 包、MCP 套餐、积分兑换商品由商品管理统一定义、定价、定销售范围。</span></li>
+        <li><i>✓</i><span><b>在线 / 对公一个收银台。</b>个人在线支付、机构对公支付、积分抵扣与组合支付，统一主体、统一退款对账。</span></li>
+        <li><i>✓</i><span><b>权益随手可查。</b>额度、权限、积分余额、有效期、流水在一处，业务和客户看到的是同一份数。</span></li>
+        <li><i>✓</i><span><b>新产品即插即用。</b>接入 YCC 就自带登录、购买、权益、售后，商业化周期从"月"到"周"。</span></li>
+      </ul>
+    </div>
+  </div>
+  <p class="src"><b>依据：</b>OAP 帐号现状与身份架构来自盈米本体核查（stargate 双 IdP：C 端 pmdj OIDC / 机构 yingchat-gateway，2026-09-22）；机构合同预充值积分计费来自《山西证券基金诊断模块 MCP 技术服务合同》文本。</p>
+</section>
+
+<!-- ===== 02 是什么 ===== -->
+<section class="section" id="what">
+  <div class="sec-head"><span class="no">02</span><h2>YCC 是什么、不是什么</h2><p>一句话：YCC 是盈米科技产品的"商业中枢"，不是又一个业务产品。</p></div>
+  <div class="grid g3">
+    <div class="card">
+      <span class="tag blue">定位</span>
+      <h3 style="margin-top:8px">统一科技服务商业中枢</h3>
+      <p>为盈米面向外部的科技产品（OAP 开放平台、WealthWork、AI 编辑部、内容合规等）提供共用的<b>身份、商品、交易、权益、售后</b>五类能力。各产品专注自己的业务功能，"卖"和"算账"交给 YCC。</p>
+    </div>
+    <div class="card">
+      <span class="tag green">做什么</span>
+      <h3 style="margin-top:8px">五件事，一条链</h3>
+      <p>用户认证与用户管理（谁在用）→ 商品管理（卖什么）→ 订单与统一收银台（怎么付）→ 权益管理（拥有什么、还剩多少）→ 售后管理（退、撤、争议）。<br>交易主链路：<b>商品 → 订单 → 收银台 → 权益</b>。</p>
+    </div>
+    <div class="card">
+      <span class="tag amber">不做什么</span>
+      <h3 style="margin-top:8px">三条边界</h3>
+      <p>① 不碰且慢 C 端的基金交易帐户与隐私数据，<b>且慢与 YCC 数据隔离</b>；② 不替代各产品自身的功能与用量执行（如 Stargate 网关的计量），只接收结果做权益扣减；③ 不做业务产品的运营与内容。</p>
+    </div>
+  </div>
+  <div class="callout" style="margin-top:14px"><b>怎么向老板一句话讲：</b>YCC 是盈米科技收入的"收银台 + 会员系统"。以前每个产品自己开店、自己收钱、自己记帐；以后统一一个门、一个柜台、一本帐，客户买得顺、我们算得清、新产品上得快。</div>
+</section>
+
+<!-- ===== 03 服务谁 ===== -->
+<section class="section" id="who">
+  <div class="sec-head"><span class="no">03</span><h2>服务谁：两类客户，六个产品触点</h2><p>个人客户全自助；机构客户走合同与对公，但成员使用体验与个人一致。</p></div>
+  <div class="grid g2">
+    <div class="card persona">
+      <div class="av p">2P</div>
+      <div style="flex:1">
+        <h3>个人客户 <span class="tag blue">自助注册 · 自助购买 · 自助使用</span></h3>
+        <div class="sub">开发者、KOL、量化与投研个人、投顾从业者、内容创作者</div>
+        <dl class="kv">
+          <dt>主身份</dt><dd>手机号主登录；微信 / 且慢 App 快捷登录</dd>
+          <dt>买什么</dt><dd>Token 包、MCP 套餐、积分加油包、积分兑换商品</dd>
+          <dt>怎么付</dt><dd>在线支付、积分抵扣、组合支付</dd>
+          <dt>看什么</dt><dd>积分余额、额度、有效期、订单、发票、售后</dd>
+        </dl>
+        <div class="journey"><span>注册登录</span><span>领取 / 购买</span><span>接入使用</span><span>查权益</span><span>续购 / 售后</span></div>
+      </div>
+    </div>
+    <div class="card persona">
+      <div class="av b">2B</div>
+      <div style="flex:1">
+        <h3>机构客户 <span class="tag purple">机构采购 · 合同服务 · 成员使用</span></h3>
+        <div class="sub">证券公司、银行理财、基金公司、财富管理机构、AI 平台方</div>
+        <dl class="kv">
+          <dt>角色</dt><dd>机构管理员 / 采购 / 使用人，成员可增减、分配额度与期限</dd>
+          <dt>买什么</dt><dd>合同订单：预充值积分、席位、专属能力包、共建项目</dd>
+          <dt>怎么付</dt><dd>协议价、对公支付、统一开票（6% 增值税专用发票）</dd>
+          <dt>看什么</dt><dd>机构积分池、成员用量、合同有效期、对账单、发票</dd>
+        </dl>
+        <div class="journey"><span>商务 / 合同</span><span>对公付款 / 入账</span><span>管理员开通成员</span><span>用量看板</span><span>对账 / 续约</span></div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin:22px 0 10px;font-size:15px">业务产品 / 服务触点</h3>
+  <div class="products">
+    <div class="prod"><span class="st tag green">首批</span><div class="ic">OAP</div><b>开放平台</b><small>API 与开发者服务 · MCP / Skills / Agents</small></div>
+    <div class="prod"><span class="st tag green">首批</span><div class="ic">WW</div><b>WealthWork</b><small>机构财富管理工作台</small></div>
+    <div class="prod"><span class="st tag green">首批</span><div class="ic">AI</div><b>AI 编辑部</b><small>内容生产与运营</small></div>
+    <div class="prod"><span class="st tag green">首批</span><div class="ic">CS</div><b>内容合规</b><small>内容审核与合规</small></div>
+    <div class="prod dash"><span class="st tag amber">待确认</span><div class="ic">V?</div><b>Vesta（?）</b><small>投研平台 · 接入范围待确认</small></div>
+    <div class="prod dash"><span class="st tag gray">未来</span><div class="ic">+</div><b>更多产品</b><small>持续扩展接入</small></div>
+  </div>
+  <p class="src"><b>说明：</b>产品接入清单来自《YCC 产品功能模块关系图 · 产品概念版 V0.1》；建议 OAP 作为第一个接入产品——用户量最大（5,500+ 用户、350+ 机构）、已有合同预充值积分先例、商业化目标最明确。</p>
+</section>
+
+<!-- ===== 04 功能地图 ===== -->
+<section class="section" id="map">
+  <div class="sec-head"><span class="no">04</span><h2>产品功能模块关系图</h2><p>点击任一模块查看：做什么、为业务解决什么、关键对象、依赖关系。</p></div>
+  <div class="map">
+    <div class="row-cust">
+      <div class="cust"><div class="av">2P</div><div><b>个人客户</b><small>手机号主登录 · 微信 / 且慢 App 快捷登录 · 自助注册 / 购买 / 使用</small></div></div>
+      <div class="cust b"><div class="av">2B</div><div><b>机构客户</b><small>机构管理员 / 采购 / 使用人 · 协议价 / 对公支付 / 统一开票</small></div></div>
+    </div>
+    <div class="touch"><span class="lbl">业务产品 / 服务触点</span>
+      <div class="t"><div class="ic">OAP</div><div><b>开放平台</b><small>API 与开发者服务</small></div></div>
+      <div class="t"><div class="ic">WW</div><div><b>WealthWork</b><small>机构财富管理</small></div></div>
+      <div class="t"><div class="ic">AI</div><div><b>AI 编辑部</b><small>内容生产与运营</small></div></div>
+      <div class="t"><div class="ic">CS</div><div><b>内容合规</b><small>内容审核与合规</small></div></div>
+      <div class="t dash"><div class="ic">V?</div><div><b>Vesta（?）</b><small>接入范围待确认</small></div></div>
+      <div class="t dash"><div class="ic">+</div><div><b>更多产品</b><small>持续扩展接入</small></div></div>
+    </div>
+    <div class="arrows"><i></i><i></i><i></i><i></i><i class="dim"></i><i class="dim"></i></div>
+
+    <div class="ycc">
+      <div class="ycc-head"><b>YCC · 盈米商业服务中枢</b><small>YCC = Yingmi Commerce Core（盈米商业服务中枢）</small><span class="r">统一能力 · 按产品与合同隔离</span></div>
+      <div class="ux"><b>统一产品接入与用户体验</b><span>统一登录</span><span>商品展示</span><span>统一收银台</span><span>权益 / 积分查询</span><span>订单与售后</span><span class="r">现有产品 + 待定 / 新产品</span></div>
+      <div class="prio">
+        <div class="ph p0">P0 ｜ 最高优先级 · 身份底座</div>
+        <div class="ph p1">P1 ｜ 第二优先级 · 商品权益</div>
+        <div class="ph p2">P2 ｜ 第三优先级 · 交易收银</div>
+        <div class="ph p3">P3 ｜ 最低优先级</div>
+      </div>
+      <div class="modules" id="modules">
+        <div class="mod p0" data-m="auth"><span class="pp">P0</span><b>用户认证</b><ul><li>手机号主登录</li><li>微信 · 且慢 · 机构</li><li>统一登录身份</li></ul></div>
+        <div class="mod p0" data-m="user"><span class="pp">P0</span><b>用户管理</b><ul><li>2P 个人 · 2B 机构</li><li>成员 · 角色 · 帐号</li><li>多产品用户关系</li></ul></div>
+        <div class="mod p1" data-m="goods"><span class="pp">P1</span><b>商品管理</b><ul><li>Token 包 · MCP 套餐</li><li>价格 · 周期 · 销售范围</li><li>积分兑换 · 与用户无关</li></ul></div>
+        <div class="mod p1" data-m="benefit"><span class="pp">P1</span><b>权益管理</b><ul><li>Token 额度 · MCP 权限</li><li>积分帐户 · 积分余额</li><li>绑定个人 / 机构 / 合同</li><li>有效期 · 使用范围 · 流水</li></ul></div>
+        <div class="mod p2" data-m="order"><span class="pp">P2</span><b>订单管理</b><ul><li>个人订单 · 合同订单</li><li>下单 · 取消 · 查询</li><li>关联积分获得 / 使用</li></ul></div>
+        <div class="mod p2" data-m="cashier"><span class="pp">P2</span><b>统一收银台</b><ul><li>在线支付 · 对公支付</li><li>积分抵扣 · 组合支付</li><li>统一主体 · 退款 · 对账</li></ul></div>
+        <div class="mod p3" data-m="after"><span class="pp">P3</span><b>售后管理</b><ul><li>退款 · 退订 · 撤销</li><li>权益 / 积分回收退还</li><li>售后与争议记录</li></ul></div>
+      </div>
+      <div class="mod-detail" id="modDetail"></div>
+      <div class="principles">
+        <div><b>覆盖 2P / 2B</b>个人与机构共用一套能力</div>
+        <div><b>且慢与 YCC 隐私数据隔离</b>不触碰 C 端交易帐户</div>
+        <div><b>权益默认按产品和合同隔离</b>可配置打通</div>
+        <div><b>统一收费主体</b>一个主体收款、开票、对账</div>
+      </div>
+    </div>
+    <div class="legend"><span><i></i>模块业务关系</span><span><i class="d"></i>产品复用 YCC 模块</span><span><i class="g"></i>待确认 / 未来接入</span><span class="r">P0 最高优先级 → P1 → P2 → P3 最低优先级</span></div>
+  </div>
+</section>
+
+<!-- ===== 05 商品与权益 ===== -->
+<section class="section" id="goods">
+  <div class="sec-head"><span class="no">05</span><h2>商品与权益：一个"卖什么"，一个"谁拥有什么"</h2><p>这是 YCC 最容易被混淆、也最关键的一组概念。</p></div>
+  <div class="grid" style="grid-template-columns:1fr 1fr;gap:14px">
+    <div class="card tbl-card">
+      <table>
+        <thead><tr><th>对比维度</th><th>商品管理 ｜ 定义"卖什么"</th><th>权益管理 ｜ 记录"谁拥有什么"</th></tr></thead>
+        <tbody>
+          <tr><td class="k">核心对象</td><td>Token 包、MCP 套餐、积分兑换商品</td><td>Token 额度、MCP 使用权限、积分帐户 / 余额</td></tr>
+          <tr><td class="k">是否绑定用户</td><td>否，与具体用户无关（是模板）</td><td>是，绑定个人 / 机构 / 合同（是实例）</td></tr>
+          <tr><td class="k">关键属性</td><td>名称、价格、周期、销售范围</td><td>余额、有效期、使用范围、权益流水</td></tr>
+          <tr><td class="k">产生时点</td><td>商品配置并上架后即存在</td><td>购买、签约或运营发放后产生</td></tr>
+          <tr><td class="k">业务动作</td><td>配置、定价、上下架、积分兑换配置</td><td>发放、扣减、冻结、回收、退还、补发</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:14px">
+        <h3>类比一下</h3>
+        <p><b>商品</b>像货架上的"充值卡面额"——100 元卡、500 元卡，谁都能看、跟谁买没关系。<br><b>权益</b>像你钱包里那张已经刮开的卡——写着你的名字、余额、有效期、每一笔消费记录。<br>积分是权益的一种形式：<b>积分帐户属于权益，积分兑换商品属于商品。</b></p>
+      </div>
+      <div class="callout"><b>交易主链路：</b>商品管理 → 订单管理 → 统一收银台 → 权益管理<br><b>售后闭环：</b>订单管理 → 售后管理（退款 / 退订 → 权益或积分回收退还）</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 06 一笔生意 ===== -->
+<section class="section" id="story">
+  <div class="sec-head"><span class="no">06</span><h2>一笔生意在 YCC 里怎么走</h2><p>用两个真实场景讲清楚七个模块如何协作（数字为示例口径）。</p></div>
+  <div class="tabs" id="sceneTabs"><button class="on" data-s="p">个人开发者买积分</button><button data-s="b">机构签合同预充值</button></div>
+
+  <div class="scene on" id="scene-p">
+    <div class="scene-grid">
+      <div>
+        <div class="flow">
+          <div class="step hl"><div class="n">P0 用户认证</div><b>手机号注册登录</b><small>微信扫码或且慢 App 一键登录，绑定手机号为主身份</small></div><div class="arr">›</div>
+          <div class="step"><div class="n">P1 商品管理</div><b>看到商品</b><small>免费个人版赠送积分；积分加油包 10 万分 ¥600（示例）</small></div><div class="arr">›</div>
+          <div class="step"><div class="n">P2 订单管理</div><b>下单</b><small>生成个人订单，锁定价格与积分数量</small></div><div class="arr">›</div>
+          <div class="step"><div class="n">P2 统一收银台</div><b>在线支付</b><small>微信 / 支付宝；可用赠送积分抵扣部分金额</small></div><div class="arr">›</div>
+          <div class="step hl"><div class="n">P1 权益管理</div><b>积分入帐</b><small>写入积分帐户，带有效期与使用范围（OAP）</small></div><div class="arr">›</div>
+          <div class="step gray"><div class="n">产品侧</div><b>调用 MCP 扣分</b><small>Stargate 计量 → YCC 扣减 → 流水可查</small></div>
+        </div>
+        <p class="src" style="margin-top:12px"><b>售后：</b>若用户 7 天内未使用申请退款 → 售后管理生成退款单 → 收银台原路退款 → 权益管理回收对应积分并记录流水。</p>
+      </div>
+      <div class="ledger">
+        <h4>用户视角 · 我拥有什么</h4>
+        <div class="row"><span>注册赠送（30 天有效）</span><span>5,000 分</span></div>
+        <div class="row"><span>加油包（12 个月有效）</span><span>100,000 分</span></div>
+        <div class="row"><span>本月已消耗</span><span>-12,480 分</span></div>
+        <div class="row sum"><span>可用余额</span><span>92,520 分</span></div>
+        <div class="note">同一份数，客户在个人中心看到、业务在后台看到、财务在对账单看到。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene" id="scene-b">
+    <div class="scene-grid">
+      <div>
+        <div class="flow">
+          <div class="step"><div class="n">商务</div><b>签订合同</b><small>如：12 个月、¥120,000、预充值积分计费（山西证券先例）</small></div><div class="arr">›</div>
+          <div class="step hl"><div class="n">P0 用户管理</div><b>建机构 + 管理员</b><small>运营导入机构，指定管理员，成员由管理员自助增减</small></div><div class="arr">›</div>
+          <div class="step"><div class="n">P2 订单 / 收银台</div><b>合同订单 + 对公付款</b><small>协议价、对公转帐入帐、统一主体开具 6% 专票</small></div><div class="arr">›</div>
+          <div class="step hl"><div class="n">P1 权益管理</div><b>机构积分池入帐</b><small>合同期内有效，绑定合同；管理员按成员分配额度与日 / 月限额</small></div><div class="arr">›</div>
+          <div class="step gray"><div class="n">产品侧</div><b>成员使用</b><small>成员领口令 / Key 接入，调用按工具计价扣机构池</small></div><div class="arr">›</div>
+          <div class="step"><div class="n">运营 / 财务</div><b>月度对账 · 续约</b><small>用量报表、余额预警、到期提醒、续约或加购</small></div>
+        </div>
+        <p class="src" style="margin-top:12px"><b>隔离原则：</b>机构积分默认只能用于合同约定的产品与能力范围；跨产品通用需配置打通。</p>
+      </div>
+      <div class="ledger">
+        <h4>机构管理员视角 · 我们还剩多少</h4>
+        <div class="row"><span>合同预充值</span><span>2,000,000 分</span></div>
+        <div class="row"><span>已分配给 20 位成员</span><span>1,200,000 分</span></div>
+        <div class="row"><span>累计消耗（3 个月）</span><span>-486,300 分</span></div>
+        <div class="row sum"><span>池内可分配余额</span><span>800,000 分</span></div>
+        <div class="note">合同到期 2027-09 · 预计按当前速度可用 12.3 个月 · 余额低于 20% 时提醒管理员与商务。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 07 路线图 ===== -->
+<section class="section" id="roadmap">
+  <div class="sec-head"><span class="no">07</span><h2>分阶段路线图（建议）</h2><p>按 P0 → P3 优先级推进，每阶段有一个可验收的业务结果；时间为建议，待排期确认。</p></div>
+  <div class="roadmap">
+    <div class="ph-card"><div class="dot"></div><div class="when">阶段一 · 2026 Q4</div>
+      <h3>身份底座 <span class="tag navy">P0</span></h3>
+      <ul><li>用户认证：手机号主登录、微信 / 且慢快捷登录</li><li>用户管理：个人 / 机构、成员角色、多产品关系</li><li>OAP 官网切换到 YCC 登录（双轨灰度）</li><li>存量用户与 API Key 无感迁移</li></ul>
+      <div class="out"><b>验收：</b>OAP 新老用户 100% 可用 YCC 登录；一个手机号一个身份</div>
+    </div>
+    <div class="ph-card"><div class="dot"></div><div class="when">阶段二 · 2027 Q1</div>
+      <h3>商品与权益 <span class="tag blue">P1</span></h3>
+      <ul><li>商品管理：Token 包 / MCP 套餐 / 加油包上架</li><li>权益管理：积分帐户、余额、有效期、流水</li><li>OAP 积分方案上线（先影子计量、后正式扣减）</li><li>机构合同积分从线下表格迁到权益系统</li></ul>
+      <div class="out"><b>验收：</b>所有 OAP 用量可按积分计量；合同客户自助查余额</div>
+    </div>
+    <div class="ph-card"><div class="dot"></div><div class="when">阶段三 · 2027 Q2</div>
+      <h3>交易收银 <span class="tag teal">P2</span></h3>
+      <ul><li>订单管理：个人订单、合同订单</li><li>统一收银台：在线支付、对公、积分抵扣、组合支付</li><li>统一主体退款、对账、发票申请</li><li>WealthWork / AI 编辑部 / 内容合规接入</li></ul>
+      <div class="out"><b>验收：</b>个人可在线自助付费；机构对公入帐自动到权益</div>
+    </div>
+    <div class="ph-card"><div class="dot"></div><div class="when">阶段四 · 2027 H2</div>
+      <h3>售后与扩展 <span class="tag gray">P3</span></h3>
+      <ul><li>售后管理：退款、退订、撤销、争议记录</li><li>权益 / 积分回收退还自动化</li><li>Vesta 等更多产品接入</li><li>跨产品权益打通（按需配置）</li></ul>
+      <div class="out"><b>验收：</b>新产品接入 YCC ≤ 2 周；售后闭环无需人工对帐</div>
+    </div>
+  </div>
+  <div class="callout amber" style="margin-top:14px"><b>为什么先 OAP：</b>OAP 是当前用户最多（5,500+ 用户、350+ 机构、累计调用 800 万+）、商业化目标最明确（2026 年底 1,300 万调用 / 1 万用户 / MAU 2,000）、且已有合同以"预充值积分"计费的产品。先在 OAP 跑通"帐号 + 积分"，其他产品照样复用。OAP 侧的具体升级方案见配套文档<a href="oap-ycc-upgrade-plan.html">《OAP 官网升级产品方案》</a>。</div>
+</section>
+
+<!-- ===== 08 价值与指标 ===== -->
+<section class="section" id="value">
+  <div class="sec-head"><span class="no">08</span><h2>带来什么价值，怎么衡量</h2><p>业务、客户、公司三个视角，各配可量化指标。</p></div>
+  <div class="value">
+    <div class="card">
+      <h3>对业务团队</h3>
+      <ul>
+        <li>签约到开通：从"合同 → 人工建帐 → 手工发额度"缩短到管理员自助，目标 <b>≤ 1 个工作日</b></li>
+        <li>不再维护各产品的客户表、积分表；一处看全部客户在全部产品的权益与用量</li>
+        <li>续约与加购有数据依据：余额预警、用量趋势自动推送商务</li>
+      </ul>
+    </div>
+    <div class="card g">
+      <h3>对客户</h3>
+      <ul>
+        <li>一个帐号登所有盈米科技产品；机构成员由自己的管理员管理</li>
+        <li>余额、有效期、每一笔消耗随时可查，不用找商务问</li>
+        <li>个人可即时购买；机构对公付款后权益自动到帐，统一开票</li>
+      </ul>
+    </div>
+    <div class="card p">
+      <h3>对公司</h3>
+      <ul>
+        <li>把"订阅 + 用量"收入模式从合同文本变成可计量、可对帐、可确认的系统事实</li>
+        <li>新产品商业化的固定成本大幅降低：接入即具备登录、购买、权益、售后</li>
+        <li>统一收费主体，财务口径一致，为 AI 科技服务收入预测提供真实数据底座</li>
+      </ul>
+    </div>
+  </div>
+  <div class="grid g2" style="margin-top:14px">
+    <div class="card">
+      <h3>建设与采用指标</h3>
+      <div class="metric"><span>接入 YCC 的产品数（年底）</span><b>≥ 4</b></div>
+      <div class="metric"><span>OAP 存量用户迁移完成率</span><b>≥ 95%</b></div>
+      <div class="metric"><span>统一登录成功率</span><b>≥ 99.5%</b></div>
+      <div class="metric"><span>新产品接入周期</span><b>≤ 2 周</b></div>
+      <div class="metric"><span>合同客户自助查余额覆盖率</span><b>100%</b></div>
+    </div>
+    <div class="card">
+      <h3>经营结果指标</h3>
+      <div class="metric"><span>可按积分计量的用量占比</span><b>100%</b></div>
+      <div class="metric"><span>个人付费转化率（活跃用户）</span><b>目标 3–5%</b></div>
+      <div class="metric"><span>机构积分池月消耗率</span><b>监控 · 预警 &lt;20%</b></div>
+      <div class="metric"><span>对帐差异率（系统 vs 财务）</span><b>&lt; 0.1%</b></div>
+      <div class="metric"><span>售后 / 计费类客服工单</span><b>环比下降 50%</b></div>
+    </div>
+  </div>
+  <p class="src"><b>说明：</b>指标目标值为建议口径，需与业务 DRI、财务共同冻结；OAP 用户与调用数据引自 2026-05 官网升级稿及 2026 下半年 OKR。</p>
+</section>
+
+<!-- ===== 09 待拍板 ===== -->
+<section class="section" id="decide">
+  <div class="sec-head"><span class="no">09</span><h2>需要管理层拍板的事项</h2><p>这些问题不定，后面的产品与技术方案就无法收敛。</p></div>
+  <div class="decisions">
+    <div class="dec"><div class="n">1</div><div><b>统一收费主体是谁</b><p>YCC 以哪家公司主体收款、开票、签约？这决定收银台的支付通道、发票系统与财务口径。</p><div class="opt">选项：<em>盈米基金</em> / <em>盈米科技</em> / 按产品线区分</div></div></div>
+    <div class="dec"><div class="n">2</div><div><b>积分是否跨产品通用</b><p>默认按产品和合同隔离。要不要允许一个机构的积分池同时用于 OAP 与 AI 编辑部？通用会更好卖，但定价与成本分摊更复杂。</p><div class="opt">建议：<em>阶段二默认隔离</em>，阶段四按合同可配置打通</div></div></div>
+    <div class="dec"><div class="n">3</div><div><b>YCC 与且慢帐号的关系</b><p>且慢 App 快捷登录是"用且慢身份登录 YCC"，还是"把且慢用户映射成 YCC 用户"？涉及隐私隔离与合规边界。</p><div class="opt">建议：<em>且慢仅作为登录方式之一（IdP）</em>，YCC 独立用户表，不同步且慢交易数据</div></div></div>
+    <div class="dec"><div class="n">4</div><div><b>首个接入产品与时间</b><p>是否确认 OAP 作为阶段一唯一接入产品，2026 Q4 完成帐号切换？</p><div class="opt">建议：<em>是</em>；WealthWork 等在阶段三接入</div></div></div>
+    <div class="dec"><div class="n">5</div><div><b>Vesta 是否接入</b><p>Vesta 已有免费 / 一、二、三级收费帐号体系与年费共建模式。要不要并入 YCC，还是保留独立。</p><div class="opt">选项：<em>阶段四评估</em> / 仅接入登录不接入收费</div></div></div>
+    <div class="dec"><div class="n">6</div><div><b>Owner 与团队配置</b><p>YCC 是横跨多个产品线的中台能力，需要明确产品 Owner、技术 Owner 与财务 / 合规 reviewer。</p><div class="opt">建议：<em>AI 平台 / 中台产品团队主责</em>，各产品线出接入 DRI</div></div></div>
+  </div>
+</section>
+
+<!-- ===== 附录 名词 ===== -->
+<section class="section">
+  <div class="sec-head"><span class="no">附</span><h2>给业务同学的名词卡</h2></div>
+  <div class="gloss">
+    <div><b>YCC</b>Yingmi Commerce Core，盈米商业服务中枢。统一帐号、商品、收银、权益、售后。</div>
+    <div><b>2P / 2B</b>2P 个人客户（自助）；2B 机构客户（合同、对公、成员管理）。</div>
+    <div><b>OAP</b>盈米 AI 开放平台（Open AI Platform），对外提供 MCP / Skills / Agents，后台为 Stargate。</div>
+    <div><b>商品</b>可销售的定义 / 模板：Token 包、MCP 套餐、积分兑换商品。与具体用户无关。</div>
+    <div><b>权益</b>个人、机构或合同实际持有的实例：额度、权限、积分余额、有效期、流水。</div>
+    <div><b>积分</b>用量计量与支付抵扣的统一单位，属于权益；不可提现、不可转让、有有效期。</div>
+    <div><b>统一收银台</b>所有产品共用的支付环节：在线、对公、积分抵扣、组合支付、退款、对帐。</div>
+    <div><b>合同订单</b>机构签约产生的订单，对公付款后按合同向机构权益（积分池 / 席位）入帐。</div>
+    <div><b>数据隔离</b>且慢 C 端交易与隐私数据不进入 YCC；权益默认按产品与合同隔离。</div>
+  </div>
+</section>
+
+<footer>
+  <span>来源：《YCC 产品功能模块关系图 · 产品概念版 V0.1》（2026-09-21）· 盈米本体帐号体系核查（2026-09-22）· OAP 产品规划与官网升级稿 · 2026 下半年 OKR · 山西证券 MCP 服务合同文本</span>
+  <span>本方案为产品概念版，阶段时间、指标目标值与积分示例口径均为建议，待排期与定价确认。</span>
+</footer>
+</main>
+
+<script>
+const MOD={
+ auth:{t:'用户认证',p:'P0',what:'提供统一登录身份：手机号为主身份，支持微信扫码、且慢 App 快捷登录、机构成员邀请登录。所有接入产品共用同一套登录页与会话。',why:['客户在任何盈米科技产品用同一个帐号','业务不再为每个产品维护一份用户名单','为后续购买、权益、开票提供可信身份'],obj:['用户身份（手机号）','登录方式 / 身份来源','会话与凭证'],dep:'无前置依赖；是所有模块的基础。OAP 侧需把 Stargate 的身份来源切到 YCC。'},
+ user:{t:'用户管理',p:'P0',what:'管理 2P 个人与 2B 机构两类用户：机构下的成员、角色（管理员 / 采购 / 使用人）、帐号增减，以及用户与多个产品之间的开通关系。',why:['机构管理员自助增减成员，不再找运营','一个客户在多个产品的开通情况一处可见','为按成员分配额度与期限打基础'],obj:['个人用户','机构 / 组织','成员与角色','产品开通关系'],dep:'依赖用户认证。'},
+ goods:{t:'商品管理',p:'P1',what:'定义"卖什么"：Token 包、MCP 套餐、积分加油包、积分兑换商品的名称、价格、周期、销售范围与上下架。商品是模板，与具体用户无关。',why:['业务可自行配置与上架商品，不用研发改代码','个人与机构看到的商品与价格可区分（销售范围）','为在线购买与合同订单提供统一的"货架"'],obj:['商品 / SKU','价格与周期','销售范围','积分兑换规则'],dep:'依赖用户管理（销售范围按客户类型）。'},
+ benefit:{t:'权益管理',p:'P1',what:'记录"谁拥有什么"：Token 额度、MCP 使用权限、积分帐户与余额；绑定到个人、机构或合同；带有效期、使用范围与每一笔流水。支持发放、扣减、冻结、回收、退还、补发。',why:['客户随时能看自己的余额、有效期与消耗明细','业务可回答"这个客户还剩多少、用到什么时候"','积分账本成为收入确认与对账的系统事实'],obj:['权益实例','积分帐户 / 余额','有效期与使用范围','权益流水'],dep:'依赖用户管理与商品管理；接收产品侧（如 Stargate）的用量计量结果做扣减。'},
+ order:{t:'订单管理',p:'P2',what:'承接个人订单与合同订单的下单、取消、查询；订单与积分的获得 / 使用相关联，是商品到权益之间的凭证。',why:['每一笔权益都有来源订单，可追溯','合同订单把商务合同变成系统内可对账的记录','为退款、发票、售后提供依据'],obj:['个人订单','合同订单','订单状态'],dep:'依赖商品管理；与收银台、权益管理联动。'},
+ cashier:{t:'统一收银台',p:'P2',what:'所有产品共用的支付环节：个人在线支付、机构对公支付、积分抵扣与组合支付；统一收费主体，统一退款与对账。',why:['个人用户可即时付费，用量变成收入','机构对公入帐后自动到权益，不再人工发额度','一个主体收款开票，财务口径一致'],obj:['支付单','支付方式','退款单','对账记录'],dep:'依赖订单管理；需先确定统一收费主体。'},
+ after:{t:'售后管理',p:'P3',what:'处理退款、退订、撤销，以及对应的权益 / 积分回收退还，记录售后与争议过程。',why:['售后有规则、有记录，减少纠纷','权益回收自动化，避免"退了钱积分还在"','争议记录可作合规与审计留痕'],obj:['售后单','退还规则','争议记录'],dep:'依赖订单管理、收银台与权益管理。'}
+};
+const PCOLOR={P0:'#1A3D8F',P1:'#2F6BFF',P2:'#6FA0FF',P3:'#7A8599'};
+const detail=document.getElementById('modDetail');
+document.querySelectorAll('.mod').forEach(el=>{
+  el.addEventListener('click',()=>{
+    const k=el.dataset.m,m=MOD[k];
+    document.querySelectorAll('.mod').forEach(x=>x.classList.remove('on'));
+    el.classList.add('on');
+    detail.innerHTML=`<h4><span class="tag" style="background:${PCOLOR[m.p]};color:#fff">${m.p}</span>${m.t}</h4>
+      <div class="cols">
+        <div><h5>做什么</h5><p>${m.what}</p></div>
+        <div><h5>为业务解决什么</h5><ul>${m.why.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+        <div><h5>关键对象</h5><ul>${m.obj.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+        <div><h5>依赖关系</h5><p>${m.dep}</p></div>
+      </div>`;
+    detail.classList.add('show');
+  });
+});
+document.querySelector('.mod[data-m="benefit"]').click();
+
+document.querySelectorAll('#sceneTabs button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#sceneTabs button').forEach(x=>x.classList.remove('on'));b.classList.add('on');
+  document.querySelectorAll('.scene').forEach(s=>s.classList.remove('on'));
+  document.getElementById('scene-'+b.dataset.s).classList.add('on');
+}));
+
+const links=[...document.querySelectorAll('#nav a')];
+const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id))}})},{rootMargin:'-40% 0px -55% 0px'});
+secs.forEach(s=>s&&io.observe(s));
+</script>
+</body>
+</html>

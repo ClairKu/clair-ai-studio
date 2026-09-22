@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />
+    <script data-clair-access-gate data-clair-access-scope="report" src="../../access-gate.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>盈米AI开放平台 · 升级版官网 DEMO（YCC 帐号 + 积分）</title>
+<style>
+:root{
+  --brand:#1B88EE; --brand-dark:#0C66C7; --brand-light:#43A8FA; --brand-soft:#E6F1FF; --brand-line:#CFE3FA;
+  --hero-a:#4659B8; --hero-b:#243796; --accent:#66E1FF;
+  --bg:#F8F8FA; --card:#FFFFFF; --line:#EBEBEB; --line-2:#F0F2F6;
+  --text:#1C1C1E; --text-2:#4A4A4A; --muted:#9B9B9B; --faint:#D8D8D8;
+  --green:#07AD8F; --green-soft:#E6F7F4; --orange:#EA9500; --orange-soft:#FFF6E5; --red:#FA440C; --red-soft:#FEEDE9; --purple:#767AD8; --purple-soft:#EEEEFB;
+  --panel-grad:linear-gradient(135deg,#E8F0FF 0%,#F3EDFF 100%);
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --mono:"SF Mono",Menlo,Consolas,monospace;
+  --sh:0 4px 20px rgba(28,56,120,.06);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);color:var(--text);background:var(--bg);font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased;min-width:1080px;padding-bottom:76px}
+a{color:var(--brand);text-decoration:none;cursor:pointer}
+button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit;font-size:inherit}
+input{font-family:inherit;font-size:14px;color:var(--text);outline:none}
+.num{font-variant-numeric:tabular-nums}
+.mono{font-family:var(--mono)}
+.hide{display:none!important}
+
+/* ===== 顶部导航（沿用生产） ===== */
+.nav{height:64px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40}
+.nav .in{max-width:1200px;margin:0 auto;height:100%;display:flex;align-items:center;padding:0 24px;gap:32px}
+.logo{display:flex;align-items:center;gap:8px;cursor:pointer}
+.logo .mk{position:relative;width:32px;height:28px}
+.logo .mk b{position:absolute;left:0;top:0;font-size:22px;font-weight:900;font-style:italic;color:#F15A4A;letter-spacing:-1px;line-height:1}
+.logo .mk i{position:absolute;left:14px;top:12px;font-size:9px;font-weight:800;color:#1B88EE;font-style:normal;letter-spacing:.5px}
+.logo span{font-size:15px;font-weight:600;color:var(--text)}
+.nav .links{display:flex;gap:34px;margin-left:auto;font-size:14px}
+.nav .links a{color:var(--text-2);position:relative;padding:4px 0}
+.nav .links a.on{color:var(--brand);font-weight:600}
+.nav .links a .new{position:absolute;top:-8px;right:-22px;font-size:9px;background:var(--red);color:#fff;border-radius:8px;padding:0 5px;font-weight:700;letter-spacing:.5px}
+.pill{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:34px;padding:0 18px;border-radius:100px;background:var(--brand);color:#fff;font-size:13.5px;font-weight:600;white-space:nowrap;transition:.15s}
+.pill:hover{background:var(--brand-dark)}
+.pill.ghost{background:transparent;border:1px solid var(--brand);color:var(--brand)}
+.pill.ghost:hover{background:var(--brand-soft)}
+.pill.white{background:#fff;color:var(--brand)}
+.pill.white:hover{background:#EAF4FF}
+.pill.outline-w{background:transparent;border:1px solid rgba(255,255,255,.7);color:#fff}
+.pill.outline-w:hover{background:rgba(255,255,255,.1)}
+.pill.lg{height:42px;padding:0 26px;font-size:15px}
+.pill.sm{height:28px;padding:0 12px;font-size:12.5px}
+.pill.gray{background:#F0F2F6;color:var(--text-2)}.pill.gray:hover{background:#E6E9EF}
+.pill:disabled{opacity:.5;cursor:not-allowed}
+.me{display:flex;align-items:center;gap:10px;cursor:pointer;padding:4px 6px 4px 4px;border-radius:100px;border:1px solid var(--line)}
+.me:hover{background:var(--bg)}
+.av{width:28px;height:28px;border-radius:50%;background:#252A32;color:#fff;font-size:12px;font-weight:700;display:grid;place-items:center;flex:none}
+.av.org{border-radius:8px;background:linear-gradient(135deg,#4659B8,#243796)}
+.me .nm{font-size:13px;font-weight:600;line-height:1.2}
+.me .pts{font-size:11px;color:var(--brand);font-weight:600}
+
+/* ===== 布局 ===== */
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+.view{display:none}.view.on{display:block;animation:fade .2s ease}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.sec{padding:64px 0}
+.sec.alt{background:#fff}
+.sec-t{text-align:center;margin-bottom:36px}
+.sec-t h2{font-size:32px;font-weight:600;letter-spacing:.01em;color:var(--text)}
+.sec-t p{font-size:14px;color:var(--muted);margin-top:8px}
+.card{background:var(--card);border-radius:16px;box-shadow:var(--sh)}
+.grid{display:grid;gap:20px}
+.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}.g5{grid-template-columns:repeat(5,1fr)}
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;white-space:nowrap}
+.b-blue{background:var(--brand-soft);color:var(--brand)}.b-green{background:var(--green-soft);color:var(--green)}.b-orange{background:var(--orange-soft);color:#C9700F}.b-red{background:var(--red-soft);color:var(--red)}.b-gray{background:#F0F2F6;color:var(--muted)}.b-purple{background:var(--purple-soft);color:var(--purple)}.b-navy{background:#252A32;color:#fff}
+.note{font-size:12px;color:var(--muted)}
+.tag-new{font-size:10px;background:var(--red);color:#fff;border-radius:8px;padding:0 6px;font-weight:700;vertical-align:middle;margin-left:6px}
+
+/* ===== 首页 Hero（沿用生产） ===== */
+.hero{background:linear-gradient(100deg,var(--hero-a) 0%,#2E44A8 45%,var(--hero-b) 100%);color:#fff;position:relative;overflow:hidden}
+.hero .in{max-width:1200px;margin:0 auto;padding:78px 24px 88px;display:grid;grid-template-columns:1.05fr 1fr;align-items:center;gap:40px}
+.hero h1{font-size:44px;font-weight:600;line-height:1.3;letter-spacing:.01em}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero .sub{font-size:22px;color:var(--accent);margin-top:10px;font-weight:400}
+.hero .kpis{display:flex;gap:44px;margin-top:44px}
+.hero .kpis b{font-size:24px;font-weight:600;display:block;line-height:1.2}
+.hero .kpis span{font-size:13px;opacity:.85}
+.hero .acts{display:flex;gap:14px;margin-top:40px;align-items:center}
+.hero .gift{font-size:12.5px;opacity:.85;margin-left:6px}
+.hero .gift b{color:var(--accent);font-weight:600}
+.iso{position:relative;height:380px}
+.iso .cube{position:absolute;border-radius:14px;background:linear-gradient(160deg,#9FC4FF,#5C86F0);box-shadow:0 20px 40px rgba(0,0,0,.25);display:grid;place-items:center;font-weight:800;color:#fff}
+.iso .base{position:absolute;left:8%;right:8%;bottom:20px;height:120px;border-radius:24px;background:linear-gradient(180deg,#5B7BE8,#3550B8);transform:perspective(600px) rotateX(55deg);box-shadow:0 30px 60px rgba(0,0,0,.35)}
+.iso .glass{position:absolute;border-radius:12px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(4px);padding:10px 12px;font-size:12px}
+.iso .glass b{display:block;font-size:14px}
+.iso .glass.pts{color:#fff}
+.iso .glass.pts .v{font-size:20px;font-weight:700;color:var(--accent)}
+
+/* 首页：升级三件事条 */
+.strip{background:#fff;border-bottom:1px solid var(--line)}
+.strip .in{max-width:1200px;margin:0 auto;padding:18px 24px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.strip .it{display:flex;gap:12px;align-items:center}
+.strip .ic{width:40px;height:40px;border-radius:12px;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-weight:800;font-size:13px;flex:none}
+.strip b{display:block;font-size:14px}
+.strip small{font-size:12px;color:var(--muted)}
+
+/* 三驾马车 */
+.seg-tabs{display:inline-flex;background:#EEF0F5;border-radius:100px;padding:4px;gap:2px}
+.seg-tabs button{padding:8px 24px;border-radius:100px;font-size:14px;color:var(--text-2)}
+.seg-tabs button.on{background:#fff;color:var(--brand);font-weight:600;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.trio{display:grid;grid-template-columns:1fr 1.1fr;gap:0;overflow:hidden}
+.trio .l{padding:40px 44px}
+.trio .l h3{font-size:24px;font-weight:600;margin-bottom:12px}
+.trio .l p{color:var(--text-2);font-size:14px}
+.trio .l h4{font-size:14px;font-weight:600;margin:20px 0 8px;display:flex;align-items:center;gap:6px}
+.trio .l h4:before{content:"✦";color:var(--brand)}
+.trio .l ul{padding-left:18px;font-size:13px;color:var(--text-2);line-height:1.9}
+.trio .r{background:var(--panel-grad);padding:40px;display:grid;place-items:center}
+.diagram{display:flex;flex-direction:column;align-items:center;gap:12px}
+.diagram .node{background:#fff;border-radius:14px;padding:12px 22px;font-weight:600;box-shadow:0 6px 20px rgba(28,56,120,.1);display:flex;align-items:center;gap:10px}
+.diagram .node.brand{background:var(--brand);color:#fff;font-size:18px;padding:16px 30px}
+.diagram .line{width:2px;height:22px;background:#B9CCF5}
+.diagram .row{display:flex;gap:12px}
+.diagram .row .node{font-size:13px;font-weight:500;padding:9px 16px}
+
+/* 套餐 */
+.plans{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;align-items:stretch}
+.plan{background:#fff;border-radius:16px;box-shadow:var(--sh);padding:26px 24px;display:flex;flex-direction:column;position:relative;border:2px solid transparent}
+.plan.hot{border-color:var(--brand)}
+.plan .hot-b{position:absolute;top:-12px;left:24px;background:var(--brand);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px}
+.plan .nm{font-size:18px;font-weight:600}
+.plan .for{font-size:12.5px;color:var(--muted);margin-top:2px}
+.plan .pr{margin:18px 0 6px;font-size:30px;font-weight:700;letter-spacing:-.02em}
+.plan .pr small{font-size:13px;color:var(--muted);font-weight:400;margin-left:2px}
+.plan .pts{font-size:13px;color:var(--brand);font-weight:600;background:var(--brand-soft);border-radius:8px;padding:6px 10px;display:inline-block}
+.plan ul{list-style:none;margin:16px 0;flex:1}
+.plan ul li{font-size:13px;color:var(--text-2);padding:5px 0;display:flex;gap:8px;align-items:flex-start}
+.plan ul li:before{content:"✓";color:var(--green);font-weight:700;flex:none}
+.plan .pay{font-size:11.5px;color:var(--muted);text-align:center;margin-top:8px}
+.addon{margin-top:20px;background:var(--panel-grad);border-radius:16px;padding:22px 26px;display:flex;align-items:center;gap:26px}
+.addon .ic{width:52px;height:52px;border-radius:14px;background:#fff;display:grid;place-items:center;font-size:22px;flex:none}
+.addon b{font-size:16px;display:block}
+.addon p{font-size:13px;color:var(--text-2)}
+.addon .tiers{display:flex;gap:10px;margin-left:auto}
+.addon .tier{background:#fff;border-radius:12px;padding:10px 14px;text-align:center;min-width:120px;cursor:pointer;border:2px solid transparent}
+.addon .tier:hover,.addon .tier.on{border-color:var(--brand)}
+.addon .tier b{font-size:15px}.addon .tier small{display:block;font-size:11.5px;color:var(--muted)}
+.addon .tier .off{font-size:10.5px;color:var(--red);font-weight:700}
+
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;color:var(--muted);font-weight:500;padding:10px 14px;border-bottom:1px solid var(--line);background:#FAFBFD;white-space:nowrap}
+td{padding:11px 14px;border-bottom:1px solid var(--line-2);color:var(--text-2);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+td.r,th.r{text-align:right}
+td.k{color:var(--text);font-weight:500}
+.tbl{overflow:hidden}
+
+.faq{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.faq div{background:#fff;border-radius:12px;padding:14px 18px;box-shadow:var(--sh)}
+.faq b{display:block;font-size:13.5px;margin-bottom:4px}
+.faq p{font-size:12.5px;color:var(--text-2)}
+
+/* ===== 登录页 ===== */
+.auth{min-height:calc(100vh - 64px - 76px);display:grid;grid-template-columns:1fr 1fr}
+.auth .l{background:linear-gradient(135deg,var(--hero-a),var(--hero-b));color:#fff;padding:70px 64px;display:flex;flex-direction:column;justify-content:center}
+.auth .l h2{font-size:32px;font-weight:600;line-height:1.35}
+.auth .l h2 em{font-style:normal;color:var(--accent)}
+.auth .l p{opacity:.85;margin-top:12px;font-size:15px;max-width:440px}
+.auth .l ul{list-style:none;margin-top:34px;display:grid;gap:14px}
+.auth .l li{display:flex;gap:12px;align-items:flex-start;font-size:14px}
+.auth .l li i{width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.15);display:grid;place-items:center;font-size:12px;flex:none;color:var(--accent);font-weight:800}
+.auth .l .ycc{margin-top:40px;font-size:12px;opacity:.7;display:flex;align-items:center;gap:8px}
+.auth .l .ycc b{border:1px solid rgba(255,255,255,.4);border-radius:4px;padding:1px 6px;font-size:11px}
+.auth .r{display:grid;place-items:center;padding:40px 24px;background:#fff}
+.authbox{width:420px}
+.authbox h3{font-size:22px;font-weight:600}
+.authbox .sub{font-size:13px;color:var(--muted);margin:4px 0 22px}
+.atabs{display:flex;gap:26px;border-bottom:1px solid var(--line);margin-bottom:22px}
+.atabs button{padding:8px 0;font-size:14px;color:var(--text-2);position:relative}
+.atabs button.on{color:var(--brand);font-weight:600}
+.atabs button.on:after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--brand);border-radius:2px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:12.5px;color:var(--text-2);margin-bottom:6px}
+.inp{display:flex;align-items:center;gap:8px;height:44px;border:1px solid var(--line);border-radius:10px;padding:0 14px;background:#fff}
+.inp:focus-within{border-color:var(--brand)}
+.inp input{flex:1;border:0;background:transparent;height:100%}
+.inp .pre{color:var(--muted);font-size:13px;padding-right:10px;border-right:1px solid var(--line)}
+.inp .code{color:var(--brand);font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
+.qr{width:200px;height:200px;margin:0 auto 14px;border-radius:12px;background:
+  repeating-linear-gradient(90deg,#1C1C1E 0 6px,transparent 6px 12px),repeating-linear-gradient(0deg,#1C1C1E 0 6px,transparent 6px 12px);background-blend-mode:multiply;border:8px solid #fff;box-shadow:0 0 0 1px var(--line);position:relative;overflow:hidden}
+.qr:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(255,255,255,.0) 30%,rgba(255,255,255,.75))}
+.qr .c{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:44px;height:44px;border-radius:10px;background:#fff;display:grid;place-items:center;font-weight:800;font-size:12px;color:var(--brand);z-index:1;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.agree{font-size:12px;color:var(--muted);display:flex;gap:6px;align-items:flex-start;margin:6px 0 16px}
+.upg{margin-top:20px;background:var(--orange-soft);border:1px solid #F7E0B5;border-radius:10px;padding:10px 14px;font-size:12.5px;color:#7A5210;display:flex;gap:10px;align-items:flex-start}
+.upg b{color:#6B4408}
+.upg i{flex:none;width:18px;height:18px;border-radius:50%;background:var(--orange);color:#fff;display:grid;place-items:center;font-size:11px;font-weight:800;font-style:normal;margin-top:2px}
+.demo-hint{margin-top:14px;font-size:11.5px;color:var(--muted);text-align:center}
+.demo-hint a{margin:0 4px}
+
+/* ===== 收银台 ===== */
+.checkout{display:grid;grid-template-columns:1fr 380px;gap:20px;padding:34px 0 60px}
+.co-steps{display:flex;gap:8px;align-items:center;font-size:12.5px;color:var(--muted);margin-bottom:18px}
+.co-steps b{color:var(--brand)}
+.co-steps span:after{content:"›";margin:0 6px;color:var(--faint)}
+.co-steps span:last-child:after{content:""}
+.co .card{padding:22px 24px;margin-bottom:16px}
+.co h3{font-size:16px;font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.co h3 .n{width:22px;height:22px;border-radius:50%;background:var(--brand);color:#fff;font-size:12px;display:grid;place-items:center}
+.opt{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:12px;padding:12px 14px;cursor:pointer;margin-bottom:10px}
+.opt:hover{border-color:var(--brand-line)}
+.opt.on{border-color:var(--brand);background:var(--brand-soft)}
+.opt .rd{width:16px;height:16px;border-radius:50%;border:2px solid var(--faint);flex:none}
+.opt.on .rd{border-color:var(--brand);background:radial-gradient(circle,var(--brand) 45%,transparent 50%)}
+.opt b{font-size:14px;display:block}
+.opt small{font-size:12px;color:var(--muted)}
+.opt .ic{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;font-weight:800;color:#fff;font-size:12px;flex:none}
+.opt .rt{margin-left:auto;font-size:12.5px;color:var(--text-2);white-space:nowrap}
+.sw{display:inline-flex;align-items:center;gap:10px;cursor:pointer;font-size:13px}
+.sw i{width:38px;height:22px;border-radius:11px;background:#DDE1EA;position:relative;transition:.2s}
+.sw i:after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.sw.on i{background:var(--brand)}.sw.on i:after{left:19px}
+.summary{position:sticky;top:84px}
+.summary .card{padding:22px 24px}
+.summary .row{display:flex;justify-content:space-between;font-size:13.5px;padding:8px 0;border-bottom:1px dashed var(--line);color:var(--text-2)}
+.summary .row:last-of-type{border-bottom:0}
+.summary .row b{color:var(--text)}
+.summary .tot{display:flex;justify-content:space-between;align-items:baseline;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+.summary .tot .v{font-size:28px;font-weight:700;color:var(--red)}
+.summary .tot .v small{font-size:13px;font-weight:400}
+.inv{margin-top:14px;font-size:12.5px;color:var(--text-2);background:#FAFBFD;border-radius:10px;padding:10px 12px}
+.success{padding:80px 0;text-align:center}
+.success .ok{width:76px;height:76px;border-radius:50%;background:var(--green-soft);color:var(--green);display:grid;place-items:center;font-size:36px;margin:0 auto 18px;font-weight:800}
+.success h2{font-size:26px;font-weight:600}
+.success p{color:var(--text-2);margin-top:8px}
+.success .box{display:inline-grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:28px auto 26px;background:#fff;border-radius:16px;padding:20px 30px;box-shadow:var(--sh);text-align:left}
+.success .box b{display:block;font-size:20px}
+.success .box small{color:var(--muted);font-size:12px}
+
+/* ===== 帐号中心 / 机构中心（沿用生产 270 + 主区） ===== */
+.center-bg{background:linear-gradient(180deg,#EAF1FF 0,var(--bg) 320px)}
+.wrap{max-width:1200px;margin:0 auto;padding:20px 24px 60px;min-height:calc(100vh - 64px - 76px - 92px);display:grid;grid-template-columns:270px minmax(0,1fr);gap:16px;align-items:start}
+.side .card{padding:0}
+.side .card+.card{margin-top:12px}
+.profile{text-align:center;padding:24px 16px 16px}
+.avatar{width:64px;height:64px;border-radius:50%;margin:0 auto 10px;background:#252A32;color:#fff;display:grid;place-items:center;font-size:22px;font-weight:700}
+.avatar.org{border-radius:16px;background:linear-gradient(135deg,#4659B8,#243796)}
+.pname{font-size:15px;font-weight:600}
+.kv{display:grid;grid-template-columns:64px 1fr;row-gap:8px;font-size:12.5px;text-align:left;margin-top:14px;padding-top:14px;border-top:1px dashed var(--line)}
+.kv .k{color:var(--muted)}
+.hd{padding:14px 16px 0;font-weight:600;font-size:13.5px;display:flex;justify-content:space-between;align-items:center}
+.bd{padding:12px 16px 16px}
+.quota .row{display:flex;justify-content:space-between;font-size:12px;color:var(--text-2);margin-bottom:5px}
+.quota .row b{color:var(--text)}
+.bar{height:6px;border-radius:6px;background:#EDF0F6;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:6px;background:var(--brand)}
+.bar i.g{background:var(--green)}.bar i.o{background:var(--orange)}.bar i.r{background:var(--red)}
+.quota+.quota{margin-top:12px}
+.keybox{display:flex;align-items:center;gap:8px;background:#F6F8FC;border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-family:var(--mono);font-size:12px;color:var(--text-2)}
+.keybox .k{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.btn{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 14px;border-radius:8px;border:1px solid var(--line);background:#fff;color:var(--text-2);font-size:12.5px;font-weight:500;white-space:nowrap}
+.btn:hover{border-color:var(--brand-line);color:var(--brand);background:var(--brand-soft)}
+.btn.primary{background:var(--brand);border-color:var(--brand);color:#fff}.btn.primary:hover{background:var(--brand-dark)}
+.btn.sm{height:26px;padding:0 10px;font-size:12px;border-radius:6px}
+.btn.danger:hover{color:var(--red);background:var(--red-soft);border-color:#F3B4B6}
+.main .card{padding:0}
+.main .card+.card{margin-top:14px}
+.ctabs{display:flex;gap:28px;padding:0 20px;border-bottom:1px solid var(--line);background:#fff;border-radius:12px 12px 0 0}
+.ctabs button{padding:14px 0;font-size:14px;color:var(--text-2);position:relative;display:flex;align-items:center;gap:6px}
+.ctabs button.on{color:var(--brand);font-weight:600}
+.ctabs button.on:after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--brand)}
+.ctabs .cnt{font-size:11px;background:#F0F2F6;color:var(--muted);border-radius:8px;padding:0 6px;font-weight:600}
+.ctabs .cnt.red{background:var(--red-soft);color:var(--red)}
+.pane{display:none;padding:18px 20px 20px}.pane.on{display:block}
+.kpi4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.kpi{background:#FAFBFD;border-radius:12px;padding:14px 16px}
+.kpi .l{font-size:12px;color:var(--muted)}
+.kpi .v{font-size:22px;font-weight:700;margin-top:2px}
+.kpi .v small{font-size:12px;font-weight:400;color:var(--muted);margin-left:3px}
+.kpi .s{font-size:11.5px;color:var(--muted);margin-top:2px}
+.kpi .s.up{color:var(--green)}.kpi .s.warn{color:var(--orange)}
+.sub-h{font-size:13.5px;font-weight:600;margin:6px 0 10px;display:flex;justify-content:space-between;align-items:center}
+.pools{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pool{border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.pool .t{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:600}
+.pool .v{font-size:20px;font-weight:700;margin:4px 0 6px}
+.pool .v small{font-size:12px;color:var(--muted);font-weight:400}
+.chart{display:flex;align-items:flex-end;gap:6px;height:120px;padding:10px 4px 0;border-bottom:1px solid var(--line)}
+.chart i{flex:1;background:linear-gradient(180deg,var(--brand-light),var(--brand));border-radius:4px 4px 0 0;position:relative;min-width:8px}
+.chart i:hover{opacity:.85}
+.chart i span{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--muted);white-space:nowrap}
+.xl{display:flex;justify-content:space-between;font-size:10.5px;color:var(--muted);margin-top:4px;padding:0 4px}
+.hbars{display:grid;gap:8px}
+.hb{display:grid;grid-template-columns:120px 1fr 60px;gap:10px;align-items:center;font-size:12.5px}
+.hb .tr{height:8px;background:#EDF0F6;border-radius:4px;overflow:hidden}
+.hb .tr i{display:block;height:100%;background:var(--brand);border-radius:4px}
+.hb .n{text-align:right;color:var(--text-2)}
+.flowlist td .d{font-family:var(--mono)}
+.pos{color:var(--green);font-weight:600}.neg{color:var(--text);font-weight:600}
+.alert{display:flex;gap:10px;align-items:center;background:var(--orange-soft);border:1px solid #F7E0B5;border-radius:10px;padding:10px 14px;font-size:12.5px;color:#7A5210;margin-bottom:14px}
+.alert.blue{background:var(--brand-soft);border-color:var(--brand-line);color:#0C4F8F}
+.alert .x{margin-left:auto}
+.tool-row{display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+.search{display:flex;align-items:center;gap:6px;height:30px;border:1px solid var(--line);border-radius:8px;padding:0 10px;background:#fff;font-size:12.5px;color:var(--muted);width:220px}
+.search input{border:0;flex:1;font-size:12.5px}
+.chk{width:14px;height:14px;border:1.5px solid var(--faint);border-radius:3px;display:inline-block;vertical-align:middle}
+.role{font-size:11px;border-radius:4px;padding:1px 6px;font-weight:600;white-space:nowrap}
+#memberRows td,#quotaRows td{white-space:nowrap}
+#memberRows td:nth-child(3),#memberRows td:nth-child(2){white-space:normal}
+.main table{font-size:12.5px}
+.main th,.main td{padding-left:10px;padding-right:10px}
+.role.owner{background:#252A32;color:#fff}.role.admin{background:var(--brand-soft);color:var(--brand)}.role.member{background:#F0F2F6;color:var(--text-2)}
+.code-box{background:#252A32;color:#DDE3F0;border-radius:10px;padding:12px 14px;font-family:var(--mono);font-size:12px;line-height:1.7;overflow:auto;white-space:pre}
+.code-box .c{color:#7FBDB2}.code-box .k{color:#66E1FF}
+.cfg-tabs{display:inline-flex;gap:6px;margin-bottom:10px}
+.cfg-tabs button{font-size:12px;padding:5px 12px;border-radius:100px;border:1px solid var(--line);color:var(--text-2)}
+.cfg-tabs button.on{background:var(--brand);border-color:var(--brand);color:#fff}
+.token-list .row{display:grid;grid-template-columns:1fr auto auto;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line-2)}
+.token-list .row:last-child{border-bottom:0}
+.token-list .row b{display:block;font-size:13px}
+.token-list .row small{font-size:12px;color:var(--muted)}
+
+/* ===== 弹窗 ===== */
+.mask{position:fixed;inset:0;background:rgba(20,30,60,.45);z-index:80;display:none;align-items:center;justify-content:center}
+.mask.on{display:flex}
+.modal{width:520px;background:#fff;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.25);overflow:hidden;animation:fade .2s}
+.modal .mh{padding:18px 22px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:15px}
+.modal .mb{padding:20px 22px}
+.modal .mf{padding:14px 22px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:10px}
+.modal .x{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;color:var(--muted)}
+.modal .x:hover{background:var(--bg)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.toast{position:fixed;left:50%;top:84px;transform:translateX(-50%) translateY(-10px);background:#252A32;color:#fff;font-size:13px;padding:10px 18px;border-radius:100px;z-index:90;opacity:0;pointer-events:none;transition:.2s;box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.toast.on{opacity:1;transform:translateX(-50%)}
+
+/* ===== 演示条 ===== */
+.demobar{position:fixed;left:0;right:0;bottom:0;height:60px;background:#252A32;color:#fff;z-index:70;display:flex;align-items:center;padding:0 24px;gap:18px;box-shadow:0 -6px 24px rgba(0,0,0,.2)}
+.demobar .lbl{font-size:11px;letter-spacing:.12em;opacity:.6;font-weight:700}
+.demobar .roles{display:inline-flex;background:rgba(255,255,255,.1);border-radius:100px;padding:3px;gap:2px}
+.demobar .roles button{padding:5px 14px;border-radius:100px;font-size:12.5px;color:rgba(255,255,255,.7)}
+.demobar .roles button.on{background:#fff;color:var(--text);font-weight:600}
+.demobar .steps{display:flex;gap:4px;margin-left:auto;align-items:center}
+.demobar .steps button{font-size:12px;color:rgba(255,255,255,.75);padding:5px 10px;border-radius:6px;display:flex;align-items:center;gap:6px}
+.demobar .steps button:hover{background:rgba(255,255,255,.08)}
+.demobar .steps button.on{background:var(--brand);color:#fff}
+.demobar .steps button i{width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,.15);font-size:10px;display:grid;place-items:center;font-style:normal;font-weight:700}
+.demobar .steps button.on i{background:rgba(255,255,255,.3)}
+.demobar .steps .sep{color:rgba(255,255,255,.25)}
+footer.site{background:#fff;border-top:1px solid var(--line);padding:30px 0;font-size:12px;color:var(--muted)}
+footer.site .in{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.package-nav{position:sticky;top:0;z-index:80;background:rgba(14,32,57,.96);backdrop-filter:blur(14px);color:#fff;border-bottom:1px solid rgba(255,255,255,.14)}.package-nav .inner{max-width:1220px;margin:auto;padding:10px 24px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}.package-nav b{margin-right:auto;font-size:13px}.package-nav a{color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.26);padding:6px 10px;border-radius:999px;font-size:12px}.package-nav a:hover{background:#fff;color:#173f70}
+</style>
+</head>
+<body>
+<nav class="package-nav"><div class="inner"><b>YCC × OAP 升级方案包</b><a href="./">01 项目全景</a><a href="oap-ycc-upgrade-plan.html">02 产品升级方案</a><a href="oap-ycc-site-demo.html">03 官网交互 Demo</a></div></nav>
+
+<!-- ===== 顶部导航 ===== -->
+<header class="nav">
+  <div class="in">
+    <div class="logo" onclick="go('home')"><div class="mk"><b>AI</b><i>盈米</i></div><span>盈米AI开放平台</span></div>
+    <nav class="links" id="navLinks">
+      <a data-v="home" onclick="go('home')">首页</a>
+      <a onclick="go('home');toast('演示：盈米MCP 页面沿用现网')">盈米MCP</a>
+      <a onclick="go('home');toast('演示：盈米Skills 页面沿用现网')">盈米Skills</a>
+      <a onclick="go('home');toast('演示：盈米智能体 页面沿用现网')">盈米智能体</a>
+      <a data-v="plans" onclick="go('plans')">套餐与积分<span class="new">NEW</span></a>
+      <a onclick="toast('演示：客户案例沿用现网')">客户案例</a>
+    </nav>
+    <div id="navRight"></div>
+  </div>
+</header>
+
+<!-- ===== 首页 ===== -->
+<section class="view" id="v-home">
+  <div class="hero">
+    <div class="in">
+      <div>
+        <h1>构建<em>AI连接</em>金融世界的<br>基础设施</h1>
+        <div class="sub">金融生产力，就此进化</div>
+        <div class="kpis">
+          <div><b class="num">1.5w+</b><span>总用户数</span></div>
+          <div><b class="num">681</b><span>服务金融机构</span></div>
+          <div><b class="num">80+</b><span>开放能力</span></div>
+          <div><b class="num">17.9M+</b><span>累计调用量</span></div>
+        </div>
+        <div class="acts">
+          <a class="pill white lg" onclick="S.role==='guest'?go('login'):go('account')">免费开通</a>
+          <a class="pill outline-w lg" onclick="go('plans')">查看套餐与积分</a>
+          <span class="gift">注册即送 <b>5,000 积分</b>，无需申请审核</span>
+        </div>
+      </div>
+      <div class="iso">
+        <div class="base"></div>
+        <div class="cube" style="left:34%;top:40px;width:120px;height:120px;font-size:30px">AI</div>
+        <div class="cube" style="left:14%;top:130px;width:84px;height:84px;background:linear-gradient(160deg,#CFE0FF,#7FA5F5);font-size:12px">MCP</div>
+        <div class="cube" style="left:62%;top:120px;width:84px;height:84px;background:linear-gradient(160deg,#D9CBFF,#8E7CF0);font-size:12px">Skills</div>
+        <div class="cube" style="left:40%;top:190px;width:96px;height:70px;background:linear-gradient(160deg,#B7F1FF,#5EC6F2);font-size:12px">Agents</div>
+        <div class="glass pts" style="right:0;top:10px"><b>我的积分</b><div class="v num">92,520</div>可用 · 有效期至 2027-09</div>
+        <div class="glass" style="left:0;top:20px"><b>一个盈米帐号</b>登录所有盈米科技产品</div>
+        <div class="glass" style="right:6%;bottom:40px"><b>机构中心</b>成员 · 额度 · 对账 · 发票</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="strip">
+    <div class="in">
+      <div class="it"><div class="ic">帐</div><div><b>统一盈米帐号 <span class="tag-new">NEW</span></b><small>手机号 / 微信 / 且慢 App 一键登录，老用户 API Key 不变</small></div></div>
+      <div class="it"><div class="ic">分</div><div><b>按积分用量计费 <span class="tag-new">NEW</span></b><small>按工具计价、失败不扣、余额与每笔消耗随时可查</small></div></div>
+      <div class="it"><div class="ic">购</div><div><b>在线购买 · 对公 · 开票 <span class="tag-new">NEW</span></b><small>个人即时支付，机构对公入帐自动到权益，统一开票</small></div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="container">
+      <div class="sec-t"><h2>打造金融 AI 的三驾马车</h2><p>从底层协议到上层应用，构建全链路金融智能基础设施</p></div>
+      <div style="text-align:center;margin-bottom:26px"><div class="seg-tabs" id="trioTabs"><button class="on">盈米MCP</button><button>盈米Skills</button><button>盈米智能体</button></div></div>
+      <div class="card trio">
+        <div class="l">
+          <h3>盈米MCP</h3>
+          <p>MCP（Model Context Protocol）是连接 AI 模型与外部数据、服务能力的开放标准。盈米 MCP 面向金融场景，提供统一的标准化接入协议，帮助模型安全、稳定地访问盈米的数据与服务能力。</p>
+          <h4>盈米优势</h4>
+          <ul><li>预置 72 项金融专用工具，覆盖五大类数据与服务能力。</li><li>统一协议完成接入，开箱即用，数据实时更新。</li><li>兼顾权限控制与安全合规，帮助机构更低成本接入。</li></ul>
+          <h4>用量与积分 <span class="tag-new">NEW</span></h4>
+          <ul><li>每次调用按工具计价 1–20 积分，失败不扣分。</li><li>免费版每月赠送额度即可完成接入验证。</li></ul>
+          <div style="margin-top:22px"><a class="pill" onclick="go('plans')">了解盈米MCP 与计价</a></div>
+        </div>
+        <div class="r">
+          <div class="diagram">
+            <div class="node">🤖 智能体</div><div class="line"></div>
+            <div class="node brand">MCP</div><div class="line"></div>
+            <div class="row"><div class="node">📊 基金数据</div><div class="node">📈 实时数据</div><div class="node">💼 用户持仓</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec alt">
+    <div class="container">
+      <div class="sec-t"><h2>三步接入，注册即用</h2><p>不再需要填写申请表等待审核</p></div>
+      <div class="grid g3">
+        <div class="card" style="padding:26px 28px"><div class="badge b-blue">STEP 1</div><h3 style="font-size:18px;margin:10px 0 6px">注册盈米帐号</h3><p style="font-size:13px;color:var(--text-2)">手机号验证码 30 秒完成；微信、且慢 App 一键登录。注册即送 5,000 积分。</p></div>
+        <div class="card" style="padding:26px 28px"><div class="badge b-blue">STEP 2</div><h3 style="font-size:18px;margin:10px 0 6px">获取 API Key，配置 MCP</h3><p style="font-size:13px;color:var(--text-2)">在帐号中心复制安装口令，发送给 Cursor / Claude / WorkBuddy 等 AI 助手即可。</p></div>
+        <div class="card" style="padding:26px 28px"><div class="badge b-blue">STEP 3</div><h3 style="font-size:18px;margin:10px 0 6px">用量随时可查，不够再买</h3><p style="font-size:13px;color:var(--text-2)">积分中心查看每一笔消耗；余额不足时购买加油包或升级套餐，机构可对公入帐。</p></div>
+      </div>
+      <div style="text-align:center;margin-top:30px"><a class="pill lg" onclick="S.role==='guest'?go('login'):go('account')">立即开通</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 登录 / 注册 ===== -->
+<section class="view" id="v-login">
+  <div class="auth">
+    <div class="l">
+      <h2>一个盈米帐号<br>登录所有<em>盈米科技产品</em></h2>
+      <p>盈米AI开放平台已接入盈米统一帐号体系。注册后可直接使用 MCP、Skills 与智能体能力，并在同一帐号下管理积分、订单与发票。</p>
+      <ul>
+        <li><i>✓</i>手机号为主身份，微信 / 且慢 App 快捷登录</li>
+        <li><i>✓</i>注册即送 5,000 积分，无需申请审核</li>
+        <li><i>✓</i>老用户升级后 API Key 保持不变，MCP 配置无需改动</li>
+        <li><i>✓</i>机构成员凭管理员口令加入，额度由机构统一管理</li>
+      </ul>
+      <div class="ycc"><b>YCC</b> 由盈米商业服务中枢提供统一登录与权益服务 · 且慢 App 仅作为登录方式，不同步任何交易与持仓数据</div>
+    </div>
+    <div class="r">
+      <div class="authbox">
+        <h3>登录 / 注册</h3>
+        <div class="sub">未注册的手机号将自动创建盈米帐号</div>
+        <div class="atabs" id="authTabs"><button class="on" data-t="phone">手机号</button><button data-t="wx">微信扫码</button><button data-t="qm">且慢 App</button><button data-t="org">机构口令</button></div>
+        <div id="auth-phone">
+          <div class="field"><label>手机号</label><div class="inp"><span class="pre">+86</span><input placeholder="请输入手机号" value="138****2201"></div></div>
+          <div class="field"><label>验证码</label><div class="inp"><input placeholder="6 位验证码" value="••••••"><span class="code">重新获取 (52s)</span></div></div>
+          <div class="agree"><span class="chk" style="border-color:var(--brand);background:var(--brand)"></span>我已阅读并同意《盈米AI开放平台服务协议》《隐私政策》《积分规则》</div>
+          <button class="pill lg" style="width:100%" onclick="login('user')">登录 / 注册</button>
+          <div class="upg"><i>!</i><div><b>老用户升级提示：</b>如果你之前通过申请表获得过 API Key，用申请时的手机号登录即可自动合并；Key 不会变化。</div></div>
+        </div>
+        <div id="auth-wx" class="hide">
+          <div class="qr"><div class="c">微信</div></div>
+          <p style="text-align:center;font-size:13px;color:var(--text-2)">微信扫码登录 · 首次登录需绑定手机号</p>
+          <div class="demo-hint">演示：<a onclick="login('user')">模拟扫码成功</a></div>
+        </div>
+        <div id="auth-qm" class="hide">
+          <div class="qr"><div class="c" style="color:#FF6A00">且慢</div></div>
+          <p style="text-align:center;font-size:13px;color:var(--text-2)">打开且慢 App 扫码 · 仅授权手机号与昵称，不涉及任何帐户数据</p>
+          <div class="demo-hint">演示：<a onclick="login('user')">模拟扫码成功</a></div>
+        </div>
+        <div id="auth-org" class="hide">
+          <div class="field"><label>机构邀请口令</label><div class="inp"><input placeholder="请输入管理员发送的 8 位口令" value="HX-7Q2K-9M3D"></div></div>
+          <div class="field"><label>手机号</label><div class="inp"><span class="pre">+86</span><input placeholder="请输入手机号" value="139****8834"></div></div>
+          <div class="field"><label>验证码</label><div class="inp"><input placeholder="6 位验证码" value="••••••"><span class="code">获取验证码</span></div></div>
+          <button class="pill lg" style="width:100%" onclick="login('admin')">加入机构并登录</button>
+          <p class="note" style="margin-top:10px;text-align:center">口令由机构管理员在「机构中心 · 口令管理」生成，加入后额度由机构分配</p>
+          <div class="demo-hint">演示：此处以<a onclick="login('admin')">机构管理员</a>身份登录</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 套餐与积分 ===== -->
+<section class="view" id="v-plans">
+  <div class="sec" style="padding-top:54px">
+    <div class="container">
+      <div class="sec-t"><h2>套餐与积分</h2><p>按积分用量计费 · 按工具计价 · 失败不扣 · 每一分都有流水</p></div>
+      <div class="plans">
+        <div class="plan"><div class="nm">免费版</div><div class="for">个人开发者试用</div><div class="pr">¥0</div><span class="pts">注册送 5,000 积分 / 30 天</span>
+          <ul><li>1 个 API Key</li><li>72 项 MCP 工具全量可调</li><li>Skills 报告体验 3 份</li><li>社区支持</li></ul>
+          <a class="pill ghost" onclick="S.role==='guest'?go('login'):go('account')">免费开通</a><div class="pay">注册即得</div></div>
+        <div class="plan"><div class="nm">个人专业版</div><div class="for">高频个人 · KOL · 量化</div><div class="pr">¥99<small>/ 月</small></div><span class="pts">每月 20,000 积分</span>
+          <ul><li>3 个 API Key</li><li>Skills 报告生成不限份</li><li>用量看板与流水导出</li><li>邮件支持</li></ul>
+          <a class="pill" onclick="buy('pro')">立即订阅</a><div class="pay">在线支付 · 支持积分抵扣</div></div>
+        <div class="plan hot"><span class="hot-b">推荐</span><div class="nm">团队版</div><div class="for">投顾工作室 · 小型机构</div><div class="pr">¥4,800<small>/ 年</small></div><span class="pts">500,000 积分 / 年 · 20 席位</span>
+          <ul><li>机构中心：成员、额度、期限</li><li>成员口令 · 日 / 月限额</li><li>团队用量统计与对账单</li><li>对公支付 · 增值税专用发票</li></ul>
+          <a class="pill" onclick="buy('team')">开通团队版</a><div class="pay">在线 / 对公</div></div>
+        <div class="plan"><div class="nm">企业版</div><div class="for">证券 · 银行 · 基金公司</div><div class="pr">定制<small>报价</small></div><span class="pts">积分池与席位按需</span>
+          <ul><li>专属能力包 · Scope 定制</li><li>SLA · 审计报表</li><li>合同预充值 · 月度对账</li><li>专属对接人</li></ul>
+          <a class="pill ghost" onclick="toast('演示：已提交企业版咨询，商务将在 1 个工作日内联系')">联系商务</a><div class="pay">合同订单 · 对公 · 专票</div></div>
+      </div>
+      <div class="addon">
+        <div class="ic">⚡</div>
+        <div><b>积分加油包</b><p>所有版本可加购，12 个月有效，可叠加；机构可对公购买直接入池。</p></div>
+        <div class="tiers">
+          <div class="tier on" data-q="100000" data-p="600"><b>10 万分</b><small>¥600</small></div>
+          <div class="tier" data-q="500000" data-p="2850"><b>50 万分</b><small>¥2,850 <span class="off">-5%</span></small></div>
+          <div class="tier" data-q="1000000" data-p="5400"><b>100 万分</b><small>¥5,400 <span class="off">-10%</span></small></div>
+        </div>
+        <a class="pill" onclick="buy('addon')">购买加油包</a>
+      </div>
+    </div>
+  </div>
+  <div class="sec alt">
+    <div class="container">
+      <div class="sec-t"><h2>工具计价表</h2><p>沿用现有工具级计价口径，版本公开可查 · 当前版本 v2026.09</p></div>
+      <div class="grid g2">
+        <div class="card tbl">
+          <table>
+            <thead><tr><th>能力类别</th><th>示例工具</th><th class="r">积分 / 次</th></tr></thead>
+            <tbody>
+              <tr><td class="k">基础查询</td><td>基金基础信息、指数行情、基金经理信息、财经日历</td><td class="r num">1–2</td></tr>
+              <tr><td class="k">分析类</td><td>基金对比、持仓穿透、市场信号灯、研报观点检索</td><td class="r num">3–6</td></tr>
+              <tr><td class="k">帐户与重计算</td><td>持仓收益分析、收益日历、组合回测、资产配置优化</td><td class="r num">8–20</td></tr>
+              <tr><td class="k">Skills 报告</td><td>基金深度分析、家庭财富规划、市场深度解读（HTML 报告）</td><td class="r num">50–200 / 份</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="faq">
+          <div><b>失败会扣积分吗？</b><p>不会。调用开始时预扣（冻结），成功后结算；失败或超时自动解冻。</p></div>
+          <div><b>先扣哪一部分积分？</b><p>先扣即将过期的，再扣赠送的，最后扣购买的。机构成员先扣成员配额。</p></div>
+          <div><b>积分能提现或转让吗？</b><p>不能。积分是服务额度，不是货币；不可提现、不可转让、不计息。</p></div>
+          <div><b>有效期怎么算？</b><p>赠送 30 天；购买 12 个月；套餐月度积分当月有效；合同积分随合同期。</p></div>
+          <div><b>余额不足会怎样？</b><p>余额低于 20% 提醒；用完后调用返回明确提示，可购买加油包或开启自动续购。</p></div>
+          <div><b>机构如何对账？</b><p>机构中心每月自动生成用量账单（按成员 / 按工具），可导出并申请专票。</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 收银台 ===== -->
+<section class="view" id="v-checkout">
+  <div class="container">
+    <div class="checkout">
+      <div class="co">
+        <div class="co-steps"><span><b>1 确认订单</b></span><span>2 选择支付</span><span>3 完成</span></div>
+        <div class="card">
+          <h3><span class="n">1</span>确认商品</h3>
+          <div id="coItem"></div>
+        </div>
+        <div class="card">
+          <h3><span class="n">2</span>积分抵扣 <span class="badge b-blue">可用 5,000 赠送积分</span></h3>
+          <label class="sw" id="swDeduct" onclick="toggleDeduct()"><i></i><span>使用 5,000 积分抵扣 <b class="num">¥30.00</b>（按 10 万分 = ¥600 折算）</span></label>
+          <p class="note" style="margin-top:8px">抵扣后商品积分照常入帐；抵扣所用积分不可退。</p>
+        </div>
+        <div class="card">
+          <h3><span class="n">3</span>支付方式</h3>
+          <div id="payOpts">
+            <div class="opt on" data-p="wx" onclick="pickPay(this)"><span class="rd"></span><div class="ic" style="background:#07C160">微</div><div><b>微信支付</b><small>即时到帐，积分立即入帐</small></div></div>
+            <div class="opt" data-p="ali" onclick="pickPay(this)"><span class="rd"></span><div class="ic" style="background:#1677FF">支</div><div><b>支付宝</b><small>即时到帐，积分立即入帐</small></div></div>
+            <div class="opt" data-p="b2b" onclick="pickPay(this)"><span class="rd"></span><div class="ic" style="background:#4659B8">对</div><div><b>对公转帐</b><small>上传付款凭证，财务确认后 T+1 入帐 · 开具增值税专用发票</small></div><span class="rt">机构推荐</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3><span class="n">4</span>发票信息</h3>
+          <div class="form-row">
+            <div class="field"><label>发票类型</label><div class="inp" style="height:38px"><input value="电子普通发票（个人）" readonly></div></div>
+            <div class="field"><label>抬头</label><div class="inp" style="height:38px"><input value="个人" readonly></div></div>
+          </div>
+          <p class="note">对公转帐将自动切换为增值税专用发票，抬头取机构中心的开票信息。</p>
+        </div>
+      </div>
+      <div class="summary">
+        <div class="card">
+          <h3 style="font-size:16px;font-weight:600;margin-bottom:10px">订单摘要</h3>
+          <div id="coSummary"></div>
+          <button class="pill lg" style="width:100%;margin-top:16px" onclick="pay()">确认支付</button>
+          <div class="inv">统一收费主体：盈米基金销售有限公司（演示）<br>支付成功后可在「帐号中心 · 订单与发票」查看。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 支付成功 ===== -->
+<section class="view" id="v-success">
+  <div class="container success">
+    <div class="ok">✓</div>
+    <h2 id="sucTitle">支付成功，积分已入帐</h2>
+    <p id="sucSub">积分已写入你的帐户，可立即使用；订单与发票在帐号中心查看。</p>
+    <div class="box" id="sucBox"></div>
+    <div style="display:flex;gap:12px;justify-content:center"><a class="pill lg" onclick="go(S.role==='admin'?'org':'account')">前往帐号中心</a><a class="pill ghost lg" onclick="go('plans')">继续购买</a></div>
+  </div>
+</section>
+
+<!-- ===== 帐号中心（个人） ===== -->
+<section class="view center-bg" id="v-account">
+  <div class="wrap">
+    <aside class="side">
+      <div class="card">
+        <div class="profile">
+          <div class="avatar">顾</div>
+          <div class="pname">顾北辰</div>
+          <div class="note">138****2201 · 盈米帐号</div>
+          <div style="margin-top:8px"><span class="badge b-blue">个人专业版</span> <span class="badge b-gray">有效期至 2026-10-22</span></div>
+          <div class="kv"><span class="k">登录方式</span><span>手机号 · 微信 · 且慢 App</span><span class="k">注册时间</span><span>2026-03-12</span><span class="k">已开通</span><span>盈米AI开放平台</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="hd">积分概览 <a onclick="go('plans')" style="font-size:12px;font-weight:500">购买</a></div>
+        <div class="bd">
+          <div style="font-size:26px;font-weight:700" class="num" id="sideBal">92,520 <small style="font-size:12px;color:var(--muted);font-weight:400">可用积分</small></div>
+          <div class="quota" style="margin-top:10px"><div class="row"><span>本月套餐积分</span><b class="num">7,520 / 20,000</b></div><div class="bar"><i style="width:62%"></i></div></div>
+          <div class="quota"><div class="row"><span>加油包（2027-07 到期）</span><b class="num">85,000 / 100,000</b></div><div class="bar"><i class="g" style="width:85%"></i></div></div>
+          <div class="note" style="margin-top:10px">余额低于 20% 时短信提醒 · <a>开启自动续购</a></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="hd">我的 API Key</div>
+        <div class="bd">
+          <div class="keybox"><span class="k">ym-sk-7f2a••••••••••••••••••••8306</span><a style="font-size:12px" onclick="toast('已复制 API Key')">复制</a></div>
+          <div class="note" style="margin-top:8px">Key 归属：顾北辰（个人）· 最近使用 10 分钟前 · Cursor</div>
+        </div>
+      </div>
+    </aside>
+    <main class="main">
+      <div class="card">
+        <div class="ctabs" id="accTabs">
+          <button class="on" data-p="ov">概览</button>
+          <button data-p="pts">积分中心</button>
+          <button data-p="keys">API Key 与接入</button>
+          <button data-p="orders">订单与发票 <span class="cnt">3</span></button>
+          <button data-p="profile">帐号与安全</button>
+        </div>
+        <div class="pane on" id="acc-ov">
+          <div class="alert blue">🎉 你的帐号已升级为盈米统一帐号。原 API Key 保持不变，MCP 配置无需改动。<a class="x">知道了</a></div>
+          <div class="kpi4">
+            <div class="kpi"><div class="l">可用积分</div><div class="v num">92,520</div><div class="s">赠送 0 · 套餐 7,520 · 加油包 85,000</div></div>
+            <div class="kpi"><div class="l">本月消耗</div><div class="v num">12,480<small>分</small></div><div class="s up">较上月 +18%</div></div>
+            <div class="kpi"><div class="l">本月调用</div><div class="v num">3,120<small>次</small></div><div class="s">成功率 99.2%</div></div>
+            <div class="kpi"><div class="l">Skills 报告</div><div class="v num">14<small>份</small></div><div class="s">平均 96 分 / 份</div></div>
+          </div>
+          <div class="grid" style="grid-template-columns:7fr 5fr;gap:16px">
+            <div>
+              <div class="sub-h">近 14 日积分消耗</div>
+              <div class="chart" id="chartDaily"></div>
+              <div class="xl"><span>09-08</span><span>09-15</span><span>09-21</span></div>
+            </div>
+            <div>
+              <div class="sub-h">按工具消耗 Top 5</div>
+              <div class="hbars">
+                <div class="hb"><span>持仓收益分析</span><div class="tr"><i style="width:88%"></i></div><span class="n num">3,840</span></div>
+                <div class="hb"><span>基金深度分析报告</span><div class="tr"><i style="width:60%"></i></div><span class="n num">2,600</span></div>
+                <div class="hb"><span>基金对比</span><div class="tr"><i style="width:48%"></i></div><span class="n num">2,090</span></div>
+                <div class="hb"><span>市场信号灯</span><div class="tr"><i style="width:36%"></i></div><span class="n num">1,560</span></div>
+                <div class="hb"><span>基金基础信息</span><div class="tr"><i style="width:22%"></i></div><span class="n num">960</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pane" id="acc-pts">
+          <div class="pools">
+            <div class="pool"><div class="t">套餐积分（个人专业版）<span class="badge b-blue">当月有效</span></div><div class="v num">7,520 <small>/ 20,000</small></div><div class="bar"><i style="width:38%"></i></div><div class="note" style="margin-top:6px">10-01 重新发放 20,000 分 · 未用完不结转</div></div>
+            <div class="pool"><div class="t">加油包积分<span class="badge b-green">2027-07-08 到期</span></div><div class="v num">85,000 <small>/ 100,000</small></div><div class="bar"><i class="g" style="width:85%"></i></div><div class="note" style="margin-top:6px">购买于 2026-07-08 · 订单 O2026070800312</div></div>
+          </div>
+          <div class="sub-h" style="margin-top:18px">积分流水 <span><a class="btn sm">导出 CSV</a></span></div>
+          <div class="tool-row"><div class="search">🔍 <input placeholder="按工具 / 订单号搜索"></div><span class="badge b-gray">全部</span><span class="badge b-gray">获得</span><span class="badge b-gray">消耗</span><span class="badge b-gray">退还</span></div>
+          <table class="flowlist">
+            <thead><tr><th>时间</th><th>类型</th><th>说明</th><th>关联</th><th class="r">变动</th><th class="r">余额</th></tr></thead>
+            <tbody>
+              <tr><td class="d">09-22 10:04</td><td><span class="badge b-gray">消耗</span></td><td>持仓收益分析 get_holding_analysis</td><td class="mono">req_8f2a…c91</td><td class="r neg num">-8</td><td class="r num">92,520</td></tr>
+              <tr><td class="d">09-22 09:58</td><td><span class="badge b-gray">消耗</span></td><td>基金深度分析报告（fund-analyst Skill）</td><td class="mono">task_3d1…e07</td><td class="r neg num">-96</td><td class="r num">92,528</td></tr>
+              <tr><td class="d">09-22 09:41</td><td><span class="badge b-green">解冻</span></td><td>市场信号灯 调用超时，预扣解冻</td><td class="mono">req_5b7c…a12</td><td class="r pos num">+6</td><td class="r num">92,624</td></tr>
+              <tr><td class="d">09-21 18:30</td><td><span class="badge b-gray">消耗</span></td><td>基金对比 get_fund_compare ×12</td><td class="mono">批量</td><td class="r neg num">-48</td><td class="r num">92,618</td></tr>
+              <tr><td class="d">09-01 00:00</td><td><span class="badge b-blue">发放</span></td><td>个人专业版 9 月套餐积分</td><td class="mono">订阅 S20260312</td><td class="r pos num">+20,000</td><td class="r num">105,120</td></tr>
+              <tr><td class="d">08-31 23:59</td><td><span class="badge b-orange">过期</span></td><td>8 月套餐积分未用部分清零</td><td class="mono">—</td><td class="r neg num">-2,310</td><td class="r num">85,120</td></tr>
+              <tr><td class="d">07-08 15:20</td><td><span class="badge b-blue">购买</span></td><td>积分加油包 10 万分</td><td class="mono">O2026070800312</td><td class="r pos num">+100,000</td><td class="r num">—</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pane" id="acc-keys">
+          <div class="sub-h">API Key <span><a class="btn sm primary" onclick="toast('演示：专业版最多 3 个 Key')">+ 新建 Key</a></span></div>
+          <div class="token-list">
+            <div class="row"><div><b>默认 Key · Cursor</b><small class="mono">ym-sk-7f2a••••••••••••••••••••8306 · 创建于 2026-03-12 · 最近使用 10 分钟前</small></div><span class="badge b-green">启用</span><div><a class="btn sm" onclick="toast('已复制')">复制</a> <a class="btn sm danger">重置</a></div></div>
+            <div class="row"><div><b>WorkBuddy 专用</b><small class="mono">ym-sk-4c8e••••••••••••••••••••9036 · 创建于 2026-06-02 · 最近使用 2 天前</small></div><span class="badge b-green">启用</span><div><a class="btn sm" onclick="toast('已复制')">复制</a> <a class="btn sm danger">停用</a></div></div>
+          </div>
+          <div class="sub-h" style="margin-top:20px">接入配置</div>
+          <div class="cfg-tabs"><button class="on">Cursor</button><button>Claude Desktop</button><button>WorkBuddy</button><button>扣子 / 百炼</button><button>HTTP 直连</button></div>
+          <div class="code-box"><span class="c">// 将下面内容发给你的 AI 助手，或写入 mcp.json</span>
+{
+  <span class="k">"mcpServers"</span>: {
+    <span class="k">"yingmi"</span>: {
+      <span class="k">"url"</span>: "https://stargate.yingmi.com/mcp/sse?apiKey=ym-sk-7f2a••••8306"
+    }
+  }
+}</div>
+          <p class="note" style="margin-top:8px">Key 已绑定到你的盈米帐号；调用按积分计价，失败不扣分。</p>
+        </div>
+        <div class="pane" id="acc-orders">
+          <table>
+            <thead><tr><th>订单号</th><th>商品</th><th>支付方式</th><th class="r">金额</th><th>状态</th><th>发票</th><th></th></tr></thead>
+            <tbody id="orderRows">
+              <tr><td class="mono">O2026090100088</td><td>个人专业版 · 9 月</td><td>微信支付</td><td class="r num">¥99.00</td><td><span class="badge b-green">已支付</span></td><td><span class="badge b-green">已开具</span></td><td class="r"><a class="btn sm">详情</a></td></tr>
+              <tr><td class="mono">O2026070800312</td><td>积分加油包 10 万分</td><td>支付宝</td><td class="r num">¥600.00</td><td><span class="badge b-green">已支付</span></td><td><span class="badge b-green">已开具</span></td><td class="r"><a class="btn sm">详情</a></td></tr>
+              <tr><td class="mono">O2026031200015</td><td>个人专业版 · 首月</td><td>微信支付（积分抵扣 ¥30）</td><td class="r num">¥69.00</td><td><span class="badge b-green">已支付</span></td><td><span class="badge b-gray">未申请</span></td><td class="r"><a class="btn sm" onclick="toast('演示：已申请电子普票')">申请发票</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pane" id="acc-profile">
+          <div class="sub-h">登录方式</div>
+          <div class="token-list">
+            <div class="row"><div><b>手机号（主身份）</b><small>138****2201</small></div><span class="badge b-green">已绑定</span><a class="btn sm">更换</a></div>
+            <div class="row"><div><b>微信</b><small>昵称 GU·北辰</small></div><span class="badge b-green">已绑定</span><a class="btn sm">解绑</a></div>
+            <div class="row"><div><b>且慢 App</b><small>仅用于快捷登录，不同步交易数据</small></div><span class="badge b-green">已绑定</span><a class="btn sm">解绑</a></div>
+          </div>
+          <div class="sub-h" style="margin-top:20px">已开通的盈米科技产品</div>
+          <div class="token-list">
+            <div class="row"><div><b>盈米AI开放平台</b><small>个人专业版 · 2026-03-12 开通</small></div><span class="badge b-green">生效中</span><span></span></div>
+            <div class="row"><div><b>AI 编辑部</b><small>同一盈米帐号可直接登录</small></div><span class="badge b-gray">未开通</span><a class="btn sm">了解</a></div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</section>
+
+<!-- ===== 机构中心（管理员） ===== -->
+<section class="view center-bg" id="v-org">
+  <div class="wrap">
+    <aside class="side">
+      <div class="card">
+        <div class="profile">
+          <div class="avatar org">泓</div>
+          <div class="pname">泓信财富管理有限公司</div>
+          <div class="note">企业版 · 合同 C2026-0829 · 2027-09-30 到期</div>
+          <div style="margin-top:8px"><span class="badge b-purple">机构管理员</span> <span class="badge b-gray">陈雨桐</span></div>
+          <div class="kv"><span class="k">席位</span><span>20 / 200 已用</span><span class="k">开票信息</span><span>已完善 · 专票</span><span class="k">商务对接</span><span>林晚晴</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="hd">机构积分池</div>
+        <div class="bd">
+          <div style="font-size:26px;font-weight:700" class="num">1,513,700 <small style="font-size:12px;color:var(--muted);font-weight:400">池内余额</small></div>
+          <div class="quota" style="margin-top:10px"><div class="row"><span>已分配给成员</span><b class="num">1,200,000</b></div><div class="bar"><i style="width:60%"></i></div></div>
+          <div class="quota"><div class="row"><span>成员已消耗</span><b class="num">486,300</b></div><div class="bar"><i class="o" style="width:24%"></i></div></div>
+          <div class="quota"><div class="row"><span>未分配可用</span><b class="num">800,000</b></div><div class="bar"><i class="g" style="width:40%"></i></div></div>
+          <div class="note" style="margin-top:10px">合同预充值 2,000,000 分 · 按当前速度可用约 12 个月</div>
+          <a class="btn primary" style="margin-top:10px;width:100%;justify-content:center" onclick="buy('addon')">对公加购积分</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="hd">我的 Key（管理员）</div>
+        <div class="bd"><div class="keybox"><span class="k">ym-sk-4c8e••••••••••••••••••••9036</span><a style="font-size:12px" onclick="toast('已复制')">复制</a></div></div>
+      </div>
+    </aside>
+    <main class="main">
+      <div class="card">
+        <div class="ctabs" id="orgTabs">
+          <button class="on" data-p="ov">概览</button>
+          <button data-p="members">帐号与成员 <span class="cnt">20</span></button>
+          <button data-p="quota">积分与额度</button>
+          <button data-p="codes">口令管理 <span class="cnt red">2</span></button>
+          <button data-p="usage">用量统计</button>
+          <button data-p="bills">合同与账单</button>
+        </div>
+        <div class="pane on" id="org-ov">
+          <div class="alert">⚠ 成员 <b>孙雅婷</b> 月度配额已使用 93%；成员 <b>王建国</b> 帐号将于 5 天后到期。<a class="x" onclick="showPane('org','quota')">去处理</a></div>
+          <div class="kpi4">
+            <div class="kpi"><div class="l">池内余额</div><div class="v num">1,513,700</div><div class="s">合同 2,000,000 · 已消耗 24%</div></div>
+            <div class="kpi"><div class="l">本月消耗</div><div class="v num">168,400<small>分</small></div><div class="s up">较上月 +11% · 折合约 ¥1,010</div></div>
+            <div class="kpi"><div class="l">活跃成员</div><div class="v num">17<small>/ 20</small></div><div class="s">本月有调用</div></div>
+            <div class="kpi"><div class="l">本月调用</div><div class="v num">42,100<small>次</small></div><div class="s">成功率 99.4%</div></div>
+          </div>
+          <div class="grid" style="grid-template-columns:7fr 5fr;gap:16px">
+            <div><div class="sub-h">近 6 个月积分消耗</div><div class="chart" id="chartOrg"></div><div class="xl"><span>4月</span><span>5月</span><span>6月</span><span>7月</span><span>8月</span><span>9月</span></div></div>
+            <div><div class="sub-h">按部门消耗</div>
+              <div class="hbars">
+                <div class="hb"><span>投研部</span><div class="tr"><i style="width:90%"></i></div><span class="n num">78,200</span></div>
+                <div class="hb"><span>客户服务部</span><div class="tr"><i style="width:52%"></i></div><span class="n num">45,300</span></div>
+                <div class="hb"><span>运营部</span><div class="tr"><i style="width:36%"></i></div><span class="n num">31,600</span></div>
+                <div class="hb"><span>科技部</span><div class="tr"><i style="width:15%"></i></div><span class="n num">13,300</span></div>
+              </div></div>
+          </div>
+        </div>
+        <div class="pane" id="org-members">
+          <div class="tool-row"><div class="search">🔍 <input placeholder="搜索姓名 / 手机号 / 部门"></div><span class="badge b-gray">全部角色</span><span class="badge b-gray">全部部门</span><span style="flex:1"></span><a class="btn sm" onclick="showPane('org','codes')">发口令邀请</a><a class="btn sm primary" onclick="openModal('member')">+ 新建成员</a></div>
+          <table>
+            <thead><tr><th><span class="chk"></span></th><th>成员</th><th>部门</th><th>角色</th><th class="r">月配额</th><th class="r">已用</th><th>到期</th><th>Key</th><th>状态</th><th></th></tr></thead>
+            <tbody id="memberRows"></tbody>
+          </table>
+        </div>
+        <div class="pane" id="org-quota">
+          <div class="alert blue">额度规则：成员总额度从机构池划出；可另设「日限额 / 月限额」防止单人耗尽；成员停用或到期自动回收未用额度。</div>
+          <div class="pools">
+            <div class="pool"><div class="t">池内未分配<span class="badge b-green">可分配</span></div><div class="v num">800,000</div><div class="note">分配后从此处扣减</div></div>
+            <div class="pool"><div class="t">默认新成员额度</div><div class="v num">10,000 <small>/ 月</small></div><div class="note">日限额 1,000 · 期限随合同 <a>修改</a></div></div>
+          </div>
+          <div class="sub-h" style="margin-top:18px">成员额度 <span><a class="btn sm" onclick="toast('演示：批量调整额度')">批量调整</a></span></div>
+          <table>
+            <thead><tr><th>成员</th><th class="r">总额度</th><th class="r">日限额</th><th class="r">本月已用</th><th>使用率</th><th>到期</th><th></th></tr></thead>
+            <tbody id="quotaRows"></tbody>
+          </table>
+        </div>
+        <div class="pane" id="org-codes">
+          <div class="alert blue">口令用于邀请成员加入机构：成员用手机号登录 + 口令即加入，自动获得默认额度与 Key。口令可限次数、限有效期、限部门。</div>
+          <div class="sub-h">有效口令 <span><a class="btn sm primary" onclick="openModal('code')">+ 生成口令</a></span></div>
+          <table>
+            <thead><tr><th>口令</th><th>部门 / 角色</th><th>默认额度</th><th>可用次数</th><th>有效期</th><th>状态</th><th></th></tr></thead>
+            <tbody>
+              <tr><td class="mono">HX-7Q2K-9M3D</td><td>投研部 · 成员</td><td class="num">10,000 / 月</td><td class="num">3 / 5</td><td>2026-10-15</td><td><span class="badge b-green">有效</span></td><td class="r"><a class="btn sm" onclick="toast('已复制口令与邀请链接')">复制</a> <a class="btn sm danger">作废</a></td></tr>
+              <tr><td class="mono">HX-2A8F-1C6R</td><td>客户服务部 · 成员</td><td class="num">8,000 / 月</td><td class="num">0 / 10</td><td>2026-09-30</td><td><span class="badge b-orange">即将过期</span></td><td class="r"><a class="btn sm" onclick="toast('已复制口令与邀请链接')">复制</a> <a class="btn sm danger">作废</a></td></tr>
+            </tbody>
+          </table>
+          <div class="sub-h" style="margin-top:18px">待审批加入 <span class="badge b-red">2</span></div>
+          <table>
+            <thead><tr><th>申请人</th><th>手机号</th><th>使用口令</th><th>申请时间</th><th></th></tr></thead>
+            <tbody>
+              <tr><td>郑好</td><td>187****9902</td><td class="mono">HX-7Q2K-9M3D</td><td>09-21 16:40</td><td class="r"><a class="btn sm primary" onclick="toast('已通过，成员已获得默认额度与 Key')">通过</a> <a class="btn sm">拒绝</a></td></tr>
+              <tr><td>钱思远</td><td>133****1145</td><td class="mono">HX-7Q2K-9M3D</td><td>09-22 09:12</td><td class="r"><a class="btn sm primary" onclick="toast('已通过，成员已获得默认额度与 Key')">通过</a> <a class="btn sm">拒绝</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pane" id="org-usage">
+          <div class="tool-row"><span class="badge b-blue">近 30 天</span><span class="badge b-gray">近 90 天</span><span class="badge b-gray">本合同期</span><span style="flex:1"></span><a class="btn sm">导出明细</a></div>
+          <div class="kpi4">
+            <div class="kpi"><div class="l">调用次数</div><div class="v num">42,100</div></div>
+            <div class="kpi"><div class="l">消耗积分</div><div class="v num">168,400</div></div>
+            <div class="kpi"><div class="l">Skills 报告</div><div class="v num">312<small>份</small></div></div>
+            <div class="kpi"><div class="l">失败解冻</div><div class="v num">1,240<small>分</small></div><div class="s">失败不计费</div></div>
+          </div>
+          <div class="grid g2">
+            <div><div class="sub-h">按工具消耗 Top 6</div>
+              <div class="hbars">
+                <div class="hb"><span>持仓收益分析</span><div class="tr"><i style="width:92%"></i></div><span class="n num">52,300</span></div>
+                <div class="hb"><span>基金深度分析报告</span><div class="tr"><i style="width:70%"></i></div><span class="n num">39,800</span></div>
+                <div class="hb"><span>组合回测</span><div class="tr"><i style="width:48%"></i></div><span class="n num">27,100</span></div>
+                <div class="hb"><span>基金对比</span><div class="tr"><i style="width:36%"></i></div><span class="n num">20,600</span></div>
+                <div class="hb"><span>市场信号灯</span><div class="tr"><i style="width:28%"></i></div><span class="n num">15,900</span></div>
+                <div class="hb"><span>基金基础信息</span><div class="tr"><i style="width:22%"></i></div><span class="n num">12,700</span></div>
+              </div></div>
+            <div><div class="sub-h">按客户端</div>
+              <div class="hbars">
+                <div class="hb"><span>Cursor</span><div class="tr"><i style="width:80%"></i></div><span class="n">46%</span></div>
+                <div class="hb"><span>WorkBuddy</span><div class="tr"><i style="width:50%"></i></div><span class="n">28%</span></div>
+                <div class="hb"><span>Claude Desktop</span><div class="tr"><i style="width:26%"></i></div><span class="n">15%</span></div>
+                <div class="hb"><span>API 直连</span><div class="tr"><i style="width:14%"></i></div><span class="n">8%</span></div>
+                <div class="hb"><span>扣子</span><div class="tr"><i style="width:6%"></i></div><span class="n">3%</span></div>
+              </div></div>
+          </div>
+        </div>
+        <div class="pane" id="org-bills">
+          <div class="sub-h">合同</div>
+          <table>
+            <thead><tr><th>合同号</th><th>内容</th><th class="r">金额</th><th>积分</th><th>服务期</th><th>状态</th><th></th></tr></thead>
+            <tbody>
+              <tr><td class="mono">C2026-0829</td><td>企业版 · 基金诊断能力包 · 预充值积分</td><td class="r num">¥120,000</td><td class="num">2,000,000 分</td><td>2026-10-01 → 2027-09-30</td><td><span class="badge b-green">履约中</span></td><td class="r"><a class="btn sm">查看</a></td></tr>
+            </tbody>
+          </table>
+          <div class="sub-h" style="margin-top:18px">月度对账单 <span><a class="btn sm">下载全部</a></span></div>
+          <table>
+            <thead><tr><th>账期</th><th class="r">调用</th><th class="r">消耗积分</th><th class="r">折合金额</th><th>状态</th><th></th></tr></thead>
+            <tbody>
+              <tr><td>2026-09（进行中）</td><td class="r num">42,100</td><td class="r num">168,400</td><td class="r num">¥1,010.40</td><td><span class="badge b-blue">实时</span></td><td class="r"><a class="btn sm">预览</a></td></tr>
+              <tr><td>2026-08</td><td class="r num">38,600</td><td class="r num">151,900</td><td class="r num">¥911.40</td><td><span class="badge b-green">已确认</span></td><td class="r"><a class="btn sm">下载</a></td></tr>
+              <tr><td>2026-07</td><td class="r num">41,200</td><td class="r num">166,000</td><td class="r num">¥996.00</td><td><span class="badge b-green">已确认</span></td><td class="r"><a class="btn sm">下载</a></td></tr>
+            </tbody>
+          </table>
+          <div class="sub-h" style="margin-top:18px">订单与发票</div>
+          <table>
+            <thead><tr><th>订单号</th><th>商品</th><th>支付方式</th><th class="r">金额</th><th>状态</th><th>发票</th></tr></thead>
+            <tbody id="orgOrderRows">
+              <tr><td class="mono">CO2026082900001</td><td>合同订单 · 预充值 2,000,000 分</td><td>对公转帐</td><td class="r num">¥120,000.00</td><td><span class="badge b-green">已入帐</span></td><td><span class="badge b-green">专票已开具</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+</section>
+
+<footer class="site"><div class="in"><span>盈米AI开放平台 · ai.yingmi.com · 升级版官网 DEMO（YCC 统一帐号 + 积分方案）</span><span>粤ICP备 · 珠海盈米基金销售有限公司 · 本页为产品演示，数据均为模拟</span></div></footer>
+
+<!-- 弹窗 -->
+<div class="mask" id="mask" onclick="if(event.target===this)closeModal()"><div class="modal" id="modal"></div></div>
+<div class="toast" id="toast"></div>
+
+<!-- 演示条 -->
+<div class="demobar">
+  <span class="lbl">DEMO</span>
+  <div class="roles" id="roleSw"><button class="on" data-r="guest">未登录</button><button data-r="user">个人用户</button><button data-r="admin">机构管理员</button></div>
+  <div class="steps" id="steps">
+    <button data-s="home" onclick="go('home')"><i>1</i>首页</button><span class="sep">›</span>
+    <button data-s="login" onclick="S.role='guest';syncRole();go('login')"><i>2</i>注册登录</button><span class="sep">›</span>
+    <button data-s="plans" onclick="go('plans')"><i>3</i>套餐与积分</button><span class="sep">›</span>
+    <button data-s="checkout" onclick="buy('addon')"><i>4</i>收银台</button><span class="sep">›</span>
+    <button data-s="account" onclick="setRole('user');go('account')"><i>5</i>帐号中心</button><span class="sep">›</span>
+    <button data-s="org" onclick="setRole('admin');go('org')"><i>6</i>机构中心</button>
+  </div>
+</div>
+
+<script>
+/* ================= 状态 ================= */
+const S={role:'guest',view:'home',item:null,deduct:false,pay:'wx',tier:{q:100000,p:600}};
+const PLAN={
+  pro:{name:'个人专业版 · 1 个月',pts:'每月 20,000 积分',price:99,seat:'1 个帐号',inv:'电子普票'},
+  team:{name:'团队版 · 1 年',pts:'500,000 积分 / 年 · 20 席位',price:4800,seat:'20 席位',inv:'专票 / 普票'},
+  addon:{name:'积分加油包',pts:'',price:0,seat:'—',inv:'普票 / 专票'}
+};
+const MEMBERS=[
+ {n:'顾北辰',ph:'138****2201',dept:'投研部',role:'owner',q:80000,u:51230,d:1000,exp:'2027-08-31',key:1,st:'active'},
+ {n:'陈雨桐',ph:'139****8834',dept:'客户服务部',role:'admin',q:30000,u:18642,d:1000,exp:'2027-06-30',key:1,st:'active'},
+ {n:'王建国',ph:'137****5520',dept:'投研部',role:'member',q:20000,u:14890,d:800,exp:'2026-09-27',key:1,st:'active'},
+ {n:'李慕白',ph:'186****7743',dept:'投研部',role:'member',q:20000,u:9230,d:800,exp:'2027-03-31',key:1,st:'active'},
+ {n:'林晚晴',ph:'135****9012',dept:'运营部',role:'member',q:25000,u:22100,d:1000,exp:'2026-12-31',key:1,st:'active'},
+ {n:'周明轩',ph:'150****3367',dept:'客户服务部',role:'member',q:15000,u:6240,d:600,exp:'2027-05-31',key:1,st:'active'},
+ {n:'赵子昂',ph:'188****2290',dept:'科技部',role:'member',q:30000,u:27450,d:1500,exp:'2026-11-30',key:1,st:'active'},
+ {n:'孙雅婷',ph:'136****6618',dept:'运营部',role:'member',q:15000,u:13980,d:600,exp:'2027-02-28',key:1,st:'active'},
+ {n:'吴启航',ph:'159****4475',dept:'客户服务部',role:'member',q:15000,u:13720,d:600,exp:'2027-01-31',key:1,st:'active'},
+ {n:'何静姝',ph:'155****7736',dept:'客户服务部',role:'member',q:12000,u:8450,d:600,exp:'2026-09-28',key:1,st:'suspended'}
+];
+const fmt=n=>Math.round(n).toLocaleString('zh-CN');
+const $=id=>document.getElementById(id);
+
+/* ================= 路由 ================= */
+function go(v){
+  if((v==='account'||v==='org')&&S.role==='guest'){S.after=v;v='login'}
+  if(v==='account'&&S.role==='admin'){v='org'}
+  if(v==='org'&&S.role==='user'){v='account'}
+  S.view=v;
+  document.querySelectorAll('.view').forEach(x=>x.classList.toggle('on',x.id==='v-'+v));
+  document.querySelectorAll('#navLinks a').forEach(a=>a.classList.toggle('on',a.dataset.v===v));
+  document.querySelectorAll('#steps button').forEach(b=>b.classList.toggle('on',b.dataset.s===v||(v==='success'&&b.dataset.s==='checkout')));
+  window.scrollTo({top:0});
+  if(v==='checkout')renderCheckout();
+}
+function renderNavRight(){
+  const el=$('navRight');
+  if(S.role==='guest'){el.innerHTML='<a class="pill" onclick="go(\'login\')">登录 / 注册</a>'}
+  else if(S.role==='user'){el.innerHTML='<div class="me" onclick="go(\'account\')"><span class="av">顾</span><div><div class="nm">顾北辰</div><div class="pts num">92,520 积分</div></div></div>'}
+  else{el.innerHTML='<div class="me" onclick="go(\'org\')"><span class="av org">泓</span><div><div class="nm">泓信财富 · 管理员</div><div class="pts num">池余额 1,513,700</div></div></div>'}
+}
+function setRole(r){S.role=r;syncRole()}
+function syncRole(){document.querySelectorAll('#roleSw button').forEach(b=>b.classList.toggle('on',b.dataset.r===S.role));renderNavRight()}
+document.querySelectorAll('#roleSw button').forEach(b=>b.addEventListener('click',()=>{setRole(b.dataset.r);go(S.role==='guest'?'home':S.role==='user'?'account':'org')}));
+function login(r){setRole(r);toast(r==='user'?'登录成功 · 已为你的帐号发放 5,000 赠送积分':'已加入 泓信财富管理有限公司 · 管理员登录成功');const to=S.after||(r==='user'?'account':'org');S.after=null;setTimeout(()=>go(to),350)}
+
+/* 登录 tabs */
+document.querySelectorAll('#authTabs button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#authTabs button').forEach(x=>x.classList.remove('on'));b.classList.add('on');
+  ['phone','wx','qm','org'].forEach(t=>$('auth-'+t).classList.toggle('hide',t!==b.dataset.t));
+}));
+/* 三驾马车 tabs（演示） */
+document.querySelectorAll('#trioTabs button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('#trioTabs button').forEach(x=>x.classList.remove('on'));b.classList.add('on');toast('演示：'+b.textContent+' 内容沿用现网')}));
+/* 加油包档位 */
+document.querySelectorAll('.addon .tier').forEach(t=>t.addEventListener('click',()=>{document.querySelectorAll('.addon .tier').forEach(x=>x.classList.remove('on'));t.classList.add('on');S.tier={q:+t.dataset.q,p:+t.dataset.p}}));
+
+/* ================= 收银台 ================= */
+function buy(k){if(S.role==='guest'){S.after='checkout';S.item=k;toast('请先登录 / 注册盈米帐号');go('login');return}S.item=k;S.deduct=false;S.pay=S.role==='admin'?'b2b':'wx';go('checkout')}
+function renderCheckout(){
+  const k=S.item||'addon';const p=PLAN[k];
+  const price=k==='addon'?S.tier.p:p.price;const pts=k==='addon'?fmt(S.tier.q)+' 积分 · 12 个月有效':p.pts;
+  $('coItem').innerHTML=`<div class="opt on" style="cursor:default"><div class="ic" style="background:var(--brand)">${k==='addon'?'⚡':'☆'}</div><div><b>${p.name}${k==='addon'?' '+fmt(S.tier.q)+' 分':''}</b><small>${pts}${p.seat!=='—'?' · '+p.seat:''}</small></div><span class="rt num" style="font-size:16px;font-weight:700;color:var(--text)">¥${fmt(price)}</span></div>`;
+  document.querySelectorAll('#payOpts .opt').forEach(o=>o.classList.toggle('on',o.dataset.p===S.pay));
+  $('swDeduct').classList.toggle('on',S.deduct);
+  const ded=S.deduct?30:0;
+  $('coSummary').innerHTML=`<div class="row"><span>商品金额</span><b class="num">¥${fmt(price)}.00</b></div>
+    <div class="row"><span>积分抵扣</span><b class="num" style="color:var(--green)">${ded?'-¥30.00':'—'}</b></div>
+    <div class="row"><span>支付方式</span><b>${{wx:'微信支付',ali:'支付宝',b2b:'对公转帐'}[S.pay]}</b></div>
+    <div class="row"><span>入帐权益</span><b>${k==='addon'?fmt(S.tier.q)+' 积分':p.pts}</b></div>
+    <div class="tot"><span>应付</span><span class="v num">¥${fmt(price-ded)}<small>.00</small></span></div>`;
+}
+function toggleDeduct(){S.deduct=!S.deduct;renderCheckout()}
+function pickPay(el){S.pay=el.dataset.p;renderCheckout()}
+function pay(){
+  const k=S.item||'addon';const p=PLAN[k];const price=(k==='addon'?S.tier.p:p.price)-(S.deduct?30:0);
+  const b2b=S.pay==='b2b';
+  $('sucTitle').textContent=b2b?'对公订单已创建，等待财务确认入帐':'支付成功，积分已入帐';
+  $('sucSub').textContent=b2b?'请按订单页汇款信息完成转帐并上传凭证；财务确认后 T+1 积分入池，增值税专用发票同步开具。':'积分已写入你的帐户，可立即使用；订单与电子发票在帐号中心查看。';
+  const no=(b2b?'CO':'O')+'2026092200'+Math.floor(100+Math.random()*899);
+  $('sucBox').innerHTML=`<div><small>订单号</small><b class="mono" style="font-size:15px">${no}</b></div><div><small>实付金额</small><b class="num">¥${fmt(price)}.00</b></div><div><small>${b2b?'待入帐积分':'已入帐积分'}</small><b class="num" style="color:var(--brand)">+${k==='addon'?fmt(S.tier.q):k==='pro'?'20,000':'500,000'}</b></div>`;
+  const row=`<tr><td class="mono">${no}</td><td>${p.name}${k==='addon'?' '+fmt(S.tier.q)+' 分':''}</td><td>${{wx:'微信支付',ali:'支付宝',b2b:'对公转帐'}[S.pay]}${S.deduct?'（积分抵扣 ¥30）':''}</td><td class="r num">¥${fmt(price)}.00</td><td><span class="badge ${b2b?'b-orange':'b-green'}">${b2b?'待入帐':'已支付'}</span></td><td><span class="badge b-gray">${b2b?'专票待开':'可申请'}</span></td>${b2b?'':'<td class="r"><a class="btn sm" onclick="toast(\'演示：已申请电子普票\')">申请发票</a></td>'}</tr>`;
+  (S.role==='admin'?$('orgOrderRows'):$('orderRows')).insertAdjacentHTML('afterbegin',row);
+  if(S.role==='admin'){const c=$('orgTabs').querySelector('[data-p=bills]');}
+  else{const c=$('accTabs').querySelector('.cnt');c.textContent=+c.textContent+1}
+  go('success');
+}
+
+/* ================= 中心 tabs ================= */
+function bindTabs(id,prefix){document.querySelectorAll('#'+id+' button').forEach(b=>b.addEventListener('click',()=>showPane(prefix,b.dataset.p)))}
+function showPane(prefix,p){
+  const tabs=prefix==='acc'?'accTabs':'orgTabs';
+  document.querySelectorAll('#'+tabs+' button').forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  document.querySelectorAll('#v-'+(prefix==='acc'?'account':'org')+' .pane').forEach(x=>x.classList.toggle('on',x.id===prefix+'-'+p));
+  if(prefix==='org')go('org');
+}
+bindTabs('accTabs','acc');bindTabs('orgTabs','org');
+
+/* 图表 */
+function bars(id,data,labels){$(id).innerHTML=data.map((v,i)=>`<i style="height:${Math.round(v/Math.max(...data)*100)}%"><span>${labels?labels[i]:fmt(v)}</span></i>`).join('')}
+bars('chartDaily',[640,720,580,910,860,430,380,1020,980,1140,760,880,1210,970]);
+bars('chartOrg',[121000,138000,149000,166000,151900,168400],['12.1万','13.8万','14.9万','16.6万','15.2万','16.8万']);
+
+/* 成员表 */
+function renderMembers(){
+  $('memberRows').innerHTML=MEMBERS.map(m=>`<tr><td><span class="chk"></span></td><td><b>${m.n}</b><div class="note">${m.ph}</div></td><td>${m.dept}</td><td><span class="role ${m.role}">${{owner:'超级管理员',admin:'管理员',member:'成员'}[m.role]}</span></td><td class="r num">${fmt(m.q)}</td><td class="r num">${fmt(m.u)}</td><td>${m.exp}${m.exp<'2026-10-01'?' <span class="badge b-orange">即将到期</span>':''}</td><td><span class="badge ${m.key?'b-green':'b-gray'}">${m.key?'已发放':'未发放'}</span></td><td><span class="badge ${m.st==='active'?'b-green':'b-red'}">${m.st==='active'?'正常':'已停用'}</span></td><td class="r"><a class="btn sm" onclick="openModal('quota','${m.n}')">额度</a> <a class="btn sm ${m.st==='active'?'danger':''}" onclick="toast('演示：${m.st==='active'?'已停用并回收未用额度':'已恢复'} · ${m.n}')">${m.st==='active'?'停用':'恢复'}</a></td></tr>`).join('');
+  $('quotaRows').innerHTML=MEMBERS.filter(m=>m.st==='active').map(m=>{const r=m.u/m.q;return `<tr><td><b>${m.n}</b> <span class="note">${m.dept}</span></td><td class="r num">${fmt(m.q)}</td><td class="r num">${fmt(m.d)}</td><td class="r num">${fmt(m.u)}</td><td><div class="bar" style="width:120px"><i class="${r>.9?'r':r>.7?'o':''}" style="width:${Math.round(r*100)}%"></i></div><span class="note">${Math.round(r*100)}%</span></td><td>${m.exp}</td><td class="r"><a class="btn sm" onclick="openModal('quota','${m.n}')">调整</a></td></tr>`}).join('');
+}
+renderMembers();
+
+/* ================= 弹窗 ================= */
+function openModal(t,name){
+  const M=$('modal');
+  if(t==='member')M.innerHTML=`<div class="mh">新建成员<button class="x" onclick="closeModal()">✕</button></div><div class="mb">
+    <div class="form-row"><div class="field"><label>姓名</label><div class="inp" style="height:38px"><input placeholder="成员姓名"></div></div><div class="field"><label>手机号（登录身份）</label><div class="inp" style="height:38px"><span class="pre">+86</span><input placeholder="成员手机号"></div></div></div>
+    <div class="form-row"><div class="field"><label>部门</label><div class="inp" style="height:38px"><input value="投研部"></div></div><div class="field"><label>角色</label><div class="inp" style="height:38px"><input value="成员"></div></div></div>
+    <div class="form-row"><div class="field"><label>月配额（积分）</label><div class="inp" style="height:38px"><input value="10,000"></div></div><div class="field"><label>日限额（积分）</label><div class="inp" style="height:38px"><input value="1,000"></div></div></div>
+    <div class="field"><label>到期时间</label><div class="inp" style="height:38px"><input value="随合同 2027-09-30"></div></div>
+    <p class="note">保存后系统自动发放 API Key，并向成员手机号发送登录与接入指引。额度从机构池扣减。</p></div>
+    <div class="mf"><a class="btn" onclick="closeModal()">取消</a><a class="btn primary" onclick="closeModal();toast('已创建成员并发放 Key · 池内可分配余额 790,000')">保存并发放 Key</a></div>`;
+  else if(t==='code')M.innerHTML=`<div class="mh">生成邀请口令<button class="x" onclick="closeModal()">✕</button></div><div class="mb">
+    <div class="form-row"><div class="field"><label>部门</label><div class="inp" style="height:38px"><input value="投研部"></div></div><div class="field"><label>角色</label><div class="inp" style="height:38px"><input value="成员"></div></div></div>
+    <div class="form-row"><div class="field"><label>默认月配额</label><div class="inp" style="height:38px"><input value="10,000"></div></div><div class="field"><label>可用次数</label><div class="inp" style="height:38px"><input value="5"></div></div></div>
+    <div class="form-row"><div class="field"><label>口令有效期</label><div class="inp" style="height:38px"><input value="30 天"></div></div><div class="field"><label>加入是否需审批</label><div class="inp" style="height:38px"><input value="需要管理员审批"></div></div></div>
+    <p class="note">成员在登录页选择「机构口令」，输入口令与手机号即可申请加入。</p></div>
+    <div class="mf"><a class="btn" onclick="closeModal()">取消</a><a class="btn primary" onclick="closeModal();toast('口令 HX-9K4T-2B7N 已生成并复制')">生成并复制</a></div>`;
+  else M.innerHTML=`<div class="mh">调整额度 · ${name}<button class="x" onclick="closeModal()">✕</button></div><div class="mb">
+    <div class="form-row"><div class="field"><label>月配额（积分）</label><div class="inp" style="height:38px"><input value="20,000"></div></div><div class="field"><label>日限额（积分）</label><div class="inp" style="height:38px"><input value="1,000"></div></div></div>
+    <div class="field"><label>到期时间</label><div class="inp" style="height:38px"><input value="2027-09-30"></div></div>
+    <div class="field"><label>备注</label><div class="inp" style="height:38px"><input placeholder="如：季度投研专项"></div></div>
+    <p class="note">池内可分配余额 800,000 分；调整即时生效并记录到机构操作日志。</p></div>
+    <div class="mf"><a class="btn" onclick="closeModal()">取消</a><a class="btn primary" onclick="closeModal();toast('已调整 ${name} 的额度')">确认</a></div>`;
+  $('mask').classList.add('on');
+}
+function closeModal(){$('mask').classList.remove('on')}
+let tt;function toast(m){const t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),2200)}
+
+/* init（支持 ?role=user|admin&v=home|login|plans|checkout|account|org 深链） */
+(function(){const q=new URLSearchParams(location.search);if(q.get('role'))S.role=q.get('role');syncRole();const v=q.get('v')||'home';if(v==='checkout'){S.item=q.get('item')||'addon';S.pay=S.role==='admin'?'b2b':'wx'}go(v);if(q.get('tab'))showPane(v==='org'?'org':'acc',q.get('tab'))})();
+</script>
+</body>
+</html>

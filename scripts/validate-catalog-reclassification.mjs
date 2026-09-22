@@ -35,6 +35,9 @@ const missingTopics = reportIds.filter((id) => !topicIds.has(id));
 if (missingTopics.length) fail(`存在未显式归类成果：${missingTopics.join("、")}`);
 
 const requiredGroups = [
+  "投顾工作台",
+  "养老规划",
+  "市场信号",
   "AI 产品与顾问服务",
   "AI 生产力与工作台",
   "AI 开放平台与生态",
@@ -57,7 +60,7 @@ if (!featuredIds.includes(slug)) fail("盘点报告未加入精选入口");
 
 for (const marker of [
   "162 份成果逐项归位",
-  "87 份历史成果重新归位",
+  "88 份历史成果重新归位",
   "119→9",
   "276/278",
   "公网不可判定的内网本体地址",
