@@ -56,7 +56,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 79;
+const DATA_VERSION = 80;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -196,6 +196,19 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "qieman-pension-unification-2026-09-22",
+      groupId: "pension-planning",
+      title: "且慢养老统一方案｜一套目标账户 × 多套投研引擎",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-pension-unification-2026-09-22/",
+      preview: "qieman-pension-unification-2026-09-22.svg",
+      pinned: true,
+      createdAt: "2026-09-22T13:40:00+08:00",
+      source: "SOUL养老专区1.0/2.0与投顾2.0历史材料 + 2026-08生产漏斗 + 2026-09-21最新内部快照 + VESTA养老目标账户方案交叉验证｜主张不再平行建设第二套养老体系，而是统一为一个养老目标账户、一条服务主线、多套受治理投研引擎与角色化产品货架｜公开安全版已将最新内部精确数值区间化，并明确缺失证据与实时复核项",
+      access: "production",
+      workType: "product-planning",
+      tags: ["且慢", "养老规划", "目标账户", "投研", "产品治理", "产品规划", "经营汇报", "HTML", "生产"],
+    },
     {
       id: "weekly-ai-output-audit-2026-09-22",
       groupId: "reporting",
@@ -2837,6 +2850,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "qieman-pension-unification-2026-09-22": "product-planning",
   "weekly-ai-output-audit-2026-09-22": "reporting",
   "ycc-oap-upgrade-package-2026-09-22": "product-planning",
   "qieman-dividend-holding-plan-2026-09-22": "product-planning",
@@ -2935,6 +2949,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "qieman-pension-unification-2026-09-22": "pension-planning",
   "weekly-ai-output-audit-2026-09-22": "reporting",
   "ycc-oap-upgrade-package-2026-09-22": "ai-platform",
   "qieman-dividend-holding-plan-2026-09-22": "product-planning",
