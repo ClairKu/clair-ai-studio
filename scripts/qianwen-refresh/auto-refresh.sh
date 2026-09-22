@@ -27,6 +27,7 @@ PY
 cleanup() {
   for w in "$WORK/wt" "$WORK/src"; do rm -f "$w/node_modules"; git -C "$REPO" worktree remove --force "$w" 2>/dev/null; done
   git -C "$REPO" worktree prune 2>/dev/null
+  rm -f "$BASE/.lock/pid" 2>/dev/null
   rmdir "$BASE/.lock" 2>/dev/null
   ls -1dt "$BASE"/runs/* 2>/dev/null | tail -n +11 | xargs rm -rf 2>/dev/null
 }
@@ -35,7 +36,24 @@ fail() {
   osascript -e "display notification \"$1\" with title \"千问看板自动刷新失败\" subtitle \"$TS\"" 2>/dev/null
   cleanup; exit 1
 }
-mkdir "$BASE/.lock" 2>/dev/null || { echo "另一轮刷新仍在进行，跳过"; exit 0; }
+acquire_lock() {
+  local lock="$BASE/.lock" old_pid=""
+  if mkdir "$lock" 2>/dev/null; then
+    print -r -- "$$" > "$lock/pid"
+    return 0
+  fi
+  [ -f "$lock/pid" ] && old_pid="$(tr -dc '0-9' < "$lock/pid")"
+  if [ -n "$old_pid" ] && kill -0 "$old_pid" 2>/dev/null; then
+    echo "另一轮刷新仍在进行（PID $old_pid），跳过"
+    return 1
+  fi
+  echo "发现僵死刷新锁，自动清理后重试"
+  rm -f "$lock/pid" 2>/dev/null
+  rmdir "$lock" 2>/dev/null || return 1
+  mkdir "$lock" 2>/dev/null || return 1
+  print -r -- "$$" > "$lock/pid"
+}
+acquire_lock || exit 0
 trap cleanup EXIT
 
 # ── 前置 ──
