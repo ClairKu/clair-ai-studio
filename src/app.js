@@ -105,6 +105,7 @@ const UI_ICONS = {
   edit: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4l10.5-10.5a2.8 2.8 0 0 0-4-4L4 16v4Z"></path><path d="m13 7 4 4"></path></svg>',
   archive: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v13H4z"></path><path d="M3 4h18v3H3zM9 11h6"></path></svg>',
   refreshImage: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.4-5.7"></path><path d="M20 3v4h-4"></path><circle cx="9.6" cy="10" r="1.4"></circle><path d="m6.8 15.6 2.8-2.7 2 1.8 3-3 2.6 2.5"></path></svg>',
+  external: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 5h6v6M19 5l-9 9"></path><path d="M17 13v6H5V7h6"></path></svg>',
   close: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"></path></svg>',
   star: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3Z"></path></svg>',
   top: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14M12 19V8m0 0-4 4m4-4 4 4"></path></svg>',
@@ -5369,6 +5370,11 @@ function cardMarkup(report, archivedView = false) {
             <button type="button" data-action="restore" data-id="${escapeHtml(report.id)}">Restore</button>
             <button type="button" data-action="delete" data-id="${escapeHtml(report.id)}">Delete permanently</button>`
           : `
+            ${report.url || localHtml ? `
+              <button type="button" class="studio-icon-button card-icon-action" data-action="open-browser" data-id="${escapeHtml(report.id)}"
+                title="在新浏览器页面打开" aria-label="在新浏览器页面打开${escapeHtml(report.title)}">
+                ${UI_ICONS.external}
+              </button>` : ""}
             <button type="button" class="studio-icon-button card-icon-action" data-action="refresh-thumbnail" data-id="${escapeHtml(report.id)}" title="刷新缩图" aria-label="刷新缩图">
               ${UI_ICONS.refreshImage}
             </button>

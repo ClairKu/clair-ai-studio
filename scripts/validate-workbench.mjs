@@ -225,6 +225,8 @@ const requiredSignals = [
   [appSource, 'class="library-time-report-link" data-action="open"', "TIME 成果标题不能直接打开报告"],
   [styleSource, ".library-time-report-link:focus-visible", "TIME 成果标题缺少键盘焦点反馈"],
   [appSource, 'data-action="toggle-pin"', "卡片缺少精选操作"],
+  [appSource, 'title="在新浏览器页面打开"', "成果卡片缺少新浏览器页面打开入口"],
+  [appSource, 'data-action="open-browser"', "新浏览器页面打开入口缺少执行动作"],
   [appSource, "function bindReportDragging()", "缺少统一卡片拖动会话"],
   [appSource, 'addEventListener("compositionend"', "搜索框缺少中文输入法完成事件"],
   [appSource, "commitSearchInput", "搜索框没有统一提交查询状态"],
@@ -324,13 +326,15 @@ const cardActionsSource = appSource.slice(
   appSource.indexOf("function modalMarkup"),
 );
 const cardActionOrder = [
+  'data-action="open-browser"',
   'data-action="archive"',
   'data-action="edit"',
   'data-action="toggle-pin"',
 ].map((signal) => cardActionsSource.indexOf(signal));
 if (cardActionOrder.some((index) => index < 0) ||
-    !(cardActionOrder[0] < cardActionOrder[1] && cardActionOrder[1] < cardActionOrder[2])) {
-  fail("卡片操作未按归档、编辑、收藏排列");
+    !(cardActionOrder[0] < cardActionOrder[1] && cardActionOrder[1] < cardActionOrder[2] &&
+      cardActionOrder[2] < cardActionOrder[3])) {
+  fail("卡片操作未按新页面打开、归档、编辑、收藏排列");
 }
 if (styleSource.includes(".report-card:has(.local-html-preview-frame) .report-preview::before")) {
   fail("本地 HTML 卡片仍显示特殊角标");
