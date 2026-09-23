@@ -7,14 +7,11 @@ import { fileURLToPath } from "node:url";
 const root = fileURLToPath(new URL("../", import.meta.url));
 const docsRoot = join(root, "docs");
 const gatePath = join(docsRoot, "access-gate.js");
-const selfProtectedPaths = new Set([
-  join(docsRoot, "reports", "qianwen-user-acquisition-dashboard", "index.html"),
-  join(docsRoot, "reports", "doubao-user-acquisition-dashboard", "index.html"),
-  join(docsRoot, "reports", "doubao-user-conversion-cases-2026-09-20", "index.html"),
-  join(docsRoot, "reports", "qianwen-user-question-analysis-2026-09-05", "index.html"),
-  join(docsRoot, "reports", "qianwen-user-question-detail-2026-09-05", "index.html"),
-  join(docsRoot, "reports", "qianwen-first-investor-cases-2026-09-17", "index.html"),
-]);
+const accessConfigPath = join(docsRoot, "report-access.json");
+const accessConfig = JSON.parse(readFileSync(accessConfigPath, "utf8"));
+const selfProtectedPaths = new Set((accessConfig.immutableLockedReportIds || []).map(
+  (reportId) => join(docsRoot, "reports", reportId, "index.html"),
+));
 
 const walkHtml = (directory, results = []) => {
   for (const entry of readdirSync(directory, { withFileTypes: true })) {
@@ -48,7 +45,23 @@ test("shared gate submits reliably: trims input, guards re-entry, keeps the fiel
   assert.match(source, /正在验证，请稍候/);
 });
 
-test("gates published HTML entries except the independently encrypted ones", () => {
+test("report access policy is selective, centrally published, and fails closed", () => {
+  const source = readFileSync(gatePath, "utf8");
+  assert.equal(accessConfig.defaultLocked, false);
+  assert.deepEqual(accessConfig.lockedReportIds, []);
+  assert.ok(accessConfig.immutableLockedReportIds.length > 0);
+  assert.match(source, /reportRequiresPassword/);
+  assert.match(source, /immutableLockedReportIds/);
+  assert.match(source, /lockedReportIds/);
+  assert.match(source, /location\.pathname\.match\(\/\\\/reports\\\/\(\[\^\/\]\+\)/);
+  assert.match(source, /new URL\("\.\/report-access\.json", gateScript\.src\)/);
+  assert.match(source, /return Boolean\(config\.defaultLocked\)/);
+  assert.match(source, /if \(!requestedReportId \|\| !reportAccessConfig\) return true/);
+  assert.match(source, /catch \{\s*return true;\s*\}/);
+  assert.match(source, /unlock\(\{ persist: false \}\)/);
+});
+
+test("publishes policy-aware gate metadata on every ordinary HTML entry", () => {
   const htmlPaths = walkHtml(docsRoot);
   assert.ok(htmlPaths.length > 1);
   for (const htmlPath of htmlPaths) {

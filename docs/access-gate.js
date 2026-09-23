@@ -1,9 +1,18 @@
 (() => {
   "use strict";
 
-  const requestedScope = document.currentScript?.dataset.clairAccessScope === "report"
+  const gateScript = document.currentScript;
+  const requestedScope = gateScript?.dataset.clairAccessScope === "report"
     ? "report"
     : "workspace";
+  const reportPathMatch = location.pathname.match(/\/reports\/([^/]+)(?:\/|$)/);
+  const requestedReportId = String(
+    gateScript?.dataset.clairReportId || (reportPathMatch ? decodeURIComponent(reportPathMatch[1]) : ""),
+  ).trim();
+  const reportAccessConfig = String(
+    gateScript?.dataset.clairAccessConfig
+      || (gateScript?.src ? new URL("./report-access.json", gateScript.src).href : ""),
+  ).trim();
   const profiles = {
     workspace: {
       sessionKey: "clair-ai-studio-access-v1",
@@ -47,7 +56,9 @@
     }
   };
 
-  if (readSession() === SESSION_VALUE) return;
+  // The private Studio shell is always locked. Report pages first consult the
+  // centrally published per-report policy before deciding whether to show a gate.
+  if (requestedScope === "workspace" && readSession() === SESSION_VALUE) return;
 
   document.documentElement.classList.add(ROOT_CLASS);
 
@@ -90,16 +101,43 @@
     return sameBytes(new Uint8Array(bits), fromBase64(EXPECTED_HASH));
   };
 
-  const unlock = () => {
-    try {
-      window.sessionStorage.setItem(SESSION_KEY, SESSION_VALUE);
-    } catch {
-      // The current page still unlocks even when storage is unavailable.
+  const unlock = ({ persist = true } = {}) => {
+    if (persist) {
+      try {
+        window.sessionStorage.setItem(SESSION_KEY, SESSION_VALUE);
+      } catch {
+        // The current page still unlocks even when storage is unavailable.
+      }
     }
     document.documentElement.classList.remove(ROOT_CLASS);
     document.getElementById(HOST_ID)?.remove();
     concealment.remove();
-    window.dispatchEvent(new CustomEvent("clair-site-access-granted"));
+    window.dispatchEvent(new CustomEvent(
+      persist ? "clair-site-access-granted" : "clair-site-access-not-required",
+    ));
+  };
+
+  const reportRequiresPassword = async () => {
+    // Missing or unreadable policy fails closed. A temporary config outage must
+    // never expose a report that its owner intended to lock.
+    if (!requestedReportId || !reportAccessConfig) return true;
+    try {
+      const configUrl = new URL(reportAccessConfig, location.href);
+      configUrl.searchParams.set("v", Date.now().toString(36));
+      const response = await fetch(configUrl, { cache: "no-store" });
+      if (!response.ok) return true;
+      const config = await response.json();
+      const immutable = new Set(Array.isArray(config.immutableLockedReportIds)
+        ? config.immutableLockedReportIds
+        : []);
+      const locked = new Set(Array.isArray(config.lockedReportIds)
+        ? config.lockedReportIds
+        : []);
+      if (immutable.has(requestedReportId) || locked.has(requestedReportId)) return true;
+      return Boolean(config.defaultLocked);
+    } catch {
+      return true;
+    }
   };
 
   const mountGate = () => {
@@ -250,9 +288,25 @@
     requestAnimationFrame(() => input.focus());
   };
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", () => requestAnimationFrame(mountGate), { once: true });
-  } else {
-    requestAnimationFrame(mountGate);
-  }
+  const scheduleGate = () => {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", () => requestAnimationFrame(mountGate), { once: true });
+    } else {
+      requestAnimationFrame(mountGate);
+    }
+  };
+
+  const start = async () => {
+    if (requestedScope === "report" && !(await reportRequiresPassword())) {
+      unlock({ persist: false });
+      return;
+    }
+    if (readSession() === SESSION_VALUE) {
+      unlock();
+      return;
+    }
+    scheduleGate();
+  };
+
+  void start();
 })();

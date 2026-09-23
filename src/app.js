@@ -47,6 +47,12 @@ import {
   ensureCoverContentProfile,
 } from "./cover-thumbnails.js";
 import { reorderItemIds } from "./bucket-order.js";
+import {
+  loadReportAccessConfig,
+  publishReportAccessSetting,
+  reportAccessConnectionState,
+  reportAccessStatus,
+} from "./report-access-settings.js";
 
 const STORAGE_KEY = "clair-service-report-workbench-v1";
 const PREVIEW_COVER_KEY = "clair-service-report-preview-cover-v1";
@@ -106,6 +112,7 @@ const UI_ICONS = {
   archive: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v13H4z"></path><path d="M3 4h18v3H3zM9 11h6"></path></svg>',
   refreshImage: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.4-5.7"></path><path d="M20 3v4h-4"></path><circle cx="9.6" cy="10" r="1.4"></circle><path d="m6.8 15.6 2.8-2.7 2 1.8 3-3 2.6 2.5"></path></svg>',
   external: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 5h6v6M19 5l-9 9"></path><path d="M17 13v6H5V7h6"></path></svg>',
+  settings: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3A1.7 1.7 0 0 0 10 3v-.2h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1Z"></path></svg>',
   close: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"></path></svg>',
   star: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3Z"></path></svg>',
   top: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14M12 19V8m0 0-4 4m4-4 4 4"></path></svg>',
@@ -5322,6 +5329,7 @@ function cardMarkup(report, archivedView = false) {
       : "生产可访问";
   const localHtml = localHtmlForReport(report);
   const isPinned = Boolean(report.pinned);
+  const accessSetting = reportAccessStatus(report);
   const groupLabel = state.groups.find((group) => group.id === report.groupId)?.name || "未归类";
   const hiddenCardTags = new Set(["HTML", "手动保存", "生产"]);
   const contextualTags = [...new Set([
@@ -5378,6 +5386,10 @@ function cardMarkup(report, archivedView = false) {
             <button type="button" class="studio-icon-button card-icon-action" data-action="refresh-thumbnail" data-id="${escapeHtml(report.id)}" title="刷新缩图" aria-label="刷新缩图">
               ${UI_ICONS.refreshImage}
             </button>
+            <button type="button" class="studio-icon-button card-icon-action report-settings-action ${accessSetting.locked ? "is-report-locked" : ""}" data-action="report-settings" data-id="${escapeHtml(report.id)}"
+              title="成果设置${accessSetting.managed ? accessSetting.locked ? " · 已上锁" : " · 公开访问" : ""}" aria-label="设置${escapeHtml(report.title)}的访问权限">
+              ${UI_ICONS.settings}
+            </button>
             <button type="button" class="studio-icon-button card-icon-action" data-action="archive" data-id="${escapeHtml(report.id)}" title="归档成果" aria-label="归档成果">
               ${UI_ICONS.archive}
             </button>
@@ -5392,6 +5404,88 @@ function cardMarkup(report, archivedView = false) {
 
 function modalMarkup() {
   if (!modal) return "";
+  if (modal.type === "report-access") {
+    const report = state.reports.find((item) => item.id === modal.reportId);
+    if (!report) return "";
+    const accessSetting = reportAccessStatus(report);
+    const connection = reportAccessConnectionState();
+    if (!accessSetting.managed) {
+      return `
+        <div class="dialog-backdrop">
+          <section class="dialog compact-dialog report-access-dialog" role="dialog" aria-modal="true" aria-labelledby="report-access-dialog-title" tabindex="-1">
+            <div class="dialog-title-row">
+              <div>
+                <span class="section-kicker">REPORT SETTINGS</span>
+                <h2 id="report-access-dialog-title">成果访问设置</h2>
+              </div>
+              <button type="button" class="studio-icon-button dialog-close-button" data-action="close-modal" title="关闭" aria-label="关闭">${UI_ICONS.close}</button>
+            </div>
+            <p class="report-access-summary"><strong>${escapeHtml(report.title)}</strong></p>
+            <div class="report-access-unavailable">这个卡片不是 Clair’s Studio 生产站点内的成果，当前无法统一控制它的访问密码。</div>
+            <div class="dialog-actions">
+              <button type="button" class="primary-button" data-action="close-modal" autofocus>知道了</button>
+            </div>
+          </section>
+        </div>`;
+    }
+    if (accessSetting.immutable) {
+      return `
+        <div class="dialog-backdrop">
+          <section class="dialog compact-dialog report-access-dialog" role="dialog" aria-modal="true" aria-labelledby="report-access-dialog-title" tabindex="-1">
+            <div class="dialog-title-row">
+              <div>
+                <span class="section-kicker">REPORT SETTINGS</span>
+                <h2 id="report-access-dialog-title">成果访问设置</h2>
+              </div>
+              <button type="button" class="studio-icon-button dialog-close-button" data-action="close-modal" title="关闭" aria-label="关闭">${UI_ICONS.close}</button>
+            </div>
+            <p class="report-access-summary"><strong>${escapeHtml(report.title)}</strong></p>
+            <div class="report-access-fixed-lock">
+              <span aria-hidden="true">🔒</span>
+              <div><strong>加密成果 · 强制上锁</strong><p>该成果包含高敏数据，页面正文已加密，不能在工作台关闭保护。</p></div>
+            </div>
+            <div class="dialog-actions">
+              <button type="button" class="primary-button" data-action="close-modal" autofocus>完成</button>
+            </div>
+          </section>
+        </div>`;
+    }
+    return `
+      <div class="dialog-backdrop">
+        <form class="dialog compact-dialog report-access-dialog" id="report-access-form" role="dialog" aria-modal="true" aria-labelledby="report-access-dialog-title" tabindex="-1">
+          <div class="dialog-title-row">
+            <div>
+              <span class="section-kicker">REPORT SETTINGS</span>
+              <h2 id="report-access-dialog-title">成果访问设置</h2>
+            </div>
+            <button type="button" class="studio-icon-button dialog-close-button" data-action="close-modal" title="关闭" aria-label="关闭">${UI_ICONS.close}</button>
+          </div>
+          <p class="report-access-summary"><strong>${escapeHtml(report.title)}</strong></p>
+          <fieldset class="report-access-options">
+            <legend>谁可以查看</legend>
+            <label class="report-access-option">
+              <input type="radio" name="locked" value="false" ${accessSetting.locked ? "" : "checked"} />
+              <span><strong>公开访问</strong><small>打开成果链接即可查看，不要求密码</small></span>
+            </label>
+            <label class="report-access-option">
+              <input type="radio" name="locked" value="true" ${accessSetting.locked ? "checked" : ""} />
+              <span><strong>密码访问</strong><small>打开成果页后，先输入统一报告密码</small></span>
+            </label>
+          </fieldset>
+          <label class="report-access-token">GitHub Fine-grained Token
+            <input name="github-token-not-password" type="text" value="" autocomplete="off" autocapitalize="off" spellcheck="false"
+              placeholder="${connection.hasToken ? "已连接；留空继续使用当前 Token" : "github_pat_…"}" ${connection.hasToken ? "" : "required"} />
+            <small class="field-hint">仅用于把这次设置发布到生产；只保留在当前页面内存，不写入浏览器。</small>
+          </label>
+          <p class="report-access-security-note">普通上锁用于访问拦截，不等于加密。含客户明细或敏感原文的成果应使用强制加密保护。</p>
+          <p class="report-access-form-status" role="status" aria-live="polite">${escapeHtml(connection.error || "")}</p>
+          <div class="dialog-actions">
+            <button type="button" class="quiet-button" data-action="close-modal">取消</button>
+            <button type="submit" class="primary-button">保存并发布</button>
+          </div>
+        </form>
+      </div>`;
+  }
   if (modal.type === "clear-archive") {
     const archivedCount = state.reports.filter((report) => report.archived).length;
     if (!archivedCount) return "";
@@ -6687,6 +6781,14 @@ function bindApp() {
           captureViewportSnapshot(bucketElement("topic", itemId)),
           event.currentTarget,
         );
+      } else if (action === "report-settings") {
+        const report = state.reports.find((item) => item.id === itemId);
+        if (!report) return;
+        openAppModal(
+          { type: "report-access", reportId: itemId },
+          captureViewportSnapshot(actionCard || reportElement(itemId)),
+          event.currentTarget,
+        );
       } else if (action === "edit") {
         openAppModal(
           { type: "report", mode: "edit", reportId: itemId },
@@ -7151,6 +7253,35 @@ function bindApp() {
     showToast(message);
   });
 
+  const reportAccessForm = document.getElementById("report-access-form");
+  reportAccessForm?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const report = state.reports.find((item) => item.id === modal?.reportId);
+    if (!report) return;
+    const formData = new FormData(reportAccessForm);
+    const locked = formData.get("locked") === "true";
+    const token = String(formData.get("github-token-not-password") || "").trim();
+    const submit = reportAccessForm.querySelector('button[type="submit"]');
+    const status = reportAccessForm.querySelector(".report-access-form-status");
+    const controls = reportAccessForm.querySelectorAll("input, button");
+    controls.forEach((control) => { control.disabled = true; });
+    submit.textContent = "正在发布…";
+    status.removeAttribute("data-state");
+    status.textContent = "正在更新生产访问设置…";
+    try {
+      await publishReportAccessSetting(report, { locked, token });
+      closeAppModal();
+      showToast(locked ? "已上锁：成果页现在需要报告密码" : "已公开：成果页现在无需密码", {
+        duration: 4200,
+      });
+    } catch (error) {
+      status.dataset.state = "error";
+      status.textContent = error?.message || "访问设置发布失败";
+      controls.forEach((control) => { control.disabled = false; });
+      submit.textContent = "保存并发布";
+    }
+  });
+
   const reportForm = document.getElementById("report-form");
   const reportTagsInput = reportForm?.elements.tags;
   const updateReportTagButton = (button) => {
@@ -7322,6 +7453,14 @@ export function renderApp() {
   bindApplicationUpdateChecks();
   ensureSearchIndex();
   render();
+  void loadReportAccessConfig()
+    .then(() => {
+      if (!readerId && !modal) renderAtCurrentScroll();
+    })
+    .catch(() => {
+      // The settings dialog will surface the connection error. Catalog use is
+      // intentionally unaffected when the policy endpoint is temporarily down.
+    });
 }
 
 let workbenchPersistenceBound = false;

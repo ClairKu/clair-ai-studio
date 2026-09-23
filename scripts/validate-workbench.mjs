@@ -13,6 +13,7 @@ const editorSource = read("src/report-editor.js");
 const fileRendererSource = read("src/file-renderers.js");
 const fileTypesSource = read("src/file-types.js");
 const searchSource = read("src/search.js");
+const reportAccessSource = read("src/report-access-settings.js");
 const searchIndexPath = join(new URL(".", root).pathname, "public", "search-index.json");
 const registryPath = join(new URL(".", root).pathname, "catalog", "report-registry.json");
 const taskSource = read("src/task-center.js");
@@ -227,6 +228,10 @@ const requiredSignals = [
   [appSource, 'data-action="toggle-pin"', "卡片缺少精选操作"],
   [appSource, 'title="在新浏览器页面打开"', "成果卡片缺少新浏览器页面打开入口"],
   [appSource, 'data-action="open-browser"', "新浏览器页面打开入口缺少执行动作"],
+  [appSource, 'data-action="report-settings"', "成果卡片缺少访问设置入口"],
+  [appSource, 'id="report-access-form"', "成果访问设置缺少公开/上锁表单"],
+  [reportAccessSource, '"public/report-access.json", "docs/report-access.json"', "成果访问设置未同步源配置与生产配置"],
+  [reportAccessSource, "immutableLockedReportIds", "高敏加密成果缺少强制上锁保护"],
   [appSource, "function bindReportDragging()", "缺少统一卡片拖动会话"],
   [appSource, 'addEventListener("compositionend"', "搜索框缺少中文输入法完成事件"],
   [appSource, "commitSearchInput", "搜索框没有统一提交查询状态"],
@@ -327,14 +332,14 @@ const cardActionsSource = appSource.slice(
 );
 const cardActionOrder = [
   'data-action="open-browser"',
+  'data-action="report-settings"',
   'data-action="archive"',
   'data-action="edit"',
   'data-action="toggle-pin"',
 ].map((signal) => cardActionsSource.indexOf(signal));
 if (cardActionOrder.some((index) => index < 0) ||
-    !(cardActionOrder[0] < cardActionOrder[1] && cardActionOrder[1] < cardActionOrder[2] &&
-      cardActionOrder[2] < cardActionOrder[3])) {
-  fail("卡片操作未按新页面打开、归档、编辑、收藏排列");
+    !cardActionOrder.every((index, position) => position === 0 || cardActionOrder[position - 1] < index)) {
+  fail("卡片操作未按新页面打开、设置、归档、编辑、收藏排列");
 }
 if (styleSource.includes(".report-card:has(.local-html-preview-frame) .report-preview::before")) {
   fail("本地 HTML 卡片仍显示特殊角标");
