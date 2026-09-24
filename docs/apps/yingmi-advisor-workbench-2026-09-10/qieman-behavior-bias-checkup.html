@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />
+    <script data-clair-access-gate data-clair-access-scope="workspace" src="../../access-gate.js"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<meta name="robots" content="noindex,nofollow" />
+<title>投资行为体检 · 且慢</title>
+<style>
+:root{
+  --brand:#1B88EE; --brand-press:#0F78D4; --brand-faded:#F0F6FF; --brand-soft:#EAF4FF; --page:#ECF4FF;
+  --t1:#333333; --t2:#606060; --t3:#999999; --t4:#CCCCCC;
+  --card:#FFFFFF; --card-soft:#F8FBFF; --card-blue:#F0F7FF; --card-warm:#FFF8F3;
+  --orange:#FF8A3D; --red:#FA6A55; --risk:#FA440C; --warn:#EA9500; --green:#07AD8F; --purple:#8E8CF6; --gray:#B8C4D6; --grid:#EDF2F7;
+  --blue2:#69B1F4; --blue3:#A8D4FF;
+  --num:"DIN Alternate","MiSans","PingFang SC",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;min-height:100%;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body{display:flex;justify-content:center;background:#E3EDFA;font-family:"PingFang SC","MiSans",system-ui,-apple-system,BlinkMacSystemFont,"Microsoft YaHei",sans-serif;color:var(--t1);font-size:14px;line-height:1.6}
+.page{width:100%;max-width:375px;min-height:100vh;margin:0 auto;background:var(--page);position:relative;overflow-x:clip;padding-bottom:104px}
+.num{font-family:var(--num);font-variant-numeric:tabular-nums}
+button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
+svg{display:block}
+.icon{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;vertical-align:-0.15em;display:inline-block}
+
+/* ---- shell ---- */
+.statusbar{height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;font-size:14px;font-weight:600;color:#fff;position:relative;z-index:3}
+.statusbar .sig{display:flex;gap:5px;align-items:center;font-size:12px}
+.topnav{height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;color:#fff;position:relative;z-index:3}
+.topnav .ttl{font-size:17px;font-weight:600}
+.topnav .nb{width:32px;height:32px;display:grid;place-items:center;border-radius:50%;font-size:20px}
+
+/* ---- hero ---- */
+.hero{position:relative;margin-top:-88px;padding-top:88px;height:380px;overflow:hidden;background:linear-gradient(180deg,#2F7BEC 0%,#4E97F2 38%,#9CCBFB 72%,var(--page) 100%)}
+.hero .scene{position:absolute;inset:0;width:100%;height:100%}
+.hero .txt{position:relative;z-index:2;padding:10px 20px 0}
+.hero .kick{display:inline-flex;align-items:center;gap:6px;font-size:11px;letter-spacing:1px;color:#fff;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);padding:3px 10px;border-radius:999px}
+.hero h1{margin-top:12px;font-size:26px;line-height:1.25;font-weight:700;color:#fff;letter-spacing:.5px;max-width:236px;white-space:nowrap}
+.hero h1 small{display:block;font-size:11px;font-weight:400;letter-spacing:2px;opacity:.85;margin-top:4px}
+.hero p.lead{margin-top:8px;font-size:12.5px;color:rgba(255,255,255,.9);max-width:215px;line-height:1.55}
+.hero .kpis{position:absolute;left:16px;right:16px;bottom:44px;z-index:2;display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:8px}
+.hero .kpi{background:rgba(255,255,255,.92);backdrop-filter:blur(6px);border-radius:14px;padding:10px 10px 8px;box-shadow:0 6px 18px rgba(36,91,165,.14)}
+.hero .kpi .v{font-size:22px;font-weight:700;line-height:1.05;color:var(--t1)}
+.hero .kpi .v small{font-size:11px;font-weight:500;color:var(--t2);margin-left:2px}
+.hero .kpi .l{font-size:10.5px;color:var(--t3);margin-top:4px;line-height:1.3}
+.hero .kpi.hi .v{color:var(--red)} .hero .kpi.ok .v{color:var(--green)}
+
+/* ---- cards ---- */
+.card{width:343px;margin:0 auto 12px;padding:16px;border-radius:16px;background:var(--card);box-shadow:0 2px 10px rgba(36,91,165,.06);position:relative}
+.first-card{margin-top:-34px;z-index:3}
+.card h3{font-size:16px;font-weight:600;line-height:1.4;display:flex;align-items:center;gap:8px}
+.card h3 .no{width:20px;height:20px;border-radius:6px;background:var(--brand-faded);color:var(--brand);font-size:11px;font-weight:700;display:grid;place-items:center;font-family:var(--num)}
+.card .sub{font-size:12px;color:var(--t2);margin-top:4px;line-height:1.55}
+.card .src{font-size:10px;color:var(--t3);margin-top:10px;line-height:1.5}
+.sec-title{width:343px;margin:22px auto 10px;display:flex;align-items:baseline;gap:10px}
+.sec-title b{font-size:18px;font-weight:700}
+.sec-title span{font-size:11px;color:var(--t3);letter-spacing:1px}
+
+/* ---- range ---- */
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.chip{padding:6px 12px;border-radius:999px;font-size:12px;color:var(--t2);background:#F2F6FB;border:1px solid transparent;transition:.15s}
+.chip.on{background:var(--brand-faded);color:var(--brand);border-color:#BFDCFA;font-weight:600}
+.dates{display:flex;align-items:center;gap:8px;margin-top:12px}
+.dates label{flex:1;display:flex;flex-direction:column;gap:3px;font-size:10.5px;color:var(--t3)}
+.dates input{font-family:var(--num);font-size:13px;color:var(--t1);border:1px solid #E1E9F3;border-radius:10px;padding:7px 10px;background:#FAFCFF;width:100%;outline:none}
+.dates input:focus{border-color:var(--brand)}
+.dates .to{color:var(--t4);padding-top:14px}
+.range-meta{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-size:11.5px;color:var(--t2)}
+.range-meta b{color:var(--t1);font-weight:600}
+.mini{margin-top:10px}
+
+/* ---- subnav ---- */
+.subnav{position:sticky;top:0;z-index:20;width:100%;background:rgba(236,244,255,.92);backdrop-filter:blur(8px);padding:8px 16px;display:flex;gap:6px;border-bottom:1px solid rgba(27,136,238,.08)}
+.subnav a{flex:1;text-align:center;font-size:12.5px;color:var(--t2);padding:7px 0;border-radius:999px;text-decoration:none;background:#fff;border:1px solid #E4EDF8}
+.subnav a.on{background:var(--brand);color:#fff;border-color:var(--brand);font-weight:600}
+
+/* ---- overview ---- */
+.gauge-wrap{display:flex;align-items:center;gap:12px;margin-top:12px}
+.gauge-wrap .g{flex:none;width:150px}
+.gauge-wrap .txt{flex:1}
+.gauge-wrap .txt .big{font-size:30px;font-weight:700;line-height:1;color:var(--t1)}
+.gauge-wrap .txt .big small{font-size:12px;color:var(--t3);font-weight:400;margin-left:4px}
+.gauge-wrap .txt .lv{display:inline-block;margin-top:6px;padding:2px 10px;border-radius:999px;font-size:11px;font-weight:600}
+.gauge-wrap .txt p{font-size:11.5px;color:var(--t2);margin-top:6px;line-height:1.5}
+.lv-high{background:#FFF0ED;color:var(--red)} .lv-mid{background:#FFF6E8;color:var(--warn)} .lv-good{background:#E9F8F4;color:var(--green)}
+.verdict{margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--card-blue);font-size:12.5px;line-height:1.65;color:var(--t1)}
+.verdict b{color:var(--brand)}
+.ref-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px;align-items:center}
+.ref-row .lab{font-size:11px;color:var(--t3);margin-right:2px}
+.chip.sm{padding:4px 10px;font-size:11px}
+.legend{display:flex;gap:14px;font-size:11px;color:var(--t2);justify-content:center;margin-top:4px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.legend i.line{width:14px;height:3px;border-radius:2px;vertical-align:2px}
+
+.kpi3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.kpi3 div{background:var(--card-soft);border-radius:12px;padding:10px 8px;text-align:center}
+.kpi3 .v{font-size:19px;font-weight:700;line-height:1.1}
+.kpi3 .l{font-size:10.5px;color:var(--t3);margin-top:4px;line-height:1.3}
+.kpi3 .v.neg{color:var(--red)} .kpi3 .v.pos{color:var(--green)} .kpi3 .v.blue{color:var(--brand)}
+
+.donut-wrap{display:flex;align-items:center;gap:14px;margin-top:12px}
+.donut-wrap .d{flex:none}
+.donut-wrap ul{list-style:none;flex:1;font-size:12px;color:var(--t2)}
+.donut-wrap li{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dashed var(--grid)}
+.donut-wrap li:last-child{border-bottom:0}
+.donut-wrap li b{color:var(--t1);font-weight:600}
+.donut-wrap li i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+.note{margin-top:10px;padding:10px 12px;border-radius:10px;background:var(--card-warm);font-size:11.5px;color:var(--t2);line-height:1.6;border-left:3px solid var(--orange)}
+.note.blue{background:var(--card-blue);border-left-color:var(--brand)}
+.note.green{background:#EEF9F6;border-left-color:var(--green)}
+
+/* ---- issue list ---- */
+.issue{display:flex;gap:12px;padding:12px 0;border-top:1px solid var(--grid);align-items:flex-start}
+.issue:first-of-type{border-top:0}
+.issue .rk{flex:none;width:26px;height:26px;border-radius:8px;display:grid;place-items:center;font-family:var(--num);font-weight:700;font-size:13px}
+.issue .rk.high{background:#FFF0ED;color:var(--red)} .issue .rk.mid{background:#FFF6E8;color:var(--warn)} .issue .rk.good{background:#E9F8F4;color:var(--green)}
+.issue .bd{flex:1;min-width:0}
+.issue .t{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.issue .t b{font-size:14px;font-weight:600}
+.issue .t .pill{font-size:10.5px;padding:2px 8px;border-radius:999px;font-weight:600;flex:none}
+.issue .d{font-size:11.5px;color:var(--t2);margin-top:3px;line-height:1.5}
+.issue .bar{margin-top:7px;height:6px;border-radius:3px;background:#F0F4F9;position:relative;overflow:hidden}
+.issue .bar i{position:absolute;left:0;top:0;bottom:0;border-radius:3px}
+.issue .m{display:flex;justify-content:space-between;font-size:10.5px;color:var(--t3);margin-top:4px}
+.issue .m b{color:var(--t2);font-weight:500}
+.issue a{font-size:11px;color:var(--brand);text-decoration:none;white-space:nowrap}
+
+/* ---- evidence accordion ---- */
+.acc{border-top:1px solid var(--grid)}
+.acc:first-of-type{border-top:0}
+.acc .hd{display:flex;align-items:center;gap:10px;padding:13px 0;cursor:pointer;user-select:none}
+.acc .hd .ic{flex:none;width:34px;height:34px;border-radius:11px;background:var(--brand-faded);color:var(--brand);display:grid;place-items:center;font-size:18px}
+.acc .hd .ic.high{background:#FFF0ED;color:var(--red)} .acc .hd .ic.mid{background:#FFF6E8;color:var(--warn)} .acc .hd .ic.good{background:#E9F8F4;color:var(--green)}
+.acc .hd .tt{flex:1;min-width:0}
+.acc .hd .tt b{font-size:14px;font-weight:600;display:block}
+.acc .hd .tt span{font-size:11px;color:var(--t3)}
+.acc .hd .val{text-align:right;flex:none}
+.acc .hd .val b{font-family:var(--num);font-size:16px;font-weight:700;display:block;line-height:1.1}
+.acc .hd .val span{font-size:10px;color:var(--t3)}
+.acc .hd .chev{flex:none;color:var(--t4);transition:.2s}
+.acc.open .hd .chev{transform:rotate(180deg)}
+.acc .body{display:none;padding:0 0 14px}
+.acc.open .body{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.def{font-size:12.5px;color:var(--t1);line-height:1.65;padding:10px 12px;border-radius:10px;background:var(--card-soft)}
+.def b{color:var(--brand)}
+.blk{margin-top:12px}
+.blk h5{font-size:12.5px;font-weight:600;color:var(--t1);display:flex;align-items:center;gap:6px;margin-bottom:8px}
+.blk h5::before{content:"";width:3px;height:12px;border-radius:2px;background:var(--brand)}
+.blk.ev h5::before{background:var(--purple)}
+.blk.fix h5::before{background:var(--green)}
+.facts{list-style:none;font-size:12px;color:var(--t2);line-height:1.6}
+.facts li{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px dashed var(--grid)}
+.facts li:last-child{border-bottom:0}
+.facts li span:first-child{flex:1}
+.facts li b{font-family:var(--num);color:var(--t1);font-weight:600;white-space:nowrap}
+.facts li b.bad{color:var(--red)} .facts li b.ok{color:var(--green)} .facts li b.warn{color:var(--warn)}
+.hbars{margin-top:6px}
+.hbar{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--t2);margin-top:7px}
+.hbar .l{width:98px;flex:none;text-align:right}
+.hbar .b{flex:1;height:14px;border-radius:7px;background:#F0F4F9;position:relative;overflow:hidden}
+.hbar .b i{position:absolute;left:0;top:0;bottom:0;border-radius:7px;background:var(--brand)}
+.hbar .b i.o{background:var(--orange)} .hbar .b i.g{background:var(--gray)} .hbar .b i.r{background:var(--red)} .hbar .b i.gr{background:var(--green)}
+.hbar .v{width:56px;flex:none;font-family:var(--num);font-weight:600;color:var(--t1);font-size:12px}
+.rule{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:10px;background:#F7F5FF;font-size:11.5px;color:var(--t2);line-height:1.6;margin-top:8px}
+.rule .r{flex:none;width:20px;height:20px;border-radius:6px;background:#EEEBFF;color:var(--purple);display:grid;place-items:center;font-size:12px;font-weight:700}
+.rule b{color:var(--t1)}
+.rule .hit{color:var(--red);font-weight:600} .rule .miss{color:var(--green);font-weight:600}
+.cite{font-size:10.5px;color:var(--t3);line-height:1.55;margin-top:8px}
+.fixes{list-style:none;font-size:12px;color:var(--t1);line-height:1.6}
+.fixes li{display:flex;gap:8px;padding:6px 0}
+.fixes li::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:var(--green);margin-top:8px}
+.btn-line{margin-top:8px;display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:999px;border:1px solid #BFDCFA;color:var(--brand);font-size:12px;font-weight:600;background:var(--brand-faded)}
+.btn-line.done{border-color:#B5E8DB;color:var(--green);background:#E9F8F4}
+.tbl{width:100%;border-collapse:collapse;font-size:11.5px;margin-top:6px}
+.tbl th{font-weight:500;color:var(--t3);text-align:left;padding:6px 4px;background:#F5F8FC;font-size:10.5px}
+.tbl td{padding:7px 4px;border-bottom:1px solid var(--grid);color:var(--t1)}
+.tbl td.n{font-family:var(--num);text-align:right}
+.tbl td.bad{color:var(--red)} .tbl td.ok{color:var(--green)}
+.tbl th.n{text-align:right}
+.empty{padding:14px;border-radius:10px;background:var(--card-soft);color:var(--t3);font-size:12px;text-align:center}
+
+/* ---- plan ---- */
+.plan-sum{display:flex;gap:10px;margin-top:12px}
+.plan-sum div{flex:1;border-radius:12px;padding:12px;background:var(--card-soft);text-align:center}
+.plan-sum .v{font-size:24px;font-weight:700;line-height:1.05}
+.plan-sum .l{font-size:10.5px;color:var(--t3);margin-top:4px}
+.plan-sum .arrow{flex:none;width:24px;display:grid;place-items:center;color:var(--t4);background:none;padding:0}
+.plan-sum div.after{background:#EEF9F6} .plan-sum div.after .v{color:var(--green)}
+.act{display:flex;gap:10px;padding:12px 0;border-top:1px solid var(--grid);align-items:flex-start}
+.act:first-of-type{border-top:0}
+.act .ck{flex:none;width:22px;height:22px;border-radius:7px;border:1.5px solid #CFDCEB;display:grid;place-items:center;margin-top:2px;color:#fff;transition:.15s;background:#fff}
+.act.on .ck{background:var(--brand);border-color:var(--brand)}
+.act .bd{flex:1}
+.act .bd b{font-size:13.5px;font-weight:600;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.act .bd b .tg{font-size:10px;padding:1px 7px;border-radius:999px;font-weight:600}
+.act .bd p{font-size:11.5px;color:var(--t2);line-height:1.55;margin-top:3px}
+.act .bd .eff{font-size:10.5px;color:var(--t3);margin-top:4px}
+.act .bd .eff b{font-size:10.5px;color:var(--green);display:inline}
+.nudge{margin-top:12px;border-radius:14px;overflow:hidden;border:1px solid #E4EDF8}
+.nudge .nh{padding:8px 12px;background:#F5F8FC;font-size:10.5px;color:var(--t3);display:flex;justify-content:space-between}
+.nudge .nb{padding:14px}
+.nudge .nb h6{font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px}
+.nudge .nb h6 .icon{color:var(--warn);font-size:16px}
+.nudge .nb p{font-size:12px;color:var(--t2);line-height:1.65;margin-top:8px}
+.nudge .nb p.ok{color:var(--t1);background:#EEF9F6;padding:8px 10px;border-radius:8px}
+.nudge .nb .stat{display:flex;gap:8px;margin-top:10px}
+.nudge .nb .stat div{flex:1;background:var(--card-soft);border-radius:8px;padding:8px;text-align:center}
+.nudge .nb .stat .v{font-family:var(--num);font-weight:700;font-size:15px}
+.nudge .nb .stat .l{font-size:10px;color:var(--t3)}
+.nudge .nb .btns{display:flex;gap:8px;margin-top:12px}
+.nudge .nb .btns button{flex:1;height:38px;border-radius:999px;font-size:13px;font-weight:600}
+.nudge .nb .btns .ghost{border:1px solid #E1E9F3;color:var(--t2);background:#fff}
+.nudge .nb .btns .pri{background:var(--brand);color:#fff}
+.contract{margin-top:12px;padding:12px 14px;border-radius:12px;background:linear-gradient(135deg,#F0F7FF,#F4F3FF);font-size:12px;line-height:1.7;color:var(--t1)}
+.contract b{color:var(--brand)}
+
+/* ---- risk / refs ---- */
+.risk{width:343px;margin:8px auto 0;font-size:10.5px;color:var(--t3);line-height:1.6}
+.risk p{margin-top:6px}
+.refs{width:343px;margin:10px auto 0;font-size:10px;color:var(--t3);line-height:1.6}
+.refs summary{cursor:pointer;color:var(--t2);font-size:11px}
+.refs ol{padding-left:16px;margin-top:6px}
+
+/* ---- CTA ---- */
+.fixed-cta{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:100%;max-width:375px;padding:10px 16px 20px;background:linear-gradient(180deg,rgba(236,244,255,0),rgba(236,244,255,.96) 30%);z-index:30;display:flex;gap:10px;align-items:center}
+.fixed-cta .pri{flex:1;height:48px;border-radius:999px;background:var(--brand);color:#fff;font-size:15px;font-weight:600;box-shadow:0 8px 20px rgba(27,136,238,.28)}
+.fixed-cta .pri:active{background:var(--brand-press)}
+.fixed-cta .sec{flex:none;height:48px;padding:0 14px;border-radius:999px;background:#fff;color:var(--brand);font-size:13px;font-weight:600;border:1px solid #BFDCFA}
+.toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(10px);background:rgba(51,51,51,.92);color:#fff;font-size:12.5px;padding:9px 16px;border-radius:999px;opacity:0;pointer-events:none;transition:.25s;z-index:40;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%)}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9L2.5 18a2 2 0 001.7 3h15.6a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></symbol>
+    <symbol id="i-swap" viewBox="0 0 24 24"><path d="M7 16V4M7 4L3 8M7 4l4 4"/><path d="M17 8v12M17 20l4-4M17 20l-4-4"/></symbol>
+    <symbol id="i-trend" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></symbol>
+    <symbol id="i-pie" viewBox="0 0 24 24"><path d="M12 3v9h9"/><circle cx="12" cy="12" r="9"/></symbol>
+    <symbol id="i-anchor" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><path d="M12 7v14M5 13a7 7 0 0014 0"/><path d="M3 13h4M17 13h4"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-follow" viewBox="0 0 24 24"><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/><path d="M9 8.5c3 0 4 1.5 4 4s1 4 4 4"/></symbol>
+    <symbol id="i-lazy" viewBox="0 0 24 24"><path d="M4 12h6M4 8h10M4 16h4"/><circle cx="17" cy="14" r="4"/><path d="M17 12v2l1.5 1"/></symbol>
+    <symbol id="i-radar" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><path d="M12 3v9l6 6"/></symbol>
+    <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 00-3.5 10.9c.6.5 1 1.3 1 2.1h5c0-.8.4-1.6 1-2.1A6 6 0 0012 3z"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0116 0"/></symbol>
+    <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+    <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="M8.2 10.8l7.6-4.6M8.2 13.2l7.6 4.6"/></symbol>
+  </defs>
+</svg>
+
+<main class="page">
+  <div class="statusbar"><span>9:41</span><span class="sig">●●●● <span>5G</span> <span style="display:inline-block;width:22px;height:11px;border:1.5px solid #fff;border-radius:3px;position:relative"><i style="position:absolute;left:1px;top:1px;bottom:1px;width:15px;background:#fff;border-radius:1px"></i></span></span></div>
+  <nav class="topnav"><button class="nb" aria-label="返回"><svg class="icon"><use href="#i-back"/></svg></button><span class="ttl">投资行为体检</span><button class="nb" aria-label="分享"><svg class="icon"><use href="#i-share"/></svg></button></nav>
+
+  <section class="hero">
+    <svg class="scene" viewBox="0 0 375 380" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+      <defs>
+        <radialGradient id="glow" cx="78%" cy="26%" r="42%"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".55" stop-color="#fff" stop-opacity=".12"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+        <linearGradient id="m1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5FA5F5"/><stop offset="1" stop-color="#8FC3FA"/></linearGradient>
+        <linearGradient id="m2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8CC1F8"/><stop offset="1" stop-color="#BCDDFC"/></linearGradient>
+        <linearGradient id="m3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#BFDDFB"/><stop offset="1" stop-color="#E4F0FE"/></linearGradient>
+        <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".96"/><stop offset="1" stop-color="#EAF3FF" stop-opacity=".92"/></linearGradient>
+        <linearGradient id="fog" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ECF4FF" stop-opacity="0"/><stop offset="1" stop-color="#ECF4FF"/></linearGradient>
+      </defs>
+      <rect width="375" height="380" fill="url(#glow)"/>
+      <circle cx="292" cy="96" r="30" fill="#fff" opacity=".35"/><circle cx="292" cy="96" r="18" fill="#fff" opacity=".6"/>
+      <g opacity=".7"><ellipse cx="60" cy="150" rx="46" ry="10" fill="#fff" opacity=".35"/><ellipse cx="330" cy="170" rx="38" ry="8" fill="#fff" opacity=".3"/></g>
+      <path d="M0 262 C 60 232, 110 226, 160 248 S 260 292, 375 240 V372 H0Z" fill="url(#m1)"/>
+      <path d="M0 292 C 70 262, 150 268, 210 286 S 320 318, 375 282 V372 H0Z" fill="url(#m2)"/>
+      <path d="M0 320 C 90 300, 170 306, 240 318 S 330 336, 375 324 V372 H0Z" fill="url(#m3)"/>
+      <!-- 前景：行为雷达面板 -->
+      <g transform="translate(256 132) scale(.95)">
+        <rect x="0" y="0" width="108" height="98" rx="14" fill="#1E5FBF" opacity=".18" transform="translate(4 8)"/>
+        <rect x="0" y="0" width="108" height="98" rx="14" fill="url(#panel)"/>
+        <g transform="translate(54 50)" stroke="#BFD8F5" stroke-width="1" fill="none">
+          <polygon points="0,-34 29.4,-17 29.4,17 0,34 -29.4,17 -29.4,-17"/>
+          <polygon points="0,-22 19,-11 19,11 0,22 -19,11 -19,-11"/>
+          <polygon points="0,-10 8.7,-5 8.7,5 0,10 -8.7,5 -8.7,-5"/>
+          <path d="M0 -34V34M-29.4 -17L29.4 17M-29.4 17L29.4 -17"/>
+        </g>
+        <polygon transform="translate(54 50)" points="0,-28 24,-13 14,8 0,20 -20,12 -12,-8" fill="#1B88EE" fill-opacity=".28" stroke="#1B88EE" stroke-width="1.6"/>
+        <polygon transform="translate(54 50)" points="0,-14 12,-7 11,6 0,12 -13,6 -10,-6" fill="none" stroke="#FF8A3D" stroke-width="1.6" stroke-dasharray="3 2"/>
+        <circle cx="78" cy="37" r="3" fill="#FA6A55"/><circle cx="78" cy="37" r="6" fill="#FA6A55" opacity=".25"/>
+        <rect x="12" y="84" width="40" height="5" rx="2.5" fill="#CFE3FA"/><rect x="12" y="84" width="26" height="5" rx="2.5" fill="#1B88EE"/>
+        <rect x="60" y="84" width="36" height="5" rx="2.5" fill="#FFE3D1"/><rect x="60" y="84" width="14" height="5" rx="2.5" fill="#FF8A3D"/>
+      </g>
+      <rect y="308" width="375" height="72" fill="url(#fog)"/>
+    </svg>
+    <div class="txt">
+      <span class="kick"><svg class="icon"><use href="#i-radar"/></svg>且慢 · 行为金融实验室</span>
+      <h1>我的投资行为体检<small>BEHAVIOR CHECK-UP</small></h1>
+      <p class="lead">用你的真实交易与持仓记录，量化 8 类行为偏误：找到问题、看清证据、给出可执行的矫正方案。</p>
+    </div>
+    <div class="kpis" id="heroKpis"></div>
+  </section>
+
+  <!-- 观察区间 -->
+  <section class="card first-card" id="rangeCard">
+    <h3><span class="no">1</span>选择观察区间</h3>
+    <p class="sub">所有指标都会按你选的区间重新计算。区间越长，比值型指标（处置效应、趋势追随）越稳定；不足 10 笔交易时相关读数会标注"样本偏少"。</p>
+    <div class="chips" id="presetChips">
+      <button class="chip" data-p="13">近 3 个月</button>
+      <button class="chip" data-p="26">近 6 个月</button>
+      <button class="chip on" data-p="52">近 1 年</button>
+      <button class="chip" data-p="156">近 3 年</button>
+      <button class="chip" data-p="all">全部历史</button>
+    </div>
+    <div class="dates">
+      <label>开始月份<input type="month" id="mStart" min="2021-01" max="2026-09"></label>
+      <span class="to">—</span>
+      <label>结束月份<input type="month" id="mEnd" min="2021-01" max="2026-09"></label>
+    </div>
+    <div class="mini" id="miniMkt"></div>
+    <div class="range-meta" id="rangeMeta"></div>
+  </section>
+
+  <nav class="subnav" id="subnav">
+    <a href="#sec-overview" class="on">整体</a><a href="#sec-issues">问题</a><a href="#sec-evidence">论证</a><a href="#sec-plan">矫正</a>
+  </nav>
+
+  <!-- ===== 整体 ===== -->
+  <div id="sec-overview">
+    <div class="sec-title"><b>整体情况</b><span>OVERVIEW</span></div>
+
+    <section class="card">
+      <h3><span class="no">2</span>综合偏误分</h3>
+      <p class="sub">6 项进入综合分的偏误指标加权合成（权重由"偏误 → 收益损耗"模型学出）。分数越低越理性；它衡量行为倾向，不代表收益高低。</p>
+      <div class="gauge-wrap"><div class="g" id="gauge"></div><div class="txt" id="gaugeTxt"></div></div>
+      <div class="verdict" id="verdict"></div>
+      <p class="src">权重：趋势追随 23.3% · 过度自信 20.4% · 锚定 18.2% · 权益偏离 16.9% · 处置效应 11.6% · 近期偏好 9.7%（模型分区 20260922）。人群位置为估算。</p>
+    </section>
+
+    <section class="card">
+      <h3><span class="no">3</span>六维偏误画像 · 和谁比</h3>
+      <p class="sub">每个维度越靠外，偏误越强。虚线是参照人群的平均水平。</p>
+      <div class="ref-row"><span class="lab">参照：</span><button class="chip sm on" data-ref="all">且慢全平台</button><button class="chip sm" data-ref="cy">长赢用户</button><button class="chip sm" data-ref="wj">五剑用户</button><button class="chip sm" data-ref="qm">单基金用户</button></div>
+      <div id="radar"></div>
+      <div class="legend"><span><i style="background:#1B88EE"></i>你</span><span><i class="line" style="background:#FF8A3D"></i>参照人群</span></div>
+      <p class="src" id="radarSrc"></p>
+    </section>
+
+    <section class="card">
+      <h3><span class="no">4</span>行为差：你的操作值多少钱</h3>
+      <p class="sub">把你的实际收益（资金加权）与"理性持有基准"对比——后者假设你在区间内不做任何主动申赎、始终维持各持仓的平均仓位。两者的差就是你的操作带来的净影响。</p>
+      <div id="gapChart"></div>
+      <div class="legend"><span><i class="line" style="background:#1B88EE"></i>你的实际账户</span><span><i class="line" style="background:#FF8A3D"></i>理性持有基准</span></div>
+      <div class="kpi3" id="gapKpis"></div>
+      <div class="note blue" id="gapNote"></div>
+      <p class="src">口径：实际收益为修正 Dietz 资金加权；基准 = Σ(区间平均仓位 × 标的区间涨跌)。Morningstar《Mind the Gap》2014–2023 全球投资者行为差约 −1.1pp/年。</p>
+    </section>
+
+    <section class="card">
+      <h3><span class="no">5</span>交易形态：这些偏误算谁的</h3>
+      <p class="sub">跟车交易反映的是策略/主理人的决策，自主交易才是你的判断。跟车占比高时，后面的偏误读数更接近"策略匹配度"，而非你的个人倾向。</p>
+      <div class="donut-wrap"><div class="d" id="donut"></div><ul id="tradeStats"></ul></div>
+      <div class="note" id="attrNote"></div>
+    </section>
+  </div>
+
+  <!-- ===== 问题 ===== -->
+  <div id="sec-issues">
+    <div class="sec-title"><b>你有什么问题</b><span>ISSUES</span></div>
+    <section class="card">
+      <h3><span class="no">6</span>偏误清单 · 按对综合分的贡献排序</h3>
+      <p class="sub">贡献 = 权重 × 你的标准化读数。排在前面的项，是最值得先处理的。</p>
+      <div id="issueList"></div>
+      <p class="src">判定综合了两类依据：① 相对参照人群的偏离幅度；② 文献与研究中的绝对阈值（如 PGR/PLR &gt; 1.2、换手率 &gt; 200% 且胜率 &lt; 55%）。</p>
+    </section>
+  </div>
+
+  <!-- ===== 论证 ===== -->
+  <div id="sec-evidence">
+    <div class="sec-title"><b>逐项论证</b><span>EVIDENCE</span></div>
+    <section class="card">
+      <h3><span class="no">7</span>每一条结论，都给你看数据</h3>
+      <p class="sub">点开任意一项：怎么算的、你的中间指标是多少、学术上为什么算偏误、以及如果换一种做法结果会怎样。</p>
+      <div id="evidence"></div>
+    </section>
+  </div>
+
+  <!-- ===== 矫正 ===== -->
+  <div id="sec-plan">
+    <div class="sec-title"><b>怎么矫正</b><span>CORRECTION PLAN</span></div>
+    <section class="card">
+      <h3><span class="no">8</span>我的纠偏计划</h3>
+      <p class="sub">已按你的问题优先级预选。勾选/取消后，下方会估算矫正后的综合偏误分（基于研究中的干预效果假设，不构成承诺）。</p>
+      <div class="plan-sum" id="planSum"></div>
+      <div id="actions"></div>
+      <div class="contract" id="contract"></div>
+    </section>
+
+    <section class="card">
+      <h3><span class="no">9</span>矫正是怎么落地的：卖出前提醒预览</h3>
+      <p class="sub">当你准备卖出一只"微微盈利"的持仓、且持有收益率明显低于你过往同类卖出水平时，会先看到这张卡。</p>
+      <div class="nudge">
+        <div class="nh"><span>卖出确认 · 行为提示</span><span>模拟预览</span></div>
+        <div class="nb" id="nudgeBody"></div>
+      </div>
+      <p class="src">提示遵循"正向赋能而非指责"的助推原则（Thaler &amp; Sunstein, 2008），不限制你的选择自由。</p>
+    </section>
+  </div>
+
+  <div class="risk">
+    <p><b>数据与口径说明</b>：本页为交互演示，账本为按固定种子生成的合成交易记录（2021.01–2026.09，周频），用于展示指标在任意区间上的计算与解读逻辑；接入真实账户后口径一致。指标定义与权重来自《客户投资行为偏误量化与客群比较分析报告》（指标分区 20260909，模型分区 20260922）及《投资者行为模式识别》研究稿；参照人群数值来自报告，个别未直接披露项按报告区间近似（已标注）。处置效应按份额/笔数口径，成本按移动加权平均；持有天数按先进先出。理论权益配比由风险评级线性映射（C1 0% … C5 90%），仅罚少配、不罚超配。</p>
+    <p><b>风险提示</b>：偏误分衡量行为倾向，不代表投资能力或未来收益。行为差为区间历史测算，不预示未来表现。基金/投顾组合有风险，投资须谨慎；本页所有矫正建议为通用行为引导，不构成对具体产品的投资建议，具体操作请结合自身情况并参考顾问意见。</p>
+  </div>
+  <details class="refs"><summary>学术依据与参考文献</summary>
+    <ol>
+      <li>Kahneman & Tversky (1979). Prospect Theory. <i>Econometrica</i>. 损失厌恶系数 λ≈2.25。</li>
+      <li>Barber & Odean (2000). Trading Is Hazardous to Your Wealth. <i>J. Finance</i>. 最频繁交易组年化落后基准 6.5pp。</li>
+      <li>Shefrin & Statman (1985). The Disposition to Sell Winners Too Early and Ride Losers Too Long. <i>J. Finance</i>.</li>
+      <li>Odean (1998). Are Investors Reluctant to Realize Their Losses? <i>J. Finance</i>. PGR≈14.8% vs PLR≈9.8%。</li>
+      <li>Benartzi & Thaler (1995). Myopic Loss Aversion. <i>QJE</i>.</li>
+      <li>Tversky & Kahneman (1974). Judgment under Uncertainty: Heuristics and Biases. <i>Science</i>. 锚定效应。</li>
+      <li>Grinblatt & Keloharju (2000). The Investment Behavior and Performance of Various Investor Types. <i>J. Fin. Econ.</i> 追涨/杀跌识别方法。</li>
+      <li>Thaler & Sunstein (2008). <i>Nudge</i>. 助推理论。</li>
+      <li>Morningstar (2024). Mind the Gap. 投资者年化行为差约 1.1pp。</li>
+      <li>Vanguard (2022). Advisor's Alpha. 行为引导等实践年均增厚约 3%。</li>
+      <li>Morningstar. Gamma. 优化配置等决策等效每年 1.59%。</li>
+      <li>盈米研究（2026）. 客户投资行为偏误量化与客群比较分析报告；投资者行为模式识别（含北大投资者行为指标验证）。</li>
+    </ol>
+  </details>
+
+  <footer class="fixed-cta"><button class="pri" id="ctaPlan">生成我的纠偏计划</button><button class="sec" id="ctaAdvisor">预约顾问解读</button></footer>
+  <div class="toast" id="toast"></div>
+</main>
+
+<script>
+/* =====================================================================
+   0. 工具
+   ===================================================================== */
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const mean=a=>a.length?a.reduce((s,v)=>s+v,0)/a.length:NaN;
+const isN=x=>typeof x==='number'&&!isNaN(x);
+const pct=(x,d=1)=>isN(x)?(x*100).toFixed(d)+'%':'—';
+const pp=(x,d=1)=>isN(x)?(x>=0?'+':'')+(x*100).toFixed(d)+'pp':'—';
+const n2=(x,d=2)=>isN(x)?x.toFixed(d):'—';
+const ratioTxt=x=>!isN(x)?'—':!isFinite(x)?'∞':x.toFixed(2);
+const money=x=>x>=10000?(x/10000).toFixed(1)+'万':Math.round(x).toLocaleString('zh-CN');
+const ym=d=>`${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}`;
+const ymd=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+function pearson(x,y){const n=x.length;if(n<4)return 0;const mx=mean(x),my=mean(y);let sxy=0,sxx=0,syy=0;for(let i=0;i<n;i++){sxy+=(x[i]-mx)*(y[i]-my);sxx+=(x[i]-mx)**2;syy+=(y[i]-my)**2}return sxx&&syy?sxy/Math.sqrt(sxx*syy):0}
+function phi(z){const t=1/(1+0.2316419*Math.abs(z));const d=0.3989423*Math.exp(-z*z/2);const p=d*t*(0.3193815+t*(-0.3565638+t*(1.781478+t*(-1.821256+t*1.330274))));return z>0?1-p:p}
+let _s=9;function rnd(){_s|=0;_s=_s+0x6D2B79F5|0;let t=Math.imul(_s^_s>>>15,1|_s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}
+function gauss(){let u=0,v=0;while(!u)u=rnd();while(!v)v=rnd();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)}
+const pick=a=>a[Math.floor(rnd()*a.length)];
+const LV={good:0,mid:1,high:2}; const lvUp=(a,b)=>LV[a]>=LV[b]?a:b;
+const LVT={high:'需关注',mid:'留意',good:'良好'};
+
+/* =====================================================================
+   1. 合成账本：市场 → 基金净值 → 交易与持仓（固定种子，可复现）
+   ===================================================================== */
+const W0=new Date(2021,0,4), N=299;
+const weeks=Array.from({length:N},(_,i)=>new Date(W0.getTime()+i*7*864e5));
+const weekIdxOf=d=>clamp(Math.round((d-W0)/(7*864e5)),0,N-1);
+const anchors=[['2021-01',1000],['2021-02',1090],['2021-03',1000],['2021-06',1060],['2021-09',1020],['2021-12',1070],['2022-03',950],['2022-04',870],['2022-07',940],['2022-10',800],['2022-12',850],['2023-01',905],['2023-05',870],['2023-08',845],['2023-12',785],['2024-02',720],['2024-05',805],['2024-08',745],['2024-09',920],['2024-10',960],['2024-12',940],['2025-04',870],['2025-08',1010],['2025-12',1085],['2026-03',1160],['2026-06',1085],['2026-09',1185]];
+const AP=anchors.map(([s,v])=>{const [y,m]=s.split('-').map(Number);return [weekIdxOf(new Date(y,m-1,1)),Math.log(v)]});
+const mkt=new Array(N);{let nz=0;for(let i=0;i<N;i++){let j=0;while(j<AP.length-2&&AP[j+1][0]<=i)j++;const [x0,y0]=AP[j],[x1,y1]=AP[j+1];const base=y0+(y1-y0)*(i-x0)/(x1-x0);nz=0.65*nz+gauss()*0.011;mkt[i]=Math.exp(base+nz)}}
+const rm=mkt.map((v,i)=>i?v/mkt[i-1]-1:0);
+const state=mkt.map((v,i)=>{const r20=i>=20?v/mkt[i-20]-1:v/mkt[0]-1;const r8=i>=8?v/mkt[i-8]-1:r20;return r20>0.13?'bull':r20<-0.13?'bear':r8>0.035?'up':r8<-0.035?'down':'flat'});
+const STN={bull:'牛市',bear:'熊市',up:'趋势上行',down:'趋势下行',flat:'震荡'};
+
+const FUNDS=[
+ {id:'eq300',name:'沪深300指数增强',short:'沪深300',type:'equity',eq:1,vol:.21},
+ {id:'eq500',name:'中证500指数',short:'中证500',type:'equity',eq:1,vol:.25},
+ {id:'tech',name:'全球科技精选',short:'全球科技',type:'equity',eq:1,vol:.28},
+ {id:'med',name:'医药健康主题',short:'医药主题',type:'equity',eq:1,vol:.26},
+ {id:'bds',name:'短债基金',short:'短债',type:'bond',eq:0,vol:.012},
+ {id:'bdl',name:'中长期纯债',short:'中长债',type:'bond',eq:0,vol:.03},
+ {id:'gold',name:'黄金ETF联接',short:'黄金',type:'commodity',eq:0,vol:.15},
+ {id:'mm',name:'货币基金',short:'货基',type:'cash',eq:0,vol:.002},
+ {id:'poa',name:'长赢指数投资计划',short:'长赢计划',type:'portfolio',eq:.6,vol:.14},
+ {id:'pob',name:'稳健配置组合',short:'稳健组合',type:'portfolio',eq:.25,vol:.07},
+];
+const FM={};FUNDS.forEach(f=>{FM[f.id]=f;f.nav=new Array(N).fill(1)});
+for(let i=1;i<N;i++){const r=rm[i];const rb=0.0008+gauss()*0.0025-0.05*r;
+ const R={eq300:0.0002+r+gauss()*0.004,eq500:0.0001+1.15*r+gauss()*0.008,tech:0.0022+0.55*r+gauss()*0.022,med:-0.0012+0.85*r+gauss()*0.02,bds:0.00055+gauss()*0.0006,bdl:rb,gold:0.0022+gauss()*0.016,mm:0.00038,poa:0.0005+0.6*r+0.4*rb+gauss()*0.004,pob:0.0003+0.25*r+0.75*rb+gauss()*0.002};
+ FUNDS.forEach(f=>f.nav[i]=f.nav[i-1]*(1+R[f.id]))}
+
+const EVENTS=[];{let w=7;while(w<N){EVENTS.push({week:w,fund:'poa'});w+=6+Math.floor(rnd()*4)}w=11;while(w<N){EVENTS.push({week:w,fund:'pob'});w+=10+Math.floor(rnd()*5)}}
+
+const hold={},TR=[],V=new Array(N).fill(0),EQV=new Array(N).fill(0),FLOW=new Array(N).fill(0),SNAP=new Array(N);
+const posPnl=(id,i)=>{const h=hold[id];return h&&h.units>0?FM[id].nav[i]*h.units/h.cost-1:null};
+function buy(id,amt,i,fl={}){const nav=FM[id].nav[i];const h=hold[id]||(hold[id]={units:0,cost:0,lots:[],everNeg:false});const lossAdd=h.units>0&&nav<h.cost/h.units;const u=amt/nav;h.lots.push({u,cpu:nav,week:i});h.units+=u;h.cost+=amt;FLOW[i]+=amt;TR.push({week:i,fund:id,side:'buy',amount:amt,nav,follow:!!fl.follow,auto:!!fl.auto,lossAdd,init:!!fl.init})}
+function sell(id,frac,i){const h=hold[id],nav=FM[id].nav[i];let u=h.units*frac;if(h.units-u<1e-6)u=h.units;const avg=h.cost/h.units,amt=u*nav,pnl=nav/avg-1;let rem=u,days=0;while(rem>1e-9&&h.lots.length){const L=h.lots[0],take=Math.min(L.u,rem);days+=take*(i-L.week)*7;L.u-=take;rem-=take;if(L.u<=1e-9)h.lots.shift()}
+ let pg=0,pl=0;for(const k in hold){if(k===id||k==='mm')continue;const p=posPnl(k,i);if(p===null)continue;p>0?pg++:pl++}
+ h.units-=u;h.cost-=u*avg;FLOW[i]-=amt;if(h.units<1e-6)delete hold[id];
+ TR.push({week:i,fund:id,side:'sell',amount:amt,nav,follow:false,pnl,holdDays:days/u,p2c:nav/avg,pg,pl,full:frac>=1})}
+function snapshot(i){let v=0,e=0;const arr=[];for(const k in hold){const h=hold[k];if(h.units<=0)continue;const val=h.units*FM[k].nav[i];v+=val;e+=val*FM[k].eq;arr.push({id:k,units:h.units,cost:h.cost,val,pnl:val/h.cost-1,oldest:h.lots.length?h.lots[0].week:i})}V[i]=v;EQV[i]=e;SNAP[i]=arr}
+const EQ=['eq300','eq500','tech','med'];
+const upS0=s=>s==='bull'||s==='up',dnS0=s=>s==='bear'||s==='down';
+buy('poa',60000,0,{follow:true,init:true});buy('eq300',30000,0,{init:true});buy('bds',40000,0,{init:true});buy('mm',20000,0,{init:true});snapshot(0);
+for(let i=1;i<N;i++){const st=state[i],r4=i>=4?mkt[i]/mkt[i-4]-1:0;
+ if(i===6)buy('med',25000,i); /* 2021 年 2 月高点追入医药主题，此后长期挂账 */
+ for(const k in hold){const p=posPnl(k,i);if(p!==null&&p<-0.03)hold[k].everNeg=true}
+ /* 自主买入：上行/牛市时明显更愿意买（趋势追随），下行时缩手 */
+ let pBuy=0.07;if(upS0(st))pBuy+=0.18;if(r4>0.03)pBuy+=0.08;if(dnS0(st))pBuy-=0.03;if(r4<-0.08)pBuy+=0.04;
+ if(rnd()<pBuy){let id;if((r4>0.03||upS0(st))&&rnd()<0.7){id=EQ.slice().sort((a,b)=>(FM[b].nav[i]/FM[b].nav[Math.max(0,i-8)])-(FM[a].nav[i]/FM[a].nav[Math.max(0,i-8)]))[0]}else id=pick([...EQ,'bdl','gold','bds']);buy(id,Math.round((4000+rnd()*16000)/100)*100,i)}
+ /* 亏损加仓（浮亏 >10% 且仓位不算大时） */
+ for(const k of EQ){const p=posPnl(k,i);if(p!==null&&p<-0.10&&hold[k].units*FM[k].nav[i]<V[i-1]*0.2&&rnd()<0.02)buy(k,Math.round((3000+rnd()*6000)/100)*100,i)}
+ if(rnd()<0.06)buy('poa',Math.round((5000+rnd()*15000)/100)*100,i,{follow:true});
+ /* 卖出：赢了急着卖；小亏回本就走；深亏死扛；下行/熊市时恐慌卖 */
+ for(const k of Object.keys(hold)){if(k==='mm')continue;const p=posPnl(k,i);if(p===null)continue;const f=FM[k];let q=0.012;
+  if(p>0.06)q=0.09;if(p>0.15)q=0.15;if(p>0.3)q=0.12;
+  if(p>=-0.02&&p<=0.04&&hold[k].everNeg)q=Math.max(q,0.08);
+  if(p<0&&p>=-0.12)q=dnS0(st)?0.06:0.012;
+  if(p<-0.12)q=st==='bear'?0.02:0.002;
+  if(k==='med')q=p<0?0.0005:q*0.3; /* 医药主题：典型的"等回本"挂账仓位 */
+  if(f.type==='portfolio')q*=0.15;if(f.type==='bond')q*=0.6;
+  if(rnd()<q)sell(k,f.type==='portfolio'?0.3:(rnd()<0.55?1:0.5),i)}
+ for(const ev of EVENTS){if(ev.week!==i)continue;const p=posPnl(ev.fund,i);if(p===null){ev.na=true;continue}ev.pnl=p;if(rnd()<(p>0?0.8:0.5)){ev.followed=true;ev.auto=rnd()<0.35;ev.lag=ev.auto?0:pick([0,0,1,1,2,3,4,7]);TR.push({week:i,fund:ev.fund,side:'rebalance',amount:Math.round(hold[ev.fund].units*FM[ev.fund].nav[i]*0.05),nav:FM[ev.fund].nav[i],follow:true,auto:ev.auto,lag:ev.lag})}else ev.followed=false}
+ snapshot(i)}
+
+/* =====================================================================
+   2. 参照人群（来自研究报告 §4/§5，* 为按报告区间近似）
+   ===================================================================== */
+const REF={
+ all:{name:'且慢全平台',OCI:.2697,HSI:.4479,EAD:.2258,DR:.1715,APD:.0610,RSI:.4938,HSBI:.17,FIII:.40,total:.2932,note:'8 人群打分均值（报告 §5.2）；HSBI/FIII 为覆盖用户近似*'},
+ cy:{name:'长赢用户',OCI:.22,HSI:.4409,EAD:.1339,DR:.1688,APD:.0585,RSI:.4604,HSBI:.3956,FIII:.4972,total:.2106,note:'综合分 8 组最低（报告 §6.2）；OCI 为近似*'},
+ wj:{name:'五剑用户',OCI:.27,HSI:.4710,EAD:.2025,DR:.1801,APD:.0560,RSI:.5060,HSBI:.1779,FIII:.4471,total:.2925,note:'综合分居中（报告 §6.2）；OCI 为近似*'},
+ qm:{name:'且慢单基金用户',OCI:.3784,HSI:.4663,EAD:.2763,DR:.2775,APD:.1130,RSI:.49,HSBI:.2922,FIII:.6138,total:.3960,note:'综合分第 2（报告 §6.2）；RSI 为近似*'},
+};
+const WT={HSI:.2327,OCI:.2036,APD:.1818,EAD:.1686,DR:.1161,RSI:.0973};
+const IND={
+ OCI:{name:'过度自信',plain:'交易太多、押注太集中',icon:'i-swap'},
+ HSI:{name:'趋势追随',plain:'涨了才买、跌了才卖',icon:'i-trend'},
+ EAD:{name:'权益配置偏离',plain:'该配的权益没配够',icon:'i-pie'},
+ APD:{name:'锚定效应',plain:'被买入成本锚住、等回本',icon:'i-anchor'},
+ DR:{name:'处置效应',plain:'赢了急着卖、亏了死扛',icon:'i-shield'},
+ RSI:{name:'近期偏好',plain:'被最近几天的行情牵着走',icon:'i-clock'},
+ HSBI:{name:'跟投缺口',plain:'买了组合却没跟着调仓',icon:'i-follow'},
+ FIII:{name:'跟投惰性',plain:'跟得少、挑着跟、跟得慢',icon:'i-lazy'},
+};
+
+/* =====================================================================
+   3. 区间指标计算
+   ===================================================================== */
+const THEORY=0.675, PEER_VOL=0.13, PEER_TURN=2.95;
+function metrics(a,b){
+ const wks=[];for(let i=a;i<=b;i++)wks.push(i);
+ const T=TR.filter(t=>t.week>=a&&t.week<=b&&!t.init);
+ const trades=T.filter(t=>t.side!=='rebalance'),buys=trades.filter(t=>t.side==='buy'),sells=trades.filter(t=>t.side==='sell');
+ const amt=xs=>xs.reduce((s,t)=>s+t.amount,0);
+ const amtAll=amt(T),amtFollow=amt(T.filter(t=>t.follow)),amtAuto=amt(T.filter(t=>t.auto)),nFollow=T.filter(t=>t.follow).length,nAuto=T.filter(t=>t.auto).length;
+ const years=(b-a+1)/52,avgV=mean(wks.map(i=>V[i]));
+ const turnover=amt(trades)/avgV/years;
+ const winrate=sells.length?sells.filter(s=>s.pnl>0).length/sells.length:NaN;
+ const rg=sells.filter(s=>s.pnl>0).length,rl=sells.length-rg,pg=sells.reduce((s,t)=>s+t.pg,0),pl=sells.reduce((s,t)=>s+t.pl,0);
+ const PGR=(rg+pg)?rg/(rg+pg):NaN,PLR=(rl+pl)?rl/(rl+pl):NaN;const DR=isN(PGR)&&isN(PLR)?PGR-PLR:NaN;const drPos=isN(DR)?Math.max(0,DR):NaN;
+ const AHTPP=mean(sells.filter(s=>s.pnl>0).map(s=>s.holdDays)),AHTLP=mean(sells.filter(s=>s.pnl<=0).map(s=>s.holdDays));
+ const upS=new Set(['bull','up']),dnS=new Set(['bear','down']);
+ let sw=0,ws=0,sc=0;trades.forEach(t=>{const st=state[t.week];const s=(t.side==='buy'&&upS.has(st))||(t.side==='sell'&&dnS.has(st))?1:0;const w=(st==='bull'||st==='bear')?1.5:1;sw+=w*s;ws+=w;sc+=s;t.trend=s});
+ const HSI=ws?sw/ws:NaN,trendShare=trades.length?sc/trades.length:NaN;
+ const upShare=wks.filter(i=>upS.has(state[i])).length/wks.length,dnShare=wks.filter(i=>dnS.has(state[i])).length/wks.length;
+ const randBase=trades.length?(buys.length*upShare+sells.length*dnShare)/trades.length:NaN;
+ const chase=buys.length?buys.filter(t=>upS.has(state[t.week])).length/buys.length:NaN,panic=sells.length?sells.filter(t=>dnS.has(state[t.week])).length/sells.length:NaN;
+ const extreme=trades.filter(t=>state[t.week]==='bull'||state[t.week]==='bear').length;
+ const fwd=(id,i,k)=>i+k<N?FM[id].nav[i+k]/FM[id].nav[i]-1:null;
+ const mf=(i,k)=>i+k<N?mkt[i+k]/mkt[i]-1:null;
+ const mktFwdAll=mean(wks.map(i=>mf(i,12)).filter(x=>x!==null));
+ const buyTiming=mean(buys.map(t=>mf(t.week,12)).filter(x=>x!==null))-mktFwdAll;
+ const sellTiming=mktFwdAll-mean(sells.map(t=>mf(t.week,12)).filter(x=>x!==null));
+ const winners=sells.filter(s=>s.pnl>0);
+ const after=k=>{const xs=winners.map(s=>fwd(s.fund,s.week,k)).filter(x=>x!==null);return {v:mean(xs),n:xs.length}};
+ const soldAfter={m3:after(13),m6:after(26),m12:after(52)};
+ const k0=Math.max(a,b-11);const eqShare=mean(wks.filter(i=>i>=k0).map(i=>EQV[i]/V[i]));const gap=THEORY-eqShare,ead=Math.max(0,gap),eadNorm=ead/0.9;
+ const S=SNAP[b],nH=S.filter(h=>h.id!=='mm').length;
+ const anchored=S.filter(h=>h.id!=='mm'&&h.pnl<0&&(b-h.oldest)>=26).map(h=>({...h,gap:-h.pnl,days:(b-h.oldest)*7,need:1/(1+h.pnl)-1})).sort((x,y)=>y.gap-x.gap);
+ const apdRaw=nH?anchored.reduce((s,h)=>s+h.gap,0)/nH:0,apdNorm=clamp(apdRaw/0.25,0,1);
+ const tot=S.reduce((s,h)=>s+h.val,0);const HHI=S.reduce((s,h)=>s+(h.val/tot)**2,0);const wvol=S.reduce((s,h)=>s+h.val/tot*FM[h.id].vol,0);const RMD=wvol/PEER_VOL;
+ const top=S.slice().sort((x,y)=>y.val-x.val)[0];
+ const OCI=0.5*clamp(turnover/6,0,1)+0.3*HHI+0.2*clamp((RMD-0.8)/1.5,0,1);
+ const nb=wks.map(i=>trades.filter(t=>t.week===i).reduce((s,t)=>s+(t.side==='buy'?t.amount:-t.amount),0));const mr=wks.map(i=>rm[i]);const corr=pearson(nb,mr);const rsiNorm=(corr+1)/2;
+ const activeWeeks=nb.filter(x=>x!==0).length;
+ const breakeven=sells.length?sells.filter(s=>s.p2c>=0.95&&s.p2c<=1.10).length/sells.length:NaN;
+ const selfBuys=buys.filter(t=>FM[t.fund].type!=='portfolio');const lossAddRate=selfBuys.length?selfBuys.filter(t=>t.lossAdd).length/selfBuys.length:NaN;
+ const evs=EVENTS.filter(e=>e.week>=a&&e.week<=b&&!e.na&&e.followed!==undefined),fol=evs.filter(e=>e.followed);
+ const rate=xs=>xs.length?xs.filter(e=>e.followed).length/xs.length:NaN;
+ const FTR=evs.length?fol.length/evs.length:NaN,HSBI=isN(FTR)?1-Math.min(FTR,1):NaN;
+ const rateP=rate(evs.filter(e=>e.pnl>0)),rateL=rate(evs.filter(e=>e.pnl<=0));const SFIB=isN(rateP)&&isN(rateL)?Math.max(0,rateP-rateL):0;const lag=mean(fol.map(e=>e.lag));
+ const FIII=isN(FTR)?clamp((1-FTR)+0.4*SFIB+0.3*clamp((lag||0)/7,0,1),0,1):NaN;
+ const A=[1];for(let i=a+1;i<=b;i++){const r=(V[i]-V[i-1]-FLOW[i])/V[i-1];A.push(A[A.length-1]*(1+r))}
+ const wsum={};wks.forEach(i=>SNAP[i].forEach(h=>{wsum[h.id]=(wsum[h.id]||0)+h.val/V[i]}));const ids=Object.keys(wsum),totw=ids.reduce((s,k)=>s+wsum[k],0);const wt={};ids.forEach(k=>wt[k]=wsum[k]/totw);
+ const B=wks.map(i=>ids.reduce((s,k)=>s+wt[k]*FM[k].nav[i]/FM[k].nav[a],0));
+ const actual=A[A.length-1]-1,base=B[B.length-1]-1,gapRet=actual-base;
+ const norm={OCI,HSI,EAD:eadNorm,DR:drPos,APD:apdNorm,RSI:rsiNorm,HSBI,FIII};
+ const contrib={};let total=0;for(const k in WT){const v=isN(norm[k])?norm[k]:REF.all[k];contrib[k]=WT[k]*v;total+=contrib[k]}
+ const M={a,b,wks,years,T,trades,buys,sells,amtAll,amtFollow,amtAuto,nFollow,nAuto,avgV,turnover,winrate,rg,rl,pg,pl,PGR,PLR,DR,drPos,AHTPP,AHTLP,HSI,trendShare,randBase,chase,panic,extreme,upShare,dnShare,buyTiming,sellTiming,soldAfter,winners,eqShare,gap,ead,eadNorm,S,nH,anchored,apdRaw,apdNorm,HHI,wvol,RMD,top,OCI,corr,rsiNorm,nb,mr,activeWeeks,breakeven,lossAddRate,evs,fol,FTR,HSBI,rateP,rateL,SFIB,lag,FIII,A,B,actual,base,gapRet,norm,contrib,total,startV:V[a],endV:V[b]};
+ M.level={};for(const k in IND)M.level[k]=levelOf(k,M);
+ M.pctBetter=phi((0.29-total)/0.11);
+ return M;
+}
+function levelOf(k,M){const u=M.norm[k],r=REF.all[k];if(!isN(u))return 'good';let lv='good';if(u>r*1.12)lv='mid';if(u>r*1.5&&u-r>0.04)lv='high';
+ switch(k){
+  case 'DR':{const ratio=M.PGR/M.PLR;if(M.sells.length<10)lv=LV[lv]>1?'mid':lv;if(ratio>1.5)lv='high';else if(ratio>1.2)lv=lvUp(lv,'mid');break}
+  case 'OCI':if(M.turnover>2&&M.winrate<0.55)lv='high';if(M.turnover<1&&M.HHI<0.3)lv='good';break;
+  case 'EAD':lv=M.gap>0.15?'high':M.gap>0.05?'mid':'good';break;
+  case 'HSI':if(M.trades.length<10)lv=LV[lv]>1?'mid':lv;if(M.HSI>0.55)lv='high';else if(M.HSI>0.5)lv=lvUp(lv,'mid');if(isN(M.randBase)&&M.HSI<M.randBase+0.03)lv=LV[lv]>1?'mid':lv;break;
+  case 'RSI':lv=M.corr>0.3?'high':M.corr>0.15?'mid':'good';break;
+  case 'APD':lv=(M.anchored.length>=2&&M.apdNorm>0.1)?'high':M.anchored.length>=1?'mid':'good';break;
+  case 'HSBI':lv=M.HSBI>0.4?'high':M.HSBI>0.2?'mid':'good';if(M.evs.length<4&&lv==='high')lv='mid';break;
+  case 'FIII':lv=M.FIII>0.5?'high':M.FIII>0.3?'mid':'good';if(M.evs.length<4&&lv==='high')lv='mid';break;}
+ return lv}
+
+/* =====================================================================
+   4. 图表（inline SVG）
+   ===================================================================== */
+const C={blue:'#1B88EE',blue2:'#69B1F4',blue3:'#A8D4FF',orange:'#FF8A3D',red:'#FA6A55',green:'#07AD8F',purple:'#8E8CF6',gray:'#B8C4D6',grid:'#EDF2F7',t2:'#606060',t3:'#999'};
+function lineChart({w=311,h=170,series,xIdx,shade,yFmt=v=>v.toFixed(0),bands,markers,pl=36,pr=8,pt=10,pb=22,baseline}){
+ let mn=Infinity,mx=-Infinity;series.forEach(s=>s.pts.forEach(v=>{if(v<mn)mn=v;if(v>mx)mx=v}));if(mn===mx){mn-=1;mx+=1}const pad=(mx-mn)*0.08;mn-=pad;mx+=pad;
+ const n=series[0].pts.length;const X=i=>pl+(w-pl-pr)*i/Math.max(1,n-1),Y=v=>pt+(h-pt-pb)*(1-(v-mn)/(mx-mn));
+ let g='';
+ if(bands){bands.forEach(bd=>{g+=`<rect x="${X(bd.from)}" y="${pt}" width="${Math.max(1,X(bd.to)-X(bd.from))}" height="${h-pt-pb}" fill="${bd.color}"/>`})}
+ if(shade){g+=`<rect x="${X(shade[0])}" y="${pt}" width="${Math.max(2,X(shade[1])-X(shade[0]))}" height="${h-pt-pb}" fill="${C.blue}" opacity=".10"/><line x1="${X(shade[0])}" x2="${X(shade[0])}" y1="${pt}" y2="${h-pb}" stroke="${C.blue}" stroke-dasharray="3 3"/><line x1="${X(shade[1])}" x2="${X(shade[1])}" y1="${pt}" y2="${h-pb}" stroke="${C.blue}" stroke-dasharray="3 3"/>`}
+ for(let k=0;k<=3;k++){const v=mn+(mx-mn)*k/3,y=Y(v);g+=`<line x1="${pl}" x2="${w-pr}" y1="${y}" y2="${y}" stroke="${C.grid}"/><text x="${pl-6}" y="${y+3.5}" font-size="9" fill="${C.t3}" text-anchor="end" font-family="DIN Alternate,system-ui">${yFmt(v)}</text>`}
+ if(isN(baseline)){g+=`<line x1="${pl}" x2="${w-pr}" y1="${Y(baseline)}" y2="${Y(baseline)}" stroke="${C.gray}" stroke-dasharray="4 3"/>`}
+ const nl=Math.min(5,n);for(let k=0;k<nl;k++){const i=Math.round((n-1)*k/(nl-1||1));g+=`<text x="${X(i)}" y="${h-6}" font-size="9" fill="${C.t3}" text-anchor="${k===0?'start':k===nl-1?'end':'middle'}" font-family="DIN Alternate,system-ui">${ym(weeks[xIdx[i]])}</text>`}
+ series.forEach(s=>{const d=s.pts.map((v,i)=>`${i?'L':'M'}${X(i).toFixed(1)} ${Y(v).toFixed(1)}`).join(' ');g+=`<path d="${d}" fill="none" stroke="${s.color}" stroke-width="${s.width||2}" stroke-linecap="round" stroke-linejoin="round" ${s.dash?`stroke-dasharray="${s.dash}"`:''}/>`});
+ if(markers){markers.forEach(m=>{const x=X(m.i),y=Y(m.v);if(m.type==='buy')g+=`<path d="M${x} ${y-7}l5 8h-10z" fill="${m.hit?C.blue:'#fff'}" stroke="${C.blue}" stroke-width="1.3"/>`;else g+=`<path d="M${x} ${y+7}l5-8h-10z" fill="${m.hit?C.orange:'#fff'}" stroke="${C.orange}" stroke-width="1.3"/>`})}
+ return `<svg viewBox="0 0 ${w} ${h}" width="100%" height="${h}" role="img">${g}</svg>`}
+function gauge(v){const w=150,h=98,cx=75,cy=84,r=62;const a0=Math.PI,a1=0;const arc=(t0,t1,col,sw)=>{const x0=cx+r*Math.cos(Math.PI*(1-t0)),y0=cy-r*Math.sin(Math.PI*(1-t0)),x1=cx+r*Math.cos(Math.PI*(1-t1)),y1=cy-r*Math.sin(Math.PI*(1-t1));return `<path d="M${x0} ${y0}A${r} ${r} 0 0 1 ${x1} ${y1}" fill="none" stroke="${col}" stroke-width="${sw}" stroke-linecap="round"/>`};
+ let g=`<defs><linearGradient id="gg" x1="0" x2="1"><stop offset="0" stop-color="#1B88EE"/><stop offset=".45" stop-color="#8E8CF6"/><stop offset=".75" stop-color="#FF8A3D"/><stop offset="1" stop-color="#FA6A55"/></linearGradient></defs>`;
+ g+=arc(0.001,0.999,'#EEF3F9',12)+arc(0.001,clamp(v,0.02,0.999),'url(#gg)',12);
+ const t=clamp(v,0,1),px=cx+r*Math.cos(Math.PI*(1-t)),py=cy-r*Math.sin(Math.PI*(1-t));g+=`<circle cx="${px}" cy="${py}" r="7" fill="#fff" stroke="#333" stroke-width="2.5"/>`;
+ g+=`<text x="${cx}" y="${cy-14}" text-anchor="middle" font-size="26" font-weight="700" fill="#333" font-family="DIN Alternate,system-ui">${v.toFixed(2)}</text><text x="${cx}" y="${cy+2}" text-anchor="middle" font-size="9" fill="#999">综合偏误分 · 越低越理性</text>`;
+ g+=`<text x="${cx-r}" y="${cy+14}" font-size="9" fill="#999" text-anchor="middle">0</text><text x="${cx+r}" y="${cy+14}" font-size="9" fill="#999" text-anchor="middle">1</text>`;
+ return `<svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">${g}</svg>`}
+function radar(user,ref,keys){const w=311,h=214,cx=155,cy=110,R=74;const n=keys.length;const ang=i=>-Math.PI/2+i*2*Math.PI/n;const P=(i,t)=>[cx+R*t*Math.cos(ang(i)),cy+R*t*Math.sin(ang(i))];
+ let g='';[0.25,0.5,0.75,1].forEach(t=>{g+=`<polygon points="${keys.map((_,i)=>P(i,t).join(',')).join(' ')}" fill="${t===1?'#F7FAFE':'none'}" stroke="#DCE6F2" stroke-width="1"/>`});
+ keys.forEach((_,i)=>{const [x,y]=P(i,1);g+=`<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="#E6EEF7"/>`});
+ const scale=v=>clamp(v/0.7,0,1);
+ g+=`<polygon points="${keys.map((k,i)=>P(i,scale(ref[k])).join(',')).join(' ')}" fill="none" stroke="${C.orange}" stroke-width="1.6" stroke-dasharray="4 3"/>`;
+ g+=`<polygon points="${keys.map((k,i)=>P(i,scale(user[k])).join(',')).join(' ')}" fill="${C.blue}" fill-opacity=".18" stroke="${C.blue}" stroke-width="2"/>`;
+ keys.forEach((k,i)=>{const [x,y]=P(i,scale(user[k]));g+=`<circle cx="${x}" cy="${y}" r="3.2" fill="#fff" stroke="${C.blue}" stroke-width="2"/>`});
+ keys.forEach((k,i)=>{const [x,y]=P(i,1.28);const an=i===0?'middle':Math.cos(ang(i))>0.1?'start':Math.cos(ang(i))<-0.1?'end':'middle';g+=`<text x="${x}" y="${y}" font-size="10.5" fill="#333" text-anchor="${an}" font-weight="600">${IND[k].name}</text><text x="${x}" y="${y+12}" font-size="9.5" fill="${C.blue}" text-anchor="${an}" font-family="DIN Alternate,system-ui">${n2(user[k])} <tspan fill="#999">/ ${n2(ref[k])}</tspan></text>`});
+ return `<svg viewBox="0 0 ${w} ${h}" width="100%" height="${h}">${g}</svg>`}
+function donut(parts,size=110){const r=44,cx=size/2,cy=size/2,tot=parts.reduce((s,p)=>s+p.v,0)||1;let acc=0,g='';parts.forEach(p=>{const t0=acc/tot,t1=(acc+p.v)/tot;acc+=p.v;if(p.v<=0)return;const a0=2*Math.PI*t0-Math.PI/2,a1=2*Math.PI*t1-Math.PI/2;const large=(t1-t0)>0.5?1:0;const x0=cx+r*Math.cos(a0),y0=cy+r*Math.sin(a0),x1=cx+r*Math.cos(a1),y1=cy+r*Math.sin(a1);g+=(t1-t0)>=0.999?`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${p.c}" stroke-width="16"/>`:`<path d="M${x0} ${y0}A${r} ${r} 0 ${large} 1 ${x1} ${y1}" fill="none" stroke="${p.c}" stroke-width="16"/>`});
+ return `<svg viewBox="0 0 ${size} ${size}" width="${size}" height="${size}">${g}<text x="${cx}" y="${cy-2}" text-anchor="middle" font-size="16" font-weight="700" fill="#333" font-family="DIN Alternate,system-ui">${pct(parts[0].v/tot,0)}</text><text x="${cx}" y="${cy+12}" text-anchor="middle" font-size="9" fill="#999">${parts[0].l}</text></svg>`}
+function scatter(xs,ys,corr){const w=311,h=160,pl=34,pr=8,pt=10,pb=22;const pts=xs.map((x,i)=>[x,ys[i]]).filter(p=>p[1]!==0);const xmn=Math.min(...xs,-0.02),xmx=Math.max(...xs,0.02);const ymx=Math.max(...pts.map(p=>Math.abs(p[1])),1000);const X=x=>pl+(w-pl-pr)*(x-xmn)/(xmx-xmn),Y=y=>pt+(h-pt-pb)*(1-(y+ymx)/(2*ymx));
+ let g=`<line x1="${pl}" x2="${w-pr}" y1="${Y(0)}" y2="${Y(0)}" stroke="#DCE6F2"/><line x1="${X(0)}" x2="${X(0)}" y1="${pt}" y2="${h-pb}" stroke="#DCE6F2"/>`;
+ g+=`<text x="${pl-4}" y="${Y(ymx)+8}" font-size="9" fill="#999" text-anchor="end">净买入</text><text x="${pl-4}" y="${Y(-ymx)}" font-size="9" fill="#999" text-anchor="end">净卖出</text><text x="${w-pr}" y="${h-6}" font-size="9" fill="#999" text-anchor="end">当周市场涨跌 →</text><text x="${pl}" y="${h-6}" font-size="9" fill="#999">${pct(xmn,0)}</text>`;
+ if(pts.length>3){const mx=mean(pts.map(p=>p[0])),my=mean(pts.map(p=>p[1]));let sxy=0,sxx=0;pts.forEach(p=>{sxy+=(p[0]-mx)*(p[1]-my);sxx+=(p[0]-mx)**2});const sl=sxx?sxy/sxx:0;const y0=my+sl*(xmn-mx),y1=my+sl*(xmx-mx);g+=`<line x1="${X(xmn)}" y1="${Y(clamp(y0,-ymx,ymx))}" x2="${X(xmx)}" y2="${Y(clamp(y1,-ymx,ymx))}" stroke="${C.orange}" stroke-width="1.6" stroke-dasharray="4 3"/>`}
+ pts.forEach(p=>{g+=`<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="3.5" fill="${p[1]>0?C.blue:C.orange}" fill-opacity=".75"/>`});
+ g+=`<text x="${w-pr}" y="${pt+10}" font-size="10" fill="#333" text-anchor="end" font-family="DIN Alternate,system-ui">r = ${corr.toFixed(2)}</text>`;
+ return `<svg viewBox="0 0 ${w} ${h}" width="100%" height="${h}">${g}</svg>`}
+function timeline(evs,a,b){const w=311,h=92,pl=8,pr=8;const X=i=>pl+(w-pl-pr)*(i-a)/Math.max(1,b-a);let g=`<line x1="${pl}" x2="${w-pr}" y1="40" y2="40" stroke="#DCE6F2" stroke-width="2"/>`;
+ evs.forEach(e=>{const x=X(e.week);if(e.followed){g+=`<line x1="${x}" x2="${x}" y1="40" y2="${40-10-Math.min(e.lag,7)*3}" stroke="${e.lag>2?C.warn:C.blue}" stroke-width="1.5"/><circle cx="${x}" cy="40" r="5" fill="${e.auto?C.green:C.blue}"/>`}else{g+=`<circle cx="${x}" cy="40" r="5" fill="#fff" stroke="${C.red}" stroke-width="2"/><line x1="${x-3}" x2="${x+3}" y1="37" y2="43" stroke="${C.red}" stroke-width="1.5"/>`}
+  g+=`<circle cx="${x}" cy="60" r="2.2" fill="${e.pnl>0?C.orange:C.gray}"/>`});
+ g+=`<text x="${pl}" y="84" font-size="9" fill="#999">${ym(weeks[a])}</text><text x="${w-pr}" y="84" font-size="9" fill="#999" text-anchor="end">${ym(weeks[b])}</text><text x="${w/2}" y="74" font-size="8.5" fill="#999" text-anchor="middle">下排小点：调仓时组合盈利（橙）/ 亏损（灰）</text>`;
+ return `<svg viewBox="0 0 ${w} ${h}" width="100%" height="${h}">${g}</svg>`}
+const hbar=(l,v,max,cls,txt)=>`<div class="hbar"><span class="l">${l}</span><div class="b"><i class="${cls||''}" style="width:${clamp(v/max*100,0,100)}%"></i></div><span class="v">${txt}</span></div>`;
+
+/* =====================================================================
+   5. 状态与渲染
+   ===================================================================== */
+let range={a:N-52,b:N-1},refKey='all',M=null,planSel=new Set();
+const ACTIONS=[
+ {id:'nudge',k:'DR',title:'卖出前「再想想」提醒',desc:'准备卖出盈利仓位、且持有收益率明显低于你过往同类卖出水平时，先看一眼处置效应提示与卖飞成本，再决定。',eff:{DR:.6},gain:'处置效应读数约降 40%'},
+ {id:'rule',k:'DR',title:'用规则止盈，代替「赚了就卖」',desc:'为每只持仓设定目标收益或估值信号；未达目标不因小赢离场，达标后分批卖出。浮亏仓位按"是否还想买"处置，不等回本。',eff:{DR:.75,APD:.7},gain:'处置效应约降 25%，锚定约降 30%'},
+ {id:'cool',k:'OCI',title:'交易冷静期 + 每月交易预算',desc:'单日交易次数超过你历史 90 分位时触发 24 小时冷静期；自主交易每月设上限。把"想操作"和"真操作"隔开一晚。',eff:{OCI:.7,HSI:.9,RSI:.85},gain:'过度自信约降 30%'},
+ {id:'div',k:'OCI',title:'把集中押注分散到组合',desc:'单只基金占比超过 40% 的部分逐步转入与你风险等级匹配的组合，让波动回到可承受范围。',eff:{OCI:.8},gain:'集中度与风险错配同步下降'},
+ {id:'dca',k:'HSI',title:'把择时交给纪律：信号定投',desc:'按估值/温度信号自动买入，行情越热买得越少、越冷买得越多，代替"看涨跌下单"。',eff:{HSI:.8,RSI:.7,OCI:.9},gain:'趋势追随约降 20%'},
+ {id:'alert',k:'HSI',title:'极端行情 24 小时冷静提示',desc:'市场进入牛市/熊市状态且你发起顺势交易时，展示"N 年前类似行情之后的走势"，延迟一天再执行。',eff:{HSI:.85},gain:'牛熊行情中的顺势交易减少'},
+ {id:'eq',k:'EAD',title:'分 3–6 个月补齐权益仓位',desc:'把权益仓位分批补到风险等级建议区间，用组合承接，避免一次性择时。',eff:{EAD:0},gain:'权益偏离归零'},
+ {id:'anchor',k:'APD',title:'浮亏仓位处置清单',desc:'对每只浮亏超半年的持仓回答"今天还会买它吗"；不会就通过智能转换换到更优标的，把"回本"从决策里拿掉。',eff:{APD:.3},gain:'锚定约降 70%'},
+ {id:'auto',k:'HSBI',title:'开启自动跟车',desc:'主理人调仓后自动执行，止损调仓同样执行，不再挑着跟、拖着跟。',eff:{HSBI:0,FIII:.2},gain:'跟投缺口归零'},
+ {id:'quiet',k:'RSI',title:'固定日定投 + 减少盯盘',desc:'每周固定一天下单，关闭涨跌推送，让决策与最近几天的行情脱钩。',eff:{RSI:.7},gain:'近期偏好约降 30%'},
+];
+
+function setRange(a,b){range={a:clamp(a,0,N-2),b:clamp(b,1,N-1)};if(range.b-range.a<8)range.a=Math.max(0,range.b-8);M=metrics(range.a,range.b);planSel=new Set(ACTIONS.filter(x=>M.level[x.k]!=='good').map(x=>x.id));renderAll()}
+
+function renderAll(){renderRange();renderHero();renderOverview();renderRadar();renderGap();renderTrade();renderIssues();renderEvidence();renderPlan();renderNudge()}
+
+function renderRange(){const {a,b}=range;$('#mStart').value=`${weeks[a].getFullYear()}-${String(weeks[a].getMonth()+1).padStart(2,'0')}`;$('#mEnd').value=`${weeks[b].getFullYear()}-${String(weeks[b].getMonth()+1).padStart(2,'0')}`;
+ const xIdx=weeks.map((_,i)=>i);$('#miniMkt').innerHTML=lineChart({h:96,series:[{pts:mkt,color:C.gray,width:1.6}],xIdx,shade:[a,b],yFmt:v=>v.toFixed(0),pl:30});
+ $('#rangeMeta').innerHTML=`<span><b>${ymd(weeks[a])}</b> 至 <b>${ymd(weeks[b])}</b> · ${b-a+1} 周</span><span>交易 <b>${M.T.length}</b> 笔 · 期末资产 <b>¥${money(M.endV)}</b></span>`}
+
+function renderHero(){const g=M.gapRet;$('#heroKpis').innerHTML=`
+ <div class="kpi"><div class="v num">${M.total.toFixed(2)}<small>/ 1</small></div><div class="l">综合偏误分 · 越低越理性</div></div>
+ <div class="kpi"><div class="v num">${Math.round(M.pctBetter*100)}<small>%</small></div><div class="l">的且慢用户偏误分高于你</div></div>
+ <div class="kpi ${g<-0.005?'hi':g>0.005?'ok':''}"><div class="v num">${pp(g)}</div><div class="l">行为差 · 操作相对理性持有</div></div>`}
+
+function renderOverview(){$('#gauge').innerHTML=gauge(M.total);const lv=M.total>0.34?'high':M.total>0.25?'mid':'good';const lvt={high:'偏误偏重',mid:'中等 · 有改善空间',good:'较为理性'}[lv];
+ const rank=Object.keys(WT).sort((x,y)=>M.contrib[y]-M.contrib[x]);const top=rank.slice(0,3);
+ $('#gaugeTxt').innerHTML=`<div class="big num">${Math.round(M.pctBetter*100)}%<small>的且慢用户偏误分高于你</small></div><span class="lv lv-${lv}">${lvt}</span><p>参照全平台均值 ${REF.all.total.toFixed(2)}、长赢用户 ${REF.cy.total.toFixed(2)}、单基金用户 ${REF.qm.total.toFixed(2)}。</p>`;
+ const share=top.reduce((s,k)=>s+M.contrib[k],0)/M.total;
+ const flagged=Object.keys(IND).filter(k=>M.level[k]==='high');const mids=Object.keys(IND).filter(k=>M.level[k]==='mid');
+ let v=`你的综合偏误分 <b>${M.total.toFixed(2)}</b>，其中 <b>${top.map(k=>IND[k].name).join('、')}</b> 三项贡献了 ${pct(share,0)}。`;
+ if(flagged.length)v+=`最需要关注的是 <b>${flagged.map(k=>IND[k].name+'（'+IND[k].plain+'）').join('、')}</b>。`;else if(mids.length)v+=`没有需要立刻处理的重度偏误，值得留意 <b>${mids.map(k=>IND[k].name).join('、')}</b>。`;else v+=`各项都在参照人群的合理范围内，保持现有纪律即可。`;
+ if(isN(M.gapRet))v+=` 区间内你的操作相对理性持有${M.gapRet<0?'<b>少赚了 '+pp(-M.gapRet).replace('+','')+'</b>':'<b>多赚了 '+pp(M.gapRet).replace('+','')+'</b>'}——${M.gapRet<0?'这就是行为差的代价。':'但要区分是判断还是运气，看下面的逐项论证。'}`;
+ $('#verdict').innerHTML=v}
+
+function renderRadar(){const ref=REF[refKey];$('#radar').innerHTML=radar(M.norm,ref,['HSI','OCI','APD','EAD','DR','RSI']);$('#radarSrc').textContent=`参照：${ref.name} —— ${ref.note}。数值为 0–1 标准化读数。`;$$('[data-ref]').forEach(c=>c.classList.toggle('on',c.dataset.ref===refKey))}
+
+function renderGap(){const xIdx=M.wks;const base=100;$('#gapChart').innerHTML=lineChart({h:180,series:[{pts:M.B.map(v=>v*base),color:C.orange,width:2,dash:'5 3'},{pts:M.A.map(v=>v*base),color:C.blue,width:2.2}],xIdx,yFmt:v=>v.toFixed(0),baseline:100});
+ const ann=x=>Math.pow(1+x,1/M.years)-1;
+ $('#gapKpis').innerHTML=`<div><div class="v num ${M.actual<0?'neg':'blue'}">${pct(M.actual)}</div><div class="l">你的实际收益<br>（资金加权）</div></div><div><div class="v num">${pct(M.base)}</div><div class="l">理性持有基准<br>（维持平均仓位）</div></div><div><div class="v num ${M.gapRet<0?'neg':'pos'}">${pp(M.gapRet)}</div><div class="l">行为差<br>年化 ${pp(ann(1+M.actual)-ann(1+M.base))}</div></div>`;
+ const bt=M.buyTiming,st=M.sellTiming;
+ $('#gapNote').innerHTML=`<b>论证</b>：把行为差拆到动作上——你买入后 12 周，市场平均${bt>=0?'多涨':'少涨'} <b>${pp(Math.abs(bt)).replace('+','')}</b>（买入择时能力 ${bt>=0?'为正':'为负'}）；你卖出后 12 周，市场平均${st>=0?'少涨':'多涨'} <b>${pp(Math.abs(st)).replace('+','')}</b>（卖出择时能力 ${st>=0?'为正':'为负'}）。${(bt<0||st<0)?'负值说明这类操作整体在"帮倒忙"，与文献中散户择时收益为负的结论一致。':'两项都为正是少数情况，仍建议看长期区间是否稳定。'}`}
+
+function renderTrade(){const self=M.amtAll-M.amtFollow;$('#donut').innerHTML=donut([{v:M.amtFollow,c:C.blue,l:'跟车金额占比'},{v:self,c:C.orange,l:'自主'}]);
+ $('#tradeStats').innerHTML=`<li><span><i style="background:${C.blue}"></i>跟车（跟投/调仓）</span><b>${M.nFollow} 笔 · ${pct(M.amtAll?M.amtFollow/M.amtAll:0,0)}</b></li><li><span><i style="background:${C.orange}"></i>自主交易</span><b>${M.T.length-M.nFollow} 笔 · ${pct(M.amtAll?self/M.amtAll:0,0)}</b></li><li><span><i style="background:${C.green}"></i>其中自动跟车</span><b>${M.nFollow?pct(M.nAuto/M.nFollow,0):'—'} 的跟车单</b></li><li><span>年化换手率</span><b>${n2(M.turnover)} 倍 <span style="color:#999;font-weight:400">/ 同级 ${PEER_TURN}</span></b></li>`;
+ const fs=M.amtAll?M.amtFollow/M.amtAll:0;
+ $('#attrNote').innerHTML=fs>=0.35?`<b>归属提示</b>：你的交易金额中 ${pct(fs,0)} 来自跟车，按 35% 阈值属于<b>跟车依赖型</b>。下面的趋势追随、处置效应读数有相当部分反映的是所跟策略的调仓节奏，解读时应以"策略是否匹配你"为主；自主交易部分（${M.T.length-M.nFollow} 笔）才是你个人倾向的直接证据。`:`<b>归属提示</b>：你的交易金额中仅 ${pct(fs,0)} 来自跟车，属于<b>自主交易型</b>。下面的偏误读数基本可以归因为你自己的判断与情绪，矫正也应从个人纪律入手。`}
+
+function renderIssues(){const keys=Object.keys(IND).filter(k=>isN(M.norm[k]));keys.sort((x,y)=>{const cx=x in WT?M.contrib[x]:WT.DR*M.norm[x]*0.8,cy=y in WT?M.contrib[y]:WT.DR*M.norm[y]*0.8;return cy-cx});
+ const maxC=Math.max(...keys.map(k=>k in WT?M.contrib[k]:0));
+ $('#issueList').innerHTML=keys.map((k,i)=>{const lv=M.level[k],inW=k in WT,c=inW?M.contrib[k]:null;const ref=REF.all[k];const rel=M.norm[k]/ref;
+  const why={OCI:`年化换手 ${n2(M.turnover)} 倍，交易胜率 ${pct(M.winrate,0)}；最大单一持仓占 ${pct(M.top?M.top.val/M.S.reduce((s,h)=>s+h.val,0):0,0)}`,HSI:`${pct(M.trendShare,0)} 的交易顺着行情方向（随机基准 ${pct(M.randBase,0)}）；牛熊加权 HSI ${n2(M.HSI)}`,EAD:`风险等级建议权益 ${pct(THEORY,0)}，你实际 ${pct(M.eqShare,0)}，缺口 ${pp(M.gap).replace('+','')}`,APD:M.anchored.length?`${M.anchored.length} 只持仓浮亏且挂账超半年，平均缺口 ${pct(mean(M.anchored.map(h=>h.gap)),0)}`:'当前没有持有超半年仍浮亏的仓位',DR:`盈利变现率 ${pct(M.PGR,0)} vs 亏损变现率 ${pct(M.PLR,0)}，PGR/PLR = ${ratioTxt(M.PGR/M.PLR)}`,RSI:`周净买入与当周行情相关系数 ${n2(M.corr)}`,HSBI:`应调仓 ${M.evs.length} 次，实际跟 ${M.fol.length} 次，跟投率 ${pct(M.FTR,0)}`,FIII:`跟投率 ${pct(M.FTR,0)}，盈利时比亏损时多跟 ${pp(M.SFIB).replace('+','')}，平均滞后 ${n2(M.lag,1)} 天`}[k];
+  return `<div class="issue"><div class="rk ${lv}">${i+1}</div><div class="bd"><div class="t"><b>${IND[k].name} <span style="font-weight:400;color:#999;font-size:11px">${k}</span></b><span class="pill lv-${lv}">${LVT[lv]}</span></div><div class="d">${IND[k].plain}。${why}。</div><div class="bar"><i style="width:${inW?clamp(c/maxC*100,3,100):clamp(M.norm[k]*100,3,100)}%;background:${lv==='high'?C.red:lv==='mid'?C.orange:C.green}"></i></div><div class="m"><span>${inW?`占综合分 <b>${pct(c/M.total,0)}</b> · 权重 ${pct(WT[k],1)}`:'组合专用 · 不进综合分'}</span><span>你 <b>${n2(M.norm[k])}</b> vs 全平台 <b>${n2(ref)}</b>（${rel>=1?'+':''}${Math.round((rel-1)*100)}%）</span></div></div></div>`}).join('')}
+
+/* ---- 逐项论证 ---- */
+function fixBtn(k){const ids=ACTIONS.filter(a=>a.k===k).map(a=>a.id);const all=ids.every(id=>planSel.has(id));return `<button class="btn-line ${all?'done':''}" data-addfix="${k}"><svg class="icon"><use href="#${all?'i-check':'i-bulb'}"/></svg>${all?'已加入矫正计划':'把这些措施加入矫正计划'}</button>`}
+function renderEvidence(){const keys=['DR','OCI','HSI','EAD','APD','RSI','HSBI','FIII'].sort((x,y)=>LV[M.level[y]]-LV[M.level[x]]);
+ const open=new Set($$('.acc.open').map(e=>e.dataset.k));if(!open.size)open.add(keys[0]);
+ $('#evidence').innerHTML=keys.map(k=>{const lv=M.level[k];const val=M.norm[k];return `<div class="acc ${open.has(k)?'open':''}" data-k="${k}"><div class="hd" data-toggle="${k}"><div class="ic ${lv}"><svg class="icon"><use href="#${IND[k].icon}"/></svg></div><div class="tt"><b>${IND[k].name} · ${IND[k].plain}</b><span>${k} · <span class="pill lv-${lv}" style="padding:0 6px;border-radius:999px;font-weight:600">${LVT[lv]}</span></span></div><div class="val"><b>${n2(val)}</b><span>全平台 ${n2(REF.all[k])}</span></div><svg class="icon chev"><use href="#i-chev"/></svg></div><div class="body">${DETAIL[k](M)}</div></div>`}).join('')}
+
+const cls=(bad,ok)=>bad?'bad':ok?'ok':'warn';
+const DETAIL={
+ DR(M){const ratio=M.PGR/M.PLR;const la=M.AHTLP/M.AHTPP;const sa=M.soldAfter;const few=M.sells.length<10;
+  return `<div class="def"><b>怎么算</b>：处置效应 DR = 盈利变现率 PGR − 亏损变现率 PLR。PGR = 卖出的盈利笔数 ÷（卖出的盈利 + 仍持有的盈利）；PLR 同理。每次卖出时，我们复刻你当时的全部持仓来数"账面盈利/亏损"有几笔。DR &gt; 0 说明你更愿意兑现盈利、留着亏损。</div>
+  <div class="blk ev"><h5>你的数据${few?'<span style="color:#EA9500;font-weight:400;font-size:11px">（卖出 '+M.sells.length+' 笔，样本偏少，读数仅供参考）</span>':''}</h5>
+  ${hbar('盈利变现率 PGR',M.PGR||0,1,'o',pct(M.PGR,0))}${hbar('亏损变现率 PLR',M.PLR||0,1,'',pct(M.PLR,0))}
+  <ul class="facts" style="margin-top:8px"><li><span>已实现盈利 / 账面盈利（笔）</span><b>${M.rg} / ${M.pg}</b></li><li><span>已实现亏损 / 账面亏损（笔）</span><b>${M.rl} / ${M.pl}</b></li><li><span>DR = PGR − PLR</span><b class="${cls(M.DR>0.15,M.DR<=0.05)}">${pp(M.DR)}</b></li><li><span>PGR / PLR（文献判定阈值 1.2）${!isFinite(ratio)&&isN(M.PGR)?'<br><span style="font-size:10.5px;color:#999">区间内没有卖出过任何亏损仓位</span>':''}</span><b class="${cls(ratio>1.5,ratio<=1.2)}">${ratioTxt(ratio)}</b></li><li><span>亏损仓位平均持有 / 盈利仓位平均持有</span><b>${isN(M.AHTLP)?Math.round(M.AHTLP):'—'} 天 / ${isN(M.AHTPP)?Math.round(M.AHTPP):'—'} 天</b></li><li><span>损失厌恶系数 AHTLP ÷ AHTPP（典型散户 1.2–1.8）</span><b class="${cls(la>1.8,la<=1.2)}">${n2(la)}</b></li><li><span>回本即卖（卖价在成本 0.95–1.10 倍内）占卖出</span><b class="${cls(M.breakeven>0.6,M.breakeven<0.4)}">${pct(M.breakeven,0)}</b></li></ul></div>
+  <div class="blk ev"><h5>反事实：你卖掉的盈利产品，后来怎么了</h5><p style="font-size:12px;color:#606060;line-height:1.6">对区间内 ${M.winners.length} 笔盈利卖出，追踪该产品在卖出后的净值表现（等权平均）：</p>
+  ${['m3','m6','m12'].map((k,i)=>{const s=sa[k];const l=['3 个月后','6 个月后','12 个月后'][i];return isN(s.v)?hbar(l,Math.abs(s.v),0.3,s.v>0?'o':'gr',pp(s.v)+' ('+s.n+'笔)'):hbar(l,0,1,'g','数据不足')}).join('')}
+  <p class="cite">${isN(sa.m6.v)&&sa.m6.v>0.02?`平均而言，你卖出的盈利产品在之后半年继续上涨 ${pct(sa.m6.v)}——这就是"卖飞成本"。`:isN(sa.m6.v)?'卖出后半年整体表现平淡，本区间的止盈没有明显卖飞。':'区间靠近当前，暂无足够的后续数据。'}</p></div>
+  <div class="blk"><h5>为什么算偏误</h5><div class="rule"><span class="r">1</span><div>Shefrin &amp; Statman (1985) 定义处置效应：损失厌恶 + 心理账户，让人"太早卖出赢家、太久持有输家"。Odean (1998) 在 1 万个账户中发现 PGR 14.8% 显著高于 PLR 9.8%，且卖掉的赢家随后一年平均跑赢留下的输家 3.4pp。</div></div><div class="rule"><span class="r">2</span><div><b>判定</b>：PGR/PLR &gt; 1.2 视为明显处置效应 → 你 ${ratioTxt(ratio)}，<span class="${ratio>1.2?'hit':'miss'}">${ratio>1.2?'触发':'未触发'}</span>；AHTLP/AHTPP &gt; 1.8 视为强损失厌恶 → 你 ${n2(la)}，<span class="${la>1.8?'hit':'miss'}">${la>1.8?'触发':'未触发'}</span>。</div></div></div>
+  <div class="blk fix"><h5>怎么矫正</h5><ul class="fixes"><li>卖出决策从"赚了没"换成"这只标的今天还值得持有吗"——从基本面/配置角色出发，而不是止盈心态。</li><li>为持仓预设目标收益或估值信号，达标分批卖；未达标的小赢不离场。</li><li>浮亏仓位单独列清单：还会买的继续持有或补仓，不会买的换掉——不等回本。</li><li>开启卖出前"再想想"提醒（见第 9 节预览）。</li></ul>${fixBtn('DR')}</div>`},
+ OCI(M){const tot=M.S.reduce((s,h)=>s+h.val,0);const rows=M.S.slice().sort((x,y)=>y.val-x.val).slice(0,5);const oc=M.winrate?M.turnover/M.winrate:NaN;
+  return `<div class="def"><b>怎么算</b>：过度自信 OCI 由三项合成（权重 0.5 / 0.3 / 0.2）：<b>换手率</b>（年化成交额 ÷ 平均资产，对比同风险等级均值）、<b>持仓集中度</b>（各持仓占比平方和 HHI）、<b>风险错配</b>（持仓加权波动率 ÷ 同风险等级基线）。核心信号是：交易很多、但胜率并不高。</div>
+  <div class="blk ev"><h5>你的数据</h5>${hbar('你的年化换手',M.turnover,6,M.turnover>2?'r':'',n2(M.turnover)+' 倍')}${hbar('同风险等级均值',PEER_TURN,6,'g',PEER_TURN+' 倍')}${hbar('过度交易阈值',2,6,'g','2.0 倍')}
+  <ul class="facts" style="margin-top:8px"><li><span>自主交易笔数（买 / 卖）</span><b>${M.buys.length} / ${M.sells.length}</b></li><li><span>交易胜率（卖出盈利笔数占比，阈值 55%）</span><b class="${cls(M.winrate<0.5,M.winrate>=0.55)}">${pct(M.winrate,0)}</b></li><li><span>过度自信系数 = 换手率 ÷ 胜率（越大越强）</span><b>${n2(oc)}</b></li><li><span>持仓集中度 HHI（0 分散 → 1 单一）</span><b class="${cls(M.HHI>0.45,M.HHI<0.25)}">${n2(M.HHI)}</b></li><li><span>持仓加权波动率 / 同级基线（RMD）</span><b class="${cls(M.RMD>1.4,M.RMD<=1.1)}">${pct(M.wvol)} / ${pct(PEER_VOL)} = ${n2(M.RMD)}</b></li><li><span>浮亏时继续加仓的买入占比</span><b>${pct(M.lossAddRate,0)}</b></li></ul>
+  <table class="tbl"><tr><th>当前持仓 TOP5</th><th class="n">占比</th><th class="n">持有收益</th></tr>${rows.map(h=>`<tr><td>${FM[h.id].name}</td><td class="n">${pct(h.val/tot,0)}</td><td class="n ${h.pnl<0?'bad':'ok'}">${pct(h.pnl)}</td></tr>`).join('')}</table></div>
+  <div class="blk"><h5>为什么算偏误</h5><div class="rule"><span class="r">1</span><div>Barber &amp; Odean (2000) 对 66,465 个账户的研究：交易最频繁的 1/5 投资者年化 11.4%，比市场低 6.5pp；换手率与净收益显著负相关。"交易有害健康"的根源是高估自己的信息优势。</div></div><div class="rule"><span class="r">2</span><div><b>判定</b>：换手率 &gt; 200% 且胜率 &lt; 55% 视为过度交易 → 你 ${n2(M.turnover)} 倍 / ${pct(M.winrate,0)}，<span class="${M.turnover>2&&M.winrate<0.55?'hit':'miss'}">${M.turnover>2&&M.winrate<0.55?'触发':'未触发'}</span>。单日交易次数超过历史 90 分位应触发冷静机制。</div></div></div>
+  <div class="blk fix"><h5>怎么矫正</h5><ul class="fixes"><li>给自己设"交易预算"：每月自主交易不超过 N 笔，超出即进入 24 小时冷静期。</li><li>把择时交给规则：信号定投 / 组合调仓，用纪律代替判断。</li><li>单只基金占比超过 40% 的部分分散到与你风险等级匹配的组合，让波动回到基线附近。</li></ul>${fixBtn('OCI')}</div>`},
+ HSI(M){const {a,b}=M;const stColor={bull:'#FFE1CC',up:'#FFF3EA',flat:'#FFFFFF',down:'#EAF2FB',bear:'#D6E8FA'};const bands=[];let cur=state[a],from=0;for(let i=a+1;i<=b;i++){if(state[i]!==cur||i===b){bands.push({from,to:i-a,color:stColor[cur]});cur=state[i];from=i-a}}
+  const markers=M.trades.map(t=>({i:t.week-a,v:mkt[t.week],type:t.side,hit:t.trend}));
+  return `<div class="def"><b>怎么算</b>：把市场划成牛市 / 趋势上行 / 震荡 / 趋势下行 / 熊市五种状态。在上行状态买入、下行状态卖出记为"顺势"；牛熊极端行情权重 1.5。HSI = Σ(权重 × 顺势) ÷ Σ权重。HSI 高，说明你的交易节奏被行情牵着走。</div>
+  <div class="blk ev"><h5>你的交易落在什么行情里${M.trades.length<10?'<span style="color:#EA9500;font-weight:400;font-size:11px">（仅 '+M.trades.length+' 笔，样本偏少，读数仅供参考）</span>':''}</h5>${lineChart({h:170,series:[{pts:M.wks.map(i=>mkt[i]),color:'#6B7A90',width:1.8}],xIdx:M.wks,bands,markers,pl:34})}<div class="legend" style="flex-wrap:wrap;gap:8px 12px"><span style="color:#999">底色：</span><span><i style="background:#FFE1CC"></i>牛市</span><span><i style="background:#FFF3EA;border:1px solid #eee"></i>上行</span><span><i style="background:#EAF2FB"></i>下行</span><span><i style="background:#D6E8FA"></i>熊市</span><span>▲ 买入 ▼ 卖出（实心 = 顺势）</span></div>
+  <ul class="facts" style="margin-top:8px"><li><span>顺势交易占比（不加权）</span><b class="${cls(M.trendShare>0.55,M.trendShare<=0.45)}">${pct(M.trendShare,0)}</b></li><li><span>随机交易基准（按区间内上行/下行周占比推算）</span><b>${pct(M.randBase,0)}</b></li><li><span>牛熊加权 HSI</span><b class="${cls(M.HSI>0.55,M.HSI<=0.47)}">${n2(M.HSI)}</b></li><li><span>追涨比例（上行时买入 ÷ 全部买入）</span><b>${pct(M.chase,0)}</b></li><li><span>杀跌比例（下行时卖出 ÷ 全部卖出）</span><b>${pct(M.panic,0)}</b></li><li><span>发生在牛市 / 熊市极端状态的交易</span><b>${M.extreme} 笔</b></li></ul></div>
+  <div class="blk ev"><h5>反事实：追出来的时点，值不值</h5>${hbar('买入后 12 周市场',Math.abs(M.buyTiming),0.15,M.buyTiming>=0?'gr':'r',pp(M.buyTiming)+' 超额')}${hbar('卖出后 12 周市场',Math.abs(M.sellTiming),0.15,M.sellTiming>=0?'gr':'r',pp(-M.sellTiming)+' 相对')}<p class="cite">买入择时能力 = 你买入后 12 周的市场涨幅 − 区间内任意时点买入的平均涨幅；卖出择时能力反向。${M.buyTiming<0?'你的买入时点整体偏晚——追涨买在了相对高点。':'你的买入时点没有系统性吃亏。'}${M.sellTiming<0?'卖出后市场反而涨得更多——杀跌卖在了相对低点。':''}（口径参考北大投资者行为指标：择时/买入/卖出交易能力）</p></div>
+  <div class="blk"><h5>为什么算偏误</h5><div class="rule"><span class="r">1</span><div>Grinblatt &amp; Keloharju (2000)：识别趋势追逐的方法是比较"追涨比例"与"杀跌比例"是否显著高于随机基准。散户是典型的趋势追随者，而机构在同期反向操作并获得更高收益。</div></div><div class="rule"><span class="r">2</span><div><b>判定</b>：顺势占比明显高于随机基准（你 ${pct(M.trendShare,0)} vs ${pct(M.randBase,0)}）→ <span class="${M.trendShare>M.randBase+0.05?'hit':'miss'}">${M.trendShare>M.randBase+0.05?'触发':'未触发'}</span>；牛熊加权后更高，说明追涨杀跌集中在极端行情——那恰恰是最贵的时候。</div></div></div>
+  <div class="blk fix"><h5>怎么矫正</h5><ul class="fixes"><li>市场进入牛/熊状态时，任何顺势交易先看"N 年前类似行情之后 12 个月的走势"，再等 24 小时。</li><li>用信号定投：按估值温度决定买多少，越热买越少，把"涨了才敢买"反过来。</li><li>预设规则："跌 X% 加仓一份、涨不追"，写下来并交给系统执行。</li></ul>${fixBtn('HSI')}</div>`},
+ EAD(M){const tot=M.S.reduce((s,h)=>s+h.val,0);const eqAmt=tot*M.eqShare,need=tot*Math.max(0,M.gap);const prem=0.045;
+  return `<div class="def"><b>怎么算</b>：把你的风险评级映射成理论权益配比（C1 0% … C5 90%），再穿透所有持仓（组合穿到底层）算出实际权益占比（近 90 天日均市值加权）。EAD = max(0, 理论 − 实际)，只罚少配、不罚超配。</div>
+  <div class="blk ev"><h5>你的数据</h5>${hbar('理论建议权益（C4）',THEORY,1,'g',pct(THEORY,0))}${hbar('你的实际权益',M.eqShare,1,M.gap>0.05?'o':'',pct(M.eqShare,0))}
+  <ul class="facts" style="margin-top:8px"><li><span>权益缺口</span><b class="${cls(M.gap>0.15,M.gap<=0.05)}">${M.gap>0?pp(M.gap).replace('+',''):'已达标（超配 '+pp(-M.gap).replace('+','')+'）'}</b></li><li><span>期末总资产 / 其中权益</span><b>¥${money(tot)} / ¥${money(eqAmt)}</b></li><li><span>补齐缺口约需转入权益</span><b>${need>0?'¥'+money(need):'—'}</b></li><li><span>按权益长期溢价约 ${pct(prem,1)}/年估算的机会成本</span><b class="${M.gap>0.05?'bad':'ok'}">${M.gap>0?'约 '+pp(M.gap*prem,2).replace('+','')+' / 年':'—'}</b></li></ul><p class="cite">机会成本为示意估算（缺口 × 假设权益溢价），不代表任何预期收益。Morningstar Gamma 研究估计优化资产配置等五项决策合计等效每年 1.59% 收益。</p></div>
+  <div class="blk"><h5>为什么算偏误</h5><div class="rule"><span class="r">1</span><div>Benartzi &amp; Thaler (1995) 的"短视损失厌恶"：过度关注短期波动的人会系统性低配权益，长期少赚的溢价远大于避免的波动。你的风险测评说你能承受 C4 的波动，但账户在"用脚投票"。</div></div><div class="rule"><span class="r">2</span><div><b>判定</b>：缺口 &gt; 15pp 为重度、&gt; 5pp 为留意 → 你 ${M.gap>0?pp(M.gap).replace('+',''):'0'}，<span class="${M.gap>0.15?'hit':M.gap>0.05?'hit':'miss'}">${M.gap>0.15?'重度':M.gap>0.05?'留意':'达标'}</span>。</div></div></div>
+  <div class="blk fix"><h5>怎么矫正</h5><ul class="fixes"><li>不要一次性补——把缺口拆成 3–6 个月的定投计划，避免再次择时。</li><li>用与你风险等级匹配的组合承接，由主理人负责底层配置与再平衡。</li><li>先补到建议区间下限，跌了不停、涨了不追。</li></ul>${fixBtn('EAD')}</div>`},
+ APD(M){return `<div class="def"><b>怎么算</b>：对当前持仓中"持有满半年且仍浮亏"的标的，累计（成本 − 净值）÷ 成本，再除以你当前持仓标的总数。它衡量的是：有多少钱被"等回本"这个念头锚在了原地。</div>
+  <div class="blk ev"><h5>你的浮亏挂账清单</h5>${M.anchored.length?`<table class="tbl"><tr><th>持仓</th><th class="n">浮亏</th><th class="n">已持有</th><th class="n">回本需涨</th></tr>${M.anchored.map(h=>`<tr><td>${FM[h.id].name}</td><td class="n bad">-${pct(h.gap)}</td><td class="n">${h.days} 天</td><td class="n">+${pct(h.need)}</td></tr>`).join('')}</table>`:'<div class="empty">当前没有持有超半年仍浮亏的仓位</div>'}
+  <ul class="facts" style="margin-top:8px"><li><span>APD 原始值 / 标准化</span><b>${n2(M.apdRaw,3)} / ${n2(M.apdNorm)}</b></li><li><span>浮亏挂账标的 / 当前持仓标的</span><b>${M.anchored.length} / ${M.nH}</b></li><li><span>浮亏时继续加仓占买入</span><b class="${cls(M.lossAddRate>0.35,M.lossAddRate<0.2)}">${pct(M.lossAddRate,0)}</b></li></ul></div>
+  <div class="blk ev"><h5>反事实：回本要多久</h5><p style="font-size:12px;color:#606060;line-height:1.65">${M.anchored.length?`浮亏 ${pct(M.anchored[0].gap,0)} 的仓位需要上涨 ${pct(M.anchored[0].need,0)} 才回本——亏损与回本涨幅是不对称的。同一笔钱如果放在你风险等级匹配的组合里，判断依据是"未来哪个更好"，而不是"过去在哪买的"。成本价对未来的净值走势没有任何预测力，它只是你的心理锚。`:'你的持仓里没有长期挂账的浮亏，说明你对亏损仓位有主动处置，这是好习惯。'}</p></div>
+  <div class="blk"><h5>为什么算偏误</h5><div class="rule"><span class="r">1</span><div>Tversky &amp; Kahneman (1974) 的锚定效应：人们以一个初始值为参照来做判断。投资中，买入成本是最常见的锚——它让"卖不卖"取决于"回不回本"，而非"值不值"。</div></div><div class="rule"><span class="r">2</span><div><b>判定</b>：≥2 只持仓浮亏挂账超半年且标准化读数 &gt; 0.10 为重度 → 你 ${M.anchored.length} 只 / ${n2(M.apdNorm)}，<span class="${M.level.APD==='high'?'hit':M.level.APD==='mid'?'hit':'miss'}">${LVT[M.level.APD]}</span>。</div></div></div>
+  <div class="blk fix"><h5>怎么矫正</h5><ul class="fixes"><li>对清单里每一只问："如果今天空仓，我会买它吗？"会→继续持有甚至补仓；不会→换掉。</li><li>用"智能转换"把不再想持有的浮亏仓位换到组合，避免"卖了就空仓"的心理阻力。</li><li>把持仓页切换到"不显示成本价"视图，只看配置比例与未来判断。</li></ul>${fixBtn('APD')}</div>`},
+ RSI(M){return `<div class="def"><b>怎么算</b>：把你每周的净买入（买 − 卖）与当周市场涨跌做相关分析。相关系数越正，说明市场刚涨你就多买、刚跌你就收手——决策被最近几天的行情牵引。</div>
+  <div class="blk ev"><h5>你的周净买入 vs 当周行情</h5>${scatter(M.mr,M.nb,M.corr)}<ul class="facts" style="margin-top:8px"><li><span>相关系数 r（−1 ~ 1，0 为无关）</span><b class="${cls(M.corr>0.3,M.corr<=0.15)}">${n2(M.corr)}</b></li><li><span>标准化读数（r+1）/2</span><b>${n2(M.rsiNorm)}</b></li><li><span>有交易的周数 / 区间周数</span><b>${M.activeWeeks} / ${M.wks.length}</b></li></ul><p class="cite">研究显示 RSI 在公募基金场景整体接近 0、人群间几乎无分化（全平台 0.46–0.51）；对个人而言，r &gt; 0.3 才值得当作信号。</p></div>
+  <div class="blk"><h5>为什么算偏误</h5><div class="rule"><span class="r">1</span><div>Barberis &amp; Thaler (2003) 把近期偏误列为散户主要认知偏差之一：人们过度外推最近发生的事，把几天的涨跌当成趋势。</div></div><div class="rule"><span class="r">2</span><div><b>判定</b>：r &gt; 0.3 为重度、&gt; 0.15 为留意 → 你 ${n2(M.corr)}，<span class="${M.corr>0.15?'hit':'miss'}">${LVT[M.level.RSI]}</span>。</div></div></div>
+  <div class="blk fix"><h5>怎么矫正</h5><ul class="fixes"><li>固定每周同一天下单（定投日），让买入与当周涨跌脱钩。</li><li>关闭涨跌推送，把看账户的频率从每天降到每周。</li></ul>${fixBtn('RSI')}</div>`},
+ HSBI(M){if(!M.evs.length)return `<div class="empty">区间内没有组合调仓事件，本项不适用。</div>`;const missed=M.evs.length-M.fol.length;
+  return `<div class="def"><b>怎么算</b>：HSBI = 1 − 实际跟投比例。实际跟投比例 = 你执行的调仓次数 ÷ 持有期内主理人发出的调仓总次数。买了组合却不跟调仓，仓位会逐渐偏离策略本意。</div>
+  <div class="blk ev"><h5>你的跟投时间线</h5>${timeline(M.evs,M.a,M.b)}<div class="legend" style="flex-wrap:wrap;gap:6px 12px"><span><i style="background:${C.blue}"></i>手动跟投</span><span><i style="background:${C.green}"></i>自动跟车</span><span><i style="background:#fff;border:2px solid ${C.red}"></i>未跟</span><span style="color:#999">竖线越高 = 滞后越久</span></div>
+  <ul class="facts" style="margin-top:8px"><li><span>应调仓 / 实际跟投</span><b>${M.evs.length} / ${M.fol.length} 次</b></li><li><span>跟投缺口</span><b class="${cls(missed>=4,missed<=1)}">${missed} 次</b></li><li><span>实际跟投比例</span><b>${pct(M.FTR,0)}</b></li><li><span>HSBI（未跟投比例）</span><b class="${cls(M.HSBI>0.4,M.HSBI<=0.2)}">${n2(M.HSBI)}</b></li></ul><p class="cite">参照：长赢用户平均跟投比例 62.1%（HSBI 0.3956，8 组最高缺口），东方金匠 99.2%（几乎全自动执行）。</p></div>
+  <div class="blk"><h5>为什么算偏误</h5><div class="rule"><span class="r">1</span><div>Thaler (1980) 的禀赋效应：人对"已拥有"的东西估值偏高、不愿调整。在组合里的形态是：买了策略，却把每次调仓当成一次新决策来犹豫。</div></div></div>
+  <div class="blk fix"><h5>怎么矫正</h5><ul class="fixes"><li>开启自动跟车：调仓由系统按主理人指令执行，你只需决定"要不要继续跟这个策略"。</li><li>若坚持手动，打开调仓提醒并承诺 48 小时内执行。</li></ul>${fixBtn('HSBI')}</div>`},
+ FIII(M){if(!M.evs.length)return `<div class="empty">区间内没有组合调仓事件，本项不适用。</div>`;
+  return `<div class="def"><b>怎么算</b>：FIII = (1 − 跟投率) + 0.4 × 选择性跟投偏差 + 0.3 × 归一化滞后。三项分别对应"跟得少""挑着跟""跟得慢"。选择性跟投偏差 = 组合盈利时的跟投率 − 亏损时的跟投率。</div>
+  <div class="blk ev"><h5>你的数据</h5>${hbar('组合盈利时跟投率',M.rateP||0,1,'o',pct(M.rateP,0))}${hbar('组合亏损时跟投率',M.rateL||0,1,'',pct(M.rateL,0))}
+  <ul class="facts" style="margin-top:8px"><li><span>近区间跟投率 FTR</span><b>${pct(M.FTR,0)}</b></li><li><span>选择性跟投偏差 SFIB</span><b class="${cls(M.SFIB>0.3,M.SFIB<=0.1)}">${pp(M.SFIB).replace('+','')}</b></li><li><span>平均执行滞后</span><b class="${cls(M.lag>3,M.lag<=1)}">${n2(M.lag,1)} 天</b></li><li><span>FIII</span><b class="${cls(M.FIII>0.5,M.FIII<=0.3)}">${n2(M.FIII)}</b></li></ul><p class="cite">${M.SFIB>0.15?'你在组合盈利时更愿意跟、亏损时更犹豫——这与"只跟止盈、回避止损"的选择性跟投一致，恰好是处置效应在组合里的翻版。':'你在盈亏两种状态下的跟投率接近，没有明显的选择性跟投。'}</p></div>
+  <div class="blk fix"><h5>怎么矫正</h5><ul class="fixes"><li>自动跟车能同时消除"挑着跟"和"跟得慢"——止损调仓和止盈调仓一样执行。</li><li>如果某次调仓你确实不认同，正确的动作是重新评估要不要继续持有该策略，而不是只跳过这一次。</li></ul>${fixBtn('FIII')}</div>`},
+};
+
+/* ---- 矫正计划 ---- */
+function planAfter(){const n={...M.norm};ACTIONS.filter(x=>planSel.has(x.id)).forEach(x=>{for(const k in x.eff){if(isN(n[k]))n[k]=x.eff[k]===0?0:n[k]*x.eff[k]}});let t=0;for(const k in WT){t+=WT[k]*(isN(n[k])?n[k]:REF.all[k])}return {norm:n,total:t,pct:phi((0.29-t)/0.11)}}
+function renderPlan(){const af=planAfter();$('#planSum').innerHTML=`<div><div class="v num">${M.total.toFixed(2)}</div><div class="l">当前综合偏误分<br>${Math.round(M.pctBetter*100)}% 的用户偏误分高于你</div></div><div class="arrow">→</div><div class="after"><div class="v num">${af.total.toFixed(2)}</div><div class="l">矫正后估算<br>${Math.round(af.pct*100)}% 的用户偏误分高于你</div></div>`;
+ const order=ACTIONS.slice().sort((x,y)=>LV[M.level[y.k]]-LV[M.level[x.k]]);
+ $('#actions').innerHTML=order.map(x=>{const lv=M.level[x.k];const on=planSel.has(x.id);return `<div class="act ${on?'on':''}" data-act="${x.id}"><div class="ck"><svg class="icon" style="stroke-width:2.6"><use href="#i-check"/></svg></div><div class="bd"><b>${x.title}<span class="tg lv-${lv}">${IND[x.k].name} · ${LVT[lv]}</span></b><p>${x.desc}</p><div class="eff">预期：<b>${x.gain}</b></div></div></div>`}).join('');
+ const sel=ACTIONS.filter(x=>planSel.has(x.id));
+ $('#contract').innerHTML=sel.length?`<b>我的行为契约</b>（${sel.length} 项）：${sel.map((x,i)=>`${i+1}. ${x.title}`).join('；')}。<br>约定复查：<b>30 天后</b>用同一区间口径重算，观察对应指标是否改善；效果最终以行为差收窄为准。`:`<b>尚未选择任何措施</b>。至少勾选一项，我们会在 30 天后按同一口径复查。`}
+function renderNudge(){const w=M.winners;const avgSellRet=mean(w.map(s=>s.pnl));const cur=0.031;const dev=isN(avgSellRet)?cur-avgSellRet:NaN;const sa=M.soldAfter.m6;
+ $('#nudgeBody').innerHTML=`<h6><svg class="icon"><use href="#i-alert"/></svg>卖出前，先看一眼你的交易习惯</h6><p>您过往的交易行为呈现出「留住亏损、卖出盈利」的倾向：区间内盈利变现率 ${pct(M.PGR,0)}，亏损变现率 ${pct(M.PLR,0)}。多数投资者容易过早卖出盈利资产、长期持有亏损资产，这可能导致收益降低。</p><div class="stat"><div><div class="v">+${pct(cur)}</div><div class="l">本次卖出持有收益</div></div><div><div class="v">${isN(avgSellRet)?'+'+pct(avgSellRet):'—'}</div><div class="l">你过往盈利卖出均值</div></div><div><div class="v" style="color:${isN(sa.v)&&sa.v>0?'#FA6A55':'#333'}">${isN(sa.v)?pp(sa.v):'—'}</div><div class="l">你卖掉的产品 6 个月后</div></div></div><p class="ok">建议您从这只标的的基本面与配置角色出发，而非止盈心态，考虑长期持有是否更有助于实现您的投资目标。</p><div class="btns"><button class="ghost" data-nudge="sell">继续卖出</button><button class="pri" data-nudge="think">再想想</button></div>`}
+
+/* =====================================================================
+   6. 交互
+   ===================================================================== */
+function toast(t){const el=$('#toast');el.textContent=t;el.classList.add('show');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),1800)}
+$('#presetChips').addEventListener('click',e=>{const c=e.target.closest('.chip');if(!c)return;$$('#presetChips .chip').forEach(x=>x.classList.remove('on'));c.classList.add('on');const p=c.dataset.p;if(p==='all')setRange(0,N-1);else setRange(N-1-(+p-1),N-1)});
+function onMonth(){const [sy,sm]=$('#mStart').value.split('-').map(Number),[ey,em]=$('#mEnd').value.split('-').map(Number);if(!sy||!ey)return;let a=clamp(Math.ceil((new Date(sy,sm-1,1)-W0)/(7*864e5)),0,N-1),b=clamp(Math.floor((new Date(ey,em,0)-W0)/(7*864e5)),0,N-1);if(b<=a){b=Math.min(N-1,a+8)}$$('#presetChips .chip').forEach(x=>x.classList.remove('on'));setRange(a,b)}
+$('#mStart').addEventListener('change',onMonth);$('#mEnd').addEventListener('change',onMonth);
+document.addEventListener('click',e=>{
+ const r=e.target.closest('[data-ref]');if(r){refKey=r.dataset.ref;renderRadar();return}
+ const tg=e.target.closest('[data-toggle]');if(tg){tg.parentElement.classList.toggle('open');return}
+ const af=e.target.closest('[data-addfix]');if(af){const k=af.dataset.addfix;const ids=ACTIONS.filter(a=>a.k===k).map(a=>a.id);const all=ids.every(id=>planSel.has(id));ids.forEach(id=>all?planSel.delete(id):planSel.add(id));renderEvidence();renderPlan();toast(all?'已从矫正计划移除':'已加入矫正计划');return}
+ const ac=e.target.closest('[data-act]');if(ac){const id=ac.dataset.act;planSel.has(id)?planSel.delete(id):planSel.add(id);renderPlan();renderEvidence();return}
+ const nd=e.target.closest('[data-nudge]');if(nd){toast(nd.dataset.nudge==='sell'?'演示：已记录本次选择（继续卖出）':'演示：返回持仓分析页');return}
+});
+$('#ctaPlan').addEventListener('click',()=>{document.querySelector('#sec-plan').scrollIntoView({behavior:'smooth',block:'start'});toast('已按你的问题优先级生成计划')});
+$('#ctaAdvisor').addEventListener('click',()=>toast('演示：将为你预约专属顾问解读'));
+const secs=['sec-overview','sec-issues','sec-evidence','sec-plan'];
+window.addEventListener('scroll',()=>{let cur=secs[0];secs.forEach(id=>{const el=document.getElementById(id);if(el.getBoundingClientRect().top<120)cur=id});$$('#subnav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+cur))},{passive:true});
+$$('#subnav a').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();document.querySelector(a.getAttribute('href')).scrollIntoView({behavior:'smooth',block:'start'})}));
+
+setRange(N-52,N-1);
+</script>
+</body>
+</html>
