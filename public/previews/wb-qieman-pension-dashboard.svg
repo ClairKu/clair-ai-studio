@@ -1,22 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
-  <title id="title">颐养天年 · 口径纠正版经营看板</title>
-  <desc id="desc">养老专区、且慢养老金账户、个人养老金账户与颐养天年四层分开核算。</desc>
+  <title id="title">颐养天年经营简报｜2026年9月</title>
+  <desc id="desc">颐养天年管理规模、持有人、净申购与增长重点。</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#20242A"/><stop offset="1" stop-color="#6A5733"/></linearGradient>
     <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#D9C59B"/><stop offset="1" stop-color="#7FA88D"/></linearGradient>
   </defs>
   <rect width="1200" height="675" fill="url(#bg)"/><circle cx="1060" cy="80" r="250" fill="#fff" opacity=".05"/>
-  <text x="74" y="76" fill="#D9C59B" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="17" letter-spacing="5">PENSION DATA · DEFINITION FIRST</text>
-  <text x="74" y="160" fill="#fff" font-family="Songti SC,STSong,serif" font-size="58" font-weight="700">先分清对象，再讨论增长</text>
-  <text x="74" y="211" fill="#DAD5C8" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="20">颐养天年 · 口径纠正版经营看板</text>
-  <g transform="translate(74 276)" font-family="PingFang SC,Microsoft YaHei,sans-serif">
-    <g><rect width="245" height="148" rx="16" fill="#FFFEFA" opacity=".96"/><rect width="245" height="6" rx="3" fill="#8A6D3C"/><text x="20" y="43" fill="#6A6256" font-size="15">养老专区 · 规划层</text><text x="20" y="93" fill="#614820" font-family="Georgia,serif" font-size="38" font-weight="700">19,742</text><text x="20" y="122" fill="#8D8A82" font-size="13">规划服务对象，不是投资账户</text></g>
-    <g transform="translate(265)"><rect width="245" height="148" rx="16" fill="#FFFEFA" opacity=".96"/><rect width="245" height="6" rx="3" fill="#315B7D"/><text x="20" y="43" fill="#6A6256" font-size="15">且慢养老金账户 · QMP</text><text x="20" y="93" fill="#315B7D" font-family="Georgia,serif" font-size="38" font-weight="700">3,019</text><text x="20" y="122" fill="#8D8A82" font-size="13">账户容器，不等于产品持有人</text></g>
-    <g transform="translate(530)"><rect width="245" height="148" rx="16" fill="#FFFEFA" opacity=".96"/><rect width="245" height="6" rx="3" fill="#6E5D86"/><text x="20" y="43" fill="#6A6256" font-size="15">个人养老金账户 · TD</text><text x="20" y="93" fill="#6E5D86" font-family="Georgia,serif" font-size="38" font-weight="700">4,608</text><text x="20" y="122" fill="#8D8A82" font-size="13">独立税优账户，不与 QMP 合并</text></g>
-    <g transform="translate(795)"><rect width="245" height="148" rx="16" fill="#FFFEFA" opacity=".96"/><rect width="245" height="6" rx="3" fill="#356B50"/><text x="20" y="43" fill="#6A6256" font-size="15">颐养天年 · 产品层</text><text x="20" y="93" fill="#356B50" font-family="Georgia,serif" font-size="38" font-weight="700">678.71万</text><text x="20" y="122" fill="#8D8A82" font-size="13">最新结算 AUM · 370 位持有人</text></g>
+  <text x="74" y="76" fill="#D9C59B" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="17" letter-spacing="5">养老投顾策略 · 2026年9月经营简报</text>
+  <text x="74" y="157" fill="#fff" font-family="Songti SC,STSong,serif" font-size="56" font-weight="700">净流入改善，规模增长仍需提速</text>
+  <text x="74" y="207" fill="#DAD5C8" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="20">颐养天年经营简报 · 2026年9月</text>
+  <g transform="translate(74 272)" font-family="PingFang SC,Microsoft YaHei,sans-serif">
+    <g><rect width="245" height="148" rx="16" fill="#FFFEFA" opacity=".96"/><rect width="245" height="6" rx="3" fill="#356B50"/><text x="20" y="43" fill="#6A6256" font-size="15">管理规模</text><text x="20" y="93" fill="#356B50" font-family="Georgia,serif" font-size="38" font-weight="700">678.71万</text><text x="20" y="122" fill="#8D8A82" font-size="13">9月23日资产数据</text></g>
+    <g transform="translate(265)"><rect width="245" height="148" rx="16" fill="#FFFEFA" opacity=".96"/><rect width="245" height="6" rx="3" fill="#8A6D3C"/><text x="20" y="43" fill="#6A6256" font-size="15">当前持有人</text><text x="20" y="93" fill="#614820" font-family="Georgia,serif" font-size="38" font-weight="700">370人</text><text x="20" y="122" fill="#8D8A82" font-size="13">历史签约 681 人</text></g>
+    <g transform="translate(530)"><rect width="245" height="148" rx="16" fill="#FFFEFA" opacity=".96"/><rect width="245" height="6" rx="3" fill="#356B50"/><text x="20" y="43" fill="#6A6256" font-size="15">9月净申购</text><text x="20" y="93" fill="#356B50" font-family="Georgia,serif" font-size="38" font-weight="700">21.04万</text><text x="20" y="122" fill="#8D8A82" font-size="13">申购 23.02 万 · 赎回 1.99 万</text></g>
+    <g transform="translate(795)"><rect width="245" height="148" rx="16" fill="#FFFEFA" opacity=".96"/><rect width="245" height="6" rx="3" fill="#315B7D"/><text x="20" y="43" fill="#6A6256" font-size="15">户均持有</text><text x="20" y="93" fill="#315B7D" font-family="Georgia,serif" font-size="38" font-weight="700">1.83万</text><text x="20" y="122" fill="#8D8A82" font-size="13">下一步重点：复投与追加</text></g>
   </g>
-  <rect x="74" y="470" width="1040" height="2" fill="url(#accent)"/>
-  <text x="74" y="532" fill="#fff" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="21" font-weight="700">真实 9 月净申购 21.04 万</text>
-  <text x="74" y="570" fill="#DAD5C8" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="16">已删除 421 万、5,862 万等示意数据 · 生产实查 2026-09-24</text>
+  <rect x="74" y="469" width="1040" height="2" fill="url(#accent)"/>
+  <text x="74" y="532" fill="#fff" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="22" font-weight="700">经营重点：做深在持客户，盘活历史签约，提升账户转化</text>
+  <text x="74" y="571" fill="#DAD5C8" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="16">数据更新至 2026-09-24</text>
   <text x="1125" y="621" text-anchor="end" fill="#D9C59B" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="14">CLAIR AI STUDIO</text>
 </svg>

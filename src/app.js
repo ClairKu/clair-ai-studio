@@ -345,15 +345,15 @@ const initialState = {
     {
       id: "wb-qieman-pension-dashboard",
       groupId: "ai-workbench",
-      title: "颐养天年 · 口径纠正版经营看板",
+      title: "颐养天年经营简报 · 2026年9月",
       url: "https://clairku.github.io/clair-ai-studio/apps/yingmi-advisor-workbench-2026-09-10/qieman-pension-dashboard.html",
       preview: "wb-qieman-pension-dashboard.svg",
       pinned: false,
       createdAt: "2026-09-21T18:28:00+08:00",
-      source: "生产实查：养老专区、养老账户、颐养天年分层口径",
+      source: "管理规模、资金流、客户增长与经营行动",
       access: "production",
       workType: "product-demo",
-      tags: ["养老", "颐养天年", "账户口径", "生产数据"],
+      tags: ["养老", "颐养天年", "经营简报", "增长洞察"],
     },
     {
       id: "wb-qieman-pension-strategy-brief",

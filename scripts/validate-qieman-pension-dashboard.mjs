@@ -11,17 +11,20 @@ function assert(condition, message) {
 
 function validate(content, label) {
   const required = [
-    "口径纠正版经营看板", "四个对象，四套口径", "养老专区记录", "且慢养老金账户",
-    "个人养老金账户", "颐养天年", "19,742", "3,019", "4,608", "681", "756",
-    "599", "370", "394", "678.71", "23.02", "1.99", "21.04", "972.12",
-    "362.64", "609.48", "数据索引", "D-001", "D-015", "自检记录"
+    "颐养天年经营简报", "净流入改善", "经营结论", "老板需要知道的四件事",
+    "增长势头", "下一步怎么做", "养老业务盘面", "管理规模", "当前持有人",
+    "19,742", "3,019", "4,608", "681", "370", "678.71", "23.02", "1.99",
+    "21.04", "1.83", "158.71", "优先级 P0", "做深 370 位在持客户"
   ];
   for (const marker of required) assert(content.includes(marker), `${label} 缺少：${marker}`);
-  const forbidden = ["class=\"value num\">5,862", ">421<", "const flow=[168", "月定投占比</b>", "测算转化率</b>"];
-  for (const marker of forbidden) assert(!content.includes(marker), `${label} 仍含旧版无证据数据：${marker}`);
-  assert(content.includes("不是 421 万"), `${label} 未明确纠正 421 万`);
-  assert(content.includes("禁止直接相除"), `${label} 未声明跨对象转化率边界`);
-  assert(content.includes("日快照比实时元数据多 2 位用户"), `${label} 未解释时点差异`);
+  const forbidden = [
+    "口径纠正版", "本次纠错", "禁止直接相除", "数据索引", "自检记录", "D-001",
+    "D-015", "QMP", "TD", "PC00010026", "不是 421 万", "421 万", "5,862 万",
+    "实时账户元数据", "日快照比实时元数据"
+  ];
+  for (const marker of forbidden) assert(!content.includes(marker), `${label} 仍含老板版不应出现的话术：${marker}`);
+  assert(content.includes("不能相加，也不能当作同一条漏斗直接计算"), `${label} 缺少必要的对象边界`);
+  assert(content.includes("两者差额不能直接视为流失"), `${label} 对历史签约与当前持有人作了过度推断`);
 }
 
 assert(fs.existsSync(publicFile), "缺少 public 养老看板");
@@ -31,4 +34,4 @@ if (process.argv.includes("--docs")) {
   validate(fs.readFileSync(docsFile, "utf8"), "docs 养老看板");
 }
 
-console.log("颐养天年口径纠正版校验通过：对象分层、真实数值、旧示意值清除、索引与自检记录均完整。");
+console.log("颐养天年老板版经营简报校验通过：结论、洞察、行动与必要的数据边界均完整。");
