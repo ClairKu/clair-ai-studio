@@ -853,8 +853,10 @@ const WTYPE={
   ontology:{glyph:'◎',color:'#6D5BD0',lb:'功能页'},
   c360:{glyph:'◉',color:'#12558C',lb:'功能页'},
   cockpit:{glyph:'◈',color:'#0E8FA8',lb:'功能页'},
+  signal:{glyph:'◐',color:'#1B88EE',lb:'市场信号'},
+  toolbox:{glyph:'▦',color:'#B98A2F',lb:'功能导航'},
 };
-const PAGE_TITLES={home:'今日工作台',customers:'客户列表',tasks:'任务中心',events:'事件中心',reports:'规划报告',research:'产品投研',scripts:'话术材料',dash:'数据看板',ontology:'盈米本体',c360:'客户 360° 引擎',cockpit:'客户 360° 驾驶舱'};
+const PAGE_TITLES={home:'今日工作台',customers:'客户列表',tasks:'任务中心',events:'事件中心',reports:'规划报告',research:'产品投研',scripts:'话术材料',dash:'数据看板',ontology:'盈米本体',c360:'客户 360° 引擎',cockpit:'客户 360° 驾驶舱',signal:'市场信号灯（且慢 C 端）',toolbox:'全部工具与专题页面'};
 let FLOAT_N=0,FLOAT_Z=10,THREAD_N=0;
 
 /* ================= SVG 图表 ================= */
@@ -899,9 +901,11 @@ const NAV=[
  {k:'events',ico:'⚡',lb:'事件'},
  {k:'reports',ico:'❖',lb:'规划报告'},
  {k:'research',ico:'◈',lb:'投研'},
+ {k:'signal',ico:'◐',lb:'市场信号灯'},
  {k:'scripts',ico:'✎',lb:'话术库'},
  {k:'dash',ico:'▤',lb:'数据看板'},
  {k:'ontology',ico:'◎',lb:'盈米本体'},
+ {k:'toolbox',ico:'▦',lb:'全部工具'},
 ];
 const NAV_SVG={
  home:'<path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-6h6v6"/>',
@@ -915,6 +919,8 @@ const NAV_SVG={
  scripts:'<path d="M4 20h4L20 8a2.8 2.8 0 0 0-4-4L4 16z"/><path d="m13.5 6.5 4 4"/>',
  dash:'<rect x="3" y="3" width="8" height="10" rx="2"/><rect x="13" y="3" width="8" height="6" rx="2"/><rect x="13" y="11" width="8" height="10" rx="2"/><rect x="3" y="15" width="8" height="6" rx="2"/>',
  ontology:'<circle cx="6" cy="7" r="2.4"/><circle cx="18" cy="7" r="2.4"/><circle cx="12" cy="17" r="2.4"/><path d="M8.2 8.2 10.4 15.2M15.8 8.2 13.6 15.2M8.4 7h7.2"/>',
+ signal:'<path d="M4 17a8 8 0 0 1 16 0"/><path d="M12 17l4-5"/><circle cx="12" cy="17" r="1.6"/><path d="M4 21h16"/>',
+ toolbox:'<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
 };
 function railBtn(n){
   const bdg=n.bdg?n.bdg():0;
@@ -1019,6 +1025,15 @@ function pgHome(){
 
   <div class="grid g4" style="margin-top:13px">
     ${DB.dash.kpis.map(k=>`<div class="card kpi"><div class="lb">${k.lb}</div><div class="vl num">${k.vl}</div><div class="dl ${k.dir}">${k.dir==='up'?'▲':k.dir==='down'?'▼':'●'} ${k.dl}</div></div>`).join('')}
+  </div>
+
+  <div class="card" style="margin-top:13px">
+    <div class="c-head"><h3>专题工具已恢复</h3><span class="tag blue">12 个页面</span><span class="more" onclick="go('toolbox')">查看全部 ›</span></div>
+    <div class="c-body" style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+      <div style="flex:1;min-width:260px;font-size:12px;color:var(--ink-2);line-height:1.65">市场信号、养老规划、养老经营分析、VESTA 规则、微信 AI 看板、客户 360 与深色版等历史页面已统一找回，可从左侧“市场信号”或“全部工具”进入。</div>
+      <button class="btn pri" onclick="go('signal')">打开市场信号灯</button>
+      <button class="btn" onclick="go('toolbox')">浏览全部页面</button>
+    </div>
   </div>
 
   <div class="grid g32" style="margin-top:13px">
@@ -1405,6 +1420,29 @@ function pgC360(){
 function pgCockpit(){
   return `<div class="onto-wrap"><iframe src="customer-360-cockpit.html" title="客户 360° 驾驶舱"></iframe></div>`;
 }
+function pgSignal(){
+  return `<div class="onto-wrap"><iframe src="qieman-market-signal.html" title="市场信号灯 · 且慢 C 端工具页"></iframe></div>`;
+}
+const TOOL_PAGES=[
+  {title:'市场信号灯 · 且慢',file:'qieman-market-signal.html',tag:'市场信号',desc:'VESTA 八类宏观信号翻译、持仓关联与服务闭环',color:'#1B88EE'},
+  {title:'养老规划 · 且慢',file:'qieman-pension-planner.html',tag:'养老规划',desc:'目标测算、资金缺口与三层养老账户规划',color:'#0E8FA8'},
+  {title:'颐养天年 · 产品数据看板',file:'qieman-pension-dashboard.html',tag:'经营看板',desc:'规模、增长、产品与经营指标的双视图看板',color:'#0E9F6E'},
+  {title:'颐养天年 · 上线数据分析',file:'qieman-pension-data-analysis.html',tag:'数据分析',desc:'留存、资金、客群、账户收益与行为差异分析',color:'#D97706'},
+  {title:'颐养天年 · 策略业务解读',file:'qieman-pension-strategy-brief.html',tag:'策略解读',desc:'养老钱如何随年龄自动降低风险的业务说明',color:'#B98A2F'},
+  {title:'VESTA 养老测算引擎',file:'vesta-pension-engine-analysis.html',tag:'规则解析',desc:'三段式规则、参数审计与产品映射',color:'#6D5BD0'},
+  {title:'微信 AI 能力调用看板',file:'wechat-ai-dashboard.html',tag:'能力看板',desc:'微信 AI 调用量与服务承接效果监测',color:'#0E8FA8'},
+  {title:'客户 360° 引擎',file:'customer-360.html',tag:'客户视图',desc:'资产、交易、风险、行为与陪伴信息聚合',color:'#12558C'},
+  {title:'客户 360° 驾驶舱',file:'customer-360-cockpit.html',tag:'经营驾驶舱',desc:'顾问待办、机会、风险预警与关系图谱',color:'#12558C'},
+  {title:'盈米本体浏览器',file:'ontology-explorer.html',tag:'知识图谱',desc:'业务概念、实体与关系的可视化浏览',color:'#6D5BD0'},
+  {title:'新一代顾问工作台 · 墨玉版',file:'index-dark.html',tag:'深色版',desc:'深夜交易室风格的完整顾问工作台皮肤',color:'#16213A'},
+  {title:'新一代顾问工作台 · 宣纸版',file:'index.html',tag:'当前主版',desc:'当前页面，承载客户经营、投研与顾问副驾',color:'#B98A2F'},
+];
+function pgToolbox(){
+  return `<div class="page">
+    <div class="page-head"><div><h1>全部工具与专题页面</h1><div class="sub">已从历史版本与当前发布目录核对，共找回 ${TOOL_PAGES.length} 个有效页面入口</div></div><div class="acts"><button class="btn pri" onclick="go('signal')">市场信号灯</button></div></div>
+    <div class="grid g3">${TOOL_PAGES.map((p,i)=>`<div class="card" style="border-top:3px solid ${p.color}"><div class="c-body" style="min-height:142px;display:flex;flex-direction:column;gap:8px"><div class="flex" style="justify-content:space-between;gap:8px"><h3 style="font-size:14px">${p.title}</h3><span class="tag blue">${p.tag}</span></div><div style="font-size:12px;line-height:1.65;color:var(--ink-2);flex:1">${p.desc}</div><div class="flex"><a class="mini-btn pri" href="${p.file}" target="_blank" rel="noopener">新页打开</a>${i===0?'<button class="mini-btn" onclick="go(\'signal\')">工作台内打开</button>':''}</div></div></div>`).join('')}</div>
+  </div>`;
+}
 function openOnto(id){
   S.ontoHash=id||'';
   go('ontology');
@@ -1471,7 +1509,7 @@ function wtabHTML(p,t){
 function tabContent(t){
   if(t.type==='customer')return pgCustomer360(t);
   if(t.type==='report')return pgReport(DB.reports.find(x=>x.id===t.refId));
-  return {home:pgHome,customers:pgCustomers,tasks:pgTasks,events:pgEvents,reports:pgReports,research:pgResearch,scripts:pgScripts,dash:pgDash,ontology:pgOntology,c360:pgC360,cockpit:pgCockpit}[t.refId]();
+  return {home:pgHome,customers:pgCustomers,tasks:pgTasks,events:pgEvents,reports:pgReports,research:pgResearch,scripts:pgScripts,dash:pgDash,ontology:pgOntology,c360:pgC360,cockpit:pgCockpit,signal:pgSignal,toolbox:pgToolbox}[t.refId]();
 }
 function renderCanvas(){
   const cv=$('#canvas');
