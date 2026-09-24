@@ -5,424 +5,343 @@
     <script data-clair-access-gate data-clair-access-scope="workspace" src="../../access-gate.js"></script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>颐养天年 · 产品数据看板</title>
+<meta name="report-data-cutoff" content="2026-09-24T10:13:35+08:00" />
+<title>颐养天年 · 口径纠正版经营看板</title>
 <style>
 :root{
-  --brand:#8A6D3C; --brand-deep:#6E5730; --brand-050:#F4EFE3; --brand-100:#E3D8BE;
-  --bg:#F3F1EA; --panel:#FCFBF7; --panel-2:#F5F2E9; --line:#E4DFD1; --line-2:#ECE8DB;
-  --ink:#1F2227; --sub:#5C5E60; --faint:#9B9688;
-  --up:#B04A44; --up-bg:#F6E9E6; --down:#3F7355; --down-bg:#E7EFE8;
-  --warn:#9C7423; --warn-bg:#F4ECDA;
-  --equity:#8A6D3C; --bond:#3F7355; --violet:#7A6C8F;
-  --font:"Songti SC","STSong","STZhongsong","Noto Serif SC","SimSun",serif;
+  --brand:#8A6D3C;--brand-deep:#614820;--brand-soft:#F3EBDD;
+  --ink:#20242A;--sub:#5D6167;--faint:#8D8A82;--line:#DED8CA;
+  --bg:#F2F0E9;--panel:#FFFEFA;--blue:#315B7D;--blue-soft:#E9F0F5;
+  --green:#356B50;--green-soft:#E7F0EA;--red:#A3463F;--red-soft:#F7E8E5;
+  --amber:#8C6823;--amber-soft:#F5EDD9;--violet:#6E5D86;--violet-soft:#EFEAF4;
+  --font:"Songti SC","STSong","Noto Serif SC","SimSun",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
 }
-*{margin:0;padding:0;box-sizing:border-box}
+*{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:var(--font);background:var(--bg);color:var(--ink);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
-.num{font-variant-numeric:tabular-nums}
-.wrap{max-width:1120px;margin:0 auto;padding:0 28px 80px}
-a{color:var(--brand);text-decoration:none}
-
-/* 顶栏 */
-.topbar{background:var(--ink);color:#F3F1EA;height:56px;display:flex;align-items:center;position:sticky;top:0;z-index:20}
-.topbar .wrap{display:flex;align-items:center;justify-content:space-between;padding-top:0;padding-bottom:0;width:100%}
-.topbar .logo{display:flex;align-items:center;gap:12px;font-size:14px;letter-spacing:3px}
-.topbar .logo i{width:26px;height:26px;border:1px solid var(--brand);display:grid;place-items:center;font-style:normal;color:var(--brand);font-size:13px;letter-spacing:0}
-.topbar .meta{font-size:12px;color:#B8B09A;letter-spacing:1px}
-.topbar .meta b{color:#E3D8BE;font-weight:500}
-
-/* 视图切换 */
-.hero{padding:44px 0 22px;border-bottom:1px solid var(--line)}
-.kicker{font-size:12px;letter-spacing:4px;color:var(--brand);text-transform:uppercase}
-.hero h1{font-size:34px;line-height:1.3;font-weight:700;margin-top:12px;letter-spacing:1px}
-.hero h1 span{color:var(--brand)}
-.hero .lead{margin-top:12px;font-size:15.5px;color:var(--sub);max-width:820px}
-.switch{margin-top:26px;display:inline-flex;border:1px solid var(--brand-100);background:var(--panel);padding:4px;gap:4px}
-.switch button{font-family:inherit;font-size:15px;padding:10px 26px;border:0;background:transparent;color:var(--sub);cursor:pointer;letter-spacing:1px;transition:.18s;position:relative}
-.switch button .n{font-size:11px;letter-spacing:2px;color:var(--faint);display:block;margin-bottom:2px}
-.switch button.on{background:var(--ink);color:#F3F1EA}
-.switch button.on .n{color:var(--brand-100)}
-
-.view{display:none}
-.view.on{display:block;animation:fade .35s ease}
-@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-
-/* 章节 */
-section{padding:40px 0 0}
-.sec-h{display:flex;align-items:baseline;gap:16px;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:24px}
-.sec-h .no{font-size:13px;letter-spacing:3px;color:var(--brand);font-weight:600}
-.sec-h h2{font-size:23px;font-weight:700;letter-spacing:1px}
-.sec-h p{margin-left:auto;font-size:13px;color:var(--faint)}
-
-/* KPI */
-.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
-.kpi{background:var(--panel);padding:18px 16px 16px}
-.kpi .v{font-size:28px;font-weight:700;line-height:1.1;letter-spacing:-.5px}
-.kpi .v small{font-size:13px;font-weight:400;margin-left:2px;color:var(--sub)}
-.kpi .l{font-size:12.5px;color:var(--sub);margin-top:8px;line-height:1.5}
-.kpi .l b{color:var(--ink);font-weight:600;display:block}
-.kpi .d{font-size:11.5px;margin-top:6px;letter-spacing:.5px}
-.kpi .d.up{color:var(--up)} .kpi .d.dn{color:var(--down)}
-
-/* 卡片 / 图表 */
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.grid23{display:grid;grid-template-columns:1.35fr .65fr;gap:18px}
-.card{background:var(--panel);border:1px solid var(--line);padding:20px 22px}
-.card .ch-h{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap}
-.card h4{font-size:16.5px;font-weight:700}
-.card .desc{font-size:12.5px;color:var(--faint);margin-top:3px}
-.legend{display:flex;gap:16px;font-size:12px;color:var(--sub);flex-wrap:wrap}
-.legend span{display:inline-flex;align-items:center;gap:6px}
-.legend i{width:16px;height:3px;display:inline-block;background:var(--brand)}
-.legend i.dot{width:10px;height:10px;border-radius:50%}
-.legend i.eq{background:var(--equity)} .legend i.bd{background:var(--bond)} .legend i.vi{background:var(--violet)}
-svg.chart{width:100%;height:auto;display:block;margin-top:14px;overflow:visible}
-
-/* mini stat rows */
-.rows{list-style:none;margin-top:6px}
-.rows li{display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px dashed var(--line);font-size:14px}
-.rows li:first-child{border-top:0}
-.rows li .rk{flex:none;width:118px;color:var(--sub);font-size:13.5px}
-.rows li .rb{flex:1;height:12px;background:var(--panel-2);position:relative;overflow:hidden}
-.rows li .rb i{position:absolute;left:0;top:0;bottom:0;background:var(--brand-100)}
-.rows li .rv{flex:none;width:88px;text-align:right;font-weight:600;font-size:13.5px}
-.rows li .rv small{color:var(--faint);font-weight:400;font-size:11.5px;margin-left:3px}
-
-/* 漏斗 */
-.funnel{margin-top:8px}
-.funnel .bar{display:flex;align-items:center;gap:14px;margin-top:12px}
-.funnel .bar .lab{width:158px;flex:none;font-size:13.5px;color:var(--sub)}
-.funnel .bar .fill{height:38px;background:var(--brand-100);display:flex;align-items:center;padding:0 14px;font-weight:700;font-size:15px;color:var(--brand-deep);min-width:90px}
-.funnel .bar.b2 .fill{background:var(--brand);color:#fff}
-.funnel .rate{font-size:13px;color:var(--faint);margin-top:12px;line-height:1.7}
-.funnel .rate b{color:var(--brand-deep)}
-
-/* 标签云 */
-.cloud{display:flex;flex-wrap:wrap;gap:9px;margin-top:8px}
-.cloud span{border:1px solid var(--line);background:var(--panel-2);padding:5px 12px;font-size:13px;color:var(--sub)}
-.cloud span b{color:var(--brand-deep);font-weight:600;margin-left:4px}
-.cloud span.hot{border-color:var(--brand-100);background:var(--brand-050);color:var(--brand-deep)}
-
-/* 洞察卡 */
-.insight{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--brand);padding:18px 22px}
-.insight .tag{font-size:11.5px;letter-spacing:2px;color:var(--brand);font-weight:600}
-.insight.warn{border-left-color:var(--warn)} .insight.warn .tag{color:var(--warn)}
-.insight.op{border-left-color:var(--down)} .insight.op .tag{color:var(--down)}
-.insight h4{font-size:16.5px;font-weight:700;margin-top:6px}
-.insight p{font-size:14px;color:var(--sub);margin-top:8px}
-.insight .ev{margin-top:10px;font-size:12px;color:var(--faint)}
-.insight .act{margin-top:12px;display:inline-block;font-size:13px;color:var(--brand-deep);border:1px solid var(--brand-100);background:var(--brand-050);padding:5px 14px}
-
-.phase-band{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:16px}
-.phase-band div{background:var(--panel-2);padding:13px 16px}
-.phase-band b{display:block;font-size:19px;font-weight:700;color:var(--brand-deep)}
-.phase-band b em{font-style:normal;font-size:12px;color:var(--sub);margin-left:6px;letter-spacing:0}
-.phase-band small{font-size:12.5px;color:var(--sub)}
-
-footer{margin-top:56px;border-top:1px solid var(--line);padding-top:20px;font-size:12.5px;color:var(--faint);line-height:1.8}
-footer b{color:var(--sub);font-weight:600}
-
-@media (max-width:900px){
-  .kpis{grid-template-columns:repeat(3,1fr)}
-  .grid2,.grid3,.grid23{grid-template-columns:1fr}
-  .hero h1{font-size:26px}
-  .switch button{padding:9px 16px;font-size:14px}
-  .sec-h p{display:none}
+body{font-family:var(--font);background:var(--bg);color:var(--ink);font-size:15px;line-height:1.72;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.num{font-family:Georgia,"Times New Roman",serif;font-variant-numeric:tabular-nums}
+.wrap{width:min(1180px,calc(100% - 48px));margin:0 auto}
+.topbar{height:58px;background:var(--ink);color:#F8F5ED;position:sticky;top:0;z-index:20}
+.topbar .wrap{height:100%;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:12px;font-family:var(--sans);font-size:13px;letter-spacing:2px}
+.brand i{width:28px;height:28px;border:1px solid #BCA06E;display:grid;place-items:center;color:#D9C59B;font-style:normal}
+.meta{font-family:var(--sans);font-size:12px;color:#C9C1B1;text-align:right}
+.hero{padding:54px 0 34px;border-bottom:1px solid var(--line)}
+.eyebrow{font-family:var(--sans);font-size:12px;letter-spacing:4px;color:var(--brand);font-weight:700}
+h1{font-size:42px;line-height:1.24;margin-top:13px;letter-spacing:.5px}
+h1 span{color:var(--brand)}
+.lead{max-width:880px;margin-top:16px;color:var(--sub);font-size:17px}
+.truth-note{margin-top:25px;border-left:4px solid var(--red);background:var(--red-soft);padding:16px 20px;color:#67332F}
+.truth-note b{color:#842F2A}
+.truth-note .old{font-family:var(--sans);text-decoration:line-through;text-decoration-thickness:2px}
+.nav{margin-top:26px;display:flex;gap:8px;flex-wrap:wrap}
+.nav a{flex:0 0 auto;font-family:var(--sans);font-size:12px;color:var(--sub);border:1px solid var(--line);background:var(--panel);padding:7px 12px;text-decoration:none}
+section{padding:44px 0 0}
+.section-head{display:flex;align-items:flex-end;gap:16px;border-bottom:1px solid var(--line);padding-bottom:13px;margin-bottom:22px}
+.section-head .no{font-family:var(--sans);font-size:12px;letter-spacing:3px;color:var(--brand);font-weight:700}
+.section-head h2{font-size:26px;line-height:1.3}
+.section-head p{font-family:var(--sans);font-size:12px;color:var(--faint);margin-left:auto;text-align:right}
+.rule-banner{background:#20242A;color:#F8F5ED;padding:18px 22px;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;margin-bottom:20px}
+.rule-banner .mark{width:40px;height:40px;border:1px solid #BCA06E;color:#D9C59B;display:grid;place-items:center;font-family:var(--sans);font-weight:800}
+.rule-banner b{color:#F1D59B}
+.scope-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.scope-card{background:var(--panel);border:1px solid var(--line);padding:20px;min-height:230px;position:relative}
+.scope-card::before{content:"";position:absolute;left:-1px;right:-1px;top:-1px;height:4px;background:var(--brand)}
+.scope-card.account::before{background:var(--blue)}
+.scope-card.tax::before{background:var(--violet)}
+.scope-card.product::before{background:var(--green)}
+.scope-card .type{font-family:var(--sans);font-size:11px;letter-spacing:2px;color:var(--faint);font-weight:700}
+.scope-card h3{font-size:19px;margin-top:8px}
+.scope-card .value{font-size:34px;line-height:1.1;margin-top:16px;color:var(--brand-deep)}
+.scope-card.account .value{color:var(--blue)}
+.scope-card.tax .value{color:var(--violet)}
+.scope-card.product .value{color:var(--green)}
+.scope-card .unit{font-size:13px;margin-left:3px;color:var(--sub)}
+.scope-card .definition{font-family:var(--sans);font-size:12px;color:var(--sub);margin-top:10px}
+.scope-card .not{font-family:var(--sans);font-size:11px;color:var(--red);margin-top:12px;padding-top:10px;border-top:1px dashed var(--line)}
+.scope-card .source{font-family:var(--sans);font-size:10.5px;color:var(--faint);margin-top:8px}
+.warning{margin-top:16px;background:var(--amber-soft);border:1px solid #E6D3A7;color:#6F531B;padding:13px 16px;font-family:var(--sans);font-size:12.5px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.kpi{background:var(--panel);border:1px solid var(--line);padding:20px 22px;min-height:160px}
+.kpi .label{font-family:var(--sans);font-size:12px;color:var(--sub)}
+.kpi .value{font-size:36px;line-height:1.1;margin-top:10px;color:var(--brand-deep)}
+.kpi .value small{font-size:14px;color:var(--sub);margin-left:3px}
+.kpi .explain{font-family:var(--sans);font-size:11.5px;color:var(--faint);margin-top:10px}
+.kpi.highlight{background:var(--green-soft);border-color:#BFD3C5}
+.kpi.highlight .value{color:var(--green)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.card{background:var(--panel);border:1px solid var(--line);padding:22px}
+.card h3{font-size:19px}
+.card .desc{font-family:var(--sans);font-size:12px;color:var(--faint);margin-top:4px}
+.flow-formula{margin-top:17px;display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;align-items:center;text-align:center}
+.flow-item{padding:16px 10px;border:1px solid var(--line);background:#F9F7F0}
+.flow-item strong{display:block;font-size:27px;color:var(--brand-deep)}
+.flow-item span{font-family:var(--sans);font-size:11px;color:var(--sub)}
+.flow-item.net{background:var(--green-soft);border-color:#BFD3C5}
+.flow-item.net strong{color:var(--green)}
+.operator{font-family:var(--sans);font-size:24px;color:var(--faint)}
+.ledger{margin-top:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.ledger div{background:var(--panel);padding:17px}
+.ledger strong{font-size:25px;color:var(--brand-deep);display:block}
+.ledger span{font-family:var(--sans);font-size:11px;color:var(--sub)}
+.table-wrap{overflow-x:auto;margin-top:16px;border:1px solid var(--line)}
+table{width:100%;border-collapse:collapse;min-width:720px;background:var(--panel);font-family:var(--sans);font-size:12.5px}
+th{background:#EEE9DD;text-align:left;color:#565048;font-weight:700;white-space:nowrap}
+th,td{padding:11px 13px;border-bottom:1px solid var(--line);vertical-align:top}
+tbody tr:nth-child(even){background:#FAF8F1}
+tbody tr:hover{background:#F2EEE2}
+td.right,th.right{text-align:right;font-variant-numeric:tabular-nums}
+.tag{display:inline-block;font-family:var(--sans);font-size:10px;line-height:1;border-radius:10px;padding:4px 7px;margin-left:6px;vertical-align:middle}
+.tag.zone{background:var(--brand-soft);color:var(--brand-deep)}
+.tag.account{background:var(--blue-soft);color:var(--blue)}
+.tag.tax{background:var(--violet-soft);color:var(--violet)}
+.tag.product{background:var(--green-soft);color:var(--green)}
+.tag.check{background:var(--green-soft);color:var(--green)}
+.tag.wait{background:var(--amber-soft);color:var(--amber)}
+.chart-wrap{margin-top:16px;border:1px solid var(--line);background:var(--panel);padding:16px}
+svg.chart{width:100%;height:auto;display:block;overflow:visible}
+.reconcile{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
+.reconcile .step{border:1px solid var(--line);background:var(--panel);padding:16px;position:relative}
+.reconcile .step:not(:last-child)::after{content:"→";position:absolute;right:-17px;top:50%;transform:translateY(-50%);z-index:2;color:var(--faint);font-family:var(--sans)}
+.reconcile .step .name{font-family:var(--sans);font-size:11px;color:var(--sub)}
+.reconcile .step strong{display:block;font-size:25px;color:var(--brand-deep);margin-top:5px}
+.reconcile .step small{font-family:var(--sans);font-size:10.5px;color:var(--faint)}
+.callout{margin-top:16px;padding:15px 18px;background:var(--blue-soft);border-left:4px solid var(--blue);font-family:var(--sans);font-size:12.5px;color:#294A64}
+.qa-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.qa{background:var(--panel);border:1px solid var(--line);padding:18px}
+.qa b{display:block;font-family:var(--sans);font-size:13px;color:var(--green)}
+.qa p{font-family:var(--sans);font-size:11.5px;color:var(--sub);margin-top:7px}
+.foot{margin-top:50px;border-top:1px solid var(--line);padding:22px 0 60px;color:var(--faint);font-family:var(--sans);font-size:11.5px}
+.foot p+p{margin-top:7px}
+@media(max-width:900px){
+  .scope-grid{grid-template-columns:1fr 1fr}.kpis{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}.reconcile{grid-template-columns:1fr 1fr}.qa-grid{grid-template-columns:1fr}
 }
-@media print{.topbar{position:static}.switch{display:none}.view{display:block!important}body{background:#fff}section{break-inside:avoid}}
+@media(max-width:560px){
+  .wrap{width:min(100% - 28px,1180px)}.topbar{height:auto;min-height:58px;padding:10px 0}.topbar .wrap{display:grid;grid-template-columns:1fr;gap:5px;align-items:start}.meta{font-size:10px;max-width:none;text-align:left;padding-left:40px}.brand{font-size:12px;letter-spacing:1.5px}
+  .hero{padding-top:34px}h1{font-size:31px}.lead{font-size:15px}.scope-grid,.kpis,.reconcile{grid-template-columns:1fr}.section-head{align-items:flex-start}.section-head p{display:none}
+  .reconcile .step:not(:last-child)::after{display:none}.flow-formula{grid-template-columns:1fr}.operator{line-height:1}.ledger{grid-template-columns:1fr}.rule-banner{grid-template-columns:1fr}
+  .truth-note,.rule-banner,.scope-card,.card,.kpi{min-width:0;overflow-wrap:anywhere}
+}
+@media print{.topbar{position:static}.nav{display:none}body{background:#fff}.card,.kpi,.scope-card{break-inside:avoid}}
 </style>
 </head>
 <body>
-
 <div class="topbar"><div class="wrap">
-  <div class="logo"><i>盈</i>YINGMI WORK · 产品数据看板</div>
-  <div class="meta">且慢 · 颐养天年养老计划 · <b>内部资料</b> · 数据截至 2026-09-21</div>
+  <div class="brand"><i>盈</i><span>YINGMI WORK · 养老经营数据</span></div>
+  <div class="meta">口径纠正版 · 查询于 2026-09-24 10:12–10:13 CST<br>资产快照日 2026-09-23</div>
 </div></div>
 
-<div class="wrap">
+<main class="wrap">
+  <header class="hero">
+    <div class="eyebrow">PENSION DATA · DEFINITION FIRST</div>
+    <h1>先分清对象，<span>再讨论增长</span></h1>
+    <p class="lead">养老专区是规划服务对象，且慢养老金账户是投资账户容器，个人养老金账户是独立税优账户，颐养天年是一只养老投顾策略。四者有业务关系，但不是同一个对象，账户数、用户数、产品持有人数与资金规模不得混用。</p>
+    <div class="truth-note"><b>本次纠错：</b>旧版页面中的 <span class="old">AUM 5,862 万、本月净流入 421 万、月定投占比 68%</span> 等属于建模示意，并非生产数据，现已全部删除。此页只保留 2026-09-24 生产聚合实查可复核的数字。</div>
+    <nav class="nav" aria-label="页内导航"><a href="#scope">01 对象边界</a><a href="#product">02 颐养天年</a><a href="#cashflow">03 资金流</a><a href="#definitions">04 口径矩阵</a><a href="#index">05 数据索引</a><a href="#check">06 自检记录</a></nav>
+  </header>
 
-<header class="hero">
-  <div class="kicker">颐养天年养老计划 · 经营数据与用户洞察</div>
-  <h1>一款养老投顾策略的<span>数据全景</span></h1>
-  <p class="lead">同一份数据，两个视角看：一边是经营规模与增长走势，一边是用户洞察与客群结构。切换按钮即可在两页之间来回查看。</p>
-  <div class="switch">
-    <button class="on" data-view="a"><span class="n">视图 一</span>经营看板 · 增长走势</button>
-    <button data-view="b"><span class="n">视图 二</span>洞察分析 · 用户客群</button>
-  </div>
-</header>
+  <section id="scope">
+    <div class="section-head"><span class="no">01</span><h2>四个对象，四套口径</h2><p>同屏对照，不做漏斗换算</p></div>
+    <div class="rule-banner"><div class="mark">!</div><div><b>禁止直接相除。</b>19,742、3,019、4,608、681 分别来自规划层、普通养老投资账户层、税优账户层和策略产品层。没有完成同一用户、同一时点、同一状态的关联去重前，不得把它们写成转化率。</div></div>
+    <div class="scope-grid">
+      <article class="scope-card">
+        <div class="type">规划服务对象 · ZONE</div><h3>养老专区记录</h3>
+        <div class="value num">19,742<span class="unit">人</span></div>
+        <p class="definition">用户进入养老专区后形成的规划记录，用于承载养老目标与服务关系。</p>
+        <p class="not">不是可交易投资账户，也不等于购买颐养天年的客户。</p>
+        <p class="source">D-001 · 全量去重用户 · 更新至 2026-09-24 07:41</p>
+      </article>
+      <article class="scope-card account">
+        <div class="type">普通养老投资账户 · QMP</div><h3>且慢养老金账户</h3>
+        <div class="value num">3,019<span class="unit">正常账户</span></div>
+        <p class="definition">每位用户最多一个的养老投资管理账户，可承载 PC 类养老策略。</p>
+        <p class="not">是账户容器，不等于颐养天年产品本身；另有 3 条已删除历史记录。</p>
+        <p class="source">D-002 · 正常状态账户 · 更新至 2026-09-24 07:14</p>
+      </article>
+      <article class="scope-card tax">
+        <div class="type">税优封闭账户 · TD</div><h3>个人养老金账户</h3>
+        <div class="value num">4,608<span class="unit">正常账户</span></div>
+        <p class="definition">享受个人养老金税优政策的独立账户，资金与可投产品范围受专门规则约束。</p>
+        <p class="not">与且慢养老金账户 QMP 是两套账户，不能合并统计。</p>
+        <p class="source">D-003 · 正常状态账户 · 更新至 2026-09-23 21:40</p>
+      </article>
+      <article class="scope-card product">
+        <div class="type">养老投顾策略 · PRODUCT</div><h3>颐养天年</h3>
+        <div class="value num">681<span class="unit">签约用户</span></div>
+        <p class="definition">策略代码 PC00010026；在且慢养老金账户内运行的一只养老下滑曲线投顾策略。</p>
+        <p class="not">用户数与资本账户数不同：681 位用户对应 756 个产品绑定账户。</p>
+        <p class="source">D-004 / D-005 · 产品绑定记录 · 最近更新 2026-09-03</p>
+      </article>
+    </div>
+    <div class="warning">“养老账户”是容易混淆的简称。本页后续固定写全称：<b>且慢养老金账户（QMP）</b>、<b>个人养老金账户（TD）</b>、<b>颐养天年策略（PC00010026）</b>。</div>
+  </section>
 
-<!-- ============ 视图一 ============ -->
-<div class="view on" id="view-a">
-
-  <section style="padding-top:34px">
-    <div class="sec-h"><span class="no">A1</span><h2>核心经营指标</h2><p>红=较上月上升 · 绿=下降</p></div>
+  <section id="product">
+    <div class="section-head"><span class="no">02</span><h2>颐养天年：只看产品自己的数据</h2><p>不掺养老专区、不掺 TD、不把 QMP 当持有人</p></div>
     <div class="kpis">
-      <div class="kpi"><div class="v num">756</div><div class="l"><b>累计开户</b>专属养老账户</div><div class="d up">▲ 本月 +50 户</div></div>
-      <div class="kpi"><div class="v num">5,862<small>万</small></div><div class="l"><b>在管规模 AUM</b>补充养老账户</div><div class="d up">▲ 本月 +7.8%</div></div>
-      <div class="kpi"><div class="v num">7.75<small>万</small></div><div class="l"><b>户均资产</b>单账户平均</div><div class="d up">▲ +0.6%</div></div>
-      <div class="kpi"><div class="v num">68<small>%</small></div><div class="l"><b>月定投占比</b>有活跃定投的账户</div><div class="d up">▲ +3pct</div></div>
-      <div class="kpi"><div class="v num">421<small>万</small></div><div class="l"><b>本月净流入</b>申购减赎回</div><div class="d up">▲ +12%</div></div>
-      <div class="kpi"><div class="v num">15.8<small>%</small></div><div class="l"><b>测算转化率</b>测算过 → 开户</div><div class="d dn">▼ -0.4pct</div></div>
+      <article class="kpi"><div class="label">历史签约用户</div><div class="value num">681<small>人</small></div><div class="explain">产品绑定记录按用户去重。D-004</div></article>
+      <article class="kpi"><div class="label">产品绑定资本账户</div><div class="value num">756<small>个 CA</small></div><div class="explain">同一用户可能对应多个资本账户，不能写成 756 位客户。D-005</div></article>
+      <article class="kpi"><div class="label">累计发生过交易</div><div class="value num">599<small>人</small></div><div class="explain">未撤单交易记录按用户去重，截至 2026-09-24 08:10。D-006</div></article>
+      <article class="kpi"><div class="label">最新结算持有人</div><div class="value num">370<small>人</small></div><div class="explain">2026-09-23 产品资产日快照按用户去重。D-007</div></article>
+      <article class="kpi"><div class="label">最新结算资本账户</div><div class="value num">394<small>个 CA</small></div><div class="explain">同一资产快照内有资产记录的资本账户。D-008</div></article>
+      <article class="kpi highlight"><div class="label">最新结算 AUM</div><div class="value num">678.71<small>万元</small></div><div class="explain">2026-09-23 产品资产日快照合计。D-009</div></article>
     </div>
-  </section>
 
-  <section>
-    <div class="sec-h"><span class="no">A2</span><h2>规模与账户增长走势</h2><p>近 12 个月 · 月度</p></div>
-    <div class="card">
-      <div class="ch-h">
-        <div><h4>累计开户数 × 在管规模</h4><div class="desc">左轴为账户数，右轴为在管规模（万元）。两条线同向抬升，说明增长来自新客而非单纯市值波动。</div></div>
-        <div class="legend"><span><i class="dot eq"></i>累计开户（户）</span><span><i class="dot bd"></i>在管规模（万元）</span></div>
-      </div>
-      <svg class="chart" id="chLine" viewBox="0 0 1040 340" role="img" aria-label="累计开户与在管规模走势"></svg>
-    </div>
-    <div class="grid2" style="margin-top:18px">
-      <div class="card">
-        <div class="ch-h"><div><h4>每月新增账户</h4><div class="desc">新客开户节奏，7 月起随养老专区活动明显提速。</div></div></div>
-        <svg class="chart" id="chBars" viewBox="0 0 620 300" role="img" aria-label="每月新增账户"></svg>
-      </div>
-      <div class="card">
-        <div class="ch-h"><div><h4>每月净流入（万元）</h4><div class="desc">定投为主的稳定现金流，叠加年中一次性追加。</div></div></div>
-        <svg class="chart" id="chFlow" viewBox="0 0 620 300" role="img" aria-label="每月净流入"></svg>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="sec-h"><span class="no">A3</span><h2>存量结构</h2><p>看钱和账户分别沉在哪</p></div>
     <div class="grid2">
-      <div class="card">
-        <div class="ch-h"><div><h4>账户资产规模分布</h4><div class="desc">按单账户在管金额分档，中间档位是主力。</div></div></div>
-        <ul class="rows" id="sizeRows"></ul>
-      </div>
-      <div class="card">
-        <div class="ch-h"><div><h4>资金投入方式</h4><div class="desc">养老金以定投纪律为主，一次性追加为辅。</div></div></div>
-        <svg class="chart" id="chDonut" viewBox="0 0 620 260" role="img" aria-label="投入方式占比"></svg>
-      </div>
-    </div>
-  </section>
-
-</div>
-
-<!-- ============ 视图二 ============ -->
-<div class="view" id="view-b">
-
-  <section style="padding-top:34px">
-    <div class="sec-h"><span class="no">B1</span><h2>用户客群 · 年龄结构</h2><p>年龄决定这款产品给客户配多少股票</p></div>
-    <div class="card">
-      <div class="ch-h">
-        <div><h4>开户客户年龄分布</h4><div class="desc">颐养天年按年龄自动降风险，客户所处的人生阶段直接决定其股债配置。多数客户还在"积累期"，产品整体处于早期。</div></div>
-        <div class="legend"><span><i class="dot eq"></i>积累期 ≤50</span><span><i class="dot vi"></i>过渡期 51–64</span><span><i class="dot bd"></i>领取期 65+</span></div>
-      </div>
-      <svg class="chart" id="chAge" viewBox="0 0 1040 320" role="img" aria-label="客户年龄分布"></svg>
-      <div class="phase-band">
-        <div><b>75.4<em>% · 570 户</em></b><small>积累期（≤50 岁）· 股票类约 90%，重在长期增长</small></div>
-        <div><b>21.4<em>% · 162 户</em></b><small>过渡期（51–64 岁）· 正在快速降风险，调仓沟通密集</small></div>
-        <div><b>3.2<em>% · 24 户</em></b><small>领取期（65+ 岁）· 以稳为主，未来现金流服务的种子人群</small></div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="sec-h"><span class="no">B2</span><h2>客群画像</h2><p>风险偏好 · 城市 · 标签</p></div>
-    <div class="grid3">
-      <div class="card">
-        <div class="ch-h"><div><h4>客户风险偏好</h4><div class="desc">产品自身为 R3 中风险</div></div></div>
-        <ul class="rows" id="riskRows"></ul>
-      </div>
-      <div class="card">
-        <div class="ch-h"><div><h4>城市层级</h4><div class="desc">高线城市为主</div></div></div>
-        <ul class="rows" id="cityRows"></ul>
-      </div>
-      <div class="card">
-        <div class="ch-h"><div><h4>客群标签</h4><div class="desc">字号越大人数越多</div></div></div>
-        <div class="cloud" id="cloud"></div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="sec-h"><span class="no">B3</span><h2>转化漏斗</h2><p>从"算过一笔账"到"真的开户"</p></div>
-    <div class="grid23">
-      <div class="card">
-        <div class="ch-h"><div><h4>养老测算 → 开户</h4><div class="desc">大量用户在养老专区做过测算、留下过退休规划，但尚未真正配置。</div></div></div>
-        <div class="funnel">
-          <div class="bar"><div class="lab">做过养老测算</div><div class="fill num" style="width:100%">4,794 人</div></div>
-          <div class="bar"><div class="lab">留下退休规划参数</div><div class="fill num" style="width:52%">2,486 人</div></div>
-          <div class="bar b2"><div class="lab">开通颐养天年</div><div class="fill num" style="width:16%">756 户</div></div>
-          <div class="rate">测算 → 开户整体转化 <b>15.8%</b>。其中约 <b>4,038 位</b>已表达养老规划意向、但还没配置——这是顾问陪伴和专区运营最直接的名单。</div>
+      <article class="card">
+        <h3>“681 / 756 / 370 / 394”分别是什么</h3>
+        <p class="desc">用户数与账户数、历史签约与当前持有必须成对出现。</p>
+        <div class="table-wrap"><table>
+          <thead><tr><th>数据层</th><th class="right">用户数</th><th class="right">资本账户数</th><th>含义</th></tr></thead>
+          <tbody>
+            <tr><td>产品绑定记录</td><td class="right num">681</td><td class="right num">756</td><td>历史签约关系，最近一条更新于 9 月 3 日</td></tr>
+            <tr><td>最新结算资产快照</td><td class="right num">370</td><td class="right num">394</td><td>9 月 23 日仍有产品资产记录</td></tr>
+            <tr><td>实时账户元数据 · ASSET</td><td class="right num">368</td><td class="right num">392</td><td>查询时账户状态为有资产</td></tr>
+            <tr><td>实时账户元数据 · EMPTY</td><td class="right num">333</td><td class="right num">364</td><td>查询时账户状态为空户</td></tr>
+          </tbody>
+        </table></div>
+        <div class="callout">日快照比实时元数据多 2 位用户、2 个资本账户，是“9 月 23 日结算快照”与“9 月 24 日查询时状态”的时点差异。AUM 与持有人主指标必须使用同一张日快照，因此本页主指标采用 370 人 / 394 CA / 678.71 万，不拿实时状态数与 AUM 拼接。</div>
+      </article>
+      <article class="card">
+        <h3>户均金额也要分母一致</h3>
+        <p class="desc">同一份 678.71 万 AUM，按用户与按资本账户会得到不同平均值。</p>
+        <div class="ledger">
+          <div><strong class="num">1.83 万</strong><span>每位持有人平均<br>678.71 ÷ 370</span></div>
+          <div><strong class="num">1.72 万</strong><span>每个资本账户平均<br>678.71 ÷ 394</span></div>
+          <div><strong>不混写</strong><span>不能用 QMP 3,019 或签约 681 作为当前 AUM 分母</span></div>
         </div>
-      </div>
-      <div class="card">
-        <div class="ch-h"><div><h4>关键事实</h4></div></div>
-        <ul class="rows" style="margin-top:10px">
-          <li style="border-top:0"><span class="rk">策略状态</span><span class="rv" style="width:auto;flex:1">正常运营中</span></li>
-          <li><span class="rk">风险等级</span><span class="rv" style="width:auto;flex:1">R3 · 中风险</span></li>
-          <li><span class="rk">最新开户</span><span class="rv num" style="width:auto;flex:1">2026-09-03</span></li>
-          <li><span class="rk">股票占比区间</span><span class="rv num" style="width:auto;flex:1">90% → 约 8%</span></li>
-          <li><span class="rk">自动调仓</span><span class="rv" style="width:auto;flex:1">强制开启</span></li>
-        </ul>
-      </div>
+        <div class="warning">旧版“户均资产 7.75 万”没有可复核生产依据，已删除。</div>
+      </article>
     </div>
   </section>
 
-  <section>
-    <div class="sec-h"><span class="no">B4</span><h2>洞察分析</h2><p>数据背后的经营动作</p></div>
+  <section id="cashflow">
+    <div class="section-head"><span class="no">03</span><h2>颐养天年资金流：申购、赎回、净申购</h2><p>未撤单交易 · 截至 2026-09-24 08:10</p></div>
     <div class="grid2">
-      <div class="insight op">
-        <div class="tag">机会 · 转化</div>
-        <h4>4,038 位"算过没开户"的用户是最近的增长源</h4>
-        <p>他们已经在专区做过测算，养老意识和缺口都清楚。按测算出的退休缺口分层触达（缺口大且年轻的优先），比拉新客成本低得多。</p>
-        <div class="ev">依据：养老测算 4,794 人 vs 开户 756 户</div>
-        <span class="act">生成分层触达名单</span>
-      </div>
-      <div class="insight op">
-        <div class="tag">机会 · 结构</div>
-        <h4>过渡期客户三年内将翻倍，提前备好陪伴</h4>
-        <p>目前 51–64 岁客户 162 户。随积累期主力（35–50 岁，441 户）逐年推进，未来三年过渡期人数将快速上升。这批人正经历股债快速切换，最需要"为什么帮你降风险"的解读。</p>
-        <div class="ev">依据：年龄分布 + 下滑曲线过渡区间（51–64 岁）</div>
-        <span class="act">配置过渡期陪伴 SOP</span>
-      </div>
-      <div class="insight">
-        <div class="tag">观察 · 生命周期</div>
-        <h4>领取期客户仅 3.2%，现金流服务尚未启动</h4>
-        <p>产品整体年轻，真正进入领取期的只有 24 户。现在还不急，但需要提前设计"退休后按月领取 + 保留一小部分股票对抗长寿"的服务话术与工具，避免这批客户到点无人陪伴。</p>
-        <div class="ev">依据：65 岁以上客户 24 户</div>
-        <span class="act">立项领取期服务</span>
-      </div>
-      <div class="insight warn">
-        <div class="tag">风险 · 体验口径</div>
-        <h4>"规划目标"和"实际调仓目标"可能对不上</h4>
-        <p>部分客户在测算器里自定了股票占比（如 50%），专区会显示这个目标；但账户实际仍按年龄曲线调仓（如 90%）。展示与执行两套目标不打通，客户可能困惑。建议产品侧统一口径。</p>
-        <div class="ev">依据：测算层自定义比例 vs 执行层年龄曲线（详见策略解读页）</div>
-        <span class="act">对齐产品口径</span>
-      </div>
+      <article class="card">
+        <h3>2026 年 9 月实际净申购</h3>
+        <p class="desc">净申购只描述资金交易，不等于 AUM 增长。</p>
+        <div class="flow-formula">
+          <div class="flow-item"><strong class="num">23.02 万</strong><span>9 月申购</span></div>
+          <div class="operator">−</div>
+          <div class="flow-item"><strong class="num">1.99 万</strong><span>9 月赎回</span></div>
+          <div class="operator">=</div>
+          <div class="flow-item net"><strong class="num">21.04 万</strong><span>9 月净申购</span></div>
+        </div>
+        <div class="warning"><b>不是 421 万。</b>旧版 421 万来自硬编码示意序列，已从生产页移除。</div>
+      </article>
+      <article class="card">
+        <h3>上线以来累计资金交易</h3>
+        <p class="desc">同一交易口径累计；AUM 还包含市场收益、费用与时点差异。</p>
+        <div class="ledger">
+          <div><strong class="num">972.12 万</strong><span>累计申购 D-013</span></div>
+          <div><strong class="num">362.64 万</strong><span>累计赎回 D-014</span></div>
+          <div><strong class="num">609.48 万</strong><span>累计净申购 D-015</span></div>
+        </div>
+        <div class="callout">AUM 678.71 万 ≠ 累计净申购 609.48 万。前者是 9 月 23 日资产市值快照，后者是截至 9 月 24 日的历史资金交易净额，二者不可互相替代。</div>
+      </article>
+    </div>
+    <div class="chart-wrap">
+      <h3>2026 年逐月净申购（真实交易序列）</h3>
+      <p class="desc">单位：万元；9 月为截至 9 月 24 日 08:10 的月内累计。</p>
+      <svg class="chart" id="netFlowChart" viewBox="0 0 1060 330" role="img" aria-label="颐养天年2026年逐月净申购"></svg>
+    </div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>月份</th><th class="right">申购（万元）</th><th class="right">赎回（万元）</th><th class="right">净申购（万元）</th><th class="right">交易用户</th></tr></thead>
+      <tbody>
+        <tr><td>2026-01</td><td class="right num">52.44</td><td class="right num">13.26</td><td class="right num">39.18</td><td class="right num">343</td></tr>
+        <tr><td>2026-02</td><td class="right num">32.97</td><td class="right num">17.69</td><td class="right num">15.28</td><td class="right num">198</td></tr>
+        <tr><td>2026-03</td><td class="right num">47.01</td><td class="right num">34.71</td><td class="right num">12.29</td><td class="right num">354</td></tr>
+        <tr><td>2026-04</td><td class="right num">32.83</td><td class="right num">26.65</td><td class="right num">6.18</td><td class="right num">214</td></tr>
+        <tr><td>2026-05</td><td class="right num">34.03</td><td class="right num">25.45</td><td class="right num">8.57</td><td class="right num">222</td></tr>
+        <tr><td>2026-06</td><td class="right num">32.04</td><td class="right num">16.94</td><td class="right num">15.10</td><td class="right num">363</td></tr>
+        <tr><td>2026-07</td><td class="right num">31.11</td><td class="right num">11.42</td><td class="right num">19.70</td><td class="right num">204</td></tr>
+        <tr><td>2026-08</td><td class="right num">26.49</td><td class="right num">5.12</td><td class="right num">21.37</td><td class="right num">210</td></tr>
+        <tr><td>2026-09*</td><td class="right num">23.02</td><td class="right num">1.99</td><td class="right num">21.04</td><td class="right num">187</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section id="definitions">
+    <div class="section-head"><span class="no">04</span><h2>口径矩阵：以后只能这样写</h2><p>对象、单位、时点、用途四项同时出现</p></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>对象</th><th>业务含义</th><th>核心单位</th><th>可用指标</th><th>禁止写法</th></tr></thead>
+      <tbody>
+        <tr><td>养老专区 <span class="tag zone">规划层</span></td><td>养老目标与专区服务记录</td><td>去重用户</td><td>专区用户数、规划覆盖、目标完善</td><td>把专区用户称为“开户客户”或“颐养天年客户”</td></tr>
+        <tr><td>且慢养老金账户 QMP <span class="tag account">账户层</span></td><td>普通养老投资账户容器</td><td>正常账户 / 用户</td><td>账户数、入金账户、账户资产</td><td>把 QMP 总账户数当作颐养天年持有人</td></tr>
+        <tr><td>个人养老金账户 TD <span class="tag tax">税优层</span></td><td>独立税优账户</td><td>正常账户 / 用户</td><td>开户、缴存、税优产品持仓</td><td>与 QMP 合并为一个“养老账户”总数</td></tr>
+        <tr><td>颐养天年 PC00010026 <span class="tag product">产品层</span></td><td>一只养老投顾策略</td><td>签约用户、资本账户、持有人、AUM、交易额</td><td>产品签约、持有、AUM、申赎</td><td>用专区/QMP/TD 数字补产品漏斗或规模</td></tr>
+      </tbody>
+    </table></div>
+    <div class="warning">任何跨对象转化率，必须先完成同一用户 ID 关联、状态筛选、同一截止时间对齐，并明确分子分母；本次没有完成该关联，因此本页不发布“专区 → QMP → 颐养天年”转化率。</div>
+  </section>
+
+  <section id="index">
+    <div class="section-head"><span class="no">05</span><h2>数据索引</h2><p>每个数字可回到对象、定义与时点</p></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>编号</th><th>指标</th><th class="right">数值</th><th>对象与定义</th><th>时点</th></tr></thead>
+      <tbody>
+        <tr><td>D-001</td><td>养老专区用户</td><td class="right num">19,742 人</td><td>专区规划记录按用户去重</td><td>更新至 9-24 07:41</td></tr>
+        <tr><td>D-002</td><td>且慢养老金账户</td><td class="right num">3,019 个</td><td>QMP 正常状态账户；不含 3 条删除记录</td><td>更新至 9-24 07:14</td></tr>
+        <tr><td>D-003</td><td>个人养老金账户</td><td class="right num">4,608 个</td><td>TD 正常状态账户</td><td>更新至 9-23 21:40</td></tr>
+        <tr><td>D-004</td><td>颐养天年签约用户</td><td class="right num">681 人</td><td>产品绑定记录按用户去重</td><td>最近更新 9-03</td></tr>
+        <tr><td>D-005</td><td>颐养天年绑定账户</td><td class="right num">756 CA</td><td>产品绑定记录按资本账户去重</td><td>最近更新 9-03</td></tr>
+        <tr><td>D-006</td><td>累计交易用户</td><td class="right num">599 人</td><td>未撤单交易按用户去重</td><td>截至 9-24 08:10</td></tr>
+        <tr><td>D-007</td><td>结算持有人</td><td class="right num">370 人</td><td>产品资产日快照按用户去重</td><td>资产日 9-23</td></tr>
+        <tr><td>D-008</td><td>结算资本账户</td><td class="right num">394 CA</td><td>产品资产日快照按资本账户去重</td><td>资产日 9-23</td></tr>
+        <tr><td>D-009</td><td>结算 AUM</td><td class="right num">678.71 万</td><td>产品资产日快照 AUM 合计</td><td>资产日 9-23</td></tr>
+        <tr><td>D-010</td><td>9 月申购</td><td class="right num">23.02 万</td><td>未撤单交易申购额合计</td><td>9-01 至 9-24 08:10</td></tr>
+        <tr><td>D-011</td><td>9 月赎回</td><td class="right num">1.99 万</td><td>未撤单交易赎回额合计</td><td>9-01 至 9-24 08:10</td></tr>
+        <tr><td>D-012</td><td>9 月净申购</td><td class="right num">21.04 万</td><td>D-010 − D-011；明细四舍五入造成 0.01 差异</td><td>9-01 至 9-24 08:10</td></tr>
+        <tr><td>D-013</td><td>累计申购</td><td class="right num">972.12 万</td><td>上线以来未撤单申购额</td><td>截至 9-24 08:10</td></tr>
+        <tr><td>D-014</td><td>累计赎回</td><td class="right num">362.64 万</td><td>上线以来未撤单赎回额</td><td>截至 9-24 08:10</td></tr>
+        <tr><td>D-015</td><td>累计净申购</td><td class="right num">609.48 万</td><td>D-013 − D-014</td><td>截至 9-24 08:10</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section id="check">
+    <div class="section-head"><span class="no">06</span><h2>自检记录</h2><p>数据核对 + 逻辑自检</p></div>
+    <div class="qa-grid">
+      <article class="qa"><b>✓ 对象核对通过</b><p>专区、QMP、TD、颐养天年四层分别命名；没有把跨层数字写成同一客户漏斗。</p></article>
+      <article class="qa"><b>✓ 数值核对通过</b><p>正文 KPI、月度表、数据索引与生产查询结果逐项比对；净申购按申购减赎回计算。</p></article>
+      <article class="qa"><b>✓ 不确定项已隔离</b><p>没有同用户关联证据的跨层转化率不发布；结算快照与实时状态差异单独解释，不强行对齐。</p></article>
     </div>
   </section>
 
-</div>
-
-<footer>
-  <p><b>数据与口径</b>：真实锚点来自 2026-09-21 对生产系统的实查——累计开户 <b>756 户</b>、最新开户日 <b>2026-09-03</b>、做过养老测算 <b>4,794 人</b>、风险等级 R3、股票占比区间 90%→约 8%、自动调仓强制开启。其余增长走势、资金流、客群与规模分布为<b>建模示意数据</b>，用于向管理层与业务侧汇报产品形态与经营视角，不作为对外披露口径。</p>
-  <p><b>说明</b>：本页去除了系统与技术术语；配套的产品机制解读见「颐养天年策略业务解读」页。</p>
-</footer>
-
-</div>
+  <footer class="foot">
+    <p><b>数据来源：</b>养老专区业务记录、投资管理账户元数据、投顾产品绑定记录、统一交易聚合、产品资产日快照；均为生产系统聚合查询，不包含个人明细。</p>
+    <p><b>更新时间：</b>账户与交易查询于 2026-09-24 10:12–10:13 CST；资产使用最新已完成的 2026-09-23 日快照。金额单位为人民币万元，展示值四舍五入至两位。</p>
+    <p><b>使用边界：</b>本页用于内部经营核对，不构成产品宣传或投资建议；对外披露需重新走财务、数据与合规口径确认。</p>
+  </footer>
+</main>
 
 <script>
-/* ---------- 通用绘图助手 ---------- */
-const G="#8A6D3C", GD="#6E5730", BD="#3F7355", VI="#7A6C8F", LINE="#E4DFD1", FAINT="#9B9688", INK="#1F2227";
-const months=["10","11","12","1","2","3","4","5","6","7","8","9"];
-const adds=[40,44,46,42,50,55,60,58,54,62,66,50];
-const cum=(()=>{let b=129,a=[];for(const x of adds){b+=x;a.push(b);}return a;})(); // ends 756
-const aum=[980,1180,1420,1660,2020,2460,2980,3520,4080,4720,5380,5862];
-const flow=[168,190,205,188,236,262,318,286,258,352,398,421];
-
-/* 折线双轴 */
-(function line(){
-  const W=1040,H=340,L=56,R=64,T=24,B=42;
-  const x=i=>L+i/(months.length-1)*(W-L-R);
-  const y1=v=>T+(1-v/800)*(H-T-B);      // 账户 0-800
-  const y2=v=>T+(1-v/6400)*(H-T-B);     // AUM 0-6400万
-  let s='';
-  for(const g of [0,200,400,600,800]){s+=`<line x1="${L}" y1="${y1(g)}" x2="${W-R}" y2="${y1(g)}" stroke="${LINE}"/>`;s+=`<text x="${L-10}" y="${y1(g)+4}" font-size="11" fill="${FAINT}" text-anchor="end">${g}</text>`;}
-  for(const g of [0,1600,3200,4800,6400]){s+=`<text x="${W-R+10}" y="${y2(g)+4}" font-size="11" fill="${FAINT}">${(g/10000).toFixed(2)==0?0:g}</text>`;}
-  months.forEach((m,i)=>{s+=`<text x="${x(i)}" y="${H-B+22}" font-size="11" fill="${FAINT}" text-anchor="middle">${m}月</text>`;});
-  const path=(arr,y,c)=>{let p='';arr.forEach((v,i)=>p+=`${i?'L':'M'}${x(i)},${y(v)} `);return `<path d="${p}" fill="none" stroke="${c}" stroke-width="2.6" stroke-linejoin="round"/>`+arr.map((v,i)=>`<circle cx="${x(i)}" cy="${y(v)}" r="3.4" fill="#FCFBF7" stroke="${c}" stroke-width="2"/>`).join('');};
-  s+=path(aum,y2,BD);
-  s+=path(cum,y1,G);
-  s+=`<text x="${x(11)}" y="${y1(cum[11])-12}" font-size="12" font-weight="700" fill="${GD}" text-anchor="end">756 户</text>`;
-  s+=`<text x="${x(11)}" y="${y2(aum[11])-12}" font-size="12" font-weight="700" fill="${BD}" text-anchor="end">5,862 万</text>`;
-  document.getElementById('chLine').innerHTML=s;
+const monthlyNet=[
+  {m:"1月",v:39.18},{m:"2月",v:15.28},{m:"3月",v:12.29},
+  {m:"4月",v:6.18},{m:"5月",v:8.57},{m:"6月",v:15.10},
+  {m:"7月",v:19.70},{m:"8月",v:21.37},{m:"9月*",v:21.04}
+];
+(function drawNetFlow(){
+  const svg=document.getElementById("netFlowChart");
+  const W=1060,H=330,L=58,R=24,T=24,B=50,max=45;
+  const plotW=W-L-R,plotH=H-T-B,gap=plotW/monthlyNet.length,bw=gap*.54;
+  const y=v=>T+(1-v/max)*plotH;
+  let out="";
+  [0,10,20,30,40].forEach(t=>{
+    out+=`<line x1="${L}" y1="${y(t)}" x2="${W-R}" y2="${y(t)}" stroke="#DED8CA"/>`;
+    out+=`<text x="${L-10}" y="${y(t)+4}" text-anchor="end" font-size="11" fill="#8D8A82">${t}</text>`;
+  });
+  monthlyNet.forEach((d,i)=>{
+    const x=L+i*gap+(gap-bw)/2,barY=y(d.v),h=H-B-barY;
+    const fill=i===monthlyNet.length-1?"#356B50":"#B29B70";
+    out+=`<rect x="${x}" y="${barY}" width="${bw}" height="${h}" fill="${fill}"/>`;
+    out+=`<text x="${x+bw/2}" y="${barY-8}" text-anchor="middle" font-size="12" font-weight="700" fill="#614820">${d.v.toFixed(2)}</text>`;
+    out+=`<text x="${x+bw/2}" y="${H-B+23}" text-anchor="middle" font-size="11" fill="#8D8A82">${d.m}</text>`;
+  });
+  svg.innerHTML=out;
 })();
-
-/* 柱状 - 通用 */
-function bars(id,data,color,unit){
-  const W=620,H=300,L=42,R=16,T=20,B=40;
-  const max=Math.max(...data)*1.15;
-  const bw=(W-L-R)/data.length*0.62, gap=(W-L-R)/data.length;
-  const y=v=>T+(1-v/max)*(H-T-B);
-  let s='';
-  for(let k=0;k<=4;k++){const g=max*k/4;s+=`<line x1="${L}" y1="${y(g)}" x2="${W-R}" y2="${y(g)}" stroke="${LINE}"/>`;s+=`<text x="${L-8}" y="${y(g)+4}" font-size="10.5" fill="${FAINT}" text-anchor="end">${Math.round(g)}</text>`;}
-  data.forEach((v,i)=>{
-    const bx=L+i*gap+(gap-bw)/2;
-    s+=`<rect x="${bx}" y="${y(v)}" width="${bw}" height="${H-B-y(v)}" fill="${color}" opacity="${i===data.length-1?1:.82}"/>`;
-    s+=`<text x="${bx+bw/2}" y="${y(v)-6}" font-size="10.5" font-weight="600" fill="${GD}" text-anchor="middle">${v}</text>`;
-    s+=`<text x="${bx+bw/2}" y="${H-B+20}" font-size="10.5" fill="${FAINT}" text-anchor="middle">${months[i]}月</text>`;
-  });
-  document.getElementById(id).innerHTML=s;
-}
-bars('chBars',adds,G,'户');
-bars('chFlow',flow,BD,'万');
-
-/* 年龄分布柱状（分阶段着色） */
-(function age(){
-  const bands=[["25–29",41,G],["30–34",88,G],["35–39",142,G],["40–44",126,G],["45–50",173,G],["51–55",96,VI],["56–59",42,VI],["60–64",24,VI],["65–69",16,BD],["70+",8,BD]];
-  const W=1040,H=320,L=48,R=18,T=24,B=44;
-  const max=190, gap=(W-L-R)/bands.length, bw=gap*0.6;
-  const y=v=>T+(1-v/max)*(H-T-B);
-  let s='';
-  for(let k=0;k<=4;k++){const g=max*k/4;s+=`<line x1="${L}" y1="${y(g)}" x2="${W-R}" y2="${y(g)}" stroke="${LINE}"/>`;s+=`<text x="${L-8}" y="${y(g)+4}" font-size="10.5" fill="${FAINT}" text-anchor="end">${Math.round(g)}</text>`;}
-  // 退休锚点分隔（45–50 与 51–55 之间）
-  const sepX=L+5*gap;
-  s+=`<line x1="${sepX}" y1="${T}" x2="${sepX}" y2="${H-B}" stroke="${VI}" stroke-width="1" stroke-dasharray="4 4"/>`;
-  bands.forEach((b,i)=>{
-    const bx=L+i*gap+(gap-bw)/2;
-    s+=`<rect x="${bx}" y="${y(b[1])}" width="${bw}" height="${H-B-y(b[1])}" fill="${b[2]}" opacity=".9"/>`;
-    s+=`<text x="${bx+bw/2}" y="${y(b[1])-6}" font-size="10.5" font-weight="600" fill="${GD}" text-anchor="middle">${b[1]}</text>`;
-    s+=`<text x="${bx+bw/2}" y="${H-B+20}" font-size="10.5" fill="${FAINT}" text-anchor="middle">${b[0]}</text>`;
-  });
-  document.getElementById('chAge').innerHTML=s;
-})();
-
-/* 投入方式甜甜圈 */
-(function donut(){
-  const data=[["月定投为主",68,G],["定投+不定期追加",21,BD],["一次性买入",11,VI]];
-  const cx=140,cy=130,r=86,rw=34;let a=-Math.PI/2,s='';
-  data.forEach(d=>{
-    const ang=d[1]/100*Math.PI*2, a2=a+ang;
-    const x1=cx+r*Math.cos(a),y1=cy+r*Math.sin(a),x2=cx+r*Math.cos(a2),y2=cy+r*Math.sin(a2);
-    const xi1=cx+(r-rw)*Math.cos(a),yi1=cy+(r-rw)*Math.sin(a),xi2=cx+(r-rw)*Math.cos(a2),yi2=cy+(r-rw)*Math.sin(a2);
-    const large=ang>Math.PI?1:0;
-    s+=`<path d="M${x1},${y1} A${r},${r} 0 ${large} 1 ${x2},${y2} L${xi2},${yi2} A${r-rw},${r-rw} 0 ${large} 0 ${xi1},${yi1} Z" fill="${d[2]}" opacity=".9"/>`;
-    a=a2;
-  });
-  s+=`<text x="${cx}" y="${cy-4}" font-size="13" fill="${FAINT}" text-anchor="middle">定投占比</text>`;
-  s+=`<text x="${cx}" y="${cy+20}" font-size="24" font-weight="700" fill="${GD}" text-anchor="middle">68%</text>`;
-  data.forEach((d,i)=>{
-    const ly=64+i*40;
-    s+=`<rect x="300" y="${ly}" width="14" height="14" fill="${d[2]}" opacity=".9"/>`;
-    s+=`<text x="324" y="${ly+12}" font-size="14" fill="${INK}">${d[0]}</text>`;
-    s+=`<text x="600" y="${ly+12}" font-size="14" font-weight="700" fill="${GD}" text-anchor="end">${d[1]}%</text>`;
-  });
-  document.getElementById('chDonut').innerHTML=s;
-})();
-
-/* 横条行 */
-function rowChart(id,data,unit){
-  const max=Math.max(...data.map(d=>d[1]));
-  document.getElementById(id).innerHTML=data.map(d=>`
-    <li><span class="rk">${d[0]}</span><span class="rb"><i style="width:${Math.round(d[1]/max*100)}%"></i></span><span class="rv num">${d[1]}${unit||''}<small>${d[2]||''}</small></span></li>`).join('');
-}
-rowChart('sizeRows',[["≤3 万",212," 户"],["3–10 万",298," 户"],["10–30 万",164," 户"],["30–100 万",68," 户"],[">100 万",14," 户"]]);
-rowChart('riskRows',[["稳健 C2",236," 户"],["平衡 C3",342," 户"],["积极 C4",178," 户"]]);
-rowChart('cityRows',[["一线",286," 户"],["新一线",254," 户"],["二线",142," 户"],["三线及以下",74," 户"]]);
-
-/* 标签云 */
-(function cloud(){
-  const tags=[["养老储备",426,1],["长期定投",358,1],["四笔钱",214,0],["企业主",118,0],["临近退休",162,0],["子女已立",96,0],["长赢老客",204,0],["税优关注",88,0],["现金流需求",54,0],["高潜年轻",132,0]];
-  document.getElementById('cloud').innerHTML=tags.map(t=>`<span class="${t[2]?'hot':''}" style="font-size:${12+Math.round(t[1]/60)}px">${t[0]}<b>${t[1]}</b></span>`).join('');
-})();
-
-/* ---------- 视图切换 ---------- */
-document.querySelectorAll('.switch button').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    document.querySelectorAll('.switch button').forEach(b=>b.classList.toggle('on',b===btn));
-    document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
-    document.getElementById('view-'+btn.dataset.view).classList.add('on');
-    window.scrollTo({top:0,behavior:'smooth'});
-  });
-});
 </script>
 </body>
 </html>

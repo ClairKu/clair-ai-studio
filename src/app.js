@@ -350,15 +350,15 @@ const initialState = {
     {
       id: "wb-qieman-pension-dashboard",
       groupId: "ai-workbench",
-      title: "颐养天年 · 产品数据看板",
+      title: "颐养天年 · 口径纠正版经营看板",
       url: "https://clairku.github.io/clair-ai-studio/apps/yingmi-advisor-workbench-2026-09-10/qieman-pension-dashboard.html",
       preview: "wb-qieman-pension-dashboard.svg",
       pinned: false,
       createdAt: "2026-09-21T18:28:00+08:00",
-      source: "养老产品经营看板：规模、增长、客群",
+      source: "生产实查：养老专区、养老账户、颐养天年分层口径",
       access: "production",
       workType: "product-demo",
-      tags: ["养老", "产品看板", "数据", "增长"],
+      tags: ["养老", "颐养天年", "账户口径", "生产数据"],
     },
     {
       id: "wb-qieman-pension-strategy-brief",
