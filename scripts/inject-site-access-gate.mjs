@@ -5,16 +5,18 @@ import { fileURLToPath } from "node:url";
 const projectRoot = fileURLToPath(new URL("../", import.meta.url));
 const outputRoot = resolve(projectRoot, process.argv[2] || "docs");
 const gateAsset = join(outputRoot, "access-gate.js");
-const accessConfigAsset = join(outputRoot, "report-access.json");
 const marker = "data-clair-access-gate";
+const selfProtectedEntries = new Set([
+  "reports/qianwen-user-acquisition-dashboard/index.html",
+  "reports/doubao-user-acquisition-dashboard/index.html",
+  "reports/doubao-user-conversion-cases-2026-09-20/index.html",
+  // These pages contain sensitive source material and ship as AES-GCM encrypted shells.
+  "reports/qianwen-user-question-analysis-2026-09-05/index.html",
+  "reports/qianwen-user-question-detail-2026-09-05/index.html",
+  "reports/qianwen-first-investor-cases-2026-09-17/index.html",
+]);
 
 if (!existsSync(gateAsset)) throw new Error(`Missing access gate asset: ${gateAsset}`);
-if (!existsSync(accessConfigAsset)) throw new Error(`Missing report access config: ${accessConfigAsset}`);
-const accessConfig = JSON.parse(readFileSync(accessConfigAsset, "utf8"));
-const immutableLockedReportIds = new Set(accessConfig.immutableLockedReportIds || []);
-const selfProtectedEntries = new Set(
-  [...immutableLockedReportIds].map((reportId) => `reports/${reportId}/index.html`),
-);
 
 const walkHtml = (directory, results = []) => {
   for (const entry of readdirSync(directory, { withFileTypes: true })) {
