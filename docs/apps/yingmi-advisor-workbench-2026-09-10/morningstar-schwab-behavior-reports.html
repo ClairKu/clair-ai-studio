@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />
+    <script data-clair-access-gate data-clair-access-scope="workspace" src="../../access-gate.js"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex,nofollow" />
+<title>晨星与嘉信：投资行为偏差关键报告介绍</title>
+<style>
+:root{
+  --bg:#f4f0e6;
+  --paper:#fffdf8;
+  --ink:#1c1915;
+  --muted:#5e584e;
+  --faint:#8a8276;
+  --line:#e4dccf;
+  --ms:#9a3412;
+  --ms-soft:#f8ebe3;
+  --schwab:#0f5c56;
+  --schwab-soft:#e5f3f1;
+  --gap:#b42318;
+  --ok:#1f6b45;
+  --gold:#8a5a12;
+  --shadow:0 10px 30px rgba(60,40,10,.06);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:
+    radial-gradient(1200px 500px at 10% -10%, #efe4d2 0%, transparent 55%),
+    var(--bg);
+  color:var(--ink);
+  font-family:"PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",sans-serif;
+  font-size:16px;
+  line-height:1.7;
+}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 22px 80px}
+header.hero{
+  display:grid;
+  grid-template-columns:1.35fr .85fr;
+  gap:28px;
+  align-items:end;
+  padding:18px 0 28px;
+  border-bottom:1px solid var(--line);
+}
+.kicker{
+  display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px
+}
+.kicker span{
+  font-size:12px;letter-spacing:.08em;
+  border:1px solid var(--line);border-radius:999px;
+  padding:3px 10px;color:var(--muted);background:rgba(255,255,255,.6)
+}
+h1{
+  font-family:"Iowan Old Style","Palatino Linotype","Songti SC",Georgia,serif;
+  font-weight:600;font-size:42px;line-height:1.18;letter-spacing:-.02em;margin:0 0 12px
+}
+.lede{font-size:18px;color:var(--muted);margin:0;max-width:46rem}
+.hero-side{
+  background:var(--paper);border:1px solid var(--line);border-radius:16px;
+  padding:16px 18px;box-shadow:var(--shadow)
+}
+.hero-side p{margin:0 0 8px;font-size:13px;color:var(--faint)}
+.hero-side strong{display:block;font-size:15px;color:var(--ink);font-weight:650}
+.hero-side .row{display:flex;flex-direction:column;gap:2px;padding:10px 0;border-top:1px solid var(--line)}
+.hero-side .row b{font-weight:650;line-height:1.45}
+.hero-side .row b{font-variant-numeric:tabular-nums}
+.layout{display:grid;grid-template-columns:210px 1fr;gap:36px;margin-top:28px}
+nav.toc{position:sticky;top:16px;align-self:start;font-size:13.5px}
+nav.toc a{
+  display:block;color:var(--muted);text-decoration:none;
+  padding:6px 0 6px 12px;border-left:2px solid var(--line)
+}
+nav.toc a.on{color:var(--ink);border-left-color:var(--ms);font-weight:600}
+nav.toc .grp{margin:14px 0 4px 12px;font-size:11px;letter-spacing:.12em;color:var(--faint)}
+section{margin:0 0 42px;scroll-margin-top:18px}
+h2{
+  font-family:"Iowan Old Style","Palatino Linotype","Songti SC",Georgia,serif;
+  font-size:30px;font-weight:600;margin:0 0 8px;letter-spacing:-.02em
+}
+h3{font-size:18px;margin:26px 0 8px}
+p{margin:0 0 12px}
+.note,.warn{
+  border-radius:12px;padding:12px 14px;margin:14px 0;font-size:14.5px
+}
+.note{background:#fff;border:1px solid var(--line)}
+.warn{background:#fff6e8;border:1px solid #efd7b0;color:#5c4316}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}
+.card{
+  background:var(--paper);border:1px solid var(--line);border-radius:16px;
+  padding:16px 16px 14px;box-shadow:var(--shadow)
+}
+.card .tag{font-size:12px;letter-spacing:.06em;margin-bottom:6px}
+.card.ms .tag{color:var(--ms)}
+.card.sc .tag{color:var(--schwab)}
+.card h3{margin:0 0 6px;font-size:20px}
+.card p{color:var(--muted);font-size:14.5px;margin:0}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 12px 10px}
+.kpi .v{font-family:"Iowan Old Style",Georgia,serif;font-size:28px;line-height:1.1;font-variant-numeric:tabular-nums}
+.kpi .v small{font-size:14px;margin-left:2px}
+.kpi .l{font-size:12.5px;color:var(--muted);margin-top:4px}
+.kpi.bad .v{color:var(--gap)}
+.kpi.good .v{color:var(--ok)}
+table{width:100%;border-collapse:collapse;font-size:14px;background:#fff;border-radius:12px;overflow:hidden}
+th,td{text-align:right;padding:8px 10px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+th:first-child,td:first-child{text-align:left}
+th{font-size:12px;color:var(--faint);font-weight:600;background:#faf7f1}
+tr:last-child td{border-bottom:0}
+td.neg{color:var(--gap)}
+td.pos{color:var(--ok)}
+.caption{font-size:12.5px;color:var(--faint);margin:6px 0 0}
+.bars{display:flex;flex-direction:column;gap:8px;margin:8px 0 4px}
+.bar{display:grid;grid-template-columns:128px 1fr 72px;gap:10px;align-items:center;font-size:13.5px}
+.bar .track{height:10px;background:#efe8dc;border-radius:99px;overflow:hidden}
+.bar .fill{display:block;height:100%;border-radius:99px;background:var(--gap)}
+.bar .fill.ok{background:var(--ok)}
+.bar .fill.ms{background:#c2410c}
+.bar .fill.sc{background:var(--schwab)}
+.bar b{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.legend{display:flex;gap:14px;font-size:12.5px;color:var(--muted);margin:4px 0 10px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+ul.clean{margin:8px 0 12px;padding-left:1.15em}
+ul.clean li{margin:4px 0}
+ol.src{font-size:13.5px;color:var(--muted);padding-left:1.3em}
+ol.src li{margin:8px 0}
+ol.src a{color:var(--schwab)}
+.bias-list{display:flex;flex-direction:column;gap:14px;margin-top:8px}
+.bias-row{display:grid;grid-template-columns:88px 1fr;gap:12px;align-items:end}
+.bias-row .name{font-size:14px;padding-bottom:22px}
+.group{display:flex;align-items:flex-end;gap:10px;height:168px;border-bottom:1px solid var(--line);padding-bottom:0}
+.gbar{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;width:54px;height:100%}
+.gbar span{width:28px;border-radius:4px 4px 0 0;display:block}
+.gbar span.y19{background:#b7d4d0}
+.gbar span.y20{background:#5f9e98}
+.gbar span.y21{background:#0f5c56}
+.gbar em{font-style:normal;font-size:12px;color:var(--muted);margin-top:4px;font-variant-numeric:tabular-nums}
+.foot{
+  border-top:1px solid var(--line);margin-top:20px;padding-top:16px;
+  font-size:12.5px;color:var(--faint)
+}
+@media(max-width:900px){
+  header.hero,.layout,.cards,.kpis,.pair{grid-template-columns:1fr}
+  nav.toc{position:static}
+  h1{font-size:32px}
+  .kpis{grid-template-columns:1fr 1fr}
+  .bar{grid-template-columns:96px 1fr 64px}
+  .bias-row{grid-template-columns:72px 1fr}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div>
+    <div class="kicker">
+      <span>研究介绍</span>
+      <span>晨星 Mind the Gap</span>
+      <span>嘉信 BeFi Barometer</span>
+      <span>整理日期 2026-09-24</span>
+    </div>
+    <h1>两份报告，把“投资行为偏差”说成了两件不同的事</h1>
+    <p class="lede">晨星量的是结果：美国基金里平均每一美元，比基金自己公布的收益少拿了多少。嘉信问的是过程：顾问眼中，客户和顾问自己最常掉进哪些偏差，以及哪些做法被他们评为有效。两份合在一起，才能既看到缺口有多大，也知道缺口通常从哪种决策里来。</p>
+  </div>
+  <aside class="hero-side">
+    <p>先记住这两个数字</p>
+    <div class="row"><span>晨星 2025<br>十年投资者收益缺口</span><b>每年 −1.2 个百分点<br>约等于基金总收益的 15%</b></div>
+    <div class="row"><span>嘉信 2021<br>顾问认为显著影响客户的偏差</span><b>近因 58%<br>确认 50% · 损失厌恶 43%</b></div>
+  </aside>
+</header>
+
+<div class="layout">
+<nav class="toc" id="toc">
+  <div class="grp">导读</div>
+  <a href="#map">两份报告各管什么</a>
+  <a href="#read">三个口径，先分开</a>
+  <div class="grp">晨星</div>
+  <a href="#ms">Mind the Gap 是什么</a>
+  <a href="#ms-headline">2025 年的总账</a>
+  <a href="#ms-style">哪类基金缺口大</a>
+  <a href="#ms-trade">交易越多，拿到越少</a>
+  <a href="#ms-method">算法与不能外推的地方</a>
+  <div class="grp">嘉信</div>
+  <a href="#sc">BeFi Barometer 是什么</a>
+  <a href="#sc-bias">客户偏差三年怎么变</a>
+  <a href="#sc-advisor">顾问自己的偏差</a>
+  <a href="#sc-fix">他们说什么做法有效</a>
+  <div class="grp">合用</div>
+  <a href="#together">怎么放在一起用</a>
+  <a href="#sources">出处</a>
+</nav>
+
+<main>
+<section id="map">
+  <h2>两份报告各管什么</h2>
+  <div class="cards">
+    <article class="card ms">
+      <div class="tag">MORNINGSTAR · 结果</div>
+      <h3>Mind the Gap</h3>
+      <p>晨星组合与规划研究的年度报告，主笔 Jeffrey Ptak。比较美国开放式基金和 ETF 的资金加权收益（investor return）与时间加权总收益（total return）。最新一版 2025 年 8 月 13 日发布，样本区间为截至 2024 年 12 月 31 日的十年。它不给偏差起心理学术语，只回答：申购赎回的时点和金额，吃掉了多少基金收益。</p>
+    </article>
+    <article class="card sc">
+      <div class="tag">SCHWAB · 过程</div>
+      <h3>BeFi Barometer</h3>
+      <p>嘉信资产管理（Charles Schwab Investment Management，对外亦称 Schwab Asset Management）委托 Cerulli，联合 Investments &amp; Wealth Institute 做的顾问调查。公开可核的共三期：2019（2019 年 7 月，301 人）、2020（2020 年 5–6 月，300 余人）、2021（2021 年二季度，300 余人，抽样误差 3%）。它不计算收益缺口，只记录顾问观察到的偏差，以及他们如何用行为金融做沟通和组合。</p>
+    </article>
+  </div>
+  <div class="note">截至 2026 年 9 月公开检索，BeFi Barometer 未见 2022 年及以后的新一期；晨星这边能定位到的最新完整研究是 2025 年美国版《Mind the Gap》。下文数字都标了所属版本，不把两年的表拼成一条序列。</div>
+</section>
+
+<section id="read">
+  <h2>三个口径，先分开</h2>
+  <table>
+    <thead><tr><th>口径</th><th>谁的收益</th><th>怎么算</th><th>负的缺口意味着什么</th></tr></thead>
+    <tbody>
+      <tr><td>时间加权总收益</td><td>基金本身</td><td>假设期初一笔买入并持有到期，不受中途申赎影响</td><td>基金宣传页上的收益，通常是这个</td></tr>
+      <tr><td>资金加权 / 投资者收益</td><td>池子里的平均每一美元</td><td>内部收益率：钱多的月份权重大</td><td>投资者实际体验更接近这个</td></tr>
+      <tr><td>缺口</td><td>两者之差</td><td>投资者收益 − 总收益</td><td>申赎时点和金额吃掉的部分。追涨杀跌会拉开它，定期定额和再平衡也会拉开它</td></tr>
+    </tbody>
+  </table>
+  <p class="caption">晨星在 2025 年报告里写得很直白：不要把这份研究读成“散户很蠢”的寓言。即便是发工资就买入、或按纪律再平衡，也会让资金加权收益偏离持有收益。</p>
+</section>
+
+<section id="ms">
+  <h2>晨星《Mind the Gap》：平均每一美元少拿了多少</h2>
+  <p>这是晨星做了近二十年的年度研究。对象是研究期初已经存在的美国开放式基金和 ETF，按份额合并后放进资产池，用内部收益率估计“平均每一美元”的收益，再和同一池子的持有总收益比较。2025 年这一版覆盖研究期初约 25,848 只基金（不含基金中的基金，以免重复计算），期初净资产约 13.8 万亿美元，期末约 24.5 万亿美元，十年累计净流出约 2.0 万亿美元。</p>
+  <p>2025 年新加了两个切面：相对风格基准的跟踪误差，以及资金流波动（用来代表交易活跃程度）。报告的标题句就是这两个切面的结论：基金越偏离指数，或者投资者交易越多，投资者收益和总收益的缺口越宽。</p>
+</section>
+
+<section id="ms-headline">
+  <h3>2025 年的总账</h3>
+  <div class="kpis">
+    <div class="kpi"><div class="v">7.0<small>%</small></div><div class="l">投资者年化收益<br>平均每一美元</div></div>
+    <div class="kpi"><div class="v">8.2<small>%</small></div><div class="l">基金年化总收益<br>期初买入并持有</div></div>
+    <div class="kpi bad"><div class="v">−1.2<small>pp</small></div><div class="l">每年缺口<br>申赎时点与金额所致</div></div>
+    <div class="kpi bad"><div class="v">15<small>%</small></div><div class="l">少拿到的比例<br>1.2 ÷ 8.2 ≈ 15%</div></div>
+  </div>
+  <p>区间是 2015 年初至 2024 年底。1.2 个百分点的年缺口，和晨星自己估算的此前四个滚动十年（止于 2020、2021、2022、2023 年底）大体同量级。2025 年报告给出的整体滚动缺口是：止于 2020 / 2021 / 2022 年各 −1.7 个百分点，止于 2023 年 −1.1，止于 2024 年 −1.2。</p>
+  <p>上一版（2024 年 8 月 15 日，区间止于 2023 年底）的标题数字是：投资者年化 6.3%，基金总收益约 7.3%，缺口约 1.1 个百分点，同样大约少拿 15%。那一版还写到，这十年里的每一个日历年，投资者收益都落后于总收益；2020 年尤其明显，当年缺口约 −2 个百分点——投资者在 2019 年底和 2020 年初加仓，市场下跌时撤出近 5,000 亿美元，随后的反弹只吃到一部分。</p>
+  <div class="warn">2025 年报告改了总收益的汇总算法：改为用期初资产按月复利滚到期末，不再用月内平均资产加权。新算法使汇总总收益略低、缺口略窄。跨年比较以 2025 年报告里重列的滚动序列为准，不要把 2024 年旧版的分类表和 2025 年新版的分类表直接相减。</div>
+</section>
+
+<section id="ms-style">
+  <h3>哪类基金的缺口大，哪类基金的钱拿得比较全</h3>
+  <p>2025 年报告按美国类别组给出的十年结果如下。配置型基金（含目标日期基金这类“一套装完”的产品）几乎拿全了基金收益；行业股票的绝对缺口最大；债券的绝对缺口并不比整体更夸张，但因为这十年债券总收益只有 2% 出头，投资者只拿到大约一半。</p>
+  <div class="pair">
+    <div>
+      <div class="legend"><i style="background:#b42318"></i>十年年化缺口（投资者收益 − 总收益），越长越吃亏</div>
+      <div class="bars" id="gapBars">
+        <div class="bar"><span>行业股票</span><span class="track"><span class="fill" style="width:75%"></span></span><b>−1.5</b></div>
+        <div class="bar"><span>市政债</span><span class="track"><span class="fill" style="width:60%"></span></span><b>−1.2</b></div>
+        <div class="bar"><span>海外股票</span><span class="track"><span class="fill" style="width:55%"></span></span><b>−1.1</b></div>
+        <div class="bar"><span>应税债券</span><span class="track"><span class="fill" style="width:50%"></span></span><b>−1.0</b></div>
+        <div class="bar"><span>美国股票</span><span class="track"><span class="fill" style="width:30%"></span></span><b>−0.6</b></div>
+        <div class="bar"><span>配置型</span><span class="track"><span class="fill" style="width:5%"></span></span><b>−0.1</b></div>
+        <div class="bar"><span>另类</span><span class="track"><span class="fill" style="width:5%"></span></span><b>−0.1</b></div>
+      </div>
+      <p class="caption">刻度按 2 个百分点为满格。整体（不含基金中的基金）为 −1.2。另类若剔除清盘基金，缺口会扩大到每年 −0.8 个百分点；1,259 只期初另类基金里有 711 只后来清盘。来源：Morningstar Mind the Gap 2025，Exhibit 4，截至 2024-12-31。</p>
+    </div>
+    <div>
+      <table>
+        <thead><tr><th>类别组</th><th>投资者</th><th>总收益</th><th>拿到比例</th></tr></thead>
+        <tbody>
+          <tr><td>配置型</td><td>6.3%</td><td>6.5%</td><td class="pos">约 97%</td></tr>
+          <tr><td>美国股票</td><td>11.1%</td><td>11.6%</td><td>约 96%</td></tr>
+          <tr><td>另类</td><td>3.2%</td><td>3.3%</td><td>约 97%</td></tr>
+          <tr><td>海外股票</td><td>4.8%</td><td>5.9%</td><td>约 81%</td></tr>
+          <tr><td>行业股票</td><td>7.0%</td><td>8.5%</td><td>约 82%</td></tr>
+          <tr><td>应税债券</td><td>1.2%</td><td>2.2%</td><td class="neg">约 55%</td></tr>
+          <tr><td>市政债</td><td>1.0%</td><td>2.1%</td><td class="neg">约 48%</td></tr>
+          <tr><td>整体</td><td>7.0%</td><td>8.2%</td><td>约 85%</td></tr>
+        </tbody>
+      </table>
+      <p class="caption">“拿到比例”是投资者收益除以总收益，便于和绝对缺口对照。债券看起来“只拿到一半”，绝对缺口仍是每年约 1 个百分点，和整体缺口同一量级；分母小，比例才显得大。</p>
+    </div>
+  </div>
+  <h3>资产规模最大的那些类别</h3>
+  <p>大盘平衡是少见的正缺口：投资者年化 12.2%，基金总收益 12.1%，缺口 +0.1 个百分点。大盘成长的绝对缺口在这些大类里最宽（13.5% 对 14.5%，−1.0）。中短核心增强债券的投资者收益 0.9%，总收益 1.7%，大约只拿到一半。</p>
+  <table>
+    <thead><tr><th>晨星类别</th><th>投资者收益</th><th>总收益</th><th>缺口</th></tr></thead>
+    <tbody>
+      <tr><td>大盘平衡 Large Blend</td><td>12.2%</td><td>12.1%</td><td class="pos">+0.1</td></tr>
+      <tr><td>大盘成长 Large Growth</td><td>13.5%</td><td>14.5%</td><td class="neg">−1.0</td></tr>
+      <tr><td>大盘价值 Large Value</td><td>8.4%</td><td>9.2%</td><td class="neg">−0.8</td></tr>
+      <tr><td>海外大盘平衡 Foreign Large Blend</td><td>4.7%</td><td>5.0%</td><td class="neg">−0.4</td></tr>
+      <tr><td>中盘平衡 Mid-Cap Blend</td><td>9.0%</td><td>9.1%</td><td class="neg">−0.1</td></tr>
+      <tr><td>中盘成长 Mid-Cap Growth</td><td>9.4%</td><td>10.2%</td><td class="neg">−0.8</td></tr>
+      <tr><td>小盘平衡 Small Blend</td><td>7.6%</td><td>8.2%</td><td class="neg">−0.6</td></tr>
+      <tr><td>中短核心债 Intermediate Core Bond</td><td>0.8%</td><td>1.4%</td><td class="neg">−0.6</td></tr>
+      <tr><td>中短核心增强债 Intermediate Core-Plus</td><td>0.9%</td><td>1.7%</td><td class="neg">−0.8</td></tr>
+      <tr><td>多元化新兴市场</td><td>2.9%</td><td>3.5%</td><td class="neg">−0.6</td></tr>
+    </tbody>
+  </table>
+  <p class="caption">Morningstar Mind the Gap 2025，Exhibit 6。不含基金中的基金，所以表里没有配置型类别。缺口经四舍五入，可能不等于两列之差。</p>
+  <p>晨星的解释不是“平衡型基金魔法地消除了人性”，而是使用场景：规模最大的基金往往被目标日期基金持有，或放在养老金菜单上，申赎更接近纪律而不是看行情下手。行业基金、窄基基金很少出现在这种场景里，更容易被单独、机会性地买卖，过去业绩就成了买卖理由。</p>
+</section>
+
+<section id="ms-trade">
+  <h3>2025 年新增的发现：交易越多，平均每一美元赚得越少</h3>
+  <div class="pair">
+    <div class="card">
+      <h3>资金流波动，五档</h3>
+      <p>资金流越稳，代表交易越少。最稳一档的缺口是每年 −0.8 个百分点，最颠一档是 −1.8。而且最稳一档的投资者收益本身更高：年化 8.2%（总收益 9%），最颠一档只有 4.7%（总收益 6.5%）。</p>
+      <div class="bars">
+        <div class="bar"><span>最稳</span><span class="track"><span class="fill ms" style="width:40%"></span></span><b>−0.8</b></div>
+        <div class="bar"><span>第二档</span><span class="track"><span class="fill ms" style="width:55%"></span></span><b>−1.1</b></div>
+        <div class="bar"><span>第三档</span><span class="track"><span class="fill ms" style="width:45%"></span></span><b>−0.9</b></div>
+        <div class="bar"><span>第四档</span><span class="track"><span class="fill ms" style="width:70%"></span></span><b>−1.4</b></div>
+        <div class="bar"><span>最颠</span><span class="track"><span class="fill ms" style="width:90%"></span></span><b>−1.8</b></div>
+      </div>
+      <p class="caption">整体、不含基金中的基金。满格按 2 个百分点。</p>
+    </div>
+    <div class="card">
+      <h3>跟踪误差，五档</h3>
+      <p>收益越偏离风格基准，缺口越宽。跟踪误差最低一档每年 −0.9 个百分点，最高一档 −1.6，接近两倍。基金自己的总收益在各档之间差不多，被吃掉的是投资者那一侧。</p>
+      <div class="bars">
+        <div class="bar"><span>最低</span><span class="track"><span class="fill" style="width:45%"></span></span><b>−0.9</b></div>
+        <div class="bar"><span>第二档</span><span class="track"><span class="fill" style="width:55%"></span></span><b>−1.1</b></div>
+        <div class="bar"><span>第三档</span><span class="track"><span class="fill" style="width:70%"></span></span><b>−1.4</b></div>
+        <div class="bar"><span>第四档</span><span class="track"><span class="fill" style="width:45%"></span></span><b>−0.9</b></div>
+        <div class="bar"><span>最高</span><span class="track"><span class="fill" style="width:80%"></span></span><b>−1.6</b></div>
+      </div>
+      <p class="caption">第四档回到 −0.9，不是严格单调。晨星说这一规律在美国股票和应税债上更清楚。</p>
+    </div>
+  </div>
+  <h3>波动、费用、ETF：三件容易读反的事</h3>
+  <ul class="clean">
+    <li><b>收益波动。</b>波动最低一档，投资者年化 9.6%，总收益 10.0%，缺口 −0.4；波动最高一档，投资者只有 3.4%，总收益 5.4%，缺口 −2.0。同一类资产内部，更颠的基金往往总收益更低，投资者还再少拿一截。2024 年那一版写得更狠：行业股票里波动最高的五分位，投资者收益比持有收益每年落后 7 个以上百分点。</li>
+    <li><b>费用不是缺口的主因。</b>最便宜五分位的投资者年化 7.6%、总收益 8.7%，最贵的是 3.8% 和 5.6%。但整体五档的缺口是 −1.2、−1.8、−1.6、−1.4、−1.8，并不随费用单调变宽。美国股票和行业股票里，便宜基金的缺口确实更窄（美国股票最便宜 −0.4、最贵 −2.1）。晨星的判断是：低费用常常是使用场景的副产品——被配置型基金持有、放在长期配置里——而不是费用本身让人更拿得住。</li>
+    <li><b>买指数、买 ETF，不等于缺口会消失。</b>2025 年，主动基金投资者年化 6.0%、总收益 7.5%、缺口 −1.5；指数基金是 8.5%、9.8%、−1.3。管理方式对“能拿住多少”几乎没有区分度。ETF 的收益更高（投资者 7.8%，总收益 9.5%），缺口也更宽（−1.7，开放式基金是 −1.2）。拆开看：美国股票 ETF 几乎拿全了（11.8% 对 12.1%），海外股票 ETF 缺口 −3.2，行业股票 ETF −2.1，应税债 ETF −1.5。配置型开放式基金缺口只有 −0.1，配置型 ETF 却是 −2.5。2024 年那一版还有一个更细的对照：指数共同基金缺口约 −0.2，指数 ETF 约 −1.1。ETF 盘中可交易的便利，在数据里是有代价的。</li>
+  </ul>
+  <div class="note">报告给投资者的收束很具体：少做自由裁量的买卖；把再平衡这类例行动作自动化；少用需要经常动手的窄基、高波动基金；长期收支计划里的收益假设留一点缓冲，把正常交易带来的拖累先扣掉。它没有说波动大的资产不能碰，只是说这类基金更容易在回撤时把人吓出去，或在大涨后被人追进去。</div>
+</section>
+
+<section id="ms-method">
+  <h3>算法，以及不能外推的地方</h3>
+  <ul class="clean">
+    <li>池子里放进期初（这一版是 2015 年 1 月 1 日）已存在的全部合格份额。之后新成立的基金不在样本里，所以没有修正“创立偏差”。清盘基金会把期末资产当作之后收益为零的现金持有到研究结束，用来减轻幸存偏差；被合并的基金则并入存续基金。</li>
+    <li>剔除商品、杂项，以及资产、资金流或收益数据不完整的基金。非传统股票并入另类。类别组合计含基金中的基金，整体数字剔除它们，避免一块资产算两次。</li>
+    <li>ETF 用月度资产，看不到日内交易。分红再投资按类别组假设的再投资率调整。</li>
+    <li>这个“平均每一美元”不是“平均一位投资者”。每个人的申赎路径不同，个人结果可以离 1.2 个百分点很远。</li>
+    <li>样本只是美国开放式基金和 ETF，是全球市场的一个子集。对整个市场而言，买方的缺口就是卖方的盈余，理论上没有总缺口。</li>
+    <li>因此，−1.2 个百分点不能直接当成中国基金投资者、或任何一个平台用户的行为差。它是美国基金业这一资金池、这一算法、这十年的结果。</li>
+  </ul>
+</section>
+
+<section id="sc">
+  <h2>嘉信 BeFi Barometer：顾问看见的偏差，以及他们用来对付偏差的办法</h2>
+  <p>BeFi 是 behavioral finance 的缩写。这套调查不问“你的账户少赚了几个点”，而问顾问两件事：你认为哪些偏差正在显著影响客户的投资决定；你自己的决定又被哪些偏差影响。受访者是 IWI 会员，分布在独立投顾、美林系综合券商、以及全国或地区经纪商。三期都声明：数据为受访者自陈，未经核验。</p>
+  <p>嘉信在这项研究旁边还有一个面向顾问的 Biagnostics 项目，目标是把行为金融从概念变成可执行的沟通和组合动作。三份公开文本里，2019 年的《The Role of Behavioral Finance in Advising Clients》把偏差逐条写成了顾问手册；2020 年白皮书《The Evolving Role of Behavioral Finance》写的是疫情波动里行为金融怎么被用起来；2021 年的公开材料主要是 10 月 4 日的调查新闻稿，完整白皮书未在本次检索中取得，下面 2021 年的数字都以这篇新闻稿为准。</p>
+</section>
+
+<section id="sc-bias">
+  <h3>客户偏差：2019 到 2021，近因和确认偏差跳得最猛</h3>
+  <p>问法三年一致的方向是：“你认为下列偏差在多大程度上影响了客户的投资决策？”下图只画三期都公布了比例、且 2021 年被点名为显著上升的五项。纵轴是认为该偏差“显著”影响客户的顾问占比。</p>
+  <div class="legend"><i style="background:#b7d4d0"></i>2019　<i style="background:#5f9e98"></i>2020　<i style="background:#0f5c56"></i>2021</div>
+  <div class="bias-list" id="biasChart"></div>
+  <p class="caption">2021 年新闻稿只公布了上升最明显的五项，其余偏差没有 2021 年对照数。2019、2020 的完整谱系见下表。</p>
+  <table>
+    <thead><tr><th>偏差</th><th>报告里的操作定义</th><th>2019</th><th>2020</th><th>2021</th></tr></thead>
+    <tbody>
+      <tr><td>近因 Recency</td><td>容易被最近的新闻或经历带着走</td><td>35%</td><td>35%</td><td class="neg">58%</td></tr>
+      <tr><td>确认 Confirmation</td><td>只找能加固已有看法的信息</td><td>25%</td><td>24%</td><td class="neg">50%</td></tr>
+      <tr><td>框架 Framing</td><td>决定取决于信息被怎样呈现</td><td>17%</td><td>26%</td><td class="neg">44%</td></tr>
+      <tr><td>熟悉 / 本土 Familiarity</td><td>偏好熟悉的、在美国注册的公司</td><td>24%</td><td>27%</td><td class="neg">43%</td></tr>
+      <tr><td>损失厌恶 Loss aversion</td><td>接受比建议更低的风险，只求别亏</td><td>26%</td><td>30%</td><td class="neg">43%</td></tr>
+      <tr><td>锚定 Anchoring</td><td>盯住一个参照点做决定</td><td>24%</td><td>23%</td><td>—</td></tr>
+      <tr><td>心理账户 Mental accounting</td><td>按目标把财富拆成不同的桶</td><td>15%</td><td>26%</td><td>—</td></tr>
+      <tr><td>惯性 Inertia</td><td>该动不动，回避调整组合</td><td>22%</td><td>16%</td><td>—</td></tr>
+      <tr><td>羊群 Herding</td><td>跟着人群或最新主题走</td><td>13%</td><td>19%</td><td>—</td></tr>
+      <tr><td>禀赋 Endowment</td><td>给已经持有的资产更高估值</td><td>10%</td><td>17%</td><td>—</td></tr>
+      <tr><td>过度自信 Overconfidence</td><td>高估自己的能力</td><td>9%</td><td>11%</td><td>—</td></tr>
+      <tr><td>后悔厌恶 Regret aversion</td><td>因为怕后悔而不行动</td><td>11%</td><td>14%</td><td>—</td></tr>
+      <tr><td>可得性 Availability</td><td>只用眼前拿得到的信息做决定</td><td>13%</td><td>13%</td><td>—</td></tr>
+      <tr><td>选择性记忆 Selective memory</td><td>只记得好的结果</td><td>15%</td><td>15%</td><td>—</td></tr>
+      <tr><td>自我控制 Self-control</td><td>今天花太多，亏待以后</td><td>12%</td><td>6%</td><td>—</td></tr>
+    </tbody>
+  </table>
+  <p class="caption">2019–2020 来自 Cerulli / 嘉信 / IWI 白皮书 Exhibit 2；2021 来自 BeFi Barometer 2021 新闻稿。2020 年白皮书写近因偏差的变动是 +0.5 个百分点，四舍五入后两年都显示为 35%。</p>
+  <p>2021 年顾问把这波上升和投机交易环境放在一起看：52% 的顾问说客户有时或经常问起社交媒体上看到的股票；60% 说客户在过去一年买过加密资产；约三分之一的客户买过 SPAC；约四分之一买过所谓 meme stock。面对这类询问，73% 的顾问告诉客户不适合其组合，也没有代为买入。</p>
+  <h3>偏差不是均匀分布在所有客户身上</h3>
+  <ul class="clean">
+    <li>2019 年按代际：损失厌恶在婴儿潮（顾问认为最易感的比例 75%）和更年长一代（71%）最高；X 世代最近因偏差最突出（64%）；千禧一代更突出的是框架效应（54%）和羊群（46%）。年龄分档按报告原表：千禧 &lt;38，X 世代 38–53，婴儿潮 54–72，更年长 73 岁以上，均为 2019 年调查时的切法。</li>
+    <li>2020 年的年龄规律更概括：年龄越大，损失厌恶和惯性越多；过度自信、羊群和近因随年龄下降。</li>
+    <li>损失厌恶也跟财富水平有关。2019 年，以可投资资产 50 万美元以下为核心客群的顾问，更常把损失厌恶标成显著（41%）；以 500 万美元以上高净值为核心的顾问，这个比例是 16%。熟悉偏差则在高净值客户里更常见（23% 的高净值顾问认为客户显著受其影响），典型表现是雇主股票过于集中，或组合过度偏向美国公司。</li>
+  </ul>
+  <p>2020 年白皮书强调，客户很少只中一种偏差。2020 年 3 月的典型链条是：刚发生的亏损触发近因和损失厌恶，客户再去找能确认“应该卖掉”的信息。框架效应和心理账户在那一年上升最多（框架 17% → 26%，心理账户 15% → 26%）。报告也指出这两项可以被反过来用：把退休钱和近期要用的钱分成两个账户，或在下跌时把再平衡说成“用更低的价格积累更多份额”。</p>
+</section>
+
+<section id="sc-advisor">
+  <h3>顾问自己的偏差：损失厌恶第一，过度自信第二</h3>
+  <p>2019 年，顾问认为显著影响自己投资决定的偏差，前三名是损失厌恶 29%、过度自信 17%、确认偏差 9%。同一年，17% 的顾问“非常同意”、48%“有些同意”自己的组合管理能力能帮助客户跑赢市场。报告把这读成过度自信的一个现场：它会变成过度交易，或风险没管住。</p>
+  <p>2020 年信息图给出的对照是：顾问自陈的损失厌恶升到 40%（2019 年为 29%），过度自信升到 26%（17%），确认偏差升到 14%（9%）。也就是说，客户偏差上升的那一年，顾问并没有置身事外。</p>
+  <p>风险偏好和风险承受能力对不齐时，2019 年的处理方式是：51% 的顾问折中，做出一个兼顾两者的配置；27% 迁就客户当时的风险偏好；只有 16% 会去提高客户对风险的接受度。以高净值为核心客群的顾问里，只有 12% 倾向于去修正客户偏差，因为这些客户的资产厚度通常承受得起偏低或偏高的风险。</p>
+</section>
+
+<section id="sc-fix">
+  <h3>他们说什么做法有效</h3>
+  <p>2019 年问的是哪些技术“非常有效”。2021 年新闻稿用同一组技术做了对照，并把对照列标成 2020。这组“2020”数字与 2019 年原文逐项相同，所以下面把第一列写成 2019 年调查公布值，第二列写成 2021 年调查值。</p>
+  <table>
+    <thead><tr><th>顾问评为有效的做法</th><th>2019</th><th>2021</th></tr></thead>
+    <tbody>
+      <tr><td>帮客户拉回到长期视角</td><td>62%</td><td>76%</td></tr>
+      <tr><td>按目标做规划，把钱分桶</td><td>47%</td><td>75%</td></tr>
+      <tr><td>把投资流程系统化（例如自动再平衡）</td><td>52%</td><td>66%</td></tr>
+      <tr><td>提醒客户保持冷静</td><td>35%</td><td>52%</td></tr>
+      <tr><td>提高组合分散程度</td><td>37%</td><td>48%</td></tr>
+    </tbody>
+  </table>
+  <p class="caption">2019 年还有几项没有出现在 2021 年新闻稿的对照里：找出情绪触发点 39%，增加分散 37% 已列入上表，减少接触新闻 21%，风险目标策略 18%，降低费用 16%，拿过去的结果做参照 12%。</p>
+  <p>行为金融被用在什么环节，三年的问法不完全一样，不宜连成一条下降曲线。可以单独记住每期的原话：</p>
+  <ul class="clean">
+    <li>2019：约 71% 的顾问在客户沟通中经常或总是使用行为金融，58% 用在组合构建上。最大的障碍是把理论落成日常动作（65%），以及缺少软件和工具（54%）。</li>
+    <li>2020：沟通场景升到 81%，组合构建 62%。顾问认为最大的好处从“加强信任”换成了“波动中让客户继续持有”，这一项从 30% 升到 55%；“更理解客户真正的风险舒适区”从 20% 升到 33%。</li>
+    <li>2021：74% 通过客户沟通来用，其中 68% 是为了让话术贴住客户的情绪倾向。56% 用在组合构建上，用来匹配风险承受（78%）、年龄（73%）和财富水平（62%）。2021 年顾问选出的五项好处，按新闻稿顺序是：加强信任与留存、波动中让客户持有下去、减少短期情绪决定、管好预期、帮客户把财务决定和目标排好优先级。新闻稿没有给出这五项的百分比。</li>
+  </ul>
+  <p>2020 年还有一组和业绩无直接关系、但和顾问价值有关的结果。自 2020 年一季度以来，经常使用行为金融的顾问里有 66% 增加了客户，不使用的只有 36%。在同样加大了某种沟通的顾问中，行为金融使用者获得新客户的比例更高：短信 78% 对 27%，电话 72% 对 42%，邮件 66% 对 37%，视频会议 62% 对 44%。报告的解读是，这些人不用临时把话从“我们赚了多少”切换成“为什么在跌”，因为波动早就被说成长期计划里会发生的事。</p>
+  <div class="warn">这些是顾问的自我报告，不是随机对照实验。不能从“66% 对 36%”推出“使用行为金融导致获客增加”——更勤快沟通的顾问，本来就更可能两者都做。新闻稿和白皮书都把这一点留在方法声明里：自陈、未验证。</div>
+</section>
+
+<section id="together">
+  <h2>怎么放在一起用</h2>
+  <p>晨星说明缺口有多顽固、在什么产品和使用场景里更宽。嘉信说明顾问给这些行为起了什么名字、波动年份里哪些名字会一起出现、以及他们愿意采用的干预是什么。两边独立做出来的建议，重叠在四处。</p>
+  <table>
+    <thead><tr><th>重叠的建议</th><th>晨星提供的证据</th><th>嘉信提供的证据</th></tr></thead>
+    <tbody>
+      <tr><td>少做临场买卖，把再平衡交给规则</td><td>资金流最颠的基金，缺口 −1.8pp，投资者年化只有 4.7%</td><td>系统化流程的“非常有效”比例，2019 年 52%，2021 年 66%</td></tr>
+      <tr><td>用一套装完的配置，而不是一堆要自己动手的零件</td><td>配置型基金拿到约 97% 的总收益；行业股票绝对缺口最大</td><td>目标分桶规划从 47% 升到 75%；分散从 37% 到 48%</td></tr>
+      <tr><td>高波动、高跟踪误差的产品要配得上持有纪律</td><td>波动最高档缺口 −2.0pp，且总收益本身更低；跟踪误差最高档缺口 −1.6pp</td><td>近因偏差在 2021 年升到 58%，确认偏差升到 50%，两者正好喂给追涨和死扛叙事</td></tr>
+      <tr><td>低费用是好习惯，但不是行为问题的解法</td><td>主动和指数的缺口几乎一样宽；整体上费用与缺口没有单调关系</td><td>2019 年“降低费用”被评为非常有效的比例只有 16%，排在长期视角和系统化流程之后</td></tr>
+    </tbody>
+  </table>
+  <h3>读到且慢自己的行为分析时，建议守住的边界</h3>
+  <ul class="clean">
+    <li>平台上的“行为差”如果用的是个人账户的资金加权收益，对上的是晨星的思想，不是晨星的数字。晨星的 −1.1 或 −1.2 个百分点是美国基金池的平均每一美元，不是全球投资者，也不是且慢用户。引用时写清样本和截止年，避免写成“全球行为差”。</li>
+    <li>负的行为差不能自动落成某一种心理偏差。定投、再平衡、养老金菜单里的自动扣款，在晨星的算法里都会贡献缺口。嘉信的清单适合用来给已经识别出的交易形态起名字：追最近热点是近因，跌了就降风险是损失厌恶，只看利好是确认，扎堆买熟悉行业是熟悉偏差。</li>
+    <li>干预话术可以沿用两边都支持、且不承诺收益的那几句：把决定放回原来的目标期限；能自动化的调仓不要每次重新辩论；窄基和高波动仓位事先写好持有条件。不要把美国基金业 15% 的收益损耗，写成客户跟着做就能多赚 1.2 个百分点。</li>
+  </ul>
+</section>
+
+<section id="sources">
+  <h2>出处</h2>
+  <ol class="src">
+    <li>Jeffrey Ptak, CFA. <a href="https://www.morningstar.com/content/cs-assets/v3/assets/blt9415ea4cc4157833/blt2c5c4d9171638c42/689b424311f3880edc4b4813/US_Mind_the_Gap_2025.pdf">Mind the Gap 2025: The more investors traded, the less they made.</a> Morningstar Portfolio and Planning Research, 2025-08-13. 数据截至 2024-12-31。同文摘要亦见 <a href="https://www.morningstar.com/financial-advisors/volatility-bedevils-fund-investors">Morningstar 顾问频道，2025-08-13</a>。</li>
+    <li>Jeffrey Ptak, CFA. <a href="https://assets.contentstack.io/v3/assets/blt4eb669caa7dc65b2/blt0571178b63219c0b/66bdeb4a4f0e4749e15a5621/2024_Mind_the_Gap.pdf">Mind the Gap 2024: Investors lost out on about 15% of the return their funds generated.</a> Morningstar, 2024-08-15. 数据截至 2023-12-31。解读见 <a href="https://www.morningstar.com/personal-finance/fund-investors-who-kept-it-simple-captured-more-return">Why Investors Missed Out on 15% of Total Fund Returns</a>。</li>
+    <li>Asher Cheses, Cerulli Associates. <a href="https://blog.investmentsandwealth.org/hubfs/2019-%234%20InvestmentsWealthResearch.pdf">The Role of Behavioral Finance in Advising Clients.</a> Investments &amp; Wealth Research, 2019 年第 4 期。对应 BeFi Barometer 2019，Cerulli 于 2019 年 7 月调查 301 名 IWI 会员顾问，委托方为 Charles Schwab Investment Management。</li>
+    <li>Cerulli Associates, Charles Schwab Investment Management, Investments &amp; Wealth Institute. <a href="https://eu-assets.contentstack.com/v3/assets/bltabaa95ef14172c61/blt29961aa063c7b477/6737496d10aa626aa13d3b3f/Evolving-Role-Behavioral-Finance-2020_1.pdf">The Evolving Role of Behavioral Finance in 2020.</a> 调查于 2020 年 5–6 月进行。同期信息图：<a href="https://eu-assets.contentstack.com/v3/assets/bltabaa95ef14172c61/blt3b66e3a087254342/6737496995660b59a39bfad5/BeFi-Barometer-2020.pdf">BeFi Barometer 2020</a>。</li>
+    <li>Investments &amp; Wealth Institute. <a href="https://investmentsandwealth.org/advisor-publications/newsroom/survey-reveals-surge-in-behavioral-biases-among-investment-advisors">BeFi Barometer 2021 新闻稿</a>，2021-10-04。Schwab Asset Management 与 IWI 委托 Cerulli，于 2021 年二季度调查 300 余名 IWI 会员顾问，自陈数据，抽样误差 3%。嘉信新闻室的同题稿本次抓取被站点验证页拦住，数字以 IWI 这篇为准。</li>
+  </ol>
+  <div class="foot">
+    <p>本页是对上述公开研究的介绍，供内部阅读。晨星与嘉信的原文均声明其内容不构成投资建议。历史缺口和顾问自陈的偏差比例，不代表任一投资者的未来结果，也不能直接换算成中国公募基金或投顾组合的收益差异。市场有风险，投资须谨慎。</p>
+    <p>晨星报告 © Morningstar，嘉信 / Cerulli / IWI 报告版权归各自权利人。本页只转述已公布的结论、表格数字和方法边界，不替代原文。</p>
+  </div>
+</section>
+</main>
+</div>
+</div>
+<script>
+const biases = [
+  ["近因", 35, 35, 58],
+  ["确认", 25, 24, 50],
+  ["框架", 17, 26, 44],
+  ["熟悉", 24, 27, 43],
+  ["损失厌恶", 26, 30, 43]
+];
+const grid = document.getElementById("biasChart");
+const max = 70;
+const years = [["y19", "2019"], ["y20", "2020"], ["y21", "2021"]];
+grid.innerHTML = biases.map(([name, a, b, c]) => {
+  const bars = [a, b, c].map((v, i) => {
+    const h = Math.max(4, Math.round(v / max * 128));
+    return `<div class="gbar" title="${years[i][1]} ${v}%"><span class="${years[i][0]}" style="height:${h}px"></span><em>${v}%</em></div>`;
+  }).join("");
+  return `<div class="bias-row"><div class="name">${name}</div><div class="group">${bars}</div></div>`;
+}).join("");
+
+const links = [...document.querySelectorAll("#toc a")];
+const sections = links.map(a => document.querySelector(a.getAttribute("href"))).filter(Boolean);
+function spy() {
+  let current = sections[0];
+  for (const s of sections) {
+    if (s.getBoundingClientRect().top < 120) current = s;
+  }
+  links.forEach(a => a.classList.toggle("on", a.getAttribute("href") === "#" + current.id));
+}
+document.addEventListener("scroll", spy, { passive: true });
+spy();
+</script>
+</body>
+</html>
