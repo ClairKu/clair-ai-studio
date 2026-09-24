@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />
+    <script data-clair-access-gate data-clair-access-scope="workspace" src="../../access-gate.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  <script>
+  // 侧栏高亮当前可见 section（scroll-spy）
+  (function() {
+    const links = document.querySelectorAll('.sidebar a[href^="#sec"]');
+    if (!links.length || !('IntersectionObserver' in window)) return;
+    const linkMap = {};
+    links.forEach(a => { linkMap[a.getAttribute('href').slice(1)] = a; });
+    const sections = Object.keys(linkMap).map(id => document.getElementById(id)).filter(Boolean);
+    const setActive = (id) => {
+      links.forEach(a => {
+        const active = a.getAttribute('href').slice(1) === id;
+        a.style.color = active ? 'var(--primary)' : '';
+        a.style.background = active ? 'rgba(24,144,255,0.08)' : '';
+        a.style.borderLeftColor = active ? 'var(--primary)' : 'transparent';
+        a.style.fontWeight = active ? '600' : '';
+      });
+    };
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); });
+    }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+    sections.forEach(s => obs.observe(s));
+    setActive(sections[0] && sections[0].id);
+  })();
+  </script>
+<style>
+:root{--primary:#1890ff;--primary-dark:#096dd9;--green:#52c41a;--orange:#fa8c16;--red:#f5222d;--gray-1:#fafbfc;--gray-2:#f5f7fa;--gray-3:#e8e8e8;--gray-4:#bfbfbf;--gray-5:#8c8c8c;--gray-6:#595959;--gray-7:#262626;--text:#262626;--text-secondary:#595959;--text-tertiary:#8c8c8c;--shadow:0 1px 4px rgba(0,0,0,0.06),0 4px 16px rgba(0,0,0,0.04);}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;font-size:15px;line-height:1.75;color:var(--text);background:#fff;}
+code,pre{font-family:Menlo,Consolas,"Courier New",monospace;font-size:13px;}
+.banner{background:linear-gradient(135deg,#1890ff 0%,#722ed1 100%);color:#fff;padding:36px 48px;}
+.banner h1{font-size:28px;font-weight:600;margin-bottom:10px;}
+.banner .sub{font-size:15px;opacity:.94;margin-bottom:18px;line-height:1.7;max-width:920px;}
+.banner .meta{display:flex;gap:24px;font-size:13px;opacity:.85;flex-wrap:wrap;}
+.banner .meta div::before{content:"·";margin-right:8px;opacity:.55;}
+.banner .meta div:first-child::before{content:"";margin:0;}
+.layout{display:flex;max-width:1400px;margin:0 auto;padding:24px 0;gap:24px;}
+.sidebar{flex:0 0 230px;position:sticky;top:24px;align-self:flex-start;background:var(--gray-1);border:1px solid var(--gray-3);border-radius:10px;padding:18px 0;height:calc(100vh - 48px);overflow-y:auto;}
+.sidebar h4{font-size:12px;font-weight:600;color:var(--text-tertiary);text-transform:uppercase;padding:0 16px 8px;border-bottom:1px solid var(--gray-3);margin-bottom:10px;letter-spacing:0.5px;}
+.sidebar ul{list-style:none;}
+.sidebar ul li a{display:block;padding:6px 16px;color:var(--text-secondary);text-decoration:none;font-size:13.5px;border-left:3px solid transparent;}
+.sidebar ul li a:hover{color:var(--primary);background:rgba(24,144,255,0.05);}
+.sidebar ul ul li a{font-size:12.5px;padding:4px 16px 4px 32px;}
+.sidebar li.sidebar-divider{margin-top:18px;padding-top:18px;border-top:2px solid var(--gray-3);}
+.sidebar li.sidebar-divider > a{font-weight:600;color:var(--text);}
+.main{flex:1;min-width:0;padding-right:8px;}
+section{margin-bottom:48px;scroll-margin-top:24px;}
+section h2{font-size:22px;font-weight:600;margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid var(--primary);display:inline-block;}
+section h3{font-size:17px;font-weight:600;margin:24px 0 12px;color:var(--text-secondary);}
+section p{margin-bottom:14px;}
+.caption{color:var(--text-tertiary);font-size:12.5px;margin-bottom:14px;font-style:italic;}
+.appendix details > summary{font-size:17px;font-weight:600;color:#333;cursor:pointer;padding:6px 0;color:var(--primary);list-style:none;display:block;}
+.appendix details > summary::-webkit-details-marker{display:none;}
+.appendix details > summary::before{content:"▸ ";display:inline-block;margin-right:6px;color:var(--text-secondary);}
+.appendix details[open] > summary::before{content:"▾ ";}
+.appendix details > div{padding:8px 0 4px 16px;border-left:2px solid #e8e8e8;margin-left:6px;}
+.decomp-controls{display:flex;gap:16px;align-items:center;margin:6px 0 14px;padding:10px 14px;background:var(--gray-1);border:1px solid var(--gray-3);border-radius:6px;}
+.decomp-controls label{font-size:13px;font-weight:600;color:var(--text-secondary);display:flex;align-items:center;gap:8px;}
+.decomp-controls select{font-size:13px;padding:4px 10px;border:1px solid var(--gray-3);border-radius:4px;background:#fff;color:var(--text);cursor:pointer;min-width:140px;}
+.decomp-controls select:hover{border-color:var(--primary);}
+.appendix-grid{display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:14px;margin:8px 0 18px;}
+.appendix-card{background:#fafbfc;border:1px solid #e8e8e8;border-radius:8px;padding:14px 16px;transition:box-shadow .15s, border-color .15s;}
+.appendix-card:hover{box-shadow:0 2px 8px rgba(24,144,255,0.08);border-color:#b5d9ff;}
+.appendix-card-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:8px;padding-bottom:8px;border-bottom:1px dashed #e8e8e8;}
+.appendix-num{font-size:18px;font-weight:700;color:#fff;background:var(--primary);border-radius:50%;width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;}
+.appendix-title{font-size:15px;font-weight:600;color:var(--text);}
+.appendix-meta{font-size:11.5px;color:var(--text-tertiary);font-family:"SF Mono",Consolas,monospace;margin-left:auto;}
+.appendix-card p{margin:0;font-size:13px;line-height:1.75;color:var(--text-secondary);}
+.appendix-card p b{color:var(--text);}
+.appendix table{width:100%;border-collapse:collapse;margin:8px 0 16px;font-size:13.5px;}
+.appendix table th,.appendix table td{border:1px solid #e8e8e8;padding:8px 12px;text-align:left;}
+.appendix table th{background:#fafafa;font-weight:600;}
+.appendix h3{margin-top:18px;}
+.appendix h4{margin:16px 0 6px;font-size:14.5px;color:var(--text-secondary);}
+.takeaway{background:linear-gradient(135deg,#e6f7ff 0%,#f6ffed 100%);border-left:4px solid var(--primary);padding:14px 18px;border-radius:6px;margin:16px 0;color:var(--text);}
+.takeaway strong{color:var(--primary-dark);}
+.fig{margin:18px 0 24px;}
+.chart-box{width:100%;height:380px;border:1px solid var(--gray-3);border-radius:8px;}
+.chart-sm{height:300px;}
+.chart-mh{height:480px;}
+.tbl-cmp{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0;}
+.tbl-cmp th{background:var(--gray-2);padding:10px 12px;border-bottom:2px solid var(--gray-3);text-align:right;color:var(--text-secondary);font-weight:600;}
+.tbl-cmp th:first-child,.tbl-cmp td:first-child{text-align:left;}
+.tbl-cmp td{padding:9px 12px;border-bottom:1px solid var(--gray-3);text-align:right;font-feature-settings:"tnum";}
+.tbl-cmp tbody tr:hover{background:var(--gray-1);}
+.tbl-x{overflow-x:auto;margin:10px 0;}
+.tbl-x .tbl-cmp{width:max-content;min-width:100%;}
+.tbl-x .tbl-cmp th,.tbl-x .tbl-cmp td{white-space:nowrap;}
+.compare-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin:16px 0;}
+.feature-card{background:#fff;border:1px solid var(--gray-3);border-radius:8px;padding:14px 16px;transition:box-shadow .15s,border-color .15s;}
+.feature-card:hover{border-color:var(--primary);box-shadow:var(--shadow);}
+.feature-card h4{margin:0 0 6px;font-size:13.5px;color:var(--primary-dark);font-weight:600;}
+.feature-card p{margin:0;font-size:13px;color:var(--text-secondary);line-height:1.6;}
+.feature-card p.ops{margin-top:6px;}
+.evi{position:relative;border-bottom:1px dashed var(--gray-4);cursor:help;}
+.evi::after{content:attr(data-tip);position:absolute;left:0;top:calc(100% + 7px);z-index:40;width:max-content;max-width:280px;white-space:normal;background:#262626;color:#fff;font-size:12px;font-weight:400;line-height:1.6;padding:8px 10px;border-radius:6px;box-shadow:0 6px 20px rgba(0,0,0,0.22);opacity:0;visibility:hidden;transition:opacity .15s;pointer-events:none;}
+.evi:hover::after{opacity:1;visibility:visible;}
+.group-tag{display:inline-block;padding:1px 7px;border-radius:9px;font-size:11px;margin-right:6px;font-weight:600;}
+.b-0008{background:#f9f0ff;color:#722ed1;}
+.b-1160{background:#fff7e6;color:#d46b08;}
+.b-1049{background:#e6f7ff;color:#096dd9;}
+.b-1300{background:#fff1f0;color:#cf1322;}
+.b-1178{background:#e6fffb;color:#13a8a8;}
+.b-1208{background:#fffbe6;color:#d89614;}
+.b-0008plus0009{background:linear-gradient(90deg,#f9f0ff 50%,#fff7e6 50%);color:#262626;}
+details{margin:14px 0;border:1px solid var(--gray-3);border-radius:6px;background:var(--gray-1);}
+details summary{cursor:pointer;padding:12px 18px;color:var(--text-secondary);font-weight:600;font-size:14px;user-select:none;}
+details summary:hover{background:var(--gray-2);}
+details summary::before{content:"▸  ";color:var(--primary);font-weight:bold;}
+details[open] summary::before{content:"▾  ";}
+details[open] summary{border-bottom:1px solid var(--gray-3);}
+details > div{padding:14px 20px;background:#fff;}
+</style>
+</head>
+<body>
+<header class="banner">
+  <h1>客户投资行为偏误量化与客群比较分析报告</h1>
+  <div class="sub">
+    本报告对用户投资行为偏误进行量化分析，并基于 8 个人群进行横向比较，定位不同客群最值得关注的行为模式。
+  </div>
+  <div class="meta">
+    <div>指标数据计算截止 20260909 · 综合分模型 20260922</div>
+  </div>
+</header>
+<div class="layout">
+<aside class="sidebar">
+  <h4>目录</h4>
+  <ul>
+    <li><a href="#sec1">1. 项目背景与研究现状</a>
+      <ul>
+        <li><a href="#sec1-1">1.1 行为偏误对投资收益的影响</a></li>
+        <li><a href="#sec1-2">1.2 行为偏误的研究现状</a></li>
+        <li><a href="#sec1-3">1.3 本项目的定位</a></li>
+      </ul>
+    </li>
+    <li><a href="#sec2">2. 数据与人群</a>
+      <ul>
+        <li><a href="#sec2-1">2.1 人群定义与样本</a></li>
+      </ul>
+    </li>
+    <li><a href="#sec3">3. 客群偏误全景</a>
+      <ul>
+        <li><a href="#sec3-1">3.1 人群基础特征</a></li>
+        <li><a href="#sec3-2">3.2 综合偏误分排名</a></li>
+        <li><a href="#sec3-3">3.3 跟车 / 自主交易分布</a></li>
+      </ul>
+    </li>
+    <li><a href="#sec4">4. 各子指标拆解</a>
+      <ul>
+        <li><a href="#sec4-0">4.0 8×8 热力图</a></li>
+        <li><a href="#sec4-1">4.1 OCI · 过度自信</a></li>
+        <li><a href="#sec4-2">4.2 HSI · 趋势追随</a></li>
+        <li><a href="#sec4-3">4.3 EAD · 权益偏离</a></li>
+        <li><a href="#sec4-4">4.4 APD · 锚定</a></li>
+        <li><a href="#sec4-5">4.5 DR · 处置效应</a></li>
+        <li><a href="#sec4-6">4.6 RSI · 近期偏好</a></li>
+        <li><a href="#sec4-7">4.7 HSBI · 跟投率</a></li>
+        <li><a href="#sec4-8">4.8 FIII · 跟投惰性</a></li>
+        <li><a href="#sec4-9">4.9 其他分析指标</a></li>
+      </ul>
+    </li>
+    <li><a href="#sec5">5. 综合偏误分拆解</a>
+      <ul>
+        <li><a href="#sec5-1">5.1 综合偏误分拆解</a></li>
+        <li><a href="#sec5-2">5.2 指标影响权重与组间差异</a></li>
+      </ul>
+    </li>
+    <li><a href="#sec6">6. 总结与展望</a>
+      <ul>
+        <li><a href="#sec6-1">6.1 核心结论</a></li>
+        <li><a href="#sec6-2">6.2 八大人群画像</a></li>
+        <li><a href="#sec6-3">6.3 应用与展望</a></li>
+        <li><a href="#sec6-4">6.4 持续迭代机制</a></li>
+      </ul>
+    </li>
+    <li class="sidebar-divider"><a href="#sec7">7. 附录 · 指标逻辑 / 模型逻辑 / 参考文献</a></li>
+  </ul>
+</aside>
+  <main class="main">
+<section id="sec1">
+<h2>1. 项目背景与研究现状</h2>
+<p class="caption">投资者行为偏误是财富管理领域被反复验证的收益损耗来源。本章说明为什么要做投资者偏误研究：偏误损耗的量化证据、学界与业界的研究现状，以及本项目的定位。</p>
+
+<h3 id="sec1-1">1.1 行为偏误对投资收益的影响</h3>
+<p>投资者的非理性行为是财富积累中最主要、也最隐蔽的损耗来源之一。Morningstar 对 2014–2023 年全球基金投资者的研究显示：投资者实际获得的年化回报为 <b>6.3%</b>，低于其所持基金本身的年化回报 <b>7.3%</b>——每年约 <b>1.1 个百分点</b>、十年累计错失约 <b>15%</b> 的潜在收益。这一差距并非来自基金本身，而几乎全部源于投资者择时失误与情绪化操作，业内称为<b>行为差（Behavior Gap）</b><sup><a href="#sec7-3">[8]</a></sup>。学界研究进一步估计，投资决策误差中多达 <b>70%</b> 源于非理性心理因素<sup><a href="#sec7-3">[6]</a></sup>。</p>
+<p>各典型偏误的损耗均有扎实的实证证据：<b>过度自信</b>驱动的频繁交易显著拉低收益——Barber &amp; Odean 对 66,465 个散户账户的经典研究中，交易最频繁的五分之一投资者年化回报 11.4%，比市场基准低 <b>6.5 个百分点</b><sup><a href="#sec7-3">[2]</a></sup>；<b>处置效应</b>（"急于卖出盈利、长期死扛亏损"）在美国散户中稳定存在，盈利变现率 14.8% 显著高于亏损变现率 9.8%<sup><a href="#sec7-3">[4]</a></sup>；<b>损失厌恶</b>（等量损失的心理痛苦约为收益快乐的 2.25 倍<sup><a href="#sec7-3">[1]</a></sup>）则导致恐慌性赎回与过度保守配置。</p>
+<p>更重要的是，<b>纠偏本身能创造可量化的价值</b>：Vanguard"顾问阿尔法"研究估计，专业顾问通过行为引导等七项最佳实践每年可为客户增厚约 <b>3%</b> 的净回报<sup><a href="#sec7-3">[9]</a></sup>；Morningstar"投资者 Gamma"研究显示，优化资产配置等五大理财决策相当于每年增加 <b>1.59%</b> 的等效投资收益<sup><a href="#sec7-3">[10]</a></sup>。这构成了本项目的基本逻辑：<b>能量化，才能识别；能识别，才能干预；能干预，才能把行为差转化为可经营的价值。</b></p>
+
+<h3 id="sec1-2">1.2 行为偏误的研究现状</h3>
+<p>行为金融学对此已有四十余年的研究积累：Kahneman &amp; Tversky 的前景理论（1979）奠定损失厌恶与参考点依赖的理论基础<sup><a href="#sec7-3">[1]</a></sup>；Shefrin &amp; Statman（1985）首次系统定义处置效应<sup><a href="#sec7-3">[3]</a></sup>；Odean（1998）与 Barber &amp; Odean（2000）完成大规模账户级实证<sup><a href="#sec7-3">[2][4]</a></sup>；Barberis &amp; Thaler（2003）的综述将锚定、近期偏误、代表性启发列为散户行为偏差的主要认知根源<sup><a href="#sec7-3">[6]</a></sup>。干预侧，Thaler &amp; Sunstein 的助推理论（2008）证明通过优化决策情境，可以在不限制选择自由的前提下引导投资者做出更优决策<sup><a href="#sec7-3">[7]</a></sup>；Vanguard 与 Morningstar 则为顾问价值与行为损耗提供了行业量化基准<sup><a href="#sec7-3">[8][9][10]</a></sup>。</p>
+<p>近年研究进入 AI 阶段：机器学习已被证明能从交易与文本数据中识别多类认知偏差<sup><a href="#sec7-3">[12]</a></sup>；针对大语言模型的研究进一步发现，LLM 在金融决策中同样存在处置效应，且在用户寻求理财建议时可能强化其原有投资偏差<sup><a href="#sec7-3">[13][14]</a></sup>——这对智能投顾场景既是风险提示，也提出了治理需求。总体上，学术研究多基于问卷量表或特定市场的抽样数据，<b>将偏误理论落到单一平台的全量真实交易数据、形成可日常运行的用户级量化体系，在业内仍属少数</b>。这正是本项目的切入点。</p>
+
+<h3 id="sec1-3">1.3 本项目的定位</h3>
+<p>作为投资顾问机构，本项目的立论起点在于：行为偏误对客户长期收益的侵蚀已被大量实证研究证实，投顾服务的核心价值之一，即在于识别客户的行为偏误并协助其纠偏，从而改善投资结果。为此，本项目以泛用性的偏误计算逻辑对客户群体进行统一计量，形成覆盖大客户群体的一致偏误视角，使偏误识别建立在可复现、可比较的量化基础上，而非依赖个案经验判断。</p>
+<p>在统一计量框架之上，本项目进一步选取 8 个人群形成横向比较报告，其目的有二：一是作为偏误指标体系的应用案例，展示各指标在真实客群上的分辨能力；二是借助人群相对已知的行为特征，对指标有效性进行反向验证——若量化结果与人群既有画像吻合，即构成指标效度的经验证据（人群选择逻辑见 <a href="#sec2-1" style="color:var(--primary);font-weight:600;">2.1 节</a>）。</p>
+<p>基于上述定位，本项目构建了 <b>8 项可计算的行为偏误指标</b>、数据驱动加权的<b>综合偏误分</b>（模型逻辑见 <a href="#sec7-2" style="color:var(--primary);font-weight:600;">附录 7.2</a>），以及 <b>8 个人群</b>的偏误画像体系。相比学术研究的问卷口径，本体系具备三个特点：① <b>全量真实行为数据</b>——基于用户的真实交易与持仓记录计量偏误，而非问卷自评；② <b>基于全平台全量客户的大群体量化体系</b>——覆盖 194 万用户、日度更新，指标与权重均从大群体数据中统计生成，摆脱小样本实验的外推局限；③ <b>贴合平台投顾业务形态</b>——针对"组合 + 单基金"双层级交易体系统一穿透到底层基金计量（避免组合形态掩盖真实交易行为），并对跟投、跟车等平台特色行为单独建模，其中策略调仓记录与用户跟投决策时序的匹配，使"跟投惰性"这类偏误首次可被量化。</p>
+<p>本体系与文献中已证实存在损耗的偏误类型一一对应：</p>
+<div class="tbl-x"><table class="tbl-cmp"><thead><tr><th>行为偏误</th><th>该指标衡量的偏误行为</th><th>代表研究</th><th>学术估计的年化损耗</th><th>本项目对应指标</th></tr></thead><tbody>
+<tr><td>过度自信</td><td style="font-size:12.5px;text-align:left;">高估自身择时与判断能力，交易过度、持仓集中、买入超出自身风险承受力的产品。</td><td>Barber &amp; Odean (2000) <sup><a href="#sec7-3">[2]</a></sup></td><td>1.0–1.5 pp</td><td>OCI（换手 / 集中 / 错配）</td></tr>
+<tr><td>趋势追随 / 羊群效应</td><td style="font-size:12.5px;text-align:left;">跟进行情趋势顺势交易——上涨时买入、下跌时卖出（追涨杀跌），或模仿他人而非独立决策。</td><td>Nicolas (2022) <sup><a href="#sec7-3">[11]</a></sup></td><td>0.5–0.8 pp</td><td>HSI</td></tr>
+<tr><td>处置效应</td><td style="font-size:12.5px;text-align:left;">急于兑现盈利仓位、长期死扛亏损仓位。</td><td>Shefrin &amp; Statman (1985) <sup><a href="#sec7-3">[3]</a></sup>；Odean (1998) <sup><a href="#sec7-3">[4]</a></sup></td><td>0.4–0.8 pp</td><td>DR</td></tr>
+<tr><td>锚定效应</td><td style="font-size:12.5px;text-align:left;">以买入成本 / 历史高点为“锚”，浮亏仓位长期挂账、不按新信息调整。</td><td>Tversky &amp; Kahneman (1974)</td><td>0.2–0.4 pp</td><td>APD</td></tr>
+<tr><td>近期偏误 / 短视损失厌恶</td><td style="font-size:12.5px;text-align:left;">交易决策过度受近期行情与短期盈亏牵引。</td><td>Benartzi &amp; Thaler (1995) <sup><a href="#sec7-3">[5]</a></sup></td><td>0.3–0.5 pp</td><td>RSI</td></tr>
+<tr><td>禀赋效应（持有粘性）</td><td style="font-size:12.5px;text-align:left;">对“已拥有”的持仓估值偏高、不愿调整——在平台的形态为买了组合却不跟主理人调仓。</td><td>Thaler (1980)</td><td>0.1–0.3 pp</td><td>HSBI（跟投率）</td></tr>
+<tr><td>资产配置偏离</td><td style="font-size:12.5px;text-align:left;">实际权益仓位低于自身风险等级的建议配置——“该配的权益没有配够”。</td><td>Morningstar Gamma 研究 <sup><a href="#sec7-3">[10]</a></sup></td><td>五大决策合计等效 1.59%/年</td><td>EAD</td></tr>
+<tr><td>跟投惰性</td><td style="font-size:12.5px;text-align:left;">应跟投的调仓拖延、漏跟——平台独有形态。</td><td>—（平台独有，首次量化）</td><td>待测</td><td>FIII</td></tr>
+</tbody></table></div>
+<p class="caption">学术损耗估计为文献综述口径，量级供参考；损失厌恶在行为上由 DR / APD 部分反映，确认偏误（信息偏好类）依赖文本数据、暂未量化。参考文献完整列表见 <a href="#sec7-3" style="color:var(--primary);font-weight:600;">附录 7.3</a>。</p>
+</section>
+
+<section id="sec2">
+<h2>2. 数据与人群</h2>
+<p class="caption">8 个人群共 300,867 人（综合分口径），指标基于全平台 1,943,033 用户的交易与持仓数据计算。交易统计口径：仅剔除 W220/W223/W224/W240/W98 五类钱包交易（仅剔交易、不剔持仓）。</p>
+<h3 id="sec2-1">2.1 人群定义与样本</h3>
+<p>人群选择遵循两个逻辑：<b>一是所选人群具有比较明显的持仓特征和群体化风格</b>（如长赢 / 五剑的组合为主持仓形态、且慢单基金客户的长期持有形态、各第三方渠道的差异化获客方式），在横向对比上能够突出特征差异；<b>二是这些人群具有一些相对已知的特征</b>（如长赢用户以组合交易跟车为主、换手率天然偏低、权益配置合理，壹钱包为自主交易渠道、持仓品种数偏少、集中度高），当指标测出的行为模式与这些已知画像吻合时，可以反向论证指标体系的有效性。</p>
+<p>8 组人群兼顾组合持有形态（长赢 / 五剑 / 且慢单基金）与第三方渠道（壹钱包 / 7分钟理财 / 东方金匠 / 财商邦 / 钱耳朵），用于横向比较不同获客与服务形态下的用户行为偏误差异：</p>
+<table class="tbl-cmp"><thead><tr><th>人群</th><th>人群描述</th><th>本版用户数</th></tr></thead><tbody><tr><td><span class="group-tag b-0008">长赢用户</span></td><td>历史全期长赢组合持仓占总持仓 &gt; 50%，且长赢组合最大持仓 &gt; 1 万元</td><td>111,183</td></tr><tr><td><span class="group-tag b-1160">壹钱包APP</span></td><td>1160（平安付）渠道用户，<b>剔除钱包 / 即时交易账户（账户级）</b>，历史最大总资产 &gt; 1 万元（自主交易类对照人群）</td><td>112,436</td></tr><tr><td><span class="group-tag b-1049">7分钟理财</span></td><td>1049 渠道用户，历史最大总资产 &gt; 1 万元</td><td>52,216</td></tr><tr><td><span class="group-tag b-0008plus0009">且慢单基金用户</span></td><td>历史全期单基金持仓占总持仓 &gt; 50%，且单基金最大持仓 &gt; 1 万元</td><td>10,676</td></tr><tr><td><span class="group-tag b-1300">东方金匠</span></td><td>1300 渠道用户，历史最大总资产 &gt; 1 万元</td><td>4,686</td></tr><tr><td><span class="group-tag b-0008">五剑用户</span></td><td>历史全期五剑组合（五剑+ / 价值五剑 / 天颐五剑 / 平衡五剑 / 成长五剑 / 稳益五剑）持仓占总持仓 &gt; 50%，且最大持仓 &gt; 1 万元</td><td>3,683</td></tr><tr><td><span class="group-tag b-1178">财商邦</span></td><td>1178 渠道用户，历史最大总资产 &gt; 1 万元</td><td>3,091</td></tr><tr><td><span class="group-tag b-1208">钱耳朵</span></td><td>1208 渠道用户，历史最大总资产 &gt; 1 万元</td><td>2,896</td></tr></tbody></table>
+</section>
+
+<section id="sec3">
+<h2>3. 客群偏误全景</h2>
+<p class="caption">8 人群横向对比：人群基础特征、综合偏误分排名、跟车与自主交易分布。</p>
+
+<h3 id="sec3-1">3.1 人群基础特征：资产规模与交易活跃度</h3>
+<p>在比较偏误分之前，先给出三项规模型基础特征作为后续全部指标的读数背景：<b>人均持仓金额</b>、<b>人均交易笔数</b>、<b>人均交易金额</b>。它们本身不是偏误指标，但人均交易笔数与持仓金额的差异，会使部分偏误指标指向的分析结论产生一定差别——例如，人均 22 笔交易、以跟投执行为主的东方金匠，其处置效应读数更多反映组合跟投的调仓纪律；而人均 392 笔、以自主交易为主的且慢单基金用户，同样的读数则更直接对应用户自发的投资行为和盈亏处置倾向。</p>
+<p>本节样本 306,098 人。<b>人均持仓金额</b>取历史至今日均持仓市值（当前快照会被已清仓用户稀释），<b>人均交易笔数</b>为订单笔数（组合单计 1 笔，含买卖），<b>人均交易金额</b>为穿透口径历史累计成交金额。</p>
+<h4 style="margin:22px 0 8px;font-size:15px;color:var(--primary-dark);">图 1 · 人均持仓金额（均值 vs 中位数）</h4>
+<div class="fig"><div id="chart-basic-asset" class="chart-box"></div>
+<div class="caption">历史至今日均持仓市值，单位万元。均值（蓝）普遍为中位数（绿）的 1.7~4.5 倍，<b>8 组全部呈长尾分布</b>；东方金匠 44.58 万元最高，为壹钱包（7.28 万元）的 6.1 倍。</div></div>
+<h4 style="margin:22px 0 8px;font-size:15px;color:var(--primary-dark);">图 2 · 人均交易笔数与人均交易金额</h4>
+<div class="fig"><div id="chart-basic-txn" class="chart-box"></div>
+<div class="caption">柱=人均交易笔数（左轴，笔，历史至今含买卖）；折线=人均交易金额（右轴，万元，穿透口径）。7分钟理财 1,196.4 笔为东方金匠（21.7 笔）的 <b>55 倍</b>，但两组人均交易金额只差 2.0 倍 —— 笔数与金额并不同步。</div></div>
+<details><summary>展开完整数据表（含样本量、中位数、组合订单口径金额、平均单笔与当前持仓占比）</summary><div>
+<table class="tbl-cmp"><thead><tr><th>人群</th><th>样本 n</th><th>持仓金额<br>均值（万元）</th><th>持仓金额<br>中位数（万元）</th><th>均值/<br>中位数</th><th>交易笔数<br>均值（笔）</th><th>交易笔数<br>中位数（笔）</th><th>交易金额<br>穿透（万元）</th><th>交易金额<br>组合订单（万元）</th><th>交易金额<br>中位数（万元）</th><th>平均单笔金额<br>（元，穿透）</th><th>当前有<br>持仓占比</th></tr></thead><tbody>
+<tr><td><span class="group-tag b-0008">长赢用户</span></td><td style="text-align:right;">112,257</td><td style="text-align:right;">11.64</td><td style="text-align:right;">4.20</td><td style="text-align:right;">2.8×</td><td style="text-align:right;font-weight:600;">414.1</td><td style="text-align:right;">266.0</td><td style="text-align:right;">111.24</td><td style="text-align:right;">97.71</td><td style="text-align:right;">32.74</td><td style="text-align:right;">2,686</td><td style="text-align:right;">77.21%</td></tr>
+<tr><td><span class="group-tag b-1160">壹钱包APP</span></td><td style="text-align:right;">113,747</td><td style="text-align:right;color:#52c41a;font-weight:600;">7.28</td><td style="text-align:right;">4.28</td><td style="text-align:right;">1.7×</td><td style="text-align:right;">26.7</td><td style="text-align:right;">7.5</td><td style="text-align:right;color:#52c41a;font-weight:600;">48.78</td><td style="text-align:right;">48.01</td><td style="text-align:right;">15.84</td><td style="text-align:right;">18,245</td><td style="text-align:right;color:#cf1322;font-weight:600;">27.67%</td></tr>
+<tr><td><span class="group-tag b-1049">7分钟理财</span></td><td style="text-align:right;">53,729</td><td style="text-align:right;">21.01</td><td style="text-align:right;">7.79</td><td style="text-align:right;">2.7×</td><td style="text-align:right;color:#cf1322;font-weight:600;">1,196.4</td><td style="text-align:right;">517.8</td><td style="text-align:right;color:#cf1322;font-weight:600;">287.37</td><td style="text-align:right;">251.20</td><td style="text-align:right;">68.45</td><td style="text-align:right;color:#52c41a;font-weight:600;">2,402</td><td style="text-align:right;">81.52%</td></tr>
+<tr><td><span class="group-tag b-0008plus0009">且慢单基金用户</span></td><td style="text-align:right;">11,891</td><td style="text-align:right;">11.33</td><td style="text-align:right;">2.50</td><td style="text-align:right;color:#cf1322;font-weight:600;">4.5×</td><td style="text-align:right;">392.3</td><td style="text-align:right;">36.3</td><td style="text-align:right;">144.46</td><td style="text-align:right;">137.46</td><td style="text-align:right;">16.81</td><td style="text-align:right;">3,682</td><td style="text-align:right;">64.73%</td></tr>
+<tr><td><span class="group-tag b-1300">东方金匠</span></td><td style="text-align:right;">4,690</td><td style="text-align:right;color:#cf1322;font-weight:600;">44.58</td><td style="text-align:right;">19.71</td><td style="text-align:right;">2.3×</td><td style="text-align:right;color:#52c41a;font-weight:600;">21.7</td><td style="text-align:right;">14.0</td><td style="text-align:right;">141.34</td><td style="text-align:right;">93.21</td><td style="text-align:right;">49.99</td><td style="text-align:right;color:#cf1322;font-weight:600;">65,266</td><td style="text-align:right;color:#52c41a;font-weight:600;">93.35%</td></tr>
+<tr><td><span class="group-tag b-0008">五剑用户</span></td><td style="text-align:right;">3,737</td><td style="text-align:right;">18.64</td><td style="text-align:right;">4.44</td><td style="text-align:right;">4.2×</td><td style="text-align:right;">258.4</td><td style="text-align:right;">91.0</td><td style="text-align:right;">214.28</td><td style="text-align:right;">128.93</td><td style="text-align:right;">35.75</td><td style="text-align:right;">8,291</td><td style="text-align:right;">66.85%</td></tr>
+<tr><td><span class="group-tag b-1178">财商邦</span></td><td style="text-align:right;">3,148</td><td style="text-align:right;">10.41</td><td style="text-align:right;">3.13</td><td style="text-align:right;">3.3×</td><td style="text-align:right;">140.7</td><td style="text-align:right;">62.0</td><td style="text-align:right;">101.41</td><td style="text-align:right;">71.57</td><td style="text-align:right;">18.06</td><td style="text-align:right;">7,208</td><td style="text-align:right;">73.86%</td></tr>
+<tr><td><span class="group-tag b-1208">钱耳朵</span></td><td style="text-align:right;">2,899</td><td style="text-align:right;">16.09</td><td style="text-align:right;">7.07</td><td style="text-align:right;">2.3×</td><td style="text-align:right;">188.7</td><td style="text-align:right;">125.0</td><td style="text-align:right;">122.92</td><td style="text-align:right;">61.60</td><td style="text-align:right;">39.83</td><td style="text-align:right;">6,513</td><td style="text-align:right;">66.99%</td></tr>
+</tbody></table>
+<p style="margin:8px 0 0;font-size:12.5px;color:#666;">中位数由 <code>PERCENTILE_APPROX</code> 近似计算。交易笔数与交易金额对窗口表中无记录的用户按 0 计入（该类用户占比 &lt; 0.3%），故均值分母为全部样本。平均单笔金额 = 人群总金额 ÷ 人群总笔数。</p>
+</div></details>
+<div class="takeaway"><b>四条基础事实：</b>① <b>资产规模跨度 6.1 倍</b>（东方金匠 44.58 万最高、壹钱包 7.28 万最低）；② <b>8 组全部长尾分布</b>，均值为中位数的 1.7~4.5 倍——本报告所有"人均"数值均被头部用户拉高，不代表典型用户；③ <b>资产规模与交易活跃度不同向</b>：东方金匠资产最高但人均交易 21.7 笔最少，7分钟 1,196.4 笔最多而资产仅第 2；④ <b>平均单笔金额相差 27 倍</b>（东方金匠 65,266 元 / 7分钟 2,402 元），对应低频大额与高频小额两种形态。<b>当前有持仓占比</b>（东方金匠 93.35% 最高、壹钱包 27.67% 最低）直接决定了依赖当前持仓的指标（EAD / APD / RMD）在壹钱包上的适用样本少，其指标读数只代表仍持仓的少数用户。</div>
+
+<h3 id="sec3-2">3.2 综合偏误分排名</h3>
+<p>8 个群体的综合偏误分（模型逻辑见 <a href="#sec7-2" style="color:var(--primary);font-weight:600;">附录 7.2</a>）：<b>最高 0.4384（壹钱包）</b>，<b>最低 0.2106（长赢）</b>，首尾差距 <b>0.228</b>。<b>仅壹钱包一组超过 0.40</b>，明显高出其余 7 组；长赢 0.2106 最低，但仅比次低的财商邦（0.2240）低 0.013。其余 6 组由高到低连续排布：且慢单基金 0.3960 居第 2，7分钟 0.3101 第 3，五剑 0.2925 第 4，东方金匠 0.2499 第 5，钱耳朵 0.2244 与财商邦 0.2240 几乎并列（相差 0.0004）。</p>
+<p class="caption" style="font-style:normal;"><b>读数提示：</b>中间 6 组总跨度仅 <b>0.172</b>，相邻两组最小差距低至 0.0004——这个量级与归一化方式本身的影响相当，<b>中间梯队的先后次序不宜作为资源分配依据</b>；可稳健下结论的只有两端：壹钱包显著最高、长赢与财商邦/钱耳朵显著偏低。</p>
+<div class="fig"><div id="chart-rank" class="chart-box"></div>
+<div class="caption">柱长=综合分（rescale 后）；壹钱包最高（0.4384），长赢最低（0.2106）。中间 6 组柱长接近，先后次序不宜过度解读。</div></div>
+<details><summary>展开 8 人群综合分排名完整表</summary><div>
+<table class="tbl-cmp"><thead><tr><th>#</th><th>人群</th><th>本版用户数</th><th>综合分（rescale 后）</th></tr></thead><tbody><tr><td>1</td><td><span class="group-tag b-1160">壹钱包APP</span></td><td>112,436</td><td style="text-align:right;font-weight:600;color:#cf1322;">0.4384</td></tr><tr><td>2</td><td><span class="group-tag b-0008plus0009">且慢单基金用户</span></td><td>10,676</td><td style="text-align:right;font-weight:600;">0.3960</td></tr><tr><td>3</td><td><span class="group-tag b-1049">7分钟理财</span></td><td>52,216</td><td style="text-align:right;font-weight:600;">0.3101</td></tr><tr><td>4</td><td><span class="group-tag b-0008">五剑用户</span></td><td>3,683</td><td style="text-align:right;font-weight:600;">0.2925</td></tr><tr><td>5</td><td><span class="group-tag b-1300">东方金匠</span></td><td>4,686</td><td style="text-align:right;font-weight:600;">0.2499</td></tr><tr><td>6</td><td><span class="group-tag b-1208">钱耳朵</span></td><td>2,896</td><td style="text-align:right;font-weight:600;">0.2244</td></tr><tr><td>7</td><td><span class="group-tag b-1178">财商邦</span></td><td>3,091</td><td style="text-align:right;font-weight:600;">0.2240</td></tr><tr><td>8</td><td><span class="group-tag b-0008">长赢用户</span></td><td>111,183</td><td style="text-align:right;font-weight:600;color:#52c41a;">0.2106</td></tr></tbody></table>
+</div></details>
+
+<h3 id="sec3-3">3.3 跟车 / 自主交易分布</h3>
+<p><b>为什么要分析跟车：</b>本报告的核心是分析<b>用户自身</b>的投资行为偏误，但如果一个用户的绝大部分交易都是跟车（非自主交易），那么其交易行为主要反映的是<b>顾问或策略层面</b>的决策，此时偏误指标测出的更多是"跟了谁"而非"用户自己怎么想"。因此本节先厘清各人群交易中可归因为跟车的比例——一方面明确前述偏误结论的<b>归属对象</b>（用户自主行为还是策略行为），另一方面也为后续针对<b>单用户层面</b>产出偏误报告时，更准确地描述客户（如"该用户的交易形态以跟随策略为主，偏误指标宜解读为策略匹配度而非个人行为倾向"）。</p>
+<p>本节衡量口径：笔数占比反映跟车出现频率，金额占比反映资金配置上的依赖程度；"自动跟车 / 总跟车"仅说明跟车订单的执行方式。同时提供<b>历史至今</b>（累计形态）与<b>近一年</b>（当前形态）两个时间口径。<b>近一年跟车依赖普遍上升、长赢是唯一回落的人群；按 35% 阈值，近一年仅且慢与壹钱包仍属自主交易类</b>（详见展开）。</p>
+<details><summary>展开 · 时间口径带来的关键差异</summary><div>
+<div class="takeaway"><b>时间口径带来的关键差异：</b>近一年跟车笔数占比<b>普遍上升</b>——钱耳朵 47.76%→<b>76.41%</b>（升幅最大）、五剑 38.10%→50.69%、财商邦 33.72%→46.44%、7分钟 22.94%→40.42%、东方金匠 40.37%→44.41%；<b>长赢是唯一明显下降的人群</b>（54.46%→39.61%），其自动跟车占比反而从 37.8% 升到 62.2%，说明近一年长赢用户的主动跟车在减少、留下的跟车行为更多由自动执行承担。按 35% 阈值，<b>近一年仅且慢（10.09%）与壹钱包（4.39%）仍属自主交易类</b>，其余 6 组均为跟车依赖。近一年窗口覆盖 50.4 万用户、6,793 万笔交易；小人群近一年样本较薄（钱耳朵、财商邦、五剑各约 2 千人），解读时留意单年波动。</div>
+</div></details>
+<p><b>金额口径：</b>正文图表以<b>穿透口径</b>为主（组合单金额 = 底层基金成交金额按订单聚合，关联不到则回退订单金额），笔数两种口径完全一致，金额差异仅在组合单部分；表中"跟车金额 0.00%"不是计算错误，系部分组合订单上层不记录成交金额、穿透口径已补回。</p>
+<p><b>整体形态：</b>长赢与钱耳朵资金层面跟车最深（穿透金额占比 58.8% / 54.8%）；7分钟、东方金匠、财商邦、钱耳朵的跟车单 89% 以上为自动执行；壹钱包（3.85%）与且慢（6.52%）跟车比例低，主要原因都是两者以单基金持仓为主、组合持仓很少，是典型的自主交易人群。</p>
+<h4 style="margin:22px 0 8px;font-size:15px;color:var(--primary-dark);">图 1 · 跟车占比全景（口径 / 度量 / 时间可切换）</h4>
+<div class="decomp-controls">
+  <label>度量：
+    <select id="fc-metric">
+      <option value="amt" selected>金额</option>
+      <option value="cnt">笔数</option>
+    </select>
+  </label>
+  <label>金额口径：
+    <select id="fc-amounttype">
+      <option value="pen" selected>穿透口径</option>
+      <option value="order">组合订单口径</option>
+    </select>
+  </label>
+  <label>时间范围：
+    <select id="fc-window">
+      <option value="all" selected>历史至今</option>
+      <option value="r1y">近一年</option>
+    </select>
+  </label>
+  <label style="gap:6px;cursor:pointer;"><input type="checkbox" id="fc-auto" style="margin:0;"> 叠加自动跟车</label>
+</div>
+<div class="fig"><div id="chart-follow-uni" class="chart-box"></div>
+<div class="caption">柱=跟车占比（默认：穿透口径金额 · 历史至今）——长赢 58.82% / 钱耳朵 54.79% 资金依赖最深；切换"近一年"可见钱耳朵 76.41% / 69.42% 双高居首、五剑 50.69% / 51.15%、长赢回落至 39.61%；切换"组合订单口径"时壹钱包 / 东方金匠 / 财商邦跟车金额近乎 0，系组合订单上层不记录成交金额的取数假象（穿透口径已补回，笔数两口径完全一致）。勾选"叠加自动跟车"后附自动跟车柱（绿）与右轴"自动 / 总跟车"折线（紫）——东方金匠 99.8% 几乎全自动执行，长赢历史 37.7% 最低但近一年升至 62.3%；自动金额数据仅穿透口径（勾选时金额口径自动切换为穿透）。判断某人群"是否自主"应以近一年窗口为主、历史至今为背景。</div></div>
+
+<details><summary>展开 8 人群跟车明细 5 列对比完整表</summary><div>
+<table class="tbl-cmp"><thead><tr><th>人群</th><th>跟车笔数占比</th><th>跟车金额占比</th><th>自动跟车笔数</th><th>自动跟车金额</th><th>自动跟车/总跟车</th></tr></thead><tbody><tr><td><span class="group-tag b-0008">长赢用户</span></td><td style="text-align:right;">54.46%</td><td style="text-align:right;">55.29%</td><td style="text-align:right;">20.60%</td><td style="text-align:right;">14.44%</td><td style="text-align:right;"><b>37.83%</b></td></tr><tr><td><span class="group-tag b-1160">壹钱包APP</span></td><td style="text-align:right;">3.85%</td><td style="text-align:right;">0.00%</td><td style="text-align:right;">3.50%</td><td style="text-align:right;">0.00%</td><td style="text-align:right;"><b>90.76%</b></td></tr><tr><td><span class="group-tag b-1049">7分钟理财</span></td><td style="text-align:right;">22.94%</td><td style="text-align:right;">7.58%</td><td style="text-align:right;">22.13%</td><td style="text-align:right;">4.29%</td><td style="text-align:right;"><b>96.48%</b></td></tr><tr><td><span class="group-tag b-0008plus0009">且慢单基金用户</span></td><td style="text-align:right;">6.52%</td><td style="text-align:right;">2.66%</td><td style="text-align:right;">3.24%</td><td style="text-align:right;">0.62%</td><td style="text-align:right;"><b>49.60%</b></td></tr><tr><td><span class="group-tag b-1300">东方金匠</span></td><td style="text-align:right;">40.37%</td><td style="text-align:right;">0.00%</td><td style="text-align:right;">40.29%</td><td style="text-align:right;">0.00%</td><td style="text-align:right;"><b>99.81%</b></td></tr><tr><td><span class="group-tag b-0008">五剑用户</span></td><td style="text-align:right;">38.10%</td><td style="text-align:right;">11.44%</td><td style="text-align:right;">25.24%</td><td style="text-align:right;">6.72%</td><td style="text-align:right;"><b>66.25%</b></td></tr><tr><td><span class="group-tag b-1178">财商邦</span></td><td style="text-align:right;">33.72%</td><td style="text-align:right;">0.34%</td><td style="text-align:right;">30.30%</td><td style="text-align:right;">0.00%</td><td style="text-align:right;"><b>89.87%</b></td></tr><tr><td><span class="group-tag b-1208">钱耳朵</span></td><td style="text-align:right;">47.76%</td><td style="text-align:right;">16.95%</td><td style="text-align:right;">44.11%</td><td style="text-align:right;">12.46%</td><td style="text-align:right;"><b>92.35%</b></td></tr></tbody></table>
+</div></details>
+<details><summary>展开 8 人群跟车金额占比双口径对照完整表（同快照计算）</summary><div>
+<table class="tbl-cmp"><thead><tr><th>人群</th><th>对照用户数</th><th>跟车笔数% (组合订单 / 穿透)</th><th>跟车金额% 组合订单</th><th>跟车金额% 穿透</th><th>自动金额% 组合订单</th><th>自动金额% 穿透</th></tr></thead><tbody><tr><td><span class="group-tag b-0008">长赢用户</span></td><td style="text-align:right;">113,643</td><td style="text-align:right;">54.46 / 54.46</td><td style="text-align:right;">55.29</td><td style="text-align:right;"><b>58.82</b></td><td style="text-align:right;">14.44</td><td style="text-align:right;">18.01</td></tr><tr><td><span class="group-tag b-1160">壹钱包APP</span></td><td style="text-align:right;">113,747</td><td style="text-align:right;">3.85 / 3.85</td><td style="text-align:right;">0.00</td><td style="text-align:right;"><b>1.52</b></td><td style="text-align:right;">0.00</td><td style="text-align:right;">1.40</td></tr><tr><td><span class="group-tag b-1049">7分钟理财</span></td><td style="text-align:right;">53,729</td><td style="text-align:right;">22.94 / 22.94</td><td style="text-align:right;">7.58</td><td style="text-align:right;"><b>18.59</b></td><td style="text-align:right;">4.29</td><td style="text-align:right;">15.96</td></tr><tr><td><span class="group-tag b-0008plus0009">且慢单基金用户</span></td><td style="text-align:right;">12,002</td><td style="text-align:right;">6.52 / 6.52</td><td style="text-align:right;">2.66</td><td style="text-align:right;"><b>5.18</b></td><td style="text-align:right;">0.62</td><td style="text-align:right;">2.21</td></tr><tr><td><span class="group-tag b-1300">东方金匠</span></td><td style="text-align:right;">4,680</td><td style="text-align:right;">40.37 / 40.37</td><td style="text-align:right;">0.00</td><td style="text-align:right;"><b>29.24</b></td><td style="text-align:right;">0.00</td><td style="text-align:right;">29.19</td></tr><tr><td><span class="group-tag b-0008">五剑用户</span></td><td style="text-align:right;">3,766</td><td style="text-align:right;">38.10 / 38.10</td><td style="text-align:right;">11.44</td><td style="text-align:right;"><b>42.36</b></td><td style="text-align:right;">6.72</td><td style="text-align:right;">25.47</td></tr><tr><td><span class="group-tag b-1178">财商邦</span></td><td style="text-align:right;">3,141</td><td style="text-align:right;">33.72 / 33.72</td><td style="text-align:right;">0.34</td><td style="text-align:right;"><b>36.76</b></td><td style="text-align:right;">0.00</td><td style="text-align:right;">31.66</td></tr><tr><td><span class="group-tag b-1208">钱耳朵</span></td><td style="text-align:right;">2,899</td><td style="text-align:right;">47.76 / 47.76</td><td style="text-align:right;">16.95</td><td style="text-align:right;"><b>54.79</b></td><td style="text-align:right;">12.46</td><td style="text-align:right;">46.28</td></tr></tbody></table>
+<p class="caption" style="font-style:normal;">说明：两种金额口径来自<b>同一张表的同一批交易行</b>（并列保留两种金额），因此跟车笔数两列必然相等——<b>穿透口径聚合键含 order_id，交易笔数与组合订单口径同口径</b>（另与线上产出表逐用户比对：1,921,738 共有用户 total/follow/auto 三组笔数 0 差异），两种口径唯一差异在金额。穿透口径组合金额=底层基金成交按订单聚合（LEFT JOIN + COALESCE 回退，组合单一律入账、不再丢单）。全平台金额比值：穿透 / 组合订单 = 793,074,726,110 / 652,106,023,980 = <b>1.2162</b>。</p>
+</div></details>
+<details><summary>展开 8 人群跟车双时间口径对照完整表（历史至今 / 近一年，附近两年参考列）</summary><div>
+<table class="tbl-cmp"><thead><tr><th>人群</th><th colspan="2" style="text-align:center;">样本数</th><th colspan="3" style="text-align:center;">跟车笔数%</th><th colspan="2" style="text-align:center;">跟车金额%（穿透）</th><th colspan="2" style="text-align:center;">自动/总跟车%（笔数）</th></tr><tr><th></th><th style="text-align:right;">历史至今</th><th style="text-align:right;">近一年</th><th style="text-align:right;">历史至今</th><th style="text-align:right;">近一年</th><th style="text-align:right;color:#8c8c8c;">近两年<br><span style="font-weight:400;">(参考)</span></th><th style="text-align:right;">历史至今</th><th style="text-align:right;">近一年</th><th style="text-align:right;">历史至今</th><th style="text-align:right;">近一年</th></tr></thead><tbody>
+<tr><td><span class="group-tag b-0008">长赢用户</span></td><td style="text-align:right;">113,643</td><td style="text-align:right;">85,387</td><td style="text-align:right;">54.46</td><td style="text-align:right;color:#389e0d;"><b>39.61</b></td><td style="text-align:right;color:#8c8c8c;">43.67</td><td style="text-align:right;">58.82</td><td style="text-align:right;color:#389e0d;">52.29</td><td style="text-align:right;">37.83</td><td style="text-align:right;">62.18</td></tr>
+<tr><td><span class="group-tag b-1160">壹钱包APP</span></td><td style="text-align:right;">113,747</td><td style="text-align:right;">30,331</td><td style="text-align:right;">3.85</td><td style="text-align:right;">4.39</td><td style="text-align:right;color:#8c8c8c;">3.12</td><td style="text-align:right;">1.52</td><td style="text-align:right;">2.81</td><td style="text-align:right;">90.76</td><td style="text-align:right;">99.99</td></tr>
+<tr><td><span class="group-tag b-1049">7分钟理财</span></td><td style="text-align:right;">53,729</td><td style="text-align:right;">38,296</td><td style="text-align:right;">22.94</td><td style="text-align:right;color:#cf1322;"><b>40.42</b></td><td style="text-align:right;color:#8c8c8c;">36.88</td><td style="text-align:right;">18.59</td><td style="text-align:right;color:#cf1322;">29.61</td><td style="text-align:right;">96.48</td><td style="text-align:right;">98.32</td></tr>
+<tr><td><span class="group-tag b-0008plus0009">且慢单基金用户</span></td><td style="text-align:right;">12,002</td><td style="text-align:right;">5,114</td><td style="text-align:right;">6.52</td><td style="text-align:right;">10.09</td><td style="text-align:right;color:#8c8c8c;">9.00</td><td style="text-align:right;">5.18</td><td style="text-align:right;">9.87</td><td style="text-align:right;">49.60</td><td style="text-align:right;">75.96</td></tr>
+<tr><td><span class="group-tag b-1300">东方金匠</span></td><td style="text-align:right;">4,680</td><td style="text-align:right;">4,515</td><td style="text-align:right;">40.37</td><td style="text-align:right;">44.41</td><td style="text-align:right;color:#8c8c8c;">40.79</td><td style="text-align:right;">29.24</td><td style="text-align:right;">34.08</td><td style="text-align:right;">99.81</td><td style="text-align:right;">99.87</td></tr>
+<tr><td><span class="group-tag b-0008">五剑用户</span></td><td style="text-align:right;">3,766</td><td style="text-align:right;">2,298</td><td style="text-align:right;">38.10</td><td style="text-align:right;color:#cf1322;"><b>50.69</b></td><td style="text-align:right;color:#8c8c8c;">48.85</td><td style="text-align:right;">42.36</td><td style="text-align:right;color:#cf1322;">51.15</td><td style="text-align:right;">66.25</td><td style="text-align:right;">87.38</td></tr>
+<tr><td><span class="group-tag b-1178">财商邦</span></td><td style="text-align:right;">3,141</td><td style="text-align:right;">2,054</td><td style="text-align:right;">33.72</td><td style="text-align:right;color:#cf1322;"><b>46.44</b></td><td style="text-align:right;color:#8c8c8c;">46.93</td><td style="text-align:right;">36.76</td><td style="text-align:right;color:#cf1322;">46.82</td><td style="text-align:right;">89.87</td><td style="text-align:right;">99.92</td></tr>
+<tr><td><span class="group-tag b-1208">钱耳朵</span></td><td style="text-align:right;">2,899</td><td style="text-align:right;">1,957</td><td style="text-align:right;">47.76</td><td style="text-align:right;color:#cf1322;"><b>76.41</b></td><td style="text-align:right;color:#8c8c8c;">72.61</td><td style="text-align:right;">54.79</td><td style="text-align:right;color:#cf1322;">69.42</td><td style="text-align:right;">92.35</td><td style="text-align:right;">96.14</td></tr>
+</tbody></table>
+<p class="caption" style="font-style:normal;">说明：各窗口取自<b>同一张双口径多窗口表</b>（历史至今 = 全部交易；近一年 = <code>txn_day ≥ 2025-09-11</code>；近两年 = <code>txn_day ≥ 2024-09-11</code>），可直接横比。报告图表统一使用<b>近一年</b>，灰色"近两年"列作为趋势稳定性参考——除财商邦（46.93→46.44）与壹钱包（3.12→4.39）两组小幅回摆外，其余人群近两年与近一年方向一致，说明趋势不是单年噪声。<br>近一年样本数小于历史至今，因为只有在该窗口内有交易的用户才被计入——样本收缩本身也是形态信号（如且慢 12,002→5,114，超半数用户近一年无交易；壹钱包 113,747→30,331）。<b>小人群近一年样本较薄</b>（钱耳朵 1,957、财商邦 2,054、五剑 2,298），解读时须留意单年波动影响。红色 = 近一年跟车依赖上升，绿色 = 下降。</p>
+</div></details>
+</section>
+<section id="sec4"><h2>4. 各子指标拆解</h2><p class="caption">本节用指标定位各人群最值得关注的行为模式。前 6 项（OCI / DR / EAD / HSI / APD / RSI）进入综合分；HSBI / FIII 仅适用于存在组合跟投或调仓历史的用户，作为补充画像解读；集中度不进入综合分。全部指标方向统一为<b>数值越大偏误越强</b>。各指标的计算口径详见 <a href="#sec7" style="color:var(--primary);font-weight:600;">§7 附录</a>。</p>
+<h3 id="sec4-0">4.0 8×8 指标 × 8 人群热力图</h3>
+<p>每行是一类人群、每列是一项指标，颜色越深代表该项偏误程度越高。其中 <b>DR 列为正向处置强度 max(0, PGR−PLR)</b>（只计"赢卖亏扛"方向，亏损变现多于盈利兑现的用户记 0、视为无处置效应，仅 ≥10 笔用户），<b>HSI 列为 ≥10 笔用户的 HSI 加权值</b>，其余列为全量标准化均值（口径见各节）。<b>在进入综合分的 6 项指标中，过度自信（OCI）的人群分化最大</b>——跨人群极差 <b>0.226</b>（0.1869~0.4126）；<b>正向处置（DR，0.182）与权益偏离（EAD，0.166）次之</b>，其后为 HSI 0.142、APD 0.112。DR 反映"赢卖亏扛"这一单向处置强度（亏损变现更多者计 0），OCI 反映换手、持仓集中与风险错配的综合倾向。若按"权重 × 分化"的加权口径（见 <a href="#sec5-2" style="color:var(--primary);font-weight:600;">§5.2</a>），对综合分人群差异贡献最大的则是 OCI、HSI 与 EAD。<b>RSI 在 8 人群间几乎无分化</b>（0.4604~0.5064，极差仅 0.046），不适合用来区分客群。</p>
+<p><b>为什么 DR / HSI 相关统计仅覆盖 ≥10 笔交易的用户：</b>这两项是比值型指标（DR = 盈利变现率 − 亏损变现率，HSI = 顺势笔数 / 可判定笔数），分母为交易笔数——笔数越少，比值粒度越粗、天然远离中性值。举例：某用户历史仅交易 2 笔，其中 1 笔盈利卖出、1 笔亏损持有，则其 PGR = 100%、PLR = 0%、DR = +1.0，读数为最极端的"赢卖亏扛"——但这只是 2 笔交易的巧合，不构成行为倾向的证据。全平台实测也印证这种度量噪声：|PGR−PLR| 均值随交易笔数单调收敛（&lt;10 笔用户约 0.68、10~19 笔约 0.58、20~99 笔约 0.40），低笔数用户的"高偏离"主要是粒度问题而非真实偏误。因此本节与综合分打分链路采用同一门槛，DR / HSI 相关统计仅保留 ≥10 笔交易的用户（各人群门槛通过率见 <a href="#sec4-5" style="color:var(--primary);font-weight:600;">§4.5</a> 折叠表注释，壹钱包 / 东方金匠约 41% / 42%，长赢 / 7分钟约 98% / 97%）。</p>
+<p class="caption" style="font-style:normal;">解读提示：按"组间极差 × 权重"的线性拆解口径，OCI 贡献最高（见 <a href="#sec5-1" style="color:var(--primary);font-weight:600;">§5.1</a>）；HSBI / FIII 仅覆盖有组合调仓历史的用户（覆盖率 39.7% / 18.1%），不进入综合分，解读时须留意其样本范围。</p>
+<div class="fig"><div id="chart-heatmap" class="chart-box chart-mh"></div>
+<div class="caption">深颜色 = 值较高（偏误重）；浅 = 较优。最显著位置：<b>东方金匠 HSI 0.5167 为全表最高格</b>，但其 OCI 0.1869 为该列最低、DR 0.0960 亦为该列最低，画像最为两极；<b>壹钱包 OCI 0.4126、EAD 0.2996、FIII 0.5078 均为各列最高</b>；<b>且慢 DR 0.2775 为该列最高</b>；长赢 EAD 0.1339、RSI 0.4604 均为该列最低，HSBI 0.3991 却为该列最高；钱耳朵 HSI 0.3749、FIII 0.2558 双列最低，APD 0.1167 该列最高；财商邦 APD 0.0052 该列最低</div>
+</div><h3 id="sec4-1">4.1 OCI · 过度自信<span style="font-size:13px;font-weight:400;color:#8c8c8c;margin-left:8px;">加权贡献占比 29.6%</span></h3>
+<p>OCI 衡量用户是否<b>高估自己的投资能力</b>——自认能靠频繁操作跑赢市场，表现为交易过多、持仓押注少数品种、配置与自身风险承受力错配。指标由换手率、持仓集中度、风险错配三项信号合成，合成权重为 <b>0.5 / 0.3 / 0.2</b>——<b>换手率占比最大</b>，是判断过度自信的首要信号，持仓集中度与风险错配次之。<b>壹钱包的 OCI 最高（0.4126）</b>，其得分结构也依此权重次序展开：<b>换手率 3.05 为 8 组最高</b>，为推高其 OCI 的首要来源；其次为持仓集中度 <b>PCI 0.6806 亦为 8 组最高</b>——人均仅持有 10.28 只基金，品种极少故天然集中；风险错配 RMD 1.4281 第 2 高。<b>且慢单基金第 2（0.3784）</b>，PCI 0.5467 与 <b>RMD 1.7459（8 组最高）</b>并列突出——单基金持有形态下持仓天然集中，且持仓加权波动率 0.1524 显著高于同风险等级基线 0.0750。<b>东方金匠最低（0.1869）</b>，PCI 0.0903 与 RMD 0.3245 双双最低，是唯一持仓加权波动率（0.0709）与同级基线（0.0717）基本持平的人群。</p>
+<p class="caption" style="font-style:normal;"><b>三项口径说明：</b>① <b>PCI 为基金穿透 + 滚动 90 天日均市值口径</b>（组合已穿透到底层基金，不再把组合计为单一标的），数值与"组合按 po_code 计为单标的"的口径不可直接比较。② <b>PCI 与 RMD 仅对有当前持仓的用户计算</b>，两项均值只在这部分用户上取；各人群该比例差异很大（壹钱包 27.7%、五剑 66.9%、东方金匠 93.4%），跨人群比较时应结合该比例理解样本基础。③ <b>RMD 的持仓加权波动率仅在能匹配到波动率的持仓上做加权平均</b>——8 人群中有持仓用户的波动率匹配率为 99.9%~100%（匹配失败合计仅 22 人）。</p>
+<div class="fig"><div id="chart-ind-OCI" class="chart-sm"></div>
+<div class="caption">中间指标：个人换手率（左轴，0~3.5）；PCI 集中度、RMD 风险错配共用右轴（0~1.8，0 点与左轴对齐）。柱高按各自原始量纲绘制。<b>PCI / RMD 仅统计有当前持仓的用户</b>，故与换手率类指标的样本基础不同</div>
+</div><details><summary>展开 OCI 全部 7 个中间指标（8 人群 × 7）</summary><div><table class="tbl-cmp"><thead><tr><th>中间指标</th><th style="font-size:11.5px;">长赢用户</th><th style="font-size:11.5px;">壹钱包APP</th><th style="font-size:11.5px;">7分钟理财</th><th style="font-size:11.5px;">且慢单基金用户</th><th style="font-size:11.5px;">东方金匠</th><th style="font-size:11.5px;">五剑用户</th><th style="font-size:11.5px;">财商邦</th><th style="font-size:11.5px;">钱耳朵</th></tr></thead><tbody><tr><td style="text-align:left;">换手率</td><td style="text-align:right;">1.1732</td><td style="text-align:right;color:#cf1322;font-weight:600;">3.0497</td><td style="text-align:right;">1.9717</td><td style="text-align:right;">2.3812</td><td style="text-align:right;">1.6169</td><td style="text-align:right;">1.5298</td><td style="text-align:right;">1.4053</td><td style="text-align:right;">1.2830</td></tr><tr><td style="text-align:left;">同风险等级均值换手</td><td style="text-align:right;">2.9476</td><td style="text-align:right;">3.1821</td><td style="text-align:right;">2.9586</td><td style="text-align:right;">3.0087</td><td style="text-align:right;">3.0132</td><td style="text-align:right;">2.9713</td><td style="text-align:right;">2.9785</td><td style="text-align:right;">3.0037</td></tr><tr><td style="text-align:left;">超额换手(ATR)</td><td style="text-align:right;">-1.7744</td><td style="text-align:right;color:#52c41a;font-weight:600;">-0.1324</td><td style="text-align:right;">-0.9869</td><td style="text-align:right;">-0.6276</td><td style="text-align:right;">-1.3963</td><td style="text-align:right;">-1.4416</td><td style="text-align:right;">-1.5731</td><td style="text-align:right;">-1.7207</td></tr><tr><td style="text-align:left;">持仓集中度(PCI)<br><span style="font-size:11px;color:#8c8c8c;">仅有持仓用户</span></td><td style="text-align:right;">0.1824</td><td style="text-align:right;color:#cf1322;font-weight:600;">0.6806</td><td style="text-align:right;">0.2080</td><td style="text-align:right;">0.5467</td><td style="text-align:right;color:#52c41a;font-weight:600;">0.0903</td><td style="text-align:right;">0.2144</td><td style="text-align:right;">0.2555</td><td style="text-align:right;">0.2265</td></tr><tr><td style="text-align:left;">持仓加权波动率</td><td style="text-align:right;">0.1108</td><td style="text-align:right;">0.0756</td><td style="text-align:right;">0.1205</td><td style="text-align:right;color:#cf1322;font-weight:600;">0.1524</td><td style="text-align:right;color:#52c41a;font-weight:600;">0.0709</td><td style="text-align:right;">0.1265</td><td style="text-align:right;">0.0956</td><td style="text-align:right;">0.1279</td></tr><tr><td style="text-align:left;">同风险等级均值波动率</td><td style="text-align:right;">0.0774</td><td style="text-align:right;">0.0612</td><td style="text-align:right;">0.0749</td><td style="text-align:right;">0.0750</td><td style="text-align:right;">0.0717</td><td style="text-align:right;">0.0767</td><td style="text-align:right;">0.0748</td><td style="text-align:right;">0.0720</td></tr><tr><td style="text-align:left;">风险错配度(RMD)<br><span style="font-size:11px;color:#8c8c8c;">仅有持仓用户</span></td><td style="text-align:right;">0.7419</td><td style="text-align:right;">1.4281</td><td style="text-align:right;">1.0678</td><td style="text-align:right;color:#cf1322;font-weight:600;">1.7459</td><td style="text-align:right;color:#52c41a;font-weight:600;">0.3245</td><td style="text-align:right;">1.0544</td><td style="text-align:right;">0.7814</td><td style="text-align:right;">1.2073</td></tr></tbody></table>
+<p style="margin:8px 0 0;font-size:12.5px;color:#666;">红色=该行 8 组最高，绿色=最低。<b>PCI / RMD 两行仅统计有当前持仓的用户</b>（无持仓为无法判定），与换手率类指标样本基础不同。RMD 为"按用户先算比值再平均"，故其数值不等于表内"持仓加权波动率 ÷ 同级均值波动率"两行相除——后者是"均值之比"，两者口径不同。</p></div></details>
+<h3 id="sec4-2">4.2 HSI · 趋势追随<span style="font-size:13px;font-weight:400;color:#8c8c8c;margin-left:8px;">加权贡献占比 21.5%</span></h3>
+<p>HSI 衡量用户是否<b>追涨杀跌</b>——市场涨了才敢买、跌了恐慌卖出，交易节奏被行情牵着走。判定依据为统一的市场状态区间，不再看单个产品当日净值涨跌：牛市 / 趋势上行时买入、熊市 / 趋势下行时卖出记为顺势；震荡状态方向不明，顺势恒记 0（交易仍计入分母）。<b>并且 HSI 是牛熊加权值</b>——牛市、熊市权重 1.5，其余状态 1.0，`HSI = Σ(权重×顺势) / Σ(权重)`。</p>
+<p>本节图表<b>仅统计可判定交易 ≥10 笔的用户</b>（剔除低交易用户的比值噪声，与综合分打分链路同口径，见 <a href="#sec5-1" style="color:var(--primary);font-weight:600;">§5.1</a>）。<b>东方金匠 HSI 最高（0.5167）</b>，顺势占比 50.25% 亦为最高、<b>唯一过半</b>；<b>钱耳朵最低（0.3749 / 38.96%）</b>。HSI 与"顺势占比"是两个不同的数、不能互相替代——最典型的是<b>壹钱包：顺势占比 46.31% 排第 2，加权后 HSI 0.4290 掉到第 7</b>，说明其牛熊行情下的顺势率低于自身其余状态的平均水平，极端行情中反而没那么追涨杀跌；反向的例子是其余 6 组（加权后 HSI 高于不加权占比），追涨杀跌更集中在牛熊极端行情里——这正是加权想要突出的行为。全量口径（含 &lt;10 笔用户）的对照见折叠表，两端结论一致。</p>
+<div class="fig"><div id="chart-ind-HSI" class="chart-sm"></div>
+<div class="caption">本图仅统计 ≥10 笔用户。左轴柱状：顺势交易笔数 / 总可判定笔数（人均，max=1200）；右轴双折线：<b>顺势笔数占比（不加权，紫）</b> 与 <b>HSI 加权值（橙）</b>。东方金匠两项均最高（50.25% / 0.5167）、钱耳朵均最低（38.96% / 0.3749）；壹钱包两线明显交叉（46.31% → 0.4290）为加权效应最强的人群</div>
+</div><details><summary>展开 HSI 中间指标与双口径对照（8 人群 × 6）</summary><div><table class="tbl-cmp"><thead><tr><th>中间指标</th><th style="font-size:11.5px;">长赢用户</th><th style="font-size:11.5px;">壹钱包APP</th><th style="font-size:11.5px;">7分钟理财</th><th style="font-size:11.5px;">且慢单基金用户</th><th style="font-size:11.5px;">东方金匠</th><th style="font-size:11.5px;">五剑用户</th><th style="font-size:11.5px;">财商邦</th><th style="font-size:11.5px;">钱耳朵</th></tr></thead><tbody><tr><td style="text-align:left;">顺势交易笔数</td><td style="text-align:right;">178.90</td><td style="text-align:right;">12.00</td><td style="text-align:right;color:#cf1322;font-weight:600;">494.60</td><td style="text-align:right;">178.50</td><td style="text-align:right;color:#52c41a;font-weight:600;">7.10</td><td style="text-align:right;">105.10</td><td style="text-align:right;">43.90</td><td style="text-align:right;">52.30</td></tr><tr><td style="text-align:left;">可判定总笔数</td><td style="text-align:right;">412.10</td><td style="text-align:right;">26.20</td><td style="text-align:right;color:#cf1322;font-weight:600;">1098.30</td><td style="text-align:right;">393.40</td><td style="text-align:right;color:#52c41a;font-weight:600;">14.20</td><td style="text-align:right;">228.00</td><td style="text-align:right;">105.10</td><td style="text-align:right;">134.30</td></tr><tr><td style="text-align:left;">顺势笔数占比（不加权）</td><td style="text-align:right;">43.40%</td><td style="text-align:right;">45.71%</td><td style="text-align:right;">45.03%</td><td style="text-align:right;">45.39%</td><td style="text-align:right;color:#cf1322;font-weight:600;">50.01%</td><td style="text-align:right;">46.08%</td><td style="text-align:right;">41.78%</td><td style="text-align:right;color:#52c41a;font-weight:600;">38.94%</td></tr><tr><td style="text-align:left;">顺势占比（仅 ≥10 笔用户）</td><td style="text-align:right;">43.40%</td><td style="text-align:right;">46.31%</td><td style="text-align:right;">45.03%</td><td style="text-align:right;">45.40%</td><td style="text-align:right;color:#cf1322;font-weight:600;">50.25%</td><td style="text-align:right;">46.07%</td><td style="text-align:right;">41.75%</td><td style="text-align:right;color:#52c41a;font-weight:600;">38.96%</td></tr><tr><td style="text-align:left;">HSI（仅 ≥10 笔用户，本节主口径）</td><td style="text-align:right;">0.4409</td><td style="text-align:right;">0.4290</td><td style="text-align:right;">0.4672</td><td style="text-align:right;">0.4663</td><td style="text-align:right;color:#cf1322;font-weight:600;">0.5167</td><td style="text-align:right;">0.4710</td><td style="text-align:right;">0.4335</td><td style="text-align:right;color:#52c41a;font-weight:600;">0.3749</td></tr><tr><td style="text-align:left;"><b>HSI（牛熊加权值，全量）</b></td><td style="text-align:right;">0.4417</td><td style="text-align:right;">0.4093</td><td style="text-align:right;">0.4659</td><td style="text-align:right;">0.4552</td><td style="text-align:right;color:#cf1322;font-weight:600;">0.4939</td><td style="text-align:right;">0.4767</td><td style="text-align:right;">0.4376</td><td style="text-align:right;color:#52c41a;font-weight:600;">0.3707</td></tr></tbody></table>
+<p style="margin:8px 0 0;font-size:12.5px;color:#666;">红色=该行 8 组最高，绿色=最低。前两行（人均笔数）为全量口径；<b>「顺势笔数占比」为人群汇总口径</b>（Σ顺势笔数 ÷ Σ可判定笔数），<b>HSI 为按用户先算加权值再平均</b>，两者不可互推。全量口径下除壹钱包、东方金匠、钱耳朵三组外，其余 5 组 HSI 均高于其不加权占比；≥10 笔口径下仅壹钱包、钱耳朵两组低于。</p></div></details>
+<h3 id="sec4-3">4.3 EAD · 权益配置偏离<span style="font-size:13px;font-weight:400;color:#8c8c8c;margin-left:8px;">加权贡献占比 21.1%</span></h3>
+<p>EAD 衡量用户是否<b>该配的权益没有配够</b>——实际权益仓位低于自身风险等级对应的建议仓位。指标按每个用户的 <code>MAX(0, 理论 − 实际)</code> 计算，只罚少配、不罚超配（实际高于理论时记 0）。</p>
+<p><b>壹钱包APP 的 EAD 最高（0.2996）</b>——理论建议 36.94% 却只配了 16.08% 权益，人群平均缺口 20.87pp 为 8 组最大，其少配用户的平均缺口约 <b>26.96pp</b>；<b>长赢最低（0.1339）</b>，其实际权益 60.88% 已<b>反超</b>理论建议 60.17%（人群平均缺口 −0.71pp），是唯一实际高于理论的人群。</p>
+<p class="caption" style="font-style:normal;"><b>读数提示：</b>人群平均缺口会被超配用户抵消（长赢整体缺口 −0.71pp 已达标，但其未达标用户仍平均少配 12.05pp）；<b>EAD 更适合筛人，人群平均缺口更适合估算整体调仓空间</b>。EAD 仅对有当前持仓的用户计算（壹钱包覆盖率 27.7%，读数代表其仍持仓的少数用户）。</p>
+<div class="fig"><div id="chart-ind-EAD" class="chart-sm"></div>
+<div class="caption">左轴柱状：理论权益占比（蓝）/ 实际权益占比（青），单位 %；右轴折线：<b>人群平均缺口</b> = 平均理论 − 平均实际（紫，单位 pp，<b>可为负</b>）。壹钱包缺口 20.87pp 最大、东方金匠 18.24pp 次之；<b>长赢 −0.71pp 为唯一负值</b>（实际权益反超理论建议）。注意该折线含超配用户的抵消，与只计少配的 EAD 排名略有差异，见上方正文</div>
+</div><details><summary>展开 EAD 中间指标与缺口对照（8 人群 × 4）</summary><div><table class="tbl-cmp"><thead><tr><th>中间指标</th><th style="font-size:11.5px;">长赢用户</th><th style="font-size:11.5px;">壹钱包APP</th><th style="font-size:11.5px;">7分钟理财</th><th style="font-size:11.5px;">且慢单基金用户</th><th style="font-size:11.5px;">东方金匠</th><th style="font-size:11.5px;">五剑用户</th><th style="font-size:11.5px;">财商邦</th><th style="font-size:11.5px;">钱耳朵</th></tr></thead><tbody><tr><td style="text-align:left;">理论权益占比</td><td style="text-align:right;color:#cf1322;font-weight:600;">0.6017</td><td style="text-align:right;color:#52c41a;font-weight:600;">0.3694</td><td style="text-align:right;">0.5421</td><td style="text-align:right;">0.5591</td><td style="text-align:right;">0.5101</td><td style="text-align:right;">0.5947</td><td style="text-align:right;">0.5613</td><td style="text-align:right;">0.5161</td></tr><tr><td style="text-align:left;">实际权益占比</td><td style="text-align:right;color:#cf1322;font-weight:600;">0.6088</td><td style="text-align:right;color:#52c41a;font-weight:600;">0.1608</td><td style="text-align:right;">0.4165</td><td style="text-align:right;">0.4043</td><td style="text-align:right;">0.3276</td><td style="text-align:right;">0.5202</td><td style="text-align:right;">0.4297</td><td style="text-align:right;">0.4756</td></tr><tr><td style="text-align:left;">人群平均缺口<br><span style="font-size:11px;color:#8c8c8c;">平均理论−平均实际，pp</span></td><td style="text-align:right;color:#52c41a;font-weight:600;">-0.71</td><td style="text-align:right;color:#cf1322;font-weight:600;">20.87</td><td style="text-align:right;">12.56</td><td style="text-align:right;">15.48</td><td style="text-align:right;">18.24</td><td style="text-align:right;">7.45</td><td style="text-align:right;">13.15</td><td style="text-align:right;">4.05</td></tr><tr><td style="text-align:left;">少配用户平均缺口<br><span style="font-size:11px;color:#8c8c8c;">= 标准化 × 90，pp</span></td><td style="text-align:right;color:#52c41a;font-weight:600;">12.05</td><td style="text-align:right;color:#cf1322;font-weight:600;">26.96</td><td style="text-align:right;">19.41</td><td style="text-align:right;">24.87</td><td style="text-align:right;">21.58</td><td style="text-align:right;">18.23</td><td style="text-align:right;">21.28</td><td style="text-align:right;">15.67</td></tr><tr><td style="text-align:left;">个体 EAD 记 0 占比<br><span style="font-size:11px;color:#8c8c8c;">已达标/超配，仅覆盖用户内</span></td><td style="text-align:right;color:#cf1322;font-weight:600;">53.85%</td><td style="text-align:right;color:#52c41a;font-weight:600;">16.76%</td><td style="text-align:right;">35.05%</td><td style="text-align:right;">33.29%</td><td style="text-align:right;">21.45%</td><td style="text-align:right;">44.72%</td><td style="text-align:right;">37.16%</td><td style="text-align:right;">48.35%</td></tr><tr><td style="text-align:left;">EAD 覆盖率<br><span style="font-size:11px;color:#8c8c8c;">有当前持仓用户占比</span></td><td style="text-align:right;">77.21%</td><td style="text-align:right;color:#cf1322;font-weight:600;">27.67%</td><td style="text-align:right;">81.52%</td><td style="text-align:right;">64.73%</td><td style="text-align:right;color:#52c41a;font-weight:600;">93.35%</td><td style="text-align:right;">66.85%</td><td style="text-align:right;">73.86%</td><td style="text-align:right;">66.99%</td></tr><tr><td style="text-align:left;"><b>EAD 标准化（人群均值）</b></td><td style="text-align:right;color:#52c41a;font-weight:600;">0.1339</td><td style="text-align:right;color:#cf1322;font-weight:600;">0.2996</td><td style="text-align:right;">0.2157</td><td style="text-align:right;">0.2763</td><td style="text-align:right;">0.2398</td><td style="text-align:right;">0.2025</td><td style="text-align:right;">0.2365</td><td style="text-align:right;">0.1741</td></tr></tbody></table>
+<p style="margin:8px 0 0;font-size:12.5px;color:#666;">红色=该行 8 组最高，绿色=最低（"个体 EAD 记 0 占比"与"覆盖率"两行数值越高代表状况越好，配色按数值大小而非好坏）。<b>「人群平均缺口」与「少配用户平均缺口」的差距源自超配用户被计 0</b>：长赢整体已达标（−0.71pp），但其未达标的那部分用户仍平均少配 12.05pp。全部行仅统计有当前持仓的用户。</p></div></details>
+<h3 id="sec4-4">4.4 APD · 锚定价格偏离<span style="font-size:13px;font-weight:400;color:#8c8c8c;margin-left:8px;">加权贡献占比 12.6%</span></h3>
+<p>APD 衡量用户是否<b>被买入成本锚住</b>——亏损的仓位不处理、坚持等回本，而错过把资金配置到更好标的机会。指标衡量的是：对持有满半年的浮亏标的，其成本价与当前净值的缺口，并以当前持仓标的数归一化。<b>钱耳朵的 APD 最高（0.1167）</b>，且慢单基金次之（0.1130）、7分钟第 3（0.1004），在满足观察条件的用户中，仍持有的浮亏仓位缺口更突出；<b>财商邦最低（0.0052）</b>，东方金匠次低（0.0056）——这两组几乎不存在长期挂账的浮亏仓位。<b>该指标标准化值达到 1.0 表示处于全平台浮亏缺口最严重的前 1%</b>，故 8 组均值都落在较低区间属正常，应看人群间相对高低而非绝对水平。下图的"累计回本卖出比例"是补充画像，与 APD 口径不同，应单独解读。</p>
+<p><b>补充分析维度 · 回本卖出：</b>指一笔<b>卖出成交</b>（组合卖出与单基金卖出均穿透至底层基金）的卖出单价落在<b>自身持仓成本单价的 0.95~1.10 倍</b>区间内——即刚好回到成本价附近就卖掉（容忍 5% 以内小亏、10% 以内微利），衡量的是用户<b>在已实现端的"回本即离场"倾向</b>，与 APD 关注"当前仍持有的浮亏仓位"不同，它看的是历史至今累计卖出交易中回本卖出所占的比例。<b>壹钱包 89.46%</b> 与东方金匠 <b>85.02%</b> 明显高于其余人群，但两者人均累计卖出仅 15.0 / 35.1 笔——卖出次数少时比例天然容易走极端，宜与交易量一并看；<b>钱耳朵 54.55% 最低</b>、五剑 58.79% 次低。7分钟人均累计卖出 442.6 笔为 8 组最多，回本比例 67.62% 处于中段。</p>
+  <p style="margin:6px 0 0;font-size:12.5px;color:#8c8c8c;">注：该指标仅用于分析展示，未纳入综合偏误分。原因是当前口径仍存在局限——货币基金、债券基金等低波动、低收益品种，其净值波动区间本身大概率就落在上述"回本卖出"的判定范围内，会把这类正常赎回也计为回本卖出，从而高估相应人群的比例。</p>
+  <div class="fig"><div id="chart-ind-APD" class="chart-box chart-mh" style="height:460px"></div>
+<div class="caption">上子图（APD 口径，半年窗口）：半年前已持有是计算闸门；对当前仍浮亏的标的计算（成本价−净值）/成本价，并以当前持仓标的总数归一化。下子图是"累计回本卖出比例"的补充画像（历史至今累计口径）：壹钱包 89.5%、东方金匠 85.0% 较高但卖出笔数很少（人均 15.0 / 35.1 笔），钱耳朵 54.6% 最低；7分钟人均累计卖出 442.6 笔，交易量最大</div>
+</div><details><summary>展开 APD 与回本卖出全部 9 个中间指标（8 人群 × 9）</summary><div><table class="tbl-cmp"><thead><tr><th>中间指标</th><th style="font-size:11.5px;">长赢用户</th><th style="font-size:11.5px;">壹钱包APP</th><th style="font-size:11.5px;">7分钟理财</th><th style="font-size:11.5px;">且慢单基金用户</th><th style="font-size:11.5px;">东方金匠</th><th style="font-size:11.5px;">五剑用户</th><th style="font-size:11.5px;">财商邦</th><th style="font-size:11.5px;">钱耳朵</th></tr></thead><tbody><tr><td style="text-align:left;">半年前已持仓标的数</td><td style="text-align:right;">4.12</td><td style="text-align:right;">2.66</td><td style="text-align:right;color:#cf1322;font-weight:600;">8.36</td><td style="text-align:right;">7.56</td><td style="text-align:right;color:#52c41a;font-weight:600;">2.12</td><td style="text-align:right;">4.40</td><td style="text-align:right;">4.03</td><td style="text-align:right;">3.08</td></tr><tr><td style="text-align:left;">当前持仓标的数</td><td style="text-align:right;">5.47</td><td style="text-align:right;">3.32</td><td style="text-align:right;color:#cf1322;font-weight:600;">10.04</td><td style="text-align:right;">9.84</td><td style="text-align:right;color:#52c41a;font-weight:600;">2.89</td><td style="text-align:right;">6.07</td><td style="text-align:right;">4.90</td><td style="text-align:right;">3.37</td></tr><tr><td style="text-align:left;">APD 原始值</td><td style="text-align:right;">0.0124</td><td style="text-align:right;color:#cf1322;font-weight:600;">0.0262</td><td style="text-align:right;">0.0217</td><td style="text-align:right;">0.0256</td><td style="text-align:right;color:#52c41a;font-weight:600;">0.0012</td><td style="text-align:right;">0.0120</td><td style="text-align:right;color:#52c41a;font-weight:600;">0.0012</td><td style="text-align:right;">0.0250</td></tr><tr><td style="text-align:left;"><b>APD 标准化（人群均值）</b></td><td style="text-align:right;">0.0585</td><td style="text-align:right;">0.0957</td><td style="text-align:right;">0.1004</td><td style="text-align:right;">0.1130</td><td style="text-align:right;">0.0056</td><td style="text-align:right;">0.0560</td><td style="text-align:right;color:#52c41a;font-weight:600;">0.0052</td><td style="text-align:right;color:#cf1322;font-weight:600;">0.1167</td></tr><tr><td style="text-align:left;">APD 覆盖率</td><td style="text-align:right;">75.52%</td><td style="text-align:right;color:#52c41a;font-weight:600;">24.23%</td><td style="text-align:right;">77.49%</td><td style="text-align:right;">61.62%</td><td style="text-align:right;color:#cf1322;font-weight:600;">78.06%</td><td style="text-align:right;">63.98%</td><td style="text-align:right;">69.00%</td><td style="text-align:right;">63.40%</td></tr><tr><td style="text-align:left;">有卖出记录用户数</td><td style="text-align:right;color:#cf1322;font-weight:600;">113,415</td><td style="text-align:right;">41,846</td><td style="text-align:right;">53,519</td><td style="text-align:right;">9,449</td><td style="text-align:right;">4,676</td><td style="text-align:right;">3,563</td><td style="text-align:right;">3,125</td><td style="text-align:right;color:#52c41a;font-weight:600;">2,782</td></tr><tr><td style="text-align:left;">人均累计总卖出笔数</td><td style="text-align:right;">199.5</td><td style="text-align:right;color:#52c41a;font-weight:600;">15.0</td><td style="text-align:right;color:#cf1322;font-weight:600;">442.6</td><td style="text-align:right;">140.6</td><td style="text-align:right;">35.1</td><td style="text-align:right;">164.9</td><td style="text-align:right;">113.7</td><td style="text-align:right;">89.3</td></tr><tr><td style="text-align:left;">人均累计回本卖出笔数</td><td style="text-align:right;">131.5</td><td style="text-align:right;color:#52c41a;font-weight:600;">13.4</td><td style="text-align:right;color:#cf1322;font-weight:600;">299.3</td><td style="text-align:right;">100.4</td><td style="text-align:right;">29.8</td><td style="text-align:right;">96.9</td><td style="text-align:right;">78.5</td><td style="text-align:right;">48.7</td></tr><tr><td style="text-align:left;">累计回本卖出比例</td><td style="text-align:right;">65.91%</td><td style="text-align:right;color:#cf1322;font-weight:600;">89.46%</td><td style="text-align:right;">67.62%</td><td style="text-align:right;">71.41%</td><td style="text-align:right;">85.02%</td><td style="text-align:right;color:#52c41a;font-weight:600;">58.79%</td><td style="text-align:right;">69.01%</td><td style="text-align:right;">54.55%</td></tr></tbody></table>
+<p style="margin:8px 0 0;font-size:12.5px;color:#666;">红色=该行 8 组最高，绿色=最低（财商邦与东方金匠 APD 原始值同为 0.0012，并列最低）。<b>前 5 行为 APD 口径</b>（当前有持仓、且至少一个标的半年前已持有的用户）；<b>后 4 行为回本卖出口径</b>（历史上有过卖出记录的用户），两者样本不同、不可交叉计算。累计回本卖出比例为汇总口径（Σ回本笔数 ÷ Σ总卖出笔数）。</p></div></details><h3 id="sec4-5">4.5 DR · 处置效应<span style="font-size:13px;font-weight:400;color:#8c8c8c;margin-left:8px;">加权贡献占比 12.3%</span></h3>
+<p>DR 衡量用户是否<b>赢了急着卖、亏了死扛</b>——盈利的仓位拿不住、亏损的仓位舍不得割。指标 = 盈利变现率（PGR）− 亏损变现率（PLR）。本节图表<b>仅统计交易 ≥10 笔的用户</b>（剔除低交易用户的比值噪声，与综合分打分链路同口径，见 <a href="#sec5-1" style="color:var(--primary);font-weight:600;">§5.1</a>），排名口径为<b>正向处置强度 max(0, PGR−PLR)</b>——只计"赢卖亏扛"方向，亏损变现多于盈利兑现（PLR ≥ PGR）的用户计 0、视为无处置效应，不做反向惩罚。<b>之所以只罚正向，是因为该项偏误的业务含义是单向的</b>：损耗来自"盈利拿不住、亏损舍不得割"这一倾向，而 PLR ≥ PGR 的用户更接近"及时止损"，不构成教科书意义上的处置偏误，故按 0 处理；综合分的权重也是在同一口径下学出来的（见附录）。</p>
+<p><b>正向处置强度最高的是且慢单基金（0.2775）</b>：PGR 85.86% 高出 PLR 61.43%（+24.43pp），赢卖亏扛最明显；<b>壹钱包次之（0.2592，+18.79pp）</b>；五剑（0.1801，+5.14pp）与 7分钟（0.1800，+12.93pp）几乎并列第 3。<b>东方金匠最低（0.0960）</b>——其 DR 原始值为 −30.52pp（PGR 38.29% vs PLR 68.81%），是 8 组中唯一强反向处置的人群，按"只计正向"口径其读数仅来自组内少量正向用户；它同时是 8 组中<b>未实现盈利持仓份额最高的人群（50.2 万份，为次高者的 2.9 倍）而盈利变现率最低</b>——盈利大量留在账上不落袋，是其画像中最鲜明的一项。财商邦（0.1079，−8.10pp）与钱耳朵（0.1321，−6.66pp）同样以反向为主，正向处置强度偏低。</p>
+<p>全量口径（含 &lt;10 笔用户）下壹钱包 DR 曾达 +33.84pp 列第 1——其 PLR 48.02% 被低交易用户的极端比值拉低，≥10 笔口径内实际为 68.02%，处置强度明显回落；壹钱包 / 东方金匠两组门槛通过率仅 40.9% / 42.1%（长赢、7分钟约 98%/97%），全量读数受低交易用户影响最大（完整对照见折叠表）。DR 反映已实现与未实现份额的相对处理方式，不等同于盈亏金额或收益。</p>
+<div class="fig"><div id="chart-ind-DR" class="chart-sm"></div>
+<div class="caption">本图仅统计 ≥10 笔用户。柱状（左轴）：盈利变现率 PGR、亏损变现率 PLR；折线（右轴）：<b>DR 原始值 = PGR − PLR（单位 pp，可为负）</b>。且慢 +24.43pp 正向偏离最大（85.86% vs 61.43%）；东方金匠 −30.52pp 反向最大（38.29% vs 68.81%，盈利反而更不愿变现）；长赢 +4.99pp 最接近无偏。<b>本节排名口径 = 正向处置强度 max(0, PGR−PLR) 的用户均值</b>（负值计 0）：且慢 0.2775 最高、壹钱包 0.2592 次之、东方金匠 0.0960 最低</div>
+</div><details><summary>展开 DR 全部中间指标与双口径对照（8 人群 × 10）</summary><div><table class="tbl-cmp"><thead><tr><th>中间指标</th><th style="font-size:11.5px;">长赢用户</th><th style="font-size:11.5px;">壹钱包APP</th><th style="font-size:11.5px;">7分钟理财</th><th style="font-size:11.5px;">且慢单基金用户</th><th style="font-size:11.5px;">东方金匠</th><th style="font-size:11.5px;">五剑用户</th><th style="font-size:11.5px;">财商邦</th><th style="font-size:11.5px;">钱耳朵</th></tr></thead><tbody><tr><td style="text-align:left;">已实现盈利份额</td><td style="text-align:right;">486,261</td><td style="text-align:right;">135,711</td><td style="text-align:right;color:#cf1322;font-weight:600;">1,208,877</td><td style="text-align:right;">543,260</td><td style="text-align:right;">345,468</td><td style="text-align:right;">539,964</td><td style="text-align:right;">280,865</td><td style="text-align:right;">210,514</td></tr><tr><td style="text-align:left;">已实现亏损份额</td><td style="text-align:right;">42,189</td><td style="text-align:right;">31,151</td><td style="text-align:right;color:#cf1322;font-weight:600;">118,155</td><td style="text-align:right;">102,075</td><td style="text-align:right;">37,227</td><td style="text-align:right;">109,404</td><td style="text-align:right;">36,101</td><td style="text-align:right;">95,113</td></tr><tr><td style="text-align:left;">未实现盈利持仓份额</td><td style="text-align:right;">98,073</td><td style="text-align:right;">20,718</td><td style="text-align:right;">173,364</td><td style="text-align:right;">48,395</td><td style="text-align:right;color:#cf1322;font-weight:600;">502,032</td><td style="text-align:right;">133,936</td><td style="text-align:right;">89,498</td><td style="text-align:right;">108,234</td></tr><tr><td style="text-align:left;">未实现亏损持仓份额</td><td style="text-align:right;">18,043</td><td style="text-align:right;color:#52c41a;font-weight:600;">3,711</td><td style="text-align:right;">48,440</td><td style="text-align:right;">23,898</td><td style="text-align:right;color:#cf1322;font-weight:600;">62,915</td><td style="text-align:right;">18,055</td><td style="text-align:right;">11,228</td><td style="text-align:right;">57,499</td></tr><tr><td style="text-align:left;">盈利变现率 PGR</td><td style="text-align:right;">0.8102</td><td style="text-align:right;">0.8186</td><td style="text-align:right;color:#cf1322;font-weight:600;">0.8341</td><td style="text-align:right;">0.8129</td><td style="text-align:right;color:#52c41a;font-weight:600;">0.3611</td><td style="text-align:right;">0.7641</td><td style="text-align:right;">0.6948</td><td style="text-align:right;">0.6113</td></tr><tr><td style="text-align:left;">亏损变现率 PLR</td><td style="text-align:right;">0.7572</td><td style="text-align:right;color:#52c41a;font-weight:600;">0.4802</td><td style="text-align:right;">0.6999</td><td style="text-align:right;">0.4920</td><td style="text-align:right;">0.6685</td><td style="text-align:right;">0.7083</td><td style="text-align:right;color:#cf1322;font-weight:600;">0.7600</td><td style="text-align:right;">0.6679</td></tr><tr><td style="text-align:left;">DR 原始值（PGR−PLR）</td><td style="text-align:right;">0.0531</td><td style="text-align:right;color:#cf1322;font-weight:600;">0.3384</td><td style="text-align:right;">0.1342</td><td style="text-align:right;">0.3209</td><td style="text-align:right;color:#52c41a;font-weight:600;">-0.3074</td><td style="text-align:right;">0.0558</td><td style="text-align:right;">-0.0652</td><td style="text-align:right;">-0.0566</td></tr><tr><td style="text-align:left;">PGR（仅 ≥10 笔用户）</td><td style="text-align:right;">0.8107</td><td style="text-align:right;color:#cf1322;font-weight:600;">0.8681</td><td style="text-align:right;">0.8416</td><td style="text-align:right;">0.8586</td><td style="text-align:right;color:#52c41a;font-weight:600;">0.3829</td><td style="text-align:right;">0.7740</td><td style="text-align:right;">0.6919</td><td style="text-align:right;">0.6175</td></tr><tr><td style="text-align:left;">PLR（仅 ≥10 笔用户）</td><td style="text-align:right;">0.7608</td><td style="text-align:right;">0.6802</td><td style="text-align:right;">0.7123</td><td style="text-align:right;color:#52c41a;font-weight:600;">0.6143</td><td style="text-align:right;">0.6881</td><td style="text-align:right;">0.7227</td><td style="text-align:right;color:#cf1322;font-weight:600;">0.7729</td><td style="text-align:right;">0.6841</td></tr><tr><td style="text-align:left;">DR 原始值（仅 ≥10 笔用户）</td><td style="text-align:right;">0.0499</td><td style="text-align:right;">0.1879</td><td style="text-align:right;">0.1293</td><td style="text-align:right;color:#cf1322;font-weight:600;">0.2443</td><td style="text-align:right;color:#52c41a;font-weight:600;">-0.3052</td><td style="text-align:right;">0.0514</td><td style="text-align:right;">-0.0810</td><td style="text-align:right;">-0.0666</td></tr><tr><td style="text-align:left;"><b>正向处置强度 max(0, PGR−PLR)（仅 ≥10 笔，本节排名口径）</b></td><td style="text-align:right;">0.1688</td><td style="text-align:right;">0.2592</td><td style="text-align:right;">0.1800</td><td style="text-align:right;color:#cf1322;font-weight:600;">0.2775</td><td style="text-align:right;color:#52c41a;font-weight:600;">0.0960</td><td style="text-align:right;">0.1801</td><td style="text-align:right;">0.1079</td><td style="text-align:right;">0.1321</td></tr></tbody></table>
+<p style="margin:8px 0 0;font-size:12.5px;color:#666;">红色=该行 8 组最高，绿色=最低。四项份额为<b>人均份额</b>（非金额），大额小额同权。<b>PGR = rg/(rg+pg)、PLR = rl/(rl+pl)，均为"按用户先算比值再平均"</b>，故不等于表内份额行直接相除。DR 原始值可为负（负=反向处置）；<b>本节排名口径为正向处置强度 max(0, PGR−PLR)（仅 ≥10 笔）</b>——用户级先截 0 再取人群均值，只计"赢卖亏扛"方向、PLR ≥ PGR 的用户计 0 不惩罚，与综合分打分链路一致。"仅 ≥10 笔用户"四行的门槛通过率：长赢 98.5% / 壹钱包 40.9% / 7分钟 96.9% / 且慢 69.6% / 东方金匠 42.1% / 五剑 85.7% / 财商邦 89.7% / 钱耳朵 86.1%。</p></div></details>
+<h3 id="sec4-6">4.6 RSI · 近期偏好<span style="font-size:13px;font-weight:400;color:#8c8c8c;margin-left:8px;">加权贡献占比 2.9%</span></h3>
+<p>RSI 衡量用户是否<b>盯着近期行情频繁加减仓</b>——市场近几天涨了就加大投入、跌了就收缩，容易被短期波动牵着走。指标 = 用户周度净买入变化与同期市场近 5 日涨跌的相关性：越正，越可能在市场走强时增加净买入、走弱时减少。<b>东方金匠最高（0.5064）</b>、五剑紧随（0.5060），<b>长赢最低（0.4604）</b>。正相关用户占比：东方金匠 <b>55.64%</b> / 五剑 53.51% 最高，<b>长赢 33.28% / 钱耳朵 43.39% 最低（最不追涨）</b>。<b>需注意 RSI 在 8 人群间几乎没有分化</b>——标准化极差仅 0.046（0.4604~0.5064），是 8 项指标中最小的，且各人群 RSI 均值都极接近 0（−0.0205~0.0042）；该指标在当前场景下影响有限：本体系研究的是<b>公募基金场景、且以组合持有为主</b>，多数用户不像行为偏误文献中的<b>股票市场场景</b>那样存在高频买卖，其周度净买入很少随近 5 日行情快速切换，故 RSI 整体读数偏低，客群间区分度也弱。</p>
+<div class="fig"><div id="chart-ind-RSI" class="chart-box chart-mh" style="height:300px"></div>
+<div class="caption">RSI 子项展开（左轴柱状 + 右轴折线单图）：左轴柱状 = RSI 均值（周净买入 vs 近 5 日指数涨跌的相关系数，注意量纲极小、8 组均接近 0）；右轴折线 = 正相关用户占比（橙，rsi &gt; 0）。长赢 33.28% / 钱耳朵 43.39% 最低（最不追涨），东方金匠 55.64% / 五剑 53.51% 最高。<b>柱状几乎看不出差异正是本节结论</b>——RSI 均值本身不具区分度，请以折线为主</div>
+</div>
+<h3 id="sec4-7">4.7 HSBI · 跟投率</h3>
+<p>HSBI 衡量用户是否<b>买了组合却懒得跟着调仓</b>——组合主理人发出调仓信号后没有及时执行，导致仓位与最新策略脱节。指标 = <code>1 − min(实际跟投比例, 1)</code>，即<b>未跟投比例</b>，<b>数值越高代表该跟的调仓越多没跟，偏误越强</b>（与全部偏误指标方向一致）。图中右轴折线为其反面——<b>实际跟投比例 = 实际有效调仓次数 / 持仓期应调仓总次数</b>，比例越高跟投越充分。</p>
+<p><b>长赢用户的 HSBI 最高（0.3956）</b>，即跟投缺口最大——其实际跟投比例 62.1%，意味着平均每 100 次应调仓只执行了 62 次；<b>且慢单基金次之（0.2922，跟投比例 57.4% 为 8 组最低）</b>。反向看，<b>东方金匠 HSBI 仅 0.0044</b>（跟投比例 99.2%，几乎次次跟到）、财商邦 0.0242（96.3%）执行最充分。这说明即使资金已进入组合，后续调仓是否被完整执行仍有很大差异，是可直接落到运营动作（调仓提醒、一键跟投）的抓手。</p>
+<p><b>缺口的绝对量级差别更大</b>：长赢人均应调仓 193.49 次、实际只跟了 120.08 次，<b>缺口 73.41 次</b>；7分钟应调仓 249.94 次为 8 组最多、实际 214.08 次，缺口 35.86 次；而东方金匠应调仓仅 5.92 次、缺口 0.05 次基本全跟。做调仓提醒类干预时，长赢与 7分钟 是可挖空间最大的两组，且长赢的有效样本达 111,349 人。</p>
+<p><b>为什么 HSBI（4.7）与 FIII（4.8）没有纳入偏误分体系：</b>这两项跟投类指标只在<b>有组合持仓、且发生过调仓 / 跟投事件</b>的用户身上才有定义——没有组合持仓的用户根本不存在"应调仓""应跟投"事件，指标值为空。本次选出的 8 个人群<b>本身已经是以组合用户为主</b>的人群（长赢、7分钟 等），故这两项的覆盖率在这些人群里看起来较高、像是一个普遍现象；但放到总人群中，<b>仍有大量用户完全没有组合持仓</b>（全平台 HSBI 覆盖率仅 39.7%、FIII 仅 18.1%）。若把这两项纳入综合分，等于把只适用于少数用户的特征强行推广到全体用户，会使综合分口径不可比、也失去跨人群的可解释性。因此本报告将二者作为<b>补充观察指标</b>单独呈现，用于覆盖率充足人群的定向运营（调仓提醒、一键跟投等），不进入综合偏误分。</p>
+<div class="fig"><div id="chart-ind-HSBI" class="chart-sm"></div>
+<div class="caption">左轴柱状：实际跟投有效调仓次数（蓝）、持仓期应调仓总次数（青）；右轴折线：实际跟投比例 = 实际有效调仓 / 应调仓总次数（紫，单位 %，<b>该线越低 = HSBI 越高 = 偏误越强</b>）。横轴人群名下的百分比为该指标在此人群的<b>覆盖率</b> = 「应调仓总次数&gt;0（即有调仓历史）」用户数 ÷ 该人群本版用户数（长赢因两处样本口径差异，按 100% 展示）。仅组合资产、仅有调仓历史用户</div>
+</div><details><summary>展开 HSBI 中间指标与双口径对照（8 人群 × 5）</summary><div><table class="tbl-cmp"><thead><tr><th>中间指标</th><th style="font-size:11.5px;">长赢用户</th><th style="font-size:11.5px;">壹钱包APP</th><th style="font-size:11.5px;">7分钟理财</th><th style="font-size:11.5px;">且慢单基金用户</th><th style="font-size:11.5px;">东方金匠</th><th style="font-size:11.5px;">五剑用户</th><th style="font-size:11.5px;">财商邦</th><th style="font-size:11.5px;">钱耳朵</th></tr></thead><tbody><tr><td style="text-align:left;">有调仓历史用户数</td><td style="text-align:right;color:#cf1322;font-weight:600;">111,349</td><td style="text-align:right;">3,567</td><td style="text-align:right;">39,212</td><td style="text-align:right;">4,147</td><td style="text-align:right;">4,359</td><td style="text-align:right;">3,240</td><td style="text-align:right;">2,861</td><td style="text-align:right;color:#52c41a;font-weight:600;">2,829</td></tr><tr><td style="text-align:left;">实际跟投有效调仓次数</td><td style="text-align:right;">120.08</td><td style="text-align:right;">6.51</td><td style="text-align:right;color:#cf1322;font-weight:600;">214.08</td><td style="text-align:right;">42.65</td><td style="text-align:right;color:#52c41a;font-weight:600;">5.87</td><td style="text-align:right;">60.76</td><td style="text-align:right;">22.95</td><td style="text-align:right;">94.17</td></tr><tr><td style="text-align:left;">持仓期应调仓总次数</td><td style="text-align:right;">193.49</td><td style="text-align:right;">10.87</td><td style="text-align:right;color:#cf1322;font-weight:600;">249.94</td><td style="text-align:right;">74.35</td><td style="text-align:right;color:#52c41a;font-weight:600;">5.92</td><td style="text-align:right;">81.95</td><td style="text-align:right;">23.83</td><td style="text-align:right;">107.68</td></tr><tr><td style="text-align:left;">跟投缺口（应调仓−实际）</td><td style="text-align:right;color:#cf1322;font-weight:600;">73.41</td><td style="text-align:right;">4.36</td><td style="text-align:right;">35.86</td><td style="text-align:right;">31.70</td><td style="text-align:right;color:#52c41a;font-weight:600;">0.05</td><td style="text-align:right;">21.19</td><td style="text-align:right;">0.88</td><td style="text-align:right;">13.50</td></tr><tr><td style="text-align:left;">实际跟投比例（均值之比）</td><td style="text-align:right;">62.1%</td><td style="text-align:right;">59.9%</td><td style="text-align:right;">85.7%</td><td style="text-align:right;color:#52c41a;font-weight:600;">57.4%</td><td style="text-align:right;color:#cf1322;font-weight:600;">99.2%</td><td style="text-align:right;">74.1%</td><td style="text-align:right;">96.3%</td><td style="text-align:right;">87.5%</td></tr><tr><td style="text-align:left;"><b>HSBI（用户级均值）</b></td><td style="text-align:right;color:#cf1322;font-weight:600;">0.3956</td><td style="text-align:right;">0.0764</td><td style="text-align:right;">0.1466</td><td style="text-align:right;">0.2922</td><td style="text-align:right;color:#52c41a;font-weight:600;">0.0044</td><td style="text-align:right;">0.1779</td><td style="text-align:right;">0.0242</td><td style="text-align:right;">0.0788</td></tr></tbody></table>
+<p style="margin:8px 0 0;font-size:12.5px;color:#666;">红色=该行 8 组最高，绿色=最低。<b>注意「实际跟投比例」与「HSBI」方向相反</b>：前者越高越好，后者越高代表未跟投缺口越大、偏误越强。全部行仅统计有组合调仓历史的用户。「跟投缺口」由前两行相减得出，反映可挖的绝对空间。</p></div></details><h3 id="sec4-8">4.8 FIII · 跟投惰性</h3>
+<p>FIII 衡量用户是否<b>跟投不上心</b>——跟得少（应跟未跟）、挑着跟（盈利才跟、亏损不跟）、跟得慢（滞后很久才执行）。指标综合近一年跟投率不足、选择性跟投偏差和跟投滞后；数值越高，代表在适用的组合跟投事件中执行不完整或不及时的信号越强。<b>壹钱包APP最高（0.6519）</b>，但其 FIII 有效样本<b>仅 797 人</b>（覆盖率 0.7%），<b>不宜据此给该全量人群贴标签</b>——其构成也很特殊：跟投率 68.19% 并不低，但平均滞后 0.6163 与选择性跟投 0.6028 双双为 8 组最高，即"跟是跟了，但拖得久、且明显挑盈利时才跟"。<b>且慢单基金 0.6138 次之</b>，主因是跟投率 46.71% 为 8 组最低。<b>钱耳朵最低（0.1300）</b>，跟投率 91.10%、滞后 0.0470 均处于最优区间，执行最及时。FIII 不进入综合分，应主要用于覆盖率充足人群的个体触达和跟投服务优化。</p>
+<p>另一个值得注意的对比是<b>应跟投事件的绝对量级</b>：7分钟人均近一年应跟投 <b>348.1 次</b>为 8 组最多、跟投率 63.50%；而东方金匠人均仅 <b>4.3 次</b>却拿到 95.59% 的高跟投率——<b>次数少时跟投率天然容易接近满分</b>，故 FIII 的组间比较须同时看该列，不宜只按数值高低排序。</p>
+<div class="fig"><div id="chart-ind-FIII" class="chart-sm"></div>
+<div class="caption">中间指标：近 1 年跟投率 FTR、选择性跟投 SFIB（左轴，%）、平均滞后天数（右轴）。仅组合资产、仅有跟投事件用户。东方金匠 95.59% / 财商邦 95.37% 跟投率最高，且慢 46.71% 最低；壹钱包滞后 0.62 天与 SFIB 60.28% 双高</div>
+</div><details><summary>展开 FIII 中间指标（8 人群 × 5）</summary><div><table class="tbl-cmp"><thead><tr><th>中间指标</th><th style="font-size:11.5px;">长赢用户</th><th style="font-size:11.5px;">壹钱包APP</th><th style="font-size:11.5px;">7分钟理财</th><th style="font-size:11.5px;">且慢单基金用户</th><th style="font-size:11.5px;">东方金匠</th><th style="font-size:11.5px;">五剑用户</th><th style="font-size:11.5px;">财商邦</th><th style="font-size:11.5px;">钱耳朵</th></tr></thead><tbody><tr><td style="text-align:left;">有跟投事件用户数</td><td style="text-align:right;color:#cf1322;font-weight:600;">78,770</td><td style="text-align:right;color:#52c41a;font-weight:600;">797</td><td style="text-align:right;">34,269</td><td style="text-align:right;">2,016</td><td style="text-align:right;">4,162</td><td style="text-align:right;">2,134</td><td style="text-align:right;">2,005</td><td style="text-align:right;">1,874</td></tr><tr><td style="text-align:left;">近 1 年应跟投次数</td><td style="text-align:right;">86.1</td><td style="text-align:right;">15.2</td><td style="text-align:right;color:#cf1322;font-weight:600;">348.1</td><td style="text-align:right;">57.0</td><td style="text-align:right;color:#52c41a;font-weight:600;">4.3</td><td style="text-align:right;">59.5</td><td style="text-align:right;">21.2</td><td style="text-align:right;">91.5</td></tr><tr><td style="text-align:left;">近 1 年跟投率 FTR</td><td style="text-align:right;">0.5749</td><td style="text-align:right;">0.6819</td><td style="text-align:right;">0.6350</td><td style="text-align:right;color:#52c41a;font-weight:600;">0.4671</td><td style="text-align:right;color:#cf1322;font-weight:600;">0.9559</td><td style="text-align:right;">0.7222</td><td style="text-align:right;">0.9537</td><td style="text-align:right;">0.9110</td></tr><tr><td style="text-align:left;">选择性跟投偏差 SFIB</td><td style="text-align:right;">0.1465</td><td style="text-align:right;color:#cf1322;font-weight:600;">0.6028</td><td style="text-align:right;color:#52c41a;font-weight:600;">0.0879</td><td style="text-align:right;">0.1362</td><td style="text-align:right;">0.4401</td><td style="text-align:right;">0.3735</td><td style="text-align:right;">0.4238</td><td style="text-align:right;">0.0743</td></tr><tr><td style="text-align:left;">实际跟投平均滞后天数</td><td style="text-align:right;">0.0558</td><td style="text-align:right;color:#cf1322;font-weight:600;">0.6163</td><td style="text-align:right;color:#52c41a;font-weight:600;">0.0497</td><td style="text-align:right;">0.5400</td><td style="text-align:right;">0.3380</td><td style="text-align:right;">0.2770</td><td style="text-align:right;">0.1855</td><td style="text-align:right;">0.0470</td></tr><tr><td style="text-align:left;"><b>FIII（用户级均值）</b></td><td style="text-align:right;">0.4972</td><td style="text-align:right;color:#cf1322;font-weight:600;">0.6519</td><td style="text-align:right;">0.4161</td><td style="text-align:right;">0.6138</td><td style="text-align:right;">0.2333</td><td style="text-align:right;">0.4471</td><td style="text-align:right;">0.2424</td><td style="text-align:right;color:#52c41a;font-weight:600;">0.1300</td></tr></tbody></table>
+<p style="margin:8px 0 0;font-size:12.5px;color:#666;">红色=该行 8 组最高，绿色=最低。<b>FTR 越高越好，SFIB / 滞后天数 / FIII 越高偏误越强</b>，四者方向不一致，勿按同一方向解读。全部行仅统计近 1 年有跟投事件的用户。<b>「近 1 年应跟投次数」是解读 FTR 的必要背景</b>——次数极少时（东方金匠人均 4.3 次）跟投率天然偏高。</p></div></details><h3 id="sec4-9">4.9 其他分析指标</h3>
+<p>本节收录两项<b>不进入综合分</b>的补充指标，用于补足交易画像：<b>集中度</b>（是否反复买同一只基金）与<b>亏损加仓率</b>（浮亏时是否继续买入）。两者均为<b>底层基金维度</b>：组合买入已穿透为其底层基金成交明细，因此"买过不同产品数"指的是<b>不同基金只数</b>、"总买入次数"指底层基金成交笔数。</p>
+<p style="font-size:14.5px;font-weight:600;color:var(--text-secondary);margin:18px 0 8px;">（1）集中度 · 是否反复买同一只基金</p>
+<p><b>壹钱包的买入集中度最高（0.5020）</b>，其人均只买过 10.28 只基金、总买入 36.0 次，品种极少故高度集中；<b>且慢单基金次之（0.3951）</b>，人均 37.19 只基金、353.1 次买入，与其单基金持有形态一致。<b>东方金匠最低（0.0399）</b>，人均 81.54 只基金、661.3 次买入却单只最多仅 19.9 次，买入极为分散。7分钟理财人均买过 <b>140.87 只基金、总买入 2,869.4 次</b>，两项均为 8 组最多，集中度 0.0832 处于低位——广撒网型。</p>
+<div class="fig"><div id="chart-ind-CONC" class="chart-sm" style="height:300px"></div>
+<div class="caption">集中度图：是否反复买同一只基金。左轴柱状 = 买过不同基金只数（底层基金维度）；右轴折线 = 买入集中度（紫，比值之均值）/ 单产品占总买入比例（橙，均值之比）。壹钱包 0.5020 / 且慢 0.3951 集中度最高（品种少）；7分钟 140.9 只基金最多、集中度 0.0832 偏低，东方金匠 0.0399 最低</div>
+</div>
+<p style="font-size:14.5px;font-weight:600;color:var(--text-secondary);margin:18px 0 8px;">（2）亏损加仓率 · 浮亏时是否继续买入</p>
+<p><b>钱耳朵 44.94% 为 8 组最高</b>，7分钟 32.02% 次之、且慢 30.63% 第三；<b>壹钱包 12.12% 最低</b>、东方金匠 22.99% 次低。</p>
+<p>值得单独提示的是<b>亏损加仓的绝对量级</b>：钱耳朵人均亏损加仓 <b>566.5 次</b>、涉及 39.61 只基金，7分钟更高达 <b>918.7 次 / 77.85 只</b>；而壹钱包人均仅 4.4 次 / 0.93 只。做浮亏处置类干预时，这两组的可触达行为量远大于其余人群。</p>
+<div class="fig"><div id="chart-ind-CONC-LOSS" class="chart-sm" style="height:300px"></div>
+<div class="caption">亏损加仓率图：亏损加仓率 = 亏损加仓总次数 / 总买入次数（汇总口径）。钱耳朵 44.9% / 7分钟 32.0% / 且慢 30.6% 最严重；壹钱包 12.1% / 东方金匠 23.0% 最低。灰虚线为 8 组均值 28.7%</div>
+</div>
+<details><summary>展开集中度与亏损加仓率 全部中间指标</summary><div><table class="tbl-cmp"><thead><tr><th>中间指标</th><th style="font-size:11.5px;">长赢用户</th><th style="font-size:11.5px;">壹钱包APP</th><th style="font-size:11.5px;">7分钟理财</th><th style="font-size:11.5px;">且慢单基金用户</th><th style="font-size:11.5px;">东方金匠</th><th style="font-size:11.5px;">五剑用户</th><th style="font-size:11.5px;">财商邦</th><th style="font-size:11.5px;">钱耳朵</th></tr></thead><tbody><tr><td style="text-align:left;">买过不同基金只数</td><td style="text-align:right;">72.40</td><td style="text-align:right;color:#52c41a;font-weight:600;">10.28</td><td style="text-align:right;color:#cf1322;font-weight:600;">140.87</td><td style="text-align:right;">37.19</td><td style="text-align:right;">81.54</td><td style="text-align:right;">92.33</td><td style="text-align:right;">55.96</td><td style="text-align:right;">74.16</td></tr><tr><td style="text-align:left;">总买入次数</td><td style="text-align:right;">497.1</td><td style="text-align:right;color:#52c41a;font-weight:600;">36.0</td><td style="text-align:right;color:#cf1322;font-weight:600;">2869.4</td><td style="text-align:right;">353.1</td><td style="text-align:right;">661.3</td><td style="text-align:right;">818.8</td><td style="text-align:right;">1447.0</td><td style="text-align:right;">1260.6</td></tr><tr><td style="text-align:left;">单产品最大买入次数</td><td style="text-align:right;">35.5</td><td style="text-align:right;color:#52c41a;font-weight:600;">6.7</td><td style="text-align:right;color:#cf1322;font-weight:600;">97.1</td><td style="text-align:right;">35.0</td><td style="text-align:right;">19.9</td><td style="text-align:right;">40.9</td><td style="text-align:right;">81.2</td><td style="text-align:right;">75.3</td></tr><tr><td style="text-align:left;">买入集中度（比值之均值）</td><td style="text-align:right;">0.1144</td><td style="text-align:right;color:#cf1322;font-weight:600;">0.5020</td><td style="text-align:right;">0.0832</td><td style="text-align:right;">0.3951</td><td style="text-align:right;color:#52c41a;font-weight:600;">0.0399</td><td style="text-align:right;">0.0693</td><td style="text-align:right;">0.0726</td><td style="text-align:right;">0.0851</td></tr><tr><td style="text-align:left;">单产品占总买入比例（均值之比）</td><td style="text-align:right;">0.0715</td><td style="text-align:right;color:#cf1322;font-weight:600;">0.1869</td><td style="text-align:right;">0.0338</td><td style="text-align:right;">0.0992</td><td style="text-align:right;color:#52c41a;font-weight:600;">0.0300</td><td style="text-align:right;">0.0499</td><td style="text-align:right;">0.0561</td><td style="text-align:right;">0.0598</td></tr><tr><td style="text-align:left;">亏损加仓基金只数</td><td style="text-align:right;">30.63</td><td style="text-align:right;color:#52c41a;font-weight:600;">0.93</td><td style="text-align:right;color:#cf1322;font-weight:600;">77.85</td><td style="text-align:right;">14.13</td><td style="text-align:right;">38.51</td><td style="text-align:right;">38.49</td><td style="text-align:right;">33.06</td><td style="text-align:right;">39.61</td></tr><tr><td style="text-align:left;">亏损加仓总次数</td><td style="text-align:right;">141.0</td><td style="text-align:right;color:#52c41a;font-weight:600;">4.4</td><td style="text-align:right;color:#cf1322;font-weight:600;">918.7</td><td style="text-align:right;">108.2</td><td style="text-align:right;">152.0</td><td style="text-align:right;">233.1</td><td style="text-align:right;">429.4</td><td style="text-align:right;">566.5</td></tr><tr><td style="text-align:left;">亏损加仓率（汇总口径）</td><td style="text-align:right;">28.36%</td><td style="text-align:right;color:#52c41a;font-weight:600;">12.12%</td><td style="text-align:right;">32.02%</td><td style="text-align:right;">30.63%</td><td style="text-align:right;">22.99%</td><td style="text-align:right;">28.47%</td><td style="text-align:right;">29.68%</td><td style="text-align:right;color:#cf1322;font-weight:600;">44.94%</td></tr></tbody></table>
+<p style="margin:8px 0 0;font-size:12.5px;color:#666;">红色=该行 8 组最高，绿色=最低。全部为<b>底层基金维度</b>（组合买入已穿透为底层基金成交明细）。第 4 行「买入集中度」是<b>按用户先算比值再平均</b>，第 5 行是<b>人群均值之比</b>，两者不可互推（见上方口径说明）；「亏损加仓率」同为汇总口径 = Σ亏损加仓次数 ÷ Σ总买入次数，不等于把各用户比率平均。</p></div></details></section>
+<section id="sec5">
+<h2>5. 综合偏误分拆解</h2>
+<p class="caption">对比任意两个人群，拆解其综合偏误分差距分别由哪些指标贡献。</p>
+
+
+<h3 id="sec5-1">5.1 综合偏误分拆解（对比任意两组）</h3>
+<p>本节用于回答"<b>两个人群的综合偏误分差距，主要由哪个指标贡献</b>"。选择任意两组后，表格按 6 个进入综合分的指标在<b>打分口径</b>（scaled，与 §3.2 综合分同一链路）上逐项拆解：<code>贡献 = 权重 × (B 组均值 − A 组均值) × 全平台拉伸系数</code>，各项贡献之和即两组的综合分差距。权重取自模型落库结果（6 项之和为 100%，生成逻辑见 <a href="#sec7-2" style="color:var(--primary);font-weight:600;">附录 7.2</a>），打分均值为各人群该指标的用户均值。</p>
+<p class="caption" style="font-style:normal;">使用提示：① 贡献为正表示该指标使 B 组综合分高于 A 组，为负则相反；"占差距比例"是该项贡献占两组总差距的比重，可用于快速定位主导指标。② HSBI / FIII 为组合类专有指标、不进入综合分，故不在本拆解中。③ 打分口径与 §4 各节的展示口径（标准化）不同：<b>趋势追随（HSI）为双向指标</b>，打分衡量"偏离无偏状态的距离"——过度追涨与过度反向同样计分，读数方向可能与 §4.2 的方向化读数相反；<b>处置效应（DR）为单向口径 max(0, PGR−PLR)</b>，只计"赢卖亏扛"方向、PLR ≥ PGR 的用户计 0，与 §4.5 的方向一致。④ 各指标均值仅在其适用用户上计算。</p>
+<div class="decomp-controls">
+  <label>对比组 A：
+    <select id="decomp-groupA">
+      <option value="长赢用户" selected>长赢用户</option>
+      <option value="壹钱包APP">壹钱包APP</option>
+      <option value="7分钟理财">7分钟理财</option>
+      <option value="且慢单基金用户">且慢单基金用户</option>
+      <option value="东方金匠">东方金匠</option>
+      <option value="五剑用户">五剑用户</option>
+      <option value="财商邦">财商邦</option>
+      <option value="钱耳朵">钱耳朵</option>
+    </select>
+  </label>
+  <label>对比组 B：
+    <select id="decomp-groupB">
+      <option value="壹钱包APP" selected>壹钱包APP</option>
+      <option value="长赢用户">长赢用户</option>
+      <option value="7分钟理财">7分钟理财</option>
+      <option value="且慢单基金用户">且慢单基金用户</option>
+      <option value="东方金匠">东方金匠</option>
+      <option value="五剑用户">五剑用户</option>
+      <option value="财商邦">财商邦</option>
+      <option value="钱耳朵">钱耳朵</option>
+    </select>
+  </label>
+</div>
+<div id="decomp-table-wrap"></div>
+
+<script>
+(function() {
+  // XGBoost 落库的 6 个行为指标权重（ads_cv_user_bias_regression_weight_result_1d，20260922，取 |w|）
+  var WEIGHTS = {OCI: 0.2036, HSI: 0.2327, EAD: 0.1686, DR: 0.1161, APD: 0.1818, RSI: 0.0973};
+  // 全平台标准化拉伸系数（bias = k×Σ|w|×scaled + c，由 8 人群最小二乘拟合得出；落库脚本另用 clip((raw−μ)/σ×0.25+0.5,0,1)，
+  // 二者形式不同但单调等价，报告侧采用拟合系数以便从人群均值反推综合分）
+  var K = 2.6240;
+  // 8 个人群的综合分（20260922 权重表，落库 bias_score 直接取用，无人工校准）
+  var BIAS = {
+    "长赢用户": 0.2106, "壹钱包APP": 0.4384, "7分钟理财": 0.3101, "且慢单基金用户": 0.3960,
+    "东方金匠": 0.2499, "五剑用户": 0.2925, "财商邦": 0.2240, "钱耳朵": 0.2244
+  };
+  // 8 个人群的 *_scaled 用户均值（打分口径，与综合分同一链路，20260922；DR 为单向截 0 口径）
+  var SCALED = {
+    "长赢用户":      {OCI:0.2139, HSI:0.4400, EAD:0.1521, DR:0.1659, APD:0.0542, RSI:0.4604},
+    "壹钱包APP":     {OCI:0.4086, HSI:0.4257, EAD:0.3439, DR:0.2588, APD:0.0691, RSI:0.4991},
+    "7分钟理财":     {OCI:0.2602, HSI:0.4642, EAD:0.2094, DR:0.1810, APD:0.0982, RSI:0.4948},
+    "且慢单基金用户": {OCI:0.3510, HSI:0.4641, EAD:0.2442, DR:0.2498, APD:0.0937, RSI:0.5004},
+    "东方金匠":      {OCI:0.1856, HSI:0.5166, EAD:0.2395, DR:0.0961, APD:0.0053, RSI:0.5066},
+    "五剑用户":      {OCI:0.2524, HSI:0.4678, EAD:0.2111, DR:0.1840, APD:0.0518, RSI:0.5061},
+    "财商邦":        {OCI:0.2405, HSI:0.4302, EAD:0.2270, DR:0.1044, APD:0.0049, RSI:0.4987},
+    "钱耳朵":        {OCI:0.2453, HSI:0.3748, EAD:0.1787, DR:0.1319, APD:0.1109, RSI:0.4845}
+  };
+  var ROWS = [
+    {key:'OCI', name:'OCI · 过度自信'},
+    {key:'HSI', name:'HSI · 趋势追随'},
+    {key:'EAD', name:'EAD · 权益偏离'},
+    {key:'DR',  name:'DR · 处置效应'},
+    {key:'APD', name:'APD · 锚定'},
+    {key:'RSI', name:'RSI · 近期偏好'}
+  ];
+  function esc(s) { return String(s).replace(/[&<>"']/g, function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
+  function render() {
+    var A = document.getElementById('decomp-groupA').value;
+    var B = document.getElementById('decomp-groupB').value;
+    if (A === B) {
+      document.getElementById('decomp-table-wrap').innerHTML = '<div class="caption" style="color:#cf1322">请选择两个不同的人群进行对比</div>';
+      return;
+    }
+    var diff = {};
+    var sumContrib = 0;
+    ROWS.forEach(function(r) {
+      var delta = SCALED[B][r.key] - SCALED[A][r.key];
+      diff[r.key] = {delta: delta, contrib: WEIGHTS[r.key] * delta * K * 100};
+      sumContrib += diff[r.key].contrib;
+    });
+    var scoreDiff = (BIAS[B] - BIAS[A]) * 100;  // 真实综合分差（pp）
+    var rows = ROWS.map(function(r) {
+      var d = diff[r.key];
+      var pct = (Math.abs(d.contrib) / Math.abs(sumContrib) * 100);
+      var sign = d.delta > 0 ? 'cf1322' : (d.delta < 0 ? '389e0d' : '');
+      var signC = d.contrib > 0 ? 'cf1322' : (d.contrib < 0 ? '389e0d' : '');
+      return '<tr>'
+        + '<td style="text-align:left;">' + esc(r.name) + '</td>'
+        + '<td style="text-align:right;">' + (WEIGHTS[r.key]*100).toFixed(2) + '%</td>'
+        + '<td style="text-align:right;">' + SCALED[A][r.key].toFixed(4) + '</td>'
+        + '<td style="text-align:right;">' + SCALED[B][r.key].toFixed(4) + '</td>'
+        + '<td style="text-align:right;color:#' + sign + ';">' + (d.delta>0?'+':'') + d.delta.toFixed(4) + '</td>'
+        + '<td style="text-align:right;color:#' + signC + ';"><b>' + (d.contrib>0?'+':'') + d.contrib.toFixed(2) + ' pp</b></td>'
+        + '<td style="text-align:right;">' + pct.toFixed(1) + '%</td>'
+        + '</tr>';
+    }).join('');
+    document.getElementById('decomp-table-wrap').innerHTML =
+      '<table class="tbl-cmp">'
+      + '<thead><tr>'
+        + '<th>指标</th><th>权重</th><th>' + esc(A) + ' 打分均值</th><th>' + esc(B) + ' 打分均值</th>'
+        + '<th>差值 Δ</th><th>贡献 = |w|×Δ×k</th><th>占差距比例</th>'
+      + '</tr></thead>'
+      + '<tbody>' + rows
+      + '<tr style="background:var(--gray-1);font-weight:600">'
+        + '<td style="text-align:left;">综合分</td>'
+        + '<td style="text-align:right;">100.00%</td>'
+        + '<td style="text-align:right;">' + BIAS[A].toFixed(4) + '</td>'
+        + '<td style="text-align:right;">' + BIAS[B].toFixed(4) + '</td>'
+        + '<td style="text-align:right;color:#cf1322;">' + (scoreDiff>0?'+':'') + scoreDiff.toFixed(2) + '</td>'
+        + '<td style="text-align:right;color:#cf1322;"><b>' + (sumContrib>0?'+':'') + sumContrib.toFixed(2) + ' pp</b></td>'
+        + '<td style="text-align:right;">100%</td>'
+      + '</tr></tbody>'
+      + '</table>'
+      + '<div class="caption" style="margin-top:6px;">末行为人群综合分与分差（§3.2 口径）；贡献合计与之的偏差（多数组对 ≤0.3pp）来自用户级标准化的非线性残差。</div>';
+  }
+  document.getElementById('decomp-groupA').addEventListener('change', render);
+  document.getElementById('decomp-groupB').addEventListener('change', render);
+  render();
+})();
+  </script>
+
+<h3 id="sec5-2">5.2 指标影响权重与组间差异</h3>
+<p>综合偏误分由 6 项指标加权合成。按 <a href="#sec5-1" style="color:var(--primary);font-weight:600;">§5.1</a> 的综合分口径，各指标对人群间分差的影响取决于两个因素：<b>模型权重</b>（该指标对行为收益损耗的相对解释力，由数据驱动生成，见 <a href="#sec7-2" style="color:var(--primary);font-weight:600;">附录 7.2</a>）与<b>指标自身在 8 个人群间的分化程度</b>（方差）。下表汇总三项信息：</p>
+<table class="tbl-cmp"><thead><tr><th>指标</th><th>模型权重</th><th>8 人群打分均值</th><th>组间极差</th><th>组间标准差</th><th>加权贡献占比</th></tr></thead><tbody>
+<tr><td style="text-align:left;">OCI · 过度自信</td><td style="text-align:right;">20.36%</td><td style="text-align:right;">0.2697</td><td style="text-align:right;font-weight:600;color:#cf1322;">0.2229</td><td style="text-align:right;font-weight:600;color:#cf1322;">0.0688</td><td style="text-align:right;font-weight:600;color:#cf1322;">29.6%</td></tr>
+<tr><td style="text-align:left;">HSI · 趋势追随</td><td style="text-align:right;">23.27%</td><td style="text-align:right;">0.4479</td><td style="text-align:right;">0.1418</td><td style="text-align:right;">0.0385</td><td style="text-align:right;">21.5%</td></tr>
+<tr><td style="text-align:left;">EAD · 权益偏离</td><td style="text-align:right;">16.86%</td><td style="text-align:right;">0.2258</td><td style="text-align:right;">0.1918</td><td style="text-align:right;">0.0532</td><td style="text-align:right;">21.1%</td></tr>
+<tr><td style="text-align:left;">DR · 处置效应</td><td style="text-align:right;">11.61%</td><td style="text-align:right;">0.1715</td><td style="text-align:right;">0.1627</td><td style="text-align:right;">0.0568</td><td style="text-align:right;">12.3%</td></tr>
+<tr><td style="text-align:left;">APD · 锚定</td><td style="text-align:right;">18.18%</td><td style="text-align:right;">0.0610</td><td style="text-align:right;">0.1061</td><td style="text-align:right;">0.0377</td><td style="text-align:right;">12.6%</td></tr>
+<tr><td style="text-align:left;">RSI · 近期偏好</td><td style="text-align:right;">9.73%</td><td style="text-align:right;">0.4938</td><td style="text-align:right;">0.0461</td><td style="text-align:right;">0.0142</td><td style="text-align:right;color:#52c41a;font-weight:600;">2.9%</td></tr>
+</tbody></table>
+<p class="caption" style="font-style:normal;">口径说明：打分均值 / 组间极差 / 组间标准差基于 8 个人群的<b>打分口径（scaled）用户均值</b>计算（与综合分同一链路，见 <a href="#sec5-1" style="color:var(--primary);font-weight:600;">§5.1</a>）；<b>加权贡献占比 = 模型权重 × 组间极差</b> 归一化。HSI 为双向指标，打分衡量"偏离无偏状态的距离"，其组间极差最高格与 §4.2 的方向化读数不同；DR 为单向口径 max(0, PGR−PLR)，PLR ≥ PGR 计 0，与 §4.5 方向一致。</p>
+<div class="takeaway"><b>关键结论：</b>① <b>模型权重</b>最高为 HSI（23.3%），OCI（20.4%）、APD（18.2%）、EAD（16.9%）次之，DR（11.6%）与 RSI（9.7%）最低；② <b>人群分化</b>（组间标准差）最大的是 OCI（0.069）与 DR（0.057），RSI 最小（0.014，8 人群几乎无差异）；③ <b>综合"权重 × 人群分化"</b>，对综合分人群差异贡献最大的是 OCI（29.6%）、HSI（21.5%）与 EAD（21.1%），三项合计约七成；RSI 虽进入模型，但权重与人群差异均小，区分能力有限。</div>
+
+</section>
+<section id="sec6">
+<h2>6. 总结与展望</h2>
+<p class="caption">全篇核心结论、8 人群画像，以及偏误量化结果的运用场景与持续迭代机制。</p>
+
+<h3 id="sec6-1">6.1 核心结论</h3>
+<div class="takeaway"><b>四条核心结论：</b>
+<ol style="margin:8px 0 0 22px;line-height:1.9;">
+<li><b>综合分壹钱包最高、长赢最低，八组呈"两头分散、底部聚集"的分布</b>：壹钱包 0.4384 显著最高（唯一超 0.40），且慢 0.3960 次之，长赢 0.2106 显著最低，首尾差 0.228。底部三组高度接近——长赢 0.2106、财商邦 0.2240、钱耳朵 0.2244，跨度仅 0.014，均明显低于其余五组；中部由 7分钟 0.3101、五剑 0.2925、东方金匠 0.2499 依次过渡。除头尾分层外，相邻各组差距较小，先后次序不宜过度解读。</li>
+<li><b>对偏误得分影响最大的指标是过度自信（OCI）、趋势追随（HSI）与权益偏离（EAD）</b>：综合"模型权重 × 人群分化"，三项对综合分人群差异的加权贡献占比合计约七成（OCI 29.6% + HSI 21.5% + EAD 21.1%，详见 <a href="#sec5-2" style="color:var(--primary);font-weight:600;">§5.2</a>），是影响综合偏误分的主导指标。</li>
+<li><b>整体指标得分符合预期</b>：各人群指标强弱与其实际行为画像一致——长赢低换手、最不追涨、权益配置最到位；壹钱包整体偏误得分最高，其换手率高、集中度高、权益偏离的量化特征和其实际持仓品类较少有非常大的关联；东方金匠跟投执行最充分，在过度自信、权益配置方面都表现较好，但其趋势追随最强（HSI 8 组最高），且处置效应为反向（偏离主要由盈利变现率最低、浮盈长期不落袋贡献），其综合分主要由趋势追随与权益/锚定项支撑。指标体系有效性得到反向印证，各人群特征总结见 <a href="#sec6-2" style="color:var(--primary);font-weight:600;">§6.2</a>。</li>
+<li><b>指标读数须留意适用样本</b>：各指标仅在适用用户上计算（如 EAD / APD 需当前持仓、HSBI / FIII 需组合调仓历史），不同人群覆盖率差异大（壹钱包 EAD 27.7%、东方金匠 93.3%），跨人群比较时应结合各节标注的覆盖率理解，低覆盖代表适用人群少、而非数据缺失。</li>
+</ol></div>
+
+<h3 id="sec6-2">6.2 八大人群画像</h3>
+<p>按综合偏误分从高到低排列。偏误分用于定位值得关注的行为模式，不代表用户收益高低或投资能力高低。<b>把鼠标移到加粗结论上，可查看对应的数据佐证。</b></p>
+<div class="compare-grid">
+
+<div class="feature-card"><h4>壹钱包APP · 综合分第 1（0.4384）</h4><p><b>该组用户整体偏误得分最高</b>，三项主因并列：<span class="evi" data-tip="正向处置强度 max(0, PGR−PLR) = 0.2592，8 组第 2（且慢 0.2775 最高）"><b>一是“赚了急着卖、亏了舍不得割”</b></span>；<span class="evi" data-tip="换手率 3.05 为 8 组最高。换手率 = 交易额 ÷ 持仓市值，衡量的是相对自身持仓规模的交易强度；壹钱包人均仅持有 10.28 只基金、总买入 36 次，均为 8 组最少——不是交易笔数多，而是品种少、同一批基金被反复买卖"><b>二是“在少数几只基金里反复买卖”</b></span>；<span class="evi" data-tip="实际权益仓位比应有水平低 20.87pp，缺口 8 组最大"><b>三是“权益仓位配得不够”</b></span>。</p><p class="ops"><b>运营抓手：风险适配与权益仓位检视、品种扩充。</b></p></div>
+
+<div class="feature-card"><h4>且慢单基金用户 · 综合分第 2（0.3960）</h4><p><b>该组用户整体偏误得分次高</b>，问题集中在三方面：<span class="evi" data-tip="风险错配 1.75 为 8 组最高；持仓加权波动率 0.1524，是同风险等级基线 0.0750 的 2.0 倍"><b>一是“买的基金波动超出自己的风险承受力”</b></span>；<span class="evi" data-tip="持仓集中度 PCI 0.547，8 组第 2——该人群持仓多集中在个别基金上，集中主要由持有形态决定"><b>二是“持仓集中在个别基金上”</b></span>；<span class="evi" data-tip="正向处置强度 max(0, PGR−PLR) = 0.2775，为 8 组最强（≥10 笔口径）"><b>三是“赚了急着卖、亏了舍不得割”在 8 组中最明显</b></span>；此外<span class="evi" data-tip="实际跟投比例 57.4%，8 组最低——平均每 100 次应调仓只跟了 57 次"><b>跟投执行最弱</b></span>。</p><p class="ops"><b>运营抓手：风险适配、再平衡与调仓触达。</b></p></div>
+
+<div class="feature-card"><h4>7分钟理财 · 综合分第 3（0.3101）</h4><p><b>该组用户整体偏误得分居第 3（中上），偏误主要来自过度自信与趋势追随这两项权重最高的指标</b>：<span class="evi" data-tip="过度自信 OCI 0.2674 为 8 组第 3 高（壹钱包 0.4126、且慢单基金 0.3784 更高）；OCI 权重 20.36% 为六项第 2 高、全局加权贡献占比 29.6% 为最高。推高 OCI 的首要来源是换手率——个人换手率 1.9717 亦为 8 组第 3 高（壹钱包 3.0497、且慢 2.3812 更高）；不过该组风险等级对应的基准换手为 2.96，即绝对换手在 8 组中偏高、相对自身风险等级仍偏低（超额换手 −0.99）"><b>一是“交易偏多、换手偏高”</b></span>；<span class="evi" data-tip="趋势追随 HSI 0.4672（≥10 笔口径）为 8 组第 3（东方金匠 0.5167、五剑 0.4710 更高），顺势买入占比 45.03% 居中；HSI 权重 23.27% 为六项最高"><b>二是“交易节奏部分被行情牵引”</b></span>。<b>用户主要交易行为特征：</b><span class="evi" data-tip="人均买入 2,869.4 次、买过 140.87 只基金，两项均为 8 组最多；买入集中度 0.0832 为 8 组第 2 低、PCI 0.2080 为 8 组第 3 低，持仓在 8 组中最分散之列——同样频次的买入被庞大的持仓分母摊薄，故换手率 1.9717 低于其风险等级基准 2.96（超额换手 −0.99）。即偏误体现为交易频率本身，而非集中押注或大额择时"><b>交易量最大、持仓分散，交易以分散持仓的仓位微调为主</b></span>。</p><p class="ops"><b>运营抓手：针对过度自信，做交易频率与择时收益的提示；针对趋势追随，在行情快速上涨时提示避免顺势追高。</b></p></div>
+
+<div class="feature-card"><h4>五剑用户 · 综合分第 4（0.2925）</h4><p><b>该组用户偏误特征整体温和，各维度读数均未走极端——既没有明显偏离的项，也没有表现明显较好的项，整体处于中游（综合分 0.2925，基本等于八组平均 0.2932）</b>：<span class="evi" data-tip="6 项标准化指标中读数最高的是 RSI 0.5061 与 HSI 0.4678（均为 8 组第 2），但 RSI 本身区分度不高（8 组极差仅约 0.05），无一项形成单点极值；逐项拆开看，HSI 0.4678 高于八组均值 0.4479、贡献约 +0.005，而 OCI 0.2524（贡献约 −0.004）、EAD 0.2111（约 −0.002）、APD 0.0518（约 −0.002）均低于均值，正负相抵后综合分贴近八组平均"><b>没有哪一项读数明显偏离其他人群，抬升项与下拉项基本相互抵消</b></span>。相对值得关注的是<span class="evi" data-tip="跟车笔数占比由历史至今 38.14% 升至近一年 51.03%（8 组第 2 高）；自动执行占总跟车笔数由 66.23% 升至 87.32%——交易越来越依赖组合产品主理人，且以自动跟投为主"><b>近一年跟车依赖上升显著</b></span>，同时<span class="evi" data-tip="累计回本卖出比例 58.79%，为 8 组第 2 低——浮亏回本后不急于卖出"><b>回本卖出比例偏低</b></span>。</p><p class="ops"><b>运营抓手：以维持现有低偏误水平为主；针对近一年跟车依赖上升，做好跟投后的持仓解读与调仓陪伴，并在浮亏回本节点做处置提示。</b></p></div>
+
+<div class="feature-card"><h4>东方金匠 · 综合分第 5（0.2499）</h4><p><b>该组用户整体偏误得分居第 5，画像最两极</b>。交易层面，<span class="evi" data-tip="趋势追随 HSI 0.5167（≥10 笔口径）为 8 组最强，顺势买入占比 50.25% 是唯一过半人群；正向处置强度 max(0, PGR−PLR) = 0.0960 为 8 组最低，方向为反向——盈利变现率 PGR 38.29% 为 8 组最低、浮盈长期不落袋，亏损变现率 PLR 68.81% 仅居中位"><b>“追涨杀跌、浮盈不落袋”最突出</b></span>，但<span class="evi" data-tip="跟车笔数占比 40.4%（近一年 44.4%），并非全部交易来自跟车；但组合调仓的跟投执行率高达 99.2%（8 组最高），主理人发出调仓时基本都会跟——故这部分偏误部分由组合产品主理人驱动，不完全是用户自己的行为"><b>部分偏误由组合产品主理人驱动，不完全是用户自己的行为</b></span>；用户层面，<span class="evi" data-tip="人均资产 44.6 万元（8 组最高）、人均交易 21.7 笔（8 组最低）；换手率 1.62，比同风险等级均值低 1.40；持仓最分散，人均买入 81.5 只基金、PCI 0.0903 为 8 组最低；风险错配 RMD 0.3245 亦为 8 组最低"><b>本身是分散、长期、高净值持有者</b></span>。</p><p class="ops"><b>运营抓手：行情剧烈波动时的情绪化时点提示。</b></p></div>
+
+<div class="feature-card"><h4>钱耳朵 · 综合分第 6（0.2244）</h4><p><b>该组用户整体偏误得分居中偏低，核心问题在浮亏处置</b>：<span class="evi" data-tip="亏损加仓率 44.94% 与锚定偏离 APD 0.1167 双双为 8 组最高，累计回本卖出比例 54.55% 为 8 组最低——账户整体浮亏面较高，面对浮亏更倾向继续加仓，而不是减仓处置"><b>账户整体浮亏面较高，对浮亏偏好加仓而非处置</b></span>；<span class="evi" data-tip="近一年跟车笔数占比 76.52% 为 8 组最高（第 2 名五剑仅 51.03%），跟车金额占比 69.10% 亦为 8 组最高——该人群交易高度依赖组合产品主理人，故上述浮亏处置偏好与主理人的调仓行为有较强关联"><b>该问题与组合产品主理人关联较强</b></span>。表现好的点是，<span class="evi" data-tip="趋势追随 HSI 0.3749、顺势买入占比 38.96% 均为 8 组最低；FIII 0.1300 为 8 组最低——近一年跟投率 91.10%、平均滞后仅 0.047 天，执行最及时"><b>追涨杀跌最轻、跟投执行更及时</b></span>。</p><p class="ops"><b>运营抓手：亏损加仓与浮亏仓位管理。</b></p></div>
+
+<div class="feature-card"><h4>财商邦 · 综合分第 7（0.2240）</h4><p><b>该组用户整体偏误得分偏低，且没有明显极端的偏误项</b>：<span class="evi" data-tip="6 项标准化指标中排名最高的是 EAD 0.2270（8 组第 4），其余各项均在第 5~8 位：RSI 0.4987 第 5，HSI 0.4302 与 OCI 0.2405 并列第 6，DR 0.1079 第 7，APD 0.0049 为 8 组最低（最好）。无一项进入前 3，也没有出现像壹钱包（OCI）、东方金匠（HSI）那样的单点极值"><b>各项读数均表现较好，没有显著的偏误点</b></span>。相对而言，有轻微反向处置效应：<span class="evi" data-tip="正向处置强度 max(0, PGR−PLR) = 0.1079 为 8 组第 7 偏低——亏损变现率 PLR 0.7729 为 8 组最高、盈利变现率 PGR 0.6919 偏低，盈利仓位拿得住、不急着落袋，亏损仓位反而更愿意卖掉"><b>“盈利不急着落袋、亏损反而卖得更快”</b></span>。人群表现好的一点在于，<span class="evi" data-tip="锚定偏离 APD 标准化 0.0049 为 8 组最低，几乎不存在长期挂账的浮亏仓位；实际跟投比例 96.3%（HSBI 0.0242）为 8 组第 2；换手率 1.4053 为 8 组第 7 低"><b>几乎不长期挂账浮亏，跟投执行十分到位</b></span>。</p><p class="ops"><b>运营抓手：止盈管理。</b></p></div>
+
+<div class="feature-card"><h4>长赢用户 · 综合分第 8（0.2106）</h4><p><b>该组用户整体偏误得分为 8 组最低，是行为最“稳”的人群</b>：<span class="evi" data-tip="EAD 0.1339 为 8 组最低——实际权益仓位 60.88% 反超风险等级建议的 60.17%，是 8 组中唯一实际高于建议的人群（人群平均缺口 −0.71pp）"><b>权益配置最到位</b></span>；<span class="evi" data-tip="RSI 0.4604 为 8 组最低、正相关占比 33.3%——交易节奏最不受行情涨跌牵引；换手率 1.17 为 8 组最低（比同风险等级均值低 1.77）；正向处置强度 max(0, PGR−PLR) = 0.1688 居中（8 组第 5）"><b>换手最低、不追行情、处置强度居中</b></span>。唯一突出短板是<span class="evi" data-tip="HSBI 0.3956 为 8 组最高——实际跟投比例 62.1%（8 组第 2 低），人均应调仓 193.49 次只跟了 120.08 次、缺口 73.41 次为 8 组最大；且有效样本达 11.1 万人，是调仓提醒类干预可挖空间最大的一组"><b>跟投执行最弱</b></span>。</p><p class="ops"><b>运营抓手：调仓提醒、一键跟投，巩固现有低偏误水平。</b></p></div>
+
+</div>
+
+<h3 id="sec6-3">6.3 应用与展望</h3>
+
+<h4 style="margin:22px 0 8px;font-size:15px;color:var(--primary-dark);">① 已在落地：CCDP 用户级上下文画像</h4>
+<p><b>CCDP（客户数据上下文平台）</b>是团队正在开发的客户数据平台，核心能力是为下游 agent 等 AI 应用提供<b>用户级别的上下文</b>——把分散在交易、持仓、风险测评、会话等系统中的数据整合为对单个用户的结构化理解。本报告的偏误量化结果正是 CCDP 用户画像的重要输入之一。</p>
+<p>以一名真实客户为例，CCDP 结合其交易与持仓数据与本体系的偏误指标，生成了如下画像（节选）：</p>
+<div class="takeaway"><b>画像示例 · 「静默观察期的清仓观望型」</b>（45 岁男性，注册 8 个月即签约投顾，资产约 3 万元）
+<ul style="margin:8px 0 0 20px;line-height:1.8;">
+<li><b>核心判断</b>：名义稳健（C3）但实际已全仓退出市场——2026 年 1 月集中建仓（单月申购占全年 48%）后，7 月清仓全部持仓，此后零申购，呈高度防御的"静默等待"状态。</li>
+<li><b>偏误识别（来自本体系指标）</b>：选择性跟投偏差 0.59（重度，只跟止盈、回避止损）；处置效应 0.39（盈利了结快、亏损持有久）；近期偏误 0.45（对短期行情过度反应）；集中度高度（TOP3 产品占申购 86%、持仓 100% 集中于单一组合）。</li>
+<li><b>恐慌行为预判</b>：最可能"犹豫扛住型"——下跌时倾向持有不动，但会高频访问收益分析页面反复确认亏损。</li>
+<li><b>干预响应</b>：选择性采纳（自动买入、手动卖出不对称）；宜以"本金保护 + 长期增值"双主线沟通，避免渲染短期风险。</li>
+<li><b>关键阈值</b>：名义可长期持有（资金动用期限 8 年），实际耐心极限仅约 158.5 天，显著错配。</li>
+<li><b>预判建议</b>：市场上涨时大概率"急进急出"式重新入场，需在重新申购后监测大额单基集中与"止盈跟、止损不跟"信号。</li>
+</ul></div>
+<p>该画像把偏误指标转译为下游 agent 可直接消费的用户上下文——<b>这个用户是谁、当前处于什么行为状态、遇到行情会怎么反应、用什么方式沟通更有效</b>。偏误数据在此层面完成了从"人群统计"到"单用户决策支持"的落地。</p>
+
+<h4 style="margin:22px 0 8px;font-size:15px;color:var(--primary-dark);">② 其他应用方向</h4>
+<p>偏误量化可以在 <b>TAMP 赋能商户、且慢赋能大V</b> 的场景中发挥作用，具体可进入以下业务流程（承接用户侧画像）：</p>
+<ul style="margin:6px 0 14px 20px;line-height:1.9;">
+<li><b>投顾干预优先级</b>：综合偏误分与主导偏误类型每月滚动更新，作为客户行为健康状况的"晴雨表"，直接驱动投顾的服务优先级排列；对单个客户生成"主要因处置效应与过度自信损耗收益"式的个性化解释，让干预有据可依。</li>
+<li><b>客群差异化运营</b>：按 §6.2 画像匹配差异化策略——跟投执行弱的人群做调仓提醒与一键跟投，风险错配高的人群做风险适配，权益少配的人群做仓位检视，浮亏死扛的人群做处置提示；对壹钱包等低持仓覆盖人群先做触达与配置培育。</li>
+<li><b>智能提醒与助推话术</b>：按主导偏误类型自动生成沟通内容（处置效应→机会成本重构，损失厌恶→历史回撤恢复数据，过度自信→择时胜率统计），在市场剧烈波动、频繁交易、账户浮亏等情境化时点推送，遵循"正向赋能而非指责"的沟通原则<sup><a href="#sec7-3">[7][9]</a></sup>。</li>
+<li><b>偏差预警</b>：市场极端行情下对恐慌/追涨情绪集中的人群提前触达安抚与风险提示；智能客服回复生成前增加偏差拦截检查，避免 AI 强化用户原有偏误<sup><a href="#sec7-3">[13][14]</a></sup>。</li>
+<li><b>服务效果评估</b>：以群组对照方式跟踪各人群偏误指标的改善幅度与回撤/收益变化，量化评估纠偏投入的产出，支撑投顾服务与激励方案设计。</li>
+</ul>
+
+<h4 style="margin:22px 0 8px;font-size:15px;color:var(--primary-dark);">③ 下一个主要方向：主理人层面的偏误分析</h4>
+<p>当前体系聚焦<b>用户侧</b>偏误；下一个主要方向是把分析维度<b>扩充到主理人</b>——以<b>产品 / 主理人为基础维度</b>，利用发车信号、调仓指令等产品层面的交易信号，量化主理人自身的偏误行为（如发车时点是否追涨、调仓是否频繁或追逐热点、策略持仓是否过度集中等）。</p>
+<p>其价值在于：如 §3.3 所示，用户的交易大部分由跟车驱动，<b>用户偏误中相当部分源自其所跟主理人的决策</b>。因此识别并纠正主理人偏误，等于从源头<b>间接降低其跟投用户的偏误水平</b>，比逐一触达用户更高效；同时也与 §3.3“结论归属”（用户偏误 vs 策略偏误）的逻辑一脉相承。后续可为主理人建立与用户侧同构的偏误画像与纠偏机制，并在跟车链条上形成“主理人纠偏 → 用户偏误下降”的可验证闭环。</p>
+
+<h3 id="sec6-4">6.4 持续迭代机制</h3>
+<p>量化体系不是一次性交付，需要在真实运用中按三层闭环持续迭代。三层是递进关系：先把尺子校准，再验证尺子准不准、干预有没有用，最后把干预效果回流去修尺子和话术。</p>
+<div class="takeaway"><b>三层迭代闭环：</b>
+<ul style="margin:8px 0 0 20px;line-height:1.9;">
+<li><b>指标层 · 阈值与权重定期校准</b>（先把尺子校准）：<b>分位阈值</b>（如 APD 的截尾线）不靠人工拍定，每次计算都按当期全平台的数据分布重算一遍，让"多高才算偏高"始终跟着真实分布走；<b>模型权重</b>（六个指标各占多少分）按月重训一次，结果写到月初的计算日（见 <a href="#sec7-2" style="color:var(--primary);font-weight:600;">附录 7.2</a>）。另以 Morningstar 研究中 1.1pp 的行为差为外部校准锚<sup><a href="#sec7-3">[8]</a></sup>——当体系算出的损耗水平与这一基准明显偏离时，回头复核口径与权重。</li>
+<li><b>验证层 · 前瞻性与干预响应检验</b>（证明尺子准、干预真有效）：一是<b>前瞻性检验</b>——用 T 期偏误指标预测 T+1 期实际非理性行为（如大跌期间赎回），预测得准才说明指标真有业务含义；二是<b>干预对照实验</b>——按倾向得分匹配把用户配成可比的干预组与对照组，再用双重差分剥离出干预的净效果，要求干预组的对应偏误指标出现可统计的改善。每轮检验的结论回流为：指标是否有效、干预是否值得继续推。</li>
+<li><b>效能层 · 干预事件归因反馈</b>（把效果回流去修尺子）：每次干预（调仓提醒、话术推送、投顾沟通）都留一条事件日志，之后 30 天内跟踪被干预用户对应偏误指标的变化，并把变化归因到具体干预动作；反馈同时用于修正指标权重、话术策略与人群运营方案。纠偏效果最终以用户实际收益损耗（行为差）的收窄来验证，而非仅看偏误分下降。</li>
+</ul></div>
+<p style="margin-top:14px;">本报告的中间指标基于 20260909 分区、综合偏误分模型基于 20260922 分区。随着 EAD 等指标口径的进一步治理与任务流的持续运行，各人群的偏误画像将按月滚动更新，并在上述闭环中不断逼近"可解释、可干预、可验证"的目标。</p>
+</section>
+
+<section id="sec7" class="appendix">
+  <h2>7. 附录 · 指标逻辑 / 模型逻辑 / 参考文献</h2>
+  <p class="caption">本节为附录：<b>7.1</b> 8 项主指标 + 集中度域的计算逻辑，<b>7.2</b> 综合偏误分的模型逻辑，<b>7.3</b> 参考文献。交易统计口径统一：仅剔除 W220/W223/W224/W240/W98 五类钱包交易（仅剔交易、不剔持仓）。</p>
+
+  <details>
+    <summary>📎 附录 7.1 · 指标计算逻辑</summary>
+    <div class="appendix-body">
+    <h3>附录 7.1 · 8 主指标 + 集中度域计算逻辑</h3>
+
+    <div class="appendix-grid">
+      <div class="appendix-card">
+        <div class="appendix-card-head">
+          <span class="appendix-num">①</span>
+          <span class="appendix-title">OCI · 过度自信</span>
+          <span class="appendix-meta">[0, 1] · 三子项加权 0.5 / 0.3 / 0.2</span>
+        </div>
+        <p>
+          三子项：<b>ATR 超额换手率</b>（年化换手率 − 同风险等级均值）、<b>PCI 持仓集中度</b>（HHI，基金穿透 + 滚动 90 天日均市值）、<b>RMD 风险错配度</b>（持仓加权波动率相对同等级均值的偏离）。子项缺失即不参与、按可用子项权重重新归一化；PCI / RMD 仅对有当前持仓的用户计算。
+        </p>
+      </div>
+
+      <div class="appendix-card">
+        <div class="appendix-card-head">
+          <span class="appendix-num">②</span>
+          <span class="appendix-title">HSI · 趋势追随</span>
+          <span class="appendix-meta">[0, 1] · 牛熊加权顺势度</span>
+        </div>
+        <p>
+          按统一的市场状态区间（牛市 / 熊市 / 趋势上行 / 趋势下行 / 震荡）逐笔判定顺势：上涨状态买入或下跌状态卖出记顺势，牛熊极端行情权重 1.5。<code>HSI = Σ(权重×顺势)/Σ(权重)</code>，不等于"顺势笔数 / 总笔数"。仅统计买入与卖出（调仓单排除），历史至今。
+        </p>
+      </div>
+
+      <div class="appendix-card">
+        <div class="appendix-card-head">
+          <span class="appendix-num">③</span>
+          <span class="appendix-title">EAD · 权益偏离</span>
+          <span class="appendix-meta">[0, 0.9] → norm [0, 1] · 少配才扣分</span>
+        </div>
+        <p>
+          理论权益配比 = 用户风险评级映射（1→0 … 5→0.9）；实际权益占比 = 基金资产结构穿透（联接基金再穿一层）× 近 90 天日均市值加权。<code>ead = MAX(0, 理论 − 实际)</code> 为绝对缺口，<b>norm × 90 即还原为少配百分点</b>；只罚少配、不罚超配。仅对有当前持仓的用户计算。
+        </p>
+      </div>
+
+      <div class="appendix-card">
+        <div class="appendix-card-head">
+          <span class="appendix-num">④</span>
+          <span class="appendix-title">DR · 处置效应</span>
+          <span class="appendix-meta">[-1, 1] · PGR − PLR · 份额口径</span>
+        </div>
+        <p>
+          <code>DR = PGR − PLR</code>：盈利变现率与亏损变现率之差，四个中间量均为<b>份额</b>口径（历史至今卖出流水 + 最新持仓快照，大额小额同权）。DR &gt; 0 = 盈利更愿卖、亏损更愿留；DR &lt; 0 方向相反。人群排名使用归一化后的 <code>dr_norm</code>。
+        </p>
+      </div>
+
+      <div class="appendix-card">
+        <div class="appendix-card-head">
+          <span class="appendix-num">⑤</span>
+          <span class="appendix-title">APD · 锚定</span>
+          <span class="appendix-meta">[0, 1] · 分母为当前持仓标的数</span>
+        </div>
+        <p>
+          对当前持仓中"持有满半年且当前浮亏"的标的，累计价格缺口 <code>(成本−净值)/成本</code>，再除以当前持仓标的总数。归一化采用 p99 截尾，<b>norm = 1.0 代表处于全平台最严重的前 1%</b>。持仓不足半年为 NULL（无法观察），有半年持仓但全部盈利为 0。
+        </p>
+      </div>
+
+      <div class="appendix-card">
+        <div class="appendix-card-head">
+          <span class="appendix-num">⑥</span>
+          <span class="appendix-title">HSBI · 跟投率</span>
+          <span class="appendix-meta">[0, 1] · 未跟投比例 · 仅组合资产</span>
+        </div>
+        <p>
+          <code>HSBI = 1 − min(实际跟投比例, 1)</code>，即<b>未跟投比例</b>，数值越高代表该跟的调仓越多没跟、偏误越强。仅对有组合调仓历史的用户有效，不进入综合分。观察区间按用户实际跟投的首末调仓日划定，历史至今。
+        </p>
+      </div>
+
+      <div class="appendix-card">
+        <div class="appendix-card-head">
+          <span class="appendix-num">⑦</span>
+          <span class="appendix-title">RSI · 近期偏好</span>
+          <span class="appendix-meta">[-1, 1] · Pearson 相关系数 · 周频</span>
+        </div>
+        <p>
+          用户周度净买入变化与同期市场 5 日涨跌的 Pearson 相关系数，历史至今。越正 = 市场走强时加大投入、走弱时收缩。本期 8 人群间均值几乎无分化，真正有区分度的是"正相关用户占比"。
+        </p>
+      </div>
+
+      <div class="appendix-card">
+        <div class="appendix-card-head">
+          <span class="appendix-num">⑧</span>
+          <span class="appendix-title">FIII · 跟投惰性</span>
+          <span class="appendix-meta">1−FTR + 0.4×SFIB + 0.3×滞后 · 近 1 年 · 仅组合</span>
+        </div>
+        <p>
+          三子项对应跟投的三种"不到位"——<b>跟得少</b>（1−跟投率 FTR）、<b>挑着跟</b>（选择性跟投偏差 SFIB = 盈利时跟投率 − 亏损时跟投率）、<b>跟得慢</b>（归一化平均滞后天数）。仅统计近 1 年有跟投事件的用户，不进入综合分。
+        </p>
+      </div>
+    </div>
+
+    <div class="appendix-card">
+      <div class="appendix-card-head">
+        <span class="appendix-num">⑨</span>
+        <span class="appendix-title">集中度分析域</span>
+        <span class="appendix-meta">不进模型，单独分析</span>
+      </div>
+      <p>
+        衡量"反复买同一只基金"与"亏损时是否继续加仓"。全部指标为<b>底层基金维度</b>（组合买入已穿透为底层基金成交明细）：买过不同基金只数、总买入次数、买入集中度（按用户计算单只最大买入占比再取均值）、亏损加仓基金数与次数（逐笔判定：买入时点该基金净值低于单位成本）。
+      </p>
+    </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>📎 附录 7.2 · 综合偏误分的模型逻辑</summary>
+    <div class="appendix-body">
+    <h3 id="sec7-2">附录 7.2 · 综合偏误分的模型逻辑</h3>
+
+    <p>综合偏误分要回答的问题是：<b>在 8 项偏误指标中，哪些对用户实际收益损耗的解释力更强</b>，并据此为每项指标分配权重、合成为一个可比较的综合分。模型的定位是<b>数据驱动的权重生成器</b>——权重不是人为设定，而是从"偏误指标 → 收益损耗"的真实关系中学出。整个链路分五步：</p>
+
+    <p><b>第一步 · 构造拟合目标"行为收益偏差"。</b>模型需要知道每个用户的"行为损耗"有多大，做法是把用户的<b>实际收益率</b>与一个<b>理性基准收益率</b>做对比：</p>
+    <ul style="margin:4px 0 10px 22px;line-height:1.8;">
+      <li><b>实际收益率（mwr，资金加权）</b>：用户历史至今真实获得的收益率，采用资金加权口径——每笔申赎资金按投入时间加权计入，频繁择时进出对结果的影响被如实反映。</li>
+      <li><b>理性基准收益率（suppose_return）</b>：假设该用户<b>不做任何主动择时与申赎</b>、始终维持各持仓标的历史平均仓位，只随市场净值波动而"应得"的收益率（逐日复利累积）。它代表了"如果该用户完全理性地持有，收益会是多少"。</li>
+      <li><b>行为收益偏差 = |实际收益率 − 理性基准收益率|</b>：两者差距越大，说明用户的主动操作（追涨杀跌、频繁申赎、错失调仓等）对自身收益的扰动越大。取绝对值是因为偏误的后果是"偏离"而非方向——无论跑赢还是跑输，大幅偏离都源于行为而非理性持有。</li>
+    </ul>
+
+    <p><b>第二步 · 特征工程。</b>进入模型的行为特征为 6 项偏误指标（OCI / HSI / EAD / DR / APD / RSI）的原始值；另设 3 项控制变量（历史峰值资产、投资年限、累计交易笔数）用于吸收"资产规模 / 账户活跃度"与收益偏差的天然关联、避免其污染偏误指标的权重估计——<b>控制变量只影响权重估计，不参与最终打分</b>。预处理上：趋势追随为双向指标（居中才是无偏），统一变换为"偏离中性点的距离"；处置效应为单向口径、用户级按 max(0, PGR−PLR) 截 0（PLR ≥ PGR 视为无处置效应，不做反向惩罚）；锚定偏离等重尾分布做前 1% 分位截尾；指标缺失一律不填 0（避免把"无法计算"当作"没有偏误"）。</p>
+
+    <p><b>第三步 · 模型选型。</b>在梯度提升树、随机森林、LightGBM 与多模型 Stacking 集成等候选中对比后，采用 <b>XGBoost 回归</b>：对"偏误指标 → 行为收益偏差"的非线性关系拟合稳定，且支持基于 SHAP 的指标贡献归因（权重生成的前提）。</p>
+
+    <p><b>第四步 · 权重生成。</b>对训练好的模型做 SHAP 归因，得到每项偏误指标对行为收益偏差的<b>平均解释贡献</b>，归一化后即得各项权重（六项之和 = 100%）。当前权重：HSI 23.27% / OCI 20.36% / APD 18.18% / EAD 16.86% / DR 11.61% / RSI 9.73%。<b>权重按月定期重算</b>（分区落在月初的计算日），指标口径调整后也会随之刷新。</p>
+
+    <p><b>第五步 · 综合分打分。</b>对每个用户：6 项指标按统一规则标准化到 0~1（缺失指标按其所属渠道的平均水平填充，保证不同渠道用户可比），加权求和得到原始综合分，最后做全平台标准化拉伸至 0~1（严格保序，仅放大人群间区分度、不改变任何用户排名）。人群综合分即该人群用户的平均值。</p>
+
+    </div>
+  </details>
+
+  <details>
+    <summary>📎 附录 7.3 · 参考文献</summary>
+    <div class="appendix-body">
+    <h3 id="sec7-3">附录 7.3 · 参考文献</h3>
+    <p style="font-size:13.5px;color:var(--text-secondary);margin:4px 0 10px;">正文与背景章中的 [n] 编号对应以下文献，按主题分为三组。</p>
+
+    <h4 style="margin:14px 0 6px;font-size:14.5px;color:var(--primary-dark);">一、行为金融学经典</h4>
+    <ol style="margin:0 0 0 22px;line-height:1.9;font-size:13px;">
+      <li id="ref-1">Kahneman, D., &amp; Tversky, A. (1979). Prospect Theory: An Analysis of Decision under Risk. <i>Econometrica</i>, 47(2), 263–291. —— 前景理论，损失厌恶系数 λ≈2.25 的学术源头。</li>
+      <li id="ref-2">Barber, B. M., &amp; Odean, T. (2000). Trading Is Hazardous to Your Wealth: The Common Stock Investment Performance of Individual Investors. <i>Journal of Finance</i>, 55(2), 773–806. —— 过度自信与交易损耗：66,465 个散户账户，最频繁交易组年化回报低于基准 6.5pp。</li>
+      <li id="ref-3">Shefrin, H., &amp; Statman, M. (1985). The Disposition to Sell Winners Too Early and Ride Losers Too Long: Theory and Evidence. <i>Journal of Finance</i>, 40(3), 777–790. —— 处置效应的首次系统定义。</li>
+      <li id="ref-4">Odean, T. (1998). Are Investors Reluctant to Realize Their Losses? <i>Journal of Finance</i>, 53(5), 1775–1798. —— 处置效应账户级实证：PGR≈14.8% 显著高于 PLR≈9.8%。</li>
+      <li id="ref-5">Benartzi, S., &amp; Thaler, R. H. (1995). Myopic Loss Aversion and the Equity Premium Puzzle. <i>Quarterly Journal of Economics</i>, 110(1), 73–92. —— 短视损失厌恶。</li>
+    </ol>
+
+    <h4 style="margin:14px 0 6px;font-size:14.5px;color:var(--primary-dark);">二、实证基准与干预方法</h4>
+    <ol start="6" style="margin:0 0 0 22px;line-height:1.9;font-size:13px;">
+      <li id="ref-6">Barberis, N., &amp; Thaler, R. (2003). A Survey of Behavioral Finance. In <i>Handbook of the Economics of Finance</i> (Vol. 1B). Elsevier. —— 行为偏差综述；散户认知偏差的系统性梳理。</li>
+      <li id="ref-7">Thaler, R. H., &amp; Sunstein, C. R. (2008). <i>Nudge: Improving Decisions about Health, Wealth, and Happiness</i>. Penguin Books. —— 助推理论：通过优化决策情境引导更优决策。</li>
+      <li id="ref-8">Morningstar Research (2024). <i>Mind the Gap: A Global Study of How Investors Do—and Don't—Achieve Market Returns</i>. —— 投资者年化行为差约 1.1pp、十年错失约 15% 潜在收益。</li>
+      <li id="ref-9">Vanguard Research (2022). <i>Advisor's Alpha</i>. The Vanguard Group. —— 专业顾问通过行为引导等实践年均增厚约 3% 净回报。</li>
+      <li id="ref-10">Morningstar Research. <i>Gamma: Measuring the Value of Financial Advice</i>. —— 优化资产配置等五大理财决策等效于每年 1.59% 的投资收益。</li>
+    </ol>
+
+    <h4 style="margin:14px 0 6px;font-size:14.5px;color:var(--primary-dark);">三、AI 与行为金融前沿</h4>
+    <ol start="11" style="margin:0 0 0 22px;line-height:1.9;font-size:13px;">
+      <li id="ref-11">Nicolas, M. (2022). Estimating a Model of Herding Behavior on Social Networks. <i>Physica A</i>, 586, 126524. —— 社交网络羊群效应的量化模型。</li>
+      <li id="ref-12">Şeker, Ş. E., et al. (2025). Artificial Intelligence in Behavioral Finance: A Global Review of Cognitive Bias Modeling in Investor Decision-Making. <i>SN Business &amp; Economics</i>, 5(12). —— AI 检测认知偏差的十年全球综述。</li>
+      <li id="ref-13">Zhou, Y., et al. (2025). Are LLMs Rational Investors? Assessing Financial Bias through the FBI Framework. <i>Findings of ACL 2025</i>. —— 大语言模型金融偏差的评估与治理框架。</li>
+      <li id="ref-14">Vetter, C., &amp; Winder, A. (2025). Biased Echoes: Large Language Models Reinforce Investment Biases. <i>PLOS ONE</i>. —— LLM 在理财咨询中强化用户原有投资偏差的实证。</li>
+    </ol>
+    </div>
+  </details>
+
+</section>
+
+</main>
+</div>
+<script>
+(function() {
+  echarts.init(document.getElementById("chart-rank")).setOption({
+    tooltip: {trigger: 'axis', axisPointer: {type: 'shadow'}, valueFormatter: v => v.toFixed(4)},
+    grid: {left: 110, right: 50, top: 20, bottom: 30},
+    xAxis: {type: 'value', name: '综合分(rescale)', min: 0.15, max: 0.55},
+    yAxis: {type: 'category', data: ['壹钱包APP','且慢单基金用户','7分钟理财','五剑用户','东方金匠','钱耳朵','财商邦','长赢用户'], inverse: true, axisLabel: {fontSize: 13}},
+    series: [{type: 'bar', data: [{value: 0.4384, itemStyle: {color: '#fa8c16'}},{value: 0.3960, itemStyle: {color: '#7eb6c7'}},{value: 0.3101, itemStyle: {color: '#7eb6c7'}},{value: 0.2925, itemStyle: {color: '#7eb6c7'}},{value: 0.2499, itemStyle: {color: '#7eb6c7'}},{value: 0.2244, itemStyle: {color: '#7eb6c7'}},{value: 0.2240, itemStyle: {color: '#7eb6c7'}},{value: 0.2106, itemStyle: {color: '#52c41a'}}],
+      label: {show: true, position: 'right', formatter: '{c}', fontSize: 12}, barWidth: '55%'}]
+  });
+
+  // ── §3.3 跟车占比全景（口径×度量×时间×自动叠加，合并原 8 张图）──
+  (function() {
+    const GROUPS = ["长赢用户", "壹钱包APP", "7分钟理财", "且慢单基金用户", "东方金匠", "五剑用户", "财商邦", "钱耳朵"];
+    // 数据源：mid_bias_follow_car_window 20260911（报告 §3.3 口径），占比为人群汇总值
+    const D = {
+      // 跟车笔数占比（组合订单/穿透两口径完全一致）
+      cnt:    { all: [0.5446,0.0385,0.2294,0.0652,0.4037,0.3810,0.3372,0.4776],
+                r1y: [0.3961,0.0439,0.4042,0.1009,0.4441,0.5069,0.4644,0.7641] },
+      // 跟车金额占比（组合订单口径）
+      amtOrder: { all: [0.5529,0.0000,0.0758,0.0266,0.0000,0.1144,0.0034,0.1695],
+                  r1y: [0.4896,0.0000,0.0853,0.0593,0.0000,0.2683,0.0000,0.3433] },
+      // 跟车金额占比（穿透口径）
+      amtPen:   { all: [0.5882,0.0152,0.1859,0.0518,0.2924,0.4236,0.3676,0.5479],
+                  r1y: [0.5229,0.0281,0.2961,0.0987,0.3408,0.5115,0.4682,0.6942] },
+      // 自动跟车（笔数）
+      autoCnt:  { all: [0.2060,0.0350,0.2213,0.0324,0.4029,0.2524,0.3030,0.4411],
+                  r1y: [0.2463,0.0439,0.3974,0.0766,0.4436,0.4429,0.4640,0.7346] },
+      ratioCnt: { all: [0.3783,0.9076,0.9648,0.4960,0.9981,0.6625,0.8987,0.9235],
+                  r1y: [0.6218,0.9999,0.9832,0.7596,0.9987,0.8738,0.9992,0.9614] },
+      // 自动跟车（金额，仅穿透口径）
+      autoAmtPen: { all: [0.1801,0.0140,0.1596,0.0221,0.2919,0.2547,0.3166,0.4628],
+                    r1y: [0.2704,0.0281,0.2732,0.0659,0.3404,0.4247,0.4676,0.6481] },
+      ratioAmtPen:{ all: [0.3062,0.9175,0.8588,0.4266,0.9984,0.6013,0.8614,0.8448],
+                    r1y: [0.5171,0.9999,0.9227,0.6675,0.9990,0.8304,0.9987,0.9336] }
+    };
+    const chart = echarts.init(document.getElementById("chart-follow-uni"));
+    function readState() {
+      const metric = document.getElementById('fc-metric').value;
+      const win = document.getElementById('fc-window').value;
+      const showAuto = document.getElementById('fc-auto').checked;
+      const atSel = document.getElementById('fc-amounttype');
+      let amounttype = atSel.value;
+      // 笔数两口径一致 → 口径控件禁用；金额+自动 → 自动金额仅穿透口径，强制切换
+      if (metric === 'cnt') { atSel.disabled = true; }
+      else { atSel.disabled = showAuto; if (showAuto && amounttype !== 'pen') { amounttype = 'pen'; atSel.value = 'pen'; } }
+      return {metric, amounttype, win, showAuto};
+    }
+    function barExtra() { return {show: true, position: 'top', formatter: c => (c.value*100).toFixed(1) + '%', fontSize: 10}; }
+    function render() {
+      const s = readState();
+      let main, mainName;
+      const winTag = s.win === 'r1y' ? '·近一年' : '';
+      if (s.metric === 'cnt') { main = D.cnt[s.win]; mainName = '跟车笔数占比' + winTag; }
+      else if (s.amounttype === 'pen') { main = D.amtPen[s.win]; mainName = '跟车金额占比（穿透' + winTag + '）'; }
+      else { main = D.amtOrder[s.win]; mainName = '跟车金额占比（组合订单' + winTag + '）'; }
+      const series = [{name: mainName, type: 'bar', itemStyle: {color: '#1890ff'}, data: main, label: barExtra()}];
+      let y2 = null;
+      if (s.showAuto) {
+        if (s.metric === 'cnt') {
+          series.push({name: '自动跟车笔数', type: 'bar', itemStyle: {color: '#52c41a'}, data: D.autoCnt[s.win], label: barExtra()});
+          series.push({name: '自动/总跟车（笔数）', type: 'line', yAxisIndex: 1, itemStyle: {color: '#722ed1'},
+            lineStyle: {width: 2.5}, symbol: 'circle', symbolSize: 7, data: D.ratioCnt[s.win],
+            label: {show: true, formatter: c => (c.value*100).toFixed(0) + '%', fontSize: 10, position: 'top'}});
+        } else {
+          series.push({name: '自动跟车金额（穿透）', type: 'bar', itemStyle: {color: '#52c41a'}, data: D.autoAmtPen[s.win], label: barExtra()});
+          series.push({name: '自动金额/跟车金额', type: 'line', yAxisIndex: 1, itemStyle: {color: '#722ed1'},
+            lineStyle: {width: 2.5}, symbol: 'circle', symbolSize: 7, data: D.ratioAmtPen[s.win],
+            label: {show: true, formatter: c => (c.value*100).toFixed(0) + '%', fontSize: 10, position: 'top'}});
+        }
+        y2 = {type: 'value', name: '自动/总跟车%', min: 0, max: 1.05, axisLabel: {formatter: v => (v*100).toFixed(0) + '%'}, splitLine: {show: false}};
+      }
+      const y1 = {type: 'value', name: '占比%', min: 0, max: 0.85, axisLabel: {formatter: v => (v*100).toFixed(0) + '%'}};
+      chart.setOption({
+        tooltip: {trigger: 'axis', axisPointer: {type: 'shadow'},
+          formatter: function(params) {
+            const arr = Array.isArray(params) ? params : [params];
+            let h = '<b>' + arr[0].axisValue + '</b><br/>';
+            arr.forEach(function(p) { h += p.marker + ' ' + p.seriesName + ': <b>' + (p.value*100).toFixed(2) + '%</b><br/>'; });
+            return h;
+          }},
+        legend: {top: 0, data: series.map(x => x.name), textStyle: {fontSize: 12}},
+        grid: {left: 60, right: s.showAuto ? 60 : 30, top: 40, bottom: 70},
+        xAxis: {type: 'category', data: GROUPS, axisLabel: {rotate: 15, fontSize: 11}},
+        yAxis: y2 ? [y1, y2] : y1,
+        series: series
+      }, true);
+    }
+    ['fc-metric', 'fc-amounttype', 'fc-window'].forEach(function(id) { document.getElementById(id).addEventListener('change', render); });
+    document.getElementById('fc-auto').addEventListener('change', render);
+    render();
+  })();
+
+  // ── §3.4 以下为热力图等其他图表 ──
+  var groups = ["长赢用户", "壹钱包APP", "7分钟理财", "且慢单基金用户", "东方金匠", "五剑用户", "财商邦", "钱耳朵"];
+  var indicators = ['OCI','HSI','EAD','DR','APD','HSBI','RSI','FIII'];
+  // ECharts heatmap 数据格式为 [x, y, value]：x=指标列号、y=人群行号
+  // DR 列为正向处置强度 max(0, PGR−PLR)、HSI 列为 HSI 加权值（均仅 ≥10 笔用户，与综合分打分链路同口径）；其余列为 norm 均值
+  var heatData = [[0,0,0.2175],[1,0,0.4409],[2,0,0.1339],[3,0,0.1688],[4,0,0.0585],[5,0,0.3991],[6,0,0.4604],[7,0,0.4331],[0,1,0.4126],[1,1,0.4290],[2,1,0.2996],[3,1,0.2592],[4,1,0.0957],[5,1,0.0771],[6,1,0.4991],[7,1,0.5078],[0,2,0.2674],[1,2,0.4672],[2,2,0.2157],[3,2,0.1800],[4,2,0.1004],[5,2,0.1479],[6,2,0.4946],[7,2,0.3940],[0,3,0.3784],[1,3,0.4663],[2,3,0.2763],[3,3,0.2775],[4,3,0.1130],[5,3,0.2948],[6,3,0.5008],[7,3,0.4894],[0,4,0.1869],[1,4,0.5167],[2,4,0.2398],[3,4,0.0960],[4,4,0.0056],[5,4,0.0045],[6,4,0.5064],[7,4,0.3057],[0,5,0.2562],[1,5,0.4710],[2,5,0.2025],[3,5,0.1801],[4,5,0.0560],[5,5,0.1795],[6,5,0.5060],[7,5,0.4089],[0,6,0.2463],[1,6,0.4335],[2,6,0.2365],[3,6,0.1079],[4,6,0.0052],[5,6,0.0244],[6,6,0.4989],[7,6,0.3101],[0,7,0.2460],[1,7,0.3749],[2,7,0.1741],[3,7,0.1321],[4,7,0.1167],[5,7,0.0795],[6,7,0.4845],[7,7,0.2558]];
+  echarts.init(document.getElementById("chart-heatmap")).setOption({
+    tooltip: {position: 'top', formatter: function(p) {
+      // p.value = [x, y, value] = [指标列号, 人群行号, 值]
+      return groups[p.value[1]] + ' × ' + indicators[p.value[0]] + '<br/>值 = ' + p.value[2];
+    }},
+    grid: {left: 100, right: 30, top: 20, bottom: 50},
+    xAxis: {type: 'category', data: indicators, splitArea: {show: true}, axisLabel: {fontSize: 13, fontWeight: 'bold'}},
+    yAxis: {type: 'category', data: groups, inverse: true, splitArea: {show: true}, axisLabel: {fontSize: 12}},
+    visualMap: {min: 0, max: 0.70, calculable: true, orient: 'horizontal', left: 'center', bottom: 0,
+      inRange: {color: ['#e6ffed', '#fff7e6', '#ffccc7', '#f5222d']}, textStyle: {fontSize: 11}},
+    series: [{type: 'heatmap', data: heatData,
+      label: {show: true, fontSize: 11, formatter: function(p) {return p.value[2]}},
+      itemStyle: {borderColor: '#fff', borderWidth: 1}}]
+  });
+
+  {
+    const GROUPS = ["长赢用户", "壹钱包APP", "7分钟理财", "且慢单基金用户", "东方金匠", "五剑用户", "财商邦", "钱耳朵"];
+    const items = [
+      {name: '个人换手率', vals: [1.1732,3.0497,1.9717,2.3812,1.6169,1.5298,1.4053,1.2830], axis: 0, fmt: 4},
+      {name: 'PCI 集中度', vals: [0.1824,0.6806,0.2080,0.5467,0.0903,0.2144,0.2555,0.2265], axis: 1, fmt: 4},
+      {name: 'RMD 风险错配', vals: [0.7419,1.4281,1.0678,1.7459,0.3245,1.0544,0.7814,1.2073], axis: 1, fmt: 4}
+    ];
+    echarts.init(document.getElementById("chart-ind-OCI")).setOption({
+      tooltip: { trigger: 'axis', axisPointer: {type: 'shadow'},
+        formatter: function(params) {
+          const arr = Array.isArray(params) ? params : [params];
+          let h = '<b>' + GROUPS[arr[0].dataIndex] + '</b><br/>';
+          arr.forEach(p => {
+            const it = items[p.seriesIndex];
+            const v = it ? it.vals[p.dataIndex] : 0;
+            const d = (v || 0).toFixed(4);
+            h += (p.marker || '') + (it ? it.name : '') + ': <b>' + d + '</b><br/>';
+          });
+          return h;
+        }
+      },
+      legend: { top: 0, data: items.map(i => i.name), textStyle: { fontSize: 11 } },
+      grid: { top: 46, left: 60, right: 60, bottom: 30 },
+      xAxis: { type: 'category', data: GROUPS, axisLabel: { fontSize: 11 } },
+      yAxis: [
+        { type: 'value', name: '换手率', min: 0, max: 3.5, axisLabel: { fontSize: 11 } },
+        // 右轴 min 0 / max 1.8：0 点与左轴（0~3.5）天然对齐。
+        // max 取 1.8 以容纳 RMD 最大值 1.7459（且慢单基金，缺失值修复后上升）。
+        { type: 'value', name: 'PCI/RMD', min: 0, max: 1.8, axisLabel: { fontSize: 11 } }
+      ],
+      series: [
+      {name: '个人换手率', type: 'bar', yAxisIndex: 0, itemStyle: {color: '#1890ff'}, data: items[0].vals},
+      {name: 'PCI 集中度', type: 'bar', yAxisIndex: 1, itemStyle: {color: '#52c41a'}, data: items[1].vals},
+      {name: 'RMD 风险错配', type: 'bar', yAxisIndex: 1, itemStyle: {color: '#fa8c16'}, data: items[2].vals}
+      ]
+    });
+  }
+  {
+    const GROUPS = ["长赢用户", "壹钱包APP", "7分钟理财", "且慢单基金用户", "东方金匠", "五剑用户", "财商邦", "钱耳朵"];
+    const items = [
+      {name: '顺势交易笔数', vals: [181.60,26.70,510.20,255.60,14.10,122.10,48.50,60.50]},
+      {name: '总可判定笔数', vals: [418.40,57.70,1132.90,563.10,28.10,265.10,116.20,155.20]}
+    ];
+    // 不加权顺势笔数占比（仅 ≥10 笔用户）
+    const ratio = [0.4340,0.4631,0.4503,0.4540,0.5025,0.4607,0.4175,0.3896];
+    // HSI 牛熊加权值（仅 ≥10 笔用户；≠ 上面的不加权占比，两者并列展示以体现加权效应）
+    const hsiW = [0.4409,0.4290,0.4672,0.4663,0.5167,0.4710,0.4335,0.3749];
+    echarts.init(document.getElementById("chart-ind-HSI")).setOption({
+      tooltip: { trigger: 'axis', axisPointer: {type: 'shadow'},
+        formatter: function(params) {
+          const arr = Array.isArray(params) ? params : [params];
+          let h = '<b>' + GROUPS[arr[0].dataIndex] + '</b><br/>';
+          arr.forEach(p => {
+            if (p.seriesName === 'HSI(牛熊加权)') {
+              // HSI 为加权指数值（0~1），不按百分比展示，避免与不加权占比混淆
+              h += p.marker + ' ' + p.seriesName + ': <b>' + p.value.toFixed(4) + '</b><br/>';
+            } else if (p.seriesType === 'line') {
+              h += p.marker + ' ' + p.seriesName + ': <b>' + (p.value*100).toFixed(2) + '%</b><br/>';
+            } else {
+              const it = items[p.seriesIndex];
+              const v = it ? it.vals[p.dataIndex] : 0;
+              h += p.marker + ' ' + (it ? it.name : '') + ': <b>' + (v.toFixed(2)) + '</b><br/>';
+            }
+          });
+          return h;
+        }
+      },
+      legend: { top: 0, data: ['顺势交易笔数', '总可判定笔数', '顺势笔数占比(不加权)', 'HSI(牛熊加权)'], textStyle: { fontSize: 11 } },
+      grid: { top: 46, left: 60, right: 60, bottom: 30 },
+      xAxis: { type: 'category', data: GROUPS, axisLabel: { fontSize: 11 } },
+      yAxis: [
+        // 左轴容纳 7分钟理财人均可判定笔数 1096.7
+        { type: 'value', name: '笔数', min: 0, max: 1200, axisLabel: { fontSize: 11 } },
+        // 右轴同时承载「不加权占比」与「HSI 加权值」，两者同为 0~1 量纲故可共轴；
+        // 修正原 formatter '{value}%'（会把 0.7 显示为 0.7%），改为 ×100 后显示
+        { type: 'value', name: '占比/指数', min: 0.3, max: 0.56, axisLabel: { formatter: v => (v*100).toFixed(0) + '%', fontSize: 11 }, splitLine: { show: false } }
+      ],
+      series: [
+      {name: '顺势交易笔数', type: 'bar', yAxisIndex: 0, itemStyle: {color: '#1890ff'}, data: items[0].vals},
+      {name: '总可判定笔数', type: 'bar', yAxisIndex: 0, itemStyle: {color: '#13c2c2'}, data: items[1].vals},
+      {name: '顺势笔数占比(不加权)', type: 'line', yAxisIndex: 1, itemStyle: {color: '#722ed1'}, lineStyle: {width: 2, color: '#722ed1'}, symbol: 'circle', symbolSize: 8,
+        data: ratio,
+        label: {show: true, formatter: c => (c.value*100).toFixed(1) + '%', fontSize: 10, position: 'top'}},
+      {name: 'HSI(牛熊加权)', type: 'line', yAxisIndex: 1, itemStyle: {color: '#fa8c16'}, lineStyle: {width: 2, color: '#fa8c16', type: 'dashed'}, symbol: 'diamond', symbolSize: 8,
+        data: hsiW,
+        label: {show: true, formatter: c => c.value.toFixed(3), fontSize: 10, position: 'bottom', color: '#fa8c16'}}
+      ]
+    });
+  }
+  {
+    const GROUPS = ["长赢用户", "壹钱包APP", "7分钟理财", "且慢单基金用户", "东方金匠", "五剑用户", "财商邦", "钱耳朵"];
+    const items = [
+      {name: '理论权益占比%', vals: [60.17,36.94,54.21,55.91,51.01,59.47,56.13,51.61]},
+      {name: '实际权益占比%', vals: [60.88,16.08,41.65,40.43,32.76,52.02,42.97,47.56]}
+    ];
+    // 缺口不再由上面两条柱值相减推导：柱值已四舍五入到 2 位，相减会与
+    // 「先求均值再相减」的精确值差 0.01（如壹钱包 20.86 vs 20.87）。
+    // 此处直接给精确值，保证图 / 表 / 正文三处完全一致。
+    const gap = [-0.71, 20.87, 12.56, 15.48, 18.24, 7.45, 13.15, 4.05];
+    echarts.init(document.getElementById("chart-ind-EAD")).setOption({
+      tooltip: { trigger: 'axis', axisPointer: {type: 'shadow'},
+        formatter: function(params) {
+          const arr = Array.isArray(params) ? params : [params];
+          let h = '<b>' + GROUPS[arr[0].dataIndex] + '</b><br/>';
+          arr.forEach(p => {
+            if (p.seriesType === 'line') {
+              h += p.marker + ' ' + p.seriesName + ': <b>' + p.value.toFixed(2) + ' pp</b><br/>';
+            } else {
+              const it = items[p.seriesIndex];
+              const v = it ? it.vals[p.dataIndex] : 0;
+              h += p.marker + ' ' + (it ? it.name : '') + ': <b>' + v.toFixed(2) + '%</b><br/>';
+            }
+          });
+          return h;
+        }
+      },
+      legend: { top: 0, data: ['理论权益占比%', '实际权益占比%', '缺口（pp）'], textStyle: { fontSize: 11 } },
+      grid: { top: 46, left: 60, right: 60, bottom: 30 },
+      xAxis: { type: 'category', data: GROUPS, axisLabel: { fontSize: 11 } },
+      yAxis: [
+        { type: 'value', name: '占比%', min: 0, max: 70, axisLabel: { formatter: '{value}%', fontSize: 11 } },
+        // 缺口下限设为 -4：长赢缺口为 -0.71pp（实际权益反超理论），下限为 0 会把该点截掉
+        { type: 'value', name: '缺口 pp', min: -4, max: 24, axisLabel: { formatter: '{value} pp', fontSize: 11 }, splitLine: { show: false } }
+      ],
+      series: [
+      {name: '理论权益占比%', type: 'bar', yAxisIndex: 0, itemStyle: {color: '#1890ff'}, data: items[0].vals},
+      {name: '实际权益占比%', type: 'bar', yAxisIndex: 0, itemStyle: {color: '#13c2c2'}, data: items[1].vals},
+      {name: '缺口（pp）', type: 'line', yAxisIndex: 1, itemStyle: {color: '#722ed1'}, lineStyle: {width: 2, color: '#722ed1'}, symbol: 'circle', symbolSize: 8,
+        data: gap,
+        label: {show: true, formatter: c => c.value.toFixed(1) + ' pp', fontSize: 11, position: 'top'}}
+      ]
+    });
+  }
+  {
+    const GROUPS = ["长赢用户", "壹钱包APP", "7分钟理财", "且慢单基金用户", "东方金匠", "五剑用户", "财商邦", "钱耳朵"];
+    const items = [
+      {name: '盈利变现率 PGR%', vals: [81.07,86.81,84.16,85.86,38.29,77.40,69.19,61.75]},
+      {name: '亏损变现率 PLR%', vals: [76.08,68.02,71.23,61.43,68.81,72.27,77.29,68.41]},
+      {name: 'DR 原始值(PGR−PLR, pp)', vals: [4.99,18.79,12.93,24.43,-30.52,5.14,-8.10,-6.66]}
+    ];
+    echarts.init(document.getElementById("chart-ind-DR")).setOption({
+      tooltip: { trigger: 'axis', axisPointer: {type: 'shadow'}, formatter: function(params) { const arr = Array.isArray(params) ? params : [params]; let h = '<b>' + GROUPS[arr[0].dataIndex] + '</b><br/>'; arr.forEach(p => { const it = items[p.seriesIndex]; const v = it ? it.vals[p.dataIndex] : 0; const unit = (it && it.name.indexOf('pp') >= 0) ? ' pp' : '%'; h += (p.marker || '') + (it ? it.name : '') + ': <b>' + v.toFixed(2) + unit + '</b><br/>'; }); return h; } },
+      legend: { top: 0, data: items.map(i => i.name), textStyle: { fontSize: 11 } },
+      grid: { top: 46, left: 60, right: 55, bottom: 30 },
+      xAxis: { type: 'category', data: GROUPS, axisLabel: { fontSize: 11 } },
+      yAxis: [
+        { type: 'value', name: '变现率%', min: 0, max: 100, axisLabel: { formatter: '{value}%', fontSize: 11 } },
+        { type: 'value', name: 'PGR−PLR (pp)', min: -35, max: 40, splitLine: {show: false}, axisLabel: { fontSize: 11 } }
+      ],
+      series: [
+      {name: '盈利变现率 PGR%', type: 'bar', itemStyle: {color: '#1890ff'}, data: items[0].vals},
+      {name: '亏损变现率 PLR%', type: 'bar', itemStyle: {color: '#13c2c2'}, data: items[1].vals},
+      {name: 'DR 原始值(PGR−PLR, pp)', type: 'line', yAxisIndex: 1, symbol: 'circle', symbolSize: 7, itemStyle: {color: '#722ed1'}, lineStyle: {width: 2.5}, data: items[2].vals}
+      ]
+    });
+  }
+  {
+    const GROUPS = ["长赢用户", "壹钱包APP", "7分钟理财", "且慢单基金用户", "东方金匠", "五剑用户", "财商邦", "钱耳朵"];
+    const apd_items = [
+      {name: '半年前已持仓标的数', vals: [4.12,2.66,8.36,7.56,2.12,4.40,4.03,3.08]},
+      {name: '当前持仓标的数', vals: [5.47,3.32,10.04,9.84,2.89,6.07,4.90,3.37]}
+    ];
+    const anchor_items = [
+      {name: '人均累计总卖出笔数', vals: [199.5,15.0,442.6,140.6,35.1,164.9,113.7,89.3]},
+      {name: '人均累计回本卖出笔数', vals: [131.5,13.4,299.3,100.4,29.8,96.9,78.5,48.7]}
+    ];
+    const apd_ratio = [65.91,89.46,67.62,71.41,85.02,58.79,69.01,54.55];
+    echarts.init(document.getElementById("chart-ind-APD")).setOption({
+      tooltip: { trigger: 'axis', axisPointer: {type: 'shadow'},
+        formatter: function(params) {
+          const arr = Array.isArray(params) ? params : [params];
+          let h = '<b>' + GROUPS[arr[0].dataIndex] + '</b><br/>';
+          arr.forEach(p => {
+            const nm = p.seriesName;
+            if (nm === '累计回本卖出比例') {
+              h += p.marker + ' ' + nm + ': <b>' + p.value.toFixed(2) + '%</b><br/>';
+            } else if (nm === '半年前已持仓标的数' || nm === '当前持仓标的数') {
+              h += p.marker + ' ' + nm + ': <b>' + p.value.toFixed(2) + '</b><br/>';
+            } else {
+              h += p.marker + ' ' + nm + ': <b>' + p.value.toFixed(0) + ' 笔/人</b><br/>';
+            }
+          });
+          return h;
+        }
+      },
+      legend: { top: 0, data: ['半年前已持仓标的数', '当前持仓标的数', '人均累计总卖出笔数', '人均累计回本卖出笔数', '累计回本卖出比例'], textStyle: { fontSize: 11 } },
+      grid: [
+        { top: 46, left: 60, right: 60, height: 110 },
+        { top: 210, left: 60, right: 60, height: 110 }
+      ],
+      xAxis: [
+        { gridIndex: 0, type: 'category', data: GROUPS, axisLabel: { show: false }, axisTick: { show: false } },
+        { gridIndex: 1, type: 'category', data: GROUPS, axisLabel: { fontSize: 11, interval: 0, rotate: 30 } }
+      ],
+      yAxis: [
+        { gridIndex: 0, type: 'value', name: '标的数', min: 0, max: 12, axisLabel: { fontSize: 11 } },
+        { gridIndex: 1, type: 'value', name: '累计笔/人', min: 0, max: 500, axisLabel: { fontSize: 11 } },
+        { gridIndex: 1, type: 'value', name: '比例', min: 0, max: 100, axisLabel: { formatter: '{value}%', fontSize: 11 }, splitLine: { show: false } }
+      ],
+      series: [
+      {name: '半年前已持仓标的数', type: 'bar', xAxisIndex: 0, yAxisIndex: 0, itemStyle: {color: '#1890ff'}, data: apd_items[0].vals},
+      {name: '当前持仓标的数', type: 'bar', xAxisIndex: 0, yAxisIndex: 0, itemStyle: {color: '#13c2c2'}, data: apd_items[1].vals},
+      {name: '人均累计总卖出笔数', type: 'bar', xAxisIndex: 1, yAxisIndex: 1, itemStyle: {color: '#2f54eb'}, data: anchor_items[0].vals},
+      {name: '人均累计回本卖出笔数', type: 'bar', xAxisIndex: 1, yAxisIndex: 1, itemStyle: {color: '#faad14'}, data: anchor_items[1].vals},
+      {name: '累计回本卖出比例', type: 'line', xAxisIndex: 1, yAxisIndex: 2, itemStyle: {color: '#722ed1'}, lineStyle: {width: 2, color: '#722ed1'}, symbol: 'circle', symbolSize: 8,
+        data: apd_ratio,
+        label: {show: true, formatter: c => c.value.toFixed(1) + '%', fontSize: 11, position: 'top'}}
+      ]
+    });
+  }
+  {
+    const GROUPS = ["长赢用户", "壹钱包APP", "7分钟理财", "且慢单基金用户", "东方金匠", "五剑用户", "财商邦", "钱耳朵"];
+    const items = [
+      {name: '实际跟投有效调仓', vals: [120.08,6.51,214.08,42.65,5.87,60.76,22.95,94.17], scale: 1},
+      {name: '持仓期应调仓总次数', vals: [193.49,10.87,249.94,74.35,5.92,81.95,23.83,107.68], scale: 1}
+    ];
+    // 实际跟投比例 = 实际有效调仓 / 应调仓总次数（均值比口径，与两根柱对应），单位 %
+    // 仅限有调仓历史用户（hsbi_norm IS NOT NULL）
+    const followRatio = [62.1,59.9,85.7,57.4,99.2,74.1,96.3,87.5];
+    // 覆盖率 = 该人群「应调仓总次数>0（即有调仓历史）」用户数 ÷ 该人群本版用户数
+    const hsbiCov = [100,3.2,75.1,38.8,93.0,88.0,92.6,97.7];
+    echarts.init(document.getElementById("chart-ind-HSBI")).setOption({
+      tooltip: { trigger: 'axis', axisPointer: {type: 'shadow'}, formatter: function(params) { const arr = Array.isArray(params) ? params : [params]; const gi = arr[0].dataIndex; let h = '<b>' + GROUPS[gi] + '</b>（覆盖率 ' + hsbiCov[gi] + '%）<br/>'; arr.forEach(p => { if (p.seriesType === 'line') { h += (p.marker || '') + '实际跟投比例: <b>' + p.value.toFixed(1) + '%</b><br/>'; return; } const it = items[p.seriesIndex]; const v = it ? it.vals[p.dataIndex] : 0; const d = (v.toFixed(2)); h += (p.marker || '') + (it ? it.name : '') + ': <b>' + d + '</b><br/>'; }); return h; } },
+      legend: { top: 0, data: ['实际跟投有效调仓', '持仓期应调仓总次数', '实际跟投比例'], textStyle: { fontSize: 11 } },
+      grid: { top: 46, left: 60, right: 55, bottom: 46 },
+      xAxis: { type: 'category', data: GROUPS, axisLabel: { fontSize: 11, interval: 0, lineHeight: 14,
+        formatter: (v, i) => '{n|' + v + '}\n{c|' + hsbiCov[i] + '%}',
+        rich: { n: { fontSize: 11, color: '#333', lineHeight: 15 }, c: { fontSize: 10, color: '#8c8c8c', lineHeight: 13 } } } },
+      yAxis: [
+        { type: 'value', name: '数值' },
+        { type: 'value', name: '跟投比例%', min: 0, max: 100, axisLabel: { formatter: v => v + '%' }, splitLine: { show: false } }
+      ],
+      series: [
+      {name: '实际跟投有效调仓', type: 'bar', itemStyle: {color: '#1890ff'}, data: items[0].vals},
+      {name: '持仓期应调仓总次数', type: 'bar', itemStyle: {color: '#13c2c2'}, data: items[1].vals},
+      {name: '实际跟投比例', type: 'line', yAxisIndex: 1, itemStyle: {color: '#722ed1'}, lineStyle: {width: 2, color: '#722ed1'}, symbol: 'circle', symbolSize: 7, data: followRatio,
+        label: {show: true, formatter: c => c.value.toFixed(1) + '%', fontSize: 10, position: 'top', color: '#722ed1'}}
+      ]
+    });
+  }
+  {
+    const GROUPS = ["长赢用户", "壹钱包APP", "7分钟理财", "且慢单基金用户", "东方金匠", "五剑用户", "财商邦", "钱耳朵"];
+    const rsi_items = [
+      {name: 'RSI 均值', vals: [-0.0205,0.0002,-0.0022,0.0012,0.0042,0.0039,0.0001,-0.0076]}
+    ];
+    const rsi_pos = [33.28,51.09,48.63,50.39,55.64,53.51,50.84,43.39];
+    echarts.init(document.getElementById("chart-ind-RSI")).setOption({
+      tooltip: { trigger: 'axis', axisPointer: {type: 'shadow'},
+        formatter: function(params) {
+          const arr = Array.isArray(params) ? params : [params];
+          let h = '<b>' + GROUPS[arr[0].dataIndex] + '</b><br/>';
+          arr.forEach(p => {
+            const nm = p.seriesName;
+            if (nm === '正相关用户占比') {
+              h += p.marker + ' ' + nm + ': <b>' + p.value.toFixed(2) + '%</b><br/>';
+            } else {
+              h += p.marker + ' ' + nm + ': <b>' + p.value.toFixed(4) + '</b><br/>';
+            }
+          });
+          return h;
+        }
+      },
+      legend: { top: 0, data: ['RSI 均值', '正相关用户占比'], textStyle: { fontSize: 11 } },
+      grid: { top: 46, left: 60, right: 60, bottom: 60 },
+      xAxis: { type: 'category', data: GROUPS, axisLabel: { fontSize: 11, interval: 0, rotate: 30 } },
+      yAxis: [
+        { type: 'value', name: '相关系数', min: -0.035, max: 0.01, axisLabel: { fontSize: 11 } },
+        { type: 'value', name: '占比', min: 20, max: 60, axisLabel: { formatter: '{value}%', fontSize: 11 } }
+      ],
+      series: [
+      {name: 'RSI 均值', type: 'bar', yAxisIndex: 0, barWidth: 20, itemStyle: {color: '#52c41a'}, data: rsi_items[0].vals},
+      {name: '正相关用户占比', type: 'line', yAxisIndex: 1, itemStyle: {color: '#fa8c16'}, lineStyle: {width: 2, color: '#fa8c16'}, symbol: 'circle', symbolSize: 8,
+        data: rsi_pos,
+        label: {show: true, formatter: c => c.value.toFixed(1) + '%', fontSize: 10, position: 'top'}}
+      ]
+    });
+  }
+  {
+    const GROUPS = ["长赢用户", "壹钱包APP", "7分钟理财", "且慢单基金用户", "东方金匠", "五剑用户", "财商邦", "钱耳朵"];
+    const items = [
+      {name: '近1年跟投率 FTR%', vals: [0.5749,0.6819,0.6350,0.4671,0.9559,0.7222,0.9537,0.9110], scale: 100},
+      {name: '选择性跟投 SFIB%', vals: [0.1465,0.6028,0.0879,0.1362,0.4401,0.3735,0.4238,0.0743], scale: 100},
+      {name: '平均滞后天数', vals: [0.0558,0.6163,0.0497,0.5400,0.3380,0.2770,0.1855,0.0470], scale: 1}
+    ];
+    echarts.init(document.getElementById("chart-ind-FIII")).setOption({
+      tooltip: { trigger: 'axis', axisPointer: {type: 'shadow'}, formatter: function(params) { const arr = Array.isArray(params) ? params : [params]; let h = '<b>' + GROUPS[arr[0].dataIndex] + '</b><br/>'; arr.forEach(p => { const it = items[p.seriesIndex]; const v = it ? it.vals[p.dataIndex] : 0; const d = it && it.scale === 100 ? (v*100).toFixed(2)+'%' : (v.toFixed(2)); h += (p.marker || '') + (it ? it.name : '') + ': <b>' + d + '</b><br/>'; }); return h; } },
+      legend: { top: 0, data: items.map(i => i.name), textStyle: { fontSize: 11 } },
+      grid: { top: 46, left: 60, right: 30, bottom: 30 },
+      xAxis: { type: 'category', data: GROUPS, axisLabel: { fontSize: 11 } },
+      yAxis: [
+        { type: 'value', name: '占比 (%)' },
+        { type: 'value', name: '天数', min: 0, max: 1 }
+      ],
+      series: [
+      {name: '近1年跟投率 FTR%', type: 'bar', yAxisIndex: 0, itemStyle: {color: '#1890ff'}, data: items[0].vals.map(v => +(v * 100).toFixed(2))},
+      {name: '选择性跟投 SFIB%', type: 'bar', yAxisIndex: 0, itemStyle: {color: '#13c2c2'}, data: items[1].vals.map(v => +(v * 100).toFixed(2))},
+      {name: '平均滞后天数', type: 'bar', yAxisIndex: 1, itemStyle: {color: '#52c41a'}, data: items[2].vals}
+      ]
+    });
+  }
+  {
+    const GROUPS = ["长赢用户", "壹钱包APP", "7分钟理财", "且慢单基金用户", "东方金匠", "五剑用户", "财商邦", "钱耳朵"];
+    echarts.init(document.getElementById("chart-ind-CONC")).setOption({
+      tooltip: { trigger: 'axis', axisPointer: {type: 'shadow'},
+        formatter: function(params) {
+          const arr = Array.isArray(params) ? params : [params];
+          let h = '<b>' + GROUPS[arr[0].dataIndex] + '</b><br/>';
+          arr.forEach(p => {
+            const nm = p.seriesName;
+            if (nm === '买入集中度' || nm === '单产品占总买入比例') {
+              h += p.marker + ' ' + nm + ': <b>' + (p.value * 100).toFixed(1) + '%</b><br/>';
+            } else {
+              h += p.marker + ' ' + nm + ': <b>' + p.value.toFixed(2) + '</b><br/>';
+            }
+          });
+          return h;
+        }
+      },
+      legend: { top: 0, data: ['买过不同基金只数', '买入集中度(比值之均值)', '单产品占总买入比例(均值之比)'], textStyle: { fontSize: 10 } },
+      grid: { top: 46, left: 50, right: 60, bottom: 50 },
+      xAxis: { type: 'category', data: GROUPS, axisLabel: { fontSize: 10, interval: 0, rotate: 30 } },
+      yAxis: [
+        // 底层基金维度后基金只数量级大幅上升（7分钟 138.83），上限由 30 调为 150
+        { type: 'value', name: '基金只数', min: 0, max: 150, axisLabel: { fontSize: 10 } },
+        { type: 'value', name: '占比', min: 0, max: 0.6, axisLabel: { fontSize: 10 } }
+      ],
+      series: [
+      {name: '买过不同基金只数', type: 'bar', yAxisIndex: 0, barWidth: 14, itemStyle: {color: '#1890ff'}, data: [72.40,10.28,140.87,37.19,81.54,92.33,55.96,74.16]},
+      {name: '买入集中度(比值之均值)', type: 'line', yAxisIndex: 1, itemStyle: {color: '#722ed1'}, lineStyle: {width: 2, color: '#722ed1'}, symbol: 'diamond', symbolSize: 6,
+        data: [0.1144,0.5020,0.0832,0.3951,0.0399,0.0693,0.0726,0.0851],
+        label: {show: true, formatter: c => (c.value * 100).toFixed(1) + '%', fontSize: 9, position: 'top'}},
+      {name: '单产品占总买入比例(均值之比)', type: 'line', yAxisIndex: 1, itemStyle: {color: '#fa8c16'}, lineStyle: {width: 2, color: '#fa8c16', type: 'dashed'}, symbol: 'circle', symbolSize: 6,
+        data: [0.0715,0.1869,0.0338,0.0992,0.0300,0.0499,0.0561,0.0598],
+        label: {show: true, formatter: c => (c.value * 100).toFixed(1) + '%', fontSize: 9, position: 'bottom'}}
+      ]
+    });
+    echarts.init(document.getElementById("chart-ind-CONC-LOSS")).setOption({
+      tooltip: { trigger: 'axis', axisPointer: {type: 'shadow'},
+        formatter: function(params) {
+          const arr = Array.isArray(params) ? params : [params];
+          let h = '<b>' + GROUPS[arr[0].dataIndex] + '</b><br/>';
+          arr.forEach(p => { h += p.marker + ' ' + p.seriesName + ': <b>' + (p.value * 100).toFixed(2) + '%</b><br/>'; });
+          return h;
+        }
+      },
+      legend: { top: 0, data: ['亏损加仓率'], textStyle: { fontSize: 10 } },
+      grid: { top: 46, left: 60, right: 60, bottom: 50 },
+      xAxis: { type: 'category', data: GROUPS, axisLabel: { fontSize: 10, interval: 0, rotate: 30 } },
+      yAxis: { type: 'value', name: '亏损加仓率', min: 0, max: 0.5, axisLabel: { formatter: '{value}', fontSize: 10 } },
+      series: [
+      {name: '亏损加仓率', type: 'line', itemStyle: {color: '#fa541c'}, lineStyle: {width: 2, color: '#fa541c'}, symbol: 'circle', symbolSize: 8,
+        data: [0.2836,0.1212,0.3202,0.3063,0.2299,0.2847,0.2968,0.4494],
+        label: {show: true, formatter: c => (c.value * 100).toFixed(1) + '%', fontSize: 10, position: 'top'},
+        markLine: {silent: true, data: [{yAxis: 0.2865, label: {formatter: '均值 28.7%', position: 'end', color: '#999'}, lineStyle: {color: '#999', type: 'dashed'}}]}}
+      ]
+    });
+  }
+
+  // §3.1 基础特征图 1：人均持仓金额 均值 vs 中位数（万元，历史至今日均持仓市值）
+  {
+    const GROUPS = ["长赢用户", "壹钱包APP", "7分钟理财", "且慢单基金用户", "东方金匠", "五剑用户", "财商邦", "钱耳朵"];
+    const assetAvg = [11.64, 7.28, 21.01, 11.33, 44.58, 18.64, 10.41, 16.09];
+    const assetMed = [4.20, 4.28, 7.79, 2.50, 19.71, 4.44, 3.13, 7.07];
+    echarts.init(document.getElementById("chart-basic-asset")).setOption({
+      tooltip: {trigger: 'axis', axisPointer: {type: 'shadow'}, valueFormatter: v => v.toFixed(2) + ' 万元'},
+      legend: {data: ['均值', '中位数'], top: 0, itemWidth: 14, itemHeight: 9, textStyle: {fontSize: 11}},
+      grid: {left: 60, right: 30, top: 34, bottom: 56},
+      xAxis: {type: 'category', data: GROUPS, axisLabel: {fontSize: 10, interval: 0, rotate: 22}},
+      yAxis: {type: 'value', name: '万元', nameTextStyle: {fontSize: 11}, axisLabel: {formatter: '{value}'}},
+      series: [
+        {name: '均值', type: 'bar', data: assetAvg, itemStyle: {color: '#1890ff'},
+         label: {show: true, position: 'top', formatter: c => c.value.toFixed(1), fontSize: 10}},
+        {name: '中位数', type: 'bar', data: assetMed, itemStyle: {color: '#52c41a'},
+         label: {show: true, position: 'top', formatter: c => c.value.toFixed(1), fontSize: 10}}
+      ]
+    });
+  }
+
+  // §3.1 基础特征图 2：人均交易笔数（柱，左轴）+ 人均交易金额（折线，右轴万元，穿透口径）
+  {
+    const GROUPS = ["长赢用户", "壹钱包APP", "7分钟理财", "且慢单基金用户", "东方金匠", "五剑用户", "财商邦", "钱耳朵"];
+    const txnCnt = [414.1, 26.7, 1196.4, 392.3, 21.7, 258.4, 140.7, 188.7];
+    const txnAmt = [111.24, 48.78, 287.37, 144.46, 141.34, 214.28, 101.41, 122.92];
+    echarts.init(document.getElementById("chart-basic-txn")).setOption({
+      tooltip: {trigger: 'axis', axisPointer: {type: 'cross'},
+        formatter: function(params) {
+          var s = '<b>' + params[0].name + '</b>';
+          params.forEach(function(p) {
+            s += '<br>' + p.marker + p.seriesName + ': <b>' +
+                 (p.seriesName === '人均交易笔数' ? p.value.toFixed(1) + ' 笔' : p.value.toFixed(2) + ' 万元') + '</b>';
+          });
+          return s;
+        }},
+      legend: {data: ['人均交易笔数', '人均交易金额'], top: 0, itemWidth: 14, itemHeight: 9, textStyle: {fontSize: 11}},
+      grid: {left: 60, right: 62, top: 34, bottom: 56},
+      xAxis: {type: 'category', data: GROUPS, axisLabel: {fontSize: 10, interval: 0, rotate: 22}},
+      yAxis: [
+        {type: 'value', name: '笔', nameTextStyle: {fontSize: 11}, axisLabel: {fontSize: 10}},
+        {type: 'value', name: '万元', nameTextStyle: {fontSize: 11}, axisLabel: {fontSize: 10}, splitLine: {show: false}}
+      ],
+      series: [
+        {name: '人均交易笔数', type: 'bar', yAxisIndex: 0, data: txnCnt, itemStyle: {color: '#1890ff'},
+         label: {show: true, position: 'top', formatter: c => c.value.toFixed(0), fontSize: 10}},
+        {name: '人均交易金额', type: 'line', yAxisIndex: 1, data: txnAmt, smooth: true,
+         lineStyle: {color: '#fa8c16', width: 2}, itemStyle: {color: '#fa8c16'}, symbolSize: 6,
+         label: {show: true, position: 'bottom', formatter: c => c.value.toFixed(0), fontSize: 10, color: '#fa8c16'}}
+      ]
+    });
+  }
+})();
+</script>
+
+
+</body>
+</html>
