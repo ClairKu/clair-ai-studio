@@ -422,6 +422,20 @@ const initialState = {
       tags: ["顾问工作台", "深色版", "主视觉", "交互原型"],
     },
     {
+      id: "qieman-pension-product-analysis-2026-09-21",
+      groupId: "growth-insights",
+      title: "且慢养老产品数据分析｜颐养天年专项",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-pension-product-analysis-2026-09-21/",
+      preview: "qieman-pension-product-analysis-2026-09-21.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-24T09:00:00+08:00",
+      source: "2026-09-21 原始养老产品数据报告的完整工作台副本｜覆盖开户、签约、交易、保有、资金流、用户年龄与风险等级、养老产品持仓、账户收益及样例组合表现｜公开脱敏版已移除内部地址、访问凭证、库表字段、接口与个人身份信息｜历史业绩不代表未来，不构成收益承诺或投资建议｜2026-09-24 经用户明确授权发布",
+      access: "production",
+      workType: "analysis",
+      tags: ["且慢", "养老", "颐养天年", "个人养老金", "经营分析", "用户画像", "资金流", "资产规模", "历史业绩", "数据报告", "HTML", "生产"],
+    },
+    {
       id: "doubao-user-conversion-cases-2026-09-20",
       groupId: "growth-insights",
       title: "豆包用户转化个例分析",
@@ -2854,6 +2868,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "qieman-pension-product-analysis-2026-09-21": "data-analysis",
   "qieman-pension-unification-2026-09-22": "product-planning",
   "weekly-ai-output-audit-2026-09-22": "reporting",
   "ycc-oap-upgrade-package-2026-09-22": "product-planning",
@@ -2953,6 +2968,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "qieman-pension-product-analysis-2026-09-21": "growth-insights",
   "qieman-pension-unification-2026-09-22": "pension-planning",
   "weekly-ai-output-audit-2026-09-22": "reporting",
   "ycc-oap-upgrade-package-2026-09-22": "ai-platform",

@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "qieman-pension-product-analysis-2026-09-21",
     "qieman-pension-unification-2026-09-22",
     "weekly-ai-output-audit-2026-09-22",
     "ycc-oap-upgrade-package-2026-09-22",
