@@ -201,6 +201,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "qieman-four-money-redesign-2026-09-24",
+      groupId: "product-planning",
+      title: "且慢「投顾」Tab · 四笔钱改造｜投顾 2.0 服务区 + 四笔钱风险货架（晨星风险分）+ 严选 + 搜产品 + AI 小顾 + 工具卡片",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-four-money-redesign-2026-09-24/",
+      preview: "qieman-four-money-redesign-2026-09-24.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-24T15:50:00+08:00",
+      source: "依据《四笔钱改造方案》原型做成单机可交互的高保真效果图：顶部投顾 2.0 服务区（投资规划滑块 / 养老规划三输入测算 / 其他目标 / 先规划资金，直接嵌入生产微应用）｜且慢四笔钱货架整合「策略风险分布」地图：横轴晨星风险分 0–100（五档阈值同账户诊断），拖动双端滑块按 1 分颗粒度筛选，四笔钱策略全部带名称、定制方案系列以淡金落点 + 最优点标注，「哪个适合我」读取用户舒适区 comfortRange；四个分类下滑吸顶｜严选策略独立横滑入口 + 列表页（分组 / 风险五档 / 机构 / 排序），并可在地图切「四笔钱 + 严选」｜升级版搜产品：历史 · 热搜 · 按场景找 · 联想 · 分组结果（策略 / 主理机构 / 基金 / 工具 / 保险 / 内容）· 风险五档 facet · 场景理解 · 问小顾｜AI 小顾悬浮条轮播提问，点文字编辑、点箭头带问进入小顾 3.0 全页（首屏问候 / 快捷入口 / 线上 38 条推荐问题 / 打字式回复 + 推荐策略卡）｜应用工具 16 项真实工具（每日估值 09-23、市场温度计、账户诊断、攒钱计划…）+ 添加工具库 + 排序｜「了解四笔钱」介绍页补齐代表产品 / 比例建议 / FAQ｜所有跳转以内嵌 iframe 打开生产页面｜货架 12 卡 + 保险 7 计划 + 严选 16 只、收益指标口径、页面 URL、小顾图标均取自 2026-09-24 生产环境（盈米本体只读查询，收益截至 09-23 净值日）；26 只策略晨星风险分为按持仓穿透的口径估算值（权威值在 MaxCompute fdp_cdm.dwd_model_portfolio_risk_score_1d_full）｜页面底部附生产页面能力盘点：了解四笔钱 / 四笔钱规划 / 策略风险字段 / 舒适区 / 搜索 / 严选 / 工具 / 小顾 的现状、缺口与补齐方案",
+      access: "production",
+      workType: "product-demo",
+      tags: ["且慢", "投顾 Tab", "四笔钱", "晨星风险分", "风险地图", "严选策略", "搜产品", "AI 小顾", "工具卡片", "了解四笔钱", "生产数据", "能力盘点", "交互原型", "HTML", "生产"],
+    },
+    {
       id: "all-ai-output-publication-audit-2026-09-24",
       groupId: "reporting",
       title: "所有 AI 成果报告｜发布完整性复核",
@@ -2894,6 +2908,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "qieman-four-money-redesign-2026-09-24": "product-demo",
   "all-ai-output-publication-audit-2026-09-24": "reporting",
   "qieman-cashflow-product-holding-redesign-2026-09-22": "product-planning",
   "qieman-pension-product-analysis-2026-09-21": "data-analysis",
@@ -2996,6 +3011,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "qieman-four-money-redesign-2026-09-24": "product-planning",
   "all-ai-output-publication-audit-2026-09-24": "reporting",
   "qieman-cashflow-product-holding-redesign-2026-09-22": "product-planning",
   "qieman-pension-product-analysis-2026-09-21": "growth-insights",

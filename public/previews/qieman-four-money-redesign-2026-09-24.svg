@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">且慢「投顾」Tab · 四笔钱改造 高保真交互 DEMO</title>
+  <desc id="desc">投顾 2.0 服务区、四笔钱风险货架（晨星风险分）、严选、搜产品、AI 小顾、标准化工具的单机交互效果图封面</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#E4EFFD"/><stop offset="1" stop-color="#F7FAFF"/></linearGradient>
+    <linearGradient id="track" x1="0" x2="1"><stop stop-color="#E3EEFA"/><stop offset=".25" stop-color="#C9DEF6"/><stop offset=".5" stop-color="#9CC6F1"/><stop offset=".65" stop-color="#5FA7EB"/><stop offset="1" stop-color="#1B88EE"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#1F3878" flood-opacity=".14"/></filter>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <circle cx="1060" cy="90" r="240" fill="#1B88EE" opacity=".07"/>
+  <g transform="translate(75 62)" font-family="PingFang SC,Microsoft YaHei,sans-serif">
+    <rect width="230" height="34" rx="17" fill="#1B88EE" opacity=".1"/>
+    <text x="115" y="23" text-anchor="middle" font-size="15" font-weight="700" fill="#1B6FD0">且慢 App · 投顾 Tab 改造</text>
+    <text y="108" font-size="54" font-weight="800" fill="#1F2633">四笔钱货架 × 晨星风险分</text>
+    <text y="154" font-size="22" fill="#4E5869">投顾 2.0 服务区 · 风险地图筛选 · 严选策略</text><text y="186" font-size="22" fill="#4E5869">搜产品 · AI 小顾 · 标准化工具卡片</text>
+    <g transform="translate(0 226)" font-size="14" fill="#4E5869">
+      <rect width="118" height="30" rx="15" fill="#fff" stroke="#D9E6F6"/><text x="59" y="20" text-anchor="middle">线上真实货架</text>
+      <rect x="128" width="118" height="30" rx="15" fill="#fff" stroke="#D9E6F6"/><text x="187" y="20" text-anchor="middle">严选 16 只</text>
+      <rect x="256" width="150" height="30" rx="15" fill="#fff" stroke="#D9E6F6"/><text x="331" y="20" text-anchor="middle">每日估值 · 温度计</text>
+      
+    </g>
+    <text y="316" font-size="15" fill="#8A93A6">数据来源：2026-09-24 生产环境（盈米本体只读查询）</text><text y="342" font-size="15" fill="#8A93A6">收益截至 09-23 净值日 · 单机可交互 · 跳转内嵌生产页面</text>
+  </g>
+  <g transform="translate(760 40)" filter="url(#shadow)" font-family="PingFang SC,Microsoft YaHei,sans-serif">
+    <rect width="360" height="600" rx="44" fill="#111"/>
+    <rect x="10" y="10" width="340" height="580" rx="36" fill="#ECF4FF"/>
+    <path d="M120 10h120v14a16 16 0 0 1-16 16h-88a16 16 0 0 1-16-16z" fill="#111"/>
+    <text x="34" y="80" font-size="24" font-weight="700" fill="#1c2b3a">且慢投顾</text>
+    <text x="34" y="100" font-size="11" fill="#7D8FA8">帮您在波动市场中实现您的 人生/财富 目标</text>
+    <g transform="translate(26 116)">
+      <rect width="308" height="92" rx="14" fill="#fff"/>
+      <text x="16" y="24" font-size="13" font-weight="700" fill="#1c2b3a">投资规划</text><text x="86" y="24" font-size="12" fill="#8393A8">养老规划</text><text x="146" y="24" font-size="12" fill="#8393A8">其他目标</text><text x="292" y="24" text-anchor="end" font-size="11" fill="#1B88EE">先规划资金 ›</text>
+      <rect x="16" y="44" width="276" height="5" rx="2.5" fill="#E6EEF7"/><rect x="16" y="44" width="70" height="5" rx="2.5" fill="#1B88EE"/><circle cx="86" cy="46.5" r="13" fill="#fff" stroke="#1B88EE" stroke-width="2.5"/><text x="86" y="50" text-anchor="middle" font-size="9" font-weight="700" fill="#1B88EE">4%</text>
+      <text x="16" y="78" font-size="11" font-weight="700" fill="#1c2b3a">目标年化收益4%，可承受亏损3%以上，建议持有1–3 年</text>
+    </g>
+    <text x="34" y="240" font-size="17" font-weight="700" fill="#1c2b3a">且慢四笔钱</text><text x="126" y="240" font-size="10" fill="#8393A8">了解四笔钱 ›</text>
+    <rect x="232" y="226" width="102" height="22" rx="11" fill="#fff" stroke="#DCE7F5"/><text x="283" y="241" text-anchor="middle" font-size="10" fill="#3a4a5e">收起地图 · 搜产品</text>
+    <g transform="translate(26 258)">
+      <rect width="308" height="230" rx="14" fill="#fff"/>
+      <text x="14" y="24" font-size="13" font-weight="700" fill="#1c2b3a">策略风险分布</text><text x="294" y="24" text-anchor="end" font-size="11" fill="#1B88EE">哪个适合我？</text>
+      <g font-size="8" fill="#B5C1D1"><text x="10" y="64">长钱</text><text x="10" y="112">稳钱</text><text x="10" y="160">活钱</text></g>
+      <g stroke="#EEF2F7"><line x1="34" x2="294" y1="61" y2="61"/><line x1="34" x2="294" y1="109" y2="109"/><line x1="34" x2="294" y1="157" y2="157"/></g>
+      <rect x="92" y="40" width="58" height="130" rx="6" fill="#EAF4FF" opacity=".7"/>
+      <g fill="#F3D9A9" opacity=".8"><circle cx="52" cy="166" r="2.6"/><circle cx="70" cy="150" r="2.6"/><circle cx="90" cy="134" r="2.6"/><circle cx="150" cy="100" r="2.6"/><circle cx="178" cy="84" r="2.6"/><circle cx="205" cy="70" r="2.6"/><circle cx="236" cy="58" r="2.6"/><circle cx="262" cy="52" r="2.6"/></g>
+      <circle cx="122" cy="118" r="6" fill="#F2B84B" stroke="#fff" stroke-width="1.5"/><text x="132" y="112" font-size="8" font-weight="700" fill="#B07A16">定制方案系列</text>
+      <g fill="#1B88EE" font-size="8">
+        <circle cx="40" cy="166" r="5"/><text x="48" y="169" fill="#3a4a5e">盈米宝</text>
+        <circle cx="40" cy="150" r="5"/><text x="48" y="153" fill="#3a4a5e">货币三佳</text>
+        <circle cx="50" cy="109" r="5"/><text x="58" y="112" fill="#3a4a5e">花好月圆</text>
+        <circle cx="66" cy="94" r="5"/><text x="74" y="97" fill="#3a4a5e">债基优等生</text>
+        <circle cx="78" cy="124" r="5"/><text x="86" y="127" fill="#3a4a5e">我要稳稳的幸福</text>
+        <circle cx="78" cy="79" r="5"/><text x="86" y="82" fill="#3a4a5e">超级理财加</text>
+        <circle cx="92" cy="61" r="5"/><text x="100" y="64" fill="#3a4a5e">全球丰收</text>
+        <circle cx="112" cy="46" r="5"/><text x="120" y="49" fill="#3a4a5e">春华秋实</text>
+        <circle cx="228" cy="61" r="5"/><text x="236" y="64" fill="#3a4a5e">周周同行</text>
+        <circle cx="256" cy="46" r="5"/><text x="220" y="49" fill="#3a4a5e" text-anchor="end">进取派优选</text>
+      </g>
+      <rect x="22" y="192" width="264" height="7" rx="3.5" fill="url(#track)"/>
+      <circle cx="92" cy="195.5" r="10" fill="#fff" stroke="#1B88EE" stroke-width="2.5"/><circle cx="150" cy="195.5" r="10" fill="#fff" stroke="#1B88EE" stroke-width="2.5"/>
+      <text x="14" y="222" font-size="9" fill="#7D8FA8">晨星风险分 25–47</text><text x="294" y="222" text-anchor="end" font-size="9" fill="#1B88EE">拖动圆点按风险分筛选</text>
+    </g>
+    <g transform="translate(26 500)" font-size="11">
+      <rect width="66" height="26" rx="13" fill="#1B88EE"/><text x="33" y="17" text-anchor="middle" fill="#fff" font-weight="600">活钱管理</text>
+      <rect x="74" width="66" height="26" rx="13" fill="#fff"/><text x="107" y="17" text-anchor="middle" fill="#3a4a5e">短期稳健</text>
+      <rect x="148" width="66" height="26" rx="13" fill="#fff"/><text x="181" y="17" text-anchor="middle" fill="#3a4a5e">长期投资</text>
+      <rect x="222" width="66" height="26" rx="13" fill="#fff"/><text x="255" y="17" text-anchor="middle" fill="#3a4a5e">保险保障</text>
+    </g>
+    <g transform="translate(26 540)">
+      <rect width="308" height="40" rx="20" fill="#fff"/>
+      <circle cx="22" cy="20" r="12" fill="#8FD0FF"/><circle cx="18" cy="19" r="1.6" fill="#1c2b3a"/><circle cx="26" cy="19" r="1.6" fill="#1c2b3a"/>
+      <text x="42" y="25" font-size="12" fill="#1c2b3a">推荐几个回撤小于5%的策略</text>
+      <rect x="264" y="6" width="28" height="28" rx="9" fill="#1B88EE"/><path d="M272 26l12-12M275 14h9v9" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/>
+    </g>
+  </g>
+</svg>
