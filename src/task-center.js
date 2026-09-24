@@ -101,14 +101,23 @@ async function filesToRecords(fileList) {
     const isHtml = /\.html?$/i.test(file.name);
     let excerpt = "";
     let content = "";
-    if (textLike && file.size <= 1024 * 1024) {
+    // Copy bytes out of the file input immediately. A later save must not
+    // wait on the original File: removing or disabling the input can leave
+    // IndexedDB waiting forever for data that will never arrive.
+    let blob = file;
+    if (file.size <= 1024 * 1024) {
       try {
-        const text = await file.text();
-        excerpt = text.slice(0, 12000);
-        if (isHtml) content = text;
+        const bytes = await file.arrayBuffer();
+        blob = new Blob([bytes], { type: file.type || "application/octet-stream" });
+        if (textLike) {
+          const text = new TextDecoder().decode(bytes);
+          excerpt = text.slice(0, 12000);
+          if (isHtml) content = text;
+        }
       } catch {
         excerpt = "";
         content = "";
+        blob = file;
       }
     }
     return {
@@ -123,7 +132,7 @@ async function filesToRecords(fileList) {
       previewMode: presentation.preview,
       excerpt,
       content,
-      blob: file,
+      blob,
     };
   }));
 }

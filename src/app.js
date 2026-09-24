@@ -4954,13 +4954,40 @@ let fileDatabasePromise = null;
 let persistentStorageRequested = false;
 const activeFileObjectUrls = new Set();
 
+const FILE_DATABASE_TIMEOUT_MS = 10000;
+
+function withTimeout(promise, ms, message) {
+  return new Promise((resolve, reject) => {
+    const timer = window.setTimeout(() => reject(new Error(message)), ms);
+    promise.then((value) => {
+      window.clearTimeout(timer);
+      resolve(value);
+    }, (error) => {
+      window.clearTimeout(timer);
+      reject(error);
+    });
+  });
+}
+
 function openFileDatabase() {
   if (fileDatabasePromise) return fileDatabasePromise;
-  fileDatabasePromise = new Promise((resolve, reject) => {
+  let settled = false;
+  let timer = 0;
+  let openAttempt;
+  openAttempt = new Promise((resolve, reject) => {
+    const finish = (callback, value) => {
+      if (settled) return;
+      settled = true;
+      window.clearTimeout(timer);
+      callback(value);
+    };
     if (!window.indexedDB) {
-      reject(new Error("IndexedDB unavailable"));
+      finish(reject, new Error("IndexedDB unavailable"));
       return;
     }
+    timer = window.setTimeout(() => {
+      finish(reject, new Error("IndexedDB open timed out"));
+    }, FILE_DATABASE_TIMEOUT_MS);
     const request = indexedDB.open(FILE_DATABASE_NAME, 1);
     request.onupgradeneeded = () => {
       const database = request.result;
@@ -4969,10 +4996,18 @@ function openFileDatabase() {
         store.createIndex("reportId", "reportId", { unique: false });
       }
     };
-    request.onsuccess = () => resolve(request.result);
-    request.onerror = () => reject(request.error || new Error("File database failed"));
-  });
-  return fileDatabasePromise;
+    request.onsuccess = () => finish(resolve, request.result);
+    request.onerror = () => finish(reject, request.error || new Error("File database failed"));
+    request.onblocked = () => finish(reject, new Error("IndexedDB blocked"));
+  }).then(
+    (database) => database,
+    (error) => {
+      if (fileDatabasePromise === openAttempt) fileDatabasePromise = null;
+      throw error;
+    },
+  );
+  fileDatabasePromise = openAttempt;
+  return openAttempt;
 }
 
 async function requestPersistentWorkbenchStorage() {
@@ -5031,37 +5066,46 @@ async function restoreDispositionLedgerBackup() {
   return reconcileDispositionLedger(merged);
 }
 
+function fileHasInlineContent(file) {
+  return typeof file?.content === "string" && file.content.length > 0;
+}
+
+async function writeStoredFiles(reportId, binaryFiles) {
+  const database = await openFileDatabase();
+  await withTimeout(new Promise((resolve, reject) => {
+    const transaction = database.transaction(FILE_STORE_NAME, "readwrite");
+    const store = transaction.objectStore(FILE_STORE_NAME);
+    binaryFiles.forEach((file) => {
+      store.put({
+        id: file.storageId,
+        reportId,
+        name: file.name,
+        type: file.type,
+        size: file.size,
+        blob: file.blob,
+        updatedAt: new Date().toISOString(),
+      });
+    });
+    transaction.oncomplete = resolve;
+    transaction.onerror = () => reject(transaction.error || new Error("File save failed"));
+    transaction.onabort = () => reject(transaction.error || new Error("File save aborted"));
+  }), FILE_DATABASE_TIMEOUT_MS, "File save timed out");
+}
+
 async function persistUploadedFiles(reportId, files = []) {
   const storedFiles = files.map((file) => {
     const { blob, ...metadata } = file;
+    // HTML is already held as text. Do not wait on IndexedDB for it: a blocked
+    // or stalled file database otherwise leaves the save spinner running.
+    const keepInline = fileHasInlineContent(file);
     return {
       ...metadata,
-      storageId: blob instanceof Blob ? `${reportId}:${file.id}` : file.storageId || "",
-      blob,
+      storageId: !keepInline && blob instanceof Blob ? `${reportId}:${file.id}` : "",
+      blob: keepInline ? null : blob,
     };
   });
   const binaryFiles = storedFiles.filter((file) => file.blob instanceof Blob && file.storageId);
-  if (binaryFiles.length) {
-    const database = await openFileDatabase();
-    await new Promise((resolve, reject) => {
-      const transaction = database.transaction(FILE_STORE_NAME, "readwrite");
-      const store = transaction.objectStore(FILE_STORE_NAME);
-      binaryFiles.forEach((file) => {
-        store.put({
-          id: file.storageId,
-          reportId,
-          name: file.name,
-          type: file.type,
-          size: file.size,
-          blob: file.blob,
-          updatedAt: new Date().toISOString(),
-        });
-      });
-      transaction.oncomplete = resolve;
-      transaction.onerror = () => reject(transaction.error || new Error("File save failed"));
-      transaction.onabort = () => reject(transaction.error || new Error("File save aborted"));
-    });
-  }
+  if (binaryFiles.length) await writeStoredFiles(reportId, binaryFiles);
   return storedFiles.map(({ blob, ...metadata }) => metadata);
 }
 
@@ -5090,7 +5134,7 @@ async function storedFileBlob(file) {
 async function deleteStoredFilesForReport(reportId) {
   try {
     const database = await openFileDatabase();
-    await new Promise((resolve, reject) => {
+    await withTimeout(new Promise((resolve, reject) => {
       const transaction = database.transaction(FILE_STORE_NAME, "readwrite");
       const store = transaction.objectStore(FILE_STORE_NAME);
       const request = store.index("reportId").openKeyCursor(IDBKeyRange.only(reportId));
@@ -5103,7 +5147,7 @@ async function deleteStoredFilesForReport(reportId) {
       request.onerror = () => reject(request.error || new Error("File cleanup failed"));
       transaction.oncomplete = resolve;
       transaction.onerror = () => reject(transaction.error || new Error("File cleanup failed"));
-    });
+    }), FILE_DATABASE_TIMEOUT_MS, "File cleanup timed out");
   } catch {
     // A missing browser file database should not block catalog cleanup.
   }
