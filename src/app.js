@@ -62,6 +62,7 @@ const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
 const WORKSPACE_ACCESS_SESSION_KEY = "clair-ai-studio-access-v1";
 const WORKSPACE_ACCESS_SESSION_VALUE = "verified-2026-08-28";
+const WORKBENCH_EMBED_PARAMETER = "clair-workbench-reader";
 
 const WORK_TYPES = [
   { id: "requirement-review", name: "需求评审" },
@@ -5286,6 +5287,20 @@ function openReportInBrowser(report) {
   return true;
 }
 
+function workbenchReaderUrl(value) {
+  try {
+    const target = new URL(value, window.location.href);
+    const isStudioPage = target.hostname === "clairku.github.io"
+      && target.pathname.startsWith("/clair-ai-studio/")
+      && target.pathname !== "/clair-ai-studio/";
+    if (!isStudioPage) return value;
+    target.searchParams.set(WORKBENCH_EMBED_PARAMETER, "1");
+    return target.href;
+  } catch {
+    return value;
+  }
+}
+
 function savedFilePreviewMarkup(report, file, compact = false) {
   const presentation = filePresentation(file);
   const format = file.format || presentation.label;
@@ -5616,7 +5631,7 @@ function readerMarkup(report) {
       </div>`
     : `
       <div class="reader-frame-wrap">
-        <iframe class="reader-frame" title="${escapeHtml(report.title)}" src="${escapeHtml(report.url)}"
+        <iframe class="reader-frame" title="${escapeHtml(report.title)}" src="${escapeHtml(workbenchReaderUrl(report.url))}"
           sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-scripts allow-downloads"></iframe>
       </div>`;
   return `

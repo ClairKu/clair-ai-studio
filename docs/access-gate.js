@@ -1,9 +1,11 @@
 (() => {
   "use strict";
 
-  const requestedScope = document.currentScript?.dataset.clairAccessScope === "report"
+  const gateScript = document.currentScript;
+  const requestedScope = gateScript?.dataset.clairAccessScope === "report"
     ? "report"
     : "workspace";
+  const WORKBENCH_EMBED_PARAMETER = "clair-workbench-reader";
   const profiles = {
     workspace: {
       sessionKey: "clair-ai-studio-access-v1",
@@ -56,10 +58,30 @@
     }
   };
 
+  const isTrustedWorkbenchEmbed = () => {
+    if (window.top === window
+      || new URLSearchParams(location.search).get(WORKBENCH_EMBED_PARAMETER) !== "1") return false;
+    if (!document.referrer || !gateScript?.src) return false;
+    try {
+      const referrer = new URL(document.referrer);
+      const studioRoot = new URL("./", gateScript.src);
+      const normalizedReferrerPath = referrer.pathname.replace(/index\.html$/, "");
+      const sameProductionWorkbench = referrer.origin === studioRoot.origin
+        && normalizedReferrerPath === studioRoot.pathname;
+      const loopbackWorkbench = ["127.0.0.1", "localhost", "[::1]"].includes(referrer.hostname)
+        && ["/", "/index.html"].includes(referrer.pathname);
+      return sameProductionWorkbench || loopbackWorkbench;
+    } catch {
+      return false;
+    }
+  };
+
   // Entering through the authenticated Studio grants this browser tab a pass.
-  // A report URL opened independently has no pass and therefore stays locked.
+  // The isolated in-workbench reader cannot access the parent tab's storage, so
+  // it receives an explicit iframe-only marker. Top-level/direct URLs stay locked.
   if (readSession() === SESSION_VALUE) return;
   if (requestedScope === "report" && hasWorkspacePass()) return;
+  if (isTrustedWorkbenchEmbed()) return;
 
   document.documentElement.classList.add(ROOT_CLASS);
 

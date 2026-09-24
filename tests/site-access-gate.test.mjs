@@ -60,6 +60,18 @@ test("workbench session bypasses ordinary report gates while direct report acces
   assert.doesNotMatch(source, /reportRequiresPassword/);
 });
 
+test("isolated workbench readers bypass the gate only with an iframe marker and trusted parent", () => {
+  const source = readFileSync(gatePath, "utf8");
+  assert.match(source, /const isTrustedWorkbenchEmbed = \(\) =>/);
+  assert.match(source, /window\.top === window/);
+  assert.match(source, /new URLSearchParams\(location\.search\)/);
+  assert.match(source, /document\.referrer/);
+  assert.match(source, /new URL\("\.\/", gateScript\.src\)/);
+  assert.match(source, /sameProductionWorkbench/);
+  assert.match(source, /loopbackWorkbench/);
+  assert.match(source, /if \(isTrustedWorkbenchEmbed\(\)\) return/);
+});
+
 test("publishes scoped gate metadata on every ordinary HTML entry", () => {
   const htmlPaths = walkHtml(docsRoot);
   assert.ok(htmlPaths.length > 1);
