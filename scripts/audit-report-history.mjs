@@ -128,7 +128,7 @@ const historicalReportPaths = git([
   .filter(Boolean);
 const currentDirectories = new Set(currentReportDirectories());
 const missingHistoricalDirectories = [...new Set(historicalReportPaths)]
-  .filter((slug) => !currentDirectories.has(slug))
+  .filter((slug) => !currentDirectories.has(slug) && !retiredIds.has(slug))
   .sort();
 if (missingHistoricalDirectories.length) {
   fail(`历史分支仍有未找回的报告文件：${missingHistoricalDirectories.join("、")}`);

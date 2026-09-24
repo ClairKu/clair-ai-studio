@@ -2,6 +2,8 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "all-ai-output-publication-audit-2026-09-24",
+    "qieman-cashflow-product-holding-redesign-2026-09-22",
     "qieman-pension-product-analysis-2026-09-21",
     "qieman-pension-unification-2026-09-22",
     "weekly-ai-output-audit-2026-09-22",
@@ -220,6 +222,13 @@
       "replacementId": "",
       "removedIn": "651b12cfd3969ef0301d7ee9007fa3e6a61e4f89",
       "reason": "The only URL was an inaccessible private chatgpt.site entry and must not return to the production catalog."
+    },
+    {
+      "id": "qianwen-new-user-first-investor-cases-2026-09-17",
+      "status": "superseded",
+      "replacementId": "qianwen-first-investor-cases-2026-09-17",
+      "removedIn": "4faeba8",
+      "reason": "The original new-user-only page was deliberately renamed and expanded to cover the complete first-investor cohort."
     }
   ],
   "nonCatalogReportSlugs": [

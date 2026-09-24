@@ -201,6 +201,32 @@ const initialState = {
   ],
   reports: [
     {
+      id: "all-ai-output-publication-audit-2026-09-24",
+      groupId: "reporting",
+      title: "所有 AI 成果报告｜发布完整性复核",
+      url: "https://clairku.github.io/clair-ai-studio/reports/all-ai-output-publication-audit-2026-09-24/",
+      preview: "all-ai-output-publication-audit-2026-09-24.svg",
+      pinned: true,
+      createdAt: "2026-09-24T11:30:00+08:00",
+      source: "Claude / Cursor 2026-09-22 后 11 个顶层任务 + 2026-09 以来 77 个高置信成品路径 + Clair 最新工作台目录与线上状态复核｜按聊过、本地有文件、工作台登记、Pages 在线四层对账｜识别 1 份可公开补发方案、1 份仍在修改的 Demo、3 份敏感内部材料与 2 份非独立报告切片｜明确公开 GitHub Pages 的逐件脱敏边界",
+      access: "production",
+      workType: "reporting",
+      tags: ["AI成果", "Claude", "Cursor", "发布审计", "完整性", "隐私边界", "经营汇报", "HTML", "生产"],
+    },
+    {
+      id: "qieman-cashflow-product-holding-redesign-2026-09-22",
+      groupId: "product-planning",
+      title: "且慢现金流型策略｜产品页与持仓页优化公开评审版",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-cashflow-product-holding-redesign-2026-09-22/",
+      preview: "qieman-cashflow-product-holding-redesign-2026-09-22.svg",
+      pinned: false,
+      createdAt: "2026-09-22T13:36:00+08:00",
+      source: "Cursor 产品方案与交互 Demo 补发｜围绕月月分红与生生不息，区分收益分配和规则定取，重构产品页机制说明、持仓现金流视图、到账时间轴、账单目标、本金健康提示与三阶段落地路线｜公开版移除真实账户分红轨迹、内部接口、代码路径与经营数据；所有金额和图表均为界面示例，不构成收益承诺或投资建议",
+      access: "production",
+      workType: "product-planning",
+      tags: ["且慢", "月月分红", "生生不息", "现金流", "持仓页", "产品页", "交互Demo", "合规", "HTML", "生产"],
+    },
+    {
       id: "qieman-pension-unification-2026-09-22",
       groupId: "pension-planning",
       title: "且慢养老统一方案｜一套目标账户 × 多套投研引擎",
@@ -2868,6 +2894,8 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "all-ai-output-publication-audit-2026-09-24": "reporting",
+  "qieman-cashflow-product-holding-redesign-2026-09-22": "product-planning",
   "qieman-pension-product-analysis-2026-09-21": "data-analysis",
   "qieman-pension-unification-2026-09-22": "product-planning",
   "weekly-ai-output-audit-2026-09-22": "reporting",
@@ -2968,6 +2996,8 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "all-ai-output-publication-audit-2026-09-24": "reporting",
+  "qieman-cashflow-product-holding-redesign-2026-09-22": "product-planning",
   "qieman-pension-product-analysis-2026-09-21": "growth-insights",
   "qieman-pension-unification-2026-09-22": "pension-planning",
   "weekly-ai-output-audit-2026-09-22": "reporting",
