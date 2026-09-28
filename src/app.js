@@ -60,8 +60,14 @@ const DATA_VERSION = 83;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
-const WORKSPACE_ACCESS_SESSION_KEY = "clair-ai-studio-access-v1";
-const WORKSPACE_ACCESS_SESSION_VALUE = "verified-2026-08-28";
+const WORKSPACE_ACCESS_SESSION_KEY = "clair-ai-studio-access-v2";
+const WORKSPACE_ACCESS_SESSION_VALUE = "verified-2026-09-28";
+const REPORT_ACCESS_SESSION_KEYS = [
+  "clair-ai-studio-report-access-v2",
+  "clair-ai-studio-report-credential-v1",
+  "clair-qianwen-report-unlock-v1",
+  "clair-doubao-report-unlock-v1",
+];
 const WORKBENCH_EMBED_PARAMETER = "clair-workbench-reader";
 
 const WORK_TYPES = [
@@ -5446,6 +5452,10 @@ function openReportInBrowser(report) {
         WORKSPACE_ACCESS_SESSION_KEY,
         WORKSPACE_ACCESS_SESSION_VALUE,
       );
+      for (const key of REPORT_ACCESS_SESSION_KEYS) {
+        const value = window.sessionStorage.getItem(key);
+        if (value) nextWindow.sessionStorage.setItem(key, value);
+      }
       nextWindow.opener = null;
       nextWindow.location.replace(target);
     } catch {

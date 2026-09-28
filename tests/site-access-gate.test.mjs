@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { webcrypto } from "node:crypto";
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -25,14 +26,44 @@ const walkHtml = (directory, results = []) => {
   return results;
 };
 
-test("uses a derived password verifier without a plaintext credential", () => {
+const fromBase64 = (value) => new Uint8Array(Buffer.from(value, "base64"));
+
+const derivesExpectedHash = async (password, salt, iterations, expectedHash) => {
+  const material = await webcrypto.subtle.importKey(
+    "raw",
+    new TextEncoder().encode(password),
+    "PBKDF2",
+    false,
+    ["deriveBits"],
+  );
+  const bits = await webcrypto.subtle.deriveBits(
+    { name: "PBKDF2", hash: "SHA-256", salt: fromBase64(salt), iterations },
+    material,
+    256,
+  );
+  return Buffer.from(bits).equals(Buffer.from(expectedHash, "base64"));
+};
+
+test("uses derived verifiers for the exact workspace and report passwords", async () => {
   const source = readFileSync(gatePath, "utf8");
   assert.match(source, /PBKDF2/);
   assert.match(source, /SHA-256/);
   assert.match(source, /sessionStorage/);
-  assert.match(source, /clair-ai-studio-access-v1/);
-  assert.match(source, /clair-ai-studio-report-access-v1/);
+  assert.match(source, /clair-ai-studio-access-v2/);
+  assert.match(source, /clair-ai-studio-report-access-v2/);
   assert.doesNotMatch(source, /password\s*[!=]==?\s*["'][^"']+["']/i);
+  assert.equal(await derivesExpectedHash(
+    "20260509",
+    "pSPWbcuWBb/A+MHgQ+J+Cg==",
+    310000,
+    "RvAEQHpDP8wpmqGyQH1aO9zAJnQAjzfRUJ3mK+CsoCA=",
+  ), true, "workspace password verifier drifted");
+  assert.equal(await derivesExpectedHash(
+    "2026",
+    "bl87Yx//mn6Eic8JnQQCig==",
+    310000,
+    "/s6AtNLOOg/tbXREQlM0Q+wtXiJeXCj7n+aijwbTTAQ=",
+  ), true, "report password verifier drifted");
 });
 
 test("shared gate submits reliably: trims input, guards re-entry, keeps the field usable", () => {
@@ -60,6 +91,17 @@ test("workbench session bypasses ordinary report gates while direct report acces
   assert.doesNotMatch(source, /reportRequiresPassword/);
 });
 
+test("a successful workspace unlock seeds every encrypted-report session without storing the workspace password", () => {
+  const source = readFileSync(gatePath, "utf8");
+  assert.match(source, /REPORT_CREDENTIAL_SESSION_KEY/);
+  assert.match(source, /password\.slice\(0, 4\)/);
+  assert.match(source, /clair-qianwen-report-unlock-v1/);
+  assert.match(source, /clair-doubao-report-unlock-v1/);
+  assert.match(source, /dataset\.clairEncryptedReport/);
+  assert.match(source, /window\.location\.reload\(\)/);
+  assert.doesNotMatch(source, /20260509/);
+});
+
 test("isolated workbench readers bypass the gate only with an iframe marker and trusted parent", () => {
   const source = readFileSync(gatePath, "utf8");
   assert.match(source, /const isTrustedWorkbenchEmbed = \(\) =>/);
@@ -78,16 +120,23 @@ test("publishes scoped gate metadata on every ordinary HTML entry", () => {
   for (const htmlPath of htmlPaths) {
     const html = readFileSync(htmlPath, "utf8");
     if (selfProtectedPaths.has(htmlPath)) {
-      assert.doesNotMatch(html, /data-clair-access-gate/);
+      assert.match(html, /data-clair-access-gate/);
+      assert.match(html, /data-clair-access-scope=["']report["']/);
+      assert.match(html, /data-clair-encrypted-report=["']true["']/);
       assert.match(html, /const payload=/);
       assert.match(html, /PBKDF2/);
       assert.match(html, /AES-GCM/);
-      assert.match(html, /id="password" type="password"/);
+      assert.doesNotMatch(html, /type=["']password["']/);
+      assert.match(html, /clair-ai-studio-report-credential-v1/);
+      assert.match(html, /正在打开已验证的报告/);
       assert.match(html, /noindex,nofollow/);
       continue;
     }
     assert.match(html, /data-clair-access-gate/, htmlPath);
-    const expectedScope = htmlPath.startsWith(join(docsRoot, "reports")) ? "report" : "workspace";
+    const expectedScope = htmlPath.startsWith(join(docsRoot, "reports"))
+      || htmlPath.startsWith(join(docsRoot, "apps"))
+      ? "report"
+      : "workspace";
     assert.match(html, new RegExp(`data-clair-access-scope=["']${expectedScope}["']`), htmlPath);
     assert.match(html, /noindex,nofollow,noarchive/, htmlPath);
     assert.doesNotMatch(html, /content=["']index,follow["']/i, htmlPath);
@@ -97,7 +146,7 @@ test("publishes scoped gate metadata on every ordinary HTML entry", () => {
   }
 });
 
-test("Qianwen encrypted reports share a reliable one-submit session unlock", () => {
+test("Qianwen encrypted reports use the shared gate and have no second password form", () => {
   const paths = [
     join(docsRoot, "reports", "qianwen-user-acquisition-dashboard", "index.html"),
     join(docsRoot, "reports", "qianwen-first-investor-cases-2026-09-17", "index.html"),
@@ -105,17 +154,14 @@ test("Qianwen encrypted reports share a reliable one-submit session unlock", () 
   for (const htmlPath of paths) {
     const html = readFileSync(htmlPath, "utf8");
     assert.match(html, /clair-qianwen-report-unlock-v1/);
-    assert.match(html, /sessionStorage\.setItem\(sessionKey,supplied\)/);
-    assert.match(html, /let unlocking=false/);
-    assert.match(html, /正在验证，请稍候/);
-    assert.match(html, /input\.readOnly=busy/);
-    assert.match(html, /event\.key!=="Enter"/);
-    assert.match(html, /form\.requestSubmit\(\)/);
-    assert.doesNotMatch(html, /input\.disabled=true/);
+    assert.match(html, /clair-ai-studio-report-access-v2/);
+    assert.match(html, /data-clair-encrypted-report="true"/);
+    assert.match(html, /document\.open\(\);document\.write/);
+    assert.doesNotMatch(html, /type=["']password["']/);
   }
 });
 
-test("Doubao encrypted reports share the same one-submit session unlock (own session key)", () => {
+test("Doubao encrypted reports use the same shared gate and have no second password form", () => {
   const paths = [
     join(docsRoot, "reports", "doubao-user-acquisition-dashboard", "index.html"),
     join(docsRoot, "reports", "doubao-user-conversion-cases-2026-09-20", "index.html"),
@@ -123,9 +169,9 @@ test("Doubao encrypted reports share the same one-submit session unlock (own ses
   for (const htmlPath of paths) {
     const html = readFileSync(htmlPath, "utf8");
     assert.match(html, /clair-doubao-report-unlock-v1/);
-    assert.match(html, /sessionStorage\.setItem\(sessionKey,supplied\)/);
-    assert.match(html, /let unlocking=false/);
-    assert.match(html, /form\.requestSubmit\(\)/);
-    assert.doesNotMatch(html, /input\.disabled=true/);
+    assert.match(html, /clair-ai-studio-report-access-v2/);
+    assert.match(html, /data-clair-encrypted-report="true"/);
+    assert.match(html, /document\.open\(\);document\.write/);
+    assert.doesNotMatch(html, /type=["']password["']/);
   }
 });

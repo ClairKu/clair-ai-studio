@@ -6,7 +6,7 @@ const projectRoot = fileURLToPath(new URL("../", import.meta.url));
 const outputRoot = resolve(projectRoot, process.argv[2] || "docs");
 const gateAsset = join(outputRoot, "access-gate.js");
 const marker = "data-clair-access-gate";
-const selfProtectedEntries = new Set([
+const encryptedReportEntries = new Set([
   "reports/qianwen-user-acquisition-dashboard/index.html",
   "reports/doubao-user-acquisition-dashboard/index.html",
   "reports/doubao-user-conversion-cases-2026-09-20/index.html",
@@ -29,26 +29,100 @@ const walkHtml = (directory, results = []) => {
 
 const robotsMeta = '<meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />';
 let injected = 0;
-let selfProtected = 0;
+let encryptedReports = 0;
+
+const encryptedReportShell = ({ html, gateScript, outputPath }) => {
+  const payload = html.match(/const\s+payload\s*=\s*(\{[^;]+\});/s)?.[1];
+  if (!payload) throw new Error(`Missing encrypted payload: ${outputPath}`);
+  const title = html.match(/<title>([\s\S]*?)<\/title>/i)?.[1]?.trim() || "Clair's Report";
+  const legacySessionKey = outputPath.includes("doubao")
+    ? "clair-doubao-report-unlock-v1"
+    : "clair-qianwen-report-unlock-v1";
+
+  return `<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  ${robotsMeta}
+  ${gateScript}
+  <meta name="theme-color" content="#f2f1ed">
+  <title>${title}</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px; background: #f2f1ed; color: #59616c; font: 14px/1.7 Inter, "PingFang SC", "Microsoft YaHei", Arial, sans-serif; }
+    .opening { display: grid; justify-items: center; gap: 14px; text-align: center; }
+    .spinner { width: 28px; height: 28px; border: 2px solid #d5d8de; border-top-color: #545cf4; border-radius: 50%; animation: spin .8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .spinner { animation: none; border-top-color: #d5d8de; } }
+  </style>
+</head>
+<body>
+  <main class="opening" aria-live="polite"><span class="spinner" aria-hidden="true"></span><span>正在打开已验证的报告…</span></main>
+  <script>
+    const payload=${payload};
+    const decode=value=>Uint8Array.from(atob(value),character=>character.charCodeAt(0));
+    const credentialKey="clair-ai-studio-report-credential-v1";
+    const reportSessionKey="clair-ai-studio-report-access-v2";
+    const reportSessionValue="verified-report-2026-09-28";
+    const workspaceSessionKey="clair-ai-studio-access-v2";
+    const workspaceSessionValue="verified-2026-09-28";
+    const legacySessionKey=${JSON.stringify(legacySessionKey)};
+    const readSession=key=>{try{return sessionStorage.getItem(key)||""}catch{return ""}};
+    const clearStaleSession=()=>{try{
+      sessionStorage.removeItem(credentialKey);
+      sessionStorage.removeItem(reportSessionKey);
+      sessionStorage.removeItem(workspaceSessionKey);
+      sessionStorage.removeItem("clair-qianwen-report-unlock-v1");
+      sessionStorage.removeItem("clair-doubao-report-unlock-v1");
+    }catch{}};
+    const openEncryptedReport=async()=>{
+      const granted=readSession(reportSessionKey)===reportSessionValue||readSession(workspaceSessionKey)===workspaceSessionValue;
+      const credential=readSession(credentialKey)||readSession(legacySessionKey);
+      if(!granted||!credential)return;
+      try{
+        if(!globalThis.crypto?.subtle)throw new Error("unsupported");
+        const material=await crypto.subtle.importKey("raw",new TextEncoder().encode(credential),"PBKDF2",false,["deriveKey"]);
+        const key=await crypto.subtle.deriveKey({name:"PBKDF2",salt:decode(payload.salt),iterations:payload.iterations,hash:"SHA-256"},material,{name:"AES-GCM",length:256},false,["decrypt"]);
+        const plain=await crypto.subtle.decrypt({name:"AES-GCM",iv:decode(payload.iv)},key,decode(payload.data));
+        try{sessionStorage.setItem(legacySessionKey,credential)}catch{}
+        document.open();document.write(new TextDecoder().decode(plain));document.close();
+      }catch{
+        clearStaleSession();
+        location.reload();
+      }
+    };
+    requestAnimationFrame(openEncryptedReport);
+  </script>
+</body>
+</html>`;
+};
 
 for (const htmlPath of walkHtml(outputRoot)) {
   let html = readFileSync(htmlPath, "utf8");
   const outputPath = relative(outputRoot, htmlPath).replaceAll("\\", "/");
 
-  // This dashboard ships as its own AES-GCM encrypted shell. Adding the
-  // workspace gate here would force visitors through two unrelated passwords.
-  if (selfProtectedEntries.has(outputPath)) {
-    if (!/const\s+payload\s*=/.test(html) || !/AES-GCM/.test(html)) {
-      throw new Error(`Expected an encrypted self-protected entry: ${outputPath}`);
-    }
-    selfProtected += 1;
-    continue;
-  }
-
   const relativeAsset = relative(dirname(htmlPath), gateAsset).replaceAll("\\", "/");
   const assetPath = relativeAsset.startsWith(".") ? relativeAsset : `./${relativeAsset}`;
   // reports/ 与 apps/ 都是独立成果页，走报告密码；仅工作台首页与其余站点页走工作台密码。
   const accessScope = outputPath.startsWith("reports/") || outputPath.startsWith("apps/") ? "report" : "workspace";
+
+  // These pages keep their encrypted payload, but the shared report gate is
+  // now their only visible prompt. After one successful submission it seeds
+  // the legacy decryptor and performs a single automatic reload.
+  const encryptedReport = encryptedReportEntries.has(outputPath);
+  if (encryptedReport) {
+    if (!/const\s+payload\s*=/.test(html) || !/AES-GCM/.test(html)) {
+      throw new Error(`Expected an encrypted self-protected entry: ${outputPath}`);
+    }
+    const gateScript = `<script ${marker} data-clair-access-scope="report" data-clair-encrypted-report="true" src="${assetPath}"></script>`;
+    html = encryptedReportShell({ html, gateScript, outputPath });
+    writeFileSync(htmlPath, html);
+    encryptedReports += 1;
+    injected += 1;
+    continue;
+  }
+
   const gateScript = `<script ${marker} data-clair-access-scope="${accessScope}" src="${assetPath}"></script>`;
 
   html = html.replace(/<meta\b[^>]*name=["']robots["'][^>]*>\s*/gi, "");
@@ -68,4 +142,4 @@ for (const htmlPath of walkHtml(outputRoot)) {
   injected += 1;
 }
 
-console.log(`Injected the site access gate into ${injected} HTML files; kept ${selfProtected} self-protected entry.`);
+console.log(`Injected the site access gate into ${injected} HTML files, including ${encryptedReports} encrypted reports.`);

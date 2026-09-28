@@ -6,10 +6,15 @@
     ? "report"
     : "workspace";
   const WORKBENCH_EMBED_PARAMETER = "clair-workbench-reader";
+  const REPORT_CREDENTIAL_SESSION_KEY = "clair-ai-studio-report-credential-v1";
+  const LEGACY_ENCRYPTED_REPORT_SESSION_KEYS = [
+    "clair-qianwen-report-unlock-v1",
+    "clair-doubao-report-unlock-v1",
+  ];
   const profiles = {
     workspace: {
-      sessionKey: "clair-ai-studio-access-v1",
-      sessionValue: "verified-2026-08-28",
+      sessionKey: "clair-ai-studio-access-v2",
+      sessionValue: "verified-2026-09-28",
       salt: "pSPWbcuWBb/A+MHgQ+J+Cg==",
       expectedHash: "RvAEQHpDP8wpmqGyQH1aO9zAJnQAjzfRUJ3mK+CsoCA=",
       brandLabel: "PRIVATE WORKSPACE",
@@ -20,8 +25,8 @@
       ariaLabel: "Clair's Studio 访问验证",
     },
     report: {
-      sessionKey: "clair-ai-studio-report-access-v1",
-      sessionValue: "verified-report-2026-08-28",
+      sessionKey: "clair-ai-studio-report-access-v2",
+      sessionValue: "verified-report-2026-09-28",
       salt: "bl87Yx//mn6Eic8JnQQCig==",
       expectedHash: "/s6AtNLOOg/tbXREQlM0Q+wtXiJeXCj7n+aijwbTTAQ=",
       brandLabel: "PRIVATE REPORT",
@@ -46,6 +51,25 @@
       return window.sessionStorage.getItem(SESSION_KEY);
     } catch {
       return null;
+    }
+  };
+
+  const persistReportCredential = (password) => {
+    const credential = requestedScope === "workspace"
+      ? password.slice(0, 4)
+      : password;
+    if (!credential) return;
+    try {
+      window.sessionStorage.setItem(REPORT_CREDENTIAL_SESSION_KEY, credential);
+      window.sessionStorage.setItem(
+        profiles.report.sessionKey,
+        profiles.report.sessionValue,
+      );
+      for (const key of LEGACY_ENCRYPTED_REPORT_SESSION_KEYS) {
+        window.sessionStorage.setItem(key, credential);
+      }
+    } catch {
+      // The current page still unlocks even when storage is unavailable.
     }
   };
 
@@ -124,16 +148,24 @@
     return sameBytes(new Uint8Array(bits), fromBase64(EXPECTED_HASH));
   };
 
-  const unlock = () => {
+  const unlock = (password = "") => {
     try {
       window.sessionStorage.setItem(SESSION_KEY, SESSION_VALUE);
     } catch {
       // The current page still unlocks even when storage is unavailable.
     }
+    persistReportCredential(password);
     document.documentElement.classList.remove(ROOT_CLASS);
     document.getElementById(HOST_ID)?.remove();
     concealment.remove();
     window.dispatchEvent(new CustomEvent("clair-site-access-granted"));
+    // Six historical reports use an AES shell. Their inner decryptor reads the
+    // shared credential only at startup, so reload once after the single,
+    // successful shared-gate submission. The reload is never triggered for a
+    // wrong password or for ordinary reports.
+    if (gateScript?.dataset.clairEncryptedReport === "true") {
+      window.location.reload();
+    }
   };
 
   const mountGate = () => {
@@ -256,7 +288,7 @@
         if (await verifyPassword(password)) {
           input.value = "";
           status.textContent = "验证成功，正在进入…";
-          unlock();
+          unlock(password);
           return;
         }
         status.dataset.state = "error";
