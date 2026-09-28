@@ -35,6 +35,16 @@
   .callout.warn{border-color:var(--warn);background:#FFF7E5}
   small.note{color:var(--muted)}
   code{background:#f3f4f6;padding:1px 6px;border-radius:4px;font-size:12.5px;word-break:break-all}
+  .feat{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:10px}
+  @media (max-width:900px){.feat{grid-template-columns:1fr}}
+  .feat .fc{border:1px solid var(--doc-line);border-radius:12px;padding:14px 16px;background:#fbfcfe}
+  .feat .fc b{font-size:15px;color:#1c2b3a;display:block;margin-bottom:6px}
+  .feat .fc p{margin:0;font-size:13.5px;color:#4a5568;line-height:1.7}
+  .hl{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:10px}
+  @media (max-width:900px){.hl{grid-template-columns:1fr}}
+  .hl .hi{border-left:3px solid var(--blue);background:#F5F9FF;border-radius:10px;padding:12px 16px}
+  .hl .hi h3{margin:0 0 6px;font-size:15px;color:#1c2b3a}
+  .hl .hi p{margin:0;font-size:13.5px;color:#4a5568;line-height:1.75}
   .stage{display:grid;grid-template-columns:395px 1fr;gap:26px;align-items:start}
   @media (max-width:900px){.stage{grid-template-columns:1fr}}
   .guide{border:1px solid var(--doc-line);border-radius:12px;padding:14px 16px;background:#fbfcfe;position:sticky;top:16px}
@@ -204,6 +214,13 @@
   .guess .gt{display:flex;align-items:center;gap:6px;font-size:12px;color:#8393A8;width:100%;margin-bottom:2px}
   .guess .gt img{width:18px;height:18px;border-radius:50%}
   .guess span{font-size:12px;color:#1c2b3a;background:#F3F7FC;border-radius:999px;padding:5px 10px;cursor:pointer;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+  .guess.top{background:linear-gradient(135deg,#EEF6FF,#FFFFFF);border:1px solid #DCEAFA}
+  .guess .gt em{font-style:normal;font-size:10.5px;color:#A5B2C4;margin-left:-2px}
+  .guess .gt a{margin-left:auto;font-size:12px;color:var(--blue);font-weight:600;cursor:pointer}
+  .guess.top span{background:#fff;border:1px solid #E3ECF7;color:#2A3B52}
+  .guess.top span::before{content:'';display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--blue);margin-right:6px;vertical-align:1px;opacity:.7}
+  .sug .askrow img{width:15px;height:15px;border-radius:50%;flex:0 0 15px}
+  .sug .askrow{color:#2A3B52}
   .holders{background:linear-gradient(135deg,#F4F8FF,#FFFFFF);border:1px solid #E1EBF8;border-radius:12px;padding:10px 12px;margin:0 0 8px}
   .holders .ht{display:flex;align-items:center;gap:6px;font-size:12px;color:#5c6b80;margin-bottom:8px}
   .holders .ht img{width:18px;height:18px;border-radius:50%}
@@ -637,62 +654,49 @@
 
 <header class="hero">
   <h1>且慢「投顾」Tab · 四笔钱改造 — 高保真交互 DEMO</h1>
-  <p>依据《四笔钱改造方案》原型，在一台手机里完整呈现：<b>投顾 2.0 服务区 → 四笔钱风险货架（含严选）→ 搜产品 → AI 小顾 → 标准化工具</b>。货架产品、收益指标、风险等级、严选 16 只、每日估值 / 市场温度、小顾推荐问题、页面跳转地址均取自 <b>2026-09-24 生产环境</b>（盈米本体只读查询）。</p>
-  <div class="meta"><span>375 × 812 · 单文件零依赖</span><span>收益数值截至 2026-09-23 净值日</span><span>货架真源：Redis KV <code style="background:rgba(255,255,255,.18);color:#fff">qieman:m4:config</code></span><span>小顾 / 且慢图标：App 内真实素材</span></div>
+  <p>在一台手机里完整呈现改造后的投顾 Tab：<b>投顾服务区（投资规划 · 养老规划 · 其他目标）→ 四笔钱风险货架 → 严选策略 → 搜产品 → AI 小顾 → 应用工具</b>。货架产品、收益指标、风险等级、每日估值与页面跳转均取自线上真实数据（收益截至 2026-09-23）。</p>
+  <div class="meta"><span>375 × 812 · 单文件可直接打开</span><span>手机内所有按钮均可点击，产品 / 工具 / CTA 会在框内打开对应页面</span><span>右侧「快捷演示」可一键切换到任意状态</span></div>
 </header>
 
 <section class="doc" id="s-demo">
-  <h2>交互效果图（所有状态都在这一台手机里）</h2>
+  <h2>交互 DEMO</h2>
   <div class="stage">
     <div id="main-phone"></div>
     <div class="guide">
       <h4>快捷演示</h4>
-      <div class="grp">① 投顾 2.0 服务区</div>
-      <div class="btns"><button data-do="tab:invest">投资规划</button><button data-do="tab:pension">养老规划</button><button data-do="tab:goal">其他目标</button><button data-do="route:planM4">先规划资金 → 投资规划微应用</button></div>
-      <div class="grp">② 四笔钱货架 · 风险视图 · 严选</div>
-      <div class="btns"><button data-do="range:15,45">风险分 15–45 筛选</button><button data-do="strict">四笔钱 + 严选</button><button data-do="comfort">哪个适合我（舒适区）</button><button data-do="map">收起 / 展开风险地图</button><button data-do="page:strict">严选策略列表页</button><button data-do="page:intro">了解四笔钱</button></div>
+      <div class="grp">① 投顾服务区</div>
+      <div class="btns"><button data-do="tab:invest">投资规划</button><button data-do="route:custom">查看定制方案 → 账户方案</button><button data-do="tab:pension">养老规划</button><button data-do="route:pension">查看养老方案</button><button data-do="tab:goal">其他目标</button><button data-do="route:planM4">先规划资金（三问问卷）</button></div>
+      <div class="grp">② 四笔钱货架 · 风险地图 · 严选</div>
+      <div class="btns"><button data-do="range:15,45">风险分 15–45 筛选</button><button data-do="strict">四笔钱 + 严选</button><button data-do="comfort">哪个适合我</button><button data-do="map">收起 / 展开风险地图</button><button data-do="openurl:https://qieman.com/m4/more">更多严选策略</button><button data-do="page:intro">了解四笔钱</button></div>
       <div class="grp">③ 搜产品 · AI 小顾</div>
-      <div class="btns"><button data-do="search">搜产品</button><button data-do="search:黄金">搜「黄金」</button><button data-do="search:3年内要用">搜「3年内要用」（场景理解）</button><button data-do="ai">小顾带问进入（全页）</button><button data-do="aiedit">编辑小顾提问</button><button data-do="page:ai0">小顾 3.0 首屏</button></div>
+      <div class="btns"><button data-do="search">搜产品</button><button data-do="search:黄金">搜「黄金」</button><button data-do="search:3年内要用">搜「3年内要用」</button><button data-do="ai">小顾带问进入</button><button data-do="aiedit">编辑小顾提问</button><button data-do="page:ai0">小顾首屏</button></div>
       <div class="grp">④ 应用工具</div>
-      <div class="btns"><button data-do="scroll:tools">滚到工具区</button><button data-do="page:tools">添加工具</button><button class="reset" data-do="reset">重置</button></div>
-      <h4 style="margin-top:10px">说明</h4>
-      <ul>
-        <li>点任意产品卡 / 工具卡 / CTA 都会进入「跳转页」：显示该入口在当前 App 的<b>真实页面名与 URL</b>及其模块骨架。</li>
-        <li>风险地图横轴为<b>晨星风险分 0–100</b>（五档阈值同账户诊断：0–24 非常低 / 25–44 比较低 / 45–54 适中 / 55–64 比较高 / 65–100 非常高），滑块按 1 分颗粒度；「哪个适合我」读取用户舒适区 comfortRange（示例：抗风险值 45 → 28–47）。</li>
-        <li>货架卡片按线上 KV 配置差异展示：活钱「七日年化」、短期稳健「历史年化」、长期投资部分只显「策略目标」。</li>
-        <li>小顾页为「小顾 3.0」ChatPage 形态（微应用 <code>yingmi.cortex</code>），推荐问题来自线上 38 条。</li>
-      </ul>
+      <div class="btns"><button data-do="scroll:tools">滚到工具区</button><button data-do="page:tools">添加工具</button><button data-do="openurl:https://qieman.com/idx-eval">每日估值</button><button class="reset" data-do="reset">重置</button></div>
     </div>
   </div>
 </section>
 
-<section class="doc" id="s-audit">
-  <h2>生产页面能力盘点 · 缺口与补齐评估</h2>
-  <p><small class="note">来源：盈米本体 2026-09-24 对 nova / albus / pmdj-service / pomodel / QiemanMobileHome 源码 + 生产 TiDB 只读查询。投顾 Tab = WebView 壳 <code>/m4?inAppTab=true</code>，页面已迁 nova（Taro 原生），数据接口 <code>GET /pmdj/v2/m4</code>，货架内容真源为运营配置 KV <code>qieman:m4:config</code>。</small></p>
-  <table>
-    <thead><tr><th style="width:110px">能力</th><th>生产现状</th><th>缺口</th><th>是否补 / 怎么补</th><th style="width:96px">本 Demo</th></tr></thead>
-    <tbody>
-      <tr><td>了解四笔钱</td><td><code>/alfa/introduction?anchor=m4Service</code>，nova 静态页：定义 + 金字塔图；唯一 CTA → 小顾微应用；顶部 4 个 Tab 不可点</td><td>无各笔钱推荐产品、无配置比例建议、无 FAQ</td><td><span class="tag ok">建议补</span>复用 <code>/pmdj/v2/m4</code> 分组头条（稳健程度星级 + 收益区间）和货架产品做「代表产品」；比例建议接账户诊断已有的晨星五档 → 低/中/高风险资产区间文案；CTA 改为「先规划资金」+「问小顾」</td><td><span class="tag ok">已呈现</span></td></tr>
-      <tr><td>四笔钱规划</td><td>无独立页面；载体 = 小顾问诊流程 <code>survey.advisor</code>（单笔钱粒度问诊 → 产品 + 金额）；投资规划微应用 <code>advisor-consult#/m4</code>「四笔钱，怎么投？」问卷 → 建议书</td><td>不输出四笔钱比例；与 C1–C5 风测零耦合</td><td><span class="tag ok">最值得做</span>「按舒适区出四笔钱比例」：pmdj 已有 <code>doGetLatestScore</code> / comfort-ranges handler、<code>user_chenxing_risk_info</code> 已存舒适区、账户诊断已有五档文案——只缺 pmdj 编排 + 投顾 Tab 入口，不依赖新数据源</td><td><span class="tag part">跳转到现有微应用 + 介绍页内比例示意</span></td></tr>
-      <tr><td>定制方案目标收益档位</td><td>有效档位 <b>1%–10%</b>（步长 1pp，1%/2% 共用纯货币方案，展示层 2%–10%）；配置在 KV <code>qieman:uma:invest:plan:config</code>（4 偏好组 × 10 档 = 33 套 AAP 方案）+ <code>qieman:uma-config-dict</code>（回撤映射）；滑杆出现在 UMA 账户方案「预期收益风险」弹层，<code>#/m4</code> 问卷本身无滑杆</td><td>前端滑杆物理可拉到 20%，但 &gt;10% 无对应方案（后端向下取 10% 档并提示「预期过高」）</td><td><span class="tag ok">Demo 已对齐</span>滑杆 2%–10%，回撤 / 持有期 / 大类比例取全球组（默认偏好）真实配置</td><td><span class="tag ok">已呈现</span></td></tr>
-      <tr><td>策略风险字段</td><td>风险等级 <code>portfolio_info.risk5_level</code>（R1–R5）落库并在详情页展示；晨星风险分不落业务库，账户诊断 / 定制方案实时调 UAAP 计算（<code>holdingRiskScore</code> / <code>planRiskScore</code>）</td><td>货架 / 列表 / 搜索不展示晨星分、不可筛；MySQL <code>model_portfolio_risk_score</code> 表线上为空，权威值只在 MaxCompute</td><td><span class="tag ok">可直接接</span>晨星风险分是<b>接口实时算</b>：pmdj → UAAP 网关 <code>/insight/portfolioRisk</code> → 晨星 <code>/mstar/advisory/risk-profile/v2/portfolio-risk</code>（输入持仓基金+权重，输出 risk_score 0–100）；模型组合已由 uaap-insight-batch <code>ModelPortfolioRiskScoreJob</code> 每日批量写 MaxCompute <code>fdp_cdm.dwd_model_portfolio_risk_score_1d_full</code>。货架 / 严选 / 搜索接这张表即可，无需新算法</td><td><span class="tag ok">晨星分已上卡片与地图</span></td></tr>
-      <tr><td>用户风测 + 舒适区</td><td>C0–C5 风测（account）；<b>晨星舒适区 comfortRange 已存在</b>（UAAP 接口现成），但封闭在账户诊断 / 定制方案两个旧入口</td><td>投顾主链路完全没接</td><td><span class="tag ok">建议补</span>「哪个适合我」读取 comfortRange → 映射 R 档高亮货架；同时给出比例建议</td><td><span class="tag ok">已呈现</span></td></tr>
-      <tr><td>产品搜索</td><td>有全局搜索 <code>/n/search</code>（albus）：11 分组（策略 / 基金 / 主理人 / 社区 / 内容 / 保险 / 帮助…），有联想、历史、推荐位</td><td>无热搜、无筛选（风险等级 / 类型 / 持有期均不可筛）、无场景理解</td><td><span class="tag ok">建议补</span>热搜：埋点 Top 查询按日聚合；筛选：搜索结果对策略组带 <code>risk5_level</code> / 类型 / 建议持有期三个 facet（数据都在 <code>portfolio_info</code> / <code>po_config_info</code>）；场景词（如「3 年内要用」）走小顾意图识别映射到四笔钱分组</td><td><span class="tag ok">已呈现</span></td></tr>
-      <tr><td>严选策略</td><td>入口 = 投顾 Tab「更多投资选择」，<code>/n/m4/more</code>（<code>/pmdj/v2/m4/hand-picked</code>）：KV 静态 16 只（稳 9 + 长 7），仅按分组锚点，卡片只显「建议持有」；主理人页 <code>/manager/:id</code>（认证主理人 199 位）</td><td>无筛选、无排序、不显收益 / 风险；活钱 / 保险无严选组；改造原型里没给它位置</td><td><span class="tag ok">建议补</span>保留独立入口（货架下方「严选策略」横滑 + 列表页），并纳入风险地图「四笔钱 + 严选」；列表页补 R 档 / 分组 / 主理机构筛选与排序；卡片补历史年化与 R 档（同表可查）</td><td><span class="tag ok">已呈现</span></td></tr>
-      <tr><td>工具入口</td><td>16 项工具分散在首页宫格 / 微应用 / 策略页内嵌（每日估值、市场温度计、攒钱计划、账户诊断、资产分析、账户报告、收益日历、教育金测算、定投计算器、QDII 额度管家、资产配置专区、全球投资、投资风向、私享理财、财富定制、保险专区）</td><td>无统一卡片规格、不可自选；「基金对比」「持仓诊断」无独立页面（前者是小顾能力，后者即账户诊断）</td><td><span class="tag ok">建议补</span>以 <code>MicroappsConfig</code> + <code>AppHomePageConfigV2</code> 为工具注册表，加「首页展示 / 排序」用户偏好 KV；卡片内容取各工具已有接口首屏数据</td><td><span class="tag ok">已呈现（16 项真实）</span></td></tr>
-      <tr><td>AI 小顾</td><td>2.0「投顾助理」<code>yingmi.mia</code> / 3.0「小顾 3.0」<code>yingmi.cortex</code>（AB <code>XIAOGU_AI_LAB_3_UI=B</code>）；问候语池 4 条、快捷入口 6 个、推荐问题 38 条</td><td>入口是静态气泡；3.0 前端隐藏了「定制方案 / 投资规划 / 自选方案 / 且慢严选」快捷项</td><td><span class="tag ok">建议补</span>悬浮条轮播文案接智能运营（按持仓 / 行为选题）；带问跳转用微应用 URL 追加 <code>q=</code> 参数首发消息；评估恢复被隐藏的快捷项</td><td><span class="tag ok">已呈现</span></td></tr>
-    </tbody>
-  </table>
-  <div class="callout warn">关于本 Demo 的晨星风险分：26 只策略的分值为<b>口径估算值</b>——取各策略最新一期调仓权重（<code>portfolio_composition</code>，2026-09-23/24）穿透到资产大类（<code>ads_fund_category_info_qieman</code>，与账户诊断同表），按大类波动率 + 相关性矩阵算组合 σ 映射 0–100（两端校准：纯货基 ≈ 2、全 A 股 ≈ 88）。两端准确，股债混合约 ±5 分。权威值在 MaxCompute <code>fdp_cdm.dwd_model_portfolio_risk_score_1d_full</code>（按 <code>cal_date</code> 分区），当前账号 MC 403，有权限同学一条 SQL 即可回填。舒适区规律：okRisk.high = okRisk.low + 19（封顶 100），随用户分数单调递增；定制方案还会按每笔钱的 <code>expectedInvestTime</code> 改写风测第 11 题重算，所以活钱与长钱看到的舒适区不同。</div>
+<section class="doc" id="s-features">
+  <h2>主功能介绍</h2>
+  <div class="feat">
+    <div class="fc"><b>投顾服务区</b><p>顶部三个 Tab 承接不同的钱：<b>投资规划</b>拖动目标年化滑杆（2%–10%）实时看可承受回撤、建议持有期与大类配置；<b>养老规划</b>输入每月存 / 开始存 / 预计退休，即时测算退休时可存到与每月可花；<b>其他目标</b>按活期零钱、短期稳健、家庭资金、闲钱长投、子女教育、攒一笔钱六类场景进入。</p></div>
+    <div class="fc"><b>四笔钱风险货架</b><p>活钱 / 稳钱 / 长钱 / 保险四组货架，卡片要素与线上一致（名称、机构认证、收益或目标、类型、风险等级、买入方式、一句话说明）。货架上方是<b>策略风险地图</b>：横轴晨星风险分，纵轴三笔钱分层，可拉滑块按风险区间筛选。</p></div>
+    <div class="fc"><b>严选策略</b><p>长期投资货架结束后有「更多严选策略」入口，直达线上严选页；在风险地图打开「严选」开关后，合作机构策略以淡蓝点并入地图，筛选结果按普通策略卡片展示。</p></div>
+    <div class="fc"><b>搜产品</b><p>一个搜索框覆盖策略、基金、私募、功能、社区内容、帮助中心；支持按风险等级 / 持有期 / 类型筛选与排序；能猜你想问的问题、展示持有该基金的策略；有「在我的舒适区」「我持有过」等个性化筛选，找不到时引导去问小顾。</p></div>
+    <div class="fc"><b>AI 小顾</b><p>底部悬浮条轮播推荐问题，点击即带问题进入小顾对话页；可先编辑问题再发送。定制方案、投资规划等快捷入口都会在框内打开对应页面。</p></div>
+    <div class="fc"><b>应用工具</b><p>每日估值、市场温度计、攒钱计划、账户诊断、资产分析等 16 项工具统一为卡片规格，可自选添加与排序；每日估值模块按行业展示 PE 百分位，点击进入线上估值页。</p></div>
+  </div>
 </section>
 
-<section class="doc" id="s-data">
-  <h2>数据与跳转地址（生产）</h2>
-  <table>
-    <thead><tr><th>入口</th><th>真实页面 / URL</th><th>说明</th></tr></thead>
-    <tbody id="route-table"></tbody>
-  </table>
-  <p><small class="note">收益数据：<code>ying99_pomodel.portfolio_nav</code>（2026-09-23 净值日）；估值：<code>ying99_information.index_valuation</code>（09-23 期，海外 09-22）；温度：<code>ying99_dp.market_temperature</code>（10y 窗口）；配置：<code>ying99_qieman.key_value_store[qieman:m4:config]</code>、<code>ying99_smartadvisor.ui_kv</code>。养老测算为演示简化模型，正式版接养老下滑曲线模型。</small></p>
+<section class="doc" id="s-highlights">
+  <h2>重点功能描述</h2>
+  <div class="hl">
+    <div class="hi"><h3>策略风险地图 · 哪个适合我</h3><p>横轴为晨星风险分 0–100（五档：非常低 / 比较低 / 适中 / 比较高 / 非常高），纵轴按活钱、稳钱、长钱分三层，同层内按历史年化高低排列，任何筛选状态下点位固定不变。点「哪个适合我」读取用户的风险舒适区（示例：抗风险值 45 → 舒适区 28–47），自动高亮匹配的策略；定制方案系列以风险最高一档作为代表点。</p></div>
+    <div class="hi"><h3>投资规划 → 账户方案</h3><p>滑杆选定目标年化后点「查看定制方案」，进入框内的<b>账户方案</b>页：账户目标（期限 / 期望年化 / 可承受回撤 / 抗风险值）、配置方案环图、方案测算（盈利概率、测算 / 较好 / 较差情况与持有期区间图）、产品方案卡、方案检测（匹配度与方案风险对比舒适区）、服务流程；底部按钮依次推进 确认方案 → 创建定制账户 → 转入一笔 → 持续跟踪。</p></div>
+    <div class="hi"><h3>养老规划 → 养老投资方案</h3><p>输入三项参数即时测算「退休时预计存到」与「退休时预计每月可花」（含折算为现在的购买力），比例条以主蓝 / 淡蓝区分投入与测算收益。点「查看养老方案」进入养老投资方案页：养老投顾 / 个人养老金 / 养老保险三种方式对比与配置建议。</p></div>
+    <div class="hi"><h3>其他目标 · 三问问卷 → 定制方案咨询</h3><p>选择场景目标，或从「先规划资金」回答用钱时间 / 目标收益 / 可承受回撤三问后，进入小顾风格的定制方案咨询页——引导语按来源模块与参数生成（如「根据您 子女教育金 的需求，小顾为您提供定制方案」），并给出对应档位的大类配置、测算与产品卡；全部在 DEMO 框内完成，不跳出页面。</p></div>
+    <div class="hi"><h3>搜产品的场景理解</h3><p>除关键词外，输入「3年内要用」这类场景描述会被理解为稳钱需求，直接给出对应分组的策略与说明；搜索结果分 Tab 展示，并可按风险等级、建议持有期、类型、排序进一步收窄。</p></div>
+  </div>
 </section>
 
 </div>
@@ -1219,11 +1223,20 @@ const HELPS=[{t:'赎回资金几天到账？',s:'货币 T+1，债基 T+2，股�
 const FUND_HOLDERS={'518880':['ZH155420','ZH032680','ZH154032'],'159934':['ZH155420','ZH000082'],'161725':['ZH006498'],'110011':['ZH035411'],'005827':['ZH035411','ZH045072'],'163406':['ZH045072'],'162411':['ZH155420','ZH154032'],'270002':['ZH032680'],'003003':['ZH012636','ZH099893','WALLET'],'000198':['ZH012636']};
 // 猜你想问：按命中对象类型生成
 function guessQs(q,r){
-  const g=[]; const p=r.strategies[0], f=r.funds[0];
-  if(p){ g.push(`${p.name}现在能买吗？`,`${p.name}最大回撤有多大？`,`${p.name}适合放多久？`); const other=SHELF.concat(STRICT).find(x=>x.g===p.g&&x.code!==p.code&&x.ms!=null); if(other) g.push(`${p.name}和${other.name}有什么区别？`); }
-  else if(f){ g.push(`${f.name}值得买吗？`,`哪些策略持有${f.name}？`,`${f.type}现在估值贵不贵？`); }
-  else { g.push(`${q}相关的策略有哪些？`,`${q}适合放在四笔钱的哪一笔？`,`我的舒适区能买${q}吗？`); }
-  return g.slice(0,4);
+  const g=[]; const p=r.strategies[0], f=r.funds[0]; const sc=sceneOf(q);
+  if(p){ g.push(`${p.name}这个策略怎么样？`,`${p.name}现在能买吗？`,`${p.name}最近为什么跌？`,`${p.name}适合放多久、放多少？`); if(/发车|定投|SI/.test((p.type||'')+(p.buy||'')+(p.code||''))) g.push(`${p.name}这期发车要跟吗？`); const other=SHELF.concat(STRICT).find(x=>x.g===p.g&&x.code!==p.code&&x.ms!=null); if(other) g.push(`${p.name}和${other.name}选哪个？`); }
+  else if(f){ g.push(`${f.name}值得买吗？`,`哪些策略持有${f.name}？`,`${f.type}现在估值贵不贵？`,`${f.name}放在四笔钱的哪一笔？`); }
+  else if(sc){ g.push(`「${q}」的钱该怎么配？`,`${q}，选稳钱还是长钱？`,`${q}能接受多大回撤？`,`按我的舒适区推荐一个方案`); }
+  else { g.push(`${q}现在值得买吗？`,`${q}相关的策略有哪些？`,`${q}适合放在四笔钱的哪一笔？`,`我的舒适区能买${q}吗？`); }
+  return g.slice(0,5);
+}
+// 未输入时的快捷提问：按搜索历史 / 持有过 / 热搜延伸
+function quickQs(s){
+  const g=[]; const nm=c=>(SHELF.concat(STRICT).find(p=>p.code===c)||{}).name;
+  const h0=s.search.hist[0]; if(h0) g.push(`${h0}最近表现怎么样？`);
+  const held=nm(MY_HELD[0]); if(held) g.push(`${held}还要继续拿吗？`);
+  g.push('我的持仓风险和舒适区匹配吗？','3年内要用的钱放哪儿合适？','黄金现在还能上车吗？','周周同行这期发车要跟吗？','红利策略适合放多久？','有没有比货币基金收益高一点的稳钱？');
+  return [...new Set(g)].slice(0,6);
 }
 const MY_HELD=['ZH013136','WALLET','SI000035']; // 示意：我持有过的
 function searchAll(q,s){
@@ -1245,7 +1258,9 @@ function renderSearch(s){
   const q=(s.search.q||'').trim(); const tab=s.search.tab;
   let body='';
   if(!q){
-    body=`${s.search.hist.length?`<div class="blk"><div class="t"><span>搜索历史</span><a data-act="shist:clear">清空</a></div><div class="cs">${s.search.hist.map(h=>`<span data-act="sq:${h}">${h}</span>`).join('')}</div></div>`:''}
+    const qq=quickQs(s);
+    body=`<div class="guess top"><div class="gt"><img src="${XG_ICON}" alt="">快捷提问<em>点击直接问小顾</em></div>${qq.map(x=>`<span data-act="ai:${x}">${x}</span>`).join('')}</div>
+      ${s.search.hist.length?`<div class="blk"><div class="t"><span>搜索历史</span><a data-act="shist:clear">清空</a></div><div class="cs">${s.search.hist.map(h=>`<span data-act="sq:${h}">${h}</span>`).join('')}</div></div>`:''}
       <div class="blk"><div class="t"><span>热门搜索</span><a>每小时更新</a></div><div class="hotlist">${HOT.map(h=>`<div data-act="sq:${h[0]}"><span class="no ${h[1]<=3?'top':''}">${h[1]}</span>${h[0]}${h[2]==='hot'?'<span class="hot">热</span>':h[2]==='new'?'<span class="new">新</span>':''}<span class="cnt">${(9-h[1])*1200+380} 次</span></div>`).join('')}</div></div>
       <div class="blk"><div class="t"><span>按用钱场景找</span></div><div class="cs">${SCENES.map(x=>`<span data-act="sq:${x[0]}">${x[0]} <em style="color:#A5B2C4;font-style:normal">· ${x[1]}</em></span>`).join('')}</div></div>
       <div class="blk"><div class="t"><span>按类型找</span></div><div class="cs">${['固收+','纯债','指数基金','QDII','货币基金','定投策略','储蓄险','私募'].map(x=>`<span data-act="sq:${x}">${x}</span>`).join('')}</div></div>
@@ -1278,7 +1293,7 @@ function renderSearch(s){
     const mgrList=r.mgrs.map(o=>`<div class="row-item" data-act="route:manager"><div class="ic">${o[0]}</div><div><b>${o}</b><span>认证主理机构 · 在管策略 ${SHELF.concat(STRICT).filter(p=>p.org===o).length} 只</span></div></div>`).join('');
     const counts={all:strategies.length+r.funds.length+r.priv.length+r.funcs.length+r.tools.length+r.ins.length+r.posts.length+r.arts.length+r.helps.length+r.mgrs.length,strategy:strategies.length+r.mgrs.length,fund:r.funds.length,priv:r.priv.length,func:r.funcs.length+r.tools.length,post:r.posts.length+r.arts.length,help:r.helps.length};
     // —— 猜你想问（点了带问进小顾）——
-    const gq=guessQs(q,r); const guess=`<div class="guess"><div class="gt"><img src="${XG_ICON}" alt="">猜你想问</div>${gq.map(x=>`<span data-act="ai:${x}">${x}</span>`).join('')}</div>`;
+    const gq=guessQs(q,r); const guess=`<div class="guess top"><div class="gt"><img src="${XG_ICON}" alt="">猜你想问<em>点击直接问小顾</em><a data-act="ai:${q}">问小顾 ›</a></div>${gq.map(x=>`<span data-act="ai:${x}">${x}</span>`).join('')}</div>`;
     const und=sc?`<div class="understand"><img src="${XG_ICON}" alt=""><span>小顾理解「${q}」：${sc==='stable'?'<em>稳钱</em> → 短期稳健策略（风险分 ≤ 24）':sc==='live'?'<em>活钱</em> → 活钱管理产品':sc==='long'?'<em>长钱</em> → 长期投资策略':sc==='pension'?'<em>养老</em> → 养老专区':sc==='edu'?'<em>教育金</em> → 教育金测算':'<em>攒钱</em> → 攒钱计划'}</span></div>`:'';
     const sceneCta=sc==='pension'?`<div class="row-item" data-act="route:pension"><div class="ic">养</div><div><b>养老专区</b><span>养老投顾 · 个人养老金 · 养老保险</span></div></div>`:sc==='edu'?`<div class="row-item" data-act="tool:edu"><div class="ic"><img src="${TICON.edu}"></div><div><b>教育金测算</b><span>孩子 18 岁时大概要准备多少</span></div></div>`:sc==='save'?`<div class="row-item" data-act="tool:save"><div class="ic"><img src="${TICON.save}"></div><div><b>攒钱计划</b><span>52 周挑战 / 打卡攒钱</span></div></div>`:'';
     // —— 筛选条：风险五档 / 持有期 / 类型 / 排序 + 个性化 ——
@@ -1290,9 +1305,10 @@ function renderSearch(s){
     const empty=`<div class="ipsum">没有匹配结果</div>`;
     const allBody=sec('策略',stratList||(r.strategies.length?`<div class="ipsum">筛选后没有匹配的策略，<a data-act="sclear" style="color:var(--blue)">清除筛选</a></div>`:''),'strategy',strategies.length)+holderList+sec('基金',fundList,'fund',r.funds.length)+sec('私募 · 私享理财',privList,'priv',r.priv.length)+sec('主理机构',mgrList,'strategy',r.mgrs.length)+sec('功能',funcList+toolList,'func',r.funcs.length+r.tools.length)+sec('保险',insList,'strategy',r.ins.length)+sec('社区内容',postList+artList,'post',r.posts.length+r.arts.length)+sec('帮助中心',helpList,'help',r.helps.length);
     const tabBody=tab==='all'?(counts.all?allBody:empty):tab==='strategy'?((stratList||mgrList)?stratList+holderList+mgrList:empty):tab==='fund'?((fundList||holderList)?fundList+holderList:empty):tab==='priv'?(privList||empty):tab==='func'?((funcList||toolList)?funcList+toolList:empty):tab==='post'?((postList||artList)?postList+artList:empty):(helpList||empty);
-    body=`${sugg.length&&!F.committed?`<div class="sug">${sugg.map(p=>`<div data-act="sq:${p.name}">${I.search.replace('<svg','<svg width="13" height="13" style="color:#B8C2D0"')}${p.name.replace(q,`<em>${q}</em>`)}<span class="k">${p.strict?'严选':GROUP_TAB[p.g]}</span></div>`).join('')}</div>`:''}
+    body=`${!F.committed&&(sugg.length||gq.length)?`<div class="sug">${sugg.map(p=>`<div data-act="sq:${p.name}">${I.search.replace('<svg','<svg width="13" height="13" style="color:#B8C2D0"')}${p.name.replace(q,`<em>${q}</em>`)}<span class="k">${p.strict?'严选':GROUP_TAB[p.g]}</span></div>`).join('')}${gq.slice(0,2).map(x=>`<div class="askrow" data-act="ai:${x}"><img src="${XG_ICON}" alt="">${x}<span class="k">问小顾</span></div>`).join('')}</div>`:''}
+      ${F.committed||!sugg.length?guess:''}
       <div class="stabs scroll">${[['all','全部'],['strategy','策略'],['fund','基金'],['priv','私募'],['func','功能'],['post','社区'],['help','帮助']].map(x=>`<div class="${tab===x[0]?'on':''}" data-act="stab:${x[0]}">${x[1]}<sup>${counts[x[0]]||''}</sup></div>`).join('')}</div>
-      ${guess}${und}${sceneCta}${facets}
+      ${und}${sceneCta}${facets}
       ${tabBody}
       <div class="askai big" data-act="ai:${q}，请按我的舒适区 ${COMFORT[0]}–${COMFORT[1]} 分、四笔钱和当前估值，帮我找最合适的产品"><img src="${XG_ICON}" alt=""><div><b>没找到想要的？让小顾帮你找</b><span>会结合你的舒适区 ${COMFORT[0]}–${COMFORT[1]} 分、持仓与当前市场估值给建议</span></div><em>去问 ›</em></div>`;
   }
@@ -1450,20 +1466,9 @@ document.querySelector('.guide').addEventListener('click',e=>{
   if(d==='ai'){ s.pages=[]; act(main,'ai'); return; }
   if(d==='aiedit'){ s.pages=[]; act(main,'aiedit'); return; }
   if(d.startsWith('page:')){ s.pages=[]; act(main,d); return; }
+  if(d.startsWith('openurl:')){ s.pages=[]; act(main,d); return; }
   if(d==='scroll:tools'){ s.pages=[]; main.__scrollTo='#tools'; renderPhone(main); return; }
 });
-// route table in doc
-document.getElementById('route-table').innerHTML=[['投顾 Tab（四笔钱货架）','https://qieman.com/m4?inAppTab=true','WebView 壳，页面已迁 nova；GET /pmdj/v2/m4'],
-  ['投资规划 / 定制方案 / 先规划资金',ROUTES.planM4.url,'「四笔钱，怎么投？」问卷 → 建议书；已有方案 → /umas/{umaId}/invest-plan'],
-  ['养老规划',ROUTES.pension.url,'养老投顾（颐养天年）/ 个人养老金 / 养老保险；测算 /alfa/retirement/plan-index'],
-  ['其他目标',ROUTES.goals.url,'攒钱计划场景集市；子女教育 → 教育金测算微应用'],
-  ['了解四笔钱',ROUTES.intro.url,'nova 静态页（定义 + 金字塔），CTA → 小顾'],
-  ['严选策略',ROUTES.strictList.url,'GET /pmdj/v2/m4/hand-picked，16 只'],
-  ['搜产品',ROUTES.search.url,'albus 通用搜索，11 分组'],
-  ['AI 小顾',ROUTES.ai.url,'3.0 ChatPage；2.0 回落 microapp.qieman.com/mentos/index.html?microapp=yingmi.mia'],
-  ['每日估值 / 市场温度计','https://qieman.com/idx-eval · https://qieman.com/alfa/thermometer','index_valuation 09-23 · market_temperature 10y'],
-  ['账户诊断',ROUTES.diag.url,'四笔钱诊断报告 + 晨星舒适区'],
-  ['主理人页','https://qieman.com/manager/:id','认证主理人 199 位']].map(r=>`<tr><td>${r[0]}</td><td><code>${r[1]}</code></td><td>${r[2]}</td></tr>`).join('');
 </script>
 </body>
 </html>
