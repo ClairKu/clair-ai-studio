@@ -25,6 +25,7 @@
     </a>
     <nav aria-label="页面导航">
       <a href="#radar">信号雷达</a>
+      <a href="#guide">群聊导读</a>
       <a href="#library">材料库</a>
       <a href="#path">学习路径</a>
       <a href="#method">证据边界</a>
@@ -117,6 +118,44 @@
           <p class="signal-note">估值溢价集中在可扩张平台：有机增长、并购整合、顾问生产力与托管技术形成闭环。</p>
           <a href="https://www.pipersandler.com/sites/default/files/document/2024Asset%26WealthManagementWhitepaper%28March%202025%29_vFinal.pdf" target="_blank" rel="noopener">原始白皮书 ↗</a>
         </article>
+      </div>
+    </section>
+
+    <section class="guide shell" id="guide">
+      <header class="section-head reveal">
+        <div>
+          <p class="eyebrow">DISCUSSION GUIDE</p>
+          <h2>按时间读懂讨论脉络</h2>
+        </div>
+        <p>左边看时间与主题，中间读中文导读、翻译和重点，右边打开原始文档。日期为报告发布或资料落地时间；精确群聊时间将在聊天原文提取后替换。</p>
+      </header>
+
+      <div class="guide-status reveal">
+        <span class="status-light"></span>
+        <b>当前证据层：18 条导读 · 19 份核心材料卡</b>
+        <p>已完成主题、标签、报告日期、中文精读和原始出处关联。群聊逐字原文仍保留在本机加密数据库中，尚未冒充为“完整聊天”。</p>
+      </div>
+
+      <div class="reader-shell reveal">
+        <aside class="reader-timeline">
+          <div class="reader-side-head">
+            <span>时间线</span><b id="timeline-count">0</b>
+          </div>
+          <div class="reader-tags" id="reader-tags" aria-label="导读主题筛选"></div>
+          <div class="timeline-list" id="timeline-list"></div>
+        </aside>
+
+        <article class="reader-notes" id="reader-notes" aria-live="polite">
+          <div class="reader-placeholder">选择左侧一条讨论线索开始阅读</div>
+        </article>
+
+        <aside class="reader-source" id="reader-source">
+          <div class="source-placeholder">
+            <span>ORIGINAL</span>
+            <b>原始材料在这里</b>
+            <p>选择材料后，可在同一屏浏览原文；若发布机构禁止嵌入，可点按钮在新窗口打开。</p>
+          </div>
+        </aside>
       </div>
     </section>
 
@@ -231,5 +270,7 @@
   </dialog>
 
   <script src="./app.js"></script>
+  <script src="./private-links.js"></script>
+  <script src="./guide.js"></script>
 </body>
 </html>

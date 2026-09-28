@@ -1,0 +1,2 @@
+window.PENG_LOCAL_SOURCES = {};
+window.PENG_LOCAL_TRANSLATIONS = {};
