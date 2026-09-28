@@ -129,6 +129,8 @@ test("publishes scoped gate metadata on every ordinary HTML entry", () => {
       assert.doesNotMatch(html, /type=["']password["']/);
       assert.match(html, /clair-ai-studio-report-credential-v1/);
       assert.match(html, /clair-report-access/);
+      assert.match(html, /clair-report-access-request/);
+      assert.match(html, /clair-reader-token/);
       assert.match(html, /trustedParentOrigin/);
       assert.match(html, /event\.origin!==parentOrigin/);
       assert.match(html, /openEncryptedReport\(credentials\[credentialKey\]/);
@@ -153,10 +155,12 @@ test("publishes scoped gate metadata on every ordinary HTML entry", () => {
 test("workbench bridges the existing report credential into encrypted reader iframes", () => {
   const source = readFileSync(join(root, "src", "app.js"), "utf8");
   assert.match(source, /REPORT_ACCESS_MESSAGE_TYPE = "clair-report-access"/);
+  assert.match(source, /REPORT_ACCESS_REQUEST_MESSAGE_TYPE = "clair-report-access-request"/);
   assert.match(source, /bindReportReaderAccessBridge\(report\)/);
   assert.match(source, /clair-access-revision/);
-  assert.match(source, /frame\.contentWindow\?\.postMessage/);
-  assert.match(source, /target\.origin/);
+  assert.match(source, /clair-reader-token/);
+  assert.match(source, /event\.source !== frame\.contentWindow/);
+  assert.match(source, /event\.source\.postMessage/);
   assert.match(source, /credentials\["clair-ai-studio-report-credential-v1"\]/);
 });
 

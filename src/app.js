@@ -69,6 +69,7 @@ const REPORT_ACCESS_SESSION_KEYS = [
   "clair-doubao-report-unlock-v1",
 ];
 const REPORT_ACCESS_MESSAGE_TYPE = "clair-report-access";
+const REPORT_ACCESS_REQUEST_MESSAGE_TYPE = "clair-report-access-request";
 const REPORT_ACCESS_REVISION = "v2-2026-09-28";
 const WORKBENCH_EMBED_PARAMETER = "clair-workbench-reader";
 
@@ -5480,6 +5481,11 @@ function workbenchReaderUrl(value) {
     if (!isStudioPage) return value;
     target.searchParams.set(WORKBENCH_EMBED_PARAMETER, "1");
     target.searchParams.set("clair-access-revision", REPORT_ACCESS_REVISION);
+    const randomWords = crypto.getRandomValues(new Uint32Array(4));
+    target.searchParams.set(
+      "clair-reader-token",
+      Array.from(randomWords, (word) => word.toString(36)).join("-"),
+    );
     return target.href;
   } catch {
     return value;
@@ -5511,12 +5517,19 @@ function bindReportReaderAccessBridge(report) {
   }
   if (!credentials["clair-ai-studio-report-credential-v1"]) return;
 
-  const grantAccess = () => frame.contentWindow?.postMessage(
-    { type: REPORT_ACCESS_MESSAGE_TYPE, credentials },
-    target.origin,
-  );
-  frame.addEventListener("load", grantAccess);
-  requestAnimationFrame(grantAccess);
+  const readerToken = target.searchParams.get("clair-reader-token");
+  if (!readerToken) return;
+  const grantAccess = (event) => {
+    if (event.source !== frame.contentWindow
+      || event.data?.type !== REPORT_ACCESS_REQUEST_MESSAGE_TYPE
+      || event.data?.token !== readerToken) return;
+    event.source.postMessage(
+      { type: REPORT_ACCESS_MESSAGE_TYPE, token: readerToken, credentials },
+      "*",
+    );
+    window.removeEventListener("message", grantAccess);
+  };
+  window.addEventListener("message", grantAccess);
 }
 
 function savedFilePreviewMarkup(report, file, compact = false) {

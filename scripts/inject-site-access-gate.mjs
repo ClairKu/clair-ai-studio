@@ -68,6 +68,7 @@ const encryptedReportShell = ({ html, gateScript, outputPath }) => {
     const workspaceSessionKey="clair-ai-studio-access-v2";
     const workspaceSessionValue="verified-2026-09-28";
     const accessMessageType="clair-report-access";
+    const accessRequestMessageType="clair-report-access-request";
     const legacySessionKey=${JSON.stringify(legacySessionKey)};
     const readSession=key=>{try{return sessionStorage.getItem(key)||""}catch{return ""}};
     const clearStaleSession=()=>{try{
@@ -108,8 +109,9 @@ const encryptedReportShell = ({ html, gateScript, outputPath }) => {
       }catch{return""}
     };
     const parentOrigin=trustedParentOrigin();
+    const readerToken=new URLSearchParams(location.search).get("clair-reader-token")||"";
     if(parentOrigin)window.addEventListener("message",event=>{
-      if(event.source!==window.parent||event.origin!==parentOrigin||event.data?.type!==accessMessageType)return;
+      if(event.source!==window.parent||event.origin!==parentOrigin||event.data?.type!==accessMessageType||event.data?.token!==readerToken)return;
       const credentials=event.data.credentials||{};
       try{
         for(const key of [credentialKey,reportSessionKey,"clair-qianwen-report-unlock-v1","clair-doubao-report-unlock-v1"]){
@@ -118,6 +120,7 @@ const encryptedReportShell = ({ html, gateScript, outputPath }) => {
       }catch{}
       void openEncryptedReport(credentials[credentialKey]||credentials[legacySessionKey]||"");
     });
+    if(parentOrigin&&readerToken)window.parent.postMessage({type:accessRequestMessageType,token:readerToken},parentOrigin);
     requestAnimationFrame(openEncryptedReport);
   </script>
 </body>
