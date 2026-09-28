@@ -56,7 +56,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 81;
+const DATA_VERSION = 82;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -200,6 +200,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "peng-signals-learning-station-2026-09-28",
+      groupId: "knowledge",
+      title: "PENG SIGNALS｜买方投顾与财富科技学习站",
+      url: "https://clairku.github.io/clair-ai-studio/reports/peng-signals-learning-station-2026-09-28/",
+      preview: "peng-signals-learning-station-2026-09-28.png",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-28T11:35:00+08:00",
+      source: "本机微信迁移目录可见资料盘点 × 官方原始来源恢复 × 中文精读与体系化提炼｜276 个可见文件均已建立本地清单和 SHA-256；127 个文档/压缩包，89 份 PDF 共 1,412 页，19 个核心材料卡｜公开版只呈现原创摘要、统计结论与发布机构官方入口，不上传微信群截图、成员信息、内部会议、合同、客户/业务数据或限制分发原件｜群聊数据库未解密，PENG 逐条归属按已见画面、本地主题候选、官方扩展分层标注，不把推断当事实",
+      access: "production",
+      workType: "competitive-research",
+      tags: ["PENG", "买方投顾", "RIA", "财富科技", "AI", "学习站", "研究资料", "知识治理", "证据分层", "原文恢复", "HTML", "生产"],
+    },
     {
       id: "altruist-hazel-agent-case-study-2026-09-28",
       groupId: "product-planning",
@@ -2936,6 +2950,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "peng-signals-learning-station-2026-09-28": "competitive-research",
   "altruist-hazel-agent-case-study-2026-09-28": "competitive-research",
   "investor-behavior-correction-system-2026-09-28": "data-analysis",
   "qieman-four-money-redesign-2026-09-24": "product-demo",
@@ -3041,6 +3056,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "peng-signals-learning-station-2026-09-28": "knowledge",
   "altruist-hazel-agent-case-study-2026-09-28": "product-planning",
   "investor-behavior-correction-system-2026-09-28": "growth-insights",
   "qieman-four-money-redesign-2026-09-24": "product-planning",

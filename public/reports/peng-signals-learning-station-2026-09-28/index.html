@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="PENG 在盈米-M*群分享的买方投顾、RIA、财富科技与 AI 研究学习站。">
+  <meta name="theme-color" content="#07111f">
+  <title>PENG SIGNALS｜买方投顾与财富科技学习站</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./mobile-fixes.css">
+</head>
+<body>
+  <canvas id="signal-field" aria-hidden="true"></canvas>
+  <div class="noise" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="返回顶部">
+      <span class="brand-mark">P</span>
+      <span><b>PENG SIGNALS</b><small>WEALTH × ADVICE × AI</small></span>
+    </a>
+    <nav aria-label="页面导航">
+      <a href="#radar">信号雷达</a>
+      <a href="#library">材料库</a>
+      <a href="#path">学习路径</a>
+      <a href="#method">证据边界</a>
+    </nav>
+    <button class="focus-toggle" id="focus-toggle" type="button" aria-pressed="false">专注模式</button>
+  </header>
+
+  <main id="top">
+    <section class="hero shell">
+      <div class="hero-copy reveal">
+        <p class="eyebrow"><span class="pulse"></span> LOCAL WECHAT ARCHIVE · 2023—2026</p>
+        <h1>把零散分享，变成<br><em>可追溯的认知系统</em></h1>
+        <p class="hero-lede">从微信群里散落的报告、图表和观点出发，保留原始出处，补上中文精读，再把买方投顾、RIA 经营、财富科技与 AI 串成一张持续生长的学习地图。</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#library">进入材料宇宙 <span>↘</span></a>
+          <a class="button ghost" href="#method">查看取证口径</a>
+        </div>
+      </div>
+
+      <div class="orbital-card reveal" aria-label="资料盘点概览">
+        <div class="orbit orbit-a"></div>
+        <div class="orbit orbit-b"></div>
+        <div class="orbit orbit-c"></div>
+        <div class="core">
+          <span>已登记</span>
+          <strong>276</strong>
+          <small>全部可见文件</small>
+        </div>
+        <div class="sat sat-a"><b>127</b><span>文档/压缩包</span></div>
+        <div class="sat sat-b"><b>89</b><span>PDF</span></div>
+        <div class="sat sat-c"><b>1,412</b><span>PDF 页数</span></div>
+        <div class="sat sat-d"><b>33</b><span>核心候选</span></div>
+      </div>
+
+      <div class="proof-strip reveal">
+        <div><span>01</span><b>原件先行</b><small>文件校验值与出处分开记录</small></div>
+        <div><span>02</span><b>证据分层</b><small>群聊确认 / 本地候选 / 官方扩展</small></div>
+        <div><span>03</span><b>公开去敏</b><small>内部原件留在本地，不上传 GitHub</small></div>
+        <div><span>04</span><b>持续生长</b><small>后续新分享可直接追加</small></div>
+      </div>
+    </section>
+
+    <section class="radar shell" id="radar">
+      <header class="section-head reveal">
+        <div>
+          <p class="eyebrow">SIGNAL RADAR</p>
+          <h2>四条正在汇合的信号</h2>
+        </div>
+        <p>不是资料堆积，而是把“发生了什么—为什么重要—盈米能做什么”连起来。</p>
+      </header>
+
+      <div class="radar-grid">
+        <article class="signal-card cyan reveal">
+          <div class="signal-index">01</div>
+          <p class="signal-tag">AI × ADVISOR CAPACITY</p>
+          <h3>AI 不是裁员工具，<br>而是服务产能放大器</h3>
+          <div class="metric-row"><b>64%</b><span>机构称 AI 已减少手工与行政工作</span></div>
+          <div class="metric-row"><b>73%</b><span>仍计划增加初级顾问人数</span></div>
+          <p class="signal-note">真正拉开差距的不是模型，而是治理、负责人、培训和效果度量。</p>
+          <a href="https://www.vistaequitypartners.com/insights/the-state-of-wealth-management-ai-adoption/" target="_blank" rel="noopener">官方研究 ↗</a>
+        </article>
+
+        <article class="signal-card lime reveal">
+          <div class="signal-index">02</div>
+          <p class="signal-tag">RIA OPERATING SYSTEM</p>
+          <h3>高增长顾问公司，<br>赢在经营纪律</h3>
+          <div class="metric-row"><b>97%</b><span>十年维度的客户留存水平</span></div>
+          <div class="metric-row"><b>4.2×</b><span>头部机构从老客获得的新增资产</span></div>
+          <p class="signal-note">清晰的理想客户、价值主张、标准流程和 CRM，比单点功能更接近增长答案。</p>
+          <a href="https://advisorservices.schwab.com/managing-your-business/business-consult/benchmarking" target="_blank" rel="noopener">官方研究 ↗</a>
+        </article>
+
+        <article class="signal-card violet reveal">
+          <div class="signal-index">03</div>
+          <p class="signal-tag">AI-NATIVE WEALTHTECH</p>
+          <h3>单一顾问，正在获得<br>“虚拟专家团队”</h3>
+          <div class="stack-visual" aria-label="AI 顾问工作流">
+            <span>客户语境</span><i>→</i><span>规划草案</span><i>→</i><span>人工复核</span>
+          </div>
+          <p class="signal-note">Hazel 的方向不是再加一个工具，而是建立统一客户语境层，压缩 12 套割裂软件。</p>
+          <a href="https://altruist.com/insights/hazel-is-on-a-mission-to-collapse-the-tech-stack-for-financial-advisors/" target="_blank" rel="noopener">官方案例 ↗</a>
+        </article>
+
+        <article class="signal-card amber reveal">
+          <div class="signal-index">04</div>
+          <p class="signal-tag">CAPITAL × INFRASTRUCTURE</p>
+          <h3>资本在买的，<br>是顾问基础设施</h3>
+          <div class="metric-row"><b>278</b><span>2024 年财富管理并购交易</span></div>
+          <div class="metric-row"><b>67%</b><span>由 PE 支持的平台型买家完成</span></div>
+          <p class="signal-note">估值溢价集中在可扩张平台：有机增长、并购整合、顾问生产力与托管技术形成闭环。</p>
+          <a href="https://www.pipersandler.com/sites/default/files/document/2024Asset%26WealthManagementWhitepaper%28March%202025%29_vFinal.pdf" target="_blank" rel="noopener">原始白皮书 ↗</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="library shell" id="library">
+      <header class="section-head reveal">
+        <div>
+          <p class="eyebrow">EVIDENCE LIBRARY</p>
+          <h2>材料宇宙</h2>
+        </div>
+        <p>点开任意卡片，在“中文精读 / 盈米启示 / 原始材料”之间切换。</p>
+      </header>
+
+      <div class="library-toolbar reveal">
+        <label class="search-box">
+          <span>⌕</span>
+          <input id="search" type="search" placeholder="搜索报告、机构、主题或关键词" autocomplete="off">
+        </label>
+        <div class="filters" id="filters" aria-label="主题筛选"></div>
+        <select id="status-filter" aria-label="资料状态筛选">
+          <option value="all">全部资料状态</option>
+          <option value="confirmed">群聊画面确认</option>
+          <option value="local">本地原件</option>
+          <option value="recovered">官网恢复</option>
+          <option value="expanded">延展补充</option>
+        </select>
+      </div>
+
+      <div class="library-meta reveal">
+        <p><b id="result-count">0</b> 条已整理材料</p>
+        <p class="legend"><span class="dot confirmed"></span>群聊确认 <span class="dot local"></span>本地原件 <span class="dot recovered"></span>官网恢复 <span class="dot expanded"></span>延展补充</p>
+      </div>
+      <div class="resource-grid" id="resource-grid" aria-live="polite"></div>
+    </section>
+
+    <section class="learning-path shell" id="path">
+      <header class="section-head reveal">
+        <div>
+          <p class="eyebrow">LEARNING PATH</p>
+          <h2>四幕学习路径</h2>
+        </div>
+        <p>按“行业结构 → 顾问经营 → AI 重构 → 盈米行动”读，比按时间顺序更容易形成体系。</p>
+      </header>
+      <div class="path-track reveal">
+        <article><span>ACT Ⅰ</span><b>看懂行业</b><p>托管、平台、RIA、资产管理与资本之间，谁掌握客户关系和基础设施？</p><small>建议 35 分钟 · 5 份材料</small></article>
+        <article><span>ACT Ⅱ</span><b>拆解增长</b><p>高绩效顾问公司如何获客、分层、转介绍、提高人均产能并留住客户？</p><small>建议 50 分钟 · 7 份材料</small></article>
+        <article><span>ACT Ⅲ</span><b>重构服务</b><p>AI 如何进入会议、规划、研究、税务、运营和合规，而不破坏信任？</p><small>建议 45 分钟 · 6 份材料</small></article>
+        <article><span>ACT Ⅳ</span><b>落到盈米</b><p>从工具清单转向经营闭环：数据底座、顾问工作台、服务 SOP 与可度量结果。</p><small>建议 30 分钟 · 1 张行动图</small></article>
+      </div>
+
+      <div class="thesis-board reveal">
+        <div class="thesis-copy">
+          <p class="eyebrow">SYNTHESIS</p>
+          <h3>PENG 分享背后的主线，<br>不是“追热点”，而是寻找<br><em>买方投顾的生产函数</em>。</h3>
+        </div>
+        <div class="equation" aria-label="买方投顾生产函数">
+          <div><b>可信数据</b><span>客户 / 账户 / 市场 / 产品</span></div>
+          <i>×</i>
+          <div><b>顾问判断</b><span>目标 / 风险 / 行为 / 伦理</span></div>
+          <i>×</i>
+          <div><b>AI 产能</b><span>研究 / 规划 / 运营 / 沟通</span></div>
+          <i>=</i>
+          <div class="result"><b>可规模化的信任</b><span>更低成本 · 更深服务 · 更多覆盖</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="method shell" id="method">
+      <header class="section-head reveal">
+        <div>
+          <p class="eyebrow">EVIDENCE & PRIVACY</p>
+          <h2>这批资料目前整理到哪里</h2>
+        </div>
+        <p>公开站只展示可公开来源和去敏解读；微信内部内容、合同与成员信息没有上传。</p>
+      </header>
+      <div class="method-grid reveal">
+        <article>
+          <span class="method-no">A</span><b>电脑可见盘点</b>
+          <p>已扫描微信迁移目录全部 276 个可直接读取文件，生成路径、大小、格式、时间与 SHA-256 清单；其中 127 个为 Office/PDF/压缩包。</p>
+          <dl><div><dt>276</dt><dd>可见文件</dd></div><div><dt>7</dt><dd>文档重复组</dd></div></dl>
+        </article>
+        <article>
+          <span class="method-no">B</span><b>正文校验</b>
+          <p>89 份 PDF 全部可读；抽取页数、元数据与正文开篇，核心材料进一步完成全文提取。</p>
+          <dl><div><dt>89/89</dt><dd>可读取</dd></div><div><dt>1,412</dt><dd>合计页数</dd></div></dl>
+        </article>
+        <article>
+          <span class="method-no">C</span><b>原始出处恢复</b>
+          <p>已从发布机构官网恢复 Piper Sandler 白皮书，并找到 Cerulli/Vista、Vanguard、Dimensional、Schwab、CFP Board 等官方入口。</p>
+          <dl><div><dt>1</dt><dd>PDF 已恢复</dd></div><div><dt>10+</dt><dd>官方入口</dd></div></dl>
+        </article>
+        <article>
+          <span class="method-no">D</span><b>仍待补齐</b>
+          <p>群聊数据库未解密，所以“全部 PENG 分享”尚不能自动一一归属；当前以已见画面和文件主题做证据分层，不把猜测当事实。</p>
+          <dl><div><dt>进行中</dt><dd>逐条归属</dd></div><div><dt>不公开</dt><dd>内部原件</dd></div></dl>
+        </article>
+      </div>
+      <div class="privacy-note reveal">
+        <b>公开边界</b>
+        <p>本站不托管内部会议纪要、合同、用户/成员信息，也不重新发布标明“不得公开分发”的报告。原件存在本机微信目录和私有索引；公开页面只放官方链接、原创中文精读和必要的事实引用。</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer shell">
+    <div><b>PENG SIGNALS</b><span>从分享流到认知复利</span></div>
+    <p>资料快照：2026-09-28 · 结论不构成投资建议 · 后续可增量更新</p>
+  </footer>
+
+  <dialog id="resource-dialog" class="resource-dialog">
+    <button class="dialog-close" type="button" aria-label="关闭">×</button>
+    <div id="dialog-content"></div>
+  </dialog>
+
+  <script src="./app.js"></script>
+</body>
+</html>

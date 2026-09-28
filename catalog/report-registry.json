@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "peng-signals-learning-station-2026-09-28",
     "altruist-hazel-agent-case-study-2026-09-28",
     "investor-behavior-correction-system-2026-09-28",
     "qieman-four-money-redesign-2026-09-24",
