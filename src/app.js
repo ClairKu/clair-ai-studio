@@ -68,6 +68,7 @@ const REPORT_ACCESS_SESSION_KEYS = [
   "clair-qianwen-report-unlock-v1",
   "clair-doubao-report-unlock-v1",
 ];
+const REPORT_ACCESS_MESSAGE_TYPE = "clair-report-access";
 const WORKBENCH_EMBED_PARAMETER = "clair-workbench-reader";
 
 const WORK_TYPES = [
@@ -5483,6 +5484,39 @@ function workbenchReaderUrl(value) {
   }
 }
 
+function bindReportReaderAccessBridge(report) {
+  const frame = document.querySelector('.reader-frame[src]');
+  if (!frame || !report?.url) return;
+  let target;
+  try {
+    target = new URL(frame.src, window.location.href);
+  } catch {
+    return;
+  }
+  const isStudioReport = target.hostname === "clairku.github.io"
+    && target.pathname.startsWith("/clair-ai-studio/")
+    && target.pathname !== "/clair-ai-studio/";
+  if (!isStudioReport) return;
+
+  const credentials = {};
+  try {
+    for (const key of REPORT_ACCESS_SESSION_KEYS) {
+      const value = window.sessionStorage.getItem(key);
+      if (value) credentials[key] = value;
+    }
+  } catch {
+    return;
+  }
+  if (!credentials["clair-ai-studio-report-credential-v1"]) return;
+
+  const grantAccess = () => frame.contentWindow?.postMessage(
+    { type: REPORT_ACCESS_MESSAGE_TYPE, credentials },
+    target.origin,
+  );
+  frame.addEventListener("load", grantAccess);
+  requestAnimationFrame(grantAccess);
+}
+
 function savedFilePreviewMarkup(report, file, compact = false) {
   const presentation = filePresentation(file);
   const format = file.format || presentation.label;
@@ -6141,6 +6175,7 @@ function render() {
   app.innerHTML = report ? readerMarkup(report) : workbenchMarkup();
   bindAppModal();
   bindApp();
+  if (report) bindReportReaderAccessBridge(report);
   bindTaskCenter({
     render: () => renderAtCurrentScroll(() => document.querySelector(".prompt-composer")),
     showToast,

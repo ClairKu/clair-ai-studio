@@ -128,6 +128,9 @@ test("publishes scoped gate metadata on every ordinary HTML entry", () => {
       assert.match(html, /AES-GCM/);
       assert.doesNotMatch(html, /type=["']password["']/);
       assert.match(html, /clair-ai-studio-report-credential-v1/);
+      assert.match(html, /clair-report-access/);
+      assert.match(html, /trustedParentOrigin/);
+      assert.match(html, /event\.origin!==parentOrigin/);
       assert.match(html, /正在打开已验证的报告/);
       assert.match(html, /noindex,nofollow/);
       continue;
@@ -144,6 +147,15 @@ test("publishes scoped gate metadata on every ordinary HTML entry", () => {
     assert.ok(source, htmlPath);
     assert.equal(existsSync(resolve(dirname(htmlPath), source)), true, `${htmlPath} -> ${source}`);
   }
+});
+
+test("workbench bridges the existing report credential into encrypted reader iframes", () => {
+  const source = readFileSync(join(root, "src", "app.js"), "utf8");
+  assert.match(source, /REPORT_ACCESS_MESSAGE_TYPE = "clair-report-access"/);
+  assert.match(source, /bindReportReaderAccessBridge\(report\)/);
+  assert.match(source, /frame\.contentWindow\?\.postMessage/);
+  assert.match(source, /target\.origin/);
+  assert.match(source, /credentials\["clair-ai-studio-report-credential-v1"\]/);
 });
 
 test("Qianwen encrypted reports use the shared gate and have no second password form", () => {
