@@ -154,6 +154,7 @@ test("workbench bridges the existing report credential into encrypted reader ifr
   const source = readFileSync(join(root, "src", "app.js"), "utf8");
   assert.match(source, /REPORT_ACCESS_MESSAGE_TYPE = "clair-report-access"/);
   assert.match(source, /bindReportReaderAccessBridge\(report\)/);
+  assert.match(source, /clair-access-revision/);
   assert.match(source, /frame\.contentWindow\?\.postMessage/);
   assert.match(source, /target\.origin/);
   assert.match(source, /credentials\["clair-ai-studio-report-credential-v1"\]/);

@@ -230,6 +230,7 @@ const requiredSignals = [
   [appSource, 'WORKSPACE_ACCESS_SESSION_KEY = "clair-ai-studio-access-v2"', "新页面打开未携带工作台会话通行证"],
   [appSource, '"clair-ai-studio-report-credential-v1"', "新页面打开未携带旧加密报告通行证"],
   [appSource, 'REPORT_ACCESS_MESSAGE_TYPE = "clair-report-access"', "工作台内嵌阅读未桥接旧加密报告通行证"],
+  [appSource, 'target.searchParams.set("clair-access-revision", REPORT_ACCESS_REVISION)', "工作台内嵌阅读未避开旧门禁缓存"],
   [appSource, "frame.contentWindow?.postMessage(", "工作台内嵌阅读未向报告安全传递会话"],
   [appSource, "nextWindow.sessionStorage.setItem(", "新页面打开未写入工作台会话通行证"],
   [appSource, "nextWindow.opener = null", "新页面打开未隔离 opener"],

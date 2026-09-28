@@ -69,6 +69,7 @@ const REPORT_ACCESS_SESSION_KEYS = [
   "clair-doubao-report-unlock-v1",
 ];
 const REPORT_ACCESS_MESSAGE_TYPE = "clair-report-access";
+const REPORT_ACCESS_REVISION = "v2-2026-09-28";
 const WORKBENCH_EMBED_PARAMETER = "clair-workbench-reader";
 
 const WORK_TYPES = [
@@ -5478,6 +5479,7 @@ function workbenchReaderUrl(value) {
       && target.pathname !== "/clair-ai-studio/";
     if (!isStudioPage) return value;
     target.searchParams.set(WORKBENCH_EMBED_PARAMETER, "1");
+    target.searchParams.set("clair-access-revision", REPORT_ACCESS_REVISION);
     return target.href;
   } catch {
     return value;
