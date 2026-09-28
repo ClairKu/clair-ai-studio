@@ -201,6 +201,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "altruist-hazel-agent-case-study-2026-09-28",
+      groupId: "product-planning",
+      title: "Altruist × Hazel 双智能体深度案例｜从税务切口到全域金融规划",
+      url: "https://clairku.github.io/clair-ai-studio/reports/altruist-hazel-agent-case-study-2026-09-28/",
+      preview: "altruist-hazel-agent-case-study-2026-09-28.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-28T14:35:00+08:00",
+      source: "Altruist / Hazel / Vanguard 官方公告、产品页、定价、法律条款与信任中心 × GIC 融资公告 × T3 2026 顾问软件调查 × Axios / Bloomberg 独立报道｜同时研究 Hazel 系列第一个税务规划智能体与第二个金融规划智能体，拆解客户上下文层、AI 编排、确定性计算、人类审核、数据留存、建议边界、定价升级与 Vanguard 并购逻辑｜校正：收购尚待交割、46 亿美元为媒体口径、ZDR 仅针对模型提供商、6.30% 为调查受访者使用份额；公开资料研究，不含内部客户与交易数据",
+      access: "production",
+      workType: "competitive-research",
+      tags: ["Altruist", "Hazel", "Vanguard", "金融规划", "税务规划", "AI Agent", "顾问工作台", "确定性计算", "数据治理", "合规", "并购", "竞品调研", "HTML", "生产"],
+    },
+    {
       id: "investor-behavior-correction-system-2026-09-28",
       groupId: "growth-insights",
       title: "投资者行为分析与矫正｜方法治理与产品闭环",
@@ -2922,6 +2936,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "altruist-hazel-agent-case-study-2026-09-28": "competitive-research",
   "investor-behavior-correction-system-2026-09-28": "data-analysis",
   "qieman-four-money-redesign-2026-09-24": "product-demo",
   "all-ai-output-publication-audit-2026-09-24": "reporting",
@@ -3026,6 +3041,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "altruist-hazel-agent-case-study-2026-09-28": "product-planning",
   "investor-behavior-correction-system-2026-09-28": "growth-insights",
   "qieman-four-money-redesign-2026-09-24": "product-planning",
   "all-ai-output-publication-audit-2026-09-24": "reporting",

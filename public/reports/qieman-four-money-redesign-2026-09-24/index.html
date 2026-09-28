@@ -87,11 +87,12 @@
   .cta.ghost{background:#fff;color:var(--blue);border:1px solid #BFDFFF;box-shadow:none}
   .cta:active{background:var(--blue-press)}
   .pen{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  .pen .q{font-size:13px;margin-bottom:8px}
-  .pin{display:flex;align-items:center;justify-content:space-between;border:1px solid #D7E4F3;border-radius:8px;height:36px;padding:0 10px;margin-bottom:8px;font-size:14px;background:#fff}
-  .pin b{font-weight:600;color:#1c2b3a}
-  .pin span{font-size:11px;color:#A5B2C4}
-  .pin input{border:0;width:60px;font-size:14px;font-weight:600;color:#1c2b3a;outline:none;font-family:inherit;background:transparent}
+  .pen .q{font-size:13px;margin-bottom:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .pin{display:flex;align-items:center;justify-content:space-between;border:1px solid #D7E4F3;border-radius:8px;height:36px;padding:0 8px 0 10px;margin-bottom:8px;font-size:14px;background:#fff;gap:6px;min-width:0}
+  .pin b{font-weight:600;color:#1c2b3a;white-space:nowrap;display:inline-flex;align-items:center;min-width:0}
+  .pin span{font-size:11px;color:#A5B2C4;white-space:nowrap;flex:0 0 auto}
+  .pin input{border:0;width:4.6ch;font-size:14px;font-weight:600;color:#1c2b3a;outline:none;font-family:inherit;background:transparent;padding:0;min-width:0;font-variant-numeric:tabular-nums;-moz-appearance:textfield}
+  .pin input::-webkit-inner-spin-button,.pin input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
   .pen .note{font-size:10px;color:var(--blue)}
   .pres{background:#F3F8FF;border-radius:10px;padding:10px 12px;margin-bottom:8px}
   .pres .t{font-size:12px;color:var(--blue);font-weight:600}
@@ -100,9 +101,11 @@
   .pres .bar{height:6px;border-radius:3px;background:transparent;margin:6px 0 2px;overflow:hidden;display:flex}
   .pres .bar i{display:block;height:100%}
   .pres .bar i.inv{background:var(--blue);border-radius:3px 0 0 3px}
-  .pres .bar i.gain{background:#B7D9F6;border-radius:0 3px 3px 0}
-  .pres .m{display:flex;justify-content:space-between;font-size:10px;color:#A5B2C4;white-space:nowrap;gap:8px}
-  .pres .m span{white-space:nowrap;flex:0 0 auto}
+  .pres .bar i.gain{background:#6FB3EA;opacity:.55;border-radius:0 3px 3px 0}
+  .pres .m{display:flex;justify-content:flex-start;font-size:9.5px;color:#A5B2C4;white-space:nowrap;gap:10px;overflow:hidden}
+  .pres .m span{white-space:nowrap;flex:0 0 auto;display:inline-flex;align-items:center;gap:3px}
+  .pres .m span::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor;flex:0 0 auto}
+  .pres .m .inv{color:var(--blue)} .pres .m .gain{color:#6FB3EA}
   .pres .sub{font-size:11px;color:#7D8FA8}
   .goals{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
   .gc{background:#F4F8FF;border-radius:12px;padding:10px 8px 8px;cursor:pointer;overflow:hidden}
@@ -893,8 +896,8 @@ function renderPlan(s){
     body=`<p class="q">有一笔可投资的钱，帮您按目标来匹配方案</p><div class="lbls"><span>低风险低收益</span><span>高风险高收益</span></div><div class="sld"><div class="track"></div><div class="fill" style="width:${pos}%"></div><div class="bubble" style="left:calc(${pos}% - ${(pos*0.52).toFixed(2)}px)">${v}%</div><input type="range" min="2" max="10" step="1" value="${v}" data-inv></div>
       <div class="goal">目标年化 ${v}%<em>·</em>可承受回撤 ${c.loss}<em>·</em>持有${c.hold}</div><div class="allocw">${allocHtml(c)}</div><div class="cta" data-act="route:custom">查看定制方案</div>`;
   } else if(s.planTab==='pension'){ const p=s.pension,r=pensionCalc(p);
-    body=`<div class="pen"><div><div class="q">退休后每月可以花多少?</div><div class="pin"><b><input type="number" value="${p.monthly}" data-pen="monthly">元</b><span>每月存</span></div><div class="pin"><b><input type="number" value="${p.start}" data-pen="start" style="width:42px">岁</b><span>开始存</span></div><div class="pin"><b><input type="number" value="${p.retire}" data-pen="retire" style="width:42px">岁</b><span>预计退休</span></div><div class="note">按养老下滑曲线模型测算 ⇄</div></div>
-      <div><div class="pres"><div class="t">退休时预计存到</div><div class="v">${(r.fv/10000).toFixed(0)}<small>万元</small></div><div class="bar"><i class="inv" style="width:70%"></i><i class="gain" style="width:30%"></i></div><div class="m"><span>投入 ${(r.invest/10000).toFixed(0)}万</span><span>测算收益 ${((r.fv-r.invest)/10000).toFixed(0)}万</span></div></div><div class="pres"><div class="t">退休时预计每月可花</div><div class="v">${fmt(r.pay)}<small>元</small></div><div class="sub">相当于现在的 ${fmt(r.now)} 元</div></div></div></div><div class="cta" style="margin-top:8px" data-act="route:pension">查看养老方案</div>`;
+    body=`<div class="pen"><div><div class="q">退休后每月可以花多少?</div><div class="pin"><b><input type="number" value="${p.monthly}" data-pen="monthly">元</b><span>每月存</span></div><div class="pin"><b><input type="number" value="${p.start}" data-pen="start" style="width:2.6ch">岁</b><span>开始存</span></div><div class="pin"><b><input type="number" value="${p.retire}" data-pen="retire" style="width:2.6ch">岁</b><span>预计退休</span></div><div class="note">按养老下滑曲线模型测算 ⇄</div></div>
+      <div><div class="pres"><div class="t">退休时预计存到</div><div class="v">${(r.fv/10000).toFixed(0)}<small>万元</small></div><div class="bar"><i class="inv" style="width:70%"></i><i class="gain" style="width:30%"></i></div><div class="m"><span class="inv">投入 ${(r.invest/10000).toFixed(0)}万</span><span class="gain">测算收益 ${((r.fv-r.invest)/10000).toFixed(0)}万</span></div></div><div class="pres"><div class="t">退休时预计每月可花</div><div class="v">${fmt(r.pay)}<small>元</small></div><div class="sub">相当于现在的 ${fmt(r.now)} 元</div></div></div></div><div class="cta" style="margin-top:8px" data-act="route:pension">查看养老方案</div>`;
   } else { body=`<div class="goals">${GOALS.map(g=>`<div class="gc" data-act="${g[4]}"><div class="ic" style="background:${g[2]}">${g[3]}</div><b>${g[0]}</b><span>${g[1]}</span><em>1.2W 人开启</em></div>`).join('')}</div>`; }
   return `<div class="plan"><div class="ptabs">${tabs.map((t,i)=>`<span class="ptab ${s.planTab===t[0]?'on':''} ${i===0?'first':''}" data-act="tab:${t[0]}">${t[1]}</span>`).join('')}<span class="plink" data-act="route:planM4">先规划资金 ›</span></div><div class="pbody ${s.planTab==='goal'?'gl':''}">${body}</div></div>`;
 }
@@ -1284,7 +1287,7 @@ function mountPhone(el,over){
     if(t.hasAttribute('data-inv')){ s.investPct=+t.value; const c=INVEST[s.investPct]; const pos=((s.investPct-2)/8)*100; el.querySelector('.sld .fill').style.width=pos+'%'; const b=el.querySelector('.sld .bubble'); b.style.left=`calc(${pos}% - ${(pos*0.52).toFixed(2)}px)`; b.textContent=s.investPct+'%'; el.querySelector('.goal').innerHTML=`目标年化 ${s.investPct}%<em>·</em>可承受回撤 ${c.loss}<em>·</em>持有${c.hold}`; el.querySelector('.allocw').innerHTML=allocHtml(c); return; }
     if(t.hasAttribute('data-fp')){ const pg=s.pages[s.pages.length-1]; if(!pg||pg.type!=='fplan') return; const k=t.dataset.fp; pg[k]=+t.value; const wrap=t.closest('.ruler'); const min=+t.min,max=+t.max; const pos=((pg[k]-min)/(max-min)*100).toFixed(2); const ln=wrap.querySelectorAll('svg line'); const cur=ln[ln.length-1]; cur.setAttribute('x1',pos+'%'); cur.setAttribute('x2',pos+'%'); const b=el.querySelector(`.fp .big b[data-k="${k}"]`); if(b) b.textContent=fmt(pg[k]); if(k==='amt'){ const sm=b.previousElementSibling; sm.textContent=pg.amt>=10000?`${(pg.amt/10000).toFixed(pg.amt%10000?1:0)}万`:''; } return; }
     if(t.hasAttribute('data-rng')){ const L=el.querySelector('[data-rng=lo]'),H=el.querySelector('[data-rng=hi]'); let lo=SXinv(+L.value/RNG_MAX), hi=SXinv(+H.value/RNG_MAX); if(hi-lo<5){ if(t.dataset.rng==='lo'){lo=Math.max(0,hi-5);L.value=Math.round(SX(lo)*RNG_MAX);} else {hi=Math.min(100,lo+5);H.value=Math.round(SX(hi)*RNG_MAX);} } s.range=[lo,hi]; s.comfort=false; s.ddOpen=false; patchFilter(el); return; }
-    if(t.hasAttribute('data-pen')){ s.pension[t.dataset.pen]=+t.value||0; const r=pensionCalc(s.pension); const pres=el.querySelectorAll('.pres'); pres[0].querySelector('.v').innerHTML=`${(r.fv/10000).toFixed(0)}<small>万元</small>`; pres[0].querySelector('.bar').innerHTML=`<i class="inv" style="width:70%"></i><i class="gain" style="width:30%"></i>`; pres[0].querySelector('.m').innerHTML=`<span>投入 ${(r.invest/10000).toFixed(0)}万</span><span>测算收益 ${((r.fv-r.invest)/10000).toFixed(0)}万</span>`; pres[1].querySelector('.v').innerHTML=`${fmt(r.pay)}<small>元</small>`; pres[1].querySelector('.sub').textContent=`相当于现在的 ${fmt(r.now)} 元`; return; }
+    if(t.hasAttribute('data-pen')){ s.pension[t.dataset.pen]=+t.value||0; const r=pensionCalc(s.pension); const pres=el.querySelectorAll('.pres'); pres[0].querySelector('.v').innerHTML=`${(r.fv/10000).toFixed(0)}<small>万元</small>`; pres[0].querySelector('.bar').innerHTML=`<i class="inv" style="width:70%"></i><i class="gain" style="width:30%"></i>`; pres[0].querySelector('.m').innerHTML=`<span class="inv">投入 ${(r.invest/10000).toFixed(0)}万</span><span class="gain">测算收益 ${((r.fv-r.invest)/10000).toFixed(0)}万</span>`; pres[1].querySelector('.v').innerHTML=`${fmt(r.pay)}<small>元</small>`; pres[1].querySelector('.sub').textContent=`相当于现在的 ${fmt(r.now)} 元`; return; }
     if(t.hasAttribute('data-ai')){ s.aiText=t.value; return; }
     if(t.hasAttribute('data-aiin')){ const pg=s.pages[s.pages.length-1]; if(pg) pg.draft=t.value; return; }
     if(t.hasAttribute('data-sq')){ s.search.q=t.value; s.search.committed=false; s.search.risk=0; const body=el.querySelector('.page .pbodyc'); const tmp=document.createElement('div'); tmp.innerHTML=renderSearch(s); body.innerHTML=tmp.querySelector('.pbodyc').innerHTML; const clr=el.querySelector('.sinput .clr'); if(t.value&&!clr){ t.insertAdjacentHTML('afterend','<span class="clr" data-act="sq:">✕</span>'); } if(!t.value&&clr) clr.remove(); return; }

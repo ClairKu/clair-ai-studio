@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Altruist × Hazel 税务规划与金融规划双智能体深度案例，含产品、技术、合规、商业逻辑与对且慢/AI 小顾的启示。">
+  <title>Altruist × Hazel 双智能体深度案例｜从税务切口到全域金融规划</title>
+  <style>
+    :root{--ink:#15231d;--muted:#66736d;--line:#dce5df;--paper:#f5f7f4;--card:#fff;--forest:#173f32;--green:#3b755d;--mint:#dfece5;--orange:#f28b39;--orange-soft:#fff0e4;--cream:#fbf5e9;--blue:#2d5b83;--blue-soft:#e8f1f8;--red:#9b3d37;--red-soft:#fae9e7;--shadow:0 18px 50px rgba(23,63,50,.09)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.72}a{color:var(--green);text-decoration-thickness:1px;text-underline-offset:3px}a:hover{color:var(--orange)}.wrap{width:min(1180px,calc(100% - 36px));margin:auto;padding:22px 0 70px}.hero{position:relative;overflow:hidden;min-height:520px;border-radius:28px;background:linear-gradient(135deg,#12372c 0%,#1b4d3d 54%,#416f59 100%);color:#fff;padding:54px;box-shadow:var(--shadow)}.hero:before,.hero:after{content:"";position:absolute;border-radius:50%;filter:blur(2px)}.hero:before{width:440px;height:440px;right:-110px;top:-170px;background:rgba(242,139,57,.16)}.hero:after{width:280px;height:280px;right:90px;bottom:-180px;border:1px solid rgba(255,255,255,.18)}.eyebrow{display:inline-flex;align-items:center;gap:8px;text-transform:uppercase;letter-spacing:.12em;font-size:12px;font-weight:750;color:#ffd2ad}.eyebrow:before{content:"";width:28px;height:2px;background:var(--orange)}h1{position:relative;max-width:900px;margin:28px 0 16px;font-size:clamp(38px,6vw,72px);line-height:1.06;letter-spacing:-.04em}.hero-lede{position:relative;max-width:820px;margin:0;font-size:clamp(17px,2vw,23px);color:#dcebe4}.hero-grid{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:50px}.hero-kpi{padding:18px;border:1px solid rgba(255,255,255,.17);background:rgba(255,255,255,.07);backdrop-filter:blur(8px);border-radius:16px}.hero-kpi b{display:block;font-size:25px;color:#fff}.hero-kpi span{font-size:12px;color:#cfe1d8}.meta{position:relative;margin-top:22px;color:#bcd0c7;font-size:12px}.toc{position:sticky;top:10px;z-index:10;display:flex;gap:8px;overflow:auto;margin:18px 0;padding:10px;border:1px solid var(--line);border-radius:15px;background:rgba(255,255,255,.91);backdrop-filter:blur(12px);box-shadow:0 8px 30px rgba(23,63,50,.06)}.toc a{flex:none;padding:8px 12px;border-radius:9px;color:#355047;text-decoration:none;font-size:13px}.toc a:hover{background:var(--mint)}section{margin-top:18px;padding:34px;border:1px solid var(--line);border-radius:22px;background:var(--card);box-shadow:0 10px 30px rgba(23,63,50,.045)}h2{margin:0 0 22px;font-size:clamp(25px,3vw,38px);line-height:1.2;letter-spacing:-.025em}h3{margin:26px 0 10px;font-size:20px}h4{margin:0 0 8px;font-size:16px}.section-no{display:block;margin-bottom:9px;color:var(--orange);font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.lead{font-size:18px;color:#3c4f47}.grid-2,.grid-3,.grid-4{display:grid;gap:14px}.grid-2{grid-template-columns:repeat(2,1fr)}.grid-3{grid-template-columns:repeat(3,1fr)}.grid-4{grid-template-columns:repeat(4,1fr)}.card{padding:20px;border:1px solid var(--line);border-radius:16px;background:#fff}.card.soft{background:#f8faf8}.card.green{background:var(--mint);border-color:#bfd4c8}.card.orange{background:var(--orange-soft);border-color:#f1cfb3}.card.blue{background:var(--blue-soft);border-color:#c7d9e8}.card.red{background:var(--red-soft);border-color:#e9c5c0}.card p:last-child{margin-bottom:0}.badge,.ev,.grade{display:inline-block;border-radius:999px;padding:2px 8px;font-size:11px;font-weight:780;white-space:nowrap}.badge{background:var(--mint);color:var(--forest)}.badge.orange{background:var(--orange-soft);color:#9c4e16}.badge.red{background:var(--red-soft);color:var(--red)}.ev{background:#162a22;color:#fff}.grade.a{background:#dceee3;color:#236344}.grade.b{background:#e5eef7;color:#315f87}.grade.c{background:#fff0d9;color:#8f5d15}.grade.i{background:#eeeaf8;color:#63518a}.verdict{padding:23px 26px;border-left:5px solid var(--orange);border-radius:14px;background:var(--cream);font-size:17px}.correction{display:grid;grid-template-columns:150px 1fr 1fr;gap:0;border:1px solid var(--line);border-radius:15px;overflow:hidden;margin:13px 0}.correction>div{padding:14px;border-right:1px solid var(--line)}.correction>div:last-child{border-right:0}.correction .label{background:#f7f9f7;font-weight:750}.old{color:var(--red);text-decoration:line-through;text-decoration-thickness:1px}.new{color:#226449;font-weight:700}.timeline{position:relative;margin:24px 0 0;padding-left:25px}.timeline:before{content:"";position:absolute;left:7px;top:6px;bottom:8px;width:2px;background:#bfd4c8}.event{position:relative;padding:0 0 22px 18px}.event:before{content:"";position:absolute;left:-23px;top:6px;width:12px;height:12px;border-radius:50%;border:3px solid #fff;background:var(--orange);box-shadow:0 0 0 2px #cddbd3}.event time{display:block;color:var(--green);font-size:12px;font-weight:800}.event b{font-size:17px}.compare{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--line);border-radius:15px;overflow:hidden;font-size:14px}.compare th,.compare td{padding:13px 14px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}.compare th{background:#eef4f0}.compare tr:last-child td{border-bottom:0}.compare tbody tr:nth-child(even){background:#fbfcfb}.compare td:first-child{width:18%;font-weight:730;color:#365048}.pipeline{display:grid;grid-template-columns:1.08fr 42px 1fr 42px 1fr 42px 1.08fr;align-items:stretch;margin:22px 0}.pipe{display:flex;flex-direction:column;justify-content:center;min-height:135px;padding:16px;border:1px solid var(--line);border-radius:16px;background:#f9fbfa}.pipe b{font-size:16px}.pipe small{margin-top:7px;color:var(--muted)}.arrow{display:grid;place-items:center;color:var(--orange);font-size:28px;font-weight:800}.visual{margin:22px 0;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#edf3ef}.visual img{display:block;width:100%;height:auto}.visual figcaption{padding:10px 14px;background:#fff;color:var(--muted);font-size:12px}.shot-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.ratio{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}.ratio div{padding:16px;border-radius:14px;background:#f5f8f6}.ratio b{display:block;font-size:26px;color:var(--green)}.ladder{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;align-items:end}.tier{padding:20px;border:1px solid var(--line);border-radius:16px;background:#f9fbfa}.tier:nth-child(2){border-top:5px solid var(--green)}.tier:nth-child(3){border-top:5px solid var(--orange)}.price{font-size:29px;font-weight:800}.muted{color:var(--muted)}.risk-list{counter-reset:risk;display:grid;gap:10px}.risk{position:relative;padding:16px 18px 16px 58px;border:1px solid var(--line);border-radius:14px;background:#fff}.risk:before{counter-increment:risk;content:counter(risk);position:absolute;left:16px;top:16px;width:27px;height:27px;display:grid;place-items:center;border-radius:50%;background:var(--red-soft);color:var(--red);font-weight:800}.action{position:relative;padding-top:48px}.action .num{position:absolute;left:20px;top:15px;font-size:12px;font-weight:800;color:var(--orange)}.metric{padding:15px;border-left:3px solid var(--green);background:#f8faf8}.metric b{display:block}.quote{margin:18px 0;padding:22px;border-radius:15px;background:var(--forest);color:#e8f3ed}.quote strong{color:#ffd1aa}.source-list{display:grid;gap:10px}.source{display:grid;grid-template-columns:78px 1fr 115px;gap:12px;align-items:start;padding:13px 0;border-bottom:1px solid var(--line)}.source:last-child{border-bottom:0}.source a{word-break:break-word}.audit{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.audit div{padding:18px;border-radius:14px;background:#f7f9f7}.audit b{display:block;color:var(--green)}footer{padding:28px 10px;text-align:center;color:var(--muted);font-size:12px}.nowrap{white-space:nowrap}.only-mobile{display:none}
+    @media(max-width:850px){.wrap{width:min(100% - 20px,1180px)}.hero{min-height:auto;padding:34px 24px}.hero-grid,.grid-4,.grid-3,.audit{grid-template-columns:1fr 1fr}.grid-2,.shot-grid{grid-template-columns:1fr}.pipeline{grid-template-columns:1fr}.arrow{height:34px;transform:rotate(90deg)}.correction{grid-template-columns:1fr}.correction>div{border-right:0;border-bottom:1px solid var(--line)}.correction>div:last-child{border-bottom:0}.source{grid-template-columns:62px 1fr}.source .grade{grid-column:2}.ladder{grid-template-columns:1fr}.ratio{grid-template-columns:1fr 1fr}section{padding:24px 20px}.toc{top:4px}}
+    @media(max-width:520px){.hero-grid,.grid-4,.grid-3,.audit,.ratio{grid-template-columns:1fr}.hero{border-radius:20px}.hero-kpi{padding:14px}.compare-wrap{overflow-x:auto}.compare{min-width:730px}.toc{margin-inline:-2px}.only-mobile{display:block}}
+    @media print{body{background:#fff}.wrap{width:100%;padding:0}.toc{display:none}.hero,section{box-shadow:none;break-inside:avoid}.hero{border-radius:0}a{color:inherit;text-decoration:none}}
+  </style>
+</head>
+<body>
+<main class="wrap">
+  <header class="hero">
+    <span class="eyebrow">Deep case study · 2026.09.28</span>
+    <h1>Altruist × Hazel<br>双智能体深度案例</h1>
+    <p class="hero-lede">从第一个“税务规划智能体”到第二个“金融规划智能体”：Altruist 如何把顾问的客户上下文、确定性计算与人类责任边界拼成一条产品与商业飞轮。</p>
+    <div class="hero-grid">
+      <div class="hero-kpi"><b>02.10</b><span>税务规划智能体发布</span></div>
+      <div class="hero-kpi"><b>09.01</b><span>金融规划智能体发布</span></div>
+      <div class="hero-kpi"><b>6 个</b><span>核心金融规划工作流</span></div>
+      <div class="hero-kpi"><b>$300</b><span>金融规划版 / 席位 / 月</span></div>
+    </div>
+    <div class="meta">调研对象：Altruist、Hazel、Vanguard｜证据范围：18 项公开资料，以公司公告、产品页、法律条款与信任中心为主｜结论截至 2026-09-28</div>
+  </header>
+
+  <nav class="toc" aria-label="目录">
+    <a href="#summary">核心判断</a><a href="#corrections">口径校正</a><a href="#timeline">演进路径</a><a href="#agents">两个智能体</a><a href="#architecture">技术架构</a><a href="#compliance">合规真相</a><a href="#business">商业与并购</a><a href="#risks">风险缺口</a><a href="#implications">且慢启示</a><a href="#evidence">证据索引</a>
+  </nav>
+
+  <section id="summary">
+    <span class="section-no">01 · Executive summary</span>
+    <h2>真正值得研究的，不是“AI 会做规划”，而是它如何被包装成可卖、可审、可扩展的顾问产能</h2>
+    <div class="verdict"><strong>一句话结论：</strong>Hazel 的产品路线不是先做“万能理财顾问”，而是先搭客户上下文底座，再用一个边界窄、价值可量化的税务智能体验证付费与信任，最后把同一底座扩展为全域金融规划；AI 负责理解与编排，专业程序负责数字，人类顾问负责判断与责任。<span class="ev">EV-001</span> <span class="ev">EV-002</span> <span class="ev">EV-009</span></div>
+    <div class="grid-3" style="margin-top:16px">
+      <article class="card green"><h4>第一步不是规划，而是“记住”</h4><p>Hazel 2025 年先以会议、邮件、CRM、文档与日程整合切入，形成持续更新的客户上下文层。没有这层，后续 agent 只是一次性问答。<span class="ev">EV-010</span></p></article>
+      <article class="card orange"><h4>税务是理想的首个付费楔子</h4><p>输入高度文档化、机会可量化、结果可做情景比较、顾问价值容易被客户看见；官方定价也从基础版 $60 抬升到 $160。<span class="ev">EV-004</span> <span class="ev">EV-005</span></p></article>
+      <article class="card blue"><h4>金融规划把工具升级成操作系统</h4><p>第二个 agent 跨越退休、投资、现金流、遗产、税务、保险，开始统一公司假设、顾问流程和客户呈现，定价升至 $300。<span class="ev">EV-003</span> <span class="ev">EV-005</span></p></article>
+    </div>
+    <h3>六个关键发现</h3>
+    <div class="grid-2">
+      <div class="card soft"><b>1｜“第二个”的前一个是谁</b><p>明确是 2026-02-10 发布的 <strong>Tax Planning Agent</strong>；2025 年的 Hazel 基础平台是底座，不计入这组“expanded planning solutions”的第一项。<span class="ev">EV-002</span></p></div>
+      <div class="card soft"><b>2｜发布时点具有叙事效应</b><p>金融规划 agent 在 Vanguard 公布收购协议后 <strong>6 个自然日</strong>发布。可以称“并购公告后一周内”，但严格说不是同一自然周。<span class="ev">EV-001</span> <span class="ev">EV-012</span></p></div>
+      <div class="card soft"><b>3｜“数字不是 AI 生成的”只解决一半问题</b><p>确定性计算降低算术漂移，但文档抽取错误、数据过期、错误假设、工具选择错误仍会传导到结果，所以还需要来源、置信度、方法和假设清单。<span class="ev">EV-006</span> <span class="ev">EV-009</span></p></div>
+      <div class="card soft"><b>4｜ZDR 不是“平台不留数据”</b><p>零数据保留针对 AI 模型提供商/子处理商；Hazel 自身可按客户配置保留会议媒体、转写和摘要。营销口径与法律条款必须合并理解。<span class="ev">EV-006</span> <span class="ev">EV-008</span></p></div>
+      <div class="card soft"><b>5｜开放全市场是获客设计，不是慈善</b><p>不要求使用 Altruist 托管，让 Hazel 成为低迁移成本入口；一旦连接更多托管数据，体验更深，形成从 SaaS 到托管的潜在转化飞轮。后半句为基于产品结构的推断。<span class="grade i">推断</span></p></div>
+      <div class="card soft"><b>6｜Vanguard 买的是“触达层 + 工作流层”</b><p>官方理由强调顾问关系、技术平台、人才和更低服务成本；Altruist 将在交割后保持独立运营。$4.6B 是媒体报道，不是官方披露。<span class="ev">EV-012</span> <span class="ev">EV-013</span> <span class="ev">EV-014</span></p></div>
+    </div>
+  </section>
+
+  <section id="corrections">
+    <span class="section-no">02 · Fact check</span>
+    <h2>先把五个容易传错的口径纠正</h2>
+    <div class="correction"><div class="label">并购状态</div><div class="old">“Vanguard 已经完成收购”</div><div class="new">已签署最终协议；截至本报告日期仍待惯常条件与监管批准，官方称预计 2026 年内完成。<span class="ev">EV-012</span></div></div>
+    <div class="correction"><div class="label">交易价格</div><div class="old">“官方披露 46 亿美元”</div><div class="new">Vanguard 官方未披露条款；Axios 报道为 46 亿美元现金交易，应写“据媒体报道”。<span class="ev">EV-012</span> <span class="ev">EV-014</span></div></div>
+    <div class="correction"><div class="label">发布时间</div><div class="old">“收购当周发布”</div><div class="new">收购协议 8 月 26 日公布，金融规划 agent 9 月 1 日发布，相隔 6 个自然日。<span class="ev">EV-001</span> <span class="ev">EV-012</span></div></div>
+    <div class="correction"><div class="label">累计融资</div><div class="old">“累计融资 6.15 亿美元”</div><div class="new">官方当前只确认“超过 6 亿美元”；公开数据库口径约 6.015 亿，无法用一手资料确认 6.15 亿。<span class="ev">EV-016</span></div></div>
+    <div class="correction"><div class="label">市场份额</div><div class="old">“6% 托管份额”</div><div class="new">2026 T3 调查中 Altruist 的顾问受访者使用份额为 6.30%；报告自身提醒这不是精确的全市场托管资产份额。<span class="ev">EV-017</span></div></div>
+  </section>
+
+  <section id="timeline">
+    <span class="section-no">03 · Product evolution</span>
+    <h2>从会议助手到“专家团队”：18 个月产品演进图</h2>
+    <div class="timeline">
+      <div class="event"><time>2025-04-22</time><b>GIC 领投 Series F</b><p>$152M 融资，投后估值约 $1.9B。资金叙事已明确是垂直一体化托管技术与 AI。<span class="ev">EV-015</span></p></div>
+      <div class="event"><time>2025-06-20</time><b>收购 Thyme</b><p>把专为顾问设计的会前准备、实时记录、会后跟进能力收入体系，并宣布改造成独立 Hazel。<span class="ev">EV-011</span></p></div>
+      <div class="event"><time>2025-09-09</time><b>Hazel 基础平台上线</b><p>Ask Hazel、每日摘要、邮件草拟、任务同步、会议记录与 CRM 集成；$60/席位/月，面向所有顾问，不要求托管。<span class="ev">EV-010</span></p></div>
+      <div class="event"><time>2026-02-10</time><b>第一项 expanded planning solution：税务规划智能体</b><p>读取 1040、W-2、工资单、1099、账户与客户沟通，生成机会、情景模拟和客户报告。<span class="ev">EV-002</span> <span class="ev">EV-004</span></p></div>
+      <div class="event"><time>2026-08-26</time><b>Vanguard 公布收购协议</b><p>强调顾问供给不足、Altruist 的工作流与关系资产；交割后保持品牌、管理层和独立运营模式。<span class="ev">EV-012</span> <span class="ev">EV-013</span></p></div>
+      <div class="event"><time>2026-09-01</time><b>第二项：金融规划智能体</b><p>将税务规划扩展为六大工作流，并把“数字由专用程序计算”作为可信度核心卖点。<span class="ev">EV-001</span></p></div>
+    </div>
+  </section>
+
+  <section id="agents">
+    <span class="section-no">04 · Agent one and two</span>
+    <h2>两个智能体不是并列功能，而是一条“窄楔子 → 广平台”的升级路径</h2>
+    <div class="compare-wrap"><table class="compare">
+      <thead><tr><th>维度</th><th>第一个：税务规划智能体</th><th>第二个：金融规划智能体</th></tr></thead>
+      <tbody>
+        <tr><td>发布日期</td><td>2026-02-10 <span class="ev">EV-002</span></td><td>2026-09-01 <span class="ev">EV-001</span></td></tr>
+        <tr><td>任务边界</td><td>税务机会识别、跨年度税务策略、Roth conversion、资本利得管理、情景比较</td><td>退休、投资优化、现金流、遗产、税务、保险与风险六大工作流</td></tr>
+        <tr><td>关键输入</td><td>1040、W-2、1099、工资单、账户报表、会议/邮件、CRM、托管数据</td><td>金融文件 + 会议/沟通 + 笔记 + CRM、邮箱、托管与其他连接数据</td></tr>
+        <tr><td>交互方式</td><td>选择/追问税务场景，实时改假设，比较税负与节税机会</td><td>设定公司资本市场与通胀假设；按客户目标生成计划，现场调整储蓄、投资、支出与提取方案</td></tr>
+        <tr><td>输出</td><td>税务机会、跨年模型、税务信、交互式客户报告、顾问谈话要点</td><td>完整计划、交互图表、来源/置信度/方法/假设、会议跟进与沟通草稿</td></tr>
+        <tr><td>可量化价值</td><td>官方自报：20+ 小时/月、平均为客户节税 $5,900；来自用户调查与产品数据，不是独立实验。<span class="ev">EV-004</span></td><td>官方称把原需 10+ 小时的计划压缩至分钟级；基线来自 Kitces 研究，个体结果会不同。<span class="ev">EV-003</span></td></tr>
+        <tr><td>定价</td><td>$160 / 席位 / 月，含基础 Hazel 平台</td><td>$300 / 席位 / 月，包含税务规划 agent</td></tr>
+        <tr><td>为什么先做</td><td>文档标准、价值可测、客户感知强、容易形成高价升级包</td><td>在证明信任和付费后，把同一上下文层与工具编排扩展到整套规划</td></tr>
+        <tr><td>主要风险</td><td>税法更新、边缘案例、输入抽取、税务建议边界</td><td>跨域假设冲突、模型链路更长、错误传播与受托责任更复杂</td></tr>
+      </tbody>
+    </table></div>
+    <div class="shot-grid" style="margin-top:18px">
+      <figure class="visual"><img src="assets/tax-planning-workflow.png" alt="Hazel 税务规划产品界面"><figcaption>官方税务规划页面素材：先把单点场景做成可交互、可展示、可量化的客户会议资产。来源：Hazel 产品页。<span class="ev">EV-004</span></figcaption></figure>
+      <figure class="visual"><img src="assets/financial-plan-overview.png" alt="Hazel 金融规划产品界面"><figcaption>官方金融规划页面素材：第二个 agent 把多个规划领域收进同一体验。来源：Hazel 产品页。<span class="ev">EV-003</span></figcaption></figure>
+    </div>
+  </section>
+
+  <section id="architecture">
+    <span class="section-no">05 · Architecture</span>
+    <h2>“AI 负责理解、程序负责计算、顾问负责决定”只是表层；真正的系统有四层</h2>
+    <div class="pipeline" aria-label="Hazel 架构流程">
+      <div class="pipe"><b>① 客户上下文层</b><small>文档、会议、邮件、CRM、日历、账户/托管数据；持续沉淀目标、约束与历史承诺。</small></div><div class="arrow">→</div>
+      <div class="pipe"><b>② AI 编排层</b><small>识别意图、补问缺失信息、拆解目标、选择并调用合适的计算程序。</small></div><div class="arrow">→</div>
+      <div class="pipe"><b>③ 确定性计算层</b><small>退休、现金流、税务、收益/风险、提取与保险等专用计算器返回可复算数字。</small></div><div class="arrow">→</div>
+      <div class="pipe"><b>④ 呈现与责任层</b><small>聚合成计划、图表、情景与沟通草稿；保留来源、假设和人工审核。</small></div>
+    </div>
+    <div class="grid-2">
+      <div>
+        <h3>为什么这比“让大模型算一遍”可靠</h3>
+        <p>Altruist 公开描述 Sol 作为中心编排器：先理解请求与客户上下文，再将子任务委派给内置财务计算程序，最后聚合结果。计算路径可重复，模型主要承担语义理解、任务分解与解释。<span class="ev">EV-009</span></p>
+        <p><strong>但“确定性”不等于“必然正确”：</strong>同样的错误输入和错误假设会稳定地产生错误结果。Hazel 因此又增加了数据来源、置信度、方法与假设清单。<span class="ev">EV-006</span></p>
+      </div>
+      <figure class="visual"><img src="assets/deterministic-calculators.png" alt="Prompt 到 LLM 推理再到计算器的官方架构示意"><figcaption>Hazel 官方架构示意：Prompt → LLM Reasoning → Calculator。图示直观，但生产系统还需在前后补上数据治理与审核责任。<span class="ev">EV-003</span></figcaption></figure>
+    </div>
+    <h3>它到底有多“agentic”</h3>
+    <div class="grid-4">
+      <div class="card"><span class="badge">强</span><h4>感知与检索</h4><p>跨邮件、文档、会议、CRM 与托管数据组织上下文。</p></div>
+      <div class="card"><span class="badge">强</span><h4>分解与工具调用</h4><p>把目标拆成子任务，并调用专用计算程序。</p></div>
+      <div class="card"><span class="badge orange">中</span><h4>生成与协作</h4><p>生成计划、图表与沟通材料，支持实时改假设。</p></div>
+      <div class="card"><span class="badge red">弱 / 有意限制</span><h4>自动执行</h4><p>公开材料没有证明它会自主交易或直接替顾问做受托决定；输出需顾问审核。</p></div>
+    </div>
+  </section>
+
+  <section id="compliance">
+    <span class="section-no">06 · Compliance deep dive</span>
+    <h2>三个合规设计都成立，但每一个都比宣传语更窄</h2>
+    <div class="grid-3">
+      <article class="card green"><h4>1｜数字来自计算器</h4><p>官方新闻稿写明：AI 收集和理解数据，专用程序执行财务计算，“每一个数字都是计算出来的”。<span class="ev">EV-001</span></p><p class="muted">边界：不能覆盖数据抽取、假设选择、规则版本和工具路由错误。</p></article>
+      <article class="card orange"><h4>2｜模型提供商 ZDR</h4><p>OpenAI、Anthropic 等关键子处理商按信任中心执行零保留；AWS 基础设施则标为可应要求删除。<span class="ev">EV-007</span></p><p class="muted">边界：不是 Hazel 自身完全不存数据；客户可配置会议数据的保留与删除。</p></article>
+      <article class="card blue"><h4>3｜不提供建议</h4><p>产品页声明输出仅供信息使用，不构成金融、税务、投资、法律或合规建议；顾问承担审查与受托责任。<span class="ev">EV-003</span> <span class="ev">EV-008</span></p><p class="muted">边界：免责声明不能代替真实的审批、记录、适当性与监督流程。</p></article>
+    </div>
+    <h3>法律条款比新闻稿多出来的四个责任</h3>
+    <div class="risk-list">
+      <div class="risk"><b>会议录制同意</b><br>顾问须提前通知参与者，并在适用法律要求时取得明确同意。<span class="ev">EV-008</span></div>
+      <div class="risk"><b>AI 输出披露</b><br>未经授权用户审核就直接给客户看的 AI 内容，需按适用法律告知其 AI 身份，并提供人工交互替代。<span class="ev">EV-008</span></div>
+      <div class="risk"><b>数据授权责任</b><br>顾问须保证其对邮件、会议、个人信息、账户数据与文件拥有足够权利、通知与授权。<span class="ev">EV-008</span></div>
+      <div class="risk"><b>准确性与责任回落</b><br>条款明确 AI 输出可能错误、遗漏或误读，不替代监管记录和人工判断；顾问承担依赖输出产生的责任。<span class="ev">EV-008</span></div>
+    </div>
+    <figure class="visual"><img src="assets/client-intelligence.png" alt="Hazel 客户智能上下文界面"><figcaption>上下文越完整，个性化越强；同时也意味着权限、同意、留存、跨系统同步和错误纠正成本同步上升。官方产品素材。<span class="ev">EV-004</span></figcaption></figure>
+  </section>
+
+  <section id="business">
+    <span class="section-no">07 · Business logic</span>
+    <h2>商业飞轮：先卖“顾问产能”，再获得数据连接与托管选择权</h2>
+    <div class="ladder">
+      <div class="tier"><span class="badge">底座</span><h3>Hazel Platform</h3><div class="price">$60</div><p class="muted">席位 / 月</p><p>会议、邮件、任务、CRM、文档与客户知识库。</p></div>
+      <div class="tier"><span class="badge">第一楔子</span><h3>Tax Planning Agent</h3><div class="price">$160</div><p class="muted">席位 / 月</p><p>含基础平台；把税务价值变成可量化的客户对话与报告。</p></div>
+      <div class="tier"><span class="badge orange">平台扩张</span><h3>Financial Planning Agent</h3><div class="price">$300</div><p class="muted">席位 / 月</p><p>含税务 agent；承接完整规划与公司方法论。</p></div>
+    </div>
+    <p class="muted">定价为 2026-09-28 官网标价，不含企业折扣；均提供 14 天试用。<span class="ev">EV-005</span></p>
+    <div class="grid-2">
+      <article class="card"><h4>为什么“不强制托管”反而强化托管生意</h4><p>Standalone 降低试用门槛，先接入 CRM/邮件/外部托管数据；顾问在 Hazel 内形成客户知识与工作流依赖后，Altruist 自有托管数据会提供更实时、更深的体验。这是典型“软件先行、基础设施后置”的获客逻辑。<span class="grade i">推断</span></p></article>
+      <article class="card"><h4>为什么 Vanguard 不自己造</h4><p>Vanguard 官方称 Altruist 已具备成熟平台、专门人才、顾问关系与多年工作流经验，自建需要显著时间和投资；收购还让 Vanguard 更接近独立顾问及其客户。<span class="ev">EV-013</span></p></article>
+    </div>
+    <h3>并购数字的可靠口径</h3>
+    <div class="ratio">
+      <div><b>$1.9B</b><span>2025 Series F 估值，GIC 官方</span></div>
+      <div><b>$4.6B</b><span>2026 收购价，Axios 报道；官方未披露</span></div>
+      <div><b>约 2.42×</b><span>媒体收购价 ÷ 上轮估值，简单比值</span></div>
+      <div><b>6,000+</b><span>官方称使用平台的独立顾问数</span></div>
+      <div><b>6.30%</b><span>2026 T3 调查受访者托管平台使用份额</span></div>
+      <div><b>112%</b><span>Altruist 自报：按所服务 RIA 数的同比增长</span></div>
+    </div>
+    <div class="quote"><strong>更犀利的判断：</strong>Vanguard 买到的不只是一个更现代的 custodian，而是一条能把“投资产品供给”前移到“客户目标、顾问工作流和计划生成”的分发控制层。独立运营是为了保留速度与顾问信任；但长期最大的张力也在这里——独立顾问会持续观察 Hazel 是否会把 Vanguard 的产品经济置于开放架构之上。</div>
+  </section>
+
+  <section id="risks">
+    <span class="section-no">08 · What remains unproven</span>
+    <h2>公开资料仍没有证明的九件事</h2>
+    <div class="grid-3">
+      <div class="card red"><b>计算覆盖率</b><p>没有公开计算器清单、公式、版本、税法更新机制或验证集。</p></div>
+      <div class="card red"><b>真实准确率</b><p>没有第三方基准证明文档抽取、工具路由和最终计划准确率。</p></div>
+      <div class="card red"><b>纠错机制</b><p>公开页展示来源与置信度，但未说明错误数据如何回写、审批和形成审计闭环。</p></div>
+      <div class="card red"><b>情景一致性</b><p>没有证据说明跨退休、税务、投资、遗产与保险模型如何解决冲突。</p></div>
+      <div class="card red"><b>自动执行边界</b><p>尚无公开证据显示计划可直接触发交易、账户变更或保险申请。</p></div>
+      <div class="card red"><b>效果因果性</b><p>20 小时、$5,900、47% 等来自厂商调查/产品数据，不是独立随机实验。</p></div>
+      <div class="card red"><b>合同更新同步</b><p>当前 Hazel 条款明确写了 Tax Planning Mode，但公开摘录未同等细化金融规划模式。</p></div>
+      <div class="card red"><b>并购后开放性</b><p>官方承诺独立运营，但没有可审计的产品中立性、推荐排序或冲突管理机制。</p></div>
+      <div class="card red"><b>46 亿价格</b><p>交易条款未由双方披露；媒体报道可用，但不能写成已审计的成交价格。</p></div>
+    </div>
+  </section>
+
+  <section id="implications">
+    <span class="section-no">09 · Implications for Qieman / AI Xiaogu</span>
+    <h2>对且慢最该抄的不是六个功能，而是“产品次序 + 责任架构”</h2>
+    <div class="grid-2">
+      <article class="card green"><h4>建议一｜先做可验证的窄规划楔子</h4><p>优先选择“养老目标 / 现金流规划”这类已有数据、公式和后续动作承接的场景；不要一开始宣称覆盖家庭全部财富问题。先做到输入可追溯、每个数字可复算、顾问能一键审阅。</p></article>
+      <article class="card green"><h4>建议二｜把“客户上下文”当产品，不当 Prompt</h4><p>会议纪要、账户行为、目标、风险承受、历史承诺、服务记录要形成有权限、有时效、有来源的结构化上下文；否则 agent 每次都在重新认识客户。</p></article>
+      <article class="card orange"><h4>建议三｜双轨输出：事实账本 + 顾问草案</h4><p>数字、公式、数据日期、假设、规则版本进事实账本；解释、方案比较和沟通话术进入 AI 草案。两者在界面上必须可区分。</p></article>
+      <article class="card orange"><h4>建议四｜把“建议边界”做成交互</h4><p>不仅页脚写免责声明，还要有顾问审核、风险与适当性校验、改动记录、客户同意、人工接力和执行前强确认。</p></article>
+    </div>
+    <h3>90 天可执行路线</h3>
+    <div class="grid-3">
+      <div class="card action"><span class="num">DAY 0—30</span><h4>做对证据合同</h4><p>定义客户字段、来源、更新时间、置信度、权限、公式版本和异常状态；选 20 个脱敏案例建立金标。</p></div>
+      <div class="card action"><span class="num">DAY 31—60</span><h4>做窄场景 Agent</h4><p>上线“目标识别 → 补问 → 确定性测算 → 多方案比较 → 顾问审核 → 客户报告”闭环，只覆盖一个场景。</p></div>
+      <div class="card action"><span class="num">DAY 61—90</span><h4>接服务与转化</h4><p>把计划差距映射到定投、资金分层、策略配置与人工顾问任务，但执行前保留适当性和强确认。</p></div>
+    </div>
+    <h3>试点验收门槛（建议值，不是行业事实）</h3>
+    <div class="grid-4">
+      <div class="metric"><b>≥ 99%</b><span>计划数字具备来源、公式/工具和假设链</span></div>
+      <div class="metric"><b>≤ 3%</b><span>关键输入需人工纠正的案例率</span></div>
+      <div class="metric"><b>≥ 50%</b><span>顾问准备与制报告时间下降</span></div>
+      <div class="metric"><b>0</b><span>未经审核直接形成交易或个性化投顾建议</span></div>
+    </div>
+    <h3>核心指标树</h3>
+    <div class="compare-wrap"><table class="compare"><thead><tr><th>层级</th><th>指标</th><th>为什么重要</th></tr></thead><tbody>
+      <tr><td>输入质量</td><td>字段完整率、数据新鲜度、抽取纠正率、授权覆盖率</td><td>决定后续计算上限，不能只看模型回答满意度。</td></tr>
+      <tr><td>计算可信</td><td>工具调用正确率、金标一致率、可复算率、规则版本覆盖率</td><td>验证“数字是算出来的”是否真能落地。</td></tr>
+      <tr><td>顾问效率</td><td>首次成稿时间、审阅时长、修改次数、报告完成率</td><td>对应“一个顾问像一支专家团队”的核心商业价值。</td></tr>
+      <tr><td>客户价值</td><td>情景比较完成率、计划理解度、目标承诺率、复访率</td><td>防止只把顾问后台效率误当客户价值。</td></tr>
+      <tr><td>经营转化</td><td>计划→行动转化率、追加/定投金额、90 天留存、人工接力成功率</td><td>把规划价值与真实服务动作连接，但不做虚假因果归因。</td></tr>
+      <tr><td>风险治理</td><td>高风险输出拦截率、越权访问、投诉、人工回退、审计完整率</td><td>金融 agent 的上线门槛，不是上线后的补丁。</td></tr>
+    </tbody></table></div>
+  </section>
+
+  <section id="evidence">
+    <span class="section-no">10 · Evidence index</span>
+    <h2>证据索引与等级</h2>
+    <p class="lead"><span class="grade a">A</span> 官方公告/法律/信任中心　<span class="grade b">B</span> 官方产品与营销材料　<span class="grade c">C</span> 独立媒体/行业调查　<span class="grade i">推断</span> 基于证据的分析，不当成事实</p>
+    <div class="source-list">
+      <div class="source"><span class="ev">EV-001</span><div><a href="https://altruist.com/news/altruist-introduces-ai-powered-financial-planning-in-hazel-helping-advisors-build-personalized-financial-plans-in-minutes/">Altruist：金融规划智能体发布公告</a><br><span class="muted">发布日期、六大工作流、数据来源、实时情景、专用计算程序、ZDR、开放托管与边界。</span></div><span class="grade a">A · 官方公告</span></div>
+      <div class="source"><span class="ev">EV-002</span><div><a href="https://altruist.com/news/hazel-ai-tax-planning/">Altruist：税务规划智能体发布公告</a><br><span class="muted">第一项 expanded planning solution、输入、情景模拟、客户报告、1,000+ 使用者。</span></div><span class="grade a">A · 官方公告</span></div>
+      <div class="source"><span class="ev">EV-003</span><div><a href="https://hazel.ai/product/financial-planning">Hazel Financial Planning Agent 产品页</a><br><span class="muted">完整工作流、公司假设、交互呈现、六领域细项、免责声明。</span></div><span class="grade b">B · 产品页</span></div>
+      <div class="source"><span class="ev">EV-004</span><div><a href="https://hazel.ai/product/tax-planning">Hazel Tax Planning Agent 产品页</a><br><span class="muted">税务场景、产品流程、厂商自报节时与节税结果。</span></div><span class="grade b">B · 产品页</span></div>
+      <div class="source"><span class="ev">EV-005</span><div><a href="https://hazel.ai/pricing">Hazel 官方定价页</a><br><span class="muted">$60 / $160 / $300 分层、功能包含关系与企业版。</span></div><span class="grade b">B · 产品页</span></div>
+      <div class="source"><span class="ev">EV-006</span><div><a href="https://hazel.ai/security">Hazel Security & Compliance</a><br><span class="muted">ZDR 范围、客户留存控制、加密、SOC 2、来源/置信度/方法/假设。</span></div><span class="grade a">A · 安全声明</span></div>
+      <div class="source"><span class="ev">EV-007</span><div><a href="https://trust.hazel.ai/">Hazel Trust Center</a><br><span class="muted">29 项控制、子处理商清单、各自区域与数据保留口径。</span></div><span class="grade a">A · 信任中心</span></div>
+      <div class="source"><span class="ev">EV-008</span><div><a href="https://altruist.com/legal/hazel-terms-of-use/">Hazel Terms of Use v20260629</a><br><span class="muted">会议同意、第三方共享、AI 披露、平台留存、准确性与顾问责任。</span></div><span class="grade a">A · 法律条款</span></div>
+      <div class="source"><span class="ev">EV-009</span><div><a href="https://altruist.com/insights/hazel-is-on-a-mission-to-collapse-the-tech-stack-for-financial-advisors/">Altruist：Hazel 技术架构说明</a><br><span class="muted">客户上下文层、GPT-Sol 编排、子任务分解、专用计算程序与聚合。</span></div><span class="grade b">B · 官方案例</span></div>
+      <div class="source"><span class="ev">EV-010</span><div><a href="https://altruist.com/news/altruist-unveils-hazel/">Altruist：Hazel 平台首次发布</a><br><span class="muted">Ask Hazel、会议/邮件/CRM/任务能力、原始定价与开放托管。</span></div><span class="grade a">A · 官方公告</span></div>
+      <div class="source"><span class="ev">EV-011</span><div><a href="https://altruist.com/news/altruist-acquires-thyme/">Altruist 收购 Thyme</a><br><span class="muted">Hazel 的团队与产品起点，会议准备、记录与跟进能力。</span></div><span class="grade a">A · 官方公告</span></div>
+      <div class="source"><span class="ev">EV-012</span><div><a href="https://corporate.vanguard.com/content/corporatesite/us/en/corp/who-we-are/pressroom/press-release-vanguard-announcement-082626.html">Vanguard 收购公告</a><br><span class="muted">协议状态、独立运营、官方理由、条款未披露、预计交割时间。</span></div><span class="grade a">A · 官方公告</span></div>
+      <div class="source"><span class="ev">EV-013</span><div><a href="https://corporate.vanguard.com/content/corporatesite/us/en/corp/articles/vanguard-announcement-qa-august-2026.html">Vanguard 收购问答</a><br><span class="muted">为何收购而非自建、顾问供给、投资者触达与六年投资关系。</span></div><span class="grade a">A · 官方问答</span></div>
+      <div class="source"><span class="ev">EV-014</span><div><a href="https://www.axios.com/2026/08/26/vanguard-altruist-ria">Axios：Vanguard pays $4.6B for Altruist</a><br><span class="muted">媒体报道的现金交易价与融资背景；与官方未披露并列使用。</span></div><span class="grade c">C · 独立媒体</span></div>
+      <div class="source"><span class="ev">EV-015</span><div><a href="https://www.gic.com.sg/newsroom/all/altruist-raises-152m-series-f-led-by-gic-to-accelerate-innovation-for-growth-oriented-rias/">GIC：Altruist $152M Series F</a><br><span class="muted">2025-04 融资额、领投方与约 $1.9B 估值。</span></div><span class="grade a">A · 投资方公告</span></div>
+      <div class="source"><span class="ev">EV-016</span><div><a href="https://altruist.com/about-us/">Altruist About Us</a><br><span class="muted">6,000+ 独立顾问、超过 $600M 融资、112% RIA 数量同比增长等厂商口径。</span></div><span class="grade b">B · 公司资料</span></div>
+      <div class="source"><span class="ev">EV-017</span><div><a href="https://t3technologyhub.com/wp-content/uploads/2026/03/2026-T3_Inside-Information-Software-Survey.pdf">2026 T3 / Inside Information Software Survey</a><br><span class="muted">Altruist 6.30% 受访者使用份额与 8.31 评分；调查提醒份额波动与代表性限制。</span></div><span class="grade c">C · 行业调查</span></div>
+      <div class="source"><span class="ev">EV-018</span><div><a href="https://news.bloomberglaw.com/ip-law/the-new-ai-stock-trade-is-dumping-any-company-in-its-crosshairs">Bloomberg：税务工具触发财富管理股抛售</a><br><span class="muted">市场对税务 agent 的情绪反应；不能等同于长期基本面影响。</span></div><span class="grade c">C · 独立媒体</span></div>
+    </div>
+  </section>
+
+  <section>
+    <span class="section-no">11 · Self audit</span>
+    <h2>自我纠察</h2>
+    <div class="audit">
+      <div><b>事实核查</b><span>关键日期、定价、功能、条款和并购状态均回链；46 亿明确标为媒体口径。</span></div>
+      <div><b>逻辑检查</b><span>事实、厂商自报、独立媒体与推断分层；没有把市场抛售当产品效果证明。</span></div>
+      <div><b>完整性</b><span>覆盖第一个与第二个 agent、技术、数据、合规、商业、并购、风险和落地路线。</span></div>
+      <div><b>隐私与发布</b><span>仅使用公开企业资料与官方产品素材，不含内部用户、交易、持仓或权限数据。</span></div>
+    </div>
+  </section>
+
+  <footer>研究与制作：Clair’s Studio · 2026-09-28｜本报告用于产品与行业研究，不构成投资、税务、法律或交易建议。</footer>
+</main>
+</body>
+</html>
