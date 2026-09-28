@@ -219,10 +219,10 @@
   /* 养老投资方案页 */
   .pp{flex:1;overflow-y:auto;scrollbar-width:none;background:#F4F6FA}
   .pp::-webkit-scrollbar{display:none}
-  .pp .hero{background:linear-gradient(180deg,#5DA9F5 0%,#8EC5F8 60%,#BFDDFB 100%);padding:18px 20px 40px;position:relative;overflow:hidden;min-height:150px}
-  .pp .hero h2{margin:0;font-size:26px;font-weight:700;color:#1F3B5C;letter-spacing:.5px}
+  .pp .hero{background:linear-gradient(180deg,#5DA9F5 0%,#8EC5F8 55%,#BFDDFB 100%);padding:6px 20px 44px;position:relative;overflow:hidden;min-height:140px}
+  .pp .hero h2{margin:0;padding:0;border:0;font-size:26px;font-weight:700;color:#1F3B5C;letter-spacing:.5px}
   .pp .hero .by{margin-top:8px;font-size:13px;color:#2D5B8A;opacity:.9}
-  .pp .hero .doc{position:absolute;right:26px;top:22px;width:80px;height:118px;border-radius:12px;background:rgba(255,255,255,.28);border:1px solid rgba(255,255,255,.55);backdrop-filter:blur(4px)}
+  .pp .hero .doc{position:absolute;right:26px;top:8px;width:80px;height:118px;border-radius:12px;background:rgba(255,255,255,.28);border:1px solid rgba(255,255,255,.55);backdrop-filter:blur(4px)}
   .pp .hero .doc::before{content:'';position:absolute;left:18px;top:-6px;width:44px;height:12px;border-radius:6px;background:rgba(255,255,255,.5)}
   .pp .hero .doc i{display:block;height:6px;border-radius:3px;background:rgba(255,255,255,.6);margin:20px 14px 0}
   .pp .hero .doc i:nth-child(2){margin-top:10px;width:38px}.pp .hero .doc i:nth-child(3){margin-top:10px;width:30px}
@@ -232,19 +232,19 @@
   .pp .sh a{font-size:13px;color:#8A94A6;display:inline-flex;align-items:center;gap:2px;cursor:pointer}
   .pp .sh a svg{width:14px;height:14px}
   .pp .card{background:#fff;border-radius:14px;padding:16px;margin-bottom:22px}
-  .pp .chips{display:flex;gap:10px;flex-wrap:wrap}
-  .pp .chips span{background:#F1F3F7;border-radius:999px;padding:9px 18px;font-size:13.5px;color:#1c2b3a;font-weight:500}
+  .pp .pchips{display:flex;gap:10px;flex-wrap:wrap}
+  .pp .pchips span{background:#F1F3F7;border-radius:999px;padding:9px 18px;font-size:13.5px;color:#1c2b3a;font-weight:500}
   .pp .amt{display:flex;justify-content:space-between;align-items:center}
   .pp .amt b{font-size:17px;color:#1c2b3a}
   .pp .amt .v{font-size:19px;font-weight:700;color:#1c2b3a;display:inline-flex;align-items:center;gap:6px}
   .pp .amt .v em{font-style:normal;font-size:11px;color:var(--blue);border:1.5px solid var(--blue);border-radius:3px;padding:0 5px;font-weight:500}
   .pp .amt .v small{font-size:13px;font-weight:500}
   .pp .desc{font-size:13.5px;color:#6B7688;line-height:1.7;margin:12px 0 14px}
-  .pp .alloc{background:#F4F6FA;border-radius:12px;padding:18px 14px 14px}
+  .pp .palloc{background:#F4F6FA;border-radius:12px;padding:18px 14px 14px}
   .pp .donut{display:flex;justify-content:center}
   .pp .donut svg{width:150px;height:150px}
   .pp .legend3{display:flex;gap:0;margin-top:16px}
-  .pp .legend3 div{flex:1;border-left:3px solid;padding-left:8px;font-size:13px;color:#1c2b3a;line-height:1.4}
+  .pp .legend3 div{flex:1;min-width:0;border-left:3px solid;padding-left:7px;font-size:12px;color:#1c2b3a;line-height:1.4;white-space:nowrap}
   .pp .legend3 div b{display:block;font-size:17px;font-weight:600}
   .pp .tip{display:flex;gap:8px;margin-top:14px;font-size:12.5px;color:#6B7688;line-height:1.65}
   .pp .tip img{width:24px;height:24px;border-radius:50%;flex:0 0 24px;margin-top:2px}
@@ -272,7 +272,7 @@
   .fp::-webkit-scrollbar{display:none}
   .fp .hi{display:flex;align-items:center;gap:14px;padding:10px 4px 22px}
   .fp .hi img{width:56px;height:56px;border-radius:50%}
-  .fp .hi h2{margin:0;font-size:26px;font-weight:600;color:#1c2b3a}
+  .fp .hi h2{margin:0;padding:0;border:0;font-size:26px;font-weight:600;color:#1c2b3a}
   .fp .hi p{margin:4px 0 0;font-size:13px;color:#6B7688}
   .fp .card{background:#fff;border-radius:16px;padding:18px 16px;margin-bottom:14px}
   .fp .card .t{font-size:16px;color:#1c2b3a;margin-bottom:10px}
@@ -303,11 +303,11 @@
   .cp .bub.u{background:var(--blue);color:#fff;border-radius:14px 4px 14px 14px;padding:10px 16px;font-size:15px;margin:6px 0 10px;display:inline-block;float:right}
   .cp .intro{clear:both;font-size:14.5px;color:#1c2b3a;line-height:1.75;margin:4px 0 14px}
   .cp .intro a{color:var(--blue);cursor:pointer}
-  .cp .plan{background:#fff;border-radius:16px;overflow:hidden;margin-bottom:14px}
-  .cp .plan .hd{background:linear-gradient(90deg,#CFE4FF,#DDEBFF);padding:16px;display:flex;align-items:center;gap:12px}
-  .cp .plan .hd .av{width:48px;height:48px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#C9A27A,#7A5B3F 70%);flex:0 0 48px}
-  .cp .plan .hd b{display:block;font-size:17px;color:#1c2b3a}
-  .cp .plan .hd span{display:block;font-size:12.5px;color:#6B7688;margin-top:2px}
+  .cp .cplan{background:#fff;border-radius:16px;overflow:hidden;margin-bottom:14px}
+  .cp .cplan .hd{background:linear-gradient(90deg,#CFE4FF,#DDEBFF);padding:16px;display:flex;align-items:center;gap:12px}
+  .cp .cplan .hd .av{width:48px;height:48px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#C9A27A,#7A5B3F 70%);flex:0 0 48px}
+  .cp .cplan .hd b{display:block;font-size:17px;color:#1c2b3a}
+  .cp .cplan .hd span{display:block;font-size:12.5px;color:#6B7688;margin-top:2px}
   .cp .sec{padding:16px 16px 18px;border-bottom:1px solid #EEF1F5}
   .cp .sec .t{font-size:15px;font-weight:600;color:#1c2b3a;display:flex;justify-content:space-between;align-items:center}
   .cp .sec .t a{font-size:13px;color:#8A94A6;font-weight:400;display:inline-flex;align-items:center;gap:2px}
@@ -416,6 +416,9 @@
   @keyframes slideIn{from{transform:translateX(30%);opacity:.4}to{transform:none;opacity:1}}
   .pnav{padding:48px 12px 0;height:92px;display:flex;align-items:center;gap:8px;flex:0 0 auto;background:#F4F8FF}
   .pnav.white{background:#fff}
+  .pnav.fpnav{background:#DDEBFB}
+  .pnav.ppnav{background:#5DA9F5} .pnav.ppnav .back,.pnav.ppnav .ttl,.pnav.ppnav .act{color:#fff}
+  .pnav.ppnav .ttl{opacity:.95}
   .pnav .back{width:32px;height:32px;display:flex;align-items:center;justify-content:center;color:#1c2b3a;cursor:pointer;flex:0 0 32px}
   .pnav .ttl{flex:1;text-align:center;font-size:17px;font-weight:600;color:#1c2b3a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .pnav .act{width:56px;text-align:right;font-size:14px;color:var(--blue);cursor:pointer;flex:0 0 56px;font-weight:600}
@@ -700,7 +703,7 @@ const TEMP={all:[32.63,'偏低','中证全指'],hs300:[15.53,'低温','沪深300
 // 小顾 3.0：推荐问题 38 条（KV AibotShortcutCommands.faqExamples）
 const FAQ38=['且慢投资安全吗？','投顾服务是什么？','长赢计划是什么？','养老策略是什么？','我有多少在途资金？','我的赎回资金什么时候到账？','有什么需要我关注或者处理的吗？','有最新的对账单吗？','可以给我一份对账用的资产明细吗？','最近市场行情如何？','看看我的资产里的基金行业分布情况','分析一下我的资产配置情况','投资以来，我在且慢上转入了多少钱','我想查看今年的资金流入流出情况','这个月的账户报告出来了吗','查询最新的账户报告数据','今年我赚了多少钱了','我想查询投资以来的收益情况','今年以来，我赚钱最多的是哪个策略？','我哪个账户收益最高呀？','帮我生成一份最新的资产证明','推荐几个盈米管理的长钱策略吧~','推荐几个回撤小于5%的策略','稳稳的幸福这个策略怎么样呀？','E大管理的产品有什么？','查询我的货币三佳的持仓情况','医药行业最近行情如何？','你最近看好哪个行业？为什么？','根据我的持仓情况，看看有什么行业报告推荐给我？','最近比较火的行业是什么？','你怎么看房地产行业未来的走势？','你怎么看黄金未来的走势？','南方天天利货币的基金规模是多少？','广发聚富最近一年的收益怎么样？','162411这只基金的风险高吗？','广发聚富主要投资哪些行业？','恒生指数现在处于低估吗？','看看沪深300的估值情况。'];
 const GREETING='我是小顾，您的投资顾问。欢迎您加入且慢，让我带您走向致富道路。';
-const QUICK=[['资产分析','ask:分析一下我的资产配置情况'],['收益分析','ask:查看最近一个月的总账户收益日历'],['账户诊断','route:diag'],['保险规划','route:insurePlan'],['我的保单','route:myPolicy'],['定制方案','route:planM4']];
+const QUICK=[['资产分析','ask:分析一下我的资产配置情况'],['收益分析','ask:查看最近一个月的总账户收益日历'],['账户诊断','route:diag'],['保险规划','route:insurePlan'],['我的保单','route:myPolicy'],['定制方案','route:custom']];
 // 悬浮条轮播（结合智能运营场景：持仓 + 行为 + 线上推荐问题）
 const AI_PROMPTS=['推荐几个回撤小于5%的策略','看看沪深300的估值情况。','稳稳的幸福这个策略怎么样呀？','你怎么看黄金未来的走势？','推荐几个盈米管理的长钱策略吧~'];
 // 工具（16 项真实 + 实验室示例）。cat: plan 看市场做规划 / scene 场景 / post 投后
@@ -890,7 +893,7 @@ function renderPlan(s){
   const tabs=[['invest','投资规划'],['pension','养老规划'],['goal','其他目标']]; let body='';
   if(s.planTab==='invest'){ const v=s.investPct,c=INVEST[v],pos=((v-2)/8)*100;
     body=`<p class="q">有一笔可投资的钱，帮您按目标来匹配方案</p><div class="lbls"><span>低风险低收益</span><span>高风险高收益</span></div><div class="sld"><div class="track"></div><div class="fill" style="width:${pos}%"></div><div class="bubble" style="left:calc(${pos}% - ${(pos*0.52).toFixed(2)}px)">${v}%</div><input type="range" min="2" max="10" step="1" value="${v}" data-inv></div>
-      <div class="goal">目标年化 ${v}%<em>·</em>可承受回撤 ${c.loss}<em>·</em>持有${c.hold}</div><div class="allocw">${allocHtml(c)}</div><div class="cta" data-act="route:planM4">查看定制方案</div>`;
+      <div class="goal">目标年化 ${v}%<em>·</em>可承受回撤 ${c.loss}<em>·</em>持有${c.hold}</div><div class="allocw">${allocHtml(c)}</div><div class="cta" data-act="route:custom">查看定制方案</div>`;
   } else if(s.planTab==='pension'){ const p=s.pension,r=pensionCalc(p);
     body=`<div class="pen"><div><div class="q">退休后每月可以花多少?</div><div class="pin"><b><input type="number" value="${p.monthly}" data-pen="monthly">元</b><span>每月存</span></div><div class="pin"><b><input type="number" value="${p.start}" data-pen="start" style="width:42px">岁</b><span>开始存</span></div><div class="pin"><b><input type="number" value="${p.retire}" data-pen="retire" style="width:42px">岁</b><span>预计退休</span></div><div class="note">按养老下滑曲线模型测算 ⇄</div></div>
       <div><div class="pres"><div class="t">退休时预计存到</div><div class="v">${(r.fv/10000).toFixed(0)}<small>万元</small></div><div class="bar"><i class="inv" style="width:70%"></i><i class="gain" style="width:30%"></i></div><div class="m"><span>投入 ${(r.invest/10000).toFixed(0)}万</span><span>测算收益 ${((r.fv-r.invest)/10000).toFixed(0)}万</span></div></div><div class="pres"><div class="t">退休时预计每月可花</div><div class="v">${fmt(r.pay)}<small>元</small></div><div class="sub">相当于现在的 ${fmt(r.now)} 元</div></div></div></div><div class="cta" style="margin-top:8px" data-act="route:pension">查看养老方案</div>`;
@@ -954,15 +957,15 @@ function renderPensionPlan(pg,s){
     {nm:'颐养天年 · 且慢养老金计划',k:[['5.62%','成立以来年化'],['3年以上','建议持有'],['中风险','风险等级']],btn:'去定投',url:'https://qieman.com/alfa/retirement/scheme'},
     {nm:'潇洒养老计划（养老年金）',k:[['3.5%','50岁投保 IRR 演示'],['终身','领取期'],['确定收益','类型']],btn:'去咨询',url:'https://qieman.com/s/elhu5r'}];
   const f=FUNDS[tab];
-  return `<div class="page">${pnav('养老投资方案',`<span data-act="ext:${ROUTES.pension.url}" title="在浏览器打开">${I.share}</span>`,'white')}<div class="pp">
+  return `<div class="page">${pnav('',`<span data-act="ext:${ROUTES.pension.url}" title="在浏览器打开">${I.share}</span>`,'ppnav')}<div class="pp">
     <div class="hero"><h2>养老投资方案</h2><div class="by">Clair. | 2026年9月</div><div class="doc"><i></i><i></i><i></i></div></div>
     <div class="sheet">
       <div class="sh"><b>养老需求</b><a data-act="back">去完善 ${I.chev}</a></div>
-      <div class="card"><div class="chips"><span>计划${p.retire}岁退休</span><span>自订储蓄小目标</span></div></div>
+      <div class="card"><div class="pchips"><span>计划${p.retire}岁退休</span><span>自订储蓄小目标</span></div></div>
       <div class="sh"><b>养老计划</b><a data-act="back">去调整 ${I.chev}</a></div>
       <div class="card"><div class="amt"><b>每月储蓄金额</b><span class="v"><em>自定</em>${fmt(m)}<small>元</small></span></div>
         <div class="desc">根据您自己设定的每月储蓄金额，目标是退休时存到 ${(r.fv/10000).toFixed(0)}万。小顾为您提供每月储蓄金额的配置建议，帮您慢慢实现养老目标：</div>
-        <div class="alloc"><div class="donut">${donut}</div>
+        <div class="palloc"><div class="donut">${donut}</div>
           <div class="legend3"><div style="border-color:${C[0]}">个人养老金<b>${fmt(a[0])}</b></div><div style="border-color:${C[1]}">且慢养老严选<b>${fmt(a[1])}</b></div><div style="border-color:${C[2]}">养老保险<b>${fmt(a[2])}</b></div></div>
           <div class="tip"><img src="${XG_ICON}" alt="小顾"><span>配置建议：每月转入个养账户享税优优惠；配置确定性养老保险，其余转入且慢养老严选策略，追求长期收益</span></div>
           <div class="pdots"><i class="on"></i><i></i><i></i><i></i></div></div></div>
@@ -977,7 +980,7 @@ function renderFundPlan(pg,s){
     return `<div class="ruler"><svg>${ticks}<line x1="${pos}%" x2="${pos}%" y1="6" y2="46" stroke="#1B88EE" stroke-width="3" stroke-linecap="round"/></svg><input type="range" min="${min}" max="${max}" step="${step}" value="${v}" data-fp="${key}"><div class="lb">${labels.map(l=>`<span>${l}</span>`).join('')}</div></div>`; };
   const wan=amt>=10000?`${(amt/10000).toFixed(amt%10000?1:0)}万`:'';
   const SAL=['0-10万','10-20万','20-50万','50-100万','100万以上'];
-  return `<div class="page">${pnav('投资规划',`<span data-act="ext:${ROUTES.planM4.url}" title="在浏览器打开">${I.share}</span>`,'white')}<div class="fp">
+  return `<div class="page">${pnav('投资规划',`<span data-act="ext:${ROUTES.planM4.url}" title="在浏览器打开">${I.share}</span>`,'fpnav')}<div class="fp">
     <div class="hi"><img src="${XG_ICON}" alt="小顾"><div><h2>Hi 辜女士</h2><p>我是小顾，您的投资顾问</p></div></div>
     <div class="card"><div class="t">投资资金如何分配?</div><div class="p">小顾将根据您的个人情况，为您量身定制<mark>专属的投资规划建议书</mark>。科学规划，安心投资。</div><div class="lnk" data-act="page:intro">了解小顾新功能 ${I.chev}</div></div>
     <div class="card"><div class="p">为给您提供更好的规划建议，请先回答3个问题。</div><div class="note">请如实填写，您的信息小顾会严格保密</div></div>
@@ -1016,7 +1019,7 @@ function renderCustomPlan(pg,s){
   return `<div class="page aipage cp">${pnav(`<img src="${XG_ICON}" alt="">定制方案咨询 <span style="font-size:11px;color:#8A94A6">˅</span>`,`<span data-act="ext:${ROUTES.planM4.url}" title="在浏览器打开">${I.share}</span>`)}<div class="pbodyc">
     <div class="bub u">定制方案</div>
     <div class="intro">基金、投顾组合不会选？想分散投资风险、做大类资产配置，但不知道股、债、海外与商品的比例该如何确定？如果你也有这些困惑，小顾来帮你～<br><br>「且慢定制方案」只需要选择资金用途、确认财富目标，就能获取专属资产配置方案，还能一键搞定多元资产配置。邀您抢先体验专属定制服务～<a data-act="page:intro">更多介绍&gt;</a></div>
-    <div class="plan"><div class="hd"><div class="av"></div><div><b>您的投资方案</b><span>子女教育基金</span></div></div>
+    <div class="cplan"><div class="hd"><div class="av"></div><div><b>您的投资方案</b><span>子女教育基金</span></div></div>
       <div class="sec"><div class="t">配置方案</div><div class="cfg">${donut}<ul>${AL.map(a=>`<li><i style="background:${a[2]}"></i>${a[0]}<b>${a[1].toFixed(2)}%</b></li>`).join('')}</ul></div><div class="pref">投资偏好设置 ${I.chev}</div></div>
       <div class="sec"><div class="t"><span>方案测算<span class="qm">?</span></span></div><div class="calc">持有 <b>4年</b> 盈利概率 <b>95.36%</b>，测算收益率 <b>26.27%</b></div>
         <div class="gb"><span><i style="background:#F0513C"></i>较好情况 <b>+50.61%</b></span></div><div class="gb" style="margin-top:0"><span><i style="background:#2FA37E"></i>较差情况 <b>+5.66%</b></span></div>
@@ -1241,7 +1244,7 @@ function act(root,a){
     case 'detail': { const p=SHELF.concat(STRICT).concat(INSURE).find(x=>x.code===v); if(p&&p.url){ push(s,{type:'web',title:p.name,url:p.url}); break; } if(p) push(s,{type:'route',route:detailRoute(p)}); break; }
     case 'pptab': { const pg=s.pages[s.pages.length-1]; if(pg&&pg.type==='pplan') pg.tab=+v; break; }
     case 'fpsal': { const pg=s.pages[s.pages.length-1]; if(pg&&pg.type==='fplan') pg.sal=+v; break; }
-    case 'route': { if(v==='pension'){ push(s,{type:'pplan',tab:0}); break; } if(v==='planM4'){ push(s,{type:'fplan'}); break; } if(v==='goals'){ push(s,{type:'cplan'}); break; } const r=ROUTES[v]; if(!r) break; if(r.url&&!r.url.includes('{')&&!/microapp\./.test(r.url)){ push(s,{type:'web',title:r.title,url:r.url}); break; } push(s,{type:'route',route:r}); break; }
+    case 'route': { if(v==='pension'){ push(s,{type:'pplan',tab:0}); break; } if(v==='planM4'){ push(s,{type:'fplan'}); break; } if(v==='goals'||v==='custom'){ push(s,{type:'cplan'}); break; } const r=ROUTES[v]; if(!r) break; if(r.url&&!r.url.includes('{')&&!/microapp\./.test(r.url)){ push(s,{type:'web',title:r.title,url:r.url}); break; } push(s,{type:'route',route:r}); break; }
     case 'page': if(v==='ai0'){ push(s,{type:'ai',msgs:[]}); } else if(v==='tools'){ push(s,{type:'tools',tab:'featured',cat:'plan'}); } else push(s,{type:v}); break;
     case 'introlv': s.introLv=+v; break;
     case 'scrollp': root.__pageScrollTo=v; break;
