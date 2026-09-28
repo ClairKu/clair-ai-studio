@@ -306,7 +306,7 @@
   .cp .intro a{color:var(--blue);cursor:pointer}
   .cp .cplan{background:#fff;border-radius:16px;overflow:hidden;margin-bottom:14px}
   .cp .cplan .hd{background:linear-gradient(90deg,#CFE4FF,#DDEBFF);padding:16px;display:flex;align-items:center;gap:12px}
-  .cp .cplan .hd .av{width:48px;height:48px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#C9A27A,#7A5B3F 70%);flex:0 0 48px}
+  .cp .cplan .hd .av{width:48px;height:48px;border-radius:50%;flex:0 0 48px;background:#fff;object-fit:cover}
   .cp .cplan .hd b{display:block;font-size:17px;color:#1c2b3a}
   .cp .cplan .hd span{display:block;font-size:12.5px;color:#6B7688;margin-top:2px}
   .cp .sec{padding:16px 16px 18px;border-bottom:1px solid #EEF1F5}
@@ -780,7 +780,9 @@ const I={
 const INVEST={2:{loss:'1%',hold:'随时存取',a:[100,0,0,0,0]},3:{loss:'2%',hold:'6 个月以上',a:[33,67,0,0,0]},4:{loss:'3%',hold:'1 年以上',a:[0,90,3,7,0]},5:{loss:'6%',hold:'3 年以上',a:[0,73,8,19,0]},6:{loss:'8%',hold:'3 年以上',a:[0,58,20,20,2]},7:{loss:'15%',hold:'3 年以上',a:[0,42,34,20,4]},8:{loss:'18%',hold:'3 年以上',a:[0,27,48,20,5]},9:{loss:'22%',hold:'3 年以上',a:[0,11,62,20,7]},10:{loss:'25%',hold:'3 年以上',a:[0,0,76,20,4]}}; // 生产 KV qieman:uma:invest:plan:config 全球组（默认偏好），档位 2%–10%
 const ALLOC_META=[['货币','#CFE3F7'],['债券','#AFD3F7'],['股票','#1B88EE'],['海外股','#2A6CB0'],['商品','#F2B84B']];
 function allocHtml(c){ return `<div class="alloc">${c.a.map((p,i)=>p?`<i style="width:${p}%;background:${ALLOC_META[i][1]}"></i>`:'').join('')}</div><div class="legend">${c.a.map((p,i)=>p?`<span><b style="background:${ALLOC_META[i][1]}"></b>${ALLOC_META[i][0]} ${p}%</span>`:'').join('')}</div>`; }
-const GOALS=[['活期零钱管理','随时要用的钱','#5AA6EA','¥','route:goals'],['短期稳健增值','1–3 年要用的钱','#7DB7F0','📈','route:goals'],['家庭资金','家庭共同账户','#F09A5A','🏠','route:goals'],['闲钱长期投资','3 年以上不用的钱','#6FB8E8','📊','route:planM4'],['子女教育金','教育金测算','#9DA7F3','🎓','openurl:https://microapp.qieman.com/edu-calculator/index.html?microapp=yingmi.edu-calculator'],['攒一笔钱','52 周挑战 / 打卡','#F0B45A','🎯','route:goals']];
+const GOALS=[['活期零钱管理','随时要用的钱','#5AA6EA','¥','goal:活期零钱管理'],['短期稳健增值','1–3 年要用的钱','#7DB7F0','📈','goal:短期稳健增值'],['家庭资金','家庭共同账户','#F09A5A','🏠','goal:家庭资金'],['闲钱长期投资','3 年以上不用的钱','#6FB8E8','📊','goal:闲钱长期投资'],['子女教育金','教育金测算','#9DA7F3','🎓','goal:子女教育金'],['攒一笔钱','52 周挑战 / 打卡','#F0B45A','🎯','goal:攒一笔钱']];
+// 目标 → 定制方案档位（目标年化）与资金用途文案
+const GOAL_TIER={'活期零钱管理':[2,'随时要用的零钱'],'短期稳健增值':[4,'1–3 年内要用的钱'],'家庭资金':[5,'家庭共同账户、3 年左右'],'闲钱长期投资':[8,'3 年以上不用的闲钱'],'子女教育金':[6,'子女教育基金、10 年以上'],'攒一笔钱':[4,'定期攒一笔、1–2 年'] };
 const isFiltered=s=>s.range[0]>0||s.range[1]<100;
 const fmt=n=>Math.round(n).toLocaleString('zh-CN');
 const bandOf=r=>[(r-1)*20,r*20];
@@ -996,37 +998,50 @@ function renderFundPlan(pg,s){
       <div class="minl">最低每月规划金额</div>
       <div class="q">3.您的<mark>年薪水平</mark>：</div>
       <div class="sal">${SAL.map((t,i)=>`<span class="${i===sal?'on':''}" data-act="fpsal:${i}">${t}</span>`).join('')}</div>
-      <span class="go" data-act="route:goals">帮我规划</span>
+      <span class="go" data-act="fplango">帮我规划</span>
       <div class="more" data-act="ext:${ROUTES.planM4.url}">补充信息，规划更精准</div>
     </div></div></div>`;
 }
 function renderCustomPlan(pg,s){
-  const AL=[['中国股票',20,'#F0806B'],['中国债券',58,'#F2C067'],['另类商品',2,'#2F6FB5'],['海外股票',20,'#A7A6E4']]; // 全球组 6% 档
+  const pct=Math.max(2,Math.min(10,pg.pct||6)); const T=INVEST[pct]; const SALN=['0-10万','10-20万','20-50万','50-100万','100万以上'];
+  // 上下文：从哪个模块带什么参数进来
+  let ub='定制方案', need='', goal='我的投资目标';
+  if(pg.src==='invest'){ ub=`目标年化 ${pct}% 的定制方案`; need=`目标年化 <b>${pct}%</b>、可承受回撤 <b>${T.loss}</b>、建议持有 <b>${T.hold}</b>`; goal=`目标年化 ${pct}% · 持有${T.hold}`; }
+  else if(pg.src==='goal'){ ub=pg.goal; need=`<b>${pg.goal}</b>（${pg.why||''}）`; goal=pg.goal; }
+  else if(pg.src==='plan'){ ub='帮我规划'; need=`本次可投 <b>${fmt(pg.amt)} 元</b>、每月可投 <b>${fmt(pg.mon)} 元</b>、年薪 <b>${SALN[pg.sal||0]}</b>`; goal=`可投 ${pg.amt>=10000?(pg.amt/10000)+'万':pg.amt} · 月投 ${fmt(pg.mon)}`; }
+  // 配置：生产全球组档位（货币/债券/股票/海外股/商品）
+  const NAMES=['中国货币','中国债券','中国股票','海外股票','另类商品'], COL=['#9CC6F1','#F2C067','#F0806B','#A7A6E4','#2F6FB5'];
+  const AL=T.a.map((p,i)=>[NAMES[i],p,COL[i]]).filter(x=>x[1]>0);
   let acc=0; const R=48,cx=65,cy=65,rw=22;
-  const arc=a=>{ const s0=acc/100*Math.PI*2-Math.PI/2; acc+=a[1]; const s1=acc/100*Math.PI*2-Math.PI/2; const lg=(s1-s0)>Math.PI?1:0; return `<path d="M${cx+R*Math.cos(s0)} ${cy+R*Math.sin(s0)} A${R} ${R} 0 ${lg} 1 ${cx+R*Math.cos(s1)} ${cy+R*Math.sin(s1)}" fill="none" stroke="${a[2]}" stroke-width="${rw}"/>`; };
+  const arc=x=>{ const s0=acc/100*Math.PI*2-Math.PI/2; acc+=x[1]; const s1=acc/100*Math.PI*2-Math.PI/2; const lg=(s1-s0)>Math.PI?1:0; const e=acc>=100?s1-0.0001:s1; return `<path d="M${cx+R*Math.cos(s0)} ${cy+R*Math.sin(s0)} A${R} ${R} 0 ${lg} 1 ${cx+R*Math.cos(e)} ${cy+R*Math.sin(e)}" fill="none" stroke="${x[2]}" stroke-width="${rw}"/>`; };
   const donut=`<svg viewBox="0 0 130 130">${AL.map(arc).join('')}<text x="65" y="62" text-anchor="middle" font-size="10" fill="#8A94A6">资产大类</text><text x="65" y="75" text-anchor="middle" font-size="10" fill="#8A94A6">目标配置</text></svg>`;
-  const W=311,H=230,L=44,Rr=8,T=16,B=44; const yr=i=>L+(i/10)*(W-L-Rr); const yv=v=>T+(1-(v+10)/150)*(H-T-B);
-  const hi=i=>Math.pow(1.095,i)-1, lo=i=>Math.pow(1.018,i)-1, hi2=i=>Math.pow(1.12,i)-1, lo2=i=>Math.pow(1.002,i)-1;
-  const band=(f1,f2,c)=>{ let d=''; for(let i=0;i<=10;i+=.5) d+=(i?'L':'M')+yr(i)+' '+yv(f1(i)*100)+' '; for(let i=10;i>=0;i-=.5) d+='L'+yr(i)+' '+yv(f2(i)*100)+' '; return `<path d="${d}Z" fill="${c}"/>`; };
-  const gridY=[-10,0,30,60,90,120,140].map(v=>`<line x1="${L}" x2="${W-Rr}" y1="${yv(v)}" y2="${yv(v)}" stroke="#EEF1F5"/><text x="${L-6}" y="${yv(v)+4}" text-anchor="end" font-size="11" fill="#8A94A6">${v}%</text>`).join('');
+  // 方案测算：按档位年化 / 回撤推演（示意）
+  const loss=parseFloat(T.loss)||1; const yrs=pct>=5?4:pct>=4?2:1; const vol=Math.max(1,loss/2.5)/100; const r0=pct/100;
+  const mid=(Math.pow(1+r0,yrs)-1)*100, good=(Math.pow(1+r0+vol,yrs)-1)*100, bad=(Math.pow(1+Math.max(-0.02,r0-vol*0.9),yrs)-1)*100, prob=Math.min(99.6,Math.max(80,99.6-loss*0.36));
+  const W=311,H=230,L=44,Rr=8,Tp=16,B=44; const ymax=Math.max(30,Math.ceil(((Math.pow(1+r0+vol*1.3,10)-1)*100)/30)*30); const yr=i=>L+(i/10)*(W-L-Rr); const yv=v=>Tp+(1-(v+10)/(ymax+10))*(H-Tp-B);
+  const f1=i=>Math.pow(1+r0+vol,i)-1, f2=i=>Math.pow(1+Math.max(-0.02,r0-vol*0.9),i)-1, g1=i=>Math.pow(1+r0+vol*1.3,i)-1, g2=i=>Math.pow(1+Math.max(-0.04,r0-vol*1.2),i)-1;
+  const band=(a,b2,c)=>{ let d=''; for(let i=0;i<=10;i+=.5) d+=(i?'L':'M')+yr(i)+' '+yv(a(i)*100)+' '; for(let i=10;i>=0;i-=.5) d+='L'+yr(i)+' '+yv(b2(i)*100)+' '; return `<path d="${d}Z" fill="${c}"/>`; };
+  const step=ymax>=120?30:ymax>=60?15:10; const gy=[]; for(let v=-10;v<=ymax;v+=step) gy.push(v);
+  const gridY=gy.map(v=>`<line x1="${L}" x2="${W-Rr}" y1="${yv(v)}" y2="${yv(v)}" stroke="#EEF1F5"/><text x="${L-6}" y="${yv(v)+4}" text-anchor="end" font-size="11" fill="#8A94A6">${v}%</text>`).join('');
   const gridX=[1,3,5,7,10].map(i=>`<text x="${yr(i)}" y="${H-22}" text-anchor="middle" font-size="12" fill="#8A94A6">持有${i}年</text>`).join('');
-  const x4=yr(4), yM=yv(26.27), yH=yv(50.61), yL=yv(5.66);
-  const fan=`<svg viewBox="0 0 ${W} ${H}">${gridY}${band(hi2,lo2,'#DCEBFB')}${band(hi,lo,'#A9CDF5')}${gridX}
-    <line x1="${x4}" x2="${x4}" y1="${T}" y2="${H-B+6}" stroke="#1B88EE" stroke-dasharray="3 3"/><line x1="${L}" x2="${W-Rr}" y1="${yM}" y2="${yM}" stroke="#1B88EE" stroke-dasharray="3 3"/>
-    <rect x="${x4-24}" y="${T-4}" width="48" height="18" rx="2" fill="#1B88EE"/><text x="${x4}" y="${T+9}" text-anchor="middle" font-size="11" fill="#fff">持有4年</text>
-    <rect x="2" y="${yM-9}" width="44" height="18" rx="2" fill="#1B88EE"/><text x="24" y="${yM+4}" text-anchor="middle" font-size="11" fill="#fff">26.27%</text>
+  const x4=yr(yrs), yM=yv(mid), yH=yv(good), yL=yv(bad);
+  const fan=`<svg viewBox="0 0 ${W} ${H}">${gridY}${band(g1,g2,'#DCEBFB')}${band(f1,f2,'#A9CDF5')}${gridX}
+    <line x1="${x4}" x2="${x4}" y1="${Tp}" y2="${H-B+6}" stroke="#1B88EE" stroke-dasharray="3 3"/><line x1="${L}" x2="${W-Rr}" y1="${yM}" y2="${yM}" stroke="#1B88EE" stroke-dasharray="3 3"/>
+    <rect x="${x4-24}" y="${Tp-4}" width="48" height="18" rx="2" fill="#1B88EE"/><text x="${x4}" y="${Tp+9}" text-anchor="middle" font-size="11" fill="#fff">持有${yrs}年</text>
+    <rect x="2" y="${yM-9}" width="44" height="18" rx="2" fill="#1B88EE"/><text x="24" y="${yM+4}" text-anchor="middle" font-size="11" fill="#fff">${mid.toFixed(2)}%</text>
     <circle cx="${x4}" cy="${yH}" r="4" fill="#F0513C"/><circle cx="${x4}" cy="${yL}" r="4" fill="#2FA37E"/><circle cx="${x4}" cy="${yM}" r="4" fill="#fff" stroke="#1B88EE" stroke-width="2"/></svg>`;
+  const RL=pct<=3?'低风险':pct<=6?'中低风险':pct<=8?'中风险':'中高风险'; const annual=(pct+1.98).toFixed(2);
   const chips=[['可以这么问',I.chat],['资产分析'],['定制方案'],['收益分析'],['账户诊断'],['保险规划']];
   return `<div class="page aipage cp">${pnav(`<img src="${XG_ICON}" alt="">定制方案咨询 <span style="font-size:11px;color:#8A94A6">˅</span>`,`<span data-act="ext:${ROUTES.planM4.url}" title="在浏览器打开">${I.share}</span>`)}<div class="pbodyc">
-    <div class="bub u">定制方案</div>
-    <div class="intro">基金、投顾组合不会选？想分散投资风险、做大类资产配置，但不知道股、债、海外与商品的比例该如何确定？如果你也有这些困惑，小顾来帮你～<br><br>「且慢定制方案」只需要选择资金用途、确认财富目标，就能获取专属资产配置方案，还能一键搞定多元资产配置。邀您抢先体验专属定制服务～<a data-act="page:intro">更多介绍&gt;</a></div>
-    <div class="cplan"><div class="hd"><div class="av"></div><div><b>您的投资方案</b><span>子女教育基金</span></div></div>
-      <div class="sec"><div class="t">配置方案</div><div class="cfg">${donut}<ul>${AL.map(a=>`<li><i style="background:${a[2]}"></i>${a[0]}<b>${a[1].toFixed(2)}%</b></li>`).join('')}</ul></div><div class="pref">投资偏好设置 ${I.chev}</div></div>
-      <div class="sec"><div class="t"><span>方案测算<span class="qm">?</span></span></div><div class="calc">持有 <b>4年</b> 盈利概率 <b>95.36%</b>，测算收益率 <b>26.27%</b></div>
-        <div class="gb"><span><i style="background:#F0513C"></i>较好情况 <b>+50.61%</b></span></div><div class="gb" style="margin-top:0"><span><i style="background:#2FA37E"></i>较差情况 <b>+5.66%</b></span></div>
+    <div class="bub u">${ub}</div>
+    <div class="intro">${need?`根据您 ${need} 的需求，小顾为您提供定制方案：`:'基金、投顾组合不会选？想分散投资风险、做大类资产配置，但不知道股、债、海外与商品的比例该如何确定？如果你也有这些困惑，小顾来帮你～'}<br>「且慢定制方案」按资金用途与财富目标匹配专属资产配置，并可一键搞定多元资产配置。<a data-act="page:intro">更多介绍&gt;</a></div>
+    <div class="cplan"><div class="hd"><img class="av" src="${XG_ICON}" alt=""><div><b>您的投资方案</b><span>${goal}</span></div></div>
+      <div class="sec"><div class="t">配置方案<a>目标年化 ${pct}% · 全球组</a></div><div class="cfg">${donut}<ul>${AL.map(x=>`<li><i style="background:${x[2]}"></i>${x[0]}<b>${x[1].toFixed(2)}%</b></li>`).join('')}</ul></div><div class="pref">投资偏好设置 ${I.chev}</div></div>
+      <div class="sec"><div class="t"><span>方案测算<span class="qm">?</span></span></div><div class="calc">持有 <b>${yrs}年</b> 盈利概率 <b>${prob.toFixed(2)}%</b>，测算收益率 <b>${mid.toFixed(2)}%</b></div>
+        <div class="gb"><span><i style="background:#F0513C"></i>较好情况 <b>+${good.toFixed(2)}%</b></span></div><div class="gb" style="margin-top:0"><span><i style="background:#2FA37E"></i>较差情况 <b>${bad>=0?'+':''}${bad.toFixed(2)}%</b></span></div>
         <div class="fan">${fan}</div><div class="fn">盈利数据及概率均为历史数据回测，不预示未来收益</div></div>
       <div class="sec" style="border:0"><div class="t">产品方案<a>更换方案 ${I.chev}</a></div><div class="pd">根据您的账户目标，提供与资产配置目标相近的产品方案，或提供符合可投期限的方案。请审慎评估您的整体账户风险承受能力。</div>
-        <div class="prod"><b>且慢定制方案</b><div class="tg"><span>盈米基金V</span><span class="g">已运行2年100天</span></div><p>中低风险，适合持有三年以上</p><p>历史最大回撤−6.79%，年化收益7.98%</p></div>
+        <div class="prod"><b>且慢定制方案 · 目标年化 ${pct}%</b><div class="tg"><span>盈米基金V</span><span class="g">已运行2年100天</span></div><p>${RL}，适合持有${T.hold}</p><p>历史最大回撤−${T.loss}，年化收益${annual}%</p></div>
         <div class="cf">成分基金 ${I.chev}</div>
         <span class="btn1" data-act="ext:${ROUTES.planM4.url}">买入一笔试试</span><span class="btn2" data-act="route:planM4">调整账户目标</span></div></div>
     <div class="dis">内容由AI生成，无法确保真实准确，不代表且慢立场，仅供参考。</div>
@@ -1243,9 +1258,11 @@ function act(root,a){
     case 'mtab': s.moneyTab=v; root.__scrollTo='#g-'+v; root.__scrollOff=100; break;
     case 'dot': { const p=SHELF.concat(STRICT).find(x=>x.code===v); toast(root,`${p.name} · 晨星风险分 ${p.ms}（${msBand(p.ms)[2]}）· ${p.metric} ${p.val}`); return; }
     case 'detail': { const p=SHELF.concat(STRICT).concat(INSURE).find(x=>x.code===v); if(p&&p.url){ push(s,{type:'web',title:p.name,url:p.url}); break; } if(p) push(s,{type:'route',route:detailRoute(p)}); break; }
+    case 'goal': { const t=GOAL_TIER[v]||[6,v]; push(s,{type:'cplan',src:'goal',goal:v,pct:t[0],why:t[1]}); break; }
+    case 'fplango': { const pg=s.pages[s.pages.length-1]||{}; const amt=pg.amt??50000, mon=pg.mon??1000, sal=pg.sal??0; const pct=sal>=3?8:sal>=1?7:6; push(s,{type:'cplan',src:'plan',pct,amt,mon,sal}); break; }
     case 'pptab': { const pg=s.pages[s.pages.length-1]; if(pg&&pg.type==='pplan') pg.tab=+v; break; }
     case 'fpsal': { const pg=s.pages[s.pages.length-1]; if(pg&&pg.type==='fplan') pg.sal=+v; break; }
-    case 'route': { if(v==='pension'){ push(s,{type:'pplan',tab:0}); break; } if(v==='planM4'){ push(s,{type:'fplan'}); break; } if(v==='goals'||v==='custom'){ push(s,{type:'cplan'}); break; } const r=ROUTES[v]; if(!r) break; if(r.url&&!r.url.includes('{')&&!/microapp\./.test(r.url)){ push(s,{type:'web',title:r.title,url:r.url}); break; } push(s,{type:'route',route:r}); break; }
+    case 'route': { if(v==='pension'){ push(s,{type:'pplan',tab:0}); break; } if(v==='planM4'){ push(s,{type:'fplan'}); break; } if(v==='goals'){ push(s,{type:'cplan',src:'goal',goal:'子女教育金',pct:6}); break; } if(v==='custom'){ push(s,{type:'cplan',src:'invest',pct:s.investPct}); break; } const r=ROUTES[v]; if(!r) break; if(r.url&&!r.url.includes('{')&&!/microapp\./.test(r.url)){ push(s,{type:'web',title:r.title,url:r.url}); break; } push(s,{type:'route',route:r}); break; }
     case 'page': if(v==='ai0'){ push(s,{type:'ai',msgs:[]}); } else if(v==='tools'){ push(s,{type:'tools',tab:'featured',cat:'plan'}); } else push(s,{type:v}); break;
     case 'introlv': s.introLv=+v; break;
     case 'scrollp': root.__pageScrollTo=v; break;
