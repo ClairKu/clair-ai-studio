@@ -214,6 +214,144 @@
   .askai.big b{display:block;font-size:13px;color:#1c2b3a}
   .askai.big span{display:block;font-size:11px;color:#8393A8;margin-top:2px}
   .askai.big em{font-style:normal;color:var(--blue);font-weight:600;font-size:12.5px;white-space:nowrap}
+  /* 养老投资方案页 */
+  .pp{flex:1;overflow-y:auto;scrollbar-width:none;background:#F4F6FA}
+  .pp::-webkit-scrollbar{display:none}
+  .pp .hero{background:linear-gradient(180deg,#5DA9F5 0%,#8EC5F8 60%,#BFDDFB 100%);padding:18px 20px 40px;position:relative;overflow:hidden;min-height:150px}
+  .pp .hero h2{margin:0;font-size:26px;font-weight:700;color:#1F3B5C;letter-spacing:.5px}
+  .pp .hero .by{margin-top:8px;font-size:13px;color:#2D5B8A;opacity:.9}
+  .pp .hero .doc{position:absolute;right:26px;top:22px;width:80px;height:118px;border-radius:12px;background:rgba(255,255,255,.28);border:1px solid rgba(255,255,255,.55);backdrop-filter:blur(4px)}
+  .pp .hero .doc::before{content:'';position:absolute;left:18px;top:-6px;width:44px;height:12px;border-radius:6px;background:rgba(255,255,255,.5)}
+  .pp .hero .doc i{display:block;height:6px;border-radius:3px;background:rgba(255,255,255,.6);margin:20px 14px 0}
+  .pp .hero .doc i:nth-child(2){margin-top:10px;width:38px}.pp .hero .doc i:nth-child(3){margin-top:10px;width:30px}
+  .pp .sheet{background:#F4F6FA;border-radius:22px 22px 0 0;margin-top:-22px;padding:18px 16px 30px;position:relative}
+  .pp .sh{display:flex;align-items:center;justify-content:space-between;margin:6px 0 10px}
+  .pp .sh b{font-size:19px;color:#1c2b3a}
+  .pp .sh a{font-size:13px;color:#8A94A6;display:inline-flex;align-items:center;gap:2px;cursor:pointer}
+  .pp .sh a svg{width:14px;height:14px}
+  .pp .card{background:#fff;border-radius:14px;padding:16px;margin-bottom:22px}
+  .pp .chips{display:flex;gap:10px;flex-wrap:wrap}
+  .pp .chips span{background:#F1F3F7;border-radius:999px;padding:9px 18px;font-size:13.5px;color:#1c2b3a;font-weight:500}
+  .pp .amt{display:flex;justify-content:space-between;align-items:center}
+  .pp .amt b{font-size:17px;color:#1c2b3a}
+  .pp .amt .v{font-size:19px;font-weight:700;color:#1c2b3a;display:inline-flex;align-items:center;gap:6px}
+  .pp .amt .v em{font-style:normal;font-size:11px;color:var(--blue);border:1.5px solid var(--blue);border-radius:3px;padding:0 5px;font-weight:500}
+  .pp .amt .v small{font-size:13px;font-weight:500}
+  .pp .desc{font-size:13.5px;color:#6B7688;line-height:1.7;margin:12px 0 14px}
+  .pp .alloc{background:#F4F6FA;border-radius:12px;padding:18px 14px 14px}
+  .pp .donut{display:flex;justify-content:center}
+  .pp .donut svg{width:150px;height:150px}
+  .pp .legend3{display:flex;gap:0;margin-top:16px}
+  .pp .legend3 div{flex:1;border-left:3px solid;padding-left:8px;font-size:13px;color:#1c2b3a;line-height:1.4}
+  .pp .legend3 div b{display:block;font-size:17px;font-weight:600}
+  .pp .tip{display:flex;gap:8px;margin-top:14px;font-size:12.5px;color:#6B7688;line-height:1.65}
+  .pp .tip img{width:24px;height:24px;border-radius:50%;flex:0 0 24px;margin-top:2px}
+  .pp .pdots{display:flex;justify-content:center;gap:6px;margin-top:10px}
+  .pp .pdots i{width:6px;height:6px;border-radius:50%;background:#D5DAE3}
+  .pp .pdots i.on{width:18px;border-radius:3px;background:var(--blue)}
+  .pp .sub{font-size:13px;color:#6B7688;margin:-4px 0 12px}
+  .pp .ptabs2{display:flex;gap:10px;margin-bottom:12px}
+  .pp .ptabs2 div{flex:1;background:#F1F3F7;border-radius:12px;padding:10px 6px;text-align:center;cursor:pointer;position:relative}
+  .pp .ptabs2 div b{display:block;font-size:14.5px;color:#1c2b3a}
+  .pp .ptabs2 div span{display:block;font-size:11.5px;color:#8A94A6;margin-top:3px}
+  .pp .ptabs2 div.on{background:var(--blue)} .pp .ptabs2 div.on b,.pp .ptabs2 div.on span{color:#fff}
+  .pp .ptabs2 div.on::after{content:'';position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);border:6px solid transparent;border-top-color:var(--blue);border-bottom:0}
+  .pp .fund{background:#fff;border-radius:14px;padding:16px}
+  .pp .fund .nm{font-size:16px;font-weight:600;color:var(--blue);display:flex;align-items:center;gap:4px;cursor:pointer}
+  .pp .fund .nm svg{width:14px;height:14px}
+  .pp .fund .kv3{display:flex;justify-content:space-between;margin:14px 0 16px}
+  .pp .fund .kv3 div{font-size:11.5px;color:#8A94A6}
+  .pp .fund .kv3 div b{display:block;font-size:17px;color:#1c2b3a;font-weight:600;margin-bottom:4px}
+  .pp .fund .kv3 div:first-child b{color:#F0513C}
+  .pp .fund .kv3 div:last-child{text-align:right}.pp .fund .kv3 div:nth-child(2){text-align:center}
+  .pp .fund .btn{display:block;margin:0 auto;width:60%;border:1.5px solid var(--blue);color:var(--blue);border-radius:999px;text-align:center;padding:9px 0;font-size:15px;font-weight:500;cursor:pointer}
+  /* 资金规划（投资规划问卷）页 */
+  .fp{flex:1;overflow-y:auto;scrollbar-width:none;background:linear-gradient(180deg,#DDEBFB 0%,#EEF5FD 30%,#F4F8FF 100%);padding:6px 16px 30px}
+  .fp::-webkit-scrollbar{display:none}
+  .fp .hi{display:flex;align-items:center;gap:14px;padding:10px 4px 22px}
+  .fp .hi img{width:56px;height:56px;border-radius:50%}
+  .fp .hi h2{margin:0;font-size:26px;font-weight:600;color:#1c2b3a}
+  .fp .hi p{margin:4px 0 0;font-size:13px;color:#6B7688}
+  .fp .card{background:#fff;border-radius:16px;padding:18px 16px;margin-bottom:14px}
+  .fp .card .t{font-size:16px;color:#1c2b3a;margin-bottom:10px}
+  .fp .card .p{font-size:15.5px;color:#1c2b3a;line-height:1.7}
+  .fp mark{background:linear-gradient(transparent 55%,#FFE1B5 55%);color:inherit;padding:0 1px}
+  .fp .lnk{font-size:13px;color:#8A94A6;margin-top:10px;display:inline-flex;align-items:center;gap:2px;cursor:pointer}
+  .fp .lnk svg{width:13px;height:13px}
+  .fp .note{font-size:13px;color:#8A94A6;margin-top:6px}
+  .fp .q{font-size:16px;font-weight:600;color:#1c2b3a;margin:6px 0 4px}
+  .fp .qs{font-size:13px;color:#8A94A6;line-height:1.6;margin-bottom:8px}
+  .fp .big{text-align:center;margin:8px 0 6px}
+  .fp .big small{display:block;font-size:12px;color:#8A94A6;margin-bottom:2px;min-height:14px}
+  .fp .big b{font-size:34px;font-weight:700;color:var(--blue);letter-spacing:-.5px;font-variant-numeric:tabular-nums}
+  .fp .big svg{width:18px;height:18px;color:#8A94A6;margin-left:6px;vertical-align:8px}
+  .fp .ruler{position:relative;height:74px;margin:0 4px}
+  .fp .ruler svg{width:100%;height:60px;display:block}
+  .fp .ruler input{position:absolute;left:0;right:0;top:0;width:100%;height:60px;margin:0;-webkit-appearance:none;appearance:none;background:transparent;cursor:pointer}
+  .fp .ruler input::-webkit-slider-runnable-track{height:60px;background:transparent}
+  .fp .ruler input::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:60px;background:transparent}
+  .fp .ruler .lb{position:absolute;top:60px;left:0;right:0;display:flex;justify-content:space-between;font-size:12.5px;color:#8A94A6;padding:0 6px}
+  .fp .minl{font-size:12px;color:#8A94A6;margin:-2px 0 14px 20%}
+  .fp .sal{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 22px}
+  .fp .sal span{border:1px solid #D5DDE8;border-radius:999px;padding:9px 20px;font-size:14px;color:#1c2b3a;cursor:pointer}
+  .fp .sal span.on{background:#E8F2FF;border-color:#E8F2FF;color:var(--blue)}
+  .fp .go{display:block;width:80%;margin:0 auto;border:1.5px solid var(--blue);color:var(--blue);border-radius:999px;text-align:center;padding:11px 0;font-size:17px;cursor:pointer}
+  .fp .more{text-align:center;font-size:15.5px;color:var(--blue);margin-top:16px;cursor:pointer}
+  /* 定制方案咨询（小顾 3.0 内页） */
+  .cp .bub.u{background:var(--blue);color:#fff;border-radius:14px 4px 14px 14px;padding:10px 16px;font-size:15px;margin:6px 0 10px;display:inline-block;float:right}
+  .cp .intro{clear:both;font-size:14.5px;color:#1c2b3a;line-height:1.75;margin:4px 0 14px}
+  .cp .intro a{color:var(--blue);cursor:pointer}
+  .cp .plan{background:#fff;border-radius:16px;overflow:hidden;margin-bottom:14px}
+  .cp .plan .hd{background:linear-gradient(90deg,#CFE4FF,#DDEBFF);padding:16px;display:flex;align-items:center;gap:12px}
+  .cp .plan .hd .av{width:48px;height:48px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#C9A27A,#7A5B3F 70%);flex:0 0 48px}
+  .cp .plan .hd b{display:block;font-size:17px;color:#1c2b3a}
+  .cp .plan .hd span{display:block;font-size:12.5px;color:#6B7688;margin-top:2px}
+  .cp .sec{padding:16px 16px 18px;border-bottom:1px solid #EEF1F5}
+  .cp .sec .t{font-size:15px;font-weight:600;color:#1c2b3a;display:flex;justify-content:space-between;align-items:center}
+  .cp .sec .t a{font-size:13px;color:#8A94A6;font-weight:400;display:inline-flex;align-items:center;gap:2px}
+  .cp .sec .t a svg{width:13px;height:13px}
+  .cp .sec .t .qm{width:15px;height:15px;border-radius:50%;border:1.2px solid #B5C1D1;color:#B5C1D1;font-size:10px;display:inline-flex;align-items:center;justify-content:center;margin-left:6px;font-weight:500}
+  .cp .cfg{display:flex;align-items:center;gap:14px;margin-top:14px}
+  .cp .cfg svg{width:118px;height:118px;flex:0 0 118px}
+  .cp .cfg ul{list-style:none;margin:0;padding:0;flex:1}
+  .cp .cfg li{display:flex;align-items:center;gap:8px;font-size:13.5px;color:#1c2b3a;margin:6px 0;white-space:nowrap}
+  .cp .cfg li i{width:7px;height:7px;border-radius:50%;flex:0 0 7px}
+  .cp .cfg li b{margin-left:auto;font-weight:600}
+  .cp .pref{text-align:right;font-size:13px;color:#8A94A6;margin-top:8px;display:flex;justify-content:flex-end;align-items:center;gap:2px}
+  .cp .pref svg{width:13px;height:13px}
+  .cp .calc{font-size:15px;color:#1c2b3a;margin-top:12px}
+  .cp .calc b{font-weight:600}
+  .cp .gb{display:flex;gap:16px;margin:10px 0 6px;font-size:13.5px;color:#6B7688}
+  .cp .gb span{display:inline-flex;align-items:center;gap:6px}
+  .cp .gb i{width:7px;height:7px;border-radius:50%}
+  .cp .gb b{color:#1c2b3a;font-weight:600}
+  .cp .fan svg{width:100%;height:230px;display:block;margin-top:4px}
+  .cp .fn{font-size:11px;color:#A5B2C4;margin-top:6px}
+  .cp .pd{font-size:13px;color:#6B7688;line-height:1.7;margin:10px 0 12px}
+  .cp .prod{background:linear-gradient(135deg,#E8F1FF,#F3F8FF);border-radius:12px;padding:14px 16px}
+  .cp .prod b{font-size:16px;color:#1c2b3a;display:block}
+  .cp .prod .tg{display:flex;gap:6px;margin:8px 0}
+  .cp .prod .tg span{font-size:11px;border:1px solid #F0B45A;color:#D48806;border-radius:3px;padding:0 5px}
+  .cp .prod .tg span.g{border-color:#C9D6E6;color:#6B7688}
+  .cp .prod p{margin:4px 0;font-size:13.5px;color:#4a5568}
+  .cp .cf{font-size:13.5px;color:#1c2b3a;margin:12px 0 18px;display:inline-flex;align-items:center;gap:2px}
+  .cp .cf svg{width:13px;height:13px}
+  .cp .btn1,.cp .btn2{display:block;width:60%;margin:0 auto 12px;border-radius:999px;text-align:center;padding:11px 0;font-size:16px;cursor:pointer}
+  .cp .btn1{background:var(--blue);color:#fff}
+  .cp .btn2{border:1.5px solid var(--blue);color:var(--blue)}
+  .cp .dis{font-size:12.5px;color:#8A94A6;margin:6px 0 8px}
+  .cp .fb{display:flex;gap:16px;color:#B5C1D1;margin-bottom:12px}
+  .cp .fb svg{width:18px;height:18px}
+  .cpbar{flex:0 0 auto;padding:8px 0 10px;background:#F4F8FF}
+  .cpbar .row{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:0 12px 10px}
+  .cpbar .row::-webkit-scrollbar{display:none}
+  .cpbar .row span{flex:0 0 auto;border:1.5px solid var(--blue);color:var(--blue);border-radius:999px;padding:7px 14px;font-size:13.5px;white-space:nowrap;cursor:pointer;display:inline-flex;align-items:center;gap:4px}
+  .cpbar .row span svg{width:15px;height:15px}
+  .cpbar .in{display:flex;align-items:center;gap:10px;padding:0 12px}
+  .cpbar .in .box{flex:1;background:#fff;border-radius:14px;height:44px;display:flex;align-items:center;padding:0 14px;font-size:14px;color:#A5B2C4}
+  .cpbar .in .ic{width:26px;height:26px;color:#8A94A6;display:flex;align-items:center;justify-content:center}
+  .cpbar .in .ic svg{width:24px;height:24px}
+  .cpbar .in .ic.b{color:var(--blue)}
   /* tools */
   .tools{padding:0 16px;margin-top:18px}
   .thd{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:10px}
@@ -614,9 +752,15 @@ const I={
   down:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>',
   search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>',
   funnel:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16l-6 7v6l-4 2v-8z"/></svg>',
+  edit:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4l10-10-4-4L4 16z"/><path d="M13 7l4 4"/></svg>',
+  chat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12.5h5"/></svg>',
+  copy:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>',
+  up:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M7 11v9H4v-9zM7 11l4-7c1.5 0 2.5 1 2.5 2.5V10h5a2 2 0 0 1 2 2l-1.5 6a2 2 0 0 1-2 2H7"/></svg>',
+  down2:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M17 13V4h3v9zM17 13l-4 7c-1.5 0-2.5-1-2.5-2.5V14h-5a2 2 0 0 1-2-2l1.5-6a2 2 0 0 1 2-2H17"/></svg>',
+  plus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9.5"/><path d="M12 7.5v9M7.5 12h9" stroke-linecap="round"/></svg>',
+  grid:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.5"/></svg>',
   send:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V6"/><path d="m6 12 6-6 6 6"/></svg>',
   arrow:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>',
-  send:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>',
   info:'<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>',
   tabAsset:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="m7 14 3-3 3 2 4-5"/></svg>',
   tabAdv:'<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="8.5" cy="8.5" r="4.5"/><circle cx="15.5" cy="8.5" r="4.5"/><circle cx="8.5" cy="15.5" r="4.5"/><circle cx="15.5" cy="15.5" r="4.5"/></svg>',
@@ -798,6 +942,92 @@ function aiAnswer(q){
 /* ================= RENDER: pages ================= */
 function pnav(title,act,cls){ return `<div class="pnav ${cls||''}"><span class="back" data-act="back">${I.back}</span><span class="ttl">${title}</span><span class="act">${act||''}</span></div>`; }
 function routeBar(r){ return ''; }
+function renderPensionPlan(pg,s){
+  const p=s.pension, r=pensionCalc(p); const m=p.monthly; const a=[Math.round(m*0.1),Math.round(m*0.7),Math.round(m*0.2)];
+  const C=['#7FB9F5','#F2B95C','#B4B1E6']; const tot=a.reduce((x,y)=>x+y,0); let acc=0; const R=60,cx=75,cy=75,rw=24;
+  const arc=(v,i)=>{ const s0=acc/tot*Math.PI*2-Math.PI/2; acc+=v; const s1=acc/tot*Math.PI*2-Math.PI/2; const lg=(s1-s0)>Math.PI?1:0; const x0=cx+R*Math.cos(s0),y0=cy+R*Math.sin(s0),x1=cx+R*Math.cos(s1),y1=cy+R*Math.sin(s1); return `<path d="M${x0} ${y0} A${R} ${R} 0 ${lg} 1 ${x1} ${y1}" fill="none" stroke="${C[i]}" stroke-width="${rw}"/>`; };
+  const donut=`<svg viewBox="0 0 150 150">${a.map(arc).join('')}<circle cx="75" cy="75" r="${R-rw/2-1}" fill="#F4F6FA"/><text x="75" y="80" text-anchor="middle" font-size="14" font-weight="600" fill="#1c2b3a">配置建议</text></svg>`;
+  const tab=pg.tab||0; const TABS=[['个人养老金','享税优政策'],['且慢养老严选','专业投顾管理'],['养老保险','追求确定收益']];
+  const FUNDS=[{nm:'广发安泰稳健养老一年持有混合(FOF)Y',k:[['15.33%','成立以来收益率'],['1年','封闭期'],['中低风险','风险等级']],btn:'去定投',url:'https://qieman.com/n/fund/017310'},
+    {nm:'颐养天年 · 且慢养老金计划',k:[['5.62%','成立以来年化'],['3年以上','建议持有'],['中风险','风险等级']],btn:'去定投',url:'https://qieman.com/alfa/retirement/scheme'},
+    {nm:'潇洒养老计划（养老年金）',k:[['3.5%','50岁投保 IRR 演示'],['终身','领取期'],['确定收益','类型']],btn:'去咨询',url:'https://qieman.com/s/elhu5r'}];
+  const f=FUNDS[tab];
+  return `<div class="page">${pnav('养老投资方案',`<span data-act="ext:${ROUTES.pension.url}" title="在浏览器打开">${I.share}</span>`,'white')}<div class="pp">
+    <div class="hero"><h2>养老投资方案</h2><div class="by">Clair. | 2026年9月</div><div class="doc"><i></i><i></i><i></i></div></div>
+    <div class="sheet">
+      <div class="sh"><b>养老需求</b><a data-act="back">去完善 ${I.chev}</a></div>
+      <div class="card"><div class="chips"><span>计划${p.retire}岁退休</span><span>自订储蓄小目标</span></div></div>
+      <div class="sh"><b>养老计划</b><a data-act="back">去调整 ${I.chev}</a></div>
+      <div class="card"><div class="amt"><b>每月储蓄金额</b><span class="v"><em>自定</em>${fmt(m)}<small>元</small></span></div>
+        <div class="desc">根据您自己设定的每月储蓄金额，目标是退休时存到 ${(r.fv/10000).toFixed(0)}万。小顾为您提供每月储蓄金额的配置建议，帮您慢慢实现养老目标：</div>
+        <div class="alloc"><div class="donut">${donut}</div>
+          <div class="legend3"><div style="border-color:${C[0]}">个人养老金<b>${fmt(a[0])}</b></div><div style="border-color:${C[1]}">且慢养老严选<b>${fmt(a[1])}</b></div><div style="border-color:${C[2]}">养老保险<b>${fmt(a[2])}</b></div></div>
+          <div class="tip"><img src="${XG_ICON}" alt="小顾"><span>配置建议：每月转入个养账户享税优优惠；配置确定性养老保险，其余转入且慢养老严选策略，追求长期收益</span></div>
+          <div class="pdots"><i class="on"></i><i></i><i></i><i></i></div></div></div>
+      <div class="sh"><b>投资方案</b></div><div class="sub">根据您的情况，为您推荐合适的养老投资方案</div>
+      <div class="ptabs2">${TABS.map((t,i)=>`<div class="${i===tab?'on':''}" data-act="pptab:${i}"><b>${t[0]}</b><span>${t[1]}</span></div>`).join('')}</div>
+      <div class="fund"><div class="nm" data-act="openurl:${f.url}">${f.nm} ${I.chev}</div><div class="kv3">${f.k.map(k=>`<div><b>${k[0]}</b>${k[1]}</div>`).join('')}</div><span class="btn" data-act="openurl:${f.url}">${f.btn}</span></div>
+    </div></div></div>`;
+}
+function renderFundPlan(pg,s){
+  const amt=pg.amt??50000, mon=pg.mon??1000, sal=pg.sal??0;
+  const ruler=(v,min,max,step,key,labels)=>{ const n=40; const ticks=Array.from({length:n+1},(_,i)=>`<line x1="${(i/n*100).toFixed(2)}%" x2="${(i/n*100).toFixed(2)}%" y1="${i%5?30:22}" y2="46" stroke="#D5DDE8" stroke-width="1.5"/>`).join(''); const pos=((v-min)/(max-min)*100).toFixed(2);
+    return `<div class="ruler"><svg>${ticks}<line x1="${pos}%" x2="${pos}%" y1="6" y2="46" stroke="#1B88EE" stroke-width="3" stroke-linecap="round"/></svg><input type="range" min="${min}" max="${max}" step="${step}" value="${v}" data-fp="${key}"><div class="lb">${labels.map(l=>`<span>${l}</span>`).join('')}</div></div>`; };
+  const wan=amt>=10000?`${(amt/10000).toFixed(amt%10000?1:0)}万`:'';
+  const SAL=['0-10万','10-20万','20-50万','50-100万','100万以上'];
+  return `<div class="page">${pnav('投资规划',`<span data-act="ext:${ROUTES.planM4.url}" title="在浏览器打开">${I.share}</span>`,'white')}<div class="fp">
+    <div class="hi"><img src="${XG_ICON}" alt="小顾"><div><h2>Hi 辜女士</h2><p>我是小顾，您的投资顾问</p></div></div>
+    <div class="card"><div class="t">投资资金如何分配?</div><div class="p">小顾将根据您的个人情况，为您量身定制<mark>专属的投资规划建议书</mark>。科学规划，安心投资。</div><div class="lnk" data-act="page:intro">了解小顾新功能 ${I.chev}</div></div>
+    <div class="card"><div class="p">为给您提供更好的规划建议，请先回答3个问题。</div><div class="note">请如实填写，您的信息小顾会严格保密</div></div>
+    <div class="card">
+      <div class="q">1.您本次<mark>可投金额</mark>有多少?</div>
+      <div class="big"><small>${wan}</small><b data-k="amt">${fmt(amt)}</b>${I.edit}</div>
+      ${ruler(amt,Math.max(0,amt-10000),amt+10000,1000,'amt',[fmt(Math.max(0,amt-10000))+'元',fmt(amt)+'元',fmt(amt+10000)+'元'])}
+      <div class="q" style="margin-top:22px">2.您预计<mark>未来每月</mark>可投入多少钱?</div>
+      <div class="qs">建议每月规划金额500元起，若少于500元可输入0元</div>
+      <div class="big"><small></small><b data-k="mon">${fmt(mon)}</b>${I.edit}</div>
+      ${ruler(mon,0,2000,100,'mon',['500元','1,000元','2,000元'])}
+      <div class="minl">最低每月规划金额</div>
+      <div class="q">3.您的<mark>年薪水平</mark>：</div>
+      <div class="sal">${SAL.map((t,i)=>`<span class="${i===sal?'on':''}" data-act="fpsal:${i}">${t}</span>`).join('')}</div>
+      <span class="go" data-act="route:goals">帮我规划</span>
+      <div class="more" data-act="ext:${ROUTES.planM4.url}">补充信息，规划更精准</div>
+    </div></div></div>`;
+}
+function renderCustomPlan(pg,s){
+  const AL=[['中国股票',20,'#F0806B'],['中国债券',58,'#F2C067'],['另类商品',2,'#2F6FB5'],['海外股票',20,'#A7A6E4']]; // 全球组 6% 档
+  let acc=0; const R=48,cx=65,cy=65,rw=22;
+  const arc=a=>{ const s0=acc/100*Math.PI*2-Math.PI/2; acc+=a[1]; const s1=acc/100*Math.PI*2-Math.PI/2; const lg=(s1-s0)>Math.PI?1:0; return `<path d="M${cx+R*Math.cos(s0)} ${cy+R*Math.sin(s0)} A${R} ${R} 0 ${lg} 1 ${cx+R*Math.cos(s1)} ${cy+R*Math.sin(s1)}" fill="none" stroke="${a[2]}" stroke-width="${rw}"/>`; };
+  const donut=`<svg viewBox="0 0 130 130">${AL.map(arc).join('')}<text x="65" y="62" text-anchor="middle" font-size="10" fill="#8A94A6">资产大类</text><text x="65" y="75" text-anchor="middle" font-size="10" fill="#8A94A6">目标配置</text></svg>`;
+  const W=311,H=230,L=44,Rr=8,T=16,B=44; const yr=i=>L+(i/10)*(W-L-Rr); const yv=v=>T+(1-(v+10)/150)*(H-T-B);
+  const hi=i=>Math.pow(1.095,i)-1, lo=i=>Math.pow(1.018,i)-1, hi2=i=>Math.pow(1.12,i)-1, lo2=i=>Math.pow(1.002,i)-1;
+  const band=(f1,f2,c)=>{ let d=''; for(let i=0;i<=10;i+=.5) d+=(i?'L':'M')+yr(i)+' '+yv(f1(i)*100)+' '; for(let i=10;i>=0;i-=.5) d+='L'+yr(i)+' '+yv(f2(i)*100)+' '; return `<path d="${d}Z" fill="${c}"/>`; };
+  const gridY=[-10,0,30,60,90,120,140].map(v=>`<line x1="${L}" x2="${W-Rr}" y1="${yv(v)}" y2="${yv(v)}" stroke="#EEF1F5"/><text x="${L-6}" y="${yv(v)+4}" text-anchor="end" font-size="11" fill="#8A94A6">${v}%</text>`).join('');
+  const gridX=[1,3,5,7,10].map(i=>`<text x="${yr(i)}" y="${H-22}" text-anchor="middle" font-size="12" fill="#8A94A6">持有${i}年</text>`).join('');
+  const x4=yr(4), yM=yv(26.27), yH=yv(50.61), yL=yv(5.66);
+  const fan=`<svg viewBox="0 0 ${W} ${H}">${gridY}${band(hi2,lo2,'#DCEBFB')}${band(hi,lo,'#A9CDF5')}${gridX}
+    <line x1="${x4}" x2="${x4}" y1="${T}" y2="${H-B+6}" stroke="#1B88EE" stroke-dasharray="3 3"/><line x1="${L}" x2="${W-Rr}" y1="${yM}" y2="${yM}" stroke="#1B88EE" stroke-dasharray="3 3"/>
+    <rect x="${x4-24}" y="${T-4}" width="48" height="18" rx="2" fill="#1B88EE"/><text x="${x4}" y="${T+9}" text-anchor="middle" font-size="11" fill="#fff">持有4年</text>
+    <rect x="2" y="${yM-9}" width="44" height="18" rx="2" fill="#1B88EE"/><text x="24" y="${yM+4}" text-anchor="middle" font-size="11" fill="#fff">26.27%</text>
+    <circle cx="${x4}" cy="${yH}" r="4" fill="#F0513C"/><circle cx="${x4}" cy="${yL}" r="4" fill="#2FA37E"/><circle cx="${x4}" cy="${yM}" r="4" fill="#fff" stroke="#1B88EE" stroke-width="2"/></svg>`;
+  const chips=[['可以这么问',I.chat],['资产分析'],['定制方案'],['收益分析'],['账户诊断'],['保险规划']];
+  return `<div class="page aipage cp">${pnav(`<img src="${XG_ICON}" alt="">定制方案咨询 <span style="font-size:11px;color:#8A94A6">˅</span>`,`<span data-act="ext:${ROUTES.planM4.url}" title="在浏览器打开">${I.share}</span>`)}<div class="pbodyc">
+    <div class="bub u">定制方案</div>
+    <div class="intro">基金、投顾组合不会选？想分散投资风险、做大类资产配置，但不知道股、债、海外与商品的比例该如何确定？如果你也有这些困惑，小顾来帮你～<br><br>「且慢定制方案」只需要选择资金用途、确认财富目标，就能获取专属资产配置方案，还能一键搞定多元资产配置。邀您抢先体验专属定制服务～<a data-act="page:intro">更多介绍&gt;</a></div>
+    <div class="plan"><div class="hd"><div class="av"></div><div><b>您的投资方案</b><span>子女教育基金</span></div></div>
+      <div class="sec"><div class="t">配置方案</div><div class="cfg">${donut}<ul>${AL.map(a=>`<li><i style="background:${a[2]}"></i>${a[0]}<b>${a[1].toFixed(2)}%</b></li>`).join('')}</ul></div><div class="pref">投资偏好设置 ${I.chev}</div></div>
+      <div class="sec"><div class="t"><span>方案测算<span class="qm">?</span></span></div><div class="calc">持有 <b>4年</b> 盈利概率 <b>95.36%</b>，测算收益率 <b>26.27%</b></div>
+        <div class="gb"><span><i style="background:#F0513C"></i>较好情况 <b>+50.61%</b></span></div><div class="gb" style="margin-top:0"><span><i style="background:#2FA37E"></i>较差情况 <b>+5.66%</b></span></div>
+        <div class="fan">${fan}</div><div class="fn">盈利数据及概率均为历史数据回测，不预示未来收益</div></div>
+      <div class="sec" style="border:0"><div class="t">产品方案<a>更换方案 ${I.chev}</a></div><div class="pd">根据您的账户目标，提供与资产配置目标相近的产品方案，或提供符合可投期限的方案。请审慎评估您的整体账户风险承受能力。</div>
+        <div class="prod"><b>且慢定制方案</b><div class="tg"><span>盈米基金V</span><span class="g">已运行2年100天</span></div><p>中低风险，适合持有三年以上</p><p>历史最大回撤−6.79%，年化收益7.98%</p></div>
+        <div class="cf">成分基金 ${I.chev}</div>
+        <span class="btn1" data-act="ext:${ROUTES.planM4.url}">买入一笔试试</span><span class="btn2" data-act="route:planM4">调整账户目标</span></div></div>
+    <div class="dis">内容由AI生成，无法确保真实准确，不代表且慢立场，仅供参考。</div>
+    <div class="fb">${I.copy}${I.up}${I.down2}</div></div>
+    <div class="cpbar"><div class="row">${chips.map(c=>`<span data-act="${c[0]==='可以这么问'?'aihome':c[0]==='定制方案'?'':'ask:'+c[0]}">${c[0]}${c[1]||''}</span>`).join('')}</div>
+      <div class="in"><div class="box">${FAQ38[7]||'这个月的账户报告出来了吗'}</div><span class="ic">${I.plus}</span><span class="ic b">${I.grid}</span></div></div></div>`;
+}
 function renderRoute(pg){
   const r=pg.route;
   return `<div class="page">${pnav(r.title,'')}<div class="pbodyc">${r.sub?`<div class="tsub" style="margin:0 0 10px">${r.sub}</div>`:''}${r.mods.length?r.mods.map(m=>`<div class="skel"><h5>${m[0]}</h5><p>${m[1]}</p><div class="bars"><i></i><i style="flex:2"></i><i></i></div></div>`).join(''):''}${r.url&&!r.url.includes('{')?`<div class="cta" data-act="ext:${r.url}">在浏览器打开该页面</div><div class="tsub" style="text-align:center;margin-top:8px">微应用页面依赖 App 容器登录态，Demo 内以模块骨架示意</div>`:''}</div></div>`;
@@ -954,7 +1184,7 @@ function renderToolsLib(pg,s){
 }
 function renderPage(root,s){
   const pg=s.pages[s.pages.length-1]; if(!pg) return '';
-  switch(pg.type){ case 'web': return `<div class="page">${pnav(pg.title,`<span data-act="ext:${pg.url}" title="在浏览器打开">${I.share}</span>`,'white')}<iframe class="webf" src="${pg.url}" referrerpolicy="no-referrer"></iframe></div>`; case 'route': return renderRoute(pg); case 'intro': return renderIntro(s); case 'strict': return renderStrictPage(s); case 'search': return renderSearch(s); case 'ai': return renderAI(pg,s); case 'tools': return renderToolsLib(pg,s); }
+  switch(pg.type){ case 'web': return `<div class="page">${pnav(pg.title,`<span data-act="ext:${pg.url}" title="在浏览器打开">${I.share}</span>`,'white')}<iframe class="webf" src="${pg.url}" referrerpolicy="no-referrer"></iframe></div>`; case 'route': return renderRoute(pg); case 'pplan': return renderPensionPlan(pg,s); case 'fplan': return renderFundPlan(pg,s); case 'cplan': return renderCustomPlan(pg,s); case 'intro': return renderIntro(s); case 'strict': return renderStrictPage(s); case 'search': return renderSearch(s); case 'ai': return renderAI(pg,s); case 'tools': return renderToolsLib(pg,s); }
   return '';
 }
 
@@ -1007,7 +1237,9 @@ function act(root,a){
     case 'mtab': s.moneyTab=v; root.__scrollTo='#g-'+v; root.__scrollOff=100; break;
     case 'dot': { const p=SHELF.concat(STRICT).find(x=>x.code===v); toast(root,`${p.name} · 晨星风险分 ${p.ms}（${msBand(p.ms)[2]}）· ${p.metric} ${p.val}`); return; }
     case 'detail': { const p=SHELF.concat(STRICT).concat(INSURE).find(x=>x.code===v); if(p&&p.url){ push(s,{type:'web',title:p.name,url:p.url}); break; } if(p) push(s,{type:'route',route:detailRoute(p)}); break; }
-    case 'route': { const r=ROUTES[v]; if(!r) break; if(r.url&&!r.url.includes('{')&&!/microapp\./.test(r.url)){ push(s,{type:'web',title:r.title,url:r.url}); break; } push(s,{type:'route',route:r}); break; }
+    case 'pptab': { const pg=s.pages[s.pages.length-1]; if(pg&&pg.type==='pplan') pg.tab=+v; break; }
+    case 'fpsal': { const pg=s.pages[s.pages.length-1]; if(pg&&pg.type==='fplan') pg.sal=+v; break; }
+    case 'route': { if(v==='pension'){ push(s,{type:'pplan',tab:0}); break; } if(v==='planM4'){ push(s,{type:'fplan'}); break; } if(v==='goals'){ push(s,{type:'cplan'}); break; } const r=ROUTES[v]; if(!r) break; if(r.url&&!r.url.includes('{')&&!/microapp\./.test(r.url)){ push(s,{type:'web',title:r.title,url:r.url}); break; } push(s,{type:'route',route:r}); break; }
     case 'page': if(v==='ai0'){ push(s,{type:'ai',msgs:[]}); } else if(v==='tools'){ push(s,{type:'tools',tab:'featured',cat:'plan'}); } else push(s,{type:v}); break;
     case 'introlv': s.introLv=+v; break;
     case 'scrollp': root.__pageScrollTo=v; break;
@@ -1047,6 +1279,7 @@ function mountPhone(el,over){
   el.addEventListener('input',e=>{
     const s=el.__state,t=e.target;
     if(t.hasAttribute('data-inv')){ s.investPct=+t.value; const c=INVEST[s.investPct]; const pos=((s.investPct-2)/8)*100; el.querySelector('.sld .fill').style.width=pos+'%'; const b=el.querySelector('.sld .bubble'); b.style.left=`calc(${pos}% - ${(pos*0.52).toFixed(2)}px)`; b.textContent=s.investPct+'%'; el.querySelector('.goal').innerHTML=`目标年化 ${s.investPct}%<em>·</em>可承受回撤 ${c.loss}<em>·</em>持有${c.hold}`; el.querySelector('.allocw').innerHTML=allocHtml(c); return; }
+    if(t.hasAttribute('data-fp')){ const pg=s.pages[s.pages.length-1]; if(!pg||pg.type!=='fplan') return; const k=t.dataset.fp; pg[k]=+t.value; const wrap=t.closest('.ruler'); const min=+t.min,max=+t.max; const pos=((pg[k]-min)/(max-min)*100).toFixed(2); const ln=wrap.querySelectorAll('svg line'); const cur=ln[ln.length-1]; cur.setAttribute('x1',pos+'%'); cur.setAttribute('x2',pos+'%'); const b=el.querySelector(`.fp .big b[data-k="${k}"]`); if(b) b.textContent=fmt(pg[k]); if(k==='amt'){ const sm=b.previousElementSibling; sm.textContent=pg.amt>=10000?`${(pg.amt/10000).toFixed(pg.amt%10000?1:0)}万`:''; } return; }
     if(t.hasAttribute('data-rng')){ const L=el.querySelector('[data-rng=lo]'),H=el.querySelector('[data-rng=hi]'); let lo=SXinv(+L.value/RNG_MAX), hi=SXinv(+H.value/RNG_MAX); if(hi-lo<5){ if(t.dataset.rng==='lo'){lo=Math.max(0,hi-5);L.value=Math.round(SX(lo)*RNG_MAX);} else {hi=Math.min(100,lo+5);H.value=Math.round(SX(hi)*RNG_MAX);} } s.range=[lo,hi]; s.comfort=false; s.ddOpen=false; patchFilter(el); return; }
     if(t.hasAttribute('data-pen')){ s.pension[t.dataset.pen]=+t.value||0; const r=pensionCalc(s.pension); const pres=el.querySelectorAll('.pres'); pres[0].querySelector('.v').innerHTML=`${(r.fv/10000).toFixed(0)}<small>万元</small>`; pres[0].querySelector('.bar').innerHTML=`<i class="inv" style="width:70%"></i><i class="gain" style="width:30%"></i>`; pres[0].querySelector('.m').innerHTML=`<span>投入 ${(r.invest/10000).toFixed(0)}万</span><span>测算收益 ${((r.fv-r.invest)/10000).toFixed(0)}万</span>`; pres[1].querySelector('.v').innerHTML=`${fmt(r.pay)}<small>元</small>`; pres[1].querySelector('.sub').textContent=`相当于现在的 ${fmt(r.now)} 元`; return; }
     if(t.hasAttribute('data-ai')){ s.aiText=t.value; return; }
