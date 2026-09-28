@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="且慢投资者行为分析与矫正项目：从行为测量、归因、纠偏到实验验证的完整方法与产品闭环。">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>投资者行为分析与矫正｜方法治理与产品闭环</title>
+  <style>
+    :root{--ink:#15283a;--muted:#637485;--navy:#102b47;--blue:#176b91;--cyan:#66c0c7;--paper:#f4f7f6;--white:#fff;--line:#dce6e8;--green:#20745f;--amber:#a46b18;--red:#a44848;--purple:#6558a5;--shadow:0 18px 55px rgba(16,43,71,.11)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(180deg,#dceef0 0,#f4f7f6 640px);color:var(--ink);font:15px/1.72 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Noto Sans SC",sans-serif}.wrap{width:min(1180px,calc(100% - 28px));margin:auto}.hero{position:relative;overflow:hidden;margin:20px auto 14px;padding:54px;border-radius:30px;background:linear-gradient(135deg,#102b47,#17627b);color:#fff;box-shadow:var(--shadow)}.hero:after{content:"";position:absolute;right:-70px;top:-160px;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(102,192,199,.44),rgba(102,192,199,.02) 68%,transparent 69%)}.eyebrow{font-size:12px;letter-spacing:.18em;color:#a9dce1}.hero h1{position:relative;z-index:1;max-width:900px;margin:15px 0 12px;font:700 clamp(38px,6vw,72px)/1.08 Georgia,"Noto Serif SC",serif}.hero p{position:relative;z-index:1;max-width:830px;margin:0;color:#d5e8ed;font-size:18px}.meta{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}.meta span{padding:6px 11px;border:1px solid rgba(255,255,255,.2);border-radius:999px;background:rgba(255,255,255,.07);font-size:12px}.nav{position:sticky;top:8px;z-index:20;display:flex;gap:6px;overflow:auto;padding:8px;margin-bottom:16px;border:1px solid rgba(21,40,58,.1);border-radius:17px;background:rgba(255,255,255,.92);backdrop-filter:blur(14px)}.nav a{white-space:nowrap;padding:8px 12px;border-radius:10px;color:var(--ink);text-decoration:none;font-size:13px}.nav a:hover{background:#e7f2f3}section{margin:16px 0;padding:31px;border:1px solid rgba(21,40,58,.09);border-radius:24px;background:rgba(255,255,255,.97);box-shadow:0 9px 30px rgba(16,43,71,.05)}h2{margin:0 0 8px;font:700 clamp(26px,3vw,38px)/1.2 Georgia,"Noto Serif SC",serif}.lede{max-width:930px;margin:0 0 20px;color:var(--muted)}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.metric{padding:20px;border:1px solid var(--line);border-radius:17px;background:linear-gradient(145deg,#f6fafb,#fff)}.metric b{display:block;font:700 36px/1.1 Georgia,serif;color:var(--navy)}.metric span{font-size:13px;color:var(--muted)}.metric.green b{color:var(--green)}.metric.amber b{color:var(--amber)}.metric.red b{color:var(--red)}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:16px}table{width:100%;min-width:820px;border-collapse:collapse;background:#fff}th,td{padding:13px 15px;text-align:left;vertical-align:top;border-bottom:1px solid #e7ecef}th{background:#edf4f5;font-size:12px;letter-spacing:.04em}tr:last-child td{border-bottom:0}.status{display:inline-flex;padding:3px 8px;border-radius:999px;font-size:11px;font-weight:700;white-space:nowrap}.done{background:#dff1eb;color:#12614f}.corrected{background:#ddecf4;color:#1b6481}.guard{background:#fff0cf;color:#80560f}.private{background:#f7dddd;color:#8a3939}.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.stage{position:relative;padding:17px;border:1px solid #d8e6e9;border-radius:15px;background:#eff5f6}.stage:not(:last-child):after{content:"→";position:absolute;right:-10px;top:50%;z-index:2;width:20px;height:20px;display:grid;place-items:center;border-radius:50%;background:white;color:var(--blue);font-weight:800}.stage b{display:block;color:var(--blue)}.stage span{color:var(--muted);font-size:12px}.split{display:grid;grid-template-columns:1.05fr .95fr;gap:16px}.diagram{display:grid;place-items:center;min-height:350px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(145deg,#eff7f7,#fff)}.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}.card{padding:19px;border:1px solid var(--line);border-radius:17px;background:#f8faf9}.card h3{margin:0 0 7px;font-size:18px}.card p{margin:0;color:var(--muted);font-size:14px}.card .tag{display:inline-block;margin-bottom:9px;padding:3px 8px;border-radius:7px;background:#ddecf4;color:#1b6481;font-size:11px}.callout{margin-top:15px;padding:17px;border-left:4px solid var(--blue);border-radius:13px;background:#edf5f7}.callout b{color:var(--blue)}.boundary{display:grid;grid-template-columns:1fr 1fr;gap:12px}.boundary>div{padding:18px;border-radius:16px}.safe{background:#e9f5f0;border:1px solid #cfe7dd}.unsafe{background:#fff0ee;border:1px solid #efcfca}.boundary h3{margin:0 0 6px}.boundary ul{margin:8px 0 0;padding-left:19px}.evidence{font:13px/1.8 ui-monospace,SFMono-Regular,Menlo,monospace;background:#112c45;color:#d7e9ee;padding:19px;border-radius:16px;overflow:auto}.evidence b{color:#80d0d6}.source-list{margin:0;padding-left:20px}.source-list li{margin:8px 0}.source-list a{color:#176b91}.foot{padding:24px 0 42px;text-align:center;color:#74838c;font-size:12px}@media(max-width:860px){.wrap{width:min(100% - 16px,1180px)}.hero{padding:32px 24px}.hero h1{font-size:42px}section{padding:22px}.metrics,.flow,.split,.cards,.boundary{grid-template-columns:1fr}.stage:not(:last-child):after{content:"↓";right:18px;top:auto;bottom:-10px}.nav{top:0}}
+    @media(max-width:860px){html,body{max-width:100%;overflow-x:hidden}.wrap{width:100%;max-width:100%;padding:0 8px;overflow:hidden}.hero{width:100%;margin:8px 0 12px;padding:30px 24px}.hero h1{max-width:100%;font-size:36px;line-height:1.14;word-break:break-all}.hero p{font-size:15px}.meta{flex-wrap:wrap}section{width:100%;padding:22px;overflow:hidden}.table-wrap,.evidence{max-width:100%;overflow:auto}.metrics,.flow,.split,.cards,.boundary{grid-template-columns:1fr}.stage:not(:last-child):after{content:"↓";right:18px;top:auto;bottom:-10px}.nav{top:0;width:100%}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="hero">
+      <div class="eyebrow">BEHAVIOR ANALYTICS × CORRECTION SYSTEM · 2026.09.28</div>
+      <h1>投资行为分析，不该止于给人贴标签</h1>
+      <p>把 Cursor 做到一半的研究、量化页和交互原型接成一条可治理的产品链：证据能追溯、口径能复算、建议可选择、效果靠实验验证。</p>
+      <div class="meta"><span>Cursor 项目接管</span><span>本体口径复核</span><span>方法与合规修正</span><span>公开安全版</span></div>
+    </header>
+
+    <nav class="nav"><a href="#result">接管结果</a><a href="#problem">关键纠偏</a><a href="#system">产品闭环</a><a href="#paradox">长赢悖论</a><a href="#evidence">外部证据</a><a href="#governance">治理边界</a><a href="#roadmap">落地路线</a></nav>
+
+    <section id="result">
+      <h2>已经从“三张孤立页面”升级为一个项目</h2>
+      <p class="lede">本轮不是继续堆结论，而是补齐正式构建源、方法护栏、产品路径与发布验证。精确内部客群数据仍保留在受控材料中，不在公开页新增披露。</p>
+      <div class="metrics"><div class="metric green"><b>3</b><span>既有页面纳入正式构建源</span></div><div class="metric"><b>1</b><span>项目级公开安全报告</span></div><div class="metric amber"><b>6</b><span>核心方法问题完成修正</span></div><div class="metric red"><b>0</b><span>新增客户或交易明细公开</span></div></div>
+      <div class="table-wrap" style="margin-top:18px"><table><thead><tr><th>工作面</th><th>接管前</th><th>本轮处理</th><th>状态</th></tr></thead><tbody>
+        <tr><td><b>投资行为体检 H5</b></td><td>合成账本，但首屏像真实账户诊断；纠偏默认勾选</td><td>显著演示标识、选择权、非个性化模式、缺失值与公式修正</td><td><span class="status corrected">已修正</span></td></tr>
+        <tr><td><b>晨星 × 嘉信研究页</b></td><td>报告汇总可读，但容易把两类证据混用</td><td>区分“资金流结果测量”与“顾问调查/干预启发”</td><td><span class="status done">已纳管</span></td></tr>
+        <tr><td><b>内部量化比较页</b></td><td>精确聚合数已存在于线上目录，分母与窗口不完全一致</td><td>保留现状，不新增公开数据；把口径差异列为治理事项</td><td><span class="status private">建议转私有</span></td></tr>
+        <tr><td><b>发布工程</b></td><td>页面只在构建产物中，正式构建可能删除</td><td>迁入 source、增加自动验证门、纳入工作台卡片与正文搜索</td><td><span class="status done">已补齐</span></td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section id="problem">
+      <h2>最重要的不是算得更复杂，而是别把不同东西说成一回事</h2>
+      <div class="table-wrap"><table><thead><tr><th>原问题</th><th>为什么危险</th><th>统一口径</th></tr></thead><tbody>
+        <tr><td>合成账本写成“你的真实交易”</td><td>让演示看起来像个人诊断</td><td>演示数据、真实数据、估算参照必须三层标识</td></tr>
+        <tr><td>|实际收益−基准收益|叫“收益损耗”</td><td>绝对差会把跑赢也计入；相关模型不能证明因果</td><td>统一称“收益路径偏离”；只有严格反事实才讨论损耗</td></tr>
+        <tr><td>缺失指标按人群均值补齐</td><td>把“算不出”伪装成“表现一般”</td><td>缺失不打分；只在可计算指标内重标权重，并展示覆盖率</td></tr>
+        <tr><td>PGR/PLR&gt;1.2 当成学术硬阈值</td><td>经典文献核心是 PGR 与 PLR 差异及显著性</td><td>主指标采用 DR=PGR−PLR；比值只作内部候选辅助信号</td></tr>
+        <tr><td>跟车交易归因为用户判断</td><td>策略调仓与用户自主决策混在一起</td><td>先做行为归属：策略、自动执行、手动跟车、自主交易分别计算</td></tr>
+        <tr><td>不同样本量直接横比</td><td>观察窗、事件资格与缺失规则不同会制造假差异</td><td>每个结论绑定时间窗、分子、分母、排除项与数据版本</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section id="system">
+      <h2>产品应形成“测量—解释—选择—验证”闭环</h2>
+      <p class="lede">行为体检不是终点。真正的产品价值，是在用户准备做决定时提供恰到好处的摩擦，并证明这种介入确实改善了行为而非只提高了点击。</p>
+      <div class="flow"><div class="stage"><b>01 · 资格门</b><span>交易数、持有期、可归属事件不足时不下结论。</span></div><div class="stage"><b>02 · 行为测量</b><span>指标、窗口、分母、置信度与缺失率一并输出。</span></div><div class="stage"><b>03 · 因果边界</b><span>区分信号、相关、反事实与已验证增量。</span></div><div class="stage"><b>04 · 用户选择</b><span>默认不勾选，可切非个性化原则，可清空本期计划。</span></div><div class="stage"><b>05 · 效果实验</b><span>用随机对照或准实验验证行为改善、留存与投诉。</span></div></div>
+      <div class="split" style="margin-top:18px">
+        <div class="diagram">
+          <svg viewBox="0 0 520 330" width="100%" role="img" aria-label="行为分析闭环示意图">
+            <defs><marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#176b91"/></marker></defs>
+            <circle cx="260" cy="165" r="68" fill="#102b47"/><text x="260" y="154" text-anchor="middle" fill="#fff" font-size="20" font-weight="700">行为服务闭环</text><text x="260" y="181" text-anchor="middle" fill="#bde3e7" font-size="13">不预测市场 · 改善决策过程</text>
+            <g font-family="PingFang SC, sans-serif" text-anchor="middle"><g><circle cx="260" cy="44" r="52" fill="#e1f0f2" stroke="#66c0c7"/><text x="260" y="40" fill="#15283a" font-weight="700">行为测量</text><text x="260" y="60" fill="#637485" font-size="12">指标 + 置信度</text></g><g><circle cx="437" cy="165" r="52" fill="#e5edf5" stroke="#7aa6c2"/><text x="437" y="161" fill="#15283a" font-weight="700">决策介入</text><text x="437" y="181" fill="#637485" font-size="12">提醒 + 冷静期</text></g><g><circle cx="260" cy="286" r="52" fill="#e6f3ec" stroke="#66a98c"/><text x="260" y="282" fill="#15283a" font-weight="700">结果验证</text><text x="260" y="302" fill="#637485" font-size="12">RCT + 复测</text></g><g><circle cx="83" cy="165" r="52" fill="#f7eedc" stroke="#c39b52"/><text x="83" y="161" fill="#15283a" font-weight="700">解释选择</text><text x="83" y="181" fill="#637485" font-size="12">证据 + 控制权</text></g></g>
+            <path d="M303 86 C356 102 385 116 407 135" fill="none" stroke="#176b91" stroke-width="2" marker-end="url(#a)"/><path d="M407 195 C382 219 344 243 307 263" fill="none" stroke="#176b91" stroke-width="2" marker-end="url(#a)"/><path d="M213 263 C166 241 130 220 108 198" fill="none" stroke="#176b91" stroke-width="2" marker-end="url(#a)"/><path d="M108 132 C142 102 180 84 213 71" fill="none" stroke="#176b91" stroke-width="2" marker-end="url(#a)"/>
+          </svg>
+        </div>
+        <div class="cards"><article class="card"><span class="tag">决策前</span><h3>在高风险时刻介入</h3><p>频繁交易、极端行情顺势操作、微利卖出、跳过调仓等事件发生时提示，而不是每天推送一个静态分数。</p></article><article class="card"><span class="tag">决策中</span><h3>增加摩擦但保留选择</h3><p>展示证据、冷静期、替代方案与“继续操作”按钮；系统不替用户作出投资决定。</p></article><article class="card"><span class="tag">决策后</span><h3>复盘过程而非奖惩涨跌</h3><p>判断是否遵守计划、是否降低冲动交易，不用短期盈亏给用户贴“理性/不理性”标签。</p></article><article class="card"><span class="tag">经营侧</span><h3>看增量而非触达量</h3><p>核心指标是干预采纳、后悔率、重复冲动行为、跟车完整性与投诉，不是弹窗曝光。</p></article></div>
+      </div>
+    </section>
+
+    <section id="paradox">
+      <h2>“长赢偏误低、跟车却弱”并不矛盾</h2>
+      <p class="lede">综合分与跟车执行衡量的是两个不同层面。如果综合分只包含交易频率、趋势追随、锚定、权益偏离、处置效应、近期偏好，而跟车完整性另算，那么“核心交易信号较稳”和“计划执行不到位”完全可以同时成立。</p>
+      <div class="cards"><article class="card"><span class="tag">测量层</span><h3>综合分只回答六个问题</h3><p>它不能自动代表全部投资行为，更不能概括服务执行、目标一致性或最终收益。</p></article><article class="card"><span class="tag">执行层</span><h3>跟车是单独的产品问题</h3><p>要拆分未发车、自动执行、手动跟车、部分执行、延迟执行和历史迁移订单。</p></article><article class="card"><span class="tag">归属层</span><h3>不能把策略动作算在客户头上</h3><p>跟车占比高时，部分买卖信号反映主理人节奏；客户真正的行为是是否选择、何时执行和是否中断。</p></article><article class="card"><span class="tag">结论层</span><h3>避免“最好/最理性”总评</h3><p>更准确的表达是：在已纳入的六项指标上相对较低，但执行完整性仍有独立改善空间。</p></article></div>
+      <div class="callout"><b>产品机会：</b>长赢客群不应被推更多“认知教育”，而应优先解决计划可见性、调仓事件归因、自动执行与中断恢复。</div>
+    </section>
+
+    <section id="evidence">
+      <h2>外部研究能定方向，不能替内部模型背书</h2>
+      <div class="table-wrap"><table><thead><tr><th>证据</th><th>能支持什么</th><th>不能支持什么</th></tr></thead><tbody>
+        <tr><td><b>Morningstar Mind the Gap 2026</b></td><td>比较资金加权与时间加权收益，显示交易时点与资金流会形成收益差；低波动、系统化交易和更少临时操作通常更有利于捕获基金回报</td><td>不能把资金流差直接当成个人“犯错成本”；官方明确提醒，其中也可能包含定投、再平衡等合理现金流</td></tr>
+        <tr><td><b>Schwab BeFi Barometer 2021</b></td><td>顾问普遍观察到近期偏好等行为问题，并认可长期视角、目标规划、系统流程等干预方式</td><td>这是顾问自报调查，不是客户交易数据，也不是干预效果的随机实验</td></tr>
+        <tr><td><b>内部行为量化研究</b></td><td>提供本土业务口径、客群切片与可产品化信号</td><td>没有统一分母、样本覆盖与实验验证时，不能对个人下强诊断或承诺收益改善</td></tr>
+      </tbody></table></div>
+      <ul class="source-list"><li><a href="https://www.morningstar.com/business/insights/research/mind-the-gap" target="_blank" rel="noopener">Morningstar · Mind the Gap 2026</a>：截至 2025 年底的十年期研究与方法说明。</li><li><a href="https://pressroom.aboutschwab.com/press-releases/press-release/2021/BeFi-Barometer-2021-Advisors-Witness-Dramatic-Increase-in-Behavioral-Biases-Among-Clients-Amidst-Pandemic-Uncertainty/default.aspx" target="_blank" rel="noopener">Charles Schwab · BeFi Barometer 2021</a>：300 余名顾问自报调查、偏差观察与缓解方式。</li><li><a href="https://www.schwabassetmanagement.com/resources/befi/biagnostics-toolkit/playbook" target="_blank" rel="noopener">Schwab Biagnostics Playbook</a>：识别偏差、组合构建与客户沟通的实务框架。</li></ul>
+    </section>
+
+    <section id="governance">
+      <h2>公开工作台只放方法、安全版与演示</h2>
+      <p class="lede">GitHub Pages 是公网。前端访问口令不是保密边界，因此本项目不新增公开客户、交易、持仓、客群精确规模、内部表名或权限信息。</p>
+      <div class="boundary"><div class="safe"><h3>公开版可以包含</h3><ul><li>方法框架、指标定义、公式边界</li><li>固定种子合成账本与明确演示标识</li><li>公开研究链接、产品闭环和验证计划</li><li>不含内部数值的定性结论</li></ul></div><div class="unsafe"><h3>应留在受控环境</h3><ul><li>客户级交易、持仓、账户和标签</li><li>可反推经营规模的精确客群聚合</li><li>内部库表、查询路径、服务权限</li><li>未获授权的生产模型参数与名单</li></ul></div></div>
+    </section>
+
+    <section id="roadmap">
+      <h2>下一步按三个版本落地，而不是一次性上“全能诊断”</h2>
+      <div class="table-wrap"><table><thead><tr><th>版本</th><th>范围</th><th>上线门</th><th>核心验收</th></tr></thead><tbody>
+        <tr><td><b>V0 · 演示验证</b></td><td>合成账本、公式说明、非个性化原则、选择与清空</td><td>方法审查 + 合规审查 + 构建验证</td><td>用户能分清演示、信号、建议和承诺边界</td></tr>
+        <tr><td><b>V1 · 只读体检</b></td><td>真实账户只读接入；仅输出样本充分的行为信号</td><td>数据映射、订单归属、分母登记、可解释性验收</td><td>复算一致率、覆盖率、人工复核误报率</td></tr>
+        <tr><td><b>V2 · 决策介入</b></td><td>冷静期、目标提醒、调仓中断恢复、自动执行引导</td><td>明确授权、非个性化入口、退出/删除、实验方案</td><td>冲动操作下降、执行完整性改善、投诉不升高</td></tr>
+      </tbody></table></div>
+      <div class="evidence" style="margin-top:18px"><b>上线判据</b>  configured → connected → executed → verified → delivered<br><b>数据判据</b>  source + cutoff + numerator + denominator + exclusions + version<br><b>模型判据</b>  coverage + confidence + missingness + attribution + counterfactual boundary<br><b>效果判据</b>  randomized or quasi-experimental lift, not simulated score reduction<br><b>用户权利</b>  opt-in recommendation + non-personalized mode + clear/reset + human escalation</div>
+    </section>
+
+    <footer class="foot">投资者行为分析与矫正项目 · 接管完成版 · Clair's Studio · 2026-09-28</footer>
+  </main>
+</body>
+</html>

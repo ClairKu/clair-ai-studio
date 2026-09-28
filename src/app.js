@@ -56,7 +56,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 80;
+const DATA_VERSION = 81;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -200,6 +200,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "investor-behavior-correction-system-2026-09-28",
+      groupId: "growth-insights",
+      title: "投资者行为分析与矫正｜方法治理与产品闭环",
+      url: "https://clairku.github.io/clair-ai-studio/reports/investor-behavior-correction-system-2026-09-28/",
+      preview: "investor-behavior-correction-system-2026-09-28.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-28T10:45:00+08:00",
+      source: "接管 Cursor 未完成项目｜复原行为体检、晨星与嘉信研究页、内部量化比较页及本体复核任务｜补齐正式构建源与自动验证门｜修正合成数据身份、收益偏离命名、缺失值填充、处置效应主公式、跟车归属与默认勾选等方法和合规问题｜公开安全版不新增客户、交易、持仓、精确客群规模、内部库表或权限信息",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["且慢", "投资者行为", "行为金融", "纠偏", "数据分析", "产品闭环", "本体", "合规", "Cursor接管", "HTML", "生产"],
+    },
     {
       id: "qieman-four-money-redesign-2026-09-24",
       groupId: "product-planning",
@@ -2908,6 +2922,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "investor-behavior-correction-system-2026-09-28": "data-analysis",
   "qieman-four-money-redesign-2026-09-24": "product-demo",
   "all-ai-output-publication-audit-2026-09-24": "reporting",
   "qieman-cashflow-product-holding-redesign-2026-09-22": "product-planning",
@@ -3011,6 +3026,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "investor-behavior-correction-system-2026-09-28": "growth-insights",
   "qieman-four-money-redesign-2026-09-24": "product-planning",
   "all-ai-output-publication-audit-2026-09-24": "reporting",
   "qieman-cashflow-product-holding-redesign-2026-09-22": "product-planning",
