@@ -51,5 +51,6 @@ const forbiddenPatterns = [
 for (const pattern of forbiddenPatterns) {
   if (pattern.test(checkup)) throw new Error(`行为体检仍含未经验证的生产化表述：${pattern}`);
 }
+if (checkup.includes("文献判定阈值 1.2")) throw new Error("行为体检不得把内部候选阈值写成文献硬阈值");
 
 console.log(`投资者行为项目验证通过：${expected.length} 个正式源页面 + 1 份公开安全报告，方法与合规护栏已就位。`);

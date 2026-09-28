@@ -376,7 +376,7 @@ svg{display:block}
       <h3><span class="no">6</span>偏误清单 · 按对综合分的贡献排序</h3>
       <p class="sub">贡献 = 权重 × 你的标准化读数。排在前面的项，是最值得先处理的。</p>
       <div id="issueList"></div>
-      <p class="src">判定综合了两类依据：① 相对参照人群的偏离幅度；② 内部研究候选阈值。处置效应主指标为 DR=PGR−PLR；PGR/PLR&gt;1.2 仅作候选辅助信号，不作为已获学术共识的硬阈值。</p>
+      <p class="src">判定综合了两类依据：① 相对参照人群的偏离幅度；② 内部研究候选阈值。本演示的处置效应主指标为 DR=PGR−PLR，并只对正向处置倾向计分；PGR/PLR&gt;1.2 仅作候选辅助信号，不作为已获学术共识或生产模型已锁定的硬阈值。</p>
     </section>
   </div>
 
@@ -736,7 +736,7 @@ const DETAIL={
   return `<div class="def"><b>怎么算</b>：处置效应 DR = 盈利变现率 PGR − 亏损变现率 PLR。PGR = 卖出的盈利笔数 ÷（卖出的盈利 + 仍持有的盈利）；PLR 同理。每次卖出时，我们复刻你当时的全部持仓来数"账面盈利/亏损"有几笔。DR &gt; 0 说明你更愿意兑现盈利、留着亏损。</div>
   <div class="blk ev"><h5>你的数据${few?'<span style="color:#EA9500;font-weight:400;font-size:11px">（卖出 '+M.sells.length+' 笔，样本偏少，读数仅供参考）</span>':''}</h5>
   ${hbar('盈利变现率 PGR',M.PGR||0,1,'o',pct(M.PGR,0))}${hbar('亏损变现率 PLR',M.PLR||0,1,'',pct(M.PLR,0))}
-  <ul class="facts" style="margin-top:8px"><li><span>已实现盈利 / 账面盈利（笔）</span><b>${M.rg} / ${M.pg}</b></li><li><span>已实现亏损 / 账面亏损（笔）</span><b>${M.rl} / ${M.pl}</b></li><li><span>DR = PGR − PLR</span><b class="${cls(M.DR>0.15,M.DR<=0.05)}">${pp(M.DR)}</b></li><li><span>PGR / PLR（文献判定阈值 1.2）${!isFinite(ratio)&&isN(M.PGR)?'<br><span style="font-size:10.5px;color:#999">区间内没有卖出过任何亏损仓位</span>':''}</span><b class="${cls(ratio>1.5,ratio<=1.2)}">${ratioTxt(ratio)}</b></li><li><span>亏损仓位平均持有 / 盈利仓位平均持有</span><b>${isN(M.AHTLP)?Math.round(M.AHTLP):'—'} 天 / ${isN(M.AHTPP)?Math.round(M.AHTPP):'—'} 天</b></li><li><span>损失厌恶系数 AHTLP ÷ AHTPP（典型散户 1.2–1.8）</span><b class="${cls(la>1.8,la<=1.2)}">${n2(la)}</b></li><li><span>回本即卖（卖价在成本 0.95–1.10 倍内）占卖出</span><b class="${cls(M.breakeven>0.6,M.breakeven<0.4)}">${pct(M.breakeven,0)}</b></li></ul></div>
+  <ul class="facts" style="margin-top:8px"><li><span>已实现盈利 / 账面盈利（笔）</span><b>${M.rg} / ${M.pg}</b></li><li><span>已实现亏损 / 账面亏损（笔）</span><b>${M.rl} / ${M.pl}</b></li><li><span>DR = PGR − PLR</span><b class="${cls(M.DR>0.15,M.DR<=0.05)}">${pp(M.DR)}</b></li><li><span>PGR / PLR（内部候选辅助阈值 1.2）${!isFinite(ratio)&&isN(M.PGR)?'<br><span style="font-size:10.5px;color:#999">区间内没有卖出过任何亏损仓位</span>':''}</span><b class="${cls(ratio>1.5,ratio<=1.2)}">${ratioTxt(ratio)}</b></li><li><span>亏损仓位平均持有 / 盈利仓位平均持有</span><b>${isN(M.AHTLP)?Math.round(M.AHTLP):'—'} 天 / ${isN(M.AHTPP)?Math.round(M.AHTPP):'—'} 天</b></li><li><span>损失厌恶系数 AHTLP ÷ AHTPP（典型散户 1.2–1.8）</span><b class="${cls(la>1.8,la<=1.2)}">${n2(la)}</b></li><li><span>回本即卖（卖价在成本 0.95–1.10 倍内）占卖出</span><b class="${cls(M.breakeven>0.6,M.breakeven<0.4)}">${pct(M.breakeven,0)}</b></li></ul></div>
   <div class="blk ev"><h5>反事实：你卖掉的盈利产品，后来怎么了</h5><p style="font-size:12px;color:#606060;line-height:1.6">对区间内 ${M.winners.length} 笔盈利卖出，追踪该产品在卖出后的净值表现（等权平均）：</p>
   ${['m3','m6','m12'].map((k,i)=>{const s=sa[k];const l=['3 个月后','6 个月后','12 个月后'][i];return isN(s.v)?hbar(l,Math.abs(s.v),0.3,s.v>0?'o':'gr',pp(s.v)+' ('+s.n+'笔)'):hbar(l,0,1,'g','数据不足')}).join('')}
   <p class="cite">${isN(sa.m6.v)&&sa.m6.v>0.02?`平均而言，你卖出的盈利产品在之后半年继续上涨 ${pct(sa.m6.v)}——这就是"卖飞成本"。`:isN(sa.m6.v)?'卖出后半年整体表现平淡，本区间的止盈没有明显卖飞。':'区间靠近当前，暂无足够的后续数据。'}</p></div>
