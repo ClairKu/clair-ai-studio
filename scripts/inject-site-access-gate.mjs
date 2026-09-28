@@ -78,10 +78,10 @@ const encryptedReportShell = ({ html, gateScript, outputPath }) => {
       sessionStorage.removeItem("clair-doubao-report-unlock-v1");
     }catch{}};
     let opening=false;
-    const openEncryptedReport=async()=>{
+    const openEncryptedReport=async credentialOverride=>{
       if(opening)return;
-      const granted=readSession(reportSessionKey)===reportSessionValue||readSession(workspaceSessionKey)===workspaceSessionValue;
-      const credential=readSession(credentialKey)||readSession(legacySessionKey);
+      const granted=Boolean(credentialOverride)||readSession(reportSessionKey)===reportSessionValue||readSession(workspaceSessionKey)===workspaceSessionValue;
+      const credential=credentialOverride||readSession(credentialKey)||readSession(legacySessionKey);
       if(!granted||!credential)return;
       opening=true;
       try{
@@ -116,7 +116,7 @@ const encryptedReportShell = ({ html, gateScript, outputPath }) => {
           if(typeof credentials[key]==="string"&&credentials[key])sessionStorage.setItem(key,credentials[key]);
         }
       }catch{}
-      void openEncryptedReport();
+      void openEncryptedReport(credentials[credentialKey]||credentials[legacySessionKey]||"");
     });
     requestAnimationFrame(openEncryptedReport);
   </script>
