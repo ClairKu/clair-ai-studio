@@ -5429,9 +5429,11 @@ function openReportInBrowser(report) {
   let studioReport = false;
   try {
     const targetUrl = new URL(target, window.location.href);
-    const reportsRoot = new URL("./reports/", window.location.href);
-    studioReport = targetUrl.origin === reportsRoot.origin
-      && targetUrl.pathname.startsWith(reportsRoot.pathname);
+    // 站内成果页（reports/ 与 apps/）都在工作台根路径下：新标签页预置访问会话，避免二次输密码。
+    const studioRoot = new URL("./", window.location.href);
+    studioReport = targetUrl.origin === studioRoot.origin
+      && targetUrl.pathname.startsWith(studioRoot.pathname)
+      && targetUrl.pathname !== studioRoot.pathname;
   } catch {
     studioReport = false;
   }

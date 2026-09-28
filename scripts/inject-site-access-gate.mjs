@@ -47,7 +47,8 @@ for (const htmlPath of walkHtml(outputRoot)) {
 
   const relativeAsset = relative(dirname(htmlPath), gateAsset).replaceAll("\\", "/");
   const assetPath = relativeAsset.startsWith(".") ? relativeAsset : `./${relativeAsset}`;
-  const accessScope = outputPath.startsWith("reports/") ? "report" : "workspace";
+  // reports/ 与 apps/ 都是独立成果页，走报告密码；仅工作台首页与其余站点页走工作台密码。
+  const accessScope = outputPath.startsWith("reports/") || outputPath.startsWith("apps/") ? "report" : "workspace";
   const gateScript = `<script ${marker} data-clair-access-scope="${accessScope}" src="${assetPath}"></script>`;
 
   html = html.replace(/<meta\b[^>]*name=["']robots["'][^>]*>\s*/gi, "");
