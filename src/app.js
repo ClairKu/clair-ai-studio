@@ -201,6 +201,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "ifast-corporation-deep-dive-2026-09-28",
+      groupId: "reporting",
+      title: "奕丰 iFAST 全景深度报告｜从基金超市到跨境金融操作系统",
+      url: "https://clairku.github.io/clair-ai-studio/reports/ifast-corporation-deep-dive-2026-09-28/",
+      preview: "ifast-corporation-deep-dive-2026-09-28.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-09-28T15:20:00+08:00",
+      source: "iFAST 2025 审计年报、2Q/1H2026 业绩材料、官网业务与牌照页面、管理层资料、eMPF 政府文件与监管公告、DBS/UOBKH 券商研究交叉验证｜系统拆解 B2B/B2C 财富平台、数字银行与支付、ePension、信托、资管、Fintech Solutions、组织治理、AI 技术栈、25 年发展历程、财务质量与 2030 目标｜明确区分公司披露、政府/监管证据、外部研究与分析推断；公开资料研究，不含内部客户、交易或持仓数据",
+      access: "production",
+      workType: "competitive-research",
+      tags: ["iFAST", "奕丰", "金融科技", "财富管理", "数字银行", "养老金", "ePension", "AI", "组织治理", "经营分析", "竞品调研", "HTML", "生产"],
+    },
+    {
       id: "peng-signals-learning-station-2026-09-28",
       groupId: "knowledge",
       title: "PENG SIGNALS｜买方投顾与财富科技学习站",
@@ -2950,6 +2964,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "ifast-corporation-deep-dive-2026-09-28": "competitive-research",
   "peng-signals-learning-station-2026-09-28": "competitive-research",
   "altruist-hazel-agent-case-study-2026-09-28": "competitive-research",
   "investor-behavior-correction-system-2026-09-28": "data-analysis",
@@ -3056,6 +3071,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "ifast-corporation-deep-dive-2026-09-28": "reporting",
   "peng-signals-learning-station-2026-09-28": "knowledge",
   "altruist-hazel-agent-case-study-2026-09-28": "product-planning",
   "investor-behavior-correction-system-2026-09-28": "growth-insights",
