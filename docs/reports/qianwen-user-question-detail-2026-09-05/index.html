@@ -36,6 +36,20 @@
       sessionStorage.removeItem("clair-qianwen-report-unlock-v1");
       sessionStorage.removeItem("clair-doubao-report-unlock-v1");
     }catch{}};
+    const renderDecryptedReport=plain=>{
+      if(window.top===window){
+        document.open();document.write(plain);document.close();
+        return;
+      }
+      const frame=document.createElement("iframe");
+      frame.title=document.title;
+      frame.setAttribute("sandbox","allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-scripts allow-downloads");
+      frame.style.cssText="display:block;width:100%;height:100%;border:0;background:#fff";
+      frame.srcdoc=plain;
+      document.documentElement.style.height="100%";
+      document.body.style.cssText="margin:0;height:100%;overflow:hidden;background:#fff";
+      document.body.replaceChildren(frame);
+    };
     let opening=false;
     const openEncryptedReport=async credentialOverride=>{
       if(opening)return;
@@ -49,7 +63,7 @@
         const key=await crypto.subtle.deriveKey({name:"PBKDF2",salt:decode(payload.salt),iterations:payload.iterations,hash:"SHA-256"},material,{name:"AES-GCM",length:256},false,["decrypt"]);
         const plain=await crypto.subtle.decrypt({name:"AES-GCM",iv:decode(payload.iv)},key,decode(payload.data));
         try{sessionStorage.setItem(legacySessionKey,credential)}catch{}
-        document.open();document.write(new TextDecoder().decode(plain));document.close();
+        renderDecryptedReport(new TextDecoder().decode(plain));
       }catch{
         clearStaleSession();
         location.reload();

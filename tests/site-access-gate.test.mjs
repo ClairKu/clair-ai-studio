@@ -135,6 +135,9 @@ test("publishes scoped gate metadata on every ordinary HTML entry", () => {
       assert.match(html, /clair-report-access/);
       assert.match(html, /clair-report-access-bridged/);
       assert.match(html, /__clairStudioReportCredential/);
+      assert.match(html, /const renderDecryptedReport=plain=>/);
+      assert.match(html, /frame\.srcdoc=plain/);
+      assert.doesNotMatch(html, /allow-same-origin/);
       assert.match(html, /正在打开已验证的报告/);
       assert.match(html, /noindex,nofollow/);
       continue;
