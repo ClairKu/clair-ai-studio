@@ -936,7 +936,6 @@ function renderMapSvg(s){
   let h=`<svg viewBox="0 0 311 ${MAP_H}">`;
   // 三段车道：交替底色 + 分隔线，段内纵向按年化高低排布
   ['long','stable','live'].forEach((k,i)=>{ const y0=LANE_Y[k]-30; if(i) h+=`<line x1="0" x2="311" y1="${y0}" y2="${y0}" stroke="#E8EEF5"/>`; h+=`<text x="4" y="${LANE_Y[k]+3}" font-size="9.5" font-weight="600" fill="#8393A8">${GROUPS[k][0]}</text>`; });
-  for(const b of [25,45,55,65]) h+=`<line x1="${X(b)}" x2="${X(b)}" y1="8" y2="${MAP_H-14}" stroke="#F1F5FA"/>`;
   if(isFiltered(s)) h+=`<rect x="${X(lo)}" y="6" width="${X(hi)-X(lo)}" height="${MAP_H-18}" fill="#EAF4FF" opacity=".55" rx="6"/>`;
   // 定制方案系列（淡、小），最优点正常大小
   let hc='',hc0='';
