@@ -6,6 +6,10 @@
     ? "report"
     : "workspace";
   const WORKBENCH_EMBED_PARAMETER = "clair-workbench-reader";
+  const WORKBENCH_READER_TOKEN_PARAMETER = "clair-reader-token";
+  const REPORT_ACCESS_MESSAGE_TYPE = "clair-report-access";
+  const REPORT_ACCESS_REQUEST_MESSAGE_TYPE = "clair-report-access-request";
+  const BRIDGED_REPORT_CREDENTIAL = "__clairStudioReportCredential";
   const REPORT_CREDENTIAL_SESSION_KEY = "clair-ai-studio-report-credential-v1";
   const LEGACY_ENCRYPTED_REPORT_SESSION_KEYS = [
     "clair-qianwen-report-unlock-v1",
@@ -82,22 +86,56 @@
     }
   };
 
-  const isTrustedWorkbenchEmbed = () => {
+  const trustedWorkbenchParentOrigin = () => {
     if (window.top === window
-      || new URLSearchParams(location.search).get(WORKBENCH_EMBED_PARAMETER) !== "1") return false;
-    if (!document.referrer || !gateScript?.src) return false;
+      || new URLSearchParams(location.search).get(WORKBENCH_EMBED_PARAMETER) !== "1"
+      || !new URLSearchParams(location.search).get(WORKBENCH_READER_TOKEN_PARAMETER)
+      || !gateScript?.src) return "";
     try {
-      const referrer = new URL(document.referrer);
       const studioRoot = new URL("./", gateScript.src);
+      if (!document.referrer) return studioRoot.origin;
+      const referrer = new URL(document.referrer);
       const normalizedReferrerPath = referrer.pathname.replace(/index\.html$/, "");
       const sameProductionWorkbench = referrer.origin === studioRoot.origin
         && normalizedReferrerPath === studioRoot.pathname;
       const loopbackWorkbench = ["127.0.0.1", "localhost", "[::1]"].includes(referrer.hostname)
         && ["/", "/index.html"].includes(referrer.pathname);
-      return sameProductionWorkbench || loopbackWorkbench;
+      return sameProductionWorkbench || loopbackWorkbench ? referrer.origin : "";
     } catch {
-      return false;
+      return "";
     }
+  };
+
+  const requestWorkbenchCredential = () => {
+    if (requestedScope !== "report") return false;
+    const parentOrigin = trustedWorkbenchParentOrigin();
+    const readerToken = new URLSearchParams(location.search).get(WORKBENCH_READER_TOKEN_PARAMETER) || "";
+    if (!parentOrigin || !readerToken) return false;
+    let settled = false;
+    const fallback = window.setTimeout(() => {
+      if (!settled) mountGate();
+    }, 1600);
+    const receiveCredential = (event) => {
+      if (event.source !== window.parent
+        || event.origin !== parentOrigin
+        || event.data?.type !== REPORT_ACCESS_MESSAGE_TYPE
+        || event.data?.token !== readerToken) return;
+      const credential = event.data.credentials?.[REPORT_CREDENTIAL_SESSION_KEY] || "";
+      if (!credential) return;
+      settled = true;
+      window.clearTimeout(fallback);
+      window.removeEventListener("message", receiveCredential);
+      window[BRIDGED_REPORT_CREDENTIAL] = credential;
+      window.dispatchEvent(new CustomEvent("clair-report-access-bridged", {
+        detail: { credential },
+      }));
+    };
+    window.addEventListener("message", receiveCredential);
+    window.parent.postMessage({
+      type: REPORT_ACCESS_REQUEST_MESSAGE_TYPE,
+      token: readerToken,
+    }, parentOrigin);
+    return true;
   };
 
   // Entering through the authenticated Studio grants this browser tab a pass.
@@ -105,7 +143,7 @@
   // it receives an explicit iframe-only marker. Top-level/direct URLs stay locked.
   if (readSession() === SESSION_VALUE) return;
   if (requestedScope === "report" && hasWorkspacePass()) return;
-  if (isTrustedWorkbenchEmbed()) return;
+  if (requestWorkbenchCredential()) return;
 
   document.documentElement.classList.add(ROOT_CLASS);
 

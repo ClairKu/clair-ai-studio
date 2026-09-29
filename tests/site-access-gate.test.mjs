@@ -102,16 +102,20 @@ test("a successful workspace unlock seeds every encrypted-report session without
   assert.doesNotMatch(source, /20260509/);
 });
 
-test("isolated workbench readers bypass the gate only with an iframe marker and trusted parent", () => {
+test("isolated workbench readers request an in-memory credential through a token-bound parent handshake", () => {
   const source = readFileSync(gatePath, "utf8");
-  assert.match(source, /const isTrustedWorkbenchEmbed = \(\) =>/);
+  assert.match(source, /const trustedWorkbenchParentOrigin = \(\) =>/);
+  assert.match(source, /const requestWorkbenchCredential = \(\) =>/);
   assert.match(source, /window\.top === window/);
   assert.match(source, /new URLSearchParams\(location\.search\)/);
   assert.match(source, /document\.referrer/);
   assert.match(source, /new URL\("\.\/", gateScript\.src\)/);
   assert.match(source, /sameProductionWorkbench/);
   assert.match(source, /loopbackWorkbench/);
-  assert.match(source, /if \(isTrustedWorkbenchEmbed\(\)\) return/);
+  assert.match(source, /clair-report-access-request/);
+  assert.match(source, /event\.source !== window\.parent/);
+  assert.match(source, /window\[BRIDGED_REPORT_CREDENTIAL\] = credential/);
+  assert.match(source, /if \(requestWorkbenchCredential\(\)\) return/);
 });
 
 test("publishes scoped gate metadata on every ordinary HTML entry", () => {
@@ -129,11 +133,8 @@ test("publishes scoped gate metadata on every ordinary HTML entry", () => {
       assert.doesNotMatch(html, /type=["']password["']/);
       assert.match(html, /clair-ai-studio-report-credential-v1/);
       assert.match(html, /clair-report-access/);
-      assert.match(html, /clair-report-access-request/);
-      assert.match(html, /clair-reader-token/);
-      assert.match(html, /trustedParentOrigin/);
-      assert.match(html, /event\.origin!==parentOrigin/);
-      assert.match(html, /openEncryptedReport\(credentials\[credentialKey\]/);
+      assert.match(html, /clair-report-access-bridged/);
+      assert.match(html, /__clairStudioReportCredential/);
       assert.match(html, /正在打开已验证的报告/);
       assert.match(html, /noindex,nofollow/);
       continue;

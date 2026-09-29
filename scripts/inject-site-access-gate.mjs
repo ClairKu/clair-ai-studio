@@ -67,9 +67,8 @@ const encryptedReportShell = ({ html, gateScript, outputPath }) => {
     const reportSessionValue="verified-report-2026-09-28";
     const workspaceSessionKey="clair-ai-studio-access-v2";
     const workspaceSessionValue="verified-2026-09-28";
-    const accessMessageType="clair-report-access";
-    const accessRequestMessageType="clair-report-access-request";
     const legacySessionKey=${JSON.stringify(legacySessionKey)};
+    const bridgedCredentialKey="__clairStudioReportCredential";
     const readSession=key=>{try{return sessionStorage.getItem(key)||""}catch{return ""}};
     const clearStaleSession=()=>{try{
       sessionStorage.removeItem(credentialKey);
@@ -97,31 +96,10 @@ const encryptedReportShell = ({ html, gateScript, outputPath }) => {
         location.reload();
       }
     };
-    const trustedParentOrigin=()=>{
-      if(window.top===window||new URLSearchParams(location.search).get("clair-workbench-reader")!=="1"||!document.referrer)return"";
-      try{
-        const referrer=new URL(document.referrer);
-        const studioRoot=new URL("../../",location.href);
-        const referrerPath=referrer.pathname.replace(/index\.html$/,"");
-        const production=referrer.origin===studioRoot.origin&&referrerPath===studioRoot.pathname;
-        const loopback=["127.0.0.1","localhost","[::1]"].includes(referrer.hostname)&&["/","/index.html"].includes(referrer.pathname);
-        return production||loopback?referrer.origin:"";
-      }catch{return""}
-    };
-    const parentOrigin=trustedParentOrigin();
-    const readerToken=new URLSearchParams(location.search).get("clair-reader-token")||"";
-    if(parentOrigin)window.addEventListener("message",event=>{
-      if(event.source!==window.parent||event.origin!==parentOrigin||event.data?.type!==accessMessageType||event.data?.token!==readerToken)return;
-      const credentials=event.data.credentials||{};
-      try{
-        for(const key of [credentialKey,reportSessionKey,"clair-qianwen-report-unlock-v1","clair-doubao-report-unlock-v1"]){
-          if(typeof credentials[key]==="string"&&credentials[key])sessionStorage.setItem(key,credentials[key]);
-        }
-      }catch{}
-      void openEncryptedReport(credentials[credentialKey]||credentials[legacySessionKey]||"");
+    window.addEventListener("clair-report-access-bridged",event=>{
+      void openEncryptedReport(event.detail?.credential||"");
     });
-    if(parentOrigin&&readerToken)window.parent.postMessage({type:accessRequestMessageType,token:readerToken},parentOrigin);
-    requestAnimationFrame(openEncryptedReport);
+    requestAnimationFrame(()=>openEncryptedReport(window[bridgedCredentialKey]||""));
   </script>
 </body>
 </html>`;
