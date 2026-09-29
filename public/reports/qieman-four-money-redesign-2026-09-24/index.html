@@ -43,6 +43,23 @@
   .hl .hi{border-left:3px solid var(--blue);background:#F5F9FF;border-radius:10px;padding:12px 16px}
   .hl .hi h3{margin:0 0 6px;font-size:15px;color:#1c2b3a}
   .hl .hi p{margin:0;font-size:13.5px;color:#4a5568;line-height:1.75}
+
+  .why{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;margin-top:6px}
+  @media (max-width:900px){.why{grid-template-columns:1fr}}
+  .why .lead{font-size:14.5px;color:#374151;line-height:1.75;margin:0}
+  .why .lead b{color:#1c2b3a}
+  .why .probs{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+  .why .probs li{background:#F8FAFC;border:1px solid var(--doc-line);border-radius:10px;padding:10px 14px;font-size:13.5px;color:#4a5568;line-height:1.6}
+  .why .probs li strong{display:block;color:#1c2b3a;font-size:13.5px;margin-bottom:2px}
+  .ups{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+  @media (max-width:900px){.ups{grid-template-columns:1fr}}
+  .up{border:1px solid var(--doc-line);border-radius:14px;padding:16px 18px;background:#fff;position:relative;overflow:hidden}
+  .up::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--blue)}
+  .up .n{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;background:#EAF4FF;color:var(--blue);font-size:12px;font-weight:700;margin-right:8px}
+  .up h3{margin:0 0 8px;font-size:15.5px;color:#1c2b3a;display:flex;align-items:center}
+  .up p{margin:0;font-size:13.5px;color:#4a5568;line-height:1.75}
+  .up .sol{margin-top:8px;font-size:12.5px;color:#6b7280;line-height:1.65;padding-top:8px;border-top:1px dashed #E5E7EB}
+  .up .sol b{color:#1B88EE;font-weight:600}
   .stage{display:grid;grid-template-columns:395px 1fr;gap:26px;align-items:start}
   @media (max-width:900px){.stage{grid-template-columns:1fr}}
   .guide{border:1px solid var(--doc-line);border-radius:12px;padding:14px 16px;background:#fbfcfe;position:sticky;top:16px}
@@ -116,12 +133,16 @@
   .pres .m span{white-space:nowrap;flex:0 0 auto;font-weight:500}
   .pres .m .inv{color:var(--blue)} .pres .m .gain{color:#9CC6F1}
   .pres .sub{font-size:11px;color:#7D8FA8}
-  .goals{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-  .gc{background:#F4F8FF;border-radius:12px;padding:10px 8px 8px;cursor:pointer;overflow:hidden}
-  .gc .ic{width:26px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;margin-bottom:8px}
-  .gc b{display:block;font-size:12px;color:#1c2b3a;white-space:nowrap;letter-spacing:-.2px}
-  .gc span{display:block;font-size:9.5px;color:#8393A8;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .gc em{display:block;font-style:normal;font-size:10px;color:#A5B2C4;margin-top:6px}
+  .goals{display:grid;grid-auto-flow:column;grid-template-rows:repeat(2,auto);grid-auto-columns:148px;gap:8px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin:0 -16px;padding:0 16px 4px;scroll-snap-type:x proximity}
+  .goals::-webkit-scrollbar{display:none}
+  .gc{scroll-snap-align:start;background:#F5F7FA;border-radius:12px;padding:12px 12px 10px;cursor:pointer;overflow:hidden;position:relative;min-width:0}
+  .gc.add{background:#F5F7FA;border:1px dashed #D5DEE9}
+  .gc .ic{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;margin-bottom:8px}
+  .gc .tg{position:absolute;top:8px;right:8px;font-size:9.5px;color:var(--blue);background:#EAF4FF;border-radius:3px;padding:1px 5px;font-weight:500}
+  .gc b{display:block;font-size:13px;color:#1c2b3a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.2px;font-weight:600}
+  .gc span{display:block;font-size:11px;color:#8393A8;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .gc em{display:block;font-style:normal;font-size:10.5px;color:#A5B2C4;margin-top:8px}
+  .goals-hint{font-size:11px;color:#A5B2C4;margin-top:8px;text-align:right}
   .sec-hd{display:flex;align-items:center;gap:6px;padding:0 16px;margin:20px 0 10px}
   .sec-hd .tt{flex:1;min-width:0}
   .sec-hd h2{margin:0;border:0;padding:0;font-size:19px;font-weight:700;color:#1c2b3a;white-space:nowrap;line-height:1.2}
@@ -651,10 +672,41 @@
 <div class="wrap">
 
 <header class="hero">
-  <h1>且慢「投顾」Tab · 四笔钱改造 — 高保真交互 DEMO</h1>
-  <p>在一台手机里完整呈现改造后的投顾 Tab：<b>投顾服务区（投资规划 · 养老规划 · 其他目标）→ 四笔钱风险货架 → 严选策略 → 搜产品 → AI 小顾 → 应用工具</b>。货架产品、收益指标、风险等级、每日估值与页面跳转均取自线上真实数据（收益截至 2026-09-23）。</p>
-  <div class="meta"><span>375 × 812 · 单文件可直接打开</span><span>手机内所有按钮均可点击，产品 / 工具 / CTA 会在框内打开对应页面</span><span>右侧「快捷演示」可一键切换到任意状态</span></div>
+  <h1>且慢「投顾」Tab · 四笔钱改造方案</h1>
+  <p>从「货架陈列」升级为「投顾服务 + 风险选品 + AI 陪伴 + 工具服务」一体的投顾 2.0 入口。下方先说明改什么、解决什么问题，再进入可点击的高保真 DEMO（货架、收益、风险、估值均取自线上真实数据）。</p>
+  <div class="meta"><span>375 × 812 · 单文件可打开</span><span>手机内按钮均可点击，跳转在 DEMO 框内承接</span><span>右侧快捷演示可一键切状态</span></div>
 </header>
+
+<section class="doc" id="s-why">
+  <h2>改什么 · 解决什么问题</h2>
+  <div class="why">
+    <p class="lead">现有投顾 Tab 以<strong>四笔钱货架</strong>为主：用户进来先看到产品列表，规划、陪伴、工具散落在别处，缺少「这笔钱怎么用」的入口叙事。本次改造把顶部做成<strong>投顾 2.0 服务区</strong>，把风险视图与搜品能力织进四笔钱货架，把 AI 小顾做成可运营的对话入口，把工具升级为可复用的标准服务卡——让用户先想清楚目标，再选品、再行动。</p>
+    <ul class="probs">
+      <li><strong>规划入口弱</strong>资金规划、养老、定制方案各自为政，用户不知道从哪开始。</li>
+      <li><strong>选品靠翻列表</strong>四笔钱货架缺少风险视角与升级搜品，难快速定位「适合我」。</li>
+      <li><strong>AI 入口单薄</strong>小顾提问缺少结合用户场景的运营文案，进入路径生硬。</li>
+      <li><strong>工具像图标墙</strong>功能入口不成服务，无法在 AI 场景复用，也接不住实验室成果。</li>
+    </ul>
+  </div>
+</section>
+
+<section class="doc" id="s-ups">
+  <h2>主要升级点</h2>
+  <div class="ups">
+    <div class="up"><h3><span class="n">1</span>顶部 Banner → 投顾 2.0 服务区</h3>
+      <p>整合<strong>资金规划、养老规划、定制方案</strong>与其他人生目标，形成投顾 2.0 的「服务与规划」总入口。投资规划用目标年化滑杆给账户方案；养老规划即时测算；其他目标为可运营配置的场景卡（可横滑、可配展示要素与跳转）。</p>
+      <div class="sol"><b>解决：</b>规划能力沉底、入口分散 → 用户一进 Tab 就能按目标起步。</div></div>
+    <div class="up"><h3><span class="n">2</span>四笔钱货架 + 风险视图 + 搜产品</h3>
+      <p>保留投顾 1.0 四笔钱货架与策略风险地图（晨星风险分 × 活/稳/长），叠加<strong>升级版搜产品</strong>：策略 / 基金 / 私募 / 功能 / 社区 / 帮助一体搜，支持场景理解与个性化筛选，严选策略可并入风险视图。</p>
+      <div class="sol"><b>解决：</b>只会翻货架 → 用风险与搜索快速找到「适合我」的产品。</div></div>
+    <div class="up"><h3><span class="n">3</span>AI 小顾入口升级</h3>
+      <p>底部小顾条<strong>轮播</strong>与用户相关、感兴趣的运营文案（结合智能运营场景）；可直接点进小顾看提问回复，也可先点文字编辑再进入。快捷入口（定制方案等）均在框内承接。</p>
+      <div class="sol"><b>解决：</b>AI 入口静态、转化弱 → 运营可配话术，降低提问门槛。</div></div>
+    <div class="up"><h3><span class="n">4</span>工具区 → 标准服务卡片</h3>
+      <p>工具不再只是功能 ICON：统一为<strong>标准服务卡</strong>（估值、温度计、攒钱、诊断等），可在 AI 场景复用，并打通实验室成果。用户可自订添加、移除与排序常用工具。</p>
+      <div class="sol"><b>解决：</b>工具散、难复用 → 服务化组件，个人工作台可编排。</div></div>
+  </div>
+</section>
 
 <section class="doc" id="s-demo">
   <h2>交互 DEMO</h2>
@@ -662,38 +714,15 @@
     <div id="main-phone"></div>
     <div class="guide">
       <h4>快捷演示</h4>
-      <div class="grp">① 投顾服务区</div>
-      <div class="btns"><button data-do="tab:invest">投资规划</button><button data-do="route:custom">查看定制方案 → 账户方案</button><button data-do="tab:pension">养老规划</button><button data-do="route:pension">查看养老方案</button><button data-do="tab:goal">其他目标</button><button data-do="route:planM4">先规划资金（三问问卷）</button></div>
-      <div class="grp">② 四笔钱货架 · 风险地图 · 严选</div>
-      <div class="btns"><button data-do="range:15,45">风险分 15–45 筛选</button><button data-do="strict">四笔钱 + 严选</button><button data-do="comfort">哪个适合我</button><button data-do="map">收起 / 展开风险地图</button><button data-do="openurl:https://qieman.com/m4/more">更多严选策略</button><button data-do="page:intro">了解四笔钱</button></div>
-      <div class="grp">③ 搜产品 · AI 小顾</div>
-      <div class="btns"><button data-do="search">搜产品</button><button data-do="search:黄金">搜「黄金」</button><button data-do="search:3年内要用">搜「3年内要用」</button><button data-do="ai">小顾带问进入</button><button data-do="aiedit">编辑小顾提问</button><button data-do="page:ai0">小顾首屏</button></div>
-      <div class="grp">④ 应用工具</div>
+      <div class="grp">① 投顾 2.0 服务区</div>
+      <div class="btns"><button data-do="tab:invest">投资规划</button><button data-do="route:custom">查看定制方案 → 账户方案</button><button data-do="tab:pension">养老规划</button><button data-do="route:pension">查看养老方案</button><button data-do="tab:goal">其他目标（可横滑）</button><button data-do="route:planM4">先规划资金（三问）</button></div>
+      <div class="grp">② 四笔钱货架 · 风险地图 · 搜产品</div>
+      <div class="btns"><button data-do="range:15,45">风险分 15–45</button><button data-do="strict">四笔钱 + 严选</button><button data-do="comfort">哪个适合我</button><button data-do="map">收起 / 展开风险地图</button><button data-do="search">搜产品</button><button data-do="search:3年内要用">搜「3年内要用」</button><button data-do="openurl:https://qieman.com/m4/more">更多严选策略</button></div>
+      <div class="grp">③ AI 小顾</div>
+      <div class="btns"><button data-do="ai">小顾带问进入</button><button data-do="aiedit">编辑小顾提问</button><button data-do="page:ai0">小顾首屏</button></div>
+      <div class="grp">④ 标准服务卡片 · 工具</div>
       <div class="btns"><button data-do="scroll:tools">滚到工具区</button><button data-do="page:tools">添加工具</button><button data-do="openurl:https://qieman.com/idx-eval">每日估值</button><button class="reset" data-do="reset">重置</button></div>
     </div>
-  </div>
-</section>
-
-<section class="doc" id="s-features">
-  <h2>主功能介绍</h2>
-  <div class="feat">
-    <div class="fc"><b>投顾服务区</b><p>顶部三个 Tab 承接不同的钱：<b>投资规划</b>拖动目标年化滑杆（2%–10%）实时看可承受回撤、建议持有期与大类配置；<b>养老规划</b>输入每月存 / 开始存 / 预计退休，即时测算退休时可存到与每月可花；<b>其他目标</b>按活期零钱、短期稳健、家庭资金、闲钱长投、子女教育、攒一笔钱六类场景进入。</p></div>
-    <div class="fc"><b>四笔钱风险货架</b><p>活钱 / 稳钱 / 长钱 / 保险四组货架，卡片要素与线上一致（名称、机构认证、收益或目标、类型、风险等级、买入方式、一句话说明）。货架上方是<b>策略风险地图</b>：横轴晨星风险分，纵轴三笔钱分层，可拉滑块按风险区间筛选。</p></div>
-    <div class="fc"><b>严选策略</b><p>长期投资货架结束后有「更多严选策略」入口，直达线上严选页；在风险地图打开「严选」开关后，合作机构策略以淡蓝点并入地图，筛选结果按普通策略卡片展示。</p></div>
-    <div class="fc"><b>搜产品</b><p>一个搜索框覆盖策略、基金、私募、功能、社区内容、帮助中心；支持按风险等级 / 持有期 / 类型筛选与排序；能猜你想问的问题、展示持有该基金的策略；有「在我的舒适区」「我持有过」等个性化筛选，找不到时引导去问小顾。</p></div>
-    <div class="fc"><b>AI 小顾</b><p>底部悬浮条轮播推荐问题，点击即带问题进入小顾对话页；可先编辑问题再发送。定制方案、投资规划等快捷入口都会在框内打开对应页面。</p></div>
-    <div class="fc"><b>应用工具</b><p>每日估值、市场温度计、攒钱计划、账户诊断、资产分析等 16 项工具统一为卡片规格，可自选添加与排序；每日估值模块按行业展示 PE 百分位，点击进入线上估值页。</p></div>
-  </div>
-</section>
-
-<section class="doc" id="s-highlights">
-  <h2>重点功能描述</h2>
-  <div class="hl">
-    <div class="hi"><h3>策略风险地图 · 哪个适合我</h3><p>横轴为晨星风险分 0–100（五档：非常低 / 比较低 / 适中 / 比较高 / 非常高），纵轴按活钱、稳钱、长钱分三层，同层内按历史年化高低排列，任何筛选状态下点位固定不变。点「哪个适合我」读取用户的风险舒适区（示例：抗风险值 45 → 舒适区 28–47），自动高亮匹配的策略；定制方案系列以风险最高一档作为代表点。</p></div>
-    <div class="hi"><h3>投资规划 → 账户方案</h3><p>滑杆选定目标年化后点「查看定制方案」，进入框内的<b>账户方案</b>页：账户目标（期限 / 期望年化 / 可承受回撤 / 抗风险值）、配置方案环图、方案测算（盈利概率、测算 / 较好 / 较差情况与持有期区间图）、产品方案卡、方案检测（匹配度与方案风险对比舒适区）、服务流程；底部按钮依次推进 确认方案 → 创建定制账户 → 转入一笔 → 持续跟踪。</p></div>
-    <div class="hi"><h3>养老规划 → 养老投资方案</h3><p>输入三项参数即时测算「退休时预计存到」与「退休时预计每月可花」（含折算为现在的购买力），比例条以主蓝 / 淡蓝区分投入与测算收益。点「查看养老方案」进入养老投资方案页：养老投顾 / 个人养老金 / 养老保险三种方式对比与配置建议。</p></div>
-    <div class="hi"><h3>其他目标 · 三问问卷 → 定制方案咨询</h3><p>选择场景目标，或从「先规划资金」回答用钱时间 / 目标收益 / 可承受回撤三问后，进入小顾风格的定制方案咨询页——引导语按来源模块与参数生成（如「根据您 子女教育金 的需求，小顾为您提供定制方案」），并给出对应档位的大类配置、测算与产品卡；全部在 DEMO 框内完成，不跳出页面。</p></div>
-    <div class="hi"><h3>搜产品的场景理解</h3><p>除关键词外，输入「3年内要用」这类场景描述会被理解为稳钱需求，直接给出对应分组的策略与说明；搜索结果分 Tab 展示，并可按风险等级、建议持有期、类型、排序进一步收窄。</p></div>
   </div>
 </section>
 
@@ -845,8 +874,21 @@ const I={
 const INVEST={2:{loss:'1%',hold:'随时存取',a:[100,0,0,0,0]},3:{loss:'2%',hold:'6 个月以上',a:[33,67,0,0,0]},4:{loss:'3%',hold:'1 年以上',a:[0,90,3,7,0]},5:{loss:'6%',hold:'3 年以上',a:[0,73,8,19,0]},6:{loss:'8%',hold:'3 年以上',a:[0,58,20,20,2]},7:{loss:'15%',hold:'3 年以上',a:[0,42,34,20,4]},8:{loss:'18%',hold:'3 年以上',a:[0,27,48,20,5]},9:{loss:'22%',hold:'3 年以上',a:[0,11,62,20,7]},10:{loss:'25%',hold:'3 年以上',a:[0,0,76,20,4]}}; // 生产 KV qieman:uma:invest:plan:config 全球组（默认偏好），档位 2%–10%
 const ALLOC_META=[['货币','#CFE3F7'],['债券','#AFD3F7'],['股票','#1B88EE'],['海外股','#2A6CB0'],['商品','#F2B84B']];
 function allocHtml(c){ return `<div class="alloc">${c.a.map((p,i)=>p?`<i style="width:${p}%;background:${ALLOC_META[i][1]}"></i>`:'').join('')}</div><div class="legend">${c.a.map((p,i)=>p?`<span><b style="background:${ALLOC_META[i][1]}"></b>${ALLOC_META[i][0]} ${p}%</span>`:'').join('')}</div>`; }
-const GOALS=[['活期零钱管理','随时要用的钱','#5AA6EA','¥','goal:活期零钱管理'],['短期稳健增值','1–3 年要用的钱','#7DB7F0','📈','goal:短期稳健增值'],['家庭资金','家庭共同账户','#F09A5A','🏠','goal:家庭资金'],['闲钱长期投资','3 年以上不用的钱','#6FB8E8','📊','goal:闲钱长期投资'],['子女教育金','教育金测算','#9DA7F3','🎓','goal:子女教育金'],['攒一笔钱','52 周挑战 / 打卡','#F0B45A','🎯','goal:攒一笔钱']];
-// 目标 → 定制方案档位（目标年化）与资金用途文案
+/* 其他目标：运营可配置货架。字段 title/sub/icon/color/tag/metric/act/show；支持左右横滑（两行） */
+const GOALS=[
+  {id:'cash',title:'活期零钱管理',sub:'随时要用的钱',icon:'¥',color:'#5AA6EA',metric:'1.2W 人开启',act:'goal:活期零钱管理',show:['icon','title','sub','metric']},
+  {id:'long',title:'闲钱长期投资',sub:'3 年以上不用的钱',icon:'📊',color:'#8B9AE8',metric:'2.4W 人开启',act:'goal:闲钱长期投资',show:['icon','title','sub','metric']},
+  {id:'short',title:'短期稳健增值',sub:'1–3 年要用的钱',icon:'📈',color:'#9DA7F3',metric:'8.6K 人开启',act:'goal:短期稳健增值',show:['icon','title','sub','metric']},
+  {id:'couple',title:'伴侣投资账户',sub:'共同目标一起投',icon:'👫',color:'#F2C067',metric:'1.5K 人开启',act:'goal:家庭资金',show:['icon','title','sub','metric']},
+  {id:'family',title:'家庭资金',sub:'家庭共同账户',icon:'🏠',color:'#F0806B',metric:'3.1K 人开启',act:'goal:家庭资金',show:['icon','title','sub','metric']},
+  {id:'edu',title:'子女成长基金',sub:'教育金测算',icon:'🎓',color:'#9DA7F3',tag:'测算',metric:'4.2K 人开启',act:'goal:子女教育金',show:['icon','title','sub','tag','metric']},
+  {id:'pension',title:'我的养老金',sub:'退休后每月可花',icon:'👴',color:'#F0B45A',tag:'热门',metric:'6.8K 人开启',act:'route:pension',show:['icon','title','sub','tag','metric']},
+  {id:'custom',title:'自定义',sub:'添加我的目标',icon:'＋',color:'#B5C1D1',metric:'同路人自定',act:'toast:顾问运营可配置目标卡片（展示要素与跳转）',show:['icon','title','sub','metric'],add:true},
+  {id:'save',title:'攒一笔钱',sub:'52 周挑战 / 打卡',icon:'🎯',color:'#F0B45A',metric:'5.2K 人打卡',act:'goal:攒一笔钱',show:['icon','title','sub','metric']},
+  {id:'wed',title:'结婚金',sub:'婚宴彩礼规划',icon:'💍',color:'#E89AB0',tag:'运营',metric:'按目标攒',act:'goal:攒一笔钱',show:['icon','title','sub','tag','metric']},
+  {id:'house',title:'买房首付',sub:'3–5 年攒首付',icon:'🔑',color:'#6BB8A8',tag:'运营',metric:'目标金额可配',act:'goal:短期稳健增值',show:['icon','title','sub','tag','metric']},
+];
+// 目标 → 定制方案档位（目标年化）与资金用途文案（act=goal:XXX 时用）
 const GOAL_TIER={'活期零钱管理':[2,'随时要用的零钱'],'短期稳健增值':[4,'1–3 年内要用的钱'],'家庭资金':[5,'家庭共同账户、3 年左右'],'闲钱长期投资':[8,'3 年以上不用的闲钱'],'子女教育金':[6,'子女教育基金、10 年以上'],'攒一笔钱':[4,'定期攒一笔、1–2 年'] };
 const isFiltered=s=>s.range[0]>0||s.range[1]<100;
 const fmt=n=>Math.round(n).toLocaleString('zh-CN');
@@ -965,7 +1007,7 @@ function renderPlan(s){
   } else if(s.planTab==='pension'){ const p=s.pension,r=pensionCalc(p);
     body=`<div class="pen"><div><div class="q">退休后每月可以花多少?</div><div class="pin"><b><input type="number" value="${p.monthly}" data-pen="monthly">元</b><span>每月存</span></div><div class="pin"><b><input type="number" value="${p.start}" data-pen="start" style="width:2.6ch">岁</b><span>开始存</span></div><div class="pin"><b><input type="number" value="${p.retire}" data-pen="retire" style="width:2.6ch">岁</b><span>预计退休</span></div><div class="note">按养老下滑曲线模型测算 ⇄</div></div>
       <div><div class="pres"><div class="t">退休时预计存到</div><div class="v">${(r.fv/10000).toFixed(0)}<small>万元</small></div><div class="bar"><i class="inv" style="width:66.7%"></i><i class="gain" style="width:33.3%"></i></div><div class="m"><span class="inv">投入 ${(r.invest/10000).toFixed(0)}万</span><span class="gain">收益 ${((r.fv-r.invest)/10000).toFixed(0)}万</span></div></div><div class="pres"><div class="t">退休时预计每月可花</div><div class="v">${fmt(r.pay)}<small>元</small></div><div class="sub">相当于现在的 ${fmt(r.now)} 元</div></div></div></div><div class="cta" style="margin-top:8px" data-act="route:pension">查看养老方案</div>`;
-  } else { body=`<div class="goals">${GOALS.map(g=>`<div class="gc" data-act="${g[4]}"><div class="ic" style="background:${g[2]}">${g[3]}</div><b>${g[0]}</b><span>${g[1]}</span><em>1.2W 人开启</em></div>`).join('')}</div>`; }
+  } else { body=`<div class="goals">${GOALS.map(g=>{ const sh=g.show||['icon','title','sub','metric']; return `<div class="gc${g.add?' add':''}" data-act="${g.act}">${sh.includes('tag')&&g.tag?`<i class="tg">${g.tag}</i>`:''}${sh.includes('icon')?`<div class="ic" style="background:${g.color}">${g.icon}</div>`:''}${sh.includes('title')?`<b>${g.title}</b>`:''}${sh.includes('sub')?`<span>${g.sub}</span>`:''}${sh.includes('metric')&&g.metric?`<em>${g.metric}</em>`:''}</div>`; }).join('')}</div><div class="goals-hint">左右滑动查看 · 顾问运营可配置 ›</div>`; }
   return `<div class="plan"><div class="ptabs">${tabs.map((t,i)=>`<span class="ptab ${s.planTab===t[0]?'on':''} ${i===0?'first':''}" data-act="tab:${t[0]}">${t[1]}</span>`).join('')}<span class="plink" data-act="route:planM4">先规划资金 ›</span></div><div class="pbody ${s.planTab==='goal'?'gl':''}">${body}</div></div>`;
 }
 function renderStrictStrip(s){
