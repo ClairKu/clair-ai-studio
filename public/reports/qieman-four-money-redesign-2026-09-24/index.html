@@ -133,16 +133,23 @@
   .pres .m span{white-space:nowrap;flex:0 0 auto;font-weight:500}
   .pres .m .inv{color:var(--blue)} .pres .m .gain{color:#9CC6F1}
   .pres .sub{font-size:11px;color:#7D8FA8}
-  .goals{display:grid;grid-auto-flow:column;grid-template-rows:repeat(2,auto);grid-auto-columns:148px;gap:8px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin:0 -16px;padding:0 16px 4px;scroll-snap-type:x proximity}
+  .goals{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin:0 -16px;padding:2px 16px 6px;scroll-snap-type:x mandatory}
   .goals::-webkit-scrollbar{display:none}
-  .gc{scroll-snap-align:start;background:#F5F7FA;border-radius:12px;padding:12px 12px 10px;cursor:pointer;overflow:hidden;position:relative;min-width:0}
-  .gc.add{background:#F5F7FA;border:1px dashed #D5DEE9}
-  .gc .ic{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;margin-bottom:8px}
-  .gc .tg{position:absolute;top:8px;right:8px;font-size:9.5px;color:var(--blue);background:#EAF4FF;border-radius:3px;padding:1px 5px;font-weight:500}
-  .gc b{display:block;font-size:13px;color:#1c2b3a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.2px;font-weight:600}
-  .gc span{display:block;font-size:11px;color:#8393A8;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .gc em{display:block;font-style:normal;font-size:10.5px;color:#A5B2C4;margin-top:8px}
-  .goals-hint{font-size:11px;color:#A5B2C4;margin-top:8px;text-align:right}
+  .gc{flex:0 0 200px;scroll-snap-align:start;border-radius:16px;padding:14px 14px 12px;cursor:pointer;overflow:hidden;position:relative;background:#fff;border:1px solid #E8EEF6;box-shadow:0 4px 14px rgba(36,91,165,.05);display:flex;flex-direction:column;min-height:118px}
+  .gc::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:var(--gc,var(--blue));opacity:.9}
+  .gc.add{border-style:dashed;border-color:#C9D6E6;background:#FAFBFD;box-shadow:none}
+  .gc.add::before{display:none}
+  .gc .top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:10px}
+  .gc .ic{width:36px;height:36px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;flex:0 0 36px;box-shadow:inset 0 -1px 0 rgba(0,0,0,.06)}
+  .gc .tg{font-size:10px;color:var(--gc,var(--blue));background:color-mix(in srgb,var(--gc,var(--blue)) 14%,#fff);border-radius:999px;padding:2px 7px;font-weight:600;white-space:nowrap}
+  .gc b{display:block;font-size:14.5px;color:#1c2b3a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:700;letter-spacing:-.2px}
+  .gc span{display:block;font-size:12px;color:#6B7688;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.35}
+  .gc .foot{margin-top:auto;padding-top:10px;display:flex;align-items:center;justify-content:space-between;gap:6px}
+  .gc em{font-style:normal;font-size:11px;color:#8A94A6}
+  .gc .go{width:22px;height:22px;border-radius:50%;background:#F0F4FA;color:#8393A8;display:inline-flex;align-items:center;justify-content:center;flex:0 0 22px}
+  .gc .go svg{width:12px;height:12px}
+  .goals-hint{font-size:11px;color:#A5B2C4;margin-top:6px;display:flex;align-items:center;justify-content:space-between}
+  .goals-hint i{font-style:normal;letter-spacing:1px;color:#C5CEDA}
   .sec-hd{display:flex;align-items:center;gap:6px;padding:0 16px;margin:20px 0 10px}
   .sec-hd .tt{flex:1;min-width:0}
   .sec-hd h2{margin:0;border:0;padding:0;font-size:19px;font-weight:700;color:#1c2b3a;white-space:nowrap;line-height:1.2}
@@ -1007,7 +1014,7 @@ function renderPlan(s){
   } else if(s.planTab==='pension'){ const p=s.pension,r=pensionCalc(p);
     body=`<div class="pen"><div><div class="q">退休后每月可以花多少?</div><div class="pin"><b><input type="number" value="${p.monthly}" data-pen="monthly">元</b><span>每月存</span></div><div class="pin"><b><input type="number" value="${p.start}" data-pen="start" style="width:2.6ch">岁</b><span>开始存</span></div><div class="pin"><b><input type="number" value="${p.retire}" data-pen="retire" style="width:2.6ch">岁</b><span>预计退休</span></div><div class="note">按养老下滑曲线模型测算 ⇄</div></div>
       <div><div class="pres"><div class="t">退休时预计存到</div><div class="v">${(r.fv/10000).toFixed(0)}<small>万元</small></div><div class="bar"><i class="inv" style="width:66.7%"></i><i class="gain" style="width:33.3%"></i></div><div class="m"><span class="inv">投入 ${(r.invest/10000).toFixed(0)}万</span><span class="gain">收益 ${((r.fv-r.invest)/10000).toFixed(0)}万</span></div></div><div class="pres"><div class="t">退休时预计每月可花</div><div class="v">${fmt(r.pay)}<small>元</small></div><div class="sub">相当于现在的 ${fmt(r.now)} 元</div></div></div></div><div class="cta" style="margin-top:8px" data-act="route:pension">查看养老方案</div>`;
-  } else { body=`<div class="goals">${GOALS.map(g=>{ const sh=g.show||['icon','title','sub','metric']; return `<div class="gc${g.add?' add':''}" data-act="${g.act}">${sh.includes('tag')&&g.tag?`<i class="tg">${g.tag}</i>`:''}${sh.includes('icon')?`<div class="ic" style="background:${g.color}">${g.icon}</div>`:''}${sh.includes('title')?`<b>${g.title}</b>`:''}${sh.includes('sub')?`<span>${g.sub}</span>`:''}${sh.includes('metric')&&g.metric?`<em>${g.metric}</em>`:''}</div>`; }).join('')}</div><div class="goals-hint">左右滑动查看 · 顾问运营可配置 ›</div>`; }
+  } else { body=`<div class="goals">${GOALS.map(g=>{ const sh=g.show||['icon','title','sub','metric']; return `<div class="gc${g.add?' add':''}" style="--gc:${g.color}" data-act="${g.act}"><div class="top">${sh.includes('icon')?`<div class="ic" style="background:${g.color}">${g.icon}</div>`:'<div></div>'}${sh.includes('tag')&&g.tag?`<i class="tg">${g.tag}</i>`:''}</div>${sh.includes('title')?`<b>${g.title}</b>`:''}${sh.includes('sub')?`<span>${g.sub}</span>`:''}<div class="foot">${sh.includes('metric')&&g.metric?`<em>${g.metric}</em>`:'<em></em>'}<i class="go">${I.chev}</i></div></div>`; }).join('')}</div><div class="goals-hint"><span>顾问运营可配置展示与跳转</span><i>● ● ○</i></div>`; }
   return `<div class="plan"><div class="ptabs">${tabs.map((t,i)=>`<span class="ptab ${s.planTab===t[0]?'on':''} ${i===0?'first':''}" data-act="tab:${t[0]}">${t[1]}</span>`).join('')}<span class="plink" data-act="route:planM4">先规划资金 ›</span></div><div class="pbody ${s.planTab==='goal'?'gl':''}">${body}</div></div>`;
 }
 function renderStrictStrip(s){
