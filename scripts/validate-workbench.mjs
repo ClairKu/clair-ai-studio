@@ -278,6 +278,7 @@ const requiredSignals = [
   [fileRendererSource, 'import("pptx-preview")', "缺少 PPT 页面内解析"],
   [fileRendererSource, "markdownToHtml", "缺少 Markdown 页面内渲染"],
   [appSource, 'data-report-draggable="true"', "卡片主体未启用按住拖动"],
+  [appSource, 'sourceCard?.closest(".group-column, .search-results-panel")', "搜索结果卡片不能启动长按拖动"],
   [appSource, "session.holdTimer = window.setTimeout", "卡片缺少长按拖动触发"],
   [appSource, "session.previewOffsetX", "拖动预览没有保持整卡抓取位置"],
   [appSource, "const scheduleDragUpdate =", "拖动更新没有按动画帧节流"],

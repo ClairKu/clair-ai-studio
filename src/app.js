@@ -6117,7 +6117,7 @@ function workbenchMarkup() {
                 <section class="search-results-panel">
                   <header class="search-results-header">
                     <div><span>SEARCH RESULTS</span><h2>“${escapeHtml(query.trim())}”</h2></div>
-                    ${visibleSearchHits.length ? "<p>按最高匹配优先级归类</p>" : ""}
+                    ${visibleSearchHits.length ? "<p>按最高匹配优先级归类 · 长按卡片可拖到左侧分类</p>" : ""}
                   </header>
                   ${visibleSearchHits.length
                     ? searchPriorityGroupsMarkup(visibleSearchHits)
@@ -6470,7 +6470,7 @@ function bindReportDragging() {
   board.addEventListener("pointerdown", (event) => {
     if (event.button !== 0 || event.target.closest(".card-actions")) return;
     const sourceCard = event.target.closest('.report-card[data-report-draggable="true"]');
-    if (!sourceCard?.closest(".group-column")) return;
+    if (!sourceCard?.closest(".group-column, .search-results-panel")) return;
     if (event.pointerType === "mouse") event.preventDefault();
     session = {
       pointerId: event.pointerId,
