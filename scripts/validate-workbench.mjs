@@ -189,6 +189,7 @@ const requiredSignals = [
   [taskSource, 'M12 4v11', "保存操作仍使用旧软盘图标"],
   [appSource, "function moveBucketByCommand(", "缺少按钮式跨维度分组排序"],
   [appSource, "function bindBucketDragging()", "分类列表缺少长按拖动排序"],
+  [appSource, 'if (!nav || nav.dataset.bucketDraggingBound === "true" || catalogView === "time") return;', "搜索状态禁用了分类长按拖动"],
   [appSource, 'data-bucket-reorderable="${["topic", "type", "tag"].includes(bucket.kind)}"', "可排序分类缺少拖动标记"],
   [appSource, "moveBucketToTarget(", "分类拖动结果没有持久保存"],
   [appSource, "window.setTimeout(() => activateSession(), 280)", "分类拖动缺少长按防误触"],

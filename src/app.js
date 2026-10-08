@@ -6515,7 +6515,7 @@ function bindReportDragging() {
 
 function bindBucketDragging() {
   const nav = document.querySelector(".topic-nav");
-  if (!nav || nav.dataset.bucketDraggingBound === "true" || query || catalogView === "time") return;
+  if (!nav || nav.dataset.bucketDraggingBound === "true" || catalogView === "time") return;
   nav.dataset.bucketDraggingBound = "true";
   let session = null;
 
