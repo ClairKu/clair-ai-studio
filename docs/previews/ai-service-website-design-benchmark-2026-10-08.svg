@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">AI 服务官网设计竞品研究</title>
+  <desc id="desc">海内外 12 个主流 AI 平台与 10 个功能域研究，输出完整官网与工作台蓝图。</desc>
+  <defs>
+    <linearGradient id="glow" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#2f5aff" stop-opacity=".62"/><stop offset="1" stop-color="#2f5aff" stop-opacity="0"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="16" stdDeviation="22" flood-color="#050a18" flood-opacity=".32"/></filter>
+  </defs>
+  <rect width="1200" height="675" fill="#0e1730"/>
+  <circle cx="1090" cy="-10" r="360" fill="url(#glow)"/>
+  <circle cx="-40" cy="700" r="300" fill="#cfff47" opacity=".08"/>
+  <g transform="translate(78 68)">
+    <rect width="46" height="46" rx="14" fill="#cfff47"/>
+    <text x="23" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" font-weight="800" fill="#0e1730">AI</text>
+    <text x="62" y="19" font-family="Arial, 'PingFang SC', sans-serif" font-size="16" font-weight="700" fill="#fff">AI 服务官网设计研究</text>
+    <text x="62" y="40" font-family="Arial, sans-serif" font-size="11" letter-spacing="2" fill="#9da9c7">WEBSITE × MARKETPLACE × CONSOLE</text>
+  </g>
+  <g transform="translate(78 174)">
+    <text font-family="Arial, 'PingFang SC', sans-serif" font-size="61" font-weight="800" letter-spacing="-3" fill="#fff">
+      <tspan x="0" y="0">别再做 AI 能力陈列馆，</tspan>
+      <tspan x="0" y="76">要做</tspan><tspan fill="#cfff47">服务成交与运营系统</tspan>
+    </text>
+    <text y="134" font-family="Arial, 'PingFang SC', sans-serif" font-size="19" fill="#b8c1db">12 个海内外主流平台 · 10 个功能域 · 18 条官方证据</text>
+  </g>
+  <g transform="translate(78 405)" filter="url(#shadow)">
+    <rect width="660" height="162" rx="24" fill="#182442" stroke="#3d4968"/>
+    <text x="28" y="39" font-family="Arial, 'PingFang SC', sans-serif" font-size="14" font-weight="700" fill="#cfff47">核心交付</text>
+    <text x="28" y="76" font-family="Arial, 'PingFang SC', sans-serif" font-size="20" font-weight="700" fill="#fff">对象模型 · 信息架构 · 转化路径 · 12 张页面蓝图</text>
+    <g transform="translate(28 105)" font-family="Arial, 'PingFang SC', sans-serif" font-size="12" fill="#c2cae0">
+      <rect width="108" height="30" rx="15" fill="#253252"/><text x="54" y="20" text-anchor="middle">MCP / Skill</text>
+      <rect x="118" width="106" height="30" rx="15" fill="#253252"/><text x="171" y="20" text-anchor="middle">Agent / 案例</text>
+      <rect x="234" width="116" height="30" rx="15" fill="#253252"/><text x="292" y="20" text-anchor="middle">试用 / 开通</text>
+      <rect x="360" width="130" height="30" rx="15" fill="#253252"/><text x="425" y="20" text-anchor="middle">积分 / 用量</text>
+      <rect x="500" width="116" height="30" rx="15" fill="#253252"/><text x="558" y="20" text-anchor="middle">服务管理</text>
+    </g>
+  </g>
+  <g transform="translate(782 392)">
+    <rect width="332" height="202" rx="30" fill="#cfff47"/>
+    <text x="30" y="58" font-family="Arial, sans-serif" font-size="54" font-weight="800" letter-spacing="-3" fill="#0e1730">12 × 10</text>
+    <text x="31" y="88" font-family="Arial, 'PingFang SC', sans-serif" font-size="15" font-weight="700" fill="#0e1730">平台 × 功能域</text>
+    <line x1="31" x2="300" y1="112" y2="112" stroke="#0e1730" opacity=".2"/>
+    <text x="31" y="141" font-family="Arial, 'PingFang SC', sans-serif" font-size="13" fill="#0e1730">不是风格拼贴</text>
+    <text x="31" y="165" font-family="Arial, 'PingFang SC', sans-serif" font-size="13" font-weight="700" fill="#0e1730">是一套可直接开工的产品蓝图</text>
+  </g>
+  <text x="78" y="626" font-family="Arial, sans-serif" font-size="12" letter-spacing="1.5" fill="#7f8baa">CLAIR'S STUDIO · 2026-10-08</text>
+</svg>

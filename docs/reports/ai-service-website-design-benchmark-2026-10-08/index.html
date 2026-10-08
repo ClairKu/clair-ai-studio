@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />
+    <script data-clair-access-gate data-clair-access-scope="report" src="../../access-gate.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="海内外主流 AI 平台官网、MCP、Skill、Agent、广场、试用、开通、个人中心、积分统计与服务管理设计研究。">
+  <title>AI 服务官网设计｜海内外主流平台竞品研究与产品蓝图</title>
+  <style>
+    :root {
+      --ink:#101828; --ink-2:#344054; --muted:#667085; --line:#d9dde7;
+      --paper:#f6f4ee; --white:#fff; --night:#0e1730; --night-2:#172243;
+      --blue:#2f5aff; --blue-2:#dce5ff; --lime:#cfff47; --amber:#ffb54a;
+      --rose:#ff6b73; --teal:#20b8a7; --violet:#8066ff; --ok:#087d62;
+      --shadow:0 18px 60px rgba(17,24,39,.10); --r:24px; --r2:16px;
+      --max:1180px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;background:var(--paper)}
+    body{margin:0;overflow-x:hidden;color:var(--ink);background:var(--paper);font:15px/1.72 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+    a{color:inherit;text-decoration:none}
+    img{display:block;max-width:100%}
+    button{font:inherit}
+    .progress{position:fixed;z-index:100;left:0;top:0;height:4px;width:0;background:linear-gradient(90deg,var(--lime),var(--blue));box-shadow:0 0 20px rgba(47,90,255,.45)}
+    .topbar{position:sticky;top:0;z-index:90;border-bottom:1px solid rgba(16,24,40,.09);background:rgba(246,244,238,.88);backdrop-filter:blur(18px)}
+    .topbar-inner{max-width:var(--max);height:68px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:0 20px}
+    .brand{display:flex;align-items:center;gap:11px;font-weight:760;letter-spacing:-.02em}
+    .brand-mark{width:34px;height:34px;border-radius:11px;background:var(--night);display:grid;place-items:center;color:var(--lime);box-shadow:inset 0 0 0 1px rgba(255,255,255,.15)}
+    .meta{display:flex;gap:12px;align-items:center;color:var(--muted);font-size:13px}
+    .meta .pill{border:1px solid var(--line);border-radius:999px;padding:5px 10px;background:white}
+    .hero{background:var(--night);color:white;position:relative;overflow:hidden}
+    .hero:before{content:"";position:absolute;width:600px;height:600px;border-radius:50%;right:-180px;top:-300px;background:radial-gradient(circle,rgba(47,90,255,.5),rgba(47,90,255,0) 65%)}
+    .hero:after{content:"";position:absolute;left:-90px;bottom:-250px;width:460px;height:460px;border-radius:50%;background:radial-gradient(circle,rgba(207,255,71,.2),rgba(207,255,71,0) 70%)}
+    .hero-inner{max-width:var(--max);margin:auto;padding:86px 20px 74px;position:relative;z-index:1}
+    .eyebrow{display:flex;align-items:center;gap:9px;text-transform:uppercase;letter-spacing:.14em;font-size:12px;font-weight:750;color:var(--lime)}
+    .eyebrow:before{content:"";width:26px;height:2px;background:currentColor}
+    h1{font-size:clamp(44px,7vw,82px);line-height:.99;letter-spacing:-.065em;margin:22px 0 26px;max-width:980px;font-weight:790}
+    h1 span{color:var(--lime)}
+    .hero-lead{max-width:770px;font-size:19px;line-height:1.7;color:#c9d1e8;margin:0}
+    .hero-grid{display:grid;grid-template-columns:1.45fr .55fr;gap:18px;margin-top:48px}
+    .verdict{border:1px solid rgba(255,255,255,.14);border-radius:var(--r);padding:27px 28px;background:rgba(255,255,255,.06);backdrop-filter:blur(12px)}
+    .verdict strong{font-size:23px;line-height:1.4;display:block;letter-spacing:-.025em}
+    .verdict p{margin:11px 0 0;color:#aeb9d8}
+    .scope-card{background:var(--lime);color:var(--night);border-radius:var(--r);padding:26px}
+    .scope-card b{font-size:41px;line-height:1;display:block;letter-spacing:-.05em}
+    .scope-card span{display:block;font-weight:720;margin-top:8px}
+    .scope-card small{display:block;margin-top:16px;line-height:1.55;opacity:.72}
+    .layout{max-width:var(--max);margin:auto;display:grid;grid-template-columns:220px minmax(0,1fr);gap:38px;padding:42px 20px 110px}
+    .side{position:sticky;top:92px;height:max-content;border:1px solid var(--line);background:rgba(255,255,255,.72);border-radius:18px;padding:14px}
+    .side a{display:flex;align-items:center;gap:8px;padding:9px 10px;border-radius:10px;color:var(--muted);font-size:13px;transition:.2s}
+    .side a:hover,.side a.active{background:var(--night);color:white}
+    .side a span{font-size:11px;opacity:.55;width:18px}
+    main{min-width:0}
+    section{scroll-margin-top:94px;margin-bottom:88px}
+    .section-head{display:grid;grid-template-columns:82px 1fr;gap:19px;align-items:start;margin-bottom:28px}
+    .section-num{width:70px;height:38px;border-radius:999px;background:var(--blue);color:white;display:grid;place-items:center;font-weight:750;font-size:13px;letter-spacing:.06em}
+    .section-head h2{font-size:34px;line-height:1.15;letter-spacing:-.045em;margin:0}
+    .section-head p{margin:10px 0 0;color:var(--muted);max-width:760px}
+    .grid{display:grid;gap:16px}
+    .g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .card{border:1px solid var(--line);background:var(--white);border-radius:var(--r2);padding:22px;box-shadow:0 7px 26px rgba(17,24,39,.04)}
+    .card h3{margin:0 0 8px;font-size:18px;line-height:1.35;letter-spacing:-.02em}.card p{margin:0;color:var(--muted)}
+    .finding{position:relative;overflow:hidden;min-height:210px}
+    .finding .n{position:absolute;right:17px;top:4px;font-size:72px;font-weight:850;color:#eef1f7;letter-spacing:-.07em}
+    .finding h3,.finding p,.finding .impact{position:relative;z-index:1}
+    .finding .impact{margin-top:24px;border-top:1px solid var(--line);padding-top:13px;font-size:13px;color:var(--ink-2)}
+    .finding .impact b{color:var(--blue)}
+    .callout{border-radius:var(--r);padding:30px;background:var(--night);color:white;display:grid;grid-template-columns:180px 1fr;gap:22px;align-items:start}
+    .callout .flag{display:inline-flex;background:var(--lime);color:var(--night);border-radius:999px;padding:7px 12px;font-size:12px;font-weight:780;width:max-content}
+    .callout blockquote{margin:0;font-size:25px;line-height:1.45;letter-spacing:-.035em;font-weight:700}.callout p{color:#aeb9d8;margin:14px 0 0}
+    .filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+    .filter{border:1px solid var(--line);background:white;padding:8px 13px;border-radius:999px;color:var(--muted);cursor:pointer}
+    .filter.active{background:var(--night);border-color:var(--night);color:white}
+    .platform-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+    .platform{border:1px solid var(--line);background:white;border-radius:16px;padding:20px;position:relative;transition:.2s}
+    .platform:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+    .platform .region{font-size:11px;border-radius:999px;padding:4px 8px;background:#eef1f6;color:var(--muted)}
+    .platform h3{margin:16px 0 5px;font-size:18px}.platform p{font-size:13px;min-height:66px;color:var(--muted);margin:0}
+    .platform .best{margin-top:13px;padding-top:12px;border-top:1px dashed var(--line);font-size:12px}.platform .best b{color:var(--ok)}
+    .platform .evidence{position:absolute;right:14px;top:14px;color:var(--blue);font-size:11px;font-weight:700}
+    .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:18px;background:white}
+    table{width:100%;border-collapse:collapse;min-width:880px}
+    th,td{padding:13px 12px;border-bottom:1px solid #e8eaf0;text-align:left;vertical-align:top}
+    th{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);background:#f8f9fb;position:sticky;top:0}
+    td{font-size:13px}.heat{text-align:center;font-weight:780;border-radius:7px}.h5{background:#163cbd;color:white}.h4{background:#d9e3ff;color:#183889}.h3{background:#f5e7c7;color:#795113}.h2{background:#fde1e2;color:#8c2e36}
+    .note{font-size:12px;color:var(--muted);margin-top:10px}
+    .gallery{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+    figure{margin:0;border:1px solid var(--line);background:white;border-radius:20px;overflow:hidden}
+    figure.wide{grid-column:span 12}figure.half{grid-column:span 6}
+    figure .frame{background:#e9ecf3;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    figure .frame img{width:100%;height:100%;object-fit:cover;object-position:top}
+    figure figcaption{padding:16px 18px 18px;color:var(--muted);font-size:13px}figure figcaption b{display:block;color:var(--ink);font-size:15px;margin-bottom:3px}
+    .lesson{display:grid;grid-template-columns:155px 1fr;gap:18px;padding:22px 0;border-bottom:1px solid var(--line)}
+    .lesson:last-child{border-bottom:0}.lesson .label{font-size:12px;color:var(--blue);font-weight:800;letter-spacing:.08em;text-transform:uppercase}.lesson h3{margin:0 0 6px;font-size:18px}.lesson p{margin:0;color:var(--muted)}
+    .concepts{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:20px;overflow:hidden;background:white}
+    .concept{padding:23px;border-right:1px solid var(--line)}.concept:last-child{border:0}.concept .icon{width:41px;height:41px;border-radius:12px;display:grid;place-items:center;background:var(--night);color:var(--lime);font-weight:800}.concept h3{margin:16px 0 6px}.concept p{margin:0;color:var(--muted);font-size:13px}.concept small{display:block;margin-top:13px;padding-top:12px;border-top:1px dashed var(--line);color:var(--ink-2)}
+    .ia{border:1px solid var(--line);background:white;border-radius:22px;padding:24px;overflow:hidden}
+    .ia-top{background:var(--night);color:white;border-radius:14px;padding:15px 18px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}.ia-top b{margin-right:auto}.ia-chip{border:1px solid rgba(255,255,255,.22);padding:5px 9px;border-radius:999px;font-size:12px}.ia-chip.cta{background:var(--lime);color:var(--night);border-color:var(--lime);font-weight:750}
+    .ia-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:13px}.ia-box{border:1px solid var(--line);border-radius:13px;padding:16px;background:#fafbfc}.ia-box b{font-size:14px}.ia-box ul{padding-left:17px;margin:8px 0 0;color:var(--muted);font-size:12px}
+    .journey{display:grid;grid-template-columns:repeat(7,minmax(120px,1fr));gap:9px;overflow:auto;padding-bottom:7px}.stage{min-height:170px;border-radius:15px;padding:16px;background:white;border:1px solid var(--line);position:relative}.stage:not(:last-child):after{content:"→";position:absolute;right:-11px;top:24px;z-index:2;width:20px;height:20px;border-radius:50%;background:var(--paper);display:grid;place-items:center;color:var(--blue);font-weight:800}.stage .step{color:var(--blue);font-size:11px;font-weight:800}.stage h3{font-size:15px;margin:12px 0 6px}.stage p{font-size:12px;color:var(--muted);margin:0}.stage small{position:absolute;left:16px;right:16px;bottom:13px;border-top:1px solid var(--line);padding-top:8px;color:var(--ok)}
+    .blueprint{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.page{background:white;border:1px solid var(--line);border-radius:18px;padding:20px;display:grid;grid-template-columns:44px 1fr;gap:14px}.page .num{width:44px;height:44px;border-radius:13px;background:var(--blue-2);color:var(--blue);font-weight:800;display:grid;place-items:center}.page h3{margin:0 0 6px;font-size:17px}.page p{margin:0;color:var(--muted);font-size:13px}.page .kpi{display:inline-block;margin-top:10px;font-size:11px;padding:4px 8px;border-radius:999px;background:#e6f6f1;color:var(--ok)}
+    .mock{border:1px solid #263456;background:#101a35;color:white;border-radius:24px;padding:16px;box-shadow:var(--shadow)}
+    .mock-browser{display:flex;gap:6px;align-items:center;color:#8390b1;font-size:11px}.dot{width:7px;height:7px;border-radius:50%;background:#54607b}.dot:first-child{background:var(--rose)}.dot:nth-child(2){background:var(--amber)}.dot:nth-child(3){background:var(--lime)}
+    .mock-hero{padding:55px 26px 40px;text-align:center;background:radial-gradient(circle at 50% 0,rgba(47,90,255,.32),transparent 52%)}.mock-hero .logo{font-size:12px;color:var(--lime)}.mock-hero h3{font-size:34px;max-width:610px;margin:14px auto 12px;letter-spacing:-.05em;line-height:1.12}.mock-hero p{color:#aeb9d8;margin:auto;max-width:560px}.ask{max-width:600px;margin:23px auto 0;border:1px solid #536180;border-radius:14px;padding:11px 12px 11px 17px;display:flex;text-align:left;align-items:center;color:#aeb9d8;background:#182442}.ask b{margin-left:auto;background:var(--lime);color:var(--night);padding:8px 12px;border-radius:9px;font-size:12px}.mock-tabs{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}.mock-tabs span{border:1px solid #384665;padding:6px 10px;border-radius:999px;font-size:11px}.mock-tabs span:first-child{background:white;color:var(--night)}
+    .mock-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:18px;text-align:left}.mock-card{border:1px solid #303e5f;background:#15203e;border-radius:13px;padding:13px}.mock-card small{color:#8090b4}.mock-card b{display:block;margin:10px 0 4px}.mock-card em{color:var(--lime);font-style:normal;font-size:11px}
+    .tokens{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.token{border-radius:14px;min-height:110px;padding:14px;display:flex;flex-direction:column;justify-content:flex-end;font-size:12px;border:1px solid rgba(16,24,40,.1)}.token b{font-size:13px}.token.night{background:var(--night);color:white}.token.paper{background:var(--paper)}.token.blue{background:var(--blue);color:white}.token.lime{background:var(--lime)}.token.amber{background:var(--amber)}
+    .pattern{display:grid;grid-template-columns:38px 1fr;gap:12px}.pattern .icon{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:#edf1ff;color:var(--blue);font-weight:800}.pattern h3{margin:0 0 5px;font-size:16px}.pattern p{font-size:13px}
+    .priority{display:inline-flex;padding:4px 8px;border-radius:999px;font-weight:760;font-size:11px}.p0{background:#ffe2e4;color:#9a2630}.p1{background:#dce5ff;color:#2547aa}.p2{background:#e8ecef;color:#4d5969}
+    .roadmap{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.phase{border:1px solid var(--line);background:white;border-radius:18px;padding:22px}.phase .time{color:var(--blue);font-size:12px;font-weight:800}.phase h3{font-size:19px;margin:8px 0}.phase ul{margin:0;padding-left:19px;color:var(--muted)}
+    .test{border:1px solid var(--line);border-radius:16px;background:white;padding:18px}.test .metric{font-size:25px;letter-spacing:-.04em;font-weight:800;color:var(--blue)}.test h3{font-size:16px;margin:7px 0}.test p{font-size:12px;color:var(--muted);margin:0}.test small{display:block;margin-top:12px;color:#7b5421;background:#fff4dd;border-radius:9px;padding:7px 9px}
+    .source-list{counter-reset:source;display:grid;gap:9px}.source{counter-increment:source;display:grid;grid-template-columns:72px 1fr auto;gap:14px;align-items:center;border:1px solid var(--line);background:white;border-radius:13px;padding:13px 15px}.source:before{content:"EV-" counter(source,decimal-leading-zero);font-size:11px;font-weight:800;color:var(--blue)}.source b{font-size:13px}.source span{font-size:12px;color:var(--muted)}.source a{font-size:12px;color:var(--blue);font-weight:720}
+    .audit{background:#e9f6f2;border:1px solid #b7dfd3;border-radius:18px;padding:22px}.audit h3{color:var(--ok);margin:0 0 8px}.audit ul{margin:0;padding-left:19px;color:#355e53}
+    footer{background:var(--night);color:#aeb9d8;padding:34px 20px}.footer-inner{max-width:var(--max);margin:auto;display:flex;justify-content:space-between;gap:20px}.footer-inner b{color:white}
+    .hide{display:none!important}
+    @media(max-width:980px){.layout{grid-template-columns:1fr}.side{display:none}.platform-grid,.g3{grid-template-columns:repeat(2,1fr)}.concepts{grid-template-columns:repeat(2,1fr)}.concept:nth-child(2){border-right:0}.concept:nth-child(-n+2){border-bottom:1px solid var(--line)}.hero-grid{grid-template-columns:1fr}.roadmap{grid-template-columns:1fr}.ia-grid{grid-template-columns:1fr}.tokens{grid-template-columns:repeat(3,1fr)}}
+    @media(max-width:680px){.meta .pill{display:none}.hero-inner{padding-top:58px;max-width:100%}h1{font-size:38px;max-width:100%;overflow-wrap:anywhere;word-break:break-all}.hero-lead,.verdict,.scope-card{max-width:100%;overflow-wrap:anywhere}.layout{padding-left:14px;padding-right:14px}.section-head{grid-template-columns:1fr}.section-head h2{font-size:29px}.g2,.g3,.platform-grid,.blueprint{grid-template-columns:1fr}.callout{grid-template-columns:1fr}.lesson{grid-template-columns:1fr;gap:7px}.gallery figure.half{grid-column:span 12}.concepts{grid-template-columns:1fr}.concept{border-right:0;border-bottom:1px solid var(--line)!important}.concept:last-child{border-bottom:0!important}.mock-hero{padding:40px 10px 26px}.mock-hero h3{font-size:27px}.mock-cards{grid-template-columns:1fr}.tokens{grid-template-columns:1fr 1fr}.source{grid-template-columns:62px 1fr}.source a{grid-column:2}.footer-inner{display:block}.topbar-inner{height:60px}.scope-card b{font-size:32px}}
+    @media print{.topbar,.side,.progress{display:none}.layout{display:block;max-width:none;padding:24px}.hero-inner{padding:45px 24px}.card,.platform,.page,.phase,.test,figure{break-inside:avoid;box-shadow:none}section{margin-bottom:46px}.hero{print-color-adjust:exact}.source a{display:none}}
+  </style>
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#top"><span class="brand-mark">AI</span><span>AI 服务官网设计研究</span></a>
+      <div class="meta"><span>公开证据研究</span><span class="pill">2026-10-08</span></div>
+    </div>
+  </header>
+
+  <section class="hero" id="top">
+    <div class="hero-inner">
+      <div class="eyebrow">Website × Marketplace × Console</div>
+      <h1>别再做 AI 能力陈列馆，<br>要做<span>服务成交与运营系统</span></h1>
+      <p class="hero-lead">对 12 个海内外主流 AI 平台进行公开页面与官方文档对标，覆盖 MCP、Skill、Agent、案例、试用、服务开通、工具与广场、个人中心、积分/用量统计、服务管理。输出的不是风格拼贴，而是一套可直接进入信息架构和视觉设计的官网蓝图。</p>
+      <div class="hero-grid">
+        <div class="verdict">
+          <strong>好看的首页不是终点。用户必须能在 3 分钟内回答：它能替我完成什么、我能否先试、要授权什么、会花多少钱、开通后去哪里管理。</strong>
+          <p>如果这五个问题需要跨官网、文档、控制台、工单才能回答，再高级的 3D 光效也只是包装。</p>
+        </div>
+        <div class="scope-card"><b>12 × 10</b><span>平台 × 功能域</span><small>6 个海外/全球平台<br>6 个国内平台<br>18 条官方证据</small></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="layout">
+    <aside class="side" aria-label="目录">
+      <a href="#summary"><span>01</span>核心结论</a>
+      <a href="#landscape"><span>02</span>竞品全景</a>
+      <a href="#visual"><span>03</span>视觉与交互证据</a>
+      <a href="#modules"><span>04</span>功能模块拆解</a>
+      <a href="#model"><span>05</span>能力对象模型</a>
+      <a href="#ia"><span>06</span>信息架构</a>
+      <a href="#journey"><span>07</span>转化路径</a>
+      <a href="#blueprint"><span>08</span>页面蓝图</a>
+      <a href="#direction"><span>09</span>视觉方向</a>
+      <a href="#roadmap"><span>10</span>落地与验证</a>
+      <a href="#evidence"><span>11</span>证据索引</a>
+    </aside>
+
+    <main>
+      <section id="summary">
+        <div class="section-head"><div class="section-num">01</div><div><h2>六个核心结论</h2><p>先给决策，不把读者埋进竞品截图。以下结论直接决定官网的结构、视觉密度与转化路径。</p></div></div>
+        <div class="grid g3">
+          <article class="card finding"><div class="n">1</div><h3>先卖“完成任务”，再解释技术</h3><p>用户先选“研究、销售、客服、数据分析”等任务，再理解 Agent / Skill / MCP 的分工。技术名词应是标签与筛选项，不应成为首页第一道门槛。</p><div class="impact"><b>影响：</b>降低首屏理解成本，提升首页 → 试用点击。</div></article>
+          <article class="card finding"><div class="n">2</div><h3>广场必须是交易界面</h3><p>卡片不能只放名称、图标和一句介绍；至少要有适用任务、交付物、提供方、价格方式、安装量/验证状态、权限摘要与“立即试用”。</p><div class="impact"><b>影响：</b>提升列表 → 详情与详情 → 试用转化。</div></article>
+          <article class="card finding"><div class="n">3</div><h3>先体验，再开通，再配置</h3><p>Dify 的免费额度、Google 的创建-预览同屏、扣子的对话安装，都在把配置推后。优秀路径不是“先买资源”，而是“先获得一次可感知结果”。</p><div class="impact"><b>影响：</b>减少开通前流失和配置畏惧。</div></article>
+          <article class="card finding"><div class="n">4</div><h3>详情页要解释信任，不只解释能力</h3><p>MCP/Agent 涉及数据与执行权。详情页必须前置权限、数据去向、发布者、版本、可用性、错误率、审核与退出机制。</p><div class="impact"><b>影响：</b>提升企业用户的可采购性与管理员通过率。</div></article>
+          <article class="card finding"><div class="n">5</div><h3>积分与用量是一套账，不是两个入口</h3><p>用户需要从“我还有多少”下钻到“谁、在哪个服务、因何任务、消耗多少、是否异常”。把余额、成本、配额、调用与成效放进统一账本。</p><div class="impact"><b>影响：</b>降低费用焦虑，提高续费和扩容判断效率。</div></article>
+          <article class="card finding"><div class="n">6</div><h3>官网和控制台必须是同一产品</h3><p>官网承诺的能力对象、价格口径、案例标签，要与开通后的控制台名称和状态完全一致。不要让官网说“智能体”，控制台却只剩资源 ID。</p><div class="impact"><b>影响：</b>减少购买后落差与支持工单。</div></article>
+        </div>
+        <div class="callout" style="margin-top:18px"><div><span class="flag">最犀利判断</span></div><div><blockquote>市场不缺“AI 平台”。缺的是让非技术用户敢试、让开发者好接、让管理员敢批、让财务看得懂的一体化服务门户。</blockquote><p>推荐把官网定位从“技术能力门户”升级为“AI 服务操作系统”：发现、体验、开通、运行、治理、结算都在同一套对象与语言里完成。</p></div></div>
+      </section>
+
+      <section id="landscape">
+        <div class="section-head"><div class="section-num">02</div><div><h2>竞品全景：谁在哪一段领先</h2><p>调研基于截至 2026-10-08 可访问的官网、官方产品页和官方文档。登录态控制台无法公开核验的部分，不做“已上线”推断。</p></div></div>
+        <div class="filters" role="group" aria-label="竞品区域筛选">
+          <button class="filter active" data-filter="all">全部 12 个</button><button class="filter" data-filter="global">海外 / 全球</button><button class="filter" data-filter="cn">国内</button>
+        </div>
+        <div class="platform-grid" id="platforms">
+          <a class="platform" data-region="global" href="https://openai.com/index/developers-can-now-submit-apps-to-chatgpt/" target="_blank" rel="noreferrer"><span class="region">海外</span><span class="evidence">EV-01/02</span><h3>OpenAI</h3><p>Apps/Plugins、Agent、开发者平台与企业管理形成“对话内发现 + 平台侧发布”的双面生态。</p><div class="best"><b>最值得学：</b>真实意图驱动的 App 发现与对话内触发。</div></a>
+          <a class="platform" data-region="global" href="https://www.anthropic.com/research/skills" target="_blank" rel="noreferrer"><span class="region">海外</span><span class="evidence">EV-03/04</span><h3>Anthropic</h3><p>用 Connectors、Skills、Agent SDK 拆清“连接、知识与执行”，概念层级最清楚。</p><div class="best"><b>最值得学：</b>能力开关、信任提示与渐进式解释。</div></a>
+          <a class="platform" data-region="global" href="https://cloud.google.com/gemini-enterprise/agents" target="_blank" rel="noreferrer"><span class="region">海外</span><span class="evidence">EV-05</span><h3>Google Gemini Enterprise</h3><p>把 Agent Builder、Marketplace、Gallery 与管理员治理串成企业级分发闭环。</p><div class="best"><b>最值得学：</b>边创建边预览，以及员工与管理员双视角。</div></a>
+          <a class="platform" data-region="global" href="https://learn.microsoft.com/en-us/microsoft-365/copilot/copilot-agent-store" target="_blank" rel="noreferrer"><span class="region">海外</span><span class="evidence">EV-06</span><h3>Microsoft Copilot</h3><p>Agent Store 连接开发者提交、管理员审批、组织内发布与 Entra 治理。</p><div class="best"><b>最值得学：</b>申请—审核—发布—组织可见的治理状态机。</div></a>
+          <a class="platform" data-region="global" href="https://aws.amazon.com/bedrock/marketplace/" target="_blank" rel="noreferrer"><span class="region">海外</span><span class="evidence">EV-07</span><h3>AWS Bedrock</h3><p>传统云市场结构强，筛选、订阅、部署、监控完整，但首访理解成本高。</p><div class="best"><b>最值得学：</b>采购、部署、权限与生产治理的严谨性。</div></a>
+          <a class="platform" data-region="global" href="https://huggingface.co/docs/hub/agents-overview" target="_blank" rel="noreferrer"><span class="region">全球开源</span><span class="evidence">EV-08</span><h3>Hugging Face</h3><p>模型、数据集、Space、MCP、Skill 与 Agent 工具共享同一 Hub 生态。</p><div class="best"><b>最值得学：</b>开放对象的统一搜索、徽章与社区分发。</div></a>
+          <a class="platform" data-region="global" href="https://marketplace.dify.ai/" target="_blank" rel="noreferrer"><span class="region">全球开源</span><span class="evidence">EV-09/10</span><h3>Dify</h3><p>插件与模板在同一 Marketplace，以一键安装、安装量、Partner Verified 降低试用门槛。</p><div class="best"><b>最值得学：</b>搜索、分类、榜单、模板和创作者中心同场。</div></a>
+          <a class="platform" data-region="cn" href="https://docs.coze.cn/cozespace_skills_store" target="_blank" rel="noreferrer"><span class="region">国内</span><span class="evidence">EV-11/12/13</span><h3>扣子 Coze</h3><p>Agent、Skill、MCP、技能包、积分、订阅与商店交易链路最接近消费级产品。</p><div class="best"><b>最值得学：</b>对话安装、免费/付费技能与积分运营。</div></a>
+          <a class="platform" data-region="cn" href="https://docs.agent.bailian.aliyun.com/zh/mcp/official-services" target="_blank" rel="noreferrer"><span class="region">国内</span><span class="evidence">EV-14</span><h3>阿里云百炼</h3><p>One Key MCP、按量后付费与自定义 MCP 部署，把“接入”压缩为少数操作。</p><div class="best"><b>最值得学：</b>按鉴权与开通难度分级的服务标签。</div></a>
+          <a class="platform" data-region="cn" href="https://cloud.baidu.com/doc/APPBUILDER/index.html" target="_blank" rel="noreferrer"><span class="region">国内</span><span class="evidence">EV-15</span><h3>百度千帆</h3><p>RAG、Agent、工作流、UI Builder、组件、知识库与应用分发功能覆盖广。</p><div class="best"><b>最值得学：</b>从了解、低代码到 SDK 的分层学习路径。</div></a>
+          <a class="platform" data-region="cn" href="https://adp.cloud.tencent.com/" target="_blank" rel="noreferrer"><span class="region">国内</span><span class="evidence">EV-16</span><h3>腾讯云 ADP</h3><p>强调构建、分发、治理和 AgentOps，并用医疗、金融、物业等量化案例建立信任。</p><div class="best"><b>最值得学：</b>案例数字、行业对象与生产运营叙事。</div></a>
+          <a class="platform" data-region="cn" href="https://docs.volcengine.com/docs/agentkit/Billing_items?lang=zh" target="_blank" rel="noreferrer"><span class="region">国内</span><span class="evidence">EV-17</span><h3>火山引擎 AgentKit</h3><p>Runtime、Sandbox、MCP、网关、监控与费用拆解完整，偏强控制台/工程视角。</p><div class="best"><b>最值得学：</b>资源生命周期、监控日志与计费边界。</div></a>
+        </div>
+
+        <h3 style="margin:34px 0 14px">公开页面体验成熟度热力图</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>平台</th><th>首页叙事</th><th>MCP</th><th>Skill</th><th>Agent</th><th>案例</th><th>试用/开通</th><th>广场</th><th>用量/积分</th><th>服务管理</th><th>一句话判断</th></tr></thead>
+            <tbody>
+              <tr><td><b>OpenAI</b></td><td class="heat h5">5</td><td class="heat h5">5</td><td class="heat h4">4</td><td class="heat h5">5</td><td class="heat h4">4</td><td class="heat h4">4</td><td class="heat h5">5</td><td class="heat h4">4</td><td class="heat h5">5</td><td>生态入口最自然</td></tr>
+              <tr><td><b>Anthropic</b></td><td class="heat h5">5</td><td class="heat h5">5</td><td class="heat h5">5</td><td class="heat h5">5</td><td class="heat h4">4</td><td class="heat h4">4</td><td class="heat h4">4</td><td class="heat h4">4</td><td class="heat h4">4</td><td>概念与信任表达最佳</td></tr>
+              <tr><td><b>Google</b></td><td class="heat h4">4</td><td class="heat h4">4</td><td class="heat h3">3</td><td class="heat h5">5</td><td class="heat h4">4</td><td class="heat h3">3</td><td class="heat h5">5</td><td class="heat h4">4</td><td class="heat h5">5</td><td>创建、分发与治理一体</td></tr>
+              <tr><td><b>Microsoft</b></td><td class="heat h3">3</td><td class="heat h4">4</td><td class="heat h3">3</td><td class="heat h5">5</td><td class="heat h4">4</td><td class="heat h3">3</td><td class="heat h5">5</td><td class="heat h4">4</td><td class="heat h5">5</td><td>组织审批链最成熟</td></tr>
+              <tr><td><b>AWS</b></td><td class="heat h2">2</td><td class="heat h4">4</td><td class="heat h2">2</td><td class="heat h5">5</td><td class="heat h4">4</td><td class="heat h2">2</td><td class="heat h5">5</td><td class="heat h4">4</td><td class="heat h5">5</td><td>强治理，弱首访友好</td></tr>
+              <tr><td><b>Hugging Face</b></td><td class="heat h3">3</td><td class="heat h5">5</td><td class="heat h4">4</td><td class="heat h4">4</td><td class="heat h3">3</td><td class="heat h4">4</td><td class="heat h5">5</td><td class="heat h3">3</td><td class="heat h4">4</td><td>开放生态对象最统一</td></tr>
+              <tr><td><b>Dify</b></td><td class="heat h4">4</td><td class="heat h3">3</td><td class="heat h3">3</td><td class="heat h4">4</td><td class="heat h3">3</td><td class="heat h5">5</td><td class="heat h5">5</td><td class="heat h4">4</td><td class="heat h4">4</td><td>发现与一键复用强</td></tr>
+              <tr><td><b>扣子</b></td><td class="heat h4">4</td><td class="heat h5">5</td><td class="heat h5">5</td><td class="heat h5">5</td><td class="heat h3">3</td><td class="heat h5">5</td><td class="heat h5">5</td><td class="heat h5">5</td><td class="heat h4">4</td><td>消费级交易闭环最佳</td></tr>
+              <tr><td><b>阿里百炼</b></td><td class="heat h3">3</td><td class="heat h5">5</td><td class="heat h4">4</td><td class="heat h5">5</td><td class="heat h4">4</td><td class="heat h4">4</td><td class="heat h4">4</td><td class="heat h4">4</td><td class="heat h5">5</td><td>MCP 开通分级清楚</td></tr>
+              <tr><td><b>百度千帆</b></td><td class="heat h3">3</td><td class="heat h4">4</td><td class="heat h3">3</td><td class="heat h5">5</td><td class="heat h3">3</td><td class="heat h3">3</td><td class="heat h3">3</td><td class="heat h3">3</td><td class="heat h4">4</td><td>功能全，品牌入口重</td></tr>
+              <tr><td><b>腾讯 ADP</b></td><td class="heat h3">3</td><td class="heat h4">4</td><td class="heat h4">4</td><td class="heat h5">5</td><td class="heat h5">5</td><td class="heat h3">3</td><td class="heat h3">3</td><td class="heat h3">3</td><td class="heat h5">5</td><td>生产案例与治理强</td></tr>
+              <tr><td><b>火山 AgentKit</b></td><td class="heat h3">3</td><td class="heat h5">5</td><td class="heat h4">4</td><td class="heat h5">5</td><td class="heat h3">3</td><td class="heat h3">3</td><td class="heat h3">3</td><td class="heat h4">4</td><td class="heat h5">5</td><td>工程生命周期最细</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">评分是本次对“公开页面是否可理解、可到达、可执行”的启发式评价（1–5），不是产品能力排名。部分管理功能需登录，未公开核验的环节从严评分。</p>
+      </section>
+
+      <section id="visual">
+        <div class="section-head"><div class="section-num">03</div><div><h2>六张图看懂领先设计</h2><p>截图用于分析布局与交互模式，版权归各平台所有。每张图后都给出“应该借鉴什么，而不是照抄什么”。</p></div></div>
+        <div class="gallery">
+          <figure class="wide"><div class="frame"><img src="assets/dify-marketplace.png" alt="Dify Marketplace 首页截图" loading="lazy"></div><figcaption><b>Dify Marketplace｜发现优先，不先教育概念</b>首屏用搜索、趋势、插件/模板双 Tab 和明确分类建立“可逛感”。值得借鉴统一搜索与安装量信号；需改进卡片的权限、费用和试用结果说明。 <span>EV-09</span></figcaption></figure>
+          <figure class="half"><div class="frame"><img src="assets/anthropic-skills.png" alt="Anthropic Skills 设置界面" loading="lazy"></div><figcaption><b>Anthropic Skills｜能力即开关</b>把抽象 Skill 变成可上传、可启停、可追溯来源的管理对象。用户看到的是“我有哪些能力”，不是文件目录。 <span>EV-03</span></figcaption></figure>
+          <figure class="half"><div class="frame"><img src="assets/google-agent-designer.png" alt="Gemini Enterprise Agent Designer" loading="lazy"></div><figcaption><b>Google Agent Designer｜创建与预览同屏</b>左侧自然语言迭代，右侧真实结果预览，减少构建完成后的跳转和不确定感。 <span>EV-05</span></figcaption></figure>
+          <figure class="half"><div class="frame"><img src="assets/google-agent-marketplace.png" alt="Google Cloud AI Agent Marketplace" loading="lazy"></div><figcaption><b>Google Agent Marketplace｜先按任务搜，再按标准筛</b>自然语言搜索与行业、用例、验证、价格等筛选并存，兼顾业务用户与采购者。 <span>EV-05</span></figcaption></figure>
+          <figure class="half"><div class="frame"><img src="assets/aws-bedrock-marketplace.png" alt="AWS Bedrock Marketplace 模型目录" loading="lazy"></div><figcaption><b>AWS Marketplace｜采购与部署信号完整</b>提供方、模态、访问状态、部署状态与筛选器明确；问题是界面过度以资源为中心，业务价值需要用户自己翻译。 <span>EV-07</span></figcaption></figure>
+          <figure class="wide"><div class="frame"><img src="assets/coze-mcp.webp" alt="扣子通过对话安装 MCP 的界面" loading="lazy"></div><figcaption><b>扣子｜把“配置 MCP”变成一句话</b>用户贴入配置并用自然语言请求安装，系统完成文件与设置更新。这是“AI 产品应使用 AI 降低自身门槛”的典型模式。 <span>EV-12</span></figcaption></figure>
+        </div>
+      </section>
+
+      <section id="modules">
+        <div class="section-head"><div class="section-num">04</div><div><h2>十个功能模块怎么设计</h2><p>以下把用户提出的功能逐一拆成“最佳模式、应该展示什么、最容易犯的错”。</p></div></div>
+        <div class="card" style="padding:10px 24px">
+          <div class="lesson"><div class="label">01 · 官网首页</div><div><h3>用三条角色路径取代一条万能大 Banner</h3><p>首屏一句话回答“能完成什么”，并给业务用户“直接试”、开发者“接入能力”、企业管理员“查看治理”三条路径。案例、服务广场和定价在首屏 2 次滚动内出现。避免“全栈、领先、赋能、生态”四词循环。</p></div></div>
+          <div class="lesson"><div class="label">02 · MCP</div><div><h3>展示数据与动作边界，不只展示工具数量</h3><p>详情页列出 tools、权限、读/写动作、认证方式、数据接收方、版本、可用区、运行状态、最近更新和兼容客户端。参考扣子与阿里百炼的一键连接；补上企业审批和变更 diff。</p></div></div>
+          <div class="lesson"><div class="label">03 · Skill</div><div><h3>把“经验包”做成可验证、可版本化的能力</h3><p>卡片上展示适用任务、输入/输出、需要的 MCP、脚本执行权限、作者、版本、评分和样例结果。参考 Anthropic 的启停管理、扣子的技能包与付费订阅，不要把 Skill 伪装成 Prompt 模板。</p></div></div>
+          <div class="lesson"><div class="label">04 · Agent</div><div><h3>Agent 是交付结果的服务，不是能力拼装清单</h3><p>按业务结果命名，如“竞品研究 Agent”“客服质检 Agent”。详情页先给任务演示、交付物和 SLA，再展开模型、Skill、MCP、知识库与运行环境。创建后必须立即进入 Preview。</p></div></div>
+          <div class="lesson"><div class="label">05 · 案例</div><div><h3>案例必须可筛选、可复核、可复用</h3><p>按行业、角色、任务、接入方式、部署形态筛选；每个案例固定呈现“问题—方案—上线周期—结果—技术栈—可复用服务”。腾讯 ADP 的量化案例有效，但应再补方法、口径和下一步 CTA。</p></div></div>
+          <div class="lesson"><div class="label">06 · 开通与试用</div><div><h3>试用成功一次后再要求完整配置</h3><p>默认提供样例数据/沙盒额度；试用页显示剩余次数、预估消耗与权限模拟。试用成功后，把本次配置一键转为正式服务。价格、免费额度、自动续费与停服规则在确认前一次说清。</p></div></div>
+          <div class="lesson"><div class="label">07 · 工具 / 广场</div><div><h3>一个广场，六类对象，统一卡片骨架</h3><p>Agent、Skill、MCP、Tool、Template、Dataset 可分 Tab，但搜索、筛选、收藏、比较、试用、安装和信任徽章统一。Dify 的“插件 + 模板”和 Google 的自然语言搜索值得组合。</p></div></div>
+          <div class="lesson"><div class="label">08 · 个人中心</div><div><h3>围绕“我的关系”组织，不围绕系统菜单</h3><p>一级分为：我的服务、我的资产、我的团队、账单与权益、开发者凭证、安全与授权。首页提供继续任务、待处理授权、即将到期、异常服务和最近交付物。</p></div></div>
+          <div class="lesson"><div class="label">09 · 积分 / 统计</div><div><h3>余额只是摘要，账本才是产品</h3><p>统一显示现金、套餐额度、赠送积分、有效期、任务消耗、模型/工具拆分、团队成员/项目分摊、趋势和预算预警。参考扣子的积分入口与 OpenAI 的项目筛选/导出，再增加“成果成本”。</p></div></div>
+          <div class="lesson"><div class="label">10 · 服务管理</div><div><h3>生命周期必须可见、可控、可审计</h3><p>状态采用草稿、试用中、待审批、运行中、需更新、暂停、已到期、已归档。列表直接展示健康度、版本、调用量、成本、最近错误、绑定 Agent 和负责人，支持批量续费、停用与权限复核。</p></div></div>
+        </div>
+      </section>
+
+      <section id="model">
+        <div class="section-head"><div class="section-num">05</div><div><h2>先把对象讲清楚，设计才不会乱</h2><p>Agent、Skill、MCP、Tool 常被混用，直接导致导航、卡片和计费口径混乱。建议采用“结果—方法—连接—动作”四层模型。</p></div></div>
+        <div class="concepts">
+          <article class="concept"><div class="icon">A</div><h3>Agent｜结果</h3><p>代表用户工作的数字角色，负责理解目标、规划步骤、调用能力并交付结果。</p><small>用户问：它能替我完成什么？</small></article>
+          <article class="concept"><div class="icon">S</div><h3>Skill｜方法</h3><p>可复用的专业知识、流程、模板和脚本，教 Agent 按什么标准把事情做好。</p><small>用户问：它为什么做得专业？</small></article>
+          <article class="concept"><div class="icon">M</div><h3>MCP｜连接</h3><p>连接外部数据与服务的标准接口，声明可用工具、资源、权限与认证。</p><small>用户问：它能访问什么、会把数据给谁？</small></article>
+          <article class="concept"><div class="icon">T</div><h3>Tool｜动作</h3><p>真正执行一次查询、写入、调用或计算的原子能力，是可观测与计费的最小单位。</p><small>用户问：刚才具体做了哪一步？</small></article>
+        </div>
+        <div class="callout" style="margin-top:16px;background:#fff;color:var(--ink);border:1px solid var(--line)"><div><span class="flag" style="background:var(--blue);color:#fff">命名原则</span></div><div><blockquote style="font-size:22px">首页讲 Agent 的结果，广场讲对象的选择，详情页讲 Skill/MCP 的组成，控制台讲 Tool 的运行与成本。</blockquote><p style="color:var(--muted)">Template 是预配置方案；Dataset 是可授权的数据资产。它们可以进入广场，但不要与四层核心概念争夺主导航。</p></div></div>
+      </section>
+
+      <section id="ia">
+        <div class="section-head"><div class="section-num">06</div><div><h2>推荐信息架构：官网与控制台一套语言</h2><p>公开官网负责发现与建立信任，登录后工作台负责运行与治理；两端通过“同一服务对象、同一详情页、同一状态”连续衔接。</p></div></div>
+        <div class="ia">
+          <div class="ia-top"><b>品牌 Logo</b><span class="ia-chip">AI 服务</span><span class="ia-chip">能力市场</span><span class="ia-chip">场景方案</span><span class="ia-chip">客户案例</span><span class="ia-chip">开发者</span><span class="ia-chip">定价</span><span class="ia-chip cta">进入工作台</span></div>
+          <div class="ia-grid">
+            <div class="ia-box"><b>公开官网｜理解与转化</b><ul><li>首页 / 行业与角色落地页</li><li>AI 服务 / 场景方案</li><li>能力市场 / 详情 / 对比</li><li>案例 / 定价 / 安全信任</li><li>文档 / API / 状态页</li></ul></div>
+            <div class="ia-box"><b>体验层｜降低开通门槛</b><ul><li>免配置 Demo</li><li>样例数据沙盒</li><li>任务式试用</li><li>消耗与权限预演</li><li>保存并转正式服务</li></ul></div>
+            <div class="ia-box"><b>工作台｜运营与治理</b><ul><li>总览 / 待办 / 最近成果</li><li>我的 Agent / Skill / MCP</li><li>服务健康与版本</li><li>积分、成本、用量、预算</li><li>团队、授权、审批、审计</li></ul></div>
+          </div>
+        </div>
+        <div class="grid g3" style="margin-top:16px">
+          <article class="card"><h3>业务用户入口</h3><p>“描述你想完成的工作” → 推荐 Agent/模板 → 立即试用。隐藏 API、Runtime 等工程词。</p></article>
+          <article class="card"><h3>开发者入口</h3><p>“连接你的服务或构建 Agent” → SDK/MCP/调试 → 提交上架。突出文档、状态与版本。</p></article>
+          <article class="card"><h3>企业管理员入口</h3><p>“统一纳管 AI 服务” → 目录、审批、预算、安全、审计。突出可控性和规模化。</p></article>
+        </div>
+      </section>
+
+      <section id="journey">
+        <div class="section-head"><div class="section-num">07</div><div><h2>主转化路径：从“看懂”到“稳定在用”</h2><p>每一阶段只推动一个关键动作，并明确用户当下最需要的证据。</p></div></div>
+        <div class="journey">
+          <article class="stage"><div class="step">STEP 01</div><h3>识别任务</h3><p>首屏给任务输入与角色入口。</p><small>指标：有效首屏 CTA</small></article>
+          <article class="stage"><div class="step">STEP 02</div><h3>发现服务</h3><p>按结果、行业、角色、交付物检索。</p><small>指标：列表 → 详情</small></article>
+          <article class="stage"><div class="step">STEP 03</div><h3>建立信任</h3><p>样例、案例、权限、价格、提供方。</p><small>指标：详情 → 试用</small></article>
+          <article class="stage"><div class="step">STEP 04</div><h3>获得结果</h3><p>样例数据跑一次真实任务。</p><small>指标：试用成功率</small></article>
+          <article class="stage"><div class="step">STEP 05</div><h3>开通配置</h3><p>复用试用参数，渐进授权与计费。</p><small>指标：开通完成率</small></article>
+          <article class="stage"><div class="step">STEP 06</div><h3>运行管理</h3><p>健康、版本、用量、成本与异常。</p><small>指标：7/30 日活跃</small></article>
+          <article class="stage"><div class="step">STEP 07</div><h3>续费扩容</h3><p>以成果、节省时间和稳定性证明价值。</p><small>指标：续费 / 扩容</small></article>
+        </div>
+      </section>
+
+      <section id="blueprint">
+        <div class="section-head"><div class="section-num">08</div><div><h2>十二张页面蓝图</h2><p>这是设计范围，不建议只画首页。真正决定产品是否可用的是首页之后的 11 张页面。</p></div></div>
+        <div class="blueprint">
+          <article class="page"><div class="num">01</div><div><h3>首页</h3><p>任务式 Hero、三角色入口、热门服务、场景方案、案例、信任与定价。</p><span class="kpi">首页 → 试用</span></div></article>
+          <article class="page"><div class="num">02</div><div><h3>能力市场</h3><p>统一搜索、六对象 Tab、任务/行业/价格/权限/验证筛选、比较与收藏。</p><span class="kpi">列表 → 详情</span></div></article>
+          <article class="page"><div class="num">03</div><div><h3>服务详情</h3><p>价值、Demo、交付物、组成、权限、价格、版本、健康、案例与固定 CTA。</p><span class="kpi">详情 → 试用</span></div></article>
+          <article class="page"><div class="num">04</div><div><h3>任务式试用</h3><p>样例任务、步骤可见、结果预览、消耗预估、失败诊断、一键保存配置。</p><span class="kpi">试用成功</span></div></article>
+          <article class="page"><div class="num">05</div><div><h3>开通向导</h3><p>套餐与额度、数据授权、绑定项目/Agent、预算、确认与开通回执。</p><span class="kpi">开通完成</span></div></article>
+          <article class="page"><div class="num">06</div><div><h3>工作台总览</h3><p>继续任务、待办授权、异常服务、最近成果、余额与本月用量。</p><span class="kpi">首日激活</span></div></article>
+          <article class="page"><div class="num">07</div><div><h3>我的服务</h3><p>Agent/Skill/MCP 全量列表，状态、负责人、成本、版本、绑定关系和批量操作。</p><span class="kpi">管理自助率</span></div></article>
+          <article class="page"><div class="num">08</div><div><h3>用量与积分账本</h3><p>余额构成、有效期、项目/成员/服务分摊、趋势、导出、预算预警和异常解释。</p><span class="kpi">费用可解释</span></div></article>
+          <article class="page"><div class="num">09</div><div><h3>服务详情 / 运维</h3><p>健康度、Trace、错误、延迟、调用、版本差异、权限变更、暂停与回滚。</p><span class="kpi">故障自愈</span></div></article>
+          <article class="page"><div class="num">10</div><div><h3>案例中心</h3><p>行业/任务筛选，问题—方案—结果—技术栈—同款服务完整映射。</p><span class="kpi">案例助攻</span></div></article>
+          <article class="page"><div class="num">11</div><div><h3>开发者中心</h3><p>Quickstart、SDK、MCP、API、调试器、状态页、Changelog、提交上架。</p><span class="kpi">首次成功调用</span></div></article>
+          <article class="page"><div class="num">12</div><div><h3>团队治理</h3><p>成员、角色、审批、目录可见、预算、数据边界、密钥、审计与安全策略。</p><span class="kpi">审批时长</span></div></article>
+        </div>
+      </section>
+
+      <section id="direction">
+        <div class="section-head"><div class="section-num">09</div><div><h2>推荐视觉方向：可信的“AI 服务操作台”</h2><p>不建议继续使用满屏紫色渐变、漂浮粒子和抽象球体。它们只能表达“像 AI”，不能表达“这项服务可靠、可试、可管”。</p></div></div>
+        <div class="mock" aria-label="推荐首页视觉示意">
+          <div class="mock-browser"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span style="margin-left:8px">AI Service OS / Home</span></div>
+          <div class="mock-hero"><div class="logo">YOUR BRAND / AI SERVICES</div><h3>说出你想完成的工作，<br>找到能真正交付的 AI 服务</h3><p>从验证过的 Agent、Skill 与 MCP 中选择。先试一次，再决定开通。</p><div class="ask"><span>例如：每周自动生成竞品动态与销售机会…</span><b>找到服务 →</b></div></div>
+          <div class="mock-tabs"><span>为你推荐</span><span>研究分析</span><span>营销销售</span><span>客户服务</span><span>数据与自动化</span><span>查看更多</span></div>
+          <div class="mock-cards"><div class="mock-card"><small>AGENT · VERIFIED</small><b>竞品情报周报</b><span>抓取、核验、归纳并交付可引用报告</span><br><em>可免费试 3 次 →</em></div><div class="mock-card"><small>SKILL · OFFICIAL</small><b>品牌内容规范</b><span>让所有生成内容自动遵守组织标准</span><br><em>查看样例 →</em></div><div class="mock-card"><small>MCP · READ / WRITE</small><b>企业知识与工单</b><span>连接知识库，确认后创建或更新工单</span><br><em>查看权限 →</em></div></div>
+        </div>
+        <div class="tokens" style="margin-top:16px"><div class="token night"><b>Deep Navy</b>#0E1730 · 信任与控制</div><div class="token paper"><b>Warm Paper</b>#F6F4EE · 降低科技冷感</div><div class="token blue"><b>Action Blue</b>#2F5AFF · 唯一主操作色</div><div class="token lime"><b>Signal Lime</b>#CFFF47 · AI 与成功状态</div><div class="token amber"><b>Usage Amber</b>#FFB54A · 费用与提醒</div></div>
+        <div class="grid g3" style="margin-top:16px">
+          <article class="card pattern"><div class="icon">Aa</div><div><h3>编辑式排版</h3><p>大标题有观点，正文高可读；避免所有模块都用同样大小的卡片。</p></div></article>
+          <article class="card pattern"><div class="icon">UI</div><div><h3>真实产品界面</h3><p>Hero 用真实任务、结果和状态，不再用无意义机器人插画。</p></div></article>
+          <article class="card pattern"><div class="icon">↗</div><div><h3>动效只解释状态</h3><p>展示 Agent 计划、工具调用、授权确认与结果生成；不用纯装饰光效。</p></div></article>
+          <article class="card pattern"><div class="icon">✓</div><div><h3>信任徽章有含义</h3><p>官方、合作方验证、组织批准、安全审查分开，点击可查看依据。</p></div></article>
+          <article class="card pattern"><div class="icon">¥</div><div><h3>价格跟着动作出现</h3><p>试用、开通、扩容按钮旁显示本次预估、免费额度与计费口径。</p></div></article>
+          <article class="card pattern"><div class="icon">◎</div><div><h3>一个页面一个主 CTA</h3><p>列表是“查看详情”，详情是“立即试用”，试用成功后才是“正式开通”。</p></div></article>
+        </div>
+      </section>
+
+      <section id="roadmap">
+        <div class="section-head"><div class="section-num">10</div><div><h2>落地优先级与验证计划</h2><p>先修对象和路径，再做品牌包装。下面的提升幅度是实验目标，不是既成事实。</p></div></div>
+        <div class="roadmap">
+          <article class="phase"><span class="priority p0">P0 必须先做</span><div class="time">0–4 周</div><h3>统一语言与成交骨架</h3><ul><li>确认四层对象模型</li><li>首页三角色路径</li><li>市场 + 统一卡片</li><li>服务详情 + 任务式试用</li><li>全链路事件埋点</li></ul></article>
+          <article class="phase"><span class="priority p1">P1 建立闭环</span><div class="time">5–10 周</div><h3>开通、账本与服务管理</h3><ul><li>渐进式开通向导</li><li>积分/现金/额度统一账本</li><li>我的服务与状态机</li><li>版本、权限、健康与异常</li><li>案例与服务反向关联</li></ul></article>
+          <article class="phase"><span class="priority p2">P2 放大增长</span><div class="time">11–16 周</div><h3>个性化与生态运营</h3><ul><li>自然语言搜服务</li><li>场景化推荐与组合包</li><li>创作者中心与上架</li><li>组织目录与审批</li><li>续费、扩容与成果 ROI</li></ul></article>
+        </div>
+        <h3 style="margin:32px 0 13px">五组优先 A/B 测试</h3>
+        <div class="grid g3">
+          <article class="test"><div class="metric">+30–50%</div><h3>Hero：能力口号 vs 任务输入</h3><p>比较“全栈 AI 平台”与“描述任务 → 推荐服务”的首屏。</p><small>成功标准：有效试用启动率提升 ≥30%</small></article>
+          <article class="test"><div class="metric">+20–35%</div><h3>广场：普通卡片 vs 信任卡片</h3><p>增加样例结果、权限、价格、验证状态和安装量。</p><small>成功标准：详情 → 试用提升 ≥20%</small></article>
+          <article class="test"><div class="metric">+15–25%</div><h3>开通：先配置 vs 先跑样例</h3><p>先运行一个样例任务，成功后复用参数进入正式开通。</p><small>成功标准：开通完成率提升 ≥15%</small></article>
+          <article class="test"><div class="metric">−25%</div><h3>费用：余额页 vs 可解释账本</h3><p>把消耗拆到项目、服务、任务、成员和工具。</p><small>成功标准：费用相关咨询下降 ≥25%</small></article>
+          <article class="test"><div class="metric">+20%</div><h3>案例：品牌故事 vs 同款服务</h3><p>案例页直接关联可试用的 Agent/Skill/MCP 与上线步骤。</p><small>成功标准：案例助攻试用提升 ≥20%</small></article>
+          <article class="test"><div class="metric">−30%</div><h3>管理：资源表 vs 服务健康</h3><p>默认显示影响用户的异常、版本、成本和待办，不只展示 ID。</p><small>成功标准：定位问题时间下降 ≥30%</small></article>
+        </div>
+        <p class="note">实验建议：至少覆盖完整工作周；同时观察转化率、任务成功率、授权取消率、首次价值时间、7/30 日留存、支持工单与每个成功任务成本，避免只优化点击。</p>
+      </section>
+
+      <section id="evidence">
+        <div class="section-head"><div class="section-num">11</div><div><h2>证据索引与自我纠察</h2><p>所有“平台已提供某功能”的事实陈述都尽量回到官方页面；设计建议与分数属于本报告分析判断。</p></div></div>
+        <div class="source-list">
+          <div class="source"><div><b>OpenAI Apps / 提交与目录</b><br><span>App Directory、提交审核、MCP 元数据与对话内发现</span></div><a href="https://openai.com/index/developers-can-now-submit-apps-to-chatgpt/" target="_blank" rel="noreferrer">官方来源 ↗</a></div>
+          <div class="source"><div><b>OpenAI Usage Dashboard</b><br><span>项目筛选、用户用量、时间区间与导出</span></div><a href="https://help.openai.com/en/articles/10478918-reviewing-api-usage-and-costs" target="_blank" rel="noreferrer">官方来源 ↗</a></div>
+          <div class="source"><div><b>Anthropic Agent Skills</b><br><span>Skills、上传/启停、Console 版本管理、Agent SDK</span></div><a href="https://www.anthropic.com/research/skills" target="_blank" rel="noreferrer">官方来源 ↗</a></div>
+          <div class="source"><div><b>Anthropic Integrations / MCP</b><br><span>远程 MCP、Integrations 与 Research</span></div><a href="https://www.anthropic.com/news/integrations" target="_blank" rel="noreferrer">官方来源 ↗</a></div>
+          <div class="source"><div><b>Google Gemini Enterprise Agents</b><br><span>Agent Designer、Agent Marketplace、Gallery 与治理</span></div><a href="https://cloud.google.com/gemini-enterprise/agents" target="_blank" rel="noreferrer">官方来源 ↗</a></div>
+          <div class="source"><div><b>Microsoft Agent Store</b><br><span>提交、管理员审核、组织发布、Agent 365 治理</span></div><a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/copilot-agent-store" target="_blank" rel="noreferrer">官方来源 ↗</a></div>
+          <div class="source"><div><b>AWS Bedrock Marketplace</b><br><span>模型目录、订阅、部署与 Bedrock 工具衔接</span></div><a href="https://aws.amazon.com/bedrock/marketplace/" target="_blank" rel="noreferrer">官方来源 ↗</a></div>
+          <div class="source"><div><b>Hugging Face Agents</b><br><span>MCP、Skills、SDK、Spaces 工具与 Agent Traces</span></div><a href="https://huggingface.co/docs/hub/agents-overview" target="_blank" rel="noreferrer">官方来源 ↗</a></div>
+          <div class="source"><div><b>Dify Marketplace</b><br><span>插件、模板、搜索、分类、安装量与 Partner Verified</span></div><a href="https://marketplace.dify.ai/" target="_blank" rel="noreferrer">官方来源 ↗</a></div>
+          <div class="source"><div><b>Dify Pricing</b><br><span>Sandbox、消息额度、工作区、成员与日志能力</span></div><a href="https://www.dify.ai/pricing" target="_blank" rel="noreferrer">官方来源 ↗</a></div>
+          <div class="source"><div><b>扣子技能商店</b><br><span>免费/付费技能、技能包、数据集、购买与续费</span></div><a href="https://docs.coze.cn/cozespace_skills_store" target="_blank" rel="noreferrer">官方来源 ↗</a></div>
+          <div class="source"><div><b>扣子 MCP</b><br><span>MCP 商店、自定义配置、绑定 Agent、启停与企业上架</span></div><a href="https://docs.coze.cn/mcp" target="_blank" rel="noreferrer">官方来源 ↗</a></div>
+          <div class="source"><div><b>扣子订阅与积分</b><br><span>积分获取、有效期、套餐权益与停服规则</span></div><a href="https://docs.coze.cn/guides_20260119_coze_premium_upgraded" target="_blank" rel="noreferrer">官方来源 ↗</a></div>
+          <div class="source"><div><b>阿里云百炼 MCP 广场</b><br><span>One Key MCP、需开通 MCP、外部调用与自定义部署</span></div><a href="https://docs.agent.bailian.aliyun.com/zh/mcp/official-services" target="_blank" rel="noreferrer">官方来源 ↗</a></div>
+          <div class="source"><div><b>百度千帆 Agent 开发平台</b><br><span>RAG、Agent、工作流、UI Builder、组件与应用分发</span></div><a href="https://cloud.baidu.com/doc/APPBUILDER/index.html" target="_blank" rel="noreferrer">官方来源 ↗</a></div>
+          <div class="source"><div><b>腾讯云 ADP</b><br><span>构建、分发、治理、AgentOps 与行业案例数据</span></div><a href="https://adp.cloud.tencent.com/" target="_blank" rel="noreferrer">官方来源 ↗</a></div>
+          <div class="source"><div><b>火山引擎 AgentKit 计费</b><br><span>Runtime、Sandbox、MCP、网关、工具索引与流量计费</span></div><a href="https://docs.volcengine.com/docs/agentkit/Billing_items?lang=zh" target="_blank" rel="noreferrer">官方来源 ↗</a></div>
+          <div class="source"><div><b>火山引擎 MCP 服务管理</b><br><span>部署、导入、HTTP 转 MCP、认证与网络边界</span></div><a href="https://docs.volcengine.com/docs/agentkit/MCP_services?lang=zh" target="_blank" rel="noreferrer">官方来源 ↗</a></div>
+        </div>
+        <div class="audit" style="margin-top:18px"><h3>自我纠察记录</h3><ul><li><b>事实：</b>平台功能只引用官方页面；涉及 2026 年新功能时以本次抓取为准。</li><li><b>边界：</b>部分个人中心、计费和管理员控制台需登录，本报告不伪造不可见界面；用官方文档说明可核验功能。</li><li><b>推断：</b>热力图、优先级、转化提升目标均为研究判断或实验假设，已与事实陈述分开。</li><li><b>完整：</b>覆盖用户要求的 MCP、Skill、Agent、案例、开通、试用、工具、广场、个人中心、积分统计、服务管理。</li><li><b>隐私：</b>仅使用公开资料，不含用户数据、内部账号或生产凭证。</li></ul></div>
+      </section>
+    </main>
+  </div>
+
+  <footer><div class="footer-inner"><div><b>AI 服务官网设计竞品研究</b><br>从视觉参考升级为可落地的产品与转化蓝图</div><div>Research date · 2026-10-08<br>Asia/Shanghai</div></div></footer>
+  <script>
+    const progress = document.getElementById('progress');
+    const links = [...document.querySelectorAll('.side a')];
+    const sections = [...document.querySelectorAll('main section')];
+    addEventListener('scroll', () => {
+      const total = document.documentElement.scrollHeight - innerHeight;
+      progress.style.width = `${Math.max(0, Math.min(100, scrollY / total * 100))}%`;
+      let active = sections[0]?.id;
+      sections.forEach(section => { if (section.getBoundingClientRect().top < 160) active = section.id; });
+      links.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${active}`));
+    }, {passive:true});
+    document.querySelectorAll('.filter').forEach(button => button.addEventListener('click', () => {
+      document.querySelectorAll('.filter').forEach(item => item.classList.remove('active'));
+      button.classList.add('active');
+      const filter = button.dataset.filter;
+      document.querySelectorAll('.platform').forEach(card => card.classList.toggle('hide', filter !== 'all' && card.dataset.region !== filter));
+    }));
+  </script>
+</body>
+</html>
