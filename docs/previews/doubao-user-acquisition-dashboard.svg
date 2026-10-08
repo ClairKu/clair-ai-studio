@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
   <title id="title">豆包 X 且慢AI小顾用户数据看板预览</title>
-  <desc id="desc">统计窗口从8月28日豆包上架起，累计绑定用户 1,914 人，其中在绑定时新注册的新用户 1,378 人、绑定时已有账户的老用户 536 人。画面左侧是累计与每日新增两块分栏走势，右侧是这批用户在且慢的保有规模、入金、交易与触点情况。</desc>
+  <desc id="desc">统计窗口从8月28日豆包上架起，累计绑定用户 2,501 人，其中在绑定时新注册的新用户 1,855 人、绑定时已有账户的老用户 646 人。画面左侧是累计与每日新增两块分栏走势，右侧是这批用户在且慢的保有规模、入金、交易与触点情况。</desc>
   <defs>
     <linearGradient id="newCard" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#E6F6F1"/><stop offset="1" stop-color="#FFFFFF"/>
@@ -26,7 +26,7 @@
       <text x="76" y="14" fill="#171B29" font-size="14" font-weight="700">豆包 X 且慢AI小顾</text>
       <text x="76" y="31" fill="#697187" font-size="9" letter-spacing="1.5">用户增长与画像</text>
     </g>
-    <text x="1216" y="47" text-anchor="end" fill="#697187" font-size="12">数据截至 9月28日 09:35</text>
+    <text x="1216" y="47" text-anchor="end" fill="#697187" font-size="12">数据截至 10月8日 10:46</text>
     <circle cx="1064" cy="43" r="5" fill="#0F9D78"/>
 
     <text x="62" y="104" fill="#2E7CF6" font-family="SFMono-Regular,monospace" font-size="10" font-weight="700" letter-spacing="2">DOUBAO MCP LAUNCH 08.28 · DATA WINDOW SINCE 08.28</text>
@@ -36,20 +36,20 @@
     <g transform="translate(62 215)" filter="url(#shadow)">
       <rect width="220" height="108" rx="2" fill="#111522"/>
       <text x="22" y="31" fill="#FFFFFF" fill-opacity=".62" font-size="12" font-weight="700">累计绑定用户</text>
-      <text x="22" y="78" fill="#FFFFFF" font-family="SFMono-Regular,monospace" font-size="40" font-weight="800" letter-spacing="-2">1,914</text>
+      <text x="22" y="78" fill="#FFFFFF" font-family="SFMono-Regular,monospace" font-size="40" font-weight="800" letter-spacing="-2">2,501</text>
       <circle cx="194" cy="26" r="5" fill="#7FB3FF"/>
     </g>
     <g transform="translate(296 215)" filter="url(#shadow)">
       <rect width="220" height="108" rx="2" fill="url(#newCard)"/>
       <text x="22" y="31" fill="#0A7A5E" font-size="12" font-weight="700">绑定时新注册</text>
-      <text x="22" y="78" fill="#0A7A5E" font-family="SFMono-Regular,monospace" font-size="40" font-weight="800" letter-spacing="-2">1,378</text>
-      <text x="195" y="76" text-anchor="end" fill="#0A7A5E" font-family="SFMono-Regular,monospace" font-size="14" font-weight="700">72.0%</text>
+      <text x="22" y="78" fill="#0A7A5E" font-family="SFMono-Regular,monospace" font-size="40" font-weight="800" letter-spacing="-2">1,855</text>
+      <text x="195" y="76" text-anchor="end" fill="#0A7A5E" font-family="SFMono-Regular,monospace" font-size="14" font-weight="700">74.2%</text>
     </g>
     <g transform="translate(530 215)" filter="url(#shadow)">
       <rect width="228" height="108" rx="2" fill="url(#oldCard)"/>
       <text x="22" y="31" fill="#1F5FC4" font-size="12" font-weight="700">绑定时已有账户</text>
-      <text x="22" y="78" fill="#1F5FC4" font-family="SFMono-Regular,monospace" font-size="40" font-weight="800" letter-spacing="-2">536</text>
-      <text x="202" y="76" text-anchor="end" fill="#1F5FC4" font-family="SFMono-Regular,monospace" font-size="14" font-weight="700">28.0%</text>
+      <text x="22" y="78" fill="#1F5FC4" font-family="SFMono-Regular,monospace" font-size="40" font-weight="800" letter-spacing="-2">646</text>
+      <text x="202" y="76" text-anchor="end" fill="#1F5FC4" font-family="SFMono-Regular,monospace" font-size="14" font-weight="700">25.8%</text>
     </g>
 
     <g transform="translate(62 341)" filter="url(#shadow)">
@@ -60,30 +60,30 @@
       <g font-size="9">
         <line x1="286" y1="26" x2="301" y2="26" stroke="#111522" stroke-width="2.5" stroke-linecap="round"/>
         <text x="307" y="29" fill="#697187">累计绑定</text>
-        <text x="307" y="45" fill="#111522" font-family="SFMono-Regular,monospace" font-size="11" font-weight="700">1,914</text>
+        <text x="307" y="45" fill="#111522" font-family="SFMono-Regular,monospace" font-size="11" font-weight="700">2,501</text>
         <line x1="386" y1="26" x2="401" y2="26" stroke="#0F9D78" stroke-width="2" stroke-linecap="round"/>
         <text x="407" y="29" fill="#697187">累计新用户</text>
-        <text x="407" y="45" fill="#111522" font-family="SFMono-Regular,monospace" font-size="11" font-weight="700">1,378</text>
+        <text x="407" y="45" fill="#111522" font-family="SFMono-Regular,monospace" font-size="11" font-weight="700">1,855</text>
         <line x1="498" y1="26" x2="513" y2="26" stroke="#2E7CF6" stroke-width="2" stroke-linecap="round"/>
         <text x="519" y="29" fill="#697187">累计老用户</text>
-        <text x="519" y="45" fill="#111522" font-family="SFMono-Regular,monospace" font-size="11" font-weight="700">536</text>
+        <text x="519" y="45" fill="#111522" font-family="SFMono-Regular,monospace" font-size="11" font-weight="700">646</text>
         <rect x="612" y="21" width="9" height="10" rx="2" fill="#2E7CF6"/>
         <text x="627" y="29" fill="#697187">当日新增</text>
-        <text x="627" y="45" fill="#111522" font-family="SFMono-Regular,monospace" font-size="11" font-weight="700">+31</text>
+        <text x="627" y="45" fill="#111522" font-family="SFMono-Regular,monospace" font-size="11" font-weight="700">+29</text>
       </g>
 
       <text x="53" y="82" fill="#697187" font-size="9" font-weight="700">累计绑定用户（人）</text>
       <g stroke="#E9EBF3" stroke-width="1"><line x1="53" y1="180" x2="664" y2="180"/><line x1="53" y1="150" x2="664" y2="150"/><line x1="53" y1="120" x2="664" y2="120"/><line x1="53" y1="90" x2="664" y2="90"/></g>
       <line x1="53" y1="210" x2="664" y2="210" stroke="#CFD4E1" stroke-width="1"/>
-      <g fill="#8A91A5" font-family="SFMono-Regular,monospace" font-size="8"><text x="44" y="213" text-anchor="end">0</text><text x="44" y="183" text-anchor="end">500</text><text x="44" y="153" text-anchor="end">1,000</text><text x="44" y="123" text-anchor="end">1,500</text><text x="44" y="93" text-anchor="end">2,000</text></g>
+      <g fill="#8A91A5" font-family="SFMono-Regular,monospace" font-size="8"><text x="44" y="213" text-anchor="end">0</text><text x="44" y="183" text-anchor="end">750</text><text x="44" y="153" text-anchor="end">1,500</text><text x="44" y="123" text-anchor="end">2,250</text><text x="44" y="93" text-anchor="end">3,000</text></g>
 
-      <path d="M71.0 209.9 L89.5 208.7 L108.1 208.0 L126.6 206.2 L145.2 204.6 L163.7 203.7 L182.3 202.9 L200.8 201.8 L219.4 201.2 L237.9 200.8 L256.5 200.1 L275.0 198.9 L293.6 198.1 L312.1 196.9 L330.7 196.0 L349.2 195.0 L367.8 194.5 L386.3 193.1 L404.9 192.0 L423.4 190.7 L442.0 189.2 L460.5 187.9 L479.1 186.8 L497.6 185.4 L516.2 184.1 L534.7 182.9 L553.3 181.3 L571.8 180.6 L590.4 179.2 L608.9 178.9 L627.5 178.1 L646.0 177.8" fill="none" stroke="#2E7CF6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M71.0 210.0 L89.5 209.4 L108.1 208.4 L126.6 206.9 L145.2 205.3 L163.7 203.7 L182.3 202.4 L200.8 199.7 L219.4 198.3 L237.9 196.6 L256.5 194.6 L275.0 191.9 L293.6 189.8 L312.1 187.1 L330.7 185.5 L349.2 183.0 L367.8 180.5 L386.3 177.1 L404.9 173.8 L423.4 171.1 L442.0 168.0 L460.5 163.4 L479.1 159.1 L497.6 154.0 L516.2 150.1 L534.7 144.5 L553.3 140.6 L571.8 136.8 L590.4 134.3 L608.9 131.9 L627.5 128.9 L646.0 127.3" fill="none" stroke="#0F9D78" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M71.0 209.9 L89.5 208.1 L108.1 206.4 L126.6 203.1 L145.2 199.9 L163.7 197.4 L182.3 195.4 L200.8 191.6 L219.4 189.5 L237.9 187.4 L256.5 184.7 L275.0 180.8 L293.6 177.8 L312.1 174.1 L330.7 171.5 L349.2 168.0 L367.8 165.0 L386.3 160.2 L404.9 155.8 L423.4 151.8 L442.0 147.2 L460.5 141.3 L479.1 136.0 L497.6 129.4 L516.2 124.2 L534.7 117.4 L553.3 112.0 L571.8 107.4 L590.4 103.6 L608.9 100.8 L627.5 97.0 L646.0 95.2" fill="none" stroke="#111522" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M71.0 209.9 L85.0 209.2 L99.0 208.6 L113.1 207.5 L127.1 206.4 L141.1 205.8 L155.1 205.3 L169.2 204.6 L183.2 204.1 L197.2 203.8 L211.2 203.4 L225.3 202.6 L239.3 202.0 L253.3 201.3 L267.3 200.7 L281.4 200.0 L295.4 199.7 L309.4 198.7 L323.4 198.0 L337.5 197.2 L351.5 196.2 L365.5 195.2 L379.5 194.6 L393.6 193.6 L407.6 192.8 L421.6 191.9 L435.6 190.9 L449.7 190.4 L463.7 189.5 L477.7 189.2 L491.7 188.7 L505.8 188.0 L519.8 187.3 L533.8 186.8 L547.8 186.5 L561.9 186.1 L575.9 185.6 L589.9 185.4 L603.9 185.2 L618.0 184.7 L632.0 184.5 L646.0 184.2" fill="none" stroke="#2E7CF6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M71.0 210.0 L85.0 209.6 L99.0 209.0 L113.1 207.9 L127.1 206.9 L141.1 205.8 L155.1 205.0 L169.2 203.2 L183.2 202.2 L197.2 201.1 L211.2 199.8 L225.3 198.0 L239.3 196.6 L253.3 194.8 L267.3 193.7 L281.4 192.0 L295.4 190.4 L309.4 188.1 L323.4 185.9 L337.5 184.1 L351.5 182.0 L365.5 179.0 L379.5 176.1 L393.6 172.7 L407.6 170.1 L421.6 166.4 L435.6 163.8 L449.7 161.2 L463.7 159.6 L477.7 158.0 L491.7 156.0 L505.8 153.0 L519.8 150.2 L533.8 148.0 L547.8 146.4 L561.9 144.8 L575.9 143.1 L589.9 141.7 L603.9 139.9 L618.0 137.9 L632.0 136.6 L646.0 135.8" fill="none" stroke="#0F9D78" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M71.0 209.9 L85.0 208.8 L99.0 207.6 L113.1 205.4 L127.1 203.3 L141.1 201.6 L155.1 200.3 L169.2 197.8 L183.2 196.4 L197.2 195.0 L211.2 193.2 L225.3 190.6 L239.3 188.6 L253.3 186.1 L267.3 184.4 L281.4 182.0 L295.4 180.0 L309.4 176.8 L323.4 173.9 L337.5 171.2 L351.5 168.2 L365.5 164.2 L379.5 160.7 L393.6 156.3 L407.6 152.8 L421.6 148.3 L435.6 144.7 L449.7 141.6 L463.7 139.1 L477.7 137.2 L491.7 134.7 L505.8 131.0 L519.8 127.5 L533.8 124.8 L547.8 122.9 L561.9 120.9 L575.9 118.7 L589.9 117.0 L603.9 115.1 L618.0 112.6 L632.0 111.1 L646.0 110.0" fill="none" stroke="#111522" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
       <g stroke="#FFFFFF" stroke-width="2">
-        <circle cx="646.0" cy="95.2" r="4.5" fill="#111522"/>
-        <circle cx="646.0" cy="127.3" r="4.5" fill="#0F9D78"/>
-        <circle cx="646.0" cy="177.8" r="4.5" fill="#2E7CF6"/>
+        <circle cx="646.0" cy="110.0" r="4.5" fill="#111522"/>
+        <circle cx="646.0" cy="135.8" r="4.5" fill="#0F9D78"/>
+        <circle cx="646.0" cy="184.2" r="4.5" fill="#2E7CF6"/>
       </g>
 
       <text x="53" y="232" fill="#697187" font-size="9" font-weight="700">每日新增绑定（人）</text>
@@ -97,11 +97,11 @@
         <text x="44" y="278" text-anchor="end">0</text>
       </g>
 
-      <g fill="#2E7CF6"><rect x="66.1" y="274.42" width="10" height="0.58" rx="1.5"/><rect x="84.6" y="266.54" width="10" height="5.54" rx="1.5"/><rect x="103.2" y="266.54" width="10" height="3.79" rx="1.5"/><rect x="121.7" y="258.96" width="10" height="8.46" rx="1.5"/><rect x="140.3" y="259.25" width="10" height="7.88" rx="1.5"/><rect x="158.8" y="263.04" width="10" height="4.38" rx="1.5"/><rect x="177.3" y="265.08" width="10" height="3.79" rx="1.5"/><rect x="195.9" y="256.62" width="10" height="5.25" rx="1.5"/><rect x="214.4" y="264.79" width="10" height="3.21" rx="1.5"/><rect x="233.0" y="264.79" width="10" height="2.04" rx="1.5"/><rect x="251.5" y="262.17" width="10" height="3.21" rx="1.5"/><rect x="270.1" y="256.04" width="10" height="5.83" rx="1.5"/><rect x="288.6" y="260.42" width="10" height="4.08" rx="1.5"/><rect x="307.2" y="256.62" width="10" height="5.54" rx="1.5"/><rect x="325.7" y="262.75" width="10" height="4.38" rx="1.5"/><rect x="344.3" y="257.79" width="10" height="4.96" rx="1.5"/><rect x="362.8" y="260.42" width="10" height="2.33" rx="1.5"/><rect x="381.4" y="251.67" width="10" height="7.00" rx="1.5"/><rect x="399.9" y="253.42" width="10" height="5.25" rx="1.5"/><rect x="418.5" y="255.75" width="10" height="6.12" rx="1.5"/><rect x="437.0" y="252.83" width="10" height="7.29" rx="1.5"/><rect x="455.6" y="246.12" width="10" height="6.71" rx="1.5"/><rect x="474.1" y="249.04" width="10" height="4.96" rx="1.5"/><rect x="492.7" y="242.92" width="10" height="7.00" rx="1.5"/><rect x="511.2" y="249.92" width="10" height="6.13" rx="1.5"/><rect x="529.8" y="242.04" width="10" height="6.12" rx="1.5"/><rect x="548.3" y="248.46" width="10" height="7.58" rx="1.5"/><rect x="566.9" y="252.83" width="10" height="3.50" rx="1.5"/><rect x="585.4" y="256.33" width="10" height="6.71" rx="1.5"/><rect x="604.0" y="261.58" width="10" height="1.75" rx="1.5"/><rect x="622.5" y="256.62" width="10" height="3.79" rx="1.5"/><rect x="641.1" y="265.96" width="10" height="1.17" rx="1.5"/></g>
-      <g fill="#0F9D78"><rect x="66.1" y="275.00" width="10" height="0.00"/><rect x="84.6" y="272.08" width="10" height="2.92"/><rect x="103.2" y="270.33" width="10" height="4.67"/><rect x="121.7" y="267.42" width="10" height="7.58"/><rect x="140.3" y="267.12" width="10" height="7.88"/><rect x="158.8" y="267.42" width="10" height="7.58"/><rect x="177.3" y="268.88" width="10" height="6.12"/><rect x="195.9" y="261.88" width="10" height="13.12"/><rect x="214.4" y="268.00" width="10" height="7.00"/><rect x="233.0" y="266.83" width="10" height="8.17"/><rect x="251.5" y="265.38" width="10" height="9.62"/><rect x="270.1" y="261.88" width="10" height="13.12"/><rect x="288.6" y="264.50" width="10" height="10.50"/><rect x="307.2" y="262.17" width="10" height="12.83"/><rect x="325.7" y="267.12" width="10" height="7.88"/><rect x="344.3" y="262.75" width="10" height="12.25"/><rect x="362.8" y="262.75" width="10" height="12.25"/><rect x="381.4" y="258.67" width="10" height="16.33"/><rect x="399.9" y="258.67" width="10" height="16.33"/><rect x="418.5" y="261.88" width="10" height="13.12"/><rect x="437.0" y="260.12" width="10" height="14.88"/><rect x="455.6" y="252.83" width="10" height="22.17"/><rect x="474.1" y="254.00" width="10" height="21.00"/><rect x="492.7" y="249.92" width="10" height="25.08"/><rect x="511.2" y="256.04" width="10" height="18.96"/><rect x="529.8" y="248.17" width="10" height="26.83"/><rect x="548.3" y="256.04" width="10" height="18.96"/><rect x="566.9" y="256.33" width="10" height="18.67"/><rect x="585.4" y="263.04" width="10" height="11.96"/><rect x="604.0" y="263.33" width="10" height="11.67"/><rect x="622.5" y="260.42" width="10" height="14.58"/><rect x="641.1" y="267.12" width="10" height="7.88"/></g>
+      <g fill="#2E7CF6"><rect x="67.2" y="274.42" width="8" height="0.58" rx="1.5"/><rect x="81.3" y="266.54" width="8" height="5.54" rx="1.5"/><rect x="95.3" y="266.54" width="8" height="3.79" rx="1.5"/><rect x="109.3" y="258.96" width="8" height="8.46" rx="1.5"/><rect x="123.3" y="259.54" width="8" height="7.88" rx="1.5"/><rect x="137.4" y="263.04" width="8" height="4.38" rx="1.5"/><rect x="151.4" y="265.08" width="8" height="3.79" rx="1.5"/><rect x="165.4" y="256.62" width="8" height="5.25" rx="1.5"/><rect x="179.4" y="264.79" width="8" height="3.21" rx="1.5"/><rect x="193.5" y="264.79" width="8" height="2.04" rx="1.5"/><rect x="207.5" y="262.17" width="8" height="3.21" rx="1.5"/><rect x="221.5" y="256.04" width="8" height="5.83" rx="1.5"/><rect x="235.5" y="260.42" width="8" height="4.08" rx="1.5"/><rect x="249.6" y="256.62" width="8" height="5.54" rx="1.5"/><rect x="263.6" y="262.75" width="8" height="4.38" rx="1.5"/><rect x="277.6" y="257.79" width="8" height="4.96" rx="1.5"/><rect x="291.6" y="260.42" width="8" height="2.33" rx="1.5"/><rect x="305.6" y="251.67" width="8" height="7.00" rx="1.5"/><rect x="319.7" y="253.42" width="8" height="5.25" rx="1.5"/><rect x="333.7" y="255.75" width="8" height="6.12" rx="1.5"/><rect x="347.7" y="252.83" width="8" height="7.29" rx="1.5"/><rect x="361.7" y="246.12" width="8" height="6.71" rx="1.5"/><rect x="375.8" y="249.04" width="8" height="4.96" rx="1.5"/><rect x="389.8" y="242.92" width="8" height="7.00" rx="1.5"/><rect x="403.8" y="249.92" width="8" height="6.13" rx="1.5"/><rect x="417.8" y="242.04" width="8" height="6.12" rx="1.5"/><rect x="431.9" y="248.46" width="8" height="7.58" rx="1.5"/><rect x="445.9" y="252.83" width="8" height="3.50" rx="1.5"/><rect x="459.9" y="256.33" width="8" height="6.71" rx="1.5"/><rect x="473.9" y="261.58" width="8" height="1.75" rx="1.5"/><rect x="488.0" y="256.62" width="8" height="3.79" rx="1.5"/><rect x="502.0" y="248.17" width="8" height="5.25" rx="1.5"/><rect x="516.0" y="249.04" width="8" height="4.96" rx="1.5"/><rect x="530.0" y="255.75" width="8" height="3.79" rx="1.5"/><rect x="544.1" y="261.00" width="8" height="2.33" rx="1.5"/><rect x="558.1" y="260.12" width="8" height="2.92" rx="1.5"/><rect x="572.1" y="258.96" width="8" height="3.50" rx="1.5"/><rect x="586.1" y="263.04" width="8" height="1.75" rx="1.5"/><rect x="600.2" y="261.00" width="8" height="0.88" rx="1.5"/><rect x="614.2" y="256.92" width="8" height="3.79" rx="1.5"/><rect x="628.2" y="263.92" width="8" height="1.75" rx="1.5"/><rect x="642.2" y="266.54" width="8" height="2.33" rx="1.5"/></g>
+      <g fill="#0F9D78"><rect x="67.2" y="275.00" width="8" height="0.00"/><rect x="81.3" y="272.08" width="8" height="2.92"/><rect x="95.3" y="270.33" width="8" height="4.67"/><rect x="109.3" y="267.42" width="8" height="7.58"/><rect x="123.3" y="267.42" width="8" height="7.58"/><rect x="137.4" y="267.42" width="8" height="7.58"/><rect x="151.4" y="268.88" width="8" height="6.12"/><rect x="165.4" y="261.88" width="8" height="13.12"/><rect x="179.4" y="268.00" width="8" height="7.00"/><rect x="193.5" y="266.83" width="8" height="8.17"/><rect x="207.5" y="265.38" width="8" height="9.62"/><rect x="221.5" y="261.88" width="8" height="13.12"/><rect x="235.5" y="264.50" width="8" height="10.50"/><rect x="249.6" y="262.17" width="8" height="12.83"/><rect x="263.6" y="267.12" width="8" height="7.88"/><rect x="277.6" y="262.75" width="8" height="12.25"/><rect x="291.6" y="262.75" width="8" height="12.25"/><rect x="305.6" y="258.67" width="8" height="16.33"/><rect x="319.7" y="258.67" width="8" height="16.33"/><rect x="333.7" y="261.88" width="8" height="13.12"/><rect x="347.7" y="260.12" width="8" height="14.88"/><rect x="361.7" y="252.83" width="8" height="22.17"/><rect x="375.8" y="254.00" width="8" height="21.00"/><rect x="389.8" y="249.92" width="8" height="25.08"/><rect x="403.8" y="256.04" width="8" height="18.96"/><rect x="417.8" y="248.17" width="8" height="26.83"/><rect x="431.9" y="256.04" width="8" height="18.96"/><rect x="445.9" y="256.33" width="8" height="18.67"/><rect x="459.9" y="263.04" width="8" height="11.96"/><rect x="473.9" y="263.33" width="8" height="11.67"/><rect x="488.0" y="260.42" width="8" height="14.58"/><rect x="502.0" y="253.42" width="8" height="21.58"/><rect x="516.0" y="254.00" width="8" height="21.00"/><rect x="530.0" y="259.54" width="8" height="15.46"/><rect x="544.1" y="263.33" width="8" height="11.67"/><rect x="558.1" y="263.04" width="8" height="11.96"/><rect x="572.1" y="262.46" width="8" height="12.54"/><rect x="586.1" y="264.79" width="8" height="10.21"/><rect x="600.2" y="261.88" width="8" height="13.12"/><rect x="614.2" y="260.71" width="8" height="14.29"/><rect x="628.2" y="265.67" width="8" height="9.33"/><rect x="642.2" y="268.88" width="8" height="6.12"/></g>
 
-      <g fill="#8A91A5" font-family="SFMono-Regular,monospace" font-size="8.5"><text x="71.0" y="292" text-anchor="middle">8.28</text><text x="145.2" y="292" text-anchor="middle">9.1</text><text x="219.4" y="292" text-anchor="middle">9.5</text><text x="293.6" y="292" text-anchor="middle">9.9</text><text x="367.8" y="292" text-anchor="middle">9.13</text><text x="442.0" y="292" text-anchor="middle">9.17</text><text x="516.2" y="292" text-anchor="middle">9.21</text><text x="590.4" y="292" text-anchor="middle">9.25</text><text x="646.0" y="292" text-anchor="middle">9.28</text></g>
-      <text x="26" y="316" fill="#9AA0AF" font-size="9">8月28日豆包上架首日即有用户完成授权绑定 · 最新一天截至 9月28日 09:35，尚未走完</text>
+      <g fill="#8A91A5" font-family="SFMono-Regular,monospace" font-size="8.5"><text x="71.0" y="292" text-anchor="middle">8.28</text><text x="141.1" y="292" text-anchor="middle">9.2</text><text x="211.2" y="292" text-anchor="middle">9.7</text><text x="281.4" y="292" text-anchor="middle">9.12</text><text x="351.5" y="292" text-anchor="middle">9.17</text><text x="421.6" y="292" text-anchor="middle">9.22</text><text x="491.7" y="292" text-anchor="middle">9.27</text><text x="561.9" y="292" text-anchor="middle">10.2</text><text x="632.0" y="292" text-anchor="middle">10.7</text><text x="646.0" y="292" text-anchor="middle">10.8</text></g>
+      <text x="26" y="316" fill="#9AA0AF" font-size="9">8月28日豆包上架首日即有用户完成授权绑定 · 最新一天截至 10月8日 10:46，尚未走完</text>
     </g>
 
     <g transform="translate(790 215)" filter="url(#shadow)">
@@ -113,36 +113,36 @@
       <g transform="translate(28 108)">
         <rect width="370" height="70" rx="2" fill="#FFFFFF" fill-opacity=".055"/>
         <text x="18" y="24" fill="#FFFFFF" fill-opacity=".58" font-size="11">当前保有规模（含绑定前已有资产）</text>
-        <text x="18" y="56" fill="#5ED5BB" font-family="SFMono-Regular,monospace" font-size="27" font-weight="800">3,655 万元</text>
-        <text x="352" y="52" text-anchor="end" fill="#FFFFFF" fill-opacity=".42" font-size="9">162 人持有</text>
+        <text x="18" y="56" fill="#5ED5BB" font-family="SFMono-Regular,monospace" font-size="27" font-weight="800">4,040 万元</text>
+        <text x="352" y="52" text-anchor="end" fill="#FFFFFF" fill-opacity=".42" font-size="9">199 人持有</text>
       </g>
       <g transform="translate(28 186)">
         <rect width="177" height="70" rx="2" fill="#FFFFFF" fill-opacity=".055"/>
         <text x="16" y="24" fill="#FFFFFF" fill-opacity=".58" font-size="10">绑定后入金</text>
-        <text x="16" y="52" fill="#BFD7FF" font-family="SFMono-Regular,monospace" font-size="21" font-weight="800">34.4 万</text>
-        <text x="161" y="66" text-anchor="end" fill="#FFFFFF" fill-opacity=".38" font-size="8.5">48 人 · 142 笔</text>
+        <text x="16" y="52" fill="#BFD7FF" font-family="SFMono-Regular,monospace" font-size="21" font-weight="800">50.7 万</text>
+        <text x="161" y="66" text-anchor="end" fill="#FFFFFF" fill-opacity=".38" font-size="8.5">73 人 · 280 笔</text>
       </g>
       <g transform="translate(221 186)">
         <rect width="177" height="70" rx="2" fill="#FFFFFF" fill-opacity=".055"/>
         <text x="16" y="24" fill="#FFFFFF" fill-opacity=".58" font-size="10">绑定后买入</text>
-        <text x="16" y="52" fill="#BFD7FF" font-family="SFMono-Regular,monospace" font-size="21" font-weight="800">49.2 万</text>
-        <text x="161" y="66" text-anchor="end" fill="#FFFFFF" fill-opacity=".38" font-size="8.5">74 人</text>
+        <text x="16" y="52" fill="#BFD7FF" font-family="SFMono-Regular,monospace" font-size="21" font-weight="800">75.8 万</text>
+        <text x="161" y="66" text-anchor="end" fill="#FFFFFF" fill-opacity=".38" font-size="8.5">98 人</text>
       </g>
 
       <line x1="28" y1="278" x2="398" y2="278" stroke="#FFFFFF" stroke-opacity=".12"/>
       <text x="28" y="302" fill="#FFFFFF" fill-opacity=".62" font-size="11" font-weight="700">保有规模分档</text>
-      <text x="398" y="302" text-anchor="end" fill="#FFFFFF" fill-opacity=".34" font-size="9">共 162 人持有</text>
+      <text x="398" y="302" text-anchor="end" fill="#FFFFFF" fill-opacity=".34" font-size="9">共 199 人持有</text>
 
-      <g transform="translate(28 316)" font-size="9"><text x="0" y="10" fill="#FFFFFF" fill-opacity=".5">1万元及以下</text><rect x="76" y="2" width="198" height="9" rx="4.5" fill="#FFFFFF" fill-opacity=".09"/><rect x="76" y="2" width="117" height="9" rx="4.5" fill="#5ED5BB"/><text x="360" y="10" text-anchor="end" fill="#FFFFFF" fill-opacity=".74" font-family="SFMono-Regular,monospace">42</text><text x="0" y="32" fill="#FFFFFF" fill-opacity=".5">1—10万</text><rect x="76" y="24" width="198" height="9" rx="4.5" fill="#FFFFFF" fill-opacity=".09"/><rect x="76" y="24" width="120" height="9" rx="4.5" fill="#5ED5BB"/><text x="360" y="32" text-anchor="end" fill="#FFFFFF" fill-opacity=".74" font-family="SFMono-Regular,monospace">43</text><text x="0" y="54" fill="#FFFFFF" fill-opacity=".5">10—100万</text><rect x="76" y="46" width="198" height="9" rx="4.5" fill="#FFFFFF" fill-opacity=".09"/><rect x="76" y="46" width="198" height="9" rx="4.5" fill="#5ED5BB"/><text x="360" y="54" text-anchor="end" fill="#FFFFFF" fill-opacity=".74" font-family="SFMono-Regular,monospace">71</text><text x="0" y="76" fill="#FFFFFF" fill-opacity=".5">100万以上</text><rect x="76" y="68" width="198" height="9" rx="4.5" fill="#FFFFFF" fill-opacity=".09"/><rect x="76" y="68" width="17" height="9" rx="4.5" fill="#5ED5BB"/><text x="360" y="76" text-anchor="end" fill="#FFFFFF" fill-opacity=".74" font-family="SFMono-Regular,monospace">6</text></g>
+      <g transform="translate(28 316)" font-size="9"><text x="0" y="10" fill="#FFFFFF" fill-opacity=".5">1万元及以下</text><rect x="76" y="2" width="198" height="9" rx="4.5" fill="#FFFFFF" fill-opacity=".09"/><rect x="76" y="2" width="142" height="9" rx="4.5" fill="#5ED5BB"/><text x="360" y="10" text-anchor="end" fill="#FFFFFF" fill-opacity=".74" font-family="SFMono-Regular,monospace">59</text><text x="0" y="32" fill="#FFFFFF" fill-opacity=".5">1—10万</text><rect x="76" y="24" width="198" height="9" rx="4.5" fill="#FFFFFF" fill-opacity=".09"/><rect x="76" y="24" width="126" height="9" rx="4.5" fill="#5ED5BB"/><text x="360" y="32" text-anchor="end" fill="#FFFFFF" fill-opacity=".74" font-family="SFMono-Regular,monospace">52</text><text x="0" y="54" fill="#FFFFFF" fill-opacity=".5">10—100万</text><rect x="76" y="46" width="198" height="9" rx="4.5" fill="#FFFFFF" fill-opacity=".09"/><rect x="76" y="46" width="198" height="9" rx="4.5" fill="#5ED5BB"/><text x="360" y="54" text-anchor="end" fill="#FFFFFF" fill-opacity=".74" font-family="SFMono-Regular,monospace">82</text><text x="0" y="76" fill="#FFFFFF" fill-opacity=".5">100万以上</text><rect x="76" y="68" width="198" height="9" rx="4.5" fill="#FFFFFF" fill-opacity=".09"/><rect x="76" y="68" width="14" height="9" rx="4.5" fill="#5ED5BB"/><text x="360" y="76" text-anchor="end" fill="#FFFFFF" fill-opacity=".74" font-family="SFMono-Regular,monospace">6</text></g>
 
       <line x1="28" y1="410" x2="398" y2="410" stroke="#FFFFFF" stroke-opacity=".12"/>
       <g transform="translate(28 428)" font-size="9">
         <text x="0" y="0" fill="#FFFFFF" fill-opacity=".5">公众号绑定</text>
-        <text x="66" y="0" fill="#FFFFFF" font-family="SFMono-Regular,monospace" font-weight="700">338</text>
+        <text x="66" y="0" fill="#FFFFFF" font-family="SFMono-Regular,monospace" font-weight="700">398</text>
         <text x="124" y="0" fill="#FFFFFF" fill-opacity=".5">已绑卡</text>
-        <text x="168" y="0" fill="#FFFFFF" font-family="SFMono-Regular,monospace" font-weight="700">259</text>
+        <text x="168" y="0" fill="#FFFFFF" font-family="SFMono-Regular,monospace" font-weight="700">314</text>
         <text x="224" y="0" fill="#FFFFFF" fill-opacity=".5">已测评</text>
-        <text x="268" y="0" fill="#FFFFFF" font-family="SFMono-Regular,monospace" font-weight="700">76</text>
+        <text x="268" y="0" fill="#FFFFFF" font-family="SFMono-Regular,monospace" font-weight="700">97</text>
       </g>
       <text x="28" y="452" fill="#FFFFFF" fill-opacity=".28" font-size="8.5">只展示符合公开口径的整体数据，不含个人明细与单人金额</text>
     </g>
