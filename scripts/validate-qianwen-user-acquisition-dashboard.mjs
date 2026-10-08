@@ -1,6 +1,8 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { createHash, webcrypto } from "node:crypto";
+import { gunzipSync } from "node:zlib";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
 const reportRoot = join(root, "public", "reports", "qianwen-user-acquisition-dashboard");
@@ -10,13 +12,14 @@ const data = JSON.parse(readFileSync(dataPath, "utf8"));
 const html = readFileSync(join(reportRoot, "index.html"), "utf8");
 const app = readFileSync(join(reportRoot, "app.js"), "utf8");
 const styles = readFileSync(join(reportRoot, "styles.css"), "utf8");
+const questionEnvelope = JSON.parse(readFileSync(join(reportRoot, "data", "questions.enc.json"), "utf8"));
 const preview = readFileSync(join(root, "public", "previews", "qianwen-user-acquisition-dashboard.svg"), "utf8");
 const workbench = readFileSync(join(root, "src", "app.js"), "utf8");
 const fail = (message) => { throw new Error(`千问用户数据看板校验失败：${message}`); };
 const launchAt = "2026-08-10T08:00:00+08:00";
 // v6 起统计窗口比正式上线提前一周，用于覆盖上线前的灰度绑定。
 const windowStartAt = "2026-08-03T00:00:00+08:00";
-const schemaVersion = "qianwen-user-acquisition-v6";
+const schemaVersion = "qianwen-user-acquisition-v7";
 const cohortKeys = ["all", "new", "existing"];
 const profileDimensionIds = [
   "asset_holding_status",
@@ -54,6 +57,9 @@ const businessStatIds = [
 const publicStates = new Set(["confirmed", "suppressed", "unavailable"]);
 const countLikePublicKey = /(?:^|_)(?:account|accounts|actor|actors|count|counts|population|eligible|excluded|reached|not_reached|unknown|event|events|share|rate|ratio|percent|total)(?:_|$)/i;
 const isCount = (value) => Number.isInteger(value) && value >= 0;
+const questionTopicIds = ["holding_account", "product_analysis", "market_research", "product_selection",
+  "transaction_action", "planning_configuration", "knowledge_explain", "qieman_service",
+  "report_information", "dialogue_followup", "other_expression"];
 
 function assertPlainObject(value, path) {
   if (!value || typeof value !== "object" || Array.isArray(value)) fail(`${path} 不是有效对象`);
@@ -262,6 +268,92 @@ function validateAudienceData() {
   }
 }
 
+function validateQuestionInsights() {
+  const insight = data.question_insights;
+  assertPlainObject(insight, "question_insights");
+  if (insight.as_of !== data.meta.data_cutoff || insight.cohort !== "new"
+      || insight.cohort_definition !== "registered_within_60m_of_first_binding") fail("question_insights 人群或截止时点异常");
+  if (insight.methodology?.topic_model !== "keyword-primary-intent-v1"
+      || insight.methodology?.raw_corpus !== "deidentified_redacted_encrypted"
+      || insight.methodology?.top_question_min_users !== 10) fail("question_insights 方法说明异常");
+  const summaryKeys = ["bound_users", "asking_users", "questions", "sessions", "legacy_preset_questions",
+    "short_followups", "first_question_preset_users", "one_day_users", "multi_day_users", "top_1pct_questions", "top_5pct_questions"];
+  assertPlainObject(insight.summary, "question_insights.summary");
+  assertExactKeys(Object.keys(insight.summary), summaryKeys, "question_insights.summary");
+  summaryKeys.forEach((key) => { if (!isCount(insight.summary[key])) fail(`question_insights.summary.${key} 无效`); });
+  const summary = insight.summary;
+  if (summary.bound_users !== data.metrics.new_accounts || summary.asking_users > summary.bound_users) fail("question_insights 新用户人数异常");
+  if (summary.sessions > summary.questions || summary.one_day_users + summary.multi_day_users !== summary.asking_users) fail("question_insights 汇总无法闭合");
+  if (summary.top_1pct_questions > summary.top_5pct_questions || summary.top_5pct_questions > summary.questions) fail("question_insights 集中度异常");
+  const depthIds = ["1", "2_4", "5_9", "10_19", "20_plus"];
+  assertItemIds(insight.depth, depthIds, "question_insights.depth");
+  if (insight.depth.some((item) => !isCount(item.users)) || insight.depth.reduce((sum, item) => sum + item.users, 0) !== summary.asking_users) {
+    fail("question_insights.depth 人数不闭合");
+  }
+  for (const scope of ["all", "first"]) {
+    const rows = insight.topics?.[scope];
+    assertItemIds(rows, questionTopicIds, `question_insights.topics.${scope}`);
+    rows.forEach((item) => {
+      if (!isCount(item.questions) || !isCount(item.users) || item.users > summary.asking_users) fail(`question_insights.topics.${scope}.${item.id} 无效`);
+    });
+    const expected = scope === "all" ? summary.questions : summary.asking_users;
+    if (rows.reduce((sum, item) => sum + item.questions, 0) !== expected) fail(`question_insights.topics.${scope} 不闭合`);
+  }
+  if (!Array.isArray(insight.top_questions) || insight.top_questions.length < 10) fail("question_insights.top_questions 缺失");
+  const sensitiveText = /(?:[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}|(?<!\d)1[3-9]\d{9}(?!\d)|(?<!\d)\d{17}[0-9Xx](?!\d)|身份证|银行卡|账号|密码)/i;
+  insight.top_questions.forEach((item, index) => {
+    if (item.rank !== index + 1 || typeof item.question !== "string" || item.question.length < 5
+      || !isCount(item.questions) || !isCount(item.users) || item.users < insight.methodology.top_question_min_users
+      || sensitiveText.test(item.question)) fail(`question_insights.top_questions[${index}] 异常`);
+  });
+}
+
+async function validateQuestionCorpus() {
+  assertPlainObject(questionEnvelope, "questions.enc.json");
+  if (questionEnvelope.schema_version !== "qianwen-question-corpus-envelope-v1" || questionEnvelope.compression !== "gzip") {
+    fail("原始提问密文版本异常");
+  }
+  if (questionEnvelope.meta?.data_cutoff !== data.meta.data_cutoff
+      || questionEnvelope.meta?.questions !== data.question_insights.summary.questions
+      || !isCount(questionEnvelope.meta?.redacted_rows)) fail("原始提问密文元数据与分析快照不一致");
+  if (!Number.isInteger(questionEnvelope.iterations) || questionEnvelope.iterations < 250000) fail("原始提问密文派生强度不足");
+  const decode = (value) => new Uint8Array(Buffer.from(value, "base64"));
+  const password = process.env.REPORT_PASSWORD || "2026";
+  const material = await webcrypto.subtle.importKey("raw", new TextEncoder().encode(password), "PBKDF2", false, ["deriveKey"]);
+  const key = await webcrypto.subtle.deriveKey(
+    { name: "PBKDF2", salt: decode(questionEnvelope.salt), iterations: questionEnvelope.iterations, hash: "SHA-256" },
+    material, { name: "AES-GCM", length: 256 }, false, ["decrypt"],
+  );
+  let corpus;
+  try {
+    const compressed = await webcrypto.subtle.decrypt({ name: "AES-GCM", iv: decode(questionEnvelope.iv) }, key, decode(questionEnvelope.data));
+    const plain = gunzipSync(new Uint8Array(compressed)).toString("utf8");
+    if (createHash("sha256").update(plain).digest("hex") !== questionEnvelope.meta.plaintext_sha256) fail("原始提问密文哈希校验失败");
+    corpus = JSON.parse(plain);
+  } catch (error) {
+    fail(`原始提问密文无法解密：${error.message}`);
+  }
+  if (corpus.schema_version !== "qianwen-question-corpus-v1" || corpus.meta?.identity_fields !== "none"
+      || corpus.meta?.topic_model !== "keyword-primary-intent-v1" || corpus.meta?.date_timezone !== "Asia/Shanghai") fail("原始提问库口径异常");
+  if (!Array.isArray(corpus.rows) || corpus.rows.length !== data.question_insights.summary.questions || corpus.meta.questions !== corpus.rows.length) {
+    fail("原始提问库记录数异常");
+  }
+  const actualTopics = Object.fromEntries(questionTopicIds.map((id) => [id, 0]));
+  const rawPii = /(?:[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}|(?<!\d)1[3-9]\d{9}(?!\d)|(?<!\d)\d{17}[0-9Xx](?!\d)|(?<!\d)(?:\d[ -]?){12,19}(?!\d)|\b(?:wxid_|openid[:：]?)[A-Za-z0-9_-]{6,}\b)/i;
+  corpus.rows.forEach((row, index) => {
+    assertPlainObject(row, `question_corpus.rows[${index}]`);
+    assertExactKeys(Object.keys(row), ["i", "d", "t", "q"], `question_corpus.rows[${index}]`);
+    if (row.i !== index + 1 || !/^\d{4}-\d{2}-\d{2}$/.test(row.d) || !questionTopicIds.includes(row.t)
+        || typeof row.q !== "string" || !row.q.trim() || rawPii.test(row.q)) fail(`question_corpus.rows[${index}] 格式或脱敏异常`);
+    actualTopics[row.t] += 1;
+  });
+  data.question_insights.topics.all.forEach((item) => {
+    if (actualTopics[item.id] !== item.questions || corpus.meta.topic_counts?.[item.id] !== item.questions) {
+      fail(`原始提问库主题 ${item.id} 与总体分析不一致（密文 ${actualTopics[item.id]} / 快照 ${item.questions}）`);
+    }
+  });
+}
+
 if (data.schema_version !== schemaVersion) fail("数据版本异常");
 if (data.meta?.window_start_at !== windowStartAt || data.meta?.launch_at !== launchAt || data.meta?.timezone !== "Asia/Shanghai") {
   fail("统计窗口或服务上线时间口径不完整");
@@ -341,6 +433,8 @@ if (
 ) fail("每日趋势与总数不闭合");
 
 validateAudienceData();
+validateQuestionInsights();
+await validateQuestionCorpus();
 
 const publicText = JSON.stringify(data);
 const forbidden = /(ying99_|union_id|user_id|po_manager_id|手机号|phone|redash|job[ _-]?id|api[_ -]?key|access[_ -]?token)/i;
@@ -447,6 +541,14 @@ for (const signal of [
   'id="behavior-bars"',
   'id="profile-distribution"',
   'id="touchpoint-distribution"',
+  'id="question-analysis"',
+  'id="question-topic-bars"',
+  'id="question-depth-bars"',
+  'id="frequent-question-list"',
+  'id="question-unlock-form"',
+  'id="question-search"',
+  'id="question-topic-filter"',
+  'id="question-table-body"',
   'data/fallback-data.js',
 ]) {
   if (!html.includes(signal)) fail(`页面缺少 ${signal}`);
@@ -475,6 +577,8 @@ for (const signal of [
   'name="segment" value="existing"',
   'name="segment" value="existing_reactivated"',
   'name="segment" value="existing_first_inv"',
+  'name="question-topic-scope" value="all"',
+  'name="question-topic-scope" value="first"',
 ]) {
   if (!html.includes(signal)) fail(`交互控件缺少 ${signal}`);
 }
@@ -519,7 +623,7 @@ for (const removed of [
   if (html.includes(removed) || app.includes(removed)) fail(`页面仍包含已移除内容：${removed}`);
 }
 for (const signal of [
-  "qianwen-user-acquisition-v6",
+  "qianwen-user-acquisition-v7",
   "validateData",
   "validateAudienceData",
   "filteredRows",
@@ -534,6 +638,11 @@ for (const signal of [
   "renderBusinessTiles",
   "renderReadout",
   "renderSegmentPanel",
+  "validateQuestionInsights",
+  "renderQuestionInsights",
+  "renderQuestionTopics",
+  "decryptQuestionCorpus",
+  "renderQuestionTable",
   "loadPublishedData",
   "window_cumulative_bound",
   "visibleSeries",
@@ -554,6 +663,10 @@ for (const rule of [
   ".chart-crosshair",
   ".chip-value",
   ".metric-tile-value",
+  ".question-findings",
+  ".topic-bars",
+  ".frequent-question-list",
+  ".question-table",
 ]) {
   if (!styles.includes(rule)) fail(`样式表缺少 ${rule}`);
 }

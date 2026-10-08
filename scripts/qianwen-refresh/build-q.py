@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""把取数各段的表格输出整理成 assemble.py 需要的 q1..q5.json。
+"""把取数各段的表格输出整理成 assemble.py 需要的 q1..q6.json。
 
 用法: build-q.py <工作目录>
 需要的文件（各段 SQL 见同目录 README）：
@@ -11,6 +11,7 @@
   zeroatbind.txt 绑定时已有资产的人数（用于「绑定时资产状态」维度）
   lifecycle.txt 资金留存三段（无首投 / 已流失 / 在管）
   segments.txt  分客群面板 5 维度 × 6 指标
+  questions.txt 新用户原始提问的汇总、深度、主题与高频问法
   cut.txt/ad.txt 数据截止时刻 / 资产快照日
 """
 import json, re, sys
@@ -212,7 +213,52 @@ items = [{"id": k, "population_accounts": I(sg[k]["pop"]),
 assert len(items) == len(SEG_ORDER), f"segments 缺维度: {set(SEG_ORDER)-set(sg)}"
 q5 = {"as_of": iso(CUT), "asset_as_of": AD, "items": items}
 
-for name, obj in (("q1", q1), ("q2", q2), ("q3", q3), ("q4", q4), ("q5", q5)):
+# ── q6 新用户提问洞察 ──
+question_rows = rows((W / "questions.txt").read_text())
+summary = {r["item_id"]: I(r["value_1"]) for r in question_rows if r["kind"] == "summary"}
+depth_order = ["1", "2_4", "5_9", "10_19", "20_plus"]
+topic_order = ["holding_account", "product_analysis", "market_research", "product_selection",
+               "transaction_action", "planning_configuration", "knowledge_explain", "qieman_service",
+               "report_information", "dialogue_followup", "other_expression"]
+depth_by_id = {r["item_id"]: I(r["value_1"]) for r in question_rows if r["kind"] == "depth"}
+
+def topic_rows(kind):
+    by_id = {r["item_id"]: {"id": r["item_id"], "questions": I(r["value_1"]),
+                             "users": I(r["value_2"])}
+             for r in question_rows if r["kind"] == kind}
+    return [by_id.get(topic, {"id": topic, "questions": 0, "users": 0}) for topic in topic_order]
+
+top_questions = []
+for r in sorted((r for r in question_rows if r["kind"] == "top_question"), key=lambda x: I(x["item_id"])):
+    try:
+        question = bytes.fromhex(r["text_hex"]).decode("utf-8")
+    except (ValueError, UnicodeDecodeError) as exc:
+        raise SystemExit(f"高频问题 HEX 解码失败: {r['item_id']}") from exc
+    top_questions.append({"rank": I(r["item_id"]), "question": question,
+                          "questions": I(r["value_1"]), "users": I(r["value_2"])})
+
+required_summary = {"bound_users", "asking_users", "questions", "sessions", "legacy_preset_questions",
+                    "short_followups", "first_question_preset_users", "one_day_users", "multi_day_users",
+                    "top_1pct_questions", "top_5pct_questions"}
+assert set(summary) == required_summary, f"提问汇总字段不完整: {required_summary - set(summary)}"
+assert sum(depth_by_id.values()) == summary["asking_users"], "提问深度人数不闭合"
+q6 = {
+    "as_of": iso(CUT),
+    "cohort": "new",
+    "cohort_definition": "registered_within_60m_of_first_binding",
+    "methodology": {
+        "topic_model": "keyword-primary-intent-v1",
+        "topic_note": "每条问题按首个命中规则归入一个主意图；未命中及依赖上下文的表达归入 other_expression",
+        "top_question_min_users": 10,
+        "raw_corpus": "deidentified_redacted_encrypted",
+    },
+    "summary": summary,
+    "depth": [{"id": item_id, "users": depth_by_id.get(item_id, 0)} for item_id in depth_order],
+    "topics": {"all": topic_rows("topic_all"), "first": topic_rows("topic_first")},
+    "top_questions": top_questions,
+}
+
+for name, obj in (("q1", q1), ("q2", q2), ("q3", q3), ("q4", q4), ("q5", q5), ("q6", q6)):
     json.dump(obj, open(W / f"{name}.json", "w"), ensure_ascii=False, indent=1)
-print("OK → q1..q5.json")
+print("OK → q1..q6.json")
 print("business.all:", json.dumps(business["all"], ensure_ascii=False))

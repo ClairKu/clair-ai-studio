@@ -17,6 +17,7 @@ DEF_VERSION = "2026-08-20-v2"
 template = json.load(open(sys.argv[1]))
 q1, q2, q3, q4 = (json.load(open(HERE / f"q{i}.json")) for i in (1, 2, 3, 4))
 q5 = json.load(open(HERE / "q5.json"))   # 分客群面板；缺了宁可失败，别发个空面板
+q6 = json.load(open(HERE / "q6.json"))   # 新用户提问洞察；与原始提问密文使用同一截止时点
 cutoff = q1["data_cutoff"]
 cutoff_day = cutoff[:10]
 
@@ -184,9 +185,10 @@ for co in COHORTS:
     business_cohorts[co] = {"population_accounts": POP[co], "stats": stats}
 
 out = dict(template)
+out["schema_version"] = "qianwen-user-acquisition-v7"
 out["meta"] = {**template["meta"], "generated_at": cutoff, "data_cutoff": cutoff,
                "latest_day_is_partial": True,
-               "privacy": "只公开统计结果；2026-08-24 起按业务方要求，小分组不再合并或隐藏；页面不含用户身份标识与原始对话",
+               "privacy": "公开总体统计与至少 10 位用户重复的高频问法；完整原始提问去标识、脱敏并单独加密，不含用户或会话标识",
                "privacy_policy": "audience-full-disclosure-v2"}
 out["privacy"] = {**template["privacy"], "minimum_public_cell": 1, "small_cell_rule": "full_disclosure"}
 out["metrics"] = metrics
@@ -241,6 +243,11 @@ assert [x["id"] for x in seg_items] == SEG_IDS, [x["id"] for x in seg_items]
 _pop = {x["id"]: x["population_accounts"] for x in seg_items}
 assert _pop["new_inv"] <= _pop["reinvested"] and _pop["first_inv"] <= _pop["reinvested"], _pop
 out["segments"] = {"anchor": "first_bound_at", "window_end_at": cutoff, "items": seg_items}
+if q6["as_of"] != cutoff:
+    raise SystemExit("question_insights 截止时点与看板不一致")
+if q6["summary"]["bound_users"] != metrics["new_accounts"]:
+    raise SystemExit("question_insights 新用户基数与 metrics.new_accounts 不一致")
+out["question_insights"] = q6
 
 json.dump(out, open(HERE / "latest.new.json", "w"), ensure_ascii=False, indent=2)
 open(HERE / "latest.new.json", "a").write("\n")

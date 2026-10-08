@@ -1,5 +1,5 @@
 const DATA_URL = "./data/latest.json";
-const SCHEMA_VERSION = "qianwen-user-acquisition-v6";
+const SCHEMA_VERSION = "qianwen-user-acquisition-v7";
 const LAUNCH_AT = "2026-08-10T08:00:00+08:00";
 const WINDOW_START_AT = "2026-08-03T00:00:00+08:00";
 const LAUNCH_DAY = LAUNCH_AT.slice(0, 10);
@@ -192,6 +192,29 @@ const SEGMENTS = [
   { id: "existing_first_inv", label: "老户首投", note: "老户中人生首投发生在绑定后" },
 ];
 const PUBLIC_STATES = new Set(["confirmed", "suppressed", "unavailable"]);
+const QUESTION_TOPICS = {
+  holding_account: "持仓与账户诊断",
+  product_analysis: "基金 / 策略分析",
+  market_research: "市场与行业研判",
+  product_selection: "产品筛选与推荐",
+  transaction_action: "交易与操作",
+  planning_configuration: "资金规划与配置",
+  knowledge_explain: "投资知识解释",
+  qieman_service: "且慢 / 小顾服务",
+  report_information: "报告与资讯",
+  dialogue_followup: "短追问与对话承接",
+  other_expression: "需结合上下文 / 未命中",
+};
+const QUESTION_TOPIC_IDS = Object.keys(QUESTION_TOPICS);
+const QUESTION_DEPTH_LABELS = {
+  "1": "只问 1 次",
+  "2_4": "问 2–4 次",
+  "5_9": "问 5–9 次",
+  "10_19": "问 10–19 次",
+  "20_plus": "问 20 次以上",
+};
+const QUESTION_CORPUS_URL = "./data/questions.enc.json";
+const QUESTION_PAGE_SIZE = 30;
 
 const viewState = {
   visibleSeries: new Set(SERIES_ORDER),
@@ -203,11 +226,17 @@ const viewState = {
   customApplied: false,
   audienceCohort: "all",
   segment: "all",
+  questionTopicScope: "all",
+  questionPage: 1,
 };
 
 let currentData = null;
 let currentRows = [];
 let resizeTimer = null;
+let questionCorpus = null;
+let questionRows = [];
+let questionUnlockAttempted = false;
+let questionSearchTimer = null;
 
 function escapeHtml(value) {
   return String(value ?? "")
@@ -387,6 +416,42 @@ function validateAudienceData(data) {
   });
 }
 
+function validateQuestionInsights(data) {
+  const insight = data.question_insights;
+  if (!insight || insight.cohort !== "new" || insight.as_of !== data.meta.data_cutoff) throw new Error("新用户提问分析口径异常");
+  if (insight.cohort_definition !== "registered_within_60m_of_first_binding") throw new Error("新用户提问人群定义异常");
+  if (insight.methodology?.topic_model !== "keyword-primary-intent-v1" || insight.methodology?.raw_corpus !== "deidentified_redacted_encrypted") {
+    throw new Error("新用户提问分析方法异常");
+  }
+  const summaryKeys = ["bound_users", "asking_users", "questions", "sessions", "legacy_preset_questions",
+    "short_followups", "first_question_preset_users", "one_day_users", "multi_day_users", "top_1pct_questions", "top_5pct_questions"];
+  const summary = insight.summary || {};
+  summaryKeys.forEach((key) => { if (!isWholeCount(summary[key])) throw new Error(`提问汇总 ${key} 异常`); });
+  if (summary.bound_users !== data.metrics.new_accounts || summary.asking_users > summary.bound_users || summary.sessions > summary.questions) {
+    throw new Error("提问汇总与新用户基数不一致");
+  }
+  if (summary.one_day_users + summary.multi_day_users !== summary.asking_users) throw new Error("提问活跃天数不闭合");
+  if (summary.top_1pct_questions > summary.top_5pct_questions || summary.top_5pct_questions > summary.questions) throw new Error("提问集中度异常");
+  if (!Array.isArray(insight.depth) || insight.depth.reduce((sum, item) => sum + item.users, 0) !== summary.asking_users) throw new Error("提问深度不闭合");
+  for (const scope of ["all", "first"]) {
+    const rows = insight.topics?.[scope];
+    if (!Array.isArray(rows) || rows.length !== QUESTION_TOPIC_IDS.length || new Set(rows.map((item) => item.id)).size !== QUESTION_TOPIC_IDS.length) {
+      throw new Error(`提问主题 ${scope} 不完整`);
+    }
+    rows.forEach((item) => {
+      if (!QUESTION_TOPIC_IDS.includes(item.id) || !isWholeCount(item.questions) || !isWholeCount(item.users)) throw new Error(`提问主题 ${scope} 异常`);
+    });
+    const expected = scope === "all" ? summary.questions : summary.asking_users;
+    if (rows.reduce((sum, item) => sum + item.questions, 0) !== expected) throw new Error(`提问主题 ${scope} 不闭合`);
+  }
+  if (!Array.isArray(insight.top_questions) || !insight.top_questions.length) throw new Error("高频原始问法缺失");
+  insight.top_questions.forEach((item, index) => {
+    if (item.rank !== index + 1 || typeof item.question !== "string" || item.question.length < 5 || !isWholeCount(item.questions) || !isWholeCount(item.users)) {
+      throw new Error("高频原始问法格式异常");
+    }
+  });
+}
+
 function validateData(data) {
   if (!data || data.schema_version !== SCHEMA_VERSION) throw new Error("数据版本不兼容");
   const { meta = {}, metrics = {} } = data;
@@ -461,6 +526,7 @@ function validateData(data) {
     || runningBound !== metrics.bound_accounts
   ) throw new Error("趋势总数与关键数据不一致");
   validateAudienceData(data);
+  validateQuestionInsights(data);
   return data;
 }
 
@@ -1269,6 +1335,163 @@ function renderAudience({ announce = false } = {}) {
   if (announce) $("#audience-announcement").textContent = `已切换至${label}，共 ${population === null ? "未知" : number.format(population)} 人。`;
 }
 
+function renderQuestionTopics() {
+  const insight = currentData.question_insights;
+  const scope = viewState.questionTopicScope;
+  const rows = [...insight.topics[scope]].sort((a, b) => b.questions - a.questions);
+  const total = scope === "all" ? insight.summary.questions : insight.summary.asking_users;
+  const max = Math.max(...rows.map((item) => item.questions), 1);
+  $("#question-topic-note").textContent = scope === "all"
+    ? "全量提问按首个命中规则归入一个主意图；用户数可跨主题重复。"
+    : "每位实际提问用户只取第一问，更接近刚进入小顾时的原始需求。";
+  $("#question-topic-bars").innerHTML = rows.map((item) => `<div class="topic-row">
+    <span class="topic-row-label">${escapeHtml(QUESTION_TOPICS[item.id])}</span>
+    <div class="topic-track" role="img" aria-label="${escapeHtml(QUESTION_TOPICS[item.id])} ${number.format(item.questions)} 条，占 ${formatShare(item.questions, total)}"><i style="width:${Math.max(1.5, item.questions / max * 100)}%"></i></div>
+    <div class="topic-row-value"><strong>${number.format(item.questions)}</strong><small>${formatShare(item.questions, total)} · ${number.format(item.users)} 人</small></div>
+  </div>`).join("");
+}
+
+function renderQuestionInsights() {
+  const insight = currentData.question_insights;
+  const summary = insight.summary;
+  $("#question-askers").textContent = number.format(summary.asking_users);
+  $("#question-ask-rate").textContent = `占 ${number.format(summary.bound_users)} 名新用户的 ${formatShare(summary.asking_users, summary.bound_users)}`;
+  $("#question-total").textContent = number.format(summary.questions);
+  $("#question-average").textContent = `人均 ${number.format(Math.round(summary.questions / summary.asking_users * 10) / 10)} 问`;
+  $("#question-sessions").textContent = number.format(summary.sessions);
+  $("#question-one-day").textContent = number.format(summary.one_day_users);
+  $("#question-one-day-rate").textContent = `占提问用户 ${formatShare(summary.one_day_users, summary.asking_users)}`;
+
+  const first = insight.topics.first;
+  const explicitFirst = first.filter((item) => !["other_expression", "dialogue_followup"].includes(item.id)).sort((a, b) => b.questions - a.questions).slice(0, 3);
+  const topFirstCopy = explicitFirst.map((item) => `${QUESTION_TOPICS[item.id]} ${formatShare(item.questions, summary.asking_users)}`).join("、");
+  $("#question-findings").innerHTML = [
+    { key: "FIRST INTENT", title: "第一问最明确的三类需求", copy: `${topFirstCopy}；另有 ${formatShare(first.find((item) => item.id === "other_expression").questions, summary.asking_users)} 需结合对话上下文，不能硬贴标签。` },
+    { key: "CONCENTRATION", title: `头部 1% 用户贡献 ${formatShare(summary.top_1pct_questions, summary.questions)}`, copy: `前 5% 用户贡献 ${number.format(summary.top_5pct_questions)} 条，占 ${formatShare(summary.top_5pct_questions, summary.questions)}。问题量高度集中，不能把高频用户的声音直接当成全民需求。` },
+    { key: "PROMPT EFFECT", title: `旧版四个预设问法占 ${formatShare(summary.legacy_preset_questions, summary.questions)}`, copy: `共有 ${number.format(summary.first_question_preset_users)} 人第一问就是旧预设，占提问用户 ${formatShare(summary.first_question_preset_users, summary.asking_users)}；高重复问法应与用户自主输入分开解读。` },
+  ].map((item) => `<article class="question-finding"><em>${item.key}</em><strong>${escapeHtml(item.title)}</strong><p>${escapeHtml(item.copy)}</p></article>`).join("");
+
+  $("#question-depth-bars").innerHTML = insight.depth.map((item) => `<div class="depth-row">
+    <div class="depth-row-copy"><span>${escapeHtml(QUESTION_DEPTH_LABELS[item.id])}</span><strong>${number.format(item.users)}<em>${formatShare(item.users, summary.asking_users)}</em></strong></div>
+    <div class="depth-track"><i style="width:${Math.max(1.5, item.users / summary.asking_users * 100)}%"></i></div>
+  </div>`).join("");
+  $("#question-concentration").innerHTML = `<strong>${formatShare(summary.one_day_users, summary.asking_users)} 的提问用户只在一天内使用</strong><p>拉新入口已经让多数新用户开口，但持续回访只有 ${number.format(summary.multi_day_users)} 人。下一步应优先验证首轮回答是否真正承接了需求，而不只是继续堆流量。</p>`;
+
+  $("#frequent-question-list").innerHTML = insight.top_questions.map((item) => `<article class="frequent-question">
+    <span class="frequent-question-rank">${String(item.rank).padStart(2, "0")}</span>
+    <div><q>${escapeHtml(item.question)}</q><p>${number.format(item.questions)} 次 · ${number.format(item.users)} 位用户</p></div>
+  </article>`).join("");
+  renderQuestionTopics();
+  const topicFilter = $("#question-topic-filter");
+  if (topicFilter.options.length === 1) {
+    topicFilter.insertAdjacentHTML("beforeend", QUESTION_TOPIC_IDS.map((id) => `<option value="${id}">${escapeHtml(QUESTION_TOPICS[id])}</option>`).join(""));
+  }
+  void autoUnlockQuestionCorpus();
+}
+
+const decodeQuestionBase64 = (value) => Uint8Array.from(atob(value), (character) => character.charCodeAt(0));
+
+async function loadQuestionEnvelope() {
+  if (window.QIANWEN_QUESTION_CORPUS_ENCRYPTED) return window.QIANWEN_QUESTION_CORPUS_ENCRYPTED;
+  const response = await fetch(`${QUESTION_CORPUS_URL}?refresh=${Date.now()}`, { cache: "no-store" });
+  if (!response.ok) throw new Error(`原始提问密文读取失败（HTTP ${response.status}）`);
+  return response.json();
+}
+
+async function decryptQuestionCorpus(envelope, supplied) {
+  if (envelope?.schema_version !== "qianwen-question-corpus-envelope-v1" || envelope.compression !== "gzip") throw new Error("原始提问密文版本不兼容");
+  if (!globalThis.crypto?.subtle || typeof DecompressionStream !== "function") throw new Error("当前浏览器不支持安全解锁，请升级后重试");
+  const material = await crypto.subtle.importKey("raw", new TextEncoder().encode(supplied), "PBKDF2", false, ["deriveKey"]);
+  const key = await crypto.subtle.deriveKey(
+    { name: "PBKDF2", salt: decodeQuestionBase64(envelope.salt), iterations: envelope.iterations, hash: "SHA-256" },
+    material, { name: "AES-GCM", length: 256 }, false, ["decrypt"],
+  );
+  const compressed = await crypto.subtle.decrypt({ name: "AES-GCM", iv: decodeQuestionBase64(envelope.iv) }, key, decodeQuestionBase64(envelope.data));
+  const decompressed = new Blob([compressed]).stream().pipeThrough(new DecompressionStream("gzip"));
+  const corpus = JSON.parse(await new Response(decompressed).text());
+  if (corpus?.schema_version !== "qianwen-question-corpus-v1" || !Array.isArray(corpus.rows) || corpus.rows.length !== corpus.meta?.questions) {
+    throw new Error("原始提问库结构异常");
+  }
+  const insight = currentData.question_insights;
+  if (corpus.meta.data_cutoff !== insight.as_of || corpus.rows.length !== insight.summary.questions) throw new Error("原始提问库与分析快照不一致");
+  const counts = Object.fromEntries(QUESTION_TOPIC_IDS.map((id) => [id, 0]));
+  corpus.rows.forEach((row, index) => {
+    if (row.i !== index + 1 || !/^\d{4}-\d{2}-\d{2}$/.test(row.d) || !QUESTION_TOPIC_IDS.includes(row.t) || typeof row.q !== "string" || !row.q) {
+      throw new Error("原始提问库包含异常记录");
+    }
+    counts[row.t] += 1;
+  });
+  insight.topics.all.forEach((item) => { if (counts[item.id] !== item.questions) throw new Error(`主题 ${item.id} 与分析快照不一致`); });
+  return corpus;
+}
+
+function cachedQuestionCredential() {
+  for (const key of ["clair-qianwen-report-unlock-v1", "clair-ai-studio-report-credential-v1"]) {
+    try { const value = sessionStorage.getItem(key); if (value) return value; } catch { /* opaque iframe */ }
+  }
+  return "";
+}
+
+function setQuestionUnlockState(message, { busy = false, error = false } = {}) {
+  const status = $("#question-unlock-status");
+  const button = $("#question-unlock-button");
+  status.textContent = message;
+  status.style.color = error ? "var(--coral)" : "";
+  button.disabled = busy;
+  button.textContent = busy ? "正在解锁…" : "解锁原始提问";
+}
+
+async function unlockQuestionCorpus(supplied, { automatic = false } = {}) {
+  if (!supplied || questionCorpus) return;
+  setQuestionUnlockState(automatic ? "正在使用本次报告会话解锁…" : "正在解密并校验 6.5 万条提问…", { busy: true });
+  try {
+    questionCorpus = await decryptQuestionCorpus(await loadQuestionEnvelope(), supplied);
+    try { sessionStorage.setItem("clair-qianwen-report-unlock-v1", supplied); } catch { /* opaque iframe */ }
+    $("#question-password").value = "";
+    $("#question-unlock-form").hidden = true;
+    $("#question-explorer").hidden = false;
+    viewState.questionPage = 1;
+    renderQuestionTable();
+  } catch (error) {
+    questionCorpus = null;
+    setQuestionUnlockState(automatic ? "自动解锁不可用，请输入报告密码。" : (error?.message || "密码不正确或密文校验失败"), { error: true });
+  } finally {
+    if (!questionCorpus) setQuestionUnlockState($("#question-unlock-status").textContent, { error: true });
+  }
+}
+
+async function autoUnlockQuestionCorpus() {
+  if (questionUnlockAttempted || questionCorpus) return;
+  questionUnlockAttempted = true;
+  const credential = cachedQuestionCredential();
+  if (credential) await unlockQuestionCorpus(credential, { automatic: true });
+  else setQuestionUnlockState("请输入报告密码，解锁脱敏后的全部原始提问。");
+}
+
+function filteredQuestionRows() {
+  if (!questionCorpus) return [];
+  const query = $("#question-search").value.trim().toLocaleLowerCase("zh-CN");
+  const topic = $("#question-topic-filter").value;
+  return questionCorpus.rows.filter((row) => (topic === "all" || row.t === topic)
+    && (!query || row.q.toLocaleLowerCase("zh-CN").includes(query)));
+}
+
+function renderQuestionTable() {
+  questionRows = filteredQuestionRows();
+  const pages = Math.max(1, Math.ceil(questionRows.length / QUESTION_PAGE_SIZE));
+  viewState.questionPage = Math.min(Math.max(1, viewState.questionPage), pages);
+  const start = (viewState.questionPage - 1) * QUESTION_PAGE_SIZE;
+  const visible = questionRows.slice(start, start + QUESTION_PAGE_SIZE);
+  $("#question-table-body").innerHTML = visible.length ? visible.map((row) => `<tr>
+    <td>${number.format(row.i)}</td><td>${escapeHtml(row.d)}</td><td>${escapeHtml(QUESTION_TOPICS[row.t])}</td><td>${escapeHtml(row.q)}</td>
+  </tr>`).join("") : '<tr><td colspan="4">没有符合当前筛选的提问。</td></tr>';
+  $("#question-result-count").textContent = `找到 ${number.format(questionRows.length)} 条；本页 ${number.format(visible.length)} 条`;
+  $("#question-corpus-meta").textContent = `截至 ${formatCutoff(questionCorpus.meta.data_cutoff, true)} · 自动脱敏 ${number.format(questionCorpus.meta.redacted_rows)} 条`;
+  $("#question-page").textContent = `第 ${number.format(viewState.questionPage)} / ${number.format(pages)} 页`;
+  $("#question-prev").disabled = viewState.questionPage <= 1;
+  $("#question-next").disabled = viewState.questionPage >= pages;
+}
+
 function shortDay(value) {
   return `${Number(value.slice(5, 7))}/${value.slice(8, 10)}`;
 }
@@ -1310,6 +1533,7 @@ function renderView({ announce = false } = {}) {
   renderSegmentPanel();
   renderChart(rows);
   renderTable(rows);
+  renderQuestionInsights();
   renderAudience();
   applySelectedDate(viewState.selectedDate, { announce });
 }
@@ -1351,6 +1575,30 @@ function bindInteractions() {
     viewState.audienceCohort = input.value;
     renderAudience({ announce: true });
   }));
+  document.querySelectorAll('input[name="question-topic-scope"]').forEach((input) => input.addEventListener("change", () => {
+    if (!input.checked || !currentData) return;
+    viewState.questionTopicScope = input.value;
+    renderQuestionTopics();
+  }));
+  $("#question-unlock-form").addEventListener("submit", (event) => {
+    event.preventDefault();
+    const supplied = $("#question-password").value.trim();
+    if (!supplied) { setQuestionUnlockState("请输入报告密码。", { error: true }); $("#question-password").focus(); return; }
+    void unlockQuestionCorpus(supplied);
+  });
+  $("#question-search").addEventListener("input", () => {
+    window.clearTimeout(questionSearchTimer);
+    questionSearchTimer = window.setTimeout(() => { viewState.questionPage = 1; renderQuestionTable(); }, 160);
+  });
+  $("#question-topic-filter").addEventListener("change", () => { viewState.questionPage = 1; renderQuestionTable(); });
+  $("#question-clear").addEventListener("click", () => {
+    $("#question-search").value = "";
+    $("#question-topic-filter").value = "all";
+    viewState.questionPage = 1;
+    renderQuestionTable();
+  });
+  $("#question-prev").addEventListener("click", () => { viewState.questionPage -= 1; renderQuestionTable(); });
+  $("#question-next").addEventListener("click", () => { viewState.questionPage += 1; renderQuestionTable(); });
   $("#range-form").addEventListener("submit", (event) => {
     event.preventDefault();
     const parsed = parseRangeInput($("#range-input").value);

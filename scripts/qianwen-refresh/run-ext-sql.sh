@@ -6,6 +6,7 @@ set -u
 source ~/.zshrc 2>/dev/null
 CUT="${QW_CUT:?}"; AD="${QW_AD:?}"; W="${QW_WORK:?}"
 REDASH="$HOME/.claude/skills/redash/redash.py"
+HERE="${0:A:h}"
 Q() { # Q <name> <timeout> <sql>
   local name=$1 to=$2 sql=$3
   python3 "$REDASH" execute-adhoc --timeout "$to" --sql "$sql" > "$W/$name.txt" 2>&1
@@ -78,6 +79,10 @@ FROM (SELECT b.pmid, $COHORT AS cohort, COALESCE(a.ta,0) AS ta,
     EXISTS(SELECT 1 FROM qm_meta.trade_detail t WHERE t.user_id=b.pmid AND t.canceled=0 AND t.buy_amount>0 AND t.po_code<>'WALLET' AND t.accept_time<'$CUT') AS ever_buy,
     (SELECT MAX(DATE(t.accept_time)) FROM qm_meta.trade_detail t WHERE t.user_id=b.pmid AND t.canceled=0 AND t.buy_amount>0 AND t.po_code<>'WALLET' AND t.accept_time<'$CUT') AS last_buy_day
   FROM $B LEFT JOIN $ASSET_AD a ON a.account3_id=p.account3_id AND p.account3_id<>1002) u GROUP BY u.cohort" &
+pids+=($!)
+
+QUESTION_SQL="$(sed "s/__CUT__/$CUT/g" "$HERE/question-insights.sql")"
+Q questions 550 "$QUESTION_SQL" &
 pids+=($!)
 
 

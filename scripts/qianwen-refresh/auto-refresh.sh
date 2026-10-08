@@ -85,8 +85,13 @@ QW_CUT="$CUT" QW_AD="$AD" QW_WORK="$WORK" zsh "$S/run-ext-sql.sh" || fail "扩�
 git -C "$WORK/src" show HEAD:public/reports/qianwen-user-acquisition-dashboard/data/latest.json > "$WORK/template.json"
 out=$(python3 "$S/build-q.py" "$WORK" 2>&1) || fail "build-q 整理失败：$(echo "$out" | tail -1)"; echo "$out" | tail -2
 out=$(python3 "$S/assemble.py" "$WORK/template.json" "$WORK" 2>&1) || fail "assemble 校验失败：$(echo "$out" | tail -1)"; echo "$out" | tail -2
+NODE_BIN="$(command -v node)"
+[ -n "$NODE_BIN" ] || fail "缺少 Node.js，无法构建原始提问密文"
+out=$(QW_CUT="$CUT" QW_QUESTION_OUT="$WORK/questions.enc.json" "$NODE_BIN" "$S/build-question-corpus.mjs" 2>&1) \
+  || fail "原始提问脱敏加密失败：$(echo "$out" | tail -1)"
+echo "$out" | tail -1
 
-# ── 构建 + 提交（replay.sh 会在 $WORK/wt 建 worktree、npm run build、只提交 3 个文件）──
+# ── 构建 + 提交（replay.sh 会在 $WORK/wt 建 worktree、npm run build、只提交本报告文件）──
 QW_WORK="$WORK" zsh "$S/replay.sh" || fail "replay/build 失败"
 
 # ── 推送（远端被并行会话推进就重取 head 再推）──

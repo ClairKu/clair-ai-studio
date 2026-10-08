@@ -1,5 +1,5 @@
 {
-  "schema_version": "qianwen-user-acquisition-v6",
+  "schema_version": "qianwen-user-acquisition-v7",
   "meta": {
     "title": "千问 X 且慢AI小顾 用户数据看板",
     "window_start_at": "2026-08-03T00:00:00+08:00",
@@ -9,7 +9,7 @@
     "timezone": "Asia/Shanghai",
     "source": "盈米本体 · 生产数据库",
     "evidence_state": "confirmed",
-    "privacy": "只公开统计结果；2026-08-24 起按业务方要求，小分组不再合并或隐藏；页面不含用户身份标识与原始对话",
+    "privacy": "公开总体统计与至少 10 位用户重复的高频问法；完整原始提问去标识、脱敏并单独加密，不含用户或会话标识",
     "privacy_policy": "audience-full-disclosure-v2",
     "latest_day_is_partial": true
   },
@@ -2620,6 +2620,278 @@
         "holder_accounts": 4,
         "total_asset_wan": 1.79,
         "per_capita_asset_wan": 0.4475
+      }
+    ]
+  },
+  "question_insights": {
+    "as_of": "2026-10-08T10:46:48+08:00",
+    "cohort": "new",
+    "cohort_definition": "registered_within_60m_of_first_binding",
+    "methodology": {
+      "topic_model": "keyword-primary-intent-v1",
+      "topic_note": "每条问题按首个命中规则归入一个主意图；未命中及依赖上下文的表达归入 other_expression",
+      "top_question_min_users": 10,
+      "raw_corpus": "deidentified_redacted_encrypted"
+    },
+    "summary": {
+      "asking_users": 10776,
+      "bound_users": 12121,
+      "first_question_preset_users": 986,
+      "legacy_preset_questions": 3216,
+      "multi_day_users": 1634,
+      "one_day_users": 9142,
+      "questions": 65517,
+      "sessions": 11967,
+      "short_followups": 1000,
+      "top_1pct_questions": 23998,
+      "top_5pct_questions": 34236
+    },
+    "depth": [
+      {
+        "id": "1",
+        "users": 3517
+      },
+      {
+        "id": "2_4",
+        "users": 4648
+      },
+      {
+        "id": "5_9",
+        "users": 1655
+      },
+      {
+        "id": "10_19",
+        "users": 618
+      },
+      {
+        "id": "20_plus",
+        "users": 338
+      }
+    ],
+    "topics": {
+      "all": [
+        {
+          "id": "holding_account",
+          "questions": 8711,
+          "users": 3005
+        },
+        {
+          "id": "product_analysis",
+          "questions": 8581,
+          "users": 3261
+        },
+        {
+          "id": "market_research",
+          "questions": 6801,
+          "users": 2968
+        },
+        {
+          "id": "product_selection",
+          "questions": 4277,
+          "users": 2461
+        },
+        {
+          "id": "transaction_action",
+          "questions": 5022,
+          "users": 1764
+        },
+        {
+          "id": "planning_configuration",
+          "questions": 967,
+          "users": 600
+        },
+        {
+          "id": "knowledge_explain",
+          "questions": 1695,
+          "users": 991
+        },
+        {
+          "id": "qieman_service",
+          "questions": 697,
+          "users": 353
+        },
+        {
+          "id": "report_information",
+          "questions": 182,
+          "users": 85
+        },
+        {
+          "id": "dialogue_followup",
+          "questions": 1553,
+          "users": 610
+        },
+        {
+          "id": "other_expression",
+          "questions": 27031,
+          "users": 6026
+        }
+      ],
+      "first": [
+        {
+          "id": "holding_account",
+          "questions": 1507,
+          "users": 1507
+        },
+        {
+          "id": "product_analysis",
+          "questions": 1911,
+          "users": 1911
+        },
+        {
+          "id": "market_research",
+          "questions": 1544,
+          "users": 1544
+        },
+        {
+          "id": "product_selection",
+          "questions": 943,
+          "users": 943
+        },
+        {
+          "id": "transaction_action",
+          "questions": 876,
+          "users": 876
+        },
+        {
+          "id": "planning_configuration",
+          "questions": 169,
+          "users": 169
+        },
+        {
+          "id": "knowledge_explain",
+          "questions": 439,
+          "users": 439
+        },
+        {
+          "id": "qieman_service",
+          "questions": 88,
+          "users": 88
+        },
+        {
+          "id": "report_information",
+          "questions": 23,
+          "users": 23
+        },
+        {
+          "id": "dialogue_followup",
+          "questions": 29,
+          "users": 29
+        },
+        {
+          "id": "other_expression",
+          "questions": 3247,
+          "users": 3247
+        }
+      ]
+    },
+    "top_questions": [
+      {
+        "rank": 1,
+        "question": "帮我看看现在的持仓结构，给出优化建议",
+        "questions": 1138,
+        "users": 898
+      },
+      {
+        "rank": 2,
+        "question": "推荐2-3个值得长期持有的基金，并给出详细的分析",
+        "questions": 987,
+        "users": 791
+      },
+      {
+        "rank": 3,
+        "question": "帮我看看最近有哪些比较热门的基金或投顾策略",
+        "questions": 631,
+        "users": 528
+      },
+      {
+        "rank": 4,
+        "question": "最近市场有哪些特点，有哪些机会和风险值得关注",
+        "questions": 460,
+        "users": 347
+      },
+      {
+        "rank": 5,
+        "question": "现在市场里有哪些值得关注的机会和风险？普通投资者可以采取什么样的应对思路？",
+        "questions": 131,
+        "users": 120
+      },
+      {
+        "rank": 6,
+        "question": "最近哪些行业板块表现比较突出，背后的原因是什么，现在还值得继续关注吗？",
+        "questions": 109,
+        "users": 103
+      },
+      {
+        "rank": 7,
+        "question": "如果市场继续震荡，哪些资产通常更抗波动，哪些方向的风险可能更大？",
+        "questions": 103,
+        "users": 101
+      },
+      {
+        "rank": 8,
+        "question": "最近哪些基金表现比较突出，主要集中在哪些板块？它们为什么上涨，又有哪些风险需要注意？",
+        "questions": 101,
+        "users": 96
+      },
+      {
+        "rank": 9,
+        "question": "现在A股整体算贵还是便宜？机会和风险分别在哪里？",
+        "questions": 99,
+        "users": 95
+      },
+      {
+        "rank": 10,
+        "question": "最近A股、港股、债券和黄金分别表现怎么样？为什么有的涨、有的跌，应该怎么看？",
+        "questions": 99,
+        "users": 92
+      },
+      {
+        "rank": 11,
+        "question": "最近表现不错的基金里，哪些更适合长期观察，哪些可能只是短期热门？说说判断理由吗？",
+        "questions": 98,
+        "users": 93
+      },
+      {
+        "rank": 12,
+        "question": "最近大家比较关注哪些基金？它们长期表现怎么样，跌起来可能有多大，费用高不高？",
+        "questions": 97,
+        "users": 94
+      },
+      {
+        "rank": 13,
+        "question": "同样投资一个行业，主动基金和指数基金通常有什么不同？选择时应该重点看什么？",
+        "questions": 96,
+        "users": 95
+      },
+      {
+        "rank": 14,
+        "question": "有些基金短期涨得很快，现在再关注会不会有追高风险？应该看哪些方面再做判断？",
+        "questions": 95,
+        "users": 92
+      },
+      {
+        "rank": 15,
+        "question": "最近市场信息太多了，帮我筛选出真正重要的变化，并用简单的方式说说接下来应该关注什么。",
+        "questions": 91,
+        "users": 88
+      },
+      {
+        "rank": 16,
+        "question": "一只基金的净值已经比较高了，还能不能关注？净值高低能代表基金贵不贵吗？",
+        "questions": 86,
+        "users": 84
+      },
+      {
+        "rank": 17,
+        "question": "且慢有哪些策略比较适合入门体验？介绍一下各自的特点、风险和建议持有时间。",
+        "questions": 60,
+        "users": 59
+      },
+      {
+        "rank": 18,
+        "question": "买房、养老、孩子教育等不同目标，需要分别做资金规划吗？应该怎样安排更清楚？",
+        "questions": 57,
+        "users": 57
       }
     ]
   }

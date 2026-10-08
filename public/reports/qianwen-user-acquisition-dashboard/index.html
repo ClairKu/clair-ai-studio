@@ -94,6 +94,97 @@
       </section>
     </section>
 
+    <section class="questions shell" id="question-analysis" aria-labelledby="question-title">
+      <div class="questions-head">
+        <div>
+          <p class="eyebrow">WHAT NEW USERS ACTUALLY ASK</p>
+          <h2 id="question-title">这一万多个新用户，<br />到底问了小顾什么？</h2>
+        </div>
+        <p class="questions-method"><strong>新用户全量提问</strong><span>主意图规则 v1 · 原文去标识脱敏</span></p>
+      </div>
+
+      <div class="question-kpis" aria-label="提问关键数据">
+        <article><span>实际提问用户</span><strong id="question-askers">—</strong><small id="question-ask-rate">—</small></article>
+        <article><span>原始提问</span><strong id="question-total">—</strong><small id="question-average">—</small></article>
+        <article><span>对话会话</span><strong id="question-sessions">—</strong><small>独立会话数</small></article>
+        <article><span>只来过一天</span><strong id="question-one-day">—</strong><small id="question-one-day-rate">—</small></article>
+      </div>
+
+      <div class="question-findings" id="question-findings" aria-label="核心洞察"></div>
+
+      <div class="question-analysis-grid">
+        <section class="question-panel topic-panel" aria-labelledby="question-topic-title">
+          <div class="question-panel-head">
+            <div><span>01</span><h3 id="question-topic-title">他们在问什么</h3></div>
+            <fieldset class="segmented question-topic-toggle" aria-label="选择问题范围">
+              <label><input type="radio" name="question-topic-scope" value="all" checked /><span>全部提问</span></label>
+              <label><input type="radio" name="question-topic-scope" value="first" /><span>用户第一问</span></label>
+            </fieldset>
+          </div>
+          <p class="question-panel-note" id="question-topic-note">每条问题只归入一个优先命中的主意图。</p>
+          <div class="topic-bars" id="question-topic-bars"></div>
+        </section>
+
+        <section class="question-panel depth-panel" aria-labelledby="question-depth-title">
+          <div class="question-panel-head"><div><span>02</span><h3 id="question-depth-title">问得有多深</h3></div></div>
+          <p class="question-panel-note">按每位新用户累计提问数分层；人数互斥且合计等于实际提问用户。</p>
+          <div class="depth-bars" id="question-depth-bars"></div>
+          <div class="concentration-card" id="question-concentration"></div>
+        </section>
+      </div>
+
+      <section class="frequent-questions" aria-labelledby="frequent-question-title">
+        <div class="question-panel-head">
+          <div><span>03</span><h3 id="frequent-question-title">高频原始问法</h3></div>
+          <p>至少 10 位不同用户问过 · 已排除疑似敏感文本</p>
+        </div>
+        <div class="frequent-question-list" id="frequent-question-list"></div>
+      </section>
+
+      <section class="raw-question-explorer" aria-labelledby="raw-question-title">
+        <div class="raw-question-head">
+          <div>
+            <p class="eyebrow">DE-IDENTIFIED QUESTION EXPLORER</p>
+            <h3 id="raw-question-title">查看全部原始提问</h3>
+            <p>可搜索、按主题筛选。仅保留问题日期、主意图与脱敏后的提问文本，不含用户和会话标识。</p>
+          </div>
+          <span class="encrypted-badge">AES-GCM 加密语料</span>
+        </div>
+
+        <form class="question-unlock" id="question-unlock-form">
+          <div>
+            <strong>原始提问库已单独加密</strong>
+            <span id="question-unlock-status">正在尝试使用本次报告会话解锁…</span>
+          </div>
+          <label class="sr-only" for="question-password">报告密码</label>
+          <input id="question-password" type="password" autocomplete="current-password" placeholder="如未自动解锁，请输入报告密码" />
+          <button type="submit" id="question-unlock-button">解锁原始提问</button>
+        </form>
+
+        <div class="question-explorer" id="question-explorer" hidden>
+          <div class="question-tools">
+            <label class="question-search"><span>搜索提问</span><input id="question-search" type="search" autocomplete="off" placeholder="输入基金、持仓、市场、养老…" /></label>
+            <label><span>主意图</span><select id="question-topic-filter"><option value="all">全部主题</option></select></label>
+            <button type="button" id="question-clear">清除筛选</button>
+          </div>
+          <div class="question-results-head"><p id="question-result-count">—</p><p id="question-corpus-meta">—</p></div>
+          <div class="table-scroll question-table-scroll" role="region" tabindex="0" aria-labelledby="raw-question-title">
+            <table class="question-table">
+              <thead><tr><th>序号</th><th>日期</th><th>主意图</th><th>原始提问（脱敏）</th></tr></thead>
+              <tbody id="question-table-body"></tbody>
+            </table>
+          </div>
+          <div class="question-pagination">
+            <button type="button" id="question-prev">上一页</button>
+            <span id="question-page">—</span>
+            <button type="button" id="question-next">下一页</button>
+          </div>
+        </div>
+      </section>
+
+      <p class="question-methodology">口径说明：新用户指注册且慢账号时间与首次千问绑定相差不超过 60 分钟的用户；提问统计从首次绑定起至本报告统一截止时点。主题为关键词优先级规则分类，用于运营归纳，不等同于人工逐条语义标注。</p>
+    </section>
+
     <section class="analysis shell" aria-labelledby="analysis-title">
       <div class="analysis-head">
         <div>

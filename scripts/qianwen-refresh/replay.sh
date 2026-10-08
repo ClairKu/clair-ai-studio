@@ -29,14 +29,16 @@ print(f"pre-check: data minimum_public_cell={cell}, app.js minimumCell 阈值={m
 EOF
 
 cp "$WORK/latest.new.json" "$DASH/data/latest.json"
+cp "$WORK/questions.enc.json" "$DASH/data/questions.enc.json"
 BUILD_LOG="$WORK/build.log"
 npm run build >"$BUILD_LOG" 2>&1
 grep -E "千问|Injected|error" "$BUILD_LOG" | head -5 || true
 git rev-parse HEAD > "$WORK/base-sha.txt"
 
 CUT=$(python3 -c "import json;print(json.load(open('$DASH/data/latest.json'))['meta']['data_cutoff'][:16])")
-# 只提交自己的 3 个文件；npm run build 顺带改动的 vite 哈希/search-index/他人页面不要带上
+# 只提交自己的 4 个文件；npm run build 顺带改动的 vite 哈希/search-index/他人页面不要带上
 git add "$DASH/data/latest.json" "$DASH/data/fallback-data.js" \
+        "$DASH/data/questions.enc.json" \
         docs/reports/qianwen-user-acquisition-dashboard/index.html
 git commit -m "feat(qianwen): 刷新看板数据至 ${CUT}"
 git status --short | head

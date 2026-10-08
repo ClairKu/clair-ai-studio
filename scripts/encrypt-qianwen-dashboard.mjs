@@ -31,25 +31,33 @@ async function deriveKey(salt) {
   );
 }
 
-const [html, css, js, dataRaw] = await Promise.all([
+const [html, css, js, dataRaw, questionEnvelopeRaw] = await Promise.all([
   readFile(join(SRC, "index.html"), "utf8"),
   readFile(join(SRC, "styles.css"), "utf8"),
   readFile(join(SRC, "app.js"), "utf8"),
   readFile(join(SRC, "data", "latest.json"), "utf8"),
+  readFile(join(SRC, "data", "questions.enc.json"), "utf8"),
 ]);
 JSON.parse(dataRaw);   // 数据损坏时早失败，别加密出一份打不开的页面
+const questionEnvelope = JSON.parse(questionEnvelopeRaw);
+if (questionEnvelope.schema_version !== "qianwen-question-corpus-envelope-v1") throw new Error("原始提问密文版本异常");
 
 // 数据内联 + fetch 垫片：app.js 仍会请求 data/latest.json，让它命中内联快照，
 // 这样「更新数据」按钮不会因为 docs 下没有该文件而报错。
 const inlineData = `<script>
 (function(){
   var raw = ${JSON.stringify(dataRaw)};
+  var questionEnvelope = ${JSON.stringify(questionEnvelope)};
   window.QIANWEN_ACQUISITION_DATA = JSON.parse(raw);
+  window.QIANWEN_QUESTION_CORPUS_ENCRYPTED = questionEnvelope;
   var original = window.fetch ? window.fetch.bind(window) : null;
   window.fetch = function(input, init){
     var url = typeof input === "string" ? input : (input && input.url) || "";
     if (url.indexOf("data/latest.json") !== -1) {
       return Promise.resolve(new Response(raw, { status: 200, headers: { "Content-Type": "application/json" } }));
+    }
+    if (url.indexOf("data/questions.enc.json") !== -1) {
+      return Promise.resolve(new Response(JSON.stringify(questionEnvelope), { status: 200, headers: { "Content-Type": "application/json" } }));
     }
     return original ? original(input, init) : Promise.reject(new Error("fetch unavailable"));
   };
