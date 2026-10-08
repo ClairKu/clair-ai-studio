@@ -40,7 +40,7 @@ const [html, css, js, dataRaw, questionEnvelopeRaw] = await Promise.all([
 ]);
 JSON.parse(dataRaw);   // 数据损坏时早失败，别加密出一份打不开的页面
 const questionEnvelope = JSON.parse(questionEnvelopeRaw);
-if (questionEnvelope.schema_version !== "qianwen-question-corpus-envelope-v1") throw new Error("原始提问密文版本异常");
+if (questionEnvelope.schema_version !== "qianwen-question-corpus-envelope-v2") throw new Error("原始提问密文版本异常");
 
 // 数据内联 + fetch 垫片：app.js 仍会请求 data/latest.json，让它命中内联快照，
 // 这样「更新数据」按钮不会因为 docs 下没有该文件而报错。

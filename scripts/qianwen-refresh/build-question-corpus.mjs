@@ -1,6 +1,6 @@
 /**
- * 只读拉取千问新用户的原始提问，在内存中去标识、脱敏并加密后落盘。
- * 产物不含用户/会话 ID，也不产生明文中间文件。
+ * 只读拉取千问新用户原始提问，在内存中完成多轴分类、路径/节奏聚合、去标识与脱敏。
+ * 仅落两类安全产物：公开聚合研究 JSON，以及不含真实用户/会话标识的 AES-GCM 密文语料。
  */
 import { createHash, randomBytes, webcrypto } from "node:crypto";
 import { mkdir, writeFile } from "node:fs/promises";
@@ -9,6 +9,7 @@ import { gzipSync } from "node:zlib";
 
 const cutoff = process.env.QW_CUT;
 const output = process.env.QW_QUESTION_OUT;
+const researchOutput = process.env.QW_QUESTION_RESEARCH_OUT || resolve(dirname(output || "."), "question-research.json");
 const apiKey = process.env.REDASH_API_KEY;
 const redashUrl = (process.env.REDASH_URL || "https://zhu.yingmi-inc.com").replace(/\/$/, "");
 const password = process.env.REPORT_PASSWORD || "2026";
@@ -16,6 +17,83 @@ const dataSourceId = Number(process.env.REDASH_DATA_SOURCE_ID || 41);
 if (!cutoff || !/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(cutoff)) throw new Error("缺少合法 QW_CUT");
 if (!output) throw new Error("缺少 QW_QUESTION_OUT");
 if (!apiKey) throw new Error("缺少 REDASH_API_KEY");
+
+const DIRECTION_IDS = ["holding_diagnosis", "product_research", "product_selection", "asset_allocation", "market_insight", "transaction_execution", "investment_learning", "qieman_service", "conversation_other"];
+const OBJECT_IDS = ["own_account", "specific_product", "fund_category", "strategy_portfolio", "asset_class", "goal_plan", "market_environment", "platform_service", "unspecified"];
+const STYLE_IDS = ["direct_request", "diagnose_evaluate", "compare_choose", "why_explain", "how_to", "forecast_risk", "fact_lookup", "conversation_fragment"];
+const COGNITION_IDS = ["beginner_signal", "developing_signal", "advanced_signal", "indeterminate"];
+const PERSONA_IDS = ["holding_optimizer", "product_decider", "planning_allocator", "market_tracker", "execution_seeker", "learning_builder", "platform_explorer", "preset_only", "light_conversation"];
+
+const PRESET_VERSIONS = [
+  {
+    id: "launch_v1",
+    label: "首发版 · 4 个默认问题",
+    evidence: "exact_text_confirmed",
+    questions: [
+      ["v1_holding", "帮我看看现在的持仓结构，给出优化建议"],
+      ["v1_long_term_funds", "推荐2-3个值得长期持有的基金，并给出详细的分析"],
+      ["v1_hot_products", "帮我看看最近有哪些比较热门的基金或投顾策略"],
+      ["v1_market", "最近市场有哪些特点，有哪些机会和风险值得关注"],
+    ],
+  },
+  {
+    id: "expanded_v2",
+    label: "扩展版 · 14 个推荐问题",
+    evidence: "inferred_from_exact_repetition_and_launch_cluster",
+    questions: [
+      ["v2_market_response", "现在市场里有哪些值得关注的机会和风险？普通投资者可以采取什么样的应对思路？"],
+      ["v2_sector", "最近哪些行业板块表现比较突出，背后的原因是什么，现在还值得继续关注吗？"],
+      ["v2_defensive_assets", "如果市场继续震荡，哪些资产通常更抗波动，哪些方向的风险可能更大？"],
+      ["v2_fund_movers", "最近哪些基金表现比较突出，主要集中在哪些板块？它们为什么上涨，又有哪些风险需要注意？"],
+      ["v2_a_share_value", "现在A股整体算贵还是便宜？机会和风险分别在哪里？"],
+      ["v2_cross_asset", "最近A股、港股、债券和黄金分别表现怎么样？为什么有的涨、有的跌，应该怎么看？"],
+      ["v2_long_or_hot", "最近表现不错的基金里，哪些更适合长期观察，哪些可能只是短期热门？说说判断理由吗？"],
+      ["v2_popular_funds", "最近大家比较关注哪些基金？它们长期表现怎么样，跌起来可能有多大，费用高不高？"],
+      ["v2_active_vs_index", "同样投资一个行业，主动基金和指数基金通常有什么不同？选择时应该重点看什么？"],
+      ["v2_chasing_risk", "有些基金短期涨得很快，现在再关注会不会有追高风险？应该看哪些方面再做判断？"],
+      ["v2_signal_filter", "最近市场信息太多了，帮我筛选出真正重要的变化，并用简单的方式说说接下来应该关注什么。"],
+      ["v2_nav_misunderstanding", "一只基金的净值已经比较高了，还能不能关注？净值高低能代表基金贵不贵吗？"],
+      ["v2_qieman_entry", "且慢有哪些策略比较适合入门体验？介绍一下各自的特点、风险和建议持有时间。"],
+      ["v2_goal_planning", "买房、养老、孩子教育等不同目标，需要分别做资金规划吗？应该怎样安排更清楚？"],
+    ],
+  },
+  {
+    id: "qieman_guided_v3",
+    label: "且慢导览版 · 13 个推荐问题",
+    evidence: "inferred_from_exact_repetition_and_launch_cluster",
+    questions: [
+      ["v3_strategy_match", "如果我想在且慢开始投资，哪些策略可能更适合我？可以帮我筛选并比较它们的投资方向、波动和持有时间吗？"],
+      ["v3_four_money", "且慢常说的“四笔钱”是什么意思？每一类钱分别适合解决什么问题？"],
+      ["v3_plan_balance", "做资金规划时，怎样兼顾随时要用、控制回撤和长期增值这几个需求？"],
+      ["v3_strategy_recommend", "我不太了解且慢，根据我的情况帮我推荐几个值得重点了解的策略。"],
+      ["v3_new_to_qieman", "我刚接触且慢，能不能根据我的情况推荐几个值得了解的策略，并告诉我为什么？"],
+      ["v3_money_suitability", "怎么判断一笔钱适不适合拿来投资，以及应该选择稳一点还是波动大一点的方式？"],
+      ["v3_qieman_plan", "用且慢的资金规划思路，怎么安排手头资金？需要注意什么？"],
+      ["v3_no_frequent_adjust", "我不想自己频繁挑基金和调整，且慢有哪些策略可以重点了解？"],
+      ["v3_plan_match", "我想找一个和自己投资计划更匹配的且慢策略，可以推荐几个候选，并说说它们分别适合什么样的情况吗？"],
+      ["v3_representative_strategies", "且慢有哪些比较有代表性的策略？结合我的实际情况，你更建议我先了解哪几个，理由是什么？"],
+      ["v3_simple_plan", "我有一笔资金不知道怎么投资，可以给我一个简单的规划思路吗？"],
+      ["v3_four_money_strategies", "且慢的四笔钱分别对应哪些策略？帮我推荐一些具体选择。"],
+      ["v3_plan_before_product", "投资规划应该先选产品，还是先想清楚用途和使用时间？这两种做法有什么区别？"],
+    ],
+  },
+  {
+    id: "entry_examples",
+    label: "入口示例题 · 4 个高重复问法",
+    evidence: "inferred_from_exact_repetition_without_exposure_log",
+    questions: [
+      ["example_monthly_brief", "给我发一份这个月基金市场简报"],
+      ["example_idle_money", "有一笔闲钱想放三年以上，买什么比较稳健"],
+      ["example_fund_case", "广发聚富近一年表现怎么样"],
+      ["example_ai_funds", "最近AI相关的基金怎么样"],
+    ],
+  },
+];
+
+const compact = (value) => String(value ?? "").replace(/[\u0000-\u001f\u007f]/g, " ").replace(/\s+/g, " ").trim();
+const normalizePreset = (value) => compact(value).replace(/\s+/g, "").replace(/[‐‑‒–—―]/g, "-").replace(/[“”\"']/g, "");
+const presetLookup = new Map();
+for (const version of PRESET_VERSIONS) for (const [id, question] of version.questions) presetLookup.set(normalizePreset(question), { id, version: version.id, question });
 
 const sql = `WITH nu AS (
   SELECT b.pmid, b.fb FROM (
@@ -30,14 +108,16 @@ const sql = `WITH nu AS (
     ON s.qmuser_user_id=nu.pmid AND s.is_deleted=0
    AND s.created_at>=nu.fb AND s.created_at<'${cutoff}'
 )
-SELECT DATE(DATE_ADD(m.created_at, INTERVAL 8 HOUR)) AS question_day,
+SELECT CAST(nu.pmid AS CHAR) AS person_key,
+  CAST(s.session_id AS CHAR) AS session_key,
+  DATE_FORMAT(DATE_ADD(m.created_at, INTERVAL 8 HOUR), '%Y-%m-%d %H:%i:%s') AS local_time,
   REGEXP_REPLACE(TRIM(m.user_input), '[[:space:]]+', ' ') AS question
 FROM nu JOIN session_map s ON s.qmuser_user_id=nu.pmid
 JOIN ying99_xiaogu3_qa.agent_dj_messages m
   ON m.session_id=s.session_id AND m.is_deleted=0
  AND m.created_at>=nu.fb AND m.created_at<'${cutoff}'
 WHERE m.user_input IS NOT NULL AND TRIM(m.user_input)<>''
-ORDER BY m.created_at,m.id`;
+ORDER BY nu.pmid,m.created_at,m.id`;
 
 const request = async (path, { method = "GET", body } = {}) => {
   const response = await fetch(`${redashUrl}${path}`, {
@@ -68,7 +148,6 @@ if (response.job?.id) {
 const sourceRows = response.query_result?.data?.rows;
 if (!Array.isArray(sourceRows)) throw new Error("Redash 查询超时或返回结构异常");
 
-const compact = (value) => String(value ?? "").replace(/[\u0000-\u001f\u007f]/g, " ").replace(/\s+/g, " ").trim();
 function redact(input) {
   let value = compact(input);
   value = value.replace(/https?:\/\/\S+|www\.\S+/gi, "[链接]");
@@ -80,41 +159,348 @@ function redact(input) {
   return value;
 }
 
-const shortFollowups = new Set(["好","好的","继续","可以","是","是的","不是","谢谢","需要","要","明白了","知道了","嗯","对","行","1","2","？","?"]);
-const rules = [
-  ["holding_account", /持仓|我的.*基金|账户|资产|收益|盈亏|亏损|浮亏|回撤|仓位|余额|成本|组合.*诊断/i],
-  ["transaction_action", /买入|卖出|赎回|申购|加仓|减仓|补仓|止盈|止损|下单|调仓|定投|开户|绑卡|交易|费率|手续费|取出|提现|充值/i],
-  ["planning_configuration", /资金规划|资产配置|配置方案|四笔钱|养老|退休|教育|买房|目标|现金流|家庭|闲钱|长期增值|稳健/i],
-  ["product_selection", /推荐|热门|选品|筛选|值得长期|哪些基金|哪些策略|适合我|买什么|哪只|哪个基金|候选/i],
-  ["product_analysis", /基金|策略|指数|债基|货基|ETF|净值|主理人|年化|业绩|估值/i],
-  ["market_research", /市场|行情|A股|港股|美股|黄金|债券|板块|行业|宏观|利率|政策|牛市|熊市|机会|风险/i],
-  ["knowledge_explain", /什么是|是什么意思|区别|怎么看|为什么|如何判断|怎么判断|介绍一下|解释|知识|原理/i],
-  ["report_information", /简报|报告|新闻|资讯|研报|文档/i],
-  ["qieman_service", /小顾|且慢|你能|能不能|会不会|功能|怎么用|登录/i],
-];
+const shortFollowups = new Set(["好","好的","继续","可以","是","是的","不是","谢谢","需要","要","明白了","知道了","嗯","对","行","1","2","3","？","?","收到","没了","不用了"]);
+const isShortFollowup = (question) => shortFollowups.has(question) || [...question].length <= 2;
+const test = (pattern, value) => pattern.test(value);
+
+function hasSpecificProduct(question) {
+  if (/(?:^|\D)\d{6}(?:\D|$)/.test(question)) return true;
+  if (/(?:这只|这支|该只|这款)(?:基金|产品|组合|策略)/i.test(question)) return true;
+  if (/(?:易方达|华夏|南方|广发|富国|招商|汇添富|嘉实|博时|景顺|工银|鹏华|中欧|华安|国泰|交银|兴全|银华|天弘|华宝|摩根|大成|建信|融通|睿远|永赢|创金合信|万家|国投瑞银|农银汇理|中银|上投摩根|诺安|长城|前海开源|东方红)[A-Za-z0-9\u4e00-\u9fff·]{2,24}/i.test(question)) return true;
+  if (/[A-Za-z0-9\u4e00-\u9fff·]{2,22}(?:ETF|LOF|FOF)(?:联接)?[ACDEIY]?/i.test(question)) return true;
+  return /[A-Za-z0-9\u4e00-\u9fff·]{4,24}(?:混合|债券|指数|股票|货币|成长|价值|优势|精选|优选|灵活配置)[ACDEIY](?:类)?(?:份额)?(?:$|[\s，。？！、])/i.test(question);
+}
+
+function classifyObject(question) {
+  if (test(/持仓|账户|我的.*(?:基金|组合|账户|资产|收益|盈亏|成本|仓位|余额)|我.*(?:买了|持有|亏了|赚了|浮亏|成本|仓位)|(?:当前|现有|总).*(?:资产|仓位)|浮亏/, question)) return "own_account";
+  if (test(/(?:养老|教育).{0,5}(?:产业|主题|指数|ETF|基金)|(?:产业|主题|指数|ETF|基金).{0,5}(?:养老|教育)/i, question)) return "fund_category";
+  if (test(/养老|退休|教育|买房|购房|结婚|子女|家庭|目标|资金规划|现金流|四笔钱/, question)) return "goal_plan";
+  if (test(/主动基金|指数基金|股票型|混合型|债券型|货币型|债基|货基|宽基|窄基|红利|QDII|行业基金|主题基金|基金类型|(?:AI|人工智能|科技|医药|消费|新能源|半导体|军工).{0,6}基金|基金.{0,6}(?:AI|人工智能|科技|医药|消费|新能源|半导体|军工)/i, question)) return "fund_category";
+  if (hasSpecificProduct(question)) return "specific_product";
+  if (test(/投顾策略|策略|组合|主理人|跟车|发车/, question)) return "strategy_portfolio";
+  if (test(/A股|港股|美股|黄金|债券|商品|现金|原油|外汇|可转债|REITs|资产类别/i, question)) return "asset_class";
+  if (test(/市场|行情|大盘|宏观|利率|政策|板块|行业|牛市|熊市|震荡|估值/i, question)) return "market_environment";
+  if (test(/且慢|小顾|登录|功能|报告|卡片|APP|开户|绑卡/i, question)) return "platform_service";
+  return "unspecified";
+}
+
+function classifyDirection(question, object) {
+  if (isShortFollowup(question)) return "conversation_other";
+  if (object === "own_account" || test(/组合.*诊断|持仓.*建议/, question)) return "holding_diagnosis";
+  if (object === "goal_plan" || test(/资产配置|配置方案|资金分配|长期规划|风险预算/, question)) return "asset_allocation";
+  if (test(/买入|卖出|赎回|申购|加仓|减仓|补仓|止盈|止损|下单|调仓|定投|开户|绑卡|手续费|费率|取出|提现|充值|怎么买|如何买/, question)) return "transaction_execution";
+  if (test(/推荐|筛选|买什么|选什么|哪只|哪个基金|哪些基金|哪些策略|适合我|候选|值得长期持有|(?:给我|帮我).*(?:产品|基金|策略)/, question)) return "product_selection";
+  if (["specific_product", "fund_category", "strategy_portfolio"].includes(object) || test(/基金|ETF|净值|业绩|年化|基金经理/, question)) return "product_research";
+  if (["market_environment", "asset_class"].includes(object) || test(/机会|风险|走势|行情|市场|宏观|板块|行业|利率|政策|牛市|熊市/, question)) return "market_insight";
+  if (test(/什么是|是什么意思|区别|原理|为什么|怎么判断|如何判断|解释|知识|入门/, question)) return "investment_learning";
+  if (object === "platform_service" || test(/小顾|且慢|你能|功能|怎么用|登录|报告|资讯/, question)) return "qieman_service";
+  return "conversation_other";
+}
+
+function classifyStyle(question) {
+  if (isShortFollowup(question)) return "conversation_fragment";
+  if (test(/对比|比较|区别|哪个好|哪一个|怎么选|如何选|还是|vs|VS/, question)) return "compare_choose";
+  if (test(/为什么|原因|逻辑|背后|怎么回事|如何理解|解释/, question)) return "why_explain";
+  if (test(/怎么操作|如何操作|怎么买|怎么卖|怎么赎回|步骤|在哪里|如何开|怎么办|怎么做|怎样做/, question)) return "how_to";
+  if (test(/未来|后市|接下来|走势|预测|会不会|还能不能|机会|风险|涨跌|追高/, question)) return "forecast_risk";
+  if (test(/诊断|分析|评估|怎么样|值得|适合|靠谱吗|好不好|贵不贵/, question)) return "diagnose_evaluate";
+  if (test(/什么是|是什么意思|多少|哪里|何时|哪天|查询|告诉我|介绍一下/, question)) return "fact_lookup";
+  if (test(/帮我|请|给我|推荐|给出|需要|想要|筛选/, question)) return "direct_request";
+  return "conversation_fragment";
+}
+
+function classifyCognition(question) {
+  if (test(/夏普|卡玛|索提诺|alpha|beta|阿尔法|贝塔|归因|相关性|标准差|波动率|久期|凸性|最大回撤|回撤修复|PE|PB|ROE|风险预算|再平衡|有效前沿|杜邦|实际利率/i, question)) return "advanced_signal";
+  if (test(/估值|回撤|仓位|持仓|基金经理|费率|定投|资产配置|现金流|风险|年化|同类|持有时间|主动基金|指数基金|追高|止盈|止损/, question)) return "developing_signal";
+  if (test(/什么是|是什么意思|看不懂|怎么买|怎么操作|入门|小白|推荐.*基金|买什么|净值.*贵/, question)) return "beginner_signal";
+  return "indeterminate";
+}
+
 function classify(question) {
-  if (shortFollowups.has(question) || [...question].length <= 2) return "dialogue_followup";
-  return rules.find(([, pattern]) => pattern.test(question))?.[0] || "other_expression";
+  const preset = presetLookup.get(normalizePreset(question)) || null;
+  const object = classifyObject(question);
+  return {
+    preset,
+    short: isShortFollowup(question),
+    object,
+    direction: classifyDirection(question, object),
+    style: classifyStyle(question),
+    cognition: classifyCognition(question),
+  };
 }
 
 let redactedRows = 0;
-const rows = sourceRows.map((row, index) => {
+const internalRows = sourceRows.map((row, index) => {
   const original = compact(row.question);
   const question = redact(original);
   if (question !== original) redactedRows += 1;
-  return { i: index + 1, d: String(row.question_day).slice(0, 10), t: classify(original), q: question };
+  const localTime = String(row.local_time ?? "").slice(0, 19);
+  if (!/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(localTime)) throw new Error(`时间格式异常：${row.local_time}`);
+  const classified = classify(original);
+  return {
+    index: index + 1,
+    person: String(row.person_key),
+    session: String(row.session_key),
+    localTime,
+    day: localTime.slice(0, 10),
+    timeMs: Date.parse(localTime.replace(" ", "T") + "+08:00"),
+    original,
+    question,
+    ...classified,
+  };
 });
-const topicCounts = Object.fromEntries([...new Set(rows.map((row) => row.t))].sort().map((topic) => [topic, rows.filter((row) => row.t === topic).length]));
+
+const byPerson = new Map();
+const bySession = new Map();
+for (const row of internalRows) {
+  if (!byPerson.has(row.person)) byPerson.set(row.person, []);
+  byPerson.get(row.person).push(row);
+  const sessionKey = `${row.person}\u0000${row.session}`;
+  if (!bySession.has(sessionKey)) bySession.set(sessionKey, []);
+  bySession.get(sessionKey).push(row);
+}
+for (const rows of [...byPerson.values(), ...bySession.values()]) rows.sort((a, b) => a.timeMs - b.timeMs || a.index - b.index);
+
+const makeStats = (ids) => Object.fromEntries(ids.map((id) => [id, { questions: 0, users: new Set() }]));
+function summarizeDimension(rows, key, ids) {
+  const stats = makeStats(ids);
+  for (const row of rows) {
+    const id = row[key];
+    if (!stats[id]) throw new Error(`未知 ${key}：${id}`);
+    stats[id].questions += 1;
+    stats[id].users.add(row.person);
+  }
+  return ids.map((id) => ({ id, questions: stats[id].questions, users: stats[id].users.size }));
+}
+
+function summarizeBuckets(items, ids, bucketFn, userFn = (item) => item.person) {
+  const stats = makeStats(ids);
+  for (const item of items) {
+    const id = bucketFn(item);
+    stats[id].questions += 1;
+    stats[id].users.add(userFn(item));
+  }
+  return ids.map((id) => ({ id, count: stats[id].questions, users: stats[id].users.size }));
+}
+
+const presetRows = internalRows.filter((row) => row.preset);
+const selfRows = internalRows.filter((row) => !row.preset);
+const substantiveRows = selfRows.filter((row) => !row.short);
+const substantiveUsers = new Set(substantiveRows.map((row) => row.person));
+const selfUsers = new Set(selfRows.map((row) => row.person));
+const presetUsers = new Set(presetRows.map((row) => row.person));
+
+const firstRows = new Map([...byPerson].map(([person, rows]) => [person, rows[0]]));
+for (const rows of bySession.values()) {
+  let laterSelf = false;
+  for (let index = rows.length - 1; index >= 0; index -= 1) {
+    rows[index].hasLaterSelfInSession = rows[index].preset ? laterSelf : false;
+    if (!rows[index].preset) laterSelf = true;
+  }
+}
+
+const versions = PRESET_VERSIONS.map((version) => {
+  const rows = presetRows.filter((row) => row.preset.version === version.id);
+  const observedFrom = rows.length ? rows.map((row) => row.day).sort()[0] : null;
+  const observedTo = rows.length ? rows.map((row) => row.day).sort().at(-1) : null;
+  const windowAskers = new Set(internalRows.filter((row) => observedFrom && row.day >= observedFrom && row.day <= observedTo).map((row) => row.person));
+  const userSet = new Set(rows.map((row) => row.person));
+  const firstSet = new Set(rows.filter((row) => firstRows.get(row.person) === row).map((row) => row.person));
+  const followSet = new Set(rows.filter((row) => row.hasLaterSelfInSession).map((row) => row.person));
+  const questions = version.questions.map(([id, question]) => {
+    const questionRows = rows.filter((row) => row.preset.id === id);
+    return {
+      id,
+      question,
+      clicks: questionRows.length,
+      users: new Set(questionRows.map((row) => row.person)).size,
+      first_question_users: new Set(questionRows.filter((row) => firstRows.get(row.person) === row).map((row) => row.person)).size,
+      follow_on_users: new Set(questionRows.filter((row) => row.hasLaterSelfInSession).map((row) => row.person)).size,
+    };
+  });
+  return {
+    id: version.id,
+    label: version.label,
+    evidence: version.evidence,
+    observed_from: observedFrom,
+    observed_to: observedTo,
+    clicks: rows.length,
+    users: userSet.size,
+    first_question_users: firstSet.size,
+    follow_on_users: followSet.size,
+    asker_proxy_denominator: windowAskers.size,
+    questions,
+  };
+});
+
+const personaStats = Object.fromEntries(PERSONA_IDS.map((id) => [id, { users: 0, questions: 0 }]));
+const cognitionUserStats = Object.fromEntries(COGNITION_IDS.map((id) => [id, 0]));
+const personaDirectionMap = {
+  holding_diagnosis: "holding_optimizer",
+  product_research: "product_decider",
+  product_selection: "product_decider",
+  asset_allocation: "planning_allocator",
+  market_insight: "market_tracker",
+  transaction_execution: "execution_seeker",
+  investment_learning: "learning_builder",
+  qieman_service: "platform_explorer",
+  conversation_other: "platform_explorer",
+};
+const directionPriority = Object.fromEntries(DIRECTION_IDS.map((id, index) => [id, index]));
+const cognitionPriority = Object.fromEntries(COGNITION_IDS.map((id, index) => [id, index]));
+for (const rows of byPerson.values()) {
+  const substantive = rows.filter((row) => !row.preset && !row.short);
+  let persona;
+  if (!substantive.length) persona = rows.some((row) => row.preset) ? "preset_only" : "light_conversation";
+  else {
+    const counts = Object.fromEntries(DIRECTION_IDS.map((id) => [id, 0]));
+    substantive.forEach((row) => { counts[row.direction] += 1; });
+    const dominant = [...DIRECTION_IDS].sort((a, b) => counts[b] - counts[a] || directionPriority[a] - directionPriority[b])[0];
+    persona = personaDirectionMap[dominant];
+    const cognitionCounts = Object.fromEntries(COGNITION_IDS.map((id) => [id, 0]));
+    substantive.forEach((row) => { cognitionCounts[row.cognition] += 1; });
+    const cognition = [...COGNITION_IDS].sort((a, b) => cognitionCounts[b] - cognitionCounts[a] || cognitionPriority[b] - cognitionPriority[a])[0];
+    cognitionUserStats[cognition] += 1;
+  }
+  personaStats[persona].users += 1;
+  personaStats[persona].questions += substantive.length;
+}
+
+const activeDayIds = ["1", "2", "3_7", "8_plus"];
+const activeDays = summarizeBuckets([...byPerson.entries()].map(([person, rows]) => ({ person, value: new Set(rows.map((row) => row.day)).size })), activeDayIds,
+  (item) => item.value === 1 ? "1" : item.value === 2 ? "2" : item.value <= 7 ? "3_7" : "8_plus");
+const timeIds = ["00_06", "06_09", "09_12", "12_14", "14_18", "18_22", "22_24"];
+const timeOfDay = summarizeBuckets(internalRows, timeIds, (row) => {
+  const hour = Number(row.localTime.slice(11, 13));
+  if (hour < 6) return "00_06";
+  if (hour < 9) return "06_09";
+  if (hour < 12) return "09_12";
+  if (hour < 14) return "12_14";
+  if (hour < 18) return "14_18";
+  if (hour < 22) return "18_22";
+  return "22_24";
+});
+const sessionIds = ["1", "2_3", "4_9", "10_plus"];
+const sessionDepth = summarizeBuckets([...bySession.entries()].map(([key, rows]) => ({ person: rows[0].person, key, value: rows.length })), sessionIds,
+  (item) => item.value === 1 ? "1" : item.value <= 3 ? "2_3" : item.value <= 9 ? "4_9" : "10_plus", (item) => item.person);
+const gaps = [];
+for (const [person, rows] of byPerson) for (let index = 1; index < rows.length; index += 1) gaps.push({ person, minutes: (rows[index].timeMs - rows[index - 1].timeMs) / 60000 });
+const gapIds = ["lte_5m", "5_30m", "30m_1d", "gte_1d"];
+const gapDistribution = summarizeBuckets(gaps, gapIds, (item) => item.minutes <= 5 ? "lte_5m" : item.minutes <= 30 ? "5_30m" : item.minutes < 1440 ? "30m_1d" : "gte_1d");
+
+const transitionMap = new Map();
+for (const rows of bySession.values()) {
+  const sequence = rows.filter((row) => !row.preset && !row.short && row.direction !== "conversation_other")
+    .map((row) => row.direction).filter((id, index, all) => index === 0 || id !== all[index - 1]);
+  for (let index = 1; index < sequence.length; index += 1) {
+    const key = `${sequence[index - 1]}>${sequence[index]}`;
+    if (!transitionMap.has(key)) transitionMap.set(key, { from: sequence[index - 1], to: sequence[index], count: 0, users: new Set() });
+    const item = transitionMap.get(key);
+    item.count += 1;
+    item.users.add(rows[0].person);
+  }
+}
+const topTransitions = [...transitionMap.values()].sort((a, b) => b.count - a.count || b.users.size - a.users.size).slice(0, 12)
+  .map((item) => ({ from: item.from, to: item.to, count: item.count, users: item.users.size }));
+const sequenceMap = new Map();
+for (const [person, rows] of byPerson) {
+  const sequence = rows.filter((row) => !row.preset && !row.short && row.direction !== "conversation_other")
+    .map((row) => row.direction).filter((id, index, all) => index === 0 || id !== all[index - 1]).slice(0, 3);
+  if (sequence.length < 2) continue;
+  const key = sequence.join(">");
+  if (!sequenceMap.has(key)) sequenceMap.set(key, { path: sequence, users: new Set() });
+  sequenceMap.get(key).users.add(person);
+}
+const topSequences = [...sequenceMap.values()].sort((a, b) => b.users.size - a.users.size).slice(0, 10)
+  .map((item) => ({ path: item.path, users: item.users.size }));
+const firstSubstantive = [];
+for (const rows of byPerson.values()) {
+  const first = rows.find((row) => !row.preset && !row.short);
+  if (first) firstSubstantive.push(first);
+}
+
+const topQuestionMap = new Map();
+for (const row of substantiveRows) {
+  if (row.question !== row.original || [...row.question].length < 5 || [...row.question].length > 120) continue;
+  if (!topQuestionMap.has(row.question)) topQuestionMap.set(row.question, { question: row.question, questions: 0, users: new Set(), direction: row.direction });
+  const item = topQuestionMap.get(row.question);
+  item.questions += 1;
+  item.users.add(row.person);
+}
+const topSelfAuthored = [...topQuestionMap.values()].filter((item) => item.users.size >= 10)
+  .sort((a, b) => b.questions - a.questions || b.users.size - a.users.size || a.question.localeCompare(b.question, "zh-CN"))
+  .slice(0, 24).map((item, index) => ({ rank: index + 1, question: item.question, questions: item.questions, users: item.users.size, direction: item.direction }));
+
+const research = {
+  schema_version: "qianwen-question-research-v2",
+  as_of: cutoff.replace(" ", "T") + "+08:00",
+  methodology: {
+    taxonomy: "rule-based-multiaxis-v2",
+    corpus_scope: "new_users_after_first_binding",
+    self_authored_definition: "all_questions_excluding_recognized_default_questions",
+    substantive_definition: "self_authored_excluding_short_dialogue_followups",
+    persona_note: "behavioral_archetype_from_question_signals_not_personal_financial_profile",
+    cognition_note: "language_signal_not_verified_investment_knowledge",
+    preset_ctr_note: "no_impression_log_asker_reach_is_proxy_not_true_ctr",
+  },
+  summary: {
+    questions: internalRows.length,
+    asking_users: byPerson.size,
+    sessions: bySession.size,
+    preset_questions: presetRows.length,
+    preset_users: presetUsers.size,
+    preset_first_users: new Set([...firstRows.values()].filter((row) => row.preset).map((row) => row.person)).size,
+    self_authored_questions: selfRows.length,
+    self_authored_users: selfUsers.size,
+    substantive_questions: substantiveRows.length,
+    substantive_users: substantiveUsers.size,
+    short_followups: selfRows.filter((row) => row.short).length,
+    preset_only_users: [...byPerson.values()].filter((rows) => rows.some((row) => row.preset) && rows.every((row) => row.preset)).length,
+  },
+  presets: {
+    true_impressions_available: false,
+    rate_metric: "unique_click_users_divided_by_asking_users_in_observed_window",
+    versions,
+  },
+  dimensions: {
+    direction: summarizeDimension(substantiveRows, "direction", DIRECTION_IDS),
+    first_direction: summarizeDimension(firstSubstantive, "direction", DIRECTION_IDS),
+    object: summarizeDimension(substantiveRows, "object", OBJECT_IDS),
+    style: summarizeDimension(substantiveRows, "style", STYLE_IDS),
+    cognition: summarizeDimension(substantiveRows, "cognition", COGNITION_IDS),
+  },
+  personas: PERSONA_IDS.map((id) => ({ id, users: personaStats[id].users, questions: personaStats[id].questions })),
+  user_cognition: COGNITION_IDS.map((id) => ({ id, users: cognitionUserStats[id] })),
+  rhythm: { active_days: activeDays, time_of_day: timeOfDay, session_depth: sessionDepth, gaps: gapDistribution },
+  paths: { transitions: topTransitions, sequences: topSequences },
+  top_self_authored: topSelfAuthored,
+};
+
+const rows = internalRows.map((row) => ({
+  i: row.index,
+  d: row.day,
+  t: row.direction,
+  o: row.object,
+  f: row.style,
+  c: row.cognition,
+  s: row.short ? 1 : 0,
+  p: row.preset?.id || "",
+  v: row.preset?.version || "",
+  q: row.question,
+}));
+const directionCounts = Object.fromEntries(DIRECTION_IDS.map((id) => [id, rows.filter((row) => row.t === id).length]));
 const plainObject = {
-  schema_version: "qianwen-question-corpus-v1",
+  schema_version: "qianwen-question-corpus-v2",
   meta: {
-    data_cutoff: cutoff.replace(" ", "T") + "+08:00",
+    data_cutoff: research.as_of,
     questions: rows.length,
     redacted_rows: redactedRows,
     identity_fields: "none",
     date_timezone: "Asia/Shanghai",
-    topic_model: "keyword-primary-intent-v1",
-    topic_counts: topicCounts,
+    taxonomy: "rule-based-multiaxis-v2",
+    default_questions: presetRows.length,
+    self_authored_questions: selfRows.length,
+    direction_counts: directionCounts,
   },
   rows,
 };
@@ -131,11 +517,13 @@ const key = await webcrypto.subtle.deriveKey(
 );
 const data = new Uint8Array(await webcrypto.subtle.encrypt({ name: "AES-GCM", iv }, key, compressed));
 const envelope = {
-  schema_version: "qianwen-question-corpus-envelope-v1",
+  schema_version: "qianwen-question-corpus-envelope-v2",
   meta: {
     data_cutoff: plainObject.meta.data_cutoff,
     questions: rows.length,
     redacted_rows: redactedRows,
+    default_questions: presetRows.length,
+    self_authored_questions: selfRows.length,
     plaintext_sha256: createHash("sha256").update(plain).digest("hex"),
   },
   iterations,
@@ -145,5 +533,7 @@ const envelope = {
   data: Buffer.from(data).toString("base64"),
 };
 await mkdir(dirname(resolve(output)), { recursive: true });
+await mkdir(dirname(resolve(researchOutput)), { recursive: true });
 await writeFile(output, JSON.stringify(envelope) + "\n", { mode: 0o600 });
-console.log(`OK questions=${rows.length} redacted_rows=${redactedRows} output=${output}`);
+await writeFile(researchOutput, JSON.stringify(research, null, 2) + "\n", { mode: 0o600 });
+console.log(`OK questions=${rows.length} self=${selfRows.length} substantive=${substantiveRows.length} presets=${presetRows.length} redacted=${redactedRows}`);

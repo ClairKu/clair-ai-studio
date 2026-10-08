@@ -19,7 +19,7 @@ const fail = (message) => { throw new Error(`千问用户数据看板校验失�
 const launchAt = "2026-08-10T08:00:00+08:00";
 // v6 起统计窗口比正式上线提前一周，用于覆盖上线前的灰度绑定。
 const windowStartAt = "2026-08-03T00:00:00+08:00";
-const schemaVersion = "qianwen-user-acquisition-v7";
+const schemaVersion = "qianwen-user-acquisition-v8";
 const cohortKeys = ["all", "new", "existing"];
 const profileDimensionIds = [
   "asset_holding_status",
@@ -60,6 +60,15 @@ const isCount = (value) => Number.isInteger(value) && value >= 0;
 const questionTopicIds = ["holding_account", "product_analysis", "market_research", "product_selection",
   "transaction_action", "planning_configuration", "knowledge_explain", "qieman_service",
   "report_information", "dialogue_followup", "other_expression"];
+const questionDirectionIds = ["holding_diagnosis", "product_research", "product_selection", "asset_allocation", "market_insight",
+  "transaction_execution", "investment_learning", "qieman_service", "conversation_other"];
+const questionObjectIds = ["own_account", "specific_product", "fund_category", "strategy_portfolio", "asset_class", "goal_plan",
+  "market_environment", "platform_service", "unspecified"];
+const questionStyleIds = ["direct_request", "diagnose_evaluate", "compare_choose", "why_explain", "how_to", "forecast_risk",
+  "fact_lookup", "conversation_fragment"];
+const questionCognitionIds = ["beginner_signal", "developing_signal", "advanced_signal", "indeterminate"];
+const questionPersonaIds = ["holding_optimizer", "product_decider", "planning_allocator", "market_tracker", "execution_seeker",
+  "learning_builder", "platform_explorer", "preset_only", "light_conversation"];
 
 function assertPlainObject(value, path) {
   if (!value || typeof value !== "object" || Array.isArray(value)) fail(`${path} 不是有效对象`);
@@ -274,7 +283,8 @@ function validateQuestionInsights() {
   if (insight.as_of !== data.meta.data_cutoff || insight.cohort !== "new"
       || insight.cohort_definition !== "registered_within_60m_of_first_binding") fail("question_insights 人群或截止时点异常");
   if (insight.methodology?.topic_model !== "keyword-primary-intent-v1"
-      || insight.methodology?.raw_corpus !== "deidentified_redacted_encrypted"
+      || insight.methodology?.taxonomy !== "rule-based-multiaxis-v2"
+      || insight.methodology?.raw_corpus !== "deidentified_redacted_encrypted_v2"
       || insight.methodology?.top_question_min_users !== 10) fail("question_insights 方法说明异常");
   const summaryKeys = ["bound_users", "asking_users", "questions", "sessions", "legacy_preset_questions",
     "short_followups", "first_question_preset_users", "one_day_users", "multi_day_users", "top_1pct_questions", "top_5pct_questions"];
@@ -299,22 +309,120 @@ function validateQuestionInsights() {
     const expected = scope === "all" ? summary.questions : summary.asking_users;
     if (rows.reduce((sum, item) => sum + item.questions, 0) !== expected) fail(`question_insights.topics.${scope} 不闭合`);
   }
-  if (!Array.isArray(insight.top_questions) || insight.top_questions.length < 10) fail("question_insights.top_questions 缺失");
+  if (!Array.isArray(insight.top_questions)) fail("question_insights.top_questions 缺失");
   const sensitiveText = /(?:[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}|(?<!\d)1[3-9]\d{9}(?!\d)|(?<!\d)\d{17}[0-9Xx](?!\d)|身份证|银行卡|账号|密码)/i;
   insight.top_questions.forEach((item, index) => {
     if (item.rank !== index + 1 || typeof item.question !== "string" || item.question.length < 5
-      || !isCount(item.questions) || !isCount(item.users) || item.users < insight.methodology.top_question_min_users
+      || !questionDirectionIds.includes(item.direction) || !isCount(item.questions) || !isCount(item.users)
+      || item.users < insight.methodology.top_question_min_users
       || sensitiveText.test(item.question)) fail(`question_insights.top_questions[${index}] 异常`);
   });
+
+  const research = insight.research;
+  assertPlainObject(research, "question_insights.research");
+  if (research.schema_version !== "qianwen-question-research-v2" || research.as_of !== insight.as_of
+      || research.methodology?.taxonomy !== "rule-based-multiaxis-v2"
+      || research.methodology?.preset_ctr_note !== "no_impression_log_asker_reach_is_proxy_not_true_ctr") {
+    fail("question_insights.research 方法或版本异常");
+  }
+  const researchSummaryKeys = ["questions", "asking_users", "sessions", "preset_questions", "preset_users", "preset_first_users",
+    "self_authored_questions", "self_authored_users", "substantive_questions", "substantive_users", "short_followups", "preset_only_users"];
+  assertPlainObject(research.summary, "question_insights.research.summary");
+  assertExactKeys(Object.keys(research.summary), researchSummaryKeys, "question_insights.research.summary");
+  researchSummaryKeys.forEach((key) => { if (!isCount(research.summary[key])) fail(`question_insights.research.summary.${key} 无效`); });
+  const rs = research.summary;
+  if (rs.questions !== summary.questions || rs.asking_users !== summary.asking_users || rs.sessions !== summary.sessions
+      || rs.preset_questions + rs.self_authored_questions !== rs.questions
+      || rs.substantive_questions + rs.short_followups !== rs.self_authored_questions
+      || rs.substantive_users > rs.self_authored_users || rs.self_authored_users > rs.asking_users
+      || rs.preset_users > rs.asking_users || rs.preset_first_users > rs.preset_users || rs.preset_only_users > rs.preset_users) {
+    fail("question_insights.research 汇总无法闭合");
+  }
+
+  if (research.presets?.true_impressions_available !== false
+      || research.presets?.rate_metric !== "unique_click_users_divided_by_asking_users_in_observed_window"
+      || !Array.isArray(research.presets?.versions) || !research.presets.versions.length) fail("默认题版本数据异常");
+  let presetClicks = 0;
+  research.presets.versions.forEach((version, versionIndex) => {
+    const path = `question_insights.research.presets.versions[${versionIndex}]`;
+    if (typeof version.id !== "string" || !version.id || typeof version.label !== "string" || !version.label
+        || !["exact_text_confirmed", "inferred_from_exact_repetition_and_launch_cluster", "inferred_from_exact_repetition_without_exposure_log"].includes(version.evidence)
+        || !Array.isArray(version.questions) || !version.questions.length
+        || !isCount(version.clicks) || !isCount(version.users) || !isCount(version.first_question_users)
+        || !isCount(version.follow_on_users) || !isCount(version.asker_proxy_denominator)
+        || version.users > version.asker_proxy_denominator || version.first_question_users > version.users || version.follow_on_users > version.users) fail(`${path} 字段异常`);
+    if (version.clicks > 0 && (!/^\d{4}-\d{2}-\d{2}$/.test(version.observed_from || "") || !/^\d{4}-\d{2}-\d{2}$/.test(version.observed_to || ""))) fail(`${path} 观察日期异常`);
+    let versionClicks = 0;
+    version.questions.forEach((item, index) => {
+      if (typeof item.id !== "string" || !item.id || typeof item.question !== "string" || item.question.length < 5
+          || sensitiveText.test(item.question) || !isCount(item.clicks) || !isCount(item.users)
+          || !isCount(item.first_question_users) || !isCount(item.follow_on_users)
+          || item.first_question_users > item.users || item.follow_on_users > item.users) fail(`${path}.questions[${index}] 异常`);
+      versionClicks += item.clicks;
+    });
+    if (versionClicks !== version.clicks) fail(`${path} 点击次数不闭合`);
+    presetClicks += version.clicks;
+  });
+  if (presetClicks !== rs.preset_questions) fail("默认题版本点击次数与汇总不闭合");
+
+  const dimensions = [
+    ["direction", questionDirectionIds, rs.substantive_questions],
+    ["first_direction", questionDirectionIds, rs.substantive_users],
+    ["object", questionObjectIds, rs.substantive_questions],
+    ["style", questionStyleIds, rs.substantive_questions],
+    ["cognition", questionCognitionIds, rs.substantive_questions],
+  ];
+  dimensions.forEach(([key, ids, expected]) => {
+    const rows = research.dimensions?.[key];
+    assertItemIds(rows, ids, `question_insights.research.dimensions.${key}`);
+    rows.forEach((item) => {
+      if (!isCount(item.questions) || !isCount(item.users) || item.users > rs.substantive_users) fail(`question_insights.research.dimensions.${key}.${item.id} 异常`);
+    });
+    if (rows.reduce((sum, item) => sum + item.questions, 0) !== expected) fail(`question_insights.research.dimensions.${key} 不闭合`);
+  });
+
+  assertItemIds(research.personas, questionPersonaIds, "question_insights.research.personas");
+  research.personas.forEach((item) => {
+    if (!isCount(item.users) || !isCount(item.questions)) fail(`question_insights.research.personas.${item.id} 异常`);
+  });
+  if (research.personas.reduce((sum, item) => sum + item.users, 0) !== rs.asking_users) fail("提问画像人数不闭合");
+  assertItemIds(research.user_cognition, questionCognitionIds, "question_insights.research.user_cognition");
+  if (research.user_cognition.some((item) => !isCount(item.users))
+      || research.user_cognition.reduce((sum, item) => sum + item.users, 0) !== rs.substantive_users) fail("用户认知信号不闭合");
+
+  const rhythmSpecs = [
+    ["active_days", ["1", "2", "3_7", "8_plus"], rs.asking_users],
+    ["session_depth", ["1", "2_3", "4_9", "10_plus"], rs.sessions],
+    ["gaps", ["lte_5m", "5_30m", "30m_1d", "gte_1d"], rs.questions - rs.asking_users],
+    ["time_of_day", ["00_06", "06_09", "09_12", "12_14", "14_18", "18_22", "22_24"], rs.questions],
+  ];
+  rhythmSpecs.forEach(([key, ids, expected]) => {
+    const rows = research.rhythm?.[key];
+    assertItemIds(rows, ids, `question_insights.research.rhythm.${key}`);
+    if (rows.some((item) => !isCount(item.count) || !isCount(item.users))
+        || rows.reduce((sum, item) => sum + item.count, 0) !== expected) fail(`question_insights.research.rhythm.${key} 不闭合`);
+  });
+  if (!Array.isArray(research.paths?.transitions) || !Array.isArray(research.paths?.sequences)) fail("提问路径缺失");
+  research.paths.transitions.forEach((item, index) => {
+    if (!questionDirectionIds.includes(item.from) || !questionDirectionIds.includes(item.to)
+        || !isCount(item.count) || !isCount(item.users)) fail(`question_insights.research.paths.transitions[${index}] 异常`);
+  });
+  research.paths.sequences.forEach((item, index) => {
+    if (!Array.isArray(item.path) || item.path.length < 2 || item.path.some((id) => !questionDirectionIds.includes(id))
+        || !isCount(item.users)) fail(`question_insights.research.paths.sequences[${index}] 异常`);
+  });
+  if (JSON.stringify(insight.top_questions) !== JSON.stringify(research.top_self_authored)) fail("公开高频问法与自发问法研究不一致");
 }
 
 async function validateQuestionCorpus() {
   assertPlainObject(questionEnvelope, "questions.enc.json");
-  if (questionEnvelope.schema_version !== "qianwen-question-corpus-envelope-v1" || questionEnvelope.compression !== "gzip") {
+  if (questionEnvelope.schema_version !== "qianwen-question-corpus-envelope-v2" || questionEnvelope.compression !== "gzip") {
     fail("原始提问密文版本异常");
   }
   if (questionEnvelope.meta?.data_cutoff !== data.meta.data_cutoff
       || questionEnvelope.meta?.questions !== data.question_insights.summary.questions
+      || questionEnvelope.meta?.default_questions !== data.question_insights.research.summary.preset_questions
+      || questionEnvelope.meta?.self_authored_questions !== data.question_insights.research.summary.self_authored_questions
       || !isCount(questionEnvelope.meta?.redacted_rows)) fail("原始提问密文元数据与分析快照不一致");
   if (!Number.isInteger(questionEnvelope.iterations) || questionEnvelope.iterations < 250000) fail("原始提问密文派生强度不足");
   const decode = (value) => new Uint8Array(Buffer.from(value, "base64"));
@@ -333,25 +441,39 @@ async function validateQuestionCorpus() {
   } catch (error) {
     fail(`原始提问密文无法解密：${error.message}`);
   }
-  if (corpus.schema_version !== "qianwen-question-corpus-v1" || corpus.meta?.identity_fields !== "none"
-      || corpus.meta?.topic_model !== "keyword-primary-intent-v1" || corpus.meta?.date_timezone !== "Asia/Shanghai") fail("原始提问库口径异常");
+  if (corpus.schema_version !== "qianwen-question-corpus-v2" || corpus.meta?.identity_fields !== "none"
+      || corpus.meta?.taxonomy !== "rule-based-multiaxis-v2" || corpus.meta?.date_timezone !== "Asia/Shanghai") fail("原始提问库口径异常");
   if (!Array.isArray(corpus.rows) || corpus.rows.length !== data.question_insights.summary.questions || corpus.meta.questions !== corpus.rows.length) {
     fail("原始提问库记录数异常");
   }
-  const actualTopics = Object.fromEntries(questionTopicIds.map((id) => [id, 0]));
+  const actualDirections = Object.fromEntries(questionDirectionIds.map((id) => [id, 0]));
+  let actualDefaults = 0;
+  let actualSelfAuthored = 0;
+  let actualSubstantive = 0;
   const rawPii = /(?:[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}|(?<!\d)1[3-9]\d{9}(?!\d)|(?<!\d)\d{17}[0-9Xx](?!\d)|(?<!\d)(?:\d[ -]?){12,19}(?!\d)|\b(?:wxid_|openid[:：]?)[A-Za-z0-9_-]{6,}\b)/i;
   corpus.rows.forEach((row, index) => {
     assertPlainObject(row, `question_corpus.rows[${index}]`);
-    assertExactKeys(Object.keys(row), ["i", "d", "t", "q"], `question_corpus.rows[${index}]`);
-    if (row.i !== index + 1 || !/^\d{4}-\d{2}-\d{2}$/.test(row.d) || !questionTopicIds.includes(row.t)
-        || typeof row.q !== "string" || !row.q.trim() || rawPii.test(row.q)) fail(`question_corpus.rows[${index}] 格式或脱敏异常`);
-    actualTopics[row.t] += 1;
-  });
-  data.question_insights.topics.all.forEach((item) => {
-    if (actualTopics[item.id] !== item.questions || corpus.meta.topic_counts?.[item.id] !== item.questions) {
-      fail(`原始提问库主题 ${item.id} 与总体分析不一致（密文 ${actualTopics[item.id]} / 快照 ${item.questions}）`);
+    assertExactKeys(Object.keys(row), ["i", "d", "t", "o", "f", "c", "s", "p", "v", "q"], `question_corpus.rows[${index}]`);
+    if (row.i !== index + 1 || !/^\d{4}-\d{2}-\d{2}$/.test(row.d) || !questionDirectionIds.includes(row.t)
+        || !questionObjectIds.includes(row.o) || !questionStyleIds.includes(row.f) || !questionCognitionIds.includes(row.c)
+        || ![0, 1].includes(row.s) || typeof row.p !== "string" || typeof row.v !== "string"
+        || Boolean(row.p) !== Boolean(row.v) || typeof row.q !== "string" || !row.q.trim() || rawPii.test(row.q)) {
+      fail(`question_corpus.rows[${index}] 格式或脱敏异常`);
+    }
+    actualDirections[row.t] += 1;
+    if (row.p) actualDefaults += 1;
+    else {
+      actualSelfAuthored += 1;
+      if (!row.s) actualSubstantive += 1;
     }
   });
+  questionDirectionIds.forEach((id) => {
+    if (actualDirections[id] !== corpus.meta.direction_counts?.[id]) fail(`原始提问库方向 ${id} 不闭合`);
+  });
+  const rs = data.question_insights.research.summary;
+  if (actualDefaults !== rs.preset_questions || actualSelfAuthored !== rs.self_authored_questions
+      || actualSubstantive !== rs.substantive_questions || corpus.meta.default_questions !== actualDefaults
+      || corpus.meta.self_authored_questions !== actualSelfAuthored) fail("原始提问库来源口径与聚合研究不闭合");
 }
 
 if (data.schema_version !== schemaVersion) fail("数据版本异常");
@@ -542,12 +664,23 @@ for (const signal of [
   'id="profile-distribution"',
   'id="touchpoint-distribution"',
   'id="question-analysis"',
-  'id="question-topic-bars"',
-  'id="question-depth-bars"',
-  'id="frequent-question-list"',
+  'id="question-defaults"',
+  'id="preset-summary"',
+  'id="preset-versions"',
+  'id="question-dimension-bars"',
+  'id="question-personas"',
+  'id="question-cognition-users"',
+  'id="question-rhythm-bars"',
+  'id="question-transitions"',
+  'id="question-sequences"',
+  'id="question-wording-proof"',
   'id="question-unlock-form"',
   'id="question-search"',
-  'id="question-topic-filter"',
+  'id="question-scope-filter"',
+  'id="question-direction-filter"',
+  'id="question-object-filter"',
+  'id="question-style-filter"',
+  'id="question-cognition-filter"',
   'id="question-table-body"',
   'data/fallback-data.js',
 ]) {
@@ -577,8 +710,14 @@ for (const signal of [
   'name="segment" value="existing"',
   'name="segment" value="existing_reactivated"',
   'name="segment" value="existing_first_inv"',
-  'name="question-topic-scope" value="all"',
-  'name="question-topic-scope" value="first"',
+  'name="question-lens" value="direction"',
+  'name="question-lens" value="object"',
+  'name="question-lens" value="style"',
+  'name="question-lens" value="cognition"',
+  'name="question-rhythm" value="active_days"',
+  'name="question-rhythm" value="session_depth"',
+  'name="question-rhythm" value="gaps"',
+  'name="question-rhythm" value="time_of_day"',
 ]) {
   if (!html.includes(signal)) fail(`交互控件缺少 ${signal}`);
 }
@@ -619,11 +758,16 @@ for (const removed of [
   'name="trend"',
   "选择指标，查看对应走势",
   "查看走势",
+  'id="question-topic-bars"',
+  'id="question-depth-bars"',
+  'id="frequent-question-list"',
+  'id="question-topic-filter"',
+  'name="question-topic-scope"',
 ]) {
   if (html.includes(removed) || app.includes(removed)) fail(`页面仍包含已移除内容：${removed}`);
 }
 for (const signal of [
-  "qianwen-user-acquisition-v7",
+  "qianwen-user-acquisition-v8",
   "validateData",
   "validateAudienceData",
   "filteredRows",
@@ -640,7 +784,11 @@ for (const signal of [
   "renderSegmentPanel",
   "validateQuestionInsights",
   "renderQuestionInsights",
-  "renderQuestionTopics",
+  "renderPresetResearch",
+  "renderQuestionDimension",
+  "renderQuestionPersonas",
+  "renderQuestionRhythm",
+  "renderQuestionPaths",
   "decryptQuestionCorpus",
   "renderQuestionTable",
   "loadPublishedData",
@@ -664,8 +812,13 @@ for (const rule of [
   ".chip-value",
   ".metric-tile-value",
   ".question-findings",
-  ".topic-bars",
-  ".frequent-question-list",
+  ".question-chapter",
+  ".preset-version",
+  ".dimension-bars",
+  ".persona-grid",
+  ".rhythm-layout",
+  ".transition-row",
+  ".wording-proof",
   ".question-table",
 ]) {
   if (!styles.includes(rule)) fail(`样式表缺少 ${rule}`);
@@ -675,6 +828,8 @@ for (const removed of [".chart-axis-right", ".chart-area-new", ".chart-area-exis
   if (styles.includes(removed)) fail(`样式表仍保留已废弃的双轴样式 ${removed}`);
 }
 if (/https?:\/\/(?!127\.0\.0\.1)/.test(app.replaceAll("https://ontology.yingmi-inc.com", ""))) fail("页面脚本含未审计外部服务");
+if (!(html.indexOf('id="question-analysis"') > html.indexOf('id="audience-analysis"')
+      && html.indexOf('id="question-analysis"') < html.indexOf("</main>"))) fail("提问研究模块必须位于报告正文最后");
 if (/(token|secret|password)\s*[:=]\s*["'][^"']+/i.test(app)) fail("页面脚本疑似硬编码凭证");
 const renderKpisSource = app.slice(app.indexOf("function renderKpis"), app.indexOf("function niceMaximum"));
 if (renderKpisSource.includes("rangeTotals(rows)")) fail("顶部累计总览卡仍与日期区间联动");

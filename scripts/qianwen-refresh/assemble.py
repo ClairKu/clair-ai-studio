@@ -18,6 +18,7 @@ template = json.load(open(sys.argv[1]))
 q1, q2, q3, q4 = (json.load(open(HERE / f"q{i}.json")) for i in (1, 2, 3, 4))
 q5 = json.load(open(HERE / "q5.json"))   # 分客群面板；缺了宁可失败，别发个空面板
 q6 = json.load(open(HERE / "q6.json"))   # 新用户提问洞察；与原始提问密文使用同一截止时点
+question_research = json.load(open(HERE / "question-research.json"))
 cutoff = q1["data_cutoff"]
 cutoff_day = cutoff[:10]
 
@@ -185,7 +186,7 @@ for co in COHORTS:
     business_cohorts[co] = {"population_accounts": POP[co], "stats": stats}
 
 out = dict(template)
-out["schema_version"] = "qianwen-user-acquisition-v7"
+out["schema_version"] = "qianwen-user-acquisition-v8"
 out["meta"] = {**template["meta"], "generated_at": cutoff, "data_cutoff": cutoff,
                "latest_day_is_partial": True,
                "privacy": "公开总体统计与至少 10 位用户重复的高频问法；完整原始提问去标识、脱敏并单独加密，不含用户或会话标识",
@@ -247,6 +248,20 @@ if q6["as_of"] != cutoff:
     raise SystemExit("question_insights 截止时点与看板不一致")
 if q6["summary"]["bound_users"] != metrics["new_accounts"]:
     raise SystemExit("question_insights 新用户基数与 metrics.new_accounts 不一致")
+if question_research.get("schema_version") != "qianwen-question-research-v2":
+    raise SystemExit("question_research 版本不兼容")
+if question_research.get("as_of") != cutoff:
+    raise SystemExit("question_research 截止时点与看板不一致")
+for key in ("questions", "asking_users", "sessions"):
+    if question_research["summary"][key] != q6["summary"][key]:
+        raise SystemExit(f"question_research.{key} 与 q6 不一致")
+if question_research["summary"]["preset_questions"] + question_research["summary"]["self_authored_questions"] != q6["summary"]["questions"]:
+    raise SystemExit("默认题与用户自发提问无法闭合")
+q6["methodology"]["taxonomy"] = "rule-based-multiaxis-v2"
+q6["methodology"]["preset_evidence"] = "exact-text plus launch-cluster inference; exposure log unavailable"
+q6["methodology"]["raw_corpus"] = "deidentified_redacted_encrypted_v2"
+q6["research"] = question_research
+q6["top_questions"] = question_research["top_self_authored"]
 out["question_insights"] = q6
 
 json.dump(out, open(HERE / "latest.new.json", "w"), ensure_ascii=False, indent=2)

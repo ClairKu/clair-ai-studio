@@ -40,8 +40,9 @@ QW_CUT="$CUT" QW_AD="$AD" \
 # 3. 整理成 q1..q6.json（q6 为新用户提问洞察）
 python3 scripts/qianwen-refresh/build-q.py $WORK
 
-# 原始提问只在内存中去标识、脱敏并加密；不写明文中间文件
+# 原始提问只在内存中去标识、脱敏并加密；同时输出不含标识的聚合研究数据
 QW_CUT="$CUT" QW_QUESTION_OUT="$WORK/questions.enc.json" \
+  QW_QUESTION_RESEARCH_OUT="$WORK/question-research.json" \
   node scripts/qianwen-refresh/build-question-corpus.mjs
 
 # 3. 组装 + 校验（逐日闭合、维度人数与 q1 基准归一、资产两维一致性）
@@ -61,7 +62,7 @@ QW_WT=$WORK/wt python3 scripts/qianwen-refresh/api-push.py
 - `q2`：`{"cohorts":{all|new|existing:{gender:{male,female,unknown}, age_bucket:{lte_25..gte_66,unknown}, wechat_mp_status:{...}, bank_card_status:{...}, risk_assessment_status:{...}, lifetime_investment_status:{...}, residence_province:{省名:N,...,unknown:N}}}}`
 - `q3`：`{"behavior":{co:{<metric_id>:{eligible,excluded,reached,not_reached,unknown}}},"business":{co:{holding_amount:{accounts,amount_wan}}}}`
 - `q4`：`{"as_of":"YYYY-MM-DD","cohorts":{co:{asset_holding_status:{has_assets,no_assets,unknown}, asset_bucket:{no_assets,lt_10k,10k_100k,100k_1m,gte_1m,unknown}}}}`
-- `q6`：新用户提问覆盖、会话/问题量、提问深度、主意图、第一问与高频原始问法；分类为关键词主意图 v1，不冒充语义模型。
+- `q6`：新用户提问覆盖、会话/问题量、提问深度，并合并 `question-research.json` 的多轴研究结果：默认题版本、自发提问方向/对象/问法/认知信号、行为画像、节奏与路径。全部为规则分类，不冒充人工语义标注。
 
 ## 口径红线（都踩过坑，别再犯）
 
@@ -74,7 +75,7 @@ QW_WT=$WORK/wt python3 scripts/qianwen-refresh/api-push.py
 ## 发布注意
 
 - docs/ 下是加密单页，**永远不要手工往 docs/ 拷明文数据**；npm run build（encrypt → inject 顺序）自动重生成。
-- 完整原始提问不进入公开 JSON，只提交去标识、脱敏后的 AES-GCM 密文 `questions.enc.json`；密钥与报告密码一致。
+- 完整原始提问不进入公开 JSON，只提交去标识、脱敏后的 AES-GCM 密文 `questions.enc.json`；密钥与报告密码一致。密文逐条保留多轴分类，但不含真实用户、会话标识或精确时间。
 - build 会顺带改动 vite 哈希、search-index、他人报告页——commit 只带自己 3 个文件（replay.sh 已处理）。
 - api-push.py 有远端 HEAD 前进保护：报「远端 HEAD 已变」就重跑 replay.sh（本仓库并行会话极活跃）。
 - 发布后浏览器/GitHub Pages 有缓存，验证要带 `?v=xxx` 强刷，别误判成没发上去。

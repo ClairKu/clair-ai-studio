@@ -1,5 +1,5 @@
 const DATA_URL = "./data/latest.json";
-const SCHEMA_VERSION = "qianwen-user-acquisition-v7";
+const SCHEMA_VERSION = "qianwen-user-acquisition-v8";
 const LAUNCH_AT = "2026-08-10T08:00:00+08:00";
 const WINDOW_START_AT = "2026-08-03T00:00:00+08:00";
 const LAUNCH_DAY = LAUNCH_AT.slice(0, 10);
@@ -206,6 +206,67 @@ const QUESTION_TOPICS = {
   other_expression: "需结合上下文 / 未命中",
 };
 const QUESTION_TOPIC_IDS = Object.keys(QUESTION_TOPICS);
+const QUESTION_DIRECTIONS = {
+  holding_diagnosis: ["持仓与账户诊断", "围绕自己的持仓、收益、亏损与账户"],
+  product_research: ["基金 / 策略研究", "研究具体基金、基金类型或投顾策略"],
+  product_selection: ["选品与推荐", "问买什么、选哪个、哪些更适合"],
+  asset_allocation: ["资产配置与目标规划", "按养老、买房、教育或资金期限做配置"],
+  market_insight: ["市场与机会研判", "行情、板块、资产表现、机会与风险"],
+  transaction_execution: ["交易与执行", "买卖、赎回、定投、调仓与操作步骤"],
+  investment_learning: ["投资知识学习", "概念、原理、差异与判断方法"],
+  qieman_service: ["且慢 / 小顾服务", "平台功能、报告、登录与服务能力"],
+  conversation_other: ["上下文与开放表达", "需结合前文理解的口语化表达"],
+};
+const QUESTION_OBJECTS = {
+  own_account: ["自己的账户 / 持仓", "我的资产、收益与仓位"],
+  specific_product: ["具体基金 / 产品", "带产品名或代码的具体对象"],
+  fund_category: ["基金类型", "指数、主动、债基、红利等类型"],
+  strategy_portfolio: ["投顾策略 / 组合", "策略、组合、主理人与跟车"],
+  asset_class: ["资产类别", "A股、港股、美股、黄金、债券等"],
+  goal_plan: ["人生目标 / 资金计划", "养老、买房、教育与现金流"],
+  market_environment: ["市场环境", "大盘、宏观、行业、政策与估值"],
+  platform_service: ["且慢 / 小顾服务", "平台功能与服务入口"],
+  unspecified: ["对象未明确", "省略主语或依赖上下文"],
+};
+const QUESTION_STYLES = {
+  direct_request: ["直接提出要求", "帮我、给我、推荐、筛选"],
+  diagnose_evaluate: ["诊断 / 评价", "怎么样、是否值得、是否适合"],
+  compare_choose: ["比较 / 选择", "哪个好、有什么区别、怎么选"],
+  why_explain: ["追问原因", "为什么、逻辑、背后原因"],
+  how_to: ["寻求操作方法", "怎么做、怎么买、在哪里操作"],
+  forecast_risk: ["预测 / 机会风险", "后市、涨跌、风险与追高"],
+  fact_lookup: ["事实查询 / 概念", "什么是、多少、何时、介绍"],
+  conversation_fragment: ["口语片段 / 上下文", "省略表达与连续对话"],
+};
+const QUESTION_COGNITION = {
+  beginner_signal: ["入门信号", "概念、怎么买、净值贵不贵等基础认知"],
+  developing_signal: ["进阶信号", "回撤、费率、持有期、配置与风险"],
+  advanced_signal: ["专业信号", "归因、相关性、夏普、久期等术语"],
+  indeterminate: ["证据不足", "问题本身不足以判断投资认知"],
+};
+const QUESTION_DIMENSIONS = {
+  direction: { label: "提问方向", values: QUESTION_DIRECTIONS, filter: "question-direction-filter", key: "t" },
+  object: { label: "询问对象", values: QUESTION_OBJECTS, filter: "question-object-filter", key: "o" },
+  style: { label: "问法风格", values: QUESTION_STYLES, filter: "question-style-filter", key: "f" },
+  cognition: { label: "认知信号", values: QUESTION_COGNITION, filter: "question-cognition-filter", key: "c" },
+};
+const QUESTION_PERSONAS = {
+  holding_optimizer: ["持仓求诊型", "带着自己的账户和盈亏来，核心诉求是诊断与优化。"],
+  product_decider: ["产品决策型", "围绕具体基金、基金类型、策略筛选与比较做决定。"],
+  planning_allocator: ["配置规划型", "从资金用途、期限和人生目标出发安排资产。"],
+  market_tracker: ["市场研判型", "先理解行情、板块和机会风险，再决定是否行动。"],
+  execution_seeker: ["交易执行型", "已接近行动，主要追问买卖、赎回、定投或调仓。"],
+  learning_builder: ["投资学习型", "通过概念、原理和判断方法建立基础认知。"],
+  platform_explorer: ["开放探索型", "大量依赖上下文的连续表达，方向会在对话中逐渐显现。"],
+  preset_only: ["默认题尝鲜型", "只有默认 / 推荐问题，至多留下极短承接，没有可识别的实质自发需求。"],
+  light_conversation: ["轻对话型", "只有极短承接语，尚未表达可识别的投资需求。"],
+};
+const QUESTION_RHYTHM = {
+  active_days: { label: "活跃天数", values: { "1": "只在 1 天提问", "2": "活跃 2 天", "3_7": "活跃 3–7 天", "8_plus": "活跃 8 天以上" }, unit: "人" },
+  session_depth: { label: "单会话深度", values: { "1": "单会话 1 问", "2_3": "单会话 2–3 问", "4_9": "单会话 4–9 问", "10_plus": "单会话 10 问以上" }, unit: "个会话" },
+  gaps: { label: "连续提问间隔", values: { "lte_5m": "5 分钟内追问", "5_30m": "5–30 分钟", "30m_1d": "30 分钟–1 天", "gte_1d": "间隔 1 天以上" }, unit: "次间隔" },
+  time_of_day: { label: "提问时段", values: { "00_06": "00–06 时", "06_09": "06–09 时", "09_12": "09–12 时", "12_14": "12–14 时", "14_18": "14–18 时", "18_22": "18–22 时", "22_24": "22–24 时" }, unit: "条" },
+};
 const QUESTION_DEPTH_LABELS = {
   "1": "只问 1 次",
   "2_4": "问 2–4 次",
@@ -226,7 +287,8 @@ const viewState = {
   customApplied: false,
   audienceCohort: "all",
   segment: "all",
-  questionTopicScope: "all",
+  questionLens: "direction",
+  questionRhythm: "active_days",
   questionPage: 1,
 };
 
@@ -420,7 +482,8 @@ function validateQuestionInsights(data) {
   const insight = data.question_insights;
   if (!insight || insight.cohort !== "new" || insight.as_of !== data.meta.data_cutoff) throw new Error("新用户提问分析口径异常");
   if (insight.cohort_definition !== "registered_within_60m_of_first_binding") throw new Error("新用户提问人群定义异常");
-  if (insight.methodology?.topic_model !== "keyword-primary-intent-v1" || insight.methodology?.raw_corpus !== "deidentified_redacted_encrypted") {
+  if (insight.methodology?.topic_model !== "keyword-primary-intent-v1" || insight.methodology?.taxonomy !== "rule-based-multiaxis-v2"
+      || insight.methodology?.raw_corpus !== "deidentified_redacted_encrypted_v2") {
     throw new Error("新用户提问分析方法异常");
   }
   const summaryKeys = ["bound_users", "asking_users", "questions", "sessions", "legacy_preset_questions",
@@ -444,12 +507,55 @@ function validateQuestionInsights(data) {
     const expected = scope === "all" ? summary.questions : summary.asking_users;
     if (rows.reduce((sum, item) => sum + item.questions, 0) !== expected) throw new Error(`提问主题 ${scope} 不闭合`);
   }
-  if (!Array.isArray(insight.top_questions) || !insight.top_questions.length) throw new Error("高频原始问法缺失");
+  if (!Array.isArray(insight.top_questions)) throw new Error("高频自发问法结构异常");
   insight.top_questions.forEach((item, index) => {
-    if (item.rank !== index + 1 || typeof item.question !== "string" || item.question.length < 5 || !isWholeCount(item.questions) || !isWholeCount(item.users)) {
+    if (item.rank !== index + 1 || typeof item.question !== "string" || item.question.length < 5 || !QUESTION_DIRECTIONS[item.direction]
+        || !isWholeCount(item.questions) || !isWholeCount(item.users) || item.users < 10) {
       throw new Error("高频原始问法格式异常");
     }
   });
+  const research = insight.research;
+  if (!research || research.schema_version !== "qianwen-question-research-v2" || research.as_of !== insight.as_of) throw new Error("提问研究数据异常");
+  const rs = research.summary || {};
+  ["questions", "asking_users", "sessions", "preset_questions", "preset_users", "preset_first_users", "self_authored_questions",
+    "self_authored_users", "substantive_questions", "substantive_users", "short_followups", "preset_only_users"].forEach((key) => {
+    if (!isWholeCount(rs[key])) throw new Error(`提问研究汇总 ${key} 异常`);
+  });
+  if (rs.questions !== summary.questions || rs.asking_users !== summary.asking_users || rs.sessions !== summary.sessions
+      || rs.preset_questions + rs.self_authored_questions !== rs.questions
+      || rs.substantive_questions + rs.short_followups !== rs.self_authored_questions
+      || rs.substantive_users > rs.self_authored_users || rs.self_authored_users > rs.asking_users) throw new Error("提问研究汇总无法闭合");
+  if (research.presets?.true_impressions_available !== false || !Array.isArray(research.presets?.versions) || !research.presets.versions.length) throw new Error("默认题版本数据异常");
+  let presetClicks = 0;
+  research.presets.versions.forEach((version) => {
+    if (!version.id || !version.label || !version.evidence || !Array.isArray(version.questions) || !version.questions.length
+        || !isWholeCount(version.clicks) || !isWholeCount(version.users) || !isWholeCount(version.first_question_users)
+        || !isWholeCount(version.follow_on_users) || !isWholeCount(version.asker_proxy_denominator)) throw new Error("默认题版本字段异常");
+    if (version.questions.reduce((sum, item) => sum + item.clicks, 0) !== version.clicks) throw new Error(`${version.id} 默认题点击不闭合`);
+    presetClicks += version.clicks;
+  });
+  if (presetClicks !== rs.preset_questions) throw new Error("默认题版本合计不闭合");
+  const dimensionSpecs = [
+    ["direction", QUESTION_DIRECTIONS, rs.substantive_questions],
+    ["first_direction", QUESTION_DIRECTIONS, rs.substantive_users],
+    ["object", QUESTION_OBJECTS, rs.substantive_questions],
+    ["style", QUESTION_STYLES, rs.substantive_questions],
+    ["cognition", QUESTION_COGNITION, rs.substantive_questions],
+  ];
+  dimensionSpecs.forEach(([key, labels, expected]) => {
+    const rows = research.dimensions?.[key];
+    if (!Array.isArray(rows) || rows.length !== Object.keys(labels).length || rows.reduce((sum, item) => sum + item.questions, 0) !== expected) throw new Error(`${key} 分类不闭合`);
+    rows.forEach((item) => { if (!labels[item.id] || !isWholeCount(item.questions) || !isWholeCount(item.users)) throw new Error(`${key}.${item.id} 异常`); });
+  });
+  if (!Array.isArray(research.personas) || research.personas.reduce((sum, item) => sum + item.users, 0) !== rs.asking_users) throw new Error("提问画像不闭合");
+  research.personas.forEach((item) => { if (!QUESTION_PERSONAS[item.id] || !isWholeCount(item.users) || !isWholeCount(item.questions)) throw new Error("提问画像字段异常"); });
+  if (!Array.isArray(research.user_cognition) || research.user_cognition.reduce((sum, item) => sum + item.users, 0) !== rs.substantive_users) throw new Error("用户认知信号不闭合");
+  const rhythmExpected = { active_days: rs.asking_users, session_depth: rs.sessions, gaps: rs.questions - rs.asking_users, time_of_day: rs.questions };
+  Object.entries(rhythmExpected).forEach(([key, expected]) => {
+    const rows = research.rhythm?.[key];
+    if (!Array.isArray(rows) || rows.reduce((sum, item) => sum + item.count, 0) !== expected) throw new Error(`提问节奏 ${key} 不闭合`);
+  });
+  if (!Array.isArray(research.paths?.transitions) || !Array.isArray(research.paths?.sequences)) throw new Error("提问路径缺失");
 }
 
 function validateData(data) {
@@ -1335,57 +1441,120 @@ function renderAudience({ announce = false } = {}) {
   if (announce) $("#audience-announcement").textContent = `已切换至${label}，共 ${population === null ? "未知" : number.format(population)} 人。`;
 }
 
-function renderQuestionTopics() {
-  const insight = currentData.question_insights;
-  const scope = viewState.questionTopicScope;
-  const rows = [...insight.topics[scope]].sort((a, b) => b.questions - a.questions);
-  const total = scope === "all" ? insight.summary.questions : insight.summary.asking_users;
+const questionLabel = (dimension, id) => QUESTION_DIMENSIONS[dimension]?.values?.[id]?.[0] || id;
+
+function renderQuestionDimension() {
+  const research = currentData.question_insights.research;
+  const lens = viewState.questionLens;
+  const definition = QUESTION_DIMENSIONS[lens];
+  const rows = [...research.dimensions[lens]].sort((a, b) => b.questions - a.questions);
+  const total = research.summary.substantive_questions;
   const max = Math.max(...rows.map((item) => item.questions), 1);
-  $("#question-topic-note").textContent = scope === "all"
-    ? "全量提问按首个命中规则归入一个主意图；用户数可跨主题重复。"
-    : "每位实际提问用户只取第一问，更接近刚进入小顾时的原始需求。";
-  $("#question-topic-bars").innerHTML = rows.map((item) => `<div class="topic-row">
-    <span class="topic-row-label">${escapeHtml(QUESTION_TOPICS[item.id])}</span>
-    <div class="topic-track" role="img" aria-label="${escapeHtml(QUESTION_TOPICS[item.id])} ${number.format(item.questions)} 条，占 ${formatShare(item.questions, total)}"><i style="width:${Math.max(1.5, item.questions / max * 100)}%"></i></div>
-    <div class="topic-row-value"><strong>${number.format(item.questions)}</strong><small>${formatShare(item.questions, total)} · ${number.format(item.users)} 人</small></div>
+  $("#question-dimension-note").textContent = `${definition.label}：只看 ${number.format(total)} 条剔除默认题与短承接语后的自发实质问题；同一维度互斥闭合，用户数可跨类别重复。点击可查看对应原话。`;
+  $("#question-dimension-bars").innerHTML = rows.map((item) => `<button class="dimension-row" type="button" data-question-dimension="${lens}" data-question-value="${item.id}">
+    <span class="dimension-row-label">${escapeHtml(definition.values[item.id][0])}<small>${escapeHtml(definition.values[item.id][1])}</small></span>
+    <span class="dimension-track" role="img" aria-label="${escapeHtml(definition.values[item.id][0])} ${number.format(item.questions)} 条"><i style="width:${Math.max(1.2, item.questions / max * 100)}%"></i></span>
+    <span class="dimension-row-value"><strong>${number.format(item.questions)}</strong><small>${formatShare(item.questions, total)} · ${number.format(item.users)} 人</small></span>
+  </button>`).join("");
+}
+
+function renderPresetResearch(research) {
+  const summary = research.summary;
+  $("#preset-summary").innerHTML = [
+    ["已识别默认题", summary.preset_questions, `占全部提问 ${formatShare(summary.preset_questions, summary.questions)}`],
+    ["点击过默认题", summary.preset_users, `占提问用户 ${formatShare(summary.preset_users, summary.asking_users)}`],
+    ["第一问就是默认题", summary.preset_first_users, `占提问用户 ${formatShare(summary.preset_first_users, summary.asking_users)}`],
+    ["只点默认题未自发问", summary.preset_only_users, `占提问用户 ${formatShare(summary.preset_only_users, summary.asking_users)}`],
+  ].map(([label, value, note]) => `<article><span>${label}</span><strong>${number.format(value)}</strong><small>${note}</small></article>`).join("");
+  $("#preset-versions").innerHTML = research.presets.versions.map((version, index) => {
+    const reach = formatShare(version.users, version.asker_proxy_denominator);
+    const follow = formatShare(version.follow_on_users, version.users);
+    const evidence = version.evidence === "exact_text_confirmed" ? "文案已确认" : "按完全重复与出现时间推断";
+    return `<details class="preset-version"${index === 0 ? " open" : ""}><summary>
+      <h4>${escapeHtml(version.label)}<small>观察到 ${escapeHtml(version.observed_from)} — ${escapeHtml(version.observed_to)} · ${escapeHtml(evidence)}</small></h4>
+      <span><strong>${number.format(version.clicks)}</strong>点击次数</span>
+      <span><strong>${number.format(version.users)}</strong>点击用户</span>
+      <span><strong>${reach}</strong>可观测触达代理</span>
+      <span><strong>${follow}</strong>点击后继续自发问</span>
+    </summary><div class="preset-question-list">${version.questions.map((item) => `<div class="preset-question-row">
+      <q>${escapeHtml(item.question)}</q><span>${number.format(item.clicks)} 次</span><span>${number.format(item.users)} 人</span><span>${number.format(item.first_question_users)} 人首问</span><span>${number.format(item.follow_on_users)} 人续问</span>
+    </div>`).join("")}</div></details>`;
+  }).join("");
+}
+
+function renderQuestionPersonas(research) {
+  const total = research.summary.asking_users;
+  $("#question-personas").innerHTML = [...research.personas].sort((a, b) => b.users - a.users).map((item) => `<article class="persona-card">
+    <em>${formatShare(item.users, total)}</em><h4>${escapeHtml(QUESTION_PERSONAS[item.id][0])}</h4><p>${escapeHtml(QUESTION_PERSONAS[item.id][1])}</p>
+    <footer><strong>${number.format(item.users)}</strong><span>${item.questions ? `${number.format(item.questions)} 条实质问题` : "尚无实质自发问题"}</span></footer>
+  </article>`).join("");
+  const cognitionTotal = research.summary.substantive_users;
+  $("#question-cognition-users").innerHTML = research.user_cognition.map((item) => `<div class="cognition-user-row"><span>${escapeHtml(QUESTION_COGNITION[item.id][0])}</span><i><b style="width:${item.users / cognitionTotal * 100}%"></b></i><strong>${number.format(item.users)} · ${formatShare(item.users, cognitionTotal)}</strong></div>`).join("");
+}
+
+function renderQuestionRhythm() {
+  const research = currentData.question_insights.research;
+  const key = viewState.questionRhythm;
+  const definition = QUESTION_RHYTHM[key];
+  const rows = research.rhythm[key];
+  const total = rows.reduce((sum, item) => sum + item.count, 0);
+  const max = Math.max(...rows.map((item) => item.count), 1);
+  $("#question-rhythm-bars").innerHTML = rows.map((item) => `<div class="dimension-row">
+    <span class="dimension-row-label">${escapeHtml(definition.values[item.id])}<small>${number.format(item.users)} 位用户涉及</small></span>
+    <span class="dimension-track"><i style="width:${Math.max(item.count ? 1.2 : 0, item.count / max * 100)}%"></i></span>
+    <span class="dimension-row-value"><strong>${number.format(item.count)} ${definition.unit}</strong><small>${formatShare(item.count, total)}</small></span>
   </div>`).join("");
+  const top = [...rows].sort((a, b) => b.count - a.count)[0];
+  const insightCopy = {
+    active_days: ["使用仍以一次性尝鲜为主", `${formatShare(top.count, total)} 的提问用户只在 1 天内出现；持续回访不能只靠更多入口，需要首轮回答形成下一步。`],
+    session_depth: ["多数会话停在浅层问答", `最多的是“${definition.values[top.id]}”，占全部会话 ${formatShare(top.count, total)}；应重点看首问后是否进入比较、配置或执行。`],
+    gaps: ["追问高度集中在同一轮", `${formatShare(top.count, total)} 的相邻提问发生在 5 分钟内；超过 1 天再回来的是 ${number.format(rows.find((item) => item.id === "gte_1d")?.count || 0)} 次。`],
+    time_of_day: ["源系统时间高度集中，暂不作生活节奏推断", `复核后消息时间仍只落在 09:00—12:59，最多的是 ${definition.values[top.id]}、共 ${number.format(top.count)} 条；这更可能反映消息落库机制，不能直接解释为用户的自然活跃时段。`],
+  }[key];
+  $("#question-rhythm-insight").innerHTML = `<strong>${escapeHtml(insightCopy[0])}</strong><p>${escapeHtml(insightCopy[1])}</p>`;
+}
+
+function renderQuestionPaths(research) {
+  $("#question-transitions").innerHTML = research.paths.transitions.map((item) => `<div class="transition-row"><div class="transition-route"><span>${escapeHtml(questionLabel("direction", item.from))}</span><i>→</i><span>${escapeHtml(questionLabel("direction", item.to))}</span></div><strong>${number.format(item.count)} 次 · ${number.format(item.users)} 人</strong></div>`).join("");
+  $("#question-sequences").innerHTML = research.paths.sequences.map((item) => `<div class="sequence-row"><p>${item.path.map((id, index) => `${index ? "<i>→</i>" : ""}<span>${escapeHtml(questionLabel("direction", id))}</span>`).join("")}</p><strong>${number.format(item.users)} 人</strong></div>`).join("");
+}
+
+function populateQuestionFilters() {
+  for (const [dimension, definition] of Object.entries(QUESTION_DIMENSIONS)) {
+    const select = $(`#${definition.filter}`);
+    if (select.options.length > 1) continue;
+    select.insertAdjacentHTML("beforeend", Object.entries(definition.values).map(([id, copy]) => `<option value="${id}">${escapeHtml(copy[0])}</option>`).join(""));
+  }
 }
 
 function renderQuestionInsights() {
   const insight = currentData.question_insights;
-  const summary = insight.summary;
+  const research = insight.research;
+  const summary = research.summary;
   $("#question-askers").textContent = number.format(summary.asking_users);
-  $("#question-ask-rate").textContent = `占 ${number.format(summary.bound_users)} 名新用户的 ${formatShare(summary.asking_users, summary.bound_users)}`;
-  $("#question-total").textContent = number.format(summary.questions);
-  $("#question-average").textContent = `人均 ${number.format(Math.round(summary.questions / summary.asking_users * 10) / 10)} 问`;
-  $("#question-sessions").textContent = number.format(summary.sessions);
-  $("#question-one-day").textContent = number.format(summary.one_day_users);
-  $("#question-one-day-rate").textContent = `占提问用户 ${formatShare(summary.one_day_users, summary.asking_users)}`;
-
-  const first = insight.topics.first;
-  const explicitFirst = first.filter((item) => !["other_expression", "dialogue_followup"].includes(item.id)).sort((a, b) => b.questions - a.questions).slice(0, 3);
-  const topFirstCopy = explicitFirst.map((item) => `${QUESTION_TOPICS[item.id]} ${formatShare(item.questions, summary.asking_users)}`).join("、");
+  $("#question-ask-rate").textContent = `占 ${number.format(insight.summary.bound_users)} 名新用户的 ${formatShare(summary.asking_users, insight.summary.bound_users)}`;
+  $("#question-self-total").textContent = number.format(summary.self_authored_questions);
+  $("#question-self-rate").textContent = `占全部提问 ${formatShare(summary.self_authored_questions, summary.questions)}`;
+  $("#question-substantive").textContent = number.format(summary.substantive_questions);
+  $("#question-substantive-users").textContent = `${number.format(summary.substantive_users)} 位用户留下实质问题`;
+  $("#question-default-total").textContent = number.format(summary.preset_questions);
+  $("#question-default-rate").textContent = `占全部提问 ${formatShare(summary.preset_questions, summary.questions)}`;
+  const directions = [...research.dimensions.direction].filter((item) => item.id !== "conversation_other").sort((a, b) => b.questions - a.questions);
+  const objects = Object.fromEntries(research.dimensions.object.map((item) => [item.id, item]));
   $("#question-findings").innerHTML = [
-    { key: "FIRST INTENT", title: "第一问最明确的三类需求", copy: `${topFirstCopy}；另有 ${formatShare(first.find((item) => item.id === "other_expression").questions, summary.asking_users)} 需结合对话上下文，不能硬贴标签。` },
-    { key: "CONCENTRATION", title: `头部 1% 用户贡献 ${formatShare(summary.top_1pct_questions, summary.questions)}`, copy: `前 5% 用户贡献 ${number.format(summary.top_5pct_questions)} 条，占 ${formatShare(summary.top_5pct_questions, summary.questions)}。问题量高度集中，不能把高频用户的声音直接当成全民需求。` },
-    { key: "PROMPT EFFECT", title: `旧版四个预设问法占 ${formatShare(summary.legacy_preset_questions, summary.questions)}`, copy: `共有 ${number.format(summary.first_question_preset_users)} 人第一问就是旧预设，占提问用户 ${formatShare(summary.first_question_preset_users, summary.asking_users)}；高重复问法应与用户自主输入分开解读。` },
+    { key: "REAL DEMAND", title: `剔除默认题后仍有 ${number.format(summary.self_authored_questions)} 条`, copy: `${number.format(summary.substantive_questions)} 条属于实质自发问题；默认问题并不是活跃的主体，但会严重污染“高频问法”。` },
+    { key: "WHAT THEY ASK", title: `${QUESTION_DIRECTIONS[directions[0].id][0]}是最大明确方向`, copy: `明确方向前三位为 ${directions.slice(0, 3).map((item) => `${QUESTION_DIRECTIONS[item.id][0]} ${formatShare(item.questions, summary.substantive_questions)}`).join("、")}。` },
+    { key: "OBJECT SPLIT", title: `具体产品 ${number.format(objects.specific_product.questions)} 条，基金类型 ${number.format(objects.fund_category.questions)} 条`, copy: `另有自己的账户 ${number.format(objects.own_account.questions)} 条、目标规划 ${number.format(objects.goal_plan.questions)} 条、市场环境 ${number.format(objects.market_environment.questions)} 条；对象未明确的表达必须结合上下文。` },
+    { key: "RETENTION", title: `${formatShare(insight.summary.one_day_users, summary.asking_users)} 只在一天里问过`, copy: `只有 ${number.format(insight.summary.multi_day_users)} 人跨日回来。入口已经让用户开口，真正短板是首轮回答后的持续使用。` },
   ].map((item) => `<article class="question-finding"><em>${item.key}</em><strong>${escapeHtml(item.title)}</strong><p>${escapeHtml(item.copy)}</p></article>`).join("");
-
-  $("#question-depth-bars").innerHTML = insight.depth.map((item) => `<div class="depth-row">
-    <div class="depth-row-copy"><span>${escapeHtml(QUESTION_DEPTH_LABELS[item.id])}</span><strong>${number.format(item.users)}<em>${formatShare(item.users, summary.asking_users)}</em></strong></div>
-    <div class="depth-track"><i style="width:${Math.max(1.5, item.users / summary.asking_users * 100)}%"></i></div>
-  </div>`).join("");
-  $("#question-concentration").innerHTML = `<strong>${formatShare(summary.one_day_users, summary.asking_users)} 的提问用户只在一天内使用</strong><p>拉新入口已经让多数新用户开口，但持续回访只有 ${number.format(summary.multi_day_users)} 人。下一步应优先验证首轮回答是否真正承接了需求，而不只是继续堆流量。</p>`;
-
-  $("#frequent-question-list").innerHTML = insight.top_questions.map((item) => `<article class="frequent-question">
-    <span class="frequent-question-rank">${String(item.rank).padStart(2, "0")}</span>
-    <div><q>${escapeHtml(item.question)}</q><p>${number.format(item.questions)} 次 · ${number.format(item.users)} 位用户</p></div>
-  </article>`).join("");
-  renderQuestionTopics();
-  const topicFilter = $("#question-topic-filter");
-  if (topicFilter.options.length === 1) {
-    topicFilter.insertAdjacentHTML("beforeend", QUESTION_TOPIC_IDS.map((id) => `<option value="${id}">${escapeHtml(QUESTION_TOPICS[id])}</option>`).join(""));
-  }
+  renderPresetResearch(research);
+  renderQuestionDimension();
+  renderQuestionPersonas(research);
+  renderQuestionRhythm();
+  renderQuestionPaths(research);
+  const repeated = research.top_self_authored.length;
+  $("#question-wording-proof").innerHTML = `<strong>${number.format(repeated)}</strong><div><h4>${repeated ? `有 ${repeated} 条自发原话被至少 10 位用户完全重复` : "剔除默认题后，没有标准句能代表所有用户"}</h4><p>${repeated ? "这些问法已达到公开展示门槛；更多原话请按分类下钻查看。" : "用户真实表达高度分散、依赖个人情境。主要问法应看“比较、诊断、原因、操作、机会风险”等结构，而不是再列一组看似高频、实为默认按钮的句子。"}</p></div>`;
+  populateQuestionFilters();
   void autoUnlockQuestionCorpus();
 }
 
@@ -1399,7 +1568,7 @@ async function loadQuestionEnvelope() {
 }
 
 async function decryptQuestionCorpus(envelope, supplied) {
-  if (envelope?.schema_version !== "qianwen-question-corpus-envelope-v1" || envelope.compression !== "gzip") throw new Error("原始提问密文版本不兼容");
+  if (envelope?.schema_version !== "qianwen-question-corpus-envelope-v2" || envelope.compression !== "gzip") throw new Error("原始提问密文版本不兼容");
   if (!globalThis.crypto?.subtle || typeof DecompressionStream !== "function") throw new Error("当前浏览器不支持安全解锁，请升级后重试");
   const material = await crypto.subtle.importKey("raw", new TextEncoder().encode(supplied), "PBKDF2", false, ["deriveKey"]);
   const key = await crypto.subtle.deriveKey(
@@ -1409,19 +1578,19 @@ async function decryptQuestionCorpus(envelope, supplied) {
   const compressed = await crypto.subtle.decrypt({ name: "AES-GCM", iv: decodeQuestionBase64(envelope.iv) }, key, decodeQuestionBase64(envelope.data));
   const decompressed = new Blob([compressed]).stream().pipeThrough(new DecompressionStream("gzip"));
   const corpus = JSON.parse(await new Response(decompressed).text());
-  if (corpus?.schema_version !== "qianwen-question-corpus-v1" || !Array.isArray(corpus.rows) || corpus.rows.length !== corpus.meta?.questions) {
+  if (corpus?.schema_version !== "qianwen-question-corpus-v2" || !Array.isArray(corpus.rows) || corpus.rows.length !== corpus.meta?.questions) {
     throw new Error("原始提问库结构异常");
   }
   const insight = currentData.question_insights;
   if (corpus.meta.data_cutoff !== insight.as_of || corpus.rows.length !== insight.summary.questions) throw new Error("原始提问库与分析快照不一致");
-  const counts = Object.fromEntries(QUESTION_TOPIC_IDS.map((id) => [id, 0]));
+  if (corpus.meta.default_questions !== insight.research.summary.preset_questions || corpus.meta.self_authored_questions !== insight.research.summary.self_authored_questions) throw new Error("默认题与自发问题口径不一致");
   corpus.rows.forEach((row, index) => {
-    if (row.i !== index + 1 || !/^\d{4}-\d{2}-\d{2}$/.test(row.d) || !QUESTION_TOPIC_IDS.includes(row.t) || typeof row.q !== "string" || !row.q) {
+    if (row.i !== index + 1 || !/^\d{4}-\d{2}-\d{2}$/.test(row.d) || !QUESTION_DIRECTIONS[row.t] || !QUESTION_OBJECTS[row.o]
+        || !QUESTION_STYLES[row.f] || !QUESTION_COGNITION[row.c] || ![0, 1].includes(row.s) || typeof row.p !== "string" || typeof row.v !== "string"
+        || typeof row.q !== "string" || !row.q) {
       throw new Error("原始提问库包含异常记录");
     }
-    counts[row.t] += 1;
   });
-  insight.topics.all.forEach((item) => { if (counts[item.id] !== item.questions) throw new Error(`主题 ${item.id} 与分析快照不一致`); });
   return corpus;
 }
 
@@ -1471,8 +1640,14 @@ async function autoUnlockQuestionCorpus() {
 function filteredQuestionRows() {
   if (!questionCorpus) return [];
   const query = $("#question-search").value.trim().toLocaleLowerCase("zh-CN");
-  const topic = $("#question-topic-filter").value;
-  return questionCorpus.rows.filter((row) => (topic === "all" || row.t === topic)
+  const scope = $("#question-scope-filter").value;
+  const direction = $("#question-direction-filter").value;
+  const object = $("#question-object-filter").value;
+  const style = $("#question-style-filter").value;
+  const cognition = $("#question-cognition-filter").value;
+  return questionCorpus.rows.filter((row) => (scope === "all" || (scope === "self" && !row.p) || (scope === "substantive" && !row.p && !row.s) || (scope === "preset" && row.p))
+    && (direction === "all" || row.t === direction) && (object === "all" || row.o === object)
+    && (style === "all" || row.f === style) && (cognition === "all" || row.c === cognition)
     && (!query || row.q.toLocaleLowerCase("zh-CN").includes(query)));
 }
 
@@ -1482,9 +1657,11 @@ function renderQuestionTable() {
   viewState.questionPage = Math.min(Math.max(1, viewState.questionPage), pages);
   const start = (viewState.questionPage - 1) * QUESTION_PAGE_SIZE;
   const visible = questionRows.slice(start, start + QUESTION_PAGE_SIZE);
+  const versionLabels = { launch_v1: "首发版默认", expanded_v2: "扩展版推荐", qieman_guided_v3: "且慢导览推荐", entry_examples: "入口示例题" };
   $("#question-table-body").innerHTML = visible.length ? visible.map((row) => `<tr>
-    <td>${number.format(row.i)}</td><td>${escapeHtml(row.d)}</td><td>${escapeHtml(QUESTION_TOPICS[row.t])}</td><td>${escapeHtml(row.q)}</td>
-  </tr>`).join("") : '<tr><td colspan="4">没有符合当前筛选的提问。</td></tr>';
+    <td>${number.format(row.i)}</td><td>${escapeHtml(row.d)}</td><td>${escapeHtml(row.p ? versionLabels[row.v] || "默认 / 推荐" : row.s ? "自发短承接" : "用户自发")}</td>
+    <td>${escapeHtml(QUESTION_DIRECTIONS[row.t][0])}</td><td>${escapeHtml(QUESTION_OBJECTS[row.o][0])}<br />${escapeHtml(QUESTION_STYLES[row.f][0])} · ${escapeHtml(QUESTION_COGNITION[row.c][0])}</td><td>${escapeHtml(row.q)}</td>
+  </tr>`).join("") : '<tr><td colspan="6">没有符合当前筛选的提问。</td></tr>';
   $("#question-result-count").textContent = `找到 ${number.format(questionRows.length)} 条；本页 ${number.format(visible.length)} 条`;
   $("#question-corpus-meta").textContent = `截至 ${formatCutoff(questionCorpus.meta.data_cutoff, true)} · 自动脱敏 ${number.format(questionCorpus.meta.redacted_rows)} 条`;
   $("#question-page").textContent = `第 ${number.format(viewState.questionPage)} / ${number.format(pages)} 页`;
@@ -1575,11 +1752,27 @@ function bindInteractions() {
     viewState.audienceCohort = input.value;
     renderAudience({ announce: true });
   }));
-  document.querySelectorAll('input[name="question-topic-scope"]').forEach((input) => input.addEventListener("change", () => {
+  document.querySelectorAll('input[name="question-lens"]').forEach((input) => input.addEventListener("change", () => {
     if (!input.checked || !currentData) return;
-    viewState.questionTopicScope = input.value;
-    renderQuestionTopics();
+    viewState.questionLens = input.value;
+    renderQuestionDimension();
   }));
+  document.querySelectorAll('input[name="question-rhythm"]').forEach((input) => input.addEventListener("change", () => {
+    if (!input.checked || !currentData) return;
+    viewState.questionRhythm = input.value;
+    renderQuestionRhythm();
+  }));
+  $("#question-dimension-bars").addEventListener("click", (event) => {
+    const target = event.target.closest("[data-question-dimension]");
+    if (!target) return;
+    const definition = QUESTION_DIMENSIONS[target.dataset.questionDimension];
+    $("#question-scope-filter").value = "substantive";
+    for (const item of Object.values(QUESTION_DIMENSIONS)) $(`#${item.filter}`).value = "all";
+    $(`#${definition.filter}`).value = target.dataset.questionValue;
+    viewState.questionPage = 1;
+    if (questionCorpus) renderQuestionTable();
+    $("#raw-question-title").scrollIntoView({ behavior: "smooth", block: "start" });
+  });
   $("#question-unlock-form").addEventListener("submit", (event) => {
     event.preventDefault();
     const supplied = $("#question-password").value.trim();
@@ -1590,10 +1783,13 @@ function bindInteractions() {
     window.clearTimeout(questionSearchTimer);
     questionSearchTimer = window.setTimeout(() => { viewState.questionPage = 1; renderQuestionTable(); }, 160);
   });
-  $("#question-topic-filter").addEventListener("change", () => { viewState.questionPage = 1; renderQuestionTable(); });
+  ["question-scope-filter", "question-direction-filter", "question-object-filter", "question-style-filter", "question-cognition-filter"].forEach((id) => {
+    $(`#${id}`).addEventListener("change", () => { viewState.questionPage = 1; renderQuestionTable(); });
+  });
   $("#question-clear").addEventListener("click", () => {
     $("#question-search").value = "";
-    $("#question-topic-filter").value = "all";
+    $("#question-scope-filter").value = "self";
+    for (const item of Object.values(QUESTION_DIMENSIONS)) $(`#${item.filter}`).value = "all";
     viewState.questionPage = 1;
     renderQuestionTable();
   });
