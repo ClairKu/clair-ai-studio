@@ -56,7 +56,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 84;
+const DATA_VERSION = 85;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -212,16 +212,16 @@ const initialState = {
     {
       id: "ai-service-website-design-benchmark-2026-10-08",
       groupId: "ai-platform",
-      title: "AI 服务官网设计｜海内外 12 个主流平台竞品研究与完整产品蓝图",
+      title: "金融 AI 开放平台官网设计｜海内外 13 个平台竞品研究与产品蓝图",
       url: "https://clairku.github.io/clair-ai-studio/reports/ai-service-website-design-benchmark-2026-10-08/",
       preview: "ai-service-website-design-benchmark-2026-10-08.svg",
       pinned: true,
       position: 0,
       createdAt: "2026-10-08T15:45:00+08:00",
-      source: "OpenAI、Anthropic、Google Gemini Enterprise、Microsoft Copilot、AWS Bedrock、Hugging Face、Dify、扣子、阿里云百炼、百度千帆、腾讯云 ADP、火山引擎 AgentKit 共 12 个平台的官网、官方产品页与官方文档｜覆盖 MCP、Skill、Agent、案例、试用、开通、工具与广场、个人中心、积分/用量统计、服务管理｜输出 6 项核心判断、公开页面成熟度热力图、真实界面证据、四层能力对象模型、推荐信息架构、完整转化路径、12 张页面蓝图、视觉方向与 16 周落地路线｜仅使用公开资料；热力图与转化提升幅度为研究判断和实验目标，不代表平台官方结论",
+      source: "Morningstar、LSEG、S&P Global/Kensho、FactSet、AlphaSense、Hebbia、Rogo、恒生聚源、东方财富 Choice、同花顺 iFinD、Wind、恒生电子与 Manus 共 13 个平台的官网、官方产品页与开发者文档｜按金融数据终端、金融 AI 研究、金融技术开放平台、任务式 Agent 交互参照四层重构｜覆盖 MCP、Skill、Agent、数据服务、案例、试用、POC、服务开通、工具与广场、个人中心、积分/用量、统计与服务治理｜输出 8 项核心判断、13 家对标矩阵、真实官网视觉证据、四层产品架构、三类用户路径、14 张页面蓝图、广场卡片规范、用量账本、服务管理、视觉方向与 12 周路线｜仅使用公开资料；评分与转化提升幅度为研究判断和实验目标，不代表平台官方结论",
       access: "production",
       workType: "competitive-research",
-      tags: ["AI 服务", "官网设计", "MCP", "Skills", "Agents", "能力市场", "积分", "服务管理", "竞品调研", "产品规划", "HTML", "生产"],
+      tags: ["金融 AI", "开放平台", "官网设计", "MCP", "Skills", "Agents", "金融数据", "能力广场", "积分", "服务治理", "竞品调研", "产品规划", "HTML", "生产"],
     },
     {
       id: "ifast-corporation-deep-dive-2026-09-28",
