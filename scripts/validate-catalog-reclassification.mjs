@@ -1,4 +1,5 @@
 import { existsSync, readFileSync } from "node:fs";
+import { DEFAULT_FEATURED_REPORT_IDS } from "../src/featured-selection.js";
 
 const root = new URL("../", import.meta.url);
 const slug = "clair-studio-catalog-audit-2026-09-13";
@@ -51,12 +52,10 @@ for (const name of requiredGroups) {
   if (!app.includes(`name: "${name}"`)) fail(`缺少新主题：${name}`);
 }
 
-const featuredStart = app.indexOf("const FEATURED_REPORT_IDS = new Set([");
-const featuredEnd = app.indexOf("\n]);", featuredStart);
-const featuredBlock = app.slice(featuredStart, featuredEnd);
-const featuredIds = [...featuredBlock.matchAll(/"([^"]+)"/g)].map((match) => match[1]);
+const featuredIds = [...DEFAULT_FEATURED_REPORT_IDS];
 if (featuredIds.length !== 9) fail(`精选数量异常：预期 9，实际 ${featuredIds.length}`);
-if (!featuredIds.includes(slug)) fail("盘点报告未加入精选入口");
+const missingFeaturedReports = featuredIds.filter((id) => !reportIds.includes(id));
+if (missingFeaturedReports.length) fail(`精选成果不在目录中：${missingFeaturedReports.join("、")}`);
 
 for (const marker of [
   "162 份成果逐项归位",

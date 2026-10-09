@@ -47,6 +47,11 @@ import {
   ensureCoverContentProfile,
 } from "./cover-thumbnails.js";
 import { reorderItemIds } from "./bucket-order.js";
+import {
+  DEFAULT_FEATURED_REPORT_IDS,
+  loadFeaturedReportIds,
+  saveFeaturedReportIds,
+} from "./featured-selection.js";
 
 const STORAGE_KEY = "clair-service-report-workbench-v1";
 const PREVIEW_COVER_KEY = "clair-service-report-preview-cover-v1";
@@ -56,21 +61,21 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 96;
+const DATA_VERSION = 97;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
-const WORKSPACE_ACCESS_SESSION_KEY = "clair-ai-studio-access-v2";
-const WORKSPACE_ACCESS_SESSION_VALUE = "verified-2026-09-28";
+const WORKSPACE_ACCESS_SESSION_KEY = "clair-ai-studio-access-v3";
+const WORKSPACE_ACCESS_SESSION_VALUE = "verified-2026-10-09";
 const REPORT_ACCESS_SESSION_KEYS = [
-  "clair-ai-studio-report-access-v2",
+  "clair-ai-studio-report-access-v3",
   "clair-ai-studio-report-credential-v1",
   "clair-qianwen-report-unlock-v1",
   "clair-doubao-report-unlock-v1",
 ];
 const REPORT_ACCESS_MESSAGE_TYPE = "clair-report-access";
 const REPORT_ACCESS_REQUEST_MESSAGE_TYPE = "clair-report-access-request";
-const REPORT_ACCESS_REVISION = "v2-2026-09-28";
+const REPORT_ACCESS_REVISION = "v3-2026-10-09";
 const WORKBENCH_EMBED_PARAMETER = "clair-workbench-reader";
 
 const WORK_TYPES = [
@@ -3476,17 +3481,7 @@ function inferGroupId(report) {
   }[report.workType] || "product-planning";
 }
 
-const FEATURED_REPORT_IDS = new Set([
-  "qieman-ceo-battle-map-2026-10-09",
-  "clair-studio-catalog-audit-2026-09-13",
-  "ai-operating-system-control-center-2026-09-11",
-  "tongzhou-workbench-brief-2026-09-11",
-  "qieman-ai-growth-oap-integrated-2026-08-14",
-  "agent-harness-executive-2026-09-02",
-  "qieman-ai-user-attribution-2026-09-07",
-  "product-demand-pulse-2026-08-11",
-  "qieman-cashflow-strategies-audit-2026-08-28",
-]);
+const FEATURED_REPORT_IDS = new Set(DEFAULT_FEATURED_REPORT_IDS);
 
 initialState.reports = initialState.reports.map((report) => {
   const groupId = TOPIC_BY_REPORT[report.id] || report.groupId;
@@ -3651,6 +3646,7 @@ function loadState() {
 
 function migrateState(saved) {
   const catalog = clone(initialState);
+  const featuredReportIds = new Set(loadFeaturedReportIds(localStorage, saved));
   const reportDispositions = seedLegacyArchiveDispositions(
     mergeReportDispositions(saved.reportDispositions, loadDispositionLedger(localStorage)),
     saved.reports,
@@ -3750,9 +3746,7 @@ function migrateState(saved) {
         savedReport.tags.length
         ? savedReport.tags
         : report.tags,
-      pinned: saved.version >= DATA_VERSION
-        ? Boolean(savedReport.pinned)
-        : Boolean(report.pinned),
+      pinned: featuredReportIds.has(report.id),
       modifiedAt: refreshCatalogMetadata
         ? report.modifiedAt || report.createdAt
         : savedReport.modifiedAt || report.modifiedAt || report.createdAt,
@@ -3776,7 +3770,10 @@ function migrateState(saved) {
     }
     catalogReportIds.add(report.id);
     if (reportUrl) catalogUrls.add(reportUrl);
-    reports.push(...applyReportDispositions([report], reportDispositions));
+    reports.push(...applyReportDispositions([{
+      ...report,
+      pinned: featuredReportIds.has(report.id),
+    }], reportDispositions));
   });
   const migrated = {
     version: DATA_VERSION,
@@ -3786,6 +3783,7 @@ function migrateState(saved) {
   };
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(migrated));
+    saveFeaturedReportIds(localStorage, migrated.reports);
   } catch {
     // A catalog migration must never discard a valid in-memory state merely
     // because the legacy all-in-one localStorage record reached its quota.
@@ -3804,6 +3802,7 @@ function saveState() {
     group.position = index;
   });
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  saveFeaturedReportIds(localStorage, state.reports);
 }
 
 function commitReportDisposition(report, status, changedAt = new Date().toISOString()) {
@@ -4246,7 +4245,8 @@ function reportOrderKey(kind, bucketId) {
 
 function orderReports(reports, kind, bucketId, fallbackSort) {
   const ordered = typeof fallbackSort === "function" ? [...reports].sort(fallbackSort) : [...reports];
-  const saved = reportOrder[reportOrderKey(kind, bucketId)] || [];
+  const saved = reportOrder[reportOrderKey(kind, bucketId)] ||
+    (kind === "featured" ? DEFAULT_FEATURED_REPORT_IDS : []);
   if (!saved.length) return ordered;
   const rank = new Map(saved.map((id, index) => [id, index]));
   return ordered.sort((a, b) => {

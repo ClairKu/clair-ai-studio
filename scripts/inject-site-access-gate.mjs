@@ -6,6 +6,7 @@ const projectRoot = fileURLToPath(new URL("../", import.meta.url));
 const outputRoot = resolve(projectRoot, process.argv[2] || "docs");
 const gateAsset = join(outputRoot, "access-gate.js");
 const marker = "data-clair-access-gate";
+const gateRevision = "2026-10-09-unified-v3";
 const encryptedReportEntries = new Set([
   "reports/qianwen-user-acquisition-dashboard/index.html",
   "reports/doubao-user-acquisition-dashboard/index.html",
@@ -63,10 +64,10 @@ const encryptedReportShell = ({ html, gateScript, outputPath }) => {
     const payload=${payload};
     const decode=value=>Uint8Array.from(atob(value),character=>character.charCodeAt(0));
     const credentialKey="clair-ai-studio-report-credential-v1";
-    const reportSessionKey="clair-ai-studio-report-access-v2";
-    const reportSessionValue="verified-report-2026-09-28";
-    const workspaceSessionKey="clair-ai-studio-access-v2";
-    const workspaceSessionValue="verified-2026-09-28";
+    const reportSessionKey="clair-ai-studio-report-access-v3";
+    const reportSessionValue="verified-report-2026-10-09";
+    const workspaceSessionKey="clair-ai-studio-access-v3";
+    const workspaceSessionValue="verified-2026-10-09";
     const legacySessionKey=${JSON.stringify(legacySessionKey)};
     const bridgedCredentialKey="__clairStudioReportCredential";
     const readSession=key=>{try{return sessionStorage.getItem(key)||""}catch{return ""}};
@@ -136,7 +137,7 @@ for (const htmlPath of walkHtml(outputRoot)) {
     if (!/const\s+payload\s*=/.test(html) || !/AES-GCM/.test(html)) {
       throw new Error(`Expected an encrypted self-protected entry: ${outputPath}`);
     }
-    const gateScript = `<script ${marker} data-clair-access-scope="report" data-clair-encrypted-report="true" src="${assetPath}"></script>`;
+    const gateScript = `<script ${marker} data-clair-access-scope="report" data-clair-encrypted-report="true" src="${assetPath}?rev=${gateRevision}"></script>`;
     html = encryptedReportShell({ html, gateScript, outputPath });
     writeFileSync(htmlPath, html);
     encryptedReports += 1;
@@ -144,7 +145,7 @@ for (const htmlPath of walkHtml(outputRoot)) {
     continue;
   }
 
-  const gateScript = `<script ${marker} data-clair-access-scope="${accessScope}" src="${assetPath}"></script>`;
+  const gateScript = `<script ${marker} data-clair-access-scope="${accessScope}" src="${assetPath}?rev=${gateRevision}"></script>`;
 
   html = html.replace(/<meta\b[^>]*name=["']robots["'][^>]*>\s*/gi, "");
   const headInsert = `${robotsMeta}\n    ${gateScript}`;

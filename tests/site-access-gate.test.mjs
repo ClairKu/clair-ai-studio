@@ -44,13 +44,13 @@ const derivesExpectedHash = async (password, salt, iterations, expectedHash) => 
   return Buffer.from(bits).equals(Buffer.from(expectedHash, "base64"));
 };
 
-test("uses derived verifiers for the exact workspace and report passwords", async () => {
+test("uses one derived verifier for both workspace and direct-report access", async () => {
   const source = readFileSync(gatePath, "utf8");
   assert.match(source, /PBKDF2/);
   assert.match(source, /SHA-256/);
   assert.match(source, /sessionStorage/);
-  assert.match(source, /clair-ai-studio-access-v2/);
-  assert.match(source, /clair-ai-studio-report-access-v2/);
+  assert.match(source, /clair-ai-studio-access-v3/);
+  assert.match(source, /clair-ai-studio-report-access-v3/);
   assert.doesNotMatch(source, /password\s*[!=]==?\s*["'][^"']+["']/i);
   assert.equal(await derivesExpectedHash(
     "20260509",
@@ -59,11 +59,11 @@ test("uses derived verifiers for the exact workspace and report passwords", asyn
     "RvAEQHpDP8wpmqGyQH1aO9zAJnQAjzfRUJ3mK+CsoCA=",
   ), true, "workspace password verifier drifted");
   assert.equal(await derivesExpectedHash(
-    "2026",
-    "bl87Yx//mn6Eic8JnQQCig==",
+    "20260509",
+    "pSPWbcuWBb/A+MHgQ+J+Cg==",
     310000,
-    "/s6AtNLOOg/tbXREQlM0Q+wtXiJeXCj7n+aijwbTTAQ=",
-  ), true, "report password verifier drifted");
+    "RvAEQHpDP8wpmqGyQH1aO9zAJnQAjzfRUJ3mK+CsoCA=",
+  ), true, "report password must match the workspace verifier");
 });
 
 test("shared gate submits reliably: trims input, guards re-entry, keeps the field usable", () => {
@@ -94,7 +94,7 @@ test("workbench session bypasses ordinary report gates while direct report acces
 test("a successful workspace unlock seeds every encrypted-report session without storing the workspace password", () => {
   const source = readFileSync(gatePath, "utf8");
   assert.match(source, /REPORT_CREDENTIAL_SESSION_KEY/);
-  assert.match(source, /password\.slice\(0, 4\)/);
+  assert.match(source, /const credential = password\.slice\(0, 4\)/);
   assert.match(source, /clair-qianwen-report-unlock-v1/);
   assert.match(source, /clair-doubao-report-unlock-v1/);
   assert.match(source, /dataset\.clairEncryptedReport/);
@@ -152,7 +152,7 @@ test("publishes scoped gate metadata on every ordinary HTML entry", () => {
     assert.doesNotMatch(html, /content=["']index,follow["']/i, htmlPath);
     const source = html.match(/<script\b[^>]*data-clair-access-gate[^>]*src=["']([^"']+)["']/i)?.[1];
     assert.ok(source, htmlPath);
-    assert.equal(existsSync(resolve(dirname(htmlPath), source)), true, `${htmlPath} -> ${source}`);
+    assert.equal(existsSync(resolve(dirname(htmlPath), source.split("?")[0])), true, `${htmlPath} -> ${source}`);
   }
 });
 
@@ -176,7 +176,7 @@ test("Qianwen encrypted reports use the shared gate and have no second password 
   for (const htmlPath of paths) {
     const html = readFileSync(htmlPath, "utf8");
     assert.match(html, /clair-qianwen-report-unlock-v1/);
-    assert.match(html, /clair-ai-studio-report-access-v2/);
+    assert.match(html, /clair-ai-studio-report-access-v3/);
     assert.match(html, /data-clair-encrypted-report="true"/);
     assert.match(html, /document\.open\(\);document\.write/);
     assert.doesNotMatch(html, /type=["']password["']/);
@@ -191,7 +191,7 @@ test("Doubao encrypted reports use the same shared gate and have no second passw
   for (const htmlPath of paths) {
     const html = readFileSync(htmlPath, "utf8");
     assert.match(html, /clair-doubao-report-unlock-v1/);
-    assert.match(html, /clair-ai-studio-report-access-v2/);
+    assert.match(html, /clair-ai-studio-report-access-v3/);
     assert.match(html, /data-clair-encrypted-report="true"/);
     assert.match(html, /document\.open\(\);document\.write/);
     assert.doesNotMatch(html, /type=["']password["']/);

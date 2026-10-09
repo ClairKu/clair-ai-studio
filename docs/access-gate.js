@@ -17,8 +17,8 @@
   ];
   const profiles = {
     workspace: {
-      sessionKey: "clair-ai-studio-access-v2",
-      sessionValue: "verified-2026-09-28",
+      sessionKey: "clair-ai-studio-access-v3",
+      sessionValue: "verified-2026-10-09",
       salt: "pSPWbcuWBb/A+MHgQ+J+Cg==",
       expectedHash: "RvAEQHpDP8wpmqGyQH1aO9zAJnQAjzfRUJ3mK+CsoCA=",
       brandLabel: "PRIVATE WORKSPACE",
@@ -29,14 +29,14 @@
       ariaLabel: "Clair's Studio 访问验证",
     },
     report: {
-      sessionKey: "clair-ai-studio-report-access-v2",
-      sessionValue: "verified-report-2026-09-28",
-      salt: "bl87Yx//mn6Eic8JnQQCig==",
-      expectedHash: "/s6AtNLOOg/tbXREQlM0Q+wtXiJeXCj7n+aijwbTTAQ=",
+      sessionKey: "clair-ai-studio-report-access-v3",
+      sessionValue: "verified-report-2026-10-09",
+      salt: "pSPWbcuWBb/A+MHgQ+J+Cg==",
+      expectedHash: "RvAEQHpDP8wpmqGyQH1aO9zAJnQAjzfRUJ3mK+CsoCA=",
       brandLabel: "PRIVATE REPORT",
       title: "Clair's Report",
-      intro: "这是 Clair's Studio 私密报告，请输入报告密码。",
-      fieldLabel: "报告密码",
+      intro: "这是 Clair's Studio 私密报告，请输入与工作台相同的访问密码。",
+      fieldLabel: "访问密码",
       foot: "Protected report · This tab only",
       ariaLabel: "Clair's Studio 报告访问验证",
     },
@@ -59,9 +59,9 @@
   };
 
   const persistReportCredential = (password) => {
-    const credential = requestedScope === "workspace"
-      ? password.slice(0, 4)
-      : password;
+    // The outer workspace/report gate now uses one password. The six legacy
+    // AES reports still derive their payload key from its first four digits.
+    const credential = password.slice(0, 4);
     if (!credential) return;
     try {
       window.sessionStorage.setItem(REPORT_CREDENTIAL_SESSION_KEY, credential);

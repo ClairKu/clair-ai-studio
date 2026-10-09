@@ -228,7 +228,7 @@ const requiredSignals = [
   [appSource, 'data-action="toggle-pin"', "卡片缺少精选操作"],
   [appSource, 'title="在新浏览器页面打开"', "成果卡片缺少新浏览器页面打开入口"],
   [appSource, 'data-action="open-browser"', "新浏览器页面打开入口缺少执行动作"],
-  [appSource, 'WORKSPACE_ACCESS_SESSION_KEY = "clair-ai-studio-access-v2"', "新页面打开未携带工作台会话通行证"],
+  [appSource, 'WORKSPACE_ACCESS_SESSION_KEY = "clair-ai-studio-access-v3"', "新页面打开未携带工作台会话通行证"],
   [appSource, '"clair-ai-studio-report-credential-v1"', "新页面打开未携带旧加密报告通行证"],
   [appSource, 'REPORT_ACCESS_MESSAGE_TYPE = "clair-report-access"', "工作台内嵌阅读未桥接旧加密报告通行证"],
   [appSource, 'REPORT_ACCESS_REQUEST_MESSAGE_TYPE = "clair-report-access-request"', "工作台内嵌阅读缺少沙箱握手请求"],
