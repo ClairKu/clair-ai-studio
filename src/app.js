@@ -56,7 +56,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 95;
+const DATA_VERSION = 96;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -212,16 +212,16 @@ const initialState = {
     {
       id: "qieman-ceo-battle-map-2026-10-09",
       groupId: "reporting",
-      title: "且慢 CEO 作战地图｜一核、双引擎、三战役与 AI L3 组织",
+      title: "且慢下一仗｜CEO 决策地图",
       url: "https://clairku.github.io/clair-ai-studio/reports/qieman-ceo-battle-map-2026-10-09/",
       preview: "qieman-ceo-battle-map-2026-10-09.svg",
       pinned: true,
       position: 0,
       createdAt: "2026-10-09T15:30:00+08:00",
-      source: "且慢 BU 经营系统、投资机构调研口径、且慢新人业务地图、基金行业营销新规落地分析、顾问运营 AI 工作台与新一代 VIP 顾问工作台模型、2026 下半年 OKR 分析 × 八部门公告〔2026〕第9号《金融产品网络营销管理办法》官方原文 × 本次用户提供的‘930 新规后入职近一百个顾问’前提（人数待 HR 台账核验）｜提出一核：有效经营账户 EOA；双引擎：70% 且慢自有账户经营、20% 主流 AI 渠道、10% 新渠道期权；三战役：第一份计划、存量账户、富裕家庭；近百顾问拆成 8–10 个战斗单元；顾问工作台形成事件—证据—判断—审批—执行—验真闭环；L3 采用自动、顾问确认、合规/客户授权、禁止自治四级权限｜70/20/10、组织编制与阶段闸门为建议目标，不是历史成绩或收益预测",
+      source: "且慢业务、客户经营、营销新规、顾问工作台与 2026 下半年经营材料 × 八部门公告〔2026〕第9号《金融产品网络营销管理办法》官方原文 × 本次用户提供的‘930 新规后入职近一百名顾问’前提（人数待最新名册核验）｜CEO 督战版聚焦三项选择：先经营已有客户再扩大外部获客；未来半年只打首次计划、存量服务、富裕家庭三场仗；近百名顾问编成 8–10 支服务队｜建议按 70% 已有客户、20% 主流平台、10% 新渠道试验配置资源；比例与人员配置须在前 15 天按真实基线校准",
       access: "production",
       workType: "reporting",
-      tags: ["且慢", "CEO作战地图", "战略经营", "客群", "价值主张", "AI流量", "顾问工作台", "930新规", "顾问组织", "L3", "AI Agent", "组织转型", "90天计划", "经营汇报", "HTML", "生产"],
+      tags: ["且慢", "CEO决策地图", "战略经营", "客户经营", "价值主张", "流量取舍", "顾问工作台", "930新规", "顾问组织", "组织转型", "90天计划", "经营汇报", "HTML", "生产"],
     },
     {
       id: "qieman-platform-organization-diagnosis-2026-10-09",
