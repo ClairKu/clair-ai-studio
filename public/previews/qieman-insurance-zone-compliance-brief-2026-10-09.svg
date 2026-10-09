@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
   <title id="title">且慢保险专区合规整改</title>
-  <desc id="desc">结合 930 金融产品网络营销新规、互联网保险与适当性规则的会前决策材料。</desc>
+  <desc id="desc">结合 930 新规、本体现况核验与五种行业模式对标的且慢保险合规整改会前材料。</desc>
   <defs>
     <radialGradient id="glow" cx="82%" cy="10%" r="74%"><stop stop-color="#7fd8c5" stop-opacity=".32"/><stop offset="1" stop-color="#7fd8c5" stop-opacity="0"/></radialGradient>
     <filter id="shadow" x="-20%" y="-30%" width="150%" height="180%"><feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#061d1a" flood-opacity=".32"/></filter>
@@ -9,9 +9,9 @@
   <rect width="1200" height="675" fill="url(#glow)"/>
   <g opacity=".1" fill="none" stroke="#fff"><circle cx="1110" cy="62" r="210"/><circle cx="1110" cy="62" r="292"/><circle cx="1110" cy="62" r="374"/></g>
   <g transform="translate(70 54)">
-    <rect width="174" height="34" rx="17" fill="#dceaa8"/>
+    <rect width="204" height="34" rx="17" fill="#dceaa8"/>
     <circle cx="18" cy="17" r="5" fill="#ba4d42"/>
-    <text x="32" y="22" font-family="Arial, 'PingFang SC', sans-serif" font-size="12" font-weight="700" fill="#243d31">9·30 新规已生效</text>
+    <text x="32" y="22" font-family="Arial, 'PingFang SC', sans-serif" font-size="12" font-weight="700" fill="#243d31">9·30 新规 · 本体现况增补</text>
     <text x="1000" y="22" text-anchor="end" font-family="Arial, sans-serif" font-size="11" letter-spacing="1.4" fill="#b7d3cc">MEETING BRIEF · 2026.10.09</text>
   </g>
   <g transform="translate(70 152)">
@@ -19,7 +19,8 @@
       <tspan x="0" y="0">且慢保险专区</tspan>
       <tspan x="0" y="76">不是换皮，是</tspan><tspan fill="#dceaa8">重新划线</tspan>
     </text>
-    <text y="127" font-family="Arial, 'PingFang SC', sans-serif" font-size="17" fill="#c6ddd7">17 项法规 · 14 个流程节点 · 4 个监管案例 · 24 小时止血 + 2 周重构</text>
+    <text y="127" font-family="Arial, 'PingFang SC', sans-serif" font-size="17" fill="#c6ddd7">5 个线上入口 · 77 个在售产品 · 15 项具体问题 · 5 种行业模式</text>
+    <text y="156" font-family="Arial, 'PingFang SC', sans-serif" font-size="14" fill="#9fc2ba">保留原版：17 项法规 · 14 个流程节点 · 4 个监管案例 · 24 小时止血 + 2 周重构</text>
   </g>
   <g transform="translate(70 372)" filter="url(#shadow)">
     <rect width="1060" height="182" rx="8" fill="#fffdf8"/>

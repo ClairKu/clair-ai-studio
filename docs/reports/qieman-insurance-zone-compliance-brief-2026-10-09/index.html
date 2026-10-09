@@ -5,7 +5,7 @@
   <script data-clair-access-gate data-clair-access-scope="report" src="../../access-gate.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="且慢保险专区整改会前材料：结合 2026 年 9 月 30 日实施的金融产品网络营销新规、互联网保险与适当性规则，给出主体边界、页面方案、数据治理与实施清单。" />
+  <meta name="description" content="且慢保险专区整改会前材料：保留完整法规与案例底稿，补充盈米本体核验的保险业务现况、资质矩阵、可做事项边界和具体整改清单。" />
   <title>且慢保险专区整改｜会前决策材料</title>
   <style>
     :root{
@@ -30,10 +30,14 @@
     .pulse{width:7px;height:7px;border-radius:50%;background:var(--red);box-shadow:0 0 0 5px rgba(186,77,66,.15)}
     h1{max-width:900px;margin:24px 0 18px;font-family:Georgia,"Songti SC",serif;font-size:clamp(44px,7vw,76px);line-height:1.08;letter-spacing:-.045em}.hero-lead{max-width:820px;margin:0;color:#d9ebe6;font-size:20px}
     .hero-verdict{display:grid;grid-template-columns:1.4fr .8fr .8fr;gap:1px;margin-top:42px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.14);border-radius:22px;overflow:hidden}.hero-stat{padding:22px 24px;background:rgba(7,37,32,.44)}.hero-stat small{display:block;color:#a9c9c0;font-size:12px;letter-spacing:.06em}.hero-stat strong{display:block;margin-top:6px;color:#fff;font-size:18px;line-height:1.4}.hero-stat.primary strong{font-size:22px;color:var(--lime)}
+    .update-band{display:flex;gap:10px;align-items:flex-start;margin-top:14px;padding:14px 18px;border-radius:16px;background:rgba(220,234,168,.13);border:1px solid rgba(220,234,168,.28);color:#dceee8;font-size:13px}.update-band b{flex:0 0 auto;color:var(--lime)}
     .layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:36px;padding:46px 0 80px}.side{position:sticky;top:100px;align-self:start}.side-title{margin-bottom:10px;color:var(--muted);font-size:12px;letter-spacing:.12em;font-weight:800}.side a{display:block;padding:8px 10px;border-radius:10px;text-decoration:none;color:var(--muted);font-size:14px}.side a:hover{background:rgba(255,255,255,.65);color:var(--forest)}.side .urgent{margin-top:20px;padding:15px;border-radius:16px;background:var(--red-bg);color:#71322d;font-size:13px}.side .urgent b{display:block;margin-bottom:4px;color:var(--red)}
     main{min-width:0}.section{margin-bottom:62px}.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:22px}.kicker{color:var(--teal);font-weight:850;font-size:13px;letter-spacing:.1em}.section h2{margin:4px 0 0;font-family:Georgia,"Songti SC",serif;font-size:36px;line-height:1.22;letter-spacing:-.025em}.section-desc{max-width:620px;margin:7px 0 0;color:var(--muted)}
     .callout{padding:26px 28px;border-radius:var(--radius);background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow)}.callout strong{color:var(--forest)}.callout.big{border-left:7px solid var(--red);font-size:18px}.callout.big b{display:block;margin-bottom:7px;color:var(--red);font-size:13px;letter-spacing:.08em}
     .signal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}.signal{min-height:190px;padding:22px;border-radius:20px;background:var(--card);border:1px solid var(--line)}.signal .num{font-family:Georgia,serif;font-size:38px;color:var(--teal)}.signal h3{margin:8px 0 6px;font-size:18px}.signal p{margin:0;color:var(--muted);font-size:14px}.signal.risk .num{color:var(--red)}
+    .snapshot-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}.snapshot{padding:20px;border-radius:20px;background:var(--card);border:1px solid var(--line)}.snapshot strong{display:block;color:var(--teal);font:700 34px Georgia,serif;line-height:1}.snapshot b{display:block;margin-top:10px;font-size:14px}.snapshot span{display:block;margin-top:4px;color:var(--muted);font-size:12px}.evidence-level{display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:4px 8px;border-radius:999px;background:#e4f1eb;color:var(--green);font-size:10px;font-weight:850}.evidence-level:before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+    .current-flow{display:flex;align-items:stretch;gap:8px;margin:16px 0 22px;overflow-x:auto}.flow-node{min-width:126px;flex:1;padding:15px;border-radius:17px;background:var(--card);border:1px solid var(--line);font-size:12px}.flow-node b{display:block;margin-bottom:5px}.flow-node span{color:var(--muted)}.flow-node.danger{background:var(--red-bg);border-color:#e6b7ae}.flow-node.owner{background:#e4f1eb;border-color:#bfd8cc}.flow-arrow{display:grid;place-items:center;color:var(--teal);font-size:20px}.issue-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:20px;background:var(--card)}.issue-table{width:100%;min-width:1050px;border-collapse:collapse;font-size:12px}.issue-table th,.issue-table td{padding:13px 12px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);text-align:left;vertical-align:top}.issue-table th:last-child,.issue-table td:last-child{border-right:0}.issue-table tr:last-child td{border-bottom:0}.issue-table th{background:var(--forest);color:#fff}.issue-table td:first-child{font-weight:900}.priority{display:inline-block;padding:4px 8px;border-radius:8px;font-weight:900}.priority.p0{background:var(--red-bg);color:var(--red)}.priority.p1{background:var(--orange-bg);color:var(--orange)}.priority.p2{background:#e4f1eb;color:var(--green)}.fact{font-weight:850;color:var(--forest)}.gap-note{margin-top:14px;padding:16px 18px;border-radius:16px;background:var(--orange-bg);color:#71461a;font-size:13px}
+    .benchmark-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.benchmark-card{padding:23px;border-radius:20px;background:var(--card);border:1px solid var(--line)}.benchmark-card.featured{grid-column:1/-1;background:var(--forest);color:#fff}.benchmark-card .mode{color:var(--teal);font-size:11px;font-weight:900;letter-spacing:.08em}.benchmark-card.featured .mode{color:var(--lime)}.benchmark-card h3{margin:7px 0}.benchmark-card p{margin:0;color:var(--muted);font-size:13px}.benchmark-card.featured p{color:#d6e7e2}.benchmark-card .pattern{margin-top:12px;padding:12px 14px;border-radius:12px;background:#edf2ed;color:var(--ink-2);font-size:13px}.benchmark-card.featured .pattern{background:rgba(255,255,255,.10);color:#fff}.benchmark-card a{display:inline-block;margin-top:12px;color:var(--teal);font-size:12px;font-weight:850;text-underline-offset:4px}.benchmark-card.featured a{color:var(--lime)}
     .reg-timeline{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.reg{padding:22px;border-radius:20px;background:var(--card);border:1px solid var(--line)}.reg-date{font-size:12px;font-weight:850;color:var(--teal);letter-spacing:.05em}.reg h3{margin:10px 0 8px;font-size:17px}.reg p{margin:0;color:var(--muted);font-size:13px}.reg.current{background:var(--forest);color:#fff;border-color:var(--forest);transform:translateY(-6px);box-shadow:var(--shadow)}.reg.current .reg-date{color:var(--lime)}.reg.current p{color:#c9ddd8}
     .article-map{margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:14px}.law-card{padding:23px;border-radius:20px;background:#e7efe9;border:1px solid #c5d8cf}.law-card h3{margin:0 0 9px;font-size:17px}.law-card p{margin:0;color:var(--ink-2);font-size:14px}.law-card .refs{margin-top:12px;color:var(--teal);font-size:12px;font-weight:800}
     .scope-note{display:grid;grid-template-columns:130px 1fr;gap:16px;align-items:start;margin-bottom:16px;padding:18px 20px;border-radius:18px;background:var(--forest);color:#fff}.scope-note b{color:var(--lime);font-size:13px;letter-spacing:.06em}.scope-note span{color:#d6e7e2;font-size:13px}.law-library{display:grid;gap:10px}.law-detail{border:1px solid var(--line);border-radius:18px;background:var(--card);overflow:hidden}.law-detail summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:14px;align-items:center;padding:18px 20px}.law-detail summary::-webkit-details-marker{display:none}.law-no{width:34px;height:34px;display:grid;place-items:center;border-radius:50%;background:#e4efe9;color:var(--teal);font-weight:900}.law-title strong{display:block;font-size:15px}.law-title small{display:block;margin-top:3px;color:var(--muted);font-size:11px}.law-status{padding:5px 9px;border-radius:999px;background:#e4f1eb;color:var(--green);font-size:11px;font-weight:850;white-space:nowrap}.law-detail[open]{box-shadow:var(--shadow)}.law-detail[open] summary{border-bottom:1px solid var(--line)}.law-body{padding:20px}.law-body-grid{display:grid;grid-template-columns:1.35fr .9fr;gap:18px}.clause-list{display:grid;gap:8px}.clause{display:grid;grid-template-columns:82px 1fr;gap:10px;padding:10px 12px;border-radius:12px;background:#edf2ed;font-size:13px}.clause b{color:var(--teal)}.law-action{padding:16px;border-radius:14px;background:var(--red-bg);font-size:13px}.law-action b{display:block;margin-bottom:6px;color:var(--red)}.law-link{display:inline-block;margin-top:12px;color:var(--teal);font-size:12px;font-weight:850;text-underline-offset:4px}
@@ -51,8 +55,8 @@
     .checklist{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.check{padding:18px;border-radius:18px;background:var(--card);border:1px solid var(--line)}.check b{display:block;color:var(--teal);font-size:13px}.check span{display:block;margin-top:6px;color:var(--ink-2);font-size:14px}
     .sources{display:grid;gap:10px}.source{padding:16px 18px;border-radius:16px;background:rgba(255,253,248,.75);border:1px solid var(--line)}.source a{font-weight:800;text-decoration-color:var(--mint);text-underline-offset:4px}.source p{margin:5px 0 0;color:var(--muted);font-size:12px}.method{margin-top:18px;padding:18px;border-radius:16px;background:#e7efe9;color:var(--ink-2);font-size:13px}
     footer{padding:30px 0 48px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}.footer-row{display:flex;justify-content:space-between;gap:20px}.no-print{}
-    @media(max-width:980px){.layout{grid-template-columns:1fr}.side{display:none}.hero-verdict{grid-template-columns:1fr}.signal-grid,.reg-timeline,.checklist{grid-template-columns:1fr 1fr}.risk-row{grid-template-columns:82px 1fr 1fr}.risk-row>div:nth-child(4){grid-column:2/-1;border-top:1px solid var(--line)}.phone-stage{grid-template-columns:1fr}.phone{width:290px}.article-map,.evidence,.case-grid{grid-template-columns:1fr}.law-body-grid{grid-template-columns:1fr}}
-    @media(max-width:680px){.wrap{width:calc(100% - 22px)}.topbar-inner{height:62px}.brand span:last-child{display:none}.top-actions .chip{display:none}.hero{margin-top:14px;border-radius:24px}.hero-inner{padding:42px 24px 30px}h1{font-size:42px}.hero-lead{font-size:17px}.hero-verdict{margin-top:28px}.layout{padding-top:34px}.section{margin-bottom:48px}.section h2{font-size:30px}.section-head{display:block}.signal-grid,.reg-timeline,.evidence,.article-map,.plan-grid,.decisions,.checklist{grid-template-columns:1fr}.scope-note{grid-template-columns:1fr;gap:4px}.law-detail summary{grid-template-columns:38px minmax(0,1fr)}.law-status{grid-column:2}.clause{grid-template-columns:1fr;gap:2px}.risk-row{grid-template-columns:1fr}.risk-row>div{border-right:0;border-bottom:1px solid var(--line)}.risk-row>div:last-child{border-bottom:0}.risk-row>div:nth-child(4){grid-column:auto}.boundary{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}.full{grid-column:auto}.license-path{grid-template-columns:1fr}.license-path span{transform:rotate(90deg);text-align:center}.phone-stage{gap:20px}.raci{font-size:11px;display:block;overflow-x:auto;white-space:nowrap}.footer-row{display:block}.footer-row span{display:block;margin-top:6px}}
+    @media(max-width:980px){.layout{grid-template-columns:1fr}.side{display:none}.hero-verdict{grid-template-columns:1fr}.signal-grid,.reg-timeline,.checklist,.snapshot-grid{grid-template-columns:1fr 1fr}.risk-row{grid-template-columns:82px 1fr 1fr}.risk-row>div:nth-child(4){grid-column:2/-1;border-top:1px solid var(--line)}.phone-stage{grid-template-columns:1fr}.phone{width:290px}.article-map,.evidence,.case-grid{grid-template-columns:1fr}.law-body-grid{grid-template-columns:1fr}}
+    @media(max-width:680px){.wrap{width:calc(100% - 22px)}.topbar-inner{height:62px}.brand span:last-child{display:none}.top-actions .chip{display:none}.hero{margin-top:14px;border-radius:24px}.hero-inner{padding:42px 24px 30px}h1{font-size:42px}.hero-lead{font-size:17px}.hero-verdict{margin-top:28px}.update-band{display:block}.update-band b{display:block;margin-bottom:5px}.layout{padding-top:34px}.section{margin-bottom:48px}.section h2{font-size:30px}.section-head{display:block}.signal-grid,.reg-timeline,.evidence,.article-map,.plan-grid,.decisions,.checklist,.snapshot-grid,.benchmark-grid{grid-template-columns:1fr}.benchmark-card.featured{grid-column:auto}.scope-note{grid-template-columns:1fr;gap:4px}.law-detail summary{grid-template-columns:38px minmax(0,1fr)}.law-status{grid-column:2}.clause{grid-template-columns:1fr;gap:2px}.risk-row{grid-template-columns:1fr}.risk-row>div{border-right:0;border-bottom:1px solid var(--line)}.risk-row>div:last-child{border-bottom:0}.risk-row>div:nth-child(4){grid-column:auto}.boundary{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}.full{grid-column:auto}.license-path{grid-template-columns:1fr}.license-path span{transform:rotate(90deg);text-align:center}.phone-stage{gap:20px}.raci{font-size:11px;display:block;overflow-x:auto;white-space:nowrap}.footer-row{display:block}.footer-row span{display:block;margin-top:6px}}
     @media print{body{background:#fff}.topbar,.side,.no-print{display:none!important}.hero{box-shadow:none;margin-top:0}.layout{display:block;padding-top:30px}.section{break-inside:avoid;page-break-inside:avoid}.callout,.signal,.reg,.law-card,.quote-card,.plan-card,.decision,.check{box-shadow:none}.wrap{width:100%}a{text-decoration:none}.hero-inner{padding:40px}.hero h1{font-size:48px}}
   </style>
 </head>
@@ -60,7 +64,7 @@
   <header class="topbar">
     <div class="wrap topbar-inner">
       <a class="brand" href="../../"><span class="brand-mark">C</span><span>Clair’s Studio</span></a>
-      <div class="top-actions"><span class="chip">2026-10-09 · 11:30 会前版</span><button class="action no-print" onclick="window.print()">打印 / 导出 PDF</button></div>
+      <div class="top-actions"><span class="chip">2026-10-09 · 本体现况增补版</span><button class="action no-print" onclick="window.print()">打印 / 导出 PDF</button></div>
     </div>
   </header>
 
@@ -68,31 +72,167 @@
     <div class="hero-inner">
       <span class="eyebrow"><span class="pulse"></span> 9·30 新规已生效 · 立即整改</span>
       <h1>且慢保险专区<br />不是“换皮”，是重新划线</h1>
-      <p class="hero-lead">结合《金融产品网络营销管理办法》、互联网保险、销售行为与适当性规则，给出能在会上直接拍板的主体边界、页面方案、数据治理和上线清单。</p>
+      <p class="hero-lead">保留上一版全部法规、条文、处罚案例和整改方案；补充盈米本体现况、主体资质、可做事项、15 项流程问题和 5 项资质缺口。</p>
       <div class="hero-verdict">
-        <div class="hero-stat primary"><small>核心判断</small><strong>且慢应退回“清晰标明主体的展示与转接层”</strong></div>
-        <div class="hero-stat"><small>最高风险</small><strong>且慢自行测评、匹配、咨询</strong></div>
+        <div class="hero-stat primary"><small>核心判断</small><strong>“广东盈信有牌照”不能自动覆盖且慢前台</strong></div>
+        <div class="hero-stat"><small>最高风险</small><strong>非保险自营平台做测评、匹配、咨询</strong></div>
         <div class="hero-stat"><small>整改节奏</small><strong>24 小时止血 + 2 周重构</strong></div>
       </div>
+      <div class="update-band"><b>新增生产核验</b><span>5 个入口 · 77 款在架产品 · 6 个启用计划 · 16 篇专区文章；近期配置、产品更新和线上链路共同证明业务仍在持续运营。</span></div>
     </div>
   </section>
 
   <div class="wrap layout">
     <aside class="side" aria-label="目录">
       <div class="side-title">MEETING BRIEF</div>
-      <a href="#verdict">01｜先看结论</a><a href="#rules">02｜规则叠加</a><a href="#lawbook">03｜法规逐条库</a><a href="#evidence">04｜且慢现状证据</a><a href="#process">05｜流程合规矩阵</a><a href="#risk">06｜风险热力图</a><a href="#cases">07｜监管处罚案例</a><a href="#boundary">08｜目标业务边界</a><a href="#ui">09｜页面怎么改</a><a href="#plan">10｜整改计划</a><a href="#decision">11｜会上拍板</a><a href="#sources">12｜原文与边界</a>
-      <div class="urgent"><b>会前最重要动作</b>先确认且慢有没有保险中介牌照、实际交易链路和合作协议版本；三者决定整改是“平台引流”还是“持牌经营”。</div>
+      <a href="#verdict">01｜先看结论</a><a href="#current-state">A｜本体现况核验</a><a href="#qualification">B｜资质与可做事项</a><a href="#benchmark">C｜行业怎么做</a><a href="#rules">02｜规则叠加</a><a href="#lawbook">03｜法规逐条库</a><a href="#evidence">04｜且慢公开证据</a><a href="#process">05｜流程合规矩阵</a><a href="#risk">06｜风险热力图</a><a href="#cases">07｜监管处罚案例</a><a href="#boundary">08｜目标业务边界</a><a href="#ui">09｜页面怎么改</a><a href="#plan">10｜整改计划</a><a href="#decision">11｜会上拍板</a><a href="#sources">12｜原文与边界</a>
+      <div class="urgent"><b>会前最重要动作</b>把广东盈信许可证原件、且慢保险自营平台备案/归属、顾问执业登记和盈米—盈信协议四套证据摆上桌；少一套，都不能按“持牌经营”处理。</div>
     </aside>
 
     <main>
       <section class="section" id="verdict">
         <div class="section-head"><div><div class="kicker">01 / EXECUTIVE VERDICT</div><h2>先看结论：刘炜哥的担心成立</h2></div></div>
-        <div class="callout big"><b>不是视觉误解，而是实质行为可能支持这种误解</b>如果且慢自己的页面完成保险风险测评、根据答案匹配产品、承接咨询、引导投保并展示保单，用户把它理解为“且慢在直接做保险”并不意外。新规看的是谁在做测评、推荐、咨询和销售，不是页脚写了谁负责。</div>
+        <div class="callout big"><b>不是视觉误解，而是生产事实</b>且慢自有系统正在收集家庭收入、负债等需求信息，按预设规则计算保障缺口并匹配产品，再自动调度顾问；近期配置、产品与交易链路均仍在运行。新规看谁控制页面、测评、推荐、咨询和交易链路，不是集团里是否另有一家持牌公司。</div>
         <div class="signal-grid">
           <article class="signal risk"><div class="num">01</div><h3>“加免责声明”不够</h3><p>主体标识要清晰醒目，但标识无法挽救越界的业务动作。页面和后端数据流必须一致。</p></article>
           <article class="signal"><div class="num">02</div><h3>“保险专区”可以保留</h3><p>9·30 新规反而要求不同类别金融产品分专区。问题不是专区二字，而是专区里谁在提供什么。</p></article>
           <article class="signal"><div class="num">03</div><h3>必须做两层切割</h3><p>品牌上切清且慢与保险机构；流程上把适当性、咨询、投保、支付、售后移回持牌机构。</p></article>
         </div>
+      </section>
+
+      <section class="section" id="current-state">
+        <div class="section-head"><div><div class="kicker">A / ONTOLOGY-VERIFIED CURRENT STATE</div><h2>本体现况：不是“准备做保险”，而是正在经营</h2><p class="section-desc">本章只作补充，不替代后续法规、案例和原整改方案。证据来自盈米本体对业务图谱、生产实现、运营配置、聚合数据和近期日志的交叉核验，查询日 2026-10-09；商业规模数据仅保留在内部会议底稿，不进入公开站点。</p></div></div>
+        <div class="callout big"><b>最重要的事实缺陷</b>页面公示且慢“仅提供广告展示和引流”，但实际由且慢系统完成需求信息收集、保障缺口公式计算、产品规则匹配和顾问预约调度；保险中介在后段承接咨询与投保。<strong>声明、平台归属和实际控制权不一致</strong>，仅改页脚或免责声明不能解决。</div>
+        <div class="snapshot-grid">
+          <article class="snapshot"><strong>5</strong><b>线上入口</b><span>App / 小程序 / 旧首页 / H5 专区 / 投保中间页</span><em class="evidence-level">源码确认</em></article>
+          <article class="snapshot"><strong>77</strong><b>在架产品</b><span>意外、医疗、储蓄、重疾、税优等多个类别</span><em class="evidence-level">目录确认</em></article>
+          <article class="snapshot"><strong>6</strong><b>active 计划</b><span>百万保障、岁月丰盈、教育金无忧、留爱不留债、潇洒养老、重疾守护</span><em class="evidence-level">配置确认</em></article>
+          <article class="snapshot"><strong>16</strong><b>专区文章</b><span>投教、产品说明与保险服务内容仍在前台呈现</span><em class="evidence-level">内容确认</em></article>
+        </div>
+
+        <div class="scope-note"><b>业务现况清单</b><span>保险首页为 <code>qieman.com/insurance/entry</code>；入口还包括四笔钱保险货架、总资产保险 Tab、小程序投保中间页和“且小保”企微码中转页。近期仍有配置和新产品记录更新，顾问预约、外部投保、保单回传与展示链路仍可用，说明这不是历史遗留空壳。</span></div>
+
+        <h3 style="margin:26px 0 10px">链路活性已确认；商业规模只在内部底稿披露</h3>
+        <div class="process-scroll"><table class="process-table">
+          <thead><tr><th>节点</th><th>当前证据</th><th>结论</th><th>会议还需核什么</th><th>公开披露边界</th></tr></thead>
+          <tbody>
+            <tr><td>入口与专区</td><td>多个线上入口、专区页面和内容仍可访问</td><td>保险能力仍在稳定触达</td><td>统一入口清单与页面归属</td><td>可披露产品类别；不披露用户流量</td></tr>
+            <tr><td>测评与匹配</td><td>问卷、画像、保障缺口计算和产品映射由且慢侧实现</td><td>不是单纯广告展示</td><td>功能开关、算法责任人、持牌机构审核</td><td>披露责任边界；不披露规则参数</td></tr>
+            <tr><td>咨询与预约</td><td>留资、顾问调度及企微承接链路仍在运行</td><td>用户会进入互动咨询</td><td>顾问身份、登记状态与录音录像</td><td>披露服务主体；不披露用户规模</td></tr>
+            <tr><td>投保与支付</td><td>跳转合作机构域外页面完成投保与支付</td><td>后段不在且慢域内完成</td><td>逐 SKU 核验自营平台归属和收款方</td><td>披露跳转主体；不披露接口细节</td></tr>
+            <tr><td>保单与售后</td><td>保单回传、查询及服务入口仍可用</td><td>且慢仍参与投保后的信息处理</td><td>授权范围、状态对账、投诉与理赔责任</td><td>披露办理渠道；不披露订单规模</td></tr>
+          </tbody>
+        </table></div>
+
+        <h3 style="margin:26px 0 10px">当前真实链路与控制权</h3>
+        <div class="current-flow" aria-label="且慢保险当前业务链路">
+          <div class="flow-node"><b>1. 保险入口</b><span>且慢页面与导航配置</span></div><div class="flow-arrow">→</div>
+          <div class="flow-node danger"><b>2. 需求测评</b><span>且慢问卷与家庭画像</span></div><div class="flow-arrow">→</div>
+          <div class="flow-node danger"><b>3. 解读与匹配</b><span>且慢公式与策略输出</span></div><div class="flow-arrow">→</div>
+          <div class="flow-node"><b>4. 留资授权</b><span>且慢弹窗收集并传递</span></div><div class="flow-arrow">→</div>
+          <div class="flow-node owner"><b>5. 顾问咨询</b><span>保险中介顾问 / 企微</span></div><div class="flow-arrow">→</div>
+          <div class="flow-node owner"><b>6. 投保支付</b><span>合作机构域外平台</span></div><div class="flow-arrow">→</div>
+          <div class="flow-node"><b>7. 保单回传</b><span>且慢验签、存储与展示</span></div><div class="flow-arrow">→</div>
+          <div class="flow-node owner"><b>8. 售后服务</b><span>保险中介与承保公司</span></div>
+        </div>
+
+        <h3 style="margin:26px 0 12px">15 项具体问题：事实缺陷、制度缺口、现场验收分开处理</h3>
+        <div class="issue-scroll"><table class="issue-table">
+          <thead><tr><th>级别</th><th>问题类型</th><th>本体现况证据</th><th>合规影响</th><th>最小整改动作</th><th>验收件</th></tr></thead>
+          <tbody>
+            <tr><td><span class="priority p0">P0</span></td><td class="fact">声明与功能冲突</td><td>页面称“只展示/引流”；且慢侧实际完成问卷、画像、风险解读与产品匹配。</td><td>可能实质介入适当性、方案设计和销售前环节。</td><td>24 小时内关闭且慢侧结果与产品映射；需求分析迁至持牌机构自营平台。</td><td>开关记录、迁移后录屏、域名与系统归属证明</td></tr>
+            <tr><td><span class="priority p0">P0</span></td><td class="fact">主体称谓混乱</td><td>页面出现“广东盈信”“珠海盈信”“盈信+其他机构”等不同口径；监管公开名录与近期批复显示“广东盈信”。</td><td>销售主体、牌照和投诉对象可能识别错误。</td><td>法务当天核验许可证现状、标准全称、机构编码与经营范围；全站配置只保留唯一主数据。</td><td>许可证核验截图、主体主数据、全站扫描零差异</td></tr>
+            <tr><td><span class="priority p0">P0</span></td><td class="fact">手机号出现在跳转参数</td><td>抽样发现某合作方购买跳转携带明文手机号，且未看到对应独立授权弹窗。</td><td>敏感链路泄露、超范围共享和同意证据不足。</td><td>立即停传明文；改短期令牌/服务端换票；补接收方、目的、字段的单独同意。</td><td>网络抓包零明文、同意时间戳、接口字段白名单</td></tr>
+            <tr><td><span class="priority p0">P0</span></td><td class="fact">营销禁词控制缺失</td><td>历史/停用计划配置出现 IRR、高收益等强利益表达；保险域未见统一敏感词拦截。</td><td>历史素材复用或误上架即可形成收益暗示与误导。</td><td>冻结所有未审素材；上线保险专用禁词/数字校验与承保方审定门禁。</td><td>全量扫描报告、拦截测试、审定版本号</td></tr>
+            <tr><td><span class="priority p0">P0</span></td><td class="fact">无持牌机构审核链</td><td>抽样 CMS/运营配置只有发布开关，未见审批人、审核结论、版本差异与授权期限。</td><td>无法证明营销内容由有权主体审核并持续负责。</td><td>发布必须绑定“保险机构审核人+定稿哈希+授权范围+到期日”，无记录不能上线。</td><td>审批流、定稿哈希、发布日志、到期自动下线测试</td></tr>
+            <tr><td><span class="priority p1">P1</span></td><td class="fact">顾问资质不前置</td><td>前台未稳定展示顾问姓名、所属机构、登记/执业信息；后台虽有部分字段但未形成门禁。</td><td>用户可能把保险顾问理解为且慢顾问，且无法核验人员资格。</td><td>咨询前展示身份与资格；资格失效自动停用入口。</td><td>人员名册、日校验任务、失效阻断样本</td></tr>
+            <tr><td><span class="priority p1">P1</span></td><td class="fact">无关闭个性化推荐</td><td>保险排序与匹配存在个性化逻辑，未发现非个性化浏览或便捷关闭入口。</td><td>不符合算法推荐的用户选择权要求。</td><td>默认提供按保障类别的中性陈列；显著提供关闭/切换入口。</td><td>开关录屏、关闭后结果对照、算法清单</td></tr>
+            <tr><td><span class="priority p1">P1</span></td><td class="fact">授权证据不完整</td><td>部分留资动作有勾选和秒级时间戳，但未完整固化当时协议文本版本。</td><td>日后无法还原“用户究竟同意了什么”。</td><td>保存协议版本、文本哈希、字段清单、接收方与撤回状态。</td><td>可回放同意包、撤回/删除联动测试</td></tr>
+            <tr><td><span class="priority p1">P1</span></td><td class="fact">保险投诉入口不清</td><td>且慢侧未发现贯穿专区、保单和顾问链路的专属投诉入口与归因标识。</td><td>用户不知道找谁，平台和合作方也难以闭环责任。</td><td>每页常驻投诉主体、热线和工单入口；按责任方自动路由。</td><td>投诉地图、SLA、三类模拟投诉闭环</td></tr>
+            <tr><td><span class="priority p1">P1</span></td><td class="fact">理赔展示长期停更</td><td>专区理赔展示数据自 2025-03 起未更新。</td><td>继续展示可能造成“当前能力/规模”的错误认知。</td><td>无法持续更新就下线数字；保留则显示口径、截止日和责任方。</td><td>数据血缘、更新时间、过期自动隐藏测试</td></tr>
+            <tr><td><span class="priority p1">P1</span></td><td class="fact">回调状态未全闭环</td><td>线上日志存在部分合作方回调类型未处理的错误样本。</td><td>保单状态、续期或服务动作可能与合作方不一致。</td><td>补齐状态机、幂等与异常队列；每日对账并人工兜底。</td><td>回调枚举表、重放测试、差异对账为零</td></tr>
+            <tr><td><span class="priority p1">P1</span></td><td class="fact">隐私政策与实链未对齐</td><td>新旧政策对合作机构名称、测评归属和共享范围表述不一致，且与生产链路仍有差异。</td><td>告知、同意和实际处理活动不能互相证明。</td><td>以当前数据流重写政策、共享清单和收集清单，并同步 App 内文本。</td><td>字段级数据地图、三份文本一致性校验</td></tr>
+            <tr><td><span class="priority p2">P2</span></td><td class="fact">域外投保页未全验收</td><td>已确认跳往合作机构域名，但所有险种的主体提示、强制阅读、条款与回溯仍需逐页验收。</td><td>且慢不能只校验首个跳转地址。</td><td>建立 SKU×落地页×域名白名单，月度自动巡检并留截图。</td><td>全 SKU 跳转台账、异常报警、抽检报告</td></tr>
+            <tr><td><span class="priority p2">P2</span></td><td class="fact">双后端并存</td><td>新旧保险服务并行，入口、订单与回传能力分散。</td><td>同一控制可能只改到一条链路，形成“半整改”。</td><td>统一保险业务对象、控制清单和迁移计划；下线旧链路前做全量回归。</td><td>系统边界图、迁移清单、旧接口零调用</td></tr>
+            <tr><td><span class="priority p2">P2</span></td><td class="fact">低使用链路扩大合规面</td><td>近一年保险测评画像更新极低，但仍保留高风险问卷、算法和数据存量。</td><td>业务价值小、合规与数据治理成本高。</td><td>若 30 天内不能证明业务价值，直接下线测评并清理不再必要的数据。</td><td>价值复核、关停记录、删除/匿名化报告</td></tr>
+          </tbody>
+        </table></div>
+        <div class="gap-note"><b>证据边界：</b>本体已核到生产实现、当前配置、脱敏聚合结果与近期日志；公开版只保留流程结论，不披露订单、保费、用户、流量、内部地址、接口和库表。许可证当天状态、合作协议原件、全部域外投保页、小程序认证主体、续期发送量、全量退保与投诉数据仍需法务/合作方现场补证。</div>
+      </section>
+
+      <section class="section" id="qualification">
+        <div class="section-head"><div><div class="kicker">B / QUALIFICATION & PERMITTED SCOPE</div><h2>我们的资质，究竟允许做什么</h2><p class="section-desc">结论按“主体—许可证—平台归属—人员登记—实际动作”五件套判断。集团关系、技术归属或合作协议中的一句授权，都不能代替金融许可证。</p></div></div>
+        <div class="callout big"><b>会前必须统一的结论</b><strong>广东盈信确有保险经纪机构身份，但这不等于且慢已成为广东盈信的保险自营网络平台。</strong>现有证据显示 qieman.com、且慢 App、小程序和 insurance / albus / pmdj 系统均由珠海盈米控制；在平台归属、保险业务备案、人员执业登记和协议链闭环前，且慢应按“受托展示与转接层”执行边界。</div>
+
+        <h3 style="margin:26px 0 12px">主体与证照：已证实、未证实分开</h3>
+        <div class="process-scroll"><table class="process-table">
+          <thead><tr><th>主体 / 资产</th><th>已核证据</th><th>能确认的资质</th><th>不能据此推定</th><th>会前必须补件</th></tr></thead>
+          <tbody>
+            <tr><td>珠海盈米基金销售有限公司</td><td>且慢协议、App 与页面均指向珠海盈米；广东证监局 2026 年公告将其列为基金投资顾问机构</td><td>基金销售 / 基金投顾相关身份持续受证监系统监管</td><td>基金牌照不覆盖保险经纪、保险代理或保险适当性</td><td>《经营证券期货业务许可证》原件及业务范围；确认不存在另行保险中介牌照</td></tr>
+            <tr><td>广东盈信保险经纪有限公司</td><td>金融监管总局截至 2024-12-31 的法人名录列为“保险经纪”，机构编码 <b>260917000000800</b>；2025 年有广州分公司主要负责人任职批复</td><td>公开监管证据支持其保险经纪机构身份</td><td>不能仅凭历史法人名录推定 2026-10-09 许可证仍有效、经营区域/范围不变，也不能推定且慢是其自营平台</td><td>许可证当前查询截图、许可证原件、发证/有效期、业务范围、分支与互联网展业报送材料</td></tr>
+            <tr><td>且慢前台与技术系统</td><td><code>qieman.com</code>、App 包名、小程序、H5 与后端部署均为盈米资产；ICP备案主体为珠海盈米</td><td>可确认是珠海盈米控制的网络平台和技术系统</td><td>不能认定为广东盈信或承保公司的保险自营网络平台</td><td>域名/App/小程序认证主体截图；保险自营平台清单、监管报送或备案；页面运营主体书面确认</td></tr>
+            <tr><td>“稳行”顾问与且小保账号</td><td>顾问团队和保险企微账号挂在盈米企微 corpid 下，生产链路会自动分配顾问</td><td>可确认顾问承接行为与盈米账号体系相连</td><td>不能确认劳动关系、保险销售执业登记主体和有效状态</td><td>劳动合同主体、执业登记截图、授权险种/区域、离职停用机制和账号一一映射</td></tr>
+            <tr><td>北远 / 齐欣 / 乐橙 / 凤栖等通道</td><td>生产 supplier 与产品编码能确认通道存在；北远/盈信系占当前主要产品与成交</td><td>只能确认系统合作关系</td><td>不能用内部简称代替法定主体、牌照和书面合作范围</td><td>逐通道法定主体、许可证、协议、产品授权、数据处理及退出安排</td></tr>
+          </tbody>
+        </table></div>
+        <div class="gap-note"><b>关于“北京盈米”：</b>本体未在且慢协议、页面或生产源码中找到“北京盈米基金销售有限公司”作为当前业务主体的证据。报告不把它纳入保险业务资质链；如法务认为存在相关主体，应以营业执照和金融许可证原件补证。</div>
+
+        <h3 style="margin:28px 0 12px">逐动作判定：且慢能做、谁来做、要满足什么</h3>
+        <div class="process-scroll"><table class="process-table">
+          <thead><tr><th>业务动作</th><th>且慢 / 珠海盈米当前边界</th><th>广东盈信可做范围</th><th>前置条件</th><th>当前结论</th></tr></thead>
+          <tbody>
+            <tr><td>保险知识教育</td><td><span class="level keep">可做</span>，但营销内容必须可识别</td><td>可制作、审核和发布</td><td>教育与营销分区；不得借课程变相推荐</td><td>保留，补内容属性和审核记录</td></tr>
+            <tr><td>产品信息展示</td><td><span class="level control">受托可做</span></td><td>可提供审定内容</td><td>书面委托、醒目标主体、不得擅改、不得再转委托</td><td>保留中性货架；冻结无审定版本</td></tr>
+            <tr><td>需求数据收集</td><td><span class="level control">有条件</span>，只可为转接处理必要字段</td><td>可为需求分析收集</td><td>目的最小、单独告知/同意、协议明确、撤回删除</td><td>且慢不得据此输出匹配结论</td></tr>
+            <tr><td>需求分析 / 缺口测算</td><td><span class="level stop">不得实质开展</span></td><td>可在许可与销售规则内开展</td><td>盈信自营平台、登记人员、支付能力与需求评估、全过程留痕</td><td>现有且慢公式与结果页暂停/迁移</td></tr>
+            <tr><td>个性化匹配 / 推荐</td><td><span class="level stop">不得介入适当性</span></td><td>可在许可范围内负责</td><td>适当性、算法选择权、推荐理由、审核和回溯</td><td>且慢只保留非个性化分类浏览</td></tr>
+            <tr><td>产品比较 / 方案设计</td><td><span class="level stop">不得做</span></td><td>保险经纪机构可在许可范围内开展</td><td>由持牌主体和登记人员负责，说明依据、限制和利益关系</td><td>ComparisonPage 与方案页迁出且慢</td></tr>
+            <tr><td>具体产品互动咨询</td><td><span class="level stop">客服 / AI 均不得做</span></td><td>由符合登记管理要求的人员承接</td><td>身份、机构、登记信息前置展示；AI 只能辅助，不代替有资格人员作结论</td><td>小顾仅答知识与入口，不比较/推荐</td></tr>
+            <tr><td>预约保险顾问</td><td><span class="level control">可转接</span></td><td>可承接</td><td>用户主动触发；单独同意；不得默认开启、延时自动弹出或强制分配</td><td>关闭 <code>supportAutoAppointmentAdvisor=true</code> 默认逻辑</td></tr>
+            <tr><td>投保链接跳转</td><td><span class="level control">可引流</span></td><td>可在自营平台承接</td><td>只直达持牌金融机构自营平台；购买前显著提醒并设置强制阅读时间</td><td>建立域名白名单与离站提示</td></tr>
+            <tr><td>开户注册 / 签约 / 支付 / 核保</td><td><span class="level stop">不得介入</span></td><td>盈信与承保公司按职责完成</td><td>在保险机构自营平台内；合同、资金和意愿确认可回溯</td><td>且慢不得用站内样式遮蔽主体切换</td></tr>
+            <tr><td>保单展示 / 数据回传</td><td><span class="level control">仅信息工具</span></td><td>提供合法数据源与服务责任</td><td>用户授权、委托处理协议、最小字段、验签、删除与对账机制</td><td>可展示摘要，不解释合同或替代售后</td></tr>
+            <tr><td>续期提醒</td><td><span class="level control">可受托发送</span></td><td>负责业务内容与客户责任</td><td>以盈信/保司名义、模板审核、退订、频率控制和发送留痕</td><td>现有盈米消息需补主体署名与台账</td></tr>
+            <tr><td>理赔 / 退保 / 投诉</td><td><span class="level control">只做导航和工单路由</span></td><td>经纪机构协助，承保公司承担合同责任</td><td>每页明确责任主体、渠道、SLA 和升级机制</td><td>补统一投诉系统；且慢不作合同解释</td></tr>
+          </tbody>
+        </table></div>
+
+        <h3 style="margin:28px 0 12px">5 项 P0 资质缺口：没有证据就按未满足处理</h3>
+        <div class="issue-scroll"><table class="issue-table">
+          <thead><tr><th>缺口</th><th>当前事实</th><th>立即控制</th><th>3 日内补件</th><th>通过标准</th></tr></thead>
+          <tbody>
+            <tr><td><span class="priority p0">P0-1</span> 平台与牌照错位</td><td>测评、推荐、比价/方案能力运行在珠海盈米控制的平台；未证实为广东盈信自营网络平台</td><td>暂停输出结论和方案；只留审定内容与转接</td><td>许可证原件、自营平台清单/报送、平台运营主体证明</td><td>法务与盈信书面确认，页面、域名和监管材料一致</td></tr>
+            <tr><td><span class="priority p0">P0-2</span> 顾问主体与登记未闭环</td><td>顾问与且小保账号挂盈米企微，执业登记主体未知</td><td>关闭自动预约和自动分配</td><td>人员劳动关系、执业登记、授权范围、账号映射</td><td>未登记/失效人员无法登录或接单</td></tr>
+            <tr><td><span class="priority p0">P0-3</span> AI 进入保险引导</td><td>小顾 2.0 存在保险 survey、产品列表和咨询顾问引导流</td><td>移除具体产品推荐、比较和顾问话术</td><td>保险意图清单、拦截规则、转人工边界</td><td>红队问题不再输出具体产品结论</td></tr>
+            <tr><td><span class="priority p0">P0-4</span> 集团协议链缺失</td><td>未取得珠海盈米—广东盈信的现行营销、数据、售后和退出协议原件</td><td>冻结新素材、新字段和新通道</td><td>书面合作协议、数据处理附件、责任矩阵、退出预案</td><td>条款覆盖 930 新规第 20—27 条且可执行</td></tr>
+            <tr><td><span class="priority p0">P0-5</span> App / 小程序主体未核</td><td>技术资产属盈米；小程序认证主体与保险业务报送未取证</td><td>投保前强提示，不把流程包装为且慢自营保险</td><td>应用商店主体、小程序后台、ICP备案、保险平台报送截图</td><td>各入口主体同名、资质同源、跳转可追溯</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section class="section" id="benchmark">
+        <div class="section-head"><div><div class="kicker">C / HOW THE MARKET SELLS INSURANCE</div><h2>金融机构怎么卖，第三方平台怎么推</h2><p class="section-desc">不是看谁的页面更像商城，而是看谁有资格做下一步、销售页面归谁、合同与售后由谁承担。以下只采用官方页面、机构披露或监管公开材料。</p></div></div>
+        <div class="benchmark-grid">
+          <article class="benchmark-card"><div class="mode">模式 1｜保险公司自营</div><h3>众安：承保主体直接完成线上闭环</h3><p>官网披露自营网站、App、公众号、小程序和抖音小程序；销售、投保、承保、保单与理赔均在保险公司自营网络平台内完成。</p><div class="pattern"><b>可学：</b>一套主体、一套自营平台、完整售前售中售后。<br><b>不能照搬：</b>且慢不是保险公司，不能把承保方闭环包装成自己的站内能力。</div><a href="https://www.zhongan.com/channel/internetInfo/internetInfo.html" target="_blank" rel="noopener">众安互联网保险信息披露 ↗</a></article>
+          <article class="benchmark-card"><div class="mode">模式 2｜银行兼业代理</div><h3>中行 / 招行：明确“代销”，银行承担销售环节责任</h3><p>中行把许可证、合作保险机构、合作产品和服务机构分栏披露；招行保险频道提供产品、保单、咨询和投诉入口。银行能评估并代理销售，前提是具备对应保险兼业代理资格和完整销售管理。</p><div class="pattern"><b>可学：</b>先亮资质与合作清单，再谈产品；代销机构与保险公司的责任分别说明。<br><b>不能误读：</b>基金销售牌照不自动覆盖保险代理。</div><a href="https://www.bankofchina.com/fimarkets/fp4/" target="_blank" rel="noopener">中行代理保险披露 ↗</a>　<a href="https://ai.cmbchina.com/mb5web/insdefault.html" target="_blank" rel="noopener">招行保险频道 ↗</a></article>
+          <article class="benchmark-card"><div class="mode">模式 3｜持牌专业代理平台</div><h3>蚂蚁保：消费平台体验由独立持牌代理主体承接</h3><p>服务协议和客户告知书直接写明运营主体、许可证编码、经营范围、联系方式与关联关系；进入投保流程再次列明承保公司与代理销售机构。</p><div class="pattern"><b>可学：</b>平台品牌很强，也不能省略持牌主体；协议、产品页、投保页三次对齐。<br><b>关键：</b>能做咨询、代理销售与理赔协助，来自牌照与自营平台，而非一条免责声明。</div><a href="https://render.alipay.com/p/f/fd-jwq57tky/index.html?ttid=seo.000000574" target="_blank" rel="noopener">蚂蚁保服务协议与客户告知书 ↗</a></article>
+          <article class="benchmark-card"><div class="mode">模式 4｜场景平台 + 自有持牌代理</div><h3>携程：旅行场景内嵌保险，但销售主体单列</h3><p>携程公开携程保险代理的经营范围；产品页同时披露销售服务方、承保公司、电子保单查询与客服。隐私政策还说明为回溯管理收集页面操作证据。</p><div class="pattern"><b>可学：</b>保险可以嵌入高相关场景，但销售服务主体、承保主体、保单和理赔必须可追溯。<br><b>风险：</b>场景推荐不能变成默认勾选、强制搭售或主体混同。</div><a href="https://pages.ctrip.com/public/insurance/index.htm" target="_blank" rel="noopener">携程保险代理资质 ↗</a>　<a href="https://pages.ctrip.com/public/Insurance/a1.htm" target="_blank" rel="noopener">产品与服务信息 ↗</a></article>
+          <article class="benchmark-card featured"><div class="mode">模式 5｜普通第三方内容 / 流量平台</div><h3>合规上限只有：审定内容展示 + 醒目主体 + 直接跳转</h3><p>普通第三方不能做保险需求分析、适当性评估、产品比较、具体咨询、代办投保、签约或收款。可以发布受托且经保险机构审定的内容；用户进入购买环节时，只能直接跳至持牌金融机构自营平台，并显著提示主体与强制阅读。</p><div class="pattern"><b>且慢最稳目标态：</b>如果保险销售资格不由且慢运营主体持有，就按本模式整改；将问卷、匹配、顾问、投保和合同服务全部放到经核验的保险中介自营平台。第三方平台不得再向下一层转委托。</div><a href="https://www.cac.gov.cn/2026-04/24/c_1778769008779432.htm" target="_blank" rel="noopener">930 新规官方原文 ↗</a>　<a href="https://www.iachina.cn/art/2020/12/14/art_1724_104838.html" target="_blank" rel="noopener">互联网保险官方问答转载 ↗</a></article>
+        </div>
+
+        <h3 style="margin:28px 0 12px">同一条用户链路，五种模式能做的事不同</h3>
+        <div class="process-scroll"><table class="process-table">
+          <thead><tr><th>业务动作</th><th>保险公司自营</th><th>银行兼业代理</th><th>专业代理/经纪</th><th>场景平台+持牌主体</th><th>普通第三方</th><th>且慢应采用</th></tr></thead>
+          <tbody>
+            <tr><td>内容展示</td><td><span class="level keep">可做</span> 自审自责</td><td><span class="level keep">可做</span> 代销审查</td><td><span class="level keep">可做</span> 持牌审核</td><td><span class="level keep">可做</span> 主体单列</td><td><span class="level control">受托可做</span> 不得转委托</td><td>展示经持牌方审定的定稿</td></tr>
+            <tr><td>需求分析/适当性</td><td><span class="level keep">可做</span></td><td><span class="level keep">可做</span> 在许可内</td><td><span class="level keep">可做</span></td><td><span class="level keep">由持牌主体做</span></td><td><span class="level stop">不得做</span></td><td>迁至保险中介自营平台</td></tr>
+            <tr><td>具体产品咨询</td><td>登记人员</td><td>有资质人员</td><td>登记人员</td><td>持牌主体人员</td><td><span class="level stop">不得互动咨询</span></td><td>且慢客服/AI 只做转接</td></tr>
+            <tr><td>投保/签约/收款</td><td>保险公司自营平台</td><td>合规代销链路</td><td>保险机构自营平台</td><td>持牌主体自营平台</td><td><span class="level stop">不得介入</span></td><td>离站强提示后直达自营平台</td></tr>
+            <tr><td>保单/理赔/售后</td><td>保险公司负责</td><td>银行协助、保司负责</td><td>中介协助、保司负责</td><td>持牌主体与保司负责</td><td>只可导航，不解释合同</td><td>且慢仅展示最小摘要与服务入口</td></tr>
+            <tr><td>核心披露</td><td>保险人、产品、风险</td><td>代销关系、承保公司</td><td>许可证、代理/经纪关系</td><td>场景平台与持牌主体分开</td><td>委托方、产品方、跳转对象</td><td>且慢角色 + 销售方 + 承保方三层同屏</td></tr>
+          </tbody>
+        </table></div>
+        <div class="scope-note" style="margin-top:16px"><b>对标结论</b><span>建议选“且慢前台展示 + 经核验的盈信持牌自营平台承接”模式。体验可以连贯，但主体切换必须显著；且慢不再输出保险产品匹配结论，也不以自己的客服或 AI 承接具体咨询。</span></div>
       </section>
 
       <section class="section" id="rules">
@@ -260,14 +400,16 @@
       </section>
 
       <section class="section" id="evidence">
-        <div class="section-head"><div><div class="kicker">04 / PUBLIC EVIDENCE</div><h2>公开材料已经暴露出“且慢做在前面”的观感</h2><p class="section-desc">以下是公开可检索材料的文本证据；未登录 App 的当前全链路仍需现场逐页核验。</p></div></div>
+        <div class="section-head"><div><div class="kicker">04 / PUBLIC EVIDENCE</div><h2>公开文本与生产现况必须互相对得上</h2><p class="section-desc">保留上一版的公开文本证据，并与本体核验出的生产链路交叉。公开政策不是事实链的替代品，生产实现也不能超出告知与授权。</p></div></div>
         <div class="evidence">
-          <article class="quote-card alert"><div class="source-label">且慢平台隐私政策 · 公开 PDF</div><blockquote>在 APP 中使用保险功能时，为匹配合适产品，由用户进行相应风险测评，系统再展示对应保险产品。</blockquote><p>这是最需要立即核验的表述：它让且慢看上去正在承担保险需求评估和产品匹配。</p></article>
+          <article class="quote-card alert"><div class="source-label">且慢平台隐私政策 · 旧版公开 PDF</div><blockquote>在 APP 中使用保险功能时，为匹配合适产品，由用户进行相应风险测评，系统再展示对应保险产品。</blockquote><p>本体已证实这不只是文字观感：问卷、画像、解读和匹配确实有且慢侧实现，必须改行为而非只改表述。</p></article>
           <article class="quote-card"><div class="source-label">且慢第三方信息共享清单</div><blockquote>向广东盈信保险经纪共享身份、职业、风险测评类型和且慢账号标识，用于提升投保效率并开通投保账户。</blockquote><p>数据转交可以有合规路径，但需要单独同意、目的最小化、主体透明，以及测评究竟由谁完成的清晰归属。</p></article>
           <article class="quote-card"><div class="source-label">且慢平台隐私政策 · 保险功能</div><blockquote>用户可通过且慢预约合作保险机构的保险顾问，定制保障方案、了解和配置相关保险产品。</blockquote><p>预约入口本身不必然越界；若页面、客服或 AI 先回答具体产品问题，就可能落入“互动咨询”禁止区。</p></article>
           <article class="quote-card"><div class="source-label">且慢个人信息收集清单</div><blockquote>保险功能会回传并展示保单、缴费、投保人、被保险人、受益人、保额和保障责任等信息。</blockquote><p>“我的保单”可定位为经授权的信息管理工具，但理赔、退保、续期与合同解释入口应明确回到保险机构。</p></article>
+          <article class="quote-card alert"><div class="source-label">且慢当前上架隐私政策 · 2026-07-08 版本</div><blockquote>保险产品的方案、销售、理赔等服务由“珠海盈信保险经纪有限公司”等合作保险机构提供。</blockquote><p>与专区页面常见的“广东盈信保险经纪有限公司”不一致；这不是简称问题，必须回到许可证主体统一。</p></article>
+          <article class="quote-card"><div class="source-label">金融监管总局公开法人名录与任职批复</div><blockquote>公开名录和 2025 年广州分公司负责人任职批复均使用“广东盈信保险经纪有限公司”。</blockquote><p>公开监管证据支持“广东盈信”称谓，但正式上线仍需在许可证系统做当天状态、经营范围与机构编码核验。</p></article>
         </div>
-        <div class="method">证据边界：公开 PDF 页面注明的生效日期为 2023-02-21，而搜索可见的第三方共享清单与信息收集清单更晚。版本差异本身就是整改项——应拉齐 App 当前页面、线上政策、合作方清单、接口字段与协议附件，不能仅修改一个前台页面。</div>
+        <div class="method">证据边界：旧版 PDF 页面注明 2023-02-21 生效；本体记录当前上架版本为 2026-07-08。版本差异、主体名称差异和实际数据流差异都需一次性拉齐——App 页面、线上政策、第三方共享清单、个人信息收集清单、协议附件和接口字段必须使用同一主数据与同一责任边界。</div>
       </section>
 
       <section class="section" id="process">
@@ -333,7 +475,7 @@
         <div class="phone-stage">
           <div class="phone" aria-label="保险专区整改示意">
             <div class="screen"><div class="notch"></div><div class="screen-top">保障知识与持牌机构产品信息</div><h3>保险保障专区</h3><div class="disclose">本专区由且慢提供信息展示与转接。保险方案、适当性评估、咨询、投保及售后由页面标示的持牌保险机构提供。</div>
-              <div class="product-card"><div class="provider">销售服务方｜广东盈信保险经纪有限公司</div><h4>百万医疗保险产品</h4><p>承保公司：示例保险公司 · 保障责任以合同为准</p><button>前往盈信了解产品 →</button><div class="micro"><span>查看资质</span><span>客服与投诉</span></div></div>
+              <div class="product-card"><div class="provider">销售服务方｜经许可证核验的保险中介全称</div><h4>百万医疗保险产品</h4><p>承保公司：示例保险公司 · 保障责任以合同为准</p><button>前往持牌机构了解产品 →</button><div class="micro"><span>查看资质</span><span>客服与投诉</span></div></div>
               <div class="product-card"><div class="provider">销售服务方｜示例保险经纪有限公司</div><h4>意外伤害保险产品</h4><p>承保公司：示例保险公司 · 具体风险以合同为准</p><button>前往合作机构了解产品 →</button><div class="micro"><span>查看资质</span><span>服务范围</span></div></div>
             </div>
           </div>
@@ -350,8 +492,8 @@
         <div class="section-head"><div><div class="kicker">09B / READY-TO-USE COPY</div><h2>可直接拿去评审的三段文案</h2><p class="section-desc">以下是整改后的产品文案底稿，须由保险合作机构和盈米合规共同审定后上线。</p></div></div>
         <div class="copy-stack">
           <article class="copy"><div class="copy-label"><span>专区头部主体说明</span><span>首屏常驻</span></div><div class="copy-text">本专区展示的保险产品及相关服务由页面标示的持牌保险机构提供。且慢仅提供经合作机构审核的产品信息展示与平台转接，不参与保险需求分析、适当性评估、产品咨询、投保、保费收取和理赔服务。保险责任、除外责任及其他重要内容以保险合同为准，请认真阅读产品条款。</div></article>
-          <article class="copy"><div class="copy-label"><span>离站强提示</span><span>购买前强制阅读</span></div><div class="copy-text">你将离开且慢，进入广东盈信保险经纪有限公司的自营平台。后续的保险需求分析、适当性评估、产品咨询、投保及售后服务由该机构及承保保险公司提供。请确认已知晓服务主体，并阅读相关产品条款、隐私政策和重要提示。</div></article>
-          <article class="copy"><div class="copy-label"><span>预约顾问单独授权</span><span>不默认勾选</span></div><div class="copy-text">如你同意，我们将把姓名、手机号及本次预约信息提供给广东盈信保险经纪有限公司，由其保险顾问与你联系。且慢不提供保险产品咨询。你可以拒绝或撤回授权，不影响使用且慢其他功能。</div></article>
+          <article class="copy"><div class="copy-label"><span>离站强提示</span><span>购买前强制阅读</span></div><div class="copy-text">你将离开且慢，进入【经许可证核验的保险中介全称】自营平台。后续的保险需求分析、适当性评估、产品咨询、投保及售后服务由该机构及承保保险公司提供。请确认已知晓服务主体，并阅读相关产品条款、隐私政策和重要提示。</div></article>
+          <article class="copy"><div class="copy-label"><span>预约顾问单独授权</span><span>不默认勾选</span></div><div class="copy-text">如你同意，我们将把姓名、手机号及本次预约信息提供给【经许可证核验的保险中介全称】，由其保险顾问与你联系。且慢不提供保险产品咨询。你可以拒绝或撤回授权，不影响使用且慢其他功能。</div></article>
           <article class="copy"><div class="copy-label"><span>需要从页面删除或慎用</span><span>避免平台背书</span></div><div class="avoid"><span>且慢严选保险</span><span>为你智能匹配</span><span>且慢保险顾问</span><span>一站式投保</span><span>最适合你的产品</span><span>立即配置</span><span>平台独家推荐</span></div></article>
         </div>
       </section>
@@ -359,17 +501,18 @@
       <section class="section" id="plan">
         <div class="section-head"><div><div class="kicker">10 / REMEDIATION PLAN</div><h2>24 小时止血，2 周把结构改对</h2></div></div>
         <div class="plan-grid">
-          <article class="plan-card emergency"><h3>24 小时止血版 <span class="badge">先降风险</span></h3><ol><li>暂停且慢侧保险测评结果、个性化产品匹配和具体产品问答。</li><li>全部保险入口、卡片和详情页补齐销售服务方与承保公司全称。</li><li>投保按钮统一改为“前往 XX 机构了解 / 投保”，并增加离站强提示。</li><li>建立跳转域名白名单，确认只进入保险机构自营平台。</li><li>冻结未经保险机构书面审核的素材、排行榜、推荐标签和运营推送。</li><li>补一张“页面—接口—数据—合作方—审核版本”全量清单。</li></ol></article>
-          <article class="plan-card target"><h3>2 周结构版 <span class="badge">推荐方案</span></h3><ol><li>按合作机构建立独立品牌岛，每张卡绑定营销授权和审核版本。</li><li>需求分析、支付能力评估、适当性、咨询和投保全部迁到合作方自营平台。</li><li>重做预约授权、保单回传授权、数据删除与撤回机制。</li><li>重做“我的保单”：且慢展示摘要，所有合同服务回合作方。</li><li>增加非个性化展示 / 关闭算法推荐选项和推送退订能力。</li><li>完成全链路录像、跳转日志、内容版本、投诉归因与月度抽检。</li></ol></article>
+          <article class="plan-card emergency"><h3>24 小时止血版 <span class="badge">先降风险</span></h3><ol><li>暂停且慢侧保险测评结果、缺口测算、个性化产品匹配、比价/方案页和具体产品问答。</li><li>关闭自动预约顾问默认逻辑和 8 秒延时弹窗；未完成执业登记核对前暂停自动分配。</li><li>移除小顾 2.0 的具体保险产品推荐、比较和顾问推介，只保留知识问答与中性入口。</li><li>法务在金融监管总局许可证系统核验广东盈信当天状态，调取许可证原件；统一错误的“广东/珠海/简称”称谓。</li><li>立即停止在跳转 URL 携带明文手机号，先关入口再改令牌换票。</li><li>全部保险入口、卡片和详情页补齐销售服务方、机构编码与承保公司全称。</li><li>投保按钮改为“前往 XX 机构了解 / 投保”，增加离站强提示、强制阅读和域名白名单。</li><li>冻结未经保险机构书面审核的素材、排行榜、推荐标签和运营推送；扫描 77 款在架及历史停用产品。</li><li>下线或标注停更的理赔数字；补“页面—接口—数据—合作方—审核版本—顾问账号”全量清单。</li></ol></article>
+          <article class="plan-card target"><h3>2 周结构版 <span class="badge">推荐方案</span></h3><ol><li>完成珠海盈米—广东盈信主体、牌照、平台、人员和协议五件套书面定性。</li><li>按合作机构建立独立品牌岛，每张卡绑定营销授权、审核人、定稿哈希和到期日。</li><li>需求分析、支付能力评估、适当性、咨询、方案设计和投保全部迁到经核验的保险自营平台。</li><li>重做预约授权、保单回传授权、协议版本快照、数据删除与撤回机制。</li><li>重做“我的保单”：且慢展示摘要，所有合同服务回合作方。</li><li>增加非个性化展示 / 关闭算法推荐选项和推送退订能力。</li><li>补齐顾问身份与资格日校验、保险专属投诉入口、续期台账和跨机构 SLA。</li><li>统一新旧保险后端状态机，升级回调验签，补齐异常队列、幂等、对账与告警。</li><li>完成全链路录像、跳转日志、内容版本、投诉归因、合作方持续监测与月度抽检。</li></ol></article>
           <article class="plan-card full"><h3>如果业务坚持“且慢直接做”的体验 <span class="badge">战略分叉</span></h3><p>那就不是 UI 项目，而是牌照、主体、平台、人员、系统和责任的整体方案。应由持牌保险中介在自己的自营平台内承接，并与且慢基金业务清楚隔离。</p><div class="license-path"><div>且慢<br />展示与转接</div><span>→</span><div>持牌保险中介<br />自营平台与人员</div><span>→</span><div>保险公司<br />承保与合同责任</div></div></article>
         </div>
       </section>
 
       <section class="section" id="decision">
-        <div class="section-head"><div><div class="kicker">11 / MEETING DECISIONS</div><h2>会上不要讨论颜色，先拍板六件事</h2></div></div>
+        <div class="section-head"><div><div class="kicker">11 / MEETING DECISIONS</div><h2>会上不要讨论颜色，先拍板七件事</h2></div></div>
         <div class="decisions">
-          <article class="decision"><h3>且慢的法律角色是什么？</h3><p>本项目按第三方网络营销平台整改，还是存在可覆盖保险业务的牌照主体？<strong>未确认前按更严格边界处理。</strong></p></article>
-          <article class="decision"><h3>是否立即暂停且慢侧保险测评与匹配？</h3><p>建议“是”。这是公开材料里最容易被认定为实质介入的动作。</p></article>
+          <article class="decision"><h3>是否承认“集团有牌照 ≠ 且慢前台持牌”？</h3><p>建议“是”。广东盈信机构编码已核到，但且慢平台归属、当前许可证状态、人员登记和协议链尚未闭环；<strong>补齐前不得按保险自营平台处理。</strong></p></article>
+          <article class="decision"><h3>是否确认“且慢展示 + 持牌中介承接”的目标态？</h3><p>建议“是”。若希望且慢继续做测评、咨询与交易，必须另立牌照、人员、自营平台和责任整体方案；<strong>未完成前按第三方边界处理。</strong></p></article>
+          <article class="decision"><h3>是否立即暂停且慢侧保险测评与匹配？</h3><p>建议“是”。本体已证实且慢侧实际完成问卷、画像、解读和匹配，不再只是公开文本造成的观感。</p></article>
           <article class="decision"><h3>合作模式是单一主合作方还是多机构陈列？</h3><p>多机构会增加比较、排序、内容审核、资质核验和投诉归因复杂度。</p></article>
           <article class="decision"><h3>谁拥有用户下一步？</h3><p>从需求分析开始，页面、账号、数据、客服和销售人员均应由持牌保险机构承接。</p></article>
           <article class="decision"><h3>“我的保单”保留到什么程度？</h3><p>建议保留信息管理价值，但只展示必要摘要；合同服务按钮全部回到保险机构。</p></article>
@@ -377,6 +520,7 @@
         </div>
         <h3 style="margin:28px 0 12px">建议会后责任表</h3>
         <table class="raci"><thead><tr><th>事项</th><th>主责 A</th><th>执行 R</th><th>会签 C</th><th>验收证据</th></tr></thead><tbody>
+          <tr><td>10 项 P0 清零（流程 5 + 资质 5）</td><td><b>业务总负责人</b></td><td>产品 / 研发 / 安全 / HR</td><td>法务 / 合规 / 保险合作方</td><td>每日问题台账、逐项验收件、总负责人签字</td></tr>
           <tr><td>法律角色与合作模式定性</td><td><b>业务负责人</b></td><td>法务 / 合规</td><td>保险合作方</td><td>书面定性备忘录、牌照与协议</td></tr>
           <tr><td>页面与转接链路整改</td><td><b>产品负责人</b></td><td>设计 / 研发</td><td>合规 / 合作方</td><td>全链路录屏、页面清单、域名白名单</td></tr>
           <tr><td>营销内容与素材审核</td><td><b>保险合作方</b></td><td>运营</td><td>盈米合规</td><td>审核版本号、授权记录、发布留痕</td></tr>
@@ -416,13 +560,26 @@
           <div class="source"><a href="https://asset2.qieman.com/agreement/7a186e29-cf0e-46b6-b15c-4b3894891da1.pdf" target="_blank" rel="noopener">且慢平台隐私政策｜公开 PDF</a><p>用于识别公开表述中的保险测评、产品匹配、顾问预约与保单展示链路；页面注明 2023-02-21 生效。</p></div>
           <div class="source"><a href="https://asset2.qieman.com/agreement/dd65243e-ecea-465e-842a-75c2cb813051.html" target="_blank" rel="noopener">且慢第三方信息共享清单｜公开页面</a><p>用于核对向保险合作方共享的信息类型、使用目的和传输方式。</p></div>
           <div class="source"><a href="https://asset2.qieman.com/agreement/2e792ab4-6951-4924-9ce2-f824b123627e.html" target="_blank" rel="noopener">且慢个人信息收集清单｜公开页面</a><p>用于核对保险功能、保单查询、家庭成员与推荐场景的数据范围。</p></div>
+          <div class="source"><a href="https://asset2.qieman.com/agreement/06e46c58-7c77-4486-ad53-e6ff763eb65d.pdf" target="_blank" rel="noopener">且慢当前上架隐私政策｜公开 PDF</a><p>本体记录的上架版本日期为 2026-07-08；用于核对当前合作机构称谓、保险测评字段、保单回传和外部保单管理。</p></div>
+          <div class="source"><a href="https://www.nfra.gov.cn/chinese/docfile/2025/9ba23211b6ef4a838a2e958d0bd6db9e.pdf" target="_blank" rel="noopener">国家金融监督管理总局｜保险专业中介机构法人名单（截至 2024-12-31）</a><p>第 137 页列“广东盈信保险经纪有限公司”，机构编码 <b>260917000000800</b>、机构类型“保险经纪”、监管责任单位“广东金融监管局”。这证明历史名录身份，不替代当天许可证状态。</p></div>
+          <div class="source"><a href="https://xkz.nfra.gov.cn/zj/" target="_blank" rel="noopener">国家金融监督管理总局｜保险中介许可证信息查询</a><p>会前由法务用验证码现场查询广东盈信，留存许可证当前状态、有效截止日、发证机关、业务范围和经营区域截图。</p></div>
+          <div class="source"><a href="https://www.nfra.gov.cn/branch/guangdong/view/pages/common/ItemDetail.html?docId=1203044&amp;itemId=1547" target="_blank" rel="noopener">广东金融监管局｜广东盈信广州分公司主要负责人任职资格批复</a><p>2025-03-28 发布，用于与且慢政策文本中的“珠海盈信”称谓交叉核对。</p></div>
+          <div class="source"><a href="https://www.csrc.gov.cn/guangdong/c104552/c7653444/content.shtml" target="_blank" rel="noopener">广东证监局｜2026 年基金公司和基金服务机构现场检查随机抽查结果</a><p>2026-08-20 公告将珠海盈米基金销售有限公司列为“基金投资顾问机构”；用于证明其持续受证券基金监管，不构成保险中介资质。</p></div>
+          <div class="source"><a href="https://www.yingxin.cn/" target="_blank" rel="noopener">盈信保险经纪官网｜业务与服务披露</a><p>公开展示保险科普、方案与长期服务定位、客服及投诉热线；不能替代监管许可证核验。</p></div>
+          <div class="source"><strong>盈米本体三层核验｜2026-10-09 内部底稿</strong><p>两轮核验：现况 229 步 / 117 次工具调用，资质 95 步 / 68 次工具调用；链路为图谱 → 生产源码/配置 → 生产库 → 神策埋点 → 内部协议/Wiki。确认入口、产品、计划、经营规模、流程控制权、平台归属、顾问账号和资质缺口；本报告公开聚合经营数据，不公开个人明细、账号密码或访问令牌。</p></div>
+          <div class="source"><a href="https://www.zhongan.com/channel/internetInfo/internetInfo.html" target="_blank" rel="noopener">众安保险｜互联网保险信息披露</a><p>保险公司自营模式样本：统一披露官网、App、公众号、小程序、客户服务与投诉渠道。</p></div>
+          <div class="source"><a href="https://www.bankofchina.com/fimarkets/fp4/" target="_blank" rel="noopener">中国银行｜代理保险产品信息披露</a><p>银行兼业代理模式样本：许可证、合作保险机构、合作产品与服务机构分项披露。</p></div>
+          <div class="source"><a href="https://ai.cmbchina.com/mb5web/insdefault.html" target="_blank" rel="noopener">招商银行｜保险服务频道</a><p>银行场景的产品、保单、1V1 咨询、客服与投诉入口样本；具体产品责任仍回到承保公司和保险合同。</p></div>
+          <div class="source"><a href="https://render.alipay.com/p/f/fd-jwq57tky/index.html?ttid=seo.000000574" target="_blank" rel="noopener">蚂蚁保｜保险代理平台服务协议及客户告知书</a><p>持牌专业代理平台样本：直接披露运营主体、许可证编码、经营范围、联系方式与代理责任。</p></div>
+          <div class="source"><a href="https://pages.ctrip.com/public/insurance/index.htm" target="_blank" rel="noopener">携程｜保险代理资质</a><p>场景平台 + 自有持牌代理样本；配套<a href="https://pages.ctrip.com/public/Insurance/a1.htm" target="_blank" rel="noopener">保险产品及服务信息</a>列明销售服务方、承保公司、电子保单和客服。</p></div>
+          <div class="source"><a href="https://www.iachina.cn/art/2020/12/14/art_1724_104838.html" target="_blank" rel="noopener">中国保险行业协会｜《互联网保险业务监管办法》答记者问</a><p>明确仅保险机构总公司设立的平台属于自营网络平台，投保页面须属于保险机构自营平台。</p></div>
         </div>
-        <div class="method"><strong>准确性说明：</strong>法规和处罚均链接政府、监管机关或政府政策库原文；条文内容为便于产品整改的压缩转述，不替代原文。当前 App 登录态、后台控制权、协议和人员登记尚未取得，因此报告只对公开可验证事实作判断，不把推断写成既成违法。正式上线前须由盈米法务 / 合规和保险合作机构按真实链路书面确认。</div>
+        <div class="method"><strong>准确性说明：</strong>930 新规正式文本已在中国网信网核验，公告〔2026〕第 9 号，自 2026-09-30 施行；法规和处罚均链接政府、监管机关或机构官方页面。本体现况来自 2026-10-09 对业务图谱、生产源码、当前配置、生产库和线上行为的交叉核验。报告明确区分“已证实事实”“风险判断”“待补证”，不把内部判断写成监管定性。广东盈信许可证当天状态、原件业务范围、盈米—盈信协议、顾问执业登记、自营平台报送和全部域外投保页，仍须由法务 / 合规与保险合作机构书面确认。</div>
       </section>
     </main>
   </div>
 
-  <footer><div class="wrap footer-row"><span>Clair’s Studio · 且慢保险专区整改会前材料</span><span>研究日期 2026-10-09 · 仅使用公开规则与脱敏事实</span></div></footer>
+  <footer><div class="wrap footer-row"><span>Clair’s Studio · 且慢保险专区整改会前材料</span><span>研究日期 2026-10-09 · 公开规则 × 本体生产核验 × 监管资质交叉验证</span></div></footer>
   <script>
     document.querySelectorAll('.filter').forEach((button) => {
       button.addEventListener('click', () => {
