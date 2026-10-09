@@ -252,6 +252,20 @@ const QUESTION_COGNITION = {
   advanced_signal: ["专业信号", "归因、相关性、夏普、久期等术语"],
   indeterminate: ["证据不足", "问题本身不足以判断投资认知"],
 };
+const CONVERSATION_INTENTS = {
+  investment_or_service: ["投资与且慢服务", "有明确的投资、账户或平台服务内容"],
+  investment_reassurance: ["投资情绪安抚", "亏损、波动、踏空或追高后寻求确认与安慰"],
+  general_emotional_support: ["一般情绪陪伴", "不含明确投资对象的焦虑、压力与安慰诉求"],
+  social_chat: ["寒暄、致谢与闲聊", "问候、感谢、夸赞、告别与轻松互动"],
+  non_investment_learning: ["科普与学习", "数学、科学、原理与百科知识"],
+  non_investment_writing: ["翻译与表达", "翻译、写作、改写与语言问题"],
+  non_investment_life: ["生活与工作", "天气、饮食、旅行、职场与日常咨询"],
+  non_investment_other: ["其他非投资问题", "未落入上述主题的泛知识与娱乐问题"],
+  task_meta: ["任务指令与催办", "追问进度、继续生成、确认结果与停止任务"],
+  short_acknowledgement: ["极短承接", "好、继续、谢谢、收到等两字内承接"],
+  context_followup: ["依赖上文的追问", "这个、为什么、再展开等需结合上下文理解"],
+  unclear_fragment: ["语义不完整 / 测试输入", "对象与目的都不足以判断的碎片表达"],
+};
 const QUESTION_DIMENSIONS = {
   direction: { label: "提问方向", values: QUESTION_DIRECTIONS, filter: "question-direction-filter", key: "t" },
   object: { label: "询问对象", values: QUESTION_OBJECTS, filter: "question-object-filter", key: "o" },
@@ -617,6 +631,22 @@ function validateQuestionInsights(data) {
     if (!Array.isArray(rows) || rows.length !== Object.keys(labels).length || rows.reduce((sum, item) => sum + item.questions, 0) !== expected) throw new Error(`${key} 分类不闭合`);
     rows.forEach((item) => { if (!labels[item.id] || !isWholeCount(item.questions) || !isWholeCount(item.users)) throw new Error(`${key}.${item.id} 异常`); });
   });
+  const conversation = research.conversation_analysis;
+  if (!conversation || conversation.scope !== "self_authored_questions_excluding_presets" || !Array.isArray(conversation.categories)
+      || conversation.categories.length !== Object.keys(CONVERSATION_INTENTS).length
+      || conversation.categories.reduce((sum, item) => sum + item.questions, 0) !== rs.self_authored_questions) throw new Error("非投资与情绪分类不闭合");
+  conversation.categories.forEach((item) => {
+    if (!CONVERSATION_INTENTS[item.id] || !isWholeCount(item.questions) || !isWholeCount(item.users)) throw new Error(`对话性质 ${item.id} 异常`);
+  });
+  const conversationCounts = Object.fromEntries(conversation.categories.map((item) => [item.id, item.questions]));
+  const sumConversation = (ids) => ids.reduce((sum, id) => sum + conversationCounts[id], 0);
+  for (const key of ["off_topic", "low_information", "emotional_support", "task_meta"]) {
+    if (!isWholeCount(conversation[key]?.questions) || !isWholeCount(conversation[key]?.users)) throw new Error(`对话性质汇总 ${key} 异常`);
+  }
+  if (conversation.off_topic.questions !== sumConversation(["social_chat", "non_investment_learning", "non_investment_writing", "non_investment_life", "non_investment_other"])
+      || conversation.low_information.questions !== sumConversation(["short_acknowledgement", "unclear_fragment"])
+      || conversation.emotional_support.questions !== sumConversation(["investment_reassurance", "general_emotional_support"])
+      || conversation.task_meta.questions !== conversationCounts.task_meta) throw new Error("对话性质汇总不闭合");
   if (!Array.isArray(research.entities?.keywords) || !research.entities.keywords.length || !Array.isArray(research.entities?.products)) throw new Error("关键词与产品数据异常");
   [...research.entities.keywords, ...research.entities.products].forEach((item) => {
     if (!item.label || !isWholeCount(item.questions) || !isWholeCount(item.users)) throw new Error("关键词或产品字段异常");
@@ -1889,6 +1919,8 @@ function populateQuestionFilters() {
   }
   const next = $("#question-next-filter");
   if (next.options.length === 1) next.insertAdjacentHTML("beforeend", Object.entries(QUESTION_DIRECTIONS).map(([id, copy]) => `<option value="${escapeHtml(id)}">下一问：${escapeHtml(copy[0])}</option>`).join(""));
+  const conversation = $("#question-conversation-filter");
+  if (conversation.options.length === 1) conversation.insertAdjacentHTML("beforeend", Object.entries(CONVERSATION_INTENTS).map(([id, copy]) => `<option value="${escapeHtml(id)}">${escapeHtml(copy[0])}</option>`).join(""));
   const date = $("#question-date-filter");
   if (date.options.length === 1) {
     const allGroup = currentData.question_insights.research.cross_analysis.groups.find((item) => item.id === "all:all");
@@ -1929,6 +1961,36 @@ function renderQuestionOverview(insight, research) {
   ].map((item) => `<article class="question-finding"><em>${item.key}</em><strong>${escapeHtml(item.title)}</strong><p>${escapeHtml(item.copy)}</p></article>`).join("");
 }
 
+function renderQuestionConversation(research) {
+  const analysis = research.conversation_analysis;
+  const categories = new Map(analysis.categories.map((item) => [item.id, item]));
+  const selfTotal = research.summary.self_authored_questions;
+  const emotionalInvestment = categories.get("investment_reassurance");
+  const emotionalGeneral = categories.get("general_emotional_support");
+  $("#question-conversation-title").textContent = `${number.format(analysis.off_topic.users)} 人聊过非投资内容，${number.format(analysis.emotional_support.users)} 人寻求情绪安抚`;
+  $("#question-conversation-stat").textContent = `${number.format(analysis.off_topic.questions)} 条非投资 · ${number.format(analysis.low_information.questions)} 条低信息输入`;
+  $("#question-conversation-insight").textContent = `非投资内容占主动输入 ${formatShare(analysis.off_topic.questions, selfTotal)}；情绪安抚中，投资相关 ${number.format(emotionalInvestment.questions)} 条、一般情绪陪伴 ${number.format(emotionalGeneral.questions)} 条。同一位用户可能出现在多个类别。`;
+  $("#question-conversation-kpis").innerHTML = [
+    ["聊过非投资内容", analysis.off_topic.users, `${number.format(analysis.off_topic.questions)} 条 · ${formatShare(analysis.off_topic.questions, selfTotal)}`],
+    ["低信息输入", analysis.low_information.users, `${number.format(analysis.low_information.questions)} 条极短或语义不完整`],
+    ["寻求情绪安抚", analysis.emotional_support.users, `${number.format(analysis.emotional_support.questions)} 条 · 投资与生活情绪`],
+    ["任务指令与催办", analysis.task_meta.users, `${number.format(analysis.task_meta.questions)} 条进度、继续与结果确认`],
+  ].map(([label, value, note]) => `<article><span>${label}</span><strong>${number.format(value)} 人</strong><small>${note}</small></article>`).join("");
+  const rows = ["investment_reassurance", "general_emotional_support", "social_chat", "non_investment_learning", "non_investment_writing", "non_investment_life", "non_investment_other", "task_meta", "short_acknowledgement", "context_followup", "unclear_fragment"]
+    .map((id) => categories.get(id)).filter((item) => item?.questions);
+  const max = Math.max(...rows.map((item) => item.questions), 1);
+  $("#question-conversation-list").innerHTML = rows.map((item) => `<button type="button" class="conversation-row" data-conversation-intent="${escapeHtml(item.id)}">
+    <span><strong>${escapeHtml(CONVERSATION_INTENTS[item.id][0])}</strong><small>${escapeHtml(CONVERSATION_INTENTS[item.id][1])}</small></span>
+    <i><b style="width:${Math.max(1.2, item.questions / max * 100)}%"></b></i>
+    <em>${number.format(item.questions)} 条<small>${number.format(item.users)} 人</small></em>
+  </button>`).join("");
+  $("#question-conversation-takeaway").innerHTML = `<em>服务判断</em><strong>“废话”不是一个可执行的分类</strong><p>寒暄、极短承接、任务催办和情绪安抚，需要完全不同的响应方式。</p><div class="conversation-actions">
+    <div><b>先安情绪，再给行动</b><span>${number.format(analysis.emotional_support.questions)} 条安抚诉求，先确认感受，再说明事实与决策边界。</span></div>
+    <div><b>让任务状态可见</b><span>${number.format(analysis.task_meta.questions)} 条催办或指令，说明用户需要进度、完成与失败反馈。</span></div>
+    <div><b>承接上下文，不重问背景</b><span>${number.format(analysis.low_information.questions)} 条极短或不完整输入，优先结合前文理解。</span></div>
+  </div>`;
+}
+
 function renderQuestionInsights() {
   const insight = currentData.question_insights;
   const research = insight.research;
@@ -1941,6 +2003,7 @@ function renderQuestionInsights() {
   renderQuestionDimension();
   renderQuestionEntities(research);
   renderQuestionPersonas(research);
+  renderQuestionConversation(research);
   renderQuestionRhythm();
   renderQuestionTurns(research);
   renderQuestionPaths(research);
@@ -1982,7 +2045,7 @@ async function decryptQuestionCorpus(envelope, supplied) {
   if (corpus.meta.data_cutoff !== insight.as_of || corpus.rows.length !== insight.summary.questions) throw new Error("原始提问库与分析快照不一致");
   if (corpus.meta.default_questions !== insight.research.summary.preset_questions || corpus.meta.self_authored_questions !== insight.research.summary.self_authored_questions) throw new Error("默认题与自发问题口径不一致");
   corpus.rows.forEach((row, index) => {
-    if (row.i !== index + 1 || !/^\d{4}-\d{2}-\d{2}$/.test(row.d) || !QUESTION_DIRECTIONS[row.t] || !QUESTION_OBJECTS[row.o]
+    if (row.i !== index + 1 || !/^\d{4}-\d{2}-\d{2}$/.test(row.d) || !QUESTION_DIRECTIONS[row.t] || !QUESTION_OBJECTS[row.o] || !CONVERSATION_INTENTS[row.x]
         || !QUESTION_STYLES[row.f] || !QUESTION_COGNITION[row.c] || ![0, 1].includes(row.s) || typeof row.p !== "string" || typeof row.v !== "string"
         || typeof row.r !== "string" || typeof row.w !== "string" || !["no_followup", "followup"].includes(row.e) || !Number.isInteger(row.u) || row.u < 0 || typeof row.n !== "string" || (row.n && !QUESTION_DIRECTIONS[row.n])
         || typeof row.q !== "string" || !row.q) {
@@ -2044,6 +2107,7 @@ function filteredQuestionRows() {
   const origin = $("#question-origin-filter").value;
   const turn = $("#question-turn-filter").value;
   const next = $("#question-next-filter").value;
+  const conversation = $("#question-conversation-filter").value;
   const direction = $("#question-direction-filter").value;
   const object = $("#question-object-filter").value;
   const style = $("#question-style-filter").value;
@@ -2054,6 +2118,7 @@ function filteredQuestionRows() {
     && (engagement === "all" || row.e === engagement) && (date === "all" || row.d === date)
     && (origin === "all" || (origin === "after_preset" && row.r) || (origin.startsWith("version:") && row.w === origin.slice(8)) || (origin.startsWith("question:") && row.r === origin.slice(9)))
     && inTurn(row) && (next === "all" || row.n === next)
+    && (conversation === "all" || row.x === conversation)
     && (direction === "all" || row.t === direction) && (object === "all" || row.o === object)
     && (style === "all" || row.f === style) && (cognition === "all" || row.c === cognition)
     && (!query || row.q.toLocaleLowerCase("zh-CN").includes(query)));
@@ -2068,7 +2133,7 @@ function renderQuestionTable() {
   const versionLabels = { launch_v1: "首发版默认", expanded_v2: "扩展版推荐", qieman_guided_v3: "且慢导览推荐", entry_examples: "入口示例题" };
   $("#question-table-body").innerHTML = visible.length ? visible.map((row) => `<tr>
     <td>${number.format(row.i)}</td><td>${escapeHtml(row.d)}</td><td>${escapeHtml(row.p ? versionLabels[row.v] || "默认 / 推荐" : row.r ? `默认题后自发 · 第 ${row.u} 问` : row.u ? `用户自发 · 第 ${row.u} 问` : row.s ? "自发短承接" : "用户自发")}<br /><small>${escapeHtml(QUESTION_ENGAGEMENT_LABELS[row.e])}</small></td>
-    <td>${escapeHtml(QUESTION_DIRECTIONS[row.t][0])}</td><td>${escapeHtml(QUESTION_OBJECTS[row.o][0])}<br />${escapeHtml(QUESTION_STYLES[row.f][0])} · ${escapeHtml(QUESTION_COGNITION[row.c][0])}</td><td>${escapeHtml(row.q)}</td>
+    <td>${escapeHtml(QUESTION_DIRECTIONS[row.t][0])}<br /><small>${escapeHtml(CONVERSATION_INTENTS[row.x][0])}</small></td><td>${escapeHtml(QUESTION_OBJECTS[row.o][0])}<br />${escapeHtml(QUESTION_STYLES[row.f][0])} · ${escapeHtml(QUESTION_COGNITION[row.c][0])}</td><td>${escapeHtml(row.q)}</td>
   </tr>`).join("") : '<tr><td colspan="6">没有符合当前筛选的提问。</td></tr>';
   $("#question-result-count").textContent = `找到 ${number.format(questionRows.length)} 条；本页 ${number.format(visible.length)} 条`;
   $("#question-corpus-meta").textContent = `截至 ${formatCutoff(questionCorpus.meta.data_cutoff, true)} · 自动脱敏 ${number.format(questionCorpus.meta.redacted_rows)} 条`;
@@ -2105,6 +2170,11 @@ function syncControls() {
   document.querySelectorAll('input[name="range"]').forEach((input) => { input.checked = input.value === viewState.range; });
   const customLabel = $("#range-custom-label");
   if (customLabel) customLabel.textContent = viewState.customApplied ? `${shortDay(viewState.start)}–${shortDay(viewState.end)}` : "自订";
+}
+
+function resetQuestionClassificationFilters() {
+  for (const item of Object.values(QUESTION_DIMENSIONS)) $(`#${item.filter}`).value = "all";
+  $("#question-conversation-filter").value = "all";
 }
 
 function renderView({ announce = false } = {}) {
@@ -2229,7 +2299,7 @@ function bindInteractions() {
     $("#question-date-filter").value = "all";
     $("#question-turn-filter").value = "all";
     $("#question-next-filter").value = "all";
-    for (const item of Object.values(QUESTION_DIMENSIONS)) $(`#${item.filter}`).value = "all";
+    resetQuestionClassificationFilters();
     if (kind === "direction") {
       $("#question-scope-filter").value = "preset";
       $("#question-origin-filter").value = "all";
@@ -2257,7 +2327,7 @@ function bindInteractions() {
     $("#question-date-filter").value = "all";
     $("#question-turn-filter").value = "all";
     $("#question-next-filter").value = "all";
-    for (const item of Object.values(QUESTION_DIMENSIONS)) $(`#${item.filter}`).value = "all";
+    resetQuestionClassificationFilters();
     $("#question-direction-filter").value = target.dataset.presetFollowDirection;
     viewState.questionPage = 1;
     if (questionCorpus) renderQuestionTable();
@@ -2271,7 +2341,7 @@ function bindInteractions() {
     $("#question-date-filter").value = "all";
     $("#question-turn-filter").value = "all";
     $("#question-next-filter").value = "all";
-    for (const item of Object.values(QUESTION_DIMENSIONS)) $(`#${item.filter}`).value = "all";
+    resetQuestionClassificationFilters();
     viewState.questionPage = 1;
     if (questionCorpus) renderQuestionTable();
     $("#raw-question-title").scrollIntoView({ behavior: "smooth", block: "start" });
@@ -2286,7 +2356,7 @@ function bindInteractions() {
     $("#question-origin-filter").value = "all";
     $("#question-turn-filter").value = "all";
     $("#question-next-filter").value = "all";
-    for (const item of Object.values(QUESTION_DIMENSIONS)) $(`#${item.filter}`).value = "all";
+    resetQuestionClassificationFilters();
     viewState.questionPage = 1;
     if (questionCorpus) renderQuestionTable();
     $("#raw-question-title").scrollIntoView({ behavior: "smooth", block: "start" });
@@ -2301,7 +2371,7 @@ function bindInteractions() {
     $("#question-date-filter").value = "all";
     $("#question-turn-filter").value = viewState.questionTurn;
     $("#question-next-filter").value = "all";
-    for (const item of Object.values(QUESTION_DIMENSIONS)) $(`#${item.filter}`).value = "all";
+    resetQuestionClassificationFilters();
     $("#question-direction-filter").value = target.dataset.turnDirection;
     viewState.questionPage = 1;
     if (questionCorpus) renderQuestionTable();
@@ -2317,7 +2387,7 @@ function bindInteractions() {
     $("#question-date-filter").value = "all";
     $("#question-turn-filter").value = viewState.questionTurn;
     $("#question-next-filter").value = target.dataset.turnTo;
-    for (const item of Object.values(QUESTION_DIMENSIONS)) $(`#${item.filter}`).value = "all";
+    resetQuestionClassificationFilters();
     $("#question-direction-filter").value = target.dataset.turnFrom;
     viewState.questionPage = 1;
     if (questionCorpus) renderQuestionTable();
@@ -2334,8 +2404,24 @@ function bindInteractions() {
     $("#question-origin-filter").value = "all";
     $("#question-turn-filter").value = "all";
     $("#question-next-filter").value = "all";
-    for (const item of Object.values(QUESTION_DIMENSIONS)) $(`#${item.filter}`).value = "all";
+    resetQuestionClassificationFilters();
     $(`#${definition.filter}`).value = target.dataset.questionValue;
+    viewState.questionPage = 1;
+    if (questionCorpus) renderQuestionTable();
+    $("#raw-question-title").scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+  $("#question-conversation-list").addEventListener("click", (event) => {
+    const target = event.target.closest("[data-conversation-intent]");
+    if (!target) return;
+    $("#question-search").value = "";
+    $("#question-scope-filter").value = "self";
+    $("#question-engagement-filter").value = "all";
+    $("#question-date-filter").value = "all";
+    $("#question-origin-filter").value = "all";
+    $("#question-turn-filter").value = "all";
+    $("#question-next-filter").value = "all";
+    resetQuestionClassificationFilters();
+    $("#question-conversation-filter").value = target.dataset.conversationIntent;
     viewState.questionPage = 1;
     if (questionCorpus) renderQuestionTable();
     $("#raw-question-title").scrollIntoView({ behavior: "smooth", block: "start" });
@@ -2350,7 +2436,7 @@ function bindInteractions() {
     window.clearTimeout(questionSearchTimer);
     questionSearchTimer = window.setTimeout(() => { viewState.questionPage = 1; renderQuestionTable(); }, 160);
   });
-  ["question-scope-filter", "question-engagement-filter", "question-date-filter", "question-origin-filter", "question-turn-filter", "question-next-filter", "question-direction-filter", "question-object-filter", "question-style-filter", "question-cognition-filter"].forEach((id) => {
+  ["question-scope-filter", "question-engagement-filter", "question-date-filter", "question-origin-filter", "question-turn-filter", "question-next-filter", "question-conversation-filter", "question-direction-filter", "question-object-filter", "question-style-filter", "question-cognition-filter"].forEach((id) => {
     $(`#${id}`).addEventListener("change", () => {
       if (id === "question-origin-filter" && $("#question-origin-filter").value !== "all") $("#question-scope-filter").value = "substantive";
       viewState.questionPage = 1;
@@ -2365,7 +2451,7 @@ function bindInteractions() {
     $("#question-origin-filter").value = "all";
     $("#question-turn-filter").value = "all";
     $("#question-next-filter").value = "all";
-    for (const item of Object.values(QUESTION_DIMENSIONS)) $(`#${item.filter}`).value = "all";
+    resetQuestionClassificationFilters();
     viewState.questionPage = 1;
     renderQuestionTable();
   });

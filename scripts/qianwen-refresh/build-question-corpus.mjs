@@ -28,6 +28,7 @@ const OBJECT_IDS = ["own_account", "specific_product", "fund_category", "strateg
 const STYLE_IDS = ["direct_request", "diagnose_evaluate", "compare_choose", "why_explain", "how_to", "forecast_risk", "fact_lookup", "conversation_fragment"];
 const COGNITION_IDS = ["beginner_signal", "developing_signal", "advanced_signal", "indeterminate"];
 const PERSONA_IDS = ["holding_optimizer", "product_decider", "planning_allocator", "market_tracker", "execution_seeker", "learning_builder", "platform_explorer", "preset_only", "light_conversation"];
+const CONVERSATION_INTENT_IDS = ["investment_or_service", "investment_reassurance", "general_emotional_support", "social_chat", "non_investment_learning", "non_investment_writing", "non_investment_life", "non_investment_other", "task_meta", "short_acknowledgement", "context_followup", "unclear_fragment"];
 
 const PRESET_VERSIONS = [
   {
@@ -249,8 +250,10 @@ function classifyDirection(question, object) {
   if (test(/股票|个股|股价|炒股|涨停|跌停|财报|市值|上市|龙头|分红|认购|资本开支|产业链|CPO|PCB|半导体|芯片|算力|公司|概念股|股指|上证|深证|北证|创业板|科创板|恒生|道琼斯|纳斯达克|英伟达|阿里|小鹏|中芯|持有\d+股|换手|K线|技术面|基本面|买点|主线|CPI|期货|交割日|股份|科技|药业|集团|证券|矿业|材料|设备|光电|通信|电子|银行股|白银股|黄金股/i, question)
       || (/^[A-Za-z]{2,12}(?:\s|呢|怎么样|[？?])?$/i.test(question))) return "stock_research";
   if (test(/(?:我有|我的|本人|目前|现在|已经|刚刚|买过|持有|本金|预算|金额|期限|风险承受|不接受亏损|能承受|偏好|每月|每年|计划|目标|收入|支出|家庭|年龄|退休|闲钱|可投|想投|准备投|大概|大约|元$|万元$)/, question)) return "personal_context";
-  if (test(/你好|吃的啥|开玩笑|数学|计算|等于|为何|谁发明|怎么产生|介绍一下|翻译|天气|作文|写诗|故事|游戏|电影|菜谱|星座|生肖|旅游|英语|雷电|蜗牛|冰屋|宇航|巧克力|井盖|心跳|互联网|排队|极限|latex|糖|大卡|大乐透|双色球|彩票|system prompt|API 密钥|认证 token|身份证号|手机号/i, question)
-      || /^\p{Extended_Pictographic}/u.test(question)) return "non_investment";
+  const nonInvestmentSignal = test(/你好|吃的啥|开玩笑|数学|计算|等于|为何|谁发明|怎么产生|介绍一下|翻译|天气|作文|写诗|故事|游戏|电影|菜谱|星座|生肖|旅游|英语|雷电|蜗牛|冰屋|宇航|巧克力|井盖|心跳|互联网|排队|极限|latex|糖|大卡|大乐透|双色球|彩票|system prompt|API 密钥|认证 token|身份证号|手机号/i, question)
+    || /^\p{Extended_Pictographic}/u.test(question);
+  const investmentSignal = test(/投资|理财|股票|个股|股市|基金|策略|组合|持仓|账户|资产|本金|收益|回撤|风险|仓位|净值|赎回|申购|建仓|持股|行业|板块|市场|行情|大盘|金融|黄金|白银|债券|汇率|期权|期货|交易|配置|定投|存款|贷款|保单|保险|房产|估值|ETF|指数|A股|港股|美股|纳指|科创|红利|半导体|创新药|回本|踏空|追高|被套|割肉|低位|技术面|资金面/i, question);
+  if (nonInvestmentSignal && !investmentSignal) return "non_investment";
   if (test(/投资|股票|基金|资金|本金|利息|股息|收益|回撤|风险|仓位|价格|涨|跌|买|卖|行业|公司|银行|经济|金融|黄金|白银|债|汇率|期权|期货|标的|交易|账户|持有|配置|储蓄|存款|贷款|保单|保险|房产|财务|估值|市盈|市净|PE|PB|ETF|指数|A股|港股|美股|科技|能源|材料/i, question)) return "other_investment";
   return "unclear_expression";
 }
@@ -274,16 +277,43 @@ function classifyCognition(question) {
   return "indeterminate";
 }
 
+function classifyConversationIntent(question, direction) {
+  const rejectsReassurance = /(?:不要|不用|不必|无需|别)(?:再)?.{0,4}(?:安慰|鼓励|焦虑|担心|害怕|恐慌)|不废话不安慰|(?:我)?不(?:焦虑|担心|害怕|恐慌|怕)/i.test(question);
+  const firstPersonEmotion = /(?:我|自己|本人|心里|心态|情绪|现在|最近|一直|已经|真的|有点|有些|很|太|挺).{0,10}(?:焦虑|害怕|担心|慌了|很慌|难受|后悔|心态.{0,3}(?:崩|不好)|崩溃|睡不着|压力(?:很大|大)|扛不住|拿不住|恐惧|不安|无助|没(?:有)?信心|信心不足)/i.test(question);
+  const asksForComfort = /(?:安慰|鼓励)(?:我|一下我|下我)|陪我聊|给我.{0,4}(?:一点|点)?信心|帮我.{0,6}(?:调整心态|缓解焦虑)/i.test(question);
+  const lossAnxiety = /(?:能|还能|会不会|什么时候).{0,6}(?:回本|涨回来)|(?:亏麻了|亏惨了|被套了|套牢了).{0,8}(?:怎么办|咋办|能回本|要割肉|该割肉|安慰)|(?:亏|被套|套牢|踏空|卖飞|追高|割肉).{0,10}(?:怎么办|难受|焦虑|害怕|担心|后悔|安慰|很慌|慌了|心态)|(?:怎么办|难受|焦虑|害怕|担心|后悔|安慰|很慌|慌了|心态).{0,10}(?:亏|被套|套牢|踏空|卖飞|追高|割肉)|(?:要不要|该不该|是不是得).{0,4}割肉/i.test(question);
+  const reassuranceCheck = /没(?:啥|什么)?(?:危险|问题|事)(?:吧|吗)|(?:会不会|是不是).{0,6}(?:很危险|出事|完了)/i.test(question);
+  const investmentContext = /投资|理财|股票|基金|策略|组合|持仓|账户|资产|本金|收益|亏|赚|回撤|风险|仓位|价格|涨|跌|买|卖|赎回|申购|建仓|持股|低开|行业|板块|市场|行情|大盘|金融|黄金|白银|债|汇率|期权|期货|交易|配置|定投|存款|贷款|保单|保险|房产|估值|ETF|指数|A股|港股|美股|纳指|科创|红利|半导体|创新药|回本|踏空|追高|被套|割肉/i.test(question);
+  const emotional = !rejectsReassurance && (firstPersonEmotion || asksForComfort || lossAnxiety || (investmentContext && reassuranceCheck));
+  if (emotional && investmentContext) return "investment_reassurance";
+  if (emotional) return "general_emotional_support";
+  if (/^(?:你好|您好|嗨|哈喽|hello|hi|早上好|上午好|下午好|晚上好|在吗|谢谢|感谢|辛苦了|再见|拜拜|晚安|你真棒|厉害|哈哈+|呵呵+|嘿嘿+|么么哒|爱你)[呀啊哦呢嘛吗哈哟～~!！?？。.，,\s]*$/i.test(question)
+      || /^(?:谢谢|感谢)(?:你|小顾|啦|了|哈|哦|呀|的回答|你的分析|你的建议)?[!！。\s]*$/i.test(question)) return "social_chat";
+  if (isShortFollowup(question)) return "short_acknowledgement";
+  if (direction === "task_status") return "task_meta";
+  if (direction === "non_investment") {
+    if (/数学|计算|等于|极限|函数|方程|几何|物理|化学|生物|科学|科普|为何|为什么|谁发明|怎么产生|原理|互联网|雷电|蜗牛|冰屋|宇航|巧克力|井盖|心跳|排队/i.test(question)) return "non_investment_learning";
+    if (/翻译|作文|写作|写诗|文案|改写|润色|英语|中文|日语|韩语|法语|德语|latex/i.test(question)) return "non_investment_writing";
+    if (/天气|吃|菜谱|旅游|工作|职场|恋爱|孩子|家庭|生活|星座|生肖|健康|睡眠|减肥|大卡|宠物/i.test(question)) return "non_investment_life";
+    return "non_investment_other";
+  }
+  if (direction === "context_followup") return "context_followup";
+  if (direction === "unclear_expression") return "unclear_fragment";
+  return "investment_or_service";
+}
+
 function classify(question) {
   const preset = presetLookup.get(normalizePreset(question)) || null;
   const object = classifyObject(question);
+  const direction = classifyDirection(question, object);
   return {
     preset,
     short: isShortFollowup(question),
     object,
-    direction: classifyDirection(question, object),
+    direction,
     style: classifyStyle(question),
     cognition: classifyCognition(question),
+    conversationIntent: classifyConversationIntent(question, direction),
   };
 }
 
@@ -380,6 +410,19 @@ const substantiveRows = selfRows.filter((row) => !row.short);
 const substantiveUsers = new Set(substantiveRows.map((row) => row.person));
 const selfUsers = new Set(selfRows.map((row) => row.person));
 const presetUsers = new Set(presetRows.map((row) => row.person));
+const conversationGroup = (ids) => {
+  const allowed = new Set(ids);
+  const rows = selfRows.filter((row) => allowed.has(row.conversationIntent));
+  return { questions: rows.length, users: new Set(rows.map((row) => row.person)).size };
+};
+const conversationAnalysis = {
+  scope: "self_authored_questions_excluding_presets",
+  categories: summarizeDimension(selfRows, "conversationIntent", CONVERSATION_INTENT_IDS),
+  off_topic: conversationGroup(["social_chat", "non_investment_learning", "non_investment_writing", "non_investment_life", "non_investment_other"]),
+  low_information: conversationGroup(["short_acknowledgement", "unclear_fragment"]),
+  emotional_support: conversationGroup(["investment_reassurance", "general_emotional_support"]),
+  task_meta: conversationGroup(["task_meta"]),
+};
 
 const firstRows = new Map([...byPerson].map(([person, rows]) => [person, rows[0]]));
 for (const rows of bySession.values()) {
@@ -750,6 +793,7 @@ const research = {
     preset_ctr_note: "no_impression_log_asker_reach_is_proxy_not_true_ctr",
     followup_definition: "same_session_second_or_later_self_authored_substantive_question",
     direction_other_split: "stock_research_task_status_personal_context_context_followup_non_investment_other_investment_unclear_expression",
+    conversation_intent: "exclusive_rule_based_v1_on_self_authored_questions",
   },
   market_context: {
     index_code: "000300.CSI",
@@ -805,6 +849,7 @@ const research = {
   },
   personas: PERSONA_IDS.map((id) => ({ id, users: personaStats[id].users, questions: personaStats[id].questions })),
   user_cognition: COGNITION_IDS.map((id) => ({ id, users: cognitionUserStats[id] })),
+  conversation_analysis: conversationAnalysis,
   rhythm: { active_days: activeDays, time_of_day: timeOfDay, session_depth: sessionDepth, gaps: gapDistribution },
   paths: { transitions: topTransitions, sequences: topSequences },
   entities: { product_min_users: 2, keywords, products },
@@ -819,6 +864,7 @@ const rows = internalRows.map((row) => ({
   o: row.object,
   f: row.style,
   c: row.cognition,
+  x: row.conversationIntent,
   s: row.short ? 1 : 0,
   p: row.preset?.id || "",
   v: row.preset?.version || "",

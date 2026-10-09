@@ -2819,7 +2819,8 @@ window.QIANWEN_ACQUISITION_DATA = {
         "cognition_note": "language_signal_not_verified_investment_knowledge",
         "preset_ctr_note": "no_impression_log_asker_reach_is_proxy_not_true_ctr",
         "followup_definition": "same_session_second_or_later_self_authored_substantive_question",
-        "direction_other_split": "stock_research_task_status_personal_context_context_followup_non_investment_other_investment_unclear_expression"
+        "direction_other_split": "stock_research_task_status_personal_context_context_followup_non_investment_other_investment_unclear_expression",
+        "conversation_intent": "exclusive_rule_based_v1_on_self_authored_questions"
       },
       "market_context": {
         "index_code": "000300.CSI",
@@ -3070,18 +3071,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "non_investment",
-                  "questions": 373,
-                  "users": 229
+                  "questions": 343,
+                  "users": 213
                 },
                 {
                   "id": "other_investment",
-                  "questions": 2914,
-                  "users": 1359
+                  "questions": 2939,
+                  "users": 1367
                 },
                 {
                   "id": "unclear_expression",
-                  "questions": 9084,
-                  "users": 2813
+                  "questions": 9089,
+                  "users": 2815
                 }
               ],
               "object": [
@@ -4064,8 +4065,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 1,
-                    "users": 1
+                    "questions": 0,
+                    "users": 0
                   },
                   {
                     "id": "other_investment",
@@ -4074,7 +4075,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 51,
+                    "questions": 52,
                     "users": 11
                   }
                 ]
@@ -4148,12 +4149,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 3,
-                    "users": 2
+                    "questions": 2,
+                    "users": 1
                   },
                   {
                     "id": "other_investment",
-                    "questions": 13,
+                    "questions": 14,
                     "users": 8
                   },
                   {
@@ -4232,12 +4233,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 6,
+                    "questions": 5,
                     "users": 1
                   },
                   {
                     "id": "other_investment",
-                    "questions": 85,
+                    "questions": 86,
                     "users": 7
                   },
                   {
@@ -4316,12 +4317,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 5,
+                    "questions": 4,
                     "users": 2
                   },
                   {
                     "id": "other_investment",
-                    "questions": 27,
+                    "questions": 28,
                     "users": 10
                   },
                   {
@@ -5492,8 +5493,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 3,
-                    "users": 2
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "other_investment",
@@ -5502,7 +5503,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 114,
+                    "questions": 116,
                     "users": 30
                   }
                 ]
@@ -5660,13 +5661,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 5,
-                    "users": 4
+                    "questions": 2,
+                    "users": 2
                   },
                   {
                     "id": "other_investment",
-                    "questions": 38,
-                    "users": 26
+                    "questions": 41,
+                    "users": 28
                   },
                   {
                     "id": "unclear_expression",
@@ -5996,18 +5997,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 18,
-                    "users": 16
+                    "questions": 13,
+                    "users": 11
                   },
                   {
                     "id": "other_investment",
-                    "questions": 164,
-                    "users": 120
+                    "questions": 168,
+                    "users": 124
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 459,
-                    "users": 225
+                    "questions": 460,
+                    "users": 226
                   }
                 ]
               },
@@ -6080,13 +6081,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 21,
+                    "questions": 20,
                     "users": 13
                   },
                   {
                     "id": "other_investment",
-                    "questions": 205,
-                    "users": 146
+                    "questions": 206,
+                    "users": 147
                   },
                   {
                     "id": "unclear_expression",
@@ -6248,12 +6249,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 24,
+                    "questions": 19,
                     "users": 14
                   },
                   {
                     "id": "other_investment",
-                    "questions": 102,
+                    "questions": 107,
                     "users": 75
                   },
                   {
@@ -6332,13 +6333,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 17,
-                    "users": 13
+                    "questions": 14,
+                    "users": 11
                   },
                   {
                     "id": "other_investment",
-                    "questions": 98,
-                    "users": 61
+                    "questions": 101,
+                    "users": 62
                   },
                   {
                     "id": "unclear_expression",
@@ -6416,18 +6417,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 12,
-                    "users": 10
+                    "questions": 9,
+                    "users": 7
                   },
                   {
                     "id": "other_investment",
-                    "questions": 115,
+                    "questions": 117,
                     "users": 67
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 338,
-                    "users": 152
+                    "questions": 339,
+                    "users": 153
                   }
                 ]
               },
@@ -6584,12 +6585,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 19,
-                    "users": 17
+                    "questions": 18,
+                    "users": 16
                   },
                   {
                     "id": "other_investment",
-                    "questions": 104,
+                    "questions": 105,
                     "users": 80
                   },
                   {
@@ -6668,13 +6669,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 25,
-                    "users": 18
+                    "questions": 24,
+                    "users": 17
                   },
                   {
                     "id": "other_investment",
-                    "questions": 132,
-                    "users": 86
+                    "questions": 133,
+                    "users": 87
                   },
                   {
                     "id": "unclear_expression",
@@ -6752,13 +6753,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 37,
-                    "users": 30
+                    "questions": 35,
+                    "users": 28
                   },
                   {
                     "id": "other_investment",
-                    "questions": 302,
-                    "users": 214
+                    "questions": 304,
+                    "users": 215
                   },
                   {
                     "id": "unclear_expression",
@@ -6922,17 +6923,17 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 24,
-                    "users": 9
+                    "questions": 20,
+                    "users": 8
                   },
                   {
                     "id": "other_investment",
-                    "questions": 252,
+                    "questions": 255,
                     "users": 71
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 730,
+                    "questions": 731,
                     "users": 145
                   }
                 ]
@@ -7090,17 +7091,17 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 33,
-                    "users": 16
+                    "questions": 28,
+                    "users": 14
                   },
                   {
                     "id": "other_investment",
-                    "questions": 326,
-                    "users": 126
+                    "questions": 329,
+                    "users": 127
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 940,
+                    "questions": 942,
                     "users": 223
                   }
                 ]
@@ -7174,18 +7175,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 117,
-                    "users": 84
+                    "questions": 103,
+                    "users": 77
                   },
                   {
                     "id": "other_investment",
-                    "questions": 835,
-                    "users": 536
+                    "questions": 848,
+                    "users": 542
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 2411,
-                    "users": 1092
+                    "questions": 2412,
+                    "users": 1093
                   }
                 ]
               },
@@ -7258,18 +7259,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 116,
-                    "users": 88
+                    "questions": 109,
+                    "users": 81
                   },
                   {
                     "id": "other_investment",
-                    "questions": 812,
-                    "users": 490
+                    "questions": 818,
+                    "users": 492
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 2338,
-                    "users": 988
+                    "questions": 2339,
+                    "users": 989
                   }
                 ]
               }
@@ -7346,18 +7347,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "non_investment",
-                  "questions": 34,
-                  "users": 34
+                  "questions": 28,
+                  "users": 28
                 },
                 {
                   "id": "other_investment",
-                  "questions": 179,
-                  "users": 179
+                  "questions": 183,
+                  "users": 183
                 },
                 {
                   "id": "unclear_expression",
-                  "questions": 304,
-                  "users": 304
+                  "questions": 306,
+                  "users": 306
                 }
               ],
               "object": [
@@ -9936,13 +9937,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 1,
-                    "users": 1
+                    "questions": 0,
+                    "users": 0
                   },
                   {
                     "id": "other_investment",
-                    "questions": 1,
-                    "users": 1
+                    "questions": 2,
+                    "users": 2
                   },
                   {
                     "id": "unclear_expression",
@@ -10272,18 +10273,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 5,
-                    "users": 5
+                    "questions": 2,
+                    "users": 2
                   },
                   {
                     "id": "other_investment",
-                    "questions": 15,
-                    "users": 15
+                    "questions": 17,
+                    "users": 17
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 22,
-                    "users": 22
+                    "questions": 23,
+                    "users": 23
                   }
                 ]
               },
@@ -10692,8 +10693,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 2,
-                    "users": 2
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "other_investment",
@@ -10702,8 +10703,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 21,
-                    "users": 21
+                    "questions": 22,
+                    "users": 22
                   }
                 ]
               },
@@ -11028,13 +11029,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 3,
-                    "users": 3
+                    "questions": 2,
+                    "users": 2
                   },
                   {
                     "id": "other_investment",
-                    "questions": 31,
-                    "users": 31
+                    "questions": 32,
+                    "users": 32
                   },
                   {
                     "id": "unclear_expression",
@@ -11366,13 +11367,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 1,
-                    "users": 1
+                    "questions": 0,
+                    "users": 0
                   },
                   {
                     "id": "other_investment",
-                    "questions": 5,
-                    "users": 5
+                    "questions": 6,
+                    "users": 6
                   },
                   {
                     "id": "unclear_expression",
@@ -11450,18 +11451,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 13,
-                    "users": 13
+                    "questions": 10,
+                    "users": 10
                   },
                   {
                     "id": "other_investment",
-                    "questions": 73,
-                    "users": 73
+                    "questions": 75,
+                    "users": 75
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 122,
-                    "users": 122
+                    "questions": 123,
+                    "users": 123
                   }
                 ]
               },
@@ -11534,18 +11535,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 13,
-                    "users": 13
+                    "questions": 11,
+                    "users": 11
                   },
                   {
                     "id": "other_investment",
-                    "questions": 76,
-                    "users": 76
+                    "questions": 77,
+                    "users": 77
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 103,
-                    "users": 103
+                    "questions": 104,
+                    "users": 104
                   }
                 ]
               }
@@ -11622,17 +11623,17 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "non_investment",
-                  "questions": 339,
-                  "users": 195
+                  "questions": 315,
+                  "users": 185
                 },
                 {
                   "id": "other_investment",
-                  "questions": 2735,
-                  "users": 1180
+                  "questions": 2756,
+                  "users": 1184
                 },
                 {
                   "id": "unclear_expression",
-                  "questions": 8780,
+                  "questions": 8783,
                   "users": 2509
                 }
               ],
@@ -12616,8 +12617,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 1,
-                    "users": 1
+                    "questions": 0,
+                    "users": 0
                   },
                   {
                     "id": "other_investment",
@@ -12626,7 +12627,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 51,
+                    "questions": 52,
                     "users": 11
                   }
                 ]
@@ -12700,12 +12701,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 3,
-                    "users": 2
+                    "questions": 2,
+                    "users": 1
                   },
                   {
                     "id": "other_investment",
-                    "questions": 12,
+                    "questions": 13,
                     "users": 7
                   },
                   {
@@ -12784,12 +12785,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 6,
+                    "questions": 5,
                     "users": 1
                   },
                   {
                     "id": "other_investment",
-                    "questions": 85,
+                    "questions": 86,
                     "users": 7
                   },
                   {
@@ -12868,12 +12869,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 5,
+                    "questions": 4,
                     "users": 2
                   },
                   {
                     "id": "other_investment",
-                    "questions": 27,
+                    "questions": 28,
                     "users": 10
                   },
                   {
@@ -14044,8 +14045,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 3,
-                    "users": 2
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "other_investment",
@@ -14054,7 +14055,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 114,
+                    "questions": 116,
                     "users": 30
                   }
                 ]
@@ -14212,13 +14213,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 4,
-                    "users": 3
+                    "questions": 2,
+                    "users": 2
                   },
                   {
                     "id": "other_investment",
-                    "questions": 37,
-                    "users": 25
+                    "questions": 39,
+                    "users": 26
                   },
                   {
                     "id": "unclear_expression",
@@ -14548,13 +14549,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 13,
-                    "users": 11
+                    "questions": 11,
+                    "users": 9
                   },
                   {
                     "id": "other_investment",
-                    "questions": 149,
-                    "users": 105
+                    "questions": 151,
+                    "users": 107
                   },
                   {
                     "id": "unclear_expression",
@@ -14632,13 +14633,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 21,
+                    "questions": 20,
                     "users": 13
                   },
                   {
                     "id": "other_investment",
-                    "questions": 182,
-                    "users": 123
+                    "questions": 183,
+                    "users": 124
                   },
                   {
                     "id": "unclear_expression",
@@ -14800,12 +14801,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 21,
+                    "questions": 16,
                     "users": 11
                   },
                   {
                     "id": "other_investment",
-                    "questions": 92,
+                    "questions": 97,
                     "users": 65
                   },
                   {
@@ -14884,13 +14885,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 16,
-                    "users": 12
+                    "questions": 13,
+                    "users": 10
                   },
                   {
                     "id": "other_investment",
-                    "questions": 92,
-                    "users": 55
+                    "questions": 95,
+                    "users": 56
                   },
                   {
                     "id": "unclear_expression",
@@ -14968,12 +14969,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 10,
-                    "users": 8
+                    "questions": 8,
+                    "users": 6
                   },
                   {
                     "id": "other_investment",
-                    "questions": 102,
+                    "questions": 104,
                     "users": 54
                   },
                   {
@@ -15136,12 +15137,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 16,
-                    "users": 14
+                    "questions": 15,
+                    "users": 13
                   },
                   {
                     "id": "other_investment",
-                    "questions": 85,
+                    "questions": 86,
                     "users": 61
                   },
                   {
@@ -15220,13 +15221,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 22,
-                    "users": 15
+                    "questions": 21,
+                    "users": 14
                   },
                   {
                     "id": "other_investment",
-                    "questions": 124,
-                    "users": 78
+                    "questions": 125,
+                    "users": 79
                   },
                   {
                     "id": "unclear_expression",
@@ -15304,12 +15305,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 34,
-                    "users": 27
+                    "questions": 33,
+                    "users": 26
                   },
                   {
                     "id": "other_investment",
-                    "questions": 271,
+                    "questions": 272,
                     "users": 183
                   },
                   {
@@ -15474,17 +15475,17 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 24,
-                    "users": 9
+                    "questions": 20,
+                    "users": 8
                   },
                   {
                     "id": "other_investment",
-                    "questions": 250,
+                    "questions": 253,
                     "users": 69
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 725,
+                    "questions": 726,
                     "users": 140
                   }
                 ]
@@ -15642,17 +15643,17 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 32,
-                    "users": 15
+                    "questions": 28,
+                    "users": 14
                   },
                   {
                     "id": "other_investment",
-                    "questions": 321,
+                    "questions": 323,
                     "users": 121
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 926,
+                    "questions": 928,
                     "users": 209
                   }
                 ]
@@ -15726,13 +15727,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 104,
-                    "users": 71
+                    "questions": 93,
+                    "users": 67
                   },
                   {
                     "id": "other_investment",
-                    "questions": 762,
-                    "users": 463
+                    "questions": 773,
+                    "users": 467
                   },
                   {
                     "id": "unclear_expression",
@@ -15810,13 +15811,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 103,
-                    "users": 75
+                    "questions": 98,
+                    "users": 70
                   },
                   {
                     "id": "other_investment",
-                    "questions": 736,
-                    "users": 414
+                    "questions": 741,
+                    "users": 415
                   },
                   {
                     "id": "unclear_expression",
@@ -28108,18 +28109,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "non_investment",
-                  "questions": 373,
-                  "users": 229
+                  "questions": 343,
+                  "users": 213
                 },
                 {
                   "id": "other_investment",
-                  "questions": 2914,
-                  "users": 1359
+                  "questions": 2939,
+                  "users": 1367
                 },
                 {
                   "id": "unclear_expression",
-                  "questions": 9084,
-                  "users": 2813
+                  "questions": 9089,
+                  "users": 2815
                 }
               ],
               "object": [
@@ -29102,8 +29103,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 1,
-                    "users": 1
+                    "questions": 0,
+                    "users": 0
                   },
                   {
                     "id": "other_investment",
@@ -29112,7 +29113,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 51,
+                    "questions": 52,
                     "users": 11
                   }
                 ]
@@ -29186,12 +29187,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 3,
-                    "users": 2
+                    "questions": 2,
+                    "users": 1
                   },
                   {
                     "id": "other_investment",
-                    "questions": 13,
+                    "questions": 14,
                     "users": 8
                   },
                   {
@@ -29270,12 +29271,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 6,
+                    "questions": 5,
                     "users": 1
                   },
                   {
                     "id": "other_investment",
-                    "questions": 85,
+                    "questions": 86,
                     "users": 7
                   },
                   {
@@ -29354,12 +29355,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 5,
+                    "questions": 4,
                     "users": 2
                   },
                   {
                     "id": "other_investment",
-                    "questions": 27,
+                    "questions": 28,
                     "users": 10
                   },
                   {
@@ -30530,8 +30531,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 3,
-                    "users": 2
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "other_investment",
@@ -30540,7 +30541,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 114,
+                    "questions": 116,
                     "users": 30
                   }
                 ]
@@ -30698,13 +30699,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 5,
-                    "users": 4
+                    "questions": 2,
+                    "users": 2
                   },
                   {
                     "id": "other_investment",
-                    "questions": 38,
-                    "users": 26
+                    "questions": 41,
+                    "users": 28
                   },
                   {
                     "id": "unclear_expression",
@@ -31034,18 +31035,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 18,
-                    "users": 16
+                    "questions": 13,
+                    "users": 11
                   },
                   {
                     "id": "other_investment",
-                    "questions": 164,
-                    "users": 120
+                    "questions": 168,
+                    "users": 124
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 459,
-                    "users": 225
+                    "questions": 460,
+                    "users": 226
                   }
                 ]
               },
@@ -31118,13 +31119,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 21,
+                    "questions": 20,
                     "users": 13
                   },
                   {
                     "id": "other_investment",
-                    "questions": 205,
-                    "users": 146
+                    "questions": 206,
+                    "users": 147
                   },
                   {
                     "id": "unclear_expression",
@@ -31286,12 +31287,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 24,
+                    "questions": 19,
                     "users": 14
                   },
                   {
                     "id": "other_investment",
-                    "questions": 102,
+                    "questions": 107,
                     "users": 75
                   },
                   {
@@ -31370,13 +31371,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 17,
-                    "users": 13
+                    "questions": 14,
+                    "users": 11
                   },
                   {
                     "id": "other_investment",
-                    "questions": 98,
-                    "users": 61
+                    "questions": 101,
+                    "users": 62
                   },
                   {
                     "id": "unclear_expression",
@@ -31454,18 +31455,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 12,
-                    "users": 10
+                    "questions": 9,
+                    "users": 7
                   },
                   {
                     "id": "other_investment",
-                    "questions": 115,
+                    "questions": 117,
                     "users": 67
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 338,
-                    "users": 152
+                    "questions": 339,
+                    "users": 153
                   }
                 ]
               },
@@ -31622,12 +31623,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 19,
-                    "users": 17
+                    "questions": 18,
+                    "users": 16
                   },
                   {
                     "id": "other_investment",
-                    "questions": 104,
+                    "questions": 105,
                     "users": 80
                   },
                   {
@@ -31706,13 +31707,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 25,
-                    "users": 18
+                    "questions": 24,
+                    "users": 17
                   },
                   {
                     "id": "other_investment",
-                    "questions": 132,
-                    "users": 86
+                    "questions": 133,
+                    "users": 87
                   },
                   {
                     "id": "unclear_expression",
@@ -31790,13 +31791,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 37,
-                    "users": 30
+                    "questions": 35,
+                    "users": 28
                   },
                   {
                     "id": "other_investment",
-                    "questions": 302,
-                    "users": 214
+                    "questions": 304,
+                    "users": 215
                   },
                   {
                     "id": "unclear_expression",
@@ -31960,17 +31961,17 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 24,
-                    "users": 9
+                    "questions": 20,
+                    "users": 8
                   },
                   {
                     "id": "other_investment",
-                    "questions": 252,
+                    "questions": 255,
                     "users": 71
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 730,
+                    "questions": 731,
                     "users": 145
                   }
                 ]
@@ -32128,17 +32129,17 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 33,
-                    "users": 16
+                    "questions": 28,
+                    "users": 14
                   },
                   {
                     "id": "other_investment",
-                    "questions": 326,
-                    "users": 126
+                    "questions": 329,
+                    "users": 127
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 940,
+                    "questions": 942,
                     "users": 223
                   }
                 ]
@@ -32212,18 +32213,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 117,
-                    "users": 84
+                    "questions": 103,
+                    "users": 77
                   },
                   {
                     "id": "other_investment",
-                    "questions": 835,
-                    "users": 536
+                    "questions": 848,
+                    "users": 542
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 2411,
-                    "users": 1092
+                    "questions": 2412,
+                    "users": 1093
                   }
                 ]
               },
@@ -32296,18 +32297,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 116,
-                    "users": 88
+                    "questions": 109,
+                    "users": 81
                   },
                   {
                     "id": "other_investment",
-                    "questions": 812,
-                    "users": 490
+                    "questions": 818,
+                    "users": 492
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 2338,
-                    "users": 988
+                    "questions": 2339,
+                    "users": 989
                   }
                 ]
               }
@@ -32384,18 +32385,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "non_investment",
-                  "questions": 34,
-                  "users": 34
+                  "questions": 28,
+                  "users": 28
                 },
                 {
                   "id": "other_investment",
-                  "questions": 179,
-                  "users": 179
+                  "questions": 183,
+                  "users": 183
                 },
                 {
                   "id": "unclear_expression",
-                  "questions": 304,
-                  "users": 304
+                  "questions": 306,
+                  "users": 306
                 }
               ],
               "object": [
@@ -34974,13 +34975,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 1,
-                    "users": 1
+                    "questions": 0,
+                    "users": 0
                   },
                   {
                     "id": "other_investment",
-                    "questions": 1,
-                    "users": 1
+                    "questions": 2,
+                    "users": 2
                   },
                   {
                     "id": "unclear_expression",
@@ -35310,18 +35311,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 5,
-                    "users": 5
+                    "questions": 2,
+                    "users": 2
                   },
                   {
                     "id": "other_investment",
-                    "questions": 15,
-                    "users": 15
+                    "questions": 17,
+                    "users": 17
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 22,
-                    "users": 22
+                    "questions": 23,
+                    "users": 23
                   }
                 ]
               },
@@ -35730,8 +35731,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 2,
-                    "users": 2
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "other_investment",
@@ -35740,8 +35741,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 21,
-                    "users": 21
+                    "questions": 22,
+                    "users": 22
                   }
                 ]
               },
@@ -36066,13 +36067,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 3,
-                    "users": 3
+                    "questions": 2,
+                    "users": 2
                   },
                   {
                     "id": "other_investment",
-                    "questions": 31,
-                    "users": 31
+                    "questions": 32,
+                    "users": 32
                   },
                   {
                     "id": "unclear_expression",
@@ -36404,13 +36405,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 1,
-                    "users": 1
+                    "questions": 0,
+                    "users": 0
                   },
                   {
                     "id": "other_investment",
-                    "questions": 5,
-                    "users": 5
+                    "questions": 6,
+                    "users": 6
                   },
                   {
                     "id": "unclear_expression",
@@ -36488,18 +36489,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 13,
-                    "users": 13
+                    "questions": 10,
+                    "users": 10
                   },
                   {
                     "id": "other_investment",
-                    "questions": 73,
-                    "users": 73
+                    "questions": 75,
+                    "users": 75
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 122,
-                    "users": 122
+                    "questions": 123,
+                    "users": 123
                   }
                 ]
               },
@@ -36572,18 +36573,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 13,
-                    "users": 13
+                    "questions": 11,
+                    "users": 11
                   },
                   {
                     "id": "other_investment",
-                    "questions": 76,
-                    "users": 76
+                    "questions": 77,
+                    "users": 77
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 103,
-                    "users": 103
+                    "questions": 104,
+                    "users": 104
                   }
                 ]
               }
@@ -36660,17 +36661,17 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "non_investment",
-                  "questions": 339,
-                  "users": 195
+                  "questions": 315,
+                  "users": 185
                 },
                 {
                   "id": "other_investment",
-                  "questions": 2735,
-                  "users": 1180
+                  "questions": 2756,
+                  "users": 1184
                 },
                 {
                   "id": "unclear_expression",
-                  "questions": 8780,
+                  "questions": 8783,
                   "users": 2509
                 }
               ],
@@ -37654,8 +37655,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 1,
-                    "users": 1
+                    "questions": 0,
+                    "users": 0
                   },
                   {
                     "id": "other_investment",
@@ -37664,7 +37665,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 51,
+                    "questions": 52,
                     "users": 11
                   }
                 ]
@@ -37738,12 +37739,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 3,
-                    "users": 2
+                    "questions": 2,
+                    "users": 1
                   },
                   {
                     "id": "other_investment",
-                    "questions": 12,
+                    "questions": 13,
                     "users": 7
                   },
                   {
@@ -37822,12 +37823,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 6,
+                    "questions": 5,
                     "users": 1
                   },
                   {
                     "id": "other_investment",
-                    "questions": 85,
+                    "questions": 86,
                     "users": 7
                   },
                   {
@@ -37906,12 +37907,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 5,
+                    "questions": 4,
                     "users": 2
                   },
                   {
                     "id": "other_investment",
-                    "questions": 27,
+                    "questions": 28,
                     "users": 10
                   },
                   {
@@ -39082,8 +39083,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 3,
-                    "users": 2
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "other_investment",
@@ -39092,7 +39093,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 114,
+                    "questions": 116,
                     "users": 30
                   }
                 ]
@@ -39250,13 +39251,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 4,
-                    "users": 3
+                    "questions": 2,
+                    "users": 2
                   },
                   {
                     "id": "other_investment",
-                    "questions": 37,
-                    "users": 25
+                    "questions": 39,
+                    "users": 26
                   },
                   {
                     "id": "unclear_expression",
@@ -39586,13 +39587,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 13,
-                    "users": 11
+                    "questions": 11,
+                    "users": 9
                   },
                   {
                     "id": "other_investment",
-                    "questions": 149,
-                    "users": 105
+                    "questions": 151,
+                    "users": 107
                   },
                   {
                     "id": "unclear_expression",
@@ -39670,13 +39671,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 21,
+                    "questions": 20,
                     "users": 13
                   },
                   {
                     "id": "other_investment",
-                    "questions": 182,
-                    "users": 123
+                    "questions": 183,
+                    "users": 124
                   },
                   {
                     "id": "unclear_expression",
@@ -39838,12 +39839,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 21,
+                    "questions": 16,
                     "users": 11
                   },
                   {
                     "id": "other_investment",
-                    "questions": 92,
+                    "questions": 97,
                     "users": 65
                   },
                   {
@@ -39922,13 +39923,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 16,
-                    "users": 12
+                    "questions": 13,
+                    "users": 10
                   },
                   {
                     "id": "other_investment",
-                    "questions": 92,
-                    "users": 55
+                    "questions": 95,
+                    "users": 56
                   },
                   {
                     "id": "unclear_expression",
@@ -40006,12 +40007,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 10,
-                    "users": 8
+                    "questions": 8,
+                    "users": 6
                   },
                   {
                     "id": "other_investment",
-                    "questions": 102,
+                    "questions": 104,
                     "users": 54
                   },
                   {
@@ -40174,12 +40175,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 16,
-                    "users": 14
+                    "questions": 15,
+                    "users": 13
                   },
                   {
                     "id": "other_investment",
-                    "questions": 85,
+                    "questions": 86,
                     "users": 61
                   },
                   {
@@ -40258,13 +40259,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 22,
-                    "users": 15
+                    "questions": 21,
+                    "users": 14
                   },
                   {
                     "id": "other_investment",
-                    "questions": 124,
-                    "users": 78
+                    "questions": 125,
+                    "users": 79
                   },
                   {
                     "id": "unclear_expression",
@@ -40342,12 +40343,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 34,
-                    "users": 27
+                    "questions": 33,
+                    "users": 26
                   },
                   {
                     "id": "other_investment",
-                    "questions": 271,
+                    "questions": 272,
                     "users": 183
                   },
                   {
@@ -40512,17 +40513,17 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 24,
-                    "users": 9
+                    "questions": 20,
+                    "users": 8
                   },
                   {
                     "id": "other_investment",
-                    "questions": 250,
+                    "questions": 253,
                     "users": 69
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 725,
+                    "questions": 726,
                     "users": 140
                   }
                 ]
@@ -40680,17 +40681,17 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 32,
-                    "users": 15
+                    "questions": 28,
+                    "users": 14
                   },
                   {
                     "id": "other_investment",
-                    "questions": 321,
+                    "questions": 323,
                     "users": 121
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 926,
+                    "questions": 928,
                     "users": 209
                   }
                 ]
@@ -40764,13 +40765,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 104,
-                    "users": 71
+                    "questions": 93,
+                    "users": 67
                   },
                   {
                     "id": "other_investment",
-                    "questions": 762,
-                    "users": 463
+                    "questions": 773,
+                    "users": 467
                   },
                   {
                     "id": "unclear_expression",
@@ -40848,13 +40849,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 103,
-                    "users": 75
+                    "questions": 98,
+                    "users": 70
                   },
                   {
                     "id": "other_investment",
-                    "questions": 736,
-                    "users": 414
+                    "questions": 741,
+                    "users": 415
                   },
                   {
                     "id": "unclear_expression",
@@ -40936,18 +40937,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "non_investment",
-                  "questions": 373,
-                  "users": 229
+                  "questions": 343,
+                  "users": 213
                 },
                 {
                   "id": "other_investment",
-                  "questions": 2914,
-                  "users": 1359
+                  "questions": 2939,
+                  "users": 1367
                 },
                 {
                   "id": "unclear_expression",
-                  "questions": 9084,
-                  "users": 2813
+                  "questions": 9089,
+                  "users": 2815
                 }
               ],
               "object": [
@@ -41930,8 +41931,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 1,
-                    "users": 1
+                    "questions": 0,
+                    "users": 0
                   },
                   {
                     "id": "other_investment",
@@ -41940,7 +41941,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 51,
+                    "questions": 52,
                     "users": 11
                   }
                 ]
@@ -42014,12 +42015,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 3,
-                    "users": 2
+                    "questions": 2,
+                    "users": 1
                   },
                   {
                     "id": "other_investment",
-                    "questions": 13,
+                    "questions": 14,
                     "users": 8
                   },
                   {
@@ -42098,12 +42099,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 6,
+                    "questions": 5,
                     "users": 1
                   },
                   {
                     "id": "other_investment",
-                    "questions": 85,
+                    "questions": 86,
                     "users": 7
                   },
                   {
@@ -42182,12 +42183,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 5,
+                    "questions": 4,
                     "users": 2
                   },
                   {
                     "id": "other_investment",
-                    "questions": 27,
+                    "questions": 28,
                     "users": 10
                   },
                   {
@@ -43358,8 +43359,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 3,
-                    "users": 2
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "other_investment",
@@ -43368,7 +43369,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 114,
+                    "questions": 116,
                     "users": 30
                   }
                 ]
@@ -43526,13 +43527,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 5,
-                    "users": 4
+                    "questions": 2,
+                    "users": 2
                   },
                   {
                     "id": "other_investment",
-                    "questions": 38,
-                    "users": 26
+                    "questions": 41,
+                    "users": 28
                   },
                   {
                     "id": "unclear_expression",
@@ -43862,18 +43863,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 18,
-                    "users": 16
+                    "questions": 13,
+                    "users": 11
                   },
                   {
                     "id": "other_investment",
-                    "questions": 164,
-                    "users": 120
+                    "questions": 168,
+                    "users": 124
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 459,
-                    "users": 225
+                    "questions": 460,
+                    "users": 226
                   }
                 ]
               },
@@ -43946,13 +43947,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 21,
+                    "questions": 20,
                     "users": 13
                   },
                   {
                     "id": "other_investment",
-                    "questions": 205,
-                    "users": 146
+                    "questions": 206,
+                    "users": 147
                   },
                   {
                     "id": "unclear_expression",
@@ -44114,12 +44115,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 24,
+                    "questions": 19,
                     "users": 14
                   },
                   {
                     "id": "other_investment",
-                    "questions": 102,
+                    "questions": 107,
                     "users": 75
                   },
                   {
@@ -44198,13 +44199,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 17,
-                    "users": 13
+                    "questions": 14,
+                    "users": 11
                   },
                   {
                     "id": "other_investment",
-                    "questions": 98,
-                    "users": 61
+                    "questions": 101,
+                    "users": 62
                   },
                   {
                     "id": "unclear_expression",
@@ -44282,18 +44283,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 12,
-                    "users": 10
+                    "questions": 9,
+                    "users": 7
                   },
                   {
                     "id": "other_investment",
-                    "questions": 115,
+                    "questions": 117,
                     "users": 67
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 338,
-                    "users": 152
+                    "questions": 339,
+                    "users": 153
                   }
                 ]
               },
@@ -44450,12 +44451,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 19,
-                    "users": 17
+                    "questions": 18,
+                    "users": 16
                   },
                   {
                     "id": "other_investment",
-                    "questions": 104,
+                    "questions": 105,
                     "users": 80
                   },
                   {
@@ -44534,13 +44535,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 25,
-                    "users": 18
+                    "questions": 24,
+                    "users": 17
                   },
                   {
                     "id": "other_investment",
-                    "questions": 132,
-                    "users": 86
+                    "questions": 133,
+                    "users": 87
                   },
                   {
                     "id": "unclear_expression",
@@ -44618,13 +44619,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 37,
-                    "users": 30
+                    "questions": 35,
+                    "users": 28
                   },
                   {
                     "id": "other_investment",
-                    "questions": 302,
-                    "users": 214
+                    "questions": 304,
+                    "users": 215
                   },
                   {
                     "id": "unclear_expression",
@@ -44788,17 +44789,17 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 24,
-                    "users": 9
+                    "questions": 20,
+                    "users": 8
                   },
                   {
                     "id": "other_investment",
-                    "questions": 252,
+                    "questions": 255,
                     "users": 71
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 730,
+                    "questions": 731,
                     "users": 145
                   }
                 ]
@@ -44956,17 +44957,17 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 33,
-                    "users": 16
+                    "questions": 28,
+                    "users": 14
                   },
                   {
                     "id": "other_investment",
-                    "questions": 326,
-                    "users": 126
+                    "questions": 329,
+                    "users": 127
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 940,
+                    "questions": 942,
                     "users": 223
                   }
                 ]
@@ -45040,18 +45041,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 117,
-                    "users": 84
+                    "questions": 103,
+                    "users": 77
                   },
                   {
                     "id": "other_investment",
-                    "questions": 835,
-                    "users": 536
+                    "questions": 848,
+                    "users": 542
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 2411,
-                    "users": 1092
+                    "questions": 2412,
+                    "users": 1093
                   }
                 ]
               },
@@ -45124,18 +45125,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 116,
-                    "users": 88
+                    "questions": 109,
+                    "users": 81
                   },
                   {
                     "id": "other_investment",
-                    "questions": 812,
-                    "users": 490
+                    "questions": 818,
+                    "users": 492
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 2338,
-                    "users": 988
+                    "questions": 2339,
+                    "users": 989
                   }
                 ]
               }
@@ -45212,18 +45213,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "non_investment",
-                  "questions": 34,
-                  "users": 34
+                  "questions": 28,
+                  "users": 28
                 },
                 {
                   "id": "other_investment",
-                  "questions": 179,
-                  "users": 179
+                  "questions": 183,
+                  "users": 183
                 },
                 {
                   "id": "unclear_expression",
-                  "questions": 304,
-                  "users": 304
+                  "questions": 306,
+                  "users": 306
                 }
               ],
               "object": [
@@ -47802,13 +47803,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 1,
-                    "users": 1
+                    "questions": 0,
+                    "users": 0
                   },
                   {
                     "id": "other_investment",
-                    "questions": 1,
-                    "users": 1
+                    "questions": 2,
+                    "users": 2
                   },
                   {
                     "id": "unclear_expression",
@@ -48138,18 +48139,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 5,
-                    "users": 5
+                    "questions": 2,
+                    "users": 2
                   },
                   {
                     "id": "other_investment",
-                    "questions": 15,
-                    "users": 15
+                    "questions": 17,
+                    "users": 17
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 22,
-                    "users": 22
+                    "questions": 23,
+                    "users": 23
                   }
                 ]
               },
@@ -48558,8 +48559,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 2,
-                    "users": 2
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "other_investment",
@@ -48568,8 +48569,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 21,
-                    "users": 21
+                    "questions": 22,
+                    "users": 22
                   }
                 ]
               },
@@ -48894,13 +48895,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 3,
-                    "users": 3
+                    "questions": 2,
+                    "users": 2
                   },
                   {
                     "id": "other_investment",
-                    "questions": 31,
-                    "users": 31
+                    "questions": 32,
+                    "users": 32
                   },
                   {
                     "id": "unclear_expression",
@@ -49232,13 +49233,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 1,
-                    "users": 1
+                    "questions": 0,
+                    "users": 0
                   },
                   {
                     "id": "other_investment",
-                    "questions": 5,
-                    "users": 5
+                    "questions": 6,
+                    "users": 6
                   },
                   {
                     "id": "unclear_expression",
@@ -49316,18 +49317,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 13,
-                    "users": 13
+                    "questions": 10,
+                    "users": 10
                   },
                   {
                     "id": "other_investment",
-                    "questions": 73,
-                    "users": 73
+                    "questions": 75,
+                    "users": 75
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 122,
-                    "users": 122
+                    "questions": 123,
+                    "users": 123
                   }
                 ]
               },
@@ -49400,18 +49401,18 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 13,
-                    "users": 13
+                    "questions": 11,
+                    "users": 11
                   },
                   {
                     "id": "other_investment",
-                    "questions": 76,
-                    "users": 76
+                    "questions": 77,
+                    "users": 77
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 103,
-                    "users": 103
+                    "questions": 104,
+                    "users": 104
                   }
                 ]
               }
@@ -49488,17 +49489,17 @@ window.QIANWEN_ACQUISITION_DATA = {
                 },
                 {
                   "id": "non_investment",
-                  "questions": 339,
-                  "users": 195
+                  "questions": 315,
+                  "users": 185
                 },
                 {
                   "id": "other_investment",
-                  "questions": 2735,
-                  "users": 1180
+                  "questions": 2756,
+                  "users": 1184
                 },
                 {
                   "id": "unclear_expression",
-                  "questions": 8780,
+                  "questions": 8783,
                   "users": 2509
                 }
               ],
@@ -50482,8 +50483,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 1,
-                    "users": 1
+                    "questions": 0,
+                    "users": 0
                   },
                   {
                     "id": "other_investment",
@@ -50492,7 +50493,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 51,
+                    "questions": 52,
                     "users": 11
                   }
                 ]
@@ -50566,12 +50567,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 3,
-                    "users": 2
+                    "questions": 2,
+                    "users": 1
                   },
                   {
                     "id": "other_investment",
-                    "questions": 12,
+                    "questions": 13,
                     "users": 7
                   },
                   {
@@ -50650,12 +50651,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 6,
+                    "questions": 5,
                     "users": 1
                   },
                   {
                     "id": "other_investment",
-                    "questions": 85,
+                    "questions": 86,
                     "users": 7
                   },
                   {
@@ -50734,12 +50735,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 5,
+                    "questions": 4,
                     "users": 2
                   },
                   {
                     "id": "other_investment",
-                    "questions": 27,
+                    "questions": 28,
                     "users": 10
                   },
                   {
@@ -51910,8 +51911,8 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 3,
-                    "users": 2
+                    "questions": 1,
+                    "users": 1
                   },
                   {
                     "id": "other_investment",
@@ -51920,7 +51921,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 114,
+                    "questions": 116,
                     "users": 30
                   }
                 ]
@@ -52078,13 +52079,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 4,
-                    "users": 3
+                    "questions": 2,
+                    "users": 2
                   },
                   {
                     "id": "other_investment",
-                    "questions": 37,
-                    "users": 25
+                    "questions": 39,
+                    "users": 26
                   },
                   {
                     "id": "unclear_expression",
@@ -52414,13 +52415,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 13,
-                    "users": 11
+                    "questions": 11,
+                    "users": 9
                   },
                   {
                     "id": "other_investment",
-                    "questions": 149,
-                    "users": 105
+                    "questions": 151,
+                    "users": 107
                   },
                   {
                     "id": "unclear_expression",
@@ -52498,13 +52499,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 21,
+                    "questions": 20,
                     "users": 13
                   },
                   {
                     "id": "other_investment",
-                    "questions": 182,
-                    "users": 123
+                    "questions": 183,
+                    "users": 124
                   },
                   {
                     "id": "unclear_expression",
@@ -52666,12 +52667,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 21,
+                    "questions": 16,
                     "users": 11
                   },
                   {
                     "id": "other_investment",
-                    "questions": 92,
+                    "questions": 97,
                     "users": 65
                   },
                   {
@@ -52750,13 +52751,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 16,
-                    "users": 12
+                    "questions": 13,
+                    "users": 10
                   },
                   {
                     "id": "other_investment",
-                    "questions": 92,
-                    "users": 55
+                    "questions": 95,
+                    "users": 56
                   },
                   {
                     "id": "unclear_expression",
@@ -52834,12 +52835,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 10,
-                    "users": 8
+                    "questions": 8,
+                    "users": 6
                   },
                   {
                     "id": "other_investment",
-                    "questions": 102,
+                    "questions": 104,
                     "users": 54
                   },
                   {
@@ -53002,12 +53003,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 16,
-                    "users": 14
+                    "questions": 15,
+                    "users": 13
                   },
                   {
                     "id": "other_investment",
-                    "questions": 85,
+                    "questions": 86,
                     "users": 61
                   },
                   {
@@ -53086,13 +53087,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 22,
-                    "users": 15
+                    "questions": 21,
+                    "users": 14
                   },
                   {
                     "id": "other_investment",
-                    "questions": 124,
-                    "users": 78
+                    "questions": 125,
+                    "users": 79
                   },
                   {
                     "id": "unclear_expression",
@@ -53170,12 +53171,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 34,
-                    "users": 27
+                    "questions": 33,
+                    "users": 26
                   },
                   {
                     "id": "other_investment",
-                    "questions": 271,
+                    "questions": 272,
                     "users": 183
                   },
                   {
@@ -53340,17 +53341,17 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 24,
-                    "users": 9
+                    "questions": 20,
+                    "users": 8
                   },
                   {
                     "id": "other_investment",
-                    "questions": 250,
+                    "questions": 253,
                     "users": 69
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 725,
+                    "questions": 726,
                     "users": 140
                   }
                 ]
@@ -53508,17 +53509,17 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 32,
-                    "users": 15
+                    "questions": 28,
+                    "users": 14
                   },
                   {
                     "id": "other_investment",
-                    "questions": 321,
+                    "questions": 323,
                     "users": 121
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 926,
+                    "questions": 928,
                     "users": 209
                   }
                 ]
@@ -53592,13 +53593,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 104,
-                    "users": 71
+                    "questions": 93,
+                    "users": 67
                   },
                   {
                     "id": "other_investment",
-                    "questions": 762,
-                    "users": 463
+                    "questions": 773,
+                    "users": 467
                   },
                   {
                     "id": "unclear_expression",
@@ -53676,13 +53677,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 103,
-                    "users": 75
+                    "questions": 98,
+                    "users": 70
                   },
                   {
                     "id": "other_investment",
-                    "questions": 736,
-                    "users": 414
+                    "questions": 741,
+                    "users": 415
                   },
                   {
                     "id": "unclear_expression",
@@ -53884,17 +53885,17 @@ window.QIANWEN_ACQUISITION_DATA = {
           },
           {
             "id": "non_investment",
-            "questions": 75,
-            "users": 37
+            "questions": 70,
+            "users": 35
           },
           {
             "id": "other_investment",
-            "questions": 921,
+            "questions": 925,
             "users": 267
           },
           {
             "id": "unclear_expression",
-            "questions": 2889,
+            "questions": 2890,
             "users": 560
           }
         ],
@@ -53973,17 +53974,17 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "id": "non_investment",
-                "questions": 46,
-                "users": 21
+                "questions": 44,
+                "users": 20
               },
               {
                 "id": "other_investment",
-                "questions": 492,
+                "questions": 493,
                 "users": 115
               },
               {
                 "id": "unclear_expression",
-                "questions": 1581,
+                "questions": 1582,
                 "users": 267
               }
             ],
@@ -54061,7 +54062,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 15,
+                    "questions": 14,
                     "users": 7
                   },
                   {
@@ -54071,7 +54072,7 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "unclear_expression",
-                    "questions": 760,
+                    "questions": 761,
                     "users": 142
                   }
                 ]
@@ -54322,13 +54323,13 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 7,
-                    "users": 6
+                    "questions": 6,
+                    "users": 5
                   },
                   {
                     "id": "other_investment",
-                    "questions": 107,
-                    "users": 25
+                    "questions": 108,
+                    "users": 26
                   },
                   {
                     "id": "unclear_expression",
@@ -55723,12 +55724,12 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "id": "non_investment",
-                "questions": 14,
-                "users": 5
+                "questions": 11,
+                "users": 4
               },
               {
                 "id": "other_investment",
-                "questions": 143,
+                "questions": 146,
                 "users": 66
               },
               {
@@ -56159,12 +56160,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 4,
+                    "questions": 2,
                     "users": 1
                   },
                   {
                     "id": "other_investment",
-                    "questions": 23,
+                    "questions": 25,
                     "users": 3
                   },
                   {
@@ -56246,12 +56247,12 @@ window.QIANWEN_ACQUISITION_DATA = {
                   },
                   {
                     "id": "non_investment",
-                    "questions": 1,
-                    "users": 1
+                    "questions": 0,
+                    "users": 0
                   },
                   {
                     "id": "other_investment",
-                    "questions": 7,
+                    "questions": 8,
                     "users": 5
                   },
                   {
@@ -57378,18 +57379,18 @@ window.QIANWEN_ACQUISITION_DATA = {
           },
           {
             "id": "non_investment",
-            "questions": 373,
-            "users": 229
+            "questions": 343,
+            "users": 213
           },
           {
             "id": "other_investment",
-            "questions": 2914,
-            "users": 1359
+            "questions": 2939,
+            "users": 1367
           },
           {
             "id": "unclear_expression",
-            "questions": 9084,
-            "users": 2813
+            "questions": 9089,
+            "users": 2815
           }
         ],
         "first_direction": [
@@ -57455,18 +57456,18 @@ window.QIANWEN_ACQUISITION_DATA = {
           },
           {
             "id": "non_investment",
-            "questions": 104,
-            "users": 104
+            "questions": 94,
+            "users": 94
           },
           {
             "id": "other_investment",
-            "questions": 411,
-            "users": 411
+            "questions": 419,
+            "users": 419
           },
           {
             "id": "unclear_expression",
-            "questions": 654,
-            "users": 654
+            "questions": 656,
+            "users": 656
           }
         ],
         "object": [
@@ -57589,8 +57590,8 @@ window.QIANWEN_ACQUISITION_DATA = {
         },
         {
           "id": "product_decider",
-          "users": 4703,
-          "questions": 26044
+          "users": 4702,
+          "questions": 26036
         },
         {
           "id": "planning_allocator",
@@ -57599,8 +57600,8 @@ window.QIANWEN_ACQUISITION_DATA = {
         },
         {
           "id": "market_tracker",
-          "users": 3030,
-          "questions": 15073
+          "users": 3037,
+          "questions": 15092
         },
         {
           "id": "execution_seeker",
@@ -57624,8 +57625,8 @@ window.QIANWEN_ACQUISITION_DATA = {
         },
         {
           "id": "light_conversation",
-          "users": 963,
-          "questions": 8505
+          "users": 957,
+          "questions": 8494
         }
       ],
       "user_cognition": [
@@ -57646,6 +57647,87 @@ window.QIANWEN_ACQUISITION_DATA = {
           "users": 9895
         }
       ],
+      "conversation_analysis": {
+        "scope": "self_authored_questions_excluding_presets",
+        "categories": [
+          {
+            "id": "investment_or_service",
+            "questions": 50109,
+            "users": 10665
+          },
+          {
+            "id": "investment_reassurance",
+            "questions": 241,
+            "users": 122
+          },
+          {
+            "id": "general_emotional_support",
+            "questions": 28,
+            "users": 19
+          },
+          {
+            "id": "social_chat",
+            "questions": 78,
+            "users": 49
+          },
+          {
+            "id": "non_investment_learning",
+            "questions": 99,
+            "users": 71
+          },
+          {
+            "id": "non_investment_writing",
+            "questions": 14,
+            "users": 10
+          },
+          {
+            "id": "non_investment_life",
+            "questions": 13,
+            "users": 12
+          },
+          {
+            "id": "non_investment_other",
+            "questions": 212,
+            "users": 126
+          },
+          {
+            "id": "task_meta",
+            "questions": 1231,
+            "users": 90
+          },
+          {
+            "id": "short_acknowledgement",
+            "questions": 1620,
+            "users": 654
+          },
+          {
+            "id": "context_followup",
+            "questions": 3031,
+            "users": 991
+          },
+          {
+            "id": "unclear_fragment",
+            "questions": 9056,
+            "users": 2808
+          }
+        ],
+        "off_topic": {
+          "questions": 416,
+          "users": 249
+        },
+        "low_information": {
+          "questions": 10676,
+          "users": 3089
+        },
+        "emotional_support": {
+          "questions": 269,
+          "users": 129
+        },
+        "task_meta": {
+          "questions": 1231,
+          "users": 90
+        }
+      },
       "rhythm": {
         "active_days": [
           {
@@ -58444,18 +58526,18 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "id": "non_investment",
-                "questions": 123,
-                "users": 106
+                "questions": 111,
+                "users": 96
               },
               {
                 "id": "other_investment",
-                "questions": 516,
-                "users": 418
+                "questions": 526,
+                "users": 426
               },
               {
                 "id": "unclear_expression",
-                "questions": 726,
-                "users": 665
+                "questions": 728,
+                "users": 667
               }
             ],
             "transitions": [
@@ -58601,13 +58683,13 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "id": "non_investment",
-                "questions": 61,
-                "users": 59
+                "questions": 60,
+                "users": 58
               },
               {
                 "id": "other_investment",
-                "questions": 325,
-                "users": 322
+                "questions": 326,
+                "users": 323
               },
               {
                 "id": "unclear_expression",
@@ -58758,13 +58840,13 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "id": "non_investment",
-                "questions": 29,
-                "users": 29
+                "questions": 27,
+                "users": 27
               },
               {
                 "id": "other_investment",
-                "questions": 235,
-                "users": 235
+                "questions": 237,
+                "users": 237
               },
               {
                 "id": "unclear_expression",
@@ -58915,12 +58997,12 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "id": "non_investment",
-                "questions": 26,
-                "users": 23
+                "questions": 25,
+                "users": 22
               },
               {
                 "id": "other_investment",
-                "questions": 269,
+                "questions": 270,
                 "users": 251
               },
               {
@@ -59072,17 +59154,17 @@ window.QIANWEN_ACQUISITION_DATA = {
               },
               {
                 "id": "non_investment",
-                "questions": 134,
-                "users": 73
+                "questions": 120,
+                "users": 69
               },
               {
                 "id": "other_investment",
-                "questions": 1569,
-                "users": 438
+                "questions": 1580,
+                "users": 440
               },
               {
                 "id": "unclear_expression",
-                "questions": 5791,
+                "questions": 5794,
                 "users": 894
               }
             ],

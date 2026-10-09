@@ -71,6 +71,9 @@ const questionCognitionIds = ["beginner_signal", "developing_signal", "advanced_
 const questionPersonaIds = ["holding_optimizer", "product_decider", "planning_allocator", "market_tracker", "execution_seeker",
   "learning_builder", "platform_explorer", "preset_only", "light_conversation"];
 const questionTurnIds = ["1", "2", "3", "4_5", "6_plus"];
+const conversationIntentIds = ["investment_or_service", "investment_reassurance", "general_emotional_support", "social_chat",
+  "non_investment_learning", "non_investment_writing", "non_investment_life", "non_investment_other",
+  "task_meta", "short_acknowledgement", "context_followup", "unclear_fragment"];
 
 function assertPlainObject(value, path) {
   if (!value || typeof value !== "object" || Array.isArray(value)) fail(`${path} 不是有效对象`);
@@ -381,6 +384,21 @@ function validateQuestionInsights() {
         || (index && item.date <= marketContext.daily[index - 1].date)) fail(`沪深300联动数据第 ${index + 1} 行异常`);
   });
 
+  const conversation = research.conversation_analysis;
+  if (conversation?.scope !== "self_authored_questions_excluding_presets") fail("非投资与情绪分析口径异常");
+  assertItemIds(conversation?.categories, conversationIntentIds, "question_insights.research.conversation_analysis.categories");
+  if (conversation.categories.some((item) => !isCount(item.questions) || !isCount(item.users))
+      || conversation.categories.reduce((sum, item) => sum + item.questions, 0) !== rs.self_authored_questions) fail("非投资与情绪分类不闭合");
+  const conversationCounts = Object.fromEntries(conversation.categories.map((item) => [item.id, item.questions]));
+  const sumConversation = (ids) => ids.reduce((sum, id) => sum + conversationCounts[id], 0);
+  for (const key of ["off_topic", "low_information", "emotional_support", "task_meta"]) {
+    if (!isCount(conversation[key]?.questions) || !isCount(conversation[key]?.users)) fail(`非投资与情绪汇总 ${key} 异常`);
+  }
+  if (conversation.off_topic.questions !== sumConversation(["social_chat", "non_investment_learning", "non_investment_writing", "non_investment_life", "non_investment_other"])
+      || conversation.low_information.questions !== sumConversation(["short_acknowledgement", "unclear_fragment"])
+      || conversation.emotional_support.questions !== sumConversation(["investment_reassurance", "general_emotional_support"])
+      || conversation.task_meta.questions !== conversationCounts.task_meta) fail("非投资与情绪汇总不闭合");
+
   const cross = research.cross_analysis;
   assertPlainObject(cross, "question_insights.research.cross_analysis");
   const crossSources = ["all", "preset", "self", "substantive"];
@@ -574,15 +592,17 @@ async function validateQuestionCorpus() {
     fail("原始提问库记录数异常");
   }
   const actualDirections = Object.fromEntries(questionDirectionIds.map((id) => [id, 0]));
+  const actualConversationIntents = Object.fromEntries(conversationIntentIds.map((id) => [id, 0]));
+  const conversation = data.question_insights.research.conversation_analysis;
   let actualDefaults = 0;
   let actualSelfAuthored = 0;
   let actualSubstantive = 0;
   const rawPii = /(?:[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}|(?<!\d)1[3-9]\d{9}(?!\d)|(?<!\d)\d{17}[0-9Xx](?!\d)|(?<!\d)(?:\d[ -]?){12,19}(?!\d)|\b(?:wxid_|openid[:：]?)[A-Za-z0-9_-]{6,}\b)/i;
   corpus.rows.forEach((row, index) => {
     assertPlainObject(row, `question_corpus.rows[${index}]`);
-    assertExactKeys(Object.keys(row), ["i", "d", "t", "o", "f", "c", "s", "p", "v", "r", "w", "e", "u", "n", "q"], `question_corpus.rows[${index}]`);
+    assertExactKeys(Object.keys(row), ["i", "d", "t", "o", "f", "c", "x", "s", "p", "v", "r", "w", "e", "u", "n", "q"], `question_corpus.rows[${index}]`);
     if (row.i !== index + 1 || !/^\d{4}-\d{2}-\d{2}$/.test(row.d) || !questionDirectionIds.includes(row.t)
-        || !questionObjectIds.includes(row.o) || !questionStyleIds.includes(row.f) || !questionCognitionIds.includes(row.c)
+        || !questionObjectIds.includes(row.o) || !questionStyleIds.includes(row.f) || !questionCognitionIds.includes(row.c) || !conversationIntentIds.includes(row.x)
         || ![0, 1].includes(row.s) || typeof row.p !== "string" || typeof row.v !== "string" || typeof row.r !== "string" || typeof row.w !== "string"
         || Boolean(row.p) !== Boolean(row.v) || Boolean(row.r) !== Boolean(row.w) || !["no_followup", "followup"].includes(row.e) || !Number.isInteger(row.u) || row.u < 0
         || typeof row.n !== "string" || (row.n && !questionDirectionIds.includes(row.n)) || (!row.p && !row.s && row.u < 1)
@@ -590,6 +610,7 @@ async function validateQuestionCorpus() {
       fail(`question_corpus.rows[${index}] 格式或脱敏异常`);
     }
     actualDirections[row.t] += 1;
+    if (!row.p) actualConversationIntents[row.x] += 1;
     if (row.p) actualDefaults += 1;
     else {
       actualSelfAuthored += 1;
@@ -599,6 +620,13 @@ async function validateQuestionCorpus() {
   questionDirectionIds.forEach((id) => {
     if (actualDirections[id] !== corpus.meta.direction_counts?.[id]) fail(`原始提问库方向 ${id} 不闭合`);
   });
+  conversation.categories.forEach((item) => {
+    if (actualConversationIntents[item.id] !== item.questions) fail(`原始提问库对话性质 ${item.id} 不闭合`);
+  });
+  if (conversation.off_topic.questions !== ["social_chat", "non_investment_learning", "non_investment_writing", "non_investment_life", "non_investment_other"].reduce((sum, id) => sum + actualConversationIntents[id], 0)
+      || conversation.low_information.questions !== actualConversationIntents.short_acknowledgement + actualConversationIntents.unclear_fragment
+      || conversation.emotional_support.questions !== actualConversationIntents.investment_reassurance + actualConversationIntents.general_emotional_support
+      || conversation.task_meta.questions !== actualConversationIntents.task_meta) fail("原始提问库对话性质汇总不闭合");
   const rs = data.question_insights.research.summary;
   if (actualDefaults !== rs.preset_questions || actualSelfAuthored !== rs.self_authored_questions
       || actualSubstantive !== rs.substantive_questions || corpus.meta.default_questions !== actualDefaults
@@ -1057,6 +1085,8 @@ for (const phrase of [
   "需求分布",
   "看哪类问题",
   "追问前后，需求重点有何变化",
+  "不谈投资时，用户在和小顾聊什么",
+  "投资情绪安抚",
   "个股与公司研究",
   "任务进度与结果确认",
   "承接上文继续问",

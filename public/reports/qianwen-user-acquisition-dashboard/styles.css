@@ -700,6 +700,32 @@ tbody tr:hover td:first-child, tbody tr.is-selected td:first-child { background:
 .followup-kpis span { display: block; color: var(--muted); font-size: 9px; }
 .followup-kpis strong { display: block; margin-top: 8px; font: 760 22px/1 var(--mono); }
 .followup-kpis small { display: block; margin-top: 7px; color: var(--muted); font-size: 9px; line-height: 1.45; }
+.conversation-kpis { margin-top: 20px; display: grid; grid-template-columns: repeat(4,1fr); gap: 9px; }
+.conversation-kpis article { min-width: 0; padding: 17px; border: 1px solid var(--line); background: #fafafe; }
+.conversation-kpis span, .conversation-kpis small { display: block; color: var(--muted); font-size: 9px; line-height: 1.45; }
+.conversation-kpis strong { display: block; margin: 8px 0 7px; font: 760 22px/1 var(--mono); }
+.conversation-layout { margin-top: 20px; display: grid; grid-template-columns: minmax(0,1.25fr) minmax(280px,.75fr); gap: 12px; }
+.conversation-layout > div, .conversation-layout > aside { min-width: 0; padding: 18px; border: 1px solid var(--line); background: #fafafe; }
+.conversation-list { margin-top: 14px; display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 0 18px; }
+.conversation-row { width: 100%; padding: 10px 0; display: grid; grid-template-columns: minmax(126px,1fr) minmax(52px,.42fr) 66px; align-items: center; gap: 9px; border: 0; border-bottom: 1px solid var(--line); color: inherit; background: transparent; cursor: pointer; text-align: left; }
+.conversation-row > span { min-width: 0; }
+.conversation-row strong, .conversation-row small { display: block; }
+.conversation-row strong { font-size: 11px; }
+.conversation-row small { margin-top: 4px; overflow: hidden; color: var(--muted); font-size: 8px; text-overflow: ellipsis; white-space: nowrap; }
+.conversation-row > i { height: 7px; overflow: hidden; background: #ebeaf3; }
+.conversation-row > i b { height: 100%; display: block; background: linear-gradient(90deg,var(--violet),#9f8df0); }
+.conversation-row > em { color: var(--text); font: 730 11px/1.2 var(--mono); font-style: normal; text-align: right; }
+.conversation-row > em small { font-family: var(--body); }
+.conversation-row:hover strong { color: var(--violet-dark); }
+#question-conversation-takeaway { color: #fff; background: var(--ink); }
+#question-conversation-takeaway em { color: #a998ef; font: 750 10px/1 var(--mono); font-style: normal; letter-spacing: .1em; }
+#question-conversation-takeaway strong { display: block; margin-top: 14px; font: 750 20px/1.35 var(--display); }
+#question-conversation-takeaway p { margin: 12px 0 0; color: rgba(255,255,255,.68); font-size: 11px; line-height: 1.75; }
+.conversation-actions { margin-top: 18px; display: grid; gap: 12px; }
+.conversation-actions div { padding-top: 12px; border-top: 1px solid rgba(255,255,255,.14); }
+.conversation-actions b, .conversation-actions span { display: block; }
+.conversation-actions b { font-size: 11px; }
+.conversation-actions span { margin-top: 5px; color: rgba(255,255,255,.58); font-size: 9px; line-height: 1.55; }
 .market-link-summary { margin: 18px 0 12px; display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
 .market-link-summary:empty { display: none; }
 .market-link-summary article { min-width: 0; padding: 15px 16px; border: 1px solid var(--line); background: linear-gradient(145deg,#fff,#faf9fe); }
@@ -846,9 +872,9 @@ button.preset-chart-row, button.preset-follow-row { cursor: pointer; }
   .question-kpis { grid-template-columns: repeat(2,1fr); }
   .journey-kpis { grid-template-columns: repeat(3,1fr); }
   .question-cross-controls { grid-template-columns: repeat(2,minmax(0,1fr)); }
-  .cross-analysis-grid, .question-time-layout { grid-template-columns: 1fr; }
+  .cross-analysis-grid, .question-time-layout, .conversation-layout { grid-template-columns: 1fr; }
   .market-link-summary { grid-template-columns: repeat(2,1fr); }
-  .followup-kpis { grid-template-columns: repeat(2,1fr); }
+  .followup-kpis, .conversation-kpis { grid-template-columns: repeat(2,1fr); }
   .question-findings { grid-template-columns: 1fr; }
   .question-analysis-grid { grid-template-columns: 1fr; }
   .question-unlock { grid-template-columns: 1fr; }
@@ -898,6 +924,9 @@ button.preset-chart-row, button.preset-follow-row { cursor: pointer; }
   .question-panel-head { align-items: start; display: grid; }
   .question-panel-head > div { min-width: 0; display: grid; gap: 8px; }
   .question-panel-head h3 { min-width: 0; overflow-wrap: anywhere; }
+  .conversation-list { grid-template-columns: 1fr; }
+  .conversation-row { grid-template-columns: minmax(120px,1fr) 72px; gap: 9px; }
+  .conversation-row > i { display: none; }
   .preset-control-stack { min-width: 0; max-width: 100%; }
   .question-cross-controls { padding: 12px; grid-template-columns: 1fr; }
   .question-cross-controls .segmented { width: 100%; overflow: visible; }

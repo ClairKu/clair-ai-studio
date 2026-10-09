@@ -382,6 +382,22 @@
         </div>
       </section>
 
+      <section class="question-chapter conversation-chapter" id="question-conversation" aria-labelledby="question-conversation-title">
+        <div class="question-panel-head">
+          <div><span>非投资与情绪</span><h3 id="question-conversation-title">不谈投资时，用户在和小顾聊什么</h3></div>
+          <p id="question-conversation-stat">—</p>
+        </div>
+        <p class="question-panel-note" id="question-conversation-insight">正在拆分寒暄、非投资问题、低信息输入与情绪安抚。</p>
+        <div class="conversation-kpis" id="question-conversation-kpis"></div>
+        <div class="conversation-layout">
+          <div>
+            <div class="preset-subhead"><h4>对话性质与服务信号</h4><p>点击类别查看对应脱敏原话</p></div>
+            <div class="conversation-list" id="question-conversation-list"></div>
+          </div>
+          <aside id="question-conversation-takeaway"></aside>
+        </div>
+      </section>
+
       <section class="question-chapter" id="question-rhythm" aria-labelledby="question-rhythm-title">
         <div class="question-panel-head"><div><span>追问深度</span><h3 id="question-rhythm-title">多少人只问一次，多少人进入实质追问</h3></div><p id="question-rhythm-stat">—</p></div>
         <div class="followup-kpis" id="question-followup-kpis"></div>
@@ -456,6 +472,7 @@
             <label><span>默认题承接</span><select id="question-origin-filter"><option value="all">全部提问路径</option><option value="after_preset">默认题后的自发提问</option></select></label>
             <label><span>对话回合</span><select id="question-turn-filter"><option value="all">全部回合</option><option value="1">第 1 问</option><option value="2">第 2 问</option><option value="3">第 3 问</option><option value="4_5">第 4–5 问</option><option value="6_plus">第 6 问以上</option></select></label>
             <label><span>下一回合</span><select id="question-next-filter"><option value="all">全部去向</option></select></label>
+            <label><span>对话性质</span><select id="question-conversation-filter"><option value="all">全部性质</option></select></label>
             <label><span>提问方向</span><select id="question-direction-filter"><option value="all">全部方向</option></select></label>
             <label><span>询问对象</span><select id="question-object-filter"><option value="all">全部对象</option></select></label>
             <label><span>问法风格</span><select id="question-style-filter"><option value="all">全部问法</option></select></label>
