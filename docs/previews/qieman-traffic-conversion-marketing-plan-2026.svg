@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
   <title id="title">且慢流量转化营销方案</title>
-  <desc id="desc">大众做入口、富裕做经营，展示全平台与千问豆包的新注册和首次投资转化对比。</desc>
+  <desc id="desc">大众做入口、富裕做经营，展示且慢平台自首个有效注册以来的累计注册、买入用户和买入订单。</desc>
   <defs>
     <radialGradient id="glow" cx="82%" cy="8%" r="72%"><stop stop-color="#83d9c5" stop-opacity=".30"/><stop offset="1" stop-color="#83d9c5" stop-opacity="0"/></radialGradient>
     <filter id="shadow" x="-20%" y="-30%" width="150%" height="180%"><feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#061d1a" flood-opacity=".34"/></filter>
@@ -24,33 +24,30 @@
   <g transform="translate(70 340)" filter="url(#shadow)">
     <rect width="1060" height="190" rx="18" fill="#fffdf8"/>
     <g transform="translate(26 25)" font-family="Arial, 'PingFang SC', sans-serif">
-      <text font-size="11" font-weight="700" letter-spacing="1.5" fill="#168878">FULL PLATFORM BENCHMARK · SAME WINDOW</text>
+      <text font-size="11" font-weight="700" letter-spacing="1.5" fill="#168878">FULL PLATFORM · SINCE FIRST VALID REGISTRATION</text>
       <g transform="translate(0 31)">
-        <rect width="216" height="104" rx="13" fill="#e7f1ed"/>
-        <text x="18" y="27" font-size="12" fill="#6c7c78">全平台注册</text>
-        <text x="18" y="64" font-family="Georgia, serif" font-size="34" font-weight="700" fill="#17302d">41,430</text>
-        <text x="18" y="87" font-size="11" fill="#6c7c78">08-03 — 10-09 09:35</text>
+        <rect width="238" height="104" rx="13" fill="#e7f1ed"/>
+        <text x="18" y="27" font-size="12" fill="#6c7c78">平台累计有效注册</text>
+        <text x="18" y="64" font-family="Georgia, serif" font-size="32" font-weight="700" fill="#17302d">3,787,215</text>
+        <text x="18" y="87" font-size="11" fill="#6c7c78">2016-05-27 — 2026-10-09</text>
       </g>
-      <text x="231" y="94" font-size="26" fill="#168878">→</text>
-      <g transform="translate(270 31)">
-        <rect width="216" height="104" rx="13" fill="#d7eee6"/>
-        <text x="18" y="27" font-size="12" fill="#55756e">千问 + 豆包注册</text>
-        <text x="18" y="64" font-family="Georgia, serif" font-size="34" font-weight="700" fill="#17302d">15,172</text>
-        <text x="18" y="87" font-size="11" fill="#6c7c78">占全平台 36.62%</text>
+      <g transform="translate(255 31)">
+        <rect width="238" height="104" rx="13" fill="#d7eee6"/>
+        <text x="18" y="27" font-size="12" fill="#55756e">注册后买入用户</text>
+        <text x="18" y="64" font-family="Georgia, serif" font-size="32" font-weight="700" fill="#17302d">616,283</text>
+        <text x="18" y="87" font-size="11" fill="#6c7c78">累计用户转化 16.2727%</text>
       </g>
-      <text x="501" y="94" font-size="26" fill="#168878">→</text>
-      <g transform="translate(540 31)">
-        <rect width="216" height="104" rx="13" fill="#fbefd7"/>
-        <text x="18" y="27" font-size="12" fill="#8f6b2c">全平台首投率</text>
-        <text x="18" y="64" font-family="Georgia, serif" font-size="34" font-weight="700" fill="#17302d">5.028%</text>
-        <text x="18" y="87" font-size="11" font-weight="700" fill="#c27431">2,083 人</text>
+      <g transform="translate(510 31)">
+        <rect width="238" height="104" rx="13" fill="#fbefd7"/>
+        <text x="18" y="27" font-size="12" fill="#8f6b2c">累计产品买入订单</text>
+        <text x="18" y="64" font-family="Georgia, serif" font-size="30" font-weight="700" fill="#17302d">48,106,722</text>
+        <text x="18" y="87" font-size="11" font-weight="700" fill="#c27431">排除 WALLET 与取消单</text>
       </g>
-      <text x="771" y="94" font-size="26" fill="#168878">→</text>
-      <g transform="translate(810 31)">
-        <rect width="198" height="104" rx="13" fill="#f8e5df"/>
-        <text x="18" y="27" font-size="12" fill="#8a544b">AI 渠道首投率</text>
-        <text x="18" y="64" font-family="Georgia, serif" font-size="34" font-weight="700" fill="#17302d">0.073%</text>
-        <text x="18" y="87" font-size="11" fill="#9b5143">11 人 · 相差 69.3 倍</text>
+      <g transform="translate(765 31)">
+        <rect width="243" height="104" rx="13" fill="#f8e5df"/>
+        <text x="18" y="27" font-size="12" fill="#8a544b">千问 + 豆包晚近新注册</text>
+        <text x="18" y="64" font-family="Georgia, serif" font-size="32" font-weight="700" fill="#17302d">15,172</text>
+        <text x="18" y="87" font-size="11" fill="#9b5143">累计库存占比 0.4006%</text>
       </g>
     </g>
   </g>
