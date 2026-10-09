@@ -323,7 +323,8 @@ function validateQuestionInsights() {
   assertPlainObject(research, "question_insights.research");
   if (research.schema_version !== "qianwen-question-research-v2" || research.as_of !== insight.as_of
       || research.methodology?.taxonomy !== "rule-based-multiaxis-v2"
-      || research.methodology?.preset_ctr_note !== "no_impression_log_asker_reach_is_proxy_not_true_ctr") {
+      || research.methodology?.preset_ctr_note !== "no_impression_log_asker_reach_is_proxy_not_true_ctr"
+      || research.methodology?.followup_definition !== "same_session_second_or_later_self_authored_substantive_question") {
     fail("question_insights.research 方法或版本异常");
   }
   const researchSummaryKeys = ["questions", "asking_users", "sessions", "preset_questions", "preset_users", "preset_first_users",
@@ -340,6 +341,81 @@ function validateQuestionInsights() {
       || rs.preset_users > rs.asking_users || rs.preset_first_users > rs.preset_users || rs.preset_only_users > rs.preset_users
       || rs.preset_follow_on_users > rs.preset_users || rs.preset_follow_on_questions > rs.substantive_questions) {
     fail("question_insights.research 汇总无法闭合");
+  }
+
+  const journey = research.journey;
+  assertPlainObject(journey, "question_insights.research.journey");
+  const journeyCountKeys = ["asking_users", "conversation_sessions", "user_question_turns", "preset_questions", "self_authored_questions",
+    "substantive_questions", "short_followups", "self_authored_users", "substantive_users", "substantive_sessions", "followup_users",
+    "followup_sessions", "no_followup_users", "one_question_users", "multi_question_users", "followup_user_substantive_questions"];
+  journeyCountKeys.forEach((key) => { if (!isCount(journey[key])) fail(`question_insights.research.journey.${key} 无效`); });
+  const journeyAverageKeys = ["average_questions_per_asking_user", "average_self_questions_per_self_user",
+    "average_substantive_questions_per_user", "average_substantive_questions_per_followup_user", "average_turns_per_session"];
+  journeyAverageKeys.forEach((key) => {
+    if (!Number.isFinite(journey[key]) || journey[key] < 0) fail(`question_insights.research.journey.${key} 无效`);
+  });
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(journey.observed_from || "") || !/^\d{4}-\d{2}-\d{2}$/.test(journey.observed_to || "")
+      || journey.asking_users !== rs.asking_users || journey.conversation_sessions !== rs.sessions || journey.user_question_turns !== rs.questions
+      || journey.preset_questions !== rs.preset_questions || journey.self_authored_questions !== rs.self_authored_questions
+      || journey.substantive_questions !== rs.substantive_questions || journey.short_followups !== rs.short_followups
+      || journey.self_authored_users !== rs.self_authored_users || journey.substantive_users !== rs.substantive_users
+      || journey.preset_questions + journey.self_authored_questions !== journey.user_question_turns
+      || journey.substantive_questions + journey.short_followups !== journey.self_authored_questions
+      || journey.followup_users + journey.no_followup_users !== journey.substantive_users
+      || journey.one_question_users + journey.multi_question_users !== journey.substantive_users
+      || journey.followup_user_substantive_questions > journey.substantive_questions) fail("提问旅程汇总无法闭合");
+  assertItemIds(journey.question_depth, ["1", "2_3", "4_9", "10_plus"], "question_insights.research.journey.question_depth");
+  if (journey.question_depth.some((item) => !isCount(item.users) || !isCount(item.questions))
+      || journey.question_depth.reduce((sum, item) => sum + item.users, 0) !== journey.substantive_users
+      || journey.question_depth.reduce((sum, item) => sum + item.questions, 0) !== journey.substantive_questions) fail("提问深度无法闭合");
+
+  const cross = research.cross_analysis;
+  assertPlainObject(cross, "question_insights.research.cross_analysis");
+  const crossSources = ["all", "preset", "self", "substantive"];
+  const crossEngagements = ["all", "no_followup", "followup"];
+  assertExactKeys(cross.sources, crossSources, "question_insights.research.cross_analysis.sources");
+  assertExactKeys(cross.engagements, crossEngagements, "question_insights.research.cross_analysis.engagements");
+  const expectedGroupIds = crossSources.flatMap((source) => crossEngagements.map((engagement) => `${source}:${engagement}`));
+  if (!Array.isArray(cross.groups) || cross.groups.length !== expectedGroupIds.length) fail("提问交叉分析分组缺失");
+  assertExactKeys(cross.groups.map((group) => group.id), expectedGroupIds, "question_insights.research.cross_analysis.groups");
+  const crossDimensions = [
+    ["direction", questionDirectionIds],
+    ["object", questionObjectIds],
+    ["style", questionStyleIds],
+    ["cognition", questionCognitionIds],
+  ];
+  cross.groups.forEach((group) => {
+    if (group.id !== `${group.source}:${group.engagement}` || !crossSources.includes(group.source) || !crossEngagements.includes(group.engagement)
+        || !isCount(group.questions) || !isCount(group.users) || !isCount(group.sessions)) fail(`提问交叉分组 ${group.id} 异常`);
+    crossDimensions.forEach(([key, ids]) => {
+      const rows = group.dimensions?.[key];
+      assertItemIds(rows, ids, `提问交叉分组 ${group.id}.${key}`);
+      if (rows.some((item) => !isCount(item.questions) || !isCount(item.users))
+          || rows.reduce((sum, item) => sum + item.questions, 0) !== group.questions) fail(`提问交叉分组 ${group.id}.${key} 不闭合`);
+    });
+    for (const entity of ["keywords", "products"]) {
+      if (!Array.isArray(group.entities?.[entity])) fail(`提问交叉分组 ${group.id}.${entity} 缺失`);
+      group.entities[entity].forEach((item, index) => {
+        if (typeof item.label !== "string" || !item.label || !isCount(item.questions) || !isCount(item.users)) fail(`提问交叉分组 ${group.id}.${entity}[${index}] 异常`);
+      });
+    }
+    for (const grain of ["daily", "weekly"]) {
+      if (!Array.isArray(group[grain]) || group[grain].reduce((sum, item) => sum + item.questions, 0) !== group.questions) fail(`提问交叉分组 ${group.id}.${grain} 不闭合`);
+      group[grain].forEach((item, index) => {
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(item.start || "") || !/^\d{4}-\d{2}-\d{2}$/.test(item.end || "")
+            || !isCount(item.questions) || !isCount(item.users) || !isCount(item.sessions)) fail(`提问交叉分组 ${group.id}.${grain}[${index}] 异常`);
+        assertItemIds(item.directions, questionDirectionIds, `提问交叉分组 ${group.id}.${grain}[${index}].directions`);
+        if (item.directions.reduce((sum, row) => sum + row.questions, 0) !== item.questions) fail(`提问交叉分组 ${group.id}.${grain}[${index}] 方向不闭合`);
+      });
+    }
+  });
+  const crossGroupMap = Object.fromEntries(cross.groups.map((group) => [group.id, group]));
+  if (crossGroupMap["all:all"].questions !== rs.questions || crossGroupMap["all:all"].users !== rs.asking_users || crossGroupMap["all:all"].sessions !== rs.sessions
+      || crossGroupMap["preset:all"].questions !== rs.preset_questions || crossGroupMap["self:all"].questions !== rs.self_authored_questions
+      || crossGroupMap["substantive:all"].questions !== rs.substantive_questions || crossGroupMap["substantive:all"].users !== rs.substantive_users
+      || crossGroupMap["substantive:followup"].questions !== journey.followup_user_substantive_questions
+      || crossGroupMap["substantive:followup"].users !== journey.followup_users || crossGroupMap["substantive:no_followup"].users !== journey.no_followup_users) {
+    fail("提问交叉分析与汇总不一致");
   }
 
   if (research.presets?.true_impressions_available !== false
@@ -492,11 +568,11 @@ async function validateQuestionCorpus() {
   const rawPii = /(?:[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}|(?<!\d)1[3-9]\d{9}(?!\d)|(?<!\d)\d{17}[0-9Xx](?!\d)|(?<!\d)(?:\d[ -]?){12,19}(?!\d)|\b(?:wxid_|openid[:：]?)[A-Za-z0-9_-]{6,}\b)/i;
   corpus.rows.forEach((row, index) => {
     assertPlainObject(row, `question_corpus.rows[${index}]`);
-    assertExactKeys(Object.keys(row), ["i", "d", "t", "o", "f", "c", "s", "p", "v", "r", "w", "u", "n", "q"], `question_corpus.rows[${index}]`);
+    assertExactKeys(Object.keys(row), ["i", "d", "t", "o", "f", "c", "s", "p", "v", "r", "w", "e", "u", "n", "q"], `question_corpus.rows[${index}]`);
     if (row.i !== index + 1 || !/^\d{4}-\d{2}-\d{2}$/.test(row.d) || !questionDirectionIds.includes(row.t)
         || !questionObjectIds.includes(row.o) || !questionStyleIds.includes(row.f) || !questionCognitionIds.includes(row.c)
         || ![0, 1].includes(row.s) || typeof row.p !== "string" || typeof row.v !== "string" || typeof row.r !== "string" || typeof row.w !== "string"
-        || Boolean(row.p) !== Boolean(row.v) || Boolean(row.r) !== Boolean(row.w) || !Number.isInteger(row.u) || row.u < 0
+        || Boolean(row.p) !== Boolean(row.v) || Boolean(row.r) !== Boolean(row.w) || !["no_followup", "followup"].includes(row.e) || !Number.isInteger(row.u) || row.u < 0
         || typeof row.n !== "string" || (row.n && !questionDirectionIds.includes(row.n)) || (!row.p && !row.s && row.u < 1)
         || typeof row.q !== "string" || !row.q.trim() || rawPii.test(row.q)) {
       fail(`question_corpus.rows[${index}] 格式或脱敏异常`);
@@ -705,24 +781,40 @@ for (const signal of [
   'id="profile-distribution"',
   'id="touchpoint-distribution"',
   'id="question-analysis"',
+  'id="question-overview"',
+  'id="question-askers"',
+  'id="question-sessions"',
+  'id="question-turns-total"',
+  'id="question-default-total"',
+  'id="question-self-total"',
+  'id="question-substantive"',
+  'id="question-source-flow"',
   'id="question-defaults"',
   'id="preset-summary"',
   'id="preset-chart"',
   'id="preset-follow-bars"',
   'id="preset-versions"',
   'id="question-dimension-bars"',
+  'id="question-cross-summary"',
+  'id="question-cross-matrix"',
   'id="question-keywords"',
   'id="question-products"',
   'id="question-personas"',
   'id="question-cognition-users"',
   'id="question-rhythm-bars"',
+  'id="question-followup-kpis"',
   'id="question-turn-directions"',
   'id="question-turn-transitions"',
   'id="question-transitions"',
   'id="question-sequences"',
+  'id="question-time"',
+  'id="question-time-chart"',
+  'id="question-time-mix"',
   'id="question-unlock-form"',
   'id="question-search"',
   'id="question-scope-filter"',
+  'id="question-engagement-filter"',
+  'id="question-date-filter"',
   'id="question-origin-filter"',
   'id="question-turn-filter"',
   'id="question-next-filter"',
@@ -763,10 +855,17 @@ for (const signal of [
   'name="question-lens" value="object"',
   'name="question-lens" value="style"',
   'name="question-lens" value="cognition"',
-  'name="question-rhythm" value="active_days"',
-  'name="question-rhythm" value="session_depth"',
-  'name="question-rhythm" value="gaps"',
-  'name="question-rhythm" value="time_of_day"',
+  'name="question-source" value="all"',
+  'name="question-source" value="preset"',
+  'name="question-source" value="self"',
+  'name="question-source" value="substantive"',
+  'name="question-engagement" value="all"',
+  'name="question-engagement" value="no_followup"',
+  'name="question-engagement" value="followup"',
+  'name="question-cross-metric" value="questions"',
+  'name="question-cross-metric" value="users"',
+  'name="question-time-grain" value="daily"',
+  'name="question-time-grain" value="weekly"',
 ]) {
   if (!html.includes(signal)) fail(`交互控件缺少 ${signal}`);
 }
@@ -861,11 +960,16 @@ for (const rule of [
   ".chip-value",
   ".metric-tile-value",
   ".question-findings",
+  ".question-source-flow",
   ".question-chapter",
   ".preset-version",
   ".dimension-bars",
   ".persona-grid",
   ".rhythm-layout",
+  ".followup-kpis",
+  ".cross-summary",
+  ".cross-matrix",
+  ".question-time-chart",
   ".transition-row",
   ".wording-proof",
   ".question-table",

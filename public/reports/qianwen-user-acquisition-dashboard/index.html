@@ -267,24 +267,29 @@
       <div class="questions-head">
         <div>
           <p class="eyebrow">QUESTION INTELLIGENCE · NEW USER VOICE</p>
-          <h2 id="question-title">新用户真实提问<br />与投资需求全景</h2>
-          <p class="question-deck" id="question-headline-insight">正在读取新用户主动提问、核心需求与默认问题影响。</p>
+          <h2 id="question-title">从开口到追问<br />新用户问题全景</h2>
+          <p class="question-deck" id="question-headline-insight">正在梳理用户、会话、提问回合、默认题、自发问题与追问路径。</p>
         </div>
         <p class="questions-method"><strong id="question-headline-stat">—</strong><span id="question-headline-detail">—</span></p>
       </div>
 
       <nav class="question-toc" aria-label="提问研究目录">
-        <a href="#question-defaults">默认题</a><a href="#question-map">问什么</a><a href="#question-entities">关键词 / 产品</a><a href="#question-persona">谁在问</a><a href="#question-rhythm">怎么问</a><a href="#question-turns">逐回合</a><a href="#question-path">需求路径</a><a href="#raw-question-title">看原话</a>
+        <a href="#question-overview">规模与来源</a><a href="#question-defaults">默认题</a><a href="#question-map">交叉看需求</a><a href="#question-entities">关键词 / 产品</a><a href="#question-rhythm">追问深度</a><a href="#question-turns">逐回合</a><a href="#question-time">时间关系</a><a href="#raw-question-title">看原话</a>
       </nav>
 
-      <div class="question-kpis" aria-label="提问关键数据">
-        <article><span>实际提问用户</span><strong id="question-askers">—</strong><small id="question-ask-rate">—</small></article>
-        <article><span>剔除默认题后</span><strong id="question-self-total">—</strong><small id="question-self-rate">—</small></article>
-        <article><span>自发实质问题</span><strong id="question-substantive">—</strong><small id="question-substantive-users">—</small></article>
-        <article><span>已识别默认题</span><strong id="question-default-total">—</strong><small id="question-default-rate">—</small></article>
-      </div>
-
-      <div class="question-findings" id="question-findings" aria-label="核心洞察"></div>
+      <section class="question-chapter overview-chapter" id="question-overview" aria-labelledby="question-overview-title">
+        <div class="question-panel-head"><div><span>规模与来源</span><h3 id="question-overview-title">先回答多少人、多少会话、多少回合，再拆问题来源</h3></div><p id="question-overview-note">每条用户输入记为一个用户提问回合</p></div>
+        <div class="question-kpis journey-kpis" aria-label="提问关键数据">
+          <article><span>提问用户</span><strong id="question-askers">—</strong><small id="question-ask-rate">—</small></article>
+          <article><span>对话会话</span><strong id="question-sessions">—</strong><small id="question-session-rate">—</small></article>
+          <article><span>用户提问回合</span><strong id="question-turns-total">—</strong><small id="question-turns-note">—</small></article>
+          <article><span>默认题</span><strong id="question-default-total">—</strong><small id="question-default-rate">—</small></article>
+          <article><span>用户自己问</span><strong id="question-self-total">—</strong><small id="question-self-rate">—</small></article>
+          <article><span>自发实质问题</span><strong id="question-substantive">—</strong><small id="question-substantive-users">—</small></article>
+        </div>
+        <div class="question-source-flow" id="question-source-flow" aria-label="问题来源拆分"></div>
+        <div class="question-findings" id="question-findings" aria-label="核心洞察"></div>
+      </section>
 
       <section class="question-chapter preset-chapter" id="question-defaults" aria-labelledby="question-default-title">
         <div class="question-panel-head research-panel-head">
@@ -313,28 +318,42 @@
       </section>
 
       <section class="question-chapter" id="question-map" aria-labelledby="question-map-title">
-        <div class="question-panel-head research-panel-head">
-          <div><span>真实需求</span><h3 id="question-map-title">主动提问聚焦产品判断与市场研判</h3></div>
+        <div class="question-panel-head"><div><span>交叉分析</span><h3 id="question-map-title">选来源、追问状态、指标与维度，查看同一批人的问题</h3></div><p id="question-cross-selection">全部问题 · 全部用户</p></div>
+        <div class="question-cross-controls" aria-label="提问交叉筛选">
+          <fieldset class="segmented question-source-toggle" aria-label="切换问题来源">
+            <legend>问题来源</legend>
+            <label><input type="radio" name="question-source" value="all" checked /><span>全部</span></label>
+            <label><input type="radio" name="question-source" value="preset" /><span>默认题</span></label>
+            <label><input type="radio" name="question-source" value="self" /><span>用户自己问</span></label>
+            <label><input type="radio" name="question-source" value="substantive" /><span>自发实质</span></label>
+          </fieldset>
+          <fieldset class="segmented question-engagement-toggle" aria-label="切换追问状态">
+            <legend>追问状态</legend>
+            <label><input type="radio" name="question-engagement" value="all" checked /><span>全部</span></label>
+            <label><input type="radio" name="question-engagement" value="no_followup" /><span>未形成追问</span></label>
+            <label><input type="radio" name="question-engagement" value="followup" /><span>有实质追问</span></label>
+          </fieldset>
+          <fieldset class="segmented question-metric-toggle" aria-label="切换统计指标">
+            <legend>统计指标</legend>
+            <label><input type="radio" name="question-cross-metric" value="questions" checked /><span>问题数</span></label>
+            <label><input type="radio" name="question-cross-metric" value="users" /><span>用户数</span></label>
+          </fieldset>
           <fieldset class="segmented question-lens-toggle" aria-label="切换分析维度">
+            <legend>分析维度</legend>
             <label><input type="radio" name="question-lens" value="direction" checked /><span>提问方向</span></label>
             <label><input type="radio" name="question-lens" value="object" /><span>询问对象</span></label>
             <label><input type="radio" name="question-lens" value="style" /><span>问法风格</span></label>
             <label><input type="radio" name="question-lens" value="cognition" /><span>认知信号</span></label>
           </fieldset>
         </div>
-        <p class="question-panel-note" id="question-dimension-note">正在读取最大需求方向与用户规模。</p>
-        <div class="dimension-bars" id="question-dimension-bars"></div>
+        <div class="cross-summary" id="question-cross-summary"></div>
+        <p class="question-panel-note" id="question-dimension-note">正在读取筛选条件下的需求排名。</p>
+        <div class="cross-analysis-grid"><div class="dimension-bars" id="question-dimension-bars"></div><aside><div class="preset-subhead"><h4>是否追问，问的内容有何不同</h4><p>同一问题来源下交叉比较</p></div><div class="cross-matrix" id="question-cross-matrix"></div></aside></div>
       </section>
 
       <section class="question-chapter" id="question-entities" aria-labelledby="question-entities-title">
-        <div class="question-panel-head research-panel-head">
-          <div><span>高频实体</span><h3 id="question-entities-title">具体基金类型、市场与投资动作反复出现</h3></div>
-          <fieldset class="segmented entity-metric-toggle" aria-label="切换关键词与产品指标">
-            <label><input type="radio" name="entity-metric" value="questions" checked /><span>提问次数</span></label>
-            <label><input type="radio" name="entity-metric" value="users" /><span>涉及用户</span></label>
-          </fieldset>
-        </div>
-        <p class="question-panel-note" id="question-entities-insight">正在读取高频关键词与反复被问到的具体产品。</p>
+        <div class="question-panel-head"><div><span>关键词与产品</span><h3 id="question-entities-title">筛选条件同步作用于关键词和具体基金排名</h3></div><p id="question-entities-stat">—</p></div>
+        <p class="question-panel-note" id="question-entities-insight">正在读取筛选条件下的高频关键词与具体产品。</p>
         <div class="entity-grid">
           <section><div class="preset-subhead"><h4>高频具体短语</h4><p>基金类型 · 市场 · 投资动作</p></div><div class="entity-bars" id="question-keywords"></div></section>
           <section><div class="preset-subhead"><h4>具体基金、代码与且慢策略</h4><p>至少 2 位用户共同提及</p></div><div class="entity-bars" id="question-products"></div></section>
@@ -354,16 +373,9 @@
       </section>
 
       <section class="question-chapter" id="question-rhythm" aria-labelledby="question-rhythm-title">
-        <div class="question-panel-head research-panel-head">
-          <div><span>使用节奏</span><h3 id="question-rhythm-title">多数用户只活跃一天，持续使用仍是短板</h3></div>
-          <fieldset class="segmented question-rhythm-toggle" aria-label="切换节奏指标">
-            <label><input type="radio" name="question-rhythm" value="active_days" checked /><span>活跃天数</span></label>
-            <label><input type="radio" name="question-rhythm" value="session_depth" /><span>单会话深度</span></label>
-            <label><input type="radio" name="question-rhythm" value="gaps" /><span>追问间隔</span></label>
-            <label><input type="radio" name="question-rhythm" value="time_of_day" /><span>提问时段</span></label>
-          </fieldset>
-        </div>
-        <div class="rhythm-layout"><div class="rhythm-bars" id="question-rhythm-bars"></div><aside id="question-rhythm-insight"></aside></div>
+        <div class="question-panel-head"><div><span>追问深度</span><h3 id="question-rhythm-title">多少人只问一次，多少人进入实质追问</h3></div><p id="question-rhythm-stat">—</p></div>
+        <div class="followup-kpis" id="question-followup-kpis"></div>
+        <div class="rhythm-layout"><div><div class="preset-subhead"><h4>用户累计提问深度</h4><p>按自发实质问题数分层</p></div><div class="rhythm-bars" id="question-rhythm-bars"></div></div><aside id="question-rhythm-insight"></aside></div>
       </section>
 
       <section class="question-chapter" id="question-turns" aria-labelledby="question-turn-title">
@@ -395,6 +407,18 @@
         </div>
       </section>
 
+      <section class="question-chapter" id="question-time" aria-labelledby="question-time-title">
+        <div class="question-panel-head research-panel-head">
+          <div><span>时间关系</span><h3 id="question-time-title">问题量随时间怎样变化，需求结构是否同步变化</h3></div>
+          <fieldset class="segmented question-time-toggle" aria-label="切换时间粒度">
+            <label><input type="radio" name="question-time-grain" value="daily" /><span>按日</span></label>
+            <label><input type="radio" name="question-time-grain" value="weekly" checked /><span>按周</span></label>
+          </fieldset>
+        </div>
+        <p class="question-panel-note" id="question-time-insight">正在读取当前筛选条件下的问题量与需求结构变化。</p>
+        <div class="question-time-layout"><div class="question-time-chart" id="question-time-chart"></div><aside><div class="preset-subhead"><h4>同期主要提问方向</h4><p>观察量变是否伴随需求变化</p></div><div class="question-time-mix" id="question-time-mix"></div></aside></div>
+      </section>
+
       <section class="raw-question-explorer question-chapter" aria-labelledby="raw-question-title">
         <div class="raw-question-head">
           <div>
@@ -416,6 +440,8 @@
           <div class="question-tools research-tools">
             <label class="question-search"><span>搜索提问</span><input id="question-search" type="search" autocomplete="off" placeholder="输入基金、持仓、市场、养老…" /></label>
             <label><span>问题来源</span><select id="question-scope-filter"><option value="self" selected>用户自发（剔除默认）</option><option value="substantive">自发实质问题</option><option value="preset">默认 / 推荐问题</option><option value="all">全部提问</option></select></label>
+            <label><span>追问状态</span><select id="question-engagement-filter"><option value="all">全部用户</option><option value="no_followup">未形成实质追问</option><option value="followup">有实质追问</option></select></label>
+            <label><span>提问日期</span><select id="question-date-filter"><option value="all">全部日期</option></select></label>
             <label><span>默认题承接</span><select id="question-origin-filter"><option value="all">全部提问路径</option><option value="after_preset">默认题后的自发提问</option></select></label>
             <label><span>对话回合</span><select id="question-turn-filter"><option value="all">全部回合</option><option value="1">第 1 问</option><option value="2">第 2 问</option><option value="3">第 3 问</option><option value="4_5">第 4–5 问</option><option value="6_plus">第 6 问以上</option></select></label>
             <label><span>下一回合</span><select id="question-next-filter"><option value="all">全部去向</option></select></label>

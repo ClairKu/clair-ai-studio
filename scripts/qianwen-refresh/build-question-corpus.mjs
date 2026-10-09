@@ -308,6 +308,22 @@ for (const rows of bySession.values()) {
   }
 }
 
+// “追问”采用会话内定义：同一会话出现第 2 条及以上自发实质问题。
+// 这能排除跨日重新发起的新问题，也不会把“好 / 继续”等极短承接误算成实质追问。
+const followupPeople = new Set();
+const followupSessionKeys = new Set();
+const substantiveSessionKeys = new Set();
+for (const [sessionKey, rows] of bySession) {
+  const substantive = rows.filter((row) => !row.preset && !row.short);
+  if (substantive.length) substantiveSessionKeys.add(sessionKey);
+  if (substantive.length >= 2) {
+    followupSessionKeys.add(sessionKey);
+    followupPeople.add(rows[0].person);
+  }
+}
+const personSubstantiveCounts = new Map([...byPerson].map(([person, rows]) => [person, rows.filter((row) => !row.preset && !row.short).length]));
+for (const row of internalRows) row.engagement = followupPeople.has(row.person) ? "followup" : "no_followup";
+
 const makeStats = (ids) => Object.fromEntries(ids.map((id) => [id, { questions: 0, users: new Set() }]));
 function summarizeDimension(rows, key, ids) {
   const stats = makeStats(ids);
@@ -488,14 +504,20 @@ const topSelfAuthored = [...topQuestionMap.values()].filter((item) => item.users
 
 const keywordStats = new Map(KEYWORD_RULES.map(([label]) => [label, { label, questions: 0, users: new Set() }]));
 const productStats = new Map();
-for (const row of substantiveRows) {
+const substantiveRowSet = new Set(substantiveRows);
+for (const row of internalRows) {
+  row.keywordLabels = [];
+  row.productEntries = extractProducts(row.original);
   for (const [label, pattern] of KEYWORD_RULES) {
     if (!pattern.test(row.original)) continue;
+    row.keywordLabels.push(label);
+    if (!substantiveRowSet.has(row)) continue;
     const item = keywordStats.get(label);
     item.questions += 1;
     item.users.add(row.person);
   }
-  for (const product of extractProducts(row.original)) {
+  if (!substantiveRowSet.has(row)) continue;
+  for (const product of row.productEntries) {
     if (!productStats.has(product.label)) productStats.set(product.label, { ...product, questions: 0, users: new Set() });
     const item = productStats.get(product.label);
     item.questions += 1;
@@ -533,6 +555,121 @@ const products = [...productStats.values()].filter((item) => item.users.size >= 
     questions: item.questions,
     users: item.users.size,
   }));
+
+const canonicalProductLabel = (product) => product.kind === "基金代码" && fundNames.has(product.label)
+  ? `${fundNames.get(product.label)}（${product.label}）`
+  : product.label;
+const weekStart = (day) => {
+  const date = new Date(`${day}T00:00:00Z`);
+  const weekday = date.getUTCDay() || 7;
+  date.setUTCDate(date.getUTCDate() - weekday + 1);
+  return date.toISOString().slice(0, 10);
+};
+function summarizeEntityRows(rows) {
+  const keywordMap = new Map();
+  const productMap = new Map();
+  for (const row of rows) {
+    for (const label of row.keywordLabels || []) {
+      if (!keywordMap.has(label)) keywordMap.set(label, { label, questions: 0, users: new Set() });
+      keywordMap.get(label).questions += 1;
+      keywordMap.get(label).users.add(row.person);
+    }
+    for (const product of row.productEntries || []) {
+      const label = canonicalProductLabel(product);
+      if (!productMap.has(label)) productMap.set(label, { label, query: product.label, kind: product.kind, questions: 0, users: new Set() });
+      productMap.get(label).questions += 1;
+      productMap.get(label).users.add(row.person);
+    }
+  }
+  const serialize = (items, minUsers = 1) => [...items.values()].filter((item) => item.users.size >= minUsers)
+    .sort((a, b) => b.questions - a.questions || b.users.size - a.users.size || a.label.localeCompare(b.label, "zh-CN"))
+    .slice(0, 24).map((item) => ({ ...item, users: item.users.size }));
+  return { keywords: serialize(keywordMap), products: serialize(productMap, 2) };
+}
+function summarizeTime(rows, grain) {
+  const groups = new Map();
+  for (const row of rows) {
+    const start = grain === "day" ? row.day : weekStart(row.day);
+    if (!groups.has(start)) groups.set(start, []);
+    groups.get(start).push(row);
+  }
+  return [...groups.entries()].sort(([a], [b]) => a.localeCompare(b)).map(([, groupRows]) => {
+    const observedDays = groupRows.map((row) => row.day).sort();
+    return {
+      start: observedDays[0],
+      end: observedDays.at(-1),
+      questions: groupRows.length,
+      users: new Set(groupRows.map((row) => row.person)).size,
+      sessions: new Set(groupRows.map((row) => `${row.person}\u0000${row.session}`)).size,
+      directions: summarizeDimension(groupRows, "direction", DIRECTION_IDS),
+    };
+  });
+}
+const questionScopeRows = {
+  all: internalRows,
+  preset: presetRows,
+  self: selfRows,
+  substantive: substantiveRows,
+};
+const crossGroups = [];
+for (const source of ["all", "preset", "self", "substantive"]) {
+  for (const engagement of ["all", "no_followup", "followup"]) {
+    const groupRows = questionScopeRows[source].filter((row) => engagement === "all" || row.engagement === engagement);
+    crossGroups.push({
+      id: `${source}:${engagement}`,
+      source,
+      engagement,
+      questions: groupRows.length,
+      users: new Set(groupRows.map((row) => row.person)).size,
+      sessions: new Set(groupRows.map((row) => `${row.person}\u0000${row.session}`)).size,
+      dimensions: {
+        direction: summarizeDimension(groupRows, "direction", DIRECTION_IDS),
+        object: summarizeDimension(groupRows, "object", OBJECT_IDS),
+        style: summarizeDimension(groupRows, "style", STYLE_IDS),
+        cognition: summarizeDimension(groupRows, "cognition", COGNITION_IDS),
+      },
+      entities: summarizeEntityRows(groupRows),
+      daily: summarizeTime(groupRows, "day"),
+      weekly: summarizeTime(groupRows, "week"),
+    });
+  }
+}
+
+const followupUserSubstantiveQuestions = [...followupPeople].reduce((total, person) => total + (personSubstantiveCounts.get(person) || 0), 0);
+const questionDepthIds = ["1", "2_3", "4_9", "10_plus"];
+const questionDepthStats = Object.fromEntries(questionDepthIds.map((id) => [id, { id, users: 0, questions: 0 }]));
+for (const count of personSubstantiveCounts.values()) {
+  if (!count) continue;
+  const id = count === 1 ? "1" : count <= 3 ? "2_3" : count <= 9 ? "4_9" : "10_plus";
+  questionDepthStats[id].users += 1;
+  questionDepthStats[id].questions += count;
+}
+const journey = {
+  observed_from: internalRows.map((row) => row.day).sort()[0] || null,
+  observed_to: internalRows.map((row) => row.day).sort().at(-1) || null,
+  asking_users: byPerson.size,
+  conversation_sessions: bySession.size,
+  user_question_turns: internalRows.length,
+  preset_questions: presetRows.length,
+  self_authored_questions: selfRows.length,
+  substantive_questions: substantiveRows.length,
+  short_followups: selfRows.length - substantiveRows.length,
+  self_authored_users: selfUsers.size,
+  substantive_users: substantiveUsers.size,
+  substantive_sessions: substantiveSessionKeys.size,
+  followup_users: followupPeople.size,
+  followup_sessions: followupSessionKeys.size,
+  no_followup_users: substantiveUsers.size - followupPeople.size,
+  one_question_users: [...personSubstantiveCounts.values()].filter((count) => count === 1).length,
+  multi_question_users: [...personSubstantiveCounts.values()].filter((count) => count >= 2).length,
+  followup_user_substantive_questions: followupUserSubstantiveQuestions,
+  average_questions_per_asking_user: internalRows.length / Math.max(1, byPerson.size),
+  average_self_questions_per_self_user: selfRows.length / Math.max(1, selfUsers.size),
+  average_substantive_questions_per_user: substantiveRows.length / Math.max(1, substantiveUsers.size),
+  average_substantive_questions_per_followup_user: followupUserSubstantiveQuestions / Math.max(1, followupPeople.size),
+  average_turns_per_session: internalRows.length / Math.max(1, bySession.size),
+  question_depth: questionDepthIds.map((id) => questionDepthStats[id]),
+};
 
 const turnBucket = (turn) => turn === 1 ? "1" : turn === 2 ? "2" : turn === 3 ? "3" : turn <= 5 ? "4_5" : "6_plus";
 const turnIds = ["1", "2", "3", "4_5", "6_plus"];
@@ -576,6 +713,13 @@ const research = {
     persona_note: "behavioral_archetype_from_question_signals_not_personal_financial_profile",
     cognition_note: "language_signal_not_verified_investment_knowledge",
     preset_ctr_note: "no_impression_log_asker_reach_is_proxy_not_true_ctr",
+    followup_definition: "same_session_second_or_later_self_authored_substantive_question",
+  },
+  journey,
+  cross_analysis: {
+    sources: ["all", "preset", "self", "substantive"],
+    engagements: ["all", "no_followup", "followup"],
+    groups: crossGroups,
   },
   summary: {
     questions: internalRows.length,
@@ -637,6 +781,7 @@ const rows = internalRows.map((row) => ({
   v: row.preset?.version || "",
   r: row.originPreset?.id || "",
   w: row.originPreset?.version || "",
+  e: row.engagement,
   u: row.substantiveTurn || 0,
   n: row.nextDirection || "",
   q: row.question,

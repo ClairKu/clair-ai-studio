@@ -274,6 +274,9 @@ const PRESET_METRICS = {
   follow_on_users: ["带来续问", "人"],
 };
 const QUESTION_TURNS = { "1": "第 1 问", "2": "第 2 问", "3": "第 3 问", "4_5": "第 4–5 问", "6_plus": "第 6 问以上" };
+const QUESTION_SOURCE_LABELS = { all: "全部问题", preset: "默认题", self: "用户自己问", substantive: "自发实质问题" };
+const QUESTION_ENGAGEMENT_LABELS = { all: "全部用户", no_followup: "未形成同会话追问", followup: "有同会话实质追问" };
+const QUESTION_JOURNEY_DEPTH_LABELS = { "1": "只问 1 个实质问题", "2_3": "累计问 2–3 个", "4_9": "累计问 4–9 个", "10_plus": "累计问 10 个以上" };
 const QUESTION_DEPTH_LABELS = {
   "1": "只问 1 次",
   "2_4": "问 2–4 次",
@@ -295,6 +298,10 @@ const viewState = {
   audienceCohort: "all",
   segment: "all",
   questionLens: "direction",
+  questionSource: "all",
+  questionEngagement: "all",
+  questionCrossMetric: "questions",
+  questionTimeGrain: "weekly",
   questionRhythm: "active_days",
   presetView: "direction",
   presetMetric: "clicks",
@@ -537,6 +544,42 @@ function validateQuestionInsights(data) {
       || rs.preset_questions + rs.self_authored_questions !== rs.questions
       || rs.substantive_questions + rs.short_followups !== rs.self_authored_questions
       || rs.substantive_users > rs.self_authored_users || rs.self_authored_users > rs.asking_users) throw new Error("提问研究汇总无法闭合");
+  const journey = research.journey || {};
+  ["asking_users", "conversation_sessions", "user_question_turns", "preset_questions", "self_authored_questions", "substantive_questions", "short_followups",
+    "self_authored_users", "substantive_users", "substantive_sessions", "followup_users", "followup_sessions", "no_followup_users", "one_question_users",
+    "multi_question_users", "followup_user_substantive_questions"].forEach((key) => {
+    if (!isWholeCount(journey[key])) throw new Error(`提问旅程 ${key} 异常`);
+  });
+  ["average_questions_per_asking_user", "average_self_questions_per_self_user", "average_substantive_questions_per_user",
+    "average_substantive_questions_per_followup_user", "average_turns_per_session"].forEach((key) => {
+    if (!Number.isFinite(journey[key]) || journey[key] < 0) throw new Error(`提问旅程均值 ${key} 异常`);
+  });
+  if (journey.asking_users !== rs.asking_users || journey.conversation_sessions !== rs.sessions || journey.user_question_turns !== rs.questions
+      || journey.preset_questions + journey.self_authored_questions !== journey.user_question_turns
+      || journey.substantive_questions + journey.short_followups !== journey.self_authored_questions
+      || journey.followup_users + journey.no_followup_users !== journey.substantive_users
+      || journey.one_question_users + journey.multi_question_users !== journey.substantive_users
+      || !Array.isArray(journey.question_depth)
+      || journey.question_depth.reduce((sum, item) => sum + item.users, 0) !== journey.substantive_users
+      || journey.question_depth.reduce((sum, item) => sum + item.questions, 0) !== journey.substantive_questions) throw new Error("提问旅程无法闭合");
+  const cross = research.cross_analysis;
+  const expectedGroupIds = ["all", "preset", "self", "substantive"].flatMap((source) => ["all", "no_followup", "followup"].map((engagement) => `${source}:${engagement}`));
+  if (!cross || !Array.isArray(cross.groups) || cross.groups.length !== expectedGroupIds.length || new Set(cross.groups.map((item) => item.id)).size !== expectedGroupIds.length) throw new Error("提问交叉分析结构异常");
+  const dimensionLabels = { direction: QUESTION_DIRECTIONS, object: QUESTION_OBJECTS, style: QUESTION_STYLES, cognition: QUESTION_COGNITION };
+  cross.groups.forEach((group) => {
+    if (!expectedGroupIds.includes(group.id) || !isWholeCount(group.questions) || !isWholeCount(group.users) || !isWholeCount(group.sessions)) throw new Error(`提问交叉分组 ${group.id} 异常`);
+    Object.entries(dimensionLabels).forEach(([key, labels]) => {
+      const rows = group.dimensions?.[key];
+      if (!Array.isArray(rows) || rows.length !== Object.keys(labels).length || rows.reduce((sum, item) => sum + item.questions, 0) !== group.questions) throw new Error(`提问交叉分组 ${group.id}.${key} 不闭合`);
+    });
+    for (const grain of ["daily", "weekly"]) {
+      if (!Array.isArray(group[grain]) || group[grain].reduce((sum, item) => sum + item.questions, 0) !== group.questions) throw new Error(`提问交叉分组 ${group.id}.${grain} 不闭合`);
+      group[grain].forEach((item) => { if (item.directions.reduce((sum, row) => sum + row.questions, 0) !== item.questions) throw new Error(`提问交叉分组 ${group.id}.${grain}方向不闭合`); });
+    }
+  });
+  const groupMap = Object.fromEntries(cross.groups.map((item) => [item.id, item]));
+  if (groupMap["all:all"].questions !== rs.questions || groupMap["preset:all"].questions !== rs.preset_questions
+      || groupMap["self:all"].questions !== rs.self_authored_questions || groupMap["substantive:all"].questions !== rs.substantive_questions) throw new Error("提问交叉分组与汇总不一致");
   if (research.presets?.true_impressions_available !== false || !Array.isArray(research.presets?.versions) || !research.presets.versions.length) throw new Error("默认题版本数据异常");
   if (!Array.isArray(research.presets.directions) || !Array.isArray(research.presets.follow_on_directions)) throw new Error("默认题方向数据异常");
   let presetClicks = 0;
@@ -1524,28 +1567,47 @@ function renderAudience({ announce = false } = {}) {
 
 const questionLabel = (dimension, id) => QUESTION_DIMENSIONS[dimension]?.values?.[id]?.[0] || id;
 
+function selectedQuestionGroup(source = viewState.questionSource, engagement = viewState.questionEngagement) {
+  return currentData.question_insights.research.cross_analysis.groups.find((item) => item.id === `${source}:${engagement}`);
+}
+
 function renderQuestionDimension() {
   const research = currentData.question_insights.research;
+  const group = selectedQuestionGroup();
   const lens = viewState.questionLens;
+  const metric = viewState.questionCrossMetric;
   const definition = QUESTION_DIMENSIONS[lens];
-  const rows = [...research.dimensions[lens]].sort((a, b) => b.questions - a.questions);
-  const total = research.summary.substantive_questions;
-  const max = Math.max(...rows.map((item) => item.questions), 1);
+  const rows = [...group.dimensions[lens]].filter((item) => item[metric] > 0).sort((a, b) => b[metric] - a[metric] || b.questions - a.questions);
+  const total = metric === "questions" ? group.questions : group.users;
+  const max = Math.max(...rows.map((item) => item[metric]), 1);
   const excluded = { direction: "conversation_other", object: "unspecified", style: "conversation_fragment", cognition: "indeterminate" }[lens];
   const leading = rows.find((item) => item.id !== excluded) || rows[0];
-  const lensTitles = {
-    direction: "主动提问聚焦产品判断与市场研判",
-    object: "具体产品问题远多于基金类型与目标规划",
-    style: "比较、直接要求与诊断，是最常见的完整问法",
-    cognition: "多数提问不足以判断认知，进阶信号最突出",
-  };
-  $("#question-map-title").textContent = lensTitles[lens];
-  $("#question-dimension-note").textContent = `${definition.label}中，${definition.values[leading.id][0]}为最大明确类别：${number.format(leading.questions)} 条、涉及 ${number.format(leading.users)} 位用户。`;
+  const excludedRow = rows.find((item) => item.id === excluded);
+  const metricLabel = metric === "questions" ? "问题" : "用户";
+  $("#question-map-title").textContent = leading ? `${QUESTION_SOURCE_LABELS[viewState.questionSource]}的可识别${definition.label}中，${definition.values[leading.id][0]}排名第一` : "当前交叉条件没有问题记录";
+  $("#question-cross-selection").textContent = `${QUESTION_SOURCE_LABELS[viewState.questionSource]} · ${QUESTION_ENGAGEMENT_LABELS[viewState.questionEngagement]} · 看${metricLabel}数`;
+  $("#question-dimension-note").textContent = leading
+    ? `${number.format(group.users)} 位用户留下 ${number.format(group.questions)} 条问题；排除${excludedRow ? `“${definition.values[excludedRow.id][0]}”${number.format(excludedRow[metric])} ${metric === "questions" ? "条" : "人"}后，` : "证据不足项后，"}${definition.values[leading.id][0]}在可识别类别中最高：${number.format(leading[metric])} ${metric === "questions" ? "条" : "人"}。`
+    : "当前交叉条件没有问题记录，可切换来源或追问状态。";
+  $("#question-cross-summary").innerHTML = [
+    ["筛选后用户", number.format(group.users), `${formatShare(group.users, research.summary.asking_users)} 的全部提问用户`],
+    ["筛选后问题", number.format(group.questions), `${formatShare(group.questions, research.summary.questions)} 的全部提问`],
+    ["涉及会话", number.format(group.sessions), group.users ? `人均 ${(group.questions / group.users).toFixed(1)} 条` : "—"],
+  ].map(([label, value, note]) => `<article><span>${label}</span><strong>${value}</strong><small>${note}</small></article>`).join("");
   $("#question-dimension-bars").innerHTML = rows.map((item) => `<button class="dimension-row" type="button" data-question-dimension="${lens}" data-question-value="${item.id}">
     <span class="dimension-row-label">${escapeHtml(definition.values[item.id][0])}<small>${escapeHtml(definition.values[item.id][1])}</small></span>
-    <span class="dimension-track" role="img" aria-label="${escapeHtml(definition.values[item.id][0])} ${number.format(item.questions)} 条"><i style="width:${Math.max(1.2, item.questions / max * 100)}%"></i></span>
-    <span class="dimension-row-value"><strong>${number.format(item.questions)}</strong><small>${formatShare(item.questions, total)} · ${number.format(item.users)} 人</small></span>
+    <span class="dimension-track" role="img" aria-label="${escapeHtml(definition.values[item.id][0])} ${number.format(item[metric])}"><i style="width:${Math.max(1.2, item[metric] / max * 100)}%"></i></span>
+    <span class="dimension-row-value"><strong>${number.format(item[metric])}</strong><small>${formatShare(item[metric], total)} · ${number.format(item.questions)} 条 / ${number.format(item.users)} 人</small></span>
   </button>`).join("");
+
+  const noFollow = selectedQuestionGroup(viewState.questionSource, "no_followup");
+  const follow = selectedQuestionGroup(viewState.questionSource, "followup");
+  const noMap = Object.fromEntries(noFollow.dimensions[lens].map((item) => [item.id, item]));
+  const followMap = Object.fromEntries(follow.dimensions[lens].map((item) => [item.id, item]));
+  const matrixRows = [...new Set([...noFollow.dimensions[lens].map((item) => item.id), ...follow.dimensions[lens].map((item) => item.id)])]
+    .map((id) => ({ id, no: noMap[id]?.[metric] || 0, follow: followMap[id]?.[metric] || 0 }))
+    .filter((item) => item.no || item.follow).sort((a, b) => b.no + b.follow - a.no - a.follow).slice(0, 8);
+  $("#question-cross-matrix").innerHTML = `<div class="cross-matrix-head"><span>${escapeHtml(definition.label)}</span><span>未追问</span><span>有追问</span></div>${matrixRows.map((item) => `<div class="cross-matrix-row"><span>${escapeHtml(definition.values[item.id][0])}</span><strong>${number.format(item.no)}<em>${formatShare(item.no, metric === "questions" ? noFollow.questions : noFollow.users)}</em></strong><strong>${number.format(item.follow)}<em>${formatShare(item.follow, metric === "questions" ? follow.questions : follow.users)}</em></strong></div>`).join("")}`;
 }
 
 function renderPresetChart(research) {
@@ -1631,31 +1693,25 @@ function renderQuestionPersonas(research) {
 
 function renderQuestionRhythm() {
   const research = currentData.question_insights.research;
-  const key = viewState.questionRhythm;
-  const definition = QUESTION_RHYTHM[key];
-  const rows = research.rhythm[key];
-  const total = rows.reduce((sum, item) => sum + item.count, 0);
-  const max = Math.max(...rows.map((item) => item.count), 1);
-  const top = [...rows].sort((a, b) => b.count - a.count)[0];
-  const rhythmTitles = {
-    active_days: `${formatShare(rows.find((item) => item.id === "1")?.count || 0, total)} 的用户只活跃一天，持续使用仍是短板`,
-    session_depth: `${definition.values[top?.id] || "浅层问答"}最多，首轮回答决定是否继续`,
-    gaps: `${formatShare(rows.find((item) => item.id === "lte_5m")?.count || 0, total)} 的追问发生在 5 分钟内`,
-    time_of_day: "消息时间集中在两个时段，暂不能解释为真实作息",
-  };
-  $("#question-rhythm-title").textContent = rhythmTitles[key];
+  const journey = research.journey;
+  $("#question-rhythm-title").textContent = `${number.format(journey.followup_users)} 人进入同会话实质追问，占实质提问用户 ${formatShare(journey.followup_users, journey.substantive_users)}`;
+  $("#question-rhythm-stat").textContent = `追问用户贡献 ${formatShare(journey.followup_user_substantive_questions, journey.substantive_questions)} 的实质问题`;
+  $("#question-followup-kpis").innerHTML = [
+    ["用户自己问过", number.format(journey.self_authored_users), `共 ${number.format(journey.self_authored_questions)} 条主动输入`],
+    ["留下实质问题", number.format(journey.substantive_users), `共 ${number.format(journey.substantive_questions)} 条`],
+    ["进入同会话追问", number.format(journey.followup_users), `${number.format(journey.followup_sessions)} 个会话出现第 2 问`],
+    ["所有实质提问者人均", journey.average_substantive_questions_per_user.toFixed(1), "实质问题 / 人"],
+    ["有追问用户人均", journey.average_substantive_questions_per_followup_user.toFixed(1), "实质问题 / 人"],
+  ].map(([label, value, note]) => `<article><span>${label}</span><strong>${value}</strong><small>${note}</small></article>`).join("");
+  const rows = journey.question_depth;
+  const max = Math.max(...rows.map((item) => item.users), 1);
   $("#question-rhythm-bars").innerHTML = rows.map((item) => `<div class="dimension-row">
-    <span class="dimension-row-label">${escapeHtml(definition.values[item.id])}<small>${number.format(item.users)} 位用户涉及</small></span>
-    <span class="dimension-track"><i style="width:${Math.max(item.count ? 1.2 : 0, item.count / max * 100)}%"></i></span>
-    <span class="dimension-row-value"><strong>${number.format(item.count)} ${definition.unit}</strong><small>${formatShare(item.count, total)}</small></span>
+    <span class="dimension-row-label">${escapeHtml(QUESTION_JOURNEY_DEPTH_LABELS[item.id])}<small>贡献 ${number.format(item.questions)} 条实质问题</small></span>
+    <span class="dimension-track"><i style="width:${Math.max(1.2, item.users / max * 100)}%"></i></span>
+    <span class="dimension-row-value"><strong>${number.format(item.users)} 人</strong><small>${formatShare(item.users, journey.substantive_users)}</small></span>
   </div>`).join("");
-  const insightCopy = {
-    active_days: ["使用仍以一次性尝鲜为主", `${formatShare(top.count, total)} 的提问用户只在 1 天内出现；持续回访不能只靠更多入口，需要首轮回答形成下一步。`],
-    session_depth: ["多数会话停在浅层问答", `最多的是“${definition.values[top.id]}”，占全部会话 ${formatShare(top.count, total)}；应重点看首问后是否进入比较、配置或执行。`],
-    gaps: ["追问高度集中在同一轮", `${formatShare(top.count, total)} 的相邻提问发生在 5 分钟内；超过 1 天再回来的是 ${number.format(rows.find((item) => item.id === "gte_1d")?.count || 0)} 次。`],
-    time_of_day: ["源系统时间高度集中，暂不作生活节奏推断", `复核后消息时间仍只落在 09:00—12:59，最多的是 ${definition.values[top.id]}、共 ${number.format(top.count)} 条；这更可能反映消息落库机制，不能直接解释为用户的自然活跃时段。`],
-  }[key];
-  $("#question-rhythm-insight").innerHTML = `<strong>${escapeHtml(insightCopy[0])}</strong><p>${escapeHtml(insightCopy[1])}</p>`;
+  const heavy = rows.find((item) => item.id === "10_plus");
+  $("#question-rhythm-insight").innerHTML = `<strong>追问用户贡献了绝大多数实质问题</strong><p>${number.format(journey.followup_users)} 位有追问用户共留下 ${number.format(journey.followup_user_substantive_questions)} 条实质问题，人均 ${journey.average_substantive_questions_per_followup_user.toFixed(1)} 条；其中累计问 10 次以上的 ${number.format(heavy.users)} 人贡献 ${number.format(heavy.questions)} 条。</p>`;
 }
 
 function renderQuestionPaths(research) {
@@ -1663,10 +1719,34 @@ function renderQuestionPaths(research) {
   $("#question-sequences").innerHTML = research.paths.sequences.map((item) => `<div class="sequence-row"><p>${item.path.map((id, index) => `${index ? "<i>→</i>" : ""}<span>${escapeHtml(questionLabel("direction", id))}</span>`).join("")}</p><strong>${number.format(item.users)} 人</strong></div>`).join("");
 }
 
-function renderQuestionEntities(research) {
-  const metric = viewState.entityMetric;
+function renderQuestionTime() {
+  const group = selectedQuestionGroup();
+  const grain = viewState.questionTimeGrain;
+  const metric = viewState.questionCrossMetric;
+  const rows = group[grain];
   const unit = metric === "questions" ? "条" : "人";
-  const denominator = metric === "questions" ? research.summary.substantive_questions : research.summary.substantive_users;
+  const max = Math.max(...rows.map((item) => item[metric]), 1);
+  const peak = [...rows].sort((a, b) => b[metric] - a[metric])[0];
+  const latest = rows.at(-1);
+  const periodLabel = (item) => grain === "daily" || item.start === item.end ? formatDay(item.start) : `${formatDay(item.start)}—${formatDay(item.end)}`;
+  $("#question-time-title").textContent = peak ? `${periodLabel(peak)}达到峰值：${number.format(peak[metric])} ${unit}` : "当前条件没有可展示的时间数据";
+  $("#question-time-insight").textContent = peak
+    ? `${QUESTION_SOURCE_LABELS[viewState.questionSource]} · ${QUESTION_ENGAGEMENT_LABELS[viewState.questionEngagement]}：峰值 ${periodLabel(peak)} ${number.format(peak[metric])} ${unit}；最近一期 ${periodLabel(latest)} ${number.format(latest[metric])} ${unit}。这里只呈现同期变化，不把时间共现解释为因果。`
+    : "可切换来源或追问状态查看时间变化。";
+  $("#question-time-chart").innerHTML = rows.length ? `<div class="time-series">${rows.map((item) => `<div class="time-column" title="${escapeHtml(periodLabel(item))} · ${number.format(item[metric])} ${unit}"><strong>${number.format(item[metric])}</strong><i style="height:${Math.max(2, item[metric] / max * 230)}px"></i><span>${escapeHtml(grain === "daily" ? item.start.slice(5).replace("-", "/") : item.start.slice(5).replace("-", "/"))}</span></div>`).join("")}</div>` : '<p class="audience-inline-empty">当前条件没有时间数据。</p>';
+  const visible = grain === "daily" ? rows.slice(-10) : rows;
+  $("#question-time-mix").innerHTML = visible.map((item) => {
+    const directions = [...item.directions].filter((entry) => entry.questions > 0 && entry.id !== "conversation_other")
+      .sort((a, b) => b[metric] - a[metric]).slice(0, 3);
+    return `<div class="time-mix-row"><span>${escapeHtml(periodLabel(item))} · ${number.format(item[metric])} ${unit}</span><p>${directions.map((entry) => `<small>${escapeHtml(QUESTION_DIRECTIONS[entry.id][0])} ${number.format(entry[metric])}</small>`).join("") || "<small>暂无明确方向</small>"}</p></div>`;
+  }).join("");
+}
+
+function renderQuestionEntities(research) {
+  const group = selectedQuestionGroup();
+  const metric = viewState.questionCrossMetric;
+  const unit = metric === "questions" ? "条" : "人";
+  const denominator = metric === "questions" ? group.questions : group.users;
   const renderRows = (items, container, limit) => {
     const rows = [...items].sort((a, b) => b[metric] - a[metric] || b.questions - a.questions).slice(0, limit);
     const max = Math.max(...rows.map((item) => item[metric]), 1);
@@ -1676,12 +1756,15 @@ function renderQuestionEntities(research) {
       <span class="preset-chart-value">${number.format(item[metric])} ${unit}<small>${formatShare(item[metric], denominator)}</small></span>
     </button>`).join("") : '<p class="audience-inline-empty">暂未发现至少 2 位用户共同提到的具体产品。</p>';
   };
-  renderRows(research.entities.keywords, "#question-keywords", 16);
-  renderRows(research.entities.products, "#question-products", 16);
-  const topKeywords = [...research.entities.keywords].sort((a, b) => b[metric] - a[metric]).slice(0, 3);
-  const topProduct = [...research.entities.products].sort((a, b) => b[metric] - a[metric])[0];
-  $("#question-entities-title").textContent = `${topKeywords.map((item) => item.label).join("、")}是最常出现的投资关键词`;
-  $("#question-entities-insight").textContent = `${topKeywords.map((item) => `${item.label} ${number.format(item[metric])} ${unit}`).join(" · ")}${topProduct ? `；具体产品中“${topProduct.label}”涉及 ${number.format(topProduct.users)} 位用户。` : "。"}`;
+  renderRows(group.entities.keywords, "#question-keywords", 16);
+  renderRows(group.entities.products, "#question-products", 16);
+  const topKeywords = [...group.entities.keywords].sort((a, b) => b[metric] - a[metric]).slice(0, 3);
+  const topProduct = [...group.entities.products].sort((a, b) => b[metric] - a[metric])[0];
+  $("#question-entities-title").textContent = topKeywords.length ? `${topKeywords.map((item) => item.label).join("、")}是当前条件下的高频关键词` : "当前交叉条件未识别到高频关键词";
+  $("#question-entities-stat").textContent = topKeywords[0] ? `${number.format(topKeywords[0].users)} 人提到“${topKeywords[0].label}”` : "当前条件暂无共同高频词";
+  $("#question-entities-insight").textContent = topKeywords.length
+    ? `${QUESTION_SOURCE_LABELS[viewState.questionSource]} · ${QUESTION_ENGAGEMENT_LABELS[viewState.questionEngagement]}：${topKeywords.map((item) => `${item.label} ${number.format(item[metric])} ${unit}`).join(" · ")}${topProduct ? `；具体产品中“${topProduct.label}”涉及 ${number.format(topProduct.users)} 位用户。` : "。"}`
+    : "可切换问题来源或追问状态查看其他人群。";
 }
 
 function renderQuestionTurns(research) {
@@ -1714,6 +1797,11 @@ function populateQuestionFilters() {
   }
   const next = $("#question-next-filter");
   if (next.options.length === 1) next.insertAdjacentHTML("beforeend", Object.entries(QUESTION_DIRECTIONS).map(([id, copy]) => `<option value="${escapeHtml(id)}">下一问：${escapeHtml(copy[0])}</option>`).join(""));
+  const date = $("#question-date-filter");
+  if (date.options.length === 1) {
+    const allGroup = currentData.question_insights.research.cross_analysis.groups.find((item) => item.id === "all:all");
+    date.insertAdjacentHTML("beforeend", allGroup.daily.map((item) => `<option value="${item.start}">${formatDay(item.start)} · ${number.format(item.questions)} 条</option>`).join(""));
+  }
 }
 
 function ensureQuestionOriginOption(value, label) {
@@ -1722,30 +1810,41 @@ function ensureQuestionOriginOption(value, label) {
   select.value = value;
 }
 
+function renderQuestionOverview(insight, research) {
+  const journey = research.journey;
+  $("#question-overview-note").textContent = `${formatShare(journey.self_authored_questions, journey.user_question_turns)} 由用户主动输入 · ${formatShare(journey.followup_users, journey.substantive_users)} 进入实质追问`;
+  $("#question-askers").textContent = number.format(journey.asking_users);
+  $("#question-ask-rate").textContent = `占 ${number.format(insight.summary.bound_users)} 名新用户的 ${formatShare(journey.asking_users, insight.summary.bound_users)}`;
+  $("#question-sessions").textContent = number.format(journey.conversation_sessions);
+  $("#question-session-rate").textContent = `平均每位提问用户 ${(journey.conversation_sessions / journey.asking_users).toFixed(1)} 个会话`;
+  $("#question-turns-total").textContent = number.format(journey.user_question_turns);
+  $("#question-turns-note").textContent = `平均每个会话 ${journey.average_turns_per_session.toFixed(1)} 个用户提问回合`;
+  $("#question-default-total").textContent = number.format(journey.preset_questions);
+  $("#question-default-rate").textContent = `占全部提问回合 ${formatShare(journey.preset_questions, journey.user_question_turns)}`;
+  $("#question-self-total").textContent = number.format(journey.self_authored_questions);
+  $("#question-self-rate").textContent = `${number.format(journey.self_authored_users)} 位用户自己输入`;
+  $("#question-substantive").textContent = number.format(journey.substantive_questions);
+  $("#question-substantive-users").textContent = `${number.format(journey.substantive_users)} 人 · 另有 ${number.format(journey.short_followups)} 条短承接`;
+  $("#question-source-flow").innerHTML = [
+    ["全部用户提问回合", journey.user_question_turns, `${number.format(journey.asking_users)} 人 · ${number.format(journey.conversation_sessions)} 个会话`],
+    ["默认 / 推荐问题", journey.preset_questions, `${number.format(research.summary.preset_users)} 人使用 · ${formatShare(journey.preset_questions, journey.user_question_turns)}`],
+    ["用户自己输入", journey.self_authored_questions, `${number.format(journey.substantive_questions)} 条实质问题 + ${number.format(journey.short_followups)} 条短承接`],
+  ].map(([label, value, note]) => `<article class="source-flow-card"><span>${label}</span><strong>${number.format(value)}</strong><p>${note}</p></article>`).join("");
+  $("#question-findings").innerHTML = [
+    { key: "SELF ASK", title: `${number.format(journey.self_authored_users)} 人主动提问，人均 ${journey.average_self_questions_per_self_user.toFixed(1)} 次`, copy: `剔除 ${number.format(journey.preset_questions)} 次默认题后，主动输入仍占全部提问 ${formatShare(journey.self_authored_questions, journey.user_question_turns)}。` },
+    { key: "FOLLOW-UP", title: `${number.format(journey.followup_users)} 人进入同会话实质追问`, copy: `追问率 ${formatShare(journey.followup_users, journey.substantive_users)}；有追问用户平均留下 ${journey.average_substantive_questions_per_followup_user.toFixed(1)} 条实质问题。` },
+    { key: "TIME WINDOW", title: `问题明细覆盖 ${formatDay(journey.observed_from)}—${formatDay(journey.observed_to)}`, copy: "时间趋势只反映已取得的问题明细窗口；末日为截止时点内的部分日，不做因果推断。" },
+  ].map((item) => `<article class="question-finding"><em>${item.key}</em><strong>${escapeHtml(item.title)}</strong><p>${escapeHtml(item.copy)}</p></article>`).join("");
+}
+
 function renderQuestionInsights() {
   const insight = currentData.question_insights;
   const research = insight.research;
   const summary = research.summary;
-  $("#question-askers").textContent = number.format(summary.asking_users);
-  $("#question-ask-rate").textContent = `占 ${number.format(insight.summary.bound_users)} 名新用户的 ${formatShare(summary.asking_users, insight.summary.bound_users)}`;
-  $("#question-self-total").textContent = number.format(summary.self_authored_questions);
-  $("#question-self-rate").textContent = `占全部提问 ${formatShare(summary.self_authored_questions, summary.questions)}`;
-  $("#question-substantive").textContent = number.format(summary.substantive_questions);
-  $("#question-substantive-users").textContent = `${number.format(summary.substantive_users)} 位用户留下实质问题`;
-  $("#question-default-total").textContent = number.format(summary.preset_questions);
-  $("#question-default-rate").textContent = `占全部提问 ${formatShare(summary.preset_questions, summary.questions)}`;
-  const directions = [...research.dimensions.direction].filter((item) => item.id !== "conversation_other").sort((a, b) => b.questions - a.questions);
-  const directionMap = Object.fromEntries(research.dimensions.direction.map((item) => [item.id, item]));
-  $("#question-headline-insight").textContent = `${number.format(summary.self_authored_users)} 位新用户留下 ${number.format(summary.self_authored_questions)} 条主动提问，占全部提问 ${formatShare(summary.self_authored_questions, summary.questions)}；产品研究与市场研判明显多于资产配置。`;
-  $("#question-headline-stat").textContent = `${formatShare(summary.self_authored_questions, summary.questions)} 来自主动输入`;
-  $("#question-headline-detail").textContent = `产品研究 ${number.format(directionMap.product_research.questions)} · 市场研判 ${number.format(directionMap.market_insight.questions)} · 资产配置 ${number.format(directionMap.asset_allocation.questions)}`;
-  const objects = Object.fromEntries(research.dimensions.object.map((item) => [item.id, item]));
-  $("#question-findings").innerHTML = [
-    { key: "REAL DEMAND", title: `剔除默认题后仍有 ${number.format(summary.self_authored_questions)} 条`, copy: `${number.format(summary.substantive_questions)} 条属于实质自发问题；默认问题并不是活跃的主体，但会严重污染“高频问法”。` },
-    { key: "WHAT THEY ASK", title: `${QUESTION_DIRECTIONS[directions[0].id][0]}是最大明确方向`, copy: `明确方向前三位为 ${directions.slice(0, 3).map((item) => `${QUESTION_DIRECTIONS[item.id][0]} ${formatShare(item.questions, summary.substantive_questions)}`).join("、")}。` },
-    { key: "OBJECT SPLIT", title: `具体产品 ${number.format(objects.specific_product.questions)} 条，基金类型 ${number.format(objects.fund_category.questions)} 条`, copy: `另有自己的账户 ${number.format(objects.own_account.questions)} 条、目标规划 ${number.format(objects.goal_plan.questions)} 条、市场环境 ${number.format(objects.market_environment.questions)} 条；对象未明确的表达必须结合上下文。` },
-    { key: "RETENTION", title: `${formatShare(insight.summary.one_day_users, summary.asking_users)} 只在一天里问过`, copy: `只有 ${number.format(insight.summary.multi_day_users)} 人跨日回来。入口已经让用户开口，真正短板是首轮回答后的持续使用。` },
-  ].map((item) => `<article class="question-finding"><em>${item.key}</em><strong>${escapeHtml(item.title)}</strong><p>${escapeHtml(item.copy)}</p></article>`).join("");
+  renderQuestionOverview(insight, research);
+  $("#question-headline-insight").textContent = `${number.format(research.journey.asking_users)} 位用户在 ${number.format(research.journey.conversation_sessions)} 个会话里留下 ${number.format(research.journey.user_question_turns)} 个提问回合；其中 ${formatShare(summary.self_authored_questions, summary.questions)} 是用户自己输入。`;
+  $("#question-headline-stat").textContent = `${number.format(research.journey.followup_users)} 人进入实质追问`;
+  $("#question-headline-detail").textContent = `主动提问人均 ${research.journey.average_self_questions_per_self_user.toFixed(1)} 次 · 有追问用户人均 ${research.journey.average_substantive_questions_per_followup_user.toFixed(1)} 次`;
   renderPresetResearch(research);
   renderQuestionDimension();
   renderQuestionEntities(research);
@@ -1753,6 +1852,7 @@ function renderQuestionInsights() {
   renderQuestionRhythm();
   renderQuestionTurns(research);
   renderQuestionPaths(research);
+  renderQuestionTime();
   const topTransition = research.paths.transitions[0];
   if (topTransition) {
     $("#question-path-title").textContent = `最常见需求迁移：${QUESTION_DIRECTIONS[topTransition.from][0]} → ${QUESTION_DIRECTIONS[topTransition.to][0]}`;
@@ -1792,7 +1892,7 @@ async function decryptQuestionCorpus(envelope, supplied) {
   corpus.rows.forEach((row, index) => {
     if (row.i !== index + 1 || !/^\d{4}-\d{2}-\d{2}$/.test(row.d) || !QUESTION_DIRECTIONS[row.t] || !QUESTION_OBJECTS[row.o]
         || !QUESTION_STYLES[row.f] || !QUESTION_COGNITION[row.c] || ![0, 1].includes(row.s) || typeof row.p !== "string" || typeof row.v !== "string"
-        || typeof row.r !== "string" || typeof row.w !== "string" || !Number.isInteger(row.u) || row.u < 0 || typeof row.n !== "string" || (row.n && !QUESTION_DIRECTIONS[row.n])
+        || typeof row.r !== "string" || typeof row.w !== "string" || !["no_followup", "followup"].includes(row.e) || !Number.isInteger(row.u) || row.u < 0 || typeof row.n !== "string" || (row.n && !QUESTION_DIRECTIONS[row.n])
         || typeof row.q !== "string" || !row.q) {
       throw new Error("原始提问库包含异常记录");
     }
@@ -1847,6 +1947,8 @@ function filteredQuestionRows() {
   if (!questionCorpus) return [];
   const query = $("#question-search").value.trim().toLocaleLowerCase("zh-CN");
   const scope = $("#question-scope-filter").value;
+  const engagement = $("#question-engagement-filter").value;
+  const date = $("#question-date-filter").value;
   const origin = $("#question-origin-filter").value;
   const turn = $("#question-turn-filter").value;
   const next = $("#question-next-filter").value;
@@ -1857,6 +1959,7 @@ function filteredQuestionRows() {
   const inTurn = (row) => turn === "all" || (turn === "1" && row.u === 1) || (turn === "2" && row.u === 2) || (turn === "3" && row.u === 3)
     || (turn === "4_5" && row.u >= 4 && row.u <= 5) || (turn === "6_plus" && row.u >= 6);
   return questionCorpus.rows.filter((row) => (scope === "all" || (scope === "self" && !row.p) || (scope === "substantive" && !row.p && !row.s) || (scope === "preset" && row.p))
+    && (engagement === "all" || row.e === engagement) && (date === "all" || row.d === date)
     && (origin === "all" || (origin === "after_preset" && row.r) || (origin.startsWith("version:") && row.w === origin.slice(8)) || (origin.startsWith("question:") && row.r === origin.slice(9)))
     && inTurn(row) && (next === "all" || row.n === next)
     && (direction === "all" || row.t === direction) && (object === "all" || row.o === object)
@@ -1872,7 +1975,7 @@ function renderQuestionTable() {
   const visible = questionRows.slice(start, start + QUESTION_PAGE_SIZE);
   const versionLabels = { launch_v1: "首发版默认", expanded_v2: "扩展版推荐", qieman_guided_v3: "且慢导览推荐", entry_examples: "入口示例题" };
   $("#question-table-body").innerHTML = visible.length ? visible.map((row) => `<tr>
-    <td>${number.format(row.i)}</td><td>${escapeHtml(row.d)}</td><td>${escapeHtml(row.p ? versionLabels[row.v] || "默认 / 推荐" : row.r ? `默认题后自发 · 第 ${row.u} 问` : row.u ? `用户自发 · 第 ${row.u} 问` : row.s ? "自发短承接" : "用户自发")}</td>
+    <td>${number.format(row.i)}</td><td>${escapeHtml(row.d)}</td><td>${escapeHtml(row.p ? versionLabels[row.v] || "默认 / 推荐" : row.r ? `默认题后自发 · 第 ${row.u} 问` : row.u ? `用户自发 · 第 ${row.u} 问` : row.s ? "自发短承接" : "用户自发")}<br /><small>${escapeHtml(QUESTION_ENGAGEMENT_LABELS[row.e])}</small></td>
     <td>${escapeHtml(QUESTION_DIRECTIONS[row.t][0])}</td><td>${escapeHtml(QUESTION_OBJECTS[row.o][0])}<br />${escapeHtml(QUESTION_STYLES[row.f][0])} · ${escapeHtml(QUESTION_COGNITION[row.c][0])}</td><td>${escapeHtml(row.q)}</td>
   </tr>`).join("") : '<tr><td colspan="6">没有符合当前筛选的提问。</td></tr>';
   $("#question-result-count").textContent = `找到 ${number.format(questionRows.length)} 条；本页 ${number.format(visible.length)} 条`;
@@ -1970,6 +2073,36 @@ function bindInteractions() {
     viewState.questionLens = input.value;
     renderQuestionDimension();
   }));
+  document.querySelectorAll('input[name="question-source"]').forEach((input) => input.addEventListener("change", () => {
+    if (!input.checked || !currentData) return;
+    viewState.questionSource = input.value;
+    $("#question-scope-filter").value = input.value;
+    renderQuestionDimension();
+    renderQuestionEntities(currentData.question_insights.research);
+    renderQuestionTime();
+    if (questionCorpus) { viewState.questionPage = 1; renderQuestionTable(); }
+  }));
+  document.querySelectorAll('input[name="question-engagement"]').forEach((input) => input.addEventListener("change", () => {
+    if (!input.checked || !currentData) return;
+    viewState.questionEngagement = input.value;
+    $("#question-engagement-filter").value = input.value;
+    renderQuestionDimension();
+    renderQuestionEntities(currentData.question_insights.research);
+    renderQuestionTime();
+    if (questionCorpus) { viewState.questionPage = 1; renderQuestionTable(); }
+  }));
+  document.querySelectorAll('input[name="question-cross-metric"]').forEach((input) => input.addEventListener("change", () => {
+    if (!input.checked || !currentData) return;
+    viewState.questionCrossMetric = input.value;
+    renderQuestionDimension();
+    renderQuestionEntities(currentData.question_insights.research);
+    renderQuestionTime();
+  }));
+  document.querySelectorAll('input[name="question-time-grain"]').forEach((input) => input.addEventListener("change", () => {
+    if (!input.checked || !currentData) return;
+    viewState.questionTimeGrain = input.value;
+    renderQuestionTime();
+  }));
   document.querySelectorAll('input[name="question-rhythm"]').forEach((input) => input.addEventListener("change", () => {
     if (!input.checked || !currentData) return;
     viewState.questionRhythm = input.value;
@@ -2000,6 +2133,8 @@ function bindInteractions() {
     if (!target) return;
     const [kind, value] = target.dataset.presetAction.split(":");
     $("#question-search").value = "";
+    $("#question-engagement-filter").value = "all";
+    $("#question-date-filter").value = "all";
     $("#question-turn-filter").value = "all";
     $("#question-next-filter").value = "all";
     for (const item of Object.values(QUESTION_DIMENSIONS)) $(`#${item.filter}`).value = "all";
@@ -2026,6 +2161,8 @@ function bindInteractions() {
     $("#question-scope-filter").value = "substantive";
     $("#question-origin-filter").value = "after_preset";
     $("#question-search").value = "";
+    $("#question-engagement-filter").value = "all";
+    $("#question-date-filter").value = "all";
     $("#question-turn-filter").value = "all";
     $("#question-next-filter").value = "all";
     for (const item of Object.values(QUESTION_DIMENSIONS)) $(`#${item.filter}`).value = "all";
@@ -2038,6 +2175,8 @@ function bindInteractions() {
     $("#question-scope-filter").value = "substantive";
     $("#question-origin-filter").value = "after_preset";
     $("#question-search").value = "";
+    $("#question-engagement-filter").value = "all";
+    $("#question-date-filter").value = "all";
     $("#question-turn-filter").value = "all";
     $("#question-next-filter").value = "all";
     for (const item of Object.values(QUESTION_DIMENSIONS)) $(`#${item.filter}`).value = "all";
@@ -2049,7 +2188,9 @@ function bindInteractions() {
     const target = event.target.closest("[data-entity-query]");
     if (!target) return;
     $("#question-search").value = target.dataset.entityQuery;
-    $("#question-scope-filter").value = "substantive";
+    $("#question-scope-filter").value = viewState.questionSource;
+    $("#question-engagement-filter").value = viewState.questionEngagement;
+    $("#question-date-filter").value = "all";
     $("#question-origin-filter").value = "all";
     $("#question-turn-filter").value = "all";
     $("#question-next-filter").value = "all";
@@ -2064,6 +2205,8 @@ function bindInteractions() {
     $("#question-scope-filter").value = "substantive";
     $("#question-origin-filter").value = "all";
     $("#question-search").value = "";
+    $("#question-engagement-filter").value = "all";
+    $("#question-date-filter").value = "all";
     $("#question-turn-filter").value = viewState.questionTurn;
     $("#question-next-filter").value = "all";
     for (const item of Object.values(QUESTION_DIMENSIONS)) $(`#${item.filter}`).value = "all";
@@ -2078,6 +2221,8 @@ function bindInteractions() {
     $("#question-scope-filter").value = "substantive";
     $("#question-origin-filter").value = "all";
     $("#question-search").value = "";
+    $("#question-engagement-filter").value = "all";
+    $("#question-date-filter").value = "all";
     $("#question-turn-filter").value = viewState.questionTurn;
     $("#question-next-filter").value = target.dataset.turnTo;
     for (const item of Object.values(QUESTION_DIMENSIONS)) $(`#${item.filter}`).value = "all";
@@ -2091,7 +2236,9 @@ function bindInteractions() {
     if (!target) return;
     const definition = QUESTION_DIMENSIONS[target.dataset.questionDimension];
     $("#question-search").value = "";
-    $("#question-scope-filter").value = "substantive";
+    $("#question-scope-filter").value = viewState.questionSource;
+    $("#question-engagement-filter").value = viewState.questionEngagement;
+    $("#question-date-filter").value = "all";
     $("#question-origin-filter").value = "all";
     $("#question-turn-filter").value = "all";
     $("#question-next-filter").value = "all";
@@ -2111,7 +2258,7 @@ function bindInteractions() {
     window.clearTimeout(questionSearchTimer);
     questionSearchTimer = window.setTimeout(() => { viewState.questionPage = 1; renderQuestionTable(); }, 160);
   });
-  ["question-scope-filter", "question-origin-filter", "question-turn-filter", "question-next-filter", "question-direction-filter", "question-object-filter", "question-style-filter", "question-cognition-filter"].forEach((id) => {
+  ["question-scope-filter", "question-engagement-filter", "question-date-filter", "question-origin-filter", "question-turn-filter", "question-next-filter", "question-direction-filter", "question-object-filter", "question-style-filter", "question-cognition-filter"].forEach((id) => {
     $(`#${id}`).addEventListener("change", () => {
       if (id === "question-origin-filter" && $("#question-origin-filter").value !== "all") $("#question-scope-filter").value = "substantive";
       viewState.questionPage = 1;
@@ -2121,6 +2268,8 @@ function bindInteractions() {
   $("#question-clear").addEventListener("click", () => {
     $("#question-search").value = "";
     $("#question-scope-filter").value = "self";
+    $("#question-engagement-filter").value = "all";
+    $("#question-date-filter").value = "all";
     $("#question-origin-filter").value = "all";
     $("#question-turn-filter").value = "all";
     $("#question-next-filter").value = "all";
