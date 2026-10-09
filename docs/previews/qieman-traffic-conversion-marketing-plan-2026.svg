@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">且慢流量转化营销方案</title>
+  <desc id="desc">大众做入口、富裕做经营，展示新客、AI小顾使用、开户和首次投资的转化链路。</desc>
+  <defs>
+    <radialGradient id="glow" cx="82%" cy="8%" r="72%"><stop stop-color="#83d9c5" stop-opacity=".30"/><stop offset="1" stop-color="#83d9c5" stop-opacity="0"/></radialGradient>
+    <filter id="shadow" x="-20%" y="-30%" width="150%" height="180%"><feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#061d1a" flood-opacity=".34"/></filter>
+  </defs>
+  <rect width="1200" height="675" fill="#103f38"/>
+  <rect width="1200" height="675" fill="url(#glow)"/>
+  <g opacity=".10" fill="none" stroke="#fff"><circle cx="1110" cy="50" r="210"/><circle cx="1110" cy="50" r="292"/><circle cx="1110" cy="50" r="374"/></g>
+  <g transform="translate(70 48)">
+    <rect width="204" height="34" rx="17" fill="#ddea9a"/>
+    <circle cx="18" cy="17" r="5" fill="#d46c55"/>
+    <text x="32" y="22" font-family="Arial, 'PingFang SC', sans-serif" font-size="12" font-weight="700" fill="#294033">GROWTH OPERATING PLAN</text>
+    <text x="1000" y="22" text-anchor="end" font-family="Arial, sans-serif" font-size="11" letter-spacing="1.4" fill="#b7d3cc">2026.10.09 · CLAIR’S STUDIO</text>
+  </g>
+  <g transform="translate(70 140)">
+    <text font-family="Georgia, 'Songti SC', serif" font-size="64" font-weight="700" letter-spacing="-2" fill="#fff">
+      <tspan x="0" y="0">大众做入口，</tspan>
+      <tspan x="0" y="76" fill="#ddea9a">富裕做经营。</tspan>
+    </text>
+    <text y="123" font-family="Arial, 'PingFang SC', sans-serif" font-size="17" fill="#c7ddd7">且慢流量转化营销方案 · 先修承接，再扩流量</text>
+  </g>
+  <g transform="translate(70 340)" filter="url(#shadow)">
+    <rect width="1060" height="190" rx="18" fill="#fffdf8"/>
+    <g transform="translate(26 25)" font-family="Arial, 'PingFang SC', sans-serif">
+      <text font-size="11" font-weight="700" letter-spacing="1.5" fill="#168878">CURRENT FUNNEL · NEW ACCOUNTS</text>
+      <g transform="translate(0 31)">
+        <rect width="216" height="104" rx="13" fill="#e7f1ed"/>
+        <text x="18" y="27" font-size="12" fill="#6c7c78">新客注册</text>
+        <text x="18" y="64" font-family="Georgia, serif" font-size="34" font-weight="700" fill="#17302d">15,172</text>
+        <text x="18" y="87" font-size="11" fill="#6c7c78">两渠道简单加总</text>
+      </g>
+      <text x="231" y="94" font-size="26" fill="#168878">→</text>
+      <g transform="translate(270 31)">
+        <rect width="216" height="104" rx="13" fill="#d7eee6"/>
+        <text x="18" y="27" font-size="12" fill="#55756e">使用 AI 小顾</text>
+        <text x="18" y="64" font-family="Georgia, serif" font-size="34" font-weight="700" fill="#17302d">92.35%</text>
+        <text x="18" y="87" font-size="11" fill="#6c7c78">14,011 人</text>
+      </g>
+      <text x="501" y="94" font-size="26" fill="#168878">→</text>
+      <g transform="translate(540 31)">
+        <rect width="216" height="104" rx="13" fill="#fbefd7"/>
+        <text x="18" y="27" font-size="12" fill="#8f6b2c">绑定后开户</text>
+        <text x="18" y="64" font-family="Georgia, serif" font-size="34" font-weight="700" fill="#17302d">0.277%</text>
+        <text x="18" y="87" font-size="11" font-weight="700" fill="#c27431">最大可见漏损 · 42 人</text>
+      </g>
+      <text x="771" y="94" font-size="26" fill="#168878">→</text>
+      <g transform="translate(810 31)">
+        <rect width="198" height="104" rx="13" fill="#f8e5df"/>
+        <text x="18" y="27" font-size="12" fill="#8a544b">绑定后首次投资</text>
+        <text x="18" y="64" font-family="Georgia, serif" font-size="34" font-weight="700" fill="#17302d">0.073%</text>
+        <text x="18" y="87" font-size="11" fill="#9b5143">11 人 · 小样本</text>
+      </g>
+    </g>
+  </g>
+  <text x="70" y="605" font-family="Arial, 'PingFang SC', sans-serif" font-size="14" font-weight="700" fill="#d7eee6">大众规模化触达 · 富裕深度经营 · 高端选择性承接</text>
+  <text x="70" y="632" font-family="Arial, sans-serif" font-size="10" letter-spacing="1.5" fill="#96bcb3">PUBLIC-SAFE AGGREGATE · OFFICIAL PLATFORM CONVERSION · 90-DAY PLAN</text>
+</svg>

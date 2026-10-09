@@ -56,7 +56,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 90;
+const DATA_VERSION = 92;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -209,6 +209,34 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "qieman-platform-organization-diagnosis-2026-10-09",
+      groupId: "growth-insights",
+      title: "且慢全盘现况与问题诊断｜从用户资产到组织操作系统",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-platform-organization-diagnosis-2026-10-09/",
+      preview: "qieman-platform-organization-diagnosis-2026-10-09.png",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-10-09T13:30:00+08:00",
+      source: "且慢多源生产与内部证据盘点：全量用户/ROOT资产截至2026-09-07，账户结构与经营研究截至2026-08，顾问工作台截至2026-09-16，AI/OAP/千问与产品交付截至2026-10-09｜覆盖3,795,728全量用户、291,097特殊在管口径、404.02亿ROOT资产；在管样本94.0%投顾资产占比≥50%，但历史目标账户覆盖23.2%、风险匹配24.0%，近两年营销来源仅27.5%可追；内部29个独立技能仅15可直接运行，顾问机会未接真实客户闭环｜核心判断：且慢不缺用户、产品或AI能力，缺统一账户经营对象、共同账本与端到端责任｜多源异步快照不拼成单一漏斗；观察性分组不作因果归因；建议目标不是历史成绩",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["且慢", "全盘诊断", "平台用户", "账户经营", "组织协作", "顾问服务", "AI小顾", "数据治理", "经营机制", "90天整改", "数据分析", "经营汇报", "HTML", "生产"],
+    },
+    {
+      id: "qieman-traffic-conversion-marketing-plan-2026",
+      groupId: "growth-insights",
+      title: "且慢流量转化营销方案｜大众入口、富裕经营与 90 天增长闭环",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-traffic-conversion-marketing-plan-2026/",
+      preview: "qieman-traffic-conversion-marketing-plan-2026.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-09T10:47:00+08:00",
+      source: "千问 × 豆包用户增长生产看板脱敏聚合快照（数据截至 2026-10-09 09:35:45 CST，资产截至 2026-10-08）×《金融产品网络营销管理办法》官方文本与答记者问｜千问新客 13,267、AI 小顾使用 12,201、绑定后开户 38、绑定后首次投资 10；豆包新客 1,905、AI 小顾使用 1,810、绑定后开户 4、绑定后首次投资 1｜明确两渠道未跨平台去重、绑定后行为不作渠道因果归因、聚合人数比不作用户级条件转化率｜提出大众入口、富裕经营、官方平台承接、三类流量产品、渠道优先级、六项实验、90 天路线、北极星指标、RACI、合规红线、D-001 至 D-012 数据索引与发布自检｜公开脱敏经营研究，不含用户标识、内部阈值、私募信息、开户链接、联系方式或个性化金融建议；挑战值为实验假设，不是预测或收益承诺",
+      access: "production",
+      workType: "product-planning",
+      tags: ["且慢", "流量增长", "转化漏斗", "富裕客群", "AI 小顾", "目标账户", "转介绍", "90 天计划", "金融营销合规", "数据分析", "HTML", "生产"],
+    },
     {
       id: "oap-success-retrospective-2026-10-09",
       groupId: "reporting",
@@ -3029,6 +3057,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "qieman-traffic-conversion-marketing-plan-2026": "product-planning",
   "oap-success-retrospective-2026-10-09": "data-analysis",
   "qieman-insurance-zone-compliance-brief-2026-10-09": "governance-review",
   "ifast-corporation-deep-dive-2026-09-28": "competitive-research",
@@ -3138,6 +3167,8 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "qieman-platform-organization-diagnosis-2026-10-09": "growth-insights",
+  "qieman-traffic-conversion-marketing-plan-2026": "growth-insights",
   "qieman-insurance-zone-compliance-brief-2026-10-09": "knowledge",
   "l3-product-operating-plan-2026-10-09": "product-planning",
   "ai-service-website-design-benchmark-2026-10-08": "ai-platform",
