@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">且慢保险专区合规整改</title>
+  <desc id="desc">结合 930 金融产品网络营销新规、互联网保险与适当性规则的会前决策材料。</desc>
+  <defs>
+    <radialGradient id="glow" cx="82%" cy="10%" r="74%"><stop stop-color="#7fd8c5" stop-opacity=".32"/><stop offset="1" stop-color="#7fd8c5" stop-opacity="0"/></radialGradient>
+    <filter id="shadow" x="-20%" y="-30%" width="150%" height="180%"><feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#061d1a" flood-opacity=".32"/></filter>
+  </defs>
+  <rect width="1200" height="675" fill="#123f39"/>
+  <rect width="1200" height="675" fill="url(#glow)"/>
+  <g opacity=".1" fill="none" stroke="#fff"><circle cx="1110" cy="62" r="210"/><circle cx="1110" cy="62" r="292"/><circle cx="1110" cy="62" r="374"/></g>
+  <g transform="translate(70 54)">
+    <rect width="174" height="34" rx="17" fill="#dceaa8"/>
+    <circle cx="18" cy="17" r="5" fill="#ba4d42"/>
+    <text x="32" y="22" font-family="Arial, 'PingFang SC', sans-serif" font-size="12" font-weight="700" fill="#243d31">9·30 新规已生效</text>
+    <text x="1000" y="22" text-anchor="end" font-family="Arial, sans-serif" font-size="11" letter-spacing="1.4" fill="#b7d3cc">MEETING BRIEF · 2026.10.09</text>
+  </g>
+  <g transform="translate(70 152)">
+    <text font-family="Georgia, 'Songti SC', serif" font-size="61" font-weight="700" letter-spacing="-2" fill="#fff">
+      <tspan x="0" y="0">且慢保险专区</tspan>
+      <tspan x="0" y="76">不是换皮，是</tspan><tspan fill="#dceaa8">重新划线</tspan>
+    </text>
+    <text y="127" font-family="Arial, 'PingFang SC', sans-serif" font-size="17" fill="#c6ddd7">17 项法规 · 14 个流程节点 · 4 个监管案例 · 24 小时止血 + 2 周重构</text>
+  </g>
+  <g transform="translate(70 372)" filter="url(#shadow)">
+    <rect width="1060" height="182" rx="8" fill="#fffdf8"/>
+    <g transform="translate(26 25)" font-family="Arial, 'PingFang SC', sans-serif">
+      <text font-size="11" font-weight="700" letter-spacing="1.5" fill="#177d70">TARGET OPERATING MODEL</text>
+      <g transform="translate(0 30)">
+        <rect width="282" height="90" rx="10" fill="#e4f1eb"/>
+        <text x="20" y="28" font-size="12" font-weight="700" fill="#23735e">且慢</text>
+        <text x="20" y="54" font-family="Georgia, 'Songti SC', serif" font-size="22" font-weight="700" fill="#142a30">信息展示 + 清晰转接</text>
+        <text x="20" y="75" font-size="11" fill="#6b7d80">主体标识 · 审定内容 · 最小数据</text>
+      </g>
+      <text x="318" y="90" font-size="30" fill="#177d70">→</text>
+      <g transform="translate(366 30)">
+        <rect width="306" height="90" rx="10" fill="#dceaa8"/>
+        <text x="20" y="28" font-size="12" font-weight="700" fill="#46572d">持牌保险机构</text>
+        <text x="20" y="54" font-family="Georgia, 'Songti SC', serif" font-size="22" font-weight="700" fill="#142a30">评估 + 咨询 + 投保</text>
+        <text x="20" y="75" font-size="11" fill="#596546">适当性 · 合同 · 支付 · 可回溯</text>
+      </g>
+      <g transform="translate(704 30)">
+        <rect width="304" height="90" rx="10" fill="#f8e5df"/>
+        <text x="20" y="28" font-size="12" font-weight="700" fill="#ba4d42">最高风险</text>
+        <text x="20" y="54" font-family="Georgia, 'Songti SC', serif" font-size="20" font-weight="700" fill="#142a30">且慢自行测评、匹配、咨询</text>
+        <text x="20" y="75" font-size="11" fill="#7a514d">免责声明不能修复越界行为</text>
+      </g>
+    </g>
+  </g>
+  <text x="70" y="625" font-family="Arial, sans-serif" font-size="11" letter-spacing="1.7" fill="#9fc2ba">CLAIR’S STUDIO · GOVERNANCE REVIEW</text>
+</svg>

@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "qieman-insurance-zone-compliance-brief-2026-10-09",
     "l3-product-operating-plan-2026-10-09",
     "ai-service-website-design-benchmark-2026-10-08",
     "ifast-corporation-deep-dive-2026-09-28",

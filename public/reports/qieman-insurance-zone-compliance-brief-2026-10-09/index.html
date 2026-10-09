@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />
+  <script data-clair-access-gate data-clair-access-scope="report" src="../../access-gate.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="且慢保险专区整改会前材料：结合 2026 年 9 月 30 日实施的金融产品网络营销新规、互联网保险与适当性规则，给出主体边界、页面方案、数据治理与实施清单。" />
+  <title>且慢保险专区整改｜会前决策材料</title>
+  <style>
+    :root{
+      --ink:#142a30;--ink-2:#274149;--muted:#6b7d80;--paper:#f3f0e8;--card:#fffdf8;
+      --forest:#123f39;--teal:#177d70;--mint:#cceadf;--lime:#dceaa8;--amber:#e9b65f;
+      --red:#ba4d42;--red-bg:#f8e5df;--orange:#c87c32;--orange-bg:#faecd8;--green:#23735e;
+      --line:#d9d7cf;--shadow:0 18px 48px rgba(24,53,56,.10);--radius:24px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:100px}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;line-height:1.65}
+    a{color:inherit}button{font:inherit}svg{display:block}.wrap{width:min(1180px,calc(100% - 36px));margin:0 auto}
+    .topbar{position:sticky;top:0;z-index:30;background:rgba(243,240,232,.94);backdrop-filter:blur(16px);border-bottom:1px solid rgba(20,42,48,.09)}
+    .topbar-inner{height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{display:flex;align-items:center;gap:12px;text-decoration:none;font-weight:800}.brand-mark{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:var(--forest);color:#fff;font-family:Georgia,serif}
+    .top-actions{display:flex;align-items:center;gap:10px}.chip,.action{border:1px solid var(--line);background:rgba(255,253,248,.78);border-radius:999px;padding:8px 13px;color:var(--ink-2);font-size:13px}
+    .action{cursor:pointer}.action:hover{border-color:var(--teal);color:var(--teal)}
+    .hero{position:relative;overflow:hidden;margin:28px auto 0;border-radius:34px;background:var(--forest);color:#fff;box-shadow:0 30px 80px rgba(18,63,57,.24)}
+    .hero:before{content:"";position:absolute;inset:-35% -15% auto 55%;height:620px;border-radius:50%;background:radial-gradient(circle,rgba(204,234,223,.28),rgba(204,234,223,0) 67%)}
+    .hero:after{content:"";position:absolute;width:430px;height:430px;border:1px solid rgba(255,255,255,.13);border-radius:50%;right:-180px;bottom:-260px;box-shadow:0 0 0 82px rgba(255,255,255,.035),0 0 0 164px rgba(255,255,255,.025)}
+    .hero-inner{position:relative;z-index:1;padding:72px 72px 52px}.eyebrow{display:inline-flex;align-items:center;gap:9px;padding:7px 12px;border-radius:999px;background:var(--lime);color:#243d31;font-size:13px;font-weight:850;letter-spacing:.04em}
+    .pulse{width:7px;height:7px;border-radius:50%;background:var(--red);box-shadow:0 0 0 5px rgba(186,77,66,.15)}
+    h1{max-width:900px;margin:24px 0 18px;font-family:Georgia,"Songti SC",serif;font-size:clamp(44px,7vw,76px);line-height:1.08;letter-spacing:-.045em}.hero-lead{max-width:820px;margin:0;color:#d9ebe6;font-size:20px}
+    .hero-verdict{display:grid;grid-template-columns:1.4fr .8fr .8fr;gap:1px;margin-top:42px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.14);border-radius:22px;overflow:hidden}.hero-stat{padding:22px 24px;background:rgba(7,37,32,.44)}.hero-stat small{display:block;color:#a9c9c0;font-size:12px;letter-spacing:.06em}.hero-stat strong{display:block;margin-top:6px;color:#fff;font-size:18px;line-height:1.4}.hero-stat.primary strong{font-size:22px;color:var(--lime)}
+    .layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:36px;padding:46px 0 80px}.side{position:sticky;top:100px;align-self:start}.side-title{margin-bottom:10px;color:var(--muted);font-size:12px;letter-spacing:.12em;font-weight:800}.side a{display:block;padding:8px 10px;border-radius:10px;text-decoration:none;color:var(--muted);font-size:14px}.side a:hover{background:rgba(255,255,255,.65);color:var(--forest)}.side .urgent{margin-top:20px;padding:15px;border-radius:16px;background:var(--red-bg);color:#71322d;font-size:13px}.side .urgent b{display:block;margin-bottom:4px;color:var(--red)}
+    main{min-width:0}.section{margin-bottom:62px}.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:22px}.kicker{color:var(--teal);font-weight:850;font-size:13px;letter-spacing:.1em}.section h2{margin:4px 0 0;font-family:Georgia,"Songti SC",serif;font-size:36px;line-height:1.22;letter-spacing:-.025em}.section-desc{max-width:620px;margin:7px 0 0;color:var(--muted)}
+    .callout{padding:26px 28px;border-radius:var(--radius);background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow)}.callout strong{color:var(--forest)}.callout.big{border-left:7px solid var(--red);font-size:18px}.callout.big b{display:block;margin-bottom:7px;color:var(--red);font-size:13px;letter-spacing:.08em}
+    .signal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}.signal{min-height:190px;padding:22px;border-radius:20px;background:var(--card);border:1px solid var(--line)}.signal .num{font-family:Georgia,serif;font-size:38px;color:var(--teal)}.signal h3{margin:8px 0 6px;font-size:18px}.signal p{margin:0;color:var(--muted);font-size:14px}.signal.risk .num{color:var(--red)}
+    .reg-timeline{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.reg{padding:22px;border-radius:20px;background:var(--card);border:1px solid var(--line)}.reg-date{font-size:12px;font-weight:850;color:var(--teal);letter-spacing:.05em}.reg h3{margin:10px 0 8px;font-size:17px}.reg p{margin:0;color:var(--muted);font-size:13px}.reg.current{background:var(--forest);color:#fff;border-color:var(--forest);transform:translateY(-6px);box-shadow:var(--shadow)}.reg.current .reg-date{color:var(--lime)}.reg.current p{color:#c9ddd8}
+    .article-map{margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:14px}.law-card{padding:23px;border-radius:20px;background:#e7efe9;border:1px solid #c5d8cf}.law-card h3{margin:0 0 9px;font-size:17px}.law-card p{margin:0;color:var(--ink-2);font-size:14px}.law-card .refs{margin-top:12px;color:var(--teal);font-size:12px;font-weight:800}
+    .scope-note{display:grid;grid-template-columns:130px 1fr;gap:16px;align-items:start;margin-bottom:16px;padding:18px 20px;border-radius:18px;background:var(--forest);color:#fff}.scope-note b{color:var(--lime);font-size:13px;letter-spacing:.06em}.scope-note span{color:#d6e7e2;font-size:13px}.law-library{display:grid;gap:10px}.law-detail{border:1px solid var(--line);border-radius:18px;background:var(--card);overflow:hidden}.law-detail summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:14px;align-items:center;padding:18px 20px}.law-detail summary::-webkit-details-marker{display:none}.law-no{width:34px;height:34px;display:grid;place-items:center;border-radius:50%;background:#e4efe9;color:var(--teal);font-weight:900}.law-title strong{display:block;font-size:15px}.law-title small{display:block;margin-top:3px;color:var(--muted);font-size:11px}.law-status{padding:5px 9px;border-radius:999px;background:#e4f1eb;color:var(--green);font-size:11px;font-weight:850;white-space:nowrap}.law-detail[open]{box-shadow:var(--shadow)}.law-detail[open] summary{border-bottom:1px solid var(--line)}.law-body{padding:20px}.law-body-grid{display:grid;grid-template-columns:1.35fr .9fr;gap:18px}.clause-list{display:grid;gap:8px}.clause{display:grid;grid-template-columns:82px 1fr;gap:10px;padding:10px 12px;border-radius:12px;background:#edf2ed;font-size:13px}.clause b{color:var(--teal)}.law-action{padding:16px;border-radius:14px;background:var(--red-bg);font-size:13px}.law-action b{display:block;margin-bottom:6px;color:var(--red)}.law-link{display:inline-block;margin-top:12px;color:var(--teal);font-size:12px;font-weight:850;text-underline-offset:4px}
+    .process-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:20px;background:var(--card)}.process-table{width:100%;min-width:980px;border-collapse:collapse;font-size:12px}.process-table th,.process-table td{padding:13px 12px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);text-align:left;vertical-align:top}.process-table th:last-child,.process-table td:last-child{border-right:0}.process-table tr:last-child td{border-bottom:0}.process-table th{position:sticky;top:0;background:var(--forest);color:#fff;font-size:11px;letter-spacing:.04em}.process-table td:first-child{font-weight:850;color:var(--forest)}.process-table td:nth-child(2){font-weight:750}.level{display:inline-block;padding:4px 7px;border-radius:7px;font-weight:900;white-space:nowrap}.level.stop{background:var(--red-bg);color:var(--red)}.level.control{background:var(--orange-bg);color:var(--orange)}.level.keep{background:#e4f1eb;color:var(--green)}.process-table .articles{color:var(--teal);font-weight:750}.process-table .evi{color:var(--muted)}
+    .case-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.case-card{padding:23px;border-radius:20px;background:var(--card);border:1px solid var(--line)}.case-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.case-card h3{margin:0;font-size:17px}.case-amount{flex:0 0 auto;color:var(--red);font-size:13px;font-weight:900}.case-card p{margin:10px 0 0;color:var(--muted);font-size:13px}.case-card .lesson{margin-top:13px;padding:12px 14px;border-radius:12px;background:#edf2ed;color:var(--ink-2)}.case-card a{display:inline-block;margin-top:11px;color:var(--teal);font-size:12px;font-weight:850;text-underline-offset:4px}.case-boundary{margin-top:14px;padding:16px 18px;border-radius:16px;background:var(--orange-bg);color:#764a1d;font-size:13px}
+    .evidence{display:grid;grid-template-columns:1fr 1fr;gap:16px}.quote-card{position:relative;padding:26px;border-radius:22px;background:var(--card);border:1px solid var(--line);overflow:hidden}.quote-card:before{content:"“";position:absolute;right:15px;top:-20px;color:rgba(23,125,112,.10);font:130px Georgia,serif}.quote-card .source-label{position:relative;color:var(--teal);font-size:12px;font-weight:850;letter-spacing:.05em}.quote-card blockquote{position:relative;margin:14px 0 12px;font-family:Georgia,"Songti SC",serif;font-size:19px;line-height:1.65}.quote-card p{position:relative;margin:0;color:var(--muted);font-size:13px}.quote-card.alert{background:var(--red-bg);border-color:#e6b7ae}.quote-card.alert .source-label{color:var(--red)}
+    .risk-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.filter{cursor:pointer;padding:8px 13px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--muted);font-size:13px}.filter.active{background:var(--forest);color:#fff;border-color:var(--forest)}
+    .risk-list{display:grid;gap:10px}.risk-row{display:grid;grid-template-columns:92px 1.15fr 1fr 1.15fr;gap:0;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--card)}.risk-row>div{padding:18px;border-right:1px solid var(--line);font-size:14px}.risk-row>div:last-child{border-right:0}.risk-level{display:flex;align-items:center;justify-content:center;font-weight:900}.risk-row.high .risk-level{background:var(--red-bg);color:var(--red)}.risk-row.medium .risk-level{background:var(--orange-bg);color:var(--orange)}.risk-row.low .risk-level{background:#e4f1eb;color:var(--green)}.risk-row strong{display:block;margin-bottom:4px}.risk-row span{color:var(--muted)}.risk-row.hidden{display:none}
+    .boundary{display:grid;grid-template-columns:1fr 84px 1fr;gap:12px;align-items:stretch}.lane{padding:26px;border-radius:24px;background:var(--card);border:1px solid var(--line)}.lane h3{margin:0 0 18px;font-size:22px}.lane.safe{border-top:6px solid var(--green)}.lane.owner{border-top:6px solid var(--teal)}.lane ul{list-style:none;margin:0;padding:0}.lane li{display:flex;gap:10px;padding:11px 0;border-bottom:1px dashed var(--line);font-size:14px}.lane li:last-child{border:0}.dot{flex:0 0 22px;height:22px;border-radius:50%;display:grid;place-items:center;background:#e3f0e9;color:var(--green);font-size:12px;font-weight:900}.owner .dot{background:#dbece8;color:var(--teal)}.arrow{display:grid;place-items:center;color:var(--teal);font-size:36px;font-weight:200}.boundary-note{grid-column:1/-1;padding:17px 20px;border-radius:16px;background:#e7efe9;color:var(--ink-2);font-size:14px;text-align:center}
+    .phone-stage{display:grid;grid-template-columns:330px minmax(0,1fr);gap:28px;align-items:center}.phone{margin:auto;width:305px;padding:11px;border-radius:42px;background:#183b3a;box-shadow:0 26px 60px rgba(20,42,48,.24)}.screen{min-height:584px;padding:25px 16px 18px;border-radius:33px;background:#f8f5ed;overflow:hidden}.notch{width:84px;height:22px;margin:-18px auto 20px;border-radius:0 0 13px 13px;background:#183b3a}.screen-top{font-size:12px;color:var(--muted)}.screen h3{margin:4px 0 3px;font-family:Georgia,"Songti SC",serif;font-size:27px}.screen .disclose{margin:12px 0;padding:10px;border-radius:12px;background:#e1eee7;color:#345c52;font-size:10px}.product-card{margin-top:12px;padding:13px;border-radius:16px;background:#fff;border:1px solid #ddd9cf}.provider{font-size:10px;color:var(--teal);font-weight:850}.product-card h4{margin:6px 0 2px}.product-card p{margin:0;color:var(--muted);font-size:10px}.product-card button{width:100%;margin-top:10px;border:0;border-radius:10px;background:var(--forest);color:#fff;padding:9px;font-size:10px}.micro{display:flex;justify-content:space-between;margin-top:8px;color:var(--muted);font-size:9px}.annotation{display:grid;gap:12px}.annotation-card{display:grid;grid-template-columns:42px 1fr;gap:12px;padding:16px;border-radius:17px;background:var(--card);border:1px solid var(--line)}.annotation-card b{width:34px;height:34px;display:grid;place-items:center;border-radius:50%;background:var(--lime);color:var(--forest)}.annotation-card h4{margin:0 0 3px}.annotation-card p{margin:0;color:var(--muted);font-size:13px}
+    .copy-stack{display:grid;gap:14px}.copy{padding:22px;border-radius:20px;background:var(--card);border:1px solid var(--line)}.copy-label{display:flex;align-items:center;justify-content:space-between;gap:16px;color:var(--teal);font-size:12px;font-weight:850}.copy-text{margin-top:12px;padding:16px 18px;border-radius:14px;background:#edf2ed;font-size:15px}.avoid{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.avoid span{padding:6px 9px;border-radius:8px;background:var(--red-bg);color:var(--red);font-size:12px;text-decoration:line-through}
+    .plan-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.plan-card{padding:26px;border-radius:24px;background:var(--card);border:1px solid var(--line)}.plan-card h3{display:flex;align-items:center;justify-content:space-between;margin:0 0 15px}.badge{padding:5px 9px;border-radius:999px;background:#e5eee9;color:var(--teal);font-size:11px}.plan-card.emergency{border-top:6px solid var(--red)}.plan-card.target{border-top:6px solid var(--teal)}.plan-card ol{margin:0;padding-left:20px}.plan-card li{padding:6px 0;color:var(--ink-2);font-size:14px}.full{grid-column:1/-1}.license-path{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:12px;align-items:center;margin-top:16px}.license-path div{padding:17px;border-radius:16px;background:#edf2ed;text-align:center;font-size:13px}.license-path span{color:var(--teal);font-size:24px}
+    .decisions{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;counter-reset:decision}.decision{counter-increment:decision;position:relative;padding:23px 22px 22px 68px;border-radius:20px;background:var(--card);border:1px solid var(--line)}.decision:before{content:counter(decision);position:absolute;left:20px;top:22px;width:34px;height:34px;display:grid;place-items:center;border-radius:50%;background:var(--forest);color:#fff;font-weight:850}.decision h3{margin:0 0 6px;font-size:17px}.decision p{margin:0;color:var(--muted);font-size:13px}.decision strong{color:var(--red)}
+    .raci{width:100%;border-collapse:separate;border-spacing:0;background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;font-size:13px}.raci th,.raci td{padding:14px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);text-align:left;vertical-align:top}.raci th:last-child,.raci td:last-child{border-right:0}.raci tr:last-child td{border-bottom:0}.raci th{background:#e7efe9;color:var(--forest)}.raci b{color:var(--teal)}
+    .checklist{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.check{padding:18px;border-radius:18px;background:var(--card);border:1px solid var(--line)}.check b{display:block;color:var(--teal);font-size:13px}.check span{display:block;margin-top:6px;color:var(--ink-2);font-size:14px}
+    .sources{display:grid;gap:10px}.source{padding:16px 18px;border-radius:16px;background:rgba(255,253,248,.75);border:1px solid var(--line)}.source a{font-weight:800;text-decoration-color:var(--mint);text-underline-offset:4px}.source p{margin:5px 0 0;color:var(--muted);font-size:12px}.method{margin-top:18px;padding:18px;border-radius:16px;background:#e7efe9;color:var(--ink-2);font-size:13px}
+    footer{padding:30px 0 48px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}.footer-row{display:flex;justify-content:space-between;gap:20px}.no-print{}
+    @media(max-width:980px){.layout{grid-template-columns:1fr}.side{display:none}.hero-verdict{grid-template-columns:1fr}.signal-grid,.reg-timeline,.checklist{grid-template-columns:1fr 1fr}.risk-row{grid-template-columns:82px 1fr 1fr}.risk-row>div:nth-child(4){grid-column:2/-1;border-top:1px solid var(--line)}.phone-stage{grid-template-columns:1fr}.phone{width:290px}.article-map,.evidence,.case-grid{grid-template-columns:1fr}.law-body-grid{grid-template-columns:1fr}}
+    @media(max-width:680px){.wrap{width:calc(100% - 22px)}.topbar-inner{height:62px}.brand span:last-child{display:none}.top-actions .chip{display:none}.hero{margin-top:14px;border-radius:24px}.hero-inner{padding:42px 24px 30px}h1{font-size:42px}.hero-lead{font-size:17px}.hero-verdict{margin-top:28px}.layout{padding-top:34px}.section{margin-bottom:48px}.section h2{font-size:30px}.section-head{display:block}.signal-grid,.reg-timeline,.evidence,.article-map,.plan-grid,.decisions,.checklist{grid-template-columns:1fr}.scope-note{grid-template-columns:1fr;gap:4px}.law-detail summary{grid-template-columns:38px minmax(0,1fr)}.law-status{grid-column:2}.clause{grid-template-columns:1fr;gap:2px}.risk-row{grid-template-columns:1fr}.risk-row>div{border-right:0;border-bottom:1px solid var(--line)}.risk-row>div:last-child{border-bottom:0}.risk-row>div:nth-child(4){grid-column:auto}.boundary{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}.full{grid-column:auto}.license-path{grid-template-columns:1fr}.license-path span{transform:rotate(90deg);text-align:center}.phone-stage{gap:20px}.raci{font-size:11px;display:block;overflow-x:auto;white-space:nowrap}.footer-row{display:block}.footer-row span{display:block;margin-top:6px}}
+    @media print{body{background:#fff}.topbar,.side,.no-print{display:none!important}.hero{box-shadow:none;margin-top:0}.layout{display:block;padding-top:30px}.section{break-inside:avoid;page-break-inside:avoid}.callout,.signal,.reg,.law-card,.quote-card,.plan-card,.decision,.check{box-shadow:none}.wrap{width:100%}a{text-decoration:none}.hero-inner{padding:40px}.hero h1{font-size:48px}}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="../../"><span class="brand-mark">C</span><span>Clair’s Studio</span></a>
+      <div class="top-actions"><span class="chip">2026-10-09 · 11:30 会前版</span><button class="action no-print" onclick="window.print()">打印 / 导出 PDF</button></div>
+    </div>
+  </header>
+
+  <section class="wrap hero">
+    <div class="hero-inner">
+      <span class="eyebrow"><span class="pulse"></span> 9·30 新规已生效 · 立即整改</span>
+      <h1>且慢保险专区<br />不是“换皮”，是重新划线</h1>
+      <p class="hero-lead">结合《金融产品网络营销管理办法》、互联网保险、销售行为与适当性规则，给出能在会上直接拍板的主体边界、页面方案、数据治理和上线清单。</p>
+      <div class="hero-verdict">
+        <div class="hero-stat primary"><small>核心判断</small><strong>且慢应退回“清晰标明主体的展示与转接层”</strong></div>
+        <div class="hero-stat"><small>最高风险</small><strong>且慢自行测评、匹配、咨询</strong></div>
+        <div class="hero-stat"><small>整改节奏</small><strong>24 小时止血 + 2 周重构</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap layout">
+    <aside class="side" aria-label="目录">
+      <div class="side-title">MEETING BRIEF</div>
+      <a href="#verdict">01｜先看结论</a><a href="#rules">02｜规则叠加</a><a href="#lawbook">03｜法规逐条库</a><a href="#evidence">04｜且慢现状证据</a><a href="#process">05｜流程合规矩阵</a><a href="#risk">06｜风险热力图</a><a href="#cases">07｜监管处罚案例</a><a href="#boundary">08｜目标业务边界</a><a href="#ui">09｜页面怎么改</a><a href="#plan">10｜整改计划</a><a href="#decision">11｜会上拍板</a><a href="#sources">12｜原文与边界</a>
+      <div class="urgent"><b>会前最重要动作</b>先确认且慢有没有保险中介牌照、实际交易链路和合作协议版本；三者决定整改是“平台引流”还是“持牌经营”。</div>
+    </aside>
+
+    <main>
+      <section class="section" id="verdict">
+        <div class="section-head"><div><div class="kicker">01 / EXECUTIVE VERDICT</div><h2>先看结论：刘炜哥的担心成立</h2></div></div>
+        <div class="callout big"><b>不是视觉误解，而是实质行为可能支持这种误解</b>如果且慢自己的页面完成保险风险测评、根据答案匹配产品、承接咨询、引导投保并展示保单，用户把它理解为“且慢在直接做保险”并不意外。新规看的是谁在做测评、推荐、咨询和销售，不是页脚写了谁负责。</div>
+        <div class="signal-grid">
+          <article class="signal risk"><div class="num">01</div><h3>“加免责声明”不够</h3><p>主体标识要清晰醒目，但标识无法挽救越界的业务动作。页面和后端数据流必须一致。</p></article>
+          <article class="signal"><div class="num">02</div><h3>“保险专区”可以保留</h3><p>9·30 新规反而要求不同类别金融产品分专区。问题不是专区二字，而是专区里谁在提供什么。</p></article>
+          <article class="signal"><div class="num">03</div><h3>必须做两层切割</h3><p>品牌上切清且慢与保险机构；流程上把适当性、咨询、投保、支付、售后移回持牌机构。</p></article>
+        </div>
+      </section>
+
+      <section class="section" id="rules">
+        <div class="section-head"><div><div class="kicker">02 / REGULATORY STACK</div><h2>不是一条新规，是四层规则叠加</h2><p class="section-desc">9·30 新规补上了跨金融品类、第三方平台和算法营销的统一边界；保险领域原有规则仍然同时适用。</p></div></div>
+        <div class="reg-timeline">
+          <article class="reg"><div class="reg-date">2021-02-01 施行</div><h3>互联网保险业务监管办法</h3><p>非保险机构不得咨询、比价、设计方案、代办投保或代收保费；投保页面须属于保险机构自营平台。</p></article>
+          <article class="reg"><div class="reg-date">2024-03-01 施行</div><h3>保险销售行为管理办法</h3><p>限定销售主体，明确需求了解、主体提示、关键信息说明、意愿确认与全过程可回溯。</p></article>
+          <article class="reg"><div class="reg-date">2026-02-01 施行</div><h3>金融机构产品适当性管理办法</h3><p>保险机构需做需求分析和财务支付水平评估，提出明确匹配意见并承担主体责任。</p></article>
+          <article class="reg current"><div class="reg-date">2026-09-30 已施行</div><h3>金融产品网络营销管理办法</h3><p>第三方不得介入销售或互动咨询；必须保障品牌独立、直跳自营平台并在购买前显著提醒。</p></article>
+        </div>
+        <div class="article-map">
+          <article class="law-card"><h3>专区不是免责区</h3><p>第 11 条要求多类别金融产品分别设立宣传展示专区；第 24 条又要求金融产品品牌独立、醒目展示提供者。专区有必要，但不能用且慢品牌吞掉产品方品牌。</p><div class="refs">9·30 新规：第 11、24 条</div></article>
+          <article class="law-card"><h3>持牌金融机构之间合作，也要遵守平台边界</h3><p>且慢由基金销售机构运营，不意味着可以替保险机构做保险适当性或销售。新规明确，金融机构与其他金融机构合作网络营销，同样遵守第四章合作规范。</p><div class="refs">9·30 新规：第 20、24、37 条</div></article>
+          <article class="law-card"><h3>跳转必须“只到自营平台”</h3><p>引流购买只能进入保险公司或保险中介机构的自营平台，不能再套一层第三方；即将进入购买环节时需显著提醒并设置强制阅读时间。</p><div class="refs">9·30 新规：第 5 条</div></article>
+          <article class="law-card"><h3>算法推荐增加用户控制权</h3><p>若依据资产、偏好、浏览轨迹等推荐保险内容，需要提供非个性化选项或便捷关闭，并不得设计诱导过度消费的模型。</p><div class="refs">9·30 新规：第 13 条</div></article>
+        </div>
+      </section>
+
+      <section class="section" id="lawbook">
+        <div class="section-head"><div><div class="kicker">03 / ARTICLE-BY-ARTICLE RULEBOOK</div><h2>法规逐条库：原文、解释、动作放在一起</h2><p class="section-desc">以下覆盖目前可识别业务链路所需的全国性主要有效规则。点击展开；“条文要点”是压缩转述，正式判断以链接原文为准。</p></div></div>
+        <div class="scope-note"><b>完整性边界</b><span>清单截至 2026-10-09，覆盖信息展示、营销、推荐、预约、数据共享、适当性、投保、保单与售后。地方监管口径、具体险种特别规则、合作机构牌照批复和双方协议需在项目尽调中另行叠加。</span></div>
+        <div class="law-library">
+          <details class="law-detail" open>
+            <summary><span class="law-no">01</span><span class="law-title"><strong>《金融产品网络营销管理办法》</strong><small>八部门公告〔2026〕第 9 号｜2026-09-30 施行</small></span><span class="law-status">主干规则</span></summary>
+            <div class="law-body"><div class="law-body-grid"><div class="clause-list">
+              <div class="clause"><b>第2—3条</b><span>把保险等金融产品、信息展示和转接均纳入网络营销；第三方平台属于被规范对象。</span></div>
+              <div class="clause"><b>第5条</b><span>第三方须受托且不得转委托；购买只能跳转到金融机构自营平台；进入购买环节前显著提醒并设置强制阅读时间。</span></div>
+              <div class="clause"><b>第7—10条</b><span>金融机构承担营销主体责任并统一审核留档；页面须醒目披露产品提供者、销售者、费用和风险，不得虚假误导、夸大保险责任或收益。</span></div>
+              <div class="clause"><b>第11、13—15条</b><span>不同金融产品分专区；个性化推荐可关闭或提供非个性化选项；弹窗一键关闭；禁止默认勾选和捆绑销售。</span></div>
+              <div class="clause"><b>第20—24条</b><span>第三方不得介入合同、资金、适当性和互动咨询；合作前评估、签书面协议、持续监测，并保证品牌独立和提供者标识醒目。</span></div>
+              <div class="clause"><b>第27、32—37条</b><span>客户信息处理须有合法授权和安全措施；违法可触发监管措施与处罚；金融机构之间合作也适用第四章。</span></div>
+            </div><div class="law-action"><b>对且慢的直接动作</b>将“测评—匹配—咨询—投保”从且慢侧拆走；建立合作方尽调、书面协议、内容定稿、跳转白名单、月度巡检和退出机制。<br/><a class="law-link" href="https://www.cac.gov.cn/2026-04/24/c_1778769008779432.htm" target="_blank" rel="noopener">官方原文 ↗</a>　<a class="law-link" href="https://www.cac.gov.cn/2026-04/24/c_1778769009037708.htm" target="_blank" rel="noopener">官方答记者问 ↗</a></div></div></div>
+          </details>
+          <details class="law-detail" open>
+            <summary><span class="law-no">02</span><span class="law-title"><strong>《互联网保险业务监管办法》</strong><small>银保监会令 2020 年第 13 号｜2021-02-01 施行</small></span><span class="law-status">保险底线</span></summary>
+            <div class="law-body"><div class="law-body-grid"><div class="clause-list">
+              <div class="clause"><b>第3条</b><span>仅依法设立的保险机构可以开展互联网保险业务。</span></div>
+              <div class="clause"><b>第13—16条</b><span>自营平台和产品页面须按规定披露；保险销售及投保页面必须设置在保险机构自营网络平台。</span></div>
+              <div class="clause"><b>第17条</b><span>保险机构应识别需求、风险承受能力和缴费能力，提供适合的保险产品。</span></div>
+              <div class="clause"><b>第23条</b><span>非保险机构不得提供保险咨询、产品比较或试算报价，不得设计投保方案、代办投保或代收保费。</span></div>
+              <div class="clause"><b>第35条</b><span>互联网营销宣传和咨询须由保险机构从业人员开展并符合登记管理要求。</span></div>
+            </div><div class="law-action"><b>对且慢的直接动作</b>且慢页面不得完成具体保险选择；任何投保页、试算页、适当性页都要核验为保险机构自营域名/应用，并由保险机构人员承接咨询。<br/><a class="law-link" href="https://www.nfra.gov.cn/cn/view/pages/ItemDetail.html?docId=949137" target="_blank" rel="noopener">官方原文 ↗</a>　<a class="law-link" href="https://www.iachina.cn/art/2020/12/14/art_1724_104838.html" target="_blank" rel="noopener">官方问答转载 ↗</a></div></div></div>
+          </details>
+          <details class="law-detail">
+            <summary><span class="law-no">03</span><span class="law-title"><strong>《保险销售行为管理办法》</strong><small>金融监管总局令 2023 年第 2 号｜2024-03-01 施行</small></span><span class="law-status">销售全程</span></summary>
+            <div class="law-body"><div class="law-body-grid"><div class="clause-list">
+              <div class="clause"><b>第3、5条</b><span>销售主体限于保险公司、保险中介机构及其登记销售人员；规则覆盖售前、售中和售后。</span></div>
+              <div class="clause"><b>第8—9条</b><span>机构对销售活动承担管理责任，合作关系和身份不得虚假或混同。</span></div>
+              <div class="clause"><b>第18、20条</b><span>销售宣传内容应事前审核，销售渠道必须合规。</span></div>
+              <div class="clause"><b>第21—25条</b><span>了解需求、风险和支付能力；禁止强制或默认搭售；互联网销售清楚表明机构身份并披露合同重要内容。</span></div>
+              <div class="clause"><b>第28—31条</b><span>不匹配、支付能力不足或保障重复时应提示终止；确认投保意愿并做好销售过程可回溯。</span></div>
+              <div class="clause"><b>第34—36条</b><span>保单交付、回访与售后服务应由责任机构完成。</span></div>
+            </div><div class="law-action"><b>对且慢的直接动作</b>把营销审核、需求评估、销售人员身份、意愿确认和回溯记录全部落到持牌机构；且慢只保留经审核的展示副本与转接日志。<br/><a class="law-link" href="https://www.nfra.gov.cn/cn/view/pages/rulesDetail.html?docId=1129945" target="_blank" rel="noopener">官方原文 ↗</a></div></div></div>
+          </details>
+          <details class="law-detail">
+            <summary><span class="law-no">04</span><span class="law-title"><strong>《金融机构产品适当性管理办法》</strong><small>金融监管总局令 2025 年第 7 号｜2026-02-01 施行</small></span><span class="law-status">适当性</span></summary>
+            <div class="law-body"><div class="law-body-grid"><div class="clause-list">
+              <div class="clause"><b>第2—4条</b><span>明确“了解产品、了解客户、适当销售”以及金融机构主体责任。</span></div>
+              <div class="clause"><b>第10—14条</b><span>收集必要客户信息、进行匹配，不得主动推介或销售明显不适合的产品；线上流程也须嵌入适当性要求。</span></div>
+              <div class="clause"><b>第34—35条</b><span>保险销售应评估保险需求和财务支付水平，并形成明确匹配意见。</span></div>
+              <div class="clause"><b>第37—40条</b><span>履行产品信息披露；不适合时停止；不确定利益型长期人身险适用更严格规则，部分短期险存在特定豁免。</span></div>
+              <div class="clause"><b>第47条</b><span>保险代理、经纪等销售渠道纳入适用范围。</span></div>
+            </div><div class="law-action"><b>对且慢的直接动作</b>“保险测评”“保障缺口”“产品匹配”不是普通交互组件；应在合作方自营平台完成，由其输出匹配意见并留痕。<br/><a class="law-link" href="https://www.nfra.gov.cn/cn/view/pages/rulesDetail.html?docId=1217183" target="_blank" rel="noopener">官方原文 ↗</a>　<a class="law-link" href="https://app.www.gov.cn/govdata/gov/202507/11/532629/article.html" target="_blank" rel="noopener">官方问答 ↗</a></div></div></div>
+          </details>
+          <details class="law-detail">
+            <summary><span class="law-no">05</span><span class="law-title"><strong>《关于规范互联网保险销售行为可回溯管理的通知》</strong><small>银保监发〔2020〕26 号｜2020-10-01 施行</small></span><span class="law-status">留痕</span></summary>
+            <div class="law-body"><div class="law-body-grid"><div class="clause-list">
+              <div class="clause"><b>第1—6条</b><span>销售页面只能设置在保险机构自营平台；页面版本、入口和销售过程需可识别、可还原。</span></div>
+              <div class="clause"><b>第15—20条</b><span>记录页面操作、说明与确认过程并按期限保存，能够恢复当时页面、文字、图片、音视频和操作轨迹。</span></div>
+              <div class="clause"><b>第17、21条</b><span>记录遵循必要原则并落实数据安全。</span></div>
+            </div><div class="law-action"><b>对且慢的直接动作</b>不能只留点击埋点；需让合作方保存完整销售证据，且慢保存转接前主体提示、目标域名、内容版本和授权记录，两侧可用统一流水号对账。<br/><a class="law-link" href="https://jrj.sh.gov.cn/YWTBZCCX166/20200701/c7bc0e8d64ab4405ac5b9236a953f9ac.html" target="_blank" rel="noopener">监管原文转载 ↗</a></div></div></div>
+          </details>
+          <details class="law-detail">
+            <summary><span class="law-no">06</span><span class="law-title"><strong>《银行保险机构消费者权益保护管理办法》</strong><small>银保监会令 2022 年第 9 号｜2023-03-01 施行</small></span><span class="law-status">消保</span></summary>
+            <div class="law-body"><div class="law-body-grid"><div class="clause-list">
+              <div class="clause"><b>第9—13条</b><span>产品设计、定价、合同、营销等环节开展消保审查；落实信息披露、适当销售、销售可回溯与隐私保护。</span></div>
+              <div class="clause"><b>第42—48条</b><span>个人信息处理须合法、正当、必要，不得默认同意；委托或合作处理要签协议并监督；平台共享须有授权和最小权限。</span></div>
+            </div><div class="law-action"><b>对且慢的直接动作</b>将保险专区纳入消保审查和投诉归因；上线前必须经过主体、文案、交互、数据、售后五项会签。<br/><a class="law-link" href="https://www.nfra.gov.cn/cn/view/pages/rulesDetail.html?docId=1087524" target="_blank" rel="noopener">官方原文 ↗</a></div></div></div>
+          </details>
+          <details class="law-detail">
+            <summary><span class="law-no">07</span><span class="law-title"><strong>《人身保险产品信息披露管理办法》</strong><small>银保监会令 2022 年第 8 号｜2023-06-30 施行</small></span><span class="law-status">按险种适用</span></summary>
+            <div class="law-body"><div class="law-body-grid"><div class="clause-list">
+              <div class="clause"><b>第3—4条</b><span>披露应真实、准确、完整、及时，不得有虚假记载、误导性陈述或重大遗漏。</span></div>
+              <div class="clause"><b>第11—13条</b><span>披露产品目录、条款、费率、现金价值等；一年期以上人身险需提供产品说明书。</span></div>
+              <div class="clause"><b>第19条</b><span>通过官方网站等渠道持续披露规定信息。</span></div>
+            </div><div class="law-action"><b>对且慢的直接动作</b>若展示寿险、年金、健康险，不得用平台自制摘要替代条款、说明书和关键利益演示；卡片必须直达完整披露。<br/><a class="law-link" href="https://policy.mofcom.gov.cn/claw/clawContent.shtml?id=96387" target="_blank" rel="noopener">政府政策库原文 ↗</a></div></div></div>
+          </details>
+          <details class="law-detail">
+            <summary><span class="law-no">08</span><span class="law-title"><strong>《关于进一步规范金融营销宣传行为的通知》</strong><small>银发〔2019〕316 号｜2020-01-25 施行</small></span><span class="law-status">营销基线</span></summary>
+            <div class="law-body"><div class="law-body-grid"><div class="clause-list">
+              <div class="clause"><b>第二—三部分</b><span>未取得相应资质不得开展金融营销；可依法委托信息技术服务方，但金融机构承担责任并应审查、监测合作方。</span></div>
+              <div class="clause"><b>第四部分</b><span>不得虚假、欺诈、隐瞒限制条件、进行无法验证的比较或利用政府/监管名义背书；电子营销应标识发送者并提供退订。</span></div>
+            </div><div class="law-action"><b>对且慢的直接动作</b>推送、短信、站内信和活动页统一进素材台账；禁用“严选、最适合、独家、收益型”等无证据或易误导表达。<br/><a class="law-link" href="https://www.safe.gov.cn/safe/2020/0103/22018.html" target="_blank" rel="noopener">官方原文 ↗</a></div></div></div>
+          </details>
+          <details class="law-detail">
+            <summary><span class="law-no">09</span><span class="law-title"><strong>《中华人民共和国广告法》</strong><small>现行公开文本｜金融广告通用约束</small></span><span class="law-status">广告</span></summary>
+            <div class="law-body"><div class="law-body-grid"><div class="clause-list">
+              <div class="clause"><b>第3—4条</b><span>广告应真实合法，不得含虚假或误导内容。</span></div>
+              <div class="clause"><b>第8条</b><span>对服务提供者、内容、条件等表示应准确、清楚、明白。</span></div>
+              <div class="clause"><b>第25、28条</b><span>有投资回报预期的商品或服务广告须合理提示风险，不得保证收益；虚构或误导构成虚假广告。</span></div>
+              <div class="clause"><b>第58条</b><span>对特定违法广告设定罚款、停止发布等责任。</span></div>
+            </div><div class="law-action"><b>对且慢的直接动作</b>保险兼具保障与金融属性；所有卖点必须能被条款、费率或审定素材证明，风险提示不能被按钮、动画或利益数字弱化。<br/><a class="law-link" href="https://www.samr.gov.cn/zw/zfxxgk/fdzdgknr/fgs/art/2023/art_5474cf75173c45d6a0379730fb4e8d97.html" target="_blank" rel="noopener">官方原文 ↗</a></div></div></div>
+          </details>
+          <details class="law-detail">
+            <summary><span class="law-no">10</span><span class="law-title"><strong>《互联网广告管理办法》</strong><small>市场监管总局令第 72 号｜2023-05-01 施行</small></span><span class="law-status">广告交互</span></summary>
+            <div class="law-body"><div class="law-body-grid"><div class="clause-list">
+              <div class="clause"><b>第9条</b><span>可识别为广告；以知识、体验分享等形式推销并附购买方式的，应显著标明“广告”。</span></div>
+              <div class="clause"><b>第10条</b><span>弹出广告须显著标明关闭标志并确保一键关闭。</span></div>
+              <div class="clause"><b>第15—17条</b><span>使用算法推荐发布广告应有相应记录；平台核验、记录经营者身份并依法处置违法广告。</span></div>
+            </div><div class="law-action"><b>对且慢的直接动作</b>投教和营销分层；带产品入口的知识内容显著标“广告”；记录推荐逻辑、素材版本、投放对象和关闭/退订能力。<br/><a class="law-link" href="https://www.samr.gov.cn/zw/zfxxgk/fdzdgknr/fgs/art/2023/art_d93a579afd45413e8576e4623fab348f.html" target="_blank" rel="noopener">官方原文 ↗</a></div></div></div>
+          </details>
+          <details class="law-detail">
+            <summary><span class="law-no">11</span><span class="law-title"><strong>《中华人民共和国个人信息保护法》</strong><small>2021-11-01 施行</small></span><span class="law-status">数据底线</span></summary>
+            <div class="law-body"><div class="law-body-grid"><div class="clause-list">
+              <div class="clause"><b>第6、13条</b><span>处理须有合法基础并限于最小范围。</span></div>
+              <div class="clause"><b>第23条</b><span>向其他处理者提供信息，要告知接收方、目的、方式和种类并取得单独同意。</span></div>
+              <div class="clause"><b>第24条</b><span>自动化决策应透明、公平；个性化营销须提供非个性化选项或便捷拒绝。</span></div>
+              <div class="clause"><b>第28—30条</b><span>金融账户、医疗健康等敏感个人信息须有特定目的、充分必要性和单独同意。</span></div>
+              <div class="clause"><b>第55条</b><span>处理敏感信息、自动化决策或向他方提供信息前，应开展个人信息保护影响评估。</span></div>
+            </div><div class="law-action"><b>对且慢的直接动作</b>预约和开户授权拆开；逐字段列明接收方与目的；不得用一揽子隐私政策替代单独同意；完成 PIPIA 并验证撤回/删除。<br/><a class="law-link" href="https://www.miit.gov.cn/zwgk/zcwj/flfg/art/2022/art_04a0f1fb5df244e39688fd5372623a8d.html" target="_blank" rel="noopener">官方原文 ↗</a></div></div></div>
+          </details>
+          <details class="law-detail">
+            <summary><span class="law-no">12</span><span class="law-title"><strong>《网络数据安全管理条例》</strong><small>国务院令第 790 号｜2025-01-01 施行</small></span><span class="law-status">数据治理</span></summary>
+            <div class="law-body"><div class="law-body-grid"><div class="clause-list">
+              <div class="clause"><b>第12条</b><span>委托、共同处理或向他方提供个人信息和重要数据，应以合同明确目的、方式、范围和安全义务，并监督接收方。</span></div>
+              <div class="clause"><b>第27条</b><span>网络数据处理者应定期开展合规审计。</span></div>
+            </div><div class="law-action"><b>对且慢的直接动作</b>把接口字段、合作方、数据角色、保留期限、删除责任写入协议附件；每次字段变更都触发再评估。<br/><a class="law-link" href="https://app.www.gov.cn/govdata/gov/202409/30/520076/article.html" target="_blank" rel="noopener">官方原文 ↗</a></div></div></div>
+          </details>
+          <details class="law-detail">
+            <summary><span class="law-no">13</span><span class="law-title"><strong>《个人信息保护合规审计管理办法》</strong><small>网信办令第 18 号｜2025-05-01 施行</small></span><span class="law-status">审计</span></summary>
+            <div class="law-body"><div class="law-body-grid"><div class="clause-list">
+              <div class="clause"><b>第4—5条</b><span>个人信息处理者应定期开展合规审计；处理超过一千万人个人信息的，至少每两年一次。</span></div>
+              <div class="clause"><b>附件指引</b><span>审查处理基础、告知同意、敏感信息、自动化决策、委托共享、安全和权利响应等关键活动。</span></div>
+            </div><div class="law-action"><b>对且慢的直接动作</b>保险专区单列为高风险审计主题：抽样核验授权、接口、算法标签、合作方删除、客服话术和投诉闭环。<br/><a class="law-link" href="https://www.cac.gov.cn/2025-02/14/c_1741233507681519.htm" target="_blank" rel="noopener">官方原文 ↗</a></div></div></div>
+          </details>
+          <details class="law-detail">
+            <summary><span class="law-no">14</span><span class="law-title"><strong>《互联网信息服务算法推荐管理规定》</strong><small>四部门令第 9 号｜2022-03-01 施行</small></span><span class="law-status">算法</span></summary>
+            <div class="law-body"><div class="law-body-grid"><div class="clause-list">
+              <div class="clause"><b>第7—8条</b><span>建立算法治理、审核、评估和安全管理制度，不得利用算法诱导过度消费。</span></div>
+              <div class="clause"><b>第16—17条</b><span>显著告知算法推荐服务；提供不针对个人特征的选项或便捷关闭，并允许用户管理标签。</span></div>
+            </div><div class="law-action"><b>对且慢的直接动作</b>首页/列表若按资产、家庭、浏览轨迹排序，必须可切换“非个性化”，并保存推荐理由、标签来源和模型变更审批。<br/><a class="law-link" href="https://www.cac.gov.cn/2022-01/04/c_1642894606364259.htm" target="_blank" rel="noopener">官方原文 ↗</a></div></div></div>
+          </details>
+          <details class="law-detail">
+            <summary><span class="law-no">15</span><span class="law-title"><strong>《消费者权益保护法实施条例》</strong><small>国务院令第 778 号｜2024-07-01 施行</small></span><span class="law-status">用户权益</span></summary>
+            <div class="law-body"><div class="law-body-grid"><div class="clause-list">
+              <div class="clause"><b>第10—12条</b><span>价格、自动续费等重大事项需显著提示；不得强制购买或搭售；营销承诺对经营者具有约束力。</span></div>
+              <div class="clause"><b>个人信息条款</b><span>经营者收集、使用个人信息应遵守必要性和安全要求。</span></div>
+            </div><div class="law-action"><b>对且慢的直接动作</b>保费、续期、等待期、免责、犹豫期和退出成本不得藏在二级页；勾选项全部改为主动选择。<br/><a class="law-link" href="https://www.samr.gov.cn/zw/zfxxgk/fdzdgknr/bgt/art/2024/art_0aea188276a44f0baf940ab95ee00e0a.html" target="_blank" rel="noopener">官方原文 ↗</a></div></div></div>
+          </details>
+          <details class="law-detail">
+            <summary><span class="law-no">16</span><span class="law-title"><strong>《中华人民共和国保险法》</strong><small>保险经营与销售上位法</small></span><span class="law-status">上位法</span></summary>
+            <div class="law-body"><div class="law-body-grid"><div class="clause-list">
+              <div class="clause"><b>第116条</b><span>保险公司及工作人员不得欺骗、隐瞒重要情况、给予合同外利益或利用行政权力排除竞争等。</span></div>
+              <div class="clause"><b>第161、171条</b><span>对违法行为规定机构处罚及直接负责人员责任。</span></div>
+            </div><div class="law-action"><b>对且慢的直接动作</b>所有利益表达须回到合同与审定材料；合作协议要明确错误素材、越权咨询和投诉损失的责任与追偿。<br/><a class="law-link" href="https://www.nfra.gov.cn/cn/view/pages/ItemDetail.html?docId=879931&amp;itemId=4248" target="_blank" rel="noopener">官方原文 ↗</a></div></div></div>
+          </details>
+          <details class="law-detail">
+            <summary><span class="law-no">17</span><span class="law-title"><strong>《国家金融监督管理总局关于加强和改进互联网财产保险业务监管有关事项的通知》</strong><small>2024-08-09 发布｜如专区销售互联网财险、短期健康险/意外险时叠加</small></span><span class="law-status">条件适用</span></summary>
+            <div class="law-body"><div class="law-body-grid"><div class="clause-list">
+              <div class="clause"><b>适用判断</b><span>需按具体产品归类、经营区域、机构资质和线上服务能力判断，不宜只按页面名称判断。</span></div>
+              <div class="clause"><b>核心要求</b><span>线上承保、保全、理赔、投诉等全流程服务能力，界面清晰，业务和服务记录可追溯。</span></div>
+            </div><div class="law-action"><b>对且慢的直接动作</b>上线前拉出 SKU 清单逐款判断特别规则，不得用“一套通用专区”覆盖所有险种。<br/><a class="law-link" href="https://www.nfra.gov.cn/cn/view/pages/rulesDetail.html?docId=1173683" target="_blank" rel="noopener">官方原文 ↗</a></div></div></div>
+          </details>
+        </div>
+      </section>
+
+      <section class="section" id="evidence">
+        <div class="section-head"><div><div class="kicker">04 / PUBLIC EVIDENCE</div><h2>公开材料已经暴露出“且慢做在前面”的观感</h2><p class="section-desc">以下是公开可检索材料的文本证据；未登录 App 的当前全链路仍需现场逐页核验。</p></div></div>
+        <div class="evidence">
+          <article class="quote-card alert"><div class="source-label">且慢平台隐私政策 · 公开 PDF</div><blockquote>在 APP 中使用保险功能时，为匹配合适产品，由用户进行相应风险测评，系统再展示对应保险产品。</blockquote><p>这是最需要立即核验的表述：它让且慢看上去正在承担保险需求评估和产品匹配。</p></article>
+          <article class="quote-card"><div class="source-label">且慢第三方信息共享清单</div><blockquote>向广东盈信保险经纪共享身份、职业、风险测评类型和且慢账号标识，用于提升投保效率并开通投保账户。</blockquote><p>数据转交可以有合规路径，但需要单独同意、目的最小化、主体透明，以及测评究竟由谁完成的清晰归属。</p></article>
+          <article class="quote-card"><div class="source-label">且慢平台隐私政策 · 保险功能</div><blockquote>用户可通过且慢预约合作保险机构的保险顾问，定制保障方案、了解和配置相关保险产品。</blockquote><p>预约入口本身不必然越界；若页面、客服或 AI 先回答具体产品问题，就可能落入“互动咨询”禁止区。</p></article>
+          <article class="quote-card"><div class="source-label">且慢个人信息收集清单</div><blockquote>保险功能会回传并展示保单、缴费、投保人、被保险人、受益人、保额和保障责任等信息。</blockquote><p>“我的保单”可定位为经授权的信息管理工具，但理赔、退保、续期与合同解释入口应明确回到保险机构。</p></article>
+        </div>
+        <div class="method">证据边界：公开 PDF 页面注明的生效日期为 2023-02-21，而搜索可见的第三方共享清单与信息收集清单更晚。版本差异本身就是整改项——应拉齐 App 当前页面、线上政策、合作方清单、接口字段与协议附件，不能仅修改一个前台页面。</div>
+      </section>
+
+      <section class="section" id="process">
+        <div class="section-head"><div><div class="kicker">05 / PROCESS × RULE × EVIDENCE</div><h2>逐流程整改矩阵：每一步都要能验收</h2><p class="section-desc">会上按这张表分工。没有“证据”列里的材料，不算完成整改。</p></div></div>
+        <div class="process-scroll"><table class="process-table">
+          <thead><tr><th>业务节点</th><th>且慢定位</th><th>风险级别</th><th>直接条款</th><th>可执行控制</th><th>验收证据</th></tr></thead>
+          <tbody>
+            <tr><td>1. 专区入口/首页</td><td>信息展示与转接平台</td><td><span class="level control">强控制</span></td><td class="articles">930 第9、11、24条；销售办法第24条</td><td>首屏常驻且慢角色、销售服务方全称、承保公司、官网/客服；基金与保险分区，禁止“小字免责”。</td><td class="evi">全量页面截图；4 种机型可见性测试；主体字段配置表</td></tr>
+            <tr><td>2. 投教/保障知识</td><td>可保留中立内容</td><td><span class="level keep">可保留</span></td><td class="articles">930 第21条；互联网广告第9条</td><td>投教与营销物理分层；带产品入口或购买方式时显著标“广告”；不得以测评/课程包装具体产品推荐。</td><td class="evi">内容分类规则；广告标识截图；审核单与版本号</td></tr>
+            <tr><td>3. 产品列表/卡片</td><td>展示合作方定稿</td><td><span class="level control">强控制</span></td><td class="articles">930 第7—10、24条；广告法第3、4、8、25条</td><td>每卡显示销售服务方、承保公司、产品全称、费用与风险入口；删“且慢严选、最佳、最适合、独家推荐”。</td><td class="evi">字段字典；合作方书面审定稿；发布哈希/版本记录</td></tr>
+            <tr><td>4. 排序/标签/个性化</td><td>中性分类优先</td><td><span class="level control">强控制</span></td><td class="articles">930 第13条；个保法第24、55条；算法规定第7、8、16、17条</td><td>默认按保障类别等中性维度；提供非个性化选项和一键关闭；记录标签来源、排序因子与变更审批。</td><td class="evi">算法清单；PIPIA；关闭测试；推荐理由与模型审批记录</td></tr>
+            <tr><td>5. 保险测评/保障缺口</td><td>且慢侧不输出结论</td><td><span class="level stop">暂停/迁移</span></td><td class="articles">930 第20条；互联网保险第17、23条；适当性第34、35条</td><td>立即暂停且慢侧“测完给产品”；迁至保险机构自营平台，由其评估需求和支付能力、输出匹配意见并留痕。</td><td class="evi">开关记录；迁移后域名；评估表归属；合作方回溯样本</td></tr>
+            <tr><td>6. 预约保险顾问</td><td>只提供预约转接</td><td><span class="level control">强控制</span></td><td class="articles">930 第9、20、22、27条；个保法第23、28—30、55条</td><td>按钮写持牌机构全称；预约前单独同意并列明字段/目的/接收方；不默认勾选，可撤回。</td><td class="evi">同意文案与时间戳；接口字段白名单；撤回/删除测试</td></tr>
+            <tr><td>7. 客服/AI 具体问答</td><td>只答入口和主体</td><td><span class="level stop">禁止介入</span></td><td class="articles">930 第20条；互联网保险第23、35条</td><td>且慢客服/AI 不比较条款、报价或建议买哪款；识别到具体保险咨询即转持牌登记人员，并明确机构身份。</td><td class="evi">意图库与拦截规则；转人工记录；抽测录屏；人员登记核验</td></tr>
+            <tr><td>8. 离站/购买前跳转</td><td>明确转接，不造“站内投保”感</td><td><span class="level stop">硬门槛</span></td><td class="articles">930 第5条；互联网保险第16、23条</td><td>仅跳保险机构自营平台；显示目标机构、目标域名、责任边界和强制阅读；按钮写“前往 XX 了解/投保”。</td><td class="evi">域名白名单；离站页录屏；倒计时日志；异常跳转报警</td></tr>
+            <tr><td>9. 适当性/产品说明</td><td>不在且慢完成</td><td><span class="level stop">持牌方完成</span></td><td class="articles">适当性第10—14、34—40条；销售办法第21、25、28条</td><td>合作方完成客户了解、匹配与不适合拦截；不同险种适用差异由合作方法务确认；完整说明重要合同内容。</td><td class="evi">适当性策略；不匹配阻断样本；险种规则表；说明记录</td></tr>
+            <tr><td>10. 投保/签约/支付</td><td>不得承接</td><td><span class="level stop">绝对隔离</span></td><td class="articles">930 第20条；互联网保险第16、23条；销售办法第29—31条</td><td>账号、投保单、签名、意愿确认、付款均在保险机构自营平台；且慢不得接触保费或代办投保。</td><td class="evi">端到端录屏；支付商户号/收款方核验；合同主体；回溯流水</td></tr>
+            <tr><td>11. 保单回传/我的保单</td><td>经授权展示最小摘要</td><td><span class="level control">强控制</span></td><td class="articles">个保法第6、23、28—30条；网数条例第12条；消保第42—48条</td><td>仅回传用户服务所必需字段；受益人、健康、证件等默认不展示；理赔/退保/变更按钮回到责任机构。</td><td class="evi">字段级必要性说明；单独同意；脱敏展示测试；删除联动记录</td></tr>
+            <tr><td>12. 续期/理赔/退保/投诉</td><td>导航，不承诺处理结果</td><td><span class="level control">强控制</span></td><td class="articles">销售办法第34—36条；消保第9—13条</td><td>页面明确服务责任方、热线和时限；且慢客服只做工单路由，禁止解释条款或承诺理赔。</td><td class="evi">服务目录；工单路由；SLA；月度投诉归因与超时复盘</td></tr>
+            <tr><td>13. Push/短信/站内信</td><td>发布经审定素材</td><td><span class="level control">强控制</span></td><td class="articles">930 第7、10、13—16条；银发〔2019〕316号；互联网广告第9、10、15条</td><td>发送者可识别、可退订；禁止夸大、诱导和无法验证的比较；官方账号、发布人员、素材版本全留痕。</td><td class="evi">发送样本；退订测试；审定稿；账号/人员台账；投放日志</td></tr>
+            <tr><td>14. 合作治理/持续监测</td><td>平台承担合作管理义务</td><td><span class="level control">持续控制</span></td><td class="articles">930 第21—24、32—37条；网数条例第12、27条；个保审计第4—5条</td><td>准入尽调、书面协议、内容授权、月度抽检、季度数据核验、事件通报和可执行退出；不能把责任一句话推给合作方。</td><td class="evi">尽调包；协议附件；巡检报告；整改闭环；退出演练</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section class="section" id="risk">
+        <div class="section-head"><div><div class="kicker">06 / RISK HEATMAP</div><h2>风险不在一个页面，而在六个连续动作</h2></div></div>
+        <div class="risk-toolbar no-print"><button class="filter active" data-filter="all">全部</button><button class="filter" data-filter="high">只看高风险</button><button class="filter" data-filter="medium">只看中风险</button><button class="filter" data-filter="low">只看可保留</button></div>
+        <div class="risk-list">
+          <article class="risk-row high" data-risk="high"><div class="risk-level">高风险</div><div><strong>且慢完成保险测评与匹配</strong><span>问家庭收支、债务、社保后输出对应产品</span></div><div><strong>可能越过展示边界</strong><span>接近适当性和方案设计</span></div><div><strong>整改</strong><span>暂停且慢侧结果输出；迁至保险机构自营平台并由其留痕。</span></div></article>
+          <article class="risk-row high" data-risk="high"><div class="risk-level">高风险</div><div><strong>且慢客服 / AI 回答具体保险问题</strong><span>比较条款、保费或建议买哪款</span></div><div><strong>互动咨询被明确禁止</strong><span>免责声明不能修复行为</span></div><div><strong>整改</strong><span>且慢只回答入口与主体问题；产品咨询直达持牌顾问。</span></div></article>
+          <article class="risk-row high" data-risk="high"><div class="risk-level">高风险</div><div><strong>购买按钮仍像且慢交易</strong><span>无离站提示、无阅读时间、目标非自营平台</span></div><div><strong>销售介入与品牌混同</strong><span>购买责任主体不清</span></div><div><strong>整改</strong><span>改成“前往 XX 了解 / 投保”，增加强提示页并校验跳转域名。</span></div></article>
+          <article class="risk-row medium" data-risk="medium"><div class="risk-level">中风险</div><div><strong>跨机构产品排序、标签和推荐</strong><span>“优选”“更适合你”等平台背书</span></div><div><strong>形成比较与误导风险</strong><span>平台算法像在选品</span></div><div><strong>整改</strong><span>按保障类别中性陈列；排序逻辑由合作方审定并可解释。</span></div></article>
+          <article class="risk-row medium" data-risk="medium"><div class="risk-level">中风险</div><div><strong>预约顾问与数据传递</strong><span>入口和同意文本未充分展示机构全称、目的和字段</span></div><div><strong>主体、授权和个人信息风险</strong><span>容易被理解为且慢顾问</span></div><div><strong>整改</strong><span>按钮写合作机构全称；单独同意；不默认勾选；保留撤回入口。</span></div></article>
+          <article class="risk-row medium" data-risk="medium"><div class="risk-level">中风险</div><div><strong>保单回传与服务入口</strong><span>且慢展示全量保单信息并承接后续服务</span></div><div><strong>敏感信息与售后边界</strong><span>用户不知谁负责</span></div><div><strong>整改</strong><span>最小字段展示；理赔、退保、续期、投诉均跳保险机构。</span></div></article>
+          <article class="risk-row low" data-risk="low"><div class="risk-level">可保留</div><div><strong>中立的保障知识与分类导航</strong><span>不形成个人产品结论，不绑定成交</span></div><div><strong>教育与导航价值</strong><span>前提是与营销清楚分隔</span></div><div><strong>做法</strong><span>独立内容审核；不以课程或测评包装营销，不在内容内暗示选择。</span></div></article>
+        </div>
+      </section>
+
+      <section class="section" id="cases">
+        <div class="section-head"><div><div class="kicker">07 / ENFORCEMENT CASES</div><h2>监管已经怎么罚：平台页面不是责任隔离墙</h2><p class="section-desc">930 新规施行仅 9 天，暂未检索到以该办法作出的公开处罚；以下采用最接近当前链路的互联网保险既有处罚，避免把“无案例”误读成“无风险”。</p></div></div>
+        <div class="case-grid">
+          <article class="case-card"><div class="case-top"><h3>众安在线：第三方平台销售页面文案不实</h3><span class="case-amount">机构 30 万 + 个人 20 万</span></div><p>鄂银保监罚决字〔2023〕19号认定第三方平台保险销售页面宣传与事实不符；保险公司被罚 30 万元，两名相关责任人各罚 10 万元。监管证据包括页面截图、条款费率、审批和人员笔录。</p><div class="lesson"><b>对且慢的启示：</b>“内容在合作平台上”不能切断保险机构与页面负责人责任；页面每次改字、换图、改排序都应重新审定并留版本。</div><a href="https://www.nfra.gov.cn/cn/view/pages/ItemDetail.html?docId=1105758&amp;itemId=4114" target="_blank" rel="noopener">查看处罚原文 ↗</a></article>
+          <article class="case-card"><div class="case-top"><h3>海南海汽：违规开展互联网保险并披露不足</h3><span class="case-amount">没收+罚款 62,592 元</span></div><p>琼金罚决字〔2024〕110号认定机构违规开展互联网保险业务且未按规定披露；机构受到警告、没收违法所得并处罚款，三名责任人员同步受罚。</p><div class="lesson"><b>对且慢的启示：</b>只要实际动作进入保险经营链路，页面叫“专区”“服务”还是“合作”都不决定性质；先核角色和牌照，再谈体验。</div><a href="https://www.nfra.gov.cn/branch/hainan/view/pages/common/ItemDetail.html?docId=1171200&amp;itemId=1581" target="_blank" rel="noopener">查看处罚原文 ↗</a></article>
+          <article class="case-card"><div class="case-top"><h3>平安人寿怀化：销售人员互联网营销误导</h3><span class="case-amount">机构合计 12 万</span></div><p>怀金罚决字〔2024〕21号列明“保险销售人员在互联网平台发布的保险营销宣传内容存在误导性”等违法事实；处罚决定还包含其他违法事项，因此 12 万元为该决定对机构的合计罚款，不能拆成单项金额。</p><div class="lesson"><b>对且慢的启示：</b>客服、顾问、运营账号和 AI 生成内容都需纳入统一审核与账号治理；“个人发的”不是免责理由。</div><a href="https://www.nfra.gov.cn/branch/hunan/view/pages/common/ItemDetail.html?docId=1170516&amp;itemId=1482" target="_blank" rel="noopener">查看处罚原文 ↗</a></article>
+          <article class="case-card"><div class="case-top"><h3>海安发展保险经纪：互联网保险披露不充分</h3><span class="case-amount">机构合计 39 万</span></div><p>浙金罚决字〔2024〕8号列明互联网保险业务信息披露不充分等多项违法事实；机构警告并罚 39 万元，责任人警告并罚 9 万元。因属合并处罚，不将总额误说成单一披露问题罚款。</p><div class="lesson"><b>对且慢的启示：</b>主体、资质、服务范围、产品和投诉渠道必须持续可见；还要定期核验链接没有过期、字段没有缺失。</div><a href="https://www.nfra.gov.cn/branch/zhejiang/view/pages/common/ItemDetail.html?docId=1153106&amp;itemId=1195" target="_blank" rel="noopener">查看处罚原文 ↗</a></article>
+        </div>
+        <div class="case-boundary"><b>案例使用口径：</b>处罚决定用于说明监管关注点，不等于且慢已构成同类违法。对且慢的最终定性必须结合真实页面、系统控制权、协议、数据流、客服/AI 行为和持牌主体核验。</div>
+      </section>
+
+      <section class="section" id="boundary">
+        <div class="section-head"><div><div class="kicker">08 / TARGET OPERATING MODEL</div><h2>目标边界：且慢做路标，持牌机构开车</h2><p class="section-desc">这不是把业务全部删掉，而是把用户体验重组为“可识别、可跳转、可追责”的合作链路。</p></div></div>
+        <div class="boundary">
+          <article class="lane safe"><h3>且慢可以做</h3><ul><li><span class="dot">✓</span><span>建立独立的保险产品信息展示专区</span></li><li><span class="dot">✓</span><span>使用合作机构审核确定的营销内容</span></li><li><span class="dot">✓</span><span>醒目标示保险中介与承保公司</span></li><li><span class="dot">✓</span><span>提供进入持牌机构自营平台的转接</span></li><li><span class="dot">✓</span><span>经单独同意传递预约所需最少信息</span></li><li><span class="dot">✓</span><span>经授权展示保单摘要和服务跳转</span></li></ul></article>
+          <div class="arrow">→</div>
+          <article class="lane owner"><h3>持牌保险机构必须做</h3><ul><li><span class="dot">保</span><span>需求分析与财务支付水平评估</span></li><li><span class="dot">保</span><span>适当性匹配意见与具体产品咨询</span></li><li><span class="dot">保</span><span>完整产品信息、免责与关键条款说明</span></li><li><span class="dot">保</span><span>投保意愿确认、签约与保费收取</span></li><li><span class="dot">保</span><span>销售过程记录和可回溯管理</span></li><li><span class="dot">保</span><span>承保、保全、续期、理赔、退保与投诉</span></li></ul></article>
+          <div class="boundary-note">关键原则：任何会影响“买哪款、买多少、是否适合”的动作，都不应该由且慢独立完成。</div>
+        </div>
+      </section>
+
+      <section class="section" id="ui">
+        <div class="section-head"><div><div class="kicker">09 / PAGE BLUEPRINT</div><h2>页面怎么改：把主体信息前置到每一次选择</h2></div></div>
+        <div class="phone-stage">
+          <div class="phone" aria-label="保险专区整改示意">
+            <div class="screen"><div class="notch"></div><div class="screen-top">保障知识与持牌机构产品信息</div><h3>保险保障专区</h3><div class="disclose">本专区由且慢提供信息展示与转接。保险方案、适当性评估、咨询、投保及售后由页面标示的持牌保险机构提供。</div>
+              <div class="product-card"><div class="provider">销售服务方｜广东盈信保险经纪有限公司</div><h4>百万医疗保险产品</h4><p>承保公司：示例保险公司 · 保障责任以合同为准</p><button>前往盈信了解产品 →</button><div class="micro"><span>查看资质</span><span>客服与投诉</span></div></div>
+              <div class="product-card"><div class="provider">销售服务方｜示例保险经纪有限公司</div><h4>意外伤害保险产品</h4><p>承保公司：示例保险公司 · 具体风险以合同为准</p><button>前往合作机构了解产品 →</button><div class="micro"><span>查看资质</span><span>服务范围</span></div></div>
+            </div>
+          </div>
+          <div class="annotation">
+            <article class="annotation-card"><b>1</b><div><h4>头部不再只讲且慢价值</h4><p>第一屏明确“且慢做什么、保险机构做什么”，而不是把主体说明藏到页底。</p></div></article>
+            <article class="annotation-card"><b>2</b><div><h4>每张卡独立标主体</h4><p>同时展示销售服务方、承保公司、资质与服务渠道；合作方不能只放一个难以识别的小 Logo。</p></div></article>
+            <article class="annotation-card"><b>3</b><div><h4>按钮说明下一步去哪</h4><p>不再写成且慢自己完成的“立即投保 / 免费测评”，而是明确进入哪一家机构。</p></div></article>
+            <article class="annotation-card"><b>4</b><div><h4>购买前再做一次强提示</h4><p>离开且慢前显示目标机构、目标域名、责任边界和强制阅读倒计时；时长由合规最终确认。</p></div></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="copy">
+        <div class="section-head"><div><div class="kicker">09B / READY-TO-USE COPY</div><h2>可直接拿去评审的三段文案</h2><p class="section-desc">以下是整改后的产品文案底稿，须由保险合作机构和盈米合规共同审定后上线。</p></div></div>
+        <div class="copy-stack">
+          <article class="copy"><div class="copy-label"><span>专区头部主体说明</span><span>首屏常驻</span></div><div class="copy-text">本专区展示的保险产品及相关服务由页面标示的持牌保险机构提供。且慢仅提供经合作机构审核的产品信息展示与平台转接，不参与保险需求分析、适当性评估、产品咨询、投保、保费收取和理赔服务。保险责任、除外责任及其他重要内容以保险合同为准，请认真阅读产品条款。</div></article>
+          <article class="copy"><div class="copy-label"><span>离站强提示</span><span>购买前强制阅读</span></div><div class="copy-text">你将离开且慢，进入广东盈信保险经纪有限公司的自营平台。后续的保险需求分析、适当性评估、产品咨询、投保及售后服务由该机构及承保保险公司提供。请确认已知晓服务主体，并阅读相关产品条款、隐私政策和重要提示。</div></article>
+          <article class="copy"><div class="copy-label"><span>预约顾问单独授权</span><span>不默认勾选</span></div><div class="copy-text">如你同意，我们将把姓名、手机号及本次预约信息提供给广东盈信保险经纪有限公司，由其保险顾问与你联系。且慢不提供保险产品咨询。你可以拒绝或撤回授权，不影响使用且慢其他功能。</div></article>
+          <article class="copy"><div class="copy-label"><span>需要从页面删除或慎用</span><span>避免平台背书</span></div><div class="avoid"><span>且慢严选保险</span><span>为你智能匹配</span><span>且慢保险顾问</span><span>一站式投保</span><span>最适合你的产品</span><span>立即配置</span><span>平台独家推荐</span></div></article>
+        </div>
+      </section>
+
+      <section class="section" id="plan">
+        <div class="section-head"><div><div class="kicker">10 / REMEDIATION PLAN</div><h2>24 小时止血，2 周把结构改对</h2></div></div>
+        <div class="plan-grid">
+          <article class="plan-card emergency"><h3>24 小时止血版 <span class="badge">先降风险</span></h3><ol><li>暂停且慢侧保险测评结果、个性化产品匹配和具体产品问答。</li><li>全部保险入口、卡片和详情页补齐销售服务方与承保公司全称。</li><li>投保按钮统一改为“前往 XX 机构了解 / 投保”，并增加离站强提示。</li><li>建立跳转域名白名单，确认只进入保险机构自营平台。</li><li>冻结未经保险机构书面审核的素材、排行榜、推荐标签和运营推送。</li><li>补一张“页面—接口—数据—合作方—审核版本”全量清单。</li></ol></article>
+          <article class="plan-card target"><h3>2 周结构版 <span class="badge">推荐方案</span></h3><ol><li>按合作机构建立独立品牌岛，每张卡绑定营销授权和审核版本。</li><li>需求分析、支付能力评估、适当性、咨询和投保全部迁到合作方自营平台。</li><li>重做预约授权、保单回传授权、数据删除与撤回机制。</li><li>重做“我的保单”：且慢展示摘要，所有合同服务回合作方。</li><li>增加非个性化展示 / 关闭算法推荐选项和推送退订能力。</li><li>完成全链路录像、跳转日志、内容版本、投诉归因与月度抽检。</li></ol></article>
+          <article class="plan-card full"><h3>如果业务坚持“且慢直接做”的体验 <span class="badge">战略分叉</span></h3><p>那就不是 UI 项目，而是牌照、主体、平台、人员、系统和责任的整体方案。应由持牌保险中介在自己的自营平台内承接，并与且慢基金业务清楚隔离。</p><div class="license-path"><div>且慢<br />展示与转接</div><span>→</span><div>持牌保险中介<br />自营平台与人员</div><span>→</span><div>保险公司<br />承保与合同责任</div></div></article>
+        </div>
+      </section>
+
+      <section class="section" id="decision">
+        <div class="section-head"><div><div class="kicker">11 / MEETING DECISIONS</div><h2>会上不要讨论颜色，先拍板六件事</h2></div></div>
+        <div class="decisions">
+          <article class="decision"><h3>且慢的法律角色是什么？</h3><p>本项目按第三方网络营销平台整改，还是存在可覆盖保险业务的牌照主体？<strong>未确认前按更严格边界处理。</strong></p></article>
+          <article class="decision"><h3>是否立即暂停且慢侧保险测评与匹配？</h3><p>建议“是”。这是公开材料里最容易被认定为实质介入的动作。</p></article>
+          <article class="decision"><h3>合作模式是单一主合作方还是多机构陈列？</h3><p>多机构会增加比较、排序、内容审核、资质核验和投诉归因复杂度。</p></article>
+          <article class="decision"><h3>谁拥有用户下一步？</h3><p>从需求分析开始，页面、账号、数据、客服和销售人员均应由持牌保险机构承接。</p></article>
+          <article class="decision"><h3>“我的保单”保留到什么程度？</h3><p>建议保留信息管理价值，但只展示必要摘要；合同服务按钮全部回到保险机构。</p></article>
+          <article class="decision"><h3>谁是上线总负责人？</h3><p>产品不能独自背书。需要业务、合规、法务、数据、研发和合作机构共同签字验收。</p></article>
+        </div>
+        <h3 style="margin:28px 0 12px">建议会后责任表</h3>
+        <table class="raci"><thead><tr><th>事项</th><th>主责 A</th><th>执行 R</th><th>会签 C</th><th>验收证据</th></tr></thead><tbody>
+          <tr><td>法律角色与合作模式定性</td><td><b>业务负责人</b></td><td>法务 / 合规</td><td>保险合作方</td><td>书面定性备忘录、牌照与协议</td></tr>
+          <tr><td>页面与转接链路整改</td><td><b>产品负责人</b></td><td>设计 / 研发</td><td>合规 / 合作方</td><td>全链路录屏、页面清单、域名白名单</td></tr>
+          <tr><td>营销内容与素材审核</td><td><b>保险合作方</b></td><td>运营</td><td>盈米合规</td><td>审核版本号、授权记录、发布留痕</td></tr>
+          <tr><td>个人信息与接口治理</td><td><b>数据负责人</b></td><td>研发 / 安全</td><td>法务 / 合作方</td><td>字段表、单独同意、删除与撤回测试</td></tr>
+          <tr><td>上线与持续监控</td><td><b>项目负责人</b></td><td>质量 / 运营</td><td>客服 / 合规</td><td>验收单、月度抽检、投诉归因报表</td></tr>
+        </tbody></table>
+        <h3 style="margin:28px 0 12px">上线前 12 项硬门槛</h3>
+        <div class="checklist">
+          <div class="check"><b>主体</b><span>每页、每卡、每次跳转均显示持牌机构全称</span></div><div class="check"><b>资质</b><span>牌照、经营范围、地域与合作期限仍有效</span></div><div class="check"><b>内容</b><span>只使用保险机构审核定稿，格式改动也留痕</span></div><div class="check"><b>测评</b><span>且慢不输出保险适当性或产品匹配结论</span></div><div class="check"><b>咨询</b><span>且慢客服与 AI 不回答具体产品选择问题</span></div><div class="check"><b>跳转</b><span>仅进入保险机构自营平台，购买前强提示</span></div><div class="check"><b>投保</b><span>合同、支付、意愿确认均不在且慢完成</span></div><div class="check"><b>数据</b><span>单独同意、目的最小、可撤回、可删除</span></div><div class="check"><b>算法</b><span>可关闭个性化，提供非个性化展示选项</span></div><div class="check"><b>保单</b><span>展示最小摘要，售后回到实际服务机构</span></div><div class="check"><b>留痕</b><span>素材、跳转、页面操作与版本可回溯</span></div><div class="check"><b>投诉</b><span>客服电话、投诉主体与流转 SLA 明确</span></div>
+        </div>
+      </section>
+
+      <section class="section" id="sources">
+        <div class="section-head"><div><div class="kicker">12 / SOURCES & LIMITS</div><h2>正式依据与研究边界</h2></div></div>
+        <div class="sources">
+          <div class="source"><a href="https://www.cac.gov.cn/2026-04/24/c_1778769008779432.htm" target="_blank" rel="noopener">《金融产品网络营销管理办法》｜八部门公告〔2026〕第 9 号</a><p>2026-09-30 施行；重点第 2—5、7—16、20—24、27、32—37、39 条。配套：<a href="https://www.cac.gov.cn/2026-04/24/c_1778769009037708.htm" target="_blank" rel="noopener">官方答记者问</a>、<a href="https://www.samr.gov.cn/zw/zfxxgk/fdzdgknr/xwxcs/art/2026/art_e5253966819a4a708df5a62c0d4b7d00.html" target="_blank" rel="noopener">市场监管总局解读</a>。</p></div>
+          <div class="source"><a href="https://www.nfra.gov.cn/cn/view/pages/ItemDetail.html?docId=949137" target="_blank" rel="noopener">《互联网保险业务监管办法》｜银保监会令 2020 年第 13 号</a><p>重点第 3、13—17、23、35 条；自营平台、销售页面、非保险机构禁止行为与营销人员管理。</p></div>
+          <div class="source"><a href="https://www.nfra.gov.cn/cn/view/pages/rulesDetail.html?docId=1129945" target="_blank" rel="noopener">《保险销售行为管理办法》｜金融监管总局令 2023 年第 2 号</a><p>重点第 3、5、8—9、18、20—25、28—31、34—36 条。</p></div>
+          <div class="source"><a href="https://www.nfra.gov.cn/cn/view/pages/rulesDetail.html?docId=1217183" target="_blank" rel="noopener">《金融机构产品适当性管理办法》｜金融监管总局令 2025 年第 7 号</a><p>2026-02-01 施行；重点第 2—4、10—14、34—40、47 条；配套<a href="https://app.www.gov.cn/govdata/gov/202507/11/532629/article.html" target="_blank" rel="noopener">官方问答</a>。</p></div>
+          <div class="source"><a href="https://jrj.sh.gov.cn/YWTBZCCX166/20200701/c7bc0e8d64ab4405ac5b9236a953f9ac.html" target="_blank" rel="noopener">《关于规范互联网保险销售行为可回溯管理的通知》｜银保监发〔2020〕26 号</a><p>重点第 1—6、15—21 条；页面归属、版本、操作轨迹、证据保存和数据安全。</p></div>
+          <div class="source"><a href="https://www.nfra.gov.cn/cn/view/pages/rulesDetail.html?docId=1087524" target="_blank" rel="noopener">《银行保险机构消费者权益保护管理办法》｜银保监会令 2022 年第 9 号</a><p>重点第 9—13、42—48 条；消保审查、适当销售、可回溯和个人信息保护。</p></div>
+          <div class="source"><a href="https://policy.mofcom.gov.cn/claw/clawContent.shtml?id=96387" target="_blank" rel="noopener">《人身保险产品信息披露管理办法》｜银保监会令 2022 年第 8 号</a><p>重点第 3—4、11—13、19 条；适用于人身保险产品披露。</p></div>
+          <div class="source"><a href="https://www.safe.gov.cn/safe/2020/0103/22018.html" target="_blank" rel="noopener">《关于进一步规范金融营销宣传行为的通知》｜银发〔2019〕316 号</a><p>金融营销资质、合作方管理、真实准确宣传、电子营销标识与退订的基础规范。</p></div>
+          <div class="source"><a href="https://www.samr.gov.cn/zw/zfxxgk/fdzdgknr/fgs/art/2023/art_5474cf75173c45d6a0379730fb4e8d97.html" target="_blank" rel="noopener">《中华人民共和国广告法》｜市场监管总局现行公开文本</a><p>重点第 3、4、8、25、28、58 条。</p></div>
+          <div class="source"><a href="https://www.samr.gov.cn/zw/zfxxgk/fdzdgknr/fgs/art/2023/art_d93a579afd45413e8576e4623fab348f.html" target="_blank" rel="noopener">《互联网广告管理办法》｜市场监管总局令第 72 号</a><p>重点第 9、10、15—17 条；广告可识别、一键关闭、算法记录和平台责任。</p></div>
+          <div class="source"><a href="https://www.miit.gov.cn/zwgk/zcwj/flfg/art/2022/art_04a0f1fb5df244e39688fd5372623a8d.html" target="_blank" rel="noopener">《中华人民共和国个人信息保护法》｜全国人大常委会</a><p>重点第 6、13、23、24、28—30、55 条；最小必要、单独同意、敏感信息与影响评估。</p></div>
+          <div class="source"><a href="https://app.www.gov.cn/govdata/gov/202409/30/520076/article.html" target="_blank" rel="noopener">《网络数据安全管理条例》｜国务院令第 790 号</a><p>重点第 12、27 条；合作处理合同、监督和定期合规审计。</p></div>
+          <div class="source"><a href="https://www.cac.gov.cn/2025-02/14/c_1741233507681519.htm" target="_blank" rel="noopener">《个人信息保护合规审计管理办法》｜网信办令第 18 号</a><p>2025-05-01 施行；保险测评、推荐、共享与保单数据纳入个人信息审计。</p></div>
+          <div class="source"><a href="https://www.cac.gov.cn/2022-01/04/c_1642894606364259.htm" target="_blank" rel="noopener">《互联网信息服务算法推荐管理规定》｜四部门令第 9 号</a><p>重点第 7—8、16—17 条；算法治理、过度消费、告知、关闭与标签管理。</p></div>
+          <div class="source"><a href="https://www.samr.gov.cn/zw/zfxxgk/fdzdgknr/bgt/art/2024/art_0aea188276a44f0baf940ab95ee00e0a.html" target="_blank" rel="noopener">《中华人民共和国消费者权益保护法实施条例》｜国务院令第 778 号</a><p>重点第 10—12 条；显著提示、自动续费、禁止强制/搭售和营销承诺。</p></div>
+          <div class="source"><a href="https://www.nfra.gov.cn/cn/view/pages/ItemDetail.html?docId=879931&amp;itemId=4248" target="_blank" rel="noopener">《中华人民共和国保险法》｜金融监管总局公开文本</a><p>重点第 116、161、171 条；保险经营销售禁止行为及机构、个人责任。</p></div>
+          <div class="source"><a href="https://www.nfra.gov.cn/cn/view/pages/rulesDetail.html?docId=1173683" target="_blank" rel="noopener">《国家金融监督管理总局关于加强和改进互联网财产保险业务监管有关事项的通知》</a><p>按实际 SKU 条件适用；上线前由合作方逐款确认财险、短期健康险、意外险等特别规则。</p></div>
+          <div class="source"><a href="https://www.nfra.gov.cn/cn/view/pages/ItemDetail.html?docId=1105758&amp;itemId=4114" target="_blank" rel="noopener">湖北监管局行政处罚｜众安在线，鄂银保监罚决字〔2023〕19 号</a><p>第三方平台销售页面宣传与事实不符；机构与直接责任人员均被处罚。</p></div>
+          <div class="source"><a href="https://www.nfra.gov.cn/branch/hainan/view/pages/common/ItemDetail.html?docId=1171200&amp;itemId=1581" target="_blank" rel="noopener">海南监管局行政处罚｜海南海汽，琼金罚决字〔2024〕110 号</a><p>违规开展互联网保险业务及未按规定披露。</p></div>
+          <div class="source"><a href="https://www.nfra.gov.cn/branch/hunan/view/pages/common/ItemDetail.html?docId=1170516&amp;itemId=1482" target="_blank" rel="noopener">怀化监管分局行政处罚｜平安人寿怀化，怀金罚决字〔2024〕21 号</a><p>互联网营销宣传存在误导性；决定书含多项违法事实，金额按合计口径呈现。</p></div>
+          <div class="source"><a href="https://www.nfra.gov.cn/branch/zhejiang/view/pages/common/ItemDetail.html?docId=1153106&amp;itemId=1195" target="_blank" rel="noopener">浙江监管局行政处罚｜海安发展保险经纪，浙金罚决字〔2024〕8 号</a><p>互联网保险信息披露不充分等多项违法事实；金额按合计口径呈现。</p></div>
+          <div class="source"><a href="https://asset2.qieman.com/agreement/7a186e29-cf0e-46b6-b15c-4b3894891da1.pdf" target="_blank" rel="noopener">且慢平台隐私政策｜公开 PDF</a><p>用于识别公开表述中的保险测评、产品匹配、顾问预约与保单展示链路；页面注明 2023-02-21 生效。</p></div>
+          <div class="source"><a href="https://asset2.qieman.com/agreement/dd65243e-ecea-465e-842a-75c2cb813051.html" target="_blank" rel="noopener">且慢第三方信息共享清单｜公开页面</a><p>用于核对向保险合作方共享的信息类型、使用目的和传输方式。</p></div>
+          <div class="source"><a href="https://asset2.qieman.com/agreement/2e792ab4-6951-4924-9ce2-f824b123627e.html" target="_blank" rel="noopener">且慢个人信息收集清单｜公开页面</a><p>用于核对保险功能、保单查询、家庭成员与推荐场景的数据范围。</p></div>
+        </div>
+        <div class="method"><strong>准确性说明：</strong>法规和处罚均链接政府、监管机关或政府政策库原文；条文内容为便于产品整改的压缩转述，不替代原文。当前 App 登录态、后台控制权、协议和人员登记尚未取得，因此报告只对公开可验证事实作判断，不把推断写成既成违法。正式上线前须由盈米法务 / 合规和保险合作机构按真实链路书面确认。</div>
+      </section>
+    </main>
+  </div>
+
+  <footer><div class="wrap footer-row"><span>Clair’s Studio · 且慢保险专区整改会前材料</span><span>研究日期 2026-10-09 · 仅使用公开规则与脱敏事实</span></div></footer>
+  <script>
+    document.querySelectorAll('.filter').forEach((button) => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.filter').forEach((item) => item.classList.remove('active'));
+        button.classList.add('active');
+        const selected = button.dataset.filter;
+        document.querySelectorAll('.risk-row').forEach((row) => {
+          row.classList.toggle('hidden', selected !== 'all' && row.dataset.risk !== selected);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

@@ -56,7 +56,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 86;
+const DATA_VERSION = 87;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -209,6 +209,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "qieman-insurance-zone-compliance-brief-2026-10-09",
+      groupId: "knowledge",
+      title: "且慢保险专区合规整改｜930 新规会前决策材料",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-insurance-zone-compliance-brief-2026-10-09/",
+      preview: "qieman-insurance-zone-compliance-brief-2026-10-09.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-10-09T11:20:00+08:00",
+      source: "八部门公告〔2026〕第9号《金融产品网络营销管理办法》× 互联网保险、保险销售行为、金融机构产品适当性、广告、个人信息、算法推荐、消费者保护等全国性主要有效规则｜逐条列出17项法规/监管文件、14个业务流程节点、4个官方处罚案例、主体边界、页面蓝图、24小时止血与2周结构整改、RACI和12项上线硬门槛｜对且慢公开隐私政策、第三方共享清单和个人信息收集清单进行证据核对｜法规条文为产品化压缩转述并链接官方原文；当前App登录态、协议、牌照及后台控制权需由内部法务/合规和保险合作机构按真实链路复核",
+      access: "production",
+      workType: "governance-review",
+      tags: ["且慢", "保险专区", "930新规", "金融产品网络营销", "互联网保险", "适当性", "个人信息保护", "算法推荐", "广告合规", "合规整改", "治理审查", "HTML", "生产"],
+    },
     {
       id: "l3-product-operating-plan-2026-10-09",
       groupId: "product-planning",
@@ -3001,6 +3015,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "qieman-insurance-zone-compliance-brief-2026-10-09": "governance-review",
   "ifast-corporation-deep-dive-2026-09-28": "competitive-research",
   "peng-signals-learning-station-2026-09-28": "competitive-research",
   "altruist-hazel-agent-case-study-2026-09-28": "competitive-research",
@@ -3108,6 +3123,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "qieman-insurance-zone-compliance-brief-2026-10-09": "knowledge",
   "l3-product-operating-plan-2026-10-09": "product-planning",
   "ai-service-website-design-benchmark-2026-10-08": "ai-platform",
   "ifast-corporation-deep-dive-2026-09-28": "reporting",
