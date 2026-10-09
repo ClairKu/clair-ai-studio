@@ -56,7 +56,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 85;
+const DATA_VERSION = 86;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -209,6 +209,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "l3-product-operating-plan-2026-10-09",
+      groupId: "product-planning",
+      title: "公司 L3 战略下的产品推进方案｜从功能型 AI 到任务结果型产品",
+      url: "https://clairku.github.io/clair-ai-studio/reports/l3-product-operating-plan-2026-10-09/",
+      preview: "l3-product-operating-plan-2026-10-09.png",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-10-09T10:30:00+08:00",
+      source: "公司级 AI Agent L3 产品推进框架｜将 L3 定义为受监督的任务自治，覆盖产品定义与反例、场景价值/就绪度组合、六条产品工作流、五段人机闭环、五层公共底座、有效闭环任务北极星指标、五道生产上线门槛、任务成功小队与 RACI、90 天路线图、季度 OKR、本周行动清单和一页场景章程模板｜首批建议聚焦 2–3 个高价值、可闭环、数据与工具就绪、风险可控的真实任务；涉及投资建议、交易或不可逆客户权益的动作继续保留显式人工授权｜内部管理方法与目标建议，不代表已经完成生产验证",
+      access: "production",
+      workType: "product-planning",
+      tags: ["L3", "AI Agent", "产品战略", "产品规划", "人机协同", "任务闭环", "组织机制", "OKR", "治理", "HTML", "生产"],
+    },
     {
       id: "ai-service-website-design-benchmark-2026-10-08",
       groupId: "ai-platform",
@@ -3094,6 +3108,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "l3-product-operating-plan-2026-10-09": "product-planning",
   "ai-service-website-design-benchmark-2026-10-08": "ai-platform",
   "ifast-corporation-deep-dive-2026-09-28": "reporting",
   "peng-signals-learning-station-2026-09-28": "knowledge",
