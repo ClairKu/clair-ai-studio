@@ -56,7 +56,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 88;
+const DATA_VERSION = 89;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -209,6 +209,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "oap-success-retrospective-2026-10-09",
+      groupId: "reporting",
+      title: "OAP 成功了吗？｜不粉饰的阶段复盘",
+      url: "https://clairku.github.io/clair-ai-studio/reports/oap-success-retrospective-2026-10-09/",
+      preview: "oap-success-retrospective-2026-10-09.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-10-09T12:10:00+08:00",
+      source: "OAP 生产经营日序列截至 2026-10-08（部分日）× 千问渠道最新数据截至 2026-10-09 09:35:45 × 渠道归因、微信转化、工具治理与阶段商业证据交叉复核｜核心判断：OAP 已成功完成能力开放、规模增长与超级入口分发的上半场，申请 15,315、调用 1,897.6 万、MAU 3,088，三项年度目标均超过 145%；但千问新用户 84.3% 只出现一天，13,267 名新用户中后续入金仅见 10 人，收入、复购、SLA、单位成本与多渠道归因尚未形成可验证闭环｜包含做对、没做好、错过窗口、90 天三场硬仗、数据索引与自检；不同口径不混算，不把相关性写成因果",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["OAP", "阶段复盘", "经营分析", "千问", "用户留存", "商业化", "渠道归因", "能力治理", "错失机会", "数据分析", "经营汇报", "HTML", "生产"],
+    },
     {
       id: "qieman-insurance-zone-compliance-brief-2026-10-09",
       groupId: "knowledge",
@@ -3015,6 +3029,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "oap-success-retrospective-2026-10-09": "data-analysis",
   "qieman-insurance-zone-compliance-brief-2026-10-09": "governance-review",
   "ifast-corporation-deep-dive-2026-09-28": "competitive-research",
   "peng-signals-learning-station-2026-09-28": "competitive-research",
@@ -3254,6 +3269,7 @@ const TOPIC_BY_REPORT = {
   "community-ai-review": "ai-workbench",
   "html-editor-guide": "ai-workbench",
   // 用户增长与数据洞察
+  "oap-success-retrospective-2026-10-09": "reporting",
   "wechat-ai-agent-usage-dashboard-2026-09-10": "growth-insights",
   "wechat-agent-user-behavior-analysis-2026-09-10": "growth-insights",
   "oap-command-deck-2026-09-05": "growth-insights",

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">OAP 成功了吗？不粉饰的阶段复盘</title>
+  <desc id="desc">OAP 规模成功，但业务闭环未毕业。展示累计申请、累计调用、月活和千问一天用户占比。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#111723"/><stop offset="1" stop-color="#27203f"/></linearGradient>
+    <linearGradient id="violet" x1="0" x2="1"><stop stop-color="#a996ff"/><stop offset="1" stop-color="#7457e8"/></linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="16" stdDeviation="18" flood-opacity=".18"/></filter>
+  </defs>
+  <rect width="1200" height="675" rx="34" fill="url(#bg)"/>
+  <circle cx="1030" cy="95" r="240" fill="#7659e6" opacity=".15"/>
+  <text x="76" y="82" fill="#aa97ff" font-size="18" font-family="Menlo,monospace" font-weight="700" letter-spacing="3">OAP · STAGE RETROSPECTIVE</text>
+  <text x="76" y="165" fill="#fff" font-size="62" font-family="Songti SC,serif" font-weight="800">OAP 成功了吗？</text>
+  <text x="76" y="232" fill="#fff" font-size="46" font-family="Songti SC,serif" font-weight="700">成功了上半场，</text>
+  <text x="436" y="232" fill="#aa97ff" font-size="46" font-family="Songti SC,serif" font-weight="700">没赢下生意。</text>
+  <text x="78" y="282" fill="#bcc3d2" font-size="21" font-family="PingFang SC,sans-serif">规模与分发已被验证；复用、付费与可预测收入仍未被证明。</text>
+  <g transform="translate(76 342)" filter="url(#shadow)">
+    <rect width="238" height="180" rx="22" fill="#fff"/>
+    <text x="24" y="38" fill="#687286" font-size="15" font-family="PingFang SC,sans-serif" font-weight="700">累计申请</text>
+    <text x="24" y="102" fill="#121722" font-size="50" font-family="Menlo,monospace" font-weight="900">15,315</text>
+    <rect x="24" y="128" width="190" height="9" rx="5" fill="#e8eaf0"/><rect x="24" y="128" width="190" height="9" rx="5" fill="url(#violet)"/>
+    <text x="24" y="159" fill="#078b68" font-size="14" font-family="PingFang SC,sans-serif" font-weight="800">年度目标完成 153.2%</text>
+  </g>
+  <g transform="translate(332 342)" filter="url(#shadow)">
+    <rect width="238" height="180" rx="22" fill="#fff"/>
+    <text x="24" y="38" fill="#687286" font-size="15" font-family="PingFang SC,sans-serif" font-weight="700">累计调用</text>
+    <text x="24" y="102" fill="#121722" font-size="47" font-family="Menlo,monospace" font-weight="900">1,897.6万</text>
+    <rect x="24" y="128" width="190" height="9" rx="5" fill="#e8eaf0"/><rect x="24" y="128" width="190" height="9" rx="5" fill="url(#violet)"/>
+    <text x="24" y="159" fill="#078b68" font-size="14" font-family="PingFang SC,sans-serif" font-weight="800">年度目标完成 146.0%</text>
+  </g>
+  <g transform="translate(588 342)" filter="url(#shadow)">
+    <rect width="238" height="180" rx="22" fill="#fff"/>
+    <text x="24" y="38" fill="#687286" font-size="15" font-family="PingFang SC,sans-serif" font-weight="700">滚动 30 日 MAU</text>
+    <text x="24" y="102" fill="#121722" font-size="50" font-family="Menlo,monospace" font-weight="900">3,088</text>
+    <rect x="24" y="128" width="190" height="9" rx="5" fill="#e8eaf0"/><rect x="24" y="128" width="190" height="9" rx="5" fill="url(#violet)"/>
+    <text x="24" y="159" fill="#078b68" font-size="14" font-family="PingFang SC,sans-serif" font-weight="800">年度目标完成 154.4%</text>
+  </g>
+  <g transform="translate(844 342)" filter="url(#shadow)">
+    <rect width="280" height="180" rx="22" fill="#ffe7e3"/>
+    <text x="24" y="38" fill="#87433e" font-size="15" font-family="PingFang SC,sans-serif" font-weight="700">千问新用户续航</text>
+    <text x="24" y="102" fill="#c74646" font-size="50" font-family="Menlo,monospace" font-weight="900">84.3%</text>
+    <text x="24" y="133" fill="#87433e" font-size="16" font-family="PingFang SC,sans-serif" font-weight="800">只在一天内提问</text>
+    <text x="24" y="160" fill="#87433e" font-size="13" font-family="PingFang SC,sans-serif">入口有效，持续服务未建立</text>
+  </g>
+  <text x="77" y="608" fill="#949daf" font-size="15" font-family="PingFang SC,sans-serif">Clair’s Studio · 数据截止 2026-10-09（分项截止见报告）</text>
+</svg>
