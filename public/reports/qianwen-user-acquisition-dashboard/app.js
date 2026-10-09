@@ -282,7 +282,7 @@ const PRESET_METRICS = {
   follow_on_users: ["带来续问", "人"],
 };
 const QUESTION_TURNS = { "1": "第 1 问", "2": "第 2 问", "3": "第 3 问", "4_5": "第 4–5 问", "6_plus": "第 6 问以上" };
-const QUESTION_SOURCE_LABELS = { all: "全部问题", preset: "默认题", self: "用户自己问", substantive: "自发实质问题" };
+const QUESTION_SOURCE_LABELS = { all: "全部问题", preset: "默认题", self: "用户主动提问", substantive: "自发实质问题" };
 const QUESTION_ENGAGEMENT_LABELS = { all: "全部用户", no_followup: "未形成同会话追问", followup: "有同会话实质追问" };
 const QUESTION_JOURNEY_DEPTH_LABELS = { "1": "只问 1 个实质问题", "2_3": "累计问 2–3 个", "4_9": "累计问 4–9 个", "10_plus": "累计问 10 个以上" };
 const QUESTION_DEPTH_LABELS = {
@@ -1605,10 +1605,20 @@ function renderQuestionDimension() {
   const total = metric === "questions" ? group.questions : group.users;
   const max = Math.max(...rows.map((item) => item[metric]), 1);
   const excludedIds = new Set({ direction: ["task_status", "context_followup", "non_investment", "other_investment", "unclear_expression"], object: ["unspecified"], style: ["conversation_fragment"], cognition: ["indeterminate"] }[lens] || []);
-  const leading = rows.find((item) => !excludedIds.has(item.id)) || rows[0];
+  const primaryRows = lens === "direction" ? rows.filter((item) => !excludedIds.has(item.id)) : rows;
+  const secondaryRows = lens === "direction" ? rows.filter((item) => excludedIds.has(item.id)) : [];
+  const leading = primaryRows[0] || rows[0];
   const excludedRows = rows.filter((item) => excludedIds.has(item.id));
   const metricLabel = metric === "questions" ? "问题" : "用户";
-  $("#question-map-title").textContent = leading ? `${QUESTION_SOURCE_LABELS[viewState.questionSource]}的可识别${definition.label}中，${definition.values[leading.id][0]}排名第一` : "当前交叉条件没有问题记录";
+  const leadingLabels = primaryRows.slice(0, 2).map((item) => definition.values[item.id][0]);
+  const titleLead = leadingLabels.join("、");
+  const titles = {
+    direction: `${QUESTION_SOURCE_LABELS[viewState.questionSource]}主要集中在${titleLead}`,
+    object: `${QUESTION_SOURCE_LABELS[viewState.questionSource]}主要在问${titleLead}`,
+    style: `${QUESTION_SOURCE_LABELS[viewState.questionSource]}常见问法是${titleLead}`,
+    cognition: `${QUESTION_SOURCE_LABELS[viewState.questionSource]}主要呈现${titleLead}`,
+  };
+  $("#question-map-title").textContent = leading ? titles[lens] : "当前筛选条件没有问题记录";
   $("#question-cross-selection").textContent = `${QUESTION_SOURCE_LABELS[viewState.questionSource]} · ${QUESTION_ENGAGEMENT_LABELS[viewState.questionEngagement]} · 看${metricLabel}数`;
   $("#question-dimension-note").textContent = leading
     ? `${number.format(group.users)} 位用户留下 ${number.format(group.questions)} 条问题；${excludedRows.length ? `将${excludedRows.map((item) => `“${definition.values[item.id][0]}”${number.format(item[metric])} ${metric === "questions" ? "条" : "人"}`).join("、")}单列后，` : ""}${definition.values[leading.id][0]}在可识别类别中最高：${number.format(leading[metric])} ${metric === "questions" ? "条" : "人"}。`
@@ -1618,8 +1628,6 @@ function renderQuestionDimension() {
     ["筛选后问题", number.format(group.questions), `${formatShare(group.questions, research.summary.questions)} 的全部提问`],
     ["涉及会话", number.format(group.sessions), group.users ? `人均 ${(group.questions / group.users).toFixed(1)} 条` : "—"],
   ].map(([label, value, note]) => `<article><span>${label}</span><strong>${value}</strong><small>${note}</small></article>`).join("");
-  const primaryRows = lens === "direction" ? rows.filter((item) => !excludedIds.has(item.id)) : rows;
-  const secondaryRows = lens === "direction" ? rows.filter((item) => excludedIds.has(item.id)) : [];
   const dimensionRows = primaryRows.map((item) => `<button class="dimension-row" type="button" data-question-dimension="${lens}" data-question-value="${item.id}">
     <span class="dimension-row-label">${escapeHtml(definition.values[item.id][0])}<small>${escapeHtml(definition.values[item.id][1])}</small></span>
     <span class="dimension-track" role="img" aria-label="${escapeHtml(definition.values[item.id][0])} ${number.format(item[metric])}"><i style="width:${Math.max(1.2, item[metric] / max * 100)}%"></i></span>
@@ -1898,17 +1906,17 @@ function renderQuestionOverview(insight, research) {
   const journey = research.journey;
   $("#question-overview-note").textContent = `${formatShare(journey.self_authored_questions, journey.user_question_turns)} 由用户主动输入 · ${formatShare(journey.followup_users, journey.substantive_users)} 进入实质追问`;
   $("#question-askers").textContent = number.format(journey.asking_users);
-  $("#question-ask-rate").textContent = `占 ${number.format(insight.summary.bound_users)} 名新用户的 ${formatShare(journey.asking_users, insight.summary.bound_users)}`;
+  $("#question-ask-rate").textContent = `覆盖新用户 ${formatShare(journey.asking_users, insight.summary.bound_users)}`;
   $("#question-sessions").textContent = number.format(journey.conversation_sessions);
-  $("#question-session-rate").textContent = `平均每位提问用户 ${(journey.conversation_sessions / journey.asking_users).toFixed(1)} 个会话`;
+  $("#question-session-rate").textContent = `提问用户人均 ${(journey.conversation_sessions / journey.asking_users).toFixed(1)} 个会话`;
   $("#question-turns-total").textContent = number.format(journey.user_question_turns);
-  $("#question-turns-note").textContent = `平均每个会话 ${journey.average_turns_per_session.toFixed(1)} 个用户提问回合`;
+  $("#question-turns-note").textContent = `每个会话平均 ${journey.average_turns_per_session.toFixed(1)} 个回合`;
   $("#question-default-total").textContent = number.format(journey.preset_questions);
-  $("#question-default-rate").textContent = `占全部提问回合 ${formatShare(journey.preset_questions, journey.user_question_turns)}`;
+  $("#question-default-rate").textContent = `占全部提问 ${formatShare(journey.preset_questions, journey.user_question_turns)}`;
   $("#question-self-total").textContent = number.format(journey.self_authored_questions);
-  $("#question-self-rate").textContent = `${number.format(journey.self_authored_users)} 位用户自己输入`;
+  $("#question-self-rate").textContent = `${number.format(journey.self_authored_users)} 人主动输入`;
   $("#question-substantive").textContent = number.format(journey.substantive_questions);
-  $("#question-substantive-users").textContent = `${number.format(journey.substantive_users)} 人 · 另有 ${number.format(journey.short_followups)} 条短承接`;
+  $("#question-substantive-users").textContent = `${number.format(journey.substantive_users)} 人留下 · ${number.format(journey.short_followups)} 条短承接`;
   $("#question-source-flow").innerHTML = [
     ["全部用户提问回合", journey.user_question_turns, `${number.format(journey.asking_users)} 人 · ${number.format(journey.conversation_sessions)} 个会话`],
     ["默认 / 推荐问题", journey.preset_questions, `${number.format(research.summary.preset_users)} 人使用 · ${formatShare(journey.preset_questions, journey.user_question_turns)}`],

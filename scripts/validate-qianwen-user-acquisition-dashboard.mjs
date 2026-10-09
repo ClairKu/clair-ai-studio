@@ -1024,6 +1024,8 @@ const reportEntryStart = workbench.indexOf('id: "qianwen-user-acquisition-dashbo
 const reportEntryEnd = workbench.indexOf("\n    {", reportEntryStart + 1);
 if (reportEntryStart < 0 || reportEntryEnd < 0) fail("工作台入口缺失");
 const reportingCopy = [html, app, publicText, preview, workbench.slice(reportEntryStart, reportEntryEnd)].join("\n");
+if (!html.includes('class="question-overview-head"') || !html.includes("QUESTION INTELLIGENCE · KEY METRICS")) fail("提问关键数据缺少合并后的标题区");
+if (html.includes('class="questions-head"')) fail("提问分析仍保留独立大标题区");
 for (const word of ["映射", "聚合", "去重", "关联", "存量", "ACCOUNT HANDOFF", "生产数仓"]) {
   if (reportingCopy.includes(word)) fail(`汇报文案仍包含技术术语：${word}`);
 }
@@ -1052,6 +1054,9 @@ for (const phrase of [
   "用户画像",
   "触点与投资准备度",
   "用户提问规模与来源",
+  "需求分布",
+  "看哪类问题",
+  "追问前后，需求重点有何变化",
   "个股与公司研究",
   "任务进度与结果确认",
   "承接上文继续问",
