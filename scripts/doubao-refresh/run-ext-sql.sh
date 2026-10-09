@@ -31,8 +31,8 @@ ASSET_AD="(SELECT account3_id, SUM(total_asset) ta FROM ying99_asset.dwd_app_ser
    USE INDEX(idx_cal_date_saId) WHERE cal_date='$AD' AND relation_account_type='ROOT' GROUP BY account3_id)"
 
 Q money 550 "SELECT u.cohort,
- ROUND(SUM(CASE WHEN t.trade_type IN ('po.buy','fund.buy','si.trade','po.adjust','plan.trade') THEN t.buy_amount ELSE 0 END)/10000,4) buy_wan,
- COUNT(DISTINCT CASE WHEN t.trade_type IN ('po.buy','fund.buy','si.trade','po.adjust','plan.trade') AND t.buy_amount>0 THEN t.user_id END) buy_users,
+ ROUND(SUM(CASE WHEN t.trade_type IN ('po.buy','po.convert.buy','fund.buy','si.trade','po.adjust','plan.trade') THEN t.buy_amount ELSE 0 END)/10000,4) buy_wan,
+ COUNT(DISTINCT CASE WHEN t.trade_type IN ('po.buy','po.convert.buy','fund.buy','si.trade','po.adjust','plan.trade') AND t.buy_amount>0 THEN t.user_id END) buy_users,
  ROUND(SUM(CASE WHEN t.redeem_amount>0 THEN t.redeem_amount ELSE 0 END)/10000,4) sell_wan,
  COUNT(DISTINCT CASE WHEN t.redeem_amount>0 THEN t.user_id END) sell_users,
  ROUND(SUM($INFLOW_CASE)/10000,4) inflow_wan,
