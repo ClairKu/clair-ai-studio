@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />
+    <script data-clair-access-gate data-clair-access-scope="report" src="../../access-gate.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#07111f">
+  <meta name="description" content="且慢 CEO 作战地图：客群、价值主张、双流量、顾问工作台、930 新规后顾问军团、资源与 AI L3 组织转型。">
+  <title>且慢 CEO 作战地图｜一核、双引擎、三战役、一套 AI 作战系统</title>
+  <style>
+    :root {
+      --ink:#eaf2ff; --muted:#93a5bd; --deep:#07111f; --panel:#0c1a2c;
+      --line:rgba(148,177,213,.18); --cyan:#46e0d1; --blue:#69a9ff;
+      --gold:#f6c867; --orange:#ff9568; --green:#70e49b; --red:#ff7285;
+      --paper:#f4f8fc; --paper-ink:#13243a; --shadow:0 24px 80px rgba(0,0,0,.28);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--deep);color:var(--ink);font:15px/1.7 Inter,"PingFang SC","Microsoft YaHei",system-ui,sans-serif}
+    a{color:inherit}
+    button{font:inherit}
+    .noise{position:fixed;inset:0;pointer-events:none;opacity:.15;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.08'/%3E%3C/svg%3E")}
+    .shell{max-width:1240px;margin:auto;padding:0 28px}
+    .topbar{position:sticky;top:0;z-index:30;border-bottom:1px solid var(--line);background:rgba(7,17,31,.86);backdrop-filter:blur(18px)}
+    .topbar .shell{min-height:62px;display:flex;align-items:center;gap:20px}
+    .brand{font-weight:800;letter-spacing:.08em;white-space:nowrap}.brand i{color:var(--cyan);font-style:normal}
+    .nav{display:flex;gap:6px;overflow:auto;scrollbar-width:none;margin-left:auto}
+    .nav a{padding:7px 11px;border-radius:999px;text-decoration:none;color:var(--muted);font-size:12px;white-space:nowrap}
+    .nav a:hover,.nav a.active{color:var(--ink);background:rgba(255,255,255,.08)}
+    .print{border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:10px;padding:7px 11px;cursor:pointer}
+    .hero{position:relative;min-height:760px;display:grid;align-items:center;overflow:hidden;border-bottom:1px solid var(--line)}
+    .hero:before{content:"";position:absolute;inset:-20% -10%;background:radial-gradient(circle at 73% 32%,rgba(70,224,209,.16),transparent 28%),radial-gradient(circle at 20% 50%,rgba(105,169,255,.14),transparent 32%)}
+    .hero-grid{position:relative;display:grid;grid-template-columns:1.12fr .88fr;gap:44px;align-items:center;padding:92px 0 76px}
+    .eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--cyan);font-weight:800;font-size:12px;letter-spacing:.15em;text-transform:uppercase}
+    .eyebrow:before{content:"";width:28px;height:1px;background:currentColor}
+    h1{font-size:clamp(44px,6vw,82px);line-height:1.03;letter-spacing:-.055em;margin:22px 0 24px;max-width:760px}
+    h1 em{font-style:normal;color:var(--cyan)}
+    .lede{font-size:19px;color:#b9c7da;max-width:700px;margin:0 0 30px}
+    .hero-thesis{padding:18px 20px;border-left:3px solid var(--gold);background:rgba(246,200,103,.07);border-radius:0 14px 14px 0;font-size:17px}
+    .meta{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px;color:var(--muted);font-size:12px}.meta span{border:1px solid var(--line);border-radius:999px;padding:5px 10px}
+    .decision-board{border:1px solid var(--line);border-radius:22px;background:linear-gradient(145deg,rgba(16,35,57,.95),rgba(7,17,31,.94));box-shadow:var(--shadow);padding:24px}
+    .decision-board h2{font-size:15px;margin:0 0 12px;color:var(--muted);font-weight:700;letter-spacing:.08em}
+    .decision{display:grid;grid-template-columns:34px 1fr;gap:12px;padding:14px 0;border-top:1px solid var(--line)}
+    .decision:first-of-type{border-top:0}.decision b{display:block;font-size:15px;margin-bottom:2px}.decision p{margin:0;color:var(--muted);font-size:13px}
+    .num{display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:rgba(70,224,209,.1);color:var(--cyan);font-weight:900}
+    main section{padding:88px 0;border-bottom:1px solid var(--line)}
+    .section-head{display:grid;grid-template-columns:.72fr 1.28fr;gap:46px;align-items:end;margin-bottom:44px}
+    .kicker{color:var(--cyan);font-size:12px;font-weight:900;letter-spacing:.18em;text-transform:uppercase}
+    h2{font-size:clamp(30px,4vw,52px);line-height:1.12;letter-spacing:-.035em;margin:10px 0 0}
+    .section-head p{color:var(--muted);font-size:17px;margin:0;max-width:680px}
+    .battle-map{display:grid;grid-template-columns:1fr 1.18fr 1fr;gap:16px;align-items:stretch}
+    .map-column{display:grid;gap:14px}
+    .map-node{border:1px solid var(--line);background:rgba(12,26,44,.82);border-radius:18px;padding:20px;min-height:142px;position:relative;overflow:hidden}
+    .map-node:before{content:"";position:absolute;width:120px;height:120px;border-radius:50%;right:-52px;top:-62px;background:var(--node,rgba(70,224,209,.1))}
+    .map-node small{color:var(--muted);letter-spacing:.12em;font-weight:800}.map-node h3{font-size:20px;line-height:1.2;margin:8px 0}.map-node p{color:var(--muted);margin:0;font-size:13px}
+    .map-center{border:1px solid rgba(70,224,209,.45);background:radial-gradient(circle at 50% 25%,rgba(70,224,209,.18),rgba(12,26,44,.92) 42%);border-radius:24px;padding:28px;display:flex;flex-direction:column;justify-content:center;text-align:center;box-shadow:0 0 0 7px rgba(70,224,209,.03)}
+    .map-center .orb{width:120px;height:120px;margin:0 auto 22px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 25%,#d8fff8,var(--cyan) 23%,#0c776f 70%);color:#05231f;box-shadow:0 0 42px rgba(70,224,209,.35);font-size:30px;font-weight:950}
+    .map-center h3{font-size:27px;margin:0 0 10px}.map-center p{color:#b8c9d8;margin:0}.map-center .equation{margin-top:20px;padding:11px;border-radius:12px;background:rgba(255,255,255,.05);font-size:12px;color:var(--cyan)}
+    .arrowline{text-align:center;color:var(--muted);font-size:12px;margin:20px 0 0}
+    .verdict{margin-top:28px;border-radius:18px;background:linear-gradient(90deg,rgba(105,169,255,.13),rgba(70,224,209,.08));border:1px solid var(--line);padding:18px 22px;display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center}
+    .verdict strong{color:var(--gold);font-size:12px;letter-spacing:.12em}.verdict p{margin:0;font-size:16px}
+    .segments{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .segment{background:var(--paper);color:var(--paper-ink);border-radius:20px;padding:22px;min-height:300px;display:flex;flex-direction:column}
+    .segment .index{font:900 42px/1 Georgia,serif;color:rgba(19,36,58,.14)}
+    .segment h3{font-size:21px;line-height:1.2;margin:8px 0 8px}.segment .job{font-weight:800;color:#196a64}.segment p{font-size:13px;color:#5c6a7b}.segment ul{padding-left:18px;font-size:13px;margin:auto 0 0}.segment li+li{margin-top:5px}
+    .segment.channel{background:#13263d;color:var(--ink)}.segment.channel p{color:var(--muted)}.segment.channel .job{color:var(--gold)}.segment.channel .index{color:rgba(255,255,255,.12)}
+    .callout{margin-top:16px;color:var(--muted);font-size:13px}.callout b{color:var(--ink)}
+    .duel{display:grid;grid-template-columns:1fr 120px 1fr;gap:18px;align-items:stretch}
+    .engine{border:1px solid var(--line);border-radius:22px;padding:28px;background:rgba(12,26,44,.75)}
+    .engine h3{font-size:27px;margin:8px 0}.engine .role{color:var(--cyan);font-weight:900}.engine .big{font-size:44px;font-weight:950;line-height:1;margin:24px 0 8px}.engine .sub{color:var(--muted);font-size:13px}.engine ul{padding-left:20px}.engine li+li{margin-top:9px}.engine .gate{margin-top:20px;padding:14px;border:1px solid var(--line);border-radius:13px;color:#bfd0e3;font-size:13px}
+    .versus{display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:900;writing-mode:vertical-rl;letter-spacing:.13em}
+    .allocation{display:grid;grid-template-columns:7fr 2fr 1fr;height:60px;border-radius:14px;overflow:hidden;margin-top:22px;border:1px solid var(--line)}
+    .allocation div{display:flex;align-items:center;justify-content:center;text-align:center;font-size:12px;font-weight:900;color:#07111f}.allocation .a{background:var(--cyan)}.allocation .b{background:var(--blue)}.allocation .c{background:var(--gold)}
+    .matrix{width:100%;border-collapse:separate;border-spacing:0;margin-top:30px;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+    .matrix th,.matrix td{padding:14px 16px;text-align:left;border-right:1px solid var(--line);border-bottom:1px solid var(--line);vertical-align:top}.matrix th:last-child,.matrix td:last-child{border-right:0}.matrix tr:last-child td{border-bottom:0}.matrix th{background:rgba(255,255,255,.05);color:var(--cyan);font-size:12px;letter-spacing:.05em}.matrix td{color:#b7c5d8;font-size:13px}.matrix b{color:var(--ink)}
+    .force{display:grid;grid-template-columns:.82fr 1.18fr;gap:22px}
+    .force-stat{border-radius:24px;background:linear-gradient(150deg,#e9fff9,#9deee4);color:#0a3632;padding:34px;display:flex;flex-direction:column;justify-content:space-between;min-height:420px}
+    .force-stat .hundred{font-size:clamp(100px,15vw,176px);letter-spacing:-.09em;line-height:.72;font-weight:950}.force-stat h3{font-size:26px;line-height:1.15;margin:22px 0 10px}.force-stat p{margin:0;color:#285a56}.force-stat small{margin-top:30px;opacity:.75}
+    .force-plan{display:grid;grid-template-columns:1fr 1fr;gap:14px}.force-card{border:1px solid var(--line);border-radius:18px;background:rgba(12,26,44,.82);padding:20px}.force-card h3{margin:8px 0;font-size:18px}.force-card p{color:var(--muted);font-size:13px;margin:0}.force-card .chip{display:inline-block;font-size:11px;padding:3px 8px;border-radius:999px;background:rgba(105,169,255,.12);color:var(--blue)}
+    .pod{margin-top:24px;display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.person{border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center;background:rgba(255,255,255,.03);font-size:12px}.person b{display:block;color:var(--gold);font-size:15px}.person.lead{border-color:rgba(246,200,103,.5)}
+    .workbench-flow{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;align-items:stretch}.flow-step{position:relative;min-height:160px;border:1px solid var(--line);border-radius:16px;padding:16px 13px;background:rgba(12,26,44,.82)}.flow-step:not(:last-child):after{content:"→";position:absolute;right:-14px;top:50%;z-index:3;color:var(--cyan);font-weight:900}.flow-step i{display:block;color:var(--cyan);font-style:normal;font-size:12px;font-weight:900}.flow-step h3{font-size:15px;line-height:1.25;margin:8px 0}.flow-step p{font-size:11px;line-height:1.5;color:var(--muted);margin:0}
+    .screens{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:24px}.screen{border-top:3px solid var(--tone,var(--cyan));background:var(--paper);color:var(--paper-ink);border-radius:0 0 16px 16px;padding:18px}.screen h3{margin:0 0 6px;font-size:17px}.screen p{font-size:12px;color:#5e6e80;margin:0}.screen ul{font-size:12px;padding-left:18px}
+    .operating-model{display:grid;grid-template-columns:1fr 1.1fr;gap:22px}.stack{display:grid;gap:10px}.layer{border:1px solid var(--line);border-radius:15px;padding:18px;display:grid;grid-template-columns:90px 1fr;gap:15px;background:rgba(12,26,44,.75)}.layer b{color:var(--cyan)}.layer p{margin:0;color:var(--muted);font-size:13px}.l3{border:1px solid rgba(105,169,255,.4);border-radius:22px;padding:28px;background:linear-gradient(145deg,rgba(105,169,255,.12),rgba(12,26,44,.75))}.l3 h3{font-size:27px;margin:0 0 12px}.l3 .definition{font-size:17px;color:#cfdef0}.autonomy{margin-top:22px;display:grid;gap:9px}.autonomy-row{display:grid;grid-template-columns:90px 1fr;gap:12px;border-top:1px solid var(--line);padding-top:9px;font-size:13px}.autonomy-row b{color:var(--gold)}.autonomy-row span{color:var(--muted)}
+    .resource-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.resource-card{border:1px solid var(--line);border-radius:18px;padding:22px;background:rgba(12,26,44,.72)}.resource-card h3{font-size:20px;margin:0 0 14px}.resource-card ul{margin:0;padding-left:20px;color:var(--muted)}.resource-card li+li{margin-top:8px}.resource-card b{color:var(--ink)}
+    .timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.phase{border:1px solid var(--line);border-radius:18px;padding:20px;background:rgba(12,26,44,.76);position:relative}.phase:before{content:"";position:absolute;left:20px;right:20px;top:0;height:3px;background:var(--phase,var(--cyan));border-radius:99px}.phase .days{color:var(--phase,var(--cyan));font-weight:950;font-size:12px}.phase h3{font-size:19px;line-height:1.25;margin:8px 0}.phase ul{color:var(--muted);padding-left:18px;font-size:13px}.phase li+li{margin-top:7px}.phase .exit{padding-top:12px;border-top:1px solid var(--line);color:var(--ink);font-size:12px}.phase .exit b{color:var(--gold)}
+    .scorecard{margin-top:22px;display:grid;grid-template-columns:repeat(6,1fr);gap:8px}.metric{border:1px solid var(--line);border-radius:14px;padding:15px;background:rgba(255,255,255,.03)}.metric b{display:block;font-size:21px;color:var(--cyan)}.metric span{font-size:11px;color:var(--muted)}
+    .stop{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.stop-card{border:1px solid rgba(255,114,133,.28);background:rgba(255,114,133,.06);border-radius:18px;padding:20px}.stop-card b{color:var(--red)}.stop-card h3{font-size:18px;margin:8px 0}.stop-card p{font-size:13px;color:var(--muted);margin:0}
+    .orders{background:var(--paper);color:var(--paper-ink)}.orders .kicker{color:#127a72}.orders .section-head p{color:#5c6a7b}.order-list{counter-reset:orders;display:grid;grid-template-columns:1fr 1fr;gap:12px}.order{counter-increment:orders;display:grid;grid-template-columns:46px 1fr;gap:14px;align-items:start;border:1px solid #d9e2ec;border-radius:17px;padding:17px;background:#fff}.order:before{content:counter(orders,decimal-leading-zero);font:900 20px/1 Georgia,serif;color:#16867e}.order h3{font-size:16px;margin:0 0 4px}.order p{font-size:12px;color:#667588;margin:0}
+    .sources{font-size:13px;color:var(--muted)}.sources ol{padding-left:20px}.sources li+li{margin-top:10px}.sources a{color:var(--blue)}.boundary{padding:16px;border:1px solid rgba(246,200,103,.24);background:rgba(246,200,103,.05);border-radius:14px;color:#d4c28d}
+    footer{padding:46px 0 70px;color:var(--muted);font-size:12px}.footer-grid{display:flex;justify-content:space-between;gap:24px;align-items:end}.mark{font-size:18px;color:var(--ink);font-weight:900}.mark i{color:var(--cyan);font-style:normal}
+    @media(max-width:980px){.hero-grid,.section-head,.force,.operating-model{grid-template-columns:1fr}.battle-map{grid-template-columns:1fr}.map-center{order:-1}.segments,.screens,.timeline{grid-template-columns:1fr 1fr}.duel{grid-template-columns:1fr}.versus{writing-mode:horizontal-tb}.workbench-flow{grid-template-columns:1fr 1fr}.flow-step:after{display:none}.scorecard{grid-template-columns:repeat(3,1fr)}}
+    @media(max-width:620px){.shell{padding:0 18px}.topbar .shell{padding:8px 18px}.nav{display:none}.hero{min-height:auto}.hero-grid{padding:72px 0 56px}h1{font-size:45px}.segments,.screens,.timeline,.force-plan,.resource-grid,.order-list,.stop{grid-template-columns:1fr}.pod{grid-template-columns:1fr 1fr}.workbench-flow{grid-template-columns:1fr}.scorecard{grid-template-columns:1fr 1fr}.matrix{display:block;overflow:auto}.footer-grid{display:block}.print{margin-left:auto}}
+    @media print{.topbar,.noise,.print{display:none}.hero{min-height:0}.hero-grid{padding-top:30px}body{background:#fff;color:#111}.hero,.decision-board,.map-node,.map-center,.engine,.force-card,.flow-step,.layer,.l3,.resource-card,.phase,.metric,.stop-card{background:#fff;color:#111;box-shadow:none;border-color:#ccc}.lede,.section-head p,.decision p,.map-node p,.map-center p,.engine .sub,.force-card p,.flow-step p,.layer p,.resource-card li,.phase ul,.metric span,.stop-card p,.sources{color:#555}main section{break-inside:avoid;border-color:#ddd}.orders{background:#fff}}
+  </style>
+</head>
+<body>
+  <div class="noise"></div>
+  <header class="topbar">
+    <div class="shell">
+      <div class="brand">Qieman <i>War Map</i></div>
+      <nav class="nav" aria-label="页内导航">
+        <a href="#map">总图</a><a href="#segments">客群</a><a href="#traffic">流量</a><a href="#advisors">顾问</a><a href="#workbench">工作台</a><a href="#l3">L3</a><a href="#plan">计划</a><a href="#orders">军令</a>
+      </nav>
+      <button class="print" onclick="window.print()" aria-label="打印报告">打印</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="shell hero-grid">
+      <div>
+        <div class="eyebrow">CEO decision map · 2026.10.09</div>
+        <h1>且慢不是再找一个入口，<br>而是要成为<em>账户经营操作系统</em></h1>
+        <p class="lede">一核：有效经营账户。双引擎：且慢自有流量与外部 AI 流量。三场战役：首笔钱、存量账户、富裕家庭。一套作战系统：近百名顾问 × 顾问工作台 × 受监督的 L3 AI。</p>
+        <div class="hero-thesis"><b>最尖锐的判断：</b>且慢不缺流量、产品、顾问或 AI 能力，缺的是把这些资产压进同一账户任务、同一责任人、同一结果账本的组织能力。</div>
+        <div class="meta"><span>内部经营材料 + 现行监管原文</span><span>近百顾问为用户提供前提，待 HR 台账核验</span><span>建议目标与历史事实分开</span></div>
+      </div>
+      <aside class="decision-board">
+        <h2>CEO 只需要先拍板 6 件事</h2>
+        <div class="decision"><span class="num">1</span><div><b>定位</b><p>不与货架平台比 SKU 和流量，竞争“账户结果与长期信任”。</p></div></div>
+        <div class="decision"><span class="num">2</span><div><b>北极星</b><p>从注册/AUM 单点切到“有效经营账户 EOA + 净流入/收入”。</p></div></div>
+        <div class="decision"><span class="num">3</span><div><b>流量</b><p>70% 资源深耕自有关系，20% 跑 AI 增量，10% 保留新渠道期权。</p></div></div>
+        <div class="decision"><span class="num">4</span><div><b>顾问</b><p>近百人拆成 8–10 个战斗单元，不做近百个各自为战的内容账号。</p></div></div>
+        <div class="decision"><span class="num">5</span><div><b>L3</b><p>先让 AI 主动把任务推进到人决策，不从“自动交易”起步。</p></div></div>
+        <div class="decision"><span class="num">6</span><div><b>资源</b><p>三个 Mission Squad + 一个共享底座；所有项目必须挤掉一项旧工作。</p></div></div>
+      </aside>
+    </div>
+  </section>
+
+  <main>
+    <section id="map">
+      <div class="shell">
+        <div class="section-head"><div><div class="kicker">01 / 战略总图</div><h2>一核、双引擎、三战役、四底座</h2></div><p>把“客群、流量、顾问、工作台和 L3”看成五个项目，会继续争资源；把它们组织成同一账户经营系统，才是一张 CEO 作战地图。</p></div>
+        <div class="battle-map">
+          <div class="map-column">
+            <article class="map-node" style="--node:rgba(105,169,255,.2)"><small>ENGINE A · 现金流主引擎</small><h3>且慢自有流量</h3><p>注册、持有、在管、内容、社区和历史信任关系。任务是补全目标、风险与下一服务动作。</p></article>
+            <article class="map-node" style="--node:rgba(246,200,103,.2)"><small>BATTLE 01 · 首笔钱</small><h3>从“看过”到“第一份计划”</h3><p>四笔钱地图、持仓梳理、目标测算；先形成任务，不急着推具体产品。</p></article>
+            <article class="map-node" style="--node:rgba(112,228,155,.2)"><small>BATTLE 02 · 存量账户</small><h3>从单品持有到账户管理</h3><p>市场/持仓事件、配置偏离、复盘与持续陪伴，提升留存、复购与净流入。</p></article>
+          </div>
+          <div class="map-center">
+            <div class="orb">EOA</div>
+            <h3>有效经营账户</h3>
+            <p>有目标与期限、有风险上下文、有下一任务、有责任人、有结果回流。AUM 是滞后结果，EOA 是经营过程的共同对象。</p>
+            <div class="equation">客户 × 账户上下文 × 服务任务 × 责任人 × 可验证结果</div>
+          </div>
+          <div class="map-column">
+            <article class="map-node" style="--node:rgba(70,224,209,.2)"><small>ENGINE B · 增量期权</small><h3>外部 AI 流量</h3><p>千问、豆包、微信及模型生态带来的高意图问题。任务是从一次答案转成可恢复的账户任务。</p></article>
+            <article class="map-node" style="--node:rgba(255,149,104,.2)"><small>BATTLE 03 · 富裕家庭</small><h3>从理财需求到家庭资产负债表</h3><p>真人顾问主责，AI 准备资料、方案与复盘；用 1+N 专家体系承接复杂性。</p></article>
+            <article class="map-node" style="--node:rgba(255,114,133,.2)"><small>OPERATING SYSTEM</small><h3>顾问工作台 × L3 AI</h3><p>事件发现、证据准备、任务编排、审批、触达、验真与学习，形成统一生产系统。</p></article>
+          </div>
+        </div>
+        <div class="verdict"><strong>战略定义</strong><p>且慢的价值主张不是“帮用户选基金”，而是“让家庭每一笔钱有目标、有纪律、有人负责，并在市场波动中持续推进”。</p></div>
+      </div>
+    </section>
+
+    <section id="segments">
+      <div class="shell">
+        <div class="section-head"><div><div class="kicker">02 / 客群与价值主张</div><h2>渠道不是客群，资产量也不是需求</h2></div><p>CEO 应按客户要完成的任务分兵，而不是按 App、企微、AI 渠道或“高/中/低资产”简单切块。外部 AI 用户只是获客状态，不是第五类长期客群。</p></div>
+        <div class="segments">
+          <article class="segment"><span class="index">01</span><h3>起步型大众客户</h3><div class="job">把钱分清，避免第一步做错</div><p>现金流不稳定、产品经验少、容易追热点。需要先确定活钱、稳钱、长钱与保障边界。</p><ul><li>交付：四笔钱地图 + 第一份行动清单</li><li>承接：AI 自助为主，顾问抽样复核</li><li>结果：首个有效目标账户，而非首个成交</li></ul></article>
+          <article class="segment"><span class="index">02</span><h3>存量持有人</h3><div class="job">看懂现状，减少错误行为</div><p>已有基金/投顾资产，但账户目标、风险与服务上下文不完整，是且慢最值得优先深耕的现金流客群。</p><ul><li>交付：账户诊断 + 持仓事件陪伴</li><li>承接：机器监测，顾问处理关键事件</li><li>结果：留存、复购、净流入与行为改善</li></ul></article>
+          <article class="segment"><span class="index">03</span><h3>目标型家庭</h3><div class="job">让钱与人生目标对上</div><p>养老、教育、买房、家庭保障等目标明确，但跨账户、跨期限和持续投入需要一套计划。</p><ul><li>交付：目标缺口、方案、执行与复盘</li><li>承接：AI 规划副驾 + 认证顾问</li><li>结果：目标进度、持续投入、偏离修复</li></ul></article>
+          <article class="segment channel"><span class="index">04</span><h3>富裕 / 高净值家庭</h3><div class="job">复杂决策有一个总负责的人</div><p>资产跨品类、跨家庭成员、跨境或涉及税务/传承。不能靠更多产品卡片，必须靠真人责任与专家协同。</p><ul><li>交付：家庭资产负债表 + 1+N 方案</li><li>承接：主顾问负责，AI 做研究与运营</li><li>结果：全资产覆盖、服务收费、长期关系</li></ul></article>
+        </div>
+        <p class="callout"><b>差异与优势：</b>头部平台强在流量、货架与交易效率；且慢应把“四笔钱、买方投顾、长期陪伴、目标账户、真人顾问与 AI”组合成不可拆的服务。内部材料中的盈利占比、持有时长、多元配置与复购数据支持这一方向，但正式外宣前仍需统一口径与披露审批。</p>
+      </div>
+    </section>
+
+    <section id="traffic">
+      <div class="shell">
+        <div class="section-head"><div><div class="kicker">03 / 双流量决策</div><h2>不是要哪种流量，而是谁承担什么任务</h2></div><p>且慢流量负责兑现经营结果；AI 流量负责获得增量问题与新关系。两者必须进入同一任务账本，否则一个变成存量打扰，另一个变成漂亮的问答数据。</p></div>
+        <div class="duel">
+          <article class="engine"><span class="role">PRIMARY ENGINE</span><h3>且慢自有流量</h3><div class="big">70%</div><div class="sub">建议配置的业务与产品变革资源</div><ul><li>优先人群：单账户、无目标、风险上下文缺失、养老开户未行动、持仓事件未服务。</li><li>突破方式：不做泛推送，做“事件 → 账户任务 → 顾问/AI → 结果”闭环。</li><li>核心产品：账户诊断、目标补全、持续陪伴、家庭规划。</li><li>主要指标：EOA、新增净流入、留存、复购、目标进度、服务成本。</li></ul><div class="gate"><b>扩量闸门：</b>任务闭环可追、对照组结果提升、投诉/误触达不恶化，才扩大人群。</div></article>
+          <div class="versus">ONE LEDGER · TWO ENGINES</div>
+          <article class="engine"><span class="role">OPTION ENGINE</span><h3>外部 AI 流量</h3><div class="big">20% + 10%</div><div class="sub">20% 主流 AI 渠道；10% 新平台与新交互试验</div><ul><li>优先需求：具体产品研究、市场影响、持仓诊断、四笔钱与目标规划。</li><li>突破方式：从一次回答转成“任务卡 + 观察清单 + 下一触发条件”。</li><li>核心产品：公开诊断工具、可续接研究任务、授权后的且慢账户承接。</li><li>主要指标：归因完整率、任务生成率、7/30 日续接、自有关系转化、单位经济性。</li></ul><div class="gate"><b>停止闸门：</b>只有调用、曝光和绑定，没有可验证任务续接与自有关系沉淀，就不继续买量。</div></article>
+        </div>
+        <div class="allocation"><div class="a">70% 自有账户经营</div><div class="b">20% AI 主战渠道</div><div class="c">10% 期权</div></div>
+        <table class="matrix">
+          <thead><tr><th>突破口</th><th>且慢流量怎么打</th><th>AI 流量怎么打</th><th>共同终点</th></tr></thead>
+          <tbody>
+            <tr><td><b>入口</b></td><td>从产品首页切到账户事件与人生任务</td><td>从“问任何问题”切到高价值结构化任务</td><td>产生可恢复的 task_id</td></tr>
+            <tr><td><b>身份</b></td><td>打通客户、家庭、账户与服务史</td><td>先匿名交付价值，授权后再绑定且慢身份</td><td>统一 customer / account / source_id</td></tr>
+            <tr><td><b>承接</b></td><td>机器处理长尾，顾问处理高风险/高价值</td><td>公开信息回答后，把复杂任务交给官方承接</td><td>明确下一动作与责任人</td></tr>
+            <tr><td><b>商业化</b></td><td>净流入、复购、服务收费、全品类配置</td><td>先证明任务续接与合格线索，再核算 CAC/LTV</td><td>30/90 日结果归因</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="advisors">
+      <div class="shell">
+        <div class="section-head"><div><div class="kicker">04 / 近百顾问军团</div><h2>930 带来的不是人头红利，而是组织化红利</h2></div><p>新规要求营销人员进入持牌机构的身份、资格、账号、授权与留痕责任链。最差的做法是把近百人变成近百个低效销售；最优做法是把他们变成一张被 AI 编排、被合规约束、持续产出客户证据的服务网络。</p></div>
+        <div class="force">
+          <aside class="force-stat"><div><div class="hundred">≈100</div><h3>不是 100 个“全能顾问”<br>而是 8–10 个战斗单元</h3><p>每个单元有明确客群、任务、队列、班长和结果；共享投研、内容、专家、合规与 AI 工厂。</p></div><small>“近百”来自本次用户输入，报告未获得 HR 花名册独立核验；上线前需补人员、资格、账号与权限台账。</small></aside>
+          <div>
+            <div class="force-plan">
+              <article class="force-card"><span class="chip">ROLE 01</span><h3>入口与内容顾问</h3><p>负责公开投教、直播/社群、问题收集与身份承接；不越权做个性化建议。</p></article>
+              <article class="force-card"><span class="chip">ROLE 02</span><h3>账户经营顾问</h3><p>负责账户诊断、目标补全、市场/持仓事件和持续服务，是主力管户角色。</p></article>
+              <article class="force-card"><span class="chip">ROLE 03</span><h3>规划与高客顾问</h3><p>负责家庭资产负债表、目标规划、复杂方案与 1+N 专家协作。</p></article>
+              <article class="force-card"><span class="chip">ROLE 04</span><h3>专家 / 教练 / 质检</h3><p>沉淀案例、规则与反例，处理升级任务，训练顾问并把判断转成 AI 资产。</p></article>
+            </div>
+            <div class="pod">
+              <div class="person lead"><b>1</b>战队长<br>结果与质量</div><div class="person"><b>8–12</b>顾问<br>客户任务</div><div class="person"><b>1:N</b>投研专家<br>专业升级</div><div class="person"><b>1:N</b>运营教练<br>剧本与培训</div><div class="person"><b>共享</b>合规/数据/AI<br>护栏与底座</div>
+            </div>
+          </div>
+        </div>
+        <table class="matrix">
+          <thead><tr><th>阶段</th><th>顾问获得什么</th><th>能做什么</th><th>过关证据</th></tr></thead>
+          <tbody>
+            <tr><td><b>D0–30 认证</b></td><td>监管、客群、四笔钱、工具、SOP、账号与数据权限</td><td>影子学习、内容复核、模拟客户任务</td><td>资格/账号台账完整；黄金任务通过率达标</td></tr>
+            <tr><td><b>D31–60 辅助作战</b></td><td>AI 预制证据、话术、报告与下一步建议</td><td>顾问确认后触达；所有修改/驳回留痕</td><td>采纳、返工、投诉、遗漏与升级原因可统计</td></tr>
+            <tr><td><b>D61–90 独立管户</b></td><td>明确客群与账户池、每日机会队列、团队教练</td><td>完成指定 SOP；复杂/高风险自动升级</td><td>EOA、闭环率、客户结果、单位服务成本</td></tr>
+            <tr><td><b>D90+ 分层授权</b></td><td>按能力与风险动态升级权限</td><td>高绩效顾问带战队、做专家或教练</td><td>结果稳定且重大合规事故为 0</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="workbench">
+      <div class="shell">
+        <div class="section-head"><div><div class="kicker">05 / 顾问工作台</div><h2>不是聊天框，是每天的作战队列</h2></div><p>顾问每天打开后只需要知道：谁需要我、为什么、证据是什么、该做什么、谁审批、结果有没有回来。AI 与顾问必须读写同一客户、任务、SOP、材料与结果对象。</p></div>
+        <div class="workbench-flow">
+          <article class="flow-step"><i>01 · SENSE</i><h3>事件雷达</h3><p>市场、持仓、目标、行为、服务、合规与营销日历。</p></article>
+          <article class="flow-step"><i>02 · SCORE</i><h3>机会评分</h3><p>客户价值、紧迫性、适配性、风险与可执行性。</p></article>
+          <article class="flow-step"><i>03 · PREPARE</i><h3>证据包</h3><p>账户上下文、产品/市场证据、缺失项与反证。</p></article>
+          <article class="flow-step"><i>04 · DECIDE</i><h3>顾问判断</h3><p>采纳、修改、驳回、升级；保留原因与责任。</p></article>
+          <article class="flow-step"><i>05 · APPROVE</i><h3>合规与授权</h3><p>适当性、身份、账号、内容、渠道与高风险动作。</p></article>
+          <article class="flow-step"><i>06 · ACT</i><h3>触达 / 执行</h3><p>企微、App、电话、报告与交易前显式确认。</p></article>
+          <article class="flow-step"><i>07 · VERIFY</i><h3>结果回流</h3><p>触达、采纳、交易/服务结果、异议与下一任务。</p></article>
+        </div>
+        <div class="screens">
+          <article class="screen" style="--tone:var(--blue)"><h3>CEO 驾驶舱</h3><p>三战役投入、EOA、净流入、单位经济性、重大风险与停止清单。</p><ul><li>按战役而非部门看结果</li><li>项目必须有扩量/回退决议</li></ul></article>
+          <article class="screen" style="--tone:var(--gold)"><h3>战队长驾驶舱</h3><p>人均队列、接单 SLA、闭环率、返工、升级、客户结果与教练动作。</p><ul><li>防止只盯触达量</li><li>识别最佳剧本与失败模式</li></ul></article>
+          <article class="screen" style="--tone:var(--cyan)"><h3>顾问作战台</h3><p>今日必做、客户 360、SOP 阶段、AI 证据包、材料与下一步。</p><ul><li>一客一任务一责任人</li><li>高风险动作显式确认</li></ul></article>
+          <article class="screen" style="--tone:var(--red)"><h3>合规与质检台</h3><p>人员/账号/内容/触达/数据/费用全链路留痕，异常可停机、可回放。</p><ul><li>AI 是预审，不是责任主体</li><li>重大事故触发回退</li></ul></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="l3">
+      <div class="shell">
+        <div class="section-head"><div><div class="kicker">06 / AI 与 L3 组织</div><h2>从“人用 AI”变成“人管任务，AI 推进流程”</h2></div><p>L3 不应成为一项技术等级考试。对且慢，L3 的经营定义应是：AI 主动发现并推进多步骤服务任务，人对关键风险动作授权，对结果承担最终责任。</p></div>
+        <div class="operating-model">
+          <div class="stack">
+            <article class="layer"><b>L1 工具</b><p>问答、写稿、摘要；个人效率提升，但任务仍由人手工发起与搬运。</p></article>
+            <article class="layer"><b>L2 副驾</b><p>理解客户上下文，生成诊断、材料与候选动作；顾问逐项操作。</p></article>
+            <article class="layer" style="border-color:rgba(70,224,209,.5)"><b>L3 主动级</b><p>监测事件、拆任务、调用系统、准备证据、路由审批、跟踪结果并触发复盘。</p></article>
+            <article class="layer"><b>L4 自治</b><p>高度自治，不适合作为当前金融服务目标；交易、个性化建议与公开发布保留人工控制。</p></article>
+          </div>
+          <article class="l3">
+            <h3>且慢 L3 的 4 级权限</h3>
+            <p class="definition">AI 的价值不是“少雇人”，而是让一位合格顾问同时服务更多客户，却不牺牲证据、责任、体验与合规。</p>
+            <div class="autonomy">
+              <div class="autonomy-row"><b>自动执行</b><span>内部检索、数据计算、缺口提醒、任务创建、材料草拟、结果监测。</span></div>
+              <div class="autonomy-row"><b>顾问确认</b><span>个性化解释、账户诊断结论、对客沟通、服务计划与复杂建议。</span></div>
+              <div class="autonomy-row"><b>合规 / 客户授权</b><span>营销发布、适当性敏感内容、数据用途变化、交易与资金相关动作。</span></div>
+              <div class="autonomy-row"><b>禁止自治</b><span>收益承诺、绕过适当性、未经授权使用数据、AI 自主交易或隐藏责任主体。</span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="resources">
+      <div class="shell">
+        <div class="section-head"><div><div class="kicker">07 / 组织与资源</div><h2>不新设一个“AI 部门”，建立任务型作战组织</h2></div><p>三个战役小队对业务结果负责；AI、数据、合规、投研和平台是共享底座。建议资源是“明确锁定的产能”，不等于全部新增招聘。</p></div>
+        <div class="resource-grid">
+          <article class="resource-card"><h3>1 个 CEO / BU 级指挥部</h3><ul><li><b>1 名经营总责：</b>对 EOA、净流入/收入与资源取舍负责。</li><li><b>1 名作战 PMO：</b>统一账本、里程碑、风险、扩量/停止决议。</li><li><b>1–2 名经营数据：</b>口径、实验、归因和单位经济性。</li><li><b>合规负责人常席：</b>有停机权，不是会后补审。</li></ul></article>
+          <article class="resource-card"><h3>3 个 Mission Squad · 每队 6–8 人</h3><ul><li><b>业务 Owner 1：</b>首笔钱 / 存量账户 / 富裕家庭之一。</li><li><b>产品 1、工程 2、AI/数据 1–2：</b>端到端任务闭环。</li><li><b>运营/顾问代表 1、合规 0.5：</b>真实执行与风险边界。</li><li><b>退出机制：</b>90 天不能证明结果即缩编或停止。</li></ul></article>
+          <article class="resource-card"><h3>共享底座 · 8–12 人</h3><ul><li>客户/家庭/账户/任务主键与事件总线。</li><li>知识、产品、市场、持仓、规则与权限服务。</li><li>黄金任务集、评测、监控、审计与回退。</li><li>内容/报告工厂、渠道适配和合规策略引擎。</li></ul></article>
+          <article class="resource-card"><h3>顾问网络 · 8–10 战队</h3><ul><li><b>8–10 名战队长：</b>人均 8–12 名顾问。</li><li><b>4–6 名教练/运营：</b>培训、剧本、案例与日常复盘。</li><li><b>共享专家池：</b>投研、养老、保险、高客、多品类。</li><li><b>一人一证一号一权限：</b>资格、账号、客户池和数据域可审计。</li></ul></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="plan">
+      <div class="shell">
+        <div class="section-head"><div><div class="kicker">08 / 作战计划</div><h2>先建立共同账本，再让 100 人和 AI 放大</h2></div><p>90 天不是“大上线”，而是证明三个闭环能安全地产生客户结果；180 天才进入战队复制与渠道扩量。</p></div>
+        <div class="timeline">
+          <article class="phase" style="--phase:var(--cyan)"><div class="days">D0–15 · 定义战争</div><h3>冻结对象、口径与权责</h3><ul><li>签署 EOA 与 L3 内部定义</li><li>核验近百顾问花名册、资格、账号与权限</li><li>为三场战役指定唯一业务 Owner</li><li>冻结任务、来源、账户与结果主键</li></ul><div class="exit"><b>退出：</b>100% 核心指标有 Owner / 公式 / as-of。</div></article>
+          <article class="phase" style="--phase:var(--blue)"><div class="days">D16–45 · 最小闭环</div><h3>顾问侧先跑通</h3><ul><li>接真实事件，不用静态机会证明可用</li><li>每场景建立 ≥100 个黄金任务</li><li>AI 出证据包，顾问确认，结果回流</li><li>完成影子运行、故障降级与人工接管</li></ul><div class="exit"><b>退出：</b>三类任务端到端可追；重大越权为 0。</div></article>
+          <article class="phase" style="--phase:var(--gold)"><div class="days">D46–90 · 受控试点</div><h3>三个战队小流量作战</h3><ul><li>每场战役 1 个战队、1 个主指标</li><li>用对照组评估 7/30 日结果</li><li>每天复盘失败任务与顾问驳回</li><li>核算人时、推理、触达、返工与投诉</li></ul><div class="exit"><b>退出：</b>至少 2 个场景结果优于基线，具备复制证据。</div></article>
+          <article class="phase" style="--phase:var(--green)"><div class="days">D91–180 · 复制扩量</div><h3>扩到 8–10 个战队</h3><ul><li>工作台覆盖近百顾问的核心任务</li><li>且慢存量经营先扩，AI 渠道按闸门加码</li><li>分层授权与顾问能力认证上线</li><li>沉淀第二次复用能力为平台资产</li></ul><div class="exit"><b>退出：</b>战队生产率、客户结果和风险稳定。</div></article>
+        </div>
+        <div class="scorecard">
+          <div class="metric"><b>EOA</b><span>有效经营账户数</span></div><div class="metric"><b>≥90%</b><span>新增入口归因完整率 · 建议闸门</span></div><div class="metric"><b>7 / 30d</b><span>任务续接与客户结果</span></div><div class="metric"><b>闭环率</b><span>事件到结果可追</span></div><div class="metric"><b>单位成本</b><span>人时 + AI + 触达 + 返工</span></div><div class="metric"><b>0</b><span>重大合规 / 越权事故</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="stop">
+      <div class="shell">
+        <div class="section-head"><div><div class="kicker">09 / 停止事项</div><h2>不停止旧打法，就没有资源做转型</h2></div><p>L3 转型最稀缺的不是模型、预算或人，而是管理层愿不愿意终止“看起来很忙、无法证明结果”的工作。</p></div>
+        <div class="stop">
+          <article class="stop-card"><b>STOP 01</b><h3>停止用功能数 / Skill 数验收 AI</h3><p>没有真实任务、采纳、结果、失败与成本，就不是生产能力。</p></article>
+          <article class="stop-card"><b>STOP 02</b><h3>停止让近百顾问各自做内容与找客户</h3><p>统一账号、剧本、客户池、工作台、教练与结果，不复制个体英雄主义。</p></article>
+          <article class="stop-card"><b>STOP 03</b><h3>停止用绑定 / 调用冒充 AI 获客成功</h3><p>未形成可续接任务、自有关系与 30/90 日结果，就只算流量实验。</p></article>
+          <article class="stop-card"><b>STOP 04</b><h3>停止把合规放到发布前一天</h3><p>主体、人员、账号、内容、数据、触达和费用必须在产品对象里原生存在。</p></article>
+          <article class="stop-card"><b>STOP 05</b><h3>停止所有项目同时 P0</h3><p>新增项目必须说明挤掉什么；资源先保证三个战役和共同底座。</p></article>
+          <article class="stop-card"><b>STOP 06</b><h3>停止让 AI 直接对客做高风险决定</h3><p>当前 L3 是主动推进、受监督执行，不是自动建议、自动发布或自动交易。</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="orders" id="orders">
+      <div class="shell">
+        <div class="section-head"><div><div class="kicker">10 / 第一周军令</div><h2>CEO 本周签下这 8 张令</h2></div><p>这 8 项不需要等待完整系统立项。它们决定组织是在做一次管理汇报，还是开始真正转向账户经营与 L3。</p></div>
+        <div class="order-list">
+          <article class="order"><div><h3>指定唯一经营总责人</h3><p>对 EOA、净流入/收入、三战役资源和停止事项有最终决策权。</p></div></article>
+          <article class="order"><div><h3>签署且慢一句话定位</h3><p>“让家庭每一笔钱有目标、有纪律、有人负责，并在波动中持续推进。”</p></div></article>
+          <article class="order"><div><h3>核验近百顾问资产</h3><p>完成花名册、资格、账号、来源、擅长客群、权限与培训状态台账。</p></div></article>
+          <article class="order"><div><h3>冻结三类首批任务</h3><p>第一份计划、存量账户事件、富裕家庭资产负债表；不再追加第四个 P0。</p></div></article>
+          <article class="order"><div><h3>确认 70 / 20 / 10 资源原则</h3><p>自有账户经营优先；AI 渠道过闸门才加码；新平台只保留期权。</p></div></article>
+          <article class="order"><div><h3>建立 300 个黄金任务</h3><p>每战役 100 个，覆盖正常、缺数据、冲突、极端市场、投诉和工具故障。</p></div></article>
+          <article class="order"><div><h3>启动顾问影子运行</h3><p>AI 生成但不外发；记录顾问采纳、修改、驳回与原因，先学再自动。</p></div></article>
+          <article class="order"><div><h3>开第一次扩量 / 停止会</h3><p>两周后只依据结果、成本和风险决定继续、缩减、回退或停止。</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="sources">
+      <div class="shell">
+        <div class="section-head"><div><div class="kicker">11 / 证据与边界</div><h2>事实、推断、建议目标分开</h2></div><p>本页是 CEO 决策框架，不把内部异步快照拼成伪精确统一漏斗，也不把管理阈值冒充历史成绩。</p></div>
+        <div class="sources">
+          <ol>
+            <li><b>监管事实：</b>八部门公告〔2026〕第9号《金融产品网络营销管理办法》自 2026-09-30 实施；与本图最相关的是金融机构责任、营销人员身份/资格/授权、官方账号、内容审核、行为可回溯、第三方平台边界与客户数据授权。<a href="https://www.cac.gov.cn/2026-04/24/c_1778769008779432.htm" target="_blank" rel="noreferrer">官方原文</a></li>
+            <li><b>内部战略与产品事实：</b>参考且慢 BU 经营系统、投资机构调研口径、且慢新人业务地图、基金营销新规落地分析、顾问运营 AI 工作台审计、新一代 VIP 顾问工作台模型及 2026 下半年 OKR 分析。相关指标均为各自日期快照，非 2026-10-09 实时统一口径。</li>
+            <li><b>已发布证据专题：</b><a href="../qieman-platform-organization-diagnosis-2026-10-09/">且慢全盘现况与问题诊断</a>、<a href="../qieman-traffic-conversion-marketing-plan-2026/">且慢流量转化营销方案</a>、<a href="../l3-product-operating-plan-2026-10-09/">高需求业务场景驱动的 L3 计划</a>、<a href="../advisor-operations-workbench-deep-audit-2026-09-16/">顾问运营 AI 工作台深度审计</a>。</li>
+            <li><b>用户提供前提：</b>“930 新规后入职近一百个顾问”。本页据此设计组织放大方案，但没有独立访问 HR/资格/账号实时台账，因此不把“近百”写成已核验精确人数。</li>
+          </ol>
+          <div class="boundary">建议的 70/20/10、组织编制、阶段闸门与指标阈值均为管理设计，需要在 15 天内用当前资源、人工基线、真实漏斗和财务约束校准；它们不是收益预测，也不构成对客户的投资建议。</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="shell footer-grid"><div><div class="mark">Clair’s <i>Studio</i> × Qieman</div><div>CEO 战略作战图 · 内部决策材料 · 2026-10-09</div></div><div>目标不是多做 AI，而是让更多账户被更可靠地经营。</div></div></footer>
+  <script>
+    const links=[...document.querySelectorAll('.nav a')];
+    const sections=links.map(link=>document.querySelector(link.getAttribute('href'))).filter(Boolean);
+    const observer=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting){links.forEach(link=>link.classList.toggle('active',link.getAttribute('href')==='#'+entry.target.id));}}},{rootMargin:'-32% 0px -60% 0px'});
+    sections.forEach(section=>observer.observe(section));
+  </script>
+</body>
+</html>

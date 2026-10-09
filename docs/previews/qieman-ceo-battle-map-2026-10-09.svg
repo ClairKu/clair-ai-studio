@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">且慢 CEO 作战地图</title>
+  <desc id="desc">一核双引擎三战役一套AI作战系统</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#07111f"/><stop offset="1" stop-color="#102a41"/></linearGradient>
+    <radialGradient id="orb"><stop stop-color="#d8fff8"/><stop offset=".25" stop-color="#46e0d1"/><stop offset="1" stop-color="#0c776f"/></radialGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="13" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <circle cx="930" cy="120" r="250" fill="#46e0d1" opacity=".06"/>
+  <text x="70" y="78" fill="#46e0d1" font-family="Arial,'PingFang SC',sans-serif" font-size="18" font-weight="700" letter-spacing="3">QIEMAN · CEO WAR MAP</text>
+  <text x="70" y="145" fill="#eaf2ff" font-family="Arial,'PingFang SC',sans-serif" font-size="48" font-weight="800">且慢不是再找一个入口</text>
+  <text x="70" y="205" fill="#eaf2ff" font-family="Arial,'PingFang SC',sans-serif" font-size="48" font-weight="800">而是成为<tspan fill="#46e0d1">账户经营操作系统</tspan></text>
+  <g transform="translate(70 280)">
+    <rect width="300" height="240" rx="22" fill="#0c1a2c" stroke="#31506f"/>
+    <text x="24" y="38" fill="#69a9ff" font-family="Arial,'PingFang SC',sans-serif" font-size="15" font-weight="700">双引擎</text>
+    <text x="24" y="83" fill="#eaf2ff" font-family="Arial,'PingFang SC',sans-serif" font-size="28" font-weight="800">且慢自有流量</text>
+    <text x="24" y="116" fill="#93a5bd" font-family="Arial,'PingFang SC',sans-serif" font-size="16">现金流与信任主引擎</text>
+    <path d="M24 145H276" stroke="#31506f"/>
+    <text x="24" y="187" fill="#eaf2ff" font-family="Arial,'PingFang SC',sans-serif" font-size="28" font-weight="800">外部 AI 流量</text>
+    <text x="24" y="220" fill="#93a5bd" font-family="Arial,'PingFang SC',sans-serif" font-size="16">高意图问题与增量期权</text>
+  </g>
+  <g transform="translate(430 282)">
+    <circle cx="160" cy="120" r="100" fill="#46e0d1" opacity=".13" filter="url(#glow)"/>
+    <circle cx="160" cy="120" r="76" fill="url(#orb)"/>
+    <text x="160" y="113" fill="#05231f" text-anchor="middle" font-family="Arial,sans-serif" font-size="40" font-weight="900">EOA</text>
+    <text x="160" y="143" fill="#05231f" text-anchor="middle" font-family="Arial,'PingFang SC',sans-serif" font-size="16" font-weight="700">有效经营账户</text>
+  </g>
+  <g transform="translate(790 280)">
+    <rect width="340" height="240" rx="22" fill="#0c1a2c" stroke="#31506f"/>
+    <text x="24" y="38" fill="#f6c867" font-family="Arial,'PingFang SC',sans-serif" font-size="15" font-weight="700">三场战役</text>
+    <text x="24" y="82" fill="#eaf2ff" font-family="Arial,'PingFang SC',sans-serif" font-size="25" font-weight="800">01  第一份计划</text>
+    <text x="24" y="130" fill="#eaf2ff" font-family="Arial,'PingFang SC',sans-serif" font-size="25" font-weight="800">02  存量账户经营</text>
+    <text x="24" y="178" fill="#eaf2ff" font-family="Arial,'PingFang SC',sans-serif" font-size="25" font-weight="800">03  富裕家庭规划</text>
+    <text x="24" y="218" fill="#93a5bd" font-family="Arial,'PingFang SC',sans-serif" font-size="15">顾问工作台 × L3 AI 统一编排</text>
+  </g>
+  <g transform="translate(70 575)">
+    <rect width="1060" height="2" fill="#31506f"/>
+    <text y="45" fill="#93a5bd" font-family="Arial,'PingFang SC',sans-serif" font-size="17">近百顾问不是人头红利，而是一张可被 AI 编排、被合规约束、持续产出客户证据的服务网络。</text>
+  </g>
+</svg>
