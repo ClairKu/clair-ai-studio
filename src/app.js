@@ -56,7 +56,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 87;
+const DATA_VERSION = 88;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -226,16 +226,16 @@ const initialState = {
     {
       id: "l3-product-operating-plan-2026-10-09",
       groupId: "product-planning",
-      title: "公司 L3 战略下的产品推进方案｜从功能型 AI 到任务结果型产品",
+      title: "且慢高需求业务场景驱动的 L3 计划｜从问答到投资决策与陪伴闭环",
       url: "https://clairku.github.io/clair-ai-studio/reports/l3-product-operating-plan-2026-10-09/",
       preview: "l3-product-operating-plan-2026-10-09.png",
       pinned: true,
       position: 0,
       createdAt: "2026-10-09T10:30:00+08:00",
-      source: "公司级 AI Agent L3 产品推进框架｜将 L3 定义为受监督的任务自治，覆盖产品定义与反例、场景价值/就绪度组合、六条产品工作流、五段人机闭环、五层公共底座、有效闭环任务北极星指标、五道生产上线门槛、任务成功小队与 RACI、90 天路线图、季度 OKR、本周行动清单和一页场景章程模板｜首批建议聚焦 2–3 个高价值、可闭环、数据与工具就绪、风险可控的真实任务；涉及投资建议、交易或不可逆客户权益的动作继续保留显式人工授权｜内部管理方法与目标建议，不代表已经完成生产验证",
+      source: "千问 × 且慢 AI 小顾生产数据快照（截至 2026-10-08 10:46:48 CST）× 豆包渠道行为数据｜千问 13,303 个绑定账户，新用户 10,776 位提问、65,517 个问题；基于实质性自发提问识别产品研究、市场洞察、交易执行、持仓诊断等需求方向，并以豆包存量用户行为作方向校验｜提出 3 项首批闭环：具体产品研究决策、市场/持仓事件陪伴、顾问机会执行；交易/赎回仅做分析—预演—显式确认，不做 AI 自主下单｜包含 L3 六段闭环、两项产品蓝图、五层底座、指标与五道上线门槛、90 天路线、RACI、第一周行动和 D-001 至 D-015 数据索引｜方向分类允许用户重叠；千问与豆包未跨渠道去重；行为数据不作 AI 因果归因；首季目标不是历史成绩",
       access: "production",
       workType: "product-planning",
-      tags: ["L3", "AI Agent", "产品战略", "产品规划", "人机协同", "任务闭环", "组织机制", "OKR", "治理", "HTML", "生产"],
+      tags: ["且慢", "L3", "AI Agent", "产品研究", "持仓诊断", "投后陪伴", "顾问工作台", "高需求场景", "90天路线", "数据驱动", "产品规划", "治理", "HTML", "生产"],
     },
     {
       id: "ai-service-website-design-benchmark-2026-10-08",
