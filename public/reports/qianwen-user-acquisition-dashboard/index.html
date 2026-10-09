@@ -157,6 +157,18 @@
               <b class="chip-value" id="value-daily">—</b>
             </label>
           </fieldset>
+          <dl class="growth-highlights" aria-label="所选时间范围的新增用户摘要">
+            <div>
+              <dt>高峰日新增</dt>
+              <dd id="growth-peak-value">—</dd>
+              <small id="growth-peak-date">—</small>
+            </div>
+            <div>
+              <dt>日均新增</dt>
+              <dd id="growth-average-value">—</dd>
+              <small id="growth-average-range">—</small>
+            </div>
+          </dl>
         </div>
         <div class="chart-wrap" id="chart-wrap">
           <svg id="trend-chart" viewBox="0 0 1040 458" role="img" aria-labelledby="chart-title chart-desc" data-visible-series="bound,new,existing,daily">
@@ -171,8 +183,8 @@
       <section class="details" aria-labelledby="details-title">
         <div class="details-head">
           <div>
-            <p class="eyebrow">LINKED DATA DETAIL</p>
-            <h2 id="details-title">对应数据明细</h2>
+            <p class="eyebrow">USER GROWTH DETAIL</p>
+            <h2 id="details-title">用户增长明细</h2>
           </div>
           <p><strong id="detail-range">—</strong><span id="detail-count">—</span></p>
         </div>
@@ -273,12 +285,8 @@
         <p class="questions-method"><strong id="question-headline-stat">—</strong><span id="question-headline-detail">—</span></p>
       </div>
 
-      <nav class="question-toc" aria-label="提问研究目录">
-        <a href="#question-overview">规模与来源</a><a href="#question-defaults">默认题</a><a href="#question-map">交叉看需求</a><a href="#question-entities">关键词 / 产品</a><a href="#question-rhythm">追问深度</a><a href="#question-turns">逐回合</a><a href="#question-time">时间关系</a><a href="#raw-question-title">看原话</a>
-      </nav>
-
       <section class="question-chapter overview-chapter" id="question-overview" aria-labelledby="question-overview-title">
-        <div class="question-panel-head"><div><span>规模与来源</span><h3 id="question-overview-title">先回答多少人、多少会话、多少回合，再拆问题来源</h3></div><p id="question-overview-note">每条用户输入记为一个用户提问回合</p></div>
+        <div class="question-panel-head"><div><span>整体概览</span><h3 id="question-overview-title">用户提问规模与来源</h3></div><p id="question-overview-note">每条用户输入记为一个用户提问回合</p></div>
         <div class="question-kpis journey-kpis" aria-label="提问关键数据">
           <article><span>提问用户</span><strong id="question-askers">—</strong><small id="question-ask-rate">—</small></article>
           <article><span>对话会话</span><strong id="question-sessions">—</strong><small id="question-session-rate">—</small></article>
@@ -409,13 +417,14 @@
 
       <section class="question-chapter" id="question-time" aria-labelledby="question-time-title">
         <div class="question-panel-head research-panel-head">
-          <div><span>时间关系</span><h3 id="question-time-title">问题量随时间怎样变化，需求结构是否同步变化</h3></div>
+          <div><span>A 股联动</span><h3 id="question-time-title">大盘涨跌是否影响用户提问</h3></div>
           <fieldset class="segmented question-time-toggle" aria-label="切换时间粒度">
             <label><input type="radio" name="question-time-grain" value="daily" /><span>按日</span></label>
             <label><input type="radio" name="question-time-grain" value="weekly" checked /><span>按周</span></label>
           </fieldset>
         </div>
         <p class="question-panel-note" id="question-time-insight">正在读取当前筛选条件下的问题量与需求结构变化。</p>
+        <div class="market-link-summary" id="question-market-summary" aria-label="提问量与沪深300联动摘要"></div>
         <div class="question-time-layout"><div class="question-time-chart" id="question-time-chart"></div><aside><div class="preset-subhead"><h4>同期主要提问方向</h4><p>观察量变是否伴随需求变化</p></div><div class="question-time-mix" id="question-time-mix"></div></aside></div>
       </section>
 

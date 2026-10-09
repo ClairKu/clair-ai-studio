@@ -4,6 +4,7 @@ const LAUNCH_AT = "2026-08-10T08:00:00+08:00";
 const WINDOW_START_AT = "2026-08-03T00:00:00+08:00";
 const LAUNCH_DAY = LAUNCH_AT.slice(0, 10);
 const number = new Intl.NumberFormat("zh-CN");
+const decimal1 = new Intl.NumberFormat("zh-CN", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 const percent = new Intl.NumberFormat("zh-CN", { style: "percent", maximumFractionDigits: 1 });
 const $ = (selector) => document.querySelector(selector);
 
@@ -209,14 +210,21 @@ const QUESTION_TOPIC_IDS = Object.keys(QUESTION_TOPICS);
 const QUESTION_DIRECTIONS = {
   holding_diagnosis: ["持仓与账户诊断", "围绕自己的持仓、收益、亏损与账户"],
   product_research: ["基金 / 策略研究", "研究具体基金、基金类型或投顾策略"],
+  stock_research: ["个股与公司研究", "个股、公司、财报、估值与产业链"],
   product_selection: ["选品与推荐", "问买什么、选哪个、哪些更适合"],
   asset_allocation: ["资产配置与目标规划", "按养老、买房、教育或资金期限做配置"],
   market_insight: ["市场与机会研判", "行情、板块、资产表现、机会与风险"],
   transaction_execution: ["交易与执行", "买卖、赎回、定投、调仓与操作步骤"],
   investment_learning: ["投资知识学习", "概念、原理、差异与判断方法"],
   qieman_service: ["且慢 / 小顾服务", "平台功能、报告、登录与服务能力"],
-  conversation_other: ["上下文与开放表达", "需结合前文理解的口语化表达"],
+  task_status: ["任务进度与结果确认", "催进度、继续执行、确认结果是否生成"],
+  personal_context: ["补充个人情况", "补充资金、期限、风险偏好与已有操作"],
+  context_followup: ["承接上文继续问", "引用前文、要求展开、比较或补充"],
+  non_investment: ["非投资问题 / 闲聊", "数学、生活知识、翻译与日常对话"],
+  other_investment: ["其他投资问题", "有投资语境，但对象或目的还不够明确"],
+  unclear_expression: ["信息不足，暂难判断", "对象或目的不完整，需结合更多上下文"],
 };
+const NON_DECISION_DIRECTIONS = new Set(["task_status", "context_followup", "non_investment", "other_investment", "unclear_expression"]);
 const QUESTION_OBJECTS = {
   own_account: ["自己的账户 / 持仓", "我的资产、收益与仓位"],
   specific_product: ["具体基金 / 产品", "带产品名或代码的具体对象"],
@@ -998,6 +1006,10 @@ function chartMarkup(rows) {
   const yCumulative = (value) => layout.cumulativeBase - (value / cumulativeMaximum) * layout.cumulativeHeight;
   const yDaily = (value) => layout.dailyBase - (value / dailyMaximum) * layout.dailyHeight;
   const plotRight = layout.width - layout.right;
+  const dailyTotal = rows.reduce((sum, row) => sum + row.bound_accounts_today, 0);
+  const dailyAverage = rows.length ? dailyTotal / rows.length : 0;
+  const peakIndex = rows.reduce((bestIndex, row, index) => row.bound_accounts_today > rows[bestIndex].bound_accounts_today ? index : bestIndex, 0);
+  const peakRow = rows[peakIndex];
 
   const gridLines = (ratios, base, plotHeight, maximum) => ratios.map((ratio) => {
     const gridY = base - ratio * plotHeight;
@@ -1008,6 +1020,12 @@ function chartMarkup(rows) {
     + (dailyVisible ? gridLines([0, 0.5, 1], layout.dailyBase, layout.dailyHeight, dailyMaximum) : "");
   const panelTitles = dailyVisible
     ? `<text class="chart-panel-title" x="${layout.left}" y="${layout.dailyTop - 12}">每日新增绑定（人）</text>`
+    : "";
+  const dailyAnnotations = dailyVisible && rows.length
+    ? `<line class="chart-average-rule" x1="${layout.left}" y1="${yDaily(dailyAverage)}" x2="${plotRight}" y2="${yDaily(dailyAverage)}"></line>
+      <text class="chart-average-label" x="${plotRight}" y="${yDaily(dailyAverage) - 5}" text-anchor="end">日均 +${decimal1.format(dailyAverage)}</text>
+      <circle class="chart-peak-dot" cx="${x(peakIndex)}" cy="${yDaily(peakRow.bound_accounts_today)}" r="4"></circle>
+      <text class="chart-peak-label" x="${x(peakIndex)}" y="${Math.max(layout.dailyTop + 11, yDaily(peakRow.bound_accounts_today) - 8)}" text-anchor="middle">高峰 +${number.format(peakRow.bound_accounts_today)}</text>`
     : "";
 
   // 上线前灰度区间：底纹 + 分界线，让 8/10 08:00 正式上线的位置一眼可辨。
@@ -1103,7 +1121,7 @@ function chartMarkup(rows) {
     ? ""
     : `<text class="chart-empty" x="${layout.left + layout.plotWidth / 2}" y="${layout.top + layout.cumulativeHeight / 2}" text-anchor="middle">请选择至少一项数据</text>`;
 
-  const markup = `${launchMarkup}${grids}${panelTitles}${lines}${bars}${endMarkup}${dateLabels}${interactivePoints}${emptyState}`;
+  const markup = `${launchMarkup}${grids}${panelTitles}${lines}${bars}${dailyAnnotations}${endMarkup}${dateLabels}${interactivePoints}${emptyState}`;
   return { width: layout.width, height: layout.height, cumulativeMaximum, dailyMaximum, markup };
 }
 
@@ -1219,6 +1237,12 @@ function renderChart(rows) {
   svg.dataset.dailyMaximum = String(chart.dailyMaximum);
   svg.innerHTML = `<title id="chart-title">${escapeHtml(scopeLabel(rows, true))}用户增长走势</title>
     <desc id="chart-desc">${visibleLabels.length ? `上下两图分别显示${escapeHtml(visibleLabels.join("、"))}` : "当前未选择数据"}；图表与下方明细表按日期联动。</desc>${chart.markup}`;
+  const peak = rows.reduce((best, row) => !best || row.bound_accounts_today > best.bound_accounts_today ? row : best, null);
+  const average = rows.length ? rows.reduce((sum, row) => sum + row.bound_accounts_today, 0) / rows.length : 0;
+  $("#growth-peak-value").textContent = peak ? `+${number.format(peak.bound_accounts_today)} 人` : "—";
+  $("#growth-peak-date").textContent = peak ? `${formatDay(peak.date)} · 所选范围峰值` : "当前范围无数据";
+  $("#growth-average-value").textContent = rows.length ? `+${decimal1.format(average)} 人` : "—";
+  $("#growth-average-range").textContent = rows.length ? `${rows.length} 个自然日平均` : "当前范围无数据";
   const prelaunch = rows.filter((row) => row.date < LAUNCH_DAY);
   const prelaunchNote = prelaunch.length
     ? `其中 ${formatDay(prelaunch[0].date)}—${formatDay(prelaunch.at(-1).date)} 为正式上线前的灰度绑定 ${number.format(prelaunch.reduce((sum, row) => sum + row.bound_accounts_today, 0))} 人。`
@@ -1580,25 +1604,29 @@ function renderQuestionDimension() {
   const rows = [...group.dimensions[lens]].filter((item) => item[metric] > 0).sort((a, b) => b[metric] - a[metric] || b.questions - a.questions);
   const total = metric === "questions" ? group.questions : group.users;
   const max = Math.max(...rows.map((item) => item[metric]), 1);
-  const excluded = { direction: "conversation_other", object: "unspecified", style: "conversation_fragment", cognition: "indeterminate" }[lens];
-  const leading = rows.find((item) => item.id !== excluded) || rows[0];
-  const excludedRow = rows.find((item) => item.id === excluded);
+  const excludedIds = new Set({ direction: ["task_status", "context_followup", "non_investment", "other_investment", "unclear_expression"], object: ["unspecified"], style: ["conversation_fragment"], cognition: ["indeterminate"] }[lens] || []);
+  const leading = rows.find((item) => !excludedIds.has(item.id)) || rows[0];
+  const excludedRows = rows.filter((item) => excludedIds.has(item.id));
   const metricLabel = metric === "questions" ? "问题" : "用户";
   $("#question-map-title").textContent = leading ? `${QUESTION_SOURCE_LABELS[viewState.questionSource]}的可识别${definition.label}中，${definition.values[leading.id][0]}排名第一` : "当前交叉条件没有问题记录";
   $("#question-cross-selection").textContent = `${QUESTION_SOURCE_LABELS[viewState.questionSource]} · ${QUESTION_ENGAGEMENT_LABELS[viewState.questionEngagement]} · 看${metricLabel}数`;
   $("#question-dimension-note").textContent = leading
-    ? `${number.format(group.users)} 位用户留下 ${number.format(group.questions)} 条问题；排除${excludedRow ? `“${definition.values[excludedRow.id][0]}”${number.format(excludedRow[metric])} ${metric === "questions" ? "条" : "人"}后，` : "证据不足项后，"}${definition.values[leading.id][0]}在可识别类别中最高：${number.format(leading[metric])} ${metric === "questions" ? "条" : "人"}。`
+    ? `${number.format(group.users)} 位用户留下 ${number.format(group.questions)} 条问题；${excludedRows.length ? `将${excludedRows.map((item) => `“${definition.values[item.id][0]}”${number.format(item[metric])} ${metric === "questions" ? "条" : "人"}`).join("、")}单列后，` : ""}${definition.values[leading.id][0]}在可识别类别中最高：${number.format(leading[metric])} ${metric === "questions" ? "条" : "人"}。`
     : "当前交叉条件没有问题记录，可切换来源或追问状态。";
   $("#question-cross-summary").innerHTML = [
     ["筛选后用户", number.format(group.users), `${formatShare(group.users, research.summary.asking_users)} 的全部提问用户`],
     ["筛选后问题", number.format(group.questions), `${formatShare(group.questions, research.summary.questions)} 的全部提问`],
     ["涉及会话", number.format(group.sessions), group.users ? `人均 ${(group.questions / group.users).toFixed(1)} 条` : "—"],
   ].map(([label, value, note]) => `<article><span>${label}</span><strong>${value}</strong><small>${note}</small></article>`).join("");
-  $("#question-dimension-bars").innerHTML = rows.map((item) => `<button class="dimension-row" type="button" data-question-dimension="${lens}" data-question-value="${item.id}">
+  const primaryRows = lens === "direction" ? rows.filter((item) => !excludedIds.has(item.id)) : rows;
+  const secondaryRows = lens === "direction" ? rows.filter((item) => excludedIds.has(item.id)) : [];
+  const dimensionRows = primaryRows.map((item) => `<button class="dimension-row" type="button" data-question-dimension="${lens}" data-question-value="${item.id}">
     <span class="dimension-row-label">${escapeHtml(definition.values[item.id][0])}<small>${escapeHtml(definition.values[item.id][1])}</small></span>
     <span class="dimension-track" role="img" aria-label="${escapeHtml(definition.values[item.id][0])} ${number.format(item[metric])}"><i style="width:${Math.max(1.2, item[metric] / max * 100)}%"></i></span>
     <span class="dimension-row-value"><strong>${number.format(item[metric])}</strong><small>${formatShare(item[metric], total)} · ${number.format(item.questions)} 条 / ${number.format(item.users)} 人</small></span>
   </button>`).join("");
+  const secondaryBreakdown = secondaryRows.length ? `<section class="direction-secondary" aria-label="表达与系统行为拆解"><header><strong>表达与系统行为，单独拆开看</strong><span>不与投资需求混排 · 点击可查看原话</span></header><div>${secondaryRows.map((item) => `<button type="button" data-question-dimension="direction" data-question-value="${item.id}"><span>${escapeHtml(definition.values[item.id][0])}</span><strong>${number.format(item[metric])} ${metric === "questions" ? "条" : "人"}</strong><small>${escapeHtml(definition.values[item.id][1])}</small></button>`).join("")}</div></section>` : "";
+  $("#question-dimension-bars").innerHTML = dimensionRows + secondaryBreakdown;
 
   const noFollow = selectedQuestionGroup(viewState.questionSource, "no_followup");
   const follow = selectedQuestionGroup(viewState.questionSource, "followup");
@@ -1719,6 +1747,25 @@ function renderQuestionPaths(research) {
   $("#question-sequences").innerHTML = research.paths.sequences.map((item) => `<div class="sequence-row"><p>${item.path.map((id, index) => `${index ? "<i>→</i>" : ""}<span>${escapeHtml(questionLabel("direction", id))}</span>`).join("")}</p><strong>${number.format(item.users)} 人</strong></div>`).join("");
 }
 
+function pearsonCorrelation(rows, leftKey, rightKey) {
+  if (rows.length < 3) return null;
+  const leftMean = rows.reduce((sum, item) => sum + item[leftKey], 0) / rows.length;
+  const rightMean = rows.reduce((sum, item) => sum + item[rightKey], 0) / rows.length;
+  const numerator = rows.reduce((sum, item) => sum + (item[leftKey] - leftMean) * (item[rightKey] - rightMean), 0);
+  const leftScale = Math.sqrt(rows.reduce((sum, item) => sum + (item[leftKey] - leftMean) ** 2, 0));
+  const rightScale = Math.sqrt(rows.reduce((sum, item) => sum + (item[rightKey] - rightMean) ** 2, 0));
+  return leftScale && rightScale ? numerator / (leftScale * rightScale) : null;
+}
+
+function correlationLabel(value) {
+  const magnitude = Math.abs(value || 0);
+  if (magnitude < 0.2) return "很弱";
+  if (magnitude < 0.4) return "较弱";
+  if (magnitude < 0.6) return "中等";
+  if (magnitude < 0.8) return "较强";
+  return "很强";
+}
+
 function renderQuestionTime() {
   const group = selectedQuestionGroup();
   const grain = viewState.questionTimeGrain;
@@ -1729,14 +1776,51 @@ function renderQuestionTime() {
   const peak = [...rows].sort((a, b) => b[metric] - a[metric])[0];
   const latest = rows.at(-1);
   const periodLabel = (item) => grain === "daily" || item.start === item.end ? formatDay(item.start) : `${formatDay(item.start)}—${formatDay(item.end)}`;
-  $("#question-time-title").textContent = peak ? `${periodLabel(peak)}达到峰值：${number.format(peak[metric])} ${unit}` : "当前条件没有可展示的时间数据";
-  $("#question-time-insight").textContent = peak
-    ? `${QUESTION_SOURCE_LABELS[viewState.questionSource]} · ${QUESTION_ENGAGEMENT_LABELS[viewState.questionEngagement]}：峰值 ${periodLabel(peak)} ${number.format(peak[metric])} ${unit}；最近一期 ${periodLabel(latest)} ${number.format(latest[metric])} ${unit}。这里只呈现同期变化，不把时间共现解释为因果。`
-    : "可切换来源或追问状态查看时间变化。";
-  $("#question-time-chart").innerHTML = rows.length ? `<div class="time-series">${rows.map((item) => `<div class="time-column" title="${escapeHtml(periodLabel(item))} · ${number.format(item[metric])} ${unit}"><strong>${number.format(item[metric])}</strong><i style="height:${Math.max(2, item[metric] / max * 230)}px"></i><span>${escapeHtml(grain === "daily" ? item.start.slice(5).replace("-", "/") : item.start.slice(5).replace("-", "/"))}</span></div>`).join("")}</div>` : '<p class="audience-inline-empty">当前条件没有时间数据。</p>';
+  const market = currentData.question_insights.research.market_context;
+  const dailyMap = new Map(group.daily.map((item) => [item.start, item]));
+  const firstObservedDay = currentData.question_insights.research.journey.observed_from;
+  const pairs = (market?.daily || []).filter((item) => item.date !== firstObservedDay && dailyMap.has(item.date)).map((item) => {
+    const questionDay = dailyMap.get(item.date);
+    const marketDirection = questionDay.directions.find((entry) => entry.id === "market_insight");
+    return { ...item, value: questionDay[metric], marketShare: (marketDirection?.[metric] || 0) / Math.max(1, questionDay[metric]) };
+  });
+  const correlation = pearsonCorrelation(pairs, "return_day", "value");
+  const bigMove = pairs.filter((item) => Math.abs(item.return_day) >= 0.01);
+  const normalMove = pairs.filter((item) => Math.abs(item.return_day) < 0.01);
+  const average = (items, key) => items.length ? items.reduce((sum, item) => sum + item[key], 0) / items.length : 0;
+  const bigAverage = average(bigMove, "value");
+  const normalAverage = average(normalMove, "value");
+  const bigLift = normalAverage ? bigAverage / normalAverage - 1 : 0;
+  const bigMarketShare = average(bigMove, "marketShare");
+  const normalMarketShare = average(normalMove, "marketShare");
+  const completedMarket = market?.daily || [];
+  const marketReturn = completedMarket.length > 1 ? completedMarket.at(-1).close / completedMarket[0].close - 1 : 0;
+  const signedCorrelation = correlation === null ? "—" : `${correlation >= 0 ? "+" : ""}${correlation.toFixed(2)}`;
+  $("#question-time-title").textContent = correlation === null
+    ? (peak ? `${periodLabel(peak)}达到峰值：${number.format(peak[metric])} ${unit}` : "当前条件没有可展示的时间数据")
+    : `A 股日涨跌与提问量关系${correlationLabel(correlation)}（r=${signedCorrelation}）`;
+  $("#question-time-insight").textContent = correlation === null
+    ? "可切换来源或追问状态查看时间变化。"
+    : `结论：大盘涨跌方向不能解释提问量变化；但单日涨跌超过 1% 时，平均提问量比普通交易日${bigLift >= 0 ? "高" : "低"} ${percent.format(Math.abs(bigLift))}，市场类问题占比也由 ${percent.format(normalMarketShare)} 升至 ${percent.format(bigMarketShare)}。这说明剧烈波动可能放大咨询需求，仍不能视为因果。`;
+  $("#question-market-summary").innerHTML = correlation === null ? "" : [
+    ["同期沪深300", `${marketReturn >= 0 ? "+" : ""}${percent.format(marketReturn)}`, `${formatDay(completedMarket[0].date)}—${formatDay(completedMarket.at(-1).date)}`],
+    ["日涨跌相关", signedCorrelation, `${pairs.length} 个完整交易日 · ${correlationLabel(correlation)}`],
+    ["大波动日提问", `${bigLift >= 0 ? "+" : "−"}${percent.format(Math.abs(bigLift))}`, `${number.format(bigAverage)} vs ${number.format(normalAverage)} ${unit}`],
+    ["市场类问题占比", `${(bigMarketShare - normalMarketShare) >= 0 ? "+" : "−"}${(Math.abs(bigMarketShare - normalMarketShare) * 100).toFixed(1)} 个百分点`, `大波动 ${percent.format(bigMarketShare)} · 普通 ${percent.format(normalMarketShare)}`],
+  ].map(([label, value, note]) => `<article><span>${label}</span><strong>${value}</strong><small>${note}</small></article>`).join("");
+  const marketPoints = rows.map((period, index) => {
+    const periodRows = completedMarket.filter((item) => item.date >= period.start && item.date <= period.end);
+    return periodRows.length ? { index, value: periodRows.at(-1).close, date: periodRows.at(-1).date } : null;
+  }).filter(Boolean);
+  const marketValues = marketPoints.map((item) => item.value);
+  const marketMin = Math.min(...marketValues);
+  const marketMax = Math.max(...marketValues);
+  const marketSpan = Math.max(1, marketMax - marketMin);
+  const overlay = marketPoints.length > 1 ? `<svg class="time-market-overlay" viewBox="0 0 1000 100" preserveAspectRatio="none" aria-hidden="true"><polyline points="${marketPoints.map((item) => `${(item.index + .5) / rows.length * 1000},${92 - (item.value - marketMin) / marketSpan * 82}`).join(" ")}"></polyline>${marketPoints.map((item) => `<circle cx="${(item.index + .5) / rows.length * 1000}" cy="${92 - (item.value - marketMin) / marketSpan * 82}" r="3"></circle>`).join("")}</svg>` : "";
+  $("#question-time-chart").innerHTML = rows.length ? `<div class="time-chart-legend"><span><i></i>提问量</span><span><i></i>沪深300收盘走势</span></div><div class="time-series market-time-series">${overlay}${rows.map((item) => `<div class="time-column" title="${escapeHtml(periodLabel(item))} · ${number.format(item[metric])} ${unit}"><strong>${number.format(item[metric])}</strong><i style="height:${Math.max(2, item[metric] / max * 230)}px"></i><span>${escapeHtml(item.start.slice(5).replace("-", "/"))}</span></div>`).join("")}</div>` : '<p class="audience-inline-empty">当前条件没有时间数据。</p>';
   const visible = grain === "daily" ? rows.slice(-10) : rows;
   $("#question-time-mix").innerHTML = visible.map((item) => {
-    const directions = [...item.directions].filter((entry) => entry.questions > 0 && entry.id !== "conversation_other")
+    const directions = [...item.directions].filter((entry) => entry.questions > 0 && !NON_DECISION_DIRECTIONS.has(entry.id))
       .sort((a, b) => b[metric] - a[metric]).slice(0, 3);
     return `<div class="time-mix-row"><span>${escapeHtml(periodLabel(item))} · ${number.format(item[metric])} ${unit}</span><p>${directions.map((entry) => `<small>${escapeHtml(QUESTION_DIRECTIONS[entry.id][0])} ${number.format(entry[metric])}</small>`).join("") || "<small>暂无明确方向</small>"}</p></div>`;
   }).join("");
@@ -1770,7 +1854,7 @@ function renderQuestionEntities(research) {
 function renderQuestionTurns(research) {
   const bucket = research.turn_analysis.buckets.find((item) => item.id === viewState.questionTurn) || research.turn_analysis.buckets[0];
   const rows = [...bucket.directions].filter((item) => item.questions > 0).sort((a, b) => b.questions - a.questions);
-  const leading = rows.find((item) => item.id !== "conversation_other") || rows[0];
+  const leading = rows.find((item) => !NON_DECISION_DIRECTIONS.has(item.id)) || rows[0];
   const max = Math.max(...rows.map((item) => item.questions), 1);
   $("#question-turn-title").textContent = `${bucket.label}最常见明确目的：${QUESTION_DIRECTIONS[leading.id][0]}`;
   $("#question-turn-insight").textContent = `${number.format(bucket.users)} 位用户在这一回合留下 ${number.format(bucket.questions)} 条实质问题；${QUESTION_DIRECTIONS[leading.id][0]}有 ${number.format(leading.questions)} 条。`;

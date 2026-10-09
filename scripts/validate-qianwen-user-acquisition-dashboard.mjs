@@ -60,8 +60,9 @@ const isCount = (value) => Number.isInteger(value) && value >= 0;
 const questionTopicIds = ["holding_account", "product_analysis", "market_research", "product_selection",
   "transaction_action", "planning_configuration", "knowledge_explain", "qieman_service",
   "report_information", "dialogue_followup", "other_expression"];
-const questionDirectionIds = ["holding_diagnosis", "product_research", "product_selection", "asset_allocation", "market_insight",
-  "transaction_execution", "investment_learning", "qieman_service", "conversation_other"];
+const questionDirectionIds = ["holding_diagnosis", "product_research", "stock_research", "product_selection", "asset_allocation", "market_insight",
+  "transaction_execution", "investment_learning", "qieman_service", "task_status", "personal_context",
+  "context_followup", "non_investment", "other_investment", "unclear_expression"];
 const questionObjectIds = ["own_account", "specific_product", "fund_category", "strategy_portfolio", "asset_class", "goal_plan",
   "market_environment", "platform_service", "unspecified"];
 const questionStyleIds = ["direct_request", "diagnose_evaluate", "compare_choose", "why_explain", "how_to", "forecast_risk",
@@ -369,6 +370,17 @@ function validateQuestionInsights() {
       || journey.question_depth.reduce((sum, item) => sum + item.users, 0) !== journey.substantive_users
       || journey.question_depth.reduce((sum, item) => sum + item.questions, 0) !== journey.substantive_questions) fail("提问深度无法闭合");
 
+  const marketContext = research.market_context;
+  if (marketContext?.index_code !== "000300.CSI" || marketContext?.index_name !== "沪深300"
+      || marketContext?.completed_trading_days_only !== true || !Array.isArray(marketContext?.daily) || marketContext.daily.length < 10) {
+    fail("沪深300联动数据缺失");
+  }
+  marketContext.daily.forEach((item, index) => {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(item.date || "") || !Number.isFinite(item.close) || item.close <= 0
+        || !Number.isFinite(item.return_day) || Math.abs(item.return_day) > 0.2
+        || (index && item.date <= marketContext.daily[index - 1].date)) fail(`沪深300联动数据第 ${index + 1} 行异常`);
+  });
+
   const cross = research.cross_analysis;
   assertPlainObject(cross, "question_insights.research.cross_analysis");
   const crossSources = ["all", "preset", "self", "substantive"];
@@ -493,7 +505,7 @@ function validateQuestionInsights() {
     if (bucket.directions.some((item) => !isCount(item.questions) || !isCount(item.users))
         || bucket.directions.reduce((sum, item) => sum + item.questions, 0) !== bucket.questions) fail(`对话回合 ${bucket.id} 方向不闭合`);
     if (!Array.isArray(bucket.transitions) || bucket.transitions.some((item) => !questionDirectionIds.includes(item.from)
-        || !questionDirectionIds.includes(item.to) || !isCount(item.count) || !isCount(item.users))) fail(`对话回合 ${bucket.id} 路径异常`);
+        || !questionDirectionIds.includes(item.to) || item.from === item.to || !isCount(item.count) || !isCount(item.users))) fail(`对话回合 ${bucket.id} 路径异常`);
   });
 
   assertItemIds(research.personas, questionPersonaIds, "question_insights.research.personas");
@@ -1005,6 +1017,8 @@ for (const requiredSource of [
 }
 if (app.includes("累计绑定用户（人）")) fail("增长趋势图仍显示累计绑定用户顶部标题");
 if (html.includes('id="chart-note"')) fail("增长趋势图仍保留底部范围说明");
+if (html.includes('class="question-toc"')) fail("提问研究模块仍保留冗余章节导航");
+if (html.includes("先回答多少人、多少会话、多少回合")) fail("提问概览仍使用过程式旧标题");
 
 const reportEntryStart = workbench.indexOf('id: "qianwen-user-acquisition-dashboard"');
 const reportEntryEnd = workbench.indexOf("\n    {", reportEntryStart + 1);
@@ -1029,12 +1043,21 @@ for (const phrase of [
   "全部绑定用户累计新增入金",
   "总资产规模",
   "用户增长走势",
-  "对应数据明细",
+  "高峰日新增",
+  "日均新增",
+  "用户增长明细",
   "在且慢的经营情况与用户画像",
   "保有规模与账户状态",
   "绑定后入金与交易",
   "用户画像",
   "触点与投资准备度",
+  "用户提问规模与来源",
+  "个股与公司研究",
+  "任务进度与结果确认",
+  "承接上文继续问",
+  "非投资问题 / 闲聊",
+  "A 股日涨跌与提问量关系",
+  "市场类问题占比",
 ]) {
   if (!reportingCopy.includes(phrase)) fail(`汇报文案缺少：${phrase}`);
 }

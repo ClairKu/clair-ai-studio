@@ -18,7 +18,12 @@ if (!cutoff || !/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(cutoff)) throw new 
 if (!output) throw new Error("缺少 QW_QUESTION_OUT");
 if (!apiKey) throw new Error("缺少 REDASH_API_KEY");
 
-const DIRECTION_IDS = ["holding_diagnosis", "product_research", "product_selection", "asset_allocation", "market_insight", "transaction_execution", "investment_learning", "qieman_service", "conversation_other"];
+const DIRECTION_IDS = [
+  "holding_diagnosis", "product_research", "stock_research", "product_selection", "asset_allocation", "market_insight",
+  "transaction_execution", "investment_learning", "qieman_service", "task_status", "personal_context", "context_followup",
+  "non_investment", "other_investment", "unclear_expression",
+];
+const PATH_EXCLUDED_DIRECTIONS = new Set(["task_status", "personal_context", "context_followup", "non_investment", "other_investment", "unclear_expression"]);
 const OBJECT_IDS = ["own_account", "specific_product", "fund_category", "strategy_portfolio", "asset_class", "goal_plan", "market_environment", "platform_service", "unspecified"];
 const STYLE_IDS = ["direct_request", "diagnose_evaluate", "compare_choose", "why_explain", "how_to", "forecast_risk", "fact_lookup", "conversation_fragment"];
 const COGNITION_IDS = ["beginner_signal", "developing_signal", "advanced_signal", "indeterminate"];
@@ -147,24 +152,38 @@ const request = async (path, { method = "GET", body } = {}) => {
   return response.json();
 };
 
-let response = await request("/api/query_results", {
-  method: "POST",
-  body: { query: sql, data_source_id: dataSourceId, max_age: 0 },
-});
-if (response.job?.id) {
+async function executeSql(query) {
+  let response = await request("/api/query_results", {
+    method: "POST",
+    body: { query, data_source_id: dataSourceId, max_age: 0 },
+  });
+  if (!response.job?.id) {
+    const rows = response.query_result?.data?.rows;
+    if (!Array.isArray(rows)) throw new Error("Redash 返回结构异常");
+    return rows;
+  }
   const deadline = Date.now() + 12 * 60 * 1000;
   while (Date.now() < deadline) {
     await new Promise((done) => setTimeout(done, 2000));
     const job = (await request(`/api/jobs/${response.job.id}`)).job || {};
     if (job.status === 3) {
       response = await request(`/api/query_results/${job.query_result_id}`);
-      break;
+      const rows = response.query_result?.data?.rows;
+      if (!Array.isArray(rows)) throw new Error("Redash 返回结构异常");
+      return rows;
     }
     if (job.status === 4 || job.status === 5) throw new Error(`Redash 查询失败：${job.error || job.status}`);
   }
+  throw new Error("Redash 查询超时");
 }
-const sourceRows = response.query_result?.data?.rows;
-if (!Array.isArray(sourceRows)) throw new Error("Redash 查询超时或返回结构异常");
+
+const sourceRows = await executeSql(sql);
+const marketRows = (await executeSql(`SELECT DATE_FORMAT(record_date, '%Y-%m-%d') AS date,
+  CAST(price_close AS DOUBLE) AS close, CAST(return_day AS DOUBLE) AS return_day
+FROM ying99_fdp.dwd_index_price_daily
+WHERE index_code='000300' AND is_real=1
+  AND record_date>='2026-09-01' AND record_date<DATE('${cutoff}')
+ORDER BY record_date`)).map((row) => ({ date: String(row.date), close: Number(row.close), return_day: Number(row.return_day) }));
 
 function redact(input) {
   let value = compact(input);
@@ -215,16 +234,25 @@ function classifyObject(question) {
 }
 
 function classifyDirection(question, object) {
-  if (isShortFollowup(question)) return "conversation_other";
+  if (isShortFollowup(question)) return "context_followup";
   if (object === "own_account" || test(/组合.*诊断|持仓.*建议/, question)) return "holding_diagnosis";
-  if (object === "goal_plan" || test(/资产配置|配置方案|资金分配|长期规划|风险预算/, question)) return "asset_allocation";
-  if (test(/买入|卖出|赎回|申购|加仓|减仓|补仓|止盈|止损|下单|调仓|定投|开户|绑卡|手续费|费率|取出|提现|充值|怎么买|如何买/, question)) return "transaction_execution";
+  if (object === "goal_plan" || test(/资产配置|配置方案|资金分配|长期规划|风险预算|每月.{0,8}(?:投|存)|长期投资|短期稳健|靠利息生活|存款.{0,6}利息|存定期|复投|仓位.{0,8}配置/, question)) return "asset_allocation";
+  if (test(/买入|卖出|赎回|申购|加仓|减仓|补仓|止盈|止损|下单|调仓|定投|开户|绑卡|手续费|费率|取出|提现|充值|怎么买|如何买|怎么操作|如何操作|下一步操作|买卖点|进场|离场|清仓|满仓|建仓|挂单/, question)) return "transaction_execution";
   if (test(/推荐|筛选|买什么|选什么|哪只|哪个基金|哪些基金|哪些策略|适合我|候选|值得长期持有|(?:给我|帮我).*(?:产品|基金|策略)/, question)) return "product_selection";
   if (["specific_product", "fund_category", "strategy_portfolio"].includes(object) || test(/基金|ETF|净值|业绩|年化|基金经理/, question)) return "product_research";
-  if (["market_environment", "asset_class"].includes(object) || test(/机会|风险|走势|行情|市场|宏观|板块|行业|利率|政策|牛市|熊市/, question)) return "market_insight";
-  if (test(/什么是|是什么意思|区别|原理|为什么|怎么判断|如何判断|解释|知识|入门/, question)) return "investment_learning";
-  if (object === "platform_service" || test(/小顾|且慢|你能|功能|怎么用|登录|报告|资讯/, question)) return "qieman_service";
-  return "conversation_other";
+  if (["market_environment", "asset_class"].includes(object) || test(/机会|风险|走势|行情|市场|宏观|板块|行业|利率|政策|牛市|熊市|大势|风口|股市|资金动向|金价|黄金|白银|美联储|CPI|PCE|非农|通胀|经济数据|汇率|美元|人民币|美债|国债|指数|恒指|纳指|标普|科创50|中证|地缘|利好|利空|涨跌|消息|事件/, question)) return "market_insight";
+  if (test(/什么是|是什么意思|区别|原理|为什么|怎么判断|如何判断|解释|知识|入门|胜率|盈亏比|市净率|市盈率|\bPE\b|\bPB\b|复利|量比|MACD|RSI|K线|技术指标|交易系统|缠论|怎么看财报|怎样看财报/i, question)) return "investment_learning";
+  if (object === "platform_service" || test(/小顾|且慢|你能|功能|怎么用|登录|报告|资讯|怎么发.{0,3}(?:图片|截图)|站内信|对账单|资产证明|授权|投顾费|哪个模型|你是谁|订阅/, question)) return "qieman_service";
+  if (test(/进度|好了吗|完成了吗|结果.{0,4}(?:出来|生成|显示|有了|如何)|有结果|在运行|还在(?:运行|处理|分析|回测|吗)|卡住|继续推进|推进.{0,6}(?:回测|任务|进度)|继续回测|任务进度|不用回答|停止|固化记忆|更新.{0,3}(?:记忆|数据)|补进记忆|加入记忆|做.{0,3}记录|保存为|没显示|没看到|到第几步|请继续$|继续撰写|你补齐|还没好/, question)) return "task_status";
+  if (test(/^(?:这个|那个|这些|那些|以上|前面|上面|刚才|第一|第二|第三|路径|方案|继续|再说|还有|然后|按.+来看|结合.+来看|同样|具体|哪一个|为什么|如何|怎么样|对比|展开|详细|重新|再来|换一个|就是|其他|下一个|那|所以|好的)/, question)
+      || test(/你说的|前文|接着|继续分析|以上回答|刚才问|再看看|再分析|再查|再扫|呢[？?]?$/, question)) return "context_followup";
+  if (test(/股票|个股|股价|炒股|涨停|跌停|财报|市值|上市|龙头|分红|认购|资本开支|产业链|CPO|PCB|半导体|芯片|算力|公司|概念股|股指|上证|深证|北证|创业板|科创板|恒生|道琼斯|纳斯达克|英伟达|阿里|小鹏|中芯|持有\d+股|换手|K线|技术面|基本面|买点|主线|CPI|期货|交割日|股份|科技|药业|集团|证券|矿业|材料|设备|光电|通信|电子|银行股|白银股|黄金股/i, question)
+      || (/^[A-Za-z]{2,12}(?:\s|呢|怎么样|[？?])?$/i.test(question))) return "stock_research";
+  if (test(/(?:我有|我的|本人|目前|现在|已经|刚刚|买过|持有|本金|预算|金额|期限|风险承受|不接受亏损|能承受|偏好|每月|每年|计划|目标|收入|支出|家庭|年龄|退休|闲钱|可投|想投|准备投|大概|大约|元$|万元$)/, question)) return "personal_context";
+  if (test(/你好|吃的啥|开玩笑|数学|计算|等于|为何|谁发明|怎么产生|介绍一下|翻译|天气|作文|写诗|故事|游戏|电影|菜谱|星座|生肖|旅游|英语|雷电|蜗牛|冰屋|宇航|巧克力|井盖|心跳|互联网|排队|极限|latex|糖|大卡|大乐透|双色球|彩票|system prompt|API 密钥|认证 token|身份证号|手机号/i, question)
+      || /^\p{Extended_Pictographic}/u.test(question)) return "non_investment";
+  if (test(/投资|股票|基金|资金|本金|利息|股息|收益|回撤|风险|仓位|价格|涨|跌|买|卖|行业|公司|银行|经济|金融|黄金|白银|债|汇率|期权|期货|标的|交易|账户|持有|配置|储蓄|存款|贷款|保单|保险|房产|财务|估值|市盈|市净|PE|PB|ETF|指数|A股|港股|美股|科技|能源|材料/i, question)) return "other_investment";
+  return "unclear_expression";
 }
 
 function classifyStyle(question) {
@@ -409,13 +437,19 @@ const cognitionUserStats = Object.fromEntries(COGNITION_IDS.map((id) => [id, 0])
 const personaDirectionMap = {
   holding_diagnosis: "holding_optimizer",
   product_research: "product_decider",
+  stock_research: "product_decider",
   product_selection: "product_decider",
   asset_allocation: "planning_allocator",
   market_insight: "market_tracker",
   transaction_execution: "execution_seeker",
   investment_learning: "learning_builder",
   qieman_service: "platform_explorer",
-  conversation_other: "platform_explorer",
+  task_status: "platform_explorer",
+  personal_context: "planning_allocator",
+  context_followup: "light_conversation",
+  non_investment: "light_conversation",
+  other_investment: "market_tracker",
+  unclear_expression: "light_conversation",
 };
 const directionPriority = Object.fromEntries(DIRECTION_IDS.map((id, index) => [id, index]));
 const cognitionPriority = Object.fromEntries(COGNITION_IDS.map((id, index) => [id, index]));
@@ -461,7 +495,7 @@ const gapDistribution = summarizeBuckets(gaps, gapIds, (item) => item.minutes <=
 
 const transitionMap = new Map();
 for (const rows of bySession.values()) {
-  const sequence = rows.filter((row) => !row.preset && !row.short && row.direction !== "conversation_other")
+  const sequence = rows.filter((row) => !row.preset && !row.short && !PATH_EXCLUDED_DIRECTIONS.has(row.direction))
     .map((row) => row.direction).filter((id, index, all) => index === 0 || id !== all[index - 1]);
   for (let index = 1; index < sequence.length; index += 1) {
     const key = `${sequence[index - 1]}>${sequence[index]}`;
@@ -475,7 +509,7 @@ const topTransitions = [...transitionMap.values()].sort((a, b) => b.count - a.co
   .map((item) => ({ from: item.from, to: item.to, count: item.count, users: item.users.size }));
 const sequenceMap = new Map();
 for (const [person, rows] of byPerson) {
-  const sequence = rows.filter((row) => !row.preset && !row.short && row.direction !== "conversation_other")
+  const sequence = rows.filter((row) => !row.preset && !row.short && !PATH_EXCLUDED_DIRECTIONS.has(row.direction))
     .map((row) => row.direction).filter((id, index, all) => index === 0 || id !== all[index - 1]).slice(0, 3);
   if (sequence.length < 2) continue;
   const key = sequence.join(">");
@@ -681,6 +715,7 @@ for (const rows of bySession.values()) {
     const current = turns[index];
     const next = turns[index + 1];
     current.nextDirection = next.direction;
+    if (current.direction === next.direction || PATH_EXCLUDED_DIRECTIONS.has(current.direction) || PATH_EXCLUDED_DIRECTIONS.has(next.direction)) continue;
     const bucket = turnBucket(current.substantiveTurn);
     const key = `${current.direction}>${next.direction}`;
     if (!turnTransitions[bucket].has(key)) turnTransitions[bucket].set(key, { from: current.direction, to: next.direction, count: 0, users: new Set() });
@@ -714,6 +749,14 @@ const research = {
     cognition_note: "language_signal_not_verified_investment_knowledge",
     preset_ctr_note: "no_impression_log_asker_reach_is_proxy_not_true_ctr",
     followup_definition: "same_session_second_or_later_self_authored_substantive_question",
+    direction_other_split: "stock_research_task_status_personal_context_context_followup_non_investment_other_investment_unclear_expression",
+  },
+  market_context: {
+    index_code: "000300.CSI",
+    index_name: "沪深300",
+    source: "盈米指数行情日线",
+    completed_trading_days_only: true,
+    daily: marketRows,
   },
   journey,
   cross_analysis: {
