@@ -56,7 +56,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 92;
+const DATA_VERSION = 93;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -232,7 +232,8 @@ const initialState = {
       pinned: false,
       position: 0,
       createdAt: "2026-10-09T10:47:00+08:00",
-      source: "千问 × 豆包用户增长生产看板脱敏聚合快照（数据截至 2026-10-09 09:35:45 CST，资产截至 2026-10-08）×《金融产品网络营销管理办法》官方文本与答记者问｜千问新客 13,267、AI 小顾使用 12,201、绑定后开户 38、绑定后首次投资 10；豆包新客 1,905、AI 小顾使用 1,810、绑定后开户 4、绑定后首次投资 1｜明确两渠道未跨平台去重、绑定后行为不作渠道因果归因、聚合人数比不作用户级条件转化率｜提出大众入口、富裕经营、官方平台承接、三类流量产品、渠道优先级、六项实验、90 天路线、北极星指标、RACI、合规红线、D-001 至 D-012 数据索引与发布自检｜公开脱敏经营研究，不含用户标识、内部阈值、私募信息、开户链接、联系方式或个性化金融建议；挑战值为实验假设，不是预测或收益承诺",
+      modifiedAt: "2026-10-09T11:20:00+08:00",
+      source: "千问 × 豆包用户增长生产看板脱敏聚合快照（固定截止 2026-10-09 09:35:45 CST）× 全平台、小红书与微信广告只读聚合复核（2026-10-09 11:13 CST）×《金融产品网络营销管理办法》官方文本与答记者问｜全平台同窗注册 41,430、注册后首投 2,083 / 5.0278%、买入订单 16,903；千问与豆包新注册用户级交集为 0，合计 15,172，占全平台注册 36.62%，但首投 11 人仅占全平台首投 0.53%，首投率 0.0725%｜小红书新注册 1、首投 0；微信广告注册回传 4，平台下单回传 11 人 / 15 笔重复下单，存量触点后交易不作渠道因果｜提出大众入口、富裕经营、官方平台承接、三类流量产品、渠道优先级、六项实验、90 天路线、北极星指标、RACI、合规红线、D-001 至 D-017 数据索引与发布自检｜公开脱敏经营研究，不含用户标识、内部阈值、私募信息、开户链接、联系方式或个性化金融建议；挑战值为实验假设，不是预测或收益承诺",
       access: "production",
       workType: "product-planning",
       tags: ["且慢", "流量增长", "转化漏斗", "富裕客群", "AI 小顾", "目标账户", "转介绍", "90 天计划", "金融营销合规", "数据分析", "HTML", "生产"],
