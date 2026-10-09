@@ -56,7 +56,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 90;
+const DATA_VERSION = 91;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -209,6 +209,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "qieman-platform-organization-diagnosis-2026-10-09",
+      groupId: "growth-insights",
+      title: "且慢全盘现况与问题诊断｜从用户资产到组织操作系统",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-platform-organization-diagnosis-2026-10-09/",
+      preview: "qieman-platform-organization-diagnosis-2026-10-09.png",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-10-09T13:30:00+08:00",
+      source: "且慢多源生产与内部证据盘点：全量用户/ROOT资产截至2026-09-07，账户结构与经营研究截至2026-08，顾问工作台截至2026-09-16，AI/OAP/千问与产品交付截至2026-10-09｜覆盖3,795,728全量用户、291,097特殊在管口径、404.02亿ROOT资产；在管样本94.0%投顾资产占比≥50%，但历史目标账户覆盖23.2%、风险匹配24.0%，近两年营销来源仅27.5%可追；内部29个独立技能仅15可直接运行，顾问机会未接真实客户闭环｜核心判断：且慢不缺用户、产品或AI能力，缺统一账户经营对象、共同账本与端到端责任｜多源异步快照不拼成单一漏斗；观察性分组不作因果归因；建议目标不是历史成绩",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["且慢", "全盘诊断", "平台用户", "账户经营", "组织协作", "顾问服务", "AI小顾", "数据治理", "经营机制", "90天整改", "数据分析", "经营汇报", "HTML", "生产"],
+    },
     {
       id: "qieman-traffic-conversion-marketing-plan-2026",
       groupId: "growth-insights",
@@ -3153,6 +3167,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "qieman-platform-organization-diagnosis-2026-10-09": "growth-insights",
   "qieman-traffic-conversion-marketing-plan-2026": "growth-insights",
   "qieman-insurance-zone-compliance-brief-2026-10-09": "knowledge",
   "l3-product-operating-plan-2026-10-09": "product-planning",
