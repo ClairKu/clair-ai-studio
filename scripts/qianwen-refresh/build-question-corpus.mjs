@@ -90,6 +90,24 @@ const PRESET_VERSIONS = [
   },
 ];
 
+const KEYWORD_RULES = [
+  ["指数基金", /指数基金|宽基|窄基/i], ["主动基金", /主动基金/i], ["债券基金", /债券基金|债基/i], ["货币基金", /货币基金|货基/i],
+  ["红利基金", /红利.{0,5}(?:基金|ETF)|(?:基金|ETF).{0,5}红利/i], ["AI 基金", /(?:AI|人工智能).{0,6}(?:基金|ETF)|(?:基金|ETF).{0,6}(?:AI|人工智能)/i],
+  ["科技基金", /科技.{0,5}(?:基金|ETF)|(?:基金|ETF).{0,5}科技/i], ["医药基金", /医药.{0,5}(?:基金|ETF)|(?:基金|ETF).{0,5}医药/i],
+  ["消费基金", /消费.{0,5}(?:基金|ETF)|(?:基金|ETF).{0,5}消费/i], ["新能源基金", /新能源.{0,5}(?:基金|ETF)|(?:基金|ETF).{0,5}新能源/i],
+  ["半导体基金", /半导体.{0,5}(?:基金|ETF)|(?:基金|ETF).{0,5}半导体/i], ["QDII 基金", /QDII/i], ["ETF", /ETF/i],
+  ["A 股市场", /A股|大盘/i], ["港股市场", /港股/i], ["美股市场", /美股/i], ["黄金市场", /黄金/i], ["债券市场", /债券市场|债市|可转债/i],
+  ["行业板块", /行业|板块/i], ["市场机会", /市场.{0,8}机会|机会.{0,8}市场/i], ["市场风险", /市场.{0,8}风险|风险.{0,8}市场/i],
+  ["持仓结构", /持仓结构|持仓分析|仓位结构/i], ["基金推荐", /推荐.{0,8}基金|基金.{0,8}推荐|买什么基金|选什么基金/i],
+  ["长期持有", /长期持有|持有时间|持有多久/i], ["资产配置", /资产配置|资金配置|资金规划/i], ["收益表现", /收益|年化|业绩表现/i],
+  ["最大回撤", /最大回撤|回撤/i], ["基金净值", /基金.{0,5}净值|净值.{0,5}基金/i], ["基金经理", /基金经理/i], ["基金费率", /基金.{0,5}(?:费率|手续费)|(?:费率|手续费).{0,5}基金/i],
+  ["定投计划", /定投/i], ["止盈策略", /止盈/i], ["赎回操作", /赎回|卖出/i], ["养老规划", /养老|退休/i], ["教育金规划", /教育金|子女教育/i],
+  ["买房资金", /买房|购房/i], ["四笔钱", /四笔钱/i],
+];
+const STRATEGY_NAMES = ["周周同行", "长钱账户", "我要稳稳的幸福", "中西合璧", "春华秋实", "全球赢", "价值五剑", "海外长钱", "稳健长钱", "养老长钱"];
+const FUND_COMPANIES = "易方达|华夏|南方|广发|富国|招商|汇添富|嘉实|博时|景顺长城|景顺|工银瑞信|工银|鹏华|中欧|华安|国泰|交银施罗德|交银|兴证全球|兴全|银华|天弘|华宝|摩根|大成|建信|融通|睿远|永赢|创金合信|万家|国投瑞银|农银汇理|中银|诺安|长城|前海开源|东方红";
+const fundNamePattern = new RegExp(`(?:${FUND_COMPANIES})[A-Za-z0-9\\u4e00-\\u9fff·]{2,22}?(?=近|最|这|该|表现|收益|净值|基金经理|风险|怎么|怎样|为什么|是否|值得|适合|可以|能不能|会不会|好不好|能买吗|买入|卖出|赎回|和|与|还是|吗|呢|[，。？！、；：\\s]|$)`, "gi");
+
 const compact = (value) => String(value ?? "").replace(/[\u0000-\u001f\u007f]/g, " ").replace(/\s+/g, " ").trim();
 const normalizePreset = (value) => compact(value).replace(/\s+/g, "").replace(/[‐‑‒–—―]/g, "-").replace(/[“”\"']/g, "");
 const presetLookup = new Map();
@@ -157,6 +175,18 @@ function redact(input) {
   value = value.replace(/(?<!\d)(?:\d[ -]?){12,19}(?!\d)/g, "[长号码]");
   value = value.replace(/\b(?:wxid_|openid[:：]?)[A-Za-z0-9_-]{6,}\b/gi, "[外部标识]");
   return value;
+}
+
+function extractProducts(question) {
+  const products = new Map();
+  for (const code of question.match(/(?<!\d)\d{6}(?!\d)/g) || []) products.set(code, { label: code, kind: "基金代码" });
+  for (const strategy of STRATEGY_NAMES) if (question.includes(strategy)) products.set(strategy, { label: strategy, kind: "且慢策略" });
+  fundNamePattern.lastIndex = 0;
+  for (const match of question.matchAll(fundNamePattern)) {
+    const label = compact(match[0]).replace(/(?:这只|这支|该只)$/g, "");
+    if ([...label].length >= 4 && !/(?:基金公司|基金经理|旗下基金|哪些基金|一个基金|一只基金|银行|证券|保险|官网|客服)$/.test(label)) products.set(label, { label, kind: "基金名称" });
+  }
+  return [...products.values()];
 }
 
 const shortFollowups = new Set(["好","好的","继续","可以","是","是的","不是","谢谢","需要","要","明白了","知道了","嗯","对","行","1","2","3","？","?","收到","没了","不用了"]);
@@ -261,6 +291,23 @@ for (const row of internalRows) {
 }
 for (const rows of [...byPerson.values(), ...bySession.values()]) rows.sort((a, b) => a.timeMs - b.timeMs || a.index - b.index);
 
+// 将同一会话中默认题之后的自发提问，归因到最近一次默认题。
+// 只把默认题 id/version 写入脱敏密文，不写用户或会话标识。
+for (const rows of bySession.values()) {
+  let originPreset = null;
+  let substantiveTurn = 0;
+  for (const row of rows) {
+    if (row.preset) originPreset = row.preset;
+    else {
+      if (originPreset) row.originPreset = originPreset;
+      if (!row.short) {
+        substantiveTurn += 1;
+        row.substantiveTurn = substantiveTurn;
+      }
+    }
+  }
+}
+
 const makeStats = (ids) => Object.fromEntries(ids.map((id) => [id, { questions: 0, users: new Set() }]));
 function summarizeDimension(rows, key, ids) {
   const stats = makeStats(ids);
@@ -301,6 +348,7 @@ for (const rows of bySession.values()) {
 
 const versions = PRESET_VERSIONS.map((version) => {
   const rows = presetRows.filter((row) => row.preset.version === version.id);
+  const followRows = substantiveRows.filter((row) => row.originPreset?.version === version.id);
   const observedFrom = rows.length ? rows.map((row) => row.day).sort()[0] : null;
   const observedTo = rows.length ? rows.map((row) => row.day).sort().at(-1) : null;
   const windowAskers = new Set(internalRows.filter((row) => observedFrom && row.day >= observedFrom && row.day <= observedTo).map((row) => row.person));
@@ -309,13 +357,18 @@ const versions = PRESET_VERSIONS.map((version) => {
   const followSet = new Set(rows.filter((row) => row.hasLaterSelfInSession).map((row) => row.person));
   const questions = version.questions.map(([id, question]) => {
     const questionRows = rows.filter((row) => row.preset.id === id);
+    const questionFollowRows = substantiveRows.filter((row) => row.originPreset?.id === id);
+    const classifiedQuestion = classify(question);
     return {
       id,
       question,
+      direction: classifiedQuestion.direction,
       clicks: questionRows.length,
       users: new Set(questionRows.map((row) => row.person)).size,
       first_question_users: new Set(questionRows.filter((row) => firstRows.get(row.person) === row).map((row) => row.person)).size,
       follow_on_users: new Set(questionRows.filter((row) => row.hasLaterSelfInSession).map((row) => row.person)).size,
+      follow_on_questions: questionFollowRows.length,
+      follow_on_directions: summarizeDimension(questionFollowRows, "direction", DIRECTION_IDS),
     };
   });
   return {
@@ -328,6 +381,8 @@ const versions = PRESET_VERSIONS.map((version) => {
     users: userSet.size,
     first_question_users: firstSet.size,
     follow_on_users: followSet.size,
+    follow_on_questions: followRows.length,
+    follow_on_directions: summarizeDimension(followRows, "direction", DIRECTION_IDS),
     asker_proxy_denominator: windowAskers.size,
     questions,
   };
@@ -431,6 +486,85 @@ const topSelfAuthored = [...topQuestionMap.values()].filter((item) => item.users
   .sort((a, b) => b.questions - a.questions || b.users.size - a.users.size || a.question.localeCompare(b.question, "zh-CN"))
   .slice(0, 24).map((item, index) => ({ rank: index + 1, question: item.question, questions: item.questions, users: item.users.size, direction: item.direction }));
 
+const keywordStats = new Map(KEYWORD_RULES.map(([label]) => [label, { label, questions: 0, users: new Set() }]));
+const productStats = new Map();
+for (const row of substantiveRows) {
+  for (const [label, pattern] of KEYWORD_RULES) {
+    if (!pattern.test(row.original)) continue;
+    const item = keywordStats.get(label);
+    item.questions += 1;
+    item.users.add(row.person);
+  }
+  for (const product of extractProducts(row.original)) {
+    if (!productStats.has(product.label)) productStats.set(product.label, { ...product, questions: 0, users: new Set() });
+    const item = productStats.get(product.label);
+    item.questions += 1;
+    item.users.add(row.person);
+  }
+}
+const keywords = [...keywordStats.values()].filter((item) => item.questions > 0)
+  .sort((a, b) => b.questions - a.questions || b.users.size - a.users.size)
+  .map((item) => ({ label: item.label, questions: item.questions, users: item.users.size }));
+const productCodes = [...productStats.values()].filter((item) => item.kind === "基金代码" && item.users.size >= 2).map((item) => item.label);
+const fundNames = new Map();
+if (productCodes.length) {
+  const codeList = productCodes.map((code) => `'${code}'`).join(",");
+  let fundResponse = await request("/api/query_results", {
+    method: "POST",
+    body: { query: `SELECT fund_code, MAX(fund_name) AS fund_name FROM ying99_fundtxn.fund_info WHERE fund_code IN (${codeList}) GROUP BY fund_code`, data_source_id: dataSourceId, max_age: 86400 },
+  });
+  if (fundResponse.job?.id) {
+    const deadline = Date.now() + 3 * 60 * 1000;
+    while (Date.now() < deadline) {
+      await new Promise((done) => setTimeout(done, 1500));
+      const job = (await request(`/api/jobs/${fundResponse.job.id}`)).job || {};
+      if (job.status === 3) { fundResponse = await request(`/api/query_results/${job.query_result_id}`); break; }
+      if (job.status === 4 || job.status === 5) throw new Error(`基金名称查询失败：${job.error || job.status}`);
+    }
+  }
+  for (const row of fundResponse.query_result?.data?.rows || []) if (row.fund_code && row.fund_name) fundNames.set(String(row.fund_code), compact(row.fund_name));
+}
+const products = [...productStats.values()].filter((item) => item.users.size >= 2)
+  .sort((a, b) => b.users.size - a.users.size || b.questions - a.questions || a.label.localeCompare(b.label, "zh-CN"))
+  .slice(0, 40).map((item) => ({
+    label: item.kind === "基金代码" && fundNames.has(item.label) ? `${fundNames.get(item.label)}（${item.label}）` : item.label,
+    query: item.label,
+    kind: item.kind,
+    questions: item.questions,
+    users: item.users.size,
+  }));
+
+const turnBucket = (turn) => turn === 1 ? "1" : turn === 2 ? "2" : turn === 3 ? "3" : turn <= 5 ? "4_5" : "6_plus";
+const turnIds = ["1", "2", "3", "4_5", "6_plus"];
+const turnLabels = { "1": "第 1 问", "2": "第 2 问", "3": "第 3 问", "4_5": "第 4–5 问", "6_plus": "第 6 问以上" };
+const turnTransitions = Object.fromEntries(turnIds.map((id) => [id, new Map()]));
+for (const rows of bySession.values()) {
+  const turns = rows.filter((row) => !row.preset && !row.short);
+  for (let index = 0; index < turns.length - 1; index += 1) {
+    const current = turns[index];
+    const next = turns[index + 1];
+    current.nextDirection = next.direction;
+    const bucket = turnBucket(current.substantiveTurn);
+    const key = `${current.direction}>${next.direction}`;
+    if (!turnTransitions[bucket].has(key)) turnTransitions[bucket].set(key, { from: current.direction, to: next.direction, count: 0, users: new Set() });
+    const item = turnTransitions[bucket].get(key);
+    item.count += 1;
+    item.users.add(current.person);
+  }
+}
+const turnAnalysis = turnIds.map((id) => {
+  const rows = substantiveRows.filter((row) => turnBucket(row.substantiveTurn) === id);
+  return {
+    id,
+    label: turnLabels[id],
+    questions: rows.length,
+    users: new Set(rows.map((row) => row.person)).size,
+    directions: summarizeDimension(rows, "direction", DIRECTION_IDS),
+    transitions: [...turnTransitions[id].values()].sort((a, b) => b.count - a.count || b.users.size - a.users.size).slice(0, 12)
+      .map((item) => ({ from: item.from, to: item.to, count: item.count, users: item.users.size })),
+  };
+});
+
 const research = {
   schema_version: "qianwen-question-research-v2",
   as_of: cutoff.replace(" ", "T") + "+08:00",
@@ -456,10 +590,23 @@ const research = {
     substantive_users: substantiveUsers.size,
     short_followups: selfRows.filter((row) => row.short).length,
     preset_only_users: [...byPerson.values()].filter((rows) => rows.some((row) => row.preset) && rows.every((row) => row.preset)).length,
+    preset_follow_on_users: new Set(presetRows.filter((row) => row.hasLaterSelfInSession).map((row) => row.person)).size,
+    preset_follow_on_questions: substantiveRows.filter((row) => row.originPreset).length,
   },
   presets: {
     true_impressions_available: false,
     rate_metric: "unique_click_users_divided_by_asking_users_in_observed_window",
+    directions: DIRECTION_IDS.map((id) => {
+      const rows = presetRows.filter((row) => row.direction === id);
+      return {
+        id,
+        clicks: rows.length,
+        users: new Set(rows.map((row) => row.person)).size,
+        first_question_users: new Set(rows.filter((row) => firstRows.get(row.person) === row).map((row) => row.person)).size,
+        follow_on_users: new Set(rows.filter((row) => row.hasLaterSelfInSession).map((row) => row.person)).size,
+      };
+    }),
+    follow_on_directions: summarizeDimension(substantiveRows.filter((row) => row.originPreset), "direction", DIRECTION_IDS),
     versions,
   },
   dimensions: {
@@ -473,6 +620,8 @@ const research = {
   user_cognition: COGNITION_IDS.map((id) => ({ id, users: cognitionUserStats[id] })),
   rhythm: { active_days: activeDays, time_of_day: timeOfDay, session_depth: sessionDepth, gaps: gapDistribution },
   paths: { transitions: topTransitions, sequences: topSequences },
+  entities: { product_min_users: 2, keywords, products },
+  turn_analysis: { buckets: turnAnalysis },
   top_self_authored: topSelfAuthored,
 };
 
@@ -486,6 +635,10 @@ const rows = internalRows.map((row) => ({
   s: row.short ? 1 : 0,
   p: row.preset?.id || "",
   v: row.preset?.version || "",
+  r: row.originPreset?.id || "",
+  w: row.originPreset?.version || "",
+  u: row.substantiveTurn || 0,
+  n: row.nextDirection || "",
   q: row.question,
 }));
 const directionCounts = Object.fromEntries(DIRECTION_IDS.map((id) => [id, rows.filter((row) => row.t === id).length]));

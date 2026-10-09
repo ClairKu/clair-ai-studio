@@ -2811,11 +2811,125 @@
         "substantive_questions": 58705,
         "substantive_users": 10053,
         "short_followups": 1558,
-        "preset_only_users": 707
+        "preset_only_users": 707,
+        "preset_follow_on_users": 1585,
+        "preset_follow_on_questions": 17806
       },
       "presets": {
         "true_impressions_available": false,
         "rate_metric": "unique_click_users_divided_by_asking_users_in_observed_window",
+        "directions": [
+          {
+            "id": "holding_diagnosis",
+            "clicks": 1193,
+            "users": 949,
+            "first_question_users": 374,
+            "follow_on_users": 489
+          },
+          {
+            "id": "product_research",
+            "clicks": 467,
+            "users": 406,
+            "first_question_users": 45,
+            "follow_on_users": 252
+          },
+          {
+            "id": "product_selection",
+            "clicks": 2218,
+            "users": 1596,
+            "first_question_users": 582,
+            "follow_on_users": 791
+          },
+          {
+            "id": "asset_allocation",
+            "clicks": 246,
+            "users": 221,
+            "first_question_users": 6,
+            "follow_on_users": 135
+          },
+          {
+            "id": "market_insight",
+            "clicks": 1001,
+            "users": 833,
+            "first_question_users": 133,
+            "follow_on_users": 447
+          },
+          {
+            "id": "transaction_execution",
+            "clicks": 0,
+            "users": 0,
+            "first_question_users": 0,
+            "follow_on_users": 0
+          },
+          {
+            "id": "investment_learning",
+            "clicks": 86,
+            "users": 84,
+            "first_question_users": 5,
+            "follow_on_users": 51
+          },
+          {
+            "id": "qieman_service",
+            "clicks": 0,
+            "users": 0,
+            "first_question_users": 0,
+            "follow_on_users": 0
+          },
+          {
+            "id": "conversation_other",
+            "clicks": 43,
+            "users": 40,
+            "first_question_users": 1,
+            "follow_on_users": 22
+          }
+        ],
+        "follow_on_directions": [
+          {
+            "id": "holding_diagnosis",
+            "questions": 1320,
+            "users": 349
+          },
+          {
+            "id": "product_research",
+            "questions": 3616,
+            "users": 704
+          },
+          {
+            "id": "product_selection",
+            "questions": 834,
+            "users": 321
+          },
+          {
+            "id": "asset_allocation",
+            "questions": 222,
+            "users": 75
+          },
+          {
+            "id": "market_insight",
+            "questions": 1958,
+            "users": 437
+          },
+          {
+            "id": "transaction_execution",
+            "questions": 1421,
+            "users": 329
+          },
+          {
+            "id": "investment_learning",
+            "questions": 358,
+            "users": 132
+          },
+          {
+            "id": "qieman_service",
+            "questions": 192,
+            "users": 84
+          },
+          {
+            "id": "conversation_other",
+            "questions": 7885,
+            "users": 933
+          }
+        ],
         "versions": [
           {
             "id": "launch_v1",
@@ -2827,39 +2941,283 @@
             "users": 1697,
             "first_question_users": 984,
             "follow_on_users": 807,
+            "follow_on_questions": 10495,
+            "follow_on_directions": [
+              {
+                "id": "holding_diagnosis",
+                "questions": 886,
+                "users": 243
+              },
+              {
+                "id": "product_research",
+                "questions": 2335,
+                "users": 390
+              },
+              {
+                "id": "product_selection",
+                "questions": 536,
+                "users": 198
+              },
+              {
+                "id": "asset_allocation",
+                "questions": 127,
+                "users": 40
+              },
+              {
+                "id": "market_insight",
+                "questions": 1047,
+                "users": 186
+              },
+              {
+                "id": "transaction_execution",
+                "questions": 908,
+                "users": 190
+              },
+              {
+                "id": "investment_learning",
+                "questions": 204,
+                "users": 66
+              },
+              {
+                "id": "qieman_service",
+                "questions": 117,
+                "users": 55
+              },
+              {
+                "id": "conversation_other",
+                "questions": 4335,
+                "users": 424
+              }
+            ],
             "asker_proxy_denominator": 3705,
             "questions": [
               {
                 "id": "v1_holding",
                 "question": "帮我看看现在的持仓结构，给出优化建议",
+                "direction": "holding_diagnosis",
                 "clicks": 1138,
                 "users": 898,
                 "first_question_users": 373,
-                "follow_on_users": 450
+                "follow_on_users": 450,
+                "follow_on_questions": 4370,
+                "follow_on_directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 423,
+                    "users": 150
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 884,
+                    "users": 171
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 193,
+                    "users": 49
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 50,
+                    "users": 17
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 368,
+                    "users": 66
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 333,
+                    "users": 84
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 72,
+                    "users": 23
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 49,
+                    "users": 19
+                  },
+                  {
+                    "id": "conversation_other",
+                    "questions": 1998,
+                    "users": 203
+                  }
+                ]
               },
               {
                 "id": "v1_long_term_funds",
                 "question": "推荐2-3个值得长期持有的基金，并给出详细的分析",
+                "direction": "product_selection",
                 "clicks": 985,
                 "users": 791,
                 "first_question_users": 250,
-                "follow_on_users": 360
+                "follow_on_users": 360,
+                "follow_on_questions": 3097,
+                "follow_on_directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 302,
+                    "users": 69
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 810,
+                    "users": 159
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 210,
+                    "users": 107
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 51,
+                    "users": 17
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 246,
+                    "users": 60
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 304,
+                    "users": 75
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 55,
+                    "users": 22
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 36,
+                    "users": 21
+                  },
+                  {
+                    "id": "conversation_other",
+                    "questions": 1083,
+                    "users": 134
+                  }
+                ]
               },
               {
                 "id": "v1_hot_products",
                 "question": "帮我看看最近有哪些比较热门的基金或投顾策略",
+                "direction": "product_selection",
                 "clicks": 631,
                 "users": 528,
                 "first_question_users": 274,
-                "follow_on_users": 224
+                "follow_on_users": 224,
+                "follow_on_questions": 1212,
+                "follow_on_directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 62,
+                    "users": 27
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 296,
+                    "users": 62
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 62,
+                    "users": 30
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 14,
+                    "users": 6
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 182,
+                    "users": 35
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 63,
+                    "users": 24
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 28,
+                    "users": 12
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 19,
+                    "users": 8
+                  },
+                  {
+                    "id": "conversation_other",
+                    "questions": 486,
+                    "users": 77
+                  }
+                ]
               },
               {
                 "id": "v1_market",
                 "question": "最近市场有哪些特点，有哪些机会和风险值得关注",
+                "direction": "market_insight",
                 "clicks": 460,
                 "users": 347,
                 "first_question_users": 87,
-                "follow_on_users": 167
+                "follow_on_users": 167,
+                "follow_on_questions": 1816,
+                "follow_on_directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 99,
+                    "users": 21
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 345,
+                    "users": 60
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 71,
+                    "users": 29
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 12,
+                    "users": 7
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 251,
+                    "users": 48
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 208,
+                    "users": 34
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 49,
+                    "users": 17
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 13,
+                    "users": 10
+                  },
+                  {
+                    "id": "conversation_other",
+                    "questions": 768,
+                    "users": 75
+                  }
+                ]
               }
             ]
           },
@@ -2873,119 +3231,853 @@
             "users": 992,
             "first_question_users": 97,
             "follow_on_users": 601,
+            "follow_on_questions": 3455,
+            "follow_on_directions": [
+              {
+                "id": "holding_diagnosis",
+                "questions": 183,
+                "users": 77
+              },
+              {
+                "id": "product_research",
+                "questions": 742,
+                "users": 237
+              },
+              {
+                "id": "product_selection",
+                "questions": 132,
+                "users": 86
+              },
+              {
+                "id": "asset_allocation",
+                "questions": 48,
+                "users": 18
+              },
+              {
+                "id": "market_insight",
+                "questions": 501,
+                "users": 182
+              },
+              {
+                "id": "transaction_execution",
+                "questions": 277,
+                "users": 98
+              },
+              {
+                "id": "investment_learning",
+                "questions": 92,
+                "users": 48
+              },
+              {
+                "id": "qieman_service",
+                "questions": 31,
+                "users": 18
+              },
+              {
+                "id": "conversation_other",
+                "questions": 1449,
+                "users": 330
+              }
+            ],
             "asker_proxy_denominator": 9422,
             "questions": [
               {
                 "id": "v2_market_response",
                 "question": "现在市场里有哪些值得关注的机会和风险？普通投资者可以采取什么样的应对思路？",
+                "direction": "market_insight",
                 "clicks": 131,
                 "users": 120,
                 "first_question_users": 8,
-                "follow_on_users": 61
+                "follow_on_users": 61,
+                "follow_on_questions": 449,
+                "follow_on_directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 15,
+                    "users": 8
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 50,
+                    "users": 16
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 7,
+                    "users": 6
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 6,
+                    "users": 3
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 94,
+                    "users": 21
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 20,
+                    "users": 10
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 9,
+                    "users": 5
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 14,
+                    "users": 4
+                  },
+                  {
+                    "id": "conversation_other",
+                    "questions": 234,
+                    "users": 30
+                  }
+                ]
               },
               {
                 "id": "v2_sector",
                 "question": "最近哪些行业板块表现比较突出，背后的原因是什么，现在还值得继续关注吗？",
+                "direction": "market_insight",
                 "clicks": 109,
                 "users": 103,
                 "first_question_users": 11,
-                "follow_on_users": 60
+                "follow_on_users": 60,
+                "follow_on_questions": 183,
+                "follow_on_directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 7,
+                    "users": 6
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 23,
+                    "users": 11
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 6,
+                    "users": 5
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 3,
+                    "users": 1
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 47,
+                    "users": 19
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 11,
+                    "users": 6
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 9,
+                    "users": 6
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 4,
+                    "users": 1
+                  },
+                  {
+                    "id": "conversation_other",
+                    "questions": 73,
+                    "users": 29
+                  }
+                ]
               },
               {
                 "id": "v2_defensive_assets",
                 "question": "如果市场继续震荡，哪些资产通常更抗波动，哪些方向的风险可能更大？",
+                "direction": "market_insight",
                 "clicks": 103,
                 "users": 101,
                 "first_question_users": 5,
-                "follow_on_users": 60
+                "follow_on_users": 60,
+                "follow_on_questions": 352,
+                "follow_on_directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 21,
+                    "users": 6
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 64,
+                    "users": 20
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 12,
+                    "users": 10
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 6,
+                    "users": 4
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 59,
+                    "users": 18
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 37,
+                    "users": 11
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 13,
+                    "users": 6
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 3,
+                    "users": 3
+                  },
+                  {
+                    "id": "conversation_other",
+                    "questions": 137,
+                    "users": 33
+                  }
+                ]
               },
               {
                 "id": "v2_fund_movers",
                 "question": "最近哪些基金表现比较突出，主要集中在哪些板块？它们为什么上涨，又有哪些风险需要注意？",
+                "direction": "product_selection",
                 "clicks": 101,
                 "users": 96,
                 "first_question_users": 10,
-                "follow_on_users": 58
+                "follow_on_users": 58,
+                "follow_on_questions": 180,
+                "follow_on_directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 20,
+                    "users": 6
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 77,
+                    "users": 25
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 8,
+                    "users": 5
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 15,
+                    "users": 11
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 27,
+                    "users": 14
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 2,
+                    "users": 1
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 2,
+                    "users": 2
+                  },
+                  {
+                    "id": "conversation_other",
+                    "questions": 28,
+                    "users": 16
+                  }
+                ]
               },
               {
                 "id": "v2_a_share_value",
                 "question": "现在A股整体算贵还是便宜？机会和风险分别在哪里？",
+                "direction": "market_insight",
                 "clicks": 99,
                 "users": 95,
                 "first_question_users": 13,
-                "follow_on_users": 53
+                "follow_on_users": 53,
+                "follow_on_questions": 207,
+                "follow_on_directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 22,
+                    "users": 5
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 32,
+                    "users": 12
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 3,
+                    "users": 3
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 42,
+                    "users": 24
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 14,
+                    "users": 7
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 11,
+                    "users": 5
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "conversation_other",
+                    "questions": 82,
+                    "users": 26
+                  }
+                ]
               },
               {
                 "id": "v2_cross_asset",
                 "question": "最近A股、港股、债券和黄金分别表现怎么样？为什么有的涨、有的跌，应该怎么看？",
+                "direction": "market_insight",
                 "clicks": 99,
                 "users": 92,
                 "first_question_users": 9,
-                "follow_on_users": 56
+                "follow_on_users": 56,
+                "follow_on_questions": 294,
+                "follow_on_directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 21,
+                    "users": 6
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 52,
+                    "users": 15
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 5,
+                    "users": 3
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 7,
+                    "users": 2
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 44,
+                    "users": 15
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 34,
+                    "users": 4
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 6,
+                    "users": 4
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 3,
+                    "users": 3
+                  },
+                  {
+                    "id": "conversation_other",
+                    "questions": 122,
+                    "users": 27
+                  }
+                ]
               },
               {
                 "id": "v2_long_or_hot",
                 "question": "最近表现不错的基金里，哪些更适合长期观察，哪些可能只是短期热门？说说判断理由吗？",
+                "direction": "product_research",
                 "clicks": 98,
                 "users": 93,
                 "first_question_users": 9,
-                "follow_on_users": 57
+                "follow_on_users": 57,
+                "follow_on_questions": 164,
+                "follow_on_directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 11,
+                    "users": 8
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 66,
+                    "users": 28
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 9,
+                    "users": 8
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 20,
+                    "users": 11
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 11,
+                    "users": 7
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 3,
+                    "users": 3
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "conversation_other",
+                    "questions": 43,
+                    "users": 22
+                  }
+                ]
               },
               {
                 "id": "v2_popular_funds",
                 "question": "最近大家比较关注哪些基金？它们长期表现怎么样，跌起来可能有多大，费用高不高？",
+                "direction": "product_selection",
                 "clicks": 97,
                 "users": 94,
                 "first_question_users": 4,
-                "follow_on_users": 52
+                "follow_on_users": 52,
+                "follow_on_questions": 193,
+                "follow_on_directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 8,
+                    "users": 7
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 86,
+                    "users": 28
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 20,
+                    "users": 9
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 2,
+                    "users": 2
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 13,
+                    "users": 8
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 22,
+                    "users": 7
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 6,
+                    "users": 4
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "conversation_other",
+                    "questions": 35,
+                    "users": 21
+                  }
+                ]
               },
               {
                 "id": "v2_active_vs_index",
                 "question": "同样投资一个行业，主动基金和指数基金通常有什么不同？选择时应该重点看什么？",
+                "direction": "product_research",
                 "clicks": 96,
                 "users": 95,
                 "first_question_users": 6,
-                "follow_on_users": 54
+                "follow_on_users": 54,
+                "follow_on_questions": 395,
+                "follow_on_directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 12,
+                    "users": 7
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 94,
+                    "users": 19
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 16,
+                    "users": 11
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 35,
+                    "users": 10
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 34,
+                    "users": 7
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 13,
+                    "users": 5
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "conversation_other",
+                    "questions": 190,
+                    "users": 29
+                  }
+                ]
               },
               {
                 "id": "v2_chasing_risk",
                 "question": "有些基金短期涨得很快，现在再关注会不会有追高风险？应该看哪些方面再做判断？",
+                "direction": "product_research",
                 "clicks": 95,
                 "users": 92,
                 "first_question_users": 2,
-                "follow_on_users": 61
+                "follow_on_users": 61,
+                "follow_on_questions": 196,
+                "follow_on_directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 10,
+                    "users": 6
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 53,
+                    "users": 28
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 16,
+                    "users": 12
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 18,
+                    "users": 9
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 7,
+                    "users": 5
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 3,
+                    "users": 2
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "conversation_other",
+                    "questions": 88,
+                    "users": 27
+                  }
+                ]
               },
               {
                 "id": "v2_signal_filter",
                 "question": "最近市场信息太多了，帮我筛选出真正重要的变化，并用简单的方式说说接下来应该关注什么。",
+                "direction": "product_selection",
                 "clicks": 91,
                 "users": 88,
                 "first_question_users": 12,
-                "follow_on_users": 50
+                "follow_on_users": 50,
+                "follow_on_questions": 167,
+                "follow_on_directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 11,
+                    "users": 4
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 26,
+                    "users": 12
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 13,
+                    "users": 6
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 27,
+                    "users": 15
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 7,
+                    "users": 5
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 5,
+                    "users": 3
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "conversation_other",
+                    "questions": 78,
+                    "users": 32
+                  }
+                ]
               },
               {
                 "id": "v2_nav_misunderstanding",
                 "question": "一只基金的净值已经比较高了，还能不能关注？净值高低能代表基金贵不贵吗？",
+                "direction": "product_research",
                 "clicks": 86,
                 "users": 84,
                 "first_question_users": 6,
-                "follow_on_users": 56
+                "follow_on_users": 56,
+                "follow_on_questions": 432,
+                "follow_on_directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 13,
+                    "users": 4
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 74,
+                    "users": 20
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 7,
+                    "users": 4
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 19,
+                    "users": 3
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 56,
+                    "users": 9
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 22,
+                    "users": 7
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 6,
+                    "users": 3
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "conversation_other",
+                    "questions": 234,
+                    "users": 19
+                  }
+                ]
               },
               {
                 "id": "v2_qieman_entry",
                 "question": "且慢有哪些策略比较适合入门体验？介绍一下各自的特点、风险和建议持有时间。",
+                "direction": "product_selection",
                 "clicks": 60,
                 "users": 59,
                 "first_question_users": 1,
-                "follow_on_users": 37
+                "follow_on_users": 37,
+                "follow_on_questions": 176,
+                "follow_on_directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 9,
+                    "users": 5
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 36,
+                    "users": 10
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 9,
+                    "users": 5
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 17,
+                    "users": 9
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 18,
+                    "users": 5
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 3,
+                    "users": 3
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "conversation_other",
+                    "questions": 83,
+                    "users": 20
+                  }
+                ]
               },
               {
                 "id": "v2_goal_planning",
                 "question": "买房、养老、孩子教育等不同目标，需要分别做资金规划吗？应该怎样安排更清楚？",
+                "direction": "asset_allocation",
                 "clicks": 57,
                 "users": 57,
                 "first_question_users": 1,
-                "follow_on_users": 35
+                "follow_on_users": 35,
+                "follow_on_questions": 67,
+                "follow_on_directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 3,
+                    "users": 2
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 9,
+                    "users": 8
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 2,
+                    "users": 1
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 14,
+                    "users": 8
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 13,
+                    "users": 5
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 3,
+                    "users": 2
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "conversation_other",
+                    "questions": 22,
+                    "users": 13
+                  }
+                ]
               }
             ]
           },
@@ -2999,111 +4091,796 @@
             "users": 494,
             "first_question_users": 18,
             "follow_on_users": 317,
+            "follow_on_questions": 2517,
+            "follow_on_directions": [
+              {
+                "id": "holding_diagnosis",
+                "questions": 229,
+                "users": 39
+              },
+              {
+                "id": "product_research",
+                "questions": 424,
+                "users": 92
+              },
+              {
+                "id": "product_selection",
+                "questions": 136,
+                "users": 35
+              },
+              {
+                "id": "asset_allocation",
+                "questions": 44,
+                "users": 24
+              },
+              {
+                "id": "market_insight",
+                "questions": 196,
+                "users": 83
+              },
+              {
+                "id": "transaction_execution",
+                "questions": 212,
+                "users": 54
+              },
+              {
+                "id": "investment_learning",
+                "questions": 37,
+                "users": 20
+              },
+              {
+                "id": "qieman_service",
+                "questions": 15,
+                "users": 12
+              },
+              {
+                "id": "conversation_other",
+                "questions": 1224,
+                "users": 202
+              }
+            ],
             "asker_proxy_denominator": 7466,
             "questions": [
               {
                 "id": "v3_strategy_match",
                 "question": "如果我想在且慢开始投资，哪些策略可能更适合我？可以帮我筛选并比较它们的投资方向、波动和持有时间吗？",
+                "direction": "holding_diagnosis",
                 "clicks": 55,
                 "users": 53,
                 "first_question_users": 1,
-                "follow_on_users": 41
+                "follow_on_users": 41,
+                "follow_on_questions": 573,
+                "follow_on_directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 49,
+                    "users": 6
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 98,
+                    "users": 13
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 6,
+                    "users": 4
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 12,
+                    "users": 3
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 42,
+                    "users": 10
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 31,
+                    "users": 6
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 7,
+                    "users": 2
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 5,
+                    "users": 4
+                  },
+                  {
+                    "id": "conversation_other",
+                    "questions": 323,
+                    "users": 30
+                  }
+                ]
               },
               {
                 "id": "v3_four_money",
                 "question": "且慢常说的“四笔钱”是什么意思？每一类钱分别适合解决什么问题？",
+                "direction": "asset_allocation",
                 "clicks": 53,
                 "users": 51,
                 "first_question_users": 2,
-                "follow_on_users": 32
+                "follow_on_users": 32,
+                "follow_on_questions": 128,
+                "follow_on_directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 6,
+                    "users": 4
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 21,
+                    "users": 8
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 9,
+                    "users": 6
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 13,
+                    "users": 5
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 15,
+                    "users": 5
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 4,
+                    "users": 1
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 3,
+                    "users": 2
+                  },
+                  {
+                    "id": "conversation_other",
+                    "questions": 56,
+                    "users": 17
+                  }
+                ]
               },
               {
                 "id": "v3_plan_balance",
                 "question": "做资金规划时，怎样兼顾随时要用、控制回撤和长期增值这几个需求？",
+                "direction": "asset_allocation",
                 "clicks": 50,
                 "users": 50,
                 "first_question_users": 2,
-                "follow_on_users": 29
+                "follow_on_users": 29,
+                "follow_on_questions": 110,
+                "follow_on_directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 8,
+                    "users": 5
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 15,
+                    "users": 7
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 2,
+                    "users": 2
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 3,
+                    "users": 3
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 16,
+                    "users": 6
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 9,
+                    "users": 4
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 5,
+                    "users": 4
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "conversation_other",
+                    "questions": 51,
+                    "users": 17
+                  }
+                ]
               },
               {
                 "id": "v3_strategy_recommend",
                 "question": "我不太了解且慢，根据我的情况帮我推荐几个值得重点了解的策略。",
+                "direction": "product_selection",
                 "clicks": 49,
                 "users": 48,
                 "first_question_users": 1,
-                "follow_on_users": 31
+                "follow_on_users": 31,
+                "follow_on_questions": 82,
+                "follow_on_directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 6,
+                    "users": 3
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 14,
+                    "users": 8
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 3,
+                    "users": 2
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 5,
+                    "users": 2
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 11,
+                    "users": 8
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 8,
+                    "users": 4
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "conversation_other",
+                    "questions": 35,
+                    "users": 14
+                  }
+                ]
               },
               {
                 "id": "v3_new_to_qieman",
                 "question": "我刚接触且慢，能不能根据我的情况推荐几个值得了解的策略，并告诉我为什么？",
+                "direction": "product_selection",
                 "clicks": 49,
                 "users": 47,
                 "first_question_users": 2,
-                "follow_on_users": 26
+                "follow_on_users": 26,
+                "follow_on_questions": 553,
+                "follow_on_directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 80,
+                    "users": 2
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 85,
+                    "users": 4
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 66,
+                    "users": 4
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 23,
+                    "users": 7
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 18,
+                    "users": 1
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 9,
+                    "users": 2
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 2,
+                    "users": 2
+                  },
+                  {
+                    "id": "conversation_other",
+                    "questions": 270,
+                    "users": 11
+                  }
+                ]
               },
               {
                 "id": "v3_money_suitability",
                 "question": "怎么判断一笔钱适不适合拿来投资，以及应该选择稳一点还是波动大一点的方式？",
+                "direction": "investment_learning",
                 "clicks": 48,
                 "users": 48,
                 "first_question_users": 4,
-                "follow_on_users": 27
+                "follow_on_users": 27,
+                "follow_on_questions": 77,
+                "follow_on_directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 10,
+                    "users": 5
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 3,
+                    "users": 3
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 2,
+                    "users": 2
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 6,
+                    "users": 6
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 11,
+                    "users": 5
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "conversation_other",
+                    "questions": 45,
+                    "users": 14
+                  }
+                ]
               },
               {
                 "id": "v3_qieman_plan",
                 "question": "用且慢的资金规划思路，怎么安排手头资金？需要注意什么？",
+                "direction": "asset_allocation",
                 "clicks": 47,
                 "users": 46,
                 "first_question_users": 1,
-                "follow_on_users": 30
+                "follow_on_users": 30,
+                "follow_on_questions": 125,
+                "follow_on_directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 13,
+                    "users": 3
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 29,
+                    "users": 10
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 6,
+                    "users": 4
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 8,
+                    "users": 3
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 11,
+                    "users": 6
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 8,
+                    "users": 3
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "conversation_other",
+                    "questions": 49,
+                    "users": 15
+                  }
+                ]
               },
               {
                 "id": "v3_no_frequent_adjust",
                 "question": "我不想自己频繁挑基金和调整，且慢有哪些策略可以重点了解？",
+                "direction": "product_selection",
                 "clicks": 47,
                 "users": 44,
                 "first_question_users": 0,
-                "follow_on_users": 30
+                "follow_on_users": 30,
+                "follow_on_questions": 83,
+                "follow_on_directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 16,
+                    "users": 6
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 3,
+                    "users": 3
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 4,
+                    "users": 2
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 23,
+                    "users": 5
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 3,
+                    "users": 3
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "conversation_other",
+                    "questions": 33,
+                    "users": 17
+                  }
+                ]
               },
               {
                 "id": "v3_plan_match",
                 "question": "我想找一个和自己投资计划更匹配的且慢策略，可以推荐几个候选，并说说它们分别适合什么样的情况吗？",
+                "direction": "product_selection",
                 "clicks": 46,
                 "users": 46,
                 "first_question_users": 0,
-                "follow_on_users": 33
+                "follow_on_users": 33,
+                "follow_on_questions": 122,
+                "follow_on_directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 6,
+                    "users": 4
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 15,
+                    "users": 8
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 5,
+                    "users": 3
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 18,
+                    "users": 10
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 13,
+                    "users": 7
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 3,
+                    "users": 3
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "conversation_other",
+                    "questions": 60,
+                    "users": 21
+                  }
+                ]
               },
               {
                 "id": "v3_representative_strategies",
                 "question": "且慢有哪些比较有代表性的策略？结合我的实际情况，你更建议我先了解哪几个，理由是什么？",
+                "direction": "product_research",
                 "clicks": 45,
                 "users": 43,
                 "first_question_users": 3,
-                "follow_on_users": 26
+                "follow_on_users": 26,
+                "follow_on_questions": 155,
+                "follow_on_directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 11,
+                    "users": 4
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 27,
+                    "users": 7
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 2,
+                    "users": 2
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 2,
+                    "users": 2
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 24,
+                    "users": 10
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 22,
+                    "users": 6
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 2,
+                    "users": 2
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "conversation_other",
+                    "questions": 64,
+                    "users": 14
+                  }
+                ]
               },
               {
                 "id": "v3_simple_plan",
                 "question": "我有一笔资金不知道怎么投资，可以给我一个简单的规划思路吗？",
+                "direction": "conversation_other",
                 "clicks": 43,
                 "users": 40,
                 "first_question_users": 1,
-                "follow_on_users": 22
+                "follow_on_users": 22,
+                "follow_on_questions": 207,
+                "follow_on_directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 36,
+                    "users": 5
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 29,
+                    "users": 6
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 21,
+                    "users": 1
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 8,
+                    "users": 5
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 8,
+                    "users": 2
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 2,
+                    "users": 1
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "conversation_other",
+                    "questions": 102,
+                    "users": 14
+                  }
+                ]
               },
               {
                 "id": "v3_four_money_strategies",
                 "question": "且慢的四笔钱分别对应哪些策略？帮我推荐一些具体选择。",
+                "direction": "asset_allocation",
                 "clicks": 39,
                 "users": 37,
                 "first_question_users": 0,
-                "follow_on_users": 21
+                "follow_on_users": 21,
+                "follow_on_questions": 128,
+                "follow_on_directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 8,
+                    "users": 3
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 22,
+                    "users": 8
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 9,
+                    "users": 3
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 3,
+                    "users": 2
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 7,
+                    "users": 5
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 16,
+                    "users": 4
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 2,
+                    "users": 2
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "conversation_other",
+                    "questions": 61,
+                    "users": 13
+                  }
+                ]
               },
               {
                 "id": "v3_plan_before_product",
                 "question": "投资规划应该先选产品，还是先想清楚用途和使用时间？这两种做法有什么区别？",
+                "direction": "investment_learning",
                 "clicks": 38,
                 "users": 36,
                 "first_question_users": 1,
-                "follow_on_users": 24
+                "follow_on_users": 24,
+                "follow_on_questions": 174,
+                "follow_on_directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 6,
+                    "users": 3
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 43,
+                    "users": 5
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 5,
+                    "users": 3
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 13,
+                    "users": 5
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 30,
+                    "users": 4
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "conversation_other",
+                    "questions": 75,
+                    "users": 11
+                  }
+                ]
               }
             ]
           },
@@ -3117,39 +4894,283 @@
             "users": 70,
             "first_question_users": 47,
             "follow_on_users": 40,
+            "follow_on_questions": 1339,
+            "follow_on_directions": [
+              {
+                "id": "holding_diagnosis",
+                "questions": 22,
+                "users": 9
+              },
+              {
+                "id": "product_research",
+                "questions": 115,
+                "users": 17
+              },
+              {
+                "id": "product_selection",
+                "questions": 30,
+                "users": 12
+              },
+              {
+                "id": "asset_allocation",
+                "questions": 3,
+                "users": 1
+              },
+              {
+                "id": "market_insight",
+                "questions": 214,
+                "users": 8
+              },
+              {
+                "id": "transaction_execution",
+                "questions": 24,
+                "users": 9
+              },
+              {
+                "id": "investment_learning",
+                "questions": 25,
+                "users": 5
+              },
+              {
+                "id": "qieman_service",
+                "questions": 29,
+                "users": 6
+              },
+              {
+                "id": "conversation_other",
+                "questions": 877,
+                "users": 16
+              }
+            ],
             "asker_proxy_denominator": 10134,
             "questions": [
               {
                 "id": "example_monthly_brief",
                 "question": "给我发一份这个月基金市场简报",
+                "direction": "product_selection",
                 "clicks": 32,
                 "users": 25,
                 "first_question_users": 16,
-                "follow_on_users": 14
+                "follow_on_users": 14,
+                "follow_on_questions": 336,
+                "follow_on_directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 6,
+                    "users": 4
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 25,
+                    "users": 5
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 3,
+                    "users": 3
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 49,
+                    "users": 5
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 8,
+                    "users": 3
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 9,
+                    "users": 4
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 9,
+                    "users": 1
+                  },
+                  {
+                    "id": "conversation_other",
+                    "questions": 227,
+                    "users": 6
+                  }
+                ]
               },
               {
                 "id": "example_idle_money",
                 "question": "有一笔闲钱想放三年以上，买什么比较稳健",
+                "direction": "product_selection",
                 "clicks": 30,
                 "users": 26,
                 "first_question_users": 12,
-                "follow_on_users": 20
+                "follow_on_users": 20,
+                "follow_on_questions": 229,
+                "follow_on_directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 8,
+                    "users": 4
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 30,
+                    "users": 8
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 10,
+                    "users": 7
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 22,
+                    "users": 2
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 12,
+                    "users": 6
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 2,
+                    "users": 2
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 7,
+                    "users": 4
+                  },
+                  {
+                    "id": "conversation_other",
+                    "questions": 138,
+                    "users": 9
+                  }
+                ]
               },
               {
                 "id": "example_fund_case",
                 "question": "广发聚富近一年表现怎么样",
+                "direction": "product_research",
                 "clicks": 29,
                 "users": 23,
                 "first_question_users": 16,
-                "follow_on_users": 9
+                "follow_on_users": 9,
+                "follow_on_questions": 615,
+                "follow_on_directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 7,
+                    "users": 3
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 42,
+                    "users": 5
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 14,
+                    "users": 3
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 3,
+                    "users": 1
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 113,
+                    "users": 2
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 3,
+                    "users": 1
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 12,
+                    "users": 1
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 11,
+                    "users": 3
+                  },
+                  {
+                    "id": "conversation_other",
+                    "questions": 410,
+                    "users": 2
+                  }
+                ]
               },
               {
                 "id": "example_ai_funds",
                 "question": "最近AI相关的基金怎么样",
+                "direction": "product_research",
                 "clicks": 18,
                 "users": 11,
                 "first_question_users": 3,
-                "follow_on_users": 8
+                "follow_on_users": 8,
+                "follow_on_questions": 159,
+                "follow_on_directions": [
+                  {
+                    "id": "holding_diagnosis",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "product_research",
+                    "questions": 18,
+                    "users": 3
+                  },
+                  {
+                    "id": "product_selection",
+                    "questions": 3,
+                    "users": 2
+                  },
+                  {
+                    "id": "asset_allocation",
+                    "questions": 0,
+                    "users": 0
+                  },
+                  {
+                    "id": "market_insight",
+                    "questions": 30,
+                    "users": 2
+                  },
+                  {
+                    "id": "transaction_execution",
+                    "questions": 1,
+                    "users": 1
+                  },
+                  {
+                    "id": "investment_learning",
+                    "questions": 2,
+                    "users": 1
+                  },
+                  {
+                    "id": "qieman_service",
+                    "questions": 2,
+                    "users": 1
+                  },
+                  {
+                    "id": "conversation_other",
+                    "questions": 102,
+                    "users": 3
+                  }
+                ]
               }
             ]
           }
@@ -3680,6 +5701,1117 @@
               "product_research"
             ],
             "users": 61
+          }
+        ]
+      },
+      "entities": {
+        "product_min_users": 2,
+        "keywords": [
+          {
+            "label": "ETF",
+            "questions": 3700,
+            "users": 1277
+          },
+          {
+            "label": "收益表现",
+            "questions": 3446,
+            "users": 1029
+          },
+          {
+            "label": "行业板块",
+            "questions": 2803,
+            "users": 1257
+          },
+          {
+            "label": "A 股市场",
+            "questions": 2407,
+            "users": 1165
+          },
+          {
+            "label": "定投计划",
+            "questions": 1640,
+            "users": 534
+          },
+          {
+            "label": "黄金市场",
+            "questions": 1564,
+            "users": 583
+          },
+          {
+            "label": "赎回操作",
+            "questions": 1283,
+            "users": 379
+          },
+          {
+            "label": "最大回撤",
+            "questions": 1166,
+            "users": 276
+          },
+          {
+            "label": "美股市场",
+            "questions": 1035,
+            "users": 429
+          },
+          {
+            "label": "港股市场",
+            "questions": 724,
+            "users": 341
+          },
+          {
+            "label": "指数基金",
+            "questions": 692,
+            "users": 350
+          },
+          {
+            "label": "红利基金",
+            "questions": 602,
+            "users": 279
+          },
+          {
+            "label": "基金推荐",
+            "questions": 522,
+            "users": 299
+          },
+          {
+            "label": "债券基金",
+            "questions": 436,
+            "users": 172
+          },
+          {
+            "label": "半导体基金",
+            "questions": 428,
+            "users": 190
+          },
+          {
+            "label": "长期持有",
+            "questions": 405,
+            "users": 234
+          },
+          {
+            "label": "止盈策略",
+            "questions": 350,
+            "users": 127
+          },
+          {
+            "label": "科技基金",
+            "questions": 331,
+            "users": 192
+          },
+          {
+            "label": "QDII 基金",
+            "questions": 304,
+            "users": 146
+          },
+          {
+            "label": "养老规划",
+            "questions": 303,
+            "users": 133
+          },
+          {
+            "label": "基金经理",
+            "questions": 301,
+            "users": 101
+          },
+          {
+            "label": "货币基金",
+            "questions": 166,
+            "users": 69
+          },
+          {
+            "label": "AI 基金",
+            "questions": 165,
+            "users": 83
+          },
+          {
+            "label": "债券市场",
+            "questions": 128,
+            "users": 68
+          },
+          {
+            "label": "资产配置",
+            "questions": 121,
+            "users": 76
+          },
+          {
+            "label": "基金净值",
+            "questions": 97,
+            "users": 62
+          },
+          {
+            "label": "医药基金",
+            "questions": 92,
+            "users": 31
+          },
+          {
+            "label": "消费基金",
+            "questions": 81,
+            "users": 30
+          },
+          {
+            "label": "持仓结构",
+            "questions": 80,
+            "users": 46
+          },
+          {
+            "label": "新能源基金",
+            "questions": 69,
+            "users": 20
+          },
+          {
+            "label": "市场风险",
+            "questions": 65,
+            "users": 19
+          },
+          {
+            "label": "买房资金",
+            "questions": 56,
+            "users": 34
+          },
+          {
+            "label": "主动基金",
+            "questions": 53,
+            "users": 31
+          },
+          {
+            "label": "基金费率",
+            "questions": 34,
+            "users": 22
+          },
+          {
+            "label": "市场机会",
+            "questions": 19,
+            "users": 12
+          },
+          {
+            "label": "教育金规划",
+            "questions": 3,
+            "users": 3
+          },
+          {
+            "label": "四笔钱",
+            "questions": 3,
+            "users": 3
+          }
+        ],
+        "products": [
+          {
+            "label": "通信ETF（515880）",
+            "query": "515880",
+            "kind": "基金代码",
+            "questions": 90,
+            "users": 42
+          },
+          {
+            "label": "红利低波ETF（512890）",
+            "query": "512890",
+            "kind": "基金代码",
+            "questions": 89,
+            "users": 40
+          },
+          {
+            "label": "科创50ETF（588000）",
+            "query": "588000",
+            "kind": "基金代码",
+            "questions": 125,
+            "users": 37
+          },
+          {
+            "label": "华夏上证科创板半导体材料设备主题ETF（588170）",
+            "query": "588170",
+            "kind": "基金代码",
+            "questions": 68,
+            "users": 36
+          },
+          {
+            "label": "沪深300ETF（510300）",
+            "query": "510300",
+            "kind": "基金代码",
+            "questions": 120,
+            "users": 29
+          },
+          {
+            "label": "南方标普红利低波50ETF联接A（008163）",
+            "query": "008163",
+            "kind": "基金代码",
+            "questions": 44,
+            "users": 24
+          },
+          {
+            "label": "黄金ETF（518880）",
+            "query": "518880",
+            "kind": "基金代码",
+            "questions": 121,
+            "users": 22
+          },
+          {
+            "label": "易方达中证红利低波动ETF（563020）",
+            "query": "563020",
+            "kind": "基金代码",
+            "questions": 44,
+            "users": 21
+          },
+          {
+            "label": "创业板ETF（159915）",
+            "query": "159915",
+            "kind": "基金代码",
+            "questions": 128,
+            "users": 20
+          },
+          {
+            "label": "半导体设备ETF（159516）",
+            "query": "159516",
+            "kind": "基金代码",
+            "questions": 60,
+            "users": 18
+          },
+          {
+            "label": "红利ETF易方达（515180）",
+            "query": "515180",
+            "kind": "基金代码",
+            "questions": 53,
+            "users": 18
+          },
+          {
+            "label": "华泰柏瑞中证红利低波ETF联接A（007466）",
+            "query": "007466",
+            "kind": "基金代码",
+            "questions": 36,
+            "users": 18
+          },
+          {
+            "label": "摩根标普500指数(QDII)A（017641）",
+            "query": "017641",
+            "kind": "基金代码",
+            "questions": 25,
+            "users": 18
+          },
+          {
+            "label": "红利ETF（510880）",
+            "query": "510880",
+            "kind": "基金代码",
+            "questions": 57,
+            "users": 17
+          },
+          {
+            "label": "港股通红利ETF（513530）",
+            "query": "513530",
+            "kind": "基金代码",
+            "questions": 37,
+            "users": 17
+          },
+          {
+            "label": "财通成长优选混合C（021528）",
+            "query": "021528",
+            "kind": "基金代码",
+            "questions": 21,
+            "users": 17
+          },
+          {
+            "label": "芯片ETF（159995）",
+            "query": "159995",
+            "kind": "基金代码",
+            "questions": 43,
+            "users": 16
+          },
+          {
+            "label": "中证红利ETF（515080）",
+            "query": "515080",
+            "kind": "基金代码",
+            "questions": 42,
+            "users": 16
+          },
+          {
+            "label": "东方人工智能主题混合C（017811）",
+            "query": "017811",
+            "kind": "基金代码",
+            "questions": 29,
+            "users": 16
+          },
+          {
+            "label": "纳指ETF（513100）",
+            "query": "513100",
+            "kind": "基金代码",
+            "questions": 88,
+            "users": 15
+          },
+          {
+            "label": "易方达供给改革混合（002910）",
+            "query": "002910",
+            "kind": "基金代码",
+            "questions": 72,
+            "users": 15
+          },
+          {
+            "label": "红利低波50ETF（515450）",
+            "query": "515450",
+            "kind": "基金代码",
+            "questions": 25,
+            "users": 15
+          },
+          {
+            "label": "景顺长城纳斯达克科技ETF联接(QDII)A（017091）",
+            "query": "017091",
+            "kind": "基金代码",
+            "questions": 22,
+            "users": 14
+          },
+          {
+            "label": "易方达沪深300ETF联接A（110020）",
+            "query": "110020",
+            "kind": "基金代码",
+            "questions": 21,
+            "users": 14
+          },
+          {
+            "label": "纳指科技ETF（159509）",
+            "query": "159509",
+            "kind": "基金代码",
+            "questions": 21,
+            "users": 14
+          },
+          {
+            "label": "科创芯片ETF（588200）",
+            "query": "588200",
+            "kind": "基金代码",
+            "questions": 18,
+            "users": 14
+          },
+          {
+            "label": "兴银长乐半年定开债A（001246）",
+            "query": "001246",
+            "kind": "基金代码",
+            "questions": 17,
+            "users": 14
+          },
+          {
+            "label": "港股创新药ETF（513120）",
+            "query": "513120",
+            "kind": "基金代码",
+            "questions": 25,
+            "users": 13
+          },
+          {
+            "label": "广发全球精选股票(QDII)A（270023）",
+            "query": "270023",
+            "kind": "基金代码",
+            "questions": 17,
+            "users": 13
+          },
+          {
+            "label": "半导体ETF（512480）",
+            "query": "512480",
+            "kind": "基金代码",
+            "questions": 91,
+            "users": 12
+          },
+          {
+            "label": "南方纳斯达克100指数(QDII)A（016452）",
+            "query": "016452",
+            "kind": "基金代码",
+            "questions": 24,
+            "users": 12
+          },
+          {
+            "label": "有色金属ETF（512400）",
+            "query": "512400",
+            "kind": "基金代码",
+            "questions": 21,
+            "users": 12
+          },
+          {
+            "label": "华夏上证科创板半导体材料设备主题ETF发起式联接C（024418）",
+            "query": "024418",
+            "kind": "基金代码",
+            "questions": 17,
+            "users": 12
+          },
+          {
+            "label": "中证500ETF（510500）",
+            "query": "510500",
+            "kind": "基金代码",
+            "questions": 91,
+            "users": 11
+          },
+          {
+            "label": "标普500ETF（513500）",
+            "query": "513500",
+            "kind": "基金代码",
+            "questions": 69,
+            "users": 11
+          },
+          {
+            "label": "博时中证红利低波动100ETF（159307）",
+            "query": "159307",
+            "kind": "基金代码",
+            "questions": 37,
+            "users": 11
+          },
+          {
+            "label": "纳指ETF（159941）",
+            "query": "159941",
+            "kind": "基金代码",
+            "questions": 26,
+            "users": 11
+          },
+          {
+            "label": "招商医药健康产业股票（000960）",
+            "query": "000960",
+            "kind": "基金代码",
+            "questions": 20,
+            "users": 11
+          },
+          {
+            "label": "国富全球科技互联混合人民币A（006373）",
+            "query": "006373",
+            "kind": "基金代码",
+            "questions": 14,
+            "users": 11
+          },
+          {
+            "label": "摩根纳斯达克100指数(QDII)A（019172）",
+            "query": "019172",
+            "kind": "基金代码",
+            "questions": 12,
+            "users": 11
+          }
+        ]
+      },
+      "turn_analysis": {
+        "buckets": [
+          {
+            "id": "1",
+            "label": "第 1 问",
+            "questions": 11212,
+            "users": 10053,
+            "directions": [
+              {
+                "id": "holding_diagnosis",
+                "questions": 894,
+                "users": 726
+              },
+              {
+                "id": "product_research",
+                "questions": 2614,
+                "users": 2346
+              },
+              {
+                "id": "product_selection",
+                "questions": 706,
+                "users": 620
+              },
+              {
+                "id": "asset_allocation",
+                "questions": 188,
+                "users": 187
+              },
+              {
+                "id": "market_insight",
+                "questions": 2059,
+                "users": 1983
+              },
+              {
+                "id": "transaction_execution",
+                "questions": 879,
+                "users": 772
+              },
+              {
+                "id": "investment_learning",
+                "questions": 363,
+                "users": 362
+              },
+              {
+                "id": "qieman_service",
+                "questions": 128,
+                "users": 88
+              },
+              {
+                "id": "conversation_other",
+                "questions": 3381,
+                "users": 3065
+              }
+            ],
+            "transitions": [
+              {
+                "from": "conversation_other",
+                "to": "conversation_other",
+                "count": 1249,
+                "users": 1242
+              },
+              {
+                "from": "product_research",
+                "to": "product_research",
+                "count": 773,
+                "users": 753
+              },
+              {
+                "from": "market_insight",
+                "to": "market_insight",
+                "count": 571,
+                "users": 569
+              },
+              {
+                "from": "market_insight",
+                "to": "conversation_other",
+                "count": 447,
+                "users": 447
+              },
+              {
+                "from": "product_research",
+                "to": "conversation_other",
+                "count": 417,
+                "users": 409
+              },
+              {
+                "from": "holding_diagnosis",
+                "to": "holding_diagnosis",
+                "count": 222,
+                "users": 207
+              },
+              {
+                "from": "transaction_execution",
+                "to": "transaction_execution",
+                "count": 221,
+                "users": 204
+              },
+              {
+                "from": "conversation_other",
+                "to": "market_insight",
+                "count": 194,
+                "users": 194
+              },
+              {
+                "from": "conversation_other",
+                "to": "product_research",
+                "count": 149,
+                "users": 149
+              },
+              {
+                "from": "transaction_execution",
+                "to": "conversation_other",
+                "count": 149,
+                "users": 143
+              },
+              {
+                "from": "product_selection",
+                "to": "product_selection",
+                "count": 146,
+                "users": 144
+              },
+              {
+                "from": "holding_diagnosis",
+                "to": "conversation_other",
+                "count": 140,
+                "users": 117
+              }
+            ]
+          },
+          {
+            "id": "2",
+            "label": "第 2 问",
+            "questions": 6515,
+            "users": 6270,
+            "directions": [
+              {
+                "id": "holding_diagnosis",
+                "questions": 423,
+                "users": 400
+              },
+              {
+                "id": "product_research",
+                "questions": 1305,
+                "users": 1266
+              },
+              {
+                "id": "product_selection",
+                "questions": 347,
+                "users": 340
+              },
+              {
+                "id": "asset_allocation",
+                "questions": 88,
+                "users": 87
+              },
+              {
+                "id": "market_insight",
+                "questions": 1017,
+                "users": 1002
+              },
+              {
+                "id": "transaction_execution",
+                "questions": 472,
+                "users": 438
+              },
+              {
+                "id": "investment_learning",
+                "questions": 145,
+                "users": 145
+              },
+              {
+                "id": "qieman_service",
+                "questions": 57,
+                "users": 53
+              },
+              {
+                "id": "conversation_other",
+                "questions": 2661,
+                "users": 2602
+              }
+            ],
+            "transitions": [
+              {
+                "from": "conversation_other",
+                "to": "conversation_other",
+                "count": 1101,
+                "users": 1070
+              },
+              {
+                "from": "product_research",
+                "to": "product_research",
+                "count": 417,
+                "users": 404
+              },
+              {
+                "from": "market_insight",
+                "to": "market_insight",
+                "count": 262,
+                "users": 259
+              },
+              {
+                "from": "product_research",
+                "to": "conversation_other",
+                "count": 242,
+                "users": 241
+              },
+              {
+                "from": "market_insight",
+                "to": "conversation_other",
+                "count": 235,
+                "users": 234
+              },
+              {
+                "from": "conversation_other",
+                "to": "market_insight",
+                "count": 178,
+                "users": 178
+              },
+              {
+                "from": "conversation_other",
+                "to": "product_research",
+                "count": 176,
+                "users": 174
+              },
+              {
+                "from": "holding_diagnosis",
+                "to": "conversation_other",
+                "count": 101,
+                "users": 93
+              },
+              {
+                "from": "transaction_execution",
+                "to": "transaction_execution",
+                "count": 94,
+                "users": 92
+              },
+              {
+                "from": "holding_diagnosis",
+                "to": "holding_diagnosis",
+                "count": 92,
+                "users": 87
+              },
+              {
+                "from": "transaction_execution",
+                "to": "conversation_other",
+                "count": 88,
+                "users": 88
+              },
+              {
+                "from": "conversation_other",
+                "to": "transaction_execution",
+                "count": 82,
+                "users": 81
+              }
+            ]
+          },
+          {
+            "id": "3",
+            "label": "第 3 问",
+            "questions": 4279,
+            "users": 4125,
+            "directions": [
+              {
+                "id": "holding_diagnosis",
+                "questions": 265,
+                "users": 251
+              },
+              {
+                "id": "product_research",
+                "questions": 830,
+                "users": 801
+              },
+              {
+                "id": "product_selection",
+                "questions": 229,
+                "users": 223
+              },
+              {
+                "id": "asset_allocation",
+                "questions": 44,
+                "users": 43
+              },
+              {
+                "id": "market_insight",
+                "questions": 567,
+                "users": 563
+              },
+              {
+                "id": "transaction_execution",
+                "questions": 299,
+                "users": 293
+              },
+              {
+                "id": "investment_learning",
+                "questions": 86,
+                "users": 86
+              },
+              {
+                "id": "qieman_service",
+                "questions": 41,
+                "users": 40
+              },
+              {
+                "id": "conversation_other",
+                "questions": 1918,
+                "users": 1867
+              }
+            ],
+            "transitions": [
+              {
+                "from": "conversation_other",
+                "to": "conversation_other",
+                "count": 822,
+                "users": 783
+              },
+              {
+                "from": "product_research",
+                "to": "product_research",
+                "count": 273,
+                "users": 267
+              },
+              {
+                "from": "conversation_other",
+                "to": "product_research",
+                "count": 165,
+                "users": 164
+              },
+              {
+                "from": "product_research",
+                "to": "conversation_other",
+                "count": 157,
+                "users": 155
+              },
+              {
+                "from": "conversation_other",
+                "to": "market_insight",
+                "count": 149,
+                "users": 149
+              },
+              {
+                "from": "market_insight",
+                "to": "conversation_other",
+                "count": 142,
+                "users": 142
+              },
+              {
+                "from": "market_insight",
+                "to": "market_insight",
+                "count": 141,
+                "users": 141
+              },
+              {
+                "from": "transaction_execution",
+                "to": "transaction_execution",
+                "count": 73,
+                "users": 72
+              },
+              {
+                "from": "conversation_other",
+                "to": "holding_diagnosis",
+                "count": 71,
+                "users": 71
+              },
+              {
+                "from": "holding_diagnosis",
+                "to": "conversation_other",
+                "count": 68,
+                "users": 67
+              },
+              {
+                "from": "conversation_other",
+                "to": "transaction_execution",
+                "count": 65,
+                "users": 64
+              },
+              {
+                "from": "transaction_execution",
+                "to": "conversation_other",
+                "count": 61,
+                "users": 60
+              }
+            ]
+          },
+          {
+            "id": "4_5",
+            "label": "第 4–5 问",
+            "questions": 5236,
+            "users": 2889,
+            "directions": [
+              {
+                "id": "holding_diagnosis",
+                "questions": 334,
+                "users": 286
+              },
+              {
+                "id": "product_research",
+                "questions": 1007,
+                "users": 808
+              },
+              {
+                "id": "product_selection",
+                "questions": 267,
+                "users": 231
+              },
+              {
+                "id": "asset_allocation",
+                "questions": 71,
+                "users": 62
+              },
+              {
+                "id": "market_insight",
+                "questions": 658,
+                "users": 548
+              },
+              {
+                "id": "transaction_execution",
+                "questions": 387,
+                "users": 325
+              },
+              {
+                "id": "investment_learning",
+                "questions": 121,
+                "users": 106
+              },
+              {
+                "id": "qieman_service",
+                "questions": 54,
+                "users": 49
+              },
+              {
+                "id": "conversation_other",
+                "questions": 2337,
+                "users": 1677
+              }
+            ],
+            "transitions": [
+              {
+                "from": "conversation_other",
+                "to": "conversation_other",
+                "count": 1075,
+                "users": 721
+              },
+              {
+                "from": "product_research",
+                "to": "product_research",
+                "count": 328,
+                "users": 257
+              },
+              {
+                "from": "product_research",
+                "to": "conversation_other",
+                "count": 231,
+                "users": 229
+              },
+              {
+                "from": "conversation_other",
+                "to": "market_insight",
+                "count": 195,
+                "users": 195
+              },
+              {
+                "from": "market_insight",
+                "to": "conversation_other",
+                "count": 190,
+                "users": 190
+              },
+              {
+                "from": "market_insight",
+                "to": "market_insight",
+                "count": 190,
+                "users": 148
+              },
+              {
+                "from": "conversation_other",
+                "to": "product_research",
+                "count": 184,
+                "users": 180
+              },
+              {
+                "from": "transaction_execution",
+                "to": "transaction_execution",
+                "count": 99,
+                "users": 80
+              },
+              {
+                "from": "conversation_other",
+                "to": "transaction_execution",
+                "count": 94,
+                "users": 92
+              },
+              {
+                "from": "conversation_other",
+                "to": "holding_diagnosis",
+                "count": 89,
+                "users": 82
+              },
+              {
+                "from": "holding_diagnosis",
+                "to": "conversation_other",
+                "count": 81,
+                "users": 78
+              },
+              {
+                "from": "transaction_execution",
+                "to": "conversation_other",
+                "count": 80,
+                "users": 80
+              }
+            ]
+          },
+          {
+            "id": "6_plus",
+            "label": "第 6 问以上",
+            "questions": 31463,
+            "users": 1653,
+            "directions": [
+              {
+                "id": "holding_diagnosis",
+                "questions": 2409,
+                "users": 413
+              },
+              {
+                "id": "product_research",
+                "questions": 5495,
+                "users": 773
+              },
+              {
+                "id": "product_selection",
+                "questions": 1261,
+                "users": 346
+              },
+              {
+                "id": "asset_allocation",
+                "questions": 405,
+                "users": 136
+              },
+              {
+                "id": "market_insight",
+                "questions": 3465,
+                "users": 670
+              },
+              {
+                "id": "transaction_execution",
+                "questions": 2537,
+                "users": 483
+              },
+              {
+                "id": "investment_learning",
+                "questions": 629,
+                "users": 238
+              },
+              {
+                "id": "qieman_service",
+                "questions": 363,
+                "users": 117
+              },
+              {
+                "id": "conversation_other",
+                "questions": 14899,
+                "users": 1239
+              }
+            ],
+            "transitions": [
+              {
+                "from": "conversation_other",
+                "to": "conversation_other",
+                "count": 8702,
+                "users": 780
+              },
+              {
+                "from": "product_research",
+                "to": "product_research",
+                "count": 1987,
+                "users": 370
+              },
+              {
+                "from": "conversation_other",
+                "to": "product_research",
+                "count": 1638,
+                "users": 416
+              },
+              {
+                "from": "product_research",
+                "to": "conversation_other",
+                "count": 1634,
+                "users": 390
+              },
+              {
+                "from": "conversation_other",
+                "to": "market_insight",
+                "count": 1340,
+                "users": 382
+              },
+              {
+                "from": "market_insight",
+                "to": "conversation_other",
+                "count": 1320,
+                "users": 361
+              },
+              {
+                "from": "market_insight",
+                "to": "market_insight",
+                "count": 975,
+                "users": 275
+              },
+              {
+                "from": "conversation_other",
+                "to": "holding_diagnosis",
+                "count": 800,
+                "users": 214
+              },
+              {
+                "from": "holding_diagnosis",
+                "to": "conversation_other",
+                "count": 752,
+                "users": 208
+              },
+              {
+                "from": "conversation_other",
+                "to": "transaction_execution",
+                "count": 748,
+                "users": 244
+              },
+              {
+                "from": "transaction_execution",
+                "to": "conversation_other",
+                "count": 730,
+                "users": 253
+              },
+              {
+                "from": "transaction_execution",
+                "to": "transaction_execution",
+                "count": 723,
+                "users": 198
+              }
+            ]
           }
         ]
       },
