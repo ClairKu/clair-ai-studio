@@ -5,8 +5,8 @@
     <script data-clair-access-gate data-clair-access-scope="report" src="../../access-gate.js"></script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="description" content="OAP 成功复盘：规模、渠道、用户价值、商业化、治理与错失机会的证据化判断。">
-  <title>OAP 成功了吗？｜不粉饰的阶段复盘</title>
+  <meta name="description" content="OAP 当前任务优先级与 90 天落地计划：从一次问答转向持续任务、付费验证与可经营底座。">
+  <title>OAP 当前任务优先级｜90 天落地计划</title>
   <style>
     :root{--ink:#121722;--muted:#657084;--paper:#f6f7fb;--card:#fff;--line:#dfe3eb;--violet:#7659e6;--violet2:#aa97ff;--green:#078b68;--green2:#dff7ef;--amber:#b66a09;--amber2:#fff0d3;--red:#c74646;--red2:#ffe7e3;--blue:#2866d5;--blue2:#e7efff;--shadow:0 18px 50px rgba(24,31,46,.08);--serif:"Songti SC","Noto Serif SC",serif;--sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;--mono:"SFMono-Regular",Menlo,Consolas,monospace}
     *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.7}a{color:inherit}.wrap{width:min(1120px,calc(100% - 40px));margin:auto}.topbar{position:sticky;top:0;z-index:20;background:rgba(246,247,251,.88);border-bottom:1px solid rgba(223,227,235,.85);backdrop-filter:blur(18px)}.topbar .inner{height:58px;display:flex;align-items:center;gap:18px}.brand{font-size:13px;font-weight:900;letter-spacing:.08em}.brand i{display:inline-block;width:10px;height:10px;border-radius:3px;background:var(--violet);margin-right:8px;transform:rotate(12deg)}nav{display:flex;gap:16px;overflow:auto;white-space:nowrap;font-size:12px;color:var(--muted)}nav a{text-decoration:none}.asof{margin-left:auto;font:700 11px var(--mono);color:var(--muted);white-space:nowrap}
@@ -16,20 +16,20 @@
     .matrix{display:grid;grid-template-columns:180px repeat(4,1fr);border:1px solid var(--line);border-radius:22px;overflow:hidden;background:#fff}.matrix>*{padding:18px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}.matrix>*:nth-child(5n){border-right:0}.matrix>*:nth-last-child(-n+5){border-bottom:0}.matrix .mh{font-size:12px;font-weight:900;color:var(--muted);background:#f2f4f8}.matrix .rowh{font-weight:900}.matrix .winner{background:var(--green2)}.matrix .weak{background:var(--red2)}.matrix .mid{background:var(--amber2)}.matrix strong{font-size:15px}.matrix small{display:block;color:var(--muted);margin-top:5px;line-height:1.45}
     .list{display:grid;gap:14px}.item{display:grid;grid-template-columns:54px 1fr;gap:16px;padding:22px;border-radius:20px;border:1px solid var(--line);background:#fff}.item .idx{width:42px;height:42px;border-radius:13px;background:#efeafe;color:var(--violet);display:grid;place-items:center;font:900 13px var(--mono)}.item h3{font-size:21px}.item p{margin:8px 0 0;color:var(--muted)}.item ul{margin:10px 0 0;padding-left:20px;color:var(--muted)}
     .miss{counter-reset:miss}.miss article{counter-increment:miss;position:relative;background:#fff;border:1px solid var(--line);border-radius:22px;padding:26px 24px 24px 72px}.miss article:before{content:"0" counter(miss);position:absolute;left:22px;top:27px;font:900 13px var(--mono);color:var(--violet)}.miss h3{font-size:22px}.miss p{margin:9px 0 0;color:var(--muted)}.miss .cost{margin-top:13px;padding-top:13px;border-top:1px dashed var(--line);font-size:13px;color:var(--red)}
-    .roadmap{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.phase{border-radius:24px;padding:26px;background:#fff;border:1px solid var(--line)}.phase .when{font:900 12px var(--mono);color:var(--violet)}.phase h3{font-size:24px;margin-top:12px}.phase ol{padding-left:20px;color:var(--muted)}.phase .gate{display:block;margin-top:18px;padding:11px 13px;border-radius:12px;background:#f1eefc;font-size:12px;font-weight:800;color:#5a46bd}
+    .roadmap{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.roadmap.four{grid-template-columns:repeat(4,1fr)}.phase{border-radius:24px;padding:26px;background:#fff;border:1px solid var(--line)}.phase .when{font:900 12px var(--mono);color:var(--violet)}.phase h3{font-size:24px;margin-top:12px}.phase ol{padding-left:20px;color:var(--muted)}.phase .gate{display:block;margin-top:18px;padding:11px 13px;border-radius:12px;background:#f1eefc;font-size:12px;font-weight:800;color:#5a46bd}.priority-stack{display:grid;gap:14px}.priority{display:grid;grid-template-columns:110px 1.2fr 1fr;gap:22px;align-items:start;padding:24px;border-radius:22px;background:#fff;border:1px solid var(--line)}.priority .level{font:900 13px var(--mono);letter-spacing:.08em}.priority .level b{display:block;font:900 34px/1 var(--mono);margin-bottom:8px}.priority h3{font-size:24px}.priority p{margin:8px 0 0;color:var(--muted)}.priority ul{margin:0;padding-left:20px;color:var(--muted)}.priority.p0{border-left:7px solid var(--red)}.priority.p0 .level{color:var(--red)}.priority.p1{border-left:7px solid var(--blue)}.priority.p1 .level{color:var(--blue)}.priority.p2{border-left:7px solid var(--muted)}.priority.p2 .level{color:var(--muted)}.work-card{border-top:5px solid var(--violet)}.work-card .owner{display:inline-block;margin-top:14px;padding:6px 9px;border-radius:8px;background:#f1eefc;color:#5a46bd;font-size:11px;font-weight:900}.stop{background:#271a1c;border:1px solid #553136;border-radius:22px;padding:26px}.stop h3{color:#ffb4aa}.stop ul{margin:12px 0 0;padding-left:20px;color:#f0ccd0}.cadence{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.cadence article{padding:21px;border-radius:18px;background:#fff;border:1px solid var(--line)}.cadence b{display:block;color:var(--violet);font:900 12px var(--mono);margin-bottom:8px}.note{font-size:12px;color:var(--muted)}
     table{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;font-size:13px}th,td{text-align:left;padding:13px 14px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#f1f3f7;font-size:11px;color:var(--muted)}tr:last-child td{border-bottom:0}.sid{font:800 11px var(--mono);color:var(--violet);white-space:nowrap}.source-list{display:grid;gap:9px}.source-list a{display:block;text-decoration:none;padding:15px 17px;background:#fff;border:1px solid var(--line);border-radius:14px;font-size:13px}.source-list a:hover{border-color:var(--violet)}.audit{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.audit div{padding:18px;border-radius:16px;background:var(--green2);color:#096b55}.audit b{display:block;margin-bottom:4px}.footer{padding:34px 0 48px;color:var(--muted);font-size:12px;border-top:1px solid var(--line)}.mono{font-family:var(--mono)}
-    @media(max-width:860px){.verdict,.g3,.g2,.roadmap,.audit{grid-template-columns:1fr}.head{grid-template-columns:1fr}.head .no{margin-bottom:-10px}.matrix{grid-template-columns:125px repeat(4,minmax(160px,1fr));overflow:auto}.matrix>*{min-width:0}.score-row{grid-template-columns:112px 1fr 70px}.topbar nav{display:none}.asof{font-size:9px}.bars{height:190px}.wrap{width:min(100% - 24px,1120px)}.section{padding:56px 0}.hero{padding-top:56px}.item{grid-template-columns:44px 1fr}.miss article{padding-left:56px}.miss article:before{left:17px}}
+    @media(max-width:860px){.verdict,.g3,.g2,.roadmap,.roadmap.four,.audit,.cadence,.priority{grid-template-columns:1fr}.head{grid-template-columns:1fr}.head .no{margin-bottom:-10px}.matrix{grid-template-columns:125px repeat(4,minmax(160px,1fr));overflow:auto}.matrix>*{min-width:0}.score-row{grid-template-columns:112px 1fr 70px}.topbar nav{display:none}.asof{font-size:9px}.bars{height:190px}.wrap{width:min(100% - 24px,1120px)}.section{padding:56px 0}.hero{padding-top:56px}.item{grid-template-columns:44px 1fr}.miss article{padding-left:56px}.miss article:before{left:17px}}
     @media print{.topbar{display:none}.section{break-inside:avoid}.hero{padding-top:24px}body{background:#fff}.card,.chart-card,.item,.miss article,.phase{box-shadow:none}}
   </style>
 </head>
 <body>
-  <header class="topbar"><div class="wrap inner"><div class="brand"><i></i>CLAIR · OAP REVIEW</div><nav><a href="#verdict">结论</a><a href="#evidence">证据</a><a href="#right">做对</a><a href="#wrong">没做好</a><a href="#missed">错过</a><a href="#actions">行动</a><a href="#audit">索引</a></nav><div class="asof">2026-10-09</div></div></header>
+  <header class="topbar"><div class="wrap inner"><div class="brand"><i></i>CLAIR · OAP OPERATING PLAN</div><nav><a href="#verdict">判断</a><a href="#evidence">证据</a><a href="#right">做对</a><a href="#wrong">没做好</a><a href="#missed">错过</a><a href="#actions">优先级与计划</a><a href="#audit">索引</a></nav><div class="asof">2026-10-09</div></div></header>
 
   <main>
     <section class="hero" id="verdict"><div class="wrap">
-      <div class="eyebrow">OAP · STAGE RETROSPECTIVE / 2025.03—2026.10</div>
-      <h1>OAP 成功了吗？<br><em>成功了上半场，没赢下生意。</em></h1>
-      <p class="lead">如果目标是证明“金融 AI 能力可以被开放、调用并进入超级入口”，答案是成功；如果目标是形成可持续的自有用户关系、复用、付费与规模收入，答案是尚未成功。</p>
+      <div class="eyebrow">OAP · RETROSPECTIVE &amp; 90-DAY OPERATING PLAN</div>
+      <h1>OAP 下一步怎么打？<br><em>现在只打三场硬仗。</em></h1>
+      <p class="lead">阶段复盘已经给出结论：规模和分发成功，持续任务、付费与经营底座没有毕业。下一阶段不再扩大战线，而是按依赖顺序拿下留存闭环、商业验证和可经营底座。</p>
       <div class="verdict">
         <article class="verdict-main"><small>核心判断</small><strong>规模 OKR 已超额，产品—商业闭环仍未毕业。</strong><p>累计申请、调用、MAU 三项年度目标均超过 145%；但增长主要由千问放大，84.3% 的千问新用户只出现一天，新用户后续入金仅见 10 人，收入、复购、SLA、单位成本也没有形成可验证的经营闭环。</p></article>
         <aside class="verdict-side"><div><span>阶段性质</span><div class="big">1/2</div></div><b>从 0→1 成功<br>从 1→N 未完成</b></aside>
@@ -104,13 +104,54 @@
     </div></section>
 
     <section class="section white" id="actions"><div class="wrap">
-      <div class="head"><div class="no">06 / ACTION</div><div><h2>接下来只做三场硬仗</h2><p>停止继续证明“有人调用”；开始证明“任务被持续完成、客户愿意付费、平台可被经营”。</p></div></div>
-      <div class="roadmap">
-        <article class="phase"><div class="when">0—30 DAYS</div><h3>抢救留存</h3><ol><li>千问首批上线 3 类持久任务：产品研究、市场/持仓事件、账户诊断。</li><li>每次问答生成任务卡、观察清单、下一触发条件。</li><li>统一看 D7 / D30 多日复用、任务完成率，不再只看问答量。</li></ol><span class="gate">闸门：一天用户占比下降 15 个百分点</span></article>
-        <article class="phase"><div class="when">0—60 DAYS</div><h3>跑通收费</h3><ol><li>个人 Pro、机构试点、平台结算各选一个真实产品。</li><li>定价与配额绑定单位成本、权限、审计和 SLA。</li><li>拿下 5 家灯塔机构，不接受“接触中”冒充客户。</li></ol><span class="gate">闸门：合同、回款、复购意向三证齐全</span></article>
-        <article class="phase"><div class="when">0—90 DAYS</div><h3>统一经营底座</h3><ol><li>能力唯一 ID、业务/技术/on-call Owner、版本、成本、渠道全绑定。</li><li>贯通 channel → client → user → task → result → transaction。</li><li>建立单渠道依赖、失败降级与退出演练。</li></ol><span class="gate">闸门：90% 生产任务可归因，100% 正式能力有 Owner</span></article>
+      <div class="head"><div class="no">06 / PRIORITY</div><div><h2>当前任务优先级：先闭环，再规模</h2><p>优先级按「用户价值 40% + 商业验证 30% + 依赖解锁 20% + 时间窗口 10%」排序。P0 必须同时启动，但共同服务一条主链路：高需求问答 → 持久任务 → 跨日复用 → 付费 → 可归因收入。</p></div></div>
+
+      <div class="priority-stack">
+        <article class="priority p0"><div class="level"><b>P0</b>现在—30 天</div><div><h3>拿下“会话结束以后”的持续任务</h3><p>用户不是没需求：6,970 人在同一会话内产生实质追问；断裂发生在会话结束后，84.3% 的提问用户只出现一天。第一优先不是继续优化答案，而是让高价值问题留下任务、状态、下一触发条件和返回入口。</p></div><ul><li>上线 3 类任务 MVP：持仓/账户诊断、产品研究/观察、市场影响跟踪</li><li>建立 task_id、完成定义、证据链、提醒许可和回访入口</li><li>10% 灰度 → 50% 灰度；只在任务完成率与 D7 复用过闸后扩大</li></ul></article>
+        <article class="priority p0"><div class="level"><b>P0</b>现在—30 天</div><div><h3>把归因和单位经济性前置成上线条件</h3><p>历史活跃 Key 的平台标识覆盖仅 0.6%。如果不先贯通 channel → client → user → task → result → transaction，后续再多流量和成交也无法证明增量或计算利润。</p></div><ul><li>所有新任务带唯一 ID、渠道、版本、结果和业务后果</li><li>逐任务核算模型、检索、人工复核、通知与基础设施成本</li><li>建立完成率、失败率、证据完整度、单位任务成本看板</li></ul></article>
+        <article class="priority p0"><div class="level"><b>P0</b>现在—60 天</div><div><h3>把付费意向压成三个可买产品</h3><p>已有采购、投标与咨询信号，但没有可预测收入。商业团队不再卖“定制合作”，而是把个人、机构和平台三类需求压缩为有价格、配额、SLA、权限与审计边界的标准包。</p></div><ul><li>个人 Pro：持续观察与任务额度</li><li>机构版：专属能力、审计、SLA 与客户成功</li><li>平台版：调用结算、白标/联运、渠道分成</li></ul></article>
+        <article class="priority p1"><div class="level"><b>P1</b>31—60 天</div><div><h3>用五家灯塔机构验证，不再用“覆盖”替代客户</h3><p>701 家是官网覆盖口径，不是 701 家客户。选择五家有明确场景、决策人、预算和验收指标的机构，形成合同、回款、使用、复购意向四联证据。</p></div><ul><li>每家只验证一个可复用场景，拒绝无限定制</li><li>周度客户成功复盘：使用、结果、问题、下一步</li><li>第 60 天至少形成 2 个真实付费证明和 1 个可复制案例</li></ul></article>
+        <article class="priority p1"><div class="level"><b>P1</b>31—90 天</div><div><h3>完成能力资产治理与生产 SLA</h3><p>能力数量已经足够；现在需要唯一 ID、Owner、版本、成本、授权、测试、降级与下线机制。新增能力必须绑定持久任务或付费场景，否则不进入生产。</p></div><ul><li>100% 正式能力有业务、技术与 on-call Owner</li><li>高风险任务具备证据、审批、回滚和人工接管</li><li>单渠道依赖、失败降级与退出演练纳入月度机制</li></ul></article>
+        <article class="priority p2"><div class="level"><b>P2</b>61—90 天后</div><div><h3>只有双重过闸后，才扩渠道和行业标准</h3><p>留存与付费都没有过闸前，不再追逐新渠道首发。两项都成立后，才把内部的任务定义、证据规范、授权审计、评测与 SLA 输出为行业标准或认证体系。</p></div><ul><li>先复制已验证任务，不复制一次性问答</li><li>优先降低千问集中度，不做无归因渠道</li><li>对外标准必须由内部真实 SLA 和客户案例支撑</li></ul></article>
       </div>
-      <div class="card" style="margin-top:18px;border-color:#cfc5ff;background:#f6f3ff"><span class="tag info">新北极星</span><div class="metric" style="font-size:clamp(25px,3.5vw,44px)">有效任务完成量 × 30 日复用率 × 可变现率</div><p>调用量、申请量、上架数退居为输入指标；合同额、续费、毛利、单位任务成本和重大质量事件成为经营与风险指标。</p></div>
+
+      <div class="head" style="margin-top:64px"><div class="no">06.1 / FOCUS</div><div><h2>任务 MVP 只选这三类</h2><p>三类均有已观察到的真实问题量；用户数跨主题可能重叠，不能相加。先把高频意图变成任务产品，而不是再扩充通用问答能力。</p></div></div>
+      <div class="grid g3">
+        <article class="card work-card"><span class="tag info">任务 01</span><div class="metric">9,212<small> 问</small></div><h3>持仓 / 账户诊断</h3><p>涉及 3,223 位用户。产物不是一次回答，而是账户问题清单、风险/偏离变化、下次复核时间和行动状态。</p><span class="owner">A：产品负责人 · R：投顾能力 + 工程</span></article>
+        <article class="card work-card"><span class="tag info">任务 02</span><div class="metric">9,129<small> 问</small></div><h3>产品研究 / 观察</h3><p>涉及 3,514 位用户。将产品分析、选品与持续观察合并成观察清单，事件变化后主动更新证据与结论。</p><span class="owner">A：产品负责人 · R：研究能力 + 工程</span></article>
+        <article class="card work-card"><span class="tag info">任务 03</span><div class="metric">7,609<small> 问</small></div><h3>市场影响跟踪</h3><p>涉及 3,340 位用户。围绕市场事件，持续回答“发生了什么—影响谁—与我的持仓有什么关系—是否需要动作”。</p><span class="owner">A：内容/研究负责人 · R：研究能力 + 工程</span></article>
+      </div>
+
+      <div class="head" style="margin-top:64px"><div class="no">06.2 / 90 DAYS</div><div><h2>四个阶段，四次生死闸门</h2><p>以下比例与数量是建议的管理目标和决策阈值，并非当前已经实现的事实；第 7 天完成基线后允许校准，但不能取消闸门。</p></div></div>
+      <div class="roadmap four">
+        <article class="phase"><div class="when">DAY 0—7</div><h3>定口径、砍战线</h3><ol><li>任命一位 OAP 单一经营 Owner。</li><li>冻结无归因的新渠道与无场景的新能力。</li><li>确定 3 类任务的完成定义、事件字典和实验基线。</li><li>圈定五家灯塔机构与决策人。</li></ol><span class="gate">G0：口径、Owner、基线、灯塔名单四件齐全</span></article>
+        <article class="phase"><div class="when">DAY 8—30</div><h3>交付留存 MVP</h3><ol><li>任务卡、观察清单、下一触发和返回入口上线。</li><li>10% → 50% 分层灰度，并保留对照组。</li><li>至少跑完一次真实事件触发与人工接管。</li></ol><span class="gate">G1：创建率 ≥20%；完成率 ≥80%；D7 复用 ≥15%</span></article>
+        <article class="phase"><div class="when">DAY 31—60</div><h3>跑通真实收费</h3><ol><li>三类产品包完成价格、配额、成本、权限与 SLA。</li><li>五家灯塔逐家形成方案、合同节点和客户成功台账。</li><li>对每个任务输出单位经济性与质量报告。</li></ol><span class="gate">G2：至少 2 个付费证明 + 1 个可复制案例</span></article>
+        <article class="phase"><div class="when">DAY 61—90</div><h3>决定扩张或收缩</h3><ol><li>复核 D30 复用、收入、成本、毛利路径与重大质量事件。</li><li>归因、Owner、审计、降级覆盖全部生产任务。</li><li>只复制同时通过留存与付费的任务。</li></ol><span class="gate">G3：双闸通过才扩；单闸失败就修；双闸失败即收缩</span></article>
+      </div>
+
+      <div class="head" style="margin-top:64px"><div class="no">06.3 / SCORECARD</div><div><h2>验收指标与责任人</h2><p>规模指标只做背景，决策围绕任务价值、复用、商业、质量和风险。A = 最终负责，R = 直接交付。</p></div></div>
+      <div style="overflow:auto"><table>
+        <thead><tr><th>工作流</th><th>A / R</th><th>30 天验收</th><th>60 天验收</th><th>90 天决策</th></tr></thead>
+        <tbody>
+          <tr><td><b>持续任务产品</b></td><td>A：产品负责人<br>R：任务 PM、投研、工程</td><td>3 类任务上线；创建率 ≥20%；完成率 ≥80%；D7 复用 ≥15%</td><td>D30 复用形成稳定基线；至少 1 类任务明显优于对照组</td><td>只保留复用与价值同时成立的任务</td></tr>
+          <tr><td><b>归因与经营数据</b></td><td>A：OAP 经营 Owner<br>R：数据、平台工程</td><td>新任务的 channel/client/user/task/result 字段覆盖 ≥95%</td><td>贯通付费、成本和 SLA；每周自动经营看板</td><td>全部生产任务可追溯，历史债务有清零日期</td></tr>
+          <tr><td><b>产品化与商业</b></td><td>A：商业负责人<br>R：销售、客户成功、财务</td><td>3 个产品包、五家灯塔名单、价格假设和合同模板</td><td>至少 2 个付费证明、1 个可复制案例；禁止把意向算收入</td><td>单位经济性为正，或存在经批准的明确改善路径</td></tr>
+          <tr><td><b>能力治理与质量</b></td><td>A：平台/合规负责人<br>R：技术 Owner、质量、合规</td><td>新增能力 100% 有唯一 ID、Owner、版本、成本和风险级别</td><td>高风险任务具备证据、审批、人工接管与回滚演练</td><td>100% 正式能力有 Owner；重大质量事件为 0</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="head" style="margin-top:64px"><div class="no">06.4 / RHYTHM</div><div><h2>把计划变成经营机制</h2><p>不靠月末汇报推动，而用固定节奏暴露阻塞、做取舍和关闭不成立的假设。</p></div></div>
+      <div class="cadence">
+        <article><b>MON / 45 MIN</b><h3>经营指标会</h3><p>只看任务完成、D7/D30 复用、付费、单位成本、重大失败。Owner 当场给出继续、修正或停止。</p></article>
+        <article><b>WED / SHIP</b><h3>产品与实验发布</h3><p>小批量灰度，必须带埋点、对照组、回滚和实验假设；没有测量方案不得上线。</p></article>
+        <article><b>FRI / EVIDENCE</b><h3>客户与质量复盘</h3><p>产品、商业、合规共同看真实问题、任务结果、客户使用和失败样本，不只展示成功案例。</p></article>
+      </div>
+
+      <div class="grid g2" style="margin-top:18px">
+        <div class="stop"><h3>立即停止的五件事</h3><ul><li>停止把调用量、申请量和上架数当作最终成绩。</li><li>停止在没有 attribution_id 前扩新渠道。</li><li>停止没有任务场景或付费客户的新能力建设。</li><li>停止把“机构覆盖”“合作意向”写成客户与收入。</li><li>停止无配额、无 SLA、无法复用的免费机构定制。</li></ul></div>
+        <div class="card" style="border-color:#cfc5ff;background:#f6f3ff"><span class="tag info">新北极星</span><div class="metric" style="font-size:clamp(25px,3.5vw,44px)">有效任务完成量 × 30 日复用率 × 可变现率</div><p>输入指标：申请、调用、曝光；价值指标：任务完成、结果采用、D7/D30 复用；商业指标：付费客户、合同额、续费、毛利；风险指标：严重失败、证据完整度、人工接管与回滚。</p><div class="callout">最关键的管理动作：指定一位拥有产品、技术、商业取舍权的 OAP 经营 Owner。没有单一最终责任人，三条 P0 会重新退化成三个并行项目。</div></div>
+      </div>
     </div></section>
 
     <section class="section" id="audit"><div class="wrap">
@@ -128,11 +169,15 @@
           <tr><td class="sid">D-008</td><td>微信 Agent 转化</td><td>可归因新增 0；真实手机 landing 50</td><td>截至 2026-09-14；测试/验收流量为主</td></tr>
           <tr><td class="sid">D-009</td><td>工具治理审计</td><td>官网 69 / 后台 174；3 组 ID 冲突；10 项分类漂移</td><td>截至 2026-08-11</td></tr>
           <tr><td class="sid">D-010</td><td>近两完整周风险信号</td><td>新增 -47.2%；调用 -54.3%；调用用户日 -41.9%</td><td>10/01—10/07 vs 09/24—09/30；节假日混杂</td></tr>
+          <tr><td class="sid">D-011</td><td>千问新用户高频问题意图</td><td>持仓/账户 9,212 问；产品分析 9,129 问；市场研究 7,609 问</td><td>截至 2026-10-09；关键词主意图模型；主题用户可能重叠，不相加</td></tr>
+          <tr><td class="sid">D-012</td><td>会话内深度与跨日断裂</td><td>6,970 人有实质追问；平均 5.98 问；10,034 人仅一天</td><td>截至 2026-10-09；“有追问”是同会话行为，不等同跨日留存</td></tr>
+          <tr><td class="sid">T-001</td><td>90 天验收阈值</td><td>创建 ≥20%；完成 ≥80%；D7 ≥15%；付费证明 ≥2</td><td>建议管理目标，非已实现事实；第 7 天基线后可校准但不得取消闸门</td></tr>
         </tbody>
       </table></div>
       <div class="grid g2" style="margin-top:22px">
         <div><h3 style="margin-bottom:12px">来源入口</h3><div class="source-list">
           <a href="https://clairku.github.io/qieman-product-research-library/pages/oap/oap-journey-metrics-2026-08-02.html">OAP 关键历程与增长｜最新规模日序列</a>
+          <a href="https://clairku.github.io/clair-ai-studio/reports/qianwen-user-acquisition-dashboard/">千问用户数据看板｜问题语料、用户行为与业务数据</a>
           <a href="https://clairku.github.io/clair-ai-studio/reports/l3-product-operating-plan-2026-10-09/">L3 产品经营计划｜千问最新需求、留存与业务数据</a>
           <a href="https://clairku.github.io/clair-ai-studio/reports/oap-channel-attribution-dashboard-2026-09-04/">OAP 全平台渠道归因看板</a>
           <a href="https://clairku.github.io/clair-ai-studio/reports/wechat-agent-user-behavior-analysis-2026-09-10/">微信小微 AI Agent 用户行为与转化</a>
@@ -140,12 +185,12 @@
         </div></div>
         <div><h3 style="margin-bottom:12px">自检记录</h3><div class="audit">
           <div><b>✓ 数据核对</b><span>目标完成度、月度增量、渠道比例均复算</span></div>
-          <div><b>✓ 逻辑自检</b><span>规模成功不外推为商业成功</span></div>
-          <div><b>✓ 边界标注</b><span>部分日、假期、相关性与不同口径均显式说明</span></div>
+          <div><b>✓ 逻辑自检</b><span>会话内追问不外推为跨日留存；规模成功不外推为商业成功</span></div>
+          <div><b>✓ 边界标注</b><span>事实、推断、管理目标、部分日、假期与相关性均显式区分</span></div>
         </div><div class="callout">仍待内部确认：付费机构数、合同额、收入、毛利、续费、任务完成率、SLA 和单位任务成本。没有这些数据，本报告不会把 OAP 认定为“完整商业成功”。</div></div>
       </div>
     </div></section>
   </main>
-  <footer class="footer"><div class="wrap">Clair’s Studio · OAP 阶段复盘 · 2026-10-09<br>公开脱敏聚合；不含用户明细、内部凭证或机构名单。判断分为事实、推断和目标态，不构成对外财务披露。</div></footer>
+  <footer class="footer"><div class="wrap">Clair’s Studio · OAP 阶段复盘与 90 天落地计划 · 2026-10-09<br>公开脱敏聚合；不含用户明细、内部凭证或机构名单。判断分为事实、推断和目标态，不构成对外财务披露。</div></footer>
 </body>
 </html>
