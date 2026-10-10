@@ -223,6 +223,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "personal-agent-landscape-2026-10-10",
+      groupId: "ai-platform",
+      title: "Personal Agent 全景研究｜定义、协议、框架、产品与市场",
+      url: "https://clairku.github.io/clair-ai-studio/reports/personal-agent-landscape-2026-10-10/",
+      preview: "personal-agent-landscape-2026-10-10.png",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-10-10T10:00:21+08:00",
+      source: "NIST、Stanford HAI、MIT AI Agent Index、CNNIC、中国信通院、IETF、W3C、Linux Foundation 与 MCP/A2A/AG-UI/A2UI/WebMCP/UCP/AP2 官方规范 × OpenAI、Google、Anthropic、Microsoft、Alibaba、ByteDance、Moonshot、Zhipu、Manus、Genspark、Perplexity 等官方产品资料 × Menlo/Morning Consult、McKinsey、Microsoft Work Trend Index 与 Gartner 官方研究｜提出 Personal Agent 五道门定义，拆解六层协议栈、12 个开发框架、16 个代表 APP/产品、8 类企业平台、9 份关键权威报告与 5 组数据图｜产品能力按公开资料判断，不冒充统一实测；不同调查不跨口径相加；厂商声明、独立研究、官方统计与本报告推断分层呈现｜资料截至 2026-10-10",
+      access: "production",
+      workType: "competitive-research",
+      tags: ["Personal Agent", "AI Agent", "MCP", "A2A", "AG-UI", "A2UI", "WebMCP", "OAuth", "开发框架", "AI APP", "企业平台", "市场研究", "权威报告", "竞品调研", "HTML", "生产"],
+    },
+    {
       id: "saep-critical-analysis-2026-10-10",
       groupId: "ai-platform",
       title: "SAEP 深度剖析｜GUI、小微与智能体协议全景",
@@ -3113,6 +3127,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "personal-agent-landscape-2026-10-10": "competitive-research",
   "saep-critical-analysis-2026-10-10": "governance-review",
   "personal-agent-strategy-2026-10-10": "reporting",
   "qieman-traffic-conversion-marketing-plan-2026": "product-planning",
@@ -3225,6 +3240,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "personal-agent-landscape-2026-10-10": "ai-platform",
   "saep-critical-analysis-2026-10-10": "ai-platform",
   "personal-agent-strategy-2026-10-10": "reporting",
   "qieman-ceo-battle-map-2026-10-09": "reporting",
