@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "stateEndpoint": "https://studio-access-state.pain-off-relay.workers.dev/v1",
+  "stateEndpoint": "https://clair-studio-access.pages.dev/v1",
   "defaultLocked": true,
   "lockedEntries": [],
   "unlockedEntries": [

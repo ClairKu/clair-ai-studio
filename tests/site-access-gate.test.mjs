@@ -79,7 +79,7 @@ test("shared gate submits reliably: trims input, guards re-entry, keeps the fiel
 test("direct report access follows the live selective policy and fails closed", () => {
   const source = readFileSync(gatePath, "utf8");
   assert.equal(accessConfig.version, 3);
-  assert.equal(accessConfig.stateEndpoint, "https://studio-access-state.pain-off-relay.workers.dev/v1");
+  assert.equal(accessConfig.stateEndpoint, "https://clair-studio-access.pages.dev/v1");
   assert.equal(accessConfig.defaultLocked, true);
   assert.deepEqual(accessConfig.lockedEntries, []);
   assert.deepEqual(accessConfig.unlockedEntries, [
@@ -123,6 +123,16 @@ test("workspace login exchanges its password for a short-lived live-state sessio
   assert.match(source, /clair-ai-studio-access-admin-expires-v1/);
   assert.match(source, /hasValidAdminSession\(\)/);
   assert.doesNotMatch(source, /sessionStorage\.setItem\([^\n]+password/);
+});
+
+test("the live-state worker is mirrored on an accessible Cloudflare Pages function", () => {
+  const pagesFunction = readFileSync(join(root, "worker", "studio-access-pages", "functions", "[[path]].js"), "utf8");
+  const pagesConfig = readFileSync(join(root, "worker", "studio-access-pages", "wrangler.toml"), "utf8");
+  assert.match(pagesFunction, /studio-access-state\/src\/index\.js/);
+  assert.match(pagesFunction, /worker\.fetch\(context\.request, context\.env\)/);
+  assert.match(pagesConfig, /name = "clair-studio-access"/);
+  assert.match(pagesConfig, /binding = "STUDIO_ACCESS"/);
+  assert.match(pagesConfig, /pages_build_output_dir = "\.\/public"/);
 });
 
 test("isolated workbench readers request an in-memory credential through a token-bound parent handshake", () => {

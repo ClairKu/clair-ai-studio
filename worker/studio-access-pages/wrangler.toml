@@ -1,0 +1,10 @@
+name = "clair-studio-access"
+pages_build_output_dir = "./public"
+compatibility_date = "2026-10-10"
+
+[[kv_namespaces]]
+binding = "STUDIO_ACCESS"
+id = "b93940a89f0f435f97d54d465add09f2"
+
+[vars]
+ALLOWED_ORIGINS = "https://clairku.github.io,http://127.0.0.1:4173,http://localhost:4173"
