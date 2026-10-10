@@ -8,6 +8,9 @@ import { fileURLToPath } from "node:url";
 const root = fileURLToPath(new URL("../", import.meta.url));
 const docsRoot = join(root, "docs");
 const gatePath = join(docsRoot, "access-gate.js");
+const publicReportPaths = new Set([
+  join(docsRoot, "reports", "qieman-four-money-redesign-2026-09-24", "index.html"),
+]);
 const selfProtectedPaths = new Set([
   join(docsRoot, "reports", "qianwen-user-acquisition-dashboard", "index.html"),
   join(docsRoot, "reports", "doubao-user-acquisition-dashboard", "index.html"),
@@ -118,11 +121,17 @@ test("isolated workbench readers request an in-memory credential through a token
   assert.match(source, /if \(requestWorkbenchCredential\(\)\) return/);
 });
 
-test("publishes scoped gate metadata on every ordinary HTML entry", () => {
+test("publishes scoped gate metadata while preserving explicitly public reports", () => {
   const htmlPaths = walkHtml(docsRoot);
   assert.ok(htmlPaths.length > 1);
   for (const htmlPath of htmlPaths) {
     const html = readFileSync(htmlPath, "utf8");
+    if (publicReportPaths.has(htmlPath)) {
+      assert.doesNotMatch(html, /data-clair-access-gate/);
+      assert.doesNotMatch(html, /data-clair-access-robots/);
+      assert.doesNotMatch(html, /type=["']password["']/);
+      continue;
+    }
     if (selfProtectedPaths.has(htmlPath)) {
       assert.match(html, /data-clair-access-gate/);
       assert.match(html, /data-clair-access-scope=["']report["']/);

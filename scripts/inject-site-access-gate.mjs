@@ -7,6 +7,9 @@ const outputRoot = resolve(projectRoot, process.argv[2] || "docs");
 const gateAsset = join(outputRoot, "access-gate.js");
 const marker = "data-clair-access-gate";
 const gateRevision = "2026-10-09-unified-v3";
+const publicReportEntries = new Set([
+  "reports/qieman-four-money-redesign-2026-09-24/index.html",
+]);
 const encryptedReportEntries = new Set([
   "reports/qianwen-user-acquisition-dashboard/index.html",
   "reports/doubao-user-acquisition-dashboard/index.html",
@@ -31,6 +34,7 @@ const walkHtml = (directory, results = []) => {
 const robotsMeta = '<meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />';
 let injected = 0;
 let encryptedReports = 0;
+let publicReports = 0;
 
 const encryptedReportShell = ({ html, gateScript, outputPath }) => {
   const payload = html.match(/const\s+payload\s*=\s*(\{[^;]+\});/s)?.[1];
@@ -124,6 +128,15 @@ for (const htmlPath of walkHtml(outputRoot)) {
   let html = readFileSync(htmlPath, "utf8");
   const outputPath = relative(outputRoot, htmlPath).replaceAll("\\", "/");
 
+  if (publicReportEntries.has(outputPath)) {
+    html = html
+      .replace(/\s*<meta\b[^>]*data-clair-access-robots[^>]*>\s*/gi, "\n")
+      .replace(/\s*<script\b[^>]*data-clair-access-gate[^>]*><\/script>\s*/gi, "\n");
+    writeFileSync(htmlPath, html);
+    publicReports += 1;
+    continue;
+  }
+
   const relativeAsset = relative(dirname(htmlPath), gateAsset).replaceAll("\\", "/");
   const assetPath = relativeAsset.startsWith(".") ? relativeAsset : `./${relativeAsset}`;
   // reports/ 与 apps/ 都是独立成果页，走报告密码；仅工作台首页与其余站点页走工作台密码。
@@ -164,4 +177,4 @@ for (const htmlPath of walkHtml(outputRoot)) {
   injected += 1;
 }
 
-console.log(`Injected the site access gate into ${injected} HTML files, including ${encryptedReports} encrypted reports.`);
+console.log(`Injected the site access gate into ${injected} HTML files, including ${encryptedReports} encrypted reports; kept ${publicReports} reports public.`);
