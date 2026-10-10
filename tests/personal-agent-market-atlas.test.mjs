@@ -34,7 +34,7 @@ test("Personal Agent atlas keeps official claims and independent risk evidence t
   ]) assert.match(publicReport, new RegExp(source.replace(/[.]/g, "\\.")));
 });
 
-test("Personal Agent atlas is mirrored, public, and registered in the workbench catalog", () => {
+test("Personal Agent atlas is mirrored, public, searchable, and registered in the workbench catalog", () => {
   assert.match(docsReport, /22 款代表性产品完整介绍/);
   assert.match(docsReport, /data-clair-access-gate/);
   assert.match(docsReport, /data-clair-access-entry="reports\/personal-agent-market-atlas-2026-10-10\/"/);
@@ -42,4 +42,8 @@ test("Personal Agent atlas is mirrored, public, and registered in the workbench 
   const docsPreview = readFileSync(join(root, "docs", "previews", `${slug}.svg`), "utf8");
   assert.equal(publicPreview, docsPreview);
   assert.match(readFileSync(join(root, "src", "app.js"), "utf8"), new RegExp(slug));
+  const access = JSON.parse(readFileSync(join(root, "public", "report-access.json"), "utf8"));
+  assert.ok(access.unlockedEntries.includes(`reports/${slug}/`));
+  const searchIndex = JSON.parse(readFileSync(join(root, "public", "search-index.json"), "utf8"));
+  assert.match(searchIndex[slug] || "", /Muse.*Instinct.*22 款/s);
 });
