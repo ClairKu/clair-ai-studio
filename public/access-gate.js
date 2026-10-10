@@ -18,6 +18,7 @@
   const REPORT_CREDENTIAL_SESSION_KEY = "clair-ai-studio-report-credential-v1";
   const ADMIN_TOKEN_KEY = "clair-ai-studio-access-admin-token-v1";
   const ADMIN_TOKEN_EXPIRES_KEY = "clair-ai-studio-access-admin-expires-v1";
+  const ACCESS_STATE_TIMEOUT_MS = 4000;
   const LEGACY_ENCRYPTED_REPORT_SESSION_KEYS = [
     "clair-qianwen-report-unlock-v1",
     "clair-doubao-report-unlock-v1",
@@ -56,6 +57,16 @@
   const EXPECTED_HASH = profile.expectedHash;
   const ROOT_CLASS = "clair-site-access-locked";
   const HOST_ID = "clair-site-access-gate";
+
+  const fetchWithTimeout = async (input, init = {}) => {
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), ACCESS_STATE_TIMEOUT_MS);
+    try {
+      return await fetch(input, { ...init, signal: controller.signal });
+    } finally {
+      window.clearTimeout(timeout);
+    }
+  };
 
   const readSession = () => {
     try {
@@ -244,7 +255,7 @@
     if (!reportAccessConfig) throw new Error("missing_access_config");
     const configUrl = new URL(reportAccessConfig, location.href);
     configUrl.searchParams.set("v", Date.now().toString(36));
-    const response = await fetch(configUrl, { cache: "no-store" });
+    const response = await fetchWithTimeout(configUrl, { cache: "no-store" });
     if (!response.ok) throw new Error("access_config_unavailable");
     return response.json();
   };
@@ -260,7 +271,7 @@
       const stateUrl = new URL(`${String(bootstrap.stateEndpoint).replace(/\/+$/, "")}/report-access`);
       stateUrl.searchParams.set("entry", requestedAccessEntry);
       stateUrl.searchParams.set("v", Date.now().toString(36));
-      const response = await fetch(stateUrl, { cache: "no-store" });
+      const response = await fetchWithTimeout(stateUrl, { cache: "no-store" });
       if (!response.ok) return true;
       const payload = await response.json();
       return payload?.status?.locked !== false;
@@ -272,7 +283,7 @@
   const exchangeWorkspaceAdminSession = async (password) => {
     const bootstrap = await loadAccessBootstrap();
     if (!bootstrap.stateEndpoint) throw new Error("access_state_unavailable");
-    const response = await fetch(`${String(bootstrap.stateEndpoint).replace(/\/+$/, "")}/session`, {
+    const response = await fetchWithTimeout(`${String(bootstrap.stateEndpoint).replace(/\/+$/, "")}/session`, {
       method: "POST",
       headers: { "X-Studio-Passcode": password },
     });

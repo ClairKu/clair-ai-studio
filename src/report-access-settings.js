@@ -2,6 +2,7 @@ const SITE_ORIGIN = "https://clairku.github.io";
 const SITE_ROOT_PATH = "/clair-ai-studio/";
 const ADMIN_TOKEN_KEY = "clair-ai-studio-access-admin-token-v1";
 const ADMIN_TOKEN_EXPIRES_KEY = "clair-ai-studio-access-admin-expires-v1";
+const ACCESS_STATE_TIMEOUT_MS = 4000;
 
 const EMPTY_CONFIG = {
   version: 3,
@@ -140,6 +141,16 @@ function endpointUrl(endpoint, resource) {
   return `${String(endpoint || "").replace(/\/+$/, "")}/${resource.replace(/^\/+/, "")}`;
 }
 
+async function fetchWithTimeout(input, init = {}) {
+  const controller = new AbortController();
+  const timeout = globalThis.setTimeout(() => controller.abort(), ACCESS_STATE_TIMEOUT_MS);
+  try {
+    return await fetch(input, { ...init, signal: controller.signal });
+  } finally {
+    globalThis.clearTimeout(timeout);
+  }
+}
+
 async function responseJson(response, fallbackMessage) {
   let payload = null;
   try {
@@ -160,7 +171,7 @@ export async function loadReportAccessConfig({ force = false } = {}) {
   if (accessState.loading && !force) return accessState.loading;
   const configUrl = new URL("./report-access.json", globalThis.location?.href || `${SITE_ORIGIN}${SITE_ROOT_PATH}`);
   configUrl.searchParams.set("v", Date.now().toString(36));
-  accessState.loading = fetch(configUrl, { cache: "no-store" })
+  accessState.loading = fetchWithTimeout(configUrl, { cache: "no-store" })
     .then((response) => responseJson(response, `无法读取成果访问设置（${response.status}）`))
     .then(async (bootstrapValue) => {
       const bootstrap = normalizeReportAccessConfig(bootstrapValue);
@@ -168,13 +179,14 @@ export async function loadReportAccessConfig({ force = false } = {}) {
       try {
         const liveUrl = new URL(endpointUrl(bootstrap.stateEndpoint, "report-access"));
         liveUrl.searchParams.set("v", Date.now().toString(36));
-        const response = await fetch(liveUrl, { cache: "no-store" });
+        const response = await fetchWithTimeout(liveUrl, { cache: "no-store" });
         const payload = await responseJson(response, `无法读取在线访问状态（${response.status}）`);
         accessState.config = normalizeReportAccessConfig(payload?.config || payload, bootstrap);
         accessState.error = "";
       } catch (error) {
-        // The static bootstrap intentionally contains no public exceptions, so
-        // a service outage fails closed instead of exposing a protected page.
+        // A service outage keeps the last deployed bootstrap policy. Protected
+        // entries therefore stay protected, while intentional public exceptions
+        // remain usable instead of taking the whole studio down.
         accessState.config = bootstrap;
         accessState.error = error?.message || "无法读取在线访问状态";
       }
@@ -200,7 +212,7 @@ export async function publishReportAccessSetting(report, { locked } = {}) {
   const endpoint = accessState.config.stateEndpoint;
   if (!endpoint) throw new Error("成果访问状态服务尚未配置");
   try {
-    const response = await fetch(endpointUrl(endpoint, "report-access"), {
+    const response = await fetchWithTimeout(endpointUrl(endpoint, "report-access"), {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${sessionValue(ADMIN_TOKEN_KEY)}`,

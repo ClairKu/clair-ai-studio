@@ -132,6 +132,7 @@ test("loads live state and toggles it with the workspace session without a Pages
     assert.ok(write);
     assert.equal(write.url, "https://state.example/v1/report-access");
     assert.equal(write.options.headers.Authorization, "Bearer short-lived-token");
+    assert.ok(write.options.signal instanceof AbortSignal);
     assert.deepEqual(JSON.parse(write.options.body), {
       entry: "reports/live-toggle/",
       locked: false,

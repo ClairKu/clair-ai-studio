@@ -98,6 +98,9 @@ test("direct report access follows the live selective policy and fails closed", 
   assert.match(source, /\/report-access/);
   assert.match(source, /payload\?\.status\?\.locked !== false/);
   assert.match(source, /if \(!requestedAccessEntry \|\| !reportAccessConfig\) return true/);
+  assert.match(source, /ACCESS_STATE_TIMEOUT_MS = 4000/);
+  assert.match(source, /controller\.abort\(\)/);
+  assert.match(source, /fetchWithTimeout\(stateUrl/);
   assert.match(source, /unlock\("", \{ persist: false \}\)/);
 });
 
