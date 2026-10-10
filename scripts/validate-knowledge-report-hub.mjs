@@ -31,9 +31,9 @@ const extractor = read("public/reports/knowledge-report-hub/extractor.js");
 const storage = read("public/reports/knowledge-report-hub/storage.js");
 const styles = read("public/reports/knowledge-report-hub/styles.css");
 const workbench = read("src/app.js");
+const packageJson = read("package.json");
 const registry = JSON.parse(read("catalog/report-registry.json"));
 const feed = JSON.parse(read("public/reports/knowledge-report-hub/data/latest.json"));
-const workflow = read(".github/workflows/knowledge-hub-daily.yml");
 
 const checks = [
   [html, "知识采集与证据卡片台", "页面标题缺失"],
@@ -44,6 +44,9 @@ const checks = [
   [app, "完整原文", "报告全文回溯入口缺失"],
   [app, "关联关键卡", "关联关键卡入口缺失"],
   [app, "关联报告", "关联报告入口缺失"],
+  [app, "visualKnowledgeCardMarkup", "报告级信息图卡渲染缺失"],
+  [app, "visualBarRows", "百分比横条图渲染缺失"],
+  [app, "visualColumns", "采用漏斗柱图渲染缺失"],
   [app, "data-import", "备份导入缺失"],
   [app, "data-export", "备份导出缺失"],
   [app, "window.setInterval", "页面定时同步缺失"],
@@ -55,8 +58,9 @@ const checks = [
   [storage, "saveOriginalFile", "原始档案无法保存"],
   [styles, "--paper: #f2efe7", "未沿用米白工作台视觉"],
   [styles, "--teal: #078f85", "关键卡缺少青绿色数据语义"],
-  [workflow, 'cron: "15 0 * * *"', "每日同步计划缺失"],
-  [workflow, "update-knowledge-hub-feed.mjs", "每日同步未调用生成器"],
+  [styles, ".visual-knowledge-card", "信息图卡视觉组件缺失"],
+  [styles, ".visual-card-foot", "信息图卡来源脚注缺失"],
+  [packageJson, '"sync:knowledge-hub"', "每日同步生成命令缺失"],
   [workbench, 'id: "knowledge-report-hub"', "工作台未登记知识卡片台"],
 ];
 for (const [source, signal, message] of checks) if (!source.includes(signal)) fail(message);
