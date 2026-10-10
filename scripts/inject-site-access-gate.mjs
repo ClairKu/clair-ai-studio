@@ -7,7 +7,7 @@ const outputRoot = resolve(projectRoot, process.argv[2] || "docs");
 const gateAsset = join(outputRoot, "access-gate.js");
 const accessConfigAsset = join(outputRoot, "report-access.json");
 const marker = "data-clair-access-gate";
-const gateRevision = "2026-10-10-live-state-v6";
+const gateRevision = "2026-10-10-live-state-v7";
 
 if (!existsSync(gateAsset)) throw new Error(`Missing access gate asset: ${gateAsset}`);
 if (!existsSync(accessConfigAsset)) throw new Error(`Missing report access config: ${accessConfigAsset}`);

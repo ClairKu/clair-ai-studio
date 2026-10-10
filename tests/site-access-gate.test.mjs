@@ -72,6 +72,8 @@ test("shared gate submits reliably: trims input, guards re-entry, keeps the fiel
   // The field is made read-only (not disabled) so focus and the mobile keyboard survive.
   assert.match(source, /input\.readOnly\s*=\s*busy/);
   assert.doesNotMatch(source, /input\.disabled\s*=\s*true/);
+  assert.match(source, /autocomplete="one-time-code"/);
+  assert.doesNotMatch(source, /autocomplete="current-password"/);
   // A visible progress state is shown before the slow key derivation blocks the thread.
   assert.match(source, /正在验证，请稍候/);
 });
