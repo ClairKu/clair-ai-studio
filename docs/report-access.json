@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "defaultLocked": true,
+  "lockedEntries": [],
+  "unlockedEntries": [
+    "reports/qieman-four-money-redesign-2026-09-24/"
+  ],
+  "immutableLockedEntries": [
+    "reports/doubao-user-acquisition-dashboard/",
+    "reports/doubao-user-conversion-cases-2026-09-20/",
+    "reports/qianwen-first-investor-cases-2026-09-17/",
+    "reports/qianwen-user-acquisition-dashboard/",
+    "reports/qianwen-user-question-analysis-2026-09-05/",
+    "reports/qianwen-user-question-detail-2026-09-05/"
+  ]
+}

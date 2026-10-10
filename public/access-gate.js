@@ -5,6 +5,11 @@
   const requestedScope = gateScript?.dataset.clairAccessScope === "report"
     ? "report"
     : "workspace";
+  const requestedAccessEntry = String(gateScript?.dataset.clairAccessEntry || "").trim();
+  const reportAccessConfig = String(
+    gateScript?.dataset.clairAccessConfig
+      || (gateScript?.src ? new URL("./report-access.json", gateScript.src).href : ""),
+  ).trim();
   const WORKBENCH_EMBED_PARAMETER = "clair-workbench-reader";
   const WORKBENCH_READER_TOKEN_PARAMETER = "clair-reader-token";
   const REPORT_ACCESS_MESSAGE_TYPE = "clair-report-access";
@@ -29,13 +34,13 @@
       ariaLabel: "Clair's Studio 访问验证",
     },
     report: {
-      sessionKey: "clair-ai-studio-report-access-v3",
-      sessionValue: "verified-report-2026-10-09",
-      salt: "pSPWbcuWBb/A+MHgQ+J+Cg==",
-      expectedHash: "RvAEQHpDP8wpmqGyQH1aO9zAJnQAjzfRUJ3mK+CsoCA=",
+      sessionKey: "clair-ai-studio-report-access-v4",
+      sessionValue: "verified-report-2026-10-10",
+      salt: "Yvvn5IytrgVkVQ8lcxYV8w==",
+      expectedHash: "gMoR40ms0BVTOHQ7x3elCYk2lsV6djC1yc3gJl4d18c=",
       brandLabel: "PRIVATE REPORT",
       title: "Clair's Report",
-      intro: "这是 Clair's Studio 私密报告，请输入与工作台相同的访问密码。",
+      intro: "这份成果已开启独立访问保护，请输入访问密码。",
       fieldLabel: "访问密码",
       foot: "Protected report · This tab only",
       ariaLabel: "Clair's Studio 报告访问验证",
@@ -93,7 +98,7 @@
       || !gateScript?.src) return "";
     try {
       const studioRoot = new URL("./", gateScript.src);
-      if (!document.referrer) return studioRoot.origin;
+      if (!document.referrer) return "";
       const referrer = new URL(document.referrer);
       const normalizedReferrerPath = referrer.pathname.replace(/index\.html$/, "");
       const sameProductionWorkbench = referrer.origin === studioRoot.origin
@@ -140,9 +145,14 @@
 
   // Entering through the authenticated Studio grants this browser tab a pass.
   // The isolated in-workbench reader cannot access the parent tab's storage, so
-  // it receives an explicit iframe-only marker. Top-level/direct URLs stay locked.
+  // it receives an explicit token-bound handshake. A URL marker alone never
+  // unlocks a direct/top-level visit.
   if (readSession() === SESSION_VALUE) return;
   if (requestedScope === "report" && hasWorkspacePass()) return;
+  const trustedWorkbenchOrigin = requestedScope === "report"
+    ? trustedWorkbenchParentOrigin()
+    : "";
+  if (trustedWorkbenchOrigin && gateScript?.dataset.clairEncryptedReport !== "true") return;
   if (requestWorkbenchCredential()) return;
 
   document.documentElement.classList.add(ROOT_CLASS);
@@ -186,13 +196,15 @@
     return sameBytes(new Uint8Array(bits), fromBase64(EXPECTED_HASH));
   };
 
-  const unlock = (password = "") => {
-    try {
-      window.sessionStorage.setItem(SESSION_KEY, SESSION_VALUE);
-    } catch {
-      // The current page still unlocks even when storage is unavailable.
+  const unlock = (password = "", { persist = true } = {}) => {
+    if (persist) {
+      try {
+        window.sessionStorage.setItem(SESSION_KEY, SESSION_VALUE);
+      } catch {
+        // The current page still unlocks even when storage is unavailable.
+      }
+      persistReportCredential(password);
     }
-    persistReportCredential(password);
     document.documentElement.classList.remove(ROOT_CLASS);
     document.getElementById(HOST_ID)?.remove();
     concealment.remove();
@@ -203,6 +215,30 @@
     // wrong password or for ordinary reports.
     if (gateScript?.dataset.clairEncryptedReport === "true") {
       window.location.reload();
+    }
+  };
+
+  const reportRequiresPassword = async () => {
+    // The policy is loaded from the same Pages origin on every direct visit.
+    // Missing or unreadable policy fails closed so a temporary deployment or
+    // cache problem cannot accidentally expose a protected result.
+    if (!requestedAccessEntry || !reportAccessConfig) return true;
+    try {
+      const configUrl = new URL(reportAccessConfig, location.href);
+      configUrl.searchParams.set("v", Date.now().toString(36));
+      const response = await fetch(configUrl, { cache: "no-store" });
+      if (!response.ok) return true;
+      const config = await response.json();
+      const locked = new Set(Array.isArray(config.lockedEntries) ? config.lockedEntries : []);
+      const unlocked = new Set(Array.isArray(config.unlockedEntries) ? config.unlockedEntries : []);
+      const immutable = new Set(Array.isArray(config.immutableLockedEntries)
+        ? config.immutableLockedEntries
+        : []);
+      if (immutable.has(requestedAccessEntry)) return true;
+      if (unlocked.has(requestedAccessEntry)) return false;
+      return locked.has(requestedAccessEntry) || Boolean(config.defaultLocked);
+    } catch {
+      return true;
     }
   };
 
@@ -354,9 +390,21 @@
     requestAnimationFrame(() => input.focus());
   };
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", () => requestAnimationFrame(mountGate), { once: true });
-  } else {
-    requestAnimationFrame(mountGate);
-  }
+  const scheduleGate = () => {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", () => requestAnimationFrame(mountGate), { once: true });
+    } else {
+      requestAnimationFrame(mountGate);
+    }
+  };
+
+  const start = async () => {
+    if (requestedScope === "report" && !(await reportRequiresPassword())) {
+      unlock("", { persist: false });
+      return;
+    }
+    scheduleGate();
+  };
+
+  void start();
 })();

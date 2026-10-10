@@ -8319,6 +8319,94 @@ html {
   stroke: #17191e;
 }
 
+.report-access-toggle {
+  position: relative;
+}
+
+.report-access-toggle.is-report-locked {
+  border-color: #d9d4ff !important;
+  background: #f1efff !important;
+  color: #5e54c7 !important;
+}
+
+.report-access-toggle.is-report-public {
+  color: #7a818c;
+}
+
+.report-access-toggle.is-access-loading {
+  opacity: .52;
+}
+
+.report-access-toggle.is-publishing svg {
+  animation: report-access-pulse .8s ease-in-out infinite alternate;
+}
+
+.report-access-connect-dialog {
+  width: min(500px, 100%);
+}
+
+.report-access-connect-copy {
+  margin: -8px 0 0;
+  color: #676f7a;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.report-access-connect-copy strong {
+  color: #272a30;
+  font-weight: 680;
+}
+
+.report-access-token-field {
+  display: grid;
+  gap: 8px;
+  color: #5f6671;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.report-access-token-field input {
+  width: 100%;
+  height: 43px;
+  border: 1px solid #dfe2e8;
+  border-radius: 11px;
+  padding: 0 12px;
+  color: #24262c;
+  font: 500 12px/1.2 ui-monospace, SFMono-Regular, Menlo, monospace;
+  outline: 0;
+}
+
+.report-access-token-field input:focus {
+  border-color: #a9a4ea;
+  box-shadow: 0 0 0 3px rgb(98 89 201 / 9%);
+}
+
+.report-access-token-field small {
+  color: #858b95;
+  font-size: 10px;
+  font-weight: 450;
+  line-height: 1.55;
+}
+
+.report-access-connect-status {
+  min-height: 18px;
+  margin: -6px 0 0;
+  color: #757c86;
+  font-size: 11px;
+}
+
+.report-access-connect-status[data-state="error"] {
+  color: #b4232d;
+}
+
+@keyframes report-access-pulse {
+  to { opacity: .25; transform: scale(.88); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .report-access-toggle.is-publishing svg { animation: none; }
+}
+
 .dialog-title-row > .dialog-close-button {
   width: 32px;
   height: 32px;

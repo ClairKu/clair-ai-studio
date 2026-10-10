@@ -13,6 +13,7 @@ const editorSource = read("src/report-editor.js");
 const fileRendererSource = read("src/file-renderers.js");
 const fileTypesSource = read("src/file-types.js");
 const searchSource = read("src/search.js");
+const reportAccessSource = read("src/report-access-settings.js");
 const searchIndexPath = join(new URL(".", root).pathname, "public", "search-index.json");
 const registryPath = join(new URL(".", root).pathname, "catalog", "report-registry.json");
 const taskSource = read("src/task-center.js");
@@ -228,6 +229,11 @@ const requiredSignals = [
   [appSource, 'data-action="toggle-pin"', "卡片缺少精选操作"],
   [appSource, 'title="在新浏览器页面打开"', "成果卡片缺少新浏览器页面打开入口"],
   [appSource, 'data-action="open-browser"', "新浏览器页面打开入口缺少执行动作"],
+  [appSource, 'data-action="toggle-report-access"', "成果卡片缺少密码锁快捷开关"],
+  [appSource, "UI_ICONS.lock", "成果卡片缺少上锁状态图标"],
+  [appSource, "UI_ICONS.unlock", "成果卡片缺少公开状态图标"],
+  [reportAccessSource, '"public/report-access.json", "docs/report-access.json"', "成果访问设置未同步源配置与生产配置"],
+  [reportAccessSource, "immutableLockedEntries", "高敏加密成果缺少固定保护"],
   [appSource, 'WORKSPACE_ACCESS_SESSION_KEY = "clair-ai-studio-access-v3"', "新页面打开未携带工作台会话通行证"],
   [appSource, '"clair-ai-studio-report-credential-v1"', "新页面打开未携带旧加密报告通行证"],
   [appSource, 'REPORT_ACCESS_MESSAGE_TYPE = "clair-report-access"', "工作台内嵌阅读未桥接旧加密报告通行证"],
@@ -341,13 +347,14 @@ const cardActionsSource = appSource.slice(
 );
 const cardActionOrder = [
   'data-action="open-browser"',
+  'data-action="toggle-report-access"',
   'data-action="archive"',
   'data-action="edit"',
   'data-action="toggle-pin"',
 ].map((signal) => cardActionsSource.indexOf(signal));
 if (cardActionOrder.some((index) => index < 0) ||
     !cardActionOrder.every((index, position) => position === 0 || cardActionOrder[position - 1] < index)) {
-  fail("卡片操作未按新页面打开、归档、编辑、收藏排列");
+  fail("卡片操作未按新页面打开、密码锁、归档、编辑、收藏排列");
 }
 if (styleSource.includes(".report-card:has(.local-html-preview-frame) .report-preview::before")) {
   fail("本地 HTML 卡片仍显示特殊角标");
