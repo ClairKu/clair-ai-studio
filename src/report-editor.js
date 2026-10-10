@@ -1,3 +1,8 @@
+import {
+  githubSessionToken,
+  rememberGithubSessionToken,
+} from "./github-session.js";
+
 const EDITOR_CHANNEL = "clair-report-editor-v1";
 const GITHUB_API = "https://api.github.com";
 const DRAFT_STORAGE_PREFIX = "clair-report-editor-draft-v1:";
@@ -1242,6 +1247,7 @@ export function beginReportEditing(report, { render, showToast, saveLocal = null
     saveLocal,
     currentPage: 0,
     pageCount: 1,
+    token: editor.token || githubSessionToken(),
   });
   render();
   editor.loadPromise = loadReport(report);
@@ -1626,7 +1632,7 @@ export function bindReportEditor(report) {
     event.preventDefault();
     const data = new FormData(settingsForm);
     const nextToken = String(data.get("github-token-not-password") || "").trim();
-    if (nextToken) editor.token = nextToken;
+    if (nextToken) editor.token = rememberGithubSessionToken(nextToken);
     const nextPath = String(data.get("path") || "").trim().replace(/^\/+/, "");
     editor.target = {
       ...(editor.target || {}),

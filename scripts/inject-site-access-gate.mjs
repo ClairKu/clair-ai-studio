@@ -5,22 +5,16 @@ import { fileURLToPath } from "node:url";
 const projectRoot = fileURLToPath(new URL("../", import.meta.url));
 const outputRoot = resolve(projectRoot, process.argv[2] || "docs");
 const gateAsset = join(outputRoot, "access-gate.js");
+const accessConfigAsset = join(outputRoot, "report-access.json");
 const marker = "data-clair-access-gate";
-const gateRevision = "2026-10-09-unified-v3";
-const publicReportEntries = new Set([
-  "reports/qieman-four-money-redesign-2026-09-24/index.html",
-]);
-const encryptedReportEntries = new Set([
-  "reports/qianwen-user-acquisition-dashboard/index.html",
-  "reports/doubao-user-acquisition-dashboard/index.html",
-  "reports/doubao-user-conversion-cases-2026-09-20/index.html",
-  // These pages contain sensitive source material and ship as AES-GCM encrypted shells.
-  "reports/qianwen-user-question-analysis-2026-09-05/index.html",
-  "reports/qianwen-user-question-detail-2026-09-05/index.html",
-  "reports/qianwen-first-investor-cases-2026-09-17/index.html",
-]);
+const gateRevision = "2026-10-10-selective-v4";
 
 if (!existsSync(gateAsset)) throw new Error(`Missing access gate asset: ${gateAsset}`);
+if (!existsSync(accessConfigAsset)) throw new Error(`Missing report access config: ${accessConfigAsset}`);
+const accessConfig = JSON.parse(readFileSync(accessConfigAsset, "utf8"));
+const encryptedReportEntries = new Set((accessConfig.immutableLockedEntries || [])
+  .filter((entry) => entry.startsWith("reports/") && entry.endsWith("/"))
+  .map((entry) => `${entry}index.html`));
 
 const walkHtml = (directory, results = []) => {
   for (const entry of readdirSync(directory, { withFileTypes: true })) {
@@ -34,7 +28,6 @@ const walkHtml = (directory, results = []) => {
 const robotsMeta = '<meta name="robots" content="noindex,nofollow,noarchive" data-clair-access-robots />';
 let injected = 0;
 let encryptedReports = 0;
-let publicReports = 0;
 
 const encryptedReportShell = ({ html, gateScript, outputPath }) => {
   const payload = html.match(/const\s+payload\s*=\s*(\{[^;]+\});/s)?.[1];
@@ -68,8 +61,8 @@ const encryptedReportShell = ({ html, gateScript, outputPath }) => {
     const payload=${payload};
     const decode=value=>Uint8Array.from(atob(value),character=>character.charCodeAt(0));
     const credentialKey="clair-ai-studio-report-credential-v1";
-    const reportSessionKey="clair-ai-studio-report-access-v3";
-    const reportSessionValue="verified-report-2026-10-09";
+    const reportSessionKey="clair-ai-studio-report-access-v4";
+    const reportSessionValue="verified-report-2026-10-10";
     const workspaceSessionKey="clair-ai-studio-access-v3";
     const workspaceSessionValue="verified-2026-10-09";
     const legacySessionKey=${JSON.stringify(legacySessionKey)};
@@ -128,19 +121,17 @@ for (const htmlPath of walkHtml(outputRoot)) {
   let html = readFileSync(htmlPath, "utf8");
   const outputPath = relative(outputRoot, htmlPath).replaceAll("\\", "/");
 
-  if (publicReportEntries.has(outputPath)) {
-    html = html
-      .replace(/\s*<meta\b[^>]*data-clair-access-robots[^>]*>\s*/gi, "\n")
-      .replace(/\s*<script\b[^>]*data-clair-access-gate[^>]*><\/script>\s*/gi, "\n");
-    writeFileSync(htmlPath, html);
-    publicReports += 1;
-    continue;
-  }
-
   const relativeAsset = relative(dirname(htmlPath), gateAsset).replaceAll("\\", "/");
   const assetPath = relativeAsset.startsWith(".") ? relativeAsset : `./${relativeAsset}`;
   // reports/ 与 apps/ 都是独立成果页，走报告密码；仅工作台首页与其余站点页走工作台密码。
-  const accessScope = outputPath.startsWith("reports/") || outputPath.startsWith("apps/") ? "report" : "workspace";
+  const reportEntry = outputPath.startsWith("reports/") || outputPath.startsWith("apps/");
+  const accessScope = reportEntry ? "report" : "workspace";
+  const accessEntry = reportEntry
+    ? outputPath.replace(/index\.html$/i, "")
+    : "";
+  const accessEntryAttribute = accessEntry
+    ? ` data-clair-access-entry="${accessEntry}"`
+    : "";
 
   // These pages keep their encrypted payload, but the shared report gate is
   // now their only visible prompt. After one successful submission it seeds
@@ -150,7 +141,7 @@ for (const htmlPath of walkHtml(outputRoot)) {
     if (!/const\s+payload\s*=/.test(html) || !/AES-GCM/.test(html)) {
       throw new Error(`Expected an encrypted self-protected entry: ${outputPath}`);
     }
-    const gateScript = `<script ${marker} data-clair-access-scope="report" data-clair-encrypted-report="true" src="${assetPath}?rev=${gateRevision}"></script>`;
+    const gateScript = `<script ${marker} data-clair-access-scope="report"${accessEntryAttribute} data-clair-encrypted-report="true" src="${assetPath}?rev=${gateRevision}"></script>`;
     html = encryptedReportShell({ html, gateScript, outputPath });
     writeFileSync(htmlPath, html);
     encryptedReports += 1;
@@ -158,7 +149,7 @@ for (const htmlPath of walkHtml(outputRoot)) {
     continue;
   }
 
-  const gateScript = `<script ${marker} data-clair-access-scope="${accessScope}" src="${assetPath}?rev=${gateRevision}"></script>`;
+  const gateScript = `<script ${marker} data-clair-access-scope="${accessScope}"${accessEntryAttribute} src="${assetPath}?rev=${gateRevision}"></script>`;
 
   html = html.replace(/<meta\b[^>]*name=["']robots["'][^>]*>\s*/gi, "");
   const headInsert = `${robotsMeta}\n    ${gateScript}`;
@@ -177,4 +168,4 @@ for (const htmlPath of walkHtml(outputRoot)) {
   injected += 1;
 }
 
-console.log(`Injected the site access gate into ${injected} HTML files, including ${encryptedReports} encrypted reports; kept ${publicReports} reports public.`);
+console.log(`Injected the selective site access gate into ${injected} HTML files, including ${encryptedReports} encrypted reports.`);
