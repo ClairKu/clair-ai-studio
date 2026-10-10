@@ -215,6 +215,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "saep-critical-analysis-2026-10-10",
+      groupId: "ai-platform",
+      title: "SAEP 深度剖析｜GUI、小微与智能体协议全景",
+      url: "https://clairku.github.io/clair-ai-studio/reports/saep-critical-analysis-2026-10-10/",
+      preview: "saep-critical-analysis-2026-10-10.png",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-10-10T09:51:55+08:00",
+      source: "ByteDance SAEP 官方 Demo、豆包手机助手官网与安全白皮书 × 微信小程序 AI 开发模式与腾讯云小程序 Skill/MCP 资料 × Android AppFunctions、Apple App Intents、MCP、A2A、NIST 与 OWASP 一手规范 × 微信 AI 生态首批团队及 SAEP 公示期公开报道｜深度拆解 SAEP 与 GUI Agent、微信小微、结构化能力协议的真实边界，区分已采用、生态接入、媒体报道与无公开证据四类状态｜核心判断：SAEP 是外部 GUI 自动化的应用侧政策控制面，不是能力协议；微信小微是超级 App 内生 Agent 路线，截至 2026-10-10 无公开证据证明微信或小微采用 SAEP；SAEP 仍处公示期，建议以结构化能力优先、低风险 GUI 兜底、高风险目标 App 确认的混合架构落地",
+      access: "production",
+      workType: "governance-review",
+      tags: ["SAEP", "GUI Agent", "微信小微", "手机 Agent", "MCP", "A2A", "AppFunctions", "App Intents", "小程序 Skill", "智能体安全", "协议治理", "深度研究", "HTML", "生产"],
+    },
+    {
       id: "personal-agent-strategy-2026-10-10",
       groupId: "reporting",
       title: "Personal Agent 趋势与公司应对策略｜高管决策版",
@@ -3091,6 +3105,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "saep-critical-analysis-2026-10-10": "governance-review",
   "personal-agent-strategy-2026-10-10": "reporting",
   "qieman-traffic-conversion-marketing-plan-2026": "product-planning",
   "oap-success-retrospective-2026-10-09": "data-analysis",
@@ -3202,6 +3217,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "saep-critical-analysis-2026-10-10": "ai-platform",
   "personal-agent-strategy-2026-10-10": "reporting",
   "qieman-ceo-battle-map-2026-10-09": "reporting",
   "qieman-platform-organization-diagnosis-2026-10-09": "growth-insights",
