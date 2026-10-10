@@ -1,7 +1,7 @@
 {
   "schema": "clair-report-assets/v1",
   "report": "knowledge-report-hub",
-  "generatedAt": "2026-10-10T02:57:08.171Z",
+  "generatedAt": "2026-10-10T03:38:48.438Z",
   "files": [
     {
       "path": "app.js",
@@ -10,8 +10,8 @@
     },
     {
       "path": "data/latest.json",
-      "bytes": 70228,
-      "sha256": "f89238876642da9d5d9541dbe34bdf57f9286aca339c83c963f95925aba2a2f7"
+      "bytes": 70604,
+      "sha256": "9de8a54e5d640958466a569a658385be7831fdc0e48aa471db7734e17ea3a50a"
     },
     {
       "path": "extractor.js",

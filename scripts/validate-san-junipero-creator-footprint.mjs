@@ -28,6 +28,9 @@ assert.match(publicHtml, /76 与 74 为什么不一致/);
 assert.match(publicHtml, /已证实[\s\S]*高概率[\s\S]*未证实|已证实[\s\S]*未公开/);
 assert.match(publicHtml, /https:\/\/space\.bilibili\.com\/1228413958/);
 assert.match(publicHtml, /https:\/\/www\.bilibili\.com\/video\/BV1zQpK63E4M\//);
+assert.match(publicHtml, /7 部原创 \/ 准原创科幻/);
+assert.match(publicHtml, /《黑镜》到底是什么/);
+assert.match(publicHtml, /Black Umbrella \/ 黑伞公司/);
 
 const data = publicHtml.match(/<script id="works-data" type="application\/json">([\s\S]*?)<\/script>/)?.[1];
 assert.ok(data, "缺少作品数据");
@@ -37,4 +40,17 @@ assert.equal(new Set(works.map((work) => work[2])).size, 74, "BVID 应全部唯�
 assert.equal(works.filter((work) => work[5] === "music").length, 7, "音乐时期应为 7 部");
 assert.equal(works.filter((work) => work[0] >= "2025-09-19").length, 67, "AI 时代应为 67 部");
 
-console.log(`San_Junipero 作者报告校验通过：${works.length} 部作品，双镜像与预览一致。`);
+const notesData = publicHtml.match(/<script id="work-notes-data" type="application\/json">([\s\S]*?)<\/script>/)?.[1];
+assert.ok(notesData, "缺少逐片导览数据");
+const notes = JSON.parse(notesData);
+assert.equal(Object.keys(notes).length, 74, "逐片导览应覆盖 74 部作品");
+assert.deepEqual(works.filter((work) => !notes[work[2]]), [], "每部作品都应有内容导览");
+
+const blackMirrorData = publicHtml.match(/<script id="blackmirror-data" type="application\/json">([\s\S]*?)<\/script>/)?.[1];
+assert.ok(blackMirrorData, "缺少《黑镜》逐集数据");
+const blackMirror = JSON.parse(blackMirrorData);
+assert.equal(blackMirror.length, 34, "《黑镜》导览应为 32 集 + 特别篇 + 互动电影，共 34 个观看单元");
+assert.ok(blackMirror.some((episode) => episode.title.includes("San Junipero")), "缺少《San Junipero》条目");
+assert.ok(blackMirror.some((episode) => episode.title.includes("Common People")), "缺少第七季《Common People》条目");
+
+console.log(`San_Junipero 作者报告校验通过：${works.length} 部逐片导览、${blackMirror.length} 个《黑镜》观看单元，双镜像与预览一致。`);

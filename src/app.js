@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 98;
+const DATA_VERSION = 99;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -224,16 +224,16 @@ const initialState = {
     {
       id: "san-junipero-creator-footprint-2026-10-10",
       groupId: "knowledge",
-      title: "San_Junipero 公开互联网足迹｜从吉他手到 AI 伦理科幻作者",
+      title: "San_Junipero 作品全集与《黑镜》思想谱系｜74 部逐片导览",
       url: "https://clairku.github.io/clair-ai-studio/reports/san-junipero-creator-footprint-2026-10-10/",
       preview: "san-junipero-creator-footprint-2026-10-10.svg",
       pinned: true,
       position: 0,
       createdAt: "2026-10-10T14:30:00+08:00",
-      source: "公开来源证据审计：核验 B站 San_Junipero（UID 1228413958）主页、74 部可解析视频、8 个官方合集与作者动态，并交叉检索微信视频号、bilibili.tv、YouTube、抖音、小红书、微博和 X；严格区分已证实、高概率关联、作品推断与未发现。报告梳理 2020—2026 年从吉他演奏、Sora 2 视觉实验、文学历史还原、苏维埃 / 游戏 IP 混搭到原创 AI 伦理科幻的五阶段转向，提炼认识论垄断、认知商品化、记忆与合成真实、制度性自动化、反乌托邦和技术暧昧六类母题；包含 74 部作品可搜索档案、播放表现、制作透明度、IP 改编与历史影像误认风险，以及作者品牌升级建议。检索截止 2026-10-10。",
+      source: "公开来源深度研究：逐片核验 B站 San_Junipero（UID 1228413958）74 部可解析视频、8 个合集与作者动态，并交叉检索公开平台；身份风险边界：未发现作者实名、所属公司、MCN、公开采访或可核验商业关系，用户名与《San Junipero》的关联、微信视频号归属和“黑伞宇宙”均按证据等级标注，避免把风格推断写成事实。对《深渊·破晓港》《蛞蝓》《最正确的决定》《预言机》《绝对者》《算力囚笼》《老大哥在注视你》完成画面、字幕或公开音轨级深读，按剧情、制度机制、伦理命题与创作短板拆解。全集档案为每部作品补充内容、来源/IP、观察和证据等级；新增《黑镜》从 2011 至第七季的创作背景、32 集 +《白色圣诞》+《潘达斯奈基》共 34 个观看单元逐集导览，并比较作者与 Charlie Brooker 在订阅制、数字人格、预测、记忆、自由意志和平台权力上的相似与差距。严格区分完整看片、作者元数据、原作梗概、推断与未知；检索截止 2026-10-10。",
       access: "production",
       workType: "governance-review",
-      tags: ["AI 影像", "创作者研究", "科幻", "公开来源", "互联网足迹", "内容分析", "版权风险", "知识治理", "HTML", "生产"],
+      tags: ["AI 影像", "创作者研究", "科幻", "黑镜", "逐片导览", "公开来源", "互联网足迹", "内容分析", "版权风险", "知识治理", "HTML", "生产"],
     },
     {
       id: "knowledge-report-hub",

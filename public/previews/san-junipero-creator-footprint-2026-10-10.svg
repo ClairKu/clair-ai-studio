@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750" role="img" aria-labelledby="title desc">
-  <title id="title">San_Junipero 公开足迹调查</title>
-  <desc id="desc">从吉他手到 AI 伦理科幻作者，74 部可解析作品的公开证据审计。</desc>
+  <title id="title">San_Junipero 作品全集与《黑镜》思想谱系</title>
+  <desc id="desc">74 部作品逐片导览、7 部原创科幻深读与《黑镜》34 个观看单元全解。</desc>
   <defs>
     <radialGradient id="g" cx="78%" cy="13%" r="78%"><stop offset="0" stop-color="#202638"/><stop offset=".56" stop-color="#0d0f15"/><stop offset="1" stop-color="#07080c"/></radialGradient>
     <linearGradient id="r" x1="0" x2="1"><stop stop-color="#ff5b4d"/><stop offset="1" stop-color="#f3b75d"/></linearGradient>
@@ -12,19 +12,19 @@
   <rect x="70" y="68" width="184" height="31" rx="15" fill="#ff5b4d"/>
   <text x="88" y="89" font-family="Arial,sans-serif" font-size="14" font-weight="700" fill="#08090d" letter-spacing="2">CREATOR AUDIT</text>
   <text x="70" y="196" font-family="Georgia,'Songti SC',serif" font-size="78" font-weight="700" fill="#f4f1e9">San_Junipero</text>
-  <text x="70" y="280" font-family="Georgia,'Songti SC',serif" font-size="56" font-weight="700" fill="#f4f1e9">从吉他手到</text>
-  <text x="70" y="350" font-family="Georgia,'Songti SC',serif" font-size="56" font-weight="700" fill="#ff5b4d">AI 伦理科幻作者</text>
-  <text x="74" y="414" font-family="Arial,'PingFang SC',sans-serif" font-size="22" fill="#aeb2be">公开互联网足迹 · 作品谱系 · 思想母题 · 风险审计</text>
+  <text x="70" y="280" font-family="Georgia,'Songti SC',serif" font-size="56" font-weight="700" fill="#f4f1e9">作品全集 ×《黑镜》</text>
+  <text x="70" y="350" font-family="Georgia,'Songti SC',serif" font-size="56" font-weight="700" fill="#ff5b4d">思想谱系</text>
+  <text x="74" y="414" font-family="Arial,'PingFang SC',sans-serif" font-size="22" fill="#aeb2be">74 部逐片导览 · 原创科幻深读 · 黑镜全季图谱</text>
   <g transform="translate(70 500)">
     <rect width="244" height="124" rx="18" fill="#11141b" stroke="#2c303a"/>
     <text x="24" y="34" font-family="Arial,'PingFang SC',sans-serif" font-size="14" fill="#8f95a3">可公开解析作品</text>
     <text x="24" y="94" font-family="Georgia,serif" font-size="56" font-weight="700" fill="#f4f1e9">74</text>
     <rect x="266" width="244" height="124" rx="18" fill="#11141b" stroke="#2c303a"/>
-    <text x="290" y="34" font-family="Arial,'PingFang SC',sans-serif" font-size="14" fill="#8f95a3">官方合集</text>
-    <text x="290" y="94" font-family="Georgia,serif" font-size="56" font-weight="700" fill="#f4f1e9">8</text>
+    <text x="290" y="34" font-family="Arial,'PingFang SC',sans-serif" font-size="14" fill="#8f95a3">原创 / 准原创深读</text>
+    <text x="290" y="94" font-family="Georgia,serif" font-size="56" font-weight="700" fill="#f4f1e9">7</text>
     <rect x="532" width="244" height="124" rx="18" fill="#11141b" stroke="#2c303a"/>
-    <text x="556" y="34" font-family="Arial,'PingFang SC',sans-serif" font-size="14" fill="#8f95a3">原创科幻系列</text>
-    <text x="556" y="94" font-family="Georgia,serif" font-size="56" font-weight="700" fill="#f4f1e9">5</text>
+    <text x="556" y="34" font-family="Arial,'PingFang SC',sans-serif" font-size="14" fill="#8f95a3">《黑镜》观看单元</text>
+    <text x="556" y="94" font-family="Georgia,serif" font-size="56" font-weight="700" fill="#f4f1e9">34</text>
   </g>
   <rect x="70" y="680" width="690" height="4" rx="2" fill="url(#r)"/>
   <text x="1062" y="692" text-anchor="end" font-family="Arial,sans-serif" font-size="13" fill="#7f8592" letter-spacing="2">2026.10.10</text>
