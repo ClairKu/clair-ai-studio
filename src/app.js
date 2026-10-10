@@ -223,6 +223,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "personal-agent-market-atlas-2026-10-10",
+      groupId: "ai-platform",
+      title: "Muse、Instinct AI 与 22 款 Personal Agent｜市场全景与批判性评估",
+      url: "https://clairku.github.io/clair-ai-studio/reports/personal-agent-market-atlas-2026-10-10/",
+      preview: "personal-agent-market-atlas-2026-10-10.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-10-10T10:18:00+08:00",
+      source: "Meta Muse 与 Instinct 官方产品、安全、隐私和服务条款 × Ars Technica、WIRED、TechCrunch、The Atlantic 独立报道 × OpenAI、Google、Anthropic、xAI、Manus、Microsoft、Alibaba、Tencent、Baidu、Apple、Amazon 与开源项目官方资料｜以七层委托栈拆解 Personal Agent，逐项介绍 22 款代表产品，比较生态分发、执行运营、控制与所有权三类护城河，并给出八项风险审计、场景选择器和六步安全试用协议｜厂商主张、独立证据与本报告推断分层呈现；“完整”指截至 2026-10-10 可核实且具有代表性的市场样本，不声称穷尽全部小型或未公开产品",
+      access: "production",
+      workType: "competitive-research",
+      tags: ["Meta Muse", "Instinct AI", "Personal Agent", "AI Agent", "消费者 AI", "工作 Agent", "本地优先", "隐私安全", "提示注入", "竞品调研", "市场全景", "深度研究", "HTML", "生产"],
+    },
+    {
       id: "personal-agent-landscape-2026-10-10",
       groupId: "ai-platform",
       title: "Personal Agent 全景研究｜定义、协议、框架、产品与市场",
@@ -3127,6 +3141,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "personal-agent-market-atlas-2026-10-10": "competitive-research",
   "personal-agent-landscape-2026-10-10": "competitive-research",
   "saep-critical-analysis-2026-10-10": "governance-review",
   "personal-agent-strategy-2026-10-10": "reporting",
@@ -3240,6 +3255,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "personal-agent-market-atlas-2026-10-10": "ai-platform",
   "personal-agent-landscape-2026-10-10": "ai-platform",
   "saep-critical-analysis-2026-10-10": "ai-platform",
   "personal-agent-strategy-2026-10-10": "reporting",

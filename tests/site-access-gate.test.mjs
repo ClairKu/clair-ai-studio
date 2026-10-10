@@ -82,6 +82,7 @@ test("direct report access follows the central selective policy and fails closed
   assert.equal(accessConfig.defaultLocked, true);
   assert.deepEqual(accessConfig.lockedEntries, []);
   assert.deepEqual(accessConfig.unlockedEntries, [
+    "reports/personal-agent-market-atlas-2026-10-10/",
     "reports/qieman-four-money-redesign-2026-09-24/",
   ]);
   assert.ok(accessConfig.immutableLockedEntries.length > 0);

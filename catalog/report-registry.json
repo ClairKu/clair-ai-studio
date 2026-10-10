@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "personal-agent-market-atlas-2026-10-10",
     "personal-agent-landscape-2026-10-10",
     "saep-critical-analysis-2026-10-10",
     "personal-agent-strategy-2026-10-10",
