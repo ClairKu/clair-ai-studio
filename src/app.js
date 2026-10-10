@@ -222,6 +222,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "knowledge-report-hub",
+      groupId: "knowledge",
+      title: "知识采集与证据卡片台｜报告、URL、PDF 与任意档案一键抽取",
+      url: "https://clairku.github.io/clair-ai-studio/reports/knowledge-report-hub/",
+      preview: "knowledge-report-hub.png",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-10-10T10:45:00+08:00",
+      source: "独立知识看板｜支持粘贴正文与影片字幕、导入 URL、PDF、Word、Excel、PPT、网页、字幕与任意档案｜浏览器本地抽取核心结论、关键数字、风险、机会与行动建议｜每张卡保存原文片段、页码或段落位置、完整正文、关联卡片与关联报告｜支持报告/卡片双视图、分类、全文搜索、排序、编辑、归档、删除、备份导入导出｜原始档案保存在当前浏览器 IndexedDB，不上传到公开站点｜GitHub Actions 每日扫描 Clair’s Studio 生产目录并同步最新公开报告与关键卡，目录无变化时不制造空提交",
+      access: "production",
+      workType: "interactive-tool",
+      tags: ["知识库", "关键卡片", "证据溯源", "报告管理", "PDF", "Office", "URL", "影片字幕", "全文搜索", "关联图谱", "每日同步", "HTML", "生产"],
+    },
+    {
       id: "personal-agent-market-atlas-2026-10-10",
       groupId: "ai-platform",
       title: "Muse、Instinct AI 与 22 款 Personal Agent｜市场全景与批判性评估",
@@ -3140,6 +3154,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "knowledge-report-hub": "product-demo",
   "personal-agent-market-atlas-2026-10-10": "competitive-research",
   "personal-agent-landscape-2026-10-10": "competitive-research",
   "saep-critical-analysis-2026-10-10": "governance-review",
@@ -3254,6 +3269,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "knowledge-report-hub": "knowledge",
   "personal-agent-market-atlas-2026-10-10": "ai-platform",
   "personal-agent-landscape-2026-10-10": "ai-platform",
   "saep-critical-analysis-2026-10-10": "ai-platform",

@@ -1,0 +1,67 @@
+{
+  "schema": "clair-report-assets/v1",
+  "report": "knowledge-report-hub",
+  "generatedAt": "2026-10-10T02:45:43.307Z",
+  "files": [
+    {
+      "path": "app.js",
+      "bytes": 40935,
+      "sha256": "cd8984478b01212585671aed837c711d326ba6e3ae48e56e3886f0fed571dbe9"
+    },
+    {
+      "path": "data/latest.json",
+      "bytes": 47184,
+      "sha256": "967074f73272b6fd8fb1ed0b8501d8c1a8ed32b26363d72dfdae9204462c2046"
+    },
+    {
+      "path": "extractor.js",
+      "bytes": 16701,
+      "sha256": "c4afd7559a987e3155b9e6cbb51f3ec23fc88f6ea9423f8dfd8c2890f9bf5b7c"
+    },
+    {
+      "path": "index.html",
+      "bytes": 1597,
+      "sha256": "b352227acc0bd298ef9acc0d9184d0dca9a6364a3b67a1f8ad738d92f4a9166b"
+    },
+    {
+      "path": "preview.png",
+      "bytes": 1659408,
+      "sha256": "07495821e6d8cf703409dafb522bba94eabbb9a22ade2e1ccd4433e853b319c7"
+    },
+    {
+      "path": "storage.js",
+      "bytes": 3752,
+      "sha256": "d09d9a79eab0cc3c1d35de0008a71a7c7106f55ffb596c68c556ca237bb414a7"
+    },
+    {
+      "path": "styles.css",
+      "bytes": 20703,
+      "sha256": "5cb8a9745849b77247b33ba45bb05b0240b82df8f4d8b2138b9747322daf0746"
+    },
+    {
+      "path": "vendor/jszip.min.js",
+      "bytes": 97630,
+      "sha256": "acc7e41455a80765b5fd9c7ee1b8078a6d160bbbca455aeae854de65c947d59e"
+    },
+    {
+      "path": "vendor/mammoth.browser.min.js",
+      "bytes": 635882,
+      "sha256": "5d4c0e7c9165d70b78f789c5274a2c7846d9e1c06ec19b69afa6ef45f789a3b9"
+    },
+    {
+      "path": "vendor/pdf.mjs",
+      "bytes": 853537,
+      "sha256": "487bde1bcf89e041f791173d0509a1dc18d0feb6655d78395e1611f9da0de17d"
+    },
+    {
+      "path": "vendor/pdf.worker.min.mjs",
+      "bytes": 1262398,
+      "sha256": "0613f41490dd6aaceed7a93fbbd38c85e6d6aa60474b6588c6e7709cfbe18cb3"
+    },
+    {
+      "path": "vendor/xlsx.full.min.js",
+      "bytes": 951904,
+      "sha256": "cc015130aa8521e7f088f88898eba949ccdcbfb38df0bd129b44b7273c3a6f41"
+    }
+  ]
+}
