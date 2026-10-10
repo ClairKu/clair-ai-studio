@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 99;
+const DATA_VERSION = 100;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -221,6 +221,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "personal-agent-yingmi-executive-strategy-2026-10-10",
+      groupId: "reporting",
+      title: "Personal Agent 变局下的盈米应对｜高管会前决策材料",
+      url: "https://clairku.github.io/clair-ai-studio/reports/personal-agent-yingmi-executive-strategy-2026-10-10/",
+      preview: "personal-agent-yingmi-executive-strategy-2026-10-10.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-10-10T15:20:00+08:00",
+      source: "2026-10-08 Personal Agent 专项高管会议通知 × OpenAI / Google / Alibaba / 豆包 / Tencent / Huawei 官方能力资料 × MCP / A2A / Agentic Commerce / Visa / Mastercard 协议与支付实践 × 2026-09-30 生效的《金融产品网络营销管理办法》 × 盈米 AI、OAP / MCP / Skills、AI 小顾、且慢 BU 与顾问工作台内部能力沉淀｜在两份 Personal Agent 市场全景研究之上，进一步转化为盈米可拍板的战略：不争通用入口，以且慢个人财富智能体 + 盈米可信金融能力层双线推进，共用个人金融上下文与责任底座，设置身份授权、适当性合规、关键确认、证据回退四道闸；给出重点场景、L0-L4 自治边界、90 天攻坚、经营与风险指标及六项会议决议建议｜公开安全版已移除会议号、地点、人员安排和未公开经营数据",
+      access: "production",
+      workType: "reporting",
+      tags: ["Personal Agent", "盈米", "且慢", "AI 小顾", "OAP", "MCP", "A2A", "金融合规", "L3", "战略决策", "90天行动", "高管会议", "HTML", "生产"],
+    },
     {
       id: "san-junipero-creator-footprint-2026-10-10",
       groupId: "knowledge",

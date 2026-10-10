@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Personal Agent 变局下的盈米应对</title>
+  <desc id="desc">双入口、一个底座、四道闸的高管会前策略材料封面</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#061827"/><stop offset=".58" stop-color="#0a2940"/><stop offset="1" stop-color="#07141f"/></linearGradient>
+    <radialGradient id="glow"><stop stop-color="#38d8d0" stop-opacity=".42"/><stop offset="1" stop-color="#38d8d0" stop-opacity="0"/></radialGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="18" stdDeviation="25" flood-color="#000" flood-opacity=".28"/></filter>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <circle cx="995" cy="126" r="250" fill="url(#glow)" opacity=".42"/>
+  <circle cx="1078" cy="592" r="290" fill="none" stroke="#fff" stroke-opacity=".06"/>
+  <circle cx="1078" cy="592" r="220" fill="none" stroke="#fff" stroke-opacity=".05"/>
+  <g transform="translate(700 78)" filter="url(#shadow)">
+    <circle cx="215" cy="245" r="180" fill="none" stroke="#fff" stroke-opacity=".18" stroke-dasharray="5 9"/>
+    <circle cx="215" cy="245" r="94" fill="#0b3045" stroke="#38d8d0" stroke-opacity=".75"/>
+    <text x="215" y="238" text-anchor="middle" fill="#fff" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="24" font-weight="700">金融代理权</text>
+    <text x="215" y="268" text-anchor="middle" fill="#9fb5c1" font-family="Arial,sans-serif" font-size="12" letter-spacing="2">TRUSTED AGENCY</text>
+    <g font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="14" font-weight="700" text-anchor="middle">
+      <g transform="translate(82 87)"><rect width="108" height="68" rx="19" fill="#fff" fill-opacity=".08" stroke="#38d8d0" stroke-opacity=".38"/><text x="54" y="29" fill="#38d8d0">个人财富</text><text x="54" y="50" fill="#c6d4dc">智能体</text></g>
+      <g transform="translate(270 87)"><rect width="108" height="68" rx="19" fill="#fff" fill-opacity=".08" stroke="#e8b85c" stroke-opacity=".42"/><text x="54" y="29" fill="#e8b85c">生态金融</text><text x="54" y="50" fill="#c6d4dc">能力层</text></g>
+      <g transform="translate(24 280)"><rect width="108" height="68" rx="19" fill="#fff" fill-opacity=".08" stroke="#9a8ee3" stroke-opacity=".45"/><text x="54" y="29" fill="#ada4ef">个人金融</text><text x="54" y="50" fill="#c6d4dc">上下文</text></g>
+      <g transform="translate(325 280)"><rect width="108" height="68" rx="19" fill="#fff" fill-opacity=".08" stroke="#74b5ed" stroke-opacity=".45"/><text x="54" y="29" fill="#86c5f6">持牌行动</text><text x="54" y="50" fill="#c6d4dc">与责任</text></g>
+      <g transform="translate(158 408)"><rect width="118" height="68" rx="19" fill="#fff" fill-opacity=".08" stroke="#ef8d81" stroke-opacity=".45"/><text x="59" y="29" fill="#f29b90">权限证据</text><text x="59" y="50" fill="#c6d4dc">审计回退</text></g>
+    </g>
+  </g>
+  <g transform="translate(72 75)">
+    <text fill="#38d8d0" font-family="Arial,sans-serif" font-size="14" font-weight="700" letter-spacing="3">EXECUTIVE PRE-READ · 2026.10.10</text>
+    <text y="95" fill="#fff" font-family="Songti SC,STSong,serif" font-size="60" font-weight="700">Personal Agent 变局下</text>
+    <text y="166" fill="#fff" font-family="Songti SC,STSong,serif" font-size="60" font-weight="700">盈米如何应对</text>
+    <rect y="216" width="478" height="4" rx="2" fill="#e8b85c"/>
+    <text y="279" fill="#f2d797" font-family="Songti SC,STSong,serif" font-size="31" font-weight="600">不要争入口，要成为金融行动层</text>
+    <text y="337" fill="#aebfca" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="18">双入口 · 一个底座 · 四道闸</text>
+    <g transform="translate(0 402)" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="15">
+      <g><circle cx="8" cy="8" r="5" fill="#38d8d0"/><text x="25" y="14" fill="#c4d1d8">且慢个人财富智能体</text></g>
+      <g transform="translate(0 42)"><circle cx="8" cy="8" r="5" fill="#38d8d0"/><text x="25" y="14" fill="#c4d1d8">盈米可信金融能力层</text></g>
+      <g transform="translate(0 84)"><circle cx="8" cy="8" r="5" fill="#e8b85c"/><text x="25" y="14" fill="#c4d1d8">90 天打穿两条真实任务闭环</text></g>
+    </g>
+  </g>
+  <text x="72" y="626" fill="#738b9b" font-family="Arial,sans-serif" font-size="13" letter-spacing="2">CLAIR · YINGMI PERSONAL AGENT STRATEGY</text>
+</svg>
