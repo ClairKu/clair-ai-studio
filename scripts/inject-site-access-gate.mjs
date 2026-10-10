@@ -7,7 +7,7 @@ const outputRoot = resolve(projectRoot, process.argv[2] || "docs");
 const gateAsset = join(outputRoot, "access-gate.js");
 const accessConfigAsset = join(outputRoot, "report-access.json");
 const marker = "data-clair-access-gate";
-const gateRevision = "2026-10-10-selective-v4";
+const gateRevision = "2026-10-10-live-state-v5";
 
 if (!existsSync(gateAsset)) throw new Error(`Missing access gate asset: ${gateAsset}`);
 if (!existsSync(accessConfigAsset)) throw new Error(`Missing report access config: ${accessConfigAsset}`);
@@ -63,8 +63,8 @@ const encryptedReportShell = ({ html, gateScript, outputPath }) => {
     const credentialKey="clair-ai-studio-report-credential-v1";
     const reportSessionKey="clair-ai-studio-report-access-v4";
     const reportSessionValue="verified-report-2026-10-10";
-    const workspaceSessionKey="clair-ai-studio-access-v3";
-    const workspaceSessionValue="verified-2026-10-09";
+    const workspaceSessionKey="clair-ai-studio-access-v4";
+    const workspaceSessionValue="verified-2026-10-10-live-state";
     const legacySessionKey=${JSON.stringify(legacySessionKey)};
     const bridgedCredentialKey="__clairStudioReportCredential";
     const readSession=key=>{try{return sessionStorage.getItem(key)||""}catch{return ""}};

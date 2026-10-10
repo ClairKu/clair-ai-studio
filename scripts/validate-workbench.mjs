@@ -232,9 +232,10 @@ const requiredSignals = [
   [appSource, 'data-action="toggle-report-access"', "成果卡片缺少密码锁快捷开关"],
   [appSource, "UI_ICONS.lock", "成果卡片缺少上锁状态图标"],
   [appSource, "UI_ICONS.unlock", "成果卡片缺少公开状态图标"],
-  [reportAccessSource, '"public/report-access.json", "docs/report-access.json"', "成果访问设置未同步源配置与生产配置"],
+  [reportAccessSource, '"report-access"', "成果访问设置未连接在线状态服务"],
+  [reportAccessSource, "ADMIN_TOKEN_KEY", "成果访问设置缺少短期工作台授权"],
   [reportAccessSource, "immutableLockedEntries", "高敏加密成果缺少固定保护"],
-  [appSource, 'WORKSPACE_ACCESS_SESSION_KEY = "clair-ai-studio-access-v3"', "新页面打开未携带工作台会话通行证"],
+  [appSource, 'WORKSPACE_ACCESS_SESSION_KEY = "clair-ai-studio-access-v4"', "新页面打开未携带工作台会话通行证"],
   [appSource, '"clair-ai-studio-report-credential-v1"', "新页面打开未携带旧加密报告通行证"],
   [appSource, 'REPORT_ACCESS_MESSAGE_TYPE = "clair-report-access"', "工作台内嵌阅读未桥接旧加密报告通行证"],
   [appSource, 'REPORT_ACCESS_REQUEST_MESSAGE_TYPE = "clair-report-access-request"', "工作台内嵌阅读缺少沙箱握手请求"],
@@ -339,6 +340,17 @@ const requiredSignals = [
 
 for (const [source, signal, message] of requiredSignals) {
   if (!source.includes(signal)) fail(message);
+}
+
+for (const removedSignal of [
+  "api.github.com",
+  "report-access-connect",
+  "GitHub 发布令牌",
+  "github-token-not-password",
+]) {
+  if (reportAccessSource.includes(removedSignal) || appSource.includes(removedSignal)) {
+    fail(`成果密码开关仍依赖发布流程：${removedSignal}`);
+  }
 }
 
 const cardActionsSource = appSource.slice(

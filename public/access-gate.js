@@ -16,14 +16,16 @@
   const REPORT_ACCESS_REQUEST_MESSAGE_TYPE = "clair-report-access-request";
   const BRIDGED_REPORT_CREDENTIAL = "__clairStudioReportCredential";
   const REPORT_CREDENTIAL_SESSION_KEY = "clair-ai-studio-report-credential-v1";
+  const ADMIN_TOKEN_KEY = "clair-ai-studio-access-admin-token-v1";
+  const ADMIN_TOKEN_EXPIRES_KEY = "clair-ai-studio-access-admin-expires-v1";
   const LEGACY_ENCRYPTED_REPORT_SESSION_KEYS = [
     "clair-qianwen-report-unlock-v1",
     "clair-doubao-report-unlock-v1",
   ];
   const profiles = {
     workspace: {
-      sessionKey: "clair-ai-studio-access-v3",
-      sessionValue: "verified-2026-10-09",
+      sessionKey: "clair-ai-studio-access-v4",
+      sessionValue: "verified-2026-10-10-live-state",
       salt: "pSPWbcuWBb/A+MHgQ+J+Cg==",
       expectedHash: "RvAEQHpDP8wpmqGyQH1aO9zAJnQAjzfRUJ3mK+CsoCA=",
       brandLabel: "PRIVATE WORKSPACE",
@@ -60,6 +62,26 @@
       return window.sessionStorage.getItem(SESSION_KEY);
     } catch {
       return null;
+    }
+  };
+
+  const clearWorkspaceSession = () => {
+    try {
+      window.sessionStorage.removeItem(profiles.workspace.sessionKey);
+      window.sessionStorage.removeItem(ADMIN_TOKEN_KEY);
+      window.sessionStorage.removeItem(ADMIN_TOKEN_EXPIRES_KEY);
+    } catch {
+      // A fresh password check still protects this tab when storage is unavailable.
+    }
+  };
+
+  const hasValidAdminSession = () => {
+    try {
+      const token = window.sessionStorage.getItem(ADMIN_TOKEN_KEY) || "";
+      const expiresAt = Number(window.sessionStorage.getItem(ADMIN_TOKEN_EXPIRES_KEY) || "0");
+      return Boolean(token && expiresAt > Date.now());
+    } catch {
+      return false;
     }
   };
 
@@ -147,13 +169,13 @@
   // The isolated in-workbench reader cannot access the parent tab's storage, so
   // it receives an explicit token-bound handshake. A URL marker alone never
   // unlocks a direct/top-level visit.
-  if (readSession() === SESSION_VALUE) return;
-  if (requestedScope === "report" && hasWorkspacePass()) return;
-  const trustedWorkbenchOrigin = requestedScope === "report"
-    ? trustedWorkbenchParentOrigin()
-    : "";
-  if (trustedWorkbenchOrigin && gateScript?.dataset.clairEncryptedReport !== "true") return;
-  if (requestWorkbenchCredential()) return;
+  if (requestedScope === "report") {
+    if (readSession() === SESSION_VALUE) return;
+    if (hasWorkspacePass()) return;
+    const trustedWorkbenchOrigin = trustedWorkbenchParentOrigin();
+    if (trustedWorkbenchOrigin && gateScript?.dataset.clairEncryptedReport !== "true") return;
+    if (requestWorkbenchCredential()) return;
+  }
 
   document.documentElement.classList.add(ROOT_CLASS);
 
@@ -218,35 +240,57 @@
     }
   };
 
+  const loadAccessBootstrap = async () => {
+    if (!reportAccessConfig) throw new Error("missing_access_config");
+    const configUrl = new URL(reportAccessConfig, location.href);
+    configUrl.searchParams.set("v", Date.now().toString(36));
+    const response = await fetch(configUrl, { cache: "no-store" });
+    if (!response.ok) throw new Error("access_config_unavailable");
+    return response.json();
+  };
+
   const reportRequiresPassword = async () => {
-    // The policy is loaded from the same Pages origin on every direct visit.
-    // Missing or unreadable policy fails closed so a temporary deployment or
-    // cache problem cannot accidentally expose a protected result.
+    // Direct visitors read the live policy service, not a Pages deployment.
+    // Missing or unreadable state fails closed so an outage cannot expose a
+    // protected result.
     if (!requestedAccessEntry || !reportAccessConfig) return true;
     try {
-      const configUrl = new URL(reportAccessConfig, location.href);
-      configUrl.searchParams.set("v", Date.now().toString(36));
-      const response = await fetch(configUrl, { cache: "no-store" });
+      const bootstrap = await loadAccessBootstrap();
+      if (!bootstrap.stateEndpoint) return true;
+      const stateUrl = new URL(`${String(bootstrap.stateEndpoint).replace(/\/+$/, "")}/report-access`);
+      stateUrl.searchParams.set("entry", requestedAccessEntry);
+      stateUrl.searchParams.set("v", Date.now().toString(36));
+      const response = await fetch(stateUrl, { cache: "no-store" });
       if (!response.ok) return true;
-      const config = await response.json();
-      const locked = new Set(Array.isArray(config.lockedEntries) ? config.lockedEntries : []);
-      const unlocked = new Set(Array.isArray(config.unlockedEntries) ? config.unlockedEntries : []);
-      const immutable = new Set(Array.isArray(config.immutableLockedEntries)
-        ? config.immutableLockedEntries
-        : []);
-      if (immutable.has(requestedAccessEntry)) return true;
-      if (unlocked.has(requestedAccessEntry)) return false;
-      return locked.has(requestedAccessEntry) || Boolean(config.defaultLocked);
+      const payload = await response.json();
+      return payload?.status?.locked !== false;
     } catch {
       return true;
     }
   };
 
+  const exchangeWorkspaceAdminSession = async (password) => {
+    const bootstrap = await loadAccessBootstrap();
+    if (!bootstrap.stateEndpoint) throw new Error("access_state_unavailable");
+    const response = await fetch(`${String(bootstrap.stateEndpoint).replace(/\/+$/, "")}/session`, {
+      method: "POST",
+      headers: { "X-Studio-Passcode": password },
+    });
+    const payload = await response.json().catch(() => ({}));
+    if (!response.ok || !payload?.token || !payload?.expiresAt) {
+      throw new Error(payload?.message || "access_state_unavailable");
+    }
+    window.sessionStorage.setItem(ADMIN_TOKEN_KEY, payload.token);
+    window.sessionStorage.setItem(ADMIN_TOKEN_EXPIRES_KEY, String(payload.expiresAt));
+  };
+
   const mountGate = () => {
-    if (readSession() === SESSION_VALUE) {
+    if (readSession() === SESSION_VALUE
+      && (requestedScope === "report" || hasValidAdminSession())) {
       unlock();
       return;
     }
+    if (requestedScope === "workspace" && readSession() === SESSION_VALUE) clearWorkspaceSession();
     if (document.getElementById(HOST_ID)) return;
 
     const host = document.createElement("div");
@@ -361,7 +405,18 @@
       try {
         if (await verifyPassword(password)) {
           input.value = "";
-          status.textContent = "验证成功，正在进入…";
+          status.textContent = requestedScope === "workspace"
+            ? "验证成功，正在连接访问设置…"
+            : "验证成功，正在进入…";
+          if (requestedScope === "workspace") {
+            try {
+              await exchangeWorkspaceAdminSession(password);
+            } catch {
+              // Never take the whole workspace down with the optional state
+              // service. The lock button will explain if its session is absent.
+              clearWorkspaceSession();
+            }
+          }
           unlock(password);
           return;
         }
@@ -399,6 +454,13 @@
   };
 
   const start = async () => {
+    if (requestedScope === "workspace" && readSession() === SESSION_VALUE) {
+      if (hasValidAdminSession()) {
+        unlock("", { persist: false });
+        return;
+      }
+      clearWorkspaceSession();
+    }
     if (requestedScope === "report" && !(await reportRequiresPassword())) {
       unlock("", { persist: false });
       return;

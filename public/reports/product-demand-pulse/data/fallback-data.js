@@ -3,9 +3,9 @@ window.DEMAND_PULSE_DATA = {
   "meta": {
     "contract_version": "gitlab-mr-v1",
     "source_of_truth": "GitLab merge requests",
-    "generated_at": "2026-10-09T05:10:05.886Z",
-    "cutoff": "2026-10-09T05:10:05.886Z",
-    "last_change_at": "2026-10-09T05:10:05.886Z",
+    "generated_at": "2026-10-10T01:10:05.882Z",
+    "cutoff": "2026-10-10T01:10:05.882Z",
+    "last_change_at": "2026-10-10T01:10:05.882Z",
     "stale_after_minutes": 180,
     "headline": "8 个已提交，5 个已上线，4 位 PM 完成端到端交付。",
     "window_start": "2026-07-01T00:00:00+08:00",

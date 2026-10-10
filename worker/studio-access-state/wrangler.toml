@@ -1,0 +1,14 @@
+name = "studio-access-state"
+main = "src/index.js"
+compatibility_date = "2026-10-10"
+workers_dev = true
+
+[[kv_namespaces]]
+binding = "STUDIO_ACCESS"
+id = "b93940a89f0f435f97d54d465add09f2"
+
+[vars]
+ALLOWED_ORIGINS = "https://clairku.github.io,http://127.0.0.1:4173,http://localhost:4173"
+
+# 管理口令只保存为 Cloudflare secret，不进入源码：
+#   wrangler secret put STUDIO_ADMIN_PASSCODE

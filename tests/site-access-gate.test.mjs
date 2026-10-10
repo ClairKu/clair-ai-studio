@@ -46,7 +46,7 @@ test("uses separate derived verifiers for workspace access and report password 2
   assert.match(source, /PBKDF2/);
   assert.match(source, /SHA-256/);
   assert.match(source, /sessionStorage/);
-  assert.match(source, /clair-ai-studio-access-v3/);
+  assert.match(source, /clair-ai-studio-access-v4/);
   assert.match(source, /clair-ai-studio-report-access-v4/);
   assert.doesNotMatch(source, /password\s*[!=]==?\s*["'][^"']+["']/i);
   assert.equal(await derivesExpectedHash(
@@ -76,9 +76,10 @@ test("shared gate submits reliably: trims input, guards re-entry, keeps the fiel
   assert.match(source, /正在验证，请稍候/);
 });
 
-test("direct report access follows the central selective policy and fails closed", () => {
+test("direct report access follows the live selective policy and fails closed", () => {
   const source = readFileSync(gatePath, "utf8");
-  assert.equal(accessConfig.version, 2);
+  assert.equal(accessConfig.version, 3);
+  assert.equal(accessConfig.stateEndpoint, "https://studio-access-state.pain-off-relay.workers.dev/v1");
   assert.equal(accessConfig.defaultLocked, true);
   assert.deepEqual(accessConfig.lockedEntries, []);
   assert.deepEqual(accessConfig.unlockedEntries, [
@@ -89,13 +90,13 @@ test("direct report access follows the central selective policy and fails closed
   assert.match(source, /const hasWorkspacePass = \(\) =>/);
   assert.match(source, /profiles\.workspace\.sessionKey/);
   assert.match(source, /profiles\.workspace\.sessionValue/);
-  assert.match(source, /requestedScope === "report" && hasWorkspacePass\(\)/);
+  assert.match(source, /if \(requestedScope === "report"\) \{/);
+  assert.match(source, /if \(hasWorkspacePass\(\)\) return/);
   assert.match(source, /document\.documentElement\.classList\.add\(ROOT_CLASS\)/);
   assert.match(source, /reportRequiresPassword/);
-  assert.match(source, /lockedEntries/);
-  assert.match(source, /unlockedEntries/);
-  assert.match(source, /immutableLockedEntries/);
-  assert.match(source, /new URL\("\.\/report-access\.json", gateScript\.src\)/);
+  assert.match(source, /bootstrap\.stateEndpoint/);
+  assert.match(source, /\/report-access/);
+  assert.match(source, /payload\?\.status\?\.locked !== false/);
   assert.match(source, /if \(!requestedAccessEntry \|\| !reportAccessConfig\) return true/);
   assert.match(source, /unlock\("", \{ persist: false \}\)/);
 });
@@ -109,6 +110,16 @@ test("a successful workspace unlock seeds every encrypted-report session without
   assert.match(source, /dataset\.clairEncryptedReport/);
   assert.match(source, /window\.location\.reload\(\)/);
   assert.doesNotMatch(source, /20260509/);
+});
+
+test("workspace login exchanges its password for a short-lived live-state session", () => {
+  const source = readFileSync(gatePath, "utf8");
+  assert.match(source, /const exchangeWorkspaceAdminSession = async \(password\) =>/);
+  assert.match(source, /"X-Studio-Passcode": password/);
+  assert.match(source, /clair-ai-studio-access-admin-token-v1/);
+  assert.match(source, /clair-ai-studio-access-admin-expires-v1/);
+  assert.match(source, /hasValidAdminSession\(\)/);
+  assert.doesNotMatch(source, /sessionStorage\.setItem\([^\n]+password/);
 });
 
 test("isolated workbench readers request an in-memory credential through a token-bound parent handshake", () => {

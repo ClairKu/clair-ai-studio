@@ -55,7 +55,6 @@ import {
 import {
   loadReportAccessConfig,
   publishReportAccessSetting,
-  reportAccessConnectionState,
   reportAccessStatus,
 } from "./report-access-settings.js";
 
@@ -71,8 +70,8 @@ const DATA_VERSION = 97;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
-const WORKSPACE_ACCESS_SESSION_KEY = "clair-ai-studio-access-v3";
-const WORKSPACE_ACCESS_SESSION_VALUE = "verified-2026-10-09";
+const WORKSPACE_ACCESS_SESSION_KEY = "clair-ai-studio-access-v4";
+const WORKSPACE_ACCESS_SESSION_VALUE = "verified-2026-10-10-live-state";
 const REPORT_ACCESS_SESSION_KEYS = [
   "clair-ai-studio-report-access-v4",
   "clair-ai-studio-report-credential-v1",
@@ -81,7 +80,7 @@ const REPORT_ACCESS_SESSION_KEYS = [
 ];
 const REPORT_ACCESS_MESSAGE_TYPE = "clair-report-access";
 const REPORT_ACCESS_REQUEST_MESSAGE_TYPE = "clair-report-access-request";
-const REPORT_ACCESS_REVISION = "v4-2026-10-10";
+const REPORT_ACCESS_REVISION = "v5-2026-10-10-live-state";
 const WORKBENCH_EMBED_PARAMETER = "clair-workbench-reader";
 
 const WORK_TYPES = [
@@ -5857,7 +5856,7 @@ function cardMarkup(report, archivedView = false) {
     </article>`;
 }
 
-async function updateReportAccess(report, locked, { token = "", trigger = null } = {}) {
+async function updateReportAccess(report, locked, { trigger = null } = {}) {
   const button = trigger?.closest?.('[data-action="toggle-report-access"]') || null;
   if (button) {
     button.disabled = true;
@@ -5865,7 +5864,7 @@ async function updateReportAccess(report, locked, { token = "", trigger = null }
     button.setAttribute("aria-busy", "true");
   }
   try {
-    return await publishReportAccessSetting(report, { locked, token });
+    return await publishReportAccessSetting(report, { locked });
   } finally {
     if (button?.isConnected) {
       button.disabled = false;
@@ -5878,47 +5877,14 @@ async function updateReportAccess(report, locked, { token = "", trigger = null }
 function reportAccessToast(locked) {
   showToast(
     locked
-      ? "已开启密码保护 · 直接访问需输入 2026"
-      : "已取消密码保护 · 直接访问无需密码",
+      ? "已开启密码保护 · 生产环境即时生效"
+      : "已取消密码保护 · 生产环境即时生效",
     { duration: 4600 },
   );
 }
 
 function modalMarkup() {
   if (!modal) return "";
-  if (modal.type === "report-access-connect") {
-    const report = state.reports.find((item) => item.id === modal.reportId);
-    if (!report) return "";
-    const nextLabel = modal.locked ? "开启密码保护" : "取消密码保护";
-    return `
-      <div class="dialog-backdrop">
-        <form class="dialog compact-dialog report-access-connect-dialog" id="report-access-connect-form"
-          role="dialog" aria-modal="true" aria-labelledby="report-access-connect-title" tabindex="-1">
-          <div class="dialog-title-row">
-            <div>
-              <span class="section-kicker">PUBLISH CONNECTION</span>
-              <h2 id="report-access-connect-title">首次连接发布权限</h2>
-            </div>
-            <button type="button" class="studio-icon-button dialog-close-button" data-action="close-modal" title="关闭" aria-label="关闭">${UI_ICONS.close}</button>
-          </div>
-          <p class="report-access-connect-copy">
-            要让“<strong>${escapeHtml(report.title)}</strong>”的设置对所有直接访问者生效，需要把这次开关同步到 GitHub Pages。
-            连接一次后，本次打开工作台期间再点锁图标即可快速切换。
-          </p>
-          <label class="report-access-token-field">GitHub 发布令牌
-            <input name="github-token-not-password" type="password" value="" autocomplete="off"
-              autocapitalize="off" spellcheck="false" data-form-type="other" data-1p-ignore
-              placeholder="github_pat_…" required autofocus />
-            <small>令牌只留在当前页面内存；刷新或关闭后自动清除。权限只需此仓库的 Contents 读写。</small>
-          </label>
-          <p class="report-access-connect-status" role="status" aria-live="polite"></p>
-          <div class="dialog-actions">
-            <button type="button" class="quiet-button" data-action="close-modal">取消</button>
-            <button type="submit" class="primary-button">连接并${nextLabel}</button>
-          </div>
-        </form>
-      </div>`;
-  }
   if (modal.type === "clear-archive") {
     const archivedCount = state.reports.filter((report) => report.archived).length;
     if (!archivedCount) return "";
@@ -7132,20 +7098,12 @@ function bindApp() {
             return;
           }
           const locked = !accessSetting.locked;
-          if (!reportAccessConnectionState().hasToken) {
-            openAppModal(
-              { type: "report-access-connect", reportId: report.id, locked },
-              captureViewportSnapshot(actionCard || reportElement(itemId)),
-              event.currentTarget,
-            );
-            return;
-          }
           const snapshot = captureViewportSnapshot(actionCard || reportElement(itemId));
           await updateReportAccess(report, locked, { trigger: event.currentTarget });
           renderWorkbenchWithViewportSnapshot(snapshot);
           reportAccessToast(locked);
         } catch (error) {
-          showToast(error?.message || "访问设置发布失败", { duration: 5200 });
+          showToast(error?.message || "访问设置切换失败", { duration: 5200 });
         }
       } else if (action === "back") {
         readerId = "";
@@ -7707,34 +7665,6 @@ function bindApp() {
     const message = modal.mode === "edit" ? "工作主题已更新" : "工作主题已创建，可直接拖入报告";
     closeAppModal();
     showToast(message);
-  });
-
-  const reportAccessConnectForm = document.getElementById("report-access-connect-form");
-  reportAccessConnectForm?.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    const report = state.reports.find((item) => item.id === modal?.reportId);
-    if (!report) return;
-    const locked = Boolean(modal?.locked);
-    const data = new FormData(reportAccessConnectForm);
-    const token = String(data.get("github-token-not-password") || "").trim();
-    const controls = reportAccessConnectForm.querySelectorAll("input, button");
-    const submit = reportAccessConnectForm.querySelector('button[type="submit"]');
-    const status = reportAccessConnectForm.querySelector(".report-access-connect-status");
-    controls.forEach((control) => { control.disabled = true; });
-    submit.textContent = "正在同步生产设置…";
-    status.removeAttribute("data-state");
-    status.textContent = "正在连接并发布，请稍候…";
-    try {
-      await updateReportAccess(report, locked, { token });
-      closeAppModal();
-      reportAccessToast(locked);
-    } catch (error) {
-      status.dataset.state = "error";
-      status.textContent = error?.message || "访问设置发布失败";
-      controls.forEach((control) => { control.disabled = false; });
-      submit.textContent = `连接并${locked ? "开启密码保护" : "取消密码保护"}`;
-      reportAccessConnectForm.elements["github-token-not-password"]?.focus();
-    }
   });
 
   const reportForm = document.getElementById("report-form");
