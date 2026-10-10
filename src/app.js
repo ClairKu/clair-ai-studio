@@ -215,6 +215,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "personal-agent-strategy-2026-10-10",
+      groupId: "reporting",
+      title: "Personal Agent 趋势与公司应对策略｜高管决策版",
+      url: "https://clairku.github.io/clair-ai-studio/reports/personal-agent-strategy-2026-10-10/",
+      preview: "personal-agent-strategy-2026-10-10.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-10-10T09:34:17+08:00",
+      source: "2026-10-10 高管会议通知截图 + OpenAI、Google、Alibaba、Tencent 官方产品资料 + 公告〔2026〕第9号与 AI 生成合成内容标识监管原文｜结论先行梳理行业拐点、盈米战略站位、一核两面三闭环产品架构、B2C/B2A/B2B2C 业务路径、分级自治边界、三个 90 天试点、RACI 与董事会待决事项｜公司 L3 正式定义、业务基线、资源和收益均明确标为待内部确认，不将策略推演包装成既有事实",
+      access: "production",
+      workType: "reporting",
+      tags: ["Personal Agent", "L3", "高管决策", "战略布局", "金融 Agent", "顾问 Agent", "且慢", "AI 小顾", "OAP", "MCP", "合规治理", "经营汇报", "HTML", "生产"],
+    },
+    {
       id: "qieman-ceo-battle-map-2026-10-09",
       groupId: "reporting",
       title: "且慢下一仗｜CEO 决策地图",
@@ -3077,6 +3091,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "personal-agent-strategy-2026-10-10": "reporting",
   "qieman-traffic-conversion-marketing-plan-2026": "product-planning",
   "oap-success-retrospective-2026-10-09": "data-analysis",
   "qieman-insurance-zone-compliance-brief-2026-10-09": "governance-review",
@@ -3187,6 +3202,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "personal-agent-strategy-2026-10-10": "reporting",
   "qieman-ceo-battle-map-2026-10-09": "reporting",
   "qieman-platform-organization-diagnosis-2026-10-09": "growth-insights",
   "qieman-traffic-conversion-marketing-plan-2026": "growth-insights",

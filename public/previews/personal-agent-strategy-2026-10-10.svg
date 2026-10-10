@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Personal Agent 趋势与公司应对策略</title>
+  <desc id="desc">高管决策报告封面：通用 Agent 抢入口，盈米守住金融身份、专业判断、合规责任与资金执行。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#071827"/><stop offset="1" stop-color="#103b4d"/></linearGradient>
+    <radialGradient id="glow"><stop stop-color="#53d6d1" stop-opacity=".34"/><stop offset="1" stop-color="#53d6d1" stop-opacity="0"/></radialGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="18" stdDeviation="26" flood-color="#000" flood-opacity=".22"/></filter>
+  </defs>
+  <rect width="1200" height="720" rx="36" fill="url(#bg)"/>
+  <circle cx="1010" cy="95" r="320" fill="url(#glow)"/>
+  <circle cx="1080" cy="640" r="250" fill="none" stroke="#fff" stroke-opacity=".06" stroke-width="70"/>
+  <g transform="translate(74 64)"><rect width="46" height="46" rx="13" fill="none" stroke="#53d6d1" stroke-opacity=".7"/><text x="23" y="32" text-anchor="middle" fill="#53d6d1" font-family="Georgia" font-size="25">C</text><text x="62" y="20" fill="#fff" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="15" font-weight="800" letter-spacing="2">CLAIR · EXECUTIVE BRIEF</text><text x="62" y="42" fill="#8fa7b5" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="12">2026.10.10 · MANAGEMENT DECISION</text></g>
+  <text x="74" y="205" fill="#fff" font-family="Georgia,'Songti SC',serif" font-size="62" font-weight="600">Personal Agent</text>
+  <text x="74" y="278" fill="#fff" font-family="Georgia,'Songti SC',serif" font-size="54" font-weight="600">趋势与公司应对策略</text>
+  <text x="74" y="350" fill="#f4cc7d" font-family="Georgia,'Songti SC',serif" font-size="34" font-weight="600">入口会被重排，信任与执行不会。</text>
+  <text x="74" y="402" fill="#bdccd5" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="17">不是再做一个万能助手，而是成为所有 Personal Agent 都绕不开的</text>
+  <text x="74" y="432" fill="#bdccd5" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif" font-size="17">受监管个人金融任务操作系统。</text>
+  <g filter="url(#shadow)" transform="translate(74 498)">
+    <rect width="1052" height="144" rx="24" fill="#fff" fill-opacity=".075" stroke="#fff" stroke-opacity=".13"/>
+    <g transform="translate(28 27)"><text fill="#53d6d1" font-size="11" font-weight="800" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif">STRATEGY</text><text y="31" fill="#fff" font-size="20" font-weight="700" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif">一核两面三闭环</text><text y="58" fill="#9fb1bc" font-size="12" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif">金融智能核心 · 客户与顾问 · 感知/授权/执行</text></g>
+    <line x1="354" y1="25" x2="354" y2="119" stroke="#fff" stroke-opacity=".12"/>
+    <g transform="translate(387 27)"><text fill="#53d6d1" font-size="11" font-weight="800" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif">PILOTS</text><text y="31" fill="#fff" font-size="20" font-weight="700" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif">三个 90 天试点</text><text y="58" fill="#9fb1bc" font-size="12" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif">顾问任务 · 目标现金流 · 持仓风险解释</text></g>
+    <line x1="708" y1="25" x2="708" y2="119" stroke="#fff" stroke-opacity=".12"/>
+    <g transform="translate(741 27)"><text fill="#53d6d1" font-size="11" font-weight="800" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif">BOUNDARY</text><text y="31" fill="#fff" font-size="20" font-weight="700" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif">外部发现，自营闭环</text><text y="58" fill="#9fb1bc" font-size="12" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif">高风险动作不越过持牌、适当性与人工责任</text></g>
+  </g>
+</svg>

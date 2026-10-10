@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "personal-agent-strategy-2026-10-10",
     "qieman-ceo-battle-map-2026-10-09",
     "qieman-platform-organization-diagnosis-2026-10-09",
     "qieman-traffic-conversion-marketing-plan-2026",
