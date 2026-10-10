@@ -5,8 +5,8 @@
   "files": [
     {
       "path": "app.js",
-      "bytes": 40935,
-      "sha256": "cd8984478b01212585671aed837c711d326ba6e3ae48e56e3886f0fed571dbe9"
+      "bytes": 48197,
+      "sha256": "c8dab855fbd9bdaaa7932c8c52cdf4da7fbde6905abd7f83eec45a5598c36e7f"
     },
     {
       "path": "data/latest.json",
@@ -35,8 +35,8 @@
     },
     {
       "path": "styles.css",
-      "bytes": 20703,
-      "sha256": "5cb8a9745849b77247b33ba45bb05b0240b82df8f4d8b2138b9747322daf0746"
+      "bytes": 29319,
+      "sha256": "5d7da52284ac72124e70650b68e8866e93a11475b29ce1ce9a57d904b3d5e201"
     },
     {
       "path": "vendor/jszip.min.js",

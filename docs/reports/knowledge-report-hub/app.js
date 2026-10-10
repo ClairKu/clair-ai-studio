@@ -209,7 +209,7 @@ function navMarkup() {
   const rows = [
     ["overview", "今日精选", Math.min(state.cards.length, 12)],
     ["reports", "全部报告", reports.length],
-    ["cards", "关键卡片", state.cards.filter((card) => !reportById(card.reportId)?.archived).length],
+    ["cards", "信息图卡", state.cards.filter((card) => !reportById(card.reportId)?.archived).length],
     ["relations", "关联图谱", state.cards.filter((card) => card.relatedCardIds?.length).length],
     ["archive", "已归档", state.reports.filter((report) => report.archived).length],
   ].map(([view, label, count]) => `<button class="nav-button ${ui.view === view && ui.category === "all" ? "is-active" : ""}" data-view="${view}">
@@ -250,8 +250,8 @@ function heroMarkup() {
   return `<section class="hero">
     <div class="hero-intro">
       <p class="eyebrow">Clair’s Knowledge Studio · Evidence First</p>
-      <h1>把整份报告，变成能回到证据的关键卡。</h1>
-      <p class="hero-lead">导入材料后，不只做摘要：每个数字、判断、风险与行动都保留原文片段、段落位置、完整正文和关联来源，方便搜索、比较与再利用。</p>
+      <h1>把整份报告，变成一眼看懂的信息图卡。</h1>
+      <p class="hero-lead">自动把数字、比较、风险与行动组合成可阅读的图表卡；每个图表项仍能回到原文片段、段落位置、完整正文与关联来源。</p>
       <div class="hero-meta"><span class="meta-pill is-live">每日自动同步 · ${escapeHtml(lastSync)}</span><span class="meta-pill">浏览器私密保存</span><span class="meta-pill">PDF / Office / URL / 字幕</span></div>
     </div>
     <form class="ingest-panel" id="ingest-form">
@@ -272,7 +272,7 @@ function summaryMarkup() {
   const newest = reports.map((report) => new Date(report.createdAt).getTime()).filter(Number.isFinite).sort((a, b) => b - a)[0];
   return `<section class="summary-grid" aria-label="知识库摘要">
     <article class="stat-card is-teal"><strong>${reports.length}</strong><small>份可检索报告</small></article>
-    <article class="stat-card is-gold"><strong>${activeCards.length}</strong><small>张证据卡片</small></article>
+    <article class="stat-card is-gold"><strong>${activeCards.length}</strong><small>个可溯源知识点</small></article>
     <article class="stat-card is-coral"><strong>${linked}</strong><small>张已有知识关联</small></article>
     <article class="stat-card is-blue"><strong>${newest ? formatDate(newest).replace(/\d{4}年/, "") : "—"}</strong><small>最近一份报告</small></article>
   </section>`;
@@ -291,6 +291,130 @@ function cardMarkup(card, index = 0) {
     <div class="evidence-strip"><p class="evidence-quote">“${escapeHtml(shortText(card.quote || card.summary, 115))}”</p><div class="evidence-meta"><span>${escapeHtml(card.anchor || "原文片段")}</span><span>${related ? `${related} 张关联卡` : "待建立关联"}</span></div>
       <div class="card-actions"><button class="chip-button" type="button" data-open-card="${escapeHtml(card.id)}">看证据</button><button class="chip-button" type="button" data-open-report="${escapeHtml(report.id)}">看全文</button>${related ? `<button class="chip-button" type="button" data-open-card="${escapeHtml(card.relatedCardIds[0])}">关联卡</button>` : ""}</div>
     </div>
+  </article>`;
+}
+
+function parsedMetric(card) {
+  const raw = String(card.metric || "").trim();
+  const match = raw.replaceAll(",", "").match(/-?\d+(?:\.\d+)?/);
+  if (!match) return null;
+  const value = Number(match[0]);
+  if (!Number.isFinite(value)) return null;
+  return { raw, value, isPercent: /%|％/.test(raw) };
+}
+
+function sourceLabel(report) {
+  const sourceUrl = safeUrl(report.url);
+  if (sourceUrl) {
+    try {
+      return new URL(sourceUrl).hostname.replace(/^www\./, "");
+    } catch {
+      return report.source || "来源报告";
+    }
+  }
+  return report.source || (report.fileName ? "本机档案" : "手动导入");
+}
+
+function typeTone(type) {
+  return ({ metric: "teal", risk: "coral", opportunity: "gold", action: "gold", insight: "blue" })[type] || "teal";
+}
+
+function typeSymbol(type) {
+  return ({ metric: "%", risk: "!", opportunity: "↗", action: "→", insight: "◆" })[type] || "◆";
+}
+
+function visualBarRows(cards) {
+  return cards.slice(0, 5).map((card) => {
+    const metric = parsedMetric(card);
+    if (!metric?.isPercent) return "";
+    const width = Math.max(3, Math.min(100, Math.abs(metric.value)));
+    return `<button class="visual-bar-row" type="button" data-open-card="${escapeHtml(card.id)}">
+      <span class="visual-bar-label">${escapeHtml(shortText(card.title, 20))}</span>
+      <span class="visual-bar-track"><span class="visual-bar-fill tone-${typeTone(card.type)}" style="--bar-value:${width}%"></span></span>
+      <strong>${escapeHtml(metric.raw)}</strong>
+    </button>`;
+  }).filter(Boolean).join("");
+}
+
+function visualInsightRows(cards, limit = 4) {
+  return cards.slice(0, limit).map((card, index) => `<button class="visual-insight-row" type="button" data-open-card="${escapeHtml(card.id)}">
+    <span class="insight-rail tone-${typeTone(card.type)}"></span>
+    <span class="insight-copy"><strong>${escapeHtml(shortText(card.title, 28))}</strong><small>${escapeHtml(shortText(card.summary, 72))}</small></span>
+    ${card.metric ? `<span class="insight-metric">${escapeHtml(card.metric)}</span>` : `<span class="insight-index">0${index + 1}</span>`}
+  </button>`).join("");
+}
+
+function visualMetricTiles(cards, limit = 4) {
+  return cards.filter((card) => parsedMetric(card)).slice(0, limit).map((card) => `<button class="visual-metric-tile" type="button" data-open-card="${escapeHtml(card.id)}">
+    <strong>${escapeHtml(card.metric)}</strong><span>${escapeHtml(shortText(card.title, 24))}</span>
+  </button>`).join("");
+}
+
+function visualColumns(cards) {
+  return cards.slice(0, 4).map((card) => {
+    const metric = parsedMetric(card);
+    if (!metric?.isPercent) return "";
+    const height = Math.max(18, Math.min(100, Math.abs(metric.value)));
+    return `<button class="visual-column" type="button" data-open-card="${escapeHtml(card.id)}">
+      <span class="column-bar tone-${typeTone(card.type)}" style="--column-value:${height}%"><strong>${escapeHtml(metric.raw)}</strong></span>
+      <small>${escapeHtml(shortText(card.title, 18))}</small>
+    </button>`;
+  }).filter(Boolean).join("");
+}
+
+function visualCallout(card) {
+  if (!card) return "";
+  return `<button class="visual-callout tone-${typeTone(card.type)}" type="button" data-open-card="${escapeHtml(card.id)}">
+    <span class="callout-symbol">${typeSymbol(card.type)}</span>
+    <span><strong>${escapeHtml(card.title)}</strong><small>${escapeHtml(shortText(card.summary, 118))}</small></span>
+  </button>`;
+}
+
+function visualCardBody(cards, pattern) {
+  const metrics = cards.filter((card) => parsedMetric(card));
+  const percentages = metrics.filter((card) => parsedMetric(card)?.isPercent);
+  const narrative = cards.filter((card) => !percentages.includes(card));
+  if (pattern === "columns" && percentages.length >= 3) {
+    return `<div class="visual-columns">${visualColumns(percentages)}</div>${visualCallout(narrative[0])}`;
+  }
+  if (pattern === "dashboard" && metrics.length >= 2) {
+    const bars = visualBarRows(percentages);
+    return `<div class="visual-metric-strip">${visualMetricTiles(metrics, 5)}</div>${bars ? `<div class="visual-bars">${bars}</div>` : `<div class="visual-insight-list">${visualInsightRows(cards, 4)}</div>`}`;
+  }
+  if (percentages.length >= 2) {
+    return `<div class="visual-bars">${visualBarRows(percentages)}</div>${visualCallout(narrative[0])}`;
+  }
+  if (metrics.length >= 2) {
+    return `<div class="visual-metric-strip">${visualMetricTiles(metrics)}</div><div class="visual-insight-list">${visualInsightRows(narrative.length ? narrative : cards, 3)}</div>`;
+  }
+  if (metrics.length === 1) {
+    const lead = metrics[0];
+    return `<div class="visual-spotlight"><button type="button" data-open-card="${escapeHtml(lead.id)}"><strong>${escapeHtml(lead.metric)}</strong><span>${escapeHtml(shortText(lead.title, 36))}</span></button><p>${escapeHtml(shortText(lead.summary, 150))}</p></div><div class="visual-insight-list">${visualInsightRows(cards.filter((card) => card.id !== lead.id), 3)}</div>`;
+  }
+  return `${visualCallout(cards.find((card) => card.type === "risk" || card.type === "action") || cards[0])}<div class="visual-insight-list">${visualInsightRows(cards.slice(1), 3)}</div>`;
+}
+
+function visualCardGroups(cards, reports) {
+  const cardIds = new Set(cards.map((card) => card.id));
+  return reports.map((report) => ({
+    report,
+    cards: state.cards.filter((card) => card.reportId === report.id && cardIds.has(card.id)),
+  })).filter((group) => group.cards.length);
+}
+
+function visualKnowledgeCardMarkup(group, index = 0) {
+  const { report, cards } = group;
+  const percentages = cards.filter((card) => parsedMetric(card)?.isPercent).length;
+  const metrics = cards.filter((card) => parsedMetric(card)).length;
+  const wide = index % 5 === 4;
+  const pattern = wide ? "dashboard" : percentages >= 3 && index % 3 === 1 ? "columns" : metrics >= 2 ? "metrics" : "editorial";
+  const firstCard = cards[0];
+  const relatedCount = new Set(cards.flatMap((card) => card.relatedCardIds || [])).size;
+  const sourceUrl = safeUrl(report.url);
+  return `<article class="visual-knowledge-card ${wide ? "is-wide" : ""} pattern-${pattern}">
+    <header class="visual-card-head"><div><span class="visual-kicker">${escapeHtml(report.category || "知识图卡")}</span><h3>${escapeHtml(report.title)}</h3></div><div class="visual-source-meta"><span>${escapeHtml(sourceLabel(report))}</span><span>${formatDate(report.createdAt)}</span></div></header>
+    <div class="visual-card-body">${visualCardBody(cards, pattern)}</div>
+    <footer class="visual-card-foot"><p>来源：<button type="button" data-open-report="${escapeHtml(report.id)}">${escapeHtml(shortText(report.title, 42))}</button> · ${cards.length} 个证据点${relatedCount ? ` · ${relatedCount} 个关联` : ""}</p><div><button class="foot-action" type="button" data-open-card="${escapeHtml(firstCard.id)}">查看证据</button><button class="foot-action" type="button" data-open-report="${escapeHtml(report.id)}">全文</button>${sourceUrl ? `<a class="foot-action" href="${escapeHtml(sourceUrl)}" target="_blank" rel="noreferrer">原报告</a>` : ""}</div></footer>
   </article>`;
 }
 
@@ -337,16 +461,17 @@ function toolbarMarkup() {
 function contentMarkup() {
   const cards = visibleCards();
   const reports = visibleReports();
-  let title = "今日最新知识";
-  let subtitle = "最新报告与高信号关键卡会在这里自动更新";
+  const visualGroups = visualCardGroups(cards, reports);
+  let title = "今日知识图卡";
+  let subtitle = "每张卡直接呈现数字、比较与结论，所有元素都能回到证据";
   let body = "";
-  if (ui.view === "overview") body = `<section class="knowledge-grid">${cards.slice(0, 8).map(cardMarkup).join("") || emptyMarkup()}</section>`;
-  if (ui.view === "cards") { title = "关键卡片"; subtitle = "按数字、结论、风险、机会与行动过滤"; body = `<section class="knowledge-grid">${cards.map(cardMarkup).join("") || emptyMarkup()}</section>`; }
+  if (ui.view === "overview") body = `<section class="visual-card-grid">${visualGroups.slice(0, 5).map(visualKnowledgeCardMarkup).join("") || emptyMarkup()}</section>`;
+  if (ui.view === "cards") { title = "信息图卡片"; subtitle = "一份报告一张图卡，按数字、风险、机会与行动过滤"; body = `<section class="visual-card-grid">${visualGroups.map(visualKnowledgeCardMarkup).join("") || emptyMarkup()}</section>`; }
   if (ui.view === "reports") { title = "报告清单"; subtitle = "上传材料、线上报告与影片资料的统一目录"; body = `<section class="report-list">${reports.map(reportMarkup).join("") || emptyMarkup("还没有符合条件的报告")}</section>`; }
   if (ui.view === "archive") { title = "已归档"; subtitle = "可恢复的资料，不会从知识库永久消失"; body = `<section class="report-list">${reports.map(reportMarkup).join("") || emptyMarkup("归档区是空的")}</section>`; }
   if (ui.view === "relations") { title = "关联图谱"; subtitle = "从共同主题进入相关关键卡与报告"; body = relationsMarkup(); }
   return `<section class="content-head"><div><h2>${escapeHtml(ui.category === "all" ? title : ui.category)}</h2><p>${escapeHtml(subtitle)}</p></div>
-    <nav class="view-tabs" aria-label="视图切换">${[["overview","精选"],["reports","报告"],["cards","卡片"],["relations","关联"]].map(([view,label]) => `<button class="view-tab ${ui.view === view ? "is-active" : ""}" data-view="${view}">${label}</button>`).join("")}</nav></section>
+    <nav class="view-tabs" aria-label="视图切换">${[["overview","精选图卡"],["reports","报告"],["cards","全部图卡"],["relations","关联"]].map(([view,label]) => `<button class="view-tab ${ui.view === view ? "is-active" : ""}" data-view="${view}">${label}</button>`).join("")}</nav></section>
     ${ui.view !== "relations" ? toolbarMarkup() : ""}${body}`;
 }
 
