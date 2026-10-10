@@ -1,6 +1,6 @@
 {
   "schema": "clair-knowledge-hub-feed/v1",
-  "generatedAt": "2026-10-10T03:50:56.457Z",
+  "generatedAt": "2026-10-10T08:50:30.478Z",
   "source": "Clair’s Studio production catalog + curated authoritative AI industry reports",
   "reports": [
     {
@@ -355,6 +355,33 @@
       "extractionError": "",
       "fileName": "",
       "fileSize": 0
+    },
+    {
+      "id": "daily-gpt-finance-capability-landscape-2026-10-10",
+      "studioId": "gpt-finance-capability-landscape-2026-10-10",
+      "title": "GPT 在金融与财务场景的功能现况｜2026 深度分析",
+      "url": "https://clairku.github.io/clair-ai-studio/reports/gpt-finance-capability-landscape-2026-10-10/",
+      "body": "OpenAI 2026 年 ChatGPT for Financial Services、ChatGPT for Excel/Sheets、Responses API、Structured Outputs、Tools、Evals、企业隐私与 Morgan Stanley / Balyasny / BNY 生产案例 × Bank of England / FCA、EBA、FSB、PCAOB、FINRA、欧盟 AI Act 与中国《金融产品网络营销管理办法》《个人信息保护法》《人工智能生成合成内容标识办法》等一手监管材料｜从金融服务与企业财务双视角拆解 GPT 七层能力栈、10 类场景成熟度、金融与财务深度用例、规模化案例、失败模式、六条红线、目标架构与 90 天三试点路线｜核心判断：GPT 已是高水平金融知识与流程副驾驶，但生产可靠性来自可信数据、确定性计算、工具权限、人工责任与持续评测；对适当性、授信、会计政策、审计结论、重大估值和交易执行保留人类最终决定｜资料截至 2026-10-10，厂商基准、监管调查与本报告推断分层呈现",
+      "kind": "studio",
+      "category": "AI 与 Agent",
+      "tags": [
+        "GPT",
+        "金融AI",
+        "财务AI",
+        "ChatGPT for Financial Services",
+        "ChatGPT for Excel",
+        "投研",
+        "FP&A",
+        "财务分析"
+      ],
+      "source": "Clair’s Studio 每日同步",
+      "createdAt": "2026-10-10T17:35:00+08:00",
+      "updatedAt": "2026-10-10T17:35:00+08:00",
+      "extractionError": "",
+      "fileName": "",
+      "fileSize": 0,
+      "archived": false,
+      "relatedReportIds": []
     },
     {
       "id": "daily-personal-agent-yingmi-executive-strategy-2026-10-10",
@@ -755,33 +782,6 @@
       "source": "Clair’s Studio 每日同步",
       "createdAt": "2026-09-28T14:35:00+08:00",
       "updatedAt": "2026-09-28T14:35:00+08:00",
-      "extractionError": "",
-      "fileName": "",
-      "fileSize": 0,
-      "archived": false,
-      "relatedReportIds": []
-    },
-    {
-      "id": "daily-peng-signals-learning-station-2026-09-28",
-      "studioId": "peng-signals-learning-station-2026-09-28",
-      "title": "PENG SIGNALS｜买方投顾与财富科技学习站",
-      "url": "https://clairku.github.io/clair-ai-studio/reports/peng-signals-learning-station-2026-09-28/",
-      "body": "本机微信迁移目录可见资料盘点 × 官方原始来源恢复 × 中文精读与体系化提炼｜新增三栏导读：报告/资料时间线与主题标签、中文翻译和重点、原始出处同屏浏览｜276 个可见文件均已建立本地清单和 SHA-256；127 个文档/压缩包，89 份 PDF 共 1,412 页，19 个核心材料卡｜公开版只呈现原创摘要、统计结论与发布机构官方入口，不上传微信群截图、成员信息、内部会议、合同、客户/业务数据或限制分发原件｜群聊数据库未解密，精确讨论时间与逐字原文尚未冒充为完整记录",
-      "kind": "studio",
-      "category": "经营与组织",
-      "tags": [
-        "PENG",
-        "买方投顾",
-        "RIA",
-        "财富科技",
-        "AI",
-        "学习站",
-        "研究资料",
-        "知识治理"
-      ],
-      "source": "Clair’s Studio 每日同步",
-      "createdAt": "2026-09-28T11:35:00+08:00",
-      "updatedAt": "2026-09-28T11:35:00+08:00",
       "extractionError": "",
       "fileName": "",
       "fileSize": 0,
@@ -1841,6 +1841,72 @@
       "origin": "authority"
     },
     {
+      "id": "daily-card-d9d959b4cf",
+      "reportId": "daily-gpt-finance-capability-landscape-2026-10-10",
+      "type": "metric",
+      "label": "关键数据",
+      "title": "OpenAI 2026 年 ChatGPT for Financia…",
+      "summary": "OpenAI 2026 年 ChatGPT for Financial Services、ChatGPT for Excel/Sheets、Responses API、Structured Outputs、Tools、Evals、企业隐私与 Morgan Stanley / Balyasny / BNY 生产案例 × Bank of England / FCA、EBA、FSB、PCAOB、FINRA、欧盟 AI Act 与中国《金融产品网络营销管理办法》《个人信息保护法》《人工智能生成合成内容标识办法》等一手监管材料",
+      "metric": "2026 年",
+      "quote": "OpenAI 2026 年 ChatGPT for Financial Services、ChatGPT for Excel/Sheets、Responses API、Structured Outputs、Tools、Evals、企业隐私与 Morgan Stanley / Balyasny / BNY 生产案例 × Bank of England / FCA、EBA、FSB、PCAOB、FINRA、欧盟 AI Act 与中国《金融产品网络营销管理办法》《个人信息保护法》《人工智能生成合成内容标识办法》等一手监管材料",
+      "anchor": "工作台来源说明 · 片段 1",
+      "offset": 0,
+      "tags": [
+        "GPT",
+        "金融AI",
+        "财务AI",
+        "ChatGPT for Financial Services",
+        "ChatGPT for Excel"
+      ],
+      "createdAt": "2026-10-10T17:35:00+08:00",
+      "order": 0,
+      "relatedCardIds": []
+    },
+    {
+      "id": "daily-card-bb7a9b207f",
+      "reportId": "daily-gpt-finance-capability-landscape-2026-10-10",
+      "type": "risk",
+      "label": "风险信号",
+      "title": "从金融服务与企业财务双视角拆解 GPT 七层能力栈、10 类场景成熟…",
+      "summary": "从金融服务与企业财务双视角拆解 GPT 七层能力栈、10 类场景成熟度、金融与财务深度用例、规模化案例、失败模式、六条红线、目标架构与 90 天三试点路线",
+      "metric": "10",
+      "quote": "从金融服务与企业财务双视角拆解 GPT 七层能力栈、10 类场景成熟度、金融与财务深度用例、规模化案例、失败模式、六条红线、目标架构与 90 天三试点路线",
+      "anchor": "工作台来源说明 · 片段 2",
+      "offset": 0,
+      "tags": [
+        "GPT",
+        "金融AI",
+        "财务AI",
+        "ChatGPT for Financial Services",
+        "ChatGPT for Excel"
+      ],
+      "createdAt": "2026-10-10T17:35:00+08:00",
+      "order": 1,
+      "relatedCardIds": []
+    },
+    {
+      "id": "daily-card-c47f5a5226",
+      "reportId": "daily-gpt-finance-capability-landscape-2026-10-10",
+      "type": "insight",
+      "label": "核心结论",
+      "title": "资料截至 2026-10-10",
+      "summary": "资料截至 2026-10-10，厂商基准、监管调查与本报告推断分层呈现",
+      "metric": "2026",
+      "quote": "资料截至 2026-10-10，厂商基准、监管调查与本报告推断分层呈现",
+      "anchor": "工作台来源说明 · 片段 5",
+      "offset": 0,
+      "tags": [
+        "GPT",
+        "金融AI",
+        "财务AI",
+        "ChatGPT for Financial Services",
+        "ChatGPT for Excel"
+      ],
+      "createdAt": "2026-10-10T17:35:00+08:00",
+      "order": 2,
+      "relatedCardIds": []
+    },
+    {
       "id": "daily-card-56748df1bd",
       "reportId": "daily-personal-agent-yingmi-executive-strategy-2026-10-10",
       "type": "risk",
@@ -2827,72 +2893,6 @@
         "税务规划"
       ],
       "createdAt": "2026-09-28T14:35:00+08:00",
-      "order": 2,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-5c461d445e",
-      "reportId": "daily-peng-signals-learning-station-2026-09-28",
-      "type": "metric",
-      "label": "关键数据",
-      "title": "个可见文件均已建立本地清单和 SHA-256；",
-      "summary": "276 个可见文件均已建立本地清单和 SHA-256；",
-      "metric": "276 个",
-      "quote": "276 个可见文件均已建立本地清单和 SHA-256；",
-      "anchor": "工作台来源说明 · 片段 3",
-      "offset": 0,
-      "tags": [
-        "PENG",
-        "买方投顾",
-        "RIA",
-        "财富科技",
-        "AI"
-      ],
-      "createdAt": "2026-09-28T11:35:00+08:00",
-      "order": 0,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-89f56dbe2e",
-      "reportId": "daily-peng-signals-learning-station-2026-09-28",
-      "type": "metric",
-      "label": "关键数据",
-      "title": "个文档/压缩包，89 份 PDF 共 1,412 页，19 个核心材…",
-      "summary": "127 个文档/压缩包，89 份 PDF 共 1,412 页，19 个核心材料卡",
-      "metric": "127 个",
-      "quote": "127 个文档/压缩包，89 份 PDF 共 1,412 页，19 个核心材料卡",
-      "anchor": "工作台来源说明 · 片段 4",
-      "offset": 0,
-      "tags": [
-        "PENG",
-        "买方投顾",
-        "RIA",
-        "财富科技",
-        "AI"
-      ],
-      "createdAt": "2026-09-28T11:35:00+08:00",
-      "order": 1,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-7f9a4b9fa3",
-      "reportId": "daily-peng-signals-learning-station-2026-09-28",
-      "type": "risk",
-      "label": "风险信号",
-      "title": "公开版只呈现原创摘要、统计结论与发布机构官方入口",
-      "summary": "公开版只呈现原创摘要、统计结论与发布机构官方入口，不上传微信群截图、成员信息、内部会议、合同、客户/业务数据或限制分发原件",
-      "metric": "",
-      "quote": "公开版只呈现原创摘要、统计结论与发布机构官方入口，不上传微信群截图、成员信息、内部会议、合同、客户/业务数据或限制分发原件",
-      "anchor": "工作台来源说明 · 片段 5",
-      "offset": 0,
-      "tags": [
-        "PENG",
-        "买方投顾",
-        "RIA",
-        "财富科技",
-        "AI"
-      ],
-      "createdAt": "2026-09-28T11:35:00+08:00",
       "order": 2,
       "relatedCardIds": []
     }

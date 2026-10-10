@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "gpt-finance-capability-landscape-2026-10-10",
     "personal-agent-yingmi-executive-strategy-2026-10-10",
     "san-junipero-creator-footprint-2026-10-10",
     "knowledge-report-hub",

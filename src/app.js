@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 100;
+const DATA_VERSION = 101;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -221,6 +221,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "gpt-finance-capability-landscape-2026-10-10",
+      groupId: "ai-platform",
+      title: "GPT 在金融与财务场景的功能现况｜2026 深度分析",
+      url: "https://clairku.github.io/clair-ai-studio/reports/gpt-finance-capability-landscape-2026-10-10/",
+      preview: "gpt-finance-capability-landscape-2026-10-10.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-10-10T17:35:00+08:00",
+      source: "OpenAI 2026 年 ChatGPT for Financial Services、ChatGPT for Excel/Sheets、Responses API、Structured Outputs、Tools、Evals、企业隐私与 Morgan Stanley / Balyasny / BNY 生产案例 × Bank of England / FCA、EBA、FSB、PCAOB、FINRA、欧盟 AI Act 与中国《金融产品网络营销管理办法》《个人信息保护法》《人工智能生成合成内容标识办法》等一手监管材料｜从金融服务与企业财务双视角拆解 GPT 七层能力栈、10 类场景成熟度、金融与财务深度用例、规模化案例、失败模式、六条红线、目标架构与 90 天三试点路线｜核心判断：GPT 已是高水平金融知识与流程副驾驶，但生产可靠性来自可信数据、确定性计算、工具权限、人工责任与持续评测；对适当性、授信、会计政策、审计结论、重大估值和交易执行保留人类最终决定｜资料截至 2026-10-10，厂商基准、监管调查与本报告推断分层呈现",
+      access: "production",
+      workType: "reporting",
+      tags: ["GPT", "金融AI", "财务AI", "ChatGPT for Financial Services", "ChatGPT for Excel", "投研", "FP&A", "财务分析", "会计", "审计", "风险合规", "Agent", "企业AI", "90天路线", "HTML", "生产"],
+    },
     {
       id: "personal-agent-yingmi-executive-strategy-2026-10-10",
       groupId: "reporting",
@@ -3183,6 +3197,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "gpt-finance-capability-landscape-2026-10-10": "reporting",
   "knowledge-report-hub": "product-demo",
   "personal-agent-yingmi-executive-strategy-2026-10-10": "reporting",
   "personal-agent-market-atlas-2026-10-10": "competitive-research",
@@ -3299,6 +3314,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "gpt-finance-capability-landscape-2026-10-10": "ai-platform",
   "personal-agent-yingmi-executive-strategy-2026-10-10": "reporting",
   "san-junipero-creator-footprint-2026-10-10": "knowledge",
   "knowledge-report-hub": "ai-platform",

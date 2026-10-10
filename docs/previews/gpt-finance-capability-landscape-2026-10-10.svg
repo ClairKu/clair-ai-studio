@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">GPT 在金融与财务场景的功能现况</title>
+  <desc id="desc">深绿背景上的金融智能能力栈、成熟度与受控执行关系图。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#061714"/><stop offset="1" stop-color="#123d34"/></linearGradient>
+    <linearGradient id="lime" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#66d8c2"/><stop offset="1" stop-color="#d8ec7a"/></linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#000" flood-opacity=".28"/></filter>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <circle cx="1065" cy="95" r="220" fill="none" stroke="#fff" stroke-opacity=".06"/>
+  <circle cx="1065" cy="95" r="168" fill="none" stroke="#fff" stroke-opacity=".045"/>
+  <circle cx="130" cy="645" r="245" fill="#66d8c2" fill-opacity=".045"/>
+  <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif">
+    <text x="72" y="72" fill="#66d8c2" font-size="15" font-weight="800" letter-spacing="3">GPT × FINANCIAL SERVICES × CORPORATE FINANCE</text>
+    <text x="72" y="148" fill="#fff" font-family="Georgia,'Songti SC',serif" font-size="61" font-weight="600">从会写，走到会办。</text>
+    <text x="72" y="195" fill="#b9cbc5" font-size="20">金融知识与流程副驾驶已经成熟，最终判断与责任仍属于人。</text>
+    <g transform="translate(72 252)" filter="url(#shadow)">
+      <rect width="495" height="310" rx="26" fill="#ffffff" fill-opacity=".07" stroke="#ffffff" stroke-opacity=".15"/>
+      <text x="28" y="43" fill="#d8ec7a" font-size="12" font-weight="800" letter-spacing="2">PRODUCTION STACK</text>
+      <g transform="translate(28 68)">
+        <rect width="439" height="43" rx="11" fill="#66d8c2" fill-opacity=".16"/><text x="16" y="27" fill="#fff" font-size="14" font-weight="700">01 · GPT 认知编排</text><text x="180" y="27" fill="#bcd0c9" font-size="12">理解 · 检索 · 推理 · 解释</text>
+        <rect y="50" width="439" height="43" rx="11" fill="#ffffff" fill-opacity=".07"/><text x="16" y="77" fill="#fff" font-size="14" font-weight="700">02 · 可信数据</text><text x="180" y="77" fill="#bcd0c9" font-size="12">行情 · 财务 · 客户 · 制度</text>
+        <rect y="100" width="439" height="43" rx="11" fill="#ffffff" fill-opacity=".07"/><text x="16" y="127" fill="#fff" font-size="14" font-weight="700">03 · 确定性工具</text><text x="180" y="127" fill="#bcd0c9" font-size="12">Excel · SQL · 规则 · 业务系统</text>
+        <rect y="150" width="439" height="43" rx="11" fill="#ffffff" fill-opacity=".07"/><text x="16" y="177" fill="#fff" font-size="14" font-weight="700">04 · 权限与审批</text><text x="180" y="177" fill="#bcd0c9" font-size="12">最小权限 · 人审 · 熔断 · 回滚</text>
+        <rect y="200" width="439" height="43" rx="11" fill="#b8d43b" fill-opacity=".14"/><text x="16" y="227" fill="#fff" font-size="14" font-weight="700">05 · 评测与证据</text><text x="180" y="227" fill="#dbe8b7" font-size="12">金标 · 回归 · 轨迹 · 回执</text>
+      </g>
+    </g>
+    <g transform="translate(622 252)">
+      <text x="0" y="16" fill="#fff" font-size="18" font-weight="700">场景成熟度</text>
+      <g transform="translate(0 50)">
+        <text x="0" y="14" fill="#cbd9d4" font-size="13">投研 / 尽调</text><rect x="135" y="2" width="310" height="13" rx="7" fill="#fff" fill-opacity=".08"/><rect x="135" y="2" width="279" height="13" rx="7" fill="url(#lime)"/><text x="465" y="14" fill="#d8ec7a" font-size="13" font-weight="800">4.5</text>
+        <text x="0" y="59" fill="#cbd9d4" font-size="13">FP&amp;A / 管理会计</text><rect x="135" y="47" width="310" height="13" rx="7" fill="#fff" fill-opacity=".08"/><rect x="135" y="47" width="260" height="13" rx="7" fill="url(#lime)"/><text x="465" y="59" fill="#d8ec7a" font-size="13" font-weight="800">4.2</text>
+        <text x="0" y="104" fill="#cbd9d4" font-size="13">顾问 / 客户服务</text><rect x="135" y="92" width="310" height="13" rx="7" fill="#fff" fill-opacity=".08"/><rect x="135" y="92" width="248" height="13" rx="7" fill="url(#lime)"/><text x="465" y="104" fill="#d8ec7a" font-size="13" font-weight="800">4.0</text>
+        <text x="0" y="149" fill="#cbd9d4" font-size="13">财务关账 / 对账</text><rect x="135" y="137" width="310" height="13" rx="7" fill="#fff" fill-opacity=".08"/><rect x="135" y="137" width="217" height="13" rx="7" fill="#d6a84b"/><text x="465" y="149" fill="#f0cf87" font-size="13" font-weight="800">3.5</text>
+        <text x="0" y="194" fill="#cbd9d4" font-size="13">授信 / 定价</text><rect x="135" y="182" width="310" height="13" rx="7" fill="#fff" fill-opacity=".08"/><rect x="135" y="182" width="155" height="13" rx="7" fill="#e17d4d"/><text x="465" y="194" fill="#ffb08c" font-size="13" font-weight="800">2.5</text>
+        <text x="0" y="239" fill="#cbd9d4" font-size="13">交易 / 资金执行</text><rect x="135" y="227" width="310" height="13" rx="7" fill="#fff" fill-opacity=".08"/><rect x="135" y="227" width="112" height="13" rx="7" fill="#d3574d"/><text x="465" y="239" fill="#ff9e94" font-size="13" font-weight="800">1.8</text>
+      </g>
+      <g transform="translate(0 325)">
+        <rect width="498" height="78" rx="18" fill="#fff" fill-opacity=".07" stroke="#fff" stroke-opacity=".12"/>
+        <text x="20" y="29" fill="#66d8c2" font-size="12" font-weight="800">强能力边界</text>
+        <text x="20" y="54" fill="#fff" font-size="15">GPT 管理解与编排 · 系统管数字与规则 · 人管判断与责任</text>
+      </g>
+    </g>
+    <text x="72" y="626" fill="#8fa49d" font-size="12">资料截至 2026-10-10 · 金融服务与企业财务双视角 · 生产可访问报告</text>
+  </g>
+</svg>
