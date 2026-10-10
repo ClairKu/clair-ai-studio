@@ -19,7 +19,7 @@ import {
 } from "./storage.js";
 
 const app = document.getElementById("app");
-const DEFAULT_CATEGORIES = ["AI 与 Agent", "用户与增长", "产品与体验", "投研与市场", "经营与组织", "其他"];
+const DEFAULT_CATEGORIES = ["行业全景", "企业与组织", "消费者", "就业与技能", "安全与治理", "中国市场", "AI 与 Agent", "用户与增长", "产品与体验", "投研与市场", "经营与组织", "其他"];
 const TYPE_LABELS = { metric: "关键数据", risk: "风险信号", opportunity: "机会判断", action: "行动建议", insight: "核心结论" };
 const FORMAT_LABELS = { pdf: "PDF", word: "DOC", sheet: "XLS", slides: "PPT", html: "HTML", video: "VIDEO", audio: "AUDIO", image: "IMAGE", url: "URL", text: "TEXT", studio: "REPORT" };
 
@@ -82,6 +82,14 @@ function formatBytes(bytes = 0) {
   return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
 }
 
+function reportDate(report) {
+  return report?.publishedAt || report?.createdAt;
+}
+
+function reportSortTime(report) {
+  return new Date(reportDate(report)).getTime() || 0;
+}
+
 function shortText(value = "", limit = 140) {
   const text = normalizeText(value).replace(/\n+/g, " ");
   return text.length > limit ? `${text.slice(0, limit).trim()}…` : text;
@@ -123,10 +131,12 @@ function visibleReports() {
     return true;
   });
   return filtered.sort((a, b) => {
-    if (ui.sort === "oldest") return new Date(a.createdAt) - new Date(b.createdAt);
+    if (ui.view === "overview" && Boolean(a.featured) !== Boolean(b.featured)) return a.featured ? -1 : 1;
+    if (ui.view === "overview" && a.featured && b.featured) return (a.featuredRank || 999) - (b.featuredRank || 999);
+    if (ui.sort === "oldest") return reportSortTime(a) - reportSortTime(b);
     if (ui.sort === "cards") return cardCount(b.id) - cardCount(a.id);
     if (ui.sort === "title") return a.title.localeCompare(b.title, "zh-CN");
-    return new Date(b.createdAt) - new Date(a.createdAt);
+    return reportSortTime(b) - reportSortTime(a);
   });
 }
 
@@ -207,7 +217,7 @@ function navMarkup() {
     </button>`;
   }).join("");
   const rows = [
-    ["overview", "今日精选", Math.min(state.cards.length, 12)],
+    ["overview", "权威精选", state.reports.filter((report) => report.featured && !report.archived).length],
     ["reports", "全部报告", reports.length],
     ["cards", "信息图卡", state.cards.filter((card) => !reportById(card.reportId)?.archived).length],
     ["relations", "关联图谱", state.cards.filter((card) => card.relatedCardIds?.length).length],
@@ -249,10 +259,10 @@ function heroMarkup() {
   const lastSync = state.lastDailySync ? formatDate(state.lastDailySync, true) : "准备同步";
   return `<section class="hero">
     <div class="hero-intro">
-      <p class="eyebrow">Clair’s Knowledge Studio · Evidence First</p>
-      <h1>把整份报告，变成一眼看懂的信息图卡。</h1>
-      <p class="hero-lead">自动把数字、比较、风险与行动组合成可阅读的图表卡；每个图表项仍能回到原文片段、段落位置、完整正文与关联来源。</p>
-      <div class="hero-meta"><span class="meta-pill is-live">每日自动同步 · ${escapeHtml(lastSync)}</span><span class="meta-pill">浏览器私密保存</span><span class="meta-pill">PDF / Office / URL / 字幕</span></div>
+      <p class="eyebrow">Clair’s AI Intelligence · Evidence First</p>
+      <h1>把全球 AI 重要报告，变成一眼看懂的证据图卡。</h1>
+      <p class="hero-lead">持续追踪权威机构的新报告，把关键观点、数据、金句与中文译文组合成信息图；每个数字仍能回到原文、研究方法、适用范围与关联来源。</p>
+      <div class="hero-meta"><span class="meta-pill is-live">每日更新 · ${escapeHtml(lastSync)}</span><span class="meta-pill">权威一手来源</span><span class="meta-pill">可上传 PDF / Office / URL / 字幕</span></div>
     </div>
     <form class="ingest-panel" id="ingest-form">
       <div class="ingest-title"><div><small>NEW MATERIAL</small><h2>加入一份材料</h2></div><small>自动抽取与连线</small></div>
@@ -269,12 +279,12 @@ function summaryMarkup() {
   const reports = activeReports();
   const activeCards = state.cards.filter((card) => !reportById(card.reportId)?.archived);
   const linked = activeCards.filter((card) => card.relatedCardIds?.length).length;
-  const newest = reports.map((report) => new Date(report.createdAt).getTime()).filter(Number.isFinite).sort((a, b) => b - a)[0];
+  const authorityCount = reports.filter((report) => report.authority).length;
   return `<section class="summary-grid" aria-label="知识库摘要">
     <article class="stat-card is-teal"><strong>${reports.length}</strong><small>份可检索报告</small></article>
-    <article class="stat-card is-gold"><strong>${activeCards.length}</strong><small>个可溯源知识点</small></article>
-    <article class="stat-card is-coral"><strong>${linked}</strong><small>张已有知识关联</small></article>
-    <article class="stat-card is-blue"><strong>${newest ? formatDate(newest).replace(/\d{4}年/, "") : "—"}</strong><small>最近一份报告</small></article>
+    <article class="stat-card is-gold"><strong>${authorityCount}</strong><small>份权威一手精选</small></article>
+    <article class="stat-card is-coral"><strong>${activeCards.length}</strong><small>个可溯源知识点</small></article>
+    <article class="stat-card is-blue"><strong>${linked}</strong><small>张已有知识关联</small></article>
   </section>`;
 }
 
@@ -304,6 +314,7 @@ function parsedMetric(card) {
 }
 
 function sourceLabel(report) {
+  if (report.authority && report.source) return report.source;
   const sourceUrl = safeUrl(report.url);
   if (sourceUrl) {
     try {
@@ -412,7 +423,7 @@ function visualKnowledgeCardMarkup(group, index = 0) {
   const relatedCount = new Set(cards.flatMap((card) => card.relatedCardIds || [])).size;
   const sourceUrl = safeUrl(report.url);
   return `<article class="visual-knowledge-card ${wide ? "is-wide" : ""} pattern-${pattern}">
-    <header class="visual-card-head"><div><span class="visual-kicker">${escapeHtml(report.category || "知识图卡")}</span><h3>${escapeHtml(report.title)}</h3></div><div class="visual-source-meta"><span>${escapeHtml(sourceLabel(report))}</span><span>${formatDate(report.createdAt)}</span></div></header>
+    <header class="visual-card-head"><div><span class="visual-kicker">${escapeHtml(report.category || "知识图卡")}${report.authority ? ` · ${escapeHtml(report.authority)}` : ""}</span><h3>${escapeHtml(report.title)}</h3></div><div class="visual-source-meta"><span>${escapeHtml(sourceLabel(report))}</span><span>发布于 ${formatDate(reportDate(report))}</span></div></header>
     <div class="visual-card-body">${visualCardBody(cards, pattern)}</div>
     <footer class="visual-card-foot"><p>来源：<button type="button" data-open-report="${escapeHtml(report.id)}">${escapeHtml(shortText(report.title, 42))}</button> · ${cards.length} 个证据点${relatedCount ? ` · ${relatedCount} 个关联` : ""}</p><div><button class="foot-action" type="button" data-open-card="${escapeHtml(firstCard.id)}">查看证据</button><button class="foot-action" type="button" data-open-report="${escapeHtml(report.id)}">全文</button>${sourceUrl ? `<a class="foot-action" href="${escapeHtml(sourceUrl)}" target="_blank" rel="noreferrer">原报告</a>` : ""}</div></footer>
   </article>`;
@@ -423,7 +434,7 @@ function reportMarkup(report) {
   const tags = (report.tags || []).slice(0, 3).map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join("");
   return `<article class="report-row" data-open-report="${escapeHtml(report.id)}">
     <div class="file-badge is-${escapeHtml(kind)}">${escapeHtml(FORMAT_LABELS[kind] || String(kind).slice(0, 6).toUpperCase())}</div>
-    <div class="report-copy"><h3>${escapeHtml(report.title)}</h3><div class="report-meta"><span>${escapeHtml(report.category || "其他")}</span><span>${formatDate(report.createdAt)}</span>${tags}</div></div>
+    <div class="report-copy"><h3>${escapeHtml(report.title)}</h3><div class="report-meta"><span>${escapeHtml(report.category || "其他")}</span><span>${formatDate(reportDate(report))}</span>${report.authority ? `<span class="authority-badge">${escapeHtml(report.authority)}</span>` : ""}${tags}</div></div>
     <div class="report-card-count">${cardCount(report.id)} 张关键卡</div>
   </article>`;
 }
@@ -462,8 +473,8 @@ function contentMarkup() {
   const cards = visibleCards();
   const reports = visibleReports();
   const visualGroups = visualCardGroups(cards, reports);
-  let title = "今日知识图卡";
-  let subtitle = "每张卡直接呈现数字、比较与结论，所有元素都能回到证据";
+  let title = "AI 行业权威精选";
+  let subtitle = "最新、重要、可追溯：每张图卡都能回到原始报告、方法与口径";
   let body = "";
   if (ui.view === "overview") body = `<section class="visual-card-grid">${visualGroups.slice(0, 5).map(visualKnowledgeCardMarkup).join("") || emptyMarkup()}</section>`;
   if (ui.view === "cards") { title = "信息图卡片"; subtitle = "一份报告一张图卡，按数字、风险、机会与行动过滤"; body = `<section class="visual-card-grid">${visualGroups.map(visualKnowledgeCardMarkup).join("") || emptyMarkup()}</section>`; }
@@ -487,7 +498,8 @@ function reportDrawerMarkup(report) {
   return `<div class="drawer-backdrop" data-close-drawer><aside class="drawer" role="dialog" aria-modal="true" aria-label="报告详情">
     <header class="drawer-head"><div><span class="card-type"><span class="type-dot"></span>${escapeHtml(report.category || "报告")}</span><h2>${escapeHtml(report.title)}</h2></div><button class="drawer-close" type="button" data-close-drawer aria-label="关闭">×</button></header>
     <div class="drawer-body">
-      <section class="drawer-section"><h3>报告信息</h3><div class="report-meta"><span>${formatDate(report.createdAt, true)}</span><span>${escapeHtml(report.source || "手动导入")}</span><span>${cardCount(report.id)} 张关键卡</span>${report.fileSize ? `<span>${formatBytes(report.fileSize)}</span>` : ""}</div><div class="editor-actions">${sourceButton}${originalButton}</div></section>
+      <section class="drawer-section"><h3>报告信息</h3><div class="report-meta"><span>发布 ${formatDate(reportDate(report))}</span><span>${escapeHtml(report.source || "手动导入")}</span>${report.authority ? `<span class="authority-badge">${escapeHtml(report.authority)}</span>` : ""}<span>${cardCount(report.id)} 张关键卡</span>${report.fileSize ? `<span>${formatBytes(report.fileSize)}</span>` : ""}</div><div class="editor-actions">${sourceButton}${originalButton}</div></section>
+      ${report.methodology ? `<section class="drawer-section"><h3>研究方法与适用范围</h3><div class="source-quote"><strong>方法</strong>　${escapeHtml(report.methodology)}${report.scopeNote ? `<div class="source-anchor"><strong>口径提醒</strong>　${escapeHtml(report.scopeNote)}</div>` : ""}</div></section>` : ""}
       ${report.extractionError ? `<section class="drawer-section"><h3>解析提示</h3><div class="source-quote">${escapeHtml(report.extractionError)}</div></section>` : ""}
       <section class="drawer-section"><h3>关键卡</h3><div class="linked-list">${cards.map((card) => `<button class="linked-item" type="button" data-open-card="${escapeHtml(card.id)}"><span>${escapeHtml(card.title)}</span><small>${escapeHtml(card.label || TYPE_LABELS[card.type])}</small></button>`).join("") || "暂无关键卡"}</div></section>
       <section class="drawer-section"><h3>完整原文</h3><div class="full-text">${escapeHtml(report.body || "当前没有可读取正文。可在下方编辑区补贴全文或字幕，再重新抽取。")}</div></section>
@@ -516,6 +528,7 @@ function cardDrawerMarkup(card) {
     <header class="drawer-head"><div><span class="card-type type-${escapeHtml(card.type)}"><span class="type-dot"></span>${escapeHtml(card.label || TYPE_LABELS[card.type])}</span><h2>${escapeHtml(card.title)}</h2></div><button class="drawer-close" type="button" data-close-drawer aria-label="关闭">×</button></header>
     <div class="drawer-body">
       <section class="drawer-section"><h3>证据片段</h3><div class="source-quote">“${escapeHtml(card.quote || card.summary)}”<div class="source-anchor">${escapeHtml(report.title)} · ${escapeHtml(card.anchor || "原文")}</div></div><div class="editor-actions"><button class="soft-button" type="button" data-open-report="${escapeHtml(report.id)}">查看完整原文</button></div></section>
+      ${card.translation ? `<section class="drawer-section"><h3>中文译文 / 解读</h3><div class="source-quote">${escapeHtml(card.translation)}</div></section>` : ""}
       ${card.metric ? `<section class="drawer-section"><h3>关键数字</h3><div class="metric-value">${escapeHtml(card.metric)}</div><p class="metric-context">数字保留原报告口径，请回到证据片段核对定义、时间与样本范围。</p></section>` : ""}
       <section class="drawer-section"><h3>关联关键卡</h3><div class="linked-list">${relatedCards.map((item) => `<button class="linked-item" type="button" data-open-card="${escapeHtml(item.id)}"><span>${escapeHtml(item.title)}</span><small>${escapeHtml(reportById(item.reportId)?.title || "")}</small></button>`).join("") || "尚未发现足够强的关联"}</div></section>
       <section class="drawer-section"><h3>关联报告</h3><div class="linked-list">${relatedReports.map((item) => `<button class="linked-item" type="button" data-open-report="${escapeHtml(item.id)}"><span>${escapeHtml(item.title)}</span><small>${escapeHtml(item.category)}</small></button>`).join("") || "暂无跨报告关联"}</div></section>
@@ -546,7 +559,7 @@ function render({ preserveSearchFocus = false } = {}) {
   const selection = preserveSearchFocus && search ? [search.selectionStart, search.selectionEnd] : null;
   app.className = "shell";
   app.innerHTML = `<header class="topbar">
-    <div class="brand"><span class="brand-mark">C</span><span class="brand-copy"><span class="brand-title">知识采集与证据卡片台</span><span class="brand-subtitle">Clair’s Studio</span></span></div>
+    <div class="brand"><span class="brand-mark">C</span><span class="brand-copy"><span class="brand-title">AI 行业情报与证据卡片台</span><span class="brand-subtitle">Clair’s Studio</span></span></div>
     <label class="global-search"><span class="sr-only">搜索报告、卡片与原文</span><input id="global-search" type="search" value="${escapeHtml(ui.query)}" placeholder="搜索报告、关键卡、数字或原文…" /><span class="search-hint">⌘ K</span></label>
     <div class="top-actions"><button class="ghost-button" type="button" data-export>导出备份</button><button class="ghost-button" type="button" data-import>导入备份</button><button class="soft-button" type="button" data-sync>同步最新</button><input id="backup-file" class="sr-only" type="file" accept="application/json,.json" /></div>
   </header>

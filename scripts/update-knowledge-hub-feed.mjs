@@ -7,6 +7,8 @@ const root = fileURLToPath(new URL("../", import.meta.url));
 const appSource = readFileSync(join(root, "src/app.js"), "utf8");
 const publicPath = join(root, "public/reports/knowledge-report-hub/data/latest.json");
 const docsPath = join(root, "docs/reports/knowledge-report-hub/data/latest.json");
+const authorityPath = join(root, "public/reports/knowledge-report-hub/data/ai-industry-authority.json");
+const authorityFeed = JSON.parse(readFileSync(authorityPath, "utf8"));
 
 const CATEGORY_BY_GROUP = {
   "ai-platform": "AI 与 Agent",
@@ -70,7 +72,7 @@ function stableHash(value) {
   return createHash("sha1").update(value).digest("hex").slice(0, 10);
 }
 
-const reports = reportBlocks().map((block) => {
+const studioReports = reportBlocks().map((block) => {
   const id = field(block, "id");
   const source = field(block, "source");
   return {
@@ -95,7 +97,7 @@ const reports = reportBlocks().map((block) => {
   .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
   .slice(0, 16);
 
-const cards = reports.flatMap((report) => {
+const studioCards = studioReports.flatMap((report) => {
   const ranked = sentences(report.body)
     .map((sentence, index) => ({ sentence, index, score: (metric(sentence) ? 5 : 0) + (cardType(sentence) !== "insight" ? 3 : 0) + (index < 4 ? 2 : 0) }))
     .sort((a, b) => b.score - a.score || a.index - b.index)
@@ -122,10 +124,30 @@ const cards = reports.flatMap((report) => {
   });
 });
 
+const authorityReports = (authorityFeed.reports || []).map((report) => ({
+  ...report,
+  studioId: "",
+  kind: report.kind || "url",
+  origin: "authority",
+  archived: false,
+  extractionError: "",
+  fileName: "",
+  fileSize: 0,
+}));
+
+const authorityCards = (authorityFeed.cards || []).map((card) => ({
+  ...card,
+  origin: "authority",
+  relatedCardIds: card.relatedCardIds || [],
+}));
+
+const reports = [...authorityReports, ...studioReports];
+const cards = [...authorityCards, ...studioCards];
+
 const content = {
   schema: "clair-knowledge-hub-feed/v1",
   generatedAt: new Date().toISOString(),
-  source: "Clair’s Studio production catalog",
+  source: "Clair’s Studio production catalog + curated authoritative AI industry reports",
   reports,
   cards,
 };

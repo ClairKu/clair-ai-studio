@@ -14,6 +14,7 @@ const requiredFiles = [
   "extractor.js",
   "storage.js",
   "data/latest.json",
+  "data/ai-industry-authority.json",
   "vendor/pdf.mjs",
   "vendor/pdf.worker.min.mjs",
   "vendor/mammoth.browser.min.js",
@@ -34,9 +35,10 @@ const workbench = read("src/app.js");
 const packageJson = read("package.json");
 const registry = JSON.parse(read("catalog/report-registry.json"));
 const feed = JSON.parse(read("public/reports/knowledge-report-hub/data/latest.json"));
+const authorityFeed = JSON.parse(read("public/reports/knowledge-report-hub/data/ai-industry-authority.json"));
 
 const checks = [
-  [html, "知识采集与证据卡片台", "页面标题缺失"],
+  [html, "AI 行业情报与证据卡片台", "页面标题缺失"],
   [html, "vendor/mammoth.browser.min.js", "Word 解析器未接入"],
   [html, "vendor/xlsx.full.min.js", "Excel 解析器未接入"],
   [app, "extractKnowledgeCards", "关键卡抽取未接入"],
@@ -67,10 +69,13 @@ for (const [source, signal, message] of checks) if (!source.includes(signal)) fa
 
 if (!registry.protectedReportIds?.includes("knowledge-report-hub")) fail("知识卡片台未加入防静默删减登记册");
 if (feed.schema !== "clair-knowledge-hub-feed/v1") fail("每日数据源 schema 不正确");
-if (!Array.isArray(feed.reports) || feed.reports.length < 10) fail("每日数据源报告数量不足");
-if (!Array.isArray(feed.cards) || feed.cards.length < 20) fail("每日数据源关键卡数量不足");
+if (!Array.isArray(feed.reports) || feed.reports.length < 20) fail("每日数据源报告数量不足");
+if (!Array.isArray(feed.cards) || feed.cards.length < 60) fail("每日数据源关键卡数量不足");
 if (feed.reports.some((report) => !report.id || !report.title || !report.url || !report.createdAt)) fail("每日数据源报告字段不完整");
 if (feed.cards.some((card) => !card.id || !card.reportId || !card.title || !card.quote || !card.anchor)) fail("每日数据源关键卡缺少证据字段");
+if (authorityFeed.schema !== "clair-ai-industry-authority/v1" || authorityFeed.reports.length < 10 || authorityFeed.cards.length < 50) fail("权威 AI 报告精选数据不足");
+if (authorityFeed.reports.some((report) => !report.authority || !report.methodology || !report.scopeNote || !report.publishedAt)) fail("权威报告缺少方法、口径或发布日期");
+if (authorityFeed.cards.some((card) => !card.translation || !card.anchor)) fail("权威关键卡缺少译文或证据锚点");
 
 const publicText = [html, app, extractor, storage, JSON.stringify(feed)].join("\n");
 for (const pattern of [/\/Users\/[^\s"']+/i, /file:\/\//i, /wxid_/i]) {

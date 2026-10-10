@@ -1,17 +1,22 @@
 {
   "schema": "clair-report-assets/v1",
   "report": "knowledge-report-hub",
-  "generatedAt": "2026-10-10T03:38:48.438Z",
+  "generatedAt": "2026-10-10T03:47:23.407Z",
   "files": [
     {
       "path": "app.js",
-      "bytes": 48197,
-      "sha256": "c8dab855fbd9bdaaa7932c8c52cdf4da7fbde6905abd7f83eec45a5598c36e7f"
+      "bytes": 49521,
+      "sha256": "7e8655020057b18a0a16b8a85cd11f1625bf991e1ea3cde1b27e1f4eb8de1936"
+    },
+    {
+      "path": "data/ai-industry-authority.json",
+      "bytes": 50990,
+      "sha256": "f887bfff6e059aa6355686e91bef0adc89a649ba8e37f5df16b284b82479e697"
     },
     {
       "path": "data/latest.json",
-      "bytes": 70604,
-      "sha256": "9de8a54e5d640958466a569a658385be7831fdc0e48aa471db7734e17ea3a50a"
+      "bytes": 132313,
+      "sha256": "aa97d4ffd3ff028895c9600c834929bf28565eb64a9b444331d7dd1db6929cde"
     },
     {
       "path": "extractor.js",
@@ -20,8 +25,8 @@
     },
     {
       "path": "index.html",
-      "bytes": 1597,
-      "sha256": "b352227acc0bd298ef9acc0d9184d0dca9a6364a3b67a1f8ad738d92f4a9166b"
+      "bytes": 1708,
+      "sha256": "b9250df92f5909185acff1b3d0e00537c9e758669c8226b846fc7be1230b6481"
     },
     {
       "path": "preview.png",
@@ -35,8 +40,8 @@
     },
     {
       "path": "styles.css",
-      "bytes": 29319,
-      "sha256": "5d7da52284ac72124e70650b68e8866e93a11475b29ce1ce9a57d904b3d5e201"
+      "bytes": 29462,
+      "sha256": "5d65823b58dceb2934baf2d6258c64055f6428cd3dff75724ae093a43cb17b5f"
     },
     {
       "path": "vendor/jszip.min.js",

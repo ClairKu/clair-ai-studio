@@ -590,6 +590,7 @@ a { color: var(--blue); text-underline-offset: 3px; }
 .report-copy h3 { margin: 0; overflow: hidden; font: 700 16px/1.35 var(--serif); text-overflow: ellipsis; white-space: nowrap; }
 .report-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; color: var(--ink-soft); font-size: 10px; }
 .tag { border-radius: 999px; background: #eef0ec; padding: 2px 7px; }
+.authority-badge { color: #0b706b; background: #e4f4f1; border: 1px solid #b9dfd9; border-radius: 999px; padding: 3px 8px; font-weight: 750; }
 .report-card-count { min-width: 84px; color: var(--teal-dark); font-size: 11px; font-weight: 800; text-align: right; }
 
 .relation-panel { min-height: 560px; border-radius: var(--radius-lg); padding: 24px; box-shadow: none; }
