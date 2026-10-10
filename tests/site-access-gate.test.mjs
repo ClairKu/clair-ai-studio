@@ -74,6 +74,9 @@ test("shared gate submits reliably: trims input, guards re-entry, keeps the fiel
   assert.doesNotMatch(source, /input\.disabled\s*=\s*true/);
   assert.match(source, /autocomplete="off"/);
   assert.doesNotMatch(source, /autocomplete="current-password"/);
+  assert.match(source, /readonly autofocus/);
+  assert.match(source, /input\.addEventListener\("pointerdown", activateInput/);
+  assert.match(source, /input\.addEventListener\("keydown", activateInput/);
   // A visible progress state is shown before the slow key derivation blocks the thread.
   assert.match(source, /正在验证，请稍候/);
 });

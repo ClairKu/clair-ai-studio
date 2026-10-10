@@ -370,7 +370,7 @@
         <form novalidate>
           <label for="clair-access-password">${profile.fieldLabel}</label>
           <div class="password-row">
-            <input id="clair-access-password" name="clair-access-passcode" type="password" inputmode="numeric" autocomplete="off" enterkeyhint="go" placeholder="${profile.fieldLabel}" autofocus />
+            <input id="clair-access-password" name="clair-access-passcode" type="password" inputmode="numeric" autocomplete="off" enterkeyhint="go" placeholder="${profile.fieldLabel}" readonly autofocus />
             <button type="submit" aria-label="验证并进入">→</button>
           </div>
           <p class="status" role="status" aria-live="polite"></p>
@@ -386,6 +386,17 @@
     const status = shadow.querySelector(".status");
 
     let verifying = false;
+    // Some password managers ignore autocomplete="off" and overwrite this
+    // short access code with an unrelated saved password. Keep the field
+    // read-only until a real pointer/key interaction, then discard autofill.
+    const activateInput = () => {
+      if (verifying) return;
+      input.readOnly = false;
+      input.value = "";
+    };
+    input.addEventListener("pointerdown", activateInput, { once: true });
+    input.addEventListener("keydown", activateInput, { once: true, capture: true });
+
     const setBusy = (busy) => {
       button.classList.toggle("is-busy", busy);
       button.textContent = busy ? "\u2026" : "\u2192";
