@@ -251,17 +251,18 @@ const initialState = {
     },
     {
       id: "knowledge-report-hub",
-      groupId: "knowledge",
-      title: "知识采集与证据卡片台｜报告、URL、PDF 与任意档案一键抽取",
+      groupId: "ai-platform",
+      title: "AI 行业情报与证据卡片台｜权威报告、关键数据、观点与金句",
       url: "https://clairku.github.io/clair-ai-studio/reports/knowledge-report-hub/",
       preview: "knowledge-report-hub.png",
       pinned: true,
       position: 0,
       createdAt: "2026-10-10T10:45:00+08:00",
-      source: "独立知识看板｜支持粘贴正文与影片字幕、导入 URL、PDF、Word、Excel、PPT、网页、字幕与任意档案｜浏览器本地抽取核心结论、关键数字、风险、机会与行动建议｜每张卡保存原文片段、页码或段落位置、完整正文、关联卡片与关联报告｜支持报告/卡片双视图、分类、全文搜索、排序、编辑、归档、删除、备份导入导出｜原始档案保存在当前浏览器 IndexedDB，不上传到公开站点｜GitHub Actions 每日扫描 Clair’s Studio 生产目录并同步最新公开报告与关键卡，目录无变化时不制造空提交",
+      modifiedAt: "2026-10-10T16:45:00+08:00",
+      source: "AI 行业权威情报台｜首批精选 Stanford AI Index、McKinsey State of AI、Microsoft Work Trend Index、Anthropic Economic Index、Menlo Consumer AI、PwC AI Jobs Barometer、International AI Safety Report、CNNIC、OpenAI 与 Menlo Enterprise 等 10 份一手报告｜逐份保留发布日期、研究方法、样本与适用范围，完成中文剖析、关键数据、重要观点、短原文金句与中文译文｜每张信息图卡都能回到原文片段、完整解读、关联卡和原报告｜同时支持粘贴内容与字幕、导入 URL、PDF、Word、Excel、PPT 与任意档案，分类、搜索、排序、编辑、归档与备份｜本地原始档案仅存当前浏览器 IndexedDB｜每天自动检索新增权威报告，核验后才入库、制卡并发布；没有新材料时不制造伪更新",
       access: "production",
       workType: "interactive-tool",
-      tags: ["知识库", "关键卡片", "证据溯源", "报告管理", "PDF", "Office", "URL", "影片字幕", "全文搜索", "关联图谱", "每日同步", "HTML", "生产"],
+      tags: ["AI行业情报", "权威报告", "关键数据", "观点", "金句", "中文翻译", "知识库", "关键卡片", "证据溯源", "PDF", "URL", "全文搜索", "关联图谱", "每日同步", "HTML", "生产"],
     },
     {
       id: "personal-agent-market-atlas-2026-10-10",
@@ -3183,6 +3184,7 @@ const initialState = {
 
 const WORK_TYPE_BY_REPORT = {
   "knowledge-report-hub": "product-demo",
+  "personal-agent-yingmi-executive-strategy-2026-10-10": "reporting",
   "personal-agent-market-atlas-2026-10-10": "competitive-research",
   "personal-agent-landscape-2026-10-10": "competitive-research",
   "saep-critical-analysis-2026-10-10": "governance-review",
@@ -3297,8 +3299,9 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "personal-agent-yingmi-executive-strategy-2026-10-10": "reporting",
   "san-junipero-creator-footprint-2026-10-10": "knowledge",
-  "knowledge-report-hub": "knowledge",
+  "knowledge-report-hub": "ai-platform",
   "personal-agent-market-atlas-2026-10-10": "ai-platform",
   "personal-agent-landscape-2026-10-10": "ai-platform",
   "saep-critical-analysis-2026-10-10": "ai-platform",

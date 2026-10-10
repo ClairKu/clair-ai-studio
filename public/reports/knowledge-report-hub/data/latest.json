@@ -1,6 +1,6 @@
 {
   "schema": "clair-knowledge-hub-feed/v1",
-  "generatedAt": "2026-10-10T03:47:23.407Z",
+  "generatedAt": "2026-10-10T03:50:56.457Z",
   "source": "Clair’s Studio production catalog + curated authoritative AI industry reports",
   "reports": [
     {
@@ -355,6 +355,33 @@
       "extractionError": "",
       "fileName": "",
       "fileSize": 0
+    },
+    {
+      "id": "daily-personal-agent-yingmi-executive-strategy-2026-10-10",
+      "studioId": "personal-agent-yingmi-executive-strategy-2026-10-10",
+      "title": "Personal Agent 变局下的盈米应对｜高管会前决策材料",
+      "url": "https://clairku.github.io/clair-ai-studio/reports/personal-agent-yingmi-executive-strategy-2026-10-10/",
+      "body": "2026-10-08 Personal Agent 专项高管会议通知 × OpenAI / Google / Alibaba / 豆包 / Tencent / Huawei 官方能力资料 × MCP / A2A / Agentic Commerce / Visa / Mastercard 协议与支付实践 × 2026-09-30 生效的《金融产品网络营销管理办法》 × 盈米 AI、OAP / MCP / Skills、AI 小顾、且慢 BU 与顾问工作台内部能力沉淀｜在两份 Personal Agent 市场全景研究之上，进一步转化为盈米可拍板的战略：不争通用入口，以且慢个人财富智能体 + 盈米可信金融能力层双线推进，共用个人金融上下文与责任底座，设置身份授权、适当性合规、关键确认、证据回退四道闸；给出重点场景、L0-L4 自治边界、90 天攻坚、经营与风险指标及六项会议决议建议｜公开安全版已移除会议号、地点、人员安排和未公开经营数据",
+      "kind": "studio",
+      "category": "经营与组织",
+      "tags": [
+        "Personal Agent",
+        "盈米",
+        "且慢",
+        "AI 小顾",
+        "OAP",
+        "MCP",
+        "A2A",
+        "金融合规"
+      ],
+      "source": "Clair’s Studio 每日同步",
+      "createdAt": "2026-10-10T15:20:00+08:00",
+      "updatedAt": "2026-10-10T15:20:00+08:00",
+      "extractionError": "",
+      "fileName": "",
+      "fileSize": 0,
+      "archived": false,
+      "relatedReportIds": []
     },
     {
       "id": "daily-san-junipero-creator-footprint-2026-10-10",
@@ -755,33 +782,6 @@
       "source": "Clair’s Studio 每日同步",
       "createdAt": "2026-09-28T11:35:00+08:00",
       "updatedAt": "2026-09-28T11:35:00+08:00",
-      "extractionError": "",
-      "fileName": "",
-      "fileSize": 0,
-      "archived": false,
-      "relatedReportIds": []
-    },
-    {
-      "id": "daily-investor-behavior-correction-system-2026-09-28",
-      "studioId": "investor-behavior-correction-system-2026-09-28",
-      "title": "投资者行为分析与矫正｜方法治理与产品闭环",
-      "url": "https://clairku.github.io/clair-ai-studio/reports/investor-behavior-correction-system-2026-09-28/",
-      "body": "接管 Cursor 未完成项目｜复原行为体检、晨星与嘉信研究页、内部量化比较页及本体复核任务｜补齐正式构建源与自动验证门｜修正合成数据身份、收益偏离命名、缺失值填充、处置效应主公式、跟车归属与默认勾选等方法和合规问题｜公开安全版不新增客户、交易、持仓、精确客群规模、内部库表或权限信息",
-      "kind": "studio",
-      "category": "用户与增长",
-      "tags": [
-        "且慢",
-        "投资者行为",
-        "行为金融",
-        "纠偏",
-        "数据分析",
-        "产品闭环",
-        "本体",
-        "合规"
-      ],
-      "source": "Clair’s Studio 每日同步",
-      "createdAt": "2026-09-28T10:45:00+08:00",
-      "updatedAt": "2026-09-28T10:45:00+08:00",
       "extractionError": "",
       "fileName": "",
       "fileSize": 0,
@@ -1841,6 +1841,72 @@
       "origin": "authority"
     },
     {
+      "id": "daily-card-56748df1bd",
+      "reportId": "daily-personal-agent-yingmi-executive-strategy-2026-10-10",
+      "type": "risk",
+      "label": "风险信号",
+      "title": "给出重点场景、L0-L4 自治边界、90 天攻坚、经营与风险指标及六…",
+      "summary": "给出重点场景、L0-L4 自治边界、90 天攻坚、经营与风险指标及六项会议决议建议",
+      "metric": "0",
+      "quote": "给出重点场景、L0-L4 自治边界、90 天攻坚、经营与风险指标及六项会议决议建议",
+      "anchor": "工作台来源说明 · 片段 3",
+      "offset": 0,
+      "tags": [
+        "Personal Agent",
+        "盈米",
+        "且慢",
+        "AI 小顾",
+        "OAP"
+      ],
+      "createdAt": "2026-10-10T15:20:00+08:00",
+      "order": 0,
+      "relatedCardIds": []
+    },
+    {
+      "id": "daily-card-c300b212ec",
+      "reportId": "daily-personal-agent-yingmi-executive-strategy-2026-10-10",
+      "type": "insight",
+      "label": "核心结论",
+      "title": "Personal Agent 专项高管会议通知 × OpenAI /…",
+      "summary": "2026-10-08 Personal Agent 专项高管会议通知 × OpenAI / Google / Alibaba / 豆包 / Tencent / Huawei 官方能力资料 × MCP / A2A / Agentic Commerce / Visa / Mastercard 协议与支付实践 × 2026-09-30 生效的《金融产品网络营销管理办法》 × 盈米 AI、OAP / MCP / Skills、AI 小顾、且慢 BU 与顾问工作台内部能力沉淀",
+      "metric": "2026",
+      "quote": "2026-10-08 Personal Agent 专项高管会议通知 × OpenAI / Google / Alibaba / 豆包 / Tencent / Huawei 官方能力资料 × MCP / A2A / Agentic Commerce / Visa / Mastercard 协议与支付实践 × 2026-09-30 生效的《金融产品网络营销管理办法》 × 盈米 AI、OAP / MCP / Skills、AI 小顾、且慢 BU 与顾问工作台内部能力沉淀",
+      "anchor": "工作台来源说明 · 片段 1",
+      "offset": 0,
+      "tags": [
+        "Personal Agent",
+        "盈米",
+        "且慢",
+        "AI 小顾",
+        "OAP"
+      ],
+      "createdAt": "2026-10-10T15:20:00+08:00",
+      "order": 1,
+      "relatedCardIds": []
+    },
+    {
+      "id": "daily-card-272ba2d281",
+      "reportId": "daily-personal-agent-yingmi-executive-strategy-2026-10-10",
+      "type": "insight",
+      "label": "核心结论",
+      "title": "在两份 Personal Agent 市场全景研究之上",
+      "summary": "在两份 Personal Agent 市场全景研究之上，进一步转化为盈米可拍板的战略：不争通用入口，以且慢个人财富智能体 + 盈米可信金融能力层双线推进，共用个人金融上下文与责任底座，设置身份授权、适当性合规、关键确认、证据回退四道闸；",
+      "metric": "",
+      "quote": "在两份 Personal Agent 市场全景研究之上，进一步转化为盈米可拍板的战略：不争通用入口，以且慢个人财富智能体 + 盈米可信金融能力层双线推进，共用个人金融上下文与责任底座，设置身份授权、适当性合规、关键确认、证据回退四道闸；",
+      "anchor": "工作台来源说明 · 片段 2",
+      "offset": 0,
+      "tags": [
+        "Personal Agent",
+        "盈米",
+        "且慢",
+        "AI 小顾",
+        "OAP"
+      ],
+      "createdAt": "2026-10-10T15:20:00+08:00",
+      "order": 2,
+      "relatedCardIds": []
+    },
+    {
       "id": "daily-card-587f8d3894",
       "reportId": "daily-san-junipero-creator-footprint-2026-10-10",
       "type": "metric",
@@ -2827,72 +2893,6 @@
         "AI"
       ],
       "createdAt": "2026-09-28T11:35:00+08:00",
-      "order": 2,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-386b818007",
-      "reportId": "daily-investor-behavior-correction-system-2026-09-28",
-      "type": "insight",
-      "label": "核心结论",
-      "title": "复原行为体检、晨星与嘉信研究页、内部量化比较页及本体复核任务",
-      "summary": "复原行为体检、晨星与嘉信研究页、内部量化比较页及本体复核任务",
-      "metric": "",
-      "quote": "复原行为体检、晨星与嘉信研究页、内部量化比较页及本体复核任务",
-      "anchor": "工作台来源说明 · 片段 1",
-      "offset": 0,
-      "tags": [
-        "且慢",
-        "投资者行为",
-        "行为金融",
-        "纠偏",
-        "数据分析"
-      ],
-      "createdAt": "2026-09-28T10:45:00+08:00",
-      "order": 0,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-a4267cf898",
-      "reportId": "daily-investor-behavior-correction-system-2026-09-28",
-      "type": "insight",
-      "label": "核心结论",
-      "title": "修正合成数据身份、收益偏离命名、缺失值填充、处置效应主公式、跟车归属…",
-      "summary": "修正合成数据身份、收益偏离命名、缺失值填充、处置效应主公式、跟车归属与默认勾选等方法和合规问题",
-      "metric": "",
-      "quote": "修正合成数据身份、收益偏离命名、缺失值填充、处置效应主公式、跟车归属与默认勾选等方法和合规问题",
-      "anchor": "工作台来源说明 · 片段 2",
-      "offset": 0,
-      "tags": [
-        "且慢",
-        "投资者行为",
-        "行为金融",
-        "纠偏",
-        "数据分析"
-      ],
-      "createdAt": "2026-09-28T10:45:00+08:00",
-      "order": 1,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-2ea424f674",
-      "reportId": "daily-investor-behavior-correction-system-2026-09-28",
-      "type": "insight",
-      "label": "核心结论",
-      "title": "公开安全版不新增客户、交易、持仓、精确客群规模、内部库表或权限信息",
-      "summary": "公开安全版不新增客户、交易、持仓、精确客群规模、内部库表或权限信息",
-      "metric": "",
-      "quote": "公开安全版不新增客户、交易、持仓、精确客群规模、内部库表或权限信息",
-      "anchor": "工作台来源说明 · 片段 3",
-      "offset": 0,
-      "tags": [
-        "且慢",
-        "投资者行为",
-        "行为金融",
-        "纠偏",
-        "数据分析"
-      ],
-      "createdAt": "2026-09-28T10:45:00+08:00",
       "order": 2,
       "relatedCardIds": []
     }
