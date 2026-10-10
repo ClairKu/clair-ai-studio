@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 97;
+const DATA_VERSION = 98;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -221,6 +221,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "san-junipero-creator-footprint-2026-10-10",
+      groupId: "knowledge",
+      title: "San_Junipero 公开互联网足迹｜从吉他手到 AI 伦理科幻作者",
+      url: "https://clairku.github.io/clair-ai-studio/reports/san-junipero-creator-footprint-2026-10-10/",
+      preview: "san-junipero-creator-footprint-2026-10-10.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-10-10T14:30:00+08:00",
+      source: "公开来源证据审计：核验 B站 San_Junipero（UID 1228413958）主页、74 部可解析视频、8 个官方合集与作者动态，并交叉检索微信视频号、bilibili.tv、YouTube、抖音、小红书、微博和 X；严格区分已证实、高概率关联、作品推断与未发现。报告梳理 2020—2026 年从吉他演奏、Sora 2 视觉实验、文学历史还原、苏维埃 / 游戏 IP 混搭到原创 AI 伦理科幻的五阶段转向，提炼认识论垄断、认知商品化、记忆与合成真实、制度性自动化、反乌托邦和技术暧昧六类母题；包含 74 部作品可搜索档案、播放表现、制作透明度、IP 改编与历史影像误认风险，以及作者品牌升级建议。检索截止 2026-10-10。",
+      access: "production",
+      workType: "governance-review",
+      tags: ["AI 影像", "创作者研究", "科幻", "公开来源", "互联网足迹", "内容分析", "版权风险", "知识治理", "HTML", "生产"],
+    },
     {
       id: "knowledge-report-hub",
       groupId: "knowledge",
@@ -3269,6 +3283,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "san-junipero-creator-footprint-2026-10-10": "knowledge",
   "knowledge-report-hub": "knowledge",
   "personal-agent-market-atlas-2026-10-10": "ai-platform",
   "personal-agent-landscape-2026-10-10": "ai-platform",
