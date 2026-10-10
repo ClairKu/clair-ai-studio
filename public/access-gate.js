@@ -370,7 +370,7 @@
         <form novalidate>
           <label for="clair-access-password">${profile.fieldLabel}</label>
           <div class="password-row">
-            <input id="clair-access-password" name="clair-access-passcode" type="password" inputmode="numeric" autocomplete="one-time-code" enterkeyhint="go" placeholder="${profile.fieldLabel}" autofocus />
+            <input id="clair-access-password" name="clair-access-passcode" type="password" inputmode="numeric" autocomplete="off" enterkeyhint="go" placeholder="${profile.fieldLabel}" autofocus />
             <button type="submit" aria-label="验证并进入">→</button>
           </div>
           <p class="status" role="status" aria-live="polite"></p>
