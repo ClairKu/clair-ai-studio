@@ -7,6 +7,9 @@ const html=readFileSync(root+'public/reports/xiaogu-usage-trends-2024/index.html
 const match=html.match(/<script id="dashboard-data" type="application\/json">([\s\S]*?)<\/script>/);
 assert.ok(match,'Embedded data missing');
 const d=JSON.parse(match[1]);
+assert.match(d.firstObservedQuestionDate,/^202[4-6]-\d{2}-\d{2}$/,'Verified question coverage start');
+assert.ok(d.questionDefinition&&d.questionBreakdown,'Expanded question scope must be verified');
+assert.equal(Object.values(d.questionBreakdown).reduce((s,n)=>s+n,0),d.audit.window_questions,'Question breakdown reconciles to full total');
 const fields=['uv','pv','questions','cumulative_users','cumulative_questions','new_tasks','cumulative_tasks'];
 const dayMs=86400000;
 const first=Date.parse('2024-01-01T00:00:00Z'),last=Date.parse(d.cutoff+'T00:00:00Z');
@@ -24,7 +27,7 @@ for(let i=0;i<d.daily.length;i++){
  if(r.cumulative_questions!==null)assert.equal(r.cumulative_questions,questions,r.date+' cumulative questions');
  if(r.new_tasks!==null)taskCount+=r.new_tasks;
  if(r.cumulative_tasks!==null)assert.equal(r.cumulative_tasks,taskCount,r.date+' cumulative tasks');
- if(r.date<'2024-02-04')assert.equal(r.questions,null,'Input unavailable before tracking start');
+ if(r.date<d.firstObservedQuestionDate)assert.equal(r.questions,null,'Questions unavailable before tracking start');
  if(r.date<'2026-05-19')assert.equal(r.new_tasks,null,'Task coverage starts May 19');
 }
 for(const m of d.monthly){
@@ -42,7 +45,7 @@ assert.equal(d.daily.at(-1).cumulative_users,d.audit.window_uv,'Independent full
 assert.equal(questions,d.audit.window_questions,'Independent full-window question count');
 assert.equal(d.daily.reduce((s,r)=>s+(r.pv||0),0),d.audit.window_pv,'Independent full-window visit count');
 assert.equal(d.versions.length,3);
-for(const marker of ['id="daily"','id="monthly"','id="actual"','id="indexed"','id="export-csv"','id="export-image"','data-preset="all"','data-preset="none"','connectNulls:false'])assert.ok(html.includes(marker),marker);
+for(const marker of ['id="daily"','id="monthly"','id="actual"','id="indexed"','id="export-csv"','id="export-image"','data-preset="all"','data-preset="none"','connectNulls:false','id="point-date"','id="point-values"','showContent:false','data-range="launch"','data-range="ytd"','id="recent-count"','id="recent-unit"'])assert.ok(html.includes(marker),marker);
 assert.ok(!/(api[_-]?key\s*[=:]|Bearer [A-Za-z0-9]|ying99_|qmuser_user_id|agent_token)/.test(html),'Private source identifiers or secrets must not be embedded');
 const result={daily:d.daily.length,monthly:d.monthly.length,cutoff:d.cutoff,users:newUsers,questions,tasks:taskCount,sha256:createHash('sha256').update(match[1]).digest('hex')};
 console.log('AI 小顾趋势数据核验通过：'+JSON.stringify(result));

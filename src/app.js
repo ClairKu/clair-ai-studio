@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 102;
+const DATA_VERSION = 103;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -230,7 +230,7 @@ const initialState = {
       pinned: false,
       position: 0,
       createdAt: "2026-10-12T13:50:00+08:00",
-      source: "2024年以来日/月交互走势图，访问用户、访问量、主动提问、累计用户、累计提问、新增与累计定时任务七项指标可自由勾选。神策生产聚合独立去重，任务按标识合并保留记录；实际数量/趋势对比、日期筛选、缩放、CSV和图片下载。版本节点、埋点异常和可观测边界均标注。数据截至 2026-10-11。",
+      source: "2024年以来日/月交互走势图，日活DAU/月活MAU、访问量、提问（含用户触发）、累计用户、累计提问、新增与累计定时任务七项指标可自由勾选。支持上线以来、今年以来、近X月/年与指定期间，图外固定区显示数值；实际数量/趋势对比、缩放、CSV和图片下载。版本节点、埋点异常和可观测边界均标注。数据截至 2026-10-11。",
       access: "production",
       workType: "data-analysis",
       tags: [
