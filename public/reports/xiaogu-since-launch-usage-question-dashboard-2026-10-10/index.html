@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="AI 小顾上线以来的使用、提问、复用、主题、渠道与服务质量数据走势分析。">
+  <meta name="theme-color" content="#102f34">
+  <title>AI 小顾上线以来使用与提问走势分析</title>
+  <style>
+    :root{--ink:#163035;--deep:#102f34;--deep2:#17464b;--paper:#f3f0e7;--soft:#edf4f1;--white:#fff;--muted:#637579;--line:#d7e2de;--mint:#ccebe0;--lime:#dff47c;--orange:#f06d3d;--amber:#e7aa3d;--red:#c34e4b;--blue:#477fc0;--shadow:0 18px 48px rgba(16,47,52,.12);--sans:Inter,"SF Pro Display","PingFang SC","Microsoft YaHei",sans-serif;--serif:"Iowan Old Style","Songti SC",STSong,serif}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#e7eeeb;color:var(--ink);font-family:var(--sans);line-height:1.62}a{color:inherit;text-decoration:none}button{font:inherit}.wrap{width:min(1180px,calc(100% - 44px));margin:auto}.mono,.num{font-variant-numeric:tabular-nums}.eyebrow,.kicker,.tag,.source-id{font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+    .hero{position:relative;min-height:770px;overflow:hidden;background:var(--deep);color:#fff}.hero:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% 13%,rgba(223,244,124,.18),transparent 29%),radial-gradient(circle at 16% 88%,rgba(240,109,61,.13),transparent 28%),linear-gradient(118deg,transparent 0 58%,rgba(255,255,255,.04) 58% 59%,transparent 59%)}.hero:after{content:"问";position:absolute;right:-18px;bottom:-118px;color:rgba(255,255,255,.035);font:500 min(32vw,390px)/1 var(--serif)}.top{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:25px 0;border-bottom:1px solid rgba(255,255,255,.15)}.brand{display:flex;align-items:center;gap:12px;font-weight:850}.brand i{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--lime);color:var(--deep);font-family:var(--serif);font-style:normal}.meta{display:flex;gap:18px;color:#abc2c5;font-size:10px;letter-spacing:.08em}.hero-main{position:relative;z-index:2;padding:78px 0 72px}.eyebrow{display:flex;align-items:center;gap:12px;color:var(--lime);font-size:10px}.eyebrow:before{content:"";width:50px;height:1px;background:currentColor}.hero h1{max-width:1010px;margin:24px 0 20px;font:650 clamp(47px,6.6vw,82px)/1.04 var(--serif);letter-spacing:-.045em}.hero h1 em{color:var(--lime);font-style:normal}.lead{max-width:860px;margin:0;color:#c5d7d8;font-size:18px}.thesis{display:grid;grid-template-columns:130px 1fr;gap:24px;max-width:1040px;margin-top:34px;padding:22px 0;border-block:1px solid rgba(255,255,255,.17)}.thesis span{color:var(--lime);font-size:10px;font-weight:900}.thesis b{font-size:22px;line-height:1.55}.hero-kpis{display:grid;grid-template-columns:repeat(4,1fr);max-width:1060px;margin-top:34px}.hero-kpi{padding:0 22px;border-right:1px solid rgba(255,255,255,.15)}.hero-kpi:first-child{padding-left:0}.hero-kpi:last-child{border:0}.hero-kpi strong{display:block;font:600 34px/1.1 var(--serif)}.hero-kpi small{display:block;margin-top:7px;color:#9eb9bc;font-size:10px}.hero-note{margin-top:18px;color:#88a8ac;font-size:10px}
+    .nav{position:sticky;top:0;z-index:30;border-bottom:1px solid var(--line);background:rgba(255,255,255,.96);backdrop-filter:blur(14px)}.nav .wrap{display:flex;align-items:center;overflow:auto}.nav a{padding:15px 10px;white-space:nowrap;color:#53686c;font-size:10px;font-weight:850}.nav a:hover,.nav a:focus{background:var(--soft);color:var(--deep)}.nav .print{margin-left:auto;border:0;background:var(--deep);color:white;padding:8px 12px;white-space:nowrap;cursor:pointer;font-size:10px;font-weight:850}
+    main{background:white}.section{padding:84px 0}.section.alt{background:var(--soft)}.section.paper{background:var(--paper)}.section.dark{background:var(--deep);color:white}.section-head{display:grid;grid-template-columns:70px 1fr;gap:22px;margin-bottom:34px}.section-no{color:var(--orange);font:500 43px/1 var(--serif)}.section-head h2{margin:0 0 8px;font:600 clamp(32px,4vw,50px)/1.14 var(--serif);letter-spacing:-.025em}.section-head p{max-width:900px;margin:0;color:var(--muted);font-size:13px}.dark .section-head p{color:#aec3c5}.kicker{display:block;margin-bottom:8px;color:#0b867a;font-size:9px}.dark .kicker{color:var(--lime)}.source-id{display:inline-block;padding:3px 6px;border:1px solid #99aaa6;border-radius:2px;color:#526561;font-size:8px;vertical-align:1px}
+    .verdicts{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;border:1px solid var(--line);background:var(--line)}.verdict{min-height:278px;padding:28px;background:white}.verdict .vno{color:var(--orange);font:500 38px/1 var(--serif)}.verdict h3{margin:24px 0 9px;font-size:18px}.verdict p{margin:0;color:var(--muted);font-size:12px}.verdict b{display:block;margin-top:18px;padding-top:14px;border-top:1px solid #e6ece9;color:var(--deep);font-size:11px}.quote{display:grid;grid-template-columns:170px 1fr;gap:28px;margin-top:22px;padding:30px;background:var(--deep);color:white}.quote span{height:max-content;padding:7px 10px;border:1px solid var(--lime);color:var(--lime);font-size:9px;font-weight:900;letter-spacing:.12em}.quote blockquote{margin:0;font:500 25px/1.55 var(--serif)}.quote small{display:block;margin-top:8px;color:#adc2c4;font:10px var(--sans)}
+    .history-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:18px}.history-line{position:relative;display:grid;gap:0;padding:10px 0}.era{position:relative;display:grid;grid-template-columns:108px 1fr;gap:24px;padding:0 0 28px 28px;border-left:1px solid #8eb0aa}.era:last-child{padding-bottom:0}.era:before{content:"";position:absolute;left:-6px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 5px rgba(223,244,124,.15)}.era time{color:var(--lime);font:700 16px/1.2 var(--serif)}.era h3{margin:0 0 6px;font-size:15px}.era p{margin:0;color:#b7cbcd;font-size:10px}.evidence-stack{display:grid;gap:10px}.evidence{padding:22px;border:1px solid var(--line);background:white}.evidence header{display:flex;align-items:center;justify-content:space-between;gap:14px}.evidence h3{margin:0;font:600 20px/1.2 var(--serif)}.confidence{padding:4px 7px;background:var(--mint);color:#0a7469;font-size:8px;font-weight:900}.confidence.medium{background:#fff0d3;color:#8a671b}.evidence strong{display:block;margin:14px 0 6px;color:var(--deep);font:600 28px/1.1 var(--serif)}.evidence p{margin:0;color:var(--muted);font-size:10px}.boundary{margin-top:18px;padding:22px;border-left:5px solid var(--orange);background:#fff7e6;color:#705d35;font-size:11px}.boundary b{color:var(--deep)}.history-chart{display:grid;grid-template-columns:repeat(34,minmax(32px,1fr));gap:4px;align-items:end;min-width:1320px;height:250px;padding:22px 8px 0;border-bottom:1px solid rgba(255,255,255,.2)}.history-col{display:grid;grid-template-rows:188px 30px;align-items:end;text-align:center}.history-pair{height:188px;display:flex;align-items:end;justify-content:center;gap:2px}.history-pair i{display:block;width:10px;min-height:2px;border-radius:2px 2px 0 0}.history-pair .entry{background:#4a8589}.history-pair .input{background:var(--lime)}.history-col label{color:#9ebabc;font-size:7px}.history-detail{margin-top:12px;border:1px solid rgba(255,255,255,.18);background:white;color:var(--ink)}.history-detail summary{padding:13px 16px;cursor:pointer;color:var(--deep);font-size:10px;font-weight:900}.history-detail .scroll{max-height:420px}.annual-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:18px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.16)}.annual-grid>div{padding:18px;background:#12363b}.annual-grid small{color:#95b0b3;font-size:8px}.annual-grid strong{display:block;margin:7px 0 3px;color:white;font:600 25px/1 var(--serif)}.annual-grid p{margin:0;color:#bad0d2;font-size:8px}
+    .panel{padding:27px;border:1px solid var(--line);background:white}.panel.dark-panel{border-color:var(--deep);background:var(--deep);color:white}.panel h3{margin:0;font:600 25px/1.25 var(--serif)}.panel>p{margin:7px 0 22px;color:var(--muted);font-size:11px}.dark-panel>p{color:#aac0c2}.panel-grid{display:grid;grid-template-columns:1.18fr .82fr;gap:16px}.mini-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.signal{padding:20px;border:1px solid var(--line);background:white}.signal small{color:#0b8579;font-size:9px;font-weight:900}.signal strong{display:block;margin:8px 0 4px;font:600 28px/1 var(--serif)}.signal p{margin:0;color:var(--muted);font-size:10px}.note{margin-top:14px;padding:16px 18px;border-left:4px solid var(--amber);background:#fff7e6;color:#705d35;font-size:11px}.note.red{border-color:var(--red);background:#fff0ee;color:#803f3b}
+    .front-chart{display:grid;grid-template-columns:repeat(10,minmax(64px,1fr));gap:8px;align-items:end;min-width:780px;height:286px;padding:24px 8px 0;border-bottom:1px solid rgba(255,255,255,.2)}.front-col{display:grid;grid-template-rows:24px 196px 38px;gap:4px;align-items:end;text-align:center}.front-col .rate{color:var(--lime);font-size:9px}.pair{height:196px;display:flex;align-items:end;justify-content:center;gap:3px}.bar-entry,.bar-input{position:relative;width:18px;min-height:2px;border-radius:3px 3px 0 0}.bar-entry{background:#3e7478}.bar-input{background:var(--lime)}.bar-entry:hover,.bar-input:hover{filter:brightness(1.2)}.front-col label{color:#b7cbcd;font-size:9px}.chart-legend{display:flex;gap:16px;margin-top:15px;color:#b3c8ca;font-size:9px}.chart-legend i{display:inline-block;width:10px;height:10px;margin-right:5px}.scroll{overflow:auto}.data-table{width:100%;border-collapse:collapse;font-size:10px}.data-table th,.data-table td{padding:11px 10px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}.data-table th:first-child,.data-table td:first-child{text-align:left}.data-table thead th{position:sticky;top:0;background:#eef4f1;color:#53676a;font-size:9px}.data-table tbody tr:hover{background:#f8faf9}.flag{display:inline-block;padding:3px 6px;border-radius:10px;background:#fff0d3;color:#8a671b;font-size:8px;font-weight:900}
+    .backend-chart{display:grid;gap:14px}.month-row{display:grid;grid-template-columns:64px 92px 1fr 95px;gap:12px;align-items:center}.month-row label{font-size:11px;font-weight:850}.month-row .uv{color:#9ebabc;font-size:9px}.stack{height:20px;overflow:hidden;background:rgba(255,255,255,.08)}.stack i{display:inline-block;height:100%}.stack .core{background:#48b8a4}.stack .qwen{background:var(--lime)}.month-row b{text-align:right;color:#dbe8e8;font-size:10px}.same-window{display:grid;grid-template-columns:1.1fr repeat(3,1fr);gap:1px;margin-top:24px;background:var(--line);border:1px solid var(--line)}.same-window>div{padding:18px;background:white}.same-window small{color:var(--muted);font-size:8px}.same-window strong{display:block;margin:7px 0 2px;font:600 24px/1 var(--serif)}.same-window em{color:#0c8579;font-size:9px;font-style:normal}.same-window .headline{background:var(--deep);color:white}.same-window .headline small{color:#a9c0c2}.same-window .headline strong{color:var(--lime)}
+    .theme-layout{display:grid;grid-template-columns:.76fr 1.24fr;gap:18px}.donut-wrap{display:grid;place-items:center;min-height:390px;padding:26px;background:var(--deep);color:white}.donut{display:grid;place-items:center;width:245px;aspect-ratio:1;border-radius:50%;background:conic-gradient(#64c8b5 0 25.1%,#dff47c 25.1% 44%,#ef7b4f 44% 54.2%,#5b8fd0 54.2% 64.1%,#d3b459 64.1% 69.8%,#b8c9c5 69.8% 94.2%,#77928d 94.2% 100%)}.donut:after{content:"";width:126px;aspect-ratio:1;border-radius:50%;background:var(--deep)}.donut-label{position:absolute;text-align:center}.donut-label strong{display:block;color:var(--lime);font:600 32px/1 var(--serif)}.donut-label small{color:#a9c1c3;font-size:9px}.donut-box{position:relative;display:grid;place-items:center}.theme-card{padding:28px;border:1px solid var(--line);background:white}.theme-card header{display:flex;align-items:center;justify-content:space-between;gap:16px}.theme-card h3{margin:0;font:600 25px/1.2 var(--serif)}.segmented{display:flex;padding:3px;background:var(--soft)}.segmented button{border:0;background:transparent;padding:8px 10px;color:#637579;cursor:pointer;font-size:9px;font-weight:850}.segmented button.active{background:var(--deep);color:white}.theme-bars{display:grid;gap:10px;margin-top:24px}.theme-row{display:grid;grid-template-columns:112px 1fr 54px;gap:10px;align-items:center}.theme-row label{font-size:10px;font-weight:800}.theme-track{height:13px;background:var(--soft)}.theme-track i{display:block;height:100%;background:#55bca9}.theme-row:nth-child(2) i{background:var(--lime)}.theme-row:nth-child(3) i{background:var(--orange)}.theme-row:nth-child(4) i{background:var(--blue)}.theme-row span{text-align:right;color:var(--muted);font-size:9px}.theme-insights{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}.theme-insight{padding:18px;border-top:4px solid var(--orange);background:white;box-shadow:var(--shadow)}.theme-insight:nth-child(2){border-color:#0d8b7e}.theme-insight:nth-child(3){border-color:var(--blue)}.theme-insight strong{display:block;margin-bottom:6px;font-size:13px}.theme-insight p{margin:0;color:var(--muted);font-size:10px}
+    .depth-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.depth-bars{display:grid;gap:12px;margin-top:23px}.depth-row{display:grid;grid-template-columns:90px 1fr 84px;gap:10px;align-items:center}.depth-row label{font-size:10px;font-weight:800}.depth-row .rail{height:16px;background:var(--soft)}.depth-row .rail i{display:block;height:100%;background:#1b786f}.depth-row span{text-align:right;color:var(--muted);font-size:9px}.concentration{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}.concentration div{padding:18px;background:var(--soft)}.concentration strong{display:block;font:600 26px/1 var(--serif)}.concentration small{color:var(--muted);font-size:9px}.funnel{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:22px;background:var(--line);border:1px solid var(--line)}.funnel div{padding:20px;background:white}.funnel strong{display:block;font:600 24px/1 var(--serif)}.funnel small{color:var(--muted);font-size:9px}
+    .quality-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:18px}.quality-score{display:flex;flex-direction:column;justify-content:space-between;min-height:390px;padding:30px;background:var(--deep);color:white}.quality-score small{color:var(--lime);font-size:9px;font-weight:900;letter-spacing:.12em}.quality-score strong{display:block;margin:20px 0 8px;font:600 72px/1 var(--serif)}.quality-score p{margin:0;color:#abc1c3;font-size:11px}.quality-score .guard{padding:16px;background:rgba(255,255,255,.07);font-size:11px}.quality-list{display:grid;gap:10px}.quality-item{padding:21px;border:1px solid var(--line);background:white}.quality-item header{display:flex;align-items:center;justify-content:space-between}.quality-item h3{margin:0;font-size:14px}.quality-item strong{font:600 24px/1 var(--serif)}.quality-item p{margin:8px 0 0;color:var(--muted);font-size:10px}.quality-item .risk{color:var(--red)}.bridge{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:18px}.bridge-card{padding:24px;border:1px solid var(--line);background:white}.bridge-card h3{margin:0 0 14px;font:600 22px/1.2 var(--serif)}.bridge-card ul{margin:0;padding-left:18px;color:var(--muted);font-size:10px}.bridge-card li+li{margin-top:7px}
+    .roadmap{display:grid;gap:11px}.action{display:grid;grid-template-columns:90px 1.1fr .8fr .8fr;gap:18px;align-items:start;padding:23px;border:1px solid var(--line);background:white}.priority{padding:8px 10px;text-align:center;background:var(--red);color:white;font-size:9px;font-weight:900}.priority.p1{background:var(--blue)}.action h3{margin:0 0 6px;font-size:15px}.action p{margin:0;color:var(--muted);font-size:10px}.action small{display:block;color:#0b8579;font-size:8px;font-weight:900}.action b{font-size:10px}.target-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}.target{padding:20px;border-top:4px solid var(--orange);background:var(--deep);color:white}.target:nth-child(2){border-color:var(--lime)}.target:nth-child(3){border-color:var(--blue)}.target small{color:#aac1c3;font-size:8px}.target strong{display:block;margin:8px 0 5px;font:600 25px/1 var(--serif)}.target p{margin:0;color:#c5d5d6;font-size:9px}
+    .audit{display:grid;grid-template-columns:1.15fr .85fr;gap:16px}.check-list{display:grid;gap:8px}.check{display:grid;grid-template-columns:26px 1fr;gap:10px;padding:14px 16px;border:1px solid var(--line);background:white}.check i{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--mint);color:#0a7469;font-style:normal;font-weight:900}.check b{font-size:11px}.check p{margin:2px 0 0;color:var(--muted);font-size:9px}.source-table td:nth-child(2){white-space:normal;text-align:left}.source-table td:nth-child(3){white-space:normal;text-align:left}.footer{padding:32px 0;background:#0a282d;color:#9db7ba;font-size:9px}.footer .wrap{display:flex;justify-content:space-between;gap:20px}.footer b{color:white}
+    @media(max-width:900px){.hero{min-height:auto}.meta{display:none}.hero-main{padding:62px 0}.hero-kpis{grid-template-columns:1fr 1fr;gap:20px}.hero-kpi:nth-child(2){border:0}.thesis,.section-head{grid-template-columns:1fr}.section-no{font-size:28px}.verdicts,.history-grid,.panel-grid,.theme-layout,.depth-grid,.quality-grid,.audit,.bridge{grid-template-columns:1fr}.theme-insights,.target-grid,.annual-grid{grid-template-columns:1fr 1fr}.same-window{grid-template-columns:1fr 1fr}.action{grid-template-columns:76px 1fr}.action>div:nth-child(n+3){grid-column:2}.quote{grid-template-columns:1fr}.footer .wrap{display:block}.footer span{display:block;margin-top:8px}}
+    @media(max-width:620px){.wrap{width:min(100% - 28px,1180px)}.hero h1{font-size:39px;overflow-wrap:anywhere}.hero h1 em{word-break:break-all}.lead{font-size:15px}.thesis b{font-size:18px;overflow-wrap:anywhere}.hero-kpis{grid-template-columns:1fr}.hero-kpi{padding:0 0 16px;border:0;border-bottom:1px solid rgba(255,255,255,.15)}.nav .wrap{padding-bottom:0}.nav .print{display:none}.section{padding:64px 0}.verdicts,.mini-grid,.same-window,.funnel,.concentration,.annual-grid{grid-template-columns:1fr}.theme-card header{align-items:flex-start;flex-direction:column}.segmented{width:100%}.segmented button{flex:1}.theme-row{grid-template-columns:96px 1fr 42px}.month-row{grid-template-columns:48px 70px 1fr}.month-row b{display:none}.action{grid-template-columns:1fr}.action>div:nth-child(n){grid-column:auto}.front-chart{min-width:720px}}
+    @media print{.nav,.segmented,.print{display:none!important}.hero{min-height:auto}.section{break-inside:avoid;padding:42px 0}.panel,.verdict,.theme-insight,.action{box-shadow:none}.hero:after{display:none}}
+  </style>
+</head>
+<body>
+  <header class="hero" id="top">
+    <div class="wrap top"><div class="brand"><i>顾</i><span>CLAIR × 且慢 AI 小顾</span></div><div class="meta"><span>SINCE LAUNCH</span><span>生产聚合</span><span>公开脱敏</span></div></div>
+    <div class="wrap hero-main">
+      <div class="eyebrow">USE · ASK · RETURN · RESOLVE</div>
+      <h1>AI 小顾上线以来<br><em>使用与提问</em>走势分析</h1>
+      <p class="lead">连续复算 2024-01 灰度至今的 34 个月入口与主动输入，再下钻 2026 年渠道、需求、复用和回复质量。旧规则提醒“小顾”与 AI 对话小顾严格断开，PV 断点、活动峰值和版本迁移逐项标注。</p>
+      <div class="thesis"><span>经营判断</span><b>AI 小顾已从灰度走过两轮放量，但 2025-02 的全史峰值主要是活动脉冲，2025-07—09 才是更可持续的平台高位；2026 年 App/H5 入口持续回落，10 月全渠道增长又几乎由千问带动。下一阶段不该继续追累计问答量，而要追跨渠道回流、月度复用与成功服务任务。</b></div>
+      <div class="hero-kpis">
+        <div class="hero-kpi"><strong class="num">2024.01.23</strong><small>AI 小顾 LLM 对话灰度首日 · 2 位用户</small></div>
+        <div class="hero-kpi"><strong class="num">460,281</strong><small>上线以来进入去重用户 · 跨年独立查询</small></div>
+        <div class="hero-kpi"><strong class="num">107,815</strong><small>上线以来主动输入去重用户</small></div>
+        <div class="hero-kpi"><strong class="num">644,219</strong><small>上线以来主动输入次数 · 截至 10/10</small></div>
+      </div>
+      <div class="hero-note">数据截止 2026-10-10（北京时间）｜神策前端按 10/10 日切；后端截至 18:51:17｜AI 对话灰度 2024-01-23；input 埋点自 2024-02-04｜10 月为部分月｜所有公开数字均为聚合</div>
+    </div>
+  </header>
+
+  <nav class="nav" aria-label="章节导航"><div class="wrap">
+    <a href="#verdict">结论</a><a href="#history">上线以来</a><a href="#front">2026 趋势</a><a href="#backend">后端使用</a><a href="#themes">提问主题</a><a href="#depth">复用深度</a><a href="#quality">服务质量</a><a href="#actions">行动</a><a href="#sources">数据索引</a><button class="print" onclick="window.print()">打印 / PDF</button>
+  </div></nav>
+
+  <main>
+    <section class="section" id="verdict"><div class="wrap">
+      <div class="section-head"><div class="section-no">01</div><div><span class="kicker">EXECUTIVE SUMMARY</span><h2>不是“增长还是下降”，而是三种变化同时发生</h2><p>规模、结构与质量必须一起看。只报总提问量，会掩盖自有入口走弱、渠道替代与复用不足。</p></div></div>
+      <div class="verdicts">
+        <article class="verdict"><div class="vno">−60%</div><h3>入口缩量，效率改善</h3><p>进入小顾月 UV 从 1 月 78,913 降至 9 月 31,806；主动输入 UV 同期从 11,289 降至 5,103。与此同时，月度进入→输入率从 14.3% 升至 16.0%，8 月人均输入达 4.6 次。</p><b><span class="source-id">D-003</span> 留下的人问得更深，但产品并没有自然扩张。</b></article>
+        <article class="verdict"><div class="vno">+198%</div><h3>10 月同窗增长由千问驱动</h3><p>10 月前 10 日同窗后端提问 43,902 条，较 9 月同期增 198.3%；其中千问 +638.7%，非千问路线 −36.0%。全渠道创新高不等于自有入口变好。</p><b><span class="source-id">D-006</span> 应把渠道增长与产品本体健康度拆成两张表。</b></article>
+        <article class="verdict"><div class="vno">73.7%</div><h3>一次性使用仍是主流</h3><p>后端可观测期内，73.7% 提问用户只在 1 天使用；Top 1% 用户贡献 32.6% 提问。消息级回复失败率 4.17%，9.6% 的提问会话至少遇到一次失败。</p><b><span class="source-id">D-009</span> <span class="source-id">D-014</span> 北极星应转向复用与成功任务。</b></article>
+      </div>
+      <div class="quote"><span>一句话拍板</span><blockquote>小顾已经证明“有人愿意问、外部渠道能放大”，尚未证明“多数人会回来、问题被稳定解决、渠道能沉淀为长期关系”。<small>本判断基于生产聚合；不包含交易或 AUM 因果归因。</small></blockquote></div>
+    </div></section>
+
+    <section class="section dark" id="history"><div class="wrap">
+      <div class="section-head"><div class="section-no">02</div><div><span class="kicker">SINCE LAUNCH · 34 MONTHS</span><h2>AI 对话小顾从 2024-01 灰度，走过两轮放量</h2><p>主曲线连续覆盖 2024-01—2026-10-10。旧“规则提醒小顾”虽自 2020 年存在，但与 LLM 对话产品是两代产品，不进入本页累计与趋势。</p></div></div>
+      <div class="history-grid">
+        <div class="history-line">
+          <article class="era"><time>2020—23</time><div><h3>旧规则提醒“小顾” · 史前产品</h3><p>2020-09-16 起有旧事件，2021 年提醒 UV 一度达 221.7 万；它不是 AI 对话小顾，禁止拼入累计或增长。<span class="source-id">D-016</span></p></div></article>
+          <article class="era"><time>2024.01</time><div><h3>LLM 对话灰度上线</h3><p>1 月 23 日首现 2 位用户；超级入口自 1 月 24 日起，主动 input 埋点自 2 月 4 日起。5 月首波显著放量，10 月进入 UV 达 48,442。<span class="source-id">D-016</span></p></div></article>
+          <article class="era"><time>2025</time><div><h3>活动峰值后形成平台高位</h3><p>2 月进入 80,345、提问 17,575 人 / 94,445 次，为全史活动峰值；7—9 月进入 6.8—7.5 万，构成更稳定的平台高位。</p></div></article>
+          <article class="era"><time>2026</time><div><h3>自有入口下行，外部渠道放大</h3><p>1—9 月进入 UV 从 78,913 降至 31,806；8 月 v3 主体交接，10 月后端全渠道增长主要来自千问，产品本体与渠道健康度开始分化。</p></div></article>
+        </div>
+        <div class="evidence-stack">
+          <article class="evidence"><header><h3>2024 · 灰度与首轮放量</h3><span class="confidence">生产可复算</span></header><strong>153,519 进入用户</strong><p>年度独立去重；19,428 位主动输入用户、81,095 次主动输入。1 月 input 尚未上线。<span class="source-id">D-017</span></p></article>
+          <article class="evidence"><header><h3>2025 · 规模峰值年</h3><span class="confidence">生产可复算</span></header><strong>290,944 进入用户</strong><p>年度独立去重；60,754 位主动输入用户、326,039 次主动输入。2 月活动峰不可视为稳态。<span class="source-id">D-017</span></p></article>
+          <article class="evidence"><header><h3>2026 · 渠道分化年</h3><span class="confidence">生产可复算</span></header><strong>233,571 进入用户</strong><p>截至 10 月 10 日；49,926 位主动输入用户、237,085 次主动输入。月度输入效率改善但自有入口承压。<span class="source-id">D-017</span></p></article>
+        </div>
+      </div>
+      <div class="panel dark-panel" style="margin-top:18px"><h3>34 个月连续走势 · 进入 UV / 主动输入 UV</h3><p>同一组“超级入口 + input”主口径跨 v1/v2/v3 沿用；横向滚动查看。2025-02 是活动异常峰，PV 因 2025-04—2026-05 重复上报而不进入本图。</p><div class="scroll"><div class="history-chart" id="historyChart" role="img" aria-label="2024 年 1 月至 2026 年 10 月 AI 小顾进入与主动输入用户趋势"></div></div><div class="chart-legend"><span><i style="background:#4a8589"></i>进入 UV</span><span><i style="background:var(--lime)"></i>主动输入 UV</span><span>2026-10 为部分月</span></div><details class="history-detail"><summary>展开 34 个月完整明细</summary><div class="scroll"><table class="data-table"><thead><tr><th>月份</th><th>进入 UV</th><th>主动输入 UV</th><th>主动输入次数</th><th>进入→输入率</th></tr></thead><tbody id="historyTable"></tbody></table></div></details></div>
+      <div class="annual-grid"><div><small>2024 年</small><strong>153,519</strong><p>进入去重 · 81,095 次输入</p></div><div><small>2025 年</small><strong>290,944</strong><p>进入去重 · 326,039 次输入</p></div><div><small>2026 至 10/10</small><strong>233,571</strong><p>进入去重 · 237,085 次输入</p></div><div><small>全历史跨年去重</small><strong>460,281</strong><p>107,815 位输入用户 · 644,219 次</p></div></div>
+      <div class="boundary"><b>最重要的趋势结论：</b>规模经历“2024 灰度爬坡 → 2025 活动峰与平台高位 → 2026 自有入口下行、外部渠道接棒”。这不是单调增长。2025-02 的峰值应单列活动归因；2025-07—09 才更接近可持续基线；2026 的优先级是把渠道流量沉淀为复用与成功任务。</div>
+    </div></section>
+
+    <section class="section dark" id="front"><div class="wrap">
+      <div class="section-head"><div class="section-no">03</div><div><span class="kicker">2026 CONTINUOUS LENS</span><h2>2026 连续口径：入口在降，提问效率在升</h2><p>神策口径覆盖 App 内嵌 WebView、桌面 H5、微信内嵌 H5 等；进入以“超级入口”页面为准，主动提问只统计键盘输入发送，不含快捷问题。1—5 月 PV 重复上报，全年只用 UV 判断规模。</p></div></div>
+      <div class="panel-grid">
+        <div class="panel dark-panel"><h3>月度进入 UV vs 主动输入 UV</h3><p>同一纵轴，绿色短柱为主动输入用户；柱顶数字为月度进入→主动输入率。</p><div class="scroll"><div class="front-chart" id="frontChart" role="img" aria-label="2026 年 1 月至 10 月进入小顾与主动输入用户趋势"></div></div><div class="chart-legend"><span><i style="background:#3e7478"></i>进入小顾 UV</span><span><i style="background:var(--lime)"></i>主动输入 UV</span><span>10 月仅 1—10 日</span></div></div>
+        <div class="mini-grid">
+          <div class="signal"><small>全年去重触达</small><strong class="num">233,571</strong><p>进入小顾用户；月度 UV 不可直接相加。</p></div>
+          <div class="signal"><small>全年去重提问</small><strong class="num">49,926</strong><p>主动键盘输入用户，占进入用户 21.4%。</p></div>
+          <div class="signal"><small>8 月深度峰值</small><strong class="num">4.6 次</strong><p>人均主动输入；7 月为 3.1 次。</p></div>
+          <div class="signal"><small>版本迁移</small><strong>8 月</strong><p>v3 完成主体放量，v2/v3 会话事件不可强并。</p></div>
+          <div class="note" style="grid-column:1/-1">1—5 月进入 PV 因旧版重复上报被放大，6 月后收敛；UV 仅微降。看板不把 PV 断崖解释成真实流量腰斩。<span class="source-id">D-004</span></div>
+        </div>
+      </div>
+      <div class="scroll" style="margin-top:18px"><table class="data-table" aria-label="神策月度连续口径明细"><thead><tr><th>月份</th><th>进入 UV</th><th>主动输入 UV</th><th>主动输入次数</th><th>进入→输入率</th><th>人均输入</th></tr></thead><tbody id="frontTable"></tbody></table></div>
+    </div></section>
+
+    <section class="section alt" id="backend"><div class="wrap">
+      <div class="section-head"><div class="section-no">04</div><div><span class="kicker">BACKEND OBSERVABLE PERIOD</span><h2>从 5 月 19 日起，全渠道问答进入可分析期</h2><p>后端消息库覆盖用户实际发出的消息、会话、入口路线与回复状态。定时任务单列，不计入主动提问；千问与非千问路线按生产映射拆分。</p></div></div>
+      <div class="panel-grid">
+        <div class="panel dark-panel"><h3>月度主动提问 · 按路线堆叠</h3><p>青色为非千问路线（含且慢及其他入口），浅绿为千问；5—6 月为早期小样本，10 月为部分月。</p><div class="backend-chart" id="backendChart"></div><div class="chart-legend"><span><i style="background:#48b8a4"></i>非千问</span><span><i style="background:var(--lime)"></i>千问</span></div></div>
+        <div class="mini-grid">
+          <div class="signal"><small>提问用户</small><strong class="num">29,343</strong><p>跨路线去重；两条路线重合用户仅 126。</p></div>
+          <div class="signal"><small>主动提问</small><strong class="num">167,429</strong><p>47,859 个会话；人均 5.71 条。</p></div>
+          <div class="signal"><small>千问问题占比</small><strong class="num">53.9%</strong><p>90,263 条；已超过非千问路线。</p></div>
+          <div class="signal"><small>定时任务输入</small><strong class="num">23,131</strong><p>340 位用户、7,780 个任务会话；未混入主动提问。</p></div>
+          <div class="note red" style="grid-column:1/-1">神策“主动输入”与后端“用户消息”不可相加：前者全年连续但排除快捷问题与千问；后者 5/19 起覆盖全渠道与入口引导。<span class="source-id">D-005</span></div>
+        </div>
+      </div>
+      <div class="same-window">
+        <div class="headline"><small>同窗比较 · 每月 1—10 日 18:51</small><strong>增长来自哪里？</strong><em>同长度、同截止时刻，避免用部分月冒充整月增长</em></div>
+        <div><small>活跃提问用户</small><strong>3,296 → 10,135</strong><em>较 9 月同期 +207.5%</em></div>
+        <div><small>千问提问</small><strong>5,112 → 37,760</strong><em>+638.7%</em></div>
+        <div><small>非千问提问</small><strong>9,603 → 6,142</strong><em style="color:var(--red)">−36.0%</em></div>
+      </div>
+    </div></section>
+
+    <section class="section" id="themes"><div class="wrap">
+      <div class="section-head"><div class="section-no">05</div><div><span class="kicker">WHAT PEOPLE ASK</span><h2>用户真正问的，不只是行情</h2><p>主题按规则互斥归类；用户可跨主题出现。24.4% 的长尾表达不强行贴标签，避免用分类器把未知伪装成已知。</p></div></div>
+      <div class="theme-layout">
+        <div class="donut-wrap"><div><div class="donut-box"><div class="donut"></div><div class="donut-label"><strong>75.6%</strong><small>可解释主题覆盖</small></div></div><div class="chart-legend" style="justify-content:center;flex-wrap:wrap"><span>账户/持仓 25.1%</span><span>产品研究 18.9%</span><span>交易动作 10.2%</span><span>市场研究 9.9%</span></div></div></div>
+        <div class="theme-card"><header><div><h3>需求结构 · 可切换路线</h3><p style="margin:7px 0 0;color:var(--muted);font-size:10px">占所选路线全部主动提问的比例</p></div><div class="segmented" role="group" aria-label="切换路线"><button class="active" data-theme-scope="all">全量</button><button data-theme-scope="core">非千问</button><button data-theme-scope="qwen">千问</button></div></header><div class="theme-bars" id="themeBars"></div></div>
+      </div>
+      <div class="theme-insights">
+        <article class="theme-insight"><strong>自有场景更靠近“我的钱”</strong><p>非千问路线中，账户/持仓与交易动作合计 <b>51.0%</b>；这是小顾最接近买方投顾服务闭环的资产。</p></article>
+        <article class="theme-insight"><strong>千问更像研究与发现入口</strong><p>千问路线中，市场研究 + 产品研究/选择合计 <b>35.6%</b>，明显高于非千问的 20.9%。入口诉求不同，不应共用一套首屏。</p></article>
+        <article class="theme-insight"><strong>入口设计塑造了 1/5 提问</strong><p>151 个被至少 20 位用户共同使用的完全相同问题贡献 <b>34,148 条（20.4%）</b>，覆盖 53.1% 用户。高频不等于天然需求，需标注入口诱导。</p></article>
+      </div>
+    </div></section>
+
+    <section class="section paper" id="depth"><div class="wrap">
+      <div class="section-head"><div class="section-no">06</div><div><span class="kicker">HABIT & CONCENTRATION</span><h2>问得多，不等于形成使用习惯</h2><p>同时看提问深度、活跃天数与头部集中度，才能区分“单次深聊”和“持续陪伴”。</p></div></div>
+      <div class="depth-grid">
+        <div class="panel"><h3>用户提问深度</h3><p>可观测期内每位用户累计问题数。</p><div class="depth-bars" id="depthBars"></div><div class="concentration"><div><strong>50.4%</strong><small>Top 5% 用户贡献的问题</small></div><div><strong>70.0%</strong><small>问题文本去重率，长尾很长</small></div></div></div>
+        <div class="panel"><h3>活跃天数不是同一件事</h3><p>用户可能一次会话问很多，但此后不再回来。</p><div class="funnel"><div><strong>29,343</strong><small>全部提问用户</small></div><div><strong>7,720</strong><small>≥2 天 · 26.3%</small></div><div><strong>3,291</strong><small>≥3 天 · 11.2%</small></div><div><strong>601</strong><small>≥7 天 · 2.0%</small></div></div><div class="note">8→9 月按用户计算的次月复用为 2,526 / 10,019 = <b>25.2%</b>；若以 9 月活跃用户为分母，18.8% 来自上月。两个比例回答的问题不同。</div><div class="note red">Top 1% 用户贡献 54,561 条问题，占 32.6%。任何“人均提问”都必须与中位层级和集中度一起看。</div></div>
+      </div>
+    </div></section>
+
+    <section class="section" id="quality"><div class="wrap">
+      <div class="section-head"><div class="section-no">07</div><div><span class="kicker">SERVICE QUALITY GUARDRAIL</span><h2>增长期最该守住的是成功交付</h2><p>回复失败不是抽象技术指标：它会把高意图问题直接变成用户对服务能力的不信任。</p></div></div>
+      <div class="quality-grid">
+        <div class="quality-score"><div><small>消息级回复失败率</small><strong>4.17%</strong><p>6,969 条失败 / 167,206 条已完成或失败的助手消息。</p></div><div class="guard"><b>会话级影响更大：</b>4,575 / 47,859 个主动提问会话至少出现一次失败，约 <b>9.6%</b>。</div></div>
+        <div class="quality-list">
+          <div class="quality-item"><header><h3>非千问路线</h3><strong>3.6%</strong></header><p>2,745 条失败；10 月部分月升至 4.05%。</p></div>
+          <div class="quality-item"><header><h3>千问路线</h3><strong class="risk">4.7%</strong></header><p>4,224 条失败；8 月 6.28%，9 月 4.25%，10 月部分月 4.60%。</p></div>
+          <div class="quality-item"><header><h3>建议管理闸门</h3><strong>&lt;3%</strong></header><p>这是 90 天目标建议，不是已实现成绩。先按任务、工具、模型与渠道拆失败原因，再谈放量。</p></div>
+        </div>
+      </div>
+      <div class="bridge">
+        <div class="bridge-card"><h3>神策回答“前端有没有来、有没有主动输入”</h3><ul><li>全年连续，适合判断入口规模、主动输入率与版本迁移。</li><li>输入事件不含快捷问题，也不含千问外部会话。</li><li>1—5 月 PV 不可比，UV 可比。</li></ul></div>
+        <div class="bridge-card"><h3>后端回答“实际问了什么、是否回来、回答是否失败”</h3><ul><li>5 月 19 日起可观测，覆盖千问与非千问路线。</li><li>包含快捷/预设问句，因此需单列入口诱导。</li><li>定时任务从 USER 角色消息中剔除并独立统计。</li></ul></div>
+      </div>
+    </div></section>
+
+    <section class="section alt" id="actions"><div class="wrap">
+      <div class="section-head"><div class="section-no">08</div><div><span class="kicker">90-DAY OPERATING MOVES</span><h2>从“问题量看板”升级为“成功服务任务看板”</h2><p>建议保留本页作为总览，但经营周会只围绕四个可控问题：自有入口是否健康、外部流量是否回流、用户是否复用、任务是否成功。</p></div></div>
+      <div class="roadmap">
+        <article class="action"><div class="priority">P0 · 0—30天</div><div><h3>统一任务链与数据字典</h3><p>建立 channel → entry → session → service_task → tool → answer → action → result 主键链；主动输入、快捷问题、定时任务永久分栏。</p></div><div><small>OWNER</small><b>数据 × 小顾产品 × 工程</b></div><div><small>验收</small><b>周报可复算；渠道不再混算</b></div></article>
+        <article class="action"><div class="priority">P0 · 0—30天</div><div><h3>把失败率压到可放量水平</h3><p>按任务/工具/模型/渠道自动归因失败，优先修复千问高频研究与非千问账户任务；所有失败给用户明确降级与重试路径。</p></div><div><small>OWNER</small><b>工程 × 评测 × 客服</b></div><div><small>验收</small><b>消息失败 &lt;3%（建议目标）</b></div></article>
+        <article class="action"><div class="priority p1">P1 · 31—60天</div><div><h3>两条入口，两套首屏任务</h3><p>千问首屏承接“市场/产品研究 → 收藏/回流且慢”；非千问首屏承接“账户诊断/调仓 → 可解释行动”，不再共用泛推荐入口。</p></div><div><small>OWNER</small><b>产品 × 运营 × 增长</b></div><div><small>验收</small><b>任务完成率与回流率分渠道</b></div></article>
+        <article class="action"><div class="priority p1">P1 · 61—90天</div><div><h3>从一次深聊变成月度陪伴</h3><p>围绕持仓复盘、产品跟踪、跟车调仓三类任务做订阅、事件触发与人工接力；以次月复用而非消息数考核。</p></div><div><small>OWNER</small><b>小顾产品 × 投顾服务</b></div><div><small>验收</small><b>次月复用 ≥30%（建议目标）</b></div></article>
+      </div>
+      <div class="target-grid">
+        <div class="target"><small>停止指标</small><strong>累计问答量</strong><p>可保留作规模背景，不再独立作为产品成功证明。</p></div>
+        <div class="target"><small>主指标</small><strong>成功服务任务</strong><p>必须有合格分母、完成事件、失败原因与后续动作。</p></div>
+        <div class="target"><small>结果指标</small><strong>30 日复用 / 行动</strong><p>跨渠道回流、订阅、诊断完成、人工接力与行动采纳。</p></div>
+      </div>
+    </div></section>
+
+    <section class="section paper" id="sources"><div class="wrap">
+      <div class="section-head"><div class="section-no">09</div><div><span class="kicker">DATA INDEX & SELF-CHECK</span><h2>每个数字都能回到口径</h2><p>公开版仅保留聚合数字，不含用户标识、原始问题、账户、订单或内部凭证。主题分类是规则结果，不是人工逐条标注真值。</p></div></div>
+      <div class="audit">
+        <div class="scroll"><table class="data-table source-table"><thead><tr><th>编号</th><th>指标 / 数值</th><th>来源与口径</th></tr></thead><tbody>
+          <tr><td>D-001</td><td>全年进入 UV 233,571</td><td>神策生产聚合；超级入口页面；跨月去重。</td></tr>
+          <tr><td>D-002</td><td>主动输入 UV 49,926；237,085 次</td><td>神策输入发送；不含快捷/FAQ；跨月去重。</td></tr>
+          <tr><td>D-003</td><td>2026 年 1—10 月进入、输入月序列</td><td>自然月；10 月截至 10 日日切；UV 可比。</td></tr>
+          <tr><td>D-004</td><td>6 月 PV 断点；8 月 v3 主体迁移</td><td>前端事件与生产代码交叉复核；不把 PV 变化当流量。</td></tr>
+          <tr><td>D-005</td><td>29,343 用户；167,429 主动问题；47,859 会话</td><td>后端生产聚合；5/19—10/10；定时任务排除。</td></tr>
+          <tr><td>D-006</td><td>月度后端用户、会话、问题、路线</td><td>按问题发生月；10 月部分月；同窗另算。</td></tr>
+          <tr><td>D-007</td><td>千问 90,263；非千问 77,166；重合 126 用户</td><td>生产会话映射；非千问含且慢及其他入口。</td></tr>
+          <tr><td>D-008</td><td>问题深度：1 / 2—4 / 5—9 / 10—19 / 20+</td><td>按用户可观测期累计主动问题数。</td></tr>
+          <tr><td>D-009</td><td>单日 73.7%；≥2 日 26.3%；≥7 日 2.0%</td><td>按自然日去重活跃。</td></tr>
+          <tr><td>D-010</td><td>Top 1% 贡献 32.6%；Top 5% 贡献 50.4%</td><td>用户按累计问题数降序。</td></tr>
+          <tr><td>D-011</td><td>151 个共享问题贡献 34,148 条</td><td>规范化文本完全相同且 ≥20 位用户使用。</td></tr>
+          <tr><td>D-012</td><td>账户/持仓 25.1%；产品研究 18.9% 等</td><td>互斥规则分类；长尾未知单列。</td></tr>
+          <tr><td>D-013</td><td>千问 vs 非千问主题差异</td><td>同一分类规则按路线分组。</td></tr>
+          <tr><td>D-014</td><td>消息失败 4.17%；受影响会话 9.6%</td><td>助手消息完成/失败状态与会话聚合。</td></tr>
+          <tr><td>D-015</td><td>定时任务 340 用户、7,780 会话、23,131 输入</td><td>单列 scheduled_task，不计入主动提问。</td></tr>
+          <tr><td>D-016</td><td>LLM 灰度首日 2024-01-23；input 自 2024-02-04</td><td>神策生产事件首现与逐日量级；旧规则提醒事件单列，不并入 AI 产品。</td></tr>
+          <tr><td>D-017</td><td>2024 / 2025 / 2026 年度独立去重；全历史 460,281 / 107,815 / 644,219</td><td>进入用户 / 主动输入用户 / 主动输入次数；年度与全历史均独立查询，非月度相加。</td></tr>
+          <tr><td>D-018</td><td>2024-01—2026-10 共 34 个月进入、输入月序列</td><td>神策生产聚合；主口径跨 v1/v2/v3 沿用；2025-02 活动峰、2025-04 PV 断点、2026-08 迁移已标注。</td></tr>
+        </tbody></table></div>
+        <div class="check-list">
+          <div class="check"><i>✓</i><div><b>数据核对完成</b><p>后端月度问题之和 = 167,429；主题分类之和 = 167,429；神策 2024 / 2025 / 2026 月度主动输入分别核至 81,095 / 326,039 / 237,085。</p></div></div>
+          <div class="check"><i>✓</i><div><b>边界核对完成</b><p>神策与后端不相加；10 月标记部分月；1—5 月 PV 不用于趋势；定时任务已剔除。</p></div></div>
+          <div class="check"><i>✓</i><div><b>隐私核对完成</b><p>公开页无用户标识、原始问题、账户、交易明细、内部表名或凭证。</p></div></div>
+          <div class="check"><i>!</i><div><b>仍待补的关键数据</b><p>千问→且慢回流、任务完成、建议采纳、30 日结果、交易/AUM 净增量与对照组仍缺统一链路。</p></div></div>
+          <div class="note">本页的 30 日/90 日阈值均为管理目标建议，不是历史成绩；主题分类允许用户跨主题，但每条问题只归入一个主题。</div>
+        </div>
+      </div>
+    </div></section>
+  </main>
+
+  <footer class="footer"><div class="wrap"><div><b>AI 小顾上线以来使用与提问走势分析</b><br>神策 34 个月生产聚合 × 小顾后端生产聚合 × v1/v2/v3 前端埋点源码复核</div><span>神策前端至 2026-10-10 日切 · 后端至 18:51:17 CST · 公开脱敏聚合</span></div></footer>
+
+  <script type="application/json" id="report-data">{
+    "history":[
+      {"month":"2024-01","entry":631,"inputUsers":null,"inputs":null},
+      {"month":"2024-02","entry":4494,"inputUsers":98,"inputs":1310},
+      {"month":"2024-03","entry":4750,"inputUsers":121,"inputs":2209},
+      {"month":"2024-04","entry":7313,"inputUsers":1141,"inputs":6177},
+      {"month":"2024-05","entry":17765,"inputUsers":2441,"inputs":10400},
+      {"month":"2024-06","entry":20234,"inputUsers":1916,"inputs":7298},
+      {"month":"2024-07","entry":23059,"inputUsers":2066,"inputs":7708},
+      {"month":"2024-08","entry":23030,"inputUsers":2222,"inputs":6655},
+      {"month":"2024-09","entry":32632,"inputUsers":2272,"inputs":6726},
+      {"month":"2024-10","entry":48442,"inputUsers":4082,"inputs":10378},
+      {"month":"2024-11","entry":43067,"inputUsers":3347,"inputs":9813},
+      {"month":"2024-12","entry":39873,"inputUsers":4021,"inputs":12421},
+      {"month":"2025-01","entry":27650,"inputUsers":2812,"inputs":7972},
+      {"month":"2025-02","entry":80345,"inputUsers":17575,"inputs":94445},
+      {"month":"2025-03","entry":41967,"inputUsers":7609,"inputs":37281},
+      {"month":"2025-04","entry":38795,"inputUsers":5377,"inputs":20912},
+      {"month":"2025-05","entry":40706,"inputUsers":4701,"inputs":14914},
+      {"month":"2025-06","entry":43865,"inputUsers":4938,"inputs":16077},
+      {"month":"2025-07","entry":68572,"inputUsers":8096,"inputs":26001},
+      {"month":"2025-08","entry":74468,"inputUsers":8747,"inputs":24792},
+      {"month":"2025-09","entry":75273,"inputUsers":8913,"inputs":26004},
+      {"month":"2025-10","entry":64631,"inputUsers":8022,"inputs":21617},
+      {"month":"2025-11","entry":52066,"inputUsers":6331,"inputs":19934},
+      {"month":"2025-12","entry":52708,"inputUsers":6692,"inputs":16090},
+      {"month":"2026-01","entry":78913,"inputUsers":11289,"inputs":27218},
+      {"month":"2026-02","entry":56457,"inputUsers":7694,"inputs":22638},
+      {"month":"2026-03","entry":67871,"inputUsers":10636,"inputs":34275},
+      {"month":"2026-04","entry":51293,"inputUsers":6930,"inputs":23755},
+      {"month":"2026-05","entry":56082,"inputUsers":8148,"inputs":27987},
+      {"month":"2026-06","entry":53478,"inputUsers":8167,"inputs":26908},
+      {"month":"2026-07","entry":47388,"inputUsers":6548,"inputs":20440},
+      {"month":"2026-08","entry":40813,"inputUsers":6193,"inputs":28382},
+      {"month":"2026-09","entry":31806,"inputUsers":5103,"inputs":20628},
+      {"month":"2026-10*","entry":8618,"inputUsers":1424,"inputs":4854}
+    ],
+    "front":[
+      {"month":"01","entry":78913,"inputUsers":11289,"inputs":27218,"rate":14.3,"perUser":2.4},
+      {"month":"02","entry":56457,"inputUsers":7694,"inputs":22638,"rate":13.6,"perUser":2.9},
+      {"month":"03","entry":67871,"inputUsers":10636,"inputs":34275,"rate":15.7,"perUser":3.2},
+      {"month":"04","entry":51293,"inputUsers":6930,"inputs":23755,"rate":13.5,"perUser":3.4},
+      {"month":"05","entry":56082,"inputUsers":8148,"inputs":27987,"rate":14.5,"perUser":3.4},
+      {"month":"06","entry":53478,"inputUsers":8167,"inputs":26908,"rate":15.3,"perUser":3.3},
+      {"month":"07","entry":47388,"inputUsers":6548,"inputs":20440,"rate":13.8,"perUser":3.1},
+      {"month":"08","entry":40813,"inputUsers":6193,"inputs":28382,"rate":15.2,"perUser":4.6},
+      {"month":"09","entry":31806,"inputUsers":5103,"inputs":20628,"rate":16.0,"perUser":4.0},
+      {"month":"10*","entry":8618,"inputUsers":1424,"inputs":4854,"rate":16.5,"perUser":3.4}
+    ],
+    "backend":[
+      {"month":"05","users":12,"questions":151,"core":151,"qwen":0},
+      {"month":"06","users":7,"questions":789,"core":789,"qwen":0},
+      {"month":"07","users":580,"questions":5105,"core":5008,"qwen":97},
+      {"month":"08","users":10019,"questions":51923,"core":38795,"qwen":13128},
+      {"month":"09","users":13454,"questions":65559,"core":26281,"qwen":39278},
+      {"month":"10*","users":10135,"questions":43902,"core":6142,"qwen":37760}
+    ],
+    "themes":{
+      "all":{"holding":42099,"product":31683,"action":17027,"market":16598,"knowledge":9505,"planning":3937,"other":40932,"followup":3089,"service":2559},
+      "core":{"holding":29258,"product":13863,"action":10100,"market":2246,"knowledge":3690,"planning":2604,"other":12965,"followup":993,"service":1447},
+      "qwen":{"holding":12841,"product":17820,"action":6927,"market":14352,"knowledge":5815,"planning":1333,"other":27967,"followup":2096,"service":1112}
+    },
+    "depth":[{"label":"1 条","users":10799},{"label":"2—4 条","users":11665},{"label":"5—9 条","users":4191},{"label":"10—19 条","users":1664},{"label":"20+ 条","users":1024}]
+  }</script>
+  <script>
+    const data=JSON.parse(document.getElementById('report-data').textContent);
+    const fmt=n=>new Intl.NumberFormat('zh-CN').format(n);
+    const maxHistory=Math.max(...data.history.map(d=>d.entry));
+    document.getElementById('historyChart').innerHTML=data.history.map((d,index)=>{const input=d.inputUsers||0;const label=index%3===0||index===data.history.length-1?d.month.replace('20','').replace('-', '·'):'';return `<div class="history-col"><div class="history-pair"><i class="entry" style="height:${Math.max(2,d.entry/maxHistory*188)}px" title="${d.month} 进入 ${fmt(d.entry)} UV"></i><i class="input" style="height:${input?Math.max(2,input/maxHistory*188):0}px" title="${d.month} 主动输入 ${d.inputUsers===null?'埋点未上线':fmt(d.inputUsers)+' UV'}"></i></div><label>${label}</label></div>`}).join('');
+    document.getElementById('historyTable').innerHTML=data.history.map(d=>`<tr><td>${d.month} ${d.month.includes('*')?'<span class="flag">部分月</span>':''}</td><td>${fmt(d.entry)}</td><td>${d.inputUsers===null?'—':fmt(d.inputUsers)}</td><td>${d.inputs===null?'—':fmt(d.inputs)}</td><td>${d.inputUsers===null?'—':(d.inputUsers/d.entry*100).toFixed(1)+'%'}</td></tr>`).join('');
+    const maxEntry=Math.max(...data.front.map(d=>d.entry));
+    document.getElementById('frontChart').innerHTML=data.front.map(d=>`<div class="front-col"><div class="rate">${d.rate.toFixed(1)}%</div><div class="pair"><i class="bar-entry" style="height:${Math.max(2,d.entry/maxEntry*196)}px" title="进入 ${fmt(d.entry)} UV"></i><i class="bar-input" style="height:${Math.max(2,d.inputUsers/maxEntry*196)}px" title="输入 ${fmt(d.inputUsers)} UV"></i></div><label>${d.month}月</label></div>`).join('');
+    document.getElementById('frontTable').innerHTML=data.front.map(d=>`<tr><td>${d.month}月 ${d.month.includes('*')?'<span class="flag">部分月</span>':''}</td><td>${fmt(d.entry)}</td><td>${fmt(d.inputUsers)}</td><td>${fmt(d.inputs)}</td><td>${d.rate.toFixed(1)}%</td><td>${d.perUser.toFixed(1)}</td></tr>`).join('');
+    const maxQuestions=Math.max(...data.backend.map(d=>d.questions));
+    document.getElementById('backendChart').innerHTML=data.backend.map(d=>{const totalWidth=d.questions/maxQuestions*100;const coreWidth=d.questions?d.core/d.questions*totalWidth:0;const qwenWidth=d.questions?d.qwen/d.questions*totalWidth:0;return `<div class="month-row"><label>${d.month}月</label><span class="uv">${fmt(d.users)} 用户</span><div class="stack" title="${fmt(d.questions)} 条"><i class="core" style="width:${coreWidth}%"></i><i class="qwen" style="width:${qwenWidth}%"></i></div><b>${fmt(d.questions)} 条</b></div>`}).join('');
+    const labels={holding:'账户 / 持仓',product:'产品研究 / 选择',action:'交易 / 行动',market:'市场研究',knowledge:'知识解释',planning:'规划 / 配置',other:'长尾未分类',followup:'短追问',service:'服务 / 报告'};
+    function renderThemes(scope){const rows=data.themes[scope];const total=Object.values(rows).reduce((a,b)=>a+b,0);document.getElementById('themeBars').innerHTML=Object.entries(rows).map(([key,value])=>{const share=value/total*100;return `<div class="theme-row"><label>${labels[key]}</label><div class="theme-track"><i style="width:${share}%"></i></div><span>${share.toFixed(1)}%</span></div>`}).join('')}
+    document.querySelectorAll('[data-theme-scope]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-theme-scope]').forEach(item=>item.classList.remove('active'));button.classList.add('active');renderThemes(button.dataset.themeScope)}));renderThemes('all');
+    const maxDepth=Math.max(...data.depth.map(d=>d.users));
+    document.getElementById('depthBars').innerHTML=data.depth.map(d=>`<div class="depth-row"><label>${d.label}</label><div class="rail"><i style="width:${d.users/maxDepth*100}%"></i></div><span>${fmt(d.users)} 人</span></div>`).join('');
+    const historyByYear=year=>data.history.filter(d=>d.month.startsWith(year)).reduce((sum,d)=>sum+(d.inputs||0),0);
+    const checks={backend:data.backend.reduce((a,b)=>a+b.questions,0),front:data.front.reduce((a,b)=>a+b.inputs,0),themes:Object.values(data.themes.all).reduce((a,b)=>a+b,0),depth:data.depth.reduce((a,b)=>a+b.users,0),history2024:historyByYear('2024'),history2025:historyByYear('2025'),history2026:historyByYear('2026')};
+    console.assert(checks.backend===167429,'backend total mismatch');console.assert(checks.front===237085,'front total mismatch');console.assert(checks.themes===167429,'theme total mismatch');console.assert(checks.depth===29343,'depth total mismatch');console.assert(checks.history2024===81095,'2024 history mismatch');console.assert(checks.history2025===326039,'2025 history mismatch');console.assert(checks.history2026===237085,'2026 history mismatch');
+  </script>
+</body>
+</html>

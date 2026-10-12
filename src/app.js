@@ -222,6 +222,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "xiaogu-since-launch-usage-question-dashboard-2026-10-10",
+      groupId: "xiaogu",
+      title: "AI 小顾上线以来使用与提问走势分析",
+      url: "https://clairku.github.io/clair-ai-studio/reports/xiaogu-since-launch-usage-question-dashboard-2026-10-10/",
+      preview: "xiaogu-since-launch-usage-question-dashboard-2026-10-10.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-10T19:00:00+08:00",
+      source: "神策 qiemanproduction 2024 年 1 月至 2026 年 10 月 10 日连续聚合 × 小顾后端 2026 年 5 月 19 日起会话/消息/回复状态生产聚合 × v1/v2/v3 前端埋点源码复核｜旧规则提醒小顾与 AI 对话产品严格断开；LLM 灰度首日 2024-01-23，input 自 2024-02-04｜上线以来跨年独立去重进入 460,281 人、主动输入 107,815 人 / 644,219 次｜2025-02 为活动峰值，2025-07 至 09 为平台高位；2025-04 PV 断点不用于趋势｜2026 后端可观测期 29,343 位提问用户、47,859 个主动会话、167,429 条主动问题｜10 月同窗提问较 9 月同期 +198.3%，其中千问 +638.7%、非千问 -36.0%｜73.7% 用户只在 1 天使用，Top 1% 贡献 32.6% 问题，消息级回复失败率 4.17%｜主题、路线、入口诱导、复用深度、质量护栏、90 天行动与 D-001 至 D-018 数据索引｜神策与后端不相加；定时任务单列；10 月为部分月；公开版仅含脱敏聚合",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["AI 小顾", "且慢", "上线以来", "使用分析", "提问分析", "用户复用", "千问", "渠道结构", "主题分析", "服务质量", "经营看板", "神策", "生产数据", "数据分析", "HTML", "生产"],
+    },
+    {
       id: "gpt-finance-capability-landscape-2026-10-10",
       groupId: "ai-platform",
       title: "GPT 在金融与财务场景的功能现况｜2026 深度分析",
@@ -3413,6 +3427,7 @@ const TOPIC_BY_REPORT = {
   "yingmi-portfolio-optimizer-2026-09-10": "xiaogu",
   "longterm-account-post-investment-analysis-2026-09-10": "xiaogu",
   "next-gen-vip-advisor-workbench-demo-2026-09-09": "advisor-workbench",
+  "xiaogu-since-launch-usage-question-dashboard-2026-10-10": "xiaogu",
   "xiaogu-service-trade-conversion-2026-09-15": "xiaogu",
   "xiaogu-3-investment-review-2026-09-04": "xiaogu",
   "xiaogu-buyer-advisor-evidence-2026-09-03": "xiaogu",
