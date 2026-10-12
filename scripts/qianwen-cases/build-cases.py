@@ -824,12 +824,12 @@ html,body{max-width:100%}
     var cases=[].slice.call(sec.querySelectorAll(':scope > .case'));
     var head=sec.querySelector('.cases-h');
     if(!head||!cases.length) return;
-    var idx=0, box=null, btns=null, cnt=null;
+    var idx=0, box=null, cnt=null;
     if(cases.length>1){
       box=document.createElement('span'); box.className='pager';
-      box.innerHTML='<button type="button" class="pg" aria-label="下一位"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button>';
+      box.innerHTML='<button type="button" class="pg" data-step="-1" aria-label="上一位"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg></button><button type="button" class="pg" data-step="1" aria-label="下一位"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button>';
       head.appendChild(box);
-      box.addEventListener('click',function(e){ if(!e.target.closest('.pg')) return; idx=(idx+1)%cases.length; render(); });
+      box.addEventListener('click',function(e){ var b=e.target.closest('.pg'); if(!b) return; idx=(idx+Number(b.dataset.step)+cases.length)%cases.length; render(); });
     }
     cnt=head.querySelector('.pg-cur');
     function render(){ cases.forEach(function(c,i){ c.hidden = i!==idx; }); if(cnt) cnt.textContent=String(idx+1); }
