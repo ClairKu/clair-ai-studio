@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 101;
+const DATA_VERSION = 102;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -221,6 +221,35 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "xiaogu-usage-trends-2024",
+      groupId: "xiaogu",
+      title: "AI 小顾 1.0 → 3.0 · 用户使用趋势图",
+      url: "https://clairku.github.io/clair-ai-studio/reports/xiaogu-usage-trends-2024/",
+      preview: "xiaogu-usage-trends-2024.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-12T13:50:00+08:00",
+      source: "2024年以来日/月交互走势图，访问用户、访问量、主动提问、累计用户、累计提问、新增与累计定时任务七项指标可自由勾选。神策生产聚合独立去重，任务按标识合并保留记录；实际数量/趋势对比、日期筛选、缩放、CSV和图片下载。版本节点、埋点异常和可观测边界均标注。数据截至 2026-10-11。",
+      access: "production",
+      workType: "data-analysis",
+      tags: [
+        "AI 小顾",
+        "且慢",
+        "1.0",
+        "2.0",
+        "3.0",
+        "用户使用",
+        "日月趋势",
+        "访问用户",
+        "访问量",
+        "提问次数",
+        "定时任务",
+        "数据分析",
+        "HTML",
+        "生产"
+      ]
+    },
     {
       id: "xiaogu-since-launch-usage-question-dashboard-2026-10-10",
       groupId: "xiaogu",
@@ -3427,6 +3456,7 @@ const TOPIC_BY_REPORT = {
   "yingmi-portfolio-optimizer-2026-09-10": "xiaogu",
   "longterm-account-post-investment-analysis-2026-09-10": "xiaogu",
   "next-gen-vip-advisor-workbench-demo-2026-09-09": "advisor-workbench",
+  "xiaogu-usage-trends-2024": "xiaogu",
   "xiaogu-since-launch-usage-question-dashboard-2026-10-10": "xiaogu",
   "xiaogu-service-trade-conversion-2026-09-15": "xiaogu",
   "xiaogu-3-investment-review-2026-09-04": "xiaogu",
