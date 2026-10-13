@@ -1,10 +1,8 @@
 {
   "verification_date": "2026-10-13",
-  "target_cutoff": "2026-10-12",
-  "lifetime_production_status": "not_returned",
-  "latest_verified_historical_snapshot": "2022-12-11",
-  "historical_downloads": 1637,
-  "historical_holders": 62,
-  "historical_aum_yuan": 1907039,
-  "source_url": "https://wiki.yingmi-inc.com/pages/viewpage.action?pageId=122143470"
+  "production_status": "verified",
+  "scope": "0009 shared APP/mini-program channel",
+  "formal_launch_window": "2022-06-14 through 2026-10-12 inclusive",
+  "lifetime_cutoff": "2026-10-13 query time",
+  "aum_date": "2026-10-09"
 }

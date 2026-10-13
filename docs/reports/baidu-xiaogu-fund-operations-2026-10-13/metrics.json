@@ -1,0 +1,769 @@
+{
+  "summary": {
+    "product": "小顾基金App（盈米×百度合作独立基金交易客户端，含百度小程序，broker=0009）",
+    "as_of": {
+      "registration_openid_trading_activity": "2026-10-13 查询时点（数据含 10-13 当日）",
+      "aum": "2026-10-09（2026-10-12 数仓批次截至查询时未产出）",
+      "non_money_breakdown": "2026-08 月末（持仓明细月度表 T-1 滞后）",
+      "aum_monthly_series_start": "2023-01（2021-2022 仅有季度末时点）"
+    },
+    "core_metrics": {
+      "total_registered_incl_deleted": 25774,
+      "status_active": 25592,
+      "status_deleted": 182,
+      "src_baidu": 25700,
+      "src_qieman": 74,
+      "first_registration": "2021-08-27 10:15:05",
+      "latest_registration": "2026-10-13 14:12:55",
+      "baidu_authorized_login_users": 17026,
+      "verified_identity_users": 1437,
+      "trade_accounts_opened": 1433,
+      "valid_bank_card_accounts": 1325,
+      "valid_bank_cards": 1456,
+      "any_order_trading_accounts": 483,
+      "first_successful_purchase_users": 428,
+      "purchase_total_amount_cny": 66249562.11,
+      "purchase_total_orders": 51726,
+      "redeem_total_amount_cny": 49265528.86,
+      "redeem_total_orders": 19085,
+      "net_purchase_total_amount_cny": 16984033.25,
+      "portfolio_orders_total": 50756,
+      "portfolio_orders_accounts": 453,
+      "latest_aum": {
+        "date": "2026-10-09",
+        "holders_no_threshold": 205,
+        "total_asset_cny": 6464470.15,
+        "holders_gt100cny": 111,
+        "total_asset_gt100_cny": 6462966.84
+      },
+      "aum_peak": {
+        "date": "2025-09-30",
+        "holders": 199,
+        "total_asset_cny": 8114570.64
+      },
+      "non_money_aum": {
+        "as_of": "2026-08 month-end",
+        "amount_cny": 4511744.57,
+        "ratio": 0.7036,
+        "money_market_cny": 1900387.32,
+        "total_penetrated_cny": 6412131.89
+      },
+      "revenue_system_observed": {
+        "trade_fee_cny": 237143.98,
+        "advisor_fee_collected_cny": 853.42,
+        "advisor_fee_accrued_cny": 891.97,
+        "baidu_split": "unknown_not_in_system"
+      },
+      "activity": {
+        "last_30d_fund_accounts": 40,
+        "last_30d_fund_orders": 1742,
+        "last_30d_portfolio_accounts": 42,
+        "last_30d_portfolio_orders": 1371,
+        "last_90d_fund_accounts": 67,
+        "last_90d_fund_orders": 6379,
+        "last_90d_portfolio_accounts": 65,
+        "last_90d_portfolio_orders": 5046,
+        "app_behavior_active": "unknown_sensors_project_not_authorized"
+      },
+      "holding_vs_first_purchase_ratio": {
+        "value": 0.4789,
+        "note": "存量持有人数/历史首投人数的粗比值，非留存率，见 corrections.3"
+      }
+    }
+  },
+  "annual": [
+    {
+      "year": 2021,
+      "registered": 2942,
+      "verified_by_regyear": 27,
+      "accounts_opened": 11,
+      "valid_cards": 18,
+      "first_purchase_users": 7,
+      "purchase_orders": 39,
+      "purchase_amount_cny": 1993.47,
+      "redeem_orders": 5,
+      "redeem_amount_cny": 78.52,
+      "net_purchase_cny": 1914.95,
+      "portfolio_orders": 95,
+      "aum_year_end_cny": 1922.49,
+      "aum_year_end_holders": 7
+    },
+    {
+      "year": 2022,
+      "registered": 10337,
+      "verified_by_regyear": 197,
+      "accounts_opened": 184,
+      "valid_cards": 213,
+      "first_purchase_users": 69,
+      "purchase_orders": 1168,
+      "purchase_amount_cny": 2295603.61,
+      "redeem_orders": 322,
+      "redeem_amount_cny": 295559.78,
+      "net_purchase_cny": 2000043.83,
+      "portfolio_orders": 1502,
+      "aum_year_end_cny": 1979025.0,
+      "aum_year_end_holders": 63
+    },
+    {
+      "year": 2023,
+      "registered": 3869,
+      "verified_by_regyear": 420,
+      "accounts_opened": 432,
+      "valid_cards": 444,
+      "first_purchase_users": 123,
+      "purchase_orders": 7568,
+      "purchase_amount_cny": 10443873.29,
+      "redeem_orders": 3267,
+      "redeem_amount_cny": 5945681.89,
+      "net_purchase_cny": 4498191.4,
+      "portfolio_orders": 4725,
+      "aum_year_end_cny": 3943505.34,
+      "aum_year_end_holders": 148
+    },
+    {
+      "year": 2024,
+      "registered": 3518,
+      "verified_by_regyear": 338,
+      "accounts_opened": 347,
+      "valid_cards": 336,
+      "first_purchase_users": 97,
+      "purchase_orders": 8463,
+      "purchase_amount_cny": 10594151.97,
+      "redeem_orders": 4498,
+      "redeem_amount_cny": 8362661.82,
+      "net_purchase_cny": 2231490.15,
+      "portfolio_orders": 8234,
+      "aum_year_end_cny": 5342440.07,
+      "aum_year_end_holders": 182
+    },
+    {
+      "year": 2025,
+      "registered": 3175,
+      "verified_by_regyear": 293,
+      "accounts_opened": 294,
+      "valid_cards": 287,
+      "first_purchase_users": 91,
+      "purchase_orders": 14096,
+      "purchase_amount_cny": 21072865.64,
+      "redeem_orders": 4796,
+      "redeem_amount_cny": 16136604.82,
+      "net_purchase_cny": 4936260.82,
+      "portfolio_orders": 13922,
+      "aum_year_end_cny": 6489571.23,
+      "aum_year_end_holders": 204
+    },
+    {
+      "year": 2026,
+      "period": "2026-01-01 ~ 2026-10-13 (not full year)",
+      "registered": 1933,
+      "verified_by_regyear": 162,
+      "accounts_opened": 165,
+      "valid_cards": 158,
+      "first_purchase_users": 41,
+      "purchase_orders": 20392,
+      "purchase_amount_cny": 21841074.13,
+      "redeem_orders": 6197,
+      "redeem_amount_cny": 18524942.03,
+      "net_purchase_cny": 3316132.1,
+      "portfolio_orders": 22278,
+      "aum_year_end_cny": 6464470.15,
+      "aum_year_end_holders": 205,
+      "aum_note": "2026 取 2026-10-09 最新可得时点而非年末"
+    }
+  ],
+  "monthly": {
+    "registration_note": "按 registered_at 自然月，broker=0009 全状态（含后注销）；序列自首个非零月 2021-08 起",
+    "registration": [
+      {
+        "month": "2021-08",
+        "count": 7
+      },
+      {
+        "month": "2021-09",
+        "count": 15
+      },
+      {
+        "month": "2021-10",
+        "count": 4
+      },
+      {
+        "month": "2021-11",
+        "count": 819
+      },
+      {
+        "month": "2021-12",
+        "count": 2097
+      },
+      {
+        "month": "2022-01",
+        "count": 2312
+      },
+      {
+        "month": "2022-02",
+        "count": 1787
+      },
+      {
+        "month": "2022-03",
+        "count": 1943
+      },
+      {
+        "month": "2022-04",
+        "count": 977
+      },
+      {
+        "month": "2022-05",
+        "count": 776
+      },
+      {
+        "month": "2022-06",
+        "count": 982
+      },
+      {
+        "month": "2022-07",
+        "count": 233
+      },
+      {
+        "month": "2022-08",
+        "count": 246
+      },
+      {
+        "month": "2022-09",
+        "count": 291
+      },
+      {
+        "month": "2022-10",
+        "count": 242
+      },
+      {
+        "month": "2022-11",
+        "count": 316
+      },
+      {
+        "month": "2022-12",
+        "count": 232
+      },
+      {
+        "month": "2023-01",
+        "count": 226
+      },
+      {
+        "month": "2023-02",
+        "count": 372
+      },
+      {
+        "month": "2023-03",
+        "count": 415
+      },
+      {
+        "month": "2023-04",
+        "count": 472
+      },
+      {
+        "month": "2023-05",
+        "count": 365
+      },
+      {
+        "month": "2023-06",
+        "count": 344
+      },
+      {
+        "month": "2023-07",
+        "count": 414
+      },
+      {
+        "month": "2023-08",
+        "count": 339
+      },
+      {
+        "month": "2023-09",
+        "count": 194
+      },
+      {
+        "month": "2023-10",
+        "count": 224
+      },
+      {
+        "month": "2023-11",
+        "count": 254
+      },
+      {
+        "month": "2023-12",
+        "count": 250
+      },
+      {
+        "month": "2024-01",
+        "count": 238
+      },
+      {
+        "month": "2024-02",
+        "count": 266
+      },
+      {
+        "month": "2024-03",
+        "count": 323
+      },
+      {
+        "month": "2024-04",
+        "count": 298
+      },
+      {
+        "month": "2024-05",
+        "count": 239
+      },
+      {
+        "month": "2024-06",
+        "count": 199
+      },
+      {
+        "month": "2024-07",
+        "count": 249
+      },
+      {
+        "month": "2024-08",
+        "count": 172
+      },
+      {
+        "month": "2024-09",
+        "count": 259
+      },
+      {
+        "month": "2024-10",
+        "count": 709
+      },
+      {
+        "month": "2024-11",
+        "count": 293
+      },
+      {
+        "month": "2024-12",
+        "count": 273
+      },
+      {
+        "month": "2025-01",
+        "count": 199
+      },
+      {
+        "month": "2025-02",
+        "count": 346
+      },
+      {
+        "month": "2025-03",
+        "count": 247
+      },
+      {
+        "month": "2025-04",
+        "count": 216
+      },
+      {
+        "month": "2025-05",
+        "count": 139
+      },
+      {
+        "month": "2025-06",
+        "count": 138
+      },
+      {
+        "month": "2025-07",
+        "count": 222
+      },
+      {
+        "month": "2025-08",
+        "count": 424
+      },
+      {
+        "month": "2025-09",
+        "count": 463
+      },
+      {
+        "month": "2025-10",
+        "count": 328
+      },
+      {
+        "month": "2025-11",
+        "count": 189
+      },
+      {
+        "month": "2025-12",
+        "count": 264
+      },
+      {
+        "month": "2026-01",
+        "count": 508
+      },
+      {
+        "month": "2026-02",
+        "count": 289
+      },
+      {
+        "month": "2026-03",
+        "count": 199
+      },
+      {
+        "month": "2026-04",
+        "count": 193
+      },
+      {
+        "month": "2026-05",
+        "count": 215
+      },
+      {
+        "month": "2026-06",
+        "count": 226
+      },
+      {
+        "month": "2026-07",
+        "count": 142
+      },
+      {
+        "month": "2026-08",
+        "count": 82
+      },
+      {
+        "month": "2026-09",
+        "count": 55
+      },
+      {
+        "month": "2026-10",
+        "count": 24
+      }
+    ],
+    "aum_note": "资产表时点值（无门槛），月末交易日；2021-2022 无月度序列（仅季度末）；最后一点 2026-10-09 为月内最新可得日",
+    "aum": [
+      {
+        "date": "2023-01-31",
+        "holders": 70,
+        "total_asset_cny": 2954435.48
+      },
+      {
+        "date": "2023-02-28",
+        "holders": 78,
+        "total_asset_cny": 4263350.59
+      },
+      {
+        "date": "2023-03-31",
+        "holders": 86,
+        "total_asset_cny": 3987361.14
+      },
+      {
+        "date": "2023-04-28",
+        "holders": 105,
+        "total_asset_cny": 3638525.27
+      },
+      {
+        "date": "2023-05-31",
+        "holders": 112,
+        "total_asset_cny": 3512592.15
+      },
+      {
+        "date": "2023-06-30",
+        "holders": 114,
+        "total_asset_cny": 3550353.11
+      },
+      {
+        "date": "2023-07-31",
+        "holders": 121,
+        "total_asset_cny": 3743227.28
+      },
+      {
+        "date": "2023-08-31",
+        "holders": 128,
+        "total_asset_cny": 3687725.95
+      },
+      {
+        "date": "2023-09-28",
+        "holders": 130,
+        "total_asset_cny": 3477383.99
+      },
+      {
+        "date": "2023-10-31",
+        "holders": 135,
+        "total_asset_cny": 3045070.4
+      },
+      {
+        "date": "2023-11-30",
+        "holders": 135,
+        "total_asset_cny": 2949765.99
+      },
+      {
+        "date": "2023-12-29",
+        "holders": 148,
+        "total_asset_cny": 3943505.34
+      },
+      {
+        "date": "2024-01-31",
+        "holders": 149,
+        "total_asset_cny": 3811893.17
+      },
+      {
+        "date": "2024-02-29",
+        "holders": 155,
+        "total_asset_cny": 3809383.74
+      },
+      {
+        "date": "2024-03-29",
+        "holders": 160,
+        "total_asset_cny": 4053490.41
+      },
+      {
+        "date": "2024-04-30",
+        "holders": 163,
+        "total_asset_cny": 4302129.82
+      },
+      {
+        "date": "2024-05-31",
+        "holders": 163,
+        "total_asset_cny": 4448822.89
+      },
+      {
+        "date": "2024-06-28",
+        "holders": 166,
+        "total_asset_cny": 4735766.05
+      },
+      {
+        "date": "2024-07-31",
+        "holders": 170,
+        "total_asset_cny": 4274877.99
+      },
+      {
+        "date": "2024-08-30",
+        "holders": 171,
+        "total_asset_cny": 4284786.72
+      },
+      {
+        "date": "2024-09-30",
+        "holders": 173,
+        "total_asset_cny": 4587676.93
+      },
+      {
+        "date": "2024-10-31",
+        "holders": 178,
+        "total_asset_cny": 4294971.36
+      },
+      {
+        "date": "2024-11-29",
+        "holders": 176,
+        "total_asset_cny": 4904260.0
+      },
+      {
+        "date": "2024-12-31",
+        "holders": 182,
+        "total_asset_cny": 5342440.07
+      },
+      {
+        "date": "2025-01-27",
+        "holders": 180,
+        "total_asset_cny": 5494137.43
+      },
+      {
+        "date": "2025-02-28",
+        "holders": 185,
+        "total_asset_cny": 5338182.55
+      },
+      {
+        "date": "2025-03-31",
+        "holders": 188,
+        "total_asset_cny": 4935701.03
+      },
+      {
+        "date": "2025-04-30",
+        "holders": 190,
+        "total_asset_cny": 4927852.59
+      },
+      {
+        "date": "2025-05-30",
+        "holders": 190,
+        "total_asset_cny": 4873418.76
+      },
+      {
+        "date": "2025-06-30",
+        "holders": 187,
+        "total_asset_cny": 5058901.82
+      },
+      {
+        "date": "2025-07-31",
+        "holders": 187,
+        "total_asset_cny": 4930598.32
+      },
+      {
+        "date": "2025-08-29",
+        "holders": 197,
+        "total_asset_cny": 7008216.46
+      },
+      {
+        "date": "2025-09-30",
+        "holders": 199,
+        "total_asset_cny": 8114570.64
+      },
+      {
+        "date": "2025-10-31",
+        "holders": 200,
+        "total_asset_cny": 7266718.59
+      },
+      {
+        "date": "2025-11-28",
+        "holders": 197,
+        "total_asset_cny": 6147327.82
+      },
+      {
+        "date": "2025-12-31",
+        "holders": 204,
+        "total_asset_cny": 6489571.23
+      },
+      {
+        "date": "2026-01-30",
+        "holders": 211,
+        "total_asset_cny": 7854380.58
+      },
+      {
+        "date": "2026-02-27",
+        "holders": 208,
+        "total_asset_cny": 6602686.04
+      },
+      {
+        "date": "2026-03-31",
+        "holders": 207,
+        "total_asset_cny": 6686300.73
+      },
+      {
+        "date": "2026-04-30",
+        "holders": 209,
+        "total_asset_cny": 7908106.25
+      },
+      {
+        "date": "2026-05-29",
+        "holders": 209,
+        "total_asset_cny": 7351975.47
+      },
+      {
+        "date": "2026-06-30",
+        "holders": 209,
+        "total_asset_cny": 7458650.96
+      },
+      {
+        "date": "2026-07-31",
+        "holders": 206,
+        "total_asset_cny": 6520889.13
+      },
+      {
+        "date": "2026-08-31",
+        "holders": 208,
+        "total_asset_cny": 6729772.41
+      },
+      {
+        "date": "2026-09-30",
+        "holders": 205,
+        "total_asset_cny": 6661821.35
+      },
+      {
+        "date": "2026-10-09",
+        "holders": 205,
+        "total_asset_cny": 6464470.15
+      }
+    ],
+    "aum_quarterly_2021_2022": [
+      {
+        "date": "2021-12-31",
+        "holders": 7,
+        "total_asset_cny": 1922.49
+      },
+      {
+        "date": "2022-03-31",
+        "holders": 10,
+        "total_asset_cny": 2142.16
+      },
+      {
+        "date": "2022-06-30",
+        "holders": 18,
+        "total_asset_cny": 13964.69
+      },
+      {
+        "date": "2022-09-30",
+        "holders": 43,
+        "total_asset_cny": 256404.66
+      },
+      {
+        "date": "2022-12-30",
+        "holders": 63,
+        "total_asset_cny": 1979025.0
+      }
+    ]
+  },
+  "definitions": {
+    "scope": "全部指标强制 broker=0009（小顾独立渠道），与且慢 0008 物理隔离、无重叠；与且慢App内AI小顾（ai-iris/qm-pilot，broker 0008）为不同产品线",
+    "registered": "ying99_smartadvisor.user 表 count(*)，含 status=DELETED；ACTIVE 25592 = src QIEMAN 74 + src BAIDU 25518",
+    "verified_identity": "user.identity_no 非空（user.verified 字段全为0不落库，不可用）",
+    "accounts_opened": "ying99_accounts.account 交易账户（经实名用户 broker_user_id 清单关联）",
+    "valid_bank_cards": "ying99_accounts.payment_method：active 且 deleted_on 为 1970 零值占位；一个账户可多卡",
+    "purchase": "ying99_fundtxn.fund_order：fund_order_code IN (A22申购, A20认购) 且 confirm_status IN (2确认成功, 3部分确认)；金额=success_amount；不含 W2xx 宝类资金操作（W220充值/W221购买/W98快取等）、不含 A36x 基金转换",
+    "redeem": "fund_order_code=A24 且 confirm_status IN (2,3)；赎回无支付环节，pay_status 不适用；金额=success_amount（金额非份额）",
+    "net_purchase": "申购−赎回；转换（A36/A363/A364）双边调仓不计入",
+    "first_purchase_users": "每交易账户(account_id)首笔成功申购（MIN(fund_order_day)），按首笔年份归类后各年求和=428 去重累计",
+    "portfolio_orders": "ying99_potrade.portfolio_order 全状态；组合交易 2022-12-02 才对外，2021-12 的 95 笔为测试/灰度单",
+    "aum": "ying99_asset.dwd_ast_aum_user_mv_1d_delta：distinct account3_id 与 sum(total_asset)，数仓 T-1 且仅交易日产出",
+    "non_money_aum": "2026-08 月末持仓明细穿透（组合底层+单基金）× fund_info.fund_invest_type：非货=01股票+02债券+03混合+08商品，货=04货币",
+    "baidu_authorized_login_users": "ying99_smartadvisor.baidu_user_map distinct broker_user_id（有百度 unionid=至少一次百度授权登录，含小程序入口）",
+    "activity": "交易活跃=时间窗内有委托的账户去重（fund_order 按 account_id、组合按 account3_id，两者不可直接合并去重）",
+    "test_accounts": "bmdj 维护白名单测试手机号 2 个、影响 ≤3 账户（<0.02%，未单独剔除）；2021-08~10 的 26 个注册为内测期账户；DELETED 182 已单列未计入 ACTIVE",
+    "units": "金额单位人民币元；人数/笔数为整数"
+  },
+  "corrections": {
+    "1_status_sum": "此前 JSON 中 ACTIVE=25596 为整理誊写算术错误，正确值 25592（=25774−182；原始查询分组 QIEMAN_ACTIVE 74 + BAIDU_ACTIVE 25518 + BAIDU_DELETED 182=25774，与 count(*) 全量两次独立查询闭合一致）。差异 4 纯属誊写，非统计时点或口径差异；总数 25774 无误。",
+    "2_monthly_series_start": "月序列起点 2021-06 是查询构造时人工选定的覆盖窗口（保险覆盖立项前），2021-06/07 均为 0，并非数据声称该月有业务。首个非零月 2021-08（7 人，均在 08-27 当天及以后），与最早注册 2021-08-27 完全一致、无矛盾。本 JSON 已裁掉两个 0 值月。",
+    "3_retention_claim_withdrawn": "205/428=47.9% 撤回『留存率』表述：①未做同人群交集验证（428 按 fund_order.account_id 交易账户统计、截止 2026-10-13 含当日；205 按资产表 account3_id 统计、时点 2026-10-09，两者 ID 体系与截止日均不同）；②205 中可能含转托管/非交易过户等非申购途径持有人（cust_share 0009 段 791 交易账号 > 有委托的 483）。该值仅为『当前持有人数/历史首投人数』存量粗比值。"
+  },
+  "segment_20220614_20261012": {
+    "conclusion": "现有聚合文件无日粒度申赎/首投/组合订单数据，无法在不发新查询的前提下精确筛出 2022-06-14 ~ 2026-10-12 窗口总量；本 JSON 全部为渠道全生命周期口径（含 2021-08-27 起内测/灰度期，且含 2026-10-13 当日少量订单与注册）。",
+    "precisely_derivable": {
+      "pre_launch_registered_complete_months": 10737,
+      "pre_launch_note": "正式上线 2022-06-14 前完整月份注册=2021全年 2942 + 2022-01~05 的 7795；2022-06 当月 982 按日拆分不可得",
+      "first_aum_point_after_launch": {
+        "date": "2022-06-30",
+        "holders": 18,
+        "total_asset_cny": 13964.69
+      }
+    },
+    "to_derive_precisely_requires_new_queries": "按 fund_order_day/registered_at 日粒度区间聚合（本任务约束未执行）"
+  },
+  "publication_notes": {
+    "actual_revenue": "Not verified; fee amounts are not company revenue or Baidu revenue share.",
+    "retention": "Not measured; holding/first-purchase ratio is not cohort retention.",
+    "source_scope": "Shared APP and mini-program channel, not pure APP; includes pre-launch and current partial day."
+  },
+  "formal_launch_window_verified": {
+    "window": {
+      "definition": "正式上线以来：>= 2022-06-14 00:00:00 且 < 2026-10-13 00:00:00（北京时间，含 10-12 完整日、不含 10-13 当日）",
+      "attribution": "注册按 registered_at（注册时间戳）；交易按 fund_order_day＝申请交易日（委托日）归属，非确认完成日——实际确认日在清算侧 txn_confirm，fund_order 仅存 expect_confirm_date（期望清算日）；成功判定用订单当前终态 confirm_status ∈ {2,3}。即『申请日落在窗口内且最终确认成功』，窗口边缘订单的确认动作可能发生在窗口外"
+    },
+    "results": {
+      "new_registrations_in_window": 14590,
+      "purchase_in_window": {
+        "orders": 51628,
+        "distinct_trade_accounts": 422,
+        "amount_cny": 66238724.94
+      },
+      "redeem_in_window": {
+        "orders": 19073,
+        "distinct_trade_accounts": 315,
+        "amount_cny": 49265019.07
+      },
+      "net_purchase_in_window_cny": 16973705.87,
+      "first_purchase_accounts_first_day_in_window": 412
+    },
+    "reconciliation_vs_lifetime": {
+      "registered_outside_window": 11184,
+      "purchase_amount_outside_window_cny": 10837.17,
+      "purchase_orders_outside_window": 98,
+      "redeem_amount_outside_window_cny": 509.79,
+      "redeem_orders_outside_window": 12,
+      "first_purchase_accounts_outside_window": 16,
+      "note": "窗口外部分=2021-08-27~2022-06-13 内测/灰度期（含 2022-06-01~13）+2026-10-13 当日，各项与全生命周期值精确闭合"
+    },
+    "criteria": {
+      "broker": "0009",
+      "success": "confirm_status IN ('2','3')，金额=success_amount",
+      "purchase_codes": "A22申购+A20认购；排除 W2xx 宝类与 A36x 转换",
+      "redeem_code": "A24",
+      "first_purchase": "全生命周期先取每交易账户 MIN(fund_order_day)（成功 A20/A22），再计首次日落在窗口内的账户数"
+    }
+  }
+}

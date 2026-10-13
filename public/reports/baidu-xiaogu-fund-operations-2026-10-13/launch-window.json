@@ -1,0 +1,37 @@
+{
+  "window": {
+    "definition": "正式上线以来：>= 2022-06-14 00:00:00 且 < 2026-10-13 00:00:00（北京时间，含 10-12 完整日、不含 10-13 当日）",
+    "attribution": "注册按 registered_at（注册时间戳）；交易按 fund_order_day＝申请交易日（委托日）归属，非确认完成日——实际确认日在清算侧 txn_confirm，fund_order 仅存 expect_confirm_date（期望清算日）；成功判定用订单当前终态 confirm_status ∈ {2,3}。即『申请日落在窗口内且最终确认成功』，窗口边缘订单的确认动作可能发生在窗口外"
+  },
+  "results": {
+    "new_registrations_in_window": 14590,
+    "purchase_in_window": {
+      "orders": 51628,
+      "distinct_trade_accounts": 422,
+      "amount_cny": 66238724.94
+    },
+    "redeem_in_window": {
+      "orders": 19073,
+      "distinct_trade_accounts": 315,
+      "amount_cny": 49265019.07
+    },
+    "net_purchase_in_window_cny": 16973705.87,
+    "first_purchase_accounts_first_day_in_window": 412
+  },
+  "reconciliation_vs_lifetime": {
+    "registered_outside_window": 11184,
+    "purchase_amount_outside_window_cny": 10837.17,
+    "purchase_orders_outside_window": 98,
+    "redeem_amount_outside_window_cny": 509.79,
+    "redeem_orders_outside_window": 12,
+    "first_purchase_accounts_outside_window": 16,
+    "note": "窗口外部分=2021-08-27~2022-06-13 内测/灰度期（含 2022-06-01~13）+2026-10-13 当日，各项与全生命周期值精确闭合"
+  },
+  "criteria": {
+    "broker": "0009",
+    "success": "confirm_status IN ('2','3')，金额=success_amount",
+    "purchase_codes": "A22申购+A20认购；排除 W2xx 宝类与 A36x 转换",
+    "redeem_code": "A24",
+    "first_purchase": "全生命周期先取每交易账户 MIN(fund_order_day)（成功 A20/A22），再计首次日落在窗口内的账户数"
+  }
+}
