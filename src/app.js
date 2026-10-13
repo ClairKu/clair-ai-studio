@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 104;
+const DATA_VERSION = 105;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -221,6 +221,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "ai-xiaogu-product-handbook-2026-10-13",
+      groupId: "xiaogu",
+      title: "AI 小顾产品总文档｜26章 · 50项需求 · 35种卡片 · 24项验收",
+      url: "https://clairku.github.io/clair-ai-studio/reports/ai-xiaogu-product-handbook-2026-10-13/",
+      preview: "ai-xiaogu-product-handbook-2026-10-13.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-10-13T11:00:00.000+08:00",
+      source: "整合核心PRD、原始产品资料与既有生产审计｜26章产品总文档、50项需求、35种服务卡片、24项待执行验收用例、29项来源索引｜覆盖定位、用户场景、入口、复杂任务、小顾成果、帮你看、记忆画像、账户规划、人工接力、系统数据契约、权限、异常、指标和落地优先级｜原文规则、历史证据、建议与待确认分层｜运行资料截至2026-10-12；本次未重跑生产取数与功能验收｜图文HTML、全文检索、卡片筛选、打印与下载｜生产",
+      access: "production",
+      workType: "product-planning",
+      tags: ["AI 小顾", "且慢", "产品文档", "PRD", "小顾3.0", "长期记忆", "CCDP", "定时任务", "复杂任务", "服务卡片", "人工接力", "验收", "HTML", "生产"],
+    },
     {
       id: "xiaogu-dialogue-four-dimensions-since-launch-2026-10-13",
       groupId: "xiaogu",
@@ -3385,6 +3399,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "ai-xiaogu-product-handbook-2026-10-13": "xiaogu",
   "xiaogu-dialogue-four-dimensions-since-launch-2026-10-13": "xiaogu",
   "gpt-finance-capability-landscape-2026-10-10": "ai-platform",
   "personal-agent-yingmi-executive-strategy-2026-10-10": "reporting",

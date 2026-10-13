@@ -1,0 +1,234 @@
+[
+  {
+    "id": "S01",
+    "title": "小顾3.0 产品需求文档 PRD",
+    "url": "https://wiki.yingmi-inc.com/spaces/POR/pages/320152432/%E5%B0%8F%E9%A1%BE3.0+%E4%BA%A7%E5%93%81%E9%9C%80%E6%B1%82%E6%96%87%E6%A1%A3+PRD",
+    "date": "2026-07-02",
+    "kind": "原始产品资料",
+    "scope": "3.0四大模块、交互、记忆、任务上限、权限、异常与验收；原型复原 V0.1。"
+  },
+  {
+    "id": "S02",
+    "title": "AI小顾3.0产品升级方案",
+    "url": "https://yingmi.feishu.cn/docx/CP7qd8RTtorWwfxlV2cc4lqcnVc",
+    "date": "2025-12-19",
+    "kind": "原始产品资料",
+    "scope": "超级柜台定位、服务生产与老客经营、长期升级方向；目标不是经营实绩。"
+  },
+  {
+    "id": "S03",
+    "title": "【且慢AI小顾】项目总览",
+    "url": "https://my.feishu.cn/docx/VBhddVpAZonhFDxhbW0c1LnunS2",
+    "date": "2024-11-26",
+    "kind": "原始产品资料",
+    "scope": "项目定位、用户价值、早期 MVP；存在历史版本称谓混用。"
+  },
+  {
+    "id": "S04",
+    "title": "✅202309-且慢投顾超级入口【AI小顾】",
+    "url": "https://wiki.yingmi-inc.com/spaces/~guty/pages/168168687/%E2%9C%85202309-%E4%B8%94%E6%85%A2%E6%8A%95%E9%A1%BE%E8%B6%85%E7%BA%A7%E5%85%A5%E5%8F%A3%E3%80%90AI%E5%B0%8F%E9%A1%BE%E3%80%91",
+    "date": "2024-01-12",
+    "kind": "原始产品资料",
+    "scope": "超级入口的剧本、服务组件、查询维度、反馈与早期埋点。"
+  },
+  {
+    "id": "S05",
+    "title": "【持續更新】用户体验调研-11月-且慢智能投资顾问（AI小顾超级入口）调研结果",
+    "url": "https://wiki.yingmi-inc.com/spaces/POR/pages/182070125/%E3%80%90%E6%8C%81%E7%BA%8C%E6%9B%B4%E6%96%B0%E3%80%91%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C%E8%B0%83%E7%A0%94-11%E6%9C%88-%E4%B8%94%E6%85%A2%E6%99%BA%E8%83%BD%E6%8A%95%E8%B5%84%E9%A1%BE%E9%97%AE%EF%BC%88AI%E5%B0%8F%E9%A1%BE%E8%B6%85%E7%BA%A7%E5%85%A5%E5%8F%A3%EF%BC%89%E8%B0%83%E7%A0%94%E7%BB%93%E6%9E%9C",
+    "date": "2024-02-22",
+    "kind": "原始产品资料",
+    "scope": "早期用户需求排序；113份首轮问卷与488份后续累计不可混用。"
+  },
+  {
+    "id": "S06",
+    "title": "AI小顾架构升级",
+    "url": "https://wiki.yingmi-inc.com/spaces/~zhaojiashu/pages/274920048/AI%E5%B0%8F%E9%A1%BE%E6%9E%B6%E6%9E%84%E5%8D%87%E7%BA%A7",
+    "date": "2026-04-03",
+    "kind": "原始产品资料",
+    "scope": "框架升级、会话、语音、账户服务、推荐体系；多项为规划。"
+  },
+  {
+    "id": "S07",
+    "title": "AI小顾3.0-千人千面+投资规划330",
+    "url": "https://wiki.yingmi-inc.com/spaces/~zhaojiashu/pages/306315656/AI%E5%B0%8F%E9%A1%BE3.0-%E5%8D%83%E4%BA%BA%E5%8D%83%E9%9D%A2+%E6%8A%95%E8%B5%84%E8%A7%84%E5%88%92330",
+    "date": "2026-04-15",
+    "kind": "原始产品资料",
+    "scope": "千人千面与投资规划生命周期；保留为历史方案。"
+  },
+  {
+    "id": "S08",
+    "title": "小顾3.0 7月开放规划",
+    "url": "https://wiki.yingmi-inc.com/spaces/POR/pages/313410095/%E5%B0%8F%E9%A1%BE3.0+7%E6%9C%88%E5%BC%80%E6%94%BE%E8%A7%84%E5%88%92",
+    "date": "2026-07-06",
+    "kind": "原始产品资料",
+    "scope": "7月分层开放计划；未取得各批次完成验收记录。"
+  },
+  {
+    "id": "S09",
+    "title": "20240711-【且慢】资产持仓分析2.0（AI小顾）",
+    "url": "https://wiki.yingmi-inc.com/spaces/POR/pages/205616275/20240711-%E3%80%90%E4%B8%94%E6%85%A2%E3%80%91%E8%B5%84%E4%BA%A7%E6%8C%81%E4%BB%93%E5%88%86%E6%9E%902.0%EF%BC%88AI%E5%B0%8F%E9%A1%BE%EF%BC%89",
+    "date": "2024-07-11",
+    "kind": "原始产品资料",
+    "scope": "资产分析2.0：持仓/平台产品、三层分类、旭日图与排除范围。"
+  },
+  {
+    "id": "S10",
+    "title": "20250325- 悬浮按钮及摇一摇快捷进入AI小顾",
+    "url": "https://wiki.yingmi-inc.com/spaces/POR/pages/238573816/20250325-+%E6%82%AC%E6%B5%AE%E6%8C%89%E9%92%AE%E5%8F%8A%E6%91%87%E4%B8%80%E6%91%87%E5%BF%AB%E6%8D%B7%E8%BF%9B%E5%85%A5AI%E5%B0%8F%E9%A1%BE",
+    "date": "2025-04-28",
+    "kind": "原始产品资料",
+    "scope": "悬浮入口、摇一摇、同一会话续接、返回栈与埋点规则。"
+  },
+  {
+    "id": "S11",
+    "title": "20250327-AI 小顾支持查询策略陪伴内容",
+    "url": "https://wiki.yingmi-inc.com/spaces/POR/pages/238577028/20250327-AI+%E5%B0%8F%E9%A1%BE%E6%94%AF%E6%8C%81%E6%9F%A5%E8%AF%A2%E7%AD%96%E7%95%A5%E9%99%AA%E4%BC%B4%E5%86%85%E5%AE%B9",
+    "date": "2025-11-05",
+    "kind": "原始产品资料",
+    "scope": "策略陪伴内容：持仓且签约投顾组合、单选筛选、时间倒序。"
+  },
+  {
+    "id": "S12",
+    "title": "客户上下文数据平台（CCDP）解决方案",
+    "url": "https://wiki.yingmi-inc.com/spaces/DI/pages/298764765/%E5%AE%A2%E6%88%B7%E4%B8%8A%E4%B8%8B%E6%96%87%E6%95%B0%E6%8D%AE%E5%B9%B3%E5%8F%B0%EF%BC%88CCDP%EF%BC%89%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88",
+    "date": "2026-03-17",
+    "kind": "原始产品资料",
+    "scope": "CCDP上下文、快照与明细接口边界；方案不等于生产全部实现。"
+  },
+  {
+    "id": "S13",
+    "title": "【小顾3.0】客服能力提升",
+    "url": "https://yingmi.feishu.cn/wiki/RCS8wrWjEiRxMrkhBC3c4Z1nnT5",
+    "date": "2026-01-09",
+    "kind": "原始产品资料",
+    "scope": "柜台、交易、产品、资产、系统五类客服与闭环办理目标。"
+  },
+  {
+    "id": "S14",
+    "title": "AI小顾人工接入--优化建议",
+    "url": "https://yingmi.feishu.cn/docx/NYYddQNhYoTXXGxK6W1cF5pbnKc",
+    "date": "2024-07-25",
+    "kind": "原始产品资料",
+    "scope": "人工接力、会话锁定、留言、回复和满意度的历史体验问题。"
+  },
+  {
+    "id": "S15",
+    "title": "智能客服切换AI小顾",
+    "url": "https://yingmi.feishu.cn/docx/YAnNdARdHoIoKSxuOTIcJ7ALnbg",
+    "date": "2025-07-02",
+    "kind": "原始产品资料",
+    "scope": "人工会话独立、历史同步、退出后消息可达；旧缺陷须复验。"
+  },
+  {
+    "id": "S16",
+    "title": "AI小顾对接企业微信的需求",
+    "url": "https://yingmi.feishu.cn/docx/ZY8edRjnxouqXuxcLEHcHWMon3b",
+    "date": "2025-05-13",
+    "kind": "原始产品资料",
+    "scope": "企业微信顾问侧边栏、标准回答预览与顾问发送；需求态。"
+  },
+  {
+    "id": "S17",
+    "title": "【且慢AI投顾项目】（AI小顾3.0、AI实验室）",
+    "url": "https://yingmi.feishu.cn/docx/InMpdjFacokJDQxj9dJcLnqpnEz",
+    "date": "2025-12-18",
+    "kind": "原始产品资料",
+    "scope": "小顾与AI实验室的供给/使用关系、能力接入及阶段目标。"
+  },
+  {
+    "id": "G01",
+    "title": "20260630-小顾3.0-630版本 问题反馈",
+    "url": "https://yingmi.feishu.cn/wiki/MzmTwLQUAi4XDzkFx9DcwrhInEd",
+    "date": "2026-07-15",
+    "kind": "资料缺口",
+    "scope": "只取得文档元数据；不能据此确认630版缺陷已修复。"
+  },
+  {
+    "id": "G02",
+    "title": "AI小顾升级验收",
+    "url": "https://yingmi.feishu.cn/wiki/Nz2UwVqnkiLcykklGl7cggN5n3e",
+    "date": "2025-09-22",
+    "kind": "资料缺口",
+    "scope": "只取得文档元数据；不能据此确认升级验收通过。"
+  },
+  {
+    "id": "G03",
+    "title": "AI小顾支持“文献引用”",
+    "url": "https://wiki.yingmi-inc.com/spaces/~liangzz/pages/205592171/AI%E5%B0%8F%E9%A1%BE%E6%94%AF%E6%8C%81%E2%80%9C%E6%96%87%E7%8C%AE%E5%BC%95%E7%94%A8%E2%80%9D",
+    "date": "2024-06-24",
+    "kind": "资料缺口",
+    "scope": "本地镜像正文为空；引用细则需回源。"
+  },
+  {
+    "id": "G04",
+    "title": "且慢 AI 小顾标注流程与说明",
+    "url": "https://wiki.yingmi-inc.com/spaces/~linjy/pages/274904722/%E4%B8%94%E6%85%A2+AI+%E5%B0%8F%E9%A1%BE%E6%A0%87%E6%B3%A8%E6%B5%81%E7%A8%8B%E4%B8%8E%E8%AF%B4%E6%98%8E",
+    "date": "2025-10-13",
+    "kind": "资料缺口",
+    "scope": "本地镜像正文为空；标注流程需回源。"
+  },
+  {
+    "id": "R01",
+    "title": "小顾生产卡片服务场景全景",
+    "url": "https://clairku.github.io/clair-ai-studio/reports/qieman-xiaogu-service-card-landscape-2026-08-13/",
+    "date": "2026-08-13",
+    "kind": "既有审计 / 分析",
+    "scope": "35种注册项、23独立落卡/5降级/7未独立落卡；本次复用既有测试证据，不是重新验收。"
+  },
+  {
+    "id": "R02",
+    "title": "AI小顾0→1技术考古",
+    "url": "https://clairku.github.io/clair-ai-studio/reports/xiaogu-technical-evolution-2026-09-03/",
+    "date": "2026-09-03",
+    "kind": "既有审计 / 分析",
+    "scope": "技术历程、模型、Agent、MCP；具体数量仅是当时快照。"
+  },
+  {
+    "id": "R03",
+    "title": "AI小顾如何赋能买方投顾：证据与指标",
+    "url": "https://clairku.github.io/clair-ai-studio/reports/xiaogu-buyer-advisor-evidence-2026-09-03/",
+    "date": "2026-09-03",
+    "kind": "既有审计 / 分析",
+    "scope": "生产交付与经营因果的区分；旧指标不覆盖更新数据。"
+  },
+  {
+    "id": "R04",
+    "title": "小顾上线以来使用与提问走势",
+    "url": "https://clairku.github.io/clair-ai-studio/reports/xiaogu-since-launch-usage-question-dashboard-2026-10-10/",
+    "date": "2026-10-10",
+    "kind": "既有审计 / 分析",
+    "scope": "截至10月10日的前后端口径、渠道差异、定时任务与失败率；本次未重跑生产查询。"
+  },
+  {
+    "id": "R05",
+    "title": "AI小顾1.0至3.0使用趋势与定时任务账本",
+    "url": "https://clairku.github.io/clair-ai-studio/reports/xiaogu-usage-trends-2024/",
+    "date": "2026-10-11",
+    "kind": "既有审计 / 分析",
+    "scope": "10月12日生成；扩展提问计数含用户触发与待核实项；版本命名与早期产品资料存在冲突，正式发布日未确认。"
+  },
+  {
+    "id": "R06",
+    "title": "小顾对话走势·上线以来四维度核验版",
+    "url": "https://clairku.github.io/clair-ai-studio/reports/xiaogu-dialogue-four-dimensions-since-launch-2026-10-13/",
+    "date": "2026-10-12",
+    "kind": "既有审计 / 分析",
+    "scope": "10月13日核验；前端截至10月11日、后端截至10月12日。修正2.0日值错位，拆分交互和定时任务，明确路由与去重口径。"
+  },
+  {
+    "id": "W01",
+    "title": "且慢隐私政策（官方）",
+    "url": "https://qieman.com/help/privacy",
+    "date": "2026-10-13检索",
+    "kind": "官方公开资料",
+    "scope": "搜索索引可见小顾3.0必要信息处理及同意要求；动态正文未完整展开，逐项数据清单仍须核对现行协议。"
+  },
+  {
+    "id": "W02",
+    "title": "金融产品网络营销管理办法（八部门公告〔2026〕第9号）",
+    "url": "https://www.cac.gov.cn/2026-04/24/c_1778769008779432.htm",
+    "date": "2026-04-24发布",
+    "kind": "官方现行规则",
+    "scope": "2026-09-30施行；对外营销、第三方平台、退订与内容审查。下文控制方案属于产品建议。"
+  }
+]
