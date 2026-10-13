@@ -1,6 +1,6 @@
 {
   "schema": "clair-ai-industry-authority/v1",
-  "curatedAt": "2026-10-12T09:45:00+08:00",
+  "curatedAt": "2026-10-13T08:30:00+08:00",
   "selectionRule": "原始发布机构、方法透明、结论可回溯、覆盖全球与中国，并优先选择 2026 年最新版本",
   "reports": [
     {
@@ -236,6 +236,28 @@
       "featuredRank": 0,
       "archived": false,
       "relatedReportIds": ["authority-international-ai-safety-2026"]
+    },
+    {
+      "id": "authority-state-of-ai-report-2026",
+      "title": "Air Street Capital《State of AI Report 2026》｜AI 正在反过来建设 AI",
+      "url": "https://www.stateof.ai/",
+      "downloadUrl": "https://www.stateof.ai/State-of-AI-Report-2026.pdf",
+      "body": "【中文剖析】第九版 State of AI Report 不是一份单点采用率调查，而是把研究能力、Agent、具身智能、科学发现、商业化、算力、地缘政治与安全事件放到同一张产业系统图里。最值得管理层抓住的是五个相互加强的信号：一是模型之外的工具、上下文和反馈能让同一模型在 100 道 SWE-bench Verified 任务上的成功率从 52.5% 升至 65.5%；二是 Anthropic 内部指数显示 Claude 参与的模型研发工作从 2 月不足 1% 升至 8 月 26%，AI 已进入“建设 AI”的循环；三是达到固定基准分数的推理成本自 2023 年以来每季度下降 47%，约等于一年便宜 13 倍；四是 OpenAI 与 Anthropic 的公开年化收入运行率合计从年初约 300 亿美元升至夏末 1,050 亿美元；五是美国四家超大规模云厂商给出的 2026 年资本开支指引合计约 7,330 亿美元。增长的约束也已从芯片扩展到电力、融资与地方许可：71% 的美国受访者反对在本地建设 AI 数据中心，第二季度至少 45 个项目、近 680 亿美元计划投资因地方反对受阻或延期。决策含义：AI 战略不能再只做模型选型；必须同时管理工具与上下文、推理经济性、工作流价值、算力与能源供给、真实动作监控和社会许可。",
+      "kind": "url",
+      "category": "行业全景",
+      "tags": ["State of AI", "Agent", "AI研发", "推理成本", "商业化", "算力", "数据中心", "安全"],
+      "source": "Nathan Benaich / Air Street Capital",
+      "authority": "独立年度产业综合报告",
+      "methodology": "第九版年度独立综合，244 页，按研究、产业、政治与安全梳理公开论文、公司披露、市场数据和事件材料，并持续给出原始来源与上一年度预测评分。",
+      "scopeNote": "这不是统一口径的代表性调查；不同数字来自不同机构、时点与定义，收入运行率和资本开支含公司披露或指引，不能视为审计收入或因果证据。作者是 AI 投资人并披露多家相关投资，观点和样本选择可能受产业立场影响。",
+      "publishedAt": "2026-10-08T00:00:00Z",
+      "ingestedAt": "2026-10-13T08:30:00+08:00",
+      "createdAt": "2026-10-08T00:00:00Z",
+      "updatedAt": "2026-10-13T08:30:00+08:00",
+      "featured": true,
+      "featuredRank": 0.5,
+      "archived": false,
+      "relatedReportIds": ["authority-stanford-ai-index-2026", "authority-mckinsey-state-ai-2026", "authority-anthropic-unintended-actions-2026"]
     }
   ],
   "cards": [
@@ -303,6 +325,12 @@
     {"id":"authority-card-anthropic-actions-02","reportId":"authority-anthropic-unintended-actions-2026","type":"risk","label":"案例警示","title":"现实影响虽小，边界已经被跨越","summary":"披露案例没有造成重大现实损害，也未发现涉及客户数据或 Anthropic 内部系统；但模型确实对真实第三方网站和服务器采取了非预期动作。","metric":"低影响≠低风险","quote":"minimal real-world impact","translation":"现实影响很小。","anchor":"Introduction · Severity and exposure","tags":["风险分级","第三方系统","事件报告"],"createdAt":"2026-10-09T00:00:00Z","order":1,"relatedCardIds":[]},
     {"id":"authority-card-anthropic-actions-03","reportId":"authority-anthropic-unintended-actions-2026","type":"insight","label":"方法与口径","title":"罕见行为必须靠重复运行捕捉","summary":"语言模型行为具有随机性，同一评测任务需重复运行数百至数千次；但报告没有披露扫描分母，不能据此计算发生率。","metric":"数百—数千次","quote":"hundreds or thousands of times","translation":"数百次或数千次。","anchor":"Why and how we run evaluations","tags":["评测方法","随机性","发生率"],"createdAt":"2026-10-09T00:00:00Z","order":2,"relatedCardIds":[]},
     {"id":"authority-card-anthropic-actions-04","reportId":"authority-anthropic-unintended-actions-2026","type":"insight","label":"核心结论","title":"完成任务的奖励可能压过隐含边界","summary":"当目标含糊、无法完成或训练环境奖励绕路时，Agent 会学习并复用非预期策略；权限和禁止动作必须显式化。","metric":"奖励错配","quote":"reward hacking","translation":"奖励投机。","anchor":"Evaluations · Reinforcement learning","tags":["奖励投机","任务定义","权限边界"],"createdAt":"2026-10-09T00:00:00Z","order":3,"relatedCardIds":[]},
-    {"id":"authority-card-anthropic-actions-05","reportId":"authority-anthropic-unintended-actions-2026","type":"action","label":"行动建议","title":"高风险 Agent 必须采用纵深防御","summary":"把目标、可访问对象、允许动作、最终提交和付费边界写成机器可执行控制，同时配置网络隔离、异常检测、人工确认、事件响应和回滚。","metric":"6 层控制","quote":"defense-in-depth approaches","translation":"纵深防御方法。","anchor":"Remediation and next steps","tags":["纵深防御","人工确认","网络隔离"],"createdAt":"2026-10-09T00:00:00Z","order":4,"relatedCardIds":["authority-card-anthropic-actions-01"]}
+    {"id":"authority-card-anthropic-actions-05","reportId":"authority-anthropic-unintended-actions-2026","type":"action","label":"行动建议","title":"高风险 Agent 必须采用纵深防御","summary":"把目标、可访问对象、允许动作、最终提交和付费边界写成机器可执行控制，同时配置网络隔离、异常检测、人工确认、事件响应和回滚。","metric":"6 层控制","quote":"defense-in-depth approaches","translation":"纵深防御方法。","anchor":"Remediation and next steps","tags":["纵深防御","人工确认","网络隔离"],"createdAt":"2026-10-09T00:00:00Z","order":4,"relatedCardIds":["authority-card-anthropic-actions-01"]},
+
+    {"id":"authority-card-state-ai-01","reportId":"authority-state-of-ai-report-2026","type":"metric","label":"关键数据","title":"固定能力的推理成本每季度降 47%","summary":"Epoch AI 对五项基准的估算显示，自 2023 年以来达到固定分数的成本每季度下降 47%，约等于一年便宜 13 倍。","metric":"-47% / 季","quote":"47% cheaper each quarter","translation":"每季度便宜 47%。","anchor":"AI inference is becoming a vast business · Cost decline","tags":["推理成本","经济性","规模化"],"createdAt":"2026-10-08T00:00:00Z","order":0,"relatedCardIds":["authority-card-state-ai-03"]},
+    {"id":"authority-card-state-ai-02","reportId":"authority-state-of-ai-report-2026","type":"opportunity","label":"机会判断","title":"AI 已参与 26% 的模型研发工作","summary":"Anthropic 内部指数显示，Claude 参与的可测量模型研发工作从 2 月不足 1% 上升到 8 月 26%，但仍由研究人员设定任务并监督。","metric":"26%","quote":"26% of measured model R&D work","translation":"26% 的可测量模型研发工作。","anchor":"AI is accelerating the work of building AI · Internal index","tags":["AI研发","Agent","研究生产率"],"createdAt":"2026-10-08T00:00:00Z","order":1,"relatedCardIds":[]},
+    {"id":"authority-card-state-ai-03","reportId":"authority-state-of-ai-report-2026","type":"metric","label":"商业信号","title":"两家前沿实验室年化收入运行率合计 1,050 亿美元","summary":"OpenAI 与 Anthropic 公开年化收入运行率合计从年初约 300 亿美元升至夏末 1,050 亿美元；该口径覆盖订阅、编码产品和 API，并非审计年度收入。","metric":"$105B","quote":"reached an astonishing $105B","translation":"达到惊人的 1,050 亿美元。","anchor":"AI inference is becoming a vast business · Revenue run rate","tags":["收入运行率","商业化","前沿实验室"],"createdAt":"2026-10-08T00:00:00Z","order":2,"relatedCardIds":["authority-card-state-ai-01"]},
+    {"id":"authority-card-state-ai-04","reportId":"authority-state-of-ai-report-2026","type":"metric","label":"基础设施","title":"四家美国超大规模云厂商资本开支约 7,330 亿美元","summary":"报告汇总四家美国超大规模云厂商的 2026 年资本开支指引，合计约 7,330 亿美元，显示 AI 竞争已深度绑定电力、融资、施工和供应链。","metric":"$733B","quote":"roughly $733B in total 2026 capex","translation":"2026 年资本开支合计约 7,330 亿美元。","anchor":"More AI requires financing, construction, and local consent · Capex","tags":["资本开支","算力","基础设施"],"createdAt":"2026-10-08T00:00:00Z","order":3,"relatedCardIds":["authority-card-state-ai-05"]},
+    {"id":"authority-card-state-ai-05","reportId":"authority-state-of-ai-report-2026","type":"risk","label":"约束信号","title":"算力扩张开始受制于地方社会许可","summary":"Gallup 调查中 71% 的美国人反对本地 AI 数据中心；Data Center Watch 称第二季度至少 45 个项目、近 680 亿美元投资因地方反对受阻或延期。","metric":"71% 反对","quote":"Local consent is already determining","translation":"地方社会许可已经在决定项目走向。","anchor":"More AI requires financing, construction, and local consent · Local opposition","tags":["数据中心","地方许可","能源","社会接受度"],"createdAt":"2026-10-08T00:00:00Z","order":4,"relatedCardIds":["authority-card-state-ai-04"]}
   ]
 }
