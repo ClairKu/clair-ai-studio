@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "xiaogu-dialogue-four-dimensions-since-launch-2026-10-13",
     "xiaogu-usage-trends-2024",
     "xiaogu-since-launch-usage-question-dashboard-2026-10-10",
     "gpt-finance-capability-landscape-2026-10-10",

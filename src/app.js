@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 103;
+const DATA_VERSION = 104;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -221,6 +221,34 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "xiaogu-dialogue-four-dimensions-since-launch-2026-10-13",
+      groupId: "xiaogu",
+      title: "小顾对话走势 · 上线以来四维度核验版",
+      url: "https://clairku.github.io/clair-ai-studio/reports/xiaogu-dialogue-four-dimensions-since-launch-2026-10-13/",
+      preview: "xiaogu-dialogue-four-dimensions-since-launch-2026-10-13.png",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-13T11:00:00+08:00",
+      source: "原四维度HTML逐日复核 × 2026-10-13生产只读聚合 × 2024年以来历史前端快照｜保留2.0、3.0 App路由、千问与合计四维度；上线以来、今年、近30/90天及自定义区间；日/月图表、全部发起与排除定时任务切换、CSV下载｜查明2.0有137/146日与前一日相同，3.0渠道292个轮数日值一致；按真实日期重算，截止2026-10-12；UV独立去重、月图日均UV、会话日、任务混入及历史缺档明确标注；仅聚合值",
+      access: "production",
+      workType: "data-analysis",
+      tags: [
+        "AI 小顾",
+        "且慢",
+        "2.0",
+        "3.0",
+        "千问",
+        "对话走势",
+        "上线以来",
+        "数据口径",
+        "定时任务",
+        "四维度",
+        "数据分析",
+        "HTML",
+        "生产"
+      ]
+    },
     {
       id: "xiaogu-usage-trends-2024",
       groupId: "xiaogu",
@@ -3357,6 +3385,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "xiaogu-dialogue-four-dimensions-since-launch-2026-10-13": "xiaogu",
   "gpt-finance-capability-landscape-2026-10-10": "ai-platform",
   "personal-agent-yingmi-executive-strategy-2026-10-10": "reporting",
   "san-junipero-creator-footprint-2026-10-10": "knowledge",
