@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 105;
+const DATA_VERSION = 106;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -221,6 +221,30 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "baidu-xiaogu-fund-operations-2026-10-13",
+      groupId: "growth-insights",
+      title: "百度 × 小顾基金｜服务与历史运营核验",
+      url: "https://clairku.github.io/clair-ai-studio/reports/baidu-xiaogu-fund-operations-2026-10-13/",
+      preview: "baidu-xiaogu-fund-operations-2026-10-13.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-13T15:00:00+08:00",
+      source: "本体全周期查询未返回，非最新运营全量｜SOUL 原始设计与运营周报交叉核验｜安卓 2022-06-14、iOS 2022-08-29 正式上线｜具体服务、19 个首年历史快照、诊断导流漏斗与逐条来源｜历史数据实际截至 2022-12-11；生产用户、交易、当前保有与活跃仍待结果｜仅聚合数据",
+      access: "production",
+      workType: "data-analysis",
+      tags: [
+        "百度",
+        "小顾基金",
+        "渠道合作",
+        "运营数据",
+        "上线以来",
+        "本体",
+        "数据分析",
+        "HTML",
+        "生产"
+      ]
+    },
     {
       id: "ai-xiaogu-product-handbook-2026-10-13",
       groupId: "xiaogu",
