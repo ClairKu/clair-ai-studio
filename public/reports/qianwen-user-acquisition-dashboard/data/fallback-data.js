@@ -982,12 +982,12 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "id": "zero_at_bind",
                 "label": "绑定时零资产（含未开户）",
-                "accounts": 18177
+                "accounts": 18170
               },
               {
                 "id": "has_assets_at_bind",
                 "label": "绑定时已有资产",
-                "accounts": 453
+                "accounts": 460
               }
             ]
           },
@@ -1614,12 +1614,12 @@ window.QIANWEN_ACQUISITION_DATA = {
               {
                 "id": "zero_at_bind",
                 "label": "绑定时零资产（含未开户）",
-                "accounts": 938
+                "accounts": 931
               },
               {
                 "id": "has_assets_at_bind",
                 "label": "绑定时已有资产",
-                "accounts": 453
+                "accounts": 460
               }
             ]
           },
