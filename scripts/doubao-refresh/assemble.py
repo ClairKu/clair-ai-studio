@@ -9,7 +9,7 @@
 import json, os, sys
 from pathlib import Path
 
-# 用法: assemble.py <上一版 latest.json 模板> [工作目录(q1..q4.json 所在, 默认 $QW_WORK 或 cwd)]
+# 用法: assemble.py <上一版 latest.json 模板> [工作目录(q1..q6.json 所在, 默认 $QW_WORK 或 cwd)]
 HERE = Path(sys.argv[2] if len(sys.argv) > 2 else os.environ.get("QW_WORK", "."))
 COHORTS = ["all", "new", "existing"]
 DEF_VERSION = "2026-08-20-v2"
@@ -17,6 +17,7 @@ DEF_VERSION = "2026-08-20-v2"
 template = json.load(open(sys.argv[1]))
 q1, q2, q3, q4 = (json.load(open(HERE / f"q{i}.json")) for i in (1, 2, 3, 4))
 q5 = json.load(open(HERE / "q5.json"))   # 分客群面板；缺了宁可失败，别发个空面板
+q6 = json.load(open(HERE / "q6.json"))   # 豆包 OAuth 使用节奏代理；不是提问内容
 cutoff = q1["data_cutoff"]
 cutoff_day = cutoff[:10]
 
@@ -195,6 +196,49 @@ out["profile"] = {"cohorts": profile_cohorts}
 for key, cohorts in (("behavior", behavior_cohorts), ("business", business_cohorts)):
     out[key] = {"window_start_at": template[key]["window_start_at"], "window_end_at": cutoff,
                 "anchor": "first_bound_at", "cohorts": cohorts}
+
+# ── 用户提问与使用信号：只发布 OAuth 令牌活动代理，明确不冒充原始提问 ──
+assert q6["schema_version"] == "doubao-usage-proxy-signals-v1"
+assert q6["as_of"] == cutoff and q6["evidence_state"] == "confirmed_proxy"
+signal_cohorts = []
+for co in COHORTS:
+    coverage = q6["coverage"][co]
+    proxy_metric = next(x for x in behavior_cohorts[co]["metrics"] if x["id"] == "xiaogu_used_after_binding")
+    assert int(coverage["bound_users"]) == POP[co]
+    assert int(coverage["token_active_users"]) == proxy_metric["reached_accounts"]
+    assert int(coverage["no_token_users"]) == proxy_metric["not_reached_accounts"]
+    signal_cohorts.append({"id": co, "population_accounts": POP[co],
+                           "proxy_active_accounts": int(coverage["token_active_users"]),
+                           "not_observed_accounts": int(coverage["no_token_users"])})
+
+active_bucket_ids = [("one_day", "1"), ("two_to_seven_days", "2_7"),
+                     ("eight_to_thirty_days", "8_30"), ("gte_thirty_one_days", "31_plus")]
+active_day_buckets = []
+for public_id, source_id in active_bucket_ids:
+    entry = {"id": public_id,
+             "all_accounts": int(q6["token_active_days"]["all"][source_id]),
+             "new_accounts": int(q6["token_active_days"]["new"][source_id]),
+             "existing_accounts": int(q6["token_active_days"]["existing"][source_id])}
+    assert entry["all_accounts"] == entry["new_accounts"] + entry["existing_accounts"]
+    active_day_buckets.append(entry)
+
+lag_bucket_ids = [("lte_5m", "lte_5m"), ("five_to_thirty_minutes", "5_30m"),
+                  ("thirty_minutes_to_one_day", "30m_24h"), ("gte_one_day", "gte_1d")]
+lag_buckets = [{"id": public_id, "accounts": int(q6["first_token_delay"]["all"][source_id])}
+               for public_id, source_id in lag_bucket_ids]
+daily_proxy_active = [{"date": row["date"], "new_accounts": int(row["new_users"]),
+                       "existing_accounts": int(row["existing_users"]), "all_accounts": int(row["all_users"]),
+                       "partial": bool(row["partial"])} for row in q6["recent_7d"]]
+assert sum(x["all_accounts"] for x in active_day_buckets) == q6["coverage"]["all"]["token_active_users"]
+assert sum(x["accounts"] for x in lag_buckets) == q6["coverage"]["all"]["token_active_users"]
+out["usage_question_signals"] = {
+    "schema_version": "doubao-question-signals-v1", "data_as_of": cutoff,
+    "evidence_level": "oauth_session_proxy_only", "cohorts": signal_cohorts,
+    "usage_rhythm": {"active_day_buckets": active_day_buckets,
+                     "first_proxy_lag_buckets": lag_buckets,
+                     "daily_proxy_active": daily_proxy_active},
+    "unavailable_content": ["original_questions", "demand_topics", "keywords_and_products", "followup_paths"],
+    "required_instrumentation": ["anonymous_subject", "request_trace", "service_route", "redacted_intent"]}
 
 # ── 分客群面板（8 维度 × 6 指标）──
 SEG_IDS = ["all", "new_inv", "first_inv", "reinvested", "new", "new_first_inv", "existing", "existing_reactivated", "existing_first_inv"]

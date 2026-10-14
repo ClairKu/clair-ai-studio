@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""把豆包看板取数各段的表格输出整理成 assemble.py 需要的 q1..q5.json（与 qianwen-refresh/build-q.py 同构，窗口起点 2026-08-28）。
+"""把豆包看板取数各段的表格输出整理成 assemble.py 需要的 q1..q6.json（与 qianwen-refresh/build-q.py 同构，窗口起点 2026-08-28）。
 
 用法: build-q.py <工作目录>
 需要的文件（各段 SQL 见同目录 README）：
@@ -11,6 +11,7 @@
   zeroatbind.txt 绑定时已有资产的人数（用于「绑定时资产状态」维度）
   lifecycle.txt 资金留存三段（无首投 / 已流失 / 在管）
   segments.txt  分客群面板 5 维度 × 6 指标
+  question-signals.txt 豆包 OAuth 使用节奏代理（匿名统计，不是提问内容）
   cut.txt/ad.txt 数据截止时刻 / 资产快照日
 """
 import json, re, sys
@@ -219,7 +220,49 @@ items = [{"id": k, "population_accounts": I(sg[k]["pop"]),
 assert len(items) == len(SEG_ORDER), f"segments 缺维度: {set(SEG_ORDER)-set(sg)}"
 q5 = {"as_of": iso(CUT), "asset_as_of": AD, "items": items}
 
-for name, obj in (("q1", q1), ("q2", q2), ("q3", q3), ("q4", q4), ("q5", q5)):
+# ── q6 豆包 OAuth 使用节奏代理 ──
+signal_kinds = {"coverage", "first_token_delay", "token_active_days", "recent_7d"}
+signal_rows = []
+for line in (W / "question-signals.txt").read_text().splitlines():
+    parts = line.split()
+    if len(parts) == 9 and parts[0] in signal_kinds:
+        kind, cohort, item_id, day, v1, v2, v3, rate, partial = parts
+        signal_rows.append({"kind": kind, "cohort": cohort, "item_id": item_id, "day": day,
+                            "value_1": I(v1), "value_2": I(v2), "value_3": I(v3),
+                            "rate_pct": F(rate), "partial": bool(I(partial))})
+q6 = {"schema_version": "doubao-usage-proxy-signals-v1", "as_of": iso(CUT),
+      "evidence_state": "confirmed_proxy", "coverage": {}, "first_token_delay": {},
+      "token_active_days": {}, "recent_7d": []}
+for row in signal_rows:
+    kind = row["kind"]
+    if kind == "coverage":
+        q6["coverage"][row["cohort"]] = {
+            "bound_users": row["value_1"], "token_active_users": row["value_2"],
+            "no_token_users": row["value_3"], "token_active_rate_pct": row["rate_pct"]}
+    elif kind in ("first_token_delay", "token_active_days"):
+        q6[kind].setdefault(row["cohort"], {})[row["item_id"]] = row["value_1"]
+    else:
+        q6["recent_7d"].append({"date": row["day"], "all_users": row["value_1"],
+                                 "new_users": row["value_2"], "existing_users": row["value_3"],
+                                 "partial": row["partial"]})
+
+SIGNAL_COHORTS = ("all", "new", "existing")
+assert set(q6["coverage"]) == set(SIGNAL_COHORTS)
+for co in SIGNAL_COHORTS:
+    coverage = q6["coverage"][co]
+    assert coverage["bound_users"] == POP[co]
+    assert coverage["bound_users"] == coverage["token_active_users"] + coverage["no_token_users"]
+    assert sum(q6["first_token_delay"][co].values()) == coverage["token_active_users"]
+    assert sum(q6["token_active_days"][co].values()) == coverage["token_active_users"]
+assert len(q6["recent_7d"]) == 7
+assert q6["recent_7d"][-1]["date"] == CUT[:10] and q6["recent_7d"][-1]["partial"]
+for index, row in enumerate(q6["recent_7d"]):
+    assert row["all_users"] == row["new_users"] + row["existing_users"]
+    assert row["partial"] == (index == len(q6["recent_7d"]) - 1)
+    if index:
+        assert date.fromisoformat(row["date"]) - date.fromisoformat(q6["recent_7d"][index - 1]["date"]) == timedelta(days=1)
+
+for name, obj in (("q1", q1), ("q2", q2), ("q3", q3), ("q4", q4), ("q5", q5), ("q6", q6)):
     json.dump(obj, open(W / f"{name}.json", "w"), ensure_ascii=False, indent=1)
-print("OK → q1..q5.json")
+print("OK → q1..q6.json")
 print("business.all:", json.dumps(business["all"], ensure_ascii=False))

@@ -193,6 +193,20 @@ const SEGMENTS = [
   { id: "existing_first_inv", label: "老户首投", note: "老户中人生首投发生在绑定后" },
 ];
 const PUBLIC_STATES = new Set(["confirmed", "suppressed", "unavailable"]);
+const QUESTION_COHORT_LABELS = { all: "全部绑定用户", new: "新用户", existing: "老用户" };
+const QUESTION_ACTIVE_DAY_LABELS = { one_day: "1 天", two_to_seven_days: "2—7 天", eight_to_thirty_days: "8—30 天", gte_thirty_one_days: "31 天及以上" };
+const QUESTION_UNAVAILABLE = {
+  original_questions: ["原始提问", "豆包协议当前不回传自然语言问题"],
+  demand_topics: ["需求主题", "无法可靠判断用户关注的业务方向"],
+  keywords_and_products: ["关键词与产品", "无法确认用户提及的策略、基金或功能"],
+  followup_paths: ["追问路径", "无法识别首问、追问与问题解决进度"],
+};
+const QUESTION_INSTRUMENTATION = {
+  anonymous_subject: ["匿名主体", "只用于避免重复计数与连续观察"],
+  request_trace: ["请求流水", "区分一次请求与系统自动刷新事件"],
+  service_route: ["服务路径", "确认请求确实来自豆包且调用了哪项能力"],
+  redacted_intent: ["脱敏分类", "只保留主题、意图与结果，不公开原话"],
+};
 
 const viewState = {
   visibleSeries: new Set(SERIES_ORDER),
@@ -388,6 +402,79 @@ function validateAudienceData(data) {
   });
 }
 
+function validateQuestionSignals(data) {
+  const signals = data.usage_question_signals;
+  if (
+    !signals
+    || signals.schema_version !== "doubao-question-signals-v1"
+    || signals.data_as_of !== data.meta.data_cutoff
+    || signals.evidence_level !== "oauth_session_proxy_only"
+  ) throw new Error("豆包提问与使用信号口径异常");
+
+  if (!Array.isArray(signals.cohorts) || signals.cohorts.length !== COHORT_ORDER.length) {
+    throw new Error("豆包使用代理客群缺失");
+  }
+  const expectedPopulation = {
+    all: data.metrics.bound_accounts,
+    new: data.metrics.new_accounts,
+    existing: data.metrics.existing_accounts,
+  };
+  COHORT_ORDER.forEach((cohortId) => {
+    const cohort = signals.cohorts.find((item) => item.id === cohortId);
+    if (
+      !cohort
+      || cohort.population_accounts !== expectedPopulation[cohortId]
+      || !isWholeCount(cohort.proxy_active_accounts)
+      || !isWholeCount(cohort.not_observed_accounts)
+      || cohort.proxy_active_accounts + cohort.not_observed_accounts !== cohort.population_accounts
+    ) throw new Error(`${QUESTION_COHORT_LABELS[cohortId]}使用代理无法闭合`);
+    const behavior = data.behavior.cohorts[cohortId].metrics.find((item) => item.id === "xiaogu_used_after_binding");
+    if (!behavior || cohort.proxy_active_accounts !== behavior.reached_accounts) {
+      throw new Error(`${QUESTION_COHORT_LABELS[cohortId]}使用代理与行为口径不一致`);
+    }
+  });
+
+  const rhythm = signals.usage_rhythm;
+  if (!rhythm || !Array.isArray(rhythm.active_day_buckets) || !Array.isArray(rhythm.first_proxy_lag_buckets) || !Array.isArray(rhythm.daily_proxy_active)) {
+    throw new Error("豆包使用节奏缺失");
+  }
+  const activeIds = Object.keys(QUESTION_ACTIVE_DAY_LABELS);
+  if (rhythm.active_day_buckets.map((item) => item.id).join(",") !== activeIds.join(",")) {
+    throw new Error("豆包活跃天数分档异常");
+  }
+  const activeTotals = { all: 0, new: 0, existing: 0 };
+  rhythm.active_day_buckets.forEach((bucket) => {
+    for (const key of COHORT_ORDER) {
+      const field = `${key}_accounts`;
+      if (!isWholeCount(bucket[field])) throw new Error("豆包活跃天数人数异常");
+      activeTotals[key] += bucket[field];
+    }
+    if (bucket.all_accounts !== bucket.new_accounts + bucket.existing_accounts) throw new Error("豆包活跃天数新老用户无法闭合");
+  });
+  COHORT_ORDER.forEach((key) => {
+    const cohort = signals.cohorts.find((item) => item.id === key);
+    if (activeTotals[key] !== cohort.proxy_active_accounts) throw new Error("豆包活跃天数与使用代理人数不一致");
+  });
+  const allProxy = signals.cohorts.find((item) => item.id === "all").proxy_active_accounts;
+  if (rhythm.first_proxy_lag_buckets.reduce((sum, item) => sum + item.accounts, 0) !== allProxy) {
+    throw new Error("豆包首次令牌时延无法闭合");
+  }
+  let previousDate = "";
+  rhythm.daily_proxy_active.forEach((row, index) => {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(row.date || "") || row.all_accounts !== row.new_accounts + row.existing_accounts) {
+      throw new Error("豆包近 7 日使用代理异常");
+    }
+    if (previousDate && row.date !== nextDate(previousDate)) throw new Error("豆包近 7 日使用代理日期不连续");
+    if (row.partial !== (index === rhythm.daily_proxy_active.length - 1)) throw new Error("豆包近 7 日截止标记异常");
+    previousDate = row.date;
+  });
+  if (rhythm.daily_proxy_active.length !== 7 || rhythm.daily_proxy_active.at(-1).date !== data.meta.data_cutoff.slice(0, 10)) {
+    throw new Error("豆包近 7 日使用代理未覆盖截止日");
+  }
+  if (signals.unavailable_content?.join(",") !== Object.keys(QUESTION_UNAVAILABLE).join(",")) throw new Error("豆包不可用提问内容清单异常");
+  if (signals.required_instrumentation?.join(",") !== Object.keys(QUESTION_INSTRUMENTATION).join(",")) throw new Error("豆包提问观测补齐清单异常");
+}
+
 function validateData(data) {
   if (!data || data.schema_version !== SCHEMA_VERSION) throw new Error("数据版本不兼容");
   const { meta = {}, metrics = {} } = data;
@@ -462,6 +549,7 @@ function validateData(data) {
     || runningBound !== metrics.bound_accounts
   ) throw new Error("趋势总数与关键数据不一致");
   validateAudienceData(data);
+  validateQuestionSignals(data);
   return data;
 }
 
@@ -1250,6 +1338,64 @@ function renderAudience({ announce = false } = {}) {
   if (announce) $("#audience-announcement").textContent = `已切换至${label}，共 ${population === null ? "未知" : number.format(population)} 人。`;
 }
 
+function renderQuestionAnalysis() {
+  const signals = currentData.usage_question_signals;
+  const cohorts = Object.fromEntries(signals.cohorts.map((item) => [item.id, item]));
+  const all = cohorts.all;
+  const newCoverage = safeShare(cohorts.new.proxy_active_accounts, cohorts.new.population_accounts);
+  const existingCoverage = safeShare(cohorts.existing.proxy_active_accounts, cohorts.existing.population_accounts);
+  const gapPoints = (existingCoverage - newCoverage) * 100;
+
+  $("#question-proxy-users").textContent = number.format(all.proxy_active_accounts);
+  $("#question-proxy-users-note").textContent = `共 ${number.format(all.population_accounts)} 位绑定用户`;
+  $("#question-proxy-coverage").textContent = formatShare(all.proxy_active_accounts, all.population_accounts);
+  $("#question-proxy-missing").textContent = number.format(all.not_observed_accounts);
+  $("#question-proxy-gap").textContent = `${gapPoints >= 0 ? "+" : ""}${gapPoints.toFixed(1)} 个百分点`;
+  $("#question-signal-summary").textContent = `${number.format(all.population_accounts)} 位绑定用户中，${number.format(all.proxy_active_accounts)} 位出现 OAuth 使用代理（${formatShare(all.proxy_active_accounts, all.population_accounts)}）；这能证明技术连接已被使用，但不能回答用户具体问了什么。`;
+
+  $("#question-coverage-list").innerHTML = COHORT_ORDER.map((id) => {
+    const cohort = cohorts[id];
+    const share = safeShare(cohort.proxy_active_accounts, cohort.population_accounts) || 0;
+    return `<div class="question-coverage-row">
+      <div class="question-coverage-copy"><span>${QUESTION_COHORT_LABELS[id]}</span><strong>${number.format(cohort.proxy_active_accounts)} / ${number.format(cohort.population_accounts)}</strong></div>
+      <em>${percent.format(share)}</em>
+      <div class="question-coverage-bar" aria-hidden="true"><i style="--share:${(share * 100).toFixed(2)}%"></i></div>
+    </div>`;
+  }).join("");
+
+  $("#question-unavailable-grid").innerHTML = signals.unavailable_content.map((id) => {
+    const [label, reason] = QUESTION_UNAVAILABLE[id];
+    return `<article class="question-unavailable-card"><span>当前不可得</span><strong>${escapeHtml(label)}</strong><p>${escapeHtml(reason)}</p></article>`;
+  }).join("");
+
+  const rhythm = signals.usage_rhythm;
+  const oneDay = rhythm.active_day_buckets.find((item) => item.id === "one_day").all_accounts;
+  const multiDay = all.proxy_active_accounts - oneDay;
+  const gteEight = rhythm.active_day_buckets
+    .filter((item) => item.id === "eight_to_thirty_days" || item.id === "gte_thirty_one_days")
+    .reduce((sum, item) => sum + item.all_accounts, 0);
+  $("#question-active-days-base").textContent = `有使用代理的 ${number.format(all.proxy_active_accounts)} 人`;
+  $("#question-active-days-insight").textContent = `${number.format(multiDay)} 人在不止 1 个自然日出现令牌活动（${formatShare(multiDay, all.proxy_active_accounts)}），其中 ${number.format(gteEight)} 人达到 8 天及以上（${formatShare(gteEight, all.proxy_active_accounts)}）。`;
+  $("#question-active-days").innerHTML = rhythm.active_day_buckets.map((bucket) => {
+    const share = safeShare(bucket.all_accounts, all.proxy_active_accounts) || 0;
+    return `<div class="question-active-row"><span>${QUESTION_ACTIVE_DAY_LABELS[bucket.id]}</span><div class="question-active-bar" aria-hidden="true"><i style="--share:${(share * 100).toFixed(2)}%"></i></div><strong>${number.format(bucket.all_accounts)} 人</strong></div>`;
+  }).join("");
+
+  const withinFive = rhythm.first_proxy_lag_buckets.find((item) => item.id === "lte_5m").accounts;
+  $("#question-first-lag-insight").textContent = `${number.format(withinFive)} 人（${formatShare(withinFive, all.proxy_active_accounts)}）在授权后 5 分钟内出现首个令牌，更接近技术激活信号，不能解释为即时产生提问。`;
+  const recentMax = Math.max(...rhythm.daily_proxy_active.map((row) => row.all_accounts), 1);
+  $("#question-recent-list").innerHTML = rhythm.daily_proxy_active.map((row) => `<div class="question-recent-row${row.partial ? " is-partial" : ""}">
+    <span>${formatDay(row.date)}</span>
+    <div class="question-recent-bar" aria-hidden="true"><i style="--share:${((row.all_accounts / recentMax) * 100).toFixed(2)}%"></i></div>
+    <strong>${number.format(row.all_accounts)} 人</strong>
+  </div>`).join("");
+
+  $("#question-instrumentation-list").innerHTML = signals.required_instrumentation.map((id) => {
+    const [label, note] = QUESTION_INSTRUMENTATION[id];
+    return `<li><strong>${escapeHtml(label)}</strong><span>${escapeHtml(note)}</span></li>`;
+  }).join("");
+}
+
 function shortDay(value) {
   return `${Number(value.slice(5, 7))}/${value.slice(8, 10)}`;
 }
@@ -1306,6 +1452,7 @@ function render(data) {
   document.documentElement.dataset.dataMode = "published";
   renderHeroLead();
   renderView();
+  renderQuestionAnalysis();
 }
 
 function bindInteractions() {

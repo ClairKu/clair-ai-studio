@@ -261,6 +261,95 @@
 
       <output class="sr-only" id="audience-announcement" aria-live="polite"></output>
     </section>
+
+    <section class="question-analysis shell" id="question-analysis" aria-labelledby="question-analysis-title">
+      <div class="question-analysis-head">
+        <div>
+          <p class="eyebrow">USER QUESTIONS &amp; USAGE SIGNALS</p>
+          <h2 id="question-analysis-title">用户提问分析</h2>
+        </div>
+        <span class="evidence-badge">当前证据：OAuth 使用代理</span>
+      </div>
+
+      <div class="question-boundary" role="note">
+        <div class="question-boundary-mark" aria-hidden="true">!</div>
+        <div>
+          <strong id="question-signal-summary">正在读取豆包用户的使用信号。</strong>
+          <p>豆包当前不向且慢回传用户原始提问及工具调用明细。本模块只把“绑定后出现 OAuth 会话令牌”作为已使用的代理，不把令牌次数写成提问次数、会话次数或追问深度。</p>
+        </div>
+      </div>
+
+      <div class="question-kpis" aria-label="豆包提问分析可观测指标">
+        <article class="question-kpi is-primary">
+          <span>观察到使用代理</span>
+          <strong id="question-proxy-users">—</strong>
+          <small id="question-proxy-users-note">—</small>
+        </article>
+        <article class="question-kpi">
+          <span>使用代理覆盖率</span>
+          <strong id="question-proxy-coverage">—</strong>
+          <small>绑定后至少出现一次会话令牌</small>
+        </article>
+        <article class="question-kpi">
+          <span>未观察到使用代理</span>
+          <strong id="question-proxy-missing">—</strong>
+          <small>不能据此判断用户是否曾在豆包提问</small>
+        </article>
+        <article class="question-kpi">
+          <span>新老用户覆盖差</span>
+          <strong id="question-proxy-gap">—</strong>
+          <small id="question-proxy-gap-note">老用户覆盖率 − 新用户覆盖率</small>
+        </article>
+      </div>
+
+      <div class="question-panels">
+        <section class="question-panel" aria-labelledby="question-coverage-title">
+          <div class="question-panel-head">
+            <div><span>01</span><h3 id="question-coverage-title">谁出现了使用信号</h3></div>
+            <p>按绑定用户类型</p>
+          </div>
+          <div class="question-coverage-list" id="question-coverage-list"></div>
+          <p class="question-panel-note">判断边界：这里只能确认令牌活动发生在绑定之后，不能推断用户问了什么，也不能证明一次令牌对应一次完整对话。</p>
+        </section>
+
+        <section class="question-panel question-unavailable-panel" aria-labelledby="question-content-title">
+          <div class="question-panel-head">
+            <div><span>02</span><h3 id="question-content-title">哪些提问结论尚不可得</h3></div>
+            <p>缺少渠道侧内容证据</p>
+          </div>
+          <div class="question-unavailable-grid" id="question-unavailable-grid"></div>
+        </section>
+      </div>
+
+      <div class="question-rhythm-panels">
+        <section class="question-panel" aria-labelledby="question-active-days-title">
+          <div class="question-panel-head">
+            <div><span>03</span><h3 id="question-active-days-title">多日使用节奏</h3></div>
+            <p id="question-active-days-base">—</p>
+          </div>
+          <p class="question-panel-intro" id="question-active-days-insight">—</p>
+          <div class="question-active-days" id="question-active-days"></div>
+        </section>
+
+        <section class="question-panel" aria-labelledby="question-recent-title">
+          <div class="question-panel-head">
+            <div><span>04</span><h3 id="question-recent-title">近 7 日使用代理</h3></div>
+            <p>每日不同用户 · 非提问次数</p>
+          </div>
+          <p class="question-panel-intro" id="question-first-lag-insight">—</p>
+          <div class="question-recent-list" id="question-recent-list"></div>
+        </section>
+      </div>
+
+      <section class="question-instrumentation" aria-labelledby="question-instrumentation-title">
+        <div>
+          <p class="eyebrow">NEXT DATA LOOP</p>
+          <h3 id="question-instrumentation-title">要真正回答“用户在问什么”，还需补齐 4 个观测点</h3>
+          <p>按隐私最小化原则记录匿名主体、请求流水、服务路径与脱敏后的问题分类；完成后即可开启主题、关键词、首问、追问路径和转化先后分析。</p>
+        </div>
+        <ol class="question-instrumentation-list" id="question-instrumentation-list"></ol>
+      </section>
+    </section>
   </main>
 
   <script src="./data/fallback-data.js"></script>

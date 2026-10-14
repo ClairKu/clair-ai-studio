@@ -2113,6 +2113,140 @@ window.DOUBAO_ACQUISITION_DATA = {
       }
     }
   },
+  "usage_question_signals": {
+    "schema_version": "doubao-question-signals-v1",
+    "data_as_of": "2026-10-14T10:28:09+08:00",
+    "evidence_level": "oauth_session_proxy_only",
+    "cohorts": [
+      {
+        "id": "all",
+        "population_accounts": 3032,
+        "proxy_active_accounts": 2896,
+        "not_observed_accounts": 136
+      },
+      {
+        "id": "new",
+        "population_accounts": 2288,
+        "proxy_active_accounts": 2178,
+        "not_observed_accounts": 110
+      },
+      {
+        "id": "existing",
+        "population_accounts": 744,
+        "proxy_active_accounts": 718,
+        "not_observed_accounts": 26
+      }
+    ],
+    "usage_rhythm": {
+      "active_day_buckets": [
+        {
+          "id": "one_day",
+          "all_accounts": 1124,
+          "new_accounts": 895,
+          "existing_accounts": 229
+        },
+        {
+          "id": "two_to_seven_days",
+          "all_accounts": 848,
+          "new_accounts": 636,
+          "existing_accounts": 212
+        },
+        {
+          "id": "eight_to_thirty_days",
+          "all_accounts": 630,
+          "new_accounts": 464,
+          "existing_accounts": 166
+        },
+        {
+          "id": "gte_thirty_one_days",
+          "all_accounts": 294,
+          "new_accounts": 183,
+          "existing_accounts": 111
+        }
+      ],
+      "first_proxy_lag_buckets": [
+        {
+          "id": "lte_5m",
+          "accounts": 2888
+        },
+        {
+          "id": "five_to_thirty_minutes",
+          "accounts": 4
+        },
+        {
+          "id": "thirty_minutes_to_one_day",
+          "accounts": 1
+        },
+        {
+          "id": "gte_one_day",
+          "accounts": 3
+        }
+      ],
+      "daily_proxy_active": [
+        {
+          "date": "2026-10-08",
+          "new_accounts": 666,
+          "existing_accounts": 254,
+          "all_accounts": 920,
+          "partial": false
+        },
+        {
+          "date": "2026-10-09",
+          "new_accounts": 712,
+          "existing_accounts": 273,
+          "all_accounts": 985,
+          "partial": false
+        },
+        {
+          "date": "2026-10-10",
+          "new_accounts": 697,
+          "existing_accounts": 259,
+          "all_accounts": 956,
+          "partial": false
+        },
+        {
+          "date": "2026-10-11",
+          "new_accounts": 659,
+          "existing_accounts": 260,
+          "all_accounts": 919,
+          "partial": false
+        },
+        {
+          "date": "2026-10-12",
+          "new_accounts": 769,
+          "existing_accounts": 297,
+          "all_accounts": 1066,
+          "partial": false
+        },
+        {
+          "date": "2026-10-13",
+          "new_accounts": 768,
+          "existing_accounts": 302,
+          "all_accounts": 1070,
+          "partial": false
+        },
+        {
+          "date": "2026-10-14",
+          "new_accounts": 562,
+          "existing_accounts": 218,
+          "all_accounts": 780,
+          "partial": true
+        }
+      ]
+    },
+    "unavailable_content": [
+      "original_questions",
+      "demand_topics",
+      "keywords_and_products",
+      "followup_paths"
+    ],
+    "required_instrumentation": [
+      "anonymous_subject",
+      "request_trace",
+      "service_route",
+      "redacted_intent"
+    ]
+  },
   "segments": {
     "anchor": "first_bound_at",
     "window_end_at": "2026-10-14T10:28:09+08:00",

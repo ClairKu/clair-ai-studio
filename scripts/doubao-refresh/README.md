@@ -24,11 +24,11 @@ cd <clair-ai-studio 仓库>      # 建议 git worktree add --detach <目录> ori
 AD=$(python3 scripts/qianwen-refresh/pick-asset-date.py)
 CUT="$(date '+%Y-%m-%d %H:%M:%S')"; echo "$CUT" > $WORK/cut.txt; echo "$AD" > $WORK/ad.txt
 
-# 1. 取数（需 VPN + ~/.zshrc 的 REDASH_API_KEY；数据源 41 dw-tidb）：6 段 + 扩展 7 段
+# 1. 取数（需 VPN + ~/.zshrc 的 REDASH_API_KEY；数据源 41 dw-tidb）：6 段 + 扩展经营/使用节奏
 QW_CUT="$CUT" QW_AD="$AD" scripts/doubao-refresh/run-sql.sh > $WORK/sql-raw.txt
 QW_CUT="$CUT" QW_AD="$AD" QW_WORK=$WORK scripts/doubao-refresh/run-ext-sql.sh
 
-# 2. 整理成 q1..q5.json，再以上一版 latest.json 为模板组装 + 闭合校验
+# 2. 整理成 q1..q6.json，再以上一版 latest.json 为模板组装 + 闭合校验
 python3 scripts/doubao-refresh/build-q.py $WORK
 python3 scripts/doubao-refresh/assemble.py \
   public/reports/doubao-user-acquisition-dashboard/data/latest.json $WORK
@@ -45,9 +45,44 @@ git add public/reports/doubao-user-acquisition-dashboard public/previews/doubao-
 git commit -m "chore(doubao): 刷新看板数据至 ${CUT:0:16}"
 ```
 
+## 使用节奏代理与 q6.json
+
+豆包 OAuth/MCP 链路没有回传原始提问、豆包会话 ID 或工具级调用明细。`question-signals.sql`
+因此只从 `api_oauth_refresh_token` 生成四组**使用代理**：令牌活跃覆盖、授权到首次令牌时延、
+令牌活跃天数、近 7 日每日去重令牌用户。它们不得命名为提问数、会话数、对话深度或主动使用次数。
+
+`build-q.py` 会把 `question-signals.txt` 整理为独立的 `$WORK/q6.json`，并在写出前检查三类客群、
+首次令牌时延、活跃天数与近 7 日数据是否闭合。结构如下：
+
+```json
+{
+  "schema_version": "doubao-usage-proxy-signals-v1",
+  "as_of": "YYYY-MM-DDTHH:mm:ss+08:00",
+  "evidence_state": "confirmed_proxy",
+  "coverage": {
+    "all": {"bound_users": 0, "token_active_users": 0, "no_token_users": 0, "token_active_rate_pct": 0},
+    "new": {"bound_users": 0, "token_active_users": 0, "no_token_users": 0, "token_active_rate_pct": 0},
+    "existing": {"bound_users": 0, "token_active_users": 0, "no_token_users": 0, "token_active_rate_pct": 0}
+  },
+  "first_token_delay": {"all": {"lte_5m": 0, "5_30m": 0, "30m_24h": 0, "gte_1d": 0}},
+  "token_active_days": {"all": {"1": 0, "2_7": 0, "8_30": 0, "31_plus": 0}},
+  "recent_7d": [
+    {"date": "YYYY-MM-DD", "all_users": 0, "new_users": 0, "existing_users": 0, "partial": false}
+  ]
+}
+```
+
+生成 `q6.json` 时按 `kind` 分组：`coverage` 的 `value_1/2/3/rate_pct` 分别为绑定用户、
+令牌活跃用户、无令牌用户、覆盖率；两个分桶组取 `item_id → value_1`；`recent_7d` 的
+`value_1/2/3` 分别为全部、新用户、老用户，`latest_day_partial=1` 的截止日必须标记为不完整日。
+写入前至少校验：三客群覆盖人数闭合、每个时延/活跃天数分桶之和等于对应令牌活跃用户、
+近 7 日共有 7 个连续日期、每日 `all_users = new_users + existing_users`，且 `as_of` 与主看板
+`meta.data_cutoff` 完全一致。
+
 ## 发布注意
 
 - `docs/` 下只有加密单页（口令与千问看板相同，见 `scripts/encrypt-doubao-dashboard.mjs`），**永远不要往 docs/ 拷明文数据**。
 - 数据 `minimum_public_cell`、validate 脚本、`app.js` 的 `minimumCell` 三处必须一致，否则线上白屏。
+- `question-signals.sql` 不读取或输出原始提问，也不输出用户、会话、令牌、请求标识；不得把 refresh token 行数包装成提问量。
 - 发布后 GitHub Pages 有缓存，验证带 `?v=xxx` 强刷。
 - 目前没有 launchd 定时任务，需要时可仿照 `scripts/qianwen-refresh/auto-refresh.sh` 加一份。

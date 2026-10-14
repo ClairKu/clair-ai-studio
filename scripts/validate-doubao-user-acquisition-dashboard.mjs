@@ -263,6 +263,78 @@ function validateAudienceData() {
   }
 }
 
+function validateQuestionSignals() {
+  const signals = data.usage_question_signals;
+  assertPlainObject(signals, "usage_question_signals");
+  if (signals.schema_version !== "doubao-question-signals-v1") fail("提问与使用信号版本异常");
+  if (signals.data_as_of !== data.meta.data_cutoff || signals.evidence_level !== "oauth_session_proxy_only") {
+    fail("提问与使用信号截止时间或证据等级异常");
+  }
+  if (!Array.isArray(signals.cohorts)) fail("usage_question_signals.cohorts 缺失");
+  assertItemIds(signals.cohorts, cohortKeys, "usage_question_signals.cohorts");
+  const expectedPopulation = {
+    all: data.metrics.bound_accounts,
+    new: data.metrics.new_accounts,
+    existing: data.metrics.existing_accounts,
+  };
+  const proxyUsers = {};
+  for (const cohort of signals.cohorts) {
+    const path = `usage_question_signals.cohorts.${cohort.id}`;
+    for (const field of ["population_accounts", "proxy_active_accounts", "not_observed_accounts"]) {
+      assertPublicCell(cohort[field], `${path}.${field}`, data.privacy.minimum_public_cell);
+    }
+    if (cohort.population_accounts !== expectedPopulation[cohort.id]) fail(`${path}.population_accounts 与关键数据不一致`);
+    if (cohort.population_accounts !== cohort.proxy_active_accounts + cohort.not_observed_accounts) fail(`${path} 无法闭合`);
+    const behavior = data.behavior.cohorts[cohort.id].metrics.find((item) => item.id === "xiaogu_used_after_binding");
+    if (cohort.proxy_active_accounts !== behavior.reached_accounts || cohort.not_observed_accounts !== behavior.not_reached_accounts) {
+      fail(`${path} 与绑定后有效使用口径不一致`);
+    }
+    proxyUsers[cohort.id] = cohort.proxy_active_accounts;
+  }
+
+  const rhythm = signals.usage_rhythm;
+  assertPlainObject(rhythm, "usage_question_signals.usage_rhythm");
+  const activeIds = ["one_day", "two_to_seven_days", "eight_to_thirty_days", "gte_thirty_one_days"];
+  assertItemIds(rhythm.active_day_buckets, activeIds, "usage_question_signals.usage_rhythm.active_day_buckets");
+  const totals = { all: 0, new: 0, existing: 0 };
+  for (const bucket of rhythm.active_day_buckets) {
+    for (const key of cohortKeys) {
+      const field = `${key}_accounts`;
+      assertPublicCell(bucket[field], `usage_question_signals.usage_rhythm.active_day_buckets.${bucket.id}.${field}`, data.privacy.minimum_public_cell);
+      totals[key] += bucket[field];
+    }
+    if (bucket.all_accounts !== bucket.new_accounts + bucket.existing_accounts) fail(`活跃天数分档 ${bucket.id} 新老用户无法闭合`);
+  }
+  for (const key of cohortKeys) if (totals[key] !== proxyUsers[key]) fail(`${key} 活跃天数分档与使用代理人数不一致`);
+
+  const lagIds = ["lte_5m", "five_to_thirty_minutes", "thirty_minutes_to_one_day", "gte_one_day"];
+  assertItemIds(rhythm.first_proxy_lag_buckets, lagIds, "usage_question_signals.usage_rhythm.first_proxy_lag_buckets");
+  let lagTotal = 0;
+  for (const bucket of rhythm.first_proxy_lag_buckets) {
+    assertPublicCell(bucket.accounts, `usage_question_signals.usage_rhythm.first_proxy_lag_buckets.${bucket.id}.accounts`, data.privacy.minimum_public_cell);
+    lagTotal += bucket.accounts;
+  }
+  if (lagTotal !== proxyUsers.all) fail("首次令牌时延与使用代理人数不一致");
+
+  if (!Array.isArray(rhythm.daily_proxy_active) || rhythm.daily_proxy_active.length !== 7) fail("近 7 日使用代理必须正好 7 天");
+  let priorDate = "";
+  rhythm.daily_proxy_active.forEach((row, index) => {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(row.date || "")) fail("近 7 日使用代理日期异常");
+    for (const field of ["all_accounts", "new_accounts", "existing_accounts"]) assertPublicCell(row[field], `daily_proxy_active.${row.date}.${field}`, data.privacy.minimum_public_cell);
+    if (row.all_accounts !== row.new_accounts + row.existing_accounts) fail(`近 7 日使用代理 ${row.date} 新老用户无法闭合`);
+    if (row.partial !== (index === rhythm.daily_proxy_active.length - 1)) fail(`近 7 日使用代理 ${row.date} 截止标记异常`);
+    if (priorDate) {
+      const expected = new Date(`${priorDate}T12:00:00Z`);
+      expected.setUTCDate(expected.getUTCDate() + 1);
+      if (row.date !== expected.toISOString().slice(0, 10)) fail("近 7 日使用代理日期不连续");
+    }
+    priorDate = row.date;
+  });
+  if (rhythm.daily_proxy_active.at(-1).date !== data.meta.data_cutoff.slice(0, 10)) fail("近 7 日使用代理未覆盖截止日");
+  if (signals.unavailable_content?.join(",") !== "original_questions,demand_topics,keywords_and_products,followup_paths") fail("不可得的提问内容清单异常");
+  if (signals.required_instrumentation?.join(",") !== "anonymous_subject,request_trace,service_route,redacted_intent") fail("提问观测补齐清单异常");
+}
+
 if (data.schema_version !== schemaVersion) fail("数据版本异常");
 if (data.meta?.window_start_at !== windowStartAt || data.meta?.launch_at !== launchAt || data.meta?.timezone !== "Asia/Shanghai") {
   fail("统计窗口或服务上线时间口径不完整");
@@ -342,6 +414,7 @@ if (
 ) fail("每日趋势与总数不闭合");
 
 validateAudienceData();
+validateQuestionSignals();
 
 const publicText = JSON.stringify(data);
 const forbidden = /(ying99_|union_id|user_id|po_manager_id|手机号|phone|redash|job[ _-]?id|api[_ -]?key|access[_ -]?token)/i;
@@ -448,6 +521,13 @@ for (const signal of [
   'id="behavior-bars"',
   'id="profile-distribution"',
   'id="touchpoint-distribution"',
+  'id="question-analysis"',
+  'id="question-proxy-users"',
+  'id="question-coverage-list"',
+  'id="question-unavailable-grid"',
+  'id="question-active-days"',
+  'id="question-recent-list"',
+  'id="question-instrumentation-list"',
   'data/fallback-data.js',
 ]) {
   if (!html.includes(signal)) fail(`页面缺少 ${signal}`);
@@ -534,6 +614,9 @@ for (const signal of [
   "renderBusinessTiles",
   "renderReadout",
   "renderSegmentPanel",
+  "validateQuestionSignals",
+  "renderQuestionAnalysis",
+  "usage_question_signals",
   "loadPublishedData",
   "window_cumulative_bound",
   "visibleSeries",
@@ -553,6 +636,9 @@ for (const rule of [
   ".chart-crosshair",
   ".chip-value",
   ".metric-tile-value",
+  ".question-analysis",
+  ".question-coverage-bar",
+  ".question-recent-bar",
 ]) {
   if (!styles.includes(rule)) fail(`样式表缺少 ${rule}`);
 }
@@ -613,6 +699,9 @@ for (const phrase of [
   "绑定后入金与交易",
   "用户画像",
   "触点与投资准备度",
+  "用户提问分析",
+  "OAuth 使用代理",
+  "哪些提问结论尚不可得",
 ]) {
   if (!reportingCopy.includes(phrase)) fail(`汇报文案缺少：${phrase}`);
 }

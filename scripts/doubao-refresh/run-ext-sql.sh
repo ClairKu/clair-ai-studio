@@ -1,5 +1,5 @@
 #!/bin/zsh
-# 6 段之外的扩展取数：5 段并行 + 候选/分客群 2 段串行，产物写到 $QW_WORK/<name>.txt，供 build-q.py 整理。
+# 6 段之外的扩展取数：经营与使用节奏 6 段并行 + 候选/分客群 2 段串行，产物写到 $QW_WORK/<name>.txt，供 build-q.py 整理。
 # 用法：QW_CUT='YYYY-MM-DD HH:MM:SS' QW_AD='YYYY-MM-DD' QW_WORK=<目录> scripts/doubao-refresh/run-ext-sql.sh
 # 与 qianwen-refresh/run-ext-sql.sh 同构，仅绑定基表换成豆包 OAuth 授权（client_id='doubao'，当前仍有未撤销授权）。
 # 并行段约 5 分钟，串行的候选(~5 分钟)→分客群(~2 分钟)接在后面；任一段失败整体非零退出。
@@ -79,6 +79,11 @@ FROM (SELECT b.pmid, $COHORT AS cohort, COALESCE(a.ta,0) AS ta,
     EXISTS(SELECT 1 FROM qm_meta.trade_detail t WHERE t.user_id=b.pmid AND t.canceled=0 AND t.buy_amount>0 AND t.po_code<>'WALLET' AND t.accept_time<'$CUT') AS ever_buy,
     (SELECT MAX(DATE(t.accept_time)) FROM qm_meta.trade_detail t WHERE t.user_id=b.pmid AND t.canceled=0 AND t.buy_amount>0 AND t.po_code<>'WALLET' AND t.accept_time<'$CUT') AS last_buy_day
   FROM $B LEFT JOIN $ASSET_AD a ON a.account3_id=p.account3_id AND p.account3_id<>1002) u GROUP BY u.cohort" &
+pids+=($!)
+
+# 豆包协议不回传原始提问；这里只取 OAuth 令牌活动的匿名统计代理，严禁命名为提问/会话。
+QUESTION_SIGNALS_SQL=$(sed "s/__CUT__/$CUT/g" "${0:A:h}/question-signals.sql")
+Q question-signals 300 "$QUESTION_SIGNALS_SQL" &
 pids+=($!)
 
 

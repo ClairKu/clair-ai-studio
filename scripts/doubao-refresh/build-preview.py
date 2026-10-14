@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """由 latest.json 生成工作台缩图 public/previews/doubao-user-acquisition-dashboard.svg。
 
-版式沿用千问看板缩图（三张规模卡 + 累计/每日分栏走势 + 右侧经营与画像黑卡），
+版式沿用千问看板缩图（三张规模卡 + 累计/每日分栏走势 + 右侧经营、画像与提问信号黑卡），
 数字全部取自快照，刷新数据后重跑即可，不再手工改 SVG。
 用法: build-preview.py [latest.json] [输出 svg]
 """
@@ -81,10 +81,14 @@ tier_rows = "".join(
     f'<text x="360" y="{10 + 22 * i}" text-anchor="end" fill="#FFFFFF" fill-opacity=".74" font-family="SFMono-Regular,monospace">{fmt(v)}</text>'
     for i, (label, v) in enumerate(tiers))
 mp, card, assessed = bucket("wechat_mp_status", "mp_bound"), bucket("bank_card_status", "card_bound"), bucket("risk_assessment_status", "assessed")
+question_signals = d["usage_question_signals"]
+proxy_all = next(x for x in question_signals["cohorts"] if x["id"] == "all")
+one_day = next(x["all_accounts"] for x in question_signals["usage_rhythm"]["active_day_buckets"] if x["id"] == "one_day")
+multi_day = proxy_all["proxy_active_accounts"] - one_day
 
 svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
   <title id="title">豆包 X 且慢AI小顾用户数据看板预览</title>
-  <desc id="desc">统计窗口从{first_label}豆包上架起，累计绑定用户 {fmt(m["bound_accounts"])} 人，其中在绑定时新注册的新用户 {fmt(m["new_accounts"])} 人、绑定时已有账户的老用户 {fmt(m["existing_accounts"])} 人。画面左侧是累计与每日新增两块分栏走势，右侧是这批用户在且慢的保有规模、入金、交易与触点情况。</desc>
+  <desc id="desc">统计窗口从{first_label}豆包上架起，累计绑定用户 {fmt(m["bound_accounts"])} 人，其中在绑定时新注册的新用户 {fmt(m["new_accounts"])} 人、绑定时已有账户的老用户 {fmt(m["existing_accounts"])} 人。画面左侧是累计与每日新增走势，右侧是经营、画像与用户提问使用信号。</desc>
   <defs>
     <linearGradient id="newCard" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#E6F6F1"/><stop offset="1" stop-color="#FFFFFF"/>
@@ -108,7 +112,7 @@ svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" view
       <circle cx="45" cy="17" r="17" fill="#0F9D78"/>
       <text x="45" y="22" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="700">且</text>
       <text x="76" y="14" fill="#171B29" font-size="14" font-weight="700">豆包 X 且慢AI小顾</text>
-      <text x="76" y="31" fill="#697187" font-size="9" letter-spacing="1.5">用户增长与画像</text>
+      <text x="76" y="31" fill="#697187" font-size="9" letter-spacing="1.5">用户增长、画像与提问信号</text>
     </g>
     <text x="1216" y="47" text-anchor="end" fill="#697187" font-size="12">数据截至 {cut_label}</text>
     <circle cx="1064" cy="43" r="5" fill="#0F9D78"/>
@@ -191,8 +195,8 @@ svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" view
     <g transform="translate(790 215)" filter="url(#shadow)">
       <rect width="426" height="459" rx="2" fill="#111522"/>
       <text x="28" y="33" fill="#5ED5BB" font-family="SFMono-Regular,monospace" font-size="9" font-weight="700" letter-spacing="1.4">QIEMAN VALUE</text>
-      <text x="28" y="67" fill="#FFFFFF" font-family="Songti SC,STSong,serif" font-size="26" font-weight="700">在且慢的经营与画像</text>
-      <text x="28" y="89" fill="#FFFFFF" fill-opacity=".48" font-size="10">入金、保有规模、交易，加上年龄性别居住地与触点</text>
+      <text x="28" y="67" fill="#FFFFFF" font-family="Songti SC,STSong,serif" font-size="26" font-weight="700">经营、画像与提问信号</text>
+      <text x="28" y="89" fill="#FFFFFF" fill-opacity=".48" font-size="10">入金、保有规模与 OAuth 使用代理，真实提问内容不冒充</text>
 
       <g transform="translate(28 108)">
         <rect width="370" height="70" rx="2" fill="#FFFFFF" fill-opacity=".055"/>
@@ -221,14 +225,14 @@ svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" view
 
       <line x1="28" y1="410" x2="398" y2="410" stroke="#FFFFFF" stroke-opacity=".12"/>
       <g transform="translate(28 428)" font-size="9">
-        <text x="0" y="0" fill="#FFFFFF" fill-opacity=".5">公众号绑定</text>
-        <text x="66" y="0" fill="#FFFFFF" font-family="SFMono-Regular,monospace" font-weight="700">{fmt(mp)}</text>
-        <text x="124" y="0" fill="#FFFFFF" fill-opacity=".5">已绑卡</text>
-        <text x="168" y="0" fill="#FFFFFF" font-family="SFMono-Regular,monospace" font-weight="700">{fmt(card)}</text>
-        <text x="224" y="0" fill="#FFFFFF" fill-opacity=".5">已测评</text>
-        <text x="268" y="0" fill="#FFFFFF" font-family="SFMono-Regular,monospace" font-weight="700">{fmt(assessed)}</text>
+        <text x="0" y="0" fill="#FFFFFF" fill-opacity=".5">使用代理</text>
+        <text x="52" y="0" fill="#FFFFFF" font-family="SFMono-Regular,monospace" font-weight="700">{fmt(proxy_all["proxy_active_accounts"])}</text>
+        <text x="116" y="0" fill="#FFFFFF" fill-opacity=".5">覆盖</text>
+        <text x="148" y="0" fill="#FFFFFF" font-family="SFMono-Regular,monospace" font-weight="700">{pct(proxy_all["proxy_active_accounts"], proxy_all["population_accounts"])}</text>
+        <text x="218" y="0" fill="#FFFFFF" fill-opacity=".5">多日活动</text>
+        <text x="270" y="0" fill="#FFFFFF" font-family="SFMono-Regular,monospace" font-weight="700">{fmt(multi_day)}</text>
       </g>
-      <text x="28" y="452" fill="#FFFFFF" fill-opacity=".28" font-size="8.5">只展示符合公开口径的整体数据，不含个人明细与单人金额</text>
+      <text x="28" y="452" fill="#FFFFFF" fill-opacity=".28" font-size="8.5">原始提问、主题与追问路径当前不可得；令牌活动不等于提问次数</text>
     </g>
   </g>
 </svg>
