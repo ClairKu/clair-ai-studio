@@ -1,0 +1,646 @@
+{
+  "title": "AI办公平台与金融生态全景",
+  "as_of": "2026-10-14",
+  "scope": "公开资料与当前账号市场观察；不是全量后台数据",
+  "platforms": [
+    {
+      "id": "qwen",
+      "name": "千问办公",
+      "firm": "阿里",
+      "tier": "P0 · 组织场景与财富入口并进",
+      "position": "以任务交付为中心的个人及企业办公 Agent；钉钉是组织入口，百炼是能力供给与采购入口，千问 APP 是另一条消费入口。",
+      "history": "2026-03 悟空发布 → 08-03 整合 QoderWork、MuleRun 与悟空能力，千问办公开放公测 → 09-18 个人技能发布 → 10-09 桌面1.2.5。前身用户不可直接累计。",
+      "framework": "桌面 / 网页 / 钉钉入口 → 项目与文件 → 任务执行 → 专家套件、技能、连接器 → 定时任务、云盘、组织管理。",
+      "iteration": "9 月增加安全中心、项目及定时任务管理；10 月改进技能发布分类、记忆导入及任务唤醒可靠性。公开日志比旧 FAQ 更新，旧文档“个人不能发布技能”已不宜沿用。",
+      "counts": "本次可见连接器条目 161；专家市场显示 110。Skill 独立去重总量、独立 Agent 总量未披露。金融数据/投研品牌至少 12。",
+      "finance": "可见投研分析套件 8 Skills、财富管理 6、股权投资 6、投行业务 6、企业财税 9；这些是套件成员数，不能相加当作独立金融 Skill 数。",
+      "access": "市场连接器；组织自定义 MCP、API Key / OAuth 等鉴权；个人/企业技能发布；百炼云市场订阅为另一条采购和分发路径。具体权限由租户策略与服务商控制。",
+      "edge": "任务执行、组织资料、云端定时任务与能力采购可组合；适合把投研和顾问工作沉淀成企业标准任务。",
+      "relation": "官方披露 MCP 与 Skills 接入千问办公、百炼；且慢小顾接入千问 APP。当前千问办公市场可见盈米。三者分别计量，APP 智能体不能算作办公市场新增 Agent。",
+      "risk": "基础金融数据提供商已高度密集，泛“基金分析”描述难赢得默认调用；争取任务模板、默认路由与机构联合销售。",
+      "refs": [
+        "Q1",
+        "Q2",
+        "Q3",
+        "Q4",
+        "Q5",
+        "Q6",
+        "Y5",
+        "UQ"
+      ]
+    },
+    {
+      "id": "doubao",
+      "name": "豆包工作",
+      "firm": "字节",
+      "tier": "P0 · 面向用户的金融服务发现与转化",
+      "position": "豆包的工作任务入口，接飞书组织知识与协同；普通豆包、豆包工作、历史 TRAE Work / 扣子需要区分身份与指标。",
+      "history": "2026-08-24 宣布团队整合，TRAE Work 与扣子工作能力纳入；08-25 豆包工作发布；TRAE IDE/CLI 保留编程线。8 月末盈米宣布双入口接入。当前客户端市场已使用“插件 · 技能 · 伙伴”命名。",
+      "framework": "本地/云端电脑 → 项目、资料和企业知识 → 插件、技能、工作伙伴 → 自动任务、云盘、手机遥控 → 文档及协作交付。",
+      "iteration": "官方指南仍使用较早技能快照；本次客户端已体现插件化与工作伙伴入口，说明产品包装仍在调整。未找到可核验的完整逐版本公开日志。",
+      "counts": "官方指南快照 106 Skills＝38 内置＋68 推荐，其中推荐金融 12；非当前总量。本次精选页金融区域可见 8 个服务条目。全市场 MCP / Skill / Agent 当前独立总数未核实。",
+      "finance": "盈米、Wind、同花顺 iFinD、通达信、东方财富妙想、Tushare、进门投研、Financial Datasets；国内基金与全球证券数据同处任务入口。",
+      "access": "官方插件/技能市场；已有入口可在对话中使用；组织知识及办公能力按授权启用。公开第三方上架流程、平台抽佣与可用鉴权组合需向平台核实，不能以普通豆包 MCP 规则替代。",
+      "edge": "把专业金融任务放到大众熟悉的交互入口，并把产物落到飞书/文件；插件页面公开“人在用”，便于观察市场运营，但定义不透明。",
+      "relation": "盈米官方账号已宣布双入口接入；当前工作市场可见盈米及“在对话中试用”。本次看到 4,800 人在用，不代表 4,800 月活、授权客户或基金购买客户。",
+      "risk": "同花顺等已有显著页面使用标签优势。需要提升盈米卡片的具体任务承诺、首用成功率、定期复用和服务承接。",
+      "refs": [
+        "D1",
+        "D2",
+        "D3",
+        "UD"
+      ]
+    },
+    {
+      "id": "workbuddy",
+      "name": "WorkBuddy",
+      "firm": "腾讯",
+      "tier": "P0 · 高频投研与持续监测",
+      "position": "桌面任务型 Agent，叠加腾讯连接生态与开放资产市场；个人效率、企业协作和开发者扩展并行。",
+      "history": "2026-03 已形成产品及更新日志；7 月订阅升级；9 月扩展自定义 MCP 配置；10-08 日志至 5.7.7。本次本地客户端仍为 5.5.6，未替用户更新。",
+      "framework": "对话/文件工作区 → 专家、Skill、连接器、插件 → 本地执行、自动任务与交付；开放平台还纳入 Buddy 应用和硬件。",
+      "iteration": "9 月支持 mcp.json 自定义接入；后续增强模板、资产分享及搜索；10 月增加定时任务时间线与结果提醒等。",
+      "counts": "本次可见连接器 100 条、金融服务 15 条。官方“10 万+生态资产、100+共创伙伴”为跨类别汇总，不能解释为 10 万 MCP 或 100 家金融机构。",
+      "finance": "除主流数据与盈米外，新增腾讯 NeoData（市场卡片声称 100+ 工具）、腾讯自选股；自有底层金融数据会直接挤压普通数据连接的差异。",
+      "access": "市场连接器、手工 MCP 配置、Skill / 插件；插件可包含 MCP、Hook、Agent、Rule。盈米官方路径为申请 API Key 后连接，Skill 承载方法与任务。",
+      "edge": "已有明确 PC 活跃规模数据、自动任务场景与较成熟扩展机制；适合每日监控、定期投研和文件批量交付。",
+      "relation": "盈米正式上线 MCP 与 Skills，官方披露 69 工具及 11 专业 Skills；本次分别看到“盈米MCP”和“盈米Skills”市场入口。",
+      "risk": "从“数据可查”向“组合结果可信、持续任务可靠”升级；不把调用次数当作完成任务，更不能默认用户在腾讯入口必然流向且慢。",
+      "refs": [
+        "W1",
+        "W2",
+        "W3",
+        "M1",
+        "Y1",
+        "Y2",
+        "UW"
+      ]
+    },
+    {
+      "id": "dumate",
+      "name": "DuMate（搭子）",
+      "firm": "百度",
+      "tier": "P1 · 从已接入走向可证明复用",
+      "position": "百度桌面办公 Agent，面向任务交付、工具连接、专家与自动化；与百度搜索区别计量；Comate 编码能力虽并入矩阵，仍须按具体入口统计。",
+      "history": "百度 Q1 材料确认 2026-03 推出；历史手册包含 4 月迭代；9 月媒体报道 Comate 并入。当前客户端提示有 1.0.84 更新，但不据此推断已安装版本。",
+      "framework": "任务 → 专家 / Skills → 连接应用 → 文件和网页操作 → 自动任务；企业能力涵盖权限、审计及组织配置。",
+      "iteration": "历史版本增加浏览器、视频与技能管理；当前市场接入多家金融品牌。最新更新包的完整变化尚无本次可核实的公开记录。",
+      "counts": "本次可见连接应用 34 条，其中直接金融数据/投研 11 条；另在 Skills 看到广发证券证券综合数据，跨两类至少 12 个金融品牌。",
+      "finance": "进门、Tushare、财汇、通达信、妙想、晨星、盈米、Gangtise、iFinD、Wind、聚源；广发 Skill 涵盖 F10、估值、基金、定投回测、ETF 筛选等。",
+      "access": "连接应用及自定义 MCP，按连接器使用 OAuth / Token 等；Skills 可承载专业工作流。并非所有卡片都是免鉴权或免付费。",
+      "edge": "桌面操作、千帆技术体系与百度已有搜索金融生态可形成组合，但应要求跨入口归因及独立产品验收。",
+      "relation": "当前盈米连接器在所检查账号显示“已鉴权”；这只证明授权状态，不证明该次请求执行成功，更不证明规模化使用。",
+      "risk": "优先验证前三个任务的真实完成率和复用，补齐平台专属统计后再决定投入；旧“百度 AI 搜索合作”不能替代 DuMate 的商业合同证据。",
+      "refs": [
+        "B1",
+        "B2",
+        "B3",
+        "B4",
+        "C6",
+        "Y6",
+        "UB"
+      ]
+    },
+    {
+      "id": "wps",
+      "name": "WPS Comate",
+      "firm": "金山办公",
+      "tier": "P1 · 金融机构内部岗位方案",
+      "position": "组织级 AI 工作平台，核心是岗位专家、知识、流程、协作及管理；WPS 灵犀是另一条个人入口。",
+      "history": "2026 年半年报记述产品及专家场景建设；7 月公开发布；9 月持续更新权限、模型与专家能力。阶段口径需区分，不能把共创意向当正式客户。",
+      "framework": "岗位专家 / 自动化 / Wiki / Skills / 团队多 Agent / 应用市场；Comate Studio 配置，API Hub 接系统，DataHub 与 TrustHub 管知识及权限。",
+      "iteration": "官网记录 8 月权限评估、模型更新及 9 月 Agent 身份节点；9 月官方材料强调企业数据和治理层。",
+      "counts": "半年报披露 11 个业务领域、26 个典型专家场景；数百家大中型企业表达共创意向，行业含金融。金融客户家数、活跃席位、市场 MCP / Skill / Agent 总量未披露。",
+      "finance": "已有企业财务、经营分析等岗位方向；WPS 365 的金融机构案例不能直接归为 Comate 付费客户，亦不能归为已上架投研 MCP。",
+      "access": "API Hub、Skills、岗位专家及企业系统集成；官方介绍支持云端/本地及私有部署形态。具体 SDK、MCP 与私有部署组合应逐方案确认。",
+      "edge": "文档、表格与机构存量办公环境承接能力强；适合顾问工作台、投研报告、内控审核和机构部署。",
+      "relation": "本次公开检索未找到盈米与 WPS Comate 的已官宣合作。应作为新拓展，不能把 WPS 兼容文档称为产品合作。",
+      "risk": "机构项目交付成本高，应先有联合客户和预算，再投入专属适配；避免只做一个无人采购的通用插件。",
+      "refs": [
+        "C1",
+        "C2",
+        "C3",
+        "C4",
+        "C7",
+        "A1"
+      ]
+    },
+    {
+      "id": "baiducomate",
+      "name": "百度 Comate",
+      "firm": "百度",
+      "tier": "P2 · 开发与实施入口",
+      "position": "以软件工程和编码为核心的助手/Agent，已被报道并入 DuMate 产品矩阵。与 WPS Comate 同名；保留为编码能力线盘点，不再视作完全独立办公平台。",
+      "history": "从编码助手发展到 IDE / 工程 Agent；2026-09-07 媒体报道已并入 DuMate，保留编码专业能力。报道同时称开发者超千万、落地企业过万，属于覆盖量而非活跃。",
+      "framework": "IDE / 开发工作区 → 代码理解、生成、测试、工程任务 → 插件与工具连接；不是面向大众的财富办公首页。",
+      "iteration": "持续迭代模型与工程能力；本报告未取得截至 10 月 14 日可逐项对账的完整发布清单。",
+      "counts": "2026-09 媒体报道开发者 1,000 万+、企业 1 万+；当前 MAU / DAU、金融机构数、金融 MCP / Skill / Agent 上架数未核实。",
+      "finance": "公开报道举例北京银行、方正证券等企业客户；这是编码应用客户，非金融市场上架家数。适合金融软件开发、接口联调与分析脚本，不等于终端财富管理。",
+      "access": "开发环境、工程工具和 MCP 适配；盈米标准 MCP 可做兼容性验收，但“协议可接”仍需在具体产品实测。",
+      "edge": "帮助机构开发者降低盈米 API / MCP 的集成成本，适合 SDK、样例、测试工具和工程模板。",
+      "relation": "未发现本次可证实的“盈米 × 百度 Comate 正式上架”公开证据；不以 DuMate 或百度搜索合作代替。",
+      "risk": "不把开发者人数用作可触达理财用户；仅在存在明确集成需求时投入。",
+      "refs": [
+        "C5",
+        "C6",
+        "Y4"
+      ]
+    }
+  ],
+  "financial_services_matrix": {
+    "columns": [
+      "千问办公",
+      "豆包工作",
+      "WorkBuddy",
+      "DuMate"
+    ],
+    "rows": [
+      [
+        "盈米基金",
+        "基金诊断、组合、配置、风险与家庭财务",
+        [
+          1,
+          1,
+          1,
+          1
+        ]
+      ],
+      [
+        "Wind Alice",
+        "多资产行情、宏观、公司与基金数据",
+        [
+          1,
+          1,
+          1,
+          1
+        ]
+      ],
+      [
+        "东方财富妙想",
+        "市场数据、投资研究、筛选与分析",
+        [
+          1,
+          1,
+          1,
+          1
+        ]
+      ],
+      [
+        "Tushare",
+        "证券、基金、债券与宏观结构化数据",
+        [
+          1,
+          1,
+          1,
+          1
+        ]
+      ],
+      [
+        "进门投研",
+        "路演、研报、券商观点、行情和因子",
+        [
+          1,
+          1,
+          1,
+          1
+        ]
+      ],
+      [
+        "晨星 Morningstar",
+        "基金及投资研究数据",
+        [
+          1,
+          0,
+          1,
+          1
+        ]
+      ],
+      [
+        "恒生聚源",
+        "金融问数、多资产与机构数据",
+        [
+          1,
+          0,
+          1,
+          1
+        ]
+      ],
+      [
+        "同花顺 iFinD",
+        "股票、基金、债券、宏观",
+        [
+          0,
+          1,
+          1,
+          1
+        ]
+      ],
+      [
+        "通达信",
+        "行情、条件选股、研报公告与筛查",
+        [
+          0,
+          1,
+          1,
+          1
+        ]
+      ],
+      [
+        "Gangtise 投研",
+        "机构投研与数据",
+        [
+          0,
+          0,
+          1,
+          1
+        ]
+      ],
+      [
+        "Financial Datasets",
+        "财报、证券价格、新闻及加密行情",
+        [
+          0,
+          1,
+          0,
+          0
+        ]
+      ],
+      [
+        "NeoData / 腾讯自选股",
+        "腾讯金融数据库与行情/自选股服务（2 条）",
+        [
+          0,
+          0,
+          2,
+          0
+        ]
+      ],
+      [
+        "同舟 / PandaData / 新华财经",
+        "研究、金融数据库、资讯（3 条）",
+        [
+          0,
+          0,
+          3,
+          0
+        ]
+      ],
+      [
+        "FTShare / 执中 / 森浦 qeubee / 今日投资 / 大智慧",
+        "金融数据与投研服务（5 条）",
+        [
+          5,
+          0,
+          0,
+          0
+        ]
+      ],
+      [
+        "财汇金融与风险数据",
+        "金融及风险数据",
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      [
+        "广发证券证券综合数据",
+        "F10、基金、定投回测、ETF（Skill）",
+        [
+          0,
+          0,
+          0,
+          "S"
+        ]
+      ]
+    ],
+    "legend": "1=直接看见; 0=本次未见而非未合作; 数字>1=合并服务条目数; S=Skill"
+  },
+  "doubao_market_usage_labels": [
+    {
+      "provider": "同花顺 iFinD",
+      "label": "8.8 万",
+      "approx_display_numeric": 88000,
+      "metric": "人在用",
+      "window": "未披露",
+      "as_of": "2026-10-14"
+    },
+    {
+      "provider": "通达信",
+      "label": "5.4 万",
+      "approx_display_numeric": 54000,
+      "metric": "人在用",
+      "window": "未披露",
+      "as_of": "2026-10-14"
+    },
+    {
+      "provider": "Wind Alice",
+      "label": "4 万",
+      "approx_display_numeric": 40000,
+      "metric": "人在用",
+      "window": "未披露",
+      "as_of": "2026-10-14"
+    },
+    {
+      "provider": "东方财富妙想",
+      "label": "3.4 万",
+      "approx_display_numeric": 34000,
+      "metric": "人在用",
+      "window": "未披露",
+      "as_of": "2026-10-14"
+    },
+    {
+      "provider": "Tushare",
+      "label": "9,807",
+      "approx_display_numeric": 9807,
+      "metric": "人在用",
+      "window": "未披露",
+      "as_of": "2026-10-14"
+    },
+    {
+      "provider": "盈米基金",
+      "label": "4,800",
+      "approx_display_numeric": 4800,
+      "metric": "人在用",
+      "window": "未披露",
+      "as_of": "2026-10-14"
+    },
+    {
+      "provider": "Financial Datasets",
+      "label": "3,754",
+      "approx_display_numeric": 3754,
+      "metric": "人在用",
+      "window": "未披露",
+      "as_of": "2026-10-14"
+    },
+    {
+      "provider": "进门投研",
+      "label": "2,946",
+      "approx_display_numeric": 2946,
+      "metric": "人在用",
+      "window": "未披露",
+      "as_of": "2026-10-14"
+    }
+  ],
+  "sources": {
+    "Q1": {
+      "title": "千问办公：产品介绍",
+      "url": "https://docs.qwenwork.cn/product-introduction",
+      "type": "官方文档"
+    },
+    "Q2": {
+      "title": "千问办公：桌面端更新记录",
+      "url": "https://docs.qwenwork.cn/release-notes/desktop",
+      "type": "官方日志；最近可见 2026-10-09"
+    },
+    "Q3": {
+      "title": "千问办公上线首月用户超三千万",
+      "url": "https://www.cnstock.com/commonDetail/785820",
+      "type": "上证报 2026-09-04；转述官方披露"
+    },
+    "Q4": {
+      "title": "千问办公：企业连接器管理",
+      "url": "https://qwenwork.cn/docs/enterprise/premium/ai-asset-management/connectors",
+      "type": "官方文档"
+    },
+    "Q6": {
+      "title": "阿里巴巴：千问办公正式公测与产品整合",
+      "url": "https://ali-home.alibaba.com/document-2021039099929952256",
+      "type": "阿里巴巴官方 2026-08-03"
+    },
+    "Q5": {
+      "title": "千问办公：网页端平台",
+      "url": "https://qwenwork.cn/docs/web/platform",
+      "type": "官方文档"
+    },
+    "D1": {
+      "title": "豆包工作全新发布：飞书使用指南",
+      "url": "https://www.feishu.cn/content/article/7677519271848610746",
+      "type": "官方指南；技能数为文中快照"
+    },
+    "D2": {
+      "title": "豆包工作整合与发布",
+      "url": "https://www.thepaper.cn/newsDetail_forward_33845235",
+      "type": "媒体报道 2026-08-25"
+    },
+    "D3": {
+      "title": "盈米正式接入豆包工作及豆包",
+      "url": "https://www.sohu.com/a/1068386264_121624056",
+      "type": "盈米基金且慢账号 2026-08-27"
+    },
+    "W1": {
+      "title": "WorkBuddy 开放平台",
+      "url": "https://open.workbuddy.cn/",
+      "type": "官方页面；生态资产混合口径"
+    },
+    "W2": {
+      "title": "WorkBuddy 更新日志",
+      "url": "https://www.workbuddy.cn/docs/workbuddy/Changelog",
+      "type": "官方日志；最近可见 2026-10-08"
+    },
+    "W3": {
+      "title": "WorkBuddy 插件体系",
+      "url": "https://www.workbuddy.cn/docs/workbuddy/Plugins",
+      "type": "官方文档"
+    },
+    "W4": {
+      "title": "腾讯 2026 年第一季度业绩演示",
+      "url": "https://static.www.tencent.com/uploads/2026/05/13/aaeed028d215a9612da4b41aca17708b.pdf",
+      "type": "公司披露；活跃排名无绝对人数"
+    },
+    "B1": {
+      "title": "DuMate 官方产品入口",
+      "url": "https://dumate.baidu.com/app",
+      "type": "官方产品页"
+    },
+    "B2": {
+      "title": "DuMate 能力矩阵",
+      "url": "https://cloud.baidu.com/discover/dumate-capability-matrix.html",
+      "type": "百度智能云官方"
+    },
+    "B3": {
+      "title": "百度 2026 Q1 业绩演示",
+      "url": "https://ir.baidu.com/static-files/3801bfaf-9eb4-47a9-8b8c-b9f46c524875",
+      "type": "公司披露；2026 年 3 月推出 DuMate"
+    },
+    "B4": {
+      "title": "DuMate 官方产品手册",
+      "url": "https://bce-cdn.bj.bcebos.com/p3m/pdf/bce-doc/online/Dumate/Dumate.pdf?timeStamp=1781395200096",
+      "type": "官方 PDF；历史版本资料"
+    },
+    "C1": {
+      "title": "WPS Comate 产品与更新",
+      "url": "https://comate.wps.cn/",
+      "type": "官方产品页"
+    },
+    "C2": {
+      "title": "WPS 365：Comate 与 API Hub",
+      "url": "https://365.wps.cn/content/ec3652c382df47d18aff1deb7679bb68.html",
+      "type": "官方 2026-09-09"
+    },
+    "C3": {
+      "title": "WPS 365：DataHub、Wiki 与 TrustHub",
+      "url": "https://365.wps.cn/content/4628fcd295d44110a535bb5a16e86855.html",
+      "type": "官方 2026-09-22"
+    },
+    "C4": {
+      "title": "金山办公 2026 年半年度报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-20/1225482678.PDF",
+      "type": "上市公司定期报告"
+    },
+    "C7": {
+      "title": "WPS Comate 公开发布",
+      "url": "https://www.ithome.com/0/977/105.htm",
+      "type": "IT之家 2026-07-15；发布会报道"
+    },
+    "C5": {
+      "title": "百度 Comate 产品",
+      "url": "https://comate.baidu.com/zh",
+      "type": "官方产品页"
+    },
+    "C6": {
+      "title": "百度 Comate 并入 DuMate 及用户覆盖",
+      "url": "https://finance.sina.com.cn/tech/2026-09-07/doc-iniqyvrz0383318.shtml",
+      "type": "新浪科技 2026-09-07；媒体报道，非活跃人数"
+    },
+    "M1": {
+      "title": "QuestMobile 2026 年 AI 平台发展研究报告",
+      "url": "https://www.questmobile.com.cn/research/report/2094686886299705346/",
+      "type": "原始研究 2026-09-01；统计期 2026-07"
+    },
+    "M2": {
+      "title": "QuestMobile 2026 年 AI 应用市场发展半年报",
+      "url": "https://www.questmobile.com.cn/research/report/2076954943839809537/",
+      "type": "原始研究 2026-07-14；统计期 2026-06"
+    },
+    "Y1": {
+      "title": "盈米 AI × WorkBuddy 正式上线",
+      "url": "https://www.yingmi-inc.com/archives/877",
+      "type": "盈米官方；69 工具、11 Skills"
+    },
+    "Y2": {
+      "title": "盈米 MCP/Skills 自动化监测实践",
+      "url": "https://yingmi.cn/archives/973",
+      "type": "盈米官方案例；不等于使用规模"
+    },
+    "Y3": {
+      "title": "盈米 MCP 上线阿里云百炼；7 月末 OAP 数据",
+      "url": "https://www.yingmi.cn/archives/967",
+      "type": "盈米官方；累计数据截至 2026-07-31"
+    },
+    "Y4": {
+      "title": "Yingmi-MCP 公开工具目录",
+      "url": "https://github.com/yingmi-dev/Yingmi-MCP",
+      "type": "盈米官方代码库；公开传输与鉴权说明"
+    },
+    "Y5": {
+      "title": "盈米与阿里深化合作：百炼、千问办公、千问 APP",
+      "url": "https://yingmi.cn/archives/907",
+      "type": "盈米官方合作披露"
+    },
+    "Y6": {
+      "title": "盈米开放平台合作生态历史披露",
+      "url": "https://www.yingmi.cn/archives/769",
+      "type": "盈米官方；统计期 2025-11-20"
+    },
+    "A1": {
+      "title": "WPS 灵犀",
+      "url": "https://lingxi.cn/",
+      "type": "官方产品页"
+    },
+    "A2": {
+      "title": "WPS 灵犀八月更新",
+      "url": "https://bbs.wps.cn/topic/96101",
+      "type": "金山办公官方账号"
+    },
+    "A3": {
+      "title": "扣子品牌与产品升级",
+      "url": "https://docs.coze.cn/guides_20260119_coze_premium_upgraded",
+      "type": "扣子官方 2026-01"
+    },
+    "A4": {
+      "title": "悟空企业 AI 平台发布",
+      "url": "https://www.alibabagroup.com/zh-HK/document-1971078136456019968",
+      "type": "阿里巴巴官方 2026-03-17"
+    },
+    "A5": {
+      "title": "腾讯 ima 产品能力",
+      "url": "https://ima.tencent.com/download",
+      "type": "官方产品页"
+    },
+    "A6": {
+      "title": "Kimi Agent 产品历程",
+      "url": "https://www.kimi.com/help/agent/agent-overview",
+      "type": "官方帮助"
+    },
+    "A7": {
+      "title": "Kimi 技能接入",
+      "url": "https://www.kimi.com/help/plugins-and-skills/use-skills-in-agent",
+      "type": "官方帮助"
+    },
+    "A8": {
+      "title": "MiniMax Agent",
+      "url": "https://agent.minimax.io/share",
+      "type": "官方产品入口；版本与区域可能不同"
+    },
+    "A9": {
+      "title": "腾讯 QClaw：停服与迁移入口",
+      "url": "https://qclaw.qq.com/",
+      "type": "官网已展示迁移 WorkBuddy 与停服专区"
+    },
+    "A10": {
+      "title": "腾讯确认 QClaw 将停止运营",
+      "url": "https://www.eeo.com.cn/2026/0924/1048040.shtml",
+      "type": "21世纪经济报道 2026-09-24；腾讯回应"
+    },
+    "G1": {
+      "title": "Anthropic：金融服务 Agent 模板",
+      "url": "https://www.anthropic.com/news/finance-agents",
+      "type": "官方 2026-05-05"
+    },
+    "G2": {
+      "title": "Microsoft：Finance Agent",
+      "url": "https://learn.microsoft.com/en-us/copilot/finance/welcome",
+      "type": "官方更新 2026-08-20"
+    },
+    "G3": {
+      "title": "Google Workspace Studio",
+      "url": "https://workspace.google.com/studio/",
+      "type": "官方产品页"
+    },
+    "G4": {
+      "title": "Google Workspace Intelligence",
+      "url": "https://workspace.google.com/blog/product-announcements/introducing-workspace-intelligence",
+      "type": "官方 2026-04-22"
+    },
+    "UQ": {
+      "title": "千问办公市场现场核验",
+      "url": "https://qwenwork.cn/",
+      "type": "2026-10-14 当前账号可见市场；人工逐条归类"
+    },
+    "UW": {
+      "title": "WorkBuddy 市场现场核验",
+      "url": "https://www.workbuddy.cn/",
+      "type": "2026-10-14 客户端 5.5.6；未执行金融任务"
+    },
+    "UB": {
+      "title": "DuMate 市场现场核验",
+      "url": "https://dumate.baidu.com/app",
+      "type": "2026-10-14 连接应用与技能市场；未执行金融任务"
+    },
+    "UD": {
+      "title": "豆包工作市场现场核验",
+      "url": "https://www.doubao.com/",
+      "type": "2026-10-14 插件精选页金融区域；标签未披露时间窗口"
+    }
+  },
+  "limits": [
+    "没有平台后台金融MAU/DAU",
+    "没有逐连接器执行验证",
+    "没有平台独立收入或转化数据",
+    "未包含客户信息或私密聊天",
+    "市场计数为当前可见快照，不等于持牌金融机构数量"
+  ]
+}

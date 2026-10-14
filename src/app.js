@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 108;
+const DATA_VERSION = 109;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -221,6 +221,35 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "ai-office-platform-financial-ecosystem-2026-10-14",
+      groupId: "ai-platform",
+      title: "AI办公平台与金融生态全景｜千问·豆包·WorkBuddy·DuMate·Comate",
+      url: "https://clairku.github.io/clair-ai-studio/reports/ai-office-platform-financial-ecosystem-2026-10-14/",
+      preview: "ai-office-platform-financial-ecosystem-2026-10-14.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-14T16:00:00+08:00",
+      source: "2026-10-14｜六个核心产品、国内补充与海外参照｜官方文档、QuestMobile原始研究及四个客户端市场核验｜金融能力矩阵、用户口径、盈米合作证据、90天行动与资源验收",
+      access: "production",
+      workType: "competitive-research",
+      tags: [
+        "AI办公",
+        "千问办公",
+        "豆包工作",
+        "WorkBuddy",
+        "DuMate",
+        "Comate",
+        "MCP",
+        "Skills",
+        "Agent",
+        "盈米",
+        "生态合作",
+        "调研",
+        "HTML",
+        "生产"
+      ]
+    },
     {
       id: "nasdaq-butler-version-growth-audit-2026-10-14",
       groupId: "growth-insights",
@@ -3452,6 +3481,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "ai-office-platform-financial-ecosystem-2026-10-14": "ai-platform",
   "nasdaq-butler-version-growth-audit-2026-10-14": "growth-insights",
   "baidu-xiaogu-fund-operations-2026-10-13": "growth-insights",
   "ai-xiaogu-product-handbook-2026-10-13": "xiaogu",
