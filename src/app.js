@@ -222,6 +222,30 @@ const initialState = {
   ],
   reports: [
     {
+      id: "nasdaq-butler-version-growth-audit-2026-10-14",
+      groupId: "growth-insights",
+      title: "纳指管家｜版本迭代、使用与入金核验",
+      url: "https://clairku.github.io/clair-ai-studio/reports/nasdaq-butler-version-growth-audit-2026-10-14/",
+      preview: "nasdaq-butler-version-growth-audit-2026-10-14.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-14T18:00:00+08:00",
+      source: "内部周报、业务更新与Jira交叉核验｜6月底—10月迭代节点，12周使用与下单趋势｜累计成功金额625.6万为报表口径，非净入金或AUM｜新客口径冲突、留存缺口及可执行建议",
+      access: "production",
+      workType: "data-analysis",
+      tags: [
+            "纳指管家",
+            "配置服务",
+            "版本迭代",
+            "入金",
+            "转化漏斗",
+            "AUM",
+            "数据分析",
+            "HTML",
+            "生产"
+      ]
+    },
+    {
       id: "baidu-xiaogu-fund-operations-2026-10-13",
       groupId: "growth-insights",
       title: "百度 × 小顾基金｜服务与渠道全周期运营核验",
@@ -3428,6 +3452,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "nasdaq-butler-version-growth-audit-2026-10-14": "growth-insights",
   "baidu-xiaogu-fund-operations-2026-10-13": "growth-insights",
   "ai-xiaogu-product-handbook-2026-10-13": "xiaogu",
   "xiaogu-dialogue-four-dimensions-since-launch-2026-10-13": "xiaogu",

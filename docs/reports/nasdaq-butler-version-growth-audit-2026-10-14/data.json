@@ -1,0 +1,230 @@
+{
+  "as_of": "2026-10-14",
+  "sources": {
+    "S1": {
+      "page_id": "320173967",
+      "title": "【7.20-7.24】市场工作周报",
+      "facts": {
+        "cutoff": "2026-07-26",
+        "visit_uv": 3202,
+        "create_uv": 219,
+        "order_uv": 74,
+        "old_create_rate": 4.03,
+        "new_create_rate": 6.84,
+        "old_create_to_aip": 10.05,
+        "new_create_to_aip": 33.33,
+        "old_order_rate": 1.24,
+        "new_order_rate": 2.31
+      }
+    },
+    "S2": {
+      "page_id": "326142588",
+      "title": "【7.24-7.31】市场工作周报",
+      "facts": {
+        "visit_uv": 4778,
+        "create_uv": 374,
+        "aip_plans": 185,
+        "order_count": 697,
+        "order_amount": 194700,
+        "pending_count": 378
+      }
+    },
+    "S3": {
+      "page_id": "326167089",
+      "title": "【8.17-8.21】市场工作周报",
+      "facts": {
+        "visit_uv": 4978,
+        "create_uv": 749,
+        "create_count": 1052,
+        "order_count": 3134,
+        "order_amount": 868000,
+        "new_order_count": 847,
+        "new_order_amount": 220000,
+        "T0_order_uv": 7,
+        "T0_order_amount": 1370
+      }
+    },
+    "S4": {
+      "page_id": "330865560",
+      "title": "【8.24-8.28】市场工作周报",
+      "facts": {
+        "visit_uv": 4004,
+        "create_uv": 665,
+        "create_count": 947,
+        "order_count": 3999,
+        "order_amount": 1028000,
+        "new_order_count": 1095,
+        "new_order_amount": 268000
+      }
+    },
+    "S5": {
+      "page_id": "332746539",
+      "title": "【9.15-9.18】市场工作周报",
+      "facts": {
+        "visit_uv": 22036,
+        "visit_pv": 65769,
+        "create_uv": 3064,
+        "create_count": 5983,
+        "aip_uv": 1199,
+        "aip_count": 1812,
+        "order_uv": 1645,
+        "order_count": 25999,
+        "order_amount": 8309800,
+        "success_uv": 1587,
+        "success_count": 16578,
+        "success_amount": 4691700
+      }
+    },
+    "S6": {
+      "page_id": "338169885",
+      "attachment_id": "338170031",
+      "title": "【10.8-10.11】市场工作周报／内生增长趋势看板截图",
+      "facts": {
+        "cutoff": "2026-10-09",
+        "new_visit_uv": 3432,
+        "old_visit_uv": 17307,
+        "other_visit_uv": 4665,
+        "new_order_uv": 541,
+        "old_order_uv": 1547,
+        "other_order_uv": 24,
+        "new_order_amount": 2508000,
+        "old_order_amount": 7232000,
+        "other_order_amount": 24000,
+        "new_success_amount": 1442000,
+        "old_success_amount": 4810000,
+        "other_success_amount": 4000
+      },
+      "conflicts": [
+        "10/03–10/09 新客下单金额：卡片8.1万、表格10.1万",
+        "09/26–10/02新客金额：卡片基期9.2万、表格11.6万",
+        "新客周下单UV最高843大于累计新客下单人数541，需核实分群口径",
+        "与9月周报新客金额存在差异"
+      ]
+    }
+  },
+  "weekly_S6": [
+    [
+      "7/18–7/24",
+      3302,
+      217,
+      3.0
+    ],
+    [
+      "7/25–7/31",
+      4703,
+      362,
+      19.3
+    ],
+    [
+      "8/1–8/7",
+      5038,
+      470,
+      42.7
+    ],
+    [
+      "8/8–8/14",
+      5247,
+      605,
+      63.3
+    ],
+    [
+      "8/15–8/21",
+      4978,
+      749,
+      86.8
+    ],
+    [
+      "8/22–8/28",
+      4004,
+      665,
+      102.8
+    ],
+    [
+      "8/29–9/4",
+      5388,
+      610,
+      170.1
+    ],
+    [
+      "9/5–9/11",
+      4527,
+      394,
+      171.5
+    ],
+    [
+      "9/12–9/18",
+      3641,
+      264,
+      171.6
+    ],
+    [
+      "9/19–9/25",
+      4267,
+      513,
+      63.3
+    ],
+    [
+      "9/26–10/2",
+      3222,
+      403,
+      44.4
+    ],
+    [
+      "10/3–10/9",
+      3171,
+      380,
+      37.5
+    ]
+  ],
+  "source_links": {
+    "S1": {
+      "title": "【7.20-7.24】市场工作周报",
+      "url": "https://wiki.yingmi-inc.com/pages/viewpage.action?pageId=320173967"
+    },
+    "S2": {
+      "title": "【7.24-7.31】市场工作周报",
+      "url": "https://wiki.yingmi-inc.com/pages/viewpage.action?pageId=326142588"
+    },
+    "S3": {
+      "title": "【8.17-8.21】市场工作周报",
+      "url": "https://wiki.yingmi-inc.com/pages/viewpage.action?pageId=326167089"
+    },
+    "S4": {
+      "title": "【8.24-8.28】市场工作周报",
+      "url": "https://wiki.yingmi-inc.com/pages/viewpage.action?pageId=330865560"
+    },
+    "S5": {
+      "title": "【9.15-9.18】市场工作周报",
+      "url": "https://wiki.yingmi-inc.com/pages/viewpage.action?pageId=332746539"
+    },
+    "S6": {
+      "title": "【10.8-10.11】市场工作周报／内生增长趋势看板截图",
+      "url": "https://wiki.yingmi-inc.com/pages/viewpage.action?pageId=338169885"
+    },
+    "S7": {
+      "title": "且慢APP版本2026年更新说明",
+      "url": "https://wiki.yingmi-inc.com/pages/viewpage.action?pageId=290372826"
+    },
+    "S8": {
+      "title": "业务更新：9月17日非投顾组合支持顶额定投",
+      "url": "https://wiki.yingmi-inc.com/pages/viewpage.action?pageId=108812734"
+    },
+    "S9": {
+      "title": "QMRD-47416 纳指管家智能定投",
+      "url": "https://jira.yingmi-inc.com/browse/QMRD-47416"
+    },
+    "S10": {
+      "title": "且慢 Sprint96｜2026/09/16—10/13",
+      "url": "https://wiki.yingmi-inc.com/pages/viewpage.action?pageId=332744718"
+    },
+    "S11": {
+      "title": "【6.29-7.3】市场工作周报",
+      "url": "https://wiki.yingmi-inc.com/pages/viewpage.action?pageId=320153572"
+    },
+    "S12": {
+      "title": "【7.13-7.17】市场工作周报",
+      "url": "https://wiki.yingmi-inc.com/pages/viewpage.action?pageId=320167796"
+    }
+  },
+  "boundary": "源报告聚合记录，未用户级独立复算；下单与成功金额非净入金/AUM；新客周序列存在冲突，不用于趋势结论。"
+}
