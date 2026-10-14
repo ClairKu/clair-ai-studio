@@ -3,6 +3,7 @@
 // 满足仓库自保护页守卫：const payload= / AES-GCM / PBKDF2 / id="password" type="password" / noindex,nofollow
 import { createHash, randomBytes, webcrypto } from "node:crypto";
 import { readFile, writeFile } from "node:fs/promises";
+import { gunzipSync, gzipSync } from "node:zlib";
 
 const [src, out, title = "豆包绑定用户个例分析台"] = process.argv.slice(2);
 const password = process.env.REPORT_PASSWORD || "2026";
@@ -20,11 +21,13 @@ async function deriveKey(salt) {
 const plain = await readFile(src, "utf8");
 const salt = randomBytes(16), iv = randomBytes(12);
 const key = await deriveKey(salt);
-const data = new Uint8Array(await webcrypto.subtle.encrypt({ name: "AES-GCM", iv }, key, encoder.encode(plain)));
-const payload = { salt: toB64(salt), iv: toB64(iv), data: toB64(data), iterations: ITER };
+const compressed = gzipSync(Buffer.from(plain, "utf8"), { level: 9 });
+const data = new Uint8Array(await webcrypto.subtle.encrypt({ name: "AES-GCM", iv }, key, compressed));
+const payload = { salt: toB64(salt), iv: toB64(iv), data: toB64(data), iterations: ITER, compression: "gzip" };
 
-const back = new TextDecoder().decode(await webcrypto.subtle.decrypt(
-  { name: "AES-GCM", iv: fromB64(payload.iv) }, await deriveKey(fromB64(payload.salt)), fromB64(payload.data)));
+const decrypted = await webcrypto.subtle.decrypt(
+  { name: "AES-GCM", iv: fromB64(payload.iv) }, await deriveKey(fromB64(payload.salt)), fromB64(payload.data));
+const back = new TextDecoder().decode(gunzipSync(Buffer.from(decrypted)));
 if (createHash("sha256").update(back).digest("hex") !== createHash("sha256").update(plain).digest("hex")) {
   throw new Error("往返校验不一致");
 }
@@ -101,11 +104,25 @@ const shell = `<!doctype html>
   <script>
     const payload=${JSON.stringify(payload)};
     const decode=value=>Uint8Array.from(atob(value),character=>character.charCodeAt(0));
+    const decompress=async bytes=>{
+      if(payload.compression!=="gzip")return bytes;
+      if(typeof DecompressionStream!=="function")throw new Error("unsupported");
+      const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream("gzip"));
+      return new Uint8Array(await new Response(stream).arrayBuffer());
+    };
     const sessionKey="clair-doubao-report-unlock-v1";
     const form=document.getElementById("unlock");
     const input=document.getElementById("password");
     const submit=document.getElementById("submit");
     const status=document.getElementById("status");
+    const openTimeoutMs=12000;
+    const withTimeout=(promise,timeoutMs=openTimeoutMs)=>{
+      let timeout=0;
+      const expired=new Promise((_,reject)=>{
+        timeout=window.setTimeout(()=>reject(new Error("open_timeout")),timeoutMs);
+      });
+      return Promise.race([promise,expired]).finally(()=>window.clearTimeout(timeout));
+    };
     let unlocking=false;
     const setBusy=busy=>{
       submit.classList.toggle("is-busy",busy);
@@ -129,10 +146,13 @@ const shell = `<!doctype html>
       setBusy(true);
       await new Promise(resolve=>requestAnimationFrame(()=>resolve()));
       try{
-        if(!globalThis.crypto?.subtle)throw new Error("unsupported");
-        const material=await crypto.subtle.importKey("raw",new TextEncoder().encode(supplied),"PBKDF2",false,["deriveKey"]);
-        const key=await crypto.subtle.deriveKey({name:"PBKDF2",salt:decode(payload.salt),iterations:payload.iterations,hash:"SHA-256"},material,{name:"AES-GCM",length:256},false,["decrypt"]);
-        const plain=await crypto.subtle.decrypt({name:"AES-GCM",iv:decode(payload.iv)},key,decode(payload.data));
+        const plain=await withTimeout((async()=>{
+          if(!globalThis.crypto?.subtle)throw new Error("unsupported");
+          const material=await crypto.subtle.importKey("raw",new TextEncoder().encode(supplied),"PBKDF2",false,["deriveKey"]);
+          const key=await crypto.subtle.deriveKey({name:"PBKDF2",salt:decode(payload.salt),iterations:payload.iterations,hash:"SHA-256"},material,{name:"AES-GCM",length:256},false,["decrypt"]);
+          const decrypted=await crypto.subtle.decrypt({name:"AES-GCM",iv:decode(payload.iv)},key,decode(payload.data));
+          return decompress(decrypted);
+        })());
         try{sessionStorage.setItem(sessionKey,supplied)}catch{}
         status.textContent="验证成功，正在进入…";
         document.open();document.write(new TextDecoder().decode(plain));document.close();
@@ -140,7 +160,7 @@ const shell = `<!doctype html>
       }catch(errorValue){
         if(cached){try{sessionStorage.removeItem(sessionKey)}catch{}}
         status.dataset.state="error";
-        status.textContent=errorValue?.message==="unsupported"?"当前浏览器无法完成验证，请升级后重试":cached?"会话已失效，请重新输入密码":"密码不正确，请再试一次";
+        status.textContent=errorValue?.message==="open_timeout"?"报告打开超时，请重试":errorValue?.message==="unsupported"?"当前浏览器无法完成验证，请升级后重试":cached?"会话已失效，请重新输入密码":"密码不正确，请再试一次";
       }
       unlocking=false;
       setBusy(false);

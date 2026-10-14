@@ -83,6 +83,15 @@ ensure(test.includes(boundaryStep), "测试链没有执行访问边界校验");
 ensure(!build.includes("remove-report-passwords"), "正式构建不应自动移除历史加密保护");
 ensure(injector.includes("immutableLockedEntries"), "注入脚本未读取不可解锁成果清单");
 ensure(injector.includes('data-clair-encrypted-report="true"'), "注入脚本未标记加密成果");
+ensure(publicGate.includes("clearEncryptedReportAccessState"), "加密成果缺少失效会话恢复");
+ensure(!publicGate.includes("window.location.reload()"), "共享访问门不得用刷新驱动加密成果解锁");
+ensure(
+  publicGate.indexOf("const mountGate = () =>") < publicGate.indexOf("const requestWorkbenchCredential = () =>"),
+  "工作台凭证握手可能在 mountGate 初始化前触发",
+);
+ensure(injector.includes('id="opening-retry"'), "加密成果外壳缺少超时恢复入口");
+ensure(injector.includes("const openTimeoutMs=12000"), "加密成果外壳缺少打开超时边界");
+ensure(!injector.includes("if(!granted||!credential)return"), "加密成果仍会在凭证缺失时永久等待");
 
 const copySuffix = / \d+\.html$/i;
 const htmlPaths = [];
@@ -129,6 +138,9 @@ for (const entry of publicConfig.immutableLockedEntries) {
   ensure(html.includes('data-clair-encrypted-report="true"'), `${entry} 未保持不可解锁标记`);
   ensure(html.includes("AES-GCM") && html.includes("const payload="), `${entry} 未保持密文载荷`);
   ensure(!/<input\b[^>]*type=["']password["']/i.test(html), `${entry} 出现重复密码框`);
+  ensure(html.includes('id="opening-retry"'), `${entry} 缺少可恢复超时入口`);
+  ensure(html.includes("const openTimeoutMs=12000"), `${entry} 缺少打开超时边界`);
+  ensure(!html.includes("if(!granted||!credential)return"), `${entry} 仍会在凭证缺失时永久等待`);
 }
 
 console.log(

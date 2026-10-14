@@ -1,9 +1,10 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { webcrypto } from "node:crypto";
-import { existsSync, readFileSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { gunzipSync } from "node:zlib";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
 const docsRoot = join(root, "docs");
@@ -96,7 +97,7 @@ test("direct report access follows the live selective policy and fails closed", 
   assert.match(source, /profiles\.workspace\.sessionKey/);
   assert.match(source, /profiles\.workspace\.sessionValue/);
   assert.match(source, /if \(requestedScope === "report"\) \{/);
-  assert.match(source, /if \(hasWorkspacePass\(\)\) return/);
+  assert.match(source, /const workspacePass = hasWorkspacePass\(\)/);
   assert.match(source, /document\.documentElement\.classList\.add\(ROOT_CLASS\)/);
   assert.match(source, /reportRequiresPassword/);
   assert.match(source, /bootstrap\.stateEndpoint/);
@@ -116,8 +117,32 @@ test("a successful workspace unlock seeds every encrypted-report session without
   assert.match(source, /clair-qianwen-report-unlock-v1/);
   assert.match(source, /clair-doubao-report-unlock-v1/);
   assert.match(source, /dataset\.clairEncryptedReport/);
-  assert.match(source, /window\.location\.reload\(\)/);
+  assert.match(source, /clair-report-access-bridged/);
+  assert.doesNotMatch(source, /window\.location\.reload\(\)/);
   assert.doesNotMatch(source, /20260509/);
+});
+
+test("encrypted marker-only sessions clear stale state and return to a usable gate", () => {
+  const source = readFileSync(gatePath, "utf8");
+  assert.match(source, /const readStoredReportCredential = \(\) =>/);
+  assert.match(source, /const clearEncryptedReportAccessState = \(\) =>/);
+  const clearStateBody = source.match(/const clearEncryptedReportAccessState = \(\) => \{([\s\S]*?)\n  \};/)?.[1] || "";
+  assert.doesNotMatch(clearStateBody, /profiles\.workspace\.sessionKey/);
+  assert.match(source, /if \(\(reportPass \|\| workspacePass\) && credential\)/);
+  assert.match(source, /if \(reportPass \|\| workspacePass\) clearEncryptedReportAccessState\(\)/);
+  assert.match(source, /scheduleGate\(\);\s*return;/);
+  assert.doesNotMatch(source, /if \(readSession\(\) === SESSION_VALUE\) return/);
+});
+
+test("immutable encrypted reports never use live unlocked policy without an AES credential", () => {
+  const source = readFileSync(gatePath, "utf8");
+  const encryptedBranch = source.indexOf("if (encryptedReport) {");
+  const livePolicyCheck = source.indexOf("if (!(await reportRequiresPassword()))");
+  assert.ok(encryptedBranch > 0);
+  assert.ok(livePolicyCheck > encryptedBranch);
+  const branchSource = source.slice(encryptedBranch, livePolicyCheck);
+  assert.match(branchSource, /if \(requestWorkbenchCredential\(\)\) return/);
+  assert.match(branchSource, /scheduleGate\(\);\s*return;/);
 });
 
 test("workspace login exchanges its password for a short-lived live-state session", () => {
@@ -153,8 +178,36 @@ test("isolated workbench readers request an in-memory credential through a token
   assert.match(source, /loopbackWorkbench/);
   assert.match(source, /clair-report-access-request/);
   assert.match(source, /event\.source !== window\.parent/);
-  assert.match(source, /window\[BRIDGED_REPORT_CREDENTIAL\] = credential/);
+  assert.match(source, /window\[BRIDGED_REPORT_CREDENTIAL\] = reportCredential/);
   assert.match(source, /if \(requestWorkbenchCredential\(\)\) return/);
+  assert.match(source, /window\.removeEventListener\("message", receiveCredential\);\s*scheduleGate\(\)/);
+  // The handshake is only invoked after mountGate/scheduleGate initialize, so
+  // a parent timeout cannot hit their temporal dead zone.
+  assert.ok(source.indexOf("const mountGate = () =>") < source.indexOf("const requestWorkbenchCredential = () =>"));
+  assert.ok(source.indexOf("const scheduleGate = () =>") < source.indexOf("const requestWorkbenchCredential = () =>"));
+});
+
+test("encrypted wrappers expose a bounded, user-recoverable timeout instead of an automatic reload loop", () => {
+  const injector = readFileSync(join(root, "scripts", "inject-site-access-gate.mjs"), "utf8");
+  assert.match(injector, /id="opening-retry"/);
+  assert.match(injector, /const openTimeoutMs=12000/);
+  assert.match(injector, /const revealRecovery=message=>/);
+  assert.match(injector, /验证状态已失效，请重新验证/);
+  assert.match(injector, /报告打开失败或超时，请重新验证/);
+  assert.doesNotMatch(injector, /if\(!granted\|\|!credential\)return/);
+  assert.doesNotMatch(injector, /catch\{[\s\S]{0,160}location\.reload\(\)/);
+
+  for (const scriptPath of [
+    "scripts/encrypt-qianwen-dashboard.mjs",
+    "scripts/encrypt-doubao-dashboard.mjs",
+    "scripts/qianwen-cases/encrypt-page.mjs",
+    "scripts/doubao-cases/encrypt-page.mjs",
+  ]) {
+    const source = readFileSync(join(root, scriptPath), "utf8");
+    assert.match(source, /const openTimeoutMs=12000/, scriptPath);
+    assert.match(source, /Promise\.race\(\[promise,expired\]\)/, scriptPath);
+    assert.match(source, /报告打开超时，请重试/, scriptPath);
+  }
 });
 
 test("publishes policy-aware gate metadata on every HTML entry", () => {
@@ -178,6 +231,9 @@ test("publishes policy-aware gate metadata on every HTML entry", () => {
       assert.match(html, /frame\.srcdoc=plain/);
       assert.doesNotMatch(html, /allow-same-origin/);
       assert.match(html, /正在打开已验证的报告/);
+      assert.match(html, /id="opening-retry"/);
+      assert.match(html, /const openTimeoutMs=12000/);
+      assert.doesNotMatch(html, /if\(!granted\|\|!credential\)return/);
       assert.match(html, /noindex,nofollow/);
       continue;
     }
@@ -238,4 +294,38 @@ test("Doubao encrypted reports use the same shared gate and have no second passw
     assert.match(html, /document\.open\(\);document\.write/);
     assert.doesNotMatch(html, /type=["']password["']/);
   }
+});
+
+test("the four frequently opened reports stay compressed, decryptable, and within the fast-open budget", async () => {
+  const targets = [
+    ["qianwen-user-acquisition-dashboard", 500_000],
+    ["qianwen-first-investor-cases-2026-09-17", 900_000],
+    ["doubao-user-acquisition-dashboard", 250_000],
+    ["doubao-user-conversion-cases-2026-09-20", 400_000],
+  ];
+  for (const [slug, maxBytes] of targets) {
+    const htmlPath = join(docsRoot, "reports", slug, "index.html");
+    assert.ok(statSync(htmlPath).size < maxBytes, `${slug} exceeded ${maxBytes} bytes`);
+    const html = readFileSync(htmlPath, "utf8");
+    const payload = JSON.parse(html.match(/const\s+payload\s*=\s*(\{[^;]+\});/s)?.[1] || "null");
+    assert.equal(payload?.compression, "gzip", `${slug} is not gzip-before-AES`);
+    const material = await webcrypto.subtle.importKey(
+      "raw", new TextEncoder().encode("2026"), "PBKDF2", false, ["deriveKey"],
+    );
+    const key = await webcrypto.subtle.deriveKey(
+      { name: "PBKDF2", salt: fromBase64(payload.salt), iterations: payload.iterations, hash: "SHA-256" },
+      material,
+      { name: "AES-GCM", length: 256 },
+      false,
+      ["decrypt"],
+    );
+    const decrypted = await webcrypto.subtle.decrypt(
+      { name: "AES-GCM", iv: fromBase64(payload.iv) }, key, fromBase64(payload.data),
+    );
+    assert.match(gunzipSync(Buffer.from(decrypted)).toString("utf8"), /<!doctype html>/i);
+  }
+  assert.ok(
+    existsSync(join(docsRoot, "reports", "qianwen-user-acquisition-dashboard", "data", "questions.enc.json")),
+    "Qianwen question corpus must remain an on-demand external encrypted resource",
+  );
 });

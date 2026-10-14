@@ -57,6 +57,7 @@
   const EXPECTED_HASH = profile.expectedHash;
   const ROOT_CLASS = "clair-site-access-locked";
   const HOST_ID = "clair-site-access-gate";
+  const encryptedReport = gateScript?.dataset.clairEncryptedReport === "true";
 
   const fetchWithTimeout = async (input, init = {}) => {
     const controller = new AbortController();
@@ -124,6 +125,30 @@
     }
   };
 
+  const readStoredReportCredential = () => {
+    try {
+      return window.sessionStorage.getItem(REPORT_CREDENTIAL_SESSION_KEY)
+        || LEGACY_ENCRYPTED_REPORT_SESSION_KEYS
+          .map((key) => window.sessionStorage.getItem(key) || "")
+          .find(Boolean)
+        || "";
+    } catch {
+      return "";
+    }
+  };
+
+  const clearEncryptedReportAccessState = () => {
+    try {
+      window.sessionStorage.removeItem(REPORT_CREDENTIAL_SESSION_KEY);
+      window.sessionStorage.removeItem(profiles.report.sessionKey);
+      for (const key of LEGACY_ENCRYPTED_REPORT_SESSION_KEYS) {
+        window.sessionStorage.removeItem(key);
+      }
+    } catch {
+      // The shared gate still presents a fresh password check without storage.
+    }
+  };
+
   const trustedWorkbenchParentOrigin = () => {
     if (window.top === window
       || new URLSearchParams(location.search).get(WORKBENCH_EMBED_PARAMETER) !== "1"
@@ -143,50 +168,6 @@
       return "";
     }
   };
-
-  const requestWorkbenchCredential = () => {
-    if (requestedScope !== "report") return false;
-    const parentOrigin = trustedWorkbenchParentOrigin();
-    const readerToken = new URLSearchParams(location.search).get(WORKBENCH_READER_TOKEN_PARAMETER) || "";
-    if (!parentOrigin || !readerToken) return false;
-    let settled = false;
-    const fallback = window.setTimeout(() => {
-      if (!settled) mountGate();
-    }, 1600);
-    const receiveCredential = (event) => {
-      if (event.source !== window.parent
-        || event.origin !== parentOrigin
-        || event.data?.type !== REPORT_ACCESS_MESSAGE_TYPE
-        || event.data?.token !== readerToken) return;
-      const credential = event.data.credentials?.[REPORT_CREDENTIAL_SESSION_KEY] || "";
-      if (!credential) return;
-      settled = true;
-      window.clearTimeout(fallback);
-      window.removeEventListener("message", receiveCredential);
-      window[BRIDGED_REPORT_CREDENTIAL] = credential;
-      window.dispatchEvent(new CustomEvent("clair-report-access-bridged", {
-        detail: { credential },
-      }));
-    };
-    window.addEventListener("message", receiveCredential);
-    window.parent.postMessage({
-      type: REPORT_ACCESS_REQUEST_MESSAGE_TYPE,
-      token: readerToken,
-    }, parentOrigin);
-    return true;
-  };
-
-  // Entering through the authenticated Studio grants this browser tab a pass.
-  // The isolated in-workbench reader cannot access the parent tab's storage, so
-  // it receives an explicit token-bound handshake. A URL marker alone never
-  // unlocks a direct/top-level visit.
-  if (requestedScope === "report") {
-    if (readSession() === SESSION_VALUE) return;
-    if (hasWorkspacePass()) return;
-    const trustedWorkbenchOrigin = trustedWorkbenchParentOrigin();
-    if (trustedWorkbenchOrigin && gateScript?.dataset.clairEncryptedReport !== "true") return;
-    if (requestWorkbenchCredential()) return;
-  }
 
   document.documentElement.classList.add(ROOT_CLASS);
 
@@ -229,7 +210,9 @@
     return sameBytes(new Uint8Array(bits), fromBase64(EXPECTED_HASH));
   };
 
-  const unlock = (password = "", { persist = true } = {}) => {
+  const unlock = (password = "", { persist = true, credential = "" } = {}) => {
+    const reportCredential = credential
+      || (persist ? password.slice(0, 4) : readStoredReportCredential());
     if (persist) {
       try {
         window.sessionStorage.setItem(SESSION_KEY, SESSION_VALUE);
@@ -242,12 +225,14 @@
     document.getElementById(HOST_ID)?.remove();
     concealment.remove();
     window.dispatchEvent(new CustomEvent("clair-site-access-granted"));
-    // Six historical reports use an AES shell. Their inner decryptor reads the
-    // shared credential only at startup, so reload once after the single,
-    // successful shared-gate submission. The reload is never triggered for a
-    // wrong password or for ordinary reports.
-    if (gateScript?.dataset.clairEncryptedReport === "true") {
-      window.location.reload();
+    // Deliver the AES credential in-memory as well as through sessionStorage.
+    // This opens immediately, also inside sandboxed readers where storage may
+    // be unavailable, and avoids the old reload loop.
+    if (encryptedReport && reportCredential) {
+      window[BRIDGED_REPORT_CREDENTIAL] = reportCredential;
+      window.dispatchEvent(new CustomEvent("clair-report-access-bridged", {
+        detail: { credential: reportCredential },
+      }));
     }
   };
 
@@ -298,8 +283,16 @@
   const mountGate = () => {
     if (readSession() === SESSION_VALUE
       && (requestedScope === "report" || hasValidAdminSession())) {
-      unlock();
-      return;
+      const credential = requestedScope === "report" && encryptedReport
+        ? readStoredReportCredential()
+        : "";
+      if (!encryptedReport || credential) {
+        unlock("", { persist: false, credential });
+        return;
+      }
+      // A marker without the AES credential cannot open an encrypted report.
+      // Clear the stale state and present a recoverable password gate.
+      clearEncryptedReportAccessState();
     }
     if (requestedScope === "workspace" && readSession() === SESSION_VALUE) clearWorkspaceSession();
     if (document.getElementById(HOST_ID)) return;
@@ -475,6 +468,38 @@
     }
   };
 
+  const requestWorkbenchCredential = () => {
+    if (requestedScope !== "report") return false;
+    const parentOrigin = trustedWorkbenchParentOrigin();
+    const readerToken = new URLSearchParams(location.search).get(WORKBENCH_READER_TOKEN_PARAMETER) || "";
+    if (!parentOrigin || !readerToken) return false;
+    let settled = false;
+    const receiveCredential = (event) => {
+      if (event.source !== window.parent
+        || event.origin !== parentOrigin
+        || event.data?.type !== REPORT_ACCESS_MESSAGE_TYPE
+        || event.data?.token !== readerToken) return;
+      const credential = event.data.credentials?.[REPORT_CREDENTIAL_SESSION_KEY] || "";
+      if (!credential) return;
+      settled = true;
+      window.clearTimeout(fallback);
+      window.removeEventListener("message", receiveCredential);
+      unlock(credential, { persist: true, credential });
+    };
+    const fallback = window.setTimeout(() => {
+      if (settled) return;
+      settled = true;
+      window.removeEventListener("message", receiveCredential);
+      scheduleGate();
+    }, 1600);
+    window.addEventListener("message", receiveCredential);
+    window.parent.postMessage({
+      type: REPORT_ACCESS_REQUEST_MESSAGE_TYPE,
+      token: readerToken,
+    }, parentOrigin);
+    return true;
+  };
+
   const start = async () => {
     if (requestedScope === "workspace" && readSession() === SESSION_VALUE) {
       if (hasValidAdminSession()) {
@@ -483,9 +508,32 @@
       }
       clearWorkspaceSession();
     }
-    if (requestedScope === "report" && !(await reportRequiresPassword())) {
-      unlock("", { persist: false });
-      return;
+    if (requestedScope === "report") {
+      const reportPass = readSession() === SESSION_VALUE;
+      const workspacePass = hasWorkspacePass();
+      const credential = readStoredReportCredential();
+
+      if (encryptedReport) {
+        if ((reportPass || workspacePass) && credential) {
+          unlock("", { persist: false, credential });
+          return;
+        }
+        if (reportPass || workspacePass) clearEncryptedReportAccessState();
+        if (requestWorkbenchCredential()) return;
+        scheduleGate();
+        return;
+      }
+
+      // Entering through the authenticated Studio grants ordinary reports in
+      // this tab. A trusted embedded reader is token-bound to the workbench.
+      if (reportPass || workspacePass || trustedWorkbenchParentOrigin()) {
+        unlock("", { persist: false });
+        return;
+      }
+      if (!(await reportRequiresPassword())) {
+        unlock("", { persist: false });
+        return;
+      }
     }
     scheduleGate();
   };

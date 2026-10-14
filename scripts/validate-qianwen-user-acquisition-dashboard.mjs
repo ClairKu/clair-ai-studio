@@ -979,12 +979,17 @@ for (const signal of [
   "renderQuestionPaths",
   "decryptQuestionCorpus",
   "renderQuestionTable",
+  "scheduleQuestionCorpusAutoUnlock",
+  "IntersectionObserver",
   "loadPublishedData",
   "window_cumulative_bound",
   "visibleSeries",
   "selectedDate",
 ]) {
   if (!app.includes(signal)) fail(`页面脚本缺少 ${signal}`);
+}
+if (/populateQuestionFilters\(\);\s*void autoUnlockQuestionCorpus\(\);/.test(app)) {
+  fail("原始提问密文仍在首屏立即下载，应保持滚动按需加载");
 }
 for (const removed of ["所选用户数据明细", 'id="audience-table"', 'id="audience-footnote"']) {
   if (html.includes(removed) || app.includes(removed)) fail(`页面仍包含已移除模块：${removed}`);

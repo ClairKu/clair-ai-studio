@@ -338,6 +338,7 @@ let resizeTimer = null;
 let questionCorpus = null;
 let questionRows = [];
 let questionUnlockAttempted = false;
+let questionAutoUnlockObserver = null;
 let questionSearchTimer = null;
 
 function escapeHtml(value) {
@@ -2015,7 +2016,7 @@ function renderQuestionInsights() {
   }
   $("#question-raw-count").textContent = `${number.format(summary.self_authored_questions)} 条主动提问`;
   populateQuestionFilters();
-  void autoUnlockQuestionCorpus();
+  scheduleQuestionCorpusAutoUnlock();
 }
 
 const decodeQuestionBase64 = (value) => Uint8Array.from(atob(value), (character) => character.charCodeAt(0));
@@ -2096,6 +2097,24 @@ async function autoUnlockQuestionCorpus() {
   const credential = cachedQuestionCredential();
   if (credential) await unlockQuestionCorpus(credential, { automatic: true });
   else setQuestionUnlockState("请输入报告密码，解锁脱敏后的全部原始提问。");
+}
+
+function scheduleQuestionCorpusAutoUnlock() {
+  if (questionUnlockAttempted || questionCorpus || questionAutoUnlockObserver) return;
+  const target = document.querySelector(".raw-question-explorer");
+  if (!target) return;
+  if (!("IntersectionObserver" in window)) {
+    setQuestionUnlockState("需要查看完整原始提问时，请输入报告密码解锁。");
+    return;
+  }
+  setQuestionUnlockState("滚动到本区时，将自动使用本次报告会话解锁。");
+  questionAutoUnlockObserver = new IntersectionObserver((entries) => {
+    if (!entries.some((entry) => entry.isIntersecting)) return;
+    questionAutoUnlockObserver.disconnect();
+    questionAutoUnlockObserver = null;
+    void autoUnlockQuestionCorpus();
+  }, { rootMargin: "200px 0px" });
+  questionAutoUnlockObserver.observe(target);
 }
 
 function filteredQuestionRows() {
