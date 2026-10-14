@@ -1,6 +1,6 @@
 {
   "schema": "clair-knowledge-hub-feed/v1",
-  "generatedAt": "2026-10-13T00:20:33.014Z",
+  "generatedAt": "2026-10-14T02:26:13.277Z",
   "source": "Clair’s Studio production catalog + curated authoritative AI industry reports",
   "reports": [
     {
@@ -426,6 +426,84 @@
         "authority-stanford-ai-index-2026",
         "authority-mckinsey-state-ai-2026",
         "authority-anthropic-unintended-actions-2026"
+      ],
+      "studioId": "",
+      "origin": "authority",
+      "extractionError": "",
+      "fileName": "",
+      "fileSize": 0
+    },
+    {
+      "id": "authority-stanford-human-ai-collaboration-2026",
+      "title": "Stanford HAI《Human–AI Collaboration at Scale》｜高风险任务里，人并没有把判断全部交给 AI",
+      "url": "https://hai.stanford.edu/news/humans-and-ai-engage-in-meaningful-collaborations",
+      "downloadUrl": "https://pdfs.assets.alphaxiv.org/2608.human-ai-collaboration-at-scalev1.pdf",
+      "body": "【中文剖析】这项由 Stanford HAI 支持、已获《Nature Human Behaviour》接收的研究，把“人机协作”从实验室问卷推进到 249,834 段真实 Claude.ai 对话。研究者发现，可评估对话中 56% 属于有实质后果或高风险任务，72% 仍由人主导，67% 出现 AI 主动教学；49.7% 的对话含某种摩擦，而出现摩擦时 78.7% 的用户会尝试修复。风险越高，用户通常越主动：对话长度从低风险任务的 6.5 轮增至高风险任务的 12.4 轮，直接照搬输出的比例从 21% 降至 13%。这反驳了“大家只把 AI 当捷径”的简单叙事，但不能被解读为高风险使用已经安全：法律与金融建议中约 24% 的对话被归为高风险，而且高风险用户虽更会核查，并不一定更会把任务拆小。对组织最重要的启示不是鼓励更多委托，而是把解释、质疑、分解任务、复核和人工责任做成默认工作流。官方专题页发布于 2026 年 10 月 12 日；底层论文初版发布于 8 月 21 日。",
+      "kind": "url",
+      "category": "企业与组织",
+      "tags": [
+        "人机协作",
+        "真实使用",
+        "高风险任务",
+        "人类能动性",
+        "AI教学",
+        "摩擦",
+        "Claude",
+        "工作设计"
+      ],
+      "source": "Stanford HAI / Stanford University",
+      "authority": "学术大样本真实使用研究",
+      "methodology": "随机抽取 2026 年 4 月 25 日至 5 月 9 日 Claude.ai Free、Pro、Max 消费者流量中的 249,834 段对话；通过 Anthropic Insights 做隐私保护聚合，以 17 个研究 facet、891 个聚类分析任务关键性、能动性、学习与摩擦。",
+      "scopeNote": "数据只来自 Claude.ai 单一平台，排除 Claude Code、Claude Cowork 等 Agent 产品；研究者只能拿到聚类级聚合数据，无法直接复核 Claude.ai 对话级标注。facet 在 WildChat 上做了小样本人工校准和 1 万段区分度测试，仍可能存在域迁移、误分类和平台特有行为，不能外推为所有 AI 用户。",
+      "publishedAt": "2026-10-12T00:00:00Z",
+      "ingestedAt": "2026-10-14T08:20:00+08:00",
+      "createdAt": "2026-10-12T00:00:00Z",
+      "updatedAt": "2026-10-14T08:20:00+08:00",
+      "featured": true,
+      "featuredRank": -0.5,
+      "archived": false,
+      "relatedReportIds": [
+        "authority-anthropic-cadences-2026",
+        "authority-openai-enterprise-2025",
+        "authority-mckinsey-state-ai-2026"
+      ],
+      "studioId": "",
+      "origin": "authority",
+      "extractionError": "",
+      "fileName": "",
+      "fileSize": 0
+    },
+    {
+      "id": "authority-anthropic-self-replicating-ai-2026",
+      "title": "Anthropic《AI models may be capable of self-replicating》｜小模型自复制正在逼近能力门槛",
+      "url": "https://www.anthropic.com/research/self-replicating-ai",
+      "body": "【中文剖析】Anthropic Frontier Red Team 的受控实验显示，AI 自复制风险正在从抽象设想变成可以拆解测量的工程链条，但还没有出现一只在现实网络中独立生存的 AI 蠕虫。研究把复制拆成发现目标、取得执行、建立推理、继续传播四步：9B 模型已能在测试的 9 类硬件中的 8 类完成推理部署；Gemma4-26B-A4B 可在 15 台约 55 美元的安卓电视盒上分布式运行，速度为 0.39 token/秒；在隔离的 8 节点 Android 模拟网络中，GLM-5.2 在 5 次试验里有 4 次感染 8/8 节点、1 次感染 7/8 节点。关键边界必须说清：该端到端实验把网络入侵简化为无认证 ADB，GLM-5.2 本身运行在外部推理服务器，复制到节点上的是 Llama3.1-8B，因此它证明的是编排能力，不是小模型已经能在弱设备上完整自托管复制。目前“足够聪明的能力下限”和“弱设备能承载的模型尺寸上限”仍未相交；按小模型能力指数的历史趋势，作者估计可能在 2026 年底相交，但这只是代理指标外推。对企业的含义是：不要等到野外事件出现才治理，应提前监控异常模型载荷、设备间持续流量、扫描与外连模式，并把隔离、清理和供应链默认安全纳入 Agent 基础设施。",
+      "kind": "url",
+      "category": "安全与治理",
+      "tags": [
+        "AI自复制",
+        "AI蠕虫",
+        "IoT",
+        "网络安全",
+        "边缘计算",
+        "Agent评测",
+        "开源权重",
+        "纵深防御"
+      ],
+      "source": "Anthropic Frontier Red Team",
+      "authority": "前沿模型开发者受控安全评测",
+      "methodology": "使用 Memento 长时程 Agent harness 测试多种 30B 参数以下开放权重模型在 9 类异构硬件上的推理部署；另在防火墙隔离的 8 节点 Android 15 模拟网络中运行 5 次端到端传播试验，并在 15 台实体安卓电视盒上验证分布式推理吞吐。",
+      "scopeNote": "这不是现实世界入侵事件。端到端实验故意弱化网络利用难度，使用无认证 ADB，Agent 模型由外部服务器提供推理，目标节点部署的是统一的 Llama3.1-8B；传播时间、IoT 总算力与 2026 年底能力预测均依赖特定硬件、harness 和代理指标，不能当作确定时间表或现实成功率。",
+      "publishedAt": "2026-10-12T00:00:00Z",
+      "ingestedAt": "2026-10-14T08:20:00+08:00",
+      "createdAt": "2026-10-12T00:00:00Z",
+      "updatedAt": "2026-10-14T08:20:00+08:00",
+      "featured": true,
+      "featuredRank": -1,
+      "archived": false,
+      "relatedReportIds": [
+        "authority-anthropic-unintended-actions-2026",
+        "authority-international-ai-safety-2026"
       ],
       "studioId": "",
       "origin": "authority",
@@ -2137,6 +2215,235 @@
       "order": 4,
       "relatedCardIds": [
         "authority-card-state-ai-04"
+      ],
+      "origin": "authority"
+    },
+    {
+      "id": "authority-card-stanford-collab-01",
+      "reportId": "authority-stanford-human-ai-collaboration-2026",
+      "type": "metric",
+      "label": "任务关键性",
+      "title": "56% 的可评估对话已触及有实质后果或高风险任务",
+      "summary": "任务分布为短暂 20%、运营 24%、有实质后果 44%、高风险 12%；34% 的对话没有可执行任务，因此 56% 口径只针对可评估任务层级。",
+      "metric": "56%",
+      "quote": "56% reach the consequential tier or higher",
+      "translation": "56% 达到有实质后果或更高层级。",
+      "anchor": "Paper p.2 Summary; p.5 §3.1 Task Criticality",
+      "tags": [
+        "高风险任务",
+        "真实使用",
+        "任务关键性"
+      ],
+      "createdAt": "2026-10-12T00:00:00Z",
+      "order": 0,
+      "relatedCardIds": [
+        "authority-card-stanford-collab-05"
+      ],
+      "origin": "authority"
+    },
+    {
+      "id": "authority-card-stanford-collab-02",
+      "reportId": "authority-stanford-human-ai-collaboration-2026",
+      "type": "insight",
+      "label": "协作方式",
+      "title": "72% 的对话仍由人主导",
+      "summary": "大样本里“人主导、AI 辅助”占多数，说明真实使用不是单向交付；但人类能动性会随提示、迭代和输出处理方式变化。",
+      "metric": "72%",
+      "quote": "72% of conversations",
+      "translation": "占全部对话的 72%。",
+      "anchor": "Paper p.2 Main findings; §4 Human agency",
+      "tags": [
+        "人类能动性",
+        "人机协作",
+        "责任"
+      ],
+      "createdAt": "2026-10-12T00:00:00Z",
+      "order": 1,
+      "relatedCardIds": [
+        "authority-card-stanford-collab-03"
+      ],
+      "origin": "authority"
+    },
+    {
+      "id": "authority-card-stanford-collab-03",
+      "reportId": "authority-stanford-human-ai-collaboration-2026",
+      "type": "opportunity",
+      "label": "学习信号",
+      "title": "三分之二的协作里，AI 在主动教学",
+      "summary": "67% 的可评估对话出现 AI 教学，但论文同时强调：是否形成真正理解，取决于用户是否追问、改写、批判和验证。",
+      "metric": "67%",
+      "quote": "67% of assessed conversations",
+      "translation": "67% 的可评估对话。",
+      "anchor": "Paper p.1 Abstract; p.2 Main findings; §4.2 Teaching",
+      "tags": [
+        "AI教学",
+        "学习",
+        "技能提升"
+      ],
+      "createdAt": "2026-10-12T00:00:00Z",
+      "order": 2,
+      "relatedCardIds": [
+        "authority-card-stanford-collab-02"
+      ],
+      "origin": "authority"
+    },
+    {
+      "id": "authority-card-stanford-collab-04",
+      "reportId": "authority-stanford-human-ai-collaboration-2026",
+      "type": "risk",
+      "label": "摩擦信号",
+      "title": "49.7% 的对话有摩擦，78.7% 会尝试修复",
+      "summary": "摩擦不等于失败：高风险、非例行任务中的摩擦更可能带来澄清、细化或学习；但修复策略的效果差异很大。",
+      "metric": "49.7% / 78.7%",
+      "quote": "49.7% contain some form of friction",
+      "translation": "49.7% 含某种形式的摩擦。",
+      "anchor": "Paper p.2 Main findings; pp.12–15 §5 Friction",
+      "tags": [
+        "摩擦",
+        "错误恢复",
+        "高风险任务"
+      ],
+      "createdAt": "2026-10-12T00:00:00Z",
+      "order": 3,
+      "relatedCardIds": [],
+      "origin": "authority"
+    },
+    {
+      "id": "authority-card-stanford-collab-05",
+      "reportId": "authority-stanford-human-ai-collaboration-2026",
+      "type": "action",
+      "label": "工作流设计",
+      "title": "任务越高风险，越要把核查和拆解写进流程",
+      "summary": "从短暂任务到高风险任务，对话长度由 6.5 轮升至 12.4 轮，直接照搬从 21% 降至 13%；但任务拆解没有持续增强，组织应把分步、证据复核和最终责任设为默认。",
+      "metric": "6.5→12.4 轮",
+      "quote": "6.5 to 12.4 turns",
+      "translation": "从 6.5 轮增加到 12.4 轮。",
+      "anchor": "Paper p.5 §3.2 Task Granularity; p.7 §3.3 Engagement",
+      "tags": [
+        "工作流设计",
+        "核查",
+        "任务拆解"
+      ],
+      "createdAt": "2026-10-12T00:00:00Z",
+      "order": 4,
+      "relatedCardIds": [
+        "authority-card-stanford-collab-01"
+      ],
+      "origin": "authority"
+    },
+    {
+      "id": "authority-card-anthropic-replication-01",
+      "reportId": "authority-anthropic-self-replicating-ai-2026",
+      "type": "risk",
+      "label": "能力信号",
+      "title": "9B 模型已能在 9 类硬件中的 8 类部署推理",
+      "summary": "Qwen3.5-9B 等小模型可在 Jetson Nano、Mac、RTX 4090 等异构环境中选择推理栈、安装依赖并排障；硬件被用于测试适配能力，不代表这些芯片本身存在漏洞。",
+      "metric": "8 / 9",
+      "quote": "8 of 9 hardware types",
+      "translation": "9 类硬件中的 8 类。",
+      "anchor": "Introduction; §A Inference setup",
+      "tags": [
+        "小模型",
+        "异构硬件",
+        "推理部署"
+      ],
+      "createdAt": "2026-10-12T00:00:00Z",
+      "order": 0,
+      "relatedCardIds": [
+        "authority-card-anthropic-replication-05"
+      ],
+      "origin": "authority"
+    },
+    {
+      "id": "authority-card-anthropic-replication-02",
+      "reportId": "authority-anthropic-self-replicating-ai-2026",
+      "type": "metric",
+      "label": "边缘算力",
+      "title": "15 台低价电视盒已经能跑 26B 模型",
+      "summary": "Gemma4-26B-A4B 被切分到 15 台约 55 美元、4GB 内存的安卓电视盒上，以 0.39 token/秒运行，证明弱设备集群可以承载有能力的模型，但速度很慢。",
+      "metric": "15 台 / 0.39 tok/s",
+      "quote": "0.39 tokens/s",
+      "translation": "每秒 0.39 个 token。",
+      "anchor": "Introduction · Smart TV demo; §A How does a model run on Smart TVs?",
+      "tags": [
+        "IoT",
+        "边缘算力",
+        "分布式推理"
+      ],
+      "createdAt": "2026-10-12T00:00:00Z",
+      "order": 1,
+      "relatedCardIds": [
+        "authority-card-anthropic-replication-04"
+      ],
+      "origin": "authority"
+    },
+    {
+      "id": "authority-card-anthropic-replication-03",
+      "reportId": "authority-anthropic-self-replicating-ai-2026",
+      "type": "risk",
+      "label": "端到端评测",
+      "title": "GLM-5.2 在隔离网络中几乎完成全节点传播",
+      "summary": "5 次 8 节点试验里，GLM-5.2 四次到达 8/8、一次到达 7/8；但入侵环节使用无认证 ADB，GLM 本身在外部服务器运行，节点部署的是 Llama3.1-8B。",
+      "metric": "4 / 5 次全覆盖",
+      "quote": "8/8 nodes in 4 of 5 trials",
+      "translation": "5 次试验中 4 次覆盖 8/8 节点。",
+      "anchor": "§B Going viral · End-to-end replication",
+      "tags": [
+        "AI蠕虫",
+        "受控评测",
+        "端到端复制"
+      ],
+      "createdAt": "2026-10-12T00:00:00Z",
+      "order": 2,
+      "relatedCardIds": [
+        "authority-card-anthropic-replication-05"
+      ],
+      "origin": "authority"
+    },
+    {
+      "id": "authority-card-anthropic-replication-04",
+      "reportId": "authority-anthropic-self-replicating-ai-2026",
+      "type": "insight",
+      "label": "传播速度",
+      "title": "首代弱设备复制更像“数字黏菌”，而不是闪电攻击",
+      "summary": "按 Qwen3.5-9B 在实体电视盒上的推理速度与轨迹长度估算，单次完整推理部署约需 28–51 小时；隐蔽、慢速、持续是近期更现实的形态。",
+      "metric": "28–51 小时",
+      "quote": "28–51h",
+      "translation": "28 至 51 小时。",
+      "anchor": "§C How fast might an AI IoT worm replicate?",
+      "tags": [
+        "传播速度",
+        "持续性",
+        "边缘设备"
+      ],
+      "createdAt": "2026-10-12T00:00:00Z",
+      "order": 3,
+      "relatedCardIds": [
+        "authority-card-anthropic-replication-02"
+      ],
+      "origin": "authority"
+    },
+    {
+      "id": "authority-card-anthropic-replication-05",
+      "reportId": "authority-anthropic-self-replicating-ai-2026",
+      "type": "action",
+      "label": "边界与行动",
+      "title": "当前能力下限与设备尺寸上限仍未相交",
+      "summary": "GLM-5.2 足够会编排，但太大；9B、26B 模型能在弱设备运行，却还不够可靠完成全链路。年末相交只是趋势外推，防守应现在就部署流量异常检测、隔离、清理和安全默认值。",
+      "metric": "尚未相交",
+      "quote": "floor and ceiling don’t intersect",
+      "translation": "能力下限和尺寸上限尚未相交。",
+      "anchor": "§B Capability floor vs size ceiling; §F Blue-team mitigations",
+      "tags": [
+        "能力边界",
+        "纵深防御",
+        "网络监控"
+      ],
+      "createdAt": "2026-10-12T00:00:00Z",
+      "order": 4,
+      "relatedCardIds": [
+        "authority-card-anthropic-replication-01",
+        "authority-card-anthropic-replication-03"
       ],
       "origin": "authority"
     },
