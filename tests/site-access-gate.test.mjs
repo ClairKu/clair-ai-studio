@@ -325,7 +325,7 @@ test("the four frequently opened reports stay compressed, decryptable, and withi
     assert.match(gunzipSync(Buffer.from(decrypted)).toString("utf8"), /<!doctype html>/i);
   }
   assert.ok(
-    existsSync(join(docsRoot, "reports", "qianwen-user-acquisition-dashboard", "data", "questions.enc.json")),
-    "Qianwen question corpus must remain an on-demand external encrypted resource",
+    existsSync(join(docsRoot, "reports", "qianwen-user-acquisition-dashboard", "data", "questions.json.gz")),
+    "Qianwen redacted question corpus must remain an on-demand compressed resource without a second password",
   );
 });

@@ -21,6 +21,8 @@ q6 = json.load(open(HERE / "q6.json"))   # 新用户提问洞察；与原始提�
 question_research = json.load(open(HERE / "question-research.json"))
 cutoff = q1["data_cutoff"]
 cutoff_day = cutoff[:10]
+app_usage = json.load(open(HERE / "app-usage.json"))
+assert app_usage["as_of"] == cutoff, "App 使用数据截止时点不一致"
 
 days = q1["days"]
 assert days[0]["date"] == "2026-08-03"
@@ -123,9 +125,12 @@ for co in COHORTS:
     dims = []
     for dim in PROFILE_DIMS:
         if dim == "app_usage_status":
-            dims.append({"id": dim, "definition_version": DEF_VERSION,
-                         "time_basis": "post_binding_window", "state": "unavailable",
-                         "reason_code": "not_refreshed_this_cycle"})
+            usage = app_usage["cohorts"][co]
+            assert usage["population_accounts"] == POP[co], "App 使用人数与绑定人数不一致"
+            dims.append({"id": dim, "definition_version": "native-app-evidence-v1",
+                         "time_basis": "snapshot_as_of", "data_as_of": cutoff, "state": "confirmed",
+                         "buckets": [{"id": "app_used", "accounts": usage["users"]},
+                                     {"id": "app_no_record", "accounts": POP[co] - usage["users"]}]})
         elif dim == "residence_province":
             dims.append(province_item(src[dim], POP[co]))
         else:
@@ -187,9 +192,10 @@ for co in COHORTS:
 
 out = dict(template)
 out["schema_version"] = "qianwen-user-acquisition-v8"
+out["app_usage"] = app_usage
 out["meta"] = {**template["meta"], "generated_at": cutoff, "data_cutoff": cutoff,
                "latest_day_is_partial": True,
-               "privacy": "公开总体统计与至少 10 位用户重复的高频问法；完整原始提问去标识、脱敏并单独加密，不含用户或会话标识",
+               "privacy": "公开总体统计与去标识、脱敏的提问，不含用户或会话标识",
                "privacy_policy": "audience-full-disclosure-v2"}
 out["privacy"] = {**template["privacy"], "minimum_public_cell": 1, "small_cell_rule": "full_disclosure"}
 out["metrics"] = metrics
@@ -259,7 +265,7 @@ if question_research["summary"]["preset_questions"] + question_research["summary
     raise SystemExit("默认题与用户自发提问无法闭合")
 q6["methodology"]["taxonomy"] = "rule-based-multiaxis-v2"
 q6["methodology"]["preset_evidence"] = "exact-text plus launch-cluster inference; exposure log unavailable"
-q6["methodology"]["raw_corpus"] = "deidentified_redacted_encrypted_v2"
+q6["methodology"]["raw_corpus"] = "deidentified_redacted_direct_v2"
 q6["research"] = question_research
 q6["top_questions"] = question_research["top_self_authored"]
 out["question_insights"] = q6

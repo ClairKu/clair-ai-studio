@@ -42,6 +42,8 @@ INFLOW_PER_USER="(SELECT t.user_id, SUM($INFLOW_CASE) AS inflow FROM qm_meta.tra
          WHERE client_id='doubao' GROUP BY user_id HAVING SUM(revoked_at IS NULL)>0) bb ON bb.pmid=t.user_id
    WHERE t.canceled=0 AND t.accept_time>=bb.fb AND t.accept_time<'$CUT' GROUP BY t.user_id)"
 pids=()
+python3 "$HERE/../refresh-app-usage.py" doubao "$CUT" "$W/app-usage.json" &
+pids+=($!)
 ASSET_AD="(SELECT account3_id, SUM(total_asset) ta FROM ying99_asset.dwd_app_service_account_profit_combine
    USE INDEX(idx_cal_date_saId) WHERE cal_date='$AD' AND relation_account_type='ROOT' GROUP BY account3_id)"
 

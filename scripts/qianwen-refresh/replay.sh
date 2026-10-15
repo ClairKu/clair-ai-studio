@@ -39,7 +39,9 @@ CUT=$(python3 -c "import json;print(json.load(open('$DASH/data/latest.json'))['m
 # 只提交自己的 4 个文件；npm run build 顺带改动的 vite 哈希/search-index/他人页面不要带上
 git add "$DASH/data/latest.json" "$DASH/data/fallback-data.js" \
         "$DASH/data/questions.enc.json" \
-        docs/reports/qianwen-user-acquisition-dashboard/index.html
+        "$DASH/data/questions.json.gz" \
+        docs/reports/qianwen-user-acquisition-dashboard/index.html \
+        docs/reports/qianwen-user-acquisition-dashboard/data
 git commit -m "feat(qianwen): 刷新看板数据至 ${CUT}"
 git status --short | head
 echo "worktree ready: $WT — 推送: QW_WT=$WT python3 $REPO/scripts/qianwen-refresh/api-push.py"

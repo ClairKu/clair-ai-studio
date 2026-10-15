@@ -1,12 +1,14 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { validateAppUsage } from "./validate-app-usage.mjs";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
 const reportRoot = join(root, "public", "reports", "doubao-user-acquisition-dashboard");
 const dataPath = join(reportRoot, "data", "latest.json");
 const fallbackPath = join(reportRoot, "data", "fallback-data.js");
 const data = JSON.parse(readFileSync(dataPath, "utf8"));
+validateAppUsage(data);
 const html = readFileSync(join(reportRoot, "index.html"), "utf8");
 const app = readFileSync(join(reportRoot, "app.js"), "utf8");
 const styles = readFileSync(join(reportRoot, "styles.css"), "utf8");
@@ -470,7 +472,10 @@ function assertNoForbiddenKeys(value, path = "data") {
     // 经营段与分客群面板的聚合金额是公开口径的一部分，其余位置一律禁止金额字段。
     const allowedAggregateAmount = aggregateAmountKeys.has(key)
       && (path.startsWith("data.business.") || path.startsWith("data.segments."));
-    if (!allowedAggregateAmount && (forbiddenPublicKey.test(key) || forbiddenChineseKey.test(key))) {
+    // Only the validated platform enum and aggregate user counts are permitted, never device identifiers.
+    const allowedAppAggregate = (path === "data.app_usage" && key === "device_platforms")
+      || (/^data\.app_usage\.cohorts\.(all|new|existing|unclassified)$/.test(path) && key === "device_users" && isCount(nested));
+    if (!allowedAggregateAmount && !allowedAppAggregate && (forbiddenPublicKey.test(key) || forbiddenChineseKey.test(key))) {
       fail(`${path}.${key} 是禁止公开的明细字段`);
     }
     assertNoForbiddenKeys(nested, `${path}.${key}`);
@@ -564,7 +569,7 @@ const segmentIds = ["all", "new_inv", "first_inv", "reinvested", "new", "new_fir
 
 if (!app.includes('label: "入金用户"') || !html.includes('<span>入金用户</span>')
     || app.includes('label: "再投"') || html.includes('<span>再投</span>')) fail("全部入金用户仍被误称为再投");
-if (!app.includes("人生首笔新增入金发生在绑定后，含钱包充值或银行卡直付产品")
+if (!app.includes("人生首笔新增入金发生在绑定后")
     || app.includes("已有入金记录的不计入可统计范围")
     || /(?:第一笔|首笔|首次)(?:非钱包|产品)(?:类)?(?:买入|交易)/.test(app + html)) fail("首投仍使用产品买入口径");
 {
@@ -646,7 +651,10 @@ for (const signal of [
 ]) {
   if (!html.includes(signal)) fail(`交互控件缺少 ${signal}`);
 }
-if ((html.match(/<article class="kpi-card/g) || []).length !== 9) fail("关键数据卡必须为三张规模卡 + 六张分客群指标卡");
+if ((html.match(/<article class="kpi-card/g) || []).length !== 10) fail("关键数据卡必须为四张总览卡 + 六张分客群指标卡");
+for (const id of ["app-users", "app-share", "app-breakdown"]) {
+  if (!html.includes(`id="${id}"`)) fail(`缺少 App 使用卡片 ${id}`);
+}
 if ((html.match(/name="segment"/g) || []).length !== 9) fail("分客群面板必须有九个维度开关");
 if ((html.match(/name="series"/g) || []).length !== 4) fail("走势图必须有四个独立数据开关");
 for (const key of ["bound", "new", "existing", "daily"]) {

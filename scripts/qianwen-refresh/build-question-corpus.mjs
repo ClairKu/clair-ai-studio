@@ -179,12 +179,15 @@ async function executeSql(query) {
 }
 
 const sourceRows = await executeSql(sql);
-const marketRows = (await executeSql(`SELECT DATE_FORMAT(record_date, '%Y-%m-%d') AS date,
+const marketHistory = (await executeSql(`SELECT DATE_FORMAT(record_date, '%Y-%m-%d') AS date,
   CAST(price_close AS DOUBLE) AS close, CAST(return_day AS DOUBLE) AS return_day
 FROM ying99_fdp.dwd_index_price_daily
 WHERE index_code='000300' AND is_real=1
-  AND record_date>='2026-09-01' AND record_date<DATE('${cutoff}')
+  AND record_date>='2026-08-07' AND record_date<DATE('${cutoff}')
 ORDER BY record_date`)).map((row) => ({ date: String(row.date), close: Number(row.close), return_day: Number(row.return_day) }));
+const marketRows = marketHistory.filter(row => row.date >= "2026-08-10");
+const marketBaseline = marketHistory.filter(row => row.date < "2026-08-10").at(-1);
+if (!marketBaseline || marketRows[0]?.date !== "2026-08-10") throw new Error("缺少千问上线以来行情");
 
 function redact(input) {
   let value = compact(input);
@@ -800,6 +803,8 @@ const research = {
     index_name: "沪深300",
     source: "盈米指数行情日线",
     completed_trading_days_only: true,
+    period_start: "2026-08-10",
+    baseline: marketBaseline,
     daily: marketRows,
   },
   journey,

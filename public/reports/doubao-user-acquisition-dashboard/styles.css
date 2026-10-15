@@ -123,11 +123,15 @@ input:focus-visible,
   margin: 34px 0 0;
   padding: 0;
   display: grid;
-  grid-template-columns: 1.18fr 1fr 0.9fr;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   border: 0;
   gap: 14px;
 }
 .kpi-grid-conversion { grid-template-columns: repeat(3, 1fr); margin-top: 14px; }
+.kpi-app { background: linear-gradient(135deg, #eef4ff, #fff); }
+.hero > .kpi-grid:not(.kpi-grid-conversion) .kpi-card { padding: 26px 24px; }
+.hero > .kpi-grid:not(.kpi-grid-conversion) .kpi-card strong { font-size: clamp(32px, 4vw, 60px); }
+.hero > .kpi-grid:not(.kpi-grid-conversion) .kpi-card > div { flex-wrap: wrap; }
 .kpi-grid-conversion .kpi-card { min-height: 148px; }
 .kpi-grid-conversion .kpi-card strong { font-size: clamp(25px, 2.5vw, 35px); }
 .kpi-grid-conversion .kpi-card em { font-size: 15px; }
@@ -488,7 +492,7 @@ tbody tr:hover td:first-child, tbody tr.is-selected td:first-child { background:
   :root { --shell: min(100% - 38px, 760px); }
   .hero { padding-top: 66px; }
   .kpi-grid { grid-template-columns: 1fr 1fr; }
-  .kpi-bound { grid-column: 1 / -1; }
+  .kpi-bound { grid-column: auto; }
   .analysis-head { align-items: start; display: grid; }
   .analysis-controls { justify-content: start; }
   .analysis-canvas { padding: 28px 24px 24px; }

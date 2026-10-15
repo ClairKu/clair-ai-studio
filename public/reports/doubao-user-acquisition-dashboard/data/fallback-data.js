@@ -908,10 +908,20 @@ window.DOUBAO_ACQUISITION_DATA = {
           },
           {
             "id": "app_usage_status",
-            "definition_version": "2026-08-20-v2",
-            "time_basis": "post_binding_window",
-            "state": "unavailable",
-            "reason_code": "not_refreshed_this_cycle"
+            "definition_version": "native-app-evidence-v1",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-10-15T09:58:45+08:00",
+            "state": "confirmed",
+            "buckets": [
+              {
+                "id": "app_used",
+                "accounts": 469
+              },
+              {
+                "id": "app_no_record",
+                "accounts": 2638
+              }
+            ]
           },
           {
             "id": "wechat_mp_status",
@@ -1164,10 +1174,20 @@ window.DOUBAO_ACQUISITION_DATA = {
           },
           {
             "id": "app_usage_status",
-            "definition_version": "2026-08-20-v2",
-            "time_basis": "post_binding_window",
-            "state": "unavailable",
-            "reason_code": "not_refreshed_this_cycle"
+            "definition_version": "native-app-evidence-v1",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-10-15T09:58:45+08:00",
+            "state": "confirmed",
+            "buckets": [
+              {
+                "id": "app_used",
+                "accounts": 15
+              },
+              {
+                "id": "app_no_record",
+                "accounts": 2338
+              }
+            ]
           },
           {
             "id": "wechat_mp_status",
@@ -1505,10 +1525,20 @@ window.DOUBAO_ACQUISITION_DATA = {
           },
           {
             "id": "app_usage_status",
-            "definition_version": "2026-08-20-v2",
-            "time_basis": "post_binding_window",
-            "state": "unavailable",
-            "reason_code": "not_refreshed_this_cycle"
+            "definition_version": "native-app-evidence-v1",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-10-15T09:58:45+08:00",
+            "state": "confirmed",
+            "buckets": [
+              {
+                "id": "app_used",
+                "accounts": 454
+              },
+              {
+                "id": "app_no_record",
+                "accounts": 300
+              }
+            ]
           },
           {
             "id": "wechat_mp_status",
@@ -2480,5 +2510,47 @@ window.DOUBAO_ACQUISITION_DATA = {
         "per_capita_asset_wan": 0.05
       }
     ]
+  },
+  "app_usage": {
+    "as_of": "2026-10-15T09:58:45+08:00",
+    "state": "confirmed",
+    "definition": "native_app_events_or_registered_native_device",
+    "native_libs": [
+      "iOS",
+      "Android",
+      "HarmonyOS"
+    ],
+    "device_platforms": [
+      3,
+      4,
+      5
+    ],
+    "events_observed_from": "2026-07-27",
+    "cohorts": {
+      "new": {
+        "population_accounts": 2353,
+        "users": 15,
+        "device_users": 11,
+        "native_users": 15,
+        "both_users": 11,
+        "after_binding_users": 15
+      },
+      "existing": {
+        "population_accounts": 754,
+        "users": 454,
+        "device_users": 411,
+        "native_users": 260,
+        "both_users": 217,
+        "after_binding_users": 194
+      },
+      "all": {
+        "population_accounts": 3107,
+        "users": 469,
+        "device_users": 422,
+        "native_users": 275,
+        "both_users": 228,
+        "after_binding_users": 209
+      }
+    }
   }
 };

@@ -20,6 +20,8 @@ q5 = json.load(open(HERE / "q5.json"))   # 分客群面板；缺了宁可失败�
 q6 = json.load(open(HERE / "q6.json"))   # 豆包 OAuth 使用节奏代理；不是提问内容
 cutoff = q1["data_cutoff"]
 cutoff_day = cutoff[:10]
+app_usage = json.load(open(HERE / "app-usage.json"))
+assert app_usage["as_of"] == cutoff, "App 使用数据截止时点不一致"
 
 days = q1["days"]
 assert days[0]["date"] == "2026-08-28"
@@ -122,9 +124,12 @@ for co in COHORTS:
     dims = []
     for dim in PROFILE_DIMS:
         if dim == "app_usage_status":
-            dims.append({"id": dim, "definition_version": DEF_VERSION,
-                         "time_basis": "post_binding_window", "state": "unavailable",
-                         "reason_code": "not_refreshed_this_cycle"})
+            usage = app_usage["cohorts"][co]
+            assert usage["population_accounts"] == POP[co], "App 使用人数与绑定人数不一致"
+            dims.append({"id": dim, "definition_version": "native-app-evidence-v1",
+                         "time_basis": "snapshot_as_of", "data_as_of": cutoff, "state": "confirmed",
+                         "buckets": [{"id": "app_used", "accounts": usage["users"]},
+                                     {"id": "app_no_record", "accounts": POP[co] - usage["users"]}]})
         elif dim == "residence_province":
             dims.append(province_item(src[dim], POP[co]))
         else:
@@ -185,6 +190,7 @@ for co in COHORTS:
     business_cohorts[co] = {"population_accounts": POP[co], "stats": stats}
 
 out = dict(template)
+out["app_usage"] = app_usage
 out["meta"] = {**template["meta"], "generated_at": cutoff, "data_cutoff": cutoff,
                "latest_day_is_partial": True,
                "privacy": "只公开统计结果；2026-08-24 起按业务方要求，小分组不再合并或隐藏；页面不含用户身份标识与原始对话",

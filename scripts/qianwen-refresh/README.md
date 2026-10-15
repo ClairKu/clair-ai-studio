@@ -1,5 +1,13 @@
 # 千问看板数据刷新（qianwen-user-acquisition-dashboard）
 
+## 页面体验与 App 使用统计（2026-10-15）
+
+- 原话模块恢复直接浏览，无第二次密码验证；作者源快照仍使用 `questions.enc.json`，构建时校验去标识字段、脱敏和快照一致性，生成按需加载的 `questions.json.gz`。原有整页访问门不变。
+- 市场行情从正式上线日 2026-08-10 起展示，以前一交易日收盘为累计涨跌基准。提问明细早于可观测窗口的日期为缺失，不填零；相关性只取重合的完整交易日。
+- `run-ext-sql.sh` 同时调用 `scripts/refresh-app-usage.py`，产出 `app-usage.json`；组装时必须与全页截止时点、绑定用户数一致。
+- App 使用人数是原生 App 埋点（iOS / Android / HarmonyOS）与设备注册（platform 3 / 4 / 5）的去重并集；不是应用商店下载次数，也不将小程序或 H5 计入。设备记录仅取截止前创建，原生埋点观测自 2026-07-27 起。
+- 页面仅显示必要的人数、比例与分组。入金计算定义保留在脚本中，删去页面上反复出现的长篇口径说明。
+
 ## 统一入金与首投口径
 
 所有投资人数（含首投、新户首投、老户首投、复投、历史投过、生命周期）均按同一合格新增入金事件计算：
@@ -88,7 +96,7 @@ QW_WT=$WORK/wt python3 scripts/qianwen-refresh/api-push.py
 ## 发布注意
 
 - docs/ 下是加密单页，**永远不要手工往 docs/ 拷明文数据**；npm run build（encrypt → inject 顺序）自动重生成。
-- 完整原始提问不进入公开 JSON，只提交去标识、脱敏后的 AES-GCM 密文 `questions.enc.json`；密钥与报告密码一致。密文逐条保留多轴分类，但不含真实用户、会话标识或精确时间。
+- 原始提问的作者快照以 `questions.enc.json` 保存；经用户授权，去标识、脱敏后的阅读副本以 `questions.json.gz` 发布，逐条保留多轴分类，不含真实用户、会话标识或精确时间。
 - build 会顺带改动 vite 哈希、search-index、他人报告页——commit 只带自己 3 个文件（replay.sh 已处理）。
 - api-push.py 有远端 HEAD 前进保护：报「远端 HEAD 已变」就重跑 replay.sh（本仓库并行会话极活跃）。
 - 发布后浏览器/GitHub Pages 有缓存，验证要带 `?v=xxx` 强刷，别误判成没发上去。

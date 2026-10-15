@@ -11,6 +11,7 @@ import { createHash, randomBytes, webcrypto } from "node:crypto";
 import { mkdir, readFile, writeFile, rm } from "node:fs/promises";
 import { join } from "node:path";
 import { gunzipSync, gzipSync } from "node:zlib";
+import { buildReadableQuestionCorpus } from "./build-readable-question-corpus.mjs";
 
 const SLUG = "qianwen-user-acquisition-dashboard";
 const SRC = join("public", "reports", SLUG);
@@ -250,8 +251,7 @@ await Promise.all([
   rm(join(OUT, "styles.css"), { force: true }),
   rm(join(OUT, "data"), { recursive: true, force: true }),
 ]);
-// 原始提问库本身已经是 AES-GCM + gzip 密文。保留为按需资源，避免把 7MB
-// 随机密文再次塞进首屏密文；只有用户打开「原始提问」时才下载。
-await mkdir(join(OUT, "data"), { recursive: true });
-await writeFile(join(OUT, "data", "questions.enc.json"), questionEnvelopeRaw, "utf8");
+// 提问模块恢复直接浏览，仅按需加载压缩后的去标识提问，不再二次解密。
+await buildReadableQuestionCorpus(join(SRC, "data"), join(OUT, "data"));
+await buildReadableQuestionCorpus(join(SRC, "data"), join(SRC, "data"));
 console.log(`千问看板已加密：${OUT}/index.html（${(shell.length/1024).toFixed(0)} KB），docs 下明文已清除。`);

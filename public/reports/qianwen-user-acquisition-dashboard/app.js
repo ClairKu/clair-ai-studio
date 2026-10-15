@@ -51,7 +51,7 @@ const PROFILE_DIMENSIONS = {
   },
   holding_lifecycle_status: {
     label: "资金留存状态",
-    description: "终身视角：从未完成新增入金为无首投；曾入金但当前顶层账户已无资产为已流失；当前有资产在管（含当日入金尚未进快照）为在管。新增入金含钱包充值和银行卡直付产品",
+    description: "终身视角：从未完成新增入金为无首投；曾入金但当前顶层账户已无资产为已流失；当前有资产在管（含当日入金尚未进快照）为在管",
     panel: "asset",
   },
   asset_at_bind_status: {
@@ -61,7 +61,7 @@ const PROFILE_DIMENSIONS = {
   },
   lifetime_investment_status: {
     label: "历史投资情况",
-    description: "看是否曾在且慢完成新增入金，钱包充值和银行卡直付产品均计入",
+    description: "看是否曾在且慢完成新增入金",
     panel: "asset",
   },
   age_bucket: {
@@ -81,7 +81,7 @@ const PROFILE_DIMENSIONS = {
   },
   app_usage_status: {
     label: "且慢APP使用情况",
-    description: "看是否有来自且慢APP端的登录或活跃行为",
+    description: "查看且慢 App 使用记录",
     panel: "touchpoint",
   },
   wechat_mp_status: {
@@ -109,15 +109,15 @@ const PROFILE_PANELS = {
 const BEHAVIOR_METRICS = {
   funded_after_binding: {
     label: "绑定后完成入金",
-    description: "绑定后完成钱包充值或银行卡直付产品，宝内原余额买产品不计新增入金",
+    description: "绑定后完成新增入金",
   },
   first_investment_after_binding: {
     label: "绑定后首投",
-    description: "人生首笔新增入金发生在绑定后，含钱包充值或银行卡直付产品",
+    description: "人生首笔新增入金发生在绑定后",
   },
   investment_activity_after_binding: {
     label: "绑定后新增入金",
-    description: "绑定后新增入金（钱包充值或银行卡直付产品）；宝内原余额买产品不计",
+    description: "绑定后新增入金",
   },
   redemption_after_binding: {
     label: "绑定后资金转出或赎回",
@@ -137,11 +137,11 @@ const BEHAVIOR_METRICS = {
   },
   first_funding_after_binding: {
     label: "绑定后首次入金",
-    description: "人生首笔新增入金发生在绑定后，含钱包充值或银行卡直付产品；以全部绑定用户为统计基数",
+    description: "人生首笔新增入金发生在绑定后",
   },
   repeat_investment_after_binding: {
     label: "绑定后复投",
-    description: "绑定后新增入金达到两笔及以上，含钱包充值或银行卡直付产品；宝内原余额买产品不计",
+    description: "绑定后新增入金达到两笔及以上",
   },
 };
 const REQUIRED_BEHAVIOR_METRICS = ["first_investment_after_binding", "investment_activity_after_binding"];
@@ -154,18 +154,18 @@ const BUSINESS_STATS = {
   },
   inflow_amount: {
     label: "绑定后新增入金",
-    description: "绑定后新增入金金额（钱包充值或银行卡直付产品）；宝内原余额买产品不计",
+    description: "绑定后新增入金金额",
     tone: "flow",
   },
   inflow_transactions: {
     label: "交易入金笔数",
-    description: "绑定后新增入金笔数（钱包充值或银行卡直付产品）；宝内原余额买产品不计",
+    description: "绑定后新增入金笔数",
     tone: "flow",
     unit: "count",
   },
   buy_amount: {
     label: "绑定后产品买入",
-    description: "绑定后确认成功的产品买入金额，作为独立产品交易指标；含银行卡直付产品和宝内余额买产品，不等同新增入金",
+    description: "绑定后产品买入金额",
     tone: "flow",
     hidden: true,
   },
@@ -183,14 +183,14 @@ const BUSINESS_STATS = {
 };
 const SEGMENTS = [
   { id: "all", label: "全部", note: "全部绑定用户" },
-  { id: "new_inv", label: "新投", note: "绑定时无资产，绑定后完成新增入金（钱包充值或银行卡直付产品）；宝内原余额买产品不计", legacy: null },
-  { id: "first_inv", label: "首投", note: "人生首笔新增入金发生在绑定后，含钱包充值或银行卡直付产品" },
-  { id: "reinvested", label: "入金用户", note: "绑定后完成新增入金（钱包充值或银行卡直付产品）；宝内原余额买产品不计", legacy: "invested" },
+  { id: "new_inv", label: "新投", note: "绑定时无资产，绑定后完成新增入金", legacy: null },
+  { id: "first_inv", label: "首投", note: "人生首笔新增入金发生在绑定后" },
+  { id: "reinvested", label: "入金用户", note: "绑定后完成新增入金", legacy: "invested" },
   { id: "new", label: "新户", note: "在千问注册且慢帐号" },
-  { id: "new_first_inv", label: "新户首投", note: "新户中完成人生首笔新增入金，含仅充值钱包的用户" },
+  { id: "new_first_inv", label: "新户首投", note: "新户中完成人生首笔新增入金" },
   { id: "existing", label: "老用户", note: "绑定时已有且慢账户" },
-  { id: "existing_reactivated", label: "老户唤回", note: "绑定时零资产（未投过或已清仓），绑定后完成新增入金（钱包充值或银行卡直付产品）；宝内原余额买产品不计" },
-  { id: "existing_first_inv", label: "老户首投", note: "老户中人生首笔新增入金发生在绑定后，含仅充值钱包的用户" },
+  { id: "existing_reactivated", label: "老户唤回", note: "绑定时零资产（未投过或已清仓），绑定后完成新增入金" },
+  { id: "existing_first_inv", label: "老户首投", note: "老户中人生首笔新增入金发生在绑定后" },
 ];
 const PUBLIC_STATES = new Set(["confirmed", "suppressed", "unavailable"]);
 const QUESTION_TOPICS = {
@@ -306,7 +306,7 @@ const QUESTION_DEPTH_LABELS = {
   "10_19": "问 10–19 次",
   "20_plus": "问 20 次以上",
 };
-const QUESTION_CORPUS_URL = "./data/questions.enc.json";
+const QUESTION_CORPUS_URL = "./data/questions.json.gz";
 const QUESTION_PAGE_SIZE = 30;
 
 const viewState = {
@@ -337,8 +337,8 @@ let currentRows = [];
 let resizeTimer = null;
 let questionCorpus = null;
 let questionRows = [];
-let questionUnlockAttempted = false;
-let questionAutoUnlockObserver = null;
+let questionCorpusLoading = false;
+let questionLoadObserver = null;
 let questionSearchTimer = null;
 
 function escapeHtml(value) {
@@ -524,7 +524,7 @@ function validateQuestionInsights(data) {
   if (!insight || insight.cohort !== "new" || insight.as_of !== data.meta.data_cutoff) throw new Error("新用户提问分析口径异常");
   if (insight.cohort_definition !== "registered_within_60m_of_first_binding") throw new Error("新用户提问人群定义异常");
   if (insight.methodology?.topic_model !== "keyword-primary-intent-v1" || insight.methodology?.taxonomy !== "rule-based-multiaxis-v2"
-      || insight.methodology?.raw_corpus !== "deidentified_redacted_encrypted_v2") {
+      || insight.methodology?.raw_corpus !== "deidentified_redacted_direct_v2") {
     throw new Error("新用户提问分析方法异常");
   }
   const summaryKeys = ["bound_users", "asking_users", "questions", "sessions", "legacy_preset_questions",
@@ -883,18 +883,18 @@ function renderSegmentPanel() {
     }
   } else if (viewState.segment === "reinvested") {
     popNote = item.first_investor_accounts
-      ? `绑定后完成新增入金（钱包充值或银行卡直付产品）；宝内原余额买产品不计 · 其中 ${people(item.first_investor_accounts)}为人生首投`
+      ? `其中 ${people(item.first_investor_accounts)}为人生首投`
       : meta.note;
   } else if (viewState.segment === "new_inv") {
-    popNote = `绑定时零资产，绑定后完成新增入金（钱包充值或银行卡直付产品）；宝内原余额买产品不计 · 新户 ${number.format(item.new_accounts)} · 老户 ${number.format(item.existing_accounts)}`;
+    popNote = `新户 ${number.format(item.new_accounts)} · 老户 ${number.format(item.existing_accounts)}`;
   } else if (viewState.segment === "first_inv") {
-    popNote = `人生首笔新增入金在绑定后（含钱包充值） · 新户 ${number.format(item.new_accounts)} · 老户 ${number.format(item.existing_accounts)}`;
+    popNote = `新户 ${number.format(item.new_accounts)} · 老户 ${number.format(item.existing_accounts)}`;
   } else if (viewState.segment === "new_first_inv") {
-    popNote = `新户中完成人生首笔新增入金（含仅充值钱包） · 占新户 ${formatShare(population, currentData.metrics?.new_accounts || 0)}`;
+    popNote = `占新户 ${formatShare(population, currentData.metrics?.new_accounts || 0)}`;
   } else if (viewState.segment === "existing_reactivated") {
     popNote = `首投 ${number.format(item.first_investor_accounts)} 人 · 清仓后唤回 ${number.format(population - item.first_investor_accounts)} 人`;
   } else if (viewState.segment === "existing_first_inv") {
-    popNote = `老户中完成人生首笔新增入金（含仅充值钱包） · 占老用户 ${formatShare(population, currentData.metrics?.existing_accounts || 0)}`;
+    popNote = `占老用户 ${formatShare(population, currentData.metrics?.existing_accounts || 0)}`;
   }
   set("#seg-pop-note", popNote);
 
@@ -945,6 +945,12 @@ function renderKpis(rows) {
   $("#existing-accounts").textContent = number.format(totals.existing);
   $("#new-share").textContent = formatShare(totals.new, totals.bound);
   $("#existing-share").textContent = formatShare(totals.existing, totals.bound);
+  const app = currentData.app_usage;
+  $("#app-users").textContent = app?.state === "confirmed" ? number.format(app.cohorts.all.users) : "—";
+  $("#app-share").textContent = app?.state === "confirmed" ? formatShare(app.cohorts.all.users, totals.bound) : "";
+  $("#app-breakdown").textContent = app?.state === "confirmed"
+    ? `有 App 使用记录 · 新客 ${number.format(app.cohorts.new.users)} · 老客 ${number.format(app.cohorts.existing.users)}`
+    : "使用记录待更新";
   const range = `${formatDay(allRows[0].date)}—${formatDay(allRows.at(-1).date)}`;
   $("#bound-context").textContent = `${range} ${formatClock(currentData.meta.data_cutoff)} · ${allRows.length} 天`;
   // 老用户卡小字同样固定为全窗口生命周期拆分。
@@ -1407,8 +1413,9 @@ function bucketLabel(bucket) {
     gt_60: "60 岁以上",
     male: "男",
     female: "女",
-    app_used: "已使用APP",
-    app_not_used: "未使用APP",
+    app_used: "有 App 使用记录",
+    app_not_used: "暂无 App 记录",
+    app_no_record: "暂无 App 记录",
     mp_bound: "已绑定公众号",
     mp_not_bound: "未绑定公众号",
     other: "其他",
@@ -1504,7 +1511,7 @@ function profileFinding(dimension) {
     asset_bucket: `${number.format(accounts("100k_1m") + accounts("gte_1m"))} 人资产超过 10 万元，其中 ${number.format(accounts("gte_1m"))} 人超过 100 万元`,
     asset_at_bind_status: `${number.format(accounts("zero_at_bind"))} 人绑定时零资产，${number.format(accounts("has_assets_at_bind"))} 人此前已有资产`,
     holding_lifecycle_status: `${number.format(accounts("under_management"))} 人仍在管，${number.format(accounts("churned"))} 人入金后已清零`,
-    lifetime_investment_status: `${number.format(accounts("invested"))} 人曾完成新增入金，${number.format(accounts("not_invested"))} 人尚未首投（钱包充值计入）`,
+    lifetime_investment_status: `${number.format(accounts("invested"))} 人曾完成新增入金，${number.format(accounts("not_invested"))} 人尚未首投`,
     age_bucket: `已识别用户以 36—45 岁（${number.format(accounts("36_45"))} 人）和 26—35 岁（${number.format(accounts("26_35"))} 人）为主`,
     gender: `已识别 ${number.format(knownAccounts)} 人：男性 ${number.format(accounts("male"))} 人，女性 ${number.format(accounts("female"))} 人`,
     residence_province: `仅 ${number.format(knownAccounts)} 人可识别地区，主要来自 ${knownBuckets.slice(0, 3).map((bucket) => bucketLabel(bucket)).join("、")}`,
@@ -1608,9 +1615,9 @@ function renderAudience({ announce = false } = {}) {
   const assetCount = asset?.buckets?.find((bucket) => bucket.id === "has_assets")?.accounts;
   const insight = [];
   if (holding) insight.push(`当前保有（含绑定前已有资产）${formatAmount(holding.amount_wan)}`);
-  if (inflow) insight.push(`绑定后新增入金 ${formatAmount(inflow.amount_wan)}（${number.format(inflow.accounts)} 人；钱包充值或银行卡直付产品，宝内原余额买产品不计）`);
+  if (inflow) insight.push(`绑定后新增入金 ${formatAmount(inflow.amount_wan)}（${number.format(inflow.accounts)} 人）`);
   if (isWholeCount(assetCount)) insight.push(`可识别有资产 ${number.format(assetCount)} 人（${formatShare(assetCount, population)}）`);
-  if (isWholeCount(activity?.reached_accounts)) insight.push(`绑定后新增入金 ${number.format(activity.reached_accounts)} 人（钱包充值或银行卡直付产品；宝内原余额买产品不计）`);
+  if (isWholeCount(activity?.reached_accounts)) insight.push(`绑定后新增入金 ${number.format(activity.reached_accounts)} 人`);
   $("#audience-summary-copy").textContent = available.length && insight.length ? `${insight.join("；")}。` : "数据源待确认";
   renderBusinessTiles(business, population);
   renderDistributionPanels(profile, population);
@@ -1803,15 +1810,32 @@ function correlationLabel(value) {
   return "很强";
 }
 
+function questionTimeRows(group, grain, launchDay, cutoffDay, observedFrom) {
+  const rows = [];
+  const step = grain === "daily" ? 1 : 7;
+  for (let day = launchDay; day <= cutoffDay;) {
+    const next = new Date(`${day}T00:00:00Z`);
+    next.setUTCDate(next.getUTCDate() + step);
+    const nextDay = next.toISOString().slice(0, 10);
+    const last = new Date(next);
+    last.setUTCDate(last.getUTCDate() - 1);
+    const end = [last.toISOString().slice(0, 10), cutoffDay].sort()[0];
+    const observed = group[grain].find(item => item.start <= end && item.end >= day);
+    rows.push({ ...(observed || { questions: end < observedFrom ? null : 0, users: end < observedFrom ? null : 0, directions: [] }), start: day, end, missing: end < observedFrom });
+    day = nextDay;
+  }
+  return rows;
+}
+
 function renderQuestionTime() {
   const group = selectedQuestionGroup();
   const grain = viewState.questionTimeGrain;
   const metric = viewState.questionCrossMetric;
-  const rows = group[grain];
+  const observedFrom = currentData.question_insights.research.journey.observed_from;
+  const rows = questionTimeRows(group, grain, LAUNCH_DAY, currentData.meta.data_cutoff.slice(0, 10), observedFrom);
   const unit = metric === "questions" ? "条" : "人";
   const max = Math.max(...rows.map((item) => item[metric]), 1);
   const peak = [...rows].sort((a, b) => b[metric] - a[metric])[0];
-  const latest = rows.at(-1);
   const periodLabel = (item) => grain === "daily" || item.start === item.end ? formatDay(item.start) : `${formatDay(item.start)}—${formatDay(item.end)}`;
   const market = currentData.question_insights.research.market_context;
   const dailyMap = new Map(group.daily.map((item) => [item.start, item]));
@@ -1831,16 +1855,16 @@ function renderQuestionTime() {
   const bigMarketShare = average(bigMove, "marketShare");
   const normalMarketShare = average(normalMove, "marketShare");
   const completedMarket = market?.daily || [];
-  const marketReturn = completedMarket.length > 1 ? completedMarket.at(-1).close / completedMarket[0].close - 1 : 0;
+  const marketReturn = completedMarket.length ? completedMarket.at(-1).close / market.baseline.close - 1 : 0;
   const signedCorrelation = correlation === null ? "—" : `${correlation >= 0 ? "+" : ""}${correlation.toFixed(2)}`;
   $("#question-time-title").textContent = correlation === null
     ? (peak ? `${periodLabel(peak)}达到峰值：${number.format(peak[metric])} ${unit}` : "当前条件没有可展示的时间数据")
     : `A 股日涨跌与提问量关系${correlationLabel(correlation)}（r=${signedCorrelation}）`;
   $("#question-time-insight").textContent = correlation === null
     ? "可切换来源或追问状态查看时间变化。"
-    : `结论：大盘涨跌方向不能解释提问量变化；但单日涨跌超过 1% 时，平均提问量比普通交易日${bigLift >= 0 ? "高" : "低"} ${percent.format(Math.abs(bigLift))}，市场类问题占比也由 ${percent.format(normalMarketShare)} 升至 ${percent.format(bigMarketShare)}。这说明剧烈波动可能放大咨询需求，仍不能视为因果。`;
-  $("#question-market-summary").innerHTML = correlation === null ? "" : [
-    ["同期沪深300", `${marketReturn >= 0 ? "+" : ""}${percent.format(marketReturn)}`, `${formatDay(completedMarket[0].date)}—${formatDay(completedMarket.at(-1).date)}`],
+    : `单日涨跌超过 1% 时，平均提问量比普通交易日${bigLift >= 0 ? "高" : "低"} ${percent.format(Math.abs(bigLift))}，市场类问题占比由 ${percent.format(normalMarketShare)} ${bigMarketShare >= normalMarketShare ? "升至" : "降至"} ${percent.format(bigMarketShare)}。提问明细自 ${formatDay(observedFrom)} 起，联动分析使用重合交易日，相关不代表因果。`;
+  $("#question-market-summary").innerHTML = [
+    ["上线以来沪深300", `${marketReturn >= 0 ? "+" : ""}${percent.format(marketReturn)}`, `${formatDay(LAUNCH_DAY)}—${formatDay(completedMarket.at(-1).date)}`],
     ["日涨跌相关", signedCorrelation, `${pairs.length} 个完整交易日 · ${correlationLabel(correlation)}`],
     ["大波动日提问", `${bigLift >= 0 ? "+" : "−"}${percent.format(Math.abs(bigLift))}`, `${number.format(bigAverage)} vs ${number.format(normalAverage)} ${unit}`],
     ["市场类问题占比", `${(bigMarketShare - normalMarketShare) >= 0 ? "+" : "−"}${(Math.abs(bigMarketShare - normalMarketShare) * 100).toFixed(1)} 个百分点`, `大波动 ${percent.format(bigMarketShare)} · 普通 ${percent.format(normalMarketShare)}`],
@@ -1854,12 +1878,12 @@ function renderQuestionTime() {
   const marketMax = Math.max(...marketValues);
   const marketSpan = Math.max(1, marketMax - marketMin);
   const overlay = marketPoints.length > 1 ? `<svg class="time-market-overlay" viewBox="0 0 1000 100" preserveAspectRatio="none" aria-hidden="true"><polyline points="${marketPoints.map((item) => `${(item.index + .5) / rows.length * 1000},${92 - (item.value - marketMin) / marketSpan * 82}`).join(" ")}"></polyline>${marketPoints.map((item) => `<circle cx="${(item.index + .5) / rows.length * 1000}" cy="${92 - (item.value - marketMin) / marketSpan * 82}" r="3"></circle>`).join("")}</svg>` : "";
-  $("#question-time-chart").innerHTML = rows.length ? `<div class="time-chart-legend"><span><i></i>提问量</span><span><i></i>沪深300收盘走势</span></div><div class="time-series market-time-series">${overlay}${rows.map((item) => `<div class="time-column" title="${escapeHtml(periodLabel(item))} · ${number.format(item[metric])} ${unit}"><strong>${number.format(item[metric])}</strong><i style="height:${Math.max(2, item[metric] / max * 230)}px"></i><span>${escapeHtml(item.start.slice(5).replace("-", "/"))}</span></div>`).join("")}</div>` : '<p class="audience-inline-empty">当前条件没有时间数据。</p>';
+  $("#question-time-chart").innerHTML = rows.length ? `<div class="time-chart-legend"><span><i></i>提问量</span><span><i></i>沪深300收盘走势</span></div><p class="time-coverage">8 月 10 日上线以来 · ${formatDay(observedFrom)}前提问明细暂无记录</p><div class="time-series market-time-series">${overlay}${rows.map((item, index) => `<div class="time-column${item.missing ? " is-missing" : ""}" title="${escapeHtml(periodLabel(item))} · ${item.missing ? "提问明细暂无记录" : `${number.format(item[metric])} ${unit}`}"><strong>${item.missing ? "—" : number.format(item[metric])}</strong><i style="height:${item.missing ? 0 : Math.max(2, item[metric] / max * 230)}px"></i><span>${grain === "weekly" || index % 7 === 0 || index === rows.length - 1 ? escapeHtml(item.start.slice(5).replace("-", "/")) : "&nbsp;"}</span></div>`).join("")}</div>` : '<p class="audience-inline-empty">当前条件没有时间数据。</p>';
   const visible = grain === "daily" ? rows.slice(-10) : rows;
   $("#question-time-mix").innerHTML = visible.map((item) => {
     const directions = [...item.directions].filter((entry) => entry.questions > 0 && !NON_DECISION_DIRECTIONS.has(entry.id))
       .sort((a, b) => b[metric] - a[metric]).slice(0, 3);
-    return `<div class="time-mix-row"><span>${escapeHtml(periodLabel(item))} · ${number.format(item[metric])} ${unit}</span><p>${directions.map((entry) => `<small>${escapeHtml(QUESTION_DIRECTIONS[entry.id][0])} ${number.format(entry[metric])}</small>`).join("") || "<small>暂无明确方向</small>"}</p></div>`;
+    return `<div class="time-mix-row"><span>${escapeHtml(periodLabel(item))} · ${item.missing ? "暂无提问明细" : `${number.format(item[metric])} ${unit}`}</span><p>${directions.map((entry) => `<small>${escapeHtml(QUESTION_DIRECTIONS[entry.id][0])} ${number.format(entry[metric])}</small>`).join("") || (item.missing ? "" : "<small>暂无明确方向</small>")}</p></div>`;
   }).join("");
 }
 
@@ -2014,29 +2038,10 @@ function renderQuestionInsights() {
   }
   $("#question-raw-count").textContent = `${number.format(summary.self_authored_questions)} 条主动提问`;
   populateQuestionFilters();
-  scheduleQuestionCorpusAutoUnlock();
+  scheduleQuestionCorpusLoad();
 }
 
-const decodeQuestionBase64 = (value) => Uint8Array.from(atob(value), (character) => character.charCodeAt(0));
-
-async function loadQuestionEnvelope() {
-  if (window.QIANWEN_QUESTION_CORPUS_ENCRYPTED) return window.QIANWEN_QUESTION_CORPUS_ENCRYPTED;
-  const response = await fetch(`${QUESTION_CORPUS_URL}?refresh=${Date.now()}`, { cache: "no-store" });
-  if (!response.ok) throw new Error(`原始提问密文读取失败（HTTP ${response.status}）`);
-  return response.json();
-}
-
-async function decryptQuestionCorpus(envelope, supplied) {
-  if (envelope?.schema_version !== "qianwen-question-corpus-envelope-v2" || envelope.compression !== "gzip") throw new Error("原始提问密文版本不兼容");
-  if (!globalThis.crypto?.subtle || typeof DecompressionStream !== "function") throw new Error("当前浏览器不支持安全解锁，请升级后重试");
-  const material = await crypto.subtle.importKey("raw", new TextEncoder().encode(supplied), "PBKDF2", false, ["deriveKey"]);
-  const key = await crypto.subtle.deriveKey(
-    { name: "PBKDF2", salt: decodeQuestionBase64(envelope.salt), iterations: envelope.iterations, hash: "SHA-256" },
-    material, { name: "AES-GCM", length: 256 }, false, ["decrypt"],
-  );
-  const compressed = await crypto.subtle.decrypt({ name: "AES-GCM", iv: decodeQuestionBase64(envelope.iv) }, key, decodeQuestionBase64(envelope.data));
-  const decompressed = new Blob([compressed]).stream().pipeThrough(new DecompressionStream("gzip"));
-  const corpus = JSON.parse(await new Response(decompressed).text());
+function validateQuestionCorpus(corpus) {
   if (corpus?.schema_version !== "qianwen-question-corpus-v2" || !Array.isArray(corpus.rows) || corpus.rows.length !== corpus.meta?.questions) {
     throw new Error("原始提问库结构异常");
   }
@@ -2054,65 +2059,50 @@ async function decryptQuestionCorpus(envelope, supplied) {
   return corpus;
 }
 
-function cachedQuestionCredential() {
-  for (const key of ["clair-qianwen-report-unlock-v1", "clair-ai-studio-report-credential-v1"]) {
-    try { const value = sessionStorage.getItem(key); if (value) return value; } catch { /* opaque iframe */ }
-  }
-  return "";
-}
-
-function setQuestionUnlockState(message, { busy = false, error = false } = {}) {
-  const status = $("#question-unlock-status");
-  const button = $("#question-unlock-button");
-  status.textContent = message;
-  status.style.color = error ? "var(--coral)" : "";
-  button.disabled = busy;
-  button.textContent = busy ? "正在解锁…" : "解锁原始提问";
-}
-
-async function unlockQuestionCorpus(supplied, { automatic = false } = {}) {
-  if (!supplied || questionCorpus) return;
-  setQuestionUnlockState(automatic ? "正在使用本次报告会话解锁…" : "正在解密并校验 6.5 万条提问…", { busy: true });
+async function loadQuestionCorpus() {
+  if (questionCorpusLoading || questionCorpus) return;
+  questionCorpusLoading = true;
+  const status = $("#question-load-status");
+  const retry = $("#question-load-retry");
+  status.textContent = "正在加载提问…";
+  retry.hidden = true;
+  const controller = new AbortController();
+  const timeout = window.setTimeout(() => controller.abort(), 20000);
   try {
-    questionCorpus = await decryptQuestionCorpus(await loadQuestionEnvelope(), supplied);
-    try { sessionStorage.setItem("clair-qianwen-report-unlock-v1", supplied); } catch { /* opaque iframe */ }
-    $("#question-password").value = "";
-    $("#question-unlock-form").hidden = true;
-    $("#question-explorer").hidden = false;
+    const response = await fetch(`${QUESTION_CORPUS_URL}?v=${encodeURIComponent(currentData.meta.data_cutoff)}`, { signal: controller.signal });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const bytes = new Uint8Array(await response.arrayBuffer());
+    const body = new Blob([bytes]).stream();
+    const stream = bytes[0] === 0x1f && bytes[1] === 0x8b ? body.pipeThrough(new DecompressionStream("gzip")) : body;
+    questionCorpus = validateQuestionCorpus(JSON.parse(await new Response(stream).text()));
+    status.textContent = "";
     viewState.questionPage = 1;
     renderQuestionTable();
   } catch (error) {
     questionCorpus = null;
-    setQuestionUnlockState(automatic ? "自动解锁不可用，请输入报告密码。" : (error?.message || "密码不正确或密文校验失败"), { error: true });
+    status.textContent = error.name === "AbortError" ? "加载超时，点击重试。" : "提问暂未加载成功，点击重试。";
+    retry.hidden = false;
   } finally {
-    if (!questionCorpus) setQuestionUnlockState($("#question-unlock-status").textContent, { error: true });
+    window.clearTimeout(timeout);
+    questionCorpusLoading = false;
   }
 }
 
-async function autoUnlockQuestionCorpus() {
-  if (questionUnlockAttempted || questionCorpus) return;
-  questionUnlockAttempted = true;
-  const credential = cachedQuestionCredential();
-  if (credential) await unlockQuestionCorpus(credential, { automatic: true });
-  else setQuestionUnlockState("请输入报告密码，解锁脱敏后的全部原始提问。");
-}
-
-function scheduleQuestionCorpusAutoUnlock() {
-  if (questionUnlockAttempted || questionCorpus || questionAutoUnlockObserver) return;
+function scheduleQuestionCorpusLoad() {
+  if (questionCorpusLoading || questionCorpus || questionLoadObserver) return;
   const target = document.querySelector(".raw-question-explorer");
   if (!target) return;
   if (!("IntersectionObserver" in window)) {
-    setQuestionUnlockState("需要查看完整原始提问时，请输入报告密码解锁。");
+    void loadQuestionCorpus();
     return;
   }
-  setQuestionUnlockState("滚动到本区时，将自动使用本次报告会话解锁。");
-  questionAutoUnlockObserver = new IntersectionObserver((entries) => {
+  questionLoadObserver = new IntersectionObserver((entries) => {
     if (!entries.some((entry) => entry.isIntersecting)) return;
-    questionAutoUnlockObserver.disconnect();
-    questionAutoUnlockObserver = null;
-    void autoUnlockQuestionCorpus();
-  }, { rootMargin: "200px 0px" });
-  questionAutoUnlockObserver.observe(target);
+    questionLoadObserver.disconnect();
+    questionLoadObserver = null;
+    void loadQuestionCorpus();
+  }, { rootMargin: "600px 0px" });
+  questionLoadObserver.observe(target);
 }
 
 function filteredQuestionRows() {
@@ -2443,12 +2433,7 @@ function bindInteractions() {
     if (questionCorpus) renderQuestionTable();
     $("#raw-question-title").scrollIntoView({ behavior: "smooth", block: "start" });
   });
-  $("#question-unlock-form").addEventListener("submit", (event) => {
-    event.preventDefault();
-    const supplied = $("#question-password").value.trim();
-    if (!supplied) { setQuestionUnlockState("请输入报告密码。", { error: true }); $("#question-password").focus(); return; }
-    void unlockQuestionCorpus(supplied);
-  });
+  $("#question-load-retry").addEventListener("click", () => void loadQuestionCorpus());
   $("#question-search").addEventListener("input", () => {
     window.clearTimeout(questionSearchTimer);
     questionSearchTimer = window.setTimeout(() => { viewState.questionPage = 1; renderQuestionTable(); }, 160);

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="千问 X 且慢AI小顾用户数据看板，展示服务上线以来的用户增长、资产与账户状态、首次入金及绑定后行为，钱包充值计入首投。" />
+  <meta name="description" content="千问 X 且慢AI小顾用户数据看板，展示服务上线以来的用户增长、资产与账户状态、首次入金及绑定后行为。" />
   <meta name="theme-color" content="#f5f6fb" />
   <meta name="robots" content="noindex,nofollow" />
   <title>千问 · 且慢AI小顾｜用户引流成效看板</title>
@@ -40,6 +40,11 @@
           <span class="kpi-select">已有帐号</span>
           <div><strong id="existing-accounts">—</strong><em id="existing-share">—</em></div>
           <small id="existing-breakdown" title="绑定时已有且慢账户">绑定时已有且慢账户</small>
+        </article>
+        <article class="kpi-card kpi-app">
+          <span class="kpi-select">下载且慢 App</span>
+          <div><strong id="app-users">—</strong><em id="app-share">—</em></div>
+          <small id="app-breakdown">有 App 使用记录</small>
         </article>
       </section>
       <section class="segment-panel" aria-labelledby="segment-title">
@@ -242,7 +247,7 @@
               <span>转化行为</span>
               <h3 id="behavior-panel-title">绑定后新增入金与产品买入</h3>
             </div>
-            <p>钱包充值或银行卡直付产品均算新增入金；人生首次新增入金算首投，新户首投包含仅充值钱包的用户。宝内原余额买产品不计新增入金，产品买入另列</p>
+            <p>按用户、入金与资产查看转化表现</p>
           </div>
           <div class="behavior-bars" id="behavior-bars"></div>
         </section>
@@ -456,14 +461,8 @@
           <span class="encrypted-badge" id="question-raw-count">—</span>
         </div>
 
-        <form class="question-unlock" id="question-unlock-form">
-          <div><strong>原始提问库已单独加密</strong><span id="question-unlock-status">正在尝试使用本次报告会话解锁…</span></div>
-          <label class="sr-only" for="question-password">报告密码</label>
-          <input id="question-password" type="password" autocomplete="current-password" placeholder="如未自动解锁，请输入报告密码" />
-          <button type="submit" id="question-unlock-button">解锁原始提问</button>
-        </form>
-
-        <div class="question-explorer" id="question-explorer" hidden>
+        <p class="question-load"><span id="question-load-status" role="status" aria-live="polite"></span><button type="button" id="question-load-retry" hidden>重新加载</button></p>
+        <div class="question-explorer" id="question-explorer">
           <div class="question-tools research-tools">
             <label class="question-search"><span>搜索提问</span><input id="question-search" type="search" autocomplete="off" placeholder="输入基金、持仓、市场、养老…" /></label>
             <label><span>问题来源</span><select id="question-scope-filter"><option value="self" selected>用户自发（剔除默认）</option><option value="substantive">自发实质问题</option><option value="preset">默认 / 推荐问题</option><option value="all">全部提问</option></select></label>
@@ -490,7 +489,6 @@
         </div>
       </section>
 
-      <details class="question-methodology"><summary>查看数据边界与隐私说明</summary><p>新用户指注册且慢账号时间与首次千问绑定相差不超过 60 分钟的用户；提问统计从首次绑定起至统一截止时点。默认题采用完全一致文本识别，其中首发版为已确认文案，其余版本依据跨用户完全重复及集中出现时间推断。画像与认知均为规则信号，只能用于运营分群，不能用于个体投资适当性判断。完整原话均去标识、脱敏并单独加密。</p></details>
     </section>
   </main>
 

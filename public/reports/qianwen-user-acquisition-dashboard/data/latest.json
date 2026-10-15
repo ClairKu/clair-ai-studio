@@ -9,7 +9,7 @@
     "timezone": "Asia/Shanghai",
     "source": "盈米本体 · 生产数据库",
     "evidence_state": "confirmed",
-    "privacy": "公开总体统计与至少 10 位用户重复的高频问法；完整原始提问去标识、脱敏并单独加密，不含用户或会话标识",
+    "privacy": "公开总体统计与去标识、脱敏的提问，不含用户或会话标识",
     "privacy_policy": "audience-full-disclosure-v2",
     "latest_day_is_partial": true
   },
@@ -1243,10 +1243,20 @@
           },
           {
             "id": "app_usage_status",
-            "definition_version": "2026-08-20-v2",
-            "time_basis": "post_binding_window",
-            "state": "unavailable",
-            "reason_code": "not_refreshed_this_cycle"
+            "definition_version": "native-app-evidence-v1",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-10-15T09:58:45+08:00",
+            "state": "confirmed",
+            "buckets": [
+              {
+                "id": "app_used",
+                "accounts": 1163
+              },
+              {
+                "id": "app_no_record",
+                "accounts": 17705
+              }
+            ]
           },
           {
             "id": "wechat_mp_status",
@@ -1499,10 +1509,20 @@
           },
           {
             "id": "app_usage_status",
-            "definition_version": "2026-08-20-v2",
-            "time_basis": "post_binding_window",
-            "state": "unavailable",
-            "reason_code": "not_refreshed_this_cycle"
+            "definition_version": "native-app-evidence-v1",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-10-15T09:58:45+08:00",
+            "state": "confirmed",
+            "buckets": [
+              {
+                "id": "app_used",
+                "accounts": 186
+              },
+              {
+                "id": "app_no_record",
+                "accounts": 17273
+              }
+            ]
           },
           {
             "id": "wechat_mp_status",
@@ -1875,10 +1895,20 @@
           },
           {
             "id": "app_usage_status",
-            "definition_version": "2026-08-20-v2",
-            "time_basis": "post_binding_window",
-            "state": "unavailable",
-            "reason_code": "not_refreshed_this_cycle"
+            "definition_version": "native-app-evidence-v1",
+            "time_basis": "snapshot_as_of",
+            "data_as_of": "2026-10-15T09:58:45+08:00",
+            "state": "confirmed",
+            "buckets": [
+              {
+                "id": "app_used",
+                "accounts": 977
+              },
+              {
+                "id": "app_no_record",
+                "accounts": 432
+              }
+            ]
           },
           {
             "id": "wechat_mp_status",
@@ -2725,7 +2755,7 @@
       "topic_model": "keyword-primary-intent-v1",
       "topic_note": "每条问题按首个命中规则归入一个主意图；未命中及依赖上下文的表达归入 other_expression",
       "top_question_min_users": 10,
-      "raw_corpus": "deidentified_redacted_encrypted_v2",
+      "raw_corpus": "deidentified_redacted_direct_v2",
       "taxonomy": "rule-based-multiaxis-v2",
       "preset_evidence": "exact-text plus launch-cluster inference; exposure log unavailable"
     },
@@ -2925,6 +2955,86 @@
         "completed_trading_days_only": true,
         "daily": [
           {
+            "date": "2026-08-10",
+            "close": 4702.0247,
+            "return_day": 0.001616
+          },
+          {
+            "date": "2026-08-11",
+            "close": 4663.7887,
+            "return_day": -0.008132
+          },
+          {
+            "date": "2026-08-12",
+            "close": 4690.9165,
+            "return_day": 0.005817
+          },
+          {
+            "date": "2026-08-13",
+            "close": 4663.9513,
+            "return_day": -0.005748
+          },
+          {
+            "date": "2026-08-14",
+            "close": 4665.8812,
+            "return_day": 0.000414
+          },
+          {
+            "date": "2026-08-17",
+            "close": 4741.0981,
+            "return_day": 0.016121
+          },
+          {
+            "date": "2026-08-18",
+            "close": 4725.8134,
+            "return_day": -0.003224
+          },
+          {
+            "date": "2026-08-19",
+            "close": 4588.6955,
+            "return_day": -0.029015
+          },
+          {
+            "date": "2026-08-20",
+            "close": 4592.7504,
+            "return_day": 0.000884
+          },
+          {
+            "date": "2026-08-21",
+            "close": 4618.8952,
+            "return_day": 0.005693
+          },
+          {
+            "date": "2026-08-24",
+            "close": 4563.1266,
+            "return_day": -0.012074
+          },
+          {
+            "date": "2026-08-25",
+            "close": 4552.0326,
+            "return_day": -0.002431
+          },
+          {
+            "date": "2026-08-26",
+            "close": 4590.7935,
+            "return_day": 0.008515
+          },
+          {
+            "date": "2026-08-27",
+            "close": 4630.277,
+            "return_day": 0.008601
+          },
+          {
+            "date": "2026-08-28",
+            "close": 4609.1764,
+            "return_day": -0.004557
+          },
+          {
+            "date": "2026-08-31",
+            "close": 4625.0862,
+            "return_day": 0.003452
+          },
+          {
             "date": "2026-09-01",
             "close": 4611.4394,
             "return_day": -0.002951
@@ -3054,7 +3164,13 @@
             "close": 4217.6801,
             "return_day": -0.013565
           }
-        ]
+        ],
+        "period_start": "2026-08-10",
+        "baseline": {
+          "date": "2026-08-07",
+          "close": 4694.4365,
+          "return_day": 0.009272
+        }
       },
       "journey": {
         "observed_from": "2026-09-01",
@@ -66440,6 +66556,48 @@
           "direction": "context_followup"
         }
       ]
+    }
+  },
+  "app_usage": {
+    "as_of": "2026-10-15T09:58:45+08:00",
+    "state": "confirmed",
+    "definition": "native_app_events_or_registered_native_device",
+    "native_libs": [
+      "iOS",
+      "Android",
+      "HarmonyOS"
+    ],
+    "device_platforms": [
+      3,
+      4,
+      5
+    ],
+    "events_observed_from": "2026-07-27",
+    "cohorts": {
+      "new": {
+        "population_accounts": 17459,
+        "users": 186,
+        "device_users": 154,
+        "native_users": 185,
+        "both_users": 153,
+        "after_binding_users": 180
+      },
+      "existing": {
+        "population_accounts": 1409,
+        "users": 977,
+        "device_users": 879,
+        "native_users": 521,
+        "both_users": 423,
+        "after_binding_users": 431
+      },
+      "all": {
+        "population_accounts": 18868,
+        "users": 1163,
+        "device_users": 1033,
+        "native_users": 706,
+        "both_users": 576,
+        "after_binding_users": 611
+      }
     }
   }
 }
