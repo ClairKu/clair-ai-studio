@@ -5,6 +5,24 @@ import { mkdtempSync, writeFileSync, readFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
+test('KPI display uses one decimal for wan and hours below one day without changing raw money', () => {
+  const script = `
+import ast,json
+from decimal import Decimal,ROUND_HALF_UP
+from pathlib import Path
+tree=ast.parse(Path('scripts/qianwen-cases/build-cases.py').read_text())
+selected=[node for node in tree.body if isinstance(node,ast.FunctionDef) and node.name in ('wan','money','short_duration')]
+exec(compile(ast.Module(body=selected,type_ignores=[]),'display-functions','exec'))
+print(json.dumps({'amounts':[wan(v) for v in [692800,35500,10000,9999]],'raw':money(692800.12),'durations':[short_duration(v) for v in [None,0,3600,86399,86400,302400]]}))
+`;
+  const result=spawnSync('python3',['-c',script],{encoding:'utf8'});
+  assert.equal(result.status,0,result.stderr);
+  assert.deepEqual(JSON.parse(result.stdout),{
+    amounts:['69.3 万','3.6 万','1.0 万','9,999 元'],raw:'692,800.12',
+    durations:['—','0.0小时','1.0小时','24.0小时','1.0天','3.5天'],
+  });
+});
+
 test('Qianwen conversion leaves preserve history, missing data and overlapping evidence', () => {
   const script = `
 import importlib.util,json
@@ -114,10 +132,11 @@ test('Case layout stays compact, hides unreviewed slices and labels old first/ne
     assert.match(page,/<span>总资产<\/span><em>持有资产 3 人 · 人均资产 200 元/);
     assert.doesNotMatch(page,/<em>[^<]*资产日/);
     assert.match(page,/title="资产日 10-14；人均资产 = 总资产 ÷ 本客群全部 3 人，包含零资产用户/);
-    assert.match(page,/<span>总入金，共 3 笔交易<\/span><em>人均 0\.00 万 · 1 笔<\/em>/);
-    assert.equal((page.match(/<span>首投平均间隔<\/span>/g)||[]).length,7);
-    assert.match(page,/<b>1\.0 小时<\/b><span>首投平均间隔<\/span><em>中位数 1\.0 小时<\/em><em>1 人有二次入金<\/em><em>二次平均间隔 2\.0 小时 · 中位数 2\.0 小时/);
-    assert.match(page,/<em>0 人有二次入金<\/em><em>暂无二次入金间隔/);
+    assert.match(page,/<span>总入金，共 3 笔交易<\/span><em>人均 0\.0 万 · 1 笔<\/em>/);
+    assert.equal((page.match(/<span>首投\/复投间隔中位数<\/span>/g)||[]).length,7);
+    assert.match(page,/<b>1\.0小时\/2\.0小时<\/b><span>首投\/复投间隔中位数<\/span><em>平均数：1\.0小时\/2\.0小时<\/em>/);
+    assert.match(page,/<b>1\.0小时\/—<\/b><span>首投\/复投间隔中位数<\/span><em>平均数：1\.0小时\/—<\/em>/);
+    assert.doesNotMatch(page,/首投平均间隔|二次平均间隔|暂无二次入金间隔/);
     assert.equal((page.match(/<th[^>]*>首笔入金<\/th><th>入金次数<\/th><th>总入金<\/th><th[^>]*>首笔入金提问数<\/th><th>总提问数<\/th>/g)||[]).length,6);
     assert.match(page,/<th[^>]*>绑定时资产<\/th><th[^>]*>今年绑前入金<\/th><th[^>]*>最近交易日<\/th><th>绑定后新增入金<\/th><th>笔数<\/th><th>当前资产<\/th>/);
     assert.equal((page.match(/<th>注册日期<\/th><th[^>]*>首次入金日期<\/th>/g)||[]).length,7);
@@ -126,7 +145,7 @@ test('Case layout stays compact, hides unreviewed slices and labels old first/ne
     assert.match(page,/>500<\/td>\s*<td class="num">120<\/td><td class="num">2026-10-09<\/td>\s*<td class="num">40<\/td><td class="num">2<\/td>\s*<td class="num">400<\/td>/);
     assert.match(page,/<td class="num">10<\/td><td class="num">1<\/td><td class="num">10<\/td><td class="num">4<\/td><td class="num">10<\/td>/);
     assert.doesNotMatch(page,/新客 0 人/);
-    assert.match(page,/24 小时内入金 1 人 · 多次入金 0 人/);
+    assert.match(page,/一日内入金 1 人 · 复投 0 人/);
     assert.match(page,/<th>使用设备<\/th><th[^>]*>绑定→首次App操作<\/th>/);
     assert.match(page,/<td>iOS<\/td><td[^>]*>5 分 30 秒<\/td>/);
     assert.match(page,/<td>安卓<\/td><td[^>]*>未查到操作<\/td>/);

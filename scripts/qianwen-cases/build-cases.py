@@ -89,7 +89,7 @@ def money(v):
     return f"{v:,.0f}" if abs(v - round(v)) < 0.005 else f"{v:,.2f}"
 def wan(v):
     v = float(v or 0)
-    return f"{v/10000:,.2f} 万" if v >= 10000 else f"{v:,.0f} 元"
+    return f"{(Decimal(str(v)) / 10000).quantize(Decimal('0.1'), rounding=ROUND_HALF_UP):,} 万" if v >= 10000 else f"{v:,.0f} 元"
 def dur(a, b):
     if not a or not b: return "—"
     s = int((dt(b) - dt(a)).total_seconds())
@@ -866,10 +866,8 @@ def short_duration(seconds):
     if seconds is None:
         return "—"
     if seconds >= 86400:
-        return f"{seconds/86400:.1f} 天"
-    if seconds >= 3600:
-        return f"{seconds/3600:.1f} 小时"
-    return f"{seconds/60:.0f} 分钟" if seconds >= 60 else f"{seconds:.0f} 秒"
+        return f"{seconds/86400:.1f}天"
+    return f"{seconds/3600:.1f}小时"
 
 def scope_section(sc):
     us = scope_users(sc); a = agg(us); pending = scope_pending(sc)
@@ -887,12 +885,12 @@ def scope_section(sc):
     med_txt = short_duration(statistics.median(durs)) if durs else "—"
     second_avg_txt = short_duration(statistics.mean(second_durs)) if second_durs else "—"
     second_med_txt = short_duration(statistics.median(second_durs)) if second_durs else "—"
-    second_note = (f'二次平均间隔 {second_avg_txt} · 中位数 {second_med_txt}' if second_durs else '暂无二次入金间隔')
     inflow_people = sum(1 for u in us if u.get("inflow_txns"))
     inflow_count = sum(len(u.get("inflow_txns") or []) for u in us)
     inflow_value = wan(a["inflow"])
     inflow_label = f'总入金，共 {inflow_count} 笔交易'
-    inflow_note = f'人均 {a["inflow"] / a["n"] / 10000:,.2f} 万 · {mean_questions(inflow_count, a["n"])} 笔' if a["n"] else '暂无入金'
+    per_capita_wan = (Decimal(str(a["inflow"])) / a["n"] / 10000).quantize(Decimal('0.1'), rounding=ROUND_HALF_UP) if a["n"] else None
+    inflow_note = f'人均 {per_capita_wan:,} 万 · {mean_questions(inflow_count, a["n"])} 笔' if a["n"] else '暂无入金'
     matched_amount_note = ""
     if sc["id"] in ("qwen_side", "qwen_influenced"):
         amount_key = "qwen_side_matched_inflow_amount" if sc["id"] == "qwen_side" else "qwen_influence_matched_inflow_amount"
@@ -918,7 +916,7 @@ def scope_section(sc):
     population_note = f'新客 {a["new"]} 人 · 老客 {a["n"] - a["new"]} 人'
     if a["n"] and a["new"] in (0, a["n"]):
         within_day = sum(0 <= duration <= 86400 for duration in durs)
-        population_note = f'24 小时内入金 {within_day} 人 · 多次入金 {a["repeat"]} 人'
+        population_note = f'一日内入金 {within_day} 人 · 复投 {a["repeat"]} 人'
     if sc["id"] == "existing_reactivated":
         first_n = sum(scope_match(u, next(s for s in SCOPES if s["id"] == "existing_first_inv")) for u in us)
         returned_n = sum(scope_match(u, next(s for s in SCOPES if s["id"] == "existing_returned")) for u in us)
@@ -933,7 +931,7 @@ def scope_section(sc):
   <div class="cell"><b>{inflow_value}</b><span>{inflow_label}</span><em>{inflow_note}</em></div>
   <div class="cell asset-metric" title="{esc(asset_title)}"><b>{asset_value}</b><span>总资产</span><em>{asset_note}</em></div>
   {ask_cell}
-  <div class="cell decision" title="首投间隔为绑定到绑定后首笔入金，样本 {len(durs)} 人；二次入金间隔为首笔到第二笔入金，均值和中位数只按有二次入金的 {len(second_durs)} 人计算。"><b>{avg_txt}</b><span>首投平均间隔</span><em>中位数 {med_txt}</em><em>{len(second_durs)} 人有二次入金</em><em>{second_note}</em></div>
+  <div class="cell decision" title="首投间隔为绑定到绑定后首笔入金，样本 {len(durs)} 人；复投间隔为首笔到第二笔入金，均值和中位数只按有二次入金的 {len(second_durs)} 人计算。未满一天显示小时，其余显示天。"><b>{med_txt}/{second_med_txt}</b><span>首投/复投间隔中位数</span><em>平均数：{avg_txt}/{second_avg_txt}</em></div>
 </div>'''
     cards = "\n".join(card(u) for u in us) if us else '<div class="note">该口径下暂无用户。</div>'
     return f'''<section class="scope" id="scope-{sc["id"]}" hidden>
@@ -1055,6 +1053,7 @@ html,body{max-width:100%}
 .sumrow .cell em{white-space:normal;overflow-wrap:anywhere;font-size:11.5px;line-height:1.6;letter-spacing:-.025em}
 .question-metric b{white-space:nowrap}
 .question-metric .metric-unit{font-size:13px;font-weight:500;letter-spacing:0}
+.sumrow .cell.decision b{white-space:nowrap;font-size:clamp(18px,1.9vw,26px)}
 .scope-nav{display:block}
 .tabs{display:flex;align-items:center;flex-wrap:nowrap;gap:0;overflow-x:auto}
 .dashboard-link svg,.pager .pg svg,.mini-ic svg,.icon-btn svg{display:block;margin:auto}
