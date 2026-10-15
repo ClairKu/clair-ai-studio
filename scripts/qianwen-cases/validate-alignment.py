@@ -19,6 +19,16 @@ if main_cutoff != case_cutoff:
 segments = {item["id"]: item for item in main["segments"]["items"]}
 users = cases["users"]
 
+for user in users:
+    inflow = float(user["derived"].get("inflow_after") or 0)
+    if inflow <= 0 or not user.get("inflow_txns"):
+        raise SystemExit(f"案例 {user['pmid']} 不属于新增入金集合")
+    if user["flags"].get("first_invest_after"):
+        first_buy = str(user.get("first_buy_ever") or "").replace("T", " ")[:19]
+        first_bound = str(user.get("fb") or "").replace("T", " ")[:19]
+        if not first_buy or first_buy < first_bound:
+            raise SystemExit(f"案例 {user['pmid']} 的首投标签与产品交易不一致")
+
 
 def selected(scope_id):
     if scope_id == "new_inv":
@@ -34,7 +44,8 @@ def selected(scope_id):
     raise KeyError(scope_id)
 
 
-for scope_id in ("new_inv", "first_inv", "new_first_inv", "existing_reactivated", "existing_first_inv"):
+scope_ids = ("new_inv", "first_inv", "new_first_inv", "existing_reactivated", "existing_first_inv")
+for scope_id in scope_ids:
     expected = segments[scope_id]
     scope_users = selected(scope_id)
     actual = {
@@ -48,4 +59,18 @@ for scope_id in ("new_inv", "first_inv", "new_first_inv", "existing_reactivated"
         if value != expected_value:
             raise SystemExit(f"{scope_id}.{field} 不一致：主看板 {expected_value}，个例看板 {value}")
 
-print(f"两张看板口径一致：{main_cutoff}，5 个共同客群的人数、入金人数、笔数与金额全部闭合。")
+    if expected["population_accounts"] != expected["inflow_accounts"]:
+        raise SystemExit(f"{scope_id} 不是完整的新增入金客群")
+
+case_union = {str(u["pmid"]) for scope_id in scope_ids for u in selected(scope_id)}
+if len(case_union) != len(users):
+    raise SystemExit(f"案例并集不闭合：并集 {len(case_union)} 人，users.json {len(users)} 人")
+
+reinvested = segments["reinvested"]
+all_segment = segments["all"]
+if reinvested["population_accounts"] != all_segment["inflow_accounts"]:
+    raise SystemExit("再投客群人数与全部绑定用户的新增入金人数不一致")
+if reinvested["population_accounts"] != reinvested["inflow_accounts"]:
+    raise SystemExit("再投客群包含非新增入金用户")
+
+print(f"两张看板口径一致：{main_cutoff}，新增入金客群、5 个案例客群及案例并集全部闭合。")

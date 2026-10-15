@@ -102,7 +102,7 @@ for c in sorted(cand, key=lambda c: c["fb"]):
            "buy": t["buy_amount"], "redeem": t["redeem_amount"], "canceled": int(t["canceled"] or 0), "extra": t["extra"]}
           for t in g_tr.get(pmid, [])]
     after = [t for t in tr if T(t["accept_time"]) >= fb and not t["canceled"]]
-    BUY_TYPES = {"po.buy","fund.buy","si.trade","po.adjust","plan.trade"}
+    BUY_TYPES = {"po.buy","po.convert.buy","fund.buy","si.trade","po.adjust","plan.trade"}
     buys = [t for t in after if t["trade_type"] in BUY_TYPES and t["buy"] and float(t["buy"]) > 0]
     # 与主看板完全同口径：线上/线下充值到盈米宝 + 银行卡直付买产品；
     # 组合回款进宝、宝内余额买产品不计，避免 ROOT 资产表和交易表混用造成金额漂移。
@@ -119,11 +119,14 @@ for c in sorted(cand, key=lambda c: c["fb"]):
     asset_latest = {"cal_date": asset_rows[-1]["cal_date"][:10], "ta": asset_rows[-1]["ta"]} if asset_rows else None
     zero = (c.get("asset_at_bind") is None) or float(c["asset_at_bind"]) <= 0
     first_ever = T(c.get("first_buy_ever"))
+    has_inflow = inflow > 0
     flags = {
-        "zero_at_bind": bool(zero and buys),
-        "recall": bool(zero and inflow > 0 and c["cohort"] == "existing"),
-        "first_invest_after": bool(first_ever and first_ever >= fb),
-        "new_first_invest": bool(c["cohort"] == "new" and first_ever and first_ever >= fb),
+        # 新投/唤回以新增入金为准：充值到钱包或银行卡直付产品；宝内原余额买产品不算。
+        "zero_at_bind": bool(zero and has_inflow),
+        "recall": bool(zero and has_inflow and c["cohort"] == "existing"),
+        # 首投仍由产品交易判定，但须同时属于本次新增入金转化集合。
+        "first_invest_after": bool(has_inflow and first_ever and first_ever >= fb),
+        "new_first_invest": bool(has_inflow and c["cohort"] == "new" and first_ever and first_ever >= fb),
     }
     n = narr.get(pmid, {})
     # 埋点：绑定前 7 天起到截止时间

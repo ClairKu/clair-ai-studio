@@ -166,7 +166,8 @@ for co in ("all", "new", "existing"):
     behavior[co] = {
         "funded_after_binding": beh(pop, t["eligible"], f["funded"], f["no_rows"]),
         "first_investment_after_binding": beh(pop, t["eligible"], t["first_inv"]),
-        "investment_activity_after_binding": beh(pop, t["eligible"], t["activity"]),
+        # 入金买入面向全体绑定用户：钱包充值或银行卡直投均可能发生，不能以当前绑卡状态缩小分母。
+        "investment_activity_after_binding": beh(pop, pop, t["activity"]),
         "redemption_after_binding": beh(pop, t["eligible"], f["redeem_union"]),
         "xiaogu_used_after_binding": beh(pop, pop, t["xiaogu"]),
         "account_opened_after_binding": beh(pop, pop, n["first_risk_after_bind"]),

@@ -9,6 +9,21 @@ CUT="${QW_CUT:?}"; AD="${QW_AD:?}"; W="${QW_WORK:?}"
 REDASH="$HOME/.claude/skills/redash/redash.py"
 Q() { # Q <name> <timeout> <sql>
   local name=$1 to=$2 sql=$3
+  if [[ "${QW_EXT_RESUME:-0}" == "1" && -s "$W/$name.txt" ]]; then
+    if [[ "$name" == "candidates" ]]; then
+      grep -qE "^(new|existing)[[:space:]]+[0-9]+" "$W/$name.txt" || {
+        echo "[$name] 复用失败：已有文件没有候选行"
+        return 1
+      }
+    else
+      grep -qE "^-{5,}" "$W/$name.txt" || {
+        echo "[$name] 复用失败：已有文件不是完整表格"
+        return 1
+      }
+    fi
+    echo "[$name] reuse"
+    return 0
+  fi
   python3 "$REDASH" execute-adhoc --timeout "$to" --sql "$sql" > "$W/$name.txt" 2>&1
   grep -qE "^-{5,}" "$W/$name.txt" || { echo "[$name] 失败: $(tail -2 "$W/$name.txt" | tr '\n' ' ')"; return 1; }
   echo "[$name] ok"
@@ -124,8 +139,9 @@ print(f"[zeroatbind] 候选 {len(rows)}，绑定时有资产 {nonzero}")
 PYEOF
 NZ=$(cat "$W/nonzero-ids.txt")
 
-# 分客群面板 v4：9 维度。新投=绑定后有产品买入且绑定时无资产；首投=人生首笔投资在绑定后；再投=绑定后有产品买入；
-# 老户唤回=老户中绑定时零资产（未投过或已清仓）且绑定后重新入金；新户/老户首投=按客群拆首投。
+# 分客群面板 v4：9 维度。新增投资/再投统一按新增入金事件（充值到宝或银行卡直付产品）判定；
+# 新投=绑定后有新增入金且绑定时无资产；首投=新增入金用户中人生首笔产品投资在绑定后；
+# 老户唤回=老户中绑定时零资产（未投过或已清仓）且绑定后重新入金；宝内原余额买产品不算新增入金。
 Q segments 900 "SELECT s.seg, COUNT(*) pop, SUM(u.cohort='new') new_cnt,
   SUM(u.card) card_bound, SUM(u.opened_after) opened_after, SUM(u.assessed) assessed, SUM(u.risk_after) risk_after,
   ROUND(SUM(COALESCE(f.inflow,0))/10000,4) inflow_wan, SUM(COALESCE(f.inflow,0)>0) inflow_users, SUM(COALESCE(f.txns,0)) inflow_txns,
@@ -137,9 +153,16 @@ FROM (SELECT b.pmid, b.fb, p.account3_id, $COHORT cohort,
            AND sv.answer_time>='2026-05-10 00:00:00' AND sv.answer_time<'$CUT') assessed,
     ((SELECT MIN(r.created_at) FROM ying99_accounts.risk_survey_record r WHERE r.account3_id=p.account3_id AND r.broker='0008' AND r.created_at<'$CUT') > b.fb) opened_after,
     EXISTS(SELECT 1 FROM ying99_accounts.risk_survey_record r WHERE r.account3_id=p.account3_id AND r.broker='0008' AND r.created_at>b.fb AND r.created_at<'$CUT') risk_after,
-    EXISTS(SELECT 1 FROM qm_meta.trade_detail t WHERE t.user_id=b.pmid AND t.canceled=0 AND t.buy_amount>0 AND t.po_code<>'WALLET' AND t.accept_time>=b.fb AND t.accept_time<'$CUT') reinvested,
-    (NOT EXISTS(SELECT 1 FROM qm_meta.trade_detail t WHERE t.user_id=b.pmid AND t.canceled=0 AND t.buy_amount>0 AND t.po_code<>'WALLET' AND t.accept_time<b.fb)
-     AND EXISTS(SELECT 1 FROM qm_meta.trade_detail t WHERE t.user_id=b.pmid AND t.canceled=0 AND t.buy_amount>0 AND t.po_code<>'WALLET' AND t.accept_time>=b.fb AND t.accept_time<'$CUT')) first_inv
+    EXISTS(SELECT 1 FROM qm_meta.trade_detail t WHERE t.user_id=b.pmid AND t.canceled=0
+      AND ($INFLOW_CASE)>0 AND t.accept_time>=b.fb AND t.accept_time<'$CUT') reinvested,
+    (EXISTS(SELECT 1 FROM qm_meta.trade_detail t WHERE t.user_id=b.pmid AND t.canceled=0
+       AND ($INFLOW_CASE)>0 AND t.accept_time>=b.fb AND t.accept_time<'$CUT')
+     AND NOT EXISTS(SELECT 1 FROM qm_meta.trade_detail t WHERE t.user_id=b.pmid AND t.canceled=0
+       AND t.trade_type IN ('po.buy','po.convert.buy','fund.buy','si.trade','po.adjust','plan.trade')
+       AND t.buy_amount>0 AND t.po_code<>'WALLET' AND t.accept_time<b.fb)
+     AND EXISTS(SELECT 1 FROM qm_meta.trade_detail t WHERE t.user_id=b.pmid AND t.canceled=0
+       AND t.trade_type IN ('po.buy','po.convert.buy','fund.buy','si.trade','po.adjust','plan.trade')
+       AND t.buy_amount>0 AND t.po_code<>'WALLET' AND t.accept_time>=b.fb AND t.accept_time<'$CUT')) first_inv
   FROM $B) u
 LEFT JOIN (SELECT t.user_id, SUM($INFLOW_CASE) inflow,
     SUM(CASE WHEN (t.trade_type='wallet.recharge' AND t.extra IN ('by.online','by.offline') AND t.buy_amount>0)

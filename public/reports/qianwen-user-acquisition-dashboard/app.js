@@ -116,8 +116,8 @@ const BEHAVIOR_METRICS = {
     description: "首次投资里程碑发生在绑定后",
   },
   investment_activity_after_binding: {
-    label: "绑定后成功买入",
-    description: "绑定后确认成功的买入类交易",
+    label: "绑定后新增入金",
+    description: "绑定后新增入金（钱包充值或银行卡直付产品）；宝内原余额买产品不计",
   },
   redemption_after_binding: {
     label: "绑定后成功赎回",
@@ -153,19 +153,19 @@ const BUSINESS_STATS = {
     tone: "scale",
   },
   inflow_amount: {
-    label: "绑定后入金",
-    description: "绑定后确认成功的买入订单金额合计，按入金口径统计",
+    label: "绑定后新增入金",
+    description: "绑定后新增入金金额（钱包充值或银行卡直付产品）；宝内原余额买产品不计",
     tone: "flow",
   },
   inflow_transactions: {
     label: "交易入金笔数",
-    description: "绑定后按入金口径识别的交易笔数",
+    description: "绑定后新增入金笔数（钱包充值或银行卡直付产品）；宝内原余额买产品不计",
     tone: "flow",
     unit: "count",
   },
   buy_amount: {
-    label: "绑定后买入",
-    description: "绑定后确认成功的买入金额合计",
+    label: "绑定后产品买入",
+    description: "绑定后确认成功的产品买入金额，作为独立产品交易指标；含银行卡直付产品和宝内余额买产品，不等同新增入金",
     tone: "flow",
     hidden: true,
   },
@@ -183,14 +183,14 @@ const BUSINESS_STATS = {
 };
 const SEGMENTS = [
   { id: "all", label: "全部", note: "全部绑定用户" },
-  { id: "new_inv", label: "新投", note: "绑定后有新增投资，且绑定时无资产", legacy: null },
-  { id: "first_inv", label: "首投", note: "绑定后有新增投资，且绑定前没有投资过" },
-  { id: "reinvested", label: "再投", note: "绑定后有新增投资（产品买入，不含钱包充值）", legacy: "invested" },
+  { id: "new_inv", label: "新投", note: "绑定时无资产，绑定后完成新增入金（钱包充值或银行卡直付产品）；宝内原余额买产品不计", legacy: null },
+  { id: "first_inv", label: "首投", note: "人生首笔产品买入发生在绑定后（产品交易口径）" },
+  { id: "reinvested", label: "再投", note: "绑定后完成新增入金（钱包充值或银行卡直付产品）；宝内原余额买产品不计", legacy: "invested" },
   { id: "new", label: "新户", note: "在千问注册且慢帐号" },
-  { id: "new_first_inv", label: "新户首投", note: "新户中完成首投" },
+  { id: "new_first_inv", label: "新户首投", note: "新户中完成人生首笔产品买入（产品交易口径）" },
   { id: "existing", label: "老用户", note: "绑定时已有且慢账户" },
-  { id: "existing_reactivated", label: "老户唤回", note: "绑定时零资产（未投过或已清仓），绑定后重新入金" },
-  { id: "existing_first_inv", label: "老户首投", note: "老户中人生首投发生在绑定后" },
+  { id: "existing_reactivated", label: "老户唤回", note: "绑定时零资产（未投过或已清仓），绑定后完成新增入金（钱包充值或银行卡直付产品）；宝内原余额买产品不计" },
+  { id: "existing_first_inv", label: "老户首投", note: "老户中人生首笔产品买入发生在绑定后（产品交易口径）" },
 ];
 const PUBLIC_STATES = new Set(["confirmed", "suppressed", "unavailable"]);
 const QUESTION_TOPICS = {
@@ -883,20 +883,20 @@ function renderSegmentPanel() {
     }
   } else if (viewState.segment === "reinvested") {
     popNote = item.first_investor_accounts
-      ? `绑定后有产品买入 · 其中 ${people(item.first_investor_accounts)}为人生首投`
+      ? `绑定后完成新增入金（钱包充值或银行卡直付产品）；宝内原余额买产品不计 · 其中 ${people(item.first_investor_accounts)}为人生首投（产品交易口径）`
       : meta.note;
   } else if (viewState.segment === "new_inv") {
-    popNote = `绑定时零资产、绑定后买入产品 · 新户 ${number.format(item.new_accounts)} · 老户 ${number.format(item.existing_accounts)}`;
+    popNote = `绑定时零资产，绑定后完成新增入金（钱包充值或银行卡直付产品）；宝内原余额买产品不计 · 新户 ${number.format(item.new_accounts)} · 老户 ${number.format(item.existing_accounts)}`;
   } else if (viewState.segment === "first_inv") {
-    popNote = `人生首笔投资在绑定后 · 新户 ${number.format(item.new_accounts)} · 老户 ${number.format(item.existing_accounts)}`;
+    popNote = `人生首笔产品买入在绑定后（产品交易口径） · 新户 ${number.format(item.new_accounts)} · 老户 ${number.format(item.existing_accounts)}`;
   } else if (viewState.segment === "new_first_inv") {
-    popNote = `新户中完成首投 · 占新户 ${formatShare(population, currentData.metrics?.new_accounts || 0)}`;
+    popNote = `新户中完成人生首笔产品买入（产品交易口径） · 占新户 ${formatShare(population, currentData.metrics?.new_accounts || 0)}`;
   } else if (viewState.segment === "existing_reactivated") {
     popNote = item.reinvested_accounts
-      ? `绑定时零资产，绑定后重新入金 · ${people(item.reinvested_accounts)}已买入产品`
+      ? `绑定时零资产，绑定后完成新增入金（钱包充值或银行卡直付产品）；宝内原余额买产品不计 · ${people(item.reinvested_accounts)}已完成新增入金`
       : meta.note;
   } else if (viewState.segment === "existing_first_inv") {
-    popNote = `老户中首投 · 占老用户 ${formatShare(population, currentData.metrics?.existing_accounts || 0)}`;
+    popNote = `老户中完成人生首笔产品买入（产品交易口径） · 占老用户 ${formatShare(population, currentData.metrics?.existing_accounts || 0)}`;
   }
   set("#seg-pop-note", popNote);
 
@@ -1610,9 +1610,9 @@ function renderAudience({ announce = false } = {}) {
   const assetCount = asset?.buckets?.find((bucket) => bucket.id === "has_assets")?.accounts;
   const insight = [];
   if (holding) insight.push(`当前保有（含绑定前已有资产）${formatAmount(holding.amount_wan)}`);
-  if (inflow) insight.push(`绑定后入金 ${formatAmount(inflow.amount_wan)}（${number.format(inflow.accounts)} 人）`);
+  if (inflow) insight.push(`绑定后新增入金 ${formatAmount(inflow.amount_wan)}（${number.format(inflow.accounts)} 人；钱包充值或银行卡直付产品，宝内原余额买产品不计）`);
   if (isWholeCount(assetCount)) insight.push(`可识别有资产 ${number.format(assetCount)} 人（${formatShare(assetCount, population)}）`);
-  if (isWholeCount(activity?.reached_accounts)) insight.push(`绑定后发起买入 ${number.format(activity.reached_accounts)} 人`);
+  if (isWholeCount(activity?.reached_accounts)) insight.push(`绑定后新增入金 ${number.format(activity.reached_accounts)} 人（钱包充值或银行卡直付产品；宝内原余额买产品不计）`);
   $("#audience-summary-copy").textContent = available.length && insight.length ? `${insight.join("；")}。` : "数据源待确认";
   renderBusinessTiles(business, population);
   renderDistributionPanels(profile, population);

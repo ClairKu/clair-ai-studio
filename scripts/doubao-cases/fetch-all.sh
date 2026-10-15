@@ -20,7 +20,7 @@ B="(SELECT CAST(user_id AS SIGNED) AS pmid, MIN(granted_at) AS fb FROM ying99_oa
     HAVING SUM(revoked_at IS NULL)>0 AND MIN(granted_at)>='$START 00:00:00' AND MIN(granted_at)<'$CUT') b
    JOIN ying99_pomodel.portfolio_manager_info p ON p.po_manager_id=b.pmid"
 
-echo "== 1/3 候选：绑定后有买入，且（绑定时 ROOT 资产为 0/未开户 或 人生首笔买入在绑定后）"
+echo "== 1/3 候选：绑定后有新增入金，且（绑定时 ROOT 资产为 0/未开户 或 人生首笔产品买入在绑定后）"
 F "$W/candidates.json" "SELECT u.* FROM (
   SELECT b.pmid, b.fb, p.registered_at, p.gender,
     CASE WHEN CHAR_LENGTH(p.birthday_del)=8 THEN TIMESTAMPDIFF(YEAR,STR_TO_DATE(p.birthday_del,'%Y%m%d'),'${CUT:0:10}') END AS age,
@@ -29,10 +29,18 @@ F "$W/candidates.json" "SELECT u.* FROM (
     CASE WHEN ABS(TIMESTAMPDIFF(MINUTE,p.registered_at,b.fb))<=60 THEN 'new' ELSE 'existing' END AS cohort,
     CASE WHEN p.account3_id IS NULL THEN NULL ELSE (SELECT d.total_asset FROM ying99_asset.dwd_app_service_account_profit_combine d
       WHERE d.account3_id=p.account3_id AND d.relation_account_type='ROOT' AND d.cal_date<=DATE(b.fb) ORDER BY d.cal_date DESC LIMIT 1) END AS asset_at_bind,
-    (SELECT MIN(t.accept_time) FROM qm_meta.trade_detail t WHERE t.user_id=b.pmid AND t.canceled=0 AND t.buy_amount>0 AND t.po_code<>'WALLET' AND t.accept_time<'$CUT') AS first_buy_ever,
-    (SELECT MAX(t.accept_time) FROM qm_meta.trade_detail t WHERE t.user_id=b.pmid AND t.canceled=0 AND t.buy_amount>0 AND t.po_code<>'WALLET' AND t.accept_time<b.fb) AS last_buy_before
+    (SELECT MIN(t.accept_time) FROM qm_meta.trade_detail t WHERE t.user_id=b.pmid AND t.canceled=0
+      AND t.trade_type IN ('po.buy','po.convert.buy','fund.buy','si.trade','po.adjust','plan.trade')
+      AND t.buy_amount>0 AND t.po_code<>'WALLET' AND t.accept_time<'$CUT') AS first_buy_ever,
+    (SELECT MAX(t.accept_time) FROM qm_meta.trade_detail t WHERE t.user_id=b.pmid AND t.canceled=0
+      AND t.trade_type IN ('po.buy','po.convert.buy','fund.buy','si.trade','po.adjust','plan.trade')
+      AND t.buy_amount>0 AND t.po_code<>'WALLET' AND t.accept_time<b.fb) AS last_buy_before
   FROM $B
-  WHERE EXISTS(SELECT 1 FROM qm_meta.trade_detail t WHERE t.user_id=b.pmid AND t.canceled=0 AND t.buy_amount>0 AND t.accept_time>=b.fb AND t.accept_time<'$CUT')
+  WHERE EXISTS(SELECT 1 FROM qm_meta.trade_detail t WHERE t.user_id=b.pmid AND t.canceled=0
+    AND t.buy_amount>0
+    AND ((t.trade_type='wallet.recharge' AND t.extra IN ('by.online','by.offline'))
+      OR (t.trade_type<>'wallet.recharge' AND t.extra='from.card'))
+    AND t.accept_time>=b.fb AND t.accept_time<'$CUT')
 ) u WHERE u.asset_at_bind IS NULL OR u.asset_at_bind<=0 OR u.first_buy_ever>=u.fb ORDER BY u.fb" 900
 
 IDS=$(python3 -c "import json;print(','.join(str(r['pmid']) for r in json.load(open('$W/candidates.json'))) or '0')")

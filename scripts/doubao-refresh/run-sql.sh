@@ -38,8 +38,13 @@ echo "### 3 assets"; R "SELECT u.cohort, COUNT(*) with_acct, SUM(a.ta IS NULL OR
  ON a.account3_id=u.account3_id WHERE u.account3_id IS NOT NULL AND u.account3_id<>1002 GROUP BY u.cohort" 2>&1 | tail -6
 
 echo "### 4 trade behaviors"; R "SELECT u.cohort, SUM(u.elig) eligible,
- SUM(u.elig AND EXISTS(SELECT 1 FROM qm_meta.trade_detail t WHERE t.user_id=u.pmid AND t.canceled=0 AND t.buy_amount>0 AND t.accept_time>=u.fb)) activity,
- SUM(u.elig AND (SELECT MIN(t.accept_time) FROM qm_meta.trade_detail t WHERE t.user_id=u.pmid AND t.canceled=0 AND t.buy_amount>0 AND t.po_code<>'WALLET')>u.fb) first_inv,
+ SUM(EXISTS(SELECT 1 FROM qm_meta.trade_detail t WHERE t.user_id=u.pmid AND t.canceled=0
+   AND t.buy_amount>0 AND t.accept_time>=u.fb AND t.accept_time<'$CUT'
+   AND ((t.trade_type='wallet.recharge' AND t.extra IN ('by.online','by.offline'))
+     OR (t.trade_type<>'wallet.recharge' AND t.extra='from.card')))) activity,
+ SUM(u.elig AND (SELECT MIN(t.accept_time) FROM qm_meta.trade_detail t WHERE t.user_id=u.pmid AND t.canceled=0
+   AND t.trade_type IN ('po.buy','po.convert.buy','fund.buy','si.trade','po.adjust','plan.trade')
+   AND t.buy_amount>0 AND t.po_code<>'WALLET' AND t.accept_time<'$CUT')>=u.fb) first_inv,
  SUM(EXISTS(SELECT 1 FROM ying99_oap.api_oauth_refresh_token q WHERE q.user_id=CAST(u.pmid AS CHAR) AND q.client_id='doubao' AND q.created_at>=u.fb AND q.created_at<'$CUT')) xiaogu
  FROM ($U) u GROUP BY u.cohort" 2>&1 | tail -6
 

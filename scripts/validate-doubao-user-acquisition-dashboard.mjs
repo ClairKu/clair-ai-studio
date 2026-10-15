@@ -261,6 +261,26 @@ function validateAudienceData() {
     }
     assertNoCrossCohortInference(data[key], listKey, expectedIds, key);
   }
+  for (const cohortKey of cohortKeys) {
+    const behaviorMetrics = data.behavior.cohorts[cohortKey].metrics;
+    const businessStats = data.business.cohorts[cohortKey].stats;
+    const activity = behaviorMetrics.find((item) => item.id === "investment_activity_after_binding");
+    const firstInvestment = behaviorMetrics.find((item) => item.id === "first_investment_after_binding");
+    const inflow = businessStats.find((item) => item.id === "inflow_amount");
+    const buy = businessStats.find((item) => item.id === "buy_amount");
+    if (activity.state === "confirmed") {
+      if (activity.eligible_accounts !== activity.population_accounts || activity.excluded_accounts !== 0) {
+        fail(`behavior.cohorts.${cohortKey}.investment_activity_after_binding 应以全部绑定用户为可统计人群`);
+      }
+      if (inflow.state === "confirmed" && activity.reached_accounts !== inflow.accounts) {
+        fail(`behavior.cohorts.${cohortKey}.investment_activity_after_binding 与 business.inflow_amount 入金人数不一致`);
+      }
+    }
+    if (firstInvestment.state === "confirmed" && buy.state === "confirmed"
+        && firstInvestment.reached_accounts > buy.accounts) {
+      fail(`behavior.cohorts.${cohortKey}.first_investment_after_binding 超过产品买入人数`);
+    }
+  }
 }
 
 function validateQuestionSignals() {
@@ -696,7 +716,7 @@ for (const phrase of [
   "对应数据明细",
   "在且慢的经营情况与用户画像",
   "保有规模与账户状态",
-  "绑定后入金与交易",
+  "绑定后新增入金与产品买入",
   "用户画像",
   "触点与投资准备度",
   "用户提问分析",
