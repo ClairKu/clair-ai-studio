@@ -1,0 +1,31 @@
+<script>
+(function(){
+  const files=__QUESTION_TOP100_CHUNKS__;
+  const keyCache=new Map(),dataCache=new Map(),encoder=new TextEncoder();
+  const bytes=value=>Uint8Array.from(atob(value),c=>c.charCodeAt(0));
+  window.loadQuestionTopUser=async function(anonymousKey){
+    if(!Object.prototype.hasOwnProperty.call(files,anonymousKey))throw new Error('unknown_user');
+    if(dataCache.has(anonymousKey))return dataCache.get(anonymousKey);
+    let password='';try{password=sessionStorage.getItem('clair-qianwen-report-unlock-v1')||'';}catch{}
+    if(!password)throw new Error('report_session_expired');
+    const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),20000);
+    try{
+      const response=await fetch(new URL(files[anonymousKey],location.href),{signal:controller.signal,cache:'force-cache',credentials:'same-origin'});
+      if(!response.ok)throw new Error('question_file_unavailable');
+      const envelope=await response.json();
+      if(envelope.schema_version!=='qianwen-question-user-v1'||envelope.iterations!==310000||envelope.compression!=='gzip')throw new Error('unsupported_question_file');
+      let key=keyCache.get(envelope.salt);
+      if(!key){
+        const material=await crypto.subtle.importKey('raw',encoder.encode(password),'PBKDF2',false,['deriveKey']);
+        key=await crypto.subtle.deriveKey({name:'PBKDF2',salt:bytes(envelope.salt),iterations:envelope.iterations,hash:'SHA-256'},material,{name:'AES-GCM',length:256},false,['decrypt']);
+        keyCache.set(envelope.salt,key);
+      }
+      const compressed=await crypto.subtle.decrypt({name:'AES-GCM',iv:bytes(envelope.iv),additionalData:encoder.encode(anonymousKey)},key,bytes(envelope.data));
+      const stream=new Blob([compressed]).stream().pipeThrough(new DecompressionStream('gzip'));
+      const value=JSON.parse(await new Response(stream).text());
+      if(value.key!==anonymousKey||!Array.isArray(value.questions))throw new Error('question_user_mismatch');
+      dataCache.set(anonymousKey,value);return value;
+    }finally{clearTimeout(timeout);}
+  };
+})();
+</script>

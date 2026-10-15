@@ -26,6 +26,22 @@ if cases["meta"].get("taxonomy_version"):
         asset = user.get("asset_latest") or {}
         if asset.get("ta") is None or asset.get("cal_date") != asset_as_of:
             raise SystemExit("资产存在缺失或日期不一致，禁止发布")
+    if not cases["meta"].get("question_stats_audit_complete"):
+        raise SystemExit("提问统计审查未完成，禁止发布")
+    for user in users:
+        stats = user.get("question_stats") or {}
+        total, before = stats.get("total_questions"), stats.get("pre_first_inflow_questions")
+        if (not stats.get("reviewed") or stats.get("cutoff") != cases["meta"]["cutoff"] or
+            any(type(value) is not int or value < 0 for value in (total, before)) or before > total):
+            raise SystemExit("提问统计缺失、无效或截止时间不一致，禁止发布")
+        if str(stats.get("first_inflow_after")).replace("T", " ")[:19] != str(user["derived"]["first_inflow_after"]).replace("T", " ")[:19]:
+            raise SystemExit("提问统计首笔入金基准不一致，禁止发布")
+    if not cases["meta"].get("app_operations_audit_complete"):
+        raise SystemExit("首次App操作审查未完成，禁止发布")
+    for user in users:
+        app = user.get("app_operation") or {}
+        if not app.get("reviewed") or app.get("cutoff") != cases["meta"]["cutoff"]:
+            raise SystemExit("App操作审查缺失或截止时间不一致，禁止发布")
 
 for user in users:
     inflow = float(user["derived"].get("inflow_after") or 0)

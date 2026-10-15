@@ -12,6 +12,7 @@ users.json 每个用户字段：
 """
 import json, sys, html, re
 from datetime import datetime
+from decimal import Decimal, ROUND_HALF_UP
 from pathlib import Path
 
 SRC = Path(sys.argv[1]); OUT = Path(sys.argv[2])
@@ -22,6 +23,14 @@ if META.get("taxonomy_version") and not META.get("assets_audit_complete"):
     raise ValueError("所有客群资产未核验完整，禁止生成生产个例页")
 if META.get("taxonomy_version") and any((u.get("asset_latest") or {}).get("ta") is None for u in users):
     raise ValueError("个例资产仍有缺失，禁止生成生产个例页")
+if META.get("taxonomy_version") and (not META.get("question_stats_audit_complete") or any(
+    not (u.get("question_stats") or {}).get("reviewed") or
+    (u.get("question_stats") or {}).get("cutoff") != CUT for u in users)):
+    raise ValueError("所有客群提问统计未核验完整或截止时间不一致，禁止生成生产个例页")
+if META.get("taxonomy_version") and (not META.get("app_operations_audit_complete") or any(
+    not (u.get("app_operation") or {}).get("reviewed") or
+    (u.get("app_operation") or {}).get("cutoff") != CUT for u in users)):
+    raise ValueError("所有客群首次App操作未核验完整，禁止生成生产个例页")
 
 # 个案洞察由作者逐例研判，不用固定字段模板拼接。兼容已经生成、尚未内嵌 insight 的 users.json。
 insight_file = Path(__file__).with_name("narratives.json")
@@ -110,6 +119,23 @@ SCOPES = [sc for sc in SCOPES if not sc.get("status") or sc["id"] in META.get("r
 def funding_only(u):
     return u.get("coverage") == "funding_only"
 
+def question_counts(u):
+    stats = u.get("question_stats") or {}
+    if stats.get("reviewed"):
+        return stats["total_questions"], stats["pre_first_inflow_questions"]
+    if funding_only(u):
+        return None, None
+    first = dt((u.get("derived") or {}).get("first_inflow_after"))
+    bound = dt(u.get("fb"))
+    asks = u.get("asks") or []
+    return len(asks), sum(bool(first and bound and dt(q.get("ts")) and bound <= dt(q["ts"]) < first) for q in asks)
+
+def mean_questions(total, n):
+    if not n:
+        return "—"
+    value = (Decimal(total) / Decimal(n)).quantize(Decimal(".01"), rounding=ROUND_HALF_UP)
+    return format(value, "f").rstrip("0").rstrip(".")
+
 def customer_label(u):
     if u.get("cohort") == "new":
         return "新客"
@@ -154,7 +180,9 @@ def agg(us):
         "buy": sum(float((u.get("derived") or {}).get("buy_amount_after") or 0) for u in us),
         "repeat": sum(1 for u in us if len(u.get("inflow_txns") or []) >= 2),
         "cancels": sum(1 for u in us if float((u.get("derived") or {}).get("cancels_after") or 0) > 0),
-        "asks": sum(len(u.get("asks") or []) for u in us if not funding_only(u)),
+        "asks": sum(question_counts(u)[0] or 0 for u in us),
+        "pre_first_asks": sum(question_counts(u)[1] or 0 for u in us),
+        "questions_known": sum(question_counts(u)[0] is not None for u in us),
         "max_inflow": max((float(u["derived"]["inflow_after"] or 0) for u in us), default=0),
         "max_asks": max((len(u.get("asks") or []) for u in us if not funding_only(u)), default=0),
         "no_asks": sum(1 for u in us if not funding_only(u) and not u.get("asks")),
@@ -248,7 +276,33 @@ def event_channel(event):
     return "终端未确认"
 
 def has_app_evidence(u):
+    audit = u.get("app_operation") or {}
+    if audit.get("reviewed"):
+        return bool(audit.get("first_at") or audit.get("device_platforms"))
     return any(str(d.get("platform")) in PLAT for d in u.get("dev", [])) or any(e.get("lib") in NATIVE_LIBS for e in u.get("events", []))
+
+def app_operation_cells(u):
+    audit = u.get("app_operation") or {}
+    native = [e for e in u.get("events", []) if e.get("lib") in NATIVE_LIBS and e.get("k") in ("view", "click")
+              and dt(e.get("t")) and dt(u["fb"]) <= dt(e["t"]) < dt(CUT)]
+    first = audit.get("first_at") if audit.get("reviewed") else min((e["t"] for e in native), default=None)
+    if audit.get("reviewed"):
+        systems = list(audit.get("device_platforms") or [])
+        if audit.get("first_platform") and audit["first_platform"] not in systems:
+            systems.append(audit["first_platform"])
+    else:
+        systems = [e["lib"] for e in native]
+        systems += [next((lib for lib, name in LIBN.items() if name == PLAT.get(str(d.get("platform")))), None) for d in u.get("dev", [])]
+    device = " / ".join(LIBN[lib] for lib in LIBN if lib in systems) or "未确认"
+    if not first:
+        label = "未查到操作" if audit.get("reviewed") or not funding_only(u) else "待核验"
+        return f'<td>{device}</td><td title="统计绑定后至数据截止的且慢App页面浏览和点击；设备登记、小程序及网页不算App操作。">{label}</td>'
+    seconds = int((dt(first) - dt(u["fb"])).total_seconds())
+    days, rest = divmod(seconds, 86400)
+    hours, rest = divmod(rest, 3600)
+    minutes, secs = divmod(rest, 60)
+    interval = f'{days} 天 {hours} 小时' if days else f'{hours} 小时 {minutes} 分' if hours else f'{minutes} 分 {secs} 秒' if minutes else f'{secs} 秒'
+    return (f'<td>{device}</td><td class="num" title="首次操作 {esc(str(first).replace("T", " ")[:19])}；从绑定起算，只计App页面浏览和点击，不计设备登记。">{interval}</td>')
 
 MIA_SCENE = {"MIA": "小顾会话页", "STRATEGY_DETAIL": "策略详情页", "ADVISOR_PAGE_TOP": "投顾页顶部入口",
              "ASSET_M4": "资产页", "QUICK_MENU": "快捷菜单", "FIRST_IN_DAY": "当日首次进入"}
@@ -753,22 +807,8 @@ def matrix(us):
   <td><span class="badge">{u["letter"]}</span></td><td>{customer_label(u)}</td>
   <td class="num">{fmt_t(u["fb"], True)}</td><td class="num">{fmt_t(d["first_inflow_after"], True)}</td>
   <td class="num">{dur(u["fb"], d["first_inflow_after"])}</td><td class="num">{money(d["inflow_after"])}</td>
-  <td class="num">{money(al["ta"]) if al else "—"}</td></tr>''')
+  <td class="num">{money(al["ta"]) if al else "—"}</td>{app_operation_cells(u)}</tr>''')
             continue
-        native = [e for e in u.get("events", []) if e.get("lib") in NATIVE_LIBS]
-        devices = [r for r in u.get("dev", []) if str(r.get("platform")) in PLAT]
-        if funding_only(u):
-            dev_txt = "未审查"
-        elif native:
-            from collections import Counter
-            term = Counter(e["lib"] for e in native).most_common(1)[0][0]
-            dev_txt = f'{LIBN[term]} App · 原生使用记录'
-        elif devices:
-            dev_txt = f'{PLAT[str(devices[0]["platform"])]} App · 设备注册'
-        elif any(e.get("lib") == "MiniProgram" for e in u.get("events", [])):
-            dev_txt = "仅小程序 / H5 · App 未确认"
-        else:
-            dev_txt = "App 使用未确认"
         rows.append(f'''<tr>
   <td><span class="who"><span class="{"badge n" if u["cohort"]=="new" else "badge"}">{u["letter"]}</span></span></td>
   <td>{customer_label(u)}</td>
@@ -780,9 +820,10 @@ def matrix(us):
   <td class="num">{money(al["ta"]) if al else "—"}</td>
   <td class="num">{"未审查" if funding_only(u) else u["risk"][-1]["score"] if u.get("risk") else "—"}</td>
   <td class="num">{"未审查" if funding_only(u) else len(u.get("asks") or [])}</td>
-  <td class="wrap">{dev_txt}</td>
+  {app_operation_cells(u)}
 </tr>''')
-    columns = "<th>用户</th><th>客群</th><th>绑定</th><th>绑定后首笔入金</th><th>间隔</th><th>入金</th><th>当前资产</th>" if funding_matrix else "<th>用户</th><th>客群</th><th>画像</th><th>绑定</th><th>绑定后首笔入金</th><th>间隔</th><th>入金</th><th>当前资产</th><th>风测</th><th>提问</th><th>App 使用证据</th>"
+    columns = "<th>用户</th><th>客群</th><th>绑定</th><th>绑定后首笔入金</th><th>间隔</th><th>入金</th><th>当前资产</th>" if funding_matrix else "<th>用户</th><th>客群</th><th>画像</th><th>绑定</th><th>绑定后首笔入金</th><th>间隔</th><th>入金</th><th>当前资产</th><th>风测</th><th>提问</th>"
+    columns += '<th>使用设备</th><th title="从绑定到绑定后第一次且慢App页面浏览或点击，不计设备登记">绑定→首次App操作</th>'
     return f'''<div class="scrollx{" matrix-long" if len(us) > 30 else ""}" tabindex="0" aria-label="个例汇总，可滚动查看"><table class="matrix">
 <thead><tr>{columns}</tr></thead>
 <tbody>{"".join(rows)}</tbody></table></div>'''
@@ -834,19 +875,19 @@ def scope_section(sc):
     asset_known_n = sum((u.get("asset_latest") or {}).get("ta") is not None for u in us)
     asset_value = wan(a["asset"]) if asset_known_n == len(us) and us else "未审查"
     asset_note = f'持有资产 {asset_people} 人 · 资产日 {asset_date_txt}' if asset_known_n == len(us) and us else f'已提取资产 {asset_known_n}/{len(us)} 人'
-    ask_counts = [len(u.get("asks") or []) for u in us if not funding_only(u)]
-    ask_avg = statistics.mean(ask_counts) if ask_counts else 0
-    ask_med = statistics.median(ask_counts) if ask_counts else 0
-    ask_med_txt = f'{ask_med:g}'
     population_note = f'新客 {a["new"]} 人 · 老客 {a["n"] - a["new"]} 人'
+    if a["n"] and a["new"] in (0, a["n"]):
+        within_day = sum(0 <= duration <= 86400 for duration in durs)
+        population_note = f'24 小时内入金 {within_day} 人 · 多次入金 {a["repeat"]} 人'
     if sc["id"] == "existing_reactivated":
         first_n = sum(scope_match(u, next(s for s in SCOPES if s["id"] == "existing_first_inv")) for u in us)
         returned_n = sum(scope_match(u, next(s for s in SCOPES if s["id"] == "existing_returned")) for u in us)
         population_note = (f'<button class="scope-inline" type="button" data-scope-link="existing_first_inv">首投 {first_n} 人</button> · '
                            f'<button class="scope-inline" type="button" data-scope-link="existing_returned">清仓后回流 {returned_n} 人</button>')
-    ask_value = f'{a["asks"]:,}' if a["rich_n"] else "未审查"
-    ask_note = f'已审 {a["rich_n"]} 人 · 人均 {ask_avg:.1f} 问' if a["rich_n"] else "资金个例未展开提问审查"
-    ask_cell = f'<div class="cell"><b>{ask_value}</b><span>提问数</span><em>{ask_note}</em></div>' if a["rich_n"] else ""
+    questions_complete = bool(us) and a["questions_known"] == a["n"]
+    ask_value = mean_questions(a["pre_first_asks"], a["n"])
+    ask_note = f'平均提问数 {mean_questions(a["asks"], a["n"])} · 总提问数 {a["asks"]:,}'
+    ask_cell = (f'<div class="cell question-metric" title="首投提问指绑定后、首笔新增入金前的千问提问；均值按本客群全部用户计算，包含零提问用户。老户再投按绑定后首笔入金计算。"><b>{ask_value}</b><span>平均首投提问数</span><em>{ask_note}</em></div>') if questions_complete else ""
     cells = f'''<div class="grid sumrow{" sumrow-four" if not ask_cell else ""}">
   <div class="cell"><b>{a["n"]}</b><span>用户数</span><em>{population_note}</em></div>
   <div class="cell"><b>{inflow_value}</b><span>{inflow_label}</span><em>{inflow_note}</em></div>
@@ -919,7 +960,7 @@ _max_ask_inflow_share = (float(_max_ask_user["derived"].get("inflow_after") or 0
 
 INSIGHTS = [
     f'<b>成效</b>{META["bound_total"]:,} 位绑定用户中识别出 {Z["n"]} 位新投、{F1["n"]} 位首投；累计入金 {wan(Z["inflow"])}，当前资产 {wan(Z["asset"])}。',
-    f'<b>行为</b>绑定到首笔入金中位 {_new_med_txt}，{_within_day_n} 人在 24 小时内完成；{_app_evidence_n}/{Z["n"]} 人有 App 设备注册或原生使用记录，{_terminal_evidence_n} 人绑定后有原生记录；{_app_order_n} 人首笔入金前后 30 分钟有原生 App 记录。',
+    f'<b>行为</b>绑定到首笔入金中位 {_new_med_txt}，{_within_day_n} 人在 24 小时内完成；{_app_evidence_n}/{Z["n"]} 人查到 App 使用或设备登记，{_terminal_evidence_n} 人绑定后有 App 浏览或点击；{_app_order_n} 人首笔入金前后 30 分钟操作过 App。',
     (f'<b>关键案例</b>{_big_new["age"]} 岁新客入金 {wan(_big_new["derived"]["inflow_after"])}、当前资产 {wan(float((_big_new.get("asset_latest") or {}).get("ta") or 0))}；'
      f'沉寂老客回流入金 {wan(_big_recall["derived"]["inflow_after"])}、当前资产 {wan(float((_big_recall.get("asset_latest") or {}).get("ta") or 0))}。'
      f'两例合计贡献 {_top_two_inflow_share:.1f}% 入金，成效高度集中。') if _big_new and _big_recall else '',
@@ -948,6 +989,7 @@ ASKS_JSON = json.dumps({u["pmid"]: {"letter": u["letter"], "cohort": u["cohort"]
                        ensure_ascii=False).replace("</", "<\\/")
 
 CSS = Path(sys.argv[3]).read_text() if len(sys.argv) > 3 else ""
+QUESTION_TOP100_HTML = Path(sys.argv[4]).read_text() if len(sys.argv) > 4 else ""
 
 # 与主看板共用同一组合作品牌标识，避免子看板出现第二套近似 Logo。
 main_dashboard = Path(__file__).resolve().parents[2] / "public/reports/qianwen-user-acquisition-dashboard/index.html"
@@ -969,7 +1011,7 @@ html,body{max-width:100%}
 .sumrow,.sumrow .cell{min-width:0}
 .scope-inline{appearance:none;padding:0;border:0;background:none;color:inherit;font:inherit;text-decoration:underline;text-decoration-color:#b8b2d6;text-underline-offset:3px;cursor:pointer}
 .scope-inline:hover{color:var(--blue-deep)}
-.sumrow .cell em{white-space:nowrap;overflow-wrap:normal;font-size:clamp(10px,.9vw,12px);letter-spacing:-.025em}
+.sumrow .cell em{white-space:normal;overflow-wrap:anywhere;font-size:11.5px;line-height:1.6;letter-spacing:-.025em}
 .scope-nav{display:block}
 .tabs{display:flex;align-items:center;flex-wrap:nowrap;gap:0;overflow-x:auto}
 .dashboard-link svg,.pager .pg svg,.mini-ic svg,.icon-btn svg{display:block;margin:auto}
@@ -1307,6 +1349,7 @@ page = f'''<!doctype html>
     <p class="scope-def" id="scope-description" aria-live="polite"></p>
   </div>
   {sections}
+  {QUESTION_TOP100_HTML}
 
   <footer>千问 X 且慢AI小顾 · 数据截至 {esc(CUT)} · <a href="../qianwen-user-acquisition-dashboard/">返回用户数据看板</a></footer>
 </div>

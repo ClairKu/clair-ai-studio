@@ -1,0 +1,223 @@
+<!-- Question Top 100: data stays inside the protected report. Escape </script in injected JSON. -->
+<section class="qtop" id="question-top100" aria-labelledby="qtop-title">
+  <style>
+    .qtop{margin-top:46px;padding-top:28px;border-top:1px solid var(--rule-2,#d7d7e7);color:var(--ink,#171927);font-family:var(--serif,"Songti SC",STSong,serif)}
+    .qtop [hidden]{display:none!important}.qtop *{box-sizing:border-box}.qtop button,.qtop input,.qtop select{font:inherit}
+    .qtop-heading{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:16px}.qtop-heading h2{margin:0;font-size:26px;line-height:1.35}.qtop-meta{margin:0;color:var(--ink-3,#7d8298);font-size:12px;line-height:1.7;text-align:right}
+    .qtop-tabs{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:0;max-width:100%;margin-bottom:10px;scrollbar-width:thin}.qtop-tabs button{flex:0 0 auto;min-height:45px;padding:0 20px;border:1px solid var(--rule-2,#d7d7e7);background:var(--surface,#fff);color:var(--ink-3,#7d8298);font-size:15px;font-weight:700;white-space:nowrap;cursor:pointer}.qtop-tabs button+button{margin-left:-1px}.qtop-tabs button[aria-selected="true"]{position:relative;background:var(--ink,#171927);border-color:var(--ink,#171927);color:var(--surface,#fff)}
+    .qtop-note{margin:0 0 14px;font-size:12px;color:var(--ink-3,#7d8298);line-height:1.7}.qtop-layout{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:22px;align-items:start}.qtop-layout>div{min-width:0}
+    .qtop-table-wrap{max-height:440px;overflow:auto;border:1px solid var(--rule-2,#d7d7e7);background:var(--surface,#fff);scrollbar-width:thin}.qtop-table{width:100%;margin:0;border-collapse:collapse;white-space:nowrap;font-size:13px}.qtop-table th,.qtop-table td{padding:11px 10px;border-bottom:1px solid var(--rule,#e7e6ef);text-align:right;font-variant-numeric:tabular-nums}.qtop-table th{position:sticky;top:0;z-index:1;background:var(--pale,#f6f3ff);color:var(--ink-3,#7d8298);font-size:12px;font-weight:600}.qtop-table th:nth-child(2),.qtop-table td:nth-child(2){text-align:left}.qtop-table th:first-child,.qtop-table td:first-child{width:44px;text-align:center}.qtop-table tbody tr{cursor:pointer}.qtop-table tbody tr:hover td{background:var(--pale,#f6f3ff)}.qtop-table tbody tr[aria-selected="true"] td{background:var(--soft,#eeebfb);color:var(--blue-deep,#5940bd)}.qtop-table tbody tr[aria-selected="true"] td:first-child{box-shadow:inset 3px 0 var(--blue,#7855ee)}.qtop-open-user{padding:0;border:0;background:transparent;color:inherit;cursor:pointer;text-align:left}.qtop-row-cohort{margin-left:6px;font-size:11px;color:var(--ink-3,#7d8298)}
+    .qtop-user-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 12px}.qtop-user-head h3{margin:0;font-size:20px;line-height:1.5}.qtop-user-cohort{color:var(--ink-3,#7d8298);font-size:12px;white-space:nowrap}.qtop-facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:0}.qtop-fact{min-width:0;padding:13px 9px;border-top:2px solid var(--blue,#7855ee);background:var(--surface,#fff)}.qtop-fact dt{margin:0 0 7px;color:var(--ink-3,#7d8298);font-size:12px;white-space:nowrap}.qtop-fact dd{margin:0;font-size:23px;line-height:1.15;font-variant-numeric:tabular-nums}.qtop-user-dates{margin:12px 0;font-size:12px;line-height:1.8;color:var(--ink-3,#7d8298)}.qtop-summary{margin:0 0 14px;color:var(--ink-2,#4f536a);font-size:13px;line-height:1.8;overflow-wrap:anywhere}.qtop-analysis-title{margin:15px 0 9px;color:var(--ink-2,#4f536a);font-size:14px;font-weight:700}.qtop-analysis-title small{margin-left:7px;color:var(--ink-3,#7d8298);font-size:11px;font-weight:400}.qtop-source-counts{display:flex;gap:7px 14px;flex-wrap:wrap;margin:0;font-size:12px;line-height:1.8;color:var(--ink-3,#7d8298)}.qtop-source-counts b{margin-left:5px;color:var(--ink-2,#4f536a);font-weight:600;font-variant-numeric:tabular-nums}.qtop-topic-list{display:grid;gap:8px;margin:0;padding:0;list-style:none}.qtop-topic{display:grid;grid-template-columns:minmax(70px,1fr) minmax(40px,1.3fr) 36px;gap:9px;align-items:center;color:var(--ink-2,#4f536a);font-size:12px}.qtop-topic-label{overflow-wrap:anywhere}.qtop-topic-track{height:5px;background:var(--soft,#eeebfb);overflow:hidden}.qtop-topic-bar{height:100%;background:var(--blue,#7855ee);opacity:.72}.qtop-topic-n{text-align:right;font-variant-numeric:tabular-nums}.qtop-case-link{display:inline-block;margin-top:13px;color:var(--blue-deep,#5940bd);font-size:12px;text-underline-offset:3px}
+    .qtop-originals{margin-top:25px;padding-top:19px;border-top:1px solid var(--rule-2,#d7d7e7)}.qtop-originals-heading{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:12px}.qtop-originals-heading h3{margin:0;font-size:19px}.qtop-originals-count{font-size:12px;color:var(--ink-3,#7d8298)}.qtop-filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px}.qtop-filters input,.qtop-filters select{min-height:36px;padding:6px 10px;border:1px solid var(--rule-2,#d7d7e7);border-radius:0;background:var(--surface,#fff);color:var(--ink-2,#4f536a);font-size:12px}.qtop-filters input{flex:1 1 220px;min-width:0}.qtop-filters select{max-width:100%}.qtop-controls{display:flex;align-items:center;gap:10px;justify-content:flex-end;min-height:35px;margin:10px 0;color:var(--ink-3,#7d8298);font-size:12px}.qtop-controls button,.qtop-retry{min-height:32px;padding:5px 11px;border:1px solid var(--rule-2,#d7d7e7);background:var(--surface,#fff);color:var(--ink-2,#4f536a);cursor:pointer}.qtop-controls button:disabled{opacity:.35;cursor:default}.qtop-controls span{font-variant-numeric:tabular-nums}.qtop-status{display:flex;align-items:center;gap:10px;min-height:44px;margin:0;color:var(--ink-3,#7d8298);font-size:13px;line-height:1.8}.qtop-status.is-error{color:#98504b}.qtop-questions{list-style:none;margin:0;padding:0}.qtop-question{padding:13px 0;border-bottom:1px solid var(--rule,#e7e6ef)}.qtop-question-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 11px;margin-bottom:7px;color:var(--ink-3,#7d8298);font-size:11px;line-height:1.5;font-variant-numeric:tabular-nums}.qtop-question-index{color:var(--blue-deep,#5940bd);font-weight:700}.qtop-question-source{padding:1px 6px;background:var(--soft,#eeebfb);color:var(--blue-deep,#5940bd)}.qtop-question-text{margin:0;color:var(--ink-2,#4f536a);font-size:13px;line-height:1.85;white-space:pre-wrap;overflow-wrap:anywhere}.qtop-empty{margin:18px 0;color:var(--ink-3,#7d8298);font-size:13px;line-height:1.8}.qtop button:focus-visible,.qtop input:focus-visible,.qtop select:focus-visible,.qtop-table-wrap:focus-visible{outline:2px solid var(--blue,#7855ee);outline-offset:2px}
+    @media(max-width:1000px){.qtop-facts{grid-template-columns:repeat(2,minmax(0,1fr))}.qtop-layout{gap:16px}.qtop-table th,.qtop-table td{padding:10px 8px}}
+    @media(max-width:760px){.qtop{margin-top:32px;padding-top:22px}.qtop-heading{display:block}.qtop-heading h2{font-size:23px}.qtop-meta{margin-top:7px;text-align:left}.qtop-layout{grid-template-columns:1fr;gap:21px}.qtop-facts{grid-template-columns:repeat(4,minmax(0,1fr))}.qtop-tabs button{padding:0 16px;font-size:14px}.qtop-table-wrap{max-height:360px}.qtop-user-head h3{font-size:19px}.qtop-fact dd{font-size:21px}.qtop-originals-heading{flex-wrap:wrap}.qtop-filters select{flex:1 1 130px}.qtop-controls{gap:8px}}
+    @media(max-width:420px){.qtop-facts{grid-template-columns:repeat(2,minmax(0,1fr))}.qtop-table{font-size:12px}.qtop-row-cohort{display:none}.qtop-table th,.qtop-table td{padding:10px 7px}.qtop-meta{font-size:11px}}
+  </style>
+  <div class="qtop-heading">
+    <h2 id="qtop-title">提问用户 TOP100</h2>
+    <p class="qtop-meta" id="qtop-meta"></p>
+  </div>
+  <div class="qtop-tabs" role="tablist" aria-label="提问用户榜单切换">
+    <button type="button" role="tab" data-qtop-ranking="total" aria-selected="true">总提问量 TOP100</button>
+    <button type="button" role="tab" data-qtop-ranking="daily" aria-selected="false">观察日均 TOP100</button>
+  </div>
+  <p class="qtop-note" id="qtop-ranking-note"></p>
+  <p class="qtop-summary" id="qtop-ranking-analysis" hidden></p>
+  <p class="qtop-status" id="qtop-data-error" role="status" hidden></p>
+  <div class="qtop-layout" id="qtop-content">
+    <div class="qtop-table-wrap" tabindex="0" aria-label="提问用户榜单，可滚动查看">
+      <table class="qtop-table">
+        <thead><tr><th scope="col">排名</th><th scope="col">用户</th><th scope="col">总提问</th><th scope="col">观察日均</th><th scope="col">活跃日</th></tr></thead>
+        <tbody id="qtop-ranking-rows"></tbody>
+      </table>
+    </div>
+    <div aria-label="选中用户的提问分析" aria-live="polite">
+      <div class="qtop-user-head"><h3 id="qtop-user-label">请选择用户</h3><span class="qtop-user-cohort" id="qtop-user-cohort"></span></div>
+      <dl class="qtop-facts" id="qtop-user-facts"></dl>
+      <p class="qtop-user-dates" id="qtop-user-dates"></p>
+      <p class="qtop-summary" id="qtop-user-summary" hidden></p>
+      <h4 class="qtop-analysis-title">提问来源</h4>
+      <p class="qtop-source-counts" id="qtop-source-counts"></p>
+      <h4 class="qtop-analysis-title">其它输入主题<small>规则归类，不含已识别推荐题</small></h4>
+      <ul class="qtop-topic-list" id="qtop-topics"></ul>
+      <a class="qtop-case-link" id="qtop-case-link" hidden>查看该用户的转化个例 →</a>
+    </div>
+  </div>
+  <div class="qtop-originals" id="qtop-originals">
+    <div class="qtop-originals-heading"><h3 id="qtop-originals-title">提问原文</h3><span class="qtop-originals-count" id="qtop-originals-count"></span></div>
+    <div class="qtop-filters" aria-label="筛选提问原文">
+      <input id="qtop-search" type="search" placeholder="搜索提问原文" aria-label="搜索提问原文" autocomplete="off">
+      <select id="qtop-source-filter" aria-label="按提问来源筛选"><option value="">全部来源</option><option value="preset_confirmed">已确认默认提问</option><option value="preset_inferred">推荐题匹配（推断）</option><option value="other_input">其它输入（来源未确认）</option><option value="unknown">来源待核</option></select>
+      <select id="qtop-topic-filter" aria-label="按提问主题筛选"><option value="">全部主题</option></select>
+    </div>
+    <p class="qtop-status" id="qtop-load-status" role="status" aria-live="polite"></p>
+    <button type="button" class="qtop-retry" id="qtop-retry">查看提问原文</button>
+    <div class="qtop-controls" id="qtop-controls-top" hidden><button type="button" data-qtop-page="prev">上一页</button><span data-qtop-page-label></span><button type="button" data-qtop-page="next">下一页</button></div>
+    <ol class="qtop-questions" id="qtop-questions"></ol>
+    <div class="qtop-controls" id="qtop-controls-bottom" hidden><button type="button" data-qtop-page="prev">上一页</button><span data-qtop-page-label></span><button type="button" data-qtop-page="next">下一页</button></div>
+  </div>
+  <p class="qtop-note">原文仅遮蔽敏感标识；主题为规则归类；末日未满全天；高频不等于高意向。</p>
+  <script type="application/json" id="question-top100-data">__QUESTION_TOP100_DATA__</script>
+  <script>
+  (function(){
+    'use strict';
+    const root=document.getElementById('question-top100');
+    if(!root || root.dataset.initialized) return;
+    root.dataset.initialized='true';
+    const $=id=>root.querySelector('#'+id);
+    const text=(node,value)=>{node.textContent=value==null?'':String(value);};
+    const node=(tag,cls,value)=>{const el=document.createElement(tag);if(cls)el.className=cls;if(value!=null)text(el,value);return el;};
+    const finite=value=>value!==null&&value!==undefined&&value!==''&&Number.isFinite(Number(value));
+    const number=(value,digits=0)=>finite(value)?Number(value).toLocaleString('zh-CN',{minimumFractionDigits:digits,maximumFractionDigits:digits}):'—';
+    const stamp=value=>value?String(value).replace('T',' ').slice(0,19):'—';
+    let data;
+    try{data=JSON.parse($('question-top100-data').textContent);if(!data || !data.rankings || !data.users)throw new Error('invalid');}
+    catch(_){$('qtop-content').hidden=true;$('qtop-originals').hidden=true;$('qtop-data-error').hidden=false;text($('qtop-data-error'),'榜单数据未能读取，请刷新页面重试。');return;}
+    const userList=Array.isArray(data.users)?data.users:Object.entries(data.users).map(([key,value])=>({...value,key:value.key||key}));
+    const users=new Map(userList.filter(u=>u && u.key!=null).map(u=>[String(u.key),u]));
+    const meta=data.meta||{};
+    const sourceNames={preset_confirmed:'已确认默认提问',preset_inferred:'推荐题匹配（推断）',other_input:'其它输入（来源未确认）',unknown:'来源待核'};
+    const sourceOf=value=>Object.prototype.hasOwnProperty.call(sourceNames,value)?value:'unknown';
+    const topicsOf=value=>(Array.isArray(value)?value:[value]).filter(v=>v!=null&&String(v).trim()).map(String);
+    const cache=new Map();
+    const state={ranking:'total',key:null,questions:[],filtered:[],page:1,request:0,loading:false,loaded:false};
+    const pageSize=50;
+    const rankKeys=()=>Array.from(data.rankings[state.ranking]||[]).map(String).filter(key=>users.has(key)).slice(0,100);
+    const context=[];
+    if(meta.cutoff)context.push('截至 '+stamp(meta.cutoff));
+    if(finite(meta.user_population))context.push('提问用户 '+number(meta.user_population)+' 人');
+    if(finite(meta.question_population))context.push('提问 '+number(meta.question_population)+' 条');
+    text($('qtop-meta'),context.join(' · '));
+    const note=()=>{
+      const parts=[];
+      if(state.ranking==='daily')parts.push(meta.daily_definition||'观察日均＝总提问量 ÷ 观察天数');
+      else parts.push(meta.source_definition||'按统计范围内的用户提问条数排序');
+      const currentUsers=rankKeys().map(key=>users.get(key));
+      const questionSum=currentUsers.reduce((sum,user)=>sum+(Number(user.total)||0),0);
+      parts.push('本榜 '+number(currentUsers.length)+' 人 / '+number(questionSum)+' 条提问');
+      const newN=currentUsers.filter(user=>/^(new|新户|新客|新用户)$/.test(String(user.new_or_existing||'').trim())).length;
+      const oldN=currentUsers.filter(user=>/^(existing|老户|老客|老用户)$/.test(String(user.new_or_existing||'').trim())).length;
+      if(newN||oldN){parts.push('新客 '+newN+' / 老客 '+oldN);if(newN+oldN<currentUsers.length)parts.push('客群待核 '+(currentUsers.length-newN-oldN));}
+      if(finite(meta.union_users))parts.push('两榜合计 '+number(meta.union_users)+' 人');
+      if(finite(meta.overlap))parts.push('重合 '+number(meta.overlap)+' 人');
+      text($('qtop-ranking-note'),parts.join(' · '));
+      const analysis=(meta.ranking_analysis||{})[state.ranking];
+      text($('qtop-ranking-analysis'),analysis||'');$('qtop-ranking-analysis').hidden=!analysis;
+    };
+    function renderRanking(){
+      root.querySelectorAll('[data-qtop-ranking]').forEach(btn=>btn.setAttribute('aria-selected',String(btn.dataset.qtopRanking===state.ranking)));
+      const frag=document.createDocumentFragment();
+      rankKeys().forEach((key,index)=>{
+        const user=users.get(key),tr=node('tr');tr.dataset.qtopUser=key;tr.setAttribute('aria-selected',String(key===state.key));
+        tr.append(node('td','',index+1));
+        const who=node('td'),open=node('button','qtop-open-user',user.label||('用户 '+key));open.type='button';
+        who.append(open);
+        if(user.new_or_existing)who.append(node('span','qtop-row-cohort',user.new_or_existing));
+        tr.append(who,node('td','',number(user.total)),node('td','',number(user.daily_avg,2)),node('td','',number(user.active_days)));
+        tr.addEventListener('click',()=>selectUser(key));frag.append(tr);
+      });
+      $('qtop-ranking-rows').replaceChildren(frag);note();
+    }
+    function renderUser(user){
+      text($('qtop-user-label'),user.label||('用户 '+user.key));text($('qtop-user-cohort'),user.new_or_existing||'');
+      const facts=document.createDocumentFragment();
+      [['总提问',number(user.total)],['观察日均',number(user.daily_avg,2)],['观察天数',number(user.observed_days)],['提问活跃日',number(user.active_days)]].forEach(([label,value])=>{
+        const item=node('div','qtop-fact');item.append(node('dt','',label),node('dd','',value));facts.append(item);
+      });$('qtop-user-facts').replaceChildren(facts);
+      text($('qtop-user-dates'),'首问 '+stamp(user.first_at)+'　·　末问 '+stamp(user.last_at));
+      text($('qtop-user-summary'),user.summary||'');$('qtop-user-summary').hidden=!user.summary;
+      const sources=document.createDocumentFragment();let counted=0;
+      ['preset_confirmed','preset_inferred','other_input'].forEach(key=>{
+        const span=node('span','',sourceNames[key]);span.append(node('b','',number(user[key])));sources.append(span);
+        if(finite(user[key]))counted+=Number(user[key]);
+      });
+      if(finite(user.total)&&Number(user.total)>counted){const span=node('span','',sourceNames.unknown);span.append(node('b','',number(Number(user.total)-counted)));sources.append(span);}
+      $('qtop-source-counts').replaceChildren(sources);
+      const topics=(Array.isArray(user.topics)?user.topics:[]).filter(t=>t && t.label).slice().sort((a,b)=>Number(b.n||0)-Number(a.n||0));
+      const max=Math.max(1,...topics.map(t=>Number(t.n)||0));const topicFrag=document.createDocumentFragment();
+      topics.slice(0,8).forEach(topic=>{
+        const item=node('li','qtop-topic'),track=node('span','qtop-topic-track'),bar=node('span','qtop-topic-bar');
+        bar.style.display='block';bar.style.width=Math.max(0,Math.min(100,(Number(topic.n)||0)/max*100))+'%';track.append(bar);
+        item.append(node('span','qtop-topic-label',topic.label),track,node('span','qtop-topic-n',number(topic.n)));topicFrag.append(item);
+      });
+      if(!topics.length)topicFrag.append(node('li','qtop-empty','暂无已归类主题'));
+      $('qtop-topics').replaceChildren(topicFrag);
+      const link=$('qtop-case-link');link.hidden=true;link.removeAttribute('href');
+      if(typeof user.case_ref==='string' && /^#[A-Za-z0-9_-]+$/.test(user.case_ref)){link.href=user.case_ref;link.hidden=false;}
+      text($('qtop-originals-title'),(user.label||('用户 '+user.key))+' · 提问原文');
+    }
+    function resetFilters(){
+      $('qtop-search').value='';$('qtop-source-filter').value='';$('qtop-topic-filter').replaceChildren(node('option','','全部主题'));
+      $('qtop-topic-filter').firstChild.value='';state.page=1;
+    }
+    function setStatus(message,error){
+      text($('qtop-load-status'),message);$('qtop-load-status').hidden=!message;$('qtop-load-status').classList.toggle('is-error',!!error);
+    }
+    function renderQuestions(){
+      const total=state.filtered.length,pages=Math.max(1,Math.ceil(total/pageSize));state.page=Math.max(1,Math.min(state.page,pages));
+      const start=(state.page-1)*pageSize,frag=document.createDocumentFragment();
+      state.filtered.slice(start,start+pageSize).forEach((question,offset)=>{
+        const row=node('li','qtop-question'),head=node('div','qtop-question-meta');
+        const index=question.i==null?start+offset+1:question.i;
+        head.append(node('span','qtop-question-index','#'+String(index)),node('span','',stamp(question.t)),node('span','qtop-question-source',sourceNames[sourceOf(question.source)]));
+        const topics=topicsOf(question.topic);if(topics.length)head.append(node('span','',topics.join(' · ')));
+        row.append(head,node('p','qtop-question-text',question.q==null?'':question.q));frag.append(row);
+      });
+      $('qtop-questions').replaceChildren(frag);
+      if(!state.loading&&!state.loaded)setStatus('原文按需读取，点击下方按钮查看。',false);
+      else if(!state.loading&&!total)setStatus(state.questions.length?'没有符合筛选条件的提问。':'该用户暂无可展示的提问原文。',false);
+      else if(!state.loading)setStatus('',false);
+      text($('qtop-originals-count'),state.loading||!state.loaded?'':('筛选 '+number(total)+' / 已载入 '+number(state.questions.length)+' 条'));
+      root.querySelectorAll('[data-qtop-page-label]').forEach(el=>text(el,'第 '+state.page+' / '+pages+' 页 · 每页 50 条'));
+      root.querySelectorAll('[data-qtop-page="prev"]').forEach(el=>el.disabled=state.page<=1||state.loading);
+      root.querySelectorAll('[data-qtop-page="next"]').forEach(el=>el.disabled=state.page>=pages||state.loading);
+      $('qtop-controls-top').hidden=!total||state.loading;$('qtop-controls-bottom').hidden=!total||state.loading;
+    }
+    function filterQuestions(){
+      const query=$('qtop-search').value.trim().toLocaleLowerCase(),source=$('qtop-source-filter').value,topic=$('qtop-topic-filter').value;
+      state.filtered=state.questions.filter(q=>(!query||String(q.q||'').toLocaleLowerCase().includes(query))&&(!source||sourceOf(q.source)===source)&&(!topic||topicsOf(q.topic).includes(topic)));
+      state.page=1;renderQuestions();
+    }
+    async function loadQuestions(key,retry){
+      const request=++state.request;state.loading=true;state.loaded=false;state.questions=[];state.filtered=[];state.page=1;$('qtop-retry').hidden=true;
+      setStatus('正在读取该用户的加密原文…',false);renderQuestions();
+      let timer;
+      try{
+        let result=cache.get(key);
+        if(!result||retry){
+          if(typeof window.loadQuestionTopUser!=='function')throw new Error('loader_unavailable');
+          result=await Promise.race([Promise.resolve().then(()=>window.loadQuestionTopUser(key)),new Promise((_,reject)=>{timer=setTimeout(()=>reject(new Error('timeout')),30000);})]);
+        }
+        if(request!==state.request||key!==state.key)return;
+        if(!result||!Array.isArray(result.questions))throw new Error('invalid_response');
+        const questions=result.questions.filter(q=>q&&typeof q==='object').map((q,index)=>({...q,i:q.i==null?index+1:q.i}));
+        questions.sort((a,b)=>String(a.t||'').localeCompare(String(b.t||''))||Number(a.i||0)-Number(b.i||0));
+        cache.set(key,{questions});state.questions=questions;state.loading=false;state.loaded=true;
+        const topicLabels=[...new Set(questions.flatMap(q=>topicsOf(q.topic)))].sort((a,b)=>a.localeCompare(b,'zh-CN'));
+        const opts=document.createDocumentFragment(),all=node('option','','全部主题');all.value='';opts.append(all);
+        topicLabels.forEach(label=>{const opt=node('option','',label);opt.value=label;opts.append(opt);});$('qtop-topic-filter').replaceChildren(opts);
+        filterQuestions();
+      }catch(error){
+        if(request!==state.request||key!==state.key)return;
+        state.loading=false;renderQuestions();
+        setStatus(error&&error.message==='timeout'?'读取超过 30 秒，已停止等待。可点击重试。':'原文读取失败，请点击重试；榜单与已核统计仍可查看。',true);text($('qtop-retry'),'重新加载原文');$('qtop-retry').hidden=false;
+      }finally{if(timer)clearTimeout(timer);}
+    }
+    function selectUser(key,load=true){
+      key=String(key);const user=users.get(key);if(!user)return;
+      if(state.key===key){if(load&&!state.loading&&!state.loaded)loadQuestions(key,false);return;}
+      state.key=key;root.querySelectorAll('[data-qtop-user]').forEach(row=>row.setAttribute('aria-selected',String(row.dataset.qtopUser===key)));
+      renderUser(user);resetFilters();
+      if(load)loadQuestions(key,false);
+      else{++state.request;state.loading=false;state.loaded=false;state.questions=[];state.filtered=[];renderQuestions();text($('qtop-retry'),'查看提问原文');$('qtop-retry').hidden=false;}
+    }
+    root.querySelectorAll('[data-qtop-ranking]').forEach(btn=>btn.addEventListener('click',()=>{
+      state.ranking=btn.dataset.qtopRanking;renderRanking();const keys=rankKeys();if(!keys.includes(state.key)&&keys.length)selectUser(keys[0],false);
+    }));
+    $('qtop-search').addEventListener('input',filterQuestions);$('qtop-source-filter').addEventListener('change',filterQuestions);$('qtop-topic-filter').addEventListener('change',filterQuestions);
+    $('qtop-retry').addEventListener('click',()=>{if(state.key&&!state.loading)loadQuestions(state.key,state.loaded);});
+    root.querySelectorAll('[data-qtop-page]').forEach(btn=>btn.addEventListener('click',()=>{if(state.loading)return;state.page+=btn.dataset.qtopPage==='next'?1:-1;renderQuestions();}));
+    renderRanking();const first=rankKeys()[0];if(first)selectUser(first,false);else{setStatus('当前统计范围内暂无提问用户。',false);$('qtop-content').hidden=true;$('qtop-retry').hidden=true;}
+  })();
+  </script>
+</section>

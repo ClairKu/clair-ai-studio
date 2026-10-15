@@ -60,6 +60,8 @@ test('Case layout stays compact, hides unreviewed slices and labels old first/ne
       asset_latest:{cal_date:'2026-10-14',ta:100*(i+1)},
       inflow_txns:[{t:'2026-10-10 11:00:00',amt:10*(i+1)}],
       derived:{inflow_after:10*(i+1),first_inflow_after:'2026-10-10 11:00:00',buy_amount_after:null,cancels_after:0},
+      question_stats:{total_questions:i===3?0:10*(i+1),pre_first_inflow_questions:i===3?0:4*(i+1),reviewed:true,cutoff:'2026-10-15 09:58:45'},
+      app_operation:{first_at:i===3?null:'2026-10-10 10:05:30',first_platform:i===3?null:'iOS',device_platforms:i===3?['Android']:['iOS'],reviewed:true,cutoff:'2026-10-15 09:58:45'},
       flags:{zero_at_bind:type!=='reinvested',first_invest_after:['new','old-first'].includes(type),
         new_first_invest:type==='new',recall:['old-first','returned'].includes(type),
         existing_first_invest:type==='old-first',existing_returned:type==='returned',existing_reinvested:type==='reinvested'},
@@ -73,6 +75,16 @@ test('Case layout stays compact, hides unreviewed slices and labels old first/ne
     assert.match(rejected.stderr,/资产未核验完整/);
     data.meta.assets_audit_complete=true;
     writeFileSync(input,JSON.stringify(data));
+    const questionRejected=build();
+    assert.notEqual(questionRejected.status,0,'Incomplete question review must block publication');
+    assert.match(questionRejected.stderr,/提问统计未核验完整/);
+    data.meta.question_stats_audit_complete=true;
+    writeFileSync(input,JSON.stringify(data));
+    const appRejected=build();
+    assert.notEqual(appRejected.status,0,'Incomplete App operation review must block publication');
+    assert.match(appRejected.stderr,/首次App操作未核验完整/);
+    data.meta.app_operations_audit_complete=true;
+    writeFileSync(input,JSON.stringify(data));
     const accepted=build();
     assert.equal(accepted.status,0,accepted.stderr);
     const page=readFileSync(output,'utf8');
@@ -83,8 +95,56 @@ test('Case layout stays compact, hides unreviewed slices and labels old first/ne
     assert.match(page,/\.tab\{flex:0 0 auto/);
     for(const label of ['新客','老客首投','老客新投','老客再投']) assert.match(page,new RegExp(`<td>${label}</td>`));
     assert.match(page,/用户原来在且慢资产为 0，从千问绑定且慢帐号后，完成新入金/);
-    assert.match(page,/sumrow-four/);
+    assert.equal((page.match(/<span>平均首投提问数<\/span>/g)||[]).length,7);
+    assert.match(page,/<b>4<\/b><span>平均首投提问数<\/span><em>平均提问数 10 · 总提问数 10/);
+    assert.match(page,/<b>0<\/b><span>平均首投提问数<\/span><em>平均提问数 0 · 总提问数 0/);
+    assert.doesNotMatch(page,/新客 0 人/);
+    assert.match(page,/24 小时内入金 1 人 · 多次入金 0 人/);
+    assert.match(page,/<th>使用设备<\/th><th[^>]*>绑定→首次App操作<\/th>/);
+    assert.match(page,/<td>iOS<\/td><td[^>]*>5 分 30 秒<\/td>/);
+    assert.match(page,/<td>安卓<\/td><td[^>]*>未查到操作<\/td>/);
+    assert.doesNotMatch(page,/App 使用证据|iOS App ·|安卓 App ·/);
   } finally { rmSync(dir,{recursive:true,force:true}); }
+});
+
+test('App operation audit rejects device-registration substitutions and out-of-window operations', () => {
+  const script = `
+import importlib.util,json,copy
+spec=importlib.util.spec_from_file_location('app','scripts/qianwen-cases/apply-app-operations.py')
+m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+base={'meta':{'cutoff':'2026-10-15 09:58:45'},'users':[{'pmid':'fixture','fb':'2026-10-10 10:00:00'}]}
+row={'pmid':'fixture','first_app_operation_at':'2026-10-10 10:05:00','first_app_operation_platform':'iOS','device_platforms':['iOS'],'reviewed':True}
+bad=[{**row,'reviewed':False},{**row,'first_app_operation_at':'2026-10-10 09:59:59'},{**row,'first_app_operation_at':'2026-10-15 09:58:45'},{**row,'first_app_operation_platform':'MiniProgram'},{**row,'device_platforms':['js']},{**row,'first_app_operation_at':None}]
+errors=[]
+for item in bad:
+ try:m.apply_operations(copy.deepcopy(base),[item]);errors.append(False)
+ except ValueError:errors.append(True)
+none=m.apply_operations(copy.deepcopy(base),[{**row,'first_app_operation_at':None,'first_app_operation_platform':None}])
+print(json.dumps({'errors':errors,'none':none['users'][0]['app_operation']['first_at'],'devices':none['users'][0]['app_operation']['device_platforms']}))
+`;
+  const run=spawnSync('python3',['-c',script],{encoding:'utf8'});
+  assert.equal(run.status,0,run.stderr);
+  assert.deepEqual(JSON.parse(run.stdout),{errors:[true,true,true,true,true,true],none:null,devices:['iOS']});
+});
+
+test('Question audit requires full coverage, integers, consistent first inflow and actual zero counts', () => {
+  const script = `
+import importlib.util,json,copy
+spec=importlib.util.spec_from_file_location('questions','scripts/qianwen-cases/apply-question-counts.py')
+m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+base={'meta':{'cutoff':'2026-10-15 09:58:45'},'users':[{'pmid':'fixture','coverage':'funding_only','fb':'2026-10-10 10:00:00','derived':{'first_inflow_after':'2026-10-10 11:00:00'}}]}
+good={'pmid':'fixture','first_inflow_after':'2026-10-10T11:00:00','total_questions':10,'pre_first_inflow_questions':3}
+cases=[[],[good,good],[{**good,'total_questions':None}],[{**good,'total_questions':1.5}],[{**good,'pre_first_inflow_questions':11}],[{**good,'pre_first_inflow_questions':-1}],[{**good,'first_inflow_after':'2026-10-10 12:00:00'}]]
+errors=[]
+for rows in cases:
+ try:m.apply_counts(copy.deepcopy(base),rows);errors.append(False)
+ except ValueError:errors.append(True)
+result=m.apply_counts(copy.deepcopy(base),[{**good,'total_questions':0,'pre_first_inflow_questions':0}])
+print(json.dumps({'errors':errors,'zero':result['users'][0]['question_stats']['total_questions'],'reviewed':result['meta']['question_stats_audit_complete']}))
+`;
+  const run=spawnSync('python3',['-c',script],{encoding:'utf8'});
+  assert.equal(run.status,0,run.stderr);
+  assert.deepEqual(JSON.parse(run.stdout),{errors:[true,true,true,true,true,true,true],zero:0,reviewed:true});
 });
 
 test('Asset review cannot fill unknown as zero or mix asset dates', () => {

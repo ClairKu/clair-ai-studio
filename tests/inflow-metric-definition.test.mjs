@@ -71,10 +71,13 @@ for (const platform of ['qianwen', 'doubao']) {
       assert.match(html, /绑定后首笔入金/);
       assert.doesNotMatch(html, /绑定后首笔投资/);
       assert.match(html, /id="scope-existing_returned"/);
-      assert.match(html, /2\/3 人有 App 设备注册或原生使用记录，1 人绑定后有原生记录；1 人首笔入金前后 30 分钟有原生 App 记录/);
+      assert.match(html, platform === 'qianwen'
+        ? /2\/3 人查到 App 使用或设备登记，1 人绑定后有 App 浏览或点击；1 人首笔入金前后 30 分钟操作过 App/
+        : /2\/3 人有 App 设备注册或原生使用记录，1 人绑定后有原生记录；1 人首笔入金前后 30 分钟有原生 App 记录/);
       assert.doesNotMatch(html, /MiniProgram App|下载 App|没有装 App|直接确认在 App 完成/);
       assert.match(html, /小程序/);
-      assert.match(html, /App 使用证据/);
+      assert.match(html, platform === 'qianwen' ? /使用设备/ : /App 使用证据/);
+      if (platform === 'qianwen') assert.match(html, /绑定→首次App操作/);
       candidates[0].first_inflow_ever = '2026-10-10T10:06:00';
       writeFileSync(join(dir, 'candidates.json'), JSON.stringify(candidates));
       const mismatch = spawnSync('python3', [`scripts/${platform}-cases/assemble-users.py`, dir, cutoff, '4'], { cwd: root, encoding: 'utf8' });
