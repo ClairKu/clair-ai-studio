@@ -18,6 +18,10 @@ SRC = Path(sys.argv[1]); OUT = Path(sys.argv[2])
 data = json.load(open(SRC))
 users = data["users"]; META = data["meta"]
 CUT = META["cutoff"]  # 'YYYY-MM-DD HH:MM'
+if META.get("taxonomy_version") and not META.get("assets_audit_complete"):
+    raise ValueError("所有客群资产未核验完整，禁止生成生产个例页")
+if META.get("taxonomy_version") and any((u.get("asset_latest") or {}).get("ta") is None for u in users):
+    raise ValueError("个例资产仍有缺失，禁止生成生产个例页")
 
 # 个案洞察由作者逐例研判，不用固定字段模板拼接。兼容已经生成、尚未内嵌 insight 的 users.json。
 insight_file = Path(__file__).with_name("narratives.json")
@@ -100,9 +104,23 @@ SCOPES = [
   {"id": "qwen_influenced", "label": "老户再投（千问归因）", "flag": "qwen_influence_rule", "status": "规则判断",
    "def": "用户有且慢帐号有资产，从千问绑定且慢帐号后，在千问的行为促进新入金。"},
 ]
+# 尚未完成个例审查的千问侧/归因切片不进入生产导航和页面。
+SCOPES = [sc for sc in SCOPES if not sc.get("status") or sc["id"] in META.get("reviewed_scopes", [])]
 
 def funding_only(u):
     return u.get("coverage") == "funding_only"
+
+def customer_label(u):
+    if u.get("cohort") == "new":
+        return "新客"
+    flags = u.get("flags") or {}
+    if flags.get("first_invest_after"):
+        return "老客首投"
+    if flags.get("zero_at_bind"):
+        return "老客新投"
+    if flags.get("existing_reinvested"):
+        return "老客再投"
+    return "老客"
 
 def scope_match(u, sc):
     flags = u.get("flags") or {}
@@ -197,7 +215,8 @@ def timeline(u):
             ev.append((t, "trade", f"{kind}「{esc(name)}」{money(tr['buy'])} 元"))
     al = u.get("asset_latest")
     if al:
-        ev.append((dt(al["cal_date"] + "T23:59:59"), "sys", f"最近资产快照（{al['cal_date'][5:]}）{money(al['ta'])} 元"))
+        asset_label = "资产核验" if al.get("status") == "verified_zero" else "最近资产快照"
+        ev.append((dt(al["cal_date"] + "T23:59:59"), "sys", f"{asset_label}（{al['cal_date'][5:]}）{money(al['ta'])} 元"))
     ev = [e for e in ev if e[0]]
     ev.sort(key=lambda e: e[0])
     out, last_day, last_time = [], None, None
@@ -643,6 +662,8 @@ def classification_labels(u):
     return [sc["label"] for sc in SCOPES if sc["id"] not in ("qwen_side", "qwen_influenced") and scope_match(u, sc)]
 
 def inference_evidence(u):
+    if not META.get("reviewed_scopes"):
+        return ""
     if (u.get("flags") or {}).get("existing_reinvested") is not True:
         return ""
     rows = []
@@ -677,7 +698,7 @@ def funding_card(u):
             f'<div class="fact"><span>千问绑定</span><b class="num">{fmt_t(u.get("fb"), True)}</b></div>'
             f'<div class="fact"><span>绑定前资产</span><b class="num">{at_bind}</b><small>绑定日及之前最近日快照</small></div>'
             f'<div class="fact"><span>绑定后首笔入金</span><b class="num">{fmt_t(d.get("first_inflow_after"), True)}</b></div>'
-            f'</div><p class="funding-coverage">本例已核资金、绑定与分类，并检查首笔入金窗口；完整提问和操作历程尚未展开。</p>'
+            f'</div><p class="funding-coverage">当前资产：{money((u.get("asset_latest") or {}).get("ta"))} 元 · 资产日 {esc((u.get("asset_latest") or {}).get("cal_date"))}</p>'
             f'{table}{inference_evidence(u)}</div></div>')
 
 def card(u):
@@ -724,8 +745,16 @@ def card(u):
 # ───── 汇总矩阵 ─────
 def matrix(us):
     rows = []
+    funding_matrix = bool(us) and all(funding_only(u) for u in us)
     for u in us:
         d = u["derived"]; al = u.get("asset_latest")
+        if funding_matrix:
+            rows.append(f'''<tr>
+  <td><span class="badge">{u["letter"]}</span></td><td>{customer_label(u)}</td>
+  <td class="num">{fmt_t(u["fb"], True)}</td><td class="num">{fmt_t(d["first_inflow_after"], True)}</td>
+  <td class="num">{dur(u["fb"], d["first_inflow_after"])}</td><td class="num">{money(d["inflow_after"])}</td>
+  <td class="num">{money(al["ta"]) if al else "—"}</td></tr>''')
+            continue
         native = [e for e in u.get("events", []) if e.get("lib") in NATIVE_LIBS]
         devices = [r for r in u.get("dev", []) if str(r.get("platform")) in PLAT]
         if funding_only(u):
@@ -742,7 +771,7 @@ def matrix(us):
             dev_txt = "App 使用未确认"
         rows.append(f'''<tr>
   <td><span class="who"><span class="{"badge n" if u["cohort"]=="new" else "badge"}">{u["letter"]}</span></span></td>
-  <td>{"新客" if u["cohort"]=="new" else "老客"}</td>
+  <td>{customer_label(u)}</td>
   <td>{"未审查" if funding_only(u) else ("男" if u.get("gender")=="M" else "女" if u.get("gender")=="F" else "—") + " " + str(u.get("age") or "")}</td>
   <td class="num">{fmt_t(u["fb"], True)}</td>
   <td class="num">{fmt_t(d["first_inflow_after"], True)}</td>
@@ -753,8 +782,9 @@ def matrix(us):
   <td class="num">{"未审查" if funding_only(u) else len(u.get("asks") or [])}</td>
   <td class="wrap">{dev_txt}</td>
 </tr>''')
+    columns = "<th>用户</th><th>客群</th><th>绑定</th><th>绑定后首笔入金</th><th>间隔</th><th>入金</th><th>当前资产</th>" if funding_matrix else "<th>用户</th><th>客群</th><th>画像</th><th>绑定</th><th>绑定后首笔入金</th><th>间隔</th><th>入金</th><th>当前资产</th><th>风测</th><th>提问</th><th>App 使用证据</th>"
     return f'''<div class="scrollx{" matrix-long" if len(us) > 30 else ""}" tabindex="0" aria-label="个例汇总，可滚动查看"><table class="matrix">
-<thead><tr><th>用户</th><th>客群</th><th>画像</th><th>绑定</th><th>绑定后首笔入金</th><th>间隔</th><th>入金</th><th>当前资产</th><th>风测</th><th>提问</th><th>App 使用证据</th></tr></thead>
+<thead><tr>{columns}</tr></thead>
 <tbody>{"".join(rows)}</tbody></table></div>'''
 
 def short_duration(seconds):
@@ -803,7 +833,7 @@ def scope_section(sc):
     asset_date_txt = fmt_md(max(asset_dates).isoformat()) if asset_dates else "—"
     asset_known_n = sum((u.get("asset_latest") or {}).get("ta") is not None for u in us)
     asset_value = wan(a["asset"]) if asset_known_n == len(us) and us else "未审查"
-    asset_note = f'持有资产 {asset_people} 人 · 快照 {asset_date_txt}' if asset_known_n == len(us) and us else f'已提取资产 {asset_known_n}/{len(us)} 人'
+    asset_note = f'持有资产 {asset_people} 人 · 资产日 {asset_date_txt}' if asset_known_n == len(us) and us else f'已提取资产 {asset_known_n}/{len(us)} 人'
     ask_counts = [len(u.get("asks") or []) for u in us if not funding_only(u)]
     ask_avg = statistics.mean(ask_counts) if ask_counts else 0
     ask_med = statistics.median(ask_counts) if ask_counts else 0
@@ -816,11 +846,12 @@ def scope_section(sc):
                            f'<button class="scope-inline" type="button" data-scope-link="existing_returned">清仓后回流 {returned_n} 人</button>')
     ask_value = f'{a["asks"]:,}' if a["rich_n"] else "未审查"
     ask_note = f'已审 {a["rich_n"]} 人 · 人均 {ask_avg:.1f} 问' if a["rich_n"] else "资金个例未展开提问审查"
-    cells = f'''<div class="grid sumrow">
+    ask_cell = f'<div class="cell"><b>{ask_value}</b><span>提问数</span><em>{ask_note}</em></div>' if a["rich_n"] else ""
+    cells = f'''<div class="grid sumrow{" sumrow-four" if not ask_cell else ""}">
   <div class="cell"><b>{a["n"]}</b><span>用户数</span><em>{population_note}</em></div>
   <div class="cell"><b>{inflow_value}</b><span>{inflow_label}</span><em>{inflow_note}</em></div>
   <div class="cell"><b>{asset_value}</b><span>总资产</span><em>{asset_note}</em></div>
-  <div class="cell"><b>{ask_value}</b><span>提问数</span><em>{ask_note}</em></div>
+  {ask_cell}
   <div class="cell decision" title="绑定千问到第一笔入金，按 {len(durs)} 位有入金记录的用户计算"><b>{avg_txt}</b><span>平均入金间隔</span><em>中位数 {med_txt} · 样本 {len(durs)} 人</em></div>
 </div>'''
     cards = "\n".join(card(u) for u in us) if us else '<div class="note">该口径下暂无用户。</div>'
@@ -845,37 +876,6 @@ RI = SCOPE_AGG["existing_reinvested"]
 _classified_ids = {str(u["pmid"]) for sc in SCOPES if sc["id"] in ("new_inv", "existing_reinvested") for u in scope_users(sc)}
 _asset_pending_n = sum(str(u["pmid"]) not in _classified_ids for u in users)
 
-def taxonomy_leaf(scope_id, subtitle):
-    sc = next(sc for sc in SCOPES if sc["id"] == scope_id)
-    n = SCOPE_AGG[scope_id]["n"]
-    return (f'<button class="taxonomy-leaf" type="button" data-scope-link="{scope_id}">'
-            f'<span>{sc["label"]}</span><b>{n} 人</b><small>{subtitle}</small></button>')
-
-_asset_pending_text = f' ＋ 资产待核验 {_asset_pending_n} 人' if _asset_pending_n else ""
-TAXONOMY_HTML = f'''<section class="taxonomy" aria-label="用户分类公式与四类互斥关系">
-  <div class="taxonomy-heading"><h2>四块看懂，人数不重叠</h2><span>全部入金用户 {len(users)} 人</span></div>
-  <div class="taxonomy-tree">
-    <div class="taxonomy-zero"><h3>原来资产为 0 → 新投 <b>{Z["n"]} 人</b></h3>
-      <div class="taxonomy-leaves">{taxonomy_leaf("new_first_inv", "新注册，第一次入金")}{taxonomy_leaf("existing_first_inv", "老帐号，第一次入金")}{taxonomy_leaf("existing_returned", "投过又清仓，再次入金")}</div>
-    </div>
-    <div class="taxonomy-positive"><h3>原来有资产</h3>{taxonomy_leaf("existing_reinvested", "老帐号，有资产又入金")}</div>
-  </div>
-  <div class="taxonomy-formulas">
-    <p><b>新投 {Z["n"]}</b> ＝ 新户首投 {NF["n"]} ＋ 老户首投 {EF["n"]} ＋ 老户回流 {ER["n"]}<br><span>＝ 新户首投 {NF["n"]} ＋ 老户唤醒 {R["n"]}</span></p>
-    <p><b>首投 {F1["n"]}</b> ＝ 新户首投 {NF["n"]} ＋ 老户首投 {EF["n"]}</p>
-    <p><b>老户唤醒 {R["n"]}</b> ＝ 老户首投 {EF["n"]} ＋ 老户回流 {ER["n"]}</p>
-  </div>
-  <p class="taxonomy-total">全部入金用户 {len(users)} 人 ＝ 新投 {Z["n"]} 人 ＋ 老户再投 {RI["n"]} 人{_asset_pending_text}</p>
-  <p class="taxonomy-note">“＋”是互不重复的去重人数；新投、首投、老户唤醒是汇总标签，不能再相加。</p>
-  <details class="taxonomy-evidence"><summary>分类与千问关系怎么判断</summary>
-    <ul><li>新户当前以注册与绑定相差 60 分钟内近似识别；精确来源仍需注册链路证明。</li>
-    <li>资产取绑定日及之前最近日快照，非精确绑定时点；缺失或历史不完整保留待核验。</li>
-    <li>千问侧是推断：需有千问侧正向证据，且慢操作记录覆盖充分且未发现相应操作；仅“没查到”不能判定。</li>
-    <li>千问归因是规则判断：入金前提问与产品匹配，且此前未持有；只支持关联，因果未证。</li>
-    <li>当前先查首笔入金窗口，规则命中人数是至少人数；未命中首笔，其他入金仍待核验。</li>
-    <li>千问侧与千问归因都是老户再投的标签，可能重合，不能相加；未审查显示待核验。</li></ul>
-  </details>
-</section>'''
 _first_users = scope_users(next(sc for sc in SCOPES if sc["id"] == "first_inv"))
 _med = None
 import statistics as _st
@@ -918,14 +918,24 @@ _max_ask_share = (len(_max_ask_user.get("asks") or []) / Z["asks"] * 100) if _ma
 _max_ask_inflow_share = (float(_max_ask_user["derived"].get("inflow_after") or 0) / Z["inflow"] * 100) if _max_ask_user and Z["inflow"] else 0
 
 INSIGHTS = [
-    f'<b>新投概览</b>{META["bound_total"]:,} 位绑定用户中识别出 {Z["n"]} 位新投、{F1["n"]} 位首投；新投累计入金 {wan(Z["inflow"])}，已提取资产的 {sum(u.get("asset_latest") is not None for u in _new_users)} 人合计持有 {wan(Z["asset"])}。',
+    f'<b>成效</b>{META["bound_total"]:,} 位绑定用户中识别出 {Z["n"]} 位新投、{F1["n"]} 位首投；累计入金 {wan(Z["inflow"])}，当前资产 {wan(Z["asset"])}。',
     f'<b>行为</b>绑定到首笔入金中位 {_new_med_txt}，{_within_day_n} 人在 24 小时内完成；{_app_evidence_n}/{Z["n"]} 人有 App 设备注册或原生使用记录，{_terminal_evidence_n} 人绑定后有原生记录；{_app_order_n} 人首笔入金前后 30 分钟有原生 App 记录。',
     (f'<b>关键案例</b>{_big_new["age"]} 岁新客入金 {wan(_big_new["derived"]["inflow_after"])}、当前资产 {wan(float((_big_new.get("asset_latest") or {}).get("ta") or 0))}；'
      f'沉寂老客回流入金 {wan(_big_recall["derived"]["inflow_after"])}、当前资产 {wan(float((_big_recall.get("asset_latest") or {}).get("ta") or 0))}。'
      f'两例合计贡献 {_top_two_inflow_share:.1f}% 入金，成效高度集中。') if _big_new and _big_recall else '',
 ]
 INSIGHTS_HTML = "\n".join(f'<li>{item}</li>' for item in INSIGHTS if item)
-tabs = "".join(f'<button type="button" class="tab" role="tab" data-scope="{sc["id"]}" data-desc="{esc(sc["def"])}" aria-selected="false">{sc["label"]}<small>{scope_count(sc)}</small>{"<i>" + sc["status"] + "</i>" if sc.get("status") else ""}</button>' for sc in SCOPES)
+def scope_tab(sc):
+    count = scope_count(sc)
+    note = ""
+    if sc.get("status"):
+        n, pending = len(scope_users(sc)), len(scope_pending(sc))
+        count = f"≥{n}" if pending and n else "待核验" if pending else str(n)
+        note = f'{sc["status"]} · {scope_count(sc)}'
+    return (f'<button type="button" class="tab" role="tab" data-scope="{sc["id"]}" '
+            f'data-desc="{esc(sc["def"])}" data-note="{esc(note)}" title="{esc(sc["def"] + note)}" '
+            f'aria-selected="false">{sc["label"]}<small>{count}</small></button>')
+tabs = "".join(scope_tab(sc) for sc in SCOPES)
 sections = "\n".join(scope_section(sc) for sc in SCOPES)
 
 def all_asks(u):
@@ -961,7 +971,7 @@ html,body{max-width:100%}
 .scope-inline:hover{color:var(--blue-deep)}
 .sumrow .cell em{white-space:nowrap;overflow-wrap:normal;font-size:clamp(10px,.9vw,12px);letter-spacing:-.025em}
 .scope-nav{display:block}
-.tabs{display:flex;align-items:center;flex-wrap:wrap;gap:6px}
+.tabs{display:flex;align-items:center;flex-wrap:nowrap;gap:0;overflow-x:auto}
 .dashboard-link svg,.pager .pg svg,.mini-ic svg,.icon-btn svg{display:block;margin:auto}
 .pager{display:inline-flex;align-items:center;gap:8px;margin-left:8px;vertical-align:middle;font-size:14px;color:var(--ink-2)}
 .pager .pg{width:28px;height:28px;border:1.5px solid var(--rule-2);border-radius:50%;background:var(--surface);color:var(--ink-3);cursor:pointer;line-height:0;display:inline-grid;place-items:center;padding:0}
@@ -987,7 +997,7 @@ html,body{max-width:100%}
   .insight-list li{padding:9px 10px 9px 27px}
   .insight-list li::before{left:11px;top:17px}
   .scope-nav{display:grid;gap:10px;margin-top:22px}
-  .tabs{max-width:100%;overflow:visible}
+  .tabs{max-width:100%;overflow-x:auto}
   .tab{min-height:44px;padding:0 15px;font-size:13px}
   .scope-def{padding-left:0;border-left:0;font-size:13px;line-height:1.65}
   .sumrow{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
@@ -1223,49 +1233,19 @@ page = f'''<!doctype html>
   .qlist .qmark{{display:inline-block;min-width:32px;text-align:center;color:var(--ink-blue);background:var(--soft);border-radius:4px;font-weight:700;font-size:11px;margin-right:8px;padding:1px 6px}}
   .qlist .qmark.qm{{color:var(--good);background:#e6f5ee}}
   .qlist .via{{color:var(--ink-3);font-style:normal;font-size:11.5px}}
-  .taxonomy{{margin:24px 0 28px;padding:20px 0;border-block:1px solid var(--rule-2)}}
-  .taxonomy-heading{{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:15px}}
-  .taxonomy-heading h2{{margin:0;color:var(--ink);font-size:21px}}
-  .taxonomy-heading > span{{color:var(--ink-3);font-size:13px}}
-  .taxonomy-tree{{display:grid;grid-template-columns:3fr 1fr;gap:18px}}
-  .taxonomy-tree h3{{margin:0 0 10px;color:var(--ink-2);font-size:14px;font-weight:600}}
-  .taxonomy-tree h3 b{{color:var(--ink)}}
-  .taxonomy-leaves{{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}}
-  .taxonomy-leaf{{display:grid;width:100%;min-height:96px;padding:12px 14px;gap:5px;align-content:center;text-align:left;color:var(--ink);font:inherit;border:0;border-left:3px solid var(--blue);background:var(--pale);cursor:pointer}}
-  .taxonomy-leaf:hover{{background:var(--soft)}}
-  .taxonomy-leaf:focus-visible{{outline:2px solid var(--blue);outline-offset:3px}}
-  .taxonomy-leaf > span{{font-size:14px}}
-  .taxonomy-leaf b{{font-size:23px;font-weight:600}}
-  .taxonomy-leaf small{{color:var(--ink-3);font-size:12px}}
-  .taxonomy-positive .taxonomy-leaf{{border-left-color:var(--ink-3);background:var(--ground)}}
-  .taxonomy-formulas{{display:grid;grid-template-columns:2fr 1.3fr 1.5fr;gap:18px;margin-top:18px}}
-  .taxonomy-formulas p{{margin:0;color:var(--ink-2);font-size:14px;line-height:1.9}}
-  .taxonomy-formulas b{{color:var(--ink)}}
-  .taxonomy-formulas p > span{{display:inline-block;padding-left:4.1em}}
-  .taxonomy-total{{margin:14px 0 0;color:var(--ink-2);font-size:13px}}
-  .taxonomy-note{{margin:8px 0 0;color:var(--ink-3);font-size:12px;line-height:1.7}}
-  .taxonomy-evidence{{margin-top:12px;color:var(--ink-3);font-size:12px;line-height:1.8}}
-  .taxonomy-evidence summary{{cursor:pointer;color:var(--ink-2)}}
-  .taxonomy-evidence ul{{margin:8px 0 0;padding-left:20px}}
   .funding-coverage{{margin:15px 0;color:var(--ink-3);font-size:13px;line-height:1.7}}
   .funding-evidence{{margin-top:18px;font-size:13px;line-height:1.8}}
   .funding-evidence h4{{margin:0 0 6px;font-size:14px;color:var(--ink-2)}}
   .funding-evidence ul{{margin:0;padding-left:20px;color:var(--ink-3)}}
   .pending-note{{font-size:14px;line-height:1.8}}
   .scope-nav{{display:block}}
-  .tabs{{flex-wrap:wrap;gap:6px;overflow:visible}}
-  .tab + .tab{{margin-left:0}}
-  .tab i{{font-size:11px;font-style:normal;font-weight:400;opacity:.8}}
+  .sumrow.sumrow-four{{grid-template-columns:repeat(4,minmax(0,1fr))}}
+  .tabs{{min-width:0;max-width:100%;flex-wrap:nowrap;gap:0;overflow-x:auto;overscroll-behavior-inline:contain;-webkit-overflow-scrolling:touch}}
+  .tab{{flex:0 0 auto;min-height:48px;padding:0 17px;font-size:15px;gap:8px}}
   .scope-def{{margin-top:13px!important;padding-left:0;border-left:0}}
-  @media(max-width:1000px){{.taxonomy-formulas{{grid-template-columns:1fr}}}}
   @media(max-width:600px){{
-    .taxonomy-tree{{grid-template-columns:1fr}}
-    .taxonomy-leaves{{grid-template-columns:1fr}}
-    .taxonomy-leaf{{min-height:76px;grid-template-columns:1fr auto;align-items:center}}
-    .taxonomy-leaf small{{grid-column:1 / -1}}
-    .taxonomy-heading h2{{font-size:19px}}
-    .taxonomy-formulas p > span{{padding-left:0}}
     .tab{{padding:0 12px;font-size:13px;gap:6px}}
+    .sumrow.sumrow-four{{grid-template-columns:repeat(2,minmax(0,1fr))}}
   }}
   @media(max-width:900px){{
     .overview-route{{grid-template-columns:repeat(2,minmax(0,1fr))}}
@@ -1317,9 +1297,7 @@ page = f'''<!doctype html>
       </a>
     </div>
     <h1>千问用户转化分析</h1>
-    <p class="meta-line">数据截至 {esc(CUT)} · 入金用户 {len(users)} 人</p>
   </div>
-  {TAXONOMY_HTML}
   <ul class="insight-list" aria-label="转化分析洞察与总结">
     {INSIGHTS_HTML}
   </ul>
@@ -1330,7 +1308,7 @@ page = f'''<!doctype html>
   </div>
   {sections}
 
-  <footer>千问 X 且慢AI小顾 · 绑定用户个例分析台 · 生成于 {META["generated"]} · <a href="../qianwen-user-acquisition-dashboard/">返回用户数据看板</a></footer>
+  <footer>千问 X 且慢AI小顾 · 数据截至 {esc(CUT)} · <a href="../qianwen-user-acquisition-dashboard/">返回用户数据看板</a></footer>
 </div>
 
 <div class="modal" id="asks-modal" role="dialog" aria-modal="true" aria-labelledby="asks-title">
@@ -1350,17 +1328,26 @@ page = f'''<!doctype html>
 const ASKS = {ASKS_JSON};
 const tabs=[...document.querySelectorAll('.tab')];
 const scopeDescription=document.getElementById('scope-description');
+function revealTab(active){{
+  if(!active) return;
+  const rail=active.parentElement, a=active.getBoundingClientRect(), r=rail.getBoundingClientRect();
+  if(a.left<r.left) rail.scrollLeft+=a.left-r.left;
+  else if(a.right>r.right) rail.scrollLeft+=a.right-r.right;
+}}
 function show(id){{
   tabs.forEach(t=>t.setAttribute('aria-selected', String(t.dataset.scope===id)));
   document.querySelectorAll('.scope').forEach(s=>{{ s.hidden = s.id!=='scope-'+id; }});
   const active=tabs.find(t=>t.dataset.scope===id);
-  if(scopeDescription) scopeDescription.textContent=active ? active.dataset.desc : '';
+  if(scopeDescription) scopeDescription.textContent=active ? active.dataset.desc + (active.dataset.note ? '　' + active.dataset.note : '') : '';
+  revealTab(active);
+  requestAnimationFrame(()=>revealTab(active));
   try{{ history.replaceState(null,'','#'+id); }}catch(e){{}}
 }}
 tabs.forEach(t=>t.addEventListener('click',()=>show(t.dataset.scope)));
 document.querySelectorAll('[data-scope-link]').forEach(t=>t.addEventListener('click',()=>show(t.dataset.scopeLink)));
 const initial=(location.hash||'').slice(1);
 show(tabs.some(t=>t.dataset.scope===initial)?initial:tabs[0].dataset.scope);
+window.addEventListener('resize',()=>revealTab(tabs.find(t=>t.getAttribute('aria-selected')==='true')));
 
 async function copyText(text){{
   try{{ await navigator.clipboard.writeText(text); return true; }}catch(e){{}}

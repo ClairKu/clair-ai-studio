@@ -18,6 +18,14 @@ if main_cutoff != case_cutoff:
 
 segments = {item["id"]: item for item in main["segments"]["items"]}
 users = cases["users"]
+if cases["meta"].get("taxonomy_version"):
+    if not cases["meta"].get("assets_audit_complete"):
+        raise SystemExit("所有客群资产未核验完整，禁止发布")
+    asset_as_of = cases["meta"].get("asset_as_of")
+    for user in users:
+        asset = user.get("asset_latest") or {}
+        if asset.get("ta") is None or asset.get("cal_date") != asset_as_of:
+            raise SystemExit("资产存在缺失或日期不一致，禁止发布")
 
 for user in users:
     inflow = float(user["derived"].get("inflow_after") or 0)
@@ -59,6 +67,8 @@ for scope_id in scope_ids:
         "inflow_transactions": sum(len(u.get("inflow_txns") or []) for u in scope_users),
         "inflow_amount_wan": round(sum(float(u["derived"]["inflow_after"] or 0) for u in scope_users) / 10000, 4),
     }
+    if cases["meta"].get("assets_audit_complete"):
+        actual["total_asset_wan"] = round(sum(float(u["asset_latest"]["ta"]) for u in scope_users) / 10000, 2)
     for field, value in actual.items():
         expected_value = expected[field]
         if value != expected_value:
@@ -93,6 +103,9 @@ if cases["meta"].get("taxonomy_version"):
     for field, actual in (("inflow_accounts", all_funded), ("inflow_amount_wan", total_amount), ("inflow_transactions", total_events)):
         if all_segment[field] != actual:
             raise SystemExit(f"全量入金集合 {field} 不一致")
+    funded_assets = round(sum(float(u["asset_latest"]["ta"]) for u in users) / 10000, 2)
+    if reinvested["total_asset_wan"] != funded_assets:
+        raise SystemExit("全量入金用户的总资产与主看板不一致")
     ids = lambda group: {str(u["pmid"]) for u in group}
     new_first, old_first = selected("new_first_inv"), selected("existing_first_inv")
     if ids(selected("first_inv")) != ids(new_first) | ids(old_first):
@@ -107,6 +120,6 @@ if cases["meta"].get("taxonomy_version"):
             raise SystemExit("互斥叶子人群未闭合")
         if any(u["flags"].get(k) for k in ("qwen_side_inferred", "qwen_influence_rule")) and not u["flags"].get("existing_reinvested"):
             raise SystemExit("千问侧/归因标签超出老户再投集合")
-    print(f"全量入金 {all_funded} 人 / {total_amount} 万 / {total_events} 笔，与主看板一致；三条人群公式和互斥叶子全部闭合。")
+    print(f"全量入金 {all_funded} 人 / {total_amount} 万 / {total_events} 笔；总资产 {funded_assets} 万，全部用户及5个共同客群资产与主看板一致。")
 else:
     print(f"两张看板口径一致：{main_cutoff}，5 个案例客群及案例并集闭合；老户唤醒 {len(recalled)} = 首投 {len(recall_first)} + 老户回流 {len(recall_returned)}。")
