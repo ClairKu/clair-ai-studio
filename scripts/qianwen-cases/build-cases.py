@@ -36,6 +36,9 @@ if META.get("taxonomy_version") and (not META.get("binding_history_audit_complet
     (u.get("binding_history") or {}).get("cutoff") != CUT or
     (u.get("binding_history") or {}).get("bound_at") != u.get("fb") for u in users)):
     raise ValueError("绑定前入金和交易历史未核验完整，禁止生成生产个例页")
+if META.get("taxonomy_version") and (not META.get("first_inflow_dates_audit_complete") or any(
+    not u.get("first_inflow_ever") or not u.get("registered_at") for u in users)):
+    raise ValueError("注册和历史首次入金日期未核验完整，禁止生成生产个例页")
 
 # 个案洞察由作者逐例研判，不用固定字段模板拼接。兼容已经生成、尚未内嵌 insight 的 users.json。
 insight_file = Path(__file__).with_name("narratives.json")
@@ -301,13 +304,13 @@ def app_operation_cells(u):
     device = " / ".join(LIBN[lib] for lib in LIBN if lib in systems) or "未确认"
     if not first:
         label = "未查到操作" if audit.get("reviewed") or not funding_only(u) else "待核验"
-        return f'<td>{device}</td><td title="统计绑定后至数据截止的且慢App页面浏览和点击；设备登记、小程序及网页不算App操作。">{label}</td>'
+        return f'<td>{device}</td><td data-sort-missing="true" title="统计绑定后至数据截止的且慢App页面浏览和点击；设备登记、小程序及网页不算App操作。">{label}</td>'
     seconds = int((dt(first) - dt(u["fb"])).total_seconds())
     days, rest = divmod(seconds, 86400)
     hours, rest = divmod(rest, 3600)
     minutes, secs = divmod(rest, 60)
     interval = f'{days} 天 {hours} 小时' if days else f'{hours} 小时 {minutes} 分' if hours else f'{minutes} 分 {secs} 秒' if minutes else f'{secs} 秒'
-    return (f'<td>{device}</td><td class="num" title="首次操作 {esc(str(first).replace("T", " ")[:19])}；从绑定起算，只计App页面浏览和点击，不计设备登记。">{interval}</td>')
+    return (f'<td>{device}</td><td class="num" data-sort-value="{seconds}" title="首次操作 {esc(str(first).replace("T", " ")[:19])}；从绑定起算，只计App页面浏览和点击，不计设备登记。">{interval}</td>')
 
 MIA_SCENE = {"MIA": "小顾会话页", "STRATEGY_DETAIL": "策略详情页", "ADVISOR_PAGE_TOP": "投顾页顶部入口",
              "ASSET_M4": "资产页", "QUICK_MENU": "快捷菜单", "FIRST_IN_DAY": "当日首次进入"}
@@ -810,6 +813,10 @@ def matrix(us):
         txns = sorted(u.get("inflow_txns") or [], key=lambda row: dt(row["t"]))
         first_amount = txns[0].get("amt", txns[0].get("amount")) if txns else None
         total_questions, first_questions = question_counts(u)
+        registered_date = str(u.get("registered_at") or "")[:10]
+        first_date = str(u.get("first_inflow_ever") or "")[:10]
+        date_cells = (f'<td class="num" data-sort-value="{esc(registered_date)}">{esc(registered_date or "—")}</td>'
+                      f'<td class="num" data-sort-value="{esc(first_date)}">{esc(first_date or "—")}</td>')
         funding_cells = (f'<td class="num">{money(first_amount)}</td><td class="num">{len(txns)}</td>'
                          f'<td class="num">{money(d["inflow_after"])}</td>'
                          f'<td class="num">{first_questions if first_questions is not None else "—"}</td>'
@@ -823,7 +830,7 @@ def matrix(us):
                 bind_asset_title += f'；快照日期 {str(u["asset_bind_date"])[:10]}'
             rows.append(f'''<tr>
   <td><span class="badge">{u["letter"]}</span></td><td>{customer_label(u)}</td>
-  <td class="num">{fmt_t(u["fb"], True)}</td>
+  {date_cells}<td class="num" data-sort-value="{esc(u["fb"])}">{fmt_t(u["fb"], True)}</td>
   <td class="num" title="{esc(bind_asset_title)}">{money(u.get("asset_at_bind"))}</td>
   <td class="num">{history_amount}</td><td class="num">{esc(history_trade)}</td>
   <td class="num">{money(d["inflow_after"])}</td><td class="num">{len(txns)}</td>
@@ -833,15 +840,16 @@ def matrix(us):
   <td><span class="who"><span class="{"badge n" if u["cohort"]=="new" else "badge"}">{u["letter"]}</span></span></td>
   <td>{customer_label(u)}</td>
   <td>{"未审查" if funding_only(u) else ("男" if u.get("gender")=="M" else "女" if u.get("gender")=="F" else "—") + " " + str(u.get("age") or "")}</td>
-  <td class="num">{fmt_t(u["fb"], True)}</td>
-  <td class="num">{fmt_t(d["first_inflow_after"], True)}</td>
-  <td class="num">{dur(u["fb"], d["first_inflow_after"])}</td>
+  {date_cells}<td class="num" data-sort-value="{esc(u["fb"])}">{fmt_t(u["fb"], True)}</td>
+  <td class="num" data-sort-value="{esc(d["first_inflow_after"])}">{fmt_t(d["first_inflow_after"], True)}</td>
+  <td class="num" data-sort-value="{(dt(d["first_inflow_after"])-dt(u["fb"])).total_seconds()}">{dur(u["fb"], d["first_inflow_after"])}</td>
   {funding_cells}
   <td class="num">{money(al["ta"]) if al else "—"}</td>
   <td class="num">{"未审查" if funding_only(u) else u["risk"][-1]["score"] if u.get("risk") else "—"}</td>
   {app_operation_cells(u)}
 </tr>''')
     columns = '<th>用户</th><th>客群</th>' + ('' if funding_matrix else '<th>画像</th>')
+    columns += '<th>注册日期</th><th title="历史第一笔新增入金的日期，不是绑定后首笔的替代值">首次入金日期</th>'
     columns += ('<th>绑定</th><th title="绑定日及之前最近日快照">绑定时资产</th>'
                 '<th title="数据截止年份1月1日起，严格在绑定之前的新增入金">今年绑前入金</th>'
                 '<th title="严格在绑定之前的有效买卖、充值或赎回及产品转换，不含内部调仓和自动回款">最近交易日</th><th>绑定后新增入金</th><th>笔数</th><th>当前资产</th>') if funding_matrix else ('<th>绑定</th><th>首笔入金时间</th><th>间隔</th>'
@@ -1022,6 +1030,7 @@ ASKS_JSON = json.dumps({u["pmid"]: {"letter": u["letter"], "cohort": u["cohort"]
 
 CSS = Path(sys.argv[3]).read_text() if len(sys.argv) > 3 else ""
 QUESTION_TOP100_HTML = Path(sys.argv[4]).read_text() if len(sys.argv) > 4 else ""
+TABLE_SORT_HTML = Path(__file__).with_name('table-sort.html').read_text()
 
 # 与主看板共用同一组合作品牌标识，避免子看板出现第二套近似 Logo。
 main_dashboard = Path(__file__).resolve().parents[2] / "public/reports/qianwen-user-acquisition-dashboard/index.html"
@@ -1360,7 +1369,7 @@ page = f'''<!doctype html>
   }}
 </style>
 </head>
-<body>
+<body data-report-year="{CUT[:4]}">
 <div class="page-wrap">
   <div class="report-hero">
     <div class="brand-nav">
@@ -1489,7 +1498,7 @@ modal.querySelector('.modal-close').addEventListener('click', closeAsks);
 modal.addEventListener('click', e=>{{ if(e.target===modal) closeAsks(); }});
 document.addEventListener('keydown', e=>{{ if(e.key==='Escape') closeAsks(); }});
 </script>
-{PAGER_SNIPPET}</body>
+{PAGER_SNIPPET}{TABLE_SORT_HTML}</body>
 </html>'''
 OUT.write_text(page)
 print(f"OK → {OUT} ({len(page)//1024} KB); scopes:", {sc["id"]: agg(scope_users(sc))["n"] for sc in SCOPES})

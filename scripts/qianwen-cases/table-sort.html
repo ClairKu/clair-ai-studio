@@ -1,0 +1,149 @@
+<style>
+  .table-sort-button{display:inline-flex;align-items:center;gap:4px;max-width:100%;padding:0;border:0;border-radius:0;background:transparent;color:inherit;font:inherit;line-height:inherit;text-align:inherit;cursor:pointer;vertical-align:baseline}
+  .table-sort-button:hover{color:var(--blue-deep,#5940bd)}
+  .table-sort-button:focus-visible{outline:2px solid var(--blue,#7855ee);outline-offset:3px}
+  .table-sort-arrow{flex:0 0 auto;font-size:10px;font-weight:400;opacity:.65}
+  table[data-table-sort] th[aria-sort="ascending"],table[data-table-sort] th[aria-sort="descending"]{color:var(--blue-deep,#5940bd)}
+</style>
+<script>
+(function(){
+  'use strict';
+  // BEGIN_TABLE_SORT_HELPERS
+  const tableSortCollator=new Intl.Collator('zh-CN',{numeric:true,sensitivity:'base'});
+  function isTableSortMissing(input){
+    const value=String(input==null?'':input).replace(/\s+/g,' ').trim();
+    return !value||/^(?:[-—–－]+|待核(?:验|实)?|未核(?:验|实)?|未审查|未审核|未知|不详|暂无(?:数据|记录|操作|交易)?|无(?:记录|数据|操作|交易)?|未查到(?:操作|记录|交易)?|无可用数据|不适用|N\/?A|null|undefined)$/i.test(value);
+  }
+  function tableSortDate(year,month,day,hour=0,minute=0,second=0,millis=0){
+    const parts=[year,month,day,hour,minute,second,millis].map(Number);
+    if(!parts.every(Number.isFinite)||parts[0]<1000||parts[0]>9999||parts[1]<1||parts[1]>12||parts[2]<1||parts[2]>31||parts[3]<0||parts[3]>23||parts[4]<0||parts[4]>59||parts[5]<0||parts[5]>59||parts[6]<0||parts[6]>999)return null;
+    const date=new Date(Date.UTC(parts[0],parts[1]-1,parts[2],parts[3],parts[4],parts[5],parts[6]));
+    return date.getUTCFullYear()===parts[0]&&date.getUTCMonth()===parts[1]-1&&date.getUTCDate()===parts[2]?date.getTime():null;
+  }
+  function parseTableSortValue(input,reportYear){
+    const value=String(input==null?'':input).replace(/[\u00a0\u202f]/g,' ').replace(/\s+/g,' ').trim();
+    if(isTableSortMissing(value))return null;
+    const numeric=value.replace(/[，,]/g,'').replace(/[−﹣－]/g,'-');
+    let match=value.match(/^(\d{4})[-/](\d{1,2})[-/](\d{1,2})(?:[T ](\d{1,2}):(\d{2})(?::(\d{2})(?:\.(\d{1,3}))?)?)?(Z|[+-]\d{2}:?\d{2})?$/);
+    if(match){
+      const local=tableSortDate(match[1],match[2],match[3],match[4]||0,match[5]||0,match[6]||0,(match[7]||'').padEnd(3,'0')||0);
+      if(local===null)return null;
+      const zone=match[8];
+      if(zone&&zone!=='Z'){
+        const offset=zone.match(/^([+-])(\d{2}):?(\d{2})$/);
+        if(Number(offset[2])>23||Number(offset[3])>59)return null;
+        return {kind:'number',value:local-(offset[1]==='-'?-1:1)*(Number(offset[2])*60+Number(offset[3]))*60000};
+      }
+      return {kind:'number',value:local};
+    }
+    match=value.match(/^(\d{1,2})[-/](\d{1,2})(?:[T ](\d{1,2}):(\d{2})(?::(\d{2}))?)?$/);
+    if(match&&/^\d{4}$/.test(String(reportYear||''))){
+      const date=tableSortDate(reportYear,match[1],match[2],match[3]||0,match[4]||0,match[5]||0);
+      return date===null?null:{kind:'number',value:date};
+    }
+    const units={毫秒:.001,天:86400,日:86400,小时:3600,小時:3600,时:3600,時:3600,h:3600,hr:3600,hrs:3600,hour:3600,hours:3600,分钟:60,分鐘:60,分:60,m:60,min:60,mins:60,minute:60,minutes:60,秒:1,秒钟:1,秒鐘:1,s:1,sec:1,secs:1,second:1,seconds:1};
+    let duration=0,tokens=0;
+    const remainder=numeric.replace(/([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*(毫秒|小时|小時|分钟|分鐘|秒钟|秒鐘|天|日|时|時|分|秒|hours?|hrs?|h|minutes?|mins?|m|seconds?|secs?|s)/gi,(_,amount,unit)=>{duration+=Number(amount)*units[unit.toLowerCase()];tokens++;return '';});
+    if(tokens&&!remainder.replace(/[\s·・]+/g,''))return Number.isFinite(duration)?{kind:'number',value:duration}:null;
+    match=numeric.match(/^[¥￥]?\s*([+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?)\s*(亿元|億圓|亿|億|万元|萬元|万|萬|元|%|％|人|次|笔|筆|份)?$/i);
+    if(match){
+      let number=Number(match[1]);
+      if(/^[亿億]/.test(match[2]||''))number*=1e8;
+      else if(/^[万萬]/.test(match[2]||''))number*=1e4;
+      else if(/[%％]/.test(match[2]||''))number/=100;
+      return Number.isFinite(number)?{kind:'number',value:number}:null;
+    }
+    return {kind:'text',value};
+  }
+  function nextTableSort(current,column){
+    if(current.column!==column||current.direction==='none')return {column,direction:'asc'};
+    if(current.direction==='asc')return {column,direction:'desc'};
+    return {column:null,direction:'none'};
+  }
+  function sortTableEntries(entries,direction){
+    const rows=Array.from(entries);
+    if(!['asc','desc'].includes(direction))return rows.sort((a,b)=>a.index-b.index);
+    return rows.sort((a,b)=>{
+      if(a.value===null&&b.value===null)return a.index-b.index;
+      if(a.value===null)return 1;if(b.value===null)return -1;
+      const compared=a.value.kind==='number'&&b.value.kind==='number'?a.value.value-b.value.value:tableSortCollator.compare(String(a.value.value),String(b.value.value));
+      return (direction==='asc'?compared:-compared)||a.index-b.index;
+    });
+  }
+  // END_TABLE_SORT_HELPERS
+  function logicalCell(row,column){
+    let offset=0;
+    for(const cell of Array.from(row.cells)){const span=Math.max(1,Number(cell.colSpan)||1);if(column>=offset&&column<offset+span)return cell;offset+=span;}
+    return null;
+  }
+  function readCellValue(row,column,year){
+    const cell=logicalCell(row,column);
+    if(!cell||String(cell.getAttribute('data-sort-missing')||'').toLowerCase()==='true')return null;
+    const value=cell.hasAttribute('data-sort-value')?cell.getAttribute('data-sort-value'):cell.textContent;
+    return parseTableSortValue(value,year);
+  }
+  function headerColumns(head){
+    const occupied=[],result=[];
+    Array.from(head.rows).forEach((row,rowIndex)=>{
+      if(!occupied[rowIndex])occupied[rowIndex]=[];
+      let column=0;
+      Array.from(row.cells).forEach(cell=>{
+        while(occupied[rowIndex][column])column++;
+        const width=Math.max(1,Number(cell.colSpan)||1),height=Math.max(1,Number(cell.rowSpan)||1);
+        result.push({cell,column});
+        for(let y=rowIndex;y<rowIndex+height;y++){if(!occupied[y])occupied[y]=[];for(let x=column;x<column+width;x++)occupied[y][x]=true;}
+        column+=width;
+      });
+    });
+    return result;
+  }
+  function initializeTableSort(){
+    const year=document.body&&document.body.getAttribute('data-report-year');
+    document.querySelectorAll('table').forEach(table=>{
+      if(table.closest('#question-top100')||table.hasAttribute('data-table-sort')||!table.tHead||!table.tBodies.length)return;
+      const bodies=Array.from(table.tBodies).map(body=>({body,slots:Array.from(body.rows).map((row,index)=>({row,index,fixed:row.classList.contains('total')||row.getAttribute('data-sort-fixed')==='true'}))}));
+      if(!bodies.some(group=>group.slots.some(slot=>!slot.fixed)))return;
+      const headers=headerColumns(table.tHead).filter(({cell})=>cell.tagName==='TH'&&cell.textContent.trim());
+      if(!headers.length)return;
+      table.setAttribute('data-table-sort','ready');
+      const controls=[],state={column:null,direction:'none'};
+      headers.forEach(({cell,column})=>{
+        // Existing custom controls are left intact, rather than nesting buttons.
+        if(cell.querySelector('button,input,select,textarea,a'))return;
+        const label=cell.textContent.replace(/\s+/g,' ').trim(),button=document.createElement('button'),arrow=document.createElement('span');
+        button.type='button';button.className='table-sort-button';
+        const labelNode=document.createElement('span');labelNode.className='table-sort-label';
+        Array.from(cell.childNodes).forEach(child=>labelNode.appendChild(child));
+        arrow.className='table-sort-arrow';arrow.setAttribute('aria-hidden','true');
+        button.append(labelNode,arrow);cell.appendChild(button);
+        controls.push({cell,column,label,button,arrow});
+        button.addEventListener('click',()=>{
+          const next=nextTableSort(state,column);state.column=next.column;state.direction=next.direction;
+          bodies.forEach(({body,slots})=>{
+            const entries=slots.filter(slot=>!slot.fixed).map(slot=>({...slot,value:readCellValue(slot.row,column,year)}));
+            const sorted=sortTableEntries(entries,state.direction);let index=0;
+            const rows=slots.map(slot=>slot.fixed?slot.row:sorted[index++].row);
+            // Move the existing nodes: per-row event listeners and current cases survive.
+            rows.forEach(row=>body.appendChild(row));
+          });
+          updateHeaders();
+        });
+      });
+      function updateHeaders(){
+        controls.forEach(({cell,column,label,button,arrow})=>{
+          const direction=state.column===column?state.direction:'none';
+          const current=direction==='asc'?'升序':direction==='desc'?'降序':'原顺序';
+          const next=direction==='asc'?'降序':direction==='desc'?'恢复原顺序':'升序';
+          cell.setAttribute('aria-sort',direction==='asc'?'ascending':direction==='desc'?'descending':'none');
+          arrow.textContent=direction==='asc'?'↑':direction==='desc'?'↓':'↕';
+          button.setAttribute('aria-label',label+'，当前'+current+'，点击'+next);
+          button.title=(cell.getAttribute('title')?cell.getAttribute('title')+'；':'')+'点击'+next+'（升序→降序→恢复）';
+        });
+      }
+      updateHeaders();
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initializeTableSort,{once:true});
+  else initializeTableSort();
+})();
+</script>

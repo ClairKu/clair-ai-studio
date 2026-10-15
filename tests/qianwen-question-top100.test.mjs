@@ -4,7 +4,55 @@ import {readFile} from 'node:fs/promises';
 import {webcrypto,randomBytes} from 'node:crypto';
 import {gunzipSync} from 'node:zlib';
 import {resolve} from 'node:path';
+import vm from 'node:vm';
 import {redactQuestion,loadQuestionRules,encryptUserChunk} from '../scripts/qianwen-cases/build-question-top100.mjs';
+
+const panelSource=await readFile(new URL('../scripts/qianwen-cases/question-top100-panel.html',import.meta.url),'utf8');
+const helpersSource=panelSource.split('// BEGIN_RANK_SORT_HELPERS')[1].split('// END_RANK_SORT_HELPERS')[0];
+const sortHelpers=vm.runInNewContext(helpersSource+';({usageInterval,usageFrequency,rankSortValue,nextRankSort,sortedRankKeys})');
+
+test('All six ranking metrics support stable non-mutating ascending, descending and restored order',()=>{
+  const keys=Object.freeze(['a','b','c','d']);
+  const users=new Map([['a',{total:10,daily_avg:1.004,active_days:3}],['b',{total:0,daily_avg:1.003,active_days:1}],['c',{total:10,daily_avg:2,active_days:4}],['d',{total:null,daily_avg:null,active_days:null}]]);
+  const ordered=(key,direction,base=keys)=>Array.from(sortHelpers.sortedRankKeys(base,users,{key,direction}));
+  assert.deepEqual(ordered('total','asc'),['b','a','c','d']);
+  assert.deepEqual(ordered('total','desc'),['a','c','b','d']);
+  assert.deepEqual(ordered('total','none'),keys);
+  assert.deepEqual(ordered('total','desc',['c','a','b','d']),['c','a','b','d'],'ties follow this ranking, not another one');
+  assert.deepEqual(ordered('daily_avg','asc'),['b','a','c','d'],'daily averages use full precision');
+  assert.deepEqual(ordered('active_days','desc'),['c','a','b','d']);
+  assert.deepEqual([...keys],['a','b','c','d']);
+  let state={key:null,direction:'none'};
+  state=sortHelpers.nextRankSort(state,'total');assert.equal(state.direction,'asc');
+  state=sortHelpers.nextRankSort(state,'total');assert.equal(state.direction,'desc');
+  state=sortHelpers.nextRankSort(state,'total');assert.equal(state.direction,'none');assert.equal(state.key,null);
+  state=sortHelpers.nextRankSort({key:'total',direction:'desc'},'daily_avg');assert.equal(state.direction,'asc');
+});
+
+test('Usage frequency uses actual active-date gaps; one-off usage is not a recurring frequency',()=>{
+  const first_at='2026-10-01 23:30:00';
+  const daily={first_at,last_at:'2026-10-04 00:01:00',active_days:4};
+  const everyTwo={first_at,last_at:'2026-10-05 20:00:00',active_days:3};
+  assert.equal(sortHelpers.usageInterval(daily),1);assert.equal(sortHelpers.usageFrequency(daily),'每日');
+  assert.equal(sortHelpers.usageInterval(everyTwo),2);assert.equal(sortHelpers.usageFrequency(everyTwo),'每 2 日');
+  assert.equal(sortHelpers.usageFrequency({...daily,active_days:1}),'仅1日');
+  assert.equal(sortHelpers.usageInterval({...daily,active_days:1}),null);
+  assert.equal(sortHelpers.rankSortValue({post_bind_inflow:false},'post_bind_inflow'),0);
+  assert.equal(sortHelpers.rankSortValue({},'post_bind_inflow'),null);
+  const users=new Map([['a',daily],['b',everyTwo],['c',{...daily,active_days:1}]]);
+  assert.deepEqual(Array.from(sortHelpers.sortedRankKeys(['b','c','a'],users,{key:'use_interval',direction:'asc'})),['a','b','c']);
+  assert.ok(sortHelpers.rankSortValue({last_at:'2026-10-14 12:00:00'},'last_at')<sortHelpers.rankSortValue({last_at:'2026-10-15 08:00:00'},'last_at'));
+});
+
+test('All metric headers expose sort buttons and sorting never changes selected user or loads originals',()=>{
+  const controls=[...panelSource.matchAll(/data-qtop-sort="([^"]+)"/g)].map(m=>m[1]);
+  assert.deepEqual(controls,['total','daily_avg','active_days','use_interval','last_at','post_bind_inflow']);
+  const sortHandler=panelSource.split("root.querySelectorAll('[data-qtop-sort]').forEach(btn=>btn.addEventListener")[1].split('}));')[0];
+  assert.match(sortHandler,/renderRanking\(\)/);
+  assert.doesNotMatch(sortHandler,/selectUser|loadQuestions|resetFilters|state\.key\s*=/);
+  assert.match(panelSource,/setAttribute\('aria-sort'/);
+  assert.match(panelSource,/state\.ranking=btn\.dataset\.qtopRanking;state\.sortKey=null;state\.sortDirection='none'/);
+});
 
 test('Question originals retain lines while masking direct identifiers and credentials',()=>{
   const raw='请比较020602\n电话13812345678 邮箱test@example.com\napi_key=sk-abcdefghijklmnopqrstuvwxyz123456';

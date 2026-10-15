@@ -48,6 +48,18 @@ export async function encryptUserChunk(value,key,salt,anonKey){
   return {schema_version:'qianwen-question-user-v1',iterations:310000,compression:'gzip',salt:salt.toString('base64'),iv:iv.toString('base64'),data:encrypted.toString('base64')};
 }
 
+export async function renderTop100Fragment({root,privateOut,data,chunkPaths}){
+  if(!Array.isArray(data.users)||Object.keys(chunkPaths).length!==data.users.length||
+     data.users.some(user=>!Object.prototype.hasOwnProperty.call(chunkPaths,user.key))||
+     Object.values(chunkPaths).some(path=>!/^question-users\/QW-[A-F0-9]{10}-[a-f0-9]{12}\.enc\.json$/.test(path)))throw new Error('Invalid audited question metadata or chunk map');
+  const template=await readFile(resolve(root,'scripts/qianwen-cases/question-top100-panel.html'),'utf8');
+  const loader=await readFile(resolve(root,'scripts/qianwen-cases/question-top100-loader.html'),'utf8');
+  const safe=value=>JSON.stringify(value).replace(/</g,'\\u003c').replace(/\u2028/g,'\\u2028').replace(/\u2029/g,'\\u2029');
+  const fragment=loader.replace('__QUESTION_TOP100_CHUNKS__',safe(chunkPaths))+'\n'+template.replace('__QUESTION_TOP100_DATA__',safe(data));
+  await writeFile(resolve(privateOut,'question-top100-fragment.html'),fragment);
+  return fragment;
+}
+
 export async function buildTop100({root,inputDir,privateOut,fundedPath,password=process.env.REPORT_PASSWORD||'2026'}){
   const read=async name=>JSON.parse(await readFile(resolve(inputDir,name),'utf8'));
   const anonymous=await read('top-users-anonymous.json');
@@ -142,17 +154,21 @@ export async function buildTop100({root,inputDir,privateOut,fundedPath,password=
   await writeFile(resolve(privateOut,'question-top100-data.json'),JSON.stringify(data));
   await writeFile(resolve(privateOut,'question-top100-chunks.json'),JSON.stringify(chunkPaths));
   await writeFile(resolve(privateOut,'question-top100-manifest.json'),JSON.stringify({paths:manifest,users:users.length,questions:totalQuestions,redacted_questions:totalRedacted,cutoff},null,2));
-  const template=await readFile(resolve(root,'scripts/qianwen-cases/question-top100-panel.html'),'utf8');
-  const loader=await readFile(resolve(root,'scripts/qianwen-cases/question-top100-loader.html'),'utf8');
-  const safe=value=>JSON.stringify(value).replace(/</g,'\\u003c').replace(/\u2028/g,'\\u2028').replace(/\u2029/g,'\\u2029');
-  const fragment=loader.replace('__QUESTION_TOP100_CHUNKS__',safe(chunkPaths))+'\n'+template.replace('__QUESTION_TOP100_DATA__',safe(data));
-  await writeFile(resolve(privateOut,'question-top100-fragment.html'),fragment);
+  const fragment=await renderTop100Fragment({root,privateOut,data,chunkPaths});
   console.log(JSON.stringify({users:users.length,questions:totalQuestions,redacted_questions:totalRedacted,encrypted_chunks:users.length,fragment_kb:Math.round(Buffer.byteLength(fragment)/1024)}));
   return {data,manifest,chunkPaths};
 }
 
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
-  const [root,inputDir,privateOut,fundedPath]=process.argv.slice(2);
-  if(!root||!inputDir||!privateOut)throw new Error('Usage: build-question-top100.mjs <repo> <private-input> <private-output>');
-  await buildTop100({root:resolve(root),inputDir:resolve(inputDir),privateOut:resolve(privateOut),fundedPath:fundedPath?resolve(fundedPath):undefined});
+  if(process.argv[2]==='--render-only'){
+    const [root,privateOut]=process.argv.slice(3);
+    if(!root||!privateOut)throw new Error('Usage: build-question-top100.mjs --render-only <repo> <existing-private-output>');
+    const read=async name=>JSON.parse(await readFile(resolve(privateOut,name),'utf8'));
+    await renderTop100Fragment({root:resolve(root),privateOut:resolve(privateOut),data:await read('question-top100-data.json'),chunkPaths:await read('question-top100-chunks.json')});
+    console.log('Re-rendered audited question metadata without rewriting encrypted originals');
+  }else{
+    const [root,inputDir,privateOut,fundedPath]=process.argv.slice(2);
+    if(!root||!inputDir||!privateOut)throw new Error('Usage: build-question-top100.mjs <repo> <private-input> <private-output>');
+    await buildTop100({root:resolve(root),inputDir:resolve(inputDir),privateOut:resolve(privateOut),fundedPath:fundedPath?resolve(fundedPath):undefined});
+  }
 }

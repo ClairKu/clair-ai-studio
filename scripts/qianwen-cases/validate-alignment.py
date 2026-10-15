@@ -49,6 +49,8 @@ if cases["meta"].get("taxonomy_version"):
         if (not history.get("reviewed") or history.get("cutoff") != cases["meta"]["cutoff"] or
             history.get("bound_at") != user["fb"] or history.get("ytd_inflow_before") is None):
             raise SystemExit("绑定前历史审查缺失或基准不一致，禁止发布")
+    if not cases["meta"].get("first_inflow_dates_audit_complete") or any(not u.get("first_inflow_ever") or not u.get("registered_at") for u in users):
+        raise SystemExit("注册与历史首次入金日期未审查完整，禁止发布")
 
 for user in users:
     inflow = float(user["derived"].get("inflow_after") or 0)

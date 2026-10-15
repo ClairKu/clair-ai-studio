@@ -56,6 +56,7 @@ test('Case layout stays compact, hides unreviewed slices and labels old first/ne
     const users = types.map((type,i) => ({
       pmid:`fixture-${type}`,letter:String(i+1),cohort:type==='new'?'new':'existing',age:37,
       fb:'2026-10-10 10:00:00',registered_at:'2026-10-10 10:00:00',asset_at_bind:type==='reinvested'?500:0,
+      first_inflow_ever:['new','old-first'].includes(type)?'2026-10-10 11:00:00':'2025-01-01 10:00:00',
       coverage:'funding_only',trades:[],asks:[],dev:[],risk:[],events:[],channels:{},
       asset_latest:{cal_date:'2026-10-14',ta:100*(i+1)},
       inflow_txns:i===3?[{t:'2026-10-10 13:00:00',amt:20},{t:'2026-10-10 11:00:00',amt:20}]:[{t:'2026-10-10 11:00:00',amt:10*(i+1)}],
@@ -91,6 +92,11 @@ test('Case layout stays compact, hides unreviewed slices and labels old first/ne
     assert.match(historyRejected.stderr,/绑定前入金和交易历史未核验完整/);
     data.meta.binding_history_audit_complete=true;
     writeFileSync(input,JSON.stringify(data));
+    const dateRejected=build();
+    assert.notEqual(dateRejected.status,0,'Missing lifetime first-inflow audit must block publication');
+    assert.match(dateRejected.stderr,/注册和历史首次入金日期未核验完整/);
+    data.meta.first_inflow_dates_audit_complete=true;
+    writeFileSync(input,JSON.stringify(data));
     const accepted=build();
     assert.equal(accepted.status,0,accepted.stderr);
     const page=readFileSync(output,'utf8');
@@ -114,6 +120,9 @@ test('Case layout stays compact, hides unreviewed slices and labels old first/ne
     assert.match(page,/<em>0 人有二次入金<\/em><em>暂无二次入金间隔/);
     assert.equal((page.match(/<th[^>]*>首笔入金<\/th><th>入金次数<\/th><th>总入金<\/th><th[^>]*>首笔入金提问数<\/th><th>总提问数<\/th>/g)||[]).length,6);
     assert.match(page,/<th[^>]*>绑定时资产<\/th><th[^>]*>今年绑前入金<\/th><th[^>]*>最近交易日<\/th><th>绑定后新增入金<\/th><th>笔数<\/th><th>当前资产<\/th>/);
+    assert.equal((page.match(/<th>注册日期<\/th><th[^>]*>首次入金日期<\/th>/g)||[]).length,7);
+    assert.match(page,/data-sort-value="2025-01-01">2025-01-01/);
+    assert.match(page,/<body data-report-year="2026">/);
     assert.match(page,/>500<\/td>\s*<td class="num">120<\/td><td class="num">2026-10-09<\/td>\s*<td class="num">40<\/td><td class="num">2<\/td>\s*<td class="num">400<\/td>/);
     assert.match(page,/<td class="num">10<\/td><td class="num">1<\/td><td class="num">10<\/td><td class="num">4<\/td><td class="num">10<\/td>/);
     assert.doesNotMatch(page,/新客 0 人/);
@@ -123,6 +132,24 @@ test('Case layout stays compact, hides unreviewed slices and labels old first/ne
     assert.match(page,/<td>安卓<\/td><td[^>]*>未查到操作<\/td>/);
     assert.doesNotMatch(page,/App 使用证据|iOS App ·|安卓 App ·/);
   } finally { rmSync(dir,{recursive:true,force:true}); }
+});
+
+test('Lifetime first-inflow date review is complete and cannot substitute a later post-bind date',()=>{
+  const script=`
+import importlib.util,json,copy
+spec=importlib.util.spec_from_file_location('dates','scripts/qianwen-cases/apply-first-inflow-dates.py')
+m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+base={'meta':{},'users':[{'pmid':'fixture','first_inflow_ever':'2020-01-01 10:00:00','derived':{'first_inflow_after':'2026-10-10 10:00:00'}}]}
+row={'pmid':'fixture','first_inflow_ever':'2020-01-01 10:00:00','reviewed':True}
+errors=[]
+for rows in [[],[row,row],[{**row,'first_inflow_ever':None}],[{**row,'first_inflow_ever':'2026-10-10 10:00:00'}],[{**row,'first_inflow_ever':'2026-10-11 10:00:00'}]]:
+ try:m.apply_dates(copy.deepcopy(base),rows);errors.append(False)
+ except ValueError:errors.append(True)
+good=m.apply_dates(copy.deepcopy(base),[row]);print(json.dumps({'errors':errors,'first':good['users'][0]['first_inflow_ever'],'complete':good['meta']['first_inflow_dates_audit_complete']}))
+`;
+  const run=spawnSync('python3',['-c',script],{encoding:'utf8'});
+  assert.equal(run.status,0,run.stderr);
+  assert.deepEqual(JSON.parse(run.stdout),{errors:[true,true,true,true,true],first:'2020-01-01 10:00:00',complete:true});
 });
 
 test('Pre-binding history rejects incomplete coverage, unknown totals and post-binding transactions', () => {

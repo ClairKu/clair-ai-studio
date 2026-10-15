@@ -1,11 +1,12 @@
 <!-- Question Top 100: data stays inside the protected report. Escape </script in injected JSON. -->
 <section class="qtop" id="question-top100" aria-labelledby="qtop-title">
   <style>
+    .qtop-sort{display:inline-flex;align-items:center;justify-content:flex-end;gap:4px;width:100%;min-height:24px;padding:0;border:0;background:transparent;color:inherit;white-space:nowrap;cursor:pointer}.qtop-sort:hover{color:var(--blue-deep,#5940bd)}.qtop-sort-arrow{font-size:10px;opacity:.6}.qtop-table th[aria-sort="ascending"],.qtop-table th[aria-sort="descending"]{color:var(--blue-deep,#5940bd)}.qtop-table{min-width:710px}
     .qtop{margin-top:46px;padding-top:28px;border-top:1px solid var(--rule-2,#d7d7e7);color:var(--ink,#171927);font-family:var(--serif,"Songti SC",STSong,serif)}
     .qtop [hidden]{display:none!important}.qtop *{box-sizing:border-box}.qtop button,.qtop input,.qtop select{font:inherit}
     .qtop-heading{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:16px}.qtop-heading h2{margin:0;font-size:26px;line-height:1.35}.qtop-meta{margin:0;color:var(--ink-3,#7d8298);font-size:12px;line-height:1.7;text-align:right}
     .qtop-tabs{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:0;max-width:100%;margin-bottom:10px;scrollbar-width:thin}.qtop-tabs button{flex:0 0 auto;min-height:45px;padding:0 20px;border:1px solid var(--rule-2,#d7d7e7);background:var(--surface,#fff);color:var(--ink-3,#7d8298);font-size:15px;font-weight:700;white-space:nowrap;cursor:pointer}.qtop-tabs button+button{margin-left:-1px}.qtop-tabs button[aria-selected="true"]{position:relative;background:var(--ink,#171927);border-color:var(--ink,#171927);color:var(--surface,#fff)}
-    .qtop-note{margin:0 0 14px;font-size:12px;color:var(--ink-3,#7d8298);line-height:1.7}.qtop-layout{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:22px;align-items:start}.qtop-layout>div{min-width:0}
+    .qtop-note{margin:0 0 14px;font-size:12px;color:var(--ink-3,#7d8298);line-height:1.7}.qtop-layout{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(270px,.8fr);gap:22px;align-items:start}.qtop-layout>div{min-width:0}
     .qtop-table-wrap{max-height:440px;overflow:auto;border:1px solid var(--rule-2,#d7d7e7);background:var(--surface,#fff);scrollbar-width:thin}.qtop-table{width:100%;margin:0;border-collapse:collapse;white-space:nowrap;font-size:13px}.qtop-table th,.qtop-table td{padding:11px 10px;border-bottom:1px solid var(--rule,#e7e6ef);text-align:right;font-variant-numeric:tabular-nums}.qtop-table th{position:sticky;top:0;z-index:1;background:var(--pale,#f6f3ff);color:var(--ink-3,#7d8298);font-size:12px;font-weight:600}.qtop-table th:nth-child(2),.qtop-table td:nth-child(2){text-align:left}.qtop-table th:first-child,.qtop-table td:first-child{width:44px;text-align:center}.qtop-table tbody tr{cursor:pointer}.qtop-table tbody tr:hover td{background:var(--pale,#f6f3ff)}.qtop-table tbody tr[aria-selected="true"] td{background:var(--soft,#eeebfb);color:var(--blue-deep,#5940bd)}.qtop-table tbody tr[aria-selected="true"] td:first-child{box-shadow:inset 3px 0 var(--blue,#7855ee)}.qtop-open-user{padding:0;border:0;background:transparent;color:inherit;cursor:pointer;text-align:left}.qtop-row-cohort{margin-left:6px;font-size:11px;color:var(--ink-3,#7d8298)}
     .qtop-user-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 12px}.qtop-user-head h3{margin:0;font-size:20px;line-height:1.5}.qtop-user-cohort{color:var(--ink-3,#7d8298);font-size:12px;white-space:nowrap}.qtop-facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:0}.qtop-fact{min-width:0;padding:13px 9px;border-top:2px solid var(--blue,#7855ee);background:var(--surface,#fff)}.qtop-fact dt{margin:0 0 7px;color:var(--ink-3,#7d8298);font-size:12px;white-space:nowrap}.qtop-fact dd{margin:0;font-size:23px;line-height:1.15;font-variant-numeric:tabular-nums}.qtop-user-dates{margin:12px 0;font-size:12px;line-height:1.8;color:var(--ink-3,#7d8298)}.qtop-summary{margin:0 0 14px;color:var(--ink-2,#4f536a);font-size:13px;line-height:1.8;overflow-wrap:anywhere}.qtop-analysis-title{margin:15px 0 9px;color:var(--ink-2,#4f536a);font-size:14px;font-weight:700}.qtop-analysis-title small{margin-left:7px;color:var(--ink-3,#7d8298);font-size:11px;font-weight:400}.qtop-source-counts{display:flex;gap:7px 14px;flex-wrap:wrap;margin:0;font-size:12px;line-height:1.8;color:var(--ink-3,#7d8298)}.qtop-source-counts b{margin-left:5px;color:var(--ink-2,#4f536a);font-weight:600;font-variant-numeric:tabular-nums}.qtop-topic-list{display:grid;gap:8px;margin:0;padding:0;list-style:none}.qtop-topic{display:grid;grid-template-columns:minmax(70px,1fr) minmax(40px,1.3fr) 36px;gap:9px;align-items:center;color:var(--ink-2,#4f536a);font-size:12px}.qtop-topic-label{overflow-wrap:anywhere}.qtop-topic-track{height:5px;background:var(--soft,#eeebfb);overflow:hidden}.qtop-topic-bar{height:100%;background:var(--blue,#7855ee);opacity:.72}.qtop-topic-n{text-align:right;font-variant-numeric:tabular-nums}.qtop-case-link{display:inline-block;margin-top:13px;color:var(--blue-deep,#5940bd);font-size:12px;text-underline-offset:3px}
     .qtop-originals{margin-top:25px;padding-top:19px;border-top:1px solid var(--rule-2,#d7d7e7)}.qtop-originals-heading{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:12px}.qtop-originals-heading h3{margin:0;font-size:19px}.qtop-originals-count{font-size:12px;color:var(--ink-3,#7d8298)}.qtop-filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px}.qtop-filters input,.qtop-filters select{min-height:36px;padding:6px 10px;border:1px solid var(--rule-2,#d7d7e7);border-radius:0;background:var(--surface,#fff);color:var(--ink-2,#4f536a);font-size:12px}.qtop-filters input{flex:1 1 220px;min-width:0}.qtop-filters select{max-width:100%}.qtop-controls{display:flex;align-items:center;gap:10px;justify-content:flex-end;min-height:35px;margin:10px 0;color:var(--ink-3,#7d8298);font-size:12px}.qtop-controls button,.qtop-retry{min-height:32px;padding:5px 11px;border:1px solid var(--rule-2,#d7d7e7);background:var(--surface,#fff);color:var(--ink-2,#4f536a);cursor:pointer}.qtop-controls button:disabled{opacity:.35;cursor:default}.qtop-controls span{font-variant-numeric:tabular-nums}.qtop-status{display:flex;align-items:center;gap:10px;min-height:44px;margin:0;color:var(--ink-3,#7d8298);font-size:13px;line-height:1.8}.qtop-status.is-error{color:#98504b}.qtop-questions{list-style:none;margin:0;padding:0}.qtop-question{padding:13px 0;border-bottom:1px solid var(--rule,#e7e6ef)}.qtop-question-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 11px;margin-bottom:7px;color:var(--ink-3,#7d8298);font-size:11px;line-height:1.5;font-variant-numeric:tabular-nums}.qtop-question-index{color:var(--blue-deep,#5940bd);font-weight:700}.qtop-question-source{padding:1px 6px;background:var(--soft,#eeebfb);color:var(--blue-deep,#5940bd)}.qtop-question-text{margin:0;color:var(--ink-2,#4f536a);font-size:13px;line-height:1.85;white-space:pre-wrap;overflow-wrap:anywhere}.qtop-empty{margin:18px 0;color:var(--ink-3,#7d8298);font-size:13px;line-height:1.8}.qtop button:focus-visible,.qtop input:focus-visible,.qtop select:focus-visible,.qtop-table-wrap:focus-visible{outline:2px solid var(--blue,#7855ee);outline-offset:2px}
@@ -19,7 +20,7 @@
   </div>
   <div class="qtop-tabs" role="tablist" aria-label="提问用户榜单切换">
     <button type="button" role="tab" data-qtop-ranking="total" aria-selected="true">总提问量 TOP100</button>
-    <button type="button" role="tab" data-qtop-ranking="daily" aria-selected="false">观察日均 TOP100</button>
+    <button type="button" role="tab" data-qtop-ranking="daily" aria-selected="false">日提问 TOP100</button>
   </div>
   <p class="qtop-note" id="qtop-ranking-note"></p>
   <p class="qtop-summary" id="qtop-ranking-analysis" hidden></p>
@@ -27,7 +28,14 @@
   <div class="qtop-layout" id="qtop-content">
     <div class="qtop-table-wrap" tabindex="0" aria-label="提问用户榜单，可滚动查看">
       <table class="qtop-table">
-        <thead><tr><th scope="col">排名</th><th scope="col">用户</th><th scope="col">总提问</th><th scope="col">观察日均</th><th scope="col">活跃日</th></tr></thead>
+        <thead><tr><th scope="col" title="原榜名次，切换排序后仍保留">排名</th><th scope="col">用户</th>
+          <th scope="col" aria-sort="none"><button type="button" class="qtop-sort" data-qtop-sort="total" data-sort-label="总提问">总提问<span class="qtop-sort-arrow" aria-hidden="true">↕</span></button></th>
+          <th scope="col" aria-sort="none" title="总提问除以首次提问日至截止当天的自然日数，含没有提问的日期"><button type="button" class="qtop-sort" data-qtop-sort="daily_avg" data-sort-label="日提问">日提问<span class="qtop-sort-arrow" aria-hidden="true">↕</span></button></th>
+          <th scope="col" aria-sort="none" title="有有效千问用户输入的去重日期数"><button type="button" class="qtop-sort" data-qtop-sort="active_days" data-sort-label="活跃日">活跃日<span class="qtop-sort-arrow" aria-hidden="true">↕</span></button></th>
+          <th scope="col" aria-sort="none" title="平均使用日间隔＝首末活跃日期相差天数÷（活跃日数−1）；仅一个活跃日不推断重复频率"><button type="button" class="qtop-sort" data-qtop-sort="use_interval" data-sort-label="使用频次">使用频次<span class="qtop-sort-arrow" aria-hidden="true">↕</span></button></th>
+          <th scope="col" aria-sort="none" title="最近一条有效千问用户输入的时间"><button type="button" class="qtop-sort" data-qtop-sort="last_at" data-sort-label="最近使用">最近使用<span class="qtop-sort-arrow" aria-hidden="true">↕</span></button></th>
+          <th scope="col" aria-sort="none" title="截至数据截止时，绑定后是否有新增入金；未入金不表示没有历史投资"><button type="button" class="qtop-sort" data-qtop-sort="post_bind_inflow" data-sort-label="是否入金">是否入金<span class="qtop-sort-arrow" aria-hidden="true">↕</span></button></th>
+        </tr></thead>
         <tbody id="qtop-ranking-rows"></tbody>
       </table>
     </div>
@@ -61,6 +69,50 @@
   <script>
   (function(){
     'use strict';
+    // BEGIN_RANK_SORT_HELPERS
+    function usageInterval(user){
+      const active=Number(user.active_days);
+      if(!Number.isInteger(active)||active<2)return null;
+      const first=Date.parse(String(user.first_at||'').slice(0,10)+'T00:00:00Z');
+      const last=Date.parse(String(user.last_at||'').slice(0,10)+'T00:00:00Z');
+      const span=(last-first)/86400000;
+      return Number.isFinite(span)&&span>=active-1?span/(active-1):null;
+    }
+    function usageFrequency(user){
+      if(Number(user.active_days)===1)return '仅1日';
+      const interval=usageInterval(user);if(interval===null)return '待核';
+      if(interval===1)return '每日';
+      const rounded=Number(interval.toFixed(1));
+      return rounded===1?'约每日':'每 '+rounded+' 日';
+    }
+    function rankSortValue(user,key){
+      if(!user)return null;
+      if(key==='use_interval')return usageInterval(user);
+      if(key==='post_bind_inflow')return user.post_bind_inflow===true?1:user.post_bind_inflow===false?0:null;
+      if(key==='last_at'){
+        const value=String(user.last_at||'').replace('T',' ').slice(0,19);
+        const timestamp=/^\d{4}-\d\d-\d\d \d\d:\d\d:\d\d$/.test(value)?Date.parse(value.replace(' ','T')+'+08:00'):NaN;
+        return Number.isFinite(timestamp)?timestamp:null;
+      }
+      if(!['total','daily_avg','active_days'].includes(key))return null;
+      const value=user[key];
+      return value!==null&&value!==undefined&&value!==''&&Number.isFinite(Number(value))?Number(value):null;
+    }
+    function nextRankSort(current,key){
+      if(current.key!==key||current.direction==='none')return {key,direction:'asc'};
+      if(current.direction==='asc')return {key,direction:'desc'};
+      return {key:null,direction:'none'};
+    }
+    function sortedRankKeys(keys,users,sort){
+      const original=Array.from(keys);
+      if(!sort.key||!['asc','desc'].includes(sort.direction))return original;
+      return original.map((key,index)=>({key,index,value:rankSortValue(users.get(key),sort.key)})).sort((a,b)=>{
+        if(a.value===null&&b.value===null)return a.index-b.index;
+        if(a.value===null)return 1;if(b.value===null)return -1;
+        return (sort.direction==='asc'?a.value-b.value:b.value-a.value)||a.index-b.index;
+      }).map(row=>row.key);
+    }
+    // END_RANK_SORT_HELPERS
     const root=document.getElementById('question-top100');
     if(!root || root.dataset.initialized) return;
     root.dataset.initialized='true';
@@ -80,9 +132,10 @@
     const sourceOf=value=>Object.prototype.hasOwnProperty.call(sourceNames,value)?value:'unknown';
     const topicsOf=value=>(Array.isArray(value)?value:[value]).filter(v=>v!=null&&String(v).trim()).map(String);
     const cache=new Map();
-    const state={ranking:'total',key:null,questions:[],filtered:[],page:1,request:0,loading:false,loaded:false};
+    const state={ranking:'total',key:null,questions:[],filtered:[],page:1,request:0,loading:false,loaded:false,sortKey:null,sortDirection:'none'};
     const pageSize=50;
-    const rankKeys=()=>Array.from(data.rankings[state.ranking]||[]).map(String).filter(key=>users.has(key)).slice(0,100);
+    const baseRankKeys=()=>Array.from(data.rankings[state.ranking]||[]).map(String).filter(key=>users.has(key)).slice(0,100);
+    const rankKeys=()=>sortedRankKeys(baseRankKeys(),users,{key:state.sortKey,direction:state.sortDirection});
     const context=[];
     if(meta.cutoff)context.push('截至 '+stamp(meta.cutoff));
     if(finite(meta.user_population))context.push('提问用户 '+number(meta.user_population)+' 人');
@@ -90,7 +143,7 @@
     text($('qtop-meta'),context.join(' · '));
     const note=()=>{
       const parts=[];
-      if(state.ranking==='daily')parts.push(meta.daily_definition||'观察日均＝总提问量 ÷ 观察天数');
+      if(state.ranking==='daily')parts.push((meta.daily_definition||'日提问＝总提问量 ÷ 观察天数').replace(/^观察日均/,'日提问'));
       else parts.push(meta.source_definition||'按统计范围内的用户提问条数排序');
       const currentUsers=rankKeys().map(key=>users.get(key));
       const questionSum=currentUsers.reduce((sum,user)=>sum+(Number(user.total)||0),0);
@@ -106,14 +159,28 @@
     };
     function renderRanking(){
       root.querySelectorAll('[data-qtop-ranking]').forEach(btn=>btn.setAttribute('aria-selected',String(btn.dataset.qtopRanking===state.ranking)));
+      root.querySelectorAll('[data-qtop-sort]').forEach(btn=>{
+        const direction=btn.dataset.qtopSort===state.sortKey?state.sortDirection:'none';
+        btn.closest('th').setAttribute('aria-sort',direction==='asc'?'ascending':direction==='desc'?'descending':'none');
+        btn.querySelector('.qtop-sort-arrow').textContent=direction==='asc'?'↑':direction==='desc'?'↓':'↕';
+        const current=direction==='asc'?'升序':direction==='desc'?'降序':'原榜顺序';
+        const next=direction==='asc'?'降序':direction==='desc'?'恢复原榜顺序':'升序';
+        btn.setAttribute('aria-label',btn.dataset.sortLabel+'，当前'+current+'，点击'+next);
+        btn.title='点击'+next+'（升序→降序→恢复）';
+      });
+      const originalRanks=new Map(baseRankKeys().map((key,index)=>[key,index+1]));
       const frag=document.createDocumentFragment();
-      rankKeys().forEach((key,index)=>{
+      rankKeys().forEach(key=>{
         const user=users.get(key),tr=node('tr');tr.dataset.qtopUser=key;tr.setAttribute('aria-selected',String(key===state.key));
-        tr.append(node('td','',index+1));
+        tr.append(node('td','',originalRanks.get(key)));
         const who=node('td'),open=node('button','qtop-open-user',user.label||('用户 '+key));open.type='button';
+        open.title=open.textContent;open.setAttribute('aria-label',open.textContent);text(open,open.textContent.replace(/^提问用户\s*/,''));
         who.append(open);
         if(user.new_or_existing)who.append(node('span','qtop-row-cohort',user.new_or_existing));
-        tr.append(who,node('td','',number(user.total)),node('td','',number(user.daily_avg,2)),node('td','',number(user.active_days)));
+        const frequency=node('td','',usageFrequency(user));
+        const recent=node('td','',user.last_at?stamp(user.last_at).slice(5,16):'待核');recent.title=stamp(user.last_at);
+        const funded=node('td','',user.post_bind_inflow===true?'已入金':user.post_bind_inflow===false?'未入金':'待核');
+        tr.append(who,node('td','',number(user.total)),node('td','',number(user.daily_avg,2)),node('td','',number(user.active_days)),frequency,recent,funded);
         tr.addEventListener('click',()=>selectUser(key));frag.append(tr);
       });
       $('qtop-ranking-rows').replaceChildren(frag);note();
@@ -121,7 +188,7 @@
     function renderUser(user){
       text($('qtop-user-label'),user.label||('用户 '+user.key));text($('qtop-user-cohort'),user.new_or_existing||'');
       const facts=document.createDocumentFragment();
-      [['总提问',number(user.total)],['观察日均',number(user.daily_avg,2)],['观察天数',number(user.observed_days)],['提问活跃日',number(user.active_days)]].forEach(([label,value])=>{
+      [['总提问',number(user.total)],['日提问',number(user.daily_avg,2)],['观察天数',number(user.observed_days)],['提问活跃日',number(user.active_days)]].forEach(([label,value])=>{
         const item=node('div','qtop-fact');item.append(node('dt','',label),node('dd','',value));facts.append(item);
       });$('qtop-user-facts').replaceChildren(facts);
       text($('qtop-user-dates'),'首问 '+stamp(user.first_at)+'　·　末问 '+stamp(user.last_at));
@@ -212,7 +279,11 @@
       else{++state.request;state.loading=false;state.loaded=false;state.questions=[];state.filtered=[];renderQuestions();text($('qtop-retry'),'查看提问原文');$('qtop-retry').hidden=false;}
     }
     root.querySelectorAll('[data-qtop-ranking]').forEach(btn=>btn.addEventListener('click',()=>{
-      state.ranking=btn.dataset.qtopRanking;renderRanking();const keys=rankKeys();if(!keys.includes(state.key)&&keys.length)selectUser(keys[0],false);
+      state.ranking=btn.dataset.qtopRanking;state.sortKey=null;state.sortDirection='none';renderRanking();root.querySelector('.qtop-table-wrap').scrollTop=0;const keys=rankKeys();if(!keys.includes(state.key)&&keys.length)selectUser(keys[0],false);
+    }));
+    root.querySelectorAll('[data-qtop-sort]').forEach(btn=>btn.addEventListener('click',()=>{
+      const next=nextRankSort({key:state.sortKey,direction:state.sortDirection},btn.dataset.qtopSort);
+      state.sortKey=next.key;state.sortDirection=next.direction;renderRanking();root.querySelector('.qtop-table-wrap').scrollTop=0;
     }));
     $('qtop-search').addEventListener('input',filterQuestions);$('qtop-source-filter').addEventListener('change',filterQuestions);$('qtop-topic-filter').addEventListener('change',filterQuestions);
     $('qtop-retry').addEventListener('click',()=>{if(state.key&&!state.loading)loadQuestions(state.key,state.loaded);});

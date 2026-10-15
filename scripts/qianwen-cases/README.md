@@ -27,6 +27,9 @@ App审查以 `apply-app-operations.py users-final.json app-operation-stats.json 
 其余六客群保留首笔入金、入金次数、总入金、首笔入金提问数和总提问数；前者问题窗口只到首笔之前。
 卡片人均资产/入金/笔数按本客群全部人数；二次入金间隔按首笔至第二笔，仅对有二次入金的人计算均值及中位数。
 
+七个客群都展示注册日期和历史首次入金日期，先用 `apply-first-inflow-dates.py` 合并全历史核验结果，不能拿绑定后首笔替代人生首笔。
+表格列头三态排序：升序、降序、恢复。金额、日期和间隔按原始值；同值按原序，缺失始终末尾；原行节点与个例跳转保留，合计行不参与排序。
+
 ## 2026-10-15 全量提问用户双Top100
 
 `build-question-top100.mjs <repo> <private-input-dir> <private-output-dir> [users-ready.json]` 读取已审查的两榜和原文。
@@ -35,6 +38,9 @@ App审查以 `apply-app-operations.py users-final.json app-operation-stats.json 
 已确认默认题、推荐题匹配（推断）与其它输入（来源未确认）分开，不能把未匹配输入直接叫主动提问。
 生成器输出私有发布清单；仅清单中当次加密文件进入public/docs，明文原件和内部ID不得提交。
 `build-cases.py` 的第四个可选参数接受私有 `question-top100-fragment.html`，模块放在原案例后，不改变原顶部。
+Top100展示总提问、日提问、活跃日、使用频次、最近使用和是否入金，六列均可三态排序，仅重排当前榜成员，不重新取原文。
+使用频次=首末活跃日期之差÷（活跃日−1）；单活跃日只写“仅1日”。最近使用为最后有效千问用户输入，入金标记为同截止前绑定后新增入金。
+仅改UI时，`build-question-top100.mjs --render-only <repo> <existing-private-output>` 可沿用已审元数据与原加密文件，不重写明细。
 
 ## 2026-10-15 新分类（优先于下文旧说明）
 
