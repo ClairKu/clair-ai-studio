@@ -62,6 +62,7 @@ test('Case layout stays compact, hides unreviewed slices and labels old first/ne
       derived:{inflow_after:10*(i+1),first_inflow_after:'2026-10-10 11:00:00',buy_amount_after:null,cancels_after:0},
       question_stats:{total_questions:i===3?0:10*(i+1),pre_first_inflow_questions:i===3?0:4*(i+1),reviewed:true,cutoff:'2026-10-15 09:58:45'},
       app_operation:{first_at:i===3?null:'2026-10-10 10:05:30',first_platform:i===3?null:'iOS',device_platforms:i===3?['Android']:['iOS'],reviewed:true,cutoff:'2026-10-15 09:58:45'},
+      binding_history:{ytd_inflow_before:i===3?120:0,last_trade_before:i===3?'2026-10-09 14:00:00':null,reviewed:true,cutoff:'2026-10-15 09:58:45',bound_at:'2026-10-10 10:00:00'},
       flags:{zero_at_bind:type!=='reinvested',first_invest_after:['new','old-first'].includes(type),
         new_first_invest:type==='new',recall:['old-first','returned'].includes(type),
         existing_first_invest:type==='old-first',existing_returned:type==='returned',existing_reinvested:type==='reinvested'},
@@ -85,6 +86,11 @@ test('Case layout stays compact, hides unreviewed slices and labels old first/ne
     assert.match(appRejected.stderr,/首次App操作未核验完整/);
     data.meta.app_operations_audit_complete=true;
     writeFileSync(input,JSON.stringify(data));
+    const historyRejected=build();
+    assert.notEqual(historyRejected.status,0,'Incomplete pre-binding history must block publication');
+    assert.match(historyRejected.stderr,/绑定前入金和交易历史未核验完整/);
+    data.meta.binding_history_audit_complete=true;
+    writeFileSync(input,JSON.stringify(data));
     const accepted=build();
     assert.equal(accepted.status,0,accepted.stderr);
     const page=readFileSync(output,'utf8');
@@ -106,8 +112,9 @@ test('Case layout stays compact, hides unreviewed slices and labels old first/ne
     assert.equal((page.match(/<span>首投平均间隔<\/span>/g)||[]).length,7);
     assert.match(page,/<b>1\.0 小时<\/b><span>首投平均间隔<\/span><em>中位数 1\.0 小时<\/em><em>1 人有二次入金<\/em><em>二次平均间隔 2\.0 小时 · 中位数 2\.0 小时/);
     assert.match(page,/<em>0 人有二次入金<\/em><em>暂无二次入金间隔/);
-    assert.equal((page.match(/<th[^>]*>首笔入金<\/th><th>入金次数<\/th><th>总入金<\/th><th[^>]*>首笔入金提问数<\/th><th>总提问数<\/th>/g)||[]).length,7);
-    assert.match(page,/<td class="num">20<\/td><td class="num">2<\/td><td class="num">40<\/td><td class="num">0<\/td><td class="num">0<\/td>/);
+    assert.equal((page.match(/<th[^>]*>首笔入金<\/th><th>入金次数<\/th><th>总入金<\/th><th[^>]*>首笔入金提问数<\/th><th>总提问数<\/th>/g)||[]).length,6);
+    assert.match(page,/<th[^>]*>绑定时资产<\/th><th[^>]*>今年绑前入金<\/th><th[^>]*>最近交易日<\/th><th>绑定后新增入金<\/th><th>笔数<\/th><th>当前资产<\/th>/);
+    assert.match(page,/>500<\/td>\s*<td class="num">120<\/td><td class="num">2026-10-09<\/td>\s*<td class="num">40<\/td><td class="num">2<\/td>\s*<td class="num">400<\/td>/);
     assert.match(page,/<td class="num">10<\/td><td class="num">1<\/td><td class="num">10<\/td><td class="num">4<\/td><td class="num">10<\/td>/);
     assert.doesNotMatch(page,/新客 0 人/);
     assert.match(page,/24 小时内入金 1 人 · 多次入金 0 人/);
@@ -116,6 +123,26 @@ test('Case layout stays compact, hides unreviewed slices and labels old first/ne
     assert.match(page,/<td>安卓<\/td><td[^>]*>未查到操作<\/td>/);
     assert.doesNotMatch(page,/App 使用证据|iOS App ·|安卓 App ·/);
   } finally { rmSync(dir,{recursive:true,force:true}); }
+});
+
+test('Pre-binding history rejects incomplete coverage, unknown totals and post-binding transactions', () => {
+  const script = `
+import importlib.util,json,copy
+spec=importlib.util.spec_from_file_location('history','scripts/qianwen-cases/apply-binding-history.py')
+m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+base={'meta':{'cutoff':'2026-10-15 09:58:45'},'users':[{'pmid':'fixture','fb':'2026-10-10 10:00:00'}]}
+row={'pmid':'fixture','ytd_inflow_before':100,'last_trade_before':'2026-10-09 12:00:00','reviewed':True}
+bad=[[],[row,row],[{**row,'reviewed':False}],[{**row,'ytd_inflow_before':None}],[{**row,'ytd_inflow_before':-1}],[{**row,'last_trade_before':None}],[{**row,'last_trade_before':'2026-10-10 10:00:00'}]]
+errors=[]
+for items in bad:
+ try:m.apply_history(copy.deepcopy(base),items);errors.append(False)
+ except ValueError:errors.append(True)
+zero=m.apply_history(copy.deepcopy(base),[{**row,'ytd_inflow_before':0,'last_trade_before':None}])
+print(json.dumps({'errors':errors,'zero':zero['users'][0]['binding_history']['ytd_inflow_before'],'complete':zero['meta']['binding_history_audit_complete']}))
+`;
+  const run=spawnSync('python3',['-c',script],{encoding:'utf8'});
+  assert.equal(run.status,0,run.stderr);
+  assert.deepEqual(JSON.parse(run.stdout),{errors:[true,true,true,true,true,true,true],zero:0,complete:true});
 });
 
 test('App operation audit rejects device-registration substitutions and out-of-window operations', () => {

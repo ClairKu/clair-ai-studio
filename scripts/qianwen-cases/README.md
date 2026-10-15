@@ -22,6 +22,11 @@ App审查以 `apply-app-operations.py users-final.json app-operation-stats.json 
 设备登记、小程序、H5及后台生命周期事件不作App操作；已查证窗口内无操作显示“未查到操作”，不是未安装。
 全部250人都须有审查结果，未审完整不能生成新版生产页。
 
+老户再投矩阵按绑定前后对照：绑定时资产（保留原日快照边界）、今年以来绑定前总入金、绑定前最近交易日、绑定后新增入金、笔数、当前资产。
+`apply-binding-history.py users-ready.json binding-history-stats.json users-with-history.json` 要求全250人有经审查的历史结果；缺失不能填0，最近交易严格早于绑定。
+其余六客群保留首笔入金、入金次数、总入金、首笔入金提问数和总提问数；前者问题窗口只到首笔之前。
+卡片人均资产/入金/笔数按本客群全部人数；二次入金间隔按首笔至第二笔，仅对有二次入金的人计算均值及中位数。
+
 ## 2026-10-15 全量提问用户双Top100
 
 `build-question-top100.mjs <repo> <private-input-dir> <private-output-dir> [users-ready.json]` 读取已审查的两榜和原文。

@@ -42,6 +42,13 @@ if cases["meta"].get("taxonomy_version"):
         app = user.get("app_operation") or {}
         if not app.get("reviewed") or app.get("cutoff") != cases["meta"]["cutoff"]:
             raise SystemExit("App操作审查缺失或截止时间不一致，禁止发布")
+    if not cases["meta"].get("binding_history_audit_complete"):
+        raise SystemExit("绑定前历史审查未完成，禁止发布")
+    for user in users:
+        history = user.get("binding_history") or {}
+        if (not history.get("reviewed") or history.get("cutoff") != cases["meta"]["cutoff"] or
+            history.get("bound_at") != user["fb"] or history.get("ytd_inflow_before") is None):
+            raise SystemExit("绑定前历史审查缺失或基准不一致，禁止发布")
 
 for user in users:
     inflow = float(user["derived"].get("inflow_after") or 0)
