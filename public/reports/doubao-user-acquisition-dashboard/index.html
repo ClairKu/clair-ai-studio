@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="豆包 X 且慢AI小顾用户数据看板，展示上架以来豆包绑定用户的增长、资产与账户状态、首次投资及绑定后行为。" />
+  <meta name="description" content="豆包 X 且慢AI小顾用户数据看板，展示上架以来豆包绑定用户的增长、资产与账户状态、首次入金及绑定后行为，钱包充值计入首投。" />
   <meta name="theme-color" content="#f5f6fb" />
   <meta name="robots" content="noindex,nofollow" />
   <title>豆包 · 且慢AI小顾｜用户引流成效看板</title>
@@ -51,7 +51,7 @@
             <label><input type="radio" name="segment" value="all" checked /><span>全部</span></label>
             <label><input type="radio" name="segment" value="new_inv" /><span>新投</span></label>
             <label><input type="radio" name="segment" value="first_inv" /><span>首投</span></label>
-            <label><input type="radio" name="segment" value="reinvested" /><span>再投</span></label>
+            <label><input type="radio" name="segment" value="reinvested" /><span>入金用户</span></label>
             <label><input type="radio" name="segment" value="new" /><span>新户</span></label>
             <label><input type="radio" name="segment" value="new_first_inv" /><span>新户首投</span></label>
             <label><input type="radio" name="segment" value="existing" /><span>老用户</span></label>
@@ -229,7 +229,7 @@
               <span>02</span>
               <h3 id="behavior-panel-title">绑定后新增入金与产品买入</h3>
             </div>
-            <p>新增入金=钱包充值或银行卡直付产品；宝内原余额买产品不计，产品买入另列</p>
+            <p>钱包充值或银行卡直付产品均算新增入金；人生首次新增入金算首投，新户首投包含仅充值钱包的用户。宝内原余额买产品不计新增入金，产品买入另列</p>
           </div>
           <div class="behavior-bars" id="behavior-bars"></div>
         </section>

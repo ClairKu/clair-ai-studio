@@ -5,7 +5,7 @@
 ```bash
 W=$(mktemp -d)/cases && mkdir -p $W && S=scripts/qianwen-cases
 CUT='2026-09-17 16:45:49'          # 与看板 data_cutoff 一致
-# 1. 候选用户：绑定后有新增入金，且（绑定时 ROOT 资产为 0/未开户 或 人生首笔产品买入在绑定后）
+# 1. 候选用户：绑定后有新增入金，且（绑定时 ROOT 资产为 0/未开户 或 人生首笔新增入金在绑定后）
 #    SQL 见 assemble-users.py 头部注释所需字段；输出 JSON（fetch.py <out.json> "<sql>" [timeout]）
 python3 $S/fetch.py $W/candidates.json "<候选 SQL>" 900
 # 2. 明细：trades / risk / asks / assets(ta 序列) / device / flows(ROOT input/output) —— 字段名见 assemble-users.py
@@ -22,7 +22,8 @@ cp public/reports/<slug>/index.html docs/reports/<slug>/index.html   # docs 副�
 
 口径要点：个例页分类名称与主看板对齐 = 新投 / 首投 / 新户首投 / 老户唤回 / 老户首投；
 入金与主看板同口径：绑定后线上/线下充值到盈米宝 + 银行卡直付买产品；组合回款进宝、宝内余额买产品不计；
-钱包充值即使尚未买入产品，也进入新投/再投候选；首投仍要求存在绑定后的首笔产品交易（含 `po.convert.buy`），且属于新增入金集合；
+钱包充值即使尚未买入产品，也进入新投/首投；首投、新户首投均以人生首笔合格新增入金为准。`first_buy_ever` 仅保留产品买入事实，不参与首投分类；
+老户唤回拆为“首次入金的老户首投”与“历史有入金、资产清零后的再次入金”，两项可点击筛选个例；
 发布前必须通过 `validate-alignment.py`，确保两页截止时刻一致，新增入金客群、五个共同客群及案例并集全部闭合；
 渠道判定规则驱动（device_info platform 3=iOS/4=安卓/5=鸿蒙 + 订单 extra + 时间线），有手写 verdict 的用户优先用手写。
 候选 SQL 的 asset_at_bind 子查询要加 `CASE WHEN account3_id IS NULL THEN NULL ELSE (...) END` 短路，否则 5k 用户会超时。

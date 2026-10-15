@@ -4,7 +4,7 @@
 - 人口基准 = q1（逐日累加）；q2/q3/q4 查询时点略晚，多出的人从各维度兜底桶扣除。
 - 资产两维取 q4：**ROOT 层**口径（全层级 SUM 会重复累加约 3 倍）。
 - 小样本：2026-08-24 起按业务方要求全量披露，不做 k=20 合并与互补隐藏。
-- 入金/买入/赎回金额权威源（MaxCompute 现金流）未接入，标 unavailable。
+- 入金/买入/赎回金额使用同一截止时刻的非撤单交易明细；缺少输入时标 unavailable。
 """
 import json, os, sys
 from pathlib import Path
@@ -58,7 +58,7 @@ BUCKET_ORDER = {
 }
 BUCKET_LABELS = {"100k_1m": "10—100 万元", "gte_1m": "100 万元以上",
                  "zero_at_bind": "绑定时零资产（含未开户）", "has_assets_at_bind": "绑定时已有资产",
-                 "no_first_investment": "无首投（从未买入）", "churned": "已流失（投过已清零）",
+                 "no_first_investment": "无首投（从未入金）", "churned": "已流失（入金后已清零）",
                  "under_management": "在管（当前有资产）",
                  "lte_25": "25 岁及以下", "26_35": "26—35 岁", "36_45": "36—45 岁",
                  "46_55": "46—55 岁", "56_65": "56—65 岁", "gte_66": "66 岁以上"}

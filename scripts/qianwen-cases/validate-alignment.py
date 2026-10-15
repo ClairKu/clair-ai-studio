@@ -23,11 +23,15 @@ for user in users:
     inflow = float(user["derived"].get("inflow_after") or 0)
     if inflow <= 0 or not user.get("inflow_txns"):
         raise SystemExit(f"案例 {user['pmid']} 不属于新增入金集合")
-    if user["flags"].get("first_invest_after"):
-        first_buy = str(user.get("first_buy_ever") or "").replace("T", " ")[:19]
-        first_bound = str(user.get("fb") or "").replace("T", " ")[:19]
-        if not first_buy or first_buy < first_bound:
-            raise SystemExit(f"案例 {user['pmid']} 的首投标签与产品交易不一致")
+    first_inflow = str(user.get("first_inflow_ever") or "").replace("T", " ")[:19]
+    first_bound = str(user.get("fb") or "").replace("T", " ")[:19]
+    is_first = bool(first_inflow and first_inflow >= first_bound)
+    if bool(user["flags"].get("first_invest_after")) != is_first:
+        raise SystemExit(f"案例 {user['pmid']} 的首投标签与新增入金历史不一致")
+    first_after = str(user["derived"].get("first_inflow_after") or "").replace("T", " ")[:19]
+    txn_first = min(str(t["t"]).replace("T", " ")[:19] for t in user["inflow_txns"])
+    if first_after != txn_first:
+        raise SystemExit(f"案例 {user['pmid']} 的首笔入金时距基准与交易不一致")
 
 
 def selected(scope_id):
@@ -66,6 +70,12 @@ case_union = {str(u["pmid"]) for scope_id in scope_ids for u in selected(scope_i
 if len(case_union) != len(users):
     raise SystemExit(f"案例并集不闭合：并集 {len(case_union)} 人，users.json {len(users)} 人")
 
+recalled = selected("existing_reactivated")
+recall_first = [u for u in recalled if u["flags"].get("first_invest_after")]
+recall_returned = [u for u in recalled if not u["flags"].get("first_invest_after")]
+if len(recall_first) + len(recall_returned) != len(recalled):
+    raise SystemExit("老户唤回的首投/清仓后唤回拆分不闭合")
+
 reinvested = segments["reinvested"]
 all_segment = segments["all"]
 if reinvested["population_accounts"] != all_segment["inflow_accounts"]:
@@ -73,4 +83,4 @@ if reinvested["population_accounts"] != all_segment["inflow_accounts"]:
 if reinvested["population_accounts"] != reinvested["inflow_accounts"]:
     raise SystemExit("再投客群包含非新增入金用户")
 
-print(f"两张看板口径一致：{main_cutoff}，新增入金客群、5 个案例客群及案例并集全部闭合。")
+print(f"两张看板口径一致：{main_cutoff}，新增入金客群、5 个案例客群及案例并集全部闭合；老户唤回 {len(recalled)} = 首投 {len(recall_first)} + 清仓后唤回 {len(recall_returned)}。")

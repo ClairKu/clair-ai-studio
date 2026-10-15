@@ -21,6 +21,9 @@ CUT = META["cutoff"]  # 'YYYY-MM-DD HH:MM'
 
 # 个案洞察由作者逐例研判，不用固定字段模板拼接。兼容已经生成、尚未内嵌 insight 的 users.json。
 insight_file = Path(__file__).with_name("narratives.json")
+if SRC.with_name("narratives.json").exists():
+    # 本次快照的作者研判只保留在临时原件，发布时仅进入加密报告。
+    insight_file = SRC.with_name("narratives.json")
 insight_rows = json.load(open(insight_file)) if insight_file.exists() else {}
 for user in users:
     curated = insight_rows.get(str(user.get("pmid")), {})
@@ -81,21 +84,25 @@ SCOPES = [
   {"id": "new_inv", "label": "新投", "flag": "zero_at_bind",
    "def": "绑定千问时没有投资资产，绑定后开始投入资金，新客和老客都包括在内。"},
   {"id": "first_inv", "label": "首投", "flag": "first_invest_after",
-   "def": "绑定千问前从未投资，绑定后完成了人生第一笔投资，新客和老客都包括在内。"},
+   "def": "绑定千问前从未新增入金，绑定后完成了人生第一笔新增入金（含钱包充值），新客和老客都包括在内。"},
   {"id": "new_first_inv", "label": "新户首投", "flag": "new_first_invest",
-   "def": "在绑定千问时新注册且慢，之后完成了人生第一笔投资。"},
+   "def": "在绑定千问时新注册且慢，之后完成了人生第一笔新增入金（含钱包充值）。"},
   {"id": "existing_reactivated", "label": "老户唤回", "flag": "recall",
    "def": "已有且慢账号，绑定时尚未投资或已经清仓，绑定后重新投入资金。"},
   {"id": "existing_first_inv", "label": "老户首投", "flag": "existing_first_invest",
-   "def": "已有且慢账号但从未投资，绑定千问后完成了人生第一笔投资。"},
+   "def": "已有且慢账号但从未入金，绑定千问后完成了人生第一笔新增入金（含钱包充值）。"},
+  {"id": "existing_returned", "label": "清仓后唤回", "flag": "existing_returned",
+   "def": "已有且慢账号且历史曾有新增入金，绑定时资产已清零，绑定后再次新增入金。"},
 ]
 
 def scope_users(sc):
     if sc["flag"] == "existing_first_invest":
         us = [u for u in users if u["cohort"] == "existing" and u["flags"].get("first_invest_after")]
+    elif sc["flag"] == "existing_returned":
+        us = [u for u in users if u["flags"].get("recall") and not u["flags"].get("first_invest_after")]
     else:
         us = [u for u in users if u["flags"].get(sc["flag"])]
-    return sorted(us, key=lambda u: -(u["derived"]["buy_amount_after"] or 0))
+    return sorted(us, key=lambda u: -(u["derived"]["inflow_after"] or 0))
 
 def agg(us):
     return {
@@ -104,7 +111,7 @@ def agg(us):
         "asset": sum(float((u.get("asset_latest") or {}).get("ta") or 0) for u in us),
         "inflow": sum(float(u["derived"]["inflow_after"] or 0) for u in us),
         "buy": sum(float(u["derived"]["buy_amount_after"] or 0) for u in us),
-        "repeat": sum(1 for u in us if (u["derived"]["buys_after"] or 0) >= 2),
+        "repeat": sum(1 for u in us if len(u.get("inflow_txns") or []) >= 2),
         "cancels": sum(1 for u in us if (u["derived"]["cancels_after"] or 0) > 0),
         "asks": sum(len(u["asks"]) for u in us),
         "max_inflow": max((float(u["derived"]["inflow_after"] or 0) for u in us), default=0),
@@ -123,10 +130,10 @@ def timeline(u):
         extra = ""
         if u.get("asset_at_bind") is not None and float(u["asset_at_bind"]) > 0:
             extra = f"；绑定时持有资产 {money(u['asset_at_bind'])} 元"
-        elif u.get("last_buy_before"):
-            extra = f"；上一次买入在 {dt(u['last_buy_before']).strftime('%Y-%m-%d')}，此后清仓"
+        elif u.get("first_inflow_ever") and dt(u["first_inflow_ever"]) < fb:
+            extra = f"；历史曾于 {dt(u['first_inflow_ever']).strftime('%Y-%m-%d')} 入金，绑定时资产已清零"
         else:
-            extra = "；此前从未投资"
+            extra = "；此前从未新增入金"
         ev.append((fb, "sys", f"绑定千问（账户 {reg.strftime('%Y-%m-%d')} 注册{extra}）"))
     for r in u["risk"]:
         t = dt(r["created_at"])
@@ -183,6 +190,21 @@ def timeline(u):
     return "\n".join(out)
 
 LIBN = {"iOS": "iOS", "Android": "安卓", "HarmonyOS": "鸿蒙"}
+NATIVE_LIBS = frozenset(LIBN)
+
+def event_channel(event):
+    lib = event.get("lib")
+    if lib in NATIVE_LIBS:
+        return f'{LIBN[lib]} App'
+    if lib == "MiniProgram":
+        return "小程序"
+    if lib == "js":
+        return "H5 / 网页"
+    return "终端未确认"
+
+def has_app_evidence(u):
+    return any(str(d.get("platform")) in PLAT for d in u.get("dev", [])) or any(e.get("lib") in NATIVE_LIBS for e in u.get("events", []))
+
 MIA_SCENE = {"MIA": "小顾会话页", "STRATEGY_DETAIL": "策略详情页", "ADVISOR_PAGE_TOP": "投顾页顶部入口",
              "ASSET_M4": "资产页", "QUICK_MENU": "快捷菜单", "FIRST_IN_DAY": "当日首次进入"}
 OP_RE = re.compile(r"转入|买入|定投|跟车|下单|确定|确认|下一题|提交|搜索|关注|充值|汇款|转账|复制账号|继续投资|新增投资|立即定制|回顾建议书|去看看|开户|上传|拍照|存入|切换账户|修改定投|产品明细|管理的策略|优惠券|创建|建议书|试试")
@@ -205,7 +227,7 @@ def terminal_of(u):
     fb = u["fb"][:19]
     c = {}
     for e in app_events(u, since=fb):
-        if e["lib"] != "js": c[e["lib"]] = c.get(e["lib"], 0) + 1
+        if e["lib"] in NATIVE_LIBS: c[e["lib"]] = c.get(e["lib"], 0) + 1
     return max(c, key=c.get) if c else None
 
 def chain_time(value):
@@ -219,9 +241,8 @@ def short_quote(value, limit=40):
 def decision_chain_panel(u):
     """只保留与首笔下单最相关的时序证据；这是链路判断，不宣称单点因果。"""
     fb = dt(u["fb"])
-    first_trade = dt(u["derived"].get("first_buy_after"))
     first_inflow = dt((u.get("inflow_txns") or [{}])[0].get("t")) if u.get("inflow_txns") else None
-    decision_at = first_trade or first_inflow
+    decision_at = first_inflow
     steps = []
 
     asks = sorted((u.get("asks") or []), key=lambda row: row.get("ts") or "")
@@ -231,7 +252,7 @@ def decision_chain_panel(u):
     else:
         steps.append(("intent", "入口触发", chain_time(u.get("fb")), "完成千问绑定，但没有留下有效提问"))
 
-    native = sorted([e for e in (u.get("events") or []) if e.get("lib") != "js" and dt(e.get("t")) and dt(e.get("t")) >= fb], key=lambda e: e["t"])
+    native = sorted([e for e in (u.get("events") or []) if e.get("lib") in NATIVE_LIBS and dt(e.get("t")) and dt(e.get("t")) >= fb], key=lambda e: e["t"])
     if native:
         first_app = native[0]
         steps.append(("app", "进入且慢", chain_time(first_app["t"]), f'{LIBN.get(first_app.get("lib"), first_app.get("lib"))} App 开始承接后续操作'))
@@ -278,12 +299,12 @@ def decision_chain_panel(u):
         products = list(dict.fromkeys(products))
         inflow = float(u["derived"].get("inflow_after") or 0)
         if inflow > 0:
-            trade_text = f'完成首次买入；累计入金 {wan(inflow)}'
+            trade_text = f'完成首笔新增入金；累计入金 {wan(inflow)}'
         else:
             trade_text = "使用已有余额完成首次买入"
         if products:
             trade_text += f'，主要买入“{short_quote(products[0], 20)}”'
-        steps.append(("trade", "完成下单", chain_time(decision_at.isoformat()), trade_text))
+        steps.append(("trade", "完成入金", chain_time(decision_at.isoformat()), trade_text))
 
         post = []
         for row in asks:
@@ -340,7 +361,7 @@ def behavior_panel(u):
     for event in evs:
         page = (event.get("p") or "").strip()
         action = (event.get("e") or "").strip()
-        channel = f'{LIBN.get(event.get("lib"), event.get("lib"))} App' if event.get("lib") != "js" else "网页端"
+        channel = event_channel(event)
         if event.get("k") == "view" and page and page not in {"首页", "我的"} and (signal_re.search(page) or PROD_RE.match(page) or page in XG_PAGES):
             name = re.sub(r"^(策略详情|策略介绍|主理人详情|资产详情)-", "", page)
             if page.startswith(("策略详情", "策略介绍")):
@@ -453,11 +474,11 @@ def behavior_panel(u):
 
 def path_summary(u):
     # 用户路径与行为总结：终端 / 下单情境 / 千问侧关系 / App 内小顾——全部白话，不出现字段名
-    fb = dt(u["fb"]); fbuy = dt(u["derived"]["first_buy_after"])
+    fb = dt(u["fb"]); fbuy = dt(u["derived"]["first_inflow_after"])
     evs = u.get("events") or []
-    app = [e for e in evs if e["lib"] != "js"]
+    app = [e for e in evs if e["lib"] in NATIVE_LIBS]
     term = terminal_of(u)
-    tname = LIBN.get(term, term)
+    tname = LIBN.get(term or (app[0]["lib"] if app else None), "终端未确认")
     parts = []
     if app:
         first = dt(min(e["t"] for e in app))
@@ -466,7 +487,7 @@ def path_summary(u):
         else:
             parts.append(f'绑定后 {dur(fb.isoformat(), first.isoformat())} 打开且慢 App（{tname}）')
     elif evs:
-        parts.append('全程只有网页端记录、没有装 App')
+        parts.append('当前窗口只有小程序或 H5 记录，无法据此确认 App 使用')
     else:
         parts.append('且慢侧没有埋点记录')
     if fbuy:
@@ -477,11 +498,11 @@ def path_summary(u):
             before = [e for e in evs if e["k"] == "view" and e["p"] and lo <= e["t"] <= fbuy.isoformat()
                       and not e["p"].startswith(("下单", "策略买入", "策略转入", "定投买入", "策略跟投页")) and e["p"] not in GENERIC_LAST]
             last = before[-1]["p"] if before else None
-            parts.append('首笔买入在 App 内完成' + (f'，下单前最后停留在「{esc(last)}」' if last else ""))
+            parts.append('首笔入金前后 30 分钟有 App 原生记录' + (f'，入金前最后停留在「{esc(last)}」' if last else ""))
         elif near_any:
-            parts.append('首笔买入时段只有网页端记录，应是在微信或千问内嵌的且慢页面里下单')
+            parts.append('首笔入金时段只有小程序或 H5 记录，无法确认入金终端')
         else:
-            parts.append('首笔买入时段没有埋点记录，终端无法直接判定')
+            parts.append('首笔入金时段没有埋点记录，终端无法直接判定')
     asks = sorted(u["asks"], key=lambda a: a["ts"])
     if not asks:
         parts.append('千问侧零提问，会话建好就直接去且慢下单了')
@@ -504,7 +525,7 @@ def top_stats(u):
     d = u["derived"]; al = u.get("asset_latest"); ch = u.get("channels") or {}
     inf = u.get("inflow_txns") or []
     asset_sub = f'{al["cal_date"][5:].replace("-", "/")} 资产 {wan(al["ta"])}' if al else "资产待次日批次落账"
-    first_in = inf[0]["t"] if inf else d["first_buy_after"]
+    first_in = d["first_inflow_after"]
     dates = "、".join(f'{"首笔" if i == 0 else "第二笔"} {fmt_md(x["t"])}' for i, x in enumerate(inf[:2]))
     dates_html = f'<small>{dates}</small>' if dates else ''
     q = len(u["asks"]); m = len(ch.get("app_mia", [])); w = int(ch.get("wechat_msgs", 0) or 0)
@@ -596,15 +617,15 @@ def card(u):
     gender = "男" if u["gender"] == "M" else "女" if u["gender"] == "F" else "性别未知"
     age = f'{u["age"]}岁' if u.get("age") else "年龄未知"
     who = f'千问用户 #{u["letter"]} · {esc(u.get("surname") or "")}{gender} · {age}'
-    app_dates = [d.get("created_on") for d in u.get("dev", []) if d.get("created_on")]
+    app_dates = [d.get("created_on") for d in u.get("dev", []) if d.get("created_on") and str(d.get("platform")) in PLAT]
     app_download = min(app_dates) if app_dates else None
     tags = []
     if u.get("fb"):
         tags.append(f'<span class="tag">千问绑定 {fmt_badge_date(u["fb"])}</span>')
     if app_download:
-        tags.append(f'<span class="tag">下载 App {fmt_badge_date(app_download)}</span>')
-    if u.get("first_buy_ever"):
-        tags.append(f'<span class="tag">首投 {fmt_badge_date(u.get("first_buy_ever"))}</span>')
+        tags.append(f'<span class="tag">App 设备注册 {fmt_badge_date(app_download)}</span>')
+    if u.get("first_inflow_ever"):
+        tags.append(f'<span class="tag">首投 {fmt_badge_date(u.get("first_inflow_ever"))}</span>')
     if u.get("risk"):
         tags.append(f'<span class="tag">风测 {u["risk"][-1]["score"]} 分</span>')
     copy_svg = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>'
@@ -635,15 +656,25 @@ def matrix(us):
     rows = []
     for u in us:
         d = u["derived"]; al = u.get("asset_latest")
-        term = terminal_of(u); app = [e for e in (u.get("events") or []) if e["lib"] != "js"]
-        dev_txt = (f'{LIBN.get(term, term)} App · {fmt_md(min(e["t"] for e in app))} 起') if term else ("网页端" if u.get("events") else "无埋点")
+        native = [e for e in u.get("events", []) if e.get("lib") in NATIVE_LIBS]
+        devices = [r for r in u.get("dev", []) if str(r.get("platform")) in PLAT]
+        if native:
+            from collections import Counter
+            term = Counter(e["lib"] for e in native).most_common(1)[0][0]
+            dev_txt = f'{LIBN[term]} App · 原生使用记录'
+        elif devices:
+            dev_txt = f'{PLAT[str(devices[0]["platform"])]} App · 设备注册'
+        elif any(e.get("lib") == "MiniProgram" for e in u.get("events", [])):
+            dev_txt = "仅小程序 / H5 · App 未确认"
+        else:
+            dev_txt = "App 使用未确认"
         rows.append(f'''<tr>
   <td><span class="who"><span class="{"badge n" if u["cohort"]=="new" else "badge"}">{u["letter"]}</span></span></td>
   <td>{"新客" if u["cohort"]=="new" else "老客"}</td>
   <td>{"男" if u["gender"]=="M" else "女" if u["gender"]=="F" else "—"} {u["age"] or ""}</td>
   <td class="num">{fmt_t(u["fb"], True)}</td>
-  <td class="num">{fmt_t(d["first_buy_after"], True)}</td>
-  <td class="num">{dur(u["fb"], d["first_buy_after"])}</td>
+  <td class="num">{fmt_t(d["first_inflow_after"], True)}</td>
+  <td class="num">{dur(u["fb"], d["first_inflow_after"])}</td>
   <td class="num">{money(d["inflow_after"])}</td>
   <td class="num">{money(al["ta"]) if al else "—"}</td>
   <td class="num">{u["risk"][-1]["score"] if u["risk"] else "—"}</td>
@@ -651,7 +682,7 @@ def matrix(us):
   <td class="wrap">{dev_txt}</td>
 </tr>''')
     return f'''<div class="scrollx"><table class="matrix">
-<thead><tr><th>用户</th><th>客群</th><th>画像</th><th>绑定</th><th>绑定后首笔投资</th><th>间隔</th><th title="充值盈米宝或银行卡直接投资">入金</th><th>当前资产</th><th>风测</th><th>提问</th><th>下单终端</th></tr></thead>
+<thead><tr><th>用户</th><th>客群</th><th>画像</th><th>绑定</th><th>绑定后首笔入金</th><th>间隔</th><th title="充值盈米宝或银行卡直接投资">入金</th><th>当前资产</th><th>风测</th><th>提问</th><th>App 使用证据</th></tr></thead>
 <tbody>{"".join(rows)}</tbody></table></div>'''
 
 def short_duration(seconds):
@@ -679,8 +710,14 @@ def scope_section(sc):
     ask_avg = statistics.mean(ask_counts) if ask_counts else 0
     ask_med = statistics.median(ask_counts) if ask_counts else 0
     ask_med_txt = f'{ask_med:g}'
+    population_note = f'新客 {a["new"]} 人 · 老客 {a["n"] - a["new"]} 人'
+    if sc["id"] == "existing_reactivated":
+        first_n = sum(bool(u["flags"].get("first_invest_after")) for u in us)
+        returned_n = len(us) - first_n
+        population_note = (f'<button class="scope-inline" type="button" data-scope-link="existing_first_inv">首投 {first_n} 人</button> · '
+                           f'<button class="scope-inline" type="button" data-scope-link="existing_returned">清仓后唤回 {returned_n} 人</button>')
     cells = f'''<div class="grid sumrow">
-  <div class="cell"><b>{a["n"]}</b><span>用户数</span><em>新客 {a["new"]} 人 · 老客 {a["n"] - a["new"]} 人</em></div>
+  <div class="cell"><b>{a["n"]}</b><span>用户数</span><em>{population_note}</em></div>
   <div class="cell"><b>{wan(a["inflow"])}</b><span>总入金</span><em>入金 {inflow_people} 人 · {inflow_count} 笔</em></div>
   <div class="cell"><b>{wan(a["asset"])}</b><span>总资产</span><em>持有资产 {asset_people} 人 · 快照 {asset_date_txt}</em></div>
   <div class="cell"><b>{a["asks"]:,}</b><span>提问数</span><em>人均 {ask_avg:.1f} 问 · 中位数 {ask_med_txt} 问</em></div>
@@ -705,12 +742,13 @@ _first_users = scope_users(next(sc for sc in SCOPES if sc["id"] == "first_inv"))
 _med = None
 import statistics as _st
 if _first_users:
-    _med = _st.median([(dt(u["derived"]["first_buy_after"]) - dt(u["fb"])).total_seconds() for u in _first_users if u["derived"]["first_buy_after"]])
+    _med = _st.median([(dt(u["derived"]["first_inflow_after"]) - dt(u["fb"])).total_seconds() for u in _first_users if u["derived"]["first_inflow_after"]])
 _med_txt = "—" if _med is None else (f"{_med/86400:.1f} 天" if _med >= 86400 else f"{_med/3600:.1f} 小时")
 from collections import Counter as _C
 _tc = _C(LIBN.get(terminal_of(u), "未知") for u in scope_users(next(sc for sc in SCOPES if sc["id"] == "new_inv")))
 _term_txt = "、".join(f"{k} {v}" for k, v in _tc.most_common())
 _terminal_evidence_n = sum(terminal_of(u) is not None for u in scope_users(next(sc for sc in SCOPES if sc["id"] == "new_inv")))
+_app_evidence_n = sum(has_app_evidence(u) for u in scope_users(next(sc for sc in SCOPES if sc["id"] == "new_inv")))
 _mia_n = sum(len((u.get("channels") or {}).get("app_mia", [])) for u in scope_users(next(sc for sc in SCOPES if sc["id"] == "new_inv")))
 _new_users = scope_users(next(sc for sc in SCOPES if sc["id"] == "new_inv"))
 _ages = [int(u["age"]) for u in _new_users if u.get("age") is not None]
@@ -726,13 +764,13 @@ _new_med_txt = "—" if _new_med is None else (f"{_new_med/86400:.1f} 天" if _n
 _within_day_n = sum(seconds <= 86400 for seconds in _durations)
 _app_order_n = 0
 for _u in _new_users:
-    _buy_at = dt(_u["derived"].get("first_buy_after"))
+    _buy_at = dt(_u["derived"].get("first_inflow_after"))
     if not _buy_at:
         continue
     _lo, _hi = _buy_at - _td(minutes=30), _buy_at + _td(minutes=30)
-    if any(e.get("lib") != "js" and _lo <= dt(e.get("t")) <= _hi for e in (_u.get("events") or []) if dt(e.get("t"))):
+    if any(e.get("lib") in NATIVE_LIBS and _lo <= dt(e.get("t")) <= _hi for e in (_u.get("events") or []) if dt(e.get("t"))):
         _app_order_n += 1
-_prior_recall = [u for u in _new_users if u.get("cohort") == "existing" and u.get("last_buy_before")]
+_prior_recall = [u for u in _new_users if u["flags"].get("recall") and not u["flags"].get("first_invest_after")]
 _big_new = max((u for u in _new_users if u.get("cohort") == "new"), key=lambda u: float(u["derived"].get("inflow_after") or 0), default=None)
 _big_recall = max(_prior_recall, key=lambda u: float(u["derived"].get("inflow_after") or 0), default=None)
 _top_two = sorted(_new_users, key=lambda u: float(u["derived"].get("inflow_after") or 0), reverse=True)[:2]
@@ -743,7 +781,7 @@ _max_ask_inflow_share = (float(_max_ask_user["derived"].get("inflow_after") or 0
 
 INSIGHTS = [
     f'<b>成效</b>{META["bound_total"]:,} 位绑定用户中识别出 {Z["n"]} 位新投、{F1["n"]} 位首投；累计入金 {wan(Z["inflow"])}，当前资产 {wan(Z["asset"])}。',
-    f'<b>行为</b>绑定到首笔入金中位 {_new_med_txt}，{_within_day_n} 人在 24 小时内完成；{_terminal_evidence_n} 人均有且慢 App 原生行为记录，其中 {_app_order_n} 人的首笔投资时点可直接确认在 App 完成。',
+    f'<b>行为</b>绑定到首笔入金中位 {_new_med_txt}，{_within_day_n} 人在 24 小时内完成；{_app_evidence_n}/{Z["n"]} 人有 App 设备注册或原生使用记录，{_terminal_evidence_n} 人绑定后有原生记录；{_app_order_n} 人首笔入金前后 30 分钟有原生 App 记录。',
     (f'<b>关键案例</b>{_big_new["age"]} 岁新客入金 {wan(_big_new["derived"]["inflow_after"])}、当前资产 {wan(float((_big_new.get("asset_latest") or {}).get("ta") or 0))}；'
      f'沉寂老客回流入金 {wan(_big_recall["derived"]["inflow_after"])}、当前资产 {wan(float((_big_recall.get("asset_latest") or {}).get("ta") or 0))}。'
      f'两例合计贡献 {_top_two_inflow_share:.1f}% 入金，成效高度集中。') if _big_new and _big_recall else '',
@@ -781,6 +819,8 @@ html,body{max-width:100%}
 .insight-list b{margin-right:8px;color:var(--blue-deep);font-weight:800}
 @media(min-width:1280px){.insight-list li{white-space:nowrap}}
 .sumrow,.sumrow .cell{min-width:0}
+.scope-inline{appearance:none;padding:0;border:0;background:none;color:inherit;font:inherit;text-decoration:underline;text-decoration-color:#b8b2d6;text-underline-offset:3px;cursor:pointer}
+.scope-inline:hover{color:var(--blue-deep)}
 .sumrow .cell em{white-space:nowrap;overflow-wrap:normal;font-size:clamp(10px,.9vw,12px);letter-spacing:-.025em}
 .scope-nav{display:flex;align-items:center;gap:22px}
 .tabs{display:flex;align-items:center}
@@ -1132,6 +1172,7 @@ function show(id){{
   try{{ history.replaceState(null,'','#'+id); }}catch(e){{}}
 }}
 tabs.forEach(t=>t.addEventListener('click',()=>show(t.dataset.scope)));
+document.querySelectorAll('[data-scope-link]').forEach(t=>t.addEventListener('click',()=>show(t.dataset.scopeLink)));
 const initial=(location.hash||'').slice(1);
 show(tabs.some(t=>t.dataset.scope===initial)?initial:tabs[0].dataset.scope);
 

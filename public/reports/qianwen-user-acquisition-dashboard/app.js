@@ -51,7 +51,7 @@ const PROFILE_DIMENSIONS = {
   },
   holding_lifecycle_status: {
     label: "资金留存状态",
-    description: "终身视角：从未有过任何买入（不含钱包充值）为无首投；曾买入但当前顶层账户已无资产为已流失；当前有资产在管（含当日成交尚未进快照）为在管",
+    description: "终身视角：从未完成新增入金为无首投；曾入金但当前顶层账户已无资产为已流失；当前有资产在管（含当日入金尚未进快照）为在管。新增入金含钱包充值和银行卡直付产品",
     panel: "asset",
   },
   asset_at_bind_status: {
@@ -61,7 +61,7 @@ const PROFILE_DIMENSIONS = {
   },
   lifetime_investment_status: {
     label: "历史投资情况",
-    description: "看是否曾在且慢完成投资",
+    description: "看是否曾在且慢完成新增入金，钱包充值和银行卡直付产品均计入",
     panel: "asset",
   },
   age_bucket: {
@@ -108,20 +108,20 @@ const PROFILE_PANELS = {
 };
 const BEHAVIOR_METRICS = {
   funded_after_binding: {
-    label: "绑定后账户资金流入",
-    description: "绑定后顶层账户出现资金流入（资产表口径，与上方按支付方式统计的新增入金不同源）",
+    label: "绑定后完成入金",
+    description: "绑定后完成钱包充值或银行卡直付产品，宝内原余额买产品不计新增入金",
   },
   first_investment_after_binding: {
-    label: "绑定后首次投资",
-    description: "首次投资里程碑发生在绑定后",
+    label: "绑定后首投",
+    description: "人生首笔新增入金发生在绑定后，含钱包充值或银行卡直付产品",
   },
   investment_activity_after_binding: {
     label: "绑定后新增入金",
     description: "绑定后新增入金（钱包充值或银行卡直付产品）；宝内原余额买产品不计",
   },
   redemption_after_binding: {
-    label: "绑定后成功赎回",
-    description: "绑定后确认成功的卖出类交易",
+    label: "绑定后资金转出或赎回",
+    description: "绑定后出现顶层账户转出流水或非撤单赎回记录",
   },
   xiaogu_used_after_binding: {
     label: "绑定后有效使用AI小顾",
@@ -137,11 +137,11 @@ const BEHAVIOR_METRICS = {
   },
   first_funding_after_binding: {
     label: "绑定后首次入金",
-    description: "此前从未入金，绑定后完成第一笔；已有入金记录的不计入可统计范围",
+    description: "人生首笔新增入金发生在绑定后，含钱包充值或银行卡直付产品；以全部绑定用户为统计基数",
   },
   repeat_investment_after_binding: {
     label: "绑定后复投",
-    description: "绑定后确认成功的产品买入（不含钱包充值）达到两笔及以上",
+    description: "绑定后新增入金达到两笔及以上，含钱包充值或银行卡直付产品；宝内原余额买产品不计",
   },
 };
 const REQUIRED_BEHAVIOR_METRICS = ["first_investment_after_binding", "investment_activity_after_binding"];
@@ -184,13 +184,13 @@ const BUSINESS_STATS = {
 const SEGMENTS = [
   { id: "all", label: "全部", note: "全部绑定用户" },
   { id: "new_inv", label: "新投", note: "绑定时无资产，绑定后完成新增入金（钱包充值或银行卡直付产品）；宝内原余额买产品不计", legacy: null },
-  { id: "first_inv", label: "首投", note: "人生首笔产品买入发生在绑定后（产品交易口径）" },
-  { id: "reinvested", label: "再投", note: "绑定后完成新增入金（钱包充值或银行卡直付产品）；宝内原余额买产品不计", legacy: "invested" },
+  { id: "first_inv", label: "首投", note: "人生首笔新增入金发生在绑定后，含钱包充值或银行卡直付产品" },
+  { id: "reinvested", label: "入金用户", note: "绑定后完成新增入金（钱包充值或银行卡直付产品）；宝内原余额买产品不计", legacy: "invested" },
   { id: "new", label: "新户", note: "在千问注册且慢帐号" },
-  { id: "new_first_inv", label: "新户首投", note: "新户中完成人生首笔产品买入（产品交易口径）" },
+  { id: "new_first_inv", label: "新户首投", note: "新户中完成人生首笔新增入金，含仅充值钱包的用户" },
   { id: "existing", label: "老用户", note: "绑定时已有且慢账户" },
   { id: "existing_reactivated", label: "老户唤回", note: "绑定时零资产（未投过或已清仓），绑定后完成新增入金（钱包充值或银行卡直付产品）；宝内原余额买产品不计" },
-  { id: "existing_first_inv", label: "老户首投", note: "老户中人生首笔产品买入发生在绑定后（产品交易口径）" },
+  { id: "existing_first_inv", label: "老户首投", note: "老户中人生首笔新增入金发生在绑定后，含仅充值钱包的用户" },
 ];
 const PUBLIC_STATES = new Set(["confirmed", "suppressed", "unavailable"]);
 const QUESTION_TOPICS = {
@@ -883,20 +883,18 @@ function renderSegmentPanel() {
     }
   } else if (viewState.segment === "reinvested") {
     popNote = item.first_investor_accounts
-      ? `绑定后完成新增入金（钱包充值或银行卡直付产品）；宝内原余额买产品不计 · 其中 ${people(item.first_investor_accounts)}为人生首投（产品交易口径）`
+      ? `绑定后完成新增入金（钱包充值或银行卡直付产品）；宝内原余额买产品不计 · 其中 ${people(item.first_investor_accounts)}为人生首投`
       : meta.note;
   } else if (viewState.segment === "new_inv") {
     popNote = `绑定时零资产，绑定后完成新增入金（钱包充值或银行卡直付产品）；宝内原余额买产品不计 · 新户 ${number.format(item.new_accounts)} · 老户 ${number.format(item.existing_accounts)}`;
   } else if (viewState.segment === "first_inv") {
-    popNote = `人生首笔产品买入在绑定后（产品交易口径） · 新户 ${number.format(item.new_accounts)} · 老户 ${number.format(item.existing_accounts)}`;
+    popNote = `人生首笔新增入金在绑定后（含钱包充值） · 新户 ${number.format(item.new_accounts)} · 老户 ${number.format(item.existing_accounts)}`;
   } else if (viewState.segment === "new_first_inv") {
-    popNote = `新户中完成人生首笔产品买入（产品交易口径） · 占新户 ${formatShare(population, currentData.metrics?.new_accounts || 0)}`;
+    popNote = `新户中完成人生首笔新增入金（含仅充值钱包） · 占新户 ${formatShare(population, currentData.metrics?.new_accounts || 0)}`;
   } else if (viewState.segment === "existing_reactivated") {
-    popNote = item.reinvested_accounts
-      ? `绑定时零资产，绑定后完成新增入金（钱包充值或银行卡直付产品）；宝内原余额买产品不计 · ${people(item.reinvested_accounts)}已完成新增入金`
-      : meta.note;
+    popNote = `首投 ${number.format(item.first_investor_accounts)} 人 · 清仓后唤回 ${number.format(population - item.first_investor_accounts)} 人`;
   } else if (viewState.segment === "existing_first_inv") {
-    popNote = `老户中完成人生首笔产品买入（产品交易口径） · 占老用户 ${formatShare(population, currentData.metrics?.existing_accounts || 0)}`;
+    popNote = `老户中完成人生首笔新增入金（含仅充值钱包） · 占老用户 ${formatShare(population, currentData.metrics?.existing_accounts || 0)}`;
   }
   set("#seg-pop-note", popNote);
 
@@ -1505,8 +1503,8 @@ function profileFinding(dimension) {
     asset_holding_status: `${number.format(accounts("has_assets"))} 人当前持有资产，${number.format(accounts("no_assets"))} 人已开户但暂无资产`,
     asset_bucket: `${number.format(accounts("100k_1m") + accounts("gte_1m"))} 人资产超过 10 万元，其中 ${number.format(accounts("gte_1m"))} 人超过 100 万元`,
     asset_at_bind_status: `${number.format(accounts("zero_at_bind"))} 人绑定时零资产，${number.format(accounts("has_assets_at_bind"))} 人此前已有资产`,
-    holding_lifecycle_status: `${number.format(accounts("under_management"))} 人仍在管，${number.format(accounts("churned"))} 人投资后已清零`,
-    lifetime_investment_status: `${number.format(accounts("invested"))} 人曾完成投资，${number.format(accounts("not_invested"))} 人尚未首投`,
+    holding_lifecycle_status: `${number.format(accounts("under_management"))} 人仍在管，${number.format(accounts("churned"))} 人入金后已清零`,
+    lifetime_investment_status: `${number.format(accounts("invested"))} 人曾完成新增入金，${number.format(accounts("not_invested"))} 人尚未首投（钱包充值计入）`,
     age_bucket: `已识别用户以 36—45 岁（${number.format(accounts("36_45"))} 人）和 26—35 岁（${number.format(accounts("26_35"))} 人）为主`,
     gender: `已识别 ${number.format(knownAccounts)} 人：男性 ${number.format(accounts("male"))} 人，女性 ${number.format(accounts("female"))} 人`,
     residence_province: `仅 ${number.format(knownAccounts)} 人可识别地区，主要来自 ${knownBuckets.slice(0, 3).map((bucket) => bucketLabel(bucket)).join("、")}`,

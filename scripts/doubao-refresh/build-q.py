@@ -6,7 +6,7 @@
   sql-raw.txt   run-sql.sh 的 6 段（逐日 / 画像 / 资产 / 交易行为 / 流水行为 / 分省）
   money.txt     买入·赎回·入金金额（入金为「充值到宝＋银行卡直付」口径）
   newdims.txt   风测与人生首笔入金
-  repeat.txt    复投（≥2 笔非钱包买入）
+  repeat.txt    复投（绑定后 ≥2 笔合格新增入金，含钱包充值）
   zeroasset.txt 入金用户中绑定时零资产者的入金
   zeroatbind.txt 绑定时已有资产的人数（用于「绑定时资产状态」维度）
   lifecycle.txt 资金留存三段（无首投 / 已流失 / 在管）
@@ -110,8 +110,19 @@ _zero_row = {k: "0" for k in next(iter(sg.values())) if k != "seg"}
 for _k in _SEG_ALL:
     sg.setdefault(_k, {"seg": _k, **_zero_row})
 
-for co in ("new", "existing"):
-    assert rp[co]["invested_after"] == mny[co]["buy_users"], (co, "复投口径与买入人数不一致")
+for co in ("all", "new", "existing"):
+    assert lc[co]["pop"] == POP[co], (co, "生命周期基数与绑定用户数不一致")
+    assert sum(lc[co][k] for k in ("never_inv", "churned", "under_mgmt")) == POP[co], (co, "生命周期人数不闭合")
+    assert rp[co]["invested_after"] == mny[co]["inflow_users"], (co, "复投口径与新增入金人数不一致")
+    assert trd[co]["activity"] == mny[co]["inflow_users"], (co, "绑定后入金行为与经营入金人数不一致")
+    assert trd[co]["first_inv"] == nd[co]["first_fund_after_bind"], (co, "首投与人生首次入金人数不一致")
+    assert 0 <= rp[co]["repeat_invest"] <= mny[co]["inflow_users"] <= POP[co], (co, "入金/复投人数超出基数")
+    assert nd[co]["fund_ever"] == POP[co] - lc[co]["never_inv"], (co, "累计入金与生命周期人数不一致")
+    segment_id = {"all": "first_inv", "new": "new_first_inv", "existing": "existing_first_inv"}[co]
+    assert I(sg[segment_id]["pop"]) == nd[co]["first_fund_after_bind"], (co, "首投行为与分客群人数不一致")
+assert I(sg["first_inv"]["pop"]) == I(sg["new_first_inv"]["pop"]) + I(sg["existing_first_inv"]["pop"]), "首投新老用户不闭合"
+assert I(sg["new_inv"]["pop"]) == za["all"]["zero_users"], "新投与零资产入金人数不一致"
+assert I(sg["existing_reactivated"]["pop"]) == za["existing"]["zero_users"], "老户唤回与老户零资产入金人数不一致"
 
 # ── q2 画像 ──
 def cohort_profile(co):
@@ -136,7 +147,8 @@ def cohort_profile(co):
             "wechat_mp_status": {"mp_bound": base["mp"], "mp_not_bound": pop - base["mp"]},
             "bank_card_status": {"card_bound": base["card"], "card_not_bound": pop - base["card"]},
             "risk_assessment_status": {"assessed": base["assessed"], "not_assessed": pop - base["assessed"]},
-            "lifetime_investment_status": {"invested": base["invested"], "not_invested": pop - base["invested"]},
+            # 生命周期和历史投资都按同一合格新增入金定义；不沿用旧画像里的产品买入字段。
+            "lifetime_investment_status": {"invested": pop - lc[co]["never_inv"], "not_invested": lc[co]["never_inv"]},
             "asset_at_bind_status": {"zero_at_bind": zero_at_bind,
                                      "has_assets_at_bind": pop - zero_at_bind},
             "holding_lifecycle_status": {"no_first_investment": lc[co]["never_inv"],
@@ -169,18 +181,17 @@ def beh(pop, el, re_, unk=0):
 behavior, business = {}, {}
 for co in ("all", "new", "existing"):
     pop = POP[co]; t, f, n, m, z = trd[co], flw[co], nd[co], mny[co], za[co]
-    funded_before = n["fund_ever"] - n["first_fund_after_bind"]
     behavior[co] = {
-        "funded_after_binding": beh(pop, t["eligible"], f["funded"], f["no_rows"]),
-        "first_investment_after_binding": beh(pop, t["eligible"], t["first_inv"]),
+        "funded_after_binding": beh(pop, pop, m["inflow_users"]),
+        "first_investment_after_binding": beh(pop, pop, n["first_fund_after_bind"]),
         # 入金买入面向全体绑定用户：钱包充值或银行卡直投均可能发生，不能以当前绑卡状态缩小分母。
         "investment_activity_after_binding": beh(pop, pop, t["activity"]),
         "redemption_after_binding": beh(pop, t["eligible"], f["redeem_union"]),
         "xiaogu_used_after_binding": beh(pop, pop, t["xiaogu"]),
         "account_opened_after_binding": beh(pop, pop, n["first_risk_after_bind"]),
         "risk_assessed_after_binding": beh(pop, pop, n["any_risk_after_bind"]),
-        "first_funding_after_binding": beh(pop, pop - funded_before, n["first_fund_after_bind"]),
-        "repeat_investment_after_binding": beh(pop, t["eligible"], rp[co]["repeat_invest"]),
+        "first_funding_after_binding": beh(pop, pop, n["first_fund_after_bind"]),
+        "repeat_investment_after_binding": beh(pop, pop, rp[co]["repeat_invest"]),
     }
     a = ({k: ast["new"].get(k, 0) + ast["existing"].get(k, 0) for k in ast["new"]}
          if co == "all" else ast[co])

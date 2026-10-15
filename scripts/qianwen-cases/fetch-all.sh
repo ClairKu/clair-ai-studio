@@ -18,7 +18,7 @@ B="(SELECT user_id AS pmid, MIN(created_at) AS fb FROM ying99_qieman.qwen_user_m
     HAVING MIN(created_at)>='$START 00:00:00' AND MIN(created_at)<'$CUT') b
    JOIN ying99_pomodel.portfolio_manager_info p ON p.po_manager_id=b.pmid"
 
-echo "== 1/3 候选：绑定后有新增入金，且（绑定时 ROOT 资产为 0/未开户 或 人生首笔产品买入在绑定后）"
+echo "== 1/3 候选：绑定后有新增入金，且（绑定时 ROOT 资产为 0/未开户 或 人生首笔新增入金在绑定后）"
 F "$W/candidates.json" "SELECT u.* FROM (
   SELECT b.pmid, b.fb, p.registered_at, p.gender,
     CASE WHEN CHAR_LENGTH(p.birthday_del)=8 THEN TIMESTAMPDIFF(YEAR,STR_TO_DATE(p.birthday_del,'%Y%m%d'),'${CUT:0:10}') END AS age,
@@ -27,6 +27,12 @@ F "$W/candidates.json" "SELECT u.* FROM (
     CASE WHEN ABS(TIMESTAMPDIFF(MINUTE,p.registered_at,b.fb))<=60 THEN 'new' ELSE 'existing' END AS cohort,
     CASE WHEN p.account3_id IS NULL THEN NULL ELSE (SELECT d.total_asset FROM ying99_asset.dwd_app_service_account_profit_combine d
       WHERE d.account3_id=p.account3_id AND d.relation_account_type='ROOT' AND d.cal_date<=DATE(b.fb) ORDER BY d.cal_date DESC LIMIT 1) END AS asset_at_bind,
+    (SELECT MIN(t.accept_time) FROM qm_meta.trade_detail t WHERE t.user_id=b.pmid AND t.canceled=0
+      AND t.buy_amount>0 AND ((t.trade_type='wallet.recharge' AND t.extra IN ('by.online','by.offline'))
+        OR (t.trade_type<>'wallet.recharge' AND t.extra='from.card')) AND t.accept_time<'$CUT') AS first_inflow_ever,
+    (SELECT MIN(t.accept_time) FROM qm_meta.trade_detail t WHERE t.user_id=b.pmid AND t.canceled=0
+      AND t.buy_amount>0 AND ((t.trade_type='wallet.recharge' AND t.extra IN ('by.online','by.offline'))
+        OR (t.trade_type<>'wallet.recharge' AND t.extra='from.card')) AND t.accept_time>=b.fb AND t.accept_time<'$CUT') AS first_inflow_after,
     (SELECT MIN(t.accept_time) FROM qm_meta.trade_detail t WHERE t.user_id=b.pmid AND t.canceled=0
       AND t.trade_type IN ('po.buy','po.convert.buy','fund.buy','si.trade','po.adjust','plan.trade')
       AND t.buy_amount>0 AND t.po_code<>'WALLET' AND t.accept_time<'$CUT') AS first_buy_ever,
@@ -39,7 +45,8 @@ F "$W/candidates.json" "SELECT u.* FROM (
     AND ((t.trade_type='wallet.recharge' AND t.extra IN ('by.online','by.offline'))
       OR (t.trade_type<>'wallet.recharge' AND t.extra='from.card'))
     AND t.accept_time>=b.fb AND t.accept_time<'$CUT')
-) u WHERE u.asset_at_bind IS NULL OR u.asset_at_bind<=0 OR u.first_buy_ever>=u.fb ORDER BY u.fb" 900
+) u WHERE u.asset_at_bind IS NULL OR u.asset_at_bind<=0 OR u.first_inflow_ever>=u.fb ORDER BY u.fb" 900
+if [[ "${CASE_CANDIDATES_ONLY:-0}" == "1" ]]; then exit 0; fi
 
 IDS=$(python3 -c "import json;print(','.join(str(r['pmid']) for r in json.load(open('$W/candidates.json'))) or '0')")
 A3=$(python3 -c "import json;print(','.join(str(r['account3_id']) for r in json.load(open('$W/candidates.json')) if r.get('account3_id') is not None) or '0')")
@@ -52,7 +59,7 @@ F "$W/d_trades.json" "SELECT t.user_id, t.accept_time, t.trade_type, t.po_code, 
 F "$W/d_risk.json" "SELECT r.account3_id, r.created_at, r.score FROM ying99_accounts.risk_survey_record r WHERE r.account3_id IN ($A3) AND r.broker='0008' AND r.created_at<'$CUT' ORDER BY r.account3_id, r.created_at" 300
 F "$W/d_asks.json" "SELECT s.qmuser_user_id uid, s.session_id, m.dj_gmt_create ts, m.user_input text FROM ying99_xiaogu3_qa.agent_dj_sessions s JOIN ying99_xiaogu3_qa.agent_dj_messages m ON m.session_id=s.session_id AND m.is_deleted=0 WHERE s.qmuser_user_id IN ($IDS) AND s.is_deleted=0 AND m.role='USER' AND m.user_input IS NOT NULL AND m.user_input<>'' AND m.dj_gmt_create<'$CUT' ORDER BY uid, ts" 300
 F "$W/d_assets.json" "SELECT d.account3_id, d.cal_date, ROUND(SUM(d.total_asset),2) ta FROM ying99_asset.dwd_app_service_account_profit_combine d WHERE d.account3_id IN ($A3) AND d.relation_account_type='ROOT' AND d.cal_date>='$START' AND d.cal_date<='$AD' GROUP BY d.account3_id, d.cal_date ORDER BY d.account3_id, d.cal_date" 300
-F "$W/d_device.json" "SELECT po_manager_id, platform, created_on, updated_on FROM ying99_pomodel.device_info WHERE po_manager_id IN ($IDS) ORDER BY po_manager_id, created_on" 300
+F "$W/d_device.json" "SELECT po_manager_id, platform, created_on, updated_on FROM ying99_pomodel.device_info WHERE po_manager_id IN ($IDS) AND created_on<'$CUT' ORDER BY po_manager_id, created_on" 300
 F "$W/d_flows.json" "SELECT d.account3_id, d.cal_date, ROUND(SUM(d.input_amount),2) inflow, ROUND(SUM(d.output_amount),2) outflow FROM ying99_asset.dwd_app_service_account_profit_combine d WHERE d.account3_id IN ($A3) AND d.relation_account_type='ROOT' AND d.cal_date>='$START' AND d.cal_date<='$AD' GROUP BY d.account3_id, d.cal_date ORDER BY d.account3_id, d.cal_date" 300
 
 echo "== 3/3 小顾入口 / 千问登录令牌 / 最终持有 / 埋点"

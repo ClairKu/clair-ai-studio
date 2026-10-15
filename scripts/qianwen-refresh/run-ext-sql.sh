@@ -35,8 +35,8 @@ B="(SELECT user_id AS pmid, MIN(created_at) AS fb FROM ying99_qieman.qwen_user_m
    JOIN ying99_pomodel.portfolio_manager_info p ON p.po_manager_id=b.pmid"
 COHORT="CASE WHEN ABS(TIMESTAMPDIFF(MINUTE,p.registered_at,b.fb))<=60 THEN 'new' ELSE 'existing' END"
 # 入金口径：充值到宝(线上/线下) + 银行卡直付买产品；组合回款进宝、宝内余额买产品不计
-INFLOW_CASE="CASE WHEN t.trade_type='wallet.recharge' AND t.extra IN ('by.online','by.offline') THEN t.buy_amount
-     WHEN t.trade_type<>'wallet.recharge' AND t.extra='from.card' THEN t.buy_amount ELSE 0 END"
+INFLOW_PRED="t.buy_amount>0 AND ((t.trade_type='wallet.recharge' AND t.extra IN ('by.online','by.offline')) OR (t.trade_type<>'wallet.recharge' AND t.extra='from.card'))"
+INFLOW_CASE="CASE WHEN $INFLOW_PRED THEN t.buy_amount ELSE 0 END"
 INFLOW_PER_USER="(SELECT t.user_id, SUM($INFLOW_CASE) AS inflow FROM qm_meta.trade_detail t
    JOIN (SELECT user_id AS pmid, MIN(created_at) AS fb FROM ying99_qieman.qwen_user_map
          WHERE is_deleted=0 GROUP BY user_id) bb ON bb.pmid=t.user_id
@@ -59,18 +59,19 @@ pids+=($!)
 
 Q newdims 550 "SELECT u.cohort, COUNT(*) pop, SUM(u.first_risk IS NOT NULL) risk_ever,
   SUM(u.first_risk > u.fb) first_risk_after_bind, SUM(u.last_risk > u.fb) any_risk_after_bind,
-  SUM(u.first_fund IS NOT NULL AND u.first_fund > u.fb) first_fund_after_bind, SUM(u.first_fund IS NOT NULL) fund_ever
+  SUM(u.first_fund IS NOT NULL AND u.first_fund >= u.fb) first_fund_after_bind, SUM(u.first_fund IS NOT NULL) fund_ever
 FROM (SELECT b.pmid, b.fb, $COHORT AS cohort,
-    (SELECT MIN(r.created_at) FROM ying99_accounts.risk_survey_record r WHERE r.account3_id=p.account3_id AND r.broker='0008') AS first_risk,
+    (SELECT MIN(r.created_at) FROM ying99_accounts.risk_survey_record r WHERE r.account3_id=p.account3_id AND r.broker='0008' AND r.created_at<'$CUT') AS first_risk,
     (SELECT MAX(r.created_at) FROM ying99_accounts.risk_survey_record r WHERE r.account3_id=p.account3_id AND r.broker='0008' AND r.created_at<'$CUT') AS last_risk,
-    (SELECT MIN(t.accept_time) FROM qm_meta.trade_detail t WHERE t.user_id=b.pmid AND t.canceled=0 AND t.buy_amount>0) AS first_fund
+    (SELECT MIN(t.accept_time) FROM qm_meta.trade_detail t WHERE t.user_id=b.pmid AND t.canceled=0
+       AND $INFLOW_PRED AND t.accept_time<'$CUT') AS first_fund
   FROM $B) u GROUP BY u.cohort" &
 pids+=($!)
 
 Q repeat 550 "SELECT u.cohort, SUM(u.buys>=1) invested_after, SUM(u.buys>=2) repeat_invest
 FROM (SELECT b.pmid, $COHORT AS cohort,
-    (SELECT COUNT(*) FROM qm_meta.trade_detail t WHERE t.user_id=b.pmid AND t.canceled=0 AND t.buy_amount>0
-       AND t.po_code<>'WALLET' AND t.accept_time>=b.fb AND t.accept_time<'$CUT') AS buys
+    (SELECT COUNT(*) FROM qm_meta.trade_detail t WHERE t.user_id=b.pmid AND t.canceled=0
+       AND $INFLOW_PRED AND t.accept_time>=b.fb AND t.accept_time<'$CUT') AS buys
   FROM $B) u GROUP BY u.cohort" &
 pids+=($!)
 
@@ -87,12 +88,12 @@ FROM (SELECT g.cohort, g.inflow,
 pids+=($!)
 
 Q lifecycle 550 "SELECT u.cohort, COUNT(*) pop,
-  SUM(CASE WHEN u.ta>0 OR (u.ever_buy=1 AND u.last_buy_day>='$AD') THEN 1 ELSE 0 END) under_mgmt,
-  SUM(CASE WHEN NOT (u.ta>0 OR (u.ever_buy=1 AND u.last_buy_day>='$AD')) AND u.ever_buy=1 THEN 1 ELSE 0 END) churned,
-  SUM(CASE WHEN NOT (u.ta>0 OR (u.ever_buy=1 AND u.last_buy_day>='$AD')) AND u.ever_buy=0 THEN 1 ELSE 0 END) never_inv
+  SUM(CASE WHEN u.ever_inflow=1 AND (u.ta>0 OR u.last_inflow_day>='$AD') THEN 1 ELSE 0 END) under_mgmt,
+  SUM(CASE WHEN u.ever_inflow=1 AND NOT (u.ta>0 OR u.last_inflow_day>='$AD') THEN 1 ELSE 0 END) churned,
+  SUM(CASE WHEN u.ever_inflow=0 THEN 1 ELSE 0 END) never_inv
 FROM (SELECT b.pmid, $COHORT AS cohort, COALESCE(a.ta,0) AS ta,
-    EXISTS(SELECT 1 FROM qm_meta.trade_detail t WHERE t.user_id=b.pmid AND t.canceled=0 AND t.buy_amount>0 AND t.po_code<>'WALLET' AND t.accept_time<'$CUT') AS ever_buy,
-    (SELECT MAX(DATE(t.accept_time)) FROM qm_meta.trade_detail t WHERE t.user_id=b.pmid AND t.canceled=0 AND t.buy_amount>0 AND t.po_code<>'WALLET' AND t.accept_time<'$CUT') AS last_buy_day
+    EXISTS(SELECT 1 FROM qm_meta.trade_detail t WHERE t.user_id=b.pmid AND t.canceled=0 AND $INFLOW_PRED AND t.accept_time<'$CUT') AS ever_inflow,
+    (SELECT MAX(DATE(t.accept_time)) FROM qm_meta.trade_detail t WHERE t.user_id=b.pmid AND t.canceled=0 AND $INFLOW_PRED AND t.accept_time<'$CUT') AS last_inflow_day
   FROM $B LEFT JOIN $ASSET_AD a ON a.account3_id=p.account3_id AND p.account3_id<>1002) u GROUP BY u.cohort" &
 pids+=($!)
 
@@ -139,7 +140,7 @@ PYEOF
 NZ=$(cat "$W/nonzero-ids.txt")
 
 # 分客群面板 v4：9 维度。新增投资/再投统一按新增入金事件（充值到宝或银行卡直付产品）判定；
-# 新投=绑定后有新增入金且绑定时无资产；首投=新增入金用户中人生首笔产品投资在绑定后；
+# 新投=绑定后有新增入金且绑定时无资产；首投=人生首次合格新增入金在绑定后；
 # 老户唤回=老户中绑定时零资产（未投过或已清仓）且绑定后重新入金；宝内原余额买产品不算新增入金。
 Q segments 900 "SELECT s.seg, COUNT(*) pop, SUM(u.cohort='new') new_cnt,
   SUM(u.card) card_bound, SUM(u.opened_after) opened_after, SUM(u.assessed) assessed, SUM(u.risk_after) risk_after,
@@ -154,14 +155,8 @@ FROM (SELECT b.pmid, b.fb, p.account3_id, $COHORT cohort,
     EXISTS(SELECT 1 FROM ying99_accounts.risk_survey_record r WHERE r.account3_id=p.account3_id AND r.broker='0008' AND r.created_at>b.fb AND r.created_at<'$CUT') risk_after,
     EXISTS(SELECT 1 FROM qm_meta.trade_detail t WHERE t.user_id=b.pmid AND t.canceled=0
       AND ($INFLOW_CASE)>0 AND t.accept_time>=b.fb AND t.accept_time<'$CUT') reinvested,
-    (EXISTS(SELECT 1 FROM qm_meta.trade_detail t WHERE t.user_id=b.pmid AND t.canceled=0
-       AND ($INFLOW_CASE)>0 AND t.accept_time>=b.fb AND t.accept_time<'$CUT')
-     AND NOT EXISTS(SELECT 1 FROM qm_meta.trade_detail t WHERE t.user_id=b.pmid AND t.canceled=0
-       AND t.trade_type IN ('po.buy','po.convert.buy','fund.buy','si.trade','po.adjust','plan.trade')
-       AND t.buy_amount>0 AND t.po_code<>'WALLET' AND t.accept_time<b.fb)
-     AND EXISTS(SELECT 1 FROM qm_meta.trade_detail t WHERE t.user_id=b.pmid AND t.canceled=0
-       AND t.trade_type IN ('po.buy','po.convert.buy','fund.buy','si.trade','po.adjust','plan.trade')
-       AND t.buy_amount>0 AND t.po_code<>'WALLET' AND t.accept_time>=b.fb AND t.accept_time<'$CUT')) first_inv
+    ((SELECT MIN(t.accept_time) FROM qm_meta.trade_detail t WHERE t.user_id=b.pmid AND t.canceled=0
+       AND $INFLOW_PRED AND t.accept_time<'$CUT')>=b.fb) first_inv
   FROM $B) u
 LEFT JOIN (SELECT t.user_id, SUM($INFLOW_CASE) inflow,
     SUM(CASE WHEN (t.trade_type='wallet.recharge' AND t.extra IN ('by.online','by.offline') AND t.buy_amount>0)

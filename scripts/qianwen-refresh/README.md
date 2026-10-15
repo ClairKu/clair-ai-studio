@@ -1,5 +1,18 @@
 # 千问看板数据刷新（qianwen-user-acquisition-dashboard）
 
+## 统一入金与首投口径
+
+所有投资人数（含首投、新户首投、老户首投、复投、历史投过、生命周期）均按同一合格新增入金事件计算：
+
+- `canceled=0`、`buy_amount>0`，并且 `accept_time < CUT`。
+- 钱包充值：`trade_type='wallet.recharge'` 且 `extra IN ('by.online','by.offline')`；银行卡直付产品：非钱包交易且 `extra='from.card'`。
+- 首投 = 用户人生第一笔合格新增入金发生在首次绑定时刻或之后；钱包充值即计入，无须再买产品。首投总人数必须等于新户首投加老户首投，且与首次入金行为人数相等。
+- 新投 = 绑定时零资产且绑定后完成合格新增入金。老户唤回是其中的老用户，并拆为老户首投与清仓后唤回；清仓后唤回在绑定前已有合格新增入金。
+- 复投 = 绑定后发生至少 2 笔合格新增入金。投资、首投和复投行为均以全体绑定用户为分母，不能用当前绑卡状态排除用户。
+- 宝内原余额买产品不算新增入金；产品买入金额与人数单列，不能用于判断首投或历史投过。
+
+`build-q.py` 会核对基础行为、首次入金、分客群首投及生命周期的相同人数，并用生命周期的历史入金结果生成累计投资画像。`funded_after_binding` 直接使用经营入金人数，不沿用资产日流水推测。
+
 ## 自动更新（默认）
 
 本机 launchd 任务 `com.clair.qianwen-auto-refresh` 每日 **09:30 / 17:30** 调起
@@ -68,7 +81,7 @@ QW_WT=$WORK/wt python3 scripts/qianwen-refresh/api-push.py
 
 - **资产一律 ROOT 层**：`dwd_app_service_account_profit_combine` 是树形表，全层级 SUM 把同一笔钱重复累加约 3 倍（曾把 7,284 万错发成 2.18 亿）。
 - **新老分界是每个用户自己的 first_bound_at**（±60 分钟内注册=新），不是服务上线时刻。
-- 入金/买入/赎回**金额**权威源（MaxCompute 现金流表）未接入，保持 `unavailable + authoritative_source_unavailable`，不发布口径漂移数字。
+- 新增入金、产品买入及赎回金额使用 `qm_meta.trade_detail` 非撤单明细，并使用同一截止时刻；严禁用产品买入代替新增入金、把宝内余额的二次买入重复计为入金。
 - 「开户但资产表当日无 ROOT 行」= no_assets；unknown 只放未开资金账户的人。
 - 小样本自 2026-08-24 起全量披露（minimum_public_cell=1）。**数据、validate 脚本、app.js 的 minimumCell 三处必须一致**，否则线上白屏——replay.sh 已做前置校验，报错就先对齐三处。
 

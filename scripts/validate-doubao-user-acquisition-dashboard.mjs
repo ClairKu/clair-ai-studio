@@ -266,8 +266,9 @@ function validateAudienceData() {
     const businessStats = data.business.cohorts[cohortKey].stats;
     const activity = behaviorMetrics.find((item) => item.id === "investment_activity_after_binding");
     const firstInvestment = behaviorMetrics.find((item) => item.id === "first_investment_after_binding");
+    const firstFunding = behaviorMetrics.find((item) => item.id === "first_funding_after_binding");
+    const repeatInvestment = behaviorMetrics.find((item) => item.id === "repeat_investment_after_binding");
     const inflow = businessStats.find((item) => item.id === "inflow_amount");
-    const buy = businessStats.find((item) => item.id === "buy_amount");
     if (activity.state === "confirmed") {
       if (activity.eligible_accounts !== activity.population_accounts || activity.excluded_accounts !== 0) {
         fail(`behavior.cohorts.${cohortKey}.investment_activity_after_binding 应以全部绑定用户为可统计人群`);
@@ -276,9 +277,24 @@ function validateAudienceData() {
         fail(`behavior.cohorts.${cohortKey}.investment_activity_after_binding 与 business.inflow_amount 入金人数不一致`);
       }
     }
-    if (firstInvestment.state === "confirmed" && buy.state === "confirmed"
-        && firstInvestment.reached_accounts > buy.accounts) {
-      fail(`behavior.cohorts.${cohortKey}.first_investment_after_binding 超过产品买入人数`);
+    for (const metric of [firstInvestment, firstFunding, repeatInvestment]) {
+      if (metric.state !== "confirmed") continue;
+      if (metric.eligible_accounts !== metric.population_accounts || metric.excluded_accounts !== 0) {
+        fail(`behavior.cohorts.${cohortKey}.${metric.id} 应以全部绑定用户为可统计人群`);
+      }
+      if (inflow.state === "confirmed" && metric.reached_accounts > inflow.accounts) {
+        fail(`behavior.cohorts.${cohortKey}.${metric.id} 超过新增入金人数`);
+      }
+    }
+    if (firstInvestment.state === "confirmed" && firstFunding.state === "confirmed"
+        && firstInvestment.reached_accounts !== firstFunding.reached_accounts) {
+      fail(`behavior.cohorts.${cohortKey} 首投与首次新增入金人数不一致`);
+    }
+    const firstSegmentId = { all: "first_inv", new: "new_first_inv", existing: "existing_first_inv" }[cohortKey];
+    const firstSegment = data.segments?.items?.find((item) => item.id === firstSegmentId);
+    if (firstInvestment.state === "confirmed" && firstSegment?.state === "confirmed"
+        && firstInvestment.reached_accounts !== firstSegment.population_accounts) {
+      fail(`behavior.cohorts.${cohortKey} 首投与 segments.${firstSegmentId} 不一致`);
     }
   }
 }
@@ -512,6 +528,58 @@ const segmentIds = ["all", "new_inv", "first_inv", "reinvested", "new", "new_fir
       if (Math.abs((item.per_capita_asset_wan ?? -1) - expected) > 0.001) fail(`${path}.per_capita_asset_wan 与总资产不一致`);
     }
     if (!/^\d{4}-\d{2}-\d{2}$/.test(item.asset_as_of || "")) fail(`${path}.asset_as_of 无效`);
+  }
+  const segment = (id) => data.segments.items.find((item) => item.id === id);
+  const first = segment("first_inv");
+  const newFirst = segment("new_first_inv");
+  const existingFirst = segment("existing_first_inv");
+  const newInvestors = segment("new_inv");
+  const reactivated = segment("existing_reactivated");
+  if ([first, newFirst, existingFirst, newInvestors, reactivated].every((item) => item.state === "confirmed")) {
+    if (first.population_accounts !== newFirst.population_accounts + existingFirst.population_accounts
+        || first.new_accounts !== newFirst.population_accounts
+        || first.existing_accounts !== existingFirst.population_accounts) {
+      fail("segments 首投的新老用户拆分不闭合");
+    }
+    if (first.population_accounts > newInvestors.population_accounts
+        || newFirst.population_accounts > newInvestors.new_accounts
+        || existingFirst.population_accounts > reactivated.population_accounts
+        || newInvestors.first_investor_accounts !== first.population_accounts
+        || reactivated.first_investor_accounts !== existingFirst.population_accounts) {
+      fail("segments 首投必须属于新投，老户唤回须拆为首投与清仓后唤回");
+    }
+    for (const [cohort, firstSegment] of [["all", first], ["new", newFirst], ["existing", existingFirst]]) {
+      if (segment(cohort).state === "confirmed"
+          && segment(cohort).first_investor_accounts !== firstSegment.population_accounts) {
+        fail(`segments.${cohort}.first_investor_accounts 与首投人数不一致`);
+      }
+    }
+    for (const item of [first, newFirst, existingFirst]) {
+      if (item.inflow_accounts !== item.population_accounts || item.first_investor_accounts !== item.population_accounts) {
+        fail(`segments.${item.id} 必须全部为人生首次新增入金用户`);
+      }
+    }
+  }
+}
+
+if (!app.includes('label: "入金用户"') || !html.includes('<span>入金用户</span>')
+    || app.includes('label: "再投"') || html.includes('<span>再投</span>')) fail("全部入金用户仍被误称为再投");
+if (!app.includes("人生首笔新增入金发生在绑定后，含钱包充值或银行卡直付产品")
+    || app.includes("已有入金记录的不计入可统计范围")
+    || /(?:第一笔|首笔|首次)(?:非钱包|产品)(?:类)?(?:买入|交易)/.test(app + html)) fail("首投仍使用产品买入口径");
+{
+  const start = app.indexOf("function renderSegmentPanel() {");
+  const end = app.indexOf("\nfunction renderKpis(", start);
+  if (start < 0 || end < 0) fail("缺少客群卡片渲染逻辑");
+  const render = new Function("currentData", "viewState", "SEGMENTS", "$", "number", "formatShare", "formatAmount",
+    `${app.slice(start, end)}\nrenderSegmentPanel();`);
+  for (const [population, first, expected] of [[9, 5, "首投 5 人 · 清仓后唤回 4 人"], [2, 1, "首投 1 人 · 清仓后唤回 1 人"]]) {
+    const nodes = new Map();
+    const $ = (selector) => { if (!nodes.has(selector)) nodes.set(selector, {}); return nodes.get(selector); };
+    const item = { ...data.segments.items.find((entry) => entry.id === "existing_reactivated"), population_accounts: population, first_investor_accounts: first };
+    render({ ...data, segments: { items: [item] } }, { segment: "existing_reactivated" }, [{ id: "existing_reactivated" }], $,
+      new Intl.NumberFormat("zh-CN"), () => "", (value) => String(value));
+    if (nodes.get("#seg-pop-note")?.textContent !== expected) fail("老户唤回卡片未正确拆为首投与清仓后唤回");
   }
 }
 

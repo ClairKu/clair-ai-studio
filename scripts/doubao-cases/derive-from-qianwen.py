@@ -63,9 +63,9 @@ s = patch(s, [
     ('"""千问个例分析台生成器：',
      '"""豆包个例分析台生成器（由 derive-from-qianwen.py 从 qianwen-cases/build-cases.py 派生；豆包侧只有 OAuth 会话令牌、没有提问文本，asks = 且慢 App 内小顾 3.0 提问）：'),
     ('"def": "绑定千问时没有投资资产，绑定后开始投入资金，新客和老客都包括在内。"', '"def": "绑定豆包时没有投资资产，绑定后开始投入资金，新客和老客都包括在内。"'),
-    ('"def": "绑定千问前从未投资，绑定后完成了人生第一笔投资，新客和老客都包括在内。"', '"def": "绑定豆包前从未投资，绑定后完成了人生第一笔投资，新客和老客都包括在内。"'),
-    ('"def": "在绑定千问时新注册且慢，之后完成了人生第一笔投资。"', '"def": "在绑定豆包时新注册且慢，之后完成了人生第一笔投资。"'),
-    ('"def": "已有且慢账号但从未投资，绑定千问后完成了人生第一笔投资。"', '"def": "已有且慢账号但从未投资，绑定豆包后完成了人生第一笔投资。"'),
+    ('"def": "绑定千问前从未新增入金，绑定后完成了人生第一笔新增入金（含钱包充值），新客和老客都包括在内。"', '"def": "绑定豆包前从未新增入金，绑定后完成了人生第一笔新增入金（含钱包充值），新客和老客都包括在内。"'),
+    ('"def": "在绑定千问时新注册且慢，之后完成了人生第一笔新增入金（含钱包充值）。"', '"def": "在绑定豆包时新注册且慢，之后完成了人生第一笔新增入金（含钱包充值）。"'),
+    ('"def": "已有且慢账号但从未入金，绑定千问后完成了人生第一笔新增入金（含钱包充值）。"', '"def": "已有且慢账号但从未入金，绑定豆包后完成了人生第一笔新增入金（含钱包充值）。"'),
     # 汇总：补豆包会话次数
     ('        "asks": sum(len(u["asks"]) for u in us),\n',
      '        "asks": sum(len(u["asks"]) for u in us),\n        "sessions": sum(int((u.get("channels") or {}).get("doubao_sessions") or 0) for u in us),\n'),
@@ -90,8 +90,6 @@ s = patch(s, [
      '    # 用户路径与行为总结：终端 / 下单情境 / 豆包侧关系 / App 内小顾——全部白话，不出现字段名'),
     ("parts.append(f'绑定千问前 {dur(first.isoformat(), fb.isoformat())} 就已在且慢 App（{tname}）里活动')",
      "parts.append(f'绑定豆包前 {dur(first.isoformat(), fb.isoformat())} 就已在且慢 App（{tname}）里活动')"),
-    ("parts.append('首笔买入时段只有网页端记录，应是在微信或千问内嵌的且慢页面里下单')",
-     "parts.append('首笔买入时段只有网页端记录，应是在微信或豆包内嵌的且慢页面里下单')"),
     ("    asks = sorted(u[\"asks\"], key=lambda a: a[\"ts\"])\n    if not asks:\n        parts.append('千问侧零提问，会话建好就直接去且慢下单了')\n    else:\n        near = [a for a in asks if fbuy and 0 <= (fbuy - dt(a[\"ts\"])).total_seconds() <= 3600]\n        if near:\n            a = near[-1]; mins = int((fbuy - dt(a[\"ts\"])).total_seconds() // 60)\n            parts.append(f'下单前 {mins} 分钟刚在千问问了「{esc(a[\"text\"][:24])}{\"…\" if len(a[\"text\"]) > 24 else \"\"}」')\n        else:\n            parts.append(f'千问侧 {len(asks)} 条提问全是咨询，下单时段没有回到千问')\n",
      "    toks = sorted(dt(x) for x in (u.get(\"channels\") or {}).get(\"tokens\", []) if dt(x) and dt(x) >= fb)\n    later = [t for t in toks if (t - fb).total_seconds() > 120]\n"
      "    if not later:\n        parts.append('豆包侧授权之后没有再产生会话，直接去且慢下单了')\n    else:\n        near = [t for t in later if fbuy and 0 <= (fbuy - t).total_seconds() <= 3600]\n        if near:\n            mins = int((fbuy - near[-1]).total_seconds() // 60)\n            parts.append(f'下单前 {mins} 分钟刚在豆包发起过会话（提问内容协议层不可得）')\n        else:\n            parts.append(f'豆包侧绑定后又有 {len(later)} 次会话，但下单时段没有回到豆包（提问内容不可得）')\n"
@@ -108,7 +106,7 @@ s = patch(s, [
     # 矩阵
     ("  <td class=\"num\">{len(u[\"asks\"])}</td>\n  <td class=\"wrap\">{dev_txt}</td>",
      "  <td class=\"num\">{int((u.get(\"channels\") or {}).get(\"doubao_sessions\") or 0)} / {len(u[\"asks\"])}</td>\n  <td class=\"wrap\">{dev_txt}</td>"),
-    ("<th>风测</th><th>提问</th><th>下单终端</th>", "<th>风测</th><th title=\"豆包会话令牌次数 / 且慢 App 小顾提问条数\">豆包会话 / 提问</th><th>下单终端</th>"),
+    ("<th>风测</th><th>提问</th><th>App 使用证据</th>", "<th>风测</th><th title=\"豆包会话令牌次数 / 且慢 App 小顾提问条数\">豆包会话 / 提问</th><th>App 使用证据</th>"),
     # 汇总卡
     ("    # 决策时长：绑定千问 → 第一笔入金；无入金记录的用户不进入时长计算。", "    # 决策时长：绑定豆包 → 第一笔入金；无入金记录的用户不进入时长计算。"),
     ("  <div class=\"cell\"><b>{a[\"asks\"]:,}</b><span>提问数</span><em>人均 {ask_avg:.1f} 问 · 中位数 {ask_med_txt} 问</em></div>\n  <div class=\"cell decision\" title=\"绑定千问到第一笔入金",
