@@ -106,6 +106,9 @@ test('Case layout stays compact, hides unreviewed slices and labels old first/ne
     assert.equal((page.match(/<span>首投平均间隔<\/span>/g)||[]).length,7);
     assert.match(page,/<b>1\.0 小时<\/b><span>首投平均间隔<\/span><em>中位数 1\.0 小时<\/em><em>1 人有二次入金<\/em><em>二次平均间隔 2\.0 小时 · 中位数 2\.0 小时/);
     assert.match(page,/<em>0 人有二次入金<\/em><em>暂无二次入金间隔/);
+    assert.equal((page.match(/<th[^>]*>首笔入金<\/th><th>入金次数<\/th><th>总入金<\/th><th[^>]*>首笔入金提问数<\/th><th>总提问数<\/th>/g)||[]).length,7);
+    assert.match(page,/<td class="num">20<\/td><td class="num">2<\/td><td class="num">40<\/td><td class="num">0<\/td><td class="num">0<\/td>/);
+    assert.match(page,/<td class="num">10<\/td><td class="num">1<\/td><td class="num">10<\/td><td class="num">4<\/td><td class="num">10<\/td>/);
     assert.doesNotMatch(page,/新客 0 人/);
     assert.match(page,/24 小时内入金 1 人 · 多次入金 0 人/);
     assert.match(page,/<th>使用设备<\/th><th[^>]*>绑定→首次App操作<\/th>/);

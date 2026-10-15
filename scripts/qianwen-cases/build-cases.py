@@ -802,11 +802,18 @@ def matrix(us):
     funding_matrix = bool(us) and all(funding_only(u) for u in us)
     for u in us:
         d = u["derived"]; al = u.get("asset_latest")
+        txns = sorted(u.get("inflow_txns") or [], key=lambda row: dt(row["t"]))
+        first_amount = txns[0].get("amt", txns[0].get("amount")) if txns else None
+        total_questions, first_questions = question_counts(u)
+        funding_cells = (f'<td class="num">{money(first_amount)}</td><td class="num">{len(txns)}</td>'
+                         f'<td class="num">{money(d["inflow_after"])}</td>'
+                         f'<td class="num">{first_questions if first_questions is not None else "—"}</td>'
+                         f'<td class="num">{total_questions if total_questions is not None else "—"}</td>')
         if funding_matrix:
             rows.append(f'''<tr>
   <td><span class="badge">{u["letter"]}</span></td><td>{customer_label(u)}</td>
   <td class="num">{fmt_t(u["fb"], True)}</td><td class="num">{fmt_t(d["first_inflow_after"], True)}</td>
-  <td class="num">{dur(u["fb"], d["first_inflow_after"])}</td><td class="num">{money(d["inflow_after"])}</td>
+  <td class="num">{dur(u["fb"], d["first_inflow_after"])}</td>{funding_cells}
   <td class="num">{money(al["ta"]) if al else "—"}</td>{app_operation_cells(u)}</tr>''')
             continue
         rows.append(f'''<tr>
@@ -816,13 +823,17 @@ def matrix(us):
   <td class="num">{fmt_t(u["fb"], True)}</td>
   <td class="num">{fmt_t(d["first_inflow_after"], True)}</td>
   <td class="num">{dur(u["fb"], d["first_inflow_after"])}</td>
-  <td class="num">{money(d["inflow_after"])}</td>
+  {funding_cells}
   <td class="num">{money(al["ta"]) if al else "—"}</td>
   <td class="num">{"未审查" if funding_only(u) else u["risk"][-1]["score"] if u.get("risk") else "—"}</td>
-  <td class="num">{"未审查" if funding_only(u) else len(u.get("asks") or [])}</td>
   {app_operation_cells(u)}
 </tr>''')
-    columns = "<th>用户</th><th>客群</th><th>绑定</th><th>绑定后首笔入金</th><th>间隔</th><th>入金</th><th>当前资产</th>" if funding_matrix else "<th>用户</th><th>客群</th><th>画像</th><th>绑定</th><th>绑定后首笔入金</th><th>间隔</th><th>入金</th><th>当前资产</th><th>风测</th><th>提问</th>"
+    columns = '<th>用户</th><th>客群</th>' + ('' if funding_matrix else '<th>画像</th>')
+    columns += ('<th>绑定</th><th>首笔入金时间</th><th>间隔</th>'
+                '<th title="绑定后第一笔新增入金金额">首笔入金</th><th>入金次数</th><th>总入金</th>'
+                '<th title="绑定后至首笔入金之前的千问提问数，不含入金同刻及之后">首笔入金提问数</th><th>总提问数</th>'
+                '<th>当前资产</th>')
+    columns += '' if funding_matrix else '<th>风测</th>'
     columns += '<th>使用设备</th><th title="从绑定到绑定后第一次且慢App页面浏览或点击，不计设备登记">绑定→首次App操作</th>'
     return f'''<div class="scrollx{" matrix-long" if len(us) > 30 else ""}" tabindex="0" aria-label="个例汇总，可滚动查看"><table class="matrix">
 <thead><tr>{columns}</tr></thead>
