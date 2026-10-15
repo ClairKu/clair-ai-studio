@@ -65,7 +65,9 @@ for (const platform of ['qianwen', 'doubao']) {
       assert.equal(build.status, 0, build.stderr);
       const html = readFileSync(join(dir, 'page.html'), 'utf8');
       assert.match(html, /data-scope-link="existing_first_inv">首投 1 人/);
-      assert.match(html, /data-scope-link="existing_returned">清仓后唤回 1 人/);
+      assert.match(html, platform === 'qianwen'
+        ? /data-scope-link="existing_returned">清仓后回流 1 人/
+        : /data-scope-link="existing_returned">清仓后唤回 1 人/);
       assert.match(html, /绑定后首笔入金/);
       assert.doesNotMatch(html, /绑定后首笔投资/);
       assert.match(html, /id="scope-existing_returned"/);

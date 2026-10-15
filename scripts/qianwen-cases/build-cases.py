@@ -82,27 +82,50 @@ PLAT = {"3": "iOS", "4": "安卓", "5": "鸿蒙"}
 # ───── 口径定义 ─────
 SCOPES = [
   {"id": "new_inv", "label": "新投", "flag": "zero_at_bind",
-   "def": "绑定千问时没有投资资产，绑定后开始投入资金，新客和老客都包括在内。"},
+   "def": "用户原来在且慢资产为 0，从千问绑定且慢帐号后，完成新入金。"},
   {"id": "first_inv", "label": "首投", "flag": "first_invest_after",
-   "def": "绑定千问前从未新增入金，绑定后完成了人生第一笔新增入金，新客和老客都包括在内。"},
+   "def": "用户没在且慢投资过，从千问绑定且慢帐号后，完成首次入金。"},
   {"id": "new_first_inv", "label": "新户首投", "flag": "new_first_invest",
-   "def": "在绑定千问时新注册且慢，之后完成了人生第一笔新增入金。"},
-  {"id": "existing_reactivated", "label": "老户唤回", "flag": "recall",
-   "def": "已有且慢账号，绑定时尚未投资或已经清仓，绑定后重新投入资金。"},
+   "def": "用户通过千问新注册且慢帐号，绑定后完成首次入金。"},
   {"id": "existing_first_inv", "label": "老户首投", "flag": "existing_first_invest",
-   "def": "已有且慢账号但从未入金，绑定千问后完成了人生第一笔新增入金。"},
-  {"id": "existing_returned", "label": "清仓后唤回", "flag": "existing_returned",
-   "def": "已有且慢账号且历史曾有新增入金，绑定时资产已清零，绑定后再次新增入金。"},
+   "def": "用户有且慢帐号，但没投资过，从千问绑定且慢帐号后，完成首次入金。"},
+  {"id": "existing_returned", "label": "老户回流", "flag": "existing_returned",
+   "def": "用户在且慢清仓了，从千问绑定且慢帐号后，完成新入金。"},
+  {"id": "existing_reactivated", "label": "老户唤醒", "flag": "recall",
+   "def": "用户有且慢帐号，但资产为 0，从千问绑定且慢帐号后，完成新入金。"},
+  {"id": "existing_reinvested", "label": "老户再投", "flag": "existing_reinvested",
+   "def": "用户有且慢帐号有资产，从千问绑定且慢帐号后，有新入金。"},
+  {"id": "qwen_side", "label": "老户再投（千问侧）", "flag": "qwen_side_inferred", "status": "推断",
+   "def": "用户有且慢帐号有资产，从千问绑定且慢帐号后，在千问侧有新入金。"},
+  {"id": "qwen_influenced", "label": "老户再投（千问归因）", "flag": "qwen_influence_rule", "status": "规则判断",
+   "def": "用户有且慢帐号有资产，从千问绑定且慢帐号后，在千问的行为促进新入金。"},
 ]
 
+def funding_only(u):
+    return u.get("coverage") == "funding_only"
+
+def scope_match(u, sc):
+    flags = u.get("flags") or {}
+    if sc["flag"] == "existing_first_invest" and sc["flag"] not in flags:
+        return u.get("cohort") == "existing" and flags.get("first_invest_after") is True
+    if sc["flag"] == "existing_returned" and sc["flag"] not in flags:
+        return flags.get("recall") is True and flags.get("first_invest_after") is False
+    return flags.get(sc["flag"]) is True
+
 def scope_users(sc):
-    if sc["flag"] == "existing_first_invest":
-        us = [u for u in users if u["cohort"] == "existing" and u["flags"].get("first_invest_after")]
-    elif sc["flag"] == "existing_returned":
-        us = [u for u in users if u["flags"].get("recall") and not u["flags"].get("first_invest_after")]
-    else:
-        us = [u for u in users if u["flags"].get(sc["flag"])]
-    return sorted(us, key=lambda u: -(u["derived"]["inflow_after"] or 0))
+    return sorted([u for u in users if scope_match(u, sc)], key=lambda u: -float((u.get("derived") or {}).get("inflow_after") or 0))
+
+def scope_pending(sc):
+    if sc["id"] not in ("qwen_side", "qwen_influenced"):
+        return []
+    return [u for u in users if (u.get("flags") or {}).get("existing_reinvested") is True
+            and (u.get("flags") or {}).get(sc["flag"]) is not True]
+
+def scope_count(sc):
+    n, pending = len(scope_users(sc)), len(scope_pending(sc))
+    if sc["id"] in ("qwen_side", "qwen_influenced"):
+        return f"至少 {n} · 规则命中" if n else "待核验" if pending else "0 · 规则命中"
+    return str(n)
 
 def agg(us):
     return {
@@ -110,13 +133,14 @@ def agg(us):
         "new": sum(1 for u in us if u["cohort"] == "new"),
         "asset": sum(float((u.get("asset_latest") or {}).get("ta") or 0) for u in us),
         "inflow": sum(float(u["derived"]["inflow_after"] or 0) for u in us),
-        "buy": sum(float(u["derived"]["buy_amount_after"] or 0) for u in us),
+        "buy": sum(float((u.get("derived") or {}).get("buy_amount_after") or 0) for u in us),
         "repeat": sum(1 for u in us if len(u.get("inflow_txns") or []) >= 2),
-        "cancels": sum(1 for u in us if (u["derived"]["cancels_after"] or 0) > 0),
-        "asks": sum(len(u["asks"]) for u in us),
+        "cancels": sum(1 for u in us if float((u.get("derived") or {}).get("cancels_after") or 0) > 0),
+        "asks": sum(len(u.get("asks") or []) for u in us if not funding_only(u)),
         "max_inflow": max((float(u["derived"]["inflow_after"] or 0) for u in us), default=0),
-        "max_asks": max((len(u["asks"]) for u in us), default=0),
-        "no_asks": sum(1 for u in us if not u["asks"]),
+        "max_asks": max((len(u.get("asks") or []) for u in us if not funding_only(u)), default=0),
+        "no_asks": sum(1 for u in us if not funding_only(u) and not u.get("asks")),
+        "rich_n": sum(not funding_only(u) for u in us),
         "mid_days": None,
     }
 
@@ -125,15 +149,17 @@ def timeline(u):
     ev = []
     fb = dt(u["fb"]); reg = dt(u["registered_at"])
     if u["cohort"] == "new":
-        ev.append((fb, "sys", f"千问侧绑定，{reg.strftime('%H:%M:%S')} 当场完成且慢注册"))
+        ev.append((fb, "sys", f"千问侧绑定；且慢帐号注册于 {reg.strftime('%m-%d %H:%M:%S')}（新户按注册与绑定时间近似识别）"))
     else:
         extra = ""
         if u.get("asset_at_bind") is not None and float(u["asset_at_bind"]) > 0:
-            extra = f"；绑定时持有资产 {money(u['asset_at_bind'])} 元"
+            extra = f"；绑定前最近日快照持有资产 {money(u['asset_at_bind'])} 元"
         elif u.get("first_inflow_ever") and dt(u["first_inflow_ever"]) < fb:
-            extra = f"；历史曾于 {dt(u['first_inflow_ever']).strftime('%Y-%m-%d')} 入金，绑定时资产已清零"
+            extra = f"；历史曾于 {dt(u['first_inflow_ever']).strftime('%Y-%m-%d')} 入金；绑定前资产" + ("日快照为 0" if u.get("asset_at_bind") is not None and float(u["asset_at_bind"]) == 0 else "待核验")
+        elif (u.get("flags") or {}).get("first_invest_after") is True:
+            extra = "；此前从未入金"
         else:
-            extra = "；此前从未新增入金"
+            extra = "；历史投资情况待核验"
         ev.append((fb, "sys", f"绑定千问（账户 {reg.strftime('%Y-%m-%d')} 注册{extra}）"))
     for r in u["risk"]:
         t = dt(r["created_at"])
@@ -613,7 +639,50 @@ def case_overview(u):
             f'<ol class="overview-route" aria-label="关键决策路径">{route_html}</ol></article>'
             f'</section>')
 
+def classification_labels(u):
+    return [sc["label"] for sc in SCOPES if sc["id"] not in ("qwen_side", "qwen_influenced") and scope_match(u, sc)]
+
+def inference_evidence(u):
+    if (u.get("flags") or {}).get("existing_reinvested") is not True:
+        return ""
+    rows = []
+    for flag, label, evidence_key in (
+        ("qwen_side_inferred", "千问侧（推断）", "qwen_side_evidence"),
+        ("qwen_influence_rule", "千问归因（规则判断）", "qwen_influence_evidence"),
+    ):
+        value = (u.get("flags") or {}).get(flag)
+        status = "首笔窗口规则命中；其他入金待核" if value is True else "首笔窗口未命中；其他入金待核" if value is False else "待核验"
+        evidence = u.get(evidence_key)
+        if isinstance(evidence, dict):
+            evidence = "；".join(f"{key}：{value}" for key, value in evidence.items() if value is not None)
+        elif isinstance(evidence, list):
+            evidence = "；".join(str(item) for item in evidence)
+        detail = f' · {esc(evidence)}' if evidence else ""
+        rows.append(f'<li><b>{label}</b>：{status}{detail}</li>')
+    return '<div class="funding-evidence"><h4>千问关系核验</h4><ul>' + "".join(rows) + '</ul></div>'
+
+def funding_card(u):
+    """只有资金审计的数据不进入对话、终端和行为研判的展示路径。"""
+    d = u.get("derived") or {}
+    tags = "".join(f'<span class="tag">{esc(label)}</span>' for label in classification_labels(u))
+    at_bind = money(u.get("asset_at_bind")) + " 元" if u.get("asset_at_bind") is not None else "待核验"
+    account = "新注册帐号" if u.get("cohort") == "new" else "原有且慢帐号" if u.get("cohort") == "existing" else "帐号状态待核验"
+    txns = u.get("inflow_txns") or []
+    rows = "".join(f'<tr><td>{fmt_t(row.get("t"), True)}</td><td class="num">{money(row.get("amt", row.get("amount")))} 元</td></tr>' for row in txns)
+    table = ('<table class="mini-table"><thead><tr><th>入金时间</th><th>入金金额</th></tr></thead><tbody>' + rows + '</tbody></table>') if rows else '<p class="tight muted">已核累计入金；逐笔明细尚未展开。</p>'
+    return (f'<div class="case funding-only" data-pmid="{esc(u["pmid"])}" data-letter="{esc(u["letter"])}">'
+            f'<div class="case-head"><span class="who">千问用户 #{esc(u["letter"])} · {account}</span>{tags}</div>'
+            f'<div class="case-summary"><div class="case-facts">'
+            f'<div class="fact primary"><span>绑定后入金</span><b class="num">{money(d.get("inflow_after"))} 元</b></div>'
+            f'<div class="fact"><span>千问绑定</span><b class="num">{fmt_t(u.get("fb"), True)}</b></div>'
+            f'<div class="fact"><span>绑定前资产</span><b class="num">{at_bind}</b><small>绑定日及之前最近日快照</small></div>'
+            f'<div class="fact"><span>绑定后首笔入金</span><b class="num">{fmt_t(d.get("first_inflow_after"), True)}</b></div>'
+            f'</div><p class="funding-coverage">本例已核资金、绑定与分类，并检查首笔入金窗口；完整提问和操作历程尚未展开。</p>'
+            f'{table}{inference_evidence(u)}</div></div>')
+
 def card(u):
+    if funding_only(u):
+        return funding_card(u)
     gender = "男" if u["gender"] == "M" else "女" if u["gender"] == "F" else "性别未知"
     age = f'{u["age"]}岁' if u.get("age") else "年龄未知"
     who = f'千问用户 #{u["letter"]} · {esc(u.get("surname") or "")}{gender} · {age}'
@@ -638,6 +707,7 @@ def card(u):
             f'  <div class="case-summary">\n'
             f'    {case_overview(u)}\n'
             f'    {top_stats(u)}\n'
+            f'    {inference_evidence(u)}\n'
             f'  </div>\n'
             f'  <div class="case-body">\n'
             f'    <div class="ctabs" role="tablist" aria-label="历程切换">\n'
@@ -658,7 +728,9 @@ def matrix(us):
         d = u["derived"]; al = u.get("asset_latest")
         native = [e for e in u.get("events", []) if e.get("lib") in NATIVE_LIBS]
         devices = [r for r in u.get("dev", []) if str(r.get("platform")) in PLAT]
-        if native:
+        if funding_only(u):
+            dev_txt = "未审查"
+        elif native:
             from collections import Counter
             term = Counter(e["lib"] for e in native).most_common(1)[0][0]
             dev_txt = f'{LIBN[term]} App · 原生使用记录'
@@ -671,18 +743,18 @@ def matrix(us):
         rows.append(f'''<tr>
   <td><span class="who"><span class="{"badge n" if u["cohort"]=="new" else "badge"}">{u["letter"]}</span></span></td>
   <td>{"新客" if u["cohort"]=="new" else "老客"}</td>
-  <td>{"男" if u["gender"]=="M" else "女" if u["gender"]=="F" else "—"} {u["age"] or ""}</td>
+  <td>{"未审查" if funding_only(u) else ("男" if u.get("gender")=="M" else "女" if u.get("gender")=="F" else "—") + " " + str(u.get("age") or "")}</td>
   <td class="num">{fmt_t(u["fb"], True)}</td>
   <td class="num">{fmt_t(d["first_inflow_after"], True)}</td>
   <td class="num">{dur(u["fb"], d["first_inflow_after"])}</td>
   <td class="num">{money(d["inflow_after"])}</td>
   <td class="num">{money(al["ta"]) if al else "—"}</td>
-  <td class="num">{u["risk"][-1]["score"] if u["risk"] else "—"}</td>
-  <td class="num">{len(u["asks"])}</td>
+  <td class="num">{"未审查" if funding_only(u) else u["risk"][-1]["score"] if u.get("risk") else "—"}</td>
+  <td class="num">{"未审查" if funding_only(u) else len(u.get("asks") or [])}</td>
   <td class="wrap">{dev_txt}</td>
 </tr>''')
-    return f'''<div class="scrollx"><table class="matrix">
-<thead><tr><th>用户</th><th>客群</th><th>画像</th><th>绑定</th><th>绑定后首笔入金</th><th>间隔</th><th title="充值盈米宝或银行卡直接投资">入金</th><th>当前资产</th><th>风测</th><th>提问</th><th>App 使用证据</th></tr></thead>
+    return f'''<div class="scrollx{" matrix-long" if len(us) > 30 else ""}" tabindex="0" aria-label="个例汇总，可滚动查看"><table class="matrix">
+<thead><tr><th>用户</th><th>客群</th><th>画像</th><th>绑定</th><th>绑定后首笔入金</th><th>间隔</th><th>入金</th><th>当前资产</th><th>风测</th><th>提问</th><th>App 使用证据</th></tr></thead>
 <tbody>{"".join(rows)}</tbody></table></div>'''
 
 def short_duration(seconds):
@@ -695,7 +767,12 @@ def short_duration(seconds):
     return f"{seconds/60:.0f} 分钟"
 
 def scope_section(sc):
-    us = scope_users(sc); a = agg(us)
+    us = scope_users(sc); a = agg(us); pending = scope_pending(sc)
+    pending_lead = f'至少 {len(us)} 人在首笔窗口规则命中；' if us else '首笔窗口关系仍待核验；'
+    pending_html = (f'<div class="note pending-note">{pending_lead}另有 {len(pending)} 位老户再投用户待核验。其他入金尚未逐笔判断，未命中也不能记为 0 人。</div>'
+                    f'<h2 class="section-h matrix-h">待核验个例</h2>{matrix(pending)}') if pending else ""
+    if not us and pending:
+        return f'<section class="scope" id="scope-{sc["id"]}" hidden>{pending_html}</section>'
     # 决策时长：绑定千问 → 第一笔入金；无入金记录的用户不进入时长计算。
     import statistics
     durs = [(dt(u["inflow_txns"][0]["t"]) - dt(u["fb"])).total_seconds() for u in us if u.get("inflow_txns")]
@@ -703,33 +780,58 @@ def scope_section(sc):
     med_txt = short_duration(statistics.median(durs)) if durs else "—"
     inflow_people = sum(1 for u in us if u.get("inflow_txns"))
     inflow_count = sum(len(u.get("inflow_txns") or []) for u in us)
+    inflow_value = wan(a["inflow"])
+    inflow_label = "总入金"
+    inflow_note = f'入金 {inflow_people} 人 · {inflow_count} 笔'
+    matched_amount_note = ""
+    if sc["id"] in ("qwen_side", "qwen_influenced"):
+        amount_key = "qwen_side_matched_inflow_amount" if sc["id"] == "qwen_side" else "qwen_influence_matched_inflow_amount"
+        matched_amounts = [u.get(amount_key) for u in us]
+        amounts_complete = bool(us) and all(value is not None for value in matched_amounts)
+        inflow_value = wan(sum(float(value) for value in matched_amounts)) if amounts_complete else "未核"
+        inflow_label = "命中首笔入金（推断）" if sc["id"] == "qwen_side" else "命中入金（规则判断）"
+        if sc["id"] == "qwen_side" and amounts_complete:
+            matched_n = sum(float(value) > 0 for value in matched_amounts)
+            inflow_note = f'命中 {matched_n} 人 · {matched_n} 笔'
+        else:
+            inflow_note = "仅统计匹配金额" if amounts_complete else "匹配金额与笔数待核验"
+        matched_amount_note = (f'<p class="funding-coverage">这些用户的全期入金为 {wan(a["inflow"])}；'
+                               + ("只有命中首笔计在上方，其余入金仍待核验。" if sc["id"] == "qwen_side" else "上方仅计规则匹配的入金，未核金额不计为归因金额。")
+                               + '</p>')
     asset_people = sum(1 for u in us if float((u.get("asset_latest") or {}).get("ta") or 0) > 0)
     asset_dates = [dt((u.get("asset_latest") or {}).get("cal_date")) for u in us if (u.get("asset_latest") or {}).get("cal_date")]
     asset_date_txt = fmt_md(max(asset_dates).isoformat()) if asset_dates else "—"
-    ask_counts = [len(u.get("asks") or []) for u in us]
+    asset_known_n = sum((u.get("asset_latest") or {}).get("ta") is not None for u in us)
+    asset_value = wan(a["asset"]) if asset_known_n == len(us) and us else "未审查"
+    asset_note = f'持有资产 {asset_people} 人 · 快照 {asset_date_txt}' if asset_known_n == len(us) and us else f'已提取资产 {asset_known_n}/{len(us)} 人'
+    ask_counts = [len(u.get("asks") or []) for u in us if not funding_only(u)]
     ask_avg = statistics.mean(ask_counts) if ask_counts else 0
     ask_med = statistics.median(ask_counts) if ask_counts else 0
     ask_med_txt = f'{ask_med:g}'
     population_note = f'新客 {a["new"]} 人 · 老客 {a["n"] - a["new"]} 人'
     if sc["id"] == "existing_reactivated":
-        first_n = sum(bool(u["flags"].get("first_invest_after")) for u in us)
-        returned_n = len(us) - first_n
+        first_n = sum(scope_match(u, next(s for s in SCOPES if s["id"] == "existing_first_inv")) for u in us)
+        returned_n = sum(scope_match(u, next(s for s in SCOPES if s["id"] == "existing_returned")) for u in us)
         population_note = (f'<button class="scope-inline" type="button" data-scope-link="existing_first_inv">首投 {first_n} 人</button> · '
-                           f'<button class="scope-inline" type="button" data-scope-link="existing_returned">清仓后唤回 {returned_n} 人</button>')
+                           f'<button class="scope-inline" type="button" data-scope-link="existing_returned">清仓后回流 {returned_n} 人</button>')
+    ask_value = f'{a["asks"]:,}' if a["rich_n"] else "未审查"
+    ask_note = f'已审 {a["rich_n"]} 人 · 人均 {ask_avg:.1f} 问' if a["rich_n"] else "资金个例未展开提问审查"
     cells = f'''<div class="grid sumrow">
   <div class="cell"><b>{a["n"]}</b><span>用户数</span><em>{population_note}</em></div>
-  <div class="cell"><b>{wan(a["inflow"])}</b><span>总入金</span><em>入金 {inflow_people} 人 · {inflow_count} 笔</em></div>
-  <div class="cell"><b>{wan(a["asset"])}</b><span>总资产</span><em>持有资产 {asset_people} 人 · 快照 {asset_date_txt}</em></div>
-  <div class="cell"><b>{a["asks"]:,}</b><span>提问数</span><em>人均 {ask_avg:.1f} 问 · 中位数 {ask_med_txt} 问</em></div>
-  <div class="cell decision" title="绑定千问到第一笔入金，按 {len(durs)} 位有入金记录的用户计算"><b>{avg_txt}</b><span>平均决策时长</span><em>中位数 {med_txt} · 样本 {len(durs)} 人</em></div>
+  <div class="cell"><b>{inflow_value}</b><span>{inflow_label}</span><em>{inflow_note}</em></div>
+  <div class="cell"><b>{asset_value}</b><span>总资产</span><em>{asset_note}</em></div>
+  <div class="cell"><b>{ask_value}</b><span>提问数</span><em>{ask_note}</em></div>
+  <div class="cell decision" title="绑定千问到第一笔入金，按 {len(durs)} 位有入金记录的用户计算"><b>{avg_txt}</b><span>平均入金间隔</span><em>中位数 {med_txt} · 样本 {len(durs)} 人</em></div>
 </div>'''
     cards = "\n".join(card(u) for u in us) if us else '<div class="note">该口径下暂无用户。</div>'
     return f'''<section class="scope" id="scope-{sc["id"]}" hidden>
   {cells}
+  {matched_amount_note}
   <h2 class="section-h matrix-h">个例汇总</h2>
   {matrix(us) if us else ""}
   <h2 class="section-h cases-h">个例分析 <span class="muted">{esc(sc["label"])} {a["n"]}人・第<b class="pg-cur">1</b>人</span></h2>
   {cards}
+  {pending_html}
 </section>'''
 
 SCOPE_AGG = {sc["id"]: agg(scope_users(sc)) for sc in SCOPES}
@@ -738,6 +840,42 @@ F1 = SCOPE_AGG["first_inv"]
 NF = SCOPE_AGG["new_first_inv"]
 R = SCOPE_AGG["existing_reactivated"]
 EF = SCOPE_AGG["existing_first_inv"]
+ER = SCOPE_AGG["existing_returned"]
+RI = SCOPE_AGG["existing_reinvested"]
+_classified_ids = {str(u["pmid"]) for sc in SCOPES if sc["id"] in ("new_inv", "existing_reinvested") for u in scope_users(sc)}
+_asset_pending_n = sum(str(u["pmid"]) not in _classified_ids for u in users)
+
+def taxonomy_leaf(scope_id, subtitle):
+    sc = next(sc for sc in SCOPES if sc["id"] == scope_id)
+    n = SCOPE_AGG[scope_id]["n"]
+    return (f'<button class="taxonomy-leaf" type="button" data-scope-link="{scope_id}">'
+            f'<span>{sc["label"]}</span><b>{n} 人</b><small>{subtitle}</small></button>')
+
+_asset_pending_text = f' ＋ 资产待核验 {_asset_pending_n} 人' if _asset_pending_n else ""
+TAXONOMY_HTML = f'''<section class="taxonomy" aria-label="用户分类公式与四类互斥关系">
+  <div class="taxonomy-heading"><h2>四块看懂，人数不重叠</h2><span>全部入金用户 {len(users)} 人</span></div>
+  <div class="taxonomy-tree">
+    <div class="taxonomy-zero"><h3>原来资产为 0 → 新投 <b>{Z["n"]} 人</b></h3>
+      <div class="taxonomy-leaves">{taxonomy_leaf("new_first_inv", "新注册，第一次入金")}{taxonomy_leaf("existing_first_inv", "老帐号，第一次入金")}{taxonomy_leaf("existing_returned", "投过又清仓，再次入金")}</div>
+    </div>
+    <div class="taxonomy-positive"><h3>原来有资产</h3>{taxonomy_leaf("existing_reinvested", "老帐号，有资产又入金")}</div>
+  </div>
+  <div class="taxonomy-formulas">
+    <p><b>新投 {Z["n"]}</b> ＝ 新户首投 {NF["n"]} ＋ 老户首投 {EF["n"]} ＋ 老户回流 {ER["n"]}<br><span>＝ 新户首投 {NF["n"]} ＋ 老户唤醒 {R["n"]}</span></p>
+    <p><b>首投 {F1["n"]}</b> ＝ 新户首投 {NF["n"]} ＋ 老户首投 {EF["n"]}</p>
+    <p><b>老户唤醒 {R["n"]}</b> ＝ 老户首投 {EF["n"]} ＋ 老户回流 {ER["n"]}</p>
+  </div>
+  <p class="taxonomy-total">全部入金用户 {len(users)} 人 ＝ 新投 {Z["n"]} 人 ＋ 老户再投 {RI["n"]} 人{_asset_pending_text}</p>
+  <p class="taxonomy-note">“＋”是互不重复的去重人数；新投、首投、老户唤醒是汇总标签，不能再相加。</p>
+  <details class="taxonomy-evidence"><summary>分类与千问关系怎么判断</summary>
+    <ul><li>新户当前以注册与绑定相差 60 分钟内近似识别；精确来源仍需注册链路证明。</li>
+    <li>资产取绑定日及之前最近日快照，非精确绑定时点；缺失或历史不完整保留待核验。</li>
+    <li>千问侧是推断：需有千问侧正向证据，且慢操作记录覆盖充分且未发现相应操作；仅“没查到”不能判定。</li>
+    <li>千问归因是规则判断：入金前提问与产品匹配，且此前未持有；只支持关联，因果未证。</li>
+    <li>当前先查首笔入金窗口，规则命中人数是至少人数；未命中首笔，其他入金仍待核验。</li>
+    <li>千问侧与千问归因都是老户再投的标签，可能重合，不能相加；未审查显示待核验。</li></ul>
+  </details>
+</section>'''
 _first_users = scope_users(next(sc for sc in SCOPES if sc["id"] == "first_inv"))
 _med = None
 import statistics as _st
@@ -780,18 +918,18 @@ _max_ask_share = (len(_max_ask_user.get("asks") or []) / Z["asks"] * 100) if _ma
 _max_ask_inflow_share = (float(_max_ask_user["derived"].get("inflow_after") or 0) / Z["inflow"] * 100) if _max_ask_user and Z["inflow"] else 0
 
 INSIGHTS = [
-    f'<b>成效</b>{META["bound_total"]:,} 位绑定用户中识别出 {Z["n"]} 位新投、{F1["n"]} 位首投；累计入金 {wan(Z["inflow"])}，当前资产 {wan(Z["asset"])}。',
+    f'<b>新投概览</b>{META["bound_total"]:,} 位绑定用户中识别出 {Z["n"]} 位新投、{F1["n"]} 位首投；新投累计入金 {wan(Z["inflow"])}，已提取资产的 {sum(u.get("asset_latest") is not None for u in _new_users)} 人合计持有 {wan(Z["asset"])}。',
     f'<b>行为</b>绑定到首笔入金中位 {_new_med_txt}，{_within_day_n} 人在 24 小时内完成；{_app_evidence_n}/{Z["n"]} 人有 App 设备注册或原生使用记录，{_terminal_evidence_n} 人绑定后有原生记录；{_app_order_n} 人首笔入金前后 30 分钟有原生 App 记录。',
     (f'<b>关键案例</b>{_big_new["age"]} 岁新客入金 {wan(_big_new["derived"]["inflow_after"])}、当前资产 {wan(float((_big_new.get("asset_latest") or {}).get("ta") or 0))}；'
      f'沉寂老客回流入金 {wan(_big_recall["derived"]["inflow_after"])}、当前资产 {wan(float((_big_recall.get("asset_latest") or {}).get("ta") or 0))}。'
      f'两例合计贡献 {_top_two_inflow_share:.1f}% 入金，成效高度集中。') if _big_new and _big_recall else '',
 ]
 INSIGHTS_HTML = "\n".join(f'<li>{item}</li>' for item in INSIGHTS if item)
-tabs = "".join(f'<button type="button" class="tab" role="tab" data-scope="{sc["id"]}" data-desc="{esc(sc["def"])}" aria-selected="false">{sc["label"]}<small>{agg(scope_users(sc))["n"]}</small></button>' for sc in SCOPES)
+tabs = "".join(f'<button type="button" class="tab" role="tab" data-scope="{sc["id"]}" data-desc="{esc(sc["def"])}" aria-selected="false">{sc["label"]}<small>{scope_count(sc)}</small>{"<i>" + sc["status"] + "</i>" if sc.get("status") else ""}</button>' for sc in SCOPES)
 sections = "\n".join(scope_section(sc) for sc in SCOPES)
 
 def all_asks(u):
-    rows = [{"ts": a["ts"][:19], "text": a["text"], "ch": "千问"} for a in u["asks"]]
+    rows = [{"ts": a["ts"][:19], "text": a["text"], "ch": "千问"} for a in (u.get("asks") or [])] if not funding_only(u) else []
     for m in (u.get("channels") or {}).get("app_mia", []):
         rows.append({"ts": m["ts"][:19], "text": (m.get("text") or "").strip(), "ch": "且慢",
                      "via": MIA_SCENE.get(m.get("scene"), m.get("scene") or "") + ("快捷入口" if m.get("mode") == "AUTO_LEAD" else "")})
@@ -822,8 +960,8 @@ html,body{max-width:100%}
 .scope-inline{appearance:none;padding:0;border:0;background:none;color:inherit;font:inherit;text-decoration:underline;text-decoration-color:#b8b2d6;text-underline-offset:3px;cursor:pointer}
 .scope-inline:hover{color:var(--blue-deep)}
 .sumrow .cell em{white-space:nowrap;overflow-wrap:normal;font-size:clamp(10px,.9vw,12px);letter-spacing:-.025em}
-.scope-nav{display:flex;align-items:center;gap:22px}
-.tabs{display:flex;align-items:center}
+.scope-nav{display:block}
+.tabs{display:flex;align-items:center;flex-wrap:wrap;gap:6px}
 .dashboard-link svg,.pager .pg svg,.mini-ic svg,.icon-btn svg{display:block;margin:auto}
 .pager{display:inline-flex;align-items:center;gap:8px;margin-left:8px;vertical-align:middle;font-size:14px;color:var(--ink-2)}
 .pager .pg{width:28px;height:28px;border:1.5px solid var(--rule-2);border-radius:50%;background:var(--surface);color:var(--ink-3);cursor:pointer;line-height:0;display:inline-grid;place-items:center;padding:0}
@@ -849,7 +987,7 @@ html,body{max-width:100%}
   .insight-list li{padding:9px 10px 9px 27px}
   .insight-list li::before{left:11px;top:17px}
   .scope-nav{display:grid;gap:10px;margin-top:22px}
-  .tabs{max-width:100%;overflow-x:auto}
+  .tabs{max-width:100%;overflow:visible}
   .tab{min-height:44px;padding:0 15px;font-size:13px}
   .scope-def{padding-left:0;border-left:0;font-size:13px;line-height:1.65}
   .sumrow{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
@@ -974,6 +1112,8 @@ page = f'''<!doctype html>
   .matrix th{{background:#eceaf6;color:#484d62;font-size:12.5px;font-weight:800;letter-spacing:.025em}}
   .matrix tbody tr:nth-child(even) td{{background:#faf9fd}}
   .matrix tbody tr:last-child td{{border-bottom:0}}
+  .matrix-long{{max-height:440px;overflow:auto}}
+  .matrix-long th{{position:sticky;top:0;z-index:2}}
   .matrix tbody tr[data-jump]{{transition:background-color .14s ease,box-shadow .14s ease}}
   .matrix tbody tr[data-jump]:hover td{{background:#f0edff;color:#171b2a}}
   .matrix tbody tr[data-jump]:hover{{box-shadow:inset 3px 0 0 var(--blue)}}
@@ -1083,6 +1223,50 @@ page = f'''<!doctype html>
   .qlist .qmark{{display:inline-block;min-width:32px;text-align:center;color:var(--ink-blue);background:var(--soft);border-radius:4px;font-weight:700;font-size:11px;margin-right:8px;padding:1px 6px}}
   .qlist .qmark.qm{{color:var(--good);background:#e6f5ee}}
   .qlist .via{{color:var(--ink-3);font-style:normal;font-size:11.5px}}
+  .taxonomy{{margin:24px 0 28px;padding:20px 0;border-block:1px solid var(--rule-2)}}
+  .taxonomy-heading{{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:15px}}
+  .taxonomy-heading h2{{margin:0;color:var(--ink);font-size:21px}}
+  .taxonomy-heading > span{{color:var(--ink-3);font-size:13px}}
+  .taxonomy-tree{{display:grid;grid-template-columns:3fr 1fr;gap:18px}}
+  .taxonomy-tree h3{{margin:0 0 10px;color:var(--ink-2);font-size:14px;font-weight:600}}
+  .taxonomy-tree h3 b{{color:var(--ink)}}
+  .taxonomy-leaves{{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}}
+  .taxonomy-leaf{{display:grid;width:100%;min-height:96px;padding:12px 14px;gap:5px;align-content:center;text-align:left;color:var(--ink);font:inherit;border:0;border-left:3px solid var(--blue);background:var(--pale);cursor:pointer}}
+  .taxonomy-leaf:hover{{background:var(--soft)}}
+  .taxonomy-leaf:focus-visible{{outline:2px solid var(--blue);outline-offset:3px}}
+  .taxonomy-leaf > span{{font-size:14px}}
+  .taxonomy-leaf b{{font-size:23px;font-weight:600}}
+  .taxonomy-leaf small{{color:var(--ink-3);font-size:12px}}
+  .taxonomy-positive .taxonomy-leaf{{border-left-color:var(--ink-3);background:var(--ground)}}
+  .taxonomy-formulas{{display:grid;grid-template-columns:2fr 1.3fr 1.5fr;gap:18px;margin-top:18px}}
+  .taxonomy-formulas p{{margin:0;color:var(--ink-2);font-size:14px;line-height:1.9}}
+  .taxonomy-formulas b{{color:var(--ink)}}
+  .taxonomy-formulas p > span{{display:inline-block;padding-left:4.1em}}
+  .taxonomy-total{{margin:14px 0 0;color:var(--ink-2);font-size:13px}}
+  .taxonomy-note{{margin:8px 0 0;color:var(--ink-3);font-size:12px;line-height:1.7}}
+  .taxonomy-evidence{{margin-top:12px;color:var(--ink-3);font-size:12px;line-height:1.8}}
+  .taxonomy-evidence summary{{cursor:pointer;color:var(--ink-2)}}
+  .taxonomy-evidence ul{{margin:8px 0 0;padding-left:20px}}
+  .funding-coverage{{margin:15px 0;color:var(--ink-3);font-size:13px;line-height:1.7}}
+  .funding-evidence{{margin-top:18px;font-size:13px;line-height:1.8}}
+  .funding-evidence h4{{margin:0 0 6px;font-size:14px;color:var(--ink-2)}}
+  .funding-evidence ul{{margin:0;padding-left:20px;color:var(--ink-3)}}
+  .pending-note{{font-size:14px;line-height:1.8}}
+  .scope-nav{{display:block}}
+  .tabs{{flex-wrap:wrap;gap:6px;overflow:visible}}
+  .tab + .tab{{margin-left:0}}
+  .tab i{{font-size:11px;font-style:normal;font-weight:400;opacity:.8}}
+  .scope-def{{margin-top:13px!important;padding-left:0;border-left:0}}
+  @media(max-width:1000px){{.taxonomy-formulas{{grid-template-columns:1fr}}}}
+  @media(max-width:600px){{
+    .taxonomy-tree{{grid-template-columns:1fr}}
+    .taxonomy-leaves{{grid-template-columns:1fr}}
+    .taxonomy-leaf{{min-height:76px;grid-template-columns:1fr auto;align-items:center}}
+    .taxonomy-leaf small{{grid-column:1 / -1}}
+    .taxonomy-heading h2{{font-size:19px}}
+    .taxonomy-formulas p > span{{padding-left:0}}
+    .tab{{padding:0 12px;font-size:13px;gap:6px}}
+  }}
   @media(max-width:900px){{
     .overview-route{{grid-template-columns:repeat(2,minmax(0,1fr))}}
   }}
@@ -1133,7 +1317,9 @@ page = f'''<!doctype html>
       </a>
     </div>
     <h1>千问用户转化分析</h1>
+    <p class="meta-line">数据截至 {esc(CUT)} · 入金用户 {len(users)} 人</p>
   </div>
+  {TAXONOMY_HTML}
   <ul class="insight-list" aria-label="转化分析洞察与总结">
     {INSIGHTS_HTML}
   </ul>
