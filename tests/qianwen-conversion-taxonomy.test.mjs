@@ -58,7 +58,7 @@ test('Case layout stays compact, hides unreviewed slices and labels old first/ne
       fb:'2026-10-10 10:00:00',registered_at:'2026-10-10 10:00:00',asset_at_bind:type==='reinvested'?500:0,
       coverage:'funding_only',trades:[],asks:[],dev:[],risk:[],events:[],channels:{},
       asset_latest:{cal_date:'2026-10-14',ta:100*(i+1)},
-      inflow_txns:[{t:'2026-10-10 11:00:00',amt:10*(i+1)}],
+      inflow_txns:i===3?[{t:'2026-10-10 13:00:00',amt:20},{t:'2026-10-10 11:00:00',amt:20}]:[{t:'2026-10-10 11:00:00',amt:10*(i+1)}],
       derived:{inflow_after:10*(i+1),first_inflow_after:'2026-10-10 11:00:00',buy_amount_after:null,cancels_after:0},
       question_stats:{total_questions:i===3?0:10*(i+1),pre_first_inflow_questions:i===3?0:4*(i+1),reviewed:true,cutoff:'2026-10-15 09:58:45'},
       app_operation:{first_at:i===3?null:'2026-10-10 10:05:30',first_platform:i===3?null:'iOS',device_platforms:i===3?['Android']:['iOS'],reviewed:true,cutoff:'2026-10-15 09:58:45'},
@@ -103,6 +103,9 @@ test('Case layout stays compact, hides unreviewed slices and labels old first/ne
     assert.doesNotMatch(page,/<em>[^<]*资产日/);
     assert.match(page,/title="资产日 10-14；人均资产 = 总资产 ÷ 本客群全部 3 人，包含零资产用户/);
     assert.match(page,/<span>总入金，共 3 笔交易<\/span><em>人均 0\.00 万 · 1 笔<\/em>/);
+    assert.equal((page.match(/<span>首投平均间隔<\/span>/g)||[]).length,7);
+    assert.match(page,/<b>1\.0 小时<\/b><span>首投平均间隔<\/span><em>中位数 1\.0 小时<\/em><em>1 人有二次入金<\/em><em>二次平均间隔 2\.0 小时 · 中位数 2\.0 小时/);
+    assert.match(page,/<em>0 人有二次入金<\/em><em>暂无二次入金间隔/);
     assert.doesNotMatch(page,/新客 0 人/);
     assert.match(page,/24 小时内入金 1 人 · 多次入金 0 人/);
     assert.match(page,/<th>使用设备<\/th><th[^>]*>绑定→首次App操作<\/th>/);

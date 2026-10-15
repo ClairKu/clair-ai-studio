@@ -835,7 +835,7 @@ def short_duration(seconds):
         return f"{seconds/86400:.1f} 天"
     if seconds >= 3600:
         return f"{seconds/3600:.1f} 小时"
-    return f"{seconds/60:.0f} 分钟"
+    return f"{seconds/60:.0f} 分钟" if seconds >= 60 else f"{seconds:.0f} 秒"
 
 def scope_section(sc):
     us = scope_users(sc); a = agg(us); pending = scope_pending(sc)
@@ -846,9 +846,14 @@ def scope_section(sc):
         return f'<section class="scope" id="scope-{sc["id"]}" hidden>{pending_html}</section>'
     # 决策时长：绑定千问 → 第一笔入金；无入金记录的用户不进入时长计算。
     import statistics
-    durs = [(dt(u["inflow_txns"][0]["t"]) - dt(u["fb"])).total_seconds() for u in us if u.get("inflow_txns")]
+    ordered_inflows = [(u, sorted(u.get("inflow_txns") or [], key=lambda row: dt(row["t"]))) for u in us]
+    durs = [(dt(txns[0]["t"]) - dt(u["fb"])).total_seconds() for u, txns in ordered_inflows if txns]
+    second_durs = [(dt(txns[1]["t"]) - dt(txns[0]["t"])).total_seconds() for _, txns in ordered_inflows if len(txns) >= 2]
     avg_txt = short_duration(statistics.mean(durs)) if durs else "—"
     med_txt = short_duration(statistics.median(durs)) if durs else "—"
+    second_avg_txt = short_duration(statistics.mean(second_durs)) if second_durs else "—"
+    second_med_txt = short_duration(statistics.median(second_durs)) if second_durs else "—"
+    second_note = (f'二次平均间隔 {second_avg_txt} · 中位数 {second_med_txt}' if second_durs else '暂无二次入金间隔')
     inflow_people = sum(1 for u in us if u.get("inflow_txns"))
     inflow_count = sum(len(u.get("inflow_txns") or []) for u in us)
     inflow_value = wan(a["inflow"])
@@ -894,7 +899,7 @@ def scope_section(sc):
   <div class="cell"><b>{inflow_value}</b><span>{inflow_label}</span><em>{inflow_note}</em></div>
   <div class="cell asset-metric" title="{esc(asset_title)}"><b>{asset_value}</b><span>总资产</span><em>{asset_note}</em></div>
   {ask_cell}
-  <div class="cell decision" title="绑定千问到第一笔入金，按 {len(durs)} 位有入金记录的用户计算"><b>{avg_txt}</b><span>平均入金间隔</span><em>中位数 {med_txt} · 样本 {len(durs)} 人</em></div>
+  <div class="cell decision" title="首投间隔为绑定到绑定后首笔入金，样本 {len(durs)} 人；二次入金间隔为首笔到第二笔入金，均值和中位数只按有二次入金的 {len(second_durs)} 人计算。"><b>{avg_txt}</b><span>首投平均间隔</span><em>中位数 {med_txt}</em><em>{len(second_durs)} 人有二次入金</em><em>{second_note}</em></div>
 </div>'''
     cards = "\n".join(card(u) for u in us) if us else '<div class="note">该口径下暂无用户。</div>'
     return f'''<section class="scope" id="scope-{sc["id"]}" hidden>
