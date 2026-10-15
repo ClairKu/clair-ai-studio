@@ -81,6 +81,8 @@ def fmt_t(s, day=False):
     return d.strftime("%-m-%d %H:%M") if day else d.strftime("%H:%M:%S")
 def fmt_md(s):
     d = dt(s); return d.strftime("%-m-%d") if d else "—"
+def fmt_compact_date(s):
+    d = dt(s); return d.strftime("%y-%m-%d") if d else "—"
 def fmt_badge_date(s):
     d = dt(s); return f"{d.month}/{d.day:02d}" if d else "—"
 def money(v):
@@ -813,26 +815,27 @@ def matrix(us):
         txns = sorted(u.get("inflow_txns") or [], key=lambda row: dt(row["t"]))
         first_amount = txns[0].get("amt", txns[0].get("amount")) if txns else None
         total_questions, first_questions = question_counts(u)
-        registered_date = str(u.get("registered_at") or "")[:10]
-        first_date = str(u.get("first_inflow_ever") or "")[:10]
-        date_cells = (f'<td class="num" data-sort-value="{esc(registered_date)}">{esc(registered_date or "—")}</td>'
-                      f'<td class="num" data-sort-value="{esc(first_date)}">{esc(first_date or "—")}</td>')
-        funding_cells = (f'<td class="num">{money(first_amount)}</td><td class="num">{len(txns)}</td>'
-                         f'<td class="num">{money(d["inflow_after"])}</td>'
+        registered_date = str(u.get("registered_at") or "")
+        first_date = str(u.get("first_inflow_ever") or "")
+        date_cells = (f'<td class="num" data-sort-value="{esc(registered_date)}">{fmt_compact_date(registered_date)}</td>'
+                      f'<td class="num" data-sort-value="{esc(first_date)}">{fmt_compact_date(first_date)}</td>')
+        funding_cells = (f'<td class="num">{money(first_amount)}</td>'
+                         f'<td class="num">{money(d["inflow_after"])}</td><td class="num">{len(txns)}</td>'
                          f'<td class="num">{first_questions if first_questions is not None else "—"}</td>'
                          f'<td class="num">{total_questions if total_questions is not None else "—"}</td>')
         if funding_matrix:
             history = u.get("binding_history") or {}
             history_amount = money(history.get("ytd_inflow_before"))
-            history_trade = str(history.get("last_trade_before")).replace("T", " ")[:10] if history.get("last_trade_before") else "无记录" if history.get("reviewed") else "待核验"
+            history_trade_raw = str(history.get("last_trade_before") or "").replace("T", " ")
+            history_trade = fmt_compact_date(history_trade_raw) if history_trade_raw else "无记录" if history.get("reviewed") else "待核验"
             bind_asset_title = '绑定日及之前最近日快照，不代表绑定瞬间资产'
             if u.get("asset_bind_date"):
                 bind_asset_title += f'；快照日期 {str(u["asset_bind_date"])[:10]}'
             rows.append(f'''<tr>
   <td><span class="badge">{u["letter"]}</span></td><td>{customer_label(u)}</td>
-  {date_cells}<td class="num" data-sort-value="{esc(u["fb"])}">{fmt_t(u["fb"], True)}</td>
+  {date_cells}<td class="num" data-sort-value="{esc(u["fb"])}">{fmt_compact_date(u["fb"])}</td>
   <td class="num" title="{esc(bind_asset_title)}">{money(u.get("asset_at_bind"))}</td>
-  <td class="num">{history_amount}</td><td class="num">{esc(history_trade)}</td>
+  <td class="num">{history_amount}</td><td class="num" data-sort-value="{esc(history_trade_raw)}">{esc(history_trade)}</td>
   <td class="num">{money(d["inflow_after"])}</td><td class="num">{len(txns)}</td>
   <td class="num">{money(al["ta"]) if al else "—"}</td>{app_operation_cells(u)}</tr>''')
             continue
@@ -840,8 +843,8 @@ def matrix(us):
   <td><span class="who"><span class="{"badge n" if u["cohort"]=="new" else "badge"}">{u["letter"]}</span></span></td>
   <td>{customer_label(u)}</td>
   <td>{"未审查" if funding_only(u) else ("男" if u.get("gender")=="M" else "女" if u.get("gender")=="F" else "—") + " " + str(u.get("age") or "")}</td>
-  {date_cells}<td class="num" data-sort-value="{esc(u["fb"])}">{fmt_t(u["fb"], True)}</td>
-  <td class="num" data-sort-value="{esc(d["first_inflow_after"])}">{fmt_t(d["first_inflow_after"], True)}</td>
+  {date_cells}<td class="num" data-sort-value="{esc(u["fb"])}">{fmt_compact_date(u["fb"])}</td>
+  <td class="num" data-sort-value="{esc(d["first_inflow_after"])}">{fmt_compact_date(d["first_inflow_after"])}</td>
   <td class="num" data-sort-value="{(dt(d["first_inflow_after"])-dt(u["fb"])).total_seconds()}">{dur(u["fb"], d["first_inflow_after"])}</td>
   {funding_cells}
   <td class="num">{money(al["ta"]) if al else "—"}</td>
@@ -849,11 +852,11 @@ def matrix(us):
   {app_operation_cells(u)}
 </tr>''')
     columns = '<th>用户</th><th>客群</th>' + ('' if funding_matrix else '<th>画像</th>')
-    columns += '<th>注册日期</th><th title="历史第一笔新增入金的日期，不是绑定后首笔的替代值">首次入金日期</th>'
-    columns += ('<th>绑定</th><th title="绑定日及之前最近日快照">绑定时资产</th>'
+    columns += '<th>注册日</th><th title="历史第一笔新增入金的日期，不是绑定后首笔的替代值">入金日</th>'
+    columns += ('<th>绑定日</th><th title="绑定日及之前最近日快照">绑定时资产</th>'
                 '<th title="数据截止年份1月1日起，严格在绑定之前的新增入金">今年绑前入金</th>'
-                '<th title="严格在绑定之前的有效买卖、充值或赎回及产品转换，不含内部调仓和自动回款">最近交易日</th><th>绑定后新增入金</th><th>笔数</th><th>当前资产</th>') if funding_matrix else ('<th>绑定</th><th>首笔入金时间</th><th>间隔</th>'
-                '<th title="绑定后第一笔新增入金金额">首笔入金</th><th>入金次数</th><th>总入金</th>'
+                '<th title="严格在绑定之前的有效买卖、充值或赎回及产品转换，不含内部调仓和自动回款">最近交易日</th><th>绑定后新增入金</th><th>入金笔数</th><th>当前资产</th>') if funding_matrix else ('<th>绑定日</th><th title="绑定后首笔新增入金的日期">首笔入金日</th><th>间隔</th>'
+                '<th title="绑定后第一笔新增入金金额">首笔入金</th><th>总入金</th><th>入金笔数</th>'
                 '<th title="绑定后至首笔入金之前的千问提问数，不含入金同刻及之后">首笔入金提问数</th><th>总提问数</th>'
                 '<th>当前资产</th>')
     columns += '' if funding_matrix else '<th>风测</th>'
