@@ -1,6 +1,6 @@
 {
   "schema": "clair-ai-industry-authority/v1",
-  "curatedAt": "2026-10-14T08:20:00+08:00",
+  "curatedAt": "2026-10-15T08:20:00+08:00",
   "selectionRule": "原始发布机构、方法透明、结论可回溯、覆盖全球与中国，并优先选择 2026 年最新版本",
   "reports": [
     {
@@ -301,6 +301,28 @@
       "featuredRank": -1,
       "archived": false,
       "relatedReportIds": ["authority-anthropic-unintended-actions-2026", "authority-international-ai-safety-2026"]
+    },
+    {
+      "id": "authority-openai-europe-agentic-opportunity-2026",
+      "title": "OpenAI《Europe’s Agentic Opportunity》｜欧洲 AI 已从问答转向执行，但深度差距迅速扩大",
+      "url": "https://openai.com/index/the-eus-next-chapter-in-ai-is-agentic/",
+      "downloadUrl": "https://cdn.openai.com/pdf/europes-agentic-opportunity.pdf",
+      "body": "【中文剖析】OpenAI Economic Research 用企业与消费者产品内的聚合使用信号，刻画欧盟 AI 使用从“问问题”向“让 Agent 完成任务”的结构性迁移。到 2026 年 9 月底，欧盟 ChatGPT Enterprise 与 Business 账户输出 token 中，Codex 和 ChatGPT Work 合计已占 55%；面向 200 名及以下关联用户的中小企业，自 5 月以来 Agent 周活用户增长 8.1 倍，而且 27 个成员国都超过 5 倍。增长并不均匀：各国企业输出中的 Agent 比例从斯洛文尼亚 22% 到立陶宛 85%；全球按每活跃用户输出 token 排名前 10% 的“前沿企业”中，欧盟仅占 10%，北美占 65%。强度差距比覆盖率更值得警惕：9 月欧盟前沿企业人均输出是欧盟典型企业的 4 倍以上，但欧盟之外的全球前沿企业又是欧盟前沿企业的 2 倍以上。决策含义：开通工具只能扩大覆盖，真正的竞争力来自可执行工作流、员工技能、上下文接入与组织允许深度使用。必须同时看到口径边界：报告未披露账户、企业或消息样本量；token 是使用强度代理，不等于任务完成、生产率或财务价值；不同产品上线节奏也会机械推高趋势。",
+      "kind": "url",
+      "category": "企业与组织",
+      "tags": ["欧洲AI", "Agent", "企业采用", "中小企业", "使用深度", "组织差距", "Codex", "ChatGPT Work"],
+      "source": "OpenAI Economic Research",
+      "authority": "前沿模型开发者聚合使用数据报告",
+      "methodology": "分析欧盟 ChatGPT Enterprise 与 Business 账户的聚合输出 token、活跃用户与企业强度；中小企业定义为关联用户不超过 200 的企业。工作任务分布另取 2026 年第三季度 Free、Go、Plus、Pro 用户消息随机样本，按美国劳工统计局 IWA 工作活动分类。",
+      "scopeNote": "报告未披露账户、企业、活跃用户或消息样本量，也未说明各项去标识化与分类误差；样本仅覆盖 OpenAI 产品用户。输出 token、周活和相对倍数是使用强度代理，不等同于任务完成、生产率、收入或因果影响；ChatGPT Work 于 2026 年 7 月上线，产品可得性变化会影响趋势。",
+      "publishedAt": "2026-10-14T00:00:00Z",
+      "ingestedAt": "2026-10-15T08:20:00+08:00",
+      "createdAt": "2026-10-14T00:00:00Z",
+      "updatedAt": "2026-10-15T08:20:00+08:00",
+      "featured": true,
+      "featuredRank": -1.5,
+      "archived": false,
+      "relatedReportIds": ["authority-openai-enterprise-2025", "authority-mckinsey-state-ai-2026", "authority-microsoft-wti-2026"]
     }
   ],
   "cards": [
@@ -386,6 +408,12 @@
     {"id":"authority-card-anthropic-replication-02","reportId":"authority-anthropic-self-replicating-ai-2026","type":"metric","label":"边缘算力","title":"15 台低价电视盒已经能跑 26B 模型","summary":"Gemma4-26B-A4B 被切分到 15 台约 55 美元、4GB 内存的安卓电视盒上，以 0.39 token/秒运行，证明弱设备集群可以承载有能力的模型，但速度很慢。","metric":"15 台 / 0.39 tok/s","quote":"0.39 tokens/s","translation":"每秒 0.39 个 token。","anchor":"Introduction · Smart TV demo; §A How does a model run on Smart TVs?","tags":["IoT","边缘算力","分布式推理"],"createdAt":"2026-10-12T00:00:00Z","order":1,"relatedCardIds":["authority-card-anthropic-replication-04"]},
     {"id":"authority-card-anthropic-replication-03","reportId":"authority-anthropic-self-replicating-ai-2026","type":"risk","label":"端到端评测","title":"GLM-5.2 在隔离网络中几乎完成全节点传播","summary":"5 次 8 节点试验里，GLM-5.2 四次到达 8/8、一次到达 7/8；但入侵环节使用无认证 ADB，GLM 本身在外部服务器运行，节点部署的是 Llama3.1-8B。","metric":"4 / 5 次全覆盖","quote":"8/8 nodes in 4 of 5 trials","translation":"5 次试验中 4 次覆盖 8/8 节点。","anchor":"§B Going viral · End-to-end replication","tags":["AI蠕虫","受控评测","端到端复制"],"createdAt":"2026-10-12T00:00:00Z","order":2,"relatedCardIds":["authority-card-anthropic-replication-05"]},
     {"id":"authority-card-anthropic-replication-04","reportId":"authority-anthropic-self-replicating-ai-2026","type":"insight","label":"传播速度","title":"首代弱设备复制更像“数字黏菌”，而不是闪电攻击","summary":"按 Qwen3.5-9B 在实体电视盒上的推理速度与轨迹长度估算，单次完整推理部署约需 28–51 小时；隐蔽、慢速、持续是近期更现实的形态。","metric":"28–51 小时","quote":"28–51h","translation":"28 至 51 小时。","anchor":"§C How fast might an AI IoT worm replicate?","tags":["传播速度","持续性","边缘设备"],"createdAt":"2026-10-12T00:00:00Z","order":3,"relatedCardIds":["authority-card-anthropic-replication-02"]},
-    {"id":"authority-card-anthropic-replication-05","reportId":"authority-anthropic-self-replicating-ai-2026","type":"action","label":"边界与行动","title":"当前能力下限与设备尺寸上限仍未相交","summary":"GLM-5.2 足够会编排，但太大；9B、26B 模型能在弱设备运行，却还不够可靠完成全链路。年末相交只是趋势外推，防守应现在就部署流量异常检测、隔离、清理和安全默认值。","metric":"尚未相交","quote":"floor and ceiling don’t intersect","translation":"能力下限和尺寸上限尚未相交。","anchor":"§B Capability floor vs size ceiling; §F Blue-team mitigations","tags":["能力边界","纵深防御","网络监控"],"createdAt":"2026-10-12T00:00:00Z","order":4,"relatedCardIds":["authority-card-anthropic-replication-01","authority-card-anthropic-replication-03"]}
+    {"id":"authority-card-anthropic-replication-05","reportId":"authority-anthropic-self-replicating-ai-2026","type":"action","label":"边界与行动","title":"当前能力下限与设备尺寸上限仍未相交","summary":"GLM-5.2 足够会编排，但太大；9B、26B 模型能在弱设备运行，却还不够可靠完成全链路。年末相交只是趋势外推，防守应现在就部署流量异常检测、隔离、清理和安全默认值。","metric":"尚未相交","quote":"floor and ceiling don’t intersect","translation":"能力下限和尺寸上限尚未相交。","anchor":"§B Capability floor vs size ceiling; §F Blue-team mitigations","tags":["能力边界","纵深防御","网络监控"],"createdAt":"2026-10-12T00:00:00Z","order":4,"relatedCardIds":["authority-card-anthropic-replication-01","authority-card-anthropic-replication-03"]},
+
+    {"id":"authority-card-openai-eu-agentic-01","reportId":"authority-openai-europe-agentic-opportunity-2026","type":"metric","label":"采用结构","title":"欧盟企业 AI 输出已有 55% 来自 Agent 工具","summary":"到 2026 年 9 月底，欧盟 Enterprise 与 Business 账户输出 token 中，ChatGPT Work 占 21%、Codex 占 34%，二者合计 55%；这是产品内使用结构，不是任务成功率。","metric":"55%","quote":"now exceeds 50%","translation":"现已超过 50%。","anchor":"PDF p.2 · Figure 1 · 28-day trailing window","tags":["Agent", "企业采用", "使用结构"],"createdAt":"2026-10-14T00:00:00Z","order":0,"relatedCardIds":["authority-card-openai-eu-agentic-05"]},
+    {"id":"authority-card-openai-eu-agentic-02","reportId":"authority-openai-europe-agentic-opportunity-2026","type":"risk","label":"国家差距","title":"各国 Agent 输出占比从 22% 拉开到 85%","summary":"2026 年 9 月，立陶宛企业 Agent 输出占比 85%，斯洛文尼亚为 22%；差异反映 OpenAI 客户内的产品组合与使用深度，不能解释为全国 AI 普及率。","metric":"22%–85%","quote":"differs across EU member states","translation":"在欧盟成员国之间存在差异。","anchor":"PDF p.3 · Figure 2 · September 2026","tags":["欧洲AI", "国家差距", "采用深度"],"createdAt":"2026-10-14T00:00:00Z","order":1,"relatedCardIds":[]},
+    {"id":"authority-card-openai-eu-agentic-03","reportId":"authority-openai-europe-agentic-opportunity-2026","type":"opportunity","label":"中小企业","title":"欧盟中小企业 Agent 周活用户自 5 月增长 8.1 倍","summary":"按关联用户不超过 200 的企业口径，9 月 29 日至 10 月 5 日的 Agent 周活用户是 5 月 1—7 日的 8.1 倍；27 个成员国均超过 5 倍。","metric":"8.1×","quote":"grew 8.1x since May","translation":"自 5 月以来增长 8.1 倍。","anchor":"PDF pp.4–5 · Figures 3–4 · SMB weekly active users","tags":["中小企业", "周活用户", "增长"],"createdAt":"2026-10-14T00:00:00Z","order":2,"relatedCardIds":[]},
+    {"id":"authority-card-openai-eu-agentic-04","reportId":"authority-openai-europe-agentic-opportunity-2026","type":"risk","label":"全球位置","title":"欧盟只占全球前沿企业的 10%","summary":"按每活跃用户输出 token 排名前 10% 定义前沿企业，欧盟企业约占全球前沿企业 10%，北美占 65%；该口径只覆盖 ChatGPT Enterprise 与 Business。","metric":"EU 10% / 北美 65%","quote":"make up 10% of frontier firms globally","translation":"占全球前沿企业的 10%。","anchor":"PDF p.7 · Figure 6 · Frontier firms by geography","tags":["前沿企业", "全球竞争", "使用强度"],"createdAt":"2026-10-14T00:00:00Z","order":3,"relatedCardIds":["authority-card-openai-eu-agentic-05"]},
+    {"id":"authority-card-openai-eu-agentic-05","reportId":"authority-openai-europe-agentic-opportunity-2026","type":"action","label":"经营判断","title":"覆盖率不是价值，深度使用差距才是主战场","summary":"9 月欧盟前沿企业人均输出强度是欧盟典型企业的 4 倍以上，但全球非欧盟前沿企业又是欧盟前沿企业的 2 倍以上。企业应优先建设端到端任务、上下文接入、技能与结果指标，避免把 token 增长误当 ROI。","metric":">4× / >2×","quote":"the global gap remains","translation":"全球差距依然存在。","anchor":"PDF p.8 · Figure 7 · Output tokens per active user","tags":["组织差距", "工作流", "ROI"],"createdAt":"2026-10-14T00:00:00Z","order":4,"relatedCardIds":["authority-card-openai-eu-agentic-01", "authority-card-openai-eu-agentic-04"]}
   ]
 }
