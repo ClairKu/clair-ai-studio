@@ -852,8 +852,8 @@ def scope_section(sc):
     inflow_people = sum(1 for u in us if u.get("inflow_txns"))
     inflow_count = sum(len(u.get("inflow_txns") or []) for u in us)
     inflow_value = wan(a["inflow"])
-    inflow_label = "总入金"
-    inflow_note = f'入金 {inflow_people} 人 · {inflow_count} 笔'
+    inflow_label = f'总入金，共 {inflow_count} 笔交易'
+    inflow_note = f'人均 {a["inflow"] / a["n"] / 10000:,.2f} 万 · {mean_questions(inflow_count, a["n"])} 笔' if a["n"] else '暂无入金'
     matched_amount_note = ""
     if sc["id"] in ("qwen_side", "qwen_influenced"):
         amount_key = "qwen_side_matched_inflow_amount" if sc["id"] == "qwen_side" else "qwen_influence_matched_inflow_amount"
@@ -874,7 +874,8 @@ def scope_section(sc):
     asset_date_txt = fmt_md(max(asset_dates).isoformat()) if asset_dates else "—"
     asset_known_n = sum((u.get("asset_latest") or {}).get("ta") is not None for u in us)
     asset_value = wan(a["asset"]) if asset_known_n == len(us) and us else "未审查"
-    asset_note = f'持有资产 {asset_people} 人 · 资产日 {asset_date_txt}' if asset_known_n == len(us) and us else f'已提取资产 {asset_known_n}/{len(us)} 人'
+    asset_note = f'持有资产 {asset_people} 人 · 人均资产 {wan(a["asset"] / a["n"])}' if asset_known_n == len(us) and us else f'已提取资产 {asset_known_n}/{len(us)} 人'
+    asset_title = f'资产日 {asset_date_txt}；人均资产 = 总资产 ÷ 本客群全部 {a["n"]} 人，包含零资产用户。'
     population_note = f'新客 {a["new"]} 人 · 老客 {a["n"] - a["new"]} 人'
     if a["n"] and a["new"] in (0, a["n"]):
         within_day = sum(0 <= duration <= 86400 for duration in durs)
@@ -887,11 +888,11 @@ def scope_section(sc):
     questions_complete = bool(us) and a["questions_known"] == a["n"]
     ask_value = mean_questions(a["pre_first_asks"], a["n"])
     ask_note = f'平均提问数 {mean_questions(a["asks"], a["n"])} · 总提问数 {a["asks"]:,}'
-    ask_cell = (f'<div class="cell question-metric" title="首投提问指绑定后、首笔新增入金前的千问提问；均值按本客群全部用户计算，包含零提问用户。老户再投按绑定后首笔入金计算。"><b>{ask_value}</b><span>平均首投提问数</span><em>{ask_note}</em></div>') if questions_complete else ""
+    ask_cell = (f'<div class="cell question-metric" title="首投提问指绑定后、首笔新增入金前的千问提问；均值按本客群全部用户计算，包含零提问用户。老户再投按绑定后首笔入金计算。"><b>{ask_value}<small class="metric-unit"> 次提问</small></b><span>平均首投提问数</span><em>{ask_note}</em></div>') if questions_complete else ""
     cells = f'''<div class="grid sumrow{" sumrow-four" if not ask_cell else ""}">
   <div class="cell"><b>{a["n"]}</b><span>用户数</span><em>{population_note}</em></div>
   <div class="cell"><b>{inflow_value}</b><span>{inflow_label}</span><em>{inflow_note}</em></div>
-  <div class="cell"><b>{asset_value}</b><span>总资产</span><em>{asset_note}</em></div>
+  <div class="cell asset-metric" title="{esc(asset_title)}"><b>{asset_value}</b><span>总资产</span><em>{asset_note}</em></div>
   {ask_cell}
   <div class="cell decision" title="绑定千问到第一笔入金，按 {len(durs)} 位有入金记录的用户计算"><b>{avg_txt}</b><span>平均入金间隔</span><em>中位数 {med_txt} · 样本 {len(durs)} 人</em></div>
 </div>'''
@@ -1012,6 +1013,8 @@ html,body{max-width:100%}
 .scope-inline{appearance:none;padding:0;border:0;background:none;color:inherit;font:inherit;text-decoration:underline;text-decoration-color:#b8b2d6;text-underline-offset:3px;cursor:pointer}
 .scope-inline:hover{color:var(--blue-deep)}
 .sumrow .cell em{white-space:normal;overflow-wrap:anywhere;font-size:11.5px;line-height:1.6;letter-spacing:-.025em}
+.question-metric b{white-space:nowrap}
+.question-metric .metric-unit{font-size:13px;font-weight:500;letter-spacing:0}
 .scope-nav{display:block}
 .tabs{display:flex;align-items:center;flex-wrap:nowrap;gap:0;overflow-x:auto}
 .dashboard-link svg,.pager .pg svg,.mini-ic svg,.icon-btn svg{display:block;margin:auto}

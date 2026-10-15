@@ -96,8 +96,13 @@ test('Case layout stays compact, hides unreviewed slices and labels old first/ne
     for(const label of ['新客','老客首投','老客新投','老客再投']) assert.match(page,new RegExp(`<td>${label}</td>`));
     assert.match(page,/用户原来在且慢资产为 0，从千问绑定且慢帐号后，完成新入金/);
     assert.equal((page.match(/<span>平均首投提问数<\/span>/g)||[]).length,7);
-    assert.match(page,/<b>4<\/b><span>平均首投提问数<\/span><em>平均提问数 10 · 总提问数 10/);
-    assert.match(page,/<b>0<\/b><span>平均首投提问数<\/span><em>平均提问数 0 · 总提问数 0/);
+    assert.match(page,/<b>4<small class="metric-unit"> 次提问<\/small><\/b><span>平均首投提问数<\/span><em>平均提问数 10 · 总提问数 10/);
+    assert.match(page,/<b>0<small class="metric-unit"> 次提问<\/small><\/b><span>平均首投提问数<\/span><em>平均提问数 0 · 总提问数 0/);
+    assert.equal((page.match(/class="metric-unit"> 次提问/g)||[]).length,7);
+    assert.match(page,/<span>总资产<\/span><em>持有资产 3 人 · 人均资产 200 元/);
+    assert.doesNotMatch(page,/<em>[^<]*资产日/);
+    assert.match(page,/title="资产日 10-14；人均资产 = 总资产 ÷ 本客群全部 3 人，包含零资产用户/);
+    assert.match(page,/<span>总入金，共 3 笔交易<\/span><em>人均 0\.00 万 · 1 笔<\/em>/);
     assert.doesNotMatch(page,/新客 0 人/);
     assert.match(page,/24 小时内入金 1 人 · 多次入金 0 人/);
     assert.match(page,/<th>使用设备<\/th><th[^>]*>绑定→首次App操作<\/th>/);
