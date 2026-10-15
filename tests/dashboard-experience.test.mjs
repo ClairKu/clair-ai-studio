@@ -62,3 +62,21 @@ test('question explorer opens directly and its readable corpus matches the curre
   assert.equal(corpus.meta.data_cutoff, qianwen.meta.data_cutoff);
   assert.equal(corpus.rows.length, qianwen.question_insights.summary.questions);
 });
+
+test('question download reports each received chunk so active slow transfers do not time out', async () => {
+  const helper = source.slice(source.indexOf('async function readQuestionResponse('), source.indexOf('\nasync function loadQuestionCorpus('));
+  const readResponse = new Function(`${helper}; return readQuestionResponse;`)();
+  const progress = [];
+  const response = new Response(new ReadableStream({
+    start(controller) {
+      controller.enqueue(new Uint8Array([31, 139]));
+      controller.enqueue(new Uint8Array([8, 0, 0]));
+      controller.close();
+    },
+  }));
+  assert.deepEqual(Array.from(await readResponse(response, bytes => progress.push(bytes))), [31, 139, 8, 0, 0]);
+  assert.deepEqual(progress, [2, 5]);
+  assert.match(source, /received => \{\s*resetIdleTimeout\(\)/);
+  assert.match(source, /clearTimeout\(idleTimeout\)/);
+  assert.match(source, /clearTimeout\(totalTimeout\)/);
+});

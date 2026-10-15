@@ -2059,6 +2059,31 @@ function validateQuestionCorpus(corpus) {
   return corpus;
 }
 
+async function readQuestionResponse(response, onProgress) {
+  if (!response.body?.getReader) return new Uint8Array(await response.arrayBuffer());
+  const reader = response.body.getReader();
+  const chunks = [];
+  let received = 0;
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      chunks.push(value);
+      received += value.byteLength;
+      onProgress(received);
+    }
+  } finally {
+    reader.releaseLock();
+  }
+  const bytes = new Uint8Array(received);
+  let offset = 0;
+  for (const chunk of chunks) {
+    bytes.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  return bytes;
+}
+
 async function loadQuestionCorpus() {
   if (questionCorpusLoading || questionCorpus) return;
   questionCorpusLoading = true;
@@ -2067,11 +2092,25 @@ async function loadQuestionCorpus() {
   status.textContent = "正在加载提问…";
   retry.hidden = true;
   const controller = new AbortController();
-  const timeout = window.setTimeout(() => controller.abort(), 20000);
+  let idleTimeout;
+  const resetIdleTimeout = () => {
+    window.clearTimeout(idleTimeout);
+    idleTimeout = window.setTimeout(() => controller.abort(), 20000);
+  };
+  resetIdleTimeout();
+  const totalTimeout = window.setTimeout(() => controller.abort(), 180000);
   try {
     const response = await fetch(`${QUESTION_CORPUS_URL}?v=${encodeURIComponent(currentData.meta.data_cutoff)}`, { signal: controller.signal });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    const bytes = new Uint8Array(await response.arrayBuffer());
+    const totalBytes = Number(response.headers.get("Content-Length"));
+    resetIdleTimeout();
+    const bytes = await readQuestionResponse(response, received => {
+      resetIdleTimeout();
+      const progress = totalBytes > 0 ? ` / ${(totalBytes / 1048576).toFixed(1)} MB` : " MB";
+      status.textContent = `正在加载提问… ${(received / 1048576).toFixed(1)}${progress}`;
+    });
+    window.clearTimeout(idleTimeout);
+    status.textContent = "正在整理提问…";
     const body = new Blob([bytes]).stream();
     const stream = bytes[0] === 0x1f && bytes[1] === 0x8b ? body.pipeThrough(new DecompressionStream("gzip")) : body;
     questionCorpus = validateQuestionCorpus(JSON.parse(await new Response(stream).text()));
@@ -2083,7 +2122,8 @@ async function loadQuestionCorpus() {
     status.textContent = error.name === "AbortError" ? "加载超时，点击重试。" : "提问暂未加载成功，点击重试。";
     retry.hidden = false;
   } finally {
-    window.clearTimeout(timeout);
+    window.clearTimeout(idleTimeout);
+    window.clearTimeout(totalTimeout);
     questionCorpusLoading = false;
   }
 }
