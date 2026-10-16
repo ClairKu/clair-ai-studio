@@ -1,0 +1,533 @@
+{
+  "asOf": "2026-10-16",
+  "sources": [
+    {
+      "id": 1,
+      "title": "字节官网｜法人结构",
+      "url": "https://www.bytedance.com/en/corporate-structure",
+      "date": "官方·访问2026-10-16"
+    },
+    {
+      "id": 2,
+      "title": "字节官网｜董事会与集团介绍",
+      "url": "https://www.bytedance.com/en/",
+      "date": "官方·访问2026-10-16"
+    },
+    {
+      "id": 3,
+      "title": "第一财经｜香港主体更名",
+      "url": "https://www.yicai.com/news/101405112.html",
+      "date": "2022-05-08"
+    },
+    {
+      "id": 4,
+      "title": "第一财经｜张楠辞任及五条业务线",
+      "url": "https://www.yicai.com/news/101989635.html",
+      "date": "2024-02-07"
+    },
+    {
+      "id": 5,
+      "title": "界面｜原抖音汇报线转至张利东",
+      "url": "https://www.jiemian.com/article/10788713.html",
+      "date": "2024-02-07"
+    },
+    {
+      "id": 6,
+      "title": "经济观察网｜飞书、豆包与火山重组",
+      "url": "https://www.eeo.com.cn/2026/0730/979685.shtml",
+      "date": "2026-07-30"
+    },
+    {
+      "id": 7,
+      "title": "凤凰网｜产品与ToB GTM分工",
+      "url": "https://tech.ifeng.com/c/8vAwl6h9dP6",
+      "date": "2026-07-30"
+    },
+    {
+      "id": 8,
+      "title": "京报网｜豆包工作发布与扣子/TRAE整合",
+      "url": "https://news.bjd.com.cn/2026/08/25/11931441.shtml",
+      "date": "2026-08-25"
+    },
+    {
+      "id": 9,
+      "title": "财联社｜赵祺接管豆包产品",
+      "url": "https://www.cls.cn/detail/2154356",
+      "date": "2025-09-24"
+    },
+    {
+      "id": 10,
+      "title": "Seed官网｜模型与研究方向",
+      "url": "https://seed.bytedance.com/zh/",
+      "date": "官方·访问2026-10-16"
+    },
+    {
+      "id": 11,
+      "title": "新浪/三言引晚点｜Seed四个一级部门",
+      "url": "https://finance.sina.com.cn/stock/t/2026-08-20/doc-ininxkrs8084051.shtml",
+      "date": "2026-08-20"
+    },
+    {
+      "id": 12,
+      "title": "36氪｜AI数据与安全新一级部门",
+      "url": "https://www.36kr.com/newsflashes/3934989813710209",
+      "date": "2026-08-11"
+    },
+    {
+      "id": 13,
+      "title": "Seed官方｜成立Alignment & Preparedness",
+      "url": "https://seed.bytedance.com/zh/blog/seed-alignment-preparedness-team-looking-for-global-talents",
+      "date": "2026-10-14"
+    },
+    {
+      "id": 14,
+      "title": "北京商报｜严林向吴永辉汇报",
+      "url": "https://finance.eastmoney.com/a/202610133894082235.html",
+      "date": "2026-10-13"
+    },
+    {
+      "id": 15,
+      "title": "火山官方｜产品目录",
+      "url": "https://www.volcengine.com/product/list",
+      "date": "官方·访问2026-10-16"
+    },
+    {
+      "id": 16,
+      "title": "火山官方｜方舟说明",
+      "url": "https://docs.volcengine.com/docs/ark?lang=zh",
+      "date": "官方·访问2026-10-16"
+    },
+    {
+      "id": 17,
+      "title": "飞书官方｜豆包工作与豆包、飞书的关系",
+      "url": "https://www.feishu.cn/content/article/7677519271848610746",
+      "date": "官方·页面标注2026-08-24；持续更新"
+    },
+    {
+      "id": 18,
+      "title": "飞书官方｜大会及童遥、谢欣、林婵职务",
+      "url": "https://future.feishu.cn/?from=homepage",
+      "date": "2026-09-15"
+    },
+    {
+      "id": 19,
+      "title": "飞书官方｜aily更名及计费更新",
+      "url": "https://aily.feishu.cn/hc/1u7kleqg_1cnvbb55",
+      "date": "官方·含2026-08/09变更"
+    },
+    {
+      "id": 20,
+      "title": "扣子官方｜当前产品入口",
+      "url": "https://www.coze.cn/overview?from=landingpage",
+      "date": "官方·访问2026-10-16"
+    },
+    {
+      "id": 21,
+      "title": "扣子官方｜订阅升级与产品更名",
+      "url": "https://docs.coze.cn/guides_20260119_coze_premium_upgraded",
+      "date": "2026-01-18/19"
+    },
+    {
+      "id": 22,
+      "title": "扣子官方｜工作空间与资源分工",
+      "url": "https://docs.coze.cn/guides_teams",
+      "date": "官方·访问2026-10-16"
+    },
+    {
+      "id": 23,
+      "title": "豆包手机助手官网",
+      "url": "https://o.doubao.com/",
+      "date": "官方·访问2026-10-16"
+    },
+    {
+      "id": 24,
+      "title": "中兴官方｜NaviX Ultra上市",
+      "url": "https://www.zte.com.cn/china/about/news/20260916C1.html",
+      "date": "2026-09-16"
+    },
+    {
+      "id": 25,
+      "title": "高通官方｜与中兴、豆包的合作分工",
+      "url": "https://www.qualcomm.cn/news/releases/2026/09/releases-2026-09-16",
+      "date": "2026-09-16"
+    },
+    {
+      "id": 26,
+      "title": "每日经济新闻｜Ocean硬件负责人变动",
+      "url": "https://finance.eastmoney.com/a/202606123769585627.html",
+      "date": "2026-06-12"
+    },
+    {
+      "id": 27,
+      "title": "界面｜林夕离职及刘成城汇报线",
+      "url": "https://m.jiemian.com/article/14572612.html",
+      "date": "2026-06-11"
+    },
+    {
+      "id": 28,
+      "title": "36氪｜PICO由李晓凯接任",
+      "url": "https://finance.sina.cn/stock/jdts/2026-07-21/detail-iniiqknx2424994.d.html",
+      "date": "2026-07-21"
+    },
+    {
+      "id": 29,
+      "title": "TikTok官方｜美国合资公司及全球业务边界",
+      "url": "https://newsroom.tiktok.com/announcement-from-the-new-tiktok-usds-joint-venture-llc?lang=en",
+      "date": "2026-01-23"
+    },
+    {
+      "id": 30,
+      "title": "Skadden｜字节出售沐瞳交易",
+      "url": "https://www.skadden.com/about/news-and-rankings/news/2026/03/bytedance-to-sell-moonton-holdings",
+      "date": "2026-03-30"
+    },
+    {
+      "id": 31,
+      "title": "21财经｜懂车帝独立及IPO回应",
+      "url": "https://m.21jingji.com/article/20260227/herald/3d929357dc09499c9554c523b91f3674.html",
+      "date": "2026-02-27"
+    },
+    {
+      "id": 32,
+      "title": "第一财经｜抖音否认韩尚佑离职传闻",
+      "url": "https://www.yicai.com/brief/102528504.html",
+      "date": "2025年报道·本次重核"
+    },
+    {
+      "id": 33,
+      "title": "36氪｜抖音生活服务2026组织调整",
+      "url": "https://36kr.com/p/3756198617477639",
+      "date": "2026-04-07"
+    },
+    {
+      "id": 34,
+      "title": "新浪/鞭牛士｜齐俊元离职后创业",
+      "url": "https://finance.sina.com.cn/roll/2026-03-06/doc-inhpzrer5995243.shtml",
+      "date": "2026-03-06"
+    },
+    {
+      "id": 35,
+      "title": "财联社｜懂车帝独立公司获确认",
+      "url": "https://www.cls.cn/detail/1568374",
+      "date": "2024-01"
+    },
+    {
+      "id": 36,
+      "title": "扣子官方｜当前常见问题与编程入口",
+      "url": "https://docs.coze.cn/cozespace_coze_app_faq",
+      "date": "官方·访问2026-10-16"
+    }
+  ],
+  "people": [
+    {
+      "name": "梁汝波",
+      "role": "全球董事长；CEO",
+      "detail": "董事长由官网列示；CEO为2026公开报道口径",
+      "scope": "集团层",
+      "date": "2026官网 / 2026-08",
+      "sources": [
+        2,
+        8
+      ]
+    },
+    {
+      "name": "张一鸣",
+      "role": "创始人",
+      "detail": "非现任CEO；不据非正式影响力添加法定管理线",
+      "scope": "战略影响与经营职务区分",
+      "date": "官网",
+      "sources": [
+        2
+      ]
+    },
+    {
+      "name": "张利东",
+      "role": "抖音集团董事长（报道）",
+      "detail": "2024报道中韩尚佑、张超转向其汇报；不能称全球字节董事长",
+      "scope": "国内业务管理",
+      "date": "2024-02；现行细线待重证",
+      "sources": [
+        4,
+        5
+      ]
+    },
+    {
+      "name": "韩尚佑",
+      "role": "抖音负责人 / 总裁（报道）",
+      "detail": "抖音主干业务；2025离职传闻获否认",
+      "scope": "国内流量与生态",
+      "date": "2024-02 / 2025辟谣；2026新任命未获",
+      "sources": [
+        4,
+        32
+      ]
+    },
+    {
+      "name": "魏雯雯",
+      "role": "抖音电商负责人（历史报道）",
+      "detail": "电商业务；本轮未取到2026新任命",
+      "scope": "国内交易",
+      "date": "2024-02；现任待进一步确认",
+      "sources": [
+        4
+      ]
+    },
+    {
+      "name": "浦燕子",
+      "role": "抖音生活服务负责人（报道）",
+      "detail": "商户经营与本地生活；2026报道继续关联其组织调整",
+      "scope": "本地服务",
+      "date": "2026-04",
+      "sources": [
+        33
+      ]
+    },
+    {
+      "name": "赵修影",
+      "role": "抖音广告业务负责人（历史报道）",
+      "detail": "巨量体系相关；无充分2026证据不扩大其当前范围",
+      "scope": "广告商业化",
+      "date": "2024-02；现任待确认",
+      "sources": [
+        4
+      ]
+    },
+    {
+      "name": "张超",
+      "role": "头条、番茄相关业务负责人（历史报道）",
+      "detail": "2024调整名单；红果等新增产品的现行具体管理线待核",
+      "scope": "内容矩阵",
+      "date": "2024-02；现任待确认",
+      "sources": [
+        4,
+        5
+      ]
+    },
+    {
+      "name": "朱骏 / Alex",
+      "role": "应用产品上层负责人（报道）",
+      "detail": "2025赵祺向其汇报；Flow/Spring称谓应按报道时间理解",
+      "scope": "AI应用资源",
+      "date": "2025-09；完整2026汇报链未公开",
+      "sources": [
+        9
+      ]
+    },
+    {
+      "name": "赵祺",
+      "role": "豆包产品负责人",
+      "detail": "统筹整合后的豆包产品团队；谢欣向其汇报据7月报道",
+      "scope": "AI应用与办公产品",
+      "date": "2026-07/08",
+      "sources": [
+        6,
+        8
+      ]
+    },
+    {
+      "name": "童遥",
+      "role": "豆包工作产品负责人",
+      "detail": "飞书官方大会标注，适合对接办公Agent产品",
+      "scope": "办公Agent产品",
+      "date": "官方2026-09-15",
+      "sources": [
+        18
+      ]
+    },
+    {
+      "name": "谢欣",
+      "role": "飞书CEO；产品整合后向赵祺汇报",
+      "detail": "CEO称谓9月官网仍保留；职称保留不表示组织独立",
+      "scope": "飞书协作产品",
+      "date": "官方9月职务 + 7月汇报报道",
+      "sources": [
+        6,
+        18
+      ]
+    },
+    {
+      "name": "谭待",
+      "role": "火山引擎负责人 / ToB GTM统筹",
+      "detail": "模型云服务与整合后企业市场、销售、客户服务",
+      "scope": "企业AI商业化",
+      "date": "2026-07",
+      "sources": [
+        7
+      ]
+    },
+    {
+      "name": "林婵",
+      "role": "飞书首席商业官（官方大会）",
+      "detail": "7月报道销售线转向谭待；9月仍以飞书商业职务出席",
+      "scope": "企业采购与客户落地",
+      "date": "官方9月 + 7月报道",
+      "sources": [
+        7,
+        18
+      ]
+    },
+    {
+      "name": "史志隽",
+      "role": "飞书战略及市场负责人（报道）",
+      "detail": "7月报道调整为向谭待汇报",
+      "scope": "ToB市场与战略",
+      "date": "2026-07",
+      "sources": [
+        7
+      ]
+    },
+    {
+      "name": "吴永辉",
+      "role": "Seed负责人（报道）",
+      "detail": "统筹基础模型；四线和安全负责人向其汇报",
+      "scope": "模型研发",
+      "date": "2026-08/10",
+      "sources": [
+        11,
+        14
+      ]
+    },
+    {
+      "name": "李成刚",
+      "role": "Pretrain Data负责人",
+      "detail": "Seed基础模型预训练数据",
+      "scope": "模型数据",
+      "date": "2026-08报道",
+      "sources": [
+        11
+      ]
+    },
+    {
+      "name": "唐晟宇",
+      "role": "Horizon RL负责人",
+      "detail": "强化学习与模型能力提升",
+      "scope": "模型研发",
+      "date": "2026-08报道",
+      "sources": [
+        11
+      ]
+    },
+    {
+      "name": "秦禹嘉",
+      "role": "Product Posttrain-Work负责人",
+      "detail": "办公与Agent场景模型优化",
+      "scope": "模型应用适配",
+      "date": "2026-08报道",
+      "sources": [
+        11
+      ]
+    },
+    {
+      "name": "朱文佳",
+      "role": "Product Posttrain-Chat负责人",
+      "detail": "原Application团队更名，对话模型整合发布；不能沿用旧称“Seed唯一总负责人”",
+      "scope": "对话模型",
+      "date": "2026-08报道",
+      "sources": [
+        11
+      ]
+    },
+    {
+      "name": "严林",
+      "role": "Seed安全与对齐负责人（报道）",
+      "detail": "Alignment & Preparedness；向吴永辉汇报",
+      "scope": "模型与Agent安全",
+      "date": "2026-10媒体 + 官方成立确认",
+      "sources": [
+        13,
+        14
+      ]
+    },
+    {
+      "name": "王赢磊 / Adam Wang",
+      "role": "AI数据与安全一级部门负责人（报道）",
+      "detail": "集团级跨模态数据支撑；与严林岗位不同",
+      "scope": "数据供给与质量",
+      "date": "2026-08",
+      "sources": [
+        12
+      ]
+    },
+    {
+      "name": "李晓凯",
+      "role": "PICO新任业务负责人（报道）",
+      "detail": "替代周宏伟，负责XR业务",
+      "scope": "XR硬件",
+      "date": "2026-07",
+      "sources": [
+        28
+      ]
+    },
+    {
+      "name": "刘成城 / Kayden",
+      "role": "Ocean负责人（报道口径）",
+      "detail": "林夕此前向其汇报；6月之后完整现行组织待核",
+      "scope": "AI硬件",
+      "date": "2026-06",
+      "sources": [
+        27
+      ]
+    },
+    {
+      "name": "倪飞",
+      "role": "中兴终端事业部总裁、努比亚总裁",
+      "detail": "硬件厂商侧负责人，非字节员工",
+      "scope": "手机硬件合作方",
+      "date": "官方2026-09",
+      "sources": [
+        25
+      ]
+    },
+    {
+      "name": "周受资 / Shou Chew",
+      "role": "TikTok全球CEO",
+      "detail": "全球业务与战略；同时是USDS合资董事",
+      "scope": "海外业务",
+      "date": "官方2026-01",
+      "sources": [
+        29
+      ]
+    },
+    {
+      "name": "Adam Presser",
+      "role": "TikTok USDS合资CEO",
+      "detail": "美国安全、数据、算法与内容治理等特定职责",
+      "scope": "美国特殊治理主体",
+      "date": "官方2026-01",
+      "sources": [
+        29
+      ]
+    },
+    {
+      "name": "张楠",
+      "role": "原抖音集团CEO",
+      "detail": "2024卸任，后聚焦剪映；2026创作线全貌未充分公开",
+      "scope": "避免沿用旧CEO头衔",
+      "date": "2024-02",
+      "sources": [
+        4
+      ]
+    },
+    {
+      "name": "林夕",
+      "role": "原豆包手机硬件产品负责人",
+      "detail": "2026年6月报道已离职；继任者本轮未核实",
+      "scope": "不是当前对接名单",
+      "date": "2026-06",
+      "sources": [
+        26,
+        27
+      ]
+    },
+    {
+      "name": "齐俊元",
+      "role": "原豆包PC端负责人",
+      "detail": "报道其2025-11离职，2026-03创业",
+      "scope": "不是当前豆包PC负责人",
+      "date": "2026-03",
+      "sources": [
+        34
+      ]
+    }
+  ]
+}

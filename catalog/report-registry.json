@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "bytedance-group-map-2026-10-16",
     "ai-office-platform-financial-ecosystem-2026-10-14",
     "nasdaq-butler-version-growth-audit-2026-10-14",
     "baidu-xiaogu-fund-operations-2026-10-13",

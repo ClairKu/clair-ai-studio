@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 109;
+const DATA_VERSION = 110;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -221,6 +221,36 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "bytedance-group-map-2026-10-16",
+      groupId: "ai-platform",
+      title: "字节跳动集团全景｜抖音·火山·方舟·豆包·飞书·扣子·手机与关键人",
+      url: "https://clairku.github.io/clair-ai-studio/reports/bytedance-group-map-2026-10-16/",
+      preview: "bytedance-group-map-2026-10-16.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-16T13:30:00+08:00",
+      source: "截至2026-10-16｜集团名称与法人、七块业务地图、AI四层关系、十个产品对照、十二个调整节点、三十位关键人员｜36项官方/媒体证据，旧任职和未披露汇报线明确标注",
+      access: "production",
+      workType: "competitive-research",
+      tags: [
+        "字节跳动",
+        "抖音集团",
+        "豆包",
+        "豆包工作",
+        "飞书",
+        "火山引擎",
+        "方舟",
+        "扣子",
+        "Seed",
+        "组织架构",
+        "负责人",
+        "手机",
+        "调研",
+        "HTML",
+        "生产"
+      ]
+    },
     {
       id: "ai-office-platform-financial-ecosystem-2026-10-14",
       groupId: "ai-platform",
@@ -3481,6 +3511,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "bytedance-group-map-2026-10-16": "ai-platform",
   "ai-office-platform-financial-ecosystem-2026-10-14": "ai-platform",
   "nasdaq-butler-version-growth-audit-2026-10-14": "growth-insights",
   "baidu-xiaogu-fund-operations-2026-10-13": "growth-insights",
