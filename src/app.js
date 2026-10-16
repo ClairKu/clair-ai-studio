@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 110;
+const DATA_VERSION = 111;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -221,6 +221,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "baixiaosheng-demo-2026-08-20",
+      groupId: "ai-platform",
+      title: "财经百晓生｜完整交互演示 · 外发交流版",
+      url: "https://clairku.github.io/clair-ai-studio/reports/baixiaosheng-demo-2026-08-20/",
+      preview: "baixiaosheng-demo-2026-08-20.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-16T15:30:00+08:00",
+      source: "用户提供 2026-08-20 外发包｜95张图片、四场景评测、产品界面、技术架构、166条员工记录与Skills、八步问答链路｜原材料评测截至2026-08-12，非最新状态核验",
+      access: "production",
+      workType: "product-demo",
+      tags: ["财经百晓生", "财经丹青手", "数字员工", "Skills", "Agent", "投研", "产品演示", "HTML", "生产"],
+    },
     {
       id: "bytedance-group-map-2026-10-16",
       groupId: "ai-platform",
@@ -3511,6 +3525,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "baixiaosheng-demo-2026-08-20": "ai-platform",
   "bytedance-group-map-2026-10-16": "ai-platform",
   "ai-office-platform-financial-ecosystem-2026-10-14": "ai-platform",
   "nasdaq-butler-version-growth-audit-2026-10-14": "growth-insights",
