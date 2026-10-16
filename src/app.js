@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 112;
+const DATA_VERSION = 113;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -221,6 +221,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "e-da-longwin-follow-analysis-2026-10-16",
+      groupId: "growth-insights",
+      title: "E大近期发车与跟车经营｜150份 · S定投",
+      url: "https://clairku.github.io/clair-ai-studio/reports/e-da-longwin-follow-analysis-2026-10-16/",
+      preview: "e-da-longwin-follow-analysis-2026-10-16.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-16T17:24:46+08:00",
+      source: "2026-10-16 核验｜长赢发车记录、跟车人数与金额分析｜生产汇总与策略页面交叉核对，明确确认/申报、买卖方向、去重与数据缺项",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["且慢", "E大", "长赢", "发车", "跟车人数", "交易金额", "数据分析", "HTML", "生产"],
+    },
     {
       id: "yingmi-baixiaosheng-product-panorama-2026-10-16",
       groupId: "xiaogu",
@@ -3431,6 +3445,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "e-da-longwin-follow-analysis-2026-10-16": "data-analysis",
   "yingmi-baixiaosheng-product-panorama-2026-10-16": "product-planning",
   "gpt-finance-capability-landscape-2026-10-10": "reporting",
   "knowledge-report-hub": "product-demo",
@@ -3549,6 +3564,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "e-da-longwin-follow-analysis-2026-10-16": "growth-insights",
   "yingmi-baixiaosheng-product-panorama-2026-10-16": "xiaogu",
   "baixiaosheng-demo-2026-08-20": "ai-platform",
   "bytedance-group-map-2026-10-16": "ai-platform",
