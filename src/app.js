@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 111;
+const DATA_VERSION = 112;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -221,6 +221,29 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "yingmi-baixiaosheng-product-panorama-2026-10-16",
+      groupId: "xiaogu",
+      title: "财经百晓生产品全景｜功能、数据、模式、权益与证据边界",
+      url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-baixiaosheng-product-panorama-2026-10-16/",
+      preview: "yingmi-baixiaosheng-product-panorama-2026-10-16.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-16T15:00:00+08:00",
+      source: "基于盈米本体检索、实际入口与官方隐私政策核对，覆盖产品定位、功能模块、数据能力、账号权益、典型流程与待核实事项；已上线、实现存在、文档声明与未知分别标记。",
+      access: "production",
+      workType: "product-planning",
+      tags: [
+        "财经百晓生",
+        "Finnexus",
+        "盈米图书馆",
+        "金融AI",
+        "产品全景",
+        "本体",
+        "HTML",
+        "生产"
+      ]
+    },
     {
       id: "baixiaosheng-demo-2026-08-20",
       groupId: "ai-platform",
@@ -3408,6 +3431,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "yingmi-baixiaosheng-product-panorama-2026-10-16": "product-planning",
   "gpt-finance-capability-landscape-2026-10-10": "reporting",
   "knowledge-report-hub": "product-demo",
   "personal-agent-yingmi-executive-strategy-2026-10-10": "reporting",
@@ -3525,6 +3549,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "yingmi-baixiaosheng-product-panorama-2026-10-16": "xiaogu",
   "baixiaosheng-demo-2026-08-20": "ai-platform",
   "bytedance-group-map-2026-10-16": "ai-platform",
   "ai-office-platform-financial-ecosystem-2026-10-14": "ai-platform",
