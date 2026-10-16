@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 113;
+const DATA_VERSION = 114;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -221,6 +221,36 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "workbuddy-capability-inventory-2026-10-16",
+      groupId: "ai-platform",
+      title: "WorkBuddy 能力全景清单｜连接器·技能·专家·专家团",
+      url: "https://clairku.github.io/clair-ai-studio/reports/workbuddy-capability-inventory-2026-10-16/",
+      preview: "workbuddy-capability-inventory-2026-10-16.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-16T17:05:40+08:00",
+      source: "2026-10-16｜官方市场全量分页与详情核查｜45,169 条能力、1,228 个已核实机构｜机构/能力类型/场景筛选、全文检索、专家团成员、市场使用安装计数、CSV导出",
+      access: "production",
+      workType: "competitive-research",
+      tags: [
+        "WorkBuddy",
+        "连接器",
+        "技能",
+        "专家",
+        "专家团",
+        "机构",
+        "场景",
+        "市场清单",
+        "MCP",
+        "Skills",
+        "Agent",
+        "盈米",
+        "生态",
+        "HTML",
+        "生产"
+      ]
+    },
     {
       id: "e-da-longwin-follow-analysis-2026-10-16",
       groupId: "growth-insights",
@@ -3564,6 +3594,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "workbuddy-capability-inventory-2026-10-16": "ai-platform",
   "e-da-longwin-follow-analysis-2026-10-16": "growth-insights",
   "yingmi-baixiaosheng-product-panorama-2026-10-16": "xiaogu",
   "baixiaosheng-demo-2026-08-20": "ai-platform",
