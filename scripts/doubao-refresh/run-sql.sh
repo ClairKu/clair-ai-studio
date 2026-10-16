@@ -63,14 +63,27 @@ echo "### 4 trade behaviors"; R "SELECT u.cohort, SUM(u.elig) eligible,
 fi
 
 if selected 5; then
-echo "### 5 flow behaviors"; R "SELECT u.cohort,
- SUM(EXISTS(SELECT 1 FROM qm_meta.trade_detail t WHERE t.user_id=u.pmid AND t.canceled=0
-   AND $INFLOW_PRED AND t.accept_time>=u.fb AND t.accept_time<'$CUT')) funded,
- 0 no_rows,
- SUM(u.elig AND ((SELECT SUM(d.output_amount) FROM ying99_asset.dwd_app_service_account_profit_combine d
-   WHERE d.account3_id=u.account3_id AND d.relation_account_type='ROOT' AND d.cal_date>=DATE(u.fb) AND d.cal_date<='$AD')>0
-  OR EXISTS(SELECT 1 FROM qm_meta.trade_detail t WHERE t.user_id=u.pmid AND t.canceled=0 AND t.redeem_amount>0 AND t.accept_time>=u.fb AND t.accept_time<'$CUT'))) redeem_union
- FROM ($U) u GROUP BY u.cohort" 2>&1 | tail -6
+echo "### 5 flow behaviors"; R "WITH users AS ($U), trade_flags AS (
+ SELECT u.pmid,
+  MAX(CASE WHEN $INFLOW_PRED THEN 1 ELSE 0 END) funded,
+  MAX(CASE WHEN t.redeem_amount>0 THEN 1 ELSE 0 END) redeemed
+ FROM users u JOIN qm_meta.trade_detail t ON t.user_id=u.pmid AND t.canceled=0
+  AND t.accept_time>=u.fb AND t.accept_time<'$CUT'
+ WHERE t.redeem_amount>0 OR ($INFLOW_PRED) GROUP BY u.pmid
+), remaining_eligible AS (
+ SELECT u.* FROM users u LEFT JOIN trade_flags t ON t.pmid=u.pmid
+ WHERE u.elig=1 AND COALESCE(t.redeemed,0)=0
+), asset_output AS (
+ SELECT u.pmid,SUM(d.output_amount) output_total
+ FROM remaining_eligible u JOIN ying99_asset.dwd_app_service_account_profit_combine d USE INDEX(idx_user)
+  ON d.account3_id=u.account3_id AND d.relation_account_type='ROOT'
+  AND d.cal_date>=DATE(u.fb) AND d.cal_date<='$AD'
+ WHERE d.cal_date>='2026-08-28' GROUP BY u.pmid
+)
+SELECT u.cohort,SUM(COALESCE(t.funded,0)) funded,0 no_rows,
+ SUM(u.elig AND (COALESCE(t.redeemed,0)=1 OR a.output_total>0)) redeem_union
+FROM users u LEFT JOIN trade_flags t ON t.pmid=u.pmid
+ LEFT JOIN asset_output a ON a.pmid=u.pmid GROUP BY u.cohort" 2>&1 | tail -6
 
 fi
 

@@ -807,7 +807,7 @@ def card(u):
             f'</div>')
 
 # ───── 汇总矩阵 ─────
-def matrix(us):
+def matrix(us, first_invest_scope=False):
     rows = []
     funding_matrix = bool(us) and all((u.get("flags") or {}).get("existing_reinvested") for u in us)
     for u in us:
@@ -817,8 +817,9 @@ def matrix(us):
         total_questions, first_questions = question_counts(u)
         registered_date = str(u.get("registered_at") or "")
         first_date = str(u.get("first_inflow_ever") or "")
-        date_cells = (f'<td class="num" data-sort-value="{esc(registered_date)}">{fmt_compact_date(registered_date)}</td>'
-                      f'<td class="num" data-sort-value="{esc(first_date)}">{fmt_compact_date(first_date)}</td>')
+        date_cells = f'<td class="num" data-sort-value="{esc(registered_date)}">{fmt_compact_date(registered_date)}</td>'
+        if not first_invest_scope:
+            date_cells += f'<td class="num" data-sort-value="{esc(first_date)}">{fmt_compact_date(first_date)}</td>'
         funding_cells = (f'<td class="num">{money(first_amount)}</td>'
                          f'<td class="num">{money(d["inflow_after"])}</td><td class="num">{len(txns)}</td>'
                          f'<td class="num">{first_questions if first_questions is not None else "—"}</td>'
@@ -852,10 +853,12 @@ def matrix(us):
   {app_operation_cells(u)}
 </tr>''')
     columns = '<th>用户</th><th>客群</th>' + ('' if funding_matrix else '<th>画像</th>')
-    columns += '<th>注册日</th><th title="历史第一笔新增入金的日期，不是绑定后首笔的替代值">入金日</th>'
+    columns += '<th>注册日</th>'
+    if not first_invest_scope:
+        columns += '<th title="历史第一笔新增入金的日期，不是绑定后首笔的替代值">入金日</th>'
     columns += ('<th>绑定日</th><th title="绑定日及之前最近日快照">绑定时资产</th>'
                 '<th title="数据截止年份1月1日起，严格在绑定之前的新增入金">今年绑前入金</th>'
-                '<th title="严格在绑定之前的有效买卖、充值或赎回及产品转换，不含内部调仓和自动回款">最近交易日</th><th>绑定后新增入金</th><th>入金笔数</th><th>当前资产</th>') if funding_matrix else ('<th>绑定日</th><th title="绑定后首笔新增入金的日期">首笔入金日</th><th>间隔</th>'
+                '<th title="严格在绑定之前的有效买卖、充值或赎回及产品转换，不含内部调仓和自动回款">最近交易日</th><th>绑定后新增入金</th><th>入金笔数</th><th>当前资产</th>') if funding_matrix else ('<th>绑定日</th><th title="绑定后首笔新增入金的日期">' + ('入金日' if first_invest_scope else '首笔入金日') + '</th><th>间隔</th>'
                 '<th title="绑定后第一笔新增入金金额">首笔入金</th><th>总入金</th><th>入金笔数</th>'
                 '<th title="绑定后至首笔入金之前的千问提问数，不含入金同刻及之后">首笔入金提问数</th><th>总提问数</th>'
                 '<th>当前资产</th>')
@@ -941,7 +944,7 @@ def scope_section(sc):
   {cells}
   {matched_amount_note}
   <h2 class="section-h matrix-h">个例汇总</h2>
-  {matrix(us) if us else ""}
+  {matrix(us, sc["id"] in ("first_inv", "new_first_inv", "existing_first_inv")) if us else ""}
   <h2 class="section-h cases-h">个例分析 <span class="muted">{esc(sc["label"])} {a["n"]}人・第<b class="pg-cur">1</b>人</span></h2>
   {cards}
   {pending_html}

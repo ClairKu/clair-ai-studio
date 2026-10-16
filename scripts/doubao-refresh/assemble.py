@@ -192,6 +192,7 @@ for co in COHORTS:
 out = dict(template)
 out["app_usage"] = app_usage
 out["meta"] = {**template["meta"], "generated_at": cutoff, "data_cutoff": cutoff,
+               "asset_as_of": q4["as_of"],
                "latest_day_is_partial": True,
                "privacy": "只公开统计结果；2026-08-24 起按业务方要求，小分组不再合并或隐藏；页面不含用户身份标识与原始对话",
                "privacy_policy": "audience-full-disclosure-v2"}

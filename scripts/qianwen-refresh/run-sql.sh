@@ -65,7 +65,7 @@ echo "### 5 flow behaviors"; R "SELECT u.cohort,
  SUM(EXISTS(SELECT 1 FROM qm_meta.trade_detail t WHERE t.user_id=u.pmid AND t.canceled=0
    AND $INFLOW_PRED AND t.accept_time>=u.fb AND t.accept_time<'$CUT')) funded,
  0 no_rows,
- SUM(u.elig AND ((SELECT SUM(d.output_amount) FROM ying99_asset.dwd_app_service_account_profit_combine d
+ SUM(u.elig AND ((SELECT SUM(d.output_amount) FROM ying99_asset.dwd_app_service_account_profit_combine d USE INDEX(idx_user)
    WHERE d.account3_id=u.account3_id AND d.relation_account_type='ROOT' AND d.cal_date>=DATE(u.fb) AND d.cal_date<='$AD')>0
   OR EXISTS(SELECT 1 FROM qm_meta.trade_detail t WHERE t.user_id=u.pmid AND t.canceled=0 AND t.redeem_amount>0 AND t.accept_time>=u.fb AND t.accept_time<'$CUT'))) redeem_union
  FROM ($U) u GROUP BY u.cohort" 2>&1 | tail -6

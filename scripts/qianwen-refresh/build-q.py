@@ -188,7 +188,8 @@ for co in ("all", "new", "existing"):
     }
     a = ({k: ast["new"].get(k, 0) + ast["existing"].get(k, 0) for k in ast["new"]}
          if co == "all" else ast[co])
-    wan = round(ast["new"]["wan"] + ast["existing"]["wan"], 2) if co == "all" else round(ast[co]["wan"], 2)
+    # Use the exact same cohort aggregate as the segment panel; round only once.
+    wan = round(F(sg[co]["asset_wan"]), 2)
     hcnt = a["has_assets"]
     business[co] = {
         "holding_amount": {"accounts": hcnt, "amount_wan": wan,

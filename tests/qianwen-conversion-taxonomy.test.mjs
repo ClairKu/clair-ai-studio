@@ -139,9 +139,15 @@ test('Case layout stays compact, hides unreviewed slices and labels old first/ne
     assert.doesNotMatch(page,/首投平均间隔|二次平均间隔|暂无二次入金间隔/);
     assert.equal((page.match(/<th[^>]*>首笔入金<\/th><th>总入金<\/th><th>入金笔数<\/th><th[^>]*>首笔入金提问数<\/th><th>总提问数<\/th>/g)||[]).length,6);
     assert.match(page,/<th[^>]*>绑定时资产<\/th><th[^>]*>今年绑前入金<\/th><th[^>]*>最近交易日<\/th><th>绑定后新增入金<\/th><th>入金笔数<\/th><th>当前资产<\/th>/);
-    assert.equal((page.match(/<th>注册日<\/th><th[^>]*>入金日<\/th><th>绑定日<\/th>/g)||[]).length,7);
-    assert.equal((page.match(/<th>注册日<\/th><th[^>]*>入金日<\/th>/g)||[]).length,7);
-    assert.equal((page.match(/<th>绑定日<\/th><th[^>]*>首笔入金日<\/th><th>间隔<\/th>/g)||[]).length,6);
+    assert.equal((page.match(/<th>注册日<\/th><th[^>]*>入金日<\/th><th>绑定日<\/th>/g)||[]).length,4);
+    assert.equal((page.match(/<th>注册日<\/th><th>绑定日<\/th><th[^>]*>入金日<\/th>/g)||[]).length,3);
+    assert.equal((page.match(/<th>绑定日<\/th><th[^>]*>首笔入金日<\/th><th>间隔<\/th>/g)||[]).length,3);
+    for(const id of ['first_inv','new_first_inv','existing_first_inv']) {
+      const head=page.match(new RegExp(`<section class="scope" id="scope-${id}"[^>]*>[\\s\\S]*?<thead>([\\s\\S]*?)</thead>`))[1];
+      assert.equal((head.match(/>入金日<\/th>/g)||[]).length,1,id);
+      assert.doesNotMatch(head,/>首笔入金日<\/th>/,id);
+      assert.equal((head.match(/<th(?:>|\s)/g)||[]).length,16,id);
+    }
     assert.match(page,/data-sort-value="2025-01-01 10:00:00">25-01-01/);
     assert.match(page,/data-sort-value="2026-10-10 10:00:00">26-10-10/);
     assert.match(page,/data-sort-value="2026-10-10 11:00:00">26-10-10/);

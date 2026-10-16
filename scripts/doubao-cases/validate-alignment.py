@@ -18,8 +18,19 @@ if main_cutoff != case_cutoff:
 
 segments = {item["id"]: item for item in main["segments"]["items"]}
 users = cases["users"]
+asset_dates = {segments[key]["asset_as_of"] for key in ("new_inv", "first_inv", "new_first_inv", "existing_reactivated", "existing_first_inv")}
+if len(asset_dates) != 1:
+    raise SystemExit("主看板各案例客群的资产日期不一致")
+asset_day = next(iter(asset_dates))
+if not cases["meta"].get("assets_audit_complete") or cases["meta"].get("asset_as_of") != asset_day:
+    raise SystemExit("案例资产尚未完成同日全员核验，禁止发布")
 
 for user in users:
+    asset = user.get("asset_latest")
+    if not asset or asset.get("cal_date") != asset_day or asset.get("status") not in ("exact", "verified_zero"):
+        raise SystemExit("案例存在缺失、未核实或不同日期的资产，禁止按零计入总资产")
+    if not asset.get("basis") or (asset["status"] == "verified_zero" and float(asset["ta"]) != 0):
+        raise SystemExit("案例资产审查缺少依据或零值不一致")
     inflow = float(user["derived"].get("inflow_after") or 0)
     if inflow <= 0 or not user.get("inflow_txns"):
         raise SystemExit(f"案例 {user['pmid']} 不属于新增入金集合")
@@ -57,6 +68,8 @@ for scope_id in scope_ids:
         "inflow_accounts": sum(float(u["derived"]["inflow_after"] or 0) > 0 for u in scope_users),
         "inflow_transactions": sum(len(u.get("inflow_txns") or []) for u in scope_users),
         "inflow_amount_wan": round(sum(float(u["derived"]["inflow_after"] or 0) for u in scope_users) / 10000, 4),
+        "total_asset_wan": round(sum(float(u["asset_latest"]["ta"]) for u in scope_users) / 10000, 2),
+        "holder_accounts": sum(float(u["asset_latest"]["ta"]) > 0 for u in scope_users),
     }
     for field, value in actual.items():
         expected_value = expected[field]
@@ -83,4 +96,4 @@ if reinvested["population_accounts"] != all_segment["inflow_accounts"]:
 if reinvested["population_accounts"] != reinvested["inflow_accounts"]:
     raise SystemExit("再投客群包含非新增入金用户")
 
-print(f"两张看板口径一致：{main_cutoff}，新增入金客群、5 个案例客群及案例并集全部闭合；老户唤回 {len(recalled)} = 首投 {len(recall_first)} + 清仓后唤回 {len(recall_returned)}。")
+print(f"两张看板口径一致：{main_cutoff}，资产日 {asset_day} 全员核实；新增入金、5 个案例客群的人数/笔数/金额/资产全部闭合；老户唤回 {len(recalled)} = 首投 {len(recall_first)} + 清仓后唤回 {len(recall_returned)}。")

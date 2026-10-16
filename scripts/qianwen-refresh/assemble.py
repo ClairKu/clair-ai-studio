@@ -194,6 +194,7 @@ out = dict(template)
 out["schema_version"] = "qianwen-user-acquisition-v8"
 out["app_usage"] = app_usage
 out["meta"] = {**template["meta"], "generated_at": cutoff, "data_cutoff": cutoff,
+               "asset_as_of": q4["as_of"],
                "latest_day_is_partial": True,
                "privacy": "公开总体统计与去标识、脱敏的提问，不含用户或会话标识",
                "privacy_policy": "audience-full-disclosure-v2"}

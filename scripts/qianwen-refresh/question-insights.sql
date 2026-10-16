@@ -17,21 +17,25 @@ WITH nu AS (
   JOIN ying99_qieman.qwen_a2a_session_map s
     ON s.qmuser_user_id = nu.pmid
    AND s.is_deleted = 0
-   AND s.created_at >= nu.fb
    AND s.created_at < '__CUT__'
+  JOIN ying99_xiaogu3_qa.agent_dj_sessions owner_session
+    ON CAST(owner_session.session_id AS CHAR) = CAST(s.session_id AS CHAR)
+   AND owner_session.qmuser_user_id = nu.pmid
+   AND owner_session.is_deleted = 0
 ), msg AS (
   SELECT
     nu.pmid,
     m.session_id,
-    m.created_at,
+    m.dj_gmt_create AS created_at,
     REGEXP_REPLACE(TRIM(m.user_input), '[[:space:]]+', ' ') AS q
   FROM nu
   JOIN session_map s ON s.qmuser_user_id = nu.pmid
   JOIN ying99_xiaogu3_qa.agent_dj_messages m
     ON m.session_id = s.session_id
    AND m.is_deleted = 0
-   AND m.created_at >= nu.fb
-   AND m.created_at < '__CUT__'
+   AND m.role = 'USER'
+   AND m.dj_gmt_create >= nu.fb
+   AND m.dj_gmt_create < '__CUT__'
   WHERE m.user_input IS NOT NULL
     AND TRIM(m.user_input) <> ''
 ), classified AS (
@@ -71,7 +75,7 @@ WITH nu AS (
     ROW_NUMBER() OVER (PARTITION BY pmid ORDER BY created_at, session_id, q) AS user_question_number
   FROM classified
 ), per_user AS (
-  SELECT pmid, COUNT(*) AS questions, COUNT(DISTINCT DATE(DATE_ADD(created_at, INTERVAL 8 HOUR))) AS active_days,
+  SELECT pmid, COUNT(*) AS questions, COUNT(DISTINCT DATE(created_at)) AS active_days,
     SUM(is_legacy_preset) AS preset_questions, SUM(is_short_followup) AS short_followups
   FROM classified
   GROUP BY pmid

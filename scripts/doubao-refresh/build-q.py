@@ -195,7 +195,9 @@ for co in ("all", "new", "existing"):
     }
     a = ({k: ast["new"].get(k, 0) + ast["existing"].get(k, 0) for k in ast["new"]}
          if co == "all" else ast[co])
-    wan = round(ast["new"]["wan"] + ast["existing"]["wan"], 2) if co == "all" else round(ast[co]["wan"], 2)
+    # 同一客群只对完整 ROOT 总和取整一次；不能把已取整的新老金额再次相加。
+    # 与分客群面板使用同一精确聚合，避免同一总资产出现 0.01 万元的舍入差。
+    wan = round(F(sg[co]["asset_wan"]), 2)
     hcnt = a["has_assets"]
     business[co] = {
         "holding_amount": {"accounts": hcnt, "amount_wan": wan,

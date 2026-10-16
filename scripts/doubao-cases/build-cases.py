@@ -18,6 +18,7 @@ SRC = Path(sys.argv[1]); OUT = Path(sys.argv[2])
 data = json.load(open(SRC))
 users = data["users"]; META = data["meta"]
 CUT = META["cutoff"]  # 'YYYY-MM-DD HH:MM'
+ASSET_DAY = META.get("asset_as_of") or max((str((u.get("asset_latest") or {}).get("cal_date") or "")[:10] for u in users), default="") or "—"
 
 # 个案洞察由作者逐例研判，不用固定字段模板拼接。兼容已经生成、尚未内嵌 insight 的 users.json。
 insight_file = Path(__file__).with_name("narratives.json")
@@ -158,9 +159,9 @@ def timeline(u):
     # 豆包会话：只有 OAuth 令牌签发时刻，没有提问文本；授权当刻那一次不重复列，其余最多列 6 次
     toks = [dt(x) for x in (u.get("channels") or {}).get("tokens", []) if dt(x) and dt(x) >= fb and (dt(x) - fb).total_seconds() > 120]
     for t in toks[:6]:
-        ev.append((t, "ask", "回到豆包发起会话（内容协议层不可得）"))
+        ev.append((t, "ask", "豆包 OAuth 令牌签发（活动代理，提问内容不可得）"))
     if len(toks) > 6:
-        ev.append((toks[-1], "ask", f"……豆包侧共 {len(toks)} 次会话，最近一次在 {fmt_t(toks[-1].isoformat(), True)}"))
+        ev.append((toks[-1], "ask", f"……豆包侧共 {len(toks)} 条后续令牌记录，最近一次在 {fmt_t(toks[-1].isoformat(), True)}"))
     for tr in u["trades"]:
         t = dt(tr["accept_time"])
         if t < fb: continue
@@ -254,7 +255,7 @@ def decision_chain_panel(u):
 
     asks = sorted((u.get("asks") or []), key=lambda row: row.get("ts") or "")
     n_tok = int((u.get("channels") or {}).get("doubao_sessions") or 0)
-    steps.append(("intent", "入口触发", chain_time(u.get("fb")), f"完成豆包 OAuth 授权绑定；豆包侧共 {n_tok} 次会话，提问内容协议层不可得" if n_tok else "完成豆包 OAuth 授权绑定，此后豆包侧没有再产生会话"))
+    steps.append(("intent", "入口触发", chain_time(u.get("fb")), f"完成豆包 OAuth 授权绑定；豆包侧共 {n_tok} 条令牌记录，仅代表活动代理，提问内容不可得" if n_tok else "完成豆包 OAuth 授权绑定，此后未见令牌记录"))
     if asks and (not decision_at or (dt(asks[0].get("ts")) or decision_at) <= decision_at):
         first_ask = asks[0]
         steps.append(("intent", "需求出现", chain_time(first_ask.get("ts")), f'且慢 App 小顾提出“{short_quote(first_ask.get("text"))}”'))
@@ -513,14 +514,14 @@ def path_summary(u):
     toks = sorted(dt(x) for x in (u.get("channels") or {}).get("tokens", []) if dt(x) and dt(x) >= fb)
     later = [t for t in toks if (t - fb).total_seconds() > 120]
     if not later:
-        parts.append('豆包侧授权之后没有再产生会话，直接去且慢下单了')
+        parts.append('豆包授权后未见后续令牌记录，后续入金可见于且慢')
     else:
         near = [t for t in later if fbuy and 0 <= (fbuy - t).total_seconds() <= 3600]
         if near:
             mins = int((fbuy - near[-1]).total_seconds() // 60)
-            parts.append(f'下单前 {mins} 分钟刚在豆包发起过会话（提问内容协议层不可得）')
+            parts.append(f'入金前 {mins} 分钟有豆包令牌记录，实际问答内容不可得')
         else:
-            parts.append(f'豆包侧绑定后又有 {len(later)} 次会话，但下单时段没有回到豆包（提问内容不可得）')
+            parts.append(f'豆包绑定后另有 {len(later)} 条令牌记录，入金前一小时未见令牌活动')
     asks = sorted(u["asks"], key=lambda a: a["ts"])
     if asks:
         parts.append(f'在且慢 App 内向小顾提问 {len(asks)} 次')
@@ -541,15 +542,15 @@ def top_stats(u):
     dates_html = f'<small>{dates}</small>' if dates else ''
     q = len(u["asks"]); m = len(ch.get("app_mia", [])); w = int(ch.get("wechat_msgs", 0) or 0); db = int(ch.get("doubao_sessions", 0) or 0)
     total = db + q + m + w
-    chs = [f'豆包 {db} 次会话' if db else "", f'且慢 {q + m} 条' if (q + m) else "", f'微信 {w} 条' if w else ""]
-    chs = " · ".join(x for x in chs if x) or "三端均无会话"
-    icon = (f'<button type="button" class="mini-ic" data-asks="{u["pmid"]}" title="查看豆包会话与且慢小顾、微信小顾的全部记录" aria-label="查看全部会话记录">'
+    chs = [f'豆包令牌 {db} 条' if db else "", f'且慢提问 {q + m} 条' if (q + m) else "", f'微信提问 {w} 条' if w else ""]
+    chs = " · ".join(x for x in chs if x) or "三端均无记录"
+    icon = (f'<button type="button" class="mini-ic" data-asks="{u["pmid"]}" title="查看豆包令牌与且慢小顾、微信小顾的全部记录" aria-label="查看全部活动记录">'
             '<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1.1-4.3A8 8 0 1 1 21 12z"/></svg></button>') if total else ""
     return (f'<div class="case-facts" aria-label="个例关键结果">'
             f'<div class="fact primary"><span>绑定后入金</span><b class="num">{money(d["inflow_after"])} 元</b><small>{asset_sub}</small></div>'
             f'<div class="fact"><span>首笔决策时长</span><b class="num">{dur(u["fb"], first_in)}</b><small>豆包绑定 → 首笔入金</small></div>'
             f'<div class="fact"><span>入金节奏</span><b class="num">{len(inf) if inf else d["buys_after"]} 笔</b>{dates_html}</div>'
-            f'<div class="fact"><span>会话与提问</span><b class="num">{total} 次{icon}</b><small>{chs}</small></div>'
+            f'<div class="fact"><span>活动与提问记录</span><b class="num">{total} 条{icon}</b><small>{chs}</small></div>'
             f'</div>')
 
 def holdings_block(u):
@@ -693,7 +694,7 @@ def matrix(us):
   <td class="wrap">{dev_txt}</td>
 </tr>''')
     return f'''<div class="scrollx"><table class="matrix">
-<thead><tr><th>用户</th><th>客群</th><th>画像</th><th>绑定</th><th>绑定后首笔入金</th><th>间隔</th><th title="充值盈米宝或银行卡直接投资">入金</th><th>当前资产</th><th>风测</th><th title="豆包会话令牌次数 / 且慢 App 小顾提问条数">豆包会话 / 提问</th><th>App 使用证据</th></tr></thead>
+<thead><tr><th>用户</th><th>客群</th><th>画像</th><th>绑定</th><th>绑定后首笔入金</th><th>间隔</th><th title="充值盈米宝或银行卡直接投资">入金</th><th>{ASSET_DAY} 资产</th><th>风测</th><th title="豆包 OAuth 令牌活动代理 / 且慢 App 小顾提问条数">豆包令牌 / 提问</th><th>App 使用证据</th></tr></thead>
 <tbody>{"".join(rows)}</tbody></table></div>'''
 
 def short_duration(seconds):
@@ -731,7 +732,7 @@ def scope_section(sc):
   <div class="cell"><b>{a["n"]}</b><span>用户数</span><em>{population_note}</em></div>
   <div class="cell"><b>{wan(a["inflow"])}</b><span>总入金</span><em>入金 {inflow_people} 人 · {inflow_count} 笔</em></div>
   <div class="cell"><b>{wan(a["asset"])}</b><span>总资产</span><em>持有资产 {asset_people} 人 · 快照 {asset_date_txt}</em></div>
-  <div class="cell"><b>{a["sessions"]:,}</b><span>豆包会话</span><em>且慢小顾提问 {a["asks"]:,} 条 · 豆包侧无提问文本</em></div>
+  <div class="cell"><b>{a["sessions"]:,}</b><span>豆包令牌记录</span><em>活动代理 · 且慢小顾提问 {a["asks"]:,} 条</em></div>
   <div class="cell decision" title="绑定豆包到第一笔入金，按 {len(durs)} 位有入金记录的用户计算"><b>{avg_txt}</b><span>平均决策时长</span><em>中位数 {med_txt} · 样本 {len(durs)} 人</em></div>
 </div>'''
     cards = "\n".join(card(u) for u in us) if us else '<div class="note">该口径下暂无用户。</div>'
@@ -792,12 +793,12 @@ _max_ask_share = (_tok_n(_max_ask_user) / Z["sessions"] * 100) if _max_ask_user 
 _max_ask_inflow_share = (float(_max_ask_user["derived"].get("inflow_after") or 0) / Z["inflow"] * 100) if _max_ask_user and Z["inflow"] else 0
 
 INSIGHTS = [
-    f'<b>成效</b>{META["bound_total"]:,} 位绑定用户中识别出 {Z["n"]} 位新投、{F1["n"]} 位首投；累计入金 {wan(Z["inflow"])}，当前资产 {wan(Z["asset"])}。',
+    f'<b>成效</b>{META["bound_total"]:,} 位绑定用户中识别出 {Z["n"]} 位新投、{F1["n"]} 位首投；累计入金 {wan(Z["inflow"])}，{ASSET_DAY} 资产 {wan(Z["asset"])}。',
     f'<b>行为</b>绑定到首笔入金中位 {_new_med_txt}，{_within_day_n} 人在 24 小时内完成；{_app_evidence_n}/{Z["n"]} 人有 App 设备注册或原生使用记录，{_terminal_evidence_n} 人绑定后有原生记录；{_app_order_n} 人首笔入金前后 30 分钟有原生 App 记录。',
-    (f'<b>关键案例</b>{_big_new["age"]} 岁新客入金 {wan(_big_new["derived"]["inflow_after"])}、当前资产 {wan(float((_big_new.get("asset_latest") or {}).get("ta") or 0))}；'
-     f'沉寂老客回流入金 {wan(_big_recall["derived"]["inflow_after"])}、当前资产 {wan(float((_big_recall.get("asset_latest") or {}).get("ta") or 0))}。'
+    (f'<b>关键案例</b>{_big_new["age"]} 岁新客入金 {wan(_big_new["derived"]["inflow_after"])}、{ASSET_DAY} 资产 {wan(float((_big_new.get("asset_latest") or {}).get("ta") or 0))}；'
+     f'沉寂老客回流入金 {wan(_big_recall["derived"]["inflow_after"])}、同日资产 {wan(float((_big_recall.get("asset_latest") or {}).get("ta") or 0))}。'
      f'两例合计贡献 {_top_two_inflow_share:.1f}% 入金，成效高度集中。') if _big_new and _big_recall else '',
-    '<b>判断</b>豆包侧只能观察 OAuth 会话令牌、看不到提问内容，会话频次不能当作转化强度的代理；现有数据证明的是“绑定后发生转化”，不能单独归因为豆包增量。',
+    '<b>判断</b>豆包侧只能观察 OAuth 令牌活动代理，看不到实际提问或会话；令牌频次不能当作转化强度。现有数据证明绑定后发生入金，不能单独归因为豆包增量。',
 ]
 INSIGHTS_HTML = "\n".join(f'<li>{item}</li>' for item in INSIGHTS if item)
 tabs = "".join(f'<button type="button" class="tab" role="tab" data-scope="{sc["id"]}" data-desc="{esc(sc["def"])}" aria-selected="false">{sc["label"]}<small>{agg(scope_users(sc))["n"]}</small></button>' for sc in SCOPES)
@@ -809,7 +810,7 @@ def all_asks(u):
     for x in (u.get("channels") or {}).get("tokens", []):
         t = dt(x)
         if t and t >= fb0:
-            rows.append({"ts": t.strftime("%Y-%m-%dT%H:%M:%S"), "text": "授权当刻建立会话" if (t - fb0).total_seconds() <= 120 else "回到豆包发起会话（提问内容协议层不可得）", "ch": "豆包"})
+            rows.append({"ts": t.strftime("%Y-%m-%dT%H:%M:%S"), "text": "授权当刻签发令牌" if (t - fb0).total_seconds() <= 120 else "豆包 OAuth 令牌签发（活动代理，提问内容不可得）", "ch": "豆包"})
     for m in (u.get("channels") or {}).get("app_mia", []):
         rows.append({"ts": m["ts"][:19], "text": (m.get("text") or "").strip(), "ch": "且慢",
                      "via": MIA_SCENE.get(m.get("scene"), m.get("scene") or "") + ("快捷入口" if m.get("mode") == "AUTO_LEAD" else "")})
@@ -1151,6 +1152,7 @@ page = f'''<!doctype html>
       </a>
     </div>
     <h1>豆包用户转化分析</h1>
+    <p class="metric-note">交易与行为截至 {CUT}；资产统一截至 {ASSET_DAY}。</p>
   </div>
   <ul class="insight-list" aria-label="转化分析洞察与总结">
     {INSIGHTS_HTML}
@@ -1169,7 +1171,7 @@ page = f'''<!doctype html>
   <div class="modal-card">
     <div class="modal-head">
       <div class="modal-title-group">
-        <h3 id="asks-title">会话与提问历程</h3>
+        <h3 id="asks-title">活动与提问记录</h3>
         <div class="asks-filters" id="asks-filters" role="toolbar" aria-label="按提问渠道筛选"></div>
       </div>
       <button type="button" class="modal-close" aria-label="关闭">×</button>
@@ -1226,7 +1228,7 @@ function openAsks(pmid){{
 function renderAsks(){{
   const u=asksUser; if(!u) return;
   const rows=asksChannel ? u.asks.filter(a=>a.ch===asksChannel) : u.asks;
-  document.getElementById('asks-title').textContent=`用户 ${{u.letter}} 的会话与提问`;
+  document.getElementById('asks-title').textContent=`用户 ${{u.letter}} 的活动与提问记录`;
   const filters=document.getElementById('asks-filters'); filters.innerHTML='';
   const channelSpecs=askChannels.map(ch=>[ch,ch,u.asks.filter(a=>a.ch===ch).length]).filter(spec=>spec[2]>0);
   [['','全部',u.asks.length], ...channelSpecs].forEach(spec=>{{
@@ -1236,7 +1238,7 @@ function renderAsks(){{
   }});
   const list=document.getElementById('asks-list'); list.innerHTML='';
   if(!rows.length){{ const li=document.createElement('li'), t=document.createElement('span'), d=document.createElement('span');
-    t.className='qt'; t.textContent='—'; d.className='qd'; d.textContent=asksChannel ? `该用户没有${{asksChannel}}渠道的记录。` : '该用户在豆包、且慢、微信三端都没有会话或提问记录。';
+    t.className='qt'; t.textContent='—'; d.className='qd'; d.textContent=asksChannel ? `该用户没有${{asksChannel}}渠道的记录。` : '该用户在豆包、且慢、微信三端都没有活动或提问记录。';
     li.appendChild(t); li.appendChild(d); list.appendChild(li); }}
   let lastDay='';
   rows.forEach(q=>{{

@@ -535,6 +535,18 @@ const segmentIds = ["all", "new_inv", "first_inv", "reinvested", "new", "new_fir
     if (!/^\d{4}-\d{2}-\d{2}$/.test(item.asset_as_of || "")) fail(`${path}.asset_as_of 无效`);
   }
   const segment = (id) => data.segments.items.find((item) => item.id === id);
+  for (const cohort of ["all", "new", "existing"]) {
+    const asset = segment(cohort);
+    const holding = data.business.cohorts[cohort].stats.find((item) => item.id === "holding_amount");
+    if (asset.state === "confirmed" && holding.state === "confirmed"
+        && (asset.holder_accounts !== holding.accounts
+            || Math.abs(asset.total_asset_wan - holding.amount_wan) > 0.000001)) {
+      fail(`${cohort} 总资产或持有人数在经营指标和客群面板中不一致`);
+    }
+    if (data.meta.asset_as_of && asset.asset_as_of !== data.meta.asset_as_of) {
+      fail(`${cohort} 资产日与 meta.asset_as_of 不一致`);
+    }
+  }
   const first = segment("first_inv");
   const newFirst = segment("new_first_inv");
   const existingFirst = segment("existing_first_inv");

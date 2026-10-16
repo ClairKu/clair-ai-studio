@@ -130,18 +130,21 @@ const sql = `WITH nu AS (
   SELECT DISTINCT s.qmuser_user_id,s.session_id FROM nu
   JOIN ying99_qieman.qwen_a2a_session_map s
     ON s.qmuser_user_id=nu.pmid AND s.is_deleted=0
-   AND s.created_at>=nu.fb AND s.created_at<'${cutoff}'
+   AND s.created_at<'${cutoff}'
+  JOIN ying99_xiaogu3_qa.agent_dj_sessions owner_session
+    ON CAST(owner_session.session_id AS CHAR)=CAST(s.session_id AS CHAR)
+   AND owner_session.qmuser_user_id=nu.pmid AND owner_session.is_deleted=0
 )
 SELECT CAST(nu.pmid AS CHAR) AS person_key,
   CAST(s.session_id AS CHAR) AS session_key,
-  DATE_FORMAT(DATE_ADD(m.created_at, INTERVAL 8 HOUR), '%Y-%m-%d %H:%i:%s') AS local_time,
+  DATE_FORMAT(m.dj_gmt_create, '%Y-%m-%d %H:%i:%s') AS local_time,
   REGEXP_REPLACE(TRIM(m.user_input), '[[:space:]]+', ' ') AS question
 FROM nu JOIN session_map s ON s.qmuser_user_id=nu.pmid
 JOIN ying99_xiaogu3_qa.agent_dj_messages m
   ON m.session_id=s.session_id AND m.is_deleted=0
- AND m.created_at>=nu.fb AND m.created_at<'${cutoff}'
+ AND m.role='USER' AND m.dj_gmt_create>=nu.fb AND m.dj_gmt_create<'${cutoff}'
 WHERE m.user_input IS NOT NULL AND TRIM(m.user_input)<>''
-ORDER BY nu.pmid,m.created_at,m.id`;
+ORDER BY nu.pmid,m.dj_gmt_create,m.id`;
 
 const request = async (path, { method = "GET", body } = {}) => {
   const response = await fetch(`${redashUrl}${path}`, {

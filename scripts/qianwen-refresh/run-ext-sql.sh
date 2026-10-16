@@ -82,9 +82,10 @@ Q zeroasset 550 "SELECT v.cohort, COUNT(*) inflow_users, ROUND(SUM(v.inflow)/100
   ROUND(SUM(CASE WHEN v.asset_at_bind IS NULL OR v.asset_at_bind<=0 THEN v.inflow ELSE 0 END)/10000,4) zero_wan
 FROM (SELECT g.cohort, g.inflow,
     CASE WHEN g.account3_id IS NULL THEN NULL ELSE
-    (SELECT d.total_asset FROM ying99_asset.dwd_app_service_account_profit_combine d
-       WHERE d.account3_id=g.account3_id AND d.relation_account_type='ROOT' AND d.cal_date<=DATE(g.fb)
-       ORDER BY d.cal_date DESC LIMIT 1) END AS asset_at_bind
+    (SELECT SUM(d.total_asset) FROM ying99_asset.dwd_app_service_account_profit_combine d USE INDEX(idx_user)
+       WHERE d.account3_id=g.account3_id AND d.relation_account_type='ROOT'
+         AND d.cal_date=(SELECT MAX(dm.cal_date) FROM ying99_asset.dwd_app_service_account_profit_combine dm USE INDEX(idx_user)
+           WHERE dm.account3_id=g.account3_id AND dm.relation_account_type='ROOT' AND dm.cal_date<=DATE(g.fb))) END AS asset_at_bind
   FROM (SELECT b.pmid, b.fb, p.account3_id, $COHORT cohort, f.inflow FROM $B
         JOIN $INFLOW_PER_USER f ON f.user_id=b.pmid WHERE f.inflow>0) g) v GROUP BY v.cohort" &
 pids+=($!)
@@ -106,26 +107,41 @@ pids+=($!)
 
 fails=0
 for pid in $pids; do wait $pid || fails=$((fails+1)); done
+[ $fails -eq 0 ] || { echo "扩展基础取数失败，停止生成串行衍生结果"; exit 1; }
 
 # ── 串行两步：绑定时资产候选(逐行) → zeroatbind.txt + 已清仓名单 → 分客群面板 ──
-# 候选 = 绑定日前曾有 ROOT 资产>0 的用户(几百人)，只对他们取绑定日最近一行，避免全量回溯超时。
-Q candidates 900 "SELECT x.cohort, x.pmid, x.asset_at_bind
-FROM (SELECT b.pmid, $COHORT cohort,
-    (SELECT d2.total_asset FROM ying99_asset.dwd_app_service_account_profit_combine d2 WHERE d2.account3_id=p.account3_id
-       AND d2.relation_account_type='ROOT' AND d2.cal_date<=DATE(b.fb) ORDER BY d2.cal_date DESC LIMIT 1) asset_at_bind
-  FROM $B
-  WHERE p.account3_id IS NOT NULL AND p.account3_id<>1002
-    AND EXISTS(SELECT 1 FROM ying99_asset.dwd_app_service_account_profit_combine d WHERE d.account3_id=p.account3_id
-                 AND d.relation_account_type='ROOT' AND d.cal_date<=DATE(b.fb) AND d.total_asset>0)
-) x ORDER BY x.cohort, x.pmid" || fails=$((fails+1))
+# First aggregate every ROOT on the same day; an account can have multiple ROOTs.
+# Selecting one arbitrary ROOT with LIMIT 1 understates binding assets.
+Q candidates 900 "WITH eligible AS (
+ SELECT b.pmid,b.fb,p.account3_id,$COHORT cohort FROM $B
+ WHERE p.account3_id IS NOT NULL AND p.account3_id<>1002
+), per_day AS (
+ SELECT u.pmid,u.cohort,d.cal_date,SUM(d.total_asset) AS total_asset,
+  MAX(CASE WHEN d.total_asset>0 THEN 1 ELSE 0 END) AS day_had_positive
+ FROM eligible u JOIN ying99_asset.dwd_app_service_account_profit_combine d USE INDEX(idx_user)
+  ON d.account3_id=u.account3_id AND d.relation_account_type='ROOT' AND d.cal_date<=DATE(u.fb)
+ GROUP BY u.pmid,u.cohort,d.cal_date
+), ranked AS (
+ SELECT per_day.*,ROW_NUMBER() OVER(PARTITION BY pmid ORDER BY cal_date DESC) AS rn,
+  MAX(day_had_positive) OVER(PARTITION BY pmid) AS had_positive FROM per_day
+)
+SELECT cohort,pmid,total_asset AS asset_at_bind FROM ranked WHERE rn=1 AND had_positive=1
+ORDER BY cohort,pmid" || { echo "绑定资产候选失败，停止生成衍生名单"; exit 1; }
 
 # 候选表 → zeroatbind.txt(cohort/candidates/nonzero_at_bind) + nonzero-ids.txt(老户中绑定时有资产的人)
-python3 - "$W" <<'PYEOF'
-import re, sys
+python3 - "$W" <<'PYEOF' || exit 1
+import math, re, sys
 from pathlib import Path
 W = Path(sys.argv[1])
-rows = [l.split() for l in W.joinpath("candidates.txt").read_text().splitlines()
+text = W.joinpath("candidates.txt").read_text()
+if not re.search(r"^cohort\s+pmid\s+asset_at_bind\s*$", text, re.M):
+    raise SystemExit("绑定资产候选表头无效，保留原衍生名单")
+rows = [l.split() for l in text.splitlines()
         if re.match(r"^(new|existing)\s+\d+", l)]
+if not rows or any(len(row) != 3 for row in rows) or len({row[1] for row in rows}) != len(rows):
+    raise SystemExit("绑定资产候选缺失、列数错误或用户重复，保留原衍生名单")
+if any(not math.isfinite(float(row[2])) for row in rows):
+    raise SystemExit("绑定资产存在未知或非有限金额，保留原衍生名单")
 nonzero = {"new": 0, "existing": 0}; cand = {"new": 0, "existing": 0}; nonzero_ids = []
 for co, pmid, ta in rows:
     cand[co] += 1

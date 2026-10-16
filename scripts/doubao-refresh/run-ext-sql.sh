@@ -6,6 +6,7 @@
 set -u
 source ~/.zshrc 2>/dev/null
 CUT="${QW_CUT:?}"; AD="${QW_AD:?}"; W="${QW_WORK:?}"
+HERE="${0:A:h}"
 REDASH="$HOME/.claude/skills/redash/redash.py"
 Q() { # Q <name> <timeout> <sql>
   local name=$1 to=$2 sql=$3

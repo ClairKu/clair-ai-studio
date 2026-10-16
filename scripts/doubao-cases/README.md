@@ -8,9 +8,9 @@
 | | 千问 | 豆包 |
 | --- | --- | --- |
 | 候选基表 | `qwen_user_map` | `api_user_consent_record`，`client_id='doubao'`，当前仍有未撤销授权；首次绑定 = `MIN(granted_at)` |
-| 渠道侧会话 | A2A 会话 + 提问文本（`agent_dj_sessions` × `qwen_a2a_session_map`） | 只有 OAuth 会话令牌（`api_oauth_refresh_token`）——豆包走 MCP，**提问文本协议层不可得**；页面里全部写明「内容不可得」 |
+| 渠道侧使用证据 | A2A 会话 + 提问文本（`agent_dj_sessions` × `qwen_a2a_session_map`） | 只有 OAuth 令牌活动代理（`api_oauth_refresh_token`），不能当作实际会话或提问——豆包走 MCP，**提问文本协议层不可得** |
 | `d_asks` | 千问提问 | 且慢 App 内小顾 3.0 的提问（`agent_dj_sessions` 非千问部分），渠道标为「且慢」 |
-| 汇总卡 / 矩阵 | 提问数 | 豆包会话次数（令牌）+ 且慢小顾提问条数 |
+| 汇总卡 / 矩阵 | 提问数 | 豆包令牌记录 + 且慢小顾提问条数，两种证据分别标注 |
 | 取数 | README 里的 SQL 手工执行 | `fetch-all.sh` 一条命令跑完全部 SQL |
 
 其余（候选口径、入金口径、五个客群与主看板对齐校验、埋点页名翻译、最终持有穿透、匿名编号、加密壳）完全一致。
@@ -19,14 +19,8 @@
 
 ## 跟随千问模板改版
 
-`build-cases.py` / `assemble-users.py` / `encrypt-page.mjs` / `validate-alignment.py` / `base.css` / `fetch.py` **不要手改**，
-它们由 `derive-from-qianwen.py` 从 `scripts/qianwen-cases/` 的当前版本按锚点替换派生。千问个例台改版后：
-
-```bash
-python3 scripts/doubao-cases/derive-from-qianwen.py   # 锚点漂移会报错并指出哪一条，按新模板改锚点再跑
-```
-
-然后按下面流程重烘焙页面即可。只有 `fetch-all.sh`（豆包取数）、`narratives.json`（作者研判）和本 README 是豆包专有的。
+最初由 `derive-from-qianwen.py` 从千问模板派生；当前两渠道已有不同的案例客群结构和证据展示，不能直接运行派生脚本覆盖豆包现有文件。
+模板升级须逐项对照，并保留豆包令牌活动代理、全员同日资产审查和跨页资产闭合校验。常规更新数据直接按下述流程重烘焙，不需要派生模板。
 
 ## 重烘焙流程
 
@@ -41,6 +35,10 @@ CASE_CUT="$CUT" CASE_AD="$AD" CASE_WORK=$W $S/fetch-all.sh
 # 2. 归一化（bound_total = 主看板 metrics.bound_accounts）→ 与主看板五个客群闭合校验 → 生成明文页
 cp $S/narratives.json $W/
 python3 $S/assemble-users.py $W "$CUT" <bound_total>
+# 所有人必须取得同一个 AD 的 exact ROOT 资产；缺失不可默认为 0。
+# 人生首笔入金晚于 AD 且完整交易/资产前史已核实者，方可出具 verified_zero 依据。
+# reviewed-assets.json 只留作者私有原件，每人含 pmid/as_of/status/total_asset/source_date/basis。
+python3 scripts/qianwen-cases/apply-reviewed-assets.py $W/users.json $W/reviewed-assets.json $W/users.json
 python3 $S/validate-alignment.py public/reports/doubao-user-acquisition-dashboard/data/latest.json $W/users.json
 python3 $S/build-cases.py $W/users.json $W/page.html $S/base.css
 
