@@ -1,6 +1,6 @@
 {
   "schema": "clair-ai-industry-authority/v1",
-  "curatedAt": "2026-10-15T08:20:00+08:00",
+  "curatedAt": "2026-10-16T08:30:00+08:00",
   "selectionRule": "原始发布机构、方法透明、结论可回溯、覆盖全球与中国，并优先选择 2026 年最新版本",
   "reports": [
     {
@@ -323,6 +323,48 @@
       "featuredRank": -1.5,
       "archived": false,
       "relatedReportIds": ["authority-openai-enterprise-2025", "authority-mckinsey-state-ai-2026", "authority-microsoft-wti-2026"]
+    },
+    {
+      "id": "authority-anthropic-agent-scale-source-control-2026",
+      "title": "Anthropic《Redesigning source control》｜AI 写代码之后，瓶颈转向合并、CI 与基础设施",
+      "url": "https://www.anthropic.com/engineering/redesigning-source-control",
+      "body": "【中文剖析】Anthropic 的 Scion 工程案例给出了一个罕见的 AI 编码规模化样本：2026 年 5 月其单体仓库日均合入约 2,500 个变更，9 月超过 30,000 个，增幅超过 12 倍。代码生成速度不再是首要瓶颈，版本控制、检出、构建、评审和并发冲突开始承受 Agent 规模的压力。其主分支历史接近 100GB，压缩工作副本超过 25GB，每日约 2,500 万次代码检出；若按传统方式完整拉取，作者估算流量会超过 600PB/日。Anthropic 因此用 7 人团队在 5 个月内构建并迁移到服务端、稀疏、可水平扩展的 Scion：基础设施 CPU 与内存占用降至原来的 1/200，检出速度提高约两个数量级，CI 释放 25% CPU 容量。更关键的组织信号是，人类工程师没有消失，而是从逐行阅读转向审查意图、架构取舍和否决 Agent 违反系统约束的捷径。决策含义：AI 编码的 ROI 不能只看生成量；必须把合并吞吐、测试、冲突、权限、回滚和人类判断纳入同一套软件生产系统。边界也很明确：这是 Anthropic 未经独立审计的内部案例，其单仓规模、Agent 密度与内部 token 成本远高于普通企业，不能把 200 倍、100 倍或 25% 直接外推为行业基准。",
+      "kind": "url",
+      "category": "企业与组织",
+      "tags": ["AI编码", "Agent规模", "软件工程", "版本控制", "CI", "基础设施", "人类评审", "组织设计"],
+      "source": "Anthropic Engineering",
+      "authority": "前沿模型开发者内部工程案例",
+      "methodology": "基于 Anthropic 内部单体仓库、CI 与 Scion 迁移的运行遥测和工程复盘，报告 2026 年 1—9 月合入趋势、检出规模、资源占用、性能与团队建设过程；页面 10 月 13 日发布，10 月 15 日补充技术渊源说明。",
+      "scopeNote": "内部运行数据未披露完整定义、基准配置、误差或独立审计；未区分每个变更中 Claude 与人类的贡献，也没有对照组证明因果。Anthropic 明确称其单体仓库、Agent 密度和内部 token 投入极不寻常，Scion 不适合一般 Git 用户，性能倍数不能直接外推。",
+      "publishedAt": "2026-10-13T00:00:00Z",
+      "ingestedAt": "2026-10-16T08:30:00+08:00",
+      "createdAt": "2026-10-13T00:00:00Z",
+      "updatedAt": "2026-10-15T00:00:00Z",
+      "featured": true,
+      "featuredRank": -1.75,
+      "archived": false,
+      "relatedReportIds": ["authority-state-of-ai-report-2026", "authority-mckinsey-state-ai-2026", "authority-openai-enterprise-2025", "authority-anthropic-unintended-actions-2026"]
+    },
+    {
+      "id": "authority-anthropic-independent-evaluators-2026",
+      "title": "Anthropic《An update on independent evaluators》｜外部评估开始进入“驻场审查”阶段",
+      "url": "https://www.anthropic.com/news/an-update-on-independent-evaluators",
+      "body": "【中文剖析】Anthropic 宣布把外部 AI 安全评估从一次性黑盒测试推进到类似银行驻场检查的持续机制：6 名 METR 员工获得公司硬件、办公空间及大致相当于内部风险评估团队的工具和系统访问权；除客户数据、律师保密信息和部分模型架构等预先界定类别外，员工被鼓励像对同事一样共享信息。METR 可以独立发布对风险水平、事件和实践的分析，Anthropic 无权否决发布，但可要求删除狭窄、预定义类别的信息；METR 可以公开评价删减是否合理。报告同时提出三层外部评估权限：从公司决定范围且发布需批准，到更深访问和无需批准发布，再到 METR 当前的“员工级访问”。这是治理能力的实质进步，因为外部评估者终于可能接近开发者掌握的信息；但它还不是独立审计结果，也不是制度化监管。访问范围、合同、安全流程和红线仍由被评估公司设计，METR 以外的其他合作多处早期或受限阶段。决策含义：企业引入高风险 Agent 时，应把外部评估写成持续访问权、证据获取权和独立发布权，而不是采购一次渗透测试或认证徽章；同时公开说明禁止访问的范围、删减权和利益关系。",
+      "kind": "url",
+      "category": "安全与治理",
+      "tags": ["独立评估", "AI安全", "第三方监督", "治理", "透明度", "METR", "外部审计", "风险报告"],
+      "source": "Anthropic",
+      "authority": "前沿模型开发者外部评估机制声明",
+      "methodology": "披露 Anthropic 与 METR、SecureBio、Accenture、Faculty 等第三方评估者的访问与发布安排，并定义三层评估权限；这是治理机制说明，不是抽样研究或风险评估结果。",
+      "scopeNote": "本文由被评估公司发布，尚未提供 METR 新一轮评估结论、时间表、覆盖模型或可量化效果。员工级访问仍排除客户数据、律师保密信息和部分模型架构，Anthropic 保留对预定义敏感类别的删减权；其他合作处于早期或权限较低阶段，不能把安排本身等同于独立审计已经通过。",
+      "publishedAt": "2026-10-15T00:00:00Z",
+      "ingestedAt": "2026-10-16T08:30:00+08:00",
+      "createdAt": "2026-10-15T00:00:00Z",
+      "updatedAt": "2026-10-15T00:00:00Z",
+      "featured": true,
+      "featuredRank": -2,
+      "archived": false,
+      "relatedReportIds": ["authority-international-ai-safety-2026", "authority-anthropic-unintended-actions-2026", "authority-anthropic-self-replicating-ai-2026"]
     }
   ],
   "cards": [
@@ -414,6 +456,18 @@
     {"id":"authority-card-openai-eu-agentic-02","reportId":"authority-openai-europe-agentic-opportunity-2026","type":"risk","label":"国家差距","title":"各国 Agent 输出占比从 22% 拉开到 85%","summary":"2026 年 9 月，立陶宛企业 Agent 输出占比 85%，斯洛文尼亚为 22%；差异反映 OpenAI 客户内的产品组合与使用深度，不能解释为全国 AI 普及率。","metric":"22%–85%","quote":"differs across EU member states","translation":"在欧盟成员国之间存在差异。","anchor":"PDF p.3 · Figure 2 · September 2026","tags":["欧洲AI", "国家差距", "采用深度"],"createdAt":"2026-10-14T00:00:00Z","order":1,"relatedCardIds":[]},
     {"id":"authority-card-openai-eu-agentic-03","reportId":"authority-openai-europe-agentic-opportunity-2026","type":"opportunity","label":"中小企业","title":"欧盟中小企业 Agent 周活用户自 5 月增长 8.1 倍","summary":"按关联用户不超过 200 的企业口径，9 月 29 日至 10 月 5 日的 Agent 周活用户是 5 月 1—7 日的 8.1 倍；27 个成员国均超过 5 倍。","metric":"8.1×","quote":"grew 8.1x since May","translation":"自 5 月以来增长 8.1 倍。","anchor":"PDF pp.4–5 · Figures 3–4 · SMB weekly active users","tags":["中小企业", "周活用户", "增长"],"createdAt":"2026-10-14T00:00:00Z","order":2,"relatedCardIds":[]},
     {"id":"authority-card-openai-eu-agentic-04","reportId":"authority-openai-europe-agentic-opportunity-2026","type":"risk","label":"全球位置","title":"欧盟只占全球前沿企业的 10%","summary":"按每活跃用户输出 token 排名前 10% 定义前沿企业，欧盟企业约占全球前沿企业 10%，北美占 65%；该口径只覆盖 ChatGPT Enterprise 与 Business。","metric":"EU 10% / 北美 65%","quote":"make up 10% of frontier firms globally","translation":"占全球前沿企业的 10%。","anchor":"PDF p.7 · Figure 6 · Frontier firms by geography","tags":["前沿企业", "全球竞争", "使用强度"],"createdAt":"2026-10-14T00:00:00Z","order":3,"relatedCardIds":["authority-card-openai-eu-agentic-05"]},
-    {"id":"authority-card-openai-eu-agentic-05","reportId":"authority-openai-europe-agentic-opportunity-2026","type":"action","label":"经营判断","title":"覆盖率不是价值，深度使用差距才是主战场","summary":"9 月欧盟前沿企业人均输出强度是欧盟典型企业的 4 倍以上，但全球非欧盟前沿企业又是欧盟前沿企业的 2 倍以上。企业应优先建设端到端任务、上下文接入、技能与结果指标，避免把 token 增长误当 ROI。","metric":">4× / >2×","quote":"the global gap remains","translation":"全球差距依然存在。","anchor":"PDF p.8 · Figure 7 · Output tokens per active user","tags":["组织差距", "工作流", "ROI"],"createdAt":"2026-10-14T00:00:00Z","order":4,"relatedCardIds":["authority-card-openai-eu-agentic-01", "authority-card-openai-eu-agentic-04"]}
+    {"id":"authority-card-openai-eu-agentic-05","reportId":"authority-openai-europe-agentic-opportunity-2026","type":"action","label":"经营判断","title":"覆盖率不是价值，深度使用差距才是主战场","summary":"9 月欧盟前沿企业人均输出强度是欧盟典型企业的 4 倍以上，但全球非欧盟前沿企业又是欧盟前沿企业的 2 倍以上。企业应优先建设端到端任务、上下文接入、技能与结果指标，避免把 token 增长误当 ROI。","metric":">4× / >2×","quote":"the global gap remains","translation":"全球差距依然存在。","anchor":"PDF p.8 · Figure 7 · Output tokens per active user","tags":["组织差距", "工作流", "ROI"],"createdAt":"2026-10-14T00:00:00Z","order":4,"relatedCardIds":["authority-card-openai-eu-agentic-01", "authority-card-openai-eu-agentic-04"]},
+
+    {"id":"authority-card-anthropic-scion-01","reportId":"authority-anthropic-agent-scale-source-control-2026","type":"metric","label":"生产规模","title":"日合入从 2,500 个增至超过 30,000 个","summary":"Anthropic 内部单体仓库从 2026 年 5 月约 2,500 个合入变更/日升至 9 月超过 30,000 个/日，增幅超过 12 倍；报告没有拆分人类与 Claude 的贡献。","metric":">12×","quote":"over 30,000 per day","translation":"每天超过 30,000 个。","anchor":"Growing our monorepo · May–September 2026","tags":["AI编码", "合入吞吐", "Agent规模"],"createdAt":"2026-10-13T00:00:00Z","order":0,"relatedCardIds":["authority-card-anthropic-scion-05"]},
+    {"id":"authority-card-anthropic-scion-02","reportId":"authority-anthropic-agent-scale-source-control-2026","type":"risk","label":"基础设施压力","title":"传统检出路径理论上会制造 600PB/日流量","summary":"近 100GB 主分支历史、超过 25GB 压缩工作副本与约 2,500 万次日检出叠加，若朴素完整拉取，作者估算流量超过 600PB/日。","metric":"25M / >600PB","quote":"25 million code checkouts per day","translation":"每天约 2,500 万次代码检出。","anchor":"Growing our monorepo · Repository and checkout scale","tags":["CI", "代码检出", "基础设施"],"createdAt":"2026-10-13T00:00:00Z","order":1,"relatedCardIds":["authority-card-anthropic-scion-03"]},
+    {"id":"authority-card-anthropic-scion-03","reportId":"authority-anthropic-agent-scale-source-control-2026","type":"metric","label":"系统效果","title":"Scion 资源占用降至 1/200，检出快约 100 倍","summary":"内部遥测称新系统 CPU 与内存占用为旧 Git 镜像体系的 1/200，各层缓存命中率超过 99%，CI 与研究检出从分钟缩至秒，CI 释放 25% CPU 容量。","metric":"200× / 100× / 25%","quote":"200x smaller","translation":"规模缩小 200 倍。","anchor":"Scaling Scion · Performance and capacity","tags":["性能", "资源效率", "CI"],"createdAt":"2026-10-13T00:00:00Z","order":2,"relatedCardIds":["authority-card-anthropic-scion-02"]},
+    {"id":"authority-card-anthropic-scion-04","reportId":"authority-anthropic-agent-scale-source-control-2026","type":"opportunity","label":"AI优化","title":"Claude 重写摄取管线：内存降 20 倍、速度快 4 倍","summary":"Anthropic 称早期 Claude Mythos Preview 在未获额外指令下重写 git-to-Scion 摄取管线，保留隐含不变量的同时内存占用降至 1/20、速度提升 4 倍；该结果未独立复现。","metric":"20× / 4×","quote":"20x less memory and 4x faster","translation":"内存少 20 倍，速度快 4 倍。","anchor":"What we learned · Ingestion rewrite","tags":["Claude", "代码优化", "内部案例"],"createdAt":"2026-10-13T00:00:00Z","order":3,"relatedCardIds":[]},
+    {"id":"authority-card-anthropic-scion-05","reportId":"authority-anthropic-agent-scale-source-control-2026","type":"action","label":"组织判断","title":"人类工程师从逐行审查转向意图与约束审查","summary":"7 人团队用 5 个月完成 Scion、评审工具及迁移，但仍人工审查每个变更；重点从逐行读代码转为核验意图、架构取舍和阻止 Agent 绕开核心约束。","metric":"7 人 / 5 个月","quote":"seven people","translation":"七个人。","anchor":"What we learned · Team and human review","tags":["人类评审", "工程组织", "约束"],"createdAt":"2026-10-13T00:00:00Z","order":4,"relatedCardIds":["authority-card-anthropic-scion-01"]},
+
+    {"id":"authority-card-anthropic-evaluator-01","reportId":"authority-anthropic-independent-evaluators-2026","type":"metric","label":"外部访问","title":"6 名 METR 员工获得接近内部风险团队的访问权","summary":"6 名 METR 员工获得公司硬件、办公空间与内部工具和系统访问；客户数据、律师保密信息及部分模型架构等类别被排除。","metric":"6 人","quote":"six METR employees","translation":"6 名 METR 员工。","anchor":"What we mean by employee-like access","tags":["METR", "第三方评估", "访问权"],"createdAt":"2026-10-15T00:00:00Z","order":0,"relatedCardIds":["authority-card-anthropic-evaluator-02"]},
+    {"id":"authority-card-anthropic-evaluator-02","reportId":"authority-anthropic-independent-evaluators-2026","type":"insight","label":"发布独立性","title":"Anthropic 无权否决发布，但保留窄范围删减权","summary":"METR 可独立发布对风险、事件和实践的分析；Anthropic 仅可要求删除预先界定的敏感类别，METR 可公开评价删减是否合理。","metric":"无否决权","quote":"Anthropic can’t veto publication","translation":"Anthropic 不能否决发布。","anchor":"Employee-like access · Publication and redaction rights","tags":["独立发布", "透明度", "删减权"],"createdAt":"2026-10-15T00:00:00Z","order":1,"relatedCardIds":["authority-card-anthropic-evaluator-01"]},
+    {"id":"authority-card-anthropic-evaluator-03","reportId":"authority-anthropic-independent-evaluators-2026","type":"insight","label":"治理框架","title":"外部评估被拆成三层访问与发布权限","summary":"第一层由公司决定范围且发布需批准；第二层访问更深并可无批准发布；第三层再加员工级访问。机制把“独立”拆成可核验的访问权和发布权。","metric":"3 层","quote":"three tiers of access","translation":"三层访问权限。","anchor":"Our other evaluator partnerships · Three tiers","tags":["治理框架", "访问分级", "发布权"],"createdAt":"2026-10-15T00:00:00Z","order":2,"relatedCardIds":[]},
+    {"id":"authority-card-anthropic-evaluator-04","reportId":"authority-anthropic-independent-evaluators-2026","type":"risk","label":"成熟度边界","title":"除 METR 外，多数合作仍处于有限访问阶段","summary":"SecureBio 正在评审化学与生物武器章节；Accenture、Faculty 等合作仍在建设。Anthropic 希望未来扩大员工级嵌入，但当前不能把合作清单视为独立审计通过。","metric":"多方在建","quote":"fully embed more independent evaluators","translation":"让更多独立评估者获得完整嵌入。","anchor":"Other evaluator partnerships · Current maturity","tags":["治理成熟度", "SecureBio", "外部审计"],"createdAt":"2026-10-15T00:00:00Z","order":3,"relatedCardIds":[]},
+    {"id":"authority-card-anthropic-evaluator-05","reportId":"authority-anthropic-independent-evaluators-2026","type":"action","label":"治理行动","title":"把独立评估写成持续访问权，而非一次性测评","summary":"高风险 Agent 的外部监督应明确持续访问、证据范围、独立发布、删减规则、利益冲突与复核机制；同时等待 METR 实际报告再判断安排是否有效。","metric":"5 项权利","quote":"every frontier AI company should do the same","translation":"每一家前沿 AI 公司都应这样做。","anchor":"Conclusion · Industry recommendation","tags":["持续监督", "审计权利", "治理"],"createdAt":"2026-10-15T00:00:00Z","order":4,"relatedCardIds":["authority-card-anthropic-evaluator-02"]}
   ]
 }
