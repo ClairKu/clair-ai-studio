@@ -848,6 +848,9 @@ const segmentIds = ["all", "new_inv", "first_inv", "reinvested", "new", "new_fir
     if (data.meta.asset_as_of && asset.asset_as_of !== data.meta.asset_as_of) {
       fail(`${cohort} 资产日与 meta.asset_as_of 不一致`);
     }
+    if (data.meta.asset_as_of && holding.data_as_of !== data.meta.asset_as_of) {
+      fail(`${cohort} 经营资产统计日期与资产快照日不一致`);
+    }
   }
   const first = segment("first_inv");
   const newFirst = segment("new_first_inv");

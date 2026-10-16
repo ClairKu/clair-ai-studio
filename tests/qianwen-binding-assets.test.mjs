@@ -22,3 +22,10 @@ test('Operating holding totals reuse the exact same cohort aggregate as the segm
     assert.doesNotMatch(source,/wan = round\(ast\["new"\]\["wan"\] \+ ast\["existing"\]\["wan"\]/);
   }
 });
+
+test('Operating asset dates remain the asset snapshot date, not the funding cutoff',()=>{
+  for(const channel of ['qianwen','doubao']){
+    const source=readFileSync(`scripts/${channel}-refresh/assemble.py`,'utf8');
+    assert.match(source,/"data_as_of": q4\["as_of"\] if sid == "holding_amount" else cutoff/);
+  }
+});

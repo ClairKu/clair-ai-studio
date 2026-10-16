@@ -178,7 +178,7 @@ for co in COHORTS:
         r = q3["business"][co][sid]
         accounts = int(r["accounts"])
         item = {"id": sid, "definition_version": DEF_VERSION,
-                "time_basis": "snapshot_as_of", "data_as_of": cutoff,
+                "time_basis": "snapshot_as_of", "data_as_of": q4["as_of"] if sid == "holding_amount" else cutoff,
                 "state": "confirmed", "accounts": accounts}
         if sid == "inflow_transactions":
             item["event_count"] = int(r["event_count"])
