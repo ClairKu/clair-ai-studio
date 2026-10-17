@@ -1,6 +1,6 @@
 {
   "schema": "clair-knowledge-hub-feed/v1",
-  "generatedAt": "2026-10-16T00:16:43.548Z",
+  "generatedAt": "2026-10-17T00:23:07.331Z",
   "source": "Clair’s Studio production catalog + curated authoritative AI industry reports",
   "reports": [
     {
@@ -623,6 +623,89 @@
         "authority-international-ai-safety-2026",
         "authority-anthropic-unintended-actions-2026",
         "authority-anthropic-self-replicating-ai-2026"
+      ],
+      "studioId": "",
+      "origin": "authority",
+      "extractionError": "",
+      "fileName": "",
+      "fileSize": 0
+    },
+    {
+      "id": "authority-anthropic-ai-expectations-gap-2026",
+      "title": "Anthropic《The AI expectations gap》｜懂得越深，对 AI 到 2030 年的判断越激进",
+      "url": "https://www.anthropic.com/research/ai-expectations-gap",
+      "downloadUrl": "https://www-cdn.anthropic.com/a28f24814c56e2834a3eae7b13946f19d3e97ec4/The%20AI%20Expectations%20Gap.pdf",
+      "body": "【中文剖析】Anthropic Institute 把全国代表性美国成年人样本与公司内部员工放在同一套未来问题下比较，发现真正的分歧不是“AI 有没有影响”，而是能力进步、采用速度和人类参与会多快改变。到 2030 年，39% 的美国成年人认为 AI 能作出诺奖级发现，Anthropic 员工为 91%；对自己当前工作，受雇美国人平均预计 AI 能完成 28%，员工预计 75%。时间节省判断也明显分叉：经常在工作中用 AI 的美国成年人中，26% 认为适合 AI 的任务可缩短到四分之一时间以内，员工为 59%。把能力、扩散、自动化、提效与再就业摩擦代入同一经济模型后，两组中位答案分别对应 2030 年 5.4% 和 17.1% 的 GDP 增速情景。最重要的不是把 17.1% 当预测，而是看清“最接近前沿的人”如何同时高估或更早看到能力、扩散和组织重构。企业应把未来判断拆成可观测的五层假设，逐层跟踪，而不是押注一个总增长数。边界必须保留：这是对未来的主观调查，不是能力实测；美国样本来自在线自愿面板，员工样本高度选择；经济增速是模型映射出的条件情景，不是 Anthropic 或受访者的正式预测。",
+      "kind": "url",
+      "category": "就业与技能",
+      "tags": [
+        "AI预期",
+        "就业",
+        "生产率",
+        "能力预测",
+        "扩散",
+        "GDP情景",
+        "员工调查",
+        "未来工作"
+      ],
+      "source": "Anthropic Institute / Morning Consult",
+      "authority": "全国代表性调查与前沿实验室员工对照研究",
+      "methodology": "Morning Consult 于 2026 年 8 月 11—23 日在线调查 10,980 名美国成年人并加权至全国代表性，其中一半回答 2030 年问题；Anthropic 于 8 月 9—12 日内部调查 1,334 名员工且不加权。经济情景分析仅纳入完整回答五项模型输入的 3,259 名美国成年人和 1,093 名员工。",
+      "scopeNote": "所有结果主要测量主观预期，不是 AI 能力、生产率或就业的实测结果。美国样本来自在线自愿面板，排除无网络者且人口加权无法消除全部选择偏差；员工处在单一前沿实验室并有直接利益和信息优势。5.4% 与 17.1% 是将回答代入既定模型后的条件情景，依赖模型假设，不能当成官方宏观预测。",
+      "publishedAt": "2026-10-16T16:45:00Z",
+      "ingestedAt": "2026-10-17T08:20:00+08:00",
+      "createdAt": "2026-10-16T16:45:00Z",
+      "updatedAt": "2026-10-16T21:14:38Z",
+      "featured": true,
+      "featuredRank": -2.25,
+      "archived": false,
+      "relatedReportIds": [
+        "authority-anthropic-employment-2026",
+        "authority-anthropic-cadences-2026",
+        "authority-microsoft-wti-2026",
+        "authority-pwc-ai-jobs-2026"
+      ],
+      "studioId": "",
+      "origin": "authority",
+      "extractionError": "",
+      "fileName": "",
+      "fileSize": 0
+    },
+    {
+      "id": "authority-anthropic-employment-2026",
+      "title": "Anthropic《How employment is changing at Anthropic》｜Agent 工时已是人类 6 倍，初级岗位先承压",
+      "url": "https://www.anthropic.com/research/employment-at-anthropic",
+      "downloadUrl": "https://www-cdn.anthropic.com/72628f1863c53432195db83279252dfd2cb53158/Employment%20at%20Anthropic.pdf",
+      "body": "【中文剖析】这份内部组织研究给出了目前最接近“AI 原生公司未来工作现场”的证据：到 2026 年 8 月，员工直接发起的交互式 Agent 运行时长已是人类假定工时的 6 倍；但这不等于 6 倍劳动产出，因为 Agent 运行时间包含推理与工具调用，且大量流程仍在等待人类。过去一年，技术部门初级员工占比从 21% 降至 14%，初级技术新招占比从 27% 降至 9%；与此同时公司总体规模扩大、技术岗位绝对人数仍增长，所以信号是招聘结构改变，不是已证明净裁员。生产侧，工程师人均代码提交速度较六个月前提高 5 倍，法律、销售、财务和招聘等可量化输出也上升；跟踪同一员工的采用前后变化，方向仍然一致。真正的新瓶颈是注意力：交互式 Agent 会话约 80% 时间在等人，员工开始把工作转成监控、排队、复核与跨团队决策；会议时间反而比一年前增加。组织含义很尖锐：AI 先压缩初级执行入口，同时抬高判断、自主性、流程设计和“管理 Agent”的价值。企业若只用 Agent 替换岗位，会失去培养未来专家的梯子；更稳健的路径是同步建立内部转岗、任务重构、收益分享、人才学徒制和对初级招聘的预警指标。边界也很强：这是 Anthropic 自己的单公司研究，处在高速增长、股权激励和极高 AI 密度环境，指标未经独立审计，采用前后对比不能完全排除模型升级、业务增长和人员选择。",
+      "kind": "url",
+      "category": "就业与技能",
+      "tags": [
+        "未来工作",
+        "Agent工时",
+        "初级岗位",
+        "招聘",
+        "生产率",
+        "人类判断",
+        "组织设计",
+        "内部转岗"
+      ],
+      "source": "Anthropic Institute",
+      "authority": "前沿 AI 公司内部全量运营与就业研究",
+      "methodology": "综合 Anthropic 内部就业与招聘记录、Agent 运行日志、可量化岗位产出、员工问卷、Slack 与日历模式、招聘决策资料，并用 17 名员工访谈解释机制；人类工时按人数乘每周 40 小时估算，Agent 工时只计员工发起的交互会话与子 Agent，排除超过 30 分钟的等待。",
+      "scopeNote": "单一公司同时处于高速增长、模型能力前沿、广泛股权激励和极高 AI 使用密度，不能代表一般企业。内部数据、访谈、岗位分类和产出指标未独立审计；采用前后与时间趋势属于观察性证据，无法完全分离模型升级、业务需求、招聘策略和员工自选择。Agent 运行时长不是等价的人类劳动时长，初级岗位占比下降也不等于绝对人数下降。",
+      "publishedAt": "2026-10-16T16:26:00Z",
+      "ingestedAt": "2026-10-17T08:20:00+08:00",
+      "createdAt": "2026-10-16T16:26:00Z",
+      "updatedAt": "2026-10-16T21:14:21Z",
+      "featured": true,
+      "featuredRank": -2.5,
+      "archived": false,
+      "relatedReportIds": [
+        "authority-anthropic-ai-expectations-gap-2026",
+        "authority-anthropic-cadences-2026",
+        "authority-microsoft-wti-2026",
+        "authority-pwc-ai-jobs-2026",
+        "authority-stanford-human-ai-collaboration-2026"
       ],
       "studioId": "",
       "origin": "authority",
@@ -2899,6 +2982,238 @@
       "order": 4,
       "relatedCardIds": [
         "authority-card-anthropic-evaluator-02"
+      ],
+      "origin": "authority"
+    },
+    {
+      "id": "authority-card-anthropic-expectations-01",
+      "reportId": "authority-anthropic-ai-expectations-gap-2026",
+      "type": "risk",
+      "label": "预期分歧",
+      "title": "诺奖级发现：公众 39%，Anthropic 员工 91%",
+      "summary": "两组对今天复杂能力的判断接近，但对未来斜率差异巨大；该数字衡量 2030 年主观预期，不是能力评测通过率。",
+      "metric": "39% / 91%",
+      "quote": "39% of US adults and 91% of staff",
+      "translation": "美国成年人为 39%，员工为 91%。",
+      "anchor": "Key findings; Figure 1 · Capabilities",
+      "tags": [
+        "能力预测",
+        "预期分歧",
+        "诺奖级发现"
+      ],
+      "createdAt": "2026-10-16T16:45:00Z",
+      "order": 0,
+      "relatedCardIds": [
+        "authority-card-anthropic-expectations-05"
+      ],
+      "origin": "authority"
+    },
+    {
+      "id": "authority-card-anthropic-expectations-02",
+      "reportId": "authority-anthropic-ai-expectations-gap-2026",
+      "type": "metric",
+      "label": "工作暴露",
+      "title": "到 2030 年，员工预计 AI 可做 75% 当前工作",
+      "summary": "Anthropic 员工对自己工作的平均预期为 75%，受雇美国成年人为 28%；仅 5% 美国工人认为 AI 可完成至少 80% 的当前工时。",
+      "metric": "75% / 28%",
+      "quote": "75% of their current work",
+      "translation": "其当前工作的 75%。",
+      "anchor": "Own work and jobs · Figure 5",
+      "tags": [
+        "工作暴露",
+        "就业",
+        "主观预期"
+      ],
+      "createdAt": "2026-10-16T16:45:00Z",
+      "order": 1,
+      "relatedCardIds": [
+        "authority-card-anthropic-employment-01"
+      ],
+      "origin": "authority"
+    },
+    {
+      "id": "authority-card-anthropic-expectations-03",
+      "reportId": "authority-anthropic-ai-expectations-gap-2026",
+      "type": "opportunity",
+      "label": "效率预期",
+      "title": "任务缩到四分之一时间：工作 AI 用户 26%，员工 59%",
+      "summary": "题目要求计入检查与修正时间；差距可能来自任务组合、工具能力、训练和自选择，不能直接解读为生产率提升倍数。",
+      "metric": "26% / 59%",
+      "quote": "a quarter of the time or less",
+      "translation": "四分之一时间或更少。",
+      "anchor": "Time savings · Figure 4",
+      "tags": [
+        "时间节省",
+        "生产率",
+        "AI使用"
+      ],
+      "createdAt": "2026-10-16T16:45:00Z",
+      "order": 2,
+      "relatedCardIds": [
+        "authority-card-anthropic-employment-03"
+      ],
+      "origin": "authority"
+    },
+    {
+      "id": "authority-card-anthropic-expectations-04",
+      "reportId": "authority-anthropic-ai-expectations-gap-2026",
+      "type": "insight",
+      "label": "经济情景",
+      "title": "同一模型映射出 5.4% 与 17.1% 的 2030 增长情景",
+      "summary": "仅完整回答五项输入的 3,259 名美国成年人和 1,093 名员工进入模型；结果是条件情景，受能力、采用、自动化、提效和再就业摩擦假设共同驱动。",
+      "metric": "5.4% / 17.1%",
+      "quote": "imply GDP growth accelerating to 17.1%",
+      "translation": "隐含 GDP 增速加快至 17.1%。",
+      "anchor": "Economic implications · Figure 7",
+      "tags": [
+        "GDP情景",
+        "经济模型",
+        "假设"
+      ],
+      "createdAt": "2026-10-16T16:45:00Z",
+      "order": 3,
+      "relatedCardIds": [
+        "authority-card-anthropic-expectations-05"
+      ],
+      "origin": "authority"
+    },
+    {
+      "id": "authority-card-anthropic-expectations-05",
+      "reportId": "authority-anthropic-ai-expectations-gap-2026",
+      "type": "action",
+      "label": "决策方法",
+      "title": "不要押一个总数，把未来拆成五个可证伪假设",
+      "summary": "分别监控能力、实际扩散、人机分工、单位任务提效和转岗摩擦；只有五项同时满足，激进的增长情景才可能成立。",
+      "metric": "5 层假设",
+      "quote": "five dimensions",
+      "translation": "五个维度。",
+      "anchor": "Mapping survey responses to model-implied economic scenarios",
+      "tags": [
+        "情景规划",
+        "决策",
+        "证伪"
+      ],
+      "createdAt": "2026-10-16T16:45:00Z",
+      "order": 4,
+      "relatedCardIds": [
+        "authority-card-anthropic-expectations-01",
+        "authority-card-anthropic-expectations-04"
+      ],
+      "origin": "authority"
+    },
+    {
+      "id": "authority-card-anthropic-employment-01",
+      "reportId": "authority-anthropic-employment-2026",
+      "type": "risk",
+      "label": "人才结构",
+      "title": "初级技术员工占比 21%→14%，新招占比 27%→9%",
+      "summary": "自 2025 年初以来，初级技术岗位在存量与新招中的占比均下降；但公司总体扩张、技术岗位绝对人数仍增加，不能写成“AI 已造成净裁员”。",
+      "metric": "21%→14% / 27%→9%",
+      "quote": "from 27% to 9%",
+      "translation": "从 27% 降至 9%。",
+      "anchor": "Labor demand at the frontier · Figure 1",
+      "tags": [
+        "初级岗位",
+        "招聘",
+        "人才梯队"
+      ],
+      "createdAt": "2026-10-16T16:26:00Z",
+      "order": 0,
+      "relatedCardIds": [
+        "authority-card-anthropic-expectations-02",
+        "authority-card-anthropic-employment-05"
+      ],
+      "origin": "authority"
+    },
+    {
+      "id": "authority-card-anthropic-employment-02",
+      "reportId": "authority-anthropic-employment-2026",
+      "type": "metric",
+      "label": "Agent规模",
+      "title": "员工发起的 Agent 运行时长已是人类工时 6 倍",
+      "summary": "口径只计交互会话和子 Agent 的推理与工具运行，排除超过 30 分钟等待；人类工时按每人每周 40 小时估算，因此是运行规模代理，不是等价劳动产出。",
+      "metric": "6:1",
+      "quote": "outnumbered employees’ 6 to 1",
+      "translation": "以 6 比 1 超过员工工时。",
+      "anchor": "Agent hours overtake human hours · Figure 2",
+      "tags": [
+        "Agent工时",
+        "运行规模",
+        "口径"
+      ],
+      "createdAt": "2026-10-16T16:26:00Z",
+      "order": 1,
+      "relatedCardIds": [
+        "authority-card-anthropic-employment-04"
+      ],
+      "origin": "authority"
+    },
+    {
+      "id": "authority-card-anthropic-employment-03",
+      "reportId": "authority-anthropic-employment-2026",
+      "type": "opportunity",
+      "label": "生产率信号",
+      "title": "工程师人均代码提交速度半年提高 5 倍",
+      "summary": "法律、销售、财务、招聘等可量化产出也上升；采用同一员工前后比较仍显示提升，但观察性设计无法完全排除模型升级和业务增长。",
+      "metric": "5×",
+      "quote": "5x their velocity as 6 months ago",
+      "translation": "达到六个月前速度的 5 倍。",
+      "anchor": "Productivity boom across functions · Figure 3",
+      "tags": [
+        "生产率",
+        "代码提交",
+        "观察性证据"
+      ],
+      "createdAt": "2026-10-16T16:26:00Z",
+      "order": 2,
+      "relatedCardIds": [
+        "authority-card-anthropic-expectations-03"
+      ],
+      "origin": "authority"
+    },
+    {
+      "id": "authority-card-anthropic-employment-04",
+      "reportId": "authority-anthropic-employment-2026",
+      "type": "risk",
+      "label": "人类瓶颈",
+      "title": "交互式 Agent 约 80% 时间在等人",
+      "summary": "Agent 大量等待人类输入，说明扩展瓶颈已经从执行转向注意力、复核与跨团队判断；员工因此投入更多监控管线和“管理 Agent”的元工作。",
+      "metric": "≈80% 等待",
+      "quote": "around 80% idly waiting for human input",
+      "translation": "约 80% 时间在空等人类输入。",
+      "anchor": "Bottlenecks and process · Interactive session idle time",
+      "tags": [
+        "人类注意力",
+        "复核",
+        "Agent管理"
+      ],
+      "createdAt": "2026-10-16T16:26:00Z",
+      "order": 3,
+      "relatedCardIds": [
+        "authority-card-anthropic-employment-02"
+      ],
+      "origin": "authority"
+    },
+    {
+      "id": "authority-card-anthropic-employment-05",
+      "reportId": "authority-anthropic-employment-2026",
+      "type": "action",
+      "label": "组织行动",
+      "title": "自动化越快，越要补上转岗、学徒制和收益分享",
+      "summary": "在职满一年员工 2026 年每月跨部门流动概率比 2025 年高 50%；内部重配保护了现有员工，却仍无法解决减少初级招聘造成的人才入口问题。",
+      "metric": "+50% 内部流动",
+      "quote": "50% more likely to move across departments",
+      "translation": "跨部门流动概率高出 50%。",
+      "anchor": "Labor demand at the frontier · Internal redeployments; Conclusion",
+      "tags": [
+        "内部转岗",
+        "学徒制",
+        "收益分享"
+      ],
+      "createdAt": "2026-10-16T16:26:00Z",
+      "order": 4,
+      "relatedCardIds": [
+        "authority-card-anthropic-employment-01"
       ],
       "origin": "authority"
     },
