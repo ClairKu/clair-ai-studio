@@ -1,6 +1,6 @@
 {
   "schema": "clair-knowledge-hub-feed/v1",
-  "generatedAt": "2026-10-17T00:23:07.331Z",
+  "generatedAt": "2026-10-18T00:22:45.623Z",
   "source": "Clair’s Studio production catalog + curated authoritative AI industry reports",
   "reports": [
     {
@@ -706,6 +706,47 @@
         "authority-microsoft-wti-2026",
         "authority-pwc-ai-jobs-2026",
         "authority-stanford-human-ai-collaboration-2026"
+      ],
+      "studioId": "",
+      "origin": "authority",
+      "extractionError": "",
+      "fileName": "",
+      "fileSize": 0
+    },
+    {
+      "id": "authority-imf-ai-financial-stability-2026",
+      "title": "IMF《Global Financial Stability Report》｜AI 风险已从估值扩散到债务与循环融资",
+      "url": "https://www.imf.org/en/Publications/GFSR/Issues/2026/10/13/global-financial-stability-report-october-2026",
+      "downloadUrl": "https://www.imf.org/-/media/files/publications/gfsr/2026/october/english/ch1.pdf",
+      "body": "【中文剖析】IMF 2026 年 10 月《全球金融稳定报告》把 AI 相关市场回调列为三项近期金融风险之一，但它并没有简单宣称“AI 是泡沫”。报告明确看到核心 AI 企业盈利仍强、部分估值压力已有缓和；真正的新问题是 AI 资本开支开始从权益故事变成资产负债表和金融网络问题。自 2024 年以来，超大规模云厂商占全球投资级公司债发行的比重从不足 1% 升至 10%；对 AI 股票的杠杆也同步上升。更值得警惕的是循环融资：IMF 汇总 2023 年以来 14 笔公开交易，约 3,000 亿美元股权投资叠加 6,500 亿美元债务，换取约 1.4 万亿美元未来云服务或芯片采购承诺。投资方、融资方和未来收入由同一组关系绑定，一旦被投企业承压，资产价值与承诺收入会同时恶化，形成“错误方向风险”。IMF 引用的世界经济展望情景显示，AI 投资逆转到 2028 年可令全球 GDP、投资和消费分别比基线低最多 0.4%、1.3% 和 0.6%。全球银行压力测试的更严重联合情景还包含能源冲击、利率和债市压力，不能把结果归因于 AI：在该情景下，全球实际 GDP 增速前两年低于基线约 3 个百分点，银行体系总 CET1 下降约 150 个基点至 11.5%，但仍有占全球银行资产 22% 的银行跌入弱势区。对投资与经营决策的含义：不要只盯 AI 公司市盈率，要同时跟踪债务融资、客户承诺集中度、杠杆 ETF、保证金贷款、算力合同和银行/非银机构的交叉暴露；盈利强并不消除融资结构脆弱性。",
+      "kind": "url",
+      "category": "行业全景",
+      "tags": [
+        "IMF",
+        "AI金融稳定",
+        "AI投资",
+        "债务融资",
+        "循环融资",
+        "杠杆",
+        "压力测试",
+        "资产价格"
+      ],
+      "source": "International Monetary Fund",
+      "authority": "国际组织全球金融稳定评估",
+      "methodology": "第 1 章综合 Bloomberg、Dealogic、BIS、纽约联储、FINRA、各证券交易所、CPIS/TIC 与 IMF 工作人员计算，分析 AI 相关债务、保证金、杠杆 ETF、跨境股票暴露和 14 笔公开循环融资交易；全球银行压力测试覆盖 29 个国家的 665 家银行，并设置 AI 预期重估、能源冲击、利率和债券收益率上升的联合逆风情景。",
+      "scopeNote": "AI 资产范围、全球 AI 股票回报代理和公开交易识别都依赖 IMF 的分类与可得数据，14 笔交易不能代表完整市场。1.4 万亿美元是未来收入承诺而非已实现收入；3,000 亿美元股权、6,500 亿美元债务与收入承诺不可相加解释为估值。WEO 与银行压力测试是反事实联合情景，不是发生概率或单一 AI 因果效应，且压力情景同时包含能源、通胀、利率和债市冲击。",
+      "publishedAt": "2026-10-13T00:00:00Z",
+      "ingestedAt": "2026-10-18T08:30:00+08:00",
+      "createdAt": "2026-10-13T00:00:00Z",
+      "updatedAt": "2026-10-13T00:00:00Z",
+      "featured": true,
+      "featuredRank": -2.75,
+      "archived": false,
+      "relatedReportIds": [
+        "authority-state-of-ai-report-2026",
+        "authority-stanford-ai-index-2026",
+        "authority-mckinsey-state-ai-2026",
+        "authority-anthropic-ai-expectations-gap-2026"
       ],
       "studioId": "",
       "origin": "authority",
@@ -3214,6 +3255,124 @@
       "order": 4,
       "relatedCardIds": [
         "authority-card-anthropic-employment-01"
+      ],
+      "origin": "authority"
+    },
+    {
+      "id": "authority-card-imf-ai-stability-01",
+      "reportId": "authority-imf-ai-financial-stability-2026",
+      "type": "risk",
+      "label": "融资结构",
+      "title": "超大规模云厂商已占全球投资级公司债发行的 10%",
+      "summary": "自 2024 年以来，该占比从不足 1% 升至 10%；核心业务盈利仍强，但自由现金流随 AI 投资扩张下降，债务融资的重要性快速上升。",
+      "metric": "<1%→10%",
+      "quote": "increased to 10 percent from less than 1 percent",
+      "translation": "从不足 1% 上升至 10%。",
+      "anchor": "Chapter 1 pp.4–5 · Figure 1.2 panel 1",
+      "tags": [
+        "公司债",
+        "超大规模云厂商",
+        "资本开支"
+      ],
+      "createdAt": "2026-10-13T00:00:00Z",
+      "order": 0,
+      "relatedCardIds": [
+        "authority-card-imf-ai-stability-02"
+      ],
+      "origin": "authority"
+    },
+    {
+      "id": "authority-card-imf-ai-stability-02",
+      "reportId": "authority-imf-ai-financial-stability-2026",
+      "type": "risk",
+      "label": "循环融资",
+      "title": "14 笔交易连接 3,000 亿股权、6,500 亿债务与 1.4 万亿收入承诺",
+      "summary": "未来云服务或芯片采购承诺把投资者、被投企业和收入预期绑定在一起；关键企业承压时，投资价值与未来收入会同时恶化，形成错误方向风险。",
+      "metric": "$300B / $650B / $1.4T",
+      "quote": "wrong-way risk to the AI ecosystem",
+      "translation": "AI 生态系统的错误方向风险。",
+      "anchor": "Chapter 1 p.5 · Figure 1.2 panel 2 · Circular financing",
+      "tags": [
+        "循环融资",
+        "收入承诺",
+        "错误方向风险"
+      ],
+      "createdAt": "2026-10-13T00:00:00Z",
+      "order": 1,
+      "relatedCardIds": [
+        "authority-card-imf-ai-stability-01",
+        "authority-card-imf-ai-stability-05"
+      ],
+      "origin": "authority"
+    },
+    {
+      "id": "authority-card-imf-ai-stability-03",
+      "reportId": "authority-imf-ai-financial-stability-2026",
+      "type": "metric",
+      "label": "市场杠杆",
+      "title": "AI 股票相关杠杆从机构扩散到零售产品",
+      "summary": "自 2024 年以来，对冲基金总股票头寸与股票保证金贷款由发达经济体 GDP 的 10% 升至约 15%；杠杆 ETF 中单一股票占比由 16% 升至 28%。",
+      "metric": "10%→15% / 16%→28%",
+      "quote": "leverage throughout the AI ecosystem has increased",
+      "translation": "AI 生态系统各环节的杠杆都在上升。",
+      "anchor": "Chapter 1 pp.4–5 · Figure 1.2 panel 1",
+      "tags": [
+        "杠杆ETF",
+        "保证金贷款",
+        "对冲基金"
+      ],
+      "createdAt": "2026-10-13T00:00:00Z",
+      "order": 2,
+      "relatedCardIds": [
+        "authority-card-imf-ai-stability-05"
+      ],
+      "origin": "authority"
+    },
+    {
+      "id": "authority-card-imf-ai-stability-04",
+      "reportId": "authority-imf-ai-financial-stability-2026",
+      "type": "insight",
+      "label": "宏观情景",
+      "title": "AI 投资逆转情景到 2028 年可使全球投资低于基线 1.3%",
+      "summary": "同一 WEO 情景下，全球 GDP 和消费分别比基线低最多 0.4% 和 0.6%；这是反事实敏感性分析，不是 IMF 对 AI 回调概率的预测。",
+      "metric": "GDP -0.4% / 投资 -1.3% / 消费 -0.6%",
+      "quote": "an unwinding of AI investment",
+      "translation": "AI 投资的逆转。",
+      "anchor": "Chapter 1 p.4 · AI-driven market correction; October 2026 WEO scenario",
+      "tags": [
+        "宏观情景",
+        "AI投资",
+        "财富效应"
+      ],
+      "createdAt": "2026-10-13T00:00:00Z",
+      "order": 3,
+      "relatedCardIds": [
+        "authority-card-imf-ai-stability-05"
+      ],
+      "origin": "authority"
+    },
+    {
+      "id": "authority-card-imf-ai-stability-05",
+      "reportId": "authority-imf-ai-financial-stability-2026",
+      "type": "action",
+      "label": "压力测试",
+      "title": "别把联合压力情景误读成 AI 单因果：弱势银行资产占比仍升至 22%",
+      "summary": "覆盖 29 国 665 家银行的逆风情景同时包含 AI 收益重估、能源冲击、通胀、利率和债券收益率上升；总 CET1 下降约 150bp 至 11.5%，但占全球银行资产 22% 的机构跌破 7% 弱势阈值。",
+      "metric": "22% / CET1 11.5%",
+      "quote": "aggregate resilience masks pockets of weakness",
+      "translation": "整体韧性掩盖了局部脆弱性。",
+      "anchor": "Chapter 1 pp.9–10 · 2026 Global Bank Stress Test · Figure 1.7",
+      "tags": [
+        "银行压力测试",
+        "联合情景",
+        "金融稳定"
+      ],
+      "createdAt": "2026-10-13T00:00:00Z",
+      "order": 4,
+      "relatedCardIds": [
+        "authority-card-imf-ai-stability-02",
+        "authority-card-imf-ai-stability-03",
+        "authority-card-imf-ai-stability-04"
       ],
       "origin": "authority"
     },
