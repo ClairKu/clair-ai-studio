@@ -562,18 +562,26 @@ def holdings_block(u):
             buy_by_po[t["po_code"]] = buy_by_po.get(t["po_code"], 0) + float(t["buy"])
     if not hs and not fd:
         return '<div class="deposit-products"><div class="deposit-head"><h4>买入去向与当前状态</h4><span>资产尚待次日批次落账</span></div><p class="muted tight">当前尚无可展示的账户持仓行。</p></div>'
-    wallet_keep = max(float(d["inflow_after"] or 0) - sum(buy_by_po.values()), 0)
-    rows = ""; tot_in = 0; tot_v = 0
+    rows = ""; tot_in = 0; tot_v = 0; known_values = 0
+    shown_buy_codes = set()
     for h in hs:
-        put = wallet_keep if h.get("code") == "WALLET" else buy_by_po.get(h.get("code"), h.get("buy") or 0)
+        # Gross product buys can recycle wallet balances; they cannot infer wallet retention.
+        code_key = h.get("code")
+        put = None if code_key in (None, "WALLET") or code_key in shown_buy_codes else buy_by_po.get(code_key, h.get("buy") or 0)
+        if put is not None: shown_buy_codes.add(code_key)
         tot_in += put or 0
-        if h.get("value") is not None: tot_v += float(h["value"])
+        if h.get("value") is not None:
+            tot_v += float(h["value"]); known_values += 1
         code = f' <span class="num muted">{esc(h["code"])}</span>' if h.get("code") and h["code"] not in ("WALLET", "FUND") else ""
-        val = money(h["value"]) + " 元" if h.get("value") is not None else "未落账"
-        rows += f'<tr><td>{esc(h["kind"])}</td><td>{esc(h["name"])}{code}</td><td class="num">{money(put)} 元</td><td class="num">{val}</td></tr>'
-    foot = f'<tr class="total"><td colspan="2">合计</td><td class="num">{money(tot_in)} 元</td><td class="num">{money(tot_v) + " 元" if tot_v else "—"}</td></tr>'
+        val = money(h["value"]) + " 元" if h.get("value") is not None else "无当前持仓市值"
+        name = str(h["name"])
+        if h.get("name_basis") == "amount_match_inferred": name += "（关联待核）"
+        if h.get("name_basis") == "trade_history_only": name += "（买入记录，非当前持仓）"
+        put_label = money(put) + " 元" if put is not None else "—"
+        rows += f'<tr><td>{esc(h["kind"])}</td><td>{esc(name)}{code}</td><td class="num">{put_label}</td><td class="num">{val}</td></tr>'
+    foot = f'<tr class="total"><td colspan="2">已列小计</td><td class="num">{money(tot_in)} 元</td><td class="num">{money(tot_v) + " 元" if known_values else "—"}</td></tr>'
     snap = f'（{hm.get("as_of", "")[5:]} 快照）' if hm.get("as_of") else ""
-    tbl = f'<table class="mini-table"><thead><tr><th>类型</th><th>产品</th><th>入金金额</th><th>当前市值{snap}</th></tr></thead><tbody>{rows}{foot}</tbody></table>'
+    tbl = f'<table class="mini-table"><thead><tr><th>类型</th><th>产品</th><th>买入金额</th><th>当前市值{snap}</th></tr></thead><tbody>{rows}{foot}</tbody></table>'
     fund_html = ""
     if fd:
         top = sorted([f for f in fd if f["po"] != "盈米宝"], key=lambda f: -f["mv"])[:8]
@@ -583,7 +591,7 @@ def holdings_block(u):
         basis = f'{hm.get("bill_month")} 月末账单市值' if hm.get("bill_month") else "绑定后子订单成功金额（未扣净值波动）"
         fund_html = (f'<p class="tight muted">穿透到基金（{basis}，前 {len(top)} 只{f"，另 {more} 只未列" if more > 0 else ""}'
                      f'{f"；盈米宝货币基金 {money(wallet)} 元" if wallet else ""}）</p><ul class="funds">{items}</ul>')
-    return f'<div class="deposit-products"><div class="deposit-head"><h4>买入去向与当前状态</h4><span>入金金额与最新市值</span></div><p class="tight muted">各产品入金金额为绑定后买入金额；盈米宝为充值后仍留在钱包的部分。</p>{tbl}{fund_html}</div>'
+    return f'<div class="deposit-products"><div class="deposit-head"><h4>买入去向与当前状态</h4><span>买入金额与持仓市值</span></div><p class="tight muted">买入金额统计绑定后产品买入，含钱包余额转购；盈米宝仅展示持仓市值。</p>{tbl}{fund_html}</div>'
 
 def case_insight(u):
     style = str(u.get("conversion_path_label") or "")

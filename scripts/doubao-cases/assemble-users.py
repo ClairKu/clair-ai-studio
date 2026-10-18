@@ -172,17 +172,19 @@ for c in sorted(cand, key=lambda c: c["fb"]):
     used = set()
     for r in sorted([x for x in g_comb.get(a3 or "", []) if x["relation_account_type"] in ("CA", "WALLET")], key=lambda x: -float(x["ta"])):
         if r["relation_account_type"] == "WALLET":
-            holdings.append({"kind": "钱包", "code": "WALLET", "name": "盈米宝", "value": float(r["ta"]), "sa": r["service_account_id"]}); continue
+            holdings.append({"kind": "钱包", "code": "WALLET", "name": "盈米宝", "name_basis": "wallet_source", "value": float(r["ta"]), "sa": r["service_account_id"]}); continue
         po = po_from_meta(sa_meta.get(r["service_account_id"]))
+        name_basis = "exact_meta" if po else "unknown"
         if not po:
             cands = [(abs(buy_by_po[c] - float(r["sh"] or r["ta"])), c) for c in buy_by_po if c not in used and c != "WALLET"]
             po = min(cands)[1] if cands else None
+            if po: name_basis = "amount_match_inferred"
         if po: used.add(po)
         holdings.append({"kind": "自助基金" if po == "FUND" else "组合" if po and po.startswith("ZH") else "策略" if po and po.startswith("SI") else "组合/策略",
-                         "code": po, "name": po_names.get(po, po or "未知"), "value": float(r["ta"]), "sa": r["service_account_id"]})
+                         "code": po, "name": po_names.get(po, po or "未知"), "name_basis": name_basis, "value": float(r["ta"]), "sa": r["service_account_id"]})
     if not holdings and buys:
         for pc, amt in sorted(buy_by_po.items(), key=lambda kv: -kv[1]):
-            holdings.append({"kind": "自助基金" if pc == "FUND" else "组合/策略", "code": pc, "name": po_names.get(pc, pc), "value": None, "buy": amt})
+            holdings.append({"kind": "买入记录", "code": pc, "name": po_names.get(pc, pc), "name_basis": "trade_history_only", "value": None, "buy": amt})
     bill = g_bill.get(a3 or "", [])
     latest_month = max((b["cal_month"] for b in bill), default=None)
     fund_detail = [{"po": b["po_name"] or "盈米宝", "fund_code": b["fund_code"], "fund_name": b["fund_name"], "mv": float(b["mv"] or 0)}

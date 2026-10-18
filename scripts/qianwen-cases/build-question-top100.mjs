@@ -90,7 +90,8 @@ export async function buildTop100({root,inputDir,privateOut,fundedPath,password=
     const anonKey=String(user.anon_key),source=groups.get(anonKey)||[];
     source.sort((a,b)=>stamp(a.question_at).localeCompare(stamp(b.question_at))||String(a.message_id).localeCompare(String(b.message_id),undefined,{numeric:true}));
     const observed=dayNumber(cutoff)-dayNumber(source[0]?.question_at)+1;
-    const active=new Set(source.map(row=>stamp(row.question_at).slice(0,10))).size;
+    const activeDates=[...new Set(source.map(row=>stamp(row.question_at).slice(0,10)))].sort(),active=activeDates.length;
+    const useInterval=active>1?(dayNumber(activeDates.at(-1))-dayNumber(activeDates[0]))/(active-1):null;
     if(source.length!==Number(user.questions)||observed!==Number(user.observed_calendar_days)||active!==Number(user.active_days))throw new Error('Per-user counts or daily denominator do not reconcile');
     const ratio=source.length/observed;
     if(Math.abs(ratio-Number(user.questions_per_calendar_day))>0.00001)throw new Error('Daily-average calculation does not reconcile');
@@ -128,7 +129,7 @@ export async function buildTop100({root,inputDir,privateOut,fundedPath,password=
     }
     chunkPaths[anonKey]=relative;totalQuestions+=questions.length;
     users.push({key:anonKey,label:'提问用户 Q'+String(index+1).padStart(3,'0'),total:source.length,daily_avg:ratio,observed_days:observed,active_days:active,
-      sessions:sessions.size,...counts,topics,summary,new_or_existing:user.cohort_proxy==='new'?'新客':'老客',first_at:stamp(user.first_question_at),last_at:stamp(user.last_question_at),repeated_inputs:repeats,
+      sessions:sessions.size,use_interval_days:useInterval,...counts,topics,summary,new_or_existing:user.cohort_proxy==='new'?'新客':user.cohort_proxy==='existing'?'老客':'待核',first_at:stamp(user.first_question_at),last_at:stamp(user.last_question_at),repeated_inputs:repeats,
       ...(fundedPath?{post_bind_inflow:Boolean(funded)}:{})});
   }
   const rankings={total:anonymous.total_top100.map(u=>String(u.anon_key)),daily:anonymous.daily_top100.map(u=>String(u.anon_key))};
@@ -136,11 +137,11 @@ export async function buildTop100({root,inputDir,privateOut,fundedPath,password=
   if(totalQuestions!==coverage.raw_union_questions)throw new Error('Question chunks do not cover the union');
   const byKey=new Map(users.map(user=>[user.key,user]));
   const rankingAnalysis=Object.fromEntries(Object.entries(rankings).map(([name,keys])=>{
-    const group=keys.map(k=>byKey.get(k)),total=group.reduce((n,u)=>n+u.total,0),newCount=group.filter(u=>u.new_or_existing==='新客').length;
+    const group=keys.map(k=>byKey.get(k)),total=group.reduce((n,u)=>n+u.total,0),newCount=group.filter(u=>u.new_or_existing==='新客').length,existingCount=group.filter(u=>u.new_or_existing==='老客').length,unknownCount=100-newCount-existingCount;
     const topics=new Map();for(const user of group)for(const topic of user.topics)topics.set(topic.label,(topics.get(topic.label)||0)+topic.n);
     const top=[...topics].filter(([label])=>!['对话承接','任务进度','个人情况补充','表达待辨'].includes(label)).sort((a,b)=>b[1]-a[1]).slice(0,3).map(([label])=>label).join('、');
     const short=group.filter(u=>u.observed_days<=7).length;
-    let summary=`这 100 人占全体提问用户的 ${(100/anonymous.meta.all_asking_users*100).toFixed(2)}%，贡献 ${(total/anonymous.meta.all_questions*100).toFixed(1)}% 的用户输入；新客 ${newCount} 人、老客 ${100-newCount} 人。`;
+    let summary=`这 100 人占全体提问用户的 ${(100/anonymous.meta.all_asking_users*100).toFixed(2)}%，贡献 ${(total/anonymous.meta.all_questions*100).toFixed(1)}% 的用户输入；新客 ${newCount} 人、老客 ${existingCount} 人`+(unknownCount?`、新老客待核 ${unknownCount} 人`:'')+'。';
     if(top)summary+=`其它输入主要涉及${top}。`;
     if(fundedPath)summary+=`${group.filter(u=>u.post_bind_inflow).length} 人有绑定后入金记录。`;
     if(name==='daily'&&short)summary+=`${short} 人观察期不超过 7 天，日均不能直接代表长期稳定活跃。`;
@@ -149,6 +150,8 @@ export async function buildTop100({root,inputDir,privateOut,fundedPath,password=
   const data={meta:{cutoff,user_population:anonymous.meta.all_asking_users,question_population:anonymous.meta.all_questions,union_users:users.length,overlap:anonymous.meta.intersection_count,ranking_analysis:rankingAnalysis,
     source_definition:'全部千问绑定用户的有效用户输入，包含已识别默认题；不含且慢其它会话、系统/助手消息。',
     daily_definition:'观察日均＝总提问量 ÷ 首次有效提问日至截止当天的自然日数（含首尾）；末日不足全天。',
+    frequency_definition:'使用频次按首末活跃日期相差天数 ÷（活跃日数−1）计算平均使用日间隔；只有1个活跃日不推断重复频率。',
+    origin_definition:'已确认默认题仅按已确认文本识别；其它推荐题按精确文本匹配推断；其余输入的主动/推荐/任务来源未确认。',
     timezone:'Asia/Shanghai',classification_note:'主题为规则归类，原文保留，仅遮蔽敏感标识；新老客按注册与绑定时间近似识别。'},users,rankings};
   await mkdir(privateOut,{recursive:true});
   await writeFile(resolve(privateOut,'question-top100-data.json'),JSON.stringify(data));
