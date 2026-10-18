@@ -137,12 +137,14 @@ const sql = `WITH nu AS (
 )
 SELECT CAST(nu.pmid AS CHAR) AS person_key,
   CAST(s.session_id AS CHAR) AS session_key,
+  CAST(m.id AS CHAR) AS message_key,
   DATE_FORMAT(m.dj_gmt_create, '%Y-%m-%d %H:%i:%s') AS local_time,
   REGEXP_REPLACE(TRIM(m.user_input), '[[:space:]]+', ' ') AS question
 FROM nu JOIN session_map s ON s.qmuser_user_id=nu.pmid
 JOIN ying99_xiaogu3_qa.agent_dj_messages m
-  ON m.session_id=s.session_id AND m.is_deleted=0
- AND m.role='USER' AND m.dj_gmt_create>=nu.fb AND m.dj_gmt_create<'${cutoff}'
+  ON CAST(m.session_id AS CHAR)=CAST(s.session_id AS CHAR) AND m.is_deleted=0
+ AND m.role='USER' AND m.dj_gmt_create>=nu.fb
+ AND m.dj_gmt_create>='2026-08-03 00:00:00' AND m.dj_gmt_create<'${cutoff}'
 WHERE m.user_input IS NOT NULL AND TRIM(m.user_input)<>''
 ORDER BY nu.pmid,m.dj_gmt_create,m.id`;
 
@@ -182,6 +184,10 @@ async function executeSql(query) {
 }
 
 const sourceRows = await executeSql(sql);
+const sourceMessageKeys = sourceRows.map((row) => String(row.message_key ?? ''));
+if (sourceMessageKeys.some((key) => !/^\d+$/.test(key)) || new Set(sourceMessageKeys).size !== sourceRows.length) {
+  throw new Error('原始提问存在缺失或重复消息标识，不得发布');
+}
 const marketHistory = (await executeSql(`SELECT DATE_FORMAT(record_date, '%Y-%m-%d') AS date,
   CAST(price_close AS DOUBLE) AS close, CAST(return_day AS DOUBLE) AS return_day
 FROM ying99_fdp.dwd_index_price_daily
@@ -199,7 +205,10 @@ function redact(input) {
   value = value.replace(/(?<!\d)1[3-9]\d{9}(?!\d)/g, "[手机号]");
   value = value.replace(/(?<!\d)\d{17}[0-9Xx](?!\d)/g, "[身份证]");
   value = value.replace(/(?<!\d)(?:\d[ -]?){12,19}(?!\d)/g, "[长号码]");
+  value = value.replace(/\bsk-[A-Za-z0-9_-]{16,}\b/g, "[密钥]");
+  value = value.replace(/((?:api[_\s-]?key|access[_\s-]?token|authorization|password|密码|密钥)\s*[:=：]\s*)["']?[A-Za-z0-9_+./=-]{6,}["']?/gi, "$1[敏感凭证]");
   value = value.replace(/\b(?:wxid_|openid[:：]?)[A-Za-z0-9_-]{6,}\b/gi, "[外部标识]");
+  value = value.replace(/((?:user_id|po_manager_id|pmid|session_id|account3_id)["']?\s*[:=：]\s*)["']?[A-Za-z0-9_-]+["']?/gi, "$1[内部标识]");
   return value;
 }
 
@@ -329,7 +338,8 @@ const internalRows = sourceRows.map((row, index) => {
   const question = redact(original);
   if (question !== original) redactedRows += 1;
   const localTime = String(row.local_time ?? "").slice(0, 19);
-  if (!/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(localTime)) throw new Error(`时间格式异常：${row.local_time}`);
+  if (!/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(localTime) || localTime < '2026-08-03 00:00:00' || localTime >= cutoff) throw new Error('提问业务时间异常');
+  if (!original || !/^\d+$/.test(String(row.person_key)) || !String(row.session_key ?? '')) throw new Error('提问标识或内容异常');
   const classified = classify(original);
   return {
     index: index + 1,
@@ -793,6 +803,8 @@ const research = {
     taxonomy: "rule-based-multiaxis-v2",
     corpus_scope: "new_users_after_first_binding",
     self_authored_definition: "all_questions_excluding_recognized_default_questions",
+    input_origin_note: "other_input_origin_unverified_not_proven_voluntary_or_self_authored; recognized presets include confirmed launch defaults and inferred exact-text recommendations",
+    message_uniqueness: "complete_source_message_ids_checked_unique_before_identity_removal",
     substantive_definition: "self_authored_excluding_short_dialogue_followups",
     persona_note: "behavioral_archetype_from_question_signals_not_personal_financial_profile",
     cognition_note: "language_signal_not_verified_investment_knowledge",

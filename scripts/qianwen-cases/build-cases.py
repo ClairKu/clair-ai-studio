@@ -49,8 +49,8 @@ insight_rows = json.load(open(insight_file)) if insight_file.exists() else {}
 for user in users:
     curated = insight_rows.get(str(user.get("pmid")), {})
     for key in ("insight", "conversion_path_label", "conversion_path", "behavior_insight"):
-        # 作者侧判断会持续迭代；重烘焙时应以最新版 narratives.json 覆盖旧快照。
-        if curated.get(key):
+        # 已审核快照中的研判优先；旧旁置文案只能补缺，不能覆盖本次证据。
+        if not user.get(key) and curated.get(key):
             user[key] = curated[key]
 
 # 姓氏单独存放在作者端临时数据中，公开源码不落真实姓名；页面仅进入加密产物。
@@ -659,18 +659,20 @@ def holdings_block(u):
             buy_by_po[t["po_code"]] = buy_by_po.get(t["po_code"], 0) + float(t["buy"])
     if not hs and not fd:
         return '<div class="deposit-products"><div class="deposit-head"><h4>买入去向与当前状态</h4><span>资产尚待次日批次落账</span></div><p class="muted tight">当前尚无可展示的账户持仓行。</p></div>'
-    wallet_keep = max(float(d["inflow_after"] or 0) - sum(buy_by_po.values()), 0)
-    rows = ""; tot_in = 0; tot_v = 0
+    rows = ""; tot_in = 0; tot_v = 0; known_values = 0
     for h in hs:
-        put = wallet_keep if h.get("code") == "WALLET" else buy_by_po.get(h.get("code"), h.get("buy") or 0)
+        # Wallet balance is not inferable from netting gross buys against funding.
+        put = None if h.get("code") == "WALLET" else buy_by_po.get(h.get("code"), h.get("buy") or 0)
         tot_in += put or 0
-        if h.get("value") is not None: tot_v += float(h["value"])
+        if h.get("value") is not None:
+            tot_v += float(h["value"]); known_values += 1
         code = f' <span class="num muted">{esc(h["code"])}</span>' if h.get("code") and h["code"] not in ("WALLET", "FUND") else ""
         val = money(h["value"]) + " 元" if h.get("value") is not None else "未落账"
-        rows += f'<tr><td>{esc(h["kind"])}</td><td>{esc(h["name"])}{code}</td><td class="num">{money(put)} 元</td><td class="num">{val}</td></tr>'
-    foot = f'<tr class="total"><td colspan="2">合计</td><td class="num">{money(tot_in)} 元</td><td class="num">{money(tot_v) + " 元" if tot_v else "—"}</td></tr>'
+        put_label = money(put) + " 元" if put is not None else "—"
+        rows += f'<tr><td>{esc(h["kind"])}</td><td>{esc(h["name"])}{code}</td><td class="num">{put_label}</td><td class="num">{val}</td></tr>'
+    foot = f'<tr class="total"><td colspan="2">已列小计</td><td class="num">{money(tot_in)} 元</td><td class="num">{money(tot_v) + " 元" if known_values else "—"}</td></tr>'
     snap = f'（{hm.get("as_of", "")[5:]} 快照）' if hm.get("as_of") else ""
-    tbl = f'<table class="mini-table"><thead><tr><th>类型</th><th>产品</th><th>入金金额</th><th>当前市值{snap}</th></tr></thead><tbody>{rows}{foot}</tbody></table>'
+    tbl = f'<table class="mini-table"><thead><tr><th>类型</th><th>产品</th><th>买入金额</th><th>当前市值{snap}</th></tr></thead><tbody>{rows}{foot}</tbody></table>'
     fund_html = ""
     if fd:
         top = sorted([f for f in fd if f["po"] != "盈米宝"], key=lambda f: -f["mv"])[:8]
@@ -680,7 +682,7 @@ def holdings_block(u):
         basis = f'{hm.get("bill_month")} 月末账单市值' if hm.get("bill_month") else "绑定后子订单成功金额（未扣净值波动）"
         fund_html = (f'<p class="tight muted">穿透到基金（{basis}，前 {len(top)} 只{f"，另 {more} 只未列" if more > 0 else ""}'
                      f'{f"；盈米宝货币基金 {money(wallet)} 元" if wallet else ""}）</p><ul class="funds">{items}</ul>')
-    return f'<div class="deposit-products"><div class="deposit-head"><h4>买入去向与当前状态</h4><span>入金金额与最新市值</span></div><p class="tight muted">各产品入金金额为绑定后买入金额；盈米宝为充值后仍留在钱包的部分。</p>{tbl}{fund_html}</div>'
+    return f'<div class="deposit-products"><div class="deposit-head"><h4>买入去向与当前状态</h4><span>买入金额与持仓市值</span></div><p class="tight muted">买入金额统计绑定后产品买入，含钱包余额转购；盈米宝仅展示持仓市值。</p>{tbl}{fund_html}</div>'
 
 def case_insight(u):
     style = str(u.get("conversion_path_label") or "")
@@ -996,8 +998,7 @@ for _u in _new_users:
 _prior_recall = [u for u in _new_users if u["flags"].get("recall") and not u["flags"].get("first_invest_after")]
 _big_new = max((u for u in _new_users if u.get("cohort") == "new"), key=lambda u: float(u["derived"].get("inflow_after") or 0), default=None)
 _big_recall = max(_prior_recall, key=lambda u: float(u["derived"].get("inflow_after") or 0), default=None)
-_top_two = sorted(_new_users, key=lambda u: float(u["derived"].get("inflow_after") or 0), reverse=True)[:2]
-_top_two_inflow_share = (sum(float(u["derived"].get("inflow_after") or 0) for u in _top_two) / Z["inflow"] * 100) if Z["inflow"] else 0
+_highlighted_inflow_share = (sum(float(u["derived"].get("inflow_after") or 0) for u in (_big_new, _big_recall) if u) / Z["inflow"] * 100) if Z["inflow"] else 0
 _max_ask_user = max(_new_users, key=lambda u: len(u.get("asks") or []), default=None)
 _max_ask_share = (len(_max_ask_user.get("asks") or []) / Z["asks"] * 100) if _max_ask_user and Z["asks"] else 0
 _max_ask_inflow_share = (float(_max_ask_user["derived"].get("inflow_after") or 0) / Z["inflow"] * 100) if _max_ask_user and Z["inflow"] else 0
@@ -1007,7 +1008,7 @@ INSIGHTS = [
     f'<b>行为</b>绑定到首笔入金中位 {_new_med_txt}，{_within_day_n} 人在 24 小时内完成；{_app_evidence_n}/{Z["n"]} 人查到 App 使用或设备登记，{_terminal_evidence_n} 人绑定后有 App 浏览或点击；{_app_order_n} 人首笔入金前后 30 分钟操作过 App。',
     (f'<b>关键案例</b>{_big_new["age"]} 岁新客入金 {wan(_big_new["derived"]["inflow_after"])}、当前资产 {wan(float((_big_new.get("asset_latest") or {}).get("ta") or 0))}；'
      f'沉寂老客回流入金 {wan(_big_recall["derived"]["inflow_after"])}、当前资产 {wan(float((_big_recall.get("asset_latest") or {}).get("ta") or 0))}。'
-     f'两例合计贡献 {_top_two_inflow_share:.1f}% 入金，成效高度集中。') if _big_new and _big_recall else '',
+     f'两例合计贡献 {_highlighted_inflow_share:.1f}% 入金。') if _big_new and _big_recall else '',
 ]
 INSIGHTS_HTML = "\n".join(f'<li>{item}</li>' for item in INSIGHTS if item)
 def scope_tab(sc):

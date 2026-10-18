@@ -26,15 +26,17 @@ WITH nu AS (
   SELECT
     nu.pmid,
     m.session_id,
+    m.id AS message_id,
     m.dj_gmt_create AS created_at,
     REGEXP_REPLACE(TRIM(m.user_input), '[[:space:]]+', ' ') AS q
   FROM nu
   JOIN session_map s ON s.qmuser_user_id = nu.pmid
   JOIN ying99_xiaogu3_qa.agent_dj_messages m
-    ON m.session_id = s.session_id
+    ON CAST(m.session_id AS CHAR) = CAST(s.session_id AS CHAR)
    AND m.is_deleted = 0
    AND m.role = 'USER'
    AND m.dj_gmt_create >= nu.fb
+   AND m.dj_gmt_create >= '2026-08-03 00:00:00'
    AND m.dj_gmt_create < '__CUT__'
   WHERE m.user_input IS NOT NULL
     AND TRIM(m.user_input) <> ''
@@ -42,6 +44,7 @@ WITH nu AS (
   SELECT
     pmid,
     session_id,
+    message_id,
     created_at,
     q,
     CASE
@@ -72,7 +75,7 @@ WITH nu AS (
   FROM msg
 ), sequenced AS (
   SELECT classified.*,
-    ROW_NUMBER() OVER (PARTITION BY pmid ORDER BY created_at, session_id, q) AS user_question_number
+    ROW_NUMBER() OVER (PARTITION BY pmid ORDER BY created_at, message_id) AS user_question_number
   FROM classified
 ), per_user AS (
   SELECT pmid, COUNT(*) AS questions, COUNT(DISTINCT DATE(created_at)) AS active_days,

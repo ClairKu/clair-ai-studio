@@ -5,6 +5,44 @@ import { mkdtempSync, writeFileSync, readFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
+test('Reviewed snapshot narratives win and highlighted contribution uses the displayed pair', () => {
+  const script = `
+import ast,json
+from pathlib import Path
+tree=ast.parse(Path('scripts/qianwen-cases/build-cases.py').read_text())
+loop=next(n for n in tree.body if isinstance(n,ast.For) and any(isinstance(x,ast.Name) and x.id=='curated' for x in ast.walk(n)))
+share=next(n for n in tree.body if isinstance(n,ast.Assign) and any(isinstance(t,ast.Name) and t.id=='_highlighted_inflow_share' for t in n.targets))
+ns={'users':[{'pmid':1,'insight':'reviewed'}],'insight_rows':{'1':{'insight':'stale','behavior_insight':'legacy fallback'}},
+'_big_new':{'derived':{'inflow_after':255000}},'_big_recall':{'derived':{'inflow_after':45000}},'Z':{'inflow':701578.16}}
+exec(compile(ast.Module(body=[loop,share],type_ignores=[]),'review-priority','exec'),ns)
+print(json.dumps({'insight':ns['users'][0]['insight'],'fallback':ns['users'][0]['behavior_insight'],'share':round(ns['_highlighted_inflow_share'],1)}))
+`;
+  const result=spawnSync('python3',['-c',script],{encoding:'utf8'});
+  assert.equal(result.status,0,result.stderr);
+  assert.deepEqual(JSON.parse(result.stdout),{insight:'reviewed',fallback:'legacy fallback',share:42.8});
+});
+
+test('Product purchases do not infer wallet retention from external funding', () => {
+  const script = `
+import ast,json,html
+from datetime import datetime
+from pathlib import Path
+tree=ast.parse(Path('scripts/qianwen-cases/build-cases.py').read_text())
+ns={'dt':datetime.fromisoformat,'money':lambda n:format(float(n),',.2f'),'esc':html.escape}
+fn=next(n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name=='holdings_block')
+exec(compile(ast.Module(body=[fn],type_ignores=[]),'holdings','exec'),ns)
+u={'fb':'2026-10-10 10:00:00','derived':{'inflow_after':6000},'trades':[{'accept_time':'2026-10-11 10:00:00','canceled':0,'trade_type':'portfolio.buy','buy':1000,'po_code':'P'}],
+'holdings':[{'code':'WALLET','name':'钱包','kind':'钱包','value':0},{'code':'P','name':'产品','kind':'策略','value':0}]}
+print(ns['holdings_block'](u))
+`;
+  const result=spawnSync('python3',['-c',script],{encoding:'utf8'});
+  assert.equal(result.status,0,result.stderr);
+  assert.match(result.stdout,/<th>买入金额<\/th>/);
+  assert.match(result.stdout,/<td>钱包<\/td><td>钱包<\/td><td class="num">—<\/td>/);
+  assert.doesNotMatch(result.stdout,/5,000|入金金额/);
+  assert.match(result.stdout,/已列小计<\/td><td class="num">1,000.00 元<\/td><td class="num">0.00 元/);
+});
+
 test('KPI display uses one decimal for wan and hours below one day without changing raw money', () => {
   const script = `
 import ast,json
