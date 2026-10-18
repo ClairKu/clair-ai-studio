@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 114;
+const DATA_VERSION = 115;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -221,6 +221,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "yingmi-oap-dashboard-templates-2026-10-18",
+      groupId: "ai-platform",
+      title: "盈米 AI 开放平台看板｜三套模板：CEO 总览、生态推进、成果与投入",
+      url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-oap-dashboard-templates-2026-10-18/",
+      preview: "yingmi-oap-dashboard-templates-2026-10-18.png",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-10-18T12:00:00+08:00",
+      source: "依据管理看板设计需求制作的三套可切换交互模板；全部数字、平台状态与计划均为演示。含日/月走势、日期筛选、平台档案、合作阶段、里程碑、待决策、商业模式探索与资源投入。可本地更新进展、附截图、导入指标 JSON、导出/恢复备份与打印；尚未连接生产数据或企业共享后台。",
+      access: "production",
+      workType: "product-demo",
+      tags: ["盈米AI开放平台", "OAP", "CEO汇报", "生态合作", "项目进展", "资源投入", "商业模式", "交互原型", "演示数据", "HTML"],
+    },
     {
       id: "workbuddy-capability-inventory-2026-10-16",
       groupId: "ai-platform",
@@ -3594,6 +3608,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "yingmi-oap-dashboard-templates-2026-10-18": "ai-platform",
   "workbuddy-capability-inventory-2026-10-16": "ai-platform",
   "e-da-longwin-follow-analysis-2026-10-16": "growth-insights",
   "yingmi-baixiaosheng-product-panorama-2026-10-16": "xiaogu",
