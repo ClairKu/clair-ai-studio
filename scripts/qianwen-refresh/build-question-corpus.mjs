@@ -209,6 +209,9 @@ function redact(input) {
   value = value.replace(/((?:api[_\s-]?key|access[_\s-]?token|authorization|password|密码|密钥)\s*[:=：]\s*)["']?[A-Za-z0-9_+./=-]{6,}["']?/gi, "$1[敏感凭证]");
   value = value.replace(/\b(?:wxid_|openid[:：]?)[A-Za-z0-9_-]{6,}\b/gi, "[外部标识]");
   value = value.replace(/((?:user_id|po_manager_id|pmid|session_id|account3_id)["']?\s*[:=：]\s*)["']?[A-Za-z0-9_-]+["']?/gi, "$1[内部标识]");
+  // Only a self-name followed by an explicit recall question; preserve action requests.
+  value = value.replace(/(我叫\s*)([\u4e00-\u9fffA-Za-z0-9·_-]{2,20}?)(?=[，,。.!！?？\s]*(?:你(?:还)?记得(?:我)?(?:吗|么)?|(?:还)?记得我(?:吗|么)?)(?:[，,。.!！?？\s]|$))/g,
+    (match, prefix, name) => /^(?:你|您|他|她|它|他们|她们|它们|那个|这个)/.test(name) || /帮我|帮他|帮她|分析|复盘|推荐|核实|核对|重新|查询|比较|计算|筛选|看看/.test(name) ? match : `${prefix}[称呼已隐藏]`);
   return value;
 }
 

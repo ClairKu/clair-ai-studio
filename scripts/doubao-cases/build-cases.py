@@ -80,6 +80,19 @@ def dur(a, b):
     return f"{m}分{sec:02d}秒"
 PLAT = {"3": "iOS", "4": "安卓", "5": "鸿蒙"}
 
+# App MIA reserves these exact no-mode messages for automatic entry greetings.
+# Do not filter by AUTO_LEAD or uppercase text generally: investment presets and OK are inputs.
+APP_MIA_CONTROL_TEXTS = frozenset({"HI_AGAIN", "FIRST_IN_DAY", "NEWBIE"})
+
+def app_mia_is_control(message):
+    text = str(message.get("text") or message.get("content") or "").strip()
+    mode = str(message.get("mode") or message.get("query_mode") or "").strip()
+    return not mode and text in APP_MIA_CONTROL_TEXTS
+
+def app_mia_questions(user):
+    return [message for message in (user.get("channels") or {}).get("app_mia", [])
+            if str(message.get("text") or "").strip() and not app_mia_is_control(message)]
+
 # ───── 口径定义 ─────
 SCOPES = [
   {"id": "new_inv", "label": "新投", "flag": "zero_at_bind",
@@ -319,10 +332,10 @@ def decision_chain_panel(u):
             when = dt(row.get("ts"))
             if when and when > decision_at:
                 post.append((when, "App 小顾", row.get("text") or ""))
-        for row in (u.get("channels") or {}).get("app_mia", []):
+        for row in app_mia_questions(u):
             when = dt(row.get("ts"))
             text = row.get("text") or ""
-            if when and when > decision_at and text != "HI_AGAIN":
+            if when and when > decision_at:
                 post.append((when, "App 小顾", text))
         post.sort(key=lambda item: item[0])
         if post:
@@ -387,8 +400,12 @@ def behavior_panel(u):
         text = (message.get("text") or "").strip()
         source = MIA_SCENE.get(message.get("scene"), message.get("scene") or "App")
         detail = f'从{source}进入小顾'
-        if text and text != "HI_AGAIN":
+        if app_mia_is_control(message):
+            detail += '（自动入口，非用户提问）'
+        elif text:
             detail += f' →「{short_quote(text, 48)}」'
+        else:
+            detail += '（无提问文本）'
         add_record(message.get("ts"), "xg", "App 小顾", detail)
 
     for trade in trade_rows:
@@ -525,10 +542,10 @@ def path_summary(u):
     asks = sorted(u["asks"], key=lambda a: a["ts"])
     if asks:
         parts.append(f'在且慢 App 内向小顾提问 {len(asks)} 次')
-    mia = (u.get("channels") or {}).get("app_mia", [])
+    mia = app_mia_questions(u)
     if mia:
         scenes = sorted({MIA_SCENE.get(m.get("scene"), m.get("scene") or "App") for m in mia})
-        parts.append(f'在 App 内也用了 {len(mia)} 次小顾（{"、".join(scenes)}入口）')
+        parts.append(f'在 App 内有 {len(mia)} 条小顾输入（{"、".join(scenes)}入口）')
     path = "，".join(parts[:2]) + "；" + "；".join(parts[2:]) + "。"
     narrative = f'<p>{u["narrative"]}</p>' if u.get("narrative") else ""
     return f'<div class="summary"><h4>用户路径与行为总结</h4><p class="path"><b>路径</b>{path}</p>{narrative}</div>'
@@ -540,7 +557,7 @@ def top_stats(u):
     first_in = d["first_inflow_after"]
     dates = "、".join(f'{"首笔" if i == 0 else "第二笔"} {fmt_md(x["t"])}' for i, x in enumerate(inf[:2]))
     dates_html = f'<small>{dates}</small>' if dates else ''
-    q = len(u["asks"]); m = len(ch.get("app_mia", [])); w = int(ch.get("wechat_msgs", 0) or 0); db = int(ch.get("doubao_sessions", 0) or 0)
+    q = len(u["asks"]); m = len(app_mia_questions(u)); w = int(ch.get("wechat_msgs", 0) or 0); db = int(ch.get("doubao_sessions", 0) or 0)
     total = db + q + m + w
     chs = [f'豆包令牌 {db} 条' if db else "", f'且慢提问 {q + m} 条' if (q + m) else "", f'微信提问 {w} 条' if w else ""]
     chs = " · ".join(x for x in chs if x) or "三端均无记录"
@@ -561,7 +578,14 @@ def holdings_block(u):
         if dt(t["accept_time"]) >= fb and not t["canceled"] and t["trade_type"] != "wallet.recharge" and t["buy"] and float(t["buy"]) > 0:
             buy_by_po[t["po_code"]] = buy_by_po.get(t["po_code"], 0) + float(t["buy"])
     if not hs and not fd:
-        return '<div class="deposit-products"><div class="deposit-head"><h4>买入去向与当前状态</h4><span>资产尚待次日批次落账</span></div><p class="muted tight">当前尚无可展示的账户持仓行。</p></div>'
+        asset = u.get("asset_latest") or {}
+        asset_day = str(META.get("asset_as_of") or "")[:10]
+        verified_zero = bool(META.get("assets_audit_complete") and asset_day
+                             and str(asset.get("cal_date") or "")[:10] == asset_day
+                             and asset.get("ta") is not None and float(asset["ta"]) == 0)
+        label = "已核实无持仓" if verified_zero else "暂无持仓明细"
+        detail = "已核实资产为0，当前无持仓。" if verified_zero else "暂无可展示的持仓明细。"
+        return f'<div class="deposit-products"><div class="deposit-head"><h4>买入去向与当前状态</h4><span>{label}</span></div><p class="muted tight">{detail}</p></div>'
     rows = ""; tot_in = 0; tot_v = 0; known_values = 0
     shown_buy_codes = set()
     for h in hs:
@@ -769,7 +793,7 @@ _tc = _C(LIBN.get(terminal_of(u), "未知") for u in scope_users(next(sc for sc 
 _term_txt = "、".join(f"{k} {v}" for k, v in _tc.most_common())
 _terminal_evidence_n = sum(terminal_of(u) is not None for u in scope_users(next(sc for sc in SCOPES if sc["id"] == "new_inv")))
 _app_evidence_n = sum(has_app_evidence(u) for u in scope_users(next(sc for sc in SCOPES if sc["id"] == "new_inv")))
-_mia_n = sum(len((u.get("channels") or {}).get("app_mia", [])) for u in scope_users(next(sc for sc in SCOPES if sc["id"] == "new_inv")))
+_mia_n = sum(len(app_mia_questions(u)) for u in scope_users(next(sc for sc in SCOPES if sc["id"] == "new_inv")))
 _new_users = scope_users(next(sc for sc in SCOPES if sc["id"] == "new_inv"))
 _ages = [int(u["age"]) for u in _new_users if u.get("age") is not None]
 _age_mid = int(_st.median(_ages)) if _ages else None
@@ -819,7 +843,7 @@ def all_asks(u):
         t = dt(x)
         if t and t >= fb0:
             rows.append({"ts": t.strftime("%Y-%m-%dT%H:%M:%S"), "text": "授权当刻签发令牌" if (t - fb0).total_seconds() <= 120 else "豆包 OAuth 令牌签发（活动代理，提问内容不可得）", "ch": "豆包"})
-    for m in (u.get("channels") or {}).get("app_mia", []):
+    for m in app_mia_questions(u):
         rows.append({"ts": m["ts"][:19], "text": (m.get("text") or "").strip(), "ch": "且慢",
                      "via": MIA_SCENE.get(m.get("scene"), m.get("scene") or "") + ("快捷入口" if m.get("mode") == "AUTO_LEAD" else "")})
     return sorted(rows, key=lambda r: r["ts"])

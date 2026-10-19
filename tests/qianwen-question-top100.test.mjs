@@ -69,6 +69,22 @@ test('Reused question rules do not execute source fetching and distinguish known
   assert.equal(classify('我这笔钱三年后要用，如何分配？').preset,null);
 });
 
+test('Explicit self-name recall prompts are masked without rewriting investment action requests',async()=>{
+  const source=await readFile(new URL('../scripts/qianwen-refresh/build-question-corpus.mjs',import.meta.url),'utf8');
+  const definitions=source.slice(source.indexOf('const DIRECTION_IDS ='),source.indexOf('const sql ='));
+  const functions=source.slice(source.indexOf('function redact(input)'),source.indexOf('let redactedRows ='));
+  const mainRedact=vm.runInNewContext(definitions+'\n'+functions+';redact');
+  const examples=[
+    ['你知道我是谁吗，我叫示例甲乙你记得吗','你知道我是谁吗，我叫[称呼已隐藏]你记得吗'],
+    ['我叫示例甲乙，你还记得我吗？','我叫[称呼已隐藏]，你还记得我吗？'],
+    ['我叫SampleName，你记得我吗','我叫[称呼已隐藏]，你记得我吗'],
+  ];
+  for(const [input,expected]of examples){assert.equal(redactQuestion(input),expected);assert.equal(mainRedact(input),expected);}
+  for(const input of ['我叫你帮我分析002910，你记得吗？','我叫小易重新复盘，你记得吗？','我本人是价值投资做防守，应该怎么配置？','我叫你说话就是最靠谱的。']){
+    assert.equal(redactQuestion(input),input);assert.equal(mainRedact(input),input);
+  }
+});
+
 test('User question chunks are compressed encrypted and cryptographically bound to the anonymous user',async()=>{
   const salt=randomBytes(16),material=await webcrypto.subtle.importKey('raw',new TextEncoder().encode('fixture-only'),'PBKDF2',false,['deriveKey']);
   const key=await webcrypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:310000,hash:'SHA-256'},material,{name:'AES-GCM',length:256},false,['encrypt','decrypt']);
