@@ -19,6 +19,7 @@ test('Doubao service uses the official Yingmi AI logo and consistent published b
  assert.ok(preview.includes('豆包・盈米AI服务'));assert.ok(preview.includes('data:image/png;base64,'+img[1]));
  assert.ok(read('src/app.js').includes('title: "豆包・盈米AI服务｜用户数据看板"'));
  assert.ok(read('scripts/encrypt-doubao-dashboard.mjs').includes('<title>豆包・盈米AI服务｜用户引流成效</title>'));
+ assert.ok(read('scripts/doubao-cases/build-cases.py').includes('DOUBAO × YINGMI AI · CASE EXPLORER'));
  const data=JSON.parse(read('public/reports/doubao-user-acquisition-dashboard/data/latest.json'));
  assert.equal(data.meta.title,'豆包・盈米AI服务 用户数据看板');
 });

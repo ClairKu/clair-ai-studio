@@ -59,6 +59,46 @@ print(json.dumps({'status':'passed','channels':2,'strict_kpi_inputs_unchanged':T
   assert.equal(JSON.parse(run.stdout).status,'passed');
 });
 
+test('Doubao activity labels separate pre-binding history and preserve cross-year dates',()=>{
+  const program=String.raw`
+import ast,copy,json
+from pathlib import Path
+from datetime import datetime
+source=Path('scripts/doubao-cases/build-cases.py').read_text()
+tree=ast.parse(source)
+names={'app_mia_is_control','app_mia_questions','fmt_badge_date','top_stats','all_asks'}
+nodes=[n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name in names or isinstance(n,ast.Assign) and any(isinstance(t,ast.Name) and t.id=='APP_MIA_CONTROL_TEXTS' for t in n.targets)]
+ns={'dt':lambda x:datetime.fromisoformat(x) if x else None,'MIA_SCENE':{'MIA':'小顾'},'money':str,'wan':str,'fmt_md':str,'dur':lambda a,b:'1天'}
+exec(compile(ast.Module(body=nodes,type_ignores=[]),'doubao_history','exec'),ns)
+u={'pmid':'fixture','letter':'1','cohort':'existing','fb':'2026-09-05T00:00:00',
+ 'derived':{'first_inflow_after':'2026-09-06T00:00:00','inflow_after':10,'buys_after':1},'asset_latest':{'cal_date':'2026-09-06','ta':10},
+ 'inflow_txns':[{'t':'2026-09-06T00:00:00'}],
+ 'asks':[{'ts':'2026-09-05T01:00:00','text':'看看持仓'}],
+ 'channels':{'doubao_sessions':2,'tokens':['2026-09-05T00:00:00','2026-09-05T01:00:00'],'wechat_msgs':0,'app_mia':[
+ {'ts':'2025-09-12T00:00:00','text':'历史输入','mode':'SELF_INPUT','scene':'MIA'},
+ {'ts':'2026-09-05T02:00:00','text':'investedDays','mode':'OPTION','scene':'MIA'},
+ {'ts':'2026-09-05T03:00:00','text':'HI_AGAIN','mode':None,'scene':'MIA'}]}}
+before=copy.deepcopy(u)
+page=ns['top_stats'](u)
+assert '5 条' in page and 'App 提问 3 条（绑定前 1／绑定后 2）' in page
+assert '豆包令牌 2 条（绑定后）' in page
+rows=ns['all_asks'](u)
+assert len(rows)==5 and sum('绑定前' in r.get('via','') for r in rows)==1
+assert sum('绑定后' in r.get('via','') for r in rows)==2
+assert any(r['text']=='investedDays' for r in rows)
+assert ns['fmt_badge_date']('2025-09-12T00:00:00',u['fb'])=='25年9/12'
+assert ns['fmt_badge_date']('2026-09-12T00:00:00',u['fb'])=='9/12'
+assert ns['fmt_badge_date'](None,u['fb'])=='—'
+assert 'App 提问可能含绑定前历史，具体见每条标注' in source
+assert '小顾3.0原文' in source and '不含其他 App 小顾输入' in source
+assert u==before
+print(json.dumps({'status':'passed','counts_unchanged':True}))
+`;
+  const run=spawnSync('python3',['-c',program],{cwd:resolve(import.meta.dirname,'..'),encoding:'utf8'});
+  assert.equal(run.status,0,run.stderr);
+  assert.equal(JSON.parse(run.stdout).status,'passed');
+});
+
 test('Empty holdings distinguish reviewed same-day zero assets from missing details without settlement guesses',()=>{
   const program=String.raw`
 import ast,copy,json,re

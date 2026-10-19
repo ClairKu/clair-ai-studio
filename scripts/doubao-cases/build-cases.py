@@ -61,8 +61,11 @@ def fmt_t(s, day=False):
     return d.strftime("%-m-%d %H:%M") if day else d.strftime("%H:%M:%S")
 def fmt_md(s):
     d = dt(s); return d.strftime("%-m-%d") if d else "—"
-def fmt_badge_date(s):
-    d = dt(s); return f"{d.month}/{d.day:02d}" if d else "—"
+def fmt_badge_date(s, reference=None):
+    d = dt(s); anchor = dt(reference)
+    if not d: return "—"
+    year = f"{d.year % 100:02d}年" if anchor and d.year != anchor.year else ""
+    return f"{year}{d.month}/{d.day:02d}"
 def money(v):
     if v is None: return "—"
     v = float(v)
@@ -545,7 +548,9 @@ def path_summary(u):
     mia = app_mia_questions(u)
     if mia:
         scenes = sorted({MIA_SCENE.get(m.get("scene"), m.get("scene") or "App") for m in mia})
-        parts.append(f'在 App 内有 {len(mia)} 条小顾输入（{"、".join(scenes)}入口）')
+        before = sum(dt(m.get("ts")) is not None and dt(m["ts"]) < fb for m in mia)
+        after = sum(dt(m.get("ts")) is not None and dt(m["ts"]) >= fb for m in mia)
+        parts.append(f'历史 App 小顾输入 {len(mia)} 条（绑定前 {before}／绑定后 {after}；{"、".join(scenes)}入口）')
     path = "，".join(parts[:2]) + "；" + "；".join(parts[2:]) + "。"
     narrative = f'<p>{u["narrative"]}</p>' if u.get("narrative") else ""
     return f'<div class="summary"><h4>用户路径与行为总结</h4><p class="path"><b>路径</b>{path}</p>{narrative}</div>'
@@ -559,7 +564,13 @@ def top_stats(u):
     dates_html = f'<small>{dates}</small>' if dates else ''
     q = len(u["asks"]); m = len(app_mia_questions(u)); w = int(ch.get("wechat_msgs", 0) or 0); db = int(ch.get("doubao_sessions", 0) or 0)
     total = db + q + m + w
-    chs = [f'豆包令牌 {db} 条' if db else "", f'且慢提问 {q + m} 条' if (q + m) else "", f'微信提问 {w} 条' if w else ""]
+    fb = dt(u["fb"])
+    app_times = [dt(row.get("ts")) for row in u["asks"] + app_mia_questions(u)]
+    before = sum(t is not None and t < fb for t in app_times)
+    after = sum(t is not None and t >= fb for t in app_times)
+    unknown = q + m - before - after
+    timing = f'绑定前 {before}／绑定后 {after}' + (f'／时间未知 {unknown}' if unknown else '')
+    chs = [f'豆包令牌 {db} 条（绑定后）' if db else "", f'App 提问 {q + m} 条（{timing}）' if (q + m) else "", f'微信提问 {w} 条' if w else ""]
     chs = " · ".join(x for x in chs if x) or "三端均无记录"
     icon = (f'<button type="button" class="mini-ic" data-asks="{u["pmid"]}" title="查看豆包令牌与且慢小顾、微信小顾的全部记录" aria-label="查看全部活动记录">'
             '<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1.1-4.3A8 8 0 1 1 21 12z"/></svg></button>') if total else ""
@@ -667,9 +678,9 @@ def card(u):
     if u.get("fb"):
         tags.append(f'<span class="tag">豆包绑定 {fmt_badge_date(u["fb"])}</span>')
     if app_download:
-        tags.append(f'<span class="tag">App 设备注册 {fmt_badge_date(app_download)}</span>')
+        tags.append(f'<span class="tag">App 设备注册 {fmt_badge_date(app_download, u["fb"])}</span>')
     if u.get("first_inflow_ever"):
-        tags.append(f'<span class="tag">首投 {fmt_badge_date(u.get("first_inflow_ever"))}</span>')
+        tags.append(f'<span class="tag">首投 {fmt_badge_date(u.get("first_inflow_ever"), u["fb"])}</span>')
     if u.get("risk"):
         tags.append(f'<span class="tag">风测 {u["risk"][-1]["score"]} 分</span>')
     copy_svg = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>'
@@ -726,7 +737,7 @@ def matrix(us):
   <td class="wrap">{dev_txt}</td>
 </tr>''')
     return f'''<div class="scrollx"><table class="matrix">
-<thead><tr><th>用户</th><th>客群</th><th>画像</th><th>绑定</th><th>绑定后首笔入金</th><th>间隔</th><th title="充值盈米宝或银行卡直接投资">入金</th><th>{ASSET_DAY} 资产</th><th>风测</th><th title="豆包 OAuth 令牌活动代理 / 且慢 App 小顾提问条数">豆包令牌 / 提问</th><th>App 使用证据</th></tr></thead>
+<thead><tr><th>用户</th><th>客群</th><th>画像</th><th>绑定</th><th>绑定后首笔入金</th><th>间隔</th><th title="充值盈米宝或银行卡直接投资">入金</th><th>{ASSET_DAY} 资产</th><th>风测</th><th title="豆包令牌为活动代理；提问仅小顾3.0原文，不含其他 App 小顾输入">豆包令牌 / 提问</th><th>App 使用证据</th></tr></thead>
 <tbody>{"".join(rows)}</tbody></table></div>'''
 
 def short_duration(seconds):
@@ -764,7 +775,7 @@ def scope_section(sc):
   <div class="cell"><b>{a["n"]}</b><span>用户数</span><em>{population_note}</em></div>
   <div class="cell"><b>{wan(a["inflow"])}</b><span>总入金</span><em>入金 {inflow_people} 人 · {inflow_count} 笔</em></div>
   <div class="cell"><b>{wan(a["asset"])}</b><span>总资产</span><em>持有资产 {asset_people} 人 · 快照 {asset_date_txt}</em></div>
-  <div class="cell"><b>{a["sessions"]:,}</b><span>豆包令牌记录</span><em>活动代理 · 且慢小顾提问 {a["asks"]:,} 条</em></div>
+  <div class="cell"><b>{a["sessions"]:,}</b><span>豆包令牌记录</span><em>活动代理 · 小顾3.0原文 {a["asks"]:,} 条</em></div>
   <div class="cell decision" title="绑定豆包到第一笔入金，按 {len(durs)} 位有入金记录的用户计算"><b>{avg_txt}</b><span>平均决策时长</span><em>中位数 {med_txt} · 样本 {len(durs)} 人</em></div>
 </div>'''
     cards = "\n".join(card(u) for u in us) if us else '<div class="note">该口径下暂无用户。</div>'
@@ -837,15 +848,15 @@ tabs = "".join(f'<button type="button" class="tab" role="tab" data-scope="{sc["i
 sections = "\n".join(scope_section(sc) for sc in SCOPES)
 
 def all_asks(u):
-    rows = [{"ts": a["ts"][:19], "text": a["text"], "ch": "且慢", "via": "App 小顾"} for a in u["asks"]]
     fb0 = dt(u["fb"])
+    rows = [{"ts": a["ts"][:19], "text": a["text"], "ch": "且慢", "via": "App 小顾 · " + ("绑定前" if dt(a["ts"]) < fb0 else "绑定后")} for a in u["asks"]]
     for x in (u.get("channels") or {}).get("tokens", []):
         t = dt(x)
         if t and t >= fb0:
             rows.append({"ts": t.strftime("%Y-%m-%dT%H:%M:%S"), "text": "授权当刻签发令牌" if (t - fb0).total_seconds() <= 120 else "豆包 OAuth 令牌签发（活动代理，提问内容不可得）", "ch": "豆包"})
     for m in app_mia_questions(u):
         rows.append({"ts": m["ts"][:19], "text": (m.get("text") or "").strip(), "ch": "且慢",
-                     "via": MIA_SCENE.get(m.get("scene"), m.get("scene") or "") + ("快捷入口" if m.get("mode") == "AUTO_LEAD" else "")})
+                     "via": MIA_SCENE.get(m.get("scene"), m.get("scene") or "") + ("快捷入口" if m.get("mode") == "AUTO_LEAD" else "") + " · " + ("绑定前" if dt(m["ts"]) < fb0 else "绑定后")})
     return sorted(rows, key=lambda r: r["ts"])
 ASKS_JSON = json.dumps({u["pmid"]: {"letter": u["letter"], "cohort": u["cohort"], "asks": all_asks(u)} for u in users},
                        ensure_ascii=False).replace("</", "<\\/")
@@ -857,7 +868,7 @@ main_dashboard = Path(__file__).resolve().parents[2] / "public/reports/doubao-us
 main_dashboard_html = main_dashboard.read_text(encoding="utf-8")
 brand_marks_match = re.search(r'<span class="cobrand-marks">(.+?)</span>', main_dashboard_html)
 if not brand_marks_match:
-    raise RuntimeError("未能从主看板读取豆包 × 且慢合作 Logo")
+    raise RuntimeError("未能从主看板读取豆包 × 盈米AI合作 Logo")
 COBRAND_MARKS_HTML = brand_marks_match.group(1)
 
 PAGER_SNIPPET = r'''<style>
@@ -1177,7 +1188,7 @@ page = f'''<!doctype html>
     <div class="brand-nav">
       <span class="cobrand-brand">
         <span class="cobrand-marks">{COBRAND_MARKS_HTML}</span>
-        <span class="cobrand-text">DOUBAO × QIEMAN AI · CASE EXPLORER</span>
+        <span class="cobrand-text">DOUBAO × YINGMI AI · CASE EXPLORER</span>
       </span>
       <a class="dashboard-link" href="../doubao-user-acquisition-dashboard/" title="返回豆包引流数据分析主看板" aria-label="返回豆包引流数据分析主看板">
         <span>引流数据分析</span><i aria-hidden="true">‹</i>
@@ -1208,7 +1219,7 @@ page = f'''<!doctype html>
       </div>
       <button type="button" class="modal-close" aria-label="关闭">×</button>
     </div>
-    <div class="modal-body"><ul class="qlist" id="asks-list"></ul></div>
+    <div class="modal-body"><p class="muted tight">App 提问可能含绑定前历史，具体见每条标注；豆包令牌仅为活动代理。</p><ul class="qlist" id="asks-list"></ul></div>
   </div>
 </div>
 
