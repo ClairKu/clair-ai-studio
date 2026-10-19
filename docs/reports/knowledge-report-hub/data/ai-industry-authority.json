@@ -1,6 +1,6 @@
 {
   "schema": "clair-ai-industry-authority/v1",
-  "curatedAt": "2026-10-18T08:30:00+08:00",
+  "curatedAt": "2026-10-19T08:20:00+08:00",
   "selectionRule": "原始发布机构、方法透明、结论可回溯、覆盖全球与中国，并优先选择 2026 年最新版本",
   "reports": [
     {
@@ -431,6 +431,27 @@
       "featuredRank": -2.75,
       "archived": false,
       "relatedReportIds": ["authority-state-of-ai-report-2026", "authority-stanford-ai-index-2026", "authority-mckinsey-state-ai-2026", "authority-anthropic-ai-expectations-gap-2026"]
+    },
+    {
+      "id": "authority-ons-uk-business-ai-adoption-2026",
+      "title": "英国 ONS《Business Insights》｜AI 采用率升至 30%，但裁员影响仍只在少数企业出现",
+      "url": "https://www.ons.gov.uk/businessindustryandtrade/business/businessservices/bulletins/businessinsightsandimpactontheukeconomy/8october2026",
+      "body": "【中文剖析】英国国家统计局 2026 年 10 月的 BICS 把企业 AI 采用从厂商案例和咨询问卷拉回官方统计口径。2026 年 9 月，30% 的英国私营企业报告正在使用至少一种 AI 技术，较 2023 年 9 月的 9% 上升约 20 个百分点；10 人以上企业为 38%，250 人以上企业达到 51%。在 10 人以上企业中，最常见的 AI 类型是大语言模型文本生成 21% 和视觉内容生成 19%；信息与通信行业采用率最高，约 60%。采用并不等于普遍减员：在正在使用 AI 的 10 人以上企业中，38% 认为行政与文职岗位受影响最大，24% 指向创意或设计岗位，但只有 6% 报告总体人数因 AI 减少，不到 1% 报告人数增加，而且这些比例过去一年大致稳定。经营判断上，这组数据同时否定两种夸张叙事：AI 已进入大众企业，但规模差距仍明显；岗位任务正在重排，却没有证据支持把当前采用率直接写成大规模裁员。企业更应追踪具体岗位的任务变化、流程结果与人员再配置，而不是只看工具开通或人数变化。",
+      "kind": "url",
+      "category": "企业与组织",
+      "tags": ["英国AI", "企业采用", "官方统计", "大语言模型", "就业影响", "企业规模", "行业差异", "BICS"],
+      "source": "UK Office for National Statistics",
+      "authority": "英国国家官方企业统计",
+      "methodology": "Business Insights and Conditions Survey 第 165 波于 2026 年 9 月 21 日至 10 月 4 日开展，从 38,592 家企业样本中收到 9,933 份回复，回复率 25.7%；结果按企业数加权，覆盖英国私营企业并提供配套数据表、置信区间和质量方法说明。",
+      "scopeNote": "BICS 是自愿调查和仍在发展中的官方统计，存在抽样与非抽样误差；当前使用、岗位受影响和人数变化均为企业自报，不能证明 AI 的因果影响。抽样框排除农业、油气开采、能源供应、公共管理与国防、公共教育和医疗、金融与保险等行业；不同题目还使用不同企业规模和 AI 使用筛选条件，30%、38%、51%、6% 不能视为同一分母。",
+      "publishedAt": "2026-10-08T00:00:00Z",
+      "ingestedAt": "2026-10-19T08:20:00+08:00",
+      "createdAt": "2026-10-08T00:00:00Z",
+      "updatedAt": "2026-10-08T00:00:00Z",
+      "featured": true,
+      "featuredRank": -3,
+      "archived": false,
+      "relatedReportIds": ["authority-mckinsey-state-ai-2026", "authority-microsoft-wti-2026", "authority-pwc-jobs-2026", "authority-anthropic-employment-2026"]
     }
   ],
   "cards": [
@@ -552,6 +573,12 @@
     {"id":"authority-card-imf-ai-stability-02","reportId":"authority-imf-ai-financial-stability-2026","type":"risk","label":"循环融资","title":"14 笔交易连接 3,000 亿股权、6,500 亿债务与 1.4 万亿收入承诺","summary":"未来云服务或芯片采购承诺把投资者、被投企业和收入预期绑定在一起；关键企业承压时，投资价值与未来收入会同时恶化，形成错误方向风险。","metric":"$300B / $650B / $1.4T","quote":"wrong-way risk to the AI ecosystem","translation":"AI 生态系统的错误方向风险。","anchor":"Chapter 1 p.5 · Figure 1.2 panel 2 · Circular financing","tags":["循环融资", "收入承诺", "错误方向风险"],"createdAt":"2026-10-13T00:00:00Z","order":1,"relatedCardIds":["authority-card-imf-ai-stability-01","authority-card-imf-ai-stability-05"]},
     {"id":"authority-card-imf-ai-stability-03","reportId":"authority-imf-ai-financial-stability-2026","type":"metric","label":"市场杠杆","title":"AI 股票相关杠杆从机构扩散到零售产品","summary":"自 2024 年以来，对冲基金总股票头寸与股票保证金贷款由发达经济体 GDP 的 10% 升至约 15%；杠杆 ETF 中单一股票占比由 16% 升至 28%。","metric":"10%→15% / 16%→28%","quote":"leverage throughout the AI ecosystem has increased","translation":"AI 生态系统各环节的杠杆都在上升。","anchor":"Chapter 1 pp.4–5 · Figure 1.2 panel 1","tags":["杠杆ETF", "保证金贷款", "对冲基金"],"createdAt":"2026-10-13T00:00:00Z","order":2,"relatedCardIds":["authority-card-imf-ai-stability-05"]},
     {"id":"authority-card-imf-ai-stability-04","reportId":"authority-imf-ai-financial-stability-2026","type":"insight","label":"宏观情景","title":"AI 投资逆转情景到 2028 年可使全球投资低于基线 1.3%","summary":"同一 WEO 情景下，全球 GDP 和消费分别比基线低最多 0.4% 和 0.6%；这是反事实敏感性分析，不是 IMF 对 AI 回调概率的预测。","metric":"GDP -0.4% / 投资 -1.3% / 消费 -0.6%","quote":"an unwinding of AI investment","translation":"AI 投资的逆转。","anchor":"Chapter 1 p.4 · AI-driven market correction; October 2026 WEO scenario","tags":["宏观情景", "AI投资", "财富效应"],"createdAt":"2026-10-13T00:00:00Z","order":3,"relatedCardIds":["authority-card-imf-ai-stability-05"]},
-    {"id":"authority-card-imf-ai-stability-05","reportId":"authority-imf-ai-financial-stability-2026","type":"action","label":"压力测试","title":"别把联合压力情景误读成 AI 单因果：弱势银行资产占比仍升至 22%","summary":"覆盖 29 国 665 家银行的逆风情景同时包含 AI 收益重估、能源冲击、通胀、利率和债券收益率上升；总 CET1 下降约 150bp 至 11.5%，但占全球银行资产 22% 的机构跌破 7% 弱势阈值。","metric":"22% / CET1 11.5%","quote":"aggregate resilience masks pockets of weakness","translation":"整体韧性掩盖了局部脆弱性。","anchor":"Chapter 1 pp.9–10 · 2026 Global Bank Stress Test · Figure 1.7","tags":["银行压力测试", "联合情景", "金融稳定"],"createdAt":"2026-10-13T00:00:00Z","order":4,"relatedCardIds":["authority-card-imf-ai-stability-02","authority-card-imf-ai-stability-03","authority-card-imf-ai-stability-04"]}
+    {"id":"authority-card-imf-ai-stability-05","reportId":"authority-imf-ai-financial-stability-2026","type":"action","label":"压力测试","title":"别把联合压力情景误读成 AI 单因果：弱势银行资产占比仍升至 22%","summary":"覆盖 29 国 665 家银行的逆风情景同时包含 AI 收益重估、能源冲击、通胀、利率和债券收益率上升；总 CET1 下降约 150bp 至 11.5%，但占全球银行资产 22% 的机构跌破 7% 弱势阈值。","metric":"22% / CET1 11.5%","quote":"aggregate resilience masks pockets of weakness","translation":"整体韧性掩盖了局部脆弱性。","anchor":"Chapter 1 pp.9–10 · 2026 Global Bank Stress Test · Figure 1.7","tags":["银行压力测试", "联合情景", "金融稳定"],"createdAt":"2026-10-13T00:00:00Z","order":4,"relatedCardIds":["authority-card-imf-ai-stability-02","authority-card-imf-ai-stability-03","authority-card-imf-ai-stability-04"]},
+
+    {"id":"authority-card-ons-uk-ai-01","reportId":"authority-ons-uk-business-ai-adoption-2026","type":"metric","label":"采用率","title":"英国企业 AI 采用率从 9% 升至 30%","summary":"2026 年 9 月，30% 的全部企业报告使用至少一种 AI 技术；相较 2023 年 9 月的 9%，官方写作上升约 20 个百分点。","metric":"9%→30%","quote":"3 in 10 (30%)","translation":"10 家企业中约有 3 家（30%）。","anchor":"§1 Main points; §3 AI adoption · Figure 1","tags":["企业采用", "官方统计", "趋势"],"createdAt":"2026-10-08T00:00:00Z","order":0,"relatedCardIds":["authority-card-ons-uk-ai-02","authority-card-ons-uk-ai-05"]},
+    {"id":"authority-card-ons-uk-ai-02","reportId":"authority-ons-uk-business-ai-adoption-2026","type":"metric","label":"规模差距","title":"250 人以上企业采用率已达 51%","summary":"大型企业采用率明显领先；同一发布中，10 人以上企业为 38%，不足 10 人企业为 29%。规模分组不同，不能把差额解释为因果。","metric":"51% / 38% / 29%","quote":"51%","translation":"51%。","anchor":"§1 Main points; §3 AI adoption · Figure 1","tags":["企业规模", "采用差距", "中小企业"],"createdAt":"2026-10-08T00:00:00Z","order":1,"relatedCardIds":["authority-card-ons-uk-ai-01"]},
+    {"id":"authority-card-ons-uk-ai-03","reportId":"authority-ons-uk-business-ai-adoption-2026","type":"opportunity","label":"技术类型","title":"文本生成与视觉生成成为企业最常见 AI 用途","summary":"在 10 人以上企业中，大语言模型文本生成使用率为 21%，视觉内容生成为 19%；两者自 2023 年 9 月以来分别上升 16 和 15 个百分点。","metric":"21% / 19%","quote":"text generation using large language models","translation":"使用大语言模型生成文本。","anchor":"§3 AI adoption · Technologies used","tags":["大语言模型", "文本生成", "视觉生成"],"createdAt":"2026-10-08T00:00:00Z","order":2,"relatedCardIds":["authority-card-ons-uk-ai-01"]},
+    {"id":"authority-card-ons-uk-ai-04","reportId":"authority-ons-uk-business-ai-adoption-2026","type":"insight","label":"岗位重排","title":"38% 指向行政文职，创意设计为 24%","summary":"分母是使用 AI 或不确定是否使用 AI 的 10 人以上企业；该结果反映企业认为受影响最大的岗位，不是这些岗位被替代的比例。","metric":"38% / 24%","quote":"administrative and clerical roles","translation":"行政与文职岗位。","anchor":"§3 Impact on roles and headcount · Figure 2","tags":["行政岗位", "创意岗位", "任务变化"],"createdAt":"2026-10-08T00:00:00Z","order":3,"relatedCardIds":["authority-card-ons-uk-ai-05"]},
+    {"id":"authority-card-ons-uk-ai-05","reportId":"authority-ons-uk-business-ai-adoption-2026","type":"action","label":"证据边界","title":"AI 已普及，但报告减员的企业仍只有 6%","summary":"在正在使用 AI 的 10 人以上企业中，6% 报告总体人数因 AI 减少，不到 1% 报告增加；比例过去一年大致稳定。采用、任务影响与裁员必须分开追踪。","metric":"6% / <1%","quote":"6% reported reduced headcount","translation":"6% 报告人数减少。","anchor":"§3 Impact on roles and headcount · Headcount results","tags":["就业影响", "人数变化", "因果边界"],"createdAt":"2026-10-08T00:00:00Z","order":4,"relatedCardIds":["authority-card-ons-uk-ai-01","authority-card-ons-uk-ai-04"]}
   ]
 }

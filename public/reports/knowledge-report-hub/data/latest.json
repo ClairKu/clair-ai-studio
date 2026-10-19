@@ -1,6 +1,6 @@
 {
   "schema": "clair-knowledge-hub-feed/v1",
-  "generatedAt": "2026-10-18T00:22:45.623Z",
+  "generatedAt": "2026-10-19T00:22:26.717Z",
   "source": "Clair’s Studio production catalog + curated authoritative AI industry reports",
   "reports": [
     {
@@ -747,6 +747,46 @@
         "authority-stanford-ai-index-2026",
         "authority-mckinsey-state-ai-2026",
         "authority-anthropic-ai-expectations-gap-2026"
+      ],
+      "studioId": "",
+      "origin": "authority",
+      "extractionError": "",
+      "fileName": "",
+      "fileSize": 0
+    },
+    {
+      "id": "authority-ons-uk-business-ai-adoption-2026",
+      "title": "英国 ONS《Business Insights》｜AI 采用率升至 30%，但裁员影响仍只在少数企业出现",
+      "url": "https://www.ons.gov.uk/businessindustryandtrade/business/businessservices/bulletins/businessinsightsandimpactontheukeconomy/8october2026",
+      "body": "【中文剖析】英国国家统计局 2026 年 10 月的 BICS 把企业 AI 采用从厂商案例和咨询问卷拉回官方统计口径。2026 年 9 月，30% 的英国私营企业报告正在使用至少一种 AI 技术，较 2023 年 9 月的 9% 上升约 20 个百分点；10 人以上企业为 38%，250 人以上企业达到 51%。在 10 人以上企业中，最常见的 AI 类型是大语言模型文本生成 21% 和视觉内容生成 19%；信息与通信行业采用率最高，约 60%。采用并不等于普遍减员：在正在使用 AI 的 10 人以上企业中，38% 认为行政与文职岗位受影响最大，24% 指向创意或设计岗位，但只有 6% 报告总体人数因 AI 减少，不到 1% 报告人数增加，而且这些比例过去一年大致稳定。经营判断上，这组数据同时否定两种夸张叙事：AI 已进入大众企业，但规模差距仍明显；岗位任务正在重排，却没有证据支持把当前采用率直接写成大规模裁员。企业更应追踪具体岗位的任务变化、流程结果与人员再配置，而不是只看工具开通或人数变化。",
+      "kind": "url",
+      "category": "企业与组织",
+      "tags": [
+        "英国AI",
+        "企业采用",
+        "官方统计",
+        "大语言模型",
+        "就业影响",
+        "企业规模",
+        "行业差异",
+        "BICS"
+      ],
+      "source": "UK Office for National Statistics",
+      "authority": "英国国家官方企业统计",
+      "methodology": "Business Insights and Conditions Survey 第 165 波于 2026 年 9 月 21 日至 10 月 4 日开展，从 38,592 家企业样本中收到 9,933 份回复，回复率 25.7%；结果按企业数加权，覆盖英国私营企业并提供配套数据表、置信区间和质量方法说明。",
+      "scopeNote": "BICS 是自愿调查和仍在发展中的官方统计，存在抽样与非抽样误差；当前使用、岗位受影响和人数变化均为企业自报，不能证明 AI 的因果影响。抽样框排除农业、油气开采、能源供应、公共管理与国防、公共教育和医疗、金融与保险等行业；不同题目还使用不同企业规模和 AI 使用筛选条件，30%、38%、51%、6% 不能视为同一分母。",
+      "publishedAt": "2026-10-08T00:00:00Z",
+      "ingestedAt": "2026-10-19T08:20:00+08:00",
+      "createdAt": "2026-10-08T00:00:00Z",
+      "updatedAt": "2026-10-08T00:00:00Z",
+      "featured": true,
+      "featuredRank": -3,
+      "archived": false,
+      "relatedReportIds": [
+        "authority-mckinsey-state-ai-2026",
+        "authority-microsoft-wti-2026",
+        "authority-pwc-jobs-2026",
+        "authority-anthropic-employment-2026"
       ],
       "studioId": "",
       "origin": "authority",
@@ -3373,6 +3413,123 @@
         "authority-card-imf-ai-stability-02",
         "authority-card-imf-ai-stability-03",
         "authority-card-imf-ai-stability-04"
+      ],
+      "origin": "authority"
+    },
+    {
+      "id": "authority-card-ons-uk-ai-01",
+      "reportId": "authority-ons-uk-business-ai-adoption-2026",
+      "type": "metric",
+      "label": "采用率",
+      "title": "英国企业 AI 采用率从 9% 升至 30%",
+      "summary": "2026 年 9 月，30% 的全部企业报告使用至少一种 AI 技术；相较 2023 年 9 月的 9%，官方写作上升约 20 个百分点。",
+      "metric": "9%→30%",
+      "quote": "3 in 10 (30%)",
+      "translation": "10 家企业中约有 3 家（30%）。",
+      "anchor": "§1 Main points; §3 AI adoption · Figure 1",
+      "tags": [
+        "企业采用",
+        "官方统计",
+        "趋势"
+      ],
+      "createdAt": "2026-10-08T00:00:00Z",
+      "order": 0,
+      "relatedCardIds": [
+        "authority-card-ons-uk-ai-02",
+        "authority-card-ons-uk-ai-05"
+      ],
+      "origin": "authority"
+    },
+    {
+      "id": "authority-card-ons-uk-ai-02",
+      "reportId": "authority-ons-uk-business-ai-adoption-2026",
+      "type": "metric",
+      "label": "规模差距",
+      "title": "250 人以上企业采用率已达 51%",
+      "summary": "大型企业采用率明显领先；同一发布中，10 人以上企业为 38%，不足 10 人企业为 29%。规模分组不同，不能把差额解释为因果。",
+      "metric": "51% / 38% / 29%",
+      "quote": "51%",
+      "translation": "51%。",
+      "anchor": "§1 Main points; §3 AI adoption · Figure 1",
+      "tags": [
+        "企业规模",
+        "采用差距",
+        "中小企业"
+      ],
+      "createdAt": "2026-10-08T00:00:00Z",
+      "order": 1,
+      "relatedCardIds": [
+        "authority-card-ons-uk-ai-01"
+      ],
+      "origin": "authority"
+    },
+    {
+      "id": "authority-card-ons-uk-ai-03",
+      "reportId": "authority-ons-uk-business-ai-adoption-2026",
+      "type": "opportunity",
+      "label": "技术类型",
+      "title": "文本生成与视觉生成成为企业最常见 AI 用途",
+      "summary": "在 10 人以上企业中，大语言模型文本生成使用率为 21%，视觉内容生成为 19%；两者自 2023 年 9 月以来分别上升 16 和 15 个百分点。",
+      "metric": "21% / 19%",
+      "quote": "text generation using large language models",
+      "translation": "使用大语言模型生成文本。",
+      "anchor": "§3 AI adoption · Technologies used",
+      "tags": [
+        "大语言模型",
+        "文本生成",
+        "视觉生成"
+      ],
+      "createdAt": "2026-10-08T00:00:00Z",
+      "order": 2,
+      "relatedCardIds": [
+        "authority-card-ons-uk-ai-01"
+      ],
+      "origin": "authority"
+    },
+    {
+      "id": "authority-card-ons-uk-ai-04",
+      "reportId": "authority-ons-uk-business-ai-adoption-2026",
+      "type": "insight",
+      "label": "岗位重排",
+      "title": "38% 指向行政文职，创意设计为 24%",
+      "summary": "分母是使用 AI 或不确定是否使用 AI 的 10 人以上企业；该结果反映企业认为受影响最大的岗位，不是这些岗位被替代的比例。",
+      "metric": "38% / 24%",
+      "quote": "administrative and clerical roles",
+      "translation": "行政与文职岗位。",
+      "anchor": "§3 Impact on roles and headcount · Figure 2",
+      "tags": [
+        "行政岗位",
+        "创意岗位",
+        "任务变化"
+      ],
+      "createdAt": "2026-10-08T00:00:00Z",
+      "order": 3,
+      "relatedCardIds": [
+        "authority-card-ons-uk-ai-05"
+      ],
+      "origin": "authority"
+    },
+    {
+      "id": "authority-card-ons-uk-ai-05",
+      "reportId": "authority-ons-uk-business-ai-adoption-2026",
+      "type": "action",
+      "label": "证据边界",
+      "title": "AI 已普及，但报告减员的企业仍只有 6%",
+      "summary": "在正在使用 AI 的 10 人以上企业中，6% 报告总体人数因 AI 减少，不到 1% 报告增加；比例过去一年大致稳定。采用、任务影响与裁员必须分开追踪。",
+      "metric": "6% / <1%",
+      "quote": "6% reported reduced headcount",
+      "translation": "6% 报告人数减少。",
+      "anchor": "§3 Impact on roles and headcount · Headcount results",
+      "tags": [
+        "就业影响",
+        "人数变化",
+        "因果边界"
+      ],
+      "createdAt": "2026-10-08T00:00:00Z",
+      "order": 4,
+      "relatedCardIds": [
+        "authority-card-ons-uk-ai-01",
+        "authority-card-ons-uk-ai-04"
       ],
       "origin": "authority"
     },
