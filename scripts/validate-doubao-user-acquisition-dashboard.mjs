@@ -789,7 +789,7 @@ for (const word of ["映射", "聚合", "去重", "关联", "存量", "ACCOUNT H
   if (reportingCopy.includes(word)) fail(`汇报文案仍包含技术术语：${word}`);
 }
 for (const phrase of [
-  "豆包·且慢AI小顾",
+  "豆包・盈米AI服务",
   "用户引流成效看板",
   "AI 流量入口平台豆包合作",
   "MCP 模式将且慢 AI 小顾能力上架豆包",

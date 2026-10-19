@@ -5,12 +5,14 @@
 数字全部取自快照，刷新数据后重跑即可，不再手工改 SVG。
 用法: build-preview.py [latest.json] [输出 svg]
 """
-import json, sys
+import base64, json, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 DATA = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "public/reports/doubao-user-acquisition-dashboard/data/latest.json"
 OUT = Path(sys.argv[2]) if len(sys.argv) > 2 else ROOT / "public/previews/doubao-user-acquisition-dashboard.svg"
+LOGO = ROOT / "public/reports/doubao-user-acquisition-dashboard/assets/yingmi-ai-logo.png"
+logo_uri = "data:image/png;base64," + base64.b64encode(LOGO.read_bytes()).decode("ascii")
 
 d = json.load(open(DATA))
 m, daily = d["metrics"], d["daily"]
@@ -87,7 +89,7 @@ one_day = next(x["all_accounts"] for x in question_signals["usage_rhythm"]["acti
 multi_day = proxy_all["proxy_active_accounts"] - one_day
 
 svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
-  <title id="title">豆包 X 且慢AI小顾用户数据看板预览</title>
+  <title id="title">豆包・盈米AI服务用户数据看板预览</title>
   <desc id="desc">统计窗口从{first_label}豆包上架起，累计绑定用户 {fmt(m["bound_accounts"])} 人，其中在绑定时新注册的新用户 {fmt(m["new_accounts"])} 人、绑定时已有账户的老用户 {fmt(m["existing_accounts"])} 人。画面左侧是累计与每日新增走势，右侧是经营、画像与用户提问使用信号。</desc>
   <defs>
     <linearGradient id="newCard" x1="0" y1="0" x2="1" y2="1">
@@ -109,16 +111,15 @@ svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" view
     <g transform="translate(62 24)">
       <circle cx="17" cy="17" r="17" fill="#2E7CF6"/>
       <text x="17" y="22" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="700">豆</text>
-      <circle cx="45" cy="17" r="17" fill="#0F9D78"/>
-      <text x="45" y="22" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="700">且</text>
-      <text x="76" y="14" fill="#171B29" font-size="14" font-weight="700">豆包 X 且慢AI小顾</text>
+      <image x="28" y="0" width="34" height="34" href="{logo_uri}"/>
+      <text x="76" y="14" fill="#171B29" font-size="14" font-weight="700">豆包・盈米AI服务</text>
       <text x="76" y="31" fill="#697187" font-size="9" letter-spacing="1.5">用户增长、画像与提问信号</text>
     </g>
     <text x="1216" y="47" text-anchor="end" fill="#697187" font-size="12">数据截至 {cut_label}</text>
     <circle cx="1064" cy="43" r="5" fill="#0F9D78"/>
 
     <text x="62" y="104" fill="#2E7CF6" font-family="SFMono-Regular,monospace" font-size="10" font-weight="700" letter-spacing="2">DOUBAO MCP LAUNCH {start[5:7]}.{start[8:10]} · DATA WINDOW SINCE {start[5:7]}.{start[8:10]}</text>
-    <text x="62" y="157" fill="#111522" font-family="Songti SC,STSong,serif" font-size="44" font-weight="700">豆包 X 且慢AI小顾 用户数据看板</text>
+    <text x="62" y="157" fill="#111522" font-family="Songti SC,STSong,serif" font-size="44" font-weight="700">豆包・盈米AI服务 用户数据看板</text>
     <text x="62" y="188" fill="#697187" font-size="13">与千问看板同一口径：从豆包 OAuth 授权绑定看用户增长，再看在且慢的入金、规模与交易 · 新老按绑定当刻是否新注册判定</text>
 
     <g transform="translate(62 215)" filter="url(#shadow)">

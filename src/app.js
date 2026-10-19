@@ -2141,7 +2141,7 @@ const initialState = {
     {
       id: "doubao-user-acquisition-dashboard",
       groupId: "xiaogu",
-      title: "豆包 X 且慢AI小顾｜用户数据看板",
+      title: "豆包・盈米AI服务｜用户数据看板",
       url: "https://clairku.github.io/clair-ai-studio/reports/doubao-user-acquisition-dashboard/",
       preview: "doubao-user-acquisition-dashboard.svg",
       pinned: true,

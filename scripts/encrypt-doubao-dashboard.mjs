@@ -92,7 +92,7 @@ const shell = `<!doctype html>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
   <meta name="theme-color" content="#f2f1ed">
-  <title>豆包 · 且慢AI小顾｜用户引流成效</title>
+  <title>豆包・盈米AI服务｜用户引流成效</title>
   <style>
     * { box-sizing: border-box; }
     body {

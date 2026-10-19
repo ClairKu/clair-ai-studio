@@ -2,7 +2,7 @@
 
 App 使用统计由 `run-ext-sql.sh` 调用 `scripts/refresh-app-usage.py` 生成 `app-usage.json`，组装时校验截止时点和绑定人群。原生 App 埋点（iOS / Android / HarmonyOS）与设备注册（platform 3 / 4 / 5）按用户去重；小程序和 H5 不计入，暂无记录不代表从未使用。
 
-豆包 X 且慢AI小顾用户数据看板，与千问看板（`scripts/qianwen-refresh/`）**同一套页面、同一套口径、同一条流水线**，
+豆包・盈米AI服务用户数据看板，与千问看板（`scripts/qianwen-refresh/`）**同一套页面、同一套口径、同一条流水线**，
 只把「绑定用户」的基表从千问的 `qwen_user_map` 换成豆包的 OAuth 授权记录：
 
 | | 千问看板 | 豆包看板 |
