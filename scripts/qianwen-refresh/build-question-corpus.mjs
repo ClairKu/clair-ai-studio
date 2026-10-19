@@ -139,7 +139,8 @@ SELECT CAST(nu.pmid AS CHAR) AS person_key,
   CAST(s.session_id AS CHAR) AS session_key,
   CAST(m.id AS CHAR) AS message_key,
   DATE_FORMAT(m.dj_gmt_create, '%Y-%m-%d %H:%i:%s') AS local_time,
-  REGEXP_REPLACE(TRIM(m.user_input), '[[:space:]]+', ' ') AS question
+  REGEXP_REPLACE(TRIM(m.user_input), '[[:space:]]+', ' ') AS question,
+  m.user_input AS raw_question
 FROM nu JOIN session_map s ON s.qmuser_user_id=nu.pmid
 JOIN ying99_xiaogu3_qa.agent_dj_messages m
   ON CAST(m.session_id AS CHAR)=CAST(s.session_id AS CHAR) AND m.is_deleted=0
@@ -199,12 +200,28 @@ const marketBaseline = marketHistory.filter(row => row.date < "2026-08-10").at(-
 if (!marketBaseline || marketRows[0]?.date !== "2026-08-10") throw new Error("缺少千问上线以来行情");
 
 function redact(input) {
-  let value = compact(input);
+  return redactSensitiveText(compact(input));
+}
+
+function redactOriginal(input) {
+  // Keep line breaks, carriage returns, tabs and spacing in the display copy.
+  // Analysis continues to use compact(question), never this raw display text.
+  return redactSensitiveText(String(input ?? "").replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g, ""), true);
+}
+
+function requireOriginalQuestion(row) {
+  if (typeof row.raw_question !== "string" || !row.raw_question.trim()) {
+    throw new Error("原始提问缺少完整 raw_question 字段，不得退回规范化文本");
+  }
+  return row.raw_question;
+}
+
+function redactSensitiveText(value, preserveWhitespace = false) {
   value = value.replace(/https?:\/\/\S+|www\.\S+/gi, "[链接]");
   value = value.replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, "[邮箱]");
   value = value.replace(/(?<!\d)1[3-9]\d{9}(?!\d)/g, "[手机号]");
   value = value.replace(/(?<!\d)\d{17}[0-9Xx](?!\d)/g, "[身份证]");
-  value = value.replace(/(?<!\d)(?:\d[ -]?){12,19}(?!\d)/g, "[长号码]");
+  value = value.replace(preserveWhitespace ? /(?<!\d)(?:\d(?:\s+|-)?){12,19}(?!\d)/g : /(?<!\d)(?:\d[ -]?){12,19}(?!\d)/g, "[长号码]");
   value = value.replace(/\bsk-[A-Za-z0-9_-]{16,}\b/g, "[密钥]");
   value = value.replace(/((?:api[_\s-]?key|access[_\s-]?token|authorization|password|密码|密钥)\s*[:=：]\s*)["']?[A-Za-z0-9_+./=-]{6,}["']?/gi, "$1[敏感凭证]");
   value = value.replace(/\b(?:wxid_|openid[:：]?)[A-Za-z0-9_-]{6,}\b/gi, "[外部标识]");
@@ -336,9 +353,13 @@ function classify(question) {
 }
 
 let redactedRows = 0;
+let rawRedactedRows = 0;
 const internalRows = sourceRows.map((row, index) => {
   const original = compact(row.question);
   const question = redact(original);
+  const rawOriginal = requireOriginalQuestion(row);
+  const rawQuestion = redactOriginal(rawOriginal);
+  if (rawQuestion !== rawOriginal.replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g, "")) rawRedactedRows += 1;
   if (question !== original) redactedRows += 1;
   const localTime = String(row.local_time ?? "").slice(0, 19);
   if (!/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(localTime) || localTime < '2026-08-03 00:00:00' || localTime >= cutoff) throw new Error('提问业务时间异常');
@@ -353,6 +374,7 @@ const internalRows = sourceRows.map((row, index) => {
     timeMs: Date.parse(localTime.replace(" ", "T") + "+08:00"),
     original,
     question,
+    rawQuestion,
     ...classified,
   };
 });
@@ -896,7 +918,7 @@ const rows = internalRows.map((row) => ({
   e: row.engagement,
   u: row.substantiveTurn || 0,
   n: row.nextDirection || "",
-  q: row.question,
+  q: row.rawQuestion,
 }));
 const directionCounts = Object.fromEntries(DIRECTION_IDS.map((id) => [id, rows.filter((row) => row.t === id).length]));
 const plainObject = {
@@ -904,7 +926,8 @@ const plainObject = {
   meta: {
     data_cutoff: research.as_of,
     questions: rows.length,
-    redacted_rows: redactedRows,
+    redacted_rows: rawRedactedRows,
+    canonical_redacted_rows: redactedRows,
     identity_fields: "none",
     date_timezone: "Asia/Shanghai",
     taxonomy: "rule-based-multiaxis-v2",
@@ -931,7 +954,8 @@ const envelope = {
   meta: {
     data_cutoff: plainObject.meta.data_cutoff,
     questions: rows.length,
-    redacted_rows: redactedRows,
+    redacted_rows: rawRedactedRows,
+    canonical_redacted_rows: redactedRows,
     default_questions: presetRows.length,
     self_authored_questions: selfRows.length,
     plaintext_sha256: createHash("sha256").update(plain).digest("hex"),
@@ -946,4 +970,4 @@ await mkdir(dirname(resolve(output)), { recursive: true });
 await mkdir(dirname(resolve(researchOutput)), { recursive: true });
 await writeFile(output, JSON.stringify(envelope) + "\n", { mode: 0o600 });
 await writeFile(researchOutput, JSON.stringify(research, null, 2) + "\n", { mode: 0o600 });
-console.log(`OK questions=${rows.length} self=${selfRows.length} substantive=${substantiveRows.length} presets=${presetRows.length} redacted=${redactedRows}`);
+console.log(`OK questions=${rows.length} self=${selfRows.length} substantive=${substantiveRows.length} presets=${presetRows.length} redacted=${rawRedactedRows} canonical_redacted=${redactedRows}`);
