@@ -222,6 +222,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "qianwen-xiaogu-l3-l4-conversion-2026-10-20",
+      groupId: "xiaogu",
+      title: "千问 × 且慢小顾转化方案｜资金安排 L3 · 攒钱目标 L4",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qianwen-xiaogu-l3-l4-conversion-2026-10-20/",
+      preview: "qianwen-xiaogu-l3-l4-conversion-2026-10-20.png",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-20T18:00:00+08:00",
+      source: "用户转化产品评审方案；重点展开资金安排L3与攒钱目标L4，包含具体用户对话、12个可切换页面示意、投入缺口测算、跨端续接、转化分群与对照实验、资源分工、验收门槛和实施计划。所有用户与金额为虚构设计示例，数值门槛为建议；不代表已上线能力或正式立项。",
+      access: "production",
+      workType: "product-planning",
+      tags: ["千问", "且慢", "AI 小顾", "L3", "L4", "用户转化", "资金安排", "攒钱目标", "产品规划", "交互原型", "HTML"],
+    },
+    {
       id: "qieman-private-client-services-2026-10-20",
       groupId: "product-planning",
       title: "且慢高客服务｜把财富安排妥当，把时间留给生活",
@@ -3622,6 +3636,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "qianwen-xiaogu-l3-l4-conversion-2026-10-20": "xiaogu",
   "qieman-private-client-services-2026-10-20": "product-planning",
   "yingmi-oap-dashboard-templates-2026-10-18": "ai-platform",
   "workbuddy-capability-inventory-2026-10-16": "ai-platform",
