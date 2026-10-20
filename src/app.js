@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 117;
+const DATA_VERSION = 118;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -221,6 +221,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "l3-application-portfolio-2026-10-20",
+      groupId: "advisor-workbench",
+      title: "AI申报总表｜14项逐项优化、现况与闭环流程",
+      url: "https://clairku.github.io/clair-ai-studio/reports/l3-application-portfolio-2026-10-20/",
+      preview: "l3-application-portfolio-2026-10-20.png",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-10-20T19:30:00+08:00",
+      source: "统一产品设计8项、顾问服务4项和小顾转化2项候选，逐项补齐现况与拟建流程、异常分流、资源依赖、实践路径和验收。14份独立HTML关联总表，支持搜索筛选与CSV导出；明确区分材料状态、运行未知与评级待验证。本入口为脱敏方案，不含内部宣讲原文、原始客户反馈、人员资料或实测收益声明。",
+      access: "production",
+      workType: "project-proposal",
+      tags: ["AI", "L3", "L4", "申报总表", "项目提报", "业务流程", "现况", "顾问工作台", "小顾", "产品设计", "HTML"],
+    },
     {
       id: "product-design-l3-eight-proposals-2026-10-20",
       groupId: "product-planning",
@@ -3663,6 +3677,8 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "product-design-l3-eight-proposals-2026-10-20": "product-planning",
+  "l3-application-portfolio-2026-10-20": "advisor-workbench",
   "qieman-advisor-l3-project-proposals-2026-10-20": "advisor-workbench",
   "qianwen-xiaogu-l3-l4-conversion-2026-10-20": "xiaogu",
   "qieman-private-client-services-2026-10-20": "product-planning",
