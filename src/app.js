@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 118;
+const DATA_VERSION = 119;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -221,6 +221,30 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "qieman-feedback-resolution-l3-2026-10-20",
+      groupId: "product-planning",
+      title: "用户反馈处置大表｜384条需求分析、分流路径与L3项目设计",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-feedback-resolution-l3-2026-10-20/",
+      preview: "qieman-feedback-resolution-l3-2026-10-20.svg",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-10-20T20:00:00+08:00",
+      source: "用户提供Excel逐条分析：384条记录、原频次合计420、110处置主题；含54条P1复核候选、解决方法/排查清单/责任角色/验收条件、筛选CSV与本地跟进。公开脱敏方案版，不含内部逐字回复或内部L3标准原文；尚未接入生产执行。",
+      access: "production",
+      workType: "data-analysis",
+      tags: [
+        "且慢",
+        "用户反馈",
+        "需求治理",
+        "客户服务",
+        "L3",
+        "异常分流",
+        "产品规划",
+        "数据分析",
+        "HTML"
+      ]
+    },
     {
       id: "l3-application-portfolio-2026-10-20",
       groupId: "advisor-workbench",
@@ -3558,6 +3582,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "qieman-feedback-resolution-l3-2026-10-20": "data-analysis",
   "e-da-longwin-follow-analysis-2026-10-16": "data-analysis",
   "yingmi-baixiaosheng-product-panorama-2026-10-16": "product-planning",
   "gpt-finance-capability-landscape-2026-10-10": "reporting",
@@ -3677,6 +3702,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "qieman-feedback-resolution-l3-2026-10-20": "product-planning",
   "product-design-l3-eight-proposals-2026-10-20": "product-planning",
   "l3-application-portfolio-2026-10-20": "advisor-workbench",
   "qieman-advisor-l3-project-proposals-2026-10-20": "advisor-workbench",
