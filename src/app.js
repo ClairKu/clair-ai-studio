@@ -222,6 +222,19 @@ const initialState = {
   ],
   reports: [
     {
+      id: "product-design-l3-eight-proposals-2026-10-20",
+      groupId: "product-planning",
+      title: "产品设计团队 L3 拟申报材料｜六份团队方向与两份补充案例",
+      url: "https://clairku.github.io/clair-ai-studio/reports/product-design-l3-eight-proposals-2026-10-20/",
+      preview: "product-design-l3-eight-proposals-2026-10-20.svg",
+      pinned: true,
+      createdAt: "2026-10-20T19:00:00+08:00",
+      source: "八份飞书在线材料导航，包含六份团队方向与两份补充案例；完整背景、可行性与实践路径在飞书内查阅。",
+      access: "production",
+      workType: "product-planning",
+      tags: ["L3", "项目申报", "产品设计", "飞书", "可行性", "实践路径", "HTML"],
+    },
+    {
       id: "qieman-advisor-l3-project-proposals-2026-10-20",
       groupId: "product-planning",
       title: "且慢顾问工作台｜L3 项目提报：12个场景与4份建议书",
