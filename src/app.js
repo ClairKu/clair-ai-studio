@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 115;
+const DATA_VERSION = 116;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -221,6 +221,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "qieman-private-client-services-2026-10-20",
+      groupId: "product-planning",
+      title: "且慢高客服务｜把财富安排妥当，把时间留给生活",
+      url: "https://clairku.github.io/qieman-private-client-services/",
+      preview: "qieman-private-client-services-2026-10-20.png",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-20T19:00:00+08:00",
+      source: "基于盈米官网与新华财经公开资料整理的对外服务介绍：专属顾问、家庭财务规划、资产配置、四笔钱、四个家庭沟通场景、服务流程及同路人权益。原创山水插画，支持手机阅读、场景切换、打印与独立 HTML 下载；历史权益标注时点，具体资格、费用和主体以正式披露为准。非机构官方发布页。",
+      access: "production",
+      workType: "reporting",
+      tags: ["且慢", "高客服务", "专属顾问", "家庭财务规划", "资产配置", "同路人", "对外介绍", "HTML"],
+    },
     {
       id: "yingmi-oap-dashboard-templates-2026-10-18",
       groupId: "ai-platform",
@@ -3608,6 +3622,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "qieman-private-client-services-2026-10-20": "product-planning",
   "yingmi-oap-dashboard-templates-2026-10-18": "ai-platform",
   "workbuddy-capability-inventory-2026-10-16": "ai-platform",
   "e-da-longwin-follow-analysis-2026-10-16": "growth-insights",
