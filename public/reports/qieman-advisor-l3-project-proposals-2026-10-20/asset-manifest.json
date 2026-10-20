@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "files": [
+    {
+      "path": "项目B-且慢新客承接与首次有效服务 Agent.txt",
+      "bytes": 2604,
+      "sha256": "9c0d6695fb4289e0d1f53e3f8479debd10e1a919e3216c8c02af1a247a3f6157"
+    },
+    {
+      "path": "项目D-且慢顾问服务工单协同与问题解决 Agent.txt",
+      "bytes": 2496,
+      "sha256": "c149f831169fe19a9e51ebf19658bdd0860315303f9e13f4cc111f242aaf0349"
+    },
+    {
+      "path": "项目A-且慢顾问关键事件驱动的客户服务闭环 Agent.txt",
+      "bytes": 3390,
+      "sha256": "c0db0d55b06dca8dc59781fbb105fd3fc77ccf1208e0251d2e57ec8f5ed0bea0"
+    },
+    {
+      "path": "项目C-且慢账户定期检视与目标续管 Agent.txt",
+      "bytes": 2644,
+      "sha256": "3e193cfed16fc3d62aaaebe64e82205bcf2be500abcb4903cdb1232b9347ffd0"
+    },
+    {
+      "path": "且慢顾问工作台-L3项目提报材料包.zip",
+      "bytes": 29408,
+      "sha256": "9ea5e2f6740ea10fe7179df66fb3fdb292b803ce998b9d3c23dffd2423ea6afb"
+    }
+  ]
+}

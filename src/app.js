@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 116;
+const DATA_VERSION = 117;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -221,6 +221,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "qieman-advisor-l3-project-proposals-2026-10-20",
+      groupId: "product-planning",
+      title: "且慢顾问工作台｜L3 项目提报：12个场景与4份建议书",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-advisor-l3-project-proposals-2026-10-20/",
+      preview: "qieman-advisor-l3-project-proposals-2026-10-20.png",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-10-20T19:00:00+08:00",
+      source: "聚焦且慢顾问的承接、KYC、诊断、规划、实施、陪伴与复盘流程，筛选12个L3候选场景；提供关键事件服务闭环、新客首服、账户定期检视、服务工单4份可下载提报建议书，含L3准入、主项目作业流程、数据接口、人工权限、资源预算、90天阶段门、验收分母与对照试点。全部目标与资源为待评审的规划假设，不含真实客户或内部明细。",
+      access: "production",
+      workType: "product-planning",
+      tags: ["且慢", "顾问工作台", "L3", "项目提报", "客户服务", "业务流程", "关键事件", "账户检视", "新客承接", "服务工单", "HTML"],
+    },
     {
       id: "qianwen-xiaogu-l3-l4-conversion-2026-10-20",
       groupId: "xiaogu",
@@ -3636,6 +3650,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "qieman-advisor-l3-project-proposals-2026-10-20": "advisor-workbench",
   "qianwen-xiaogu-l3-l4-conversion-2026-10-20": "xiaogu",
   "qieman-private-client-services-2026-10-20": "product-planning",
   "yingmi-oap-dashboard-templates-2026-10-18": "ai-platform",
