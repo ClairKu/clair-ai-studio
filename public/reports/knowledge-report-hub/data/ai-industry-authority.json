@@ -1,6 +1,6 @@
 {
   "schema": "clair-ai-industry-authority/v1",
-  "curatedAt": "2026-10-19T08:20:00+08:00",
+  "curatedAt": "2026-10-20T09:32:00+08:00",
   "selectionRule": "原始发布机构、方法透明、结论可回溯、覆盖全球与中国，并优先选择 2026 年最新版本",
   "reports": [
     {
@@ -452,6 +452,48 @@
       "featuredRank": -3,
       "archived": false,
       "relatedReportIds": ["authority-mckinsey-state-ai-2026", "authority-microsoft-wti-2026", "authority-pwc-jobs-2026", "authority-anthropic-employment-2026"]
+    },
+    {
+      "id": "authority-openai-low-resource-coding-2026",
+      "title": "OpenAI《Low-resource programming languages》｜AI 编码开始进入 COBOL、Fortran 与遗留系统迁移",
+      "url": "https://openai.com/index/low-resource-programming-languages/",
+      "body": "【中文剖析】OpenAI 新发布的两组评测把 AI 编码能力从主流语言扩展到长期缺少训练资料、人才紧缺却仍承载关键系统的低资源语言。MultiLangBench 要求模型在离线环境中，用 20 种语言实现 SQLite 3.40.1，并以精确输出、崩溃与 60 秒超时判断成败；GPT-6 Astra 平均通过率为 87.4%，GPT-5.6 Sol 为 26.8%，20 种语言均有提升，COBOL 仍是最难语言之一，但也从 10.9% 升至 72.1%。成本侧不是越大越好：GPT-6 Luna 平均通过 40.3%，单样本估算成本 0.77 美元，较 GPT-5.6 Sol 的 3.48 美元低约 78%。另一组 COBOL 迁移评测把程序转换为 C++、Java、Kotlin、Python 与 Rust，并用隐藏测试要求字节级一致；GPT-6.1 Sol 低推理强度通过率 86.6%，旧模型为 5.4%，API 成本还低 39%，高推理强度达到 97.9%。关键判断不是“遗留系统可以自动迁移”，而是低资源语言已从模型盲区进入可测试、可分层采购的新阶段。生产迁移仍必须补上业务规则、依赖关系、安全、回归测试和专家审查，且高分接近饱和时需要更难、更贴近真实仓库的评测。",
+      "kind": "url",
+      "category": "企业与组织",
+      "tags": ["低资源编程语言", "COBOL", "Fortran", "遗留系统", "代码迁移", "MultiLangBench", "成本效率", "软件工程"],
+      "source": "OpenAI",
+      "authority": "前沿模型开发者公开评测与开源测试集",
+      "methodology": "MultiLangBench 以 SQLite 3.40.1 为目标，把 5.1 万个 SQLite TCL 测试中的约 2.4 万个转换为跨语言任务，标准评测推荐运行 272 个 00/01/02 前缀测试；模型不能联网，可使用所给文档，输出必须精确匹配，崩溃、错误或 60 秒超时均判失败。另设 COBOL 迁移评测，将程序分别转换为 C++、Java、Kotlin、Python 与 Rust，并以未向模型公开的测试要求字节级一致。MultiLangBench 代码与任务在 Apache-2.0 许可下公开。",
+      "scopeNote": "两组结果均由 OpenAI 开发并报告，不是独立审计；MultiLangBench 是受控的 SQLite 合成实现任务，不等同于生产遗留仓库迁移，模型对 SQLite 的既有熟悉度或训练数据污染不能完全排除。COBOL 迁移测试集并未在本文明确公开；不同推理强度与模型的成本、能力条件也不完全相同。API 成本不含人工审查、集成、合规与回归测试，高推理强度 97.9% 接近饱和也会降低评测区分度。",
+      "publishedAt": "2026-10-19T00:00:00Z",
+      "ingestedAt": "2026-10-20T09:32:00+08:00",
+      "createdAt": "2026-10-19T00:00:00Z",
+      "updatedAt": "2026-10-19T00:00:00Z",
+      "featured": true,
+      "featuredRank": -3.25,
+      "archived": false,
+      "relatedReportIds": ["authority-anthropic-agent-scale-source-control-2026", "authority-mckinsey-state-ai-2026", "authority-openai-enterprise-2025", "authority-state-of-ai-report-2026"]
+    },
+    {
+      "id": "authority-stanford-medical-ai-workflows-2026",
+      "title": "Stanford HAI《Measuring What Medical AI Can Actually Do》｜会答题不等于能完成医疗工作流",
+      "url": "https://hai.stanford.edu/news/measuring-what-medical-ai-can-actually-do",
+      "body": "【中文剖析】Stanford HAI 把医疗 AI 的评价从答题正确率推进到“能否在真实形态的工具链中完成整段工作”。MedHELM 先由 29 名临床医生把医疗 AI 划为 5 类、22 个子类、121 项任务，并用 37 个数据集评测 9 个前沿模型，指出许多日常工作仍缺少合适基准。PhysicianBench 随后从真实咨询重构 100 个长链临床任务，覆盖 21 个专科、平均 27 次工具调用与 670 项核验；最佳 GPT-5.5 的单次完整通过率只有 46%，最佳开源模型 DeepSeek V4-Pro 为 19%，同一 GPT-5.5 在三次运行中都正确完成的任务仅 28%。失败并不只是“不会”：在行动执行失败中，GPT-5.5 有 62%、Claude Opus 4.6 有 73% 已把正确动作写进病历，却没有真正下单。HealthAdminBench 则在超过 100 小时管理岗位观察基础上，搭建 EHR、两家保险门户和传真四种模拟界面，设计 135 项授权、申诉与设备任务、1,698 个核验点；最佳 Claude Opus 4.6 端到端完成 36.3%，最佳开放权重 Kimi K2.5 为 15.6%。GPT-5.4 虽通过 82.8% 的子任务，整单任务却只完成 26.7%。两套基准的环境、模型、界面和评分不同，46% 与 36.3% 不能横向排名；唯一稳健的方向性结论是，当前前沿系统在两类长链医疗工作流中都未过半。医疗机构应把采购验收从单题准确率改为端到端执行、一致性、真实动作留痕、人工接管与失败恢复。",
+      "kind": "url",
+      "category": "安全与治理",
+      "tags": ["医疗AI", "Agent评测", "端到端工作流", "PhysicianBench", "HealthAdminBench", "临床安全", "工具调用", "人工监督"],
+      "source": "Stanford Institute for Human-Centered AI / Stanford Medicine",
+      "authority": "学术医疗 AI 执行级评测综合",
+      "methodology": "MedHELM 汇集 29 名临床医生，将医疗 AI 任务组织为 5 类、22 个子类、121 项任务，并用 37 个数据集评测 9 个前沿模型。PhysicianBench 从真实咨询重构 100 个任务，覆盖 21 个专科，平均每项需 27 次工具调用，并以 670 项检查核验合成 EHR 沙箱中的行动与记录。HealthAdminBench 在超过 100 小时岗位观察后，搭建 EHR、两个保险门户和传真四个模拟 GUI，设置 135 项任务（60 项事前授权、60 项申诉或拒付、15 项耐用医疗设备）和 1,698 个核验点，其中 1,177 个为确定性核验、521 个使用 LLM 评分规则。",
+      "scopeNote": "Stanford HAI 文章发表于 2026 年 10 月 19 日，但其综合的 PhysicianBench 与 HealthAdminBench 论文分别于 2026 年 5 月和 4 月提交。任务使用合成或重构患者与模拟环境，并非真实临床结局，也不代表监管批准或可自主部署。两套基准的环境、模型快照、工具接口、预算与评分不同，46% 和 36.3% 不可直接比较；部分核验使用 LLM 评判，且模型与工具链会继续变化。任何真实部署仍需本地验证、隐私与安全审查、人工监督和监管评估。",
+      "publishedAt": "2026-10-19T00:00:00Z",
+      "ingestedAt": "2026-10-20T09:32:00+08:00",
+      "createdAt": "2026-10-19T00:00:00Z",
+      "updatedAt": "2026-10-19T00:00:00Z",
+      "featured": true,
+      "featuredRank": -3.5,
+      "archived": false,
+      "relatedReportIds": ["authority-stanford-human-ai-collaboration-2026", "authority-anthropic-unintended-actions-2026", "authority-anthropic-self-replication-2026", "authority-international-ai-safety-2026"]
     }
   ],
   "cards": [
@@ -579,6 +621,18 @@
     {"id":"authority-card-ons-uk-ai-02","reportId":"authority-ons-uk-business-ai-adoption-2026","type":"metric","label":"规模差距","title":"250 人以上企业采用率已达 51%","summary":"大型企业采用率明显领先；同一发布中，10 人以上企业为 38%，不足 10 人企业为 29%。规模分组不同，不能把差额解释为因果。","metric":"51% / 38% / 29%","quote":"51%","translation":"51%。","anchor":"§1 Main points; §3 AI adoption · Figure 1","tags":["企业规模", "采用差距", "中小企业"],"createdAt":"2026-10-08T00:00:00Z","order":1,"relatedCardIds":["authority-card-ons-uk-ai-01"]},
     {"id":"authority-card-ons-uk-ai-03","reportId":"authority-ons-uk-business-ai-adoption-2026","type":"opportunity","label":"技术类型","title":"文本生成与视觉生成成为企业最常见 AI 用途","summary":"在 10 人以上企业中，大语言模型文本生成使用率为 21%，视觉内容生成为 19%；两者自 2023 年 9 月以来分别上升 16 和 15 个百分点。","metric":"21% / 19%","quote":"text generation using large language models","translation":"使用大语言模型生成文本。","anchor":"§3 AI adoption · Technologies used","tags":["大语言模型", "文本生成", "视觉生成"],"createdAt":"2026-10-08T00:00:00Z","order":2,"relatedCardIds":["authority-card-ons-uk-ai-01"]},
     {"id":"authority-card-ons-uk-ai-04","reportId":"authority-ons-uk-business-ai-adoption-2026","type":"insight","label":"岗位重排","title":"38% 指向行政文职，创意设计为 24%","summary":"分母是使用 AI 或不确定是否使用 AI 的 10 人以上企业；该结果反映企业认为受影响最大的岗位，不是这些岗位被替代的比例。","metric":"38% / 24%","quote":"administrative and clerical roles","translation":"行政与文职岗位。","anchor":"§3 Impact on roles and headcount · Figure 2","tags":["行政岗位", "创意岗位", "任务变化"],"createdAt":"2026-10-08T00:00:00Z","order":3,"relatedCardIds":["authority-card-ons-uk-ai-05"]},
-    {"id":"authority-card-ons-uk-ai-05","reportId":"authority-ons-uk-business-ai-adoption-2026","type":"action","label":"证据边界","title":"AI 已普及，但报告减员的企业仍只有 6%","summary":"在正在使用 AI 的 10 人以上企业中，6% 报告总体人数因 AI 减少，不到 1% 报告增加；比例过去一年大致稳定。采用、任务影响与裁员必须分开追踪。","metric":"6% / <1%","quote":"6% reported reduced headcount","translation":"6% 报告人数减少。","anchor":"§3 Impact on roles and headcount · Headcount results","tags":["就业影响", "人数变化", "因果边界"],"createdAt":"2026-10-08T00:00:00Z","order":4,"relatedCardIds":["authority-card-ons-uk-ai-01","authority-card-ons-uk-ai-04"]}
+    {"id":"authority-card-ons-uk-ai-05","reportId":"authority-ons-uk-business-ai-adoption-2026","type":"action","label":"证据边界","title":"AI 已普及，但报告减员的企业仍只有 6%","summary":"在正在使用 AI 的 10 人以上企业中，6% 报告总体人数因 AI 减少，不到 1% 报告增加；比例过去一年大致稳定。采用、任务影响与裁员必须分开追踪。","metric":"6% / <1%","quote":"6% reported reduced headcount","translation":"6% 报告人数减少。","anchor":"§3 Impact on roles and headcount · Headcount results","tags":["就业影响", "人数变化", "因果边界"],"createdAt":"2026-10-08T00:00:00Z","order":4,"relatedCardIds":["authority-card-ons-uk-ai-01","authority-card-ons-uk-ai-04"]},
+
+    {"id":"authority-card-openai-low-resource-01","reportId":"authority-openai-low-resource-coding-2026","type":"metric","label":"关键数据","title":"20 种低资源语言平均通过率升至 87.4%","summary":"在离线、精确输出和 60 秒超时约束下，GPT-6 Astra 的 MultiLangBench 平均通过率为 87.4%，GPT-5.6 Sol 为 26.8%；提升覆盖全部 20 种语言。","metric":"87.4% / 26.8%","quote":"average test pass rate of 87.4%","translation":"平均测试通过率为 87.4%。","anchor":"MultiLangBench · Results across 20 languages","tags":["MultiLangBench","低资源语言","代码评测"],"createdAt":"2026-10-19T00:00:00Z","order":0,"relatedCardIds":["authority-card-openai-low-resource-02","authority-card-openai-low-resource-03"]},
+    {"id":"authority-card-openai-low-resource-02","reportId":"authority-openai-low-resource-coding-2026","type":"metric","label":"语言难点","title":"COBOL 从 10.9% 升至 72.1%，但仍最难","summary":"COBOL 的提升显示低资源语言不再是绝对盲区；但 72.1% 仍留下明显失败空间，不能把评测改善写成遗留系统可无人迁移。","metric":"10.9%→72.1%","quote":"COBOL remaining the hardest","translation":"COBOL 仍然是最难的语言。","anchor":"MultiLangBench · Per-language results","tags":["COBOL","遗留系统","失败空间"],"createdAt":"2026-10-19T00:00:00Z","order":1,"relatedCardIds":["authority-card-openai-low-resource-01","authority-card-openai-low-resource-04"]},
+    {"id":"authority-card-openai-low-resource-03","reportId":"authority-openai-low-resource-coding-2026","type":"opportunity","label":"成本效率","title":"小模型成本低约 78%，仍超过旧旗舰模型","summary":"GPT-6 Luna 平均通过率 40.3%，高于 GPT-5.6 Sol 的 26.8%；单样本估算 API 成本为 0.77 美元，对比 3.48 美元。部署应按语言、风险和任务难度路由模型。","metric":"$0.77 / $3.48","quote":"approximately 78% lower","translation":"约低 78%。","anchor":"MultiLangBench · Cost-performance comparison","tags":["小模型","成本效率","模型路由"],"createdAt":"2026-10-19T00:00:00Z","order":2,"relatedCardIds":["authority-card-openai-low-resource-01"]},
+    {"id":"authority-card-openai-low-resource-04","reportId":"authority-openai-low-resource-coding-2026","type":"opportunity","label":"迁移能力","title":"COBOL 迁移低推理强度达到 86.6%","summary":"在转换到五种目标语言并通过隐藏测试的评测中，GPT-6.1 Sol 低推理强度为 86.6%，GPT-5.6 Sol 为 5.4%，API 成本还低 39%；这仍是受控测试，不是生产迁移成功率。","metric":"86.6% / 5.4%","quote":"byte-for-byte parity","translation":"字节级一致。","anchor":"COBOL migration benchmark · Low-reasoning results","tags":["COBOL迁移","隐藏测试","成本"],"createdAt":"2026-10-19T00:00:00Z","order":3,"relatedCardIds":["authority-card-openai-low-resource-02","authority-card-openai-low-resource-05"]},
+    {"id":"authority-card-openai-low-resource-05","reportId":"authority-openai-low-resource-coding-2026","type":"action","label":"上线边界","title":"97.9% 高分之后，重点转向真实仓库与专家审查","summary":"高推理强度达到 97.9%，接近当前测试饱和。下一步应增加跨文件依赖、业务规则、安全与回滚条件，并让领域专家对失败案例和迁移结果负责。","metric":"97.9%","quote":"still requires expert review","translation":"仍然需要专家审查。","anchor":"COBOL migration benchmark · High reasoning and limitations","tags":["专家审查","测试饱和","生产验证"],"createdAt":"2026-10-19T00:00:00Z","order":4,"relatedCardIds":["authority-card-openai-low-resource-04"]},
+
+    {"id":"authority-card-stanford-med-ai-01","reportId":"authority-stanford-medical-ai-workflows-2026","type":"metric","label":"临床工作流","title":"PhysicianBench 最佳完整通过率只有 46%","summary":"在 100 个长链临床任务中，GPT-5.5 单次完整通过 46%，最佳开源模型 DeepSeek V4-Pro 为 19%；这衡量模拟 EHR 中的端到端执行，不是临床结局。","metric":"46% / 19%","quote":"completed 46% of tasks","translation":"完成了 46% 的任务。","anchor":"PhysicianBench · End-to-end pass@1 results","tags":["PhysicianBench","临床Agent","端到端"],"createdAt":"2026-10-19T00:00:00Z","order":0,"relatedCardIds":["authority-card-stanford-med-ai-02","authority-card-stanford-med-ai-03"]},
+    {"id":"authority-card-stanford-med-ai-02","reportId":"authority-stanford-medical-ai-workflows-2026","type":"risk","label":"一致性风险","title":"同一模型三次都成功的任务仅 28%","summary":"GPT-5.5 的 pass@1 为 46%，但三次运行都正确完成的任务只有 28%。医疗采购不能只看一次最佳结果，还要把重复运行一致性写入验收。","metric":"28%","quote":"only 28% of tasks","translation":"只有 28% 的任务。","anchor":"PhysicianBench · Reliability across three runs","tags":["一致性","重复运行","验收"],"createdAt":"2026-10-19T00:00:00Z","order":1,"relatedCardIds":["authority-card-stanford-med-ai-01"]},
+    {"id":"authority-card-stanford-med-ai-03","reportId":"authority-stanford-medical-ai-workflows-2026","type":"risk","label":"执行断层","title":"会写正确动作，不代表真的执行了","summary":"在行动执行失败中，GPT-5.5 有 62%、Claude Opus 4.6 有 73% 已在病历中写出正确动作，却没有真正下单。日志、界面状态和系统回执必须进入评测。","metric":"62% / 73%","quote":"wrote the correct action","translation":"写出了正确的动作。","anchor":"PhysicianBench · Note-action mismatch analysis","tags":["工具执行","病历","系统回执"],"createdAt":"2026-10-19T00:00:00Z","order":2,"relatedCardIds":["authority-card-stanford-med-ai-01","authority-card-stanford-med-ai-05"]},
+    {"id":"authority-card-stanford-med-ai-04","reportId":"authority-stanford-medical-ai-workflows-2026","type":"metric","label":"管理工作流","title":"HealthAdminBench 最佳端到端完成率 36.3%","summary":"在授权、申诉和设备任务中，Claude Opus 4.6 完成 36.3%，最佳开放权重 Kimi K2.5 为 15.6%。该结果不能与 PhysicianBench 的 46% 直接比较。","metric":"36.3% / 15.6%","quote":"36.3% of tasks end-to-end","translation":"端到端完成 36.3% 的任务。","anchor":"HealthAdminBench · Whole-task completion","tags":["HealthAdminBench","医疗管理","不可横比"],"createdAt":"2026-10-19T00:00:00Z","order":3,"relatedCardIds":["authority-card-stanford-med-ai-05"]},
+    {"id":"authority-card-stanford-med-ai-05","reportId":"authority-stanford-medical-ai-workflows-2026","type":"action","label":"验收方法","title":"子任务 82.8%，整单任务却只有 26.7%","summary":"GPT-5.4 能通过 82.8% 的单个步骤，但只有 26.7% 的任务全链路完成。医疗 Agent 应按整单结果、关键动作、异常恢复和人工接管验收，而不是把局部能力相加。","metric":"82.8% / 26.7%","quote":"Competence on the parts","translation":"对各个部分具备能力。","anchor":"HealthAdminBench · Subtask versus whole-task performance","tags":["局部能力","整单完成","人工接管"],"createdAt":"2026-10-19T00:00:00Z","order":4,"relatedCardIds":["authority-card-stanford-med-ai-03","authority-card-stanford-med-ai-04"]}
   ]
 }
