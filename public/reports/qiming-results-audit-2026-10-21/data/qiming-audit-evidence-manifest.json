@@ -726,8 +726,8 @@
   "archive_deliverables": [
     {
       "name": "index.html",
-      "bytes": 11960983,
-      "sha256": "3ad1e005707a0622480db071e3793915faa97d24e23ff13f3aae915c136b1378",
+      "bytes": 11961100,
+      "sha256": "b6785aec3f7769ade51d5f9dc774563feca3fda7d35331f2cd3ccd5515565b8e",
       "location": "archive root; live receives common access gate"
     },
     {
