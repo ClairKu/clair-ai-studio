@@ -1,0 +1,591 @@
+{
+  "research_date": "2026-10-21",
+  "timezone": "Asia/Shanghai",
+  "primary_nav_and_user_snapshot_cutoff": "2026-10-20",
+  "auxiliary_latest_warning": "Some auxiliary reconciliation snapshots include 2026-10-21; not identical to the primary cutoff.",
+  "publication": {
+    "url": "https://clairku.github.io/clair-ai-studio/reports/qiming-results-audit-2026-10-21/",
+    "release_type": "Authorized detailed evidence audit and aggregate data",
+    "authorization_date": "2026-10-21",
+    "authorized_categories": [
+      "Nonpublic employee role and approval history",
+      "Per-adjustment strategy records",
+      "Aggregate customer profitability and source-return statistics"
+    ],
+    "destination": "Public GitHub repository ClairKu/clair-ai-studio and GitHub Pages",
+    "customer_identifier_policy": "No individual customer identifiers, raw personal cash flows, credentials or signed URLs included.",
+    "verification_note": "Prior source-only deployment record replaced. Final deployed report and assets are verified after Pages completion; package hashes below describe the files in this release."
+  },
+  "coverage": {
+    "nav_portfolios": 13,
+    "adjustment_observation_periods": 465,
+    "organization_bound_candidate_instances": 96,
+    "formal_policy_objects": 8,
+    "formal_relation_rows": 38,
+    "formal_sample_relations": 8,
+    "formal_ordinary_relations": 30,
+    "full_before_after_snapshots": 49,
+    "matched_audit_workflow_events": 258,
+    "user_daily_aggregate_rows": 16233,
+    "user_daily_missing_active_coverage_rows": 35,
+    "user_snapshot_channel_groups": 15
+  },
+  "limitations": [
+    "Actual decision authority and complete manager mandates are not established.",
+    "Same-calculator actual reconstruction has not reconciled to official NAV; frozen comparison is a sensitivity experiment.",
+    "Local skip-one-period event summaries are not a continuously buy-and-hold counterfactual.",
+    "User aggregates cover the currently mapped identity IDs, not a proven complete historical population of natural persons.",
+    "User cumulative PnL and source XIRR have not been independently reconciled from full cash flows.",
+    "180 all-channel source XIRR observations equal 200.5%; not certified as valid.",
+    "Qimingxing four branches are pending-sale in this shelf adapter; zero matches in inspected user chains do not prove no users in every system."
+  ],
+  "deliverables": [
+    {
+      "name": "qiming-adjustment-event-scores.csv",
+      "bytes": 339103,
+      "sha256": "67a79f5a95a7a553960325dc07796915dc4a6498253fecb19fb93bd536cf5ab9",
+      "location": "data/",
+      "data_rows": 465
+    },
+    {
+      "name": "qiming-adjustment-events.csv",
+      "bytes": 211522,
+      "sha256": "edfda913364d298def533972740e21763cb3ae78ce86b3f498b20e2540a1feac",
+      "location": "data/",
+      "data_rows": 465
+    },
+    {
+      "name": "qiming-formal-policy-links.csv",
+      "bytes": 4834,
+      "sha256": "98aa75742183ef73c21c093c74606af727cb390b48216937f151d94e2049c261",
+      "location": "data/",
+      "data_rows": 38
+    },
+    {
+      "name": "qiming-formal-shelf.csv",
+      "bytes": 2549,
+      "sha256": "3121f142d5a506ba7f30ebe1b0e22ec3c35d7734a6123ac07757c1591c2aff83",
+      "location": "data/",
+      "data_rows": 13
+    },
+    {
+      "name": "qiming-strategy-aggregate-metrics.csv",
+      "bytes": 5950,
+      "sha256": "0af63c0188d55bca847ce5a6f66c1345a7c42a4dc2001855c3681d1c715731c4",
+      "location": "data/",
+      "data_rows": 13
+    },
+    {
+      "name": "qiming-strategy-family.csv",
+      "bytes": 27067,
+      "sha256": "bf2c093c129762602612cc911feb7730dc7f4319e6b0f9105d665ba4e169ac68",
+      "location": "data/",
+      "data_rows": 96
+    },
+    {
+      "name": "qiming-user-daily-coverage.csv",
+      "bytes": 1582,
+      "sha256": "2ac1c77612a0117e52c9a5bb113c3f0d57f362bd1bab455dbdd229145b27b29e",
+      "location": "data/",
+      "data_rows": 15
+    },
+    {
+      "name": "qiming-user-daily-series.csv",
+      "bytes": 2344643,
+      "sha256": "4fd112a03a8cd9973330e7c842018fa3ac2bf7f51aeb0fbca5a8711f7eaf596d",
+      "location": "data/",
+      "data_rows": 16233
+    },
+    {
+      "name": "qiming-user-follow-events.csv",
+      "bytes": 148144,
+      "sha256": "1d000603ccd53c2425c943e7fc081185cd511e4ba360dd6a0de49e0def934771",
+      "location": "data/",
+      "data_rows": 2082
+    },
+    {
+      "name": "qiming-user-follow-summary.csv",
+      "bytes": 1171,
+      "sha256": "02ef05c4db728e831bea00dacfade4f91b2065f72e6a4fbb1f177d0dada27e47",
+      "location": "data/",
+      "data_rows": 14
+    },
+    {
+      "name": "qiming-user-latest-metrics.csv",
+      "bytes": 3578,
+      "sha256": "dbf7a72285935d9a00e25473938220d5ad4dd5d1fc21893eac6577a0cfa5a94e",
+      "location": "data/",
+      "data_rows": 15
+    },
+    {
+      "name": "qiming-user-pnl-adjustments.csv",
+      "bytes": 1031,
+      "sha256": "8a36236332a924c2b3959a8b885e3ce34074a820b715ecd57f25bd7045a57387",
+      "location": "data/",
+      "data_rows": 15
+    },
+    {
+      "name": "qiming-user-reconciliation.csv",
+      "bytes": 3482,
+      "sha256": "db51e6e062b7f471571943aa41d7924305d35341cd3a3598b05a9a87395fe5a5",
+      "location": "data/",
+      "data_rows": 15
+    },
+    {
+      "name": "qiming-user-snapshot-2026-10-20.csv",
+      "bytes": 2626,
+      "sha256": "72c087ebd4dcd6515964690402b6f42eacaf713a7de940910d688e4526e05cfd",
+      "location": "data/",
+      "data_rows": 15
+    },
+    {
+      "name": "qiming-user-source-xirr.csv",
+      "bytes": 14281,
+      "sha256": "1cc3b3a1ea1729762fbe14a54deda22748e87fb91a72a963dd7b0ec07f7cd354",
+      "location": "data/",
+      "data_rows": 43
+    },
+    {
+      "name": "qiming-user-xirr-context.csv",
+      "bytes": 18301,
+      "sha256": "65ba438464cfc0a4dfba5a131085b725d7b9b2eea897431dbf65eb9d01465aa3",
+      "location": "data/",
+      "data_rows": 43
+    },
+    {
+      "name": "qiming-user-xirr-quality.csv",
+      "bytes": 13722,
+      "sha256": "393d7cba1e376645523b188102ca0d744653dd27ef264de412971526eb782c09",
+      "location": "data/",
+      "data_rows": 89
+    },
+    {
+      "name": "qimingxing-user-data-coverage.csv",
+      "bytes": 995,
+      "sha256": "6e12bdc2bd13d615036636569b2233ea034b7ef625897781cb813fae1c029871",
+      "location": "data/",
+      "data_rows": 4
+    },
+    {
+      "name": "README.txt",
+      "bytes": 1724,
+      "sha256": "aa1a8484b230b5a3c40d20da14cae5718ff68cbb2c33e4e11f4a4a9df0b42ec1",
+      "location": "data/"
+    }
+  ],
+  "read_only_query_evidence": [
+    {
+      "file": "adjustment-full-snapshots.json",
+      "retrieved_at": "2026-10-21T02:53:53.924880+00:00",
+      "data_source_id": 41,
+      "query_hash": "6e30e1cc7fa59a38494a8000dfd79705",
+      "rows": 49,
+      "sha256": "180e8bc029d3d57382d3ed3e7ec96d1529aa1873a6ec698a64d36ed42a668d4f"
+    },
+    {
+      "file": "audit-responsibility.json",
+      "retrieved_at": "2026-10-21T02:46:47.769460+00:00",
+      "data_source_id": 41,
+      "query_hash": "e472eeb6fe1bf655daed3062ff768ff6",
+      "rows": 478,
+      "sha256": "8172b228f748b08e350651293312c0c82996f3c534416fc19684d567be0defd4"
+    },
+    {
+      "file": "audit-sample.json",
+      "retrieved_at": "2026-10-21T02:46:13.267205+00:00",
+      "data_source_id": 41,
+      "query_hash": "289e68dc67b1dd76640d539e20b36e27",
+      "rows": 5,
+      "sha256": "19760442af3cceff23d793a412795d37c6842df26af2e08db263c769ee6c2e7b"
+    },
+    {
+      "file": "audit-summary.json",
+      "retrieved_at": "2026-10-21T02:46:10.989416+00:00",
+      "data_source_id": 41,
+      "query_hash": "23dab1660ce39c80751127638ebb3140",
+      "rows": 23,
+      "sha256": "872eca00229ca1da7d982448f961b816ffa11b691bc29f752cd00e4fa4229a4b"
+    },
+    {
+      "file": "broker-master-schema.json",
+      "retrieved_at": "2026-10-21T02:47:10.246327+00:00",
+      "data_source_id": 41,
+      "query_hash": "5dd25182335e3d3c8cb4358b7d5a4796",
+      "rows": 56,
+      "sha256": "a810f19255e4d90eff645bd33c690a494151706bce8e3e7023375d7aa226910a"
+    },
+    {
+      "file": "broker-names.json",
+      "retrieved_at": "2026-10-21T02:46:50.355214+00:00",
+      "data_source_id": 41,
+      "query_hash": "c59efa16790d530e955ae67a74561873",
+      "rows": 0,
+      "sha256": "0368b71f1e224aa817a1378bb00300642219da95b077c1911a4d53eee93f29ff"
+    },
+    {
+      "file": "broker-schema.json",
+      "retrieved_at": "2026-10-21T02:45:55.452792+00:00",
+      "data_source_id": 41,
+      "query_hash": "bbdc75fb413536084f8cd062327f15b1",
+      "rows": 16,
+      "sha256": "5ee567de53ee9e9542a2f1df19fbbb3ea6cc4436c8b6062fa8fa5bca0b394805"
+    },
+    {
+      "file": "broker-verified.json",
+      "retrieved_at": "2026-10-21T02:47:35.227443+00:00",
+      "data_source_id": 41,
+      "query_hash": "a34151a39fce504787137b29263fe823",
+      "rows": 2,
+      "sha256": "1eb79a65bb043dabd67b76f0880add8fe6378283eb123e319bc13d333b92bba3"
+    },
+    {
+      "file": "columns.json",
+      "retrieved_at": "2026-10-21T02:41:11.987430+00:00",
+      "data_source_id": 41,
+      "query_hash": "dceb5d7cb66669d9f6f8b4a6d7a39266",
+      "rows": 138,
+      "sha256": "9f3fdf5b1ea51e1cd140b5deb7322dcf01710a45b521b8ffdacb5f4714d6453e"
+    },
+    {
+      "file": "core-listing.json",
+      "retrieved_at": "2026-10-21T02:43:52.657156+00:00",
+      "data_source_id": 41,
+      "query_hash": "ced4ab6974a49d4e1fa98159c53101e4",
+      "rows": 0,
+      "sha256": "c0bf9cd89afceb3900250973c6d6e079a1c51c9f908516d65a17240e7a379ed3"
+    },
+    {
+      "file": "core-schema.json",
+      "retrieved_at": "2026-10-21T02:42:52.123239+00:00",
+      "data_source_id": 41,
+      "query_hash": "20df54113163f4d55e7dc01e4f4fdca4",
+      "rows": 26,
+      "sha256": "182d823645728ef980ddd3ebe21bb9ffd3852eff38e8a1a32cd8445786f42635"
+    },
+    {
+      "file": "current-series.json",
+      "retrieved_at": "2026-10-21T02:44:02.441850+00:00",
+      "data_source_id": 41,
+      "query_hash": "723bec7e0c5247fe6e5b0435abfc7566",
+      "rows": 1206,
+      "sha256": "1e6e44397e7b1e3514f26e6f88afe6da61bf5f67459b5f01d0911250c1347be7"
+    },
+    {
+      "file": "db-schema.json",
+      "retrieved_at": "2026-10-21T02:40:41.644447+00:00",
+      "data_source_id": 41,
+      "query_hash": "c23b097d96b8a053356987c8aabc2218",
+      "rows": 309,
+      "sha256": "da05815e3ad153eb9564d79b28dc33041dd260b9bbe8aa74d7e65c72e1f89bbf"
+    },
+    {
+      "file": "formal-policy-links.json",
+      "retrieved_at": "2026-10-21T03:08:54.463080+00:00",
+      "data_source_id": 41,
+      "query_hash": "e403743a0cb60f37797613ae95626905",
+      "rows": 38,
+      "sha256": "2f40c8a7fe0ad3f9d93d7cbaaaf4fbfd4a855bd4072f49af593425d32ee6c7de"
+    },
+    {
+      "file": "formal-shelf.json",
+      "retrieved_at": "2026-10-21T03:08:45.757645+00:00",
+      "data_source_id": 41,
+      "query_hash": "f8910b2205a9093ba54654842e2f14bc",
+      "rows": 13,
+      "sha256": "cb6d9ae42752c38111177f55a07b198f30168a249210de00f909dc8f0cfc9c05"
+    },
+    {
+      "file": "manager-identities.json",
+      "retrieved_at": "2026-10-21T02:44:59.612808+00:00",
+      "data_source_id": 41,
+      "query_hash": "912cab6a30a2c7ea5404c26dea1ca121",
+      "rows": 2,
+      "sha256": "a13dfd92c34f64817da9b4c071498c7dfc2316586b196d2026b65f37cc46cd22"
+    },
+    {
+      "file": "manager-identity-more.json",
+      "retrieved_at": "2026-10-21T02:45:51.342710+00:00",
+      "data_source_id": 41,
+      "query_hash": "18e57bc29951718993bc00441f2ab212",
+      "rows": 1,
+      "sha256": "02a8f336c5998719b06dd08a6a9e686670a510a08278387c49b23dc40dc1afc1"
+    },
+    {
+      "file": "manager-logs-summary.json",
+      "retrieved_at": "2026-10-21T02:43:56.804072+00:00",
+      "data_source_id": 41,
+      "query_hash": "f3f62bac0f204438ac95c4c0f9b5ccde",
+      "rows": 14,
+      "sha256": "2a7a7a7e4d5a67802e5e2134e8ac4687f8e4d4b66088582b513a1553f4b85e91"
+    },
+    {
+      "file": "manager-snapshot-coverage.json",
+      "retrieved_at": "2026-10-21T02:45:33.598515+00:00",
+      "data_source_id": 41,
+      "query_hash": "2e61056a4407367dd4c28c02efd8020b",
+      "rows": 1,
+      "sha256": "a572fdb6b76fd49567e7543bdbe36550b8a13423d770879bad2397cb0e69c3ad"
+    },
+    {
+      "file": "manager-snapshots.json",
+      "retrieved_at": "2026-10-21T02:44:30.422882+00:00",
+      "data_source_id": 41,
+      "query_hash": "258728f34298017fd055a7656857528d",
+      "rows": 21,
+      "sha256": "715bb14d8282c39c4ed099a09c64572a58b340161c0d24737a4dadacba6d1795"
+    },
+    {
+      "file": "model-schema.json",
+      "retrieved_at": "2026-10-21T02:43:14.494314+00:00",
+      "data_source_id": 41,
+      "query_hash": "4f4c0cd0c7c387f84e971452a04de83c",
+      "rows": 207,
+      "sha256": "465c82b4c1d776c8414a4a9820990bf4b92d73acd24d8d7fd875886f460ad217"
+    },
+    {
+      "file": "personnel-schema.json",
+      "retrieved_at": "2026-10-21T02:41:54.366113+00:00",
+      "data_source_id": 41,
+      "query_hash": "d19b6c1595f506cbe84dfe8fc60f3d28",
+      "rows": 24,
+      "sha256": "abbbcd0e540a17197a29b898200c8c650b3da9e8368a6be0f70487879fc51999"
+    },
+    {
+      "file": "pms-history-schema.json",
+      "retrieved_at": "2026-10-21T02:45:01.462467+00:00",
+      "data_source_id": 41,
+      "query_hash": "99e672d199abd3f9a97ecc8190d88e9d",
+      "rows": 47,
+      "sha256": "712af5f76d84244ec9378e0eb0a08d4fbd48a8852649a4c27a439733042c8e6c"
+    },
+    {
+      "file": "po-tables.json",
+      "retrieved_at": "2026-10-21T02:42:14.088050+00:00",
+      "data_source_id": 41,
+      "query_hash": "66181768553aca3bfcc5c9960524256f",
+      "rows": 50,
+      "sha256": "61b9b3d3404be522394f7c11e00fd764203176f2af292f66ac53eabca2dc47cc"
+    },
+    {
+      "file": "policy-shelf-schema.json",
+      "retrieved_at": "2026-10-21T03:07:47.553464+00:00",
+      "data_source_id": 41,
+      "query_hash": "8c4d704dee1a589f7b4c9725383fb870",
+      "rows": 42,
+      "sha256": "335387bc7537011e1e30f246f9dc17276e296496c7411d5b8854a4c19413a245"
+    },
+    {
+      "file": "relevant-tables.json",
+      "retrieved_at": "2026-10-21T02:41:23.160119+00:00",
+      "data_source_id": 41,
+      "query_hash": "5725f0c26f78d75d1aaa05083252f6d0",
+      "rows": 306,
+      "sha256": "b86ec1176e44de0658a45ba6f687f75c4817b94eb459d1d7b5b15621d2567a8b"
+    },
+    {
+      "file": "user_asset_schema.json",
+      "retrieved_at": "2026-10-21T02:43:07.108273+00:00",
+      "data_source_id": 41,
+      "query_hash": "65567d2fff8b8df7bf13eb1e7d8dd064",
+      "rows": 272,
+      "sha256": "348be6ef9f1a14bb4a03a9dc5be30760d886476f3bcb4459be5f964f75541d7c"
+    },
+    {
+      "file": "user_coverage.json",
+      "retrieved_at": "2026-10-21T02:42:42.679990+00:00",
+      "data_source_id": 41,
+      "query_hash": "5e26537c54cb77a2cf73448a562ac6fd",
+      "rows": 8,
+      "sha256": "334f28a59ab7857cd7c932bcbaa7a5fbf1ee35e4ce4ea8098c913befca093af0"
+    },
+    {
+      "file": "user_daily_series.json",
+      "retrieved_at": "2026-10-21T02:54:26.888454+00:00",
+      "data_source_id": 41,
+      "query_hash": "6d6d2c4acd2b9b0f4f29e95c57f0c846",
+      "rows": 16233,
+      "sha256": "67964fe4c5e1b5c96450930ee786895b5442a730f7a477eee68cbb8cd8b24828"
+    },
+    {
+      "file": "user_follow_events.json",
+      "retrieved_at": "2026-10-21T02:53:23.715806+00:00",
+      "data_source_id": 41,
+      "query_hash": "7caf6edb56931858554806e1a495705a",
+      "rows": 2082,
+      "sha256": "be32f9aaddceb50fdf4dfc9f0d08e7b2ca57641c5578dd945b4a0a17182b0e9e"
+    },
+    {
+      "file": "user_follow_summary.json",
+      "retrieved_at": "2026-10-21T02:53:22.979005+00:00",
+      "data_source_id": 41,
+      "query_hash": "5b89ea9be9ed5bc853a5eafdc9a73932",
+      "rows": 14,
+      "sha256": "d4e0fa9ff9ad011cf7355565e6cc6f008678b8967714207bd4b4fa6d995a2d82"
+    },
+    {
+      "file": "user_history_probe.json",
+      "retrieved_at": "2026-10-21T02:46:44.329815+00:00",
+      "data_source_id": 41,
+      "query_hash": "f432294ecd9a308445e1fc7d87f4e654",
+      "rows": 2,
+      "sha256": "a26e83715c2c43da39716f01eeeac2c1ae5a6ad22e02456b72a67c75ab8902d1"
+    },
+    {
+      "file": "user_latest_coverage.json",
+      "retrieved_at": "2026-10-21T02:43:32.114972+00:00",
+      "data_source_id": 41,
+      "query_hash": "4b1621451dc7e3fd84393babc25bf8e5",
+      "rows": 8,
+      "sha256": "a56bea6735bd45d3ad3557b2fc91c086b237a85ad7ddbbaab17b10bcfaa9a76e"
+    },
+    {
+      "file": "user_latest_metrics.json",
+      "retrieved_at": "2026-10-21T02:46:14.300914+00:00",
+      "data_source_id": 41,
+      "query_hash": "3d813dbf044fcf63f23ed3f3e4801ebb",
+      "rows": 15,
+      "sha256": "fc580d97f05d1a96458556a066a3e348bd5a279b2adca10a44c77bd9c6cca828"
+    },
+    {
+      "file": "user_mapping_columns.json",
+      "retrieved_at": "2026-10-21T02:44:36.014204+00:00",
+      "data_source_id": 41,
+      "query_hash": "c63c8fd67a25d951c8cd576fe725307e",
+      "rows": 73,
+      "sha256": "0bbf23b893ab794c6127d0e636369c7018306151a1e29a9aeafa3791c25cc602"
+    },
+    {
+      "file": "user_mapping_schema.json",
+      "retrieved_at": "2026-10-21T02:44:05.038592+00:00",
+      "data_source_id": 41,
+      "query_hash": "1a864f330b95050a47333d0968692e9b",
+      "rows": 24,
+      "sha256": "2b69ad01e33c6b54a030bd74c603c7ad3169629af64450a209abbd3d46385a08"
+    },
+    {
+      "file": "user_migration_check.json",
+      "retrieved_at": "2026-10-21T03:03:26.880875+00:00",
+      "data_source_id": 41,
+      "query_hash": "bb728c49ef601326e0194bf0fe265af5",
+      "rows": 7,
+      "sha256": "f5ea32d0cb5fe8d0aa4b04444f3cc9f63f3376331ab5d7a5879736b34098e999"
+    },
+    {
+      "file": "user_new_coverage.json",
+      "retrieved_at": "2026-10-21T02:45:18.501718+00:00",
+      "data_source_id": 41,
+      "query_hash": "b043ed8452b7a1264d84057299d488ee",
+      "rows": 8,
+      "sha256": "94168af92605fa1b4fef9b57a1668f0a762a4979225a4d305a87ef160ed546e6"
+    },
+    {
+      "file": "user_order_codes.json",
+      "retrieved_at": "2026-10-21T02:47:06.260008+00:00",
+      "data_source_id": 41,
+      "query_hash": "57836db64b6978039b2b86d31da392fa",
+      "rows": 180,
+      "sha256": "54ea7182a8229884c89286d1d7fbd25d4a4d548379e828f9ee05a075cd297c9d"
+    },
+    {
+      "file": "user_pnl_adjustments.json",
+      "retrieved_at": "2026-10-21T02:53:29.695564+00:00",
+      "data_source_id": 41,
+      "query_hash": "d79e6bd9eb8ef636da30ae616618bfa0",
+      "rows": 15,
+      "sha256": "4300751dad822a8703f4008312ab36c83713da946ecad67dfae581471f437995"
+    },
+    {
+      "file": "user_qimingxing_coverage.json",
+      "retrieved_at": "2026-10-21T02:54:18.743719+00:00",
+      "data_source_id": 41,
+      "query_hash": "ecb0146f936066d8bc483084777b3227",
+      "rows": 4,
+      "sha256": "86e8808581b90b132546843e7426909f0f29654d6717999d799d949eac503a91"
+    },
+    {
+      "file": "user_qimingxing_crosscheck.json",
+      "retrieved_at": "2026-10-21T02:58:25.568735+00:00",
+      "data_source_id": 41,
+      "query_hash": "8b104b92fb94cdc60411e0dfaf1c64e8",
+      "rows": 0,
+      "sha256": "a005ee068c4263c8274d37e7e5035e0b3789c4045d9be53e29c60894da0ab7d4"
+    },
+    {
+      "file": "user_reconcile.json",
+      "retrieved_at": "2026-10-21T02:49:15.236867+00:00",
+      "data_source_id": 41,
+      "query_hash": "6bb4ac21150d3ba003bfee129b1f7a37",
+      "rows": 15,
+      "sha256": "09fa5a2efef854a4e5f4a6be65441e8962322d8d504242462d0de1c77a8a4269"
+    },
+    {
+      "file": "user_schema.json",
+      "retrieved_at": "2026-10-21T02:42:14.000194+00:00",
+      "data_source_id": 41,
+      "query_hash": "d63ea778581a146ffea406ed5426b854",
+      "rows": 124,
+      "sha256": "76585b57dc17eb4183fc441e46e3af71701058a57bc76e5161251ac41554c9f5"
+    },
+    {
+      "file": "user_snapshot_series.json",
+      "retrieved_at": "2026-10-21T02:44:15.658504+00:00",
+      "data_source_id": 41,
+      "query_hash": "71b2d38f59e7fc069a61491ba2066444",
+      "rows": 3027,
+      "sha256": "d69ee498e7d8a25b6ee185781780d0421414d952784431a170389ee2ebaedfaf"
+    },
+    {
+      "file": "user_tables.json",
+      "retrieved_at": "2026-10-21T02:42:48.049655+00:00",
+      "data_source_id": 41,
+      "query_hash": "57b69278e4b44413f08aa792c372580e",
+      "rows": 551,
+      "sha256": "75b0abf41838faa8820d7d3704ba686116ab42cce18148b485d3c02144f73647"
+    },
+    {
+      "file": "user_xirr_anomalies.json",
+      "retrieved_at": "2026-10-21T02:49:18.574262+00:00",
+      "data_source_id": 41,
+      "query_hash": "6d91ba11ec61ccc76667ed03df269da9",
+      "rows": 89,
+      "sha256": "2c1bcddd7b0447dffc543dda3c3261b6776adf3987cc5ffe182e76ffe832d576"
+    },
+    {
+      "file": "user_xirr_metrics.json",
+      "retrieved_at": "2026-10-21T02:46:18.109541+00:00",
+      "data_source_id": 41,
+      "query_hash": "1fa494eab6348370306815cbcbb92e82",
+      "rows": 29,
+      "sha256": "badaf91c63346815dc164bd814a70813e6c768ed1184b29a5e2792c359520523"
+    },
+    {
+      "file": "user_xirr_metrics_duration.json",
+      "retrieved_at": "2026-10-21T02:53:29.177908+00:00",
+      "data_source_id": 41,
+      "query_hash": "ccaa0ca7d7f50574c6ea8c4962a12007",
+      "rows": 43,
+      "sha256": "efee0c1c2899d857ac926ea636d105a916e63b81a4b86f815d4b6e1e20f96613"
+    }
+  ],
+  "definitions": {
+    "event_win": "Positive original local model difference over the native adjustment-to-next-adjustment period. Zero remains in denominator. Unfinished and non-finite results excluded.",
+    "historical_win_rate": "Cumulative and last N closed events as of each event, including the event if closed; retrospective diagnostic, not an ex-ante prediction.",
+    "cost_addback": "Source cumret_net_excess_per adds estimated costs back; not a newly deducted net alpha.",
+    "independence": "Events differ in horizon and can be related across strategies; pooled ratio is descriptive only.",
+    "bp": "1 basis point = 0.01 percentage points = 0.0001 return."
+  },
+  "archive_deliverables": [
+    {
+      "name": "index.html",
+      "bytes": 7207708,
+      "sha256": "eab9c615ec072a8fcba0a28f06bcaffa0bafbb6b97824064296080d6634db519",
+      "location": "archive root; live page receives shared access-gate during build"
+    },
+    {
+      "name": "overview.html",
+      "bytes": 57481,
+      "sha256": "df542cb362252f298122ec10e5d6a15c56b73509fdb9f20c4f595c91cf2fd94b",
+      "location": "archive root; live page receives shared access-gate during build"
+    }
+  ]
+}

@@ -238,15 +238,15 @@ const initialState = {
     {
       id: "qiming-results-audit-2026-10-21",
       groupId: "research",
-      title: "启明星与启明睿｜七分支公开业绩核验与结果审计",
+      title: "启明星与启明睿｜465次调仓胜负、人员流程与客户结果审计",
       url: "https://clairku.github.io/clair-ai-studio/reports/qiming-results-audit-2026-10-21/",
       preview: "qiming-results-audit-2026-10-21.png",
       pinned: true,
       createdAt: "2026-10-21T10:50:00+08:00",
-      source: "2026-10-21逐页核验且慢七个核心分支，公开展示数据截至2026-10-20；比较收益、回撤和费率，区分策略表现、决策增益和用户财富。公开版仅含公开来源与评估方法，人员任命、调仓因果与真实用户结果须在受控研究中核验。",
+      source: "授权详版：13个净值对象、465条调仓观察期、逐次调与不调差值及累计/近5/10/20次胜率；96个关联候选、38条正式关系、49条完整持仓快照、258条审批匹配；真实客户日度盈利占比与源XIRR质量。保留未闭合、NAV重建未对账及任期/自然人年化未确证边界。",
       access: "production",
       workType: "investment-research",
-      tags: ["启明睿", "启明星", "策略审计", "调仓", "主理人", "真实用户收益", "科学论证", "HTML", "公开核验"],
+      tags: ["启明睿", "启明星", "策略审计", "调仓", "主理人", "真实用户收益", "科学论证", "HTML", "逐次胜率", "授权详版", "聚合数据"],
     },
     {
       id: "product-design-ai-workflow-maturity-2026-10-21",
