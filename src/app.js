@@ -222,6 +222,19 @@ const initialState = {
   ],
   reports: [
     {
+      id: "product-design-ai-workflow-maturity-2026-10-21",
+      groupId: "product-planning",
+      title: "产品与设计团队 AI 应用现况｜工作流与 L1—L4 分层",
+      url: "https://clairku.github.io/clair-ai-studio/reports/product-design-ai-workflow-maturity-2026-10-21/",
+      preview: "product-design-ai-workflow-maturity-2026-10-21.svg",
+      pinned: true,
+      createdAt: "2026-10-21T10:30:00+08:00",
+      source: "基于团队已收集汇报，统整八段工作、十四类现状流程与八项L3候选，区分现状、探索与建议。",
+      access: "production",
+      workType: "product-planning",
+      tags: ["AI应用", "产品设计", "工作流", "L1", "L2", "L3", "L4", "现况", "HTML"],
+    },
+    {
       id: "qieman-feedback-resolution-l3-2026-10-20",
       groupId: "product-planning",
       title: "用户反馈处置大表｜384条需求分析、分流路径与L3项目设计",
