@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 120;
+const DATA_VERSION = 121;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -264,13 +264,13 @@ const initialState = {
     {
       id: "qieman-feedback-resolution-l3-2026-10-20",
       groupId: "product-planning",
-      title: "用户反馈处置大表｜384条需求分析、分流路径与L3项目设计",
+      title: "用户反馈逐条核查｜384条采纳、生产覆盖与处置建议",
       url: "https://clairku.github.io/clair-ai-studio/reports/qieman-feedback-resolution-l3-2026-10-20/",
       preview: "qieman-feedback-resolution-l3-2026-10-20.svg",
       pinned: true,
       position: 0,
       createdAt: "2026-10-20T20:00:00+08:00",
-      source: "用户提供Excel逐条分析：384条记录、原频次合计420、110处置主题；含54条P1复核候选、解决方法/排查清单/责任角色/验收条件、筛选CSV与本地跟进。公开脱敏方案版，不含内部逐字回复或内部L3标准原文；尚未接入生产执行。",
+      source: "2026-10-21本体逐条核查：384条记录，独立判断采纳、生产覆盖、可行性与业务合理性；按证据层级筛选，列明适用范围、即时处置、产品优化与核验缺口。公开脱敏版，内部证据与来源另存；未替业务执行变更。",
       access: "production",
       workType: "data-analysis",
       tags: [
