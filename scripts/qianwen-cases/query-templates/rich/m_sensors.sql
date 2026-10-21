@@ -1,0 +1,1 @@
+SELECT broker_user_id,event,event_category,page_name,title,element_content,screen_name,lib,event_time FROM qm_meta.ai_insight_sensors_event_detail WHERE event_date>='2026-07-27' AND broker_user_id IN ({{IDQ}}) AND event_time<'{{CUT}}' ORDER BY event_time

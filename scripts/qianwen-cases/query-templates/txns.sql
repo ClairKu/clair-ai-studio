@@ -1,0 +1,3 @@
+SELECT b.pmid,b.fb,t.order_id,t.accept_time,t.trade_type,t.extra,t.po_code,t.buy_amount
+        FROM (SELECT user_id pmid,MIN(created_at) fb FROM ying99_qieman.qwen_user_map WHERE is_deleted=0 GROUP BY user_id HAVING MIN(created_at)>='2026-08-03 00:00:00' AND MIN(created_at)<'{{CUT}}') b JOIN qm_meta.trade_detail t ON t.user_id=b.pmid AND t.canceled=0
+        AND t.accept_time>=b.fb AND t.accept_time<'{{CUT}}' AND (t.buy_amount>0 AND ((t.trade_type='wallet.recharge' AND t.extra IN ('by.online','by.offline')) OR (t.trade_type<>'wallet.recharge' AND t.extra='from.card'))) ORDER BY b.pmid,t.accept_time,t.order_id

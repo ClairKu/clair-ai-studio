@@ -1,0 +1,1 @@
+SELECT account3_id,cal_month,po_code,po_name,fund_code,fund_name,ROUND(total_share,2) sh,ROUND(market_value,2) mv,nav_date FROM ying99_asset.dwd_ast_bill_user_holding_detail_monthly_full WHERE account3_id IN ({{A3}}) AND cal_month>='2026-07' ORDER BY account3_id,cal_month DESC,market_value DESC

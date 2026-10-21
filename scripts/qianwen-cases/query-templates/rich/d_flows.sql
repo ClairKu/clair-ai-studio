@@ -1,0 +1,1 @@
+SELECT account3_id,cal_date,ROUND(SUM(input_amount),2) inflow,ROUND(SUM(output_amount),2) outflow FROM ying99_asset.dwd_app_service_account_profit_combine WHERE account3_id IN ({{A3}}) AND relation_account_type='ROOT' AND cal_date>='2026-08-03' AND cal_date<='{{AD}}' GROUP BY account3_id,cal_date ORDER BY account3_id,cal_date

@@ -1,0 +1,1 @@
+SELECT t.user_id,t.order_id,t.accept_time,t.trade_type,t.po_code,COALESCE(pi.po_name,'') po_name,t.buy_amount,t.redeem_amount,t.canceled,t.extra FROM qm_meta.trade_detail t LEFT JOIN ying99_pomodel.portfolio_info pi ON pi.po_code=t.po_code WHERE t.user_id IN ({{IDS}}) AND t.accept_time<'{{CUT}}' ORDER BY t.user_id,t.accept_time,t.order_id

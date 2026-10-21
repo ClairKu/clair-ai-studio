@@ -1,0 +1,1 @@
+SELECT po_manager_id pmid,CAST(platform AS CHAR) platform,MIN(created_on) first_device_registered_at,COUNT(*) device_records FROM ying99_pomodel.device_info WHERE po_manager_id IN ({{IDS}}) AND created_on<'{{CUT}}' AND CAST(platform AS CHAR) IN ('3','4','5') GROUP BY po_manager_id,platform

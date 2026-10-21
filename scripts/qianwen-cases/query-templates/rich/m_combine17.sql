@@ -1,0 +1,1 @@
+SELECT account3_id,service_account_id,relation_account_type,parent_service_account_id,ROUND(total_asset,2) ta,ROUND(holding_share,4) sh,ROUND(acc_profit,2) acc_profit FROM ying99_asset.dwd_app_service_account_profit_combine USE INDEX(idx_cal_date_saId) WHERE cal_date='{{AD}}' AND account3_id IN ({{A3}}) AND total_asset>0 ORDER BY account3_id,relation_account_type

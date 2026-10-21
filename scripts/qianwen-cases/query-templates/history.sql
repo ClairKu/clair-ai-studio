@@ -1,0 +1,7 @@
+WITH funded AS ({{FUNDED}}) SELECT b.pmid,MIN(CASE WHEN (t.buy_amount>0 AND ((t.trade_type='wallet.recharge' AND t.extra IN ('by.online','by.offline')) OR (t.trade_type<>'wallet.recharge' AND t.extra='from.card'))) THEN t.accept_time END) first_inflow_ever,
+        MIN(CASE WHEN t.trade_type IN ('po.buy','po.convert.buy','fund.buy','si.trade','po.adjust','plan.trade') AND t.buy_amount>0 AND t.po_code<>'WALLET' THEN t.accept_time END) first_buy_ever,
+        MAX(CASE WHEN t.accept_time<b.fb AND t.trade_type IN ('po.buy','po.convert.buy','fund.buy','si.trade','po.adjust','plan.trade') AND t.buy_amount>0 AND t.po_code<>'WALLET' THEN t.accept_time END) last_buy_before,
+        SUM(CASE WHEN t.accept_time<'{{ADEND}}' AND (t.buy_amount>0 AND ((t.trade_type='wallet.recharge' AND t.extra IN ('by.online','by.offline')) OR (t.trade_type<>'wallet.recharge' AND t.extra='from.card'))) THEN 1 ELSE 0 END) inflows_before_asset_day_end,
+        SUM(CASE WHEN t.accept_time<'{{ADEND}}' AND t.trade_type IN ('po.buy','po.convert.buy','fund.buy','si.trade','po.adjust','plan.trade') AND t.buy_amount>0 AND t.po_code<>'WALLET' THEN 1 ELSE 0 END) product_buys_before_asset_day_end,
+        MAX(CASE WHEN t.accept_time<'{{ADEND}}' THEN t.accept_time END) last_noncanceled_trade_before_asset_day_end
+        FROM funded b LEFT JOIN qm_meta.trade_detail t ON t.user_id=b.pmid AND t.canceled=0 AND t.accept_time<'{{CUT}}' GROUP BY b.pmid

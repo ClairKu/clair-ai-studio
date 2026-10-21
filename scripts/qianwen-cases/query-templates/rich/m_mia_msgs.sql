@@ -1,0 +1,1 @@
+SELECT owner_id,sender_id,sender_platform_id,scene,query_mode,serve_mode,msg_type,content_type,bot_id,session_id,content,create_time FROM ying99_mia.user_message WHERE owner_id IN ({{IDS}}) AND deleted_at IS NULL AND create_time<'{{CUT}}' ORDER BY owner_id,create_time

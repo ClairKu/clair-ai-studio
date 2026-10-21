@@ -1,0 +1,1 @@
+SELECT service_account_id,cal_date,LEFT(meta,300) meta FROM ying99_asset.asset_service_account WHERE service_account_id IN ({{CA}}) AND cal_date>='{{ADM3}}' AND cal_date<='{{AD}}' ORDER BY service_account_id,cal_date DESC
