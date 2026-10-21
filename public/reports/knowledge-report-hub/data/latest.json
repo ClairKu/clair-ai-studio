@@ -1,6 +1,6 @@
 {
   "schema": "clair-knowledge-hub-feed/v1",
-  "generatedAt": "2026-10-21T00:25:47.012Z",
+  "generatedAt": "2026-10-21T00:37:25.803Z",
   "source": "Clair’s Studio production catalog + curated authoritative AI industry reports",
   "reports": [
     {
@@ -896,10 +896,10 @@
       "authority": "Google 委托的跨国企业 AI 调查",
       "methodology": "Google 与 Hypothesis Group 开展全球多阶段研究；量化部分为 2026 年 8 月实施的 20 分钟在线调查，共 2,638 名全职受访者，来自美国 528 人、英国 416 人、法国 408 人、巴西 420 人、日本 426 人和印度 440 人。受访者须在 300 人以上组织任职、熟悉 AI 工具，并为技术或业务决策者（n=1,297，其中高管 n=219）或知识工作者（n=1,261）；中型组织 n=1,332、千人以上企业 n=1,306。研究保留了 2025 年方法的关键要素以支持部分同比，并咨询三位 AI 与未来工作专家。",
       "scopeNote": "该研究由 AI 产品供应商 Google 委托，所有指标均为在线问卷自报，不是财务、生产率或系统日志的客观验证。样本主动筛选熟悉 AI 的全职人员，只覆盖六国和 300 人以上组织，不能外推到中小企业、所有国家或全体劳动者；“组织”结果来自个人对所在组织的回答，成熟度也是自我分类。2025 与 2026 是两次研究而非同一批组织的追踪面板；成熟组织与更好结果之间是相关性，不能解释为因果。",
-      "publishedAt": "2026-10-20T00:00:00Z",
+      "publishedAt": "2026-10-21T00:00:00Z",
       "ingestedAt": "2026-10-21T08:12:00+08:00",
-      "createdAt": "2026-10-20T00:00:00Z",
-      "updatedAt": "2026-10-20T00:00:00Z",
+      "createdAt": "2026-10-21T00:00:00Z",
+      "updatedAt": "2026-10-21T00:00:00Z",
       "featured": true,
       "featuredRank": -3.75,
       "archived": false,
@@ -3905,7 +3905,7 @@
         "工作方式",
         "执行差距"
       ],
-      "createdAt": "2026-10-20T00:00:00Z",
+      "createdAt": "2026-10-21T00:00:00Z",
       "order": 0,
       "relatedCardIds": [
         "authority-card-google-ambition-gap-02",
@@ -3929,7 +3929,7 @@
         "成熟度",
         "流程重构"
       ],
-      "createdAt": "2026-10-20T00:00:00Z",
+      "createdAt": "2026-10-21T00:00:00Z",
       "order": 1,
       "relatedCardIds": [
         "authority-card-google-ambition-gap-01"
@@ -3952,7 +3952,7 @@
         "高管",
         "知识工作者"
       ],
-      "createdAt": "2026-10-20T00:00:00Z",
+      "createdAt": "2026-10-21T00:00:00Z",
       "order": 2,
       "relatedCardIds": [
         "authority-card-google-ambition-gap-01"
@@ -3975,7 +3975,7 @@
         "预算",
         "总拥有成本"
       ],
-      "createdAt": "2026-10-20T00:00:00Z",
+      "createdAt": "2026-10-21T00:00:00Z",
       "order": 3,
       "relatedCardIds": [
         "authority-card-google-ambition-gap-05"
@@ -3998,7 +3998,7 @@
         "权限边界",
         "人工接管"
       ],
-      "createdAt": "2026-10-20T00:00:00Z",
+      "createdAt": "2026-10-21T00:00:00Z",
       "order": 4,
       "relatedCardIds": [
         "authority-card-google-ambition-gap-04"
