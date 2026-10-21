@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "files": [
+    {
+      "path": "index.html",
+      "bytes": 76494,
+      "sha256": "319c5e00e237ff6297319fdf487b12e0db2f6f9ce3e76a226fe26458c323f407"
+    },
+    {
+      "path": "data.json",
+      "bytes": 46508,
+      "sha256": "494d20b6fe6cebf046066c8a781157a25afd46fb40eedf235dc25c27e8a9f62f"
+    },
+    {
+      "path": "metrics.csv",
+      "bytes": 3910,
+      "sha256": "b932a1d52afb9bd4c708789c309d5320e8904b78140ec3bdafae9ca81957ef97"
+    }
+  ]
+}

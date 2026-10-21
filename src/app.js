@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 119;
+const DATA_VERSION = 120;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -221,6 +221,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "qieman-wechat-business-ai-trading-2026-10-21",
+      groupId: "growth-insights",
+      title: "且慢微信小程序｜年度经营、交易能力与AI接入分析",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-wechat-business-ai-trading-2026-10-21/",
+      preview: "qieman-wechat-business-ai-trading-2026-10-21.png",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-21T10:00:00+08:00",
+      source: "2026年1月1日至10月20日生产聚合＋正式上传标签核验＋21项公开一手来源｜小程序月活/日活/复访与交易归因缺口；原生＋H5交易路径、支付与沙箱核验；建设发版、7Skill/21客户端API、19实际调用接口；AI原始4643次、剔明确测试4361次，净技术成功率95.8%，落地98.1%来自开发者工具；基金行业案例、现行监管与微信要求。仅聚合，不含个人明细。",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["且慢", "微信小程序", "微信AI", "小微", "经营数据", "交易转化", "H5", "原生", "金融沙箱", "建设发版", "Skill", "生产调用", "监管规范", "HTML", "生产"],
+    },
     {
       id: "qiming-results-audit-2026-10-21",
       groupId: "research",
@@ -3608,6 +3622,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "qieman-wechat-business-ai-trading-2026-10-21": "data-analysis",
   "qieman-feedback-resolution-l3-2026-10-20": "data-analysis",
   "e-da-longwin-follow-analysis-2026-10-16": "data-analysis",
   "yingmi-baixiaosheng-product-panorama-2026-10-16": "product-planning",
@@ -3728,6 +3743,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "qieman-wechat-business-ai-trading-2026-10-21": "growth-insights",
   "qiming-results-audit-2026-10-21": "research",
   "product-design-ai-workflow-maturity-2026-10-21": "product-planning",
   "qieman-feedback-resolution-l3-2026-10-20": "product-planning",

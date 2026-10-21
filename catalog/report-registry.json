@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "qieman-wechat-business-ai-trading-2026-10-21",
     "qiming-results-audit-2026-10-21",
     "qieman-feedback-resolution-l3-2026-10-20",
     "l3-application-portfolio-2026-10-20",

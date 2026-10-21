@@ -1,0 +1,1338 @@
+{
+  "period": {
+    "start": "2026-01-01",
+    "endExclusive": "2026-10-21",
+    "timezone": "Asia/Shanghai"
+  },
+  "evidenceIndex": [
+    {
+      "id": "D01",
+      "metric": "小程序月活跃身份",
+      "value": "1—10月：5434/3595/4441/6706/9144/71607/178440/124475/123831/95106",
+      "scope": "2026-01-01—10-20；10月不完整",
+      "source": "神策qiemanproduction；platform_type=微信小程序；distinct_id口径"
+    },
+    {
+      "id": "D02",
+      "metric": "小程序DAU均值",
+      "value": "9月10090.1；7月18095.0；10月11312.0",
+      "scope": "1—9月自然日完整；10月20天；原始口径含少量devtools",
+      "source": "神策日去重后均值；已查月份剔devtools差异≤0.1%"
+    },
+    {
+      "id": "D03",
+      "metric": "页面浏览事件合计",
+      "value": 6609850,
+      "scope": "1—10月20日；跨迁移阶段覆盖变化",
+      "source": "神策$pageview；月度计数相加，非人数"
+    },
+    {
+      "id": "D04",
+      "metric": "相邻月复访",
+      "value": "6→7 67.9%；7→8 45.0%；8→9 37.1%；9→10截至20日40.0%",
+      "scope": "相邻月访问身份交集/基期MAU",
+      "source": "神策访问身份跨月聚合"
+    },
+    {
+      "id": "D05",
+      "metric": "金额输入次数",
+      "value": 103068,
+      "scope": "1—10月20日；行为次数，不代表成交",
+      "source": "神策小程序端金额输入事件"
+    },
+    {
+      "id": "D06",
+      "metric": "小程序端成功成交、赎回与净流入",
+      "value": "未取得",
+      "scope": "本次可访问数据缺少可靠端归因",
+      "source": "生产交易表字段抽样与神策交易事件核对；数仓未获权限"
+    },
+    {
+      "id": "D07",
+      "metric": "来源属性完整性",
+      "value": "用户级渠道来源不可得；现有字段为事件加权，启动来源全空",
+      "scope": "仅能用于埋点完整性检查，不作为获客来源占比",
+      "source": "神策来源分母、属性所属事件与启动空值复核"
+    },
+    {
+      "id": "D08",
+      "metric": "微信AI客户端落地",
+      "value": 3221,
+      "scope": "7—10月20日；其中devtools3160、真实手机61",
+      "source": "wechat_agent_landing；客户端设备属性"
+    },
+    {
+      "id": "D09",
+      "metric": "微信AI原子调用原始量",
+      "value": 4643,
+      "scope": "7—10月20日；4430成功、213失败；含测试",
+      "source": "wechat_agent_atomic_api_call；服务端distinct_id为traceId"
+    },
+    {
+      "id": "D10",
+      "metric": "微信AI可关联真机原子调用",
+      "value": 50,
+      "scope": "与landing按trace关联；全部成功；未匹配部分环境未知",
+      "source": "原子事件与客户端落地trace关联"
+    },
+    {
+      "id": "I01",
+      "metric": "交易路径及前端承载",
+      "value": "原生展示/表单＋H5确认/下单",
+      "scope": "nova正式上传tag weapp-v1.7.4@82fcc8f；H5及后端最新已查代码",
+      "source": "受控源码调查；未执行客户实盘交易"
+    },
+    {
+      "id": "I02",
+      "metric": "基金支付通道/专用沙箱",
+      "value": "银行卡/盈米宝/混合支付；未发现专用微信金融沙箱接入证据",
+      "scope": "2026-10-21配置查询＋代码/组件/依赖/记录检索",
+      "source": "生产支付配置与小程序/H5实现；未读取独立合作合同"
+    },
+    {
+      "id": "I03",
+      "metric": "发版与建设记录",
+      "value": "4—10月建设里程碑；9—10月可追溯标签/上传",
+      "scope": "未宣称全年版本记录完整或全部客户端已更新",
+      "source": "Jira、版本标签、发版页和验收记录"
+    },
+    {
+      "id": "I04",
+      "metric": "正式标签、接口数量及知识库状态复核",
+      "value": "7Skill/21客户端API＝18服务端＋3纯页面接力；知识库生效未证",
+      "scope": "weapp-v1.7.4；meow服务端白名单19另口径",
+      "source": "git show固定标签、meow部署记录、Wiki版本历史及Jira状态"
+    },
+    {
+      "id": "D11",
+      "metric": "已识别AI测试流量",
+      "value": "282次＝verify271＋codex11；净调用4361，净成功4179、失败182",
+      "scope": "测试指纹无交集；净口径仍含devtools和未知环境",
+      "source": "全窗原子事件按trace前缀重算；月度/Skill/API多向对账"
+    },
+    {
+      "id": "D12",
+      "metric": "AI可归因新增转化",
+      "value": "可映射账户中未发现；匿名及未关联部分未知",
+      "scope": "不报告全量真实成交率为0%",
+      "source": "账户、基金账户及成功交易记录交叉核验；不含个人明细"
+    },
+    {
+      "id": "D13",
+      "metric": "Skill调用分布",
+      "value": "1997/1317/449/328/144/107/19；合计4361",
+      "scope": "fund-explorer/strategy-explorer/market-content/account-center/market-insight/fund-trading/fund-research；剔明确测试",
+      "source": "原子事件skill全窗重算；不是自然用户偏好"
+    },
+    {
+      "id": "D14",
+      "metric": "实际出现接口全窗分布",
+      "value": "19接口；raw4643、净4361、净成功4179逐项合计一致",
+      "scope": "2026-01-01—10-20查询窗；首条原子事件7月27日",
+      "source": "全窗按atomic_api分组；纠正月分组截断问题"
+    },
+    {
+      "id": "D15",
+      "metric": "AI事件最近上报",
+      "value": "landing 10月15日10:42:37；atomic 10月15日10:42:15",
+      "scope": "10月16—20日查询覆盖，无上报；未验证日志健康",
+      "source": "神策全年筛选后的min/max事件时间"
+    },
+    {
+      "id": "H02",
+      "metric": "6—7月建设与放量历史描述",
+      "value": "简版、完整版及handoff；通知承接迁移",
+      "scope": "2026-07-06与07-13历史材料；非当前生产量",
+      "source": "SOUL内原始团队总结与周报，与本次版本调查交叉核对"
+    }
+  ],
+  "transactionPaths": [
+    {
+      "capability": "注册与登录",
+      "surface": "原生小程序",
+      "route": "手机登录及微信账户关联",
+      "behavior": "账户登录与H5登录态衔接",
+      "evidence": "I01 · 源码；不等于已开户"
+    },
+    {
+      "capability": "首次实名、开户、绑卡",
+      "surface": "web-view内H5",
+      "route": "/user/bind",
+      "behavior": "实名 → 绑卡 → 交易密码；使用机构后端开户和支付绑定流程",
+      "evidence": "I01 · 私募实名有独立流程"
+    },
+    {
+      "capability": "风险测评",
+      "surface": "H5",
+      "route": "/user/risk-survey",
+      "behavior": "问卷结果经服务端处理；交易后端另做风险匹配",
+      "evidence": "I01 · 原生登录不替代风测"
+    },
+    {
+      "capability": "适当性与反洗钱",
+      "surface": "后端校验＋H5补充/提示",
+      "route": "/user/adequacy等",
+      "behavior": "该页面是反洗钱信息补充；适当性不是仅靠这个页面",
+      "evidence": "I01 · 交易中间件验证"
+    },
+    {
+      "capability": "投顾签约",
+      "surface": "H5",
+      "route": "/advisor/contract/sign; /advisor/contract/sign-manage",
+      "behavior": "总服务合同与产品签约分层；单基金不需要投顾产品签约",
+      "evidence": "I01 · 具体协议主体以实际文本为准"
+    },
+    {
+      "capability": "单基金买入/卖出",
+      "surface": "H5",
+      "route": "/funds/:fundCode/deposit; 持仓基金卖出页",
+      "behavior": "预交易校验 → 交易提交 → 查询结果",
+      "evidence": "I01 · 后端校验密码、同卡、适当性等"
+    },
+    {
+      "capability": "组合申购/赎回",
+      "surface": "H5",
+      "route": "/mix-pay/portfolios/:prodCode/deposit; /assets/:caId/withdraw",
+      "behavior": "组合交易服务承接；有投顾签约与重复下单校验",
+      "evidence": "I01 · CA/UMA为账户结构，不能等同人数"
+    },
+    {
+      "capability": "信号跟车、长赢",
+      "surface": "H5；授权后的自动任务另走后台",
+      "route": "信号交易页、长赢发车/跟车页",
+      "behavior": "手动确认后下单；已授权自动跟车任务由后台执行",
+      "evidence": "I01 · 自动跟车不能记作每次小程序主动成交"
+    },
+    {
+      "capability": "普通/信号/UMA定投",
+      "surface": "原生表单＋H5创建/支付",
+      "route": "/packages/aip/* → H5购买页",
+      "behavior": "可在原生配置金额、频率等；最终支付确认与下单仍转H5",
+      "evidence": "I01 · 原生表单不等于原生交易"
+    },
+    {
+      "capability": "盈米宝资产与交易",
+      "surface": "原生资产展示＋H5交易",
+      "route": "/packages/asset/wallet/index → H5充值/取现",
+      "behavior": "资产原生化与交易原生化分开",
+      "evidence": "I01/I03 · v1.7.2涉及资产原生化"
+    },
+    {
+      "capability": "撤单",
+      "surface": "H5",
+      "route": "/orders/:orderId/cancel等",
+      "behavior": "按可撤条件及交易密码验证；子订单可有独立撤单流程",
+      "evidence": "I01 · 取消页面不等于撤单确认"
+    },
+    {
+      "capability": "支付与最终确认",
+      "surface": "H5＋机构后端＋基金登记机构",
+      "route": "银行卡／盈米宝／混合支付",
+      "behavior": "客户确认、扣款成功、订单受理、份额确认是不同状态",
+      "evidence": "I01/I02 · 最终份额确认由TA完成"
+    }
+  ],
+  "releaseMilestones": [
+    {
+      "date": "2026-04",
+      "title": "原生化一期立项",
+      "text": "围绕原生页面与微信Agent接入条件推进建设。",
+      "status": "建设记录",
+      "evidence": "I03 · QMRD-45168；日期不替代上线日期",
+      "kind": "warn"
+    },
+    {
+      "date": "2026-06",
+      "title": "简版与通知承接开始落地",
+      "text": "周报记载简版可被小微调用；Jira记载6月通知落地迁移及相关上线事项。",
+      "status": "历史材料",
+      "evidence": "I03/H02 · 需与微信后台版本记录对应",
+      "kind": "blue"
+    },
+    {
+      "date": "2026-07",
+      "title": "完整版与handoff接力",
+      "text": "7月材料记载完整版及全量放量；新增基金业绩、经理在管产品、组合净值能力，通知、协议和跟车承接继续建设。",
+      "status": "历史材料",
+      "evidence": "H02 · 7月周报；“100%放量”不代表AI面向所有用户开放",
+      "kind": "blue"
+    },
+    {
+      "date": "2026-08",
+      "title": "AI查询补齐与发布治理",
+      "text": "项目记录涉及个人数据查询、原子接口、知识库和CI发布流程；存在测试包误发事故记录。",
+      "status": "建设记录",
+      "evidence": "I03 · QMRD-47082/47085/47086/47155；逐项状态见模式表",
+      "kind": "warn"
+    },
+    {
+      "date": "2026-09-04",
+      "title": "v1.6.12：可追溯对外基线",
+      "text": "存在版本标签及对外基线页；此前版本标签尚未完整找到，不能推断6月尚无小程序。",
+      "status": "标签＋基线页",
+      "evidence": "I03 · weapp-v1.6.12 / 0ea367f",
+      "kind": ""
+    },
+    {
+      "date": "2026-09-08",
+      "title": "v1.6.16：接口收口与埋点",
+      "text": "发版范围涉及meow代理、Agent埋点与handoff；发布页部分验收栏和事项状态不完整。",
+      "status": "上传/标签；验收记录不完整",
+      "evidence": "I03 · weapp-v1.6.16 / 084c0d3",
+      "kind": "warn"
+    },
+    {
+      "date": "2026-09-16",
+      "title": "v1.7.1：社区与分享",
+      "text": "推荐小组与分享建设；线上验收/通知记录较完整，但个别QE栏和需求部署状态仍有缺口。",
+      "status": "较强发布记录",
+      "evidence": "I03 · weapp-v1.7.1 / 4d69ab4；不等于每项均验收",
+      "kind": ""
+    },
+    {
+      "date": "2026-09-23/24",
+      "title": "v1.7.2：盈米宝资产原生化",
+      "text": "资产页和交易入口调整；充值、取现仍使用H5。部分验收记录不完整。",
+      "status": "标签＋上传记录",
+      "evidence": "I03 · weapp-v1.7.2 / b29a1e4",
+      "kind": "warn"
+    },
+    {
+      "date": "2026-09-28创建预览页；10-15更新",
+      "title": "v1.7.3：页面复用导致日期看似矛盾",
+      "text": "版本历史已澄清：9/28初次预览代码c424808，10/15页面更新至82fcc8f并改名v1.7.3；仍只是构建出码，不计正式上线。",
+      "status": "已厘清；预览不计上线",
+      "evidence": "I04 · Wiki版本历史；不要将10/12变更倒写到9/28",
+      "kind": "blue"
+    },
+    {
+      "date": "2026-10-15",
+      "title": "v1.7.4：最新已查到上传标签",
+      "text": "正式上传标签82fcc8f内已核对H5交易回退、7Skill/21客户端API及meow v2。上传与标签已证实；验收栏和全量发布、客户端分布仍需补齐。",
+      "status": "标签＋上传；全量待证",
+      "evidence": "I03 · weapp-v1.7.4 / 82fcc8f",
+      "kind": "warn"
+    },
+    {
+      "date": "2026-10-16—19",
+      "title": "新修复进入开发主线",
+      "text": "埋点/敏感键盘、未签约入口、分享参数等有开发记录；未见对应后续正式版本标签。",
+      "status": "开发主线；待发版",
+      "evidence": "I01/I03 · 不能以master合入代替生产生效",
+      "kind": "warn"
+    }
+  ],
+  "monthlyBusiness": [
+    {
+      "m": "2026-01",
+      "dau_avg": 279.5,
+      "mau": 5434,
+      "new_users": 1975,
+      "returning_users": 3459,
+      "launches": 561,
+      "pageviews": 53447,
+      "screen_views": null,
+      "signup_events": 3622,
+      "login_success": 11888,
+      "phone_success": 547,
+      "card_success": 287,
+      "amount_input_events": 1221
+    },
+    {
+      "m": "2026-02",
+      "dau_avg": 219.2,
+      "mau": 3595,
+      "new_users": 1589,
+      "returning_users": 2006,
+      "launches": 1243,
+      "pageviews": 32938,
+      "screen_views": null,
+      "signup_events": 1864,
+      "login_success": 6676,
+      "phone_success": 255,
+      "card_success": 113,
+      "amount_input_events": 863
+    },
+    {
+      "m": "2026-03",
+      "dau_avg": 275.5,
+      "mau": 4441,
+      "new_users": 1598,
+      "returning_users": 2843,
+      "launches": 1123,
+      "pageviews": 46684,
+      "screen_views": null,
+      "signup_events": 2545,
+      "login_success": 10484,
+      "phone_success": 311,
+      "card_success": 189,
+      "amount_input_events": 796
+    },
+    {
+      "m": "2026-04",
+      "dau_avg": 377.7,
+      "mau": 6706,
+      "new_users": 4230,
+      "returning_users": 2476,
+      "launches": 3402,
+      "pageviews": 50961,
+      "screen_views": null,
+      "signup_events": 1823,
+      "login_success": 6869,
+      "phone_success": 170,
+      "card_success": 115,
+      "amount_input_events": 743
+    },
+    {
+      "m": "2026-05",
+      "dau_avg": 474.4,
+      "mau": 9144,
+      "new_users": 6213,
+      "returning_users": 2931,
+      "launches": 6204,
+      "pageviews": 70367,
+      "screen_views": null,
+      "signup_events": 2220,
+      "login_success": 6162,
+      "phone_success": 149,
+      "card_success": 115,
+      "amount_input_events": 720
+    },
+    {
+      "m": "2026-06",
+      "dau_avg": 4684.9,
+      "mau": 71607,
+      "new_users": 41686,
+      "returning_users": 29921,
+      "launches": 73628,
+      "pageviews": 285410,
+      "screen_views": 972,
+      "signup_events": 11742,
+      "login_success": 6323,
+      "phone_success": 134,
+      "card_success": 71,
+      "amount_input_events": 3865
+    },
+    {
+      "m": "2026-07",
+      "dau_avg": 18095.0,
+      "mau": 178440,
+      "new_users": 80488,
+      "returning_users": 97952,
+      "launches": 409001,
+      "pageviews": 1981039,
+      "screen_views": 1252656,
+      "signup_events": 63846,
+      "login_success": 5863,
+      "phone_success": 269,
+      "card_success": 166,
+      "amount_input_events": 28596
+    },
+    {
+      "m": "2026-08",
+      "dau_avg": 9220.5,
+      "mau": 124475,
+      "new_users": 26525,
+      "returning_users": 97950,
+      "launches": 317567,
+      "pageviews": 1572158,
+      "screen_views": 1086982,
+      "signup_events": 109398,
+      "login_success": 2397,
+      "phone_success": 159,
+      "card_success": 189,
+      "amount_input_events": 25182
+    },
+    {
+      "m": "2026-09",
+      "dau_avg": 10090.1,
+      "mau": 123831,
+      "new_users": 41669,
+      "returning_users": 82162,
+      "launches": 319530,
+      "pageviews": 1413740,
+      "screen_views": 885520,
+      "signup_events": 123625,
+      "login_success": 2440,
+      "phone_success": 152,
+      "card_success": 117,
+      "amount_input_events": 24737
+    },
+    {
+      "m": "2026-10",
+      "dau_avg": 11312.0,
+      "mau": 95106,
+      "new_users": 26076,
+      "returning_users": 69030,
+      "launches": 241354,
+      "pageviews": 1103106,
+      "screen_views": 673904,
+      "signup_events": 94673,
+      "login_success": 1116,
+      "phone_success": 89,
+      "card_success": 61,
+      "amount_input_events": 16345
+    }
+  ],
+  "monthlyRetention": [
+    {
+      "cohort_month": "2026-06",
+      "next_month": "2026-07",
+      "retained_users": 48618,
+      "base_mau": 71607,
+      "rate_pct": 67.9
+    },
+    {
+      "cohort_month": "2026-07",
+      "next_month": "2026-08",
+      "retained_users": 80214,
+      "base_mau": 178440,
+      "rate_pct": 45.0
+    },
+    {
+      "cohort_month": "2026-08",
+      "next_month": "2026-09",
+      "retained_users": 46141,
+      "base_mau": 124475,
+      "rate_pct": 37.1
+    },
+    {
+      "cohort_month": "2026-09",
+      "next_month": "2026-10",
+      "retained_users": 49514,
+      "base_mau": 123831,
+      "rate_pct": 40.0,
+      "note": "10月仅到20日"
+    }
+  ],
+  "wechatAiMonthlyRaw": [
+    {
+      "m": "2026-07",
+      "landing": 822,
+      "landing_distinct_ids": 9,
+      "atomic_calls": 327,
+      "atomic_traces": 321,
+      "success": 315,
+      "fail": 12,
+      "avg_ms": 423.2,
+      "max_ms": 3114,
+      "devtools_landing": 819,
+      "real_device_landing": 3,
+      "atomic_devtools": 95,
+      "atomic_real": 0,
+      "atomic_verify_test": 0,
+      "atomic_no_landing_trace": 232
+    },
+    {
+      "m": "2026-08",
+      "landing": 1156,
+      "landing_distinct_ids": 18,
+      "atomic_calls": 1938,
+      "atomic_traces": 1924,
+      "success": 1846,
+      "fail": 92,
+      "avg_ms": 505.2,
+      "max_ms": 3566,
+      "devtools_landing": 1130,
+      "real_device_landing": 26,
+      "atomic_devtools": 1040,
+      "atomic_real": 22,
+      "atomic_verify_test": 2,
+      "atomic_no_landing_trace": 874
+    },
+    {
+      "m": "2026-09",
+      "landing": 1130,
+      "landing_distinct_ids": 19,
+      "atomic_calls": 1895,
+      "atomic_traces": 1882,
+      "success": 1832,
+      "fail": 63,
+      "avg_ms": 499.9,
+      "max_ms": 4798,
+      "devtools_landing": 1098,
+      "real_device_landing": 32,
+      "atomic_devtools": 976,
+      "atomic_real": 28,
+      "atomic_verify_test": 0,
+      "atomic_no_landing_trace": 891
+    },
+    {
+      "m": "2026-10",
+      "landing": 113,
+      "landing_distinct_ids": 1,
+      "atomic_calls": 483,
+      "atomic_traces": 370,
+      "success": 437,
+      "fail": 46,
+      "avg_ms": 408.6,
+      "max_ms": 7462,
+      "devtools_landing": 113,
+      "real_device_landing": 0,
+      "atomic_devtools": 101,
+      "atomic_real": 0,
+      "atomic_verify_test": 269,
+      "atomic_no_landing_trace": 113
+    }
+  ],
+  "wechatAiGlobal": {
+    "landing_total": 3221,
+    "landing_distinct_ids": 43,
+    "devtools_landing": 3160,
+    "real_device_landing": 61,
+    "devtools_share_pct": 98.1,
+    "atomic_total": 4643,
+    "real_device_atomic": 50,
+    "real_device_atomic_success": 50,
+    "real_device_atomic_avg_ms": 526.4,
+    "atomicAfterAllExplicitTests": 4361,
+    "cleanSuccess": 4179,
+    "cleanFail": 182,
+    "cleanTechnicalSuccessRatePct": 95.83
+  },
+  "sourceMixStatus": "不可作为用户级来源：全部事件加权；启动来源全空；可用值偏H5",
+  "wechatAiSkillsRaw": {
+    "fund-explorer": 2065,
+    "strategy-explorer": 1400,
+    "market-content": 462,
+    "account-center": 349,
+    "market-insight": 198,
+    "fund-trading": 139,
+    "fund-research": 30
+  },
+  "wechatAiModes": [
+    {
+      "mode": "自动模式",
+      "build": "历史材料记录已尝试接入",
+      "runtime": "没有可靠mode字段单独拆量；调用记录不能自动归到“自动模式”",
+      "conclusion": "技术探索有记录；独立使用效果未证"
+    },
+    {
+      "mode": "开发模式 / Skills原子接口",
+      "build": "正式上传包7Skill、21客户端API；其中18个走后端，3个只接力页面",
+      "runtime": "已有生产原子事件；大部分落地来自开发者工具",
+      "conclusion": "实现与真实使用分开"
+    },
+    {
+      "mode": "原子组件 / GUI展示",
+      "build": "仓内有组件；用于小程序Agent调试态",
+      "runtime": "微信对话中以文本与卡片接力为主；未取得生产组件渲染量",
+      "conclusion": "不能称为全GUI自动交易Agent"
+    },
+    {
+      "mode": "handoff服务接力",
+      "build": "可返回原生页或H5接力；业务页自闭环",
+      "runtime": "客户端落地3,221次；没有完整卡片曝光→点击→到达全量漏斗",
+      "conclusion": "已有调用与落地；经营归因未闭环"
+    },
+    {
+      "mode": "知识库模式",
+      "build": "仓内维护文稿及清单；不属于7Skill构建包",
+      "runtime": "未取得微信侧上传、生效、召回命中数据；相关事项仍未完结",
+      "conclusion": "仅确认文稿准备，生效待证"
+    },
+    {
+      "mode": "个人数据查询",
+      "build": "持仓、收益、自选等只读接口；要求后端鉴别客户身份",
+      "runtime": "无身份时返回业务错误；不是公开数据兜底",
+      "conclusion": "需单独核验授权与平台合作范围"
+    },
+    {
+      "mode": "交易规则查询",
+      "build": "fund-trading只有规则/分红等读取能力",
+      "runtime": "调用该Skill不等于基金买入、卖出或支付",
+      "conclusion": "不执行交易"
+    },
+    {
+      "mode": "未列入发布白名单的研究能力",
+      "build": "如portfolio-doctor、wealth-advisor有源码线索",
+      "runtime": "未在当前正式上传构建白名单中",
+      "conclusion": "源码存在不能当作已发布"
+    }
+  ],
+  "conversionStatus": {
+    "miniprogramPaid": "unavailable_in_current_accessible_sources",
+    "aiIdentifiedAccounts": "no_attributable_increment_found",
+    "anonymousAndUnmatched": "unknown",
+    "wholeChannelExistingTradesUsedAsAiConversions": false
+  },
+  "generatedAt": "2026-10-21T10:34:04+08:00",
+  "wechatAiMonthlyClean": [
+    {
+      "m": "2026-07",
+      "raw": 327,
+      "test": 0,
+      "clean": 327,
+      "success": 315,
+      "fail": 12
+    },
+    {
+      "m": "2026-08",
+      "raw": 1938,
+      "test": 2,
+      "clean": 1936,
+      "success": 1844,
+      "fail": 92
+    },
+    {
+      "m": "2026-09",
+      "raw": 1895,
+      "test": 11,
+      "clean": 1884,
+      "success": 1822,
+      "fail": 62
+    },
+    {
+      "m": "2026-10",
+      "raw": 483,
+      "test": 269,
+      "clean": 214,
+      "success": 198,
+      "fail": 16
+    }
+  ],
+  "wechatAiSkillsClean": {
+    "fund-explorer": 1997,
+    "strategy-explorer": 1317,
+    "market-content": 449,
+    "account-center": 328,
+    "market-insight": 144,
+    "fund-trading": 107,
+    "fund-research": 19
+  },
+  "wechatAiApis": [
+    {
+      "api": "getFundDetail",
+      "raw": 1006,
+      "test": 20,
+      "clean": 986,
+      "clean_ok": 983
+    },
+    {
+      "api": "getStrategyOverview",
+      "raw": 675,
+      "test": 23,
+      "clean": 652,
+      "clean_ok": 615
+    },
+    {
+      "api": "searchStrategy",
+      "raw": 560,
+      "test": 13,
+      "clean": 547,
+      "clean_ok": 547
+    },
+    {
+      "api": "getAdvisorContent",
+      "raw": 462,
+      "test": 13,
+      "clean": 449,
+      "clean_ok": 449
+    },
+    {
+      "api": "searchFund",
+      "raw": 423,
+      "test": 9,
+      "clean": 414,
+      "clean_ok": 412
+    },
+    {
+      "api": "guessFundCode",
+      "raw": 346,
+      "test": 19,
+      "clean": 327,
+      "clean_ok": 280
+    },
+    {
+      "api": "getMyProfit",
+      "raw": 185,
+      "test": 9,
+      "clean": 176,
+      "clean_ok": 150
+    },
+    {
+      "api": "getManagerFunds",
+      "raw": 148,
+      "test": 9,
+      "clean": 139,
+      "clean_ok": 139
+    },
+    {
+      "api": "getFundHolding",
+      "raw": 142,
+      "test": 11,
+      "clean": 131,
+      "clean_ok": 91
+    },
+    {
+      "api": "getIndexValuation",
+      "raw": 137,
+      "test": 36,
+      "clean": 101,
+      "clean_ok": 87
+    },
+    {
+      "api": "getMyHoldings",
+      "raw": 110,
+      "test": 4,
+      "clean": 106,
+      "clean_ok": 105
+    },
+    {
+      "api": "getStrategyHoldings",
+      "raw": 102,
+      "test": 18,
+      "clean": 84,
+      "clean_ok": 82
+    },
+    {
+      "api": "getFundTradeInfo",
+      "raw": 96,
+      "test": 23,
+      "clean": 73,
+      "clean_ok": 65
+    },
+    {
+      "api": "getMarketSummary",
+      "raw": 61,
+      "test": 18,
+      "clean": 43,
+      "clean_ok": 41
+    },
+    {
+      "api": "getMyWatchlist",
+      "raw": 54,
+      "test": 8,
+      "clean": 46,
+      "clean_ok": 46
+    },
+    {
+      "api": "getStrategyNav",
+      "raw": 53,
+      "test": 20,
+      "clean": 33,
+      "clean_ok": 33
+    },
+    {
+      "api": "getDividendRecord",
+      "raw": 43,
+      "test": 9,
+      "clean": 34,
+      "clean_ok": 34
+    },
+    {
+      "api": "diagnoseFund",
+      "raw": 30,
+      "test": 11,
+      "clean": 19,
+      "clean_ok": 19
+    },
+    {
+      "api": "getStrategyDetail",
+      "raw": 10,
+      "test": 9,
+      "clean": 1,
+      "clean_ok": 1
+    }
+  ],
+  "testReconciliation": {
+    "raw_total": 4643,
+    "test_removed": 282,
+    "clean_total": 4361,
+    "clean_success": 4179,
+    "clean_fail": 182
+  },
+  "environmentReconciliation": {
+    "devtoolsAssociated": 2212,
+    "phoneAssociated": 50,
+    "unmatchedNonTest": 2099,
+    "explicitTests": 282
+  },
+  "eventCoverage": [
+    {
+      "event": "$MPLaunch",
+      "first": "2026-01-13 16:15:01",
+      "last": "2026-10-20 23:59:51",
+      "note": "1/1-1/12 无启动事件，1 月启动量严重低估"
+    },
+    {
+      "event": "$MPShow",
+      "first": "2026-01-13 16:15:01",
+      "last": "2026-10-20 23:59:51"
+    },
+    {
+      "event": "$MPViewScreen",
+      "first": "2026-06-15 14:05:52",
+      "last": "2026-10-20 23:59:55",
+      "note": "1-5 月无此事件，screen_views 不可得"
+    },
+    {
+      "event": "$SignUp",
+      "first": "2026-01-01 00:24:40",
+      "last": "2026-10-20 23:59:20"
+    },
+    {
+      "event": "$pageview",
+      "first": "2026-01-01 00:24:42",
+      "last": "2026-10-20 23:59:59"
+    },
+    {
+      "event": "add_card_success",
+      "first": "2026-01-02 21:01:23",
+      "last": "2026-10-20 20:54:41"
+    },
+    {
+      "event": "add_phone_success",
+      "first": "2026-01-01 02:20:55",
+      "last": "2026-10-20 23:17:22"
+    },
+    {
+      "event": "amount_input",
+      "first": "2026-01-01 11:28:53",
+      "last": "2026-10-20 23:53:33"
+    },
+    {
+      "event": "wechat_agent_landing",
+      "first": "2026-07-17 14:02:20",
+      "last": "2026-10-15 10:42:37"
+    },
+    {
+      "event": "wechat_agent_atomic_api_call",
+      "first": "2026-07-27 14:24:38",
+      "last": "2026-10-15 10:42:15"
+    }
+  ],
+  "metricDefinitions": {
+    "new_users": {
+      "definition": "每月 $is_first_day=1 的 distinct_id 去重数；$is_first_day 为神策按 distinct_id 的首次出现标记（设备/匿名 ID 级），不是业务注册人数",
+      "not_business_registration": true
+    },
+    "dau_avg": {
+      "denominator": "当月在数据中出现 UV 的自然日数，未补零；经核对 1-9 月天数与自然月完全一致，零天=0；10 月为 1-20 日共 20 天",
+      "days": {
+        "2026-01": 31,
+        "2026-02": 28,
+        "2026-03": 31,
+        "2026-04": 30,
+        "2026-05": 31,
+        "2026-06": 30,
+        "2026-07": 31,
+        "2026-08": 31,
+        "2026-09": 30,
+        "2026-10": 20
+      },
+      "zero_filled_days": 0
+    },
+    "source_mix": {
+      "old_denominator": "当月 platform_type='微信小程序' 的全部事件 count(*)，未按用户去重，事件加权",
+      "problem": "$MPLaunch 的 $latest_traffic_source_type 100% 为空；有值部分主要是 WebView/H5 的 $pageview、$WebClick，不能代表小程序整体来源",
+      "july_check": "有来源值事件 2,829,460 条 / 76,464 个身份；占当月 MAU 42.9%；其余 67.3% 事件无来源值",
+      "conclusion": "上一答 source_mix_pct 仅为“有来源值事件的事件加权分布”，不是用户级来源结构；不可作为小程序渠道结论"
+    },
+    "mau_devtools": {
+      "included": true,
+      "impact": "devtools 身份每月最多 43 个，剔除后与全量差异 ≤0.1%",
+      "by_month_full_vs_ex": {
+        "2026-01": [
+          5434,
+          5433
+        ],
+        "2026-06": [
+          71607,
+          71578
+        ],
+        "2026-07": [
+          178440,
+          178411
+        ],
+        "2026-08": [
+          124475,
+          124454
+        ],
+        "2026-09": [
+          123831,
+          123801
+        ],
+        "2026-10": [
+          95106,
+          95102
+        ]
+      }
+    }
+  },
+  "queryMethodSummary": [
+    "小程序经营：SELECT date_trunc('month',date) m, count(DISTINCT distinct_id) mau, count(*) FROM events WHERE date>='2026-01-01' AND date<'2026-10-21' AND platform_type='微信小程序' GROUP BY m",
+    "新访：同上加 AND $is_first_day=1，count(DISTINCT distinct_id)",
+    "事件：同上按 event IN ('$MPLaunch','$MPShow','$pageview','$MPViewScreen','$SignUp','add_phone_success','add_card_success','amount_input') GROUP BY m,event",
+    "留存：子查询按 distinct_id GROUP BY HAVING count(DISTINCT date_trunc('month',date))>=2，窗口为相邻两个月",
+    "AI落地：event='wechat_agent_landing'，按 m 与 $os 分组，count(*) 与 count(DISTINCT distinct_id)",
+    "AI原子：event='wechat_agent_atomic_api_call'，按 m、atomic_api、skill 分组；success/duration_ms/error_code 聚合",
+    "测试剔除：trace_id LIKE 'verify-%' / 'codex-%'；二者无交集"
+  ],
+  "industryResearch": {
+    "verifiedAt": "2026-10-21",
+    "sources": [
+      {
+        "id": "W01",
+        "title": "公开募集证券投资基金销售机构监督管理办法",
+        "publisher": "中国证监会",
+        "date": "2020-08-28；2020-10-01施行",
+        "url": "https://www.csrc.gov.cn/csrc/c106256/c1653806/content.shtml",
+        "kind": "监管原文"
+      },
+      {
+        "id": "W02",
+        "title": "关于实施《公开募集证券投资基金销售机构监督管理办法》的规定",
+        "publisher": "中国证监会／北京市政府公开文本",
+        "date": "2020；证监会公告〔2020〕58号",
+        "url": "https://www.beijing.gov.cn/zhengce/zhengcefagui/qtwj/202309/t20230919_3262101.html",
+        "kind": "监管原文"
+      },
+      {
+        "id": "W03",
+        "title": "金融产品网络营销管理办法",
+        "publisher": "八部门／国家网信办公开文本",
+        "date": "2026-04-21发布；2026-09-30施行",
+        "url": "https://www.cac.gov.cn/2026-04/24/c_1778769008779432.htm",
+        "kind": "监管原文"
+      },
+      {
+        "id": "W04",
+        "title": "八部门有关负责人就网络营销管理办法答记者问",
+        "publisher": "市场监管总局",
+        "date": "2026-04",
+        "url": "https://www.samr.gov.cn/zw/zfxxgk/fdzdgknr/xwxcs/art/2026/art_e5253966819a4a708df5a62c0d4b7d00.html",
+        "kind": "官方解释"
+      },
+      {
+        "id": "W05",
+        "title": "网上基金销售信息系统技术指引（2024修订）",
+        "publisher": "中国证券投资基金业协会",
+        "date": "2024-06-21；2025-01-01施行",
+        "url": "https://fg.amac.org.cn/governmentrules_3854/zcgz_zlgz/xxkj/201912/t20191222_24359.html",
+        "kind": "行业自律规范"
+      },
+      {
+        "id": "W06",
+        "title": "小程序金融版解决方案",
+        "publisher": "腾讯云",
+        "date": "2026-10-21检索",
+        "url": "https://cloud.tencent.com/solution/finance-mini-program",
+        "kind": "平台产品方案"
+      },
+      {
+        "id": "W07",
+        "title": "小程序·云直播类目申请资质要求（公募基金段）",
+        "publisher": "腾讯云",
+        "date": "2026-10-21核验",
+        "url": "https://cloud.tencent.com/document/product/1078/43316",
+        "kind": "平台官方文档；适用范围为直播能力"
+      },
+      {
+        "id": "W08",
+        "title": "开发接入准备：小程序支付",
+        "publisher": "微信支付",
+        "date": "2026-10-16更新",
+        "url": "https://pay.wechatpay.cn/doc/v3/merchant/4015459512",
+        "kind": "支付平台官方文档"
+      },
+      {
+        "id": "W09",
+        "title": "WebView组件说明",
+        "publisher": "腾讯云开发CloudBase",
+        "date": "2026-10-21核验",
+        "url": "https://docs.cloudbase.net/en/lowcode/components/wedaUI/src/docs/compsdocs/super/WebView",
+        "kind": "平台官方文档"
+      },
+      {
+        "id": "W10",
+        "title": "小程序隐私保护指引适配说明",
+        "publisher": "腾讯云微搭",
+        "date": "2025-05-30更新",
+        "url": "https://cloud.tencent.cn/document/product/1301/97930",
+        "kind": "平台官方文档"
+      },
+      {
+        "id": "W11",
+        "title": "关于投资者可采取的替代交易方式的公示",
+        "publisher": "创金合信基金",
+        "date": "2023-10-27发布；2026-10-21核验",
+        "url": "https://www.cjhxfund.com/main/a/20231027/5014364.shtml",
+        "kind": "机构官方公告"
+      },
+      {
+        "id": "W12",
+        "title": "个人账户查询及注册交易指引",
+        "publisher": "创金合信基金",
+        "date": "2026-10-21核验",
+        "url": "https://cjzhcx.cjhxfund.com/",
+        "kind": "机构官方服务入口"
+      },
+      {
+        "id": "W13",
+        "title": "电子直销服务协议",
+        "publisher": "前海开源基金",
+        "date": "2026-10-21核验；网页未明示版本日期",
+        "url": "https://etrade.qhkyfund.com/etrading/account/openacco/readAgreement",
+        "kind": "机构官方协议"
+      },
+      {
+        "id": "W14",
+        "title": "鹏扬基金隐私政策",
+        "publisher": "鹏扬基金",
+        "date": "2026-10-21核验",
+        "url": "https://www.pyamc.com/front/common_100391.jhtml",
+        "kind": "机构官方政策"
+      },
+      {
+        "id": "W15",
+        "title": "基金转换服务协议",
+        "publisher": "腾安基金销售",
+        "date": "2026-10-21核验；文件未明示当前版本日期",
+        "url": "https://www.txfund.com/resources/web/pdf/b6610bb0b564c2e7a8bb46fa9b816622.pdf",
+        "kind": "持牌销售机构官方协议"
+      },
+      {
+        "id": "W16",
+        "title": "沙箱调试指引",
+        "publisher": "腾讯云商付",
+        "date": "2026-10-21核验",
+        "url": "https://p.wecard.tencent.com/docs/devtools/sandbox_develop",
+        "kind": "支付测试官方文档"
+      },
+      {
+        "id": "W17",
+        "title": "FinClip小程序SDK及开放平台技术白皮书",
+        "publisher": "凡泰极客",
+        "date": "2024-11版",
+        "url": "https://www.finclip.com/blog/content/files/2024/12/FinClip---------202411-.pdf",
+        "kind": "供应商技术说明；非监管背书"
+      },
+      {
+        "id": "W18",
+        "title": "关于征集金融科技创新监管工具创新应用的公告",
+        "publisher": "北京市地方金融管理局／创新监管工具实施工作组",
+        "date": "2024-07-26",
+        "url": "https://jrj.beijing.gov.cn/tztg/202407/t20240726_3760361.html",
+        "kind": "监管创新试点公告"
+      },
+      {
+        "id": "W19",
+        "title": "证券期货投资者适当性管理办法（2022修正）",
+        "publisher": "中国证监会",
+        "date": "2022-08修正",
+        "url": "https://www.csrc.gov.cn/csrc/c101953/c5359211/5359211/files/%E9%99%84%E4%BB%B61.1%EF%BC%9A%E4%B8%AD%E5%9B%BD%E8%AF%81%E7%9B%91%E4%BC%9A%E5%86%B3%E5%AE%9A%E4%BF%AE%E6%94%B9%E7%9A%84%E8%A7%84%E7%AB%A0.pdf",
+        "kind": "监管原文"
+      },
+      {
+        "id": "W20",
+        "title": "且慢平台隐私政策",
+        "publisher": "盈米基金／且慢",
+        "date": "公开搜索索引载2026-07-08更新；页面正文需JS",
+        "url": "https://qieman.com/help/privacy",
+        "kind": "机构官方政策；本次正文读取受限"
+      },
+      {
+        "id": "W21",
+        "title": "前海开源基金份额发售公告：电子直销开户认购渠道",
+        "publisher": "前海开源基金",
+        "date": "2025-11文件；2026-10-21核验",
+        "url": "https://www.qhkyfund.com/upload/20251128/202511281764321729861.pdf",
+        "kind": "机构官方产品公告"
+      }
+    ],
+    "industry": [
+      {
+        "company": "创金合信基金",
+        "role": "基金管理人直销",
+        "confirmed": "官网明确引导通过同名微信小程序办理注册及交易；应急公告将其列为微信交易系统。",
+        "path": "机构官方小程序 → 其自营电子交易系统",
+        "unknown": "不能从公告判断全部页面是否原生、支付机构及金融隔离SDK。",
+        "sources": [
+          "W11",
+          "W12"
+        ]
+      },
+      {
+        "company": "前海开源基金",
+        "role": "基金管理人直销",
+        "confirmed": "官方基金发售公告将微信小程序列为受理开户和认购的电子直销渠道；电子直销协议列出开户、申赎、撤单、银行卡管理等微信服务。",
+        "path": "官方小程序 → 基金管理人电子直销",
+        "unknown": "协议覆盖不等于本次真机全流程测试；当前开放范围、原生/H5与沙箱需另验。",
+        "sources": [
+          "W13",
+          "W21"
+        ]
+      },
+      {
+        "company": "鹏扬基金／鹏扬好基通",
+        "role": "基金管理人自营平台",
+        "confirmed": "隐私政策将微信小程序纳入自营电子交易平台，列示开户、申赎、定投、转换等服务，并区分H5/API/SDK转接；具体小程序开放子集仍须真机核验。",
+        "path": "自营小程序与合作转接平台分层",
+        "unknown": "政策描述的是服务及数据边界，不能据此确认某条购买流程已全部原生。",
+        "sources": [
+          "W14"
+        ]
+      },
+      {
+        "company": "腾讯理财通／腾安基金",
+        "role": "资讯平台与持牌销售主体分工",
+        "confirmed": "腾安基金转换协议覆盖通过理财通平台销售基金的转换服务；理财通定义包含微信小程序。",
+        "path": "理财通平台入口 → 腾安销售及基金转换服务",
+        "unknown": "该既有合作架构不能推导成任意第三方小程序均获同等权限，也不是通用金融沙箱证明。",
+        "sources": [
+          "W15"
+        ]
+      }
+    ],
+    "rules": [
+      {
+        "topic": "销售资格与责任主体",
+        "rule": "开户、推介、申赎与交易账户查询均属基金销售活动；销售者需具备相应资格。",
+        "article": "第2、17、24条",
+        "sources": [
+          "W01"
+        ],
+        "implication": "页面、协议、订单与客服应清楚指向实际销售主体；公募直销、独立代销和基金投顾的资格分别核验。"
+      },
+      {
+        "topic": "第三方展业与数据隔离",
+        "rule": "租用第三方网络空间须明确揭示销售主体；技术平台不得实质介入销售或获取基金交易信息。",
+        "article": "第43条；实施规定第24项",
+        "sources": [
+          "W01",
+          "W02"
+        ],
+        "implication": "检查请求直连、日志与埋点字段、第三方SDK可见性、合同职责；不能仅以用了H5或叫作沙箱证明隔离。"
+      },
+      {
+        "topic": "新规下的入口与转接",
+        "rule": "2026-09-30起，第三方转接购买须至金融机构自营平台；购买前显著提醒并设强制阅读时间。",
+        "article": "第3、5、39条",
+        "sources": [
+          "W03"
+        ],
+        "implication": "逐条验小微卡片、公众号、广告跳转；是否构成自营平台，要看独立运营和完整数据权限等事实，不只看域名或页面外观。"
+      },
+      {
+        "topic": "第三方AI的销售边界",
+        "rule": "第三方平台不得违规介入签约、划款和适当性等销售环节，亦不得就金融产品与用户互动咨询。",
+        "article": "第20条；官方答记者问",
+        "sources": [
+          "W03",
+          "W04"
+        ],
+        "implication": "对话内个性化荐基、查询个人账户、交易意图识别分别判定服务主体与范围；应由业务、法务和平台共同确认，不把handoff当自动合规。"
+      },
+      {
+        "topic": "实名、适当性与电子留痕",
+        "rule": "应了解投资者并匹配产品风险；网上销售需遵循相应系统技术与安全规范。",
+        "article": "适当性办法；2024技术指引",
+        "sources": [
+          "W19",
+          "W05"
+        ],
+        "implication": "开户、风险测评、签约、密码验证、支付和确认保留可回溯记录；AI输出不能替代真实客户确认。"
+      },
+      {
+        "topic": "机构直收指令与双因素认证",
+        "rule": "机构自身系统直接接收交易指令；首次登录、基金交易等重要场景采用双因素认证；重大版本上线须验证。",
+        "article": "技术指引第14、15、34条",
+        "sources": [
+          "W05"
+        ],
+        "implication": "核对小程序/H5两端登录态、设备识别、短信或密码验证等实际组合；端形态变化不能省略交易安全与发布验证。"
+      },
+      {
+        "topic": "支付结算与最终成交",
+        "rule": "基金销售款按专用结算体系归集划付；支付服务机构满足资格及备案要求。",
+        "article": "第20、38—40条",
+        "sources": [
+          "W01"
+        ],
+        "implication": "核对实际扣款渠道、监督账户、退款赎回闭环；普通微信支付开通、前端回调或创建订单均不能证明基金成交。"
+      }
+    ],
+    "platform": [
+      {
+        "requirement": "主体、类目与金融资格",
+        "confirmed": "腾讯云官方类目文档列示公募基金相关资格材料；评价机构截图仅能支持信息展示。",
+        "boundary": "该文档面向直播能力，不足以替代交易专项权限、当前小程序类目后台或微信书面确认。",
+        "sources": [
+          "W07"
+        ]
+      },
+      {
+        "requirement": "原生请求与H5业务域名",
+        "confirmed": "WebView方案需配置业务域名；原生页面与H5嵌入是不同的前端实现。",
+        "boundary": "域名获准加载不代表金融销售获准；要复核实际原生/H5路由和资金、数据边界。",
+        "sources": [
+          "W09"
+        ]
+      },
+      {
+        "requirement": "用户隐私授权",
+        "confirmed": "处理个人信息的接口须声明相应用途，并同步用户已同意隐私指引后调用。",
+        "boundary": "微信隐私弹窗不等同基金实名验证、适当性或全部敏感信息处理授权。",
+        "sources": [
+          "W10"
+        ]
+      },
+      {
+        "requirement": "普通微信支付接入",
+        "confirmed": "需认证账号、支付权限及商户号与AppID关联；2026-10-16官方文档列出接入步骤。",
+        "boundary": "只在实际使用该支付产品时适用；它不是基金销售牌照或基金结算通道许可。金融业务不能直接套用普通商品支付方案。",
+        "sources": [
+          "W08"
+        ]
+      },
+      {
+        "requirement": "金融版安全方案",
+        "confirmed": "腾讯云提供小程序扫描、加固、渗透、安全通信直连和多端运行管理方案。",
+        "boundary": "它是商业技术方案；不能据此断言所有基金小程序必须购买该方案，或且慢已经接入。",
+        "sources": [
+          "W06"
+        ]
+      }
+    ],
+    "sandboxes": [
+      {
+        "name": "小程序运行时沙箱",
+        "purpose": "限制代码运行与端能力，隔离不同应用。",
+        "proof": "容器架构、权限模型、安全检测。",
+        "notProved": "不等于取得基金销售或交易权限。",
+        "sources": [
+          "W17"
+        ]
+      },
+      {
+        "name": "金融交易隔离方案／专用容器",
+        "purpose": "满足特定合作中敏感数据、网络与业务隔离要求。",
+        "proof": "明确产品名、SDK、合作协议、隔离评测、微信准入或试点批复。",
+        "notProved": "目前所查公开材料未建立“所有基金微信小程序统一接入某金融沙箱”的规则；且慢须靠工程及协议另验。",
+        "sources": [
+          "W02",
+          "W06"
+        ]
+      },
+      {
+        "name": "支付开发测试沙箱",
+        "purpose": "用模拟通知检验支付、退款等接口。",
+        "proof": "测试参数、测试地址、模拟回调与环境配置。",
+        "notProved": "模拟支付成功不能计入生产成交；腾讯云商付示例也不能推定且慢使用。",
+        "sources": [
+          "W16"
+        ]
+      },
+      {
+        "name": "金融科技创新监管工具",
+        "purpose": "在依法合规框架内申报、测试特定金融科技创新。",
+        "proof": "创新应用编号、声明书、测试范围与开始/结束公告。",
+        "notProved": "技术SDK的名称、微信灰度或普通测试报告不能替代监管项目证明。",
+        "sources": [
+          "W18"
+        ]
+      }
+    ]
+  }
+}
