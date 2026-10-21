@@ -1,7 +1,8 @@
 {
   "schema": "clair-knowledge-hub-feed/v1",
-  "generatedAt": "2026-10-21T00:37:25.803Z",
-  "source": "Clair’s Studio production catalog + curated authoritative AI industry reports",
+  "scope": "external-ai-industry-only",
+  "generatedAt": "2026-10-21T02:26:10.441Z",
+  "source": "Curated authoritative public AI industry reports",
   "reports": [
     {
       "id": "authority-stanford-ai-index-2026",
@@ -34,7 +35,7 @@
       "archived": false,
       "relatedReportIds": [],
       "studioId": "",
-      "origin": "authority",
+      "origin": "industry",
       "extractionError": "",
       "fileName": "",
       "fileSize": 0
@@ -69,7 +70,7 @@
       "archived": false,
       "relatedReportIds": [],
       "studioId": "",
-      "origin": "authority",
+      "origin": "industry",
       "extractionError": "",
       "fileName": "",
       "fileSize": 0
@@ -104,7 +105,7 @@
       "archived": false,
       "relatedReportIds": [],
       "studioId": "",
-      "origin": "authority",
+      "origin": "industry",
       "extractionError": "",
       "fileName": "",
       "fileSize": 0
@@ -139,7 +140,7 @@
       "archived": false,
       "relatedReportIds": [],
       "studioId": "",
-      "origin": "authority",
+      "origin": "industry",
       "extractionError": "",
       "fileName": "",
       "fileSize": 0
@@ -174,7 +175,7 @@
       "archived": false,
       "relatedReportIds": [],
       "studioId": "",
-      "origin": "authority",
+      "origin": "industry",
       "extractionError": "",
       "fileName": "",
       "fileSize": 0
@@ -210,7 +211,7 @@
       "archived": false,
       "relatedReportIds": [],
       "studioId": "",
-      "origin": "authority",
+      "origin": "industry",
       "extractionError": "",
       "fileName": "",
       "fileSize": 0
@@ -246,7 +247,7 @@
       "archived": false,
       "relatedReportIds": [],
       "studioId": "",
-      "origin": "authority",
+      "origin": "industry",
       "extractionError": "",
       "fileName": "",
       "fileSize": 0
@@ -281,7 +282,7 @@
       "archived": false,
       "relatedReportIds": [],
       "studioId": "",
-      "origin": "authority",
+      "origin": "industry",
       "extractionError": "",
       "fileName": "",
       "fileSize": 0
@@ -316,7 +317,7 @@
       "archived": false,
       "relatedReportIds": [],
       "studioId": "",
-      "origin": "authority",
+      "origin": "industry",
       "extractionError": "",
       "fileName": "",
       "fileSize": 0
@@ -351,7 +352,7 @@
       "archived": false,
       "relatedReportIds": [],
       "studioId": "",
-      "origin": "authority",
+      "origin": "industry",
       "extractionError": "",
       "fileName": "",
       "fileSize": 0
@@ -388,7 +389,7 @@
         "authority-international-ai-safety-2026"
       ],
       "studioId": "",
-      "origin": "authority",
+      "origin": "industry",
       "extractionError": "",
       "fileName": "",
       "fileSize": 0
@@ -428,7 +429,7 @@
         "authority-anthropic-unintended-actions-2026"
       ],
       "studioId": "",
-      "origin": "authority",
+      "origin": "industry",
       "extractionError": "",
       "fileName": "",
       "fileSize": 0
@@ -468,7 +469,7 @@
         "authority-mckinsey-state-ai-2026"
       ],
       "studioId": "",
-      "origin": "authority",
+      "origin": "industry",
       "extractionError": "",
       "fileName": "",
       "fileSize": 0
@@ -506,7 +507,7 @@
         "authority-international-ai-safety-2026"
       ],
       "studioId": "",
-      "origin": "authority",
+      "origin": "industry",
       "extractionError": "",
       "fileName": "",
       "fileSize": 0
@@ -546,7 +547,7 @@
         "authority-microsoft-wti-2026"
       ],
       "studioId": "",
-      "origin": "authority",
+      "origin": "industry",
       "extractionError": "",
       "fileName": "",
       "fileSize": 0
@@ -586,7 +587,7 @@
         "authority-anthropic-unintended-actions-2026"
       ],
       "studioId": "",
-      "origin": "authority",
+      "origin": "industry",
       "extractionError": "",
       "fileName": "",
       "fileSize": 0
@@ -625,7 +626,7 @@
         "authority-anthropic-self-replicating-ai-2026"
       ],
       "studioId": "",
-      "origin": "authority",
+      "origin": "industry",
       "extractionError": "",
       "fileName": "",
       "fileSize": 0
@@ -666,7 +667,7 @@
         "authority-pwc-ai-jobs-2026"
       ],
       "studioId": "",
-      "origin": "authority",
+      "origin": "industry",
       "extractionError": "",
       "fileName": "",
       "fileSize": 0
@@ -708,7 +709,7 @@
         "authority-stanford-human-ai-collaboration-2026"
       ],
       "studioId": "",
-      "origin": "authority",
+      "origin": "industry",
       "extractionError": "",
       "fileName": "",
       "fileSize": 0
@@ -749,7 +750,7 @@
         "authority-anthropic-ai-expectations-gap-2026"
       ],
       "studioId": "",
-      "origin": "authority",
+      "origin": "industry",
       "extractionError": "",
       "fileName": "",
       "fileSize": 0
@@ -789,7 +790,7 @@
         "authority-anthropic-employment-2026"
       ],
       "studioId": "",
-      "origin": "authority",
+      "origin": "industry",
       "extractionError": "",
       "fileName": "",
       "fileSize": 0
@@ -829,7 +830,7 @@
         "authority-state-of-ai-report-2026"
       ],
       "studioId": "",
-      "origin": "authority",
+      "origin": "industry",
       "extractionError": "",
       "fileName": "",
       "fileSize": 0
@@ -869,7 +870,7 @@
         "authority-international-ai-safety-2026"
       ],
       "studioId": "",
-      "origin": "authority",
+      "origin": "industry",
       "extractionError": "",
       "fileName": "",
       "fileSize": 0
@@ -910,441 +911,10 @@
         "authority-anthropic-ai-expectations-gap-2026"
       ],
       "studioId": "",
-      "origin": "authority",
+      "origin": "industry",
       "extractionError": "",
       "fileName": "",
       "fileSize": 0
-    },
-    {
-      "id": "daily-qieman-feedback-resolution-l3-2026-10-20",
-      "studioId": "qieman-feedback-resolution-l3-2026-10-20",
-      "title": "用户反馈处置大表｜384条需求分析、分流路径与L3项目设计",
-      "url": "https://clairku.github.io/clair-ai-studio/reports/qieman-feedback-resolution-l3-2026-10-20/",
-      "body": "用户提供Excel逐条分析：384条记录、原频次合计420、110处置主题；含54条P1复核候选、解决方法/排查清单/责任角色/验收条件、筛选CSV与本地跟进。公开脱敏方案版，不含内部逐字回复或内部L3标准原文；尚未接入生产执行。",
-      "kind": "studio",
-      "category": "产品与体验",
-      "tags": [
-        "且慢",
-        "用户反馈",
-        "需求治理",
-        "客户服务",
-        "L3",
-        "异常分流",
-        "产品规划",
-        "数据分析"
-      ],
-      "source": "Clair’s Studio 每日同步",
-      "createdAt": "2026-10-20T20:00:00+08:00",
-      "updatedAt": "2026-10-20T20:00:00+08:00",
-      "extractionError": "",
-      "fileName": "",
-      "fileSize": 0,
-      "archived": false,
-      "relatedReportIds": []
-    },
-    {
-      "id": "daily-l3-application-portfolio-2026-10-20",
-      "studioId": "l3-application-portfolio-2026-10-20",
-      "title": "AI申报总表｜14项逐项优化、现况与闭环流程",
-      "url": "https://clairku.github.io/clair-ai-studio/reports/l3-application-portfolio-2026-10-20/",
-      "body": "统一产品设计8项、顾问服务4项和小顾转化2项候选，逐项补齐现况与拟建流程、异常分流、资源依赖、实践路径和验收。14份独立HTML关联总表，支持搜索筛选与CSV导出；明确区分材料状态、运行未知与评级待验证。本入口为脱敏方案，不含内部宣讲原文、原始客户反馈、人员资料或实测收益声明。",
-      "kind": "studio",
-      "category": "其他",
-      "tags": [
-        "AI",
-        "L3",
-        "L4",
-        "申报总表",
-        "项目提报",
-        "业务流程",
-        "现况",
-        "顾问工作台"
-      ],
-      "source": "Clair’s Studio 每日同步",
-      "createdAt": "2026-10-20T19:30:00+08:00",
-      "updatedAt": "2026-10-20T19:30:00+08:00",
-      "extractionError": "",
-      "fileName": "",
-      "fileSize": 0,
-      "archived": false,
-      "relatedReportIds": []
-    },
-    {
-      "id": "daily-product-design-l3-eight-proposals-2026-10-20",
-      "studioId": "product-design-l3-eight-proposals-2026-10-20",
-      "title": "产品设计团队 L3 拟申报材料｜六份团队方向与两份补充案例",
-      "url": "https://clairku.github.io/clair-ai-studio/reports/product-design-l3-eight-proposals-2026-10-20/",
-      "body": "八份飞书在线材料导航，包含六份团队方向与两份补充案例；完整背景、可行性与实践路径在飞书内查阅。",
-      "kind": "studio",
-      "category": "产品与体验",
-      "tags": [
-        "L3",
-        "项目申报",
-        "产品设计",
-        "飞书",
-        "可行性",
-        "实践路径",
-        "HTML"
-      ],
-      "source": "Clair’s Studio 每日同步",
-      "createdAt": "2026-10-20T19:00:00+08:00",
-      "updatedAt": "2026-10-20T19:00:00+08:00",
-      "extractionError": "",
-      "fileName": "",
-      "fileSize": 0,
-      "archived": false,
-      "relatedReportIds": []
-    },
-    {
-      "id": "daily-qieman-advisor-l3-project-proposals-2026-10-20",
-      "studioId": "qieman-advisor-l3-project-proposals-2026-10-20",
-      "title": "且慢顾问工作台｜L3 项目提报：12个场景与4份建议书",
-      "url": "https://clairku.github.io/clair-ai-studio/reports/qieman-advisor-l3-project-proposals-2026-10-20/",
-      "body": "聚焦且慢顾问的承接、KYC、诊断、规划、实施、陪伴与复盘流程，筛选12个L3候选场景；提供关键事件服务闭环、新客首服、账户定期检视、服务工单4份可下载提报建议书，含L3准入、主项目作业流程、数据接口、人工权限、资源预算、90天阶段门、验收分母与对照试点。全部目标与资源为待评审的规划假设，不含真实客户或内部明细。",
-      "kind": "studio",
-      "category": "产品与体验",
-      "tags": [
-        "且慢",
-        "顾问工作台",
-        "L3",
-        "项目提报",
-        "客户服务",
-        "业务流程",
-        "关键事件",
-        "账户检视"
-      ],
-      "source": "Clair’s Studio 每日同步",
-      "createdAt": "2026-10-20T19:00:00+08:00",
-      "updatedAt": "2026-10-20T19:00:00+08:00",
-      "extractionError": "",
-      "fileName": "",
-      "fileSize": 0,
-      "archived": false,
-      "relatedReportIds": []
-    },
-    {
-      "id": "daily-qieman-private-client-services-2026-10-20",
-      "studioId": "qieman-private-client-services-2026-10-20",
-      "title": "且慢高客服务｜把财富安排妥当，把时间留给生活",
-      "url": "https://clairku.github.io/qieman-private-client-services/",
-      "body": "基于盈米官网与新华财经公开资料整理的对外服务介绍：专属顾问、家庭财务规划、资产配置、四笔钱、四个家庭沟通场景、服务流程及同路人权益。原创山水插画，支持手机阅读、场景切换、打印与独立 HTML 下载；历史权益标注时点，具体资格、费用和主体以正式披露为准。非机构官方发布页。",
-      "kind": "studio",
-      "category": "产品与体验",
-      "tags": [
-        "且慢",
-        "高客服务",
-        "专属顾问",
-        "家庭财务规划",
-        "资产配置",
-        "同路人",
-        "对外介绍",
-        "HTML"
-      ],
-      "source": "Clair’s Studio 每日同步",
-      "createdAt": "2026-10-20T19:00:00+08:00",
-      "updatedAt": "2026-10-20T19:00:00+08:00",
-      "extractionError": "",
-      "fileName": "",
-      "fileSize": 0,
-      "archived": false,
-      "relatedReportIds": []
-    },
-    {
-      "id": "daily-qianwen-xiaogu-l3-l4-conversion-2026-10-20",
-      "studioId": "qianwen-xiaogu-l3-l4-conversion-2026-10-20",
-      "title": "千问 × 且慢小顾转化方案｜资金安排 L3 · 攒钱目标 L4",
-      "url": "https://clairku.github.io/clair-ai-studio/reports/qianwen-xiaogu-l3-l4-conversion-2026-10-20/",
-      "body": "用户转化产品评审方案；重点展开资金安排L3与攒钱目标L4，包含具体用户对话、12个可切换页面示意、投入缺口测算、跨端续接、转化分群与对照实验、资源分工、验收门槛和实施计划。所有用户与金额为虚构设计示例，数值门槛为建议；不代表已上线能力或正式立项。",
-      "kind": "studio",
-      "category": "其他",
-      "tags": [
-        "千问",
-        "且慢",
-        "AI 小顾",
-        "L3",
-        "L4",
-        "用户转化",
-        "资金安排",
-        "攒钱目标"
-      ],
-      "source": "Clair’s Studio 每日同步",
-      "createdAt": "2026-10-20T18:00:00+08:00",
-      "updatedAt": "2026-10-20T18:00:00+08:00",
-      "extractionError": "",
-      "fileName": "",
-      "fileSize": 0,
-      "archived": false,
-      "relatedReportIds": []
-    },
-    {
-      "id": "daily-yingmi-oap-dashboard-templates-2026-10-18",
-      "studioId": "yingmi-oap-dashboard-templates-2026-10-18",
-      "title": "盈米 AI 开放平台看板｜三套模板：CEO 总览、生态推进、成果与投入",
-      "url": "https://clairku.github.io/clair-ai-studio/reports/yingmi-oap-dashboard-templates-2026-10-18/",
-      "body": "依据管理看板设计需求制作的三套可切换交互模板；全部数字、平台状态与计划均为演示。含日/月走势、日期筛选、平台档案、合作阶段、里程碑、待决策、商业模式探索与资源投入。可本地更新进展、附截图、导入指标 JSON、导出/恢复备份与打印；尚未连接生产数据或企业共享后台。",
-      "kind": "studio",
-      "category": "AI 与 Agent",
-      "tags": [
-        "盈米AI开放平台",
-        "OAP",
-        "CEO汇报",
-        "生态合作",
-        "项目进展",
-        "资源投入",
-        "商业模式",
-        "交互原型"
-      ],
-      "source": "Clair’s Studio 每日同步",
-      "createdAt": "2026-10-18T12:00:00+08:00",
-      "updatedAt": "2026-10-18T12:00:00+08:00",
-      "extractionError": "",
-      "fileName": "",
-      "fileSize": 0,
-      "archived": false,
-      "relatedReportIds": []
-    },
-    {
-      "id": "daily-e-da-longwin-follow-analysis-2026-10-16",
-      "studioId": "e-da-longwin-follow-analysis-2026-10-16",
-      "title": "E大近期发车与跟车经营｜150份 · S定投",
-      "url": "https://clairku.github.io/clair-ai-studio/reports/e-da-longwin-follow-analysis-2026-10-16/",
-      "body": "2026-10-16 核验｜长赢发车记录、跟车人数与金额分析｜生产汇总与策略页面交叉核对，明确确认/申报、买卖方向、去重与数据缺项",
-      "kind": "studio",
-      "category": "用户与增长",
-      "tags": [
-        "且慢",
-        "E大",
-        "长赢",
-        "发车",
-        "跟车人数",
-        "交易金额",
-        "数据分析",
-        "HTML"
-      ],
-      "source": "Clair’s Studio 每日同步",
-      "createdAt": "2026-10-16T17:24:46+08:00",
-      "updatedAt": "2026-10-16T17:24:46+08:00",
-      "extractionError": "",
-      "fileName": "",
-      "fileSize": 0,
-      "archived": false,
-      "relatedReportIds": []
-    },
-    {
-      "id": "daily-workbuddy-capability-inventory-2026-10-16",
-      "studioId": "workbuddy-capability-inventory-2026-10-16",
-      "title": "WorkBuddy 能力全景清单｜连接器·技能·专家·专家团",
-      "url": "https://clairku.github.io/clair-ai-studio/reports/workbuddy-capability-inventory-2026-10-16/",
-      "body": "2026-10-16｜官方市场全量分页与详情核查｜45,169 条能力、1,228 个已核实机构｜机构/能力类型/场景筛选、全文检索、专家团成员、市场使用安装计数、CSV导出",
-      "kind": "studio",
-      "category": "AI 与 Agent",
-      "tags": [
-        "WorkBuddy",
-        "连接器",
-        "技能",
-        "专家",
-        "专家团",
-        "机构",
-        "场景",
-        "市场清单"
-      ],
-      "source": "Clair’s Studio 每日同步",
-      "createdAt": "2026-10-16T17:05:40+08:00",
-      "updatedAt": "2026-10-16T17:05:40+08:00",
-      "extractionError": "",
-      "fileName": "",
-      "fileSize": 0,
-      "archived": false,
-      "relatedReportIds": []
-    },
-    {
-      "id": "daily-baixiaosheng-demo-2026-08-20",
-      "studioId": "baixiaosheng-demo-2026-08-20",
-      "title": "财经百晓生｜完整交互演示 · 外发交流版",
-      "url": "https://clairku.github.io/clair-ai-studio/reports/baixiaosheng-demo-2026-08-20/",
-      "body": "用户提供 2026-08-20 外发包｜95张图片、四场景评测、产品界面、技术架构、166条员工记录与Skills、八步问答链路｜原材料评测截至2026-08-12，非最新状态核验",
-      "kind": "studio",
-      "category": "AI 与 Agent",
-      "tags": [
-        "财经百晓生",
-        "财经丹青手",
-        "数字员工",
-        "Skills",
-        "Agent",
-        "投研",
-        "产品演示",
-        "HTML"
-      ],
-      "source": "Clair’s Studio 每日同步",
-      "createdAt": "2026-10-16T15:30:00+08:00",
-      "updatedAt": "2026-10-16T15:30:00+08:00",
-      "extractionError": "",
-      "fileName": "",
-      "fileSize": 0,
-      "archived": false,
-      "relatedReportIds": []
-    },
-    {
-      "id": "daily-yingmi-baixiaosheng-product-panorama-2026-10-16",
-      "studioId": "yingmi-baixiaosheng-product-panorama-2026-10-16",
-      "title": "财经百晓生产品全景｜功能、数据、模式、权益与证据边界",
-      "url": "https://clairku.github.io/clair-ai-studio/reports/yingmi-baixiaosheng-product-panorama-2026-10-16/",
-      "body": "基于盈米本体检索、实际入口与官方隐私政策核对，覆盖产品定位、功能模块、数据能力、账号权益、典型流程与待核实事项；已上线、实现存在、文档声明与未知分别标记。",
-      "kind": "studio",
-      "category": "其他",
-      "tags": [
-        "财经百晓生",
-        "Finnexus",
-        "盈米图书馆",
-        "金融AI",
-        "产品全景",
-        "本体",
-        "HTML",
-        "生产"
-      ],
-      "source": "Clair’s Studio 每日同步",
-      "createdAt": "2026-10-16T15:00:00+08:00",
-      "updatedAt": "2026-10-16T15:00:00+08:00",
-      "extractionError": "",
-      "fileName": "",
-      "fileSize": 0,
-      "archived": false,
-      "relatedReportIds": []
-    },
-    {
-      "id": "daily-bytedance-group-map-2026-10-16",
-      "studioId": "bytedance-group-map-2026-10-16",
-      "title": "字节跳动集团全景｜抖音·火山·方舟·豆包·飞书·扣子·手机与关键人",
-      "url": "https://clairku.github.io/clair-ai-studio/reports/bytedance-group-map-2026-10-16/",
-      "body": "截至2026-10-16｜集团名称与法人、七块业务地图、AI四层关系、十个产品对照、十二个调整节点、三十位关键人员｜36项官方/媒体证据，旧任职和未披露汇报线明确标注",
-      "kind": "studio",
-      "category": "AI 与 Agent",
-      "tags": [
-        "字节跳动",
-        "抖音集团",
-        "豆包",
-        "豆包工作",
-        "飞书",
-        "火山引擎",
-        "方舟",
-        "扣子"
-      ],
-      "source": "Clair’s Studio 每日同步",
-      "createdAt": "2026-10-16T13:30:00+08:00",
-      "updatedAt": "2026-10-16T13:30:00+08:00",
-      "extractionError": "",
-      "fileName": "",
-      "fileSize": 0,
-      "archived": false,
-      "relatedReportIds": []
-    },
-    {
-      "id": "daily-nasdaq-butler-version-growth-audit-2026-10-14",
-      "studioId": "nasdaq-butler-version-growth-audit-2026-10-14",
-      "title": "纳指管家｜版本迭代、使用与入金核验",
-      "url": "https://clairku.github.io/clair-ai-studio/reports/nasdaq-butler-version-growth-audit-2026-10-14/",
-      "body": "内部周报、业务更新与Jira交叉核验｜6月底—10月迭代节点，12周使用与下单趋势｜累计成功金额625.6万为报表口径，非净入金或AUM｜新客口径冲突、留存缺口及可执行建议",
-      "kind": "studio",
-      "category": "用户与增长",
-      "tags": [
-        "纳指管家",
-        "配置服务",
-        "版本迭代",
-        "入金",
-        "转化漏斗",
-        "AUM",
-        "数据分析",
-        "HTML"
-      ],
-      "source": "Clair’s Studio 每日同步",
-      "createdAt": "2026-10-14T18:00:00+08:00",
-      "updatedAt": "2026-10-14T18:00:00+08:00",
-      "extractionError": "",
-      "fileName": "",
-      "fileSize": 0,
-      "archived": false,
-      "relatedReportIds": []
-    },
-    {
-      "id": "daily-ai-office-platform-financial-ecosystem-2026-10-14",
-      "studioId": "ai-office-platform-financial-ecosystem-2026-10-14",
-      "title": "AI办公平台与金融生态全景｜千问·豆包·WorkBuddy·DuMate·Comate",
-      "url": "https://clairku.github.io/clair-ai-studio/reports/ai-office-platform-financial-ecosystem-2026-10-14/",
-      "body": "2026-10-14｜六个核心产品、国内补充与海外参照｜官方文档、QuestMobile原始研究及四个客户端市场核验｜金融能力矩阵、用户口径、盈米合作证据、90天行动与资源验收",
-      "kind": "studio",
-      "category": "AI 与 Agent",
-      "tags": [
-        "AI办公",
-        "千问办公",
-        "豆包工作",
-        "WorkBuddy",
-        "DuMate",
-        "Comate",
-        "MCP",
-        "Skills"
-      ],
-      "source": "Clair’s Studio 每日同步",
-      "createdAt": "2026-10-14T16:00:00+08:00",
-      "updatedAt": "2026-10-14T16:00:00+08:00",
-      "extractionError": "",
-      "fileName": "",
-      "fileSize": 0,
-      "archived": false,
-      "relatedReportIds": []
-    },
-    {
-      "id": "daily-baidu-xiaogu-fund-operations-2026-10-13",
-      "studioId": "baidu-xiaogu-fund-operations-2026-10-13",
-      "title": "百度 × 小顾基金｜服务与渠道全周期运营核验",
-      "url": "https://clairku.github.io/clair-ai-studio/reports/baidu-xiaogu-fund-operations-2026-10-13/",
-      "body": "本体生产聚合结果与原始运营周报交叉核验｜正式上线窗口2022-06-14至2026-10-12；渠道全生命周期另列，资产至2026-10-09｜APP与百度小程序无法分端，包含正式上线前记录｜注册、开户、首投、申赎、保有、年度月度趋势与19个历史快照｜活跃、留存、收入和分润边界明确｜仅聚合数据",
-      "kind": "studio",
-      "category": "用户与增长",
-      "tags": [
-        "百度",
-        "小顾基金",
-        "渠道合作",
-        "运营数据",
-        "上线以来",
-        "本体",
-        "数据分析",
-        "HTML"
-      ],
-      "source": "Clair’s Studio 每日同步",
-      "createdAt": "2026-10-13T15:00:00+08:00",
-      "updatedAt": "2026-10-13T15:00:00+08:00",
-      "extractionError": "",
-      "fileName": "",
-      "fileSize": 0,
-      "archived": false,
-      "relatedReportIds": []
-    },
-    {
-      "id": "daily-ai-xiaogu-product-handbook-2026-10-13",
-      "studioId": "ai-xiaogu-product-handbook-2026-10-13",
-      "title": "AI 小顾产品总文档｜26章 · 50项需求 · 35种卡片 · 24项验收",
-      "url": "https://clairku.github.io/clair-ai-studio/reports/ai-xiaogu-product-handbook-2026-10-13/",
-      "body": "整合核心PRD、原始产品资料与既有生产审计｜26章产品总文档、50项需求、35种服务卡片、24项待执行验收用例、29项来源索引｜覆盖定位、用户场景、入口、复杂任务、小顾成果、帮你看、记忆画像、账户规划、人工接力、系统数据契约、权限、异常、指标和落地优先级｜原文规则、历史证据、建议与待确认分层｜运行资料截至2026-10-12；本次未重跑生产取数与功能验收｜图文HTML、全文检索、卡片筛选、打印与下载｜生产",
-      "kind": "studio",
-      "category": "其他",
-      "tags": [
-        "AI 小顾",
-        "且慢",
-        "产品文档",
-        "PRD",
-        "小顾3.0",
-        "长期记忆",
-        "CCDP",
-        "定时任务"
-      ],
-      "source": "Clair’s Studio 每日同步",
-      "createdAt": "2026-10-13T11:00:00.000+08:00",
-      "updatedAt": "2026-10-13T11:00:00.000+08:00",
-      "extractionError": "",
-      "fileName": "",
-      "fileSize": 0,
-      "archived": false,
-      "relatedReportIds": []
     }
   ],
   "cards": [
@@ -1367,7 +937,7 @@
       "createdAt": "2026-04-13T00:00:00Z",
       "order": 0,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-stanford-02",
@@ -1388,7 +958,7 @@
       "createdAt": "2026-04-13T00:00:00Z",
       "order": 1,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-stanford-03",
@@ -1409,7 +979,7 @@
       "createdAt": "2026-04-13T00:00:00Z",
       "order": 2,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-stanford-04",
@@ -1430,7 +1000,7 @@
       "createdAt": "2026-04-13T00:00:00Z",
       "order": 3,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-stanford-05",
@@ -1451,7 +1021,7 @@
       "createdAt": "2026-04-13T00:00:00Z",
       "order": 4,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-mckinsey-01",
@@ -1472,7 +1042,7 @@
       "createdAt": "2026-08-25T00:00:00Z",
       "order": 0,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-mckinsey-02",
@@ -1493,7 +1063,7 @@
       "createdAt": "2026-08-25T00:00:00Z",
       "order": 1,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-mckinsey-03",
@@ -1514,7 +1084,7 @@
       "createdAt": "2026-08-25T00:00:00Z",
       "order": 2,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-mckinsey-04",
@@ -1535,7 +1105,7 @@
       "createdAt": "2026-08-25T00:00:00Z",
       "order": 3,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-mckinsey-05",
@@ -1556,7 +1126,7 @@
       "createdAt": "2026-08-25T00:00:00Z",
       "order": 4,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-microsoft-01",
@@ -1577,7 +1147,7 @@
       "createdAt": "2026-05-05T00:00:00Z",
       "order": 0,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-microsoft-02",
@@ -1598,7 +1168,7 @@
       "createdAt": "2026-05-05T00:00:00Z",
       "order": 1,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-microsoft-03",
@@ -1619,7 +1189,7 @@
       "createdAt": "2026-05-05T00:00:00Z",
       "order": 2,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-microsoft-04",
@@ -1640,7 +1210,7 @@
       "createdAt": "2026-05-05T00:00:00Z",
       "order": 3,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-microsoft-05",
@@ -1661,7 +1231,7 @@
       "createdAt": "2026-05-05T00:00:00Z",
       "order": 4,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-anthropic-01",
@@ -1682,7 +1252,7 @@
       "createdAt": "2026-06-26T00:00:00Z",
       "order": 0,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-anthropic-02",
@@ -1703,7 +1273,7 @@
       "createdAt": "2026-06-26T00:00:00Z",
       "order": 1,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-anthropic-03",
@@ -1724,7 +1294,7 @@
       "createdAt": "2026-06-26T00:00:00Z",
       "order": 2,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-anthropic-04",
@@ -1745,7 +1315,7 @@
       "createdAt": "2026-06-26T00:00:00Z",
       "order": 3,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-anthropic-05",
@@ -1766,7 +1336,7 @@
       "createdAt": "2026-06-26T00:00:00Z",
       "order": 4,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-menlo-consumer-01",
@@ -1787,7 +1357,7 @@
       "createdAt": "2026-09-16T00:00:00Z",
       "order": 0,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-menlo-consumer-02",
@@ -1808,7 +1378,7 @@
       "createdAt": "2026-09-16T00:00:00Z",
       "order": 1,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-menlo-consumer-03",
@@ -1829,7 +1399,7 @@
       "createdAt": "2026-09-16T00:00:00Z",
       "order": 2,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-menlo-consumer-04",
@@ -1850,7 +1420,7 @@
       "createdAt": "2026-09-16T00:00:00Z",
       "order": 3,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-menlo-consumer-05",
@@ -1871,7 +1441,7 @@
       "createdAt": "2026-09-16T00:00:00Z",
       "order": 4,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-pwc-01",
@@ -1892,7 +1462,7 @@
       "createdAt": "2026-06-15T00:00:00Z",
       "order": 0,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-pwc-02",
@@ -1913,7 +1483,7 @@
       "createdAt": "2026-06-15T00:00:00Z",
       "order": 1,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-pwc-03",
@@ -1934,7 +1504,7 @@
       "createdAt": "2026-06-15T00:00:00Z",
       "order": 2,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-pwc-04",
@@ -1955,7 +1525,7 @@
       "createdAt": "2026-06-15T00:00:00Z",
       "order": 3,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-pwc-05",
@@ -1976,7 +1546,7 @@
       "createdAt": "2026-06-15T00:00:00Z",
       "order": 4,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-safety-01",
@@ -1997,7 +1567,7 @@
       "createdAt": "2026-02-03T00:00:00Z",
       "order": 0,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-safety-02",
@@ -2018,7 +1588,7 @@
       "createdAt": "2026-02-03T00:00:00Z",
       "order": 1,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-safety-03",
@@ -2039,7 +1609,7 @@
       "createdAt": "2026-02-03T00:00:00Z",
       "order": 2,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-safety-04",
@@ -2060,7 +1630,7 @@
       "createdAt": "2026-02-03T00:00:00Z",
       "order": 3,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-safety-05",
@@ -2081,7 +1651,7 @@
       "createdAt": "2026-02-03T00:00:00Z",
       "order": 4,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-cnnic-01",
@@ -2102,7 +1672,7 @@
       "createdAt": "2026-03-04T00:00:00+08:00",
       "order": 0,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-cnnic-02",
@@ -2123,7 +1693,7 @@
       "createdAt": "2026-03-04T00:00:00+08:00",
       "order": 1,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-cnnic-03",
@@ -2144,7 +1714,7 @@
       "createdAt": "2026-03-04T00:00:00+08:00",
       "order": 2,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-cnnic-04",
@@ -2165,7 +1735,7 @@
       "createdAt": "2026-03-04T00:00:00+08:00",
       "order": 3,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-cnnic-05",
@@ -2186,7 +1756,7 @@
       "createdAt": "2026-03-04T00:00:00+08:00",
       "order": 4,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-openai-01",
@@ -2207,7 +1777,7 @@
       "createdAt": "2025-12-17T00:00:00Z",
       "order": 0,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-openai-02",
@@ -2228,7 +1798,7 @@
       "createdAt": "2025-12-17T00:00:00Z",
       "order": 1,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-openai-03",
@@ -2249,7 +1819,7 @@
       "createdAt": "2025-12-17T00:00:00Z",
       "order": 2,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-openai-04",
@@ -2270,7 +1840,7 @@
       "createdAt": "2025-12-17T00:00:00Z",
       "order": 3,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-openai-05",
@@ -2291,7 +1861,7 @@
       "createdAt": "2025-12-17T00:00:00Z",
       "order": 4,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-menlo-enterprise-01",
@@ -2312,7 +1882,7 @@
       "createdAt": "2025-12-09T00:00:00Z",
       "order": 0,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-menlo-enterprise-02",
@@ -2333,7 +1903,7 @@
       "createdAt": "2025-12-09T00:00:00Z",
       "order": 1,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-menlo-enterprise-03",
@@ -2354,7 +1924,7 @@
       "createdAt": "2025-12-09T00:00:00Z",
       "order": 2,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-menlo-enterprise-04",
@@ -2375,7 +1945,7 @@
       "createdAt": "2025-12-09T00:00:00Z",
       "order": 3,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-menlo-enterprise-05",
@@ -2396,7 +1966,7 @@
       "createdAt": "2025-12-09T00:00:00Z",
       "order": 4,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-anthropic-actions-01",
@@ -2419,7 +1989,7 @@
       "relatedCardIds": [
         "authority-card-anthropic-actions-05"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-anthropic-actions-02",
@@ -2440,7 +2010,7 @@
       "createdAt": "2026-10-09T00:00:00Z",
       "order": 1,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-anthropic-actions-03",
@@ -2461,7 +2031,7 @@
       "createdAt": "2026-10-09T00:00:00Z",
       "order": 2,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-anthropic-actions-04",
@@ -2482,7 +2052,7 @@
       "createdAt": "2026-10-09T00:00:00Z",
       "order": 3,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-anthropic-actions-05",
@@ -2505,7 +2075,7 @@
       "relatedCardIds": [
         "authority-card-anthropic-actions-01"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-state-ai-01",
@@ -2528,7 +2098,7 @@
       "relatedCardIds": [
         "authority-card-state-ai-03"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-state-ai-02",
@@ -2549,7 +2119,7 @@
       "createdAt": "2026-10-08T00:00:00Z",
       "order": 1,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-state-ai-03",
@@ -2572,7 +2142,7 @@
       "relatedCardIds": [
         "authority-card-state-ai-01"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-state-ai-04",
@@ -2595,7 +2165,7 @@
       "relatedCardIds": [
         "authority-card-state-ai-05"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-state-ai-05",
@@ -2619,7 +2189,7 @@
       "relatedCardIds": [
         "authority-card-state-ai-04"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-stanford-collab-01",
@@ -2642,7 +2212,7 @@
       "relatedCardIds": [
         "authority-card-stanford-collab-05"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-stanford-collab-02",
@@ -2665,7 +2235,7 @@
       "relatedCardIds": [
         "authority-card-stanford-collab-03"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-stanford-collab-03",
@@ -2688,7 +2258,7 @@
       "relatedCardIds": [
         "authority-card-stanford-collab-02"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-stanford-collab-04",
@@ -2709,7 +2279,7 @@
       "createdAt": "2026-10-12T00:00:00Z",
       "order": 3,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-stanford-collab-05",
@@ -2732,7 +2302,7 @@
       "relatedCardIds": [
         "authority-card-stanford-collab-01"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-anthropic-replication-01",
@@ -2755,7 +2325,7 @@
       "relatedCardIds": [
         "authority-card-anthropic-replication-05"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-anthropic-replication-02",
@@ -2778,7 +2348,7 @@
       "relatedCardIds": [
         "authority-card-anthropic-replication-04"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-anthropic-replication-03",
@@ -2801,7 +2371,7 @@
       "relatedCardIds": [
         "authority-card-anthropic-replication-05"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-anthropic-replication-04",
@@ -2824,7 +2394,7 @@
       "relatedCardIds": [
         "authority-card-anthropic-replication-02"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-anthropic-replication-05",
@@ -2848,7 +2418,7 @@
         "authority-card-anthropic-replication-01",
         "authority-card-anthropic-replication-03"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-openai-eu-agentic-01",
@@ -2871,7 +2441,7 @@
       "relatedCardIds": [
         "authority-card-openai-eu-agentic-05"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-openai-eu-agentic-02",
@@ -2892,7 +2462,7 @@
       "createdAt": "2026-10-14T00:00:00Z",
       "order": 1,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-openai-eu-agentic-03",
@@ -2913,7 +2483,7 @@
       "createdAt": "2026-10-14T00:00:00Z",
       "order": 2,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-openai-eu-agentic-04",
@@ -2936,7 +2506,7 @@
       "relatedCardIds": [
         "authority-card-openai-eu-agentic-05"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-openai-eu-agentic-05",
@@ -2960,7 +2530,7 @@
         "authority-card-openai-eu-agentic-01",
         "authority-card-openai-eu-agentic-04"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-anthropic-scion-01",
@@ -2983,7 +2553,7 @@
       "relatedCardIds": [
         "authority-card-anthropic-scion-05"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-anthropic-scion-02",
@@ -3006,7 +2576,7 @@
       "relatedCardIds": [
         "authority-card-anthropic-scion-03"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-anthropic-scion-03",
@@ -3029,7 +2599,7 @@
       "relatedCardIds": [
         "authority-card-anthropic-scion-02"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-anthropic-scion-04",
@@ -3050,7 +2620,7 @@
       "createdAt": "2026-10-13T00:00:00Z",
       "order": 3,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-anthropic-scion-05",
@@ -3073,7 +2643,7 @@
       "relatedCardIds": [
         "authority-card-anthropic-scion-01"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-anthropic-evaluator-01",
@@ -3096,7 +2666,7 @@
       "relatedCardIds": [
         "authority-card-anthropic-evaluator-02"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-anthropic-evaluator-02",
@@ -3119,7 +2689,7 @@
       "relatedCardIds": [
         "authority-card-anthropic-evaluator-01"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-anthropic-evaluator-03",
@@ -3140,7 +2710,7 @@
       "createdAt": "2026-10-15T00:00:00Z",
       "order": 2,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-anthropic-evaluator-04",
@@ -3161,7 +2731,7 @@
       "createdAt": "2026-10-15T00:00:00Z",
       "order": 3,
       "relatedCardIds": [],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-anthropic-evaluator-05",
@@ -3184,7 +2754,7 @@
       "relatedCardIds": [
         "authority-card-anthropic-evaluator-02"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-anthropic-expectations-01",
@@ -3207,7 +2777,7 @@
       "relatedCardIds": [
         "authority-card-anthropic-expectations-05"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-anthropic-expectations-02",
@@ -3230,7 +2800,7 @@
       "relatedCardIds": [
         "authority-card-anthropic-employment-01"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-anthropic-expectations-03",
@@ -3253,7 +2823,7 @@
       "relatedCardIds": [
         "authority-card-anthropic-employment-03"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-anthropic-expectations-04",
@@ -3276,7 +2846,7 @@
       "relatedCardIds": [
         "authority-card-anthropic-expectations-05"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-anthropic-expectations-05",
@@ -3300,7 +2870,7 @@
         "authority-card-anthropic-expectations-01",
         "authority-card-anthropic-expectations-04"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-anthropic-employment-01",
@@ -3324,7 +2894,7 @@
         "authority-card-anthropic-expectations-02",
         "authority-card-anthropic-employment-05"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-anthropic-employment-02",
@@ -3347,7 +2917,7 @@
       "relatedCardIds": [
         "authority-card-anthropic-employment-04"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-anthropic-employment-03",
@@ -3370,7 +2940,7 @@
       "relatedCardIds": [
         "authority-card-anthropic-expectations-03"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-anthropic-employment-04",
@@ -3393,7 +2963,7 @@
       "relatedCardIds": [
         "authority-card-anthropic-employment-02"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-anthropic-employment-05",
@@ -3416,7 +2986,7 @@
       "relatedCardIds": [
         "authority-card-anthropic-employment-01"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-imf-ai-stability-01",
@@ -3439,7 +3009,7 @@
       "relatedCardIds": [
         "authority-card-imf-ai-stability-02"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-imf-ai-stability-02",
@@ -3463,7 +3033,7 @@
         "authority-card-imf-ai-stability-01",
         "authority-card-imf-ai-stability-05"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-imf-ai-stability-03",
@@ -3486,7 +3056,7 @@
       "relatedCardIds": [
         "authority-card-imf-ai-stability-05"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-imf-ai-stability-04",
@@ -3509,7 +3079,7 @@
       "relatedCardIds": [
         "authority-card-imf-ai-stability-05"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-imf-ai-stability-05",
@@ -3534,7 +3104,7 @@
         "authority-card-imf-ai-stability-03",
         "authority-card-imf-ai-stability-04"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-ons-uk-ai-01",
@@ -3558,7 +3128,7 @@
         "authority-card-ons-uk-ai-02",
         "authority-card-ons-uk-ai-05"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-ons-uk-ai-02",
@@ -3581,7 +3151,7 @@
       "relatedCardIds": [
         "authority-card-ons-uk-ai-01"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-ons-uk-ai-03",
@@ -3604,7 +3174,7 @@
       "relatedCardIds": [
         "authority-card-ons-uk-ai-01"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-ons-uk-ai-04",
@@ -3627,7 +3197,7 @@
       "relatedCardIds": [
         "authority-card-ons-uk-ai-05"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-ons-uk-ai-05",
@@ -3651,7 +3221,7 @@
         "authority-card-ons-uk-ai-01",
         "authority-card-ons-uk-ai-04"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-openai-low-resource-01",
@@ -3675,7 +3245,7 @@
         "authority-card-openai-low-resource-02",
         "authority-card-openai-low-resource-03"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-openai-low-resource-02",
@@ -3699,7 +3269,7 @@
         "authority-card-openai-low-resource-01",
         "authority-card-openai-low-resource-04"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-openai-low-resource-03",
@@ -3722,7 +3292,7 @@
       "relatedCardIds": [
         "authority-card-openai-low-resource-01"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-openai-low-resource-04",
@@ -3746,7 +3316,7 @@
         "authority-card-openai-low-resource-02",
         "authority-card-openai-low-resource-05"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-openai-low-resource-05",
@@ -3769,7 +3339,7 @@
       "relatedCardIds": [
         "authority-card-openai-low-resource-04"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-stanford-med-ai-01",
@@ -3793,7 +3363,7 @@
         "authority-card-stanford-med-ai-02",
         "authority-card-stanford-med-ai-03"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-stanford-med-ai-02",
@@ -3816,7 +3386,7 @@
       "relatedCardIds": [
         "authority-card-stanford-med-ai-01"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-stanford-med-ai-03",
@@ -3840,7 +3410,7 @@
         "authority-card-stanford-med-ai-01",
         "authority-card-stanford-med-ai-05"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-stanford-med-ai-04",
@@ -3863,7 +3433,7 @@
       "relatedCardIds": [
         "authority-card-stanford-med-ai-05"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-stanford-med-ai-05",
@@ -3887,7 +3457,7 @@
         "authority-card-stanford-med-ai-03",
         "authority-card-stanford-med-ai-04"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-google-ambition-gap-01",
@@ -3911,7 +3481,7 @@
         "authority-card-google-ambition-gap-02",
         "authority-card-google-ambition-gap-03"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-google-ambition-gap-02",
@@ -3934,7 +3504,7 @@
       "relatedCardIds": [
         "authority-card-google-ambition-gap-01"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-google-ambition-gap-03",
@@ -3957,7 +3527,7 @@
       "relatedCardIds": [
         "authority-card-google-ambition-gap-01"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-google-ambition-gap-04",
@@ -3980,7 +3550,7 @@
       "relatedCardIds": [
         "authority-card-google-ambition-gap-05"
       ],
-      "origin": "authority"
+      "origin": "industry"
     },
     {
       "id": "authority-card-google-ambition-gap-05",
@@ -4003,931 +3573,7 @@
       "relatedCardIds": [
         "authority-card-google-ambition-gap-04"
       ],
-      "origin": "authority"
-    },
-    {
-      "id": "daily-card-7a00dac876",
-      "reportId": "daily-qieman-feedback-resolution-l3-2026-10-20",
-      "type": "insight",
-      "label": "核心结论",
-      "title": "用户提供Excel逐条分析",
-      "summary": "用户提供Excel逐条分析：384条记录、原频次合计420、110处置主题；",
-      "metric": "384",
-      "quote": "用户提供Excel逐条分析：384条记录、原频次合计420、110处置主题；",
-      "anchor": "工作台来源说明 · 片段 1",
-      "offset": 0,
-      "tags": [
-        "且慢",
-        "用户反馈",
-        "需求治理",
-        "客户服务",
-        "L3"
-      ],
-      "createdAt": "2026-10-20T20:00:00+08:00",
-      "order": 0,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-2ea5b4efc1",
-      "reportId": "daily-qieman-feedback-resolution-l3-2026-10-20",
-      "type": "insight",
-      "label": "核心结论",
-      "title": "含54条P1复核候选、解决方法/排查清单/责任角色/验收条件、筛选C…",
-      "summary": "含54条P1复核候选、解决方法/排查清单/责任角色/验收条件、筛选CSV与本地跟进。",
-      "metric": "54",
-      "quote": "含54条P1复核候选、解决方法/排查清单/责任角色/验收条件、筛选CSV与本地跟进。",
-      "anchor": "工作台来源说明 · 片段 2",
-      "offset": 0,
-      "tags": [
-        "且慢",
-        "用户反馈",
-        "需求治理",
-        "客户服务",
-        "L3"
-      ],
-      "createdAt": "2026-10-20T20:00:00+08:00",
-      "order": 1,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-873cebc829",
-      "reportId": "daily-qieman-feedback-resolution-l3-2026-10-20",
-      "type": "insight",
-      "label": "核心结论",
-      "title": "公开脱敏方案版，不含内部逐字回复或内部L3标准原文；",
-      "summary": "公开脱敏方案版，不含内部逐字回复或内部L3标准原文；",
-      "metric": "3",
-      "quote": "公开脱敏方案版，不含内部逐字回复或内部L3标准原文；",
-      "anchor": "工作台来源说明 · 片段 3",
-      "offset": 0,
-      "tags": [
-        "且慢",
-        "用户反馈",
-        "需求治理",
-        "客户服务",
-        "L3"
-      ],
-      "createdAt": "2026-10-20T20:00:00+08:00",
-      "order": 2,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-9c03edacd1",
-      "reportId": "daily-l3-application-portfolio-2026-10-20",
-      "type": "metric",
-      "label": "关键数据",
-      "title": "统一产品设计8项、顾问服务4项和小顾转化2项候选",
-      "summary": "统一产品设计8项、顾问服务4项和小顾转化2项候选，逐项补齐现况与拟建流程、异常分流、资源依赖、实践路径和验收。",
-      "metric": "8项",
-      "quote": "统一产品设计8项、顾问服务4项和小顾转化2项候选，逐项补齐现况与拟建流程、异常分流、资源依赖、实践路径和验收。",
-      "anchor": "工作台来源说明 · 片段 1",
-      "offset": 0,
-      "tags": [
-        "AI",
-        "L3",
-        "L4",
-        "申报总表",
-        "项目提报"
-      ],
-      "createdAt": "2026-10-20T19:30:00+08:00",
-      "order": 0,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-15867b0f97",
-      "reportId": "daily-l3-application-portfolio-2026-10-20",
-      "type": "insight",
-      "label": "核心结论",
-      "title": "份独立HTML关联总表，支持搜索筛选与CSV导出；",
-      "summary": "14份独立HTML关联总表，支持搜索筛选与CSV导出；",
-      "metric": "14",
-      "quote": "14份独立HTML关联总表，支持搜索筛选与CSV导出；",
-      "anchor": "工作台来源说明 · 片段 2",
-      "offset": 0,
-      "tags": [
-        "AI",
-        "L3",
-        "L4",
-        "申报总表",
-        "项目提报"
-      ],
-      "createdAt": "2026-10-20T19:30:00+08:00",
-      "order": 1,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-2642411cbb",
-      "reportId": "daily-l3-application-portfolio-2026-10-20",
-      "type": "insight",
-      "label": "核心结论",
-      "title": "明确区分材料状态、运行未知与评级待验证。",
-      "summary": "明确区分材料状态、运行未知与评级待验证。",
-      "metric": "",
-      "quote": "明确区分材料状态、运行未知与评级待验证。",
-      "anchor": "工作台来源说明 · 片段 3",
-      "offset": 0,
-      "tags": [
-        "AI",
-        "L3",
-        "L4",
-        "申报总表",
-        "项目提报"
-      ],
-      "createdAt": "2026-10-20T19:30:00+08:00",
-      "order": 2,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-44e2c62bb3",
-      "reportId": "daily-product-design-l3-eight-proposals-2026-10-20",
-      "type": "insight",
-      "label": "核心结论",
-      "title": "八份飞书在线材料导航，包含六份团队方向与两份补充案例；",
-      "summary": "八份飞书在线材料导航，包含六份团队方向与两份补充案例；",
-      "metric": "",
-      "quote": "八份飞书在线材料导航，包含六份团队方向与两份补充案例；",
-      "anchor": "工作台来源说明 · 片段 1",
-      "offset": 0,
-      "tags": [
-        "L3",
-        "项目申报",
-        "产品设计",
-        "飞书",
-        "可行性"
-      ],
-      "createdAt": "2026-10-20T19:00:00+08:00",
-      "order": 0,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-2b01881d75",
-      "reportId": "daily-product-design-l3-eight-proposals-2026-10-20",
-      "type": "insight",
-      "label": "核心结论",
-      "title": "完整背景、可行性与实践路径在飞书内查阅。",
-      "summary": "完整背景、可行性与实践路径在飞书内查阅。",
-      "metric": "",
-      "quote": "完整背景、可行性与实践路径在飞书内查阅。",
-      "anchor": "工作台来源说明 · 片段 2",
-      "offset": 0,
-      "tags": [
-        "L3",
-        "项目申报",
-        "产品设计",
-        "飞书",
-        "可行性"
-      ],
-      "createdAt": "2026-10-20T19:00:00+08:00",
-      "order": 1,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-f10918747f",
-      "reportId": "daily-qieman-advisor-l3-project-proposals-2026-10-20",
-      "type": "metric",
-      "label": "关键数据",
-      "title": "聚焦且慢顾问的承接、KYC、诊断、规划、实施、陪伴与复盘流程",
-      "summary": "聚焦且慢顾问的承接、KYC、诊断、规划、实施、陪伴与复盘流程，筛选12个L3候选场景；",
-      "metric": "12个",
-      "quote": "聚焦且慢顾问的承接、KYC、诊断、规划、实施、陪伴与复盘流程，筛选12个L3候选场景；",
-      "anchor": "工作台来源说明 · 片段 1",
-      "offset": 0,
-      "tags": [
-        "且慢",
-        "顾问工作台",
-        "L3",
-        "项目提报",
-        "客户服务"
-      ],
-      "createdAt": "2026-10-20T19:00:00+08:00",
-      "order": 0,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-882046d19d",
-      "reportId": "daily-qieman-advisor-l3-project-proposals-2026-10-20",
-      "type": "action",
-      "label": "行动建议",
-      "title": "提供关键事件服务闭环、新客首服、账户定期检视、服务工单4份可下载提报建议书",
-      "summary": "提供关键事件服务闭环、新客首服、账户定期检视、服务工单4份可下载提报建议书，含L3准入、主项目作业流程、数据接口、人工权限、资源预算、90天阶段门、验收分母与对照试点。",
-      "metric": "4",
-      "quote": "提供关键事件服务闭环、新客首服、账户定期检视、服务工单4份可下载提报建议书，含L3准入、主项目作业流程、数据接口、人工权限、资源预算、90天阶段门、验收分母与对照试点。",
-      "anchor": "工作台来源说明 · 片段 2",
-      "offset": 0,
-      "tags": [
-        "且慢",
-        "顾问工作台",
-        "L3",
-        "项目提报",
-        "客户服务"
-      ],
-      "createdAt": "2026-10-20T19:00:00+08:00",
-      "order": 1,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-6eb9c9d87b",
-      "reportId": "daily-qieman-advisor-l3-project-proposals-2026-10-20",
-      "type": "insight",
-      "label": "核心结论",
-      "title": "全部目标与资源为待评审的规划假设",
-      "summary": "全部目标与资源为待评审的规划假设，不含真实客户或内部明细。",
-      "metric": "",
-      "quote": "全部目标与资源为待评审的规划假设，不含真实客户或内部明细。",
-      "anchor": "工作台来源说明 · 片段 3",
-      "offset": 0,
-      "tags": [
-        "且慢",
-        "顾问工作台",
-        "L3",
-        "项目提报",
-        "客户服务"
-      ],
-      "createdAt": "2026-10-20T19:00:00+08:00",
-      "order": 2,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-88fb5b8b62",
-      "reportId": "daily-qieman-private-client-services-2026-10-20",
-      "type": "insight",
-      "label": "核心结论",
-      "title": "基于盈米官网与新华财经公开资料整理的对外服务介绍",
-      "summary": "基于盈米官网与新华财经公开资料整理的对外服务介绍：专属顾问、家庭财务规划、资产配置、四笔钱、四个家庭沟通场景、服务流程及同路人权益。",
-      "metric": "",
-      "quote": "基于盈米官网与新华财经公开资料整理的对外服务介绍：专属顾问、家庭财务规划、资产配置、四笔钱、四个家庭沟通场景、服务流程及同路人权益。",
-      "anchor": "工作台来源说明 · 片段 1",
-      "offset": 0,
-      "tags": [
-        "且慢",
-        "高客服务",
-        "专属顾问",
-        "家庭财务规划",
-        "资产配置"
-      ],
-      "createdAt": "2026-10-20T19:00:00+08:00",
-      "order": 0,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-adac206923",
-      "reportId": "daily-qieman-private-client-services-2026-10-20",
-      "type": "insight",
-      "label": "核心结论",
-      "title": "原创山水插画，支持手机阅读、场景切换、打印与独立 HTML 下载；",
-      "summary": "原创山水插画，支持手机阅读、场景切换、打印与独立 HTML 下载；",
-      "metric": "",
-      "quote": "原创山水插画，支持手机阅读、场景切换、打印与独立 HTML 下载；",
-      "anchor": "工作台来源说明 · 片段 2",
-      "offset": 0,
-      "tags": [
-        "且慢",
-        "高客服务",
-        "专属顾问",
-        "家庭财务规划",
-        "资产配置"
-      ],
-      "createdAt": "2026-10-20T19:00:00+08:00",
-      "order": 1,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-c01d367907",
-      "reportId": "daily-qieman-private-client-services-2026-10-20",
-      "type": "insight",
-      "label": "核心结论",
-      "title": "历史权益标注时点，具体资格、费用和主体以正式披露为准。",
-      "summary": "历史权益标注时点，具体资格、费用和主体以正式披露为准。",
-      "metric": "",
-      "quote": "历史权益标注时点，具体资格、费用和主体以正式披露为准。",
-      "anchor": "工作台来源说明 · 片段 3",
-      "offset": 0,
-      "tags": [
-        "且慢",
-        "高客服务",
-        "专属顾问",
-        "家庭财务规划",
-        "资产配置"
-      ],
-      "createdAt": "2026-10-20T19:00:00+08:00",
-      "order": 2,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-2f16b95ed6",
-      "reportId": "daily-qianwen-xiaogu-l3-l4-conversion-2026-10-20",
-      "type": "risk",
-      "label": "风险信号",
-      "title": "重点展开资金安排L3与攒钱目标L4",
-      "summary": "重点展开资金安排L3与攒钱目标L4，包含具体用户对话、12个可切换页面示意、投入缺口测算、跨端续接、转化分群与对照实验、资源分工、验收门槛和实施计划。",
-      "metric": "3",
-      "quote": "重点展开资金安排L3与攒钱目标L4，包含具体用户对话、12个可切换页面示意、投入缺口测算、跨端续接、转化分群与对照实验、资源分工、验收门槛和实施计划。",
-      "anchor": "工作台来源说明 · 片段 1",
-      "offset": 0,
-      "tags": [
-        "千问",
-        "且慢",
-        "AI 小顾",
-        "L3",
-        "L4"
-      ],
-      "createdAt": "2026-10-20T18:00:00+08:00",
-      "order": 0,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-9854ecc72f",
-      "reportId": "daily-qianwen-xiaogu-l3-l4-conversion-2026-10-20",
-      "type": "action",
-      "label": "行动建议",
-      "title": "所有用户与金额为虚构设计示例",
-      "summary": "所有用户与金额为虚构设计示例，数值门槛为建议；",
-      "metric": "",
-      "quote": "所有用户与金额为虚构设计示例，数值门槛为建议；",
-      "anchor": "工作台来源说明 · 片段 2",
-      "offset": 0,
-      "tags": [
-        "千问",
-        "且慢",
-        "AI 小顾",
-        "L3",
-        "L4"
-      ],
-      "createdAt": "2026-10-20T18:00:00+08:00",
-      "order": 1,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-6b7c0d4d08",
-      "reportId": "daily-yingmi-oap-dashboard-templates-2026-10-18",
-      "type": "insight",
-      "label": "核心结论",
-      "title": "依据管理看板设计需求制作的三套可切换交互模板；",
-      "summary": "依据管理看板设计需求制作的三套可切换交互模板；",
-      "metric": "",
-      "quote": "依据管理看板设计需求制作的三套可切换交互模板；",
-      "anchor": "工作台来源说明 · 片段 1",
-      "offset": 0,
-      "tags": [
-        "盈米AI开放平台",
-        "OAP",
-        "CEO汇报",
-        "生态合作",
-        "项目进展"
-      ],
-      "createdAt": "2026-10-18T12:00:00+08:00",
-      "order": 0,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-ef27cc1581",
-      "reportId": "daily-yingmi-oap-dashboard-templates-2026-10-18",
-      "type": "insight",
-      "label": "核心结论",
-      "title": "全部数字、平台状态与计划均为演示。",
-      "summary": "全部数字、平台状态与计划均为演示。",
-      "metric": "",
-      "quote": "全部数字、平台状态与计划均为演示。",
-      "anchor": "工作台来源说明 · 片段 2",
-      "offset": 0,
-      "tags": [
-        "盈米AI开放平台",
-        "OAP",
-        "CEO汇报",
-        "生态合作",
-        "项目进展"
-      ],
-      "createdAt": "2026-10-18T12:00:00+08:00",
-      "order": 1,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-f544424e02",
-      "reportId": "daily-yingmi-oap-dashboard-templates-2026-10-18",
-      "type": "insight",
-      "label": "核心结论",
-      "title": "含日/月走势、日期筛选、平台档案、合作阶段、里程碑、待决策、商业模式…",
-      "summary": "含日/月走势、日期筛选、平台档案、合作阶段、里程碑、待决策、商业模式探索与资源投入。",
-      "metric": "",
-      "quote": "含日/月走势、日期筛选、平台档案、合作阶段、里程碑、待决策、商业模式探索与资源投入。",
-      "anchor": "工作台来源说明 · 片段 3",
-      "offset": 0,
-      "tags": [
-        "盈米AI开放平台",
-        "OAP",
-        "CEO汇报",
-        "生态合作",
-        "项目进展"
-      ],
-      "createdAt": "2026-10-18T12:00:00+08:00",
-      "order": 2,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-2904d9b6e8",
-      "reportId": "daily-e-da-longwin-follow-analysis-2026-10-16",
-      "type": "insight",
-      "label": "核心结论",
-      "title": "长赢发车记录、跟车人数与金额分析",
-      "summary": "长赢发车记录、跟车人数与金额分析",
-      "metric": "",
-      "quote": "长赢发车记录、跟车人数与金额分析",
-      "anchor": "工作台来源说明 · 片段 1",
-      "offset": 0,
-      "tags": [
-        "且慢",
-        "E大",
-        "长赢",
-        "发车",
-        "跟车人数"
-      ],
-      "createdAt": "2026-10-16T17:24:46+08:00",
-      "order": 0,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-c3508ccc03",
-      "reportId": "daily-e-da-longwin-follow-analysis-2026-10-16",
-      "type": "insight",
-      "label": "核心结论",
-      "title": "生产汇总与策略页面交叉核对",
-      "summary": "生产汇总与策略页面交叉核对，明确确认/申报、买卖方向、去重与数据缺项",
-      "metric": "",
-      "quote": "生产汇总与策略页面交叉核对，明确确认/申报、买卖方向、去重与数据缺项",
-      "anchor": "工作台来源说明 · 片段 2",
-      "offset": 0,
-      "tags": [
-        "且慢",
-        "E大",
-        "长赢",
-        "发车",
-        "跟车人数"
-      ],
-      "createdAt": "2026-10-16T17:24:46+08:00",
-      "order": 1,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-0f7f1e0adf",
-      "reportId": "daily-workbuddy-capability-inventory-2026-10-16",
-      "type": "metric",
-      "label": "关键数据",
-      "title": ",169 条能力、1,228 个已核实机构",
-      "summary": "45,169 条能力、1,228 个已核实机构",
-      "metric": "45,169",
-      "quote": "45,169 条能力、1,228 个已核实机构",
-      "anchor": "工作台来源说明 · 片段 1",
-      "offset": 0,
-      "tags": [
-        "WorkBuddy",
-        "连接器",
-        "技能",
-        "专家",
-        "专家团"
-      ],
-      "createdAt": "2026-10-16T17:05:40+08:00",
-      "order": 0,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-903a5cd2dc",
-      "reportId": "daily-workbuddy-capability-inventory-2026-10-16",
-      "type": "insight",
-      "label": "核心结论",
-      "title": "机构/能力类型/场景筛选、全文检索、专家团成员、市场使用安装计数、C…",
-      "summary": "机构/能力类型/场景筛选、全文检索、专家团成员、市场使用安装计数、CSV导出",
-      "metric": "",
-      "quote": "机构/能力类型/场景筛选、全文检索、专家团成员、市场使用安装计数、CSV导出",
-      "anchor": "工作台来源说明 · 片段 2",
-      "offset": 0,
-      "tags": [
-        "WorkBuddy",
-        "连接器",
-        "技能",
-        "专家",
-        "专家团"
-      ],
-      "createdAt": "2026-10-16T17:05:40+08:00",
-      "order": 1,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-feb25219c1",
-      "reportId": "daily-baixiaosheng-demo-2026-08-20",
-      "type": "insight",
-      "label": "核心结论",
-      "title": "用户提供 2026-08-20 外发包",
-      "summary": "用户提供 2026-08-20 外发包",
-      "metric": "2026",
-      "quote": "用户提供 2026-08-20 外发包",
-      "anchor": "工作台来源说明 · 片段 1",
-      "offset": 0,
-      "tags": [
-        "财经百晓生",
-        "财经丹青手",
-        "数字员工",
-        "Skills",
-        "Agent"
-      ],
-      "createdAt": "2026-10-16T15:30:00+08:00",
-      "order": 0,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-758dd49d8f",
-      "reportId": "daily-baixiaosheng-demo-2026-08-20",
-      "type": "insight",
-      "label": "核心结论",
-      "title": "张图片、四场景评测、产品界面、技术架构、166条员工记录与Skill…",
-      "summary": "95张图片、四场景评测、产品界面、技术架构、166条员工记录与Skills、八步问答链路",
-      "metric": "95",
-      "quote": "95张图片、四场景评测、产品界面、技术架构、166条员工记录与Skills、八步问答链路",
-      "anchor": "工作台来源说明 · 片段 2",
-      "offset": 0,
-      "tags": [
-        "财经百晓生",
-        "财经丹青手",
-        "数字员工",
-        "Skills",
-        "Agent"
-      ],
-      "createdAt": "2026-10-16T15:30:00+08:00",
-      "order": 1,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-3f011ca8a8",
-      "reportId": "daily-baixiaosheng-demo-2026-08-20",
-      "type": "insight",
-      "label": "核心结论",
-      "title": "原材料评测截至2026-08-12",
-      "summary": "原材料评测截至2026-08-12，非最新状态核验",
-      "metric": "2026",
-      "quote": "原材料评测截至2026-08-12，非最新状态核验",
-      "anchor": "工作台来源说明 · 片段 3",
-      "offset": 0,
-      "tags": [
-        "财经百晓生",
-        "财经丹青手",
-        "数字员工",
-        "Skills",
-        "Agent"
-      ],
-      "createdAt": "2026-10-16T15:30:00+08:00",
-      "order": 2,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-07484e27e3",
-      "reportId": "daily-yingmi-baixiaosheng-product-panorama-2026-10-16",
-      "type": "insight",
-      "label": "核心结论",
-      "title": "基于盈米本体检索、实际入口与官方隐私政策核对",
-      "summary": "基于盈米本体检索、实际入口与官方隐私政策核对，覆盖产品定位、功能模块、数据能力、账号权益、典型流程与待核实事项；",
-      "metric": "",
-      "quote": "基于盈米本体检索、实际入口与官方隐私政策核对，覆盖产品定位、功能模块、数据能力、账号权益、典型流程与待核实事项；",
-      "anchor": "工作台来源说明 · 片段 1",
-      "offset": 0,
-      "tags": [
-        "财经百晓生",
-        "Finnexus",
-        "盈米图书馆",
-        "金融AI",
-        "产品全景"
-      ],
-      "createdAt": "2026-10-16T15:00:00+08:00",
-      "order": 0,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-dfe2b4fdb3",
-      "reportId": "daily-yingmi-baixiaosheng-product-panorama-2026-10-16",
-      "type": "insight",
-      "label": "核心结论",
-      "title": "已上线、实现存在、文档声明与未知分别标记。",
-      "summary": "已上线、实现存在、文档声明与未知分别标记。",
-      "metric": "",
-      "quote": "已上线、实现存在、文档声明与未知分别标记。",
-      "anchor": "工作台来源说明 · 片段 2",
-      "offset": 0,
-      "tags": [
-        "财经百晓生",
-        "Finnexus",
-        "盈米图书馆",
-        "金融AI",
-        "产品全景"
-      ],
-      "createdAt": "2026-10-16T15:00:00+08:00",
-      "order": 1,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-97e700eb22",
-      "reportId": "daily-bytedance-group-map-2026-10-16",
-      "type": "metric",
-      "label": "关键数据",
-      "title": "项官方/媒体证据，旧任职和未披露汇报线明确标注",
-      "summary": "36项官方/媒体证据，旧任职和未披露汇报线明确标注",
-      "metric": "36项",
-      "quote": "36项官方/媒体证据，旧任职和未披露汇报线明确标注",
-      "anchor": "工作台来源说明 · 片段 2",
-      "offset": 0,
-      "tags": [
-        "字节跳动",
-        "抖音集团",
-        "豆包",
-        "豆包工作",
-        "飞书"
-      ],
-      "createdAt": "2026-10-16T13:30:00+08:00",
-      "order": 0,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-aa1ca15191",
-      "reportId": "daily-bytedance-group-map-2026-10-16",
-      "type": "insight",
-      "label": "核心结论",
-      "title": "集团名称与法人、七块业务地图、AI四层关系、十个产品对照、十二个调整…",
-      "summary": "集团名称与法人、七块业务地图、AI四层关系、十个产品对照、十二个调整节点、三十位关键人员",
-      "metric": "",
-      "quote": "集团名称与法人、七块业务地图、AI四层关系、十个产品对照、十二个调整节点、三十位关键人员",
-      "anchor": "工作台来源说明 · 片段 1",
-      "offset": 0,
-      "tags": [
-        "字节跳动",
-        "抖音集团",
-        "豆包",
-        "豆包工作",
-        "飞书"
-      ],
-      "createdAt": "2026-10-16T13:30:00+08:00",
-      "order": 1,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-9f45be7b09",
-      "reportId": "daily-nasdaq-butler-version-growth-audit-2026-10-14",
-      "type": "metric",
-      "label": "关键数据",
-      "title": "月底—10月迭代节点，12周使用与下单趋势",
-      "summary": "6月底—10月迭代节点，12周使用与下单趋势",
-      "metric": "6月",
-      "quote": "6月底—10月迭代节点，12周使用与下单趋势",
-      "anchor": "工作台来源说明 · 片段 2",
-      "offset": 0,
-      "tags": [
-        "纳指管家",
-        "配置服务",
-        "版本迭代",
-        "入金",
-        "转化漏斗"
-      ],
-      "createdAt": "2026-10-14T18:00:00+08:00",
-      "order": 0,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-96907586ba",
-      "reportId": "daily-nasdaq-butler-version-growth-audit-2026-10-14",
-      "type": "metric",
-      "label": "关键数据",
-      "title": "累计成功金额625.6万为报表口径",
-      "summary": "累计成功金额625.6万为报表口径，非净入金或AUM",
-      "metric": "625.6万",
-      "quote": "累计成功金额625.6万为报表口径，非净入金或AUM",
-      "anchor": "工作台来源说明 · 片段 3",
-      "offset": 0,
-      "tags": [
-        "纳指管家",
-        "配置服务",
-        "版本迭代",
-        "入金",
-        "转化漏斗"
-      ],
-      "createdAt": "2026-10-14T18:00:00+08:00",
-      "order": 1,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-6a16ab1764",
-      "reportId": "daily-nasdaq-butler-version-growth-audit-2026-10-14",
-      "type": "risk",
-      "label": "风险信号",
-      "title": "新客口径冲突、留存缺口及可执行建议",
-      "summary": "新客口径冲突、留存缺口及可执行建议",
-      "metric": "",
-      "quote": "新客口径冲突、留存缺口及可执行建议",
-      "anchor": "工作台来源说明 · 片段 4",
-      "offset": 0,
-      "tags": [
-        "纳指管家",
-        "配置服务",
-        "版本迭代",
-        "入金",
-        "转化漏斗"
-      ],
-      "createdAt": "2026-10-14T18:00:00+08:00",
-      "order": 2,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-ce60cfe647",
-      "reportId": "daily-ai-office-platform-financial-ecosystem-2026-10-14",
-      "type": "action",
-      "label": "行动建议",
-      "title": "金融能力矩阵、用户口径、盈米合作证据、90天行动与资源验收",
-      "summary": "金融能力矩阵、用户口径、盈米合作证据、90天行动与资源验收",
-      "metric": "90天",
-      "quote": "金融能力矩阵、用户口径、盈米合作证据、90天行动与资源验收",
-      "anchor": "工作台来源说明 · 片段 3",
-      "offset": 0,
-      "tags": [
-        "AI办公",
-        "千问办公",
-        "豆包工作",
-        "WorkBuddy",
-        "DuMate"
-      ],
-      "createdAt": "2026-10-14T16:00:00+08:00",
-      "order": 0,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-84bf35fc8b",
-      "reportId": "daily-ai-office-platform-financial-ecosystem-2026-10-14",
-      "type": "insight",
-      "label": "核心结论",
-      "title": "六个核心产品、国内补充与海外参照",
-      "summary": "六个核心产品、国内补充与海外参照",
-      "metric": "",
-      "quote": "六个核心产品、国内补充与海外参照",
-      "anchor": "工作台来源说明 · 片段 1",
-      "offset": 0,
-      "tags": [
-        "AI办公",
-        "千问办公",
-        "豆包工作",
-        "WorkBuddy",
-        "DuMate"
-      ],
-      "createdAt": "2026-10-14T16:00:00+08:00",
-      "order": 1,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-5462eb8339",
-      "reportId": "daily-ai-office-platform-financial-ecosystem-2026-10-14",
-      "type": "insight",
-      "label": "核心结论",
-      "title": "官方文档、QuestMobile原始研究及四个客户端市场核验",
-      "summary": "官方文档、QuestMobile原始研究及四个客户端市场核验",
-      "metric": "",
-      "quote": "官方文档、QuestMobile原始研究及四个客户端市场核验",
-      "anchor": "工作台来源说明 · 片段 2",
-      "offset": 0,
-      "tags": [
-        "AI办公",
-        "千问办公",
-        "豆包工作",
-        "WorkBuddy",
-        "DuMate"
-      ],
-      "createdAt": "2026-10-14T16:00:00+08:00",
-      "order": 2,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-93b5db50a2",
-      "reportId": "daily-baidu-xiaogu-fund-operations-2026-10-13",
-      "type": "metric",
-      "label": "关键数据",
-      "title": "注册、开户、首投、申赎、保有、年度月度趋势与19个历史快照",
-      "summary": "注册、开户、首投、申赎、保有、年度月度趋势与19个历史快照",
-      "metric": "19个",
-      "quote": "注册、开户、首投、申赎、保有、年度月度趋势与19个历史快照",
-      "anchor": "工作台来源说明 · 片段 5",
-      "offset": 0,
-      "tags": [
-        "百度",
-        "小顾基金",
-        "渠道合作",
-        "运营数据",
-        "上线以来"
-      ],
-      "createdAt": "2026-10-13T15:00:00+08:00",
-      "order": 0,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-36177815a8",
-      "reportId": "daily-baidu-xiaogu-fund-operations-2026-10-13",
-      "type": "insight",
-      "label": "核心结论",
-      "title": "正式上线窗口2022-06-14至2026-10-12；",
-      "summary": "正式上线窗口2022-06-14至2026-10-12；",
-      "metric": "2022",
-      "quote": "正式上线窗口2022-06-14至2026-10-12；",
-      "anchor": "工作台来源说明 · 片段 2",
-      "offset": 0,
-      "tags": [
-        "百度",
-        "小顾基金",
-        "渠道合作",
-        "运营数据",
-        "上线以来"
-      ],
-      "createdAt": "2026-10-13T15:00:00+08:00",
-      "order": 1,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-4f9ad9793f",
-      "reportId": "daily-baidu-xiaogu-fund-operations-2026-10-13",
-      "type": "insight",
-      "label": "核心结论",
-      "title": "渠道全生命周期另列，资产至2026-10-09",
-      "summary": "渠道全生命周期另列，资产至2026-10-09",
-      "metric": "2026",
-      "quote": "渠道全生命周期另列，资产至2026-10-09",
-      "anchor": "工作台来源说明 · 片段 3",
-      "offset": 0,
-      "tags": [
-        "百度",
-        "小顾基金",
-        "渠道合作",
-        "运营数据",
-        "上线以来"
-      ],
-      "createdAt": "2026-10-13T15:00:00+08:00",
-      "order": 2,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-c999b0a3a5",
-      "reportId": "daily-ai-xiaogu-product-handbook-2026-10-13",
-      "type": "metric",
-      "label": "关键数据",
-      "title": "章产品总文档、50项需求、35种服务卡片、24项待执行验收用例、29…",
-      "summary": "26章产品总文档、50项需求、35种服务卡片、24项待执行验收用例、29项来源索引",
-      "metric": "26",
-      "quote": "26章产品总文档、50项需求、35种服务卡片、24项待执行验收用例、29项来源索引",
-      "anchor": "工作台来源说明 · 片段 2",
-      "offset": 0,
-      "tags": [
-        "AI 小顾",
-        "且慢",
-        "产品文档",
-        "PRD",
-        "小顾3.0"
-      ],
-      "createdAt": "2026-10-13T11:00:00.000+08:00",
-      "order": 0,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-8ec20b3845",
-      "reportId": "daily-ai-xiaogu-product-handbook-2026-10-13",
-      "type": "action",
-      "label": "行动建议",
-      "title": "覆盖定位、用户场景、入口、复杂任务、小顾成果、帮你看、记忆画像、账户…",
-      "summary": "覆盖定位、用户场景、入口、复杂任务、小顾成果、帮你看、记忆画像、账户规划、人工接力、系统数据契约、权限、异常、指标和落地优先级",
-      "metric": "",
-      "quote": "覆盖定位、用户场景、入口、复杂任务、小顾成果、帮你看、记忆画像、账户规划、人工接力、系统数据契约、权限、异常、指标和落地优先级",
-      "anchor": "工作台来源说明 · 片段 3",
-      "offset": 0,
-      "tags": [
-        "AI 小顾",
-        "且慢",
-        "产品文档",
-        "PRD",
-        "小顾3.0"
-      ],
-      "createdAt": "2026-10-13T11:00:00.000+08:00",
-      "order": 1,
-      "relatedCardIds": []
-    },
-    {
-      "id": "daily-card-b4b93674e1",
-      "reportId": "daily-ai-xiaogu-product-handbook-2026-10-13",
-      "type": "action",
-      "label": "行动建议",
-      "title": "原文规则、历史证据、建议与待确认分层",
-      "summary": "原文规则、历史证据、建议与待确认分层",
-      "metric": "",
-      "quote": "原文规则、历史证据、建议与待确认分层",
-      "anchor": "工作台来源说明 · 片段 4",
-      "offset": 0,
-      "tags": [
-        "AI 小顾",
-        "且慢",
-        "产品文档",
-        "PRD",
-        "小顾3.0"
-      ],
-      "createdAt": "2026-10-13T11:00:00.000+08:00",
-      "order": 2,
-      "relatedCardIds": []
+      "origin": "industry"
     }
   ]
 }

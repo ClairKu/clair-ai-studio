@@ -19,7 +19,7 @@ import {
 } from "./storage.js";
 
 const app = document.getElementById("app");
-const DEFAULT_CATEGORIES = ["行业全景", "企业与组织", "消费者", "就业与技能", "安全与治理", "中国市场", "AI 与 Agent", "用户与增长", "产品与体验", "投研与市场", "经营与组织", "其他"];
+const DEFAULT_CATEGORIES = ["行业全景", "企业与组织", "消费者", "就业与技能", "安全与治理", "中国市场", "其他"];
 const TYPE_LABELS = { metric: "关键数据", risk: "风险信号", opportunity: "机会判断", action: "行动建议", insight: "核心结论" };
 const FORMAT_LABELS = { pdf: "PDF", word: "DOC", sheet: "XLS", slides: "PPT", html: "HTML", video: "VIDEO", audio: "AUDIO", image: "IMAGE", url: "URL", text: "TEXT", studio: "REPORT" };
 
@@ -40,7 +40,7 @@ let ui = {
   drawer: null,
   ingestMode: "text",
   ingestBusy: false,
-  ingestStatus: "粘贴文字、网址，或拖入档案",
+  ingestStatus: "仅加入外部公开 AI 行业材料",
   pendingFiles: [],
 };
 
@@ -122,6 +122,20 @@ function activeReports() {
   return state.reports.filter((report) => !report.archived);
 }
 
+function isLegacyStudioReport(report) {
+  return String(report?.id || "").startsWith("daily-")
+    || Boolean(report?.studioId)
+    || report?.source === "Clair’s Studio 每日同步";
+}
+
+function purgeLegacyStudioContent() {
+  const legacyReportIds = new Set(state.reports.filter(isLegacyStudioReport).map((report) => report.id));
+  if (!legacyReportIds.size) return false;
+  state.reports = state.reports.filter((report) => !legacyReportIds.has(report.id));
+  state.cards = state.cards.filter((card) => !legacyReportIds.has(card.reportId) && !String(card.id || "").startsWith("daily-card-"));
+  return true;
+}
+
 function visibleReports() {
   const query = ui.query.trim().toLowerCase();
   const reports = state.reports.filter((report) => ui.view === "archive" ? report.archived : !report.archived);
@@ -166,21 +180,21 @@ async function persist() {
   state = await saveState(state);
 }
 
-function mergeDailyFeed(feed) {
+function mergeIndustryFeed(feed) {
   if (!feed?.reports?.length) return false;
-  let changed = false;
+  let changed = purgeLegacyStudioContent();
   const incomingReportIds = new Set(feed.reports.map((report) => report.id));
   for (const report of feed.reports) {
     const index = state.reports.findIndex((item) => item.id === report.id);
     if (index < 0) {
-      state.reports.push({ ...report, origin: "daily", archived: false });
+      state.reports.push({ ...report, origin: "industry", archived: false });
       changed = true;
-    } else if (state.reports[index].origin === "daily" && !state.reports[index].userEdited) {
-      state.reports[index] = { ...state.reports[index], ...report, archived: state.reports[index].archived, origin: "daily" };
+    } else if (["daily", "industry", "authority"].includes(state.reports[index].origin) && !state.reports[index].userEdited) {
+      state.reports[index] = { ...state.reports[index], ...report, archived: state.reports[index].archived, origin: "industry" };
     }
   }
   const userCards = state.cards.filter((card) => !incomingReportIds.has(card.reportId) || card.userEdited);
-  const incomingCards = (feed.cards || []).map((card) => ({ ...card, origin: "daily" }));
+  const incomingCards = (feed.cards || []).map((card) => ({ ...card, origin: "industry" }));
   const merged = [...userCards];
   for (const card of incomingCards) {
     if (!merged.some((item) => item.id === card.id)) merged.push(card);
@@ -196,12 +210,13 @@ async function syncDailyFeed({ quiet = false } = {}) {
     const response = await fetch(`./data/latest.json?day=${day}`, { cache: "no-store" });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const feed = await response.json();
-    mergeDailyFeed(feed);
+    if (feed.scope !== "external-ai-industry-only") throw new Error("线上数据源未通过行业边界校验");
+    mergeIndustryFeed(feed);
     const linked = linkKnowledgeGraph(state.reports, state.cards);
     state.reports = linked.reports;
     state.cards = linked.cards;
     await persist();
-    if (!quiet) showToast(`已同步工作台最新报告 · ${formatDate(state.lastDailySync, true)}`);
+    if (!quiet) showToast(`已同步最新 AI 行业报告 · ${formatDate(state.lastDailySync, true)}`);
   } catch (error) {
     if (!quiet) showToast(`暂时无法同步线上资料：${error.message}`);
   }
@@ -225,10 +240,10 @@ function navMarkup() {
   ].map(([view, label, count]) => `<button class="nav-button ${ui.view === view && ui.category === "all" ? "is-active" : ""}" data-view="${view}">
     <span class="category-name">${label}</span><span class="nav-count">${count}</span>
   </button>`).join("");
-  return `<aside class="sidebar" aria-label="资料库导航">
-    <section class="sidebar-section"><p class="sidebar-label">Workspace</p>${rows}</section>
-    <section class="sidebar-section"><p class="sidebar-label">Categories</p>${categoryRows}</section>
-    <div class="privacy-note"><strong>原档案留在你的浏览器</strong>上传文件使用 IndexedDB 保存，不会自动传到公开网站；每日线上同步只读取已发布到 Clair’s Studio 的公开报告。</div>
+  return `<aside class="sidebar" aria-label="AI 行业情报导航">
+    <section class="sidebar-section"><p class="sidebar-label">Intelligence</p>${rows}</section>
+    <section class="sidebar-section"><p class="sidebar-label">Topics</p>${categoryRows}</section>
+    <div class="privacy-note"><strong>公开情报流只收外部来源</strong>每日线上同步仅纳入政府、国际组织、学术机构和 AI 厂商公开发布的一手报告，不读取 Clair’s Studio 其他项目。</div>
   </aside>`;
 }
 
@@ -251,7 +266,7 @@ function ingestBodyMarkup() {
   }
   return `<div class="ingest-body">
     <label class="sr-only" for="ingest-text">粘贴报告或内容</label>
-    <textarea id="ingest-text" class="ingest-text" placeholder="把报告、会议纪要、文章、研究摘要或影片字幕直接贴进来…"></textarea>
+    <textarea id="ingest-text" class="ingest-text" placeholder="粘贴外部公开 AI 报告、研究文章或影片字幕…"></textarea>
   </div>`;
 }
 
@@ -259,13 +274,13 @@ function heroMarkup() {
   const lastSync = state.lastDailySync ? formatDate(state.lastDailySync, true) : "准备同步";
   return `<section class="hero">
     <div class="hero-intro">
-      <p class="eyebrow">Clair’s AI Intelligence · Evidence First</p>
-      <h1>把全球 AI 重要报告，变成一眼看懂的证据图卡。</h1>
-      <p class="hero-lead">持续追踪权威机构的新报告，把关键观点、数据、金句与中文译文组合成信息图；每个数字仍能回到原文、研究方法、适用范围与关联来源。</p>
-      <div class="hero-meta"><span class="meta-pill is-live">每日更新 · ${escapeHtml(lastSync)}</span><span class="meta-pill">权威一手来源</span><span class="meta-pill">可上传 PDF / Office / URL / 字幕</span></div>
+      <p class="eyebrow">AI INDUSTRY INTELLIGENCE · EVIDENCE FIRST</p>
+      <h1>AI 行业情报站</h1>
+      <p class="hero-lead">只追踪外部公开的 AI 行业报告与事实信息，把关键观点、数据、金句与中文译文做成可回溯的证据图卡；不接入个人材料、公司内容或内部工作记录。</p>
+      <div class="hero-meta"><span class="meta-pill is-live">每日更新 · ${escapeHtml(lastSync)}</span><span class="meta-pill">权威一手来源</span><span class="meta-pill">行业报告专用</span></div>
     </div>
     <form class="ingest-panel" id="ingest-form">
-      <div class="ingest-title"><div><small>NEW MATERIAL</small><h2>加入一份材料</h2></div><small>自动抽取与连线</small></div>
+      <div class="ingest-title"><div><small>EXTERNAL SOURCE ONLY</small><h2>加入外部行业报告</h2></div><small>自动抽取与连线</small></div>
       <div class="ingest-mode">
         ${[["text", "贴内容"], ["url", "贴网址"], ["file", "传档案"]].map(([mode, label]) => `<button type="button" class="${ui.ingestMode === mode ? "is-active" : ""}" data-ingest-mode="${mode}">${label}</button>`).join("")}
       </div>
@@ -473,12 +488,12 @@ function contentMarkup() {
   const cards = visibleCards();
   const reports = visibleReports();
   const visualGroups = visualCardGroups(cards, reports);
-  let title = "AI 行业权威精选";
+  let title = "最新权威 AI 情报";
   let subtitle = "最新、重要、可追溯：每张图卡都能回到原始报告、方法与口径";
   let body = "";
   if (ui.view === "overview") body = `<section class="visual-card-grid">${visualGroups.slice(0, 5).map(visualKnowledgeCardMarkup).join("") || emptyMarkup()}</section>`;
   if (ui.view === "cards") { title = "信息图卡片"; subtitle = "一份报告一张图卡，按数字、风险、机会与行动过滤"; body = `<section class="visual-card-grid">${visualGroups.map(visualKnowledgeCardMarkup).join("") || emptyMarkup()}</section>`; }
-  if (ui.view === "reports") { title = "报告清单"; subtitle = "上传材料、线上报告与影片资料的统一目录"; body = `<section class="report-list">${reports.map(reportMarkup).join("") || emptyMarkup("还没有符合条件的报告")}</section>`; }
+  if (ui.view === "reports") { title = "行业报告清单"; subtitle = "外部权威机构、国际组织、政府统计与 AI 厂商的一手发布"; body = `<section class="report-list">${reports.map(reportMarkup).join("") || emptyMarkup("还没有符合条件的报告")}</section>`; }
   if (ui.view === "archive") { title = "已归档"; subtitle = "可恢复的资料，不会从知识库永久消失"; body = `<section class="report-list">${reports.map(reportMarkup).join("") || emptyMarkup("归档区是空的")}</section>`; }
   if (ui.view === "relations") { title = "关联图谱"; subtitle = "从共同主题进入相关关键卡与报告"; body = relationsMarkup(); }
   return `<section class="content-head"><div><h2>${escapeHtml(ui.category === "all" ? title : ui.category)}</h2><p>${escapeHtml(subtitle)}</p></div>
@@ -487,7 +502,7 @@ function contentMarkup() {
 }
 
 function emptyMarkup(title = "没有找到匹配内容") {
-  return `<div class="empty-state"><h3>${escapeHtml(title)}</h3><p>换个关键词、分类或筛选条件，也可以直接导入一份新材料。</p></div>`;
+  return `<div class="empty-state"><h3>${escapeHtml(title)}</h3><p>换个关键词、主题或筛选条件，也可以加入一份外部公开 AI 行业报告。</p></div>`;
 }
 
 function reportDrawerMarkup(report) {
@@ -559,7 +574,7 @@ function render({ preserveSearchFocus = false } = {}) {
   const selection = preserveSearchFocus && search ? [search.selectionStart, search.selectionEnd] : null;
   app.className = "shell";
   app.innerHTML = `<header class="topbar">
-    <div class="brand"><span class="brand-mark">C</span><span class="brand-copy"><span class="brand-title">AI 行业情报与证据卡片台</span><span class="brand-subtitle">Clair’s Studio</span></span></div>
+    <div class="brand"><span class="brand-mark">C</span><span class="brand-copy"><span class="brand-title">AI 行业情报站</span><span class="brand-subtitle">Authoritative reports · Evidence cards</span></span></div>
     <label class="global-search"><span class="sr-only">搜索报告、卡片与原文</span><input id="global-search" type="search" value="${escapeHtml(ui.query)}" placeholder="搜索报告、关键卡、数字或原文…" /><span class="search-hint">⌘ K</span></label>
     <div class="top-actions"><button class="ghost-button" type="button" data-export>导出备份</button><button class="ghost-button" type="button" data-import>导入备份</button><button class="soft-button" type="button" data-sync>同步最新</button><input id="backup-file" class="sr-only" type="file" accept="application/json,.json" /></div>
   </header>
@@ -753,6 +768,7 @@ function bindEvents() {
     try {
       const imported = await importStateFile(event.target.files[0]);
       state = { ...state, ...imported };
+      purgeLegacyStudioContent();
       const linked = linkKnowledgeGraph(state.reports || [], state.cards || []);
       state.reports = linked.reports;
       state.cards = linked.cards;
@@ -852,6 +868,7 @@ window.addEventListener("keydown", (event) => {
 async function init() {
   const saved = await loadState();
   if (saved?.reports && saved?.cards) state = { ...state, ...saved };
+  purgeLegacyStudioContent();
   await syncDailyFeed({ quiet: true });
   ensureCategories();
   render();
