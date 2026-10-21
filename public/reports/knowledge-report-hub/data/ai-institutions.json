@@ -1,0 +1,547 @@
+{
+  "schema": "clair-ai-institutions/v1",
+  "updatedAt": "2026-10-21T00:00:00+08:00",
+  "asOf": "2026-10-21",
+  "scope": "external-public-ai-industry-only",
+  "methodology": {
+    "title": "AI 机构综合影响力指数",
+    "summary": "编辑部依据机构公开的一手资料，对前沿模型与研究、用户与分发、商业化、算力与基础设施、生态与开放性五个维度进行结构化评分。它是可解释的情报导航，不是任何官方排名，也不等同于模型能力榜。",
+    "weights": [
+      { "key": "frontier", "label": "前沿模型与研究", "weight": 30 },
+      { "key": "distribution", "label": "用户与分发", "weight": 20 },
+      { "key": "commercial", "label": "商业化", "weight": 20 },
+      { "key": "compute", "label": "算力与基础设施", "weight": 15 },
+      { "key": "ecosystem", "label": "生态与开放性", "weight": 15 }
+    ],
+    "caveats": [
+      "上市公司市值与私营公司融资后估值不是同一概念，专题分开呈现，不能直接比较。",
+      "机构总用户、产品月活、周活、企业客户和付费席位均保留原始口径，不换算、不拼接。",
+      "未由机构或监管文件披露的数据标为“未披露”，不采用匿名消息或二手媒体估算。",
+      "综合分数为截至 2026-10-21 的编辑部判断，用于快速定位研究对象；点击机构可查看证据与局限。"
+    ]
+  },
+  "institutions": [
+    {
+      "id": "google-deepmind",
+      "rank": 1,
+      "name": "Google DeepMind / Alphabet",
+      "shortName": "Google DeepMind",
+      "region": "美国",
+      "kind": "上市公司旗下前沿实验室",
+      "founded": "2010（DeepMind）；2023 合并 Google Brain",
+      "listing": { "status": "上市", "parent": "Alphabet", "tickers": "NASDAQ: GOOGL / GOOG" },
+      "capital": { "type": "market-cap", "display": "约 US$4.2T", "valueUsdB": 4200, "asOf": "2026-10-20", "note": "Alphabet 市值快照；不是 Google DeepMind 的独立估值。", "url": "https://www.statmuse.com/money/ask/googl-market-cap-2026" },
+      "score": 94,
+      "tier": "S",
+      "dimensions": { "frontier": 97, "distribution": 100, "commercial": 91, "compute": 96, "ecosystem": 82 },
+      "thesis": "唯一同时拥有前沿模型、十亿级消费者入口、自研 TPU、全球云与基础科学研究闭环的机构。",
+      "products": ["Gemini 4 / 3.6", "Gemini App", "AI Mode / AI Overviews", "Vertex AI / Gemini Enterprise", "Veo / Imagen / Gemma", "Gemini Robotics"],
+      "userSignals": [
+        { "label": "Gemini App 月活", "value": ">1B", "asOf": "2026-08", "scope": "单一应用 MAU", "url": "https://blog.google/innovation-and-ai/products/gemini-app/one-billion-monthly-users/" },
+        { "label": "AI Mode 月活", "value": ">1B", "asOf": "2026-Q2", "scope": "搜索 AI 功能 MAU", "url": "https://blog.google/company-news/inside-google/message-ceo/alphabet-earnings-q2-2026/" },
+        { "label": "Gemini 模型开发者", "value": ">9M/月", "asOf": "2026-Q2", "scope": "API 与开发者产品月度开发者", "url": "https://blog.google/company-news/inside-google/message-ceo/alphabet-earnings-q2-2026/" }
+      ],
+      "financials": ["Alphabet 2025 年收入首次超过 US$400B", "Google Cloud 2026-Q2 收入同比增长 82%，积压订单 US$514B", "AI 收入未单独披露；不能把 Alphabet 总收入视作 AI 收入"],
+      "investment": "自研 TPU、Virgo Network 与全球数据中心；2025 年资本开支指引约 US$85B，2026 年继续上升。",
+      "technologies": ["Gemini 多模态基础模型", "TPU 全栈加速器", "AlphaFold / AI for Science", "Gemini Robotics", "Veo 视频生成", "JAX 与 Gemma 开放模型"],
+      "ma": [
+        { "date": "2026-02", "title": "Intrinsic 并入 Google", "note": "将机器人软件与 Gemini/DeepMind 的物理 AI 能力靠拢。", "url": "https://blog.google/alphabet/" },
+        { "date": "2025-03", "title": "宣布收购 Wiz", "note": "强化 Google Cloud 安全与 AI 工作负载防护；专题只记录公开交易动作。", "url": "https://blog.google/inside-google/company-announcements/google-wiz-acquisition/" }
+      ],
+      "timeline": [
+        { "date": "2010", "text": "DeepMind 成立。" },
+        { "date": "2014", "text": "Google 收购 DeepMind。" },
+        { "date": "2023", "text": "DeepMind 与 Google Brain 合并为 Google DeepMind。" },
+        { "date": "2025-12", "text": "Gemini 3 系列成为全栈产品主线。" },
+        { "date": "2026-10", "text": "Gemini 4 Argon 模型卡更新，继续推进机器人与多模态产品。" }
+      ],
+      "limits": "Alphabet 披露大量产品采用数据，但 Gemini 付费用户、AI 业务独立利润与 DeepMind 独立投入均未披露。",
+      "sources": [
+        { "title": "Alphabet Q2 2026 CEO remarks", "date": "2026-07-22", "url": "https://blog.google/company-news/inside-google/message-ceo/alphabet-earnings-q2-2026/" },
+        { "title": "Gemini app crosses one billion monthly users", "date": "2026-08-11", "url": "https://blog.google/innovation-and-ai/products/gemini-app/one-billion-monthly-users/" },
+        { "title": "Google DeepMind model cards", "date": "2026-10-13", "url": "https://deepmind.google/models/model-cards/" }
+      ]
+    },
+    {
+      "id": "openai",
+      "rank": 2,
+      "name": "OpenAI",
+      "shortName": "OpenAI",
+      "region": "美国",
+      "kind": "私营前沿模型公司 / PBC",
+      "founded": "2015",
+      "listing": { "status": "未上市", "parent": "OpenAI Foundation 控制 OpenAI Group PBC", "tickers": "—" },
+      "capital": { "type": "private-valuation", "display": "US$852B", "valueUsdB": 852, "asOf": "2026-03-31", "note": "公司披露融资后估值，不是公开市场市值。", "url": "https://openai.com/index/accelerating-the-next-phase-ai/" },
+      "score": 92.7,
+      "tier": "S",
+      "dimensions": { "frontier": 98, "distribution": 98, "commercial": 96, "compute": 91, "ecosystem": 72 },
+      "thesis": "以 ChatGPT 的大众入口、API 与 Codex 的开发工作流构成最强的模型—产品—收入飞轮之一。",
+      "products": ["GPT-5.5", "ChatGPT", "Codex", "OpenAI API", "Sora", "Operator / Agents"],
+      "userSignals": [
+        { "label": "周活用户", "value": ">900M", "asOf": "2026-03", "scope": "OpenAI 产品周活", "url": "https://openai.com/index/accelerating-the-next-phase-ai/" },
+        { "label": "订阅用户", "value": ">50M", "asOf": "2026-03", "scope": "消费者订阅", "url": "https://openai.com/index/accelerating-the-next-phase-ai/" },
+        { "label": "Codex 周活", "value": ">5M", "asOf": "2026-06", "scope": "Codex 周活", "url": "https://openai.com/index/openai-to-acquire-ona/" },
+        { "label": "付费企业客户", "value": ">1M", "asOf": "2025-11", "scope": "企业客户组织", "url": "https://openai.com/index/1-million-businesses-putting-ai-to-work/" }
+      ],
+      "financials": ["2026-03 月收入约 US$2B", "企业收入占比超过 40%，目标在 2026 年底与消费者收入接近持平", "盈利与净利润未披露"],
+      "investment": "2026 年 3 月融资 US$122B；截至 2026 年 4 月计划算力规模超过 10GW，并在 90 天内新增超过 3GW。",
+      "technologies": ["GPT 多模态与推理模型", "Codex 软件工程代理", "大规模后训练与强化学习", "Sora 视频生成", "工具调用与智能体平台", "Stargate 计算基础设施"],
+      "ma": [
+        { "date": "2026-06", "title": "收购 Ona", "note": "补强安全、持久的智能体执行环境。", "url": "https://openai.com/index/openai-to-acquire-ona/" },
+        { "date": "2026-03", "title": "收购 Promptfoo", "note": "补强模型与智能体评测、安全测试。", "url": "https://openai.com/index/openai-to-acquire-promptfoo/" },
+        { "date": "2025-10", "title": "收购 Software Applications Inc.", "note": "将 Sky 的自然语言桌面界面并入 ChatGPT。", "url": "https://openai.com/index/openai-acquires-software-applications-incorporated/" }
+      ],
+      "timeline": [
+        { "date": "2015", "text": "以非营利 AI 研究机构成立。" },
+        { "date": "2019", "text": "建立 capped-profit 结构并获得微软投资。" },
+        { "date": "2022-11", "text": "ChatGPT 发布，生成式 AI 进入大众市场。" },
+        { "date": "2025", "text": "非营利机构继续控制 PBC 结构。" },
+        { "date": "2026", "text": "超大规模融资、Codex 增长与执行层并购同步加速。" }
+      ],
+      "limits": "公司披露用户、收入与融资指标较多，但成本、净利润、分产品收入和部分基础模型训练细节未披露。",
+      "sources": [
+        { "title": "Accelerating the next phase of AI", "date": "2026-03-31", "url": "https://openai.com/index/accelerating-the-next-phase-ai/" },
+        { "title": "Building compute infrastructure for the Intelligence Age", "date": "2026-04-28", "url": "https://openai.com/index/building-the-compute-infrastructure-for-the-intelligence-age/" },
+        { "title": "OpenAI to acquire Ona", "date": "2026-06-11", "url": "https://openai.com/index/openai-to-acquire-ona/" }
+      ]
+    },
+    {
+      "id": "microsoft-ai",
+      "rank": 3,
+      "name": "Microsoft AI",
+      "shortName": "Microsoft",
+      "region": "美国",
+      "kind": "上市公司 / AI 平台与应用",
+      "founded": "1975；Microsoft AI 于 2024 组建",
+      "listing": { "status": "上市", "parent": "Microsoft Corporation", "tickers": "NASDAQ: MSFT" },
+      "capital": { "type": "market-cap", "display": "约 US$3.95T", "valueUsdB": 3950, "asOf": "2026-10-21", "note": "微软市值快照；包含全部业务。", "url": "https://stockanalysis.com/stocks/msft/" },
+      "score": 92.4,
+      "tier": "S",
+      "dimensions": { "frontier": 83, "distribution": 96, "commercial": 100, "compute": 97, "ecosystem": 92 },
+      "thesis": "把 AI 变成企业软件、云、开发者工具与代理管理层的统一商业平台，收入与算力扩张最清晰。",
+      "products": ["Microsoft 365 Copilot", "GitHub Copilot", "Azure AI Foundry", "Copilot Studio", "Agent 365", "MAI models / Phi"],
+      "userSignals": [
+        { "label": "M365 Copilot 付费席位", "value": ">30M", "asOf": "FY2026-Q4", "scope": "付费席位", "url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4" },
+        { "label": "GitHub Copilot 用户", "value": "50M", "asOf": "FY2026-Q4", "scope": "累计/活跃口径依公司原文", "url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4" },
+        { "label": "Foundry 客户", "value": "100K", "asOf": "FY2026-Q4", "scope": "企业客户", "url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4" }
+      ],
+      "financials": ["FY2026 收入 US$331.8B", "FY2026 经营利润 US$155.2B，净利润 US$133.7B", "AI 业务在 FY2026-Q3 的年化收入运行率超过 US$37B"],
+      "investment": "FY2026-Q4 资本开支 US$41B；下一季度预计超过 US$50B；季度新增约 1GW 数据中心容量。",
+      "technologies": ["Azure 超大规模云", "Maia 200 加速器", "Copilot 与 Agent 365 管理层", "GitHub 软件开发数据与工作流", "Phi 小模型", "企业身份、安全与数据连接"],
+      "ma": [
+        { "date": "2022-03", "title": "完成收购 Nuance", "note": "将医疗语音与临床 AI 纳入微软云。", "url": "https://news.microsoft.com/2022/03/04/microsoft-completes-acquisition-of-nuance-ushering-in-new-era-of-outcomes-based-ai/" },
+        { "date": "2023-01", "title": "扩大与 OpenAI 合作", "note": "多年、多十亿美元投资，Azure 成为关键算力平台。", "url": "https://blogs.microsoft.com/blog/2023/01/23/microsoftandopenaiextendpartnership/" }
+      ],
+      "timeline": [
+        { "date": "2019", "text": "首次向 OpenAI 投资 US$1B。" },
+        { "date": "2023", "text": "Copilot 成为横跨 Windows、M365、GitHub 与 Azure 的统一品牌。" },
+        { "date": "2024", "text": "组建 Microsoft AI，整合 Copilot 与消费者 AI。" },
+        { "date": "2025", "text": "从 Copilot 扩展到企业智能体与 Foundry 平台。" },
+        { "date": "2026", "text": "Agent 365 管理近 40M agents，持续扩大自研芯片与数据中心。" }
+      ],
+      "limits": "微软总财务高度透明，但 Microsoft AI、Azure AI 和 OpenAI 相关业务之间的独立利润与收入拆分有限。",
+      "sources": [
+        { "title": "Microsoft FY2026 Q4 earnings", "date": "2026-07-29", "url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4" },
+        { "title": "Microsoft FY2026 Q3 earnings", "date": "2026-04-29", "url": "https://www.microsoft.com/en-us/Investor/events/fy-2026/earnings-fy-2026-q3" }
+      ]
+    },
+    {
+      "id": "anthropic",
+      "rank": 5,
+      "name": "Anthropic",
+      "shortName": "Anthropic",
+      "region": "美国",
+      "kind": "私营前沿模型公司 / PBC",
+      "founded": "2021",
+      "listing": { "status": "拟上市", "parent": "独立公司", "tickers": "已秘密递交 S-1；尚无交易代码" },
+      "capital": { "type": "private-valuation", "display": "US$965B", "valueUsdB": 965, "asOf": "2026-05-28", "note": "Series H 融资后估值；尚未形成公开市场市值。", "url": "https://www.anthropic.com/news/series-h" },
+      "score": 88.6,
+      "tier": "S",
+      "dimensions": { "frontier": 97, "distribution": 75, "commercial": 96, "compute": 90, "ecosystem": 79 },
+      "thesis": "以 Claude、Claude Code 和企业可信部署形成高价值客户密度，收入增速与拟上市进程最受关注。",
+      "products": ["Claude Opus / Sonnet / Haiku 5.5", "Claude Code", "Claude Enterprise", "Claude API", "Computer Use", "Model Context Protocol"],
+      "userSignals": [
+        { "label": "百万美元年消费客户", "value": ">1,000", "asOf": "2026-04", "scope": "企业客户", "url": "https://www.anthropic.com/news/google-broadcom-partnership-compute" },
+        { "label": "Claude Code 年化收入", "value": ">US$2.5B", "asOf": "2026-02", "scope": "产品年化收入运行率", "url": "https://www.anthropic.com/news/anthropic-raises-30-billion-series-g-funding-380-billion-post-money-valuation" },
+        { "label": "Claude MAU / 付费用户", "value": "未披露", "asOf": "2026-10", "scope": "消费者产品", "url": "https://www.anthropic.com/news" }
+      ],
+      "financials": ["2026-05 年化收入运行率超过 US$47B", "2026-02 业务订阅量较年初增长约 4 倍", "净利润与现金流未披露"],
+      "investment": "Series H 融资 US$65B（包含此前承诺的 US$15B 超大规模云投资）；美国算力承诺约 US$50B，并同时使用 AWS Trainium、Google TPU 与 NVIDIA GPU。",
+      "technologies": ["Claude 长上下文与推理", "Constitutional AI", "Claude Code 智能体", "Computer Use", "MCP 开放协议", "AI 安全与可解释性研究"],
+      "ma": [
+        { "date": "2026-05", "title": "收购 Stainless", "note": "补强 API SDK 与开发者体验。", "url": "https://www.anthropic.com/news/anthropic-acquires-stainless" },
+        { "date": "2026-02", "title": "收购 Vercept", "note": "补强可在计算机界面执行任务的智能体。", "url": "https://www.anthropic.com/news/acquires-vercept" }
+      ],
+      "timeline": [
+        { "date": "2021", "text": "由前 OpenAI 成员创立。" },
+        { "date": "2023", "text": "Claude 商业化并获得 Google、Amazon 战略投资。" },
+        { "date": "2024", "text": "发布 MCP，推动模型连接工具与数据。" },
+        { "date": "2025", "text": "Claude Code 形成高增长开发者业务。" },
+        { "date": "2026-06", "text": "秘密递交 S-1，进入拟上市阶段。" }
+      ],
+      "limits": "收入、融资与大客户指标披露积极，但消费者 MAU、付费用户、训练成本和净利润未披露；S-1 尚未公开。",
+      "sources": [
+        { "title": "Anthropic Series H", "date": "2026-05-28", "url": "https://www.anthropic.com/news/series-h" },
+        { "title": "Confidential draft S-1 submission", "date": "2026-06-01", "url": "https://www.anthropic.com/news/confidential-draft-s1-sec" },
+        { "title": "Google and Broadcom compute partnership", "date": "2026-04-23", "url": "https://www.anthropic.com/news/google-broadcom-partnership-compute" }
+      ]
+    },
+    {
+      "id": "nvidia",
+      "rank": 6,
+      "name": "NVIDIA",
+      "shortName": "NVIDIA",
+      "region": "美国",
+      "kind": "上市公司 / AI 计算平台",
+      "founded": "1993",
+      "listing": { "status": "上市", "parent": "NVIDIA Corporation", "tickers": "NASDAQ: NVDA" },
+      "capital": { "type": "market-cap", "display": "约 US$5.22T", "valueUsdB": 5220, "asOf": "2026-10-20", "note": "公开市场市值快照。", "url": "https://ycharts.com/companies/NVDA/market_cap" },
+      "score": 88,
+      "tier": "S",
+      "dimensions": { "frontier": 82, "distribution": 72, "commercial": 100, "compute": 100, "ecosystem": 93 },
+      "thesis": "不是主流消费者聊天产品，却掌握 AI 工业最关键的芯片、互连、软件栈与整机平台，是全球 AI 资本开支的核心受益者。",
+      "products": ["Vera Rubin", "Blackwell", "CUDA", "DGX / NVL systems", "NIM / NeMo", "Omniverse / Cosmos"],
+      "userSignals": [
+        { "label": "消费级 MAU", "value": "不适用", "asOf": "2026-10", "scope": "基础设施供应商", "url": "https://www.nvidia.com/en-us/" },
+        { "label": "Vera Rubin AI 工厂", "value": ">350", "asOf": "2026", "scope": "宣布中的全球工厂部署", "url": "https://nvidianews.nvidia.com/news/vera-rubin-full-production-agentic-ai-factory" }
+      ],
+      "financials": ["FY2027-Q2 收入 US$96.2B", "数据中心收入 US$89B", "季度净利润 US$59.688B；季度研发支出 US$7.054B"],
+      "investment": "FY2027 上半年研发支出 US$13.375B；公司同时通过股权投资、参考架构与供应链预付款扩张 AI 生态。",
+      "technologies": ["GPU 与 CUDA 计算生态", "NVLink / Spectrum-X 网络", "Vera Rubin 机架级系统", "NIM 推理微服务", "NeMo 模型与智能体工具", "数字孪生与机器人基础模型"],
+      "ma": [
+        { "date": "2019-2020", "title": "收购 Mellanox", "note": "奠定高速网络与数据中心互连优势。", "url": "https://nvidianews.nvidia.com/news/nvidia-completes-acquisition-of-mellanox-creating-major-force-driving-next-gen-data-centers" },
+        { "date": "2024", "title": "多项软件与模型生态投资", "note": "近年更常以投资、合作和平台绑定扩展生态，而非大型整合式并购。", "url": "https://investor.nvidia.com/" }
+      ],
+      "timeline": [
+        { "date": "1999", "text": "推出 GPU 概念。" },
+        { "date": "2006", "text": "发布 CUDA，建立通用并行计算平台。" },
+        { "date": "2020", "text": "完成 Mellanox 收购，形成计算与网络一体化。" },
+        { "date": "2024", "text": "Blackwell 推动生成式 AI 工厂升级。" },
+        { "date": "2026", "text": "Vera Rubin 全面量产，推进百万 GPU 级互连。" }
+      ],
+      "limits": "NVIDIA 收入和研发透明，但其客户终端用户数不适合作为消费者 MAU；市场份额与训练集群规模需按产品和部署逐项核验。",
+      "sources": [
+        { "title": "NVIDIA FY2027 Q2 results", "date": "2026-08-26", "url": "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Second-Quarter-Fiscal-2027/default.aspx" },
+        { "title": "Vera Rubin full-production AI factory", "date": "2026", "url": "https://nvidianews.nvidia.com/news/vera-rubin-full-production-agentic-ai-factory" }
+      ]
+    },
+    {
+      "id": "meta-ai",
+      "rank": 4,
+      "name": "Meta AI",
+      "shortName": "Meta",
+      "region": "美国",
+      "kind": "上市公司 / 社交分发与模型平台",
+      "founded": "2004；FAIR 于 2013 成立",
+      "listing": { "status": "上市", "parent": "Meta Platforms", "tickers": "NASDAQ: META" },
+      "capital": { "type": "market-cap", "display": "约 US$1.77T", "valueUsdB": 1770, "asOf": "2026-10-20", "note": "Meta Platforms 市值快照，包含广告与硬件业务。", "url": "https://chartexchange.com/symbol/nasdaq-meta/" },
+      "score": 89.4,
+      "tier": "S",
+      "dimensions": { "frontier": 88, "distribution": 99, "commercial": 85, "compute": 96, "ecosystem": 79 },
+      "thesis": "拥有全球最大社交分发面，并以超大资本开支、自研芯片和 Muse 模型推进消费者、企业与智能眼镜的 AI 化。",
+      "products": ["Meta AI", "Muse models", "Llama ecosystem", "Meta Enterprise Platform", "AI glasses", "Advantage+"],
+      "userSignals": [
+        { "label": "Family DAP", "value": "3.60B", "asOf": "2026-Q2", "scope": "Meta 应用家族日活；不是 Meta AI MAU", "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/" },
+        { "label": "Meta AI MAU", "value": "未单独披露", "asOf": "2026-Q2", "scope": "AI 助手", "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/" }
+      ],
+      "financials": ["2026-Q2 收入 US$60.801B", "经营利润 US$18.775B，净利润 US$15.848B", "AI 对广告效率的贡献存在，但 AI 独立收入未披露"],
+      "investment": "2026-Q2 资本开支 US$31.08B；全年资本开支指引 US$130–145B，并与 NVIDIA、AWS、Arm 建立长期基础设施合作。",
+      "technologies": ["Muse 多模态与行动模型", "Llama 开放权重生态", "MTIA 自研加速器", "广告推荐系统", "智能眼镜与可穿戴 AI", "社交图谱与内容分发"],
+      "ma": [
+        { "date": "2025-06", "title": "投资 Scale AI 并引入核心人才", "note": "以投资与人才整合方式加速超级智能团队。", "url": "https://about.fb.com/news/" },
+        { "date": "2014", "title": "收购 WhatsApp 与 Oculus", "note": "历史性并购奠定消息分发与 XR 入口。", "url": "https://about.fb.com/company-info/" }
+      ],
+      "timeline": [
+        { "date": "2013", "text": "FAIR 成立。" },
+        { "date": "2023", "text": "Llama 开启开放权重模型生态。" },
+        { "date": "2024", "text": "Meta AI 深度进入 WhatsApp、Instagram 与 Facebook。" },
+        { "date": "2026-07", "text": "Muse Spark 1.1 推动 Meta AI 从回答走向行动。" },
+        { "date": "2026-09", "text": "推出 Meta Enterprise Platform。" }
+      ],
+      "limits": "Meta 应用家族的 3.60B 日活不能当作 Meta AI 用户；AI 助手 MAU、付费用户与独立利润未披露。",
+      "sources": [
+        { "title": "Meta Q2 2026 results", "date": "2026-07-29", "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/" },
+        { "title": "Meta AI Muse Spark", "date": "2026-07", "url": "https://about.fb.com/news/2026/07/meta-ai-muse-spark-doesnt-just-think-it-acts/" },
+        { "title": "Meta Enterprise Platform", "date": "2026-09", "url": "https://about.fb.com/news/2026/09/launching-meta-enterprise-platform/" }
+      ]
+    },
+    {
+      "id": "amazon-aws",
+      "rank": 7,
+      "name": "Amazon / AWS AI",
+      "shortName": "Amazon / AWS",
+      "region": "美国",
+      "kind": "上市公司 / 云与芯片平台",
+      "founded": "1994；AWS 于 2006 上线",
+      "listing": { "status": "上市", "parent": "Amazon.com", "tickers": "NASDAQ: AMZN" },
+      "capital": { "type": "market-cap", "display": "约 US$2.83T", "valueUsdB": 2830, "asOf": "2026-10-20", "note": "Amazon 市值快照；包含零售、广告与云业务。", "url": "https://stockanalysis.com/stocks/amzn/market-cap/" },
+      "score": 87.9,
+      "tier": "A",
+      "dimensions": { "frontier": 76, "distribution": 91, "commercial": 97, "compute": 98, "ecosystem": 85 },
+      "thesis": "通过 AWS、Trainium、Bedrock 和 Amazon 消费入口把算力、模型选择、智能体与电商场景联成一体。",
+      "products": ["Amazon Bedrock", "SageMaker", "Trainium / Inferentia", "Amazon Q", "Nova models", "Rufus"],
+      "userSignals": [
+        { "label": "Bedrock 企业", "value": ">100K", "asOf": "2025-Q4", "scope": "使用公司数", "url": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Fourth-Quarter-Results/default.aspx" },
+        { "label": "Rufus 客户", "value": ">300M", "asOf": "2025-Q4", "scope": "使用过购物 AI 的客户", "url": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Fourth-Quarter-Results/default.aspx" },
+        { "label": "AI 付费用户", "value": "未单独披露", "asOf": "2026", "scope": "跨 Bedrock/Q/Rufus 不可合并", "url": "https://ir.aboutamazon.com/" }
+      ],
+      "financials": ["AWS 2025-Q4 销售额 US$35.6B，同比增长 24%", "2026-Q1 Amazon 净利润 US$30.3B", "Trainium + Graviton 在 2026-Q1 的年化收入运行率超过 US$20B"],
+      "investment": "Amazon 预计 2026 年资本开支约 US$200B；已部署约 2.1M 颗自研 AI 芯片，并计划引入超过 1M 块 NVIDIA GPU。",
+      "technologies": ["Trainium / Inferentia 芯片", "Bedrock 多模型平台", "Nova 基础模型", "Project Rainier 超大集群", "SageMaker 数据与训练平台", "电商推荐与履约数据"],
+      "ma": [
+        { "date": "2023-2024", "title": "累计投资 Anthropic US$8B", "note": "Anthropic 选择 AWS 为主要云与训练芯片伙伴。", "url": "https://www.aboutamazon.com/news/aws/amazon-invests-additional-4-billion-anthropic-ai" },
+        { "date": "2020", "title": "收购 Zoox", "note": "扩展到自动驾驶与具身智能。", "url": "https://www.aboutamazon.com/news/company-news/amazon-to-acquire-zoox" }
+      ],
+      "timeline": [
+        { "date": "2006", "text": "AWS 上线，建立云基础设施优势。" },
+        { "date": "2015", "text": "机器学习服务逐步进入 AWS 产品线。" },
+        { "date": "2023", "text": "Bedrock 上线并投资 Anthropic。" },
+        { "date": "2025", "text": "Trainium2 与 Project Rainier 大规模部署。" },
+        { "date": "2026", "text": "资本开支与自研芯片收入继续跃升。" }
+      ],
+      "limits": "Rufus 客户、Bedrock 企业与 Amazon Q 用户属于不同产品口径，不能相加；AWS AI 独立收入与利润未披露。",
+      "sources": [
+        { "title": "Amazon Q4 2025 results", "date": "2026-02-05", "url": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Fourth-Quarter-Results/default.aspx" },
+        { "title": "Amazon Q1 2026 results", "date": "2026-04-30", "url": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-First-Quarter-Results/default.aspx" }
+      ]
+    },
+    {
+      "id": "alibaba-qwen",
+      "rank": 8,
+      "name": "Alibaba Qwen / 阿里云",
+      "shortName": "Alibaba Qwen",
+      "region": "中国",
+      "kind": "上市公司 / 模型与云平台",
+      "founded": "1999；通义千问于 2023 发布",
+      "listing": { "status": "上市", "parent": "Alibaba Group", "tickers": "NYSE: BABA / HKEX: 9988" },
+      "capital": { "type": "market-cap", "display": "约 US$270B", "valueUsdB": 270, "asOf": "2026-10-20", "note": "阿里巴巴集团市值快照。", "url": "https://stockanalysis.com/stocks/baba/statistics/" },
+      "score": 86.6,
+      "tier": "A",
+      "dimensions": { "frontier": 84, "distribution": 88, "commercial": 84, "compute": 86, "ecosystem": 94 },
+      "thesis": "以 Qwen 的开放模型生态、阿里云商业化与自研芯片形成中国最完整的模型—云—应用全栈之一。",
+      "products": ["Qwen 3 / Qwen App", "Model Studio", "AI Cloud & Compute", "Zhenwu PPU", "Qwen Code", "Wan video models"],
+      "userSignals": [
+        { "label": "Qwen App 月活", "value": ">300M", "asOf": "2026-02", "scope": "应用 MAU", "url": "https://www.alibabagroup.com/en-US/document-1971445322303406080" },
+        { "label": "Qwen 模型下载", "value": ">3B", "asOf": "2026-Q2", "scope": "累计模型下载", "url": "https://www.alibabagroup.com/en-US/document-2027233133950140416" },
+        { "label": "衍生模型", "value": ">300K", "asOf": "2026-Q2", "scope": "开源生态衍生模型数", "url": "https://www.alibabagroup.com/en-US/document-2027233133950140416" }
+      ],
+      "financials": ["2026-Q2 AI Cloud & Compute 收入约 US$7.1B，同比增长 45%", "AI 相关产品收入 US$1.8B", "云业务调整后 EBITA 约 US$830M，利润率约 12%"],
+      "investment": "2026-Q2 资本开支接近 US$10B，同比增长约 75%；部署超过 100K 颗 Zhenwu PPU，并规划最高 500K 卡集群。",
+      "technologies": ["Qwen 开放权重模型", "多模态与代码模型", "Wan 视频生成", "Zhenwu PPU", "PAI / Model Studio", "电商、支付与云场景数据"],
+      "ma": [
+        { "date": "2024-2026", "title": "持续投资中国 AI 创业生态", "note": "集团以战略投资和云合作扩张生态；本专题不把未完成或未由公司确认的交易计入。", "url": "https://www.alibabagroup.com/en-US/ir-home" }
+      ],
+      "timeline": [
+        { "date": "2009", "text": "阿里云成立。" },
+        { "date": "2023-04", "text": "通义千问公开发布。" },
+        { "date": "2024", "text": "Qwen 开放模型家族快速扩张。" },
+        { "date": "2026-02", "text": "Qwen App 月活超过 300M。" },
+        { "date": "2026-08", "text": "Qwen 付费订阅与 AI Cloud & Compute 收入披露。" }
+      ],
+      "limits": "Qwen 下载数不等于活跃开发者；集团收入与云业务收入不能直接视作 AI 收入，专题仅采用公司单列的 AI 相关指标。",
+      "sources": [
+        { "title": "Alibaba March quarter 2026 results", "date": "2026-03-19", "url": "https://www.alibabagroup.com/en-US/document-1971445322303406080" },
+        { "title": "Alibaba June quarter 2026 results", "date": "2026-08-20", "url": "https://www.alibabagroup.com/en-US/document-2027233133950140416" },
+        { "title": "Zhenwu V900 roadmap", "date": "2026", "url": "https://www.alibabagroup.com/en-US/document-2039431633571938304" }
+      ]
+    },
+    {
+      "id": "spacexai-xai",
+      "rank": 9,
+      "name": "SpaceXAI / xAI",
+      "shortName": "xAI",
+      "region": "美国",
+      "kind": "私营模型与分发平台",
+      "founded": "2023；2026 并入 SpaceXAI",
+      "listing": { "status": "未上市", "parent": "SpaceXAI", "tickers": "—" },
+      "capital": { "type": "not-applicable", "display": "独立估值不适用", "valueUsdB": null, "asOf": "2026-02", "note": "xAI 已被 SpaceX 收购并并入 SpaceXAI；合并后独立估值未披露。", "url": "https://content.spacex.com/cms-assets/FINAL_Documents%20and%20Updates/SpaceX%20-%20EU%20Prospectus%20%28Approved%20by%20Bafin%29%20-%20June%205%2C%202026.pdf" },
+      "score": 77.9,
+      "tier": "A",
+      "dimensions": { "frontier": 84, "distribution": 86, "commercial": 65, "compute": 97, "ecosystem": 53 },
+      "thesis": "以 X 的实时分发、Grok 产品迭代和超大算力集群推进，合并 SpaceX 后形成独特的数据、算力与物理基础设施组合。",
+      "products": ["Grok 4.7", "Grok App", "Grok on X", "Grok Voice", "Grok Bot", "xAI API"],
+      "userSignals": [
+        { "label": "X + Grok Apps 月活", "value": "≈600M", "asOf": "2025-12", "scope": "组合口径；不是 Grok 单独 MAU", "url": "https://x.ai/news/series-e" },
+        { "label": "Grok Voice", "value": "数百万用户", "asOf": "2025-12", "scope": "公司定性披露", "url": "https://x.ai/news/series-e" },
+        { "label": "付费用户", "value": "未披露", "asOf": "2026-10", "scope": "X 订阅与 Grok 订阅不可推定", "url": "https://x.ai/news/x-subscription" }
+      ],
+      "financials": ["2026-01 Series E 融资 US$20B", "收入、利润、Grok 独立订阅收入未披露", "合并后的 SpaceXAI 分部财务尚未形成可比公开口径"],
+      "investment": "截至 2025 年底 Colossus I/II 超过 1M 个 H100 等效 GPU；合并后可共享 SpaceX 电力、网络与工程资源。",
+      "technologies": ["Grok 基础模型", "超大规模训练集群", "X 实时数据与分发", "语音与多模态", "工具调用与代码能力", "SpaceX 物理基础设施协同"],
+      "ma": [
+        { "date": "2026-02", "title": "SpaceX 收购 xAI", "note": "xAI 并入 SpaceXAI，独立估值与上市状态随之终止。", "url": "https://content.spacex.com/cms-assets/FINAL_Documents%20and%20Updates/SpaceX%20-%20EU%20Prospectus%20%28Approved%20by%20Bafin%29%20-%20June%205%2C%202026.pdf" },
+        { "date": "2025-03", "title": "xAI 收购 X", "note": "将模型公司与社交分发平台合并。", "url": "https://x.ai/" }
+      ],
+      "timeline": [
+        { "date": "2023-07", "text": "xAI 成立。" },
+        { "date": "2023-11", "text": "Grok 首次发布。" },
+        { "date": "2025", "text": "xAI 与 X 合并并扩建 Colossus。" },
+        { "date": "2026-02", "text": "SpaceX 收购 xAI。" },
+        { "date": "2026-09", "text": "Grok 4.7 发布。" }
+      ],
+      "limits": "约 600M 是 X 与 Grok Apps 的组合月活，绝不能标成 Grok MAU；收购后的资本与财务可比性下降。",
+      "sources": [
+        { "title": "xAI Series E", "date": "2026-01-06", "url": "https://x.ai/news/series-e" },
+        { "title": "SpaceX EU prospectus", "date": "2026-06-05", "url": "https://content.spacex.com/cms-assets/FINAL_Documents%20and%20Updates/SpaceX%20-%20EU%20Prospectus%20%28Approved%20by%20Bafin%29%20-%20June%205%2C%202026.pdf" },
+        { "title": "Grok 4.7", "date": "2026-09-21", "url": "https://x.ai/news/grok-4-7" }
+      ]
+    },
+    {
+      "id": "bytedance-seed",
+      "rank": 10,
+      "name": "ByteDance Seed / 豆包",
+      "shortName": "ByteDance Seed",
+      "region": "中国",
+      "kind": "私营互联网公司旗下模型团队",
+      "founded": "ByteDance 2012；Seed 体系 2023 起集中化",
+      "listing": { "status": "未上市", "parent": "ByteDance", "tickers": "—" },
+      "capital": { "type": "undisclosed", "display": "未披露", "valueUsdB": null, "asOf": "2026-10", "note": "不采用二手市场或匿名消息估值。", "url": "https://seed.bytedance.com/en/" },
+      "score": 77,
+      "tier": "B",
+      "dimensions": { "frontier": 82, "distribution": 92, "commercial": 70, "compute": 76, "ecosystem": 57 },
+      "thesis": "依托豆包、抖音与火山引擎的真实产品反馈，把基础模型、多模态生成、实时语音和 Agent 快速推入数亿级场景。",
+      "products": ["Seed 2.1", "Doubao", "TRAE", "Seedance 2.5", "Seedream 5.0 Pro", "Volcano Engine Ark"],
+      "userSignals": [
+        { "label": "模型支持的 C 端用户", "value": "数亿级", "asOf": "2026-02", "scope": "Seed 模型支撑的产品群；不是豆包单一 MAU", "url": "https://seed.bytedance.com/en/blog/seed-2-0-official-launch" },
+        { "label": "Doubao MAU", "value": "未由 Seed 官方单列", "asOf": "2026-10", "scope": "不采用第三方榜单替代", "url": "https://seed.bytedance.com/en/" },
+        { "label": "付费用户", "value": "未披露", "asOf": "2026-10", "scope": "消费者订阅", "url": "https://seed.bytedance.com/en/" }
+      ],
+      "financials": ["ByteDance AI 收入、豆包收入与利润未由公司公开披露", "火山引擎模型服务单独收入未披露", "专题保留“未披露”，不引用媒体估计"],
+      "investment": "公司未公开 AI 总资本开支；公开证据显示 Seed 模型已在豆包、TRAE 与火山引擎进行大规模生产部署。",
+      "technologies": ["Seed 2.1 Agent 模型", "Seedance 视频生成", "Seedream 图像生成", "Seeduplex 全双工语音", "多模态理解", "大规模推荐与内容分发"],
+      "ma": [
+        { "date": "2026", "title": "未见公司确认的重大 AI 并购", "note": "以内部研发、产品整合和人才扩张为主；不采用传闻。", "url": "https://seed.bytedance.com/en/blog" }
+      ],
+      "timeline": [
+        { "date": "2012", "text": "ByteDance 成立。" },
+        { "date": "2023", "text": "豆包与大模型产品进入快速迭代。" },
+        { "date": "2025", "text": "Seed1.x 扩展视觉、视频、代码与语音模型。" },
+        { "date": "2026-02", "text": "Seed 2.0 发布，强调生产部署与复杂任务。" },
+        { "date": "2026-06", "text": "Seed 2.1 进入豆包、TRAE 和火山引擎。" }
+      ],
+      "limits": "数亿级是 Seed 模型支撑的产品群口径，不等于豆包单一 MAU；ByteDance 作为私营公司，资本、营收、利润与算力投入披露有限。",
+      "sources": [
+        { "title": "Seed 2.0 official launch", "date": "2026-02-14", "url": "https://seed.bytedance.com/en/blog/seed-2-0-official-launch" },
+        { "title": "Seed 2.1 official release", "date": "2026-06-23", "url": "https://seed.bytedance.com/en/blog/seed2-1-officially-released-advancing-ai-productivity" },
+        { "title": "Seed model portfolio", "date": "2026", "url": "https://seed.bytedance.com/en/seed_model_portfolio" }
+      ]
+    },
+    {
+      "id": "deepseek",
+      "rank": 11,
+      "name": "DeepSeek / 深度求索",
+      "shortName": "DeepSeek",
+      "region": "中国",
+      "kind": "私营前沿模型实验室",
+      "founded": "2023",
+      "listing": { "status": "未上市", "parent": "独立私营公司", "tickers": "—" },
+      "capital": { "type": "undisclosed", "display": "未披露", "valueUsdB": null, "asOf": "2026-10", "note": "公司未公开融资后估值；不采用媒体推算。", "url": "https://www.deepseek.com/en/transparency/" },
+      "score": 74.4,
+      "tier": "B",
+      "dimensions": { "frontier": 92, "distribution": 68, "commercial": 52, "compute": 63, "ecosystem": 89 },
+      "thesis": "以高效率 MoE、技术报告和开放模型形成全球技术影响力，但公司资本、用户与商业化披露远少于同级机构。",
+      "products": ["DeepSeek V4", "DeepSeek App / Chat", "DeepSeek API", "DeepSeek Coder", "R1 / reasoning", "Math / VL models"],
+      "userSignals": [
+        { "label": "MAU", "value": "未披露", "asOf": "2026-10", "scope": "DeepSeek App / Web", "url": "https://www.deepseek.com/en/transparency/" },
+        { "label": "付费用户", "value": "未披露", "asOf": "2026-10", "scope": "消费者与 API 客户", "url": "https://www.deepseek.com/en/transparency/" }
+      ],
+      "financials": ["收入、利润、融资规模与估值均未公开披露", "API 定价公开，但不能据此反推营收", "不采用流量平台或媒体估计替代公司披露"],
+      "investment": "训练集群、资本开支与 GPU 数量未由公司系统披露；V4 模型卡提供架构信息，但不是完整训练成本审计。",
+      "technologies": ["DeepSeekMoE 稀疏专家架构", "MLA / 高效注意力", "Multi-Token Prediction", "强化学习推理", "低成本训练与推理工程", "开放权重与技术报告"],
+      "ma": [
+        { "date": "2023-2026", "title": "未披露重大并购", "note": "公开发展路径以内部研究与模型发布为主。", "url": "https://www.deepseek.com/en/transparency/" }
+      ],
+      "timeline": [
+        { "date": "2023", "text": "DeepSeek 成立并发布首批模型。" },
+        { "date": "2024", "text": "V2/V3 以 MoE 和成本效率获得关注。" },
+        { "date": "2025-01", "text": "R1 强化学习推理模型引发全球开源讨论。" },
+        { "date": "2025-12", "text": "V3.2 更新。" },
+        { "date": "2026-04", "text": "V4 发布，Pro 版为 1.6T 参数、每 token 激活 49B。" }
+      ],
+      "limits": "资本、用户、商业化和算力披露显著不足；技术领先判断主要来自模型卡和可复现实验，不等于商业影响力。",
+      "sources": [
+        { "title": "DeepSeek transparency center", "date": "2026-10", "url": "https://www.deepseek.com/en/transparency/" },
+        { "title": "DeepSeek V4 model card", "date": "2026-04-24", "url": "https://fe-static.deepseek.com/chat/transparency/deepseek-V4-model-card-EN.pdf" }
+      ]
+    },
+    {
+      "id": "mistral-ai",
+      "rank": 12,
+      "name": "Mistral AI",
+      "shortName": "Mistral AI",
+      "region": "欧洲",
+      "kind": "私营前沿模型与主权 AI 公司",
+      "founded": "2023",
+      "listing": { "status": "未上市", "parent": "独立公司", "tickers": "—" },
+      "capital": { "type": "private-valuation", "display": ">€21B", "valueUsdB": null, "asOf": "2026-09-08", "note": "Series D 融资后估值；欧元口径，不换算为美元以避免汇率混用。", "url": "https://mistral.ai/news/mistral-makes-sovereign-open-weight-ai-to-frontier/" },
+      "score": 74.4,
+      "tier": "B",
+      "dimensions": { "frontier": 82, "distribution": 55, "commercial": 72, "compute": 72, "ecosystem": 91 },
+      "thesis": "欧洲最具代表性的前沿模型公司，以开放权重、区域部署与企业主权 AI 形成差异化。",
+      "products": ["Mistral Large 4", "Le Chat", "Voxtral", "Codestral", "Forge", "La Plateforme"],
+      "userSignals": [
+        { "label": "关键企业客户", "value": ">125", "asOf": "2026-09", "scope": "使命关键型企业客户", "url": "https://mistral.ai/news/mistral-makes-sovereign-open-weight-ai-to-frontier/" },
+        { "label": "Le Chat MAU", "value": "未披露", "asOf": "2026-10", "scope": "消费者应用", "url": "https://mistral.ai/news/" },
+        { "label": "付费用户", "value": "未披露", "asOf": "2026-10", "scope": "消费者与企业席位", "url": "https://mistral.ai/news/" }
+      ],
+      "financials": ["2026-09 Series D 融资 €3B，融资后估值超过 €21B", "收入与利润未披露", "企业商业化以私有部署、API 与定制模型为主"],
+      "investment": "计划到 2030 年建设最高 1GW 的欧洲算力能力；Series D 将用于前沿研究、算力、商业化与国际扩张。",
+      "technologies": ["开放权重前沿模型", "主权与区域推理", "Voxtral 语音", "Codestral 编程", "Forge 企业定制模型", "可私有化部署"],
+      "ma": [
+        { "date": "2023-2026", "title": "未披露重大并购", "note": "以融资、战略股东和基础设施联盟为主要扩张方式。", "url": "https://mistral.ai/news/" }
+      ],
+      "timeline": [
+        { "date": "2023-04", "text": "由前 DeepMind 与 Meta 研究者创立。" },
+        { "date": "2023-09", "text": "发布首个开放权重模型 Mistral 7B。" },
+        { "date": "2024", "text": "扩展 Le Chat、API 与企业部署。" },
+        { "date": "2026-03", "text": "推出 Forge 企业定制模型系统。" },
+        { "date": "2026-09", "text": "Series D 融资 €3B，估值超过 €21B。" }
+      ],
+      "limits": "用户、收入、利润与模型训练成本未披露；“主权 AI”优势主要体现在部署控制与欧洲政策环境，不等于全球分发规模。",
+      "sources": [
+        { "title": "Mistral Series D", "date": "2026-09-08", "url": "https://mistral.ai/news/mistral-makes-sovereign-open-weight-ai-to-frontier/" },
+        { "title": "Regional inference and new compute", "date": "2026-08-11", "url": "https://mistral.ai/news/regional-inference-open-models-new-compute/" },
+        { "title": "Introducing Forge", "date": "2026-03-17", "url": "https://mistral.ai/news/forge/" }
+      ]
+    },
+    {
+      "id": "baidu-ernie",
+      "rank": 13,
+      "name": "Baidu ERNIE / 文心",
+      "shortName": "Baidu ERNIE",
+      "region": "中国",
+      "kind": "上市公司 / 搜索、云与自动驾驶 AI",
+      "founded": "2000；ERNIE 于 2019 发布",
+      "listing": { "status": "上市", "parent": "Baidu, Inc.", "tickers": "NASDAQ: BIDU / HKEX: 9888" },
+      "capital": { "type": "market-cap", "display": "约 US$27.5B", "valueUsdB": 27.5, "asOf": "2026-10-20", "note": "百度集团市值快照。", "url": "https://stockanalysis.com/stocks/bidu/market-cap/" },
+      "score": 72.2,
+      "tier": "B",
+      "dimensions": { "frontier": 76, "distribution": 78, "commercial": 73, "compute": 71, "ecosystem": 57 },
+      "thesis": "以搜索、智能云、文心模型与 Apollo Go 构成中国少数横跨生成式 AI 和物理世界自动驾驶的上市公司平台。",
+      "products": ["ERNIE 5.1", "Baidu AI Cloud", "Wenxiaoyan / 文小言", "Comate", "Apollo Go", "Kunlun chips"],
+      "userSignals": [
+        { "label": "Baidu App 月活", "value": "644M", "asOf": "2026-Q2", "scope": "百度 App；不是 ERNIE MAU", "url": "https://ir.baidu.com/news-releases/news-release-details/baidu-announces-second-quarter-2026-results" },
+        { "label": "ERNIE 用户 / 付费用户", "value": "未披露", "asOf": "2026-Q2", "scope": "模型与助手", "url": "https://ir.baidu.com/news-releases/news-release-details/baidu-announces-second-quarter-2026-results" },
+        { "label": "Apollo Go 覆盖", "value": "28 城", "asOf": "2026-Q2", "scope": "自动驾驶运营城市", "url": "https://ir.baidu.com/news-releases/news-release-details/baidu-announces-second-quarter-2026-results" }
+      ],
+      "financials": ["2026-Q2 AI Cloud Infra 收入 RMB7.3B，同比增长 50%", "AI 应用收入 RMB2.5B；AI 原生营销收入 RMB2.6B", "核心 AI 业务 RMB12.5B，占 General Business 约 50%"],
+      "investment": "研发、昆仑芯与智能云持续投入；Apollo Go 累计自动驾驶里程超过 350M 公里、全无人里程超过 240M 公里。",
+      "technologies": ["ERNIE 知识增强模型", "昆仑芯", "搜索与广告 AI", "Baidu AI Cloud", "Apollo 自动驾驶", "Comate 软件工程代理"],
+      "ma": [
+        { "date": "2017-2026", "title": "以内部研发和生态投资为主", "note": "重大 AI 能力集中在文心、云、昆仑芯与 Apollo；本专题未记录未经公司确认的并购传闻。", "url": "https://ir.baidu.com/" }
+      ],
+      "timeline": [
+        { "date": "2017", "text": "Apollo 自动驾驶开放平台启动。" },
+        { "date": "2019", "text": "ERNIE 预训练模型发布。" },
+        { "date": "2023", "text": "文心一言面向公众与企业开放。" },
+        { "date": "2025", "text": "文心一言转为免费使用。" },
+        { "date": "2026-05", "text": "ERNIE 5.1 发布，AI 收入成为核心披露项。" }
+      ],
+      "limits": "Baidu App MAU 不是 ERNIE MAU；自动驾驶覆盖、AI 云收入和生成式 AI 应用也属于不同业务口径。",
+      "sources": [
+        { "title": "Baidu Q2 2026 results", "date": "2026-08-20", "url": "https://ir.baidu.com/news-releases/news-release-details/baidu-announces-second-quarter-2026-results" },
+        { "title": "Baidu Q1 2026 results", "date": "2026-05", "url": "https://ir.baidu.com/node/14561/pdf" }
+      ]
+    }
+  ]
+}

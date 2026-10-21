@@ -31,6 +31,13 @@ let state = {
   lastDailySync: null,
 };
 
+let institutionFeed = {
+  schema: "clair-ai-institutions/v1",
+  asOf: "",
+  methodology: { weights: [], caveats: [] },
+  institutions: [],
+};
+
 let ui = {
   view: "overview",
   category: "all",
@@ -42,6 +49,8 @@ let ui = {
   ingestBusy: false,
   ingestStatus: "仅加入外部公开 AI 行业材料",
   pendingFiles: [],
+  institutionRegion: "all",
+  institutionSort: "overall",
 };
 
 let toastTimer;
@@ -222,6 +231,16 @@ async function syncDailyFeed({ quiet = false } = {}) {
   }
 }
 
+async function loadInstitutionFeed() {
+  const day = new Date().toISOString().slice(0, 10);
+  const response = await fetch(`./data/ai-institutions.json?day=${day}`, { cache: "no-store" });
+  if (!response.ok) throw new Error(`机构专题数据返回 HTTP ${response.status}`);
+  const feed = await response.json();
+  if (feed.schema !== "clair-ai-institutions/v1" || feed.scope !== "external-public-ai-industry-only") throw new Error("机构专题未通过公开行业边界校验");
+  if (!Array.isArray(feed.institutions) || feed.institutions.length < 10) throw new Error("机构专题数据不足");
+  institutionFeed = feed;
+}
+
 function navMarkup() {
   const reports = activeReports();
   const categoryRows = state.categories.map((category) => {
@@ -233,6 +252,7 @@ function navMarkup() {
   }).join("");
   const rows = [
     ["overview", "权威精选", state.reports.filter((report) => report.featured && !report.archived).length],
+    ["institutions", "机构专题", institutionFeed.institutions.length],
     ["reports", "全部报告", reports.length],
     ["cards", "信息图卡", state.cards.filter((card) => !reportById(card.reportId)?.archived).length],
     ["relations", "关联图谱", state.cards.filter((card) => card.relatedCardIds?.length).length],
@@ -270,7 +290,41 @@ function ingestBodyMarkup() {
   </div>`;
 }
 
+function institutionById(id) {
+  return institutionFeed.institutions.find((institution) => institution.id === id);
+}
+
+function institutionScore(institution, key = ui.institutionSort) {
+  if (key === "overall") return Number(institution.score || 0);
+  return Number(institution.dimensions?.[key] || 0);
+}
+
+function visibleInstitutions() {
+  const query = ui.query.trim().toLowerCase();
+  return institutionFeed.institutions
+    .filter((institution) => ui.institutionRegion === "all" || institution.region === ui.institutionRegion)
+    .filter((institution) => {
+      if (!query) return true;
+      return JSON.stringify(institution).toLowerCase().includes(query);
+    })
+    .sort((a, b) => institutionScore(b) - institutionScore(a) || a.rank - b.rank);
+}
+
+function institutionHeroMarkup() {
+  const weights = institutionFeed.methodology?.weights || [];
+  return `<section class="institution-hero">
+    <div class="institution-hero-copy">
+      <p class="eyebrow">GLOBAL AI INSTITUTIONS · 2026</p>
+      <h1>全球主流 AI 机构专题库</h1>
+      <p class="hero-lead">追踪谁掌握前沿模型、用户入口、算力、资本与商业化。每个数字保留机构、产品、时间和统计口径；上市公司市值与私营公司估值分开比较。</p>
+      <div class="hero-meta"><span class="meta-pill is-live">更新至 ${escapeHtml(institutionFeed.asOf || "—")}</span><span class="meta-pill">${institutionFeed.institutions.length} 家核心机构</span><span class="meta-pill">一手披露优先</span></div>
+    </div>
+    <div class="method-card"><div><small>EDITORIAL INDEX</small><h2>可解释的五维排名</h2></div><div class="weight-list">${weights.map((item) => `<span><b>${escapeHtml(item.label)}</b><em>${item.weight}%</em></span>`).join("")}</div><p>${escapeHtml(institutionFeed.methodology?.summary || "")}</p></div>
+  </section>`;
+}
+
 function heroMarkup() {
+  if (ui.view === "institutions") return institutionHeroMarkup();
   const lastSync = state.lastDailySync ? formatDate(state.lastDailySync, true) : "准备同步";
   return `<section class="hero">
     <div class="hero-intro">
@@ -291,6 +345,18 @@ function heroMarkup() {
 }
 
 function summaryMarkup() {
+  if (ui.view === "institutions") {
+    const institutions = institutionFeed.institutions;
+    const listed = institutions.filter((item) => item.listing?.status === "上市").length;
+    const privateCount = institutions.filter((item) => item.listing?.status !== "上市").length;
+    const disclosedUsers = institutions.filter((item) => item.userSignals?.some((signal) => !/未披露|不适用/.test(signal.value))).length;
+    return `<section class="summary-grid" aria-label="机构专题摘要">
+      <article class="stat-card is-teal"><strong>${institutions.length}</strong><small>家全球主流机构</small></article>
+      <article class="stat-card is-gold"><strong>${listed}</strong><small>家上市母公司</small></article>
+      <article class="stat-card is-coral"><strong>${privateCount}</strong><small>家私营 / 拟上市机构</small></article>
+      <article class="stat-card is-blue"><strong>${disclosedUsers}</strong><small>家披露可核对用户信号</small></article>
+    </section>`;
+  }
   const reports = activeReports();
   const activeCards = state.cards.filter((card) => !reportById(card.reportId)?.archived);
   const linked = activeCards.filter((card) => card.relatedCardIds?.length).length;
@@ -484,7 +550,68 @@ function toolbarMarkup() {
   </div>`;
 }
 
+function scoreLabel(key) {
+  return ({ overall: "综合影响力", frontier: "前沿模型", distribution: "用户与分发", commercial: "商业化", compute: "算力基础设施", ecosystem: "生态开放性" })[key] || "综合影响力";
+}
+
+function institutionToolbarMarkup() {
+  const regions = ["all", ...new Set(institutionFeed.institutions.map((item) => item.region))];
+  return `<div class="institution-toolbar">
+    <div class="filter-chips" aria-label="地区筛选">${regions.map((region) => `<button type="button" class="${ui.institutionRegion === region ? "is-active" : ""}" data-institution-region="${escapeHtml(region)}">${region === "all" ? "全球" : escapeHtml(region)}</button>`).join("")}</div>
+    <label>排名维度<select id="institution-sort">${["overall","frontier","distribution","commercial","compute","ecosystem"].map((key) => `<option value="${key}" ${ui.institutionSort === key ? "selected" : ""}>${scoreLabel(key)}</option>`).join("")}</select></label>
+    <span class="toolbar-spacer"></span><span class="result-count">${visibleInstitutions().length} 家机构 · 截至 ${escapeHtml(institutionFeed.asOf || "—")}</span>
+  </div>`;
+}
+
+function leaderboardMarkup(institutions) {
+  const ranked = institutions.slice(0, 13);
+  return `<section class="institution-panel leaderboard-panel"><header><div><small>TOP INSTITUTIONS</small><h3>${escapeHtml(scoreLabel(ui.institutionSort))}排名</h3></div><p>同一套五维框架，切换维度即可重排；分数是情报导航，不是官方评测。</p></header><div class="leaderboard-list">${ranked.map((institution, index) => {
+    const score = institutionScore(institution);
+    return `<button type="button" class="leader-row" data-open-institution="${escapeHtml(institution.id)}"><span class="leader-rank">${String(index + 1).padStart(2, "0")}</span><span class="leader-name"><strong>${escapeHtml(institution.shortName)}</strong><small>${escapeHtml(institution.region)} · ${escapeHtml(institution.kind)}</small></span><span class="leader-track"><i style="--score:${score}%"></i></span><strong class="leader-score">${score}</strong><span class="tier-badge tier-${escapeHtml(institution.tier)}">${escapeHtml(institution.tier)}</span></button>`;
+  }).join("")}</div></section>`;
+}
+
+function capitalPanelMarkup() {
+  const listed = institutionFeed.institutions.filter((item) => item.capital?.type === "market-cap").sort((a, b) => (b.capital.valueUsdB || 0) - (a.capital.valueUsdB || 0));
+  const privateInstitutions = institutionFeed.institutions.filter((item) => item.capital?.type === "private-valuation").sort((a, b) => (b.capital.valueUsdB || 0) - (a.capital.valueUsdB || 0));
+  const capitalRows = (items) => items.map((institution) => `<button type="button" class="capital-row" data-open-institution="${escapeHtml(institution.id)}"><span><strong>${escapeHtml(institution.shortName)}</strong><small>${escapeHtml(institution.capital.asOf)} · ${escapeHtml(institution.listing.tickers)}</small></span><b>${escapeHtml(institution.capital.display)}</b></button>`).join("");
+  return `<section class="capital-grid">
+    <article class="institution-panel capital-card"><header><div><small>PUBLIC MARKET</small><h3>上市公司市值</h3></div><span class="scope-tag">母公司口径</span></header>${capitalRows(listed)}<p class="panel-note">市值随交易日变化，且包含非 AI 业务；只用于理解资本资源，不代表 AI 业务估值。</p></article>
+    <article class="institution-panel capital-card"><header><div><small>PRIVATE CAPITAL</small><h3>私营机构最近融资估值</h3></div><span class="scope-tag">融资后估值</span></header>${capitalRows(privateInstitutions)}<p class="panel-note">仅收录公司正式公告；ByteDance、DeepSeek 和合并后的 xAI 未给出可比官方估值。</p></article>
+  </section>`;
+}
+
+function signalValueMarkup(signal) {
+  const muted = /未披露|不适用/.test(signal.value);
+  return `<div class="institution-signal ${muted ? "is-muted" : ""}"><strong>${escapeHtml(signal.value)}</strong><span>${escapeHtml(signal.label)}</span><small>${escapeHtml(signal.scope || "")}</small></div>`;
+}
+
+function institutionCardMarkup(institution) {
+  const score = institutionScore(institution);
+  const capitalClass = institution.capital?.type === "market-cap" ? "public" : institution.capital?.type === "private-valuation" ? "private" : "undisclosed";
+  return `<article class="institution-card">
+    <header><div><span class="institution-rank">#${institution.rank} · ${escapeHtml(institution.region)}</span><h3>${escapeHtml(institution.name)}</h3><p>${escapeHtml(institution.thesis)}</p></div><div class="score-orbit"><strong>${score}</strong><small>${escapeHtml(scoreLabel(ui.institutionSort))}</small></div></header>
+    <div class="institution-facts"><span class="listing-pill">${escapeHtml(institution.listing.status)}</span><span class="capital-pill is-${capitalClass}">${escapeHtml(institution.capital.display)}</span><span>${escapeHtml(institution.listing.tickers)}</span></div>
+    <div class="institution-signals">${(institution.userSignals || []).slice(0, 3).map(signalValueMarkup).join("")}</div>
+    <div class="tech-tags">${(institution.technologies || []).slice(0, 5).map((item) => `<span>${escapeHtml(item)}</span>`).join("")}</div>
+    <footer><span>${escapeHtml((institution.products || []).slice(0, 3).join(" · "))}</span><button type="button" data-open-institution="${escapeHtml(institution.id)}">打开完整档案 →</button></footer>
+  </article>`;
+}
+
+function institutionContentMarkup() {
+  const institutions = visibleInstitutions();
+  const caveats = institutionFeed.methodology?.caveats || [];
+  return `<section class="content-head institution-content-head"><div><h2>机构格局、资本、产品与关键技术</h2><p>从榜单进入档案，继续查看发展历程、并购、用户、盈利、资源投入和原始来源</p></div></section>
+    ${institutionToolbarMarkup()}
+    ${leaderboardMarkup(institutions)}
+    ${ui.institutionRegion === "all" && !ui.query ? capitalPanelMarkup() : ""}
+    <section class="topic-strip"><article><small>专题 01</small><strong>谁控制用户入口</strong><span>严格区分 MAU、WAU、日活、客户组织与付费席位</span></article><article><small>专题 02</small><strong>谁掌握算力</strong><span>GPU、TPU、自研芯片、GW 与资本开支逐项保留口径</span></article><article><small>专题 03</small><strong>谁在赚钱</strong><span>AI 收入、集团收入、年化运行率与净利润不混用</span></article><article><small>专题 04</small><strong>谁在整合产业</strong><span>并购、战略投资、云合作与人才整合分别记录</span></article></section>
+    <section class="institution-card-grid">${institutions.map(institutionCardMarkup).join("") || emptyMarkup("没有找到匹配机构")}</section>
+    <section class="methodology-note"><h3>读榜规则</h3>${caveats.map((item) => `<p>${escapeHtml(item)}</p>`).join("")}</section>`;
+}
+
 function contentMarkup() {
+  if (ui.view === "institutions") return institutionContentMarkup();
   const cards = visibleCards();
   const reports = visibleReports();
   const visualGroups = visualCardGroups(cards, reports);
@@ -559,8 +686,33 @@ function cardDrawerMarkup(card) {
   </aside></div>`;
 }
 
+function institutionDrawerMarkup(institution) {
+  const dimensions = institutionFeed.methodology?.weights || [];
+  const sourceLinks = (institution.sources || []).map((source) => `<a class="institution-source" href="${escapeHtml(safeUrl(source.url))}" target="_blank" rel="noreferrer"><span>${escapeHtml(source.title)}</span><small>${escapeHtml(source.date)}</small></a>`).join("");
+  return `<div class="drawer-backdrop" data-close-drawer><aside class="drawer institution-drawer" role="dialog" aria-modal="true" aria-label="AI 机构档案">
+    <header class="drawer-head"><div><span class="card-type"><span class="type-dot"></span>AI 机构专题 · #${institution.rank}</span><h2>${escapeHtml(institution.name)}</h2></div><button class="drawer-close" type="button" data-close-drawer aria-label="关闭">×</button></header>
+    <div class="drawer-body">
+      <section class="institution-profile"><div class="profile-score"><strong>${institution.score}</strong><small>综合影响力</small><span class="tier-badge tier-${escapeHtml(institution.tier)}">${escapeHtml(institution.tier)} Tier</span></div><div><p>${escapeHtml(institution.thesis)}</p><div class="institution-facts"><span class="listing-pill">${escapeHtml(institution.listing.status)}</span><span>${escapeHtml(institution.kind)}</span><span>${escapeHtml(institution.region)}</span><span>创立 ${escapeHtml(institution.founded)}</span></div></div></section>
+      <section class="drawer-section"><h3>五维能力画像</h3><div class="dimension-list">${dimensions.map((item) => { const score = institution.dimensions?.[item.key] || 0; return `<div><span>${escapeHtml(item.label)} <small>权重 ${item.weight}%</small></span><i><b style="--score:${score}%"></b></i><strong>${score}</strong></div>`; }).join("")}</div></section>
+      <section class="drawer-section"><h3>资本与上市情况</h3><div class="capital-detail"><strong>${escapeHtml(institution.capital.display)}</strong><span>${escapeHtml(institution.capital.note)}</span><small>${escapeHtml(institution.capital.asOf)} · ${escapeHtml(institution.listing.parent)} · ${escapeHtml(institution.listing.tickers)}</small>${safeUrl(institution.capital.url) ? `<a href="${escapeHtml(safeUrl(institution.capital.url))}" target="_blank" rel="noreferrer">核对资本来源 ↗</a>` : ""}</div></section>
+      <section class="drawer-section"><h3>用户、月活与付费口径</h3><div class="drawer-signal-grid">${(institution.userSignals || []).map(signalValueMarkup).join("")}</div></section>
+      <section class="drawer-section"><h3>主要产品与动作</h3><div class="tech-tags is-large">${(institution.products || []).map((item) => `<span>${escapeHtml(item)}</span>`).join("")}</div></section>
+      <section class="drawer-section split-sections"><div><h3>营收与盈利</h3><ul>${(institution.financials || []).map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></div><div><h3>资源投入</h3><p>${escapeHtml(institution.investment || "未披露")}</p></div></section>
+      <section class="drawer-section"><h3>掌握的关键技术</h3><div class="tech-tags is-large">${(institution.technologies || []).map((item) => `<span>${escapeHtml(item)}</span>`).join("")}</div></section>
+      <section class="drawer-section"><h3>并购与资本动作</h3><div class="event-list">${(institution.ma || []).map((item) => `<article><time>${escapeHtml(item.date)}</time><div><strong>${escapeHtml(item.title)}</strong><p>${escapeHtml(item.note)}</p>${safeUrl(item.url) ? `<a href="${escapeHtml(safeUrl(item.url))}" target="_blank" rel="noreferrer">原始发布 ↗</a>` : ""}</div></article>`).join("")}</div></section>
+      <section class="drawer-section"><h3>发展历程</h3><div class="timeline-list">${(institution.timeline || []).map((item) => `<article><time>${escapeHtml(item.date)}</time><p>${escapeHtml(item.text)}</p></article>`).join("")}</div></section>
+      <section class="drawer-section"><h3>适用范围与局限</h3><div class="source-quote">${escapeHtml(institution.limits)}</div></section>
+      <section class="drawer-section"><h3>原始来源</h3><div class="institution-sources">${sourceLinks}</div></section>
+    </div>
+  </aside></div>`;
+}
+
 function drawerMarkup() {
   if (!ui.drawer) return "";
+  if (ui.drawer.kind === "institution") {
+    const institution = institutionById(ui.drawer.id);
+    return institution ? institutionDrawerMarkup(institution) : "";
+  }
   if (ui.drawer.kind === "report") {
     const report = reportById(ui.drawer.id);
     return report ? reportDrawerMarkup(report) : "";
@@ -575,7 +727,7 @@ function render({ preserveSearchFocus = false } = {}) {
   app.className = "shell";
   app.innerHTML = `<header class="topbar">
     <div class="brand"><span class="brand-mark">C</span><span class="brand-copy"><span class="brand-title">AI 行业情报站</span><span class="brand-subtitle">Authoritative reports · Evidence cards</span></span></div>
-    <label class="global-search"><span class="sr-only">搜索报告、卡片与原文</span><input id="global-search" type="search" value="${escapeHtml(ui.query)}" placeholder="搜索报告、关键卡、数字或原文…" /><span class="search-hint">⌘ K</span></label>
+    <label class="global-search"><span class="sr-only">搜索机构、报告、卡片与原文</span><input id="global-search" type="search" value="${escapeHtml(ui.query)}" placeholder="搜索机构、报告、关键卡、数字或原文…" /><span class="search-hint">⌘ K</span></label>
     <div class="top-actions"><button class="ghost-button" type="button" data-export>导出备份</button><button class="ghost-button" type="button" data-import>导入备份</button><button class="soft-button" type="button" data-sync>同步最新</button><input id="backup-file" class="sr-only" type="file" accept="application/json,.json" /></div>
   </header>
   <div class="layout">${navMarkup()}<main class="main">${heroMarkup()}${summaryMarkup()}${contentMarkup()}</main></div>${drawerMarkup()}`;
@@ -732,6 +884,10 @@ function bindEvents() {
     event.stopPropagation();
     openDrawer("card", element.dataset.openCard);
   }));
+  document.querySelectorAll("[data-open-institution]").forEach((element) => element.addEventListener("click", (event) => {
+    event.stopPropagation();
+    openDrawer("institution", element.dataset.openInstitution);
+  }));
   document.querySelectorAll("[data-close-drawer]").forEach((element) => element.addEventListener("click", (event) => {
     if (event.target.closest(".drawer") && !event.target.matches("[data-close-drawer]")) return;
     ui.drawer = null;
@@ -744,6 +900,11 @@ function bindEvents() {
   });
   document.getElementById("type-filter")?.addEventListener("change", (event) => { ui.type = event.target.value; render(); });
   document.getElementById("sort-filter")?.addEventListener("change", (event) => { ui.sort = event.target.value; render(); });
+  document.getElementById("institution-sort")?.addEventListener("change", (event) => { ui.institutionSort = event.target.value; render(); });
+  document.querySelectorAll("[data-institution-region]").forEach((button) => button.addEventListener("click", () => {
+    ui.institutionRegion = button.dataset.institutionRegion;
+    render();
+  }));
 
   const fileInput = document.getElementById("ingest-files");
   fileInput?.addEventListener("change", () => {
@@ -869,7 +1030,7 @@ async function init() {
   const saved = await loadState();
   if (saved?.reports && saved?.cards) state = { ...state, ...saved };
   purgeLegacyStudioContent();
-  await syncDailyFeed({ quiet: true });
+  await Promise.all([syncDailyFeed({ quiet: true }), loadInstitutionFeed()]);
   ensureCategories();
   render();
   window.setInterval(() => syncDailyFeed({ quiet: true }).then(() => render()), 60 * 60 * 1000);

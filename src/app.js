@@ -3715,6 +3715,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "product-design-ai-workflow-maturity-2026-10-21": "product-planning",
   "qieman-feedback-resolution-l3-2026-10-20": "product-planning",
   "product-design-l3-eight-proposals-2026-10-20": "product-planning",
   "l3-application-portfolio-2026-10-20": "advisor-workbench",

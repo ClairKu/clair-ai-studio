@@ -5,13 +5,18 @@
   "files": [
     {
       "path": "app.js",
-      "bytes": 50289,
-      "sha256": "9bbd5e08903e12f48cd1f1dbaf2ff3ec7b86ede5cc836351d2e7c11055a5e6d2"
+      "bytes": 66215,
+      "sha256": "9b6ae4d7f65848a8a9c7b38fe978fb1ef5334d67985fe027b3af2751c644d663"
     },
     {
       "path": "data/ai-industry-authority.json",
       "bytes": 145808,
       "sha256": "da0bd13b809d4a5422212ebed78eb799bb0ef488c8510ec1dc95bfc13905d432"
+    },
+    {
+      "path": "data/ai-institutions.json",
+      "bytes": 47145,
+      "sha256": "1e2b9bd1cf054f556d5bfc1902e19bfd346c59aeb7d17e5af12b64f2f3f03709"
     },
     {
       "path": "data/latest.json",
@@ -25,8 +30,8 @@
     },
     {
       "path": "index.html",
-      "bytes": 1553,
-      "sha256": "e2360143af288e3ce3f6e509a6aa587dae499403db05e09fe7431686a533250a"
+      "bytes": 1609,
+      "sha256": "88320b7f9b2562e9ade7ffb2b0836d985f9e088e397cfb0881db5c1db4651c20"
     },
     {
       "path": "preview.png",
@@ -40,8 +45,8 @@
     },
     {
       "path": "styles.css",
-      "bytes": 29462,
-      "sha256": "5d65823b58dceb2934baf2d6258c64055f6428cd3dff75724ae093a43cb17b5f"
+      "bytes": 42589,
+      "sha256": "fbf6bb1d2a6dbdc602a64efea98494b16d6a4f20f97776ff56c53b27e7d22120"
     },
     {
       "path": "vendor/jszip.min.js",
