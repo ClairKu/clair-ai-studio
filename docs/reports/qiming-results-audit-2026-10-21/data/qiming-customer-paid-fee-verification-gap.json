@@ -1,0 +1,46 @@
+{
+  "strategies_with_record_rows": [
+    "ZH043937",
+    "ZH044931",
+    "ZH045206",
+    "ZH058670",
+    "ZH120462",
+    "ZH120911",
+    "ZH152825"
+  ],
+  "aggregation_rows": 19,
+  "source_record_n": 4348,
+  "positive_success_confirmed_record_n": 4285,
+  "positive_success_liquidated_record_n": 4285,
+  "success_confirmed_after_cutoff_n": 0,
+  "enum_record_counts": [
+    {
+      "advisor_type": "AUM_PO",
+      "charge_type": "A1",
+      "charge_reason": "Period",
+      "status": "S",
+      "record_n": 4043
+    },
+    {
+      "advisor_type": "AUM_PO",
+      "charge_type": "A2",
+      "charge_reason": "Redeem",
+      "status": "S",
+      "record_n": 271
+    },
+    {
+      "advisor_type": "AUM_PO",
+      "charge_type": "A3",
+      "charge_reason": "BadDebt",
+      "status": "S",
+      "record_n": 34
+    }
+  ],
+  "limitations": [
+    "record counts are not distinct people",
+    "charge_type/status semantics and success cash amount not independently confirmed",
+    "charge_record.success_amount includes discount according to schema; advisor_charge_record may use legacy semantics",
+    "confirm_date and liquidate_date are distinct, not bank posting proof",
+    "no financial amounts published from sparse enum groups; no paid-cash XIRR certification"
+  ]
+}

@@ -5,7 +5,7 @@
   "auxiliary_latest_warning": "Some auxiliary reconciliation snapshots include 2026-10-21; not identical to the primary cutoff.",
   "publication": {
     "url": "https://clairku.github.io/clair-ai-studio/reports/qiming-results-audit-2026-10-21/",
-    "release_type": "Authorized detailed evidence audit and aggregate data",
+    "release_type": "Phase2: terminal wealth impact, calibrated 452 events, actual execution costs, qualified cash-flow returns and responsibility evidence",
     "authorization_date": "2026-10-21",
     "authorized_categories": [
       "Nonpublic employee role and approval history",
@@ -28,24 +28,58 @@
     "matched_audit_workflow_events": 258,
     "user_daily_aggregate_rows": 16233,
     "user_daily_missing_active_coverage_rows": 35,
-    "user_snapshot_channel_groups": 15
+    "user_snapshot_channel_groups": 15,
+    "calibrated_core_noninitial_events": 452,
+    "calibrated_closed_events": 445,
+    "calibrated_open_events": 7,
+    "changed_closed_event_labels": 31,
+    "calibrated_model_portfolios": 8,
+    "fixed_start_scenarios_available": 36,
+    "fixed_start_scenarios_not_established": 4,
+    "completed_rebalance_mother_orders_fee_reconciled": 27391,
+    "source_service_accounts_cashflow_recomputed": 4712,
+    "identity_strategy_pairs": 4183,
+    "source_2005_qieman_sa_without_identifiable_xirr": 85
   },
   "limitations": [
-    "Actual decision authority and complete manager mandates are not established.",
-    "Same-calculator actual reconstruction has not reconciled to official NAV; frozen comparison is a sensitivity experiment.",
-    "Local skip-one-period event summaries are not a continuously buy-and-hold counterfactual.",
-    "User aggregates cover the currently mapped identity IDs, not a proven complete historical population of natural persons.",
-    "User cumulative PnL and source XIRR have not been independently reconciled from full cash flows.",
-    "180 all-channel source XIRR observations equal 200.5%; not certified as valid.",
-    "Qimingxing four branches are pending-sale in this shelf adapter; zero matches in inspected user chains do not prove no users in every system."
+    "Model calibration is a selected, disclosed reconciliation convention, not a blind preregistered alpha test. Maximum terminal relative NAV difference is about 0.775bp.",
+    "Display model start can precede the investment-advisory service; fixed entry dates show sign sensitivity.",
+    "No authenticated same-client, same-external-cash-flow fully paid net rebalance-versus-freeze terminal contribution yet.",
+    "Transaction costs of the completed-order subset do not include all failed/partial orders or ongoing adviser fees.",
+    "Source daily cash flows are not independent bank-external-cash-flow certification; four incomplete identities excluded; loss-adjusted ledger retains disclosed residuals.",
+    "Observed source work responsibilities do not establish complete formal mandates, exclusive decision authority or individual alpha.",
+    "Single-event differences cannot be summed or chained into a never-rebalance terminal counterfactual.",
+    "Current mapped identity-strategy pairs are not verified unique natural people or complete historical user population.",
+    "Other channels among 180 original source XIRR constants not independently cash-flow recomputed."
   ],
   "deliverables": [
     {
       "name": "qiming-adjustment-event-scores.csv",
-      "bytes": 339103,
-      "sha256": "67a79f5a95a7a553960325dc07796915dc4a6498253fecb19fb93bd536cf5ab9",
+      "bytes": 671876,
+      "sha256": "070f4cf5ddd686c036ec8e5934e7b4be5d3cdcb9ecff721715dd0d115e141ac2",
       "location": "data/",
-      "data_rows": 465
+      "data_rows": 452
+    },
+    {
+      "name": "qiming-adjustment-event-calibration.csv",
+      "bytes": 606649,
+      "sha256": "6582f9afbd3cec4c72694b657d879acef42747c64d1188de9326e96c56b4b21c",
+      "location": "data/",
+      "data_rows": 452
+    },
+    {
+      "name": "qiming-adjustment-event-calibration-summary.csv",
+      "bytes": 943,
+      "sha256": "1e0fc05345707ae20f531704c91254069614f8ed79dfbab67c8d29770417b5f4",
+      "location": "data/",
+      "data_rows": 8
+    },
+    {
+      "name": "qiming-nav-calibration-model-comparison.csv",
+      "bytes": 5497,
+      "sha256": "e76858804c22894dbe48a734987b00506fe8c4e0514d929a47050e65d8d86a9b",
+      "location": "data/",
+      "data_rows": 8
     },
     {
       "name": "qiming-adjustment-events.csv",
@@ -167,9 +201,121 @@
       "data_rows": 4
     },
     {
+      "name": "qiming-fixed-start-final-impact.csv",
+      "bytes": 16343,
+      "sha256": "c201bde9a661df650338db50de2f320edd1fbd6c95f1bf6ec8c5640818106768",
+      "location": "data/",
+      "data_rows": 40
+    },
+    {
+      "name": "qiming-execution-all-status-fees.csv",
+      "bytes": 1695,
+      "sha256": "a474d0e9f0fa90904ebdd45e1c21ac1cfda686543e5b0daa8a68d1b09e8e77f6",
+      "location": "data/",
+      "data_rows": 26
+    },
+    {
+      "name": "qiming-fees-dividends-source-definitions.json",
+      "bytes": 3263,
+      "sha256": "41bfdfbd5248be08383657a6628e171792417917e6f487b8ca2a8295ce7b4526",
+      "location": "data/"
+    },
+    {
+      "name": "qiming-completed-execution-fees.csv",
+      "bytes": 2429,
+      "sha256": "e393b8b979ce8da0b84c46d462643f4142f12b34d3ddb97fc50fabd6a6515ff1",
+      "location": "data/",
+      "data_rows": 7
+    },
+    {
+      "name": "qiming-customer-xirr-recalculated.csv",
+      "bytes": 9551,
+      "sha256": "dc21d1befe626fb78f0566d315e3ec05db47c5bef9525e44b1b55b4327e6918f",
+      "location": "data/",
+      "data_rows": 35
+    },
+    {
+      "name": "qiming-customer-xirr-eligibility.csv",
+      "bytes": 3516,
+      "sha256": "7fbaa6ee791ad073c1d8c231952ebe1b74454eed09c256589af0d66c6dd37ece",
+      "location": "data/",
+      "data_rows": 42
+    },
+    {
+      "name": "qiming-customer-source-2005-diagnostic.csv",
+      "bytes": 834,
+      "sha256": "7d189d6b10361105c19bf0c1839f15a53a7f3d79e54c60e1d82b5685fb400f61",
+      "location": "data/",
+      "data_rows": 7
+    },
+    {
+      "name": "qiming-customer-cashflow-reconciliation.csv",
+      "bytes": 2136,
+      "sha256": "dd61734f011ce8a00dacab198eb63048afa4ed842a0eb053378088d459baac6a",
+      "location": "data/",
+      "data_rows": 7
+    },
+    {
+      "name": "qiming-customer-loss-adjustment-impact.csv",
+      "bytes": 2352,
+      "sha256": "8e52a06e7baf49b5beb30969efc077e8cff7311be3517f2a26019fc718ad9fe9",
+      "location": "data/",
+      "data_rows": 14
+    },
+    {
+      "name": "qiming-customer-pooled-cashflow-xirr.csv",
+      "bytes": 6635,
+      "sha256": "d45cb4e0fcffc6c6482b2793c210c30d7100a56bf41d825eb1668f906e616a0c",
+      "location": "data/",
+      "data_rows": 28
+    },
+    {
+      "name": "qiming-customer-capital-concentration.csv",
+      "bytes": 3219,
+      "sha256": "d31424c2d6b95188ae42c4491ab42d1935688ac53db32202058aace402bae523",
+      "location": "data/",
+      "data_rows": 12
+    },
+    {
+      "name": "qiming-investment-responsibility-evidence.json",
+      "bytes": 12652,
+      "sha256": "9a87fc9d9cf931e11d9b4b1a0990f292243f66ddf2e1bad9b8794d2d35515362",
+      "location": "data/"
+    },
+    {
+      "name": "qiming-model-calibration.json",
+      "bytes": 21965,
+      "sha256": "1259cc357734407f46411a2596cbcc4cab4b54469f633e96f2de719cd6afe8ed",
+      "location": "data/"
+    },
+    {
+      "name": "qiming-fixed-start-final-impact.json",
+      "bytes": 34630,
+      "sha256": "70d43b35393e86825b79a61761b48dd8dfad815d360a9077b01d098d90ea8672",
+      "location": "data/"
+    },
+    {
+      "name": "qiming-customer-paid-fee-verification-gap.json",
+      "bytes": 1266,
+      "sha256": "b91d2b54556427860efddce767d46f9363e2caaec7a0be521a0e7acb36aacc8e",
+      "location": "data/"
+    },
+    {
+      "name": "qiming-customer-source-2005-terminal-validation.json",
+      "bytes": 786,
+      "sha256": "c76361c1f146be421f0e78cf6ed6c7ec0024eb93be24a87fee48ec6829211999",
+      "location": "data/"
+    },
+    {
+      "name": "qiming-customer-method-notes.md",
+      "bytes": 7795,
+      "sha256": "228159a43e049449f6a52e0c50a68c3a79efc1b8d317b2baf5cc39aa0a41b011",
+      "location": "data/"
+    },
+    {
       "name": "README.txt",
-      "bytes": 1724,
-      "sha256": "aa1a8484b230b5a3c40d20da14cae5718ff68cbb2c33e4e11f4a4a9df0b42ec1",
+      "bytes": 3005,
+      "sha256": "2702649f660c737da4abb59d6ff13d933df3f422e52d4724bf49fbc7a569cc7e",
       "location": "data/"
     }
   ],
@@ -568,24 +714,28 @@
     }
   ],
   "definitions": {
-    "event_win": "Positive original local model difference over the native adjustment-to-next-adjustment period. Zero remains in denominator. Unfinished and non-finite results excluded.",
+    "event_win": "Core corrected_delta > 0, t pre-trade wealth to u pre-next-trade, charge current model cost_t only; zero stays in denominator; unfinished excluded.",
     "historical_win_rate": "Cumulative and last N closed events as of each event, including the event if closed; retrospective diagnostic, not an ex-ante prediction.",
     "cost_addback": "Source cumret_net_excess_per adds estimated costs back; not a newly deducted net alpha.",
     "independence": "Events differ in horizon and can be related across strategies; pooled ratio is descriptive only.",
-    "bp": "1 basis point = 0.01 percentage points = 0.0001 return."
+    "bp": "1 basis point = 0.01 percentage points = 0.0001 return.",
+    "terminal_model_impact": "Same start wealth; full-follow formal model NAV ratio less frozen actual model units. Display first day and fixed later dates kept separate. No subsequent external flows or real client fee/timing claims.",
+    "cashflow_xirr": "Identity-strategy SA flows merged before root finding, ACT/365; pooled capital flows separately solved; nonconventional single root detected is not global uniqueness proof.",
+    "client_causal_net_impact": "Not certified; requires paired same external cash flows, TA-confirmed execution, dividends, advice-fee payments, terminal receivables and freeze execution rules."
   },
   "archive_deliverables": [
     {
       "name": "index.html",
-      "bytes": 7207708,
-      "sha256": "eab9c615ec072a8fcba0a28f06bcaffa0bafbb6b97824064296080d6634db519",
-      "location": "archive root; live page receives shared access-gate during build"
+      "bytes": 11960983,
+      "sha256": "3ad1e005707a0622480db071e3793915faa97d24e23ff13f3aae915c136b1378",
+      "location": "archive root; live receives common access gate"
     },
     {
       "name": "overview.html",
       "bytes": 57481,
       "sha256": "df542cb362252f298122ec10e5d6a15c56b73509fdb9f20c4f595c91cf2fd94b",
-      "location": "archive root; live page receives shared access-gate during build"
+      "location": "archive root; live receives common access gate"
     }
-  ]
+  ],
+  "source_definition_qualification": "Exact code and line pointers from authenticated read-only source inspection plus independent SQL; raw signed artifact and unverified tool recommendations excluded."
 }

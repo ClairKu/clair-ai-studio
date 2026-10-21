@@ -1,0 +1,8 @@
+﻿po_code,strategy_name,source_exact_2005_sa_n,source_holding_days_le_4_n,single_sa_identity_n,gross_recomputed_defined_n,gross_recomputed_differs_from_2005_n,gross_recomputed_abs_rate_lt_1e_6_n,gross_same_day_or_net_zero_n,gross_recomputed_proven_unique_n,gross_recomputed_proven_unique_statistics_suppressed_n_lt_5,gross_recomputed_proven_unique_mean,gross_recomputed_proven_unique_median,gross_recomputed_proven_unique_p10,gross_recomputed_proven_unique_p90
+ZH043937,启明睿进取,4,4,2,0,0,0,4,0,True,,,,
+ZH044931,启明睿低波增强,5,5,2,0,0,0,5,0,True,,,,
+ZH045206,启明睿守恒,4,4,3,0,0,0,4,0,True,,,,
+ZH058670,启明睿低波,1,1,1,0,0,0,1,0,True,,,,
+ZH120462,启明睿攻守,0,0,0,0,0,0,0,0,True,,,,
+ZH120911,启明睿稳健,0,0,0,0,0,0,0,0,True,,,,
+ZH152825,启明-中西合璧,71,71,41,0,0,0,71,0,True,,,,

@@ -1,0 +1,17 @@
+{
+  "as_of": "2026-10-20",
+  "broker": "0008",
+  "source_exact_2005_service_accounts_n": 85,
+  "source_exact_end_day_matched_n": 85,
+  "matched_latest_n": 66,
+  "matched_archive_n": 19,
+  "source_end_day_min": "2021-10-25",
+  "source_end_day_max": "2026-10-20",
+  "end_total_asset_nonzero_n": 0,
+  "end_asset_affect_nonzero_n": 0,
+  "end_daily_cashflow_net_nonzero_n": 0,
+  "full_source_ledger_daily_net_all_zero_n": 85,
+  "source_acc_profit_zero_n": 85,
+  "source_fund_acc_profit_zero_n": 85,
+  "interpretation": "current reproducible inputs have identically zero XNPV for all rates; no identifiable unique economic XIRR. Cannot include as200.5% or replace with0% in mean. Absence of hardcoded2.005 constant does not establish validity. Historical solver execution trace not proved."
+}

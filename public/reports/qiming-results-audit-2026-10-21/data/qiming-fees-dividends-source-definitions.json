@@ -1,0 +1,62 @@
+{
+  "asof": "2026-10-21",
+  "source": "Internal read-only Ontology source-code inspection; response and exact repository/line pointers retained locally. Attachment redirected to authentication and is not claimed read.",
+  "qualification": "Source-code definitions plus separately queried aggregates; no customer identifiers and no claimed GIPS or external audit certification.",
+  "columns": [
+    "topic",
+    "repository_line_pointer",
+    "supported_definition"
+  ],
+  "rows": [
+    [
+      "TA确认执行",
+      "PoOrderCode.java:21; ConfirmStage.java:22; OrderCommonService.java:160–207",
+      "P04调仓；P2为已生成且未撤的非A29子单确认成功，不证明目标仓位全部到位。"
+    ],
+    [
+      "交易费用",
+      "FillService.java:288,471,529,589,651,763",
+      "fund_order.fee取TA确认Charge；母单不含独立投顾费。"
+    ],
+    [
+      "执行时点",
+      "txn_confirm.TransactionDate / TransactionCfmDate / ConfirmedVol / ConfirmedAmount / NAV / Charge",
+      "接受日、交易归属日、预期确认日、最后写入日都不能单独证明实际成交。"
+    ],
+    [
+      "现金分红/再投",
+      "FundConfirmService.scala:195–217,321–427; dividend_detail",
+      "正式A4现金分红在基金层计收益/留在账户财富，红利再投增份额；预估asset4-pre不同，不混用。"
+    ],
+    [
+      "在途资金",
+      "cust_unsettlement_capital; fund_order.transfer_into_date; AdjustConfirmService",
+      "赎回确认日至到账间可有在途，开始到结束日数不能当全部离场损失。"
+    ],
+    [
+      "正式账户边界",
+      "asset4 资金流水清洗.sql:70–84,130–180; FundConfirmService.scala:231–243",
+      "普通基金申赎/分红不等于账户外部资金；同祖先内部转移按树抵消。当前系统身份合并SA仍需检验迁移与扣费分类。"
+    ],
+    [
+      "投顾实扣与计提",
+      "asset4 账户损益数据清洗.sql:40–217; asset3 Asset4CalendarQueryMapper.xml:377–384",
+      "ADVISOR_OUT及合格198实扣可进output；计提/减免主要进loss_profit。源存储XIRR含实扣作为流出分配，不能当客户实付净年化。"
+    ],
+    [
+      "XIRR不可识别",
+      "asset4 XirrUdtf.java:54,76–95,122–143; 独立85账户全零现金流复算",
+      "Brent区间[-0.99,5]中点为2.005；未见该常量不证明返回有效。全零NPV任意r为零，不能称可识别真实收益率。"
+    ],
+    [
+      "现成配对能力",
+      "Its3RebalancingAnalysisService; account_rebalancing_analysis",
+      "本次源码检索只找到ITS/蜂鸟单次30/90日不调仓分析，未找到匹配0008同客户同外部现金流的全程引擎；这是检索范围结论。"
+    ],
+    [
+      "实际顾问费字段",
+      "ying99_icam.charge_record.success_amount / discount_amount; advisor_charge_capital.charge_amount（本次schema）",
+      "success_amount注释含优惠；截留需要金额不自动等于清算完成实付。须扣除优惠/减免、按确认与到账状态逐日配对，不能直接用计提或字段名代替客户现金支付。 最新轻量枚举还发现status=S可对应A3坏账流程，成功状态和金额均不能脱离收费类型解释。"
+    ]
+  ]
+}
