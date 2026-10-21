@@ -222,6 +222,19 @@ const initialState = {
   ],
   reports: [
     {
+      id: "qiming-results-audit-2026-10-21",
+      groupId: "research",
+      title: "启明星与启明睿｜七分支公开业绩核验与结果审计",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qiming-results-audit-2026-10-21/",
+      preview: "qiming-results-audit-2026-10-21.png",
+      pinned: true,
+      createdAt: "2026-10-21T10:50:00+08:00",
+      source: "2026-10-21逐页核验且慢七个核心分支，公开展示数据截至2026-10-20；比较收益、回撤和费率，区分策略表现、决策增益和用户财富。公开版仅含公开来源与评估方法，人员任命、调仓因果与真实用户结果须在受控研究中核验。",
+      access: "production",
+      workType: "investment-research",
+      tags: ["启明睿", "启明星", "策略审计", "调仓", "主理人", "真实用户收益", "科学论证", "HTML", "公开核验"],
+    },
+    {
       id: "product-design-ai-workflow-maturity-2026-10-21",
       groupId: "product-planning",
       title: "产品与设计团队 AI 应用现况｜工作流与 L1—L4 分层",
@@ -3715,6 +3728,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "qiming-results-audit-2026-10-21": "research",
   "product-design-ai-workflow-maturity-2026-10-21": "product-planning",
   "qieman-feedback-resolution-l3-2026-10-20": "product-planning",
   "product-design-l3-eight-proposals-2026-10-20": "product-planning",

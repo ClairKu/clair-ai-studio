@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "qiming-results-audit-2026-10-21",
     "qieman-feedback-resolution-l3-2026-10-20",
     "l3-application-portfolio-2026-10-20",
     "qieman-advisor-l3-project-proposals-2026-10-20",
