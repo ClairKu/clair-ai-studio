@@ -1,6 +1,6 @@
 {
   "schema": "clair-ai-industry-authority/v1",
-  "curatedAt": "2026-10-20T09:32:00+08:00",
+  "curatedAt": "2026-10-21T08:12:00+08:00",
   "selectionRule": "原始发布机构、方法透明、结论可回溯、覆盖全球与中国，并优先选择 2026 年最新版本",
   "reports": [
     {
@@ -494,6 +494,28 @@
       "featuredRank": -3.5,
       "archived": false,
       "relatedReportIds": ["authority-stanford-human-ai-collaboration-2026", "authority-anthropic-unintended-actions-2026", "authority-anthropic-self-replication-2026", "authority-international-ai-safety-2026"]
+    },
+    {
+      "id": "authority-google-workspace-ai-ambition-gap-2026",
+      "title": "Google《Beyond AI Optimism》｜AI 规模化升至 27%，真正转型仍停在 10%",
+      "url": "https://workspace.google.com/blog/product-announcements/bridging-the-gap-between-ai-ambition-and-readiness-new-survey-data",
+      "downloadUrl": "https://services.google.com/fh/files/misc/closing_the_ambition_gap_2026.pdf",
+      "body": "【中文剖析】Google Workspace 2026 年调查把企业 AI 的核心矛盾从“有没有采用”推进到“组织是否准备好改变工作”。在 2,638 名跨六国受访者中，91% 所在组织已有 AI-first 战略或目标，但只有 42% 认为它已被清楚翻译成具体工作方式；高层与一线的感受也继续分裂，65% 的高管认为 AI 已显著改善工作，知识工作者只有 52%。采用阶段确实前进：自称处于规模化阶段的组织由 2025 年 18% 升至 27%，但进入 Advanced 或 Highly Transformed 的成熟组织仍只有 10%，与上年完全相同。真正的瓶颈是工作重构、系统整合、成本规划和信任：72% 称 AI 目标扩张快于预算，68% 担忧使用成本快于预期上升；97% 已使用或计划使用 Agent，65% 却对把更多任务交给 Agent 保持谨慎，只有 35% 的知识工作者认为组织清楚规定了 AI 可以独立处理哪些任务。成熟组织相关指标更好，但这是相关性证据，不足以证明“成熟做法”导致结果。管理层应停止用账号数、使用时长和节省工时代表转型，改用端到端流程变化、业务结果、单位任务成本、Agent 权限边界和人工判断质量验收。",
+      "kind": "url",
+      "category": "企业与组织",
+      "tags": ["Google Workspace", "企业AI", "组织准备度", "工作重构", "Agent治理", "成本管理", "领导层差距", "跨国调查"],
+      "source": "Google Workspace / Hypothesis Group",
+      "authority": "Google 委托的跨国企业 AI 调查",
+      "methodology": "Google 与 Hypothesis Group 开展全球多阶段研究；量化部分为 2026 年 8 月实施的 20 分钟在线调查，共 2,638 名全职受访者，来自美国 528 人、英国 416 人、法国 408 人、巴西 420 人、日本 426 人和印度 440 人。受访者须在 300 人以上组织任职、熟悉 AI 工具，并为技术或业务决策者（n=1,297，其中高管 n=219）或知识工作者（n=1,261）；中型组织 n=1,332、千人以上企业 n=1,306。研究保留了 2025 年方法的关键要素以支持部分同比，并咨询三位 AI 与未来工作专家。",
+      "scopeNote": "该研究由 AI 产品供应商 Google 委托，所有指标均为在线问卷自报，不是财务、生产率或系统日志的客观验证。样本主动筛选熟悉 AI 的全职人员，只覆盖六国和 300 人以上组织，不能外推到中小企业、所有国家或全体劳动者；“组织”结果来自个人对所在组织的回答，成熟度也是自我分类。2025 与 2026 是两次研究而非同一批组织的追踪面板；成熟组织与更好结果之间是相关性，不能解释为因果。",
+      "publishedAt": "2026-10-21T00:00:00Z",
+      "ingestedAt": "2026-10-21T08:12:00+08:00",
+      "createdAt": "2026-10-21T00:00:00Z",
+      "updatedAt": "2026-10-21T00:00:00Z",
+      "featured": true,
+      "featuredRank": -3.75,
+      "archived": false,
+      "relatedReportIds": ["authority-mckinsey-state-ai-2026", "authority-microsoft-wti-2026", "authority-openai-enterprise-2025", "authority-anthropic-ai-expectations-gap-2026"]
     }
   ],
   "cards": [
@@ -633,6 +655,12 @@
     {"id":"authority-card-stanford-med-ai-02","reportId":"authority-stanford-medical-ai-workflows-2026","type":"risk","label":"一致性风险","title":"同一模型三次都成功的任务仅 28%","summary":"GPT-5.5 的 pass@1 为 46%，但三次运行都正确完成的任务只有 28%。医疗采购不能只看一次最佳结果，还要把重复运行一致性写入验收。","metric":"28%","quote":"only 28% of tasks","translation":"只有 28% 的任务。","anchor":"PhysicianBench · Reliability across three runs","tags":["一致性","重复运行","验收"],"createdAt":"2026-10-19T00:00:00Z","order":1,"relatedCardIds":["authority-card-stanford-med-ai-01"]},
     {"id":"authority-card-stanford-med-ai-03","reportId":"authority-stanford-medical-ai-workflows-2026","type":"risk","label":"执行断层","title":"会写正确动作，不代表真的执行了","summary":"在行动执行失败中，GPT-5.5 有 62%、Claude Opus 4.6 有 73% 已在病历中写出正确动作，却没有真正下单。日志、界面状态和系统回执必须进入评测。","metric":"62% / 73%","quote":"wrote the correct action","translation":"写出了正确的动作。","anchor":"PhysicianBench · Note-action mismatch analysis","tags":["工具执行","病历","系统回执"],"createdAt":"2026-10-19T00:00:00Z","order":2,"relatedCardIds":["authority-card-stanford-med-ai-01","authority-card-stanford-med-ai-05"]},
     {"id":"authority-card-stanford-med-ai-04","reportId":"authority-stanford-medical-ai-workflows-2026","type":"metric","label":"管理工作流","title":"HealthAdminBench 最佳端到端完成率 36.3%","summary":"在授权、申诉和设备任务中，Claude Opus 4.6 完成 36.3%，最佳开放权重 Kimi K2.5 为 15.6%。该结果不能与 PhysicianBench 的 46% 直接比较。","metric":"36.3% / 15.6%","quote":"36.3% of tasks end-to-end","translation":"端到端完成 36.3% 的任务。","anchor":"HealthAdminBench · Whole-task completion","tags":["HealthAdminBench","医疗管理","不可横比"],"createdAt":"2026-10-19T00:00:00Z","order":3,"relatedCardIds":["authority-card-stanford-med-ai-05"]},
-    {"id":"authority-card-stanford-med-ai-05","reportId":"authority-stanford-medical-ai-workflows-2026","type":"action","label":"验收方法","title":"子任务 82.8%，整单任务却只有 26.7%","summary":"GPT-5.4 能通过 82.8% 的单个步骤，但只有 26.7% 的任务全链路完成。医疗 Agent 应按整单结果、关键动作、异常恢复和人工接管验收，而不是把局部能力相加。","metric":"82.8% / 26.7%","quote":"Competence on the parts","translation":"对各个部分具备能力。","anchor":"HealthAdminBench · Subtask versus whole-task performance","tags":["局部能力","整单完成","人工接管"],"createdAt":"2026-10-19T00:00:00Z","order":4,"relatedCardIds":["authority-card-stanford-med-ai-03","authority-card-stanford-med-ai-04"]}
+    {"id":"authority-card-stanford-med-ai-05","reportId":"authority-stanford-medical-ai-workflows-2026","type":"action","label":"验收方法","title":"子任务 82.8%，整单任务却只有 26.7%","summary":"GPT-5.4 能通过 82.8% 的单个步骤，但只有 26.7% 的任务全链路完成。医疗 Agent 应按整单结果、关键动作、异常恢复和人工接管验收，而不是把局部能力相加。","metric":"82.8% / 26.7%","quote":"Competence on the parts","translation":"对各个部分具备能力。","anchor":"HealthAdminBench · Subtask versus whole-task performance","tags":["局部能力","整单完成","人工接管"],"createdAt":"2026-10-19T00:00:00Z","order":4,"relatedCardIds":["authority-card-stanford-med-ai-03","authority-card-stanford-med-ai-04"]},
+
+    {"id":"authority-card-google-ambition-gap-01","reportId":"authority-google-workspace-ai-ambition-gap-2026","type":"metric","label":"战略落地差距","title":"91% 有 AI-first 目标，只有 42% 落到具体工作","summary":"战略宣示与日常执行相差 49 个百分点。企业应要求每项 AI 目标绑定具体流程、责任人、业务结果和人工判断点。","metric":"91% / 42%","quote":"AI-first strategy or goal","translation":"AI-first 战略或目标。","anchor":"Report pp.7–8 · AI adoption is no longer the question","tags":["AI战略","工作方式","执行差距"],"createdAt":"2026-10-21T00:00:00Z","order":0,"relatedCardIds":["authority-card-google-ambition-gap-02","authority-card-google-ambition-gap-03"]},
+    {"id":"authority-card-google-ambition-gap-02","reportId":"authority-google-workspace-ai-ambition-gap-2026","type":"insight","label":"转型平台期","title":"规模化从 18% 升到 27%，成熟组织仍只有 10%","summary":"更多受访者所在组织走出试点，但 Advanced 与 Highly Transformed 合计占比连续两年为 10%。使用扩大不能替代流程重构与组织变化。","metric":"18%→27% / 10%","quote":"Stuck at Scaling","translation":"卡在规模化阶段。","anchor":"Report pp.10–11 · 2026 AI Transformation Spectrum","tags":["规模化","成熟度","流程重构"],"createdAt":"2026-10-21T00:00:00Z","order":1,"relatedCardIds":["authority-card-google-ambition-gap-01"]},
+    {"id":"authority-card-google-ambition-gap-03","reportId":"authority-google-workspace-ai-ambition-gap-2026","type":"risk","label":"高层与一线","title":"高管感受到的改善比知识工作者高 13 个百分点","summary":"65% 的高管认为 AI 已显著改善工作，知识工作者为 52%。这是不同受访群体的自报感受，不是生产率测量；转型验收必须同时听取执行者证据。","metric":"65% / 52%","quote":"AI improved work","translation":"AI 改善了工作。","anchor":"Report p.6 · Executives versus knowledge workers","tags":["认知差距","高管","知识工作者"],"createdAt":"2026-10-21T00:00:00Z","order":2,"relatedCardIds":["authority-card-google-ambition-gap-01"]},
+    {"id":"authority-card-google-ambition-gap-04","reportId":"authority-google-workspace-ai-ambition-gap-2026","type":"risk","label":"成本失配","title":"72% 的 AI 目标跑得比预算快","summary":"72% 称 AI 目标扩张快于预算，68% 担忧使用成本快于预期上升。AI 项目应同时核算单位任务成本、复核成本、失败成本和规模上升后的总拥有成本。","metric":"72% / 68%","quote":"Nobody can predict the bill","translation":"没有人能准确预测账单。","anchor":"Report pp.19–21 · AI cost and usage planning","tags":["AI成本","预算","总拥有成本"],"createdAt":"2026-10-21T00:00:00Z","order":3,"relatedCardIds":["authority-card-google-ambition-gap-05"]},
+    {"id":"authority-card-google-ambition-gap-05","reportId":"authority-google-workspace-ai-ambition-gap-2026","type":"action","label":"Agent治理","title":"97% 已布局 Agent，清楚权限边界的员工只有 35%","summary":"97% 的组织使用或计划使用 Agent，65% 对扩大任务范围仍谨慎；只有 35% 的知识工作者认为组织清楚规定 AI 可独立处理哪些任务。三项分母不同，但共同指向先定义权限、升级、复核与停机机制。","metric":"97% / 65% / 35%","quote":"Trust must keep up","translation":"信任必须同步跟上。","anchor":"Report pp.22–23 · Agent adoption and operating governance","tags":["Agent治理","权限边界","人工接管"],"createdAt":"2026-10-21T00:00:00Z","order":4,"relatedCardIds":["authority-card-google-ambition-gap-04"]}
   ]
 }
