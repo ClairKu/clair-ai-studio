@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 121;
+const DATA_VERSION = 122;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -221,6 +221,69 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "aiwatch-l3-application-2026-10-21",
+      groupId: "ai-workbench",
+      title: "AIWatch｜AI能力巡检与异常分派｜L3项目申报·可编辑",
+      url: "https://clairku.github.io/clair-ai-studio/reports/aiwatch-l3-application-2026-10-21/",
+      preview: "aiwatch-l3-application-2026-10-21.png",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-21T13:45:00+08:00",
+      source: "2026-10-21最新优化申报表。直接编辑、只读查看、独立浏览器暂存、插入图片、保存完整HTML、打印PDF；附三份快捷切换。当前为申报目标与待核实事项，非已验收L3项目。",
+      access: "production",
+      workType: "reporting",
+      tags: [
+        "L3",
+        "项目申报",
+        "aiwatch",
+        "可编辑",
+        "HTML",
+        "生产"
+      ]
+    },
+    {
+      id: "uiheal-l3-application-2026-10-21",
+      groupId: "ai-workbench",
+      title: "UIHeal｜界面验收与缺陷修复｜L3项目申报·可编辑",
+      url: "https://clairku.github.io/clair-ai-studio/reports/uiheal-l3-application-2026-10-21/",
+      preview: "uiheal-l3-application-2026-10-21.png",
+      pinned: false,
+      position: 1,
+      createdAt: "2026-10-21T13:45:00+08:00",
+      source: "2026-10-21最新优化申报表。直接编辑、只读查看、独立浏览器暂存、插入图片、保存完整HTML、打印PDF；附三份快捷切换。当前为申报目标与待核实事项，非已验收L3项目。",
+      access: "production",
+      workType: "reporting",
+      tags: [
+        "L3",
+        "项目申报",
+        "uiheal",
+        "可编辑",
+        "HTML",
+        "生产"
+      ]
+    },
+    {
+      id: "advisorflow-l3-application-2026-10-21",
+      groupId: "advisor-workbench",
+      title: "AdvisorFlow｜客户经营任务自动生成与入库｜L3项目申报·可编辑",
+      url: "https://clairku.github.io/clair-ai-studio/reports/advisorflow-l3-application-2026-10-21/",
+      preview: "advisorflow-l3-application-2026-10-21.png",
+      pinned: false,
+      position: 2,
+      createdAt: "2026-10-21T13:45:00+08:00",
+      source: "2026-10-21最新优化申报表。直接编辑、只读查看、独立浏览器暂存、插入图片、保存完整HTML、打印PDF；附三份快捷切换。当前为申报目标与待核实事项，非已验收L3项目。",
+      access: "production",
+      workType: "reporting",
+      tags: [
+        "L3",
+        "项目申报",
+        "advisorflow",
+        "可编辑",
+        "HTML",
+        "生产"
+      ]
+    },
     {
       id: "qieman-wechat-business-ai-trading-2026-10-21",
       groupId: "growth-insights",
@@ -3622,6 +3685,9 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "aiwatch-l3-application-2026-10-21": "reporting",
+  "uiheal-l3-application-2026-10-21": "reporting",
+  "advisorflow-l3-application-2026-10-21": "reporting",
   "qieman-wechat-business-ai-trading-2026-10-21": "data-analysis",
   "qieman-feedback-resolution-l3-2026-10-20": "data-analysis",
   "e-da-longwin-follow-analysis-2026-10-16": "data-analysis",
@@ -3743,6 +3809,9 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "aiwatch-l3-application-2026-10-21": "ai-workbench",
+  "uiheal-l3-application-2026-10-21": "ai-workbench",
+  "advisorflow-l3-application-2026-10-21": "advisor-workbench",
   "qieman-wechat-business-ai-trading-2026-10-21": "growth-insights",
   "qiming-results-audit-2026-10-21": "research",
   "product-design-ai-workflow-maturity-2026-10-21": "product-planning",

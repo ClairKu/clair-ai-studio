@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="zh-CN"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UIHeal｜界面验收与缺陷修复 · L3项目申报表</title>
+
+<style>
+  /* ===== 清新暖色 fresh-warm tokens（一个不改） ===== */
+  :root{
+    --paper:#FFF8EF; --card:#FFFDFA; --ink:#43352A; --ink-soft:#8A7767; --ink-mute:#B5A492;
+    --orange:#E8722A; --orange-deep:#C75B1B; --green:#2E9E6B; --green-deep:#1F7A50; --blue:#2F6FB8;
+    --peach:#FFEBD6; --mint:#E4F3EA; --line:#EBDCC8; --grid:#F0E6D6; --up:#C2453A; --down:#1F7A50;
+    --s-rev:#CBA26C; --s-net:#C97F38; --s-pro:#C75B1B;
+    --serif:"Songti SC","Noto Serif CJK SC","Source Han Serif SC","STSong",serif;
+    --sans:"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei",sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 64px;}
+  @media (max-width:900px){.wrap{padding:0 24px;}}
+  .kicker{display:flex;align-items:center;gap:14px;font-size:16px;letter-spacing:.3em;color:var(--ink-soft);}
+  .kicker::after{content:"";flex:0 0 64px;height:1px;background:var(--line);}
+  .page-title{margin:18px 0 10px;font-family:var(--serif);font-weight:900;font-size:44px;line-height:1.42;letter-spacing:.02em;}
+  .page-title .em{color:var(--orange-deep);}
+  .page-sub{margin:0 0 36px;font-size:18.5px;color:var(--ink-soft);max-width:900px;}
+  .block-h{display:flex;align-items:baseline;gap:14px;margin:44px 0 18px;}
+  .block-h .t{font-family:var(--serif);font-size:26px;font-weight:800;letter-spacing:.03em;}
+  .block-h .d{font-size:15px;color:var(--ink-soft);}
+  .block-h::before{content:"";width:8px;height:24px;border-radius:3px;background:var(--orange);transform:translateY(3px);}
+  .card{background:var(--card);border:1.5px solid var(--line);border-radius:22px;padding:28px 30px;}
+  .lede{background:linear-gradient(135deg,var(--peach),#FFF3E2 55%,var(--mint));border-radius:24px;padding:30px 36px 26px;margin-bottom:36px;}
+  .lede .q{font-family:var(--serif);font-size:21px;font-weight:700;line-height:1.6;}
+  .lede .q .em{color:var(--orange-deep);}
+  .lede .pts{margin:14px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px;}
+  .lede .pts li{position:relative;padding-left:28px;font-size:16px;color:#5C4B3D;line-height:1.75;}
+  .lede .pts li b{color:var(--ink);font-weight:650;}
+  .lede .pts li .em{color:var(--orange-deep);font-weight:650;}
+  .lede .pts li::before{content:"";position:absolute;left:7px;top:12px;width:8px;height:8px;border-radius:50%;background:var(--orange);}
+  .para{font-size:16.5px;line-height:1.9;color:#4C3E32;margin:0 0 16px;max-width:1020px;}
+  .rv{opacity:0;transform:translateY(22px);transition:opacity .6s ease, transform .6s ease;}
+  .rv.in{opacity:1;transform:none;}
+  @media (prefers-reduced-motion: reduce){.rv{opacity:1;transform:none;transition:none;}}
+  footer.site{padding:40px 0 48px;color:var(--ink-mute);font-size:13px;display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;}
+
+  /* ===== 操作按钮 ===== */
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 22px;}
+  .btn{appearance:none;border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:9px 20px;font-size:14.5px;font-family:var(--sans);cursor:pointer;transition:border-color .2s,transform .2s;}
+  .btn:hover{border-color:var(--orange);transform:translateY(-1px);}
+  .btn.pri{background:var(--orange-deep);border-color:var(--orange-deep);color:#FFF6EA;}
+  .btn.pri:hover{background:#B4501A;}
+  .savenote{font-size:13px;color:var(--ink-mute);align-self:center;}
+
+  /* ===== 表单（宽松版：拉开间距，填写区改为清晰色块输入框） ===== */
+  .form{background:var(--card);border:1.5px solid var(--line);border-radius:22px;padding:34px 38px 30px;}
+  @media (max-width:900px){.form{padding:24px 20px 22px;}}
+  .sect{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;margin:38px 0 18px;padding-top:26px;border-top:1px dashed var(--line);}
+  .sect:first-child{margin-top:0;padding-top:0;border-top:none;}
+  .sect .n{font-family:var(--serif);font-weight:900;font-size:24px;color:var(--orange-deep);line-height:1;}
+  .sect .t{font-family:var(--serif);font-weight:800;font-size:20px;letter-spacing:.02em;white-space:nowrap;}
+  .sect .d{flex-basis:100%;font-size:13.5px;color:var(--ink-soft);line-height:1.7;}
+  .fgrid{display:grid;grid-template-columns:repeat(12,1fr);gap:22px 18px;}
+  .fld{display:flex;flex-direction:column;gap:7px;min-width:0;}
+  .fld label{font-size:14.5px;color:#5C4B3D;font-weight:560;line-height:1.5;}
+  .fld label .must{color:var(--orange-deep);margin-left:2px;}
+  .fld label .h{display:block;font-size:12.5px;color:var(--ink-mute);font-weight:400;margin-top:2px;line-height:1.5;letter-spacing:0;}
+  .fld .f{width:100%;border:1.5px solid var(--line);background:#FFF8EF;color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.6;padding:10px 14px;outline:none;border-radius:12px;resize:vertical;font-variant-numeric:tabular-nums;min-height:44px;margin-top:auto;transition:border-color .18s ease, box-shadow .18s ease, background .18s ease;}
+  .fld .f:hover{border-color:#DCC7AC;}
+  .fld .f:focus{border-color:var(--orange);background:#FFF6EA;box-shadow:0 0 0 3px rgba(232,114,42,.14);}
+  .fld textarea.f{min-height:88px;}
+  .fld textarea.f.r3{min-height:116px;}
+
+  /* ===== 准入标准自评分组：每条独立成块 ===== */
+  .grp{grid-column:1/-1;background:#FFFFFF;border:1px solid var(--line);border-radius:16px;padding:20px 24px 22px;}
+  .grp .gh{font-family:var(--serif);font-weight:800;font-size:17.5px;color:var(--ink);letter-spacing:.02em;}
+  .grp .gh .no{color:var(--orange-deep);margin-right:6px;font-weight:900;}
+  .grp .gd{margin:6px 0 16px;font-size:13.5px;color:var(--ink-soft);line-height:1.75;}
+  .grp .fgrid{gap:18px 16px;}
+
+  /* ===== 富文本填写框（支持插入/粘贴图片） ===== */
+  .richtext{min-height:88px;overflow:auto;cursor:text;}
+  .richtext:empty::before{content:attr(data-ph);color:var(--ink-mute);pointer-events:none;}
+  .richtext img{max-width:100%;max-height:260px;border-radius:8px;display:block;margin:8px 0;}
+  .richbar{display:flex;align-items:center;gap:10px;margin-top:6px;font-size:12px;color:var(--ink-mute);}
+  .richbtn{appearance:none;border:1.5px solid var(--line);background:var(--card);color:#5C4B3D;border-radius:999px;padding:3px 12px;font-size:12px;cursor:pointer;font-family:var(--sans);}
+  .richbtn:hover{border-color:var(--orange);color:var(--orange-deep);}
+  .w2{grid-column:span 2;} .w3{grid-column:span 3;} .w4{grid-column:span 4;} .w5{grid-column:span 5;} .w6{grid-column:span 6;} .w8{grid-column:span 8;} .w9{grid-column:span 9;} .w12{grid-column:span 12;}
+  @media (max-width:900px){.w2,.w3,.w4,.w5,.w6,.w8,.w9{grid-column:span 12;}}
+  .signline{margin-top:34px;padding-top:26px;border-top:1.5px solid var(--line);font-size:15px;color:#5C4B3D;line-height:2.3;}
+  .signline .blank{display:inline-block;min-width:180px;border-bottom:1.5px dashed #C9B79F;margin:0 8px;vertical-align:-2px;}
+  .signline .blank.s{min-width:110px;}
+
+  /* ===== 打印：A4 一页 ===== */
+  @media print{
+    @page{size:A4;margin:9mm 10mm;}
+    html,body{background:#fff;}
+    body{font-size:9.6px;line-height:1.35;color:#2E241C;}
+    .wrap{max-width:none;padding:0;}
+    .actions,.lede,footer.site,.page-sub,.kicker{display:none!important;}
+    .rv{opacity:1!important;transform:none!important;transition:none!important;}
+    .page-title{font-size:19px;margin:0 0 4px;line-height:1.3;}
+    .print-only{display:block!important;}
+    .form{border-radius:8px;padding:10px 12px 8px;border-color:#D9CBB6;background:#fff;}
+    .sect{margin:6px 0 4px;padding-top:5px;border-top-color:#E4D8C4;gap:7px;}
+    .sect .n{font-size:13px;} .sect .t{font-size:11.5px;} .sect .d{font-size:8.6px;}
+    .fgrid{gap:5px 7px;}
+    .fld{gap:1px;}
+    .fld label{font-size:8.6px;line-height:1.25;} .fld label .h{display:inline;font-size:8px;margin:0;}
+    .fld .f{font-size:9.6px;line-height:1.3;padding:1px 4px 2px;border:1px solid #C9B79F;border-radius:4px;background:#fff;min-height:0;}
+    .fld textarea.f{min-height:26px;resize:none;} .fld textarea.f.r3{min-height:34px;}
+    .grp{background:#fff;border-color:#D9CBB6;border-radius:6px;padding:6px 9px 7px;}
+    .grp .gh{font-size:11.5px;}
+    .grp .gd{margin:1px 0 4px;font-size:8.6px;line-height:1.4;}
+    .grp .fgrid{gap:5px 7px;}
+    .richbar{display:none!important;}
+    .richtext{min-height:0!important;}
+    .richtext img{max-height:120px;}
+    .w2,.w3,.w4,.w5,.w6,.w8,.w9{grid-column:auto;}
+    .w2{grid-column:span 2;} .w3{grid-column:span 3;} .w4{grid-column:span 4;} .w5{grid-column:span 5;} .w6{grid-column:span 6;} .w8{grid-column:span 8;} .w9{grid-column:span 9;} .w12{grid-column:span 12;}
+    .signline{margin-top:8px;padding-top:5px;font-size:9.6px;line-height:2;}
+    .signline .blank{min-width:100px;} .signline .blank.s{min-width:60px;}
+  }
+  .print-only{display:none;font-size:9px;color:#6A5949;margin:0 0 5px;line-height:1.45;}
+.richtext{overflow:visible;min-height:60px!important}.richtext p{margin:0 0 10px}.richtext p:last-child{margin-bottom:0}.richtext ul,.richtext ol{margin:7px 0;padding-left:22px}.richtext img{width:100%;max-height:none;cursor:zoom-in}.richtext figure{margin:16px 0}.richtext figcaption{font-size:12px;color:#8A7767;margin-top:6px}.richtext table{border-collapse:collapse;width:100%;font-size:13px;margin:12px 0}.richtext th,.richtext td{border:1px solid #EBDCC8;padding:8px;text-align:left;vertical-align:top}.richtext th{background:#ffebd6}.draftnote{border:1px solid #dfbd81;background:#fff1d9;padding:16px 20px;border-radius:14px;font-size:14px;margin:0 0 24px}.jump{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 22px}.jump a{border:1px solid #EBDCC8;border-radius:22px;padding:5px 13px;font-size:13px;color:#8A5D34;text-decoration:none}.annex{margin-top:26px}.annex h2{font-size:23px;color:#C75B1B;margin-top:28px}.annex h3{font-size:17px}.annex .card{margin-bottom:18px}.annex p{margin:7px 0}.annex table{width:100%;border-collapse:collapse;font-size:14px}.annex th,.annex td{border:1px solid #EBDCC8;padding:10px;text-align:left;vertical-align:top}.annex th{background:#ffebd6}.annex figure{margin:0}.annex img{width:100%;border:1px solid #e5ded2;border-radius:8px}.annex figcaption{font-size:12px;color:#8A7767;padding-top:8px}.scopegrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.scopegrid div{padding:14px;border:1px solid #EBDCC8;border-radius:10px}.scopegrid b{display:block}.f{margin-top:0!important}input.f{font-size:14px!important}.fld.w6:has(#a1),.fld.w6:has(#a2){grid-column:span 12}
+@media print{@page{size:A4;margin:14mm 12mm}body{font-size:10.5pt;line-height:1.5}.page-title{font-size:23pt;margin-bottom:10px}.form{padding:0;border:0}.sect{margin:18px 0 9px;padding-top:12px;break-after:avoid}.sect .n{font-size:18pt}.sect .t{font-size:14pt}.sect .d{font-size:9pt}.fgrid{gap:11px}.fld{break-inside:avoid}.fld label{font-size:9.5pt}.fld label .h{display:none}.fld .f{font-size:10.5pt;line-height:1.5;padding:8px 10px;background:#fff8ef!important;border-color:#ddcdb8}.grp{padding:12px 13px;margin-top:8px;break-inside:auto}.grp .gh{font-size:12pt}.grp .gd{font-size:9pt;margin:3px 0 8px}.grp .fgrid{gap:10px}.w4,.w6{grid-column:span 12!important}.richtext{min-height:0!important}.richtext img{max-height:none!important}.richbar,.jump{display:none}.draftnote{font-size:9pt;padding:10px;margin-bottom:15px}.print-only{display:none!important}.annex{break-before:page}.annex h2{font-size:17pt}.annex h3{font-size:12pt}.annex .card{padding:15px;border-radius:8px}.annex table{font-size:9pt}.annex th,.annex td{padding:7px}.annex figure{break-inside:avoid}.annex figcaption{font-size:8pt}.annex img{max-height:180mm;object-fit:contain}.scopegrid{display:block}.scopegrid div{margin-bottom:9px;break-inside:avoid}.signline{margin-top:20px}footer.site{display:none}.source-note{font-size:8pt}a{color:inherit;text-decoration:none}}
+@media print{.grp{break-inside:avoid}.grp .gh,.grp .gd{break-after:avoid}}
+@media print{.support-sect{break-before:page}}
+
+@media print{.grp{break-inside:avoid}.grp .gh,.grp .gd{break-after:avoid}.sect .d{font-size:8.5pt}}
+</style>
+</head>
+<body><style data-l3-navigation>.l3-nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:#fffdfaf5;backdrop-filter:blur(12px);border-bottom:1px solid #ebdcc8;padding:12px max(18px,calc((100vw - 1112px)/2));font:13px/1.5 -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}.l3-nav a{color:#815131;text-decoration:none;border:1px solid #ebdcc8;border-radius:100px;padding:6px 12px}.l3-nav a[aria-current]{background:#c75b1b;color:white;border-color:#c75b1b}.l3-nav small{color:#8a7767}.l3-nav .l3-views{margin-left:auto}.l3-nav .l3-views button{font:inherit;border:1px solid #ebdcc8;background:#fff;border-radius:100px;padding:6px 12px;color:#815131;cursor:pointer}.l3-reading #apply .f{pointer-events:none}.l3-reading .richbar,.l3-reading #btn-clear{display:none}@media(max-width:500px){.l3-nav{gap:6px}.l3-nav a{padding:5px 9px}.l3-nav small{width:100%;order:2}.l3-nav .l3-views{margin-left:0}}@media print{.l3-nav{display:none!important}}</style><nav class="l3-nav" aria-label="L3申报快捷切换"><a href="../l3-project-applications-2026-10-21/">三份申报</a><a href="../aiwatch-l3-application-2026-10-21/" data-l3-project="aiwatch">aiwatch</a><a href="../uiheal-l3-application-2026-10-21/" data-l3-project="uiheal" aria-current="page">uiheal</a><a href="../advisorflow-l3-application-2026-10-21/" data-l3-project="advisorflow">AdvisorFlow</a><small>2026-10-21 最新版 · 修改自动暂存本浏览器</small><span class="l3-views"><button type="button" id="l3-view-toggle">只读查看</button></span></nav>
+<div class="wrap">
+
+  <header style="padding:44px 0 0">
+    <div class="kicker">拥抱AI、通往L3 · 2026 年第一批</div>
+    <h1 class="page-title">UIHeal <span class="em">项目申报表</span></h1>
+    <p class="page-sub">高管会决策后启动报名，10 月 23 日截止。填写前请先阅读项目方案的评价标准与六步法第一步（项目筛选），本表填写的内容就是第一步的工作成果。</p>
+  </header>
+
+  <div class="draftnote"><b>UIHeal｜界面验收与缺陷修复</b><br>按已确认标准验收界面，自动修复授权范围内的缺陷并回归，交付测试版本及验证证据。<br><small>2026-10-21 优化填写版；保留原申报范围。目标为拟定值，基线、人员及权限待核实，未签字、未提交。</small></div>
+  <details class="lede rv in"><summary class="q">查看项目筛选标准</summary>
+    
+    <ul class="pts">
+      <li><b>价值大</b> —— 权重最高：有明确清晰的<b class="em">降本、增效、提质、创收</b>目标</li>
+      <li><b>业务闭环完整</b> —— 能定义「完成 = 交付什么成果」</li>
+      <li><b>规则可清晰表述</b> —— 不完全依赖强主观决策</li>
+      <li><b>有历史沉淀数据</b> —— 可支撑基线与评测集</li>
+      <li><b>风险可控、允许兜底</b> —— 能设人工复核关口，非零容错强决策</li>
+    </ul>
+  </details>
+
+  <div class="actions">
+    <button class="btn pri" type="button" id="btn-savefile">保存到本地文件</button>
+    <button class="btn" type="button" onclick="window.print()">打印 / 存为 PDF</button>
+    <button class="btn" type="button" id="btn-clear">清空本表</button>
+    <span class="savenote" id="savenote">已填入优化版；可直接修改、保存HTML和打印PDF。</span>
+  </div>
+
+  <form class="form rv in" id="apply" autocomplete="off" onsubmit="return false">
+    <p class="print-only">项目筛选标准五条：① 价值大（权重最高，有明确的降本 / 增效 / 提质 / 创收目标）；② 业务闭环完整，能定义「完成 = 交付什么成果」；③ 规则可清晰表述，不完全依赖强主观决策；④ 有历史沉淀数据，可支撑基线与评测集；⑤ 风险可控、允许兜底，能设人工复核关口。所有数字填实测值，填不出写「待测」并说明如何测。</p>
+
+    <div class="sect"><span class="n">A</span><span class="t">基本信息</span></div>
+    <div class="fgrid">
+      <div class="fld w6"><label>项目名称<span class="must">*</span> <span class="h">直接用工作流的名字，如「××日报生成与推送」</span></label><input class="f" id="a1" value="UIHeal｜界面验收与缺陷修复"></div>
+      <div class="fld w6"><label>所属团队 / 部门<span class="must">*</span></label><input class="f" id="a2" value="且慢产品"></div>
+      <div class="fld w12"><label>项目简介 <span class="h">两三句话：这项工作解决什么问题、现在的做法与痛点、希望 AI 接管后做成什么样</span></label><div class="f richtext" contenteditable="true" data-id="a4"><p>界面验收依赖人工走查、标注、修复与反复复验，耗时且易漏检。拟在测试版本部署后，自动检查关键页面与路径，修复授权范围内的界面问题并回归，交付通过验收的测试版本和证据包；复杂、越界问题转人工。生产发布保留既有审批。</p></div></div>
+      <div class="fld w6"><label>项目负责人<span class="must">*</span></label><input class="f" id="a3" value="黄春燕"></div>
+      <div class="fld w12"><label>参与成员 <span class="h">姓名 · 分工；跨团队的写明协作团队与确认人。至少一至两人全程参与并掌握六步法</span></label><div class="f richtext" contenteditable="true" data-id="a6"><p>黄春燕负责项目统筹、范围与验收标准及异常治理。拟协作角色包括设计、前端研发、测试及 AI 工程，分别负责规范、授权修复、回归和工作流接入。具体姓名、投入及跨团队确认人待补充；至少 1—2 人全程参与并掌握六步法。</p></div></div>
+    </div>
+
+    <div class="sect"><span class="n">B</span><span class="t">项目现状</span><span class="d">描述清楚项目现状是下一步将项目进行 L3 化的重要基础，梳理清楚项目流程是实现 AI 接管的基础，正确测量基线数据将可以帮我们确定项目目标以及评测项目效果</span></div>
+    <div class="fgrid">
+      <div class="fld w12"><label>项目流程<span class="must">*</span> <span class="h">用流程图与简要文字介绍的形式，介绍申报项目的 SOP 流程总共有多少环节</span></label><div class="f richtext" contenteditable="true" data-id="b1"><p>现状流程共 7 环节：测试版本交付 → 设计师走查 → 标注差异 → 提交研发 → 修改部署 → 设计师复验 → 交付验收结论。实际操作路径待团队核实。连续两周逐单记录页面、问题、参与角色、人工工时及等待时长，建立同口径基线；等待时间不计作人工工时。</p></div></div>
+      <div class="fld w4"><label>人力消耗<span class="must">*</span> <span class="h">本流程有多少同事负责与参与</span></label><div class="f richtext" contenteditable="true" data-id="b2">待测：按角色记录参与人数、操作与复核工时。</div></div>
+      <div class="fld w4"><label>频次与年度次数<span class="must">*</span> <span class="h">如：每交易日 1 次，约 245 次 / 年</span></label><div class="f richtext" contenteditable="true" data-id="b3">随版本验收触发；实际频次与年度次数待测。</div></div>
+      <div class="fld w4"><label>单次耗时<span class="must">*</span> <span class="h">每次完整的工作闭环大概要花费的时间</span></label><div class="f richtext" contenteditable="true" data-id="b4">待测：连续两周逐单计时，分别统计人工工时与交付历时。</div></div>
+    </div>
+
+    <div class="sect"><span class="n">C</span><span class="t">五条准入标准自评</span><span class="d">评审按这五条打分；每条一句话说事实，不写展望</span></div>
+    <div class="fgrid">
+      <div class="grp">
+        <div class="gh"><span class="no">①</span>项目价值与目标</div>
+        <p class="gd">通过本项目的 L3 化，可以带来什么价值？项目目标是什么，是否值得投入人力物力去做？效果目标需要量化。</p>
+        <div class="fgrid">
+          <div class="fld w12"><label>L3 之后的模式变化与人员职责变化 <span class="h">哪些环节改由 AI 自动执行、人员转为做什么（如复核、例外处理）</span></label><div class="f richtext" contenteditable="true" data-id="c1"><p>AI 承接版本触发、界面走查、差异复现、风险分级、授权修复、回归及交付，常规作业无需逐单人审。人员转为制定规范、维护评测集、事后抽检和异常处理。首批页面、设备尺寸及低风险问题白名单在试运行前冻结；人工修改后完成的作业不计自动交付。</p></div></div>
+          <div class="fld w6"><label>目前由人工执行的工作环节 AI 自动承接率目标<span class="must">*</span> <span class="h">无人工介入直接交付的运行占比，%，公司底线不低于 70</span></label><div class="f richtext" contenteditable="true" data-id="e1">申报目标：无人介入直接交付率≥70%（公司底线）；连续四周无人值守试运行，分母含失败、超时及转人工；当前实测待测。</div></div>
+          <div class="fld w6"><label>在降本增效、提质创收方面的量化目标<span class="must">*</span> <span class="h">如人工时降幅（对比基线，含维护与兜底人工时）、成本节约额、差错率下降等，给出具体数字</span></label><div class="f richtext" contenteditable="true" data-id="e2"><p>目标待评审：含规则维护、抽检与兜底的人工总工时下降≥50%，质量不低于实测人工基线；首批关键路径覆盖率、修复证据与回滚点完整率均为 100%。另报有缺陷运行的自动修复成功率，避免无问题运行稀释指标。基线及全部实绩待测。</p></div></div>
+        </div>
+      </div>
+      <div class="grp">
+        <div class="gh"><span class="no">②</span>业务闭环完整</div>
+        <p class="gd">该工作流是否涵盖从任务输入到最终交付的完整链路？无法完成闭环描述的不适合作为 L3 工作流进行改造。</p>
+        <div class="fgrid">
+          <div class="fld w12"><label>闭环链路说明 <span class="h">从任务输入到最终交付，经过哪些环节、由谁交付给谁</span></label><div class="f richtext" contenteditable="true" data-id="c2"><p>拟建 8 环节：部署触发 → 加载规范／基准图 → 走查 → 差异复现采证 → 风险判定 → 白名单修复并部署测试环境 → 自动回归 → 向设计／测试交付版本、结论及证据。完成以回归通过和交付回执为准；失败、超时、越界转人工，生产发布沿用既有审批。</p></div></div>
+        </div>
+      </div>
+      <div class="grp">
+        <div class="gh"><span class="no">③</span>规则可清晰表述</div>
+        <p class="gd">每一个环节怎么判定是否可以 AI 自动执行和验收通过，还是需要人工介入，是否已经有清晰的规则与标准？</p>
+        <div class="fgrid">
+          <div class="fld w12"><label>规则与判定标准说明 <span class="h">主要规则是否已成文；模糊判断占多少、放在哪些环节</span></label><div class="f richtext" contenteditable="true" data-id="c3"><p>规则成文程度与模糊判断占比待核。拟将字号、间距、溢出、遮挡、组件状态和路径断言写入规则，排除动态内容后复现差异。仅白名单样式与静态展示问题可自动修改；设计取舍、业务逻辑和低置信判断转人工，连续修复失败 2 次停止。采用冻结规则与独立验收集。</p></div></div>
+        </div>
+      </div>
+      <div class="grp">
+        <div class="gh"><span class="no">④</span>有历史沉淀数据</div>
+        <p class="gd">项目过去有多少样本和数据？需要有足够的样本数据才有助于科学的制作效果基线，以及测评集等项目依赖的材料。</p>
+        <div class="fgrid">
+          <div class="fld w12"><label>历史样本与数据情况 <span class="h">样本数量、时间跨度、存放在哪、质量如何</span></label><div class="f richtext" contenteditable="true" data-id="c4"><p>历史设计稿、版本截图、缺陷单及修复记录的数量、时间跨度、位置和可追溯性均待核实，不把拟采集样本当作已有数据。连续两周采集版本、页面、问题、人工工时及验收结果；去重脱敏后分离调优集与独立验收集，覆盖正常、缺陷及边界案例。</p></div></div>
+        </div>
+      </div>
+      <div class="grp">
+        <div class="gh"><span class="no">⑤</span>风险可控、允许兜底</div>
+        <p class="gd">出错的后果是什么？风控措施怎么设计？有不可接受风险的项目不适合做 L3，L2 是更加适合的模式。</p>
+        <div class="fgrid">
+          <div class="fld w12"><label>出错后果与风控措施 <span class="h">出错的后果有多严重；人工复核关口设在哪、兜底方案是什么</span></label><div class="f richtext" contenteditable="true" data-id="c5"><p>主要风险为误判修改和修复引入回归。限定测试环境、最小代码权限及可回滚分支；交易、权限、资金、敏感数据、核心业务逻辑和生产发布不自动修改。高风险、无法复现、回归失败转设计／研发，每次保留截图、变更、测试与回滚点；连续四周日志完整，失败和转人工纳入分母。</p></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sect"><span class="n">D</span><span class="t">项目需要公司提供的支持</span><span class="d">按实际需要填写，不需要的项目在框内写「无」</span></div>
+    <div class="fgrid">
+      <div class="grp">
+        <div class="gh"><span class="no">①</span>AI 基础设施支持</div>
+        <p class="gd">算力资源、模型基座接入、数据打通、内部工具平台等基础设施类支持。</p>
+        <div class="fgrid">
+          <div class="fld w12"><label>具体需求 <span class="h">需要什么、用在哪个环节、期望时间；没有写「无」</span></label><div class="f richtext" contenteditable="true" data-id="s1"><p>建议立项前提供授权测试环境、脱敏账号、设计规范／基准图、代码分支、部署流水线及缺陷接口，明确权限、责任映射和回滚机制。试点使用公司统一基座、视觉能力、浏览器执行、调度和日志服务。接口可用性、人员投入与资源额度待确认，试运行前完成接入验证。</p></div></div>
+        </div>
+      </div>
+      <div class="grp">
+        <div class="gh"><span class="no">②</span>AI 专家支持</div>
+        <p class="gd">AI 专家资源有限，公司仅能支持少数需要依赖公司 AI 专家的关键项目，能团队内解决的尽量不要用到公司 AI 专家团。</p>
+        <div class="fgrid">
+          <div class="fld w12"><label>具体需求 <span class="h">若确需公司 AI 专家团支持，写明需要介入的具体环节与理由</span></label><div class="f richtext" contenteditable="true" data-id="s2"><p>优先由团队完成规范、用例和工作流建设；拟请 AI 专家针对视觉误判控制、修复回归门禁和独立评测设计各做一次关键评审，重点确认可自动修复的边界与停机条件。具体投入及排期待协调，不申请长期驻场；试运行前完成评审并记录结论。</p></div></div>
+        </div>
+      </div>
+      <div class="grp">
+        <div class="gh"><span class="no">③</span>资金支持</div>
+        <p class="gd">采购外部工具、服务或数据所需的预算支持。</p>
+        <div class="fgrid">
+          <div class="fld w12"><label>具体需求 <span class="h">采购内容与预算估算；没有写「无」</span></label><div class="f richtext" contenteditable="true" data-id="s3"><p>无新增采购计划，优先复用公司模型与现有研发工具。模型调用、浏览器运行及存储的增量成本待两周采样，测算单次费用与月度限额，不把未知费用填为零。资源额度和费用承担待确认；确需外购时，携实测依据及预算另行申请。</p></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="signline">
+      项目负责人签字<span class="blank"></span>日期<span class="blank s"></span>
+    </div>
+  </form>
+
+  <footer class="site">
+    <span>【拥抱AI、通往L3】工作小组 · 项目申报表 · 2026-09 · v1（第一批适用）</span>
+    <span>配套：项目方案演示稿 · 评审评分表 · 验收细则</span>
+  </footer>
+</div>
+
+<script>
+(function(){
+const KEY='uiheal-optimized-l3-v1-20261021';
+const note=document.getElementById('savenote');
+const fields=()=>Array.from(document.querySelectorAll('#apply .f'));
+const key=f=>f.dataset.id||f.id;
+const val=f=>f.hasAttribute('contenteditable')?f.innerHTML:f.value;
+const put=(f,v)=>{if(f.hasAttribute('contenteditable'))f.innerHTML=v;else f.value=v;};
+function save(){try{const data=Object.fromEntries(fields().map(f=>[key(f),val(f)]));localStorage.setItem(KEY,JSON.stringify(data));note.textContent='已暂存浏览器；点击“保存到本地文件”可保存全部填写内容和截图。';}catch(e){note.textContent='请保存到本地文件；浏览器暂存空间不足。';}}
+try{const data=JSON.parse(localStorage.getItem(KEY)||'{}');fields().forEach(f=>{if(data[key(f)]!=null)put(f,data[key(f)]);});}catch(e){}
+document.querySelectorAll('.rv').forEach(e=>e.classList.add('in'));
+document.getElementById('apply').addEventListener('input',save);
+document.querySelectorAll('.richtext').forEach(div=>{
+ const bar=document.createElement('div');bar.className='richbar';const btn=document.createElement('button');btn.type='button';btn.className='richbtn';btn.textContent='插入图片';
+ const pick=document.createElement('input');pick.type='file';pick.accept='image/*';pick.hidden=true;
+ btn.onclick=()=>pick.click();pick.onchange=async()=>{for(const file of pick.files){const data=await new Promise(resolve=>{const fr=new FileReader();fr.onload=()=>resolve(fr.result);fr.readAsDataURL(file);});const im=document.createElement('img');im.src=data;im.alt='补充截图';div.appendChild(im);}save();};bar.append(btn,pick);div.after(bar);
+});
+document.getElementById('btn-savefile').onclick=()=>{
+ const clone=document.documentElement.cloneNode(true);clone.querySelectorAll('#apply input.f').forEach(el=>{el.setAttribute('value',document.getElementById(el.id).value);});clone.querySelectorAll('.richbar,.l3-nav,[data-l3-navigation],[data-l3-view-mode],script[src*="access-gate.js"],meta[name="robots"],[id^="clair-access"]').forEach(el=>el.remove());clone.querySelectorAll('#apply [contenteditable]').forEach(el=>el.contentEditable='true');clone.querySelectorAll('#apply input.f,#apply textarea.f').forEach(el=>el.removeAttribute('readonly'));clone.querySelector('body').classList.remove('l3-reading');
+ const data='<!doctype html>\n'+clone.outerHTML;const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type:'text/html;charset=utf-8'}));a.download='UIHeal-L3项目申报表-优化可编辑.html';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);save();note.textContent='已下载可编辑HTML，包含全部填写内容与截图。';
+};
+document.getElementById('btn-clear').onclick=()=>{if(confirm('清空当前表单？保存的HTML文件不受影响。')){fields().forEach(f=>put(f,''));save();}};
+})();
+</script><script data-l3-view-mode>(function(){const button=document.getElementById('l3-view-toggle');const fields=()=>document.querySelectorAll('#apply input.f,#apply textarea.f,#apply [contenteditable]');function mode(reading){document.body.classList.toggle('l3-reading',reading);fields().forEach(f=>{if(f.hasAttribute('contenteditable'))f.contentEditable=String(!reading);else f.readOnly=reading;});button.textContent=reading?'开始编辑':'只读查看';button.setAttribute('aria-pressed',String(reading));}button.onclick=()=>mode(!document.body.classList.contains('l3-reading'));mode(new URLSearchParams(location.search).get('mode')==='view');})();</script></body></html>

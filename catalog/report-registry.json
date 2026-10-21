@@ -2,6 +2,9 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "aiwatch-l3-application-2026-10-21",
+    "uiheal-l3-application-2026-10-21",
+    "advisorflow-l3-application-2026-10-21",
     "qieman-wechat-business-ai-trading-2026-10-21",
     "qiming-results-audit-2026-10-21",
     "qieman-feedback-resolution-l3-2026-10-20",
@@ -308,6 +311,11 @@
       "slug": "doubao-user-conversion-cases-2026-09-20",
       "status": "supporting-page",
       "ownerId": "doubao-user-acquisition-dashboard"
+    },
+    {
+      "slug": "l3-project-applications-2026-10-21",
+      "ownerId": "aiwatch-l3-application-2026-10-21",
+      "reason": "三份最新L3申报快捷入口，提供查看、编辑与HTML下载。"
     }
   ],
   "historyAudit": {
