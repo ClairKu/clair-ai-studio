@@ -1,0 +1,712 @@
+{
+  "fixed_population": "All broker0008 July2025 P04 orders across seven noncash core portfolios; first window order per CA. Initial population982 orders,879CA,817identity×strategy. Current source no-input and positive-terminal candidates123; not selected by measured follow-minus-freeze results.",
+  "real_follow_execution": {
+    "candidates": 123,
+    "with_TA_verified_non_A29_P04_fill": 123,
+    "trace": "POsub fund_order_id -> FO.confirm_status2,positivefill,NAV -> FO.request_id -> rawTA.AppSheetSerialNo,0000,positivefill,NAV; not mother-order status alone."
+  },
+  "fee_execution": {
+    "rows": 1938,
+    "all_three_source_fee_FO_TA_equal_at_nav1_n": 1938,
+    "unmatched_or_amount_difference_n": 0,
+    "source_fee_amount_sum": 18005.429999999975,
+    "max_abs_fee_minus_FO_share": 0.0,
+    "max_abs_FO_minus_TA_share": 0.0,
+    "method": "Source ICAM fee event -> fund_order_id, FO.request_id -> raw TA.AppSheetSerialNo plus matching FundCode, ReturnCode0000, Business198 and confirmation<=cutoff; deduplicate TACode/TASerialNO/confirmdate/fund; compare fee yuan to FO success units to TA confirmed units with both NAV1.",
+    "limitations": [
+      "Confirms source-system fee/share debit, not independent bank clearance.",
+      "A364 is conversion leg of fee funding and is not added again.",
+      "No investor identifiers or individual fee records included here."
+    ]
+  },
+  "non_P04_activity": {
+    "unmapped_confirmed_trade_identities": 0,
+    "other_non_P04_position_change_identities": 11,
+    "A364_fee_conversion_leg_n": 407,
+    "preexisting_order_confirmed_after_begin_day_identities": 2,
+    "same_begin_day_preexisting_confirmations_identities": 10,
+    "same_begin_day_subtrade_code_counts": {
+      "A98": 10,
+      "W221": 14
+    },
+    "same_begin_day_A98_opening_quantity_bridge": {
+      "A98_rows": 10,
+      "q0_equals_prior_plus_same_day_reinvest_minus_fee_n": 10,
+      "TA_output_equals_A98_share_n": 10,
+      "meaning": "These10 fees are already reflected in q0 and must not be debited again from frozen initial wealth. Same-day W22114 all accompany prior-day pending and nonmoney quantity mismatches, already opening gates."
+    }
+  },
+  "opening_money_quantity_bridge": {
+    "money_fund_CA_positions": 156,
+    "full_same_day_TA_quantity_bridge_matches_1e_8": 155,
+    "with_begin_day_TA_reinvestment": 43,
+    "with_begin_day_TA_reinvestment_full_bridge_matches_1e_8": 42,
+    "interpretation": "Most actual q0 quantities already incorporate same-begin-day confirmed rights/fee deductions. Do not debit the same initial fee again. Quantity bridge is not proof of exact economic day of money income.",
+    "unresolved_quantity_bridge_n": 1
+  },
+  "terminal_wealth_arithmetic": {
+    "asof": "2026-10-20",
+    "coverage": {
+      "modern123": {
+        "identities": 123,
+        "exact_cutoff_sa": 130,
+        "zero_exited_source_carry_sa": 8,
+        "missing_cutoff_sa": 0,
+        "initial_prior_day_pending_nonzero_identities": 10,
+        "terminal_unclassified_residual_nonzero_identities": 3
+      },
+      "old89": {
+        "identities": 89,
+        "exact_cutoff_sa": 22,
+        "zero_exited_source_carry_sa": 69,
+        "missing_cutoff_sa": 0,
+        "initial_prior_day_pending_nonzero_identities": 0,
+        "terminal_unclassified_residual_nonzero_identities": 0
+      }
+    },
+    "all_exact_cutoff_account_rows": 140,
+    "all_exact_cutoff_fund_rows": 3889,
+    "source_endpoint_mismatch_n": 0,
+    "endpoint_comparison_missing_source_amount_n": 0,
+    "max_abs_fund_sum_to_account_market_error": 2.3283064365386963e-10,
+    "max_abs_fund_share_times_nav_error": 7.275957614183426e-12,
+    "max_abs_unclassified_identity_total_minus_fund_market": 0.6300000000000097,
+    "limitations": [
+      "Same-system actual holding/wealth arithmetic reconciliation, not independent bank-cash certification.",
+      "Unclassified total-minus-market tails remain nonzero; not fabricated into available cash.",
+      "Opening prior-day processing amount can resolve before real-time ori snapshot, so nonzero value is a classification flag, not automatic exclusion.",
+      "Actual cash-flow, fee and autonomous-order qualification must be joined before net contribution certification.",
+      "Zero exited source carry is explicitly conditional and does not invent a fresh cutoff fund snapshot."
+    ]
+  },
+  "terminal_processing_cutoff": {
+    "asof_processing_date": "2026-10-20",
+    "cohort_identity_strategy_n": 123,
+    "mapped_SA_n": 138,
+    "book_fund_rows20_n": 3762,
+    "book_active_SA20_n": 130,
+    "latest_quote_dates": {
+      "2026-10-19": 2517,
+      "2026-10-16": 1245
+    },
+    "book_rows_with_nonzero_IO_n": 137,
+    "book_input_share_sum": 206.43999999999994,
+    "book_output_share_sum": 0.39,
+    "raw_TA_confirm20_non_A29_position_trades_n": 3,
+    "dividend_confirm20_n": 134,
+    "TA_plus_dividend_matches_book_IO_rows_n": 3762,
+    "book_IO_mismatch_n": 0,
+    "max_abs_book_IO_share_difference": 0.0,
+    "paired19_20_fund_rows_n": 3761,
+    "max_abs_share_recurrence_error_on_common_rows": 2.3283597272438783e-12,
+    "newly_present20_rows_n": 1,
+    "removed_after19_rows_n": 11,
+    "conclusion": "The cal_date20 book is a processing/known-information snapshot. It includes TA confirmations and dividend reinvestments confirmed on20, including money-fund XR20, while all unit NAVs are latest available prior economic dates19/16. It is not a uniform19 economic-close position snapshot.",
+    "comparison_requirement": "Freeze comparison must match each fund latest visible quote date as of processing20 and include the same entitlement/confirmation boundary. Do not revalue actual20 shares at newly available20 NAV while frozen uses a different date. Money-fund unitNAV1 does not establish income cutoff; observed20 reinvested quantities are already included.",
+    "limits": [
+      "The raw TA and A4 are linked source-system records, not an independent custody statement.",
+      "This test establishes exactly which confirmed20 quantities are in these candidate books; it does not prove all unconfirmed accrued income/receivables have been included.",
+      "No bank cash equivalent is inferred from isCash=True money-fund flags.",
+      "Different calendar NAV dates across QDII/ordinary funds reflect source visible quotes, not a missing-data zero.",
+      "No raw customer identifiers included in this aggregate."
+    ]
+  },
+  "remaining_gates": {
+    "initial_positive_nonmoney_dividend_mode_unknown_identity_n": 9,
+    "initial_liquidated012954_identity_n": 12,
+    "prior_day_nonstatic_identity_n": 10,
+    "net_contribution_certified_by_this_evidence": false
+  },
+  "money_income_day_test": {
+    "funds": [
+      "000509",
+      "001391"
+    ],
+    "observation": "TA confirmed20 money dividends use previous19 book quantities as BasisforCalculatingDividend; dividend fields labelXR20, but DividendPerUnit is0.",
+    "rate_candidates": {
+      "000509": {
+        "income19": 0.2455,
+        "income20": 0.244,
+        "TA20_rows": 17,
+        "rounded_simple_product_matches19": 13,
+        "rounded_simple_product_matches20": 12
+      },
+      "001391": {
+        "income19": 0.1449,
+        "income20": 0.1435,
+        "TA20_rows": 3,
+        "rounded_simple_product_matches19": 3,
+        "rounded_simple_product_matches20": 3
+      }
+    },
+    "finding": "Cent rounding/carry makes these small rows insufficient to identify the exact money-income economic day. It is not valid to assert TA XR20 proves all income20 is booked.",
+    "permitted_comparison": "A positive-income factor through20 (published21) can be an ex-post assumption deliberately favourable to freeze, with boundary/rounding/accrual limits; not a source-certified exact20close freeze value."
+  },
+  "scope": "This file has aggregate evidence only. Actual customer/order IDs and individual holdings remain private. No report publishing or aggregate return result is certified by this child evidence file.",
+  "dividend_TA_pricing": {
+    "ta_rows": 10368,
+    "distinct_fund_events_with_nav": 677,
+    "date_price_matches": {
+      "XRDate": {
+        "available_event_n": 677,
+        "matching_event_n": 677
+      },
+      "DividentDate": {
+        "available_event_n": 677,
+        "matching_event_n": 633
+      },
+      "RegistrationDate": {
+        "available_event_n": 677,
+        "matching_event_n": 673
+      },
+      "TransactionCfmDate": {
+        "available_event_n": 677,
+        "matching_event_n": 633
+      }
+    },
+    "nonmonetary_type0_date_price_matches": {
+      "XRDate": {
+        "available_event_n": 46,
+        "matching_event_n": 46
+      },
+      "DividentDate": {
+        "available_event_n": 46,
+        "matching_event_n": 2
+      },
+      "RegistrationDate": {
+        "available_event_n": 46,
+        "matching_event_n": 42
+      },
+      "TransactionCfmDate": {
+        "available_event_n": 46,
+        "matching_event_n": 2
+      }
+    },
+    "cash_payout_rows_with_zero_reinvestment_share": 0
+  },
+  "independent_validation": {
+    "method-independent-test-results.json": {
+      "scope": "Independent deterministic arithmetic / invariants; not customer-data certification",
+      "test_n": 18,
+      "passed_n": 18,
+      "failed_n": 0,
+      "checks": [
+        {
+          "name": "common_distribution_cancels",
+          "passed": true,
+          "evidence": {
+            "correct_delta": "0",
+            "forbidden_formula_false_gain": "20"
+          }
+        },
+        {
+          "name": "paid_fee_once_not_customer_distribution",
+          "passed": true,
+          "evidence": {
+            "correct_internal_net_profit": "-10",
+            "same_external_fee_net_profit": "-10",
+            "fee_as_distribution_masks_cost": "0",
+            "double_debit_wrong": "-20"
+          }
+        },
+        {
+          "name": "identical_paths_zero_despite_flows",
+          "passed": true,
+          "evidence": {
+            "delta": "0"
+          }
+        },
+        {
+          "name": "same_contract_is_not_same_fee_amount",
+          "passed": true,
+          "evidence": {
+            "own_AUM_delta": "39.800",
+            "mechanical_same_amount_delta": "40.000"
+          }
+        },
+        {
+          "name": "new_money_preserves_share_basket_not_initial_value_weights",
+          "passed": true,
+          "evidence": {
+            "correct_share_addition": [
+              "10",
+              "10"
+            ],
+            "initial_value_weight_addition_wrong_for_this_rule": [
+              "7.5",
+              "15"
+            ]
+          }
+        },
+        {
+          "name": "ex_ante_amount_order_differs_from_ex_post_exact_units",
+          "passed": true,
+          "evidence": {
+            "amounts_using_known_NAV": [
+              "20",
+              "10"
+            ],
+            "confirmed_shares": [
+              "8",
+              "10"
+            ],
+            "ideal_exact_basket_shares": [
+              "10",
+              "10"
+            ]
+          }
+        },
+        {
+          "name": "net_withdrawal_grosses_up_redemption_fee",
+          "passed": true,
+          "evidence": {
+            "gross_redemption_for_50_net": "50.76142131979695431472081218274111675127",
+            "net_if_naively_redeem_50_gross": "49.250"
+          }
+        },
+        {
+          "name": "insufficient_counterfactual_liquidity_is_infeasible",
+          "passed": true,
+          "evidence": {
+            "available": "20",
+            "required_net": "50",
+            "classification": "same_flow_infeasible; no fabricated top-up"
+          }
+        },
+        {
+          "name": "dividend_receivable_cash_transition_conserves_wealth",
+          "passed": true,
+          "evidence": {
+            "ex_date_wealth": "1.0",
+            "pay_date_wealth": "1.0",
+            "double_count_wrong": "1.1"
+          }
+        },
+        {
+          "name": "split_updates_shares_and_price",
+          "passed": true,
+          "evidence": {
+            "pre": "100 shares x 1",
+            "post": "200 shares x 0.5"
+          }
+        },
+        {
+          "name": "new_success_discount_requires_subleg_allocation",
+          "passed": true,
+          "evidence": {
+            "true_paid_under_declared_leg_values": "50",
+            "naive_success_minus_bill_discount": "40"
+          }
+        },
+        {
+          "name": "terminal_rights_bridge_no_transit_double_add",
+          "passed": true,
+          "evidence": {
+            "correct_total_when_processing_already_included": "100",
+            "double_added_wrong": "110"
+          }
+        },
+        {
+          "name": "adjusted_NAV_is_not_cash_or_actual_NAV_reinvestment",
+          "passed": true,
+          "evidence": {
+            "fund": "519995",
+            "date": "2022-04-27",
+            "cash_or_actual_NAV_reinvestment_return": "0.032709431219334908231873523532618571688",
+            "theoretical_adjusted_return": "0.047834174860483656656922668083975551422",
+            "arithmetic_return_difference_bp": "151.2474364114874842504914455135697973400"
+          }
+        },
+        {
+          "name": "all_38_adjusted_NAV_convention_recomputed",
+          "passed": true,
+          "evidence": {
+            "events": 38,
+            "max_return_formula_residual_bp": "0.0000585185918098859201441008706094270000"
+          }
+        },
+        {
+          "name": "nonnegative_fee_alone_does_not_prove_wealth_upper_bound",
+          "passed": true,
+          "evidence": {
+            "initial_fund_value": "100",
+            "fee": "1",
+            "zero_fee_hold_until_NAV_1": "1",
+            "fee_triggers_full_redemption_then_cash": "99",
+            "lesson": "Need monotonic-removal conditions or enlarge policy upper envelope"
+          }
+        },
+        {
+          "name": "per_fund_policy_max_is_upper_envelope_not_ex_ante_strategy",
+          "passed": true,
+          "evidence": {
+            "oracle": "240",
+            "best_fixed_common_policy": "210"
+          }
+        },
+        {
+          "name": "unpaid_liability_matters_for_economic_net_claim",
+          "passed": true,
+          "evidence": {
+            "paid_only_delta": "1",
+            "economic_net_delta": "-4"
+          }
+        },
+        {
+          "name": "benefit_fraction_denominator_and_identification_bounds",
+          "passed": true,
+          "evidence": {
+            "all_universe_lower_bound": "0.2",
+            "all_universe_upper_bound": "0.9",
+            "eligible_conditional_benefit_fraction": "0.3333333333333333333333333333333333333333"
+          }
+        }
+      ]
+    },
+    "frozen-engine-oracle-results.json": {
+      "scope": "Synthetic direct-wealth oracles; no customer records; not customer-result certification",
+      "test_n": 29,
+      "passed_n": 29,
+      "failed_n": 0,
+      "checks": [
+        {
+          "name": "cash_dividend_paid_once",
+          "passed": true,
+          "oracle": 100,
+          "observed": 100.0
+        },
+        {
+          "name": "unpaid_cash_entitlement_is_terminal_asset",
+          "passed": true,
+          "oracle": 100,
+          "observed": 100.0
+        },
+        {
+          "name": "unpaid_cash_receivable_not_paid_twice",
+          "passed": true,
+          "oracle": {
+            "cash": 0,
+            "receivable": 10
+          },
+          "observed": {
+            "cash": 0.0,
+            "receivable": 10.0
+          }
+        },
+        {
+          "name": "registration_before_ex_creates_no_extra_wealth_while_NAV_cum_dividend",
+          "passed": true,
+          "oracle": 100,
+          "observed": 100.0
+        },
+        {
+          "name": "credited_reinvestment_wealth_from_owned_shares",
+          "passed": true,
+          "oracle": 120.00000000000001,
+          "observed": 120.00000000000001
+        },
+        {
+          "name": "uncredited_fixed_share_claim_not_fixed_cash",
+          "passed": true,
+          "oracle": 120.00000000000001,
+          "observed": 120.0
+        },
+        {
+          "name": "pending_value_bridge",
+          "passed": true,
+          "oracle": 12,
+          "observed": 12.0
+        },
+        {
+          "name": "pre_start_reinvest_pending_flagged_even_when_cash_pay_already_past",
+          "passed": true,
+          "oracle": "needs opening fixed-share claim",
+          "observed": [
+            "pre-start-dividend-entitlement-needs-opening-receivable"
+          ]
+        },
+        {
+          "name": "pre_start_cash_receivable_requires_opening_bridge",
+          "passed": true,
+          "oracle": "needs opening receivable",
+          "observed": [
+            "pre-start-dividend-entitlement-needs-opening-receivable"
+          ]
+        },
+        {
+          "name": "split_updates_uncredited_reinvestment_claim",
+          "passed": true,
+          "oracle": 120,
+          "observed": 120.0
+        },
+        {
+          "name": "pending_split_quantity_conserved",
+          "passed": true,
+          "oracle": 22.22222222222222,
+          "observed": 22.22222222222222
+        },
+        {
+          "name": "split_and_registration_same_day_post_split_basis_oracle",
+          "passed": true,
+          "oracle": 200,
+          "observed": 200.0
+        },
+        {
+          "name": "same_day_split_dividend_basis_flagged",
+          "passed": true,
+          "oracle": null,
+          "observed": [
+            "split-dividend-same-date-unit-basis-needs-evidence"
+          ]
+        },
+        {
+          "name": "later_registration_includes_pending_economic_units_for_upper",
+          "passed": true,
+          "oracle": 100,
+          "observed": 100.0
+        },
+        {
+          "name": "pending_registration_is_upper_only",
+          "passed": true,
+          "oracle": null,
+          "observed": [
+            {
+              "code": "pending-reinvestment-registration-upper-includes-shares",
+              "severity": "upper_only",
+              "clearance_or_limit": "Pending economic units included in later registration for a conservative upper; exact eligibility requires fund/TA rule."
+            },
+            {
+              "code": "pending-reinvestment-valued-as-fixed-share-claim",
+              "severity": "informational",
+              "clearance_or_limit": "Pricing NAV and corporate-action chain verified; do not add the same dividend cash again."
+            }
+          ]
+        },
+        {
+          "name": "AMGM_whole_interval_dominates_feasible_daily_allocations",
+          "passed": true,
+          "oracle": 1.0003000300009999,
+          "observed": 1.0003000300009999
+        },
+        {
+          "name": "interval_crossing_economic_start_upper",
+          "passed": true,
+          "oracle": 1.0003,
+          "observed": 1.0003000225000003
+        },
+        {
+          "name": "interval_crossing_terminal_not_silently_omitted",
+          "passed": true,
+          "oracle": 1.0003,
+          "observed": 1.0003000225000003
+        },
+        {
+          "name": "money_income_grouped_by_actual_fund",
+          "passed": true,
+          "oracle": null,
+          "observed": {
+            "M2": 1.000600120008,
+            "000509": 1.0003000300009999
+          }
+        },
+        {
+          "name": "non_isCash_money_fund_uses_its_income",
+          "passed": true,
+          "oracle": 100.06001200079999,
+          "observed": 100.06001200079999
+        },
+        {
+          "name": "missing_money_income_coverage_rejected",
+          "passed": true,
+          "oracle": null,
+          "observed": null
+        },
+        {
+          "name": "known_money_fund_without_income_not_zero_return",
+          "passed": true,
+          "oracle": null,
+          "observed": null
+        },
+        {
+          "name": "pending_reinvestment_carried_NAV_cannot_be_unflagged",
+          "passed": true,
+          "oracle": null,
+          "observed": [
+            "pending-reinvestment-valued-as-fixed-share-claim",
+            "reinvestment-pricing-date-nav-carried"
+          ]
+        },
+        {
+          "name": "exact_same_event_TA_price_clears_carried_NAV",
+          "passed": true,
+          "oracle": 100,
+          "observed": 100.0
+        },
+        {
+          "name": "verified_price_no_carried_flag",
+          "passed": true,
+          "oracle": null,
+          "observed": null
+        },
+        {
+          "name": "cross_border_ex_before_registration_continuous_hold",
+          "passed": true,
+          "oracle": 100,
+          "observed": 100.0
+        },
+        {
+          "name": "cross_border_date_order_not_automatic_hard_exclusion",
+          "passed": true,
+          "oracle": null,
+          "observed": [
+            {
+              "code": "dividend-registration-after-ex-date-continuous-hold",
+              "severity": "informational",
+              "clearance_or_limit": "Absolute frozen shares continuously held; registration before terminal and no unresolved opening boundary."
+            }
+          ]
+        },
+        {
+          "name": "common_economic_begin_not_old_quote_date",
+          "passed": true,
+          "oracle": 100,
+          "observed": 100.0
+        },
+        {
+          "name": "raw_NAV_not_adjusted_NAV_used",
+          "passed": true,
+          "oracle": 100,
+          "observed": 100.0
+        }
+      ]
+    },
+    "rounding-margin-test-results.json": {
+      "scope": "Independent synthetic perturbations and invariants; operational bounds conditional on stated per-event assumptions",
+      "test_n": 16,
+      "passed_n": 16,
+      "failed_n": 0,
+      "checks": [
+        {
+          "name": "margin_dominates_direct_positive_perturbation",
+          "passed": true,
+          "oracle": 0.098,
+          "observed": 0.10222222222222221
+        },
+        {
+          "name": "component_sum_matches_margin",
+          "passed": true,
+          "oracle": 0.10222222222222221,
+          "observed": 0.10222222222222221
+        },
+        {
+          "name": "future_growth_changes_share_error_not_fixed_yuan",
+          "passed": true,
+          "oracle": 0.01,
+          "observed": 0.02
+        },
+        {
+          "name": "cash_amount_error_can_buy_reinvest_shares",
+          "passed": true,
+          "oracle": 0.02,
+          "observed": 0.022222222222222223
+        },
+        {
+          "name": "cash_sweep_daily_rounding_counted",
+          "passed": true,
+          "oracle": 3,
+          "observed": [
+            {
+              "fund": "000509",
+              "first_held_day_upper": "2026-01-03",
+              "amount": 0.06,
+              "held_days": 3,
+              "accounts": 1,
+              "local_yuan_per_day": 0.02,
+              "max_future_factor": 1.0
+            }
+          ]
+        },
+        {
+          "name": "explicit_local_bound_and_multiplicity_attestation",
+          "passed": true,
+          "oracle": true,
+          "observed": true
+        },
+        {
+          "name": "unverified_default_bounds_not_called_certified",
+          "passed": true,
+          "oracle": false,
+          "observed": false
+        },
+        {
+          "name": "daily_money_rounding_propagates_each_injection",
+          "passed": true,
+          "oracle": 0.06006001999999999,
+          "observed": 0.06006001999999999
+        },
+        {
+          "name": "separate_money_rounding_accounts_are_summed",
+          "passed": true,
+          "oracle": 0.12012003999999998,
+          "observed": 0.12012003999999998
+        },
+        {
+          "name": "operational_cent_bound_not_mislabelled_quote_precision",
+          "passed": true,
+          "oracle": 0.06006001999999999,
+          "observed": 0.06006001999999999
+        },
+        {
+          "name": "sweep_money_window_not_double_counted_per_distribution",
+          "passed": true,
+          "oracle": 3,
+          "observed": [
+            {
+              "fund": "000509",
+              "first_held_day_upper": "2026-01-03",
+              "amount": 0.06,
+              "held_days": 3,
+              "accounts": 1,
+              "local_yuan_per_day": 0.02,
+              "max_future_factor": 1.0
+            }
+          ]
+        },
+        {
+          "name": "each_dividend_has_own_propagated_error",
+          "passed": true,
+          "oracle": 2,
+          "observed": 2
+        },
+        {
+          "name": "unknown_pricing_is_unbounded_not_arbitrary_margin",
+          "passed": true,
+          "oracle": null,
+          "observed": [
+            "F future-factor: reinvestment-pricing-date-nav-carried"
+          ]
+        },
+        {
+          "name": "known_unresolved_liquidation_cannot_carry_last_NAV",
+          "passed": true,
+          "oracle": null,
+          "observed": [
+            "unresolved-liquidation 012954 after 2026-08-13"
+          ]
+        },
+        {
+          "name": "rounding_starts_at_common_economic_begin",
+          "passed": true,
+          "oracle": 2,
+          "observed": 2
+        },
+        {
+          "name": "additional_proved_error_is_explicit_not_hidden",
+          "passed": true,
+          "oracle": 0.39,
+          "observed": 0.39
+        }
+      ]
+    }
+  }
+}

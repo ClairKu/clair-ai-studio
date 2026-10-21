@@ -5,7 +5,7 @@
   "auxiliary_latest_warning": "Some auxiliary reconciliation snapshots include 2026-10-21; not identical to the primary cutoff.",
   "publication": {
     "url": "https://clairku.github.io/clair-ai-studio/reports/qiming-results-audit-2026-10-21/",
-    "release_type": "Phase2: terminal wealth impact, calibrated 452 events, actual execution costs, qualified cash-flow returns and responsibility evidence",
+    "release_type": "Phase3: observed client-share, fee and cash-flow verified conditional terminal comparison against fee-free frozen policies",
     "authorization_date": "2026-10-21",
     "authorized_categories": [
       "Nonpublic employee role and approval history",
@@ -39,18 +39,35 @@
     "completed_rebalance_mother_orders_fee_reconciled": 27391,
     "source_service_accounts_cashflow_recomputed": 4712,
     "identity_strategy_pairs": 4183,
-    "source_2005_qieman_sa_without_identifiable_xirr": 85
+    "source_2005_qieman_sa_without_identifiable_xirr": 85,
+    "july2025_identity_strategy_cohort": 817,
+    "actual_active_no_input_candidates": 123,
+    "TA_verified_P04_follow_candidates": 123,
+    "TA_fee_daily_source_reconciled": 112,
+    "conditional_real_pairs": 97,
+    "conditional_positive_pairs": 26,
+    "conditional_uncertain_pairs": 71,
+    "unconditional_same_contract_pairs_certified": 0,
+    "actual_terminal_fund_positions_public_NAV_checked": 3889
   },
   "limitations": [
     "Model calibration is a selected, disclosed reconciliation convention, not a blind preregistered alpha test. Maximum terminal relative NAV difference is about 0.775bp.",
     "Display model start can precede the investment-advisory service; fixed entry dates show sign sensitivity.",
-    "No authenticated same-client, same-external-cash-flow fully paid net rebalance-versus-freeze terminal contribution yet.",
     "Transaction costs of the completed-order subset do not include all failed/partial orders or ongoing adviser fees.",
     "Source daily cash flows are not independent bank-external-cash-flow certification; four incomplete identities excluded; loss-adjusted ledger retains disclosed residuals.",
     "Observed source work responsibilities do not establish complete formal mandates, exclusive decision authority or individual alpha.",
     "Single-event differences cannot be summed or chained into a never-rebalance terminal counterfactual.",
     "Current mapped identity-strategy pairs are not verified unique natural people or complete historical user population.",
-    "Other channels among 180 original source XIRR constants not independently cash-flow recomputed."
+    "Other channels among 180 original source XIRR constants not independently cash-flow recomputed.",
+    "Conditional snapshot-wealth comparison against three fee-free frozen dividend policies, not a fully certified same-contract no-rebalance simulation.",
+    "All3889 actual terminal fund NAVs equal public same-fund/same-date NAV; latest visible quote dates19Oct or16Oct, not20Oct closing NAV. TA and dividends posted20Oct are included in actual book.",
+    "Frozen upper uses the per-fund ex-post best of cash dividends, ex-NAV reinvestment and cash sweep; not a single ex-ante executable policy.",
+    "For conservative upper, frozen money funds are granted all positive published income through20Oct, even where not yet visible in the20Oct snapshot. This favors frozen and cannot certify exact paid terminal differences.",
+    "Actual book already reflects paid charges. Lower difference additionally subtracts the observed whole fee-chain lifetime cumulative accrual, deliberately including previously paid amounts; this is a conservative sensitivity penalty, not exact unpaid liability.",
+    "Operational rounding .01share per dividend, .01yuan per dividend, .02yuan per money-fund account held day plus .0001 per10000units/day quote envelope are explicit conditional assumptions, not universally proved TA guarantees.",
+    "Upper difference uses nonnegative money income omitted for frozen lower and no extra unpaid actual fee; negative/positive counts refer to this free-self-hold policy scenario, not same-contract harm certification.",
+    "No externally changed flows are imputed. Nonzero-flow/exited/migrated/unqualified cases remain unassessed in the817 cohort denominator. Candidate restriction is non-random and cannot estimate all-client benefit rate.",
+    "Cells with fewer than5 qualified pairs suppress all financial amounts and annualization. No customer identifier or individual cash-flow data published."
   ],
   "deliverables": [
     {
@@ -314,8 +331,52 @@
     },
     {
       "name": "README.txt",
-      "bytes": 3005,
-      "sha256": "2702649f660c737da4abb59d6ff13d933df3f422e52d4724bf49fbc7a569cc7e",
+      "bytes": 1396,
+      "sha256": "fce78c9c7ada9ab6a5160fa4df59cff63a878dec414e89748146f49a7564bdcf",
+      "location": "data/"
+    },
+    {
+      "name": "qiming-actual-client-paired-impact.json",
+      "bytes": 10706,
+      "sha256": "cb5a4074efb5c5f8371ffcd975d37a5de1918a04eda8032df354c4c89bf05671",
+      "location": "data/"
+    },
+    {
+      "name": "qiming-actual-client-paired-impact.csv",
+      "bytes": 1367,
+      "sha256": "8c4aaf68995665dcdcedc961fec6acb354a8f593081cc8a3b21d749291ff5607",
+      "location": "data/",
+      "data_rows": 8
+    },
+    {
+      "name": "qiming-actual-fee-cashflow-verification.json",
+      "bytes": 12070,
+      "sha256": "246edc347330eb2c296704ffce58d1c19587564a5331ad71478387ba6626b05f",
+      "location": "data/"
+    },
+    {
+      "name": "qiming-actual-fee-cashflow-verification.csv",
+      "bytes": 1644,
+      "sha256": "2f9c943752765eb61cccdbff52ff5416a613bbeae8ec775c04252a3f076b0a31",
+      "location": "data/",
+      "data_rows": 12
+    },
+    {
+      "name": "qiming-actual-holdings-dividends-execution-evidence.json",
+      "bytes": 25129,
+      "sha256": "d40a4fea1cc70dd20f82055339bfda61d822a78baae288af1f125ef70ca9e93d",
+      "location": "data/"
+    },
+    {
+      "name": "qiming-terminal-visible-prices.json",
+      "bytes": 34832,
+      "sha256": "6f0ce65da9abb0e54f62d918ea64611f246b26e524ea390b2a71b9e7f22a9c63",
+      "location": "data/"
+    },
+    {
+      "name": "qiming-actual-pair-method.md",
+      "bytes": 6501,
+      "sha256": "fbd77f540fbe6c49b4076e62ffea055a9f40303ead917a969d2e31b0026a51df",
       "location": "data/"
     }
   ],
@@ -721,20 +782,20 @@
     "bp": "1 basis point = 0.01 percentage points = 0.0001 return.",
     "terminal_model_impact": "Same start wealth; full-follow formal model NAV ratio less frozen actual model units. Display first day and fixed later dates kept separate. No subsequent external flows or real client fee/timing claims.",
     "cashflow_xirr": "Identity-strategy SA flows merged before root finding, ACT/365; pooled capital flows separately solved; nonconventional single root detected is not global uniqueness proof.",
-    "client_causal_net_impact": "Not certified; requires paired same external cash flows, TA-confirmed execution, dividends, advice-fee payments, terminal receivables and freeze execution rules."
+    "client_causal_net_impact": "Primary same-contract impact still not fully certified. Phase3 publishes explicitly conditional observed-book paired wealth intervals versus fee-free frozen policy envelope, not whole-population bank-audited personal alpha."
   },
   "archive_deliverables": [
     {
       "name": "index.html",
-      "bytes": 11961100,
-      "sha256": "b6785aec3f7769ade51d5f9dc774563feca3fda7d35331f2cd3ccd5515565b8e",
-      "location": "archive root; live receives common access gate"
+      "bytes": 11974613,
+      "sha256": "d9f821a27423bab858be56954c6d0bc12b2dfd0ca601e9c50c31ea923d110953",
+      "location": "archive root; live common gate inserted"
     },
     {
       "name": "overview.html",
       "bytes": 57481,
       "sha256": "df542cb362252f298122ec10e5d6a15c56b73509fdb9f20c4f595c91cf2fd94b",
-      "location": "archive root; live receives common access gate"
+      "location": "archive root; live common gate inserted"
     }
   ],
   "source_definition_qualification": "Exact code and line pointers from authenticated read-only source inspection plus independent SQL; raw signed artifact and unverified tool recommendations excluded."
