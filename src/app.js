@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 124;
+const DATA_VERSION = 125;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -221,6 +221,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "financial-internet-marketing-disclosures-2026-10-22",
+      groupId: "growth-insights",
+      title: "金融机构第三方互联网营销清单｜43家官方披露与平台反查",
+      url: "https://clairku.github.io/clair-ai-studio/reports/financial-internet-marketing-disclosures-2026-10-22/",
+      preview: "financial-internet-marketing-disclosures-2026-10-22.png",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-22T11:32:45+08:00",
+      source: "截至2026-10-22，核验43家金融机构官网正文及官方附件，整理576条平台或主体记录；按机构查询、平台反查、合作主体与日期依据、CSV/JSON下载。保留主体口径、业务线重复及天弘按3主体归纳974条产品映射的差异。未核验与异口径名单另列，不代表全行业穷尽或实际投放成效。",
+      access: "production",
+      workType: "reporting",
+      tags: ["金融机构", "第三方互联网平台", "网络营销", "官方清单", "基金", "证券", "期货", "银行", "盈米", "且慢", "渠道", "合规", "HTML", "生产"],
+    },
     {
       id: "yingmi-internet-ai-business-panorama-2026-10-22",
       groupId: "ai-platform",
@@ -3823,6 +3837,8 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "financial-internet-marketing-disclosures-2026-10-22": "growth-insights",
+  "yingmi-internet-ai-business-panorama-2026-10-22": "ai-platform",
   "aiwatch-l3-application-2026-10-21": "ai-workbench",
   "uiheal-l3-application-2026-10-21": "ai-workbench",
   "advisorflow-l3-application-2026-10-21": "advisor-workbench",

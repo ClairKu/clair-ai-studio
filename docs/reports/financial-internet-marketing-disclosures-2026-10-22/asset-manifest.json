@@ -1,0 +1,22 @@
+{
+  "schema": "clair-report-assets/v1",
+  "report": "financial-internet-marketing-disclosures-2026-10-22",
+  "generatedAt": "2026-10-22",
+  "files": [
+    {
+      "path": "data.json",
+      "bytes": 209032,
+      "sha256": "e1b3dc8d322b88405a0e18b3ec0936b501da9ba26b87ae3bac40d65ddacc37b0"
+    },
+    {
+      "path": "institutions.csv",
+      "bytes": 29581,
+      "sha256": "2b302cce188932de9ea41982c07960e9ea18a3a77dd32d4b489d36b97ea7959f"
+    },
+    {
+      "path": "platform-rows.csv",
+      "bytes": 156110,
+      "sha256": "4b4c3b0d88e071ae29e145930719e5fbd980cfb2a9e700b28b55bcc60c35be3a"
+    }
+  ]
+}

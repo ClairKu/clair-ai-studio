@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "financial-internet-marketing-disclosures-2026-10-22",
     "yingmi-internet-ai-business-panorama-2026-10-22",
     "aiwatch-l3-application-2026-10-21",
     "uiheal-l3-application-2026-10-21",
