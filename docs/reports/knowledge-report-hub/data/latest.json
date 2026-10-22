@@ -1,9 +1,49 @@
 {
   "schema": "clair-knowledge-hub-feed/v1",
   "scope": "external-ai-industry-only",
-  "generatedAt": "2026-10-21T02:26:10.441Z",
+  "generatedAt": "2026-10-22T00:13:07.815Z",
   "source": "Curated authoritative public AI industry reports",
   "reports": [
+    {
+      "id": "authority-linux-foundation-genai-oss-2026",
+      "title": "Linux Foundation《Navigating Open Source Software Development in the Generative AI Era》｜AI 写得更快，维护者先被淹没",
+      "url": "https://www.linuxfoundation.org/research/oss-development-gen-ai-era-2026",
+      "downloadUrl": "https://www.linuxfoundation.org/hubfs/Research%20Reports/Navigating-Open-Source-Software-Development-in-the-Generative-AI-Era.pdf?hsLang=en",
+      "body": "【中文剖析】Linux Foundation 这份新报告把“AI 编码效率”与“开源维护成本”放进同一套证据框架。234 名开源贡献者与维护者的自报调查显示，59% 的维护者看到贡献量增加；维护者估计平均 25% 的传入 PR 属于低质量 AI 生成内容，在 50 人以上的大型项目中升至 31%。规模越大，压力越集中：64% 的大型项目维护者称评审时间变长，维护者倦怠也以 63% 成为大型项目的首要担忧。另一方面，AI 并非只有负担：不同任务的平均节时为 19%—52%，但高复杂度任务中仍有 21% 的受访者反而花费更多时间。治理明显落后于使用，只有 35% 的项目有正式允许 AI 贡献的政策，32% 没有政策且无制定计划；61% 的贡献者会逐行审查并完成功能测试，但 AI 协助披露仍不一致。关键判断不是“AI 让开发快 50%”，而是生产环节的成本正从写代码转移到验证、归因、维护者注意力和社区信任。项目需要把测试、披露和责任前置给贡献者，并为大型项目配置自动分流与人工复核能力。",
+      "kind": "url",
+      "category": "就业与技能",
+      "tags": [
+        "开源软件",
+        "AI编码",
+        "开发者生产力",
+        "维护者",
+        "代码审查",
+        "AI治理",
+        "软件供应链",
+        "社区信任"
+      ],
+      "source": "Linux Foundation Research",
+      "authority": "开源贡献者与维护者调查",
+      "methodology": "45 题网络调查，2026 年 4—6 月通过 Linux Foundation 及 Red Hat、OpenSSF、Kaiyuanshe、GOSIM、LF AI & Data 等合作渠道分发；分析样本为 234 名合格的开源贡献者与项目维护者，报告给出的 95% 置信水平误差范围为 ±6.41%。不同图表按适用角色使用不同子样本。",
+      "scopeNote": "样本来自 Linux Foundation 及合作组织网络，是自愿参与的便利样本，不代表全球全部开源开发者；贡献量、节时和“AI slop”比例来自受访者估计，不是代码仓库遥测或独立质量审计；部分维护者与贡献者身份重叠，不同图表分母从 111 到 234 不等，不能把各比例直接拼接。研究由 Red Hat 赞助，Futurewei、OpenSSF 与 LF AI & Data 等提供支持。",
+      "publishedAt": "2026-10-20T00:00:00Z",
+      "ingestedAt": "2026-10-22T08:10:22+08:00",
+      "createdAt": "2026-10-20T00:00:00Z",
+      "updatedAt": "2026-10-22T08:10:22+08:00",
+      "featured": true,
+      "featuredRank": -4,
+      "archived": false,
+      "relatedReportIds": [
+        "authority-openai-low-resource-coding-2026",
+        "authority-anthropic-agent-scale-source-control-2026",
+        "authority-anthropic-employment-2026"
+      ],
+      "studioId": "",
+      "origin": "industry",
+      "extractionError": "",
+      "fileName": "",
+      "fileSize": 0
+    },
     {
       "id": "authority-stanford-ai-index-2026",
       "title": "Stanford《2026 AI Index Report》｜能力、投资与治理的全球总账",
@@ -3572,6 +3612,126 @@
       "order": 4,
       "relatedCardIds": [
         "authority-card-google-ambition-gap-04"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-lf-oss-genai-01",
+      "reportId": "authority-linux-foundation-genai-oss-2026",
+      "type": "risk",
+      "label": "质量负担",
+      "title": "每 4 个传入 PR，约 1 个被维护者视为低质量 AI 内容",
+      "summary": "维护者估计平均 25% 的传入 PR 属于低质量 AI 生成内容；大型项目为 31%，小型和中型项目分别为 23% 与 20%。这是受访者估计，不是仓库级自动检测。",
+      "metric": "25% / 31%",
+      "quote": "AI slop",
+      "translation": "低质量、缺少验证的 AI 生成贡献。",
+      "anchor": "Report pp.9–10 · Figure 2 · n=111",
+      "tags": [
+        "AI slop",
+        "Pull Request",
+        "代码质量"
+      ],
+      "createdAt": "2026-10-20T00:00:00Z",
+      "order": 0,
+      "relatedCardIds": [
+        "authority-card-lf-oss-genai-02",
+        "authority-card-lf-oss-genai-04"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-lf-oss-genai-02",
+      "reportId": "authority-linux-foundation-genai-oss-2026",
+      "type": "risk",
+      "label": "维护者压力",
+      "title": "64% 的大型项目维护者称评审时间变长",
+      "summary": "大型项目的增加评审时间比例高于中型项目的 55% 和小型项目的 46%；63% 的大型项目维护者把倦怠列为首要担忧。规模化贡献量没有自动转化为规模化审核能力。",
+      "metric": "64% / 63%",
+      "quote": "increased review time",
+      "translation": "评审时间增加。",
+      "anchor": "Report pp.8–9 · Table 1 and Figure 1 · n=133/174",
+      "tags": [
+        "维护者倦怠",
+        "评审时间",
+        "大型项目"
+      ],
+      "createdAt": "2026-10-20T00:00:00Z",
+      "order": 1,
+      "relatedCardIds": [
+        "authority-card-lf-oss-genai-01",
+        "authority-card-lf-oss-genai-03"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-lf-oss-genai-03",
+      "reportId": "authority-linux-foundation-genai-oss-2026",
+      "type": "insight",
+      "label": "生产率边界",
+      "title": "AI 平均节时 19%—52%，复杂任务却可能更慢",
+      "summary": "六类开源开发活动全部出现平均节时，代码编写最高约 52%、方案讨论约 19%；但高复杂度任务中有 21% 的受访者报告使用 AI 后耗时增加。局部速度不能替代端到端吞吐。",
+      "metric": "19%–52% / 21%",
+      "quote": "across the board",
+      "translation": "在所测任务中普遍存在。",
+      "anchor": "Report pp.23–25 · Figures 19–21",
+      "tags": [
+        "开发者生产力",
+        "任务复杂度",
+        "端到端效率"
+      ],
+      "createdAt": "2026-10-20T00:00:00Z",
+      "order": 2,
+      "relatedCardIds": [
+        "authority-card-lf-oss-genai-02",
+        "authority-card-lf-oss-genai-05"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-lf-oss-genai-04",
+      "reportId": "authority-linux-foundation-genai-oss-2026",
+      "type": "risk",
+      "label": "治理缺口",
+      "title": "只有 35% 的项目有正式允许 AI 贡献的政策",
+      "summary": "32% 的项目没有 AI 贡献政策且无制定计划；贡献者中约 30% 总是披露 AI 协助，约 20% 从不披露。缺少统一归因会把验证成本转嫁给维护者。",
+      "metric": "35% / 32%",
+      "quote": "lack an AI contribution policy",
+      "translation": "缺少 AI 贡献政策。",
+      "anchor": "Report pp.12–13 and p.20 · Figures 5 and 15",
+      "tags": [
+        "AI政策",
+        "披露",
+        "归因"
+      ],
+      "createdAt": "2026-10-20T00:00:00Z",
+      "order": 3,
+      "relatedCardIds": [
+        "authority-card-lf-oss-genai-01",
+        "authority-card-lf-oss-genai-05"
+      ],
+      "origin": "industry"
+    },
+    {
+      "id": "authority-card-lf-oss-genai-05",
+      "reportId": "authority-linux-foundation-genai-oss-2026",
+      "type": "action",
+      "label": "验证前置",
+      "title": "61% 会逐行审查并完整测试：把责任写进贡献门槛",
+      "summary": "多数贡献者已经执行详细审查和功能测试。项目应进一步要求 AI 使用披露、测试证据、责任声明和统一的 Assisted-by 归因，并用自动分流帮助维护者处理增加的贡献量。",
+      "metric": "61%",
+      "quote": "detailed, line-by-line reviews",
+      "translation": "详细、逐行审查。",
+      "anchor": "Report p.6 and pp.20–21 · Figure 16",
+      "tags": [
+        "测试责任",
+        "Assisted-by",
+        "贡献门槛"
+      ],
+      "createdAt": "2026-10-20T00:00:00Z",
+      "order": 4,
+      "relatedCardIds": [
+        "authority-card-lf-oss-genai-03",
+        "authority-card-lf-oss-genai-04"
       ],
       "origin": "industry"
     }
