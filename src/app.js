@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 135;
+const DATA_VERSION = 136;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -230,7 +230,7 @@ const initialState = {
       pinned: false,
       position: 0,
       createdAt: "2026-10-22T15:30:00+08:00",
-      source: "面向外部客户与合作伙伴的独立产品介绍页。含2026年9月公开规模快照、金融数据/投研/家庭财务/Skills、基金研究/客户服务/报告场景、百炼/千帆/火山扣子/百度AI搜索/千问/WorkBuddy/豆包生态、阿里云与千问合作、API/MCP接入/联合方案/专属Agent/云市场订阅。公开资料整理，非盈米官方发布页；数据带时点，申请不等同活跃用户。",
+      source: "数据截至2026-10-21：调用21,393,278次、接入申请15,753个、服务金融机构710家。完整MCP/OpenAPI工具层、Skills场景层、Agents任务交付层，含69项工具、10项Skills、应用与机构共建场景，支持分类与全文检索。",
       access: "production",
       workType: "product-planning",
       tags: [
@@ -244,7 +244,10 @@ const initialState = {
         "服务合作",
         "产品介绍",
         "HTML",
-        "生产"
+        "生产",
+        "Agents",
+        "三层能力",
+        "功能清单"
       ]
     },
     {
