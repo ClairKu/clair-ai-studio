@@ -5,18 +5,28 @@
   "files": [
     {
       "path": "data.json",
-      "bytes": 209032,
-      "sha256": "e1b3dc8d322b88405a0e18b3ec0936b501da9ba26b87ae3bac40d65ddacc37b0"
+      "bytes": 355063,
+      "sha256": "328ff032a4992f817d344f12248520368a3875c2f7d1fa7dedde2e15b38cd645"
     },
     {
       "path": "institutions.csv",
-      "bytes": 29581,
-      "sha256": "2b302cce188932de9ea41982c07960e9ea18a3a77dd32d4b489d36b97ea7959f"
+      "bytes": 57437,
+      "sha256": "1816f3a9b0298aa0beae14608c7cf2111839a5d368ad93771b164955dc13f2c7"
     },
     {
       "path": "platform-rows.csv",
-      "bytes": 156110,
-      "sha256": "4b4c3b0d88e071ae29e145930719e5fbd980cfb2a9e700b28b55bcc60c35be3a"
+      "bytes": 280076,
+      "sha256": "1b04e853e857ab6ab45c5ea4c9838fd574d22b4fd83dc41d8262719678b96197"
+    },
+    {
+      "path": "related-disclosures.csv",
+      "bytes": 1834,
+      "sha256": "6de589e6174c8d2e9b18cf1d36e748c4b48f2f16527ac6d7249f3e5a62745bc3"
+    },
+    {
+      "path": "preview.png",
+      "bytes": 71946,
+      "sha256": "f722a93484063d93690d232974dd88c636da0c1b3771b2ea68c70379787d9f02"
     }
   ]
 }

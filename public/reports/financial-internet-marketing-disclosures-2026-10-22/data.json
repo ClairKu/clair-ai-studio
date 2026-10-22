@@ -72,7 +72,189 @@
       "supporting_urls": [
         "https://www.wjasset.com/"
       ],
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 8
+    },
+    {
+      "name": "中信保诚基金",
+      "sector": "公募基金",
+      "title": "网络营销披露",
+      "url": "https://www.citicprufunds.com.cn/pc/marketing",
+      "date": "2026-09-30",
+      "date_basis": "官网正文注明截止日期2026年9月30日，此为清单数据截止日，未另标发布日期。",
+      "platforms": [
+        {
+          "name": "支付宝APP",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 1
+        },
+        {
+          "name": "天天基金APP",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 2
+        },
+        {
+          "name": "陆基金APP",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 3
+        },
+        {
+          "name": "京东金融APP",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 4
+        }
+      ],
+      "evidence_status": "官方全文已核验",
+      "notes": "4条。官网营销披露专页完整HTML直接列明；未披露主体。",
+      "latest_basis": "截至2026-10-22核验的官网当前公示入口及其直接链接附件，未找到更晚同类版本。",
+      "record_kind": "平台名称",
+      "newly_added": true,
+      "disclosure_category": "网络营销 / 第三方平台公示",
+      "row_count": 4
+    },
+    {
+      "name": "中加基金",
+      "sector": "公募基金",
+      "title": "中加基金通过以下第三方互联网平台营销旗下基金",
+      "url": "https://www.bobbns.com/aboutus/yxpt/index.html",
+      "date": "未标注",
+      "date_basis": "官网公示页及PDF正文均未明确日期；当前附件文件名时间戳只作版本线索。",
+      "platforms": [
+        {
+          "name": "微信APP",
+          "operator": null,
+          "name_is_operator": false,
+          "scope": "",
+          "row": 1
+        },
+        {
+          "name": "理财通APP",
+          "operator": null,
+          "name_is_operator": false,
+          "scope": "",
+          "row": 2
+        },
+        {
+          "name": "雪球APP",
+          "operator": null,
+          "name_is_operator": false,
+          "scope": "",
+          "row": 3
+        },
+        {
+          "name": "支付宝APP",
+          "operator": null,
+          "name_is_operator": false,
+          "scope": "",
+          "row": 4
+        },
+        {
+          "name": "蚂蚁财富APP",
+          "operator": null,
+          "name_is_operator": false,
+          "scope": "",
+          "row": 5
+        },
+        {
+          "name": "京东金融APP",
+          "operator": null,
+          "name_is_operator": false,
+          "scope": "",
+          "row": 6
+        },
+        {
+          "name": "且慢APP",
+          "operator": null,
+          "name_is_operator": false,
+          "scope": "",
+          "row": 7
+        }
+      ],
+      "evidence_status": "官方全文已核验",
+      "notes": "7条。官网页面直接链接 https://www.bobbns.com/upload/fck/userfiles/file/1792552907098-第三方互联网平台营销信息展示.pdf ，已完整读取；未披露主体。",
+      "latest_basis": "截至2026-10-22核验的官网当前公示入口及其直接链接附件，未找到更晚同类版本。",
+      "record_kind": "平台名称",
+      "newly_added": true,
+      "disclosure_category": "网络营销 / 第三方平台公示",
+      "row_count": 7
+    },
+    {
+      "name": "中银基金",
+      "sector": "公募基金",
+      "title": "中银基金网络营销披露名单",
+      "url": "https://www.bocim.com/Info/304738",
+      "date": "2026-10-09",
+      "date_basis": "官网网络营销披露栏目列表发布2026-10-09；内嵌PDF表头为2026年9月30日，分别保留。",
+      "platforms": [
+        {
+          "name": "支付宝APP—理财频道",
+          "operator": null,
+          "name_is_operator": false,
+          "scope": "",
+          "row": 1
+        },
+        {
+          "name": "支付宝APP—股票频道",
+          "operator": null,
+          "name_is_operator": false,
+          "scope": "",
+          "row": 2
+        },
+        {
+          "name": "微信APP-理财通小程序",
+          "operator": null,
+          "name_is_operator": false,
+          "scope": "",
+          "row": 3
+        },
+        {
+          "name": "际扬信息科技有限公司",
+          "operator": null,
+          "name_is_operator": true,
+          "scope": "",
+          "row": 4
+        },
+        {
+          "name": "东方财富信息股份有限公司",
+          "operator": null,
+          "name_is_operator": true,
+          "scope": "",
+          "row": 5
+        },
+        {
+          "name": "小红书",
+          "operator": null,
+          "name_is_operator": false,
+          "scope": "",
+          "row": 6
+        },
+        {
+          "name": "抖音",
+          "operator": null,
+          "name_is_operator": false,
+          "scope": "",
+          "row": 7
+        }
+      ],
+      "evidence_status": "官方全文已核验",
+      "notes": "7条原文，混合平台入口与公司主体；际扬和东方财富仅为原表所列主体，不自行映射品牌。官网明细内嵌PDF已完整读取。",
+      "supporting_urls": [
+        "https://www.bocim.com/rootDir/131230172242412/830/846/863/48421/304513/304738/17915375144641559870206.中银基金网络营销披露名单.pdf"
+      ],
+      "latest_basis": "截至2026-10-22核验当前官网栏目与直接内嵌附件。",
+      "record_kind": "平台与主体混合",
+      "newly_added": true,
+      "disclosure_category": "网络营销 / 第三方平台公示",
+      "row_count": 7
     },
     {
       "name": "兴证全球基金",
@@ -127,7 +309,61 @@
       ],
       "evidence_status": "官方全文已核验",
       "notes": "6条原始入口；基金产品代销机构在范围栏，不等同平台运营主体。",
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 6
+    },
+    {
+      "name": "农银汇理基金",
+      "sector": "公募基金",
+      "title": "农银汇理基金通过以下第三方互联网平台营销旗下基金",
+      "url": "https://www.abc-ca.com/webimages/upload2012/2026/10/09/014918776_520_14c94d4d-1dbe-375d-9d03-43d451cb45e5.pdf",
+      "date": "2026-10-09",
+      "date_basis": "PDF正文表头标明2026年10月9日。",
+      "platforms": [
+        {
+          "name": "支付宝APP",
+          "operator": null,
+          "name_is_operator": false,
+          "scope": "",
+          "row": 1
+        },
+        {
+          "name": "微信APP-理财通小程序",
+          "operator": null,
+          "name_is_operator": false,
+          "scope": "",
+          "row": 2
+        },
+        {
+          "name": "天天基金APP",
+          "operator": null,
+          "name_is_operator": false,
+          "scope": "",
+          "row": 3
+        },
+        {
+          "name": "京东金融APP",
+          "operator": null,
+          "name_is_operator": false,
+          "scope": "",
+          "row": 4
+        },
+        {
+          "name": "且慢APP",
+          "operator": null,
+          "name_is_operator": false,
+          "scope": "",
+          "row": 5
+        }
+      ],
+      "evidence_status": "官方全文已核验",
+      "notes": "5条。2026-10-22官网首页“网络营销披露”直接链接此附件；未披露经营或签约主体。",
+      "latest_basis": "截至2026-10-22核验的官网当前公示入口及其直接链接附件，未找到更晚同类版本。",
+      "record_kind": "平台名称",
+      "newly_added": true,
+      "disclosure_category": "网络营销 / 第三方平台公示",
+      "row_count": 5
     },
     {
       "name": "华夏基金",
@@ -225,6 +461,8 @@
       "supporting_urls": [
         "https://accountquery.chinaamc.com/front/ui/file/1007407/download"
       ],
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 8
     },
     {
@@ -269,6 +507,8 @@
       "supporting_urls": [
         "https://www.fsfund.com/"
       ],
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 4
     },
     {
@@ -366,6 +606,8 @@
       ],
       "evidence_status": "官方全文已核验",
       "notes": "12条平台，未披露经营主体；公示说明根据合作情况不定期更新。",
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 12
     },
     {
@@ -466,7 +708,57 @@
       "supporting_urls": [
         "https://www.nffund.com/js/internet-marketing-293b152f.js"
       ],
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 12
+    },
+    {
+      "name": "博时基金",
+      "sector": "公募基金",
+      "title": "博时基金管理有限公司关于披露委托的第三方互联网平台等信息的公告",
+      "url": "https://www.bosera.com/column/infoDetail.do?infoid=2976962&classid=00020002000200020002",
+      "date": "2026-10-16",
+      "date_basis": "官网正文发布时间2026-10-16 18:55:00，PDF落款同为2026年10月16日。",
+      "platforms": [
+        {
+          "name": "微信",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 1
+        },
+        {
+          "name": "抖音",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 2
+        },
+        {
+          "name": "小红书",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 3
+        },
+        {
+          "name": "雪球",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 4
+        }
+      ],
+      "evidence_status": "官方全文已核验",
+      "notes": "4条。官网公告直接链接的完整2页PDF已读取；另披露营销通信码号，不计入平台数。",
+      "latest_basis": "截至2026-10-22核验的官网当前公示入口及其直接链接附件，未找到更晚同类版本。",
+      "record_kind": "平台名称",
+      "supporting_urls": [
+        "https://www.bosera.com/common/downloadFile.do?fileId=335733EC402DFF2756015FABCBAD0B3E"
+      ],
+      "newly_added": true,
+      "disclosure_category": "网络营销 / 第三方平台公示",
+      "row_count": 4
     },
     {
       "name": "嘉实基金",
@@ -634,7 +926,138 @@
       "data_as_of": null,
       "count_basis": "按官方清单分列条目计数，不跨平台入口或关联主体合并。",
       "verified_on": "2026-10-22",
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 15
+    },
+    {
+      "name": "国泰基金",
+      "sector": "公募基金",
+      "title": "第三方互联网平台信息公示",
+      "url": "https://e.gtfund.com/Etrade/Edu/view/id/6ac8c4c0fd9e8458e8d7466e/routie/look",
+      "date": "2026-10-09",
+      "date_basis": "官网正文明确发布时间2026-10-09 18:37；PDF本体未标日期。",
+      "platforms": [
+        {
+          "name": "抖音",
+          "operator": null,
+          "name_is_operator": false,
+          "scope": "",
+          "row": 1
+        },
+        {
+          "name": "小红书",
+          "operator": null,
+          "name_is_operator": false,
+          "scope": "",
+          "row": 2
+        },
+        {
+          "name": "哔哩哔哩",
+          "operator": null,
+          "name_is_operator": false,
+          "scope": "",
+          "row": 3
+        },
+        {
+          "name": "知乎",
+          "operator": null,
+          "name_is_operator": false,
+          "scope": "",
+          "row": 4
+        },
+        {
+          "name": "微博",
+          "operator": null,
+          "name_is_operator": false,
+          "scope": "",
+          "row": 5
+        },
+        {
+          "name": "微信",
+          "operator": null,
+          "name_is_operator": false,
+          "scope": "",
+          "row": 6
+        },
+        {
+          "name": "支付宝",
+          "operator": null,
+          "name_is_operator": false,
+          "scope": "",
+          "row": 7
+        },
+        {
+          "name": "同花顺",
+          "operator": null,
+          "name_is_operator": false,
+          "scope": "",
+          "row": 8
+        },
+        {
+          "name": "雪球",
+          "operator": null,
+          "name_is_operator": false,
+          "scope": "",
+          "row": 9
+        },
+        {
+          "name": "大智慧",
+          "operator": null,
+          "name_is_operator": false,
+          "scope": "",
+          "row": 10
+        },
+        {
+          "name": "万得",
+          "operator": null,
+          "name_is_operator": false,
+          "scope": "",
+          "row": 11
+        },
+        {
+          "name": "京东金融",
+          "operator": null,
+          "name_is_operator": false,
+          "scope": "",
+          "row": 12
+        },
+        {
+          "name": "度小满",
+          "operator": null,
+          "name_is_operator": false,
+          "scope": "",
+          "row": 13
+        },
+        {
+          "name": "小宇宙",
+          "operator": null,
+          "name_is_operator": false,
+          "scope": "",
+          "row": 14
+        },
+        {
+          "name": "新浪财经",
+          "operator": null,
+          "name_is_operator": false,
+          "scope": "",
+          "row": 15
+        },
+        {
+          "name": "今日头条",
+          "operator": null,
+          "name_is_operator": false,
+          "scope": "",
+          "row": 16
+        }
+      ],
+      "evidence_status": "官方全文已核验",
+      "notes": "16条，未披露主体。官方页面直链 https://ant-static.gtfund.com/brahma/2026-10-09/1791545106841.第三方互联网平台信息公示.pdf ，已完整读取。",
+      "latest_basis": "截至2026-10-22核验的官网当前公示入口及其直接链接附件，未找到更晚同类版本。",
+      "record_kind": "平台名称",
+      "newly_added": true,
+      "disclosure_category": "网络营销 / 第三方平台公示",
+      "row_count": 16
     },
     {
       "name": "大成基金",
@@ -753,6 +1176,8 @@
       "data_as_of": null,
       "count_basis": "按官方清单分列条目计数，不跨平台入口或关联主体合并。",
       "verified_on": "2026-10-22",
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 10
     },
     {
@@ -806,6 +1231,8 @@
       "count_basis": "按平台名称列完全相同的公司主体归纳3个；原表另有974条平台—产品映射记录，不能把3说成原表产品记录行数。",
       "verified_on": "2026-10-22",
       "raw_product_record_count": 974,
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 3
     },
     {
@@ -864,7 +1291,61 @@
       "data_as_of": "2026-09-30",
       "count_basis": "按官方清单分列条目计数，不跨平台入口或关联主体合并。",
       "verified_on": "2026-10-22",
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 4
+    },
+    {
+      "sector": "公募基金",
+      "evidence_status": "官方全文已核验",
+      "latest_basis": "截至2026-10-22核验官网当前公示入口及其直接链接完整材料，未找到更晚同类版本。",
+      "record_kind": "平台名称",
+      "name": "富达基金",
+      "title": "第三方互联网平台信息",
+      "url": "https://www.fidelity.com.cn/public-disclosure-on-third-party-internet-platforms/",
+      "date": "2026-09-30",
+      "date_basis": "官网正文注明本表所列信息截至2026年9月30日，此为数据截止日，未另标发布日期。",
+      "platforms": [
+        {
+          "name": "支付宝APP",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 1
+        },
+        {
+          "name": "京东金融APP",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 2
+        },
+        {
+          "name": "天天基金APP",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 3
+        },
+        {
+          "name": "同花顺APP",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 4
+        },
+        {
+          "name": "雪球APP",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 5
+        }
+      ],
+      "notes": "5条。已解析并核验官方完整HTML表格5行；未披露经营主体。",
+      "newly_added": true,
+      "disclosure_category": "网络营销 / 第三方平台公示",
+      "row_count": 5
     },
     {
       "name": "工银瑞信基金",
@@ -1061,6 +1542,8 @@
       "supporting_urls": [
         "https://www.icbcubs.com.cn/gyrx-file/20260930/6abce6b7eac40a0351962320.png"
       ],
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 19
     },
     {
@@ -1146,6 +1629,8 @@
       "data_as_of": null,
       "count_basis": "按官方清单分列条目计数，不跨平台入口或关联主体合并。",
       "verified_on": "2026-10-22",
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 7
     },
     {
@@ -1422,6 +1907,8 @@
       "supporting_urls": [
         "https://www.gffunds.com.cn/jjgg/lsgg/"
       ],
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 25
     },
     {
@@ -1546,6 +2033,8 @@
       "supporting_urls": [
         "https://www.dbfund.com.cn/rygs/index.html"
       ],
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 10
     },
     {
@@ -1640,6 +2129,8 @@
       "data_as_of": null,
       "count_basis": "按官方清单分列条目计数，不跨平台入口或关联主体合并。",
       "verified_on": "2026-10-22",
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 8
     },
     {
@@ -1698,6 +2189,8 @@
       "data_as_of": null,
       "count_basis": "按官方清单分列条目计数，不跨平台入口或关联主体合并。",
       "verified_on": "2026-10-22",
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 4
     },
     {
@@ -1810,6 +2303,8 @@
       "data_as_of": "2026-09-30",
       "count_basis": "按官方清单分列条目计数，不跨平台入口或关联主体合并。",
       "verified_on": "2026-10-22",
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 10
     },
     {
@@ -1968,7 +2463,54 @@
       "data_as_of": null,
       "count_basis": "按官方清单分列条目计数，不跨平台入口或关联主体合并。",
       "verified_on": "2026-10-22",
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 14
+    },
+    {
+      "name": "汇丰晋信基金",
+      "sector": "公募基金",
+      "title": "网络营销信息公示",
+      "url": "https://www.hsbcjt.cn/upload/file/202610/13/GLGiJn55lH0dzQ8o.pdf",
+      "date": "2026-10-13",
+      "date_basis": "PDF落款2026年10月13日。",
+      "platforms": [
+        {
+          "name": "微信",
+          "operator": null,
+          "name_is_operator": false,
+          "scope": "",
+          "row": 1
+        },
+        {
+          "name": "微博",
+          "operator": null,
+          "name_is_operator": false,
+          "scope": "",
+          "row": 2
+        },
+        {
+          "name": "今日头条",
+          "operator": null,
+          "name_is_operator": false,
+          "scope": "",
+          "row": 3
+        },
+        {
+          "name": "抖音",
+          "operator": null,
+          "name_is_operator": false,
+          "scope": "",
+          "row": 4
+        }
+      ],
+      "evidence_status": "官方全文已核验",
+      "notes": "4条。2026-10-22官网首页“网络营销信息公示”直接链接此PDF；主体未披露。文件页底有INTERNAL字样，但为官网公开披露入口直接挂载的营销平台清单。",
+      "latest_basis": "截至2026-10-22核验的官网当前公示入口及其直接链接附件，未找到更晚同类版本。",
+      "record_kind": "平台名称",
+      "newly_added": true,
+      "disclosure_category": "网络营销 / 第三方平台公示",
+      "row_count": 4
     },
     {
       "name": "汇添富基金",
@@ -2039,6 +2581,8 @@
       "supporting_urls": [
         "https://www.99fund.com/"
       ],
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 4
     },
     {
@@ -2083,6 +2627,8 @@
       "supporting_urls": [
         "https://www.hftfund.com/upload/fck/userfiles/file/1790780810543-第三方互联网平台信息.pdf"
       ],
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 2
     },
     {
@@ -2245,7 +2791,182 @@
       "data_as_of": null,
       "count_basis": "按官方清单分列条目计数，不跨平台入口或关联主体合并。",
       "verified_on": "2026-10-22",
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 15
+    },
+    {
+      "name": "诺德基金",
+      "sector": "公募基金",
+      "title": "诺德基金通过以下第三方互联网平台营销旗下基金",
+      "url": "https://www.nuodefund.com/main/a/20261020/20031633.shtml",
+      "date": "2026-10-20",
+      "date_basis": "官网正文明确2026年10月20日；Excel附件未另标日期。",
+      "platforms": [
+        {
+          "name": "支付宝APP",
+          "operator": null,
+          "scope": "由蚂蚁基金代销的诺德基金所有基金产品",
+          "name_is_operator": false,
+          "row": 1
+        },
+        {
+          "name": "理财通APP",
+          "operator": null,
+          "scope": "由腾安基金代销的诺德基金所有基金产品",
+          "name_is_operator": false,
+          "row": 2
+        },
+        {
+          "name": "天天基金APP",
+          "operator": null,
+          "scope": "由上海天天基金销售有限公司代销的诺德基金所有基金产品",
+          "name_is_operator": false,
+          "row": 3
+        },
+        {
+          "name": "京东金融APP",
+          "operator": null,
+          "scope": "由京东肯特瑞基金代销的诺德基金所有基金产品",
+          "name_is_operator": false,
+          "row": 4
+        }
+      ],
+      "evidence_status": "官方全文已核验",
+      "notes": "4条。完整读取官方Excel全部7行5列；代销主体名称仅原样留在产品范围，未改写为平台经营主体。",
+      "latest_basis": "截至2026-10-22核验官网首页直接链接的当前公告及附件，未找到更晚同类版本。",
+      "record_kind": "平台及基金范围",
+      "supporting_urls": [
+        "https://www.nuodefund.com/upload/20261020/202610201792460260670.xlsx"
+      ],
+      "newly_added": true,
+      "disclosure_category": "网络营销 / 第三方平台公示",
+      "row_count": 4
+    },
+    {
+      "sector": "公募基金",
+      "evidence_status": "官方全文已核验",
+      "latest_basis": "截至2026-10-22核验官网当前公示入口及其直接链接完整材料，未找到更晚同类版本。",
+      "record_kind": "平台名称",
+      "name": "贝莱德基金",
+      "title": "网络营销信息公示",
+      "url": "https://www.blackrock.com.cn/upload/pdf/1791968799063-wangluoyingxiaoxinxigongshi.pdf",
+      "date": "未标注",
+      "date_basis": "PDF完整正文未标发布日期或截止日期，文件名时间戳不作正式日期。",
+      "platforms": [
+        {
+          "name": "微信",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 1
+        },
+        {
+          "name": "抖音",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 2
+        },
+        {
+          "name": "东方财富",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 3
+        }
+      ],
+      "notes": "3条。官网首页网络营销信息公示直接链接的完整PDF已读取，另逐项列出平台官网网址www.weixin.qq.com、www.douyin.com、www.eastmoney.com；未披露经营主体。",
+      "newly_added": true,
+      "disclosure_category": "网络营销 / 第三方平台公示",
+      "row_count": 3
+    },
+    {
+      "sector": "公募基金",
+      "evidence_status": "官方全文已核验",
+      "latest_basis": "截至2026-10-22核验官网当前公示入口及其直接链接完整材料，未找到更晚同类版本。",
+      "record_kind": "平台名称",
+      "name": "鑫元基金",
+      "title": "受委托第三方互联网平台信息披露",
+      "url": "https://www.xyamc.com/gyxy/wangluoyingxiaoxinxi/index.html",
+      "date": "未标注",
+      "date_basis": "官网完整正文未标发布日期或截止日期。",
+      "platforms": [
+        {
+          "name": "抖音",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 1
+        },
+        {
+          "name": "小红书",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 2
+        },
+        {
+          "name": "支付宝APP-理财",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 3
+        },
+        {
+          "name": "蚂蚁财富APP",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 4
+        },
+        {
+          "name": "东方财富",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 5
+        },
+        {
+          "name": "同花顺",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 6
+        },
+        {
+          "name": "京东金融",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 7
+        },
+        {
+          "name": "微信APP-理财通",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 8
+        },
+        {
+          "name": "腾讯理财通APP",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 9
+        },
+        {
+          "name": "微博",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 10
+        }
+      ],
+      "notes": "10条。官网网络营销信息专页完整HTML表格已核验，正文注明动态更新；未披露经营主体。",
+      "newly_added": true,
+      "disclosure_category": "网络营销 / 第三方平台公示",
+      "row_count": 10
     },
     {
       "name": "鹏华基金",
@@ -2312,7 +3033,222 @@
       "data_as_of": null,
       "count_basis": "按官方清单分列条目计数，不跨平台入口或关联主体合并。",
       "verified_on": "2026-10-22",
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 5
+    },
+    {
+      "name": "中信建投证券",
+      "sector": "证券",
+      "title": "第三方平台信息公示",
+      "url": "https://www.csc108.com/articleDetail?fn=0&name=DSF_XXGS&docId=4822286&referUrl=aboutus",
+      "date": "2026-09-30",
+      "date_basis": "官网公示列表及公告正文标注2026-09-30。",
+      "platforms": [
+        {
+          "name": "同花顺APP",
+          "operator": null,
+          "scope": "广告展示、提供证券开户、交易以及投顾产品签约服务",
+          "name_is_operator": false,
+          "row": 1
+        },
+        {
+          "name": "大智慧APP",
+          "operator": null,
+          "scope": "广告展示、提供证券开户、交易服务",
+          "name_is_operator": false,
+          "row": 2
+        },
+        {
+          "name": "小红书APP",
+          "operator": null,
+          "scope": "委托平台代理机构进行广告展示",
+          "name_is_operator": false,
+          "row": 3
+        },
+        {
+          "name": "京东金融APP",
+          "operator": null,
+          "scope": "广告展示、提供证券开户、交易服务",
+          "name_is_operator": false,
+          "row": 4
+        },
+        {
+          "name": "腾讯自选股APP",
+          "operator": null,
+          "scope": "广告展示、提供证券开户、交易以及投顾产品签约服务",
+          "name_is_operator": false,
+          "row": 5
+        },
+        {
+          "name": "腾讯微证券（公众号、小程序）",
+          "operator": null,
+          "scope": "广告展示、提供证券开户、交易以及投顾产品签约服务",
+          "name_is_operator": false,
+          "row": 6
+        },
+        {
+          "name": "蚂蚁财富APP",
+          "operator": null,
+          "scope": "广告展示、提供证券开户、交易以及投顾产品签约服务",
+          "name_is_operator": false,
+          "row": 7
+        },
+        {
+          "name": "支付宝APP",
+          "operator": null,
+          "scope": "广告展示、提供证券开户、交易以及投顾产品签约服务",
+          "name_is_operator": false,
+          "row": 8
+        },
+        {
+          "name": "抖音APP",
+          "operator": null,
+          "scope": "委托平台代理机构进行广告展示、提供证券开户、交易服务",
+          "name_is_operator": false,
+          "row": 9
+        },
+        {
+          "name": "百度搜索",
+          "operator": null,
+          "scope": "委托平台代理机构进行广告展示",
+          "name_is_operator": false,
+          "row": 10
+        },
+        {
+          "name": "腾讯广点通",
+          "operator": null,
+          "scope": "委托平台代理机构进行广告展示",
+          "name_is_operator": false,
+          "row": 11
+        },
+        {
+          "name": "苹果应用市场",
+          "operator": null,
+          "scope": "通过付费推广，推荐用户在APP Store下载蜻蜓点金APP完成开户、交易等后续服务",
+          "name_is_operator": false,
+          "row": 12
+        },
+        {
+          "name": "华为手机移动端（应用市场、信息流）",
+          "operator": null,
+          "scope": "通过付费推广，推荐用户在应用商店下载蜻蜓点金APP完成开户、交易等后续服务",
+          "name_is_operator": false,
+          "row": 13
+        },
+        {
+          "name": "OPPO手机移动端（应用市场、信息流）",
+          "operator": null,
+          "scope": "通过付费推广，推荐用户在OPPO应用商店下载蜻蜓点金APP完成开户、交易等后续服务",
+          "name_is_operator": false,
+          "row": 14
+        },
+        {
+          "name": "vivo手机移动端（应用市场、信息流）",
+          "operator": null,
+          "scope": "通过付费推广，推荐用户在vivo应用商店下载蜻蜓点金APP完成开户、交易等后续服务",
+          "name_is_operator": false,
+          "row": 15
+        },
+        {
+          "name": "荣耀手机移动端（应用市场、信息流）",
+          "operator": null,
+          "scope": "通过付费推广，推荐用户在荣耀应用商店下载蜻蜓点金APP完成开户、交易等后续服务",
+          "name_is_operator": false,
+          "row": 16
+        },
+        {
+          "name": "小米手机移动端（应用市场、信息流）",
+          "operator": null,
+          "scope": "通过付费推广，推荐用户在应用商店下载蜻蜓点金APP完成开户、交易等后续服务",
+          "name_is_operator": false,
+          "row": 17
+        },
+        {
+          "name": "邮储银行手机银行APP（证券期货）",
+          "operator": null,
+          "scope": "证券开户/宣传",
+          "name_is_operator": false,
+          "row": 18
+        },
+        {
+          "name": "交通银行手机银行APP（证券专区）",
+          "operator": null,
+          "scope": "证券开户/宣传",
+          "name_is_operator": false,
+          "row": 19
+        },
+        {
+          "name": "工商银行手机银行APP（证券）",
+          "operator": null,
+          "scope": "证券开户/宣传",
+          "name_is_operator": false,
+          "row": 20
+        },
+        {
+          "name": "中国农业银行手机银行APP（证券期货）",
+          "operator": null,
+          "scope": "证券开户/宣传",
+          "name_is_operator": false,
+          "row": 21
+        },
+        {
+          "name": "中国建设银行手机银行APP（证券期货）",
+          "operator": null,
+          "scope": "证券开户/宣传",
+          "name_is_operator": false,
+          "row": 22
+        },
+        {
+          "name": "中信金融控股有限公司（信息流）",
+          "operator": null,
+          "scope": "中信金控协同平台，广告展示，用户可下载蜻蜓点金App",
+          "name_is_operator": false,
+          "row": 23
+        },
+        {
+          "name": "宁波银行手机银行APP（银证业务）",
+          "operator": null,
+          "scope": "证券开户/宣传",
+          "name_is_operator": false,
+          "row": 24
+        },
+        {
+          "name": "兴业银行手机银行APP（证券开户）",
+          "operator": null,
+          "scope": "证券开户/宣传",
+          "name_is_operator": false,
+          "row": 25
+        },
+        {
+          "name": "浦发银行手机银行APP（证券）",
+          "operator": null,
+          "scope": "证券开户/宣传",
+          "name_is_operator": false,
+          "row": 26
+        },
+        {
+          "name": "中国银行手机银行APP（证券期货）",
+          "operator": null,
+          "scope": "证券开户/宣传",
+          "name_is_operator": false,
+          "row": 27
+        },
+        {
+          "name": "中信银行手机银行APP（证券）",
+          "operator": null,
+          "scope": "证券开户/宣传",
+          "name_is_operator": false,
+          "row": 28
+        }
+      ],
+      "evidence_status": "官方完整图片已核验",
+      "notes": "官网公告正文为800×706图片，已通过正常浏览器逐行读取完整28项。17项互联网/应用渠道及11项银行/集团协同入口，均保留原文序号组项。手机应用商店与信息流按原文合并；同一平台的不同产品不当作独立平台数。第三方合作范围具体列明广告展示、平台代理、付费推广与证券开户宣传，未推断费用及规模。",
+      "latest_basis": "2026-10-22从官网“信息公示—第三方平台合作信息公示”进入现行仅一条公告，完整图片已读取。",
+      "record_kind": "官方明确合作渠道",
+      "newly_added": true,
+      "disclosure_category": "网络营销 / 第三方平台公示",
+      "row_count": 28
     },
     {
       "name": "中信证券",
@@ -2472,6 +3408,8 @@
       ],
       "evidence_status": "已读完整官方正文",
       "notes": "原文21行、19个不重复主体；百度时代与腾讯各重复一行，原样保留。仅披露主体，没有平台映射，不按常识补齐。",
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 21
     },
     {
@@ -2611,6 +3549,8 @@
       ],
       "evidence_status": "已读完整官方正文",
       "notes": "18条；当前官网常设栏目。",
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 18
     },
     {
@@ -2743,7 +3683,159 @@
       ],
       "evidence_status": "已读完整官方正文及浏览器",
       "notes": "官网对外展业系统第35行明确标其他平台合作渠道，按17个顶层披露项计数，子产品不重复拆分；属于合作渠道披露，原文未逐项写商业广告委托性质，不能等同已投放、转化或金额。豆包为官方明确列名。",
+      "newly_added": false,
+      "disclosure_category": "展业 / 合作渠道公示",
       "row_count": 17
+    },
+    {
+      "name": "兴业证券",
+      "sector": "证券",
+      "title": "兴业证券经纪业务相关系统及渠道信息公示—广告、内容运营及分发渠道",
+      "url": "https://www.xyzq.com.cn/xysec/service/11302",
+      "date": "未标注",
+      "date_basis": "当前常设公示页面无发布日期。",
+      "platforms": [
+        {
+          "name": "支付宝",
+          "operator": null,
+          "scope": "支付宝 APP和蚂蚁财富APP上提供广告位，客户可以选择兴业证券进行开户、账户登录以及交易服务及部分业务办理功能。",
+          "name_is_operator": false,
+          "row": 1
+        },
+        {
+          "name": "同花顺",
+          "operator": null,
+          "scope": "同花顺 APP上提供广告位，客户可以选择兴业证券进行开户、账户登录以及交易服务及业务办理功能。",
+          "name_is_operator": false,
+          "row": 2
+        },
+        {
+          "name": "通达信 APP",
+          "operator": null,
+          "scope": "通达信 APP上提供广告位，客户可以选择兴业证券进行开户、账户登录以及交易服务功能。",
+          "name_is_operator": false,
+          "row": 3
+        },
+        {
+          "name": "大智慧 APP",
+          "operator": null,
+          "scope": "大智慧 APP上提供广告位，客户可以选择兴业证券进行开户、账户登录以及交易服务功能。",
+          "name_is_operator": false,
+          "row": 4
+        },
+        {
+          "name": "星图金融 APP",
+          "operator": null,
+          "scope": "星图金融 APP上提供广告位，用户点击广告后可展示广告详情与相关营销页面。",
+          "name_is_operator": false,
+          "row": 5
+        },
+        {
+          "name": "喜马拉雅 APP",
+          "operator": null,
+          "scope": "喜马拉雅 APP上提供广告位，用户点击广告后可展示广告详情与相关营销页面。",
+          "name_is_operator": false,
+          "row": 6
+        },
+        {
+          "name": "云闪付 APP",
+          "operator": null,
+          "scope": "云闪付 APP上提供广告位，客户可以选择兴业证券进行开户办理等功能。",
+          "name_is_operator": false,
+          "row": 7
+        },
+        {
+          "name": "字节跳动平台",
+          "operator": null,
+          "scope": "包括抖音 APP、今日头条APP等字节跳动集团旗下信息资讯平台，通过付费推广在用户浏览的信息中插入广告，用户点击广告后展示广告详情与相关营销页面。",
+          "name_is_operator": false,
+          "row": 8
+        },
+        {
+          "name": "腾讯视频号",
+          "operator": null,
+          "scope": "通过付费推广在用户浏览的信息中插入广告，用户点击广告后展示广告详情与相关营销页面。",
+          "name_is_operator": false,
+          "row": 9
+        },
+        {
+          "name": "小红书 APP",
+          "operator": null,
+          "scope": "通过付费推广在用户浏览的信息中插入广告，用户点击广告后展示广告详情与相关营销页面。",
+          "name_is_operator": false,
+          "row": 10
+        },
+        {
+          "name": "哔哩哔哩 APP",
+          "operator": null,
+          "scope": "通过付费推广在用户浏览的信息中插入广告，用户点击广告后展示广告详情与相关营销页面。",
+          "name_is_operator": false,
+          "row": 11
+        },
+        {
+          "name": "招商银行 APP",
+          "operator": null,
+          "scope": "在招商银行 APP上招财号运营平台进行自主内容运营，用户点击后可展示内容详情与相关营销页面。",
+          "name_is_operator": false,
+          "row": 12
+        },
+        {
+          "name": "中信银行 APP",
+          "operator": null,
+          "scope": "通过付费推广在用户浏览的信息中插入广告，用户点击广告后展示广告详情与相关营销页面。",
+          "name_is_operator": false,
+          "row": 13
+        },
+        {
+          "name": "苹果应用市场",
+          "operator": null,
+          "scope": "为苹果手机客户提供下载优理宝 APP的入口。",
+          "name_is_operator": false,
+          "row": 14
+        },
+        {
+          "name": "华为应用市场",
+          "operator": null,
+          "scope": "为华为手机客户提供下载优理宝 APP的入口。",
+          "name_is_operator": false,
+          "row": 15
+        },
+        {
+          "name": "小米应用市场",
+          "operator": null,
+          "scope": "为小米手机客户提供下载优理宝 APP的入口。",
+          "name_is_operator": false,
+          "row": 16
+        },
+        {
+          "name": "oppo应用市场",
+          "operator": null,
+          "scope": "为 oppo手机客户提供下载优理宝APP的入口。",
+          "name_is_operator": false,
+          "row": 17
+        },
+        {
+          "name": "vivo应用市场",
+          "operator": null,
+          "scope": "为 vivo手机客户提供下载优理宝APP的入口。",
+          "name_is_operator": false,
+          "row": 18
+        },
+        {
+          "name": "荣耀应用市场",
+          "operator": null,
+          "scope": "为荣耀手机客户提供下载优理宝 APP的入口。",
+          "name_is_operator": false,
+          "row": 19
+        }
+      ],
+      "evidence_status": "官方完整正文已核验",
+      "notes": "完整原表34项中提取支付宝至荣耀应用市场的19个原文组项。支付宝项同时提及支付宝APP和蚂蚁财富APP，字节跳动项涵盖抖音与今日头条等；不能直接当作19个独立APP。多数列明付费推广/广告位，招商银行为自主内容运营，6个应用市场仅标下载入口。排除自营、OEM软件及资金存管银行。",
+      "latest_basis": "2026-10-22从当前官网入口读取的现行正文。",
+      "record_kind": "官方明确合作渠道",
+      "newly_added": true,
+      "disclosure_category": "展业 / 合作渠道公示",
+      "row_count": 19
     },
     {
       "name": "华泰证券",
@@ -2875,6 +3967,8 @@
       ],
       "notes": "17平台；搜索索引仅16条，当前浏览器末行新增大智慧，按现页面核验。前7项应用市场仅披露名称，后10项披露主体及合作介绍。",
       "date_basis": "页面未标注日期；本次浏览器直接读取当前常设栏目完整17条",
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 17
     },
     {
@@ -2965,7 +4059,930 @@
       ],
       "evidence_status": "已读完整官方正文",
       "notes": "当前官方正文11条；搜索引擎同URL历史索引列13家主体，与现正文不同，未把旧索引主体映射到当前平台。最后一项为集合项、不是具体单一平台。",
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 11
+    },
+    {
+      "name": "华鑫证券",
+      "sector": "证券",
+      "title": "华鑫证券对外展业信息系统公示—明确外部合作及分发渠道",
+      "url": "https://www.cfsc.com.cn/www/html/163/1.html?guid=CB165C3A6F3B6817E05328F7BC0A21AB&v=1792031074896",
+      "date": "未标注",
+      "date_basis": "当前常设公示页面无发布日期；2026-10-22读取官网正文。",
+      "platforms": [
+        {
+          "name": "川谷信息科技有限公司官方网站",
+          "operator": null,
+          "scope": "外部合作平台。网址：http://simuyanjiu.com/",
+          "name_is_operator": false,
+          "row": 1
+        },
+        {
+          "name": "北京韬睿智能科技有限公司官方网站",
+          "operator": null,
+          "scope": "外部合作平台。网址：https://www.kungfu-trader.com/",
+          "name_is_operator": false,
+          "row": 2
+        },
+        {
+          "name": "抖音",
+          "operator": null,
+          "scope": "外部合作平台。",
+          "name_is_operator": false,
+          "row": 3
+        },
+        {
+          "name": "微信视频号",
+          "operator": null,
+          "scope": "外部合作平台。",
+          "name_is_operator": false,
+          "row": 4
+        },
+        {
+          "name": "同花顺",
+          "operator": null,
+          "scope": "外部合作平台。",
+          "name_is_operator": false,
+          "row": 5
+        },
+        {
+          "name": "大智慧",
+          "operator": null,
+          "scope": "外部合作平台。",
+          "name_is_operator": false,
+          "row": 6
+        },
+        {
+          "name": "通达信",
+          "operator": null,
+          "scope": "外部合作平台。",
+          "name_is_operator": false,
+          "row": 7
+        },
+        {
+          "name": "百度助手",
+          "operator": null,
+          "scope": "软件下载渠道。",
+          "name_is_operator": false,
+          "row": 8
+        },
+        {
+          "name": "苹果APP store",
+          "operator": null,
+          "scope": "软件下载渠道。",
+          "name_is_operator": false,
+          "row": 9
+        },
+        {
+          "name": "应用宝",
+          "operator": null,
+          "scope": "软件下载渠道。",
+          "name_is_operator": false,
+          "row": 10
+        },
+        {
+          "name": "华为应用商店",
+          "operator": null,
+          "scope": "软件下载渠道。",
+          "name_is_operator": false,
+          "row": 11
+        },
+        {
+          "name": "小米应用商店",
+          "operator": null,
+          "scope": "软件下载渠道。",
+          "name_is_operator": false,
+          "row": 12
+        },
+        {
+          "name": "OPPO应用商店",
+          "operator": null,
+          "scope": "软件下载渠道。",
+          "name_is_operator": false,
+          "row": 13
+        },
+        {
+          "name": "VIVO应用商店",
+          "operator": null,
+          "scope": "软件下载渠道。",
+          "name_is_operator": false,
+          "row": 14
+        },
+        {
+          "name": "高德",
+          "operator": null,
+          "scope": "外部合作平台。",
+          "name_is_operator": false,
+          "row": 15
+        },
+        {
+          "name": "喜马拉雅",
+          "operator": null,
+          "scope": "外部合作平台。",
+          "name_is_operator": false,
+          "row": 16
+        },
+        {
+          "name": "OPPO信息流",
+          "operator": null,
+          "scope": "外部合作平台",
+          "name_is_operator": false,
+          "row": 17
+        }
+      ],
+      "evidence_status": "官方完整正文已核验",
+      "notes": "对外展业大表共71个系统；本表仅提取第37—52及70项，共17个明确标注外部合作平台或软件下载渠道的入口。自营软件、私募交易工具等不纳入。此为合作/分发渠道披露，不逐项证明商业性营销委托、付费投放或业务规模。",
+      "latest_basis": "2026-10-22从当前官网入口读取的现行正文；未将网页其他栏目日期移用。",
+      "record_kind": "官方明确合作渠道",
+      "newly_added": true,
+      "disclosure_category": "展业 / 合作渠道公示",
+      "row_count": 17
+    },
+    {
+      "name": "南京证券",
+      "sector": "证券",
+      "title": "对外展业信息系统公示—平台合作",
+      "url": "https://www.njzq.com.cn/njzq/business/xtgs.html",
+      "date": "未标注",
+      "date_basis": "当前常设公示页面无发布日期；2026-10-22读取官网正文。",
+      "platforms": [
+        {
+          "name": "App Store",
+          "operator": null,
+          "scope": "苹果手机为用户提供的应用下载平台，南京证券通过付费推广可被推荐给用户下载使用。",
+          "name_is_operator": false,
+          "row": 1
+        },
+        {
+          "name": "华为应用市场",
+          "operator": null,
+          "scope": "华为手机为用户提供的应用下载平台，南京证券通过付费推广可被推荐给用户下载使用。",
+          "name_is_operator": false,
+          "row": 2
+        },
+        {
+          "name": "小米应用市场",
+          "operator": null,
+          "scope": "小米手机为用户提供的应用下载平台，南京证券通过付费推广可被推荐给用户下载使用。",
+          "name_is_operator": false,
+          "row": 3
+        },
+        {
+          "name": "OPPO应用市场",
+          "operator": null,
+          "scope": "OPPO手机为用户提供的应用下载平台，南京证券通过付费推广可被推荐给用户下载使用。",
+          "name_is_operator": false,
+          "row": 4
+        },
+        {
+          "name": "vivo应用市场",
+          "operator": null,
+          "scope": "Vivo手机为用户提供的应用下载平台，南京证券通过付费推广可被推荐给用户下载使用。",
+          "name_is_operator": false,
+          "row": 5
+        },
+        {
+          "name": "大智慧",
+          "operator": null,
+          "scope": "大智慧APP上提供广告位，客户可以选择南京证券进行开户、账户登录以及交易服务功能。",
+          "name_is_operator": false,
+          "row": 6
+        },
+        {
+          "name": "同花顺",
+          "operator": null,
+          "scope": "同花顺公司在同花顺APP上提供广告位，开户交易券商可选南京证券（仅限特定营业部开户）。",
+          "name_is_operator": false,
+          "row": 7
+        },
+        {
+          "name": "高德地图",
+          "operator": null,
+          "scope": "高德地图APP上提供广告位，用户点击广告后可展示广告详情与相关品牌宣传页面。",
+          "name_is_operator": false,
+          "row": 8
+        }
+      ],
+      "evidence_status": "官方完整正文已核验",
+      "notes": "原表27个系统，仅提取17—24项明确标注其他（平台合作）的8项。原文明确付费推广/广告位；排除自营APP、OEM软件、电话和自有公众号。",
+      "latest_basis": "2026-10-22从当前官网入口读取的现行正文；未将网页其他栏目日期移用。",
+      "record_kind": "官方明确合作渠道",
+      "newly_added": true,
+      "disclosure_category": "展业 / 合作渠道公示",
+      "row_count": 8
+    },
+    {
+      "name": "国信证券",
+      "sector": "证券",
+      "title": "国信证券对外展业信息系统信息表—其他（合作渠道）",
+      "url": "https://www.guosen.com.cn/gs/about_guosen/public_inform_fwgs.html#nav",
+      "date": "未标注",
+      "date_basis": "当前常设公示页面无发布日期。",
+      "platforms": [
+        {
+          "name": "360手机助手",
+          "operator": null,
+          "scope": "其他（合作渠道）。",
+          "name_is_operator": false,
+          "row": 1
+        },
+        {
+          "name": "OPPO",
+          "operator": null,
+          "scope": "其他（合作渠道）。",
+          "name_is_operator": false,
+          "row": 2
+        },
+        {
+          "name": "VIVO",
+          "operator": null,
+          "scope": "其他（合作渠道）。",
+          "name_is_operator": false,
+          "row": 3
+        },
+        {
+          "name": "华为",
+          "operator": null,
+          "scope": "其他（合作渠道）。",
+          "name_is_operator": false,
+          "row": 4
+        },
+        {
+          "name": "荣耀",
+          "operator": null,
+          "scope": "其他（合作渠道）。",
+          "name_is_operator": false,
+          "row": 5
+        },
+        {
+          "name": "小米",
+          "operator": null,
+          "scope": "其他（合作渠道）。",
+          "name_is_operator": false,
+          "row": 6
+        },
+        {
+          "name": "应用宝",
+          "operator": null,
+          "scope": "其他（合作渠道）。",
+          "name_is_operator": false,
+          "row": 7
+        },
+        {
+          "name": "百度手机助手",
+          "operator": null,
+          "scope": "其他（合作渠道）。",
+          "name_is_operator": false,
+          "row": 8
+        },
+        {
+          "name": "苹果I0S",
+          "operator": null,
+          "scope": "其他（合作渠道）。",
+          "name_is_operator": false,
+          "row": 9
+        },
+        {
+          "name": "魅族",
+          "operator": null,
+          "scope": "其他（合作渠道）。",
+          "name_is_operator": false,
+          "row": 10
+        },
+        {
+          "name": "百度搜索",
+          "operator": null,
+          "scope": "其他（合作渠道）。",
+          "name_is_operator": false,
+          "row": 11
+        },
+        {
+          "name": "腾讯搜索",
+          "operator": null,
+          "scope": "其他（合作渠道）。",
+          "name_is_operator": false,
+          "row": 12
+        },
+        {
+          "name": "神马搜索",
+          "operator": null,
+          "scope": "其他（合作渠道）。",
+          "name_is_operator": false,
+          "row": 13
+        },
+        {
+          "name": "头条搜索",
+          "operator": null,
+          "scope": "其他（合作渠道）。",
+          "name_is_operator": false,
+          "row": 14
+        },
+        {
+          "name": "同花顺",
+          "operator": null,
+          "scope": "其他（合作渠道）。",
+          "name_is_operator": false,
+          "row": 15
+        },
+        {
+          "name": "腾讯自选股",
+          "operator": null,
+          "scope": "其他（合作渠道）。",
+          "name_is_operator": false,
+          "row": 16
+        },
+        {
+          "name": "京东",
+          "operator": null,
+          "scope": "其他（合作渠道）。",
+          "name_is_operator": false,
+          "row": 17
+        },
+        {
+          "name": "新浪",
+          "operator": null,
+          "scope": "其他（合作渠道）。",
+          "name_is_operator": false,
+          "row": 18
+        },
+        {
+          "name": "万得股票App",
+          "operator": null,
+          "scope": "其他（合作渠道）。",
+          "name_is_operator": false,
+          "row": 19
+        },
+        {
+          "name": "牛股王App",
+          "operator": null,
+          "scope": "其他（合作渠道）。",
+          "name_is_operator": false,
+          "row": 20
+        },
+        {
+          "name": "支付宝App",
+          "operator": null,
+          "scope": "其他（合作渠道）。",
+          "name_is_operator": false,
+          "row": 21
+        },
+        {
+          "name": "蚂蚁财富App",
+          "operator": null,
+          "scope": "其他（合作渠道）。",
+          "name_is_operator": false,
+          "row": 22
+        },
+        {
+          "name": "大智慧App",
+          "operator": null,
+          "scope": "其他（合作渠道）。",
+          "name_is_operator": false,
+          "row": 23
+        },
+        {
+          "name": "高德地图App",
+          "operator": null,
+          "scope": "其他（合作渠道）。",
+          "name_is_operator": false,
+          "row": 24
+        },
+        {
+          "name": "小红书App",
+          "operator": null,
+          "scope": "其他（合作渠道）。",
+          "name_is_operator": false,
+          "row": 25
+        },
+        {
+          "name": "通达信App",
+          "operator": null,
+          "scope": "其他（合作渠道）。",
+          "name_is_operator": false,
+          "row": 26
+        },
+        {
+          "name": "雪球App",
+          "operator": null,
+          "scope": "其他（合作渠道）。",
+          "name_is_operator": false,
+          "row": 27
+        }
+      ],
+      "evidence_status": "官方完整正文已核验",
+      "notes": "完整表31项，仅提取第31项“其他（合作渠道）”的27个列名；自营及OEM软件、公众号、小程序不纳入。官网“苹果I0S”按原文保留。此为合作渠道口径，不逐项证明商业性营销委托。",
+      "latest_basis": "2026-10-22从当前官网信息公示入口读取全文。",
+      "record_kind": "官方明确合作渠道",
+      "newly_added": true,
+      "disclosure_category": "展业 / 合作渠道公示",
+      "row_count": 27
+    },
+    {
+      "name": "国元证券",
+      "sector": "证券",
+      "title": "渠道合作",
+      "url": "https://www.gyzq.com.cn/main/enterGY/xxgk/qdhz/index.html",
+      "date": "未标注",
+      "date_basis": "当前常设公示页面无发布日期。",
+      "platforms": [
+        {
+          "name": "同花顺",
+          "operator": "杭州核新软件技术有限公司",
+          "scope": "官网渠道合作表列示互联网平台及合作主体；合作主体不当然等于平台运营者。",
+          "name_is_operator": false,
+          "row": 1
+        },
+        {
+          "name": "大智慧",
+          "operator": "上海大智慧信息科技有限公司",
+          "scope": "官网渠道合作表列示互联网平台及合作主体；合作主体不当然等于平台运营者。",
+          "name_is_operator": false,
+          "row": 2
+        },
+        {
+          "name": "App store",
+          "operator": "杭州艾推网络科技有限公司",
+          "scope": "官网渠道合作表列示互联网平台及合作主体；合作主体不当然等于平台运营者。",
+          "name_is_operator": false,
+          "row": 3
+        },
+        {
+          "name": "华为应用市场",
+          "operator": "华为软件技术有限公司",
+          "scope": "官网渠道合作表列示互联网平台及合作主体；合作主体不当然等于平台运营者。",
+          "name_is_operator": false,
+          "row": 4
+        },
+        {
+          "name": "oppo应用市场",
+          "operator": "哇棒移动传媒股份有限公司",
+          "scope": "官网渠道合作表列示互联网平台及合作主体；合作主体不当然等于平台运营者。",
+          "name_is_operator": false,
+          "row": 5
+        },
+        {
+          "name": "vivo应用市场",
+          "operator": "哇棒移动传媒股份有限公司",
+          "scope": "官网渠道合作表列示互联网平台及合作主体；合作主体不当然等于平台运营者。",
+          "name_is_operator": false,
+          "row": 6
+        },
+        {
+          "name": "小米应用市场",
+          "operator": "哇棒移动传媒股份有限公司",
+          "scope": "官网渠道合作表列示互联网平台及合作主体；合作主体不当然等于平台运营者。",
+          "name_is_operator": false,
+          "row": 7
+        },
+        {
+          "name": "荣耀应用市场",
+          "operator": "广州奇异果互动科技有限公司",
+          "scope": "官网渠道合作表列示互联网平台及合作主体；合作主体不当然等于平台运营者。",
+          "name_is_operator": false,
+          "row": 8
+        },
+        {
+          "name": "小红书",
+          "operator": "南京卓奇软件设计有限公司",
+          "scope": "官网渠道合作表列示互联网平台及合作主体；合作主体不当然等于平台运营者。",
+          "name_is_operator": false,
+          "row": 9
+        }
+      ],
+      "evidence_status": "官方完整正文已核验",
+      "notes": "完整“渠道合作”表9个平台与7个去重合作主体；operator字段沿用官网“合作主体”，不能解释成平台运营主体。例如应用商店对应代理商。合作渠道口径，未逐项披露付费投放规模。",
+      "latest_basis": "2026-10-22从当前官网入口读取的现行正文。",
+      "record_kind": "官方明确合作渠道",
+      "newly_added": true,
+      "disclosure_category": "展业 / 合作渠道公示",
+      "row_count": 9
+    },
+    {
+      "name": "国投证券",
+      "sector": "证券",
+      "title": "国投证券对外展业信息系统公示—外部合作平台",
+      "url": "https://www.essence.com.cn/news/2487607?columnId=003005",
+      "date": "2026-09-16",
+      "date_basis": "页面标注日期2026-09-16 15:46。",
+      "platforms": [
+        {
+          "name": "京东股票APP，京东金融APP",
+          "operator": null,
+          "scope": "外部合作平台。",
+          "name_is_operator": false,
+          "row": 1
+        },
+        {
+          "name": "支付宝APP",
+          "operator": null,
+          "scope": "外部合作平台。",
+          "name_is_operator": false,
+          "row": 2
+        },
+        {
+          "name": "通达信APP",
+          "operator": null,
+          "scope": "外部合作平台。",
+          "name_is_operator": false,
+          "row": 3
+        },
+        {
+          "name": "同花顺APP",
+          "operator": null,
+          "scope": "外部合作平台。",
+          "name_is_operator": false,
+          "row": 4
+        },
+        {
+          "name": "股掌柜APP",
+          "operator": null,
+          "scope": "外部合作平台。",
+          "name_is_operator": false,
+          "row": 5
+        },
+        {
+          "name": "财源滚滚APP",
+          "operator": null,
+          "scope": "外部合作平台。",
+          "name_is_operator": false,
+          "row": 6
+        },
+        {
+          "name": "九方智投APP",
+          "operator": null,
+          "scope": "外部合作平台。",
+          "name_is_operator": false,
+          "row": 7
+        }
+      ],
+      "evidence_status": "官方完整正文已核验",
+      "notes": "完整表38项中第32—38项明确为外部合作平台，共7个原始组项；首项京东股票APP和京东金融APP保留同一原始组项。自营/OEM客户端和技术交易系统不纳入。合作渠道口径，未逐项披露广告委托及投放规模。",
+      "latest_basis": "2026-10-22从当前官网入口读取的现行正文；未将网页其他栏目日期移用。",
+      "record_kind": "官方明确合作渠道",
+      "newly_added": true,
+      "disclosure_category": "展业 / 合作渠道公示",
+      "row_count": 7
+    },
+    {
+      "name": "平安证券",
+      "sector": "证券",
+      "title": "平安证券股份有限公司官方合作第三方互联网平台信息公示",
+      "url": "https://stock.pingan.com/static/info/panotice/noticedetail.html?noticeType=1&id=25013342",
+      "date": "2026-09-22",
+      "date_basis": "页面标注发表时间2026-09-22 14:18:31，文末落款2026年9月22日。",
+      "platforms": [
+        {
+          "name": "同花顺",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 1
+        },
+        {
+          "name": "雪球",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 2
+        },
+        {
+          "name": "大智慧",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 3
+        },
+        {
+          "name": "通达信",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 4
+        },
+        {
+          "name": "新浪财经",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 5
+        },
+        {
+          "name": "万得",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 6
+        },
+        {
+          "name": "九方智投",
+          "operator": "掌中微视（北京）科技有限公司",
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 7
+        },
+        {
+          "name": "金融界",
+          "operator": "北京富华创新科技发展有限责任公司",
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 8
+        },
+        {
+          "name": "华尔街见闻",
+          "operator": "上海阿牛信息科技有限公司",
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 9
+        },
+        {
+          "name": "益盟操盘手",
+          "operator": "上海益盟科技有限公司",
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 10
+        },
+        {
+          "name": "市值风云",
+          "operator": "北京韬联科技有限公司",
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 11
+        },
+        {
+          "name": "股掌柜",
+          "operator": "股掌柜证券投资咨询有限公司",
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 12
+        },
+        {
+          "name": "怀新",
+          "operator": "深圳怀新企业投资顾问股份有限公司",
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 13
+        },
+        {
+          "name": "养基宝",
+          "operator": "深圳市小多头信息科技有限公司",
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 14
+        },
+        {
+          "name": "财商 -菲尔莱（北京）科技有限公司",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": true,
+          "row": 15
+        },
+        {
+          "name": "财商 -上海舟于网络科技有限公司",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": true,
+          "row": 16
+        },
+        {
+          "name": "财商 -杭州敏安科技有限公司",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": true,
+          "row": 17
+        },
+        {
+          "name": "应用商店 -华为",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 18
+        },
+        {
+          "name": "应用商店 -苹果",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 19
+        },
+        {
+          "name": "应用商店 -小米",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 20
+        },
+        {
+          "name": "应用商店 -OPPO",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 21
+        },
+        {
+          "name": "应用商店 -VIVO",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 22
+        },
+        {
+          "name": "应用商店 -三星",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 23
+        },
+        {
+          "name": "应用商店 -荣耀",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 24
+        },
+        {
+          "name": "应用商店 -应用宝",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 25
+        },
+        {
+          "name": "SEM-百度",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 26
+        },
+        {
+          "name": "SEM-360",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 27
+        },
+        {
+          "name": "支付宝小程序",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 28
+        },
+        {
+          "name": "小红书",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 29
+        },
+        {
+          "name": "字节跳动（抖音等）",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 30
+        },
+        {
+          "name": "哔哩哔哩（ B站）",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 31
+        },
+        {
+          "name": "腾讯",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 32
+        },
+        {
+          "name": "平安产险（好车主、好生活）",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 33
+        },
+        {
+          "name": "平安寿险（金管家）",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 34
+        },
+        {
+          "name": "平安健康险（平安健康保险）",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 35
+        },
+        {
+          "name": "壹钱包",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 36
+        },
+        {
+          "name": "陆基金",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 37
+        },
+        {
+          "name": "平安银行（口袋银行）",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 38
+        },
+        {
+          "name": "中国银行",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 39
+        },
+        {
+          "name": "农业银行",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 40
+        },
+        {
+          "name": "工商银行",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 41
+        },
+        {
+          "name": "建设银行",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 42
+        },
+        {
+          "name": "兴业银行",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 43
+        },
+        {
+          "name": "交通银行",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 44
+        },
+        {
+          "name": "邮储银行",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 45
+        },
+        {
+          "name": "浦发银行",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 46
+        },
+        {
+          "name": "广发银行",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 47
+        },
+        {
+          "name": "光大银行",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 48
+        },
+        {
+          "name": "宁波银行",
+          "operator": null,
+          "scope": "官网原始“合作方”清单。包含平台、渠道、关联金融机构及银行合作方，未逐项列明业务范围。",
+          "name_is_operator": false,
+          "row": 49
+        }
+      ],
+      "evidence_status": "官方完整正文已核验",
+      "notes": "完整原表49条合作方记录，包含互联网平台、应用商店、财商公司、集团关联机构和银行，不能解读为49个独立互联网平台或49个广告投放委托。公司与品牌同时列示时保留对应关系。",
+      "latest_basis": "2026-10-22从当前官网信息公示入口读取全文。",
+      "record_kind": "官方明确合作渠道",
+      "newly_added": true,
+      "disclosure_category": "网络营销 / 第三方平台公示",
+      "row_count": 49
     },
     {
       "name": "广发证券",
@@ -3314,7 +5331,96 @@
       ],
       "evidence_status": "已读完整官方正文（浏览器）",
       "notes": "当前48条。10月11日媒体称40家，已与当前48条不同；报告按本次官方页面。第三方存管合作银行另表22家，不纳入本营销平台清单。",
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 48
+    },
+    {
+      "name": "德邦证券",
+      "sector": "证券",
+      "title": "对外展业信息系统—展业平台公示",
+      "url": "https://www.tebon.com.cn/main/businessGuide/economicBusiness/dwzyxxxt/index.html",
+      "date": "未标注",
+      "date_basis": "页面标注版本202610，未公布具体日期。",
+      "platforms": [
+        {
+          "name": "同花顺APP",
+          "operator": null,
+          "scope": "官方展业平台清单原文组项。",
+          "name_is_operator": false,
+          "row": 1
+        },
+        {
+          "name": "大智慧APP",
+          "operator": null,
+          "scope": "官方展业平台清单原文组项。",
+          "name_is_operator": false,
+          "row": 2
+        },
+        {
+          "name": "股拍APP",
+          "operator": null,
+          "scope": "官方展业平台清单原文组项。",
+          "name_is_operator": false,
+          "row": 3
+        },
+        {
+          "name": "长投学堂",
+          "operator": null,
+          "scope": "官方展业平台清单原文组项。",
+          "name_is_operator": false,
+          "row": 4
+        },
+        {
+          "name": "股掌柜/掌中微视/成都险律",
+          "operator": null,
+          "scope": "官方展业平台清单原文组项。",
+          "name_is_operator": false,
+          "row": 5
+        },
+        {
+          "name": "Datayes投研APP",
+          "operator": null,
+          "scope": "官方展业平台清单原文组项。",
+          "name_is_operator": false,
+          "row": 6
+        },
+        {
+          "name": "热股情报站、萝卜投研公众号",
+          "operator": null,
+          "scope": "官方展业平台清单原文组项。",
+          "name_is_operator": false,
+          "row": 7
+        },
+        {
+          "name": "今日头条",
+          "operator": null,
+          "scope": "官方展业平台清单原文组项。",
+          "name_is_operator": false,
+          "row": 8
+        },
+        {
+          "name": "OPPO、VIVO、华为、小米应用商店",
+          "operator": null,
+          "scope": "官方展业平台清单原文组项。",
+          "name_is_operator": false,
+          "row": 9
+        },
+        {
+          "name": "通达信、微信公众号、微信视频号、抖音、小红书、第一财经、B站、快手、中国基金报APP英华号、中国投资者网",
+          "operator": null,
+          "scope": "官方展业平台清单原文组项。",
+          "name_is_operator": false,
+          "row": 10
+        }
+      ],
+      "evidence_status": "官方完整正文已核验",
+      "notes": "官网分类2“展业平台公示”的10个原文段落组项；一段含多个平台或账户，不能当作独立平台数。排除分类1交易软件。展业平台披露不逐项证明商业性营销委托。",
+      "latest_basis": "2026-10-22从当前官网入口读取的现行正文。",
+      "record_kind": "官方明确合作渠道",
+      "newly_added": true,
+      "disclosure_category": "展业 / 合作渠道公示",
+      "row_count": 10
     },
     {
       "name": "江海证券",
@@ -3348,7 +5454,96 @@
       ],
       "evidence_status": "已读完整官方正文",
       "notes": "第三方合作清单3条。官方自媒体账号是另一栏目，不混入第三方商业合作清单。",
+      "newly_added": false,
+      "disclosure_category": "展业 / 合作渠道公示",
       "row_count": 3
+    },
+    {
+      "name": "申万宏源证券",
+      "sector": "证券",
+      "title": "证券经纪业务对外展业信息系统和替代交易方式公示—银行、地图及应用分发合作",
+      "url": "https://www.swhysc.com/swhysc/publicChannel?channel=00010002000100080017",
+      "date": "未标注",
+      "date_basis": "正文无日期；附件文件名版本为20260622，未将版本号冒充发布日期。",
+      "platforms": [
+        {
+          "name": "银行端系统/APP",
+          "operator": null,
+          "scope": "申万宏源证券在合作银行端系统/APP设置开户入口，可跳转至申万宏源线上平台进行开户，合作银行包括：中国工商银行股份有限公司、中国农业银行股份有限公司、中国建设银行股份有限公司、中国银行股份有限公司、兴业银行股份有限公司、上海浦东发展银行股份有限公司、交通银行股份有限公司、中国邮政储蓄银行股份有限公司、江苏银行股份有限公司、中国光大银行股份有限公司、中国民生银行股份有限公司、华夏银行股份有限公司、南京银行股份有限公司、广发银行股份有限公司、宁波银行股份有限公司。",
+          "name_is_operator": false,
+          "row": 1
+        },
+        {
+          "name": "高德地图",
+          "operator": null,
+          "scope": "高德地图在其平台为用户提供导航支持，申万宏源证券通过付费合作在高德地图设置开户入口，可跳转开户或引导至线下网点",
+          "name_is_operator": false,
+          "row": 2
+        },
+        {
+          "name": "华为",
+          "operator": null,
+          "scope": "华为应用市场是华为终端官方应用分发平台，申万宏源证券向平台提供官方安装文件，由平台向用户提供下载使用，并可能根据品牌和业务需要，向平台支付推广费用，由平台向用户进行推广。",
+          "name_is_operator": false,
+          "row": 3
+        },
+        {
+          "name": "荣耀",
+          "operator": null,
+          "scope": "荣耀应用市场是荣耀终端官方应用分发平台，申万宏源证券向平台提供官方安装文件，由平台向用户提供下载使用，并可能根据品牌和业务需要，向平台支付推广费用，由平台向用户进行推广。",
+          "name_is_operator": false,
+          "row": 4
+        },
+        {
+          "name": "小米",
+          "operator": null,
+          "scope": "小米应用商店是小米科技有限责任公司旗下的官方应用分发平台,申万宏源证券向平台提供官方安装文件，由平台向用户提供下载使用，并可能根据品牌和业务需要，向平台支付推广费用，由平台向用户进行推广。",
+          "name_is_operator": false,
+          "row": 5
+        },
+        {
+          "name": "OPPO",
+          "operator": null,
+          "scope": "OPPO软件商店是OPPO的官方应用分发平台，申万宏源证券向平台提供官方安装文件，由平台向用户提供下载使用，并可能根据品牌和业务需要，向平台支付推广费用，由平台向用户进行推广。",
+          "name_is_operator": false,
+          "row": 6
+        },
+        {
+          "name": "VIVO",
+          "operator": null,
+          "scope": "VIVO应用商店是VIVO的官方应用分发平台，申万宏源证券向平台提供官方安装文件，由平台向用户提供下载使用，并可能根据品牌和业务需要，向平台支付推广费用，由平台向用户进行推广。",
+          "name_is_operator": false,
+          "row": 7
+        },
+        {
+          "name": "三星",
+          "operator": null,
+          "scope": "三星Galaxy Store是三星的官方应用分发平台，申万宏源证券向平台提供官方安装文件，由平台向用户提供下载使用，并可能根据品牌和业务需要，向平台支付推广费用，由平台向用户进行推广。",
+          "name_is_operator": false,
+          "row": 8
+        },
+        {
+          "name": "苹果APP Store",
+          "operator": null,
+          "scope": "App Store是苹果公司（Apple）的官方应用分发平台，申万宏源证券向平台提供官方安装文件，由平台向用户提供下载使用，并可能根据品牌和业务需要，向平台支付推广费用，由平台向用户进行推广。",
+          "name_is_operator": false,
+          "row": 9
+        },
+        {
+          "name": "应用宝",
+          "operator": null,
+          "scope": "应用宝是深圳市腾讯计算机系统有限公司旗下的第三方安卓应用下载平台,申万宏源证券向平台提供官方安装文件，由平台向用户提供下载使用，并可能根据品牌和业务需要，向平台支付推广费用，由平台向用户进行推广。",
+          "name_is_operator": false,
+          "row": 10
+        }
+      ],
+      "evidence_status": "官方完整正文已核验",
+      "notes": "提取10个明确合作入口组项：15家银行集中在银行端系统/APP一组，高德明确付费合作，8个应用分发平台说明可能支付推广费。银行/应用分发均按原文组项记录，不能当作10个独立平台。页面以申万宏源证券有限公司和申万宏源西部证券有限公司统称申万宏源证券；不将两家法人重复计数。排除自营/OEM交易软件和自营公众号。",
+      "latest_basis": "2026-10-22从官网信息公示导航进入的现行完整正文，附件名版本20260622。",
+      "record_kind": "官方明确合作渠道",
+      "newly_added": true,
+      "disclosure_category": "展业 / 合作渠道公示",
+      "row_count": 10
     },
     {
       "name": "联储证券",
@@ -3396,7 +5591,354 @@
           "row": 5
         }
       ],
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 5
+    },
+    {
+      "name": "财信证券",
+      "sector": "证券",
+      "url": "https://stock.hnchasing.com/main/khfw/ywgg/detail/1697416829291868162.html",
+      "title": "对外展业信息系统公示—合作渠道及其他外部入口",
+      "date": "2026-08",
+      "date_basis": "正文明确“更新时间为：2026年8月”；页面原始发布时间2023-09-01。",
+      "platforms": [
+        {
+          "name": "同花顺",
+          "scope": "合作渠道",
+          "name_is_operator": false,
+          "operator": "",
+          "row": 1
+        },
+        {
+          "name": "大智慧",
+          "scope": "合作渠道",
+          "name_is_operator": false,
+          "operator": "",
+          "row": 2
+        },
+        {
+          "name": "万得股票",
+          "scope": "合作渠道",
+          "name_is_operator": false,
+          "operator": "",
+          "row": 3
+        },
+        {
+          "name": "雪球",
+          "scope": "合作渠道",
+          "name_is_operator": false,
+          "operator": "",
+          "row": 4
+        },
+        {
+          "name": "oppo",
+          "scope": "对外展业公示“其他”类；未逐项说明营销合作形式",
+          "name_is_operator": false,
+          "operator": "",
+          "row": 5
+        },
+        {
+          "name": "vivo",
+          "scope": "对外展业公示“其他”类；未逐项说明营销合作形式",
+          "name_is_operator": false,
+          "operator": "",
+          "row": 6
+        },
+        {
+          "name": "华为",
+          "scope": "对外展业公示“其他”类；未逐项说明营销合作形式",
+          "name_is_operator": false,
+          "operator": "",
+          "row": 7
+        },
+        {
+          "name": "苹果",
+          "scope": "对外展业公示“其他”类；未逐项说明营销合作形式",
+          "name_is_operator": false,
+          "operator": "",
+          "row": 8
+        },
+        {
+          "name": "360手机助手",
+          "scope": "对外展业公示“其他”类；未逐项说明营销合作形式",
+          "name_is_operator": false,
+          "operator": "",
+          "row": 9
+        },
+        {
+          "name": "小米",
+          "scope": "对外展业公示“其他”类；未逐项说明营销合作形式",
+          "name_is_operator": false,
+          "operator": "",
+          "row": 10
+        },
+        {
+          "name": "应用宝",
+          "scope": "对外展业公示“其他”类；未逐项说明营销合作形式",
+          "name_is_operator": false,
+          "operator": "",
+          "row": 11
+        },
+        {
+          "name": "三星应用商店",
+          "scope": "对外展业公示“其他”类；未逐项说明营销合作形式",
+          "name_is_operator": false,
+          "operator": "",
+          "row": 12
+        },
+        {
+          "name": "百度手机助手",
+          "scope": "对外展业公示“其他”类；未逐项说明营销合作形式",
+          "name_is_operator": false,
+          "operator": "",
+          "row": 13
+        },
+        {
+          "name": "魅族",
+          "scope": "对外展业公示“其他”类；未逐项说明营销合作形式",
+          "name_is_operator": false,
+          "operator": "",
+          "row": 14
+        },
+        {
+          "name": "百度搜索",
+          "scope": "对外展业公示“其他”类；未逐项说明营销合作形式",
+          "name_is_operator": false,
+          "operator": "",
+          "row": 15
+        },
+        {
+          "name": "搜狗搜索",
+          "scope": "对外展业公示“其他”类；未逐项说明营销合作形式",
+          "name_is_operator": false,
+          "operator": "",
+          "row": 16
+        },
+        {
+          "name": "头条搜索",
+          "scope": "对外展业公示“其他”类；未逐项说明营销合作形式",
+          "name_is_operator": false,
+          "operator": "",
+          "row": 17
+        },
+        {
+          "name": "荣耀",
+          "scope": "对外展业公示“其他”类；未逐项说明营销合作形式",
+          "name_is_operator": false,
+          "operator": "",
+          "row": 18
+        },
+        {
+          "name": "360搜索",
+          "scope": "对外展业公示“其他”类；未逐项说明营销合作形式",
+          "name_is_operator": false,
+          "operator": "",
+          "row": 19
+        },
+        {
+          "name": "腾讯",
+          "scope": "对外展业公示“其他”类；未逐项说明营销合作形式",
+          "name_is_operator": false,
+          "operator": "",
+          "row": 20
+        },
+        {
+          "name": "微信",
+          "scope": "对外展业公示“其他”类；未逐项说明营销合作形式",
+          "name_is_operator": false,
+          "operator": "",
+          "row": 21
+        }
+      ],
+      "evidence_status": "官方全文已核验",
+      "notes": "当前官网正文明确更新至2026年8月；原始文章发布时间2023-09-01。仅收合作渠道4项与其他17项，排除自营软件/网站/社交账号。此为展业渠道披露，不能全部视为付费营销委托。",
+      "record_kind": "官方明确合作渠道",
+      "latest_basis": "从当前官网对外展业公示入口读取；保留页面更新字段，未将抓取时间当作发布时间。",
+      "newly_added": true,
+      "disclosure_category": "展业 / 合作渠道公示",
+      "row_count": 21
+    },
+    {
+      "name": "金融街证券",
+      "sector": "证券",
+      "title": "第三方互联网平台合作信息",
+      "url": "https://www.jrjzq.com.cn/main/a/20261014/32720.shtml",
+      "date": "2026-10-14",
+      "date_basis": "页面发布日期2026-10-14 09:10:40，当前官网首页信息公示仍链接此版。",
+      "platforms": [
+        {
+          "name": "同花顺",
+          "operator": null,
+          "scope": "第三方互联网平台合作信息。",
+          "name_is_operator": false,
+          "row": 1
+        },
+        {
+          "name": "腾讯平台",
+          "operator": null,
+          "scope": "第三方互联网平台合作信息。",
+          "name_is_operator": false,
+          "row": 2
+        },
+        {
+          "name": "抖音平台",
+          "operator": null,
+          "scope": "第三方互联网平台合作信息。",
+          "name_is_operator": false,
+          "row": 3
+        },
+        {
+          "name": "小红书平台",
+          "operator": null,
+          "scope": "第三方互联网平台合作信息。",
+          "name_is_operator": false,
+          "row": 4
+        },
+        {
+          "name": "高德平台",
+          "operator": null,
+          "scope": "第三方互联网平台合作信息。",
+          "name_is_operator": false,
+          "row": 5
+        }
+      ],
+      "evidence_status": "官方完整正文已核验",
+      "notes": "完整平台表5项。以当前官网新域名jrjzq.com.cn读取，旧syse.cn域名无法访问未影响核验；未推断各平台运营主体或合作规模。",
+      "latest_basis": "2026-10-22从当前官网入口读取的现行正文。",
+      "record_kind": "官方明确合作渠道",
+      "newly_added": true,
+      "disclosure_category": "网络营销 / 第三方平台公示",
+      "row_count": 5
+    },
+    {
+      "name": "长城证券",
+      "sector": "证券",
+      "url": "https://www.cgws.com/cczq/gycc/dwzyxtxx/",
+      "title": "对外展业系统信息—合作渠道公示",
+      "date": "未标注",
+      "date_basis": "当前常设公示未标具体日期；2026-10-22读取官网正文。",
+      "platforms": [
+        {
+          "name": "奇异果",
+          "scope": "合作渠道公示",
+          "name_is_operator": false,
+          "operator": "",
+          "row": 1
+        },
+        {
+          "name": "同花顺",
+          "scope": "合作渠道公示",
+          "name_is_operator": false,
+          "operator": "",
+          "row": 2
+        },
+        {
+          "name": "大智慧",
+          "scope": "合作渠道公示",
+          "name_is_operator": false,
+          "operator": "",
+          "row": 3
+        },
+        {
+          "name": "雪球",
+          "scope": "合作渠道公示",
+          "name_is_operator": false,
+          "operator": "",
+          "row": 4
+        },
+        {
+          "name": "京东金融",
+          "scope": "合作渠道公示",
+          "name_is_operator": false,
+          "operator": "",
+          "row": 5
+        },
+        {
+          "name": "叩富网",
+          "scope": "合作渠道公示",
+          "name_is_operator": false,
+          "operator": "",
+          "row": 6
+        },
+        {
+          "name": "弘历精网",
+          "scope": "合作渠道公示",
+          "name_is_operator": false,
+          "operator": "",
+          "row": 7
+        },
+        {
+          "name": "水母量化",
+          "scope": "合作渠道公示",
+          "name_is_operator": false,
+          "operator": "",
+          "row": 8
+        },
+        {
+          "name": "坤策集团",
+          "scope": "合作渠道公示",
+          "name_is_operator": false,
+          "operator": "",
+          "row": 9
+        },
+        {
+          "name": "必提教育",
+          "scope": "合作渠道公示",
+          "name_is_operator": false,
+          "operator": "",
+          "row": 10
+        },
+        {
+          "name": "南洺信息",
+          "scope": "合作渠道公示",
+          "name_is_operator": false,
+          "operator": "",
+          "row": 11
+        },
+        {
+          "name": "简知教育",
+          "scope": "合作渠道公示",
+          "name_is_operator": false,
+          "operator": "",
+          "row": 12
+        },
+        {
+          "name": "通达信",
+          "scope": "合作渠道公示",
+          "name_is_operator": false,
+          "operator": "",
+          "row": 13
+        },
+        {
+          "name": "云成数科",
+          "scope": "合作渠道公示",
+          "name_is_operator": false,
+          "operator": "",
+          "row": 14
+        },
+        {
+          "name": "利曼网络",
+          "scope": "合作渠道公示",
+          "name_is_operator": false,
+          "operator": "",
+          "row": 15
+        },
+        {
+          "name": "布吉岛信息",
+          "scope": "合作渠道公示",
+          "name_is_operator": false,
+          "operator": "",
+          "row": 16
+        }
+      ],
+      "evidence_status": "官方全文已核验",
+      "notes": "仅提取第二部分合作渠道公示的16个名称；不将第一部分自营及OEM交易软件计作第三方平台。未披露合作主体和广告委托范围，合作公示不能直接认定为付费营销。",
+      "record_kind": "官方明确合作渠道",
+      "latest_basis": "从当前官网对外展业公示入口读取；保留页面更新字段，未将抓取时间当作发布时间。",
+      "newly_added": true,
+      "disclosure_category": "展业 / 合作渠道公示",
+      "row_count": 16
     },
     {
       "name": "东方红资管（上海东方证券资产管理有限公司）",
@@ -3458,6 +6000,8 @@
       ],
       "evidence_status": "已读完整官方PDF",
       "notes": "7平台；PDF共3页，第一页面列完整平台，后两页为通信码号；官方目录https://www.dfham.com/dfhong/xinxi/index.html。",
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 7
     },
     {
@@ -3513,6 +6057,8 @@
           "row": 6
         }
       ],
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 6
     },
     {
@@ -3652,6 +6198,8 @@
       ],
       "evidence_status": "已读完整官方正文",
       "notes": "18条；仅提供互联网营销广告服务，业务由华泰期货完成。",
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 18
     },
     {
@@ -3868,6 +6416,8 @@
       ],
       "evidence_status": "已读完整官方正文",
       "notes": "29平台；机构仍以官网公示名称国泰君安期货呈现，不能直接改称国泰海通期货。",
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 29
     },
     {
@@ -3916,6 +6466,8 @@
       ],
       "evidence_status": "已读完整官方正文",
       "notes": "5行合作关系，第一行2个主体，第4行含2个平台品牌；按披露原始行计数，不与其他机构平台品牌数量直接比较。",
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 5
     },
     {
@@ -3992,6 +6544,8 @@
       ],
       "evidence_status": "已读完整官方正文",
       "notes": "9主体，原文含统一社会信用代码与网站。媒体账号另表，不混入商业合作主体。",
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 9
     },
     {
@@ -4047,6 +6601,8 @@
       ],
       "evidence_status": "已读完整官方正文",
       "notes": "6主体。",
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 6
     },
     {
@@ -4151,6 +6707,8 @@
       ],
       "evidence_status": "已读完整官方正文",
       "notes": "13主体；第三方合作信息为独立表，公众账号表不混入。",
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 13
     },
     {
@@ -4220,7 +6778,267 @@
           "row": 8
         }
       ],
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 8
+    },
+    {
+      "name": "上海华瑞银行",
+      "sector": "银行",
+      "title": "上海华瑞银行金融产品网络营销披露（截至2026年9月30日）",
+      "url": "https://www.shrbank.com/html/web/news/zygg/2105154040057860097.html",
+      "date": "2026-09-30",
+      "date_basis": "官网页面时间及官方图片标题截至日均为2026-09-30。",
+      "platforms": [
+        {
+          "name": "榕树贷",
+          "operator": "百融至信（北京）科技有限公司",
+          "scope": "营销引流",
+          "name_is_operator": false,
+          "row": 1
+        },
+        {
+          "name": "携程",
+          "operator": "天津趣拿互金信息技术有限公司",
+          "scope": "营销引流",
+          "name_is_operator": false,
+          "row": 2
+        },
+        {
+          "name": "哈啰",
+          "operator": "宁德哈行网络科技有限公司",
+          "scope": "营销引流",
+          "name_is_operator": false,
+          "row": 3
+        },
+        {
+          "name": "瓜子",
+          "operator": "北京千峰合泰技术服务有限公司",
+          "scope": "营销引流",
+          "name_is_operator": false,
+          "row": 4
+        },
+        {
+          "name": "汽车之家",
+          "operator": "北京车智赢科技有限公司",
+          "scope": "营销引流",
+          "name_is_operator": false,
+          "row": 5
+        }
+      ],
+      "evidence_status": "官方全文已核验",
+      "notes": "官方图片单列第三方互联网平台名单5行；营销通信号码、自营官网/APP/公众号/小程序另列，不计入第三方平台。附件：https://www.shrbank.com/upload/1/editor/1790742789491.png 。",
+      "latest_basis": "截至2026-10-22检索官网现行入口及公告，未检出更晚同主题版本。",
+      "newly_added": true,
+      "disclosure_category": "网络营销 / 第三方平台公示",
+      "row_count": 5
+    },
+    {
+      "name": "中信银行",
+      "sector": "银行",
+      "title": "中信银行关于个人贷款产品网络营销合作机构名单的公告",
+      "url": "https://www.citicbank.com/common/servicenotice/202609/t20260921_310913.html",
+      "date": "2026-09-22",
+      "date_basis": "官网页面发布时间2026-09-22 00:00及落款2026年9月22日。",
+      "platforms": [
+        {
+          "name": "原文未列平台名",
+          "operator": "贝壳金科控股（北京）有限公司",
+          "scope": "信秒贷",
+          "name_is_operator": true,
+          "row": 1
+        },
+        {
+          "name": "原文未列平台名",
+          "operator": "浙江网商银行股份有限公司",
+          "scope": "房抵经营贷",
+          "name_is_operator": true,
+          "row": 2
+        },
+        {
+          "name": "原文未列平台名",
+          "operator": "天星数科科技有限公司；小米景明科技有限公司",
+          "scope": "汽车消费贷款",
+          "name_is_operator": true,
+          "row": 3
+        },
+        {
+          "name": "原文未列平台名",
+          "operator": "浙江极氪智能科技有限公司",
+          "scope": "汽车消费贷款",
+          "name_is_operator": true,
+          "row": 4
+        },
+        {
+          "name": "原文未列平台名",
+          "operator": "武汉路特斯汽车销售有限公司",
+          "scope": "汽车消费贷款",
+          "name_is_operator": true,
+          "row": 5
+        },
+        {
+          "name": "原文未列平台名",
+          "operator": "捷豹路虎（中国）投资有限公司；奇瑞捷豹路虎汽车销售有限公司",
+          "scope": "汽车消费贷款",
+          "name_is_operator": true,
+          "row": 6
+        },
+        {
+          "name": "原文未列平台名",
+          "operator": "智己汽车科技有限公司",
+          "scope": "汽车消费贷款",
+          "name_is_operator": true,
+          "row": 7
+        },
+        {
+          "name": "原文未列平台名",
+          "operator": "蔚来汽车销售服务有限公司；上海蔚来融资租赁有限公司",
+          "scope": "汽车消费贷款",
+          "name_is_operator": true,
+          "row": 8
+        },
+        {
+          "name": "原文未列平台名",
+          "operator": "北京励鼎汽车销售有限公司",
+          "scope": "汽车消费贷款",
+          "name_is_operator": true,
+          "row": 9
+        },
+        {
+          "name": "原文未列平台名",
+          "operator": "阿维塔新能源汽车科技（上海）有限公司；阿维塔（重庆）汽车销售服务有限公司",
+          "scope": "汽车消费贷款",
+          "name_is_operator": true,
+          "row": 10
+        },
+        {
+          "name": "原文未列平台名",
+          "operator": "中升（大连）集团有限公司",
+          "scope": "汽车消费贷款",
+          "name_is_operator": true,
+          "row": 11
+        },
+        {
+          "name": "原文未列平台名",
+          "operator": "小鹏汽车销售有限公司",
+          "scope": "汽车消费贷款",
+          "name_is_operator": true,
+          "row": 12
+        },
+        {
+          "name": "原文未列平台名",
+          "operator": "特斯拉（汽车）-北京有限公司",
+          "scope": "汽车消费贷款",
+          "name_is_operator": true,
+          "row": 13
+        },
+        {
+          "name": "原文未列平台名",
+          "operator": "青岛鑫晟汇科技有限公司",
+          "scope": "经营场景贷；仅面向合作机构下游商户提供产品申请入口",
+          "name_is_operator": true,
+          "row": 14
+        },
+        {
+          "name": "原文未列平台名",
+          "operator": "青岛九源科技有限公司",
+          "scope": "经营场景贷；仅面向合作机构下游商户提供产品申请入口",
+          "name_is_operator": true,
+          "row": 15
+        },
+        {
+          "name": "原文未列平台名",
+          "operator": "江西李渡酒业有限公司",
+          "scope": "经营场景贷；仅面向合作机构下游商户提供产品申请入口",
+          "name_is_operator": true,
+          "row": 16
+        },
+        {
+          "name": "原文未列平台名",
+          "operator": "广东中迅农科股份有限公司",
+          "scope": "经营场景贷；仅面向合作机构下游商户提供产品申请入口",
+          "name_is_operator": true,
+          "row": 17
+        },
+        {
+          "name": "原文未列平台名",
+          "operator": "杨掌柜食品科技（河南）有限公司",
+          "scope": "经营场景贷；仅面向合作机构下游商户提供产品申请入口",
+          "name_is_operator": true,
+          "row": 18
+        },
+        {
+          "name": "原文未列平台名",
+          "operator": "上海罗莱生活科技有限公司",
+          "scope": "经营场景贷；仅面向合作机构下游商户提供产品申请入口",
+          "name_is_operator": true,
+          "row": 19
+        },
+        {
+          "name": "原文未列平台名",
+          "operator": "思念食品有限公司",
+          "scope": "经营场景贷；仅面向合作机构下游商户提供产品申请入口",
+          "name_is_operator": true,
+          "row": 20
+        },
+        {
+          "name": "原文未列平台名",
+          "operator": "郑州诚信志远果业（集团）有限公司",
+          "scope": "经营场景贷；仅面向合作机构下游商户提供产品申请入口",
+          "name_is_operator": true,
+          "row": 21
+        },
+        {
+          "name": "原文未列平台名",
+          "operator": "牧原食品集团股份有限公司",
+          "scope": "经营场景贷；仅面向合作机构下游商户提供产品申请入口",
+          "name_is_operator": true,
+          "row": 22
+        },
+        {
+          "name": "原文未列平台名",
+          "operator": "郑州千味央厨食品股份有限公司",
+          "scope": "经营场景贷；仅面向合作机构下游商户提供产品申请入口",
+          "name_is_operator": true,
+          "row": 23
+        }
+      ],
+      "evidence_status": "官方全文已核验",
+      "notes": "官方正文明确在合作机构互联网平台开展网络营销，图片表列23行，部分行含多个主体；未公开平台品牌。主体字段为原文合作机构，不推断为平台运营方。附件：https://www.citicbank.com/common/servicenotice/202609/W020260921625404166285_ORIGIN.png 。未委托合作机构电话营销，仅提供办理链接。",
+      "latest_basis": "截至2026-10-22检索官网现行入口及公告，未检出更晚同主题版本。",
+      "newly_added": true,
+      "disclosure_category": "网络营销 / 第三方平台公示",
+      "row_count": 23
+    },
+    {
+      "name": "中国邮政储蓄银行",
+      "sector": "银行",
+      "title": "关于邮享贷互联网营销合作方的披露公告",
+      "url": "https://www.psbc.com/cn/gyyc/zygg/202609/t20260928_466409.html",
+      "date": "2026-09-29",
+      "date_basis": "官网页面日期及落款均为2026-09-29；URL路径不能代替发布日期。",
+      "platforms": [
+        {
+          "name": "我的南京APP",
+          "operator": "南京大数据集团有限公司",
+          "scope": "邮享贷互联网营销",
+          "name_is_operator": false,
+          "row": 1
+        },
+        {
+          "name": "和包APP、中国移动APP",
+          "operator": "中移动金融科技有限公司",
+          "scope": "邮享贷互联网营销",
+          "name_is_operator": false,
+          "row": 2
+        }
+      ],
+      "evidence_status": "官方全文已核验",
+      "notes": "清单仅覆盖邮享贷；按官方2行保留，第二行包含2个APP。",
+      "latest_basis": "截至2026-10-22检索官网现行入口及公告，未检出更晚同主题版本。",
+      "newly_added": true,
+      "disclosure_category": "网络营销 / 第三方平台公示",
+      "row_count": 2
     },
     {
       "name": "中国银行",
@@ -5258,7 +8076,67 @@
       ],
       "evidence_status": "官方正文及全部6份PDF完整核验",
       "notes": "93为原始业务披露条目，并非93个去重平台。表头为第三方互联网平台名称/营销合作第三方机构名称；包含同平台不同主体、信用卡权益场景、地方公共服务和境外平台。保留其官方广口径原文，不等同付费广告投放。个人金融附件28行、信用卡54行、住房消费8行，其余3份各1行。 质量复核：6份PDF共14页均未检出停止合作/终止合作/已终止/已停止字样，原表也无合作状态列，故仅可称当前挂载的披露条目，不能证实每项当前实际投放；operator键承载官方“营销合作第三方机构名称”，不保证均为平台实际运营方（如昌荣传媒、Visa等）。平台名已去除2处为区分用途而附加的括号，相关用途移至scope_note。",
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 93
+    },
+    {
+      "name": "兴业银行",
+      "sector": "银行",
+      "title": "关于兴业银行信用卡营销获客服务合作机构名单的公示",
+      "url": "https://creditcard.cib.com.cn/news/notice/2026/20261016.html",
+      "date": "2026-10",
+      "date_basis": "官方正文落款为2026年10月；URL含20261016但不据此认定精确发布日期。",
+      "platforms": [
+        {
+          "name": "原文未列平台名",
+          "operator": "中国银联股份有限公司北京分公司",
+          "scope": "信用卡营销获客；合作机构线上渠道提供信用卡产品信息",
+          "name_is_operator": true,
+          "row": 1
+        },
+        {
+          "name": "原文未列平台名",
+          "operator": "东方航空电子商务有限公司",
+          "scope": "信用卡营销获客；合作机构线上渠道提供信用卡产品信息",
+          "name_is_operator": true,
+          "row": 2
+        },
+        {
+          "name": "原文未列平台名",
+          "operator": "中国南方航空股份有限公司",
+          "scope": "信用卡营销获客；合作机构线上渠道提供信用卡产品信息",
+          "name_is_operator": true,
+          "row": 3
+        },
+        {
+          "name": "原文未列平台名",
+          "operator": "厦门航空有限公司",
+          "scope": "信用卡营销获客；合作机构线上渠道提供信用卡产品信息",
+          "name_is_operator": true,
+          "row": 4
+        },
+        {
+          "name": "原文未列平台名",
+          "operator": "上海吉祥航空股份有限公司",
+          "scope": "信用卡营销获客；合作机构线上渠道提供信用卡产品信息",
+          "name_is_operator": true,
+          "row": 5
+        },
+        {
+          "name": "原文未列平台名",
+          "operator": "南京聚目堂数码科技有限公司",
+          "scope": "信用卡营销获客；合作机构线上渠道提供信用卡产品信息",
+          "name_is_operator": true,
+          "row": 6
+        }
+      ],
+      "evidence_status": "官方全文已核验",
+      "notes": "仅信用卡营销获客；官方正文明确为合作机构线上渠道，表格列6个合作机构，未列具体平台品牌；不推断APP名称。",
+      "latest_basis": "官网公告入口现行列表链接本版，并在正文链接2026年8月历史版本，确认本版晚于8月版；检索日未见更晚版本。",
+      "newly_added": true,
+      "disclosure_category": "网络营销 / 第三方平台公示",
+      "row_count": 6
     },
     {
       "name": "浦发银行",
@@ -5460,7 +8338,606 @@
       ],
       "evidence_status": "官方完整PDF1页核验",
       "notes": "共27个编号披露项，其中和包APP/中国移动APP为同一编号。官网只列平台名，未列运营主体。14-15为消费贷款，16-27为汽车消费贷款；这是明确网络营销公告，不是把互联网助贷名单代入。",
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 27
+    },
+    {
+      "name": "众安在线财产保险",
+      "sector": "保险",
+      "title": "第三方互联网平台信息",
+      "url": "https://www.zhongan.com/channel/public/publicInfo_hlwbx2018.html",
+      "date": "2026-09-30",
+      "date_basis": "官网现行互联网保险披露页面独立第三方互联网平台栏目链接附件，标注2026-09-30；PDF未另署日期。",
+      "platforms": [
+        {
+          "name": "原文未列平台品牌",
+          "operator": "上海乐骋信息技术有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 1
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "上海哈啰普惠科技有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 2
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "上海方伞健康科技有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 3
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "上海申安嘉广告有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 4
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "上海资置通荐科技有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 5
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "上海达意闻科技有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 6
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "乔纽信息科技（上海）有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 7
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "北京凯德尼医疗科技有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 8
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "北京晟滔科技有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 9
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "北京积沙成塔科技有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 10
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "华为软件技术有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 11
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "厦门鹅卵石网络科技有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 12
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "广东方舟健康管理科技有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 13
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "广州呗呗科技有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 14
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "挂号网（杭州）科技有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 15
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "有鹿为医（重庆）科技有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 16
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "杭州淘天数字科技有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 17
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "江泰救援服务有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 18
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "深圳市小赢信息技术有限责任公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 19
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "深圳点煷信息科技有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 20
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "爱卡汽车爱宝险成都电子商务有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 21
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "荷小朵（北京）健康管理有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 22
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "邯郸市少走弯路网络科技有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 23
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "阿里健康科技（杭州）有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 24
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "飞友科技有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 25
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "深圳市欢太数字科技有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 26
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "上海井荣信息咨询有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 27
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "中保科联技术有限责任公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 28
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "杭州鑫娱网络科技有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 29
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "睿颐曜达（上海）健康科技有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 30
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "山东桐景沅医疗科技有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 31
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "江西星乾科技有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 32
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "薯鸿文化传媒（上海）有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 33
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "上海博卡软件科技有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 34
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "上海毅直骑行体育科技有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 35
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "天津巨量引擎信息技术有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 36
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "北京腾讯文化传媒有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 37
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "厦门特享跑体育运动有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 38
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "安徽白色彗星信息科技有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 39
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "北京快手广告有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 40
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "湖北巨量引擎科技有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 41
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "江西驴充充物联网科技有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 42
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "北京新光环无双科技有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 43
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "沈阳赛富校园安全管理服务有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 44
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "青岛海尔国际旅行社有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 45
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "四川新网银行股份有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 46
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "北京微财科技有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 47
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "马上消费金融股份有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 48
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "上海淇毓信息科技有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 49
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "上海维信荟智金融科技有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 50
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "深圳市分期乐网络科技有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 51
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "北京微聚智汇科技有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 52
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "上海数禾信息科技有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 53
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "重庆众先安行科技有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 54
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "盛京银行股份有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 55
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "优赛恒创科技发展（北京）有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 56
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "广东欢太科技有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 57
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "广东天宸网络科技有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 58
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "广州小米信息服务有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 59
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "苹果广告(北京)有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 60
+        },
+        {
+          "name": "原文未列平台品牌",
+          "operator": "深圳荣耀软件技术有限公司",
+          "scope": "原文列第三方互联网平台全称；未细分产品或服务范围",
+          "name_is_operator": true,
+          "row": 61
+        }
+      ],
+      "evidence_status": "官方全文已核验",
+      "notes": "现行网页将第三方互联网平台、合作保险中介机构网络平台清单、营销号码信息披露分列，取9月30日独立第三方平台附件61行，排除中介网络平台清单。表格仅列法人全称，不推断APP品牌，也不将其一律解释为平台运营方。PDF全部3页已提取、渲染并逐页目视核验。",
+      "latest_basis": "截至2026-10-22官网现行独立栏目仍链接9月30日附件；同页保险中介网络平台清单已另更新至10月19日，不能混用。",
+      "attachment_url": "https://static.zhongan.com/upload/online/material/1789525444885.pdf",
+      "supporting_urls": [
+        "https://static.zhongan.com/upload/online/material/1789525444885.pdf"
+      ],
+      "newly_added": true,
+      "disclosure_category": "网络营销 / 第三方平台公示",
+      "row_count": 61
+    },
+    {
+      "name": "建信消费金融",
+      "sector": "消费金融",
+      "title": "建信消费金融有限责任公司关于信贷产品网络营销合作机构信息公示",
+      "url": "https://www.ccbcf.cn/#/PublictyDetails?index=8&id=091CFBAE53DA43BD9BA8C1A629CEC6CB",
+      "date": "2026-07-30",
+      "date_basis": "官网公示公告目录列2026-07-30；官网链接PDF落款2026年7月30日。",
+      "platforms": [
+        {
+          "name": "原文未列平台名",
+          "operator": "中国建设银行股份有限公司",
+          "scope": "信贷产品网络营销；营销获客",
+          "name_is_operator": true,
+          "row": 1
+        },
+        {
+          "name": "原文未列平台名",
+          "operator": "建信住房服务有限责任公司",
+          "scope": "信贷产品网络营销；营销获客",
+          "name_is_operator": true,
+          "row": 2
+        },
+        {
+          "name": "原文未列平台名",
+          "operator": "王府井集团股份有限公司",
+          "scope": "信贷产品网络营销；营销获客",
+          "name_is_operator": true,
+          "row": 3
+        },
+        {
+          "name": "原文未列平台名",
+          "operator": "中国银联股份有限公司北京分公司",
+          "scope": "信贷产品网络营销；营销获客",
+          "name_is_operator": true,
+          "row": 4
+        },
+        {
+          "name": "原文未列平台名",
+          "operator": "北京链链财富科技有限公司",
+          "scope": "信贷产品网络营销；营销获客",
+          "name_is_operator": true,
+          "row": 5
+        },
+        {
+          "name": "原文未列平台名",
+          "operator": "北京京奥机器人科技有限责任公司",
+          "scope": "信贷产品网络营销；营销获客",
+          "name_is_operator": true,
+          "row": 6
+        },
+        {
+          "name": "原文未列平台名",
+          "operator": "深圳市丰融网络科技有限公司",
+          "scope": "信贷产品网络营销；营销获客",
+          "name_is_operator": true,
+          "row": 7
+        },
+        {
+          "name": "原文未列平台名",
+          "operator": "北京澜鑫置业有限公司",
+          "scope": "信贷产品网络营销；营销获客",
+          "name_is_operator": true,
+          "row": 8
+        },
+        {
+          "name": "原文未列平台名",
+          "operator": "北京爱奇艺科技有限公司",
+          "scope": "信贷产品网络营销；营销获客",
+          "name_is_operator": true,
+          "row": 9
+        }
+      ],
+      "evidence_status": "官方全文已核验",
+      "notes": "官方信贷产品网络营销合作机构表共13行，仅取合作领域为营销获客的9行；排除4行共同出资发放贷款。仅列合作机构，未公开对应平台品牌，不依据媒体推断APP。PDF由官网详情页面直接链接，已下载并核验全部2页。",
+      "latest_basis": "官网现行公告目录从10月至7月，当前仍指向7月30日本版，未见更晚同主题公告。",
+      "attachment_url": "https://erp.ccbcf.cn/profile/upload/2026/07/29/%E5%BB%BA%E4%BF%A1%E6%B6%88%E8%B4%B9%E9%87%91%E8%9E%8D%E6%9C%89%E9%99%90%E8%B4%A3%E4%BB%BB%E5%85%AC%E5%8F%B8%E5%85%B3%E4%BA%8E%E4%BF%A1%E8%B4%B7%E4%BA%A7%E5%93%81%E7%BD%91%E7%BB%9C%E8%90%A5%E9%94%80%E5%90%88%E4%BD%9C%E6%9C%BA%E6%9E%84%E4%BF%A1%E6%81%AF%E5%85%AC%E7%A4%BA_20260729154907A005.pdf",
+      "supporting_urls": [
+        "https://erp.ccbcf.cn/profile/upload/2026/07/29/%E5%BB%BA%E4%BF%A1%E6%B6%88%E8%B4%B9%E9%87%91%E8%9E%8D%E6%9C%89%E9%99%90%E8%B4%A3%E4%BB%BB%E5%85%AC%E5%8F%B8%E5%85%B3%E4%BA%8E%E4%BF%A1%E8%B4%B7%E4%BA%A7%E5%93%81%E7%BD%91%E7%BB%9C%E8%90%A5%E9%94%80%E5%90%88%E4%BD%9C%E6%9C%BA%E6%9E%84%E4%BF%A1%E6%81%AF%E5%85%AC%E7%A4%BA_20260729154907A005.pdf"
+      ],
+      "newly_added": true,
+      "disclosure_category": "网络营销 / 第三方平台公示",
+      "row_count": 9
+    },
+    {
+      "name": "永赢金融租赁",
+      "sector": "金融租赁",
+      "title": "信息公示（第二项：金融产品网络营销第三方互联网平台公示）",
+      "url": "https://www.maxwealthfl.com/maxwealthfl/2026-07/30/article_2026073014085892641.html",
+      "date": "2026-07-30",
+      "date_basis": "官网信息公示正文日期2026年07月30日。",
+      "platforms": [
+        {
+          "name": "宁波银行APP",
+          "operator": "宁波银行股份有限公司",
+          "scope": "容易租；营销获客",
+          "name_is_operator": false,
+          "row": 1
+        }
+      ],
+      "evidence_status": "官方全文已核验",
+      "notes": "该页同时披露融资成本；只取第二项金融产品网络营销第三方互联网平台公示。",
+      "latest_basis": "截至2026-10-22检索官网现行入口及公告，未检出更晚同主题版本。",
+      "newly_added": true,
+      "disclosure_category": "网络营销 / 第三方平台公示",
+      "row_count": 1
+    },
+    {
+      "name": "吉致汽车金融",
+      "sector": "汽车金融",
+      "title": "《金融产品网络营销管理办法》相关公告",
+      "url": "https://www.geniusafc.com/article/1196?service=1",
+      "date": "2026-09-28",
+      "date_basis": "官方公告页面日期2026-09-28。",
+      "platforms": [
+        {
+          "name": "极氪品牌官方APP、微信小程序",
+          "operator": "原文未列主体名",
+          "scope": "查阅吉致汽车金融产品，跳转至其运营小程序进行融资申请",
+          "name_is_operator": false,
+          "row": 1
+        },
+        {
+          "name": "smart品牌官方APP、微信小程序",
+          "operator": "原文未列主体名",
+          "scope": "查阅吉致汽车金融产品，跳转至其运营小程序进行融资申请",
+          "name_is_operator": false,
+          "row": 2
+        },
+        {
+          "name": "Lotus品牌官方APP、微信小程序",
+          "operator": "原文未列主体名",
+          "scope": "查阅吉致汽车金融产品，跳转至其运营小程序进行融资申请",
+          "name_is_operator": false,
+          "row": 3
+        },
+        {
+          "name": "好车吉市微信小程序",
+          "operator": "原文未列主体名",
+          "scope": "吉利集团内部用户购车平台；查阅汽车金融产品并跳转申请",
+          "name_is_operator": false,
+          "row": 4
+        }
+      ],
+      "evidence_status": "官方全文已核验",
+      "notes": "正文明确系落实金融产品网络营销管理办法披露委托的第三方互联网平台；以原文4个品牌/平台分组保留，不推断APP与小程序对应法律主体。通信码号另列，不计入平台。",
+      "latest_basis": "截至2026-10-22检索官网现行入口及公告，未检出更晚同主题版本。",
+      "newly_added": true,
+      "disclosure_category": "网络营销 / 第三方平台公示",
+      "row_count": 4
     },
     {
       "name": "盈米基金",
@@ -5536,6 +9013,8 @@
       ],
       "evidence_status": "官方正文全9条核验",
       "notes": "只按原文列9个平台，未披露运营主体。且慢为盈米自有业务，不是此公告9项中的第三方平台。",
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 9
     },
     {
@@ -5556,6 +9035,8 @@
       ],
       "evidence_status": "官方正文该披露章节完整核验",
       "notes": "主体原文为腾安基金销售（深圳）有限公司，委托理财通为金融产品网络营销提供服务，备案沪ICP备2021008169号。只披露1项；不能把基金公司的理财通代销入口反推为腾安委托多个平台。",
+      "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 1
     }
   ],
@@ -5566,13 +9047,6 @@
       "url": "https://finance.eastmoney.com/a/202610083889808140.html",
       "notes": "不计入官方已核验表。",
       "gap_type": "media_leads"
-    },
-    {
-      "name": "博时基金",
-      "sector": "公募基金",
-      "url": "https://www.bosera.com/index.html",
-      "reason": "本次官网首页和定向检索未取得可核验营销合作清单；不据此判断是否披露或合作。",
-      "gap_type": "near_misses"
     },
     {
       "name": "中欧基金",
@@ -5603,13 +9077,6 @@
       "gap_type": "near_misses"
     },
     {
-      "name": "国泰基金",
-      "sector": "公募基金",
-      "url": "https://e.gtfund.com/Etrade/Edu/view/id/6ac8c4c0fd9e8458e8d7466e/routie/look",
-      "reason": "官网首页有互联网营销信息公示链接，但详情重定向循环，未取得完整内容。",
-      "gap_type": "near_misses"
-    },
-    {
       "name": "第一创业证券",
       "sector": "证券",
       "title": "第三方互联网平台信息披露",
@@ -5622,21 +9089,19 @@
     {
       "name": "中信期货",
       "sector": "期货",
-      "title": "互联网营销信息公示",
       "url": "https://www.citicsf.com/e-futures/content/000802/825845",
-      "date": "2026-09-30",
-      "evidence_status": "已读官方正文，名单在XLSX附件尚未读取",
-      "notes": "网页发布日期9-28，落款及附件版本20260930；明确不含技术服务商、代销机构、普通业务合作机构。",
+      "title": "互联网营销信息公示",
+      "status": "官方公告正文已核验，名单附件未读出",
+      "reason": "官网公告仅披露受托商业性互联网营销机构；附件1为《期货经纪业务互联网营销第三方平台清单》（20260930）.xlsx。正常浏览器点击附件未打开可读预览，未将公告存在当作名单完整核验。页面日期9月28日、文末签署9月30日。",
       "gap_type": "near_misses"
     },
     {
       "name": "广发期货",
       "sector": "期货",
-      "title": "广发期货互联网营销合作第三方平台信息公示",
       "url": "https://www.gfqh.com.cn/web/home",
-      "date": "2026-10-08",
-      "evidence_status": "官方首页搜索索引有公告，但原页正文列表动态未读",
-      "notes": "待站内浏览器打开公告。",
+      "title": "广发期货互联网营销合作第三方平台信息公示",
+      "status": "搜索线索存在，当前完整正文未核验",
+      "reason": "搜索索引见2026-10-08公告；当前官网公开页未返回该公告正文、正常浏览器返回空响应。不得以搜索索引名单替代。",
       "gap_type": "near_misses"
     },
     {
@@ -5657,9 +9122,40 @@
       "gap_type": "media_leads"
     },
     {
-      "name": "其他已定向检索对象",
-      "reason": "华鑫证券、金融街证券、南京证券、申万宏源证券、国信证券、国泰海通证券、招商证券、中信建投证券、东方财富证券、国元证券、光大证券、兴业证券：本轮未取得同口径、可完整核验的官方清单；不表示未披露或无合作。",
-      "gap_type": "search_scope"
+      "name": "国泰海通证券",
+      "sector": "证券",
+      "url": "https://www.gtht.com/personnel-business-disclosure",
+      "title": "经纪业务对外展业信息系统",
+      "status": "官网公开栏目已定位，正文未成功返回",
+      "reason": "通过正常浏览器打开并切换公示选项卡；当前官网内容接口返回“查询条件有误”，列表为空。没有使用历史搜索摘要或原国泰君安/原海通口径替代。",
+      "gap_type": "near_misses"
+    },
+    {
+      "name": "招商证券",
+      "sector": "证券",
+      "url": "https://www.cmschina.com/",
+      "title": "官网合作渠道公示待定位",
+      "status": "未核验完整清单",
+      "reason": "公开首页曾成功读取，但后续正常浏览器及标准请求持续返回空响应；未将招商期货等同招商证券。",
+      "gap_type": "near_misses"
+    },
+    {
+      "name": "东方财富证券",
+      "sector": "证券",
+      "url": "https://www.18.cn/about/dwzy/software",
+      "title": "证券经纪业务对外展业系统信息公示",
+      "status": "官方系统公示已读，未核验营销委托名单",
+      "reason": "当前页为自营/OEM交易软件，并列社交平台账号与通信码号栏目；没有将技术交易系统及自营社交账号推断为营销合作平台。",
+      "gap_type": "near_misses"
+    },
+    {
+      "name": "光大证券",
+      "sector": "证券",
+      "url": "https://www.ebscn.com/",
+      "title": "第三方互联网平台合作信息（媒体线索）",
+      "status": "官网证书异常，未核验完整清单",
+      "reason": "正常浏览器及标准证书校验均报主机名不匹配，未绕过。媒体仅作为存在披露的线索。",
+      "gap_type": "near_misses"
     },
     {
       "name": "民生银行",
@@ -5708,9 +9204,241 @@
       "gap_type": "near_misses"
     },
     {
-      "name": "其他已定向检索对象",
-      "reason": "工商银行、农业银行、建设银行、交通银行、邮储银行、招商银行、中信银行、兴业银行、光大银行、华夏银行、广发银行、浙商银行、微众银行、网商银行、招银理财、信银理财、平安理财、南银理财、平安保险、中国人保、众安保险、消费金融机构、蚂蚁基金、天天基金：本轮未取得同口径、可完整核验的官方清单；不表示未披露或无合作。",
+      "name": "工商银行",
+      "reason": "本轮定向检索未取得同口径、可完整核验的官方清单；不表示未披露或无合作。",
       "gap_type": "search_scope"
+    },
+    {
+      "name": "农业银行",
+      "reason": "本轮定向检索未取得同口径、可完整核验的官方清单；不表示未披露或无合作。",
+      "gap_type": "search_scope"
+    },
+    {
+      "name": "建设银行",
+      "reason": "本轮定向检索未取得同口径、可完整核验的官方清单；不表示未披露或无合作。",
+      "gap_type": "search_scope"
+    },
+    {
+      "name": "交通银行",
+      "reason": "本轮定向检索未取得同口径、可完整核验的官方清单；不表示未披露或无合作。",
+      "gap_type": "search_scope"
+    },
+    {
+      "name": "招商银行",
+      "sector": "银行",
+      "url": "https://www.cmbchina.com/personal/credit/creditInfo?guid=b09ad0e9-c9d0-429c-baee-a24e11272bd4",
+      "title": "互联网贷款合作机构信息",
+      "status": "发现异口径入口，未计入",
+      "notes": "官网首页链接互联网贷款合作机构信息、合作机构公示；未取得可单独确认的第三方互联网营销清单全文，不将助贷名单替代营销清单。",
+      "gap_type": "near_misses"
+    },
+    {
+      "name": "光大银行",
+      "reason": "本轮定向检索未取得同口径、可完整核验的官方清单；不表示未披露或无合作。",
+      "gap_type": "search_scope"
+    },
+    {
+      "name": "华夏银行",
+      "reason": "本轮定向检索未取得同口径、可完整核验的官方清单；不表示未披露或无合作。",
+      "gap_type": "search_scope"
+    },
+    {
+      "name": "广发银行",
+      "reason": "本轮定向检索未取得同口径、可完整核验的官方清单；不表示未披露或无合作。",
+      "gap_type": "search_scope"
+    },
+    {
+      "name": "浙商银行",
+      "reason": "本轮定向检索未取得同口径、可完整核验的官方清单；不表示未披露或无合作。",
+      "gap_type": "search_scope"
+    },
+    {
+      "name": "微众银行",
+      "reason": "本轮定向检索未取得同口径、可完整核验的官方清单；不表示未披露或无合作。",
+      "gap_type": "search_scope"
+    },
+    {
+      "name": "网商银行",
+      "reason": "本轮定向检索未取得同口径、可完整核验的官方清单；不表示未披露或无合作。",
+      "gap_type": "search_scope"
+    },
+    {
+      "name": "招银理财",
+      "reason": "本轮定向检索未取得同口径、可完整核验的官方清单；不表示未披露或无合作。",
+      "gap_type": "search_scope"
+    },
+    {
+      "name": "信银理财",
+      "reason": "本轮定向检索未取得同口径、可完整核验的官方清单；不表示未披露或无合作。",
+      "gap_type": "search_scope"
+    },
+    {
+      "name": "平安理财",
+      "reason": "本轮定向检索未取得同口径、可完整核验的官方清单；不表示未披露或无合作。",
+      "gap_type": "search_scope"
+    },
+    {
+      "name": "南银理财",
+      "reason": "本轮定向检索未取得同口径、可完整核验的官方清单；不表示未披露或无合作。",
+      "gap_type": "search_scope"
+    },
+    {
+      "name": "平安保险",
+      "reason": "本轮定向检索未取得同口径、可完整核验的官方清单；不表示未披露或无合作。",
+      "gap_type": "search_scope"
+    },
+    {
+      "name": "中国人保",
+      "reason": "本轮定向检索未取得同口径、可完整核验的官方清单；不表示未披露或无合作。",
+      "gap_type": "search_scope"
+    },
+    {
+      "name": "众安保险",
+      "reason": "本轮定向检索未取得同口径、可完整核验的官方清单；不表示未披露或无合作。",
+      "gap_type": "search_scope"
+    },
+    {
+      "name": "消费金融机构",
+      "reason": "本轮定向检索未取得同口径、可完整核验的官方清单；不表示未披露或无合作。",
+      "gap_type": "search_scope"
+    },
+    {
+      "name": "蚂蚁基金",
+      "reason": "本轮定向检索未取得同口径、可完整核验的官方清单；不表示未披露或无合作。",
+      "gap_type": "search_scope"
+    },
+    {
+      "name": "天天基金",
+      "reason": "本轮定向检索未取得同口径、可完整核验的官方清单；不表示未披露或无合作。",
+      "gap_type": "search_scope"
+    },
+    {
+      "name": "中泰证券",
+      "sector": "证券",
+      "url": "https://www.zts.com.cn/system",
+      "title": "经纪业务相关系统及渠道信息公示",
+      "status": "官方正文已读，口径不足以证明合作委托",
+      "reason": "页面列小红书、微信视频号、抖音、快手、同花顺、通达信、支付宝财富号、《经济导报》社、微信公众号等9个社交/信息渠道，混合自营交易软件，未明确哪些属于商业营销委托或平台合作，故不混入主清单。",
+      "gap_type": "near_misses"
+    },
+    {
+      "name": "方正证券",
+      "sector": "证券",
+      "url": "https://www.foundersc.com/zyxxxxtgs/index.jhtml",
+      "title": "对外营销展业信息系统公示",
+      "status": "当前官方正文已读，内容为旧版系统/自营账号",
+      "reason": "正文落款2023-08-15；仅自营系统及抖音、微信、大智慧、微博、小红书官方账号，不能等同2026年第三方商业营销委托清单。",
+      "gap_type": "near_misses"
+    },
+    {
+      "name": "银河期货",
+      "sector": "期货",
+      "url": "https://www.yhqh.com.cn/col534/list.html",
+      "title": "互联网营销信息公示",
+      "status": "官网栏目已读，当前仅账号和咨询产品公示",
+      "reason": "官网现行栏目列2026-09-28互联网营销账号信息公示与互联网营销交易咨询产品公示，未见第三方受托营销平台清单。",
+      "gap_type": "near_misses"
+    },
+    {
+      "name": "平安银行",
+      "sector": "银行",
+      "url": "https://bank.pingan.com/daikuan/orgQuery.shtml",
+      "title": "合作机构信息查询",
+      "status": "发现异口径入口，未计入",
+      "notes": "官方首页贷款合作机构信息查询不能自动认定为新规网络营销第三方平台清单。",
+      "gap_type": "near_misses"
+    },
+    {
+      "name": "北银消费金融",
+      "sector": "消费金融",
+      "url": "https://www.bobcfc.com/contents/14/934.html",
+      "title": "关于互联网助贷业务平台运营机构、增信服务机构合作名单的公示",
+      "status": "明确助贷及增信口径，排除",
+      "notes": "官方首页披露名称明确为助贷平台运营和增信合作，不计入同口径营销清单。",
+      "gap_type": "near_misses"
+    },
+    {
+      "name": "理财子机构",
+      "sector": "银行理财",
+      "url": "",
+      "title": "专项补查",
+      "status": "本轮尚未取得完整同口径清单",
+      "notes": "本轮检索/官网首页补查覆盖招银、信银、平安、南银、中银、建信、交银、兴银、华夏、中邮、光大理财；部分网站技术不可读或域名需进一步确认，不能据此判断未披露，更不能将理财代销机构替代营销平台。",
+      "gap_type": "near_misses"
+    },
+    {
+      "name": "保险公司",
+      "sector": "保险",
+      "url": "",
+      "title": "专项补查",
+      "status": "本轮尚未取得完整同口径清单",
+      "notes": "本轮官网及公开检索覆盖中国人寿、人保、太保、平安、泰康、阳光、华泰、太平、新华、富德生命、人保健康、泰康在线等；现有保险中介/合作渠道披露与新规受托营销平台口径不同，未并入主表；众安独立平台披露已核验，另入主表。未取得证据不代表未披露。",
+      "gap_type": "near_misses"
+    },
+    {
+      "name": "东吴证券",
+      "reason": "已读官网证券经纪业务对外展业系统公示，正文仅自有/OEM应用、官网及电话委托，未在该页取得明确第三方合作渠道表；不等于不存在其他披露。",
+      "url": "https://www.dwzq.com.cn/main/online/disclosure/exterbusi/index.html",
+      "gap_type": "gaps"
+    },
+    {
+      "name": "天风证券",
+      "reason": "现行对外展业公示只显示经纪家、官方开户/交易等6个自营业务入口；未取得明确第三方营销合作名单。",
+      "url": "https://www.tfzq.com/dwzyxxxtgs.html",
+      "gap_type": "gaps"
+    }
+  ],
+  "related_disclosures": [
+    {
+      "name": "阜新银行",
+      "sector": "银行",
+      "title": "阜新银行金融产品网络营销公示（个人住房及消费贷款）",
+      "url": "https://www.fuxinbank.com/fuxinbank/gywm/xnyw/2026093009584538985/index.shtml",
+      "date": "2026-09-30",
+      "evidence_status": "官方全文已核验",
+      "type": "明确未委托第三方平台声明",
+      "notes": "官网按金融产品网络营销管理办法第九条披露：本行未委托任何第三方互联网平台代为营销贷款产品。该声明仅指个人住房及消费贷款，不能推及全行全部产品，也不能与未取得披露证据混为一谈。",
+      "platforms": []
+    },
+    {
+      "name": "阜新银行",
+      "sector": "银行",
+      "title": "阜新银行金融产品网络营销公示（公司贷款）",
+      "url": "https://www.fuxinbank.com/fuxinbank/gywm/xnyw/2026093014370334315/index.shtml",
+      "date": "2026-09-30",
+      "evidence_status": "官方全文已核验",
+      "type": "明确未委托第三方平台声明",
+      "notes": "官方全文明确本行未委托任何第三方互联网平台代为营销贷款产品，限定本公告公司贷款范围。",
+      "platforms": []
+    },
+    {
+      "name": "阜新银行",
+      "sector": "银行",
+      "title": "阜新银行金融产品网络营销公示（零售存款产品）",
+      "url": "https://www.fuxinbank.com/fuxinbank/gywm/xnyw/2026101908365492021/index.shtml",
+      "date": "2026-10-19",
+      "evidence_status": "官方全文已核验",
+      "type": "明确未委托第三方平台声明",
+      "notes": "官方全文明确本行未委托任何第三方互联网平台代为营销零售存款产品；另列自营官网、官方公众号、视频号、小程序，不视作第三方受托营销平台。",
+      "platforms": []
+    },
+    {
+      "name": "平安保险代理有限公司",
+      "sector": "保险中介",
+      "title": "关于平安保代（第五项：第三方互联网平台）",
+      "url": "https://www.palubao.com/",
+      "date": "",
+      "date_basis": "现行官方页面未标注整体更新时间；不得认定为2026年新规后公告。",
+      "evidence_status": "官方全文已核验（异口径）",
+      "type": "保险既有互联网业务第三方平台披露",
+      "notes": "官网依据保险代理人监管规定、互联网保险业务监管办法披露第五项合作第三方平台，列陆金所1家。现行页面含旧合作期限及已下架产品，不能按2026金融产品网络营销管理办法最新清单纳入主表。该披露属于平安保代，不等于平安人寿/平安财险全部渠道。",
+      "platforms": [
+        {
+          "name": "陆金所",
+          "operator": "上海陆金所信息科技股份有限公司",
+          "scope": "平安保险代理公司合作第三方平台"
+        }
+      ]
     }
   ],
   "regulation": {
@@ -5721,8 +9449,48 @@
   },
   "method": "截至2026-10-22公开检索与官方正文核验的最新可得版本，不是全行业穷尽清单。无日期动态页只能确认核验时点可见内容，不能承诺此前或此后无版本变化。",
   "stats": {
-    "institutions": 43,
-    "raw_rows": 576,
-    "sectors": 6
+    "institutions": 75,
+    "raw_rows": 982,
+    "sectors": 10
+  },
+  "revision": {
+    "baseline_institutions": 43,
+    "added_institutions": 32,
+    "added_rows": 406,
+    "related_disclosures": 4,
+    "added_names": [
+      "中信保诚基金",
+      "中加基金",
+      "中银基金",
+      "农银汇理基金",
+      "博时基金",
+      "国泰基金",
+      "富达基金",
+      "汇丰晋信基金",
+      "诺德基金",
+      "贝莱德基金",
+      "鑫元基金",
+      "中信建投证券",
+      "兴业证券",
+      "华鑫证券",
+      "南京证券",
+      "国信证券",
+      "国元证券",
+      "国投证券",
+      "平安证券",
+      "德邦证券",
+      "申万宏源证券",
+      "财信证券",
+      "金融街证券",
+      "长城证券",
+      "上海华瑞银行",
+      "中信银行",
+      "中国邮政储蓄银行",
+      "兴业银行",
+      "众安在线财产保险",
+      "建信消费金融",
+      "永赢金融租赁",
+      "吉致汽车金融"
+    ]
   }
 }
