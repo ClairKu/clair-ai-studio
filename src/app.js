@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 122;
+const DATA_VERSION = 123;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -221,6 +221,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "yingmi-internet-ai-business-panorama-2026-10-22",
+      groupId: "ai-platform",
+      title: "盈米互联网平台与 AI 应用展业全景｜渠道、入口与业务证据",
+      url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-internet-ai-business-panorama-2026-10-22/",
+      preview: "yingmi-internet-ai-business-panorama-2026-10-22.png",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-22T10:00:00+08:00",
+      source: "截至2026-10-22的公开证据核验版：以10月12日官方第三方营销披露为锚，逐项区分互联网营销、金融服务、C端AI智能体、办公工作流、MCP开发生态和技术兼容；含平台矩阵、合作模式、证据缺口及90天建议。无客户或内部经营数据；公告确认与本次运行实测分开。",
+      access: "production",
+      workType: "reporting",
+      tags: ["盈米", "互联网平台", "AI 应用", "千问", "豆包", "WorkBuddy", "百度", "MCP", "Skills", "展业", "HTML", "生产"],
+    },
     {
       id: "aiwatch-l3-application-2026-10-21",
       groupId: "ai-workbench",
