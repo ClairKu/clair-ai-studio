@@ -72,7 +72,7 @@ def money(v):
     return f"{v:,.0f}" if abs(v - round(v)) < 0.005 else f"{v:,.2f}"
 def wan(v):
     v = float(v or 0)
-    return f"{v/10000:,.2f} 万" if v >= 10000 else f"{v:,.0f} 元"
+    return f"{v/10000:,.1f} 万" if v >= 10000 else f"{v:,.0f} 元"
 def dur(a, b):
     if not a or not b: return "—"
     s = int((dt(b) - dt(a)).total_seconds())
