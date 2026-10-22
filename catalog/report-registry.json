@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "yingmi-ai-open-platform-feishu-2026-10-22",
     "yingmi-ai-open-platform-intro-2026-10-22",
     "vip-advisor-report-project-audit-2026-10-22",
     "ai-wealth-products-2026-10-22",

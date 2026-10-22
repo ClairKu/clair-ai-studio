@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 139;
+const DATA_VERSION = 140;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -221,6 +221,32 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "yingmi-ai-open-platform-feishu-2026-10-22",
+      groupId: "ai-platform",
+      title: "盈米AI开放平台｜黑金演示版",
+      url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-ai-open-platform-feishu-2026-10-22/",
+      preview: "yingmi-ai-open-platform-feishu-2026-10-22.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-22T23:51:36+08:00",
+      source: "飞书内容排版；千问与WorkBuddy专章未完整提取，原始媒体链接回飞书",
+      description: "飞书内容排版；千问与WorkBuddy专章未完整提取，原始媒体链接回飞书",
+      access: "production",
+      workType: "reporting",
+      tags: [
+        "盈米",
+        "AI开放平台",
+        "飞书内容排版",
+        "黑金演示版",
+        "有限提取版",
+        "生态合作",
+        "MCP",
+        "Skills",
+        "Agents",
+        "HTML"
+      ]
+    },
     {
       id: "yingmi-ai-open-platform-intro-2026-10-22",
       groupId: "ai-platform",
@@ -3821,6 +3847,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "yingmi-ai-open-platform-feishu-2026-10-22": "reporting",
   "yingmi-ai-open-platform-intro-2026-10-22": "product-planning",
   "vip-advisor-report-project-audit-2026-10-22": "reporting",
   "aiwatch-l3-application-2026-10-21": "reporting",
@@ -3947,6 +3974,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "yingmi-ai-open-platform-feishu-2026-10-22": "ai-platform",
   "yingmi-ai-open-platform-intro-2026-10-22": "ai-platform",
   "vip-advisor-report-project-audit-2026-10-22": "advisor-workbench",
   "ai-wealth-products-2026-10-22": "xiaogu",
