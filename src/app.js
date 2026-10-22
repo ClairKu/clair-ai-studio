@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 134;
+const DATA_VERSION = 135;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -221,6 +221,32 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "yingmi-ai-open-platform-intro-2026-10-22",
+      groupId: "ai-platform",
+      title: "盈米 AI 开放平台｜产品、能力与合作介绍",
+      url: "https://clairku.github.io/yingmi-ai-open-platform/",
+      preview: "yingmi-ai-open-platform-intro-2026-10-22.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-22T15:30:00+08:00",
+      source: "面向外部客户与合作伙伴的独立产品介绍页。含2026年9月公开规模快照、金融数据/投研/家庭财务/Skills、基金研究/客户服务/报告场景、百炼/千帆/火山扣子/百度AI搜索/千问/WorkBuddy/豆包生态、阿里云与千问合作、API/MCP接入/联合方案/专属Agent/云市场订阅。公开资料整理，非盈米官方发布页；数据带时点，申请不等同活跃用户。",
+      access: "production",
+      workType: "product-planning",
+      tags: [
+        "AI 开放平台",
+        "盈米",
+        "OAP",
+        "MCP",
+        "Skills",
+        "对外介绍",
+        "生态合作",
+        "服务合作",
+        "产品介绍",
+        "HTML",
+        "生产"
+      ]
+    },
     {
       id: "vip-advisor-report-project-audit-2026-10-22",
       groupId: "advisor-workbench",
@@ -3779,6 +3805,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "yingmi-ai-open-platform-intro-2026-10-22": "product-planning",
   "vip-advisor-report-project-audit-2026-10-22": "reporting",
   "aiwatch-l3-application-2026-10-21": "reporting",
   "uiheal-l3-application-2026-10-21": "reporting",
@@ -3904,6 +3931,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "yingmi-ai-open-platform-intro-2026-10-22": "ai-platform",
   "vip-advisor-report-project-audit-2026-10-22": "advisor-workbench",
   "ai-wealth-products-2026-10-22": "xiaogu",
   "fund-execution-revenue-sharing-2026-10-22": "reporting",
@@ -8550,4 +8578,3 @@ function bindWorkbenchPersistence() {
     render();
   });
 }
-
