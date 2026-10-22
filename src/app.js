@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 131;
+const DATA_VERSION = 132;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -266,13 +266,13 @@ const initialState = {
     {
       id: "financial-internet-marketing-disclosures-2026-10-22",
       groupId: "growth-insights",
-      title: "金融机构网络营销清单｜84家·且慢6家官方披露",
+      title: "金融机构网络营销清单｜88家·且慢6家·盈米4家",
       url: "https://clairku.github.io/clair-ai-studio/reports/financial-internet-marketing-disclosures-2026-10-22/",
       preview: "financial-internet-marketing-disclosures-2026-10-22.png",
       pinned: false,
       position: 0,
       createdAt: "2026-10-22T11:32:45+08:00",
-      source: "截至2026-10-22，核验84家完整官方营销及合作渠道清单，整理1059条平台或主体记录；本轮新增9家。且慢专项确认6家：宏利基金、中加基金、农银汇理基金、嘉实基金、德邦基金、朱雀基金；新增宏利基金。逐项保留平台原文、产品范围、日期依据、官方附件；附68项待核验/排除线索和CSV。区分营销/展业、主体/品牌与转载/自身披露，非全行业穷尽。",
+      source: "截至2026-10-22，核验88家完整官方营销及合作渠道清单，整理1095条平台或主体记录；本轮新增4家。且慢专项确认6家：中加基金、农银汇理基金、嘉实基金、宏利基金、德邦基金、朱雀基金；营销清单4家明示盈米，均与且慢名单重合；另有光证资管、东方红资管、国新证券披露盈米，盈信披露且慢相关名称与账号，均标注不同业务口径。逐项保留平台原文、产品范围、日期依据、官方附件；附80项待核验/排除线索和CSV。区分营销/展业、主体/品牌与转载/自身披露，非全行业穷尽。",
       access: "production",
       workType: "reporting",
       tags: ["金融机构", "第三方互联网平台", "网络营销", "官方清单", "基金", "证券", "期货", "银行", "盈米", "且慢", "渠道", "合规", "HTML", "生产"],

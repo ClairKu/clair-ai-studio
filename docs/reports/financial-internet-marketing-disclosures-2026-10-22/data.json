@@ -366,6 +366,94 @@
       "row_count": 5
     },
     {
+      "name": "创金合信基金",
+      "sector": "公募基金",
+      "title": "第三方互联网平台信息",
+      "url": "https://www.cjhxfund.com/main/aboutUs/InternetMarketingPublic/ThirdPartyInternetPlatform/index.shtml",
+      "date": "未标注",
+      "date_basis": "官网完整公示正文未标发布日期或数据截止日期。",
+      "platforms": [
+        {
+          "name": "微信",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 1
+        },
+        {
+          "name": "抖音",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 2
+        },
+        {
+          "name": "中国基金报",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 3
+        },
+        {
+          "name": "微博",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 4
+        },
+        {
+          "name": "今日头条",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 5
+        },
+        {
+          "name": "小红书",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 6
+        },
+        {
+          "name": "哔哩哔哩",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 7
+        },
+        {
+          "name": "快手",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 8
+        },
+        {
+          "name": "小宇宙",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 9
+        },
+        {
+          "name": "喜马拉雅",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 10
+        }
+      ],
+      "evidence_status": "官方全文已核验",
+      "quote": "本机构通过委托的第三方互联网平台进行营销的金融产品基本信息详见官网\"基金产品\"页面。",
+      "notes": "完整10条。根节点IAB选择每页500后仍全部10条，无且慢、盈米基金、珠海盈米基金销售有限公司或盈米财富字样。平台表无具体产品范围和经营主体列。",
+      "latest_basis": "截至2026-10-22核验官网互联网营销公示专页，浏览器完整加载所有行。",
+      "record_kind": "平台名称",
+      "newly_added": true,
+      "disclosure_category": "网络营销 / 第三方平台公示",
+      "row_count": 10
+    },
+    {
       "name": "华夏基金",
       "sector": "公募基金",
       "title": "第三方互联网平台信息公示",
@@ -1107,7 +1195,7 @@
       "evidence_status": "官方全文已核验",
       "record_kind": "平台名称",
       "latest_basis": "2026-10-22从官网首页网络营销信息公示入口读取当前完整表，原文注明变更时更新。",
-      "newly_added": true,
+      "newly_added": false,
       "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 5
     },
@@ -1373,7 +1461,7 @@
       "supporting_urls": [
         "https://www.manulifefund.com.cn/CMS5_G20306002Resource?info=3277761;res=17915427297621745998277;download="
       ],
-      "newly_added": true,
+      "newly_added": false,
       "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 10
     },
@@ -1434,6 +1522,55 @@
       "count_basis": "按官方清单分列条目计数，不跨平台入口或关联主体合并。",
       "verified_on": "2026-10-22",
       "newly_added": false,
+      "disclosure_category": "网络营销 / 第三方平台公示",
+      "row_count": 4
+    },
+    {
+      "name": "富安达基金",
+      "sector": "公募基金",
+      "title": "富安达基金管理有限公司网络营销披露",
+      "url": "https://www.fadfunds.com/contents/2026/10/22-39bd188c18094da7a285f77737990788.html",
+      "date": "2026-10-22",
+      "date_basis": "官网公告正文明确“时间：2026-10-22”；附件本体未写日期，文件名20260930不视作发布日期或数据截止日。",
+      "platforms": [
+        {
+          "name": "支付宝-理财频道",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 1
+        },
+        {
+          "name": "理财通",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 2
+        },
+        {
+          "name": "雪球",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 3
+        },
+        {
+          "name": "今日头条",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 4
+        }
+      ],
+      "evidence_status": "官方全文已核验",
+      "quote": "一、第三方互联网平台信息公示；第三方互联网平台：支付宝-理财频道、理财通、雪球、今日头条。",
+      "notes": "完整4条。另披露营销通信码号，不计入平台数。名单无盈米或且慢，未披露经营主体或逐产品范围。",
+      "latest_basis": "截至2026-10-22核验官网首页最新信息披露直接链接的当日公告及完整PDF附件。",
+      "record_kind": "平台名称",
+      "supporting_urls": [
+        "https://www.fadfunds.com/upload/fck/userfiles/file/1792630780265-20260930富安达基金管理有限公司网络营销披露.pdf"
+      ],
+      "newly_added": true,
       "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 4
     },
@@ -2228,7 +2365,7 @@
         "https://www.hengyuefund.com/hyjj/dlmiddleware/dl-mid/app/service/center/detail/396",
         "https://www.hengyuefund.com/resources/mid/serviceCenter/2026/10/13/serviceCenter-42a696579ad2475f9f4de26d868c62bb.pdf"
       ],
-      "newly_added": true,
+      "newly_added": false,
       "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 4
     },
@@ -2428,7 +2565,7 @@
       "evidence_status": "官方全文已核验",
       "notes": "官方资质查询栏目独立列示互联网营销信息公示，正文第一项相关第三方互联网平台完整列4项，第二项另列电话码号。未披露法律主体，不补全。完整表未检出且慢或盈米。",
       "latest_basis": "截至检索日官网现行独立入口所示完整清单；页面注明不定期更新。",
-      "newly_added": true,
+      "newly_added": false,
       "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 4
     },
@@ -2629,7 +2766,7 @@
       "notes": "10平台。当前完整互联网营销信息公示未列且慢或盈米；另披露电话与短信资源，不计入平台数。",
       "latest_basis": "截至2026-10-22核验官网当前专用公示页完整HTML。",
       "record_kind": "平台名称",
-      "newly_added": true,
+      "newly_added": false,
       "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 10
     },
@@ -3239,7 +3376,7 @@
       "notes": "原文明确“诺安基金通过以下第三方互联网平台进行营销”。完整表15个原始组项，其中微信公众号、订阅号、视频号分别列项，不能解释成15个独立平台；第6—15项业务说明为合并单元格。名单无且慢、盈米字样。",
       "latest_basis": "2026-10-22读取官网当前网络营销披露专栏全文；未以首页其他基金公告日期代替本清单日期。",
       "record_kind": "官方营销披露",
-      "newly_added": true,
+      "newly_added": false,
       "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 15
     },
@@ -3541,7 +3678,7 @@
       "notes": "完整HTML表格16条，均不涉及通信码号；微信行另在平台网址栏标注“视频号：银华理财家”。当前名单未见且慢或盈米。",
       "latest_basis": "截至2026-10-22官网页脚网络营销信息公示直接链接此9月30日公告；根节点浏览器完整读取正文与全部表格。",
       "record_kind": "平台名称",
-      "newly_added": true,
+      "newly_added": false,
       "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 16
     },
@@ -3610,7 +3747,7 @@
       "evidence_status": "官方全文已核验",
       "record_kind": "平台名称",
       "latest_basis": "2026-10-22从现行cafund.com官网首页读取直接链接完整PDF；未沿用停止使用的changanfunds.com旧域名。",
-      "newly_added": true,
+      "newly_added": false,
       "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 7
     },
@@ -4675,7 +4812,7 @@
       "evidence_status": "官方全文已核验",
       "record_kind": "平台名称",
       "latest_basis": "2026-10-22正常浏览器从官网导航进入当前10/20版完整表；不是单据搜索缓存推断。",
-      "newly_added": true,
+      "newly_added": false,
       "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 6
     },
@@ -5331,6 +5468,387 @@
       "newly_added": false,
       "disclosure_category": "展业 / 合作渠道公示",
       "row_count": 7
+    },
+    {
+      "name": "国新证券",
+      "sector": "证券",
+      "title": "经纪业务对外展业信息系统公示—其他（渠道合作）",
+      "url": "https://www.crsec.com.cn/link/infoPublicity1677235258404986882.html",
+      "date": "未标注",
+      "date_basis": "当前常设四页公示未注明发布日期；2026-10-22读取官网现行四页完整表。",
+      "platforms": [
+        {
+          "name": "App Store",
+          "operator": null,
+          "scope": "其他（渠道合作）；原表序号28。",
+          "row": 1,
+          "sourcequote": "其他（渠道合作） | App Store",
+          "name_is_operator": false
+        },
+        {
+          "name": "华为",
+          "operator": null,
+          "scope": "其他（渠道合作）；原表序号29。",
+          "row": 2,
+          "sourcequote": "其他（渠道合作） | 华为",
+          "name_is_operator": false
+        },
+        {
+          "name": "OPPO",
+          "operator": null,
+          "scope": "其他（渠道合作）；原表序号30。",
+          "row": 3,
+          "sourcequote": "其他（渠道合作） | OPPO",
+          "name_is_operator": false
+        },
+        {
+          "name": "vivo",
+          "operator": null,
+          "scope": "其他（渠道合作）；原表序号31。",
+          "row": 4,
+          "sourcequote": "其他（渠道合作） | vivo",
+          "name_is_operator": false
+        },
+        {
+          "name": "小米",
+          "operator": null,
+          "scope": "其他（渠道合作）；原表序号32。",
+          "row": 5,
+          "sourcequote": "其他（渠道合作） | 小米",
+          "name_is_operator": false
+        },
+        {
+          "name": "应用宝",
+          "operator": null,
+          "scope": "其他（渠道合作）；原表序号33。",
+          "row": 6,
+          "sourcequote": "其他（渠道合作） | 应用宝",
+          "name_is_operator": false
+        },
+        {
+          "name": "360",
+          "operator": null,
+          "scope": "其他（渠道合作）；原表序号34。",
+          "row": 7,
+          "sourcequote": "其他（渠道合作） | 360",
+          "name_is_operator": false
+        },
+        {
+          "name": "同花顺",
+          "operator": null,
+          "scope": "其他（渠道合作）；原表序号35。",
+          "row": 8,
+          "sourcequote": "其他（渠道合作） | 同花顺",
+          "name_is_operator": false
+        },
+        {
+          "name": "翼支付",
+          "operator": null,
+          "scope": "其他（渠道合作）；原表序号36。",
+          "row": 9,
+          "sourcequote": "其他（渠道合作） | 翼支付",
+          "name_is_operator": false
+        },
+        {
+          "name": "通达信",
+          "operator": null,
+          "scope": "其他（渠道合作）；原表序号37。",
+          "row": 10,
+          "sourcequote": "其他（渠道合作） | 通达信",
+          "name_is_operator": false
+        },
+        {
+          "name": "大智慧",
+          "operator": null,
+          "scope": "其他（渠道合作）；原表序号38。",
+          "row": 11,
+          "sourcequote": "其他（渠道合作） | 大智慧",
+          "name_is_operator": false
+        },
+        {
+          "name": "百度",
+          "operator": null,
+          "scope": "其他（渠道合作）；原表序号39。",
+          "row": 12,
+          "sourcequote": "其他（渠道合作） | 百度",
+          "name_is_operator": false
+        },
+        {
+          "name": "腾讯",
+          "operator": null,
+          "scope": "其他（渠道合作）；原表序号40。",
+          "row": 13,
+          "sourcequote": "其他（渠道合作） | 腾讯",
+          "name_is_operator": false
+        },
+        {
+          "name": "河北源达信息技术股份有限公司",
+          "operator": null,
+          "scope": "其他（渠道合作）；原表序号41。",
+          "row": 14,
+          "sourcequote": "其他（渠道合作） | 河北源达信息技术股份有限公司",
+          "name_is_operator": true
+        },
+        {
+          "name": "杭州高煜文化传媒有限公司",
+          "operator": null,
+          "scope": "其他（渠道合作）；原表序号42。",
+          "row": 15,
+          "sourcequote": "其他（渠道合作） | 杭州高煜文化传媒有限公司",
+          "name_is_operator": true
+        },
+        {
+          "name": "兴业银行手机银行",
+          "operator": null,
+          "scope": "其他（渠道合作）；原表序号43。",
+          "row": 16,
+          "sourcequote": "其他（渠道合作） | 兴业银行手机银行",
+          "name_is_operator": false
+        },
+        {
+          "name": "华夏银行手机银行",
+          "operator": null,
+          "scope": "其他（渠道合作）；原表序号44。",
+          "row": 17,
+          "sourcequote": "其他（渠道合作） | 华夏银行手机银行",
+          "name_is_operator": false
+        }
+      ],
+      "evidence_status": "官方完整四页正文已核验",
+      "notes": "原表44项中第28—44项明确标注其他（渠道合作），提取17项；完整44项保存source_rows供追溯。自营APP/PC软件、官方账号、小程序、企微不混入第三方平台。此为合作渠道公示，未逐项确认商业广告委托；清单无且慢、盈米基金、珠海盈米基金销售有限公司或盈米财富字样。",
+      "latest_basis": "2026-10-22读取官网信息公示现行四页，未借用采购公告日期。",
+      "record_kind": "官方明确合作渠道",
+      "source_rows": [
+        [
+          "1",
+          "APP",
+          "国新证券"
+        ],
+        [
+          "2",
+          "PC",
+          "国新证券通达信行情交易软件"
+        ],
+        [
+          "3",
+          "PC",
+          "国新证券同花顺行情交易软件"
+        ],
+        [
+          "4",
+          "PC",
+          "国新证券同花顺独立交易软件"
+        ],
+        [
+          "5",
+          "PC",
+          "国新证券期权宝"
+        ],
+        [
+          "6",
+          "PC",
+          "国新证券乾隆期权测试（仿真）"
+        ],
+        [
+          "7",
+          "PC",
+          "国新证券通达信期权仿真环境"
+        ],
+        [
+          "8",
+          "PC",
+          "国新证券极速行情交易软件"
+        ],
+        [
+          "9",
+          "PC",
+          "国新证券通达信极速行情交易软件"
+        ],
+        [
+          "10",
+          "网站",
+          "国新证券官网"
+        ],
+        [
+          "11",
+          "抖音",
+          "国新证券财富"
+        ],
+        [
+          "12",
+          "微信公众号",
+          "国新证券财富"
+        ],
+        [
+          "13",
+          "微信视频号",
+          "国新证券财富"
+        ],
+        [
+          "14",
+          "微信公众号",
+          "国新证券微服务"
+        ],
+        [
+          "15",
+          "微信视频号",
+          "国新证券微服务"
+        ],
+        [
+          "16",
+          "微信视频号",
+          "宏观三日九（国新证券长春人民大街营业部 刘宏）"
+        ],
+        [
+          "17",
+          "抖音",
+          "宏观三日九（国新证券长春人民大街营业部 刘宏）"
+        ],
+        [
+          "18",
+          "微信视频号",
+          "国新证券湘江财富汇（国新证券长沙开元东路营业部）"
+        ],
+        [
+          "19",
+          "抖音",
+          "国新证券湘江财富汇（国新证券长沙开元东路营业部）"
+        ],
+        [
+          "20",
+          "微信公众号",
+          "国新证券湘江财富汇（国新证券长沙开元东路营业部）"
+        ],
+        [
+          "21",
+          "微信视频号",
+          "国新证券北京分公司（国新证券北京分公司）"
+        ],
+        [
+          "22",
+          "抖音",
+          "国新证券北京分公司（国新证券北京分公司）"
+        ],
+        [
+          "23",
+          "抖音",
+          "郭占元（国新证券北京文慧园营业部 郭占元）"
+        ],
+        [
+          "24",
+          "小程序",
+          "国新证券账户通"
+        ],
+        [
+          "25",
+          "小程序",
+          "国新证券财富小店"
+        ],
+        [
+          "26",
+          "小程序",
+          "欢句直播/国新证券"
+        ],
+        [
+          "27",
+          "企业微信",
+          "员工姓名@国新证券股份有限公司"
+        ],
+        [
+          "28",
+          "其他（渠道合作）",
+          "App Store"
+        ],
+        [
+          "29",
+          "其他（渠道合作）",
+          "华为"
+        ],
+        [
+          "30",
+          "其他（渠道合作）",
+          "OPPO"
+        ],
+        [
+          "31",
+          "其他（渠道合作）",
+          "vivo"
+        ],
+        [
+          "32",
+          "其他（渠道合作）",
+          "小米"
+        ],
+        [
+          "33",
+          "其他（渠道合作）",
+          "应用宝"
+        ],
+        [
+          "34",
+          "其他（渠道合作）",
+          "360"
+        ],
+        [
+          "35",
+          "其他（渠道合作）",
+          "同花顺"
+        ],
+        [
+          "36",
+          "其他（渠道合作）",
+          "翼支付"
+        ],
+        [
+          "37",
+          "其他（渠道合作）",
+          "通达信"
+        ],
+        [
+          "38",
+          "其他（渠道合作）",
+          "大智慧"
+        ],
+        [
+          "39",
+          "其他（渠道合作）",
+          "百度"
+        ],
+        [
+          "40",
+          "其他（渠道合作）",
+          "腾讯"
+        ],
+        [
+          "41",
+          "其他（渠道合作）",
+          "河北源达信息技术股份有限公司"
+        ],
+        [
+          "42",
+          "其他（渠道合作）",
+          "杭州高煜文化传媒有限公司"
+        ],
+        [
+          "43",
+          "其他（渠道合作）",
+          "兴业银行手机银行"
+        ],
+        [
+          "44",
+          "其他（渠道合作）",
+          "华夏银行手机银行"
+        ]
+      ],
+      "source_urls": [
+        "https://www.crsec.com.cn/link/infoPublicity1677235258404986882.html",
+        "https://www.crsec.com.cn/link/infoPublicity1677235258404986882_2.html",
+        "https://www.crsec.com.cn/link/infoPublicity1677235258404986882_3.html",
+        "https://www.crsec.com.cn/link/infoPublicity1677235258404986882_4.html"
+      ],
+      "newly_added": true,
+      "disclosure_category": "展业 / 合作渠道公示",
+      "row_count": 17
     },
     {
       "name": "平安证券",
@@ -6711,6 +7229,59 @@
       "newly_added": false,
       "disclosure_category": "网络营销 / 第三方平台公示",
       "row_count": 7
+    },
+    {
+      "name": "渤海汇金证券资产管理有限公司",
+      "sector": "证券资管",
+      "title": "【置顶】渤海汇金网络营销信息公示",
+      "url": "https://www.bhhjamc.com/contents/2026/10/21-f2e4eaa97c69420383b8633d242015f2.html",
+      "date": "2026-10-21",
+      "date_basis": "官网完整公告正文明确日期2026-10-21。",
+      "platforms": [
+        {
+          "name": "京东金融",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 1
+        },
+        {
+          "name": "微信",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 2
+        },
+        {
+          "name": "抖音",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 3
+        },
+        {
+          "name": "小红书",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 4
+        },
+        {
+          "name": "人人智慧",
+          "operator": null,
+          "scope": "",
+          "name_is_operator": false,
+          "row": 5
+        }
+      ],
+      "evidence_status": "官方全文已核验",
+      "quote": "第三方互联网平台信息公示。平台名称：京东金融、微信、抖音、小红书、人人智慧。本机构通过委托的第三方互联网平台进行营销的金融产品基本信息详见官网产品专区-公募基金页面。",
+      "notes": "完整HTML表格5条，通讯码号均为不涉及；未披露经营主体或具体逐产品范围，无盈米或且慢。",
+      "latest_basis": "截至2026-10-22核验官网首页置顶并直接链接的10月21日营销公示完整正文。",
+      "record_kind": "平台名称",
+      "newly_added": true,
+      "disclosure_category": "网络营销 / 第三方平台公示",
+      "row_count": 5
     },
     {
       "name": "东航期货",
@@ -9791,11 +10362,13 @@
     },
     {
       "name": "中信期货",
-      "sector": "期货",
-      "url": "https://www.citicsf.com/e-futures/content/000802/825845",
       "title": "互联网营销信息公示",
-      "status": "官方公告正文已核验，名单附件未读出",
-      "reason": "官网公告仅披露受托商业性互联网营销机构；附件1为《期货经纪业务互联网营销第三方平台清单》（20260930）.xlsx。正常浏览器点击附件未打开可读预览，未将公告存在当作名单完整核验。页面日期9月28日、文末签署9月30日。",
+      "url": "https://www.citicsf.com/e-futures/content/000802/825845",
+      "date": "2026-09-30",
+      "scope": "新发现正式营销清单线索，已转交根节点；本文件不重复入表",
+      "quote": "本清单仅披露受我司委托提供商业性互联网营销的第三方平台，不包含技术服务商、产品代销机构、普通业务合作机构",
+      "evidence_status": "官方正文已读，附件待根节点核验",
+      "notes": "机构为期货，超出本轮银行保险主攻范围。未读取附件前不形成盈米/且慢命中。",
       "gap_type": "near_misses"
     },
     {
@@ -10213,17 +10786,6 @@
       "gap_type": "near_misses"
     },
     {
-      "name": "富安达基金",
-      "sector": "基金",
-      "url": "https://www.fadfunds.com/",
-      "title": "第三方互联网平台营销披露专项排查",
-      "status": "已读公开入口，未定位营销清单",
-      "reason": "已读取官网首页及公用导航；未定位可完整核验的互联网营销平台公示。纯代销、招募说明书机构名单均排除。",
-      "checked_at": "2026-10-22",
-      "qieman_status": "本轮未取得具名且慢或盈米的官方营销清单证据；不据此判断无合作。",
-      "gap_type": "near_misses"
-    },
-    {
       "name": "长城基金",
       "sector": "基金",
       "url": "http://www.ccfund.com.cn/main/",
@@ -10236,13 +10798,11 @@
     },
     {
       "name": "长盛基金",
-      "sector": "基金",
       "url": "https://www.csfunds.com.cn/qtnrgl/dsfhlwptxxgs/",
-      "title": "第三方互联网平台营销披露专项排查",
-      "status": "专门公示栏目存在，正文无名单",
-      "reason": "当前官网有第三方互联网平台信息公示专栏，但实际正文仅同名标题、无表格、附件或平台名称；不能据栏目存在判断且慢/盈米在列，也不能据此判断公司无合作。",
-      "checked_at": "2026-10-22",
-      "qieman_status": "本轮未取得具名且慢或盈米的官方营销清单证据；不据此判断无合作。",
+      "evidence_status": "待核验",
+      "notes": "官网有正式第三方互联网平台信息公示专页，但当前正文仅重复标题，未展示名单或附件；不计完整主表。",
+      "qieman_status": "未知，未取得完整营销名单",
+      "yingmi_status": "未知，未取得完整营销名单",
       "gap_type": "near_misses"
     },
     {
@@ -10267,13 +10827,11 @@
     },
     {
       "name": "鹏扬基金",
-      "sector": "基金",
-      "url": "https://www.pyamc.com/front/left_100390.jhtml",
-      "title": "第三方互联网平台营销披露专项排查",
-      "status": "信息公示栏目存在，内容未返回营销名单",
-      "reason": "官网信息公示专栏通过正常浏览器读取，当前内容区为空，未核验到营销清单；销售机构和隐私政策不纳入。",
-      "checked_at": "2026-10-22",
-      "qieman_status": "本轮未取得具名且慢或盈米的官方营销清单证据；不据此判断无合作。",
+      "url": "https://www.pyamc.com/front/index.jhtml",
+      "evidence_status": "待核验",
+      "notes": "已读当前官网首页与信息公示导航，未定位完整第三方互联网营销清单；仅代表本轮未取得全文。",
+      "qieman_status": "未知，未取得完整营销名单",
+      "yingmi_status": "未知，未取得完整营销名单",
       "gap_type": "near_misses"
     },
     {
@@ -10300,13 +10858,11 @@
     },
     {
       "name": "新华基金",
-      "sector": "基金",
       "url": "https://www.ncfund.com.cn/main/index/index.shtml",
-      "title": "第三方互联网平台营销披露专项排查",
-      "status": "已读公开入口，未定位营销清单",
-      "reason": "正常浏览器读取当前首页及公开导航，未定位可完整核验的营销平台清单。",
-      "checked_at": "2026-10-22",
-      "qieman_status": "本轮未取得具名且慢或盈米的官方营销清单证据；不据此判断无合作。",
+      "evidence_status": "待核验",
+      "notes": "已读当前官网首页与信息公示导航，未定位完整第三方互联网营销清单；仅代表本轮未取得全文。",
+      "qieman_status": "未知，未取得完整营销名单",
+      "yingmi_status": "未知，未取得完整营销名单",
       "gap_type": "near_misses"
     },
     {
@@ -10333,24 +10889,20 @@
     },
     {
       "name": "国海富兰克林基金",
-      "sector": "基金",
-      "url": "https://www.ftsfund.com/wzdt",
-      "title": "第三方互联网平台营销披露专项排查",
-      "status": "已读公开入口，未定位营销清单",
-      "reason": "已读取官网首页及网站地图，未定位可完整核验的互联网营销平台公示。",
-      "checked_at": "2026-10-22",
-      "qieman_status": "本轮未取得具名且慢或盈米的官方营销清单证据；不据此判断无合作。",
+      "url": "https://www.ftsfund.com/",
+      "evidence_status": "待核验",
+      "notes": "已读当前官网首页与信息公示导航，未定位完整第三方互联网营销清单；仅代表本轮未取得全文。",
+      "qieman_status": "未知，未取得完整营销名单",
+      "yingmi_status": "未知，未取得完整营销名单",
       "gap_type": "near_misses"
     },
     {
       "name": "华富基金",
-      "sector": "基金",
-      "url": "https://www.hffund.com/agate/jweb/#/col",
-      "title": "第三方互联网平台营销披露专项排查",
-      "status": "已读公开入口，未定位营销清单",
-      "reason": "正常浏览器读取当前官网及公开导航，另检查官网公开前端路由，未定位可完整核验的营销清单。",
-      "checked_at": "2026-10-22",
-      "qieman_status": "本轮未取得具名且慢或盈米的官方营销清单证据；不据此判断无合作。",
+      "url": "https://www.hffund.com/agate/jweb/",
+      "evidence_status": "待核验",
+      "notes": "已读当前官网首页与信息公示导航，未定位完整第三方互联网营销清单；仅代表本轮未取得全文。",
+      "qieman_status": "未知，未取得完整营销名单",
+      "yingmi_status": "未知，未取得完整营销名单",
       "gap_type": "near_misses"
     },
     {
@@ -10377,13 +10929,11 @@
     },
     {
       "name": "圆信永丰基金",
-      "sector": "基金",
       "url": "https://www.gtsfund.com.cn/",
-      "title": "第三方互联网平台营销披露专项排查",
-      "status": "官网部分内容已读，未定位营销清单",
-      "reason": "正常浏览器可进入官网动态页面，已读首页公开导航，但仅部分动态内容返回，未核验到完整营销清单；不将技术重定向或销售列表当成披露。",
-      "checked_at": "2026-10-22",
-      "qieman_status": "本轮未取得具名且慢或盈米的官方营销清单证据；不据此判断无合作。",
+      "evidence_status": "待核验",
+      "notes": "按检索确认的官方域名读取，仅返回动态防护页，未手工处理防护校验；未取得完整营销名单。",
+      "qieman_status": "未知，未取得完整营销名单",
+      "yingmi_status": "未知，未取得完整营销名单",
       "gap_type": "near_misses"
     },
     {
@@ -10610,25 +11160,145 @@
     {
       "name": "东兴基金",
       "url": "https://www.dxamc.cn/",
-      "reason": "仅核实官网首页及显式公示链接；未取得当前完整营销平台清单；不能推断未披露或无且慢合作。",
-      "gap_type": "near_misses"
-    },
-    {
-      "name": "创金合信基金",
-      "url": "https://www.cjhxfund.com/",
-      "reason": "仅核实官网首页及显式公示链接；未取得当前完整营销平台清单；不能推断未披露或无且慢合作。",
+      "evidence_status": "待核验",
+      "notes": "已读当前官网首页与信息公示导航，未定位完整第三方互联网营销清单；仅代表本轮未取得全文。",
+      "qieman_status": "未知，未取得完整营销名单",
+      "yingmi_status": "未知，未取得完整营销名单",
       "gap_type": "near_misses"
     },
     {
       "name": "安信基金",
       "url": "https://www.essencefund.com/",
-      "reason": "仅核实官网首页及显式公示链接；未取得当前完整营销平台清单；不能推断未披露或无且慢合作。",
+      "evidence_status": "待核验",
+      "notes": "根节点IAB正常打开，但当前导航未见明确营销名单，未取得完整正文。普通读取另遇证书链校验问题，未绕过证书验证。",
+      "qieman_status": "未知，未取得完整营销名单",
+      "yingmi_status": "未知，未取得完整营销名单",
       "gap_type": "near_misses"
     },
     {
       "name": "国新国证基金",
       "url": "https://www.crsfund.com.cn/",
       "reason": "仅核实官网首页及显式公示链接；未取得当前完整营销平台清单；不能推断未披露或无且慢合作。",
+      "gap_type": "near_misses"
+    },
+    {
+      "name": "民生加银基金",
+      "url": "https://www.msjyfund.com.cn/",
+      "evidence_status": "待核验",
+      "notes": "根节点正常IAB仅加载静态框架，未取得公告或营销名单数据。普通读取另遇旧TLS协商限制，未降低安全设置。",
+      "qieman_status": "未知，未取得完整营销名单",
+      "yingmi_status": "未知，未取得完整营销名单",
+      "gap_type": "near_misses"
+    },
+    {
+      "name": "中信建投基金",
+      "url": "https://www.cfund108.com/",
+      "evidence_status": "待核验",
+      "notes": "根节点正常IAB站内搜索“第三方”“营销”各0结果；未取得完整营销清单，仅记检索缺口，不表示未披露。",
+      "qieman_status": "未知，未取得完整营销名单",
+      "yingmi_status": "未知，未取得完整营销名单",
+      "gap_type": "near_misses"
+    },
+    {
+      "name": "红土创新基金",
+      "url": "https://www.htcxfund.com/",
+      "evidence_status": "待核验",
+      "notes": "<urlopen error [Errno 61] Connection refused>",
+      "qieman_status": "未知，未取得完整营销名单",
+      "yingmi_status": "未知，未取得完整营销名单",
+      "gap_type": "near_misses"
+    },
+    {
+      "name": "前海联合基金",
+      "url": "https://www.qhlhfund.com/front/index.jhtml;jsessionid=198D9A9D74B761A9E10F945BB585CB6B",
+      "evidence_status": "待核验",
+      "notes": "已读当前官网首页与信息公示导航，未定位完整第三方互联网营销清单；仅代表本轮未取得全文。",
+      "qieman_status": "未知，未取得完整营销名单",
+      "yingmi_status": "未知，未取得完整营销名单",
+      "gap_type": "near_misses"
+    },
+    {
+      "name": "北信瑞丰基金",
+      "url": "https://www.bxrfund.com/",
+      "evidence_status": "待核验",
+      "notes": "<urlopen error [Errno 8] nodename nor servname provided, or not known>",
+      "qieman_status": "未知，未取得完整营销名单",
+      "yingmi_status": "未知，未取得完整营销名单",
+      "gap_type": "near_misses"
+    },
+    {
+      "name": "中邮基金",
+      "url": "https://www.postfund.com.cn/",
+      "evidence_status": "待核验",
+      "notes": "<urlopen error timed out>",
+      "qieman_status": "未知，未取得完整营销名单",
+      "yingmi_status": "未知，未取得完整营销名单",
+      "gap_type": "near_misses"
+    },
+    {
+      "name": "红塔红土基金",
+      "url": "https://www.htamc.com.cn/",
+      "evidence_status": "待核验",
+      "notes": "<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)>",
+      "qieman_status": "未知，未取得完整营销名单",
+      "yingmi_status": "未知，未取得完整营销名单",
+      "gap_type": "near_misses"
+    },
+    {
+      "name": "上银基金",
+      "url": "https://www.boscam.com.cn/",
+      "evidence_status": "待核验",
+      "notes": "已读当前官网首页与信息公示导航，未定位完整第三方互联网营销清单；仅代表本轮未取得全文。",
+      "qieman_status": "未知，未取得完整营销名单",
+      "yingmi_status": "未知，未取得完整营销名单",
+      "gap_type": "near_misses"
+    },
+    {
+      "name": "国联基金",
+      "url": "https://www.glfund.com/",
+      "evidence_status": "待核验",
+      "notes": "<urlopen error timed out>",
+      "qieman_status": "未知，未取得完整营销名单",
+      "yingmi_status": "未知，未取得完整营销名单",
+      "gap_type": "near_misses"
+    },
+    {
+      "name": "国联安基金",
+      "url": "https://www.cpicfunds.com/",
+      "evidence_status": "待核验",
+      "notes": "已读当前官网首页与信息公示导航，未定位完整第三方互联网营销清单；仅代表本轮未取得全文。",
+      "qieman_status": "未知，未取得完整营销名单",
+      "yingmi_status": "未知，未取得完整营销名单",
+      "gap_type": "near_misses"
+    },
+    {
+      "name": "睿远基金",
+      "url": "https://www.foresightfund.com/",
+      "evidence_status": "待核验",
+      "notes": "已读当前官网首页与信息公示导航，未定位完整第三方互联网营销清单；仅代表本轮未取得全文。",
+      "qieman_status": "未知，未取得完整营销名单",
+      "yingmi_status": "未知，未取得完整营销名单",
+      "gap_type": "near_misses"
+    },
+    {
+      "name": "华安证券",
+      "sector": "证券",
+      "url": "https://www.hazq.com/zg/plat_files/upload/zgfile_upload/20250626/202506261750932190836.pdf",
+      "title": "华安证券汇赢增利一年持有期灵活配置混合型集合资产管理计划招募说明书",
+      "date": null,
+      "date_basis": "URL上传路径20250626仅作文件线索，未核验文档发布日期。",
+      "status": "官方PDF搜索定位，完整文档访问重定向循环",
+      "reason": "搜索定位第五部分相关服务机构中的销售机构名单含珠海盈米基金销售有限公司，但PDF全文获取返回重定向循环。本条只能作待核验的普通销售关系线索，不能计入已核验营销清单或新增盈米命中。",
+      "gap_type": "near_misses"
+    },
+    {
+      "name": "中国工商银行",
+      "title": "关于增加中国人寿保险股份有限公司等2家机构为公司旗下部分基金销售机构的公告",
+      "url": "https://media.icbc.com.cn/fund/report/4551428_fcdb.pdf",
+      "scope": "工商银行站点承载的东方基金代销公告，发行者为东方基金",
+      "quote": "新增中国人寿、盈米基金办理本公司旗下部分基金的销售业务",
+      "evidence_status": "官方站点文件检索命中，异口径排除",
+      "notes": "不能把工行承载的基金代销公告当作工行自身委托盈米营销。",
       "gap_type": "near_misses"
     }
   ],
@@ -10683,6 +11353,138 @@
           "scope": "平安保险代理公司合作第三方平台"
         }
       ]
+    },
+    {
+      "name": "国新证券",
+      "sector": "证券",
+      "title": "国新证券股份有限公司盈米基金TAMP基金投顾运营服务项目采购信息公示",
+      "url": "https://www.crsec.com.cn/content/details1892862062950461442_2076543278036668417.html",
+      "date": "2026-07-14",
+      "date_basis": "官网发布时间及公告落款均为2026-07-14；采购公示期2026-07-14至2026-07-16。",
+      "matched_name": "珠海盈米基金销售有限公司",
+      "match_type": "盈米法人主体，未具名且慢",
+      "sourcequote": "拟定供应商：珠海盈米基金销售有限公司",
+      "scope": "盈米基金TAMP基金投顾运营服务项目；该文件是采购公示，不能证明第三方互联网营销委托，也不等于已验收上线。",
+      "evidence_status": "非基金对手方官网完整正文已核验",
+      "record_kind": "投顾运营服务采购披露（非营销名单）",
+      "in_main_marketing_table": false,
+      "type": "投顾运营服务采购披露（非营销名单）",
+      "notes": "盈米基金TAMP基金投顾运营服务项目；该文件是采购公示，不能证明第三方互联网营销委托，也不等于已验收上线。；拟定供应商：珠海盈米基金销售有限公司"
+    },
+    {
+      "name": "广东盈信保险经纪有限公司",
+      "sector": "保险中介",
+      "title": "信息披露—自营平台",
+      "url": "https://www.yingxin.cn/#/infomation",
+      "source_url": "https://www.yingxin.cn/jxb-website/information/18",
+      "supporting_urls": [
+        "https://www.yingxin.cn/",
+        "https://www.yingxin.cn/jxb-website/information?typeId=3"
+      ],
+      "date": "未标注",
+      "date_basis": "当前官网公开栏目原文未展示更新日期；接口元数据updateDate为2022-07-07，不据此推定当前正文的实际更新时间。",
+      "scope": "该机构自己披露的自营网络平台，未称委托第三方互联网营销清单。",
+      "quote": "平台名称：且慢保顾；类型：互联网用户公众号（微信公众号）",
+      "platforms": [
+        {
+          "name": "盈信保险经纪",
+          "operator": "",
+          "scope": "自营网站；网址yingxin.cn"
+        },
+        {
+          "name": "且慢保顾",
+          "operator": "",
+          "scope": "自营平台栏目列示；微信公众号"
+        },
+        {
+          "name": "银杏保",
+          "operator": "",
+          "scope": "自营平台栏目列示；微信小程序"
+        },
+        {
+          "name": "银杏保",
+          "operator": "",
+          "scope": "自营平台栏目列示；百度APP小程序"
+        }
+      ],
+      "evidence_status": "官方原文已核验（当前官网公开API，完整4项自营平台）",
+      "relation_to_qieman": "直接出现且慢保顾名称；不将其等同且慢APP，也不计为第三方受托营销命中。",
+      "counts_toward_marketing_list": false,
+      "local_evidence": "work/round4-evidence/盈信自营平台.json",
+      "type": "信息披露—自营平台",
+      "notes": "该机构自己披露的自营网络平台，未称委托第三方互联网营销清单。；平台名称：且慢保顾；类型：互联网用户公众号（微信公众号）"
+    },
+    {
+      "name": "广东盈信保险经纪有限公司",
+      "sector": "保险中介",
+      "title": "信息披露—个人信息保护政策",
+      "url": "https://www.yingxin.cn/#/infomation",
+      "source_url": "https://www.yingxin.cn/jxb-website/information/14",
+      "supporting_urls": [
+        "https://www.yingxin.cn/jxb-website/information?typeId=4"
+      ],
+      "date": "2026-03-26",
+      "date_basis": "正式正文明确版本更新日期、生效日期均为2026年3月26日；接口updateDate仍为2022-07-07，与正文版本日期不同，以正文日期为准。",
+      "scope": "账号登录与个人信息处理关系，不是受托网络营销平台清单。",
+      "quote": "您也可通过第三方平台微信账号、壹钱包账号、百度账号、且慢账号登录并使用盈信的服务",
+      "platforms": [
+        {
+          "name": "微信",
+          "operator": "",
+          "scope": "第三方平台账号登录"
+        },
+        {
+          "name": "壹钱包",
+          "operator": "",
+          "scope": "第三方平台账号登录"
+        },
+        {
+          "name": "百度",
+          "operator": "",
+          "scope": "第三方平台账号登录"
+        },
+        {
+          "name": "且慢",
+          "operator": "",
+          "scope": "第三方平台账号登录"
+        }
+      ],
+      "evidence_status": "官方原文已核验（当前官网公开API返回完整政策）",
+      "relation_to_qieman": "该保险中介自己明确披露且慢账号登录，证明特定服务关系；不证明受托营销或特定保险产品合作。",
+      "counts_toward_marketing_list": false,
+      "local_evidence": "work/round4-evidence/盈信个人信息政策.json",
+      "type": "信息披露—个人信息保护政策",
+      "notes": "账号登录与个人信息处理关系，不是受托网络营销平台清单。；您也可通过第三方平台微信账号、壹钱包账号、百度账号、且慢账号登录并使用盈信的服务"
+    },
+    {
+      "name": "光证资管（上海光大证券资产管理有限公司）",
+      "sector": "证券资管",
+      "title": "光大阳光添利债券C（860030）—销售机构",
+      "url": "https://e.ebscn-am.com/product/gmproductinformation/860030",
+      "date": "未标注",
+      "date_basis": "当前官网产品页销售机构栏目未明确发布日期；2026-10-22读取。产品成立日、参公运作日不是本销售名单发布日期。",
+      "quote": "盈米基金 | 020-89629066 | http://www.yingmi.cn",
+      "scope": "产品销售机构名单列有盈米基金，适用产品为光大阳光添利债券型集合资产管理计划C；不据此认定第三方互联网营销委托。",
+      "record_kind": "产品销售机构名单（非营销名单）",
+      "evidence_status": "官网产品页完整销售机构栏目已读取",
+      "in_main_marketing_table": false,
+      "type": "产品销售机构名单（非营销名单）",
+      "notes": "产品销售机构名单列有盈米基金，适用产品为光大阳光添利债券型集合资产管理计划C；不据此认定第三方互联网营销委托。；盈米基金 | 020-89629066 | http://www.yingmi.cn"
+    },
+    {
+      "name": "东方红资管（上海东方证券资产管理有限公司）",
+      "sector": "证券资管",
+      "title": "销售网点—产品/基金场外销售机构",
+      "url": "https://www.dfham.com/service/selfhelp/salesoutlets/index.html",
+      "date": "2026-10-18",
+      "date_basis": "官网正文明确更新时间：2026年10月18日；不是第三方营销名单的发布日期。",
+      "quote": "表格关系摘录：东方红新动力混合A（000480）的场外销售机构列有盈米基金",
+      "scope": "官网产品销售网点表，多个产品列示盈米基金，此处选东方红新动力混合A作可复核例证。它证明代销渠道披露，不证明营销委托，也不计入本页营销主表的盈米命中数。",
+      "record_kind": "产品销售网点（非营销名单）",
+      "evidence_status": "官网销售网点表已读取，按产品逐项保留证明范围",
+      "in_main_marketing_table": false,
+      "type": "产品销售网点（非营销名单）",
+      "notes": "官网产品销售网点表，多个产品列示盈米基金，此处选东方红新动力混合A作可复核例证。它证明代销渠道披露，不证明营销委托，也不计入本页营销主表的盈米命中数。；表格关系摘录：东方红新动力混合A（000480）的场外销售机构列有盈米基金"
     }
   ],
   "regulation": {
@@ -10693,49 +11495,31 @@
   },
   "method": "截至2026-10-22公开检索与官方正文核验的最新可得版本，不是全行业穷尽清单。无日期动态页只能确认核验时点可见内容，不能承诺此前或此后无版本变化。",
   "stats": {
-    "institutions": 84,
-    "raw_rows": 1059,
+    "institutions": 88,
+    "raw_rows": 1095,
     "sectors": 10
   },
   "revision": {
-    "baseline_institutions": 75,
-    "added_institutions": 9,
-    "added_rows": 77,
-    "related_disclosures": 4,
+    "baseline_institutions": 84,
+    "added_institutions": 4,
+    "added_rows": 36,
+    "related_disclosures": 9,
     "added_names": [
-      "国融基金",
-      "宏利基金",
-      "恒越基金",
-      "方正富邦基金",
-      "景顺长城基金",
-      "诺安基金",
-      "银华基金",
-      "长安基金",
-      "华福证券"
+      "创金合信基金",
+      "富安达基金",
+      "国新证券",
+      "渤海汇金证券资产管理有限公司"
     ]
   },
   "qieman_focus": {
     "verified_at": "2026-10-22",
-    "baseline_count": 5,
+    "baseline_count": 6,
     "hit_count": 6,
-    "new_hit_count": 1,
-    "full_list_review_count": 84,
-    "full_list_fund_count": 41,
-    "pending_or_excluded_records": 68,
+    "new_hit_count": 0,
+    "full_list_review_count": 88,
+    "full_list_fund_count": 43,
+    "pending_or_excluded_records": 80,
     "hits": [
-      {
-        "name": "宏利基金",
-        "sector": "公募基金",
-        "platform_raw": "且慢 APP",
-        "scope": "由盈米基金代销的所有基金产品",
-        "date": "2026-10-09",
-        "date_basis": "官网公告列表与详情正文明确2026-10-09；附件未另标日期。",
-        "url": "https://www.manulifefund.com.cn/Info/3277761",
-        "evidence_url": "https://www.manulifefund.com.cn/CMS5_G20306002Resource?info=3277761;res=17915427297621745998277;download=",
-        "source_row": 6,
-        "newly_confirmed": true,
-        "evidence_status": "官方全文已核验"
-      },
       {
         "name": "中加基金",
         "sector": "公募基金",
@@ -10774,6 +11558,19 @@
         "source_row": 6,
         "newly_confirmed": false,
         "evidence_status": "官方原文已核验"
+      },
+      {
+        "name": "宏利基金",
+        "sector": "公募基金",
+        "platform_raw": "且慢 APP",
+        "scope": "由盈米基金代销的所有基金产品",
+        "date": "2026-10-09",
+        "date_basis": "官网公告列表与详情正文明确2026-10-09；附件未另标日期。",
+        "url": "https://www.manulifefund.com.cn/Info/3277761",
+        "evidence_url": "https://www.manulifefund.com.cn/CMS5_G20306002Resource?info=3277761;res=17915427297621745998277;download=",
+        "source_row": 6,
+        "newly_confirmed": false,
+        "evidence_status": "官方全文已核验"
       },
       {
         "name": "德邦基金",
@@ -10854,6 +11651,15 @@
         "sector": "公募基金",
         "status": "具名列示且慢",
         "url": "https://www.abc-ca.com/webimages/upload2012/2026/10/09/014918776_520_14c94d4d-1dbe-375d-9d03-43d451cb45e5.pdf",
+        "scope": "当前完整官方营销/平台/合作渠道清单；清单边界以机构明细为准",
+        "checked_at": "2026-10-22",
+        "record_type": "完整清单"
+      },
+      {
+        "name": "创金合信基金",
+        "sector": "公募基金",
+        "status": "已读完整清单，未见且慢字样",
+        "url": "https://www.cjhxfund.com/main/aboutUs/InternetMarketingPublic/ThirdPartyInternetPlatform/index.shtml",
         "scope": "当前完整官方营销/平台/合作渠道清单；清单边界以机构明细为准",
         "checked_at": "2026-10-22",
         "record_type": "完整清单"
@@ -10962,6 +11768,15 @@
         "sector": "公募基金",
         "status": "已读完整清单，未见且慢字样",
         "url": "https://www.fullgoal.com.cn/main/OtherService/qualiInquiry/thirdplatform/index.html",
+        "scope": "当前完整官方营销/平台/合作渠道清单；清单边界以机构明细为准",
+        "checked_at": "2026-10-22",
+        "record_type": "完整清单"
+      },
+      {
+        "name": "富安达基金",
+        "sector": "公募基金",
+        "status": "已读完整清单，未见且慢字样",
+        "url": "https://www.fadfunds.com/contents/2026/10/22-39bd188c18094da7a285f77737990788.html",
         "scope": "当前完整官方营销/平台/合作渠道清单；清单边界以机构明细为准",
         "checked_at": "2026-10-22",
         "record_type": "完整清单"
@@ -11291,6 +12106,15 @@
         "record_type": "完整清单"
       },
       {
+        "name": "国新证券",
+        "sector": "证券",
+        "status": "已读完整清单，未见且慢字样",
+        "url": "https://www.crsec.com.cn/link/infoPublicity1677235258404986882.html",
+        "scope": "当前完整官方营销/平台/合作渠道清单；清单边界以机构明细为准",
+        "checked_at": "2026-10-22",
+        "record_type": "完整清单"
+      },
+      {
         "name": "平安证券",
         "sector": "证券",
         "status": "已读完整清单，未见且慢字样",
@@ -11376,6 +12200,15 @@
         "sector": "证券资管",
         "status": "已读完整清单，未见且慢字样",
         "url": "https://www.dfham.com/upload/pdf/1792050290878-shdfzqzcglyxgsdsfhlwptxxjyxsydtxmhzygs.pdf",
+        "scope": "当前完整官方营销/平台/合作渠道清单；清单边界以机构明细为准",
+        "checked_at": "2026-10-22",
+        "record_type": "完整清单"
+      },
+      {
+        "name": "渤海汇金证券资产管理有限公司",
+        "sector": "证券资管",
+        "status": "已读完整清单，未见且慢字样",
+        "url": "https://www.bhhjamc.com/contents/2026/10/21-f2e4eaa97c69420383b8633d242015f2.html",
         "scope": "当前完整官方营销/平台/合作渠道清单；清单边界以机构明细为准",
         "checked_at": "2026-10-22",
         "record_type": "完整清单"
@@ -11678,15 +12511,6 @@
         "record_type": "检索线索"
       },
       {
-        "name": "富安达基金",
-        "sector": "基金",
-        "status": "排除或待核验线索",
-        "url": "https://www.fadfunds.com/",
-        "scope": "已读取官网首页及公用导航；未定位可完整核验的互联网营销平台公示。纯代销、招募说明书机构名单均排除。",
-        "checked_at": "2026-10-22",
-        "record_type": "检索线索"
-      },
-      {
         "name": "长城基金",
         "sector": "基金",
         "status": "排除或待核验线索",
@@ -11697,10 +12521,10 @@
       },
       {
         "name": "长盛基金",
-        "sector": "基金",
+        "sector": "",
         "status": "排除或待核验线索",
         "url": "https://www.csfunds.com.cn/qtnrgl/dsfhlwptxxgs/",
-        "scope": "当前官网有第三方互联网平台信息公示专栏，但实际正文仅同名标题、无表格、附件或平台名称；不能据栏目存在判断且慢/盈米在列，也不能据此判断公司无合作。",
+        "scope": "官网有正式第三方互联网平台信息公示专页，但当前正文仅重复标题，未展示名单或附件；不计完整主表。",
         "checked_at": "2026-10-22",
         "record_type": "检索线索"
       },
@@ -11724,10 +12548,10 @@
       },
       {
         "name": "鹏扬基金",
-        "sector": "基金",
+        "sector": "",
         "status": "排除或待核验线索",
-        "url": "https://www.pyamc.com/front/left_100390.jhtml",
-        "scope": "官网信息公示专栏通过正常浏览器读取，当前内容区为空，未核验到营销清单；销售机构和隐私政策不纳入。",
+        "url": "https://www.pyamc.com/front/index.jhtml",
+        "scope": "已读当前官网首页与信息公示导航，未定位完整第三方互联网营销清单；仅代表本轮未取得全文。",
         "checked_at": "2026-10-22",
         "record_type": "检索线索"
       },
@@ -11751,10 +12575,10 @@
       },
       {
         "name": "新华基金",
-        "sector": "基金",
+        "sector": "",
         "status": "排除或待核验线索",
         "url": "https://www.ncfund.com.cn/main/index/index.shtml",
-        "scope": "正常浏览器读取当前首页及公开导航，未定位可完整核验的营销平台清单。",
+        "scope": "已读当前官网首页与信息公示导航，未定位完整第三方互联网营销清单；仅代表本轮未取得全文。",
         "checked_at": "2026-10-22",
         "record_type": "检索线索"
       },
@@ -11778,19 +12602,19 @@
       },
       {
         "name": "国海富兰克林基金",
-        "sector": "基金",
+        "sector": "",
         "status": "排除或待核验线索",
-        "url": "https://www.ftsfund.com/wzdt",
-        "scope": "已读取官网首页及网站地图，未定位可完整核验的互联网营销平台公示。",
+        "url": "https://www.ftsfund.com/",
+        "scope": "已读当前官网首页与信息公示导航，未定位完整第三方互联网营销清单；仅代表本轮未取得全文。",
         "checked_at": "2026-10-22",
         "record_type": "检索线索"
       },
       {
         "name": "华富基金",
-        "sector": "基金",
+        "sector": "",
         "status": "排除或待核验线索",
-        "url": "https://www.hffund.com/agate/jweb/#/col",
-        "scope": "正常浏览器读取当前官网及公开导航，另检查官网公开前端路由，未定位可完整核验的营销清单。",
+        "url": "https://www.hffund.com/agate/jweb/",
+        "scope": "已读当前官网首页与信息公示导航，未定位完整第三方互联网营销清单；仅代表本轮未取得全文。",
         "checked_at": "2026-10-22",
         "record_type": "检索线索"
       },
@@ -11814,10 +12638,10 @@
       },
       {
         "name": "圆信永丰基金",
-        "sector": "基金",
+        "sector": "",
         "status": "排除或待核验线索",
         "url": "https://www.gtsfund.com.cn/",
-        "scope": "正常浏览器可进入官网动态页面，已读首页公开导航，但仅部分动态内容返回，未核验到完整营销清单；不将技术重定向或销售列表当成披露。",
+        "scope": "按检索确认的官方域名读取，仅返回动态防护页，未手工处理防护校验；未取得完整营销名单。",
         "checked_at": "2026-10-22",
         "record_type": "检索线索"
       },
@@ -12141,16 +12965,7 @@
         "sector": "",
         "status": "排除或待核验线索",
         "url": "https://www.dxamc.cn/",
-        "scope": "仅核实官网首页及显式公示链接；未取得当前完整营销平台清单；不能推断未披露或无且慢合作。",
-        "checked_at": "2026-10-22",
-        "record_type": "检索线索"
-      },
-      {
-        "name": "创金合信基金",
-        "sector": "",
-        "status": "排除或待核验线索",
-        "url": "https://www.cjhxfund.com/",
-        "scope": "仅核实官网首页及显式公示链接；未取得当前完整营销平台清单；不能推断未披露或无且慢合作。",
+        "scope": "已读当前官网首页与信息公示导航，未定位完整第三方互联网营销清单；仅代表本轮未取得全文。",
         "checked_at": "2026-10-22",
         "record_type": "检索线索"
       },
@@ -12159,7 +12974,7 @@
         "sector": "",
         "status": "排除或待核验线索",
         "url": "https://www.essencefund.com/",
-        "scope": "仅核实官网首页及显式公示链接；未取得当前完整营销平台清单；不能推断未披露或无且慢合作。",
+        "scope": "根节点IAB正常打开，但当前导航未见明确营销名单，未取得完整正文。普通读取另遇证书链校验问题，未绕过证书验证。",
         "checked_at": "2026-10-22",
         "record_type": "检索线索"
       },
@@ -12169,6 +12984,132 @@
         "status": "排除或待核验线索",
         "url": "https://www.crsfund.com.cn/",
         "scope": "仅核实官网首页及显式公示链接；未取得当前完整营销平台清单；不能推断未披露或无且慢合作。",
+        "checked_at": "2026-10-22",
+        "record_type": "检索线索"
+      },
+      {
+        "name": "民生加银基金",
+        "sector": "",
+        "status": "排除或待核验线索",
+        "url": "https://www.msjyfund.com.cn/",
+        "scope": "根节点正常IAB仅加载静态框架，未取得公告或营销名单数据。普通读取另遇旧TLS协商限制，未降低安全设置。",
+        "checked_at": "2026-10-22",
+        "record_type": "检索线索"
+      },
+      {
+        "name": "中信建投基金",
+        "sector": "",
+        "status": "排除或待核验线索",
+        "url": "https://www.cfund108.com/",
+        "scope": "根节点正常IAB站内搜索“第三方”“营销”各0结果；未取得完整营销清单，仅记检索缺口，不表示未披露。",
+        "checked_at": "2026-10-22",
+        "record_type": "检索线索"
+      },
+      {
+        "name": "红土创新基金",
+        "sector": "",
+        "status": "排除或待核验线索",
+        "url": "https://www.htcxfund.com/",
+        "scope": "<urlopen error [Errno 61] Connection refused>",
+        "checked_at": "2026-10-22",
+        "record_type": "检索线索"
+      },
+      {
+        "name": "前海联合基金",
+        "sector": "",
+        "status": "排除或待核验线索",
+        "url": "https://www.qhlhfund.com/front/index.jhtml;jsessionid=198D9A9D74B761A9E10F945BB585CB6B",
+        "scope": "已读当前官网首页与信息公示导航，未定位完整第三方互联网营销清单；仅代表本轮未取得全文。",
+        "checked_at": "2026-10-22",
+        "record_type": "检索线索"
+      },
+      {
+        "name": "北信瑞丰基金",
+        "sector": "",
+        "status": "排除或待核验线索",
+        "url": "https://www.bxrfund.com/",
+        "scope": "<urlopen error [Errno 8] nodename nor servname provided, or not known>",
+        "checked_at": "2026-10-22",
+        "record_type": "检索线索"
+      },
+      {
+        "name": "中邮基金",
+        "sector": "",
+        "status": "排除或待核验线索",
+        "url": "https://www.postfund.com.cn/",
+        "scope": "<urlopen error timed out>",
+        "checked_at": "2026-10-22",
+        "record_type": "检索线索"
+      },
+      {
+        "name": "红塔红土基金",
+        "sector": "",
+        "status": "排除或待核验线索",
+        "url": "https://www.htamc.com.cn/",
+        "scope": "<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)>",
+        "checked_at": "2026-10-22",
+        "record_type": "检索线索"
+      },
+      {
+        "name": "上银基金",
+        "sector": "",
+        "status": "排除或待核验线索",
+        "url": "https://www.boscam.com.cn/",
+        "scope": "已读当前官网首页与信息公示导航，未定位完整第三方互联网营销清单；仅代表本轮未取得全文。",
+        "checked_at": "2026-10-22",
+        "record_type": "检索线索"
+      },
+      {
+        "name": "国联基金",
+        "sector": "",
+        "status": "排除或待核验线索",
+        "url": "https://www.glfund.com/",
+        "scope": "<urlopen error timed out>",
+        "checked_at": "2026-10-22",
+        "record_type": "检索线索"
+      },
+      {
+        "name": "国联安基金",
+        "sector": "",
+        "status": "排除或待核验线索",
+        "url": "https://www.cpicfunds.com/",
+        "scope": "已读当前官网首页与信息公示导航，未定位完整第三方互联网营销清单；仅代表本轮未取得全文。",
+        "checked_at": "2026-10-22",
+        "record_type": "检索线索"
+      },
+      {
+        "name": "睿远基金",
+        "sector": "",
+        "status": "排除或待核验线索",
+        "url": "https://www.foresightfund.com/",
+        "scope": "已读当前官网首页与信息公示导航，未定位完整第三方互联网营销清单；仅代表本轮未取得全文。",
+        "checked_at": "2026-10-22",
+        "record_type": "检索线索"
+      },
+      {
+        "name": "中信期货",
+        "sector": "",
+        "status": "排除或待核验线索",
+        "url": "https://www.citicsf.com/e-futures/content/000802/825845",
+        "scope": "机构为期货，超出本轮银行保险主攻范围。未读取附件前不形成盈米/且慢命中。",
+        "checked_at": "2026-10-22",
+        "record_type": "检索线索"
+      },
+      {
+        "name": "华安证券",
+        "sector": "证券",
+        "status": "排除或待核验线索",
+        "url": "https://www.hazq.com/zg/plat_files/upload/zgfile_upload/20250626/202506261750932190836.pdf",
+        "scope": "搜索定位第五部分相关服务机构中的销售机构名单含珠海盈米基金销售有限公司，但PDF全文获取返回重定向循环。本条只能作待核验的普通销售关系线索，不能计入已核验营销清单或新增盈米命中。",
+        "checked_at": "2026-10-22",
+        "record_type": "检索线索"
+      },
+      {
+        "name": "中国工商银行",
+        "sector": "",
+        "status": "排除或待核验线索",
+        "url": "https://media.icbc.com.cn/fund/report/4551428_fcdb.pdf",
+        "scope": "不能把工行承载的基金代销公告当作工行自身委托盈米营销。",
         "checked_at": "2026-10-22",
         "record_type": "检索线索"
       }
@@ -12200,5 +13141,281 @@
       }
     ],
     "interpretation": "此为官方披露中的平台列名证据。基金清单将代销入口与内容渠道并列，不能仅据列名认定付费广告委托、投放预算、获客效果或其他未披露的合作。"
+  },
+  "yingmi_focus": {
+    "verified_at": "2026-10-22",
+    "marketing_hits": [
+      {
+        "name": "嘉实基金",
+        "sector": "公募基金",
+        "title": "嘉实基金通过以下第三方互联网平台营销旗下基金",
+        "url": "https://static.jsfund.cn/lcj/zipfile/share/6b8679c377954bc2b60e6099f2d19e8c/index.html",
+        "date": "2026-09-29",
+        "date_basis": "官方表头2026年9月29日（页面未进一步说明是发布日还是数据截至日）。",
+        "source_row": 6,
+        "platform_raw": "且慢APP",
+        "matched_fields": {
+          "sales_institution_raw": "盈米基金",
+          "scope": "由盈米基金代销的所有基金产品；主体关系：未披露平台运营主体"
+        },
+        "quote": "由盈米基金代销的所有基金产品",
+        "same_row_qieman": true,
+        "relation": "产品代销范围具名盈米"
+      },
+      {
+        "name": "宏利基金",
+        "sector": "公募基金",
+        "title": "宏利基金通过以下第三方互联网平台营销旗下基金",
+        "url": "https://www.manulifefund.com.cn/Info/3277761",
+        "date": "2026-10-09",
+        "date_basis": "官网公告列表与详情正文明确2026-10-09；附件未另标日期。",
+        "source_row": 6,
+        "platform_raw": "且慢APP",
+        "matched_fields": {
+          "scope": "由盈米基金代销的所有基金产品"
+        },
+        "quote": "由盈米基金代销的所有基金产品",
+        "same_row_qieman": true,
+        "relation": "产品代销范围具名盈米"
+      },
+      {
+        "name": "德邦基金",
+        "sector": "公募基金",
+        "title": "德邦基金通过以下第三方互联网平台营销旗下基金",
+        "url": "https://www.dbfund.com.cn/upload/pdf/1790772056375-德邦基金通过以下第三方互联网平台营销旗下基金.pdf",
+        "date": "2026-09-30",
+        "date_basis": "官方正文/官方公告日期",
+        "source_row": 6,
+        "platform_raw": "且慢 APP",
+        "matched_fields": {
+          "sales_institution_raw": "盈米基金",
+          "scope": "由盈米基金代销的所有德邦基金产品；主体关系：未披露平台运营主体"
+        },
+        "quote": "由盈米基金代销的所有德邦基金产品",
+        "same_row_qieman": true,
+        "relation": "产品代销范围具名盈米"
+      },
+      {
+        "name": "朱雀基金",
+        "sector": "公募基金",
+        "title": "网络营销信息公示",
+        "url": "https://www.rosefinchfund.com/wangluoyingxiao/index.html",
+        "date": "2026-10-13",
+        "date_basis": "官方正文/官方公告日期",
+        "source_row": 7,
+        "platform_raw": "且慢APP",
+        "matched_fields": {
+          "sales_institution_raw": "盈米基金",
+          "scope": "由盈米基金代销的所有基金产品；主体关系：未披露平台运营主体"
+        },
+        "quote": "由盈米基金代销的所有基金产品",
+        "same_row_qieman": true,
+        "relation": "产品代销范围具名盈米"
+      }
+    ],
+    "marketing_institutions": 4,
+    "overlap_with_qieman": 4,
+    "entity_only_institutions": 0,
+    "nonfund_marketing_qieman": 0,
+    "nonfund_marketing_yingmi": 0,
+    "other_official_disclosures": [
+      {
+        "name": "光证资管（上海光大证券资产管理有限公司）",
+        "sector": "证券资管",
+        "title": "光大阳光添利债券C（860030）—销售机构",
+        "url": "https://e.ebscn-am.com/product/gmproductinformation/860030",
+        "date": "未标注",
+        "date_basis": "当前官网产品页销售机构栏目未明确发布日期；2026-10-22读取。产品成立日、参公运作日不是本销售名单发布日期。",
+        "quote": "盈米基金 | 020-89629066 | http://www.yingmi.cn",
+        "scope": "产品销售机构名单列有盈米基金，适用产品为光大阳光添利债券型集合资产管理计划C；不据此认定第三方互联网营销委托。",
+        "record_kind": "产品销售机构名单（非营销名单）",
+        "evidence_status": "官网产品页完整销售机构栏目已读取",
+        "in_main_marketing_table": false,
+        "evidence_url": "https://e.ebscn-am.com/product/gmproductinformation/860030",
+        "match_family": "盈米主体"
+      },
+      {
+        "name": "东方红资管（上海东方证券资产管理有限公司）",
+        "sector": "证券资管",
+        "title": "销售网点—产品/基金场外销售机构",
+        "url": "https://www.dfham.com/service/selfhelp/salesoutlets/index.html",
+        "date": "2026-10-18",
+        "date_basis": "官网正文明确更新时间：2026年10月18日；不是第三方营销名单的发布日期。",
+        "quote": "表格关系摘录：东方红新动力混合A（000480）的场外销售机构列有盈米基金",
+        "scope": "官网产品销售网点表，多个产品列示盈米基金，此处选东方红新动力混合A作可复核例证。它证明代销渠道披露，不证明营销委托，也不计入本页营销主表的盈米命中数。",
+        "record_kind": "产品销售网点（非营销名单）",
+        "evidence_status": "官网销售网点表已读取，按产品逐项保留证明范围",
+        "in_main_marketing_table": false,
+        "evidence_url": "https://www.dfham.com/service/selfhelp/salesoutlets/index.html",
+        "match_family": "盈米主体"
+      },
+      {
+        "name": "国新证券",
+        "sector": "证券",
+        "title": "国新证券股份有限公司盈米基金TAMP基金投顾运营服务项目采购信息公示",
+        "url": "https://www.crsec.com.cn/content/details1892862062950461442_2076543278036668417.html",
+        "date": "2026-07-14",
+        "date_basis": "官网发布时间及公告落款均为2026-07-14；采购公示期2026-07-14至2026-07-16。",
+        "matched_name": "珠海盈米基金销售有限公司",
+        "match_type": "盈米法人主体，未具名且慢",
+        "sourcequote": "拟定供应商：珠海盈米基金销售有限公司",
+        "scope": "盈米基金TAMP基金投顾运营服务项目；该文件是采购公示，不能证明第三方互联网营销委托，也不等于已验收上线。",
+        "evidence_status": "非基金对手方官网完整正文已核验",
+        "record_kind": "投顾运营服务采购披露（非营销名单）",
+        "in_main_marketing_table": false,
+        "quote": "拟定供应商：珠海盈米基金销售有限公司",
+        "evidence_url": "https://www.crsec.com.cn/content/details1892862062950461442_2076543278036668417.html",
+        "match_family": "盈米主体"
+      },
+      {
+        "name": "广东盈信保险经纪有限公司",
+        "sector": "保险中介",
+        "title": "信息披露—自营平台",
+        "url": "https://www.yingxin.cn/#/infomation",
+        "source_url": "https://www.yingxin.cn/jxb-website/information/18",
+        "supporting_urls": [
+          "https://www.yingxin.cn/",
+          "https://www.yingxin.cn/jxb-website/information?typeId=3"
+        ],
+        "date": "未标注",
+        "date_basis": "当前官网公开栏目原文未展示更新日期；接口元数据updateDate为2022-07-07，不据此推定当前正文的实际更新时间。",
+        "scope": "该机构自己披露的自营网络平台，未称委托第三方互联网营销清单。",
+        "quote": "平台名称：且慢保顾；类型：互联网用户公众号（微信公众号）",
+        "platforms": [
+          {
+            "name": "盈信保险经纪",
+            "operator": "",
+            "scope": "自营网站；网址yingxin.cn"
+          },
+          {
+            "name": "且慢保顾",
+            "operator": "",
+            "scope": "自营平台栏目列示；微信公众号"
+          },
+          {
+            "name": "银杏保",
+            "operator": "",
+            "scope": "自营平台栏目列示；微信小程序"
+          },
+          {
+            "name": "银杏保",
+            "operator": "",
+            "scope": "自营平台栏目列示；百度APP小程序"
+          }
+        ],
+        "evidence_status": "官方原文已核验（当前官网公开API，完整4项自营平台）",
+        "relation_to_qieman": "直接出现且慢保顾名称；不将其等同且慢APP，也不计为第三方受托营销命中。",
+        "counts_toward_marketing_list": false,
+        "local_evidence": "work/round4-evidence/盈信自营平台.json",
+        "evidence_url": "https://www.yingxin.cn/jxb-website/information/18",
+        "match_family": "且慢相关名称或账号"
+      },
+      {
+        "name": "广东盈信保险经纪有限公司",
+        "sector": "保险中介",
+        "title": "信息披露—个人信息保护政策",
+        "url": "https://www.yingxin.cn/#/infomation",
+        "source_url": "https://www.yingxin.cn/jxb-website/information/14",
+        "supporting_urls": [
+          "https://www.yingxin.cn/jxb-website/information?typeId=4"
+        ],
+        "date": "2026-03-26",
+        "date_basis": "正式正文明确版本更新日期、生效日期均为2026年3月26日；接口updateDate仍为2022-07-07，与正文版本日期不同，以正文日期为准。",
+        "scope": "账号登录与个人信息处理关系，不是受托网络营销平台清单。",
+        "quote": "您也可通过第三方平台微信账号、壹钱包账号、百度账号、且慢账号登录并使用盈信的服务",
+        "platforms": [
+          {
+            "name": "微信",
+            "operator": "",
+            "scope": "第三方平台账号登录"
+          },
+          {
+            "name": "壹钱包",
+            "operator": "",
+            "scope": "第三方平台账号登录"
+          },
+          {
+            "name": "百度",
+            "operator": "",
+            "scope": "第三方平台账号登录"
+          },
+          {
+            "name": "且慢",
+            "operator": "",
+            "scope": "第三方平台账号登录"
+          }
+        ],
+        "evidence_status": "官方原文已核验（当前官网公开API返回完整政策）",
+        "relation_to_qieman": "该保险中介自己明确披露且慢账号登录，证明特定服务关系；不证明受托营销或特定保险产品合作。",
+        "counts_toward_marketing_list": false,
+        "local_evidence": "work/round4-evidence/盈信个人信息政策.json",
+        "evidence_url": "https://www.yingxin.cn/jxb-website/information/14",
+        "match_family": "且慢相关名称或账号"
+      }
+    ],
+    "other_yingmi_nonfund_institutions": 3,
+    "sector_review": [
+      {
+        "sector": "公募基金",
+        "reviewed": 43,
+        "qieman": 6,
+        "yingmi": 4
+      },
+      {
+        "sector": "证券",
+        "reviewed": 23,
+        "qieman": 0,
+        "yingmi": 0
+      },
+      {
+        "sector": "证券资管",
+        "reviewed": 2,
+        "qieman": 0,
+        "yingmi": 0
+      },
+      {
+        "sector": "期货",
+        "reviewed": 8,
+        "qieman": 0,
+        "yingmi": 0
+      },
+      {
+        "sector": "银行",
+        "reviewed": 6,
+        "qieman": 0,
+        "yingmi": 0
+      },
+      {
+        "sector": "保险",
+        "reviewed": 1,
+        "qieman": 0,
+        "yingmi": 0
+      },
+      {
+        "sector": "消费金融",
+        "reviewed": 1,
+        "qieman": 0,
+        "yingmi": 0
+      },
+      {
+        "sector": "金融租赁",
+        "reviewed": 1,
+        "qieman": 0,
+        "yingmi": 0
+      },
+      {
+        "sector": "汽车金融",
+        "reviewed": 1,
+        "qieman": 0,
+        "yingmi": 0
+      },
+      {
+        "sector": "独立基金销售",
+        "reviewed": 2,
+        "qieman": 0,
+        "yingmi": 0
+      }
+    ],
+    "definition": "盈米命中覆盖平台名称、官方合作主体、原文代销机构和产品范围；本机构自己作为披露人不计为对手方命中。其他官方披露单列，均不计入营销清单命中数。"
   }
 }
