@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "ai-wealth-products-2026-10-22",
     "fund-execution-revenue-sharing-2026-10-22",
     "yingmi-oap-customer-strategy-2026-10-22",
     "financial-internet-marketing-disclosures-2026-10-22",

@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 129;
+const DATA_VERSION = 130;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -221,6 +221,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "ai-wealth-products-2026-10-22",
+      groupId: "xiaogu",
+      title: "AI财富管理与基金投顾｜从问答到持续财务任务",
+      url: "https://clairku.github.io/clair-ai-studio/reports/ai-wealth-products-2026-10-22/",
+      preview: "ai-wealth-products-2026-10-22.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-22T13:30:00+08:00",
+      source: "2026-10-22官方公开资料独立研究：Origin、PortfolioPilot、Range、Composer、Cleo、蚂小财、小顾，另含4个成熟服务与账户管理对照。按真实任务、数据、成果、执行权限和持续跟进比较；提供统一案例与30天试验。公开资料研究，未登录实测，不作质量或收益排名。",
+      access: "production",
+      workType: "reporting",
+      tags: ["AI财富管理", "基金投顾", "产品研究", "Origin", "PortfolioPilot", "蚂小财", "AI小顾", "持续服务", "HTML", "生产"],
+    },
     {
       id: "fund-execution-revenue-sharing-2026-10-22",
       groupId: "reporting",
@@ -3865,6 +3879,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "ai-wealth-products-2026-10-22": "xiaogu",
   "fund-execution-revenue-sharing-2026-10-22": "reporting",
   "yingmi-oap-customer-strategy-2026-10-22": "ai-platform",
   "financial-internet-marketing-disclosures-2026-10-22": "growth-insights",
@@ -8509,3 +8524,4 @@ function bindWorkbenchPersistence() {
     render();
   });
 }
+
