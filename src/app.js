@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 138;
+const DATA_VERSION = 139;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -230,7 +230,7 @@ const initialState = {
       pinned: false,
       position: 0,
       createdAt: "2026-10-22T15:30:00+08:00",
-      source: "数据截至2026-10-21：调用21,393,278次、接入申请15,753个、服务金融机构710家。MCP工具层、Skills场景层、Agents任务交付层，含69项工具、10项Skills、7项应用与共建场景。合作按平台生态、个人应用、办公应用、终端入口四类呈现，3项终端入口对接中。专业用户使用盈米AI能力，大众用户经AI入口连接且慢持续服务；含千问、百度、豆包与百炼重点案例。",
+      source: "数据截至2026-10-21：调用21,393,278次、接入申请15,753个、金融机构710家。完整MCP、Skills、Agents三层能力；按平台生态、个人应用、办公应用、终端入口呈现合作及对接进展，展示专业与大众两类客群、主要调用方、平台及千问增长走势、千问旗舰智能体示例与重点合作成效。",
       access: "production",
       workType: "product-planning",
       tags: [
@@ -257,7 +257,10 @@ const initialState = {
         "终端入口",
         "专业用户",
         "大众用户",
-        "持续服务"
+        "持续服务",
+        "增长走势",
+        "旗舰智能体",
+        "客群"
       ]
     },
     {
