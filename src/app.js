@@ -222,6 +222,30 @@ const initialState = {
   ],
   reports: [
     {
+      id: "vip-advisor-report-project-audit-2026-10-22",
+      groupId: "advisor-workbench",
+      title: "顾问报告工具｜项目全景、版本与使用审计",
+      url: "https://clairku.github.io/clair-ai-studio/reports/vip-advisor-report-project-audit-2026-10-22/",
+      preview: "vip-advisor-report-project-audit-2026-10-22.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-22T15:00:00+08:00",
+      source: "匿名汇总审计：16个直接一线顾问及主管账号、125次报告入口取数；29个正式父包与14条市场版本记录分层核对，6包内容有实证、23包待核。两类报告可用性以已检视市场1.1.9为界；取数不等同于成品，逐版本使用量未知。",
+      access: "production",
+      workType: "reporting",
+      tags: [
+        "VIP顾问",
+        "报告工具",
+        "项目全景",
+        "版本履历",
+        "使用统计",
+        "匿名汇总",
+        "YINGWORK",
+        "HTML",
+        "生产"
+      ]
+    },
+    {
       id: "ai-wealth-products-2026-10-22",
       groupId: "xiaogu",
       title: "AI财富管理与基金投顾｜从问答到持续财务任务",
@@ -3755,6 +3779,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "vip-advisor-report-project-audit-2026-10-22": "reporting",
   "aiwatch-l3-application-2026-10-21": "reporting",
   "uiheal-l3-application-2026-10-21": "reporting",
   "advisorflow-l3-application-2026-10-21": "reporting",
@@ -3879,6 +3904,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "vip-advisor-report-project-audit-2026-10-22": "advisor-workbench",
   "ai-wealth-products-2026-10-22": "xiaogu",
   "fund-execution-revenue-sharing-2026-10-22": "reporting",
   "yingmi-oap-customer-strategy-2026-10-22": "ai-platform",
