@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 133;
+const DATA_VERSION = 134;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -304,16 +304,16 @@ const initialState = {
     {
       id: "yingmi-internet-ai-business-panorama-2026-10-22",
       groupId: "ai-platform",
-      title: "盈米互联网与 AI 生态合作｜五种合作型态、生态地图与经营成果",
+      title: "盈米 OAP 与 AI 生态合作｜合作模式与平台上架全景",
       url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-internet-ai-business-panorama-2026-10-22/",
       preview: "yingmi-internet-ai-business-panorama-2026-10-22.png",
       pinned: false,
       position: 0,
       createdAt: "2026-10-22T10:00:00+08:00",
-      source: "对外分享版：先呈现整体生态地图与截至2026-10-21的汇总经营数据，再讲清内容触达、平台财富协作、C端AI服务、MCP/Skills分发、机构联合方案五种服务合作型态，以及贯穿其中的云市场订阅和用量采购。含代表场景、合作型态对比表、商业路径和折叠数据口径；仅平台聚合，无客户明细或合同参数。",
+      source: "聚焦三条AI生态路径，逐平台列明合作模式、上架状态与使用入口；百炼普通MCP与OneKey分层呈现，补充自上线以来可识别用量及日志留存边界。仅展示接口、身份、账户和实例等非金额指标；页面、附带数据及导出均已移除金额。",
       access: "production",
       workType: "reporting",
-      tags: ["盈米", "互联网平台", "AI 应用", "千问", "豆包", "WorkBuddy", "百度", "MCP", "Skills", "展业", "HTML", "生产"],
+      tags: ["盈米", "OAP", "AI 生态", "千问", "豆包", "WorkBuddy", "百度", "百炼", "OneKey", "MCP", "Skills", "平台上架", "HTML", "生产"],
     },
     {
       id: "aiwatch-l3-application-2026-10-21",

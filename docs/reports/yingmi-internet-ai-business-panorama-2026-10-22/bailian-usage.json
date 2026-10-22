@@ -1,0 +1,842 @@
+{
+  "schema": "bailian-identifiable-usage/v1",
+  "title": "百炼自普通MCP上架以来的可识别使用",
+  "generatedAt": "2026-10-22T15:19:06+08:00",
+  "asOf": "2026-10-21",
+  "cutoffExclusive": "2026-10-22T00:00:00+08:00",
+  "timezone": "Asia/Shanghai",
+  "formalListingDate": "2025-04-25",
+  "formalListingSource": {
+    "title": "AI能力获大厂认可，盈米MCP Server上线阿里云",
+    "url": "https://www.yingmi.cn/archives/607",
+    "published": "2025-04-29",
+    "verification": "盈米官方新闻列表明确记载4月25日在百炼同步首发；原文链接跳转至微信公众号。"
+  },
+  "identifiedCombined": {
+    "recordedCalls": 47463,
+    "distinctRequestIds": 47463,
+    "coverage": "普通百炼专用通道与One Key实例关联通道的可识别接口落账记录合计；不代表百炼全部使用或独立用户。"
+  },
+  "ordinary": {
+    "label": "普通百炼专用通道",
+    "channelCreatedAt": "2025-04-18T16:55:33+08:00",
+    "recordedCalls": 45851,
+    "distinctRequestIds": 45851,
+    "recordedDays": 159,
+    "firstObservedAt": "2025-05-08T10:15:54+08:00",
+    "lastObservedAt": "2026-10-10T00:42:15+08:00",
+    "recent30CompleteDays": {
+      "start": "2026-09-22",
+      "endInclusive": "2026-10-21",
+      "calls": 2969
+    },
+    "monthly": [
+      {
+        "month": "2025-05",
+        "calls": 1577
+      },
+      {
+        "month": "2025-06",
+        "calls": 53
+      },
+      {
+        "month": "2025-07",
+        "calls": 21
+      },
+      {
+        "month": "2025-08",
+        "calls": 256
+      },
+      {
+        "month": "2025-09",
+        "calls": 119
+      },
+      {
+        "month": "2025-10",
+        "calls": 182
+      },
+      {
+        "month": "2025-11",
+        "calls": 6275
+      },
+      {
+        "month": "2025-12",
+        "calls": 32161
+      },
+      {
+        "month": "2026-01",
+        "calls": 146
+      },
+      {
+        "month": "2026-02",
+        "calls": 27
+      },
+      {
+        "month": "2026-03",
+        "calls": 0
+      },
+      {
+        "month": "2026-04",
+        "calls": 515
+      },
+      {
+        "month": "2026-05",
+        "calls": 0
+      },
+      {
+        "month": "2026-06",
+        "calls": 0
+      },
+      {
+        "month": "2026-07",
+        "calls": 8
+      },
+      {
+        "month": "2026-08",
+        "calls": 0
+      },
+      {
+        "month": "2026-09",
+        "calls": 1542
+      },
+      {
+        "month": "2026-10",
+        "calls": 2969
+      }
+    ],
+    "daily": [
+      {
+        "date": "2025-05-08",
+        "calls": 13
+      },
+      {
+        "date": "2025-05-09",
+        "calls": 18
+      },
+      {
+        "date": "2025-05-12",
+        "calls": 36
+      },
+      {
+        "date": "2025-05-13",
+        "calls": 6
+      },
+      {
+        "date": "2025-05-14",
+        "calls": 70
+      },
+      {
+        "date": "2025-05-15",
+        "calls": 9
+      },
+      {
+        "date": "2025-05-16",
+        "calls": 14
+      },
+      {
+        "date": "2025-05-18",
+        "calls": 10
+      },
+      {
+        "date": "2025-05-19",
+        "calls": 98
+      },
+      {
+        "date": "2025-05-20",
+        "calls": 1
+      },
+      {
+        "date": "2025-05-21",
+        "calls": 16
+      },
+      {
+        "date": "2025-05-23",
+        "calls": 58
+      },
+      {
+        "date": "2025-05-24",
+        "calls": 74
+      },
+      {
+        "date": "2025-05-25",
+        "calls": 75
+      },
+      {
+        "date": "2025-05-26",
+        "calls": 69
+      },
+      {
+        "date": "2025-05-27",
+        "calls": 1010
+      },
+      {
+        "date": "2025-06-06",
+        "calls": 1
+      },
+      {
+        "date": "2025-06-10",
+        "calls": 5
+      },
+      {
+        "date": "2025-06-11",
+        "calls": 33
+      },
+      {
+        "date": "2025-06-13",
+        "calls": 8
+      },
+      {
+        "date": "2025-06-16",
+        "calls": 3
+      },
+      {
+        "date": "2025-06-18",
+        "calls": 3
+      },
+      {
+        "date": "2025-07-01",
+        "calls": 2
+      },
+      {
+        "date": "2025-07-10",
+        "calls": 19
+      },
+      {
+        "date": "2025-08-10",
+        "calls": 2
+      },
+      {
+        "date": "2025-08-12",
+        "calls": 1
+      },
+      {
+        "date": "2025-08-13",
+        "calls": 2
+      },
+      {
+        "date": "2025-08-18",
+        "calls": 15
+      },
+      {
+        "date": "2025-08-19",
+        "calls": 22
+      },
+      {
+        "date": "2025-08-20",
+        "calls": 14
+      },
+      {
+        "date": "2025-08-21",
+        "calls": 17
+      },
+      {
+        "date": "2025-08-22",
+        "calls": 46
+      },
+      {
+        "date": "2025-08-23",
+        "calls": 25
+      },
+      {
+        "date": "2025-08-24",
+        "calls": 7
+      },
+      {
+        "date": "2025-08-25",
+        "calls": 27
+      },
+      {
+        "date": "2025-08-26",
+        "calls": 10
+      },
+      {
+        "date": "2025-08-27",
+        "calls": 35
+      },
+      {
+        "date": "2025-08-28",
+        "calls": 10
+      },
+      {
+        "date": "2025-08-29",
+        "calls": 2
+      },
+      {
+        "date": "2025-08-31",
+        "calls": 21
+      },
+      {
+        "date": "2025-09-01",
+        "calls": 12
+      },
+      {
+        "date": "2025-09-02",
+        "calls": 12
+      },
+      {
+        "date": "2025-09-06",
+        "calls": 34
+      },
+      {
+        "date": "2025-09-07",
+        "calls": 4
+      },
+      {
+        "date": "2025-09-08",
+        "calls": 3
+      },
+      {
+        "date": "2025-09-09",
+        "calls": 7
+      },
+      {
+        "date": "2025-09-10",
+        "calls": 7
+      },
+      {
+        "date": "2025-09-12",
+        "calls": 2
+      },
+      {
+        "date": "2025-09-13",
+        "calls": 4
+      },
+      {
+        "date": "2025-09-20",
+        "calls": 1
+      },
+      {
+        "date": "2025-09-22",
+        "calls": 2
+      },
+      {
+        "date": "2025-09-23",
+        "calls": 14
+      },
+      {
+        "date": "2025-09-26",
+        "calls": 15
+      },
+      {
+        "date": "2025-09-27",
+        "calls": 2
+      },
+      {
+        "date": "2025-10-02",
+        "calls": 1
+      },
+      {
+        "date": "2025-10-03",
+        "calls": 5
+      },
+      {
+        "date": "2025-10-10",
+        "calls": 12
+      },
+      {
+        "date": "2025-10-13",
+        "calls": 13
+      },
+      {
+        "date": "2025-10-15",
+        "calls": 3
+      },
+      {
+        "date": "2025-10-16",
+        "calls": 1
+      },
+      {
+        "date": "2025-10-19",
+        "calls": 11
+      },
+      {
+        "date": "2025-10-21",
+        "calls": 31
+      },
+      {
+        "date": "2025-10-22",
+        "calls": 18
+      },
+      {
+        "date": "2025-10-25",
+        "calls": 19
+      },
+      {
+        "date": "2025-10-27",
+        "calls": 9
+      },
+      {
+        "date": "2025-10-30",
+        "calls": 11
+      },
+      {
+        "date": "2025-10-31",
+        "calls": 48
+      },
+      {
+        "date": "2025-11-01",
+        "calls": 14
+      },
+      {
+        "date": "2025-11-02",
+        "calls": 10
+      },
+      {
+        "date": "2025-11-03",
+        "calls": 16
+      },
+      {
+        "date": "2025-11-04",
+        "calls": 7
+      },
+      {
+        "date": "2025-11-05",
+        "calls": 10
+      },
+      {
+        "date": "2025-11-07",
+        "calls": 1
+      },
+      {
+        "date": "2025-11-08",
+        "calls": 42
+      },
+      {
+        "date": "2025-11-10",
+        "calls": 47
+      },
+      {
+        "date": "2025-11-11",
+        "calls": 142
+      },
+      {
+        "date": "2025-11-12",
+        "calls": 70
+      },
+      {
+        "date": "2025-11-13",
+        "calls": 6
+      },
+      {
+        "date": "2025-11-14",
+        "calls": 60
+      },
+      {
+        "date": "2025-11-15",
+        "calls": 191
+      },
+      {
+        "date": "2025-11-16",
+        "calls": 194
+      },
+      {
+        "date": "2025-11-17",
+        "calls": 35
+      },
+      {
+        "date": "2025-11-18",
+        "calls": 94
+      },
+      {
+        "date": "2025-11-20",
+        "calls": 1
+      },
+      {
+        "date": "2025-11-21",
+        "calls": 66
+      },
+      {
+        "date": "2025-11-22",
+        "calls": 35
+      },
+      {
+        "date": "2025-11-23",
+        "calls": 9
+      },
+      {
+        "date": "2025-11-24",
+        "calls": 1
+      },
+      {
+        "date": "2025-11-25",
+        "calls": 7
+      },
+      {
+        "date": "2025-11-26",
+        "calls": 1016
+      },
+      {
+        "date": "2025-11-27",
+        "calls": 1084
+      },
+      {
+        "date": "2025-11-28",
+        "calls": 1094
+      },
+      {
+        "date": "2025-11-29",
+        "calls": 1017
+      },
+      {
+        "date": "2025-11-30",
+        "calls": 1006
+      },
+      {
+        "date": "2025-12-01",
+        "calls": 1024
+      },
+      {
+        "date": "2025-12-02",
+        "calls": 1060
+      },
+      {
+        "date": "2025-12-03",
+        "calls": 1021
+      },
+      {
+        "date": "2025-12-04",
+        "calls": 1025
+      },
+      {
+        "date": "2025-12-05",
+        "calls": 1056
+      },
+      {
+        "date": "2025-12-06",
+        "calls": 1005
+      },
+      {
+        "date": "2025-12-07",
+        "calls": 1026
+      },
+      {
+        "date": "2025-12-08",
+        "calls": 1044
+      },
+      {
+        "date": "2025-12-09",
+        "calls": 1043
+      },
+      {
+        "date": "2025-12-10",
+        "calls": 1041
+      },
+      {
+        "date": "2025-12-11",
+        "calls": 1061
+      },
+      {
+        "date": "2025-12-12",
+        "calls": 1011
+      },
+      {
+        "date": "2025-12-13",
+        "calls": 1019
+      },
+      {
+        "date": "2025-12-14",
+        "calls": 1024
+      },
+      {
+        "date": "2025-12-15",
+        "calls": 1036
+      },
+      {
+        "date": "2025-12-16",
+        "calls": 1045
+      },
+      {
+        "date": "2025-12-17",
+        "calls": 1064
+      },
+      {
+        "date": "2025-12-18",
+        "calls": 1042
+      },
+      {
+        "date": "2025-12-19",
+        "calls": 1038
+      },
+      {
+        "date": "2025-12-20",
+        "calls": 1011
+      },
+      {
+        "date": "2025-12-21",
+        "calls": 1034
+      },
+      {
+        "date": "2025-12-22",
+        "calls": 1003
+      },
+      {
+        "date": "2025-12-23",
+        "calls": 1080
+      },
+      {
+        "date": "2025-12-24",
+        "calls": 1078
+      },
+      {
+        "date": "2025-12-25",
+        "calls": 1118
+      },
+      {
+        "date": "2025-12-26",
+        "calls": 1009
+      },
+      {
+        "date": "2025-12-27",
+        "calls": 1005
+      },
+      {
+        "date": "2025-12-28",
+        "calls": 1028
+      },
+      {
+        "date": "2025-12-29",
+        "calls": 1065
+      },
+      {
+        "date": "2025-12-30",
+        "calls": 1013
+      },
+      {
+        "date": "2025-12-31",
+        "calls": 1032
+      },
+      {
+        "date": "2026-01-03",
+        "calls": 4
+      },
+      {
+        "date": "2026-01-07",
+        "calls": 16
+      },
+      {
+        "date": "2026-01-09",
+        "calls": 1
+      },
+      {
+        "date": "2026-01-10",
+        "calls": 2
+      },
+      {
+        "date": "2026-01-11",
+        "calls": 3
+      },
+      {
+        "date": "2026-01-12",
+        "calls": 9
+      },
+      {
+        "date": "2026-01-13",
+        "calls": 6
+      },
+      {
+        "date": "2026-01-14",
+        "calls": 5
+      },
+      {
+        "date": "2026-01-17",
+        "calls": 2
+      },
+      {
+        "date": "2026-01-18",
+        "calls": 10
+      },
+      {
+        "date": "2026-01-19",
+        "calls": 4
+      },
+      {
+        "date": "2026-01-20",
+        "calls": 3
+      },
+      {
+        "date": "2026-01-22",
+        "calls": 15
+      },
+      {
+        "date": "2026-01-23",
+        "calls": 4
+      },
+      {
+        "date": "2026-01-25",
+        "calls": 9
+      },
+      {
+        "date": "2026-01-26",
+        "calls": 14
+      },
+      {
+        "date": "2026-01-27",
+        "calls": 6
+      },
+      {
+        "date": "2026-01-28",
+        "calls": 7
+      },
+      {
+        "date": "2026-01-29",
+        "calls": 22
+      },
+      {
+        "date": "2026-01-30",
+        "calls": 4
+      },
+      {
+        "date": "2026-02-05",
+        "calls": 27
+      },
+      {
+        "date": "2026-04-09",
+        "calls": 171
+      },
+      {
+        "date": "2026-04-10",
+        "calls": 344
+      },
+      {
+        "date": "2026-07-09",
+        "calls": 6
+      },
+      {
+        "date": "2026-07-23",
+        "calls": 2
+      },
+      {
+        "date": "2026-09-02",
+        "calls": 377
+      },
+      {
+        "date": "2026-09-07",
+        "calls": 479
+      },
+      {
+        "date": "2026-09-10",
+        "calls": 164
+      },
+      {
+        "date": "2026-09-11",
+        "calls": 58
+      },
+      {
+        "date": "2026-09-14",
+        "calls": 463
+      },
+      {
+        "date": "2026-09-15",
+        "calls": 1
+      },
+      {
+        "date": "2026-10-08",
+        "calls": 989
+      },
+      {
+        "date": "2026-10-09",
+        "calls": 986
+      },
+      {
+        "date": "2026-10-10",
+        "calls": 994
+      }
+    ],
+    "topTools": [
+      {
+        "tool": "SearchFinancialNews",
+        "label": "财经资讯",
+        "calls": 18056
+      },
+      {
+        "tool": "SearchManagerViewpoint",
+        "label": "基金经理观点",
+        "calls": 13212
+      },
+      {
+        "tool": "SearchFunds",
+        "label": "搜索基金",
+        "calls": 5754
+      },
+      {
+        "tool": "BatchGetFundNavHistory",
+        "label": "基金净值历史",
+        "calls": 4626
+      },
+      {
+        "tool": "searchRealtimeAiAnalysis",
+        "label": "实时资讯AI解读",
+        "calls": 972
+      }
+    ],
+    "users": null,
+    "institutions": null,
+    "scope": "当前标签为阿里云百炼平台的独立共享通道，不关联云市场实例。未把阿里千问、办公助理、点金、BenchMark、显式测试通道及其他个人自备Key计入。",
+    "limit": "共享通道记录无法拆出终端用户、机构、会话或运行环境；标签是当前配置归属，不是每次请求独立来源证明，也无法排除共享通道内的开发测试。"
+  },
+  "oneKey": {
+    "label": "One Key订阅通道",
+    "openedInstances": 351,
+    "openedCloudSubjects": 184,
+    "usedInstances": 97,
+    "usedCloudSubjects": 66,
+    "recordedCalls": 1612,
+    "recordedDays": 64,
+    "firstObservedAt": "2026-07-30T23:08:32+08:00",
+    "lastObservedAt": "2026-10-21T16:34:49+08:00",
+    "recent30CompleteDays": {
+      "start": "2026-09-22",
+      "endInclusive": "2026-10-21",
+      "calls": 525
+    },
+    "monthly": [
+      {
+        "month": "2026-07",
+        "calls": 349,
+        "usedInstances": 4
+      },
+      {
+        "month": "2026-08",
+        "calls": 420,
+        "usedInstances": 36
+      },
+      {
+        "month": "2026-09",
+        "calls": 369,
+        "usedInstances": 39
+      },
+      {
+        "month": "2026-10",
+        "calls": 474,
+        "usedInstances": 26
+      }
+    ],
+    "metering": {
+      "reportedInstances": 60,
+      "successfulWindows": 162,
+      "firstWindowStart": "2026-07-31T17:00:00+08:00",
+      "lastWindowEnd": "2026-10-16T06:00:00+08:00"
+    },
+    "scope": "按百炼云市场实例关联的Key统计接口落账；云账号按aliUid去重。实例、账号、记录与计量窗口是不同对象。",
+    "limit": "包含可能的试用与测试，未拆分付费状态。97是有接口记录实例，60是已记录成功计量上报实例，统计对象与截止窗口不同。"
+  },
+  "historyCoverage": {
+    "earliestRetainedOapDetailAt": "2025-05-07T21:59:00+08:00",
+    "earliestRetainedOapDayStatDate": "2025-05-07",
+    "unresolvedWindow": "2025-04-25至2025-05-07",
+    "note": "现存OAP日志最早始于5月7日，普通百炼5月8日首次被观察。上架后的早期使用无法由本次可访问表回溯，缺记录不作零使用；更早档案是否存在未核验。"
+  },
+  "evidence": {
+    "source": "生产只读聚合，2026-10-22核查，按完整自然日截止。",
+    "tables": [
+      "ying99_oap.api_key",
+      "ying99_oap.api_key_usage_details",
+      "ying99_oap.api_key_usage_stats",
+      "ying99_oap.api_external_market_instance",
+      "ying99_oap.api_external_market_metering_push"
+    ],
+    "reconciliation": "普通明细行数、request_id去重和day汇总均为45851；普通与OneKey集合互斥；合并明细及request_id去重均为47463。",
+    "successBoundary": "接口落账不等于成功完成AI任务，也不等于付费、成交或持续客户；末次记录不用于推断停用原因。",
+    "coverage": "部分可识别通道；个人自备Key在百炼运行时没有独立客户端标签，整体覆盖率未知。"
+  }
+}

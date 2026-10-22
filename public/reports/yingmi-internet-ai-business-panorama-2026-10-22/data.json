@@ -1,0 +1,1269 @@
+{
+  "title": "盈米 OAP 与 AI 生态合作",
+  "revisionDate": "2026-10-22",
+  "snapshotAsOf": "2026-10-21",
+  "summary": {
+    "cumulativeCalls": 21393278,
+    "calls30d": 3550279,
+    "dedupIdentities": 19422
+  },
+  "conversions": [
+    {
+      "name": "千问",
+      "windowStart": "2026-08-03T00:00:00+08:00",
+      "cutoffExclusive": "2026-10-22T00:00:00+08:00",
+      "boundAccounts": 20183,
+      "newBoundAccounts": 18650,
+      "fundedAfterBindingAccounts": 267,
+      "relationLabel": "首次绑定关联账户"
+    },
+    {
+      "name": "豆包",
+      "windowStart": "2026-08-28T00:00:00+08:00",
+      "cutoffExclusive": "2026-10-22T00:00:00+08:00",
+      "boundAccounts": 3617,
+      "newBoundAccounts": 2772,
+      "fundedAfterBindingAccounts": 119,
+      "relationLabel": "OAuth授权关联账户"
+    }
+  ],
+  "callChannels": [
+    {
+      "name": "千问通用问答接入通道",
+      "calls": 9077174,
+      "calls30d": 1819571,
+      "note": "按接入Key标签归属的通道记录，不是平台全部调用或终端人数；办公助理不等同千问办公独立产品。",
+      "sourceId": "D01"
+    },
+    {
+      "name": "千问办公助理接入通道",
+      "calls": 1031755,
+      "calls30d": 590222,
+      "note": "按接入Key标签归属的通道记录，不是平台全部调用或终端人数；办公助理不等同千问办公独立产品。",
+      "sourceId": "D01"
+    },
+    {
+      "name": "百度标签接入通道",
+      "calls": 7326384,
+      "calls30d": 605272,
+      "note": "按接入Key标签归属的通道记录，不是平台全部调用或终端人数；办公助理不等同千问办公独立产品。",
+      "sourceId": "D01"
+    },
+    {
+      "name": "扣子标签接入通道",
+      "calls": 90707,
+      "calls30d": 2897,
+      "note": "按接入Key标签归属的通道记录，不是平台全部调用或终端人数；办公助理不等同千问办公独立产品。",
+      "sourceId": "D01"
+    }
+  ],
+  "definitions": {
+    "cumulativeCalls": "OAP全口径接口落账记录，含平台共享接入、个人开发和测试/内部使用；不是投资者人数、成功任务或交易。",
+    "dedupIdentities": "OAP累计API Key登记身份与外部交互OAuth授权身份的并集：15,228+5,183−989=19,422。不是盈米全生态用户总数或活跃投资客户，与千问独立绑定体系口径不同。",
+    "calls30d": "2026-09-22 00:00至2026-10-22 00:00，右端排他，30个完整自然日。",
+    "marketSubjects": "百炼实例关联云账号去重；截至10/21累计开通主体，未拆分免费试用、付费及测试，不表述为付费客户。",
+    "conversions": "各平台首次绑定/授权后、截至2026-10-22 00:00前的账户资金行为；不等于平台内交易执行、渠道因果新增或收入。两平台身份可能重合，不相加为用户总数。",
+    "newRegisteredBinding": "注册时间与首次绑定时间相差不超过60分钟的规则分类，不等于平台带来的净新增客户。",
+    "associationState": "千问为查询时仍保留的映射；豆包按官方交互scope、排被替代记录并重构截至2026-10-22 00:00有效授权。资金事件观察均右端排他截至该时点。"
+  },
+  "sources": [
+    {
+      "id": "P02",
+      "title": "盈米基金“且慢小顾”智能体接入阿里千问APP，成为千问开放平台首批金融合作伙伴",
+      "url": "https://www.yingmi.cn/archives/961.html",
+      "published": null,
+      "eventDate": "8月10日（正文未写年份）",
+      "kind": "盈米官方产品公告",
+      "proved": "公告正式接入千问 App，给出 @盈米基金且慢小顾 的入口与基金分析、账户诊断、资产配置场景。",
+      "limit": "未实测当前入口；真实账户数据使用须按产品授权；未给出千问来源成交。"
+    },
+    {
+      "id": "P03",
+      "title": "且慢AI小顾3.0亮相2026云栖大会，智能演绎家庭资产规划全流程",
+      "url": "https://yingmi.cn/archives/907",
+      "published": null,
+      "eventDate": "2026-09-22 至 2026-09-24",
+      "kind": "盈米官方产品进展",
+      "proved": "分别确认百炼与千问办公 MCP/Skills、千问 App 工作助理 Skills、且慢 AI 小顾智能体的不同入口。",
+      "limit": "大会演示与接入信息不代表全量用户可用、交易闭环或商业转化已验证。"
+    },
+    {
+      "id": "P04",
+      "title": "盈米 AI 联手腾讯 WorkBuddy，你的金融 AI 助手已上线",
+      "url": "https://yingmi.cn/archives/877",
+      "published": null,
+      "kind": "盈米官方产品教程",
+      "proved": "WorkBuddy 连接器有盈米 MCP，技能的投资理财专区有盈米 Skills；用户注册取得 API Key 后连接。",
+      "limit": "案例为官方演示，未独立实测；不等同腾讯元宝、ima 已接入。"
+    },
+    {
+      "id": "P05",
+      "title": "「豆包工作」亮相，接入盈米MCP金融场景首发实测",
+      "url": "https://www.yingmi.cn/archives/949.html",
+      "published": null,
+      "kind": "盈米官方产品教程",
+      "proved": "明确宣布豆包工作和豆包应用均已接入，分豆包工作电脑版、最新版豆包电脑版、豆包手机客户端三条路径。",
+      "limit": "普通豆包路径要求相应最新版及工作任务/连接器环境；不能概括为所有豆包用户开箱可用，更不能推导豆包手机硬件合作。"
+    },
+    {
+      "id": "P06",
+      "title": "重磅上新！盈米MCP订阅版正式接入阿里云百炼One Key MCP",
+      "url": "https://www.yingmi.cn/archives/967",
+      "published": null,
+      "kind": "盈米官方产品公告",
+      "proved": "百炼 One Key MCP 订阅版本、云市场/工作空间统一授权，三类订阅方案；列 Codex、Claude Code、Cursor 一键接入及 Qoder CLI 全局安装。",
+      "limit": "自助订阅默认订阅主体内部使用；兼容客户端不等同平台商业合作，调用量不等于投资者成交。"
+    },
+    {
+      "id": "P07",
+      "title": "盈米公司介绍与发展历程",
+      "url": "https://www.yingmi.cn/page/about_us",
+      "published": null,
+      "kind": "盈米官方公司资料",
+      "proved": "2025年4月发布 MCP，陆续上架百炼、扣子、火山引擎；2025年6月接入百度 AI 搜索；2025年7月与阿里云 AI 全栈战略合作。",
+      "limit": "里程碑不能替代当前客户端运行验证。"
+    },
+    {
+      "id": "P08",
+      "title": "盈米且慢MCP上线百度智能云千帆，助力AI嵌入更多财富管理场景",
+      "url": "https://qianfan.cloud.baidu.com/qianfandev/topic/686288",
+      "published": "2025-08-07",
+      "kind": "百度智能云千帆官方产品动态",
+      "proved": "千帆 AppBuilder MCP 广场上架及 API Key 添加教程，介绍基金与财富管理分析能力。",
+      "limit": "千帆开发平台接入不等同百度所有 C 端产品同样可用。"
+    },
+    {
+      "id": "P09",
+      "title": "盈米基金且慢 MCP 被权威报告收录，引领 AI 金融服务新范式",
+      "url": "https://www.yingmi.cn/archives/769",
+      "published": null,
+      "dataAsOf": "2025-11-20",
+      "kind": "盈米官方案例说明",
+      "proved": "列明百度 AI 搜索、扣子空间等 C 端平台，以及百炼、火山引擎大模型生态广场、千帆开发平台。",
+      "limit": "2025年阶段性口径，不宜当作2026现行数量；效率、转化等自报数据未给出样本定义及平台拆分。"
+    },
+    {
+      "id": "P10",
+      "title": "Yingmi-MCP 官方公开使用指南",
+      "url": "https://github.com/yingmi-dev/Yingmi-MCP",
+      "published": null,
+      "kind": "盈米官方公开仓库",
+      "proved": "69 项工具清单与 Claude Code、Claude Desktop 桥接、Cursor、Codex CLI/IDE、Cherry Studio、Windsurf/Trae 配置指南。",
+      "limit": "技术兼容说明不是合作公告；ChatGPT 网页端不会读取 Codex 本地配置，Claude Desktop 当前自定义请求头需要桥接。"
+    },
+    {
+      "id": "P12",
+      "title": "财富管理的“DeepSeek时刻”，盈米基金的AI变革之道",
+      "url": "https://www.yingmi.cn/archives/529",
+      "published": null,
+      "eventDate": "2025-02（公司历程交叉验证）",
+      "kind": "盈米官方技术与应用说明",
+      "proved": "AI 小顾接入 DeepSeek-R1；说明多元模型底座对接 DeepSeek、通义千问、Kimi、豆包。",
+      "limit": "使用某模型不等于进入该模型厂商的 C 端 App 展业。"
+    },
+    {
+      "id": "P13",
+      "title": "盈米基金 AI 解决方案亮相2026中国国际金融展",
+      "url": "https://yingmi.cn/archives/871",
+      "published": null,
+      "eventDate": "2026-06-16",
+      "kind": "盈米官方方案说明",
+      "proved": "阿里云联合机构 AI 智能体解决方案；可嵌入机构 App、H5、企业微信、内部工作台的合作路径。",
+      "limit": "可嵌入是方案能力，不等同每个渠道已有具名生产客户。"
+    },
+    {
+      "id": "P15",
+      "title": "美团正式发布 CatPaw：全场景 AI Agent，从个人提效到企业智能化",
+      "url": "https://tech.meituan.com/2026/07/28/CatPaw-LongCat.html",
+      "published": "2026-07-28",
+      "kind": "美团技术团队官方公告",
+      "proved": "CatPaw 产品、专家技能与企业 Agent 能力存在。",
+      "limit": "正文未提盈米，不能支持盈米与 CatPaw 已合作。"
+    },
+    {
+      "id": "P16",
+      "title": "荣耀在国内首次技术解读“阿尔法战略”",
+      "url": "https://www.honor.com/cn/news/honor-ai-device-expo/",
+      "published": "2025-05-22",
+      "kind": "荣耀官方公告",
+      "proved": "荣耀拥抱 MCP 开放协议与生态计划。",
+      "limit": "没有盈米具名合作，MCP 支持本身不证明盈米接入。"
+    },
+    {
+      "id": "P20",
+      "title": "腾讯云 MCP 目录：盈米 MCP",
+      "url": "https://developer.cloud.tencent.com/mcp/server/11801",
+      "kind": "腾讯云公开目录",
+      "proved": "有盈米 MCP 产品目录及接入说明。",
+      "limit": "产品目录不证明采购付费或终端投资客户转化。"
+    },
+    {
+      "id": "P21",
+      "title": "AI 能力获大厂认可，盈米 MCP Server 上线阿里云",
+      "url": "https://www.yingmi.cn/archives/607",
+      "kind": "盈米官方文章及官网搜索摘要",
+      "published": "2025-04-29",
+      "eventDate": "2025-04-25",
+      "proved": "官网搜索摘要说明正式版工具包于4月25日在百炼同步首发。",
+      "limit": "文章跳转微信公众号；本次从官网摘要核对上线日期，未获取跳转全文。"
+    }
+  ],
+  "platforms": [
+    {
+      "group": "阿里",
+      "name": "千问 App · 且慢小顾",
+      "model": "具名金融智能体服务",
+      "status": "官方披露已接入",
+      "level": "announced",
+      "path": "在千问对话中 @ 盈米基金且慢小顾，或从智能体入口进入",
+      "supply": "基金分析、账户诊断、家庭资产规划与连续陪伴",
+      "audience": "有金融问题的个人；账户服务按有效授权承接",
+      "boundary": "已披露入口；本轮未逐账号实测可用范围。",
+      "refs": [
+        "P02"
+      ]
+    },
+    {
+      "group": "阿里",
+      "name": "千问 App · 工作助理",
+      "model": "Skills 场景分发",
+      "status": "官方披露已接入",
+      "level": "announced",
+      "path": "千问 App 工作助理中的盈米 Skills",
+      "supply": "基金查询、分析与结构化任务流程",
+      "audience": "专业使用者及有分析需求的个人",
+      "boundary": "与千问小顾的独立智能体分别统计。",
+      "refs": [
+        "P03"
+      ]
+    },
+    {
+      "group": "阿里",
+      "name": "千问办公",
+      "model": "MCP + Skills 工作流接入",
+      "status": "官方披露已接入",
+      "level": "announced",
+      "path": "千问办公中的盈米 MCP / Skills",
+      "supply": "标准金融数据、分析工具与报告流程",
+      "audience": "办公用户、金融从业者和机构团队",
+      "boundary": "不以“千问办公助理”Key 标签直接代替本产品。",
+      "refs": [
+        "P03"
+      ]
+    },
+    {
+      "group": "阿里",
+      "name": "阿里云百炼 · MCP 广场",
+      "model": "金融工具上架与应用集成",
+      "status": "官方披露已上架",
+      "level": "announced",
+      "path": "百炼 MCP 广场 / 应用工作流，发现并接入盈米金融能力",
+      "supply": "MCP 工具、金融数据与专业分析",
+      "audience": "Agent 开发者、机构产品与技术团队",
+      "boundary": "普通 MCP 分发与 One Key 订阅是不同接入面；使用数据单列。",
+      "refs": [
+        "P07",
+        "P09"
+      ]
+    },
+    {
+      "group": "阿里",
+      "name": "百炼 One Key MCP · 订阅版",
+      "model": "云市场订阅与统一授权",
+      "status": "官方披露订阅试点上线",
+      "level": "announced",
+      "path": "百炼 MCP 广场搜索盈米，订阅后由百炼工作空间管理授权",
+      "supply": "数据资讯、策略与财富规划、投资分析与配置三类方案",
+      "audience": "有持续调用需求的开发者和机构",
+      "boundary": "自助订阅默认主体内部使用；分发授权与机构保障另行约定。",
+      "refs": [
+        "P06"
+      ]
+    },
+    {
+      "group": "阿里",
+      "name": "阿里云点金 · 机构联合方案",
+      "model": "技术底座与金融能力联合交付",
+      "status": "官方披露联合方案",
+      "level": "announced",
+      "path": "面向机构项目，可按方案嵌入其 App、H5、企微或工作台",
+      "supply": "专业金融工具、服务流程与场景适配",
+      "audience": "金融机构业务、技术和采购团队",
+      "boundary": "属于项目合作形态，不等同每个终端都已公开上架。",
+      "refs": [
+        "P13"
+      ]
+    },
+    {
+      "group": "字节",
+      "name": "豆包工作",
+      "model": "MCP 连接器 + Skills 任务分发",
+      "status": "官方披露正式接入",
+      "level": "announced",
+      "path": "电脑版“技能·连接器·伙伴” → 精选 / 金融 → 盈米",
+      "supply": "基金分析、持仓诊断、可视化报告与工作任务",
+      "audience": "金融从业者、机构工作流用户",
+      "boundary": "普通豆包客户端能力与豆包手机硬件合作分别看待。",
+      "refs": [
+        "P05"
+      ]
+    },
+    {
+      "group": "字节",
+      "name": "豆包",
+      "model": "MCP 连接器 + Skills 任务分发",
+      "status": "官方披露正式接入",
+      "level": "announced",
+      "path": "电脑版“技能·连接器·伙伴”或手机端“技能·连接器” → 金融 → 盈米；依相应版本和工作任务环境启用",
+      "supply": "基金分析、持仓诊断、可视化报告与工作任务",
+      "audience": "使用金融分析与工作任务的个人和专业用户",
+      "boundary": "普通豆包客户端能力与豆包手机硬件合作分别看待。",
+      "refs": [
+        "P05"
+      ]
+    },
+    {
+      "group": "字节",
+      "name": "扣子",
+      "model": "开发生态中的金融工具分发",
+      "status": "官方历史记录披露上架",
+      "level": "announced",
+      "path": "官方历程记载上架扣子；当前卡片与配置路径待复核",
+      "supply": "可调用的金融工具与分析能力",
+      "audience": "Agent 构建者与机构应用团队",
+      "boundary": "扣子与豆包、火山的上架与流量分别核对。",
+      "refs": [
+        "P07",
+        "P09"
+      ]
+    },
+    {
+      "group": "字节",
+      "name": "扣子空间",
+      "model": "任务应用中的专业工具接入",
+      "status": "官方历史案例披露接入",
+      "level": "announced",
+      "path": "官方案例列明扣子空间接入；当前客户端入口待复核",
+      "supply": "可调用的金融工具与分析能力",
+      "audience": "金融分析与任务使用者",
+      "boundary": "扣子与豆包、火山的上架与流量分别核对。",
+      "refs": [
+        "P07",
+        "P09"
+      ]
+    },
+    {
+      "group": "字节",
+      "name": "火山引擎 · MCP 生态",
+      "model": "开发平台工具上架",
+      "status": "官方材料披露上架",
+      "level": "announced",
+      "path": "火山引擎 MCP / 大模型生态广场中的盈米能力",
+      "supply": "金融数据、分析工具与业务方法",
+      "audience": "开发者、机构应用团队",
+      "boundary": "开发生态上架不自动产生豆包终端客户。",
+      "refs": [
+        "P07",
+        "P09"
+      ]
+    },
+    {
+      "group": "腾讯",
+      "name": "WorkBuddy",
+      "model": "连接器 + 投资理财 Skills",
+      "status": "官方披露已上线",
+      "level": "announced",
+      "path": "专家·技能·连接器 → 盈米 MCP；技能 → 投资理财 → 盈米 Skills",
+      "supply": "查数、分析、业绩归因、报告和内容任务",
+      "audience": "金融从业者、专业工作流使用者",
+      "boundary": "WorkBuddy 接入与微信 AI、元宝等产品分别确认。",
+      "refs": [
+        "P04"
+      ]
+    },
+    {
+      "group": "腾讯",
+      "name": "腾讯云 · MCP 目录",
+      "model": "工具目录分发",
+      "status": "公开目录可见",
+      "level": "directory",
+      "path": "腾讯云 MCP 目录中的“盈米 MCP”产品页",
+      "supply": "工具介绍、接入说明与金融分析能力",
+      "audience": "开发者和金融应用建设团队",
+      "boundary": "目录展示与机构采购、付费主体分别核对。",
+      "refs": [
+        "P20"
+      ]
+    },
+    {
+      "group": "百度",
+      "name": "百度 AI 搜索",
+      "model": "搜索意图中的金融工具调用",
+      "status": "官网记载已接入",
+      "level": "announced",
+      "path": "百度 AI 搜索的相关金融问答场景",
+      "supply": "基金查询和金融分析工具",
+      "audience": "通过搜索提出金融问题的个人",
+      "boundary": "与千帆开发平台、历史独立基金产品分别统计。",
+      "refs": [
+        "P07"
+      ]
+    },
+    {
+      "group": "百度",
+      "name": "百度智能云 · 千帆",
+      "model": "MCP 广场上架与应用集成",
+      "status": "千帆官方披露已上架",
+      "level": "announced",
+      "path": "千帆 AppBuilder MCP 广场，添加盈米服务并配置授权",
+      "supply": "基金与财富管理分析工具",
+      "audience": "开发者、企业 Agent 建设团队",
+      "boundary": "千帆上架不代表所有百度 C 端产品均可直接使用。",
+      "refs": [
+        "P08"
+      ]
+    }
+  ],
+  "bailianUsage": {
+    "schema": "bailian-identifiable-usage/v1",
+    "title": "百炼自普通MCP上架以来的可识别使用",
+    "generatedAt": "2026-10-22T15:19:06+08:00",
+    "asOf": "2026-10-21",
+    "cutoffExclusive": "2026-10-22T00:00:00+08:00",
+    "timezone": "Asia/Shanghai",
+    "formalListingDate": "2025-04-25",
+    "formalListingSource": {
+      "title": "AI能力获大厂认可，盈米MCP Server上线阿里云",
+      "url": "https://www.yingmi.cn/archives/607",
+      "published": "2025-04-29",
+      "verification": "盈米官方新闻列表明确记载4月25日在百炼同步首发；原文链接跳转至微信公众号。"
+    },
+    "identifiedCombined": {
+      "recordedCalls": 47463,
+      "distinctRequestIds": 47463,
+      "coverage": "普通百炼专用通道与One Key实例关联通道的可识别接口落账记录合计；不代表百炼全部使用或独立用户。"
+    },
+    "ordinary": {
+      "label": "普通百炼专用通道",
+      "channelCreatedAt": "2025-04-18T16:55:33+08:00",
+      "recordedCalls": 45851,
+      "distinctRequestIds": 45851,
+      "recordedDays": 159,
+      "firstObservedAt": "2025-05-08T10:15:54+08:00",
+      "lastObservedAt": "2026-10-10T00:42:15+08:00",
+      "recent30CompleteDays": {
+        "start": "2026-09-22",
+        "endInclusive": "2026-10-21",
+        "calls": 2969
+      },
+      "monthly": [
+        {
+          "month": "2025-05",
+          "calls": 1577
+        },
+        {
+          "month": "2025-06",
+          "calls": 53
+        },
+        {
+          "month": "2025-07",
+          "calls": 21
+        },
+        {
+          "month": "2025-08",
+          "calls": 256
+        },
+        {
+          "month": "2025-09",
+          "calls": 119
+        },
+        {
+          "month": "2025-10",
+          "calls": 182
+        },
+        {
+          "month": "2025-11",
+          "calls": 6275
+        },
+        {
+          "month": "2025-12",
+          "calls": 32161
+        },
+        {
+          "month": "2026-01",
+          "calls": 146
+        },
+        {
+          "month": "2026-02",
+          "calls": 27
+        },
+        {
+          "month": "2026-03",
+          "calls": 0
+        },
+        {
+          "month": "2026-04",
+          "calls": 515
+        },
+        {
+          "month": "2026-05",
+          "calls": 0
+        },
+        {
+          "month": "2026-06",
+          "calls": 0
+        },
+        {
+          "month": "2026-07",
+          "calls": 8
+        },
+        {
+          "month": "2026-08",
+          "calls": 0
+        },
+        {
+          "month": "2026-09",
+          "calls": 1542
+        },
+        {
+          "month": "2026-10",
+          "calls": 2969
+        }
+      ],
+      "daily": [
+        {
+          "date": "2025-05-08",
+          "calls": 13
+        },
+        {
+          "date": "2025-05-09",
+          "calls": 18
+        },
+        {
+          "date": "2025-05-12",
+          "calls": 36
+        },
+        {
+          "date": "2025-05-13",
+          "calls": 6
+        },
+        {
+          "date": "2025-05-14",
+          "calls": 70
+        },
+        {
+          "date": "2025-05-15",
+          "calls": 9
+        },
+        {
+          "date": "2025-05-16",
+          "calls": 14
+        },
+        {
+          "date": "2025-05-18",
+          "calls": 10
+        },
+        {
+          "date": "2025-05-19",
+          "calls": 98
+        },
+        {
+          "date": "2025-05-20",
+          "calls": 1
+        },
+        {
+          "date": "2025-05-21",
+          "calls": 16
+        },
+        {
+          "date": "2025-05-23",
+          "calls": 58
+        },
+        {
+          "date": "2025-05-24",
+          "calls": 74
+        },
+        {
+          "date": "2025-05-25",
+          "calls": 75
+        },
+        {
+          "date": "2025-05-26",
+          "calls": 69
+        },
+        {
+          "date": "2025-05-27",
+          "calls": 1010
+        },
+        {
+          "date": "2025-06-06",
+          "calls": 1
+        },
+        {
+          "date": "2025-06-10",
+          "calls": 5
+        },
+        {
+          "date": "2025-06-11",
+          "calls": 33
+        },
+        {
+          "date": "2025-06-13",
+          "calls": 8
+        },
+        {
+          "date": "2025-06-16",
+          "calls": 3
+        },
+        {
+          "date": "2025-06-18",
+          "calls": 3
+        },
+        {
+          "date": "2025-07-01",
+          "calls": 2
+        },
+        {
+          "date": "2025-07-10",
+          "calls": 19
+        },
+        {
+          "date": "2025-08-10",
+          "calls": 2
+        },
+        {
+          "date": "2025-08-12",
+          "calls": 1
+        },
+        {
+          "date": "2025-08-13",
+          "calls": 2
+        },
+        {
+          "date": "2025-08-18",
+          "calls": 15
+        },
+        {
+          "date": "2025-08-19",
+          "calls": 22
+        },
+        {
+          "date": "2025-08-20",
+          "calls": 14
+        },
+        {
+          "date": "2025-08-21",
+          "calls": 17
+        },
+        {
+          "date": "2025-08-22",
+          "calls": 46
+        },
+        {
+          "date": "2025-08-23",
+          "calls": 25
+        },
+        {
+          "date": "2025-08-24",
+          "calls": 7
+        },
+        {
+          "date": "2025-08-25",
+          "calls": 27
+        },
+        {
+          "date": "2025-08-26",
+          "calls": 10
+        },
+        {
+          "date": "2025-08-27",
+          "calls": 35
+        },
+        {
+          "date": "2025-08-28",
+          "calls": 10
+        },
+        {
+          "date": "2025-08-29",
+          "calls": 2
+        },
+        {
+          "date": "2025-08-31",
+          "calls": 21
+        },
+        {
+          "date": "2025-09-01",
+          "calls": 12
+        },
+        {
+          "date": "2025-09-02",
+          "calls": 12
+        },
+        {
+          "date": "2025-09-06",
+          "calls": 34
+        },
+        {
+          "date": "2025-09-07",
+          "calls": 4
+        },
+        {
+          "date": "2025-09-08",
+          "calls": 3
+        },
+        {
+          "date": "2025-09-09",
+          "calls": 7
+        },
+        {
+          "date": "2025-09-10",
+          "calls": 7
+        },
+        {
+          "date": "2025-09-12",
+          "calls": 2
+        },
+        {
+          "date": "2025-09-13",
+          "calls": 4
+        },
+        {
+          "date": "2025-09-20",
+          "calls": 1
+        },
+        {
+          "date": "2025-09-22",
+          "calls": 2
+        },
+        {
+          "date": "2025-09-23",
+          "calls": 14
+        },
+        {
+          "date": "2025-09-26",
+          "calls": 15
+        },
+        {
+          "date": "2025-09-27",
+          "calls": 2
+        },
+        {
+          "date": "2025-10-02",
+          "calls": 1
+        },
+        {
+          "date": "2025-10-03",
+          "calls": 5
+        },
+        {
+          "date": "2025-10-10",
+          "calls": 12
+        },
+        {
+          "date": "2025-10-13",
+          "calls": 13
+        },
+        {
+          "date": "2025-10-15",
+          "calls": 3
+        },
+        {
+          "date": "2025-10-16",
+          "calls": 1
+        },
+        {
+          "date": "2025-10-19",
+          "calls": 11
+        },
+        {
+          "date": "2025-10-21",
+          "calls": 31
+        },
+        {
+          "date": "2025-10-22",
+          "calls": 18
+        },
+        {
+          "date": "2025-10-25",
+          "calls": 19
+        },
+        {
+          "date": "2025-10-27",
+          "calls": 9
+        },
+        {
+          "date": "2025-10-30",
+          "calls": 11
+        },
+        {
+          "date": "2025-10-31",
+          "calls": 48
+        },
+        {
+          "date": "2025-11-01",
+          "calls": 14
+        },
+        {
+          "date": "2025-11-02",
+          "calls": 10
+        },
+        {
+          "date": "2025-11-03",
+          "calls": 16
+        },
+        {
+          "date": "2025-11-04",
+          "calls": 7
+        },
+        {
+          "date": "2025-11-05",
+          "calls": 10
+        },
+        {
+          "date": "2025-11-07",
+          "calls": 1
+        },
+        {
+          "date": "2025-11-08",
+          "calls": 42
+        },
+        {
+          "date": "2025-11-10",
+          "calls": 47
+        },
+        {
+          "date": "2025-11-11",
+          "calls": 142
+        },
+        {
+          "date": "2025-11-12",
+          "calls": 70
+        },
+        {
+          "date": "2025-11-13",
+          "calls": 6
+        },
+        {
+          "date": "2025-11-14",
+          "calls": 60
+        },
+        {
+          "date": "2025-11-15",
+          "calls": 191
+        },
+        {
+          "date": "2025-11-16",
+          "calls": 194
+        },
+        {
+          "date": "2025-11-17",
+          "calls": 35
+        },
+        {
+          "date": "2025-11-18",
+          "calls": 94
+        },
+        {
+          "date": "2025-11-20",
+          "calls": 1
+        },
+        {
+          "date": "2025-11-21",
+          "calls": 66
+        },
+        {
+          "date": "2025-11-22",
+          "calls": 35
+        },
+        {
+          "date": "2025-11-23",
+          "calls": 9
+        },
+        {
+          "date": "2025-11-24",
+          "calls": 1
+        },
+        {
+          "date": "2025-11-25",
+          "calls": 7
+        },
+        {
+          "date": "2025-11-26",
+          "calls": 1016
+        },
+        {
+          "date": "2025-11-27",
+          "calls": 1084
+        },
+        {
+          "date": "2025-11-28",
+          "calls": 1094
+        },
+        {
+          "date": "2025-11-29",
+          "calls": 1017
+        },
+        {
+          "date": "2025-11-30",
+          "calls": 1006
+        },
+        {
+          "date": "2025-12-01",
+          "calls": 1024
+        },
+        {
+          "date": "2025-12-02",
+          "calls": 1060
+        },
+        {
+          "date": "2025-12-03",
+          "calls": 1021
+        },
+        {
+          "date": "2025-12-04",
+          "calls": 1025
+        },
+        {
+          "date": "2025-12-05",
+          "calls": 1056
+        },
+        {
+          "date": "2025-12-06",
+          "calls": 1005
+        },
+        {
+          "date": "2025-12-07",
+          "calls": 1026
+        },
+        {
+          "date": "2025-12-08",
+          "calls": 1044
+        },
+        {
+          "date": "2025-12-09",
+          "calls": 1043
+        },
+        {
+          "date": "2025-12-10",
+          "calls": 1041
+        },
+        {
+          "date": "2025-12-11",
+          "calls": 1061
+        },
+        {
+          "date": "2025-12-12",
+          "calls": 1011
+        },
+        {
+          "date": "2025-12-13",
+          "calls": 1019
+        },
+        {
+          "date": "2025-12-14",
+          "calls": 1024
+        },
+        {
+          "date": "2025-12-15",
+          "calls": 1036
+        },
+        {
+          "date": "2025-12-16",
+          "calls": 1045
+        },
+        {
+          "date": "2025-12-17",
+          "calls": 1064
+        },
+        {
+          "date": "2025-12-18",
+          "calls": 1042
+        },
+        {
+          "date": "2025-12-19",
+          "calls": 1038
+        },
+        {
+          "date": "2025-12-20",
+          "calls": 1011
+        },
+        {
+          "date": "2025-12-21",
+          "calls": 1034
+        },
+        {
+          "date": "2025-12-22",
+          "calls": 1003
+        },
+        {
+          "date": "2025-12-23",
+          "calls": 1080
+        },
+        {
+          "date": "2025-12-24",
+          "calls": 1078
+        },
+        {
+          "date": "2025-12-25",
+          "calls": 1118
+        },
+        {
+          "date": "2025-12-26",
+          "calls": 1009
+        },
+        {
+          "date": "2025-12-27",
+          "calls": 1005
+        },
+        {
+          "date": "2025-12-28",
+          "calls": 1028
+        },
+        {
+          "date": "2025-12-29",
+          "calls": 1065
+        },
+        {
+          "date": "2025-12-30",
+          "calls": 1013
+        },
+        {
+          "date": "2025-12-31",
+          "calls": 1032
+        },
+        {
+          "date": "2026-01-03",
+          "calls": 4
+        },
+        {
+          "date": "2026-01-07",
+          "calls": 16
+        },
+        {
+          "date": "2026-01-09",
+          "calls": 1
+        },
+        {
+          "date": "2026-01-10",
+          "calls": 2
+        },
+        {
+          "date": "2026-01-11",
+          "calls": 3
+        },
+        {
+          "date": "2026-01-12",
+          "calls": 9
+        },
+        {
+          "date": "2026-01-13",
+          "calls": 6
+        },
+        {
+          "date": "2026-01-14",
+          "calls": 5
+        },
+        {
+          "date": "2026-01-17",
+          "calls": 2
+        },
+        {
+          "date": "2026-01-18",
+          "calls": 10
+        },
+        {
+          "date": "2026-01-19",
+          "calls": 4
+        },
+        {
+          "date": "2026-01-20",
+          "calls": 3
+        },
+        {
+          "date": "2026-01-22",
+          "calls": 15
+        },
+        {
+          "date": "2026-01-23",
+          "calls": 4
+        },
+        {
+          "date": "2026-01-25",
+          "calls": 9
+        },
+        {
+          "date": "2026-01-26",
+          "calls": 14
+        },
+        {
+          "date": "2026-01-27",
+          "calls": 6
+        },
+        {
+          "date": "2026-01-28",
+          "calls": 7
+        },
+        {
+          "date": "2026-01-29",
+          "calls": 22
+        },
+        {
+          "date": "2026-01-30",
+          "calls": 4
+        },
+        {
+          "date": "2026-02-05",
+          "calls": 27
+        },
+        {
+          "date": "2026-04-09",
+          "calls": 171
+        },
+        {
+          "date": "2026-04-10",
+          "calls": 344
+        },
+        {
+          "date": "2026-07-09",
+          "calls": 6
+        },
+        {
+          "date": "2026-07-23",
+          "calls": 2
+        },
+        {
+          "date": "2026-09-02",
+          "calls": 377
+        },
+        {
+          "date": "2026-09-07",
+          "calls": 479
+        },
+        {
+          "date": "2026-09-10",
+          "calls": 164
+        },
+        {
+          "date": "2026-09-11",
+          "calls": 58
+        },
+        {
+          "date": "2026-09-14",
+          "calls": 463
+        },
+        {
+          "date": "2026-09-15",
+          "calls": 1
+        },
+        {
+          "date": "2026-10-08",
+          "calls": 989
+        },
+        {
+          "date": "2026-10-09",
+          "calls": 986
+        },
+        {
+          "date": "2026-10-10",
+          "calls": 994
+        }
+      ],
+      "topTools": [
+        {
+          "tool": "SearchFinancialNews",
+          "label": "财经资讯",
+          "calls": 18056
+        },
+        {
+          "tool": "SearchManagerViewpoint",
+          "label": "基金经理观点",
+          "calls": 13212
+        },
+        {
+          "tool": "SearchFunds",
+          "label": "搜索基金",
+          "calls": 5754
+        },
+        {
+          "tool": "BatchGetFundNavHistory",
+          "label": "基金净值历史",
+          "calls": 4626
+        },
+        {
+          "tool": "searchRealtimeAiAnalysis",
+          "label": "实时资讯AI解读",
+          "calls": 972
+        }
+      ],
+      "users": null,
+      "institutions": null,
+      "scope": "当前标签为阿里云百炼平台的独立共享通道，不关联云市场实例。未把阿里千问、办公助理、点金、BenchMark、显式测试通道及其他个人自备Key计入。",
+      "limit": "共享通道记录无法拆出终端用户、机构、会话或运行环境；标签是当前配置归属，不是每次请求独立来源证明，也无法排除共享通道内的开发测试。"
+    },
+    "oneKey": {
+      "label": "One Key订阅通道",
+      "openedInstances": 351,
+      "openedCloudSubjects": 184,
+      "usedInstances": 97,
+      "usedCloudSubjects": 66,
+      "recordedCalls": 1612,
+      "recordedDays": 64,
+      "firstObservedAt": "2026-07-30T23:08:32+08:00",
+      "lastObservedAt": "2026-10-21T16:34:49+08:00",
+      "recent30CompleteDays": {
+        "start": "2026-09-22",
+        "endInclusive": "2026-10-21",
+        "calls": 525
+      },
+      "monthly": [
+        {
+          "month": "2026-07",
+          "calls": 349,
+          "usedInstances": 4
+        },
+        {
+          "month": "2026-08",
+          "calls": 420,
+          "usedInstances": 36
+        },
+        {
+          "month": "2026-09",
+          "calls": 369,
+          "usedInstances": 39
+        },
+        {
+          "month": "2026-10",
+          "calls": 474,
+          "usedInstances": 26
+        }
+      ],
+      "metering": {
+        "reportedInstances": 60,
+        "successfulWindows": 162,
+        "firstWindowStart": "2026-07-31T17:00:00+08:00",
+        "lastWindowEnd": "2026-10-16T06:00:00+08:00"
+      },
+      "scope": "按百炼云市场实例关联的Key统计接口落账；云账号按aliUid去重。实例、账号、记录与计量窗口是不同对象。",
+      "limit": "包含可能的试用与测试，未拆分付费状态。97是有接口记录实例，60是已记录成功计量上报实例，统计对象与截止窗口不同。"
+    },
+    "historyCoverage": {
+      "earliestRetainedOapDetailAt": "2025-05-07T21:59:00+08:00",
+      "earliestRetainedOapDayStatDate": "2025-05-07",
+      "unresolvedWindow": "2025-04-25至2025-05-07",
+      "note": "现存OAP日志最早始于5月7日，普通百炼5月8日首次被观察。上架后的早期使用无法由本次可访问表回溯，缺记录不作零使用；更早档案是否存在未核验。"
+    },
+    "evidence": {
+      "source": "生产只读聚合，2026-10-22核查，按完整自然日截止。",
+      "tables": [
+        "ying99_oap.api_key",
+        "ying99_oap.api_key_usage_details",
+        "ying99_oap.api_key_usage_stats",
+        "ying99_oap.api_external_market_instance",
+        "ying99_oap.api_external_market_metering_push"
+      ],
+      "reconciliation": "普通明细行数、request_id去重和day汇总均为45851；普通与OneKey集合互斥；合并明细及request_id去重均为47463。",
+      "successBoundary": "接口落账不等于成功完成AI任务，也不等于付费、成交或持续客户；末次记录不用于推断停用原因。",
+      "coverage": "部分可识别通道；个人自备Key在百炼运行时没有独立客户端标签，整体覆盖率未知。"
+    }
+  }
+}

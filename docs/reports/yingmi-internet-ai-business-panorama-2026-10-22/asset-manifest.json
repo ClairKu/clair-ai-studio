@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "report": "yingmi-internet-ai-business-panorama-2026-10-22",
+  "files": [
+    {
+      "path": "index.html",
+      "bytes": 86128,
+      "sha256": "2e37691799a72dae0c5c00b508e54f22457bc2c033106f5df85e35222986e251"
+    },
+    {
+      "path": "data.json",
+      "bytes": 37471,
+      "sha256": "9c23b35c931ee9c2f47c16a23070ea47317524202d371a1c1b970400222027e3"
+    },
+    {
+      "path": "sources.json",
+      "bytes": 7230,
+      "sha256": "499c2e09f9068f388f8607d08a5714e66992a3b84c4067ca08824a03cb6a4f1f"
+    },
+    {
+      "path": "usage-data.csv",
+      "bytes": 6065,
+      "sha256": "8b4671da20a6eb052dd91f600f6880d1561c8e70ffb11a05288e9a85ba78f330"
+    },
+    {
+      "path": "bailian-usage.json",
+      "bytes": 16849,
+      "sha256": "2780a8a77801f411afb1a8ca9f90d122a4aebdaa919413d5af54a08c679f82f0"
+    }
+  ]
+}

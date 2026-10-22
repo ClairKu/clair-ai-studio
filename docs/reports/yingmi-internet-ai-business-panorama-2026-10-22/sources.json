@@ -1,0 +1,142 @@
+[
+  {
+    "id": "P02",
+    "title": "盈米基金“且慢小顾”智能体接入阿里千问APP，成为千问开放平台首批金融合作伙伴",
+    "url": "https://www.yingmi.cn/archives/961.html",
+    "published": null,
+    "eventDate": "8月10日（正文未写年份）",
+    "kind": "盈米官方产品公告",
+    "proved": "公告正式接入千问 App，给出 @盈米基金且慢小顾 的入口与基金分析、账户诊断、资产配置场景。",
+    "limit": "未实测当前入口；真实账户数据使用须按产品授权；未给出千问来源成交。"
+  },
+  {
+    "id": "P03",
+    "title": "且慢AI小顾3.0亮相2026云栖大会，智能演绎家庭资产规划全流程",
+    "url": "https://yingmi.cn/archives/907",
+    "published": null,
+    "eventDate": "2026-09-22 至 2026-09-24",
+    "kind": "盈米官方产品进展",
+    "proved": "分别确认百炼与千问办公 MCP/Skills、千问 App 工作助理 Skills、且慢 AI 小顾智能体的不同入口。",
+    "limit": "大会演示与接入信息不代表全量用户可用、交易闭环或商业转化已验证。"
+  },
+  {
+    "id": "P04",
+    "title": "盈米 AI 联手腾讯 WorkBuddy，你的金融 AI 助手已上线",
+    "url": "https://yingmi.cn/archives/877",
+    "published": null,
+    "kind": "盈米官方产品教程",
+    "proved": "WorkBuddy 连接器有盈米 MCP，技能的投资理财专区有盈米 Skills；用户注册取得 API Key 后连接。",
+    "limit": "案例为官方演示，未独立实测；不等同腾讯元宝、ima 已接入。"
+  },
+  {
+    "id": "P05",
+    "title": "「豆包工作」亮相，接入盈米MCP金融场景首发实测",
+    "url": "https://www.yingmi.cn/archives/949.html",
+    "published": null,
+    "kind": "盈米官方产品教程",
+    "proved": "明确宣布豆包工作和豆包应用均已接入，分豆包工作电脑版、最新版豆包电脑版、豆包手机客户端三条路径。",
+    "limit": "普通豆包路径要求相应最新版及工作任务/连接器环境；不能概括为所有豆包用户开箱可用，更不能推导豆包手机硬件合作。"
+  },
+  {
+    "id": "P06",
+    "title": "重磅上新！盈米MCP订阅版正式接入阿里云百炼One Key MCP",
+    "url": "https://www.yingmi.cn/archives/967",
+    "published": null,
+    "kind": "盈米官方产品公告",
+    "proved": "百炼 One Key MCP 订阅版本、云市场/工作空间统一授权，三类订阅方案；列 Codex、Claude Code、Cursor 一键接入及 Qoder CLI 全局安装。",
+    "limit": "自助订阅默认订阅主体内部使用；兼容客户端不等同平台商业合作，调用量不等于投资者成交。"
+  },
+  {
+    "id": "P07",
+    "title": "盈米公司介绍与发展历程",
+    "url": "https://www.yingmi.cn/page/about_us",
+    "published": null,
+    "kind": "盈米官方公司资料",
+    "proved": "2025年4月发布 MCP，陆续上架百炼、扣子、火山引擎；2025年6月接入百度 AI 搜索；2025年7月与阿里云 AI 全栈战略合作。",
+    "limit": "里程碑不能替代当前客户端运行验证。"
+  },
+  {
+    "id": "P08",
+    "title": "盈米且慢MCP上线百度智能云千帆，助力AI嵌入更多财富管理场景",
+    "url": "https://qianfan.cloud.baidu.com/qianfandev/topic/686288",
+    "published": "2025-08-07",
+    "kind": "百度智能云千帆官方产品动态",
+    "proved": "千帆 AppBuilder MCP 广场上架及 API Key 添加教程，介绍基金与财富管理分析能力。",
+    "limit": "千帆开发平台接入不等同百度所有 C 端产品同样可用。"
+  },
+  {
+    "id": "P09",
+    "title": "盈米基金且慢 MCP 被权威报告收录，引领 AI 金融服务新范式",
+    "url": "https://www.yingmi.cn/archives/769",
+    "published": null,
+    "dataAsOf": "2025-11-20",
+    "kind": "盈米官方案例说明",
+    "proved": "列明百度 AI 搜索、扣子空间等 C 端平台，以及百炼、火山引擎大模型生态广场、千帆开发平台。",
+    "limit": "2025年阶段性口径，不宜当作2026现行数量；效率、转化等自报数据未给出样本定义及平台拆分。"
+  },
+  {
+    "id": "P10",
+    "title": "Yingmi-MCP 官方公开使用指南",
+    "url": "https://github.com/yingmi-dev/Yingmi-MCP",
+    "published": null,
+    "kind": "盈米官方公开仓库",
+    "proved": "69 项工具清单与 Claude Code、Claude Desktop 桥接、Cursor、Codex CLI/IDE、Cherry Studio、Windsurf/Trae 配置指南。",
+    "limit": "技术兼容说明不是合作公告；ChatGPT 网页端不会读取 Codex 本地配置，Claude Desktop 当前自定义请求头需要桥接。"
+  },
+  {
+    "id": "P12",
+    "title": "财富管理的“DeepSeek时刻”，盈米基金的AI变革之道",
+    "url": "https://www.yingmi.cn/archives/529",
+    "published": null,
+    "eventDate": "2025-02（公司历程交叉验证）",
+    "kind": "盈米官方技术与应用说明",
+    "proved": "AI 小顾接入 DeepSeek-R1；说明多元模型底座对接 DeepSeek、通义千问、Kimi、豆包。",
+    "limit": "使用某模型不等于进入该模型厂商的 C 端 App 展业。"
+  },
+  {
+    "id": "P13",
+    "title": "盈米基金 AI 解决方案亮相2026中国国际金融展",
+    "url": "https://yingmi.cn/archives/871",
+    "published": null,
+    "eventDate": "2026-06-16",
+    "kind": "盈米官方方案说明",
+    "proved": "阿里云联合机构 AI 智能体解决方案；可嵌入机构 App、H5、企业微信、内部工作台的合作路径。",
+    "limit": "可嵌入是方案能力，不等同每个渠道已有具名生产客户。"
+  },
+  {
+    "id": "P15",
+    "title": "美团正式发布 CatPaw：全场景 AI Agent，从个人提效到企业智能化",
+    "url": "https://tech.meituan.com/2026/07/28/CatPaw-LongCat.html",
+    "published": "2026-07-28",
+    "kind": "美团技术团队官方公告",
+    "proved": "CatPaw 产品、专家技能与企业 Agent 能力存在。",
+    "limit": "正文未提盈米，不能支持盈米与 CatPaw 已合作。"
+  },
+  {
+    "id": "P16",
+    "title": "荣耀在国内首次技术解读“阿尔法战略”",
+    "url": "https://www.honor.com/cn/news/honor-ai-device-expo/",
+    "published": "2025-05-22",
+    "kind": "荣耀官方公告",
+    "proved": "荣耀拥抱 MCP 开放协议与生态计划。",
+    "limit": "没有盈米具名合作，MCP 支持本身不证明盈米接入。"
+  },
+  {
+    "id": "P20",
+    "title": "腾讯云 MCP 目录：盈米 MCP",
+    "url": "https://developer.cloud.tencent.com/mcp/server/11801",
+    "kind": "腾讯云公开目录",
+    "proved": "有盈米 MCP 产品目录及接入说明。",
+    "limit": "产品目录不证明采购付费或终端投资客户转化。"
+  },
+  {
+    "id": "P21",
+    "title": "AI 能力获大厂认可，盈米 MCP Server 上线阿里云",
+    "url": "https://www.yingmi.cn/archives/607",
+    "kind": "盈米官方文章及官网搜索摘要",
+    "published": "2025-04-29",
+    "eventDate": "2025-04-25",
+    "proved": "官网搜索摘要说明正式版工具包于4月25日在百炼同步首发。",
+    "limit": "文章跳转微信公众号；本次从官网摘要核对上线日期，未获取跳转全文。"
+  }
+]
