@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 126;
+const DATA_VERSION = 127;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -221,6 +221,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "fund-execution-revenue-sharing-2026-10-22",
+      groupId: "reporting",
+      title: "基金公司投顾 × 基金销售执行｜实际费率与分成测算",
+      url: "https://clairku.github.io/clair-ai-studio/reports/fund-execution-revenue-sharing-2026-10-22/",
+      preview: "fund-execution-revenue-sharing-2026-10-22.png",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-22T12:00:00+08:00",
+      source: "公开费率与建议假设：核验2026基金费率，区分投资者费率、渠道收入及成本；附交易执行定价、超额收益分配公式和可调测算器。非盈米实际成本、合同报价或已确认应付分成。",
+      access: "production",
+      workType: "reporting",
+      tags: ["基金销售", "基金投顾", "商务定价", "费率", "分成", "测算器", "HTML", "生产"],
+    },
     {
       id: "yingmi-oap-customer-strategy-2026-10-22",
       groupId: "ai-platform",
@@ -3851,6 +3865,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "fund-execution-revenue-sharing-2026-10-22": "reporting",
   "yingmi-oap-customer-strategy-2026-10-22": "ai-platform",
   "financial-internet-marketing-disclosures-2026-10-22": "growth-insights",
   "yingmi-internet-ai-business-panorama-2026-10-22": "ai-platform",

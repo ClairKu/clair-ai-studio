@@ -1,0 +1,187 @@
+{
+  "title": "基金销售执行合作：公开费率与建议模型",
+  "verified_as_of": "2026-10-22",
+  "data_scope": "仅公开费率、公开监管资料、明确计算假设；无内部合同或经营数据",
+  "disclosure": "投资者公开收费资料不等于盈米实际收入；普通申购档为非特定投资群体；实际渠道折扣及归属率未知",
+  "samples": [
+    {
+      "name": "易方达信用债债券A",
+      "code": "000032",
+      "management_fee_annual_pct": 0.35,
+      "sales_service_fee_annual_pct": 0,
+      "standard_purchase_tiers": [
+        {
+          "min_rmb": 0,
+          "max_exclusive_rmb": 1000000,
+          "rate_pct": 0.8
+        },
+        {
+          "min_rmb": 1000000,
+          "max_exclusive_rmb": 2000000,
+          "rate_pct": 0.5
+        },
+        {
+          "min_rmb": 2000000,
+          "max_exclusive_rmb": 5000000,
+          "rate_pct": 0.3
+        },
+        {
+          "min_rmb": 5000000,
+          "fixed_fee_rmb": 1000
+        }
+      ],
+      "source_date": "2026-08-21",
+      "source_url": "https://cdn.efunds.com.cn/owch/data/bulletin/20260821/易方达信用债债券型证券投资基金（易方达信用债债券A）基金产品资料概要更新.pdf",
+      "source_pages": "3-4",
+      "transition_note": "2026存量资料费率，不能作为2027稳态承诺"
+    },
+    {
+      "name": "易方达信用债债券C",
+      "code": "000033",
+      "management_fee_annual_pct": 0.35,
+      "sales_service_fee_annual_pct": 0.4,
+      "purchase_fee_pct": 0,
+      "source_date": "2026-08-21",
+      "source_url": "https://cdn.efunds.com.cn/owch/data/bulletin/20260821/易方达信用债债券型证券投资基金（易方达信用债债券C）基金产品资料概要更新.pdf",
+      "source_pages": "3",
+      "transition_note": "0.40%为2026存量资料值，非整改完成后实际费率"
+    },
+    {
+      "name": "易方达沪深300ETF联接A",
+      "code": "110020",
+      "management_fee_annual_pct": 0.15,
+      "sales_service_fee_annual_pct": 0,
+      "standard_purchase_tiers": [
+        {
+          "min_rmb": 0,
+          "max_exclusive_rmb": 1000000,
+          "rate_pct": 1.2
+        },
+        {
+          "min_rmb": 1000000,
+          "max_exclusive_rmb": 5000000,
+          "rate_pct": 0.8
+        },
+        {
+          "min_rmb": 5000000,
+          "max_exclusive_rmb": 10000000,
+          "rate_pct": 0.2
+        },
+        {
+          "min_rmb": 10000000,
+          "fixed_fee_rmb": 1000
+        }
+      ],
+      "source_date": "2026-08-11",
+      "source_url": "https://cdn.efunds.com.cn/owch/data/bulletin/20260811/易方达沪深300交易型开放式指数发起式证券投资基金联接基金（易方达沪深300ETF联接A）基金产品资料概要更新.pdf",
+      "source_pages": "3-4",
+      "management_fee_base_note": "不对投资于目标ETF的部分重复计提管理费和托管费",
+      "transition_note": "2026存量资料费率，不能作为2027稳态承诺"
+    },
+    {
+      "name": "易方达沪深300ETF联接C",
+      "code": "007339",
+      "management_fee_annual_pct": 0.15,
+      "sales_service_fee_annual_pct": 0.2,
+      "purchase_fee_pct": 0,
+      "source_date": "2026-08-11",
+      "source_url": "https://cdn.efunds.com.cn/owch/data/bulletin/20260811/易方达沪深300交易型开放式指数发起式证券投资基金联接基金（易方达沪深300ETF联接C）基金产品资料概要更新20260810205302.pdf",
+      "source_pages": "3",
+      "management_fee_base_note": "不对投资于目标ETF的部分重复计提管理费和托管费"
+    },
+    {
+      "name": "易方达中债1-3年政金债指数C",
+      "code": "007365",
+      "management_fee_annual_pct": 0.15,
+      "sales_service_fee_annual_pct": 0.1,
+      "purchase_fee_pct": 0,
+      "verified_date": "2026-10-22",
+      "source_url": "https://www.efunds.com.cn/fund/007365.shtml",
+      "source_location": "费率结构",
+      "source_note": "官网最新概要日期2026-08-11；PDF取回超时，本行依据官方产品页"
+    },
+    {
+      "name": "易方达天天理财货币A",
+      "code": "000009",
+      "management_fee_annual_pct": 0.15,
+      "sales_service_fee_annual_pct": 0.15,
+      "purchase_fee_pct": 0,
+      "source_date": "2026-09-01",
+      "source_url": "https://cdn.efunds.com.cn/owch/data/bulletin/20260901/易方达天天理财货币市场基金更新的招募说明书.pdf",
+      "source_pages": "文件73-74/印刷69-70",
+      "sales_fee_change": {
+        "effective_date": "2026-08-21",
+        "old_annual_pct": 0.25,
+        "new_annual_pct": 0.15,
+        "end_date": null,
+        "announcement_date": "2026-08-20",
+        "source_url": "https://cdn.efunds.com.cn/owch/data/bulletin/20260820/关于易方达天天理财货币市场基金A类和C类基金份额开展销售服务费率优惠活动的公告.pdf"
+      }
+    }
+  ],
+  "regulation": {
+    "title": "公开募集证券投资基金销售费用管理规定",
+    "announcement": "证监会公告〔2025〕22号",
+    "effective_date": "2026-01-01",
+    "source_url": "https://www.csrc.gov.cn/csrc/c101954/c7606091/content.shtml",
+    "transition_note": "第29条为存量费用结构费率及相关系统文件销售协议12个月整改；不是行为规范全面豁免",
+    "steady_state_note": "2027情景按整改完成后实际参数，法定上限不得当作实际费率"
+  },
+  "unknowns": [
+    "盈米实际渠道申购折扣",
+    "合法销服归属率",
+    "可合法收取的维护费及实际到账",
+    "客户批次持有期与渠道归属",
+    "实际成本与税率",
+    "合作款项合法支付路径"
+  ],
+  "model_assumptions": {
+    "fixed_cost_annual_rmb": 100000,
+    "variable_cost_bp_aum": 2,
+    "minimum_profit_annual_rmb": 100000,
+    "target_profit_bp_aum": 2,
+    "candidate_surplus_share_pct": 40,
+    "client_maintenance_fee_default_rmb": 0,
+    "sales_service_ownership_pct": 80,
+    "eligible_holding_share_pct": 50,
+    "illustrative_vat_pct": 6,
+    "legal_path_confirmed_default": false
+  },
+  "formulas": {
+    "revenue": "R=实收不含VAT申购费+实收不含VAT销服+合法实收不含VAT维护费(默认0)",
+    "purchase_percentage_tier": "G*r/(1+r)*q；如含税再按实际税率处理",
+    "purchase_fixed_tier": "fixed_fee*q",
+    "cost": "C=fixed_cost+AUM*variable_cost_bp/10000",
+    "profit_floor": "H=max(minimum_profit,AUM*target_profit_bp/10000)",
+    "partner_candidate": "P=share_pct/100*max(0,R-C-H)",
+    "platform_profit": "R-C-P",
+    "target_gap": "R-C-P-H；负数仅目标缺口，不是自动应收补差"
+  },
+  "example_aum_rmb": 1000000000,
+  "examples": [
+    {
+      "revenue_bp": 3,
+      "revenue_rmb": 300000,
+      "cost_rmb": 300000,
+      "floor_rmb": 200000,
+      "candidate_rmb": 0,
+      "profit_rmb": 0
+    },
+    {
+      "revenue_bp": 6,
+      "revenue_rmb": 600000,
+      "cost_rmb": 300000,
+      "floor_rmb": 200000,
+      "candidate_rmb": 40000,
+      "profit_rmb": 260000
+    },
+    {
+      "revenue_bp": 10,
+      "revenue_rmb": 1000000,
+      "cost_rmb": 300000,
+      "floor_rmb": 200000,
+      "candidate_rmb": 200000,
+      "profit_rmb": 500000
+    }
+  ]
+}
