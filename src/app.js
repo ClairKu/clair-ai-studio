@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 136;
+const DATA_VERSION = 137;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -230,7 +230,7 @@ const initialState = {
       pinned: false,
       position: 0,
       createdAt: "2026-10-22T15:30:00+08:00",
-      source: "数据截至2026-10-21：调用21,393,278次、接入申请15,753个、服务金融机构710家。完整MCP/OpenAPI工具层、Skills场景层、Agents任务交付层，含69项工具、10项Skills、应用与机构共建场景，支持分类与全文检索。",
+      source: "数据截至2026-10-21：调用21,393,278次、接入申请15,753个、服务金融机构710家。完整MCP工具层、Skills场景层、Agents任务交付层，含69项工具、10项Skills、应用与机构共建场景；合作生态按平台大类、接入模式、重点案例呈现，展示千问、百度、豆包与百炼的进展和数据成效。",
       access: "production",
       workType: "product-planning",
       tags: [
@@ -247,7 +247,10 @@ const initialState = {
         "生产",
         "Agents",
         "三层能力",
-        "功能清单"
+        "功能清单",
+        "平台分类",
+        "接入模式",
+        "合作案例"
       ]
     },
     {
