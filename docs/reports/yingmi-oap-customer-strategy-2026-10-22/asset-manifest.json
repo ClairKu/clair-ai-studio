@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "report": "yingmi-oap-customer-strategy-2026-10-22",
+  "files": [
+    {
+      "path": "index.html",
+      "bytes": 36336,
+      "sha256": "b5ff72f09bfd30f9e978b3772e1c0ea2512b4f3f7b30019e2e716e43ee68963b"
+    },
+    {
+      "path": "cooperation-map.csv",
+      "bytes": 5931,
+      "sha256": "6c69d69e20ae219d72de0a459a5c9ba38b401fa8bfa584c1b939eab066c614af"
+    },
+    {
+      "path": "sources.json",
+      "bytes": 3403,
+      "sha256": "4674ec886b43aa5c4675b9580bcaf8820ede097364faf25697a342dfc9cf5427"
+    }
+  ]
+}

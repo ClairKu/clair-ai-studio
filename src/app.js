@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 125;
+const DATA_VERSION = 126;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -221,6 +221,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "yingmi-oap-customer-strategy-2026-10-22",
+      groupId: "ai-platform",
+      title: "盈米 OAP 与各类合作｜目标客群与经营关系",
+      url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-oap-customer-strategy-2026-10-22/",
+      preview: "yingmi-oap-customer-strategy-2026-10-22.png",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-22T11:36:00+08:00",
+      source: "基于公开证据梳理盈米 OAP 与各类合作的目标客群和经营关系；明确核心家庭客群、机构采购、合作分工及 90 天验证建议。使用者画像、优先级和资源配置为策略判断，不含内部经营数据。",
+      access: "production",
+      workType: "reporting",
+      tags: ["盈米", "OAP", "生态合作", "目标客群", "家庭服务", "机构采购", "增长策略", "HTML", "生产"],
+    },
     {
       id: "financial-internet-marketing-disclosures-2026-10-22",
       groupId: "growth-insights",
@@ -3837,6 +3851,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "yingmi-oap-customer-strategy-2026-10-22": "ai-platform",
   "financial-internet-marketing-disclosures-2026-10-22": "growth-insights",
   "yingmi-internet-ai-business-panorama-2026-10-22": "ai-platform",
   "aiwatch-l3-application-2026-10-21": "ai-workbench",

@@ -1,0 +1,86 @@
+[
+  {
+    "id": "S1",
+    "title": "盈米：且慢小顾接入千问 App",
+    "url": "https://www.yingmi.cn/archives/961.html",
+    "boundary": "正文记载 8 月 10 日接入；证明服务入口及定位，不证明新增资产。",
+    "checked": "2026-10-22"
+  },
+  {
+    "id": "S2",
+    "title": "盈米：2026 云栖大会与阿里生态合作",
+    "url": "https://www.yingmi.cn/archives/907",
+    "boundary": "正文记载 2026 年 9 月 22—24 日活动；区分小顾、工作助理、千问办公、机构方案。",
+    "checked": "2026-10-22"
+  },
+  {
+    "id": "S3",
+    "title": "盈米：MCP 订阅版接入百炼 One Key MCP",
+    "url": "https://www.yingmi.cn/archives/967",
+    "boundary": "公开订阅试点及三类场景包；不能据此推算收入或续费。",
+    "checked": "2026-10-22"
+  },
+  {
+    "id": "S4",
+    "title": "盈米：豆包工作与豆包接入实测",
+    "url": "https://www.yingmi.cn/archives/949.html",
+    "boundary": "公开 MCP 接入和专业工作流示例；未披露终端客群构成。",
+    "checked": "2026-10-22"
+  },
+  {
+    "id": "S5",
+    "title": "盈米：WorkBuddy 金融 AI 能力上线",
+    "url": "https://www.yingmi.cn/archives/877.html",
+    "boundary": "公开基金分析、归因、内容和配置模拟等工具使用场景。",
+    "checked": "2026-10-22"
+  },
+  {
+    "id": "S6",
+    "title": "盈米：机构 AI 智能体联合解决方案",
+    "url": "https://www.yingmi.cn/archives/871",
+    "boundary": "正文记载 2026 年 6 月金融展；机构可将能力嵌入自己的 App、H5、企微和工作台。",
+    "checked": "2026-10-22"
+  },
+  {
+    "id": "S7",
+    "title": "盈米：公司介绍与发展历程",
+    "url": "https://yingmi.com/page/about_us",
+    "boundary": "当前公开页记载百炼、扣子、火山引擎及 2025 年 6 月百度 AI 搜索等合作。",
+    "checked": "2026-10-22"
+  },
+  {
+    "id": "S8",
+    "title": "盈米：啟明业务介绍",
+    "url": "https://www.yingmi.cn/qiming",
+    "boundary": "当前公开页面说明 S2b2c、投顾团队和金融机构服务定位。",
+    "checked": "2026-10-22"
+  },
+  {
+    "id": "S9",
+    "title": "盈米：三端 AI 实践介绍",
+    "url": "https://www.yingmi.cn/archives/529",
+    "boundary": "公开说明且慢个人投顾与蜂鸟机构数字化服务；历史介绍不代表当前全部功能实测。",
+    "checked": "2026-10-22"
+  },
+  {
+    "id": "S10",
+    "title": "腾讯云：盈米 MCP 目录",
+    "url": "https://developer.cloud.tencent.com/mcp/server/11801",
+    "boundary": "公开目录证明可发现、可配置；不证明平台支付采购费或终端转化。",
+    "checked": "2026-10-22"
+  },
+  {
+    "id": "S11",
+    "title": "盈米：第三方互联网平台营销披露",
+    "url": "https://www.yingmi.cn/disclosure/10/985",
+    "boundary": "名单截至 2026-10-12，证明营销合作；不直接证明投顾、交易或客户资产。",
+    "checked": "2026-10-22"
+  },
+  {
+    "id": "S12",
+    "title": "Clair’s Studio：盈米互联网与 AI 合作全景",
+    "url": "https://clairku.github.io/clair-ai-studio/reports/yingmi-internet-ai-business-panorama-2026-10-22/",
+    "boundary": "既有研究披露的财富平台案例，分别注明 2026 年 5—7 月资料；本次未逐项复核合同及最新生产状态，不作为原始官方公告。",
+    "checked": "2026-10-22"
+  }
+]
