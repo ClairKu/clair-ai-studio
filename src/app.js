@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 140;
+const DATA_VERSION = 141;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -221,6 +221,19 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "xiaogu-personal-agent-framework-2026-10-23",
+      groupId: "xiaogu",
+      title: "AI 小顾 Personal Agent｜统一用户服务包与动态运营框架",
+      url: "https://clairku.github.io/clair-ai-studio/reports/xiaogu-personal-agent-framework-2026-10-23/",
+      preview: "xiaogu-personal-agent-framework-2026-10-23.png",
+      pinned: false,
+      createdAt: "2026-10-23T17:52:47+08:00",
+      source: "产品框架与联合落地建议｜统一每用户运营服务包、日增量与实时核实、触发洞察、动态编排、服务资产、千问新客跨端接续、AI与真人共享进度、市场运营分工、八周试点与增量转化实验｜16章图文HTML，含三种服务包视角、四条场景及可填写导出的共创清单｜所有样例为虚构，接口、资源与效果待确认，不代表产品已经上线",
+      access: "production",
+      workType: "product-planning",
+      tags: ["AI 小顾", "Personal Agent", "用户运营", "服务包", "动态编排", "千问", "新客转化", "市场运营", "产品规划", "HTML", "生产"],
+    },
     {
       id: "qieman-retirement-recommendation-audit-2026-10-23",
       groupId: "pension-planning",
@@ -3989,6 +4002,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "xiaogu-personal-agent-framework-2026-10-23": "xiaogu",
   "qieman-retirement-recommendation-audit-2026-10-23": "pension-planning",
   "yingmi-ai-open-platform-feishu-2026-10-22": "ai-platform",
   "yingmi-ai-open-platform-intro-2026-10-22": "ai-platform",

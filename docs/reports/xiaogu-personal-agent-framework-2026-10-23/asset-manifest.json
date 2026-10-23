@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "title": "AI小顾 Personal Agent 产品框架",
+  "status": "拟建方案",
+  "files": [
+    {
+      "path": "index.html",
+      "bytes": 66303,
+      "sha256": "57691f7a6fffdf8f7ed1609f4029b35c58b78f21d6e329968b8d64b8de1dee25"
+    },
+    {
+      "path": "xiaogu-personal-agent-framework.zip",
+      "bytes": 24517,
+      "sha256": "f89d781322378936fecf3d07ff4cb05b602bc9d0a3f984be0b0a8a8e3821eb71"
+    }
+  ]
+}
