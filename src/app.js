@@ -222,6 +222,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "qieman-retirement-recommendation-audit-2026-10-23",
+      groupId: "pension-planning",
+      title: "且慢养老专区｜当前产品推荐表与上架规则",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-retirement-recommendation-audit-2026-10-23/",
+      preview: "qieman-retirement-recommendation-audit-2026-10-23.png",
+      pinned: true,
+      position: 0,
+      createdAt: "2026-10-23T15:00:00+08:00",
+      source: "2026-10-23公开页面、已部署前端代码与公开响应交叉核对｜首页6只、税优严选25个Y份额、去重推荐39个份额代码、全部个养318条｜覆盖59个基金推荐位及投顾保险；可筛选HTML、CSV与Excel下载｜按页面注明展示、排序、分类与上架验收边界",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["且慢", "养老专区", "个人养老金", "产品推荐", "基金上架", "推荐规则", "份额代码", "Excel", "HTML", "生产"],
+    },
+    {
       id: "yingmi-ai-open-platform-feishu-2026-10-22",
       groupId: "ai-platform",
       title: "盈米AI开放平台｜黑金演示版",
@@ -3847,6 +3861,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "qieman-retirement-recommendation-audit-2026-10-23": "data-analysis",
   "yingmi-ai-open-platform-feishu-2026-10-22": "reporting",
   "yingmi-ai-open-platform-intro-2026-10-22": "product-planning",
   "vip-advisor-report-project-audit-2026-10-22": "reporting",
@@ -3974,6 +3989,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "qieman-retirement-recommendation-audit-2026-10-23": "pension-planning",
   "yingmi-ai-open-platform-feishu-2026-10-22": "ai-platform",
   "yingmi-ai-open-platform-intro-2026-10-22": "ai-platform",
   "vip-advisor-report-project-audit-2026-10-22": "advisor-workbench",

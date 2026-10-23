@@ -1,0 +1,42 @@
+{
+  "title": "且慢养老专区当前产品推荐表",
+  "capturedAt": "2026-10-23",
+  "scope": "公开页面与公开前端数据；39个份额代码，59个基金推荐位；Excel另含投顾与保险，共62条推荐位",
+  "files": [
+    {
+      "path": "index.html",
+      "bytes": 268989,
+      "sha256": "eb2a5b900557a26c9101d6694d53c69c98d35e7d323999b7b9454e3a410b9fbe"
+    },
+    {
+      "path": "recommendation-data.json",
+      "bytes": 337612,
+      "sha256": "104a6a9a082a57e0cfcc6c099fda0f23df2b0d031953cf1d6000e0ab91398f30"
+    },
+    {
+      "path": "当前产品推荐位明细.csv",
+      "bytes": 22729,
+      "sha256": "cccdcbaa5c4985421ef6cd9a86b5b174b2f654d17d11c9ecaee3c1b82981cbea"
+    },
+    {
+      "path": "全部个养基金接口清单.csv",
+      "bytes": 68743,
+      "sha256": "15c98203a371c11435155b0a03ae5fd3d826e1c1218854989cd9607cfe69d542"
+    },
+    {
+      "path": "养老专区当前产品推荐表-2026-10-23.xlsx",
+      "bytes": 39321,
+      "sha256": "7d446fe81c0b9ec26bfa6207859b3a546c0b5a117ebf9e620421c6ef101e9616"
+    },
+    {
+      "path": "preview-desktop.png",
+      "bytes": 165150,
+      "sha256": "838e1884e7235a8c16b5f7cd598241c65e001c50de3c880be4585a3b2d93ef12"
+    },
+    {
+      "path": "preview-mobile.png",
+      "bytes": 81021,
+      "sha256": "d04dc8d7808bb6b4d0823330f5af60e96f41c104e84f4d2c9df48edf0de32aa0"
+    }
+  ]
+}
