@@ -62,6 +62,14 @@ test('Question originals retain lines while masking direct identifiers and crede
   assert.match(safe,/手机号已隐藏/);
 });
 
+test('Explicit personal numbers split across lines are masked without joining fund-code lists or table cells',()=>{
+  assert.equal(redactQuestion('联系电话：138\n1234\n5678\n请回复'),'联系电话：[手机号已隐藏]\n请回复');
+  assert.equal(redactQuestion('手机号：1\n3\n812345678\n请回复'),'手机号：[手机号已隐藏]\n请回复');
+  assert.equal(redactQuestion('卡号：6222\n1234\n5678\n9012\n请核对'),'卡号：[长号码已隐藏]\n请核对');
+  assert.equal(redactQuestion('身份证号：110101\n19900101\n1234\n请隐藏'),'身份证号：[证件号已隐藏]\n请隐藏');
+  for(const text of ['基金代码\n020602\n163401','日期\n2026-10-01\n2026-10-02','金额\n250000\n180000','基金代码\n020602\t163401'])assert.equal(redactQuestion(text),text);
+});
+
 test('Reused question rules do not execute source fetching and distinguish known presets',async()=>{
   const classify=await loadQuestionRules(resolve(import.meta.dirname,'..'));
   assert.equal(classify('帮我看看现在的持仓结构，给出优化建议').preset.version,'launch_v1');

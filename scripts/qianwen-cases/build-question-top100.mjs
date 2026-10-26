@@ -17,6 +17,11 @@ export function redactQuestion(input){
     .replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi,'[邮箱已隐藏]')
     .replace(/(?<!\d)1[3-9]\d{9}(?!\d)/g,'[手机号已隐藏]')
     .replace(/(?<!\d)\d{17}[0-9Xx](?!\d)/g,'[证件号已隐藏]')
+    // Join split digits only after explicit personal-number labels. Unlabelled
+    // fund-code lists and numeric tables must not become synthetic long IDs.
+    .replace(/((?:手机号|手机号码|联系电话|电话号码|电话|联系方式)\s*[:：=]?\s*)(1[ \t\r\n-]*[3-9](?:[ \t\r\n-]*\d){9})(?![ \t]*\d)/g,'$1[手机号已隐藏]')
+    .replace(/((?:身份证号?|证件号)\s*[:：=]?\s*)(\d(?:[ \t\r\n-]*\d){16}[ \t\r\n-]*[0-9Xx])(?![ \t]*\d)/g,'$1[证件号已隐藏]')
+    .replace(/((?:银行卡号?|卡号|账户号|账号|帐号)\s*[:：=]?\s*)(\d(?:[ \t\r\n-]*\d){11,18})(?![ \t]*\d)/g,'$1[长号码已隐藏]')
     .replace(/(?<!\d)(?:\d[ -]?){12,19}(?!\d)/g,'[长号码已隐藏]')
     .replace(/\bsk-[A-Za-z0-9_-]{16,}\b/g,'[密钥已隐藏]')
     .replace(/((?:api[_\s-]?key|access[_\s-]?token|authorization|password|密码|密钥)\s*[:=：]\s*)["']?[A-Za-z0-9_+./=-]{6,}["']?/gi,'$1[敏感凭证已隐藏]')

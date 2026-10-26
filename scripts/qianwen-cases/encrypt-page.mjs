@@ -21,7 +21,12 @@ async function deriveKey(salt) {
 const plain = await readFile(src, "utf8");
 const salt = randomBytes(16), iv = randomBytes(12);
 const key = await deriveKey(salt);
-const compressed = gzipSync(Buffer.from(plain, "utf8"), { level: 9 });
+// Optional author-side optimized gzip; always prove identical plaintext before encryption.
+const plainBytes = Buffer.from(plain, "utf8");
+const compressed = process.env.REPORT_GZIP_INPUT
+  ? await readFile(process.env.REPORT_GZIP_INPUT)
+  : gzipSync(plainBytes, { level: 9 });
+if (!gunzipSync(compressed).equals(plainBytes)) throw new Error("预压缩内容与报告原文不一致");
 const data = new Uint8Array(await webcrypto.subtle.encrypt({ name: "AES-GCM", iv }, key, compressed));
 const payload = { salt: toB64(salt), iv: toB64(iv), data: toB64(data), iterations: ITER, compression: "gzip" };
 
