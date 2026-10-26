@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "oap-oauth-dashboard-2026-10-26",
     "xiaogu-personal-agent-framework-2026-10-23",
     "qieman-retirement-recommendation-audit-2026-10-23",
     "yingmi-ai-open-platform-feishu-2026-10-22",

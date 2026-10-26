@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 141;
+const DATA_VERSION = 142;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -221,6 +221,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "oap-oauth-dashboard-2026-10-26",
+      groupId: "growth-insights",
+      title: "OAP用户全景｜含OAuth",
+      url: "https://clairku.github.io/clair-ai-studio/reports/oap-oauth-dashboard-2026-10-26/",
+      preview: "oap-oauth-dashboard-2026-10-26.png",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-26T14:30:00+08:00",
+      source: "2026-10-26 14:30 生产只读聚合快照｜Key绑定去重用户与外部且慢交互OAuth授权覆盖合并去重，展示OAuth累计与当前有效、交集及补充覆盖｜保留已记录Key使用与活跃并明确OAuth日志缺口，合并使用指标待补齐；授权不等同实际调用｜含趋势、原图逐项对照、统计说明和聚合导出；不含用户级记录、内部地址、身份标识或查询语句",
+      access: "production",
+      workType: "data-analysis",
+      tags: ["OAP", "OAuth", "API Key", "用户覆盖", "用户去重", "活跃用户", "数据看板", "统计口径", "公开聚合", "HTML", "生产"],
+    },
     {
       id: "xiaogu-personal-agent-framework-2026-10-23",
       groupId: "xiaogu",
@@ -3874,6 +3888,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "oap-oauth-dashboard-2026-10-26": "data-analysis",
   "qieman-retirement-recommendation-audit-2026-10-23": "data-analysis",
   "yingmi-ai-open-platform-feishu-2026-10-22": "reporting",
   "yingmi-ai-open-platform-intro-2026-10-22": "product-planning",
@@ -4002,6 +4017,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "oap-oauth-dashboard-2026-10-26": "growth-insights",
   "xiaogu-personal-agent-framework-2026-10-23": "xiaogu",
   "qieman-retirement-recommendation-audit-2026-10-23": "pension-planning",
   "yingmi-ai-open-platform-feishu-2026-10-22": "ai-platform",

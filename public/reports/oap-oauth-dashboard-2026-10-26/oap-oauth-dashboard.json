@@ -1,0 +1,411 @@
+{
+  "snapshot": {
+    "asOf": "2026-10-26 14:30",
+    "timezone": "Asia/Shanghai",
+    "type": "静态快照",
+    "partialDay": "2026-10-26"
+  },
+  "coverage": {
+    "mergedUsers": 19955,
+    "keyUsers": 15269,
+    "oauthEverUsers": 5770,
+    "oauthCurrentUsers": 5699,
+    "overlapUsers": 1084,
+    "oauthNetNewUsers": 4686,
+    "apiKeyCount": 15814,
+    "unmappedKeyCount": 538
+  },
+  "oauthPlatforms": [
+    {
+      "name": "豆包",
+      "everUsers": 3911,
+      "currentUsers": 3902,
+      "currentSuppressed": false
+    },
+    {
+      "name": "动态注册客户端",
+      "everUsers": 1940,
+      "currentUsers": 1874,
+      "currentSuppressed": false
+    },
+    {
+      "name": "千问办公",
+      "everUsers": 45,
+      "currentUsers": 45,
+      "currentSuppressed": false
+    },
+    {
+      "name": "其他（单项<20）",
+      "everUsers": null,
+      "currentUsers": null,
+      "suppressed": true
+    }
+  ],
+  "coverageTrend": [
+    {
+      "date": "2026-09-27",
+      "mergedUsers": 16358,
+      "keyUsers": 14594,
+      "oauthEverUsers": 2055,
+      "newUsers": 101
+    },
+    {
+      "date": "2026-09-28",
+      "mergedUsers": 16486,
+      "keyUsers": 14627,
+      "oauthEverUsers": 2157,
+      "newUsers": 128
+    },
+    {
+      "date": "2026-09-29",
+      "mergedUsers": 16633,
+      "keyUsers": 14671,
+      "oauthEverUsers": 2267,
+      "newUsers": 147
+    },
+    {
+      "date": "2026-09-30",
+      "mergedUsers": 16758,
+      "keyUsers": 14719,
+      "oauthEverUsers": 2351,
+      "newUsers": 125
+    },
+    {
+      "date": "2026-10-01",
+      "mergedUsers": 16848,
+      "keyUsers": 14752,
+      "oauthEverUsers": 2417,
+      "newUsers": 90
+    },
+    {
+      "date": "2026-10-02",
+      "mergedUsers": 16924,
+      "keyUsers": 14767,
+      "oauthEverUsers": 2482,
+      "newUsers": 76
+    },
+    {
+      "date": "2026-10-03",
+      "mergedUsers": 16999,
+      "keyUsers": 14782,
+      "oauthEverUsers": 2548,
+      "newUsers": 75
+    },
+    {
+      "date": "2026-10-04",
+      "mergedUsers": 17067,
+      "keyUsers": 14797,
+      "oauthEverUsers": 2602,
+      "newUsers": 68
+    },
+    {
+      "date": "2026-10-05",
+      "mergedUsers": 17141,
+      "keyUsers": 14813,
+      "oauthEverUsers": 2662,
+      "newUsers": 74
+    },
+    {
+      "date": "2026-10-06",
+      "mergedUsers": 17224,
+      "keyUsers": 14834,
+      "oauthEverUsers": 2730,
+      "newUsers": 83
+    },
+    {
+      "date": "2026-10-07",
+      "mergedUsers": 17288,
+      "keyUsers": 14850,
+      "oauthEverUsers": 2781,
+      "newUsers": 64
+    },
+    {
+      "date": "2026-10-08",
+      "mergedUsers": 17413,
+      "keyUsers": 14893,
+      "oauthEverUsers": 2869,
+      "newUsers": 125
+    },
+    {
+      "date": "2026-10-09",
+      "mergedUsers": 17553,
+      "keyUsers": 14935,
+      "oauthEverUsers": 2976,
+      "newUsers": 140
+    },
+    {
+      "date": "2026-10-10",
+      "mergedUsers": 17725,
+      "keyUsers": 14971,
+      "oauthEverUsers": 3135,
+      "newUsers": 172
+    },
+    {
+      "date": "2026-10-11",
+      "mergedUsers": 17863,
+      "keyUsers": 14994,
+      "oauthEverUsers": 3321,
+      "newUsers": 138
+    },
+    {
+      "date": "2026-10-12",
+      "mergedUsers": 18062,
+      "keyUsers": 15029,
+      "oauthEverUsers": 3601,
+      "newUsers": 199
+    },
+    {
+      "date": "2026-10-13",
+      "mergedUsers": 18239,
+      "keyUsers": 15060,
+      "oauthEverUsers": 3831,
+      "newUsers": 177
+    },
+    {
+      "date": "2026-10-14",
+      "mergedUsers": 18421,
+      "keyUsers": 15093,
+      "oauthEverUsers": 4051,
+      "newUsers": 182
+    },
+    {
+      "date": "2026-10-15",
+      "mergedUsers": 18605,
+      "keyUsers": 15117,
+      "oauthEverUsers": 4268,
+      "newUsers": 184
+    },
+    {
+      "date": "2026-10-16",
+      "mergedUsers": 18739,
+      "keyUsers": 15138,
+      "oauthEverUsers": 4421,
+      "newUsers": 134
+    },
+    {
+      "date": "2026-10-17",
+      "mergedUsers": 18852,
+      "keyUsers": 15154,
+      "oauthEverUsers": 4549,
+      "newUsers": 113
+    },
+    {
+      "date": "2026-10-18",
+      "mergedUsers": 18960,
+      "keyUsers": 15168,
+      "oauthEverUsers": 4663,
+      "newUsers": 108
+    },
+    {
+      "date": "2026-10-19",
+      "mergedUsers": 19128,
+      "keyUsers": 15188,
+      "oauthEverUsers": 4851,
+      "newUsers": 168
+    },
+    {
+      "date": "2026-10-20",
+      "mergedUsers": 19277,
+      "keyUsers": 15212,
+      "oauthEverUsers": 5010,
+      "newUsers": 149
+    },
+    {
+      "date": "2026-10-21",
+      "mergedUsers": 19422,
+      "keyUsers": 15228,
+      "oauthEverUsers": 5183,
+      "newUsers": 145
+    },
+    {
+      "date": "2026-10-22",
+      "mergedUsers": 19551,
+      "keyUsers": 15238,
+      "oauthEverUsers": 5329,
+      "newUsers": 129
+    },
+    {
+      "date": "2026-10-23",
+      "mergedUsers": 19704,
+      "keyUsers": 15252,
+      "oauthEverUsers": 5491,
+      "newUsers": 153
+    },
+    {
+      "date": "2026-10-24",
+      "mergedUsers": 19797,
+      "keyUsers": 15262,
+      "oauthEverUsers": 5584,
+      "newUsers": 93
+    },
+    {
+      "date": "2026-10-25",
+      "mergedUsers": 19895,
+      "keyUsers": 15265,
+      "oauthEverUsers": 5698,
+      "newUsers": 98
+    },
+    {
+      "date": "2026-10-26",
+      "mergedUsers": 19955,
+      "keyUsers": 15269,
+      "oauthEverUsers": 5770,
+      "newUsers": 60
+    }
+  ],
+  "keyMetrics": {
+    "usedUsers": 9521,
+    "totalCalls": 22377965,
+    "dailyAverageCalls": 123780.46666666666,
+    "returnUsers": 4879,
+    "returnRate": 0.5124461716206281,
+    "weeklyActiveUsers": 674,
+    "weeklyActiveRate": 0.04414172506385487,
+    "monthlyActiveUsers": 1840,
+    "monthlyActiveRate": 0.1205055995808501,
+    "unmappedCalls": 19850539,
+    "unmappedCallShare": 0.8870573798823977,
+    "usedKeys": 9753,
+    "weeklyActiveKeys": 723,
+    "monthlyActiveKeys": 1919,
+    "returnKeysCrossDay": 5017,
+    "rateDenominator": 15269,
+    "rangeLabel": "7/30日滚动至2026-10-26 14:30；日均取9/26—10/25共30个完整自然日",
+    "sourceLabel": "",
+    "definitionNote": ""
+  },
+  "keyCallTrend": [
+    {
+      "date": "2026-09-26",
+      "calls": 24849
+    },
+    {
+      "date": "2026-09-27",
+      "calls": 23923
+    },
+    {
+      "date": "2026-09-28",
+      "calls": 59529
+    },
+    {
+      "date": "2026-09-29",
+      "calls": 55408
+    },
+    {
+      "date": "2026-09-30",
+      "calls": 53928
+    },
+    {
+      "date": "2026-10-01",
+      "calls": 32520
+    },
+    {
+      "date": "2026-10-02",
+      "calls": 28161
+    },
+    {
+      "date": "2026-10-03",
+      "calls": 23265
+    },
+    {
+      "date": "2026-10-04",
+      "calls": 20199
+    },
+    {
+      "date": "2026-10-05",
+      "calls": 22085
+    },
+    {
+      "date": "2026-10-06",
+      "calls": 22193
+    },
+    {
+      "date": "2026-10-07",
+      "calls": 22601
+    },
+    {
+      "date": "2026-10-08",
+      "calls": 58360
+    },
+    {
+      "date": "2026-10-09",
+      "calls": 94147
+    },
+    {
+      "date": "2026-10-10",
+      "calls": 128895
+    },
+    {
+      "date": "2026-10-11",
+      "calls": 95043
+    },
+    {
+      "date": "2026-10-12",
+      "calls": 187314
+    },
+    {
+      "date": "2026-10-13",
+      "calls": 218932
+    },
+    {
+      "date": "2026-10-14",
+      "calls": 213012
+    },
+    {
+      "date": "2026-10-15",
+      "calls": 277909
+    },
+    {
+      "date": "2026-10-16",
+      "calls": 233748
+    },
+    {
+      "date": "2026-10-17",
+      "calls": 159668
+    },
+    {
+      "date": "2026-10-18",
+      "calls": 108041
+    },
+    {
+      "date": "2026-10-19",
+      "calls": 220641
+    },
+    {
+      "date": "2026-10-20",
+      "calls": 223627
+    },
+    {
+      "date": "2026-10-21",
+      "calls": 243344
+    },
+    {
+      "date": "2026-10-22",
+      "calls": 272049
+    },
+    {
+      "date": "2026-10-23",
+      "calls": 275763
+    },
+    {
+      "date": "2026-10-24",
+      "calls": 148551
+    },
+    {
+      "date": "2026-10-25",
+      "calls": 165709
+    },
+    {
+      "date": "2026-10-26",
+      "calls": 122615
+    }
+  ],
+  "provenance": {
+    "coverage": "生产数据只读聚合；非空且慢用户标识去重；排除已知内部测试Key及测试OAuth客户端。外部OAuth取官方渠道的用户交互授权，排除内部预授权自动创建。累计口径保留历史已撤销授权，当前有效另列。",
+    "keyLogs": "已记录调用明细按Key关联个人；不含个人映射的Key保留调用量但不折算人数。现有明细不能区分OAuth身份；不据此断定OAuth调用完全未进入总量，也不直接累加其他日志。",
+    "trends": "覆盖趋势按现存Key创建时间、现存授权记录首次授权时间，逐用户取两者最早日期重建。非历史每日数据库存档，删除或修订可能造成历史重述。当天数据仅截至14:30。",
+    "rates": "复用=至少在2个不同自然日出现使用；复用率=跨日使用人数÷已使用人数。周/月活跃=近7/30日有记录且可映射的个人，活跃率分母统一为15,269个Key绑定去重用户。合并OAuth使用指标尚待补齐。",
+    "comparison": "原截图未给出时间与完整后台公式，仅供逐项对照。新旧时间、人数去重和日均窗口不同，不可据此计算增长或流失。",
+    "validation": "合并恒等式、趋势末值、完整30日日均、活跃集合边界均已通过独立校验。OAuth平台之间可能有同人，不可直接相加。"
+  }
+}
