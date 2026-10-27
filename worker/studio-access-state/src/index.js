@@ -24,6 +24,7 @@ export const BASE_POLICY = Object.freeze({
     "reports/qieman-four-money-redesign-2026-09-24/",
   ],
   immutableLockedEntries: [
+    "reports/ai-strategy-cockpit-2026-10-27/",
     "reports/doubao-user-acquisition-dashboard/",
     "reports/doubao-user-conversion-cases-2026-09-20/",
     "reports/qianwen-first-investor-cases-2026-09-17/",

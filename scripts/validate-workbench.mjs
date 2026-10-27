@@ -409,6 +409,8 @@ const passwordGatePattern = /type=["']password["']|id=["']password["']|id=["']pa
 // 报告本身照样全文公开可读，所以标了 data-gate="action" 的输入框排除在外。
 const actionGateInput = /<input\b[^>]*\bdata-gate=["']action["'][^>]*>/gi;
 const selfProtectedReportIds = new Set([
+  "ai-strategy-cockpit-2026-10-27",
+  "hiring-review-2026-10-27",
   "qianwen-user-acquisition-dashboard",
   "doubao-user-acquisition-dashboard",
   "doubao-user-conversion-cases-2026-09-20",

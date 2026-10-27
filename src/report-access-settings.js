@@ -60,6 +60,7 @@ export function normalizeReportAccessConfig(value = {}, fallback = {}) {
     ]),
     unlockedEntries: uniqueEntries(value.unlockedEntries),
     immutableLockedEntries: uniqueEntries([
+      ...(fallback.immutableLockedEntries || []),
       ...(value.immutableLockedEntries || []),
       ...legacyReportEntries(value.immutableLockedReportIds),
     ]),

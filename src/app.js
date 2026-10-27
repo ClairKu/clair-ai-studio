@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 145;
+const DATA_VERSION = 146;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -238,31 +238,16 @@ const initialState = {
     {
       id: "ai-strategy-cockpit-2026-10-27",
       groupId: "ai-platform",
-      title: "AI 战略驾驶舱",
+      title: "AI 业务增长驾驶舱",
       url: "https://clairku.github.io/clair-ai-studio/reports/ai-strategy-cockpit-2026-10-27/",
       preview: "ai-strategy-cockpit-2026-10-27.svg",
       pinned: false,
       position: 0,
       createdAt: "2026-10-27T09:54:54+08:00",
-      source: "高级可交互 AI 战略驾驶舱，连接战略、产品、用户成效、能力、上架合作与路线决策。支持事件维护、平台关键进展、整体时间表、按类别和事件筛选与汇报编排；可保存本地内容、导出分享版及演示数据。全部指标、状态与合作进展均为结构演示，未连接业务系统，不代表实际经营结果。",
+      source: "以业务数据和上线以来的用户增长为核心的交互驾驶舱。整合 OAP、千问、豆包三源聚合快照，支持日周月趋势、关键阶段与里程碑聚焦、事件维护、用户数据编辑及汇报编排。真实聚合快照与示意模块分别标识；正文使用既有共享访问凭证加密，未公开受限数据明文。",
       access: "production",
       workType: "product-planning",
-      tags: [
-        "AI 战略",
-        "AI 平台",
-        "驾驶舱",
-        "产品规划",
-        "项目进展",
-        "事件维护",
-        "整体时间表",
-        "汇报编排",
-        "用户成效",
-        "能力体系",
-        "生态合作",
-        "交互原型",
-        "演示数据",
-        "HTML"
-      ]
+      tags: ["AI 战略", "AI 平台", "驾驶舱", "产品规划", "项目进展", "事件维护", "整体时间表", "汇报编排", "用户成效", "能力体系", "生态合作", "交互原型", "演示数据", "HTML", "业务数据", "用户增长", "上线以来", "关键里程碑", "真实聚合快照", "密文保护"]
     },
     {
       id: "oap-oauth-dashboard-2026-10-26",

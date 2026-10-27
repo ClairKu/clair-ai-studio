@@ -40,13 +40,13 @@
     },
     {
       "path": "guide.html",
-      "bytes": 21513,
-      "sha256": "ddd0d3345ca3edbfad31def008645c2f28e4a351cb6d68ea860fe4969d225f60"
+      "bytes": 27333,
+      "sha256": "f7f5bb53dff8a8dbf834d6d75f48b487e97786d143086282e5cf04338912ac3f"
     },
     {
       "path": "index.html",
-      "bytes": 3300,
-      "sha256": "b66e46ce946ef9e301d8c453f622b9b14279962144d441b4a41d1d5ae5014ba6"
+      "bytes": 130411,
+      "sha256": "f4639f48a56659e848972c75cad20d5beab0193975065d5fca4c0f3082caaff2"
     }
   ]
 }

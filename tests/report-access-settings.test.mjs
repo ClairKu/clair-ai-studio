@@ -32,6 +32,15 @@ test("fails closed when an older config has no default policy", () => {
   assert.equal(normalizeReportAccessConfig({ defaultLocked: false }).defaultLocked, false);
 });
 
+test("keeps a newly deployed encrypted report protected when the live policy is older", () => {
+  const entry = "reports/ai-strategy-cockpit-2026-10-27/";
+  const merged = normalizeReportAccessConfig({defaultLocked:false, unlockedEntries:[entry]}, {
+    immutableLockedEntries:[entry],
+  });
+  assert.equal(reportAccessStatus({url:`https://clairku.github.io/clair-ai-studio/${entry}`},merged).immutable,true);
+  assert.equal(reportAccessStatus({url:`https://clairku.github.io/clair-ai-studio/${entry}`},merged).locked,true);
+});
+
 test("derives one stable access entry for report directories and individual app pages", () => {
   assert.equal(managedAccessEntry({
     url: "https://clairku.github.io/clair-ai-studio/reports/example/index.html",

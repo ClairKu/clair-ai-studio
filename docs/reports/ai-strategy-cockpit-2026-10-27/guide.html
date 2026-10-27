@@ -5,8 +5,8 @@
     <script data-clair-access-gate data-clair-access-scope="report" data-clair-access-entry="reports/ai-strategy-cockpit-2026-10-27/guide.html" src="../../access-gate.js?rev=2026-10-10-live-state-v9"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="AI 战略驾驶舱产品原型的使用与更新指南：以事件更新项目、平台、时间表与汇报内容，说明本地保存、备份、分享与后续接入边界。">
-<title>AI 战略驾驶舱 · 使用与更新指南 · 产品原型</title>
+<meta name="description" content="AI 战略驾驶舱第二版使用指南：独立来源的业务快照、全周期增长、关键阶段与里程碑，以及事件更新、本机保存、完整备份和分享边界。">
+<title>AI 战略驾驶舱 V2 · 使用与更新指南</title>
 <style>
 :root{--ink:#162334;--muted:#637184;--paper:#f6f7f4;--line:#dfe5e5;--navy:#142d40;--green:#d7ecad;--accent:#63816a;--amber:#ad773a}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.75}a{color:inherit}header{background:var(--navy);color:white;padding:48px max(28px,calc((100vw - 1120px)/2)) 52px}.eyebrow{font-size:11px;letter-spacing:.19em;color:#b8c9ce}h1{font-size:clamp(29px,4.4vw,49px);font-weight:550;letter-spacing:-.045em;line-height:1.2;margin:22px 0 18px}header p{max-width:760px;color:#c6d2da;font-size:15px;margin:0}.pill{display:inline-block;border:1px solid #627889;border-radius:30px;padding:3px 10px;font-size:11px;letter-spacing:.05em;vertical-align:middle;margin-bottom:3px}.hero-foot{display:flex;gap:28px;flex-wrap:wrap;margin-top:30px;color:#aec3cc;font-size:12px}.hero-foot b{color:var(--green);font-weight:500}main{max-width:1120px;margin:0 auto;padding:40px 28px 64px}nav{display:flex;flex-wrap:wrap;gap:8px 24px;padding:0 0 22px;border-bottom:1px solid var(--line);margin-bottom:42px;font-size:12px;color:var(--muted)}nav a{text-decoration:none}nav a:hover{color:var(--ink)}section{scroll-margin-top:22px;margin:0 0 42px}.section-top{display:flex;gap:15px;align-items:baseline;margin-bottom:18px}.num{font-size:11px;letter-spacing:.12em;color:var(--accent);font-weight:650}.section-top h2{font-weight:550;font-size:24px;line-height:1.4;letter-spacing:-.03em;margin:0}.intro{color:var(--muted);font-size:14px;max-width:860px;margin:0 0 22px}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{background:white;border:1px solid var(--line);border-radius:14px;padding:23px}.step{font-size:11px;letter-spacing:.1em;color:var(--accent)}h3{font-size:16px;font-weight:550;line-height:1.5;margin:10px 0}p{font-size:13px;margin:0 0 12px}.card p{color:var(--muted);margin:0}.flow{margin-top:18px;padding:21px 24px;border:1px solid #d1ddcc;background:#edf3e8;border-radius:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.flow span{font-size:13px}.flow em{font-size:15px;font-style:normal;color:#839379}.caption{color:var(--muted);font-size:12px;margin:12px 0 0}.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:white}table{width:100%;border-collapse:collapse;min-width:660px}th{text-align:left;background:#eef2f0;font-size:11px;color:#6c7a80;font-weight:550;letter-spacing:.04em;padding:12px 18px}td{font-size:12px;padding:14px 18px;border-top:1px solid #edf0ee;vertical-align:top}td:first-child{font-weight:550;width:145px}td:nth-child(2){width:41%}td:last-child{color:var(--muted)}.sample{margin-top:20px;padding:25px;border:1px solid var(--line);border-radius:14px;background:white}.sample-top{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px}.tag{display:inline-block;font-size:10px;padding:3px 8px;border-radius:5px;background:#eaf0f7;color:#647f9e}.tag.green{background:#eaf1e7;color:#638169}.tag.amber{background:#f7f0e5;color:#a27943}.sample h3{font-size:20px;margin:7px 0 16px}.sample dl{display:grid;grid-template-columns:70px 1fr;gap:9px 15px;font-size:12px;margin:0}.sample dt{color:var(--muted)}.sample dd{margin:0}.sample-note{font-size:11px;color:#8d969c;margin-top:18px;border-top:1px solid var(--line);padding-top:12px}.dual{display:grid;grid-template-columns:1fr 1fr;gap:15px}.panel{padding:25px;background:white;border:1px solid var(--line);border-radius:14px}.panel h3{margin-top:0}.panel ul{padding-left:17px;margin:12px 0 0;color:var(--muted);font-size:13px}.panel li{padding-bottom:7px}.timeline{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:20px}.time{padding-top:19px;border-top:2px solid #a9bdad;position:relative}.time:before{content:"";width:7px;height:7px;border-radius:50%;background:#7b9981;position:absolute;top:-4px;left:0}.time small{font-size:11px;color:var(--accent)}.time h3{font-size:14px;margin:6px 0}.time p{font-size:12px;color:var(--muted)}.toggle-list{display:grid;gap:11px;margin-top:17px}.toggle-row{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-bottom:1px solid #edf0ed;font-size:12px}.check{font-size:11px;color:#66866d}.quiet{color:#8e989f}.note{padding:18px 22px;margin-top:18px;border-left:3px solid #829875;background:#edf3e9;font-size:12px;color:#52655a;border-radius:0 8px 8px 0}.note.amber{background:#f7f1e7;border-color:#b89466;color:#826b4b}.action-row{display:grid;grid-template-columns:115px 1fr;gap:15px;padding:17px 0;border-bottom:1px solid var(--line);font-size:13px}.action-row b{font-weight:550}.action-row span{color:var(--muted)}.checklist{display:grid;grid-template-columns:1fr 1fr;gap:0 28px}.check-item{border-top:1px solid var(--line);padding:16px 0;display:flex;gap:12px;font-size:12px;color:var(--muted)}.check-item i{font-style:normal;color:var(--accent);font-weight:550}.scope{display:grid;grid-template-columns:1.1fr 1fr;gap:15px}.scope .panel:first-child{background:var(--navy);color:white;border-color:var(--navy)}.scope .panel:first-child p{color:#bacbd4}.scope h3{font-size:17px}footer{border-top:1px solid var(--line);padding-top:22px;color:#829099;font-size:11px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}.key{font-family:inherit;font-size:11px;background:#eef0ed;border:1px solid #dfe3dd;border-radius:4px;padding:1px 5px;color:#647169}strong{font-weight:550}button{font-family:inherit}.print{margin-left:auto;background:transparent;border:1px solid #dce2dc;border-radius:6px;padding:5px 10px;color:#647169;cursor:pointer;font-size:11px}.print:hover{background:white}@media(max-width:760px){header{padding:32px 24px 36px}main{padding:30px 22px}.cards,.dual,.timeline,.scope{grid-template-columns:1fr}.timeline{gap:8px}.time{border-top:0;border-left:2px solid #b1c2b4;padding:0 0 14px 18px}.time:before{top:6px;left:-4.5px}.checklist{grid-template-columns:1fr}.section-top h2{font-size:21px}.flow{justify-content:flex-start}.hero-foot{gap:12px 23px}.action-row{grid-template-columns:88px 1fr}nav{gap:10px 18px}.sample dl{grid-template-columns:55px 1fr}}@media print{body{background:white}header{padding:28px;color:var(--ink);background:#eef2ef}header p,.eyebrow,.hero-foot{color:var(--muted)}.hero-foot b{color:var(--accent)}h1{font-size:31px}.pill{border-color:#b8c5b9}main{padding:25px}nav,.print{display:none}.cards,.dual,.scope{break-inside:avoid}.section-top{break-after:avoid}section{margin-bottom:28px}.card,.panel,.sample,.table-wrap{break-inside:avoid}.scope .panel:first-child{background:#eef2ef;color:var(--ink);border-color:var(--line)}.scope .panel:first-child p{color:var(--muted)}a{text-decoration:none}footer{margin-top:25px}}
 </style>
@@ -14,12 +14,33 @@
 <body>
 <header>
   <div class="eyebrow">AI STRATEGY COCKPIT / OPERATING GUIDE</div>
-  <h1>让每次更新，成为下一次汇报的积累。</h1>
-  <p><span class="pill">产品原型</span> &nbsp;使用与更新指南。以“事件”为基本单位，把平台关键进展、项目建设与整体时间表放在同一套信息里；展示内容可按类别和具体事项选择。</p>
-  <div class="hero-foot"><span><b>更新一次</b> &nbsp;关联多处</span><span><b>按需展示</b> &nbsp;保留完整记录</span><span><b>本地保存</b> &nbsp;主动备份与分享</span></div>
+  <h1>先看业务结果，再看增长如何走到今天。</h1>
+  <p><span class="pill">第二版 · 产品原型</span> &nbsp;使用与更新指南。首页以既有业务聚合快照为主，连接全周期增长、关键阶段和里程碑；项目、平台与机构管理模块保留结构示意，并支持本机维护。</p>
+  <div class="hero-foot"><span><b>业务优先</b> &nbsp;逐源保留口径</span><span><b>更新一次</b> &nbsp;关联多处</span><span><b>本地保存</b> &nbsp;主动备份与分享</span></div>
 </header>
 <main>
-<nav aria-label="指南目录"><a href="#workflow">01 更新方式</a><a href="#event">02 事件字段</a><a href="#schedule">03 平台与时间表</a><a href="#display">04 选择展示内容</a><a href="#storage">05 保存与分享</a><a href="#boundary">06 首版边界</a><button class="print" type="button" onclick="window.print()">打印指南 / 保存 PDF</button></nav>
+<nav aria-label="指南目录"><a href="#business">V2 业务与增长</a><a href="#workflow">01 更新方式</a><a href="#event">02 事件字段</a><a href="#schedule">03 平台与时间表</a><a href="#display">04 选择展示内容</a><a href="#storage">05 保存与分享</a><a href="#boundary">06 产品边界</a><button class="print" type="button" onclick="window.print()">打印指南 / 保存 PDF</button></nav>
+
+<section id="business">
+  <div class="section-top"><span class="num">V2 / BUSINESS &amp; GROWTH</span><h2>经营总览：用独立来源的真实快照，串起增长、阶段与里程碑。</h2></div>
+  <p class="intro">第二版把“经营总览”作为首页，“增长分析”用于查看同一来源的观测明细，“历程与规划”连接整体时间表与后续计划。原“战略总览、用户与成效、路线与决策”分别更名为以上三项；其余视图为产品与项目、能力体系、上架与合作、内容与更新。</p>
+  <div class="table-wrap"><table><thead><tr><th>业务来源</th><th>已接入快照与观测范围</th><th>阅读时保留的边界</th></tr></thead><tbody>
+    <tr><td>AI 开放平台 / OAP</td><td>575 个日级观测记录，覆盖 2025.03.27—2026.10.22；快照截至 2026.10.22 14:39。</td><td>日级正式上线日期尚未核验。当前展示首个可观测记录以来的历史，不能把首条记录当作上线日。申请记录、调用次数按各自实体统计。</td></tr>
+    <tr><td>千问</td><td>独立的绑定账户回放来源；可观测历史始于 2026.08.03，正式上线锚点为 2026.08.10；快照截至 2026.10.27 09:33。</td><td>全量观测包含上线前累计记录。“上线以来”裁切显示区间，累计值不自动清零，也不能全部解释为上线后新增。</td></tr>
+    <tr><td>豆包</td><td>独立的绑定账户回放来源；可观测历史及正式上线锚点为 2026.08.28；快照截至 2026.10.27 09:33。</td><td>与千问分别保留来源、账户实体和统计窗口，不合并为跨平台去重用户。</td></tr>
+  </tbody></table></div>
+  <div class="note amber"><strong>不同来源的截止时间不同。</strong> OAP 截至 10 月 22 日，千问、豆包截至 10 月 27 日的日内截点。页面复用的是既有已发布业务聚合快照，并非实时连接业务系统；不得把不同日期的顶部指标当作同一天的经营总量相加。</div>
+  <div class="cards" style="margin-top:20px">
+    <article class="card"><div class="step">VIEW 01</div><h3>切来源，再切指标</h3><p>先选择 AI 开放平台、千问或豆包，再切换该来源实际具备的累计或当日指标。悬停查看观测日期与数值，点击节点进入档案；缺失值保留缺失。</p></article>
+    <article class="card"><div class="step">VIEW 02</div><h3>选择范围与日 / 周 / 月</h3><p>“上线以来”依据已核验上线日裁切；“全量观测”显示全部可观测记录。还可查看近 30 天、近 90 天。累计指标在周、月视图取末次观测，增量按已观测日期汇总。</p></article>
+    <article class="card"><div class="step">VIEW 03</div><h3>聚焦阶段与关键节点</h3><p>点击阶段卡，聚焦该阶段的增长区间、观测变化及关联里程碑。月级节点保留到月，不补造某一天；没有对应日数据的节点不插值。</p></article>
+  </div>
+  <div class="dual" style="margin-top:20px">
+    <article class="panel"><h3>“更新数据”：维护业务快照与历史序列</h3><p>在经营总览或增长分析的来源栏点击“更新数据”。选择来源，维护截止时间、正式上线日期、顶部业务指标，并从表格粘贴历史序列。</p><p class="caption">序列顺序为日期、累计用户、当日新增、当日调用、累计调用；逗号或制表符均可，未观测值留空。使用该来源原有实体和定义；保存后标为“本机维护快照”。</p></article>
+    <article class="panel"><h3>“编辑阶段”：维护时间范围与下一关</h3><p>在“关键阶段”标题旁点击“编辑阶段”，维护名称、起止日期、阶段性质和目标 / 验收关口；可增加阶段，名称留空可移除。</p><p class="caption">“汇报分期”只组织展示；“手工规划”表示维护者的规划；“已核验”需要实际依据。阶段、里程碑和用户增长按时间并列呈现，不自动证明增长归因或建设完成。</p></article>
+  </div>
+  <div class="note"><strong>业务数据、阶段、事件分别维护，关联阅读。</strong> 全周期序列与来源阶段保存在 <span class="key">growth_dataset</span> 中；关键里程碑保留来源记录和原始时间精度。新增平台进展通过“新增事件”维护，勾选展示，并填写匹配的来源平台名称或“整体”，即可参与对应来源的手工进展展示；初始演示事件不混入真实业务节点。</div>
+</section>
 
 <section id="workflow">
   <div class="section-top"><span class="num">01 / UPDATE</span><h2>日常更新只围绕一件事：记录发生了什么。</h2></div>
@@ -33,7 +54,7 @@
   <p class="caption">建议在重要进展发生时更新，汇报前集中检查日期、状态、展示范围与待决策事项。</p>
   <div class="dual" style="margin-top:20px">
     <article class="panel"><h3>更新项目进展</h3><p>在“更多维护与汇报设置”中选择“更新项目进展”，维护项目状态、下一时间点、交付成熟度、价值验证、负责团队、本期成果、当前问题、下一步与待决策。</p><p class="caption">事件关联项目用于串联查看；项目本身的状态和进度在项目表单中分别维护。</p></article>
-    <article class="panel"><h3>更新核心指标</h3><p>选择统计周期后，进入“更新核心指标”，维护全部方向的到达用户、活跃用户、有效服务用户、7 日复用用户及六个活跃用户趋势值。</p><p class="caption">趋势按时间先后填写，最后一项等于活跃用户。方向分摊、渠道与客群细分、质量指标仍为演示，人数填写需使用同一用户实体与统计窗口。</p></article>
+    <article class="panel"><h3>更新核心指标 · 管理示意</h3><p>“更新核心指标”维护管理结构示例中的到达用户、活跃用户、有效服务用户、7 日复用用户及两条六点趋势。首页真实业务来源的完整序列，使用上方“更新数据”入口维护。</p><p class="caption">示例趋势按时间先后填写，末项分别对应活跃与有效服务人数。方向分摊、渠道与客群细分、质量指标仍为演示，不能与 OAP、千问或豆包的独立业务快照混用。</p></article>
   </div>
 </section>
 
@@ -43,7 +64,7 @@
     <tr><td>标题与类别</td><td>用一句话描述变化，归入产品建设、用户成效、能力体系、平台上架、机构合作、问题决策或计划里程碑。</td><td>支持按类别汇总，也方便批量选择。</td></tr>
     <tr><td>关联对象</td><td>标明所属平台 / 机构及项目；按实际记录关联关系。</td><td>从平台看关键进展，从项目看完整建设过程。</td></tr>
     <tr><td>日期</td><td>明确日期用单点；持续工作用开始—结束区间；未确认用待定。</td><td>让单日里程碑、持续建设和未排期事项各有位置。</td></tr>
-    <tr><td>状态与成果</td><td>写明计划、推进、完成或受阻等实际状态；成果描述具体交付。</td><td>分清“打算做”“正在做”和“形成了什么”。</td></tr>
+    <tr><td>状态与成果</td><td>选择已完成、推进中、待决策或计划中；成果描述具体交付，受阻原因写入问题。</td><td>分清“打算做”“正在做”和“形成了什么”。</td></tr>
     <tr><td>问题与下一步</td><td>写具体卡点、下一动作；需要协同时补充负责团队与预期节点。</td><td>汇报能直接转成推进清单。</td></tr>
     <tr><td>证据与说明</td><td>在成果或问题等描述中保留依据说明；未知信息写待核实；演示与手工维护内容分别标记。</td><td>避免把页面示意当作真实经营进展。</td></tr>
     <tr><td>展示开关</td><td>逐条控制事件是否展示；也可通过类别批量修改。</td><td>隐藏事项仍保留，后续可重新勾选。</td></tr>
@@ -78,17 +99,18 @@
 
 <section id="storage">
   <div class="section-top"><span class="num">05 / SAVE &amp; SHARE</span><h2>本机继续编辑，用文件备份与交接。</h2></div>
-  <p class="intro">首版以当前浏览器保存作为便捷更新方式。保存范围与页面来源、浏览器及设备有关；跨设备、清理浏览器或更换访问地址前，先导出备份。</p>
-  <div class="action-row"><b>本机保存</b><span>在当前浏览器保留事件、项目维护结果、各周期核心用户人数与汇报模块选择。刷新后可继续；清理站点数据、无痕浏览或浏览器限制可能使其失效。</span></div>
-  <div class="action-row"><b>导出 JSON</b><span>保存完整可恢复备份，包含事件、项目、各周期核心指标与汇报模块选择。建议每次重要更新、汇报前和跨设备交接前各留一份，文件名带日期；备份含隐藏事件，按完整工作资料保管。</span></div>
-  <div class="action-row"><b>导入 JSON</b><span>把兼容备份载入当前页面，通过校验并确认后恢复。导入前先备份现有内容；导入后核对事件、日期、项目进展、核心人数和汇报模块选择。</span></div>
-  <div class="action-row"><b>分享 HTML</b><span>仅导出当前战略方向下已勾选事件的独立阅读汇报，不打包隐藏事件、其他方向事件、项目台账或用户指标。它是文件快照，后续本机修改不会自动更新已发出的文件。</span></div>
+  <p class="intro">当前版本以本机浏览器保存作为便捷更新方式。保存范围与页面来源、浏览器及设备有关；跨设备、清理浏览器或更换访问地址前，先导出备份。</p>
+  <div class="action-row"><b>本机保存</b><span>在当前浏览器保留事件、项目维护结果、示例核心指标、汇报模块选择，以及业务来源的快照、全周期序列和关键阶段。刷新后可继续；清理站点数据、无痕浏览或浏览器限制可能使其失效。保存失败时以页面提示为准，立即导出备份。</span></div>
+  <div class="action-row"><b>完整 JSON 备份</b><span>在“内容与更新”中点击“导出备份”。文件包含事件、项目、示例核心指标、汇报模块及 <span class="key">growth_dataset</span>；增长数据集中保留各来源业务快照、历史序列、阶段和来源里程碑。建议重要更新、汇报和跨设备交接前各留一份；完整备份含隐藏事件，按完整工作资料保管。</span></div>
+  <div class="action-row"><b>恢复完整备份</b><span>使用“导入备份”，通过全部结构校验并确认后恢复。增长数据会在确认前校验，导入后核对来源、截止时间、全周期曲线、阶段、事件与汇报选择。兼容旧备份不含的增长数据时，不据此覆盖现有增长数据；若任何本机写入失败，页面提示“仅保留当前会话，请导出备份”。</span></div>
+  <div class="action-row"><b>增长数据 JSON</b><span>“增长分析”里的“下载可追溯数据 JSON”单独导出业务数据集，便于核对来源、序列、阶段和里程碑；它不包含事件库、项目台账及汇报设置，不能替代完整维护备份。</span></div>
+  <div class="action-row"><b>分享 HTML</b><span>仅导出当前战略方向下已勾选事件的独立阅读汇报，不打包隐藏事件、其他方向事件、项目台账、用户指标或增长数据集。它是文件快照，后续本机修改不会自动更新已发出的文件。</span></div>
   <div class="note amber"><strong>公开网址与本机编辑分开。</strong> 在浏览器里修改内容，不会自动推送到 GitHub，也不会自动改变其他人打开的网址。需要更新公共版本时，应另行完成发布。备份文件和分享文件可能包含手动填写的内部信息，分享前核对内容与展示范围。</div>
 </section>
 
 <section id="boundary">
-  <div class="section-top"><span class="num">06 / SCOPE</span><h2>首版解决轻量更新，后续连接共享数据源。</h2></div>
-  <div class="scope"><article class="panel"><h3>本次产品原型范围</h3><p>以事件组织平台关键进展和整体时间表；按类别批量勾选、逐条微调。可维护项目状态、进度、成果、问题与下一步，并填写核心用户人数。</p><p>汇报模块可选；本机浏览器保存、完整 JSON 备份恢复、所选事件 HTML 分享组成轻量工作流。</p></article><article class="panel"><h3>后续建设范围</h3><p>共享数据源、多人协作、编辑权限、修改历史、冲突处理、自动汇总业务数据和持续发布。</p><p>这些属于后续接入方向；当前原型不代表已连接生产系统、已建立共同数据库或已自动同步 GitHub。</p></article></div>
+  <div class="section-top"><span class="num">06 / SCOPE</span><h2>业务快照与管理示意分清，维护边界保持明确。</h2></div>
+  <div class="scope"><article class="panel"><h3>第二版已经具备</h3><p>经营总览、增长分析使用既有已发布的 OAP、千问与豆包独立聚合快照，支持指标切换、日周月颗粒度、阶段聚焦和里程碑查看。可本机维护业务序列与阶段，并纳入完整备份。</p><p>产品与项目、能力体系、上架与合作、历程与规划中的管理档案仍含结构示例；演示机构、项目状态、能力数量等不代表真实盘点结论。手工填写也不自动变为已核验事实。</p></article><article class="panel"><h3>仍需后续接入</h3><p>业务系统实时采集、统一跨平台身份、共享数据库、多人协作、编辑权限、修改历史、冲突处理和持续发布。</p><p>当前以已发布快照和本机工作副本为基础，不代表已实时连接生产系统、已完成跨平台用户去重，或已自动同步 GitHub。</p></article></div>
   <div class="section-top" style="margin-top:30px"><span class="num">RELEASE CHECK</span><h2 style="font-size:19px">发布前，按真实操作检查这八件事。</h2></div>
   <div class="checklist">
     <div class="check-item"><i>01</i><span>新增一条平台事件后，检查标题、关联项目与类别是否正确保留。</span></div>
@@ -96,12 +118,12 @@
     <div class="check-item"><i>03</i><span>分别编辑事件与项目表单，检查状态、成果、问题、下一步和项目进度是否正确显示。</span></div>
     <div class="check-item"><i>04</i><span>按类别批量勾选后取消一条事件，再批量操作该类别，确认该类别事件的勾选被统一更新。</span></div>
     <div class="check-item"><i>05</i><span>隐藏一条事件，检查当前展示与汇报；重新开启后，原记录应仍完整。</span></div>
-    <div class="check-item"><i>06</i><span>保存项目和核心用户人数后刷新，检查本机内容与汇报模块选择恢复；保存失败应有提示。</span></div>
-    <div class="check-item"><i>07</i><span>导出完整备份后恢复，核对事件、项目、各周期人数和汇报模块；错误文件不覆盖现有内容。</span></div>
+    <div class="check-item"><i>06</i><span>逐源检查数据截至时间；切换上线以来、全量观测、日周月与阶段，核对千问上线前记录、OAP未知上线日及月级节点没有被改写。</span></div>
+    <div class="check-item"><i>07</i><span>更新业务数据、阶段、项目和汇报设置后刷新，再导出完整备份恢复，核对 growth_dataset 与事件；错误文件不覆盖内容，写入失败准确提示。</span></div>
     <div class="check-item"><i>08</i><span>单独打开分享 HTML，确认只含当前方向已选事件且可离线阅读，隐藏事件和其他台账未被打包。</span></div>
   </div>
 </section>
-<footer><span>AI STRATEGY COCKPIT · 产品原型使用与更新指南</span><span>2026.10.27 · 示例均为演示，不含真实经营数据</span></footer>
+<footer><span>AI STRATEGY COCKPIT V2 · 产品原型使用与更新指南</span><span>2026.10.27 · 业务快照逐源标注，管理示例保留演示边界</span></footer>
 </main>
 </body>
 </html>
