@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 143;
+const DATA_VERSION = 144;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -221,6 +221,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "hiring-review-2026-10-27",
+      groupId: "knowledge",
+      title: "招聘复盘与候选人履历意见",
+      url: "https://clairku.github.io/clair-ai-studio/reports/hiring-review-2026-10-27/",
+      preview: "hiring-review-2026-10-27.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-27T10:56:00+08:00",
+      source: "岗位画像、候选履历与待核实事项。第二岗位待确认，面试及录用进展待补。正文独立加密，需专用口令查看。",
+      access: "production",
+      workType: "reporting",
+      tags: ["招聘复盘", "履历评估", "面试建议", "加密报告", "HTML"],
+    },
     {
       id: "ai-strategy-cockpit-2026-10-27",
       groupId: "ai-platform",
@@ -3917,6 +3931,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "hiring-review-2026-10-27": "reporting",
   "ai-strategy-cockpit-2026-10-27": "product-planning",
   "oap-oauth-dashboard-2026-10-26": "data-analysis",
   "qieman-retirement-recommendation-audit-2026-10-23": "data-analysis",
@@ -4047,6 +4062,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "hiring-review-2026-10-27": "knowledge",
   "ai-strategy-cockpit-2026-10-27": "ai-platform",
   "oap-oauth-dashboard-2026-10-26": "growth-insights",
   "xiaogu-personal-agent-framework-2026-10-23": "xiaogu",

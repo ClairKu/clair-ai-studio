@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <rect width="1200" height="675" fill="#f2f1ed"/>
+  <rect x="76" y="70" width="1048" height="535" rx="28" fill="#fff"/>
+  <text x="128" y="142" fill="#61746c" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="20" letter-spacing="3">组织能力与人才</text>
+  <text x="128" y="243" fill="#1c3029" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="48" font-weight="600">招聘复盘</text>
+  <text x="128" y="313" fill="#1c3029" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="48" font-weight="600">候选人履历意见</text>
+  <path d="M130 376H1052" stroke="#dce5df" stroke-width="2"/>
+  <rect x="128" y="414" width="240" height="62" rx="12" fill="#edf3ef"/>
+  <text x="158" y="454" fill="#3e6452" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="23">正文独立加密</text>
+  <text x="128" y="553" fill="#6c7973" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="19">岗位画像 · 履历核实 · 面试建议</text>
+  <text x="1053" y="553" text-anchor="end" fill="#6c7973" font-family="Arial,sans-serif" font-size="19">2026.10.27</text>
+</svg>

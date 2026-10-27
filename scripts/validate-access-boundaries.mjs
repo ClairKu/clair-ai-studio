@@ -107,6 +107,11 @@ walkHtml(join(root, "docs"));
 const allowedInlinePasswordPages = new Set([
   "reports/product-demand-pulse/index.html",
 ]);
+// These reports retain a separate content-encryption credential. The shared
+// site gate protects navigation; it cannot decrypt their private contents.
+const independentEncryptedPages = new Set([
+  "reports/hiring-review-2026-10-27/index.html",
+]);
 let reportPages = 0;
 let workspacePages = 0;
 for (const htmlPath of htmlPaths) {
@@ -128,6 +133,12 @@ for (const htmlPath of htmlPaths) {
   if (allowedInlinePasswordPages.has(outputPath)) {
     ensure(passwordInputs.length === 1, `${outputPath} 的动作口令框数量异常`);
     ensure(passwordInputs[0].includes('data-gate="action"'), `${outputPath} 的口令框越过了动作边界`);
+  } else if (independentEncryptedPages.has(outputPath)) {
+    ensure(passwordInputs.length === 1, `${outputPath} 的独立解密口令框数量异常`);
+    ensure(/<form\b[^>]*data-gate=["']decrypt["']/.test(html), `${outputPath} 缺少独立解密表单标记`);
+    ensure(html.includes("AES-GCM") && html.includes("PBKDF2"), `${outputPath} 未保持正文加密`);
+    ensure(/const\s+payload\s*=/.test(html), `${outputPath} 缺少密文载荷`);
+    ensure(!publicConfig.immutableLockedEntries.includes(outputPath.replace(/index\.html$/, "")), `${outputPath} 不应复用共享解密凭证`);
   } else {
     ensure(passwordInputs.length === 0, `${outputPath} 出现未登记的第二套页面密码机制`);
   }
@@ -145,5 +156,5 @@ for (const entry of publicConfig.immutableLockedEntries) {
 
 console.log(
   `访问控制边界校验通过：${workspacePages} 个工作台作用域页面，${reportPages} 个成果作用域页面，`
-  + `${publicConfig.immutableLockedEntries.length} 个不可解锁加密成果，1 个独立动作口令且命名空间隔离。`,
+  + `${publicConfig.immutableLockedEntries.length} 个不可解锁加密成果，${independentEncryptedPages.size} 个独立正文解密入口，1 个独立动作口令且命名空间隔离。`,
 );
