@@ -1,20 +1,20 @@
 {
-  "title": "盈米基金AI能力体系·对外介绍",
+  "title": "盈米基金AI能力全景·全场景对外介绍",
   "files": [
     {
       "path": "index.html",
-      "bytes": 47566,
-      "sha256": "e294acc33ade57a42bdf61480b7b7a3f9cefe73aef8a87891ab0c17a1535e454"
+      "bytes": 78811,
+      "sha256": "df96af4f792a7fa0079b927db7ce5ed41f11c9382d1c0d24d153073fabefddff"
     },
     {
       "path": "sources.json",
-      "bytes": 3590,
-      "sha256": "60b63018ffa453b00bf2a9720234ca4f2c43ccbc2a51ae3dad386b895b9d14c3"
+      "bytes": 15551,
+      "sha256": "ab0d6cd2b35751c1b0257c45327eec101d7ed2ff19b267d73d939daf4bfc0d2d"
     },
     {
       "path": "yingmi-ai-introduction.zip",
-      "bytes": 16400,
-      "sha256": "d76527898227f504290c471627776723051ac366254c5fbdc54de1733daa8025"
+      "bytes": 28676,
+      "sha256": "9fa2070464700ef0c6527f7b7089ab33e6146597cfb8359f3e8c8f11b1d21f6b"
     }
   ]
 }
