@@ -1,0 +1,52 @@
+{
+  "schema": "clair-report-assets/v1",
+  "report": "ai-strategy-cockpit-2026-10-27",
+  "generatedAt": "2026-10-27",
+  "files": [
+    {
+      "path": "assets/app.js",
+      "bytes": 73229,
+      "sha256": "1165ecc095b004a865ea1dc0c9b753e805bc52646cc546d4288248ef1eb38c3a"
+    },
+    {
+      "path": "assets/management.js",
+      "bytes": 11010,
+      "sha256": "f8fe72508784c6ea50730cca18925eaa16809a0b87e8ea942675220dc3f173de"
+    },
+    {
+      "path": "assets/motion.css",
+      "bytes": 3961,
+      "sha256": "9d9156cf8469006281cc05cc987317715cc9015c2238784991dde0ab6e04f131"
+    },
+    {
+      "path": "assets/motion.js",
+      "bytes": 1506,
+      "sha256": "ac1385c04d69981374b09ca20484420e2a1582101b894b090f61f210ff95c8c8"
+    },
+    {
+      "path": "assets/style.css",
+      "bytes": 30818,
+      "sha256": "38627bf6d0f3b8b3010da91d6045b02be663eda0c6e292b75ddff3ad1b283e0f"
+    },
+    {
+      "path": "assets/updates.css",
+      "bytes": 13399,
+      "sha256": "736f87c32b46256b155e98fda12696dc8660586ab263a524e66d16bd81a499d9"
+    },
+    {
+      "path": "assets/updates.js",
+      "bytes": 34836,
+      "sha256": "2afcb2e7895e285a6c634a591039f2d03ef320f819d1bb70e972761688072cad"
+    },
+    {
+      "path": "guide.html",
+      "bytes": 21513,
+      "sha256": "ddd0d3345ca3edbfad31def008645c2f28e4a351cb6d68ea860fe4969d225f60"
+    },
+    {
+      "path": "index.html",
+      "bytes": 3300,
+      "sha256": "b66e46ce946ef9e301d8c453f622b9b14279962144d441b4a41d1d5ae5014ba6"
+    }
+  ]
+}
