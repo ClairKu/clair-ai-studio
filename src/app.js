@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 144;
+const DATA_VERSION = 145;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -230,7 +230,7 @@ const initialState = {
       pinned: false,
       position: 0,
       createdAt: "2026-10-27T10:56:00+08:00",
-      source: "岗位画像、候选履历与待核实事项。第二岗位待确认，面试及录用进展待补。正文独立加密，需专用口令查看。",
+      source: "两个岗位已确认。逐人履历初筛、面试追问与当前进展待核事项。正文独立加密，需专用口令查看。",
       access: "production",
       workType: "reporting",
       tags: ["招聘复盘", "履历评估", "面试建议", "加密报告", "HTML"],
