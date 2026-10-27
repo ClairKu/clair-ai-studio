@@ -1,0 +1,94 @@
+{
+  "title": "盈米基金AI能力体系",
+  "verifiedAt": "2026-10-27",
+  "audience": "金融机构与生态伙伴",
+  "dataCutoff": "2026-10-01 (OAP); 2026-09-01 (AI小顾)",
+  "sources": [
+    {
+      "id": "s1",
+      "title": "盈米「智审先知」入选2026年IDC金融行业AI创新案例50",
+      "url": "https://www.yingmi-inc.com/archives/991",
+      "date": "事件：2026-10-23；OAP数据：2026-10-01",
+      "scope": "OAP四项公开数据、慧客通、AI编辑部、智审先知及产品组合。"
+    },
+    {
+      "id": "s2",
+      "title": "盈米基金联合阿里云发布「机构AI智能体解决方案」",
+      "url": "https://www.yingmi.cn/archives/847",
+      "date": "2026-05-21",
+      "scope": "MCP / Skills / Agents三层能力、四层联合架构、小顾3.0及合作方式。"
+    },
+    {
+      "id": "s3",
+      "title": "且慢AI小顾3.0亮相2026云栖大会",
+      "url": "https://www.yingmi.cn/archives/907",
+      "date": "活动：2026-09-22—24；服务数据：2026-09-01",
+      "scope": "小顾服务量与场景覆盖、家庭规划与定时复盘、阿里生态接入。"
+    },
+    {
+      "id": "s4",
+      "title": "盈米AI解决方案亮相2026中国国际金融展",
+      "url": "https://yingmi.com/archives/871",
+      "date": "2026-06-16",
+      "scope": "基金与组合分析、投顾报告、顾问工作台场景，以及数据、权限、追溯与人机协同。"
+    },
+    {
+      "id": "s5",
+      "title": "WorkBuddy + 盈米MCP/Skills投研自动化监测实践",
+      "url": "https://www.yingmi-inc.com/archives/973.html",
+      "date": "2026-10-10；2026-10-27核验",
+      "scope": "市场日报、ETF跟踪、债基风险监测等任务流程示例。"
+    },
+    {
+      "id": "s6",
+      "title": "智审先知 · 官方开源Skill",
+      "url": "https://github.com/yingmi-dev/content-compliance-skill",
+      "date": "2026-10-27核验",
+      "scope": "PDF / DOCX / 文本审查、审核策略、风险位置与修改建议。"
+    },
+    {
+      "id": "s7",
+      "title": "FinMCP-Bench · 原生评测数据集",
+      "url": "https://huggingface.co/datasets/DianJin/FinMCP-Bench",
+      "date": "2026-10-27核验",
+      "scope": "10大场景、33子场景，单工具、多工具、多轮任务评测。"
+    },
+    {
+      "id": "s8",
+      "title": "且慢小顾智能体接入阿里千问APP",
+      "url": "https://www.yingmi.cn/archives/961.html",
+      "date": "上线：2026-08-10",
+      "scope": "千问APP内基金分析、账户诊断、资产配置分析入口。"
+    },
+    {
+      "id": "s9",
+      "title": "AI解锁投顾行业「不可能三角」· 盈米官网转载新华财经专访",
+      "url": "https://www.yingmi-inc.com/archives/901",
+      "date": "2026-09-11",
+      "scope": "2025年4月盈米MCP发布节点。"
+    }
+  ],
+  "metrics": {
+    "oap": {
+      "asOf": "2026-10-01",
+      "developerApplications": "16000+",
+      "financialInstitutionsCovered": "700+",
+      "mcpAndSkillCapabilities": "80+",
+      "cumulativeCalls": "20000000+",
+      "source": "s1"
+    },
+    "xiaogu": {
+      "asOf": "2026-09-01",
+      "investmentQuestionsAnswered": "3000000+",
+      "serviceScenariosCovered": "80%",
+      "source": "s3"
+    }
+  },
+  "notes": [
+    "申请量不是活跃用户；机构覆盖不是付费客户。",
+    "80+是MCP/Skill能力合计，不是MCP工具数量。",
+    "问题量不是独立用户数。",
+    "未披露收入、转化、客户明细或内部日志。",
+    "服务流程为解释性示意，不连接真实账户或交易。"
+  ]
+}

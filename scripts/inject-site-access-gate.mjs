@@ -179,6 +179,10 @@ for (const htmlPath of walkHtml(outputRoot)) {
   let html = readFileSync(htmlPath, "utf8");
   const outputPath = relative(outputRoot, htmlPath).replaceAll("\\", "/");
 
+  // Public company AI introduction uses verified public sources only.
+  // Keep this explicitly authorized external brochure publicly accessible.
+  if (outputPath === "reports/yingmi-ai-capabilities-2026-10-27/index.html") continue;
+
   const relativeAsset = relative(dirname(htmlPath), gateAsset).replaceAll("\\", "/");
   const assetPath = relativeAsset.startsWith(".") ? relativeAsset : `./${relativeAsset}`;
   // reports/ 与 apps/ 都是独立成果页，走报告密码；仅工作台首页与其余站点页走工作台密码。

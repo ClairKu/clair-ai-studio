@@ -222,6 +222,19 @@ const initialState = {
   ],
   reports: [
     {
+      id: "yingmi-ai-capabilities-2026-10-27",
+      groupId: "ai-platform",
+      title: "盈米基金 AI 能力体系｜对外介绍 · 2026年10月",
+      url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-ai-capabilities-2026-10-27/",
+      preview: "yingmi-ai-capabilities-2026-10-27.png",
+      pinned: true,
+      createdAt: "2026-10-27T11:00:00+08:00",
+      source: "2026-10-27核验的盈米官网与开放项目公开资料｜OAP数据截至10月1日：16000+开发者申请、700+金融机构覆盖、80+ MCP/Skill能力、2000万+累计调用｜小顾数据截至9月1日｜8项产品、MCP/Skills/Agents三层能力、3条交付流程、3种合作方式与可信治理｜外部介绍页公开可访问，保留来源及口径说明，未使用内部经营明细",
+      access: "production",
+      workType: "reporting",
+      tags: ["盈米基金", "AI能力体系", "AI小顾3.0", "慧客通", "AI编辑部", "智审先知", "Vesta", "公告实验室", "MCP", "Skills", "Agents", "对外介绍", "HTML", "生产"],
+    },
+    {
       id: "hiring-review-2026-10-27",
       groupId: "knowledge",
       title: "招聘复盘与候选人履历意见",
