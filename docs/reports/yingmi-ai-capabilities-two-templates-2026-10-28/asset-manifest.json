@@ -1,0 +1,46 @@
+{
+  "title": "盈米 AI 能力全景｜双模板",
+  "version": "2026-10-28",
+  "files": [
+    {
+      "path": "index.html",
+      "bytes": 12081,
+      "sha256": "c11ba17c1737c37ec11c4d0b5b2040fc1bff164cb2a7cbbfa2b4d2c3720fcf8c"
+    },
+    {
+      "path": "briefing/index.html",
+      "bytes": 82286,
+      "sha256": "06b15e84e16847e57a43512b7fa0b7f3430606295f335d42a8fd2a5c6a5f99c8"
+    },
+    {
+      "path": "atlas/index.html",
+      "bytes": 84034,
+      "sha256": "af683804807ae0f48845c7671716d3d9b4e8c152ddfa9d0fa8d78789ea347fd0"
+    },
+    {
+      "path": "sources.json",
+      "bytes": 15671,
+      "sha256": "17dec386681c914c93c7e4a79ec076a21e400bbc38ec037c378a19f0dd004d52"
+    },
+    {
+      "path": "briefing-preview.png",
+      "bytes": 58039,
+      "sha256": "e5755c5d18144a8da5898e6e1225c3f335c26c8540e58a63dc29527f1f21c704"
+    },
+    {
+      "path": "atlas-preview.png",
+      "bytes": 73551,
+      "sha256": "4ef70aa27b82a5ddba287b60876c80147162534caa399861e44dd5c2b982ab90"
+    },
+    {
+      "path": "README.txt",
+      "bytes": 924,
+      "sha256": "f54ef8afbcf8072ed89d8618ba65fa1107db50de4d88b31ead66f96a87c7305a"
+    },
+    {
+      "path": "yingmi-ai-two-templates.zip",
+      "bytes": 168037,
+      "sha256": "790293d7bc7bad2e640bc996dc094fb16dedfec6e724f37e91590cde7b82c599"
+    }
+  ]
+}

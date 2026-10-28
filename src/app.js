@@ -223,6 +223,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "yingmi-ai-capabilities-two-templates-2026-10-28",
+      groupId: "ai-platform",
+      title: "盈米 AI 能力全景｜战略叙事 × 场景探索 · 双模板",
+      url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-ai-capabilities-two-templates-2026-10-28/",
+      preview: "yingmi-ai-capabilities-two-templates-2026-10-28.png",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-28T15:00:00+08:00",
+      source: "基于10月27日全场景原版重构两套独立HTML：暖白酒红战略叙事版、深蓝薄荷场景探索版。保留12类场景、8项产品平台、5层底座及7条流程，补齐角色、输入、交付、人工职责与合作起步建议。数据沿用原口径：OAP截至10月1日、小顾截至9月1日；展示修订不代表数据更新。附对比入口与完整下载包。",
+      access: "production",
+      workType: "reporting",
+      tags: ["盈米基金", "AI能力体系", "双模板", "战略叙事", "场景探索", "对外介绍", "机构合作", "MCP", "Skills", "Agents", "HTML", "生产"],
+    },
+    {
       id: "wecom-ai-research-2026-10-28",
       groupId: "ai-workbench",
       title: "AI读取企微信息与文档：14条路线实查",
@@ -3944,6 +3958,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "yingmi-ai-capabilities-two-templates-2026-10-28": "reporting",
   "hiring-review-2026-10-27": "reporting",
   "ai-strategy-cockpit-2026-10-27": "product-planning",
   "oap-oauth-dashboard-2026-10-26": "data-analysis",
@@ -4075,6 +4090,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "yingmi-ai-capabilities-two-templates-2026-10-28": "ai-platform",
   "wecom-ai-research-2026-10-28": "ai-workbench",
   "yingmi-ai-capabilities-2026-10-27": "ai-platform",
   "hiring-review-2026-10-27": "knowledge",
@@ -8776,3 +8792,4 @@ function bindWorkbenchPersistence() {
     render();
   });
 }
+
