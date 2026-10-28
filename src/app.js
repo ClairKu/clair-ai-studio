@@ -223,6 +223,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "ai-tools-yingmi-links-2026-10-28",
+      groupId: "ai-workbench",
+      title: "AI工具与盈米能力入口表｜桌面、网页版、广场与搜索",
+      url: "https://clairku.github.io/clair-ai-studio/reports/ai-tools-yingmi-links-2026-10-28/",
+      preview: "ai-tools-yingmi-links-2026-10-28.png",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-28",
+      source: "盘点本机13款独立AI客户端，逐项整理盈米相关MCP、Skills、Agents、广场与盈米搜索入口；补充4款AI辅助应用。协议、对象ID与官方路由静态核对，未逐个唤起或验证云端账号授权；缺失地址明确标记，无凭证或配置原文。",
+      access: "production",
+      workType: "governance-review",
+      tags: ["盈米基金", "AI工具", "MCP", "Skills", "Agent", "深度链接", "网页版", "广场", "搜索", "HTML", "生产"],
+    },
+    {
       id: "ai-wealth-interaction-deep-dive-2026-10-22",
       groupId: "xiaogu",
       title: "Origin、PortfolioPilot、蚂小财交互深研｜小顾落地方案与原型",

@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "title": "AI工具与盈米能力入口表",
+  "files": [
+    {
+      "path": "index.html",
+      "bytes": 124100,
+      "sha256": "4c730177925998717796183ceab21cbf29dbe8830954cc18b402adc5f8949d33"
+    },
+    {
+      "path": "inventory-data.json",
+      "bytes": 103517,
+      "sha256": "d00a0724713b820ae8bd58051eed72b25044be6088907dafdf17344bf3a2cf79"
+    },
+    {
+      "path": "ai-tool-links.zip",
+      "bytes": 34985,
+      "sha256": "c50eaa2d36c7310d0f653a9e6fc936a38f0cf78384b6f2a6c470cf50c04bff3d"
+    }
+  ]
+}

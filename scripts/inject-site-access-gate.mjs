@@ -182,6 +182,8 @@ for (const htmlPath of walkHtml(outputRoot)) {
   // Public company AI introduction uses verified public sources only.
   // Keep this explicitly authorized external brochure publicly accessible.
   if (outputPath === "reports/yingmi-ai-capabilities-2026-10-27/index.html") continue;
+  // Public navigation directory contains no credentials or private source files.
+  if (outputPath === "reports/ai-tools-yingmi-links-2026-10-28/index.html") continue;
 
   const relativeAsset = relative(dirname(htmlPath), gateAsset).replaceAll("\\", "/");
   const assetPath = relativeAsset.startsWith(".") ? relativeAsset : `./${relativeAsset}`;

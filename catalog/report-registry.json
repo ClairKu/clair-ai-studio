@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "ai-tools-yingmi-links-2026-10-28",
     "ai-wealth-interaction-deep-dive-2026-10-22",
     "yingmi-ai-asset-atlas-2026-10-28",
     "yingmi-ccs-capability-audit-2026-10-28",
