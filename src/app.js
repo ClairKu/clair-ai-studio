@@ -1,3 +1,4 @@
+import { personalHomeMarkup, rememberPersonalVisit } from "./personal-home.js";
 import {
   bindTaskCenter,
   taskWorkspaceMarkup,
@@ -4446,6 +4447,15 @@ let reportOrder = loadReportOrder();
 let query = "";
 let readerId = "";
 let archiveView = false;
+let personalHomeView = new URLSearchParams(location.search).get("view") !== "library";
+
+function selectWorkspaceView(home) {
+  personalHomeView = home;
+  const url = new URL(location.href);
+  url.searchParams.set("view", home ? "home" : "library");
+  url.hash = "";
+  history.replaceState(null, "", url);
+}
 let catalogView = ["topic", "type", "tag", "time"].includes(localStorage.getItem(VIEW_KEY))
   ? localStorage.getItem(VIEW_KEY)
   : "topic";
@@ -6952,7 +6962,7 @@ function readerMarkup(report) {
     <main class="reader-shell compact-reader-shell">
       <header class="reader-header compact-reader-header">
         <button class="reader-icon-button back-button" type="button" data-action="back"
-          aria-label="返回成果库" title="返回成果库">${readerActionIcon("back")}</button>
+          aria-label="返回${personalHomeView ? "个人工作台" : "成果库"}" title="返回${personalHomeView ? "个人工作台" : "成果库"}">${readerActionIcon("back")}</button>
         <div class="reader-title">
           <strong>${escapeHtml(report.title)}</strong>
           <span>${localSaved ? "本地保存" : escapeHtml(domainOf(report.url))}</span>
@@ -6996,9 +7006,10 @@ function studioTopbarMarkup(archiveCount) {
         <div class="brand-mark small">C</div>
         <div><strong>Clair's Studio</strong></div>
       </button>
-      ${archiveView
-        ? '<div class="top-actions"><button class="quiet-button" type="button" data-action="show-catalog">← Library</button></div>'
-        : ""}
+      <nav class="studio-page-nav" aria-label="工作区导航">
+        <button type="button" data-action="show-personal-home" class="${personalHomeView && !archiveView ? "active" : ""}" ${personalHomeView && !archiveView ? 'aria-current="page"' : ""}>个人工作台</button>
+        <button type="button" data-action="show-catalog" class="${!personalHomeView && !archiveView ? "active" : ""}" ${!personalHomeView && !archiveView ? 'aria-current="page"' : ""}>全部成果</button>
+      </nav>
     </header>`;
 }
 
@@ -7270,9 +7281,32 @@ function render() {
   const app = document.getElementById("app");
   const report = readerId && state.reports.find((item) => item.id === readerId);
   revokeFileObjectUrls();
-  app.innerHTML = report ? readerMarkup(report) : workbenchMarkup();
+  app.innerHTML = report ? readerMarkup(report)
+    : personalHomeView && !archiveView
+      ? personalHomeMarkup({ reports: state.reports, escapeHtml, topbar: studioTopbarMarkup(0), storage: localStorage })
+      : workbenchMarkup();
   bindAppModal();
   bindApp();
+  document.querySelectorAll(".personal-jump-nav a").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      const target = document.getElementById(link.hash.slice(1));
+      if (!target) return;
+      history.replaceState(null, "", link.href);
+      scrollElementToStart(target, "auto");
+    });
+  });
+  document.querySelector("[data-personal-search]")?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const nextQuery = new FormData(event.currentTarget).get("query")?.toString().trim();
+    if (!nextQuery) return;
+    selectWorkspaceView(false);
+    archiveView = false;
+    query = nextQuery;
+    searchDimensionFilters.clear();
+    render();
+    scrollPageTop();
+  });
   if (report) bindReportReaderAccessBridge(report);
   bindTaskCenter({
     render: () => renderAtCurrentScroll(() => document.querySelector(".prompt-composer")),
@@ -7892,6 +7926,7 @@ function bindApp() {
         if (itemId === suppressReportOpenId && Date.now() < suppressReportOpenUntil) return;
         catalogViewportSnapshot = captureViewportSnapshot(actionCard || reportElement(itemId));
         readerId = itemId;
+        rememberPersonalVisit(localStorage, itemId);
         render();
         scrollPageTop();
       } else if (action === "preview-saved-file" || action === "download-saved-file") {
@@ -7946,6 +7981,7 @@ function bindApp() {
       } else if (action === "open-browser") {
         const report = state.reports.find((item) => item.id === itemId);
         if (!report) return;
+        rememberPersonalVisit(localStorage, itemId);
         if (!openReportInBrowser(report)) showToast("浏览器未能打开该报告");
       } else if (action === "toggle-report-access") {
         const report = state.reports.find((item) => item.id === itemId);
@@ -8041,7 +8077,17 @@ function bindApp() {
             },
           );
         }
+      } else if (action === "show-personal-home") {
+        selectWorkspaceView(true);
+        archiveView = false;
+        query = "";
+        searchDimensionFilters.clear();
+        readerId = "";
+        modal = null;
+        render();
+        scrollPageTop();
       } else if (action === "show-archive") {
+        selectWorkspaceView(false);
         archiveView = true;
         query = "";
         searchDimensionFilters.clear();
@@ -8049,6 +8095,7 @@ function bindApp() {
         render();
         scrollPageTop();
       } else if (action === "show-catalog") {
+        selectWorkspaceView(false);
         archiveView = false;
         query = "";
         searchDimensionFilters.clear();
