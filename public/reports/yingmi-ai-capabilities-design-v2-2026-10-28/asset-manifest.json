@@ -49,8 +49,8 @@
     },
     {
       "path": "README.txt",
-      "bytes": 1544,
-      "sha256": "75ef0c9bf938ab96e90926b5600c2e7047d61c1c62b793583e29902ca6442ebc"
+      "bytes": 1889,
+      "sha256": "7c912c9e0fc344899c531c14db97aaadde16c4fe9429b852b7e6ca781d7fcc59"
     },
     {
       "path": "asset-prompt.txt",
@@ -59,8 +59,8 @@
     },
     {
       "path": "motion-lab/index.html",
-      "bytes": 11322,
-      "sha256": "19e8d40f915b8938eaf9d2076c51d9d139efa0aa1499effc6d4e5044b77e38b1"
+      "bytes": 11342,
+      "sha256": "2ee69d1e9517eab61bf23b836960a29afe186bbb6bafa3a3522b696ebd131ca9"
     },
     {
       "path": "motion-lab/prism/index.html",
@@ -79,8 +79,8 @@
     },
     {
       "path": "yingmi-ai-design-v2.zip",
-      "bytes": 686638,
-      "sha256": "90dcd5098f2266eb5fbf7eb1004e3da51db158ca037c921b6695372c647dea70"
+      "bytes": 686641,
+      "sha256": "9090de3267c180454fbf07ea3e378e5ca990f0e6d790f7ca1aaf8c87d013d101"
     },
     {
       "path": "motion-lab/fusion/index.html",
