@@ -1801,6 +1801,20 @@ const initialState = {
       tags: ["且慢", "AI 小顾", "AI 交易", "大模型", "交易安全", "竞品调研", "产品规划", "MCP", "合规", "HTML", "生产"],
     },
     {
+      id: "qieman-wechat-agent-demo-2026-09-13",
+      groupId: "xiaogu",
+      title: "且慢 × 微信小程序 AI｜投顾合作场景交互 Demo",
+      url: "https://clairku.github.io/clair-ai-studio/reports/qieman-wechat-agent-demo-2026-09-13/",
+      preview: "qieman-wechat-agent-demo-2026-09-13.png",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-09-13T18:25:50+08:00",
+      source: "原始单文件 HTML 交互原型的公开脱敏版｜覆盖基金问诊、持仓体检、四笔钱规划、行情陪伴、策略服务衔接 5 个场景，以及 C1-C7 原子组件、半屏页面、过期态与结果回传｜所有产品名称、业绩、概率、行情、持仓和交易结果均为模拟，未连接生产接口、不提供真实交易｜公开版已补充醒目风险披露，并将适当性评估、协议签署、资金划转与交易边界收口到且慢自营平台；正式对客上线仍须经过业务、法务与合规审查",
+      access: "production",
+      workType: "product-demo",
+      tags: ["且慢", "微信小程序 AI", "AI 小顾", "MCP", "原子组件", "基金问诊", "持仓体检", "四笔钱", "交互 Demo", "合规边界", "HTML", "生产"],
+    },
+    {
       id: "clair-studio-catalog-audit-2026-09-13",
       groupId: "knowledge",
       title: "Clair’s Studio｜162 份成果全面盘点与分类重构",
@@ -4407,6 +4421,7 @@ const TOPIC_BY_REPORT = {
   "pension-business-analysis": "pension-planning",
   "schwab-ria-benchmark": "research",
   // 组织能力与知识治理
+  "qieman-wechat-agent-demo-2026-09-13": "xiaogu",
   "clair-studio-catalog-audit-2026-09-13": "knowledge",
   "yingmi-deviation-rules-panorama-2026-09-10": "knowledge",
   "yingmi-ontology-explorer-2026-09-10": "knowledge",

@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>且慢 × 微信小程序AI 合作场景DEMO</title>
+<meta name="description" content="且慢 × 微信小程序 AI 投顾合作场景交互原型。公开脱敏演示版，使用模拟名称与模拟数据，不连接生产交易。">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<style>
+:root{
+  --brand:#1B88EE; --poster:#3180EC;
+  --t1:#333; --t2:#606060; --t3:#999; --t4:#ccc;
+  --up:#FA440C; --down:#07AD8F; --warn:#EA9500;
+  --bg-page:#F9FAFB; --bg-deep:#F7F7F7; --bg-blue:#F0F6FF; --bg-warn:#FFFAEF;
+  --bd:#ECECEC; --r-s:8px; --r-m:12px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue","Microsoft YaHei",sans-serif;background:#EDF1F7;color:var(--t1);min-height:100vh}
+
+/* ===== 顶部横幅 ===== */
+.hero{background:linear-gradient(135deg,#3180EC 0%,#1B88EE 60%,#69B1F4 100%);color:#fff;padding:28px 40px;display:flex;align-items:center;justify-content:space-between}
+.hero h1{font-size:22px;font-weight:600;letter-spacing:.5px}
+.hero p{font-size:13px;opacity:.85;margin-top:6px}
+.hero .badge{font-size:12px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);padding:6px 14px;border-radius:20px}
+.review-note{max-width:1280px;margin:18px auto 0;padding:12px 16px;background:#fff8e8;border:1px solid #f0c66b;border-radius:12px;color:#6f4b00;font-size:12px;line-height:1.75}
+.review-note strong{display:block;color:#8a5700;font-size:13px;margin-bottom:2px}
+
+.layout{display:flex;gap:28px;max-width:1280px;margin:28px auto;padding:0 32px;align-items:flex-start}
+
+/* ===== 左侧场景导航 ===== */
+.sidebar{width:330px;flex-shrink:0}
+.scene-item{background:#fff;border-radius:var(--r-m);padding:16px;margin-bottom:12px;cursor:pointer;border:2px solid transparent;transition:.18s}
+.scene-item:hover{box-shadow:0 4px 14px rgba(27,136,238,.12)}
+.scene-item.active{border-color:var(--brand);box-shadow:0 4px 16px rgba(27,136,238,.18)}
+.scene-item .tag{display:inline-block;font-size:11px;color:var(--brand);background:var(--bg-blue);border-radius:4px;padding:2px 8px;margin-bottom:8px;font-weight:600}
+.scene-item h3{font-size:15px;margin-bottom:5px}
+.scene-item p{font-size:12px;color:var(--t3);line-height:1.6}
+.scene-item .cards-used{margin-top:8px;font-size:11px;color:var(--t2)}
+.scene-item .cards-used b{color:var(--warn);font-weight:600}
+.proto-note{background:var(--bg-blue);border:1px solid #9CCBF8;border-radius:var(--r-m);padding:12px 14px;font-size:12px;color:var(--t2);line-height:1.8;margin-top:4px}
+.proto-note b{color:var(--brand)}
+
+/* ===== 手机框 ===== */
+.phone-wrap{flex:1;display:flex;justify-content:center}
+.phone{width:400px;background:#fff;border-radius:44px;box-shadow:0 24px 70px rgba(20,50,90,.22);padding:12px;position:relative}
+.screen{background:var(--bg-page);border-radius:34px;overflow:hidden;height:780px;display:flex;flex-direction:column;position:relative}
+.statusbar{height:44px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 26px 6px;font-size:13px;font-weight:600;background:#fff}
+.navbar{background:#fff;padding:8px 16px 12px;display:flex;align-items:center;gap:10px;border-bottom:.5px solid var(--bd)}
+.navbar .ai-avatar{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#1B88EE,#69B1F4);display:flex;align-items:center;justify-content:center;color:#fff;font-size:17px}
+.navbar .title{font-size:15px;font-weight:600}
+.navbar .sub{font-size:11px;color:var(--t3)}
+.navbar .more{margin-left:auto;color:var(--t2);font-size:18px;letter-spacing:2px}
+
+.chat{flex:1;overflow-y:auto;padding:16px 14px 10px;scroll-behavior:smooth}
+.msg{display:flex;margin-bottom:14px;animation:fadeUp .35s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.msg.user{justify-content:flex-end}
+.bubble{max-width:78%;padding:10px 13px;border-radius:12px;font-size:14px;line-height:1.65}
+.msg.ai .bubble{background:#fff;border-top-left-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.msg.user .bubble{background:#95EC69;border-top-right-radius:4px;color:#111}
+.bubble .hl{color:var(--brand);font-weight:600}
+
+/* ===== 原子组件 GUI 卡片 ===== */
+.card-msg{margin:0 0 14px;animation:fadeUp .4s ease both}
+.gui-card{background:#fff;border-radius:14px;box-shadow:0 2px 10px rgba(0,0,0,.06);overflow:hidden;position:relative}
+.gui-head{display:flex;align-items:center;justify-content:space-between;padding:9px 13px;border-bottom:.5px solid var(--bd)}
+.gui-head .src{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--t3)}
+.gui-head .src .logo{width:16px;height:16px;border-radius:4px;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700}
+.gui-head .enter{font-size:11px;color:var(--t3);display:flex;align-items:center;gap:2px;cursor:pointer}
+.gui-body{padding:12px 13px}
+.disclaimer{font-size:10px;color:#bbb;padding:7px 13px;border-top:.5px solid var(--bd);line-height:1.5}
+
+/* 卡片内部通用 */
+.f-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
+.f-name{font-size:15px;font-weight:600;line-height:1.4}
+.f-code{font-size:11px;color:var(--t3);margin-top:2px}
+.risk-tag{font-size:10px;color:var(--warn);background:var(--bg-warn);border:1px solid #FFDC9E;border-radius:4px;padding:2px 6px;white-space:nowrap}
+.nums{display:flex;gap:18px;align-items:flex-end;margin-bottom:8px}
+.num-main .v{font-size:24px;font-weight:700;font-family:"DIN Alternate","Helvetica Neue",sans-serif}
+.num-main .l,.num-sub .l{font-size:10px;color:var(--t3);margin-top:2px}
+.num-sub .v{font-size:15px;font-weight:600}
+.up{color:var(--up)} .down{color:var(--down)}
+.spark{width:100%;height:62px}
+.score-bar{display:flex;align-items:center;gap:8px;background:var(--bg-blue);border-radius:8px;padding:8px 10px;margin:10px 0}
+.score-bar .s{font-size:17px;font-weight:700;color:var(--brand)}
+.score-bar .c{font-size:12px;color:var(--t2);line-height:1.5}
+.metric3{display:flex;border-top:.5px solid var(--bd);padding-top:10px}
+.metric3 .m{flex:1;text-align:center}
+.metric3 .m .v{font-size:14px;font-weight:600}
+.metric3 .m .l{font-size:10px;color:var(--t3);margin-top:3px}
+.actions{display:flex;gap:9px;margin-top:12px}
+.btn{flex:1;text-align:center;font-size:13px;padding:8px 0;border-radius:8px;cursor:pointer;transition:.15s;user-select:none}
+.btn.ghost{color:var(--brand);border:1px solid var(--brand);background:#fff}
+.btn.ghost:active{background:var(--bg-blue)}
+.btn.solid{color:#fff;background:var(--brand)}
+.btn.solid:active{background:#1677d0}
+
+/* 对比卡 */
+.cmp-table{width:100%;border-collapse:collapse;font-size:12px}
+.cmp-table th{font-size:11px;color:var(--t3);font-weight:500;padding:6px 4px;border-bottom:.5px solid var(--bd);text-align:center}
+.cmp-table th:first-child{text-align:left;width:80px}
+.cmp-table td{padding:7px 4px;text-align:center;border-bottom:.5px solid #F4F4F4}
+.cmp-table td:first-child{text-align:left;color:var(--t3);font-size:11px}
+.cmp-table .best{color:var(--brand);font-weight:700}
+.ai-note{background:var(--bg-blue);border-radius:8px;padding:8px 10px;font-size:12px;color:var(--t2);margin-top:10px;line-height:1.6}
+.ai-note i{color:var(--brand);margin-right:4px}
+
+/* 体检卡 */
+.diag-row{display:flex;gap:8px;align-items:center}
+.diag-score{width:118px;text-align:center;flex-shrink:0}
+.diag-score .big{font-size:34px;font-weight:700;color:var(--brand);font-family:"DIN Alternate",sans-serif}
+.diag-score .lvl{display:inline-block;font-size:11px;color:#fff;background:var(--brand);border-radius:10px;padding:2px 10px;margin-top:4px}
+.radar-box{flex:1;height:140px}
+.diag-points{margin-top:8px}
+.diag-points .p{display:flex;gap:7px;font-size:12px;color:var(--t2);padding:4px 0;align-items:center}
+.diag-points .p i.ok{color:var(--down)} .diag-points .p i.warn{color:var(--warn)}
+
+/* 四笔钱卡 */
+.plan-row{display:flex;align-items:center}
+.donut-box{width:148px;height:148px;flex-shrink:0}
+.legend{flex:1}
+.legend .li{display:flex;align-items:center;gap:7px;font-size:12px;padding:4px 0}
+.legend .dot{width:8px;height:8px;border-radius:2px}
+.legend .nm{color:var(--t2);flex:1}
+.legend .pc{font-weight:600}
+.mc-band{background:var(--bg-deep);border-radius:8px;padding:8px 10px;font-size:12px;color:var(--t2);margin-top:10px;line-height:1.6}
+.mc-band b{color:var(--t1)}
+
+/* 温度卡 */
+.gauge-row{display:flex;align-items:center}
+.gauge-box{width:140px;height:110px;flex-shrink:0}
+.idx-list{flex:1}
+.idx{display:flex;justify-content:space-between;font-size:12px;padding:5px 2px;border-bottom:.5px dashed #f0f0f0}
+.idx .n{color:var(--t2)}
+.impact{background:var(--bg-warn);border:1px solid #FFDC9E;border-radius:8px;padding:8px 10px;font-size:12px;color:var(--t2);margin-top:10px;line-height:1.6}
+.impact b{color:var(--warn)}
+
+/* 策略卡 */
+.stg-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.stg-mgr{font-size:11px;color:var(--t3);margin-bottom:10px}
+.pos-line{font-size:12px;color:var(--t2);background:var(--bg-deep);border-radius:6px;padding:6px 10px;margin-top:8px}
+
+/* 交易确认卡 */
+.order-status{display:flex;align-items:center;gap:9px;margin-bottom:10px}
+.order-status .ic{width:34px;height:34px;border-radius:50%;background:var(--bg-blue);color:var(--brand);display:flex;align-items:center;justify-content:center;font-size:18px}
+.order-status .st{font-size:15px;font-weight:600}
+.order-status .sd{font-size:11px;color:var(--t3);margin-top:2px}
+.order-rows{border-top:.5px solid var(--bd);padding-top:8px}
+.order-rows .r{display:flex;justify-content:space-between;font-size:12px;padding:4px 0}
+.order-rows .r .k{color:var(--t3)} .order-rows .r .v{color:var(--t1)}
+
+/* 过期态蒙层 */
+.expired-mask{position:absolute;inset:0;background:rgba(255,255,255,.72);backdrop-filter:blur(1.5px);display:flex;align-items:center;justify-content:center;z-index:5;border-radius:14px}
+.expired-mask span{font-size:13px;color:var(--t3);background:#fff;border:1px solid var(--bd);border-radius:18px;padding:7px 18px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+
+/* 输入条 */
+.inputbar{background:#fff;border-top:.5px solid var(--bd);padding:10px 14px 26px;display:flex;gap:10px;align-items:center}
+.inputbar .mic,.inputbar .plus{font-size:20px;color:var(--t2)}
+.inputbar .field{flex:1;background:var(--bg-deep);border-radius:18px;padding:8px 14px;font-size:13px;color:var(--t4)}
+
+/* 半屏页面 */
+.sheet-mask{position:absolute;inset:0;background:rgba(0,0,0,.45);z-index:20;opacity:0;pointer-events:none;transition:.25s;border-radius:34px}
+.sheet-mask.show{opacity:1;pointer-events:auto}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:18px 18px 34px 34px;z-index:21;transform:translateY(105%);transition:.3s cubic-bezier(.3,.9,.4,1);max-height:78%;display:flex;flex-direction:column}
+.sheet.show{transform:none}
+.sheet-head{display:flex;align-items:center;justify-content:space-between;padding:15px 18px;border-bottom:.5px solid var(--bd)}
+.sheet-head .t{font-size:15px;font-weight:600}
+.sheet-head .x{font-size:18px;color:var(--t3);cursor:pointer;padding:2px 6px}
+.sheet-body{padding:16px 18px 28px;overflow-y:auto;font-size:13px;color:var(--t2);line-height:1.8}
+.sheet-body h4{font-size:13px;color:var(--t1);margin:14px 0 6px}
+.sheet-body h4:first-child{margin-top:0}
+.form-item{margin-bottom:14px}
+.form-item .lb{font-size:12px;color:var(--t3);margin-bottom:8px}
+.opts{display:flex;gap:8px}
+.opt{flex:1;text-align:center;font-size:12px;border:1px solid var(--bd);border-radius:8px;padding:9px 0;cursor:pointer;color:var(--t2)}
+.opt.sel{border-color:var(--brand);color:var(--brand);background:var(--bg-blue);font-weight:600}
+.sheet-cta{margin:6px 0 0;background:var(--brand);color:#fff;text-align:center;border-radius:10px;padding:12px 0;font-size:14px;font-weight:600;cursor:pointer}
+.kv{display:flex;justify-content:space-between;padding:6px 0;border-bottom:.5px dashed #f0f0f0;font-size:12px}
+.kv .k{color:var(--t3)}
+.amount-input{display:flex;align-items:baseline;gap:6px;border-bottom:2px solid var(--brand);padding:6px 2px;margin:8px 0 4px}
+.amount-input .cur{font-size:18px;font-weight:700;color:var(--t1)}
+.amount-input .amt{font-size:30px;font-weight:700;color:var(--t1);font-family:"DIN Alternate",sans-serif}
+.agree{display:flex;gap:6px;align-items:flex-start;font-size:11px;color:var(--t3);margin:12px 0;line-height:1.6}
+.agree i{color:var(--brand);font-size:14px}
+.agree a{color:var(--brand);text-decoration:none}
+
+.typing{display:inline-flex;gap:4px;padding:4px 2px}
+.typing i{width:6px;height:6px;border-radius:50%;background:#c5c5c5;animation:tp 1s infinite}
+.typing i:nth-child(2){animation-delay:.18s}.typing i:nth-child(3){animation-delay:.36s}
+@keyframes tp{0%,100%{opacity:.3;transform:translateY(0)}50%{opacity:1;transform:translateY(-3px)}}
+
+.footer{ text-align:center;font-size:12px;color:var(--t3);padding:18px 0 30px}
+@media (max-width:1020px){.layout{flex-direction:column;align-items:center}.sidebar{width:100%;max-width:560px}.phone-wrap{width:100%}}
+@media (max-width:520px){
+  .hero{padding:20px 16px;display:block}.hero h1{font-size:19px;line-height:1.45}.hero .badge{display:inline-block;margin-top:12px}
+  .review-note{margin:12px 12px 0}.layout{margin:14px auto;padding:0 12px;gap:18px}.phone{width:100%;padding:7px;border-radius:30px}
+  .screen{height:720px;border-radius:24px}.statusbar{padding-left:20px;padding-right:20px}.sheet-mask{border-radius:24px}.sheet{border-radius:18px 18px 24px 24px}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div>
+    <h1><i class="ri-wechat-fill"></i>&nbsp;且慢 × 微信小程序AI · 投顾合作场景DEMO</h1>
+    <p>盈米MCP金融工具 × 微信小程序MCP协议 · 原子接口 + 原子组件（GUI卡片）+ 半屏页面 高保真原型</p>
+  </div>
+  <div class="badge">交互演示 · 点击左侧切换场景 · 卡片按钮可点击</div>
+</div>
+
+<div class="review-note" role="note">
+  <strong>公开脱敏交互原型 · 非对客营销材料</strong>
+  本页仅用于产品方案与交互评审。所有产品名称、业绩、概率、行情、持仓和交易结果均为模拟，未连接生产接口，不构成投资建议，也不提供真实交易。正式对客上线须完成业务、法务与合规审查；金融产品详情、适当性评估、协议签署及交易应在且慢自营平台完成，并以正式产品合同和风险揭示书为准。
+</div>
+
+<div class="layout">
+  <!-- 左侧场景导航 -->
+  <div class="sidebar" id="sceneNav">
+    <div class="scene-item active" data-scene="s1">
+      <span class="tag">S1 · fund-insight</span>
+      <h3>基金问诊</h3>
+      <p>"这只基金值得买吗？" → 基金诊断卡 → 半屏完整报告 → 对比同类</p>
+      <div class="cards-used">原子组件：<b>C1 基金诊断卡</b> ＋ <b>C2 基金对比卡</b></div>
+    </div>
+    <div class="scene-item" data-scene="s2">
+      <span class="tag">S2 · portfolio-checkup</span>
+      <h3>持仓体检</h3>
+      <p>发送持仓截图（多模态）→ 雷达图三维评分 → 优化建议</p>
+      <div class="cards-used">原子组件：<b>C3 持仓体检卡</b></div>
+    </div>
+    <div class="scene-item" data-scene="s3">
+      <span class="tag">S3 · asset-planning</span>
+      <h3>四笔钱配置规划</h3>
+      <p>"我有20万帮我规划" → 半屏三性表单 → 方案卡（含旧卡过期态演示）</p>
+      <div class="cards-used">原子组件：<b>C4 四笔钱方案卡</b> ＋ 半屏表单 ＋ 过期态</div>
+    </div>
+    <div class="scene-item" data-scene="s4">
+      <span class="tag">S4 · market-companion</span>
+      <h3>行情陪伴</h3>
+      <p>"今天怎么又跌了？" → 市场温度计 + 个性化持仓影响 + 陪伴话术</p>
+      <div class="cards-used">原子组件：<b>C5 市场温度卡</b></div>
+    </div>
+    <div class="scene-item" data-scene="s5">
+      <span class="tag">S5 · strategy-trade</span>
+      <h3>策略服务衔接（自营平台完成）</h3>
+      <p>策略信息卡 → 跳转提示 → 且慢自营平台完成交易 → 回传确认卡</p>
+      <div class="cards-used">原子组件：<b>C6 策略卡</b> ＋ <b>C7 交易确认卡</b>（expirable）</div>
+    </div>
+    <div class="proto-note">
+      <b><i class="ri-shield-check-line"></i> 协议要点还原：</b><br>
+      ① 卡片宽随屏幕、高度限制在宽高比 4:1 ~ 1:1<br>
+      ② 仅支持 tap 交互，禁止滚动/动画/输入控件<br>
+      ③ 卡片标题栏右上角为小程序入口（relatedPage 必填）<br>
+      ④ 按钮统一走 sendFollowUpMessage / openDetailPage<br>
+      ⑤ C6/C7 声明 expirable，防重复提交<br>
+      ⑥ 交互结构映射盈米MCP能力；当前页面全部为模拟名称与模拟数据，未连接生产接口
+    </div>
+  </div>
+
+  <!-- 手机 -->
+  <div class="phone-wrap">
+    <div class="phone">
+      <div class="screen">
+        <div class="statusbar"><span>14:54</span><span><i class="ri-signal-wifi-fill"></i> <i class="ri-battery-fill"></i></span></div>
+        <div class="navbar">
+          <div class="ai-avatar"><i class="ri-sparkling-2-fill"></i></div>
+          <div>
+            <div class="title">且慢·AI小顾</div>
+            <div class="sub">小程序AI · 盈米基金（持牌投顾）</div>
+          </div>
+          <div class="more">···</div>
+        </div>
+        <div class="chat" id="chat"></div>
+        <div class="inputbar">
+          <i class="ri-mic-line mic"></i>
+          <div class="field">和 且慢AI小顾 对话…</div>
+          <i class="ri-add-circle-line plus"></i>
+        </div>
+
+        <!-- 半屏页面 -->
+        <div class="sheet-mask" id="sheetMask" onclick="closeSheet()"></div>
+        <div class="sheet" id="sheet">
+          <div class="sheet-head"><span class="t" id="sheetTitle">详情</span><span class="x" onclick="closeSheet()"><i class="ri-close-line"></i></span></div>
+          <div class="sheet-body" id="sheetBody"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">盈米基金 ｜ Qieman × WeChat MiniProgram AI · 高保真交互原型 · 数据为演示用模拟数据，不构成投资建议</div>
+
+<script>
+/* ================= 工具 ================= */
+const chat = document.getElementById('chat');
+const charts = [];
+function el(html){ const d=document.createElement('div'); d.innerHTML=html.trim(); return d.firstChild; }
+function scrollBottom(){ chat.scrollTop = chat.scrollHeight; }
+function addUser(text){ chat.appendChild(el(`<div class="msg user"><div class="bubble">${text}</div></div>`)); scrollBottom(); }
+function addAI(text){ chat.appendChild(el(`<div class="msg ai"><div class="bubble">${text}</div></div>`)); scrollBottom(); }
+function addCard(html){ const c = el(`<div class="card-msg">${html}</div>`); chat.appendChild(c); scrollBottom(); return c; }
+function addTyping(cb, delay=900){
+  const t = el(`<div class="msg ai"><div class="bubble"><span class="typing"><i></i><i></i><i></i></span></div></div>`);
+  chat.appendChild(t); scrollBottom();
+  setTimeout(()=>{ t.remove(); cb(); }, delay);
+}
+function initChart(id, option){
+  const dom = document.getElementById(id);
+  if(!dom) return;
+  const c = echarts.init(dom, null, {renderer:'canvas'});
+  c.setOption(option); charts.push(c);
+}
+function guiHead(skill){
+  return `<div class="gui-head">
+    <span class="src"><span class="logo">且</span>且慢 · ${skill}</span>
+    <span class="enter" title="relatedPage：进入且慢小程序（场景值1442/1443）">小程序 <i class="ri-arrow-right-s-line"></i></span>
+  </div>`;
+}
+const DISC = `<div class="disclaimer">演示数据日期：2026-06-09。所有名称与数值均为模拟，不代表真实产品表现。市场有风险，投资需谨慎；具体风险以正式产品合同与风险揭示书为准。</div>`;
+
+/* sparkline 数据 */
+function genTrend(n, start, vol, drift){
+  const arr=[]; let v=start;
+  for(let i=0;i<n;i++){ v = v*(1+(Math.sin(i/9)*vol+drift)+ (((i*7919)%13)-6)/3500 ); arr.push(+v.toFixed(4)); }
+  return arr;
+}
+function sparkOpt(data, color, base){
+  return { grid:{left:2,right:2,top:6,bottom:2}, xAxis:{type:'category',show:false,data:data.map((_,i)=>i)},
+    yAxis:{type:'value',show:false,min:'dataMin',max:'dataMax'}, animation:false,
+    series:[{type:'line',data,symbol:'none',lineStyle:{width:1.6,color},
+      areaStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,colorStops:[{offset:0,color:color+'33'},{offset:1,color:color+'05'}]}}},
+      ...(base?[{type:'line',data:base,symbol:'none',lineStyle:{width:1,color:'#bbb',type:'dashed'}}]:[]) ] };
+}
+
+/* ================= 半屏页面 ================= */
+const sheet=document.getElementById('sheet'), sheetMask=document.getElementById('sheetMask');
+function openSheet(title, bodyHtml, after){
+  document.getElementById('sheetTitle').textContent=title;
+  document.getElementById('sheetBody').innerHTML=bodyHtml;
+  sheetMask.classList.add('show'); sheet.classList.add('show');
+  if(after) after();
+}
+function closeSheet(){ sheetMask.classList.remove('show'); sheet.classList.remove('show'); }
+
+/* ================= 卡片模板 ================= */
+/* C1 基金诊断卡 */
+function cardFund(){
+  return `<div class="gui-card">${guiHead('基金诊断')}
+  <div class="gui-body">
+    <div class="f-top">
+      <div><div class="f-name">示例蓝筹精选混合</div><div class="f-code">DEMO001 · 偏股混合型</div></div>
+      <span class="risk-tag">中高风险 R4</span>
+    </div>
+    <div class="nums">
+      <div class="num-main"><div class="v up">+12.35%</div><div class="l">近1年收益率</div></div>
+      <div class="num-sub"><div class="v">2.8763</div><div class="l">单位净值</div></div>
+      <div class="num-sub"><div class="v down">-0.42%</div><div class="l">日涨跌</div></div>
+    </div>
+    <div class="spark" id="sparkFund"></div>
+    <div class="score-bar"><span class="s">4.2<small style="font-size:10px;color:var(--t3)">/5</small></span>
+      <span class="c">综合诊断：长期业绩稳健，当前估值处于历史中位，适合长期持有</span></div>
+    <div class="metric3">
+      <div class="m"><div class="v">8.92%</div><div class="l">近3年年化</div></div>
+      <div class="m"><div class="v">-18.6%</div><div class="l">最大回撤</div></div>
+      <div class="m"><div class="v">0.87</div><div class="l">夏普比率</div></div>
+    </div>
+    <div class="actions">
+      <span class="btn ghost" onclick="openFundDetail()">完整诊断报告</span>
+      <span class="btn solid" onclick="flowCompare()">对比同类</span>
+    </div>
+  </div>${DISC}</div>`;
+}
+/* C2 基金对比卡 */
+function cardCompare(){
+  return `<div class="gui-card">${guiHead('基金对比')}
+  <div class="gui-body">
+    <table class="cmp-table">
+      <tr><th>指标</th><th>示例蓝筹</th><th>示例成长</th><th>示例均衡</th></tr>
+      <tr><td>近1年收益</td><td class="best">+12.35%</td><td>+9.87%</td><td>+10.62%</td></tr>
+      <tr><td>近3年年化</td><td>8.92%</td><td>7.45%</td><td class="best">9.31%</td></tr>
+      <tr><td>最大回撤</td><td>-18.6%</td><td class="best">-16.2%</td><td>-21.4%</td></tr>
+      <tr><td>夏普比率</td><td class="best">0.87</td><td>0.74</td><td>0.81</td></tr>
+      <tr><td>综合评分</td><td class="best">4.2</td><td>3.8</td><td>4.0</td></tr>
+    </table>
+    <div class="ai-note"><i class="ri-sparkling-2-fill"></i>演示解读：示例蓝筹的近1年弹性与风险调整后收益较高；更关注回撤控制时，可继续比较示例成长。真实判断须以正式数据与适当性评估为准。</div>
+  </div>${DISC}</div>`;
+}
+/* C3 持仓体检卡 */
+function cardDiagnosis(){
+  return `<div class="gui-card">${guiHead('持仓体检')}
+  <div class="gui-body">
+    <div class="f-top"><div class="f-name">持仓体检报告</div><span style="font-size:11px;color:var(--t3)">5只示例基金 · 模拟授权</span></div>
+    <div class="diag-row">
+      <div class="diag-score"><div class="big">3.4<small style="font-size:13px;color:var(--t3)">/5</small></div><span class="lvl">待优化</span></div>
+      <div class="radar-box" id="radarDiag"></div>
+    </div>
+    <div class="diag-points">
+      <div class="p"><i class="ri-error-warning-fill warn"></i>权益资产占比 82%，超出你的风险承受建议值</div>
+      <div class="p"><i class="ri-error-warning-fill warn"></i>3只重仓基金相关性 0.91，分散度不足</div>
+      <div class="p"><i class="ri-checkbox-circle-fill ok"></i>近3年组合年化 6.8%，跑赢同风险基准</div>
+    </div>
+    <div class="actions">
+      <span class="btn ghost" onclick="openDiagDetail()">完整报告</span>
+      <span class="btn solid" onclick="flowAdvice()">查看优化建议</span>
+    </div>
+  </div>${DISC}</div>`;
+}
+/* C4 四笔钱方案卡 */
+function cardPlan(ver){
+  const id = 'donutPlan'+ver;
+  const tip = ver===2 ? '已按你更新的偏好（可接受回撤≤10% · 3年）重新定制' : '已按中等风险偏好 · 3年期限为你定制';
+  const data = ver===2 ? [25,40,25,10] : [15,30,45,10];
+  return `<div class="gui-card" data-plan="v${ver}">${guiHead('四笔钱规划')}
+  <div class="gui-body">
+    <div class="f-top"><div class="f-name">你的四笔钱方案 <span style="font-size:11px;color:var(--t3);font-weight:400">规划金额 ¥200,000</span></div></div>
+    <div class="plan-row">
+      <div class="donut-box" id="${id}" data-d="${data.join(',')}"></div>
+      <div class="legend">
+        <div class="li"><span class="dot" style="background:#69B1F4"></span><span class="nm">活钱管理</span><span class="pc">${data[0]}% · ${(data[0]*0.2).toFixed(0)}万</span></div>
+        <div class="li"><span class="dot" style="background:#7DD4C4"></span><span class="nm">稳健理财</span><span class="pc">${data[1]}% · ${(data[1]*0.2).toFixed(0)}万</span></div>
+        <div class="li"><span class="dot" style="background:#FBCA74"></span><span class="nm">长期投资</span><span class="pc">${data[2]}% · ${(data[2]*0.2).toFixed(0)}万</span></div>
+        <div class="li"><span class="dot" style="background:#ADAFE8"></span><span class="nm">保险保障</span><span class="pc">${data[3]}% · ${(data[3]*0.2).toFixed(0)}万</span></div>
+      </div>
+    </div>
+    <div class="mc-band"><i class="ri-funds-line" style="color:var(--brand)"></i> 蒙特卡洛模拟：持有3年收益区间 <b>${ver===2?'-4.2% ~ +28.5%':'-8.6% ~ +39.2%'}</b>，中位数 <b class="up">${ver===2?'+11.8%':'+16.4%'}</b></div>
+    <div style="font-size:11px;color:var(--t3);margin-top:8px"><i class="ri-information-line"></i> ${tip}</div>
+    <div class="actions">
+      <span class="btn ghost" onclick="openPrefSheet()">调整偏好</span>
+      <span class="btn solid" onclick="alert('演示：跳转至且慢自营平台继续，并完成正式风险揭示与适当性流程')">去且慢查看</span>
+    </div>
+  </div>${DISC}</div>`;
+}
+/* C5 市场温度卡 */
+function cardMarket(){
+  return `<div class="gui-card">${guiHead('市场温度')}
+  <div class="gui-body">
+    <div class="f-top"><div class="f-name">今日市场温度</div><span style="font-size:11px;color:var(--t3)">2026-06-10 收盘</span></div>
+    <div class="gauge-row">
+      <div class="gauge-box" id="gaugeMkt"></div>
+      <div class="idx-list">
+        <div class="idx"><span class="n">沪深300</span><span class="down">-1.86%</span></div>
+        <div class="idx"><span class="n">中证500</span><span class="down">-2.31%</span></div>
+        <div class="idx"><span class="n">创业板指</span><span class="down">-2.74%</span></div>
+      </div>
+    </div>
+    <div class="ai-note"><i class="ri-sparkling-2-fill"></i>受海外流动性预期收紧影响，今日普跌。当前温度 38°（偏低估区），历史上该区间继续大跌概率较低。</div>
+    <div class="impact"><i class="ri-user-heart-line"></i> 你的持仓今日约 <b>-0.82%</b>。历史同级别回撤平均 <b>23天</b> 修复，无需恐慌。</div>
+    <div class="actions">
+      <span class="btn ghost" onclick="flowWhyDown()">为什么跌？</span>
+      <span class="btn solid" onclick="flowSeeMine()">看我的四笔钱</span>
+    </div>
+  </div>${DISC}</div>`;
+}
+/* C6 策略卡 */
+function cardStrategy(){
+  return `<div class="gui-card" id="stgCard">${guiHead('投顾策略')}
+  <div class="gui-body">
+    <div class="stg-head"><div class="f-name">示例稳健策略</div><span class="risk-tag">风险等级 R2（示例）</span></div>
+    <div class="stg-mgr">主理人：盈米基金且慢投研团队 · 持牌基金投顾</div>
+    <div class="nums">
+      <div class="num-main"><div class="v up">+5.62%</div><div class="l">成立以来年化</div></div>
+      <div class="num-sub"><div class="v">-3.8%</div><div class="l">最大回撤</div></div>
+      <div class="num-sub"><div class="v">7.2年</div><div class="l">运作时长</div></div>
+    </div>
+    <div class="spark" id="sparkStg"></div>
+    <div class="pos-line"><i class="ri-flag-line" style="color:var(--brand)"></i> 定位：稳健理财 · 目标年化4~6% · 建议持有1年以上</div>
+    <div class="actions">
+      <span class="btn ghost" onclick="openStgDetail()">了解详情</span>
+      <span class="btn solid" onclick="openTradeSheet()">前往且慢</span>
+    </div>
+  </div>${DISC}</div>`;
+}
+/* C7 交易确认卡 */
+function cardOrder(){
+  return `<div class="gui-card" id="orderCard">${guiHead('交易确认')}
+  <div class="gui-body">
+    <div class="order-status">
+      <div class="ic"><i class="ri-time-line" id="ordIcon"></i></div>
+      <div><div class="st" id="ordSt">演示回执同步中</div><div class="sd" id="ordSd">模拟动态组件 · 不连接真实订单</div></div>
+    </div>
+    <div class="order-rows">
+      <div class="r"><span class="k">示例策略</span><span class="v">示例稳健策略</span></div>
+      <div class="r"><span class="k">跟投金额</span><span class="v">¥10,000.00</span></div>
+      <div class="r"><span class="k">预计确认</span><span class="v">2026-06-11（T+1）</span></div>
+      <div class="r"><span class="k">预计可查收益</span><span class="v">2026-06-12</span></div>
+    </div>
+    <div class="actions"><span class="btn ghost" onclick="alert('演示：relatedPage 跳转至且慢小程序订单详情页')">查看订单</span></div>
+  </div>${DISC}</div>`;
+}
+
+/* ================= 半屏页面内容 ================= */
+function openFundDetail(){
+  openSheet('完整诊断报告 · 示例蓝筹精选', `
+    <h4><i class="ri-bar-chart-grouped-line"></i> 估值水平</h4>
+    <div class="kv"><span class="k">持仓PE分位（近5年）</span><span>52%（中位）</span></div>
+    <div class="kv"><span class="k">持仓PB分位</span><span>47%</span></div>
+    <h4><i class="ri-pie-chart-2-line"></i> 行业分布 TOP3</h4>
+    <div class="kv"><span class="k">食品饮料</span><span>28.4%</span></div>
+    <div class="kv"><span class="k">医药生物</span><span>17.2%</span></div>
+    <div class="kv"><span class="k">电子</span><span>12.6%</span></div>
+    <h4><i class="ri-funds-box-line"></i> 持有体验</h4>
+    <div class="kv"><span class="k">示例情景：持有3年达到目标区间比例</span><span>87%（模拟）</span></div>
+    <div class="kv"><span class="k">近3年最长回撤修复</span><span>196天</span></div>
+    <div class="sheet-cta" onclick="closeSheet();flowCompare()">对比同类基金</div>
+    <div style="font-size:10px;color:#bbb;margin-top:10px">数据来源：盈米MCP · GetFundDiagnosis 实算 ｜ 半屏页内点击按钮将 sendFollowUpMessage 并关闭半屏</div>
+  `);
+}
+function openDiagDetail(){
+  openSheet('持仓体检 · 完整报告', `
+    <h4>资产配置（穿透后）</h4>
+    <div class="kv"><span class="k">权益类</span><span style="color:var(--warn);font-weight:600">82.3%（偏高）</span></div>
+    <div class="kv"><span class="k">固收类</span><span>12.1%</span></div>
+    <div class="kv"><span class="k">现金及货基</span><span>5.6%</span></div>
+    <h4>相关性矩阵（重仓TOP3）</h4>
+    <div class="kv"><span class="k">基金A × 基金B</span><span style="color:var(--warn)">0.91</span></div>
+    <div class="kv"><span class="k">基金A × 基金C</span><span style="color:var(--warn)">0.88</span></div>
+    <h4>历史回测（近3年）</h4>
+    <div class="kv"><span class="k">年化收益</span><span class="up">+6.8%</span></div>
+    <div class="kv"><span class="k">最大回撤</span><span>-26.4%</span></div>
+    <div class="sheet-cta" onclick="closeSheet();flowAdvice()">获取优化建议</div>
+  `);
+}
+let prefSel = {risk:1, term:1};
+function openPrefSheet(){
+  openSheet('调整投资偏好（投资三性）', `
+    <div class="form-item"><div class="lb">最大可接受回撤</div>
+      <div class="opts" id="optRisk">
+        <span class="opt" data-i="0">≤5%</span><span class="opt sel" data-i="1">≤10%</span><span class="opt" data-i="2">≤20%</span>
+      </div></div>
+    <div class="form-item"><div class="lb">预计投资期限</div>
+      <div class="opts" id="optTerm">
+        <span class="opt" data-i="0">1年内</span><span class="opt sel" data-i="1">1~3年</span><span class="opt" data-i="2">3年以上</span>
+      </div></div>
+    <div class="form-item"><div class="lb">流动性需求（随时可取的比例）</div>
+      <div class="opts"><span class="opt">10%</span><span class="opt sel">25%</span><span class="opt">40%</span></div></div>
+    <div class="sheet-cta" onclick="submitPref()">按新偏好重新规划</div>
+    <div style="font-size:10px;color:#bbb;margin-top:10px">提交后将 sendFollowUpMessage（携带 api/call: getAllocationPlan），关闭半屏回到对话流；旧方案卡将通过 expirePreviousCards 置为过期态</div>
+  `, ()=> {
+    document.querySelectorAll('#sheetBody .opts').forEach(g=>{
+      g.querySelectorAll('.opt').forEach(o=>o.onclick=()=>{ g.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel')); o.classList.add('sel'); });
+    });
+  });
+}
+function openStgDetail(){
+  openSheet('策略详情 · 示例稳健策略', `
+    <h4>资产配置</h4>
+    <div class="kv"><span class="k">债券型基金</span><span>72%</span></div>
+    <div class="kv"><span class="k">权益型基金</span><span>18%</span></div>
+    <div class="kv"><span class="k">货币/现金</span><span>10%</span></div>
+    <h4>风险收益特征</h4>
+    <div class="kv"><span class="k">年化波动率</span><span>2.9%</span></div>
+    <div class="kv"><span class="k">示例情景：持有1年达到目标区间比例</span><span>96%（模拟）</span></div>
+    <h4>费用</h4>
+    <div class="kv"><span class="k">投顾服务费</span><span>0.30%/年</span></div>
+    <div class="sheet-cta" onclick="closeSheet();openTradeSheet()">前往且慢自营平台</div>
+  `);
+}
+function openTradeSheet(){
+  openSheet('前往且慢自营平台 · 示例流程', `
+    <div style="font-size:12px;color:var(--t3)">演示金额（不构成真实交易）</div>
+    <div class="amount-input"><span class="cur">¥</span><span class="amt">10,000</span></div>
+    <div class="kv"><span class="k">风险测评</span><span>须在且慢自营平台核验</span></div>
+    <div class="kv"><span class="k">协议与风险揭示</span><span>须在且慢自营平台阅读确认</span></div>
+    <div class="agree"><i class="ri-information-line"></i><span>下一步仅演示跳转边界。产品详情、适当性评估、协议签署、资金划转与交易确认均应在且慢自营平台完成。</span></div>
+    <div class="sheet-cta" onclick="submitTrade()">演示跳转并返回结果</div>
+    <div style="font-size:10px;color:#bbb;margin-top:10px">原型示意：openDetailPage 跳转至且慢自营平台；完成正式流程后，仅将结果状态回传到对话卡片。本页不调用 createOrder。</div>
+  `);
+}
+
+/* ================= 场景流程 ================= */
+function flowCompare(){
+  addUser('对比一下示例蓝筹和同类基金');
+  addTyping(()=>{
+    addAI('已为你挑选同类型中规模与风格相近的2只基金，对比如下：');
+    addCard(cardCompare());
+  });
+}
+function flowAdvice(){
+  addUser('给我优化建议');
+  addTyping(()=>{
+    addAI('基于体检结果，给你3条建议：<br>① <span class="hl">降低权益仓位</span>：将权益占比从82%调整至约60%，更匹配你的风险测评等级；<br>② <span class="hl">替换高相关基金</span>：3只重仓基金风格高度重合，建议保留1只，置换为债基或红利风格；<br>③ <span class="hl">补充活钱与保障</span>：预留3~6个月开支的货基，配置基础保障。<br><br>要不要我按"四笔钱"帮你出一份完整的配置方案？');
+  },1200);
+}
+function flowWhyDown(){
+  addUser('为什么跌？');
+  addTyping(()=>{
+    addAI('演示解读：今天的下跌可能与海外流动性预期及热门板块拥挤度有关。你的模拟组合权益占比45%，当日回撤低于页面中的模拟市场均值。<span class="hl">这只是交互示例，不代表对真实行情、收益或修复时间的判断</span>；真实服务需展示数据来源、时点与风险边界。');
+  },1300);
+}
+function flowSeeMine(){
+  addUser('看看我的四笔钱');
+  addTyping(()=>{
+    addAI('你的四笔钱整体健康，今日波动主要来自长期投资部分。要做一次完整持仓体检吗？（将路由至 portfolio-checkup SKILL）');
+  });
+}
+function submitPref(){
+  closeSheet();
+  addUser('按新偏好重新规划（回撤≤10% · 1~3年）');
+  // 旧卡过期
+  const old = chat.querySelector('[data-plan="v1"]');
+  if(old && !old.querySelector('.expired-mask')){
+    old.appendChild(el(`<div class="expired-mask"><span><i class="ri-time-line"></i> 方案已更新，请查看最新卡片</span></div>`));
+  }
+  addTyping(()=>{
+    addAI('已按你的新偏好重新规划。这版方案降低了长期投资比例、增配稳健理财，回撤控制更稳：');
+    addCard(cardPlan(2));
+    setTimeout(()=>renderPlanDonut(2),60);
+  },1400);
+}
+function submitTrade(){
+  closeSheet();
+  addUser('已在且慢自营平台完成示例流程，查看返回结果');
+  addTyping(()=>{
+    addAI('下面演示自营平台完成流程后的状态回传。本页没有发起真实订单：');
+    addCard(cardOrder());
+    setTimeout(()=>{
+      const st=document.getElementById('ordSt'), ic=document.getElementById('ordIcon'), sd=document.getElementById('ordSd');
+      if(st){ st.textContent='示例状态 · 待确认'; ic.className='ri-checkbox-circle-fill'; ic.parentElement.style.background='#E6F7F3'; ic.parentElement.style.color='#07AD8F'; sd.textContent='模拟回传完成；未创建真实订单、未发生资金划转'; }
+    },2200);
+  },1400);
+}
+
+/* ================= 图表渲染 ================= */
+function renderPlanDonut(ver){
+  const id='donutPlan'+ver, dom=document.getElementById(id);
+  if(!dom) return;
+  const d=dom.dataset.d.split(',').map(Number);
+  initChart(id,{ animation:false,
+    series:[{type:'pie',radius:['58%','82%'],label:{show:true,position:'center',formatter:'四笔钱\n¥20万',fontSize:12,color:'#606060',lineHeight:18},
+      data:[{value:d[0],name:'活钱',itemStyle:{color:'#69B1F4'}},{value:d[1],name:'稳健',itemStyle:{color:'#7DD4C4'}},
+            {value:d[2],name:'长期',itemStyle:{color:'#FBCA74'}},{value:d[3],name:'保险',itemStyle:{color:'#ADAFE8'}}],
+      labelLine:{show:false},emphasis:{disabled:true}}]});
+}
+function renderScene(scene){
+  if(scene==='s1'){
+    initChart('sparkFund', sparkOpt(genTrend(120,2.55,.004,.0011),'#FA440C'));
+  }
+  if(scene==='s2'){
+    initChart('radarDiag',{ animation:false,
+      radar:{indicator:[{name:'资产配置',max:5},{name:'风险分散',max:5},{name:'历史收益',max:5}],radius:'68%',
+        axisName:{fontSize:10,color:'#999'},splitArea:{areaStyle:{color:['#F7FAFF','#fff']}},splitLine:{lineStyle:{color:'#E5EEF8'}},axisLine:{lineStyle:{color:'#E5EEF8'}}},
+      series:[{type:'radar',data:[{value:[2.8,2.6,4.1]}],symbol:'circle',symbolSize:4,
+        lineStyle:{color:'#1B88EE',width:2},itemStyle:{color:'#1B88EE'},areaStyle:{color:'rgba(27,136,238,.18)'}}]});
+  }
+  if(scene==='s3'){ renderPlanDonut(1); }
+  if(scene==='s4'){
+    initChart('gaugeMkt',{ animation:false,
+      series:[{type:'gauge',startAngle:200,endAngle:-20,min:0,max:100,radius:'100%',center:['50%','62%'],
+        axisLine:{lineStyle:{width:12,color:[[.35,'#07AD8F'],[.65,'#FBCA74'],[1,'#FA440C']]}},
+        pointer:{length:'58%',width:4,itemStyle:{color:'#333'}},
+        axisTick:{show:false},splitLine:{show:false},axisLabel:{show:false},
+        detail:{valueAnimation:false,formatter:'{value}°',fontSize:20,fontWeight:700,color:'#07AD8F',offsetCenter:[0,'38%']},
+        data:[{value:38}]}]});
+  }
+  if(scene==='s5'){
+    initChart('sparkStg', sparkOpt(genTrend(120,1.0,.0006,.0005),'#1B88EE', genTrend(120,1.0,.0003,.0003)));
+  }
+}
+
+/* ================= 场景脚本 ================= */
+const SCENES = {
+  s1(){
+    addUser('示例蓝筹精选值得买吗？');
+    addAI('下面用模拟数据演示基金诊断卡的返回结构（能力映射：盈米MCP · GetFundDiagnosis）：');
+    addCard(cardFund());
+    addAI('它属于<span class="hl">偏股混合型，中高风险</span>。如果你的投资期限在3年以上、能接受20%左右的波动，可以作为"长期投资"部分配置。点击卡片可以看完整报告或对比同类。');
+  },
+  s2(){
+    addUser('帮我看看我的基金买得怎么样 <i class="ri-image-line"></i>［持仓截图］');
+    addAI('已识别你截图中的5只基金（多模态识别 · 置信度98%），正在做持仓体检（DiagnoseFundPortfolio）…');
+    addCard(cardDiagnosis());
+    addAI('整体评分 <span class="hl">3.4分（待优化）</span>。最需要关注的是<span class="hl">权益仓位偏高</span>和<span class="hl">基金同质化</span>问题，点击"查看优化建议"我来帮你拆解。');
+  },
+  s3(){
+    addUser('我有20万闲钱，帮我规划一下怎么投');
+    addAI('好的！根据你的风险测评（稳健型C3）和默认3年期限，用且慢"四笔钱"方法给你做了初版规划（GetAssetAllocationPlan + 蒙特卡洛模拟）：');
+    addCard(cardPlan(1));
+    addAI('这版模拟方案的长期投资占比为45%。点击<span class="hl">"调整偏好"</span>可演示在半屏页修改三性参数后重新计算。');
+  },
+  s4(){
+    addUser('今天怎么又跌了？我有点慌');
+    addAI('先看页面如何呈现市场全貌（能力映射：GetLatestQuotations + 模拟资讯解读）：');
+    addCard(cardMarket());
+    addAI('<span class="hl">你的持仓今日 -0.82%，回撤小于市场平均</span>。且慢的投资者平均持有762天，穿越波动是常态。与其盯着今天，不如看看你的四笔钱结构是否还健康。');
+  },
+  s5(){
+    addUser('稳健理财场景可以怎么承接？我想要波动小一点的');
+    addAI('下面演示风险测评后的策略信息卡结构（能力映射：GetStrategyDetails；产品与数据均为模拟）：');
+    addCard(cardStrategy());
+    addAI('页面用模拟指标展示风险收益特征。点击<span class="hl">“前往且慢”</span>后，只演示跳转边界；真实的产品详情、适当性评估、协议签署与交易均应在且慢自营平台完成。');
+  }
+};
+
+/* ================= 切换场景 ================= */
+function switchScene(scene){
+  charts.forEach(c=>c.dispose()); charts.length=0;
+  chat.innerHTML=''; closeSheet();
+  SCENES[scene]();
+  setTimeout(()=>{ renderScene(scene); scrollBottom(); }, 60);
+}
+document.querySelectorAll('.scene-item').forEach(item=>{
+  item.onclick=()=>{
+    document.querySelectorAll('.scene-item').forEach(x=>x.classList.remove('active'));
+    item.classList.add('active');
+    switchScene(item.dataset.scene);
+  };
+});
+switchScene('s1');
+</script>
+</body>
+</html>
