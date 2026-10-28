@@ -1,0 +1,464 @@
+{
+  "title": "AI读取企微信息与文档：14条路线实查",
+  "as_of": "2026-10-28",
+  "scope": "公开资料研究；社区项目未在当前电脑运行；不包含私有企微信息",
+  "routes": [
+    {
+      "n": "01",
+      "title": "先在企微里用原生 AI，再把选定资料交给外部 AI",
+      "lane": "official",
+      "goals": "docs history",
+      "badge": "官方产品",
+      "effort": "最省事",
+      "scope": "聊天 / 文档 / 会议 / 邮件",
+      "how": "用智能搜索找模糊记忆，用智能总结先指定聊天、文档、会议等信息源，再核对引用。也可让大圆协助处理文档表格。腾讯 10 月 14 日发布说明还列出 WorkBuddy 智能机器人入口。",
+      "limit": "原生 AI 的可见范围不自动授予外部 Agent。WorkBuddy 的产品整合说明也没有证明外部工具能导出全部聊天。",
+      "fit": "偶尔找资料、做周报、整理某个项目，先验证现成入口是否够用。",
+      "refs": [
+        "native"
+      ]
+    },
+    {
+      "n": "02",
+      "title": "官方 wecom-cli / MCP：优先打通在线文档与微盘",
+      "lane": "official",
+      "goals": "docs history knowledge",
+      "badge": "优先测试",
+      "effort": "较低",
+      "scope": "有权限的文档正文 / 表格 / 微盘文件",
+      "how": "扫码授权后，让支持终端工具或相应封装的 Agent 搜文档，再按 docid 读正文。文档搜索支持标题、正文或二者；普通微盘文件可下载到本地后解析。长正文可能返回 file_path，需要继续读取文件。",
+      "limit": "MCP、CLI 都是调用方式，权限仍由用户、企业和具体品类决定。chat 历史命令虽存在，部分企业当前返回 853006；不能把“装好了”当成“历史可读”。微盘 Skill 不负责正文解析或持续监听。",
+      "fit": "想让 Codex、Claude、Cursor 一类 Agent 真正使用在线资料，而不是只给企微推通知。",
+      "refs": [
+        "doc-search",
+        "doc-read",
+        "disk",
+        "chat-limit"
+      ]
+    },
+    {
+      "n": "03",
+      "title": "给现有 AI 装社区封装，减少接线工作",
+      "lane": "community",
+      "goals": "docs bot",
+      "badge": "社区封装",
+      "effort": "中等",
+      "scope": "官方上游开放的工具 + 机器人交互",
+      "how": "codex-tencent-connectors 包装官方 CLI；@sunnoy/wecom 为 OpenClaw 对接企微官方 MCP，并处理文档导出与媒体落盘；wx-agent 把 Bot SDK、模型和 MCP 组合成独立 Agent。",
+      "limit": "这些封装不会增加上游权限。个人版腾讯文档的 OAuth 与企微文档是不同连接；某品类未开通或 forbidden 不能靠换壳绕过。所有社区项目本次均未在当前电脑运行。",
+      "fit": "已经选定 AI 客户端，希望复用现成适配器；先审查范围和维护情况。",
+      "refs": [
+        "codex",
+        "sunnoy",
+        "wxagent"
+      ]
+    },
+    {
+      "n": "04",
+      "title": "智能机器人 WebSocket：把 AI 放到单聊和群聊入口",
+      "lane": "official",
+      "goals": "bot",
+      "badge": "官方通道",
+      "effort": "中等",
+      "scope": "发给机器人的新消息 / 群内 @ 交互",
+      "how": "API 模式机器人以长连接或 HTTPS 回调收消息，调用模型与知识工具后回复。社区 9 月 20 日记录了“群内 @ → 收到正文 → AI 回复 → 延续自身上下文”的成功复现。",
+      "limit": "机器人新消息交互不等于普通群的全量监听或多年历史回补。同一机器人同时仅一个有效长连接，多进程可能互相顶掉。wx-agent 首版只处理文本，不能把官方支持的媒体类型全部算成该项目已实现。",
+      "fit": "在群里问知识库、把任务交给 Agent、通过企微遥控自己的工作流。",
+      "refs": [
+        "bot",
+        "socket",
+        "bot-test",
+        "wxagent"
+      ]
+    },
+    {
+      "n": "05",
+      "title": "Dify / FastGPT / n8n：回调进工作流，资料另接数据管道",
+      "lane": "community",
+      "goals": "bot knowledge",
+      "badge": "常见实操",
+      "effort": "中等",
+      "scope": "应用/机器人收到的新问题 + 已建知识库",
+      "how": "Dify 有官方企微机器人扩展，FastGPT 有直接发布到企微的指南，n8n 有社区企微节点。它们把接收、模型、检索、审批和回复串起来；也可把接收到的消息从上线后开始持久化。",
+      "limit": "自建应用回调只覆盖发给该应用的消息与配置事件。search_history_messages 往往查的是自己积累的回调库；安装机器人不会自动获得过去群聊、微盘和在线文档。",
+      "fit": "搭企业问答入口、客服分流、任务审批；数据源和问答入口要分别验收。",
+      "refs": [
+        "dify",
+        "fastgpt",
+        "n8n",
+        "app",
+        "callback-history"
+      ]
+    },
+    {
+      "n": "06",
+      "title": "微信客服 sync_msg：服务场景有独立消息读取接口",
+      "lane": "official",
+      "goals": "bot knowledge",
+      "badge": "特定场景",
+      "effort": "中等",
+      "scope": "指定客服账号的客户消息与人工回复",
+      "how": "把客服账号配置为 API 管理，收到通知后按 cursor 拉取，交给 AI 做辅助回复、摘要或质检。",
+      "limit": "仅最近 3 天；不支持读取 API 发送成功的消息。它属于微信客服，不能用来读取普通员工私聊或任意工作群。",
+      "fit": "企业微信客服接待体系中的 AI 服务，适用对象很具体。",
+      "refs": [
+        "kf"
+      ]
+    },
+    {
+      "n": "07",
+      "title": "会话内容存档 SDK：从企业层面持续积累可检索消息",
+      "lane": "official",
+      "goals": "history knowledge",
+      "badge": "企业级路径",
+      "effort": "高",
+      "scope": "已开通成员及同意范围内的工作沟通",
+      "how": "管理员开通、设置范围和接口配置；服务端按 seq 增量拉取、用 msgid 排重，补取媒体，再建立搜索或 RAG。适合从现在起稳定积累企业授权历史。",
+      "limit": "当前官方 GetChatData 只提供向前 5 天的拉取窗口，媒体亦有窗口；需要持续同步。成员告知、外部联系人同意和开通范围都适用，不能承诺开通后补齐多年旧记录。服务权益与当前价格需另核。",
+      "fit": "长期质检、客户服务分析、组织知识沉淀，并有管理员与工程资源。",
+      "refs": [
+        "archive",
+        "consent",
+        "archive-faq"
+      ]
+    },
+    {
+      "n": "08",
+      "title": "数据与智能专区：让模型到数据所在处分析",
+      "lane": "official",
+      "goals": "history docs knowledge",
+      "badge": "企业级 / 灰度",
+      "effort": "高",
+      "scope": "专区内授权会话 / 知识集 / 文档检索片段",
+      "how": "在专区内部部署程序或模型，做会话搜索、总结与分析。文件内容存档检索已给出用户 OAuth2 路线，可按权限检索文档片段，user_doc_ticket 有 30 天使用期。",
+      "limit": "依赖会话内容与知识集的任务必须在专区内完成。区外仅允许不含会话内容的脱敏分析结果或消息 ID；文档检索当前仍灰度。不能宣传为把原始聊天一键喂给任意外部模型。",
+      "fit": "企业希望在受控环境分析大量内部信息；先确认服务开通和模型部署方式。",
+      "refs": [
+        "zone",
+        "zone-doc"
+      ]
+    },
+    {
+      "n": "09",
+      "title": "传统文档 / 微盘 OpenAPI：适合应用掌控的资料",
+      "lane": "official",
+      "goals": "docs knowledge",
+      "badge": "注意授权边界",
+      "effort": "中高",
+      "scope": "应用创建文档 / 授权微盘空间与普通文件",
+      "how": "用传统文档 API 管应用自己创建的文档、表格，或用微盘 API 列目录、取文件元信息与下载普通文件，再进入 AI 解析。",
+      "limit": "传统文档概述明确应用仅可读取、编辑自己创建的文档；这是与新用户授权 CLI 不同的路线。微盘下载接口不支持微文档或文件夹，既有空间是否可读需按实际授权验证。",
+      "fit": "应用自动生成并持续维护周报、台账、项目文档，或处理明确授权的文件空间。",
+      "refs": [
+        "classic-doc",
+        "classic-drive",
+        "drive-download"
+      ]
+    },
+    {
+      "n": "10",
+      "title": "下载 / 复制 / 导出 → 本地索引 → AI 检索",
+      "lane": "local",
+      "goals": "docs history knowledge",
+      "badge": "个人实用",
+      "effort": "较低",
+      "scope": "已经取得的附件 / 文本 / 原生总结结果",
+      "how": "把合法取得的 Office、PDF、文本与截图归集到本地，提取正文、表格与 OCR，再用全文搜索或向量检索给 AI 返回片段。可保留文件版本、来源路径和页码；需要时再导入 Dify 等知识库。",
+      "limit": "这是研究者建议的数据管道组合，不是某插件已自动打通企微的证明。下载缓存只覆盖已有文件；文件修改时间不能替代发送时间，单独附件通常无法证明发送人或群。RAG 也不会自动补回缺失源数据。",
+      "fit": "不改当前客户端，先让 AI 用上已有资料；已有索引可以继续复用。",
+      "refs": [
+        "disk",
+        "rag",
+        "ocr"
+      ]
+    },
+    {
+      "n": "11",
+      "title": "本机 Runtime Bridge：让 Agent 查询已登录客户端",
+      "lane": "experimental",
+      "goals": "history",
+      "badge": "隔离评估候选",
+      "effort": "高 / 版本相关",
+      "scope": "本机可见会话、消息、群成员与统计",
+      "how": "BobbyCats/wecom-local 提供 macOS 只读 CLI 与 Skills，走 Runtime/LLDB 调用内部查询服务。作者示例可查 history、关键词和统计；直接数据库 Local Store Reader 尚未实现。",
+      "limit": "非官方 API，会短暂附加运行中进程；“只读”不代表完全无干扰。作者兼容记录为 2026-05-18 的 macOS 26.4.1、企微 5.0.8 build 70666，不能推出当前版本必然可用。本次仅静态核查。",
+      "fit": "确实需要个人历史、官方 chat 不可用时，先审代码与版本，再考虑隔离环境的小样本评估。",
+      "refs": [
+        "local",
+        "local-compat"
+      ]
+    },
+    {
+      "n": "12",
+      "title": "本地快照解库 + MCP：历史与附件的另一条实验路线",
+      "lane": "experimental",
+      "goals": "history docs",
+      "badge": "改动较大",
+      "effort": "高 / 版本相关",
+      "scope": "客户端已存消息 / 已缓存附件；在线文档另走 CLI",
+      "how": "WeCom Agent 把本地快照离线解析与 MCP 查询组合，再用官方 CLI 处理在线文档表格。另有作者公开了 macOS 本地解析、导出、免 @ 监听和多模态处理的单样本实践。",
+      "limit": "涉及密钥处理，macOS 首次设置文档还涉及客户端重签与调试权限；不宜直接在工作主客户端试跑。作者新版媒体样本 60 条仅 33 条缓存可读、27 条缺缓存，说明“消息存在”不代表“附件可取”。本次未安装或提取密钥。",
+      "fit": "研究可行性时保留缺失清单、版本和只读副本；不要把作者测试当成当前电脑已接通。",
+      "refs": [
+        "decrypt",
+        "decrypt-doc",
+        "parse-test"
+      ]
+    },
+    {
+      "n": "13",
+      "title": "截图 / RPA / OCR：从界面可见内容入手",
+      "lane": "experimental",
+      "goals": "history bot",
+      "badge": "桌面约束明显",
+      "effort": "中高 / 易受界面影响",
+      "scope": "屏幕可见文本与图像；覆盖取决于翻页与识别",
+      "how": "personal_wxwork_ZTS 展示 Windows 私聊截图 → PaddleOCR → 知识检索 → 模型回答的组合，也支持把复制出的聊天文本导入。通用 GUI Agent 可以采用相似思路做小范围摘录。",
+      "limit": "该项目只支持 1:1，要求窗口前台可见，实际会聚焦、点击与操作剪贴板；尺寸和 DPI 变化也会影响结果。在用户正在工作的桌面运行会争用输入，应采用独立设备/隔离会话。",
+      "fit": "无可用接口、只需少量可见资料的临时任务；不适合长期全量数据管道。",
+      "refs": [
+        "ocr"
+      ]
+    },
+    {
+      "n": "14",
+      "title": "Hook / 协议网关 / 旧版客户端桥接：网上确实有人用",
+      "lane": "experimental",
+      "goals": "history bot",
+      "badge": "不建议作为主路",
+      "effort": "高 / 维护不确定",
+      "scope": "项目宣称可收发消息、监听、管理群",
+      "how": "BJX-WeChat-Work-Hook 宣称 Windows Hook 与 HTTP API；部分旧 Dify 企微项目依赖特定旧版客户端监听并接模型。它们属于客户端适配路线。",
+      "limit": "公开 README 不等于完整开源实现或真实企业验收。版本绑定、授权费用、客户端改动与凭据暴露是具体评估点；旧项目还有版本说明不一致情况。本报告不提供注入、绕过或密钥提取步骤。",
+      "fit": "用于理解方法谱系；公司主账号和长期系统优先选择官方入口或可控数据管道。",
+      "refs": [
+        "hook",
+        "legacy"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "native",
+      "title": "腾讯发布记录：企业微信 Mac 版",
+      "url": "https://apps.apple.com/cn/app/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1/id1189898970?mt=12",
+      "evidence": "腾讯产品说明与版本记录"
+    },
+    {
+      "id": "cli",
+      "title": "官方 WecomTeam/wecom-cli",
+      "url": "https://github.com/WecomTeam/wecom-cli",
+      "evidence": "官方仓库"
+    },
+    {
+      "id": "doc-search",
+      "title": "官方文档管理 Skill",
+      "url": "https://github.com/WecomTeam/wecom-cli/blob/main/skills/wecomcli-doc-manage/SKILL.md",
+      "evidence": "官方搜索参数与权限"
+    },
+    {
+      "id": "doc-read",
+      "title": "官方文档正文 Skill",
+      "url": "https://github.com/WecomTeam/wecom-cli/blob/main/skills/wecomcli-doc/SKILL.md",
+      "evidence": "官方正文读取说明"
+    },
+    {
+      "id": "disk",
+      "title": "官方微盘 Skill",
+      "url": "https://github.com/WecomTeam/wecom-cli/blob/main/skills/wecomcli-disk/SKILL.md",
+      "evidence": "官方搜索、下载及能力限制"
+    },
+    {
+      "id": "chat-limit",
+      "title": "历史聊天策略限制 #135",
+      "url": "https://github.com/WecomTeam/wecom-cli/issues/135",
+      "evidence": "维护者 10/20 回复；用户 10/27 反馈"
+    },
+    {
+      "id": "codex",
+      "title": "Fortytwoo/codex-tencent-connectors",
+      "url": "https://github.com/Fortytwoo/codex-tencent-connectors",
+      "evidence": "社区作者 README"
+    },
+    {
+      "id": "sunnoy",
+      "title": "sunnoy/openclaw-plugin-wecom",
+      "url": "https://github.com/sunnoy/openclaw-plugin-wecom",
+      "evidence": "社区作者 README"
+    },
+    {
+      "id": "wxagent",
+      "title": "onewesong/wx-agent",
+      "url": "https://github.com/onewesong/wx-agent",
+      "evidence": "社区作者 README"
+    },
+    {
+      "id": "bot",
+      "title": "智能机器人接收消息",
+      "url": "https://developer.work.weixin.qq.com/document/path/100719",
+      "evidence": "官方文档，更新 2026-10-10"
+    },
+    {
+      "id": "socket",
+      "title": "智能机器人长连接",
+      "url": "https://developer.work.weixin.qq.com/document/path/101463",
+      "evidence": "官方文档，更新 2026-10-10"
+    },
+    {
+      "id": "bot-test",
+      "title": "9/20 智能机器人复现记录",
+      "url": "https://gist.github.com/acmerfight/7b3c0d6dd58b62cd296b2756144983df",
+      "evidence": "作者实测；历史政策以最新 #135 为准"
+    },
+    {
+      "id": "dify",
+      "title": "Dify 官方企微机器人扩展",
+      "url": "https://github.com/langgenius/dify-official-plugins/blob/main/extensions/wecom_bot/README.md",
+      "evidence": "厂商插件原文"
+    },
+    {
+      "id": "fastgpt",
+      "title": "FastGPT 发布至企微机器人",
+      "url": "https://doc.fastgpt.cn/zh-CN/guide/build/publish/wecom",
+      "evidence": "厂商文档"
+    },
+    {
+      "id": "n8n",
+      "title": "funcodingdev/n8n-nodes-wecom",
+      "url": "https://github.com/funcodingdev/n8n-nodes-wecom",
+      "evidence": "社区作者 README"
+    },
+    {
+      "id": "app",
+      "title": "自建应用接收消息",
+      "url": "https://developer.work.weixin.qq.com/document/path/90238",
+      "evidence": "官方文档"
+    },
+    {
+      "id": "callback-history",
+      "title": "atttx123/wecom-mcp-server",
+      "url": "https://github.com/atttx123/wecom-mcp-server/blob/main/README.zh-CN.md",
+      "evidence": "社区作者 README：回调持久化历史"
+    },
+    {
+      "id": "kf",
+      "title": "微信客服接收与读取消息",
+      "url": "https://developer.work.weixin.qq.com/document/path/94670",
+      "evidence": "官方文档：最近 3 天"
+    },
+    {
+      "id": "archive",
+      "title": "会话存档获取会话内容",
+      "url": "https://developer.work.weixin.qq.com/document/path/91774",
+      "evidence": "官方文档，更新 2026-01-19：5 天"
+    },
+    {
+      "id": "consent",
+      "title": "会话存档开通要求",
+      "url": "https://developer.work.weixin.qq.com/document/path/91361",
+      "evidence": "官方文档：告知、同意与范围"
+    },
+    {
+      "id": "archive-faq",
+      "title": "会话存档常见问题",
+      "url": "https://developer.work.weixin.qq.com/document/path/91552",
+      "evidence": "官方文档：媒体获取窗口等"
+    },
+    {
+      "id": "zone",
+      "title": "数据与智能专区概述",
+      "url": "https://developer.work.weixin.qq.com/document/path/99941",
+      "evidence": "官方文档，更新 2026-09-10"
+    },
+    {
+      "id": "zone-doc",
+      "title": "专区文件内容存档与检索",
+      "url": "https://developer.work.weixin.qq.com/document/path/101501",
+      "evidence": "官方文档，更新 2026-09-10；灰度"
+    },
+    {
+      "id": "classic-doc",
+      "title": "传统文档 API 概述",
+      "url": "https://developer.work.weixin.qq.com/document/path/97392",
+      "evidence": "官方文档，更新 2026-07-02"
+    },
+    {
+      "id": "classic-drive",
+      "title": "微盘 API 概述",
+      "url": "https://developer.work.weixin.qq.com/document/path/93654",
+      "evidence": "官方文档"
+    },
+    {
+      "id": "drive-download",
+      "title": "微盘下载普通文件",
+      "url": "https://developer.work.weixin.qq.com/document/path/97881",
+      "evidence": "官方文档：不支持微文档/文件夹"
+    },
+    {
+      "id": "rag",
+      "title": "Dify 外部知识库连接",
+      "url": "https://docs.dify.ai/en/cloud/use-dify/knowledge/connect-external-knowledge-base",
+      "evidence": "厂商文档：检索接口与片段返回"
+    },
+    {
+      "id": "local",
+      "title": "BobbyCats/wecom-local",
+      "url": "https://github.com/BobbyCats/wecom-local",
+      "evidence": "作者 README 与源代码静态核查"
+    },
+    {
+      "id": "local-compat",
+      "title": "wecom-local 兼容性说明",
+      "url": "https://github.com/BobbyCats/wecom-local/blob/main/docs/compatibility.md",
+      "evidence": "作者记录：2026-05-18 验证环境"
+    },
+    {
+      "id": "decrypt",
+      "title": "WeCom Agent 项目",
+      "url": "https://github.com/freanocank/wecom-agent",
+      "evidence": "原 tzwkb 路径已重定向；作者 README"
+    },
+    {
+      "id": "decrypt-doc",
+      "title": "WeCom Agent 本地读取文档",
+      "url": "https://wecom-agent.readthedocs.io/en/latest/local-reading.html",
+      "evidence": "作者实现/测试说明"
+    },
+    {
+      "id": "parse-test",
+      "title": "本机聊天解析与免 @ 监听复现",
+      "url": "https://gist.github.com/acmerfight/ab5b06394a26fada6ec283a812562031",
+      "evidence": "作者单样本复现，最后活跃 2026-10-19"
+    },
+    {
+      "id": "ocr",
+      "title": "personal_wxwork_ZTS",
+      "url": "https://github.com/zhu-tingshuai/personal_wxwork_ZTS",
+      "evidence": "作者 README：Windows、前台、1:1"
+    },
+    {
+      "id": "hook",
+      "title": "BJX-WeChat-Work-Hook",
+      "url": "https://github.com/xing653245/BJX-WeChat-Work-Hook",
+      "evidence": "作者宣传/授权说明，未运行"
+    },
+    {
+      "id": "legacy",
+      "title": "旧版 Dify-Enterprise-WeChat-bot",
+      "url": "https://github.com/luolin-ai/Dify-Enterprise-WeChat-bot",
+      "evidence": "作者 README：旧版客户端依赖"
+    },
+    {
+      "id": "webhook",
+      "title": "传统群机器人 Webhook",
+      "url": "https://developer.work.weixin.qq.com/document/path/91770",
+      "evidence": "官方文档：消息推送"
+    },
+    {
+      "id": "push-mcp",
+      "title": "loonghao/wecom-bot-mcp-server",
+      "url": "https://github.com/loonghao/wecom-bot-mcp-server",
+      "evidence": "作者 README 与源代码：Webhook 出站"
+    }
+  ]
+}

@@ -66,7 +66,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 146;
+const DATA_VERSION = 147;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -221,6 +221,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "wecom-ai-research-2026-10-28",
+      groupId: "ai-workbench",
+      title: "AI读取企微信息与文档：14条路线实查",
+      url: "https://clairku.github.io/clair-ai-studio/reports/wecom-ai-research-2026-10-28/",
+      preview: "wecom-ai-research-2026-10-28.png",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-28T12:00:00+08:00",
+      source: "2026-10-28公开资料实查：比较官方CLI/MCP、智能机器人、会话内容存档、数据与智能专区、文档/微盘API、工作流及本地检索等14条路线；区分可读范围、授权条件、历史覆盖与证据等级，附原始来源。未接入或导出企业内部消息和文档。",
+      access: "production",
+      workType: "reporting",
+      tags: ["企业微信", "企微", "AI", "MCP", "CLI", "文档检索", "会话存档", "知识库", "调研", "HTML", "生产"],
+    },
     {
       id: "yingmi-ai-capabilities-2026-10-27",
       groupId: "ai-platform",
@@ -4060,6 +4074,8 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "wecom-ai-research-2026-10-28": "ai-workbench",
+  "yingmi-ai-capabilities-2026-10-27": "ai-platform",
   "hiring-review-2026-10-27": "knowledge",
   "ai-strategy-cockpit-2026-10-27": "ai-platform",
   "oap-oauth-dashboard-2026-10-26": "growth-insights",
