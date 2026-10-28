@@ -74,37 +74,25 @@ export function rememberPersonalVisit(storage, id) {
   try { storage.setItem(PERSONAL_VISITS_KEY, JSON.stringify([id, ...recentPersonalVisits(storage).filter((value) => value !== id)].slice(0, 4))); } catch { /* Recent items are optional. */ }
 }
 
-export function personalHomeMarkup({ reports, escapeHtml: e, topbar, storage }) {
+export function personalLaunchpadMarkup({ reports, escapeHtml: e, storage }) {
   const active = new Map(reports.filter((report) => !report.archived).map((report) => [report.id, report]));
-  const resource = (item, className = "") => {
-    if (item.url) return `<a class="${className}" href="${e(item.url)}" target="_blank" rel="noopener noreferrer">${e(item.label)}${arrow}</a>`;
+  const resource = (item, inner, className) => {
+    if (item.url) return `<a class="${className}" href="${e(item.url)}" target="_blank" rel="noopener noreferrer" aria-label="${e(item.label)}">${inner}</a>`;
     const report = active.get(item.reportId);
     if (!report) return "";
-    return `<button type="button" class="${className}" data-action="open" data-id="${e(report.id)}" title="${e(report.title)}">${e(item.label)}${arrow}</button>`;
+    return `<button type="button" class="${className}" data-action="open" data-id="${e(report.id)}" title="${e(report.title)}" aria-label="${e(item.label)}">${inner}</button>`;
   };
-  const card = (area) => `
-    <article id="personal-${area.id}" class="personal-card personal-${area.theme} ${area.project ? "personal-project" : ""}">
-      <div class="personal-card-head"><span class="personal-icon">${icon(area.icon)}</span><span>${area.project ? e(area.status) : e(area.category)}</span><span class="personal-number">${area.number}</span></div>
-      <h3>${e(area.title)}</h3>
-      <p class="personal-description">${e(area.description)}</p>
-      <div class="personal-visual ${area.project ? "is-flow" : ""}" aria-label="${e(area.visual.join("、"))}">${area.visual.map((label, i) => `<span>${e(label)}</span>${area.project && i < area.visual.length - 1 ? '<i aria-hidden="true">→</i>' : ""}`).join("")}</div>
-      <div class="personal-resources">${area.links.map((link) => resource(link, "personal-resource")).join("")}</div>
-      <div class="personal-card-foot"><span>${e(area.meta)}</span>${resource(area.primary, "personal-primary") || '<button class="personal-primary" type="button" data-action="show-archive">查看归档 →</button>'}</div>
+  const card = (area) => {
+    const content = `<span class="studio-shortcut-icon">${icon(area.icon)}</span><span class="studio-shortcut-copy"><span class="studio-shortcut-title">${e(area.title)}</span><span class="studio-shortcut-description">${e(area.project ? area.status : area.category)}</span></span>${arrow}`;
+    return `<article class="studio-shortcut studio-shortcut-${area.theme}" id="personal-${area.id}">
+      ${resource({...area.primary, label:area.primary.url ? area.primary.label : `打开${area.title}`},content,"studio-shortcut-main") || `<button type="button" class="studio-shortcut-main" data-action="show-archive">${content}</button>`}
+      <div class="studio-shortcut-links">${area.links.map((link) => resource(link,e(link.label),"studio-shortcut-link")).join("") || `<span class="studio-shortcut-meta">${e(area.meta)}</span>`}</div>
     </article>`;
-  const recent = recentPersonalVisits(storage).map((id) => active.get(id)).filter(Boolean);
-  return `<main class="app-shell personal-shell">
-    ${topbar}
-    <div class="personal-workspace">
-      <header class="personal-hero">
-        <div><div class="personal-eyebrow"><span></span> MY WORKSPACE</div><h1>个人工作台<span>把重要的工作，放在手边。</span></h1><p>常用介绍、重点项目与经营看板，从这里开始。</p></div>
-        <form class="personal-search" data-personal-search role="search"><label for="personal-search-input">查找更多成果</label><div><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 5 5"/></svg><input id="personal-search-input" name="query" type="search" placeholder="搜索报告、方案、工具…" autocomplete="off" required/><button type="submit" aria-label="搜索全部成果">${arrow}</button></div></form>
-      </header>
-      <nav class="personal-jump-nav" aria-label="个人工作入口">${PERSONAL_AREAS.map((area) => `<a href="#personal-${area.id}"><span>${area.number}</span>${e(area.title.replace("智能运营转化项目", "项目"))}</a>`).join("")}</nav>
-      <section class="personal-section" aria-labelledby="personal-intros-title"><div class="personal-section-title"><div><span>01 — REFERENCE</span><h2 id="personal-intros-title">介绍材料</h2></div><p>认识产品与能力，一键找到常用介绍。</p></div><div class="personal-intro-grid">${PERSONAL_AREAS.filter((area) => !area.project).map(card).join("")}</div></section>
-      <section class="personal-section" aria-labelledby="personal-projects-title"><div class="personal-section-title"><div><span>02 — PROJECTS</span><h2 id="personal-projects-title">重点项目</h2></div><p>方案、演示、看板，沿着项目继续推进。</p></div><div class="personal-project-grid">${PERSONAL_AREAS.filter((area) => area.project).map(card).join("")}</div></section>
-      ${recent.length ? `<section class="personal-recent" aria-labelledby="personal-recent-title"><div><h2 id="personal-recent-title">最近打开</h2><span>保存在当前浏览器</span></div><div>${recent.map((report) => resource({ reportId: report.id, label: report.title }, "personal-recent-link")).join("")}</div></section>` : ""}
-      <div class="personal-library-callout"><div><strong>还有更多积累，随时回去找。</strong><p>全部成果库保留原有搜索、分类、收藏和归档。</p></div><button type="button" data-action="show-catalog">进入全部成果 ${arrow}</button></div>
-      <footer class="personal-footer"><span>CLAIR'S STUDIO</span><span>个人工作入口 · 2026.10.28 整理</span></footer>
-    </div>
-  </main>`;
+  };
+  const recent = recentPersonalVisits(storage).map((id) => active.get(id)).filter(Boolean).slice(0,3);
+  return `<section class="studio-shortcuts" id="studio-shortcuts" aria-labelledby="studio-shortcuts-title">
+    <div class="studio-shortcuts-heading"><h1 id="studio-shortcuts-title">常用入口</h1><span>介绍材料与重点项目</span></div>
+    <div class="studio-shortcuts-grid">${PERSONAL_AREAS.map(card).join("")}</div>
+    ${recent.length ? `<div class="studio-shortcut-recent"><span>最近打开</span><div>${recent.map((report) => resource({reportId:report.id,label:report.title},e(report.title),"studio-recent-link")).join("")}</div></div>` : ""}
+  </section>`;
 }

@@ -1,4 +1,4 @@
-import { personalHomeMarkup, rememberPersonalVisit } from "./personal-home.js";
+import { personalLaunchpadMarkup, rememberPersonalVisit } from "./personal-home.js";
 import {
   bindTaskCenter,
   taskWorkspaceMarkup,
@@ -4477,15 +4477,13 @@ let reportOrder = loadReportOrder();
 let query = "";
 let readerId = "";
 let archiveView = false;
-let personalHomeView = new URLSearchParams(location.search).get("view") !== "library";
-
-function selectWorkspaceView(home) {
-  personalHomeView = home;
-  const url = new URL(location.href);
-  url.searchParams.set("view", home ? "home" : "library");
-  url.hash = "";
-  history.replaceState(null, "", url);
+// Both previously published view links now land on the same workspace.
+const workspaceUrl = new URL(location.href);
+if (workspaceUrl.searchParams.has("view")) {
+  workspaceUrl.searchParams.delete("view");
+  history.replaceState(null, "", workspaceUrl);
 }
+
 let catalogView = ["topic", "type", "tag", "time"].includes(localStorage.getItem(VIEW_KEY))
   ? localStorage.getItem(VIEW_KEY)
   : "topic";
@@ -6992,7 +6990,7 @@ function readerMarkup(report) {
     <main class="reader-shell compact-reader-shell">
       <header class="reader-header compact-reader-header">
         <button class="reader-icon-button back-button" type="button" data-action="back"
-          aria-label="返回${personalHomeView ? "个人工作台" : "成果库"}" title="返回${personalHomeView ? "个人工作台" : "成果库"}">${readerActionIcon("back")}</button>
+          aria-label="返回工作台" title="返回工作台">${readerActionIcon("back")}</button>
         <div class="reader-title">
           <strong>${escapeHtml(report.title)}</strong>
           <span>${localSaved ? "本地保存" : escapeHtml(domainOf(report.url))}</span>
@@ -7031,15 +7029,14 @@ function readerMarkup(report) {
 function studioTopbarMarkup(archiveCount) {
   return `
     <header class="topbar">
+      <div class="studio-header-inner">
       <button class="brand topbar-home" type="button" data-action="scroll-top"
         aria-label="Back to top" title="Back to top">
         <div class="brand-mark small">C</div>
         <div><strong>Clair's Studio</strong></div>
       </button>
-      <nav class="studio-page-nav" aria-label="工作区导航">
-        <button type="button" data-action="show-personal-home" class="${personalHomeView && !archiveView ? "active" : ""}" ${personalHomeView && !archiveView ? 'aria-current="page"' : ""}>个人工作台</button>
-        <button type="button" data-action="show-catalog" class="${!personalHomeView && !archiveView ? "active" : ""}" ${!personalHomeView && !archiveView ? 'aria-current="page"' : ""}>全部成果</button>
-      </nav>
+      ${archiveView ? '<button class="studio-header-back" type="button" data-action="show-catalog">← 返回工作台</button>' : '<span class="studio-header-caption">个人工作台</span>'}
+      </div>
     </header>`;
 }
 
@@ -7053,7 +7050,7 @@ function archiveMarkup() {
     .sort((a, b) => new Date(b.archivedAt || 0) - new Date(a.archivedAt || 0));
   const archiveCount = state.reports.filter((report) => report.archived).length;
   return `
-    <main class="app-shell archive-shell">
+    <main class="app-shell archive-shell unified-studio-shell">
       ${studioTopbarMarkup(archiveCount)}
       <section class="workspace archive-workspace">
         <div class="archive-hero">
@@ -7164,12 +7161,13 @@ function workbenchMarkup() {
         ? "新增时间"
         : "工作主题";
   return `
-    <main class="app-shell">
+    <main class="app-shell unified-studio-shell">
       ${studioTopbarMarkup(archiveCount)}
       <section class="workspace">
+        ${personalLaunchpadMarkup({ reports:state.reports, escapeHtml, storage:localStorage })}
         ${taskWorkspaceMarkup(escapeHtml)}
         <div class="results-toolbar unified-results-toolbar">
-          <h1 class="sr-only">Clair's Studio 成果库</h1>
+          <h2 class="sr-only">Clair's Studio 成果库</h2>
           <div class="results-toolbar-side ${normalized ? "has-search-results" : ""}">
             <label class="search results-search">
               <span aria-hidden="true">⌕</span>
@@ -7311,32 +7309,9 @@ function render() {
   const app = document.getElementById("app");
   const report = readerId && state.reports.find((item) => item.id === readerId);
   revokeFileObjectUrls();
-  app.innerHTML = report ? readerMarkup(report)
-    : personalHomeView && !archiveView
-      ? personalHomeMarkup({ reports: state.reports, escapeHtml, topbar: studioTopbarMarkup(0), storage: localStorage })
-      : workbenchMarkup();
+  app.innerHTML = report ? readerMarkup(report) : workbenchMarkup();
   bindAppModal();
   bindApp();
-  document.querySelectorAll(".personal-jump-nav a").forEach((link) => {
-    link.addEventListener("click", (event) => {
-      event.preventDefault();
-      const target = document.getElementById(link.hash.slice(1));
-      if (!target) return;
-      history.replaceState(null, "", link.href);
-      scrollElementToStart(target, "auto");
-    });
-  });
-  document.querySelector("[data-personal-search]")?.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const nextQuery = new FormData(event.currentTarget).get("query")?.toString().trim();
-    if (!nextQuery) return;
-    selectWorkspaceView(false);
-    archiveView = false;
-    query = nextQuery;
-    searchDimensionFilters.clear();
-    render();
-    scrollPageTop();
-  });
   if (report) bindReportReaderAccessBridge(report);
   bindTaskCenter({
     render: () => renderAtCurrentScroll(() => document.querySelector(".prompt-composer")),
@@ -8107,25 +8082,14 @@ function bindApp() {
             },
           );
         }
-      } else if (action === "show-personal-home") {
-        selectWorkspaceView(true);
-        archiveView = false;
-        query = "";
-        searchDimensionFilters.clear();
-        readerId = "";
-        modal = null;
-        render();
-        scrollPageTop();
       } else if (action === "show-archive") {
-        selectWorkspaceView(false);
         archiveView = true;
         query = "";
         searchDimensionFilters.clear();
         readerId = "";
         render();
         scrollPageTop();
-      } else if (action === "show-catalog") {
-        selectWorkspaceView(false);
+      } else if (action === "show-catalog" || action === "show-personal-home") {
         archiveView = false;
         query = "";
         searchDimensionFilters.clear();
@@ -8781,7 +8745,10 @@ export function renderApp() {
   render();
   void loadReportAccessConfig()
     .then(() => {
-      if (!readerId && !modal) renderAtCurrentScroll();
+      if (!readerId && !modal) {
+        // Updating access badges must not replace a shortcut during a click.
+        renderWorkbenchWithViewportSnapshot(captureViewportSnapshot());
+      }
     })
     .catch(() => {
       // Catalog browsing remains available; clicking a lock retries the policy.
