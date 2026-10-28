@@ -67,7 +67,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 150;
+const DATA_VERSION = 151;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -411,8 +411,9 @@ const initialState = {
       pinned: false,
       position: 0,
       createdAt: "2026-10-22T23:51:36+08:00",
-      source: "飞书内容排版；千问与WorkBuddy专章未完整提取，原始媒体链接回飞书",
-      description: "飞书内容排版；千问与WorkBuddy专章未完整提取，原始媒体链接回飞书",
+      updatedAt: "2026-10-28T16:57:08+08:00",
+      source: "原文正文已补齐，公开原图已补入；敏感演示仅本地离线包",
+      description: "原文正文已补齐，公开原图已补入；敏感演示仅本地离线包",
       access: "production",
       workType: "reporting",
       tags: [
@@ -420,7 +421,8 @@ const initialState = {
         "AI开放平台",
         "飞书内容排版",
         "黑金演示版",
-        "有限提取版",
+        "原文补齐",
+        "原图补入",
         "生态合作",
         "MCP",
         "Skills",
