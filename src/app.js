@@ -67,7 +67,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 147;
+const DATA_VERSION = 148;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -222,6 +222,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "composer-predictions-deep-dive-2026-10-28",
+      groupId: "ai-workbench",
+      title: "ChatGPT追问引导｜Composer Predictions 设计与实现深挖",
+      url: "https://clairku.github.io/clair-ai-studio/reports/composer-predictions-deep-dive-2026-10-28/",
+      preview: "composer-predictions-deep-dive-2026-10-28.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-28T15:29:42+08:00",
+      source: "2026-10-28官方资料与本机版本静态核验：解析输入框预测下一条用户指令的产品逻辑、触发与失效、上下文、接受草稿及可复用实现；区分官方事实、静态实现证据、推断和自建方案。附交互演示与来源。",
+      access: "production",
+      workType: "competitive-research",
+      tags: ["ChatGPT", "Codex", "Composer Predictions", "追问引导", "交互设计", "AI产品", "实现方案", "调研", "HTML", "生产"],
+    },
     {
       id: "feidi-yingmi-cooperation-value-2026-10-28",
       groupId: "ai-platform",
