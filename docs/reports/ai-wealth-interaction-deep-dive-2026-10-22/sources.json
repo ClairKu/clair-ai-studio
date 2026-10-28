@@ -1,0 +1,366 @@
+{
+  "research_date": "2026-10-22 Asia/Shanghai",
+  "method": "公开页面观察、官方静态界面图、操作文档、公开第三方录屏与历史用户反馈；实际现场范围单列。",
+  "sources": [
+    {
+      "id": "OR-S01",
+      "product": "Origin",
+      "title": "How do I access AI Advisor?",
+      "url": "https://support.useorigin.com/hc/en-us/articles/20957505900429-How-do-I-access-AI-Advisor",
+      "date": "2026-09-08",
+      "type": "官方操作帮助"
+    },
+    {
+      "id": "OR-S02",
+      "product": "Origin",
+      "title": "What are Actions in AI Advisor?",
+      "url": "https://support.useorigin.com/hc/en-us/articles/48757446344589-What-are-Actions-in-AI-Advisor",
+      "date": "2026-09-08",
+      "type": "官方状态规则帮助"
+    },
+    {
+      "id": "OR-S03",
+      "product": "Origin",
+      "title": "How do I set up my budget?",
+      "url": "https://support.useorigin.com/hc/en-us/articles/19396244995213-How-do-I-set-up-my-budget",
+      "date": "2026-10-22读取",
+      "type": "官方操作帮助"
+    },
+    {
+      "id": "OR-S04",
+      "product": "Origin",
+      "title": "Introducing the AI Budget Builder",
+      "url": "https://support.useorigin.com/hc/en-us/articles/37037788816909-Introducing-the-AI-Budget-Builder",
+      "date": "2026-09-28",
+      "type": "官方操作帮助"
+    },
+    {
+      "id": "OR-S05",
+      "product": "Origin",
+      "title": "How to use our AI Budget Builder",
+      "url": "https://support.useorigin.com/hc/en-us/articles/36470631751821-How-to-use-our-AI-Budget-Builder",
+      "date": "2026-09-28",
+      "type": "官方操作帮助"
+    },
+    {
+      "id": "OR-S06",
+      "product": "Origin",
+      "title": "How does AI Advisor help with forecasting?",
+      "url": "https://support.useorigin.com/hc/en-us/articles/39416658521357-How-does-AI-Advisor-help-with-forecasting",
+      "date": "2025-09-08",
+      "type": "官方操作帮助，旧日期需当前实测"
+    },
+    {
+      "id": "OR-S07",
+      "product": "Origin",
+      "title": "AI Advisor Memory",
+      "url": "https://support.useorigin.com/hc/en-us/articles/42089045600909-AI-Advisor-Memory-Personalized-financial-guidance-that-remembers",
+      "date": "2026-01-22",
+      "type": "官方操作帮助"
+    },
+    {
+      "id": "OR-S08",
+      "product": "Origin",
+      "title": "Weekly Recap",
+      "url": "https://support.useorigin.com/hc/en-us/articles/46755330559629-Weekly-Recap",
+      "date": "2026-06-18",
+      "type": "官方操作帮助"
+    },
+    {
+      "id": "OR-S09",
+      "product": "Origin",
+      "title": "Why doesn't my weekly recap show recent activity?",
+      "url": "https://support.useorigin.com/hc/en-us/articles/46758898871949-Why-doesn-t-my-weekly-recap-show-recent-activity",
+      "date": "2026-08-20",
+      "type": "官方异常态帮助"
+    },
+    {
+      "id": "OR-S10",
+      "product": "Origin",
+      "title": "Why Am I Being Asked to Connect Spending Accounts On The AI Budget Builder",
+      "url": "https://support.useorigin.com/hc/en-us/articles/43231705761549-Why-Am-I-Being-Asked-to-Connect-Spending-Accounts-On-The-AI-Budget-Builder",
+      "date": "2026-02-04",
+      "type": "官方数据不足降级帮助"
+    },
+    {
+      "id": "OR-S11",
+      "product": "Origin",
+      "title": "Product Walkthrough: Proactive AI Advisor",
+      "url": "https://useorigin.com/resources/blog/product-walkthrough-how-to-use-origins-proactive-ai-advisor",
+      "date": "2026-09-09",
+      "type": "官方逐屏介绍；本次已看健康分与行动卡静态像素，非账户操作"
+    },
+    {
+      "id": "OR-S12",
+      "product": "Origin",
+      "title": "Your Proactive AI Financial Advisor Is Here",
+      "url": "https://www.reddit.com/r/OriginFinancial/comments/1wbpn2c/your_proactive_ai_financial_advisor_is_here/",
+      "date": "2026-09-09",
+      "type": "公司发布帖中的第一人称用户反馈"
+    },
+    {
+      "id": "OR-S13",
+      "product": "Origin",
+      "title": "Huge Issue with AI Advisor",
+      "url": "https://www.reddit.com/r/OriginFinancial/comments/1uyen00/huge_issue_with_ai_advisor/",
+      "date": "2026-07-16",
+      "type": "用户原帖与官方回复"
+    },
+    {
+      "id": "OR-S14",
+      "product": "Origin",
+      "title": "Origin AI Arithmetic",
+      "url": "https://www.reddit.com/r/OriginFinancial/comments/1t5zdpy/origin_ai_arithmetic/",
+      "date": "2026-05-07",
+      "type": "用户原帖与工作人员回复"
+    },
+    {
+      "id": "OR-S15",
+      "product": "Origin",
+      "title": "AI advisor use cases?",
+      "url": "https://www.reddit.com/r/OriginFinancial/comments/1v2lhvn/ai_advisor_use_cases/",
+      "date": "2026-07-21",
+      "type": "用户讨论"
+    },
+    {
+      "id": "OR-S16",
+      "product": "Origin",
+      "title": "Product Videos",
+      "url": "https://support.useorigin.com/hc/en-us/sections/20904990509069-Product-Videos",
+      "date": "2026-10-22读取；视频文章多为2025-07-22",
+      "type": "官方教程目录"
+    },
+    {
+      "id": "PP-S01",
+      "product": "PortfolioPilot",
+      "title": "Tutorial: AI Assistant",
+      "url": "https://portfoliopilot.com/help/tutorials/tutorial-ai-assistant",
+      "date": "页头2025-03-01；帮助索引部分条目写2026-07-07或2026-10-14，日期不一致，按2026-10-22读取版本标记",
+      "type": "官方逐屏教程"
+    },
+    {
+      "id": "PP-S02",
+      "product": "PortfolioPilot",
+      "title": "Tutorial: Draft Portfolio",
+      "url": "https://portfoliopilot.com/help/tutorials/tutorial-draft-portfolio",
+      "date": "页头2025-05-01；本次读取2026-10-22",
+      "type": "官方逐屏教程"
+    },
+    {
+      "id": "PP-S03",
+      "product": "PortfolioPilot",
+      "title": "Tutorial: Personalized Recommendations",
+      "url": "https://portfoliopilot.com/help/tutorials/tutorial-personalized-recommendations",
+      "date": "帮助索引2026-07-14；本次读取2026-10-22",
+      "type": "官方逐屏教程"
+    },
+    {
+      "id": "PP-S04",
+      "product": "PortfolioPilot",
+      "title": "Tutorial: Troubleshooting Connection Issues",
+      "url": "https://portfoliopilot.com/help/tutorials/tutorial-connection-issues",
+      "date": "页头2026-07-08",
+      "type": "官方异常操作教程"
+    },
+    {
+      "id": "PP-S05",
+      "product": "PortfolioPilot",
+      "title": "Tutorial: Portfolio Alerts",
+      "url": "https://portfoliopilot.com/help/tutorials/tutorial-portfolio-alerts",
+      "date": "帮助索引2026-07-07；本次读取2026-10-22",
+      "type": "官方逐屏教程"
+    },
+    {
+      "id": "PP-S06",
+      "product": "PortfolioPilot",
+      "title": "Tutorial: Retirement Planning",
+      "url": "https://portfoliopilot.com/help/tutorials/tutorial-retirement-planning",
+      "date": "页头2025-03-20；本次读取2026-10-22",
+      "type": "官方逐屏教程"
+    },
+    {
+      "id": "PP-S07",
+      "product": "PortfolioPilot",
+      "title": "How to Analyze and Optimize Your Investments in PortfolioPilot",
+      "url": "https://www.glitter.io/guides/analyze-optimize-investments-portfoliopilot",
+      "date": "2026-06-03/04；本次可视页面显示6月4日",
+      "type": "第三方1:36录屏与分步截图"
+    },
+    {
+      "id": "PP-S08",
+      "product": "PortfolioPilot",
+      "title": "PortfolioPilot Review: Any better?",
+      "url": "https://moneyengineer.ca/2026/04/23/portfoliopilot-review-any-better/",
+      "date": "2026-04-21/23",
+      "type": "单用户带界面截图的亲测报告"
+    },
+    {
+      "id": "PP-S09",
+      "product": "PortfolioPilot",
+      "title": "PortfolioPilot user reviews",
+      "url": "https://www.trustpilot.com/review/portfoliopilot.com",
+      "date": "选摘2025-12至2026-08评论，历史版本不一",
+      "type": "第三方用户评论，真实性未独立核验"
+    },
+    {
+      "id": "PP-S10",
+      "product": "PortfolioPilot",
+      "title": "PortfolioPilot public onboarding preview",
+      "url": "https://portfoliopilot.com/onboarding-preview",
+      "date": "本次2026-10-22实际打开及首步点击",
+      "type": "直接公开界面观察"
+    },
+    {
+      "id": "ANT-E1",
+      "product": "蚂小财",
+      "title": "黄金还能买吗？我问了好几家AI，最靠谱的是……",
+      "url": "https://www.leikeji.com/article/70274",
+      "date": "2025-06-23",
+      "type": "媒体自述体验，含实际界面截图；可能带宣传倾向，非独立系统性评测"
+    },
+    {
+      "id": "ANT-E2",
+      "product": "蚂小财",
+      "title": "AI超级客户经理来了？",
+      "url": "https://finance.sina.com.cn/money/bank/bank_hydt/2025-11-05/doc-infwincz4556480.shtml",
+      "date": "2025-11-05",
+      "type": "轻金融作者发布于新浪的个人三轮持仓评估体验，含公开对话截图"
+    },
+    {
+      "id": "ANT-E3",
+      "product": "蚂小财",
+      "title": "蚂蚁财富App Store开发者说明与版本历史",
+      "url": "https://apps.apple.com/us/app/%E8%9A%82%E8%9A%81%E8%B4%A2%E5%AF%8C-%E5%9F%BA%E9%87%91%E7%AD%89%E7%90%86%E8%B4%A2%E4%BA%A7%E5%93%81%E5%BA%94%E6%9C%89%E5%B0%BD%E6%9C%89/id1025628019?platform=ipad",
+      "date": "版本记录2026-09-24 v10.20.0；本次检索2026-10-22",
+      "type": "开发者官方发布记录"
+    },
+    {
+      "id": "ANT-E4",
+      "product": "蚂小财",
+      "title": "蚂蚁财富小米应用商店详情",
+      "url": "https://m.app.mi.com/details?id=com.antfortune.wealth",
+      "date": "本次打开页面显示更新2026-09-28，版本10.20.0.8000",
+      "type": "开发者应用商店描述与商店宣传截图"
+    },
+    {
+      "id": "ANT-E5",
+      "product": "蚂小财",
+      "title": "蚂蚁财富：平台九成机构使用AI，日均上线服务量增长23倍",
+      "url": "https://finance.sina.com.cn/jryx/bank/2026-09-11/doc-inirnaix2262825.shtml",
+      "date": "2026-09-11",
+      "type": "新浪金融一线大会报道，复述平台披露"
+    },
+    {
+      "id": "ANT-E6",
+      "product": "蚂小财",
+      "title": "我让内测的AI版支付宝帮我点个外卖，它给了我两个入口",
+      "url": "https://finance.sina.com.cn/money/bank/guangjiao/2026-06-17/doc-inicthnt6017342.shtml",
+      "date": "2026-06-17",
+      "type": "支付宝AI版内测媒体实录"
+    },
+    {
+      "id": "OR-VID01",
+      "product": "Origin",
+      "title": "Meet Origin’s Proactive AI Financial Advisor",
+      "url": "https://www.reddit.com/r/OriginFinancial/comments/1wbpn2c/your_proactive_ai_financial_advisor_is_here/",
+      "date": "官方发布帖2026-09-09链接该视频；视频自身发布日期尚未直接读取",
+      "type": "视频入口/来源；观看状态另列"
+    },
+    {
+      "id": "OR-VID02",
+      "product": "Origin",
+      "title": "Introducing Origin’s AI Advisor: A Guided Tour from CEO Matt Watson",
+      "url": "https://www.linkedin.com/posts/origin-financialsf_introducing-origins-ai-advisor-a-guided-activity-7374117472515518464-r0F5",
+      "date": "2025官方LinkedIn帖与另一公开页面交叉链接；精确视频发布日期未直接读取",
+      "type": "视频入口/来源；观看状态另列"
+    },
+    {
+      "id": "OR-VID03",
+      "product": "Origin",
+      "title": "Deep dive into Origin’s NEW AI Budget Builder",
+      "url": "https://support.useorigin.com/hc/en-us/articles/36948152691853-AI-Budget-Builder",
+      "date": "官方帮助页2025-07-22更新，嵌入该视频；2025-05官方LinkedIn发布同名演示",
+      "type": "视频入口/来源；观看状态另列"
+    },
+    {
+      "id": "OR-VID04",
+      "product": "Origin",
+      "title": "Intro to Origin tutorial with Atul",
+      "url": "https://support.useorigin.com/hc/en-us/articles/35966543812365-Intro-to-Origin-tutorial-with-Atul",
+      "date": "帮助页2025-07-22更新并嵌入该ID",
+      "type": "视频入口/来源；观看状态另列"
+    },
+    {
+      "id": "OR-VID05",
+      "product": "Origin",
+      "title": "It’s here. Origin now watches your finances…",
+      "url": "https://www.linkedin.com/posts/origin-financialsf_its-here-origin-now-watches-your-finances-activity-7503482366263349248-OIZp",
+      "date": "搜索索引可读取完整Transcript，涉及2026 proactive版本",
+      "type": "视频入口/来源；观看状态另列"
+    },
+    {
+      "id": "PP-V01",
+      "product": "PortfolioPilot",
+      "title": "How to Analyze and Optimize Your Investments in PortfolioPilot",
+      "url": "https://www.glitter.io/guides/analyze-optimize-investments-portfoliopilot",
+      "date": "页面本次显示2026-06-04，web索引2026-06-03",
+      "type": "视频入口/来源；观看状态另列"
+    },
+    {
+      "id": "PP-V02",
+      "product": "PortfolioPilot",
+      "title": "Personalized Recommendations Tutorial",
+      "url": "https://www.portfoliopilot.com/ai-financial-advisor/help",
+      "date": "日期待核",
+      "type": "视频入口/来源；观看状态另列"
+    },
+    {
+      "id": "PP-V03",
+      "product": "PortfolioPilot",
+      "title": "Checking my retirement plan in minutes",
+      "url": "https://www.portfoliopilot.com/retirement-planning/help",
+      "date": "日期待核",
+      "type": "视频入口/来源；观看状态另列"
+    },
+    {
+      "id": "PP-V04",
+      "product": "PortfolioPilot",
+      "title": "Adding my portfolio the easy way using statement upload",
+      "url": "https://www.portfoliopilot.com/ai-financial-advisor/help",
+      "date": "日期待核",
+      "type": "视频入口/来源；观看状态另列"
+    },
+    {
+      "id": "PP-V05",
+      "product": "PortfolioPilot",
+      "title": "Roth Conversions in a Living Retirement Plan",
+      "url": "https://www.portfoliopilot.com/retirement-planning/help",
+      "date": "日期待核",
+      "type": "视频入口/来源；观看状态另列"
+    },
+    {
+      "id": "XG-S02",
+      "product": "小顾",
+      "title": "且慢AI小顾家庭规划公开演示报道",
+      "url": "https://www.yingmi.cn/archives/907",
+      "date": "文内2026云栖大会事件；网页未独立显示发布日期",
+      "type": "机构报道演示，非本次真实账户验收"
+    },
+    {
+      "id": "XG-S03",
+      "product": "小顾",
+      "title": "AI小顾产品总文档公开快照",
+      "url": "https://clairku.github.io/clair-ai-studio/reports/ai-xiaogu-product-handbook-2026-10-13/",
+      "date": "2026-10-13公开整理；本次以工作区公开镜像核对",
+      "type": "既有公开二次整理，内含已披露/建议/待核分层"
+    },
+    {
+      "id": "XG-PUB",
+      "product": "小顾",
+      "title": "且慢AI小顾3.0公开能力说明",
+      "url": "https://www.yingmi.cn/archives/913",
+      "date": "文内2026-09-18事件；2026-10-22读取",
+      "type": "公司公开披露，非本次现况验收"
+    }
+  ]
+}

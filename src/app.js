@@ -67,7 +67,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 149;
+const DATA_VERSION = 150;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -222,6 +222,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "ai-wealth-interaction-deep-dive-2026-10-22",
+      groupId: "xiaogu",
+      title: "Origin、PortfolioPilot、蚂小财交互深研｜小顾落地方案与原型",
+      url: "https://clairku.github.io/clair-ai-studio/reports/ai-wealth-interaction-deep-dive-2026-10-22/",
+      preview: "ai-wealth-interaction-deep-dive-2026-10-22.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-22T14:15:00+08:00",
+      source: "2026-10-22研究、2026-10-28恢复发布：45条公开来源、实际播放的PortfolioPilot示例账户录屏、Origin静态操作图及蚂小财历史界面研究；逐步拆入口、参数、草稿、纠错与任务状态。附小顾现况差距、P0/P1实施方案、可点击示意原型与30条待执行验收用例。未登录真实账户，Origin视频未成功播放，蚂小财新版完整生命周期待补证。",
+      access: "production",
+      workType: "reporting",
+      tags: ["AI小顾", "Origin", "PortfolioPilot", "蚂小财", "交互研究", "任务状态", "可点击原型", "验收用例", "HTML", "生产"],
+    },
     {
       id: "yingmi-ai-asset-atlas-2026-10-28",
       groupId: "ai-platform",
@@ -4161,6 +4175,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "ai-wealth-interaction-deep-dive-2026-10-22": "xiaogu",
   "feidi-yingmi-cooperation-value-2026-10-28": "ai-platform",
   "composer-predictions-deep-dive-2026-10-28": "ai-workbench",
   "yingmi-ai-asset-atlas-2026-10-28": "ai-platform",
