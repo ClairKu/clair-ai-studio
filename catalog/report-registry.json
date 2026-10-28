@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "yingmi-ai-asset-atlas-2026-10-28",
     "yingmi-ccs-capability-audit-2026-10-28",
     "composer-predictions-deep-dive-2026-10-28",
     "feidi-yingmi-cooperation-value-2026-10-28",
@@ -341,6 +342,12 @@
       "status": "alternate-visual",
       "ownerId": "yingmi-ai-capabilities-two-templates-2026-10-28",
       "reason": "第二轮两套完整展示设计，沿用同一工作台成果入口。"
+    },
+    {
+      "slug": "yingmi-ai-capabilities-two-templates-2026-10-28",
+      "status": "alternate-visual",
+      "ownerId": "yingmi-ai-capabilities-two-templates-2026-10-28",
+      "reason": "保留首轮展示设计页面，归属于同一工作台成果；主入口已更新为第二轮设计。"
     }
   ],
   "historyAudit": {

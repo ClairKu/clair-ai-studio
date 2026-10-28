@@ -67,7 +67,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 148;
+const DATA_VERSION = 149;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -222,6 +222,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "yingmi-ai-asset-atlas-2026-10-28",
+      groupId: "ai-platform",
+      title: "盈米 AI 资产图谱｜69项历史MCP、更新证据与治理清单",
+      url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-ai-asset-atlas-2026-10-28/",
+      preview: "yingmi-ai-asset-atlas-2026-10-28.png",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-28T16:00:00+08:00",
+      source: "汇总8/3完整69项MCP历史目录、8/11工具审计、10月公开进展及15个分发接入面；支持搜索、分类、来源追溯与CSV导出。飞书原表当前记录与修改时间尚未读取，不能据此确认原表最新；官网目录、后台资产池与渠道入口分别计数。仅整理已公开的非敏感汇总。",
+      access: "production",
+      workType: "governance-review",
+      tags: ["盈米", "OAP", "资产治理", "MCP", "Skills", "Agent", "工具目录", "证据", "HTML", "生产"],
+    },
     {
       id: "yingmi-ccs-capability-audit-2026-10-28",
       groupId: "knowledge",
@@ -4133,6 +4147,9 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "feidi-yingmi-cooperation-value-2026-10-28": "ai-platform",
+  "composer-predictions-deep-dive-2026-10-28": "ai-workbench",
+  "yingmi-ai-asset-atlas-2026-10-28": "ai-platform",
   "yingmi-ccs-capability-audit-2026-10-28": "knowledge",
   "yingmi-ai-capabilities-two-templates-2026-10-28": "ai-platform",
   "wecom-ai-research-2026-10-28": "ai-workbench",
