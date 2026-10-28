@@ -1,66 +1,26 @@
 {
-  "title": "盈米AI · 光场材质与数据动效版 / 锋面",
-  "version": "2026-10-28-motion-3",
+  "title": "盈米AI · 光场静态正式版与三款动效提案",
+  "version": "2026-10-28-curated-motion-4",
   "files": [
     {
-      "path": "frontier/index.html",
-      "bytes": 87234,
-      "sha256": "1e26c30ebb4779e87ba57dcae534af46a690d7cb16e2a36d71b2ea6cdbeff944"
-    },
-    {
-      "path": "sources.json",
-      "bytes": 15711,
-      "sha256": "878d6322f9ada9efd3bae6eb56c0d212b9b39558f3abbed1e153f08e71133832"
-    },
-    {
-      "path": "lightfield-preview.png",
-      "bytes": 84718,
-      "sha256": "6e80cc52086102bef3cc90cd31630e591daea1659ff1423b7d32be202ca39570"
-    },
-    {
-      "path": "frontier-preview.png",
-      "bytes": 60112,
-      "sha256": "92a2e5bc7e278c2bc17a582eea947c52148efb64eab03001e57f4f3ca512d3a2"
-    },
-    {
-      "path": "README.txt",
-      "bytes": 1606,
-      "sha256": "e54a9fbe850cdad9a62d65d6802f3bfcb1811a684cb490deb6e591e960a2772e"
-    },
-    {
-      "path": "asset-prompt.txt",
-      "bytes": 1458,
-      "sha256": "dbbc2d69084d45668e4bb2f40f57b75d90b3a2a190a9905e64c43e847b75653f"
-    },
-    {
       "path": "index.html",
-      "bytes": 7256,
-      "sha256": "d62cc28b415f2ab4fbe281fbd406ebf79929c90849d3cefd281b23026f24adab"
+      "bytes": 7341,
+      "sha256": "fae6a4b70f8e450704cbc2bd51e9b944c03ca51a9608a3b893103d263d853952"
     },
     {
       "path": "lightfield/index.html",
-      "bytes": 109955,
-      "sha256": "b63e8d2d73754afd825f23833445aa883a27b68e7a4641706c52e88ebbe18778"
+      "bytes": 93699,
+      "sha256": "5562102f3f3700a6a97065e9747d282fd65ea1d3089000ec86fcb86f4ea95381"
     },
     {
       "path": "lightfield/static.html",
-      "bytes": 93346,
-      "sha256": "86134caac5a3e528327e1280194f008b5d082b3788a0daab5d8bc8f187e957e7"
-    },
-    {
-      "path": "lightfield/motion.js",
-      "bytes": 12958,
-      "sha256": "38a9ceb5c08db72b8d770f806589f1ad56f8f284436246d76ad97a14786df382"
-    },
-    {
-      "path": "lightfield/data-motion.js",
-      "bytes": 4107,
-      "sha256": "16677742023bce74f3e7488021f508a6a47310f5b4c845b7ed56d9b7a3cac008"
+      "bytes": 93699,
+      "sha256": "5562102f3f3700a6a97065e9747d282fd65ea1d3089000ec86fcb86f4ea95381"
     },
     {
       "path": "lightfield/yingmi-ai-lightfield.html",
-      "bytes": 334582,
-      "sha256": "21c7757e1972b4b39abc0f95bc7d60c28779f36898b2eec1a520d0a596997a90"
+      "bytes": 301237,
+      "sha256": "a9eec2cb1d6485be33baf723be3876ab629303a26181c78f9dc16c12c9a536d3"
     },
     {
       "path": "assets/lightfield-hero-fast.webp",
@@ -68,9 +28,59 @@
       "sha256": "72efe349aaece1b484caa4042f34c96d5113eb3cf961f939c363e7c6565a4466"
     },
     {
+      "path": "sources.json",
+      "bytes": 15711,
+      "sha256": "878d6322f9ada9efd3bae6eb56c0d212b9b39558f3abbed1e153f08e71133832"
+    },
+    {
+      "path": "frontier/index.html",
+      "bytes": 87234,
+      "sha256": "1e26c30ebb4779e87ba57dcae534af46a690d7cb16e2a36d71b2ea6cdbeff944"
+    },
+    {
+      "path": "frontier-preview.png",
+      "bytes": 60112,
+      "sha256": "92a2e5bc7e278c2bc17a582eea947c52148efb64eab03001e57f4f3ca512d3a2"
+    },
+    {
+      "path": "lightfield-preview.png",
+      "bytes": 84718,
+      "sha256": "6e80cc52086102bef3cc90cd31630e591daea1659ff1423b7d32be202ca39570"
+    },
+    {
+      "path": "README.txt",
+      "bytes": 854,
+      "sha256": "ccd1dee5bc09bcff030db55bb5dd7e148d624f95fe3e6cffd79103ecfd6c1141"
+    },
+    {
+      "path": "asset-prompt.txt",
+      "bytes": 1458,
+      "sha256": "dbbc2d69084d45668e4bb2f40f57b75d90b3a2a190a9905e64c43e847b75653f"
+    },
+    {
+      "path": "motion-lab/index.html",
+      "bytes": 10331,
+      "sha256": "0ab26bc3e6d16ac7f02cf8ce6360f0eb47417cfbd05c23165b180be9ae979f8f"
+    },
+    {
+      "path": "motion-lab/prism/index.html",
+      "bytes": 101394,
+      "sha256": "46fa77a7ca734be891bc7b35c9da7cbc021ae41b71b3d75abcba4e831a87671d"
+    },
+    {
+      "path": "motion-lab/orbit/index.html",
+      "bytes": 103877,
+      "sha256": "c6ace898678211ba5c6606e5cd182ae8389e9526299c6230be028988eccf4fd5"
+    },
+    {
+      "path": "motion-lab/signal/index.html",
+      "bytes": 134115,
+      "sha256": "1f31f5b8d93a33adb6860da87fcab0909dcad95eff427fa058295d48bbb9ff74"
+    },
+    {
       "path": "yingmi-ai-design-v2.zip",
-      "bytes": 536953,
-      "sha256": "d8b852793ebb0e130bf3e8041040298a4f1d20fd71e4cfd4ca58d6b0bfdbdcd9"
+      "bytes": 646743,
+      "sha256": "9978b71f666a211269bde6a4c6da6d0acb31468d0f45a7007bce061baf4973c1"
     }
   ]
 }

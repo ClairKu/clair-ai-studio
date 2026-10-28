@@ -1,13 +1,8 @@
-盈米AI · 光场动效版与静态对照 · 2026-10-28
+光场 · 静态正式版与三款动效提案 · 2026-10-28
 
-打开index.html选择光场或锋面；lightfield/index.html为光场动效版，lightfield/static.html为已确认的原静态版。两者均已嵌入主视觉，支持独立打开；锋面版保持原有设计。
-
-动效：主视觉缓慢呼吸与细微跟随、图像材质流光与微折射、标题分层入场、一次性章节进入、产品切换过渡、页内阅读进度；6项关键数据滚动到位后播放一次数字动效，最终数值、单位和日期保持原口径。主视觉以原有概念图为基础，不是真实三维模型旋转。
-加载优化：同尺寸高质量WebP主视觉155,556字节，相比原PNG的1,987,764字节减少92.17%；提前预加载并缩短首次图片淡入。
-主视觉旁的“动态效果”可暂停/开启。系统减少动态效果设置始终优先；离屏、隐藏页签和打印时暂停。图形加速不可用时保留原图与基础动效，页面内容仍可阅读。无网络时内嵌图片和脚本仍可工作。
-
-本次只更新展示动效，不变更12类场景、8项产品平台、5层底座、7条流程及数据日期。OAP截至2026-10-01，小顾截至2026-09-01。数据与来源说明见sources.json。
-主视觉为内置图像生成工具生成的概念艺术，原提示词见asset-prompt.txt。
-
-动效生产地址：https://clairku.github.io/clair-ai-studio/reports/yingmi-ai-capabilities-design-v2-2026-10-28/lightfield/
-静态对照地址：https://clairku.github.io/clair-ai-studio/reports/yingmi-ai-capabilities-design-v2-2026-10-28/lightfield/static.html
+lightfield/index.html 为静态正式版，数据保持终值，已撤下旧版所有流动、浮动与数字跳动。
+motion-lab/index.html 为三款动效对比：01光学切面、02引力弧场、03结构织光。各提案均保留完整报告正文，数据不变动，图形仅为概念视觉。
+主图保持156KB轻量WebP；提案02、03全矢量，不需额外图片。暂停按钮、系统减少动态效果与离屏暂停均可用。
+OAP口径截至2026-10-01，小顾截至2026-09-01；来源及说明见sources.json。
+静态正式版：https://clairku.github.io/clair-ai-studio/reports/yingmi-ai-capabilities-design-v2-2026-10-28/lightfield/?view=static4
+新动效对比：https://clairku.github.io/clair-ai-studio/reports/yingmi-ai-capabilities-design-v2-2026-10-28/motion-lab/
