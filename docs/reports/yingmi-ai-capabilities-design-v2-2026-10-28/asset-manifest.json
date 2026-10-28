@@ -59,28 +59,28 @@
     },
     {
       "path": "motion-lab/index.html",
-      "bytes": 10331,
-      "sha256": "0ab26bc3e6d16ac7f02cf8ce6360f0eb47417cfbd05c23165b180be9ae979f8f"
+      "bytes": 10367,
+      "sha256": "0b14a2fa123231d5a9cdab5374d1480301f6ce877816694caaee86b7d33bb2b1"
     },
     {
       "path": "motion-lab/prism/index.html",
-      "bytes": 101394,
-      "sha256": "46fa77a7ca734be891bc7b35c9da7cbc021ae41b71b3d75abcba4e831a87671d"
+      "bytes": 101369,
+      "sha256": "4ffd5ee5d53a4fc317e917ddef68b0b3e4800f3cc637e2ad5ee2240cb79dc13d"
     },
     {
       "path": "motion-lab/orbit/index.html",
-      "bytes": 103877,
-      "sha256": "c6ace898678211ba5c6606e5cd182ae8389e9526299c6230be028988eccf4fd5"
+      "bytes": 103852,
+      "sha256": "010d8c0fcdfb42932b104e6bfeae27bf115a9ddbc5c4451ce2558dcc1bee0984"
     },
     {
       "path": "motion-lab/signal/index.html",
-      "bytes": 134115,
-      "sha256": "1f31f5b8d93a33adb6860da87fcab0909dcad95eff427fa058295d48bbb9ff74"
+      "bytes": 134090,
+      "sha256": "bde9241b96a1e23912b69827d1e81faeb500682ddec3e89ca7651904bfb60b8a"
     },
     {
       "path": "yingmi-ai-design-v2.zip",
-      "bytes": 646743,
-      "sha256": "9978b71f666a211269bde6a4c6da6d0acb31468d0f45a7007bce061baf4973c1"
+      "bytes": 646744,
+      "sha256": "b11abd188a5c24e538cf91756015db7be7475edc3972ca456f9a2cb0076646d2"
     }
   ]
 }
