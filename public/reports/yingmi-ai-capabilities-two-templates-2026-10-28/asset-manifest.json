@@ -4,8 +4,8 @@
   "files": [
     {
       "path": "index.html",
-      "bytes": 12081,
-      "sha256": "c11ba17c1737c37ec11c4d0b5b2040fc1bff164cb2a7cbbfa2b4d2c3720fcf8c"
+      "bytes": 12090,
+      "sha256": "00ed73510f802c50164d7a6c07f8938bc99fd534d8fe7da36a35e245b8205228"
     },
     {
       "path": "briefing/index.html",
@@ -14,8 +14,8 @@
     },
     {
       "path": "atlas/index.html",
-      "bytes": 84034,
-      "sha256": "af683804807ae0f48845c7671716d3d9b4e8c152ddfa9d0fa8d78789ea347fd0"
+      "bytes": 84207,
+      "sha256": "2063b5384fcc56dc093820829973eb97fa567302cc1bc9289e78f66078d4d290"
     },
     {
       "path": "sources.json",
@@ -29,18 +29,18 @@
     },
     {
       "path": "atlas-preview.png",
-      "bytes": 73551,
-      "sha256": "4ef70aa27b82a5ddba287b60876c80147162534caa399861e44dd5c2b982ab90"
+      "bytes": 75343,
+      "sha256": "91304f47794c2f422e7cf402ad9f56790756ae54b646a360745cb360ec43cd44"
     },
     {
       "path": "README.txt",
-      "bytes": 924,
-      "sha256": "f54ef8afbcf8072ed89d8618ba65fa1107db50de4d88b31ead66f96a87c7305a"
+      "bytes": 1035,
+      "sha256": "b701d0c22cd49bfeeb3f80f0171f266dd1607a1947d7ac31017fc217d048ad2d"
     },
     {
       "path": "yingmi-ai-two-templates.zip",
-      "bytes": 168037,
-      "sha256": "790293d7bc7bad2e640bc996dc094fb16dedfec6e724f37e91590cde7b82c599"
+      "bytes": 172036,
+      "sha256": "75facdfb3282de03db7ac73d4864bb7b2c41af41d1609a8ca7aea5bb839f4d6d"
     }
   ]
 }

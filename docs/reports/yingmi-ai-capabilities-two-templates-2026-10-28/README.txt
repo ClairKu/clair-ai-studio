@@ -9,3 +9,5 @@ sources.json 为来源与数据口径；两张 PNG 为实际桌面预览。
 13项公开来源及原始实践材料归纳说明随页列出。内部原稿、明细和内部链接不在此包内。
 
 生产入口：https://clairku.github.io/clair-ai-studio/reports/yingmi-ai-capabilities-two-templates-2026-10-28/
+
+2026-10-28配色修订：场景探索版改为深海军蓝与电光蓝；同步实际预览及下载文件。
