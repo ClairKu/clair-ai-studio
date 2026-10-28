@@ -1,0 +1,10 @@
+Use case: stylized-concept
+Asset type: premium financial technology website hero artwork, landscape 3:2 composition.
+Primary request: Create a flagship-quality sculptural study of ONE exceptionally smooth continuous satin ribbon, a broad thin-edged surface sweeping into a spacious OPEN S-shaped wave. Its curve must be organically flowing and mathematically smooth, with generous wide-radius bends and impeccable tangent continuity. This is an open elongated S-wave sculpture, NOT a circle, NOT a torus, NOT a Möbius loop, NOT an infinity symbol. No interlacing or crossings.
+Scene/backdrop: seamless very pale cool off-white studio background, approximately #f3f5f8, extremely clean, opaque, subtle soft contact shadow.
+Subject: the single sculptural ribbon has a pearl-white satin ceramic-like main surface graduating gently into polished deep cobalt-blue metallic edges. It feels precise and light, with a plausible thin sculptural thickness. No cuts, folds, creases, joined segments, sharp corners, grooves, stepped contours, or abrupt bends. The free ribbon ends terminate cleanly and elegantly as part of the sculptural design.
+Composition/framing: wide 3:2 image, full entire sculpture visible, centered slightly to the right, open negative space toward the left; mild three-quarter perspective. Gallery-like premium industrial design photography, disciplined art direction.
+Lighting/mood: large soft studio light, extremely refined physically plausible reflections, pearl and cobalt highlights, calm white-space luxury, confident financial technology brand.
+Style/medium: high-end photorealistic 3D render, Cinema4D / Octane product photography quality, smooth antialiasing and continuous shading, immaculate material rendering.
+Text: none.
+Avoid: wireframes, fine line bundles, mesh, grids, coordinate marks, letters, numbers, logos, watermarks, particles, stars, neon, noisy gradients, multiple subjects, black background, transparent background.

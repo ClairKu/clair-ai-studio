@@ -1,0 +1,86 @@
+{
+  "title": "盈米AI · 缎光流域 / 深空折光 / 光栅秩序",
+  "version": "2026-10-28-new-directions-6",
+  "files": [
+    {
+      "path": "index.html",
+      "bytes": 9524,
+      "sha256": "86c1c12fd14b149365d0f72026d10e3288a5b3fd94c7e73956f8f405f2c4c693"
+    },
+    {
+      "path": "satin/index.html",
+      "bytes": 99915,
+      "sha256": "feb64864460decb725cddbce4b73ce2044b0d188ea3e11400409a97e22d45adc"
+    },
+    {
+      "path": "satin/hero.webp",
+      "bytes": 38554,
+      "sha256": "d2aff2a3412059fac04c3eaee9ec513226bc476ed204be033611ad838e4838be"
+    },
+    {
+      "path": "satin/thumb.webp",
+      "bytes": 7932,
+      "sha256": "454065655ee5c4fb4568e77a5d23f8b6c3fe9ccade4eb6b8882b0c5931494a43"
+    },
+    {
+      "path": "satin/prompt.txt",
+      "bytes": 1959,
+      "sha256": "d7dfd0eeb31b19042b8295769df4415bff66a47539742054e7b77b3aeb91885c"
+    },
+    {
+      "path": "refraction/index.html",
+      "bytes": 105984,
+      "sha256": "febb02a40f6eea7ae9f5593f787af4b85d173fd5917486d0f4099572addc195c"
+    },
+    {
+      "path": "refraction/hero.webp",
+      "bytes": 111348,
+      "sha256": "c662f200a2afc9bf20804b2ccd1d3774467fd1a0c5b70c991c31f8f0ad4d7f09"
+    },
+    {
+      "path": "refraction/thumb.webp",
+      "bytes": 20006,
+      "sha256": "e0e8f5e42b8c29c48504b423fbdde07dbd6ea8ea4482abbd618160d7a37c21c8"
+    },
+    {
+      "path": "refraction/prompt.txt",
+      "bytes": 2046,
+      "sha256": "99588f00d210689a0a4c3f5d3442c9c84fed9351885f0406dd04664672fd7d44"
+    },
+    {
+      "path": "lamella/index.html",
+      "bytes": 104094,
+      "sha256": "57cccef6eb2bb4b01b12daccef75da98a0bcc1c1a83e5b6a2d924448942bdf80"
+    },
+    {
+      "path": "lamella/hero.webp",
+      "bytes": 64430,
+      "sha256": "42972771ecc1b213852c03c806656798b1366f283eeed6ea2a961cb5434095cc"
+    },
+    {
+      "path": "lamella/thumb.webp",
+      "bytes": 12192,
+      "sha256": "5c044915441efffdca46fdac893ee9102c8c514f8dbe3e1ceab2b8983911f816"
+    },
+    {
+      "path": "lamella/prompt.txt",
+      "bytes": 1853,
+      "sha256": "0a598b94ce87c03ac68dd3669bf2c450db76890ca9b9dca70a0c0b886e5df7c0"
+    },
+    {
+      "path": "README.txt",
+      "bytes": 841,
+      "sha256": "32020f49102f82a899da62a2aa3a3e275e9bd396623e069dcb5b24df6af45ad4"
+    },
+    {
+      "path": "PROMPTS.txt",
+      "bytes": 5962,
+      "sha256": "dd925851c3c306a22cdae4e2d547f4da0fcf738974079d2a0f89c38daafb71e8"
+    },
+    {
+      "path": "yingmi-ai-new-directions.zip",
+      "bytes": 344964,
+      "sha256": "4b0bbd3508df340278a4bdd63488a295580ea079921bb446c2cbb2fd40995f6f"
+    }
+  ]
+}

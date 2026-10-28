@@ -1,0 +1,11 @@
+Use case: stylized-concept
+Asset type: premium financial technology website hero, landscape 3:2, 1536 x 1024.
+Primary request: a flagship studio render of one exquisite, seamlessly continuous optical-glass sculpture: an asymmetric thick arch / softly bent optical lens, inclined diagonally, tall and sculptural, with a substantial flowing body and beautifully polished rounded edges. This must be a fresh art direction, not a wireframe or a ring.
+Scene/backdrop: seamless deep charcoal midnight-blue background, #0b0f18, clean and empty. A barely visible dark floor with the faintest reflection.
+Subject: ONE single precision-ground, crystal-clear, slightly smoky optical-glass object. Its smooth continuous concave and convex surfaces bend and concentrate light naturally. A substantial open curved arch with a softly folded solid-lens character, no cylindrical parts. Genuine glass depth, delicate internal refraction, narrow icy-blue edge highlights, and restrained cool-white dispersion.
+Style/medium: physically plausible luxury product photography, meticulous 3D material craft, ultra-smooth high-resolution surfaces, photoreal CGI.
+Composition/framing: object centered slightly right, occupies about 70% of canvas, entire form visible with generous breathing room, art-directed three-quarter perspective. Left side quiet and dark enough for a separate webpage headline.
+Lighting/mood: dark studio with large softbox reflections shaping the body, one narrow icy-blue rim, rich clean blacks, precise highlights, calm and confident. No overexposure.
+Color palette: midnight black, smoky transparent glass, very restrained icy-blue and cool-white highlights. No oily rainbow colors.
+Text: none.
+Constraints: opaque background, smooth uninterrupted curvature without visible seams, no polygonal faceting. Premium optical instrument material realism. No ring, torus, Saturn, sphere, cylinder, random floating multiple objects, mesh, fine line bundles, grids, star fields, particles, neon bloom, typography, labels, logos, watermark, lens flare.

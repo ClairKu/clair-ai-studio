@@ -1,0 +1,41 @@
+内置 image_gen / 全新生成 / 2026-10-28
+
+A / 缎光流域
+
+Use case: stylized-concept
+Asset type: premium financial technology website hero artwork, landscape 3:2 composition.
+Primary request: Create a flagship-quality sculptural study of ONE exceptionally smooth continuous satin ribbon, a broad thin-edged surface sweeping into a spacious OPEN S-shaped wave. Its curve must be organically flowing and mathematically smooth, with generous wide-radius bends and impeccable tangent continuity. This is an open elongated S-wave sculpture, NOT a circle, NOT a torus, NOT a Möbius loop, NOT an infinity symbol. No interlacing or crossings.
+Scene/backdrop: seamless very pale cool off-white studio background, approximately #f3f5f8, extremely clean, opaque, subtle soft contact shadow.
+Subject: the single sculptural ribbon has a pearl-white satin ceramic-like main surface graduating gently into polished deep cobalt-blue metallic edges. It feels precise and light, with a plausible thin sculptural thickness. No cuts, folds, creases, joined segments, sharp corners, grooves, stepped contours, or abrupt bends. The free ribbon ends terminate cleanly and elegantly as part of the sculptural design.
+Composition/framing: wide 3:2 image, full entire sculpture visible, centered slightly to the right, open negative space toward the left; mild three-quarter perspective. Gallery-like premium industrial design photography, disciplined art direction.
+Lighting/mood: large soft studio light, extremely refined physically plausible reflections, pearl and cobalt highlights, calm white-space luxury, confident financial technology brand.
+Style/medium: high-end photorealistic 3D render, Cinema4D / Octane product photography quality, smooth antialiasing and continuous shading, immaculate material rendering.
+Text: none.
+Avoid: wireframes, fine line bundles, mesh, grids, coordinate marks, letters, numbers, logos, watermarks, particles, stars, neon, noisy gradients, multiple subjects, black background, transparent background.
+
+
+B / 深空折光
+
+Use case: stylized-concept
+Asset type: premium financial technology website hero, landscape 3:2, 1536 x 1024.
+Primary request: a flagship studio render of one exquisite, seamlessly continuous optical-glass sculpture: an asymmetric thick arch / softly bent optical lens, inclined diagonally, tall and sculptural, with a substantial flowing body and beautifully polished rounded edges. This must be a fresh art direction, not a wireframe or a ring.
+Scene/backdrop: seamless deep charcoal midnight-blue background, #0b0f18, clean and empty. A barely visible dark floor with the faintest reflection.
+Subject: ONE single precision-ground, crystal-clear, slightly smoky optical-glass object. Its smooth continuous concave and convex surfaces bend and concentrate light naturally. A substantial open curved arch with a softly folded solid-lens character, no cylindrical parts. Genuine glass depth, delicate internal refraction, narrow icy-blue edge highlights, and restrained cool-white dispersion.
+Style/medium: physically plausible luxury product photography, meticulous 3D material craft, ultra-smooth high-resolution surfaces, photoreal CGI.
+Composition/framing: object centered slightly right, occupies about 70% of canvas, entire form visible with generous breathing room, art-directed three-quarter perspective. Left side quiet and dark enough for a separate webpage headline.
+Lighting/mood: dark studio with large softbox reflections shaping the body, one narrow icy-blue rim, rich clean blacks, precise highlights, calm and confident. No overexposure.
+Color palette: midnight black, smoky transparent glass, very restrained icy-blue and cool-white highlights. No oily rainbow colors.
+Text: none.
+Constraints: opaque background, smooth uninterrupted curvature without visible seams, no polygonal faceting. Premium optical instrument material realism. No ring, torus, Saturn, sphere, cylinder, random floating multiple objects, mesh, fine line bundles, grids, star fields, particles, neon bloom, typography, labels, logos, watermark, lens flare.
+
+
+C / 光栅秩序
+
+Use case: stylized-concept
+Asset type: high-end financial technology website hero artwork, landscape 3:2.
+Primary request: Create a completely new, photorealistic precision optical sculpture: 15 substantial but thin rounded lamella plates, arranged at equal intervals into one calm rising wave-like architectural form. This is a single coherent physical sculpture made of perfectly smooth, softly rounded solid plates; not strands, not wires, not a ribbon or a ring. The silhouette rises gently from low left to high right with flowing continuous edges. The depth rhythm should feel deliberate and beautifully engineered.
+Scene/backdrop: seamless soft ivory #f7f7f4 studio background and floor, generous negative space around the sculpture. The entire sculpture is fully contained, centered slightly to the right, occupying roughly 70% of the canvas.
+Style/medium: flagship technology brand launch artwork, photorealistic high quality 3D studio product photography, polished rendering with physically credible materials and subtle ambient occlusion.
+Materials/textures: alternate pearl white frosted ceramic plates and a small number of ice-blue clear optical glass plates. Extremely smooth surfaces and rounded precision edges, restrained narrow cobalt-blue edge accents. Gentle realistic refraction through the glass; no chrome rainbow colors.
+Lighting/mood: broad softbox studio lighting, elegant highlights, delicate contact shadows, quiet confidence, fine optical detail, balanced warm and cool whites.
+Constraints: All plates have smooth, rounded, continuous edges without jagged seams or faceting. Full subject visible, no cropping. Opaque background. No typography, words, logos, interface elements, grids, coordinate marks, wireframes, hair-like fibers, stars, particles, neon, rings, Möbius loops, clutter, or dark dramatic space background.
