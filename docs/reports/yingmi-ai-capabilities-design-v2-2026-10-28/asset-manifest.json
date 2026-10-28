@@ -1,0 +1,61 @@
+{
+  "title": "盈米AI · 光场 × 锋面 · 第二轮设计",
+  "version": "2026-10-28-v2",
+  "files": [
+    {
+      "path": "index.html",
+      "bytes": 7219,
+      "sha256": "7625a35afcba5ebd86f590d8795c34e444aca6e079bace48f14d82cfa43ba2da"
+    },
+    {
+      "path": "frontier/index.html",
+      "bytes": 87234,
+      "sha256": "1e26c30ebb4779e87ba57dcae534af46a690d7cb16e2a36d71b2ea6cdbeff944"
+    },
+    {
+      "path": "sources.json",
+      "bytes": 15711,
+      "sha256": "878d6322f9ada9efd3bae6eb56c0d212b9b39558f3abbed1e153f08e71133832"
+    },
+    {
+      "path": "lightfield-preview.png",
+      "bytes": 84718,
+      "sha256": "6e80cc52086102bef3cc90cd31630e591daea1659ff1423b7d32be202ca39570"
+    },
+    {
+      "path": "frontier-preview.png",
+      "bytes": 60112,
+      "sha256": "92a2e5bc7e278c2bc17a582eea947c52148efb64eab03001e57f4f3ca512d3a2"
+    },
+    {
+      "path": "README.txt",
+      "bytes": 995,
+      "sha256": "6d41d8dce0bdf2533a5e2627e3a3f014fef785860c6d6e7c8f806ce7cc10e269"
+    },
+    {
+      "path": "asset-prompt.txt",
+      "bytes": 1458,
+      "sha256": "dbbc2d69084d45668e4bb2f40f57b75d90b3a2a190a9905e64c43e847b75653f"
+    },
+    {
+      "path": "lightfield/index.html",
+      "bytes": 93209,
+      "sha256": "6207b4446adb1edbd5d5110f90a57c906a1e4f502a1c851fc0a538eb0d08f45e"
+    },
+    {
+      "path": "lightfield/yingmi-ai-lightfield.html",
+      "bytes": 2743554,
+      "sha256": "89dcec1c40e666bb22240b8d4196fa320af8a7819a9527c55fe249a7a94af97c"
+    },
+    {
+      "path": "assets/lightfield-hero.png",
+      "bytes": 1987764,
+      "sha256": "500d9e547d6bc66f4b789631fc7da23f380e873d65bc3515ee3fceaba23a2f21"
+    },
+    {
+      "path": "yingmi-ai-design-v2.zip",
+      "bytes": 2115824,
+      "sha256": "76cbab4232572046a8f9b228ddcc092f7004c32478920631b1d822ed61dd9ff1"
+    }
+  ]
+}

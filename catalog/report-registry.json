@@ -333,6 +333,12 @@
       "slug": "l3-project-applications-2026-10-21",
       "ownerId": "aiwatch-l3-application-2026-10-21",
       "reason": "三份最新L3申报快捷入口，提供查看、编辑与HTML下载。"
+    },
+    {
+      "slug": "yingmi-ai-capabilities-design-v2-2026-10-28",
+      "status": "alternate-visual",
+      "ownerId": "yingmi-ai-capabilities-two-templates-2026-10-28",
+      "reason": "第二轮两套完整展示设计，沿用同一工作台成果入口。"
     }
   ],
   "historyAudit": {
