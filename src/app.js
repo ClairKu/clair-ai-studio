@@ -4689,7 +4689,9 @@ function migrateState(saved) {
   const catalogReportIds = new Set();
   const reports = catalog.reports.map((report) => {
     const reportUrl = normalizedUrl(report.url);
-    const refreshCatalogMetadata = report.id === "qieman-xiaogu-service-card-landscape-2026-08-13";
+    const refreshCatalogMetadata = report.id === "qieman-xiaogu-service-card-landscape-2026-08-13" ||
+      (report.id === "yingmi-ai-capabilities-two-templates-2026-10-28" &&
+        savedById.get(report.id)?.title === "盈米 AI 能力全景｜战略叙事 × 场景探索 · 双模板");
     catalogUrls.add(reportUrl);
     catalogReportIds.add(report.id);
     const disposition = reportDisposition(reportDispositions, report);
