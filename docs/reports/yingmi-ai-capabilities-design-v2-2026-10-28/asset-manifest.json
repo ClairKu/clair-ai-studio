@@ -1,11 +1,11 @@
 {
-  "title": "盈米AI · 光场静态正式版与三款动效提案",
-  "version": "2026-10-28-curated-motion-4",
+  "title": "盈米AI · 光场静态版、三款动效与流线织光融合版",
+  "version": "2026-10-28-flow-weave-5",
   "files": [
     {
       "path": "index.html",
-      "bytes": 7341,
-      "sha256": "fae6a4b70f8e450704cbc2bd51e9b944c03ca51a9608a3b893103d263d853952"
+      "bytes": 7370,
+      "sha256": "64721a4130fadf24e6324c515e3ad6f7b72ff0b5549160d2cf89526f14d1eda3"
     },
     {
       "path": "lightfield/index.html",
@@ -49,8 +49,8 @@
     },
     {
       "path": "README.txt",
-      "bytes": 854,
-      "sha256": "ccd1dee5bc09bcff030db55bb5dd7e148d624f95fe3e6cffd79103ecfd6c1141"
+      "bytes": 1544,
+      "sha256": "75ef0c9bf938ab96e90926b5600c2e7047d61c1c62b793583e29902ca6442ebc"
     },
     {
       "path": "asset-prompt.txt",
@@ -59,8 +59,8 @@
     },
     {
       "path": "motion-lab/index.html",
-      "bytes": 10367,
-      "sha256": "0b14a2fa123231d5a9cdab5374d1480301f6ce877816694caaee86b7d33bb2b1"
+      "bytes": 11322,
+      "sha256": "19e8d40f915b8938eaf9d2076c51d9d139efa0aa1499effc6d4e5044b77e38b1"
     },
     {
       "path": "motion-lab/prism/index.html",
@@ -79,8 +79,13 @@
     },
     {
       "path": "yingmi-ai-design-v2.zip",
-      "bytes": 646744,
-      "sha256": "b11abd188a5c24e538cf91756015db7be7475edc3972ca456f9a2cb0076646d2"
+      "bytes": 686638,
+      "sha256": "90dcd5098f2266eb5fbf7eb1004e3da51db158ca037c921b6695372c647dea70"
+    },
+    {
+      "path": "motion-lab/fusion/index.html",
+      "bytes": 138166,
+      "sha256": "eedc1b5b4e3b8afce5212d2ee47ed99b643555cf9fa612ebef30e8a30448ba22"
     }
   ]
 }
