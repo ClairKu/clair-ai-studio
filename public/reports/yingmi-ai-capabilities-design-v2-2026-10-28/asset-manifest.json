@@ -1,12 +1,7 @@
 {
-  "title": "盈米AI · 光场 × 锋面 · 第二轮设计",
-  "version": "2026-10-28-v2",
+  "title": "盈米AI · 光场材质动效版 / 锋面",
+  "version": "2026-10-28-motion-1",
   "files": [
-    {
-      "path": "index.html",
-      "bytes": 7219,
-      "sha256": "7625a35afcba5ebd86f590d8795c34e444aca6e079bace48f14d82cfa43ba2da"
-    },
     {
       "path": "frontier/index.html",
       "bytes": 87234,
@@ -29,8 +24,8 @@
     },
     {
       "path": "README.txt",
-      "bytes": 995,
-      "sha256": "6d41d8dce0bdf2533a5e2627e3a3f014fef785860c6d6e7c8f806ce7cc10e269"
+      "bytes": 1347,
+      "sha256": "29b79a55bb8fe6e4d33b20bd7df6e95b7f906bc7eccb7e1407904410b584339a"
     },
     {
       "path": "asset-prompt.txt",
@@ -38,14 +33,29 @@
       "sha256": "dbbc2d69084d45668e4bb2f40f57b75d90b3a2a190a9905e64c43e847b75653f"
     },
     {
+      "path": "index.html",
+      "bytes": 7229,
+      "sha256": "1bf367ba93c533a1810635265d6e2e4c1f876663b9bb5e329cba5c313ef22dc5"
+    },
+    {
       "path": "lightfield/index.html",
+      "bytes": 106823,
+      "sha256": "7958eca80bd5b80e550ebc81f358e4d6dda24d59653730e9da3a6eb4979fc7b4"
+    },
+    {
+      "path": "lightfield/static.html",
       "bytes": 93209,
       "sha256": "6207b4446adb1edbd5d5110f90a57c906a1e4f502a1c851fc0a538eb0d08f45e"
     },
     {
+      "path": "lightfield/motion.js",
+      "bytes": 11764,
+      "sha256": "9da0bb2718c1cac61a0a01146959567678fb4f14ba64d1d370824eedc7963d6c"
+    },
+    {
       "path": "lightfield/yingmi-ai-lightfield.html",
-      "bytes": 2743554,
-      "sha256": "89dcec1c40e666bb22240b8d4196fa320af8a7819a9527c55fe249a7a94af97c"
+      "bytes": 2768910,
+      "sha256": "3839f2bdd353ea560061ef10eb3569f56a9923d028622acff9bc4198e1308c44"
     },
     {
       "path": "assets/lightfield-hero.png",
@@ -54,8 +64,8 @@
     },
     {
       "path": "yingmi-ai-design-v2.zip",
-      "bytes": 2115830,
-      "sha256": "cd21ef48fde5c02def30a7e19a4db8b349ae44e04b13251b42aadd1b336d8a0d"
+      "bytes": 4078987,
+      "sha256": "7ef336f47e8d3c77ee3e4577a9d7895e6ae6b5a2c3052a60f9c9861721e8b052"
     }
   ]
 }
