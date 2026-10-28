@@ -223,6 +223,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "yingmi-ccs-capability-audit-2026-10-28",
+      groupId: "knowledge",
+      title: "盈米CCS｜能力审计与升级路线",
+      url: "https://clairku.github.io/clair-ai-studio/reports/yingmi-ccs-capability-audit-2026-10-28/",
+      preview: "yingmi-ccs-capability-audit-2026-10-28.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-28T16:16:50+08:00",
+      source: "内部能力基线、证据口径、独立官方行业参照与验证路线；指定文章的逐项对比仍待正文证据。正文独立加密。",
+      access: "production",
+      workType: "governance-review",
+      tags: ["盈米", "CCS", "CSS", "合规审查", "能力审计", "规则", "多模态", "待补文章对比", "HTML", "生产"],
+    },
+    {
       id: "composer-predictions-deep-dive-2026-10-28",
       groupId: "ai-workbench",
       title: "ChatGPT追问引导｜Composer Predictions 设计与实现深挖",
@@ -3986,6 +4000,7 @@ const initialState = {
 };
 
 const WORK_TYPE_BY_REPORT = {
+  "yingmi-ccs-capability-audit-2026-10-28": "governance-review",
   "yingmi-ai-capabilities-two-templates-2026-10-28": "reporting",
   "hiring-review-2026-10-27": "reporting",
   "ai-strategy-cockpit-2026-10-27": "product-planning",
@@ -4118,6 +4133,7 @@ const WORK_TYPE_BY_REPORT = {
 };
 
 const TOPIC_BY_REPORT = {
+  "yingmi-ccs-capability-audit-2026-10-28": "knowledge",
   "yingmi-ai-capabilities-two-templates-2026-10-28": "ai-platform",
   "wecom-ai-research-2026-10-28": "ai-workbench",
   "yingmi-ai-capabilities-2026-10-27": "ai-platform",

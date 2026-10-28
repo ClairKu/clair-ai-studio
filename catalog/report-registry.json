@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "yingmi-ccs-capability-audit-2026-10-28",
     "composer-predictions-deep-dive-2026-10-28",
     "feidi-yingmi-cooperation-value-2026-10-28",
     "yingmi-ai-capabilities-two-templates-2026-10-28",

@@ -110,6 +110,7 @@ const allowedInlinePasswordPages = new Set([
 // These reports retain a separate content-encryption credential. The shared
 // site gate protects navigation; it cannot decrypt their private contents.
 const independentEncryptedPages = new Set([
+  "reports/yingmi-ccs-capability-audit-2026-10-28/index.html",
   "reports/hiring-review-2026-10-27/index.html",
 ]);
 let reportPages = 0;
