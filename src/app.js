@@ -223,6 +223,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "feidi-yingmi-cooperation-value-2026-10-28",
+      groupId: "ai-platform",
+      title: "飞笛 × 盈米｜合作事实与独特价值",
+      url: "https://clairku.github.io/clair-ai-studio/reports/feidi-yingmi-cooperation-value-2026-10-28/",
+      preview: "feidi-yingmi-cooperation-value-2026-10-28.png",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-28T14:58:24+08:00",
+      source: "2026-10-28公开来源核验｜区分历史产品使用、AI共创身份、联合活动与资本生态线索；分析飞笛对盈米已有投顾与AI能力的增量、重叠、可替代性及待验证收益。未发布内部资料或明细。",
+      access: "production",
+      workType: "reporting",
+      tags: ["飞笛科技", "盈米基金", "AI", "财经数据", "客户经营", "合作研究", "独特价值", "HTML", "生产"],
+    },
+    {
       id: "yingmi-ai-capabilities-two-templates-2026-10-28",
       groupId: "ai-platform",
       title: "盈米 AI 能力全景｜战略叙事 × 场景探索 · 双模板",

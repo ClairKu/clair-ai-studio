@@ -1,0 +1,120 @@
+{
+  "title": "飞笛 × 盈米：合作事实与独特价值",
+  "as_of": "2026-10-28",
+  "timezone": "Asia/Shanghai",
+  "scope": "仅公开来源；公司产品主张未经本次生产验收；推断与建议均非已交付事实。",
+  "sources": [
+    {
+      "id": "S01",
+      "title": "36氪：飞笛产品与客户使用关系",
+      "date": "2024-10-09",
+      "kind": "媒体报道",
+      "url": "https://36kr.com/p/2983326152429569",
+      "supports": "明确提及盈米使用飞笛产品；未披露盈米采购模块和金额。"
+    },
+    {
+      "id": "S02",
+      "title": "飞笛：公司介绍与伙伴身份",
+      "date": "现页，2026-10-28读取",
+      "kind": "公司一手自述",
+      "url": "https://www.21fid.com/fid-web/about",
+      "supports": "客户名单及AI原生共创伙伴含盈米；投顾产业链基金战略股东的自述。"
+    },
+    {
+      "id": "S03",
+      "title": "盈米：发起广顾投",
+      "date": "2023-11-07",
+      "kind": "公司一手披露",
+      "url": "https://yingmi.com/archives/301",
+      "supports": "盈米是广顾投四家发起股东之一。"
+    },
+    {
+      "id": "S04",
+      "title": "证券时报：广顾投产业链布局",
+      "date": "2024-08-01",
+      "kind": "媒体报道",
+      "url": "https://stcn.com/article/detail/1275954.html",
+      "supports": "母基金与子基金布局背景，不能据此认定飞笛直接股东。"
+    },
+    {
+      "id": "S05",
+      "title": "盈米生态伙伴财富管理AI论坛",
+      "date": "2025-12-05，活动为2025-11-27",
+      "kind": "公开活动报道",
+      "url": "https://finance.sina.com.cn/roll/2025-12-05/doc-infzueru9750641.shtml",
+      "supports": "盈米/广顾投主办，飞笛参与圆桌交流。"
+    },
+    {
+      "id": "S06",
+      "title": "新华财经：同场论坛各方实践",
+      "date": "2025-11-27",
+      "kind": "记者报道（新浪转载）",
+      "url": "https://finance.sina.com.cn/jjxw/2025-11-27/doc-infywkcy8036243.shtml",
+      "supports": "飞笛谈内容数字化；接入MCP及5倍效率案例属于叩富问财。"
+    },
+    {
+      "id": "S07",
+      "title": "飞笛：APP场景化方案",
+      "date": "现页，2026-10-28读取",
+      "kind": "供应商产品主张",
+      "url": "https://www.21fid.com/fid-web/solutions/app-scenarios",
+      "supports": "场景化问答、KYC×KYP、财经数据供给及交易引导定位。"
+    },
+    {
+      "id": "S08",
+      "title": "飞笛：企微整体方案",
+      "date": "现页，2026-10-28读取",
+      "kind": "供应商产品主张",
+      "url": "https://www.21fid.com/fid-web/solutions/wecom",
+      "supports": "工单、问答、数据看板与总部到顾问运营链路。"
+    },
+    {
+      "id": "S09",
+      "title": "飞笛：端到端运营方案",
+      "date": "现页，2026-10-28读取",
+      "kind": "供应商产品主张",
+      "url": "https://www.21fid.com/fid-web/solutions/end-to-end",
+      "supports": "多触点、客户生命周期、策略执行与经营反馈。"
+    },
+    {
+      "id": "S10",
+      "title": "飞笛：AI经营中台与策略大脑",
+      "date": "现页，2026-10-28读取",
+      "kind": "供应商产品主张",
+      "url": "https://www.21fid.com/fid-web/solutions/ai-operation-platform",
+      "supports": "主张机构掌握策略与上下文；导出和替换能力需验收。"
+    },
+    {
+      "id": "S11",
+      "title": "盈米：机构AI智能体解决方案",
+      "date": "2026-05-22",
+      "kind": "公司一手披露",
+      "url": "https://www.yingmi.cn/archives/847",
+      "supports": "MCP/Skills/Agent、账户与报告、市场内容和小顾3.0能力基线。"
+    },
+    {
+      "id": "S12",
+      "title": "盈米：金融展智能体方案",
+      "date": "2026-06-22",
+      "kind": "公司一手披露",
+      "url": "https://yingmi.com/archives/871",
+      "supports": "主动任务、顾问工作台和机构交付路径；不是飞笛贡献证明。"
+    },
+    {
+      "id": "S13",
+      "title": "盈米：智审先知与AI编辑部",
+      "date": "2026-10-23",
+      "kind": "公司一手披露",
+      "url": "https://www.yingmi.cn/archives/991",
+      "supports": "已公开的内容中台、AI编辑部、合规审查及TAMP能力。"
+    },
+    {
+      "id": "S14",
+      "title": "盈米AI开放平台",
+      "date": "现页，2026-10-28读取",
+      "kind": "公司产品介绍",
+      "url": "https://qieman.com/mcp/index",
+      "supports": "账户诊断、市场解读、资产规划及开放工具能力。"
+    }
+  ]
+}
