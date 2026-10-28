@@ -1,6 +1,6 @@
 {
   "title": "盈米AI · 光场材质动效版 / 锋面",
-  "version": "2026-10-28-motion-1",
+  "version": "2026-10-28-motion-2",
   "files": [
     {
       "path": "frontier/index.html",
@@ -35,12 +35,12 @@
     {
       "path": "index.html",
       "bytes": 7256,
-      "sha256": "f3ba23ec0b8a567ac96e1a44bc10a6c3be5c1a566259d7121614b91c91cebe83"
+      "sha256": "cfa3d40bfef987cda74fca5f92c40754efecf162aecf9f4772f2faf095a50ef8"
     },
     {
       "path": "lightfield/index.html",
-      "bytes": 106823,
-      "sha256": "7958eca80bd5b80e550ebc81f358e4d6dda24d59653730e9da3a6eb4979fc7b4"
+      "bytes": 106838,
+      "sha256": "7e8e3d979e36308a7a27951c515f90995539497bd515a13dc382297ef650e57c"
     },
     {
       "path": "lightfield/static.html",
@@ -49,13 +49,13 @@
     },
     {
       "path": "lightfield/motion.js",
-      "bytes": 11764,
-      "sha256": "9da0bb2718c1cac61a0a01146959567678fb4f14ba64d1d370824eedc7963d6c"
+      "bytes": 12958,
+      "sha256": "38a9ceb5c08db72b8d770f806589f1ad56f8f284436246d76ad97a14786df382"
     },
     {
       "path": "lightfield/yingmi-ai-lightfield.html",
-      "bytes": 2769286,
-      "sha256": "7ff0892f9fc055a520b26b9514aa0c843652f3af380bfb491e2db9b46d872938"
+      "bytes": 2770480,
+      "sha256": "28c08a43d159c4dacadc858162018f9101b5cc01a868d22245d989ffb9f0f82f"
     },
     {
       "path": "assets/lightfield-hero.png",
@@ -64,8 +64,8 @@
     },
     {
       "path": "yingmi-ai-design-v2.zip",
-      "bytes": 4079013,
-      "sha256": "1637a2fdd071ca193ecd8074a035c2b4de67c5cebee266d67ccce5d1c7a61d01"
+      "bytes": 4079376,
+      "sha256": "2a0f72de1c9c4be8366359c20cf9ab65301de9d213578fd8a87d79addf127555"
     }
   ]
 }

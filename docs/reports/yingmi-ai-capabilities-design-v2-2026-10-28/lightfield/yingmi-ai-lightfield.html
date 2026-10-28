@@ -164,7 +164,10 @@ addEventListener('beforeprint',function(){printing=true;apply();});addEventListe
       float sheen=(.55+.45*sin(uv.x*4.8-uv.y*3.4+u_time*.36))*light;
       color+=vec3(.74,.87,1.)*sheen*material*.047;
       color=mix(color,color*vec3(.997,1.,1.004),cobalt*light*.35);
-      gl_FragColor=vec4(clamp(color,0.,1.),1.);
+      float edgeX=smoothstep(0.,.025,uv.x)*(1.-smoothstep(.975,1.,uv.x));
+      float edgeY=smoothstep(0.,.045,uv.y)*(1.-smoothstep(.955,1.,uv.y));
+      float alpha=edgeX*edgeY;
+      gl_FragColor=vec4(clamp(color,0.,1.)*alpha,alpha);
     }
   `;
   function setState(value) {
@@ -250,11 +253,29 @@ addEventListener('beforeprint',function(){printing=true;apply();});addEventListe
       gl.activeTexture(gl.TEXTURE0);
       gl.bindTexture(gl.TEXTURE_2D, texture);
       gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, poster);
+      // Native image downsampling is smoother than one-level WebGL minification.
+      // A power-of-two backing texture enables trilinear mipmaps in WebGL 1.
+      const backing = document.createElement('canvas');
+      const nextPower = n => Math.min(2048, Math.pow(2, Math.ceil(Math.log2(n))));
+      backing.width = nextPower(poster.naturalWidth);
+      backing.height = nextPower(poster.naturalHeight);
+      const ctx = backing.getContext('2d', {alpha:false});
+      if (ctx) {
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
+        ctx.drawImage(poster, 0, 0, backing.width, backing.height);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, backing);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
+        gl.generateMipmap(gl.TEXTURE_2D);
+        canvas.dataset.textureSampling = 'trilinear-mipmap';
+      } else {
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, poster);
+        canvas.dataset.textureSampling = 'bilinear-fallback';
+      }
       gl.uniform1i(locations.u_image, 0);
       gl.uniform2f(locations.u_texel, 1 / poster.naturalWidth, 1 / poster.naturalHeight);
       gl.clearColor(0,0,0,0);
