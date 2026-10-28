@@ -34,8 +34,8 @@
     },
     {
       "path": "index.html",
-      "bytes": 7229,
-      "sha256": "1bf367ba93c533a1810635265d6e2e4c1f876663b9bb5e329cba5c313ef22dc5"
+      "bytes": 7256,
+      "sha256": "f3ba23ec0b8a567ac96e1a44bc10a6c3be5c1a566259d7121614b91c91cebe83"
     },
     {
       "path": "lightfield/index.html",
@@ -54,8 +54,8 @@
     },
     {
       "path": "lightfield/yingmi-ai-lightfield.html",
-      "bytes": 2768910,
-      "sha256": "3839f2bdd353ea560061ef10eb3569f56a9923d028622acff9bc4198e1308c44"
+      "bytes": 2769286,
+      "sha256": "7ff0892f9fc055a520b26b9514aa0c843652f3af380bfb491e2db9b46d872938"
     },
     {
       "path": "assets/lightfield-hero.png",
@@ -64,8 +64,8 @@
     },
     {
       "path": "yingmi-ai-design-v2.zip",
-      "bytes": 4078987,
-      "sha256": "7ef336f47e8d3c77ee3e4577a9d7895e6ae6b5a2c3052a60f9c9861721e8b052"
+      "bytes": 4079013,
+      "sha256": "1637a2fdd071ca193ecd8074a035c2b4de67c5cebee266d67ccce5d1c7a61d01"
     }
   ]
 }
