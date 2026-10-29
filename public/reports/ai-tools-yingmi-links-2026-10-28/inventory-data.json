@@ -95,7 +95,7 @@
       "web_url": "https://qwenwork.cn/app/",
       "download_url": "https://qwenwork.cn/download",
       "summary": "盈米基金 MCP（市场安装；2026-10-29本机配置观测为未启用）",
-      "note": "原生详情参数未获支持；网页精准入口已实开至登录页，登录后对象命中待确认。",
+      "note": "网页搜索可见盈米卡片；旧详情候选经用户登录实测加载失败，正在修正。",
       "plazas": [
         {
           "name": "MCP / 连接器广场",
@@ -369,7 +369,9 @@
       "verification": "对象元数据及路由静态核对；未实际打开",
       "note": "名称来自 global/expert.json，ID 与当前盈米 Buddy 场景绑定一致。desktop_url 进入专家页定位此专家；summon_desktop_url 和 web_url 由已核验解析器召唤专家，需登录且账号可见；未执行实际召唤。；未登录实开跳登录页且回跳丢失expertId；登录后需重新点击原链接，未确认专家对象命中。",
       "desktop_label": null,
-      "web_label": "召唤专家"
+      "web_label": "召唤专家",
+      "direct_effect": "detail_pending",
+      "direct_effect_label": "对象地址 · 未验证目标"
     },
     {
       "tool": "WorkBuddy",
@@ -384,7 +386,9 @@
       "verification": "客户端召唤路由静态核对；未实际召唤",
       "note": "在客户端选择此专家，不是专家详情页。",
       "desktop_label": "召唤专家",
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "WorkBuddy",
@@ -399,7 +403,9 @@
       "verification": "对象元数据及路由静态核对；未实际打开",
       "note": "名称来自 global/expert.json，ID 与当前盈米 Buddy 场景绑定一致。desktop_url 进入专家页定位此专家；summon_desktop_url 和 web_url 由已核验解析器召唤专家，需登录且账号可见；未执行实际召唤。；未登录实开跳登录页且回跳丢失expertId；登录后需重新点击原链接，未确认专家对象命中。",
       "desktop_label": null,
-      "web_label": "召唤专家"
+      "web_label": "召唤专家",
+      "direct_effect": "detail_pending",
+      "direct_effect_label": "对象地址 · 未验证目标"
     },
     {
       "tool": "WorkBuddy",
@@ -414,7 +420,9 @@
       "verification": "客户端召唤路由静态核对；未实际召唤",
       "note": "在客户端选择此专家，不是专家详情页。",
       "desktop_label": "召唤专家",
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "WorkBuddy",
@@ -429,7 +437,9 @@
       "verification": "对象元数据及路由静态核对；未实际打开",
       "note": "名称来自 global/expert.json，ID 与当前盈米 Buddy 场景绑定一致。desktop_url 进入专家页定位此专家；summon_desktop_url 和 web_url 由已核验解析器召唤专家，需登录且账号可见；未执行实际召唤。；未登录实开跳登录页且回跳丢失expertId；登录后需重新点击原链接，未确认专家对象命中。",
       "desktop_label": null,
-      "web_label": "召唤专家"
+      "web_label": "召唤专家",
+      "direct_effect": "detail_pending",
+      "direct_effect_label": "对象地址 · 未验证目标"
     },
     {
       "tool": "WorkBuddy",
@@ -444,7 +454,9 @@
       "verification": "客户端召唤路由静态核对；未实际召唤",
       "note": "在客户端选择此专家，不是专家详情页。",
       "desktop_label": "召唤专家",
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "WorkBuddy",
@@ -459,7 +471,9 @@
       "verification": "对象元数据及路由静态核对；未实际打开",
       "note": "名称来自 global/expert.json，ID 与当前盈米 Buddy 场景绑定一致。desktop_url 进入专家页定位此专家；summon_desktop_url 和 web_url 由已核验解析器召唤专家，需登录且账号可见；未执行实际召唤。；未登录实开跳登录页且回跳丢失expertId；登录后需重新点击原链接，未确认专家对象命中。",
       "desktop_label": null,
-      "web_label": "召唤专家"
+      "web_label": "召唤专家",
+      "direct_effect": "detail_pending",
+      "direct_effect_label": "对象地址 · 未验证目标"
     },
     {
       "tool": "WorkBuddy",
@@ -474,7 +488,9 @@
       "verification": "客户端召唤路由静态核对；未实际召唤",
       "note": "在客户端选择此专家，不是专家详情页。",
       "desktop_label": "召唤专家",
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "WorkBuddy",
@@ -489,7 +505,9 @@
       "verification": "对象元数据及路由静态核对；未实际打开",
       "note": "WorkBuddy 原生市场条目；实际 SKILL.md name=yingmi-skill，v0.2.0，当前盈米 Buddy 15 场景绑定。未发现网页以 skillId/id 直达此对象的 URL 消费逻辑；不可用任意 ?id= 拼网页地址。",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "WorkBuddy",
@@ -504,7 +522,9 @@
       "verification": "对象元数据及路由静态核对；未实际打开",
       "note": "本机市场元数据 id/source=yingmi-mcp，name=盈米MCP；同时是 Buddy connectorName。未发现具体 MCP 对象的网页 URL 支持；广场网页已由当前线上 JS 路由确认。",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "WorkBuddy",
@@ -519,7 +539,9 @@
       "verification": "对象元数据及路由静态核对；未实际打开",
       "note": "3 模式15场景无独立场景 URL；官方 HTTPS 分享 URL 由服务端生成，当前无真实 shareUrl，不杜撰。",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "SkillHub（WorkBuddy 内可发现/安装）",
@@ -536,7 +558,9 @@
       "desktop_label": null,
       "web_label": null,
       "official_yingmi": false,
-      "installed_on_this_mac": true
+      "installed_on_this_mac": true,
+      "direct_effect": "detail_verified",
+      "direct_effect_label": "具体详情 · 已验证"
     },
     {
       "tool": "SkillHub（WorkBuddy 内可发现/安装）",
@@ -553,7 +577,9 @@
       "desktop_label": null,
       "web_label": null,
       "official_yingmi": false,
-      "installed_on_this_mac": true
+      "installed_on_this_mac": true,
+      "direct_effect": "detail_verified",
+      "direct_effect_label": "具体详情 · 已验证"
     },
     {
       "tool": "SkillHub（WorkBuddy 内可发现/安装）",
@@ -570,7 +596,9 @@
       "desktop_label": null,
       "web_label": null,
       "official_yingmi": false,
-      "installed_on_this_mac": true
+      "installed_on_this_mac": true,
+      "direct_effect": "detail_verified",
+      "direct_effect_label": "具体详情 · 已验证"
     },
     {
       "tool": "SkillHub（WorkBuddy 内可发现/安装）",
@@ -587,7 +615,9 @@
       "desktop_label": null,
       "web_label": null,
       "official_yingmi": true,
-      "installed_on_this_mac": true
+      "installed_on_this_mac": true,
+      "direct_effect": "detail_verified",
+      "direct_effect_label": "具体详情 · 已验证"
     },
     {
       "tool": "SkillHub（WorkBuddy 内可发现/安装）",
@@ -604,7 +634,9 @@
       "desktop_label": null,
       "web_label": null,
       "official_yingmi": true,
-      "installed_on_this_mac": true
+      "installed_on_this_mac": true,
+      "direct_effect": "detail_verified",
+      "direct_effect_label": "具体详情 · 已验证"
     },
     {
       "tool": "SkillHub（WorkBuddy 内可发现/安装）",
@@ -621,7 +653,9 @@
       "desktop_label": null,
       "web_label": null,
       "official_yingmi": true,
-      "installed_on_this_mac": false
+      "installed_on_this_mac": false,
+      "direct_effect": "detail_verified",
+      "direct_effect_label": "具体详情 · 已验证"
     },
     {
       "tool": "SkillHub（WorkBuddy 内可发现/安装）",
@@ -638,7 +672,9 @@
       "desktop_label": null,
       "web_label": null,
       "official_yingmi": true,
-      "installed_on_this_mac": false
+      "installed_on_this_mac": false,
+      "direct_effect": "detail_verified",
+      "direct_effect_label": "具体详情 · 已验证"
     },
     {
       "tool": "SkillHub（WorkBuddy 内可发现/安装）",
@@ -655,7 +691,9 @@
       "desktop_label": null,
       "web_label": null,
       "official_yingmi": true,
-      "installed_on_this_mac": true
+      "installed_on_this_mac": true,
+      "direct_effect": "detail_verified",
+      "direct_effect_label": "具体详情 · 已验证"
     },
     {
       "tool": "SkillHub（WorkBuddy 内可发现/安装）",
@@ -672,7 +710,9 @@
       "desktop_label": null,
       "web_label": null,
       "official_yingmi": true,
-      "installed_on_this_mac": true
+      "installed_on_this_mac": true,
+      "direct_effect": "detail_verified",
+      "direct_effect_label": "具体详情 · 已验证"
     },
     {
       "tool": "SkillHub（WorkBuddy 内可发现/安装）",
@@ -689,7 +729,9 @@
       "desktop_label": null,
       "web_label": null,
       "official_yingmi": true,
-      "installed_on_this_mac": false
+      "installed_on_this_mac": false,
+      "direct_effect": "detail_verified",
+      "direct_effect_label": "具体详情 · 已验证"
     },
     {
       "tool": "SkillHub（WorkBuddy 内可发现/安装）",
@@ -706,7 +748,9 @@
       "desktop_label": null,
       "web_label": null,
       "official_yingmi": true,
-      "installed_on_this_mac": false
+      "installed_on_this_mac": false,
+      "direct_effect": "detail_verified",
+      "direct_effect_label": "具体详情 · 已验证"
     },
     {
       "tool": "SkillHub（WorkBuddy 内可发现/安装）",
@@ -723,7 +767,9 @@
       "desktop_label": null,
       "web_label": null,
       "official_yingmi": true,
-      "installed_on_this_mac": false
+      "installed_on_this_mac": false,
+      "direct_effect": "detail_verified",
+      "direct_effect_label": "具体详情 · 已验证"
     },
     {
       "tool": "SkillHub（WorkBuddy 内可发现/安装）",
@@ -740,7 +786,9 @@
       "desktop_label": null,
       "web_label": null,
       "official_yingmi": true,
-      "installed_on_this_mac": false
+      "installed_on_this_mac": false,
+      "direct_effect": "detail_verified",
+      "direct_effect_label": "具体详情 · 已验证"
     },
     {
       "tool": "SkillHub（WorkBuddy 内可发现/安装）",
@@ -757,7 +805,9 @@
       "desktop_label": null,
       "web_label": null,
       "official_yingmi": true,
-      "installed_on_this_mac": true
+      "installed_on_this_mac": true,
+      "direct_effect": "detail_verified",
+      "direct_effect_label": "具体详情 · 已验证"
     },
     {
       "tool": "WorkBuddy（本地导入）",
@@ -772,7 +822,9 @@
       "verification": "对象元数据及路由静态核对；未实际打开",
       "note": "本地导入的且慢慧客通相关技能；未发现市场 skillId 或已生成分享链接。",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "missing",
+      "direct_effect_label": "暂无精确URL"
     },
     {
       "tool": "WorkBuddy（本地导入）",
@@ -787,7 +839,9 @@
       "verification": "对象元数据及路由静态核对；未实际打开",
       "note": "本地导入的且慢慧客通相关技能；未发现市场 skillId 或已生成分享链接。",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "missing",
+      "direct_effect_label": "暂无精确URL"
     },
     {
       "tool": "YingmiWork",
@@ -802,7 +856,9 @@
       "verification": "对象元数据及路由静态核对；未实际打开",
       "note": "本机 state/agents.json 精确对象，已安装。YingmiWork 0.6.1 无 URL scheme；未发现公共可稳定直达同对象的网页路由。",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "missing",
+      "direct_effect_label": "暂无精确URL"
     },
     {
       "tool": "YingmiWork",
@@ -817,7 +873,9 @@
       "verification": "对象元数据及路由静态核对；未实际打开",
       "note": "本机 manifest 确认来源 yingmi 且已安装。应用本地界面有能力市场，但无已核验协议/网页直达此对象的 URL；不把私有临时 localhost 地址作为成果链接。",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "missing",
+      "direct_effect_label": "暂无精确URL"
     },
     {
       "tool": "YingmiWork",
@@ -832,7 +890,9 @@
       "verification": "对象元数据及路由静态核对；未实际打开",
       "note": "本机 manifest 确认来源 yingmi 且已安装。应用本地界面有能力市场，但无已核验协议/网页直达此对象的 URL；不把私有临时 localhost 地址作为成果链接。",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "missing",
+      "direct_effect_label": "暂无精确URL"
     },
     {
       "tool": "YingmiWork",
@@ -847,7 +907,9 @@
       "verification": "对象元数据及路由静态核对；未实际打开",
       "note": "本机 manifest 确认来源 yingmi 且已安装。应用本地界面有能力市场，但无已核验协议/网页直达此对象的 URL；不把私有临时 localhost 地址作为成果链接。",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "missing",
+      "direct_effect_label": "暂无精确URL"
     },
     {
       "tool": "YingmiWork",
@@ -862,7 +924,9 @@
       "verification": "对象元数据及路由静态核对；未实际打开",
       "note": "本机 manifest 确认来源 yingmi 且已安装。应用本地界面有能力市场，但无已核验协议/网页直达此对象的 URL；不把私有临时 localhost 地址作为成果链接。",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "missing",
+      "direct_effect_label": "暂无精确URL"
     },
     {
       "tool": "Claude",
@@ -877,7 +941,9 @@
       "verification": "~/.claude.json 中确认MCP配置名称；未验证连接授权",
       "note": "不发布服务端点、请求头或配置导入URL；本地MCP不自动拥有Claude广场详情页",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "missing",
+      "direct_effect_label": "暂无精确URL"
     },
     {
       "tool": "Claude",
@@ -892,7 +958,9 @@
       "verification": "只读确认本地SKILL.md存在，未验证加载、授权或执行",
       "note": "未发现这个本地Skill的独立桌面/网页版详情URL；不能把广场首页当Skill详情页",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "missing",
+      "direct_effect_label": "暂无精确URL"
     },
     {
       "tool": "Claude",
@@ -907,7 +975,9 @@
       "verification": "只读确认本地SKILL.md存在，未验证加载、授权或执行",
       "note": "未发现这个本地Skill的独立桌面/网页版详情URL；不能把广场首页当Skill详情页",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "missing",
+      "direct_effect_label": "暂无精确URL"
     },
     {
       "tool": "Claude",
@@ -922,7 +992,9 @@
       "verification": "只读确认本地SKILL.md存在，未验证加载、授权或执行",
       "note": "未发现这个本地Skill的独立桌面/网页版详情URL；不能把广场首页当Skill详情页",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "missing",
+      "direct_effect_label": "暂无精确URL"
     },
     {
       "tool": "Claude",
@@ -937,7 +1009,9 @@
       "verification": "只读确认本地SKILL.md存在，未验证加载、授权或执行",
       "note": "未发现这个本地Skill的独立桌面/网页版详情URL；不能把广场首页当Skill详情页",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "missing",
+      "direct_effect_label": "暂无精确URL"
     },
     {
       "tool": "Claude",
@@ -952,7 +1026,9 @@
       "verification": "只读确认本地SKILL.md存在，未验证加载、授权或执行",
       "note": "未发现这个本地Skill的独立桌面/网页版详情URL；不能把广场首页当Skill详情页",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "missing",
+      "direct_effect_label": "暂无精确URL"
     },
     {
       "tool": "Claude",
@@ -967,7 +1043,9 @@
       "verification": "只读确认本地SKILL.md存在，未验证加载、授权或执行",
       "note": "未发现这个本地Skill的独立桌面/网页版详情URL；不能把广场首页当Skill详情页",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "missing",
+      "direct_effect_label": "暂无精确URL"
     },
     {
       "tool": "Claude",
@@ -982,7 +1060,9 @@
       "verification": "只读确认本地SKILL.md存在，未验证加载、授权或执行",
       "note": "未发现这个本地Skill的独立桌面/网页版详情URL；不能把广场首页当Skill详情页",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "missing",
+      "direct_effect_label": "暂无精确URL"
     },
     {
       "tool": "Claude",
@@ -997,7 +1077,9 @@
       "verification": "只读确认本地SKILL.md存在，未验证加载、授权或执行",
       "note": "未发现这个本地Skill的独立桌面/网页版详情URL；不能把广场首页当Skill详情页",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "missing",
+      "direct_effect_label": "暂无精确URL"
     },
     {
       "tool": "Claude",
@@ -1012,7 +1094,9 @@
       "verification": "只读确认本地SKILL.md存在，未验证加载、授权或执行",
       "note": "未发现这个本地Skill的独立桌面/网页版详情URL；不能把广场首页当Skill详情页",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "missing",
+      "direct_effect_label": "暂无精确URL"
     },
     {
       "tool": "Cursor",
@@ -1027,7 +1111,9 @@
       "verification": "只读确认本地SKILL.md存在，未验证加载、授权或执行",
       "note": "未发现这个本地Skill的独立桌面/网页版详情URL；不能把广场首页当Skill详情页",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "missing",
+      "direct_effect_label": "暂无精确URL"
     },
     {
       "tool": "Cursor",
@@ -1042,7 +1128,9 @@
       "verification": "只读确认本地SKILL.md存在，未验证加载、授权或执行",
       "note": "未发现这个本地Skill的独立桌面/网页版详情URL；不能把广场首页当Skill详情页",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "missing",
+      "direct_effect_label": "暂无精确URL"
     },
     {
       "tool": "Cursor",
@@ -1057,7 +1145,9 @@
       "verification": "只读确认本地SKILL.md存在，未验证加载、授权或执行",
       "note": "未发现这个本地Skill的独立桌面/网页版详情URL；不能把广场首页当Skill详情页",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "missing",
+      "direct_effect_label": "暂无精确URL"
     },
     {
       "tool": "Cursor",
@@ -1072,7 +1162,9 @@
       "verification": "只读确认本地SKILL.md存在，未验证加载、授权或执行",
       "note": "未发现这个本地Skill的独立桌面/网页版详情URL；不能把广场首页当Skill详情页；scrm-mcp-setup与scrm-advisor指向同一文件，已去重",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "missing",
+      "direct_effect_label": "暂无精确URL"
     },
     {
       "tool": "Trae",
@@ -1087,7 +1179,9 @@
       "verification": "只读确认本地SKILL.md存在，未验证加载、授权或执行",
       "note": "未发现这个本地Skill的独立桌面/网页版详情URL；不能把广场首页当Skill详情页",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "missing",
+      "direct_effect_label": "暂无精确URL"
     },
     {
       "tool": "Trae",
@@ -1102,7 +1196,9 @@
       "verification": "只读确认本地SKILL.md存在，未验证加载、授权或执行",
       "note": "未发现这个本地Skill的独立桌面/网页版详情URL；不能把广场首页当Skill详情页",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "missing",
+      "direct_effect_label": "暂无精确URL"
     },
     {
       "tool": "Kiro",
@@ -1117,7 +1213,9 @@
       "verification": "只读确认本地SKILL.md存在，未验证加载、授权或执行",
       "note": "未发现这个本地Skill的独立桌面/网页版详情URL；不能把广场首页当Skill详情页",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "missing",
+      "direct_effect_label": "暂无精确URL"
     },
     {
       "tool": "Kiro",
@@ -1132,7 +1230,9 @@
       "verification": "只读确认本地SKILL.md存在，未验证加载、授权或执行",
       "note": "未发现这个本地Skill的独立桌面/网页版详情URL；不能把广场首页当Skill详情页",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "missing",
+      "direct_effect_label": "暂无精确URL"
     },
     {
       "tool": "Kiro",
@@ -1147,7 +1247,9 @@
       "verification": "只读确认本地SKILL.md存在，未验证加载、授权或执行",
       "note": "未发现这个本地Skill的独立桌面/网页版详情URL；不能把广场首页当Skill详情页",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "missing",
+      "direct_effect_label": "暂无精确URL"
     },
     {
       "tool": "Kiro",
@@ -1162,7 +1264,9 @@
       "verification": "只读确认本地SKILL.md存在，未验证加载、授权或执行",
       "note": "未发现这个本地Skill的独立桌面/网页版详情URL；不能把广场首页当Skill详情页；scrm-mcp-setup与scrm-advisor指向同一文件，已去重",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "missing",
+      "direct_effect_label": "暂无精确URL"
     },
     {
       "tool": "千问办公",
@@ -1170,18 +1274,21 @@
       "id": "Yingmi",
       "name": "盈米基金 MCP",
       "desktop_url": null,
-      "web_url": "https://qwenwork.cn/app/market/connectors?q=%E7%9B%88%E7%B1%B3&resource_id=653d5c61-e08f-4144-a647-abd349714705",
+      "web_url": null,
       "plaza_url": "qwenwork-cn://connectors",
       "search_url": "https://qwenwork.cn/app/market/connectors?q=%E7%9B%88%E7%B1%B3",
       "manual_path": "打开千问办公连接器广场，搜索盈米，点击“盈米基金”卡片；原生详情弹窗暂无已核实URL。",
-      "verification": "2026-10-29后台实开：跳到千问登录页，回跳参数保留q与resource_id；尚未看到详情弹窗。",
-      "note": "截图与本机只读界面均显示“盈米基金 已安装但未启用”。网页版候选携带真实市场ID；已确认的qwenwork-cn://connectors只打开总页，不传入搜索/详情参数。未找到按该市场ID只读打开现有弹窗的已验证原生URL；另有分享安装机制，需真实分享ID，不能将市场ID直接代入。",
+      "verification": "2026-10-29用户已登录实测：旧详情URL触发连接器详情加载失败；手动点卡片可见安装前弹窗。当前暂无已验证能直接呈现该弹窗的新URL。",
+      "note": "旧候选取自桌面市场UUID，尚未证明它与网页card.id一致。它未通过网页详情验收，保留失败证据。已确认connectors原生协议只打开总页；分享安装机制不等于只读详情。",
       "desktop_label": null,
-      "web_label": "带市场ID的详情入口（登录后待确认）",
+      "web_label": "详情弹窗地址待核实",
       "market_resource_id": "653d5c61-e08f-4144-a647-abd349714705",
       "market_item_id": "Yingmi",
       "installation_source": "market",
-      "observed_config_enabled": false
+      "observed_config_enabled": false,
+      "failed_url": "https://qwenwork.cn/app/market/connectors?q=%E7%9B%88%E7%B1%B3&resource_id=653d5c61-e08f-4144-a647-abd349714705",
+      "direct_effect": "detail_failed",
+      "direct_effect_label": "详情弹窗失败 · 待修正"
     },
     {
       "tool": "豆包",
@@ -1196,7 +1303,9 @@
       "verification": "官方确认接入；本机授权与对象详情ID未验证",
       "note": "此链接仅为豆包网页首页兜底；没有已核实的盈米MCP详情或搜索URL。页面可见不代表到达盈米能力。",
       "desktop_label": null,
-      "web_label": "打开豆包首页（非MCP详情）"
+      "web_label": "打开豆包首页（非MCP详情）",
+      "direct_effect": "home",
+      "direct_effect_label": "首页/官网兜底"
     },
     {
       "tool": "豆包",
@@ -1211,7 +1320,9 @@
       "verification": "官方确认接入；本机授权与对象详情ID未验证",
       "note": "未把 WorkBuddy 里的所有 Skill 自动算作豆包已安装。；实开旧地址转至且慢MCP介绍页，不是独立Agent对话。",
       "desktop_label": null,
-      "web_label": "盈米开放平台介绍页"
+      "web_label": "盈米开放平台介绍页",
+      "direct_effect": "home",
+      "direct_effect_label": "首页/官网兜底"
     },
     {
       "tool": "千问办公",
@@ -1226,7 +1337,9 @@
       "verification": "官方确认接入；本机授权与对象详情ID未验证",
       "note": "",
       "desktop_label": null,
-      "web_label": "搜索此能力"
+      "web_label": "搜索此能力",
+      "direct_effect": "search",
+      "direct_effect_label": "仅搜索 · 非具体详情"
     },
     {
       "tool": "DuMate",
@@ -1241,7 +1354,9 @@
       "verification": "本地配置或技能文件确认；未执行调用",
       "note": "",
       "desktop_label": null,
-      "web_label": "打开网页"
+      "web_label": "打开网页",
+      "direct_effect": "missing",
+      "direct_effect_label": "暂无精确URL"
     },
     {
       "tool": "千问 App（网页补充）",
@@ -1256,7 +1371,9 @@
       "verification": "官方确认接入；本机授权与对象详情ID未验证",
       "note": "",
       "desktop_label": null,
-      "web_label": "打开网页"
+      "web_label": "打开网页",
+      "direct_effect": "missing",
+      "direct_effect_label": "暂无精确URL"
     },
     {
       "tool": "千问 App（网页补充）",
@@ -1271,7 +1388,9 @@
       "verification": "官方确认接入；本机授权与对象详情ID未验证",
       "note": "",
       "desktop_label": null,
-      "web_label": "打开网页"
+      "web_label": "打开网页",
+      "direct_effect": "missing",
+      "direct_effect_label": "暂无精确URL"
     },
     {
       "tool": "豆包工作、千问工作（官方兼容范围）",
@@ -1286,7 +1405,9 @@
       "verification": "官方确认接入；本机授权与对象详情ID未验证",
       "note": "",
       "desktop_label": null,
-      "web_label": "打开网页"
+      "web_label": "打开网页",
+      "direct_effect": "missing",
+      "direct_effect_label": "暂无精确URL"
     },
     {
       "tool": "豆包办公、千问办公（官方兼容范围）",
@@ -1301,7 +1422,9 @@
       "verification": "官方确认接入；本机授权与对象详情ID未验证",
       "note": "",
       "desktop_label": null,
-      "web_label": "打开网页"
+      "web_label": "打开网页",
+      "direct_effect": "detail_pending",
+      "direct_effect_label": "对象地址 · 未验证目标"
     },
     {
       "tool": "ChatGPT / Codex",
@@ -1316,7 +1439,9 @@
       "verification": "本机SKILL.md + 客户端搜索参数解析静态核对；未实际打开",
       "note": "此URL打开已预填名称的Skill搜索结果；不是独立详情页。本地文件不代表网页版同名资源存在。",
       "desktop_label": "筛选此Skill",
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "ChatGPT / Codex",
@@ -1331,7 +1456,9 @@
       "verification": "本机SKILL.md + 客户端搜索参数解析静态核对；未实际打开",
       "note": "此URL打开已预填名称的Skill搜索结果；不是独立详情页。本地文件不代表网页版同名资源存在。",
       "desktop_label": "筛选此Skill",
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "ChatGPT / Codex",
@@ -1346,7 +1473,9 @@
       "verification": "本机SKILL.md + 客户端搜索参数解析静态核对；未实际打开",
       "note": "此URL打开已预填名称的Skill搜索结果；不是独立详情页。本地文件不代表网页版同名资源存在。",
       "desktop_label": "筛选此Skill",
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "ChatGPT / Codex",
@@ -1361,7 +1490,9 @@
       "verification": "本机SKILL.md + 客户端搜索参数解析静态核对；未实际打开",
       "note": "此URL打开已预填名称的Skill搜索结果；不是独立详情页。本地文件不代表网页版同名资源存在。",
       "desktop_label": "筛选此Skill",
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "ChatGPT / Codex",
@@ -1376,7 +1507,9 @@
       "verification": "本机SKILL.md + 客户端搜索参数解析静态核对；未实际打开",
       "note": "此URL打开已预填名称的Skill搜索结果；不是独立详情页。本地文件不代表网页版同名资源存在。",
       "desktop_label": "筛选此Skill",
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "ChatGPT / Codex",
@@ -1391,7 +1524,9 @@
       "verification": "本机SKILL.md + 客户端搜索参数解析静态核对；未实际打开",
       "note": "此URL打开已预填名称的Skill搜索结果；不是独立详情页。本地文件不代表网页版同名资源存在。",
       "desktop_label": "筛选此Skill",
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "ChatGPT / Codex",
@@ -1406,7 +1541,9 @@
       "verification": "本机SKILL.md + 客户端搜索参数解析静态核对；未实际打开",
       "note": "此URL打开已预填名称的Skill搜索结果；不是独立详情页。本地文件不代表网页版同名资源存在。",
       "desktop_label": "筛选此Skill",
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "ChatGPT / Codex",
@@ -1421,7 +1558,9 @@
       "verification": "本机SKILL.md + 客户端搜索参数解析静态核对；未实际打开",
       "note": "此URL打开已预填名称的Skill搜索结果；不是独立详情页。本地文件不代表网页版同名资源存在。",
       "desktop_label": "筛选此Skill",
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "ChatGPT / Codex",
@@ -1436,7 +1575,9 @@
       "verification": "本机SKILL.md + 客户端搜索参数解析静态核对；未实际打开",
       "note": "此URL打开已预填名称的Skill搜索结果；不是独立详情页。本地文件不代表网页版同名资源存在。",
       "desktop_label": "筛选此Skill",
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "ChatGPT / Codex",
@@ -1451,7 +1592,9 @@
       "verification": "本机SKILL.md + 客户端搜索参数解析静态核对；未实际打开",
       "note": "此URL打开已预填名称的Skill搜索结果；不是独立详情页。本地文件不代表网页版同名资源存在。",
       "desktop_label": "筛选此Skill",
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "ChatGPT / Codex",
@@ -1466,7 +1609,9 @@
       "verification": "本机SKILL.md + 客户端搜索参数解析静态核对；未实际打开",
       "note": "此URL打开已预填名称的Skill搜索结果；不是独立详情页。本地文件不代表网页版同名资源存在。",
       "desktop_label": "筛选此Skill",
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "ChatGPT / Codex",
@@ -1481,7 +1626,9 @@
       "verification": "本机SKILL.md + 客户端搜索参数解析静态核对；未实际打开",
       "note": "此URL打开已预填名称的Skill搜索结果；不是独立详情页。本地文件不代表网页版同名资源存在。",
       "desktop_label": "筛选此Skill",
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "ChatGPT / Codex",
@@ -1496,7 +1643,9 @@
       "verification": "本机SKILL.md + 客户端搜索参数解析静态核对；未实际打开",
       "note": "此URL打开已预填名称的Skill搜索结果；不是独立详情页。本地文件不代表网页版同名资源存在。",
       "desktop_label": "筛选此Skill",
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "ChatGPT / Codex",
@@ -1511,7 +1660,9 @@
       "verification": "本机SKILL.md + 客户端搜索参数解析静态核对；未实际打开",
       "note": "此URL打开已预填名称的Skill搜索结果；不是独立详情页。本地文件不代表网页版同名资源存在。",
       "desktop_label": "筛选此Skill",
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "ChatGPT / Codex",
@@ -1526,7 +1677,9 @@
       "verification": "本机SKILL.md + 客户端搜索参数解析静态核对；未实际打开",
       "note": "此URL打开已预填名称的Skill搜索结果；不是独立详情页。本地文件不代表网页版同名资源存在。",
       "desktop_label": "筛选此Skill",
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "ChatGPT / Codex",
@@ -1541,7 +1694,9 @@
       "verification": "本机SKILL.md + 客户端搜索参数解析静态核对；未实际打开",
       "note": "此URL打开已预填名称的Skill搜索结果；不是独立详情页。本地文件不代表网页版同名资源存在。",
       "desktop_label": "筛选此Skill",
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "ChatGPT / Codex",
@@ -1556,7 +1711,9 @@
       "verification": "本机SKILL.md + 客户端搜索参数解析静态核对；未实际打开",
       "note": "此URL打开已预填名称的Skill搜索结果；不是独立详情页。本地文件不代表网页版同名资源存在。",
       "desktop_label": "筛选此Skill",
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "ChatGPT / Codex",
@@ -1571,7 +1728,9 @@
       "verification": "本机SKILL.md + 客户端搜索参数解析静态核对；未实际打开",
       "note": "此URL打开已预填名称的Skill搜索结果；不是独立详情页。本地文件不代表网页版同名资源存在。",
       "desktop_label": "筛选此Skill",
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "ChatGPT / Codex",
@@ -1586,7 +1745,9 @@
       "verification": "本机SKILL.md + 客户端搜索参数解析静态核对；未实际打开",
       "note": "此URL打开已预填名称的Skill搜索结果；不是独立详情页。本地文件不代表网页版同名资源存在。",
       "desktop_label": "筛选此Skill",
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "ChatGPT / Codex",
@@ -1601,7 +1762,9 @@
       "verification": "本机SKILL.md + 客户端搜索参数解析静态核对；未实际打开",
       "note": "此URL打开已预填名称的Skill搜索结果；不是独立详情页。本地文件不代表网页版同名资源存在。",
       "desktop_label": "筛选此Skill",
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "ChatGPT / Codex",
@@ -1616,7 +1779,9 @@
       "verification": "本机SKILL.md + 客户端搜索参数解析静态核对；未实际打开",
       "note": "此URL打开已预填名称的Skill搜索结果；不是独立详情页。本地文件不代表网页版同名资源存在。",
       "desktop_label": "筛选此Skill",
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "ChatGPT / Codex",
@@ -1631,7 +1796,9 @@
       "verification": "本机SKILL.md + 客户端搜索参数解析静态核对；未实际打开",
       "note": "此URL打开已预填名称的Skill搜索结果；不是独立详情页。本地文件不代表网页版同名资源存在。",
       "desktop_label": "筛选此Skill",
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "ChatGPT / Codex",
@@ -1646,7 +1813,9 @@
       "verification": "本机SKILL.md + 客户端搜索参数解析静态核对；未实际打开",
       "note": "此URL打开已预填名称的Skill搜索结果；不是独立详情页。本地文件不代表网页版同名资源存在。",
       "desktop_label": "筛选此Skill",
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "ChatGPT / Codex",
@@ -1661,7 +1830,9 @@
       "verification": "本机SKILL.md + 客户端搜索参数解析静态核对；未实际打开",
       "note": "此URL打开已预填名称的Skill搜索结果；不是独立详情页。本地文件不代表网页版同名资源存在。",
       "desktop_label": "筛选此Skill",
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "ChatGPT / Codex",
@@ -1676,7 +1847,9 @@
       "verification": "本机SKILL.md + 客户端搜索参数解析静态核对；未实际打开",
       "note": "此URL打开已预填名称的Skill搜索结果；不是独立详情页。本地文件不代表网页版同名资源存在。",
       "desktop_label": "筛选此Skill",
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "ChatGPT / Codex",
@@ -1691,7 +1864,9 @@
       "verification": "本机SKILL.md + 客户端搜索参数解析静态核对；未实际打开",
       "note": "此URL打开已预填名称的Skill搜索结果；不是独立详情页。本地文件不代表网页版同名资源存在。",
       "desktop_label": "筛选此Skill",
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "ChatGPT / Codex",
@@ -1706,7 +1881,9 @@
       "verification": "本机SKILL.md + 客户端搜索参数解析静态核对；未实际打开",
       "note": "此URL打开已预填名称的Skill搜索结果；不是独立详情页。本地文件不代表网页版同名资源存在。",
       "desktop_label": "筛选此Skill",
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "ChatGPT / Codex",
@@ -1721,7 +1898,9 @@
       "verification": "本机SKILL.md + 客户端搜索参数解析静态核对；未实际打开",
       "note": "此URL打开已预填名称的Skill搜索结果；不是独立详情页。本地文件不代表网页版同名资源存在。",
       "desktop_label": "筛选此Skill",
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "ChatGPT / Codex",
@@ -1736,7 +1915,9 @@
       "verification": "本机SKILL.md + 客户端搜索参数解析静态核对；未实际打开",
       "note": "此URL打开已预填名称的Skill搜索结果；不是独立详情页。本地文件不代表网页版同名资源存在。",
       "desktop_label": "筛选此Skill",
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "ChatGPT / Codex",
@@ -1751,7 +1932,9 @@
       "verification": "本机SKILL.md + 客户端搜索参数解析静态核对；未实际打开",
       "note": "此URL打开已预填名称的Skill搜索结果；不是独立详情页。本地文件不代表网页版同名资源存在。",
       "desktop_label": "筛选此Skill",
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "ChatGPT / Codex",
@@ -1766,7 +1949,9 @@
       "verification": "本机MCP配置和本次会话工具可见；未执行业务调用",
       "note": "打开MCP管理总页，不能在URL中精确选中该服务。",
       "desktop_label": "打开MCP管理",
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "ChatGPT / Codex",
@@ -1781,7 +1966,9 @@
       "verification": "本机MCP配置和本次会话工具可见；未执行业务调用",
       "note": "打开MCP管理总页，不能在URL中精确选中该服务。",
       "desktop_label": "打开MCP管理",
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "native_pending",
+      "direct_effect_label": "原生路由 · 未实测"
     },
     {
       "tool": "ChatGPT / Codex",
@@ -1796,7 +1983,9 @@
       "verification": "官方网页或当前客户端路由核对；需登录的内容未逐项点验",
       "note": "桌面search参数已核对。网页端不会自动拥有本地Skills。",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "plaza",
+      "direct_effect_label": "广场/管理页 · 非具体详情"
     },
     {
       "tool": "ChatGPT / Codex",
@@ -1811,7 +2000,9 @@
       "verification": "官方网页或当前客户端路由核对；需登录的内容未逐项点验",
       "note": "桌面插件根入口不保留搜索参数，未提供拼接搜索URL。",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "plaza",
+      "direct_effect_label": "广场/管理页 · 非具体详情"
     },
     {
       "tool": "WorkBuddy",
@@ -1826,7 +2017,9 @@
       "verification": "官方网页或当前客户端路由核对；需登录的内容未逐项点验",
       "note": "未发现可保存关键词盈米的 URL 参数；搜索框使用内部 state，不拼 keyword/q。",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "plaza",
+      "direct_effect_label": "广场/管理页 · 非具体详情"
     },
     {
       "tool": "WorkBuddy",
@@ -1841,7 +2034,9 @@
       "verification": "官方网页或当前客户端路由核对；需登录的内容未逐项点验",
       "note": "已安装页 desktop workbuddy://skills?tab=installed；未发现技能广场关键词 URL 参数。",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "plaza",
+      "direct_effect_label": "广场/管理页 · 非具体详情"
     },
     {
       "tool": "WorkBuddy",
@@ -1856,7 +2051,9 @@
       "verification": "官方网页或当前客户端路由核对；需登录的内容未逐项点验",
       "note": "盈米 Buddy 上下文可用 scoped_desktop_url。",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "plaza",
+      "direct_effect_label": "广场/管理页 · 非具体详情"
     },
     {
       "tool": "SkillHub",
@@ -1871,7 +2068,9 @@
       "verification": "官方网页或当前客户端路由核对；需登录的内容未逐项点验",
       "note": "当前公开 API 返回14条关键词结果，其中11条盈米认证企业发布、3条第三方发布。",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "plaza",
+      "direct_effect_label": "广场/管理页 · 非具体详情"
     },
     {
       "tool": "SkillHub",
@@ -1886,7 +2085,9 @@
       "verification": "官网JS读取keyword查询参数；具体结果以账号与当前市场为准",
       "note": "当前公开 API 返回14条关键词结果，其中11条盈米认证企业发布、3条第三方发布。",
       "desktop_label": null,
-      "web_label": "查看盈米搜索页"
+      "web_label": "查看盈米搜索页",
+      "direct_effect": "search",
+      "direct_effect_label": "仅搜索 · 非具体详情"
     },
     {
       "tool": "SkillHub",
@@ -1901,7 +2102,9 @@
       "verification": "官方网页或当前客户端路由核对；需登录的内容未逐项点验",
       "note": "搜索URL支持已从官网JS核验；尚未核验该搜索是否存在盈米MCP条目，不能当具体对象地址。",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "plaza",
+      "direct_effect_label": "广场/管理页 · 非具体详情"
     },
     {
       "tool": "SkillHub",
@@ -1916,7 +2119,9 @@
       "verification": "官网JS读取keyword查询参数；具体结果以账号与当前市场为准",
       "note": "搜索URL支持已从官网JS核验；尚未核验该搜索是否存在盈米MCP条目，不能当具体对象地址。",
       "desktop_label": null,
-      "web_label": "查看盈米搜索页"
+      "web_label": "查看盈米搜索页",
+      "direct_effect": "search",
+      "direct_effect_label": "仅搜索 · 非具体详情"
     },
     {
       "tool": "WorkBuddy",
@@ -1931,7 +2136,9 @@
       "verification": "官方网页或当前客户端路由核对；需登录的内容未逐项点验",
       "note": "进入盈米Buddy上下文后打开对应栏目；客户端内置栏目路由已静态核对，需账号具备该Buddy权限，未实际唤起。",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "plaza",
+      "direct_effect_label": "广场/管理页 · 非具体详情"
     },
     {
       "tool": "WorkBuddy",
@@ -1946,7 +2153,9 @@
       "verification": "官方网页或当前客户端路由核对；需登录的内容未逐项点验",
       "note": "进入盈米Buddy上下文后打开对应栏目；客户端内置栏目路由已静态核对，需账号具备该Buddy权限，未实际唤起。",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "plaza",
+      "direct_effect_label": "广场/管理页 · 非具体详情"
     },
     {
       "tool": "WorkBuddy",
@@ -1961,7 +2170,9 @@
       "verification": "官方网页或当前客户端路由核对；需登录的内容未逐项点验",
       "note": "进入盈米Buddy上下文后打开对应栏目；客户端内置栏目路由已静态核对，需账号具备该Buddy权限，未实际唤起。",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "plaza",
+      "direct_effect_label": "广场/管理页 · 非具体详情"
     },
     {
       "tool": "千问办公",
@@ -1976,7 +2187,9 @@
       "verification": "官方网页或当前客户端路由核对；需登录的内容未逐项点验",
       "note": "",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "plaza",
+      "direct_effect_label": "广场/管理页 · 非具体详情"
     },
     {
       "tool": "千问办公",
@@ -1991,7 +2204,9 @@
       "verification": "官方网页或当前客户端路由核对；需登录的内容未逐项点验",
       "note": "",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "plaza",
+      "direct_effect_label": "广场/管理页 · 非具体详情"
     },
     {
       "tool": "千问办公",
@@ -2006,7 +2221,9 @@
       "verification": "官方网页或当前客户端路由核对；需登录的内容未逐项点验",
       "note": "",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "plaza",
+      "direct_effect_label": "广场/管理页 · 非具体详情"
     },
     {
       "tool": "豆包",
@@ -2021,7 +2238,9 @@
       "verification": "官方网页或当前客户端路由核对；需登录的内容未逐项点验",
       "note": "",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "plaza",
+      "direct_effect_label": "广场/管理页 · 非具体详情"
     },
     {
       "tool": "DuMate",
@@ -2036,7 +2255,9 @@
       "verification": "官方网页或当前客户端路由核对；需登录的内容未逐项点验",
       "note": "",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "plaza",
+      "direct_effect_label": "广场/管理页 · 非具体详情"
     },
     {
       "tool": "DuMate",
@@ -2051,7 +2272,9 @@
       "verification": "官方网页或当前客户端路由核对；需登录的内容未逐项点验",
       "note": "",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "plaza",
+      "direct_effect_label": "广场/管理页 · 非具体详情"
     },
     {
       "tool": "Claude",
@@ -2066,7 +2289,9 @@
       "verification": "官方网页或当前客户端路由核对；需登录的内容未逐项点验",
       "note": "",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "plaza",
+      "direct_effect_label": "广场/管理页 · 非具体详情"
     },
     {
       "tool": "Claude",
@@ -2081,7 +2306,9 @@
       "verification": "官方网页或当前客户端路由核对；需登录的内容未逐项点验",
       "note": "",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "plaza",
+      "direct_effect_label": "广场/管理页 · 非具体详情"
     },
     {
       "tool": "Claude",
@@ -2096,7 +2323,9 @@
       "verification": "官方网页或当前客户端路由核对；需登录的内容未逐项点验",
       "note": "",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "plaza",
+      "direct_effect_label": "广场/管理页 · 非具体详情"
     },
     {
       "tool": "Cursor",
@@ -2111,7 +2340,9 @@
       "verification": "官方网页或当前客户端路由核对；需登录的内容未逐项点验",
       "note": "",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "plaza",
+      "direct_effect_label": "广场/管理页 · 非具体详情"
     },
     {
       "tool": "Trae",
@@ -2126,7 +2357,9 @@
       "verification": "官方网页或当前客户端路由核对；需登录的内容未逐项点验",
       "note": "TRAE 设置 > MCP > 添加 > 从市场添加",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "plaza",
+      "direct_effect_label": "广场/管理页 · 非具体详情"
     },
     {
       "tool": "Kiro",
@@ -2141,7 +2374,9 @@
       "verification": "官方网页或当前客户端路由核对；需登录的内容未逐项点验",
       "note": "",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "plaza",
+      "direct_effect_label": "广场/管理页 · 非具体详情"
     },
     {
       "tool": "Grok Bot",
@@ -2156,7 +2391,9 @@
       "verification": "官方网页或当前客户端路由核对；需登录的内容未逐项点验",
       "note": "",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "plaza",
+      "direct_effect_label": "广场/管理页 · 非具体详情"
     },
     {
       "tool": "Grok Bot",
@@ -2171,7 +2408,9 @@
       "verification": "官方网页或当前客户端路由核对；需登录的内容未逐项点验",
       "note": "Grok Bot 侧边栏 > Connect apps；标题旁已连接数量可管理Installed与私有Skills",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "plaza",
+      "direct_effect_label": "广场/管理页 · 非具体详情"
     },
     {
       "tool": "Perplexity",
@@ -2186,7 +2425,9 @@
       "verification": "官方网页或当前客户端路由核对；需登录的内容未逐项点验",
       "note": "",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "plaza",
+      "direct_effect_label": "广场/管理页 · 非具体详情"
     },
     {
       "tool": "Perplexity",
@@ -2201,7 +2442,9 @@
       "verification": "官方网页或当前客户端路由核对；需登录的内容未逐项点验",
       "note": "",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "plaza",
+      "direct_effect_label": "广场/管理页 · 非具体详情"
     },
     {
       "tool": "Perplexity",
@@ -2216,7 +2459,9 @@
       "verification": "官方网页或当前客户端路由核对；需登录的内容未逐项点验",
       "note": "",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "plaza",
+      "direct_effect_label": "广场/管理页 · 非具体详情"
     },
     {
       "tool": "千问办公",
@@ -2231,7 +2476,9 @@
       "verification": "客户端或官网路由已核对；需登录的对象内容未逐项点验",
       "note": "未登录获取真实搜索结果，不能保证当前账号能看到盈米。",
       "desktop_label": null,
-      "web_label": "查看盈米搜索页"
+      "web_label": "查看盈米搜索页",
+      "direct_effect": "search",
+      "direct_effect_label": "仅搜索 · 非具体详情"
     },
     {
       "tool": "千问办公",
@@ -2246,7 +2493,9 @@
       "verification": "客户端或官网路由已核对；需登录的对象内容未逐项点验",
       "note": "搜索参数被页面消费；未登录核实当前账号搜索结果。",
       "desktop_label": null,
-      "web_label": "查看盈米搜索页"
+      "web_label": "查看盈米搜索页",
+      "direct_effect": "search",
+      "direct_effect_label": "仅搜索 · 非具体详情"
     },
     {
       "tool": "千问办公",
@@ -2261,7 +2510,9 @@
       "verification": "客户端或官网路由已核对；需登录的对象内容未逐项点验",
       "note": "搜索参数被页面消费；未登录核实当前账号搜索结果。",
       "desktop_label": null,
-      "web_label": "查看盈米搜索页"
+      "web_label": "查看盈米搜索页",
+      "direct_effect": "search",
+      "direct_effect_label": "仅搜索 · 非具体详情"
     },
     {
       "tool": "DuMate",
@@ -2276,7 +2527,9 @@
       "verification": "客户端或官网路由已核对；需登录的对象内容未逐项点验",
       "note": "仅确认搜索界面路由；没有已核验的关键词URL参数，进入后需手动输入盈米。",
       "desktop_label": null,
-      "web_label": "打开搜索界面"
+      "web_label": "打开搜索界面",
+      "direct_effect": "search",
+      "direct_effect_label": "仅搜索 · 非具体详情"
     },
     {
       "tool": "ChatGPT / Codex",
@@ -2291,7 +2544,9 @@
       "verification": "main分支保留query；Skills页读取search并初始化输入框",
       "note": "客户端源码核对，未实际唤起。",
       "desktop_label": "查看盈米搜索页",
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "search",
+      "direct_effect_label": "仅搜索 · 非具体详情"
     },
     {
       "tool": "盈米官方网页（补充）",
@@ -2306,7 +2561,9 @@
       "verification": "盈米官方公开资料引用的入口",
       "note": "登录个人中心查看MCP/Skills接入方式；账户专属地址和Key不在本清单中。；实开旧地址转至且慢MCP介绍页，不是独立Agent对话。",
       "desktop_label": null,
-      "web_label": "盈米开放平台介绍页"
+      "web_label": "盈米开放平台介绍页",
+      "direct_effect": "home",
+      "direct_effect_label": "首页/官网兜底"
     },
     {
       "tool": "盈米官方网页（补充）",
@@ -2321,7 +2578,9 @@
       "verification": "腾讯云市场官方公开页面",
       "note": "产品详情与接入文档页面；本次未开通或安装。",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "detail_verified",
+      "direct_effect_label": "具体详情 · 已验证"
     },
     {
       "tool": "Kimi",
@@ -2336,7 +2595,9 @@
       "verification": "静态核对；未实际唤起。",
       "note": "未找到本机盈米专属配置",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "home",
+      "direct_effect_label": "首页/官网兜底"
     },
     {
       "tool": "DuMate",
@@ -2352,7 +2613,9 @@
       "verification": "2026-10-29只读缓存确认真实市场模板及历史本机实例；当前状态、详情直达URL待核验。",
       "note": "模板code=yingmi-mcp、name=盈米基金。市场模板UUID有证据；没有已核实公开URL可携带该模板ID直达弹窗。本机实例UUID与localhost端口不作为通用入口，不公开复用。历史缓存enabled=true不代表当前状态。",
       "desktop_label": null,
-      "web_label": null
+      "web_label": null,
+      "direct_effect": "missing",
+      "direct_effect_label": "暂无精确URL"
     }
   ],
   "supplementary": [
@@ -2592,7 +2855,7 @@
   "boundaries": [
     "每个URL分别记录实际落点；页面可见不代表已授权或调用成功。",
     "桌面协议仅来源核对，未实际唤起，避免打断用户操作。",
-    "千问精准网页入口被登录页拦截，尚未证实与截图弹窗完全一致；当前原生协议不传入详情/搜索参数。",
+    "千问以URL直接呈现“安装 盈米基金”详情弹窗为验收标准；手动点卡片成功不证明地址栏旧URL可直达。",
     "登录、安全验证、网络/加载错误、目标不符分别标注。",
     "没有公开详情URL时保留手动路径，不把本机实例ID、API或主页拼成详情地址。"
   ],
@@ -2984,14 +3247,13 @@
       "network_error": "后台浏览器导航超时或连接失败；未看到目标。不能据此判定URL已失效。"
     },
     "https://qwenwork.cn/app/market/connectors?q=%E7%9B%88%E7%B1%B3&resource_id=653d5c61-e08f-4144-a647-abd349714705": {
-      "status": "login",
-      "evidence": "实际转 signin；可见手机号/验证码登录表单，尚未确认“盈米基金”详情弹窗。",
-      "observed_target": "千问盈米精准详情候选转登录",
-      "actual_title": "千问办公",
-      "actual_url": "https://qwenwork.cn/signin",
+      "status": "detail_load_failed",
+      "observed_target": "连接器详情加载失败（用户已登录）",
+      "evidence": "2026-10-29用户截图：输入旧URL后弹窗红字“连接器详情加载失败，请稍后重试”。随后手动点击卡片可打开“安装 盈米基金”；地址栏未变化，不能据此认定旧URL直达成功。",
       "checked_at": "2026-10-29",
-      "evidence_source": "saved_visible_snapshot",
-      "method": "browser"
+      "method": "user_screenshot",
+      "actual_url": "https://qwenwork.cn/app/market/connectors?q=%E7%9B%88%E7%B1%B3&resource_id=653d5c61-e08f-4144-a647-abd349714705",
+      "actual_title": "千问办公 · 连接器详情加载失败"
     },
     "https://skillhub.cn/skills/yingmi/yingmi-portfolio-analysis": {
       "status": "visible_target",
@@ -3573,95 +3835,7 @@
       "evidence_source": "saved_visible_snapshot",
       "method": "browser"
     },
-    "figma://": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "trae://": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "workbuddy://buddy-app/cb_JgKGLfYgK6YfuN3FEPyD/skills": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=push-copy": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=sell-retention-popup": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=qieman-signal-strategy-analyst": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=strategy-new-high-sell-decision": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "workbuddy://experts": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "kiro://": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=user-research-report": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=new-funds-allocation": {
+    "workbuddy://experts?expertId=ex_TBeURroZ6YEa": {
       "status": "native_not_tested",
       "observed_target": "桌面入口未唤起",
       "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
@@ -3677,7 +3851,191 @@
       "method": "static_source",
       "source_only": true
     },
-    "workbuddy://buddy-app/cb_JgKGLfYgK6YfuN3FEPyD": {
+    "doubaoapp://": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=image-frame-generator": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=fund-holding-manager-no-dividend": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=strategy-new-high-marketing": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=new-funds-allocation": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://experts?expertId=ex_8o3gU8RoerOE": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://expert/ex_9HZbeQgbdcnp": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://buddy-app/cb_JgKGLfYgK6YfuN3FEPyD/connectors": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=strategy-new-high-sell-decision": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "qwenwork-cn://skills": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=strategy-interpretation": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=push-copy": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "kimi://": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://experts?expertId=ex_x32rUOxgJvma": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=financial-compliance-checker": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=sell-retention-popup": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://skills?id=skill_2054901386815930368": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://buddy-app/cb_JgKGLfYgK6YfuN3FEPyD/experts": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://buddy-app/cb_JgKGLfYgK6YfuN3FEPyD/skills": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://skills?tab=installed": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=soul-knowledge": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=de-ai-writing": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://plugins": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=qieman-signal-strategy-analyst": {
       "status": "native_not_tested",
       "observed_target": "桌面入口未唤起",
       "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
@@ -3693,7 +4051,39 @@
       "method": "static_source",
       "source_only": true
     },
-    "codex://skills?search=market-hotspot-headlines": {
+    "workbuddy://experts": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=user-research-report": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=strategy-history-situation": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "qwenwork-cn://plugins": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=yingmi-meeting-room": {
       "status": "native_not_tested",
       "observed_target": "桌面入口未唤起",
       "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
@@ -3702,6 +4092,62 @@
       "source_only": true
     },
     "codex://skills?search=advisor-console": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://connectors": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://threads/new": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://expert/ex_TBeURroZ6YEa": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://experts?expertId=ex_9HZbeQgbdcnp": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=fund-holding-unit-price": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=qieman-signal-strategy-loss-response": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "kiro://": {
       "status": "native_not_tested",
       "observed_target": "桌面入口未唤起",
       "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
@@ -3725,319 +4171,7 @@
       "method": "static_source",
       "source_only": true
     },
-    "codex://skills?search=strategy-history-situation": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=competitor-research": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=strategy-new-high-marketing": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "imageplayground.open://": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://settings/mcp-settings": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=fund-manager-cumulative-return": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=fund-holding-manager-no-dividend": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "kimi://": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=data-analysis": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "workbuddy://skills?id=skill_2054901386815930368": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "qwenwork-cn://connectors": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=financial-compliance-checker": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=de-ai-writing": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=image-frame-generator": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=soul-knowledge": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "workbuddy://expert/ex_TBeURroZ6YEa": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "perplexity-app://": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "workbuddy://expert/ex_9HZbeQgbdcnp": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=%E7%9B%88%E7%B1%B3": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "cursor://": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://threads/new": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "workbuddy://connectors": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "qwenwork-cn://plugins": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "doubaoapp://": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=yingmi-meeting-room": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=qieman-signal-strategy-loss-response": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "workbuddy://expert/ex_x32rUOxgJvma": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "workbuddy://experts?expertId=ex_x32rUOxgJvma": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "workbuddy://home?openBuddySwitcher=1": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "qwenwork-cn://skills": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=strategy-intro": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=qieman-daily-report": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "obsidian://": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "workbuddy://skills?tab=installed": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "workbuddy://buddy-app/cb_JgKGLfYgK6YfuN3FEPyD/connectors": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=strategy-loss-response": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "workbuddy://connector?id=yingmi-mcp": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "workbuddy://experts?expertId=ex_8o3gU8RoerOE": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=qieman-strategy-comparison": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=investment-plan-generator": {
+    "codex://skills?search=fund-article-organizer": {
       "status": "native_not_tested",
       "observed_target": "桌面入口未唤起",
       "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
@@ -4053,7 +4187,7 @@
       "method": "static_source",
       "source_only": true
     },
-    "workbuddy://buddy-app/cb_JgKGLfYgK6YfuN3FEPyD/experts": {
+    "codex://skills?search=strategy-intro": {
       "status": "native_not_tested",
       "observed_target": "桌面入口未唤起",
       "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
@@ -4061,7 +4195,7 @@
       "method": "static_source",
       "source_only": true
     },
-    "workbuddy://experts?expertId=ex_TBeURroZ6YEa": {
+    "codex://skills?search=%E7%9B%88%E7%B1%B3": {
       "status": "native_not_tested",
       "observed_target": "桌面入口未唤起",
       "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
@@ -4069,7 +4203,87 @@
       "method": "static_source",
       "source_only": true
     },
-    "codex://skills?search=fund-holding-unit-price": {
+    "obsidian://": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "qwenwork-cn://connectors": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=competitor-research": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://home?openBuddySwitcher=1": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=investment-plan-generator": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://settings/mcp-settings": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://connector?id=yingmi-mcp": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=strategy-loss-response": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "figma://": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=qieman-daily-report": {
       "status": "native_not_tested",
       "observed_target": "桌面入口未唤起",
       "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
@@ -4085,7 +4299,7 @@
       "method": "static_source",
       "source_only": true
     },
-    "codex://skills?search=strategy-interpretation": {
+    "perplexity-app://": {
       "status": "native_not_tested",
       "observed_target": "桌面入口未唤起",
       "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
@@ -4093,23 +4307,7 @@
       "method": "static_source",
       "source_only": true
     },
-    "workbuddy://experts?expertId=ex_9HZbeQgbdcnp": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=fund-article-organizer": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "dumate://chat/open": {
+    "trae://": {
       "status": "native_not_tested",
       "observed_target": "桌面入口未唤起",
       "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
@@ -4125,7 +4323,71 @@
       "method": "static_source",
       "source_only": true
     },
-    "codex://plugins": {
+    "dumate://chat/open": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=qieman-strategy-comparison": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=fund-manager-cumulative-return": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=market-hotspot-headlines": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "cursor://": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "imageplayground.open://": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://buddy-app/cb_JgKGLfYgK6YfuN3FEPyD": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://expert/ex_x32rUOxgJvma": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=data-analysis": {
       "status": "native_not_tested",
       "observed_target": "桌面入口未唤起",
       "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
@@ -4140,29 +4402,30 @@
     "native_urls_not_launched": 70,
     "status_counts": {
       "native_not_tested": 70,
-      "visible_target": 33,
       "network_error": 18,
-      "login": 21,
+      "login": 20,
+      "visible_target": 33,
       "visible_page": 17,
       "visible_response": 1,
       "security": 2,
-      "load_error": 1,
+      "detail_load_failed": 1,
       "visible_search": 1,
-      "visible_search_no_results": 1
+      "visible_search_no_results": 1,
+      "load_error": 1
     }
   },
   "highlights": [
     {
-      "title": "千问办公 · 截图对应的盈米连接器",
-      "text": "带真实市场ID的网页详情入口。实开到登录页，登录后是否弹出截图详情仍待确认；已确认的connectors桌面链接只到总页；原生分享安装是另一种机制，不能当作已安装连接器的只读详情链接。",
-      "url": "https://qwenwork.cn/app/market/connectors?q=%E7%9B%88%E7%B1%B3&resource_id=653d5c61-e08f-4144-a647-abd349714705",
-      "label": "打开盈米详情入口（需登录）"
+      "title": "千问办公 · 精准弹窗待验证",
+      "text": "旧详情候选已登录实测加载失败，已撤下直达推荐。当前可手动搜索点卡片，但这不满足直接URL呈现弹窗的要求。",
+      "url": null,
+      "label": "详情弹窗地址待核实"
     },
     {
-      "title": "盈米官方 Skills · 已实开",
-      "text": "11个官方技能详情的标题与认证发布方匹配。下方可分别打开、复制；搜索链接已看到盈米关键词生效。",
-      "url": "https://skillhub.cn/skills?keyword=%E7%9B%88%E7%B1%B3",
-      "label": "查看盈米技能搜索结果"
+      "title": "盈米官方 Skill · 已直达具体详情",
+      "text": "直接打开“盈米基金技能总套件”详情。标题与认证发布方已实开核对；全部11个官方Skill的详情地址在表格中。",
+      "url": "https://skillhub.cn/skills/yingmi/yingmi-skill",
+      "label": "打开盈米技能总套件详情"
     },
     {
       "title": "WorkBuddy · 盈米 Buddy",
@@ -4170,5 +4433,15 @@
       "url": "workbuddy://buddy-app/cb_JgKGLfYgK6YfuN3FEPyD",
       "label": "打开盈米 Buddy（桌面）"
     }
-  ]
+  ],
+  "direct_effect_summary": {
+    "detail_pending": 5,
+    "native_pending": 39,
+    "detail_verified": 15,
+    "missing": 32,
+    "detail_failed": 1,
+    "home": 4,
+    "search": 8,
+    "plaza": 27
+  }
 }
