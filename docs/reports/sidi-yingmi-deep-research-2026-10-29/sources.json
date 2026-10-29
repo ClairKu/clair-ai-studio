@@ -1,0 +1,188 @@
+{
+  "title": "思迪 × 盈米：能力边界、合作证据与增量价值",
+  "as_of": "2026-10-29",
+  "timezone": "Asia/Shanghai",
+  "scope": "仅公开来源；无生产验收；判断、建议和目标与事实区分",
+  "sources": [
+    {
+      "id": "S01",
+      "key": "about",
+      "title": "思迪：关于我们",
+      "date": "现页，未标发布日期",
+      "kind": "公司自述",
+      "url": "https://www.thinkive.com/main/aboutus/index.shtml",
+      "supports": "主体、产品组合及客户覆盖口径；覆盖率未经独立复核。",
+      "accessed": "2026-10-29"
+    },
+    {
+      "id": "S02",
+      "key": "cbex",
+      "title": "北京产权交易所：思迪股份转让披露",
+      "date": "2025-12-26起始披露；现页读取于2026-10-29",
+      "kind": "交易机构披露",
+      "url": "https://otc.cbex.com/cgq/detail/534969.html",
+      "supports": "登记主体、股权快照、2024审计及2025-09-30报表；挂牌不等于成交。",
+      "accessed": "2026-10-29"
+    },
+    {
+      "id": "S03",
+      "key": "post23",
+      "title": "中邮证券：在用开户与网厅系统后续开发采前公示",
+      "date": "2023-06-29",
+      "kind": "机构采购披露",
+      "url": "https://www.chinapost.com.cn/cn/report/2306/17805-1.htm",
+      "supports": "明确在用软件与延续开发原因；本次采购公示不等于最终合同。",
+      "accessed": "2026-10-29"
+    },
+    {
+      "id": "S04",
+      "key": "post25",
+      "title": "中邮证券：2026—2027系统维保采前公示",
+      "date": "2025-12-16",
+      "kind": "机构采购披露",
+      "url": "https://www.chinapost.com.cn/cn/report/2512/7251-1.htm",
+      "supports": "拟向思迪采购开户、业务办理、智能组件和官网两年维保。",
+      "accessed": "2026-10-29"
+    },
+    {
+      "id": "S05",
+      "key": "sdk",
+      "title": "中邮证券APP隐私保护条款",
+      "date": "2026-09-01更新并生效",
+      "kind": "机构产品披露",
+      "url": "https://www.cnpsec.com/wlink/tiaok2.htm",
+      "supports": "列示思迪开户SDK和视频见证用途；不证明AI能力或使用规模。",
+      "accessed": "2026-10-29"
+    },
+    {
+      "id": "S06",
+      "key": "unified",
+      "title": "思迪：统一业务受理中台",
+      "date": "现页，未标发布日期",
+      "kind": "产品主张",
+      "url": "https://www.thinkive.com/main/product2023/operations/unifiedbusinessaccplatform/index.shtml",
+      "supports": "低代码流程、见证、审核、第三方能力管理。",
+      "accessed": "2026-10-29"
+    },
+    {
+      "id": "S07",
+      "key": "mall",
+      "title": "思迪：金融理财商城",
+      "date": "现页，未标发布日期",
+      "kind": "产品主张",
+      "url": "https://www.thinkive.com/main/product2023/wealth/comfinancialmall/index.shtml",
+      "supports": "产品专区、签约、交易和投后流程；未验证客户经营效果。",
+      "accessed": "2026-10-29"
+    },
+    {
+      "id": "S08",
+      "key": "protein",
+      "title": "思迪：蛋白理财师",
+      "date": "现页，未标发布日期",
+      "kind": "产品主张",
+      "url": "https://www.thinkive.com/main/product2023/wealth/moneymanager/index.shtml",
+      "supports": "CRM、持仓诊断、规划、企微SOP。",
+      "accessed": "2026-10-29"
+    },
+    {
+      "id": "S09",
+      "key": "alloc",
+      "title": "思迪：资产配置平台",
+      "date": "现页，未标发布日期",
+      "kind": "产品主张",
+      "url": "https://www.thinkive.com/main/product2023/wealth/assetallocation/index.shtml",
+      "supports": "研究、策略构建、组合管理、投后分析。",
+      "accessed": "2026-10-29"
+    },
+    {
+      "id": "S10",
+      "key": "agent",
+      "title": "思迪：大模型智能体平台",
+      "date": "现页，未标发布日期",
+      "kind": "产品主张",
+      "url": "https://www.thinkive.com/main/product2023/aigc/modelagentplatform/index.shtml",
+      "supports": "插件、知识库、工作流及模型权限治理。",
+      "accessed": "2026-10-29"
+    },
+    {
+      "id": "S11",
+      "key": "video",
+      "title": "思迪：小财子全媒体智创平台",
+      "date": "现页，未标发布日期",
+      "kind": "产品主张",
+      "url": "https://www.thinkive.com/main/product2023/aigc/intellectualcreationplatform/index.shtml",
+      "supports": "金融视频模板、渲染、数字人、SaaS和私有部署。",
+      "accessed": "2026-10-29"
+    },
+    {
+      "id": "S12",
+      "key": "content",
+      "title": "思迪：金融内容聚合生产管理平台",
+      "date": "现页，未标发布日期",
+      "kind": "产品主张",
+      "url": "https://www.thinkive.com/main/product2023/aigc/financialcontentplatform/index.shtml",
+      "supports": "内容生产、审核、渠道分发与数据反馈。",
+      "accessed": "2026-10-29"
+    },
+    {
+      "id": "S13",
+      "key": "media",
+      "title": "思迪：新媒体财富营销方案",
+      "date": "现页，未标发布日期",
+      "kind": "产品主张",
+      "url": "https://www.thinkive.com/main/solutions2023/scenariosolution/mediawealthmarketing/index.shtml",
+      "supports": "蛋白传媒的培训、投放、代运营等服务；未核验转化。",
+      "accessed": "2026-10-29"
+    },
+    {
+      "id": "S14",
+      "key": "ym847",
+      "title": "盈米：联合阿里云发布机构AI智能体解决方案",
+      "date": "事件2026-05-21",
+      "kind": "公司披露",
+      "url": "https://www.yingmi.cn/archives/847",
+      "supports": "MCP、Skills、Agent及机构交付架构；非思迪贡献。",
+      "accessed": "2026-10-29"
+    },
+    {
+      "id": "S15",
+      "key": "ym871",
+      "title": "盈米：金融AI方案亮相中国国际金融展",
+      "date": "事件2026-06-16",
+      "kind": "公司披露",
+      "url": "https://yingmi.com/archives/871",
+      "supports": "机构方案、任务编排、AI小顾主动服务。",
+      "accessed": "2026-10-29"
+    },
+    {
+      "id": "S16",
+      "key": "ym991",
+      "title": "盈米：智审先知与AI内容生态",
+      "date": "事件2026-10-23",
+      "kind": "公司披露",
+      "url": "https://www.yingmi.cn/archives/991",
+      "supports": "内容中台、AI编辑部、合规、TAMP和顾问工具。",
+      "accessed": "2026-10-29"
+    },
+    {
+      "id": "S17",
+      "key": "ym967",
+      "title": "盈米：MCP订阅版接入百炼One Key MCP",
+      "date": "现页，未标发布日期",
+      "kind": "公司披露",
+      "url": "https://www.yingmi.cn/archives/967",
+      "supports": "金融工具组合及内部使用、商业分发授权的区别。",
+      "accessed": "2026-10-29"
+    },
+    {
+      "id": "S18",
+      "key": "br",
+      "title": "百融IR：战略投资思迪及联合财查查",
+      "date": "2025-12-19发布；活动2025-12-18",
+      "kind": "公司披露",
+      "url": "https://ir.brgroup.com/zh/news/legacy-news-143",
+      "supports": "回顾战略投资并披露联合金融智能体；未据此确认交割日、融资额或客户成效。",
+      "accessed": "2026-10-29"
+    }
+  ]
+}

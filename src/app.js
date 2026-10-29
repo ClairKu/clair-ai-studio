@@ -223,6 +223,20 @@ const initialState = {
   ],
   reports: [
     {
+      id: "sidi-yingmi-deep-research-2026-10-29",
+      groupId: "ai-platform",
+      title: "思迪 × 盈米｜能力边界、合作证据与增量价值",
+      url: "https://clairku.github.io/clair-ai-studio/reports/sidi-yingmi-deep-research-2026-10-29/",
+      preview: "sidi-yingmi-deep-research-2026-10-29.png",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-29T19:09:10+08:00",
+      source: "2026-10-29公开来源深度调研｜核验思迪主体、资本与机构交付证据，区分公司产品主张、双方合作未知项和研究判断；对照盈米既有能力，提出可验证的系统接入、组件采购与试点方案。",
+      access: "production",
+      workType: "reporting",
+      tags: ["思迪信息", "Thinkive", "盈米基金", "AI", "机构系统", "合作研究", "增量价值", "HTML", "生产"],
+    },
+    {
       id: "candidate-evaluator-2026-10-29",
       groupId: "knowledge",
       title: "候选人评价器与招聘复盘",

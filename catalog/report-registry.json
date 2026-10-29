@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "purpose": "Prevent an older or concurrent publisher from silently removing an existing workbench result.",
   "protectedReportIds": [
+    "sidi-yingmi-deep-research-2026-10-29",
     "candidate-evaluator-2026-10-29",
     "ai-tools-yingmi-links-2026-10-28",
     "ai-wealth-interaction-deep-dive-2026-10-22",
