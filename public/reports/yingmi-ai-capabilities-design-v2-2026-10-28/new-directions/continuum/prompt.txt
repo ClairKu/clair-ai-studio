@@ -1,0 +1,11 @@
+Use case: stylized-concept
+Asset type: a full-bleed hero artwork for a premium financial technology brand website.
+Primary request: a serene, exceptionally smooth, continuous flowing satin ribbon, with a feeling of effortless flow and advanced technology.
+Composition/framing: ultrawide cinematic 16:9 landscape, generous seamless negative space occupying the entire left 42 percent for website typography. The single ribbon lives only in the right 58 percent. It enters from beyond the lower right foreground, sweeps gently through center-right in two large shallow continuous bends, and rises toward the upper right distance, where it naturally continues out of frame. Strong graceful directional flow and depth; no standalone S logo posing on a plinth. A broad single uninterrupted surface, thinner in the distance, softly receding in space.
+Scene/backdrop: seamless luminous cool-white studio atmosphere, near #f3f6fa, very subtle light ambient contact shadow, no visible horizon, no hard background borders. Keep the left text zone completely empty, uniform and quiet.
+Style/medium: photo-real premium three-dimensional material study, flagship brand campaign quality, immaculate continuous curved geometry with smooth curvature everywhere.
+Materials/textures: pearl-white micro-satin surface, polished cobalt-blue underside and thin mirror-blue edge, restrained cool-silver reflections. Smooth refined material, no wrinkles, no fabric weave, no seams or joints. Realistic soft optical highlights describe the curvature; the form feels like a flowing river of professional expertise.
+Lighting/mood: broad soft overhead and side light, elegant pale ambient lighting, fine controlled highlights, calm and sophisticated, no harsh specular clipping.
+Text: none.
+Avoid: wireframe, thin-line bundles, polygon mesh, faceted surfaces, kinks, sharp bends, pointed cut ends, disconnected fragments, intersections, knots, torus, closed loop, Mobius ring, multiple crossing ribbons, arrows, neon, glow particles, starfield, grid, technical labels, axes, logos, lettering, watermarks. Do not let any sculpture or shadow intrude into the left 42 percent.
+Output: opaque background, one coherent polished artwork, no collage.

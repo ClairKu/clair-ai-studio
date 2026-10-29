@@ -1,11 +1,11 @@
 {
-  "title": "盈米AI · 缎光流域 / 深空折光 / 光栅秩序",
-  "version": "2026-10-28-new-directions-6",
+  "title": "盈米AI · 缎光流域深化 / 流光科技版",
+  "version": "2026-10-29-satin-continuum-7",
   "files": [
     {
       "path": "index.html",
-      "bytes": 9524,
-      "sha256": "86c1c12fd14b149365d0f72026d10e3288a5b3fd94c7e73956f8f405f2c4c693"
+      "bytes": 9635,
+      "sha256": "6fcdec5d379989d75e11e1f37101cbb1d5c100a12441f5e939d8b4faaa61c488"
     },
     {
       "path": "satin/index.html",
@@ -69,18 +69,53 @@
     },
     {
       "path": "README.txt",
-      "bytes": 841,
-      "sha256": "32020f49102f82a899da62a2aa3a3e275e9bd396623e069dcb5b24df6af45ad4"
+      "bytes": 1071,
+      "sha256": "9b5c81ab0f0515260ec57756caad36135f25702a76f10cdf90cb0499cdd2d65f"
     },
     {
       "path": "PROMPTS.txt",
-      "bytes": 5962,
-      "sha256": "dd925851c3c306a22cdae4e2d547f4da0fcf738974079d2a0f89c38daafb71e8"
+      "bytes": 8242,
+      "sha256": "5e5ef0c0e4b4e2083d79f61840bcb6e978dec18e2be1b23469a52a76e8cc4173"
     },
     {
       "path": "yingmi-ai-new-directions.zip",
-      "bytes": 344964,
-      "sha256": "4b0bbd3508df340278a4bdd63488a295580ea079921bb446c2cbb2fd40995f6f"
+      "bytes": 518927,
+      "sha256": "24a58c07e35001667d8b9a607e3b8118e562b322a1e07769b35253365a3e43d4"
+    },
+    {
+      "path": "continuum/index.html",
+      "bytes": 132341,
+      "sha256": "cb92dccfb9b6f1662100127c31f2df2bb6ee64faa128a705ad82fef7b59501c6"
+    },
+    {
+      "path": "continuum/hero.webp",
+      "bytes": 49822,
+      "sha256": "7c4b4170cd29afb8128c90039ec7746f175e06fc53bd210d50144c9f3024b2be"
+    },
+    {
+      "path": "continuum/thumb.webp",
+      "bytes": 8748,
+      "sha256": "97bb7d8608267bbf738b2eef14c847bdfa158160defd0efb732954c51f4b8c24"
+    },
+    {
+      "path": "continuum/prompt.txt",
+      "bytes": 2216,
+      "sha256": "1364d5b4efce440bbfbdc817b79141627be79e8ff375a18ca86ff88e0e9c024d"
+    },
+    {
+      "path": "continuum/README.txt",
+      "bytes": 721,
+      "sha256": "0271f3fd8642f90104f43d20117d9cdaeb417b2344f8896e280269909240b00d"
+    },
+    {
+      "path": "continuum/yingmi-ai-continuum.zip",
+      "bytes": 172878,
+      "sha256": "1cb01de7375890ce527421af61abed1ef63e31faa450713aadd736249a872d7c"
+    },
+    {
+      "path": "continuum/yingmi-ai-continuum.html",
+      "bytes": 198958,
+      "sha256": "e3870c525b37dd65f819cb896a2b9cf30153832e6f648058a98e50e080731f74"
     }
   ]
 }
