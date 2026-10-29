@@ -363,5 +363,13 @@
       "qianwen-qieman-task-assistant-demo-2026-08-07",
       "qieman-ai-practice-sharing-visual-2026-08-14"
     ]
+  },
+  "reportRevisions": {
+    "ai-tools-yingmi-links-2026-10-28": {
+      "updatedAt": "2026-10-29",
+      "revision": "visible-url-verification",
+      "url": "https://clairku.github.io/clair-ai-studio/reports/ai-tools-yingmi-links-2026-10-28/",
+      "preservesReportId": true
+    }
   }
 }

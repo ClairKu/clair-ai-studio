@@ -1,21 +1,23 @@
 {
-  "version": 1,
+  "version": 2,
   "title": "AI工具与盈米能力入口表",
+  "reportId": "ai-tools-yingmi-links-2026-10-28",
+  "updatedAt": "2026-10-29",
   "files": [
     {
+      "path": "ai-tool-links.zip",
+      "bytes": 55118,
+      "sha256": "8eb9259948bea946ae38c6e336f0706335bd4cd4c41033ebc2941472aafe7be9"
+    },
+    {
       "path": "index.html",
-      "bytes": 124100,
-      "sha256": "4c730177925998717796183ceab21cbf29dbe8830954cc18b402adc5f8949d33"
+      "bytes": 204371,
+      "sha256": "8985a56248eb40628fa2712a5b320d1e8d729934d068ea4460d098c443a24898"
     },
     {
       "path": "inventory-data.json",
-      "bytes": 103517,
-      "sha256": "d00a0724713b820ae8bd58051eed72b25044be6088907dafdf17344bf3a2cf79"
-    },
-    {
-      "path": "ai-tool-links.zip",
-      "bytes": 34985,
-      "sha256": "c50eaa2d36c7310d0f653a9e6fc936a38f0cf78384b6f2a6c470cf50c04bff3d"
+      "bytes": 180237,
+      "sha256": "e7e727935bff76dae1c5a8043c261b113d6e3026f4b6036b85215ccf8e3b86bf"
     }
   ]
 }

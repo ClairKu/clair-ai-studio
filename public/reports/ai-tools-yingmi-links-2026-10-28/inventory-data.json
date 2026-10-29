@@ -1,6 +1,6 @@
 {
-  "checked_at": "2026-10-28（Asia/Shanghai）",
-  "scope": "已安装的13款独立AI客户端；补充4款AI辅助应用。只读检查安装包、相关配置和官方网页，不代表云端全部私有资源的完整清单。",
+  "checked_at": "2026-10-29",
+  "scope": "本机13款独立AI客户端及4款辅助应用。网页在独立后台浏览器逐URL打开；桌面协议因可能抢占焦点未唤起。登录后的私有能力与业务调用未验证。",
   "tools": [
     {
       "tool": "WorkBuddy",
@@ -94,8 +94,8 @@
       "desktop_url": "qwenwork-cn://",
       "web_url": "https://qwenwork.cn/app/",
       "download_url": "https://qwenwork.cn/download",
-      "summary": "盈米 MCP（Yingmi）",
-      "note": "静态核对；未实际唤起。",
+      "summary": "盈米基金 MCP（市场安装；2026-10-29本机配置观测为未启用）",
+      "note": "原生详情参数未获支持；网页精准入口已实开至登录页，登录后对象命中待确认。",
       "plazas": [
         {
           "name": "MCP / 连接器广场",
@@ -214,7 +214,7 @@
           "note": "TRAE 设置 > MCP > 添加 > 从市场添加"
         }
       ],
-      "web_label": "官方网站"
+      "web_label": "产品官网（非网页工作区）"
     },
     {
       "tool": "Kiro",
@@ -240,9 +240,9 @@
       "version": "1.0.82",
       "desktop_url": "dumate://chat/open",
       "web_url": "https://dumate.baidu.com/app",
-      "download_url": "https://dumate.baidu.com/app",
-      "summary": "盈米会议室预约技能",
-      "note": "静态核对；未实际唤起。",
+      "download_url": "https://cloud.baidu.com/discover/dumate-download-start.html",
+      "summary": "盈米基金 MCP（本地市场/实例缓存确认）及盈米会议室预约技能",
+      "note": "市场缓存确认另有盈米基金MCP；网页技能/能力入口被登录弹窗拦截，当前实例状态与精准详情地址未确认。下载链接已改到实际可见的官方下载说明页。",
       "plazas": [
         {
           "name": "技能页",
@@ -269,8 +269,17 @@
       "web_url": "https://www.kimi.com/",
       "download_url": "https://www.kimi.com/products/download",
       "summary": "未找到本机盈米专属配置",
-      "note": "静态核对；未实际唤起。",
-      "plazas": []
+      "note": "主页、下载页已实开可见；插件广场需要登录，未核实盈米专属资源。",
+      "plazas": [
+        {
+          "name": "插件广场",
+          "desktop_url": null,
+          "web_url": "https://www.kimi.com/plugins",
+          "search_desktop_url": null,
+          "search_web_url": null,
+          "note": "后台实开会弹登录框；未发现已核实的盈米筛选或详情URL。"
+        }
+      ]
     },
     {
       "tool": "Grok Bot",
@@ -298,7 +307,7 @@
           "note": "Grok Bot 侧边栏 > Connect apps；标题旁已连接数量可管理Installed与私有Skills"
         }
       ],
-      "web_label": "官方网站"
+      "web_label": "产品官网（非网页工作区）"
     },
     {
       "tool": "Perplexity",
@@ -358,7 +367,7 @@
       "search_url": null,
       "manual_path": "",
       "verification": "对象元数据及路由静态核对；未实际打开",
-      "note": "名称来自 global/expert.json，ID 与当前盈米 Buddy 场景绑定一致。desktop_url 进入专家页定位此专家；summon_desktop_url 和 web_url 由已核验解析器召唤专家，需登录且账号可见；未执行实际召唤。",
+      "note": "名称来自 global/expert.json，ID 与当前盈米 Buddy 场景绑定一致。desktop_url 进入专家页定位此专家；summon_desktop_url 和 web_url 由已核验解析器召唤专家，需登录且账号可见；未执行实际召唤。；未登录实开跳登录页且回跳丢失expertId；登录后需重新点击原链接，未确认专家对象命中。",
       "desktop_label": null,
       "web_label": "召唤专家"
     },
@@ -388,7 +397,7 @@
       "search_url": null,
       "manual_path": "",
       "verification": "对象元数据及路由静态核对；未实际打开",
-      "note": "名称来自 global/expert.json，ID 与当前盈米 Buddy 场景绑定一致。desktop_url 进入专家页定位此专家；summon_desktop_url 和 web_url 由已核验解析器召唤专家，需登录且账号可见；未执行实际召唤。",
+      "note": "名称来自 global/expert.json，ID 与当前盈米 Buddy 场景绑定一致。desktop_url 进入专家页定位此专家；summon_desktop_url 和 web_url 由已核验解析器召唤专家，需登录且账号可见；未执行实际召唤。；未登录实开跳登录页且回跳丢失expertId；登录后需重新点击原链接，未确认专家对象命中。",
       "desktop_label": null,
       "web_label": "召唤专家"
     },
@@ -418,7 +427,7 @@
       "search_url": null,
       "manual_path": "",
       "verification": "对象元数据及路由静态核对；未实际打开",
-      "note": "名称来自 global/expert.json，ID 与当前盈米 Buddy 场景绑定一致。desktop_url 进入专家页定位此专家；summon_desktop_url 和 web_url 由已核验解析器召唤专家，需登录且账号可见；未执行实际召唤。",
+      "note": "名称来自 global/expert.json，ID 与当前盈米 Buddy 场景绑定一致。desktop_url 进入专家页定位此专家；summon_desktop_url 和 web_url 由已核验解析器召唤专家，需登录且账号可见；未执行实际召唤。；未登录实开跳登录页且回跳丢失expertId；登录后需重新点击原链接，未确认专家对象命中。",
       "desktop_label": null,
       "web_label": "召唤专家"
     },
@@ -448,7 +457,7 @@
       "search_url": null,
       "manual_path": "",
       "verification": "对象元数据及路由静态核对；未实际打开",
-      "note": "名称来自 global/expert.json，ID 与当前盈米 Buddy 场景绑定一致。desktop_url 进入专家页定位此专家；summon_desktop_url 和 web_url 由已核验解析器召唤专家，需登录且账号可见；未执行实际召唤。",
+      "note": "名称来自 global/expert.json，ID 与当前盈米 Buddy 场景绑定一致。desktop_url 进入专家页定位此专家；summon_desktop_url 和 web_url 由已核验解析器召唤专家，需登录且账号可见；未执行实际召唤。；未登录实开跳登录页且回跳丢失expertId；登录后需重新点击原链接，未确认专家对象命中。",
       "desktop_label": null,
       "web_label": "召唤专家"
     },
@@ -1159,16 +1168,20 @@
       "tool": "千问办公",
       "kind": "MCP",
       "id": "Yingmi",
-      "name": "盈米 MCP",
+      "name": "盈米基金 MCP",
       "desktop_url": null,
-      "web_url": "https://qwenwork.cn/app/market/connectors?q=%E7%9B%88%E7%B1%B3",
+      "web_url": "https://qwenwork.cn/app/market/connectors?q=%E7%9B%88%E7%B1%B3&resource_id=653d5c61-e08f-4144-a647-abd349714705",
       "plaza_url": "qwenwork-cn://connectors",
-      "search_url": null,
-      "manual_path": "连接器 → 已配置的 Yingmi；网页扩展 → 连接器搜索盈米",
-      "verification": "本地配置或技能文件确认；未执行调用",
-      "note": "",
+      "search_url": "https://qwenwork.cn/app/market/connectors?q=%E7%9B%88%E7%B1%B3",
+      "manual_path": "打开千问办公连接器广场，搜索盈米，点击“盈米基金”卡片；原生详情弹窗暂无已核实URL。",
+      "verification": "2026-10-29后台实开：跳到千问登录页，回跳参数保留q与resource_id；尚未看到详情弹窗。",
+      "note": "截图与本机只读界面均显示“盈米基金 已安装但未启用”。网页版候选携带真实市场ID；当前1.3.2原生协议只能进入连接器总页，不能通过URL传入搜索或打开此弹窗。",
       "desktop_label": null,
-      "web_label": "搜索此能力"
+      "web_label": "带市场ID的详情入口（登录后待确认）",
+      "market_resource_id": "653d5c61-e08f-4144-a647-abd349714705",
+      "market_item_id": "Yingmi",
+      "installation_source": "market",
+      "observed_config_enabled": false
     },
     {
       "tool": "豆包",
@@ -1196,9 +1209,9 @@
       "search_url": null,
       "manual_path": "盈米AI开放平台 → 个人中心 → 盈米Skills → 配置方式；豆包我的技能查看已安装项",
       "verification": "官方确认接入；本机授权与对象详情ID未验证",
-      "note": "未把 WorkBuddy 里的所有 Skill 自动算作豆包已安装。",
+      "note": "未把 WorkBuddy 里的所有 Skill 自动算作豆包已安装。；实开旧地址转至且慢MCP介绍页，不是独立Agent对话。",
       "desktop_label": null,
-      "web_label": "打开网页入口"
+      "web_label": "盈米开放平台介绍页"
     },
     {
       "tool": "千问办公",
@@ -2291,9 +2304,9 @@
       "search_url": null,
       "manual_path": "",
       "verification": "盈米官方公开资料引用的入口",
-      "note": "登录个人中心查看MCP/Skills接入方式；账户专属地址和Key不在本清单中。",
+      "note": "登录个人中心查看MCP/Skills接入方式；账户专属地址和Key不在本清单中。；实开旧地址转至且慢MCP介绍页，不是独立Agent对话。",
       "desktop_label": null,
-      "web_label": null
+      "web_label": "盈米开放平台介绍页"
     },
     {
       "tool": "盈米官方网页（补充）",
@@ -2322,6 +2335,22 @@
       "manual_path": "",
       "verification": "静态核对；未实际唤起。",
       "note": "未找到本机盈米专属配置",
+      "desktop_label": null,
+      "web_label": null
+    },
+    {
+      "tool": "DuMate",
+      "kind": "MCP",
+      "id": "yingmi-mcp",
+      "name": "盈米基金 MCP",
+      "market_template_id": "09325765-5ca1-4e44-ad80-e2d779d74686",
+      "desktop_url": null,
+      "web_url": null,
+      "plaza_url": null,
+      "search_url": null,
+      "manual_path": "在DuMate连接器/连接应用列表搜索盈米并打开“盈米基金”；具体菜单与弹窗由主任务实际点验。",
+      "verification": "2026-10-29只读缓存确认真实市场模板及历史本机实例；当前状态、详情直达URL待核验。",
+      "note": "模板code=yingmi-mcp、name=盈米基金。市场模板UUID有证据；没有已核实公开URL可携带该模板ID直达弹窗。本机实例UUID与localhost端口不作为通用入口，不公开复用。历史缓存enabled=true不代表当前状态。",
       "desktop_label": null,
       "web_label": null
     }
@@ -2561,9 +2590,1585 @@
     }
   ],
   "boundaries": [
-    "桌面链接为客户端路由或系统协议静态核对，本次未逐个唤起。",
-    "网页HTTP200与路由存在，不等于账号已授权、能看到特定资源或已成功调用。",
-    "广场、搜索结果、配置页、召唤入口与对象详情分别标注。没有资源ID或路径证据时不拼造地址。",
-    "本机Skill文件不自动拥有云端发布ID或网页版详情页。千问App与千问办公分别列出。"
+    "每个URL分别记录实际落点；页面可见不代表已授权或调用成功。",
+    "桌面协议仅来源核对，未实际唤起，避免打断用户操作。",
+    "千问精准网页入口被登录页拦截，尚未证实与截图弹窗完全一致；当前原生协议不传入详情/搜索参数。",
+    "登录、安全验证、网络/加载错误、目标不符分别标注。",
+    "没有公开详情URL时保留手动路径，不把本机实例ID、API或主页拼成详情地址。"
+  ],
+  "verified_at": "2026-10-29",
+  "url_verifications": {
+    "https://www.workbuddy.cn/app/": {
+      "status": "login",
+      "evidence": "已看到登录表单或登录弹窗。",
+      "observed_target": "登录拦截，目标页面尚未确认",
+      "actual_title": "WorkBuddy - AI Agent 办公新范式",
+      "actual_url": "https://www.workbuddy.cn/login/",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://www.workbuddy.cn/work/": {
+      "status": "visible_page",
+      "evidence": "可见产品导航、WorkBuddy 与下载入口；属于产品官网。",
+      "observed_target": "WorkBuddy 产品官网",
+      "actual_title": "WorkBuddy - AI Agent 办公新范式",
+      "actual_url": "https://www.workbuddy.cn/work/",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://www.workbuddy.cn/app/experts": {
+      "status": "login",
+      "evidence": "已看到登录表单或登录弹窗。",
+      "observed_target": "登录拦截，目标页面尚未确认",
+      "actual_title": "WorkBuddy - AI Agent 办公新范式",
+      "actual_url": "https://www.workbuddy.cn/login/",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://www.workbuddy.cn/app/connectors": {
+      "status": "login",
+      "evidence": "实际地址转到 WorkBuddy 登录路径；可见快照为空，未验证连接器内容。",
+      "observed_target": "WorkBuddy 连接器入口转登录",
+      "actual_title": "WorkBuddy - AI Agent 办公新范式",
+      "actual_url": "https://www.workbuddy.cn/login/",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_navigation_observation",
+      "method": "browser"
+    },
+    "https://www.workbuddy.cn/app/skills": {
+      "status": "login",
+      "evidence": "实际地址为登录页，快照显示“正在加载登录页”。",
+      "observed_target": "WorkBuddy 技能入口转登录",
+      "actual_title": "WorkBuddy - AI Agent 办公新范式",
+      "actual_url": "https://www.workbuddy.cn/login/",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://chatgpt.com/": {
+      "status": "visible_page",
+      "evidence": "可见聊天输入框、新聊天及登录按钮；未登录首页可显示。",
+      "observed_target": "ChatGPT 访客聊天首页",
+      "actual_title": "ChatGPT: Chat, Work, Create & Code with AI",
+      "actual_url": "https://chatgpt.com/",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://qwenwork.cn/app/": {
+      "status": "visible_page",
+      "evidence": "可见新任务输入框与扩展/技能/连接器导航；未显示目标盈米详情。",
+      "observed_target": "千问办公访客首页",
+      "actual_title": "千问办公",
+      "actual_url": "https://qwenwork.cn/app/",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://chatgpt.com/plugins": {
+      "status": "visible_page",
+      "evidence": "可见“插件”标题和“搜索插件”搜索框；插件列表当时仍在加载。",
+      "observed_target": "ChatGPT 插件广场框架",
+      "actual_title": "ChatGPT Plugins | Browse and add plugins to ChatGPT",
+      "actual_url": "https://chatgpt.com/plugins",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://chatgpt.com/download/": {
+      "status": "visible_target",
+      "evidence": "可见“下载桌面版 ChatGPT”和“下载移动版 ChatGPT”标题。",
+      "observed_target": "ChatGPT 下载页",
+      "actual_title": "下载 ChatGPT",
+      "actual_url": "https://chatgpt.com/zh-Hans-CN/download/",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://qwenwork.cn/app/market/connectors?q=%E7%9B%88%E7%B1%B3": {
+      "status": "login",
+      "evidence": "已看到登录表单或登录弹窗。",
+      "observed_target": "登录拦截，目标页面尚未确认",
+      "actual_title": "千问办公",
+      "actual_url": "https://qwenwork.cn/signin",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://qwenwork.cn/app/market/connectors": {
+      "status": "login",
+      "evidence": "已看到登录表单或登录弹窗。",
+      "observed_target": "登录拦截，目标页面尚未确认",
+      "actual_title": "千问办公",
+      "actual_url": "https://qwenwork.cn/signin",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://qwenwork.cn/download": {
+      "status": "visible_target",
+      "evidence": "可见“千问办公客户端”标题、平台标签和 Apple/Intel 下载链接。",
+      "observed_target": "千问办公客户端下载页",
+      "actual_title": "千问办公官方下载｜Windows/MacOS/HarmonyOS/Linux客户端",
+      "actual_url": "https://qwenwork.cn/download",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://qwenwork.cn/app/market/skills?q=%E7%9B%88%E7%B1%B3": {
+      "status": "login",
+      "evidence": "实际地址转 signin；快照仅 document，未验证搜索结果。",
+      "observed_target": "千问 Skills 搜索转登录",
+      "actual_title": "千问办公登录页",
+      "actual_url": "https://qwenwork.cn/signin",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://qwenwork.cn/app/market/skills": {
+      "status": "login",
+      "evidence": "已看到登录表单或登录弹窗。",
+      "observed_target": "登录拦截，目标页面尚未确认",
+      "actual_title": "千问办公",
+      "actual_url": "https://qwenwork.cn/signin",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://qwenwork.cn/app/market/expert-kits": {
+      "status": "login",
+      "evidence": "实际地址转 signin；快照仅 document。",
+      "observed_target": "千问专家套件入口转登录",
+      "actual_title": "千问办公登录页",
+      "actual_url": "https://qwenwork.cn/signin",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://qwenwork.cn/app/market/expert-kits?q=%E7%9B%88%E7%B1%B3": {
+      "status": "login",
+      "evidence": "可见“欢迎使用 千问办公”、手机号和验证码登录表单。",
+      "observed_target": "千问专家套件搜索登录页",
+      "actual_title": "千问办公",
+      "actual_url": "https://qwenwork.cn/signin",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://www.doubao.com/chat/": {
+      "status": "visible_page",
+      "evidence": "可见新工作任务、新对话，以及“有什么我能帮你的吗”；未显示盈米对象。",
+      "observed_target": "豆包网页版首页",
+      "actual_title": "豆包 - 字节跳动旗下 AI 智能助手",
+      "actual_url": "https://www.doubao.com/chat/",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://www.doubao.com/download": {
+      "status": "visible_target",
+      "evidence": "实际转 /download/desktop；可见“下载豆包电脑版”和产品功能说明。",
+      "observed_target": "豆包客户端下载页",
+      "actual_title": "下载豆包客户端 - 激发创造力，即刻提升工作学习效率",
+      "actual_url": "https://www.doubao.com/download/desktop",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://claude.ai/": {
+      "status": "security",
+      "evidence": "可见“正在进行安全验证”和 Cloudflare 防自动程序说明。",
+      "observed_target": "Claude 安全验证页",
+      "actual_title": "请稍候…",
+      "actual_url": "https://claude.ai/",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://claude.com/download": {
+      "status": "visible_target",
+      "evidence": "可见 H1“Download Claude”、Desktop/Mobile 区域。",
+      "observed_target": "Claude 下载页",
+      "actual_title": "Download Claude | Claude by Anthropic",
+      "actual_url": "https://claude.com/download",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://claude.com/marketplace/connectors-plugins": {
+      "status": "visible_page",
+      "evidence": "可见 H1“Connectors and plugins”、搜索框及多个连接器卡片。",
+      "observed_target": "Claude 连接器与插件广场",
+      "actual_title": "Connectors and plugins | Claude Marketplace | Claude by Anthropic",
+      "actual_url": "https://claude.com/marketplace/connectors-plugins",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://claude.ai/customize/skills": {
+      "status": "security",
+      "evidence": "可见“正在进行安全验证”和 Cloudflare 防自动程序说明。",
+      "observed_target": "Claude Skills 入口被安全验证拦截",
+      "actual_title": "请稍候…",
+      "actual_url": "https://claude.ai/customize/skills",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://claude.com/marketplace/agents-products": {
+      "status": "visible_page",
+      "evidence": "可见同名 H1、Featured 区和筛选控件。",
+      "observed_target": "Claude Agents and products 广场",
+      "actual_title": "Agents and products | Claude Marketplace | Claude by Anthropic",
+      "actual_url": "https://claude.com/marketplace/agents-products",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://cursor.com/agents": {
+      "status": "login",
+      "evidence": "实际转 Cursor 身份认证站；可见邮箱及多种登录方式，未显示 Agents。",
+      "observed_target": "Cursor 登录页",
+      "actual_title": "登录",
+      "actual_url": "https://authenticator.cursor.sh/",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://cursor.com/download": {
+      "status": "network_error",
+      "evidence": "记录了导航超时；快照仅 document，标题不足以证明页面已完成显示。",
+      "observed_target": "Cursor 下载页导航超时",
+      "actual_title": "Cursor · Download",
+      "actual_url": "https://cursor.com/download",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser",
+      "network_error": "后台浏览器导航超时或连接失败；未看到目标。不能据此判定URL已失效。"
+    },
+    "https://www.trae.ai/": {
+      "status": "visible_page",
+      "evidence": "可见 TRAE 导航、产品说明和 Download TRAE 入口。",
+      "observed_target": "TRAE 产品官网",
+      "actual_title": "TRAE - Collaborate with Intelligence",
+      "actual_url": "https://www.trae.ai/",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://www.trae.ai/download": {
+      "status": "visible_target",
+      "evidence": "可见 H1“Download TRAE”和 macOS/Windows/Linux 平台入口。",
+      "observed_target": "TRAE 下载中心",
+      "actual_title": "Download Center | TRAE - Collaborate with Intelligence",
+      "actual_url": "https://www.trae.ai/download",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://app.kiro.dev/": {
+      "status": "login",
+      "evidence": "实际转 /signin；可见“Choose a way to sign in/sign up”和登录方式。",
+      "observed_target": "Kiro Web 登录页",
+      "actual_title": "Sign In | Kiro Web",
+      "actual_url": "https://app.kiro.dev/signin",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://dumate.baidu.com/app": {
+      "status": "visible_page",
+      "evidence": "可见任务输入区和快捷能力；仅有登录宣传条，没有保存到阻塞登录弹窗。",
+      "observed_target": "DuMate 访客任务首页",
+      "actual_title": "百度搭子",
+      "actual_url": "https://dumate.baidu.com/app",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://cursor.com/marketplace": {
+      "status": "network_error",
+      "evidence": "浏览器策略阻止导航，无可见内容。",
+      "observed_target": "Cursor Marketplace 浏览器导航失败",
+      "actual_title": null,
+      "actual_url": null,
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_navigation_observation",
+      "method": "browser",
+      "network_error": "后台浏览器导航超时或连接失败；未看到目标。不能据此判定URL已失效。"
+    },
+    "https://kiro.dev/downloads/": {
+      "status": "network_error",
+      "evidence": "可见“不支持的协议”和 ERR_SSL_VERSION_OR_CIPHER_MISMATCH；不等同404。",
+      "observed_target": "Kiro 下载页 TLS 连接错误",
+      "actual_title": "kiro.dev",
+      "actual_url": "https://kiro.dev/downloads/",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://kiro.dev/powers/": {
+      "status": "network_error",
+      "evidence": "实际导航发生连接或证书错误，未看到目标页面。",
+      "observed_target": "网络或证书连接失败",
+      "actual_title": null,
+      "actual_url": null,
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_navigation_observation",
+      "method": "browser"
+    },
+    "https://dumate.baidu.com/app/skills": {
+      "status": "login",
+      "evidence": "已看到登录表单或登录弹窗。",
+      "observed_target": "登录拦截，目标页面尚未确认",
+      "actual_title": "百度搭子",
+      "actual_url": "https://dumate.baidu.com/app",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://dumate.baidu.com/app/capability": {
+      "status": "load_error",
+      "evidence": "只见侧栏导航和下载客户端按钮，未见广场内容或盈米目标。",
+      "observed_target": "DuMate 能力页仅导航壳",
+      "actual_title": "百度搭子",
+      "actual_url": "https://dumate.baidu.com/app/capability",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser",
+      "network_error": "实际尝试仅看到加载/空白，未确认目标；保留为加载异常。"
+    },
+    "https://www.kimi.com/": {
+      "status": "visible_page",
+      "evidence": "已看到页面主体；不代表已运行具体能力。",
+      "observed_target": "Kimi AI 官网：K3.1 Pro 上线，编程与智能体任务全面升级",
+      "actual_title": "Kimi AI 官网：K3.1 Pro 上线，编程与智能体任务全面升级",
+      "actual_url": "https://www.kimi.com/",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://www.kimi.com/products/download": {
+      "status": "visible_target",
+      "evidence": "已看到下载标题和页面内容。",
+      "observed_target": "下载 Kimi 前沿智能，触手可及",
+      "actual_title": "下载 Kimi 桌面端、移动端以及 Kimi Code",
+      "actual_url": "https://www.kimi.com/products/download",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://x.ai/bot": {
+      "status": "network_error",
+      "evidence": "无已保存可见内容。",
+      "observed_target": "Grok Bot 首页浏览器导航失败",
+      "actual_title": null,
+      "actual_url": null,
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_navigation_observation",
+      "method": "browser",
+      "network_error": "后台浏览器导航超时或连接失败；未看到目标。不能据此判定URL已失效。"
+    },
+    "https://x.ai/bot/marketplace": {
+      "status": "network_error",
+      "evidence": "无已保存可见内容。",
+      "observed_target": "Grok Bot Marketplace 浏览器导航失败",
+      "actual_title": null,
+      "actual_url": null,
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_navigation_observation",
+      "method": "browser",
+      "network_error": "后台浏览器导航超时或连接失败；未看到目标。不能据此判定URL已失效。"
+    },
+    "https://qwenwork.cn/app/market/connectors?q=%E7%9B%88%E7%B1%B3&resource_id=653d5c61-e08f-4144-a647-abd349714705": {
+      "status": "login",
+      "evidence": "实际转 signin；可见手机号/验证码登录表单，尚未确认“盈米基金”详情弹窗。",
+      "observed_target": "千问盈米精准详情候选转登录",
+      "actual_title": "千问办公",
+      "actual_url": "https://qwenwork.cn/signin",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://skillhub.cn/skills/yingmi/yingmi-portfolio-analysis": {
+      "status": "visible_target",
+      "evidence": "已看到技能详情标题与“已认证 盈米基金”发布方，未安装或运行。",
+      "observed_target": "盈米投资组合分析 (official verified publisher)",
+      "actual_title": "SkillHub - 专为中国用户优化的 AI Skills 社区",
+      "actual_url": "https://skillhub.cn/skills/yingmi/yingmi-portfolio-analysis",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://skillhub.cn/skills/user_8c473276/asset-allocation-pro": {
+      "status": "visible_target",
+      "evidence": "已看到该第三方技能的详情标题与发布者标识，未安装或运行。",
+      "observed_target": "资产配置建议专家 （第三方技能）",
+      "actual_title": "SkillHub - 专为中国用户优化的 AI Skills 社区",
+      "actual_url": "https://skillhub.cn/skills/user_8c473276/asset-allocation-pro",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://skillhub.cn/skills": {
+      "status": "visible_page",
+      "evidence": "可见 H1“全部技能”和技能搜索输入框。",
+      "observed_target": "SkillHub 全部技能广场",
+      "actual_title": "全部 AI Skills - SkillHub",
+      "actual_url": "https://skillhub.cn/skills?sortBy=score",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://skillhub.cn/skills?keyword=%E7%9B%88%E7%B1%B3": {
+      "status": "visible_search",
+      "evidence": "搜索框中实际显示“盈米”；仅证明关键词已应用，不证明每条结果或业务可用。",
+      "observed_target": "SkillHub Skills 搜索盈米",
+      "actual_title": "全部 AI Skills - SkillHub",
+      "actual_url": "https://skillhub.cn/skills?keyword=%E7%9B%88%E7%B1%B3&sortBy=score",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://skillhub.cn/skills/user_8c473276/investment-market-insight": {
+      "status": "visible_target",
+      "evidence": "已看到该第三方技能的详情标题与发布者标识，未安装或运行。",
+      "observed_target": "投资市场洞察 （第三方技能）",
+      "actual_title": "SkillHub - 专为中国用户优化的 AI Skills 社区",
+      "actual_url": "https://skillhub.cn/skills/user_8c473276/investment-market-insight",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://skillhub.cn/skills/user_8c473276/client-insight": {
+      "status": "visible_target",
+      "evidence": "已看到该第三方技能的详情标题与发布者标识，未安装或运行。",
+      "observed_target": "私人银行客户洞察 （第三方技能）",
+      "actual_title": "SkillHub - 专为中国用户优化的 AI Skills 社区",
+      "actual_url": "https://skillhub.cn/skills/user_8c473276/client-insight",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://skillhub.cn/skills/yingmi/yingmi-market-analysis": {
+      "status": "visible_target",
+      "evidence": "已看到技能详情标题与“已认证 盈米基金”发布方，未安装或运行。",
+      "observed_target": "盈米市场分析 (official verified publisher)",
+      "actual_title": "SkillHub - 专为中国用户优化的 AI Skills 社区",
+      "actual_url": "https://skillhub.cn/skills/yingmi/yingmi-market-analysis",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://skillhub.cn/skills/yingmi/yingmi-fund-analysis": {
+      "status": "visible_target",
+      "evidence": "已看到技能详情标题与“已认证 盈米基金”发布方，未安装或运行。",
+      "observed_target": "盈米基金分析 (official verified publisher)",
+      "actual_title": "SkillHub - 专为中国用户优化的 AI Skills 社区",
+      "actual_url": "https://skillhub.cn/skills/yingmi/yingmi-fund-analysis",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://skillhub.cn/skills/yingmi/yingmi-fund-screener": {
+      "status": "visible_target",
+      "evidence": "已看到技能详情标题与“已认证 盈米基金”发布方，未安装或运行。",
+      "observed_target": "盈米基金筛选 (official verified publisher)",
+      "actual_title": "SkillHub - 专为中国用户优化的 AI Skills 社区",
+      "actual_url": "https://skillhub.cn/skills/yingmi/yingmi-fund-screener",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://skillhub.cn/skills/yingmi/yingmi-advisor-allocation": {
+      "status": "visible_target",
+      "evidence": "已看到技能详情标题与“已认证 盈米基金”发布方，未安装或运行。",
+      "observed_target": "盈米顾问资产配置 (official verified publisher)",
+      "actual_title": "SkillHub - 专为中国用户优化的 AI Skills 社区",
+      "actual_url": "https://skillhub.cn/skills/yingmi/yingmi-advisor-allocation",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://skillhub.cn/skills/yingmi/yingmi-strategy-analysis": {
+      "status": "visible_target",
+      "evidence": "已看到技能详情标题与“已认证 盈米基金”发布方，未安装或运行。",
+      "observed_target": "盈米投顾策略分析 (official verified publisher)",
+      "actual_title": "SkillHub - 专为中国用户优化的 AI Skills 社区",
+      "actual_url": "https://skillhub.cn/skills/yingmi/yingmi-strategy-analysis",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://skillhub.cn/skills/yingmi/yingmi-skill": {
+      "status": "visible_target",
+      "evidence": "已看到技能详情标题与“已认证 盈米基金”发布方，未安装或运行。",
+      "observed_target": "盈米基金技能总套件 (official verified publisher)",
+      "actual_title": "SkillHub - 专为中国用户优化的 AI Skills 社区",
+      "actual_url": "https://skillhub.cn/skills/yingmi/yingmi-skill",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://skillhub.cn/skills/yingmi/yingmi-advisor-content-studio": {
+      "status": "visible_target",
+      "evidence": "已看到技能详情标题与“已认证 盈米基金”发布方，未安装或运行。",
+      "observed_target": "盈米投顾内容工作室 (official verified publisher)",
+      "actual_title": "SkillHub - 专为中国用户优化的 AI Skills 社区",
+      "actual_url": "https://skillhub.cn/skills/yingmi/yingmi-advisor-content-studio",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://skillhub.cn/skills/yingmi/yingmi-advisor-client-insights": {
+      "status": "visible_target",
+      "evidence": "已看到技能详情标题与“已认证 盈米基金”发布方，未安装或运行。",
+      "observed_target": "盈米顾问客户洞察 (official verified publisher)",
+      "actual_title": "SkillHub - 专为中国用户优化的 AI Skills 社区",
+      "actual_url": "https://skillhub.cn/skills/yingmi/yingmi-advisor-client-insights",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://skillhub.cn/skills/yingmi/yingmi-family-wealth-planning": {
+      "status": "visible_target",
+      "evidence": "已看到技能详情标题与“已认证 盈米基金”发布方，未安装或运行。",
+      "observed_target": "盈米家庭财富规划 (official verified publisher)",
+      "actual_title": "SkillHub - 专为中国用户优化的 AI Skills 社区",
+      "actual_url": "https://skillhub.cn/skills/yingmi/yingmi-family-wealth-planning",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://skillhub.cn/skills/yingmi/yingmi-advisor-product-communication": {
+      "status": "visible_target",
+      "evidence": "已看到技能详情标题与“已认证 盈米基金”发布方，未安装或运行。",
+      "observed_target": "盈米顾问产品沟通 (official verified publisher)",
+      "actual_title": "SkillHub - 专为中国用户优化的 AI Skills 社区",
+      "actual_url": "https://skillhub.cn/skills/yingmi/yingmi-advisor-product-communication",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://skillhub.cn/mcp": {
+      "status": "visible_page",
+      "evidence": "可见“MCP 广场”标题和搜索框；当次快照列表显示0个MCP，不推断全站无MCP。",
+      "observed_target": "SkillHub MCP 广场",
+      "actual_title": "MCP 工具广场 - SkillHub",
+      "actual_url": "https://skillhub.cn/mcp",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://skillhub.cn/mcp?keyword=%E7%9B%88%E7%B1%B3": {
+      "status": "visible_search_no_results",
+      "evidence": "主任务最终实际界面已看到“关键字: 盈米”和“没有找到匹配的MCP Server”；这是搜索无匹配，不是坏URL。",
+      "observed_target": "SkillHub MCP 盈米搜索：无匹配结果",
+      "actual_title": "MCP 工具广场 - SkillHub",
+      "actual_url": "https://skillhub.cn/mcp?keyword=%E7%9B%88%E7%B1%B3",
+      "checked_at": "2026-10-29",
+      "evidence_source": "root_confirmed_visible_UI_without_full_saved_snapshot",
+      "method": "browser"
+    },
+    "https://www.workbuddy.cn/app/?expertId=ex_8o3gU8RoerOE": {
+      "status": "login",
+      "evidence": "同一精确URL的记录显示微信扫码及其他登录方式；不代表专家内容已命中。 未登录时回跳仅保留/app/，丢失expertId；登录后需重新点原链接。",
+      "observed_target": "WorkBuddy 专家入口转登录",
+      "actual_title": "WorkBuddy - AI Agent 办公新范式",
+      "actual_url": "https://www.workbuddy.cn/login/",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://www.workbuddy.cn/app/?expertId=ex_TBeURroZ6YEa": {
+      "status": "login",
+      "evidence": "同一精确URL的记录显示微信扫码及其他登录方式；不代表专家内容已命中。 未登录时回跳仅保留/app/，丢失expertId；登录后需重新点原链接。",
+      "observed_target": "WorkBuddy 专家入口转登录",
+      "actual_title": "WorkBuddy - AI Agent 办公新范式",
+      "actual_url": "https://www.workbuddy.cn/login/",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://www.workbuddy.cn/app/?expertId=ex_9HZbeQgbdcnp": {
+      "status": "login",
+      "evidence": "同一精确URL的记录显示微信扫码及其他登录方式；不代表专家内容已命中。 未登录时回跳仅保留/app/，丢失expertId；登录后需重新点原链接。",
+      "observed_target": "WorkBuddy 专家入口转登录",
+      "actual_title": "WorkBuddy - AI Agent 办公新范式",
+      "actual_url": "https://www.workbuddy.cn/login/",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://www.workbuddy.cn/app/?expertId=ex_x32rUOxgJvma": {
+      "status": "login",
+      "evidence": "同一精确URL的记录显示微信扫码及其他登录方式；不代表专家内容已命中。 未登录时回跳仅保留/app/，丢失expertId；登录后需重新点原链接。",
+      "observed_target": "WorkBuddy 专家入口转登录",
+      "actual_title": "WorkBuddy",
+      "actual_url": "https://www.workbuddy.cn/login/",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://ai.yingmi.com/": {
+      "status": "visible_page",
+      "evidence": "已实开转至 https://qieman.com/mcp，已更新默认跳转。此页提供平台介绍及开通服务，不能直接进入Agent对话。",
+      "observed_target": "旧址重定向：且慢盈米 MCP / Skills / 智能体平台介绍",
+      "actual_title": "盈米基金且慢平台",
+      "actual_url": "https://qieman.com/mcp",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser",
+      "corrected_url": "https://qieman.com/mcp"
+    },
+    "https://regtech.yingmi.com/login": {
+      "status": "login",
+      "evidence": "可见“内容合规审查系统”、手机号和验证码登录表单。",
+      "observed_target": "智审先知内容合规审查登录页",
+      "actual_title": "CCS-内容合规审查系统",
+      "actual_url": "https://regtech.yingmi.com/login",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://dumate.baidu.com/app/skills/search": {
+      "status": "login",
+      "evidence": "可见 dialog、iframe 和“关闭登录弹窗”；未显示技能搜索结果。",
+      "observed_target": "DuMate 技能搜索触发登录弹窗",
+      "actual_title": "百度搭子",
+      "actual_url": "https://dumate.baidu.com/app/skills/search",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://cloud.tencent.com/developer/mcp/server/11801": {
+      "status": "visible_target",
+      "evidence": "主任务实际界面已看到标题“盈米MCP Server”与“By 盈米科技”；完整快照未保存在该条记录，按主任务明确补充标注。",
+      "observed_target": "盈米MCP Server（盈米科技）",
+      "actual_title": "盈米MCP - 腾讯云",
+      "actual_url": "https://cloud.tencent.com/developer/mcp/server/11801",
+      "checked_at": "2026-10-29",
+      "evidence_source": "root_confirmed_visible_UI_without_full_saved_snapshot",
+      "method": "browser"
+    },
+    "https://www.perplexity.ai/personal-computer": {
+      "status": "network_error",
+      "evidence": "无已保存可见内容。",
+      "observed_target": "Perplexity Personal Computer 导航失败",
+      "actual_title": null,
+      "actual_url": null,
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_navigation_observation",
+      "method": "browser",
+      "network_error": "后台浏览器导航超时或连接失败；未看到目标。不能据此判定URL已失效。"
+    },
+    "https://www.perplexity.ai/computer/skills": {
+      "status": "network_error",
+      "evidence": "无已保存可见内容。",
+      "observed_target": "Perplexity Skills 导航失败",
+      "actual_title": null,
+      "actual_url": null,
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_navigation_observation",
+      "method": "browser",
+      "network_error": "后台浏览器导航超时或连接失败；未看到目标。不能据此判定URL已失效。"
+    },
+    "https://www.perplexity.ai/computer/connectors": {
+      "status": "network_error",
+      "evidence": "无已保存可见内容。",
+      "observed_target": "Perplexity Computer Connectors 导航失败",
+      "actual_title": null,
+      "actual_url": null,
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_navigation_observation",
+      "method": "browser",
+      "network_error": "后台浏览器导航超时或连接失败；未看到目标。不能据此判定URL已失效。"
+    },
+    "https://www.perplexity.ai/account/connectors": {
+      "status": "network_error",
+      "evidence": "无已保存可见内容。",
+      "observed_target": "Perplexity Account Connectors 导航失败",
+      "actual_title": null,
+      "actual_url": null,
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_navigation_observation",
+      "method": "browser",
+      "network_error": "后台浏览器导航超时或连接失败；未看到目标。不能据此判定URL已失效。"
+    },
+    "https://www.perplexity.ai/": {
+      "status": "network_error",
+      "evidence": "无已保存可见内容。",
+      "observed_target": "Perplexity 首页导航失败",
+      "actual_title": null,
+      "actual_url": null,
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_navigation_observation",
+      "method": "browser",
+      "network_error": "后台浏览器导航超时或连接失败；未看到目标。不能据此判定URL已失效。"
+    },
+    "https://docs.qwenwork.cn/features/extensions": {
+      "status": "visible_target",
+      "evidence": "可见 H1“扩展：专家套件、技能与连接器”和正文分节。",
+      "observed_target": "千问办公扩展官方文档",
+      "actual_title": "扩展：专家套件、技能与连接器 - 千问办公",
+      "actual_url": "https://docs.qwenwork.cn/features/extensions",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://qieman.com/mcp/index": {
+      "status": "visible_page",
+      "evidence": "已看到页面主体；不代表已运行具体能力。",
+      "observed_target": "盈米基金且慢平台",
+      "actual_title": "盈米基金且慢平台",
+      "actual_url": "https://qieman.com/mcp/index",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://www.workbuddy.cn/docs/workbuddy/From-Beginner-to-Expert-Guide/Function-Description/Buddy-App": {
+      "status": "visible_target",
+      "evidence": "保存快照包含 Buddy 应用文档正文及相关标题。",
+      "observed_target": "WorkBuddy Buddy 应用官方文档",
+      "actual_title": "Buddy 应用 | WorkBuddy - AI Agent 办公新范式",
+      "actual_url": "https://www.workbuddy.cn/docs/workbuddy/From-Beginner-to-Expert-Guide/Function-Description/Buddy-App",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://www.workbuddy.cn/docs/workbuddy/From-Beginner-to-Expert-Guide/Installation-Mac-Guide": {
+      "status": "visible_target",
+      "evidence": "可见 H1“Mac 系统安装指南”和文档正文。",
+      "observed_target": "WorkBuddy Mac 安装官方文档",
+      "actual_title": "Mac 系统安装指南 | WorkBuddy - AI Agent 办公新范式",
+      "actual_url": "https://www.workbuddy.cn/docs/workbuddy/From-Beginner-to-Expert-Guide/Installation-Mac-Guide",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://www.yingmi-inc.com/archives/991": {
+      "status": "visible_target",
+      "evidence": "可见文章标题“盈米‘智审先知’合规审查平台入选2026年IDC金融行业AI创新案例50”和正文。",
+      "observed_target": "盈米智审先知官方文章",
+      "actual_title": "且慢、盈米AI",
+      "actual_url": "https://www.yingmi-inc.com/archives/991",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://www.yingmi.cn/archives/949.html": {
+      "status": "visible_target",
+      "evidence": "已看到官方文章正文；实际标题见上。",
+      "observed_target": "「豆包工作」亮相，接入盈米MCP金融场景首发实测",
+      "actual_title": "「豆包工作」亮相，接入盈米MCP金融场景首发实测",
+      "actual_url": "https://www.yingmi.cn/archives/949.html",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://api.skillhub.cn/api/skills?keyword=%E7%9B%88%E7%B1%B3&pageSize=100&page=1": {
+      "status": "visible_response",
+      "evidence": "已看到技能目录JSON；这是数据接口，不是能力详情界面。",
+      "observed_target": "SkillHub公开API响应（非能力详情界面）",
+      "actual_title": "api.skillhub.cn/api/skills?keyword=盈米&pageSize=100&page=1",
+      "actual_url": "https://api.skillhub.cn/api/skills?keyword=%E7%9B%88%E7%B1%B3&pageSize=100&page=1",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://github.com/yingmi-dev/content-compliance-skill": {
+      "status": "network_error",
+      "evidence": "本次未取得完整可见页面。",
+      "observed_target": "网页导航失败",
+      "actual_title": null,
+      "actual_url": null,
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_navigation_observation",
+      "method": "browser",
+      "network_error": "后台浏览器导航超时或连接失败；未看到目标。不能据此判定URL已失效。"
+    },
+    "https://www.yingmi.cn/archives/961.html": {
+      "status": "visible_target",
+      "evidence": "已看到官方文章正文；实际标题见上。",
+      "observed_target": "且慢、盈米AI",
+      "actual_title": "且慢、盈米AI",
+      "actual_url": "https://www.yingmi.cn/archives/961.html",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://yingmi-inc.com/archives/997": {
+      "status": "visible_target",
+      "evidence": "已看到官方文章正文；实际标题见上。",
+      "observed_target": "买方投顾七周年：盈米服务体系再升级，推出私募服务解决方案",
+      "actual_title": "买方投顾七周年：盈米服务体系再升级，推出私募服务解决方案",
+      "actual_url": "https://yingmi-inc.com/archives/997",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://yingmi.cn/archives/907": {
+      "status": "visible_target",
+      "evidence": "已看到官方文章正文；实际标题见上。",
+      "observed_target": "且慢、盈米AI",
+      "actual_title": "且慢、盈米AI",
+      "actual_url": "https://yingmi.cn/archives/907",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://cloud.baidu.com/discover/dumate-download-start.html": {
+      "status": "visible_target",
+      "evidence": "已看到下载标题和页面内容。",
+      "observed_target": "DuMate下载",
+      "actual_title": "DuMate下载 - 百度智能云",
+      "actual_url": "https://cloud.baidu.com/discover/dumate-download-start.html",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://docs.trae.cn/ide_tutorial-mcp-playwright?lang=zh": {
+      "status": "visible_page",
+      "evidence": "已看到页面主体；不代表已运行具体能力。",
+      "observed_target": "MCP 教程：实现网页自动化测试",
+      "actual_title": "MCP 教程：实现网页自动化测试",
+      "actual_url": "https://docs.trae.cn/ide_tutorial-mcp-playwright?lang=zh",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://learn.chatgpt.com/docs/app/commands": {
+      "status": "network_error",
+      "evidence": "本次未取得完整可见页面。",
+      "observed_target": "网页导航失败",
+      "actual_title": null,
+      "actual_url": null,
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_navigation_observation",
+      "method": "browser",
+      "network_error": "后台浏览器导航超时或连接失败；未看到目标。不能据此判定URL已失效。"
+    },
+    "https://cursor.com/help/ai-features/cloud-agents": {
+      "status": "network_error",
+      "evidence": "本次未取得完整可见页面。",
+      "observed_target": "网页导航失败",
+      "actual_title": null,
+      "actual_url": null,
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_navigation_observation",
+      "method": "browser",
+      "network_error": "后台浏览器导航超时或连接失败；未看到目标。不能据此判定URL已失效。"
+    },
+    "https://prod.cursor.com/docs/plugins": {
+      "status": "visible_target",
+      "evidence": "已看到官方文档标题和正文。",
+      "observed_target": "Plugins",
+      "actual_title": "Plugins | Cursor Docs",
+      "actual_url": "https://prod.cursor.com/docs/plugins",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://prod.cursor.com/docs/customize-cursor": {
+      "status": "visible_target",
+      "evidence": "已看到官方文档标题和正文。",
+      "observed_target": "Customize Cursor",
+      "actual_title": "Overview | Cursor Docs",
+      "actual_url": "https://prod.cursor.com/docs/customize-cursor",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://support.claude.com/en/articles/14328846-browse-skills-connectors-and-plugins-in-one-directory": {
+      "status": "visible_target",
+      "evidence": "已看到官方文档标题和正文。",
+      "observed_target": "Browse skills, connectors, and plugins in one directory",
+      "actual_title": "Browse skills, connectors, and plugins in one directory | Claude Help Center",
+      "actual_url": "https://support.claude.com/en/articles/14328846-browse-skills-connectors-and-plugins-in-one-directory",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://kiro.dev/docs/web/setup/": {
+      "status": "network_error",
+      "evidence": "实际导航发生连接或证书错误，未看到目标页面。",
+      "observed_target": "网络或证书连接失败",
+      "actual_title": null,
+      "actual_url": null,
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_navigation_observation",
+      "method": "browser"
+    },
+    "https://docs.x.ai/grok-bot/get-started": {
+      "status": "network_error",
+      "evidence": "实际导航发生连接或证书错误，未看到目标页面。",
+      "observed_target": "网络或证书连接失败",
+      "actual_title": null,
+      "actual_url": null,
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_navigation_observation",
+      "method": "browser"
+    },
+    "https://docs.x.ai/grok-bot/settings-and-notifications": {
+      "status": "network_error",
+      "evidence": "实际导航发生连接或证书错误，未看到目标页面。",
+      "observed_target": "网络或证书连接失败",
+      "actual_title": null,
+      "actual_url": null,
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_navigation_observation",
+      "method": "browser"
+    },
+    "https://www.figma.com/": {
+      "status": "visible_page",
+      "evidence": "已看到页面主体；不代表已运行具体能力。",
+      "observed_target": "The full-stack creative canvas",
+      "actual_title": "Figma: The collaborative canvas for design, code, and AI",
+      "actual_url": "https://www.figma.com/",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://obsidian.md/": {
+      "status": "visible_page",
+      "evidence": "已看到页面主体；不代表已运行具体能力。",
+      "observed_target": "Sharpen your thinking.",
+      "actual_title": "Obsidian - Sharpen your thinking",
+      "actual_url": "https://obsidian.md/",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://www.perplexity.ai/changelog/effort-mode-gpt-6-astra-and-skills-marketplace": {
+      "status": "network_error",
+      "evidence": "本次未取得完整可见页面。",
+      "observed_target": "网页导航失败",
+      "actual_title": null,
+      "actual_url": null,
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_navigation_observation",
+      "method": "browser",
+      "network_error": "后台浏览器导航超时或连接失败；未看到目标。不能据此判定URL已失效。"
+    },
+    "https://www.kimi.com/plugins": {
+      "status": "login",
+      "evidence": "已看到登录表单或登录弹窗。",
+      "observed_target": "登录拦截，目标页面尚未确认",
+      "actual_title": "Kimi AI 官网：K3.1 Pro 上线，编程与智能体任务全面升级",
+      "actual_url": "https://www.kimi.com/plugins",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "https://qieman.com/mcp": {
+      "status": "visible_page",
+      "evidence": "已实开转至 https://qieman.com/mcp，已更新默认跳转。此页提供平台介绍及开通服务，不能直接进入Agent对话。",
+      "observed_target": "旧址重定向：且慢盈米 MCP / Skills / 智能体平台介绍",
+      "actual_title": "盈米基金且慢平台",
+      "actual_url": "https://qieman.com/mcp",
+      "checked_at": "2026-10-29",
+      "evidence_source": "saved_visible_snapshot",
+      "method": "browser"
+    },
+    "codex://skills?search=data-analysis": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=investment-plan-generator": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=strategy-intro": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "claude://claude.ai/new": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "qwenwork-cn://plugins": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=sell-retention-popup": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://skills?id=skill_2054901386815930368": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://skills?tab=installed": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=strategy-history-situation": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=qieman-signal-strategy-analyst": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://plugins": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=qieman-strategy-analyst": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=strategy-new-high-marketing": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "imageplayground.open://": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://settings/mcp-settings": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=soul-knowledge": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=%E7%9B%88%E7%B1%B3": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "trae://": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://connector?id=yingmi-mcp": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=fund-holding-manager-no-dividend": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=advisor-console": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=fund-article-organizer": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=push-copy": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://experts?expertId=ex_9HZbeQgbdcnp": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=user-research-report": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://buddy-app/cb_JgKGLfYgK6YfuN3FEPyD": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "kiro://": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://experts?expertId=ex_8o3gU8RoerOE": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "figma://": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=financial-compliance-checker": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "perplexity-app://": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://home?openBuddySwitcher=1": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://expert/ex_TBeURroZ6YEa": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://experts?expertId=ex_x32rUOxgJvma": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "kimi://": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=strategy-new-high-sell-decision": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://expert/ex_9HZbeQgbdcnp": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://buddy-app/cb_JgKGLfYgK6YfuN3FEPyD/skills": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=strategy-interpretation": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=qieman-strategy-comparison": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=new-funds-allocation": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://buddy-app/cb_JgKGLfYgK6YfuN3FEPyD/experts": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "qwenwork-cn://": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=image-frame-generator": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://threads/new": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=de-ai-writing": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://buddy-app/cb_JgKGLfYgK6YfuN3FEPyD/connectors": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=yingmi-meeting-room": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://connectors": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "qwenwork-cn://connectors": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "grokbot://": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "doubaoapp://": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=market-hotspot-headlines": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=strategy-loss-response": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "qwenwork-cn://skills": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "cursor://": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "dumate://chat/open": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://expert/ex_8o3gU8RoerOE": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=qieman-signal-strategy-loss-response": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://expert/ex_x32rUOxgJvma": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=competitor-research": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://skills": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=qieman-daily-report": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=fund-manager-cumulative-return": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://experts?expertId=ex_TBeURroZ6YEa": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "obsidian://": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=fund-holding-unit-price": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=marketing-h5": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://experts": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    }
+  },
+  "verification_summary": {
+    "web_urls_in_directory": 95,
+    "web_urls_attempted": 95,
+    "native_urls_not_launched": 70,
+    "status_counts": {
+      "native_not_tested": 70,
+      "network_error": 18,
+      "visible_target": 33,
+      "login": 21,
+      "load_error": 1,
+      "visible_page": 17,
+      "visible_response": 1,
+      "visible_search": 1,
+      "visible_search_no_results": 1,
+      "security": 2
+    }
+  },
+  "highlights": [
+    {
+      "title": "千问办公 · 截图对应的盈米连接器",
+      "text": "带真实市场ID的网页详情入口。实开到登录页，登录后是否弹出截图详情仍待确认；桌面协议只能到连接器总页。",
+      "url": "https://qwenwork.cn/app/market/connectors?q=%E7%9B%88%E7%B1%B3&resource_id=653d5c61-e08f-4144-a647-abd349714705",
+      "label": "打开盈米详情入口（需登录）"
+    },
+    {
+      "title": "盈米官方 Skills · 已实开",
+      "text": "11个官方技能详情的标题与认证发布方匹配。下方可分别打开、复制；搜索链接已看到盈米关键词生效。",
+      "url": "https://skillhub.cn/skills?keyword=%E7%9B%88%E7%B1%B3",
+      "label": "查看盈米技能搜索结果"
+    },
+    {
+      "title": "WorkBuddy · 盈米 Buddy",
+      "text": "保留已核对的客户端路由。为避免抢焦点，本次未唤起；网页专家链接被登录拦截，登录后需重新点击原链接。",
+      "url": "workbuddy://buddy-app/cb_JgKGLfYgK6YfuN3FEPyD",
+      "label": "打开盈米 Buddy（桌面）"
+    }
   ]
 }
