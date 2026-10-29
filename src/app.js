@@ -67,7 +67,7 @@ const BUCKET_ORDER_KEY = "clair-service-report-workbench-bucket-order-v1";
 const REPORT_ORDER_KEY = "clair-service-report-workbench-report-order-v1";
 const FILE_DATABASE_NAME = "clair-ai-studio-files";
 const FILE_STORE_NAME = "files";
-const DATA_VERSION = 151;
+const DATA_VERSION = 152;
 const SEARCH_INPUT_DEBOUNCE_MS = 160;
 const VIEWPORT_RESTORE_SETTLE_MS = 720;
 const APPLICATION_UPDATE_CHECK_INTERVAL_MS = 30_000;
@@ -222,6 +222,20 @@ const initialState = {
     },
   ],
   reports: [
+    {
+      id: "candidate-evaluator-2026-10-29",
+      groupId: "knowledge",
+      title: "候选人评价器与招聘复盘",
+      url: "https://clairku.github.io/clair-ai-studio/reports/candidate-evaluator-2026-10-29/",
+      preview: "candidate-evaluator-2026-10-29.svg",
+      pinned: false,
+      position: 0,
+      createdAt: "2026-10-29T15:50:00+08:00",
+      source: "支持本机履历收集、证据分析、面试前后评价留痕与核验追问；附招聘方向复盘。私有候选档案与报告独立加密，需专用口令。完整沟通历史仍待补齐，自动初筛不代替真人决定。",
+      access: "production",
+      workType: "product-demo",
+      tags: ["招聘", "候选人评价", "面试复盘", "AI", "加密报告", "HTML"],
+    },
     {
       id: "ai-tools-yingmi-links-2026-10-28",
       groupId: "ai-workbench",
