@@ -1194,9 +1194,9 @@
       "search_url": null,
       "manual_path": "技能·连接器·伙伴 → 金融 → 盈米",
       "verification": "官方确认接入；本机授权与对象详情ID未验证",
-      "note": "",
+      "note": "此链接仅为豆包网页首页兜底；没有已核实的盈米MCP详情或搜索URL。页面可见不代表到达盈米能力。",
       "desktop_label": null,
-      "web_label": "打开网页入口"
+      "web_label": "打开豆包首页（非MCP详情）"
     },
     {
       "tool": "豆包",
@@ -3581,423 +3581,7 @@
       "method": "static_source",
       "source_only": true
     },
-    "codex://skills?search=investment-plan-generator": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
     "codex://skills?search=strategy-intro": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "claude://claude.ai/new": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "qwenwork-cn://plugins": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=sell-retention-popup": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "workbuddy://skills?id=skill_2054901386815930368": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "workbuddy://skills?tab=installed": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=strategy-history-situation": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=qieman-signal-strategy-analyst": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://plugins": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=qieman-strategy-analyst": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=strategy-new-high-marketing": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "imageplayground.open://": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://settings/mcp-settings": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=soul-knowledge": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=%E7%9B%88%E7%B1%B3": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "trae://": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "workbuddy://connector?id=yingmi-mcp": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=fund-holding-manager-no-dividend": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=advisor-console": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=fund-article-organizer": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=push-copy": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "workbuddy://experts?expertId=ex_9HZbeQgbdcnp": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=user-research-report": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "workbuddy://buddy-app/cb_JgKGLfYgK6YfuN3FEPyD": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "kiro://": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "workbuddy://experts?expertId=ex_8o3gU8RoerOE": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "figma://": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=financial-compliance-checker": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "perplexity-app://": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "workbuddy://home?openBuddySwitcher=1": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "workbuddy://expert/ex_TBeURroZ6YEa": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "workbuddy://experts?expertId=ex_x32rUOxgJvma": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "kimi://": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=strategy-new-high-sell-decision": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "workbuddy://expert/ex_9HZbeQgbdcnp": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "workbuddy://buddy-app/cb_JgKGLfYgK6YfuN3FEPyD/skills": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=strategy-interpretation": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=qieman-strategy-comparison": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=new-funds-allocation": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "workbuddy://buddy-app/cb_JgKGLfYgK6YfuN3FEPyD/experts": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "qwenwork-cn://": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=image-frame-generator": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://threads/new": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=de-ai-writing": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "workbuddy://buddy-app/cb_JgKGLfYgK6YfuN3FEPyD/connectors": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=yingmi-meeting-room": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "workbuddy://connectors": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "qwenwork-cn://connectors": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "grokbot://": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "doubaoapp://": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=market-hotspot-headlines": {
       "status": "native_not_tested",
       "observed_target": "桌面入口未唤起",
       "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
@@ -4013,7 +3597,7 @@
       "method": "static_source",
       "source_only": true
     },
-    "qwenwork-cn://skills": {
+    "codex://skills?search=push-copy": {
       "status": "native_not_tested",
       "observed_target": "桌面入口未唤起",
       "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
@@ -4021,7 +3605,7 @@
       "method": "static_source",
       "source_only": true
     },
-    "cursor://": {
+    "workbuddy://buddy-app/cb_JgKGLfYgK6YfuN3FEPyD/connectors": {
       "status": "native_not_tested",
       "observed_target": "桌面入口未唤起",
       "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
@@ -4037,7 +3621,7 @@
       "method": "static_source",
       "source_only": true
     },
-    "workbuddy://expert/ex_8o3gU8RoerOE": {
+    "codex://skills?search=investment-plan-generator": {
       "status": "native_not_tested",
       "observed_target": "桌面入口未唤起",
       "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
@@ -4045,7 +3629,7 @@
       "method": "static_source",
       "source_only": true
     },
-    "codex://skills?search=qieman-signal-strategy-loss-response": {
+    "workbuddy://skills?tab=installed": {
       "status": "native_not_tested",
       "observed_target": "桌面入口未唤起",
       "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
@@ -4053,7 +3637,7 @@
       "method": "static_source",
       "source_only": true
     },
-    "workbuddy://expert/ex_x32rUOxgJvma": {
+    "codex://skills?search=financial-compliance-checker": {
       "status": "native_not_tested",
       "observed_target": "桌面入口未唤起",
       "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
@@ -4061,7 +3645,7 @@
       "method": "static_source",
       "source_only": true
     },
-    "codex://skills?search=competitor-research": {
+    "codex://skills?search=advisor-console": {
       "status": "native_not_tested",
       "observed_target": "桌面入口未唤起",
       "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
@@ -4069,47 +3653,7 @@
       "method": "static_source",
       "source_only": true
     },
-    "workbuddy://skills": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=qieman-daily-report": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=fund-manager-cumulative-return": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "workbuddy://experts?expertId=ex_TBeURroZ6YEa": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "obsidian://": {
-      "status": "native_not_tested",
-      "observed_target": "桌面入口未唤起",
-      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
-      "checked_at": "2026-10-29",
-      "method": "static_source",
-      "source_only": true
-    },
-    "codex://skills?search=fund-holding-unit-price": {
+    "kiro://": {
       "status": "native_not_tested",
       "observed_target": "桌面入口未唤起",
       "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
@@ -4125,7 +3669,463 @@
       "method": "static_source",
       "source_only": true
     },
+    "codex://skills": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=qieman-strategy-comparison": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=fund-manager-cumulative-return": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "imageplayground.open://": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://experts?expertId=ex_TBeURroZ6YEa": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "qwenwork-cn://": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "obsidian://": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://settings/mcp-settings": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=yingmi-meeting-room": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=market-hotspot-headlines": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=%E7%9B%88%E7%B1%B3": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=de-ai-writing": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://plugins": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=strategy-interpretation": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "trae://": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://experts?expertId=ex_8o3gU8RoerOE": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://expert/ex_8o3gU8RoerOE": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=user-research-report": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=strategy-new-high-sell-decision": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://home?openBuddySwitcher=1": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=fund-holding-manager-no-dividend": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "claude://claude.ai/new": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://buddy-app/cb_JgKGLfYgK6YfuN3FEPyD": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "kimi://": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "cursor://": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://experts?expertId=ex_x32rUOxgJvma": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://skills?id=skill_2054901386815930368": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://buddy-app/cb_JgKGLfYgK6YfuN3FEPyD/experts": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=sell-retention-popup": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "qwenwork-cn://connectors": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=competitor-research": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=qieman-strategy-analyst": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "perplexity-app://": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "qwenwork-cn://plugins": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=strategy-new-high-marketing": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=soul-knowledge": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://buddy-app/cb_JgKGLfYgK6YfuN3FEPyD/skills": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=image-frame-generator": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=fund-article-organizer": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=fund-holding-unit-price": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://experts?expertId=ex_9HZbeQgbdcnp": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=qieman-signal-strategy-analyst": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://expert/ex_x32rUOxgJvma": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
     "workbuddy://experts": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://threads/new": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://expert/ex_TBeURroZ6YEa": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://connector?id=yingmi-mcp": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://expert/ex_9HZbeQgbdcnp": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "figma://": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://connectors": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=qieman-daily-report": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "qwenwork-cn://skills": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=new-funds-allocation": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=qieman-signal-strategy-loss-response": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "doubaoapp://": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "codex://skills?search=strategy-history-situation": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "workbuddy://skills": {
+      "status": "native_not_tested",
+      "observed_target": "桌面入口未唤起",
+      "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
+      "checked_at": "2026-10-29",
+      "method": "static_source",
+      "source_only": true
+    },
+    "grokbot://": {
       "status": "native_not_tested",
       "observed_target": "桌面入口未唤起",
       "evidence": "客户端可能聚焦窗口。按后台验证要求仅核对路由来源，未实测直达。",
@@ -4140,15 +4140,15 @@
     "native_urls_not_launched": 70,
     "status_counts": {
       "native_not_tested": 70,
-      "network_error": 18,
-      "visible_target": 33,
       "login": 21,
-      "load_error": 1,
+      "visible_target": 33,
       "visible_page": 17,
-      "visible_response": 1,
-      "visible_search": 1,
       "visible_search_no_results": 1,
-      "security": 2
+      "network_error": 18,
+      "security": 2,
+      "load_error": 1,
+      "visible_response": 1,
+      "visible_search": 1
     }
   },
   "highlights": [
