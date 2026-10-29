@@ -6,18 +6,18 @@
   "files": [
     {
       "path": "ai-tool-links.zip",
-      "bytes": 55279,
-      "sha256": "eb8cfcd13365fc8f51a2988648409f0c8ff2a129e51aaa2aeade956d84e5ffd4"
+      "bytes": 55499,
+      "sha256": "3e35c815e8716de100e5e337656616586fc816999c676dbe66fcaf824a23d313"
     },
     {
       "path": "index.html",
-      "bytes": 204527,
-      "sha256": "2e267adeb162563c60523f16e27a7cf7b582888f68b6344c88e40e2417cf4780"
+      "bytes": 204764,
+      "sha256": "bc93fd74318c10931c7899f1d61c7e24281394aa3de08a35146c9cd097614900"
     },
     {
       "path": "inventory-data.json",
-      "bytes": 180387,
-      "sha256": "cececf9f15c79f095deca35f1ecf0e86bf1e88db6a7fb2351dc83c9a672bd291"
+      "bytes": 180624,
+      "sha256": "3c4917c742e11c7ce1720588f8732864cdc652d7f0825bbc38ff8578cb7ca0eb"
     }
   ]
 }
