@@ -1,0 +1,206 @@
+{
+  "sample_n": 100,
+  "valid_n": 100,
+  "missing_n": 0,
+  "sample_design": "目的性等额分层；四层各25只，按只等权描述，不代表全市场占比或规模加权结果。",
+  "quantile_method": "按(n-1)×p位置线性插值（Type 7）；标准差ddof=1。",
+  "score_statistics": {
+    "n": 100,
+    "min": 48.67992078,
+    "max": 240.88891389289145,
+    "mean": 123.93588605304242,
+    "median": 114.805,
+    "std_ddof_1": 45.15856227893162,
+    "quantiles_linear": {
+      "p10": 75.70059578,
+      "p25": 88.14395973500001,
+      "p75": 154.2175,
+      "p90": 188.12900000000002,
+      "p95": 200.7926612082292
+    }
+  },
+  "histogram": [
+    {
+      "bin": "负值",
+      "n": 0,
+      "pct_valid": 0.0,
+      "pct_fixed_sample": 0.0
+    },
+    {
+      "bin": "[0,50)",
+      "n": 1,
+      "pct_valid": 0.01,
+      "pct_fixed_sample": 0.01
+    },
+    {
+      "bin": "[50,80)",
+      "n": 16,
+      "pct_valid": 0.16,
+      "pct_fixed_sample": 0.16
+    },
+    {
+      "bin": "[80,100)",
+      "n": 23,
+      "pct_valid": 0.23,
+      "pct_fixed_sample": 0.23
+    },
+    {
+      "bin": "[100,120)",
+      "n": 17,
+      "pct_valid": 0.17,
+      "pct_fixed_sample": 0.17
+    },
+    {
+      "bin": "[120,150)",
+      "n": 13,
+      "pct_valid": 0.13,
+      "pct_fixed_sample": 0.13
+    },
+    {
+      "bin": "[150,200)",
+      "n": 23,
+      "pct_valid": 0.23,
+      "pct_fixed_sample": 0.23
+    },
+    {
+      "bin": "[200,+∞)",
+      "n": 7,
+      "pct_valid": 0.07,
+      "pct_fixed_sample": 0.07
+    }
+  ],
+  "strata": {
+    "D_ACTIVE": {
+      "label": "国内主动权益",
+      "selected_n": 25,
+      "valid_n": 25,
+      "missing_n": 0,
+      "score_statistics": {
+        "n": 25,
+        "min": 48.67992078,
+        "max": 240.88891389289145,
+        "mean": 156.46742236938886,
+        "median": 178.1,
+        "std_ddof_1": 56.431360468944966,
+        "quantiles_linear": {
+          "p10": 80.12288242,
+          "p25": 100.54,
+          "p75": 199.3,
+          "p90": 216.7796070682799,
+          "p95": 228.69892547911016
+        }
+      },
+      "n_gt_100": 19,
+      "n_eq_100": 0,
+      "n_gt_200": 6,
+      "n_eq_200": 0,
+      "effective_dates": {
+        "2026-09-30": 25
+      }
+    },
+    "D_BROAD": {
+      "label": "国内宽基指数",
+      "selected_n": 25,
+      "valid_n": 25,
+      "missing_n": 0,
+      "score_statistics": {
+        "n": 25,
+        "min": 71.36374464,
+        "max": 155.95,
+        "mean": 108.566105654,
+        "median": 96.57512374,
+        "std_ddof_1": 32.157428604933706,
+        "quantiles_linear": {
+          "p10": 73.943656512,
+          "p25": 81.29688123,
+          "p75": 140.28,
+          "p90": 153.098,
+          "p95": 155.42600000000002
+        }
+      },
+      "n_gt_100": 9,
+      "n_eq_100": 0,
+      "n_gt_200": 0,
+      "n_eq_200": 0,
+      "effective_dates": {
+        "2026-09-30": 25
+      }
+    },
+    "D_SECTOR": {
+      "label": "国内行业/主题",
+      "selected_n": 25,
+      "valid_n": 25,
+      "missing_n": 0,
+      "score_statistics": {
+        "n": 25,
+        "min": 52.32686779,
+        "max": 200.65647077952065,
+        "mean": 121.49399682238082,
+        "median": 117.26,
+        "std_ddof_1": 43.269422595495364,
+        "quantiles_linear": {
+          "p10": 73.681357894,
+          "p25": 89.25260566000001,
+          "p75": 148.94,
+          "p90": 185.642,
+          "p95": 196.88600000000002
+        }
+      },
+      "n_gt_100": 16,
+      "n_eq_100": 0,
+      "n_gt_200": 1,
+      "n_eq_200": 0,
+      "effective_dates": {
+        "2026-09-30": 25
+      }
+    },
+    "OVERSEAS_EQ": {
+      "label": "海外权益",
+      "selected_n": 25,
+      "valid_n": 25,
+      "missing_n": 0,
+      "score_statistics": {
+        "n": 25,
+        "min": 60.47575791,
+        "max": 155.91,
+        "mean": 109.2160193664,
+        "median": 109.57,
+        "std_ddof_1": 27.218922045608128,
+        "quantiles_linear": {
+          "p10": 72.534001126,
+          "p25": 88.01400269,
+          "p75": 127.89,
+          "p90": 149.348,
+          "p95": 154.78000000000003
+        }
+      },
+      "n_gt_100": 16,
+      "n_eq_100": 0,
+      "n_gt_200": 0,
+      "n_eq_200": 0,
+      "effective_dates": {
+        "2026-09-30": 25
+      }
+    }
+  },
+  "effective_dates": {
+    "2026-09-30": 100
+  },
+  "n_gt_100": 60,
+  "n_eq_100": 0,
+  "n_gt_200": 7,
+  "n_eq_200": 0,
+  "success_zero_n": 0,
+  "negative_n": 0,
+  "scope": "仅公开固定样本的聚合统计；内部部署、调用方、私有文档及个体结果不在本文件中。",
+  "mean_definition": "有效行逐只风险分的算术均值，仅描述截面；不是等权组合模型风险，本次未计算该组合。",
+  "exposure_scope": "冻结时按规范名称与完全相同净资产值代理筛查；事后真实主基金ID互异且所选关系份额无交叉，样本未更换。100个代码不等于100种独立策略或经济暴露；选样偏ETF联接与大规模产品。",
+  "metadata_check": {
+    "unique_code_n": 100,
+    "unique_main_id_n": 100,
+    "selected_related_collision_n": 0,
+    "all_normal_and_not_liquidated": true,
+    "stage_note": "冻结时代理筛查；评分后独立主数据复核通过，名单未更换。",
+    "original_freeze_byte_note": "冻结时点及哈希据本体执行记录，原字节未独立核验。"
+  }
+}

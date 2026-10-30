@@ -1,13 +1,8 @@
-# 公开来源清单
+# 公开来源与统计来源
 
-检索日：2026-10-30；说明范围：晨星公开方法与一般阅读建议。
+1. 晨星官方术语页 Portfolio Risk Score：https://www.morningstar.com/investing-terms/portfolio-risk-score 。仅用于一般定义、通常范围与可超过100分的公开概念。
+2. 晨星2026-05-30全球方法论：https://developer.morningstar.com/content/hidden-from-navigation/MorningstarPortfolioRiskScoreMethodology.pdf 。仅解释全球方法，不证明本次中国接口的具体模型、尺度、部署或分档。每来源均有限概括，没有复制公式、原图或完整正文。
+3. 2026-10-30本次固定100只样本的只读查询结果，公开以aggregate-data.json及aggregate-statistics.csv表达。评分有效日统一2026-09-30；原个体记录仅在私有会话材料保存。
+4. 本次独立主数据复核的聚合结论：100个真实主ID互异，无所选关系份额交叉；冻结时代理筛查与事后复核分开陈述。原冻结字节未独立核验。
 
-1. [Portfolio Risk Score](https://www.morningstar.com/investing-terms/portfolio-risk-score)，Morningstar 官方术语页。当前直接访问返回403，使用搜索引擎返回的该官方页面正文核对。仅提炼定义、通常范围和可超过100分。未复制英文原文。
-2. [Morningstar Portfolio Risk Score Methodology](https://developer.morningstar.com/content/hidden-from-navigation/MorningstarPortfolioRiskScoreMethodology.pdf)，Morningstar Analytics，2026-05-30全球方法论。仅概述两类方法、波动估计、锚点映射、组合关系和数据资格。未复刻公式、参数表或原图。
-
-## 使用与公开边界
-
-- 每来源的报告摘要控制在200英文等价字数以内；全部文字重写，无英文逐字引用。
-- 自制SVG仅表达一般组合原理，无投资样本、收益率或模型数值。
-- 未引用或公开内部源码、调用拓扑、注册配置、生产基金样例、私有PDF公式、访问凭证或私有文件路径。
-- 全球方法不证明当前中国MCP的模型版本、上下限、分档、缓存、失败降级或适当性映射。
+公开文件无个体代码/名称/分数序列、原响应、内部部署/调用方、源码、私有原文、主机或授权URL。ECDF与风险分×R²散点仅留私有附件。

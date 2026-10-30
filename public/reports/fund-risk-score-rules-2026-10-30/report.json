@@ -1,27 +1,192 @@
 {
   "meta": {
-    "title": "基金风险分的来源与边界",
-    "subtitle": "从晨星公开方法解释风险分；当前 MCP 规则以独立核查为准。",
-    "eyebrow": "CLAIR / RISK SCORE EXPLAINER",
+    "title": "基金风险分与100只权益样本",
+    "subtitle": "固定样本的真实分布、评分口径与解释边界。",
+    "eyebrow": "CLAIR / RISK SCORE & FIXED SAMPLE",
     "date": "2026-10-30",
     "cutoff": "2026-10-30",
     "owner": "Clair",
-    "confidentiality": "公开方法说明",
-    "accent": "#8067e8"
+    "confidentiality": "公开概念与聚合统计",
+    "accent": "#8067e8",
+    "downloadLabel": "下载聚合统计 CSV",
+    "downloadUrl": "data:text/csv;charset=utf-8;base64,77u/5pWw5o2u57yW5Y+3LOiMg+WbtCzmjIfmoIcs5pWw5YC8LOWIhuavjSzlj6PlvoQs6K+E5YiG5pyJ5pWI5pelLOafpeivouaXpQpELTAwMSzlhajpg6jlm7rlrprmoLfmnKws5Zu65a6a5Y+q5pWwLDEwMCwxMDAs5Zub5bGC55uu55qE5oCn6YWN6aKd77yM5ZCEMjXlj6rvvJvpnZ7pmo/mnLrmiJblhajluILlnLrkvLDorqEsMjAyNi0wOS0zMCwyMDI2LTEwLTMwCkQtMDAyLOWFqOmDqOWbuuWumuagt+acrCzmnInmlYjor4TliIblj6rmlbAsMTAwLDEwMCzmiJDlip/kuJTkuLrmnInpmZDliIblgLzvvJvnvLrlpLHkuI3ooaXpm7YsMjAyNi0wOS0zMCwyMDI2LTEwLTMwCkQtMDAzLOWFqOmDqOWbuuWumuagt+acrCzml6Dor4TliIblj6rmlbAsMCwxMDAs5L+d55WZ5Zyo5Zu65a6aMTAw5Y+q6KaG55uW546H5YiG5q+N5LitLDIwMjYtMDktMzAsMjAyNi0xMC0zMApELTAwNCzlhajpg6jmnInmlYjmoLfmnKws5Z2H5YC8LDEyMy45MzU4ODYwNTMwNDI0MiwxMDAs6YCQ5Y+q5YiG5YC855qE5o+P6L+w57uf6K6h77yb5LiN5piv562J5p2D57uE5ZCI5qih5Z6L6aOO6Zmp77yb5qCH5YeG5beuZGRvZj0xLDIwMjYtMDktMzAsMjAyNi0xMC0zMApELTAwNSzlhajpg6jmnInmlYjmoLfmnKws5Lit5L2N5pWwLDExNC44MDUsMTAwLOmAkOWPquWIhuWAvOeahOaPj+i/sOe7n+iuoe+8m+S4jeaYr+etieadg+e7hOWQiOaooeWei+mjjumZqe+8m+agh+WHhuW3rmRkb2Y9MSwyMDI2LTA5LTMwLDIwMjYtMTAtMzAKRC0wMDYs5YWo6YOo5pyJ5pWI5qC35pysLOacgOWwj+WAvCw0OC42Nzk5MjA3OCwxMDAs6YCQ5Y+q5YiG5YC855qE5o+P6L+w57uf6K6h77yb5LiN5piv562J5p2D57uE5ZCI5qih5Z6L6aOO6Zmp77yb5qCH5YeG5beuZGRvZj0xLDIwMjYtMDktMzAsMjAyNi0xMC0zMApELTAwNyzlhajpg6jmnInmlYjmoLfmnKws5pyA5aSn5YC8LDI0MC44ODg5MTM4OTI4OTE0NSwxMDAs6YCQ5Y+q5YiG5YC855qE5o+P6L+w57uf6K6h77yb5LiN5piv562J5p2D57uE5ZCI5qih5Z6L6aOO6Zmp77yb5qCH5YeG5beuZGRvZj0xLDIwMjYtMDktMzAsMjAyNi0xMC0zMApELTAwOCzlhajpg6jmnInmlYjmoLfmnKws5YiG5pWw5oiq6Z2i5qCH5YeG5beuLDQ1LjE1ODU2MjI3ODkzMTYyLDEwMCzpgJDlj6rliIblgLznmoTmj4/ov7Dnu5/orqHvvJvkuI3mmK/nrYnmnYPnu4TlkIjmqKHlnovpo47pmanvvJvmoIflh4blt65kZG9mPTEsMjAyNi0wOS0zMCwyMDI2LTEwLTMwCkQtMDA5LOWFqOmDqOacieaViOagt+acrCxQMTAsNzUuNzAwNTk1NzgsMTAwLChuLTEpKnDkvY3nva7nur/mgKfmj5LlgLzvvIhUeXBlIDfvvIksMjAyNi0wOS0zMCwyMDI2LTEwLTMwCkQtMDEwLOWFqOmDqOacieaViOagt+acrCxQMjUsODguMTQzOTU5NzM1MDAwMDEsMTAwLChuLTEpKnDkvY3nva7nur/mgKfmj5LlgLzvvIhUeXBlIDfvvIksMjAyNi0wOS0zMCwyMDI2LTEwLTMwCkQtMDExLOWFqOmDqOacieaViOagt+acrCxQNzUsMTU0LjIxNzUsMTAwLChuLTEpKnDkvY3nva7nur/mgKfmj5LlgLzvvIhUeXBlIDfvvIksMjAyNi0wOS0zMCwyMDI2LTEwLTMwCkQtMDEyLOWFqOmDqOacieaViOagt+acrCxQOTAsMTg4LjEyOTAwMDAwMDAwMDAyLDEwMCwobi0xKSpw5L2N572u57q/5oCn5o+S5YC877yIVHlwZSA377yJLDIwMjYtMDktMzAsMjAyNi0xMC0zMApELTAxMyzlhajpg6jmnInmlYjmoLfmnKwsUDk1LDIwMC43OTI2NjEyMDgyMjkyLDEwMCwobi0xKSpw5L2N572u57q/5oCn5o+S5YC877yIVHlwZSA377yJLDIwMjYtMDktMzAsMjAyNi0xMC0zMApELTAxNCzlhajpg6jmnInmlYjmoLfmnKws6LaF6L+HMTAw5Y+q5pWwLDYwLDEwMCzmjInljp/lp4vliIblgLzmr5TovoPvvIzmnKrlhYjlm5voiI3kupTlhaUsMjAyNi0wOS0zMCwyMDI2LTEwLTMwCkQtMDE1LOWFqOmDqOacieaViOagt+acrCzmraPlpb0xMDDlj6rmlbAsMCwxMDAs5oyJ5Y6f5aeL5YiG5YC85q+U6L6D77yM5pyq5YWI5Zub6IiN5LqU5YWlLDIwMjYtMDktMzAsMjAyNi0xMC0zMApELTAxNizlhajpg6jmnInmlYjmoLfmnKws6LaF6L+HMjAw5Y+q5pWwLDcsMTAwLOaMieWOn+Wni+WIhuWAvOavlOi+g++8jOacquWFiOWbm+iIjeS6lOWFpSwyMDI2LTA5LTMwLDIwMjYtMTAtMzAKRC0wMTcs5YWo6YOo5pyJ5pWI5qC35pysLOato+WlvTIwMOWPquaVsCwwLDEwMCzmjInljp/lp4vliIblgLzmr5TovoPvvIzmnKrlhYjlm5voiI3kupTlhaUsMjAyNi0wOS0zMCwyMDI2LTEwLTMwCkQtMDE4LOmikeaVsOWIhueusSzotJ/lgLwsMCwxMDAsIuW3pumXreWPs+W8gO+8jOacq+eusVsyMDAsK+KIninvvJvmn7Hplb/kuLrlj6rmlbDvvIzkuI3mmK/lr4bluqbmiJbor4TnuqfljLrpl7QiLDIwMjYtMDktMzAsMjAyNi0xMC0zMApELTAxOSzpopHmlbDliIbnrrEsIlswLDUwKSIsMSwxMDAsIuW3pumXreWPs+W8gO+8jOacq+eusVsyMDAsK+KIninvvJvmn7Hplb/kuLrlj6rmlbDvvIzkuI3mmK/lr4bluqbmiJbor4TnuqfljLrpl7QiLDIwMjYtMDktMzAsMjAyNi0xMC0zMApELTAyMCzpopHmlbDliIbnrrEsIls1MCw4MCkiLDE2LDEwMCwi5bem6Zet5Y+z5byA77yM5pyr566xWzIwMCwr4oieKe+8m+afsemVv+S4uuWPquaVsO+8jOS4jeaYr+WvhuW6puaIluivhOe6p+WMuumXtCIsMjAyNi0wOS0zMCwyMDI2LTEwLTMwCkQtMDIxLOmikeaVsOWIhueusSwiWzgwLDEwMCkiLDIzLDEwMCwi5bem6Zet5Y+z5byA77yM5pyr566xWzIwMCwr4oieKe+8m+afsemVv+S4uuWPquaVsO+8jOS4jeaYr+WvhuW6puaIluivhOe6p+WMuumXtCIsMjAyNi0wOS0zMCwyMDI2LTEwLTMwCkQtMDIyLOmikeaVsOWIhueusSwiWzEwMCwxMjApIiwxNywxMDAsIuW3pumXreWPs+W8gO+8jOacq+eusVsyMDAsK+KIninvvJvmn7Hplb/kuLrlj6rmlbDvvIzkuI3mmK/lr4bluqbmiJbor4TnuqfljLrpl7QiLDIwMjYtMDktMzAsMjAyNi0xMC0zMApELTAyMyzpopHmlbDliIbnrrEsIlsxMjAsMTUwKSIsMTMsMTAwLCLlt6bpl63lj7PlvIDvvIzmnKvnrrFbMjAwLCviiJ4p77yb5p+x6ZW/5Li65Y+q5pWw77yM5LiN5piv5a+G5bqm5oiW6K+E57qn5Yy66Ze0IiwyMDI2LTA5LTMwLDIwMjYtMTAtMzAKRC0wMjQs6aKR5pWw5YiG566xLCJbMTUwLDIwMCkiLDIzLDEwMCwi5bem6Zet5Y+z5byA77yM5pyr566xWzIwMCwr4oieKe+8m+afsemVv+S4uuWPquaVsO+8jOS4jeaYr+WvhuW6puaIluivhOe6p+WMuumXtCIsMjAyNi0wOS0zMCwyMDI2LTEwLTMwCkQtMDI1LOmikeaVsOWIhueusSwiWzIwMCwr4oieKSIsNywxMDAsIuW3pumXreWPs+W8gO+8jOacq+eusVsyMDAsK+KIninvvJvmn7Hplb/kuLrlj6rmlbDvvIzkuI3mmK/lr4bluqbmiJbor4TnuqfljLrpl7QiLDIwMjYtMDktMzAsMjAyNi0xMC0zMApELTAyNizlm73lhoXkuLvliqjmnYPnm4os5Zu65a6a5Y+q5pWwLDI1LDI1LOebrueahOaAp+mFjemine+8m+aMieWPquetieadgywyMDI2LTA5LTMwLDIwMjYtMTAtMzAKRC0wMjcs5Zu95YaF5Li75Yqo5p2D55uKLOacieaViOivhOWIhuWPquaVsCwyNSwyNSzmiJDlip/kuJTmnInpmZDmlbDlgLwsMjAyNi0wOS0zMCwyMDI2LTEwLTMwCkQtMDI4LOWbveWGheS4u+WKqOadg+ebiizlnYflgLwsMTU2LjQ2NzQyMjM2OTM4ODg2LDI1LOmAkOWPquWIhuWAvOeahOaPj+i/sOe7n+iuoe+8jOS4jeaYr+ivpee7hOetieadg+e7hOWQiOmjjumZqSwyMDI2LTA5LTMwLDIwMjYtMTAtMzAKRC0wMjks5Zu95YaF5Li75Yqo5p2D55uKLOS4reS9jeaVsCwxNzguMSwyNSzpgJDlj6rliIblgLznmoTmj4/ov7Dnu5/orqHvvIzkuI3mmK/or6Xnu4TnrYnmnYPnu4TlkIjpo47pmaksMjAyNi0wOS0zMCwyMDI2LTEwLTMwCkQtMDMwLOWbveWGheS4u+WKqOadg+ebiizmnIDlsI/lgLwsNDguNjc5OTIwNzgsMjUs6YCQ5Y+q5YiG5YC855qE5o+P6L+w57uf6K6h77yM5LiN5piv6K+l57uE562J5p2D57uE5ZCI6aOO6ZmpLDIwMjYtMDktMzAsMjAyNi0xMC0zMApELTAzMSzlm73lhoXkuLvliqjmnYPnm4os5pyA5aSn5YC8LDI0MC44ODg5MTM4OTI4OTE0NSwyNSzpgJDlj6rliIblgLznmoTmj4/ov7Dnu5/orqHvvIzkuI3mmK/or6Xnu4TnrYnmnYPnu4TlkIjpo47pmaksMjAyNi0wOS0zMCwyMDI2LTEwLTMwCkQtMDMyLOWbveWGheS4u+WKqOadg+ebiixQMjUsMTAwLjU0LDI1LFR5cGUgN+e6v+aAp+WIhuS9jeaVsCwyMDI2LTA5LTMwLDIwMjYtMTAtMzAKRC0wMzMs5Zu95YaF5Li75Yqo5p2D55uKLFA3NSwxOTkuMywyNSxUeXBlIDfnur/mgKfliIbkvY3mlbAsMjAyNi0wOS0zMCwyMDI2LTEwLTMwCkQtMDM0LOWbveWGheS4u+WKqOadg+ebiizotoXov4cxMDDlj6rmlbAsMTksMjUs5oyJ5Y6f5YC8PjEwMCwyMDI2LTA5LTMwLDIwMjYtMTAtMzAKRC0wMzUs5Zu95YaF5Li75Yqo5p2D55uKLOi2hei/hzIwMOWPquaVsCw2LDI1LOaMieWOn+WAvD4yMDAsMjAyNi0wOS0zMCwyMDI2LTEwLTMwCkQtMDM2LOWbveWGheWuveWfuuaMh+aVsCzlm7rlrprlj6rmlbAsMjUsMjUs55uu55qE5oCn6YWN6aKd77yb5oyJ5Y+q562J5p2DLDIwMjYtMDktMzAsMjAyNi0xMC0zMApELTAzNyzlm73lhoXlrr3ln7rmjIfmlbAs5pyJ5pWI6K+E5YiG5Y+q5pWwLDI1LDI1LOaIkOWKn+S4lOaciemZkOaVsOWAvCwyMDI2LTA5LTMwLDIwMjYtMTAtMzAKRC0wMzgs5Zu95YaF5a695Z+65oyH5pWwLOWdh+WAvCwxMDguNTY2MTA1NjU0LDI1LOmAkOWPquWIhuWAvOeahOaPj+i/sOe7n+iuoe+8jOS4jeaYr+ivpee7hOetieadg+e7hOWQiOmjjumZqSwyMDI2LTA5LTMwLDIwMjYtMTAtMzAKRC0wMzks5Zu95YaF5a695Z+65oyH5pWwLOS4reS9jeaVsCw5Ni41NzUxMjM3NCwyNSzpgJDlj6rliIblgLznmoTmj4/ov7Dnu5/orqHvvIzkuI3mmK/or6Xnu4TnrYnmnYPnu4TlkIjpo47pmaksMjAyNi0wOS0zMCwyMDI2LTEwLTMwCkQtMDQwLOWbveWGheWuveWfuuaMh+aVsCzmnIDlsI/lgLwsNzEuMzYzNzQ0NjQsMjUs6YCQ5Y+q5YiG5YC855qE5o+P6L+w57uf6K6h77yM5LiN5piv6K+l57uE562J5p2D57uE5ZCI6aOO6ZmpLDIwMjYtMDktMzAsMjAyNi0xMC0zMApELTA0MSzlm73lhoXlrr3ln7rmjIfmlbAs5pyA5aSn5YC8LDE1NS45NSwyNSzpgJDlj6rliIblgLznmoTmj4/ov7Dnu5/orqHvvIzkuI3mmK/or6Xnu4TnrYnmnYPnu4TlkIjpo47pmaksMjAyNi0wOS0zMCwyMDI2LTEwLTMwCkQtMDQyLOWbveWGheWuveWfuuaMh+aVsCxQMjUsODEuMjk2ODgxMjMsMjUsVHlwZSA357q/5oCn5YiG5L2N5pWwLDIwMjYtMDktMzAsMjAyNi0xMC0zMApELTA0Myzlm73lhoXlrr3ln7rmjIfmlbAsUDc1LDE0MC4yOCwyNSxUeXBlIDfnur/mgKfliIbkvY3mlbAsMjAyNi0wOS0zMCwyMDI2LTEwLTMwCkQtMDQ0LOWbveWGheWuveWfuuaMh+aVsCzotoXov4cxMDDlj6rmlbAsOSwyNSzmjInljp/lgLw+MTAwLDIwMjYtMDktMzAsMjAyNi0xMC0zMApELTA0NSzlm73lhoXlrr3ln7rmjIfmlbAs6LaF6L+HMjAw5Y+q5pWwLDAsMjUs5oyJ5Y6f5YC8PjIwMCwyMDI2LTA5LTMwLDIwMjYtMTAtMzAKRC0wNDYs5Zu95YaF6KGM5LiaL+S4u+mimCzlm7rlrprlj6rmlbAsMjUsMjUs55uu55qE5oCn6YWN6aKd77yb5oyJ5Y+q562J5p2DLDIwMjYtMDktMzAsMjAyNi0xMC0zMApELTA0Nyzlm73lhoXooYzkuJov5Li76aKYLOacieaViOivhOWIhuWPquaVsCwyNSwyNSzmiJDlip/kuJTmnInpmZDmlbDlgLwsMjAyNi0wOS0zMCwyMDI2LTEwLTMwCkQtMDQ4LOWbveWGheihjOS4mi/kuLvpopgs5Z2H5YC8LDEyMS40OTM5OTY4MjIzODA4MiwyNSzpgJDlj6rliIblgLznmoTmj4/ov7Dnu5/orqHvvIzkuI3mmK/or6Xnu4TnrYnmnYPnu4TlkIjpo47pmaksMjAyNi0wOS0zMCwyMDI2LTEwLTMwCkQtMDQ5LOWbveWGheihjOS4mi/kuLvpopgs5Lit5L2N5pWwLDExNy4yNiwyNSzpgJDlj6rliIblgLznmoTmj4/ov7Dnu5/orqHvvIzkuI3mmK/or6Xnu4TnrYnmnYPnu4TlkIjpo47pmaksMjAyNi0wOS0zMCwyMDI2LTEwLTMwCkQtMDUwLOWbveWGheihjOS4mi/kuLvpopgs5pyA5bCP5YC8LDUyLjMyNjg2Nzc5LDI1LOmAkOWPquWIhuWAvOeahOaPj+i/sOe7n+iuoe+8jOS4jeaYr+ivpee7hOetieadg+e7hOWQiOmjjumZqSwyMDI2LTA5LTMwLDIwMjYtMTAtMzAKRC0wNTEs5Zu95YaF6KGM5LiaL+S4u+mimCzmnIDlpKflgLwsMjAwLjY1NjQ3MDc3OTUyMDY1LDI1LOmAkOWPquWIhuWAvOeahOaPj+i/sOe7n+iuoe+8jOS4jeaYr+ivpee7hOetieadg+e7hOWQiOmjjumZqSwyMDI2LTA5LTMwLDIwMjYtMTAtMzAKRC0wNTIs5Zu95YaF6KGM5LiaL+S4u+mimCxQMjUsODkuMjUyNjA1NjYwMDAwMDEsMjUsVHlwZSA357q/5oCn5YiG5L2N5pWwLDIwMjYtMDktMzAsMjAyNi0xMC0zMApELTA1Myzlm73lhoXooYzkuJov5Li76aKYLFA3NSwxNDguOTQsMjUsVHlwZSA357q/5oCn5YiG5L2N5pWwLDIwMjYtMDktMzAsMjAyNi0xMC0zMApELTA1NCzlm73lhoXooYzkuJov5Li76aKYLOi2hei/hzEwMOWPquaVsCwxNiwyNSzmjInljp/lgLw+MTAwLDIwMjYtMDktMzAsMjAyNi0xMC0zMApELTA1NSzlm73lhoXooYzkuJov5Li76aKYLOi2hei/hzIwMOWPquaVsCwxLDI1LOaMieWOn+WAvD4yMDAsMjAyNi0wOS0zMCwyMDI2LTEwLTMwCkQtMDU2LOa1t+Wkluadg+ebiuWAvuWQkVFESUks5Zu65a6a5Y+q5pWwLDI1LDI1LOebrueahOaAp+mFjemine+8m+aMieWPquetieadgywyMDI2LTA5LTMwLDIwMjYtMTAtMzAKRC0wNTcs5rW35aSW5p2D55uK5YC+5ZCRUURJSSzmnInmlYjor4TliIblj6rmlbAsMjUsMjUs5oiQ5Yqf5LiU5pyJ6ZmQ5pWw5YC8LDIwMjYtMDktMzAsMjAyNi0xMC0zMApELTA1OCzmtbflpJbmnYPnm4rlgL7lkJFRRElJLOWdh+WAvCwxMDkuMjE2MDE5MzY2NCwyNSzpgJDlj6rliIblgLznmoTmj4/ov7Dnu5/orqHvvIzkuI3mmK/or6Xnu4TnrYnmnYPnu4TlkIjpo47pmaksMjAyNi0wOS0zMCwyMDI2LTEwLTMwCkQtMDU5LOa1t+Wkluadg+ebiuWAvuWQkVFESUks5Lit5L2N5pWwLDEwOS41NywyNSzpgJDlj6rliIblgLznmoTmj4/ov7Dnu5/orqHvvIzkuI3mmK/or6Xnu4TnrYnmnYPnu4TlkIjpo47pmaksMjAyNi0wOS0zMCwyMDI2LTEwLTMwCkQtMDYwLOa1t+Wkluadg+ebiuWAvuWQkVFESUks5pyA5bCP5YC8LDYwLjQ3NTc1NzkxLDI1LOmAkOWPquWIhuWAvOeahOaPj+i/sOe7n+iuoe+8jOS4jeaYr+ivpee7hOetieadg+e7hOWQiOmjjumZqSwyMDI2LTA5LTMwLDIwMjYtMTAtMzAKRC0wNjEs5rW35aSW5p2D55uK5YC+5ZCRUURJSSzmnIDlpKflgLwsMTU1LjkxLDI1LOmAkOWPquWIhuWAvOeahOaPj+i/sOe7n+iuoe+8jOS4jeaYr+ivpee7hOetieadg+e7hOWQiOmjjumZqSwyMDI2LTA5LTMwLDIwMjYtMTAtMzAKRC0wNjIs5rW35aSW5p2D55uK5YC+5ZCRUURJSSxQMjUsODguMDE0MDAyNjksMjUsVHlwZSA357q/5oCn5YiG5L2N5pWwLDIwMjYtMDktMzAsMjAyNi0xMC0zMApELTA2MyzmtbflpJbmnYPnm4rlgL7lkJFRRElJLFA3NSwxMjcuODksMjUsVHlwZSA357q/5oCn5YiG5L2N5pWwLDIwMjYtMDktMzAsMjAyNi0xMC0zMApELTA2NCzmtbflpJbmnYPnm4rlgL7lkJFRRElJLOi2hei/hzEwMOWPquaVsCwxNiwyNSzmjInljp/lgLw+MTAwLDIwMjYtMDktMzAsMjAyNi0xMC0zMApELTA2NSzmtbflpJbmnYPnm4rlgL7lkJFRRElJLOi2hei/hzIwMOWPquaVsCwwLDI1LOaMieWOn+WAvD4yMDAsMjAyNi0wOS0zMCwyMDI2LTEwLTMwCg=="
   },
   "hero": {
-    "conclusion": "风险分衡量风险程度，不是百分制成绩。",
-    "thesis": "晨星公开口径允许超过100分。全球方法论不能证明当前中国MCP的版本、边界或具体实现；内部完整核查另以本会话私有附件交付。",
+    "conclusion": "60只超过100分，其中7只超过200分。",
+    "thesis": "本次固定100只样本全部取得有效评分。评分日为2026-09-30，查询日为2026-10-30；中位数114.81，逐只分数均值123.94。样本极值不是模型上限，均值也不是等权组合的模型风险。",
     "badges": [
-      "公开来源",
-      "模型有版本",
-      "接口需核实"
+      "固定100只",
+      "四层各25只",
+      "按只统计",
+      "不代表全市场"
     ]
   },
   "sections": [
     {
+      "id": "sample-overview",
+      "kicker": "01 · ACTUAL SAMPLE",
+      "title": "60只样本超过100分",
+      "lead": "100/100有效；仅描述此组目的性样本，所有比例分母为100。",
+      "layout": "metrics",
+      "tone": "light",
+      "items": [
+        {
+          "metric": "100/100",
+          "title": "有效评分",
+          "body": "四层各25只；缺失0只。",
+          "source": "固定100只样本聚合统计 · 评分日2026-09-30／查询2026-10-30",
+          "status": "confirmed"
+        },
+        {
+          "metric": "114.81",
+          "title": "中位数",
+          "body": "均值123.94；P25–P75为88.14–154.22。",
+          "source": "固定100只样本聚合统计 · 评分日2026-09-30／查询2026-10-30",
+          "status": "confirmed"
+        },
+        {
+          "metric": "60%",
+          "title": "超过100分",
+          "body": "60/100；正好100分为0只。",
+          "source": "固定100只样本聚合统计 · 评分日2026-09-30／查询2026-10-30",
+          "status": "confirmed"
+        },
+        {
+          "metric": "7%",
+          "title": "超过200分",
+          "body": "7/100；最大值240.89。",
+          "source": "固定100只样本聚合统计 · 评分日2026-09-30／查询2026-10-30",
+          "status": "confirmed"
+        }
+      ],
+      "callout": {
+        "label": "解释边界",
+        "text": "最小48.68、最大240.89仅为本组所见；高低不是成绩、亏损概率或适当性等级。",
+        "status": "confirmed"
+      }
+    },
+    {
+      "id": "sample-charts",
+      "kicker": "02 · DISTRIBUTION",
+      "title": "频数与分位一起看",
+      "lead": "图自身保留评分日与查询日；手机使用独立大字号版本。",
+      "layout": "evidence",
+      "tone": "soft",
+      "items": [
+        {
+          "title": "不等宽箱，只比较只数",
+          "image": "assets/histogram-desktop.svg",
+          "mobileImage": "assets/histogram-mobile.svg",
+          "alt": "100个有效评分的分箱频数为1、16、23、17、13、23、7；图中无个体名称或代码。",
+          "body": "柱长为只数，不能解释成密度；这些区间不是官方风险分档。",
+          "source": "固定100只样本聚合统计 · 评分日2026-09-30／查询2026-10-30",
+          "status": "confirmed"
+        },
+        {
+          "title": "每层25只，不外推类别优劣",
+          "image": "assets/quartiles-desktop.svg",
+          "mobileImage": "assets/quartiles-mobile.svg",
+          "alt": "四层样本P25、中位数、P75及最小最大值的聚合比较，无个体点。",
+          "body": "箱体P25–P75，中线中位数，须最小–最大。没有计算这些基金组成的组合风险。",
+          "source": "固定100只样本聚合统计 · 评分日2026-09-30／查询2026-10-30",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "strata-values",
+      "kicker": "03 · GROUPED STATISTICS",
+      "title": "四层数值各有分母",
+      "lead": "各层25/25有效；这里的均值都是逐只分数截面统计。",
+      "layout": "metrics",
+      "tone": "light",
+      "items": [
+        {
+          "metric": "178.10",
+          "title": "国内主动权益",
+          "body": "中位数；均值156.47。有效25/25。",
+          "bullets": [
+            "范围 48.68–240.89",
+            "P25–P75：100.54–199.30",
+            "超过100：19只；超过200：6只"
+          ],
+          "source": "固定100只样本聚合统计 · 评分日2026-09-30／查询2026-10-30",
+          "status": "confirmed"
+        },
+        {
+          "metric": "96.58",
+          "title": "国内宽基指数",
+          "body": "中位数；均值108.57。有效25/25。",
+          "bullets": [
+            "范围 71.36–155.95",
+            "P25–P75：81.30–140.28",
+            "超过100：9只；超过200：0只"
+          ],
+          "source": "固定100只样本聚合统计 · 评分日2026-09-30／查询2026-10-30",
+          "status": "confirmed"
+        },
+        {
+          "metric": "117.26",
+          "title": "国内行业/主题",
+          "body": "中位数；均值121.49。有效25/25。",
+          "bullets": [
+            "范围 52.33–200.66",
+            "P25–P75：89.25–148.94",
+            "超过100：16只；超过200：1只"
+          ],
+          "source": "固定100只样本聚合统计 · 评分日2026-09-30／查询2026-10-30",
+          "status": "confirmed"
+        },
+        {
+          "metric": "109.57",
+          "title": "海外权益倾向QDII",
+          "body": "中位数；均值109.22。有效25/25。",
+          "bullets": [
+            "范围 60.48–155.91",
+            "P25–P75：88.01–127.89",
+            "超过100：16只；超过200：0只"
+          ],
+          "source": "固定100只样本聚合统计 · 评分日2026-09-30／查询2026-10-30",
+          "status": "confirmed"
+        }
+      ]
+    },
+    {
+      "id": "sample-method",
+      "kicker": "04 · SAMPLE DESIGN",
+      "title": "选样限制市场推断",
+      "lead": "固定配额与资格复核，不等于独立经济暴露或随机抽样。",
+      "layout": "comparison",
+      "tone": "soft",
+      "items": [
+        {
+          "title": "四层目的性配额",
+          "body": "每层25只，大规模优先；筛选池偏ETF联接。宽基/海外同指数族最多3只，行业每细主题1只。",
+          "source": "本次冻结选样执行记录 · 2026-10-30",
+          "status": "confirmed"
+        },
+        {
+          "title": "份额关系分两步核查",
+          "body": "冻结时用规范名称与相同净资产代理筛查；事后100个真实主ID互异、所选关系份额无交叉，名单未换。",
+          "source": "本次独立主数据复核 · 100/100",
+          "status": "confirmed"
+        },
+        {
+          "title": "海外包含混合型",
+          "body": "海外组为10只QDII股票型、15只QDII混合型；权益倾向依冻结分类和基准，不称25只纯股票。",
+          "source": "本次独立主数据与冻结归类复核",
+          "status": "confirmed"
+        }
+      ],
+      "callout": {
+        "label": "原字节边界",
+        "text": "冻结时点及哈希据本体执行记录，原字节未独立核验。100个代码不等于100种独立策略或经济风险。",
+        "status": "missing"
+      }
+    },
+    {
       "id": "concepts",
-      "kicker": "01 · READ THE NUMBER",
+      "kicker": "05 · READ THE NUMBER",
       "title": "三个概念各有含义",
       "lead": "阅读分数前，先确认它回答的问题。",
       "layout": "comparison",
@@ -52,7 +217,7 @@
     },
     {
       "id": "method",
-      "kicker": "02 · PUBLIC METHODOLOGY",
+      "kicker": "06 · PUBLIC METHODOLOGY",
       "title": "先估计风险，再映射分数",
       "lead": "以下仅概括2026年全球方法，不代表当前MCP实现。",
       "layout": "process",
@@ -97,7 +262,7 @@
     },
     {
       "id": "bounds",
-      "kicker": "03 · THE 100 QUESTION",
+      "kicker": "07 · THE 100 QUESTION",
       "title": "100不是通用硬上限",
       "lead": "“通常范围”与“强制截断”是不同规则。",
       "layout": "metrics",
@@ -125,17 +290,17 @@
           "status": "inferred"
         },
         {
-          "metric": "待核实",
-          "title": "当前接口上限",
-          "body": "全球说明不证明中国MCP的硬限制。",
-          "meta": "本接口版本、边界与截断规则需独立验证。",
+          "metric": "未推断",
+          "title": "当前接口理论上限",
+          "body": "本页不从全球资料或样本极值推断硬限制。",
+          "meta": "内部完整规则另作会话私有交付。",
           "status": "missing"
         }
       ]
     },
     {
       "id": "portfolio",
-      "kicker": "04 · PORTFOLIO EFFECT",
+      "kicker": "08 · PORTFOLIO EFFECT",
       "title": "组合分不能直接求平均",
       "lead": "组合还要考虑资产之间如何共同变化。",
       "layout": "evidence",
@@ -165,7 +330,7 @@
     },
     {
       "id": "data",
-      "kicker": "05 · SCORE AVAILABILITY",
+      "kicker": "09 · SCORE AVAILABILITY",
       "title": "无评分不等于低风险",
       "lead": "区分模型有结论、数据不足和调用未完成。",
       "layout": "cards",
@@ -193,32 +358,32 @@
     },
     {
       "id": "scope",
-      "kicker": "06 · EVIDENCE BOUNDARIES",
+      "kicker": "10 · EVIDENCE BOUNDARIES",
       "title": "公开方法不替代接口验收",
-      "lead": "本页说明概念；当前服务规则须由对应证据确认。",
+      "lead": "公开页仅提供概念与聚合；完整内部核查另作私有交付。",
       "layout": "actions",
       "tone": "dark",
       "items": [
         {
           "index": "01",
-          "title": "确认版本",
-          "body": "核实模型版本和适用市场。",
-          "meta": "当前MCP：待独立核查。",
-          "status": "missing"
+          "title": "分开阅读资料",
+          "body": "全球公开方法不能直接当作本次中国接口规范。",
+          "source": "晨星公开方法与本页证据边界",
+          "status": "inferred"
         },
         {
           "index": "02",
-          "title": "确认边界",
-          "body": "核实上下限、分档和缺失处理。",
-          "meta": "当前MCP：待独立核查。",
-          "status": "missing"
+          "title": "分清分数与组合",
+          "body": "逐只分数均值不等于等权组合模型风险；本次没有计算该组合。",
+          "source": "本次统计定义",
+          "status": "confirmed"
         },
         {
           "index": "03",
-          "title": "保留语境",
-          "body": "解释分数时同步展示口径与有效日期。",
-          "meta": "本页建议；不构成投资建议。",
-          "status": "inferred"
+          "title": "保留时间与范围",
+          "body": "评分有效日、查询日、分母、方法和自检随聚合附件保留。",
+          "meta": "不构成投资建议或收益承诺。",
+          "status": "confirmed"
         }
       ]
     }
@@ -233,16 +398,30 @@
       "label": "晨星全球方法论｜2026-05-30",
       "detail": "仅用于全球方法解释；不证明当前中国MCP采用相同模型或规则。",
       "url": "https://developer.morningstar.com/content/hidden-from-navigation/MorningstarPortfolioRiskScoreMethodology.pdf"
+    },
+    {
+      "label": "固定100只样本｜聚合数据",
+      "detail": "100/100有效，四层各25；评分日2026-09-30，查询2026-10-30。独立复算计数、分位与边界，公开只保留聚合。",
+      "url": "aggregate-statistics.csv"
+    },
+    {
+      "label": "选样与元数据复核｜公开方法说明",
+      "detail": "冻结时代理筛查与评分后真实主ID/份额关系复核分开叙述；原冻结字节未独立核验。",
+      "url": "sample-method.md"
     }
   ],
   "openQuestions": [
     {
-      "title": "当前中国MCP采用哪个版本？",
-      "detail": "本页不公开内部实现；完整核查另以本会话私有附件交付。"
+      "title": "本组极值能说明上限吗？",
+      "detail": "不能。它只说明本次返回的所见范围；不替代模型和接口规则。"
     },
     {
-      "title": "实际接口是否设有硬限制？",
-      "detail": "不能依据全球方法替当前接口断言上限、截断、分档或降级规则。"
+      "title": "这100只代表全市场吗？",
+      "detail": "不能。配额、规模偏好与筛选池均会影响分布；经济暴露仍可能重复。"
+    },
+    {
+      "title": "证据还保留什么边界？",
+      "detail": "冻结时点和哈希据执行记录，原字节尚未独立核验；公开不提供内部部署和个体结果。"
     }
   ]
 }
